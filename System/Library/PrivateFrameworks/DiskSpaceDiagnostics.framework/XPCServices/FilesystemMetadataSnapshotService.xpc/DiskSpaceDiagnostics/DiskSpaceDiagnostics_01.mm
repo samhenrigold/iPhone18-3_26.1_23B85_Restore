@@ -82,7 +82,7 @@ LABEL_2:
           goto LABEL_2;
         }
 
-        sub_100013500("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", v13, v14, v15, v16, v17, v18, v19, v8);
+        sub_100013500("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", v13, v14, v15, v16, v17, v18, v19, v8, v10, *__str, *&__str[8], v22);
       }
 
       return v5;
@@ -1633,7 +1633,7 @@ LABEL_462:
 
           v9 = "ASPMSPParseBufferToCxt: dspExceptionParameter107(4225): Error adding 4 elements to context";
 LABEL_2105:
-          sub_100013500(v9, a2, a3, a4, a5, a6, a7, a8, v39);
+          sub_100013500(v9, a2, a3, a4, a5, a6, a7, a8);
           return v8;
         default:
           switch(v21)
@@ -7390,8 +7390,12 @@ CFDictionaryRef ASP_GetIndirectionTableStatistics()
   return v1;
 }
 
-void *sub_10002F4BC(char **a1, int a2, int a3, int a4, void *a5, char a6, char a7)
+void *sub_10002F4BC(char **a1, uint64_t a2, int a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
+  v8 = a6;
+  v10 = a4;
+  v12 = a2;
   v13 = a1;
   v21 = 0;
   *a5 = 0;
@@ -7404,10 +7408,10 @@ LABEL_11:
   }
 
   v14 = a3;
-  v15 = sub_10002F66C(v13, a2, a3, a4, a7);
+  v15 = sub_10002F66C(v13, v12, a3, v10, v7);
   if (!v15)
   {
-    fprintf(__stderrp, "failed to get data size for cmd option %d\n", a2);
+    fprintf(__stderrp, "failed to get data size for cmd option %d\n", v12);
     goto LABEL_11;
   }
 
@@ -7418,7 +7422,7 @@ LABEL_11:
   if (v18)
   {
     bzero(v18, v17);
-    if (sub_10002F734(v13, a2, v14, a4, v19, v17, a6, a7))
+    if (sub_10002F734(v13, v12, v14, v10, v19, v17, v8, v7))
     {
       *a5 = v16;
     }
@@ -7620,28 +7624,28 @@ void sub_10002FAB8(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to create readme file %@", v4, v5, v6, v7, v8);
+  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to create readme file %@", v4, v5, v6, v7);
 }
 
 void sub_10002FB3C(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to create shared directories map file %@", v4, v5, v6, v7, v8);
+  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to create shared directories map file %@", v4, v5, v6, v7);
 }
 
 void sub_10002FBC0(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to open log file; logging will be redirected to stderr %@", v4, v5, v6, v7, v8);
+  sub_100002B08(&_mh_execute_header, v2, v3, "Failed to open log file; logging will be redirected to stderr %@", v4, v5, v6, v7);
 }
 
 void sub_10002FCAC(void *a1)
 {
   [a1 UTF8String];
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v1, v2, "%s", v3, v4, v5, v6, v7);
+  sub_100002B08(&_mh_execute_header, v1, v2, "%s", v3, v4, v5, v6);
 }
 
 void sub_10002FD28(void *a1, void *a2)
@@ -7651,7 +7655,7 @@ void sub_10002FD28(void *a1, void *a2)
   v4 = [a2 description];
   [v4 UTF8String];
   sub_100002B5C();
-  sub_100002B74(&_mh_execute_header, v5, v6, "Failed to save metadata to file, %s:\n%s", v7, v8, v9, v10, v11);
+  sub_100002B74(&_mh_execute_header, v5, v6, "Failed to save metadata to file, %s:\n%s", v7, v8, v9, v10);
 }
 
 void sub_10002FDE0(void *a1, id *a2)
@@ -7661,7 +7665,7 @@ void sub_10002FDE0(void *a1, id *a2)
   v4 = [*a2 localizedDescription];
   [v4 UTF8String];
   sub_100002B5C();
-  sub_100002B74(&_mh_execute_header, v5, v6, "Failed to delete directory %s: %s", v7, v8, v9, v10, v11);
+  sub_100002B74(&_mh_execute_header, v5, v6, "Failed to delete directory %s: %s", v7, v8, v9, v10);
 }
 
 void sub_10002FE98()
@@ -7669,7 +7673,7 @@ void sub_10002FE98()
   v0 = __error();
   strerror(*v0);
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to fetch pids: %s", v3, v4, v5, v6, v7);
+  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to fetch pids: %s", v3, v4, v5, v6);
 }
 
 void sub_10002FF18()
@@ -7677,7 +7681,7 @@ void sub_10002FF18()
   v0 = __error();
   strerror(*v0);
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to allocate memory to read pids into: %s", v3, v4, v5, v6, v7);
+  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to allocate memory to read pids into: %s", v3, v4, v5, v6);
 }
 
 void sub_10002FF98()
@@ -7685,7 +7689,7 @@ void sub_10002FF98()
   v0 = __error();
   strerror(*v0);
   sub_100002B44();
-  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to fetch bytes for pids with proc_listpids for PROC_ALL_PIDS: %s", v3, v4, v5, v6, v7);
+  sub_100002B08(&_mh_execute_header, v1, v2, "Error: Failed to fetch bytes for pids with proc_listpids for PROC_ALL_PIDS: %s", v3, v4, v5, v6);
 }
 
 void sub_100030018(int a1, void *a2)
@@ -7724,35 +7728,35 @@ void sub_1000302B4(void *a1)
 {
   v1 = [a1 progress];
   sub_100002B44();
-  sub_10000B45C(&_mh_execute_header, v2, v3, "Exported progress: %@", v4, v5, v6, v7, v8);
+  sub_10000B45C(&_mh_execute_header, v2, v3, "Exported progress: %@", v4, v5, v6, v7);
 }
 
 void sub_100030338(void *a1)
 {
   v1 = [a1 __cacheDeleteProgress];
   sub_100002B44();
-  sub_10000B45C(&_mh_execute_header, v2, v3, "CacheDelete progress: %@", v4, v5, v6, v7, v8);
+  sub_10000B45C(&_mh_execute_header, v2, v3, "CacheDelete progress: %@", v4, v5, v6, v7);
 }
 
 void sub_1000303BC(void *a1)
 {
   v1 = [a1 __archivingProgress];
   sub_100002B44();
-  sub_10000B45C(&_mh_execute_header, v2, v3, "Archving progress: %@", v4, v5, v6, v7, v8);
+  sub_10000B45C(&_mh_execute_header, v2, v3, "Archving progress: %@", v4, v5, v6, v7);
 }
 
 void sub_100030440(void *a1)
 {
   v1 = [a1 __spaceAttributionProgress];
   sub_100002B44();
-  sub_10000B45C(&_mh_execute_header, v2, v3, "SpaceAttribution progress: %@", v4, v5, v6, v7, v8);
+  sub_10000B45C(&_mh_execute_header, v2, v3, "SpaceAttribution progress: %@", v4, v5, v6, v7);
 }
 
 void sub_1000304C4(void *a1)
 {
   v1 = [a1 __miscProgress];
   sub_100002B44();
-  sub_10000B45C(&_mh_execute_header, v2, v3, "Misc progress: %@", v4, v5, v6, v7, v8);
+  sub_10000B45C(&_mh_execute_header, v2, v3, "Misc progress: %@", v4, v5, v6, v7);
 }
 
 void sub_1000306A0(void *a1, NSObject *a2, double a3)
@@ -7868,6 +7872,13 @@ void sub_100030E8C()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
+void sub_100030F18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = 160000;
+  sub_100011394(&_mh_execute_header, a1, a3, "can't malloc %llu bytes", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100030F90()
 {
   v0 = __error();
@@ -7884,13 +7895,12 @@ void sub_10003101C(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Can't malloc %u buffers to collect purgeable files data", v1, 8u);
 }
 
-void sub_1000310C4(uint64_t *a1, int __errnum)
+void sub_1000310C4(int a1, int __errnum)
 {
-  v2 = *a1;
   strerror(__errnum);
   sub_1000113B0();
   sub_100011384();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
 }
 
 void sub_100031168(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -7967,6 +7977,27 @@ void sub_1000315DC()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Failed to get used bytes for volume at %{public}s, using getattrlist(): %{darwin.errno}d", v2, 0x12u);
 }
 
+void sub_100031660(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Used bytes provider cannot be nil";
+  sub_100011394(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000316D8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"StatFS provider cannot be nil";
+  sub_100011394(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100031794(void *a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = [a1 UTF8String];
+  sub_100002B08(&_mh_execute_header, v1, v2, "%s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void sub_100031840(int a1, NSObject *a2)
 {
   v2[0] = 67109120;
@@ -7979,4 +8010,18 @@ void sub_1000318B8(os_log_t log)
   v1 = 136315138;
   v2 = "AppleAPFSVolume";
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Error: Could not create matching dictionary for %s", &v1, 0xCu);
+}
+
+void sub_10003193C(void *a1)
+{
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 processIdentifier];
+  sub_1000134E0(&_mh_execute_header, v1, v2, "Client %d is missing entitlements required to use this service", v3, v4, v5, v6, v7);
+}
+
+void sub_1000319B8()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_1000134E0(&_mh_execute_header, v0, v1, "Failed to initialize temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
 }

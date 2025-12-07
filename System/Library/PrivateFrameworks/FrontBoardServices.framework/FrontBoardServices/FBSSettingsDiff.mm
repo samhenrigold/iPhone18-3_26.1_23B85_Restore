@@ -106,23 +106,29 @@ uint64_t __37__FBSSettingsDiff__allModernSettings__block_invoke(uint64_t a1, NSS
   v3 = *(a1 + 40);
   v4 = NSSelectorFromString(aSelectorName);
   v5 = FBSSettingForExtensionSelector(v3, v4);
+  v6 = v5;
   if (v5)
   {
-    [*(a1 + 32) addObject:v5];
+    v8 = v5;
+    v5 = [*(a1 + 32) addObject:v5];
+    v6 = v8;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 uint64_t __37__FBSSettingsDiff__allLegacySettings__block_invoke(uint64_t a1, const void *a2)
 {
   v3 = FBSSettingForLegacySetting(*(a1 + 40), a2);
+  v4 = v3;
   if (v3)
   {
-    [*(a1 + 32) addObject:v3];
+    v6 = v3;
+    v3 = [*(a1 + 32) addObject:v3];
+    v4 = v6;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (id)_changedSettings
@@ -585,13 +591,13 @@ void __44__FBSSettingsDiff__containsAnySettingNamed___block_invoke(uint64_t a1, 
   }
 }
 
-void __42__FBSSettingsDiff__inspectDiff_withBlock___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
+void __42__FBSSettingsDiff__inspectDiff_withBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  if ((*(*(a1[6] + 8) + 24) & 1) == 0)
+  if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
   {
-    (*(a1[5] + 16))();
-    [(FBSSettingsDiff *)a1[4] _inspectDiff:v5 withBlock:a1[5]];
+    (*(*(a1 + 40) + 16))();
+    [(FBSSettingsDiff *)*(a1 + 32) _inspectDiff:v5 withBlock:*(a1 + 40)];
   }
 }
 
@@ -652,7 +658,7 @@ void __42__FBSSettingsDiff__inspectDiff_withBlock___block_invoke(void *a1, uint6
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"input %@ is not of expected class %@", objc_opt_class(), _settingsClass];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [FBSSettingsDiff applyToMutableSettings:a2];
+      [(FBSSettingsDiff *)a2 applyToMutableSettings:?];
     }
 
     [v14 UTF8String];
@@ -740,7 +746,7 @@ void __42__FBSSettingsDiff__inspectDiff_withBlock___block_invoke(void *a1, uint6
   return v8;
 }
 
-uint64_t __57__FBSSettingsDiff_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
+id __57__FBSSettingsDiff_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 8))
@@ -836,47 +842,47 @@ uint64_t __57__FBSSettingsDiff_descriptionBuilderWithMultilinePrefix___block_inv
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"diff class mismatch"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)initWithChangesFromSettings:(const char *)a1 toSettings:.cold.1(const char *a1)
+- (void)initWithChangesFromSettings:(const char *)a1 toSettings:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v11 = NSStringFromClass(0);
-  v3 = [v2 stringWithFormat:@"no counterpart class set for %@"];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = NSStringFromClass(0);
+  v5 = [v3 stringWithFormat:@"no counterpart class set for %@", v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(a1);
-    v5 = objc_opt_class();
-    v13 = NSStringFromClass(v5);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, 2u);
+    v6 = NSStringFromSelector(a1);
+    v7 = objc_opt_class();
+    v15 = NSStringFromClass(v7);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v3 UTF8String];
+  [v5 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_containsSetting:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"setting != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"setting != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -900,46 +906,46 @@ uint64_t __57__FBSSettingsDiff_descriptionBuilderWithMultilinePrefix___block_inv
 
 - (void)_containsAnySettingNamed:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingName != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"settingName != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_containsKey:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"key != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"key != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)applyToMutableSettings:(const char *)a1 .cold.1(const char *a1)
+- (void)applyToMutableSettings:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)applyToMutableSettings:(char *)a1 .cold.2(char *a1)
@@ -947,12 +953,13 @@ uint64_t __57__FBSSettingsDiff_descriptionBuilderWithMultilinePrefix___block_inv
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"settings must be mutable"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
+    LODWORD(v12) = 138544642;
+    *(&v12 + 4) = a1;
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   [v2 UTF8String];

@@ -9,50 +9,48 @@
 
 - (id)attributeDescriptions
 {
-  v36[10] = *MEMORY[0x277D85DE8];
+  v35[10] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   maxNumberOfAnalyzers = [(HMDCameraRecordingAnalysisNodeMetrics *)self maxNumberOfAnalyzers];
-  v34 = [v3 initWithName:@"Max Number Of Analyzers" value:maxNumberOfAnalyzers];
-  v36[0] = v34;
+  v33 = [v3 initWithName:@"Max Number Of Analyzers" value:maxNumberOfAnalyzers];
+  v35[0] = v33;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   maxAnalysisFPS = [(HMDCameraRecordingAnalysisNodeMetrics *)self maxAnalysisFPS];
-  v32 = [v4 initWithName:@"Max Analysis FPS" value:maxAnalysisFPS];
-  v36[1] = v32;
+  v31 = [v4 initWithName:@"Max Analysis FPS" value:maxAnalysisFPS];
+  v35[1] = v31;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
-  v31 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingAnalysisNodeMetrics remainingNumberOfAnalyzers](self, "remainingNumberOfAnalyzers")}];
-  v30 = [v5 initWithName:@"Remaining Number Of Analyzers" value:v31];
-  v36[2] = v30;
+  v30 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingAnalysisNodeMetrics remainingNumberOfAnalyzers](self, "remainingNumberOfAnalyzers")}];
+  v29 = [v5 initWithName:@"Remaining Number Of Analyzers" value:v30];
+  v35[2] = v29;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
-  v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics hasActiveSessionWithCamera](self, "hasActiveSessionWithCamera")}];
-  v28 = [v6 initWithName:@"Active Session With Camera" value:v29];
-  v36[3] = v28;
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics hasActiveSessionWithCamera](self, "hasActiveSessionWithCamera")}];
+  v27 = [v6 initWithName:@"Active Session With Camera" value:v28];
+  v35[3] = v27;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics hasPendingSessionWithCamera](self, "hasPendingSessionWithCamera")}];
-  v26 = [v7 initWithName:@"Pending Session With Camera" value:v27];
-  v36[4] = v26;
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics hasPendingSessionWithCamera](self, "hasPendingSessionWithCamera")}];
+  v25 = [v7 initWithName:@"Pending Session With Camera" value:v26];
+  v35[4] = v25;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
-  v25 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingAnalysisNodeMetrics systemResourceUsageLevel](self, "systemResourceUsageLevel")}];
-  v9 = [v8 initWithName:@"SURL" value:v25];
-  v36[5] = v9;
+  v24 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDCameraRecordingAnalysisNodeMetrics systemResourceUsageLevel](self, "systemResourceUsageLevel")}];
+  v9 = [v8 initWithName:@"SURL" value:v24];
+  v35[5] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingAnalysisNodeMetrics numberOfActiveRecordingSessions](self, "numberOfActiveRecordingSessions")}];
   v12 = [v10 initWithName:@"Number Of Active Sessions" value:v11];
-  v36[6] = v12;
+  v35[6] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingAnalysisNodeMetrics numberOfPendingRecordingSessions](self, "numberOfPendingRecordingSessions")}];
   v15 = [v13 initWithName:@"Number Of Pending Sessions" value:v14];
-  v36[7] = v15;
+  v35[7] = v15;
   v16 = objc_alloc(MEMORY[0x277D0F778]);
   v17 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics isB620InOdeon](self, "isB620InOdeon")}];
   v18 = [v16 initWithName:@"B620 In Odeon" value:v17];
-  v36[8] = v18;
+  v35[8] = v18;
   v19 = objc_alloc(MEMORY[0x277D0F778]);
   v20 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingAnalysisNodeMetrics isReadyToRecord](self, "isReadyToRecord")}];
   v21 = [v19 initWithName:@"Ready To Record" value:v20];
-  v36[9] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:10];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v35[9] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:10];
 
   return v22;
 }
@@ -78,41 +76,41 @@
 
 - (BOOL)_isDeviceB620InOdeonConfiguration:(id)configuration
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   home = [configurationCopy home];
   appleMediaAccessories = [home appleMediaAccessories];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __75__HMDCameraRecordingAnalysisNodeMetrics__isDeviceB620InOdeonConfiguration___block_invoke;
-  v31[3] = &unk_279734F10;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __75__HMDCameraRecordingAnalysisNodeMetrics__isDeviceB620InOdeonConfiguration___block_invoke;
+  v30[3] = &unk_279734F10;
   v5 = configurationCopy;
-  v32 = v5;
-  v6 = [appleMediaAccessories na_firstObjectPassingTest:v31];
+  v31 = v5;
+  v6 = [appleMediaAccessories na_firstObjectPassingTest:v30];
   if (v6)
   {
-    v23 = v5;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v22 = v5;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = appleMediaAccessories;
-    v7 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v25 = *v28;
-      v22 = appleMediaAccessories;
+      v24 = *v27;
+      v21 = appleMediaAccessories;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v25)
+          if (*v27 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          audioDestinationControllerData = [*(*(&v27 + 1) + 8 * i) audioDestinationControllerData];
+          audioDestinationControllerData = [*(*(&v26 + 1) + 8 * i) audioDestinationControllerData];
           destinationIdentifier = [audioDestinationControllerData destinationIdentifier];
           uUIDString = [destinationIdentifier UUIDString];
 
@@ -123,7 +121,7 @@
 
 LABEL_15:
             v19 = 1;
-            appleMediaAccessories = v22;
+            appleMediaAccessories = v21;
             goto LABEL_16;
           }
 
@@ -138,9 +136,9 @@ LABEL_15:
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
         v19 = 0;
-        appleMediaAccessories = v22;
+        appleMediaAccessories = v21;
         if (v8)
         {
           continue;
@@ -157,7 +155,7 @@ LABEL_15:
 
 LABEL_16:
 
-    v5 = v23;
+    v5 = v22;
   }
 
   else
@@ -165,7 +163,6 @@ LABEL_16:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

@@ -10,12 +10,21 @@
 - (double)contentHeightIncludingSearchView;
 - (double)heightOfNavigationBar;
 - (id)footerGeneratorForProactive:(BOOL)proactive;
+- (id)generateFooterViewForProactive:(BOOL)proactive cache:(BOOL)cache;
+- (void)applyCardHeightAnimated:(BOOL)animated;
+- (void)cardViewController:(id)controller preferredContentSizeDidChange:(CGSize)change animated:(BOOL)animated;
 - (void)dealloc;
+- (void)didInvalidateSizeAnimated:(BOOL)animated;
+- (void)navigationController:(id)controller didShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)navigationController:(id)controller willShowViewController:(id)viewController animated:(BOOL)animated;
 - (void)presentPrivacyView;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
+- (void)resetSearchFieldContentWithSearchToken:(id)token text:(id)text wantsBackButton:(BOOL)button transitionCoordinator:(id)coordinator;
+- (void)setContentHeight:(double)height animated:(BOOL)animated;
 - (void)setNavigationMode:(int64_t)mode;
 - (void)setupConstraintsForBackgroundView:(id)view;
 - (void)tapToRadarPressed;
+- (void)updateBackButton:(BOOL)button;
 - (void)updateBackgroundColorWithViewControllerToBeShown:(id)shown;
 - (void)updateFooterViewForViewController:(id)controller;
 - (void)updateFooterViewsIfNecessary;
@@ -217,6 +226,19 @@
   [(SPUINavigationController *)&v4 dealloc];
 }
 
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  navigationBar = [(SPUINavigationController *)self navigationBar];
+  navigationItem = [controllerCopy navigationItem];
+  [navigationBar reconfigureNavigationBarForItem:navigationItem];
+
+  v9.receiver = self;
+  v9.super_class = SPUINavigationController;
+  [(SPUINavigationController *)&v9 pushViewController:controllerCopy animated:animatedCopy];
+}
+
 - (void)updateBackgroundColorWithViewControllerToBeShown:(id)shown
 {
   shownCopy = shown;
@@ -270,25 +292,24 @@ void __77__SPUINavigationController_updateBackgroundColorWithViewControllerToBeS
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = [*(a1 + 32) visibleViewController];
-    v9 = [v4 backgroundColorForViewController:v5];
+    v3 = objc_opt_class();
+    v4 = [*(a1 + 32) visibleViewController];
+    v8 = [v3 backgroundColorForViewController:v4];
   }
 
   else
   {
-    v9 = *(a1 + 40);
+    v8 = *(a1 + 40);
   }
 
+  v5 = [*(a1 + 32) backgroundView];
+  [v5 setColor:v8];
+
   v6 = [*(a1 + 32) backgroundView];
-  [v6 setColor:v9];
+  [v6 setAlpha:1.0];
 
-  v7 = [*(a1 + 32) backgroundView];
-  [v7 setAlpha:1.0];
-
-  v8 = [*(a1 + 32) transitioningBackgroundView];
-  [v8 setAlpha:0.0];
+  v7 = [*(a1 + 32) transitioningBackgroundView];
+  [v7 setAlpha:0.0];
 }
 
 void __77__SPUINavigationController_updateBackgroundColorWithViewControllerToBeShown___block_invoke_2(uint64_t a1)
@@ -371,6 +392,13 @@ uint64_t __81__SPUINavigationController_navigationController_willShowViewControl
   return [*(a1 + 32) setNavigationMode:v1];
 }
 
+- (void)navigationController:(id)controller didShowViewController:(id)viewController animated:(BOOL)animated
+{
+  [(SPUINavigationController *)self updateFooterViewsIfNecessary:controller];
+
+  [(SPUINavigationController *)self setSui_isTransitioning:0];
+}
+
 - (void)updateSearchFieldForViewController:(id)controller
 {
   controllerCopy = controller;
@@ -383,7 +411,6 @@ uint64_t __81__SPUINavigationController_navigationController_willShowViewControl
   }
 
   transitionCoordinator = [controllerCopy transitionCoordinator];
-  v8 = 0x279D06000uLL;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -408,57 +435,22 @@ uint64_t __81__SPUINavigationController_navigationController_willShowViewControl
       card = [searchToken card];
       titleImage = [card titleImage];
 
-      if (!titleImage)
-      {
-        goto LABEL_14;
-      }
-
-      v16 = MEMORY[0x277D4C868];
-      card2 = [searchToken card];
-      titleImage2 = [card2 titleImage];
-      v19 = [v16 imageWithSFImage:titleImage2];
-      view = [(SPUINavigationController *)self view];
-      [view effectiveScreenScale];
-      v22 = v21;
-      v23 = MEMORY[0x277D6F1A0];
-      view2 = [(SPUINavigationController *)self view];
-      v25 = [v23 bestAppearanceForView:view2];
-      v26 = [v19 loadImageWithScale:objc_msgSend(v25 isDarkStyle:{"isDark"), v22}];
-
-      v8 = 0x279D06000;
-      v4 = 0x277D4C000;
-
-      if (!v26)
-      {
-        goto LABEL_14;
-      }
-
-      v27 = MEMORY[0x277D75A00];
-      card3 = [searchToken card];
-      title = [card3 title];
-      title3 = [v27 tokenWithIcon:v26 text:title];
-
-      card4 = [searchToken card];
-      title2 = [card4 title];
-      [title3 setRepresentedObject:title2];
-
-      if (title3)
+      if (titleImage && (v15 = MEMORY[0x277D4C868], [searchToken card], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "titleImage"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "imageWithSFImage:", v17), v18 = objc_claimAutoreleasedReturnValue(), -[SPUINavigationController view](self, "view"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "effectiveScreenScale"), v21 = v20, v22 = MEMORY[0x277D6F1A0], -[SPUINavigationController view](self, "view"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "bestAppearanceForView:", v23), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "loadImageWithScale:isDarkStyle:", objc_msgSend(v24, "isDark"), v21), v25 = objc_claimAutoreleasedReturnValue(), v24, v23, v19, v4 = 0x277D4C000, v18, v17, v16, v25) && (v26 = MEMORY[0x277D75A00], objc_msgSend(searchToken, "card"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "title"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "tokenWithIcon:text:", v25, v28), title = objc_claimAutoreleasedReturnValue(), v28, v27, objc_msgSend(searchToken, "card"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "title"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(title, "setRepresentedObject:", v31), v31, v30, v25, title))
       {
         selfCopy2 = self;
-        v34 = title3;
-        v35 = 0;
+        v33 = title;
+        v34 = 0;
       }
 
       else
       {
-LABEL_14:
-        title3 = [searchToken title];
+        title = [searchToken title];
         selfCopy2 = self;
-        v34 = 0;
-        v35 = title3;
+        v33 = 0;
+        v34 = title;
       }
 
-      [(SPUINavigationController *)selfCopy2 resetSearchFieldContentWithSearchToken:v34 text:v35 wantsBackButton:1 transitionCoordinator:transitionCoordinator];
+      [(SPUINavigationController *)selfCopy2 resetSearchFieldContentWithSearchToken:v33 text:v34 wantsBackButton:1 transitionCoordinator:transitionCoordinator];
 
       searchViewController3 = [(SPUINavigationController *)self searchViewController];
       headerView = [searchViewController3 headerView];
@@ -473,19 +465,19 @@ LABEL_14:
       {
         searchToken = [controllerCopy searchToken];
         selfCopy4 = self;
-        v37 = searchToken;
-        v38 = 0;
+        v36 = searchToken;
+        v37 = 0;
       }
 
       else
       {
         searchToken = [controllerCopy title];
         selfCopy4 = self;
-        v37 = 0;
-        v38 = searchToken;
+        v36 = 0;
+        v37 = searchToken;
       }
 
-      [(SPUINavigationController *)selfCopy4 resetSearchFieldContentWithSearchToken:v37 text:v38 wantsBackButton:1 transitionCoordinator:transitionCoordinator];
+      [(SPUINavigationController *)selfCopy4 resetSearchFieldContentWithSearchToken:v36 text:v37 wantsBackButton:1 transitionCoordinator:transitionCoordinator];
     }
   }
 
@@ -494,27 +486,26 @@ LABEL_14:
     searchViewController4 = [(SPUINavigationController *)self searchViewController];
     headerView2 = [searchViewController4 headerView];
     [headerView2 frame];
-    if (v44 == 0.0)
+    if (v43 == 0.0)
     {
       searchViewController5 = [(SPUINavigationController *)self searchViewController];
       headerView3 = [searchViewController5 headerView];
       [headerView3 systemLayoutSizeFittingSize:{*MEMORY[0x277D76C80], *(MEMORY[0x277D76C80] + 8)}];
-      v48 = v47;
+      v47 = v46;
     }
 
     else
     {
-      v48 = v44;
+      v47 = v43;
     }
 
-    [controllerCopy setAdditionalKeyboardHeight:v48];
+    [controllerCopy setAdditionalKeyboardHeight:v47];
   }
 
   if ([*(v4 + 2200) isIpad])
   {
     viewControllers = [(SPUINavigationController *)self viewControllers];
     firstObject = [viewControllers firstObject];
-    v51 = *(v8 + 1440);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
@@ -529,7 +520,7 @@ LABEL_14:
 
 - (void)updateScrollPocketForViewController:(id)controller
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   if (_UISolariumEnabled())
   {
@@ -574,26 +565,26 @@ LABEL_14:
       }
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = v4;
-    v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           if ([MEMORY[0x277D65D28] bottomSearchFieldEnabled])
           {
             v19 = [objc_alloc(MEMORY[0x277D76220]) initWithScrollView:v18 edge:4 style:1];
@@ -614,14 +605,71 @@ LABEL_14:
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
     }
   }
+}
 
-  v26 = *MEMORY[0x277D85DE8];
+- (void)resetSearchFieldContentWithSearchToken:(id)token text:(id)text wantsBackButton:(BOOL)button transitionCoordinator:(id)coordinator
+{
+  buttonCopy = button;
+  v10 = MEMORY[0x277D65D28];
+  coordinatorCopy = coordinator;
+  textCopy = text;
+  tokenCopy = token;
+  if ([v10 bottomSearchFieldEnabled])
+  {
+    unifiedFieldDelegate = [(SPUINavigationController *)self unifiedFieldDelegate];
+    [unifiedFieldDelegate resetSearchFieldContentWithSearchToken:tokenCopy text:textCopy wantsBackButton:buttonCopy transitionCoordinator:coordinatorCopy];
+  }
+
+  else
+  {
+    navigationBar = [(SPUINavigationController *)self navigationBar];
+    header = [navigationBar header];
+
+    [header setUseClearTokens:1];
+    searchField = [header searchField];
+    v17 = searchField;
+    if (tokenCopy)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = textCopy;
+    }
+
+    [searchField updateTextRange:v18];
+
+    searchField2 = [header searchField];
+    [searchField2 updateToken:tokenCopy];
+
+    v20 = MEMORY[0x277D75D18];
+    searchField3 = [header searchField];
+    leftView = [searchField3 leftView];
+    [coordinatorCopy transitionDuration];
+    v24 = v23;
+
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __110__SPUINavigationController_resetSearchFieldContentWithSearchToken_text_wantsBackButton_transitionCoordinator___block_invoke;
+    v30[3] = &unk_279D06D40;
+    v30[4] = self;
+    v31 = buttonCopy;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __110__SPUINavigationController_resetSearchFieldContentWithSearchToken_text_wantsBackButton_transitionCoordinator___block_invoke_2;
+    v27[3] = &unk_279D06F60;
+    v29 = buttonCopy;
+    v28 = header;
+    v25 = header;
+    [v20 transitionWithView:leftView duration:5242880 options:v30 animations:v27 completion:v24];
+  }
 }
 
 uint64_t __110__SPUINavigationController_resetSearchFieldContentWithSearchToken_text_wantsBackButton_transitionCoordinator___block_invoke_2(uint64_t a1)
@@ -639,6 +687,29 @@ uint64_t __110__SPUINavigationController_resetSearchFieldContentWithSearchToken_
   }
 }
 
+- (void)updateBackButton:(BOOL)button
+{
+  buttonCopy = button;
+  navigationBar = [(SPUINavigationController *)self navigationBar];
+  header = [navigationBar header];
+  searchField = [header searchField];
+
+  [searchField setShowsBackButton:buttonCopy];
+  leftView = [searchField leftView];
+  [leftView setUserInteractionEnabled:buttonCopy];
+}
+
+- (void)setContentHeight:(double)height animated:(BOOL)animated
+{
+  if (self->_contentHeight != height)
+  {
+    animatedCopy = animated;
+    self->_contentHeight = height;
+    sizingDelegate = [(SPUINavigationController *)self sizingDelegate];
+    [sizingDelegate navigationViewDidInvalidateSizeAnimated:animatedCopy];
+  }
+}
+
 - (void)setNavigationMode:(int64_t)mode
 {
   navigationMode = self->_navigationMode;
@@ -652,34 +723,33 @@ uint64_t __110__SPUINavigationController_resetSearchFieldContentWithSearchToken_
         [(SPUINavigationController *)self contentHeightIncludingSearchView];
         v6 = navigationMode == 3;
         selfCopy2 = self;
-LABEL_14:
+LABEL_13:
         [(SPUINavigationController *)selfCopy2 setContentHeight:v6 animated:?];
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       if (mode)
       {
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       [(SPUINavigationController *)self heightOfNavigationBar];
-LABEL_13:
+LABEL_12:
       selfCopy2 = self;
       v6 = 0;
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
     if (mode == 3)
     {
-      v8 = *MEMORY[0x277CEC618];
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     if (mode != 4)
     {
       if (mode != 5)
       {
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       [(SPUINavigationController *)self contentHeightIncludingSearchView];
@@ -689,7 +759,7 @@ LABEL_13:
     [(SPUINavigationController *)self applyCardHeightAnimated:1];
   }
 
-LABEL_15:
+LABEL_14:
   searchViewController = [(SPUINavigationController *)self searchViewController];
   [searchViewController updateResponderChainIfNeeded];
 }
@@ -741,6 +811,45 @@ LABEL_15:
   return v4;
 }
 
+- (void)applyCardHeightAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(SPUINavigationController *)self contentHeightIncludingCardViewController];
+  v6 = v5;
+  [(SPUINavigationController *)self heightOfNavigationBar];
+  if (v7 != v6)
+  {
+
+    [(SPUINavigationController *)self setContentHeight:animatedCopy animated:v6];
+  }
+}
+
+- (void)didInvalidateSizeAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ((-[SPUINavigationController navigationMode](self, "navigationMode") == 1 || -[SPUINavigationController navigationMode](self, "navigationMode") == 5) && [MEMORY[0x277D65D28] enableFloatingWindow])
+  {
+    [(SPUINavigationController *)self contentHeightIncludingSearchView];
+
+    [(SPUINavigationController *)self setContentHeight:animatedCopy animated:?];
+  }
+}
+
+- (void)cardViewController:(id)controller preferredContentSizeDidChange:(CGSize)change animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  if ([(SPUINavigationController *)self navigationMode]== 4)
+  {
+    topViewController = [(SPUINavigationController *)self topViewController];
+
+    if (topViewController == controllerCopy)
+    {
+      [(SPUINavigationController *)self applyCardHeightAnimated:animatedCopy];
+    }
+  }
+}
+
 - (void)updateFooterViewForViewController:(id)controller
 {
   controllerCopy = controller;
@@ -765,6 +874,70 @@ LABEL_15:
   }
 
 LABEL_6:
+}
+
+- (id)generateFooterViewForProactive:(BOOL)proactive cache:(BOOL)cache
+{
+  cacheCopy = cache;
+  proactiveCopy = proactive;
+  v6 = [(SPUINavigationController *)self footerGeneratorForProactive:?];
+  v7 = v6;
+  if (v6)
+  {
+    if (cacheCopy)
+    {
+      if (generateFooterViewForProactive_cache__onceToken != -1)
+      {
+        [SPUINavigationController generateFooterViewForProactive:cache:];
+      }
+
+      v8 = MEMORY[0x277CCACA8];
+      reuseIdentifier = [v7 reuseIdentifier];
+      v10 = [MEMORY[0x277CCABB0] numberWithBool:proactiveCopy];
+      buttonGenerator2 = [v8 stringWithFormat:@"%@, %@", reuseIdentifier, v10];
+
+      v12 = [generateFooterViewForProactive_cache__footerViewCache objectForKeyedSubscript:buttonGenerator2];
+      if (v12)
+      {
+        goto LABEL_14;
+      }
+
+      buttonGenerator = [v7 buttonGenerator];
+      v14 = buttonGenerator[2]();
+      [generateFooterViewForProactive_cache__footerViewCache setObject:v14 forKeyedSubscript:buttonGenerator2];
+
+      v15 = [generateFooterViewForProactive_cache__footerViewCache objectForKeyedSubscript:buttonGenerator2];
+    }
+
+    else
+    {
+      buttonGenerator2 = [v6 buttonGenerator];
+      v15 = buttonGenerator2[2]();
+    }
+
+    v12 = v15;
+LABEL_14:
+
+    goto LABEL_15;
+  }
+
+  v16 = MEMORY[0x277D65D40];
+  v17 = *MEMORY[0x277D65D40];
+  if (!*MEMORY[0x277D65D40])
+  {
+    SPUIInitLogging();
+    v17 = *v16;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    [SPUINavigationController generateFooterViewForProactive:v17 cache:?];
+  }
+
+  v12 = 0;
+LABEL_15:
+
+  return v12;
 }
 
 uint64_t __65__SPUINavigationController_generateFooterViewForProactive_cache___block_invoke()
@@ -835,7 +1008,7 @@ LABEL_13:
   return v11;
 }
 
-id __56__SPUINavigationController_footerGeneratorForProactive___block_invoke()
+SPUILockScreenFooterView *__56__SPUINavigationController_footerGeneratorForProactive___block_invoke()
 {
   v0 = objc_opt_new();
 

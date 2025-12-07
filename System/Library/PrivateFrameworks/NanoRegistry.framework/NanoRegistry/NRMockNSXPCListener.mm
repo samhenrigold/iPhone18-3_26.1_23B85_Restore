@@ -118,7 +118,7 @@ uint64_t __47__NRMockNSXPCListener_initWithMachServiceName___block_invoke(void *
   dispatch_sync(v4, v6);
 }
 
-uint64_t __33__NRMockNSXPCListener_invalidate__block_invoke(uint64_t a1)
+void *__33__NRMockNSXPCListener_invalidate__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if ((*(v2 + 8) & 1) == 0)

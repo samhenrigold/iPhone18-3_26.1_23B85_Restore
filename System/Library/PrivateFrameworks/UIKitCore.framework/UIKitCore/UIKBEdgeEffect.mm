@@ -179,7 +179,7 @@
   else
   {
     objc_opt_class();
-    v7 = (objc_opt_isKindOfClass() & 1) != 0 && (colorName = self->_colorName, (equalCopy->_colorName != 0) != (colorName == 0)) && (!colorName || [(NSString *)colorName isEqualToString:?]) && (gradient = self->_gradient, (gradient == 0) != (equalCopy->_gradient != 0)) && (!gradient || [(UIKBGradient *)gradient isEqual:?]) && self->_edges == equalCopy->_edges && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_insets.top, *&equalCopy->_insets.top), vceqq_f64(*&self->_insets.bottom, *&equalCopy->_insets.bottom)))) & 1) != 0 && self->_weight == equalCopy->_weight && self->_opacity == equalCopy->_opacity;
+    v7 = (objc_opt_isKindOfClass() & 1) != 0 && (colorName = self->_colorName, (equalCopy->_colorName != 0) != (colorName == 0)) && (!colorName || objc_msgSend_isEqualToString_(colorName)) && (gradient = self->_gradient, (gradient == 0) != (equalCopy->_gradient != 0)) && (!gradient || objc_msgSend_isEqual_(gradient)) && self->_edges == equalCopy->_edges && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_insets.top, *&equalCopy->_insets.top), vceqq_f64(*&self->_insets.bottom, *&equalCopy->_insets.bottom)))) & 1) != 0 && self->_weight == equalCopy->_weight && self->_opacity == equalCopy->_opacity;
   }
 
   return v7;

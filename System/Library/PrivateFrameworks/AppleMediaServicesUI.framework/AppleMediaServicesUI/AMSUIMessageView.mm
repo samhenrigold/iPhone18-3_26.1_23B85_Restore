@@ -139,7 +139,7 @@
 
 - (void)_recordNewsDebugEventWithCategory:(id)category
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   currentProcess = [MEMORY[0x1E698CAC8] currentProcess];
   bundleIdentifier = [currentProcess bundleIdentifier];
@@ -162,11 +162,11 @@
       {
         v10 = objc_opt_class();
         v11 = AMSLogKey();
-        v16 = 138543618;
-        v17 = v10;
-        v18 = 2114;
-        v19 = v11;
-        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Recording debug event for news", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v10;
+        v17 = 2114;
+        v18 = v11;
+        _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Recording debug event for news", &v15, 0x16u);
       }
 
       v12 = [objc_alloc(MEMORY[0x1E698CA38]) initWithSubsystem:@"MessagingUI" category:categoryCopy error:0];
@@ -176,8 +176,6 @@
       [v14 enqueueEvent:v12];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupDefaults
@@ -666,7 +664,7 @@ LABEL_27:
 
 - (void)_setAccessibility
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   buttons = [(AMSUIMessageView *)self buttons];
 
@@ -714,27 +712,27 @@ LABEL_7:
 
 LABEL_11:
   v17 = [MEMORY[0x1E696AD60] stringWithString:&stru_1F3921360];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v18 = array2;
-  v19 = [v18 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v36;
+    v21 = *v35;
     do
     {
       v22 = 0;
       do
       {
-        if (*v36 != v21)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v35 + 1) + 8 * v22);
+        v23 = *(*(&v34 + 1) + 8 * v22);
         if ([v17 length])
         {
           [v17 appendString:{@", "}];
@@ -745,7 +743,7 @@ LABEL_11:
       }
 
       while (v20 != v22);
-      v20 = [v18 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v20);
@@ -762,31 +760,31 @@ LABEL_11:
     [(AMSUIMessageView *)self setAccessibilityLabel:0];
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v25 = array;
-  v26 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v32;
+    v28 = *v31;
     do
     {
       v29 = 0;
       do
       {
-        if (*v32 != v28)
+        if (*v31 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [*(*(&v31 + 1) + 8 * v29++) setIsAccessibilityElement:1];
+        [*(*(&v30 + 1) + 8 * v29++) setIsAccessibilityElement:1];
       }
 
       while (v27 != v29);
-      v27 = [v25 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v27);
@@ -794,13 +792,11 @@ LABEL_11:
 
   [(AMSUIMessageView *)self setAms_accessibilitySupplementaryFooterViews:v25];
   [(AMSUIMessageView *)self setIsAccessibilityElement:1];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setMICAPlayerTintColor:(id)color
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   micaPlayer = [(AMSUIMessageView *)self micaPlayer];
 
@@ -811,29 +807,29 @@ LABEL_11:
 
     if (publishedObjects)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       micaPlayer3 = [(AMSUIMessageView *)self micaPlayer];
       publishedObjects2 = [micaPlayer3 publishedObjects];
       allValues = [publishedObjects2 allValues];
 
-      v11 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(allValues);
             }
 
-            v15 = *(*(&v19 + 1) + 8 * i);
+            v15 = *(*(&v18 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -856,7 +852,7 @@ LABEL_11:
             }
           }
 
-          v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v12);
@@ -875,13 +871,11 @@ LABEL_11:
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v25 = objc_opt_class();
+        v24 = objc_opt_class();
         _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEBUG, "%{public}@: No published objects to tint", buf, 0xCu);
       }
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setAccessibilityIdentifier
@@ -1012,7 +1006,7 @@ AMSUIMessageButton *__61__AMSUIMessageView_setButtonsForDialogActions_target_act
 
 - (void)_startObservations
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   imageView = [(AMSUIMessageView *)self imageView];
   [imageView addObserver:self forKeyPath:@"frame" options:1 context:0];
 
@@ -1020,11 +1014,9 @@ AMSUIMessageButton *__61__AMSUIMessageView_setButtonsForDialogActions_target_act
   [imageView2 addObserver:self forKeyPath:@"image" options:1 context:0];
 
   v5 = objc_opt_self();
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v7 = [(AMSUIMessageView *)self registerForTraitChanges:v6 withTarget:self action:sel__userInterfaceStyleDidChange];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_userInterfaceStyleDidChange
@@ -1512,7 +1504,7 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke(uint64_t a1, voi
 
 void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [*(a1 + 32) layoutContext];
   v7 = [v6 buttonFrames];
@@ -1520,10 +1512,10 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
 
   if (v8 >= a3)
   {
-    v15 = [*(a1 + 32) layoutContext];
-    v16 = [v15 buttonFrames];
-    v17 = [v16 objectAtIndexedSubscript:a3];
-    [v17 CGRectValue];
+    v14 = [*(a1 + 32) layoutContext];
+    v15 = [v14 buttonFrames];
+    v16 = [v15 objectAtIndexedSubscript:a3];
+    [v16 CGRectValue];
     [v5 setFrame:?];
   }
 
@@ -1542,15 +1534,14 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
       v12 = [v11 OSLogObject];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 32);
-        v21 = 138543362;
-        v22 = objc_opt_class();
-        _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Internal inconsistency there are less frames allocated for footer buttons", &v21, 0xCu);
+        v18 = 138543362;
+        v19 = objc_opt_class();
+        _os_log_impl(&dword_1BB036000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Internal inconsistency there are less frames allocated for footer buttons", &v18, 0xCu);
       }
 
       v11 = [MEMORY[0x1E696AD88] defaultCenter];
-      v14 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
-      [v11 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v14 userInfo:0];
+      v13 = [MEMORY[0x1E698C968] sharedMessagingUIConfig];
+      [v11 postNotificationName:@"com.apple.AppleMediaServicesTests.FaultLogged" object:v13 userInfo:0];
     }
 
     else
@@ -1560,18 +1551,15 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
         v11 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v18 = [v11 OSLogObject];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = [v11 OSLogObject];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        v19 = *(a1 + 32);
-        v21 = 138543362;
-        v22 = objc_opt_class();
-        _os_log_impl(&dword_1BB036000, v18, OS_LOG_TYPE_FAULT, "%{public}@: Internal inconsistency there are less frames allocated for footer buttons", &v21, 0xCu);
+        v18 = 138543362;
+        v19 = objc_opt_class();
+        _os_log_impl(&dword_1BB036000, v17, OS_LOG_TYPE_FAULT, "%{public}@: Internal inconsistency there are less frames allocated for footer buttons", &v18, 0xCu);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCornerRadius
@@ -1684,35 +1672,35 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
 
 - (void)setButtons:(id)buttons
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   buttonsCopy = buttons;
-  v35 = 432;
+  v34 = 432;
   buttons = self->_buttons;
   if (buttons)
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     buttonsCopy2 = buttons;
-    v7 = [(NSArray *)buttonsCopy2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+    v7 = [(NSArray *)buttonsCopy2 countByEnumeratingWithState:&v45 objects:v51 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v47;
+      v9 = *v46;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v47 != v9)
+          if (*v46 != v9)
           {
             objc_enumerationMutation(buttonsCopy2);
           }
 
-          [*(*(&v46 + 1) + 8 * i) removeFromSuperview];
+          [*(*(&v45 + 1) + 8 * i) removeFromSuperview];
         }
 
-        v8 = [(NSArray *)buttonsCopy2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+        v8 = [(NSArray *)buttonsCopy2 countByEnumeratingWithState:&v45 objects:v51 count:16];
       }
 
       while (v8);
@@ -1721,12 +1709,12 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
 
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v12 = buttonsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (!v13)
   {
     v15 = 0;
@@ -1735,17 +1723,17 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
 
   v14 = v13;
   v15 = 0;
-  v16 = *v43;
+  v16 = *v42;
   do
   {
     for (j = 0; j != v14; ++j)
     {
-      if (*v43 != v16)
+      if (*v42 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v42 + 1) + 8 * j);
+      v18 = *(*(&v41 + 1) + 8 * j);
       configuration = [v18 configuration];
       title = [configuration title];
 
@@ -1770,7 +1758,7 @@ void __41__AMSUIMessageView__syncRectsFromContext__block_invoke_2(uint64_t a1, v
       [v21 addObject:v18];
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v42 objects:v51 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v41 objects:v50 count:16];
   }
 
   while (v14);
@@ -1785,47 +1773,45 @@ LABEL_25:
     v24 = v25;
   }
 
-  objc_storeStrong(&v36[self], v24);
-  v26 = *&v36[self];
+  objc_storeStrong(&v35[self], v24);
+  v26 = *&v35[self];
   if (v26)
   {
-    v36 = v24;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    v35 = v24;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v27 = v26;
-    v28 = [v27 countByEnumeratingWithState:&v38 objects:v50 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v39;
+      v30 = *v38;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v39 != v30)
+          if (*v38 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v38 + 1) + 8 * k);
+          v32 = *(*(&v37 + 1) + 8 * k);
           containerView = [(AMSUIMessageView *)self containerView];
           [containerView addSubview:v32];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
       }
 
       while (v29);
     }
 
-    v24 = v36;
+    v24 = v35;
   }
 
   [(AMSUIMessageView *)self setNeedsLayout];
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIconColor:(id)color
@@ -1841,40 +1827,38 @@ LABEL_25:
 
 - (void)setSeparatorColor:(id)color
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   objc_storeStrong(&self->_separatorColor, color);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   separatorViews = [(AMSUIMessageView *)self separatorViews];
-  v7 = [separatorViews countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [separatorViews countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(separatorViews);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setBackgroundColor:colorCopy];
+        [*(*(&v11 + 1) + 8 * v10++) setBackgroundColor:colorCopy];
       }
 
       while (v8 != v10);
-      v8 = [separatorViews countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [separatorViews countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_makeSeparatorView

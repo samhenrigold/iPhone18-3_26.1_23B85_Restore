@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (Daemon)init;
 - (id)_proxyWithContext:(id)context callback:(id)callback clientId:(unint64_t)id request:(id)request;
+- (void)_connectToExistingContext:(id)context callback:(id)callback clientId:(unint64_t)id flags:(int64_t)flags processId:(int)processId userId:(unsigned int)userId auditSessionId:(int)sessionId auditToken:(id *)self0 cApiOrigin:(BOOL)self1 checkEntitlementBlock:(id)self2 invalidationBlock:(id)self3 connectionHash:(unint64_t)self4 reply:(id)self5;
 - (void)connectToContextWithUUID:(id)d callback:(id)callback clientId:(unint64_t)id token:(id)token senderAuditTokenData:(id)data reply:(id)reply;
 - (void)connectToExistingContext:(id)context callback:(id)callback clientId:(unint64_t)id flags:(int64_t)flags reply:(id)reply;
 - (void)connectToExistingContext:(id)context userId:(unsigned int)id connection:(id)connection checkEntitlementBlock:(id)block callback:(id)callback clientId:(unint64_t)clientId flags:(int64_t)flags reply:(id)self0;
@@ -55,6 +56,82 @@
   [(Daemon *)self connectToExistingContext:0 userId:v5 connection:v6 checkEntitlementBlock:&stru_100055378 callback:v7 clientId:0 flags:0 reply:v9];
 }
 
+- (void)_connectToExistingContext:(id)context callback:(id)callback clientId:(unint64_t)id flags:(int64_t)flags processId:(int)processId userId:(unsigned int)userId auditSessionId:(int)sessionId auditToken:(id *)self0 cApiOrigin:(BOOL)self1 checkEntitlementBlock:(id)self2 invalidationBlock:(id)self3 connectionHash:(unint64_t)self4 reply:(id)self5
+{
+  v15 = *&userId;
+  contextCopy = context;
+  callbackCopy = callback;
+  blockCopy = block;
+  invalidationBlockCopy = invalidationBlock;
+  replyCopy = reply;
+  v22 = sub_1000013B8(replyCopy);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67110400;
+    v57 = [contextCopy hash];
+    v58 = 1024;
+    processIdCopy = processId;
+    v60 = 1024;
+    v61 = v15;
+    v62 = 1024;
+    flagsCopy = flags;
+    v64 = 1024;
+    originCopy = origin;
+    v66 = 1024;
+    hashCopy = hash;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "connectToExistingContext:%x, pid:%d, uid:%u, flags:%x, cAPI:%d, connection:%x", buf, 0x26u);
+  }
+
+  v53[0] = _NSConcreteStackBlock;
+  v53[1] = 3221225472;
+  v53[2] = sub_10000F64C;
+  v53[3] = &unk_1000553C8;
+  hashCopy2 = hash;
+  v23 = replyCopy;
+  v54 = v23;
+  v24 = objc_retainBlock(v53);
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v25 = *&token->var0[4];
+  v50 = *token->var0;
+  v41[2] = sub_10000F798;
+  v41[3] = &unk_1000553F0;
+  processIdCopy2 = processId;
+  processIdCopy3 = processId;
+  v48 = v15;
+  sessionIdCopy = sessionId;
+  v51 = v25;
+  originCopy2 = origin;
+  v26 = blockCopy;
+  v43 = v26;
+  v27 = invalidationBlockCopy;
+  v44 = v27;
+  v28 = callbackCopy;
+  v42 = v28;
+  idCopy = id;
+  v29 = v24;
+  v45 = v29;
+  v30 = objc_retainBlock(v41);
+  v31 = v15;
+  if (contextCopy && (+[ContextManager sharedInstance](ContextManager, "sharedInstance"), v32 = objc_claimAutoreleasedReturnValue(), [v32 findContextForExternalizedContext:contextCopy], v33 = objc_claimAutoreleasedReturnValue(), v32, v33))
+  {
+    (v30[2])(v30, v33);
+  }
+
+  else
+  {
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_10000F890;
+    v38[3] = &unk_100055418;
+    v39 = v30;
+    v40 = v29;
+    [Context managedContextWithExternalizedContext:contextCopy processId:processIdCopy2 userId:v31 auditSessionId:sessionId flags:flags checkEntitlementBlock:v26 reply:v38];
+
+    v33 = v39;
+  }
+}
+
 - (void)connectToExistingContext:(id)context callback:(id)callback clientId:(unint64_t)id flags:(int64_t)flags reply:(id)reply
 {
   replyCopy = reply;
@@ -90,7 +167,7 @@
   auditSessionIdentifier = [connectionCopy auditSessionIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -171,7 +248,7 @@
   asid = [v10 asid];
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -190,7 +267,7 @@
 - (void)prearmTouchIdWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = sub_1000013B8();
+  v4 = sub_1000013B8(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -220,7 +297,7 @@
 {
   optionsCopy = options;
   replyCopy = reply;
-  v9 = sub_1000013B8();
+  v9 = sub_1000013B8(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v17[0] = 67109378;
@@ -291,7 +368,7 @@ LABEL_15:
 - (void)dumpStatusWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sub_1000013B8();
+  v4 = sub_1000013B8(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;

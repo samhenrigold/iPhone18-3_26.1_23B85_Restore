@@ -134,7 +134,7 @@
     [CRLAssertionHandler handleFailureInFunction:v8 file:v9 lineNumber:64 isFatal:0 description:"invalid nil value for '%{public}s'", "childLayout"];
   }
 
-  [(CRLCanvasAbstractLayout *)self transform];
+  objc_msgSend_transform(self);
   v10 = *&transform->c;
   *&t2.a = *&transform->a;
   *&t2.c = v10;
@@ -169,7 +169,7 @@
     v7 = v6;
     v9 = v8;
     v11 = v10;
-    [firstObject transform];
+    objc_msgSend_transform(firstObject);
   }
 
   else
@@ -323,7 +323,7 @@
   v5 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else

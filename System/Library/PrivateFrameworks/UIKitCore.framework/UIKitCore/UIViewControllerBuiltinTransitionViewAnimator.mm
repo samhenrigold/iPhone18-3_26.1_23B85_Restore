@@ -109,7 +109,7 @@ LABEL_7:
       transitionContext = self->_transitionContext;
       if (transitionContext)
       {
-        [(UIViewControllerContextTransitioning *)transitionContext finalTransformForViewController:v16];
+        objc_msgSend_finalTransformForViewController_(transitionContext);
       }
 
       v108 = *&v98.m11;
@@ -142,7 +142,7 @@ LABEL_7:
       v39 = layer3;
       if (layer3)
       {
-        [layer3 transform];
+        objc_msgSend_transform(layer3);
       }
 
       else
@@ -378,12 +378,12 @@ void __67__UIViewControllerBuiltinTransitionViewAnimator_animateTransition___blo
   [v1 addSubview:WeakRetained];
 }
 
-uint64_t __67__UIViewControllerBuiltinTransitionViewAnimator_animateTransition___block_invoke_3(uint64_t result)
+void *__67__UIViewControllerBuiltinTransitionViewAnimator_animateTransition___block_invoke_3(void *result)
 {
-  if (*(*(*(result + 48) + 8) + 24) == 1)
+  if (*(*(*(result + 6) + 8) + 24) == 1)
   {
-    v2 = *(*(result + 32) + 8);
-    v3 = [*(result + 40) transitionWasCancelled] ^ 1;
+    v2 = *(*(result + 4) + 8);
+    v3 = [*(result + 5) transitionWasCancelled] ^ 1;
 
     return [v2 completeTransition:v3];
   }

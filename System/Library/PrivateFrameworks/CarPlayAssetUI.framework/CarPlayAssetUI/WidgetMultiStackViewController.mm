@@ -38,11 +38,11 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = WidgetMultiStackViewController.widgetStackViewController(_:viewControllerFor:)(controllerCopy);
+  v8 = WidgetMultiStackViewController.widgetStackViewController(_:viewControllerFor:)(controllerCopy, source);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (id)widgetStackViewController:(id)controller containerApplicationNameForDataSource:(id)source
@@ -50,21 +50,21 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_242ED11C4();
-  v8 = v7;
+  sub_242ED11C4(source);
+  v9 = v8;
 
   swift_unknownObjectRelease();
-  if (v8)
+  if (v9)
   {
-    v9 = sub_242F04F00();
+    v10 = sub_242F04F00();
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)widgetStackViewController:(id)controller containerBundleIdentifierForDataSource:(id)source
@@ -105,10 +105,10 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_242ED12D8();
+  v8 = sub_242ED12D8(expiration);
 
   swift_unknownObjectRelease();
-  return v7 & 1;
+  return v8 & 1;
 }
 
 - (void)widgetStackViewController:(id)controller didActivateDataSource:(id)source fromUserInteraction:(BOOL)interaction

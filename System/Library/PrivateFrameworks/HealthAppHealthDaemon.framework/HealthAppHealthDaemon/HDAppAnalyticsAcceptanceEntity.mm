@@ -58,11 +58,10 @@
 
 uint64_t __83__HDAppAnalyticsAcceptanceEntity_acceptanceForAgreement_version_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 uint64_t __83__HDAppAnalyticsAcceptanceEntity_acceptanceForAgreement_version_transaction_error___block_invoke_2(void *a1, uint64_t a2)
@@ -261,11 +260,10 @@ uint64_t __68__HDAppAnalyticsAcceptanceEntity_allAcceptancesInTransaction_error_
 
 uint64_t __101__HDAppAnalyticsAcceptanceEntity_setAcceptance_agreement_version_modificationDate_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 uint64_t __101__HDAppAnalyticsAcceptanceEntity_setAcceptance_agreement_version_modificationDate_transaction_error___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -283,11 +281,9 @@ uint64_t __101__HDAppAnalyticsAcceptanceEntity_setAcceptance_agreement_version_m
 
 uint64_t __101__HDAppAnalyticsAcceptanceEntity_setAcceptance_agreement_version_modificationDate_transaction_error___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, *(a1 + 48));
   sqlite3_bind_int(a2, 3, *(a1 + 56));
-  v5 = *(a1 + 40);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -314,11 +310,10 @@ uint64_t __101__HDAppAnalyticsAcceptanceEntity_setAcceptance_agreement_version_m
 
 uint64_t __89__HDAppAnalyticsAcceptanceEntity_deleteAcceptanceForAgreement_version_transaction_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 + (BOOL)deleteAcceptancesForAgreement:(id)agreement transaction:(id)transaction error:(id *)error
@@ -342,11 +337,10 @@ uint64_t __89__HDAppAnalyticsAcceptanceEntity_deleteAcceptanceForAgreement_versi
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"agreement";
-  v5[1] = @"version";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"agreement";
+  v4[1] = @"version";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

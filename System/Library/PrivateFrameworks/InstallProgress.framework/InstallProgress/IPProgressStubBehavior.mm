@@ -45,7 +45,7 @@ void __31__IPProgressStubBehavior_queue__block_invoke()
 
 - (void)resume
 {
-  v3 = _IPServerLog();
+  v3 = _IPServerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

@@ -32,7 +32,7 @@ LABEL_8:
     v16 = **&MEMORY[0x1E6960CC0];
     memset(timescale, 0, sizeof(timescale));
     v15 = 0;
-    [self duration];
+    objc_msgSend_duration(self);
     v12 = 0;
     time1 = v16;
     v9 = [v8 copyCGImageAtTime:&time1 actualTime:0 error:&v12];

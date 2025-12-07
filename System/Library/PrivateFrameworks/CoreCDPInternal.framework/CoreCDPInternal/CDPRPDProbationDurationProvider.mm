@@ -202,20 +202,18 @@ uint64_t __82__CDPRPDProbationDurationProvider_probationDurationForRecoveryConte
 
 void __82__CDPRPDProbationDurationProvider_probationDurationForRecoveryContext_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Probation days is nil, falling back to default values. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Probation days is nil, falling back to default values. Error: %@", &v2, 0xCu);
 }
 
 void __82__CDPRPDProbationDurationProvider_probationDurationForRecoveryContext_completion___block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "RPD Config is nil, falling back to default values. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "RPD Config is nil, falling back to default values. Error: %@", &v2, 0xCu);
 }
 
 @end

@@ -67,20 +67,19 @@
 
 - (void)didReceiveMemoryWarning
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = PHDefaultLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = PHDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_23C144000, v3, OS_LOG_TYPE_DEFAULT, "%@ received memory warning, purging variables that can be dynamically restored.", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = PHViewController;
-  [(PHViewController *)&v6 didReceiveMemoryWarning];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = PHViewController;
+  [(PHViewController *)&v5 didReceiveMemoryWarning];
 }
 
 - (void)setContentUnavailable:(BOOL)unavailable animated:(BOOL)animated

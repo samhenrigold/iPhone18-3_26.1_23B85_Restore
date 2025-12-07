@@ -1,18 +1,21 @@
 @interface HDDataManager
 - (BOOL)_synchronousObserverLock_hasSynchronousObserverForSampleType:(uint64_t)type;
 - (BOOL)containsDataObject:(id)object;
+- (BOOL)deleteDataObjects:(id)objects restrictedSourceEntities:(id)entities failIfNotFound:(BOOL)found recursiveDeleteAuthorizationBlock:(id)block error:(id *)error;
 - (BOOL)deleteDataObjectsOfClass:(Class)class predicate:(id)predicate limit:(unint64_t)limit deletedSampleCount:(unint64_t *)count notifyObservers:(BOOL)observers generateDeletedObjects:(BOOL)objects userRequested:(BOOL)requested recursiveDeleteAuthorizationBlock:(id)self0 error:(id *)self1;
 - (BOOL)deleteObjectsWithUUIDCollection:(id)collection configuration:(id)configuration error:(id *)error;
 - (BOOL)deleteSamplesWithSourceEntities:(id)entities error:(id *)error;
 - (BOOL)deleteSamplesWithTypes:(id)types sourceBundleIdentifier:(id)identifier userRequested:(BOOL)requested recursiveDeleteAuthorizationBlock:(id)block error:(id *)error;
+- (BOOL)deleteSamplesWithUUIDs:(id)ds generateDeletedObjects:(BOOL)objects transaction:(id)transaction error:(id *)error;
 - (BOOL)deleteSamplesWithUUIDs:(id)ds userRequested:(BOOL)requested recursiveDeleteAuthorizationBlock:(id)block error:(id *)error;
 - (BOOL)insertDataObjects:(id)objects error:(id *)error;
 - (BOOL)insertDataObjects:(id)objects sourceEntity:(id)entity deviceEntity:(id)deviceEntity sourceVersion:(id)version creationDate:(double)date error:(id *)error;
 - (BOOL)insertDataObjects:(id)objects sourceEntity:(id)entity deviceEntity:(id)deviceEntity sourceVersion:(id)version creationDate:(double)date timeZone:(id)zone OSVersion:(id *)sVersion error:(id *)self0;
+- (BOOL)insertDataObjects:(id)objects withProvenance:(id)provenance creationDate:(double)date skipInsertionFilter:(BOOL)filter updateSourceOrder:(BOOL)order resolveAssociations:(BOOL)associations transactionContext:(id)context error:(id *)self0;
 - (HDDataManager)initWithProfile:(id)profile;
 - (id)_observersForAllTypes;
 - (id)_queue_observersAllTypesCreateIfNil:(uint64_t)nil;
-- (id)_queue_observersForDataType:(int)type createIfNil:;
+- (id)_queue_observersForDataType:(uint64_t)type createIfNil:;
 - (id)_queue_observersForKey:(int)key createIfNil:;
 - (id)_synchronousObserverLock_synchronousObserverSetForSampleType:(uint64_t)type;
 - (id)diagnosticDescription;
@@ -34,6 +37,7 @@
 - (void)removeSynchronousObserver:(id)observer forSampleType:(id)type;
 - (void)setBackgroundObserverFrequency:(id)frequency forDataType:(id)type frequency:(int64_t)a5 appSDKVersionToken:(unint64_t)token completion:(id)completion;
 - (void)shouldNotifyForDataObjects:(id)objects provenance:(id)provenance database:(id)database anchor:(id)anchor;
+- (void)shouldNotifyForDeletedSamplesOfTypes:(id)types intervals:(id)intervals userRequested:(BOOL)requested transaction:(id)transaction anchor:(id)anchor;
 - (void)synchronouslyCloseObserverTransactionAndNotify;
 @end
 
@@ -100,7 +104,7 @@ void __41__HDDataManager__callObserversIfPossible__block_invoke(void *a1)
   if (!*(a1[4] + 56))
   {
     *(*(a1[5] + 8) + 24) = 1;
-    v3 = [*(a1[4] + 64) copy];
+    v3 = objc_msgSend_copy(*(a1[4] + 64));
     v4 = *(a1[6] + 8);
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
@@ -148,7 +152,7 @@ void __38__HDDataManager__observersForAllTypes__block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:-1];
   v3 = [(HDDataManager *)v2 _queue_observersForKey:v7 createIfNil:0];
-  v4 = [v3 copy];
+  v4 = objc_msgSend_copy(v3);
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
@@ -301,6 +305,42 @@ void __41__HDDataManager_closeObserverTransaction__block_invoke(uint64_t a1)
   LOBYTE(error) = [(HDDataManager *)self insertDataObjects:objectsCopy withProvenance:defaultLocalDataProvenance creationDate:0 skipInsertionFilter:1 updateSourceOrder:0 resolveAssociations:error error:CFAbsoluteTimeGetCurrent()];
 
   return error;
+}
+
+- (BOOL)insertDataObjects:(id)objects withProvenance:(id)provenance creationDate:(double)date skipInsertionFilter:(BOOL)filter updateSourceOrder:(BOOL)order resolveAssociations:(BOOL)associations transactionContext:(id)context error:(id *)self0
+{
+  associationsCopy = associations;
+  filterCopy = filter;
+  objectsCopy = objects;
+  contextCopy = context;
+  provenanceCopy = provenance;
+  v20 = [HDDataEntityInsertionContext alloc];
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v22 = [(HDDataEntityInsertionContext *)v20 initWithProvenance:provenanceCopy creationDate:filterCopy skipInsertionFilter:associationsCopy resolveAssociations:WeakRetained profile:date];
+
+  v23 = objc_loadWeakRetained(&self->_profile);
+  database = [v23 database];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skipInsertionFilter_updateSourceOrder_resolveAssociations_transactionContext_error___block_invoke;
+  v33[3] = &unk_278625380;
+  v33[4] = self;
+  v34 = objectsCopy;
+  v35 = v22;
+  orderCopy = order;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skipInsertionFilter_updateSourceOrder_resolveAssociations_transactionContext_error___block_invoke_2;
+  v29[3] = &unk_2786253A8;
+  v29[4] = self;
+  v30 = v34;
+  v31 = v35;
+  orderCopy2 = order;
+  v25 = v35;
+  v26 = v34;
+  v27 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:database context:contextCopy error:error block:v33 inaccessibilityHandler:v29];
+
+  return v27;
 }
 
 uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skipInsertionFilter_updateSourceOrder_resolveAssociations_transactionContext_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -493,11 +533,11 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
 
 - (uint64_t)_updateSourceAndLastAnchorForObjects:(void *)objects insertionContext:(void *)context lastInsertedID:(char)d isDatabaseAccessible:(int)accessible shouldUpdateSourceOrder:(void *)order error:
 {
-  v66 = *MEMORY[0x277D85DE8];
-  v45 = a2;
+  v65 = *MEMORY[0x277D85DE8];
+  v44 = a2;
   objectsCopy = objects;
   contextCopy = context;
-  v42 = objectsCopy;
+  v41 = objectsCopy;
   provenance = [objectsCopy provenance];
   WeakRetained = objc_loadWeakRetained((self + 120));
   sourceManager = [WeakRetained sourceManager];
@@ -511,7 +551,7 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
     productType = [provenance productType];
     if (provenance)
     {
-      [provenance operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(provenance);
     }
 
     else
@@ -519,12 +559,12 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
       memset(buf, 0, sizeof(buf));
     }
 
-    v44 = [v17 initWithSource:v16 version:sourceVersion productType:productType operatingSystemVersion:buf];
+    v43 = [v17 initWithSource:v16 version:sourceVersion productType:productType operatingSystemVersion:buf];
   }
 
   else
   {
-    v44 = 0;
+    v43 = 0;
   }
 
   deviceID = [provenance deviceID];
@@ -532,11 +572,11 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
   {
     v21 = objc_loadWeakRetained((self + 120));
     deviceManager = [v21 deviceManager];
-    v59 = 0;
-    v47 = [deviceManager deviceForPersistentID:deviceID error:&v59];
-    v23 = v59;
+    v58 = 0;
+    v46 = [deviceManager deviceForPersistentID:deviceID error:&v58];
+    v23 = v58;
 
-    if (!v47)
+    if (!v46)
     {
       if (v23)
       {
@@ -556,46 +596,46 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
 
   else
   {
-    v47 = 0;
+    v46 = 0;
   }
 
   contributorReference = [provenance contributorReference];
   v26 = objc_loadWeakRetained((self + 120));
   contributorManager = [v26 contributorManager];
-  v58 = 0;
-  v28 = [contributorManager contributorForReference:contributorReference error:&v58];
-  v29 = v58;
+  v57 = 0;
+  v28 = [contributorManager contributorForReference:contributorReference error:&v57];
+  v29 = v57;
 
   if (v28 || (d & 1) != 0 || !v29 || ([v29 hk_isDatabaseAccessibilityError] & 1) != 0)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v63 = __Block_byref_object_copy__129;
-    v64 = __Block_byref_object_dispose__129;
-    v65 = 0;
+    v62 = __Block_byref_object_copy__129;
+    v63 = __Block_byref_object_dispose__129;
+    v64 = 0;
     v30 = *(self + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __137__HDDataManager__updateSourceAndLastAnchorForObjects_insertionContext_lastInsertedID_isDatabaseAccessible_shouldUpdateSourceOrder_error___block_invoke;
     block[3] = &unk_2786253F8;
-    v50 = v45;
-    v51 = v44;
-    v52 = v47;
-    v53 = v28;
+    v49 = v44;
+    v50 = v43;
+    v51 = v46;
+    v52 = v28;
     selfCopy = self;
-    v55 = provenance;
-    v57 = buf;
-    v56 = contextCopy;
+    v54 = provenance;
+    v56 = buf;
+    v55 = contextCopy;
     dispatch_sync(v30, block);
     if (v16 && accessible)
     {
       v31 = objc_loadWeakRetained((self + 120));
       sourceOrderManager = [v31 sourceOrderManager];
       v33 = *(*&buf[8] + 40);
-      v48 = 0;
-      v34 = [sourceOrderManager addOrderedSource:v16 objectTypes:v33 error:&v48];
-      v35 = v48;
+      v47 = 0;
+      v34 = [sourceOrderManager addOrderedSource:v16 objectTypes:v33 error:&v47];
+      v35 = v47;
 
       if ((v34 & 1) == 0)
       {
@@ -603,9 +643,9 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
         v36 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
-          *v60 = 138543362;
-          v61 = v35;
-          _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "Failed to update source order during insert: %{public}@", v60, 0xCu);
+          *v59 = 138543362;
+          v60 = v35;
+          _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "Failed to update source order during insert: %{public}@", v59, 0xCu);
         }
       }
     }
@@ -616,7 +656,7 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
 
   else if (order)
   {
-    v40 = v29;
+    v39 = v29;
     v37 = 0;
     *order = v29;
   }
@@ -627,73 +667,72 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
     v37 = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (void)_notifySynchronousObserversIfPossibleInTransaction:(uint64_t)transaction
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v14 = a2;
+  v40 = *MEMORY[0x277D85DE8];
+  v13 = a2;
   if (transaction)
   {
     dispatch_assert_queue_not_V2(*(transaction + 8));
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__129;
-    v34 = __Block_byref_object_dispose__129;
     v35 = 0;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__129;
-    v28 = __Block_byref_object_dispose__129;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
     v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__129;
+    v33 = __Block_byref_object_dispose__129;
+    v34 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__129;
+    v27 = __Block_byref_object_dispose__129;
+    v28 = 0;
     v3 = *(transaction + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___block_invoke;
     block[3] = &unk_2786255D0;
     block[4] = transaction;
-    block[5] = &v36;
-    block[6] = &v30;
-    block[7] = &v24;
+    block[5] = &v35;
+    block[6] = &v29;
+    block[7] = &v23;
     dispatch_sync(v3, block);
-    if (*(v37 + 24) == 1)
+    if (*(v36 + 24) == 1)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
-      v4 = v31[5];
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v40 count:16];
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v4 = v30[5];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v39 count:16];
       if (v5)
       {
-        v6 = *v20;
+        v6 = *v19;
         do
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v20 != v6)
+            if (*v19 != v6)
             {
               objc_enumerationMutation(v4);
             }
 
-            v8 = *(*(&v19 + 1) + 8 * i);
-            v9 = [v31[5] objectForKeyedSubscript:{v8, v14}];
+            v8 = *(*(&v18 + 1) + 8 * i);
+            v9 = [v30[5] objectForKeyedSubscript:{v8, v13}];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v10 = v25[5];
+              v10 = v24[5];
               v11 = *(transaction + 112);
               if (v10)
               {
-                [v11 samplesAdded:v9 type:v8 anchor:v10 transaction:v14];
+                [v11 samplesAdded:v9 type:v8 anchor:v10 transaction:v13];
               }
 
               else
@@ -709,14 +748,14 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
               os_unfair_lock_unlock((transaction + 32));
               if (v12)
               {
-                v15[0] = MEMORY[0x277D85DD0];
-                v15[1] = 3221225472;
-                v15[2] = __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___block_invoke_2;
-                v15[3] = &unk_2786255F8;
-                v18 = &v24;
-                v16 = v9;
-                v17 = v8;
-                [v12 notifyObservers:v15];
+                v14[0] = MEMORY[0x277D85DD0];
+                v14[1] = 3221225472;
+                v14[2] = __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___block_invoke_2;
+                v14[3] = &unk_2786255F8;
+                v17 = &v23;
+                v15 = v9;
+                v16 = v8;
+                [v12 notifyObservers:v14];
               }
             }
 
@@ -726,26 +765,24 @@ uint64_t __146__HDDataManager_insertDataObjects_withProvenance_creationDate_skip
             }
           }
 
-          v5 = [v4 countByEnumeratingWithState:&v19 objects:v40 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v18 objects:v39 count:16];
         }
 
         while (v5);
       }
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v35, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDDataManager__insertDataObjects_insertionContext_lastInsertedIDOut_error___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5)
 {
   v6 = a4;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
   v11 = v10;
@@ -766,9 +803,9 @@ void __77__HDDataManager__insertDataObjects_insertionContext_lastInsertedIDOut_e
     v13 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "Failed to insert data objects: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_INFO, "Failed to insert data objects: %{public}@", &v14, 0xCu);
     }
 
     v12 = 48;
@@ -776,37 +813,35 @@ void __77__HDDataManager__insertDataObjects_insertionContext_lastInsertedIDOut_e
   }
 
   objc_storeStrong((*(*(a1 + v12) + 8) + 40), v6);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __137__HDDataManager__updateSourceAndLastAnchorForObjects_insertionContext_lastInsertedID_isDatabaseAccessible_shouldUpdateSourceOrder_error___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         if (*(a1 + 40))
         {
-          [*(*(&v15 + 1) + 8 * v6) _setSourceRevision:v15];
+          [*(*(&v14 + 1) + 8 * v6) _setSourceRevision:v14];
         }
 
         if (*(a1 + 48))
@@ -845,7 +880,7 @@ void __137__HDDataManager__updateSourceAndLastAnchorForObjects_insertionContext_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -857,7 +892,6 @@ void __137__HDDataManager__updateSourceAndLastAnchorForObjects_insertionContext_
   *(v12 + 40) = v11;
 
   objc_storeStrong((*(a1 + 64) + 72), *(a1 + 80));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke(void *a1)
@@ -876,14 +910,14 @@ void __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke(voi
 
 void __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "Discarding pending samples due to transaction rollback: %@", buf, 0xCu);
   }
 
@@ -893,11 +927,9 @@ void __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke_4(u
   block[1] = 3221225472;
   block[2] = __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke_323;
   block[3] = &unk_27861A1D0;
-  v9 = v5;
-  v10 = *(a1 + 48);
+  v8 = v5;
+  v9 = *(a1 + 48);
   dispatch_sync(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDDataManager__addTransactionInsertionCommitBlocks___block_invoke_323(void *a1)
@@ -972,7 +1004,7 @@ void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor__
 
 void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 72), *(a1 + 40));
   if (!*(a1 + 48))
   {
@@ -982,40 +1014,40 @@ void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor__
       v2 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v20 = *(a1 + 64);
-        v21 = v2;
-        v22 = [v20 sourceID];
-        v23 = *(a1 + 56);
+        v19 = *(a1 + 64);
+        v20 = v2;
+        v21 = [v19 sourceID];
+        v22 = *(a1 + 56);
         *buf = 138412546;
-        *&buf[4] = v22;
+        *&buf[4] = v21;
         *&buf[12] = 2114;
-        *&buf[14] = v23;
-        _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Failed to lookup source %@ during insert notification: %{public}@", buf, 0x16u);
+        *&buf[14] = v22;
+        _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Failed to lookup source %@ during insert notification: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v3 = *(a1 + 72);
-  v4 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
-    v24 = *v26;
+    v6 = *v25;
+    v23 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         v9 = [v8 hd_sampleType];
         if (v9)
         {
@@ -1044,7 +1076,7 @@ void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor__
             v17 = *(a1 + 64);
             if (v17)
             {
-              [v17 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v17);
             }
 
             else
@@ -1055,7 +1087,7 @@ void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor__
             v18 = [v14 initWithSource:v12 version:v15 productType:v16 operatingSystemVersion:buf];
             [v8 _setSourceRevision:v18];
 
-            v6 = v24;
+            v6 = v23;
           }
 
           else
@@ -1065,13 +1097,143 @@ void __71__HDDataManager_shouldNotifyForDataObjects_provenance_database_anchor__
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)shouldNotifyForDeletedSamplesOfTypes:(id)types intervals:(id)intervals userRequested:(BOOL)requested transaction:(id)transaction anchor:(id)anchor
+{
+  requestedCopy = requested;
+  v58 = *MEMORY[0x277D85DE8];
+  typesCopy = types;
+  anchorCopy = anchor;
+  transactionCopy = transaction;
+  intervalsCopy = intervals;
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  [HDCloudSyncStore samplesDeletedInProfile:WeakRetained byUser:requestedCopy intervals:intervalsCopy];
+
+  v17 = typesCopy;
+  v18 = anchorCopy;
+  v40 = transactionCopy;
+  if (self)
+  {
+    os_unfair_lock_lock(&self->_synchronousObserverLock);
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v39 = v17;
+    v19 = v17;
+    v20 = [v19 countByEnumeratingWithState:&v51 objects:v57 count:16];
+    selfCopy = self;
+    if (v20)
+    {
+      v21 = v20;
+      v22 = 0;
+      v23 = *v52;
+      do
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v52 != v23)
+          {
+            objc_enumerationMutation(v19);
+          }
+
+          v25 = *(*(&v51 + 1) + 8 * i);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v26 = v25;
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              quantitySeriesManager = self->_quantitySeriesManager;
+              v56 = v26;
+              v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+              [(HDQuantitySeriesManager *)quantitySeriesManager samplesOfTypesWereRemoved:v28 anchor:v18 transaction:v40];
+
+              self = selfCopy;
+            }
+
+            if ([(HDDataManager *)self _synchronousObserverLock_hasSynchronousObserverForSampleType:v26])
+            {
+              if (!v22)
+              {
+                v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              }
+
+              v29 = [(HDDataManager *)self _synchronousObserverLock_synchronousObserverSetForSampleType:v26];
+              [v22 setObject:v29 forKeyedSubscript:v26];
+            }
+          }
+        }
+
+        v21 = [v19 countByEnumeratingWithState:&v51 objects:v57 count:16];
+      }
+
+      while (v21);
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    os_unfair_lock_unlock(&self->_synchronousObserverLock);
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v30 = v22;
+    v31 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    if (v31)
+    {
+      v32 = v31;
+      v33 = *v48;
+      do
+      {
+        for (j = 0; j != v32; ++j)
+        {
+          if (*v48 != v33)
+          {
+            objc_enumerationMutation(v30);
+          }
+
+          v35 = *(*(&v47 + 1) + 8 * j);
+          v36 = [v30 objectForKeyedSubscript:{v35, v39}];
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __85__HDDataManager__notifySynchronousObserversForDeletedObjectTypes_anchor_transaction___block_invoke;
+          v45[3] = &unk_278625620;
+          v45[4] = v35;
+          v46 = v18;
+          [v36 notifyObservers:v45];
+        }
+
+        v32 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      }
+
+      while (v32);
+    }
+
+    self = selfCopy;
+    v17 = v39;
+  }
+
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequested_transaction_anchor___block_invoke;
+  v42[3] = &unk_278613830;
+  v42[4] = self;
+  v43 = v17;
+  v44 = v18;
+  v37 = v18;
+  v38 = v17;
+  [v40 onCommit:v42 orRollback:0];
 }
 
 void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequested_transaction_anchor___block_invoke(uint64_t a1)
@@ -1091,7 +1253,7 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
 
 void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequested_transaction_anchor___block_invoke_2(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -1100,53 +1262,53 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
   {
     v5 = [(HDDataManager *)v1 _observersForAllTypes];
     v6 = [MEMORY[0x277CBEB58] set];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v36;
+      v10 = *v35;
       do
       {
         v11 = 0;
         do
         {
-          if (*v36 != v10)
+          if (*v35 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v6 addObject:*(*(&v35 + 1) + 8 * v11++)];
+          [v6 addObject:*(*(&v34 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v9);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v26 = v3;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v25 = v3;
     v12 = v3;
-    v13 = [v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v32;
+      v15 = *v31;
       do
       {
         v16 = 0;
         do
         {
-          if (*v32 != v15)
+          if (*v31 != v15)
           {
             objc_enumerationMutation(v12);
           }
@@ -1159,33 +1321,33 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v14);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v19 = v6;
-    v20 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v28;
+      v22 = *v27;
       do
       {
         v23 = 0;
         do
         {
-          if (*v28 != v22)
+          if (*v27 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v27 + 1) + 8 * v23);
+          v24 = *(*(&v26 + 1) + 8 * v23);
           if (objc_opt_respondsToSelector())
           {
             [v24 samplesOfTypesWereRemoved:v12 anchor:v4];
@@ -1195,21 +1357,19 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
       }
 
       while (v21);
     }
 
-    v3 = v26;
+    v3 = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldNotifyForDeletedSamplesOfTypes:(void *)types intervals:(char)intervals userRequested:(void *)requested anchor:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v9 = a2;
   typesCopy = types;
   requestedCopy = requested;
@@ -1217,18 +1377,18 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
   {
     WeakRetained = objc_loadWeakRetained((self + 120));
     database = [WeakRetained database];
-    v23 = 0;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __86__HDDataManager__shouldNotifyForDeletedSamplesOfTypes_intervals_userRequested_anchor___block_invoke;
-    v18[3] = &unk_278621B40;
-    v18[4] = self;
-    v19 = v9;
-    v20 = typesCopy;
+    v22 = 0;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __86__HDDataManager__shouldNotifyForDeletedSamplesOfTypes_intervals_userRequested_anchor___block_invoke;
+    v17[3] = &unk_278621B40;
+    v17[4] = self;
+    v18 = v9;
+    v19 = typesCopy;
     intervalsCopy = intervals;
-    v21 = requestedCopy;
-    v14 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:database error:&v23 block:v18];
-    v15 = v23;
+    v20 = requestedCopy;
+    v14 = [(HDHealthEntity *)HDDataEntity performWriteTransactionWithHealthDatabase:database error:&v22 block:v17];
+    v15 = v22;
 
     if (!v14)
     {
@@ -1237,57 +1397,55 @@ void __97__HDDataManager_shouldNotifyForDeletedSamplesOfTypes_intervals_userRequ
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v25 = v15;
+        v24 = v15;
         _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Failed to get write transaction for setting up sample deletion commit hook: %{public}@.", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDDataManager__notifyObserversWithAddedObjectsBySampleType_lastAnchor___block_invoke(uint64_t a1)
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB98]);
   v3 = [*(a1 + 32) allKeys];
   v4 = [v2 initWithArray:v3];
 
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 120));
-  v66 = [WeakRetained appSubscriptionManager];
+  v64 = [WeakRetained appSubscriptionManager];
 
-  v93 = 0u;
-  v94 = 0u;
   v91 = 0u;
   v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   obj = v4;
-  v68 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
-  if (v68)
+  v66 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
+  if (v66)
   {
-    v67 = *v92;
-    v65 = a1;
+    v65 = *v90;
+    v63 = a1;
     do
     {
       v7 = 0;
       do
       {
-        if (*v92 != v67)
+        if (*v90 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v91 + 1) + 8 * v7);
+        v8 = *(*(&v89 + 1) + 8 * v7);
         v9 = *(a1 + 48);
         if (v9)
         {
-          [v66 setAnchor:v9 forDataCode:objc_msgSend(*(*(&v91 + 1) + 8 * v7) type:{"code"), 0}];
+          [v64 setAnchor:v9 forDataCode:objc_msgSend(*(*(&v89 + 1) + 8 * v7) type:{"code"), 0}];
         }
 
         v10 = [(HDDataManager *)*(a1 + 40) _observersForDataType:v8];
         if ([v10 count])
         {
-          v71 = v7;
+          v69 = v7;
           v11 = [*(a1 + 32) objectForKeyedSubscript:v8];
           v12 = *(a1 + 48);
           v13 = [v11 count];
@@ -1300,267 +1458,261 @@ void __73__HDDataManager__notifyObserversWithAddedObjectsBySampleType_lastAnchor
           *(*(a1 + 40) + v14) += v13;
           v15 = *(a1 + 40);
           v16 = *(a1 + 48);
-          v70 = v10;
+          v68 = v10;
           v17 = v10;
           v18 = v11;
           v19 = v8;
           v20 = v16;
           if (v15)
           {
-            v97 = 0u;
-            v98 = 0u;
             v95 = 0u;
             v96 = 0u;
-            v21 = [v17 countByEnumeratingWithState:&v95 objects:buf count:16];
+            v93 = 0u;
+            v94 = 0u;
+            v21 = [v17 countByEnumeratingWithState:&v93 objects:buf count:16];
             if (v21)
             {
               v22 = v21;
-              v23 = *v96;
+              v23 = *v94;
               do
               {
                 v24 = 0;
                 do
                 {
-                  if (*v96 != v23)
+                  if (*v94 != v23)
                   {
                     objc_enumerationMutation(v17);
                   }
 
-                  v25 = *(*(&v95 + 1) + 8 * v24);
+                  v25 = *(*(&v93 + 1) + 8 * v24);
                   if (v20)
                   {
-                    [*(*(&v95 + 1) + 8 * v24) samplesAdded:v18 anchor:v20];
+                    [*(*(&v93 + 1) + 8 * v24) samplesAdded:v18 anchor:v20];
                   }
 
-                  else
+                  else if (objc_opt_respondsToSelector())
                   {
-                    v26 = *(*(&v95 + 1) + 8 * v24);
-                    if (objc_opt_respondsToSelector())
-                    {
-                      [v25 samplesJournaled:v18 type:v19];
-                    }
+                    [v25 samplesJournaled:v18 type:v19];
                   }
 
                   ++v24;
                 }
 
                 while (v22 != v24);
-                v22 = [v17 countByEnumeratingWithState:&v95 objects:buf count:16];
+                v22 = [v17 countByEnumeratingWithState:&v93 objects:buf count:16];
               }
 
               while (v22);
             }
           }
 
+          v85 = 0u;
+          v86 = 0u;
           v87 = 0u;
           v88 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v27 = v17;
-          v28 = [v27 countByEnumeratingWithState:&v87 objects:v102 count:16];
-          a1 = v65;
-          if (v28)
+          v26 = v17;
+          v27 = [v26 countByEnumeratingWithState:&v85 objects:v100 count:16];
+          a1 = v63;
+          if (v27)
           {
-            v29 = v28;
-            v30 = *v88;
+            v28 = v27;
+            v29 = *v86;
             do
             {
-              v31 = 0;
+              v30 = 0;
               do
               {
-                if (*v88 != v30)
+                if (*v86 != v29)
                 {
-                  objc_enumerationMutation(v27);
+                  objc_enumerationMutation(v26);
                 }
 
-                [v5 addObject:*(*(&v87 + 1) + 8 * v31++)];
+                [v5 addObject:*(*(&v85 + 1) + 8 * v30++)];
               }
 
-              while (v29 != v31);
-              v29 = [v27 countByEnumeratingWithState:&v87 objects:v102 count:16];
+              while (v28 != v30);
+              v28 = [v26 countByEnumeratingWithState:&v85 objects:v100 count:16];
             }
 
-            while (v29);
+            while (v28);
           }
 
-          v10 = v70;
-          v7 = v71;
+          v10 = v68;
+          v7 = v69;
         }
 
         ++v7;
       }
 
-      while (v7 != v68);
-      v68 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
+      while (v7 != v66);
+      v66 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
     }
 
-    while (v68);
+    while (v66);
   }
 
   if (*(a1 + 48))
   {
-    v85 = 0u;
-    v86 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v32 = v5;
-    v33 = [v32 countByEnumeratingWithState:&v83 objects:v101 count:16];
-    if (v33)
+    v81 = 0u;
+    v82 = 0u;
+    v31 = v5;
+    v32 = [v31 countByEnumeratingWithState:&v81 objects:v99 count:16];
+    if (v32)
     {
-      v34 = v33;
-      v35 = *v84;
+      v33 = v32;
+      v34 = *v82;
       do
       {
-        v36 = 0;
+        v35 = 0;
         do
         {
-          if (*v84 != v35)
+          if (*v82 != v34)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v31);
           }
 
-          v37 = *(*(&v83 + 1) + 8 * v36);
+          v36 = *(*(&v81 + 1) + 8 * v35);
           if (objc_opt_respondsToSelector())
           {
-            [v37 didAddSamplesOfTypes:obj anchor:*(a1 + 48)];
+            [v36 didAddSamplesOfTypes:obj anchor:*(a1 + 48)];
           }
 
-          ++v36;
+          ++v35;
         }
 
-        while (v34 != v36);
-        v34 = [v32 countByEnumeratingWithState:&v83 objects:v101 count:16];
+        while (v33 != v35);
+        v33 = [v31 countByEnumeratingWithState:&v81 objects:v99 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
   }
 
-  v38 = [(HDDataManager *)*(a1 + 40) _observersForAllTypes];
-  if ([v38 count])
+  v37 = [(HDDataManager *)*(a1 + 40) _observersForAllTypes];
+  if ([v37 count])
   {
-    v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v40 = *(a1 + 32);
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = __73__HDDataManager__notifyObserversWithAddedObjectsBySampleType_lastAnchor___block_invoke_2;
-    v81[3] = &unk_278625470;
-    v41 = v39;
-    v82 = v41;
-    [v40 enumerateKeysAndObjectsUsingBlock:v81];
-    v79 = 0u;
-    v80 = 0u;
+    v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v39 = *(a1 + 32);
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __73__HDDataManager__notifyObserversWithAddedObjectsBySampleType_lastAnchor___block_invoke_2;
+    v79[3] = &unk_278625470;
+    v40 = v38;
+    v80 = v40;
+    [v39 enumerateKeysAndObjectsUsingBlock:v79];
     v77 = 0u;
     v78 = 0u;
-    v42 = v38;
-    v43 = [v42 countByEnumeratingWithState:&v77 objects:v100 count:16];
-    if (v43)
+    v75 = 0u;
+    v76 = 0u;
+    v41 = v37;
+    v42 = [v41 countByEnumeratingWithState:&v75 objects:v98 count:16];
+    if (v42)
     {
-      v44 = v43;
-      v45 = *v78;
+      v43 = v42;
+      v44 = *v76;
       do
       {
-        v46 = 0;
+        v45 = 0;
         do
         {
-          if (*v78 != v45)
+          if (*v76 != v44)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v41);
           }
 
-          [*(*(&v77 + 1) + 8 * v46++) samplesAdded:v41 anchor:*(a1 + 48)];
+          [*(*(&v75 + 1) + 8 * v45++) samplesAdded:v40 anchor:*(a1 + 48)];
         }
 
-        while (v44 != v46);
-        v44 = [v42 countByEnumeratingWithState:&v77 objects:v100 count:16];
+        while (v43 != v45);
+        v43 = [v41 countByEnumeratingWithState:&v75 objects:v98 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
 
     if (*(a1 + 48))
     {
-      v72 = v38;
-      v47 = a1;
-      v75 = 0u;
-      v76 = 0u;
+      v70 = v37;
+      v46 = a1;
       v73 = 0u;
       v74 = 0u;
-      v48 = v42;
-      v49 = [v48 countByEnumeratingWithState:&v73 objects:v99 count:16];
-      if (v49)
+      v71 = 0u;
+      v72 = 0u;
+      v47 = v41;
+      v48 = [v47 countByEnumeratingWithState:&v71 objects:v97 count:16];
+      if (v48)
       {
-        v50 = v49;
-        v51 = *v74;
+        v49 = v48;
+        v50 = *v72;
         do
         {
-          v52 = 0;
+          v51 = 0;
           do
           {
-            if (*v74 != v51)
+            if (*v72 != v50)
             {
-              objc_enumerationMutation(v48);
+              objc_enumerationMutation(v47);
             }
 
-            v53 = *(*(&v73 + 1) + 8 * v52);
+            v52 = *(*(&v71 + 1) + 8 * v51);
             if (objc_opt_respondsToSelector())
             {
-              [v53 didAddSamplesOfTypes:obj anchor:*(v47 + 48)];
+              [v52 didAddSamplesOfTypes:obj anchor:*(v46 + 48)];
             }
 
-            ++v52;
+            ++v51;
           }
 
-          while (v50 != v52);
-          v50 = [v48 countByEnumeratingWithState:&v73 objects:v99 count:16];
+          while (v49 != v51);
+          v49 = [v47 countByEnumeratingWithState:&v71 objects:v97 count:16];
         }
 
-        while (v50);
+        while (v49);
       }
 
-      a1 = v47;
-      v38 = v72;
+      a1 = v46;
+      v37 = v70;
     }
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v55 = *(a1 + 40);
-  if (Current - *(v55 + 80) > 300.0 || (v56 = *(v55 + 88), v56 == -1))
+  v54 = *(a1 + 40);
+  if (Current - *(v54 + 80) > 300.0 || (v55 = *(v54 + 88), v55 == -1))
   {
     _HKInitializeLogging();
-    v57 = *MEMORY[0x277CCC2A0];
+    v56 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
-      v58 = *(a1 + 40);
-      v59 = v58[12];
-      v60 = v58[11] & ~(v58[11] >> 63);
-      v61 = v58[13];
-      v62 = v57;
-      v63 = HKDiagnosticStringFromDuration();
+      v57 = *(a1 + 40);
+      v58 = v57[12];
+      v59 = v57[11] & ~(v57[11] >> 63);
+      v60 = v57[13];
+      v61 = v56;
+      v62 = HKDiagnosticStringFromDuration();
       *buf = 138544386;
-      v105 = v58;
+      v103 = v57;
+      v104 = 2048;
+      v105 = v59;
       v106 = 2048;
-      v107 = v60;
+      v107 = v58;
       v108 = 2048;
-      v109 = v59;
-      v110 = 2048;
-      v111 = v61;
-      v112 = 2114;
-      v113 = v63;
-      _os_log_impl(&dword_228986000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@: added samples notifications (%ld): %ld added, %ld journaled in past %{public}@", buf, 0x34u);
+      v109 = v60;
+      v110 = 2114;
+      v111 = v62;
+      _os_log_impl(&dword_228986000, v61, OS_LOG_TYPE_DEFAULT, "%{public}@: added samples notifications (%ld): %ld added, %ld journaled in past %{public}@", buf, 0x34u);
     }
 
     *(*(a1 + 40) + 80) = Current;
     *(*(a1 + 40) + 88) = 0;
     *(*(a1 + 40) + 96) = 0;
     *(*(a1 + 40) + 104) = 0;
-    v55 = *(a1 + 40);
-    v56 = *(v55 + 88);
+    v54 = *(a1 + 40);
+    v55 = *(v54 + 88);
   }
 
-  *(v55 + 88) = v56 + 1;
-
-  v64 = *MEMORY[0x277D85DE8];
+  *(v54 + 88) = v55 + 1;
 }
 
 - (void)_observersForDataType:(void *)type
@@ -1863,6 +2015,57 @@ uint64_t __69__HDDataManager_deleteObjectsWithUUIDCollection_configuration_error
   return v8;
 }
 
+- (BOOL)deleteDataObjects:(id)objects restrictedSourceEntities:(id)entities failIfNotFound:(BOOL)found recursiveDeleteAuthorizationBlock:(id)block error:(id *)error
+{
+  foundCopy = found;
+  objectsCopy = objects;
+  entitiesCopy = entities;
+  blockCopy = block;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__129;
+  v31 = __Block_byref_object_dispose__129;
+  v32 = 0;
+  WeakRetained = objc_loadWeakRetained(&self->_profile);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __115__HDDataManager_deleteDataObjects_restrictedSourceEntities_failIfNotFound_recursiveDeleteAuthorizationBlock_error___block_invoke;
+  v22[3] = &unk_278625508;
+  v25 = &v33;
+  v26 = &v27;
+  v16 = objectsCopy;
+  v23 = v16;
+  selfCopy = self;
+  [HDDataEntity deleteDataObjects:v16 restrictedSourceEntities:entitiesCopy failIfNotFound:foundCopy profile:WeakRetained recursiveDeleteAuthorizationBlock:blockCopy completionHandler:v22];
+
+  v17 = v28[5];
+  v18 = v17;
+  if (v17)
+  {
+    if (error)
+    {
+      v19 = v17;
+      *error = v18;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  v20 = *(v34 + 24);
+  _Block_object_dispose(&v27, 8);
+
+  _Block_object_dispose(&v33, 8);
+  return v20;
+}
+
 void __115__HDDataManager_deleteDataObjects_restrictedSourceEntities_failIfNotFound_recursiveDeleteAuthorizationBlock_error___block_invoke(void *a1, int a2, int a3, void *a4, void *a5, void *a6)
 {
   v17 = a4;
@@ -2072,49 +2275,49 @@ void __170__HDDataManager_deleteDataObjectsOfClass_predicate_limit_deletedSample
 
 - (uint64_t)_deleteObjectsWithTypes:(void *)types sourceEntities:(void *)entities recursiveDeleteAuthorizationBlock:(char)block userRequested:(void *)requested error:
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v11 = a2;
   typesCopy = types;
   entitiesCopy = entities;
   if (self)
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__129;
-    v34 = __Block_byref_object_dispose__129;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__129;
+    v33 = __Block_byref_object_dispose__129;
+    v34 = 0;
     _HKInitializeLogging();
     v14 = *MEMORY[0x277CCC2B0];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = [v11 count];
       *buf = 134218242;
-      v41 = v15;
-      v42 = 2112;
-      v43 = typesCopy;
+      v40 = v15;
+      v41 = 2112;
+      v42 = typesCopy;
       _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "Deleting %lu object types for sources: %@", buf, 0x16u);
     }
 
     v16 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self activityName:@"DeleteObjectsForSources"];
     WeakRetained = objc_loadWeakRetained((self + 120));
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __110__HDDataManager__deleteObjectsWithTypes_sourceEntities_recursiveDeleteAuthorizationBlock_userRequested_error___block_invoke;
-    v25[3] = &unk_2786255A8;
-    v27 = &v36;
-    v28 = &v30;
-    v25[4] = self;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __110__HDDataManager__deleteObjectsWithTypes_sourceEntities_recursiveDeleteAuthorizationBlock_userRequested_error___block_invoke;
+    v24[3] = &unk_2786255A8;
+    v26 = &v35;
+    v27 = &v29;
+    v24[4] = self;
     blockCopy = block;
     v18 = v16;
-    v26 = v18;
-    [HDSampleEntity deleteSamplesWithTypes:v11 sourceEntities:typesCopy profile:WeakRetained recursiveDeleteAuthorizationBlock:entitiesCopy completionHandler:v25];
+    v25 = v18;
+    [HDSampleEntity deleteSamplesWithTypes:v11 sourceEntities:typesCopy profile:WeakRetained recursiveDeleteAuthorizationBlock:entitiesCopy completionHandler:v24];
 
-    v19 = v31[5];
+    v19 = v30[5];
     v20 = v19;
     if (v19)
     {
@@ -2130,10 +2333,10 @@ void __170__HDDataManager_deleteDataObjectsOfClass_predicate_limit_deletedSample
       }
     }
 
-    v22 = *(v37 + 24);
-    _Block_object_dispose(&v30, 8);
+    v22 = *(v36 + 24);
+    _Block_object_dispose(&v29, 8);
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else
@@ -2141,7 +2344,6 @@ void __170__HDDataManager_deleteDataObjectsOfClass_predicate_limit_deletedSample
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22 & 1;
 }
 
@@ -2179,6 +2381,70 @@ void __170__HDDataManager_deleteDataObjectsOfClass_predicate_limit_deletedSample
   v15 = [(HDDataManager *)self deleteDataObjectsOfClass:v13 predicate:v14 limit:0 deletedSampleCount:0 notifyObservers:1 generateDeletedObjects:1 userRequested:v18 recursiveDeleteAuthorizationBlock:blockCopy error:error];
 
   return v15;
+}
+
+- (BOOL)deleteSamplesWithUUIDs:(id)ds generateDeletedObjects:(BOOL)objects transaction:(id)transaction error:(id *)error
+{
+  objectsCopy = objects;
+  dsCopy = ds;
+  transactionCopy = transaction;
+  if (![dsCopy count])
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDDataManager.m" lineNumber:967 description:{@"Invalid parameter not satisfying: %@", @"[uuids count] > 0"}];
+  }
+
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__129;
+  v26 = __Block_byref_object_dispose__129;
+  v27 = 0;
+  v13 = HDDataEntityPredicateForDataUUIDs(dsCopy);
+  if (self)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+  }
+
+  else
+  {
+    WeakRetained = 0;
+  }
+
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __81__HDDataManager_deleteSamplesWithUUIDs_generateDeletedObjects_transaction_error___block_invoke;
+  v21[3] = &unk_278625580;
+  v21[5] = &v28;
+  v21[6] = &v22;
+  v21[4] = self;
+  [HDSampleEntity deleteSamplesWithPredicate:v13 limit:0 generateDeletedObjects:objectsCopy transaction:transactionCopy profile:WeakRetained recursiveDeleteAuthorizationBlock:0 completionHandler:v21];
+
+  v15 = v23[5];
+  v16 = v15;
+  if (v15)
+  {
+    if (error)
+    {
+      v17 = v15;
+      *error = v16;
+    }
+
+    else
+    {
+      _HKLogDroppedError();
+    }
+  }
+
+  v18 = *(v29 + 24);
+  _Block_object_dispose(&v22, 8);
+
+  _Block_object_dispose(&v28, 8);
+  return v18;
 }
 
 void __81__HDDataManager_deleteSamplesWithUUIDs_generateDeletedObjects_transaction_error___block_invoke(void *a1, int a2, void *a3, uint64_t a4, void *a5, void *a6, void *a7)
@@ -2330,8 +2596,9 @@ void __40__HDDataManager_addObserverForAllTypes___block_invoke(uint64_t a1)
 {
   if (nil)
   {
+    v2 = a2;
     v4 = [MEMORY[0x277CCABB0] numberWithInteger:-1];
-    v5 = [(HDDataManager *)nil _queue_observersForKey:v4 createIfNil:a2];
+    v5 = [(HDDataManager *)nil _queue_observersForKey:v4 createIfNil:v2];
   }
 
   else
@@ -2379,16 +2646,17 @@ void __43__HDDataManager_removeObserverForAllTypes___block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-void __41__HDDataManager_addObserver_forDataType___block_invoke(uint64_t a1)
+void __41__HDDataManager_addObserver_forDataType___block_invoke(void *a1)
 {
-  v2 = [(HDDataManager *)*(a1 + 32) _queue_observersForDataType:1 createIfNil:?];
-  [v2 addObject:*(a1 + 48)];
+  v2 = [(HDDataManager *)a1[4] _queue_observersForDataType:1 createIfNil:?];
+  [v2 addObject:a1[6]];
 }
 
-- (id)_queue_observersForDataType:(int)type createIfNil:
+- (id)_queue_observersForDataType:(uint64_t)type createIfNil:
 {
   if (self)
   {
+    typeCopy = type;
     v5 = *(self + 8);
     v6 = a2;
     dispatch_assert_queue_V2(v5);
@@ -2396,7 +2664,7 @@ void __41__HDDataManager_addObserver_forDataType___block_invoke(uint64_t a1)
     code = [v6 code];
 
     v9 = [v7 numberWithInteger:code];
-    v10 = [(HDDataManager *)self _queue_observersForKey:v9 createIfNil:type];
+    v10 = [(HDDataManager *)self _queue_observersForKey:v9 createIfNil:typeCopy];
   }
 
   else
@@ -2465,7 +2733,7 @@ void __44__HDDataManager_removeObserver_forDataType___block_invoke(uint64_t a1)
 void __39__HDDataManager__observersForDataType___block_invoke(uint64_t a1)
 {
   v5 = [(HDDataManager *)*(a1 + 32) _queue_observersForDataType:0 createIfNil:?];
-  v2 = [v5 copy];
+  v2 = objc_msgSend_copy(v5);
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
@@ -2575,37 +2843,37 @@ void __39__HDDataManager__observersForDataType___block_invoke(uint64_t a1)
 
 void __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *(*(a1[5] + 8) + 24) = *(a1[4] + 48);
   if (*(*(a1[5] + 8) + 24) == 1)
   {
     v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v3 = *(a1[4] + 64);
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v15 + 1) + 8 * i);
-          v9 = [*(a1[4] + 64) objectForKeyedSubscript:{v8, v15}];
-          v10 = [v9 copy];
+          v8 = *(*(&v14 + 1) + 8 * i);
+          v9 = [*(a1[4] + 64) objectForKeyedSubscript:{v8, v14}];
+          v10 = objc_msgSend_copy(v9);
           [v2 setObject:v10 forKeyedSubscript:v8];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v5);
@@ -2619,8 +2887,6 @@ void __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___bl
     objc_storeStrong((*(a1[7] + 8) + 40), *(a1[4] + 72));
     *(a1[4] + 48) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___block_invoke_2(void *a1, void *a2)
@@ -2640,16 +2906,14 @@ void __68__HDDataManager__notifySynchronousObserversIfPossibleInTransaction___bl
 
 void __85__HDDataManager__notifySynchronousObserversForDeletedObjectTypes_anchor_transaction___block_invoke(uint64_t a1, void *a2)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
-    v6[0] = *(a1 + 32);
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    v5[0] = *(a1 + 32);
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
     [v3 samplesOfTypesWereRemoved:v4 anchor:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronouslyCloseObserverTransactionAndNotify
@@ -2663,7 +2927,7 @@ void __85__HDDataManager__notifySynchronousObserversForDeletedObjectTypes_anchor
 
 - (void)setBackgroundObserverFrequency:(id)frequency forDataType:(id)type frequency:(int64_t)a5 appSDKVersionToken:(unint64_t)token completion:(id)completion
 {
-  v50[3] = *MEMORY[0x277D85DE8];
+  v49[3] = *MEMORY[0x277D85DE8];
   frequencyCopy = frequency;
   typeCopy = type;
   completionCopy = completion;
@@ -2685,12 +2949,12 @@ LABEL_20:
         selfCopy = self;
         code = [typeCopy code];
         v34 = kHDEventNameBGDelivery;
-        v41[0] = @"action";
-        v41[1] = @"code";
-        v42[0] = @"removeSubscription";
+        v40[0] = @"action";
+        v40[1] = @"code";
+        v41[0] = @"removeSubscription";
         v35 = [MEMORY[0x277CCABB0] numberWithInteger:code];
-        v42[1] = v35;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+        v41[1] = v35;
+        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
         HDPowerLogForClient(v34, frequencyCopy, v36);
 
         _HKInitializeLogging();
@@ -2698,9 +2962,9 @@ LABEL_20:
         if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
         {
           *buf = 134218242;
-          v44 = code;
-          v45 = 2112;
-          v46 = applicationIdentifier;
+          v43 = code;
+          v44 = 2112;
+          v45 = applicationIdentifier;
           _os_log_impl(&dword_228986000, v37, OS_LOG_TYPE_INFO, "Disabling background delivery of %lu for '%@'", buf, 0x16u);
         }
 
@@ -2739,15 +3003,15 @@ LABEL_20:
 LABEL_15:
           v25 = code2;
           v26 = kHDEventNameBGDelivery;
-          v50[0] = @"subscribe";
-          v49[0] = @"action";
-          v49[1] = @"frequency";
+          v49[0] = @"subscribe";
+          v48[0] = @"action";
+          v48[1] = @"frequency";
           v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v20];
-          v50[1] = v27;
-          v49[2] = @"code";
+          v49[1] = v27;
+          v48[2] = @"code";
           v28 = [MEMORY[0x277CCABB0] numberWithInteger:v25];
-          v50[2] = v28;
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
+          v49[2] = v28;
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
           HDPowerLogForClient(v26, frequencyCopy, v29);
 
           _HKInitializeLogging();
@@ -2755,17 +3019,17 @@ LABEL_15:
           if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
           {
             *buf = 134218498;
-            v44 = v25;
-            v45 = 2112;
-            v46 = applicationIdentifier;
-            v47 = 2048;
-            v48 = v20;
+            v43 = v25;
+            v44 = 2112;
+            v45 = applicationIdentifier;
+            v46 = 2048;
+            v47 = v20;
             _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_INFO, "Requesting to set background delivery frequency of %lu for '%@' to %llu seconds", buf, 0x20u);
           }
 
           v23 = objc_loadWeakRetained(&selfCopy5->_profile);
           appSubscriptionManager = [v23 appSubscriptionManager];
-          [appSubscriptionManager subscribeForBundleID:applicationIdentifier dataCode:objc_msgSend(typeCopy frequencyInSeconds:"code") appSDKVersionToken:{v20, v39}];
+          [appSubscriptionManager subscribeForBundleID:applicationIdentifier dataCode:objc_msgSend(typeCopy frequencyInSeconds:"code") appSDKVersionToken:{v20, v38}];
           goto LABEL_23;
       }
     }
@@ -2775,7 +3039,7 @@ LABEL_15:
     if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v44 = v20;
+      v43 = v20;
       _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "invalid update frequency %ld", buf, 0xCu);
     }
 
@@ -2787,7 +3051,7 @@ LABEL_15:
   if (os_log_type_enabled(*MEMORY[0x277CCC288], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v44 = applicationIdentifier;
+    v43 = applicationIdentifier;
     _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_INFO, "Disabling all background delivery for '%@'", buf, 0xCu);
   }
 
@@ -2800,13 +3064,11 @@ LABEL_23:
   {
     completionCopy[2](completionCopy);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDescription
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
@@ -2815,10 +3077,10 @@ LABEL_23:
   block[3] = &unk_278613920;
   block[4] = self;
   v5 = v3;
-  v34 = v5;
+  v33 = v5;
   dispatch_sync(queue, block);
   os_unfair_lock_lock(&self->_synchronousObserverLock);
-  v6 = [(NSMutableDictionary *)self->_synchronousObserversBySampleType copy];
+  v6 = objc_msgSend_copy(self->_synchronousObserversBySampleType);
   os_unfair_lock_unlock(&self->_synchronousObserverLock);
   v7 = [v6 count];
   v8 = &stru_283BF39C8;
@@ -2828,89 +3090,88 @@ LABEL_23:
   }
 
   [v5 appendFormat:@"\n\nSynchronous Observers: %@", v8];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v24 = *v30;
+    v23 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v24)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         v14 = [v9 objectForKeyedSubscript:v13];
         identifier = [v13 identifier];
         [v5 appendFormat:@"\n\t%@ %ld (%lu):", identifier, objc_msgSend(v13, "code"), objc_msgSend(v14, "count")];
 
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         allObservers = [v14 allObservers];
-        v17 = [allObservers countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v17 = [allObservers countByEnumeratingWithState:&v24 objects:v34 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v26;
+          v19 = *v25;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v26 != v19)
+              if (*v25 != v19)
               {
                 objc_enumerationMutation(allObservers);
               }
 
-              [v5 appendFormat:@"\n\t\t%@", *(*(&v25 + 1) + 8 * j)];
+              [v5 appendFormat:@"\n\t\t%@", *(*(&v24 + 1) + 8 * j)];
             }
 
-            v18 = [allObservers countByEnumeratingWithState:&v25 objects:v35 count:16];
+            v18 = [allObservers countByEnumeratingWithState:&v24 objects:v34 count:16];
           }
 
           while (v18);
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v11);
   }
 
   v21 = v5;
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void __38__HDDataManager_diagnosticDescription__block_invoke(uint64_t a1)
+void __38__HDDataManager_diagnosticDescription__block_invoke(uint64_t a1, const char *a2)
 {
   v32 = *MEMORY[0x277D85DE8];
-  v2 = [*(*(a1 + 32) + 24) copy];
-  v3 = *(a1 + 40);
-  v4 = [v2 count];
-  v5 = &stru_283BF39C8;
-  if (!v4)
+  v3 = objc_msgSend_copy(*(*(a1 + 32) + 24), a2);
+  v4 = *(a1 + 40);
+  v5 = [v3 count];
+  v6 = &stru_283BF39C8;
+  if (!v5)
   {
-    v5 = @"none";
+    v6 = @"none";
   }
 
-  [v3 appendFormat:@"\nObservers: %@", v5];
+  [v4 appendFormat:@"\nObservers: %@", v6];
   v28 = 0u;
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v6 = v2;
-  v21 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = v3;
+  v21 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v21)
   {
     v20 = *v27;
@@ -2920,63 +3181,61 @@ void __38__HDDataManager_diagnosticDescription__block_invoke(uint64_t a1)
       {
         if (*v27 != v20)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
-        v9 = objc_autoreleasePoolPush();
-        v10 = [v8 integerValue];
-        if (v10 == -1)
+        v9 = *(*(&v26 + 1) + 8 * i);
+        v10 = objc_autoreleasePoolPush();
+        v11 = [v9 integerValue];
+        if (v11 == -1)
         {
-          v12 = @"AllTypes";
+          v13 = @"AllTypes";
         }
 
         else
         {
-          v11 = [MEMORY[0x277CCD720] dataTypeWithCode:v10];
-          v12 = [v11 identifier];
+          v12 = [MEMORY[0x277CCD720] dataTypeWithCode:v11];
+          v13 = [v12 identifier];
         }
 
-        v13 = [v6 objectForKeyedSubscript:v8];
-        [*(a1 + 40) appendFormat:@"\n\t%@ %ld (%lu):", v12, v10, objc_msgSend(v13, "count")];
+        v14 = [v7 objectForKeyedSubscript:v9];
+        [*(a1 + 40) appendFormat:@"\n\t%@ %ld (%lu):", v13, v11, objc_msgSend(v14, "count")];
         v24 = 0u;
         v25 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
-        if (v15)
+        v15 = v14;
+        v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v16)
         {
-          v16 = v15;
-          v17 = *v23;
+          v17 = v16;
+          v18 = *v23;
           do
           {
-            for (j = 0; j != v16; ++j)
+            for (j = 0; j != v17; ++j)
             {
-              if (*v23 != v17)
+              if (*v23 != v18)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v15);
               }
 
               [*(a1 + 40) appendFormat:@"\n\t\t%@", *(*(&v22 + 1) + 8 * j)];
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
-          while (v16);
+          while (v17);
         }
 
-        objc_autoreleasePoolPop(v9);
+        objc_autoreleasePoolPop(v10);
       }
 
-      v21 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v21 = [v7 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v21);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

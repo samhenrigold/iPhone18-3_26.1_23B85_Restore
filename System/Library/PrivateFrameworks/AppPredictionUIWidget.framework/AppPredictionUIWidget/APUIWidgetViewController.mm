@@ -12,6 +12,8 @@
 - (void)logChangeWithNewSuggestionIds:(id)ids previousSuggestionIds:(id)suggestionIds suggestionClient:(id)client;
 - (void)setStackVisible:(BOOL)visible;
 - (void)setViewVisible:(BOOL)visible;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation APUIWidgetViewController
@@ -46,6 +48,22 @@
   [(APUIWidgetViewController *)&v4 dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = APUIWidgetViewController;
+  [(APUIWidgetViewController *)&v4 viewDidAppear:appear];
+  [(APUIWidgetViewController *)self setViewVisible:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = APUIWidgetViewController;
+  [(APUIWidgetViewController *)&v4 viewDidDisappear:disappear];
+  [(APUIWidgetViewController *)self setViewVisible:0];
+}
+
 - (BOOL)matchesWidgetUniqueID:(id)d stackID:(id)iD
 {
   dCopy = d;
@@ -77,7 +95,7 @@
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __48__APUIWidgetViewController__topWidgetDidAppear___block_invoke(uint64_t a1)
+void *__48__APUIWidgetViewController__topWidgetDidAppear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) matchesWidgetUniqueID:*(a1 + 40) stackID:*(a1 + 48)];
   if (result)
@@ -112,7 +130,7 @@ uint64_t __48__APUIWidgetViewController__topWidgetDidAppear___block_invoke(uint6
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __51__APUIWidgetViewController__topWidgetDidDisappear___block_invoke(uint64_t a1)
+void *__51__APUIWidgetViewController__topWidgetDidDisappear___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) matchesWidgetUniqueID:*(a1 + 40) stackID:*(a1 + 48)];
   if (result)
@@ -286,7 +304,7 @@ LABEL_9:
 {
   height = size.height;
   width = size.width;
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   colorCopy = color;
   v11 = @"smart-stack";
   if (appearance == 1)
@@ -313,8 +331,8 @@ LABEL_9:
   [v15 scale];
   v18 = [v16 initWithCGImage:cGImage scale:?];
   v19 = objc_alloc(MEMORY[0x277D1B1A8]);
-  v33[0] = v18;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v18;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v21 = [v19 initWithImages:v20];
 
   v22 = [objc_alloc(MEMORY[0x277D1B1C8]) initWithSize:width scale:{height, scale}];
@@ -362,8 +380,6 @@ LABEL_14:
   cGImage2 = [v26 CGImage];
   [v26 scale];
   v30 = [v28 imageWithCGImage:cGImage2 scale:0 orientation:?];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

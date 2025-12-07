@@ -199,41 +199,39 @@ LABEL_24:
 
 void __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = [MEMORY[0x277CCAA00] defaultManager];
   v2 = [v1 safari_startPageBackgroundImageFileURLForDefaultProfile];
-  v10 = 0;
-  v3 = [v0 removeItemAtURL:v2 error:&v10];
-  v4 = v10;
+  v11 = 0;
+  v3 = [v0 removeItemAtURL:v2 error:&v11];
+  v4 = v11;
 
   if (v3)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v6 = *MEMORY[0x277D4A360];
+      v8 = *MEMORY[0x277D4A360];
       *buf = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_272C20000, v5, OS_LOG_TYPE_INFO, "[StartPageBackground] %{public}@ was removed in Default Profile successfully.", buf, 0xCu);
+      v13 = v8;
+      _os_log_impl(&dword_272C20000, v7, OS_LOG_TYPE_INFO, "[StartPageBackground] %{public}@ was removed in Default Profile successfully.", buf, 0xCu);
     }
 
-    v7 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-    [v7 removeObjectForKey:*MEMORY[0x277D4A268]];
+    v9 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
+    [v9 removeObjectForKey:*MEMORY[0x277D4A268]];
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_6);
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke_cold_1(v4, v8);
+      __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke_cold_1(v4, v10);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke_4()
@@ -261,7 +259,7 @@ void __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke
 
 void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [*(a1 + 32) fileURL];
   v4 = [v3 path];
@@ -271,43 +269,41 @@ void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord_
   {
     v6 = [v2 safari_startPageBackgroundImageFileURLForDefaultProfile];
     v7 = [*(a1 + 32) fileURL];
-    v19 = 0;
-    v8 = [v2 safari_replaceItemAtURL:v6 withItemFromURL:v7 error:&v19];
-    v9 = v19;
+    v20 = 0;
+    v8 = [v2 safari_replaceItemAtURL:v6 withItemFromURL:v7 error:&v20];
+    v9 = v20;
 
     if ((v8 & 1) == 0)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = [v9 safari_privacyPreservingDescription];
-        __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord___block_invoke_cold_1(v11, buf, v10);
+        v13 = [v9 safari_privacyPreservingDescription];
+        __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord___block_invoke_cold_1(v13, buf, v12);
       }
     }
 
-    v12 = [*(a1 + 40) safari_encryptedValues];
-    v13 = [v12 objectForKeyedSubscript:@"isLightAppearance"];
+    v14 = [*(a1 + 40) safari_encryptedValues];
+    v15 = [v14 objectForKeyedSubscript:@"isLightAppearance"];
 
-    v14 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-    if ([v13 BOOLValue])
+    v16 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
+    if ([v15 BOOLValue])
     {
-      v15 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v15 = 2;
+      v17 = 2;
     }
 
-    [v14 setInteger:v15 forKey:*MEMORY[0x277D4A268]];
+    [v16 setInteger:v17 forKey:*MEMORY[0x277D4A268]];
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_16);
-    v16 = *(a1 + 48);
-    v17 = [*(a1 + 32) fileURL];
-    [v16 _installMobileAssetIfApplicableWithURL:v17];
+    v18 = *(a1 + 48);
+    v19 = [*(a1 + 32) fileURL];
+    [v18 _installMobileAssetIfApplicableWithURL:v19];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord___block_invoke_14()
@@ -356,7 +352,7 @@ void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord_
 
 - (void)_installMobileAssetIfApplicableWithURL:(id)l
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = CGImageSourceCreateWithURL(lCopy, 0);
   v6 = v5;
@@ -394,28 +390,27 @@ void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord_
       safari_startPageBackgroundImageMobileAssetFolderURL = [defaultManager safari_startPageBackgroundImageMobileAssetFolderURL];
       v14 = [safari_startPageBackgroundImageMobileAssetFolderURL URLByAppendingPathComponent:v11];
 
-      v22 = 0;
-      v15 = [defaultManager safari_replaceItemAtURL:v14 withItemFromURL:lCopy error:&v22];
-      v16 = v22;
+      v23 = 0;
+      v15 = [defaultManager safari_replaceItemAtURL:v14 withItemFromURL:lCopy error:&v23];
+      v16 = v23;
+      v18 = v16;
       if ((v15 & 1) == 0)
       {
-        v17 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v19 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v16, v17);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          safari_privacyPreservingDescription = [v16 safari_privacyPreservingDescription];
-          [(WBSettingsSyncEngineAccess *)safari_privacyPreservingDescription _installMobileAssetIfApplicableWithURL:buf, v17];
+          safari_privacyPreservingDescription = [v18 safari_privacyPreservingDescription];
+          [(WBSettingsSyncEngineAccess *)safari_privacyPreservingDescription _installMobileAssetIfApplicableWithURL:buf, v19];
         }
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v23 = @"FileName";
-      v24 = v11;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-      [defaultCenter postNotificationName:@"WBSBackgroundImageMobileAssetDidInstallBackgroundImage" object:self userInfo:v20];
+      v24 = @"FileName";
+      v25 = v11;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      [defaultCenter postNotificationName:@"WBSBackgroundImageMobileAssetDidInstallBackgroundImage" object:self userInfo:v22];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdateStartPageBackgroundImageVisibilityWithRecord:(id)record
@@ -492,61 +487,59 @@ void __54__WBSettingsSyncEngineAccess__perSitePreferencesStore__block_invoke()
 
 void __53__WBSettingsSyncEngineAccess__isKnownPerSiteSetting___block_invoke()
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277D4A330];
-  v7[0] = *MEMORY[0x277D4A310];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x277D4A310];
+  v6[1] = v1;
   v2 = *MEMORY[0x277D4A318];
-  v7[2] = *MEMORY[0x277D4A328];
-  v7[3] = v2;
-  v7[4] = *MEMORY[0x277D4A320];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[2] = *MEMORY[0x277D4A328];
+  v6[3] = v2;
+  v6[4] = *MEMORY[0x277D4A320];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v0 setWithArray:v3];
   v5 = [WBSettingsSyncEngineAccess _isKnownPerSiteSetting:]::knownPerSiteSettings;
   [WBSettingsSyncEngineAccess _isKnownPerSiteSetting:]::knownPerSiteSettings = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePerSiteSettingsWithRecord:(id)record
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   recordCopy = record;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudSettings(recordCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [WBSettingsSyncEngineAccess _updatePerSiteSettingsWithRecord:];
   }
 
   safari_encryptedValues = [recordCopy safari_encryptedValues];
-  v7 = [safari_encryptedValues objectForKeyedSubscript:*MEMORY[0x277D4A138]];
+  v8 = [safari_encryptedValues objectForKeyedSubscript:*MEMORY[0x277D4A138]];
 
-  if (v7 && ![(WBSettingsSyncEngineAccess *)self _isKnownPerSiteSetting:v7])
+  if (v8 && (v9 = [(WBSettingsSyncEngineAccess *)self _isKnownPerSiteSetting:v8], (v9 & 1) == 0))
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v17 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v9, v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = v7;
-      _os_log_impl(&dword_272C20000, v12, OS_LOG_TYPE_INFO, "Received a %{public}@ Per-Site Setting from CloudKit that is unrecognized to this device.", &v15, 0xCu);
+      v19 = 138543362;
+      v20 = v8;
+      _os_log_impl(&dword_272C20000, v17, OS_LOG_TYPE_INFO, "Received a %{public}@ Per-Site Setting from CloudKit that is unrecognized to this device.", &v19, 0xCu);
     }
   }
 
   else
   {
-    if (([v7 isEqualToString:*MEMORY[0x277D4A318]] & 1) == 0 && !objc_msgSend(v7, "isEqualToString:", *MEMORY[0x277D4A328]))
+    if (([v8 isEqualToString:*MEMORY[0x277D4A318]] & 1) == 0 && !objc_msgSend(v8, "isEqualToString:", *MEMORY[0x277D4A328]))
     {
       goto LABEL_9;
     }
 
     safari_encryptedValues2 = [recordCopy safari_encryptedValues];
-    v9 = [safari_encryptedValues2 objectForKeyedSubscript:*MEMORY[0x277D4A128]];
+    v12 = [safari_encryptedValues2 objectForKeyedSubscript:*MEMORY[0x277D4A128]];
 
     _deviceClass = [(WBSettingsSyncEngineAccess *)self _deviceClass];
-    v11 = [_deviceClass isEqualToString:v9];
+    v14 = [_deviceClass isEqualToString:v12];
 
-    if (v11)
+    if (v14)
     {
 
 LABEL_9:
@@ -554,18 +547,16 @@ LABEL_9:
       goto LABEL_15;
     }
 
-    v13 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v18 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = v7;
-      _os_log_impl(&dword_272C20000, v13, OS_LOG_TYPE_INFO, "Received a %{public}@ Per-Site Setting from CloudKit that is not applicable to this device.", &v15, 0xCu);
+      v19 = 138543362;
+      v20 = v8;
+      _os_log_impl(&dword_272C20000, v18, OS_LOG_TYPE_INFO, "Received a %{public}@ Per-Site Setting from CloudKit that is not applicable to this device.", &v19, 0xCu);
     }
   }
 
 LABEL_15:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attemptUpdatingSavingPerSiteSettingsWithRecord:(id)record
@@ -581,30 +572,31 @@ LABEL_15:
   [(WBSettingsSyncEngineAccess *)self _updatePerSiteSettingsWithRecord:v5 completionHandler:v6];
 }
 
-void __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke(uint64_t a1, int a2)
+void __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
+  v2 = a2;
+  v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
       __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_cold_3();
     }
 
-    v6 = [MEMORY[0x277CCA9A0] defaultCenter];
-    [v6 postNotificationName:*MEMORY[0x277D4A378] object:0];
+    v7 = [MEMORY[0x277CCA9A0] defaultCenter];
+    [v7 postNotificationName:*MEMORY[0x277D4A378] object:0];
 
-    v7 = [*(a1 + 32) _perSitePreferencesStore];
-    v8 = *(a1 + 40);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_33;
-    v16[3] = &unk_279E752D0;
-    v17 = v8;
-    [v7 savePerSiteSettingCloudKitRecordToDisk:v17 completionHandler:v16];
+    v8 = [*(a1 + 32) _perSitePreferencesStore];
+    v9 = *(a1 + 40);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_33;
+    v17[3] = &unk_279E752D0;
+    v18 = v9;
+    [v8 savePerSiteSettingCloudKitRecordToDisk:v18 completionHandler:v17];
 
-    v9 = v17;
+    v10 = v18;
   }
 
   else
@@ -614,48 +606,47 @@ void __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithR
       __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_cold_1();
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_cold_2();
     }
 
-    v11 = MEMORY[0x277CBEBB8];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_36;
-    v14[3] = &unk_279E752F8;
-    v12 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v15 = v12;
-    v13 = [v11 scheduledTimerWithTimeInterval:0 repeats:v14 block:30.0];
-    v9 = v15;
+    v12 = MEMORY[0x277CBEBB8];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_36;
+    v15[3] = &unk_279E752F8;
+    v13 = *(a1 + 40);
+    v15[4] = *(a1 + 32);
+    v16 = v13;
+    v14 = [v12 scheduledTimerWithTimeInterval:0 repeats:v15 block:30.0];
+    v10 = v16;
   }
 }
 
-void __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_33(uint64_t a1, int a2)
+void __78__WBSettingsSyncEngineAccess__attemptUpdatingSavingPerSiteSettingsWithRecord___block_invoke_33(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
+  v2 = a2;
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) recordID];
     v6 = [v5 recordName];
     v7 = @"NO";
-    if (a2)
+    if (v2)
     {
       v7 = @"YES";
     }
 
     v8 = v7;
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v8;
-    _os_log_impl(&dword_272C20000, v4, OS_LOG_TYPE_INFO, "Save with record name %{public}@ in WBSPerSitePreferencesSQLiteStore did finish with success: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_272C20000, v4, OS_LOG_TYPE_INFO, "Save with record name %{public}@ in WBSPerSitePreferencesSQLiteStore did finish with success: %{public}@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_deviceClass
@@ -864,17 +855,17 @@ BOOL __59__WBSettingsSyncEngineAccess__updateStartPageSectionOrder___block_invok
 - (void)_updateStartPageCloudTabsConsent:(id)consent
 {
   consentCopy = consent;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings(consentCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [WBSettingsSyncEngineAccess _updateStartPageCloudTabsConsent:];
   }
 
   safari_encryptedValues = [consentCopy safari_encryptedValues];
-  v6 = [safari_encryptedValues objectForKeyedSubscript:*MEMORY[0x277D4A158]];
+  v7 = [safari_encryptedValues objectForKeyedSubscript:*MEMORY[0x277D4A158]];
 
   safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-  bOOLValue = [v6 BOOLValue];
+  bOOLValue = [v7 BOOLValue];
   [safari_browserDefaults setBool:bOOLValue forKey:*MEMORY[0x277D4A160]];
 
   defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
@@ -883,76 +874,74 @@ BOOL __59__WBSettingsSyncEngineAccess__updateStartPageSectionOrder___block_invok
 
 - (NSArray)syncSettingsUpDictionary
 {
-  v54[15] = *MEMORY[0x277D85DE8];
+  v53[15] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   startPageSectionsManager = [(WBSettingsSyncEngineAccess *)self startPageSectionsManager];
   enabledSectionIdentifiers = [startPageSectionsManager enabledSectionIdentifiers];
-  v53 = [v3 setWithArray:enabledSectionIdentifiers];
+  v52 = [v3 setWithArray:enabledSectionIdentifiers];
 
   v6 = MEMORY[0x277CCABB0];
   safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v8 = *MEMORY[0x277D4A250];
-  v52 = safari_browserDefaults;
-  v49 = [v6 numberWithInteger:{objc_msgSend(safari_browserDefaults, "integerForKey:", *MEMORY[0x277D4A250])}];
-  v50 = makeSettingDictionary(v8, v49);
-  v54[0] = v50;
+  v51 = safari_browserDefaults;
+  v48 = [v6 numberWithInteger:{objc_msgSend(safari_browserDefaults, "integerForKey:", *MEMORY[0x277D4A250])}];
+  v49 = makeSettingDictionary(v8, v48);
+  v53[0] = v49;
   v9 = MEMORY[0x277CCABB0];
   safari_browserDefaults2 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v11 = *MEMORY[0x277D4A258];
-  v51 = safari_browserDefaults2;
-  v47 = [v9 numberWithInteger:{objc_msgSend(safari_browserDefaults2, "integerForKey:", *MEMORY[0x277D4A258])}];
-  v48 = makeSettingDictionary(v11, v47);
-  v54[1] = v48;
-  v45 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A4B0])}];
-  v46 = makeSettingDictionary(*MEMORY[0x277D4A3D0], v45);
-  v54[2] = v46;
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A4B8])}];
-  v44 = makeSettingDictionary(*MEMORY[0x277D4A3D8], v43);
-  v54[3] = v44;
-  v41 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A4E0])}];
-  v42 = makeSettingDictionary(*MEMORY[0x277D4A3E8], v41);
-  v54[4] = v42;
-  v39 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A510])}];
-  v40 = makeSettingDictionary(*MEMORY[0x277D4A408], v39);
-  v54[5] = v40;
-  v37 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A4A8])}];
-  v38 = makeSettingDictionary(*MEMORY[0x277D4A3C8], v37);
-  v54[6] = v38;
-  v35 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A500])}];
-  v36 = makeSettingDictionary(*MEMORY[0x277D4A3F0], v35);
-  v54[7] = v36;
-  v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[WBSettingsSyncEngineAccess _isShowBackgroundImageEnabled](self, "_isShowBackgroundImageEnabled")}];
-  v34 = makeSettingDictionary(*MEMORY[0x277D4A3C0], v33);
-  v54[8] = v34;
-  v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A4C0])}];
-  v32 = makeSettingDictionary(*MEMORY[0x277D4A3E0], v31);
-  v54[9] = v32;
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v53, "containsObject:", *MEMORY[0x277D4A518])}];
-  v29 = makeSettingDictionary(*MEMORY[0x277D4A410], v28);
-  v54[10] = v29;
+  v50 = safari_browserDefaults2;
+  v46 = [v9 numberWithInteger:{objc_msgSend(safari_browserDefaults2, "integerForKey:", *MEMORY[0x277D4A258])}];
+  v47 = makeSettingDictionary(v11, v46);
+  v53[1] = v47;
+  v44 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A4B0])}];
+  v45 = makeSettingDictionary(*MEMORY[0x277D4A3D0], v44);
+  v53[2] = v45;
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A4B8])}];
+  v43 = makeSettingDictionary(*MEMORY[0x277D4A3D8], v42);
+  v53[3] = v43;
+  v40 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A4E0])}];
+  v41 = makeSettingDictionary(*MEMORY[0x277D4A3E8], v40);
+  v53[4] = v41;
+  v38 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A510])}];
+  v39 = makeSettingDictionary(*MEMORY[0x277D4A408], v38);
+  v53[5] = v39;
+  v36 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A4A8])}];
+  v37 = makeSettingDictionary(*MEMORY[0x277D4A3C8], v36);
+  v53[6] = v37;
+  v34 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A500])}];
+  v35 = makeSettingDictionary(*MEMORY[0x277D4A3F0], v34);
+  v53[7] = v35;
+  v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[WBSettingsSyncEngineAccess _isShowBackgroundImageEnabled](self, "_isShowBackgroundImageEnabled")}];
+  v33 = makeSettingDictionary(*MEMORY[0x277D4A3C0], v32);
+  v53[8] = v33;
+  v30 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A4C0])}];
+  v31 = makeSettingDictionary(*MEMORY[0x277D4A3E0], v30);
+  v53[9] = v31;
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v52, "containsObject:", *MEMORY[0x277D4A518])}];
+  v28 = makeSettingDictionary(*MEMORY[0x277D4A410], v27);
+  v53[10] = v28;
   v12 = MEMORY[0x277CCABB0];
   safari_browserDefaults3 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v13 = [v12 numberWithBool:{objc_msgSend(safari_browserDefaults3, "BOOLForKey:", *MEMORY[0x277D4A160])}];
   v14 = makeSettingDictionary(*MEMORY[0x277D4A3A8], v13);
-  v54[11] = v14;
+  v53[11] = v14;
   _startPageSectionOrder = [(WBSettingsSyncEngineAccess *)self _startPageSectionOrder];
   v16 = makeSettingDictionary(*MEMORY[0x277D4A400], _startPageSectionOrder);
-  v54[12] = v16;
+  v53[12] = v16;
   v17 = MEMORY[0x277CCABB0];
   safari_browserDefaults4 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v19 = [v17 numberWithBool:{objc_msgSend(safari_browserDefaults4, "BOOLForKey:", *MEMORY[0x277D4A490])}];
   v20 = makeSettingDictionary(*MEMORY[0x277D4A418], v19);
-  v54[13] = v20;
+  v53[13] = v20;
   v21 = MEMORY[0x277CCABB0];
   safari_browserDefaults5 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v23 = [v21 numberWithBool:{objc_msgSend(safari_browserDefaults5, "BOOLForKey:", *MEMORY[0x277D4A488])}];
   v24 = makeSettingDictionary(*MEMORY[0x277D4A3F8], v23);
-  v54[14] = v24;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:15];
+  v53[14] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:15];
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (BOOL)backgroundImageExists
@@ -991,61 +980,60 @@ BOOL __59__WBSettingsSyncEngineAccess__updateStartPageSectionOrder___block_invok
 
 - (void)deleteBackgroundImageDirectory
 {
-  if ([MEMORY[0x277D49A08] isStartPageSettingSyncEnabled])
+  isStartPageSettingSyncEnabled = [MEMORY[0x277D49A08] isStartPageSettingSyncEnabled];
+  if (isStartPageSettingSyncEnabled)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v4 = WBS_LOG_CHANNEL_PREFIXCloudSettings(isStartPageSettingSyncEnabled, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [WBSettingsSyncEngineAccess deleteBackgroundImageDirectory];
     }
 
-    v3 = dispatch_get_global_queue(17, 0);
-    dispatch_async(v3, &__block_literal_global_53);
+    v5 = dispatch_get_global_queue(17, 0);
+    dispatch_async(v5, &__block_literal_global_53);
   }
 }
 
 void __60__WBSettingsSyncEngineAccess_deleteBackgroundImageDirectory__block_invoke()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = [MEMORY[0x277CCAA00] defaultManager];
   v2 = [v1 safari_startPageBackgroundImageFolderURL];
-  v13 = 0;
-  v3 = [v0 removeItemAtURL:v2 error:&v13];
-  v4 = v13;
+  v14 = 0;
+  v3 = [v0 removeItemAtURL:v2 error:&v14];
+  v4 = v14;
 
   if (v3)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __60__WBSettingsSyncEngineAccess_deleteBackgroundImageDirectory__block_invoke_cold_1();
     }
 
-    v6 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
-    [v6 removeObjectForKey:*MEMORY[0x277D4A268]];
+    v8 = [MEMORY[0x277CBEBD0] safari_browserDefaults];
+    [v8 removeObjectForKey:*MEMORY[0x277D4A268]];
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_56);
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCloudSettings();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudSettings(v5, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x277CCAA00] defaultManager];
-      v10 = [v9 safari_startPageBackgroundImageFolderURL];
-      v11 = [v10 path];
-      v12 = [v4 safari_privacyPreservingDescription];
+      v10 = [MEMORY[0x277CCAA00] defaultManager];
+      v11 = [v10 safari_startPageBackgroundImageFolderURL];
+      v12 = [v11 path];
+      v13 = [v4 safari_privacyPreservingDescription];
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v12;
-      _os_log_error_impl(&dword_272C20000, v7, OS_LOG_TYPE_ERROR, "[StartPageBackground] Failed to remove image directory (%{public}@). Error: %{public}@.", buf, 0x16u);
+      v16 = v12;
+      v17 = 2114;
+      v18 = v13;
+      _os_log_error_impl(&dword_272C20000, v9, OS_LOG_TYPE_ERROR, "[StartPageBackground] Failed to remove image directory (%{public}@). Error: %{public}@.", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__WBSettingsSyncEngineAccess_deleteBackgroundImageDirectory__block_invoke_54()
@@ -1056,14 +1044,13 @@ void __60__WBSettingsSyncEngineAccess_deleteBackgroundImageDirectory__block_invo
 
 void __58__WBSettingsSyncEngineAccess_didDeleteRemoteRecordWithID___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D4A360];
-  v4 = 138543618;
-  v5 = v2;
-  v6 = 2114;
-  v7 = a1;
-  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "[StartPageBackground] Removing %{public}@ in Default Profile failed with error: %{public}@.", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = v2;
+  v5 = 2114;
+  v6 = a1;
+  _os_log_error_impl(&dword_272C20000, a2, OS_LOG_TYPE_ERROR, "[StartPageBackground] Removing %{public}@ in Default Profile failed with error: %{public}@.", &v3, 0x16u);
 }
 
 void __72__WBSettingsSyncEngineAccess__updateStartPageBackgroundImageWithRecord___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

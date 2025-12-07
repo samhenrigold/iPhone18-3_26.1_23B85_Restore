@@ -59,7 +59,7 @@
 
   if (*bytes != 466107951)
   {
-    v20 = __atxlog_handle_default();
+    v20 = __atxlog_handle_default(bytes2);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXFeedbackStateReader initWithData:bytes predictedItemKeyClass:v20];
@@ -77,7 +77,7 @@ LABEL_15:
     v8->_predictionCount = v14;
     if (v14 < 0)
     {
-      v22 = __atxlog_handle_default();
+      v22 = __atxlog_handle_default(bytes2);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [ATXFeedbackStateReader initWithData:v22 predictedItemKeyClass:?];

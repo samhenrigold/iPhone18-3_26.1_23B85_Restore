@@ -39,9 +39,9 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        v12 = [(_UISystemIconAppearance *)v9 isEqual:v10];
+        isEqual = objc_msgSend_isEqual_(v9);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_13;
         }

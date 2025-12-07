@@ -4412,7 +4412,7 @@ void __50__ICNote_clearRecentUpdatesGenerationDateIfNeeded__block_invoke(uint64_
   return v10;
 }
 
-uint64_t __26__ICNote_ic_loggingValues__block_invoke(uint64_t a1)
+void *__26__ICNote_ic_loggingValues__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) documentWithoutCreating];
 
@@ -10945,6 +10945,27 @@ void __72__ICNote_AttachmentManagement__addSynapseLinkAttachmentWithContentItem_
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_10();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void __63__ICNote_AttachmentManagement__addMediaToAttachment_withBlock___block_invoke_1168_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Adding media in background for %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __63__ICNote_AttachmentManagement__addMediaToAttachment_withBlock___block_invoke_1168_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Finished adding media in background for %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __63__ICNote_AttachmentManagement__addMediaToAttachment_withBlock___block_invoke_1170_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_214D51000, a2, a3, "Save happened for adding media in background for %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

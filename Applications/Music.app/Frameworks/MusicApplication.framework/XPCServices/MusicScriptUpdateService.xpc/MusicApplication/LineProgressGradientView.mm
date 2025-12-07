@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LineProgressGradientView();
+  v3.super_class = type metadata accessor for LineProgressGradientView(self, a2);
   v2 = v3.receiver;
   [(LineProgressGradientView *)&v3 layoutSubviews];
   sub_1004B5C78();

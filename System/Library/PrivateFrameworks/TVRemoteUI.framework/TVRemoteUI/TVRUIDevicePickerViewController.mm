@@ -780,30 +780,35 @@ void __50__TVRUIDevicePickerViewController_setDeviceTitle___block_invoke(uint64_
 - (void)setDevices:(id)devices
 {
   devicesCopy = devices;
+  v5 = devicesCopy;
   if (self->_devices != devicesCopy)
   {
-    v14 = devicesCopy;
-    v5 = [MEMORY[0x277CBEB18] arrayWithArray:devicesCopy];
-    v6 = [(NSArray *)v5 count];
-    v7 = v6 != 0;
-    v8 = v6 == 0;
+    v15 = devicesCopy;
+    v6 = [MEMORY[0x277CBEB18] arrayWithArray:devicesCopy];
+    v7 = [(NSArray *)v6 count];
+    v8 = v7 != 0;
+    v9 = v7 == 0;
     titleButton = [(TVRUIDevicePickerViewController *)self titleButton];
     imageView = [titleButton imageView];
-    [imageView setHidden:v8];
+    [imageView setHidden:v9];
 
     view = [(TVRUIDevicePickerViewController *)self view];
-    [view setUserInteractionEnabled:v7];
+    [view setUserInteractionEnabled:v8];
 
     devices = self->_devices;
-    self->_devices = v5;
+    self->_devices = v6;
 
     [(TVRUIDevicePickerViewController *)self _sortAndReloadDevices];
     if ([(TVRUIDevicePickerViewController *)self isDevicePickerShowing])
     {
-      if (![(NSArray *)v14 count])
+      devicesCopy = [(NSArray *)v15 count];
+      v5 = v15;
+      if (devicesCopy)
       {
-        [(TVRUIDevicePickerViewController *)self _toggleState];
+        goto LABEL_7;
       }
+
+      devicesCopy = [(TVRUIDevicePickerViewController *)self _toggleState];
     }
 
     else
@@ -812,9 +817,13 @@ void __50__TVRUIDevicePickerViewController_setDeviceTitle___block_invoke(uint64_
       [(TVRUIDevicePickerViewController *)self _preferredTableViewFrameWhenExpanded:0];
       [tableView setFrame:?];
     }
+
+    v5 = v15;
   }
 
-  MEMORY[0x2821F96F8]();
+LABEL_7:
+
+  MEMORY[0x2821F96F8](devicesCopy, v5);
 }
 
 - (void)setSuggestedDevices:(id)devices
@@ -829,113 +838,119 @@ void __50__TVRUIDevicePickerViewController_setDeviceTitle___block_invoke(uint64_
 
 - (void)_updateDevicesAndReloadWithSuggestedDevices:(id)devices
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   devicesCopy = devices;
-  if (+[TVRUIFeatures corianderEnabled])
+  v5 = +[TVRUIFeatures corianderEnabled];
+  if (v5)
   {
-    v5 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRUIDevicePickerLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       devices = [(TVRUIDevicePickerViewController *)self devices];
       *buf = 134217984;
-      v41 = [devices count];
-      _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "devices count: %ld", buf, 0xCu);
+      v46 = [devices count];
+      _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "devices count: %ld", buf, 0xCu);
     }
 
-    v7 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = _TVRUIDevicePickerLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(TVRUIDevicePickerViewController *)self _updateDevicesAndReloadWithSuggestedDevices:v7];
+      [(TVRUIDevicePickerViewController *)self _updateDevicesAndReloadWithSuggestedDevices:v9];
     }
 
     devices2 = [(TVRUIDevicePickerViewController *)self devices];
-    v9 = [devices2 count];
+    v11 = [devices2 count];
 
-    if (v9)
+    if (v11)
     {
-      v10 = MEMORY[0x277CBEB40];
+      v12 = MEMORY[0x277CBEB40];
       devices3 = [(TVRUIDevicePickerViewController *)self devices];
-      v12 = [v10 orderedSetWithCapacity:{objc_msgSend(devices3, "count")}];
+      v14 = [v12 orderedSetWithCapacity:{objc_msgSend(devices3, "count")}];
 
       devices4 = [(TVRUIDevicePickerViewController *)self devices];
       devices5 = [(TVRUIDevicePickerViewController *)self devices];
       firstObject = [devices5 firstObject];
 
-      v32 = firstObject;
+      v37 = firstObject;
       selfCopy = self;
-      if (firstObject && [firstObject isConnected])
+      if (firstObject)
       {
-        v16 = _TVRUIDevicePickerLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        isConnected = [firstObject isConnected];
+        if (isConnected)
         {
-          [(TVRUIDevicePickerViewController *)firstObject _updateDevicesAndReloadWithSuggestedDevices:v16];
+          v19 = _TVRUIDevicePickerLog(isConnected);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+          {
+            [(TVRUIDevicePickerViewController *)firstObject _updateDevicesAndReloadWithSuggestedDevices:v19];
+          }
+
+          [v14 addObject:firstObject];
+          devices6 = [(TVRUIDevicePickerViewController *)self devices];
+          devices7 = [(TVRUIDevicePickerViewController *)self devices];
+          v22 = [devices6 subarrayWithRange:{1, objc_msgSend(devices7, "count") - 1}];
+
+          devices4 = v22;
         }
-
-        [v12 addObject:firstObject];
-        devices6 = [(TVRUIDevicePickerViewController *)self devices];
-        devices7 = [(TVRUIDevicePickerViewController *)self devices];
-        v19 = [devices6 subarrayWithRange:{1, objc_msgSend(devices7, "count") - 1}];
-
-        devices4 = v19;
       }
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v34 = devicesCopy;
-      v20 = devicesCopy;
-      v21 = [v20 countByEnumeratingWithState:&v35 objects:v39 count:16];
-      if (v21)
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v39 = devicesCopy;
+      v23 = devicesCopy;
+      v24 = [v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      if (v24)
       {
-        v22 = v21;
-        v23 = *v36;
+        v25 = v24;
+        v26 = *v41;
         do
         {
-          for (i = 0; i != v22; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v36 != v23)
+            if (*v41 != v26)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v23);
             }
 
-            v25 = *(*(&v35 + 1) + 8 * i);
-            if ([devices4 containsObject:v25])
+            v28 = *(*(&v40 + 1) + 8 * i);
+            v29 = [devices4 containsObject:v28];
+            if (v29)
             {
-              v26 = _TVRUIDevicePickerLog();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v30 = _TVRUIDevicePickerLog(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v41 = v25;
-                _os_log_impl(&dword_26CFEB000, v26, OS_LOG_TYPE_DEFAULT, "Adding suggested device: %{public}@", buf, 0xCu);
+                v46 = v28;
+                _os_log_impl(&dword_26CFEB000, v30, OS_LOG_TYPE_DEFAULT, "Adding suggested device: %{public}@", buf, 0xCu);
               }
 
-              [v12 addObject:v25];
+              [v14 addObject:v28];
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
         }
 
-        while (v22);
+        while (v25);
       }
 
-      [v12 addObjectsFromArray:devices4];
-      array = [v12 array];
+      [v14 addObjectsFromArray:devices4];
+      array = [v14 array];
       self = selfCopy;
       devices = selfCopy->_devices;
       selfCopy->_devices = array;
 
-      v29 = _TVRUIDevicePickerLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v34 = _TVRUIDevicePickerLog(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         devices8 = [(TVRUIDevicePickerViewController *)selfCopy devices];
         *buf = 138543362;
-        v41 = devices8;
-        _os_log_impl(&dword_26CFEB000, v29, OS_LOG_TYPE_DEFAULT, "Sorted device list: %{public}@", buf, 0xCu);
+        v46 = devices8;
+        _os_log_impl(&dword_26CFEB000, v34, OS_LOG_TYPE_DEFAULT, "Sorted device list: %{public}@", buf, 0xCu);
       }
 
-      devicesCopy = v34;
+      devicesCopy = v39;
     }
   }
 
@@ -1083,10 +1098,10 @@ void __47__TVRUIDevicePickerViewController__devicesMenu__block_invoke(uint64_t a
 
   if (!styleProvider)
   {
-    v10 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _TVRUIDevicePickerLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [TVRUIDevicePickerViewController tableView:v10 cellForRowAtIndexPath:?];
+      [TVRUIDevicePickerViewController tableView:v11 cellForRowAtIndexPath:?];
     }
   }
 
@@ -1094,32 +1109,32 @@ void __47__TVRUIDevicePickerViewController__devicesMenu__block_invoke(uint64_t a
   [v8 setStyleProvider:styleProvider2];
 
   devices = [(TVRUIDevicePickerViewController *)self devices];
-  v13 = [devices objectAtIndex:{objc_msgSend(pathCopy, "row")}];
+  v14 = [devices objectAtIndex:{objc_msgSend(pathCopy, "row")}];
 
-  [v8 setDevice:v13];
+  [v8 setDevice:v14];
   [v8 setShowSeparator:{objc_msgSend(pathCopy, "row") != objc_msgSend(viewCopy, "numberOfRowsInSection:", objc_msgSend(pathCopy, "section")) - 1}];
-  v14 = objc_alloc_init(MEMORY[0x277D75D18]);
-  v15 = [MEMORY[0x277D75348] colorWithWhite:1.0 alpha:0.3];
-  [v14 setBackgroundColor:v15];
+  v15 = objc_alloc_init(MEMORY[0x277D75D18]);
+  v16 = [MEMORY[0x277D75348] colorWithWhite:1.0 alpha:0.3];
+  [v15 setBackgroundColor:v16];
 
-  [v8 setSelectedBackgroundView:v14];
-  if ([v13 isConnected])
+  [v8 setSelectedBackgroundView:v15];
+  if ([v14 isConnected])
   {
     [(TVRUIDevicePickerViewController *)self setConnectedDeviceIndex:pathCopy];
   }
 
-  v16 = MEMORY[0x277D750C8];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __67__TVRUIDevicePickerViewController_tableView_cellForRowAtIndexPath___block_invoke;
-  v20[3] = &unk_279D87E38;
-  objc_copyWeak(&v22, &location);
-  v17 = v13;
-  v21 = v17;
-  v18 = [v16 actionWithHandler:v20];
-  [v8 setFindButtonTapAction:v18];
+  v17 = MEMORY[0x277D750C8];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__TVRUIDevicePickerViewController_tableView_cellForRowAtIndexPath___block_invoke;
+  v21[3] = &unk_279D87E38;
+  objc_copyWeak(&v23, &location);
+  v18 = v14;
+  v22 = v18;
+  v19 = [v17 actionWithHandler:v21];
+  [v8 setFindButtonTapAction:v19];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
 
   return v8;
@@ -1145,21 +1160,22 @@ void __67__TVRUIDevicePickerViewController_tableView_cellForRowAtIndexPath___blo
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   devices = self->_devices;
   pathCopy = path;
   v7 = -[NSArray objectAtIndex:](devices, "objectAtIndex:", [pathCopy row]);
-  if ([v7 isConnected])
+  isConnected = [v7 isConnected];
+  if (isConnected)
   {
-    v8 = _TVRUIDevicePickerLog();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRUIDevicePickerLog(isConnected);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v13 = 138543362;
-    v14 = v7;
-    v9 = "User tapped on already connected device: %{public}@";
+    v15 = 138543362;
+    v16 = v7;
+    v10 = "User tapped on already connected device: %{public}@";
   }
 
   else
@@ -1170,18 +1186,18 @@ void __67__TVRUIDevicePickerViewController_tableView_cellForRowAtIndexPath___blo
     delegate = [(TVRUIDevicePickerViewController *)self delegate];
     [delegate devicePicked:v7];
 
-    v8 = _TVRUIDevicePickerLog();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRUIDevicePickerLog(v13);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
     }
 
-    v13 = 138543362;
-    v14 = v7;
-    v9 = "User picked device: %{public}@";
+    v15 = 138543362;
+    v16 = v7;
+    v10 = "User picked device: %{public}@";
   }
 
-  _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, v9, &v13, 0xCu);
+  _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, v10, &v15, 0xCu);
 LABEL_7:
 
   tableView = [(TVRUIDevicePickerViewController *)self tableView];
@@ -1195,13 +1211,14 @@ LABEL_7:
 
 - (void)expandDeviceList
 {
-  if (![(TVRUIDevicePickerViewController *)self isDevicePickerShowing])
+  isDevicePickerShowing = [(TVRUIDevicePickerViewController *)self isDevicePickerShowing];
+  if ((isDevicePickerShowing & 1) == 0)
   {
-    v3 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TVRUIDevicePickerLog(isDevicePickerShowing);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_26CFEB000, v3, OS_LOG_TYPE_DEFAULT, "Expanding device list", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Expanding device list", v5, 2u);
     }
 
     [(TVRUIDevicePickerViewController *)self _toggleState];
@@ -1210,13 +1227,14 @@ LABEL_7:
 
 - (void)collapseDeviceList
 {
-  if ([(TVRUIDevicePickerViewController *)self isDevicePickerShowing])
+  isDevicePickerShowing = [(TVRUIDevicePickerViewController *)self isDevicePickerShowing];
+  if (isDevicePickerShowing)
   {
-    v3 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _TVRUIDevicePickerLog(isDevicePickerShowing);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_26CFEB000, v3, OS_LOG_TYPE_DEFAULT, "Collapsing device list", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Collapsing device list", v5, 2u);
     }
 
     [(TVRUIDevicePickerViewController *)self _toggleState];
@@ -1258,14 +1276,15 @@ LABEL_7:
 {
   useNewDevicePicker = [(TVRUIDevicePickerViewController *)self useNewDevicePicker];
   v4 = _UISolariumEnabled();
-  v5 = _TVRUIDevicePickerLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = v4;
+  v6 = _TVRUIDevicePickerLog(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Toggle state called", buf, 2u);
+    _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "Toggle state called", buf, 2u);
   }
 
-  if (-[TVRUIDevicePickerViewController isDevicePickerShowing](self, "isDevicePickerShowing") || (-[TVRUIDevicePickerViewController devices](self, "devices"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 count], v6, v7))
+  if (-[TVRUIDevicePickerViewController isDevicePickerShowing](self, "isDevicePickerShowing") || (-[TVRUIDevicePickerViewController devices](self, "devices"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, v8))
   {
     [(TVRUIDevicePickerViewController *)self setDevicePickerShowing:[(TVRUIDevicePickerViewController *)self isDevicePickerShowing]^ 1];
     if ([(TVRUIDevicePickerViewController *)self isDevicePickerShowing])
@@ -1283,13 +1302,13 @@ LABEL_7:
       showAnimator2 = [(TVRUIDevicePickerViewController *)self showAnimator];
       [showAnimator2 stopAnimation:1];
 
-      v12 = _TVRUIDevicePickerLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = _TVRUIDevicePickerLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        v13 = "showAnimator reversed";
+        v16 = "showAnimator reversed";
 LABEL_13:
-        _os_log_impl(&dword_26CFEB000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
+        _os_log_impl(&dword_26CFEB000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
       }
     }
 
@@ -1306,16 +1325,16 @@ LABEL_15:
         if ([(TVRUIDevicePickerViewController *)self isDevicePickerShowing])
         {
           showAnimator3 = [(TVRUIDevicePickerViewController *)self showAnimator];
-          v28[0] = MEMORY[0x277D85DD0];
-          v28[1] = 3221225472;
-          v28[2] = __47__TVRUIDevicePickerViewController__toggleState__block_invoke;
-          v28[3] = &unk_279D887F8;
-          v18 = &v29;
-          objc_copyWeak(&v29, buf);
-          v28[4] = self;
-          v30 = v4;
-          v31 = useNewDevicePicker;
-          [showAnimator3 addAnimations:v28];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __47__TVRUIDevicePickerViewController__toggleState__block_invoke;
+          v32[3] = &unk_279D887F8;
+          v22 = &v33;
+          objc_copyWeak(&v33, buf);
+          v32[4] = self;
+          v34 = v5;
+          v35 = useNewDevicePicker;
+          [showAnimator3 addAnimations:v32];
 
           [(TVRUIDevicePickerViewController *)self _sortAndReloadDevices];
           eventHaptic = [(TVRUIDevicePickerViewController *)self eventHaptic];
@@ -1331,14 +1350,14 @@ LABEL_15:
         else
         {
           hideAnimator2 = [(TVRUIDevicePickerViewController *)self hideAnimator];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __47__TVRUIDevicePickerViewController__toggleState__block_invoke_2;
-          v25[3] = &unk_279D88820;
-          v18 = &v26;
-          objc_copyWeak(&v26, buf);
-          v27 = useNewDevicePicker;
-          [hideAnimator2 addAnimations:v25];
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __47__TVRUIDevicePickerViewController__toggleState__block_invoke_2;
+          v29[3] = &unk_279D88820;
+          v22 = &v30;
+          objc_copyWeak(&v30, buf);
+          v31 = useNewDevicePicker;
+          [hideAnimator2 addAnimations:v29];
 
           delegate2 = [(TVRUIDevicePickerViewController *)self delegate];
           [delegate2 devicePickerWillChangeState:0 animated:0];
@@ -1347,7 +1366,7 @@ LABEL_15:
           [showAnimator4 startAnimation];
         }
 
-        objc_destroyWeak(v18);
+        objc_destroyWeak(v22);
         objc_destroyWeak(buf);
         return;
       }
@@ -1355,11 +1374,11 @@ LABEL_15:
       hideAnimator3 = [(TVRUIDevicePickerViewController *)self hideAnimator];
       [hideAnimator3 stopAnimation:1];
 
-      v12 = _TVRUIDevicePickerLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = _TVRUIDevicePickerLog(v20);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        v13 = "hideAnimator reversed";
+        v16 = "hideAnimator reversed";
         goto LABEL_13;
       }
     }
@@ -1367,11 +1386,11 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v24 = _TVRUIDevicePickerLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v28 = _TVRUIDevicePickerLog(v9);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_26CFEB000, v24, OS_LOG_TYPE_DEFAULT, "Not showing and device count is 0. Not expanding picker.", buf, 2u);
+    _os_log_impl(&dword_26CFEB000, v28, OS_LOG_TYPE_DEFAULT, "Not showing and device count is 0. Not expanding picker.", buf, 2u);
   }
 }
 
@@ -1552,7 +1571,7 @@ id __63__TVRUIDevicePickerViewController__presentShortcutsMenuPopover__block_inv
 
 - (CGRect)_preferredTableViewFrameWhenExpanded:(BOOL)expanded
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   useNewDevicePicker = [(TVRUIDevicePickerViewController *)self useNewDevicePicker];
   if (useNewDevicePicker)
   {
@@ -1572,13 +1591,13 @@ id __63__TVRUIDevicePickerViewController__presentShortcutsMenuPopover__block_inv
 
   if (expanded || useNewDevicePicker)
   {
-    v14 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _TVRUIDevicePickerLog(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       devices = [(TVRUIDevicePickerViewController *)self devices];
-      v19 = 134217984;
-      v20 = [devices count];
-      _os_log_impl(&dword_26CFEB000, v14, OS_LOG_TYPE_DEFAULT, "tableViewFrameRequest with num devices %ld", &v19, 0xCu);
+      v20 = 134217984;
+      v21 = [devices count];
+      _os_log_impl(&dword_26CFEB000, v15, OS_LOG_TYPE_DEFAULT, "tableViewFrameRequest with num devices %ld", &v20, 0xCu);
     }
 
     result.origin.y = 0.0;
@@ -1587,23 +1606,23 @@ id __63__TVRUIDevicePickerViewController__presentShortcutsMenuPopover__block_inv
   else
   {
     [(TVRUIDevicePickerViewController *)self _calculatedContentHeight];
-    v13 = -(v12 + 1.0);
-    v22.origin.y = 0.0;
-    v22.origin.x = x;
-    v22.size.width = width;
-    v22.size.height = height;
-    result = CGRectOffset(v22, 0.0, v13);
+    v14 = -(v13 + 1.0);
+    v23.origin.y = 0.0;
+    v23.origin.x = x;
+    v23.size.width = width;
+    v23.size.height = height;
+    result = CGRectOffset(v23, 0.0, v14);
     x = result.origin.x;
     width = result.size.width;
     height = result.size.height;
   }
 
-  v16 = x;
-  v17 = width;
-  v18 = height;
-  result.size.height = v18;
-  result.size.width = v17;
-  result.origin.x = v16;
+  v17 = x;
+  v18 = width;
+  v19 = height;
+  result.size.height = v19;
+  result.size.width = v18;
+  result.origin.x = v17;
   return result;
 }
 
@@ -1676,7 +1695,7 @@ id __63__TVRUIDevicePickerViewController__presentShortcutsMenuPopover__block_inv
 
 - (double)_expandedContentHeight
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   useNewDevicePicker = [(TVRUIDevicePickerViewController *)self useNewDevicePicker];
   styleProvider = [(TVRUIDevicePickerViewController *)self styleProvider];
   [styleProvider touchpadHeight];
@@ -1689,26 +1708,26 @@ id __63__TVRUIDevicePickerViewController__presentShortcutsMenuPopover__block_inv
   }
 
   v8 = v6 * v7;
-  [(TVRUIDevicePickerViewController *)self _calculatedContentHeight];
-  v10 = v9;
-  v11 = _TVRUIDevicePickerLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  _calculatedContentHeight = [(TVRUIDevicePickerViewController *)self _calculatedContentHeight];
+  v11 = v10;
+  v12 = _TVRUIDevicePickerLog(_calculatedContentHeight);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134218240;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v10;
-    _os_log_impl(&dword_26CFEB000, v11, OS_LOG_TYPE_DEFAULT, "maxExpandedHeight=%f calculatedHeight=%f", &v13, 0x16u);
+    v14 = 134218240;
+    v15 = v8;
+    v16 = 2048;
+    v17 = v11;
+    _os_log_impl(&dword_26CFEB000, v12, OS_LOG_TYPE_DEFAULT, "maxExpandedHeight=%f calculatedHeight=%f", &v14, 0x16u);
   }
 
-  if (v10 >= v8)
+  if (v11 >= v8)
   {
     return v8;
   }
 
   else
   {
-    return v10;
+    return v11;
   }
 }
 
@@ -1931,7 +1950,7 @@ void __61__TVRUIDevicePickerViewController__updateTitleViewForDevice___block_inv
 - (void)_updateDevice
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIDevicePickerLog();
+  v3 = _TVRUIDevicePickerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315138;
@@ -2080,35 +2099,35 @@ LABEL_5:
 
 - (id)_lastVisibleCellSupportingFindMy
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   tableView = [(TVRUIDevicePickerViewController *)self tableView];
   indexPathsForVisibleRows = [tableView indexPathsForVisibleRows];
 
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"row" ascending:1];
-  v26[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v27[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v7 = [indexPathsForVisibleRows sortedArrayUsingDescriptors:v6];
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v23;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v22 != v11)
+      if (*v23 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v21 + 1) + 8 * v12);
+      v13 = *(*(&v22 + 1) + 8 * v12);
       tableView2 = [(TVRUIDevicePickerViewController *)self tableView];
       v15 = [tableView2 cellForRowAtIndexPath:v13];
 
@@ -2122,7 +2141,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -2143,11 +2162,11 @@ LABEL_3:
 LABEL_9:
   }
 
-  v18 = _TVRUIDevicePickerLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = _TVRUIDevicePickerLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 0;
-    _os_log_impl(&dword_26CFEB000, v18, OS_LOG_TYPE_DEFAULT, "Find my supported device is not visible in the list", v20, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_26CFEB000, v19, OS_LOG_TYPE_DEFAULT, "Find my supported device is not visible in the list", v21, 2u);
   }
 
   v15 = 0;
@@ -2187,7 +2206,7 @@ LABEL_14:
 
 - (BOOL)canPresentTip
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   showAnimator = [(TVRUIDevicePickerViewController *)self showAnimator];
   if ([showAnimator isRunning])
   {
@@ -2222,18 +2241,18 @@ LABEL_14:
   }
 
 LABEL_10:
-  v9 = _TVRUIDevicePickerLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _TVRUIDevicePickerLog(v7);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = "no";
+    v11 = "no";
     if (v4)
     {
-      v10 = "yes";
+      v11 = "yes";
     }
 
-    v12 = 136315138;
-    v13 = v10;
-    _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "Can present Tip: %s", &v12, 0xCu);
+    v13 = 136315138;
+    v14 = v11;
+    _os_log_impl(&dword_26CFEB000, v10, OS_LOG_TYPE_DEFAULT, "Can present Tip: %s", &v13, 0xCu);
   }
 
   return v4;

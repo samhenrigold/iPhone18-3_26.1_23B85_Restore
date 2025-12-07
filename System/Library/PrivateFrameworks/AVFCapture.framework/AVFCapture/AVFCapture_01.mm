@@ -1,3 +1,134 @@
+uint64_t AVGestaltGetFloatAnswerWithError(uint64_t a1, char *a2)
+{
+  if (avgestalt_buildDataBase_onceToken != -1)
+  {
+    AVGestaltGetBoolAnswer_cold_1();
+  }
+
+  v3 = objc_msgSend_objectForKeyedSubscript_(sAVGestaltFloatDataBase);
+  v4 = v3;
+  if (a2)
+  {
+    if (v3)
+    {
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:0];
+    }
+
+    *a2 = v5;
+  }
+
+  return [v4 floatValue];
+}
+
+uint64_t AVGestaltGetStringAnswerWithError(uint64_t a1, char *a2)
+{
+  if (avgestalt_buildDataBase_onceToken != -1)
+  {
+    AVGestaltGetBoolAnswer_cold_1();
+  }
+
+  v3 = objc_msgSend_objectForKeyedSubscript_(sAVGestaltStringDataBase);
+  v4 = v3;
+  if (a2)
+  {
+    if (v3)
+    {
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:0];
+    }
+
+    *a2 = v5;
+  }
+
+  return v4;
+}
+
+const char *AVGestaltGetBoolAnswerWithDefault(uint64_t a1, const char *a2)
+{
+  if (avgestalt_buildDataBase_onceToken != -1)
+  {
+    AVGestaltGetBoolAnswer_cold_1();
+  }
+
+  v3 = objc_msgSend_objectForKeyedSubscript_(sAVGestaltBoolDataBase);
+  if (!v3)
+  {
+    return a2;
+  }
+
+  return [v3 BOOLValue];
+}
+
+BOOL AVGestaltIsQuestionValid(uint64_t a1, char *a2)
+{
+  if (avgestalt_buildDataBase_onceToken != -1)
+  {
+    AVGestaltGetBoolAnswer_cold_1();
+  }
+
+  if (objc_msgSend_objectForKeyedSubscript_(sAVGestaltBoolDataBase))
+  {
+    v3 = 0;
+    goto LABEL_7;
+  }
+
+  if (objc_msgSend_objectForKeyedSubscript_(sAVGestaltIntegerDataBase))
+  {
+    v3 = 1;
+LABEL_7:
+    result = 1;
+    if (!a2)
+    {
+      return result;
+    }
+
+    goto LABEL_8;
+  }
+
+  if (objc_msgSend_objectForKeyedSubscript_(sAVGestaltFloatDataBase))
+  {
+    result = 1;
+    v3 = 2;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_8:
+    *a2 = v3;
+    return result;
+  }
+
+  v5 = objc_msgSend_objectForKeyedSubscript_(sAVGestaltStringDataBase);
+  v6 = v5 == 0;
+  result = v5 != 0;
+  if (v6)
+  {
+    v3 = -1;
+  }
+
+  else
+  {
+    v3 = 3;
+  }
+
+  if (a2)
+  {
+    goto LABEL_8;
+  }
+
+  return result;
+}
+
 uint64_t AVGestaltGetQuestions()
 {
   if (avgestalt_buildDataBase_onceToken != -1)
@@ -13,30 +144,30 @@ uint64_t AVGestaltGetQuestions()
   return [v2 arrayByAddingObjectsFromArray:v3];
 }
 
-uint64_t AVCaptureDeferredPhotoIdentifierFromMakerNoteDictionary(void *a1)
+uint64_t AVCaptureDeferredPhotoIdentifierFromMakerNoteDictionary(void *a1, const char *a2)
 {
-  v2 = [objc_msgSend(a1 objectForKeyedSubscript:{@"25", "unsignedIntValue"}];
-  v3 = [a1 objectForKeyedSubscript:@"32"];
-  v4 = [a1 objectForKeyedSubscript:@"43"];
-  if ((v2 & 0x1000) == 0)
+  v3 = [objc_msgSend_objectForKeyedSubscript_(a1 a2];
+  v4 = objc_msgSend_objectForKeyedSubscript_(a1);
+  v5 = objc_msgSend_objectForKeyedSubscript_(a1);
+  if ((v3 & 0x1000) == 0)
   {
     return 0;
   }
 
-  if (!v3 || v4 == 0)
+  if (!v4 || v5 == 0)
   {
     return 0;
   }
 
   else
   {
-    return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v3, v4];
+    return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v4, v5];
   }
 }
 
-void sub_1A923C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A923C8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -105,6 +236,13 @@ __CFString *avcdpp_failureReasonStringForErrorStatus(int a1)
   }
 
   return &stru_1F1CBCFE8;
+}
+
+void sub_1A923D7BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void figCaptureSourceNotificationHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -201,52 +339,38 @@ void *avcmdo_allMetadataObjectTypesInCollections(void *a1)
   return v2;
 }
 
-unint64_t avcmdo_addCMTimeToHistoryForDetector(void *a1, __int128 *a2, uint64_t a3)
+void *avcmdo_addCMTimeToHistoryForDetector(void *a1, const char *a2, uint64_t a3)
 {
-  v6 = [a1 objectForKeyedSubscript:?];
-  if (!v6)
+  v7 = objc_msgSend_objectForKeyedSubscript_(a1);
+  if (!v7)
   {
-    v6 = [MEMORY[0x1E695DF70] array];
-    [a1 setObject:v6 forKeyedSubscript:a3];
+    v7 = [MEMORY[0x1E695DF70] array];
+    [a1 setObject:v7 forKeyedSubscript:a3];
   }
 
-  v8 = *a2;
-  v9 = *(a2 + 2);
-  [v6 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCMTime:", &v8)}];
-  result = [v6 count];
+  v9 = *a2;
+  v10 = *(a2 + 2);
+  [v7 addObject:{objc_msgSend(MEMORY[0x1E696B098], "valueWithCMTime:", &v9)}];
+  result = [v7 count];
   if (result >= 3)
   {
-    return [v6 removeObjectAtIndex:0];
+    return [v7 removeObjectAtIndex:0];
   }
 
   return result;
 }
 
-uint64_t avcmdo_nextTimeForDetector@<X0>(void *a1@<X0>, uint64_t a2@<X1>, CMTime *a3@<X8>)
+uint64_t avcmdo_nextTimeForDetector@<X0>(void *a1@<X0>, const char *a2@<X1>, CMTime *a3@<X8>)
 {
-  v4 = MEMORY[0x1E6960C70];
-  *&a3->value = *MEMORY[0x1E6960C70];
-  a3->epoch = *(v4 + 16);
-  v5 = [a1 objectForKeyedSubscript:a2];
-  if ([v5 count] == 2)
+  *a3 = **&MEMORY[0x1E6960C70];
+  v4 = objc_msgSend_objectForKeyedSubscript_(a1, a2, a2);
+  if ([v4 count] == 2)
   {
-    memset(&v16, 0, sizeof(v16));
-    v6 = [v5 objectAtIndexedSubscript:1];
-    if (v6)
-    {
-      [v6 CMTimeValue];
-    }
-
-    else
-    {
-      memset(&v16, 0, sizeof(v16));
-    }
-
     memset(&v15, 0, sizeof(v15));
-    v8 = [v5 objectAtIndexedSubscript:0];
-    if (v8)
+    v5 = [v4 objectAtIndexedSubscript:1];
+    if (v5)
     {
-      [v8 CMTimeValue];
+      objc_msgSend_CMTimeValue(v5);
     }
 
     else
@@ -255,43 +379,55 @@ uint64_t avcmdo_nextTimeForDetector@<X0>(void *a1@<X0>, uint64_t a2@<X1>, CMTime
     }
 
     memset(&v14, 0, sizeof(v14));
-    lhs = v16;
-    v12 = v15;
-    CMTimeSubtract(&v14, &lhs, &v12);
-    lhs = v16;
-    v12 = v14;
-    p_lhs = &lhs;
-    v10 = &v12;
-LABEL_14:
-    CMTimeAdd(a3, p_lhs, v10);
-    return [v5 removeAllObjects];
-  }
-
-  if ([v5 count] == 1)
-  {
-    memset(&v16, 0, sizeof(v16));
-    v7 = [v5 objectAtIndexedSubscript:0];
+    v7 = [v4 objectAtIndexedSubscript:0];
     if (v7)
     {
-      [v7 CMTimeValue];
-      LODWORD(v7) = v16.timescale;
+      objc_msgSend_CMTimeValue(v7);
     }
 
     else
     {
-      memset(&v16, 0, sizeof(v16));
+      memset(&v14, 0, sizeof(v14));
     }
 
-    memset(&v15, 0, sizeof(v15));
-    CMTimeMakeWithSeconds(&v15, 0.0333333333, v7);
-    v14 = v16;
+    memset(&v13, 0, sizeof(v13));
     lhs = v15;
-    p_lhs = &v14;
-    v10 = &lhs;
+    v11 = v14;
+    CMTimeSubtract(&v13, &lhs, &v11);
+    lhs = v15;
+    v11 = v13;
+    p_lhs = &lhs;
+    v9 = &v11;
+LABEL_14:
+    CMTimeAdd(a3, p_lhs, v9);
+    return [v4 removeAllObjects];
+  }
+
+  if ([v4 count] == 1)
+  {
+    memset(&v15, 0, sizeof(v15));
+    v6 = [v4 objectAtIndexedSubscript:0];
+    if (v6)
+    {
+      objc_msgSend_CMTimeValue(v6);
+      LODWORD(v6) = v15.timescale;
+    }
+
+    else
+    {
+      memset(&v15, 0, sizeof(v15));
+    }
+
+    memset(&v14, 0, sizeof(v14));
+    CMTimeMakeWithSeconds(&v14, 0.0333333333, v6);
+    v13 = v15;
+    lhs = v14;
+    p_lhs = &v13;
+    v9 = &lhs;
     goto LABEL_14;
   }
 
-  return [v5 removeAllObjects];
+  return [v4 removeAllObjects];
 }
 
 uint64_t avcs_updateAVCaptureConnectionForAspectRatio(void *a1, void *a2)
@@ -321,7 +457,9 @@ uint64_t avcs_updateAVCaptureConnectionForAspectRatio(void *a1, void *a2)
           v10 = v9;
           if (a2)
           {
-            Dimensions = AVCaptureConvertDimensionsForAspectRatio([objc_msgSend(v9 objectForKeyedSubscript:{v7), "intValue"}] | (objc_msgSend(objc_msgSend(v9, "objectForKeyedSubscript:", v8), "intValue") << 32), a2, NAN);
+            v11 = [objc_msgSend_objectForKeyedSubscript_(v9) intValue];
+            v12 = [objc_msgSend_objectForKeyedSubscript_(v10) intValue];
+            Dimensions = AVCaptureConvertDimensionsForAspectRatio(v11 | (v12 << 32), a2, NAN);
           }
 
           else
@@ -329,9 +467,9 @@ uint64_t avcs_updateAVCaptureConnectionForAspectRatio(void *a1, void *a2)
             Dimensions = CMVideoFormatDescriptionGetDimensions([v5 formatDescription]);
           }
 
-          v12 = HIDWORD(Dimensions);
+          v14 = HIDWORD(Dimensions);
           [v10 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", Dimensions), v7}];
-          [v10 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v12), v8}];
+          [v10 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInt:", v14), v8}];
           [v4 setOutputSettings:v10 forConnection:a1];
         }
       }
@@ -364,7 +502,7 @@ void AVCaptureSessionSetXCTestClientAuthorizedToStealDevice(uint64_t a1)
   }
 
   v5 = [v2 exceptionWithName:v3 reason:v4 userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v5, v6))
   {
     objc_exception_throw(v5);
   }
@@ -391,85 +529,83 @@ uint64_t AVCapturePrewarmWithTime(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t AVCapturePrewarmWithOptions(uint64_t a1, void *a2)
 {
   v3 = [MEMORY[0x1E695DF90] dictionary];
-  if ([a2 objectForKeyedSubscript:@"AVCapturePrewarmUserInteractionAbsoluteTimeKey"])
+  if (objc_msgSend_objectForKeyedSubscript_(a2))
   {
-    v4 = [a2 objectForKeyedSubscript:@"AVCapturePrewarmUserInteractionAbsoluteTimeKey"];
-    [v3 setObject:v4 forKeyedSubscript:*MEMORY[0x1E698FE30]];
+    [v3 setObject:objc_msgSend_objectForKeyedSubscript_(a2) forKeyedSubscript:*MEMORY[0x1E698FE30]];
   }
 
-  if ([a2 objectForKeyedSubscript:@"AVCapturePrewarmUserInteractionContinuousTimeKey"])
+  if (objc_msgSend_objectForKeyedSubscript_(a2))
   {
-    v5 = [a2 objectForKeyedSubscript:@"AVCapturePrewarmUserInteractionContinuousTimeKey"];
-    [v3 setObject:v5 forKeyedSubscript:*MEMORY[0x1E698FE20]];
+    [v3 setObject:objc_msgSend_objectForKeyedSubscript_(a2) forKeyedSubscript:*MEMORY[0x1E698FE20]];
   }
 
-  if ([a2 objectForKeyedSubscript:@"AVCapturePrewarmReasonKey"])
+  if (objc_msgSend_objectForKeyedSubscript_(a2))
   {
-    v6 = [a2 objectForKeyedSubscript:@"AVCapturePrewarmReasonKey"];
-    v20[0] = @"HomeScreen";
-    v20[1] = @"Spotlight";
-    v20[2] = @"AppSwitcher";
-    v20[3] = @"NotificationCenter";
-    v20[4] = @"ControlCenter";
-    v20[5] = @"Banner";
-    v20[6] = @"LockScreen";
-    v20[7] = @"Siri";
-    v20[8] = @"Stark";
-    v20[9] = @"Continuity";
-    v20[10] = @"SystemGesture";
-    v20[11] = @"NonInteractiveSystemGesture";
-    v20[12] = @"FBSystemService";
-    v20[13] = @"Rotation";
-    v20[14] = @"Breadcrumb";
-    v20[15] = @"CommandTab";
-    v20[16] = @"ExternalDisplay";
-    v20[17] = @"Widget";
-    v20[18] = @"HomeButton";
-    v20[19] = @"Test";
-    v20[20] = @"StatusBar";
-    v20[21] = @"LockScreenPlugin";
-    v20[22] = @"FloatingDock";
-    v20[23] = @"FloatingDockSuggestions";
-    v20[24] = @"DragAndDrop";
-    v20[25] = @"StarkSiri";
-    v20[26] = @"Startup";
-    v20[27] = @"ActionButton";
-    v20[28] = @"CameraCaptureButton";
-    v20[29] = @"LockScreenButton";
-    v20[30] = @"LockScreenSwipe";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:31];
+    v4 = objc_msgSend_objectForKeyedSubscript_(a2);
+    v18[0] = @"HomeScreen";
+    v18[1] = @"Spotlight";
+    v18[2] = @"AppSwitcher";
+    v18[3] = @"NotificationCenter";
+    v18[4] = @"ControlCenter";
+    v18[5] = @"Banner";
+    v18[6] = @"LockScreen";
+    v18[7] = @"Siri";
+    v18[8] = @"Stark";
+    v18[9] = @"Continuity";
+    v18[10] = @"SystemGesture";
+    v18[11] = @"NonInteractiveSystemGesture";
+    v18[12] = @"FBSystemService";
+    v18[13] = @"Rotation";
+    v18[14] = @"Breadcrumb";
+    v18[15] = @"CommandTab";
+    v18[16] = @"ExternalDisplay";
+    v18[17] = @"Widget";
+    v18[18] = @"HomeButton";
+    v18[19] = @"Test";
+    v18[20] = @"StatusBar";
+    v18[21] = @"LockScreenPlugin";
+    v18[22] = @"FloatingDock";
+    v18[23] = @"FloatingDockSuggestions";
+    v18[24] = @"DragAndDrop";
+    v18[25] = @"StarkSiri";
+    v18[26] = @"Startup";
+    v18[27] = @"ActionButton";
+    v18[28] = @"CameraCaptureButton";
+    v18[29] = @"LockScreenButton";
+    v18[30] = @"LockScreenSwipe";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:31];
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v15 count:16];
-    if (v8)
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v13 count:16];
+    if (v6)
     {
-      v9 = v8;
-      v10 = *v17;
+      v7 = v6;
+      v8 = *v15;
       while (2)
       {
-        v11 = 0;
+        v9 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v15 != v8)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          if ([v6 isEqualToString:*(*(&v16 + 1) + 8 * v11)])
+          if ([v4 isEqualToString:*(*(&v14 + 1) + 8 * v9)])
           {
-            v13 = [a2 objectForKeyedSubscript:@"AVCapturePrewarmReasonKey"];
-            v12 = *MEMORY[0x1E698FE28];
+            v11 = objc_msgSend_objectForKeyedSubscript_(a2);
+            v10 = *MEMORY[0x1E698FE28];
             goto LABEL_16;
           }
 
-          ++v11;
+          ++v9;
         }
 
-        while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v15 count:16];
-        if (v9)
+        while (v7 != v9);
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v13 count:16];
+        if (v7)
         {
           continue;
         }
@@ -478,19 +614,20 @@ uint64_t AVCapturePrewarmWithOptions(uint64_t a1, void *a2)
       }
     }
 
-    v12 = *MEMORY[0x1E698FE28];
-    v13 = @"Invalid";
+    v10 = *MEMORY[0x1E698FE28];
+    v11 = @"Invalid";
 LABEL_16:
-    [v3 setObject:v13 forKeyedSubscript:v12];
+    [v3 setObject:v11 forKeyedSubscript:v10];
   }
 
   return FigCaptureSessionRemotePrewarmWithOptions();
 }
 
-uint64_t OUTLINED_FUNCTION_5_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+uint64_t OUTLINED_FUNCTION_5_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
 
-  return [v33 countByEnumeratingWithState:v34 - 144 objects:&a33 count:16];
+  return [v32 countByEnumeratingWithState:v33 - 144 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t OUTLINED_FUNCTION_6_1(uint64_t a1)
@@ -500,30 +637,30 @@ uint64_t OUTLINED_FUNCTION_6_1(uint64_t a1)
   return [v2 referencedObject];
 }
 
-void sub_1A9268348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A9268348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A9268528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A9268528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A926871C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A926871C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -534,9 +671,9 @@ uint64_t po_createPreviewJPEGRepresentationForSampleBuffer(uint64_t a1, uint64_t
   return 0;
 }
 
-void sub_1A926C3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1A926C3EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -548,31 +685,31 @@ void sub_1A926CB28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A926D044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A926D044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A926D328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A926D328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A926F814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A926F814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A9271A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1A9271A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -615,12 +752,13 @@ void *po_deviceArrayToFigCaptureSourceDeviceTypesArray(void *a1)
   return v2;
 }
 
-void sub_1A9275920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1A9275920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -676,7 +814,7 @@ BOOL po_allLivePhotoCallbacksHaveFinishedRecordingForRequest(void *a1)
   return v10 + v11 + (([a1 firedCallbackFlags] >> 6) & 1) == v5;
 }
 
-uint64_t __po_photoSettingsAreValid_block_invoke(uint64_t a1)
+void *__po_photoSettingsAreValid_block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 112) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "flashMode"))}];
   *(*(*(a1 + 56) + 8) + 24) = [*(*(a1 + 32) + 96) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", objc_msgSend(*(a1 + 40), "HDRMode"))}];
@@ -967,7 +1105,7 @@ unint64_t tg_totalFramesFromTimecode(unsigned __int8 *a1)
   }
 }
 
-CMSampleBufferRef AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(uint64_t a1, CMTime *a2)
+CMSampleBufferRef AVCaptureTimecodeCreateMetadataSampleBufferAssociatedWithPresentationTimeStamp(uint64_t a1, __int128 *a2)
 {
   v5 = *a2;
   v3 = *(a1 + 8);
@@ -1164,7 +1302,7 @@ AVCaptureReactionType _AVControlCenterGetAVCaptureReactionTypeForPTEffectReactio
   return *v3;
 }
 
-void AVControlCenterModulesPrewarm()
+void AVControlCenterModulesPrewarm(uint64_t result, uint64_t a2)
 {
   if (AVControlCenterModulesPrewarm_onceToken != -1)
   {
@@ -1180,6 +1318,8 @@ id __AVControlCenterModulesPrewarm_block_invoke()
   sModuleStatesByBundleID = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (dword_1ED8068A0)
   {
+    v3 = 0;
+    v2 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1228,6 +1368,8 @@ uint64_t AVControlCenterModulesShouldBeShownForBundleID(void *a1)
 {
   if (dword_1ED8068A0)
   {
+    v21 = 0;
+    v20 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1257,8 +1399,34 @@ uint64_t AVControlCenterModulesShouldBeShownForBundleID(void *a1)
   v5 = AVControlCenterMicrophoneModuleShouldBeShownForBundleID(v3);
   if (dword_1ED8068A0)
   {
+    v21 = 0;
+    v20 = OS_LOG_TYPE_DEFAULT;
     v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = v21;
+    v8 = v20;
+    if (os_log_type_enabled(v6, v20))
+    {
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = v7 & 0xFFFFFFFE;
+    }
+
+    if (v9)
+    {
+      v11 = 136315906;
+      v12 = "AVControlCenterModulesShouldBeShownForBundleID";
+      v13 = 2114;
+      v14 = v3;
+      v15 = 1024;
+      v16 = ShouldBeShownForBundleID;
+      v17 = 1024;
+      v18 = v5;
+      _os_log_send_and_compose_impl(v9, 0, v19, 128, &dword_1A917C000, v6, v8, "<<<< AVControlCenterModules >>>> %s: %{public}@ videoEffectsShouldBeShown:%d micModesShouldBeShown:%d", &v11, 34);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
@@ -1269,8 +1437,8 @@ uint64_t AVControlCenterMicrophoneModuleShouldBeShownForBundleID(void *a1)
 {
   if (dword_1ED8068A0)
   {
-    v21 = 0;
-    v20 = OS_LOG_TYPE_DEFAULT;
+    v23 = 0;
+    v22 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1295,27 +1463,28 @@ uint64_t AVControlCenterMicrophoneModuleShouldBeShownForBundleID(void *a1)
   {
     if (dword_1ED8068A0)
     {
-      v21 = 0;
-      v20 = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v21;
-      if (os_log_type_enabled(v9, v20))
+      v23 = 0;
+      v22 = OS_LOG_TYPE_DEFAULT;
+      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v12 = v23;
+      v13 = v22;
+      if (os_log_type_enabled(v11, v22))
       {
-        v11 = v10;
+        v14 = v12;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v14 = v12 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v14)
       {
-        v14 = 136315394;
-        v15 = "AVControlCenterMicrophoneModuleShouldBeShownForBundleID";
-        v16 = 2114;
-        v17 = a1;
-        _os_log_send_and_compose_impl();
+        v15 = 136315394;
+        v16 = "AVControlCenterMicrophoneModuleShouldBeShownForBundleID";
+        v17 = 2114;
+        v18 = a1;
+        _os_log_send_and_compose_impl(v14, 0, v21, 128, &dword_1A917C000, v11, v13, "<<<< AVControlCenterModules >>>> %s: %{public}@ active:0 It's in the disallow list", &v15, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1326,45 +1495,44 @@ uint64_t AVControlCenterMicrophoneModuleShouldBeShownForBundleID(void *a1)
 
   else
   {
-    v3 = _AVControlCenterModuleStateForBundleID(a1);
+    v4 = _AVControlCenterModuleStateForBundleID(a1, v3);
     if (dword_1ED8068A0)
     {
-      v21 = 0;
-      v20 = OS_LOG_TYPE_DEFAULT;
-      v4 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v5 = v21;
-      if (os_log_type_enabled(v4, v20))
+      v23 = 0;
+      v22 = OS_LOG_TYPE_DEFAULT;
+      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v6 = v23;
+      v7 = v22;
+      if (os_log_type_enabled(v5, v22))
       {
-        v6 = v5;
+        v8 = v6;
       }
 
       else
       {
-        v6 = v5 & 0xFFFFFFFE;
+        v8 = v6 & 0xFFFFFFFE;
       }
 
-      if (v6)
+      if (v8)
       {
-        v7 = [v3 isActive];
-        v14 = 136315650;
-        v15 = "AVControlCenterMicrophoneModuleShouldBeShownForBundleID";
-        v16 = 2114;
-        v17 = a1;
-        v18 = 1024;
-        v19 = v7;
-        LODWORD(v13) = 28;
-        v12 = &v14;
-        _os_log_send_and_compose_impl();
+        v9 = [v4 isActive];
+        v15 = 136315650;
+        v16 = "AVControlCenterMicrophoneModuleShouldBeShownForBundleID";
+        v17 = 2114;
+        v18 = a1;
+        v19 = 1024;
+        v20 = v9;
+        _os_log_send_and_compose_impl(v8, 0, v21, 128, &dword_1A917C000, v5, v7, "<<<< AVControlCenterModules >>>> %s: %{public}@ active:%d", &v15, 28);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    return [v3 isActive];
+    return [v4 isActive];
   }
 }
 
-id _AVControlCenterModuleStateForBundleID(uint64_t a1)
+id _AVControlCenterModuleStateForBundleID(uint64_t a1, uint64_t a2)
 {
   if (AVControlCenterModulesPrewarm_onceToken != -1)
   {
@@ -1372,11 +1540,11 @@ id _AVControlCenterModuleStateForBundleID(uint64_t a1)
   }
 
   os_unfair_lock_lock(&sModuleStatesLock);
-  v2 = [sModuleStatesByBundleID objectForKeyedSubscript:a1];
-  if (v2)
+  v3 = objc_msgSend_objectForKeyedSubscript_(sModuleStatesByBundleID);
+  if (v3)
   {
-    v3 = v2;
-    if ([v2 isDeviceBasedModuleState] && (objc_msgSend(v3, "isDeviceBasedModuleStateUpdateToDate") & 1) == 0)
+    v4 = v3;
+    if ([v3 isDeviceBasedModuleState] && (objc_msgSend(v4, "isDeviceBasedModuleStateUpdateToDate") & 1) == 0)
     {
       if (dword_1ED8068A0)
       {
@@ -1387,7 +1555,7 @@ id _AVControlCenterModuleStateForBundleID(uint64_t a1)
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      [v3 setupDeviceBasedModuleStatesIfNeeded];
+      [v4 setupDeviceBasedModuleStatesIfNeeded];
     }
 
     os_unfair_lock_unlock(&sModuleStatesLock);
@@ -1399,108 +1567,109 @@ id _AVControlCenterModuleStateForBundleID(uint64_t a1)
     {
       v27 = 0;
       v26 = OS_LOG_TYPE_DEFAULT;
-      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v3 = [AVControlCenterModuleState moduleStateForBundleID:a1, v16, v19];
+    v4 = [AVControlCenterModuleState moduleStateForBundleID:a1];
     if (dword_1ED8068A0)
     {
       v27 = 0;
       v26 = OS_LOG_TYPE_DEFAULT;
-      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v7 = v27;
-      if (os_log_type_enabled(v6, v26))
+      v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v8 = v27;
+      v9 = v26;
+      if (os_log_type_enabled(v7, v26))
       {
-        v8 = v7;
+        v10 = v8;
       }
 
       else
       {
-        v8 = v7 & 0xFFFFFFFE;
+        v10 = v8 & 0xFFFFFFFE;
       }
 
-      if (v8)
+      if (v10)
       {
-        v22 = 136315395;
-        v23 = "_AVControlCenterModuleStateForBundleID";
-        v24 = 2113;
-        v25 = a1;
-        LODWORD(v20) = 22;
-        v17 = &v22;
-        _os_log_send_and_compose_impl();
+        v21 = 136315395;
+        v22 = "_AVControlCenterModuleStateForBundleID";
+        v23 = 2113;
+        v24 = a1;
+        _os_log_send_and_compose_impl(v10, 0, v25, 128, &dword_1A917C000, v7, v9, "<<<< AVControlCenterModules >>>> %s: created bundleID for %{private}@", &v21, 22);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [sModuleStatesByBundleID setObject:v3 forKeyedSubscript:{a1, v17, v20}];
+    [sModuleStatesByBundleID setObject:v4 forKeyedSubscript:a1];
     os_unfair_lock_unlock(&sModuleStatesLock);
     if (dword_1ED8068A0)
     {
       v27 = 0;
       v26 = OS_LOG_TYPE_DEFAULT;
-      v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = v27;
-      if (os_log_type_enabled(v9, v26))
+      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v12 = v27;
+      v13 = v26;
+      if (os_log_type_enabled(v11, v26))
       {
-        v11 = v10;
+        v14 = v12;
       }
 
       else
       {
-        v11 = v10 & 0xFFFFFFFE;
+        v14 = v12 & 0xFFFFFFFE;
       }
 
-      if (v11)
+      if (v14)
       {
-        v22 = 136315395;
-        v23 = "_AVControlCenterModuleStateForBundleID";
-        v24 = 2113;
-        v25 = a1;
-        LODWORD(v21) = 22;
-        v18 = &v22;
-        _os_log_send_and_compose_impl();
+        v21 = 136315395;
+        v22 = "_AVControlCenterModuleStateForBundleID";
+        v23 = 2113;
+        v24 = a1;
+        LODWORD(v20) = 22;
+        _os_log_send_and_compose_impl(v14, 0, v25, 128, &dword_1A917C000, v11, v13, "<<<< AVControlCenterModules >>>> %s: installing handlers for %{private}@", &v21, v20);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [v3 installProprietaryDefaultsHandlers];
+    [v4 installProprietaryDefaultsHandlers];
     if (dword_1ED8068A0)
     {
       v27 = 0;
       v26 = OS_LOG_TYPE_DEFAULT;
-      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v13 = v27;
-      if (os_log_type_enabled(v12, v26))
+      v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v16 = v27;
+      v17 = v26;
+      if (os_log_type_enabled(v15, v26))
       {
-        v14 = v13;
+        v18 = v16;
       }
 
       else
       {
-        v14 = v13 & 0xFFFFFFFE;
+        v18 = v16 & 0xFFFFFFFE;
       }
 
-      if (v14)
+      if (v18)
       {
-        v22 = 136315395;
-        v23 = "_AVControlCenterModuleStateForBundleID";
-        v24 = 2113;
-        v25 = a1;
-        _os_log_send_and_compose_impl();
+        v21 = 136315395;
+        v22 = "_AVControlCenterModuleStateForBundleID";
+        v23 = 2113;
+        v24 = a1;
+        LODWORD(v20) = 22;
+        _os_log_send_and_compose_impl(v18, 0, v25, 128, &dword_1A917C000, v15, v17, "<<<< AVControlCenterModules >>>> %s: installed handlers for %{private}@", &v21, v20);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t AVControlCenterPreferencesDomainForCurrentProcess()
+void *AVControlCenterPreferencesDomainForCurrentProcess()
 {
   v0 = AVCaptureClientPreferencesDomain();
 
@@ -1525,9 +1694,11 @@ uint64_t AVControlCenterVideoEffectsModuleIsEffectSupportedForBundleID(uint64_t 
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) supportsVideoEffect:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1543,9 +1714,11 @@ uint64_t AVControlCenterVideoEffectsModuleGetEffectControlModeForBundleID(uint64
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) controlModeForVideoEffect:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1561,9 +1734,11 @@ uint64_t AVControlCenterVideoEffectsModuleIsEffectEnabledForBundleID(uint64_t a1
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) isEnabledForVideoEffect:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1579,9 +1754,11 @@ uint64_t AVControlCenterVideoEffectsModuleSetEffectEnabledForBundleID(uint64_t a
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v3 = [_AVControlCenterModuleStateForBundleID(a3) setEnabled:a2 forVideoEffect:a1];
+  v3 = [_AVControlCenterModuleStateForBundleID(a3 a2)];
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1590,60 +1767,74 @@ uint64_t AVControlCenterVideoEffectsModuleSetEffectEnabledForBundleID(uint64_t a
   return v3;
 }
 
-uint64_t AVControlCenterVideoEffectsModulePerformReactionEffect(uint64_t a1, uint64_t a2, void *a3)
+double AVControlCenterVideoEffectsModulePerformReactionEffect(uint64_t a1, uint64_t a2, void *a3)
 {
   if (!a2)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  result = [_AVControlCenterModuleStateForBundleID(a2) performReactionEffect:a1 forCaptureDeviceWithID:{objc_msgSend(a3, "uniqueID")}];
+  [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   return result;
 }
 
-uint64_t AVControlCenterVideoEffectsModuleUpdateActiveReactions(uint64_t a1, CMTime *a2, uint64_t a3, uint64_t a4, void *a5)
+double AVControlCenterVideoEffectsModuleUpdateActiveReactions(uint64_t a1, CMTime *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (!a4)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v9 = _AVControlCenterModuleStateForBundleID(a4);
-  v10 = [a5 uniqueID];
+  v10 = _AVControlCenterModuleStateForBundleID(a4, a2);
+  v11 = [a5 uniqueID];
   time = *a2;
-  result = [v9 updateActiveReactions:a1 currentRenderPTS:&time requestedTriggers:a3 forCaptureDeviceWithID:v10];
+  [v10 updateActiveReactions:a1 currentRenderPTS:&time requestedTriggers:a3 forCaptureDeviceWithID:v11];
   if (dword_1ED8068A0)
   {
-    v17 = 0;
-    v16 = OS_LOG_TYPE_DEFAULT;
+    v32[0] = 0;
+    v31 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v13 = v17;
-    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v16))
+    v14 = v32[0];
+    v15 = v31;
+    if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v31))
     {
-      v14 = v13;
+      v16 = v14;
     }
 
     else
     {
-      v14 = v13 & 0xFFFFFFFE;
+      v16 = v14 & 0xFFFFFFFE;
     }
 
-    if (v14)
+    if (v16)
     {
-      [a5 uniqueID];
+      v17 = [a5 uniqueID];
       time = *a2;
-      CMTimeGetSeconds(&time);
-      _os_log_send_and_compose_impl();
+      v18 = 136316419;
+      v19 = "AVControlCenterVideoEffectsModuleUpdateActiveReactions";
+      v20 = 2113;
+      v21 = a4;
+      v22 = 2113;
+      v23 = v17;
+      v24 = 2112;
+      v25 = a1;
+      v26 = 2048;
+      Seconds = CMTimeGetSeconds(&time);
+      v28 = 1024;
+      v29 = a3;
+      _os_log_send_and_compose_impl(v16, 0, &time, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v15, "<<<< AVControlCenterModules >>>> %s: %{private}@ %{private}@ updateActiveReactions:%@ pts:%f requested:%d", &v18, 58);
     }
 
-    return fig_log_call_emit_and_clean_up_after_send_and_compose();
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   return result;
@@ -1682,7 +1873,7 @@ id __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke()
   return result;
 }
 
-void __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+double __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke_2(uint64_t a1, uint64_t a2, const char *a3, double result)
 {
   if (a3)
   {
@@ -1690,10 +1881,10 @@ void __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke_2(
     if (objc_opt_isKindOfClass())
     {
       HaveShownGesturesDefaultDisabledNotificationPreferenceKey = AVControlCenterVideoEffectsHaveShownGesturesDefaultDisabledNotificationPreferenceKey(@"global");
-      v6 = [AVCaptureProprietaryDefaultsSingleton objectForKey:HaveShownGesturesDefaultDisabledNotificationPreferenceKey];
-      if (v6 && (v7 = v6, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v7 BOOLValue])
+      v8 = [AVCaptureProprietaryDefaultsSingleton objectForKey:HaveShownGesturesDefaultDisabledNotificationPreferenceKey];
+      if (v8 && (v9 = v8, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v9 BOOLValue])
       {
-        LODWORD(v29) = 0;
+        LODWORD(v30) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1702,54 +1893,55 @@ void __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke_2(
 
       else
       {
-        v29 = 0;
-        v9 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:a3 allowPlaceholder:1 error:&v29];
-        if (!v9)
+        v30 = 0;
+        v11 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:a3 allowPlaceholder:1 error:&v30];
+        if (!v11)
         {
           *type = 0;
-          v27 = OS_LOG_TYPE_DEFAULT;
-          v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+          v28 = OS_LOG_TYPE_DEFAULT;
+          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v11 = (*(*(a1 + 32) + 16))(*(a1 + 32), a3, [v9 localizedName]);
+        v13 = (*(*(a1 + 32) + 16))(*(a1 + 32), a3, [v11 localizedName]);
         *type = 0;
-        v27 = OS_LOG_TYPE_DEFAULT;
-        v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v13 = *type;
-        if (os_log_type_enabled(v12, v27))
+        v28 = OS_LOG_TYPE_DEFAULT;
+        v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v15 = *type;
+        v16 = v28;
+        if (os_log_type_enabled(v14, v28))
         {
-          v14 = v13;
+          v17 = v15;
         }
 
         else
         {
-          v14 = v13 & 0xFFFFFFFE;
+          v17 = v15 & 0xFFFFFFFE;
         }
 
-        if (v14)
+        if (v17)
         {
-          if (v11)
+          if (v13)
           {
-            v15 = "was";
+            v18 = "was";
           }
 
           else
           {
-            v15 = "was not";
+            v18 = "was not";
           }
 
-          v16 = [v9 localizedName];
-          v19 = 136315906;
-          v20 = "AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke";
-          v21 = 2080;
-          v22 = v15;
-          v23 = 2114;
-          v24 = a3;
-          v25 = 2114;
-          v26 = v16;
-          _os_log_send_and_compose_impl();
+          v19 = [v11 localizedName];
+          v20 = 136315906;
+          v21 = "AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke";
+          v22 = 2080;
+          v23 = v18;
+          v24 = 2114;
+          v25 = a3;
+          v26 = 2114;
+          v27 = v19;
+          _os_log_send_and_compose_impl(v17, 0, v31, 128, &dword_1A917C000, v14, v16, "<<<< AVControlCenterModules >>>> %s: Callback indicates gestures-disabled user guidance %s given for %{public}@ (name %{public}@)", &v20, 42);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1757,6 +1949,8 @@ void __AVControlCenterVideoEffectsObserveGesturesDefaultDisabled_block_invoke_2(
       }
     }
   }
+
+  return v6;
 }
 
 uint64_t AVControlCenterIsManualFramingEnabledForDevice(void *a1)
@@ -1766,33 +1960,36 @@ uint64_t AVControlCenterIsManualFramingEnabledForDevice(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  v2 = _AVControlCenterModuleStateForBundleID([a1 uniqueID]);
+  v2 = [a1 uniqueID];
+  v4 = _AVControlCenterModuleStateForBundleID(v2, v3);
 
-  return [v2 manualFramingEnabledForDevice:a1];
+  return [v4 manualFramingEnabledForDevice:a1];
 }
 
 uint64_t AVControlCenterStartPanningAtPoint(void *a1, double a2, double a3)
 {
   if (!a1)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
+    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:{0, a2, a3}]);
   }
 
-  v5 = _AVControlCenterModuleStateForBundleID([a1 uniqueID]);
+  v5 = [a1 uniqueID];
+  v7 = _AVControlCenterModuleStateForBundleID(v5, v6);
 
-  return [v5 startPanningAtPoint:{a2, a3}];
+  return [v7 startPanningAtPoint:{a2, a3}];
 }
 
 uint64_t AVControlCenterPanWithTranslation(void *a1, double a2, double a3)
 {
   if (!a1)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
+    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:{0, a2, a3}]);
   }
 
-  v5 = _AVControlCenterModuleStateForBundleID([a1 uniqueID]);
+  v5 = [a1 uniqueID];
+  v7 = _AVControlCenterModuleStateForBundleID(v5, v6);
 
-  return [v5 panWithTranslation:{a2, a3}];
+  return [v7 panWithTranslation:{a2, a3}];
 }
 
 double AVControlCenterManualFramingMaxAvailableVideoZoomFactor(void *a1)
@@ -1807,6 +2004,8 @@ double AVControlCenterManualFramingMaxAvailableVideoZoomFactor(void *a1)
   v3 = v2;
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1817,10 +2016,12 @@ double AVControlCenterManualFramingMaxAvailableVideoZoomFactor(void *a1)
 
 uint64_t _AVControlCenterModulesGetConvertedManualFramingVideoZoomFactorConstant(uint64_t a1, uint64_t a2)
 {
-  v3 = _AVControlCenterModuleStateForBundleID(a1);
-  v4 = [v3 zoomFactorConstantsByManualFramingDeviceType];
-  [objc_msgSend(objc_msgSend(v4 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%d", objc_msgSend(v3, "manualFramingDeviceType"))), "objectForKeyedSubscript:", a2), "floatValue"}];
-  return [v3 manualFramingDeviceType];
+  v2 = _AVControlCenterModuleStateForBundleID(a1, a2);
+  v3 = [v2 zoomFactorConstantsByManualFramingDeviceType];
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", objc_msgSend(v2, "manualFramingDeviceType")];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
+  [objc_msgSend_objectForKeyedSubscript_(v4) floatValue];
+  return [v2 manualFramingDeviceType];
 }
 
 double AVControlCenterManualFramingMinAvailableVideoZoomFactor(void *a1)
@@ -1835,6 +2036,8 @@ double AVControlCenterManualFramingMinAvailableVideoZoomFactor(void *a1)
   v3 = v2;
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1847,32 +2050,33 @@ uint64_t AVControlCenterManualFramingSetVideoZoomFactor(void *a1, double a2)
 {
   if (!a1)
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
-    v13 = @"nil device";
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D940];
+    v15 = @"nil device";
     goto LABEL_14;
   }
 
-  v4 = _AVControlCenterModuleStateForBundleID([a1 uniqueID]);
-  v5 = AVControlCenterManualFramingMinAvailableVideoZoomFactor(a1);
-  v6 = AVControlCenterManualFramingMaxAvailableVideoZoomFactor(a1);
-  if (v5 > a2 || v6 < a2)
+  v4 = [a1 uniqueID];
+  v6 = _AVControlCenterModuleStateForBundleID(v4, v5);
+  v7 = AVControlCenterManualFramingMinAvailableVideoZoomFactor(a1);
+  v8 = AVControlCenterManualFramingMaxAvailableVideoZoomFactor(a1);
+  if (v7 > a2 || v8 < a2)
   {
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid videoZoomFactor %.3f. Valid range: [%.3f, %.3f]", *&a2, *&v5, *&v6];
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D940];
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid videoZoomFactor %.3f. Valid range: [%.3f, %.3f]", *&a2, *&v7, *&v8];
+    v13 = MEMORY[0x1E695DF30];
+    v14 = *MEMORY[0x1E695D940];
 LABEL_14:
-    objc_exception_throw([v11 exceptionWithName:v12 reason:v13 userInfo:0]);
+    objc_exception_throw([v13 exceptionWithName:v14 reason:v15 userInfo:{0, a2}]);
   }
 
-  if ([v4 manualFramingDeviceType] == 2)
+  if ([v6 manualFramingDeviceType] == 2)
   {
-    v8 = a2 + a2;
+    v10 = a2 + a2;
   }
 
   else
   {
-    v8 = a2;
+    v10 = a2;
   }
 
   if (dword_1ED8068A0)
@@ -1884,7 +2088,7 @@ LABEL_14:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return [v4 setManualFramingOriginalZoomFactor:a2 convertedZoomFactor:{v8, v14, v15}];
+  return [v6 setManualFramingOriginalZoomFactor:a2 convertedZoomFactor:v10];
 }
 
 double AVControlCenterManualFramingGetVideoZoomFactor(void *a1)
@@ -1894,22 +2098,27 @@ double AVControlCenterManualFramingGetVideoZoomFactor(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
-  v2 = v1;
+  v1 = [a1 uniqueID];
+  [_AVControlCenterModuleStateForBundleID(v1 v2)];
+  v4 = v3;
   if (dword_1ED8068A0)
   {
+    v8 = 0;
+    v7 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t AVControlCenterPerformOneShotFraming(void *a1)
 {
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1920,13 +2129,16 @@ uint64_t AVControlCenterPerformOneShotFraming(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  return [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
+  v3 = [a1 uniqueID];
+  return [_AVControlCenterModuleStateForBundleID(v3 v4)];
 }
 
 uint64_t AVControlCenterResetFraming(void *a1)
 {
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1937,7 +2149,8 @@ uint64_t AVControlCenterResetFraming(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  return [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
+  v3 = [a1 uniqueID];
+  return [_AVControlCenterModuleStateForBundleID(v3 v4)];
 }
 
 uint64_t AVControlCenterManualFramingIsAtDefaultForDevice(void *a1)
@@ -1947,15 +2160,18 @@ uint64_t AVControlCenterManualFramingIsAtDefaultForDevice(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
+  v1 = [a1 uniqueID];
+  v3 = [_AVControlCenterModuleStateForBundleID(v1 v2)];
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v3;
 }
 
 uint64_t AVControlCenterCenterStageFieldOfViewRestrictedToWideForDevice(void *a1)
@@ -1965,21 +2181,26 @@ uint64_t AVControlCenterCenterStageFieldOfViewRestrictedToWideForDevice(void *a1
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
+  v1 = [a1 uniqueID];
+  v3 = [_AVControlCenterModuleStateForBundleID(v1 v2)];
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v3;
 }
 
 uint64_t AVControlCenterCenterStageSetFieldOfViewRestrictedToWideForDevice(uint64_t a1, void *a2)
 {
   if (dword_1ED8068A0)
   {
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1990,7 +2211,8 @@ uint64_t AVControlCenterCenterStageSetFieldOfViewRestrictedToWideForDevice(uint6
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  return [_AVControlCenterModuleStateForBundleID(objc_msgSend(a2 "uniqueID"))];
+  v5 = [a2 uniqueID];
+  return [_AVControlCenterModuleStateForBundleID(v5 v6)];
 }
 
 uint64_t AVControlCenterGetManualFramingDeviceType(void *a1)
@@ -2000,21 +2222,26 @@ uint64_t AVControlCenterGetManualFramingDeviceType(void *a1)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(objc_msgSend(a1 "uniqueID"))];
+  v1 = [a1 uniqueID];
+  v3 = [_AVControlCenterModuleStateForBundleID(v1 v2)];
   if (dword_1ED8068A0)
   {
+    v7 = 0;
+    v6 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v3;
 }
 
 uint64_t AVControlCenterSetManualFramingDeviceType(uint64_t a1, void *a2)
 {
   if (dword_1ED8068A0)
   {
+    v9 = 0;
+    v8 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2025,7 +2252,8 @@ uint64_t AVControlCenterSetManualFramingDeviceType(uint64_t a1, void *a2)
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil device" userInfo:0]);
   }
 
-  return [_AVControlCenterModuleStateForBundleID(objc_msgSend(a2 "uniqueID"))];
+  v5 = [a2 uniqueID];
+  return [_AVControlCenterModuleStateForBundleID(v5 v6)];
 }
 
 uint64_t AVControlCenterVideoEffectsModuleGetUnavailableReasons(uint64_t a1, uint64_t a2)
@@ -2035,9 +2263,11 @@ uint64_t AVControlCenterVideoEffectsModuleGetUnavailableReasons(uint64_t a1, uin
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) unavailableReasonsForVideoEffect:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2133,7 +2363,7 @@ uint64_t AVControlCenterVideoEffectsModuleGetEffectIntensityForBundleID(uint64_t
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v3 = _AVControlCenterModuleStateForBundleID(a2);
+  v3 = _AVControlCenterModuleStateForBundleID(a2, a2);
 
   return [v3 effectIntensityForVideoEffect:a1];
 }
@@ -2145,7 +2375,7 @@ uint64_t AVControlCenterVideoEffectsModuleSetEffectIntensityForBundleID(uint64_t
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v5 = _AVControlCenterModuleStateForBundleID(a2);
+  v5 = _AVControlCenterModuleStateForBundleID(a2, a2);
   *&v6 = a3;
 
   return [v5 setEffectIntensityForVideoEffect:a1 forVideoEffect:v6];
@@ -2158,7 +2388,7 @@ uint64_t AVControlCenterVideoEffectsModuleGetEffectIntensityRangeForBundleID(uin
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v3 = _AVControlCenterModuleStateForBundleID(a2);
+  v3 = _AVControlCenterModuleStateForBundleID(a2, a2);
 
   return [v3 effectIntensityRangeForVideoEffect:a1];
 }
@@ -2170,7 +2400,7 @@ uint64_t AVControlCenterVideoEffectsModuleGetEffectIntensityDefaultValueForBundl
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v3 = _AVControlCenterModuleStateForBundleID(a2);
+  v3 = _AVControlCenterModuleStateForBundleID(a2, a2);
 
   return [v3 effectIntensityDefaultForVideoEffect:a1];
 }
@@ -2182,82 +2412,90 @@ uint64_t AVControlCenterBlackenFramesFromDeviceForBundleID(uint64_t a1, void *a2
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v5 = _AVControlCenterModuleStateForBundleID(a3);
+  v5 = _AVControlCenterModuleStateForBundleID(a3, a2);
   v6 = [a2 uniqueID];
 
   return [v5 enableBlackenFrames:a1 forDeviceUID:v6];
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleGetSupportedMicrophoneModesForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleGetSupportedMicrophoneModesForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) supportedMicrophoneModes];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleGetMicrophoneModeForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleGetMicrophoneModeForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) microphoneMode];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleGetActiveMicrophoneModeForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleGetActiveMicrophoneModeForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) activeMicrophoneMode];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleGetHiddenMicrophoneModesForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleGetHiddenMicrophoneModesForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) hiddenMicrophoneModes];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t AVControlCenterMicrophoneModesModuleSetMicrophoneModeForBundleID(uint64_t a1, uint64_t a2)
@@ -2267,9 +2505,11 @@ uint64_t AVControlCenterMicrophoneModesModuleSetMicrophoneModeForBundleID(uint64
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) setMicrophoneMode:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2278,58 +2518,64 @@ uint64_t AVControlCenterMicrophoneModesModuleSetMicrophoneModeForBundleID(uint64
   return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleIsVoiceProcessingBypassedForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleIsVoiceProcessingBypassedForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) voiceProcessingBypassed];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleIsAutoSupportedForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleIsAutoSupportedForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) isAutoMicrophoneModeSupported];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
-uint64_t AVControlCenterMicrophoneModesModuleIsAutoEnabledForBundleID(uint64_t a1)
+uint64_t AVControlCenterMicrophoneModesModuleIsAutoEnabledForBundleID(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v1 = [_AVControlCenterModuleStateForBundleID(a1) isAutoMicrophoneModeEnabled];
+  v2 = [_AVControlCenterModuleStateForBundleID(a1 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t AVControlCenterMicrophoneModesModuleSetAutoEnabledForBundleID(uint64_t a1, uint64_t a2)
@@ -2339,9 +2585,11 @@ uint64_t AVControlCenterMicrophoneModesModuleSetAutoEnabledForBundleID(uint64_t 
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"nil bundleID" userInfo:0]);
   }
 
-  v2 = [_AVControlCenterModuleStateForBundleID(a2) setAutoMicrophoneModeEnabled:a1];
+  v2 = [_AVControlCenterModuleStateForBundleID(a2 a2)];
   if (dword_1ED8068A0)
   {
+    v6 = 0;
+    v5 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2440,16 +2688,16 @@ uint64_t sub_1A928C140()
 void sub_1A928C2A0(id *a1@<X0>, SEL *a2@<X3>, uint64_t *a3@<X8>)
 {
   v4 = [*a1 *a2];
-  sub_1A928CDCC(0, &qword_1EB385068);
+  sub_1A928CDCC(0, &qword_1EB385068, off_1E786C188);
   v5 = sub_1A929A1F0();
 
   *a3 = v5;
 }
 
-void sub_1A928C310(uint64_t a1, void **a2)
+void sub_1A928C310(uint64_t *a1, void **a2)
 {
   v2 = *a2;
-  sub_1A928CDCC(0, &qword_1EB385068);
+  sub_1A928CDCC(0, &qword_1EB385068, off_1E786C188);
   v3 = sub_1A929A1E0();
   [v2 setEnabledFramings_];
 }
@@ -2496,7 +2744,7 @@ unint64_t sub_1A928C480(unint64_t result, uint64_t a2, uint64_t a3, void (*a4)(u
       v16 = a3;
       v12 = OBJC_IVAR___AVCaptureSmartFramingMonitorObservationRegistrar_registrar;
 
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385050);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385050, qword_1A92ABA40);
       a4(&v16, v6 + v12, v13);
     }
   }
@@ -2528,7 +2776,7 @@ unint64_t sub_1A928C6B0(uint64_t a1, uint64_t a2)
   return sub_1A928CC88(a1, a2, v4);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2540,12 +2788,13 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t sub_1A928C7D8(uint64_t a1, char a2)
+uint64_t sub_1A928C7D8(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385070);
-  v36 = a2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385070, &unk_1A92ABB50);
+  v36 = v4;
   result = sub_1A929A230();
   v7 = result;
   if (*(v5 + 16))
@@ -2790,7 +3039,7 @@ unint64_t sub_1A928CD4C()
   result = qword_1EB385058;
   if (!qword_1EB385058)
   {
-    sub_1A928CDCC(255, &qword_1EB385060);
+    sub_1A928CDCC(255, &qword_1EB385060, off_1E786C250);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB385058);
   }
@@ -2798,7 +3047,7 @@ unint64_t sub_1A928CD4C()
   return result;
 }
 
-uint64_t sub_1A928CDCC(uint64_t a1, unint64_t *a2)
+uint64_t sub_1A928CDCC(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2814,7 +3063,7 @@ uint64_t sub_1A928CDCC(uint64_t a1, unint64_t *a2)
 void *sub_1A928CE14()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385070);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385070, &unk_1A92ABB50);
   v2 = *v0;
   v3 = sub_1A929A220();
   v4 = v3;
@@ -2921,7 +3170,7 @@ uint64_t *__swift_allocate_boxed_opaque_existential_0(uint64_t *result)
 uint64_t sub_1A928D034@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385078);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385078, &qword_1A92ABB60);
   MEMORY[0x1EEE9AC00]();
   v5 = v12 - v4;
   sub_1A928D270(v2, &v13);
@@ -2970,7 +3219,7 @@ uint64_t sub_1A928D270(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1A928D2CC(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385078);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB385078, &qword_1A92ABB60);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2985,9 +3234,9 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -3005,7 +3254,7 @@ uint64_t sub_1A928D3C4@<X0>(uint64_t *a1@<X8>)
   return sub_1A929A190();
 }
 
-uint64_t sub_1A928D400@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (**a3)()@<X8>)
+uint64_t sub_1A928D400@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (**a3)(uint64_t a1, uint64_t a2)@<X8>)
 {
   v6 = swift_allocObject();
   *(v6 + 16) = a2;
@@ -3129,7 +3378,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_1A928D8EC()
+uint64_t sub_1A928D8EC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3205,7 +3454,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t avcp_copyFirstAuxiliaryImageOfType()
+uint64_t avcp_copyFirstAuxiliaryImageOfType(uint64_t a1, int a2, uint64_t a3, CFTypeRef *a4, CFTypeRef *a5)
 {
   Container = CMPhotoDecompressionSessionCreate();
   if (Container)
@@ -3245,7 +3494,7 @@ CFMutableDataRef avcp_copyTIFFFileDataRepresentationForImage(CGImage *a1, const 
   Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
   if (!a1)
   {
-    v12 = 0;
+    v18 = 0;
 LABEL_8:
     if (Mutable)
     {
@@ -3258,33 +3507,33 @@ LABEL_8:
 
   if (a3)
   {
-    v8 = MEMORY[0x1E695E118];
+    v14 = MEMORY[0x1E695E118];
   }
 
   else
   {
-    v8 = MEMORY[0x1E695E110];
+    v14 = MEMORY[0x1E695E110];
   }
 
-  v9 = 1;
-  v10 = OUTLINED_FUNCTION_2(MEMORY[0x1E695DF20], v6, *MEMORY[0x1E696D2C8], v8);
-  v11 = CGImageDestinationCreateWithData(Mutable, *MEMORY[0x1E69874C8], 1uLL, v10);
-  v12 = v11;
-  if (v11)
+  v15 = 1;
+  v16 = OUTLINED_FUNCTION_2(MEMORY[0x1E695DF20], v6, v7, v8, v9, v10, v11, v12, *MEMORY[0x1E696D2C8], v14);
+  v17 = CGImageDestinationCreateWithData(Mutable, *MEMORY[0x1E69874C8], 1uLL, v16);
+  v18 = v17;
+  if (v17)
   {
-    CGImageDestinationAddImage(v11, a1, a2);
-    v9 = !CGImageDestinationFinalize(v12);
+    CGImageDestinationAddImage(v17, a1, a2);
+    v15 = !CGImageDestinationFinalize(v18);
   }
 
-  if (v9)
+  if (v15)
   {
     goto LABEL_8;
   }
 
 LABEL_10:
-  if (v12)
+  if (v18)
   {
-    CFRelease(v12);
+    CFRelease(v18);
   }
 
   return Mutable;
@@ -3293,31 +3542,11 @@ LABEL_10:
 uint64_t _addAuxiliaryImage_cold_1()
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
+  v3 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v0, v4, v5, v6, v7, vars0, vars8);
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
-}
-
-uint64_t _addAuxiliaryImage_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t _addAuxiliaryImage_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t _addAuxiliaryImage_cold_4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950304, "<<<< AVCapturePhoto >>>>", 1045, v0);
 }
 
 void getUISSystemReferenceAngleChangedNotification_cold_1()
@@ -3367,20 +3596,6 @@ void __getFBSMutableDisplayConfigurationRequestClass_block_invoke_cold_1()
   v0 = [MEMORY[0x1E696AAA8] currentHandler];
   [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"Class getFBSMutableDisplayConfigurationRequestClass(void)_block_invoke") description:{@"AVCaptureExternalDisplayConfigurator.m", 42, @"Unable to find class %s", "FBSMutableDisplayConfigurationRequest"}];
   __break(1u);
-}
-
-uint64_t AVAuxiliaryMetadataAddValue_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-uint64_t AVAuxiliaryMetadataAddValue_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 void __getADJasperPointCloudClass_block_invoke_cold_1()
@@ -3498,70 +3713,70 @@ void __getCMContinuityCaptureCapabilitiesClass_block_invoke_cold_2(void *a1)
   __break(1u);
 }
 
-void *AVMetadataMakeDependentSpecificationsForValue()
+void *AVMetadataMakeDependentSpecificationsForValue(uint64_t a1, uint64_t a2)
 {
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v2 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v2))
   {
     DataTypesForIdentifiersOfFieldsOfDetectedFaces = AVMetadataItemGetDataTypesForIdentifiersOfFieldsOfDetectedFaces();
     goto LABEL_9;
   }
 
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v4 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v4))
   {
-    v1 = *MEMORY[0x1E6962950];
-    v2 = *MEMORY[0x1E6960298];
-    v3 = MEMORY[0x1E6962958];
+    v5 = *MEMORY[0x1E6962950];
+    v6 = *MEMORY[0x1E6960298];
+    v7 = MEMORY[0x1E6962958];
 LABEL_5:
-    v4 = *v3;
+    v8 = *v7;
 LABEL_8:
-    v25[0] = v1;
-    v25[1] = v4;
-    v5 = *MEMORY[0x1E6960248];
-    v26[0] = v2;
-    v26[1] = v5;
-    DataTypesForIdentifiersOfFieldsOfDetectedFaces = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v34[0] = v5;
+    v34[1] = v8;
+    v10 = *MEMORY[0x1E6960248];
+    v35[0] = v6;
+    v35[1] = v10;
+    DataTypesForIdentifiersOfFieldsOfDetectedFaces = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
     goto LABEL_9;
   }
 
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v9 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v9))
   {
-    v1 = @"fiel/com.apple.quicktime.detected-cat-head.object-id";
-    v2 = *MEMORY[0x1E6960298];
-    v4 = @"fiel/com.apple.quicktime.detected-cat-head.bounds";
+    v5 = @"fiel/com.apple.quicktime.detected-cat-head.object-id";
+    v6 = *MEMORY[0x1E6960298];
+    v8 = @"fiel/com.apple.quicktime.detected-cat-head.bounds";
     goto LABEL_8;
   }
 
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v23 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v23))
   {
-    v1 = *MEMORY[0x1E6962910];
-    v2 = *MEMORY[0x1E6960298];
-    v3 = MEMORY[0x1E6962918];
+    v5 = *MEMORY[0x1E6962910];
+    v6 = *MEMORY[0x1E6960298];
+    v7 = MEMORY[0x1E6962918];
     goto LABEL_5;
   }
 
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v24 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v24))
   {
-    v1 = @"fiel/com.apple.quicktime.detected-dog-head.object-id";
-    v2 = *MEMORY[0x1E6960298];
-    v4 = @"fiel/com.apple.quicktime.detected-dog-head.bounds";
+    v5 = @"fiel/com.apple.quicktime.detected-dog-head.object-id";
+    v6 = *MEMORY[0x1E6960298];
+    v8 = @"fiel/com.apple.quicktime.detected-dog-head.bounds";
     goto LABEL_8;
   }
 
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_2_2())
+  v25 = objc_opt_class();
+  if (OUTLINED_FUNCTION_2_2(v25))
   {
     DataTypesForIdentifiersOfFieldsOfDetectedFaces = AVMetadataItemGetDataTypesForIdentifiersOfFieldsOfDogBodyObject();
   }
 
   else
   {
-    objc_opt_class();
-    if ((OUTLINED_FUNCTION_2_2() & 1) == 0)
+    v26 = objc_opt_class();
+    if ((OUTLINED_FUNCTION_2_2(v26) & 1) == 0)
     {
       return MEMORY[0x1E695E0F0];
     }
@@ -3570,78 +3785,78 @@ LABEL_8:
   }
 
 LABEL_9:
-  v6 = DataTypesForIdentifiersOfFieldsOfDetectedFaces;
+  v11 = DataTypesForIdentifiersOfFieldsOfDetectedFaces;
   if (!DataTypesForIdentifiersOfFieldsOfDetectedFaces)
   {
     return MEMORY[0x1E695E0F0];
   }
 
-  v7 = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v8 = [v6 allKeys];
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v20 count:16];
-  if (v9)
+  v12 = [MEMORY[0x1E695DF70] array];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v13 = [v11 allKeys];
+  v14 = [v13 countByEnumeratingWithState:&v30 objects:v29 count:16];
+  if (v14)
   {
-    v10 = v9;
-    v11 = *v22;
-    v12 = *MEMORY[0x1E6960348];
-    v13 = *MEMORY[0x1E6960338];
+    v15 = v14;
+    v16 = *v31;
+    v17 = *MEMORY[0x1E6960348];
+    v18 = *MEMORY[0x1E6960338];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v11)
+        if (*v31 != v16)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v13);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = [v6 objectForKey:v15];
-        v18[0] = v12;
-        v18[1] = v13;
-        v19[0] = v15;
-        v19[1] = v16;
-        [v7 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v19, v18, 2)}];
+        v20 = *(*(&v30 + 1) + 8 * i);
+        v21 = [v11 objectForKey:v20];
+        v27[0] = v17;
+        v27[1] = v18;
+        v28[0] = v20;
+        v28[1] = v21;
+        [v12 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v28, v27, 2)}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v20 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v30 objects:v29 count:16];
     }
 
-    while (v10);
+    while (v15);
   }
 
-  return v7;
+  return v12;
 }
 
 uint64_t AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription_cold_7()
 {
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription_cold_8()
 {
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription_cold_9()
 {
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t AVMetadataObjectCreateBoxedMetadataFromFaceObjectAndFormatDescription_cold_10()
 {
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 CGRect AVMakeRectWithAspectRatioInsideRect(CGSize aspectRatio, CGRect boundingRect)

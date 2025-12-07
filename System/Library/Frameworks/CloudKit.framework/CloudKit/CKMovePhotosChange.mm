@@ -1,10 +1,30 @@
 @interface CKMovePhotosChange
 - (CKMovePhotosChange)initWithCoder:(id)coder;
 - (CKRoughlyEquivalentProperties)equivalencyProperties;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation CKMovePhotosChange
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  expandCopy = expand;
+  privateCopy = private;
+  publicCopy = public;
+  v19[2] = *MEMORY[0x1E69E9840];
+  v9 = objc_msgSend_destinationRecord(self, a2, public);
+  v11 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v9, v10, publicCopy, privateCopy, expandCopy);
+
+  v18[0] = @"sourceID";
+  v14 = objc_msgSend_sourceRecordID(self, v12, v13);
+  v18[1] = @"dest";
+  v19[0] = v14;
+  v19[1] = v11;
+  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v19, v18, 2);
+
+  return v16;
+}
 
 - (CKRoughlyEquivalentProperties)equivalencyProperties
 {

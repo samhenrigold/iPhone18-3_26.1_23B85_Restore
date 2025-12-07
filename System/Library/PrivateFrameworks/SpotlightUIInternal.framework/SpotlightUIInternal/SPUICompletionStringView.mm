@@ -18,16 +18,17 @@
 - (void)setTextColorForCompletionLabel:(id)label;
 - (void)updateFields;
 - (void)updateLayoutMargins;
+- (void)updateWithResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult;
 @end
 
 @implementation SPUICompletionStringView
 
 - (SPUICompletionStringView)init
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = SPUICompletionStringView;
-  v2 = [(SPUICompletionStringView *)&v22 init];
+  v22[1] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = SPUICompletionStringView;
+  v2 = [(SPUICompletionStringView *)&v21 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -48,8 +49,8 @@
     [(NUIContainerStackView *)v2 setAlignment:3];
     [(NUIContainerStackView *)v2 setSpacing:0.0];
     labelsStackView3 = [(SPUICompletionStringView *)v2 labelsStackView];
-    v23[0] = labelsStackView3;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = labelsStackView3;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
 
     if ([MEMORY[0x277D65D28] enableFloatingWindow])
     {
@@ -90,7 +91,6 @@
     [(SPUICompletionStringView *)v2 setSelectionHighlightColor:systemFillColor];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -104,7 +104,7 @@
 
 - (void)updateFields
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   searchFieldModel = [(SPUICompletionStringView *)self searchFieldModel];
   if (([searchFieldModel searchFieldHasTokens] & 1) != 0 || (-[SPUICompletionStringView result](self, "result"), (v4 = objc_claimAutoreleasedReturnValue()) == 0))
   {
@@ -148,11 +148,11 @@ LABEL_7:
     v14 = objc_alloc(MEMORY[0x277CCA898]);
     searchFieldModel5 = [(SPUICompletionStringView *)self searchFieldModel];
     displayedText3 = [searchFieldModel5 displayedText];
-    v57 = *MEMORY[0x277D740A8];
+    v56 = *MEMORY[0x277D740A8];
     completionLabel = [(SPUICompletionStringView *)self completionLabel];
     font = [completionLabel font];
-    v58[0] = font;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+    v57[0] = font;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
     v20 = [v14 initWithString:displayedText3 attributes:v19];
   }
 
@@ -161,15 +161,15 @@ LABEL_7:
     v20 = 0;
   }
 
-  v27 = MEMORY[0x277D4C858];
+  v26 = MEMORY[0x277D4C858];
   result = [(SPUICompletionStringView *)self result];
   cardSection = [(SPUICompletionStringView *)self cardSection];
-  v24 = [v27 initWithAttributedTypedString:v20 result:result cardSection:cardSection];
+  v24 = [v26 initWithAttributedTypedString:v20 result:result cardSection:cardSection];
 
   completionString = [v24 completionString];
   if (completionString)
   {
-    v31 = 0;
+    v30 = 0;
   }
 
   else
@@ -180,12 +180,12 @@ LABEL_7:
       searchFieldModel6 = [(SPUICompletionStringView *)self searchFieldModel];
       queryId = [searchFieldModel6 queryId];
       result2 = [(SPUICompletionStringView *)self result];
-      v31 = queryId == [result2 queryId];
+      v30 = queryId == [result2 queryId];
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
   }
 
@@ -193,7 +193,7 @@ LABEL_7:
   completionLabel2 = [(SPUICompletionStringView *)self completionLabel];
   [completionLabel2 setAttributedText:completionString2];
 
-  if (v31)
+  if (v30)
   {
     searchFieldModel7 = [(SPUICompletionStringView *)self searchFieldModel];
     displayedText4 = [searchFieldModel7 displayedText];
@@ -204,21 +204,21 @@ LABEL_7:
   completionString3 = [v24 completionString];
   if (completionString3)
   {
-    v42 = 1.0;
+    v41 = 1.0;
   }
 
   else
   {
-    v42 = 0.0;
+    v41 = 0.0;
   }
 
   completionLabel4 = [(SPUICompletionStringView *)self completionLabel];
-  [completionLabel4 setAlpha:v42];
+  [completionLabel4 setAlpha:v41];
 
   completionString4 = [v24 completionString];
-  v45 = completionString4 != 0 || v31;
+  v44 = completionString4 != 0 || v30;
 
-  if (v45)
+  if (v44)
   {
     extensionString2 = [v24 extensionString];
     extensionLabel2 = [(SPUICompletionStringView *)self extensionLabel];
@@ -230,22 +230,22 @@ LABEL_7:
   }
 
   extensionLabel3 = [(SPUICompletionStringView *)self extensionLabel];
-  [extensionLabel3 setHidden:!v45];
+  [extensionLabel3 setHidden:!v44];
 
   bridgeLabel2 = [(SPUICompletionStringView *)self bridgeLabel];
-  [bridgeLabel2 setHidden:!v45];
+  [bridgeLabel2 setHidden:!v44];
 
   if ([MEMORY[0x277D65D28] enableFloatingWindow])
   {
-    v52 = MEMORY[0x277D4C868];
+    v51 = MEMORY[0x277D4C868];
     image = [v24 image];
-    v54 = [v52 imageWithSFImage:image variantForAppIcon:2];
+    v53 = [v51 imageWithSFImage:image variantForAppIcon:2];
 
     imageView3 = [(SPUICompletionStringView *)self imageView];
-    v56 = imageView3;
-    if (v54)
+    v55 = imageView3;
+    if (v53)
     {
-      [imageView3 updateWithImage:v54];
+      [imageView3 updateWithImage:v53];
     }
 
     else
@@ -260,8 +260,6 @@ LABEL_8:
   [(SPUICompletionStringView *)self setCompletion:v24];
   superview = [(SPUICompletionStringView *)self superview];
   [superview setNeedsLayout];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasContent
@@ -378,6 +376,33 @@ LABEL_5:
     [(SPUICompletionStringView *)self updateFields];
     colorCopy = v6;
   }
+}
+
+- (void)updateWithResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult
+{
+  firstResultCopy = firstResult;
+  resultCopy = result;
+  sectionCopy = section;
+  result = [(SPUICompletionStringView *)self result];
+  if (result != resultCopy || [(SPUICompletionStringView *)self focusIsOnFirstResult]!= firstResultCopy)
+  {
+
+LABEL_4:
+    [(SPUICompletionStringView *)self setResult:resultCopy];
+    [(SPUICompletionStringView *)self setCardSection:sectionCopy];
+    [(SPUICompletionStringView *)self setFocusIsOnFirstResult:firstResultCopy];
+    [(SPUICompletionStringView *)self updateFields];
+    goto LABEL_5;
+  }
+
+  cardSection = [(SPUICompletionStringView *)self cardSection];
+
+  if (cardSection != sectionCopy)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
 }
 
 - (void)didUpdateWithImage:(id)image

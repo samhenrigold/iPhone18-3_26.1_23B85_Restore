@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  linkType = self->_linkType;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  discardedRawBytes = self->_discardedRawBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    correctFramesSinceLastCorruption = self->_correctFramesSinceLastCorruption;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  correctRawBytesSinceLastCorruption = self->_correctRawBytesSinceLastCorruption;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if (has)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  recoveryTimeInMs = self->_recoveryTimeInMs;
 
   PBDataWriterWriteUint64Field();
 }

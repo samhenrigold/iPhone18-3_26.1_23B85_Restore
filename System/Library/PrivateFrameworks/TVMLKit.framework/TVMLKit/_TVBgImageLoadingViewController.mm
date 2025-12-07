@@ -234,7 +234,7 @@ LABEL_17:
     v12 = TVMLKitLogObject;
     if (os_log_type_enabled(TVMLKitLogObject, OS_LOG_TYPE_DEBUG))
     {
-      [_TVBgImageLoadingViewController loadFromViewController:v12 completion:?];
+      [_TVBgImageLoadingViewController loadFromViewController:v12 completion:self];
       if (!completionCopy)
       {
         goto LABEL_16;
@@ -930,15 +930,15 @@ LABEL_34:
   return v9;
 }
 
-- (void)loadFromViewController:(void *)a1 completion:.cold.1(void *a1)
+- (void)loadFromViewController:(void *)a1 completion:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138412290;
-  v5 = v3;
-  _os_log_debug_impl(&dword_26CD9A000, v1, OS_LOG_TYPE_DEBUG, "_configureBgImage:backdropImage: not defined on %@. loadFromViewController:completion: aborted", &v4, 0xCu);
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_26CD9A000, v2, OS_LOG_TYPE_DEBUG, "_configureBgImage:backdropImage: not defined on %@. loadFromViewController:completion: aborted", &v5, 0xCu);
 }
 
 @end

@@ -4,6 +4,7 @@
 - (id)workQueue_getAllPasteboardsOutError:(id *)error;
 - (id)workQueue_pasteboardWithPersistenceName:(id)name name:(id)a4 localOnly:(BOOL)only deleteIfExpired:(BOOL)expired;
 - (id)workQueue_saveGeneralPasteboardFromContinuityPasteboard:(id)pasteboard;
+- (id)workQueue_savePasteboard:(id)pasteboard isServerToServerCopy:(BOOL)copy outNotificationState:(unint64_t *)state outChangeCount:(int64_t *)count;
 - (id)workQueue_unserializePasteboardWithPersistenceName:(id)name;
 - (void)_pushRemotePasteboard:(id)pasteboard;
 - (void)_remotePasteboardDidBecomeAvailable:(BOOL)available;
@@ -12,6 +13,7 @@
 - (void)deletePasteboardNamed:(id)named bundleID:(id)d teamID:(id)iD completionBlock:(id)block;
 - (void)getAllPasteboardsCompletionBlock:(id)block;
 - (void)getExistingPasteboardWithPersistenceName:(id)name name:(id)a4 UUID:(id)d processInfo:(id)info completionBlock:(id)block;
+- (void)getPasteboardNamed:(id)named bundleID:(id)d teamID:(id)iD createIfNeeded:(BOOL)needed localOnly:(BOOL)only processInfo:(id)info deviceIsLocked:(BOOL)locked completionBlock:(id)self0;
 - (void)getPasteboardWithPersistenceName:(id)name name:(id)a4 createIfNeeded:(BOOL)needed localOnly:(BOOL)only processInfo:(id)info deviceIsLocked:(BOOL)locked completionBlock:(id)block;
 - (void)savePasteboard:(id)pasteboard deviceIslocked:(BOOL)islocked completionBlock:(id)block;
 - (void)workQueue_createRemoteGeneralPasteboardWithChangeCount:(int64_t)count;
@@ -194,6 +196,17 @@ LABEL_6:
 LABEL_7:
 }
 
+- (void)getPasteboardNamed:(id)named bundleID:(id)d teamID:(id)iD createIfNeeded:(BOOL)needed localOnly:(BOOL)only processInfo:(id)info deviceIsLocked:(BOOL)locked completionBlock:(id)self0
+{
+  onlyCopy = only;
+  neededCopy = needed;
+  blockCopy = block;
+  infoCopy = info;
+  namedCopy = named;
+  v18 = PBPasteboardPersistenceName();
+  [(PBPasteboardModel *)self getPasteboardWithPersistenceName:v18 name:namedCopy createIfNeeded:neededCopy localOnly:onlyCopy processInfo:infoCopy deviceIsLocked:locked completionBlock:blockCopy];
+}
+
 - (void)getExistingPasteboardWithPersistenceName:(id)name name:(id)a4 UUID:(id)d processInfo:(id)info completionBlock:(id)block
 {
   nameCopy = name;
@@ -234,6 +247,187 @@ LABEL_6:
   }
 
 LABEL_7:
+}
+
+- (id)workQueue_savePasteboard:(id)pasteboard isServerToServerCopy:(BOOL)copy outNotificationState:(unint64_t *)state outChangeCount:(int64_t *)count
+{
+  copyCopy = copy;
+  pasteboardCopy = pasteboard;
+  v11 = +[NSFileManager defaultManager];
+  v12 = PBStorageRootURL();
+  path = [v12 path];
+  v14 = [v11 fileExistsAtPath:path];
+
+  if ((v14 & 1) == 0)
+  {
+    v15 = PBStorageRootURL();
+    v56 = NSFileProtectionKey;
+    v57 = NSFileProtectionNone;
+    v16 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    [v11 createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:v16 error:0];
+
+    v17 = PBStorageRootURL();
+    v18 = [v17 URLByAppendingPathComponent:PBSchemaFilename];
+
+    v19 = PBSchemaFileContentsWithVersion();
+    [v19 writeToURL:v18 options:268435457 error:0];
+  }
+
+  name = [pasteboardCopy name];
+
+  stateCopy = state;
+  if (!name)
+  {
+    v25 = PBCannotSerializePasteboardError();
+    changeCount = 0;
+    v27 = 0;
+    if (v25)
+    {
+      goto LABEL_34;
+    }
+
+    goto LABEL_30;
+  }
+
+  persistenceName = [pasteboardCopy persistenceName];
+  name2 = [pasteboardCopy name];
+  v23 = [(PBPasteboardModel *)self workQueue_pasteboardWithPersistenceName:persistenceName name:name2 localOnly:0 deleteIfExpired:0];
+
+  if (v23)
+  {
+    v24 = [v23 changeCount] + 1;
+  }
+
+  else
+  {
+    v24 = 1;
+  }
+
+  [pasteboardCopy setChangeCount:v24];
+  persistenceName2 = [pasteboardCopy persistenceName];
+  if (persistenceName2)
+  {
+    workQueue_pasteboardCache = [(PBPasteboardModel *)self workQueue_pasteboardCache];
+    [workQueue_pasteboardCache setObject:pasteboardCopy forKeyedSubscript:persistenceName2];
+
+    LODWORD(workQueue_pasteboardCache) = [pasteboardCopy isPersistent];
+    v30 = _PBLog();
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+    if (workQueue_pasteboardCache)
+    {
+      if (v31)
+      {
+        name3 = [pasteboardCopy name];
+        *buf = 138412290;
+        v53 = name3;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Saving pasteboard named: %@", buf, 0xCu);
+      }
+
+      originatorAllowedToCopyOnPaste = [pasteboardCopy originatorAllowedToCopyOnPaste];
+      v34 = PBStorageRootURL();
+      v25 = [pasteboardCopy serializeToBaseURL:v34 isServerToServerCopy:copyCopy allowedToCopyOnPaste:originatorAllowedToCopyOnPaste];
+
+      v35 = PBStorageRootURL();
+      [pasteboardCopy setStorageBaseURL:v35];
+
+      directoryName = [pasteboardCopy directoryName];
+      v37 = PBStorageRootURL();
+      v38 = [v37 URLByAppendingPathComponent:directoryName isDirectory:1];
+      sub_10000FBC8(pasteboardCopy, v38);
+
+      v27 = sub_10000F95C();
+      changeCount = [pasteboardCopy changeCount];
+    }
+
+    else
+    {
+      if (v31)
+      {
+        name4 = [pasteboardCopy name];
+        *buf = 138412290;
+        v53 = name4;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Skipped saving non-persistent pasteboard named: %@", buf, 0xCu);
+      }
+
+      v27 = sub_10000F95C();
+      changeCount = [pasteboardCopy changeCount];
+      v25 = 0;
+    }
+
+    if (sub_100002638() && [pasteboardCopy isGeneralPasteboard])
+    {
+      selfCopy = self;
+      countCopy = count;
+      isLocalOnly = [pasteboardCopy isLocalOnly];
+      v44 = _PBLog();
+      v45 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
+      if (isLocalOnly)
+      {
+        count = countCopy;
+        if (v45)
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Not advertising local-only general pasteboard over Continuity.", buf, 2u);
+        }
+
+        [(PBPasteboardModel *)selfCopy _clearRemotePasteboard];
+      }
+
+      else
+      {
+        count = countCopy;
+        if (v45)
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Advertising general pasteboard over Continuity.", buf, 2u);
+        }
+
+        [(PBPasteboardModel *)selfCopy _pushRemotePasteboard:pasteboardCopy];
+      }
+    }
+  }
+
+  else
+  {
+    v39 = _PBLog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      [pasteboardCopy name];
+      v48 = v47 = count;
+      originatorTeamID = [pasteboardCopy originatorTeamID];
+      *buf = 138412546;
+      v53 = v48;
+      v54 = 2112;
+      v55 = originatorTeamID;
+      _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Pasteboard named %@ for team ID %@ cannot be persisted.", buf, 0x16u);
+
+      count = v47;
+    }
+
+    name5 = [pasteboardCopy name];
+    v25 = PBPasteboardNameInvalidError();
+
+    changeCount = 0;
+    v27 = 0;
+  }
+
+  if (!v25)
+  {
+LABEL_30:
+    if (stateCopy)
+    {
+      *stateCopy = v27;
+    }
+
+    if (count)
+    {
+      *count = changeCount;
+    }
+  }
+
+LABEL_34:
+
+  return v25;
 }
 
 - (void)savePasteboard:(id)pasteboard deviceIslocked:(BOOL)islocked completionBlock:(id)block

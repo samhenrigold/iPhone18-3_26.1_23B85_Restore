@@ -19,14 +19,14 @@
 
 - (AVAssetResourceLoadingContentInformationRequest)initWithLoadingRequest:(id)request allowedContentTypes:(id)types
 {
-  v9.receiver = self;
-  v9.super_class = AVAssetResourceLoadingContentInformationRequest;
-  v6 = [(AVAssetResourceLoadingContentInformationRequest *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = AVAssetResourceLoadingContentInformationRequest;
+  v6 = [(AVAssetResourceLoadingContentInformationRequest *)&v10 init];
   if (v6)
   {
     if (request && (v7 = objc_alloc_init(AVAssetResourceLoadingContentInformationRequestInternal), (v6->_contentInformationRequest = v7) != 0))
     {
-      v6->_contentInformationRequest->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingcontentinformationrequest.ivars");
+      v6->_contentInformationRequest->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingcontentinformationrequest.ivars", v8);
       v6->_contentInformationRequest->diskCachingPermitted = 1;
       v6->_contentInformationRequest->allowedContentTypes = [types copy];
       CFRetain(v6->_contentInformationRequest);
@@ -138,7 +138,7 @@
   return v3;
 }
 
-uint64_t __62__AVAssetResourceLoadingContentInformationRequest_contentType__block_invoke(uint64_t a1)
+void *__62__AVAssetResourceLoadingContentInformationRequest_contentType__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 16) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -178,7 +178,7 @@ uint64_t __62__AVAssetResourceLoadingContentInformationRequest_contentType__bloc
   return v3;
 }
 
-uint64_t __70__AVAssetResourceLoadingContentInformationRequest_allowedContentTypes__block_invoke(uint64_t a1)
+void *__70__AVAssetResourceLoadingContentInformationRequest_allowedContentTypes__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 24) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -250,7 +250,7 @@ uint64_t __70__AVAssetResourceLoadingContentInformationRequest_allowedContentTyp
   return v3;
 }
 
-uint64_t __62__AVAssetResourceLoadingContentInformationRequest_renewalDate__block_invoke(uint64_t a1)
+void *__62__AVAssetResourceLoadingContentInformationRequest_renewalDate__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 48) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

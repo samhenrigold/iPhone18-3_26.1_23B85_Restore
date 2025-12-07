@@ -8,18 +8,18 @@
 - (id)ck_newPosterKitPosterConfigurationForPlayground:()Helper withError:
 {
   v41[2] = *MEMORY[0x1E69E9840];
-  Helper_x8__PRSPosterRoleBackdrop = gotLoadHelper_x8__PRSPosterRoleBackdrop(a2);
+  Helper_x8__PRSPosterRoleBackdrop = gotLoadHelper_x8__PRSPosterRoleBackdrop(a5);
   v10 = **(v9 + 104);
   Helper_x8__OBJC_CLASS___PRSMutablePosterConfiguration = gotLoadHelper_x8__OBJC_CLASS___PRSMutablePosterConfiguration(Helper_x8__PRSPosterRoleBackdrop);
   v13 = [*(v12 + 4072) mutableConfigurationWithRole:{v10, Helper_x8__OBJC_CLASS___PRSMutablePosterConfiguration}];
   v40[0] = @"isForPlayground";
-  v14 = [MEMORY[0x1E696AD98] numberWithBool:a4];
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:a3];
   v40[1] = @"wasPosterCreatedLocally";
   v41[0] = v14;
   v41[1] = MEMORY[0x1E695E118];
   v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
-  [v13 storeUserInfo:v15 error:a5];
+  [v13 storeUserInfo:v15 error:a4];
   assetDirectory = [v13 assetDirectory];
   v39 = 0;
   v17 = [self saveToURL:assetDirectory error:&v39];
@@ -45,10 +45,10 @@
         v34 = v31;
       }
 
-      else if (a5)
+      else if (a4)
       {
         v36 = v32;
-        *a5 = v33;
+        *a4 = v33;
       }
     }
 
@@ -58,11 +58,11 @@
     }
   }
 
-  else if (a5)
+  else if (a4)
   {
     v35 = v18;
     v31 = 0;
-    *a5 = v18;
+    *a4 = v18;
   }
 
   else

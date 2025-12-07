@@ -536,7 +536,7 @@ void __75__BBRemoteDataProvider_clearedInfoForBulletins_lastClearedInfo_completi
 
 - (void)deliverResponse:(id)response forBulletinRequest:(id)request withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   completionCopy = completion;
@@ -557,7 +557,7 @@ void __75__BBRemoteDataProvider_clearedInfoForBulletins_lastClearedInfo_completi
   {
     if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_ERROR))
     {
-      [BBRemoteDataProvider deliverResponse:v14 forBulletinRequest:? withCompletion:?];
+      [BBRemoteDataProvider deliverResponse:v14 forBulletinRequest:self withCompletion:responseCopy];
       if (!completionCopy)
       {
         goto LABEL_11;
@@ -577,75 +577,71 @@ void __75__BBRemoteDataProvider_clearedInfoForBulletins_lastClearedInfo_completi
   {
     v15 = v14;
     *buf = 138543618;
-    v23 = objc_opt_class();
-    v24 = 2114;
-    v25 = responseCopy;
-    v16 = v23;
+    v22 = objc_opt_class();
+    v23 = 2114;
+    v24 = responseCopy;
+    v16 = v22;
     _os_log_impl(&dword_241EFF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ sending client request for response %{public}@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke;
-  v18[3] = &unk_278D2C0B8;
-  v19 = responseCopy;
-  v20 = requestCopy;
-  v21 = completionCopy;
-  [(BBRemoteDataProvider *)self _sendClientRequest:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke;
+  v17[3] = &unk_278D2C0B8;
+  v18 = responseCopy;
+  v19 = requestCopy;
+  v20 = completionCopy;
+  [(BBRemoteDataProvider *)self _sendClientRequest:v17];
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = BBLogGeneral;
   if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v5;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v5;
     _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ delivering bulletin action for response %{public}@", buf, 0x16u);
   }
 
   v6 = [BBActionResponse actionResponseForResponse:*(a1 + 32) bulletinRequest:*(a1 + 40)];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke_170;
-  v9[3] = &unk_278D2AAB8;
-  v10 = v3;
-  v11 = *(a1 + 48);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke_170;
+  v8[3] = &unk_278D2AAB8;
+  v9 = v3;
+  v10 = *(a1 + 48);
   v7 = v3;
-  [v7 deliverBulletinActionResponse:v6 withCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v7 deliverBulletinActionResponse:v6 withCompletion:v8];
 }
 
 uint64_t __74__BBRemoteDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke_170(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = BBLogGeneral;
   if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 1024;
-    v11 = a2;
-    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ completed action delivery with success=%d", &v8, 0x12u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 1024;
+    v10 = a2;
+    _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ completed action delivery with success=%d", &v7, 0x12u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -922,13 +918,14 @@ void __53__BBRemoteDataProvider_getSectionInfoWithCompletion___block_invoke(uint
 
 - (void)_logDoesNotRespond:(const char *)a3 .cold.1(void *a1, void *a2, const char *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 identity];
-  v14 = NSStringFromSelector(a3);
-  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v7, v8, "BBRemoteDataProvider: %{public}@ does not respond to %{public}@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v7 = NSStringFromSelector(a3);
+  *v14 = 138543618;
+  *&v14[4] = v6;
+  *&v14[12] = 2114;
+  *&v14[14] = v7;
+  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v8, v9, "BBRemoteDataProvider: %{public}@ does not respond to %{public}@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16]);
 }
 
 - (void)bulletinsWithRequestParameters:lastCleared:completion:.cold.1()
@@ -963,14 +960,15 @@ void __53__BBRemoteDataProvider_getSectionInfoWithCompletion___block_invoke(uint
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-- (void)deliverResponse:(void *)a1 forBulletinRequest:withCompletion:.cold.1(void *a1)
+- (void)deliverResponse:(void *)a1 forBulletinRequest:(uint64_t)a2 withCompletion:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v3, v4, "%{public}@ could not deliver response %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  *v12 = 138543618;
+  *&v12[4] = objc_opt_class();
+  *&v12[12] = 2114;
+  *&v12[14] = a3;
+  v5 = *&v12[4];
+  OUTLINED_FUNCTION_1_0(&dword_241EFF000, v6, v7, "%{public}@ could not deliver response %{public}@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 - (void)updateClearedInfoWithClearedInfo:handler:completion:.cold.1()

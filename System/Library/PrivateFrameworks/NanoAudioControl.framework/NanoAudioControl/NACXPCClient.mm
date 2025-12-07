@@ -53,7 +53,7 @@
   return v3;
 }
 
-uint64_t __28__NACXPCClient_sharedClient__block_invoke()
+uint64_t __28__NACXPCClient_sharedClient__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedClient_sharedClient = objc_opt_new();
 
@@ -95,48 +95,80 @@ uint64_t __28__NACXPCClient_sharedClient__block_invoke()
 
 - (void)_resumeVolumeObservingIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_volumeObservingTargets;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NACXPCClient *)self beginObservingVolumeForTarget:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(NACXPCClient *)self beginObservingVolumeForTarget:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resumeListeningModesObservingIfNecessary
 {
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = self->_listeningModesObservingTargets;
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [(NACXPCClient *)self beginObservingListeningModesForTarget:*(*(&v8 + 1) + 8 * v7++), v8];
+      }
+
+      while (v5 != v7);
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
+}
+
+- (void)_resumeRouteObservingIfNecessary
+{
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v3 = self->_listeningModesObservingTargets;
+  v3 = self->_routeObservingCategories;
   v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
@@ -144,61 +176,23 @@ uint64_t __28__NACXPCClient_sharedClient__block_invoke()
     v6 = *v10;
     do
     {
-      v7 = 0;
-      do
+      for (i = 0; i != v5; ++i)
       {
         if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NACXPCClient *)self beginObservingListeningModesForTarget:*(*(&v9 + 1) + 8 * v7++), v9];
+        v8 = *(*(&v9 + 1) + 8 * i);
+        [(NSMutableSet *)self->_routeObservingCategories removeObject:v8, v9];
+        [(NACXPCClient *)self beginObservingAudioRoutesForCategory:v8];
       }
 
-      while (v5 != v7);
       v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resumeRouteObservingIfNecessary
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v3 = self->_routeObservingCategories;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v11;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = *(*(&v10 + 1) + 8 * i);
-        [(NSMutableSet *)self->_routeObservingCategories removeObject:v8, v10];
-        [(NACXPCClient *)self beginObservingAudioRoutesForCategory:v8];
-      }
-
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    }
-
-    while (v5);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginObservingVolumeForTarget:(id)target
@@ -983,13 +977,11 @@ void __22__NACXPCClient__proxy__block_invoke(uint64_t a1, void *a2)
 
 void __22__NACXPCClient__proxy__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "Error getting proxy object: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "Error getting proxy object: %@", &v4, 0xCu);
 }
 
 @end

@@ -318,10 +318,10 @@
 - (VCCallSession)initWithDeviceRole:(int)role transportType:(unsigned int)type isGKVoiceChat:(BOOL)chat reportingHierarchyToken:(id)token
 {
   chatCopy = chat;
-  v69 = *MEMORY[0x1E69E9840];
-  v53.receiver = self;
-  v53.super_class = VCCallSession;
-  v10 = [(VCCallSession *)&v53 init];
+  v73 = *MEMORY[0x1E69E9840];
+  v57.receiver = self;
+  v57.super_class = VCCallSession;
+  v10 = [(VCCallSession *)&v57 init];
   if (objc_opt_class() == v10)
   {
     if (VRTraceGetErrorLogLevelForModule() < 6)
@@ -337,17 +337,17 @@
     }
 
     *buf = 136316418;
-    v57 = v12;
-    LOWORD(v58) = 2080;
-    *(&v58 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
-    WORD5(v58) = 1024;
-    HIDWORD(v58) = 348;
-    *v59 = 1024;
-    *&v59[2] = role;
-    *&v59[6] = 1024;
-    *&v59[8] = type;
-    LOWORD(v60) = 1024;
-    *(&v60 + 2) = chatCopy;
+    v61 = v12;
+    LOWORD(v62) = 2080;
+    *(&v62 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
+    WORD5(v62) = 1024;
+    HIDWORD(v62) = 348;
+    *v63 = 1024;
+    *&v63[2] = role;
+    *&v63[6] = 1024;
+    *&v63[8] = type;
+    LOWORD(v64) = 1024;
+    *(&v64 + 2) = chatCopy;
     v14 = "VCCallSession [%s] %s:%d deviceRole = %d, transportType = %d, isGKVoiceChat = %d";
     v15 = v13;
     v16 = 46;
@@ -371,21 +371,21 @@
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316930;
-      v57 = v17;
-      LOWORD(v58) = 2080;
-      *(&v58 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
-      WORD5(v58) = 1024;
-      HIDWORD(v58) = 348;
-      *v59 = 2112;
-      *&v59[2] = v11;
-      *&v59[10] = 2048;
-      *&v60 = v10;
-      WORD4(v60) = 1024;
-      *(&v60 + 10) = role;
-      HIWORD(v60) = 1024;
-      LODWORD(v61) = type;
-      WORD2(v61) = 1024;
-      *(&v61 + 6) = chatCopy;
+      v61 = v17;
+      LOWORD(v62) = 2080;
+      *(&v62 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
+      WORD5(v62) = 1024;
+      HIDWORD(v62) = 348;
+      *v63 = 2112;
+      *&v63[2] = v11;
+      *&v63[10] = 2048;
+      *&v64 = v10;
+      WORD4(v64) = 1024;
+      *(&v64 + 10) = role;
+      HIWORD(v64) = 1024;
+      LODWORD(v65) = type;
+      WORD2(v65) = 1024;
+      *(&v65 + 6) = chatCopy;
       v14 = "VCCallSession [%s] %s:%d %@(%p) deviceRole = %d, transportType = %d, isGKVoiceChat = %d";
       v15 = v18;
       v16 = 66;
@@ -425,14 +425,14 @@ LABEL_12:
   *(v10 + 7) = 0xFFFFFFFFLL;
   *(v10 + 42) = 0xFFFFFFFFLL;
   *(v10 + 43) = 0xFFFFFFFFLL;
-  v68.__sig = 0xAAAAAAAAAAAAAAAALL;
-  *v68.__opaque = 0xAAAAAAAAAAAAAAAALL;
-  pthread_mutexattr_init(&v68);
-  pthread_mutexattr_settype(&v68, 2);
+  v72.__sig = 0xAAAAAAAAAAAAAAAALL;
+  *v72.__opaque = 0xAAAAAAAAAAAAAAAALL;
+  pthread_mutexattr_init(&v72);
+  pthread_mutexattr_settype(&v72, 2);
   v10[296] = 0;
   *(v10 + 24) = -1;
-  pthread_mutex_init((v10 + 232), &v68);
-  pthread_mutexattr_destroy(&v68);
+  pthread_mutex_init((v10 + 232), &v72);
+  pthread_mutexattr_destroy(&v72);
   v10[408] = 0;
   pthread_mutex_init((v10 + 416), 0);
   pthread_mutex_init(v10 + 13, 0);
@@ -525,9 +525,9 @@ LABEL_12:
   ID = VCUniqueIDGenerator_GenerateID();
   [*(v10 + 3) setCallID:ID];
   [*(v10 + 3) setSupportsSKEOptimization:1];
-  memset(v67, 170, 12);
-  __sprintf_chk(v67, 0, 0xCuLL, "%010u", ID);
-  *(v10 + 191) = VRLogfileAlloc(0, v67, "CallSettings", ".calldump", "com.apple.VideoConference.CallSettingsLog", 32);
+  memset(v71, 170, 12);
+  __sprintf_chk(v71, 0, 0xCuLL, "%010u", ID);
+  *(v10 + 191) = VRLogfileAlloc(0, v71, "CallSettings", ".calldump", "com.apple.VideoConference.CallSettingsLog", 32);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v29 = VRTraceErrorLogLevelToCSTR();
@@ -535,29 +535,29 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v57 = v29;
-      LOWORD(v58) = 2080;
-      *(&v58 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
-      WORD5(v58) = 1024;
-      HIDWORD(v58) = 500;
+      v61 = v29;
+      LOWORD(v62) = 2080;
+      *(&v62 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
+      WORD5(v62) = 1024;
+      HIDWORD(v62) = 500;
       _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Using the following path - traditional 1:1", buf, 0x1Cu);
     }
   }
 
   if (!chatCopy)
   {
-    v57 = 0;
-    v58 = 0uLL;
+    v61 = 0;
+    v62 = 0uLL;
     *buf = ID;
-    *v59 = 0;
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    *&v59[4] = token;
-    v63 = &__block_literal_global_49;
+    *v63 = 0;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
+    *&v63[4] = token;
+    v67 = &__block_literal_global_49;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     *(v10 + 174) = reportingCreateAgent();
     *(v10 + 350) = VCReporting_GetDynamicReportingModuleID();
     reportingSetPeriodicAggregationOccurredHandler();
@@ -571,57 +571,57 @@ LABEL_12:
   *(v10 + 368) = -1;
   v31 = MEMORY[0x1E69866C8];
   *(v10 + 355) = 0;
-  v54[0] = *v31;
-  v55[0] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getAdaptiveLearningState](GKSConnectivitySettings, "getAdaptiveLearningState")}];
-  v54[1] = *MEMORY[0x1E69866A8];
-  v55[1] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getShortTermHistoryLength](GKSConnectivitySettings, "getShortTermHistoryLength")}];
-  v54[2] = *MEMORY[0x1E6986688];
-  v55[2] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getLongTermHistoryLength](GKSConnectivitySettings, "getLongTermHistoryLength")}];
-  v54[3] = *MEMORY[0x1E6986660];
+  v58[0] = *v31;
+  v59[0] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getAdaptiveLearningState](GKSConnectivitySettings, "getAdaptiveLearningState")}];
+  v58[1] = *MEMORY[0x1E69866A8];
+  v59[1] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getShortTermHistoryLength](GKSConnectivitySettings, "getShortTermHistoryLength")}];
+  v58[2] = *MEMORY[0x1E6986688];
+  v59[2] = [MEMORY[0x1E696AD98] numberWithInt:{+[GKSConnectivitySettings getLongTermHistoryLength](GKSConnectivitySettings, "getLongTermHistoryLength")}];
+  v58[3] = *MEMORY[0x1E6986660];
   v32 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getAdaptiveLearningA];
-  v55[3] = [v32 numberWithDouble:?];
-  v54[4] = *MEMORY[0x1E6986670];
+  v59[3] = [v32 numberWithDouble:?];
+  v58[4] = *MEMORY[0x1E6986670];
   v33 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getAdjustmentFactorA];
-  v55[4] = [v33 numberWithDouble:?];
-  v54[5] = *MEMORY[0x1E69866B0];
+  v59[4] = [v33 numberWithDouble:?];
+  v58[5] = *MEMORY[0x1E69866B0];
   v34 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getShortTermValueWeightA];
-  v55[5] = [v34 numberWithDouble:?];
-  v54[6] = *MEMORY[0x1E6986690];
+  v59[5] = [v34 numberWithDouble:?];
+  v58[6] = *MEMORY[0x1E6986690];
   v35 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getLongTermValueWeightA];
-  v55[6] = [v35 numberWithDouble:?];
-  v54[7] = *MEMORY[0x1E6986668];
+  v59[6] = [v35 numberWithDouble:?];
+  v58[7] = *MEMORY[0x1E6986668];
   v36 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getAdaptiveLearningB];
-  v55[7] = [v36 numberWithDouble:?];
-  v54[8] = *MEMORY[0x1E6986678];
+  v59[7] = [v36 numberWithDouble:?];
+  v58[8] = *MEMORY[0x1E6986678];
   v37 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getAdjustmentFactorB];
-  v55[8] = [v37 numberWithDouble:?];
-  v54[9] = *MEMORY[0x1E69866B8];
+  v59[8] = [v37 numberWithDouble:?];
+  v58[9] = *MEMORY[0x1E69866B8];
   v38 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getShortTermValueWeightB];
-  v55[9] = [v38 numberWithDouble:?];
-  v54[10] = *MEMORY[0x1E6986698];
+  v59[9] = [v38 numberWithDouble:?];
+  v58[10] = *MEMORY[0x1E6986698];
   v39 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getLongTermValueWeightB];
-  v55[10] = [v39 numberWithDouble:?];
-  v54[11] = *MEMORY[0x1E6986680];
+  v59[10] = [v39 numberWithDouble:?];
+  v58[11] = *MEMORY[0x1E6986680];
   v40 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getAdjustmentFactorC];
-  v55[11] = [v40 numberWithDouble:?];
-  v54[12] = *MEMORY[0x1E69866C0];
+  v59[11] = [v40 numberWithDouble:?];
+  v58[12] = *MEMORY[0x1E69866C0];
   v41 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getShortTermValueWeightC];
-  v55[12] = [v41 numberWithDouble:?];
-  v54[13] = *MEMORY[0x1E69866A0];
+  v59[12] = [v41 numberWithDouble:?];
+  v58[13] = *MEMORY[0x1E69866A0];
   v42 = MEMORY[0x1E696AD98];
   +[GKSConnectivitySettings getLongTermValueWeightC];
-  v55[13] = [v42 numberWithDouble:?];
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:14];
+  v59[13] = [v42 numberWithDouble:?];
+  [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:14];
   createAdaptiveLearningForAgent();
   reportingRegisterPeriodicTaskWeak();
   reportingRegisterSystemStats();
@@ -656,30 +656,30 @@ LABEL_12:
     {
       cellPrimaryInterfaceChangeEnabled = [*(v10 + 10) cellPrimaryInterfaceChangeEnabled];
       *buf = 136315906;
-      v57 = v48;
-      LOWORD(v58) = 2080;
-      *(&v58 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
-      WORD5(v58) = 1024;
-      HIDWORD(v58) = 575;
-      *v59 = 1024;
-      *&v59[2] = cellPrimaryInterfaceChangeEnabled;
+      v61 = v48;
+      LOWORD(v62) = 2080;
+      *(&v62 + 2) = "[VCCallSession initWithDeviceRole:transportType:isGKVoiceChat:reportingHierarchyToken:]";
+      WORD5(v62) = 1024;
+      HIDWORD(v62) = 575;
+      *v63 = 1024;
+      *&v63[2] = cellPrimaryInterfaceChangeEnabled;
       _os_log_impl(&dword_1DB56E000, v49, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Load switch wifiAssistStatusBarEnabled %d", buf, 0x22u);
     }
   }
 
   [+[VCEffectsManager sharedManager](VCEffectsManager "sharedManager")];
-  [v10 registerForReportingNotifications];
-  [VCPowerManager_DefaultManager() registerForThermalEvents:v10];
+  registerForReportingNotifications = [v10 registerForReportingNotifications];
+  [VCPowerManager_DefaultManager(registerForReportingNotifications v52)];
   [v10 reportClientPersistentSettings];
-  if ([v10 deviceRole] == 2 || objc_msgSend(v10, "deviceRole") == 4)
+  if ([v10 deviceRole] == 2 || (registerForNotifications = objc_msgSend(v10, "deviceRole"), registerForNotifications == 4))
   {
-    v51 = objc_alloc_init(VCTelephonyInterface);
-    *(v10 + 183) = v51;
-    [(VCTelephonyInterface *)v51 setDelegate:v10];
-    [*(v10 + 183) registerForNotifications];
+    v55 = objc_alloc_init(VCTelephonyInterface);
+    *(v10 + 183) = v55;
+    [(VCTelephonyInterface *)v55 setDelegate:v10];
+    registerForNotifications = [*(v10 + 183) registerForNotifications];
   }
 
-  *(v10 + 214) = micro();
+  *(v10 + 214) = micro(registerForNotifications, v54);
   return v10;
 }
 
@@ -1768,8 +1768,8 @@ uint64_t __42__VCCallSession_handleCellularMTUChanged___block_invoke(uint64_t a1
 - (void)thermalLevelDidChange:(int)change
 {
   v3 = *&change;
-  [(VCCallSession *)self reportingAgent];
-  micro();
+  reportingAgent = [(VCCallSession *)self reportingAgent];
+  micro(reportingAgent, v6);
   reportingThermal();
   [(VCCallSession *)self checkAndReportThermalIncreaseAudioOnly:v3];
   hVideoTransmitter = self->hVideoTransmitter;
@@ -2754,7 +2754,7 @@ uint64_t __60__VCCallSession_primaryConnectionDidChangeTo_oldConnection___block_
   VCAudioReceiver_UpdateCellTech(*(*(a1 + 40) + 1224), v11, v12);
   if ([*(*(a1 + 40) + 320) isVideoEnabled])
   {
-    VideoReceiver_CellTechChanged();
+    VideoReceiver_CellTechChanged(*(*(a1 + 40) + 1248));
   }
 
   v22 = [*(a1 + 40) evaluateEnableRRx:0];
@@ -2763,7 +2763,7 @@ uint64_t __60__VCCallSession_primaryConnectionDidChangeTo_oldConnection___block_
   AFRCUpdateCellTech(*(*(a1 + 40) + 344), v23, v11, *(*(*(a1 + 64) + 8) + 24), v12, v22, v23 != v24);
   if (v23 != v24)
   {
-    MediaQueue_CleanupTxHistory();
+    MediaQueue_CleanupTxHistory(*(*(a1 + 40) + 336));
   }
 
   if (v15 >= v16)
@@ -3105,36 +3105,36 @@ LABEL_15:
 
 uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) lock];
-  v2 = *(a1 + 32);
-  if (*(v2 + 593))
+  v3 = *(a1 + 32);
+  if (*(v3 + 593))
   {
-    v3 = *(a1 + 40);
-    v4 = *(v2 + 600);
-    if (v3 > v4 && *(v2 + 608) == 1)
+    v4 = *(a1 + 40);
+    v5 = *(v3 + 600);
+    if (v4 > v5 && *(v3 + 608) == 1)
     {
-      ++*(v2 + 652);
-      v2 = *(a1 + 32);
-      v4 = *(v2 + 600);
+      ++*(v3 + 652);
+      v3 = *(a1 + 32);
+      v5 = *(v3 + 600);
     }
 
-    if (v3 > v4 && *(v2 + 648) == 1)
+    if (v4 > v5 && *(v3 + 648) == 1)
     {
-      ++*(v2 + 656);
-      v2 = *(a1 + 32);
-      v4 = *(v2 + 600);
+      ++*(v3 + 656);
+      v3 = *(a1 + 32);
+      v5 = *(v3 + 600);
     }
 
-    if (v3 > v4)
+    if (v4 > v5)
     {
-      *(v2 + 600) = v3;
+      *(v3 + 600) = v4;
     }
 
-    v5 = micro();
-    v6 = v5;
-    v7 = *(a1 + 32);
-    if ((*(v7 + 1404) & 1) == 0 && v5 - *(v7 + 600) > *(v7 + 800) * 0.5)
+    v6 = micro(v3, v2);
+    v7 = v6;
+    v8 = *(a1 + 32);
+    if ((*(v8 + 1404) & 1) == 0 && v6 - *(v8 + 600) > *(v8 + 800) * 0.5)
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
       CFDictionarySetValue(Mutable, @"SymptomReporterOptionalKeySessionID", *(*(a1 + 32) + 760));
@@ -3142,32 +3142,32 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
       reportingSymptom();
       *(*(a1 + 32) + 1404) = 1;
       CFRelease(Mutable);
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
     }
 
-    if (*(v7 + 904) != 1 || v6 - *(v7 + 600) <= *(v7 + 800))
+    if (*(v8 + 904) != 1 || v7 - *(v8 + 600) <= *(v8 + 800))
     {
 LABEL_20:
-      v13 = *(v7 + 688);
-      if (v13 == 0.0)
+      v14 = *(v8 + 688);
+      if (v14 == 0.0)
       {
-        *(v7 + 736) = v6;
-        *(*(a1 + 32) + 728) = v6;
-        *(*(a1 + 32) + 688) = v6;
-        v7 = *(a1 + 32);
-        v13 = *(v7 + 688);
+        *(v8 + 736) = v7;
+        *(*(a1 + 32) + 728) = v7;
+        *(*(a1 + 32) + 688) = v7;
+        v8 = *(a1 + 32);
+        v14 = *(v8 + 688);
       }
 
-      if (v6 - v13 <= 1.0)
+      if (v7 - v14 <= 1.0)
       {
 LABEL_46:
-        [v7 updateRemoteMediaStallState:v6];
-        v22 = *(a1 + 32);
-        v23 = v6 - *(v22 + 600);
-        v24 = v23 > 1.0;
-        if (v23 <= 1.0)
+        [v8 updateRemoteMediaStallState:v7];
+        v23 = *(a1 + 32);
+        v24 = v7 - *(v23 + 600);
+        v25 = v24 > 1.0;
+        if (v24 <= 1.0)
         {
-          if (*(v22 + 816))
+          if (*(v23 + 816))
           {
 LABEL_52:
             reportingNoRemoteChanged();
@@ -3176,52 +3176,52 @@ LABEL_52:
 
         else
         {
-          if (v6 - *(v22 + 792) > 1.0)
+          if (v7 - *(v23 + 792) > 1.0)
           {
-            *(v22 + 792) = v6;
-            v25 = *(a1 + 32);
-            v26 = v6 - *(v25 + 600);
-            v27 = *(v25 + 504);
-            v42[0] = MEMORY[0x1E69E9820];
-            v42[1] = 3221225472;
-            v42[2] = __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_235;
-            v42[3] = &unk_1E85F40E0;
-            v42[4] = v25;
-            *&v42[5] = v26;
-            dispatch_async(v27, v42);
-            v22 = *(a1 + 32);
+            *(v23 + 792) = v7;
+            v26 = *(a1 + 32);
+            v27 = v7 - *(v26 + 600);
+            v28 = *(v26 + 504);
+            v43[0] = MEMORY[0x1E69E9820];
+            v43[1] = 3221225472;
+            v43[2] = __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_235;
+            v43[3] = &unk_1E85F40E0;
+            v43[4] = v26;
+            *&v43[5] = v27;
+            dispatch_async(v28, v43);
+            v23 = *(a1 + 32);
           }
 
-          if (!*(v22 + 816))
+          if (!*(v23 + 816))
           {
             goto LABEL_52;
           }
         }
 
-        *(*(a1 + 32) + 816) = v24;
-        v28 = *(a1 + 32);
-        if (*(v28 + 904) != 1)
+        *(*(a1 + 32) + 816) = v25;
+        v29 = *(a1 + 32);
+        if (*(v29 + 904) != 1)
         {
-          return [v28 unlock];
+          return [v29 unlock];
         }
 
-        v29 = v6 - *(v28 + 728);
-        v30 = *(v28 + 744);
-        v31 = v6 - *(v28 + 736);
-        if (v29 <= v30 && v31 <= v30)
+        v30 = v7 - *(v29 + 728);
+        v31 = *(v29 + 744);
+        v32 = v7 - *(v29 + 736);
+        if (v30 <= v31 && v32 <= v31)
         {
-          return [v28 unlock];
+          return [v29 unlock];
         }
 
-        if (v29 > v30 && VRTraceGetErrorLogLevelForModule() >= 3 && (v33 = VRTraceErrorLogLevelToCSTR(), v34 = *MEMORY[0x1E6986650], os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
+        if (v30 > v31 && VRTraceGetErrorLogLevelForModule() >= 3 && (v34 = VRTraceErrorLogLevelToCSTR(), v35 = *MEMORY[0x1E6986650], os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
         {
-          if (__66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_cold_1(v33, v34, v31 > v30))
+          if (__66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_cold_1(v34, v35, v32 > v31))
           {
             goto LABEL_62;
           }
         }
 
-        else if (v31 > v30)
+        else if (v32 > v31)
         {
 LABEL_62:
           if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -3237,87 +3237,87 @@ LABEL_62:
         if ([*(a1 + 32) isCallOngoing])
         {
           global_queue = dispatch_get_global_queue(2, 0);
-          v41[0] = MEMORY[0x1E69E9820];
-          v41[1] = 3221225472;
-          v41[2] = __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_237;
-          v41[3] = &unk_1E85F3778;
-          v41[4] = *(a1 + 32);
-          dispatch_async(global_queue, v41);
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_237;
+          v42[3] = &unk_1E85F3778;
+          v42[4] = *(a1 + 32);
+          dispatch_async(global_queue, v42);
         }
 
-        v28 = *(a1 + 32);
-        return [v28 unlock];
+        v29 = *(a1 + 32);
+        return [v29 unlock];
       }
 
-      if (v6 - *(v7 + 600) > *(v7 + 744) + -3.0)
+      if (v7 - *(v8 + 600) > *(v8 + 744) + -3.0)
       {
-        *(v7 + 728) = v6;
-        *(*(a1 + 32) + 736) = v6;
-        v7 = *(a1 + 32);
+        *(v8 + 728) = v7;
+        *(*(a1 + 32) + 736) = v7;
+        v8 = *(a1 + 32);
       }
 
-      v14 = *(v7 + 352);
-      if (v14)
+      v15 = *(v8 + 352);
+      if (v15)
       {
-        v52 = 0;
-        v50 = 0u;
+        v53 = 0;
         v51 = 0u;
-        v48 = 0u;
+        v52 = 0u;
         v49 = 0u;
-        v46 = 0u;
+        v50 = 0u;
         v47 = 0u;
-        v45 = 0u;
+        v48 = 0u;
+        v46 = 0u;
         memset(buf, 0, sizeof(buf));
-        VCRateControlGetStatistics([v14 statisticsCollector], 3, buf);
+        VCRateControlGetStatistics([v15 statisticsCollector], 3, buf);
         *(*(a1 + 32) + 680) = *&buf[24] / 100.0;
         *(*(a1 + 32) + 696) = *(*(a1 + 32) + 680) + *(*(a1 + 32) + 696);
         *(*(a1 + 32) + 704) = *(*(a1 + 32) + 704) + 1.0;
         *(*(a1 + 32) + 768) = (*&buf[52] / 0x3E8u);
-        v15 = 1;
+        v16 = 1;
       }
 
       else
       {
         *buf = -1431655766;
-        v17 = RTPGetAFRCStat(*(v7 + 48), (v7 + 680), 0, buf, 0, 0, 0);
+        v18 = RTPGetAFRCStat(*(v8 + 48), (v8 + 680), 0, buf, 0, 0, 0);
         *(*(a1 + 32) + 768) = vcvtd_n_f64_u32(*buf, 0xAuLL);
-        v15 = v17 >= 0;
+        v16 = v18 >= 0;
       }
 
       [*(a1 + 32) checkAbnormalOWRDAndResetLagReference];
-      *(*(a1 + 32) + 688) = v6;
-      v18 = *(a1 + 32);
-      if (v6 - v18[90] >= 5.0)
+      *(*(a1 + 32) + 688) = v7;
+      v19 = *(a1 + 32);
+      if (v7 - v19[90] >= 5.0)
       {
-        v18[89] = v18[87] / v18[88];
+        v19[89] = v19[87] / v19[88];
         *(*(a1 + 32) + 696) = 0;
         *(*(a1 + 32) + 704) = 0;
-        *(*(a1 + 32) + 720) = v6;
+        *(*(a1 + 32) + 720) = v7;
       }
 
-      v19 = *(a1 + 32);
-      if (v15)
+      v20 = *(a1 + 32);
+      if (v16)
       {
-        if (*(v19 + 993) == 1)
+        if (*(v20 + 993) == 1)
         {
-          v20 = *(v19 + 896);
+          v21 = *(v20 + 896);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_234;
           block[3] = &unk_1E85F40E0;
-          block[4] = v19;
-          *&block[5] = v6;
-          dispatch_async(v20, block);
-          v19 = *(a1 + 32);
+          block[4] = v20;
+          *&block[5] = v7;
+          dispatch_async(v21, block);
+          v20 = *(a1 + 32);
         }
 
-        if (*(v19 + 680) < 0.6)
+        if (*(v20 + 680) < 0.6)
         {
-          *(v19 + 728) = v6;
-          v19 = *(a1 + 32);
+          *(v20 + 728) = v7;
+          v20 = *(a1 + 32);
         }
 
-        if (*(v19 + 768) >= 4.5)
+        if (*(v20 + 768) >= 4.5)
         {
           goto LABEL_42;
         }
@@ -3325,75 +3325,75 @@ LABEL_62:
 
       else
       {
-        *(v19 + 728) = v6;
-        v19 = *(a1 + 32);
+        *(v20 + 728) = v7;
+        v20 = *(a1 + 32);
       }
 
-      *(v19 + 736) = v6;
+      *(v20 + 736) = v7;
 LABEL_42:
-      v21 = *(a1 + 32);
-      if (*(v21 + 352))
+      v22 = *(a1 + 32);
+      if (*(v22 + 352))
       {
-        *(v21 + 520) = *(v21 + 1408);
+        *(v22 + 520) = *(v22 + 1408);
       }
 
       else
       {
-        RTPGetAFRCTxInfo(*(v21 + 48), (v21 + 520), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        RTPGetAFRCTxInfo(*(v22 + 48), (v22 + 520), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
       }
 
       *(*(a1 + 32) + 780) = VCAudioReceiver_GetPercentPacketsLateAndMissing(*(*(a1 + 32) + 1224));
       [*(a1 + 32) logDetailedNetworkInformation];
-      [*(a1 + 32) updateNetworkCheckHint:v6];
-      v7 = *(a1 + 32);
+      [*(a1 + 32) updateNetworkCheckHint:v7];
+      v8 = *(a1 + 32);
       goto LABEL_46;
     }
 
-    v9 = [v7 isCallOngoing];
-    v2 = *(a1 + 32);
-    if (v9)
+    v10 = [v8 isCallOngoing];
+    v3 = *(a1 + 32);
+    if (v10)
     {
-      *(v2 + 593) = 0;
-      v10 = [*(*(a1 + 32) + 1512) detailedErrorCode];
+      *(v3 + 593) = 0;
+      v11 = [*(*(a1 + 32) + 1512) detailedErrorCode];
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v11 = VRTraceErrorLogLevelToCSTR();
-        v12 = *MEMORY[0x1E6986650];
+        v12 = VRTraceErrorLogLevelToCSTR();
+        v13 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          v37 = *(a1 + 32);
-          v36 = *(a1 + 40);
-          v38 = *(v37 + 600);
-          v39 = *(v37 + 800);
-          v40 = *(a1 + 48);
+          v38 = *(a1 + 32);
+          v37 = *(a1 + 40);
+          v39 = *(v38 + 600);
+          v40 = *(v38 + 800);
+          v41 = *(a1 + 48);
           *buf = 136316930;
-          *&buf[4] = v11;
+          *&buf[4] = v12;
           *&buf[12] = 2080;
           *&buf[14] = "[VCCallSession updateLastReceivedPacketWithTimestamp:packetType:]_block_invoke";
           *&buf[22] = 1024;
           *&buf[24] = 1945;
           *&buf[28] = 2048;
-          *&buf[30] = v6;
+          *&buf[30] = v7;
           *&buf[38] = 2048;
-          *&buf[40] = v36;
+          *&buf[40] = v37;
           *&buf[48] = 2048;
-          *&buf[50] = v38;
+          *&buf[50] = v39;
           *&buf[58] = 2048;
-          *&buf[60] = v39;
+          *&buf[60] = v40;
           *&buf[68] = 1024;
-          *&buf[70] = v40;
-          _os_log_error_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_ERROR, "VCCallSession [%s] %s:%d Disconnecting due to no remote packet currentTime=%f lastPacketTime=%f lastReceivedPacketTimestamp=%f noRemotePacketsTimeout=%f packetType=%d", buf, 0x4Au);
+          *&buf[70] = v41;
+          _os_log_error_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_ERROR, "VCCallSession [%s] %s:%d Disconnecting due to no remote packet currentTime=%f lastPacketTime=%f lastReceivedPacketTimestamp=%f noRemotePacketsTimeout=%f packetType=%d", buf, 0x4Au);
         }
       }
 
       VCUtil_GenerateDiagnostics(0, 1, "Disconnecting due to no remote packets.", 1u);
-      [*(a1 + 32) disconnectWithNoRemotePackets:v10];
-      v7 = *(a1 + 32);
+      [*(a1 + 32) disconnectWithNoRemotePackets:v11];
+      v8 = *(a1 + 32);
       goto LABEL_20;
     }
   }
 
-  return [v2 unlock];
+  return [v3 unlock];
 }
 
 void __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_234(uint64_t a1)
@@ -3498,7 +3498,7 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
   v4 = *&type;
   if (packet)
   {
-    lastReceivedPacketTimestamp = micro();
+    lastReceivedPacketTimestamp = micro(self, a2);
   }
 
   else
@@ -3511,7 +3511,7 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
 
 - (void)dealloc
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -3532,14 +3532,14 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
         }
 
         *buf = 136316162;
-        v28 = v4;
-        v29 = 2080;
-        v30 = "[VCCallSession dealloc]";
-        v31 = 1024;
-        v32 = 2141;
-        v33 = 2080;
-        v34 = v7;
-        v35 = 1024;
+        v30 = v4;
+        v31 = 2080;
+        v32 = "[VCCallSession dealloc]";
+        v33 = 1024;
+        v34 = 2141;
+        v35 = 2080;
+        v36 = v7;
+        v37 = 1024;
         LODWORD(selfCopy) = [(VCCallSession *)self callID];
         v12 = "VCCallSession [%s] %s:%d perfTimers=%s, callID = %u";
         v13 = v5;
@@ -3579,18 +3579,18 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
         }
 
         *buf = 136316674;
-        v28 = v8;
-        v29 = 2080;
-        v30 = "[VCCallSession dealloc]";
-        v31 = 1024;
-        v32 = 2141;
-        v33 = 2112;
-        v34 = v3;
-        v35 = 2048;
+        v30 = v8;
+        v31 = 2080;
+        v32 = "[VCCallSession dealloc]";
+        v33 = 1024;
+        v34 = 2141;
+        v35 = 2112;
+        v36 = v3;
+        v37 = 2048;
         selfCopy = self;
-        v37 = 2080;
-        v38 = v11;
-        v39 = 1024;
+        v39 = 2080;
+        v40 = v11;
+        v41 = 1024;
         callID = [(VCCallSession *)self callID];
         v12 = "VCCallSession [%s] %s:%d %@(%p) perfTimers=%s, callID = %u";
         v13 = v9;
@@ -3723,11 +3723,11 @@ LABEL_17:
 
   VRLogfileFree(&self->_callLogFile);
   [+[VCEffectsManager sharedManager](VCEffectsManager "sharedManager")];
-  [(VCCallSession *)self deregisterForReportingNotifications];
-  [VCPowerManager_DefaultManager() unregisterForThermalEvents:self];
-  v26.receiver = self;
-  v26.super_class = VCCallSession;
-  [(VCCallSession *)&v26 dealloc];
+  deregisterForReportingNotifications = [(VCCallSession *)self deregisterForReportingNotifications];
+  [VCPowerManager_DefaultManager(deregisterForReportingNotifications v27)];
+  v28.receiver = self;
+  v28.super_class = VCCallSession;
+  [(VCCallSession *)&v28 dealloc];
 }
 
 - (BOOL)isSecureMessagingRequired
@@ -3841,47 +3841,49 @@ LABEL_17:
 
 - (void)setupConnectionTimeoutTimerWithErrorCode:(int)code detailedCode:(int)detailedCode description:(id)description reason:(id)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [(VCCallSession *)self lock];
   [(VCCallSession *)self cancelConnectionTimeoutTimer];
-  self->connectionTimeoutSource = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, 0);
-  v11 = micro();
+  v11 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, 0);
+  self->connectionTimeoutSource = v11;
+  v13 = micro(v11, v12);
   connectionTimeoutSource = self->connectionTimeoutSource;
   if (connectionTimeoutSource)
   {
-    v13 = v11;
-    v14 = dispatch_walltime(0, 10000000000);
-    dispatch_source_set_timer(connectionTimeoutSource, v14, 0x2540BE400uLL, 0x2540BE400uLL);
-    v15 = self->connectionTimeoutSource;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_description_reason___block_invoke;
-    v16[3] = &unk_1E85F70D0;
-    *&v16[7] = v13;
+    v15 = v13;
+    v16 = dispatch_walltime(0, 10000000000);
+    dispatch_source_set_timer(connectionTimeoutSource, v16, 0x2540BE400uLL, 0x2540BE400uLL);
+    v17 = self->connectionTimeoutSource;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_description_reason___block_invoke;
+    v18[3] = &unk_1E85F70D0;
+    *&v18[7] = v15;
     codeCopy = code;
     detailedCodeCopy = detailedCode;
-    v16[4] = self;
-    v16[5] = description;
-    v16[6] = reason;
-    dispatch_source_set_event_handler(v15, v16);
+    v18[4] = self;
+    v18[5] = description;
+    v18[6] = reason;
+    dispatch_source_set_event_handler(v17, v18);
     dispatch_resume(self->connectionTimeoutSource);
   }
 
   [(VCCallSession *)self unlock];
 }
 
-void __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_description_reason___block_invoke(uint64_t a1)
+void __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_description_reason___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2[1] = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3[1] = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 32) + 1405) & 1) == 0)
   {
-    reportingSymptom();
-    *(*(a1 + 32) + 1405) = 1;
+    a1 = reportingSymptom();
+    *(*(v2 + 32) + 1405) = 1;
   }
 
-  if (micro() - *(a1 + 56) > 60.0)
+  if (micro(a1, a2) - *(v2 + 56) > 60.0)
   {
-    [*(a1 + 32) cancelConnectionTimeoutTimer];
+    [*(v2 + 32) cancelConnectionTimeoutTimer];
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
       VRTraceErrorLogLevelToCSTR();
@@ -3891,9 +3893,9 @@ void __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_d
       }
     }
 
-    v2[0] = 0;
-    [GKVoiceChatError getNSError:v2 code:*(a1 + 64) detailedCode:*(a1 + 68) filePath:0 description:*(a1 + 40) reason:*(a1 + 48)];
-    [*(a1 + 32) disconnect:v2[0] didRemoteCancel:0];
+    v3[0] = 0;
+    [GKVoiceChatError getNSError:v3 code:*(v2 + 64) detailedCode:*(v2 + 68) filePath:0 description:*(v2 + 40) reason:*(v2 + 48)];
+    [*(v2 + 32) disconnect:v3[0] didRemoteCancel:0];
   }
 }
 
@@ -4403,7 +4405,7 @@ uint64_t __123__VCCallSession_startConnectionWithParticipantID_callID_usingInvit
 
 void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteData_isCaller_capabilities_idsSocket_destination_error___block_invoke_3(uint64_t a1, int a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v6 = [*(a1 + 32) strong];
   if (!v6 || (v7 = v6, ([v6 isCallOngoing] & 1) == 0))
   {
@@ -4419,17 +4421,17 @@ void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteDat
       return;
     }
 
-    v22 = 136315906;
-    v23 = v9;
-    v24 = 2080;
-    v25 = "[VCCallSession startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:]_block_invoke_3";
-    v26 = 1024;
-    v27 = 2616;
-    v28 = 1024;
-    v29 = a2;
+    v23 = 136315906;
+    v24 = v9;
+    v25 = 2080;
+    v26 = "[VCCallSession startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:]_block_invoke_3";
+    v27 = 1024;
+    v28 = 2616;
+    v29 = 1024;
+    v30 = a2;
     v11 = "VCCallSession [%s] %s:%d Received transportSession event %d while call is not ongoing. Skipping";
 LABEL_13:
-    _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v11, &v22, 0x22u);
+    _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v11, &v23, 0x22u);
     return;
   }
 
@@ -4455,10 +4457,10 @@ LABEL_13:
 
     else if (a2 == 3)
     {
-      v18 = [a3 objectForKeyedSubscript:@"transportSessionEventInfoNewPrimary"];
-      v19 = [a3 objectForKeyedSubscript:@"transportSessionEventInfoOldPrimary"];
+      v19 = [a3 objectForKeyedSubscript:@"transportSessionEventInfoNewPrimary"];
+      v20 = [a3 objectForKeyedSubscript:@"transportSessionEventInfoOldPrimary"];
 
-      [v7 handlePrimaryConnectionChanged:v18 oldPrimaryConnection:v19];
+      [v7 handlePrimaryConnectionChanged:v19 oldPrimaryConnection:v20];
     }
 
     else if (a2 == 4)
@@ -4483,9 +4485,9 @@ LABEL_13:
     {
       if (a2 == 6)
       {
-        v20 = [v7 localCallInfo];
+        v21 = [v7 localCallInfo];
 
-        [v20 setSupportsSKEOptimization:0];
+        [v21 setSupportsSKEOptimization:0];
       }
 
       else if (a2 == 7)
@@ -4507,14 +4509,14 @@ LABEL_13:
     switch(a2)
     {
       case 9:
-        v21 = [a3 unsignedShortValue];
+        v22 = [a3 unsignedShortValue];
 
-        [v7 handleCellularMTUChanged:v21];
+        [v7 handleCellularMTUChanged:v22];
         break;
       case 10:
-        [v7 hAFRC];
+        v18 = [v7 hAFRC];
 
-        AFRCMarkNetworkChange();
+        AFRCMarkNetworkChange(v18);
         break;
       case 16:
         return;
@@ -4532,14 +4534,14 @@ LABEL_27:
           return;
         }
 
-        v22 = 136315906;
-        v23 = v13;
-        v24 = 2080;
-        v25 = "[VCCallSession startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:]_block_invoke";
-        v26 = 1024;
-        v27 = 2670;
-        v28 = 1024;
-        v29 = a2;
+        v23 = 136315906;
+        v24 = v13;
+        v25 = 2080;
+        v26 = "[VCCallSession startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:]_block_invoke";
+        v27 = 1024;
+        v28 = 2670;
+        v29 = 1024;
+        v30 = a2;
         v11 = "VCCallSession [%s] %s:%d Received invalid transportSession event(%d)";
         goto LABEL_13;
     }
@@ -5337,9 +5339,9 @@ LABEL_5:
   v5 = *&size;
   rCopy = r;
   switchingCopy = switching;
-  v16 = *MEMORY[0x1E69E9840];
-  v15 = 0;
-  AUIOGetAUNumber(&v15);
+  v18 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  AUIOGetAUNumber(&v17);
   v9 = objc_alloc_init(VCAudioRuleCollectionConfiguration);
   [(VCAudioRuleCollectionConfiguration *)v9 setContinuity:self->_deviceRole != 0];
   [(VCAudioRuleCollectionConfiguration *)v9 setAllowAudioSwitching:switchingCopy];
@@ -5357,21 +5359,24 @@ LABEL_7:
   }
 
   v11 = [VCMediaNegotiatorAudioConfiguration alloc];
-  v12 = [(VCMediaNegotiatorAudioConfiguration *)v11 initWithAllowAudioRecording:self->allowAudioRecording ssrc:RTPGenerateSSRC() audioUnitNumber:v15 audioRuleCollection:v10];
-  if (!v12)
+  allowAudioRecording = self->allowAudioRecording;
+  v13 = RTPGenerateSSRC(v11);
+  v14 = [(VCMediaNegotiatorAudioConfiguration *)v11 initWithAllowAudioRecording:allowAudioRecording ssrc:v13 audioUnitNumber:v17 audioRuleCollection:v10];
+  if (!v14)
   {
     [VCCallSession newMediaNegotiatorAudioConfigurationWithAllowAudioSwitching:useSBR:aacBlockSize:];
     goto LABEL_7;
   }
 
-  v13 = v12;
+  v15 = v14;
 
-  return v13;
+  return v15;
 }
 
 - (id)newCameraConfiguration
 {
   v2 = objc_alloc_init(VCMediaNegotiatorVideoConfiguration);
+  v3 = v2;
   if (!v2)
   {
     [VCCallSession newCameraConfiguration];
@@ -5380,28 +5385,29 @@ LABEL_7:
     return 0;
   }
 
-  [(VCMediaNegotiatorCommonConfiguration *)v2 setSsrc:RTPGenerateSSRC()];
-  [(VCMediaNegotiatorVideoConfiguration *)v2 setVideoRuleCollections:+[VCVideoRuleCollectionsCamera sharedInstance]];
-  v3 = [VCVideoFeatureListStringHelper newLocalFeaturesStringWithType:1];
-  if (!v3)
+  [(VCMediaNegotiatorCommonConfiguration *)v2 setSsrc:RTPGenerateSSRC(v2)];
+  [(VCMediaNegotiatorVideoConfiguration *)v3 setVideoRuleCollections:+[VCVideoRuleCollectionsCamera sharedInstance]];
+  v4 = [VCVideoFeatureListStringHelper newLocalFeaturesStringWithType:1];
+  if (!v4)
   {
     [VCCallSession newCameraConfiguration];
     goto LABEL_7;
   }
 
-  v4 = v3;
-  [(VCMediaNegotiatorVideoConfiguration *)v2 setVideoFeatureStrings:v3];
+  v5 = v4;
+  [(VCMediaNegotiatorVideoConfiguration *)v3 setVideoFeatureStrings:v4];
 
-  return v2;
+  return v3;
 }
 
 - (id)newScreenConfigurationWithCameraConfiguration:(id)configuration
 {
   v4 = [configuration copy];
+  v5 = v4;
   if (v4)
   {
-    [v4 setSsrc:RTPGenerateSSRC()];
-    [v4 setVideoRuleCollections:{+[VCVideoRuleCollectionsScreen sharedInstance](VCVideoRuleCollectionsScreen, "sharedInstance")}];
+    [v4 setSsrc:RTPGenerateSSRC(v4)];
+    [v5 setVideoRuleCollections:{+[VCVideoRuleCollectionsScreen sharedInstance](VCVideoRuleCollectionsScreen, "sharedInstance")}];
   }
 
   else
@@ -5409,12 +5415,11 @@ LABEL_7:
     [VCCallSession newScreenConfigurationWithCameraConfiguration:configuration];
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)addMediaConfigurationsToLocalConfiguration:(id)configuration
 {
-  v15 = *MEMORY[0x1E69E9840];
   v5 = [(VCCallSession *)self newMediaNegotiatorAudioConfigurationWithAllowAudioSwitching:self->allowAudioSwitching useSBR:self->useSBR aacBlockSize:self->aacBlockSize];
   if (!v5)
   {
@@ -5437,7 +5442,7 @@ LABEL_9:
   v8 = [(VCCallSession *)self newScreenConfigurationWithCameraConfiguration:newCameraConfiguration];
   if (!v8)
   {
-    [(VCCallSession *)v7 addMediaConfigurationsToLocalConfiguration:&v13, &v14];
+    [VCCallSession addMediaConfigurationsToLocalConfiguration:];
     goto LABEL_9;
   }
 
@@ -5549,7 +5554,7 @@ LABEL_5:
     negotiationData = [(VCMediaNegotiator *)v20 negotiationData];
     if (!negotiationData)
     {
-      [VCCallSession newMediaBlobWithRemoteMediaBlob:v20 localCallID:&v25 isLowBitrateCodecPreferred:buf];
+      [VCCallSession newMediaBlobWithRemoteMediaBlob:localCallID:isLowBitrateCodecPreferred:];
 LABEL_36:
       v23 = v25;
       v22 = *buf;
@@ -5561,7 +5566,7 @@ LABEL_36:
   {
     if (!blob)
     {
-      [VCCallSession newMediaBlobWithRemoteMediaBlob:v20 localCallID:&v25 isLowBitrateCodecPreferred:buf];
+      [VCCallSession newMediaBlobWithRemoteMediaBlob:localCallID:isLowBitrateCodecPreferred:];
       goto LABEL_36;
     }
 
@@ -6139,7 +6144,7 @@ LABEL_14:
     remoteCallInfo = self->remoteCallInfo;
     if (remoteCallInfo)
     {
-      [(VCCallInfo *)remoteCallInfo audioVersionInfo:self->isGKVoiceChat];
+      objc_msgSend_audioVersionInfo_(remoteCallInfo);
     }
 
     else
@@ -6847,7 +6852,7 @@ LABEL_23:
 
   v16[1] = v10;
   v17 = v10;
-  v11 = VCAudioReceiver_PullAudioSamples([(VCCallSession *)self audioReceiver], samples, timestamp, time, v16, silence, &v18);
+  VCAudioReceiver_PullAudioSamples([(VCCallSession *)self audioReceiver], samples, timestamp, time, v16, silence, &v18);
   v12 = v11;
   if (length && v11)
   {
@@ -7093,7 +7098,7 @@ LABEL_23:
   }
 
   reportingVisualRectangle();
-  VideoTransmitter_SetVisualRectangle(x, y, width, height, self->hVideoTransmitter, 1);
+  VideoTransmitter_SetVisualRectangle(self->hVideoTransmitter, 1, x, y, width, height);
   v11 = objc_alloc(MEMORY[0x1E695DF20]);
   v12 = [MEMORY[0x1E696AD98] numberWithDouble:x];
   v13 = [MEMORY[0x1E696AD98] numberWithDouble:y];
@@ -7128,33 +7133,34 @@ LABEL_23:
 
 - (void)messageVCMomentsRequest:(id)request
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [request mutableCopy];
   if ([objc_msgSend(request objectForKeyedSubscript:{@"vcMomentsRequestState", "intValue"}] == 1)
   {
-    [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", VideoReceiver_GetShowFrameRTPTimestamp()), @"vcMomentsRequestTimestamp"}];
+    [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithUnsignedInt:", VideoReceiver_GetShowFrameRTPTimestamp(self->hVideoReceiver)), @"vcMomentsRequestTimestamp"}];
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
       v6 = VRTraceErrorLogLevelToCSTR();
       v7 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315906;
-        v10 = v6;
-        v11 = 2080;
-        v12 = "[VCCallSession messageVCMomentsRequest:]";
-        v13 = 1024;
-        v14 = 3972;
-        v15 = 1024;
-        ShowFrameRTPTimestamp = VideoReceiver_GetShowFrameRTPTimestamp();
-        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d VCMoments in VCCallSession requesting remote video frame for RTP timestamp %d", &v9, 0x22u);
+        ShowFrameRTPTimestamp = VideoReceiver_GetShowFrameRTPTimestamp(self->hVideoReceiver);
+        v10 = 136315906;
+        v11 = v6;
+        v12 = 2080;
+        v13 = "[VCCallSession messageVCMomentsRequest:]";
+        v14 = 1024;
+        v15 = 3972;
+        v16 = 1024;
+        v17 = ShowFrameRTPTimestamp;
+        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d VCMoments in VCCallSession requesting remote video frame for RTP timestamp %d", &v10, 0x22u);
       }
     }
   }
 
   [(VCCallSession *)self reportingMomentsWithRequest:request];
-  v8 = [(VCSessionMessaging *)self->messaging newPackedMessageFromMomentsDictionary:v5];
-  [(VCSessionMessaging *)self->messaging sendMessage:v8 withTopic:@"VCMomentsStateMessageTopic"];
+  v9 = [(VCSessionMessaging *)self->messaging newPackedMessageFromMomentsDictionary:v5];
+  [(VCSessionMessaging *)self->messaging sendMessage:v9 withTopic:@"VCMomentsStateMessageTopic"];
 }
 
 - (void)reportingMomentsWithRequest:(id)request
@@ -7281,55 +7287,55 @@ uint64_t __56__VCCallSession_notifyDelegateActiveConnectionDidChange__block_invo
 - (void)handleNewConnectionSetup:(id)setup isInitialConnection:(BOOL)connection
 {
   connectionCopy = connection;
-  v27 = *MEMORY[0x1E69E9840];
-  [(VCCallSession *)self updateMaxPktLength];
-  [(VCCallSession *)self updateLastReceivedPacketWithTimestamp:8 packetType:micro()];
+  v29 = *MEMORY[0x1E69E9840];
+  updateMaxPktLength = [(VCCallSession *)self updateMaxPktLength];
+  [(VCCallSession *)self updateLastReceivedPacketWithTimestamp:8 packetType:micro(updateMaxPktLength, v8)];
   [(VCCallSession *)self lock];
   if (VCConnection_IsLocalOnCellular(setup))
   {
-    AFRCAddBBDump();
+    AFRCAddBBDump(self->hAFRC);
   }
 
   if ((VCConnection_Priority(setup) & 0xFFFFFFFE) != 2 && VCConnection_IsRemoteOnCellular(setup))
   {
-    v7 = [(VCBitrateArbiter *)self->callSessionBitrateArbiter maxAllowedBitrateForVCConnection:setup forLocalInterface:0 arbiterMode:VCBitrateArbiter_ModeFromOperatingMode(self->operatingMode) encodeRule:self->_currentEncodeRule];
-    if (!v7)
+    v9 = [(VCBitrateArbiter *)self->callSessionBitrateArbiter maxAllowedBitrateForVCConnection:setup forLocalInterface:0 arbiterMode:VCBitrateArbiter_ModeFromOperatingMode(self->operatingMode) encodeRule:self->_currentEncodeRule];
+    if (!v9)
     {
       operatingMode = self->operatingMode;
       if (operatingMode == 4 || operatingMode == 1)
       {
-        v7 = 100;
+        v9 = 100;
       }
 
       else
       {
-        v7 = 40;
+        v9 = 40;
       }
     }
 
-    [(VCCallInfo *)self->remoteCallInfo setCellBandwidth:v7];
+    [(VCCallInfo *)self->remoteCallInfo setCellBandwidth:v9];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v10 = VRTraceErrorLogLevelToCSTR();
-      v11 = *MEMORY[0x1E6986650];
+      v12 = VRTraceErrorLogLevelToCSTR();
+      v13 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         cellBandwidth = [(VCCallInfo *)self->remoteCallInfo cellBandwidth];
-        v13 = VCConnection_RemoteCellTech(setup);
-        v14 = self->operatingMode;
-        v15 = 136316418;
-        v16 = v10;
-        v17 = 2080;
-        v18 = "[VCCallSession handleNewConnectionSetup:isInitialConnection:]";
-        v19 = 1024;
-        v20 = 4085;
+        v15 = VCConnection_RemoteCellTech(setup);
+        v16 = self->operatingMode;
+        v17 = 136316418;
+        v18 = v12;
+        v19 = 2080;
+        v20 = "[VCCallSession handleNewConnectionSetup:isInitialConnection:]";
         v21 = 1024;
-        v22 = cellBandwidth;
+        v22 = 4085;
         v23 = 1024;
-        v24 = v13;
+        v24 = cellBandwidth;
         v25 = 1024;
-        v26 = v14;
-        _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d connectionEstablishedCallback: initialize remote cell bitrate cap to %u, cell tech %d, operation mode %d", &v15, 0x2Eu);
+        v26 = v15;
+        v27 = 1024;
+        v28 = v16;
+        _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d connectionEstablishedCallback: initialize remote cell bitrate cap to %u, cell tech %d, operation mode %d", &v17, 0x2Eu);
       }
     }
   }
@@ -7445,7 +7451,7 @@ uint64_t __56__VCCallSession_notifyDelegateActiveConnectionDidChange__block_invo
               objc_enumerationMutation(negotiatedAudioPayloads);
             }
 
-            if ([objc_msgSend(*(*(&v46 + 1) + 8 * i) "config")] == 108)
+            if ([objc_msgSend_config(*(*(&v46 + 1) + 8 * i)) payload] == 108)
             {
               isRedEnabled = 2;
               goto LABEL_30;
@@ -7618,10 +7624,11 @@ uint64_t __44__VCCallSession_updateCachedConnectionState__block_invoke(uint64_t 
 
 - (void)redundancyController:(id)controller redundancyPercentageDidChange:(unsigned int)change
 {
-  v4 = VCRedundancyControllerVideo_ConvertRedundancyPercentageToRatio(change);
-  v5 = v4;
+  v5 = VCRedundancyControllerVideo_ConvertRedundancyPercentageToRatio(change);
+  hVideoTransmitter = self->hVideoTransmitter;
+  v7 = v5;
 
-  VideoTransmitter_SetFECRatio(v5);
+  VideoTransmitter_SetFECRatio(hVideoTransmitter, v7);
 }
 
 - (void)handleMicModeNotification:(id)notification
@@ -7766,19 +7773,19 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
 
 - (void)wcmGetCallConfig:(unsigned int *)config targetBitrate:(unsigned int *)bitrate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v7 = VRTraceErrorLogLevelToCSTR();
     v8 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 136315650;
-      *&v10[4] = v7;
-      *&v10[12] = 2080;
-      *&v10[14] = "[VCCallSession(WCMClientDelegate) wcmGetCallConfig:targetBitrate:]";
-      v11 = 1024;
-      v12 = 4364;
+      v10[0] = 136315650;
+      *&v10[1] = v7;
+      LOWORD(v10[3]) = 2080;
+      *(&v10[3] + 2) = "[VCCallSession(WCMClientDelegate) wcmGetCallConfig:targetBitrate:]";
+      HIWORD(v10[5]) = 1024;
+      v10[6] = 4364;
       _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d WCM: wcmGetCallConfig callback.", v10, 0x1Cu);
     }
   }
@@ -7786,10 +7793,10 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
   rateController = self->_rateController;
   if (rateController)
   {
-    [(AVCRateController *)rateController configuration:0xAAAAAAAAAAAAAAAALL];
+    objc_msgSend_configuration(rateController, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL, 0xAAAAAAAAAAAAAAAALL);
     if (config)
     {
-      *config = *&v10[12];
+      *config = v10[3];
     }
 
     if (bitrate)
@@ -7808,7 +7815,7 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
 {
   v12 = *&d;
   v13 = *&callback;
-  v66 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   [(VCCallSession *)self updateLastReceivedPacket:1 packetType:2];
   if (v13 <= 5)
   {
@@ -7864,17 +7871,17 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
         self->fecMode = v24;
         v25 = objc_alloc_init(MEMORY[0x1E696AAC8]);
         self->receivedSIPInvite = 1;
-        *v59 = 0;
+        *v65 = 0;
         if (self->_sipState == 6)
         {
-          if ([(VCMediaNegotiator *)self->_mediaNegotiator usePreNegotiation]|| (v15 = [(VCCallSession *)self handleIncomingWithCallID:v12 msgIn:in msgOut:out optional:optional confIndex:index error:v59]) == 0)
+          if ([(VCMediaNegotiator *)self->_mediaNegotiator usePreNegotiation]|| (v15 = [(VCCallSession *)self handleIncomingWithCallID:v12 msgIn:in msgOut:out optional:optional confIndex:index error:v65]) == 0)
           {
             self->didSend200OK = 1;
             [(VCCallSession *)self unlock];
 
             if (![(VCMediaNegotiator *)self->_mediaNegotiator usePreNegotiation]&& [(VCCallSession *)self isSKEOptimizationEnabled])
             {
-              LODWORD(v58) = 1;
+              LODWORD(v64) = 1;
               *buf = 0;
               [(VCCallSession *)self lock];
               secretKey = self->secretKey;
@@ -7890,7 +7897,7 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
               }
 
               [(VCCallSession *)self unlock];
-              [(VCCallSession *)self setupEncryptionWithKey:v27 confIndex:&v58];
+              [(VCCallSession *)self setupEncryptionWithKey:v27 confIndex:&v64];
               if (*buf)
               {
                 CFRelease(*buf);
@@ -7926,7 +7933,7 @@ uint64_t __91__VCCallSession_VCSecureDataChannelDelegate__vcSecureDataChannel_me
         }
 
         [(VCCallSession *)self unlock];
-        [(VCCallSession *)self disconnect:*v59 didRemoteCancel:0];
+        [(VCCallSession *)self disconnect:*v65 didRemoteCancel:0];
 
         return v15;
       }
@@ -8002,7 +8009,7 @@ LABEL_28:
     VCAudioReceiver_UpdateCellTech(self->audioReceiver, [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:1], [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:0]);
     if ([(VCCapabilities *)self->caps isVideoEnabled])
     {
-      VideoReceiver_CellTechChanged();
+      VideoReceiver_CellTechChanged(self->hVideoReceiver);
     }
 
     VCAudioReceiver_Start(&self->audioReceiver->var0.var0, v33);
@@ -8027,13 +8034,13 @@ LABEL_28:
           v40 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 136315650;
-            *&v59[4] = v39;
-            *&v59[12] = 2080;
-            *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-            *&v59[22] = 1024;
-            v60 = 4537;
-            _os_log_impl(&dword_1DB56E000, v40, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: DTLS-SRTP is not enabled...", v59, 0x1Cu);
+            *v65 = 136315650;
+            *&v65[4] = v39;
+            *&v65[12] = 2080;
+            *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+            *&v65[22] = 1024;
+            v66 = 4537;
+            _os_log_impl(&dword_1DB56E000, v40, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: DTLS-SRTP is not enabled...", v65, 0x1Cu);
           }
         }
 
@@ -8042,53 +8049,56 @@ LABEL_28:
           goto LABEL_101;
         }
 
-        [(TimingCollection *)self->perfTimers startTimingForKey:4];
-        v58 = 0x403E000000000000;
-        v41 = micro();
-        if (![(VCCapabilities *)self->caps isVideoEnabled])
+        v41 = [(TimingCollection *)self->perfTimers startTimingForKey:4];
+        v64 = 0x403E000000000000;
+        v43 = micro(v41, v42);
+        ErrorLogLevelForModule = [(VCCapabilities *)self->caps isVideoEnabled];
+        if (!ErrorLogLevelForModule)
         {
           goto LABEL_93;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v42 = VRTraceErrorLogLevelToCSTR();
-          v43 = *MEMORY[0x1E6986650];
+          v46 = VRTraceErrorLogLevelToCSTR();
+          v47 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            *v59 = 136315650;
-            *&v59[4] = v42;
-            *&v59[12] = 2080;
-            *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-            *&v59[22] = 1024;
-            v60 = 4547;
-            _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: Need to wait for SRTP to init... (video)", v59, 0x1Cu);
+            *v65 = 136315650;
+            *&v65[4] = v46;
+            *&v65[12] = 2080;
+            *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+            *&v65[22] = 1024;
+            v66 = 4547;
+            _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: Need to wait for SRTP to init... (video)", v65, 0x1Cu);
           }
         }
 
-        v44 = SRTPWaitUseEncryption(self->rtpVideo, &v58);
-        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        v48 = SRTPWaitUseEncryption(self->rtpVideo, &v64);
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule >= 7)
         {
-          v45 = VRTraceErrorLogLevelToCSTR();
-          v46 = *MEMORY[0x1E6986650];
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+          v49 = VRTraceErrorLogLevelToCSTR();
+          v50 = *MEMORY[0x1E6986650];
+          ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+          if (ErrorLogLevelForModule)
           {
-            v47 = micro();
-            *v59 = 136316162;
-            *&v59[4] = v45;
-            *&v59[12] = 2080;
-            *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-            *&v59[22] = 1024;
-            v60 = 4549;
-            v61 = 2048;
-            v62 = v47 - v41;
-            v63 = 1024;
-            v64 = v44;
-            _os_log_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: end wait SRTP @ %.3f seconds (%08X)", v59, 0x2Cu);
+            v51 = micro(ErrorLogLevelForModule, v45);
+            *v65 = 136316162;
+            *&v65[4] = v49;
+            *&v65[12] = 2080;
+            *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+            *&v65[22] = 1024;
+            v66 = 4549;
+            v67 = 2048;
+            v68 = v51 - v43;
+            v69 = 1024;
+            v70 = v48;
+            _os_log_impl(&dword_1DB56E000, v50, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: end wait SRTP @ %.3f seconds (%08X)", v65, 0x2Cu);
           }
         }
 
-        if (v44 < 0)
+        if (v48 < 0)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 2)
           {
@@ -8107,7 +8117,7 @@ LABEL_28:
             }
           }
 
-          +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", *&buf[8] + 40, 32018, 205, v44, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 4556], @"Video Insecure", @"Encryption key setup did not complete successfully");
+          +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", *&buf[8] + 40, 32018, 205, v48, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 4556], @"Video Insecure", @"Encryption key setup did not complete successfully");
           [(VCCallSession *)self disconnect:*(*&buf[8] + 40) didRemoteCancel:0];
           [v19 drain];
         }
@@ -8115,47 +8125,48 @@ LABEL_28:
         else
         {
 LABEL_93:
-          v58 = 0x403E000000000000;
-          v48 = micro();
+          v64 = 0x403E000000000000;
+          v52 = micro(ErrorLogLevelForModule, v45);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v49 = VRTraceErrorLogLevelToCSTR();
-            v50 = *MEMORY[0x1E6986650];
+            v53 = VRTraceErrorLogLevelToCSTR();
+            v54 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              *v59 = 136315650;
-              *&v59[4] = v49;
-              *&v59[12] = 2080;
-              *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-              *&v59[22] = 1024;
-              v60 = 4569;
-              _os_log_impl(&dword_1DB56E000, v50, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: Need to wait for SRTP to init... (audio)", v59, 0x1Cu);
+              *v65 = 136315650;
+              *&v65[4] = v53;
+              *&v65[12] = 2080;
+              *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+              *&v65[22] = 1024;
+              v66 = 4569;
+              _os_log_impl(&dword_1DB56E000, v54, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: Need to wait for SRTP to init... (audio)", v65, 0x1Cu);
             }
           }
 
-          v51 = SRTPWaitUseEncryption(self->rtpHandle, &v58);
+          v55 = SRTPWaitUseEncryption(self->rtpHandle, &v64);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v52 = VRTraceErrorLogLevelToCSTR();
-            v53 = *MEMORY[0x1E6986650];
-            if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+            v56 = VRTraceErrorLogLevelToCSTR();
+            v57 = *MEMORY[0x1E6986650];
+            v58 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+            if (v58)
             {
-              v54 = micro();
-              *v59 = 136316162;
-              *&v59[4] = v52;
-              *&v59[12] = 2080;
-              *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-              *&v59[22] = 1024;
-              v60 = 4571;
-              v61 = 2048;
-              v62 = v54 - v48;
-              v63 = 1024;
-              v64 = v51;
-              _os_log_impl(&dword_1DB56E000, v53, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: end wait SRTP @ %.3f seconds (%08X)", v59, 0x2Cu);
+              v60 = micro(v58, v59);
+              *v65 = 136316162;
+              *&v65[4] = v56;
+              *&v65[12] = 2080;
+              *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+              *&v65[22] = 1024;
+              v66 = 4571;
+              v67 = 2048;
+              v68 = v60 - v52;
+              v69 = 1024;
+              v70 = v55;
+              _os_log_impl(&dword_1DB56E000, v57, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: end wait SRTP @ %.3f seconds (%08X)", v65, 0x2Cu);
             }
           }
 
-          if ((v51 & 0x80000000) == 0)
+          if ((v55 & 0x80000000) == 0)
           {
             [(TimingCollection *)self->perfTimers stopTimingForKey:4];
             goto LABEL_101;
@@ -8178,7 +8189,7 @@ LABEL_93:
             }
           }
 
-          +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", *&buf[8] + 40, 32018, 206, v51, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 4578], @"Audio Insecure", @"Encryption key setup did not complete successfully");
+          +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", *&buf[8] + 40, 32018, 206, v55, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 4578], @"Audio Insecure", @"Encryption key setup did not complete successfully");
           [(VCCallSession *)self disconnect:*(*&buf[8] + 40) didRemoteCancel:0];
           [v19 drain];
         }
@@ -8196,13 +8207,13 @@ LABEL_122:
         v35 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          *v59 = 136315650;
-          *&v59[4] = v34;
-          *&v59[12] = 2080;
-          *&v59[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
-          *&v59[22] = 1024;
-          v60 = 4520;
-          _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: use DTLS-SRTP is enabled...", v59, 0x1Cu);
+          *v65 = 136315650;
+          *&v65[4] = v34;
+          *&v65[12] = 2080;
+          *&v65[14] = "[VCCallSession(Callbacks) sipCallback:callID:msgIn:msgOut:optional:confIndex:]";
+          *&v65[22] = 1024;
+          v66 = 4520;
+          _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SIPCONNECTEDCONFERENCE: use DTLS-SRTP is enabled...", v65, 0x1Cu);
         }
       }
 
@@ -8211,30 +8222,30 @@ LABEL_122:
         [(VCCallSession *)self processSIPMessage:"DTLS-SRTP" msgOut:0 optional:&self->srtpKeyBytes confIndex:index];
 LABEL_101:
         [(TimingCollection *)self->perfTimers startTimingForKey:5];
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke;
-        v57[3] = &unk_1E85F54F0;
-        v57[4] = self;
-        -[VCCallSession startAudioWithCompletionHandler:](self, "startAudioWithCompletionHandler:", [v57 copy]);
+        v63[0] = MEMORY[0x1E69E9820];
+        v63[1] = 3221225472;
+        v63[2] = __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke;
+        v63[3] = &unk_1E85F54F0;
+        v63[4] = self;
+        -[VCCallSession startAudioWithCompletionHandler:](self, "startAudioWithCompletionHandler:", [v63 copy]);
         [(TimingCollection *)self->perfTimers startTimingForKey:6];
         [(TimingCollection *)self->perfTimers startTimingForKey:7];
         [(VCCallSession *)self setUpFirstRemoteFrameTimer];
-        *v59 = 0;
-        *&v59[8] = v59;
-        *&v59[16] = 0x2020000000;
-        LOBYTE(v60) = 1;
+        *v65 = 0;
+        *&v65[8] = v65;
+        *&v65[16] = 0x2020000000;
+        LOBYTE(v66) = 1;
         videoQueue = self->videoQueue;
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke_2;
         block[3] = &unk_1E85F71D0;
         block[4] = self;
-        block[5] = v59;
+        block[5] = v65;
         block[6] = buf;
         dispatch_sync(videoQueue, block);
         [(TimingCollection *)self->perfTimers stopTimingForKey:6];
-        if (*(*&v59[8] + 24))
+        if (*(*&v65[8] + 24))
         {
           if ([(VCCallInfo *)self->localCallInfo videoIsPaused])
           {
@@ -8263,7 +8274,7 @@ LABEL_101:
           v15 = 3;
         }
 
-        _Block_object_dispose(v59, 8);
+        _Block_object_dispose(v65, 8);
         goto LABEL_122;
       }
 
@@ -8389,19 +8400,19 @@ LABEL_55:
   return v15;
 }
 
-uint64_t __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke(uint64_t a1, char a2, uint64_t a3)
+void *__79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
-  [*(*(a1 + 32) + 672) stopTimingForKey:5];
-  v6 = *(a1 + 32);
+  v6 = [*(*(a1 + 32) + 672) stopTimingForKey:5];
+  v8 = *(a1 + 32);
   if (a2)
   {
-    if (v6[408] == 1)
+    if (v8[408] == 1)
     {
-      [*(a1 + 32) setPauseAudio:1 force:1 error:0];
-      v6 = *(a1 + 32);
+      v6 = [*(a1 + 32) setPauseAudio:1 force:1 error:0];
+      v8 = *(a1 + 32);
     }
 
-    [v6 updateLastReceivedPacketWithTimestamp:3 packetType:micro() + 10.0];
+    [v8 updateLastReceivedPacketWithTimestamp:3 packetType:{micro(v6, v7) + 10.0}];
   }
 
   else
@@ -8413,15 +8424,15 @@ uint64_t __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional
   result = [*(a1 + 32) shouldNotifyDelegateDidStartBeforeAudioSetup];
   if ((result & 1) == 0)
   {
-    v8 = *(a1 + 32);
+    v10 = *(a1 + 32);
 
-    return [v8 notifyDelegateSessionStarted];
+    return [v10 notifyDelegateSessionStarted];
   }
 
   return result;
 }
 
-uint64_t __79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke_2(uint64_t a1)
+void *__79__VCCallSession_Callbacks__sipCallback_callID_msgIn_msgOut_optional_confIndex___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) startVideo:0 error:*(*(a1 + 48) + 8) + 40];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -8996,7 +9007,7 @@ LABEL_20:
         }
       }
 
-      SRTPCancelEncryption();
+      SRTPCancelEncryption(self->rtpVideo);
     }
 
     if (isAudioEnabled)
@@ -9010,7 +9021,7 @@ LABEL_20:
         }
       }
 
-      SRTPCancelEncryption();
+      SRTPCancelEncryption(self->rtpHandle);
     }
   }
 
@@ -9567,17 +9578,19 @@ LABEL_9:
 
 - (void)cleanupMedia
 {
-  v6 = objc_alloc_init(SnapshotTimer);
-  [(SnapshotTimer *)v6 checkinWithTimeout:@"Media cleanup" forTask:1.75];
+  v8 = objc_alloc_init(SnapshotTimer);
+  [(SnapshotTimer *)v8 checkinWithTimeout:@"Media cleanup" forTask:1.75];
   pthread_mutex_lock(&self->srtpLock);
   if (self->didPrepareSRTP)
   {
-    SRTPCancelEncryption();
-    SRTPCancelEncryption();
+    SRTPCancelEncryption(self->rtpHandle);
+    SRTPCancelEncryption(self->rtpVideo);
     self->didPrepareSRTP = 0;
   }
 
   RTPSetAudioReceiver(self->rtpVideo, 0);
+  rtpHandle = self->rtpHandle;
+  rtpVideo = self->rtpVideo;
   self->rtpHandle = 0xFFFFFFFFLL;
   self->rtpVideo = 0xFFFFFFFFLL;
   audioReceiver = self->audioReceiver;
@@ -9589,19 +9602,19 @@ LABEL_9:
 
   self->_captionsReceiver = 0;
   pthread_mutex_unlock(&self->srtpLock);
-  RTPCloseHandle();
-  RTPCloseHandle();
+  RTPCloseHandle(rtpHandle);
+  RTPCloseHandle(rtpVideo);
   VCMediaControlInfoGeneratorDeregisterCallbacks(self->videoMediaControlInfoGenerator, self);
   VCMediaControlInfoGeneratorDeregisterCallbacks(self->audioMediaControlInfoGenerator, self);
   if (self->isWaitingForICEResult)
   {
-    v4 = +[VideoConferenceManager defaultVideoConferenceManager];
-    v5 = v4;
-    [objc_msgSend(v4 "resultQueue")];
+    v6 = +[VideoConferenceManager defaultVideoConferenceManager];
+    v7 = v6;
+    [objc_msgSend(v6 "resultQueue")];
   }
 
   [(VCCallSession *)self disableSessionHealthMonitor];
-  [(SnapshotTimer *)v6 checkout];
+  [(SnapshotTimer *)v8 checkout];
 }
 
 - (void)startPausedHeartbeat
@@ -10016,7 +10029,7 @@ LABEL_32:
   dispatch_after(v7, global_queue, block);
 }
 
-uint64_t __60__VCCallSession_PrivateMethods__setupCalleeSIPStartTimeout___block_invoke(uint64_t a1)
+void *__60__VCCallSession_PrivateMethods__setupCalleeSIPStartTimeout___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) strong];
@@ -10489,7 +10502,7 @@ void *__60__VCCallSession_PrivateMethods__setupCalleeSIPStartTimeout___block_inv
         v8 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          payload = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentDTXPayload config] payload];
+          payload = [objc_msgSend_config(self->currentDTXPayload) payload];
           *buf = 136315906;
           v44 = v7;
           v45 = 2080;
@@ -10571,7 +10584,7 @@ void *__60__VCCallSession_PrivateMethods__setupCalleeSIPStartTimeout___block_inv
     goto LABEL_50;
   }
 
-  [(VCCapabilities *)self->caps setActualAudioCodec:[(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload]];
+  -[VCCapabilities setActualAudioCodec:](self->caps, "setActualAudioCodec:", [objc_msgSend_config(self->currentAudioPayload) payload]);
   if (self->allowAudioSwitching)
   {
     v41 = 0u;
@@ -11067,7 +11080,7 @@ LABEL_12:
 
 - (BOOL)startMediaWithPreNegotiatedSettings:(id *)settings
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -11075,41 +11088,41 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v47 = v5;
-      v48 = 2080;
-      v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-      v50 = 1024;
-      v51 = 6338;
+      v48 = v5;
+      v49 = 2080;
+      v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+      v51 = 1024;
+      v52 = 6338;
       _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ", buf, 0x1Cu);
     }
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
   v7 = [(VCCallSession *)self createRTPHandles:settings];
-  *(v42 + 24) = v7;
+  *(v43 + 24) = v7;
   if (v7)
   {
     v8 = [(VCCallSession *)self prepareSRTPWithError:settings];
-    *(v42 + 24) = v8;
+    *(v43 + 24) = v8;
     if (v8)
     {
       v9 = [(VCCallSession *)self createMediaQueueHandle:settings];
-      *(v42 + 24) = v9;
+      *(v43 + 24) = v9;
       if (v9)
       {
         [(VCCallSession *)self applyNegotiatedSettings];
         v10 = [(VCCallSession *)self applyNegotiatedAudioSettings:settings];
-        *(v42 + 24) = v10;
+        *(v43 + 24) = v10;
         if (!v10)
         {
           goto LABEL_109;
         }
 
         v11 = [(VCCallSession *)self applyNegotiatedVideoSettings:settings];
-        *(v42 + 24) = v11;
+        *(v43 + 24) = v11;
         if (!v11)
         {
           goto LABEL_109;
@@ -11140,19 +11153,19 @@ LABEL_12:
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             v16 = "NOT ";
-            v47 = v14;
+            v48 = v14;
             *buf = 136315906;
-            v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-            v48 = 2080;
+            v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+            v49 = 2080;
             if (isHandoverSupported)
             {
               v16 = "";
             }
 
-            v50 = 1024;
-            v51 = 6368;
-            v52 = 2080;
-            v53 = v16;
+            v51 = 1024;
+            v52 = 6368;
+            v53 = 2080;
+            v54 = v16;
             _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: handover is %ssupported.", buf, 0x26u);
           }
         }
@@ -11162,7 +11175,7 @@ LABEL_12:
         if (self->useRateControl)
         {
           v17 = [(VCCallSession *)self startRateControl:settings];
-          *(v42 + 24) = v17;
+          *(v43 + 24) = v17;
           if (!v17)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -11181,7 +11194,8 @@ LABEL_12:
           hAFRC = self->hAFRC;
           if (hAFRC != 0xFFFFFFFFLL)
           {
-            AFRCSetAudioPayload(hAFRC, [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload], [(VCAudioPayload *)self->currentAudioPayload bitrate]);
+            payload = [objc_msgSend_config(self->currentAudioPayload) payload];
+            AFRCSetAudioPayload(hAFRC, payload, [(VCAudioPayload *)self->currentAudioPayload bitrate]);
           }
 
           if (VCConnectionManager_IsInterfaceOnCellularForActiveConnectionWithQuality(self->connectionManager, 1, 1))
@@ -11194,17 +11208,17 @@ LABEL_12:
           {
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v20 = VRTraceErrorLogLevelToCSTR();
-              v21 = *MEMORY[0x1E6986650];
+              v21 = VRTraceErrorLogLevelToCSTR();
+              v22 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                v47 = v20;
-                v48 = 2080;
-                v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-                v50 = 1024;
-                v51 = 6390;
-                _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: iRAT recommendation is enabled.", buf, 0x1Cu);
+                v48 = v21;
+                v49 = 2080;
+                v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+                v51 = 1024;
+                v52 = 6390;
+                _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: iRAT recommendation is enabled.", buf, 0x1Cu);
               }
             }
 
@@ -11224,40 +11238,40 @@ LABEL_12:
           }
         }
 
-        v23 = [(VCCallSession *)self createAudioTransmitter:settings];
-        *(v42 + 24) = v23;
-        if (v23)
+        v24 = [(VCCallSession *)self createAudioTransmitter:settings];
+        *(v43 + 24) = v24;
+        if (v24)
         {
           [(VCAudioTransmitter *)self->audioTransmitter setCellTech:self->_isLocalCellular_LowestConnectionQuality remoteCellular:self->_isRemoteCellular_LowestConnectionQuality isIPV6:self->_isConnectedOnIPv6_LowestConnectionQuality audioCap:[(VCCallSession *)self currentAudioCap]];
           VCAudioReceiver_UpdateCellTech(self->audioReceiver, [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:1], [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:0]);
-          v25 = VCAudioReceiver_Start(&self->audioReceiver->var0.var0, v24);
-          *(v42 + 24) = v25;
-          if (!v25)
+          v26 = VCAudioReceiver_Start(&self->audioReceiver->var0.var0, v25);
+          *(v43 + 24) = v26;
+          if (!v26)
           {
-            v32 = 4;
+            v33 = 4;
             goto LABEL_110;
           }
 
           self->state = 1;
           if ([(VCCallInfo *)self->remoteCallInfo usesInitialFECImplementation])
           {
-            v26 = 1;
+            v27 = 1;
           }
 
           else
           {
-            v26 = 2;
+            v27 = 2;
           }
 
-          self->fecMode = v26;
-          v27 = [(VCCallSession *)self startMediaQueue:settings];
-          *(v42 + 24) = v27;
-          if (v27)
+          self->fecMode = v27;
+          v28 = [(VCCallSession *)self startMediaQueue:settings];
+          *(v43 + 24) = v28;
+          if (v28)
           {
             if (![(VCCapabilities *)self->caps isKeyExchangeEnabled]&& ![(VCCapabilities *)self->caps isDTLSEnabled])
             {
               [(TimingCollection *)self->perfTimers removeTimingForKey:3];
-              v32 = 0;
+              v33 = 0;
               goto LABEL_74;
             }
 
@@ -11267,17 +11281,17 @@ LABEL_12:
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v28 = VRTraceErrorLogLevelToCSTR();
-                v29 = *MEMORY[0x1E6986650];
+                v29 = VRTraceErrorLogLevelToCSTR();
+                v30 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315650;
-                  v47 = v28;
-                  v48 = 2080;
-                  v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-                  v50 = 1024;
-                  v51 = 6449;
-                  _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- check use dtls-srtp key", buf, 0x1Cu);
+                  v48 = v29;
+                  v49 = 2080;
+                  v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+                  v51 = 1024;
+                  v52 = 6449;
+                  _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- check use dtls-srtp key", buf, 0x1Cu);
                 }
               }
 
@@ -11285,21 +11299,21 @@ LABEL_12:
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v30 = VRTraceErrorLogLevelToCSTR();
-                  v31 = *MEMORY[0x1E6986650];
+                  v31 = VRTraceErrorLogLevelToCSTR();
+                  v32 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v47 = v30;
-                    v48 = 2080;
-                    v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-                    v50 = 1024;
-                    v51 = 6451;
-                    _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- keyex use dtls-srtp key", buf, 0x1Cu);
+                    v48 = v31;
+                    v49 = 2080;
+                    v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+                    v51 = 1024;
+                    v52 = 6451;
+                    _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- keyex use dtls-srtp key", buf, 0x1Cu);
                   }
                 }
 
-                v32 = 0;
+                v33 = 0;
                 cf[0] = CFRetain(self->srtpKeyBytes);
                 if (!cf[0])
                 {
@@ -11308,9 +11322,9 @@ LABEL_12:
 
 LABEL_73:
                 *buf = 1;
-                v32 = [(VCCallSession *)self setupEncryptionWithKey:cf confIndex:buf];
+                v33 = [(VCCallSession *)self setupEncryptionWithKey:cf confIndex:buf];
                 CFRelease(cf[0]);
-                if ((v32 & 0x80000000) == 0)
+                if ((v33 & 0x80000000) == 0)
                 {
                   goto LABEL_74;
                 }
@@ -11331,27 +11345,27 @@ LABEL_110:
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v34 = VRTraceErrorLogLevelToCSTR();
-                  v35 = *MEMORY[0x1E6986650];
+                  v35 = VRTraceErrorLogLevelToCSTR();
+                  v36 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315650;
-                    v47 = v34;
-                    v48 = 2080;
-                    v49 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
-                    v50 = 1024;
-                    v51 = 6438;
-                    _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- keyex initiate exchange", buf, 0x1Cu);
+                    v48 = v35;
+                    v49 = 2080;
+                    v50 = "[VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:]";
+                    v51 = 1024;
+                    v52 = 6438;
+                    _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ---- keyex initiate exchange", buf, 0x1Cu);
                   }
                 }
 
                 [(TimingCollection *)self->perfTimers startTimingForKey:4];
-                v36 = SIPKeyExchange(&self->hSIP, [(VCCallInfo *)self->localCallInfo callID], 0, cf, 0);
+                v37 = SIPKeyExchange(&self->hSIP, [(VCCallInfo *)self->localCallInfo callID], 0, cf, 0);
                 [(TimingCollection *)self->perfTimers stopTimingForKey:4];
-                v32 = 2148139061;
-                if (v36 != -2146828235)
+                v33 = 2148139061;
+                if (v37 != -2146828235)
                 {
-                  v32 = v36;
+                  v33 = v37;
                   goto LABEL_110;
                 }
 
@@ -11363,12 +11377,12 @@ LABEL_72:
 
 LABEL_74:
                 [(TimingCollection *)self->perfTimers startTimingForKey:5];
-                v40[0] = MEMORY[0x1E69E9820];
-                v40[1] = 3221225472;
-                v40[2] = __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke;
-                v40[3] = &unk_1E85F54F0;
-                v40[4] = self;
-                -[VCCallSession startAudioWithCompletionHandler:](self, "startAudioWithCompletionHandler:", [v40 copy]);
+                v41[0] = MEMORY[0x1E69E9820];
+                v41[1] = 3221225472;
+                v41[2] = __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke;
+                v41[3] = &unk_1E85F54F0;
+                v41[4] = self;
+                -[VCCallSession startAudioWithCompletionHandler:](self, "startAudioWithCompletionHandler:", [v41 copy]);
                 [(TimingCollection *)self->perfTimers startTimingForKey:6];
                 [(TimingCollection *)self->perfTimers startTimingForKey:7];
                 [(VCCallSession *)self setUpFirstRemoteFrameTimer];
@@ -11378,11 +11392,11 @@ LABEL_74:
                 block[2] = __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke_2;
                 block[3] = &unk_1E85F3930;
                 block[4] = self;
-                block[5] = &v41;
+                block[5] = &v42;
                 block[6] = settings;
                 dispatch_sync(videoQueue, block);
                 [(TimingCollection *)self->perfTimers stopTimingForKey:6];
-                if (v42[3])
+                if (v43[3])
                 {
                   if ([(VCCallInfo *)self->localCallInfo videoIsPaused])
                   {
@@ -11391,7 +11405,7 @@ LABEL_74:
 
                   if ([(VCCapabilities *)self->caps isVideoEnabled])
                   {
-                    VideoReceiver_CellTechChanged();
+                    VideoReceiver_CellTechChanged(self->hVideoReceiver);
                   }
 
                   [(VCCallSession *)self lock];
@@ -11438,7 +11452,7 @@ LABEL_74:
               [(VCCallSession *)self unlock];
             }
 
-            v32 = 0;
+            v33 = 0;
             goto LABEL_72;
           }
 
@@ -11452,7 +11466,7 @@ LABEL_74:
           }
 
 LABEL_109:
-          v32 = 0;
+          v33 = 0;
           goto LABEL_110;
         }
 
@@ -11540,11 +11554,11 @@ LABEL_109:
     [VCCallSession(PrivateMethods) startMediaWithPreNegotiatedSettings:];
   }
 
-  v32 = 0;
+  v33 = 0;
 LABEL_111:
   if (!*settings)
   {
-    +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", settings, 32029, 200, v32, 0, @"Failed to start media", [MEMORY[0x1E696AEC0] stringWithFormat:@"Error: %x.", v32]);
+    +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", settings, 32029, 200, v33, 0, @"Failed to start media", [MEMORY[0x1E696AEC0] stringWithFormat:@"Error: %x.", v33]);
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 2)
@@ -11576,23 +11590,23 @@ LABEL_111:
 
   LOBYTE(settings) = 0;
 LABEL_82:
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v42, 8);
   return settings;
 }
 
-uint64_t __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke(uint64_t a1, char a2, uint64_t a3)
+void *__69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
-  [*(*(a1 + 32) + 672) stopTimingForKey:5];
-  v6 = *(a1 + 32);
+  v6 = [*(*(a1 + 32) + 672) stopTimingForKey:5];
+  v8 = *(a1 + 32);
   if (a2)
   {
-    if (v6[408] == 1)
+    if (v8[408] == 1)
     {
-      [*(a1 + 32) setPauseAudio:1 force:1 error:0];
-      v6 = *(a1 + 32);
+      v6 = [*(a1 + 32) setPauseAudio:1 force:1 error:0];
+      v8 = *(a1 + 32);
     }
 
-    [v6 updateLastReceivedPacketWithTimestamp:4 packetType:micro() + 10.0];
+    [v8 updateLastReceivedPacketWithTimestamp:4 packetType:{micro(v6, v7) + 10.0}];
   }
 
   else
@@ -11604,15 +11618,15 @@ uint64_t __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings
   result = [*(a1 + 32) shouldNotifyDelegateDidStartBeforeAudioSetup];
   if ((result & 1) == 0)
   {
-    v8 = *(a1 + 32);
+    v10 = *(a1 + 32);
 
-    return [v8 notifyDelegateSessionStarted];
+    return [v10 notifyDelegateSessionStarted];
   }
 
   return result;
 }
 
-uint64_t __69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke_2(uint64_t a1)
+void *__69__VCCallSession_PrivateMethods__startMediaWithPreNegotiatedSettings___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) startVideo:0 error:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -11730,7 +11744,7 @@ LABEL_89:
     v16 = 0;
     do
     {
-      v15[v16] = [objc_msgSend(-[NSMutableArray objectAtIndex:](selfCopy->negotiatedAudioPayloads objectAtIndex:{v16), "config"), "payload"}];
+      v15[v16] = [objc_msgSend_config(-[NSMutableArray objectAtIndex:](selfCopy->negotiatedAudioPayloads objectAtIndex:{v16)), "payload"}];
       ++v16;
     }
 
@@ -11749,7 +11763,7 @@ LABEL_89:
       v19 = 0;
       do
       {
-        v17[v19] = [objc_msgSend(objc_msgSend(v18 objectAtIndexedSubscript:{v19), "config"), "payload"}];
+        v17[v19] = [objc_msgSend_config(objc_msgSend(v18 objectAtIndexedSubscript:{v19)), "payload"}];
         ++v19;
       }
 
@@ -12251,7 +12265,7 @@ LABEL_15:
   *video = 0;
 }
 
-uint64_t __62__VCCallSession_PrivateMethods__getAllPayloadsForVideo_count___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__62__VCCallSession_PrivateMethods__getAllPayloadsForVideo_count___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 intValue];
   *(*(a1 + 32) + 4 * a3) = result;
@@ -12281,7 +12295,7 @@ uint64_t __62__VCCallSession_PrivateMethods__getAllPayloadsForVideo_count___bloc
   }
 }
 
-uint64_t __63__VCCallSession_PrivateMethods__getAllPayloadsForScreen_count___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__63__VCCallSession_PrivateMethods__getAllPayloadsForScreen_count___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 intValue];
   *(*(a1 + 32) + 4 * a3) = result;
@@ -12373,7 +12387,7 @@ LABEL_45:
   v46 = malloc_type_calloc(SHIDWORD(count), 4uLL, 0x100004052888210uLL);
   if (!v46)
   {
-    [(VCCallSession(PrivateMethods) *)v14 createInviteSDPWithError:&v62, &v63];
+    [VCCallSession(PrivateMethods) createInviteSDPWithError:];
     goto LABEL_45;
   }
 
@@ -12879,7 +12893,7 @@ LABEL_6:
               v23 = 2;
             }
 
-            v24 = RTPCreateHandle(&v53, 1u, 1, 0, callID2, MediaCallback, self, [-[VCMediaNegotiatorLocalConfiguration mediaConfigurationForMediaType:](localSettings mediaConfigurationForMediaType:{v23), "ssrc"}]);
+            v24 = RTPCreateHandle(&v53, 1, 1, 0, callID2, MediaCallback, self, [-[VCMediaNegotiatorLocalConfiguration mediaConfigurationForMediaType:](localSettings mediaConfigurationForMediaType:{v23), "ssrc"}]);
             if (v24 < 0)
             {
               v19 = v24;
@@ -13093,16 +13107,18 @@ LABEL_52:
 
 - (void)releaseRTPHandles
 {
-  RTPSetAudioReceiver(self->rtpVideo, 0);
+  rtpHandle = self->rtpHandle;
+  rtpVideo = self->rtpVideo;
+  RTPSetAudioReceiver(rtpVideo, 0);
   self->rtpHandle = 0xFFFFFFFFLL;
   self->rtpVideo = 0xFFFFFFFFLL;
   VCAudioReceiver_Finalize(&self->audioReceiver->var0.var0);
   audioTransmitter = self->audioTransmitter;
   *&self->audioReceiver = 0u;
 
-  RTPCloseHandle();
+  RTPCloseHandle(rtpHandle);
 
-  RTPCloseHandle();
+  RTPCloseHandle(rtpVideo);
 }
 
 - (BOOL)prepareSRTPWithError:(id *)error
@@ -13114,10 +13130,10 @@ LABEL_52:
 
   pthread_mutex_lock(&self->srtpLock);
   self->didPrepareSRTP = 1;
-  v5 = SRTPPrepareEncryption();
+  v5 = SRTPPrepareEncryption(self->rtpHandle);
   if ([(VCCapabilities *)self->caps isVideoEnabled])
   {
-    v6 = SRTPPrepareEncryption();
+    v6 = SRTPPrepareEncryption(self->rtpVideo);
   }
 
   else
@@ -13334,13 +13350,13 @@ LABEL_8:
 
 - (BOOL)negotiatePayloads:(id *)payloads withError:(id *)error
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   callID = [(VCCallInfo *)self->localCallInfo callID];
   v8 = [[SDPMini alloc] initWithString:[(VCCallInfo *)self->remoteCallInfo sdpString]];
   if (v8)
   {
     v9 = v8;
-    v83 = callID;
+    v84 = callID;
     errorCopy = error;
     v10 = [(SDPMini *)v8 getMediaLineForType:2];
     [(VCCallInfo *)self->remoteCallInfo setSdp:v9];
@@ -13351,30 +13367,30 @@ LABEL_8:
     self->callSessionBitrate = [(NSNumber *)[(SDPMini *)v9 answerBandwidth] unsignedIntegerValue];
     if ([(VCCallSession *)self deviceRole]== 1 || [(VCCallSession *)self deviceRole]== 9)
     {
-      v86 = 0;
       v87 = 0;
-      if ([(SDPMini *)v9 getBasebandCodecType:&v87 sampleRate:&v86])
+      v88 = 0;
+      if ([(SDPMini *)v9 getBasebandCodecType:&v88 sampleRate:&v87])
       {
-        [(VCCallSession *)self setBasebandCodecType:v87];
-        [(VCCallSession *)self setBasebandCodecSampleRate:v86];
+        [(VCCallSession *)self setBasebandCodecType:v88];
+        [(VCCallSession *)self setBasebandCodecSampleRate:v87];
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
           v11 = VRTraceErrorLogLevelToCSTR();
           v12 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            uTF8String = [v87 UTF8String];
-            intValue = [v86 intValue];
+            uTF8String = [v88 UTF8String];
+            intValue = [v87 intValue];
             *buf = 136316162;
-            v94 = v11;
-            v95 = 2080;
-            v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-            v97 = 1024;
-            v98 = 7458;
-            v99 = 2080;
-            *v100 = uTF8String;
-            *&v100[8] = 1024;
-            v101[0] = intValue;
+            v95 = v11;
+            v96 = 2080;
+            v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+            v98 = 1024;
+            v99 = 7458;
+            v100 = 2080;
+            *v101 = uTF8String;
+            *&v101[8] = 1024;
+            v102[0] = intValue;
             _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d SDP has basebandCodecType:%s, sampleRate:%d", buf, 0x2Cu);
           }
         }
@@ -13404,17 +13420,17 @@ LABEL_8:
 
           allowAudioRecording2 = [(SDPMini *)v9 allowAudioRecording];
           *buf = 136316418;
-          v94 = v15;
-          v95 = 2080;
-          v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-          v97 = 1024;
-          v98 = 7464;
-          v99 = 1024;
-          *v100 = allowAudioRecording;
-          *&v100[4] = 1024;
-          *&v100[6] = allowAudioRecording;
-          LOWORD(v101[0]) = 1024;
-          *(v101 + 2) = allowAudioRecording2;
+          v95 = v15;
+          v96 = 2080;
+          v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+          v98 = 1024;
+          v99 = 7464;
+          v100 = 1024;
+          *v101 = allowAudioRecording;
+          *&v101[4] = 1024;
+          *&v101[6] = allowAudioRecording;
+          LOWORD(v102[0]) = 1024;
+          *(v102 + 2) = allowAudioRecording2;
           _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d AllowAudioRecording: %d (local: %d remote: %d)", buf, 0x2Eu);
           payloads = payloadsCopy;
         }
@@ -13434,13 +13450,13 @@ LABEL_8:
       {
         isRTCPFBEnabled = self->isRTCPFBEnabled;
         *buf = 136315906;
-        v94 = v24;
-        v95 = 2080;
-        v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-        v97 = 1024;
-        v98 = 7470;
-        v99 = 1024;
-        *v100 = isRTCPFBEnabled;
+        v95 = v24;
+        v96 = 2080;
+        v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+        v98 = 1024;
+        v99 = 7470;
+        v100 = 1024;
+        *v101 = isRTCPFBEnabled;
         _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d isRTCPFBEnabled = %d", buf, 0x22u);
       }
     }
@@ -13470,12 +13486,12 @@ LABEL_8:
     v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:{objc_msgSend(v10, "payloads")}];
     [v28 removeObject:&unk_1F5799F48];
     v29 = [v28 count];
-    v85 = v79;
+    v86 = v80;
     v30 = 4 * v29;
-    v31 = &v79[-((v30 + 15) & 0x7FFFFFFF0)];
+    v31 = &v80[-((v30 + 15) & 0x7FFFFFFF0)];
     if (v29)
     {
-      memset(&v79[-((v30 + 15) & 0x7FFFFFFF0)], 170, v30);
+      memset(&v80[-((v30 + 15) & 0x7FFFFFFF0)], 170, v30);
     }
 
     if (v29 >= 1)
@@ -13495,7 +13511,7 @@ LABEL_8:
     secondaryAudioPayloads = [(SDPMini *)v9 secondaryAudioPayloads];
     [VCCallSession setRxPayloadList:self->rtpHandle withPayloadTypes:audioPayloads];
     rtpVideo = self->rtpVideo;
-    v81 = v33;
+    v82 = v33;
     RTPSetRxPayloadList(rtpVideo, v33, v31);
     RTPSetRTCPFB(self->rtpVideo, [(SDPMini *)v9 allowRTCPFB]);
     if ([(NSMutableArray *)audioPayloads count])
@@ -13522,7 +13538,7 @@ LABEL_8:
         }
       }
 
-      SIPHangup(&self->hSIP, v83, 222);
+      SIPHangup(&self->hSIP, v84, 222);
       7525 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 7525];
       [GKVoiceChatError getNSError:errorCopy code:32002 detailedCode:222 filePath:7525 description:@"Could not find a compatible codec.  The remote participant may be using an incompatible version." reason:@"No matching codec"];
       [(VCCapabilities *)self->caps setActualAudioCodec:0xFFFFFFFFLL];
@@ -13531,12 +13547,12 @@ LABEL_8:
     }
 
     payloadsCopy2 = payloads;
-    if (![VCPayloadUtils isUseCaseWatchContinuity:self->_deviceRole primaryPayload:[(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload]])
+    if (!+[VCPayloadUtils isUseCaseWatchContinuity:primaryPayload:](VCPayloadUtils, "isUseCaseWatchContinuity:primaryPayload:", self->_deviceRole, [objc_msgSend_config(self->currentAudioPayload) payload]))
     {
       if (!self->allowAudioSwitching || [(VCCallSession *)self chooseSecondaryPayloads:secondaryAudioPayloads])
       {
 LABEL_54:
-        v82 = v9;
+        v83 = v9;
         if (!self->isGKVoiceChat)
         {
           operatingMode = self->operatingMode;
@@ -13546,8 +13562,8 @@ LABEL_54:
           }
         }
 
-        [(VCCapabilities *)self->caps setActualAudioCodec:[(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload]];
-        v39 = [VCCallSession getDecodePayloadTypes:[(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload] secondaryPayloadTypes:secondaryAudioPayloads];
+        -[VCCapabilities setActualAudioCodec:](self->caps, "setActualAudioCodec:", [objc_msgSend_config(self->currentAudioPayload) payload]);
+        v39 = +[VCCallSession getDecodePayloadTypes:secondaryPayloadTypes:](VCCallSession, "getDecodePayloadTypes:secondaryPayloadTypes:", [objc_msgSend_config(self->currentAudioPayload) payload], secondaryAudioPayloads);
         if (payloadsCopy2)
         {
           *payloadsCopy2 = v39;
@@ -13571,7 +13587,7 @@ LABEL_54:
           if (![(VCCallSession *)self chooseVideoPayload:v28 operatingMode:v42 isLocalOnCellular:IsInterfaceOnCellularForActiveConnectionWithQuality isRemoteOnCellular:v40]&& [(VCCapabilities *)self->caps isDuplexVideoOnly])
           {
             ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-            v44 = v82;
+            v44 = v83;
             if (ErrorLogLevelForModule >= 2)
             {
               VRTraceErrorLogLevelToCSTR();
@@ -13590,7 +13606,7 @@ LABEL_54:
             }
 
             [(VCCapabilities *)self->caps setActualVideoCodec:0xFFFFFFFFLL];
-            SIPHangup(&self->hSIP, v83, 223);
+            SIPHangup(&self->hSIP, v84, 223);
             7574 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 7574];
             [GKVoiceChatError getNSError:errorCopy code:32002 detailedCode:223 filePath:7574 description:@"Could not find a compatible codec.  The remote participant may be using an incompatible version." reason:@"No matching codec"];
 
@@ -13600,29 +13616,29 @@ LABEL_82:
             return 0;
           }
 
-          v45 = [(SDPMini *)v82 getMediaLineForType:3];
+          v45 = [(SDPMini *)v83 getMediaLineForType:3];
           [objc_msgSend(v45 "imageAttributeRules")];
           self->screenPayload = 0;
-          v89 = 0u;
           v90 = 0u;
           v91 = 0u;
           v92 = 0u;
+          v93 = 0u;
           supportedPayloads = [+[VCVideoRuleCollectionsScreen sharedInstance](VCVideoRuleCollectionsScreen supportedPayloads];
-          v47 = [(NSMutableArray *)supportedPayloads countByEnumeratingWithState:&v89 objects:v88 count:16];
+          v47 = [(NSMutableArray *)supportedPayloads countByEnumeratingWithState:&v90 objects:v89 count:16];
           if (v47)
           {
             v48 = v47;
-            v49 = *v90;
+            v49 = *v91;
             while (2)
             {
               for (i = 0; i != v48; ++i)
               {
-                if (*v90 != v49)
+                if (*v91 != v49)
                 {
                   objc_enumerationMutation(supportedPayloads);
                 }
 
-                v51 = *(*(&v89 + 1) + 8 * i);
+                v51 = *(*(&v90 + 1) + 8 * i);
                 if ([objc_msgSend(v45 "payloads")])
                 {
                   self->screenPayload = [v51 integerValue];
@@ -13630,7 +13646,7 @@ LABEL_82:
                 }
               }
 
-              v48 = [(NSMutableArray *)supportedPayloads countByEnumeratingWithState:&v89 objects:v88 count:16];
+              v48 = [(NSMutableArray *)supportedPayloads countByEnumeratingWithState:&v90 objects:v89 count:16];
               if (v48)
               {
                 continue;
@@ -13648,10 +13664,10 @@ LABEL_84:
           v53 = self->operatingMode;
           if (v53 == 4 || v53 == 1)
           {
-            v54 = v82;
-            if (v81 >= 1)
+            v54 = v83;
+            if (v82 >= 1)
             {
-              v55 = v81 & 0x7FFFFFFF;
+              v55 = v82 & 0x7FFFFFFF;
               do
               {
                 v56 = *v31++;
@@ -13665,7 +13681,7 @@ LABEL_84:
             v57 = [(VCCallSession *)self applyFeatureListStringForPayload:LODWORD(self->videoPayload)];
             if (v57 < 0)
             {
-              v76 = v57;
+              v77 = v57;
               if (VRTraceGetErrorLogLevelForModule() >= 2)
               {
                 VRTraceErrorLogLevelToCSTR();
@@ -13684,9 +13700,9 @@ LABEL_84:
               }
 
               [(VCCapabilities *)self->caps setActualVideoCodec:0xFFFFFFFFLL];
-              SIPHangup(&self->hSIP, v83, 221);
+              SIPHangup(&self->hSIP, v84, 221);
               7614 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m", 7614];
-              [GKVoiceChatError getNSError:errorCopy code:32002 detailedCode:221 returnCode:v76 filePath:7614 description:@"SetBWEstMode critical failure." reason:@"Bad SDP."];
+              [GKVoiceChatError getNSError:errorCopy code:32002 detailedCode:221 returnCode:v77 filePath:7614 description:@"SetBWEstMode critical failure." reason:@"Bad SDP."];
 
               goto LABEL_136;
             }
@@ -13700,13 +13716,13 @@ LABEL_84:
               {
                 videoPayload = self->videoPayload;
                 *buf = 136315906;
-                v94 = v58;
-                v95 = 2080;
-                v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-                v97 = 1024;
-                v98 = 7624;
-                v99 = 1024;
-                *v100 = videoPayload;
+                v95 = v58;
+                v96 = 2080;
+                v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+                v98 = 1024;
+                v99 = 7624;
+                v100 = 1024;
+                *v101 = videoPayload;
                 _os_log_impl(&dword_1DB56E000, v59, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d ===== Actual Video Payload (%d) =====", buf, 0x22u);
               }
             }
@@ -13721,7 +13737,7 @@ LABEL_84:
         }
 
         v63 = VRTraceGetErrorLogLevelForModule();
-        v64 = v82;
+        v64 = v83;
         if (v63 >= 7)
         {
           v65 = VRTraceErrorLogLevelToCSTR();
@@ -13729,19 +13745,19 @@ LABEL_84:
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             v67 = "NOT ";
-            v94 = v65;
+            v95 = v65;
             *buf = 136315906;
-            v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-            v95 = 2080;
+            v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+            v96 = 2080;
             if (isHandoverSupported)
             {
               v67 = "";
             }
 
-            v97 = 1024;
-            v98 = 7628;
-            v99 = 2080;
-            *v100 = v67;
+            v98 = 1024;
+            v99 = 7628;
+            v100 = 2080;
+            *v101 = v67;
             _os_log_impl(&dword_1DB56E000, v66, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: handover is %ssupported.", buf, 0x26u);
           }
         }
@@ -13752,7 +13768,8 @@ LABEL_84:
           hAFRC = self->hAFRC;
           if (hAFRC != 0xFFFFFFFFLL)
           {
-            AFRCSetAudioPayload(hAFRC, [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload], [(VCAudioPayload *)self->currentAudioPayload bitrate]);
+            payload = [objc_msgSend_config(self->currentAudioPayload) payload];
+            AFRCSetAudioPayload(hAFRC, payload, [(VCAudioPayload *)self->currentAudioPayload bitrate]);
           }
 
           [(VCCallSession *)self lock];
@@ -13765,22 +13782,22 @@ LABEL_84:
           [(VCCallSession *)self lock];
           if (self->useRateControl)
           {
-            v69 = self->operatingMode;
-            if (v69 <= 7 && ((1 << v69) & 0x96) != 0 && self->iRATSuggestionEnabled)
+            v70 = self->operatingMode;
+            if (v70 <= 7 && ((1 << v70) & 0x96) != 0 && self->iRATSuggestionEnabled)
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v70 = VRTraceErrorLogLevelToCSTR();
-                v71 = *MEMORY[0x1E6986650];
+                v71 = VRTraceErrorLogLevelToCSTR();
+                v72 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315650;
-                  v94 = v70;
-                  v95 = 2080;
-                  v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-                  v97 = 1024;
-                  v98 = 7653;
-                  _os_log_impl(&dword_1DB56E000, v71, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: iRAT recommendation is enabled.", buf, 0x1Cu);
+                  v95 = v71;
+                  v96 = 2080;
+                  v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+                  v98 = 1024;
+                  v99 = 7653;
+                  _os_log_impl(&dword_1DB56E000, v72, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d HandoverReport: iRAT recommendation is enabled.", buf, 0x1Cu);
                 }
               }
 
@@ -13806,24 +13823,24 @@ LABEL_136:
 
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v73 = VRTraceErrorLogLevelToCSTR();
-        v74 = *MEMORY[0x1E6986650];
+        v74 = VRTraceErrorLogLevelToCSTR();
         v75 = *MEMORY[0x1E6986650];
+        v76 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v94 = v73;
-            v95 = 2080;
-            v96 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
-            v97 = 1024;
-            v98 = 7541;
-            _os_log_impl(&dword_1DB56E000, v74, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Not using secondary audio, no codecs found", buf, 0x1Cu);
+            v95 = v74;
+            v96 = 2080;
+            v97 = "[VCCallSession(PrivateMethods) negotiatePayloads:withError:]";
+            v98 = 1024;
+            v99 = 7541;
+            _os_log_impl(&dword_1DB56E000, v75, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Not using secondary audio, no codecs found", buf, 0x1Cu);
           }
         }
 
-        else if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
         {
           [VCCallSession(PrivateMethods) negotiatePayloads:withError:];
         }
@@ -14317,7 +14334,7 @@ LABEL_28:
   return v17;
 }
 
-uint64_t __76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMediaType___block_invoke(uint64_t a1, uint64_t a2)
+void *__76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMediaType___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -14334,7 +14351,7 @@ uint64_t __76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMe
   return result;
 }
 
-uint64_t __76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMediaType___block_invoke_1496(uint64_t a1, void *a2, uint64_t a3)
+void *__76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMediaType___block_invoke_1496(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 intValue];
   *(*(a1 + 32) + 4 * a3) = result;
@@ -14525,7 +14542,7 @@ uint64_t __76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMe
 - (BOOL)setMediaQueueStreamSettings
 {
   LODWORD(v2) = self->_vpioFormat.samplesPerFrame;
-  v3 = RTPSetThrottlingAudioInterval(v2 / self->_vpioFormat.format.mSampleRate);
+  v3 = RTPSetThrottlingAudioInterval(self->rtpHandle, v2 / self->_vpioFormat.format.mSampleRate);
   if (v3 < 0 && VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
@@ -14544,7 +14561,7 @@ uint64_t __76__VCCallSession_PrivateMethods__getAllCompatibleVideoPayloads_forMe
   VCAudioReceiver_UpdateCellTech(self->audioReceiver, [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:1], [(VCConnectionManager *)self->connectionManager getCellularTechForActiveConnectionWithQuality:1 forLocalInterface:0]);
   if ([(VCCapabilities *)self->caps isVideoEnabled])
   {
-    VideoReceiver_CellTechChanged();
+    VideoReceiver_CellTechChanged(self->hVideoReceiver);
   }
 
   v12 = 0;
@@ -14820,7 +14837,7 @@ uint64_t __45__VCCallSession_PrivateMethods__stopAudioIO___block_invoke(uint64_t
   dispatch_async(audioQueue, block);
 }
 
-uint64_t __65__VCCallSession_PrivateMethods__startAudioWithCompletionHandler___block_invoke(uint64_t a1)
+void *__65__VCCallSession_PrivateMethods__startAudioWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v32 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) lock];
@@ -14894,7 +14911,7 @@ LABEL_29:
             return result;
           }
 
-          v8 = *(result + 16);
+          v8 = result[2];
           return v8();
         }
 
@@ -14946,7 +14963,7 @@ LABEL_15:
       return result;
     }
 
-    v8 = *(result + 16);
+    v8 = result[2];
     return v8();
   }
 
@@ -14963,7 +14980,7 @@ LABEL_15:
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(result + 16);
+    v8 = result[2];
     return v8();
   }
 
@@ -15015,7 +15032,7 @@ LABEL_15:
   remoteCallInfo = self->remoteCallInfo;
   if (remoteCallInfo)
   {
-    [(VCCallInfo *)remoteCallInfo audioVersionInfo:self->isGKVoiceChat];
+    objc_msgSend_audioVersionInfo_(remoteCallInfo);
   }
 
   else
@@ -15121,19 +15138,20 @@ uint64_t __67__VCCallSession_PrivateMethods__startAudioIOWithCompletionHandler__
   [(VCCallSession *)self unlock];
 }
 
-uint64_t __45__VCCallSession_PrivateMethods__enableAudio___block_invoke(uint64_t a1, int a2, uint64_t a3)
+uint64_t __45__VCCallSession_PrivateMethods__enableAudio___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 32);
   if (a2)
   {
+    v4 = a1;
     if (*(v3 + 408) == 1)
     {
-      [*(a1 + 32) setPauseAudio:1 force:1 error:0];
-      v3 = *(a1 + 32);
+      a1 = [*(a1 + 32) setPauseAudio:1 force:1 error:0];
+      v3 = *(v4 + 32);
     }
 
-    [v3 updateLastReceivedPacketWithTimestamp:6 packetType:micro() + 10.0];
-    v5 = *(a1 + 32);
+    [v3 updateLastReceivedPacketWithTimestamp:6 packetType:{micro(a1, a2) + 10.0}];
+    v5 = *(v4 + 32);
     v6 = *(v5 + 8);
     v7 = [*(v5 + 24) callID];
     v8 = v6;
@@ -15596,7 +15614,7 @@ uint64_t __50__VCCallSession_PrivateMethods__updateDeviceRole___block_invoke_154
         }
 
         v9 = *(*(&v30 + 1) + 8 * i);
-        if (+[VCPayloadUtils shouldUseCookieForPayload:](VCPayloadUtils, "shouldUseCookieForPayload:", [objc_msgSend(v9 config]))
+        if (+[VCPayloadUtils shouldUseCookieForPayload:](VCPayloadUtils, "shouldUseCookieForPayload:", [objc_msgSend_config(v9 v19)]))
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
@@ -15604,7 +15622,7 @@ uint64_t __50__VCCallSession_PrivateMethods__updateDeviceRole___block_invoke_154
             v11 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v12 = [objc_msgSend(v9 "config")];
+              payload = [objc_msgSend_config(v9) payload];
               *buf = v19;
               v22 = v10;
               v23 = 2080;
@@ -15612,7 +15630,7 @@ uint64_t __50__VCCallSession_PrivateMethods__updateDeviceRole___block_invoke_154
               v25 = 1024;
               v26 = 8490;
               v27 = 1024;
-              v28 = v12;
+              v28 = payload;
               _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Getting cookie for payload type %d", buf, 0x22u);
             }
           }
@@ -15640,9 +15658,9 @@ uint64_t __50__VCCallSession_PrivateMethods__updateDeviceRole___block_invoke_154
           else
           {
             audioReceiver = selfCopy->audioReceiver;
-            v16 = [objc_msgSend(v9 "config")];
-            v17 = [objc_msgSend(v9 "config")];
-            if (!VCAudioReceiver_SetMagicCookieForPayload(audioReceiver, v16, v17, __b, *buf))
+            payload2 = [objc_msgSend_config(v9) payload];
+            payload3 = [objc_msgSend_config(v9) payload];
+            if (!VCAudioReceiver_SetMagicCookieForPayload(audioReceiver, payload2, payload3, __b, *buf))
             {
               LOBYTE(v13) = 0;
               return v13;
@@ -16386,7 +16404,7 @@ LABEL_38:
   if (!sendCopy)
   {
     VideoReceiver_SetVTHandle(self->hVideoReceiver, 0xFFFFFFFFLL);
-    MediaQueue_ResetRefreshFrameState();
+    MediaQueue_ResetRefreshFrameState(self->hMediaQueue);
     [(VCCallSession *)self cleanUpVideoTransmitter];
     videoRedundancyController = self->_videoRedundancyController;
     if (videoRedundancyController)
@@ -16762,9 +16780,9 @@ LABEL_49:
 {
   LODWORD(v3) = self->_vpioFormat.samplesPerFrame;
   v5 = v3 / self->_vpioFormat.format.mSampleRate;
-  MediaQueue_Start();
-  RTPSetMediaQueue(v5, self->rtpHandle, self->hMediaQueue);
-  RTPSetMediaQueue(v5, self->rtpVideo, self->hMediaQueue);
+  MediaQueue_Start(self->hMediaQueue);
+  RTPSetMediaQueue(self->rtpHandle, self->hMediaQueue, v5);
+  RTPSetMediaQueue(self->rtpVideo, self->hMediaQueue, v5);
   if ([(VCCallInfo *)self->remoteCallInfo useNewPLCalc])
   {
     AFRCSetPLCalc(self->hAFRC, 1);
@@ -16777,7 +16795,7 @@ LABEL_49:
 
 - (BOOL)stopMediaQueue:(id *)queue
 {
-  MediaQueue_CloseHandle();
+  MediaQueue_CloseHandle(self->hMediaQueue);
   self->hMediaQueue = 0xFFFFFFFFLL;
   return 1;
 }
@@ -17426,7 +17444,7 @@ LABEL_36:
           objc_enumerationMutation(negotiatedAudioPayloads);
         }
 
-        [v3 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(objc_msgSend(*(*(&v11 + 1) + 8 * v8++), "config"), "payload"))}];
+        [v3 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(objc_msgSend_config(*(*(&v11 + 1) + 8 * v8++)), "payload"))}];
       }
 
       while (v6 != v8);
@@ -17473,12 +17491,12 @@ LABEL_36:
 
   v7 = [(VCCallSession *)self addAudioPayload:v3];
   self->currentAudioPayload = v7;
-  self->sampleRate = [(VCAudioPayloadConfig *)[(VCAudioPayload *)v7 config] inputSampleRate];
-  self->_vpioFormat.samplesPerFrame = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] inputSampleRate]/ 0x32;
+  self->sampleRate = [objc_msgSend_config(v7) inputSampleRate];
+  self->_vpioFormat.samplesPerFrame = [objc_msgSend_config(self->currentAudioPayload) inputSampleRate] / 0x32;
   delegate = [(VCCallSession *)self delegate];
   if (delegate)
   {
-    [(VCCallSessionDelegate *)delegate audioIOFormat];
+    objc_msgSend_audioIOFormat(delegate);
   }
 
   else
@@ -17926,7 +17944,7 @@ LABEL_28:
 - (BOOL)chooseSecondaryPayloads:(id)payloads
 {
   v4 = [(VCCallSession *)self codecBitmapForPayloads:payloads];
-  payload = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload];
+  payload = [objc_msgSend_config(self->currentAudioPayload) payload];
   v6 = payload;
   v7 = 0;
   if ((v4 & 0x80) != 0 && payload != 106)
@@ -17969,7 +17987,7 @@ LABEL_28:
 
 - (BOOL)chooseDTXPayloads:(id)payloads
 {
-  if (([(VCCallSession *)self codecBitmapForPayloads:payloads]& 0x8000) == 0 || [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->currentAudioPayload config] payload]== 13)
+  if ((-[VCCallSession codecBitmapForPayloads:](self, "codecBitmapForPayloads:", payloads) & 0x8000) == 0 || [objc_msgSend_config(self->currentAudioPayload) payload] == 13)
   {
     return 0;
   }
@@ -18256,19 +18274,19 @@ LABEL_38:
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __54__VCCallSession_PrivateMethods__sipConnectThreadProc___block_invoke(uint64_t a1, char a2, uint64_t a3)
+void *__54__VCCallSession_PrivateMethods__sipConnectThreadProc___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
-  [*(*(a1 + 32) + 672) stopTimingForKey:5];
-  v6 = *(a1 + 32);
+  v6 = [*(*(a1 + 32) + 672) stopTimingForKey:5];
+  v8 = *(a1 + 32);
   if (a2)
   {
-    if (v6[408] == 1)
+    if (v8[408] == 1)
     {
-      [*(a1 + 32) setPauseAudio:1 force:1 error:0];
-      v6 = *(a1 + 32);
+      v6 = [*(a1 + 32) setPauseAudio:1 force:1 error:0];
+      v8 = *(a1 + 32);
     }
 
-    [v6 updateLastReceivedPacketWithTimestamp:1 packetType:micro() + 10.0];
+    [v8 updateLastReceivedPacketWithTimestamp:1 packetType:{micro(v6, v7) + 10.0}];
   }
 
   else
@@ -18280,15 +18298,15 @@ uint64_t __54__VCCallSession_PrivateMethods__sipConnectThreadProc___block_invoke
   result = [*(a1 + 32) shouldNotifyDelegateDidStartBeforeAudioSetup];
   if ((result & 1) == 0)
   {
-    v8 = *(a1 + 32);
+    v10 = *(a1 + 32);
 
-    return [v8 notifyDelegateSessionStarted];
+    return [v10 notifyDelegateSessionStarted];
   }
 
   return result;
 }
 
-uint64_t __54__VCCallSession_PrivateMethods__sipConnectThreadProc___block_invoke_2(uint64_t a1)
+void *__54__VCCallSession_PrivateMethods__sipConnectThreadProc___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) startVideo:0 error:*(*(a1 + 48) + 8) + 40];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -18461,7 +18479,7 @@ LABEL_9:
 
       goto LABEL_9;
     case 0:
-      SIPCloseCall(self->hSIP, d);
+      SIPCloseCall(self->hSIP, *&d);
       break;
   }
 
@@ -19241,15 +19259,15 @@ LABEL_15:
   dispatch_async(global_queue, v4);
 }
 
-uint64_t __53__VCCallSession_PrivateMethods__logConnectionSuccess__block_invoke()
+uint64_t __53__VCCallSession_PrivateMethods__logConnectionSuccess__block_invoke(uint64_t a1)
 {
-  v0 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-  if (!v0)
+  v1 = [objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+  if (!v1)
   {
-    v0 = @"Unknown";
+    v1 = @"Unknown";
   }
 
-  [(__CFString *)v0 UTF8String];
+  [(__CFString *)v1 UTF8String];
 
   return reportingLog();
 }
@@ -19374,7 +19392,7 @@ void __59__VCCallSession_PrivateMethods__enableSessionHealthMonitor__block_invok
     return 0.0;
   }
 
-  [(VCAudioTransmitter *)audioTransmitter currentChannelMetrics];
+  objc_msgSend_currentChannelMetrics(audioTransmitter, a2);
   LODWORD(v3) = v5;
   return v3;
 }
@@ -19696,7 +19714,7 @@ uint64_t __75__VCCallSession_PrivateMethods__handleDuplicationEnabled_activeConn
   VCAudioReceiver_UpdateCellTech(*(*(a1 + 40) + 1224), v4, v5);
   if ([*(*(a1 + 40) + 320) isVideoEnabled])
   {
-    VideoReceiver_CellTechChanged();
+    VideoReceiver_CellTechChanged(*(*(a1 + 40) + 1248));
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -19845,20 +19863,20 @@ LABEL_36:
 
 - (BOOL)disconnectInternal:(BOOL)internal disconnectError:(id)error didRemoteCancel:(BOOL)cancel
 {
-  v26 = *MEMORY[0x1E69E9840];
-  [(VCConnectionManager *)self->connectionManager remoteNoRemotePacketInterval];
-  v10 = v9;
-  v11 = fmax(micro() - self->lastReceivedPacketTimestamp, 0.0);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke;
-  v17[3] = &unk_1E85F72D8;
+  v28 = *MEMORY[0x1E69E9840];
+  remoteNoRemotePacketInterval = [(VCConnectionManager *)self->connectionManager remoteNoRemotePacketInterval];
+  v11 = v10;
+  v13 = fmax(micro(remoteNoRemotePacketInterval, v12) - self->lastReceivedPacketTimestamp, 0.0);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke;
+  v19[3] = &unk_1E85F72D8;
   internalCopy = internal;
   cancelCopy = cancel;
-  v17[4] = self;
-  v17[5] = error;
-  *&v17[6] = v11;
-  v17[7] = v10;
+  v19[4] = self;
+  v19[5] = error;
+  *&v19[6] = v13;
+  v19[7] = v11;
   [(VCCallSession *)self lock];
   LOBYTE(error) = self->_cleanupDone;
   self->_cleanupDone = 1;
@@ -19879,12 +19897,12 @@ LABEL_36:
         goto LABEL_11;
       }
 
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke_3;
-      v16[3] = &unk_1E85F7300;
-      v16[4] = secureControlChannel;
-      if ([(VCControlChannelMultiWay *)secureControlChannel sendReliableMessage:@"VCDisconnectMessage" withTopic:@"VCDisconnectMessage" participantID:0 timeout:5 completion:v16])
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke_3;
+      v18[3] = &unk_1E85F7300;
+      v18[4] = secureControlChannel;
+      if ([(VCControlChannelMultiWay *)secureControlChannel sendReliableMessage:@"VCDisconnectMessage" withTopic:@"VCDisconnectMessage" participantID:0 timeout:5 completion:v18])
       {
         goto LABEL_11;
       }
@@ -19901,7 +19919,7 @@ LABEL_36:
 
     [VCCallSession stopSecureControlChannel:secureControlChannel];
 LABEL_11:
-    [(VCCallSession *)self stopAudioWithCompletionHandler:v17];
+    [(VCCallSession *)self stopAudioWithCompletionHandler:v19];
 
     self->controlChannel = 0;
   }
@@ -19910,17 +19928,17 @@ LABEL_11:
   {
     if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v13 = VRTraceErrorLogLevelToCSTR();
-      v14 = *MEMORY[0x1E6986650];
+      v15 = VRTraceErrorLogLevelToCSTR();
+      v16 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v21 = v13;
-        v22 = 2080;
-        v23 = "[VCCallSession(PrivateMethods) disconnectInternal:disconnectError:didRemoteCancel:]";
-        v24 = 1024;
-        v25 = 10421;
-        _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Ending the Call even though we haven't finished notifying the client that we have started", buf, 0x1Cu);
+        v23 = v15;
+        v24 = 2080;
+        v25 = "[VCCallSession(PrivateMethods) disconnectInternal:disconnectError:didRemoteCancel:]";
+        v26 = 1024;
+        v27 = 10421;
+        _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, "VCCallSession [%s] %s:%d Ending the Call even though we haven't finished notifying the client that we have started", buf, 0x1Cu);
       }
     }
 
@@ -20069,7 +20087,7 @@ void __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didR
   [v21 stopMessaging];
 }
 
-uint64_t __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke_1660(uint64_t a1)
+void *__84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_didRemoteCancel___block_invoke_1660(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 320) isVideoEnabled];
   if (result)
@@ -20124,7 +20142,7 @@ uint64_t __84__VCCallSession_PrivateMethods__disconnectInternal_disconnectError_
     }
   }
 
-  return [VCCallSession stopSecureControlChannel:*(a1 + 32), *v8, *&v8[16]];
+  return [VCCallSession stopSecureControlChannel:*(a1 + 32), *v8, *&v8[8]];
 }
 
 + (void)stopSecureControlChannel:(id)channel
@@ -20295,7 +20313,7 @@ uint64_t __53__VCCallSession_Messages__setupAudioPausedHBMessages__block_invoke(
   [(VCSessionMessaging *)messaging addTopic:@"AudioOnOffStateMessageTopic" associatedStrings:&unk_1F579D128 allowConcurrent:0 receiveHandler:v3];
 }
 
-uint64_t __55__VCCallSession_Messages__setupAudioOnOffStateMessages__block_invoke(uint64_t a1, void *a2)
+void *__55__VCCallSession_Messages__setupAudioOnOffStateMessages__block_invoke(uint64_t a1, void *a2)
 {
   v19 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -20346,7 +20364,7 @@ uint64_t __55__VCCallSession_Messages__setupAudioOnOffStateMessages__block_invok
   [(VCSessionMessaging *)messaging addTopic:@"CallingModeTopic" associatedStrings:&unk_1F579D140 allowConcurrent:0 receiveHandler:v3];
 }
 
-uint64_t __51__VCCallSession_Messages__setupCallingModeMessages__block_invoke(uint64_t a1, void *a2)
+void *__51__VCCallSession_Messages__setupCallingModeMessages__block_invoke(uint64_t a1, void *a2)
 {
   v19 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -20641,7 +20659,7 @@ void __53__VCCallSession_Messages__setupPiPStateChangeMessage__block_invoke(uint
         [v8 doubleValue];
         v24 = v23;
         reportingVisualRectangle();
-        VideoTransmitter_SetVisualRectangle(v18, v20, v22, v24, *(*(a1 + 32) + 1256), 0);
+        VideoTransmitter_SetVisualRectangle(*(*(a1 + 32) + 1256), 0, v18, v20, v22, v24);
       }
     }
   }
@@ -21333,7 +21351,7 @@ uint64_t __85__VCCallSession_Messages__controlChannel_receivedData_transactionID
       var5 = change.var5;
     }
 
-    [(VCAudioTransmitter *)self->audioTransmitter setIsAudioStalled:var5, *v17, *&v17[16], v18, v19, *v20, *&v20[16], v21];
+    [(VCAudioTransmitter *)self->audioTransmitter setIsAudioStalled:var5, *v17, *&v17[8], v18, v19, *v20, *&v20[8], *&v20[16], *&v20[24], v21];
     VideoTransmitter_SetMediaSuggestion(self->hVideoTransmitter, *&change);
   }
 }
@@ -21387,6 +21405,7 @@ uint64_t __85__VCCallSession_Messages__controlChannel_receivedData_transactionID
     return 0;
   }
 
+  bitsCopy = bits;
   v10 = *&s;
   if (self->useVCRC)
   {
@@ -21461,7 +21480,7 @@ uint64_t __85__VCCallSession_Messages__controlChannel_receivedData_transactionID
   hVideoTransmitter = self->hVideoTransmitter;
   v23 = *&hT->var0;
   *&v24 = hT->var3;
-  v19 = VideoTransmitter_EnqueueBuffer(hVideoTransmitter, frame, v10, &v23, 0, bits, t);
+  v19 = VideoTransmitter_EnqueueBuffer(hVideoTransmitter, frame, v10, &v23, 0, bitsCopy, t);
   if (v19 < 0)
   {
     global_queue = dispatch_get_global_queue(0, 0);
@@ -21492,7 +21511,7 @@ uint64_t __86__VCCallSession_VideoConferencing__onCaptureFrame_audioTS_audioHT_v
 {
   bitsCopy = bits;
   v45 = *MEMORY[0x1E69E9840];
-  self->_lastDecodedFrameTime = micro();
+  self->_lastDecodedFrameTime = micro(self, a2);
   *&v9 = -1;
   *(&v9 + 1) = -1;
   v27 = v9;
@@ -21727,18 +21746,20 @@ LABEL_13:
 
 - (void)cleanUpVideoRTP
 {
-  if (self->rtpVideo != 0xFFFFFFFFLL)
+  rtpVideo = self->rtpVideo;
+  if (rtpVideo != 0xFFFFFFFFLL)
   {
-    RTPCloseHandle();
+    RTPCloseHandle(rtpVideo);
     self->rtpVideo = 0xFFFFFFFFLL;
   }
 }
 
 - (void)cleanUpVideoReceiver
 {
-  if (self->hVideoReceiver != 0xFFFFFFFFLL)
+  hVideoReceiver = self->hVideoReceiver;
+  if (hVideoReceiver != 0xFFFFFFFFLL)
   {
-    VideoReceiver_CloseHandle();
+    VideoReceiver_CloseHandle(hVideoReceiver);
     self->hVideoReceiver = 0xFFFFFFFFLL;
   }
 }
@@ -21924,7 +21945,7 @@ LABEL_13:
       [+[VCVideoCaptureServer VCVideoCaptureServerSingleton](VCVideoCaptureServer "VCVideoCaptureServerSingleton")];
     }
 
-    VideoTransmitter_SetAspectRatios(v34, v36, v37, v38);
+    VideoTransmitter_SetAspectRatios(self->hVideoTransmitter, v34, v36, v37, v38);
     VideoTransmitter_SetCellTech(self->hVideoTransmitter, IsInterfaceOnCellularForActiveConnectionWithQuality, v51, v54, v50);
     v9 = Handle >= 0;
     if (unpausingCopy)
@@ -22009,7 +22030,7 @@ uint64_t __67__VCCallSession_VideoConferencing__initializeDisplayLinkWithError__
   result = *(*(a1 + 32) + 1248);
   if (result != 0xFFFFFFFFLL)
   {
-    return VideoReceiver_DisplayLinkTick(a2[1], *a2, a2[2]);
+    return VideoReceiver_DisplayLinkTick(result, a2[1], *a2, a2[2]);
   }
 
   return result;
@@ -22128,7 +22149,7 @@ uint64_t __67__VCCallSession_VideoConferencing__initializeDisplayLinkWithError__
     goto LABEL_21;
   }
 
-  v19 = VideoReceiver_CreateHandle(&self->hVideoReceiver, &v31, agent, &v30, 0);
+  v19 = VideoReceiver_CreateHandle(&self->hVideoReceiver, &v31, agent, &v30, 0, 0);
   if (Mutable)
   {
     CFRelease(Mutable);
@@ -22176,7 +22197,7 @@ LABEL_21:
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = 0.0;
-  VideoTransmitter_GetFramerate(3.0, self->hVideoTransmitter, v3);
+  VideoTransmitter_GetFramerate(self->hVideoTransmitter, v3, 3.0);
   return v3[0];
 }
 
@@ -22184,7 +22205,7 @@ LABEL_21:
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = 0.0;
-  VideoTransmitter_GetBitrate(3.0, self->hVideoTransmitter, v3);
+  VideoTransmitter_GetBitrate(self->hVideoTransmitter, v3, 3.0);
   return v3[0];
 }
 
@@ -22192,7 +22213,7 @@ LABEL_21:
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = 0.0;
-  VideoReceiver_GetFramerate(3.0, self->hVideoReceiver, v3);
+  VideoReceiver_GetFramerate(self->hVideoReceiver, v3, 3.0);
   return v3[0];
 }
 
@@ -22200,7 +22221,7 @@ LABEL_21:
 {
   v3[1] = *MEMORY[0x1E69E9840];
   v3[0] = 0;
-  VideoReceiver_GetBitrate(3.0, self->hVideoReceiver, v3, 0, 0, 0, 0);
+  VideoReceiver_GetBitrate(self->hVideoReceiver, v3, 0, 0, 0, 0, 3.0);
   return *v3;
 }
 
@@ -22288,7 +22309,7 @@ LABEL_8:
 {
   if (time)
   {
-    v5 = micro();
+    v5 = micro(self, a2);
     if (v5 > self->lastVideoCallAlarmTime)
     {
       hVideoReceiver = self->hVideoReceiver;
@@ -22430,7 +22451,7 @@ void __53__VCCallSession_handlePendingPrimaryConnectionChange__block_invoke(uint
       [(VCAudioTransmitterConfig *)v5 alwaysOnAudioRedundancyEnabled];
       OUTLINED_FUNCTION_22_4();
       OUTLINED_FUNCTION_41_4();
-      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v11, v12, "VCCallSession [%s] %s:%d Load switch alwaysOnAudioRedundancyEnabled %d", v13, v14, v15, v16, v51, v52, buf[0]);
+      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v11, v12, "VCCallSession [%s] %s:%d Load switch alwaysOnAudioRedundancyEnabled %d", v13, v14, v15, v16, v51, v52);
     }
   }
 
@@ -22444,7 +22465,7 @@ void __53__VCCallSession_handlePendingPrimaryConnectionChange__block_invoke(uint
       [(VCAudioTransmitterConfig *)v5 cellularAllowRedLowBitratesEnabled];
       OUTLINED_FUNCTION_22_4();
       OUTLINED_FUNCTION_41_4();
-      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v17, v18, "VCCallSession [%s] %s:%d Load switch cellularLowTierRedundancyEnabled %d", v19, v20, v21, v22, v51, v52, buf[0]);
+      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v17, v18, "VCCallSession [%s] %s:%d Load switch cellularLowTierRedundancyEnabled %d", v19, v20, v21, v22, v51, v52);
     }
   }
 
@@ -22458,7 +22479,7 @@ void __53__VCCallSession_handlePendingPrimaryConnectionChange__block_invoke(uint
       [(VCAudioTransmitterConfig *)v5 wifiAllowRedLowBitratesEnabled];
       OUTLINED_FUNCTION_22_4();
       OUTLINED_FUNCTION_41_4();
-      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v23, v24, "VCCallSession [%s] %s:%d Load switch wifiLowTierRedundancyEnabled %d", v25, v26, v27, v28, v51, v52, buf[0]);
+      OUTLINED_FUNCTION_38_3(&dword_1DB56E000, v23, v24, "VCCallSession [%s] %s:%d Load switch wifiLowTierRedundancyEnabled %d", v25, v26, v27, v28, v51, v52);
     }
   }
 
@@ -22606,7 +22627,7 @@ void __88__VCCallSession_initWithDeviceRole_transportType_isGKVoiceChat_reportin
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d RTCReporting: can't configure the reporting agent.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d RTCReporting: can't configure the reporting agent.", v2, v3, v4, v5);
 }
 
 - (void)gatherRealtimeStats:.cold.1()
@@ -22692,7 +22713,7 @@ void __38__VCCallSession_handleCellTechChange___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d captureRule or encodeRule is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d captureRule or encodeRule is nil", v2, v3, v4, v5);
 }
 
 void __63__VCCallSession_schedulePrimaryConnectionChange_oldConnection___block_invoke_cold_1()
@@ -22708,7 +22729,7 @@ uint64_t __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v4, v5, "VCCallSession [%s] %s:%d PLR too high:Disconnecting", v6, v7, v8, v9, v11);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v4, v5, "VCCallSession [%s] %s:%d PLR too high:Disconnecting", v6, v7, v8, v9);
   return a3 & 1;
 }
 
@@ -22716,7 +22737,7 @@ void __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___bloc
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d RTT too high:Disconnecting", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d RTT too high:Disconnecting", v2, v3, v4, v5);
 }
 
 void __66__VCCallSession_updateLastReceivedPacketWithTimestamp_packetType___block_invoke_234_cold_1()
@@ -22730,28 +22751,28 @@ void __90__VCCallSession_setupConnectionTimeoutTimerWithErrorCode_detailedCode_d
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Connection timeout occurred, disconnecting", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Connection timeout occurred, disconnecting", v2, v3, v4, v5);
 }
 
 - (void)startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to process response media blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to process response media blob", v2, v3, v4, v5);
 }
 
 - (void)startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to process response media blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to process response media blob", v2, v3, v4, v5);
 }
 
 - (void)startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to add participant to Control Channel list of active participants", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to add participant to Control Channel list of active participants", v2, v3, v4, v5);
 }
 
 - (void)startConnectionWithParticipantID:callID:usingInviteData:isCaller:capabilities:idsSocket:destination:error:.cold.4()
@@ -22767,7 +22788,7 @@ void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteDat
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Reporting not available (no backends)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Reporting not available (no backends)", v2, v3, v4, v5);
 }
 
 - (void)newMediaNegotiatorAudioConfigurationWithAllowAudioSwitching:useSBR:aacBlockSize:.cold.1()
@@ -22833,6 +22854,28 @@ void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteDat
       OUTLINED_FUNCTION_36_5(&dword_1DB56E000, v3, v4, "VCCallSession [%s] %s:%d Failed to copy cameraConfiguration=%@", &v5);
     }
   }
+}
+
+- (void)addMediaConfigurationsToLocalConfiguration:.cold.1()
+{
+  OUTLINED_FUNCTION_37();
+  v3 = v2;
+  OUTLINED_FUNCTION_44_0();
+  v5 = v4;
+  if (VRTraceGetErrorLogLevelForModule() >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_54_0(&dword_1DB56E000, v6, v7, "VCCallSession [%s] %s:%d Failed to create screenConfiguration", v8, v9, v10, v11);
+    }
+  }
+
+  *v3 = 0;
+  *v1 = v5;
+  *v0 = 0;
+  OUTLINED_FUNCTION_36();
 }
 
 - (void)addMediaConfigurationsToLocalConfiguration:.cold.2()
@@ -22917,6 +22960,44 @@ void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteDat
   OUTLINED_FUNCTION_36();
 }
 
+- (void)newMediaBlobWithRemoteMediaBlob:localCallID:isLowBitrateCodecPreferred:.cold.3()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_44_0();
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_53_0(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Remote caller doesn't use media pre-negotiation", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_12();
+  OUTLINED_FUNCTION_36();
+}
+
+- (void)newMediaBlobWithRemoteMediaBlob:localCallID:isLowBitrateCodecPreferred:.cold.4()
+{
+  OUTLINED_FUNCTION_37();
+  OUTLINED_FUNCTION_44_0();
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    VRTraceErrorLogLevelToCSTR();
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    {
+      OUTLINED_FUNCTION_8();
+      OUTLINED_FUNCTION_0();
+      OUTLINED_FUNCTION_53_0(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to create the invite media blob", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_9_12();
+  OUTLINED_FUNCTION_36();
+}
+
 - (void)newMediaBlobWithRemoteMediaBlob:localCallID:isLowBitrateCodecPreferred:.cold.5()
 {
   OUTLINED_FUNCTION_16_2();
@@ -22957,21 +23038,21 @@ void __123__VCCallSession_startConnectionWithParticipantID_callID_usingInviteDat
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to generate the media blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to generate the media blob", v2, v3, v4, v5);
 }
 
 - (void)inviteDataForParticipantID:callID:remoteInviteData:nonCellularCandidateTimeout:error:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to generate the media blob", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to generate the media blob", v2, v3, v4, v5);
 }
 
 void __43__VCCallSession_setPauseAudio_force_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Baseband codec not set propertly", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Baseband codec not set propertly", v2, v3, v4, v5);
 }
 
 void __43__VCCallSession_setPauseVideo_force_error___block_invoke_2_cold_1()
@@ -22998,21 +23079,21 @@ void __43__VCCallSession_setPauseVideo_force_error___block_invoke_2_cold_1()
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: processRelayUpdateDict: remoteCallInfo is nil.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: processRelayUpdateDict: remoteCallInfo is nil.", v2, v3, v4, v5);
 }
 
 - (void)sendData:messageType:encrypted:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Attempt to send data with zero size. Ignoring...", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Attempt to send data with zero size. Ignoring...", v2, v3, v4, v5);
 }
 
 - (void)negotiatedReceivingFramerate
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d framerate is not set.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d framerate is not set.", v2, v3, v4, v5);
 }
 
 - (void)updateRelayedCallType:.cold.1()
@@ -23029,7 +23110,7 @@ void __43__VCCallSession_setPauseVideo_force_error___block_invoke_2_cold_1()
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: setSessionConferenceState: invalid state", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: setSessionConferenceState: invalid state", v2, v3, v4, v5);
 }
 
 void __65__VCCallSession_PrivateMethods__startAudioWithCompletionHandler___block_invoke_cold_1()
@@ -23037,14 +23118,14 @@ void __65__VCCallSession_PrivateMethods__startAudioWithCompletionHandler___block
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: Benign Error (possibly not): We started audio before we negotiated our codec.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCCallSession.m:%d: Benign Error (possibly not): We started audio before we negotiated our codec.", v2, v3, v4, v5);
 }
 
 void __67__VCCallSession_PrivateMethods__startAudioIOWithCompletionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Baseband codec not set propertly", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Baseband codec not set propertly", v2, v3, v4, v5);
 }
 
 void __75__VCCallSession_PrivateMethods__disconnectWithNoRemotePackets_timeoutUsed___block_invoke_cold_1()
@@ -23061,28 +23142,28 @@ void __47__VCCallSession_Messages__setupMomentsMessages__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupMomentsMessages message is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupMomentsMessages message is nil", v2, v3, v4, v5);
 }
 
 void __57__VCCallSession_Messages__setupPreferredInterfaceMessage__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupPreferredInterfaceMessage message is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupPreferredInterfaceMessage message is nil", v2, v3, v4, v5);
 }
 
 void __58__VCCallSession_Messages__setupWRMAlertStateUpdateMessage__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupWRMAlertStateUpdateMessage message is invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupWRMAlertStateUpdateMessage message is invalid", v2, v3, v4, v5);
 }
 
 void __58__VCCallSession_Messages__setupWRMAlertStateUpdateMessage__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupWRMAlertStateUpdateMessage message is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d setupWRMAlertStateUpdateMessage message is nil", v2, v3, v4, v5);
 }
 
 @end

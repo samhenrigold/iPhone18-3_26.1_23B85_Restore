@@ -32,7 +32,7 @@
     v18 = getCurrentTransform;
     if (getCurrentTransform)
     {
-      [getCurrentTransform getTransformMatrix];
+      objc_msgSend_getTransformMatrix(getCurrentTransform);
     }
 
     else

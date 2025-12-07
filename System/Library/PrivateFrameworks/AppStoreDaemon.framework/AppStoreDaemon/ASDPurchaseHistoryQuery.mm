@@ -32,11 +32,11 @@
 
 - (ASDPurchaseHistoryQuery)initWithCoder:(id)coder
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = ASDPurchaseHistoryQuery;
-  v5 = [(ASDPurchaseHistoryQuery *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = ASDPurchaseHistoryQuery;
+  v5 = [(ASDPurchaseHistoryQuery *)&v27 init];
   if (v5)
   {
     v5->_accountID = [coderCopy decodeInt64ForKey:@"A"];
@@ -51,9 +51,9 @@
     v5->_searchTerm = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"F"];
     sortOptions = v5->_sortOptions;
@@ -61,9 +61,9 @@
 
     v5->_supportsRealityDevice = [coderCopy decodeIntegerForKey:@"L"];
     v13 = MEMORY[0x1E695DFD8];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
     v15 = [v13 setWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"G"];
     storeIDs = v5->_storeIDs;
@@ -72,9 +72,9 @@
     v5->_currentlyOptedInForMacOSEligibility = [coderCopy decodeIntegerForKey:@"J"];
     v5->_currentlyOptedInForXROSEligibility = [coderCopy decodeIntegerForKey:@"K"];
     v18 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v20 = [v18 setWithArray:v19];
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"M"];
     bundleIDs = v5->_bundleIDs;
@@ -93,7 +93,6 @@
     v5->_properties = [coderCopy decodeIntegerForKey:@"R"];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -139,7 +139,7 @@ void __65__SBHAdjustableRootIconListLayoutProvider_layoutForIconLocation___block
 {
   v3 = *(a1 + 32);
   v14 = a2;
-  [v3 iconImageInfoForGridSizeClass:v14];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v3);
   v5 = v4;
   v7 = v6;
   v9 = v8;

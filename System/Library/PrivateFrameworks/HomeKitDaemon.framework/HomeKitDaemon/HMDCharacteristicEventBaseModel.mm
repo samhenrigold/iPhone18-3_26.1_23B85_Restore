@@ -1,4 +1,5 @@
 @interface HMDCharacteristicEventBaseModel
++ (id)eventModelWithDictionary:(id)dictionary home:(id)home eventTriggerUUID:(id)d className:(Class)name message:(id)message checkForSupport:(BOOL)support outCharateristic:(id *)charateristic;
 + (id)properties;
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info;
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context;
@@ -121,6 +122,52 @@ LABEL_11:
   return v17;
 }
 
++ (id)eventModelWithDictionary:(id)dictionary home:(id)home eventTriggerUUID:(id)d className:(Class)name message:(id)message checkForSupport:(BOOL)support outCharateristic:(id *)charateristic
+{
+  supportCopy = support;
+  dictionaryCopy = dictionary;
+  homeCopy = home;
+  dCopy = d;
+  messageCopy = message;
+  v17 = [dictionaryCopy hmf_numberForKey:*MEMORY[0x277CD25F8]];
+  v18 = HAPInstanceIDFromValue();
+
+  v19 = [dictionaryCopy hmf_numberForKey:*MEMORY[0x277CD2140]];
+  v20 = HAPInstanceIDFromValue();
+
+  v21 = [dictionaryCopy hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
+  v34 = 0;
+  LOBYTE(v31) = 1;
+  v22 = [HMDCharacteristicEventBase lookForCharacteristicByAccessoryUUID:v21 serviceID:v18 characteristicID:v20 inHome:homeCopy checkForSupport:supportCopy outError:&v34 shouldLog:v31];
+  v23 = v34;
+  v24 = 0;
+  if (!v23)
+  {
+    v32 = v18;
+    if (charateristic)
+    {
+      v25 = v22;
+      *charateristic = v22;
+    }
+
+    v24 = [HMDEventModel eventModelWithDictionary:dictionaryCopy home:homeCopy eventTriggerUUID:dCopy className:name message:messageCopy];
+    [v21 UUIDString];
+    v26 = homeCopy;
+    v27 = messageCopy;
+    v29 = v28 = dCopy;
+    [v24 setAccessory:v29];
+
+    dCopy = v28;
+    messageCopy = v27;
+    homeCopy = v26;
+    v18 = v32;
+    [v24 setServiceID:v32];
+    [v24 setCharacteristicID:v20];
+  }
+
+  return v24;
+}
+
 + (id)properties
 {
   block[0] = MEMORY[0x277D85DD0];
@@ -140,29 +187,27 @@ LABEL_11:
 
 void __45__HMDCharacteristicEventBaseModel_properties__block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v11.receiver = *(a1 + 32);
-  v11.super_class = &OBJC_METACLASS___HMDCharacteristicEventBaseModel;
-  v2 = objc_msgSendSuper2(&v11, sel_properties);
+  v10.receiver = *(a1 + 32);
+  v10.super_class = &OBJC_METACLASS___HMDCharacteristicEventBaseModel;
+  v2 = objc_msgSendSuper2(&v10, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_194021;
   properties__properties_194021 = v3;
 
   v5 = properties__properties_194021;
-  v12[0] = @"accessory";
+  v11[0] = @"accessory";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[0] = v6;
-  v12[1] = @"serviceID";
+  v12[0] = v6;
+  v11[1] = @"serviceID";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[1] = v7;
-  v12[2] = @"characteristicID";
+  v12[1] = v7;
+  v11[2] = @"characteristicID";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
   [v5 addEntriesFromDictionary:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dependentUUIDs

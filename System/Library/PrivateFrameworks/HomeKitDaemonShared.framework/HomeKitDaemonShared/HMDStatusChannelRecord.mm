@@ -90,7 +90,7 @@
 
 - (HMDStatusChannelRecord)initWithPresentDevice:(id)device
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   presencePayload = [deviceCopy presencePayload];
   deviceTokenURI = [deviceCopy deviceTokenURI];
@@ -129,18 +129,17 @@
     {
       v17 = HMFGetLogIdentifier();
       payloadDictionary5 = [presencePayload payloadDictionary];
-      v23 = 138543618;
-      v24 = v17;
-      v25 = 2112;
-      v26 = payloadDictionary5;
-      _os_log_impl(&dword_2540F2000, v16, OS_LOG_TYPE_ERROR, "%{public}@Attempt to create ChannelRecord with invalid payload: missing/bad deviceID %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v17;
+      v24 = 2112;
+      v25 = payloadDictionary5;
+      _os_log_impl(&dword_2540F2000, v16, OS_LOG_TYPE_ERROR, "%{public}@Attempt to create ChannelRecord with invalid payload: missing/bad deviceID %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

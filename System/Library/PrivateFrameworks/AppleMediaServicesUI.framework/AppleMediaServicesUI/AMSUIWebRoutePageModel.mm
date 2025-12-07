@@ -97,8 +97,8 @@
 
 - (NSString)description
 {
-  v22[3] = *MEMORY[0x1E69E9840];
-  v21[0] = @"disableReappearPlaceholder";
+  v21[3] = *MEMORY[0x1E69E9840];
+  v20[0] = @"disableReappearPlaceholder";
   disableReappearPlaceholder = [(AMSUIWebRoutePageModel *)self disableReappearPlaceholder];
   v4 = @"false";
   if (disableReappearPlaceholder)
@@ -106,16 +106,16 @@
     v4 = @"true";
   }
 
-  v22[0] = v4;
-  v21[1] = @"URL";
+  v21[0] = v4;
+  v20[1] = @"URL";
   v5 = [(AMSUIWebRoutePageModel *)self URL];
   absoluteString = [v5 absoluteString];
-  v22[1] = absoluteString;
-  v21[2] = @"windowSize";
+  v21[1] = absoluteString;
+  v20[2] = @"windowSize";
   [(AMSUIWebRoutePageModel *)self windowSize];
-  v7 = NSStringFromCGSize(v24);
-  v22[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v7 = NSStringFromCGSize(v23);
+  v21[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
   v9 = [v8 mutableCopy];
 
   backgroundColor = [(AMSUIWebRoutePageModel *)self backgroundColor];
@@ -151,8 +151,6 @@
   }
 
   v18 = [v9 description];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

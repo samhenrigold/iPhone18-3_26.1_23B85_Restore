@@ -1643,7 +1643,8 @@ LABEL_12:
 - (void)_updateScreenshotsViewTransform
 {
   view = [(SSSScreenshotsViewController *)self->_screenshotsViewController view];
-  [(SSSContainerViewController *)self _transformForState:[(SSSContainerViewController *)self state]];
+  [(SSSContainerViewController *)self state];
+  objc_msgSend__transformForState_(self);
   [view setTransform:&v5];
   [view frame];
   traitCollection = [(SSSContainerViewController *)self traitCollection];

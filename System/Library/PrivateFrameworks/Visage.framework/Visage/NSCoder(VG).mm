@@ -5,7 +5,9 @@
 - (__n64)vg_decodeUshort2ForKey:()VG;
 - (double)vg_decodeFloat2ForKey:()VG;
 - (double)vg_decodeFloat3ForKey:()VG;
+- (double)vg_decodeFloat3x3ForKey:()VG;
 - (double)vg_decodeFloat4ForKey:()VG;
+- (double)vg_decodeFloat4x4ForKey:()VG;
 - (float)vg_decodeFloatForKey:()VG;
 - (id)_vg_decodeSurfaceForKey:()VG;
 - (id)vg_decodeArrayOfSurfacesForKey:()VG;
@@ -19,8 +21,6 @@
 - (uint64_t)vg_encodeFloat4x4:()VG forKey:;
 - (uint64_t)vg_encodeRect:()VG forKey:;
 - (uint64_t)vg_encodeUlong4:()VG forKey:;
-- (void)vg_decodeFloat3x3ForKey:()VG;
-- (void)vg_decodeFloat4x4ForKey:()VG;
 - (void)vg_decodeUlong4ForKey:()VG;
 - (void)vg_encodeArrayOfSurfaces:()VG forKey:;
 - (void)vg_encodeDictionaryOfSurfaces:()VG forKey:;
@@ -189,28 +189,29 @@
   return [self encodeBytes:v8 length:64 forKey:a7];
 }
 
-- (void)vg_decodeFloat4x4ForKey:()VG
+- (double)vg_decodeFloat4x4ForKey:()VG
 {
   v8 = *MEMORY[0x277D85DE8];
   memset(__dst, 0, sizeof(__dst));
   v6 = 0;
-  result = [self decodeBytesForKey:a3 returnedLength:&v6];
-  if (result)
+  v3 = [self decodeBytesForKey:a3 returnedLength:&v6];
+  result = 0.0;
+  if (v3)
   {
     if (v6 >= 0x40)
     {
-      v4 = 64;
+      v5 = 64;
     }
 
     else
     {
-      v4 = v6;
+      v5 = v6;
     }
 
-    result = memcpy(__dst, result, v4);
+    memcpy(__dst, v3, v5);
+    return *__dst;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -222,28 +223,29 @@
   return [self encodeBytes:v7 length:48 forKey:a6];
 }
 
-- (void)vg_decodeFloat3x3ForKey:()VG
+- (double)vg_decodeFloat3x3ForKey:()VG
 {
   v8 = *MEMORY[0x277D85DE8];
   memset(__dst, 0, sizeof(__dst));
   v6 = 0;
-  result = [self decodeBytesForKey:a3 returnedLength:&v6];
-  if (result)
+  v3 = [self decodeBytesForKey:a3 returnedLength:&v6];
+  result = 0.0;
+  if (v3)
   {
     if (v6 >= 0x30)
     {
-      v4 = 48;
+      v5 = 48;
     }
 
     else
     {
-      v4 = v6;
+      v5 = v6;
     }
 
-    result = memcpy(__dst, result, v4);
+    memcpy(__dst, v3, v5);
+    return *__dst;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -364,12 +366,12 @@
 
 - (id)_vg_decodeSurfaceForKey:()VG
 {
-  v44[6] = *MEMORY[0x277D85DE8];
+  v43[6] = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v42 = 0;
+  v41 = 0;
   selfCopy = self;
   v6 = subkey(v4, sel_baseAddress);
-  v7 = [self decodeBytesForKey:v6 returnedLength:&v42];
+  v7 = [self decodeBytesForKey:v6 returnedLength:&v41];
 
   v8 = [(NSString *)v4 stringByAppendingPathExtension:@"surfaceProperties"];
   v9 = [self containsValueForKey:v8];
@@ -408,26 +410,26 @@
     v25 = subkey(v4, sel_bytesPerRow);
     v26 = [self decodeIntegerForKey:v25];
 
-    v43[0] = *MEMORY[0x277CD2928];
+    v42[0] = *MEMORY[0x277CD2928];
     v15 = [MEMORY[0x277CCABB0] numberWithInteger:v20];
-    v44[0] = v15;
-    v43[1] = *MEMORY[0x277CD28D0];
+    v43[0] = v15;
+    v42[1] = *MEMORY[0x277CD28D0];
     v27 = [MEMORY[0x277CCABB0] numberWithInteger:v22];
-    v44[1] = v27;
-    v43[2] = *MEMORY[0x277CD28A8];
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v42];
+    v43[1] = v27;
+    v42[2] = *MEMORY[0x277CD28A8];
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
     v29 = *MEMORY[0x277CD28D8];
-    v44[2] = v28;
-    v44[3] = v14;
+    v43[2] = v28;
+    v43[3] = v14;
     v30 = *MEMORY[0x277CD28B8];
-    v43[3] = v29;
-    v43[4] = v30;
+    v42[3] = v29;
+    v42[4] = v30;
     v31 = [MEMORY[0x277CCABB0] numberWithInteger:v26];
-    v44[4] = v31;
-    v43[5] = *MEMORY[0x277CD28B0];
+    v43[4] = v31;
+    v42[5] = *MEMORY[0x277CD28B0];
     v32 = [MEMORY[0x277CCABB0] numberWithInteger:v24];
-    v44[5] = v32;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:6];
+    v43[5] = v32;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:6];
   }
 
   v33 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v16];
@@ -437,7 +439,7 @@
     [v33 lockWithOptions:0 seed:0];
     v34 = v14;
     baseAddress = [v14 baseAddress];
-    v36 = v42;
+    v36 = v41;
     allocationSize = [v14 allocationSize];
     if (allocationSize >= v36)
     {
@@ -455,7 +457,6 @@
   }
 
 LABEL_11:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -559,16 +560,15 @@ LABEL_11:
 
 - (CVPixelBufferRef)vg_createDecodedPixelBufferForKey:()VG
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = [self vg_decodeSurfaceForKey:?];
-  v6 = 0;
-  v7 = @"PixelFormatDescription";
-  v8[0] = MEMORY[0x277CBEC10];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v1, v2, &v6);
-  v3 = v6;
+  v5 = 0;
+  v6 = @"PixelFormatDescription";
+  v7[0] = MEMORY[0x277CBEC10];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  CVPixelBufferCreateWithIOSurface(*MEMORY[0x277CBECE8], v1, v2, &v5);
+  v3 = v5;
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -618,7 +618,7 @@ LABEL_11:
 
   if (v6)
   {
-    [v6 screenSize];
+    objc_msgSend_screenSize(v6);
     v9 = v25;
   }
 
@@ -634,7 +634,7 @@ LABEL_11:
 
   if (v6)
   {
-    [v6 screenSize];
+    objc_msgSend_screenSize(v6);
     v11 = v26;
   }
 
@@ -660,7 +660,7 @@ LABEL_11:
       horizontalSampleStorage = [v16 horizontalSampleStorage];
       if (v16)
       {
-        [v16 sampleCount];
+        objc_msgSend_sampleCount(v16);
         v18 = 4 * v25;
       }
 
@@ -677,7 +677,7 @@ LABEL_11:
       verticalSampleStorage = [v16 verticalSampleStorage];
       if (v16)
       {
-        [v16 sampleCount];
+        objc_msgSend_sampleCount(v16);
         v21 = 4 * v26;
       }
 
@@ -744,9 +744,9 @@ LABEL_11:
   v4 = [self decodeBytesForKey:a2 returnedLength:&v7];
   v5 = *(v4 + 16);
   *a3 = *v4;
-  *(a3 + 16) = v5;
+  a3[1] = v5;
   result = *(v4 + 32);
-  *(a3 + 32) = result;
+  a3[2] = result;
   return result;
 }
 

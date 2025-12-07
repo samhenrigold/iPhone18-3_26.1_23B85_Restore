@@ -6,7 +6,7 @@
 
 - (SGQuickResponsesClassificationParameters)initWithDictionary:(id)dictionary language:(id)language
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   languageCopy = language;
   v8 = dictionaryCopy;
@@ -24,9 +24,9 @@
     goto LABEL_52;
   }
 
-  v42.receiver = self;
-  v42.super_class = SGQuickResponsesClassificationParameters;
-  self = [(SGQuickResponsesClassificationParameters *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = SGQuickResponsesClassificationParameters;
+  self = [(SGQuickResponsesClassificationParameters *)&v41 init];
   if (!self)
   {
     goto LABEL_49;
@@ -145,9 +145,9 @@ LABEL_52:
       v28 = self->_negativeSamplingRate;
       v29 = self->_positiveSamplingRate;
       *buf = 134218240;
-      v44 = v28;
-      v45 = 2048;
-      v46 = v29;
+      v43 = v28;
+      v44 = 2048;
+      v45 = v29;
       _os_log_impl(&dword_24799E000, v27, OS_LOG_TYPE_DEFAULT, "SGQuickResponsesConfig: negativeSamplingRate=%f and positiveSamplingRate=%f do not satisfy strict DP constraint", buf, 0x16u);
     }
   }
@@ -243,7 +243,6 @@ LABEL_49:
   selfCopy = self;
 LABEL_54:
 
-  v40 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

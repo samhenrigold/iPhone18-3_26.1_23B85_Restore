@@ -29,7 +29,7 @@ void __34__LNExtensionMediator_sharedQueue__block_invoke()
 
 + (void)getXPCListenerEndpointForBundleIdentifier:(id)identifier extensionMediatorBundleIdentifier:(id)bundleIdentifier completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   handlerCopy = handler;
@@ -40,27 +40,27 @@ void __34__LNExtensionMediator_sharedQueue__block_invoke()
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v24 = bundleIdentifierCopy;
-    v25 = 2112;
-    v26 = identifierCopy;
+    v23 = bundleIdentifierCopy;
+    v24 = 2112;
+    v25 = identifierCopy;
     _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_INFO, "Fetching an XPC listener endpoint from an internal mediator (%@) for %@", buf, 0x16u);
   }
 
   v13 = [LNConnection alloc];
   v14 = [objc_alloc(MEMORY[0x1E69AC7B0]) initWithType:1 bundleIdentifier:bundleIdentifierCopy url:0];
-  v22 = 0;
-  v15 = [(LNConnection *)v13 initWithEffectiveBundleIdentifier:v14 appBundleIdentifier:0 processInstanceIdentifier:0 appIntentsEnabledOnly:0 userIdentity:0 error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [(LNConnection *)v13 initWithEffectiveBundleIdentifier:v14 appBundleIdentifier:0 processInstanceIdentifier:0 appIntentsEnabledOnly:0 userIdentity:0 error:&v21];
+  v16 = v21;
 
   if (v15)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __117__LNExtensionMediator_getXPCListenerEndpointForBundleIdentifier_extensionMediatorBundleIdentifier_completionHandler___block_invoke;
-    v19[3] = &unk_1E74B1838;
-    v21 = handlerCopy;
-    v20 = identifierCopy;
-    [(LNConnection *)v15 getListenerEndpointForBundleIdentifier:v20 action:0 completionHandler:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __117__LNExtensionMediator_getXPCListenerEndpointForBundleIdentifier_extensionMediatorBundleIdentifier_completionHandler___block_invoke;
+    v18[3] = &unk_1E74B1838;
+    v20 = handlerCopy;
+    v19 = identifierCopy;
+    [(LNConnection *)v15 getListenerEndpointForBundleIdentifier:v19 action:0 completionHandler:v18];
   }
 
   else
@@ -69,39 +69,35 @@ void __34__LNExtensionMediator_sharedQueue__block_invoke()
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v24 = bundleIdentifierCopy;
-      v25 = 2112;
-      v26 = identifierCopy;
-      v27 = 2112;
-      v28 = v16;
+      v23 = bundleIdentifierCopy;
+      v24 = 2112;
+      v25 = identifierCopy;
+      v26 = 2112;
+      v27 = v16;
       _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_ERROR, "Error fetching XPC listener endpoint from an internal mediator (%@) for %@: %@", buf, 0x20u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v16);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __117__LNExtensionMediator_getXPCListenerEndpointForBundleIdentifier_extensionMediatorBundleIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   (*(*(a1 + 40) + 16))();
   v2 = getLNLogCategoryExtensionMediator();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getWidgetKitXPCListenerEndpointForBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v7 = getLNLogCategoryExtensionMediator();
@@ -112,43 +108,41 @@ void __117__LNExtensionMediator_getXPCListenerEndpointForBundleIdentifier_extens
     _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Fetching an XPC listener endpoint from Chrono for %{public}@", &buf, 0xCu);
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2050000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2050000000;
   v8 = getCHSAppIntentsXPCListenerEndpointProviderClass_softClass;
-  v22 = getCHSAppIntentsXPCListenerEndpointProviderClass_softClass;
+  v21 = getCHSAppIntentsXPCListenerEndpointProviderClass_softClass;
   if (!getCHSAppIntentsXPCListenerEndpointProviderClass_softClass)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v24 = __getCHSAppIntentsXPCListenerEndpointProviderClass_block_invoke;
-    v25 = &unk_1E74B26D0;
-    v26 = &v19;
+    v23 = __getCHSAppIntentsXPCListenerEndpointProviderClass_block_invoke;
+    v24 = &unk_1E74B26D0;
+    v25 = &v18;
     __getCHSAppIntentsXPCListenerEndpointProviderClass_block_invoke(&buf);
-    v8 = v20[3];
+    v8 = v19[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   v10 = [[v8 alloc] initWithBundleIdentifier:identifierCopy];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifier_completionHandler___block_invoke;
-  v15[3] = &unk_1E74B2230;
-  v17 = v10;
-  v18 = handlerCopy;
-  v16 = identifierCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifier_completionHandler___block_invoke;
+  v14[3] = &unk_1E74B2230;
+  v16 = v10;
+  v17 = handlerCopy;
+  v15 = identifierCopy;
   v11 = v10;
   v12 = handlerCopy;
   v13 = identifierCopy;
-  [v11 getAppIntentsXPCListenerEndpointWithCompletion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v11 getAppIntentsXPCListenerEndpointWithCompletion:v14];
 }
 
 void __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifier_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a4;
   if (a2)
   {
@@ -157,9 +151,9 @@ void __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifie
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = *(a1 + 32);
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19763D000, v7, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", &v11, 0xCu);
     }
   }
 
@@ -169,17 +163,15 @@ void __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifie
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Error fetching XPC listener endpoint for %{public}@: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Error fetching XPC listener endpoint for %{public}@: %@", &v11, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getConnectionHostInterfaceForBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -201,20 +193,20 @@ void __92__LNExtensionMediator_getWidgetKitXPCListenerEndpointForBundleIdentifie
 
 void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v77[1] = *MEMORY[0x1E69E9840];
+  v76[1] = *MEMORY[0x1E69E9840];
   v2 = getLNLogCategoryExtensionMediator();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v72 = v3;
+    v71 = v3;
   }
 
   v4 = objc_alloc(MEMORY[0x1E69635D0]);
   v5 = *(a1 + 32);
-  v70 = 0;
-  v6 = [v4 initWithBundleIdentifier:v5 error:&v70];
-  v7 = v70;
+  v69 = 0;
+  v6 = [v4 initWithBundleIdentifier:v5 error:&v69];
+  v7 = v69;
   if (v6)
   {
     v8 = [v6 entitlements];
@@ -223,33 +215,33 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
     if (v9)
     {
       v10 = *(a1 + 32);
-      v68[0] = MEMORY[0x1E69E9820];
-      v68[1] = 3221225472;
-      v68[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_14;
-      v68[3] = &unk_1E74B1798;
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_14;
+      v67[3] = &unk_1E74B1798;
       v11 = *(a1 + 48);
-      v69 = *(a1 + 40);
-      [v11 getXPCListenerEndpointForBundleIdentifier:v10 extensionMediatorBundleIdentifier:v9 completionHandler:v68];
+      v68 = *(a1 + 40);
+      [v11 getXPCListenerEndpointForBundleIdentifier:v10 extensionMediatorBundleIdentifier:v9 completionHandler:v67];
 
 LABEL_33:
       goto LABEL_34;
     }
 
-    v66 = v7;
-    v67 = 0;
-    v12 = [LNExtensionHostConfigurator extensionProcessWithExtensionRecord:v6 extensionType:&v67 error:&v66];
-    v13 = v66;
+    v65 = v7;
+    v66 = 0;
+    v12 = [LNExtensionHostConfigurator extensionProcessWithExtensionRecord:v6 extensionType:&v66 error:&v65];
+    v13 = v65;
 
-    if (v67 == 1)
+    if (v66 == 1)
     {
       v14 = *(a1 + 32);
-      v64[0] = MEMORY[0x1E69E9820];
-      v64[1] = 3221225472;
-      v64[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_2;
-      v64[3] = &unk_1E74B1798;
+      v63[0] = MEMORY[0x1E69E9820];
+      v63[1] = 3221225472;
+      v63[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_2;
+      v63[3] = &unk_1E74B1798;
       v15 = *(a1 + 48);
-      v65 = *(a1 + 40);
-      [v15 getWidgetKitXPCListenerEndpointForBundleIdentifier:v14 completionHandler:v64];
+      v64 = *(a1 + 40);
+      [v15 getWidgetKitXPCListenerEndpointForBundleIdentifier:v14 completionHandler:v63];
 
 LABEL_32:
       v7 = v13;
@@ -259,9 +251,9 @@ LABEL_32:
     if (v12)
     {
       v16 = [MEMORY[0x1E69C7610] predicateMatchingIdentifier:v12];
-      v63 = 0;
-      v17 = [MEMORY[0x1E69C75D0] handleForPredicate:v16 error:&v63];
-      v18 = v63;
+      v62 = 0;
+      v17 = [MEMORY[0x1E69C75D0] handleForPredicate:v16 error:&v62];
+      v18 = v62;
 
       if (v18)
       {
@@ -274,18 +266,18 @@ LABEL_32:
         v20 = @"com.apple.siri";
         v21 = @"AppIntentsExtensionConnection";
         v22 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.siri" name:@"AppIntentsExtensionConnection"];
-        v77[0] = v22;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:1];
+        v76[0] = v22;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:1];
 
         v24 = objc_alloc(MEMORY[0x1E69C7548]);
         v25 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v17];
-        v44 = v23;
+        v43 = v23;
         v26 = [v24 initWithExplanation:@"Extension connection" target:v25 attributes:v23];
 
-        v62 = 0;
-        v45 = v26;
-        LOBYTE(v23) = [v26 acquireWithError:&v62];
-        v13 = v62;
+        v61 = 0;
+        v44 = v26;
+        LOBYTE(v23) = [v26 acquireWithError:&v61];
+        v13 = v61;
         v27 = getLNLogCategoryExtensionMediator();
         v28 = v27;
         if (v23)
@@ -293,31 +285,31 @@ LABEL_32:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v72 = @"com.apple.siri";
-            v73 = 2114;
-            v74 = @"AppIntentsExtensionConnection";
+            v71 = @"com.apple.siri";
+            v72 = 2114;
+            v73 = @"AppIntentsExtensionConnection";
             _os_log_impl(&dword_19763D000, v28, OS_LOG_TYPE_INFO, "Acquired assertion %{public}@:%{public}@", buf, 0x16u);
           }
 
-          v61 = v13;
-          v29 = [v12 newXPCConnectionWithError:&v61];
-          v30 = v61;
+          v60 = v13;
+          v29 = [v12 newXPCConnectionWithError:&v60];
+          v30 = v60;
 
           if (v30)
           {
-            [v45 invalidate];
+            [v44 invalidate];
             v31 = getLNLogCategoryExtensionMediator();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 138543618;
-              v72 = @"com.apple.siri";
-              v73 = 2114;
-              v74 = @"AppIntentsExtensionConnection";
+              v71 = @"com.apple.siri";
+              v72 = 2114;
+              v73 = @"AppIntentsExtensionConnection";
               _os_log_impl(&dword_19763D000, v31, OS_LOG_TYPE_INFO, "Invalidated assertion %{public}@:%{public}@", buf, 0x16u);
             }
 
             (*(*(a1 + 40) + 16))();
-            v32 = v45;
+            v32 = v44;
           }
 
           else
@@ -334,38 +326,38 @@ LABEL_32:
             {
               v36 = *(a1 + 32);
               *buf = 138543362;
-              v72 = v36;
+              v71 = v36;
             }
 
-            v56[0] = MEMORY[0x1E69E9820];
-            v56[1] = 3221225472;
-            v56[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_28;
-            v56[3] = &unk_1E74B23B0;
-            v32 = v45;
-            v37 = v45;
-            v57 = v37;
+            v55[0] = MEMORY[0x1E69E9820];
+            v55[1] = 3221225472;
+            v55[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_28;
+            v55[3] = &unk_1E74B23B0;
+            v32 = v44;
+            v37 = v44;
+            v56 = v37;
             v38 = @"com.apple.siri";
-            v58 = @"com.apple.siri";
+            v57 = @"com.apple.siri";
             v39 = @"AppIntentsExtensionConnection";
-            v59 = @"AppIntentsExtensionConnection";
-            v60 = *(a1 + 40);
-            v40 = [v29 synchronousRemoteObjectProxyWithErrorHandler:v56];
-            v46[0] = MEMORY[0x1E69E9820];
-            v46[1] = 3221225472;
-            v46[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_30;
-            v46[3] = &unk_1E74B17E8;
-            v55 = *(a1 + 48);
-            v47 = *(a1 + 32);
-            v48 = v12;
-            v49 = v29;
-            v50 = v37;
+            v58 = @"AppIntentsExtensionConnection";
+            v59 = *(a1 + 40);
+            v40 = [v29 synchronousRemoteObjectProxyWithErrorHandler:v55];
+            v45[0] = MEMORY[0x1E69E9820];
+            v45[1] = 3221225472;
+            v45[2] = __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_30;
+            v45[3] = &unk_1E74B17E8;
+            v54 = *(a1 + 48);
+            v46 = *(a1 + 32);
+            v47 = v12;
+            v48 = v29;
+            v49 = v37;
             v41 = @"com.apple.siri";
-            v51 = @"com.apple.siri";
+            v50 = @"com.apple.siri";
             v42 = @"AppIntentsExtensionConnection";
-            v52 = @"AppIntentsExtensionConnection";
-            v54 = *(a1 + 40);
-            v53 = v16;
-            [v40 getListenerEndpointWithCompletionHandler:v46];
+            v51 = @"AppIntentsExtensionConnection";
+            v53 = *(a1 + 40);
+            v52 = v16;
+            [v40 getListenerEndpointWithCompletionHandler:v45];
 
             v30 = 0;
           }
@@ -378,15 +370,15 @@ LABEL_32:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v72 = @"com.apple.siri";
-            v73 = 2114;
-            v74 = @"AppIntentsExtensionConnection";
-            v75 = 2114;
-            v76 = v13;
+            v71 = @"com.apple.siri";
+            v72 = 2114;
+            v73 = @"AppIntentsExtensionConnection";
+            v74 = 2114;
+            v75 = v13;
             _os_log_impl(&dword_19763D000, v28, OS_LOG_TYPE_ERROR, "Failed to acquire assertion %{public}@:%{public}@: %{public}@", buf, 0x20u);
           }
 
-          [v45 invalidate];
+          [v44 invalidate];
           (*(*(a1 + 40) + 16))();
         }
       }
@@ -410,20 +402,18 @@ LABEL_32:
 
   (*(*(a1 + 40) + 16))();
 LABEL_34:
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_28(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getLNLogCategoryExtensionMediator();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Unable to get synchronousRemoteObjectProxy, error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_ERROR, "Unable to get synchronousRemoteObjectProxy, error: %{public}@", &v8, 0xCu);
   }
 
   [*(a1 + 32) invalidate];
@@ -432,15 +422,14 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
   {
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "Invalidated assertion %{public}@:%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "Invalidated assertion %{public}@:%{public}@", &v8, 0x16u);
   }
 
   (*(*(a1 + 56) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_30(id *a1, void *a2, uint64_t a3, void *a4)
@@ -475,14 +464,14 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
 
 void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_2_31(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = getLNLogCategoryExtensionMediator();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    LODWORD(v16[0]) = 138543362;
-    *(v16 + 4) = v3;
-    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", v16, 0xCu);
+    LODWORD(v15[0]) = 138543362;
+    *(v15 + 4) = v3;
+    _os_log_impl(&dword_19763D000, v2, OS_LOG_TYPE_INFO, "Successfully fetched XPC listener endpoint for %{public}@", v15, 0xCu);
   }
 
   [*(a1 + 40) invalidate];
@@ -491,9 +480,9 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    LODWORD(v16[0]) = 138543362;
-    *(v16 + 4) = v5;
-    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Invalidated extension process and XPC connection for %{public}@", v16, 0xCu);
+    LODWORD(v15[0]) = 138543362;
+    *(v15 + 4) = v5;
+    _os_log_impl(&dword_19763D000, v4, OS_LOG_TYPE_INFO, "Invalidated extension process and XPC connection for %{public}@", v15, 0xCu);
   }
 
   [*(a1 + 56) invalidate];
@@ -502,11 +491,11 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
   {
     v7 = *(a1 + 64);
     v8 = *(a1 + 72);
-    LODWORD(v16[0]) = 138543618;
-    *(v16 + 4) = v7;
-    WORD6(v16[0]) = 2114;
-    *(v16 + 14) = v8;
-    _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_INFO, "Invalidated assertion %{public}@:%{public}@", v16, 0x16u);
+    LODWORD(v15[0]) = 138543618;
+    *(v15 + 4) = v7;
+    WORD6(v15[0]) = 2114;
+    *(v15 + 14) = v8;
+    _os_log_impl(&dword_19763D000, v6, OS_LOG_TYPE_INFO, "Invalidated assertion %{public}@:%{public}@", v15, 0x16u);
   }
 
   v9 = *(a1 + 104);
@@ -516,37 +505,35 @@ void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_com
   v13 = *(a1 + 40);
   if (v13)
   {
-    [v13 auditToken];
+    objc_msgSend_auditToken(v13);
   }
 
   else
   {
-    memset(v16, 0, sizeof(v16));
+    memset(v15, 0, sizeof(v15));
   }
 
-  v14 = [v12 if_dataWithAuditToken:v16];
+  v14 = [v12 if_dataWithAuditToken:v15];
   (*(v9 + 16))(v9, v10, v11, v14, *(a1 + 96));
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_25()
+void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_25(uint64_t a1)
 {
-  v0 = getLNLogCategoryExtensionMediator();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getLNLogCategoryExtensionMediator();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19763D000, v0, OS_LOG_TYPE_INFO, "Extension Mediator XPC connection has been invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19763D000, v1, OS_LOG_TYPE_INFO, "Extension Mediator XPC connection has been invalidated", v2, 2u);
   }
 }
 
-void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_23()
+void __87__LNExtensionMediator_getConnectionHostInterfaceForBundleIdentifier_completionHandler___block_invoke_23(uint64_t a1)
 {
-  v0 = getLNLogCategoryExtensionMediator();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = getLNLogCategoryExtensionMediator();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19763D000, v0, OS_LOG_TYPE_INFO, "Extension Mediator XPC connection has been interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19763D000, v1, OS_LOG_TYPE_INFO, "Extension Mediator XPC connection has been interrupted", v2, 2u);
   }
 }
 

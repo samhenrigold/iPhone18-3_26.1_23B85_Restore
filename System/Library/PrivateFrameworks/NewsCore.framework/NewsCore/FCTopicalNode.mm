@@ -1,7 +1,7 @@
 @interface FCTopicalNode
 - (BOOL)isEqual:(id)equal;
-- (double)calculateLeafScoresWithTopicScoreProvider:(double *)provider;
 - (double)individualScoreWithTopicScoreProvider:(uint64_t)provider;
+- (id)calculateLeafScoresWithTopicScoreProvider:(id *)provider;
 - (id)description;
 - (id)initWithIdentifier:(void *)identifier displayedElements:(void *)elements allTopicCollections:(double)collections relatednessThreshold:(double)threshold relatednessKWeight:(double)weight topicScoreWeight:(double)scoreWeight highestScoringRelativeScoreMultiplier:;
 - (void)calculateNonLeafScoresWithTopicProvider:(uint64_t)provider;
@@ -13,7 +13,7 @@
 
 - (id)initWithIdentifier:(void *)identifier displayedElements:(void *)elements allTopicCollections:(double)collections relatednessThreshold:(double)threshold relatednessKWeight:(double)weight topicScoreWeight:(double)scoreWeight highestScoringRelativeScoreMultiplier:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v16 = a2;
   identifierCopy = identifier;
   elementsCopy = elements;
@@ -21,21 +21,21 @@
   {
     if (![v16 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Node initialized with an empty identifiers set"];
+      v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Node initialized with an empty identifiers set"];
       *buf = 136315906;
-      v29 = "[FCTopicalNode initWithIdentifier:displayedElements:allTopicCollections:relatednessThreshold:relatednessKWeight:topicScoreWeight:highestScoringRelativeScoreMultiplier:]";
-      v30 = 2080;
-      v31 = "FCHeadlineClusterOrdering.m";
-      v32 = 1024;
-      v33 = 149;
-      v34 = 2114;
-      v35 = v26;
+      v28 = "[FCTopicalNode initWithIdentifier:displayedElements:allTopicCollections:relatednessThreshold:relatednessKWeight:topicScoreWeight:highestScoringRelativeScoreMultiplier:]";
+      v29 = 2080;
+      v30 = "FCHeadlineClusterOrdering.m";
+      v31 = 1024;
+      v32 = 149;
+      v33 = 2114;
+      v34 = v25;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v27.receiver = self;
-    v27.super_class = FCTopicalNode;
-    v19 = objc_msgSendSuper2(&v27, sel_init);
+    v26.receiver = self;
+    v26.super_class = FCTopicalNode;
+    v19 = objc_msgSendSuper2(&v26, sel_init);
     self = v19;
     if (v19)
     {
@@ -61,7 +61,6 @@
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -99,7 +98,7 @@ LABEL_4:
 
 - (void)considerEdge:(void *)edge withNodeScorer:
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v5 = a2;
   edgeCopy = edge;
   if (self)
@@ -115,15 +114,15 @@ LABEL_8:
 
         if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "possibleParent"];
+          v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "possibleParent"];
           *buf = 136315906;
-          v46 = "[FCTopicalNode considerEdge:withNodeScorer:]";
-          v47 = 2080;
-          v48 = "FCHeadlineClusterOrdering.m";
-          v49 = 1024;
-          v50 = 196;
-          v51 = 2114;
-          v52 = v30;
+          v45 = "[FCTopicalNode considerEdge:withNodeScorer:]";
+          v46 = 2080;
+          v47 = "FCHeadlineClusterOrdering.m";
+          v48 = 1024;
+          v49 = 196;
+          v50 = 2114;
+          v51 = v29;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -155,20 +154,20 @@ LABEL_8:
                 {
                   v21 = self[10];
                   v22 = v12 / (v12 + v17);
-                  if (v18 > v21 || v18 == v21 && ((v23 = self[11], v22 > v23) || v22 == v23 && ((v24 = self[12], v20 > v24) || v20 == v24 && ((v36 = objc_getProperty(self, v19, 32, 1), !v9) ? (v37 = 0) : (v37 = objc_getProperty(v9, v35, 32, 1)), v38 = [v36 compare:v37], v36, v38 == -1))))
+                  if (v18 > v21 || v18 == v21 && ((v23 = self[11], v22 > v23) || v22 == v23 && ((v24 = self[12], v20 > v24) || v20 == v24 && ((v35 = objc_getProperty(self, v19, 32, 1), !v9) ? (v36 = 0) : (v36 = objc_getProperty(v9, v34, 32, 1)), v37 = [v35 compare:v36], v35, v37 == -1))))
                   {
                     aBlock[0] = MEMORY[0x1E69E9820];
                     aBlock[1] = 3221225472;
                     aBlock[2] = __45__FCTopicalNode_considerEdge_withNodeScorer___block_invoke;
                     aBlock[3] = &unk_1E7C38138;
                     v25 = v9;
-                    v40 = v25;
+                    v39 = v25;
                     selfCopy = self;
-                    v42 = v18;
-                    v43 = v22;
-                    v44 = v20;
+                    v41 = v18;
+                    v42 = v22;
+                    v43 = v20;
                     v26 = _Block_copy(aBlock);
-                    if (v16 < v17 || v16 == v17 && ((v28 = edgeCopy[2](edgeCopy, self), v28 > v20) || v28 == v20 && ((v32 = objc_getProperty(self, v27, 32, 1), !v9) ? (Property = 0) : (Property = objc_getProperty(v25, v31, 32, 1)), v34 = [v32 compare:Property], v32, v34 == -1)))
+                    if (v16 < v17 || v16 == v17 && ((v28 = edgeCopy[2](edgeCopy, self), v28 > v20) || v28 == v20 && ((v31 = objc_getProperty(self, v27, 32, 1), !v9) ? (Property = 0) : (Property = objc_getProperty(v25, v30, 32, 1)), v33 = [v31 compare:Property], v31, v33 == -1)))
                     {
                       v26[2](v26);
                     }
@@ -182,13 +181,13 @@ LABEL_8:
               {
                 v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Considered an edge that has only shared mentions of %@ and %@, these two nodes should have been merged", self, v9];
                 *buf = 136315906;
-                v46 = "[FCTopicalNode considerEdge:withNodeScorer:]";
-                v47 = 2080;
-                v48 = "FCHeadlineClusterOrdering.m";
-                v49 = 1024;
-                v50 = 226;
-                v51 = 2114;
-                v52 = v14;
+                v45 = "[FCTopicalNode considerEdge:withNodeScorer:]";
+                v46 = 2080;
+                v47 = "FCHeadlineClusterOrdering.m";
+                v48 = 1024;
+                v49 = 226;
+                v50 = 2114;
+                v51 = v14;
                 v15 = MEMORY[0x1E69E9C10];
                 goto LABEL_25;
               }
@@ -198,13 +197,13 @@ LABEL_8:
             {
               v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Considered an edge that has no shared mentions of %@ and %@", self, v9];
               *buf = 136315906;
-              v46 = "[FCTopicalNode considerEdge:withNodeScorer:]";
-              v47 = 2080;
-              v48 = "FCHeadlineClusterOrdering.m";
-              v49 = 1024;
-              v50 = 221;
-              v51 = 2114;
-              v52 = v14;
+              v45 = "[FCTopicalNode considerEdge:withNodeScorer:]";
+              v46 = 2080;
+              v47 = "FCHeadlineClusterOrdering.m";
+              v48 = 1024;
+              v49 = 221;
+              v50 = 2114;
+              v51 = v14;
               v15 = MEMORY[0x1E69E9C10];
               goto LABEL_25;
             }
@@ -214,13 +213,13 @@ LABEL_8:
           {
             v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Considered an edge that has no independent mentions of %@ or shared mentions with %@", v9, self];
             *buf = 136315906;
-            v46 = "[FCTopicalNode considerEdge:withNodeScorer:]";
-            v47 = 2080;
-            v48 = "FCHeadlineClusterOrdering.m";
-            v49 = 1024;
-            v50 = 216;
-            v51 = 2114;
-            v52 = v14;
+            v45 = "[FCTopicalNode considerEdge:withNodeScorer:]";
+            v46 = 2080;
+            v47 = "FCHeadlineClusterOrdering.m";
+            v48 = 1024;
+            v49 = 216;
+            v50 = 2114;
+            v51 = v14;
             v15 = MEMORY[0x1E69E9C10];
             goto LABEL_25;
           }
@@ -230,13 +229,13 @@ LABEL_8:
         {
           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Considered an edge that has no independent mentions of %@ or shared mentions with %@", self, v9];
           *buf = 136315906;
-          v46 = "[FCTopicalNode considerEdge:withNodeScorer:]";
-          v47 = 2080;
-          v48 = "FCHeadlineClusterOrdering.m";
-          v49 = 1024;
-          v50 = 211;
-          v51 = 2114;
-          v52 = v14;
+          v45 = "[FCTopicalNode considerEdge:withNodeScorer:]";
+          v46 = 2080;
+          v47 = "FCHeadlineClusterOrdering.m";
+          v48 = 1024;
+          v49 = 211;
+          v50 = 2114;
+          v51 = v14;
           v15 = MEMORY[0x1E69E9C10];
 LABEL_25:
           _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
@@ -268,8 +267,6 @@ LABEL_7:
   }
 
 LABEL_38:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __45__FCTopicalNode_considerEdge_withNodeScorer___block_invoke(uint64_t a1)
@@ -307,7 +304,7 @@ void __45__FCTopicalNode_considerEdge_withNodeScorer___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __45__FCTopicalNode_considerEdge_withNodeScorer___block_invoke_2(uint64_t a1)
+BOOL __45__FCTopicalNode_considerEdge_withNodeScorer___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!v2)
@@ -404,24 +401,23 @@ id __28__FCTopicalNode_description__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)setScore:(uint64_t)score
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(score + 16) == 1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Asked to score a node that has already been scored"];
-    v6 = 136315906;
-    v7 = "[FCTopicalNode setScore:]";
-    v8 = 2080;
-    v9 = "FCHeadlineClusterOrdering.m";
-    v10 = 1024;
-    v11 = 336;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Asked to score a node that has already been scored"];
+    v5 = 136315906;
+    v6 = "[FCTopicalNode setScore:]";
+    v7 = 2080;
+    v8 = "FCHeadlineClusterOrdering.m";
+    v9 = 1024;
+    v10 = 336;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
   *(score + 8) = a2;
   *(score + 16) = 1;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (double)individualScoreWithTopicScoreProvider:(uint64_t)provider
@@ -465,26 +461,26 @@ double __55__FCTopicalNode_individualScoreWithTopicScoreProvider___block_invoke(
   return v3 + a1;
 }
 
-- (double)calculateLeafScoresWithTopicScoreProvider:(double *)provider
+- (id)calculateLeafScoresWithTopicScoreProvider:(id *)provider
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (provider)
   {
-    if (![*(provider + 8) count])
+    if (![provider[8] count])
     {
       v17 = [(FCTopicalNode *)provider individualScoreWithTopicScoreProvider:v3];
       [(FCTopicalNode *)provider setScore:v17];
-      provider = [[FCTopicalLeafNode alloc] initWithNode:provider score:provider[1] * provider[9]];
+      provider = [[FCTopicalLeafNode alloc] initWithNode:provider score:*(provider + 1) * *(provider + 9)];
       goto LABEL_21;
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v4 = *(provider + 8);
-    v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v4 = provider[8];
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (!v5)
     {
       v7 = 0;
@@ -494,19 +490,19 @@ double __55__FCTopicalNode_individualScoreWithTopicScoreProvider___block_invoke(
 
     v6 = v5;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     v9 = 0.0;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = [(FCTopicalNode *)*(*(&v20 + 1) + 8 * v10) calculateLeafScoresWithTopicScoreProvider:v3];
+        v11 = [(FCTopicalNode *)*(*(&v19 + 1) + 8 * v10) calculateLeafScoresWithTopicScoreProvider:v3];
         v12 = v11;
         if (v11)
         {
@@ -542,7 +538,7 @@ LABEL_12:
       }
 
       while (v6 != v10);
-      v16 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v16 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       v6 = v16;
       if (!v16)
       {
@@ -555,8 +551,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return provider;
 }
@@ -592,50 +586,47 @@ LABEL_21:
 
 void __57__FCTopicalNode_calculateNonLeafScoresWithTopicProvider___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
-  [FCTopicalNode calculateNonLeafScoresWithTopicProvider:];
+  [(FCTopicalNode *)v3 calculateNonLeafScoresWithTopicProvider:?];
   if (v3 && v3[16] == 1)
   {
-    v5 = *(*(a1 + 40) + 8);
-    v7 = *(v5 + 24);
-    v6 = (v5 + 24);
-    v8 = v7;
+    v4 = *(*(a1 + 40) + 8);
+    v6 = *(v4 + 24);
+    v5 = (v4 + 24);
+    v7 = v6;
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Scoring node that has an unscored child"];
-      v14 = 136315906;
-      v15 = "[FCTopicalNode calculateNonLeafScoresWithTopicProvider:]_block_invoke";
-      v16 = 2080;
-      v17 = "FCHeadlineClusterOrdering.m";
-      v18 = 1024;
-      v19 = 390;
-      v20 = 2114;
-      v21 = v13;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v14, 0x26u);
+      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Scoring node that has an unscored child"];
+      v12 = 136315906;
+      v13 = "[FCTopicalNode calculateNonLeafScoresWithTopicProvider:]_block_invoke";
+      v14 = 2080;
+      v15 = "FCHeadlineClusterOrdering.m";
+      v16 = 1024;
+      v17 = 390;
+      v18 = 2114;
+      v19 = v11;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
     }
 
-    v9 = *(*(a1 + 40) + 8);
-    v10 = *(v9 + 24);
-    v6 = (v9 + 24);
-    v8 = v10;
+    v8 = *(*(a1 + 40) + 8);
+    v9 = *(v8 + 24);
+    v5 = (v8 + 24);
+    v7 = v9;
     if (!v3)
     {
-      v11 = 0.0;
+      v10 = 0.0;
       goto LABEL_8;
     }
   }
 
-  v11 = *(v3 + 1) * *(v3 + 9);
+  v10 = *(v3 + 1) * *(v3 + 9);
 LABEL_8:
-  *v6 = v8 + v11;
-
-  v12 = *MEMORY[0x1E69E9840];
+  *v5 = v7 + v10;
 }
 
 @end

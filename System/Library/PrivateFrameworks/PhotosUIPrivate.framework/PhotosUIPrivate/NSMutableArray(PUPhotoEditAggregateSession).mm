@@ -9,20 +9,20 @@
 {
   if (a3)
   {
-    return [self pu_addCFString:a4];
+    return [result pu_addCFString:a4];
   }
 
-  return self;
+  return result;
 }
 
 - (void)pu_addCFString:()PUPhotoEditAggregateSession
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

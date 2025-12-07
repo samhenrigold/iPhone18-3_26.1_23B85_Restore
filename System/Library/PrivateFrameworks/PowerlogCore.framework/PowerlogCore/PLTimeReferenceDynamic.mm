@@ -117,13 +117,12 @@ id __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_2(uin
 {
   if (+[PLDefaults debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
     v13 = 3221225472;
     v14 = __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3;
     v15 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16 = v3;
+    v16 = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_6 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_6, &block);
@@ -131,16 +130,16 @@ id __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_2(uin
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_6 == 1)
     {
-      v4 = MEMORY[0x1E696AEC0];
-      v5 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
-      v6 = [v4 stringWithFormat:@"PLTimeReferenceDynamic::periodicCurrentTime: timeReferenceType=%@", v5, block, v13, v14, v15, v16];
+      v3 = MEMORY[0x1E696AEC0];
+      v4 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
+      v5 = [v3 stringWithFormat:@"PLTimeReferenceDynamic::periodicCurrentTime: timeReferenceType=%@", v4, block, v13, v14, v15, v16];
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
-      v8 = [v7 lastPathComponent];
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic initializeOffsetWithEntries:]_block_invoke_2"];
-      [PLCoreStorage logMessage:v6 fromFile:v8 fromFunction:v9 fromLineNumber:71];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
+      v7 = [v6 lastPathComponent];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic initializeOffsetWithEntries:]_block_invoke_2"];
+      [PLCoreStorage logMessage:v5 fromFile:v7 fromFunction:v8 fromLineNumber:71];
 
-      v10 = PLLogCommon();
+      v10 = PLLogCommon(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -160,23 +159,23 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
 
 - (void)initializeOffsetHistoryWithEntries:(id)entries
 {
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   entriesCopy = entries;
-  v32 = entriesCopy;
+  v31 = entriesCopy;
   if (entriesCopy && (v4 = entriesCopy, [entriesCopy count]))
   {
     v5 = [v4 count];
     if (v5 < 1)
     {
       v6 = 0;
-      v33 = 0;
+      v32 = 0;
       v23 = 0;
     }
 
     else
     {
-      v36 = 0;
-      v33 = 0;
+      v35 = 0;
+      v32 = 0;
       v6 = 0;
       v7 = v5 & 0x7FFFFFFF;
       v8 = 3.40282347e38;
@@ -192,9 +191,9 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
         {
           entryDate = [v9 entryDate];
 
-          if (v33)
+          if (v32)
           {
-            [v33 dateByAddingTimeInterval:v13];
+            [v32 dateByAddingTimeInterval:v13];
           }
 
           else
@@ -205,43 +204,43 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
           obj = [(PLTimeReferenceDynamic *)self offsetHistory];
           objc_sync_enter(obj);
           offsetHistory = [(PLTimeReferenceDynamic *)self offsetHistory];
-          v38[0] = @"offset";
+          v37[0] = @"offset";
           v17 = [MEMORY[0x1E696AD98] numberWithDouble:v13];
-          v39[0] = v17;
-          v38[1] = @"startReferenceTime";
+          v38[0] = v17;
+          v37[1] = @"startReferenceTime";
           v18 = [entryDate dateByAddingTimeInterval:v13];
-          v38[2] = @"endReferenceTime";
-          v39[1] = v18;
-          v39[2] = v15;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
+          v37[2] = @"endReferenceTime";
+          v38[1] = v18;
+          v38[2] = v15;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:3];
           v20 = [v19 mutableCopy];
           [offsetHistory insertObject:v20 atIndex:0];
 
           objc_sync_exit(obj);
           entryDate2 = [v9 entryDate];
 
-          ++v36;
+          ++v35;
           v8 = v13;
           v6 = entryDate;
-          v33 = entryDate2;
+          v32 = entryDate2;
         }
 
-        v4 = v32;
-        if (v36 > 2)
+        v4 = v31;
+        if (v35 > 2)
         {
           break;
         }
       }
 
       while (v7-- > 1);
-      if (v36 >= 3)
+      if (v35 >= 3)
       {
         v23 = 0;
       }
 
       else
       {
-        v23 = v36;
+        v23 = v35;
       }
     }
 
@@ -259,17 +258,17 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
       obja = [(PLTimeReferenceDynamic *)self offsetHistory];
       objc_sync_enter(obja);
       offsetHistory2 = [(PLTimeReferenceDynamic *)self offsetHistory];
-      v40[0] = @"offset";
+      v39[0] = @"offset";
       v26 = MEMORY[0x1E696AD98];
       [(PLTimeReference *)self offset];
       v27 = [v26 numberWithDouble:?];
-      v41[0] = v27;
-      v41[1] = v6;
-      v40[1] = @"startReferenceTime";
-      v40[2] = @"endReferenceTime";
+      v40[0] = v27;
+      v40[1] = v6;
+      v39[1] = @"startReferenceTime";
+      v39[2] = @"endReferenceTime";
       distantFuture = [MEMORY[0x1E695DF00] distantFuture];
-      v41[2] = distantFuture;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:3];
+      v40[2] = distantFuture;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:3];
       v30 = [v29 mutableCopy];
       [offsetHistory2 addObject:v30];
 
@@ -277,8 +276,6 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
       [(PLTimeReferenceDynamic *)self setOffsetHistoryHead:1];
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerForTimeChangedNotification
@@ -304,8 +301,8 @@ BOOL __54__PLTimeReferenceDynamic_initializeOffsetWithEntries___block_invoke_3(u
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic registerForTimeChangedNotification]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:132];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -343,8 +340,8 @@ BOOL __60__PLTimeReferenceDynamic_registerForTimeChangedNotification__block_invo
       v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic registerForClockSetNotification]"];
       [PLCoreStorage logMessage:v3 fromFile:lastPathComponent fromFunction:v6 fromLineNumber:137];
 
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -372,10 +369,10 @@ BOOL __57__PLTimeReferenceDynamic_registerForClockSetNotification__block_invoke(
     {
       v7 = objc_opt_class();
       block = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __60__PLTimeReferenceDynamic_checkForTimeChangeWithCurrentTime___block_invoke;
-      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v22 = v7;
+      v20 = 3221225472;
+      v21 = __60__PLTimeReferenceDynamic_checkForTimeChangeWithCurrentTime___block_invoke;
+      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v23 = v7;
       if (checkForTimeChangeWithCurrentTime__defaultOnce != -1)
       {
         dispatch_once(&checkForTimeChangeWithCurrentTime__defaultOnce, &block);
@@ -385,15 +382,15 @@ BOOL __57__PLTimeReferenceDynamic_registerForClockSetNotification__block_invoke(
       {
         v8 = MEMORY[0x1E696AEC0];
         v9 = [MEMORY[0x1E696AD98] numberWithInteger:{-[PLTimeReference timeReferenceType](self, "timeReferenceType")}];
-        v10 = [v8 stringWithFormat:@"PLTimeReferenceDynamic::checkForTimeChangeWithCurrentTime: timeReferenceType=%@, prevTimeInReference=%@, currentTimeInReference=%@", v9, v6, timeCopy, block, v19, v20, v21, v22];
+        v10 = [v8 stringWithFormat:@"PLTimeReferenceDynamic::checkForTimeChangeWithCurrentTime: timeReferenceType=%@, prevTimeInReference=%@, currentTimeInReference=%@", v9, v6, timeCopy, block, v20, v21, v22, v23];
 
         v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
         lastPathComponent = [v11 lastPathComponent];
         v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic checkForTimeChangeWithCurrentTime:]"];
         [PLCoreStorage logMessage:v10 fromFile:lastPathComponent fromFunction:v13 fromLineNumber:147];
 
-        v14 = PLLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = PLLogCommon(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -401,9 +398,9 @@ BOOL __57__PLTimeReferenceDynamic_registerForClockSetNotification__block_invoke(
     }
 
     [(PLTimeReference *)self offset];
-    v16 = v15;
+    v17 = v16;
     [timeCopy timeIntervalSinceDate:v6];
-    [(PLTimeReferenceDynamic *)self setOffset:v16 + v17];
+    [(PLTimeReferenceDynamic *)self setOffset:v17 + v18];
   }
 }
 
@@ -416,24 +413,24 @@ BOOL __60__PLTimeReferenceDynamic_checkForTimeChangeWithCurrentTime___block_invo
 
 - (id)newOffsetEntryWithCurrentTime
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
   [(PLTimeReference *)self offset];
   v4 = [monotonicDate dateByAddingTimeInterval:?];
 
   if (v4)
   {
-    v12[0] = @"offset";
+    v11[0] = @"offset";
     v5 = MEMORY[0x1E696AD98];
     [(PLTimeReference *)self offset];
     v6 = [v5 numberWithDouble:?];
-    v13[0] = v6;
-    v13[1] = v4;
-    v12[1] = @"startReferenceTime";
-    v12[2] = @"endReferenceTime";
+    v12[0] = v6;
+    v12[1] = v4;
+    v11[1] = @"startReferenceTime";
+    v11[2] = @"endReferenceTime";
     distantFuture = [MEMORY[0x1E695DF00] distantFuture];
-    v13[2] = distantFuture;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v12[2] = distantFuture;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
     v9 = [v8 mutableCopy];
   }
 
@@ -442,7 +439,6 @@ BOOL __60__PLTimeReferenceDynamic_checkForTimeChangeWithCurrentTime___block_invo
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -468,13 +464,12 @@ void __36__PLTimeReferenceDynamic_setOffset___block_invoke(uint64_t a1)
     v5 = v3 - v4;
     if (+[PLDefaults debugEnabled])
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
+      v6 = objc_opt_class();
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __36__PLTimeReferenceDynamic_setOffset___block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v7;
+      block[4] = v6;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_0 != -1)
       {
         dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_0, block);
@@ -482,13 +477,13 @@ void __36__PLTimeReferenceDynamic_setOffset___block_invoke(uint64_t a1)
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_0 == 1)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceDynamic::setOffset: delta=%f", *&v5];
-        v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
-        v10 = [v9 lastPathComponent];
-        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic setOffset:]_block_invoke"];
-        [PLCoreStorage logMessage:v8 fromFile:v10 fromFunction:v11 fromLineNumber:176];
+        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeReferenceDynamic::setOffset: delta=%f", *&v5];
+        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
+        v9 = [v8 lastPathComponent];
+        v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic setOffset:]_block_invoke"];
+        [PLCoreStorage logMessage:v7 fromFile:v9 fromFunction:v10 fromLineNumber:176];
 
-        v12 = PLLogCommon();
+        v12 = PLLogCommon(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -500,13 +495,12 @@ void __36__PLTimeReferenceDynamic_setOffset___block_invoke(uint64_t a1)
     {
       if (+[PLDefaults debugEnabled])
       {
-        v13 = *(a1 + 32);
-        v14 = objc_opt_class();
+        v13 = objc_opt_class();
         v43[0] = MEMORY[0x1E69E9820];
         v43[1] = 3221225472;
         v43[2] = __36__PLTimeReferenceDynamic_setOffset___block_invoke_50;
         v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v43[4] = v14;
+        v43[4] = v13;
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_48 != -1)
         {
           dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_48, v43);
@@ -514,17 +508,17 @@ void __36__PLTimeReferenceDynamic_setOffset___block_invoke(uint64_t a1)
 
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_49 == 1)
         {
-          v15 = MEMORY[0x1E696AEC0];
-          v16 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
+          v14 = MEMORY[0x1E696AEC0];
+          v15 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
           [*(a1 + 32) offset];
-          v18 = [v15 stringWithFormat:@"PLTimeReferenceDynamic::setOffset: timeReferenceType=%@, oldOffset=%f, newOffset=%f", v16, v17, *(a1 + 40)];
+          v17 = [v14 stringWithFormat:@"PLTimeReferenceDynamic::setOffset: timeReferenceType=%@, oldOffset=%f, newOffset=%f", v15, v16, *(a1 + 40)];
 
-          v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
-          v20 = [v19 lastPathComponent];
-          v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic setOffset:]_block_invoke_2"];
-          [PLCoreStorage logMessage:v18 fromFile:v20 fromFunction:v21 fromLineNumber:180];
+          v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
+          v19 = [v18 lastPathComponent];
+          v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic setOffset:]_block_invoke_2"];
+          [PLCoreStorage logMessage:v17 fromFile:v19 fromFunction:v20 fromLineNumber:180];
 
-          v22 = PLLogCommon();
+          v22 = PLLogCommon(v21);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
@@ -673,22 +667,21 @@ void __60__PLTimeReferenceDynamic_removeTimeOffsetFromReferenceTime___block_invo
 
       v15 = [v14 objectForKeyedSubscript:@"startReferenceTime"];
       v16 = [v14 objectForKeyedSubscript:@"endReferenceTime"];
-      v17 = *(a1 + 32);
       [objc_opt_class() nearestDistanceFromDate:*(a1 + 40) toRegionWithStartDate:v15 andEndDate:v16];
-      v19 = fabs(v18);
-      if (v19 < v2)
+      v18 = fabs(v17);
+      if (v18 < v2)
       {
-        v20 = [v14 objectForKeyedSubscript:@"offset"];
-        [v20 doubleValue];
-        v5 = v21;
+        v19 = [v14 objectForKeyedSubscript:@"offset"];
+        [v19 doubleValue];
+        v5 = v20;
 
-        if (v19 < 1.0)
+        if (v18 < 1.0)
         {
 
           break;
         }
 
-        v2 = v19;
+        v2 = v18;
       }
 
       ++v4;
@@ -696,30 +689,30 @@ void __60__PLTimeReferenceDynamic_removeTimeOffsetFromReferenceTime___block_invo
 
     objc_sync_exit(obj);
 
-    v22 = [*(a1 + 40) dateByAddingTimeInterval:-v5];
-    v23 = *(*(a1 + 48) + 8);
-    v24 = *(v23 + 40);
-    *(v23 + 40) = v22;
+    v21 = [*(a1 + 40) dateByAddingTimeInterval:-v5];
+    v22 = *(*(a1 + 48) + 8);
+    v23 = *(v22 + 40);
+    *(v22 + 40) = v21;
 
-    v25 = *(*(*(a1 + 48) + 8) + 40);
+    v24 = *(*(*(a1 + 48) + 8) + 40);
     [*(a1 + 32) tooFarInFutureDistance];
-    if (([v25 isInMonotonicFutureWithDistance:?] & 1) != 0 || (v26 = *(*(*(a1 + 48) + 8) + 40), objc_msgSend(*(a1 + 32), "tooFarInPastDistance"), objc_msgSend(v26, "isInMonotonicPastWithDistance:")))
+    if (([v24 isInMonotonicFutureWithDistance:?] & 1) != 0 || (v25 = *(*(*(a1 + 48) + 8) + 40), objc_msgSend(*(a1 + 32), "tooFarInPastDistance"), objc_msgSend(v25, "isInMonotonicPastWithDistance:")))
     {
       if ([*(a1 + 32) shouldQueryCurrentTime])
       {
-        v27 = [*(a1 + 32) currentTime];
+        v26 = [*(a1 + 32) currentTime];
       }
 
-      v28 = *(a1 + 40);
+      v27 = *(a1 + 40);
       [*(a1 + 32) offset];
-      v30 = [v28 dateByAddingTimeInterval:-v29];
-      v31 = *(*(a1 + 48) + 8);
-      v32 = *(v31 + 40);
-      *(v31 + 40) = v30;
+      v29 = [v27 dateByAddingTimeInterval:-v28];
+      v30 = *(*(a1 + 48) + 8);
+      v31 = *(v30 + 40);
+      *(v30 + 40) = v29;
 
-      v33 = *(*(*(a1 + 48) + 8) + 40);
+      v32 = *(*(*(a1 + 48) + 8) + 40);
       [*(a1 + 32) tooFarInFutureDistance];
-      if (([v33 isInMonotonicFutureWithDistance:?] & 1) != 0 || (v34 = *(*(*(a1 + 48) + 8) + 40), objc_msgSend(*(a1 + 32), "tooFarInPastDistance"), objc_msgSend(v34, "isInMonotonicPastWithDistance:")))
+      if (([v32 isInMonotonicFutureWithDistance:?] & 1) != 0 || (v33 = *(*(*(a1 + 48) + 8) + 40), objc_msgSend(*(a1 + 32), "tooFarInPastDistance"), objc_msgSend(v33, "isInMonotonicPastWithDistance:")))
       {
         if (+[PLPlatform internalBuild])
         {
@@ -727,38 +720,38 @@ void __60__PLTimeReferenceDynamic_removeTimeOffsetFromReferenceTime___block_invo
           block[1] = 3221225472;
           block[2] = __60__PLTimeReferenceDynamic_removeTimeOffsetFromReferenceTime___block_invoke_2;
           block[3] = &unk_1E85199A8;
-          v48 = @"PLTimeReferenceDynamic_TimeCorrection_Debug";
-          v49 = 0;
+          v47 = @"PLTimeReferenceDynamic_TimeCorrection_Debug";
+          v48 = 0;
           if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce != -1)
           {
             dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce, block);
           }
 
-          v35 = PLSubmissionAnalyticsStateSuccess_block_invoke_3_objectForKey;
+          v34 = PLSubmissionAnalyticsStateSuccess_block_invoke_3_objectForKey;
 
-          if (v35 == 1)
+          if (v34 == 1)
           {
-            v36 = [(PLOperator *)PLStorageOperator entryKeyForType:@"EventPoint" andName:@"TimeCorrection"];
-            v37 = [[PLEntry alloc] initWithEntryKey:v36];
-            v38 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
-            [(PLEntry *)v37 setObject:v38 forKeyedSubscript:@"TimeReferenceType"];
+            v35 = [(PLOperator *)PLStorageOperator entryKeyForType:@"EventPoint" andName:@"TimeCorrection"];
+            v36 = [[PLEntry alloc] initWithEntryKey:v35];
+            v37 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 32), "timeReferenceType")}];
+            [(PLEntry *)v36 setObject:v37 forKeyedSubscript:@"TimeReferenceType"];
 
-            [(PLEntry *)v37 setObject:*(a1 + 40) forKeyedSubscript:@"TimeInReference"];
-            [(PLEntry *)v37 setObject:*(*(*(a1 + 48) + 8) + 40) forKeyedSubscript:@"ProjectedTimeInMonotonic"];
-            v39 = [MEMORY[0x1E696AF00] callStackSymbols];
-            v40 = [v39 componentsJoinedByString:{@", "}];
-            [(PLEntry *)v37 setObject:v40 forKeyedSubscript:@"CallStack"];
+            [(PLEntry *)v36 setObject:*(a1 + 40) forKeyedSubscript:@"TimeInReference"];
+            [(PLEntry *)v36 setObject:*(*(*(a1 + 48) + 8) + 40) forKeyedSubscript:@"ProjectedTimeInMonotonic"];
+            v38 = [MEMORY[0x1E696AF00] callStackSymbols];
+            v39 = [v38 componentsJoinedByString:{@", "}];
+            [(PLEntry *)v36 setObject:v39 forKeyedSubscript:@"CallStack"];
 
-            v41 = +[PowerlogCore sharedCore];
-            v42 = [v41 storage];
-            [v42 writeEntry:v37 withCompletionBlock:&__block_literal_global_45];
+            v40 = +[PowerlogCore sharedCore];
+            v41 = [v40 storage];
+            [v41 writeEntry:v36 withCompletionBlock:&__block_literal_global_45];
           }
         }
 
-        v43 = [MEMORY[0x1E695DF00] monotonicDate];
-        v44 = *(*(a1 + 48) + 8);
-        v45 = *(v44 + 40);
-        *(v44 + 40) = v43;
+        v42 = [MEMORY[0x1E695DF00] monotonicDate];
+        v43 = *(*(a1 + 48) + 8);
+        v44 = *(v43 + 40);
+        *(v43 + 40) = v42;
       }
     }
   }
@@ -831,44 +824,44 @@ BOOL __60__PLTimeReferenceDynamic_removeTimeOffsetFromReferenceTime___block_invo
         v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic registerForTimeChangedCallbackWithIdentifier:usingBlock:]"];
         [PLCoreStorage logMessage:identifierCopy fromFile:lastPathComponent fromFunction:v14 fromLineNumber:322];
 
-        v15 = PLLogCommon();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = PLLogCommon(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
       }
     }
 
-    v16 = MEMORY[0x1DA71B0D0](v8);
+    v17 = MEMORY[0x1DA71B0D0](v8);
     timeChangeBlocks2 = [(PLTimeReferenceDynamic *)self timeChangeBlocks];
-    [timeChangeBlocks2 setObject:v16 forKeyedSubscript:identifierCopy];
+    [timeChangeBlocks2 setObject:v17 forKeyedSubscript:identifierCopy];
 
     if (+[PLDefaults debugEnabled])
     {
-      v18 = objc_opt_class();
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __82__PLTimeReferenceDynamic_registerForTimeChangedCallbackWithIdentifier_usingBlock___block_invoke_76;
-      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26[4] = v18;
+      v19 = objc_opt_class();
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __82__PLTimeReferenceDynamic_registerForTimeChangedCallbackWithIdentifier_usingBlock___block_invoke_76;
+      v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v28[4] = v19;
       if (registerForTimeChangedCallbackWithIdentifier_usingBlock__defaultOnce_74 != -1)
       {
-        dispatch_once(&registerForTimeChangedCallbackWithIdentifier_usingBlock__defaultOnce_74, v26);
+        dispatch_once(&registerForTimeChangedCallbackWithIdentifier_usingBlock__defaultOnce_74, v28);
       }
 
       if (registerForTimeChangedCallbackWithIdentifier_usingBlock__classDebugEnabled_75 == 1)
       {
-        v19 = MEMORY[0x1E696AEC0];
+        v20 = MEMORY[0x1E696AEC0];
         timeChangeBlocks3 = [(PLTimeReferenceDynamic *)self timeChangeBlocks];
-        v21 = [v19 stringWithFormat:@"self.timeChangeBlocks=%@", timeChangeBlocks3];
+        v22 = [v20 stringWithFormat:@"self.timeChangeBlocks=%@", timeChangeBlocks3];
 
-        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
-        lastPathComponent2 = [v22 lastPathComponent];
-        v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic registerForTimeChangedCallbackWithIdentifier:usingBlock:]"];
-        [PLCoreStorage logMessage:v21 fromFile:lastPathComponent2 fromFunction:v24 fromLineNumber:324];
+        v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
+        lastPathComponent2 = [v23 lastPathComponent];
+        v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic registerForTimeChangedCallbackWithIdentifier:usingBlock:]"];
+        [PLCoreStorage logMessage:v22 fromFile:lastPathComponent2 fromFunction:v25 fromLineNumber:324];
 
-        v25 = PLLogCommon();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v27 = PLLogCommon(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -921,8 +914,8 @@ BOOL __82__PLTimeReferenceDynamic_registerForTimeChangedCallbackWithIdentifier_u
         v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic unregisterForTimeChangedCallbackWithIdentifier:]"];
         [PLCoreStorage logMessage:identifierCopy fromFile:lastPathComponent fromFunction:v10 fromLineNumber:331];
 
-        v11 = PLLogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v12 = PLLogCommon(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -934,30 +927,30 @@ BOOL __82__PLTimeReferenceDynamic_registerForTimeChangedCallbackWithIdentifier_u
 
     if (+[PLDefaults debugEnabled])
     {
-      v13 = objc_opt_class();
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __73__PLTimeReferenceDynamic_unregisterForTimeChangedCallbackWithIdentifier___block_invoke_82;
-      v21[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v21[4] = v13;
+      v14 = objc_opt_class();
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __73__PLTimeReferenceDynamic_unregisterForTimeChangedCallbackWithIdentifier___block_invoke_82;
+      v23[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v23[4] = v14;
       if (unregisterForTimeChangedCallbackWithIdentifier__defaultOnce_80 != -1)
       {
-        dispatch_once(&unregisterForTimeChangedCallbackWithIdentifier__defaultOnce_80, v21);
+        dispatch_once(&unregisterForTimeChangedCallbackWithIdentifier__defaultOnce_80, v23);
       }
 
       if (unregisterForTimeChangedCallbackWithIdentifier__classDebugEnabled_81 == 1)
       {
-        v14 = MEMORY[0x1E696AEC0];
+        v15 = MEMORY[0x1E696AEC0];
         timeChangeBlocks3 = [(PLTimeReferenceDynamic *)self timeChangeBlocks];
-        v16 = [v14 stringWithFormat:@"self.timeChangeBlocks=%@", timeChangeBlocks3];
+        v17 = [v15 stringWithFormat:@"self.timeChangeBlocks=%@", timeChangeBlocks3];
 
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
-        lastPathComponent2 = [v17 lastPathComponent];
-        v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic unregisterForTimeChangedCallbackWithIdentifier:]"];
-        [PLCoreStorage logMessage:v16 fromFile:lastPathComponent2 fromFunction:v19 fromLineNumber:333];
+        v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeReferenceClasses/PLTimeReferenceDynamic.m"];
+        lastPathComponent2 = [v18 lastPathComponent];
+        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeReferenceDynamic unregisterForTimeChangedCallbackWithIdentifier:]"];
+        [PLCoreStorage logMessage:v17 fromFile:lastPathComponent2 fromFunction:v20 fromLineNumber:333];
 
-        v20 = PLLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = PLLogCommon(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -984,33 +977,33 @@ BOOL __73__PLTimeReferenceDynamic_unregisterForTimeChangedCallbackWithIdentifier
 
 - (void)notifyTimeChange:(double)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (change != 0.0)
   {
     timeChangeBlocks = [(PLTimeReferenceDynamic *)self timeChangeBlocks];
     objc_sync_enter(timeChangeBlocks);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     timeChangeBlocks2 = [(PLTimeReferenceDynamic *)self timeChangeBlocks];
     allValues = [timeChangeBlocks2 allValues];
 
-    v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * v10);
+          v11 = *(*(&v13 + 1) + 8 * v10);
           v12 = objc_autoreleasePoolPush();
           (*(v11 + 16))(v11, change);
           objc_autoreleasePoolPop(v12);
@@ -1018,7 +1011,7 @@ BOOL __73__PLTimeReferenceDynamic_unregisterForTimeChangedCallbackWithIdentifier
         }
 
         while (v8 != v10);
-        v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -1026,8 +1019,6 @@ BOOL __73__PLTimeReferenceDynamic_unregisterForTimeChangedCallbackWithIdentifier
 
     objc_sync_exit(timeChangeBlocks);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

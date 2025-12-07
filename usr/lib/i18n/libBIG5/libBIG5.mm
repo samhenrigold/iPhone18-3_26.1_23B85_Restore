@@ -55,7 +55,7 @@ void _citrus_BIG5_stdenc_uninit(uint64_t a1)
   }
 }
 
-uint64_t _citrus_BIG5_stdenc_mbtocs(uint64_t a1, _DWORD *a2, int *a3, uint64_t *a4, uint64_t a5, int *a6, uint64_t *a7, uint64_t a8)
+uint64_t _citrus_BIG5_stdenc_mbtocs(uint64_t a1, _DWORD *a2, unsigned int *a3, uint64_t *a4, uint64_t a5, int *a6, uint64_t *a7, uint64_t a8)
 {
   v15 = 0;
   v12 = _citrus_BIG5_mbrtowc_priv(*(a1 + 8), &v15, a4, a5, a6, a7);
@@ -77,11 +77,11 @@ uint64_t _citrus_BIG5_stdenc_mbtocs(uint64_t a1, _DWORD *a2, int *a3, uint64_t *
   return v12;
 }
 
-uint64_t _citrus_BIG5_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t *a7)
+uint64_t _citrus_BIG5_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   if (a4 == -1)
   {
-    a5 = 0;
+    LODWORD(a5) = 0;
   }
 
   else if (a4 > 1)
@@ -92,7 +92,7 @@ uint64_t _citrus_BIG5_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsign
   return _citrus_BIG5_wcrtomb_priv(*(a1 + 8), a2, a3, a5, a7);
 }
 
-uint64_t _citrus_BIG5_stdenc_mbtowc(uint64_t a1, _DWORD *a2, uint64_t *a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
+uint64_t _citrus_BIG5_stdenc_mbtowc(uint64_t a1, unsigned int *a2, uint64_t *a3, uint64_t a4, int *a5, uint64_t *a6, uint64_t a7)
 {
   v9 = _citrus_BIG5_mbrtowc_priv(*(a1 + 8), a2, a3, a4, a5, a6);
   v10 = v9;
@@ -278,7 +278,7 @@ LABEL_28:
     --a4;
   }
 
-  v11 = (a5 + 1);
+  v11 = a5 + 1;
   v12 = *(a1 + v8 + 4);
   if (v12)
   {
@@ -296,7 +296,7 @@ LABEL_28:
     while (a4)
     {
       v17 = *v6++;
-      v11[v16] = v17;
+      *(v11 + v16) = v17;
       v16 = *a5 + 1;
       *a5 = v16;
       --a4;

@@ -138,7 +138,7 @@ LABEL_9:
 
 - (void)configureSupplementaryRegistration:(id)registration elementKind:(id)kind sectionIdentifier:(id)identifier
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69DCC28];
   identifierCopy = identifier;
   registrationCopy = registration;
@@ -146,28 +146,29 @@ LABEL_9:
   [headerConfiguration setAxesPreservingSuperviewLayoutMargins:0];
   v11 = [(NSMutableDictionary *)self->_sectionIdentifierToSectionTitleMapping objectForKey:identifierCopy];
 
-  if ([v11 length])
+  v12 = [v11 length];
+  if (v12)
   {
-    v19[0] = *MEMORY[0x1E69DB648];
-    v12 = PKOBKListHeaderFont();
-    v20[0] = v12;
-    v19[1] = *MEMORY[0x1E69DB650];
-    v13 = PKOBKListHeaderTextColor();
-    v20[1] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v20[0] = *MEMORY[0x1E69DB648];
+    v13 = PKOBKListHeaderFont(v12);
+    v21[0] = v13;
+    v20[1] = *MEMORY[0x1E69DB650];
+    v14 = PKOBKListHeaderTextColor(v13);
+    v21[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
-    v15 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:v14];
-    [headerConfiguration setAttributedText:v15];
+    v16 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v11 attributes:v15];
+    [headerConfiguration setAttributedText:v16];
 
-    v16 = PKSetupViewConstantsViewMargin();
-    v17 = PKSetupListViewConstantsViewMargin();
-    v18 = v16 - v17;
-    if (v17 > v16)
+    v17 = PKSetupViewConstantsViewMargin();
+    v18 = PKSetupListViewConstantsViewMargin();
+    v19 = v17 - v18;
+    if (v18 > v17)
     {
-      v18 = 0.0;
+      v19 = 0.0;
     }
 
-    [headerConfiguration setDirectionalLayoutMargins:{10.0, v18, 10.0, v18}];
+    [headerConfiguration setDirectionalLayoutMargins:{10.0, v19, 10.0, v19}];
   }
 
   else
@@ -210,11 +211,11 @@ LABEL_9:
   }
 }
 
-uint64_t __59__PKPaymentSetupCategoriesSectionController_didSelectItem___block_invoke(uint64_t result, int a2)
+id *__59__PKPaymentSetupCategoriesSectionController_didSelectItem___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _updateItemIdentifier:*(result + 40) loadingIndicatorVisibility:0 animated:0];
+    return [result[4] _updateItemIdentifier:result[5] loadingIndicatorVisibility:0 animated:0];
   }
 
   return result;

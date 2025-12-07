@@ -107,7 +107,7 @@ LABEL_12:
       *(v4 + 22) = [config path];
       if (config)
       {
-        [config audioFormat];
+        objc_msgSend_audioFormat(config);
       }
 
       else
@@ -1099,7 +1099,8 @@ LABEL_11:
       v20 = formatDescriptions;
       if (formatDescriptions && [formatDescriptions count])
       {
-        +[VCAudioInjector internalAssetFormatWithFileFormat:](VCAudioInjector, "internalAssetFormatWithFileFormat:", CMAudioFormatDescriptionGetStreamBasicDescription([v20 objectAtIndex:0]));
+        CMAudioFormatDescriptionGetStreamBasicDescription([v20 objectAtIndex:0]);
+        objc_msgSend_internalAssetFormatWithFileFormat_(VCAudioInjector);
         v21 = 0;
         v22 = *&buf[16];
         *&format->mSampleRate = *buf;
@@ -1981,7 +1982,7 @@ LABEL_28:
   track = [output track];
   if (track)
   {
-    [track timeRange];
+    objc_msgSend_timeRange(track);
   }
 
   else

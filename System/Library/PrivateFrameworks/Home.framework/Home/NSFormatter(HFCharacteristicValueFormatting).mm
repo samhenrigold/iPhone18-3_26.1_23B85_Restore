@@ -150,14 +150,14 @@ LABEL_23:
 
 + (id)_hf_valueFormatterForCharacteristicMetadata:()HFCharacteristicValueFormatting options:
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v4 = a3;
   units = [v4 units];
   v6 = *MEMORY[0x277CCF6F8];
   v7 = *MEMORY[0x277CCF700];
-  v21[0] = *MEMORY[0x277CCF6F8];
-  v21[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = *MEMORY[0x277CCF6F8];
+  v20[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v9 = [v8 containsObject:units];
 
   if (v9)
@@ -249,7 +249,6 @@ LABEL_23:
   v14 = v18;
 
 LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -273,17 +272,17 @@ LABEL_24:
 
 + (id)_hf_positionFormatterWithMetadata:()HFCharacteristicValueFormatting options:
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [self _hf_percentFormatterForMetadata:a3];
   v8 = *MEMORY[0x277CD0F58];
-  v21[0] = *MEMORY[0x277CD0E30];
-  v21[1] = v8;
-  v22[0] = @"HMServiceTypeDoor";
-  v22[1] = @"HMServiceTypeWindow";
-  v21[2] = *MEMORY[0x277CD0F60];
-  v22[2] = @"HMServiceTypeWindowCovering";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v20[0] = *MEMORY[0x277CD0E30];
+  v20[1] = v8;
+  v21[0] = @"HMServiceTypeDoor";
+  v21[1] = @"HMServiceTypeWindow";
+  v20[2] = *MEMORY[0x277CD0F60];
+  v21[2] = @"HMServiceTypeWindowCovering";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
   v10 = [v6 objectForKeyedSubscript:@"serviceType"];
   v11 = [v9 objectForKey:v10];
 
@@ -293,17 +292,15 @@ LABEL_24:
     NSLog(&cfstr_NoFormatString.isa, v12);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __90__NSFormatter_HFCharacteristicValueFormatting___hf_positionFormatterWithMetadata_options___block_invoke;
-  v18[3] = &unk_277E01B60;
-  v19 = v11;
-  v20 = v7;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __90__NSFormatter_HFCharacteristicValueFormatting___hf_positionFormatterWithMetadata_options___block_invoke;
+  v17[3] = &unk_277E01B60;
+  v18 = v11;
+  v19 = v7;
   v13 = v7;
   v14 = v11;
-  v15 = [HFValueSetFormatter formatterWithStringProvider:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [HFValueSetFormatter formatterWithStringProvider:v17];
 
   return v15;
 }
@@ -328,7 +325,7 @@ LABEL_24:
 
 + (id)_hf_valueSetFormatterForCharacteristicType:()HFCharacteristicValueFormatting options:
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v4 = a3;
   hf_powerStateCharacteristicTypes = [MEMORY[0x277CD1970] hf_powerStateCharacteristicTypes];
   v6 = [hf_powerStateCharacteristicTypes containsObject:v4];
@@ -342,9 +339,9 @@ LABEL_31:
   }
 
   v8 = *MEMORY[0x277CCFB08];
-  v22[0] = *MEMORY[0x277CCF800];
-  v22[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = *MEMORY[0x277CCF800];
+  v21[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v10 = [v9 containsObject:v4];
 
   if (v10)
@@ -354,9 +351,9 @@ LABEL_31:
   }
 
   v11 = *MEMORY[0x277CCFB20];
-  v21[0] = *MEMORY[0x277CCF818];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[0] = *MEMORY[0x277CCF818];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v13 = [v12 containsObject:v4];
 
   if (v13)
@@ -366,9 +363,9 @@ LABEL_31:
   }
 
   v14 = *MEMORY[0x277CCFB40];
-  v20[0] = *MEMORY[0x277CCF838];
-  v20[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = *MEMORY[0x277CCF838];
+  v19[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v16 = [v15 containsObject:v4];
 
   if (v16)
@@ -445,8 +442,6 @@ LABEL_31:
 
   v17 = 0;
 LABEL_32:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -577,7 +572,7 @@ LABEL_32:
 
 + (HFFormatterTransformer)hf_controlDescriptionFormatterForCharacteristicType:()HFCharacteristicValueFormatting withMetadata:options:form:
 {
-  v49[7] = *MEMORY[0x277D85DE8];
+  v48[7] = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a5;
   v12 = [self hf_valueFormatterForCharacteristicType:v10 withMetadata:a4 options:v11];
@@ -608,54 +603,54 @@ LABEL_7:
   }
 
   v20 = *MEMORY[0x277CCF7A0];
-  v49[0] = *MEMORY[0x277CCF770];
-  v49[1] = v20;
+  v48[0] = *MEMORY[0x277CCF770];
+  v48[1] = v20;
   v21 = *MEMORY[0x277CCF938];
-  v49[2] = *MEMORY[0x277CCF7B8];
-  v49[3] = v21;
+  v48[2] = *MEMORY[0x277CCF7B8];
+  v48[3] = v21;
   v22 = *MEMORY[0x277CCF9A8];
-  v49[4] = *MEMORY[0x277CCF978];
-  v49[5] = v22;
-  v49[6] = *MEMORY[0x277CCFA80];
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:7];
+  v48[4] = *MEMORY[0x277CCF978];
+  v48[5] = v22;
+  v48[6] = *MEMORY[0x277CCFA80];
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:7];
   v24 = [v23 containsObject:v10];
 
   if (v24)
   {
     v25 = [HFFormatterTransformer alloc];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_4;
-    v45[3] = &unk_277E01BC8;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_4;
+    v44[3] = &unk_277E01BC8;
     selfCopy = self;
-    v46 = v10;
-    v48 = a6;
-    v19 = [(HFFormatterTransformer *)v25 initWithSourceFormatter:v12 transformBlock:v45];
-    v26 = v46;
+    v45 = v10;
+    v47 = a6;
+    v19 = [(HFFormatterTransformer *)v25 initWithSourceFormatter:v12 transformBlock:v44];
+    v26 = v45;
   }
 
   else if ([v10 isEqualToString:*MEMORY[0x277CCF850]] && (objc_msgSend(v11, "objectForKey:", @"roomName"), v27 = objc_claimAutoreleasedReturnValue(), v27, v27))
   {
     v28 = [HFFormatterTransformer alloc];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_5;
-    v43[3] = &unk_277E01BF0;
-    v44 = v11;
-    v19 = [(HFFormatterTransformer *)v28 initWithSourceFormatter:v12 transformBlock:v43];
-    v26 = v44;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_5;
+    v42[3] = &unk_277E01BF0;
+    v43 = v11;
+    v19 = [(HFFormatterTransformer *)v28 initWithSourceFormatter:v12 transformBlock:v42];
+    v26 = v43;
   }
 
   else if ([v10 isEqualToString:*MEMORY[0x277CCF868]] && (objc_msgSend(v11, "objectForKey:", @"roomName"), v29 = objc_claimAutoreleasedReturnValue(), v29, v29))
   {
     v30 = [HFFormatterTransformer alloc];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_6;
-    v41[3] = &unk_277E01BF0;
-    v42 = v11;
-    v19 = [(HFFormatterTransformer *)v30 initWithSourceFormatter:v12 transformBlock:v41];
-    v26 = v42;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_6;
+    v40[3] = &unk_277E01BF0;
+    v41 = v11;
+    v19 = [(HFFormatterTransformer *)v30 initWithSourceFormatter:v12 transformBlock:v40];
+    v26 = v41;
   }
 
   else
@@ -664,16 +659,16 @@ LABEL_7:
     {
       if (![v10 isEqualToString:*MEMORY[0x277CCFBC0]])
       {
-        v35 = [self _hf_controlTitleForCharacteristicType:v10];
-        if (v35)
+        v34 = [self _hf_controlTitleForCharacteristicType:v10];
+        if (v34)
         {
-          v36 = [HFFormatterTransformer alloc];
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_9;
-          v37[3] = &unk_277E01BF0;
-          v38 = v35;
-          v19 = [(HFFormatterTransformer *)v36 initWithSourceFormatter:v12 transformBlock:v37];
+          v35 = [HFFormatterTransformer alloc];
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_9;
+          v36[3] = &unk_277E01BF0;
+          v37 = v34;
+          v19 = [(HFFormatterTransformer *)v35 initWithSourceFormatter:v12 transformBlock:v36];
         }
 
         else
@@ -690,17 +685,16 @@ LABEL_7:
     }
 
     v32 = [HFFormatterTransformer alloc];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_7;
-    v39[3] = &unk_277E01BF0;
-    v40 = v11;
-    v19 = [(HFFormatterTransformer *)v32 initWithSourceFormatter:v12 transformBlock:v39];
-    v26 = v40;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __126__NSFormatter_HFCharacteristicValueFormatting__hf_controlDescriptionFormatterForCharacteristicType_withMetadata_options_form___block_invoke_7;
+    v38[3] = &unk_277E01BF0;
+    v39 = v11;
+    v19 = [(HFFormatterTransformer *)v32 initWithSourceFormatter:v12 transformBlock:v38];
+    v26 = v39;
   }
 
 LABEL_21:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

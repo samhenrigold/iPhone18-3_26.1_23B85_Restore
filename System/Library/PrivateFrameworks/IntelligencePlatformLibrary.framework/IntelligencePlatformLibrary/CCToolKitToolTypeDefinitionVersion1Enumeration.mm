@@ -15,10 +15,10 @@
 
 - (CCToolKitToolTypeDefinitionVersion1Enumeration)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   objc_opt_class();
-  v98[1] = 0;
+  v97[1] = 0;
   IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
   v8 = 0;
   if (IsInstanceOfExpectedClass)
@@ -26,9 +26,9 @@
     v9 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
     if (v9)
     {
-      v98[0] = 0;
-      v10 = [[CCToolKitToolTypeIdentifier alloc] initWithJSONDictionary:v9 error:v98];
-      v11 = v98[0];
+      v97[0] = 0;
+      v10 = [[CCToolKitToolTypeIdentifier alloc] initWithJSONDictionary:v9 error:v97];
+      v11 = v97[0];
       v12 = v11;
       if (!v10 || v11)
       {
@@ -45,46 +45,46 @@
     if (!v13)
     {
       v12 = 0;
-      v76 = v8;
+      v75 = v8;
       goto LABEL_24;
     }
 
     v14 = v13;
     objc_opt_class();
-    v97 = v8;
+    v96 = v8;
     v15 = CCValidateIsInstanceOfExpectedClass();
     v16 = v8;
 
     if (v15)
     {
       selfCopy = self;
-      v76 = v16;
-      v70 = v9;
+      v75 = v16;
+      v69 = v9;
       v12 = objc_opt_new();
+      v92 = 0u;
       v93 = 0u;
       v94 = 0u;
       v95 = 0u;
-      v96 = 0u;
       v17 = v14;
-      v18 = [v17 countByEnumeratingWithState:&v93 objects:v101 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v92 objects:v100 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v94;
+        v20 = *v93;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v94 != v20)
+            if (*v93 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v93 + 1) + 8 * i);
+            v22 = *(*(&v92 + 1) + 8 * i);
             v23 = [CCToolKitToolTypeDefinitionVersion1EnumerationCase alloc];
-            v92 = 0;
-            v24 = [(CCToolKitToolTypeDefinitionVersion1EnumerationCase *)v23 initWithJSONDictionary:v22 error:&v92];
-            v25 = v92;
+            v91 = 0;
+            v24 = [(CCToolKitToolTypeDefinitionVersion1EnumerationCase *)v23 initWithJSONDictionary:v22 error:&v91];
+            v25 = v91;
             if (v24)
             {
               v26 = v25 == 0;
@@ -103,21 +103,21 @@
               v42 = 0;
               v12 = v17;
               self = selfCopy;
-              v8 = v76;
-              v9 = v70;
+              v8 = v75;
+              v9 = v69;
               goto LABEL_71;
             }
 
             [v12 addObject:v24];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v93 objects:v101 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v92 objects:v100 count:16];
         }
 
         while (v19);
       }
 
-      v9 = v70;
+      v9 = v69;
       self = selfCopy;
 LABEL_24:
       v27 = [dictionaryCopy objectForKeyedSubscript:@"runtimeRequirements"];
@@ -125,9 +125,9 @@ LABEL_24:
       {
         v28 = v27;
         objc_opt_class();
-        v91 = v76;
+        v90 = v75;
         v29 = CCValidateIsInstanceOfExpectedClass();
-        v8 = v76;
+        v8 = v75;
 
         if ((v29 & 1) == 0)
         {
@@ -140,33 +140,33 @@ LABEL_70:
         }
 
         selfCopy2 = self;
-        v77 = dictionaryCopy;
-        v71 = v9;
+        v76 = dictionaryCopy;
+        v70 = v9;
         v30 = objc_opt_new();
+        v86 = 0u;
         v87 = 0u;
         v88 = 0u;
         v89 = 0u;
-        v90 = 0u;
         v31 = v28;
-        v32 = [v31 countByEnumeratingWithState:&v87 objects:v100 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v86 objects:v99 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v88;
+          v34 = *v87;
           do
           {
             for (j = 0; j != v33; ++j)
             {
-              if (*v88 != v34)
+              if (*v87 != v34)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v36 = *(*(&v87 + 1) + 8 * j);
+              v36 = *(*(&v86 + 1) + 8 * j);
               v37 = [CCToolKitToolRuntimeRequirement alloc];
-              v86 = 0;
-              v38 = [(CCToolKitToolRuntimeRequirement *)v37 initWithJSONDictionary:v36 error:&v86];
-              v39 = v86;
+              v85 = 0;
+              v38 = [(CCToolKitToolRuntimeRequirement *)v37 initWithJSONDictionary:v36 error:&v85];
+              v39 = v85;
               if (v38)
               {
                 v40 = v39 == 0;
@@ -184,39 +184,39 @@ LABEL_70:
 
                 v42 = 0;
                 v49 = v31;
-                v9 = v71;
+                v9 = v70;
                 self = selfCopy2;
-                dictionaryCopy = v77;
+                dictionaryCopy = v76;
                 goto LABEL_70;
               }
 
               [v30 addObject:v38];
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v87 objects:v100 count:16];
+            v33 = [v31 countByEnumeratingWithState:&v86 objects:v99 count:16];
           }
 
           while (v33);
         }
 
-        v9 = v71;
+        v9 = v70;
         self = selfCopy2;
         v49 = v30;
-        dictionaryCopy = v77;
+        dictionaryCopy = v76;
       }
 
       else
       {
         v49 = 0;
-        v8 = v76;
+        v8 = v75;
       }
 
       v43 = [dictionaryCopy objectForKeyedSubscript:@"displayRepresentation"];
       if (v43)
       {
-        v85 = 0;
-        v44 = [[CCToolKitToolTypeDisplayRepresentation alloc] initWithJSONDictionary:v43 error:&v85];
-        v45 = v85;
+        v84 = 0;
+        v44 = [[CCToolKitToolTypeDisplayRepresentation alloc] initWithJSONDictionary:v43 error:&v84];
+        v45 = v84;
         v46 = v45;
         if (!v44 || v45)
         {
@@ -243,55 +243,55 @@ LABEL_70:
       v50 = [dictionaryCopy objectForKeyedSubscript:@"systemProtocols"];
       if (!v50)
       {
-        v69 = v46;
+        v68 = v46;
         v53 = 0;
 LABEL_66:
         v42 = [[CCToolKitToolTypeDefinitionVersion1Enumeration alloc] initWithIdentifier:v9 cases:v12 runtimeRequirements:v49 displayRepresentation:v43 kind:unsignedIntegerValue systemProtocols:v53 error:error];
         v44 = v53;
 LABEL_68:
-        v46 = v69;
+        v46 = v68;
         goto LABEL_69;
       }
 
       v44 = v50;
-      v67 = v43;
-      v68 = v49;
+      v66 = v43;
+      v67 = v49;
       objc_opt_class();
-      v84 = v8;
+      v83 = v8;
       v51 = CCValidateIsInstanceOfExpectedClass();
       v52 = v8;
 
       if (v51)
       {
-        v66 = v52;
-        v69 = v46;
-        v72 = v9;
+        v65 = v52;
+        v68 = v46;
+        v71 = v9;
         selfCopy3 = self;
         v53 = objc_opt_new();
+        v79 = 0u;
         v80 = 0u;
         v81 = 0u;
         v82 = 0u;
-        v83 = 0u;
         v44 = v44;
-        v54 = [(CCToolKitToolTypeDisplayRepresentation *)v44 countByEnumeratingWithState:&v80 objects:v99 count:16];
+        v54 = [(CCToolKitToolTypeDisplayRepresentation *)v44 countByEnumeratingWithState:&v79 objects:v98 count:16];
         if (v54)
         {
           v55 = v54;
-          v56 = *v81;
+          v56 = *v80;
           do
           {
             for (k = 0; k != v55; ++k)
             {
-              if (*v81 != v56)
+              if (*v80 != v56)
               {
                 objc_enumerationMutation(v44);
               }
 
-              v58 = *(*(&v80 + 1) + 8 * k);
+              v58 = *(*(&v79 + 1) + 8 * k);
               v59 = [CCToolKitToolSystemTypeProtocol alloc];
-              v79 = 0;
-              v60 = [(CCToolKitToolSystemTypeProtocol *)v59 initWithJSONDictionary:v58 error:&v79];
-              v61 = v79;
+              v78 = 0;
+              v60 = [(CCToolKitToolSystemTypeProtocol *)v59 initWithJSONDictionary:v58 error:&v78];
+              v61 = v78;
               if (v60)
               {
                 v62 = v61 == 0;
@@ -308,36 +308,36 @@ LABEL_68:
                 CCSetError();
 
                 v42 = 0;
-                v8 = v66;
-                v43 = v67;
-                v9 = v72;
+                v8 = v65;
+                v43 = v66;
+                v9 = v71;
                 self = selfCopy3;
-                v49 = v68;
+                v49 = v67;
                 goto LABEL_68;
               }
 
               [(CCToolKitToolTypeDisplayRepresentation *)v53 addObject:v60];
             }
 
-            v55 = [(CCToolKitToolTypeDisplayRepresentation *)v44 countByEnumeratingWithState:&v80 objects:v99 count:16];
+            v55 = [(CCToolKitToolTypeDisplayRepresentation *)v44 countByEnumeratingWithState:&v79 objects:v98 count:16];
           }
 
           while (v55);
         }
 
-        v8 = v66;
-        v43 = v67;
-        v9 = v72;
+        v8 = v65;
+        v43 = v66;
+        v9 = v71;
         self = selfCopy3;
-        v49 = v68;
+        v49 = v67;
         goto LABEL_66;
       }
 
       CCSetError();
       v42 = 0;
       v8 = v52;
-      v43 = v67;
-      v49 = v68;
+      v43 = v66;
+      v49 = v67;
 LABEL_69:
 
       goto LABEL_70;
@@ -356,13 +356,12 @@ LABEL_71:
   v42 = 0;
 LABEL_72:
 
-  v64 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
 - (id)jsonDictionary
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_identifier)
   {
@@ -374,30 +373,30 @@ LABEL_72:
   if (self->_cases)
   {
     v6 = objc_opt_new();
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     cases = [(CCToolKitToolTypeDefinitionVersion1Enumeration *)self cases];
-    v8 = [cases countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v8 = [cases countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v42;
+      v10 = *v41;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v42 != v10)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(cases);
           }
 
-          jsonDictionary2 = [*(*(&v41 + 1) + 8 * i) jsonDictionary];
+          jsonDictionary2 = [*(*(&v40 + 1) + 8 * i) jsonDictionary];
           [v6 addObject:jsonDictionary2];
         }
 
-        v9 = [cases countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v9 = [cases countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v9);
@@ -409,30 +408,30 @@ LABEL_72:
   if (self->_runtimeRequirements)
   {
     v13 = objc_opt_new();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     runtimeRequirements = [(CCToolKitToolTypeDefinitionVersion1Enumeration *)self runtimeRequirements];
-    v15 = [runtimeRequirements countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v15 = [runtimeRequirements countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v38;
+      v17 = *v37;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v38 != v17)
+          if (*v37 != v17)
           {
             objc_enumerationMutation(runtimeRequirements);
           }
 
-          jsonDictionary3 = [*(*(&v37 + 1) + 8 * j) jsonDictionary];
+          jsonDictionary3 = [*(*(&v36 + 1) + 8 * j) jsonDictionary];
           [v13 addObject:jsonDictionary3];
         }
 
-        v16 = [runtimeRequirements countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v16 = [runtimeRequirements countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v16);
@@ -454,30 +453,30 @@ LABEL_72:
   if (self->_systemProtocols)
   {
     v23 = objc_opt_new();
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     systemProtocols = [(CCToolKitToolTypeDefinitionVersion1Enumeration *)self systemProtocols];
-    v25 = [systemProtocols countByEnumeratingWithState:&v33 objects:v45 count:16];
+    v25 = [systemProtocols countByEnumeratingWithState:&v32 objects:v44 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v34;
+      v27 = *v33;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v34 != v27)
+          if (*v33 != v27)
           {
             objc_enumerationMutation(systemProtocols);
           }
 
-          jsonDictionary5 = [*(*(&v33 + 1) + 8 * k) jsonDictionary];
+          jsonDictionary5 = [*(*(&v32 + 1) + 8 * k) jsonDictionary];
           [v23 addObject:jsonDictionary5];
         }
 
-        v26 = [systemProtocols countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v26 = [systemProtocols countByEnumeratingWithState:&v32 objects:v44 count:16];
       }
 
       while (v26);
@@ -487,8 +486,6 @@ LABEL_72:
   }
 
   v30 = [v3 copy];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v30;
 }
@@ -583,8 +580,8 @@ LABEL_72:
   if (*&v5[*MEMORY[0x1E6993AB8]] < *&v5[*MEMORY[0x1E6993AB0]])
   {
     v8 = 0;
-    v59 = 0;
-    v60 = 0;
+    v56 = 0;
+    v57 = 0;
     v9 = 0;
     v10 = MEMORY[0x1E6993AA8];
     v11 = MEMORY[0x1E6993AA0];
@@ -673,9 +670,9 @@ LABEL_21:
             }
 
             v41 = [CCToolKitToolSystemTypeProtocol alloc];
-            v61 = 0;
-            v26 = [(CCItemMessage *)v41 initWithData:v24 error:&v61];
-            v8 = v61;
+            v58 = 0;
+            v26 = [(CCItemMessage *)v41 initWithData:v24 error:&v58];
+            v8 = v58;
             if (v8 || !v26)
             {
               goto LABEL_56;
@@ -745,16 +742,15 @@ LABEL_43:
 
           v42 = objc_opt_class();
           v24 = NSStringFromClass(v42);
-          v43 = *&v5[*v10];
           v8 = CCSkipFieldErrorForMessage();
           goto LABEL_57;
         }
 
         v38 = [CCToolKitToolTypeDisplayRepresentation alloc];
         v24 = CCPBReaderReadDataNoCopy();
-        v62 = 0;
-        v36 = [(CCItemMessage *)v38 initWithData:v24 error:&v62];
-        v8 = v62;
+        v59 = 0;
+        v36 = [(CCItemMessage *)v38 initWithData:v24 error:&v59];
+        v8 = v59;
         v37 = 48;
       }
 
@@ -765,42 +761,42 @@ LABEL_43:
           if (v23 == 2)
           {
             v24 = CCPBReaderReadDataNoCopy();
-            if (!v60)
+            if (!v57)
             {
-              v60 = objc_opt_new();
+              v57 = objc_opt_new();
             }
 
             v40 = [CCToolKitToolTypeDefinitionVersion1EnumerationCase alloc];
-            v64 = 0;
-            v26 = [(CCItemMessage *)v40 initWithData:v24 error:&v64];
-            v8 = v64;
+            v61 = 0;
+            v26 = [(CCItemMessage *)v40 initWithData:v24 error:&v61];
+            v8 = v61;
             if (v8 || !v26)
             {
               goto LABEL_56;
             }
 
-            v27 = v60;
+            v27 = v57;
             goto LABEL_55;
           }
 
           if (v23 == 3)
           {
             v24 = CCPBReaderReadDataNoCopy();
-            if (!v59)
+            if (!v56)
             {
-              v59 = objc_opt_new();
+              v56 = objc_opt_new();
             }
 
             v25 = [CCToolKitToolRuntimeRequirement alloc];
-            v63 = 0;
-            v26 = [(CCItemMessage *)v25 initWithData:v24 error:&v63];
-            v8 = v63;
+            v60 = 0;
+            v26 = [(CCItemMessage *)v25 initWithData:v24 error:&v60];
+            v8 = v60;
             if (v8 || !v26)
             {
               goto LABEL_56;
             }
 
-            v27 = v59;
+            v27 = v56;
 LABEL_55:
             [v27 addObject:v26];
 LABEL_56:
@@ -813,9 +809,9 @@ LABEL_56:
 
         v35 = [CCToolKitToolTypeIdentifier alloc];
         v24 = CCPBReaderReadDataNoCopy();
-        v65 = 0;
-        v36 = [(CCItemMessage *)v35 initWithData:v24 error:&v65];
-        v8 = v65;
+        v62 = 0;
+        v36 = [(CCItemMessage *)v35 initWithData:v24 error:&v62];
+        v8 = v62;
         v37 = 24;
       }
 
@@ -830,57 +826,55 @@ LABEL_57:
   }
 
   v9 = 0;
-  v59 = 0;
-  v60 = 0;
+  v56 = 0;
+  v57 = 0;
 LABEL_66:
   v8 = 0;
 LABEL_67:
-  v44 = [v60 copy];
+  v43 = [v57 copy];
   cases = self->_cases;
-  self->_cases = v44;
+  self->_cases = v43;
 
-  v46 = [v59 copy];
+  v45 = [v56 copy];
   runtimeRequirements = self->_runtimeRequirements;
-  self->_runtimeRequirements = v46;
+  self->_runtimeRequirements = v45;
 
-  v48 = [v9 copy];
+  v47 = [v9 copy];
   systemProtocols = self->_systemProtocols;
-  self->_systemProtocols = v48;
+  self->_systemProtocols = v47;
 
   if (v8)
   {
     CCSetError();
-    v50 = 0;
-    v51 = dataCopy;
+    v49 = 0;
+    v50 = dataCopy;
   }
 
   else
   {
-    v52 = MEMORY[0x1E6993AA8];
-    v51 = dataCopy;
+    v50 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v53 = objc_opt_class();
-      v54 = NSStringFromClass(v53);
-      v55 = *&v5[*v52];
-      v56 = CCInvalidBufferErrorForMessage();
+      v51 = objc_opt_class();
+      v52 = NSStringFromClass(v51);
+      v53 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v50 = 0;
+      v49 = 0;
     }
 
     else
     {
-      v50 = 1;
+      v49 = 1;
     }
   }
 
-  return v50;
+  return v49;
 }
 
 - (CCToolKitToolTypeDefinitionVersion1Enumeration)initWithIdentifier:(id)identifier cases:(id)cases runtimeRequirements:(id)requirements displayRepresentation:(id)representation kind:(unsigned int)kind systemProtocols:(id)protocols error:(id *)error
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   casesCopy = cases;
   requirementsCopy = requirements;
@@ -895,7 +889,7 @@ LABEL_5:
     if (casesCopy)
     {
       objc_opt_class();
-      v78 = v21;
+      v77 = v21;
       v23 = CCValidateArrayValues();
       v24 = v21;
 
@@ -904,39 +898,39 @@ LABEL_5:
         goto LABEL_34;
       }
 
-      v54 = protocolsCopy;
-      v57 = representationCopy;
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
+      v53 = protocolsCopy;
+      v56 = representationCopy;
       v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
       v25 = casesCopy;
-      v26 = [v25 countByEnumeratingWithState:&v74 objects:v82 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v73 objects:v81 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v75;
+        v28 = *v74;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v75 != v28)
+            if (*v74 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            data = [*(*(&v74 + 1) + 8 * i) data];
+            data = [*(*(&v73 + 1) + 8 * i) data];
             CCPBDataWriterWriteDataField();
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v74 objects:v82 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v73 objects:v81 count:16];
         }
 
         while (v27);
       }
 
-      protocolsCopy = v54;
-      representationCopy = v57;
+      protocolsCopy = v53;
+      representationCopy = v56;
       if (!requirementsCopy)
       {
 LABEL_15:
@@ -960,7 +954,7 @@ LABEL_15:
     }
 
     objc_opt_class();
-    v73 = v24;
+    v72 = v24;
     v34 = CCValidateArrayValues();
     v21 = v24;
 
@@ -974,44 +968,44 @@ LABEL_35:
       goto LABEL_50;
     }
 
-    v55 = protocolsCopy;
-    v58 = representationCopy;
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
+    v54 = protocolsCopy;
+    v57 = representationCopy;
     v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
     v35 = requirementsCopy;
-    v36 = [v35 countByEnumeratingWithState:&v69 objects:v81 count:16];
+    v36 = [v35 countByEnumeratingWithState:&v68 objects:v80 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v70;
+      v38 = *v69;
       do
       {
         for (j = 0; j != v37; ++j)
         {
-          if (*v70 != v38)
+          if (*v69 != v38)
           {
             objc_enumerationMutation(v35);
           }
 
-          data2 = [*(*(&v69 + 1) + 8 * j) data];
+          data2 = [*(*(&v68 + 1) + 8 * j) data];
           CCPBDataWriterWriteDataField();
         }
 
-        v37 = [v35 countByEnumeratingWithState:&v69 objects:v81 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v68 objects:v80 count:16];
       }
 
       while (v37);
     }
 
-    protocolsCopy = v55;
-    representationCopy = v58;
-    if (v58)
+    protocolsCopy = v54;
+    representationCopy = v57;
+    if (v57)
     {
 LABEL_16:
       objc_opt_class();
-      v68 = v21;
+      v67 = v21;
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
       v24 = v21;
 
@@ -1023,14 +1017,14 @@ LABEL_16:
 LABEL_30:
         if (!kind)
         {
-          v59 = representationCopy;
+          v58 = representationCopy;
           v21 = v24;
 LABEL_37:
           v42 = selfCopy;
           if (protocolsCopy)
           {
             objc_opt_class();
-            v66 = v21;
+            v65 = v21;
             v43 = CCValidateArrayValues();
             v44 = v21;
 
@@ -1043,31 +1037,31 @@ LABEL_37:
               goto LABEL_49;
             }
 
-            v64 = 0u;
-            v65 = 0u;
-            v62 = 0u;
             v63 = 0u;
-            v56 = protocolsCopy;
+            v64 = 0u;
+            v61 = 0u;
+            v62 = 0u;
+            v55 = protocolsCopy;
             v45 = protocolsCopy;
-            v46 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+            v46 = [v45 countByEnumeratingWithState:&v61 objects:v79 count:16];
             if (v46)
             {
               v47 = v46;
-              v48 = *v63;
+              v48 = *v62;
               do
               {
                 for (k = 0; k != v47; ++k)
                 {
-                  if (*v63 != v48)
+                  if (*v62 != v48)
                   {
                     objc_enumerationMutation(v45);
                   }
 
-                  data4 = [*(*(&v62 + 1) + 8 * k) data];
+                  data4 = [*(*(&v61 + 1) + 8 * k) data];
                   CCPBDataWriterWriteDataField();
                 }
 
-                v47 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+                v47 = [v45 countByEnumeratingWithState:&v61 objects:v79 count:16];
               }
 
               while (v47);
@@ -1075,7 +1069,7 @@ LABEL_37:
 
             v21 = v44;
             v42 = selfCopy;
-            protocolsCopy = v56;
+            protocolsCopy = v55;
           }
 
           immutableData = [v19 immutableData];
@@ -1083,17 +1077,17 @@ LABEL_37:
 
           selfCopy2 = self;
 LABEL_49:
-          representationCopy = v59;
+          representationCopy = v58;
           goto LABEL_50;
         }
 
-        v67 = v24;
+        v66 = v24;
         v41 = CCValidateEnumField();
         v21 = v24;
 
         if (v41)
         {
-          v59 = representationCopy;
+          v58 = representationCopy;
           CCPBDataWriterWriteUint32Field();
           goto LABEL_37;
         }
@@ -1114,7 +1108,7 @@ LABEL_29:
   }
 
   objc_opt_class();
-  v79 = 0;
+  v78 = 0;
   v20 = CCValidateIsInstanceOfExpectedClass();
   v21 = 0;
   if (v20)
@@ -1129,7 +1123,6 @@ LABEL_29:
   selfCopy2 = 0;
 LABEL_50:
 
-  v52 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

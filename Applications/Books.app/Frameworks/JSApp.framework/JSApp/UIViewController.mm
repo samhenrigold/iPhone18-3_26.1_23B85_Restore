@@ -64,7 +64,7 @@
 
   controllerCopy = controller;
   _sSo16UIViewControllerC5JSAppE7present_7options8animated10completionyAB_SDys11AnyHashableVypGSbyycSgtFZ_0(controllerCopy, v9, animated, v8, v10);
-  sub_2C0EC(v8);
+  sub_2C0EC(v8, v10);
 }
 
 @end

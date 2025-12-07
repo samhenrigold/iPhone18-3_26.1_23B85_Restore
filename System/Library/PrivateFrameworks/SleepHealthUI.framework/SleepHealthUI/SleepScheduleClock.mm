@@ -141,10 +141,10 @@
   enabledCopy = enabled;
   v8 = sub_269D971F0();
   v9 = *(v8 - 8);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v19[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v10);
-  v14 = &v19[-v13];
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v21[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v13, v14);
+  v16 = &v21[-v15];
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -156,13 +156,13 @@
   sub_269D97120();
   sub_269D97120();
   selfCopy = self;
-  v16 = sub_269D97110();
-  v17 = sub_269D97110();
-  [(SleepScheduleClock *)selfCopy accessibilitySetModel:v16 wakeUpComponents:v17 timeInBedGoal:enabledCopy alarmEnabled:0 isForSingleDayOverride:goal];
+  v18 = sub_269D97110();
+  v19 = sub_269D97110();
+  [(SleepScheduleClock *)selfCopy accessibilitySetModel:v18 wakeUpComponents:v19 timeInBedGoal:enabledCopy alarmEnabled:0 isForSingleDayOverride:goal];
 
-  v18 = *(v9 + 8);
-  v18(v12, v8);
-  v18(v14, v8);
+  v20 = *(v9 + 8);
+  v20(v12, v8);
+  v20(v16, v8);
 }
 
 - (void)accessibilitySetModel:(id)model wakeUpComponents:(id)components timeInBedGoal:(double)goal alarmEnabled:(BOOL)enabled isForSingleDayOverride:(BOOL)override
@@ -171,10 +171,10 @@
   overrideCopy = override;
   v9 = sub_269D971F0();
   v10 = *(v9 - 8);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v18 - v14;
+  MEMORY[0x28223BE20](v9, v11);
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14, v15);
+  v17 = &v20 - v16;
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -186,11 +186,11 @@
   sub_269D97120();
   sub_269D97120();
   selfCopy = self;
-  SleepScheduleClock.accessibilitySetModel(_:wakeUpComponents:timeInBedGoal:alarmEnabled:isForSingleDayOverride:)(v15, v13, enabledCopy, overrideCopy, goal);
+  SleepScheduleClock.accessibilitySetModel(_:wakeUpComponents:timeInBedGoal:alarmEnabled:isForSingleDayOverride:)(v17, v13, enabledCopy, overrideCopy, goal);
 
-  v17 = *(v10 + 8);
-  v17(v13, v9);
-  v17(v15, v9);
+  v19 = *(v10 + 8);
+  v19(v13, v9);
+  v19(v17, v9);
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer
@@ -204,7 +204,7 @@
   }
 
   v6 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC13SleepHealthUI18SleepScheduleClock_gestureRecognizer);
-  sub_269C1B0B8(0, &qword_28034FB10);
+  sub_269C1B0B8(0, &qword_28034FB10, 0x277D75548);
   recognizerCopy = recognizer;
   selfCopy = self;
   v9 = v6;

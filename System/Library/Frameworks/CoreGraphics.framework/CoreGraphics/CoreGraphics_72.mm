@@ -4156,61 +4156,61 @@ void CGPDFArchiveRelease(CFTypeRef cf)
   }
 }
 
-uint64_t CGPDFArchiveAddSelection(uint64_t result, uint64_t a2)
+id *CGPDFArchiveAddSelection(id *result, uint64_t a2)
 {
   if (result)
   {
-    return [*(result + 16) addSelection:a2];
+    return [result[2] addSelection:a2];
   }
 
   return result;
 }
 
-uint64_t CGPDFArchiveGetPlainText(uint64_t result)
+id *CGPDFArchiveGetPlainText(id *result)
 {
   if (result)
   {
-    return [*(result + 16) plainText];
+    return [result[2] plainText];
   }
 
   return result;
 }
 
-uint64_t CGPDFArchiveGetHTML(uint64_t result)
+id *CGPDFArchiveGetHTML(id *result)
 {
   if (result)
   {
-    return [*(result + 16) html];
+    return [result[2] html];
   }
 
   return result;
 }
 
-uint64_t CGPDFArchiveGetWebArchiveData(uint64_t result)
+id *CGPDFArchiveGetWebArchiveData(id *result)
 {
   if (result)
   {
-    return [*(result + 16) webArchiveData];
+    return [result[2] webArchiveData];
   }
 
   return result;
 }
 
-uint64_t CGPDFArchiveGetStructuredString(uint64_t result)
+id *CGPDFArchiveGetStructuredString(id *result)
 {
   if (result)
   {
-    return [*(result + 16) structuredString];
+    return [result[2] structuredString];
   }
 
   return result;
 }
 
-uint64_t CGPDFArchiveGetRTFDData(uint64_t result)
+id *CGPDFArchiveGetRTFDData(id *result)
 {
   if (result)
   {
-    return [*(result + 16) RTFDData];
+    return [result[2] RTFDData];
   }
 
   return result;
@@ -4236,7 +4236,7 @@ _BYTE *lzw_decoder_create(const void *a1, char a2)
   return v4;
 }
 
-void lzw_decoder_release(void **a1)
+void lzw_decoder_release(const void **a1)
 {
   if (a1)
   {
@@ -4252,36 +4252,36 @@ void lzw_decoder_release(void **a1)
   }
 }
 
-uint64_t lzw_read_code(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t lzw_read_code(uint64_t a1)
 {
-  v8 = a1 + 0x4000;
-  v9 = *(a1 + 17456);
-  v10 = *(a1 + 1056);
-  if (v9 >= v10)
+  v1 = a1 + 0x4000;
+  v2 = *(a1 + 17456);
+  v3 = *(a1 + 1056);
+  if (v2 >= v3)
   {
-    v13 = *(a1 + 17452);
+    v6 = *(a1 + 17452);
 LABEL_6:
-    v14 = v9 - v10;
-    *(v8 + 1072) = v14;
-    return ((v13 >> v14) & ~(-1 << v10));
+    v7 = v2 - v3;
+    *(v1 + 1072) = v7;
+    return ((v6 >> v7) & ~(-1 << v3));
   }
 
   else
   {
     while (1)
     {
-      v12 = CGPDFSourceGetc(*a1, a2, a3, a4, a5, a6, a7, a8);
-      if (v12 == -1)
+      v5 = CGPDFSourceGetc(*a1);
+      if (v5 == -1)
       {
         break;
       }
 
-      v13 = v12 | (*(v8 + 1068) << 8);
-      *(v8 + 1068) = v13;
-      v9 = *(v8 + 1072) + 8;
-      *(v8 + 1072) = v9;
-      v10 = *(a1 + 1056);
-      if (v9 >= v10)
+      v6 = v5 | (*(v1 + 1068) << 8);
+      *(v1 + 1068) = v6;
+      v2 = *(v1 + 1072) + 8;
+      *(v1 + 1072) = v2;
+      v3 = *(a1 + 1056);
+      if (v2 >= v3)
       {
         goto LABEL_6;
       }
@@ -4289,10 +4289,10 @@ LABEL_6:
 
     pdf_error("LZW decode: encountered unexpected EOF.");
     *(a1 + 9) = 1;
-    LOWORD(v15) = 257;
+    LOWORD(v8) = 257;
   }
 
-  return v15;
+  return v8;
 }
 
 void *lzw_push(void *result, char a2)
@@ -4324,7 +4324,7 @@ uint64_t CGPDFFormCreate(CGPDFDictionary *a1)
     dispatch_once(&CGPDFFormGetTypeID_onceToken, &__block_literal_global_12001);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFFormGetTypeID_id, 112);
   v3 = cftype;
   if (cftype)
   {
@@ -4444,24 +4444,25 @@ uint64_t CGPDFFormGetResources(uint64_t result)
   return result;
 }
 
-void shape_enum_alloc(uint64_t a1, _DWORD *a2, int a3, int a4)
+void shape_enum_alloc(uint64_t a1, _DWORD *a2, int a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = a2;
   shape_enum_allocate(a2, 0, a4);
-  if (v6 != &the_empty_shape && v6[v6[1]] != 0x7FFFFFFF)
+  if (v6 != &the_empty_shape && *(v6 + 4 * *(v6 + 4)) != 0x7FFFFFFF)
   {
     *(v7 + 4) = a3;
-    if (a4 < 0)
+    if (v4 < 0)
     {
       v10 = (v7 + 56);
       while (*v6 != 0x7FFFFFFF)
       {
-        v11 = v6[1];
+        v11 = *(v6 + 4);
         *v10++ = -v11;
-        v6 += v11;
+        v6 += 4 * v11;
       }
 
-      *(v7 + 32) = v6 - 2;
+      *(v7 + 32) = v6 - 8;
       *(v7 + 40) = v6;
       v8 = v10 - 1;
       v9 = 48;
@@ -4470,7 +4471,7 @@ void shape_enum_alloc(uint64_t a1, _DWORD *a2, int a3, int a4)
     else
     {
       *(v7 + 32) = v6;
-      v8 = v6 + 2;
+      v8 = (v6 + 8);
       v9 = 40;
     }
 
@@ -5281,7 +5282,7 @@ uint64_t shape_enum_clip_scan(uint64_t a1, _DWORD *a2)
   v5 = a1;
   v7 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v38 = (a2 + 4);
+  v38 = a2 + 4;
   v35 = a2;
   v34 = v6;
   while (v6)
@@ -5367,7 +5368,7 @@ LABEL_11:
                 }
 
                 v39 = v30;
-                v31 = &v38[v28 - v21];
+                v31 = v38 + v28 - v21;
                 do
                 {
                   if ((v31 & 3) == 0)
@@ -5435,29 +5436,60 @@ LABEL_53:
   return result;
 }
 
-uint64_t img_decode_read_alpha(uint64_t a1, int a2, uint64_t a3, int16x4_t **a4, int *a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9)
+uint64_t img_decode_read_alpha(uint64_t a1, unsigned int a2, uint64_t a3, int16x4_t **a4, int *a5)
 {
-  v12 = img_decode_read(a1, a2, a3, a4, a5, a6, a7, a8, a9);
-  if (v12 < 1)
+  v8 = img_decode_read(a1, a2, a3, a4, a5);
+  if (v8 < 1)
   {
     return 0;
   }
 
-  v15 = v12;
-  v16 = *(a1 + 40);
-  if (v16 == 16)
+  v11 = v8;
+  v12 = *(a1 + 40);
+  if (v12 == 16)
   {
-    v17 = 2;
+    v13 = 2;
   }
 
   else
   {
-    v17 = 1;
+    v13 = 1;
   }
 
-  if (v16 == 32)
+  if (v12 == 32)
   {
-    v18 = 4;
+    v14 = 4;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  if (*(a1 + 208) == 5)
+  {
+    v15 = 5;
+  }
+
+  else
+  {
+    v15 = v14;
+  }
+
+  v16 = *(a1 + 44);
+  if (v16 == 9)
+  {
+    v17 = 8;
+  }
+
+  else
+  {
+    v17 = *(a1 + 44);
+  }
+
+  if (v16 == 4)
+  {
+    v18 = 2;
   }
 
   else
@@ -5465,9 +5497,9 @@ uint64_t img_decode_read_alpha(uint64_t a1, int a2, uint64_t a3, int16x4_t **a4,
     v18 = v17;
   }
 
-  if (*(a1 + 208) == 5)
+  if (v16 == 3)
   {
-    v19 = 5;
+    v19 = 1;
   }
 
   else
@@ -5475,54 +5507,23 @@ uint64_t img_decode_read_alpha(uint64_t a1, int a2, uint64_t a3, int16x4_t **a4,
     v19 = v18;
   }
 
-  v20 = *(a1 + 44);
-  if (v20 == 9)
+  img_alpha(*(a1 + 48), v8, *(a1 + 36), v19, a4, a5, v16, a4, v9, v10, a5, v15);
+  v22 = *(a1 + 168);
+  if (v22)
   {
-    v21 = 8;
+    decode_data(v22, *(a1 + 48), v11, *a4, *a5, *a4, *a5, a4[1], v20, v21, a5[1]);
   }
 
-  else
+  v23 = *(a1 + 176);
+  if (v23)
   {
-    v21 = *(a1 + 44);
+    decode_data(v23, *(a1 + 48), v11, a4[1], a5[1], a4[1], a5[1], 0, v20, v21, 0);
   }
 
-  if (v20 == 4)
-  {
-    v22 = 2;
-  }
-
-  else
-  {
-    v22 = v21;
-  }
-
-  if (v20 == 3)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v23 = v22;
-  }
-
-  img_alpha(*(a1 + 48), v12, *(a1 + 36), v23, a4, a5, v20, a4, v13, v14, a5, v19);
-  v26 = *(a1 + 168);
-  if (v26)
-  {
-    decode_data(v26, *(a1 + 48), v15, *a4, *a5, *a4, *a5, a4[1], v24, v25, a5[1]);
-  }
-
-  v27 = *(a1 + 176);
-  if (v27)
-  {
-    decode_data(v27, *(a1 + 48), v15, a4[1], a5[1], a4[1], a5[1], 0, v24, v25, 0);
-  }
-
-  return v15;
+  return v11;
 }
 
-void img_alpha(int a1, int a2, uint64_t a3, int a4, short float **a5, int *a6, uint64_t a7, uint64_t a8, float _S0, float _S1, int *a11, int a12)
+void img_alpha(int a1, int a2, uint64_t a3, int a4, short float **a5, int *a6, int a7, uint64_t a8, float _S0, float _S1, int *a11, int a12)
 {
   v17 = a3;
   v18 = a1;
@@ -5578,7 +5579,7 @@ void img_alpha(int a1, int a2, uint64_t a3, int a4, short float **a5, int *a6, u
       if (a12 != 5)
       {
 LABEL_522:
-        _CGHandleAssert("img_alpha", 159, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGSImage.c", "0", "unhandled component type %d", a6, a7, v21, a12);
+        _CGHandleAssert("img_alpha", 159, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Images/CGSImage.c", "0", "unhandled component type %d", a12);
       }
 
       if (v24 != v21)
@@ -6791,22 +6792,22 @@ LABEL_327:
                 v137[1] = (v138 + (v138 >> 8) + 1) >> 8;
                 v139 = *v123 * v135[2];
                 v137[2] = (v139 + (v139 >> 8) + 1) >> 8;
-                v140 = v123[1] * v135[3];
+                v140 = *(v123 + 1) * v135[3];
                 v137[3] = (v140 + (v140 >> 8) + 1) >> 8;
-                v141 = v123[1] * v135[4];
+                v141 = *(v123 + 1) * v135[4];
                 v137[4] = (v141 + (v141 >> 8) + 1) >> 8;
-                v142 = v123[1] * v135[5];
+                v142 = *(v123 + 1) * v135[5];
                 v137[5] = (v142 + (v142 >> 8) + 1) >> 8;
-                v143 = v123[2] * v135[6];
+                v143 = *(v123 + 2) * v135[6];
                 v137[6] = (v143 + (v143 >> 8) + 1) >> 8;
-                v144 = v123[2] * v135[7];
+                v144 = *(v123 + 2) * v135[7];
                 v137[7] = (v144 + (v144 >> 8) + 1) >> 8;
-                v145 = v123[2] * v135[8];
+                v145 = *(v123 + 2) * v135[8];
                 v137[8] = (v145 + (v145 >> 8) + 1) >> 8;
-                v146 = v123[3] * v135[9];
+                v146 = *(v123 + 3) * v135[9];
                 v137[9] = (v146 + (v146 >> 8) + 1) >> 8;
-                v137[10] = (v123[3] * v135[10] + ((v123[3] * v135[10]) >> 8) + 1) >> 8;
-                v147 = v123[3] * v135[11] + ((v123[3] * v135[11]) >> 8) + 1;
+                v137[10] = (*(v123 + 3) * v135[10] + ((*(v123 + 3) * v135[10]) >> 8) + 1) >> 8;
+                v147 = *(v123 + 3) * v135[11] + ((*(v123 + 3) * v135[11]) >> 8) + 1;
               }
 
               else
@@ -6814,15 +6815,15 @@ LABEL_327:
                 *v137 = (inverted_8bit_alpha[*v123] * v136) >> 8;
                 v137[1] = (inverted_8bit_alpha[*v123] * v135[1]) >> 8;
                 v137[2] = (inverted_8bit_alpha[*v123] * v135[2]) >> 8;
-                v137[3] = (inverted_8bit_alpha[v123[1]] * v135[3]) >> 8;
-                v137[4] = (inverted_8bit_alpha[v123[1]] * v135[4]) >> 8;
-                v137[5] = (inverted_8bit_alpha[v123[1]] * v135[5]) >> 8;
-                v137[6] = (inverted_8bit_alpha[v123[2]] * v135[6]) >> 8;
-                v137[7] = (inverted_8bit_alpha[v123[2]] * v135[7]) >> 8;
-                v137[8] = (inverted_8bit_alpha[v123[2]] * v135[8]) >> 8;
-                v137[9] = (inverted_8bit_alpha[v123[3]] * v135[9]) >> 8;
-                v137[10] = (inverted_8bit_alpha[v123[3]] * v135[10]) >> 8;
-                LOWORD(v147) = inverted_8bit_alpha[v123[3]] * v135[11];
+                v137[3] = (inverted_8bit_alpha[*(v123 + 1)] * v135[3]) >> 8;
+                v137[4] = (inverted_8bit_alpha[*(v123 + 1)] * v135[4]) >> 8;
+                v137[5] = (inverted_8bit_alpha[*(v123 + 1)] * v135[5]) >> 8;
+                v137[6] = (inverted_8bit_alpha[*(v123 + 2)] * v135[6]) >> 8;
+                v137[7] = (inverted_8bit_alpha[*(v123 + 2)] * v135[7]) >> 8;
+                v137[8] = (inverted_8bit_alpha[*(v123 + 2)] * v135[8]) >> 8;
+                v137[9] = (inverted_8bit_alpha[*(v123 + 3)] * v135[9]) >> 8;
+                v137[10] = (inverted_8bit_alpha[*(v123 + 3)] * v135[10]) >> 8;
+                LOWORD(v147) = inverted_8bit_alpha[*(v123 + 3)] * v135[11];
               }
 
               v137[11] = BYTE1(v147);
@@ -6835,7 +6836,7 @@ LABEL_327:
             }
 
             v132 = v133 - 4;
-            v123 += 4;
+            v123 += 2;
             v131 += 6;
           }
 
@@ -6857,18 +6858,18 @@ LABEL_327:
           {
             if (*&v123[v149] == -1)
             {
-              *&v125[v149] = *&v124[v149 / 2];
+              *&v125[v149 * 2] = *&v124[v149];
             }
 
             else if (*&v123[v149])
             {
-              v151 = &v124[v149 / 2];
-              v152 = LOBYTE(v124[v149 / 2]);
+              v151 = &v124[v149];
+              v152 = LOBYTE(v124[v149]);
               v153 = &v123[v149];
-              v154 = &v125[v149];
+              v154 = &v125[v149 * 2];
               if (v23 == 1)
               {
-                *v154 = (v123[v149] * v152 + ((v123[v149] * v152) >> 8) + 1) >> 8;
+                *v154 = (LOBYTE(v123[v149]) * v152 + ((LOBYTE(v123[v149]) * v152) >> 8) + 1) >> 8;
                 v155 = v153[1] * v151[1];
                 v154[1] = (v155 + (v155 >> 8) + 1) >> 8;
                 v154[2] = (v153[2] * v151[2] + ((v153[2] * v151[2]) >> 8) + 1) >> 8;
@@ -6877,7 +6878,7 @@ LABEL_327:
 
               else
               {
-                *v154 = (inverted_8bit_alpha[v123[v149]] * v152) >> 8;
+                *v154 = (inverted_8bit_alpha[LOBYTE(v123[v149])] * v152) >> 8;
                 v154[1] = (inverted_8bit_alpha[v153[1]] * v151[1]) >> 8;
                 v154[2] = (inverted_8bit_alpha[v153[2]] * v151[2]) >> 8;
                 LOWORD(v156) = inverted_8bit_alpha[v153[3]] * v151[3];
@@ -6888,18 +6889,18 @@ LABEL_327:
 
             else
             {
-              *&v125[v149] = 0;
+              *&v125[v149 * 2] = 0;
             }
 
             v150 -= 4;
-            v149 += 4;
+            v149 += 2;
           }
 
           while (v150 > 7);
-          v132 = a1 - v149;
-          v124 = (v124 + v149);
-          v125 += v149;
-          v123 += v149;
+          v132 = a1 - v149 * 2;
+          v124 = (v124 + v149 * 2);
+          v125 += v149 * 2;
+          v123 = (v123 + v149 * 2);
           goto LABEL_179;
         }
       }
@@ -6937,7 +6938,7 @@ LABEL_179:
 
           v124 = (v124 + v17);
           v125 += v17;
-          ++v123;
+          v123 = (v123 + 1);
           _VF = __OFSUB__(v132--, 1);
         }
 
@@ -6946,7 +6947,7 @@ LABEL_179:
 
       v127 = v130 - 1;
       v124 = (v124 + v340 - v344);
-      v123 += v332 - a1;
+      v123 = (v123 + v332 - a1);
       v125 += v336 - v344;
       if (v130 <= 1)
       {
@@ -7677,19 +7678,77 @@ LABEL_259:
   while (v349);
 }
 
-void img_blocks_error(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void img_blocks_error(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (a4)
+  if (a1)
   {
-    v8 = "%s: %s\nCGImageProviderCopyImageBlockSet(<CGImageProvider %p> (component-type = %s, pixel-size = %ld, size = [%g x %g]));\n\t<CGImageBlockSet %p> (size = [%g x %g], rect = (%g, %g) x [%g, %g], count %ld) [%ld];\n\t\t<CGImageBlock %p> (rect = (%g, %g) x [%g, %g], data = %p, bytes-per-row = %ld)";
+    v5 = (a1 + 16);
   }
 
   else
   {
-    v8 = "%s: %s\nCGImageProviderCopyImageBlockSet(<CGImageProvider %p> (component-type = %s, pixel-size = %ld, size = [%g x %g]));\n\t<CGImageBlockSet %p> (size = [%g x %g], rect = (%g, %g) x [%g, %g], count = %ld) [%ld]";
+    v5 = &CGSizeZero;
   }
 
-  CGPostError(v8, a2, a3, a4, a5, a6, a7, a8, "img_blocks_create");
+  if (a1)
+  {
+    p_height = (a1 + 24);
+  }
+
+  else
+  {
+    p_height = &CGSizeZero.height;
+  }
+
+  if (a1)
+  {
+    v7 = *(a1 + 48);
+    if (a2)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_12:
+    if (!a1)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_13;
+  }
+
+  v7 = 0;
+  if (!a2)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_9:
+  if (!a1)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_13:
+  v8 = *(a1 + 32) - 1;
+  if (v8 <= 3)
+  {
+    v9 = off_1E6E2D770[v8];
+    goto LABEL_16;
+  }
+
+LABEL_15:
+  v9 = "Unknown";
+LABEL_16:
+  if (a4)
+  {
+    CGPostError("%s: %s\nCGImageProviderCopyImageBlockSet(<CGImageProvider %p> (component-type = %s, pixel-size = %ld, size = [%g x %g]));\n\t<CGImageBlockSet %p> (size = [%g x %g], rect = (%g, %g) x [%g, %g], count %ld) [%ld];\n\t\t<CGImageBlock %p> (rect = (%g, %g) x [%g, %g], data = %p, bytes-per-row = %ld)", "img_blocks_create", a5, a1, v9, v7, *&v5->width, *p_height, a2);
+  }
+
+  else
+  {
+    CGPostError("%s: %s\nCGImageProviderCopyImageBlockSet(<CGImageProvider %p> (component-type = %s, pixel-size = %ld, size = [%g x %g]));\n\t<CGImageBlockSet %p> (size = [%g x %g], rect = (%g, %g) x [%g, %g], count = %ld) [%ld]", "img_blocks_create");
+  }
 }
 
 CFDictionaryRef __img_blocks_options_block_invoke()
@@ -8091,7 +8150,7 @@ uint64_t img_blocks_read(void *a1, int a2, unsigned int a3, void *a4, int *a5)
         v14 = a1[14];
         if (v14)
         {
-          CGBlt_swapBytes(v25 * v9, HIDWORD(v25), (v11 + v12 * (SHIDWORD(v24) - SDWORD1(v23)) + (v24 - v23) * v9), v13, v12, *a5, v14);
+          CGBlt_swapBytes(v25 * v9, SHIDWORD(v25), (v11 + v12 * (SHIDWORD(v24) - SDWORD1(v23)) + (v24 - v23) * v9), v13, v12, *a5, v14);
         }
 
         else
@@ -8489,7 +8548,7 @@ void op_sh_12344(CGPDFScanner *a1, uint64_t a2)
   }
 }
 
-uint64_t op_s_12350(uint64_t a1, uint64_t a2)
+uint64_t op_s_12350(uint64_t a1, double *a2)
 {
   op_h_12351(a1, a2);
 
@@ -9302,7 +9361,7 @@ void op_c_12411(CGPDFScanner *a1, uint64_t a2)
   }
 }
 
-uint64_t op_bstar_12413(uint64_t a1, uint64_t a2)
+uint64_t op_bstar_12413(uint64_t a1, double *a2)
 {
   op_h_12351(a1, a2);
 
@@ -9341,7 +9400,7 @@ void op_BDC_12416(uint64_t a1, uint64_t a2)
   if (v4 <= 0)
   {
 
-    pdf_error("stack underflow.");
+    pdf_error("stack underflow.", a2);
   }
 
   else
@@ -9423,18 +9482,24 @@ void op_BMC_12417(CGPDFScanner *a1, uint64_t a2)
   }
 }
 
-uint64_t op_b_12419(uint64_t a1, uint64_t a2)
+uint64_t op_b_12419(uint64_t a1, double *a2)
 {
   op_h_12351(a1, a2);
 
   return CPPDFContextAddStrokeAndFill(a2, 1);
 }
 
-uint64_t path_add(unsigned __int8 **a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t path_add(unsigned __int8 **a1, unsigned int a2)
 {
-  if (!a1 || (v10 = *a1) == 0)
+  if (!a1)
   {
-    _CGHandleAssert("path_add", 94, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Paths/path-internal.c", "pathp != NULL && *pathp != NULL", "Element type (%d) added to NULL path %p", a6, a7, a8, a2);
+    _CGHandleAssert("path_add", 94, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Paths/path-internal.c", "pathp != NULL && *pathp != NULL", "Element type (%d) added to NULL path %p");
+  }
+
+  v4 = *a1;
+  if (!*a1)
+  {
+    _CGHandleAssert("path_add", 94, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Paths/path-internal.c", "pathp != NULL && *pathp != NULL", "Element type (%d) added to NULL path %p");
   }
 
   if (a2 > 0xFFFFFFFD)
@@ -9447,54 +9512,54 @@ uint64_t path_add(unsigned __int8 **a1, unsigned int a2, uint64_t a3, uint64_t a
     abort();
   }
 
-  v12 = dword_1844E0C58[a2 + 3];
-  v13 = *(v10 + 5);
+  v6 = dword_1844E0C58[a2 + 3];
+  v7 = *(v4 + 5);
   if ((a2 | 4) == 4)
   {
-    v14 = *(v10 + 2);
-    if (v14 < &v10[v13 + 48] && *v14 == a2)
+    v8 = *(v4 + 2);
+    if (v8 < &v4[v7 + 48] && *v8 == a2)
     {
-      return *(v10 + 4);
+      return *(v4 + 4);
     }
   }
 
   else
   {
-    v14 = *(v10 + 2);
+    v8 = *(v4 + 2);
   }
 
-  if (*(v10 + 3) + 16 * v12 > (v14 - 1))
+  if (*(v4 + 3) + 16 * v6 > (v8 - 1))
   {
-    if ((2 * v13) >= 0x7D1)
+    if ((2 * v7) >= 0x7D1)
     {
-      v15 = *(v10 + 5);
+      v9 = *(v4 + 5);
     }
 
     else
     {
-      v15 = 2 * v13;
+      v9 = 2 * v7;
     }
 
-    v16 = malloc_type_malloc(v15 + 48, 0x1030040004372B3uLL);
-    *v16 = v10;
-    *(v16 + 1) = 0;
-    *(v16 + 2) = &v16[v15 + 48];
-    *(v16 + 3) = (v16 + 55) & 0xFFFFFFFFFFFFFFF8;
-    *(v10 + 1) = v16;
-    *(v16 + 4) = *(v10 + 4);
-    *(v16 + 5) = v15;
-    *a1 = v16;
-    v14 = *(v16 + 2);
-    v10 = v16;
+    v10 = malloc_type_malloc(v9 + 48, 0x1030040004372B3uLL);
+    *v10 = v4;
+    *(v10 + 1) = 0;
+    *(v10 + 2) = &v10[v9 + 48];
+    *(v10 + 3) = (v10 + 55) & 0xFFFFFFFFFFFFFFF8;
+    *(v4 + 1) = v10;
+    *(v10 + 4) = *(v4 + 4);
+    *(v10 + 5) = v9;
+    *a1 = v10;
+    v8 = *(v10 + 2);
+    v4 = v10;
   }
 
-  *(v10 + 2) = v14 - 1;
-  *(v14 - 1) = a2;
-  result = *(v10 + 3);
-  *(v10 + 3) = result + 16 * v12;
+  *(v4 + 2) = v8 - 1;
+  *(v8 - 1) = a2;
+  result = *(v4 + 3);
+  *(v4 + 3) = result + 16 * v6;
   if (!a2 || a2 == -3)
   {
-    *(v10 + 4) = result;
+    *(v4 + 4) = result;
   }
 
   return result;
@@ -9716,103 +9781,4 @@ uint64_t __CGPDFPageLayoutGetTypeID_block_invoke()
   result = pdf_register_cftype(&CGPDFPageLayoutGetTypeID::CGPDFPageLayoutType);
   CGPDFPageLayoutGetTypeID::typeID = result;
   return result;
-}
-
-void CGPDFPageLayoutFinalize(char *a1)
-{
-  if (a1[552] == 1)
-  {
-    v16[3] = v1;
-    v17 = v2;
-    std::__tree<std::__value_type<double,std::list<Span>>,std::__map_value_compare<double,std::__value_type<double,std::list<Span>>,std::less<double>,true>,std::allocator<std::__value_type<double,std::list<Span>>>>::destroy(*(a1 + 67));
-    std::__tree<std::__value_type<double,std::list<Span>>,std::__map_value_compare<double,std::__value_type<double,std::list<Span>>,std::less<double>,true>,std::allocator<std::__value_type<double,std::list<Span>>>>::destroy(*(a1 + 64));
-    v4 = *(a1 + 60);
-    if (v4)
-    {
-      *(a1 + 61) = v4;
-      operator delete(v4);
-    }
-
-    v5 = *(a1 + 57);
-    if (v5)
-    {
-      *(a1 + 58) = v5;
-      operator delete(v5);
-    }
-
-    std::__hash_table<std::__hash_value_type<unsigned int,PDFAtomicElement * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,PDFAtomicElement * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,PDFAtomicElement * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,PDFAtomicElement * {__strong}>>>::~__hash_table((a1 + 408));
-
-    v16[0] = (a1 + 368);
-    std::vector<std::shared_ptr<PageLayoutTable>>::__destroy_vector::operator()[abi:fe200100](v16);
-    v6 = *(a1 + 43);
-    if (v6)
-    {
-      *(a1 + 44) = v6;
-      operator delete(v6);
-    }
-
-    v7 = *(a1 + 40);
-    if (v7)
-    {
-      *(a1 + 41) = v7;
-      operator delete(v7);
-    }
-
-    v16[0] = (a1 + 296);
-    std::vector<std::pair<std::string,unsigned int>>::__destroy_vector::operator()[abi:fe200100](v16);
-    v8 = *(a1 + 34);
-    if (v8)
-    {
-      *(a1 + 35) = v8;
-      operator delete(v8);
-    }
-
-    v9 = *(a1 + 31);
-    if (v9)
-    {
-      *(a1 + 32) = v9;
-      operator delete(v9);
-    }
-
-    v16[0] = (a1 + 224);
-    std::vector<PageLayout::CharacterStyle>::__destroy_vector::operator()[abi:fe200100](v16);
-    v10 = *(a1 + 25);
-    if (v10)
-    {
-      *(a1 + 26) = v10;
-      operator delete(v10);
-    }
-
-    v11 = *(a1 + 22);
-    if (v11)
-    {
-      *(a1 + 23) = v11;
-      operator delete(v11);
-    }
-
-    v12 = *(a1 + 19);
-    if (v12)
-    {
-      *(a1 + 20) = v12;
-      operator delete(v12);
-    }
-
-    v13 = *(a1 + 16);
-    if (v13)
-    {
-      *(a1 + 17) = v13;
-      operator delete(v13);
-    }
-
-    v14 = *(a1 + 13);
-    if (v14)
-    {
-      *(a1 + 14) = v14;
-      operator delete(v14);
-    }
-
-    v16[0] = (a1 + 80);
-    std::vector<std::shared_ptr<TextLine>>::__destroy_vector::operator()[abi:fe200100](v16);
-    v15 = *(a1 + 9);
-  }
 }

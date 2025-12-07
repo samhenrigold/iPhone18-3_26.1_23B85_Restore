@@ -1,6 +1,7 @@
 @interface SBLockScreenPluginAction
 + (id)actionWithCompletion:(id)completion;
 - (SBLockScreenPluginAction)initWithCompletion:(id)completion;
+- (void)sendResponseWithSuccess:(BOOL)success;
 @end
 
 @implementation SBLockScreenPluginAction
@@ -50,6 +51,13 @@ void __47__SBLockScreenPluginAction_initWithCompletion___block_invoke(uint64_t a
     v3 = [a2 error];
     (*(v2 + 16))(v2, [v3 code] == 0, 0);
   }
+}
+
+- (void)sendResponseWithSuccess:(BOOL)success
+{
+  action = self->_action;
+  response = [MEMORY[0x277CF0B68] response];
+  [(BSAction *)action sendResponse:response];
 }
 
 @end

@@ -61,17 +61,17 @@
     v9 = [handle displayNameForChat:chat];
 
     v10 = MEMORY[0x1E696AEC0];
-    v11 = CKFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"TS_STOPPED_SHARING_NOTICE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-    v13 = [v10 localizedStringWithFormat:v12, v9];
+    v12 = CKFrameworkBundle(v11);
+    v13 = [v12 localizedStringForKey:@"TS_STOPPED_SHARING_NOTICE" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+    v14 = [v10 localizedStringWithFormat:v13, v9];
   }
 
   else
   {
-    v13 = &stru_1F04268F8;
+    v14 = &stru_1F04268F8;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

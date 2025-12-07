@@ -111,38 +111,36 @@ void __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke(uin
 {
   v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke_cold_1(a1, v5, v3);
+      __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke_cold_1(a1, v6, v3);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 32);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 32);
     *buf = 134218243;
-    v15 = v6;
+    v15 = v7;
     v16 = 2113;
-    v17 = v7;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Deleted clip with bundleIDs %{private}@", buf, 0x16u);
+    v17 = v8;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Deleted clip with bundleIDs %{private}@", buf, 0x16u);
   }
 
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
   v11[2] = __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke_6;
   v11[3] = &unk_278DCE368;
-  v8 = *(a1 + 40);
+  v9 = *(a1 + 40);
   v12 = v3;
-  v13 = v8;
-  v9 = v3;
+  v13 = v9;
+  v10 = v3;
   dispatch_async(MEMORY[0x277D85CD0], v11);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke_6(uint64_t a1)
@@ -278,8 +276,8 @@ void __53__CPSClipRequest_installClipWithBundleID_completion___block_invoke(uint
 
 - (void)_openClipWithInvocationUI
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = CPS_LOG_CHANNEL_PREFIXClipServices(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     sessionProxy = self->_sessionProxy;
@@ -287,21 +285,19 @@ void __53__CPSClipRequest_installClipWithBundleID_completion___block_invoke(uint
     v6 = [(CPSSessionProxy *)sessionProxy url];
     *buf = 134218243;
     selfCopy = self;
-    v13 = 2117;
-    v14 = v6;
+    v12 = 2117;
+    v13 = v6;
     _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Showing invocation UI for %{sensitive}@", buf, 0x16u);
   }
 
   v7 = +[CPSDaemonConnection sharedConnection];
   v8 = [(CPSSessionProxy *)self->_sessionProxy url];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __43__CPSClipRequest__openClipWithInvocationUI__block_invoke;
-  v10[3] = &unk_278DCDEC0;
-  v10[4] = self;
-  [v7 openClipWithInvocationUIIfNeededWithURL:v8 completionHandler:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __43__CPSClipRequest__openClipWithInvocationUI__block_invoke;
+  v9[3] = &unk_278DCDEC0;
+  v9[4] = self;
+  [v7 openClipWithInvocationUIIfNeededWithURL:v8 completionHandler:v9];
 }
 
 void __43__CPSClipRequest__openClipWithInvocationUI__block_invoke(uint64_t a1, void *a2)
@@ -321,60 +317,58 @@ void __43__CPSClipRequest__openClipWithInvocationUI__block_invoke_2(uint64_t a1)
 {
   v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _errorIgnoringUserCancelledErrorIfNeeded:*(a1 + 40)];
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
   if (v2)
   {
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_7;
     }
 
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 8);
-    v7 = v3;
-    v8 = [v6 url];
-    v9 = [v2 cps_privacyPreservingDescription];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 8);
+    v8 = v4;
+    v9 = [v7 url];
+    v10 = [v2 cps_privacyPreservingDescription];
     v15 = 134218499;
-    v16 = v5;
+    v16 = v6;
     v17 = 2117;
-    v18 = v8;
+    v18 = v9;
     v19 = 2114;
-    v20 = v9;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Failed to show invocation UI for %{sensitive}@: %{public}@", &v15, 0x20u);
+    v20 = v10;
+    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Failed to show invocation UI for %{sensitive}@: %{public}@", &v15, 0x20u);
   }
 
   else
   {
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_7;
     }
 
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 8);
-    v12 = v3;
-    v8 = [v11 url];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 8);
+    v13 = v4;
+    v9 = [v12 url];
     v15 = 134218243;
-    v16 = v10;
+    v16 = v11;
     v17 = 2117;
-    v18 = v8;
-    _os_log_impl(&dword_2436ED000, v12, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Finished showing invocation UI for %{sensitive}@", &v15, 0x16u);
+    v18 = v9;
+    _os_log_impl(&dword_2436ED000, v13, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Finished showing invocation UI for %{sensitive}@", &v15, 0x16u);
   }
 
 LABEL_7:
-  v13 = *(*(a1 + 32) + 16);
-  if (v13)
+  v14 = *(*(a1 + 32) + 16);
+  if (v14)
   {
-    (*(v13 + 16))(v13, [v2 code] != 11, v2);
+    (*(v14 + 16))(v14, [v2 code] != 11, v2);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proxy:(id)proxy didDetermineAvailability:(BOOL)availability
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   if (availability)
   {
@@ -401,36 +395,34 @@ LABEL_7:
     else
     {
       self->_shouldOpenClipWhenMetadataIsUpdated = 0;
-      v11 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v13 = CPS_LOG_CHANNEL_PREFIXClipServices(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         sessionProxy = self->_sessionProxy;
-        v13 = v11;
-        v14 = [(CPSSessionProxy *)sessionProxy url];
-        v21 = 134218243;
+        v15 = v13;
+        v16 = [(CPSSessionProxy *)sessionProxy url];
+        v22 = 134218243;
         selfCopy = self;
-        v23 = 2117;
-        v24 = v14;
-        _os_log_impl(&dword_2436ED000, v13, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Clip is not available for %{sensitive}@", &v21, 0x16u);
+        v24 = 2117;
+        v25 = v16;
+        _os_log_impl(&dword_2436ED000, v15, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Clip is not available for %{sensitive}@", &v22, 0x16u);
       }
 
-      v15 = +[CPSAnalyticsLogger sharedLogger];
+      v17 = +[CPSAnalyticsLogger sharedLogger];
       configuration3 = [(CPSSessionProxy *)self->_sessionProxy configuration];
       launchReason = [configuration3 launchReason];
-      [v15 recordClientClipRequestWithBundleID:0 launchReason:launchReason];
+      [v17 recordClientClipRequestWithBundleID:0 launchReason:launchReason];
 
       completionHandler = self->_completionHandler;
       if (completionHandler)
       {
-        v19 = [MEMORY[0x277CCA9B8] cps_errorWithCode:2];
-        completionHandler[2](completionHandler, 0, v19);
+        v21 = [MEMORY[0x277CCA9B8] cps_errorWithCode:2];
+        completionHandler[2](completionHandler, 0, v21);
       }
 
       [(CPSSessionProxy *)self->_sessionProxy disconnect];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proxyDidUpdateMetadata:(id)metadata
@@ -458,7 +450,7 @@ LABEL_7:
 
 - (void)proxy:(id)proxy didFinishLoadingWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   proxyCopy = proxy;
   errorCopy = error;
   v8 = errorCopy;
@@ -466,42 +458,42 @@ LABEL_7:
   {
     v9 = [(CPSClipRequest *)self _errorIgnoringUserCancelledErrorIfNeeded:errorCopy];
 
-    v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    v11 = v10;
+    v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+    v13 = v12;
     if (v9)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sessionProxy = self->_sessionProxy;
-        v13 = v11;
-        v14 = [(CPSSessionProxy *)sessionProxy url];
+        v15 = v13;
+        v16 = [(CPSSessionProxy *)sessionProxy url];
         cps_privacyPreservingDescription = [v9 cps_privacyPreservingDescription];
-        v19 = 134218755;
+        v20 = 134218755;
         selfCopy2 = self;
-        v21 = 2117;
-        v22 = v14;
-        v23 = 2114;
-        v24 = cps_privacyPreservingDescription;
-        v25 = 2048;
-        v26 = proxyCopy;
-        _os_log_error_impl(&dword_2436ED000, v13, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Failed to show invocation UI for %{sensitive}@: %{public}@, proxy: %p", &v19, 0x2Au);
+        v22 = 2117;
+        v23 = v16;
+        v24 = 2114;
+        v25 = cps_privacyPreservingDescription;
+        v26 = 2048;
+        v27 = proxyCopy;
+        _os_log_error_impl(&dword_2436ED000, v15, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Failed to show invocation UI for %{sensitive}@: %{public}@, proxy: %p", &v20, 0x2Au);
 
 LABEL_8:
       }
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v16 = self->_sessionProxy;
-      v17 = v11;
-      v14 = [(CPSSessionProxy *)v16 url];
-      v19 = 134218499;
+      v18 = self->_sessionProxy;
+      v19 = v13;
+      v16 = [(CPSSessionProxy *)v18 url];
+      v20 = 134218499;
       selfCopy2 = self;
-      v21 = 2117;
-      v22 = v14;
-      v23 = 2048;
-      v24 = proxyCopy;
-      _os_log_impl(&dword_2436ED000, v17, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Finished showing invocation UI for %{sensitive}@, proxy: %p", &v19, 0x20u);
+      v22 = 2117;
+      v23 = v16;
+      v24 = 2048;
+      v25 = proxyCopy;
+      _os_log_impl(&dword_2436ED000, v19, OS_LOG_TYPE_INFO, "CPSClipRequest (%p): Finished showing invocation UI for %{sensitive}@, proxy: %p", &v20, 0x20u);
 
       goto LABEL_8;
     }
@@ -512,17 +504,15 @@ LABEL_8:
 
   v9 = errorCopy;
 LABEL_10:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proxyRemoteServiceDidCrash:(id)crash
 {
   crashCopy = crash;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(crashCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(CPSClipRequest *)self proxyRemoteServiceDidCrash:crashCopy, v5];
+    [(CPSClipRequest *)self proxyRemoteServiceDidCrash:crashCopy, v6];
   }
 }
 
@@ -537,31 +527,28 @@ LABEL_10:
 
 void __54__CPSClipRequest_deleteClipsWithBundleIDs_completion___block_invoke_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 48);
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = [a3 cps_privacyPreservingDescription];
-  v9 = 134218499;
-  v10 = v4;
-  v11 = 2113;
-  v12 = v5;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_error_impl(&dword_2436ED000, v6, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Failed to delete clip with bundleIDs %{private}@: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 134218499;
+  v9 = v4;
+  v10 = 2113;
+  v11 = v5;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_error_impl(&dword_2436ED000, v6, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Failed to delete clip with bundleIDs %{private}@: %{public}@", &v8, 0x20u);
 }
 
 - (void)proxyRemoteServiceDidCrash:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Remote service crashed for proxy: %p", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "CPSClipRequest (%p): Remote service crashed for proxy: %p", &v3, 0x16u);
 }
 
 @end

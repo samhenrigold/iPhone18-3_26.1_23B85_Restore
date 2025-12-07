@@ -2,16 +2,17 @@
 - (TSCellularPlanItemCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)setEnable:(BOOL)enable;
 - (void)setIcon:(BOOL)icon;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation TSCellularPlanItemCell
 
 - (TSCellularPlanItemCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v80[7] = *MEMORY[0x277D85DE8];
-  v79.receiver = self;
-  v79.super_class = TSCellularPlanItemCell;
-  v4 = [(TSCellularPlanItemCell *)&v79 initWithStyle:style reuseIdentifier:identifier];
+  v79[7] = *MEMORY[0x277D85DE8];
+  v78.receiver = self;
+  v78.super_class = TSCellularPlanItemCell;
+  v4 = [(TSCellularPlanItemCell *)&v78 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = objc_alloc(MEMORY[0x277D756B8]);
@@ -61,7 +62,7 @@
     planInfo5 = [(TSCellularPlanItemCell *)v4 planInfo];
     [contentView3 addSubview:planInfo5];
 
-    v61 = MEMORY[0x277CCAAD0];
+    v60 = MEMORY[0x277CCAAD0];
     title5 = [(TSCellularPlanItemCell *)v4 title];
     topAnchor = [title5 topAnchor];
     contentView4 = [(TSCellularPlanItemCell *)v4 contentView];
@@ -69,8 +70,8 @@
     topAnchor2 = [layoutMarginsGuide topAnchor];
     defaultMetrics = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics scaledValueForValue:0.0];
-    v72 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-    v80[0] = v72;
+    v71 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
+    v79[0] = v71;
     title6 = [(TSCellularPlanItemCell *)v4 title];
     leadingAnchor = [title6 leadingAnchor];
     contentView5 = [(TSCellularPlanItemCell *)v4 contentView];
@@ -78,8 +79,8 @@
     leadingAnchor2 = [layoutMarginsGuide2 leadingAnchor];
     defaultMetrics2 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics2 scaledValueForValue:30.0];
-    v65 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:?];
-    v80[1] = v65;
+    v64 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:?];
+    v79[1] = v64;
     title7 = [(TSCellularPlanItemCell *)v4 title];
     trailingAnchor = [title7 trailingAnchor];
     contentView6 = [(TSCellularPlanItemCell *)v4 contentView];
@@ -87,14 +88,14 @@
     trailingAnchor2 = [layoutMarginsGuide3 trailingAnchor];
     defaultMetrics3 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics3 scaledValueForValue:24.0];
-    v57 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:?];
-    v80[2] = v57;
+    v56 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:?];
+    v79[2] = v56;
     planInfo6 = [(TSCellularPlanItemCell *)v4 planInfo];
     topAnchor3 = [planInfo6 topAnchor];
     title8 = [(TSCellularPlanItemCell *)v4 title];
     bottomAnchor = [title8 bottomAnchor];
-    v52 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
-    v80[3] = v52;
+    v51 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
+    v79[3] = v51;
     planInfo7 = [(TSCellularPlanItemCell *)v4 planInfo];
     leadingAnchor3 = [planInfo7 leadingAnchor];
     contentView7 = [(TSCellularPlanItemCell *)v4 contentView];
@@ -102,8 +103,8 @@
     leadingAnchor4 = [layoutMarginsGuide4 leadingAnchor];
     defaultMetrics4 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics4 scaledValueForValue:30.0];
-    v45 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:?];
-    v80[4] = v45;
+    v44 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:?];
+    v79[4] = v44;
     planInfo8 = [(TSCellularPlanItemCell *)v4 planInfo];
     trailingAnchor3 = [planInfo8 trailingAnchor];
     contentView8 = [(TSCellularPlanItemCell *)v4 contentView];
@@ -112,7 +113,7 @@
     defaultMetrics5 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics5 scaledValueForValue:24.0];
     v28 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:?];
-    v80[5] = v28;
+    v79[5] = v28;
     contentView9 = [(TSCellularPlanItemCell *)v4 contentView];
     bottomAnchor2 = [contentView9 bottomAnchor];
     planInfo9 = [(TSCellularPlanItemCell *)v4 planInfo];
@@ -120,9 +121,9 @@
     defaultMetrics6 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics6 scaledValueForValue:13.0];
     v34 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:?];
-    v80[6] = v34;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:7];
-    [v61 activateConstraints:v35];
+    v79[6] = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:7];
+    [v60 activateConstraints:v35];
 
     v36 = objc_opt_new();
     clearColor = [MEMORY[0x277D75348] clearColor];
@@ -131,8 +132,15 @@
     [(TSCellularPlanItemCell *)v4 setSelectedBackgroundView:v36];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v4;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = TSCellularPlanItemCell;
+  [(TSCellularPlanItemCell *)&v5 setSelected:selected animated:animated];
+  [(TSCellularPlanItemCell *)self setNeedsLayout];
 }
 
 - (void)setIcon:(BOOL)icon

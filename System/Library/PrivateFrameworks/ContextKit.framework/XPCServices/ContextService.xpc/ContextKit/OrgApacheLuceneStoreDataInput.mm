@@ -63,14 +63,14 @@
 {
   readVInt = [(OrgApacheLuceneStoreDataInput *)self readVInt];
 
-  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithInt_(readVInt);
+  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithInt_(readVInt, v3);
 }
 
 - (int64_t)readZLong
 {
   v2 = sub_100039C6C(self, 1);
 
-  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithLong_(v2);
+  return OrgApacheLuceneUtilBitUtil_zigZagDecodeWithLong_(v2, v3);
 }
 
 - (id)readString
@@ -126,36 +126,36 @@
   readVInt = [(OrgApacheLuceneStoreDataInput *)self readVInt];
   if (readVInt != 1)
   {
-    v4 = readVInt;
+    v5 = readVInt;
     if (!readVInt)
     {
 
-      return JavaUtilCollections_emptyMap();
+      return JavaUtilCollections_emptyMap(readVInt, v4);
     }
 
     if (readVInt < 11)
     {
-      v8 = new_JavaUtilTreeMap_init();
-      if (v4 < 1)
+      v9 = new_JavaUtilTreeMap_init();
+      if (v5 < 1)
       {
 LABEL_13:
 
-        return JavaUtilCollections_unmodifiableMapWithJavaUtilMap_(v8);
+        return JavaUtilCollections_unmodifiableMapWithJavaUtilMap_(v9, v10);
       }
     }
 
     else
     {
-      v8 = new_JavaUtilHashMap_init();
+      v9 = new_JavaUtilHashMap_init();
     }
 
     do
     {
-      [(JavaUtilTreeMap *)v8 putWithId:[(OrgApacheLuceneStoreDataInput *)self readString] withId:[(OrgApacheLuceneStoreDataInput *)self readString]];
-      --v4;
+      [(JavaUtilTreeMap *)v9 putWithId:[(OrgApacheLuceneStoreDataInput *)self readString] withId:[(OrgApacheLuceneStoreDataInput *)self readString]];
+      --v5;
     }
 
-    while (v4);
+    while (v5);
     goto LABEL_13;
   }
 
@@ -189,36 +189,36 @@ LABEL_13:
   readVInt = [(OrgApacheLuceneStoreDataInput *)self readVInt];
   if (readVInt != 1)
   {
-    v4 = readVInt;
+    v5 = readVInt;
     if (!readVInt)
     {
 
-      return JavaUtilCollections_emptySet();
+      return JavaUtilCollections_emptySet(readVInt, v4);
     }
 
     if (readVInt < 11)
     {
-      v7 = new_JavaUtilTreeSet_init();
-      if (v4 < 1)
+      v8 = new_JavaUtilTreeSet_init();
+      if (v5 < 1)
       {
 LABEL_13:
 
-        return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v7);
+        return JavaUtilCollections_unmodifiableSetWithJavaUtilSet_(v8, v9);
       }
     }
 
     else
     {
-      v7 = new_JavaUtilHashSet_init();
+      v8 = new_JavaUtilHashSet_init();
     }
 
     do
     {
-      [(JavaUtilTreeSet *)v7 addWithId:[(OrgApacheLuceneStoreDataInput *)self readString]];
-      --v4;
+      [(JavaUtilTreeSet *)v8 addWithId:[(OrgApacheLuceneStoreDataInput *)self readString]];
+      --v5;
     }
 
-    while (v4);
+    while (v5);
     goto LABEL_13;
   }
 

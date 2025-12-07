@@ -10,27 +10,27 @@
 
 - (id)rc_description
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(self, "count")}];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -68,15 +68,13 @@
         [v2 addObject:v8];
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
 
   v14 = [v2 componentsJoinedByString:{@", "}];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -138,19 +136,17 @@
 
 - (void)rc_firstObjectPassingTest:()RCAdditions .cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "testBlock"];
   *buf = 136315906;
-  v3 = "[NSArray(RCAdditions) rc_firstObjectPassingTest:]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Categories/NSArray+RCAdditions.m";
-  v6 = 1024;
-  v7 = 18;
-  v8 = 2114;
-  v9 = v0;
+  v2 = "[NSArray(RCAdditions) rc_firstObjectPassingTest:]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/Categories/NSArray+RCAdditions.m";
+  v5 = 1024;
+  v6 = 18;
+  v7 = 2114;
+  v8 = v0;
   _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

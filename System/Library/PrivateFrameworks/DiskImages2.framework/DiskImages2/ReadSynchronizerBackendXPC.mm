@@ -19,7 +19,7 @@
     baseBackendXPC = v7->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     std::allocate_shared[abi:ne200100]<readSynchronizer,std::allocator<readSynchronizer>,std::shared_ptr<Backend> &,0>();
@@ -43,7 +43,7 @@
     v8 = v5->_baseBackendXPC;
     if (v8)
     {
-      [(BackendXPC *)v8 backend];
+      objc_msgSend_backend(v8);
     }
 
     std::allocate_shared[abi:ne200100]<readSynchronizer,std::allocator<readSynchronizer>,std::shared_ptr<Backend>,0>();

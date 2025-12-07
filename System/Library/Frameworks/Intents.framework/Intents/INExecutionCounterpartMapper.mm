@@ -31,44 +31,44 @@
 
 - (id)localIdentifiersForCounterpartIdentifier:(id)identifier
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v47 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
-    v48 = 2112;
-    v49 = identifierCopy;
+    v46 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
+    v47 = 2112;
+    v48 = identifierCopy;
     _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s [Counterpart Mapping] Starting counterpart mapping for bundle id: %@", buf, 0x16u);
   }
 
   if (identifierCopy)
   {
     os_unfair_lock_lock(&self->_lock);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __73__INExecutionCounterpartMapper_localIdentifiersForCounterpartIdentifier___block_invoke;
-    v43[3] = &unk_1E72882F8;
-    v43[4] = self;
-    v30 = MEMORY[0x193AD7780](v43);
-    v28 = [(NSMutableDictionary *)self->_mapping objectForKey:identifierCopy];
-    if (v28)
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __73__INExecutionCounterpartMapper_localIdentifiersForCounterpartIdentifier___block_invoke;
+    v42[3] = &unk_1E72882F8;
+    v42[4] = self;
+    v29 = MEMORY[0x193AD7780](v42);
+    v27 = [(NSMutableDictionary *)self->_mapping objectForKey:identifierCopy];
+    if (v27)
     {
       v6 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v47 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
-        v48 = 2112;
-        v49 = identifierCopy;
-        v50 = 2112;
-        v51 = v28;
+        v46 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
+        v47 = 2112;
+        v48 = identifierCopy;
+        v49 = 2112;
+        v50 = v27;
         _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s [Counterpart Mapping] (%@) Found counterpart in local mapping: %@", buf, 0x20u);
       }
 
-      v7 = v28;
-      v8 = v28;
+      v7 = v27;
+      v8 = v27;
     }
 
     else
@@ -79,9 +79,9 @@
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v47 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
-          v48 = 2112;
-          v49 = identifierCopy;
+          v46 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
+          v47 = 2112;
+          v48 = identifierCopy;
           _os_log_impl(&dword_18E991000, v9, OS_LOG_TYPE_INFO, "%s [Counterpart Mapping] (%@) Mapping is filled and a counterpart was not found, returning nil", buf, 0x16u);
         }
 
@@ -91,62 +91,62 @@
       else
       {
         [MEMORY[0x1E69635F8] enumeratorWithOptions:1];
+        v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        obj = v40 = 0u;
-        v10 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v38 = 0u;
+        obj = v39 = 0u;
+        v10 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
         if (v10)
         {
-          v32 = *v40;
+          v31 = *v39;
           *&v11 = 136315394;
-          v27 = v11;
+          v26 = v11;
           while (2)
           {
-            v34 = 0;
-            v31 = v10;
+            v33 = 0;
+            v30 = v10;
             do
             {
-              if (*v40 != v32)
+              if (*v39 != v31)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v12 = *(*(&v39 + 1) + 8 * v34);
+              v12 = *(*(&v38 + 1) + 8 * v33);
               context = objc_autoreleasePoolPush();
               v13 = INCounterpartIdentifiersForApplicationRecord(v12);
-              v37 = 0u;
-              v38 = 0u;
-              v35 = 0u;
               v36 = 0u;
+              v37 = 0u;
+              v34 = 0u;
+              v35 = 0u;
               v14 = v13;
-              v15 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
               if (v15)
               {
-                v16 = *v36;
+                v16 = *v35;
                 while (2)
                 {
                   for (i = 0; i != v15; ++i)
                   {
-                    if (*v36 != v16)
+                    if (*v35 != v16)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v18 = *(*(&v35 + 1) + 8 * i);
+                    v18 = *(*(&v34 + 1) + 8 * i);
                     v19 = INSiriLogContextIntents;
                     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
                     {
                       *buf = 136315650;
-                      v47 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
-                      v48 = 2112;
-                      v49 = identifierCopy;
-                      v50 = 2112;
-                      v51 = v18;
+                      v46 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
+                      v47 = 2112;
+                      v48 = identifierCopy;
+                      v49 = 2112;
+                      v50 = v18;
                       _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s [Counterpart Mapping] (%@) Found counterpart: %@", buf, 0x20u);
                     }
 
-                    v20 = [(NSMutableDictionary *)self->_mapping objectForKey:v18, v27];
+                    v20 = [(NSMutableDictionary *)self->_mapping objectForKey:v18, v26];
                     if (!v20)
                     {
                       v20 = objc_opt_new();
@@ -161,10 +161,10 @@
                       v23 = INSiriLogContextIntents;
                       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
                       {
-                        *buf = v27;
-                        v47 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
-                        v48 = 2112;
-                        v49 = identifierCopy;
+                        *buf = v26;
+                        v46 = "[INExecutionCounterpartMapper localIdentifiersForCounterpartIdentifier:]";
+                        v47 = 2112;
+                        v48 = identifierCopy;
                         _os_log_impl(&dword_18E991000, v23, OS_LOG_TYPE_INFO, "%s [Counterpart Mapping] (%@) Counterpart and original match, stopping", buf, 0x16u);
                       }
 
@@ -173,7 +173,7 @@
                     }
                   }
 
-                  v15 = [v14 countByEnumeratingWithState:&v35 objects:v44 count:16];
+                  v15 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
                   if (v15)
                   {
                     continue;
@@ -193,11 +193,11 @@ LABEL_34:
                 goto LABEL_39;
               }
 
-              ++v34;
+              ++v33;
             }
 
-            while (v34 != v31);
-            v10 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+            while (v33 != v30);
+            v10 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
             if (v10)
             {
               continue;
@@ -217,15 +217,13 @@ LABEL_39:
       v7 = 0;
     }
 
-    v30[2]();
+    v29[2]();
   }
 
   else
   {
     v8 = 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

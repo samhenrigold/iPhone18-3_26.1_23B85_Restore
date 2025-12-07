@@ -13,31 +13,31 @@
 
 - (NSString)indexVariableName
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   workflow = [(WFAction *)self workflow];
   actionTree = [workflow actionTree];
   v5 = [actionTree outputsForAction:self];
 
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     variableName = @"Repeat Index";
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v11 outputType] == 2)
         {
           variableName = [v11 variableName];
@@ -45,7 +45,7 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -61,8 +61,6 @@
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return variableName;
 }
@@ -97,7 +95,7 @@ LABEL_12:
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v5 = [(WFRepeatAction *)self indexVariableName:input];
   if (v5 && ![(WFControlFlowAction *)self mode])
   {
@@ -113,13 +111,11 @@ LABEL_12:
     v14 = MEMORY[0x1E6996D58];
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue + 1];
     v16 = [v14 itemWithObject:v15];
-    v20[0] = v16;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v16;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     v18 = [v13 collectionWithItems:v17];
     [variableSource2 setContent:v18 forVariableWithName:v5];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetEvaluationCriteriaWithVariableSource:(id)source
@@ -143,22 +139,20 @@ LABEL_12:
 
 - (id)createAccompanyingActions
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if ([(WFControlFlowAction *)self mode])
   {
-    v7.receiver = self;
-    v7.super_class = WFRepeatAction;
-    createAccompanyingActions = [(WFAction *)&v7 createAccompanyingActions];
+    v6.receiver = self;
+    v6.super_class = WFRepeatAction;
+    createAccompanyingActions = [(WFAction *)&v6 createAccompanyingActions];
   }
 
   else
   {
     v4 = [(WFControlFlowAction *)self createAccompanyingActionWithMode:2];
-    v8[0] = v4;
-    createAccompanyingActions = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    createAccompanyingActions = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return createAccompanyingActions;
 }

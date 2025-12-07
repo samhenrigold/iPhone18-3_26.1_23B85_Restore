@@ -288,7 +288,7 @@ void __38__EMTStablePrefixState_sourceSideData__block_invoke(uint64_t a1, void *
   v5 = *(*(a1 + 32) + 8);
   if (v3)
   {
-    [v3 getData];
+    objc_msgSend_getData(v3);
   }
 
   else
@@ -298,12 +298,12 @@ void __38__EMTStablePrefixState_sourceSideData__block_invoke(uint64_t a1, void *
     *v11 = 0u;
   }
 
-  v6 = *(v5 + 56);
-  if (v6 >= *(v5 + 64))
+  v6 = v5[7];
+  if (v6 >= v5[8])
   {
-    v8 = std::vector<quasar::TranslationPhrase::SegmentInfo>::__emplace_back_slow_path<quasar::TranslationPhrase::SegmentInfo>(v5 + 48, &v10);
+    v8 = std::vector<quasar::TranslationPhrase::SegmentInfo>::__emplace_back_slow_path<quasar::TranslationPhrase::SegmentInfo>(v5 + 6, &v10);
     v9 = __p[1];
-    *(v5 + 56) = v8;
+    v5[7] = v8;
     if (v9)
     {
       __p[2] = v9;
@@ -329,7 +329,7 @@ void __38__EMTStablePrefixState_sourceSideData__block_invoke(uint64_t a1, void *
     *(v6 + 40) = *&__p[1];
     *(v6 + 56) = __p[3];
     memset(__p, 0, sizeof(__p));
-    *(v5 + 56) = v6 + 64;
+    v5[7] = v6 + 64;
   }
 
   if (v11[0])

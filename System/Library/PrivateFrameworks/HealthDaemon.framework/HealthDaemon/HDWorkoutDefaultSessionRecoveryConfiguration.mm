@@ -14,7 +14,7 @@
   v7 = [(HDWorkoutDefaultSessionRecoveryConfiguration *)&v11 init];
   if (v7)
   {
-    v8 = [typesCopy copy];
+    v8 = objc_msgSend_copy(typesCopy);
     generatedTypes = v7->_generatedTypes;
     v7->_generatedTypes = v8;
 

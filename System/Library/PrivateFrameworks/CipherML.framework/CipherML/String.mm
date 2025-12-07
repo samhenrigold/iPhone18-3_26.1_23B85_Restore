@@ -10,7 +10,7 @@
   if (!lazy protocol witness table cache variable for type [String : [TokenCache.CachedToken]] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSay8CipherML10TokenCacheC06CachedC0VGGMd, &_sSDySSSay8CipherML10TokenCacheC06CachedC0VGGMR);
-    lazy protocol witness table accessor for type [TokenCache.CachedToken] and conformance <A> [A](&lazy protocol witness table cache variable for type [TokenCache.CachedToken] and conformance <A> [A], &lazy protocol witness table cache variable for type TokenCache.CachedToken and conformance TokenCache.CachedToken);
+    lazy protocol witness table accessor for type [TokenCache.CachedToken] and conformance <A> [A](&lazy protocol witness table cache variable for type [TokenCache.CachedToken] and conformance <A> [A], &lazy protocol witness table cache variable for type TokenCache.CachedToken and conformance TokenCache.CachedToken, &protocol conformance descriptor for TokenCache.CachedToken, MEMORY[0x277D83948]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : [TokenCache.CachedToken]] and conformance <> [A : B]);
   }

@@ -63,23 +63,7 @@
     [(SFColor *)self redComponent];
     v7 = v6;
     [(SFColor *)v5 redComponent];
-    if (vabdd_f64(v7, v8) >= 2.22044605e-16)
-    {
-      goto LABEL_13;
-    }
-
-    [(SFColor *)self greenComponent];
-    v10 = v9;
-    [(SFColor *)v5 greenComponent];
-    if (vabdd_f64(v10, v11) >= 2.22044605e-16)
-    {
-      goto LABEL_13;
-    }
-
-    [(SFColor *)self blueComponent];
-    v13 = v12;
-    [(SFColor *)v5 blueComponent];
-    if (vabdd_f64(v13, v14) < 2.22044605e-16 && ([(SFColor *)self alphaComponent], v16 = v15, [(SFColor *)v5 alphaComponent], vabdd_f64(v16, v17) < 2.22044605e-16) && (v18 = [(SFColor *)self colorTintStyle], v18 == [(SFColor *)v5 colorTintStyle]))
+    if (vabdd_f64(v7, v8) < 2.22044605e-16 && ([(SFColor *)self greenComponent], v10 = v9, [(SFColor *)v5 greenComponent], vabdd_f64(v10, v11) < 2.22044605e-16) && ([(SFColor *)self blueComponent], v13 = v12, [(SFColor *)v5 blueComponent], vabdd_f64(v13, v14) < 2.22044605e-16) && ([(SFColor *)self alphaComponent], v16 = v15, [(SFColor *)v5 alphaComponent], vabdd_f64(v16, v17) < 2.22044605e-16) && (v18 = [(SFColor *)self colorTintStyle], v18 == [(SFColor *)v5 colorTintStyle]))
     {
       darkModeColor = [(SFColor *)self darkModeColor];
       darkModeColor2 = [(SFColor *)v5 darkModeColor];
@@ -107,7 +91,6 @@
 
     else
     {
-LABEL_13:
       v24 = 0;
     }
   }

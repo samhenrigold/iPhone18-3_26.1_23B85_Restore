@@ -7,13 +7,6 @@
 
 - (void)dealloc
 {
-  client = self->client;
-  if (client)
-  {
-    providerID = client->providerID;
-  }
-
-  queueID = self->queueID;
   kdebug_trace();
   if (self->_dispatchMach)
   {
@@ -53,9 +46,9 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = __IOGCFastPathInputQueue;
-    [(__IOGCFastPathInputQueue *)&v10 dealloc];
+    v7.receiver = self;
+    v7.super_class = __IOGCFastPathInputQueue;
+    [(__IOGCFastPathInputQueue *)&v7 dealloc];
   }
 
   kdebug_trace();

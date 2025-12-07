@@ -72,7 +72,7 @@
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(animator);
 }
 
 - (void)_setInteractor:(id)interactor
@@ -109,7 +109,7 @@
     }
   }
 
-  _objc_release_x2();
+  _objc_release_x2(interactor);
 }
 
 - (id)_transitionCoordinator

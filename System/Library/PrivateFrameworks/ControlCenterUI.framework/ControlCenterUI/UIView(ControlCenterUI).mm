@@ -7,20 +7,20 @@
 
 - (uint64_t)ccui_setFramePreservingTransform:()ControlCenterUI
 {
-  v16 = 0u;
   v17 = 0u;
-  v15 = 0u;
-  [self transform];
-  v10 = *(MEMORY[0x277CBF2C0] + 16);
-  v12 = *MEMORY[0x277CBF2C0];
-  v13 = v10;
-  v14 = *(MEMORY[0x277CBF2C0] + 32);
-  [self setTransform:&v12];
-  [self setFrame:{a2, a3, a4, a5}];
-  v12 = v15;
+  v18 = 0u;
+  v16 = 0u;
+  objc_msgSend_transform(self, a2);
+  v11 = *(MEMORY[0x277CBF2C0] + 16);
+  v13 = *MEMORY[0x277CBF2C0];
+  v14 = v11;
+  v15 = *(MEMORY[0x277CBF2C0] + 32);
+  [self setTransform:&v13];
+  [self setFrame:{a3, a4, a5, a6}];
   v13 = v16;
   v14 = v17;
-  return [self setTransform:&v12];
+  v15 = v18;
+  return [self setTransform:&v13];
 }
 
 + (void)ccui_performLayerAnimations:()ControlCenterUI

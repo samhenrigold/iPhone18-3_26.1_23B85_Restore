@@ -1,5 +1,7 @@
 @interface CTTransportSTK
 - (CTTransportSTK)initWithCoder:(id)coder;
+- (CTTransportSTK)initWithSTK:(id)k forIdx:(int)idx;
+- (CTTransportSTK)initWithSTK:(id)k forIdx:(int)idx epki:(id)epki;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -20,6 +22,42 @@
   [v3 appendString:@">"];
 
   return v3;
+}
+
+- (CTTransportSTK)initWithSTK:(id)k forIdx:(int)idx
+{
+  v4 = *&idx;
+  kCopy = k;
+  v10.receiver = self;
+  v10.super_class = CTTransportSTK;
+  v7 = [(CTTransportSTK *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(CTTransportSTK *)v7 setIndex:v4];
+    [(CTTransportSTK *)v8 setStk:kCopy];
+  }
+
+  return v8;
+}
+
+- (CTTransportSTK)initWithSTK:(id)k forIdx:(int)idx epki:(id)epki
+{
+  v6 = *&idx;
+  kCopy = k;
+  epkiCopy = epki;
+  v13.receiver = self;
+  v13.super_class = CTTransportSTK;
+  v10 = [(CTTransportSTK *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(CTTransportSTK *)v10 setIndex:v6];
+    [(CTTransportSTK *)v11 setKey_epki:epkiCopy];
+    [(CTTransportSTK *)v11 setStk:kCopy];
+  }
+
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

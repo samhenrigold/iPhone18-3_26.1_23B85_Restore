@@ -14,7 +14,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   requestId = self->_requestId;
   v6 = *(fromCopy + 5);
@@ -61,29 +61,29 @@
     [(SIRINLUINTERNALITFMITFMParserRequest *)self setEmbeddings:?];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v11 = *(fromCopy + 2);
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(SIRINLUINTERNALITFMITFMParserRequest *)self addMatchingSpans:*(*(&v23 + 1) + 8 * i), v23];
+        [(SIRINLUINTERNALITFMITFMParserRequest *)self addMatchingSpans:*(*(&v22 + 1) + 8 * i), v22];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
@@ -133,8 +133,6 @@
   {
     [(SIRINLUINTERNALITFMITFMParserRequest *)self setNluRequestId:?];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -175,7 +173,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(SIRINLUEXTERNALUUID *)self->_requestId copyWithZone:zone];
   v7 = v5[5];
@@ -189,34 +187,34 @@
   v11 = v5[1];
   v5[1] = v10;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v12 = self->_matchingSpans;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       v16 = 0;
       do
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v26 + 1) + 8 * v16) copyWithZone:{zone, v26}];
+        v17 = [*(*(&v25 + 1) + 8 * v16) copyWithZone:{zone, v25}];
         [v5 addMatchingSpans:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -234,7 +232,6 @@
   v23 = v5[3];
   v5[3] = v22;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -292,7 +289,7 @@
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_requestId)
   {
@@ -309,33 +306,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_matchingSpans;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -355,13 +351,11 @@
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   requestId = self->_requestId;
   if (requestId)
@@ -387,30 +381,30 @@
   if ([(NSMutableArray *)self->_matchingSpans count])
   {
     v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_matchingSpans, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v11 = self->_matchingSpans;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation4 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation4];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
@@ -439,8 +433,6 @@
     dictionaryRepresentation7 = [(SIRINLUEXTERNALRequestID *)nluRequestId dictionaryRepresentation];
     [dictionary setObject:dictionaryRepresentation7 forKey:@"nlu_request_id"];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

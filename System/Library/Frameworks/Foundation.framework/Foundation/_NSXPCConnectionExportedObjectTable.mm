@@ -1,8 +1,8 @@
 @interface _NSXPCConnectionExportedObjectTable
 - (_NSXPCConnectionExportedObjectTable)init;
+- (char)exportedObjectForProxyNumber:(char *)result;
+- (char)interfaceForProxyNumber:(char *)result;
 - (id)description;
-- (id)exportedObjectForProxyNumber:(id)result;
-- (id)interfaceForProxyNumber:(id)result;
 - (uint64_t)proxyNumberForExportedObject:(const void *)object interface:;
 - (void)dealloc;
 - (void)invalidate;
@@ -109,7 +109,7 @@
   }
 }
 
-- (id)exportedObjectForProxyNumber:(id)result
+- (char)exportedObjectForProxyNumber:(char *)result
 {
   if (result)
   {
@@ -163,7 +163,7 @@
   }
 }
 
-- (id)interfaceForProxyNumber:(id)result
+- (char)interfaceForProxyNumber:(char *)result
 {
   if (result)
   {

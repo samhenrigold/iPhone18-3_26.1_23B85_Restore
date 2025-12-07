@@ -10,7 +10,7 @@
 
 - (uint64_t)ccs_hasEntitlementForModuleIdentifier:()CCSEntitlements
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x277CF0B98];
   _xpcConnection = [self _xpcConnection];
@@ -20,8 +20,8 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
 
     v8 = v9;
   }
@@ -46,7 +46,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

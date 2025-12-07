@@ -1,8 +1,36 @@
 @interface TestResult
+- (TestResult)initWithTestRan:(BOOL)ran testSkippedReason:(id)reason pValue:(id)value rejectNullHypothesis:(id)hypothesis sampleSize:(int64_t)size numSuccesses:(int64_t)successes minTimestamp:(id)timestamp maxTimestamp:(id)self0;
 - (id)description;
 @end
 
 @implementation TestResult
+
+- (TestResult)initWithTestRan:(BOOL)ran testSkippedReason:(id)reason pValue:(id)value rejectNullHypothesis:(id)hypothesis sampleSize:(int64_t)size numSuccesses:(int64_t)successes minTimestamp:(id)timestamp maxTimestamp:(id)self0
+{
+  ranCopy = ran;
+  reasonCopy = reason;
+  valueCopy = value;
+  hypothesisCopy = hypothesis;
+  timestampCopy = timestamp;
+  maxTimestampCopy = maxTimestamp;
+  v24.receiver = self;
+  v24.super_class = TestResult;
+  v21 = [(TestResult *)&v24 init];
+  v22 = v21;
+  if (v21)
+  {
+    [(TestResult *)v21 setTestRan:ranCopy];
+    [(TestResult *)v22 setTestSkippedReason:reasonCopy];
+    [(TestResult *)v22 setPValue:valueCopy];
+    [(TestResult *)v22 setRejectNullHypothesis:hypothesisCopy];
+    [(TestResult *)v22 setSampleSize:size];
+    [(TestResult *)v22 setNumSuccesses:successes];
+    [(TestResult *)v22 setMinTimestamp:timestampCopy];
+    [(TestResult *)v22 setMaxTimestamp:maxTimestampCopy];
+  }
+
+  return v22;
+}
 
 - (id)description
 {

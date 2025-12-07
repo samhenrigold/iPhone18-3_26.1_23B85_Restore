@@ -29,7 +29,7 @@ void *__get_UIAccessibilitySetAssociatedElementContextForNextNotificationSymbolL
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);

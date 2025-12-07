@@ -8,12 +8,14 @@
 
 - (BOOL)isExpressEnabled
 {
-  swift_getKeyPath();
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
+  v4 = swift_getKeyPath();
   selfCopy = self;
-  sub_1BE04D8B4();
+  sub_1BE04D8B4(&v21);
+  KeyPath, v6, v7, v8, v9, v10, v11, v12;
+  v4, v13, v14, v15, v16, v17, v18, v19;
 
-  return v5;
+  return v21;
 }
 
 - (void)setIsExpressEnabled:(BOOL)enabled

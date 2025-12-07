@@ -10,10 +10,12 @@
 - (BOOL)launchInBackground;
 - (BOOL)needsConversationOrVideoRelaySupport;
 - (BOOL)needsConversationRelaySupport;
+- (BOOL)setAudioSessionMuted:(BOOL)muted error:(id *)error;
 - (BOOL)shouldHandleMuteRequests;
 - (BOOL)shouldOwnMuteHandler;
 - (CSDAudioSessionProtocol)audioSession;
 - (CSDCall)initWithUniqueProxyIdentifier:(id)identifier configuration:(id)configuration;
+- (CSDCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center;
 - (CSDCallDataSource)dataSource;
 - (CSDCallDelegate)delegate;
 - (CSDConversationCallCoordinator)conversationCoordinator;
@@ -35,6 +37,7 @@
 - (void)_refreshFaceTimeIDSStatusIfNecessary;
 - (void)dealloc;
 - (void)dialWithRequest:(id)request displayContext:(id)context;
+- (void)disconnectCallWithReason:(int)reason;
 - (void)handleAudioSessionActivationStateChangedTo:(id)to;
 - (void)handleUpdatedPropertiesAfterChangesInBlock:(id)block;
 - (void)idStatusUpdatedForDestinations:(id)destinations service:(id)service;
@@ -61,6 +64,8 @@
 - (void)setScreenShareAttributes:(id)attributes;
 - (void)setScreening:(BOOL)screening;
 - (void)setScreeningAnnouncementHasFinished:(BOOL)finished;
+- (void)setSharingScreen:(BOOL)screen;
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes;
 - (void)setShouldSuppressRingtone:(BOOL)ringtone;
 - (void)setSmartHoldingSession:(id)session;
 - (void)setSoundRegion:(int64_t)region;
@@ -70,6 +75,7 @@
 - (void)setTranslationDisclosureLocation:(id)location;
 - (void)setTranslationSession:(id)session;
 - (void)setTransmissionState:(int64_t)state;
+- (void)setUplinkMuted:(BOOL)muted userInitiated:(BOOL)initiated;
 - (void)setWantsHoldMusic:(BOOL)music;
 - (void)setWasDialAssisted:(BOOL)assisted;
 - (void)unsuppressRingtoneIfNecessary;
@@ -140,7 +146,7 @@
     v7 = TUTranslationErrorDomain;
     v8 = 19;
 LABEL_5:
-    recordingSession = [v6 initWithDomain:v7 code:v8 userInfo:{0, *v38}];
+    recordingSession = [v6 initWithDomain:v7 code:v8 userInfo:{0, *v43, *&v43[8]}];
     goto LABEL_6;
   }
 
@@ -200,15 +206,15 @@ LABEL_17:
 
   if ((isTelephonyProvider & 1) == 0)
   {
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100004778(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       provider4 = [(CSDCall *)self provider];
-      *v38 = 138412290;
-      *&v38[4] = provider4;
-      v29 = "provider %@ doesn't support translation";
+      *v43 = 138412290;
+      *&v43[4] = provider4;
+      v32 = "provider %@ doesn't support translation";
 LABEL_48:
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v29, v38, 0xCu);
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, v32, v43, 0xCu);
     }
 
 LABEL_49:
@@ -248,13 +254,13 @@ LABEL_22:
 
   if ((supportsAudioTranslation & 1) == 0)
   {
-    v27 = sub_100004778();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100004778(v38);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       provider4 = [(CSDCall *)self provider];
-      *v38 = 138412290;
-      *&v38[4] = provider4;
-      v29 = "3P provider %@ doesn't support translation";
+      *v43 = 138412290;
+      *&v43[4] = provider4;
+      v32 = "3P provider %@ doesn't support translation";
       goto LABEL_48;
     }
 
@@ -289,13 +295,13 @@ LABEL_28:
 
   if (isVideo)
   {
-    v36 = sub_100004778();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v41 = sub_100004778(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       provider10 = [(CSDCall *)self provider];
-      *v38 = 138412290;
-      *&v38[4] = provider10;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "3P call %@ doesn't support video call translation", v38, 0xCu);
+      *v43 = 138412290;
+      *&v43[4] = provider10;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "3P call %@ doesn't support video call translation", v43, 0xCu);
     }
 
     v6 = [NSError alloc];
@@ -305,13 +311,14 @@ LABEL_28:
   }
 
 LABEL_30:
-  if ([(CSDCall *)self isScreening])
+  isScreening = [(CSDCall *)self isScreening];
+  if (isScreening)
   {
-    v23 = sub_100004778();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100004778(isScreening);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "translation doesn't support when is screening", v38, 2u);
+      *v43 = 0;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "translation doesn't support when is screening", v43, 2u);
     }
 
     v6 = [NSError alloc];
@@ -320,13 +327,14 @@ LABEL_30:
     goto LABEL_5;
   }
 
-  if ([(CSDCall *)self isEmergency])
+  isEmergency = [(CSDCall *)self isEmergency];
+  if (isEmergency)
   {
-    v24 = sub_100004778();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100004778(isEmergency);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Translation is not allowed for emergency calls", v38, 2u);
+      *v43 = 0;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Translation is not allowed for emergency calls", v43, 2u);
     }
 
     v6 = [NSError alloc];
@@ -338,7 +346,7 @@ LABEL_30:
   recordingSession = [(CSDCall *)self recordingSession];
   if (recordingSession)
   {
-    v30 = recordingSession;
+    v33 = recordingSession;
     recordingSession2 = [(CSDCall *)self recordingSession];
     recordingState = [recordingSession2 recordingState];
 
@@ -414,30 +422,31 @@ LABEL_6:
 {
   translationAllowedError = [(CSDCall *)self translationAllowedError];
   translationDisabledError = [(CSDCall *)self translationDisabledError];
+  v5 = translationDisabledError;
   if (translationDisabledError)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(translationDisabledError);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = translationDisabledError;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "translationAvailability disabled: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "translationAvailability disabled: %@", &v9, 0xCu);
     }
 
-    v6 = 1;
+    v7 = 1;
   }
 
   else if (translationAllowedError)
   {
-    v6 = 2;
+    v7 = 2;
   }
 
   else
   {
-    v6 = 3;
+    v7 = 3;
   }
 
-  return v6;
+  return v7;
 }
 
 - (NSError)translationAllowedError
@@ -448,30 +457,30 @@ LABEL_6:
   {
     v5 = translationDisabledError;
 LABEL_17:
-    v12 = v5;
+    v13 = v5;
     goto LABEL_18;
   }
 
   if ([(CSDCall *)self status]!= 1)
   {
-    v13 = [NSError alloc];
-    v14 = TUTranslationErrorDomain;
-    v15 = 5;
+    v14 = [NSError alloc];
+    v15 = TUTranslationErrorDomain;
+    v16 = 5;
     goto LABEL_16;
   }
 
   if (([(CSDCall *)self isEndpointOnCurrentDevice]& 1) == 0)
   {
-    v13 = [NSError alloc];
-    v14 = TUTranslationErrorDomain;
-    v15 = 15;
+    v14 = [NSError alloc];
+    v15 = TUTranslationErrorDomain;
+    v16 = 15;
     goto LABEL_16;
   }
 
   if (![(CSDCall *)self isConferenced])
   {
 LABEL_13:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_18;
   }
 
@@ -492,18 +501,18 @@ LABEL_13:
       goto LABEL_10;
     }
 
-    v21 = sub_100004778();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100004778(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "3P Translation is not allowed for conference calls", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "3P Translation is not allowed for conference calls", buf, 2u);
     }
 
-    v13 = [NSError alloc];
-    v14 = TUTranslationErrorDomain;
-    v15 = 6;
+    v14 = [NSError alloc];
+    v15 = TUTranslationErrorDomain;
+    v16 = 6;
 LABEL_16:
-    v5 = [v13 initWithDomain:v14 code:v15 userInfo:0];
+    v5 = [v14 initWithDomain:v15 code:v16 userInfo:0];
     goto LABEL_17;
   }
 
@@ -518,19 +527,19 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v17 = sub_100004778();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004778(v12);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    *v22 = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Translation is not allowed for conference calls", v22, 2u);
+    *v24 = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Translation is not allowed for conference calls", v24, 2u);
   }
 
-  v18 = [NSError alloc];
-  v12 = [v18 initWithDomain:TUTranslationErrorDomain code:6 userInfo:0];
+  v19 = [NSError alloc];
+  v13 = [v19 initWithDomain:TUTranslationErrorDomain code:6 userInfo:0];
 
 LABEL_18:
 
-  return v12;
+  return v13;
 }
 
 - (CXCall)cxCall
@@ -666,47 +675,48 @@ LABEL_18:
   {
     v5 = recordingDisabledError;
 LABEL_12:
-    v10 = v5;
+    v11 = v5;
     goto LABEL_13;
   }
 
   if ([(CSDCall *)self status]!= 1)
   {
-    v7 = [NSError alloc];
-    v8 = TUStartRecordingErrorDomain;
-    v9 = 5;
+    v8 = [NSError alloc];
+    v9 = TUStartRecordingErrorDomain;
+    v10 = 5;
 LABEL_11:
-    v5 = [v7 initWithDomain:v8 code:v9 userInfo:0];
+    v5 = [v8 initWithDomain:v9 code:v10 userInfo:0];
     goto LABEL_12;
   }
 
   if (([(CSDCall *)self isEndpointOnCurrentDevice]& 1) == 0)
   {
-    v7 = [NSError alloc];
-    v8 = TUStartRecordingErrorDomain;
-    v9 = 8;
+    v8 = [NSError alloc];
+    v9 = TUStartRecordingErrorDomain;
+    v10 = 8;
     goto LABEL_11;
   }
 
-  if ([(CSDCall *)self isConferenced])
+  isConferenced = [(CSDCall *)self isConferenced];
+  if (isConferenced)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(isConferenced);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Recording is not allowed for conference calls", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Recording is not allowed for conference calls", v13, 2u);
     }
 
-    v7 = [NSError alloc];
-    v8 = TUStartRecordingErrorDomain;
-    v9 = 10;
+    v8 = [NSError alloc];
+    v9 = TUStartRecordingErrorDomain;
+    v10 = 10;
     goto LABEL_11;
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_13:
 
-  return v10;
+  return v11;
 }
 
 - (NSError)recordingDisabledError
@@ -720,7 +730,7 @@ LABEL_13:
     v7 = TUStartRecordingErrorDomain;
     v8 = 2;
 LABEL_32:
-    v22 = [v6 initWithDomain:v7 code:v8 userInfo:0];
+    v24 = [v6 initWithDomain:v7 code:v8 userInfo:0];
     goto LABEL_33;
   }
 
@@ -751,13 +761,14 @@ LABEL_32:
     }
   }
 
-  if ([(CSDCall *)self isEmergency])
+  isEmergency = [(CSDCall *)self isEmergency];
+  if (isEmergency)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(isEmergency);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Recording is not allowed for emergency calls", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Recording is not allowed for emergency calls", buf, 2u);
     }
 
     v6 = [NSError alloc];
@@ -814,7 +825,7 @@ LABEL_32:
   translationSession = [(CSDCall *)self translationSession];
   if (translationSession)
   {
-    v17 = translationSession;
+    v18 = translationSession;
     translationSession2 = [(CSDCall *)self translationSession];
     if ([translationSession2 translationState])
     {
@@ -835,13 +846,14 @@ LABEL_32:
     }
   }
 
-  if ([(CSDCall *)self isRemoteActiveTranslating])
+  isRemoteActiveTranslating = [(CSDCall *)self isRemoteActiveTranslating];
+  if (isRemoteActiveTranslating)
   {
-    v21 = sub_100004778();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100004778(isRemoteActiveTranslating);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Recording is not allowed when remote starts translation", v24, 2u);
+      *v26 = 0;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Recording is not allowed when remote starts translation", v26, 2u);
     }
 
     v6 = [NSError alloc];
@@ -850,10 +862,10 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v22 = 0;
+  v24 = 0;
 LABEL_33:
 
-  return v22;
+  return v24;
 }
 
 - (TUCallDisplayContext)displayContext
@@ -987,6 +999,26 @@ LABEL_5:
   return v6;
 }
 
+- (CSDCall)initWithUniqueProxyIdentifier:(id)identifier endpointOnCurrentDevice:(BOOL)device notificationCenter:(id)center
+{
+  v12.receiver = self;
+  v12.super_class = CSDCall;
+  v5 = [(CSDCall *)&v12 initWithUniqueProxyIdentifier:identifier endpointOnCurrentDevice:device notificationCenter:center];
+  if (v5)
+  {
+    v6 = +[IDSIDQueryController sharedInstance];
+    idQueryController = v5->_idQueryController;
+    v5->_idQueryController = v6;
+
+    v8 = v5->_idQueryController;
+    v9 = IDSServiceNameFaceTime;
+    queue = [(CSDCall *)v5 queue];
+    [(IDSIDQueryController *)v8 addDelegate:v5 forService:v9 listenerID:@"com.apple.TUCallCenter" queue:queue];
+  }
+
+  return v5;
+}
+
 - (CSDCall)initWithUniqueProxyIdentifier:(id)identifier configuration:(id)configuration
 {
   configurationCopy = configuration;
@@ -1008,7 +1040,7 @@ LABEL_5:
 
 - (void)dealloc
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1059,19 +1091,20 @@ LABEL_5:
 {
   requestCopy = request;
   contextCopy = context;
-  if (([requestCopy isValid] & 1) == 0)
+  isValid = [requestCopy isValid];
+  if ((isValid & 1) == 0)
   {
     sub_1004764B4(a2, self, requestCopy);
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(isValid);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
-    v17 = requestCopy;
-    v18 = 2112;
-    v19 = contextCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "dialRequest: %@ displayContext: %@", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = requestCopy;
+    v19 = 2112;
+    v20 = contextCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "dialRequest: %@ displayContext: %@", &v17, 0x16u);
   }
 
   [(CSDCall *)self setDialRequest:requestCopy];
@@ -1084,20 +1117,45 @@ LABEL_5:
 
   if (contextCopy)
   {
-    v12 = [TUDynamicCallDisplayContext alloc];
+    v13 = [TUDynamicCallDisplayContext alloc];
     queue = [(CSDCall *)self queue];
-    v14 = [v12 initWithDisplayContext:contextCopy call:self serialQueue:queue];
-    [(CSDCall *)self setDynamicDisplayContext:v14];
+    v15 = [v13 initWithDisplayContext:contextCopy call:self serialQueue:queue];
+    [(CSDCall *)self setDynamicDisplayContext:v15];
 
     dynamicDisplayContext = [(CSDCall *)self dynamicDisplayContext];
     [dynamicDisplayContext setDelegate:self];
   }
 }
 
+- (void)setSharingScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v12 = screenCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[CSDCall] setSharingScreen: %d", buf, 8u);
+  }
+
+  v10.receiver = self;
+  v10.super_class = CSDCall;
+  [(CSDCall *)&v10 setSharingScreen:screenCopy];
+  featureFlags = [(CSDCall *)self featureFlags];
+  sharePlayInCallsEnabled = [featureFlags sharePlayInCallsEnabled];
+
+  if (sharePlayInCallsEnabled)
+  {
+    conversationCoordinator = [(CSDCall *)self conversationCoordinator];
+    uniqueProxyIdentifierUUID = [(CSDCall *)self uniqueProxyIdentifierUUID];
+    [conversationCoordinator handleSetSharingScreen:uniqueProxyIdentifierUUID sharingScreen:screenCopy];
+  }
+}
+
 - (void)setScreenShareAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v5 = sub_100004778();
+  v5 = sub_100004778(attributesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -1116,6 +1174,48 @@ LABEL_5:
   }
 }
 
+- (void)setSharingScreen:(BOOL)screen attributes:(id)attributes
+{
+  screenCopy = screen;
+  attributesCopy = attributes;
+  v7 = sub_100004778(attributesCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v14 = screenCopy;
+    v15 = 2112;
+    v16 = attributesCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[CSDCall] setSharingScreen: %d attributes: %@", buf, 0x12u);
+  }
+
+  v12.receiver = self;
+  v12.super_class = CSDCall;
+  [(CSDCall *)&v12 setSharingScreen:screenCopy attributes:attributesCopy];
+  featureFlags = [(CSDCall *)self featureFlags];
+  sharePlayInCallsEnabled = [featureFlags sharePlayInCallsEnabled];
+
+  if (sharePlayInCallsEnabled)
+  {
+    conversationCoordinator = [(CSDCall *)self conversationCoordinator];
+    uniqueProxyIdentifierUUID = [(CSDCall *)self uniqueProxyIdentifierUUID];
+    [conversationCoordinator handleSetSharingScreen:uniqueProxyIdentifierUUID sharingScreen:screenCopy tuAttributes:attributesCopy];
+  }
+}
+
+- (void)disconnectCallWithReason:(int)reason
+{
+  v3 = *&reason;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "diconnectCallWithReason: %lu", &v6, 0xCu);
+  }
+
+  [(CSDCall *)self disconnectWithReason:v3];
+}
+
 - (void)unsuppressRingtoneIfNecessary
 {
   if ([(CSDCall *)self shouldSuppressRingtone])
@@ -1130,8 +1230,7 @@ LABEL_5:
     objc_copyWeak(&v8, &location);
     v4 = v3;
     v7 = v4;
-    [v4 setCompletionHandler:v6];
-    v5 = sub_100004778();
+    v5 = sub_100004778([v4 setCompletionHandler:v6]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -1159,7 +1258,7 @@ LABEL_5:
 - (void)updateWithOverrideCallProperties:(id)properties
 {
   propertiesCopy = properties;
-  v5 = sub_100004778();
+  v5 = sub_100004778(propertiesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v29 = 138412290;
@@ -1508,7 +1607,7 @@ LABEL_5:
 - (void)setReceptionistSession:(id)session
 {
   sessionCopy = session;
-  v5 = sub_100004778();
+  v5 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -1530,16 +1629,16 @@ LABEL_5:
 
   if (v6)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       [(CSDCall *)self dateSentInvitation];
-      v8 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v9 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = invitationCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "self.dateSentInvitation: %@, dateSentInvitation: %@", buf, 0x16u);
+      v18 = v9;
+      v19 = 2112;
+      v20 = invitationCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "self.dateSentInvitation: %@, dateSentInvitation: %@", buf, 0x16u);
     }
   }
 
@@ -1555,19 +1654,19 @@ LABEL_5:
       }
     }
 
-    v14.receiver = self;
-    v14.super_class = CSDCall;
-    [(CSDCall *)&v14 setDateSentInvitation:invitationCopy];
+    v16.receiver = self;
+    v16.super_class = CSDCall;
+    [(CSDCall *)&v16 setDateSentInvitation:invitationCopy];
     dateCreated = [(CSDCall *)self dateCreated];
     [invitationCopy timeIntervalSinceDate:dateCreated];
-    v12 = v11;
+    v13 = v12;
 
-    v13 = sub_10022AEEC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_10022AEEC(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v16 = v12 * 1000.0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "csdcall_durationToSendInvitation=%f", buf, 0xCu);
+      v18 = v13 * 1000.0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "csdcall_durationToSendInvitation=%f", buf, 0xCu);
     }
 
     [(CSDCall *)self propertiesChanged];
@@ -1614,9 +1713,9 @@ LABEL_5:
       [(CSDCall *)self setDateStartedConnecting:connectedCopy];
     }
 
-    v13.receiver = self;
-    v13.super_class = CSDCall;
-    [(CSDCall *)&v13 setDateConnected:connectedCopy];
+    v14.receiver = self;
+    v14.super_class = CSDCall;
+    [(CSDCall *)&v14 setDateConnected:connectedCopy];
     dateStartedConnecting2 = [(CSDCall *)self dateStartedConnecting];
 
     if (dateStartedConnecting2)
@@ -1625,12 +1724,12 @@ LABEL_5:
       [connectedCopy timeIntervalSinceDate:dateStartedConnecting3];
       v11 = v10;
 
-      v12 = sub_10022AEEC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10022AEEC(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v15 = v11 * 1000.0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "csdcall_durationToConnect=%f", buf, 0xCu);
+        v16 = v11 * 1000.0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "csdcall_durationToConnect=%f", buf, 0xCu);
       }
     }
 
@@ -1641,12 +1740,12 @@ LABEL_5:
 - (void)setCurrentRecordingSession:(id)session
 {
   sessionCopy = session;
-  v6 = sub_100004778();
+  v6 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = sessionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting recording session %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = sessionCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Setting recording session %@", &v11, 0xCu);
   }
 
   objc_storeStrong(&self->_currentRecordingSession, session);
@@ -1660,13 +1759,12 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  currentRecordingSession = self->_currentRecordingSession;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = self->_currentRecordingSession;
+    v7 = self->_currentRecordingSession;
     podcastRecordingSession = self->_recordingSession;
-    self->_recordingSession = v8;
+    self->_recordingSession = v7;
 LABEL_9:
 
     goto LABEL_10;
@@ -1675,9 +1773,9 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = self->_currentRecordingSession;
+    v10 = self->_currentRecordingSession;
     podcastRecordingSession = self->_podcastRecordingSession;
-    self->_podcastRecordingSession = v11;
+    self->_podcastRecordingSession = v10;
     goto LABEL_9;
   }
 
@@ -1688,7 +1786,7 @@ LABEL_10:
 - (void)setTranslationSession:(id)session
 {
   sessionCopy = session;
-  v5 = sub_100004778();
+  v5 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -1707,7 +1805,7 @@ LABEL_10:
   if (self->_remoteActiveTranslating != translating)
   {
     translatingCopy = translating;
-    v5 = sub_100004778();
+    v5 = sub_100004778(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = @"NO";
@@ -1729,7 +1827,7 @@ LABEL_10:
 - (void)setTranslationDisclosureLocation:(id)location
 {
   locationCopy = location;
-  v5 = sub_100004778();
+  v5 = sub_100004778(locationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -1744,7 +1842,7 @@ LABEL_10:
 - (void)setSmartHoldingSession:(id)session
 {
   sessionCopy = session;
-  v5 = sub_100004778();
+  v5 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1816,17 +1914,111 @@ LABEL_10:
   }
 }
 
+- (BOOL)setAudioSessionMuted:(BOOL)muted error:(id *)error
+{
+  mutedCopy = muted;
+  v7 = sub_100004778(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (mutedCopy)
+    {
+      v8 = @"YES";
+    }
+
+    else
+    {
+      v8 = @"NO";
+    }
+
+    uniqueProxyIdentifier = [(CSDCall *)self uniqueProxyIdentifier];
+    v13 = 138412546;
+    v14 = v8;
+    v15 = 2112;
+    v16 = uniqueProxyIdentifier;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Setting audioSessionMuted %@ for call %@", &v13, 0x16u);
+  }
+
+  audioSession = [(CSDCall *)self audioSession];
+  v11 = [audioSession setMuted:mutedCopy error:error];
+
+  return v11;
+}
+
+- (void)setUplinkMuted:(BOOL)muted userInitiated:(BOOL)initiated
+{
+  initiatedCopy = initiated;
+  mutedCopy = muted;
+  featureFlags = [(CSDCall *)self featureFlags];
+  sessionBasedMutingEnabled = [featureFlags sessionBasedMutingEnabled];
+
+  if (sessionBasedMutingEnabled)
+  {
+    if (!initiatedCopy)
+    {
+LABEL_10:
+      [(CSDCall *)self setUplinkWasExplicitlyMuted:1];
+      self->_audioResolverShouldIgnoreUplinkMuted = 1;
+      self->_uplinkMuted = mutedCopy;
+      [(CSDCall *)self propertiesChanged];
+      self->_audioResolverShouldIgnoreUplinkMuted = 0;
+      return;
+    }
+
+    v15 = 0;
+    v9 = [(CSDCall *)self setAudioSessionMuted:mutedCopy error:&v15];
+    v10 = v15;
+    v11 = sub_100004778(v10);
+    v12 = v11;
+    if (v9)
+    {
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        if (mutedCopy)
+        {
+          v13 = @"YES";
+        }
+
+        else
+        {
+          v13 = @"NO";
+        }
+
+        uniqueProxyIdentifier = [(CSDCall *)self uniqueProxyIdentifier];
+        *buf = 138412546;
+        v17 = v13;
+        v18 = 2112;
+        v19 = uniqueProxyIdentifier;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Successfully set uplinkMuted with value %@ for call %@", buf, 0x16u);
+      }
+
+      goto LABEL_10;
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      sub_100476534(mutedCopy, self, v12);
+    }
+  }
+
+  else if (mutedCopy)
+  {
+
+    [(CSDCall *)self setUplinkWasExplicitlyMuted:1];
+  }
+}
+
 - (BOOL)shouldOwnMuteHandler
 {
-  if ([(CSDCall *)self isOnHold])
+  isOnHold = [(CSDCall *)self isOnHold];
+  if (isOnHold)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(isOnHold);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       uniqueProxyIdentifier = [(CSDCall *)self uniqueProxyIdentifier];
-      v6 = 138412290;
-      v7 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot own mute handler since it is held", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot own mute handler since it is held", &v7, 0xCu);
     }
 
     return 0;
@@ -1841,26 +2033,31 @@ LABEL_10:
 
 - (BOOL)shouldHandleMuteRequests
 {
-  if ([(CSDCall *)self status]!= 1 && [(CSDCall *)self status]!= 3 && [(CSDCall *)self status]!= 2)
+  if ([(CSDCall *)self status]!= 1 && [(CSDCall *)self status]!= 3)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    status = [(CSDCall *)self status];
+    if (status != 2)
     {
-      uniqueProxyIdentifier = [(CSDCall *)self uniqueProxyIdentifier];
-      v8 = 138412546;
-      v9 = uniqueProxyIdentifier;
-      v10 = 1024;
-      status = [(CSDCall *)self status];
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot handle mute control requests since the call status is not eligible for mute control %d", &v8, 0x12u);
-    }
+      v5 = sub_100004778(status);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        uniqueProxyIdentifier = [(CSDCall *)self uniqueProxyIdentifier];
+        v11 = 138412546;
+        v12 = uniqueProxyIdentifier;
+        v13 = 1024;
+        status2 = [(CSDCall *)self status];
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call with UPI %@ cannot handle mute control requests since the call status is not eligible for mute control %d", &v11, 0x12u);
+      }
 
-    goto LABEL_8;
+      goto LABEL_8;
+    }
   }
 
-  if ([(CSDCall *)self isScreening])
+  isScreening = [(CSDCall *)self isScreening];
+  if (isScreening)
   {
-    v3 = sub_100004778();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(isScreening);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_8:
 
@@ -1868,28 +2065,32 @@ LABEL_8:
     }
 
     uniqueProxyIdentifier2 = [(CSDCall *)self uniqueProxyIdentifier];
-    v8 = 138412290;
-    v9 = uniqueProxyIdentifier2;
-    v5 = "Call with UPI %@ cannot handle mute control requests since it is screening";
+    v11 = 138412290;
+    v12 = uniqueProxyIdentifier2;
+    v7 = "Call with UPI %@ cannot handle mute control requests since it is screening";
 LABEL_7:
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
 
     goto LABEL_8;
   }
 
-  if (([(CSDCall *)self isEndpointOnCurrentDevice]& 1) == 0 && ([(CSDCall *)self isHostedOnCurrentDevice]& 1) == 0)
+  if (([(CSDCall *)self isEndpointOnCurrentDevice]& 1) == 0)
   {
-    v3 = sub_100004778();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    isHostedOnCurrentDevice = [(CSDCall *)self isHostedOnCurrentDevice];
+    if ((isHostedOnCurrentDevice & 1) == 0)
     {
-      goto LABEL_8;
-    }
+      v5 = sub_100004778(isHostedOnCurrentDevice);
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_8;
+      }
 
-    uniqueProxyIdentifier2 = [(CSDCall *)self uniqueProxyIdentifier];
-    v8 = 138412290;
-    v9 = uniqueProxyIdentifier2;
-    v5 = "Call with UPI %@ cannot handle mute control requests since it is not endpoint for the call";
-    goto LABEL_7;
+      uniqueProxyIdentifier2 = [(CSDCall *)self uniqueProxyIdentifier];
+      v11 = 138412290;
+      v12 = uniqueProxyIdentifier2;
+      v7 = "Call with UPI %@ cannot handle mute control requests since it is not endpoint for the call";
+      goto LABEL_7;
+    }
   }
 
   return 1;
@@ -2145,77 +2346,79 @@ LABEL_7:
       }
     }
 
-    v16 = sub_100004778();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Invalidating display context for %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Invalidating display context for %@", buf, 0xCu);
     }
 
     [(CSDCall *)self setDynamicDisplayContext:0];
   }
 
 LABEL_13:
-  v17 = relayClientTransport;
-  if ((TUObjectsAreEqualOrNil() & 1) == 0)
+  v18 = relayClientTransport;
+  v19 = TUObjectsAreEqualOrNil();
+  if ((v19 & 1) == 0)
   {
-    v18 = sub_100004778();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-    v20 = TUCallCenterCallContinuityStateChangedNotification;
-    if (v19)
+    v20 = sub_100004778(v19);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v22 = TUCallCenterCallContinuityStateChangedNotification;
+    if (v21)
     {
       *buf = 138413058;
       selfCopy = TUCallCenterCallContinuityStateChangedNotification;
-      v80 = 2112;
-      *v81 = relayClientTransport;
-      *&v81[8] = 2112;
-      *v82 = relayClientTransport2;
-      *&v82[8] = 2112;
+      v87 = 2112;
+      *v88 = relayClientTransport;
+      *&v88[8] = 2112;
+      *v89 = relayClientTransport2;
+      *&v89[8] = 2112;
       selfCopy3 = self;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Posting %@ because relayClientTransport changed from %@ to %@ for %@", buf, 0x2Au);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Posting %@ because relayClientTransport changed from %@ to %@ for %@", buf, 0x2Au);
     }
 
     notificationCenter = [(CSDCall *)self notificationCenter];
-    [notificationCenter postNotificationName:v20 object:self];
+    [notificationCenter postNotificationName:v22 object:self];
   }
 
-  if ((TUObjectsAreEqualOrNil() & 1) == 0)
+  v24 = TUObjectsAreEqualOrNil();
+  if ((v24 & 1) == 0)
   {
-    v22 = sub_100004778();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-    v24 = TUCallDisplayContextChangedNotification;
-    if (v23)
+    v25 = sub_100004778(v24);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v27 = TUCallDisplayContextChangedNotification;
+    if (v26)
     {
       *buf = 138413058;
       selfCopy = TUCallDisplayContextChangedNotification;
-      v80 = 2112;
-      *v81 = displayContext;
-      *&v81[8] = 2112;
-      *v82 = displayContext2;
-      *&v82[8] = 2112;
+      v87 = 2112;
+      *v88 = displayContext;
+      *&v88[8] = 2112;
+      *v89 = displayContext2;
+      *&v89[8] = 2112;
       selfCopy3 = self;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Posting %@ because DisplayContext changed from %@ to %@ for %@", buf, 0x2Au);
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Posting %@ because DisplayContext changed from %@ to %@ for %@", buf, 0x2Au);
     }
 
     notificationCenter2 = [(CSDCall *)self notificationCenter];
-    [notificationCenter2 postNotificationName:v24 object:self];
+    [notificationCenter2 postNotificationName:v27 object:self];
   }
 
   if (mayRequireBreakBeforeMake != mayRequireBreakBeforeMake2)
   {
-    v26 = sub_100004778();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v29 = sub_100004778(v24);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
       selfCopy = @"CSDCallMayRequireBreakBeforeMakeChangedNotification";
-      v80 = 1024;
-      *v81 = mayRequireBreakBeforeMake;
-      *&v81[4] = 1024;
-      *&v81[6] = mayRequireBreakBeforeMake2;
-      *v82 = 2112;
-      *&v82[2] = self;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Posting %@ because mayRequireBreakBeforeMake changed from %d to %d for %@", buf, 0x22u);
+      v87 = 1024;
+      *v88 = mayRequireBreakBeforeMake;
+      *&v88[4] = 1024;
+      *&v88[6] = mayRequireBreakBeforeMake2;
+      *v89 = 2112;
+      *&v89[2] = self;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Posting %@ because mayRequireBreakBeforeMake changed from %d to %d for %@", buf, 0x22u);
     }
 
     notificationCenter3 = [(CSDCall *)self notificationCenter];
@@ -2224,18 +2427,18 @@ LABEL_13:
 
   if (hasStartedOutgoing != hasStartedOutgoing2)
   {
-    v28 = sub_100004778();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v31 = sub_100004778(v24);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
       selfCopy = @"CSDCallHasStartedOutgoingChangedNotification";
-      v80 = 1024;
-      *v81 = hasStartedOutgoing;
-      *&v81[4] = 1024;
-      *&v81[6] = hasStartedOutgoing2;
-      *v82 = 2112;
-      *&v82[2] = self;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Posting %@ because hasStartedOutgoing changed from %d to %d for %@", buf, 0x22u);
+      v87 = 1024;
+      *v88 = hasStartedOutgoing;
+      *&v88[4] = 1024;
+      *&v88[6] = hasStartedOutgoing2;
+      *v89 = 2112;
+      *&v89[2] = self;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Posting %@ because hasStartedOutgoing changed from %d to %d for %@", buf, 0x22u);
     }
 
     notificationCenter4 = [(CSDCall *)self notificationCenter];
@@ -2244,81 +2447,84 @@ LABEL_13:
 
   if (hasAudioInterruption != hasAudioInterruption2)
   {
-    v30 = sub_100004778();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v24);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
       selfCopy = @"CSDCallHasAudioInterruptionChangedNotification";
-      v80 = 1024;
-      *v81 = hasAudioInterruption;
-      *&v81[4] = 1024;
-      *&v81[6] = hasAudioInterruption2;
-      *v82 = 2112;
-      *&v82[2] = self;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Posting %@ because hasAudioInterruption changed from %d to %d for %@", buf, 0x22u);
+      v87 = 1024;
+      *v88 = hasAudioInterruption;
+      *&v88[4] = 1024;
+      *&v88[6] = hasAudioInterruption2;
+      *v89 = 2112;
+      *&v89[2] = self;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Posting %@ because hasAudioInterruption changed from %d to %d for %@", buf, 0x22u);
     }
 
     notificationCenter5 = [(CSDCall *)self notificationCenter];
     [notificationCenter5 postNotificationName:@"CSDCallHasAudioInterruptionChangedNotification" object:self];
   }
 
-  if (([(__CFString *)activeRemoteParticipants isEqualToSet:activeRemoteParticipants2]& 1) == 0)
+  v35 = [(__CFString *)activeRemoteParticipants isEqualToSet:activeRemoteParticipants2];
+  if ((v35 & 1) == 0)
   {
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v36 = sub_100004778(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       selfCopy = activeRemoteParticipants;
-      v80 = 2112;
-      *v81 = activeRemoteParticipants2;
-      *&v81[8] = 2112;
-      *v82 = self;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "activeRemoteParticipants changed from %@ to %@ for %@", buf, 0x20u);
+      v87 = 2112;
+      *v88 = activeRemoteParticipants2;
+      *&v88[8] = 2112;
+      *v89 = self;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "activeRemoteParticipants changed from %@ to %@ for %@", buf, 0x20u);
     }
 
-    v33 = [activeRemoteParticipants2 mutableCopy];
-    [v33 minusSet:activeRemoteParticipants];
-    if ([v33 count])
+    v37 = [activeRemoteParticipants2 mutableCopy];
+    [v37 minusSet:activeRemoteParticipants];
+    v38 = [v37 count];
+    if (v38)
     {
-      v34 = sub_100004778();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v39 = sub_100004778(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy = @"CSDCallRemoteParticipantJoinedNotification";
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
       }
 
       notificationCenter6 = [(CSDCall *)self notificationCenter];
       [notificationCenter6 postNotificationName:@"CSDCallRemoteParticipantJoinedNotification" object:self];
     }
 
-    v36 = [(__CFString *)activeRemoteParticipants mutableCopy];
-    [v36 minusSet:activeRemoteParticipants2];
-    if ([v36 count])
+    v41 = [(__CFString *)activeRemoteParticipants mutableCopy];
+    [v41 minusSet:activeRemoteParticipants2];
+    v42 = [v41 count];
+    if (v42)
     {
-      v37 = sub_100004778();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_100004778(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         selfCopy = @"CSDCallRemoteParticipantLeftNotification";
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
       }
 
       notificationCenter7 = [(CSDCall *)self notificationCenter];
       [notificationCenter7 postNotificationName:@"CSDCallRemoteParticipantLeftNotification" object:self];
 
-      v17 = relayClientTransport;
+      v18 = relayClientTransport;
     }
   }
 
   if (isOneToOneModeEnabled != isOneToOneModeEnabled2)
   {
-    v39 = sub_100004778();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v45 = sub_100004778(v35);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDCallOneToOneModeChangedNotification";
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter8 = [(CSDCall *)self notificationCenter];
@@ -2327,12 +2533,12 @@ LABEL_13:
 
   if (mediaPlaybackOnExternalDevice != mediaPlaybackOnExternalDevice2)
   {
-    v41 = sub_100004778();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v47 = sub_100004778(v35);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDMediaPlaybackOnExternalDeviceChangedNotification";
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter9 = [(CSDCall *)self notificationCenter];
@@ -2341,12 +2547,12 @@ LABEL_13:
 
   if (transmissionState != transmissionState2)
   {
-    v43 = sub_100004778();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v49 = sub_100004778(v35);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDCallTransmissionStateChangedNotification";
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter10 = [(CSDCall *)self notificationCenter];
@@ -2355,26 +2561,27 @@ LABEL_13:
 
   if (prefersToPlayDuringWombat != prefersToPlayDuringWombat2)
   {
-    v45 = sub_100004778();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v51 = sub_100004778(v35);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDCallPrefersToPlayDuringWombatChangedNotification";
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter11 = [(CSDCall *)self notificationCenter];
     [notificationCenter11 postNotificationName:@"CSDCallPrefersToPlayDuringWombatChangedNotification" object:self];
   }
 
-  if (isUnderlyingLinksConnected != [(CSDCall *)self isUnderlyingLinksConnected])
+  isUnderlyingLinksConnected2 = [(CSDCall *)self isUnderlyingLinksConnected];
+  if (isUnderlyingLinksConnected != isUnderlyingLinksConnected2)
   {
-    v47 = sub_100004778();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v54 = sub_100004778(isUnderlyingLinksConnected2);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDCallUnderlyingLinksConnectionChangedNotification";
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter12 = [(CSDCall *)self notificationCenter];
@@ -2383,12 +2590,12 @@ LABEL_13:
 
   if (audioInterruptionProviderType != audioInterruptionProviderType2)
   {
-    v49 = sub_100004778();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v56 = sub_100004778(isUnderlyingLinksConnected2);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = @"CSDCallAudioInterruptionProviderTypeChangedNotification";
-      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Posting %@", buf, 0xCu);
     }
 
     notificationCenter13 = [(CSDCall *)self notificationCenter];
@@ -2409,14 +2616,14 @@ LABEL_13:
   queue = [(CSDCall *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = sub_100004778();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = serviceCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Received update about new query cache on service %@", &v8, 0x16u);
+    v11 = 2112;
+    v12 = serviceCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ Received update about new query cache on service %@", &v9, 0x16u);
   }
 
   [(CSDCall *)self _refreshFaceTimeIDSStatus];

@@ -12,6 +12,7 @@
 - (id)subTextsByPolarity;
 - (id)taggedText;
 - (unint64_t)annotatedPolarity;
+- (void)annotateRange:(_NSRange)range type:(unint64_t)type machineGenerated:(BOOL)generated;
 - (void)enumerateAnnotationsInRange:(_NSRange)range usingBlock:(id)block;
 @end
 
@@ -38,82 +39,80 @@ uint64_t __29__RKText_defaultDataProvider__block_invoke()
 
 + (void)initialize
 {
-  v32[15] = *MEMORY[0x277D85DE8];
-  v31[0] = @"None";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v32[0] = v28;
-  v31[1] = @"DateTimeBegin";
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v32[1] = v27;
-  v31[2] = @"DateTimeEnd";
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v32[2] = v26;
-  v31[3] = @"DateTimeDuration";
-  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
-  v32[3] = v25;
-  v31[4] = @"LocationGeneral";
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-  v32[4] = v24;
-  v31[5] = @"LocationAddress";
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:5];
-  v32[5] = v23;
-  v31[6] = @"LocationPointOfInterest";
+  v31[15] = *MEMORY[0x277D85DE8];
+  v30[0] = @"None";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
+  v31[0] = v27;
+  v30[1] = @"DateTimeBegin";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
+  v31[1] = v26;
+  v30[2] = @"DateTimeEnd";
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
+  v31[2] = v25;
+  v30[3] = @"DateTimeDuration";
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
+  v31[3] = v24;
+  v30[4] = @"LocationGeneral";
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
+  v31[4] = v23;
+  v30[5] = @"LocationAddress";
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:5];
+  v31[5] = v22;
+  v30[6] = @"LocationPointOfInterest";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:6];
-  v32[6] = v2;
-  v31[7] = @"LocationMeetingRoom";
+  v31[6] = v2;
+  v30[7] = @"LocationMeetingRoom";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:7];
-  v32[7] = v3;
-  v31[8] = @"LocationSender";
+  v31[7] = v3;
+  v30[8] = @"LocationSender";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:8];
-  v32[8] = v4;
-  v31[9] = @"LocationRecipient";
+  v31[8] = v4;
+  v30[9] = @"LocationRecipient";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:9];
-  v32[9] = v5;
-  v31[10] = @"PolarityNone";
+  v31[9] = v5;
+  v30[10] = @"PolarityNone";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10];
-  v32[10] = v6;
-  v31[11] = @"PolarityProposal";
+  v31[10] = v6;
+  v30[11] = @"PolarityProposal";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:11];
-  v32[11] = v7;
-  v31[12] = @"PolarityConfirmation";
+  v31[11] = v7;
+  v30[12] = @"PolarityConfirmation";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:12];
-  v32[12] = v8;
-  v31[13] = @"PolarityRejection";
+  v31[12] = v8;
+  v30[13] = @"PolarityRejection";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:13];
-  v32[13] = v9;
-  v31[14] = @"PolarityProposalSupplement";
+  v31[13] = v9;
+  v30[14] = @"PolarityProposalSupplement";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:14];
-  v32[14] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:15];
+  v31[14] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:15];
   v12 = sAnnotationNames;
   sAnnotationNames = v11;
 
-  v29[0] = @"None";
+  v28[0] = @"None";
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
-  v30[0] = v13;
-  v29[1] = @"Proposal";
+  v29[0] = v13;
+  v28[1] = @"Proposal";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v30[1] = v14;
-  v29[2] = @"Confirmation";
+  v29[1] = v14;
+  v28[2] = @"Confirmation";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v30[2] = v15;
-  v29[3] = @"Rejection";
+  v29[2] = v15;
+  v28[3] = @"Rejection";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
-  v30[3] = v16;
-  v29[4] = @"Ambiguous";
+  v29[3] = v16;
+  v28[4] = @"Ambiguous";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-  v30[4] = v17;
-  v29[5] = @"ProposalSupplement";
+  v29[4] = v17;
+  v28[5] = @"ProposalSupplement";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:5];
-  v30[5] = v18;
-  v29[6] = @"Undefined";
+  v29[5] = v18;
+  v28[6] = @"Undefined";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:-1];
-  v30[6] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+  v29[6] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
   v21 = sPolarityNames;
   sPolarityNames = v20;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)annotationNameFromType:(unint64_t)type
@@ -180,42 +179,116 @@ uint64_t __29__RKText_defaultDataProvider__block_invoke()
   return v14;
 }
 
+- (void)annotateRange:(_NSRange)range type:(unint64_t)type machineGenerated:(BOOL)generated
+{
+  generatedCopy = generated;
+  length = range.length;
+  location = range.location;
+  string = [(RKText *)self string];
+  v11 = [string length];
+
+  v26.location = 0;
+  v26.length = v11;
+  v33.location = location;
+  v33.length = length;
+  if (!NSIntersectionRange(v26, v33).length)
+  {
+    v16 = MEMORY[0x277CBEAD8];
+    v17 = *MEMORY[0x277CBE730];
+    v29.location = location;
+    v29.length = length;
+    v15 = NSStringFromRange(v29);
+    v30.location = 0;
+    v30.length = v11;
+    v18 = NSStringFromRange(v30);
+    [v16 raise:v17 format:{@"Annotation range %@ does not intersect text range %@", v15, v18}];
+LABEL_8:
+
+    goto LABEL_9;
+  }
+
+  v27.location = 0;
+  v27.length = v11;
+  v34.location = location;
+  v34.length = length;
+  v12 = NSUnionRange(v27, v34);
+  if (v12.location || v12.length != v11)
+  {
+    v19 = MEMORY[0x277CBEAD8];
+    v20 = *MEMORY[0x277CBE730];
+    v31.location = location;
+    v31.length = length;
+    v15 = NSStringFromRange(v31);
+    v32.location = 0;
+    v32.length = v11;
+    v18 = NSStringFromRange(v32);
+    [v19 raise:v20 format:{@"Annotation range %@ is not fully contained by text range %@", v15, v18}];
+    goto LABEL_8;
+  }
+
+  if (length)
+  {
+    goto LABEL_10;
+  }
+
+  v13 = MEMORY[0x277CBEAD8];
+  v14 = *MEMORY[0x277CBE730];
+  v28.location = location;
+  v28.length = 0;
+  v15 = NSStringFromRange(v28);
+  [v13 raise:v14 format:{@"Annotation range %@ is empty", v15}];
+LABEL_9:
+
+LABEL_10:
+  generatedCopy = [[RKTextAnnotation alloc] initWithRange:location andType:length machineGenerated:type, generatedCopy];
+  annotations = [(RKText *)self annotations];
+  v22 = [annotations containsObject:generatedCopy];
+
+  if ((v22 & 1) == 0)
+  {
+    annotations2 = [(RKText *)self annotations];
+    [annotations2 addObject:generatedCopy];
+
+    [(RKText *)self setProcessedText:0];
+  }
+}
+
 - (void)enumerateAnnotationsInRange:(_NSRange)range usingBlock:(id)block
 {
   length = range.length;
   location = range.location;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   annotations = [(RKText *)self annotations];
-  v9 = [annotations countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [annotations countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v20 != v11)
+      if (*v19 != v11)
       {
         objc_enumerationMutation(annotations);
       }
 
-      v13 = *(*(&v19 + 1) + 8 * v12);
-      v25.location = [v13 range];
-      v26.location = location;
-      v26.length = length;
-      if (NSIntersectionRange(v25, v26).length)
+      v13 = *(*(&v18 + 1) + 8 * v12);
+      v24.location = [v13 range];
+      v25.location = location;
+      v25.length = length;
+      if (NSIntersectionRange(v24, v25).length)
       {
-        v18 = 0;
+        v17 = 0;
         type = [v13 type];
         range = [v13 range];
-        blockCopy[2](blockCopy, type, range, v16, &v18);
-        if (v18)
+        blockCopy[2](blockCopy, type, range, v16, &v17);
+        if (v17)
         {
           break;
         }
@@ -223,7 +296,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [annotations countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [annotations countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -233,8 +306,6 @@ LABEL_3:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)cleanupData
@@ -577,7 +648,7 @@ void __21__RKText_cleanupData__block_invoke_9(uint64_t a1, void *a2, unint64_t a
 {
   length = range.length;
   location = range.location;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = [RKText alloc];
   string = [(RKText *)self string];
   v8 = [string substringWithRange:{location, length}];
@@ -585,126 +656,122 @@ void __21__RKText_cleanupData__block_invoke_9(uint64_t a1, void *a2, unint64_t a
   [(RKText *)self trainingWeight];
   v11 = [(RKText *)v6 initWithString:v8 andLanguageIdentifier:languageID trainingWeight:[(RKText *)self trainVerbatim] trainVerbatim:v10];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   annotations = [(RKText *)self annotations];
-  v13 = [annotations countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [annotations countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(annotations);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * i);
-        v28.location = [v17 range];
-        v29.location = location;
-        v29.length = length;
-        v18 = NSIntersectionRange(v28, v29);
+        v17 = *(*(&v20 + 1) + 8 * i);
+        v27.location = [v17 range];
+        v28.location = location;
+        v28.length = length;
+        v18 = NSIntersectionRange(v27, v28);
         if (v18.length)
         {
           -[RKText annotateRange:type:](v11, "annotateRange:type:", v18.location - location, v18.length, [v17 type]);
         }
       }
 
-      v14 = [annotations countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v14 = [annotations countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)subTextsByPolarity
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   annotations = [(RKText *)self annotations];
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"type >= %lu", 10];
   v7 = [annotations filteredArrayUsingPredicate:v6];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
         v13 = MEMORY[0x277CCAE60];
-        range = [*(*(&v34 + 1) + 8 * i) range];
+        range = [*(*(&v33 + 1) + 8 * i) range];
         v16 = [v13 valueWithRange:{range, v15}];
         [array2 addObject:v16];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v10);
   }
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __28__RKText_subTextsByPolarity__block_invoke;
-  v32[3] = &unk_279B0FE10;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __28__RKText_subTextsByPolarity__block_invoke;
+  v31[3] = &unk_279B0FE10;
   v17 = array2;
-  v33 = v17;
-  [v17 enumerateObjectsWithOptions:2 usingBlock:v32];
+  v32 = v17;
+  [v17 enumerateObjectsWithOptions:2 usingBlock:v31];
   [v17 sortUsingComparator:&__block_literal_global_173];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        rangeValue = [*(*(&v28 + 1) + 8 * j) rangeValue];
+        rangeValue = [*(*(&v27 + 1) + 8 * j) rangeValue];
         v25 = [(RKText *)self subTextWithRange:rangeValue, v24];
         [array addObject:v25];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
     while (v20);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -801,43 +868,43 @@ uint64_t __28__RKText_subTextsByPolarity__block_invoke_2(uint64_t a1, void *a2, 
 
 - (id)taggedText
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
   annotations = [(RKText *)self annotations];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __20__RKText_taggedText__block_invoke;
-  v52[3] = &unk_279B10468;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __20__RKText_taggedText__block_invoke;
+  v51[3] = &unk_279B10468;
   v6 = array;
-  v53 = v6;
-  [annotations enumerateObjectsUsingBlock:v52];
+  v52 = v6;
+  [annotations enumerateObjectsUsingBlock:v51];
 
   [v6 sortUsingComparator:&__block_literal_global_204];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v7 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v7)
   {
     v8 = v7;
     unsignedIntegerValue = 0;
-    v10 = *v49;
+    v10 = *v48;
     do
     {
       v11 = 0;
       v12 = unsignedIntegerValue;
       do
       {
-        if (*v49 != v10)
+        if (*v48 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * v11);
+        v13 = *(*(&v47 + 1) + 8 * v11);
         v14 = [v13 objectForKeyedSubscript:@"location"];
         unsignedIntegerValue = [v14 unsignedIntegerValue];
 
@@ -864,7 +931,7 @@ uint64_t __28__RKText_subTextsByPolarity__block_invoke_2(uint64_t a1, void *a2, 
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v8 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v8);
@@ -925,14 +992,12 @@ uint64_t __28__RKText_subTextsByPolarity__block_invoke_2(uint64_t a1, void *a2, 
   {
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
   return v43;
 }
 
 void __20__RKText_taggedText__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCABB0];
   v6 = a2;
   v7 = [v5 numberWithUnsignedInteger:a3];
@@ -944,38 +1009,36 @@ void __20__RKText_taggedText__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 
   v14 = [v10 numberWithUnsignedInteger:v11 + v13];
   v15 = *(a1 + 32);
-  v22[0] = @"index";
-  v22[1] = @"name";
-  v23[0] = v7;
-  v23[1] = v8;
-  v22[2] = @"type";
-  v22[3] = @"location";
-  v23[2] = @"open";
-  v23[3] = v9;
-  v22[4] = @"openLocation";
-  v22[5] = @"closeLocation";
-  v23[4] = v9;
-  v23[5] = v14;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
+  v21[0] = @"index";
+  v21[1] = @"name";
+  v22[0] = v7;
+  v22[1] = v8;
+  v21[2] = @"type";
+  v21[3] = @"location";
+  v22[2] = @"open";
+  v22[3] = v9;
+  v21[4] = @"openLocation";
+  v21[5] = @"closeLocation";
+  v22[4] = v9;
+  v22[5] = v14;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
   [v15 addObject:v16];
 
   v17 = *(a1 + 32);
-  v20[0] = @"index";
-  v20[1] = @"name";
-  v21[0] = v7;
-  v21[1] = v8;
-  v20[2] = @"type";
-  v20[3] = @"location";
-  v21[2] = @"close";
-  v21[3] = v14;
-  v20[4] = @"openLocation";
-  v20[5] = @"closeLocation";
-  v21[4] = v9;
-  v21[5] = v14;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
+  v19[0] = @"index";
+  v19[1] = @"name";
+  v20[0] = v7;
+  v20[1] = v8;
+  v19[2] = @"type";
+  v19[3] = @"location";
+  v20[2] = @"close";
+  v20[3] = v14;
+  v19[4] = @"openLocation";
+  v19[5] = @"closeLocation";
+  v20[4] = v9;
+  v20[5] = v14;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
   [v17 addObject:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __20__RKText_taggedText__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1121,31 +1184,31 @@ LABEL_5:
 
 - (id)lsmText
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   processedText = [(RKText *)self processedText];
 
   if (!processedText)
   {
     array = [MEMORY[0x277CBEB18] array];
-    v42 = 0u;
-    v43 = 0u;
     v41 = 0u;
+    v42 = 0u;
     v40 = 0u;
+    v39 = 0u;
     annotations = [(RKText *)self annotations];
-    v6 = [annotations countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v6 = [annotations countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v6)
     {
-      v7 = *v41;
+      v7 = *v40;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v41 != v7)
+          if (*v40 != v7)
           {
             objc_enumerationMutation(annotations);
           }
 
-          v9 = *(*(&v40 + 1) + 8 * i);
+          v9 = *(*(&v39 + 1) + 8 * i);
           type = [v9 type];
           if (type <= 9 && ((1 << type) & 0x3EE) != 0)
           {
@@ -1153,7 +1216,7 @@ LABEL_5:
           }
         }
 
-        v6 = [annotations countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v6 = [annotations countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v6);
@@ -1161,19 +1224,19 @@ LABEL_5:
 
     [array sortUsingComparator:&__block_literal_global_228];
     array2 = [MEMORY[0x277CBEB18] array];
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x3032000000;
-    v38[3] = __Block_byref_object_copy__1;
-    v38[4] = __Block_byref_object_dispose__1;
-    v39 = 0;
+    v37[0] = 0;
+    v37[1] = v37;
+    v37[2] = 0x3032000000;
+    v37[3] = __Block_byref_object_copy__1;
+    v37[4] = __Block_byref_object_dispose__1;
+    v38 = 0;
     v13 = objc_alloc(MEMORY[0x277CCAAE8]);
     v15 = *MEMORY[0x277CCA3F8];
-    v44[0] = *MEMORY[0x277CCA408];
-    v14 = v44[0];
-    v44[1] = v15;
-    v44[2] = *MEMORY[0x277CCA3E0];
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+    v43[0] = *MEMORY[0x277CCA408];
+    v14 = v43[0];
+    v43[1] = v15;
+    v43[2] = *MEMORY[0x277CCA3E0];
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
     v17 = [v13 initWithTagSchemes:v16 options:16];
 
     string = [(RKText *)self string];
@@ -1181,19 +1244,19 @@ LABEL_5:
 
     string2 = [v17 string];
     v20 = [string2 length];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __17__RKText_lsmText__block_invoke_231;
-    v32[3] = &unk_279B105C0;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __17__RKText_lsmText__block_invoke_231;
+    v31[3] = &unk_279B105C0;
     v21 = v17;
-    v33 = v21;
+    v32 = v21;
     v22 = array;
-    v34 = v22;
-    v37 = v38;
+    v33 = v22;
+    v36 = v37;
     v23 = array2;
-    v35 = v23;
+    v34 = v23;
     selfCopy = self;
-    [v21 enumerateTagsInRange:0 scheme:v20 options:v14 usingBlock:{16, v32}];
+    [v21 enumerateTagsInRange:0 scheme:v20 options:v14 usingBlock:{16, v31}];
 
     v24 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF != ''"];
     v25 = [v23 componentsJoinedByString:&stru_2874A9C90];
@@ -1202,11 +1265,10 @@ LABEL_5:
     v28 = [v27 componentsJoinedByString:@" "];
     [(RKText *)self setProcessedText:v28];
 
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v37, 8);
   }
 
   processedText2 = [(RKText *)self processedText];
-  v30 = *MEMORY[0x277D85DE8];
 
   return processedText2;
 }
@@ -1232,7 +1294,7 @@ uint64_t __17__RKText_lsmText__block_invoke(uint64_t a1, void *a2, void *a3)
 
 void __17__RKText_lsmText__block_invoke_231(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v53[3] = *MEMORY[0x277D85DE8];
+  v52[3] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = [*(a1 + 32) string];
   v9 = [v8 substringWithRange:{a3, a4}];
@@ -1245,7 +1307,7 @@ void __17__RKText_lsmText__block_invoke_231(uint64_t a1, void *a2, uint64_t a3, 
     v13 = [v12 invertedSet];
     if ([v9 rangeOfCharacterFromSet:v13] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v45 = v9;
+      v44 = v9;
       v14 = v7;
       v15 = v11;
       v16 = *MEMORY[0x277CCA370];
@@ -1255,7 +1317,7 @@ void __17__RKText_lsmText__block_invoke_231(uint64_t a1, void *a2, uint64_t a3, 
       {
         v11 = v15;
         v7 = v14;
-        v9 = v45;
+        v9 = v44;
         goto LABEL_8;
       }
 
@@ -1263,7 +1325,7 @@ void __17__RKText_lsmText__block_invoke_231(uint64_t a1, void *a2, uint64_t a3, 
       v10 = v16;
       v11 = v15;
       v7 = v14;
-      v9 = v45;
+      v9 = v44;
     }
 
     else
@@ -1272,22 +1334,22 @@ void __17__RKText_lsmText__block_invoke_231(uint64_t a1, void *a2, uint64_t a3, 
   }
 
 LABEL_8:
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__1;
-  v51 = __Block_byref_object_dispose__1;
-  v52 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__1;
+  v50 = __Block_byref_object_dispose__1;
+  v51 = 0;
   v18 = *(a1 + 40);
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __17__RKText_lsmText__block_invoke_2;
-  v46[3] = &unk_279B10598;
-  v46[5] = a3;
-  v46[6] = a4;
-  v46[4] = &v47;
-  [v18 enumerateObjectsUsingBlock:v46];
-  v19 = v48[5];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __17__RKText_lsmText__block_invoke_2;
+  v45[3] = &unk_279B10598;
+  v45[5] = a3;
+  v45[6] = a4;
+  v45[4] = &v46;
+  [v18 enumerateObjectsUsingBlock:v45];
+  v19 = v47[5];
   if (v19)
   {
     v20 = *(*(a1 + 64) + 8);
@@ -1296,7 +1358,7 @@ LABEL_8:
     if (v22 != v19)
     {
       objc_storeStrong(v21, v19);
-      v23 = [v48[5] type];
+      v23 = [v47[5] type];
       if ((v23 - 1) >= 9)
       {
         v24 = 0;
@@ -1325,22 +1387,22 @@ LABEL_8:
 
     else if ([v7 isEqualToString:*MEMORY[0x277CCA3D0]])
     {
-      v31 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"?"];
-      v32 = [v31 invertedSet];
-      v33 = [v9 rangeOfCharacterFromSet:v32] == 0x7FFFFFFFFFFFFFFFLL;
+      v30 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"?"];
+      v31 = [v30 invertedSet];
+      v32 = [v9 rangeOfCharacterFromSet:v31] == 0x7FFFFFFFFFFFFFFFLL;
 
-      if (v33)
+      if (v32)
       {
         v25 = @" QM ";
       }
 
       else
       {
-        v36 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"¿"];
-        v37 = [v36 invertedSet];
-        v38 = [v9 rangeOfCharacterFromSet:v37] == 0x7FFFFFFFFFFFFFFFLL;
+        v35 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"¿"];
+        v36 = [v35 invertedSet];
+        v37 = [v9 rangeOfCharacterFromSet:v36] == 0x7FFFFFFFFFFFFFFFLL;
 
-        if (v38)
+        if (v37)
         {
           v25 = @" IQM ";
         }
@@ -1358,34 +1420,21 @@ LABEL_8:
       {
         if (([*(a1 + 56) trainVerbatim] & 1) != 0 || !objc_msgSend(v10, "isEqualToString:", *MEMORY[0x277CCA370]))
         {
-          if ([*(a1 + 56) trainVerbatim])
+          if (([*(a1 + 56) trainVerbatim] & 1) != 0 || (v38 = *MEMORY[0x277CCA3B8], v52[0] = *MEMORY[0x277CCA3B0], v52[1] = v38, v52[2] = *MEMORY[0x277CCA388], objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v52, 3), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "containsObject:", v10), v39, !v40))
           {
-            goto LABEL_33;
-          }
-
-          v39 = *MEMORY[0x277CCA3B8];
-          v53[0] = *MEMORY[0x277CCA3B0];
-          v53[1] = v39;
-          v53[2] = *MEMORY[0x277CCA388];
-          v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
-          v41 = [v40 containsObject:v10];
-
-          if (!v41)
-          {
-LABEL_33:
-            v42 = [*(a1 + 56) trainVerbatim];
+            v41 = [*(a1 + 56) trainVerbatim];
             if (v11)
             {
-              v43 = v42;
+              v42 = v41;
             }
 
             else
             {
-              v43 = 1;
+              v42 = 1;
             }
 
-            v44 = *(a1 + 48);
-            if (v43)
+            v43 = *(a1 + 48);
+            if (v42)
             {
               [v9 lowercaseString];
             }
@@ -1395,16 +1444,16 @@ LABEL_33:
               [MEMORY[0x277CCACA8] stringWithFormat:@" %@", v11];
             }
             v28 = ;
-            [v44 addObject:v28];
+            [v43 addObject:v28];
             goto LABEL_18;
           }
         }
 
-        v34 = *(a1 + 48);
-        v35 = MEMORY[0x277CCACA8];
+        v33 = *(a1 + 48);
+        v34 = MEMORY[0x277CCACA8];
         v28 = [v10 uppercaseString];
-        v29 = [v35 stringWithFormat:@" %@ ", v28];
-        [v34 addObject:v29];
+        v29 = [v34 stringWithFormat:@" %@ ", v28];
+        [v33 addObject:v29];
 LABEL_17:
 
 LABEL_18:
@@ -1418,9 +1467,7 @@ LABEL_18:
   }
 
 LABEL_19:
-  _Block_object_dispose(&v47, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 }
 
 void __17__RKText_lsmText__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

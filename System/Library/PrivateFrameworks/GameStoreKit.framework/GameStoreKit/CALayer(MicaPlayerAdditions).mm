@@ -306,39 +306,39 @@ LABEL_8:
 
 - (id)mp_allLayersWithKindOfClass:()MicaPlayerAdditions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mp_allLayersInTree = [self mp_allLayersInTree];
   array = [MEMORY[0x277CBEB18] array];
-  v10 = 0u;
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v3 = mp_allLayersInTree;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
+  v14 = 0u;
+  v15 = 0u;
+  v5 = mp_allLayersInTree;
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v5 = v4;
-    v6 = *v11;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v11 != v6)
+        if (*v13 != v8)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v5);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [array addObject:{v8, v10}];
+          [array addObject:{v10, v12}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
 
   return array;

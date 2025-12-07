@@ -467,7 +467,7 @@ LABEL_4:
       context = v8;
       v10 = [v69 changedObjectID];
       v11 = v64[5];
-      v12 = [v10 entity];
+      v12 = objc_msgSend_entity(v10);
       v13 = [v12 name];
       v14 = [v11 payloadClassesForEntityName:v13];
 
@@ -477,7 +477,7 @@ LABEL_4:
         if ([v69 changeType] == 1)
         {
           v16 = v64[5];
-          v17 = [v10 entity];
+          v17 = objc_msgSend_entity(v10);
           v18 = [v17 name];
           v14 = [v16 payloadClassesForAdditionalEntityName:v18];
         }
@@ -595,7 +595,7 @@ LABEL_49:
               goto LABEL_50;
             }
 
-            v33 = [v10 entity];
+            v33 = objc_msgSend_entity(v10);
             v34 = [v33 name];
             v35 = [v21 shouldPersistForChangedKeys:v23 entityName:v34];
 
@@ -857,7 +857,7 @@ LABEL_13:
 
   if (v11)
   {
-    if (![dsCopy count])
+    if (!objc_msgSend_count(dsCopy))
     {
       payloadClassIDs = [(PLJournalManagerCore *)self payloadClassIDs];
 

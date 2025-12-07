@@ -25,6 +25,7 @@
 - (void)setFrame:(CGRect)frame;
 - (void)setHideMenuItemTitle:(id)title;
 - (void)setSupplementalMenu:(id)menu;
+- (void)setTranslatesAutoresizingMaskIntoConstraints:(BOOL)constraints;
 - (void)updateAlignment:(int64_t)alignment;
 - (void)updateBackgroundColor:(id)color;
 - (void)updateBackgroundStyle:(int64_t)style;
@@ -44,8 +45,7 @@
   v7 = v6;
   if (v6)
   {
-    [(SLAttributionView *)v6 _setHostsLayoutEngine:1];
-    v8 = SLFrameworkLogHandle();
+    v8 = SLFrameworkLogHandle([(SLAttributionView *)v6 _setHostsLayoutEngine:1]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [(SLAttributionView *)v7 initWithHighlight:highlightCopy, v8];
@@ -113,13 +113,24 @@
   return v3;
 }
 
+- (void)setTranslatesAutoresizingMaskIntoConstraints:(BOOL)constraints
+{
+  constraintsCopy = constraints;
+  if (!constraints)
+  {
+    [(SLAttributionView *)self _setHostsLayoutEngine:0];
+  }
+
+  v5.receiver = self;
+  v5.super_class = SLAttributionView;
+  [(SLAttributionView *)&v5 setTranslatesAutoresizingMaskIntoConstraints:constraintsCopy];
+}
+
 - (void)layoutSubviews
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -141,7 +152,7 @@
   {
     [(SLAttributionView *)self frame];
     v12 = SL_NSStringFromRect(v17);
-    v13 = SLFrameworkLogHandle();
+    v13 = SLFrameworkLogHandle(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SLAttributionView setFrame:];
@@ -199,14 +210,15 @@
     widthCopy = width;
   }
 
-  if ([(SLAttributionView *)self usesBannerLayout])
+  usesBannerLayout = [(SLAttributionView *)self usesBannerLayout];
+  if (usesBannerLayout)
   {
     closeButton = [(SLAttributionView *)self closeButton];
     [closeButton frame];
-    widthCopy = fmax(widthCopy - v7 + -8.0, 0.0);
+    widthCopy = fmax(widthCopy - v8 + -8.0, 0.0);
 
-    v8 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = SLFrameworkLogHandle(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [SLAttributionView prepareLayoutWithMaxWidth:];
     }
@@ -214,10 +226,10 @@
 
   if (width <= 0.0)
   {
-    v15 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = SLFrameworkLogHandle(usesBannerLayout);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SLAttributionView prepareLayoutWithMaxWidth:v15];
+      [SLAttributionView prepareLayoutWithMaxWidth:v18];
     }
   }
 
@@ -225,12 +237,12 @@
   {
     pillView = [(SLAttributionView *)self pillView];
     [pillView maxWidth];
-    v11 = SL_CGFloatApproximatelyEqualToFloat(widthCopy, v10);
+    v13 = SL_CGFloatApproximatelyEqualToFloat(widthCopy, v12);
 
-    if (!v11)
+    if (!v13)
     {
-      v12 = SLFrameworkLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = SLFrameworkLogHandle(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [SLAttributionView prepareLayoutWithMaxWidth:];
       }
@@ -249,17 +261,44 @@
 
 - (void)feedbackForCloseButtonHit
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[SLHighlightPillView %p] _hideMenuItemSelected: Unable to perform hide context menu action without an application identifier.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    [SLAttributionView feedbackForCloseButtonHit];
+  }
+
+  v4 = SLApplicationIdentifierForPortraitFeedback();
+  if (v4)
+  {
+    highlight = [(SLAttributionView *)self highlight];
+    v6 = objc_opt_new();
+    identifier = [highlight identifier];
+    v8 = *MEMORY[0x277D3A740];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke;
+    v10[3] = &unk_278925EA8;
+    v10[4] = self;
+    v11 = highlight;
+    v9 = highlight;
+    [v6 feedbackForHighlightIdentifier:identifier type:2 client:v4 variant:v8 completion:v10];
+  }
+
+  else
+  {
+    v9 = SLFrameworkLogHandle(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [SLAttributionView feedbackForCloseButtonHit];
+    }
+  }
 }
 
 void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = SLFrameworkLogHandle();
+  v6 = SLFrameworkLogHandle(v5);
   v7 = v6;
   if (a2)
   {
@@ -267,11 +306,11 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
     {
       v8 = *(a1 + 32);
       v9 = [*(a1 + 40) identifier];
-      v11 = 134218242;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] _hideMenuItemSelected: Sent hide feedback for highlight: %@. Posting highlights deleted notification.", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_231772000, v7, OS_LOG_TYPE_INFO, "[SLHighlightPillView %p] _hideMenuItemSelected: Sent hide feedback for highlight: %@. Posting highlights deleted notification.", &v10, 0x16u);
     }
 
     notify_post("com.apple.spotlight.SyndicatedContentDeleted");
@@ -284,8 +323,6 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
       __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke_cold_1(a1, v5, v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sanitizeFrameIfNecessaryForTAMIC
@@ -338,10 +375,11 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
 
 - (void)updateAlignment:(int64_t)alignment
 {
-  if ([(SLAttributionView *)self preferredAlignment]!= alignment)
+  preferredAlignment = [(SLAttributionView *)self preferredAlignment];
+  if (preferredAlignment != alignment)
   {
-    v5 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SLFrameworkLogHandle(preferredAlignment);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [SLAttributionView updateAlignment:];
     }
@@ -366,8 +404,7 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
 {
   if ([(SLAttributionView *)self preferredBackgroundStyle]!= style)
   {
-    [(SLAttributionView *)self setPreferredBackgroundStyle:style];
-    v5 = SLFrameworkLogHandle();
+    v5 = SLFrameworkLogHandle([(SLAttributionView *)self setPreferredBackgroundStyle:style]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [SLAttributionView updateBackgroundStyle:];
@@ -413,8 +450,7 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
 
   if ((v6 & 1) == 0)
   {
-    [(SLAttributionView *)self setPreferredBackgroundColor:colorCopy];
-    v7 = SLFrameworkLogHandle();
+    v7 = SLFrameworkLogHandle([(SLAttributionView *)self setPreferredBackgroundColor:colorCopy]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [SLAttributionView updateBackgroundColor:];
@@ -470,13 +506,13 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
     hideMenuItemTitle = self->_hideMenuItemTitle;
     if (hideMenuItemTitle)
     {
-      v7 = hideMenuItemTitle;
+      v8 = hideMenuItemTitle;
     }
 
     else
     {
-      v8 = SLFrameworkBundle();
-      v7 = [v8 localizedStringForKey:@"HIDE_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
+      v9 = SLFrameworkBundle(v6);
+      v8 = [v9 localizedStringForKey:@"HIDE_CONTEXTMENU" value:&stru_28468DAB8 table:@"SocialLayer"];
     }
 
     v21 = 0u;
@@ -486,33 +522,33 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
     pillView = [(SLAttributionView *)self pillView];
     contextMenuItems = [pillView contextMenuItems];
 
-    v11 = [contextMenuItems countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v11)
+    v12 = [contextMenuItems countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v20;
+      v13 = v12;
+      v14 = *v20;
       while (2)
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v13)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(contextMenuItems);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          identifier = [v15 identifier];
-          v17 = [identifier isEqualToString:@"slHideMenuItem"];
+          v16 = *(*(&v19 + 1) + 8 * i);
+          identifier = [v16 identifier];
+          v18 = [identifier isEqualToString:@"slHideMenuItem"];
 
-          if (v17)
+          if (v18)
           {
-            [v15 setTitle:v7];
+            [v16 setTitle:v8];
             goto LABEL_15;
           }
         }
 
-        v12 = [contextMenuItems countByEnumeratingWithState:&v19 objects:v23 count:16];
-        if (v12)
+        v13 = [contextMenuItems countByEnumeratingWithState:&v19 objects:v23 count:16];
+        if (v13)
         {
           continue;
         }
@@ -523,8 +559,6 @@ void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke(uint64_t a1
 
 LABEL_15:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)presentTranscriptForAttributionIdentifier:(id)identifier attachmentGUID:(id)d presentingViewController:(id)controller
@@ -533,7 +567,7 @@ LABEL_15:
   identifierCopy = identifier;
   dCopy = d;
   controllerCopy = controller;
-  v10 = SLFrameworkLogHandle();
+  v10 = SLFrameworkLogHandle(controllerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v13 = 138412546;
@@ -545,21 +579,19 @@ LABEL_15:
 
   if (controllerCopy)
   {
-    v11 = objc_alloc_init(SLTranscriptController);
-    [(SLTranscriptController *)v11 presentTranscriptForMessageGUID:identifierCopy attachmentGUID:dCopy presentingViewController:controllerCopy];
+    v12 = objc_alloc_init(SLTranscriptController);
+    [(SLTranscriptController *)v12 presentTranscriptForMessageGUID:identifierCopy attachmentGUID:dCopy presentingViewController:controllerCopy];
   }
 
   else
   {
-    v11 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(&v11->super.super.super, OS_LOG_TYPE_INFO))
+    v12 = SLFrameworkLogHandle(v11);
+    if (os_log_type_enabled(&v12->super.super.super, OS_LOG_TYPE_INFO))
     {
       LOWORD(v13) = 0;
-      _os_log_impl(&dword_231772000, &v11->super.super.super, OS_LOG_TYPE_INFO, "Presenting view controller is nil. Returning.", &v13, 2u);
+      _os_log_impl(&dword_231772000, &v12->super.super.super, OS_LOG_TYPE_INFO, "Presenting view controller is nil. Returning.", &v13, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useBannerLayout
@@ -597,7 +629,7 @@ LABEL_15:
   identifiersCopy = identifiers;
   if (![identifiersCopy count])
   {
-    v5 = SLFrameworkLogHandle();
+    v5 = SLFrameworkLogHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SLAttributionView excludeContextMenuItemsWithIdentifiers:];
@@ -1020,7 +1052,7 @@ LABEL_53:
   }
 
   v12 = [array count];
-  v13 = SLFrameworkLogHandle();
+  v13 = SLFrameworkLogHandle(v12);
   v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
   if (v12)
   {
@@ -1060,11 +1092,9 @@ LABEL_53:
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (SLAttributionViewDelegate)delegate
@@ -1076,102 +1106,77 @@ LABEL_53:
 
 - (void)initWithHighlight:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 identifier];
-  v7 = 134218242;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_231772000, a3, OS_LOG_TYPE_DEBUG, "[SLAttributionView: %p] Initializing with with highlight: [%@].", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_231772000, a3, OS_LOG_TYPE_DEBUG, "[SLAttributionView: %p] Initializing with with highlight: [%@].", &v6, 0x16u);
 }
 
 - (void)setFrame:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] frame width was set to 0.0. Content will not display and remote content will not be updated until a non-zero width is set. Previous frame was [%@]");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareLayoutWithMaxWidth:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareLayoutWithMaxWidth:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SLAttributionView_feedbackForCloseButtonHit__block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) identifier];
-  v8 = 134218498;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLHighlightPillView %p] _hideMenuItemSelected error sending hide feedback for highlight: [%@] error: [%@].", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLHighlightPillView %p] _hideMenuItemSelected error sending hide feedback for highlight: [%@] error: [%@].", &v7, 0x20u);
 }
 
 - (void)updateAlignment:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] Client updated the preferred alignment: %ld", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] Client updated the preferred alignment: %ld", v2, v3);
 }
 
 - (void)updateBackgroundStyle:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] Client updated the preferred background style to: %ld", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] Client updated the preferred background style to: %ld", v2, v3);
 }
 
 - (void)updateBackgroundColor:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_4(&dword_231772000, v0, v1, "[SLAttributionView: %p] Client updated the preferred background color to: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)excludeContextMenuItemsWithIdentifiers:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "Not excluding context menu items with identifiers: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)additionalContextMenuItemsForHighlightPillView:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_231772000, a2, OS_LOG_TYPE_DEBUG, "%lu additional context menu items from delegate", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231772000, a2, OS_LOG_TYPE_DEBUG, "%lu additional context menu items from delegate", v3, 0xCu);
 }
 
 @end

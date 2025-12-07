@@ -4,6 +4,7 @@
 - (id)_init;
 - (id)_initWithModel:(id)model;
 - (id)newAssertionToDisableIdleTimerForReason:(id)reason error:(id *)error;
+- (id)newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:(int)d forReason:(id)reason error:(id *)error;
 - (id)newIdleTimerAssertionWithConfiguration:(id)configuration forReason:(id)reason error:(id *)error;
 @end
 
@@ -73,6 +74,57 @@ void __47__ITIdleTimerState_isIdleTimerServiceAvailable__block_invoke(uint64_t a
   isIdleTimerServiceAvailable_isIdleTimerServiceAvailable = [v1 isIdleTimerServiceAvailable];
 }
 
+- (id)newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:(int)d forReason:(id)reason error:(id *)error
+{
+  v6 = *&d;
+  reasonCopy = reason;
+  v9 = reasonCopy;
+  if (v6)
+  {
+    if (reasonCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    [ITIdleTimerState newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:forReason:error:];
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  [ITIdleTimerState newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:forReason:error:];
+LABEL_3:
+  isIdleTimerServiceAvailable = [objc_opt_class() isIdleTimerServiceAvailable];
+  if (isIdleTimerServiceAvailable)
+  {
+    v11 = +[ITIdleTimerConfiguration configurationToDisableIdleTimer];
+    model = self->_model;
+    _copyWithNewIdentifier = [v11 _copyWithNewIdentifier];
+    v14 = [(ITIdleTimerStateModel *)model newIdleTimerAssertionOnBehalfOfSceneWithPID:v6 withConfiguration:_copyWithNewIdentifier forReason:v9 error:error];
+  }
+
+  else
+  {
+    v15 = ITLogIdleTimer(isIdleTimerServiceAvailable);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [ITIdleTimerState newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:v15 forReason:? error:?];
+    }
+
+    v14 = 0;
+    if (error)
+    {
+      *error = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ITIdleTimerConfigurationErrorDomain" code:1 userInfo:0];
+    }
+  }
+
+  return v14;
+}
+
 - (id)newAssertionToDisableIdleTimerForReason:(id)reason error:(id *)error
 {
   reasonCopy = reason;
@@ -96,29 +148,30 @@ void __47__ITIdleTimerState_isIdleTimerServiceAvailable__block_invoke(uint64_t a
     [ITIdleTimerState newIdleTimerAssertionWithConfiguration:forReason:error:];
   }
 
-  if ([objc_opt_class() isIdleTimerServiceAvailable])
+  isIdleTimerServiceAvailable = [objc_opt_class() isIdleTimerServiceAvailable];
+  if (isIdleTimerServiceAvailable)
   {
     model = self->_model;
     _copyWithNewIdentifier = [configurationCopy _copyWithNewIdentifier];
-    v12 = [(ITIdleTimerStateModel *)model newIdleTimerAssertionWithConfiguration:_copyWithNewIdentifier forReason:reasonCopy error:error];
+    v13 = [(ITIdleTimerStateModel *)model newIdleTimerAssertionWithConfiguration:_copyWithNewIdentifier forReason:reasonCopy error:error];
   }
 
   else
   {
-    v13 = ITLogIdleTimer();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = ITLogIdleTimer(isIdleTimerServiceAvailable);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ITIdleTimerState newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:v13 forReason:? error:?];
+      [ITIdleTimerState newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:v14 forReason:? error:?];
     }
 
-    v12 = 0;
+    v13 = 0;
     if (error)
     {
       *error = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"ITIdleTimerConfigurationErrorDomain" code:1 userInfo:0];
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)newAssertionToDisableIdleTimerOnBehalfOfSceneWithPID:forReason:error:.cold.1()

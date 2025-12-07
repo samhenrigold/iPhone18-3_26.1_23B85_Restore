@@ -152,14 +152,14 @@
   objc_storeStrong(location, 0);
 }
 
-uint64_t __64__ACUISettingsController__effectiveSettingsChangedNotification___block_invoke(uint64_t result)
+id *__64__ACUISettingsController__effectiveSettingsChangedNotification___block_invoke(id *result)
 {
-  if ((*(*(result + 32) + 1560) & 1) != 1)
+  if ((*(result[4] + 1560) & 1) != 1)
   {
-    return [*(result + 32) reloadSpecifiers];
+    return [result[4] reloadSpecifiers];
   }
 
-  *(*(result + 32) + 1560) = 0;
+  *(result[4] + 1560) = 0;
   return result;
 }
 
@@ -248,64 +248,62 @@ uint64_t __64__ACUISettingsController__effectiveSettingsChangedNotification___bl
   objc_storeStrong(v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v17 = 0;
-  objc_storeStrong(&v17, completion);
-  v16 = _ACUILogSystem();
-  v15 = OS_LOG_TYPE_DEBUG;
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v16 = 0;
+  objc_storeStrong(&v16, completion);
+  v15 = _ACUILogSystem();
+  v14 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    __os_log_helper_16_2_3_8_32_4_0_8_64(v21, "[ACUISettingsController handleURL:withCompletion:]", 229, location[0]);
-    _os_log_debug_impl(&dword_23DC86000, v16, v15, "%s (%d) Handling URL load for resources %@", v21, 0x1Cu);
+    __os_log_helper_16_2_3_8_32_4_0_8_64(v20, "[ACUISettingsController handleURL:withCompletion:]", 229, location[0]);
+    _os_log_debug_impl(&dword_23DC86000, v15, v14, "%s (%d) Handling URL load for resources %@", v20, 0x1Cu);
   }
 
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   selfCopy->_isInHandleURL = 1;
-  v14.receiver = selfCopy;
-  v14.super_class = ACUISettingsController;
-  [(ACUISettingsController *)&v14 handleURL:location[0] withCompletion:&__block_literal_global_7];
+  v13.receiver = selfCopy;
+  v13.super_class = ACUISettingsController;
+  [(ACUISettingsController *)&v13 handleURL:location[0] withCompletion:&__block_literal_global_7];
   selfCopy->_isInHandleURL = 0;
   if (selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL)
   {
-    viewControllerPushedByControllerLoadActionDuringHandleURL = selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = [location[0] objectForKey:@"path"];
+      v12 = [location[0] objectForKey:@"path"];
       v6 = MEMORY[0x277CBEB18];
-      pathComponents = [v13 pathComponents];
-      v12 = [v6 arrayWithArray:?];
+      pathComponents = [v12 pathComponents];
+      v11 = [v6 arrayWithArray:?];
       MEMORY[0x277D82BD8](pathComponents);
-      if ([v12 count])
+      if ([v11 count])
       {
-        [v12 removeObjectAtIndex:0];
-        v4 = [MEMORY[0x277CCACA8] pathWithComponents:v12];
-        v5 = v13;
-        v13 = v4;
+        [v11 removeObjectAtIndex:0];
+        v4 = [MEMORY[0x277CCACA8] pathWithComponents:v11];
+        v5 = v12;
+        v12 = v4;
         MEMORY[0x277D82BD8](v5);
-        v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:location[0]];
-        [v11 setObject:v13 forKey:@"path"];
-        [(PSViewController *)selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL handleURL:v11 withCompletion:v17];
-        objc_storeStrong(&v11, 0);
+        v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:location[0]];
+        [v10 setObject:v12 forKey:@"path"];
+        [(PSViewController *)selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL handleURL:v10 withCompletion:v16];
+        objc_storeStrong(&v10, 0);
       }
 
-      else if (v17)
+      else if (v16)
       {
-        (*(v17 + 2))();
+        (*(v16 + 2))();
       }
 
+      objc_storeStrong(&v11, 0);
       objc_storeStrong(&v12, 0);
-      objc_storeStrong(&v13, 0);
     }
 
     objc_storeStrong(&selfCopy->_viewControllerPushedByControllerLoadActionDuringHandleURL, 0);
@@ -316,20 +314,19 @@ uint64_t __64__ACUISettingsController__effectiveSettingsChangedNotification___bl
     oslog = _ACUILogSystem();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_3_8_32_4_0_8_64(v20, "[ACUISettingsController handleURL:withCompletion:]", 256, location[0]);
-      _os_log_error_impl(&dword_23DC86000, oslog, OS_LOG_TYPE_ERROR, "%s (%d) No subview to display matching dictionary %@", v20, 0x1Cu);
+      __os_log_helper_16_2_3_8_32_4_0_8_64(v19, "[ACUISettingsController handleURL:withCompletion:]", 256, location[0]);
+      _os_log_error_impl(&dword_23DC86000, oslog, OS_LOG_TYPE_ERROR, "%s (%d) No subview to display matching dictionary %@", v19, 0x1Cu);
     }
 
     objc_storeStrong(&oslog, 0);
-    if (v17)
+    if (v16)
     {
-      (*(v17 + 2))();
+      (*(v16 + 2))();
     }
   }
 
-  objc_storeStrong(&v17, 0);
+  objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_accountStore
@@ -528,7 +525,6 @@ void __50__ACUISettingsController__accountsWithCompletion___block_invoke(void *a
   objc_storeStrong(&array, 0);
   objc_storeStrong(&v52, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__ACUISettingsController__loadAccountsWithCompletion___block_invoke(void *a1, void *a2, _BYTE *a3)
@@ -607,7 +603,6 @@ uint64_t __54__ACUISettingsController__loadAccountsWithCompletion___block_invoke
 {
   if (*(result + 40))
   {
-    v1 = *(result + 32);
     return (*(*(result + 40) + 16))();
   }
 
@@ -637,7 +632,6 @@ uint64_t __54__ACUISettingsController__loadAccountsWithCompletion___block_invoke
   v8 = MEMORY[0x277D82BE0](selfCopy);
   [(ACUISettingsController *)v2 _loadAccountsWithCompletion:&v3];
   objc_storeStrong(&v8, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __48__ACUISettingsController__accountStoreDidChange__block_invoke(id *a1, void *a2)
@@ -681,7 +675,6 @@ void __48__ACUISettingsController__accountStoreDidChange__block_invoke(id *a1, v
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __48__ACUISettingsController__accountStoreDidChange__block_invoke_59(uint64_t a1, void *a2)
@@ -800,7 +793,6 @@ void __48__ACUISettingsController__accountStoreDidChange__block_invoke_59(uint64
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAccountList:(id)list identicalToAccountList:(id)accountList
@@ -875,7 +867,6 @@ LABEL_11:
 
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v19 & 1;
 }
 
@@ -1023,7 +1014,6 @@ LABEL_30:
 
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v35 & 1;
 }
 
@@ -1118,7 +1108,6 @@ LABEL_30:
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_accountGroupIdentifier:(id)identifier ignoringGroups:(id)groups
@@ -1220,7 +1209,6 @@ LABEL_30:
     objc_storeStrong(&v27, 0);
   }
 
-  *MEMORY[0x277D85DE8];
   v4 = *(&selfCopy->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
 
   return v4;
@@ -1299,7 +1287,6 @@ void __36__ACUISettingsController_specifiers__block_invoke(uint64_t a1, void *a2
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion___block_invoke()
@@ -1315,61 +1302,66 @@ uint64_t __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion_
 
 void __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v53[1] = a1;
-  v53[0] = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v52 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [*(a1 + 32) _filterAccounts:location[0] toTopLevel:v53[0] grouped:v52 ignoringGroups:0];
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51[1] = a1;
+  v51[0] = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [*(a1 + 32) _filterAccounts:location[0] toTopLevel:v51[0] grouped:v50 ignoringGroups:0];
+  v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
   memset(__b, 0, sizeof(__b));
-  obj = MEMORY[0x277D82BE0](v53[0]);
-  v33 = [obj countByEnumeratingWithState:__b objects:v57 count:16];
-  if (v33)
+  obj = MEMORY[0x277D82BE0](v51[0]);
+  v31 = [obj countByEnumeratingWithState:__b objects:v55 count:16];
+  if (v31)
   {
-    v28 = *__b[2];
-    v29 = 0;
-    v30 = v33;
+    v26 = *__b[2];
+    v27 = 0;
+    v28 = v31;
     while (1)
     {
-      v27 = v29;
-      if (*__b[2] != v28)
+      v25 = v27;
+      if (*__b[2] != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v50 = *(__b[1] + 8 * v29);
-      v48 = [*(a1 + 32) _specifierForAccount:v50];
-      if (v48)
+      v48 = *(__b[1] + 8 * v27);
+      v46 = [*(a1 + 32) _specifierForAccount:v48];
+      if (v46)
       {
         if ((_specifiersForAccountsGroupWithCompletion__pluginsHandleModificationRestriction & 1) == 0)
         {
-          v24 = [v50 accountType];
-          v25 = [v24 identifier];
-          LOBYTE(v26) = 0;
-          if ([v25 isEqualToString:*MEMORY[0x277CB8C40]])
+          v22 = [v48 accountType];
+          v23 = [v22 identifier];
+          LOBYTE(v24) = 0;
+          if ([v23 isEqualToString:*MEMORY[0x277CB8C40]])
           {
-            v26 = [v50 isAuthenticated] ^ 1;
+            v24 = [v48 isAuthenticated] ^ 1;
           }
 
-          MEMORY[0x277D82BD8](v25);
-          MEMORY[0x277D82BD8](v24);
-          v47 = v26 & 1;
-          v21 = [v50 accountType];
-          v22 = [v21 identifier];
-          v2 = [v22 isEqualToString:*MEMORY[0x277CB8C00]];
-          v44 = 0;
+          MEMORY[0x277D82BD8](v23);
+          MEMORY[0x277D82BD8](v22);
+          v45 = v24 & 1;
+          v19 = [v48 accountType];
+          v20 = [v19 identifier];
+          v2 = [v20 isEqualToString:*MEMORY[0x277CB8C00]];
           v42 = 0;
-          v23 = 1;
+          v40 = 0;
+          v21 = 1;
           if ((v2 & 1) == 0)
           {
-            v45 = [v50 accountType];
-            v44 = 1;
-            v43 = [v45 identifier];
+            v43 = [v48 accountType];
             v42 = 1;
-            v23 = [v43 isEqualToString:*MEMORY[0x277CB8C50]];
+            v41 = [v43 identifier];
+            v40 = 1;
+            v21 = [v41 isEqualToString:*MEMORY[0x277CB8C50]];
+          }
+
+          if (v40)
+          {
+            MEMORY[0x277D82BD8](v41);
           }
 
           if (v42)
@@ -1377,78 +1369,72 @@ void __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion___bl
             MEMORY[0x277D82BD8](v43);
           }
 
-          if (v44)
-          {
-            MEMORY[0x277D82BD8](v45);
-          }
-
-          MEMORY[0x277D82BD8](v22);
-          MEMORY[0x277D82BD8](v21);
-          v46 = v23 & 1;
-          v19 = v48;
-          v20 = 1;
+          MEMORY[0x277D82BD8](v20);
+          MEMORY[0x277D82BD8](v19);
+          v44 = v21 & 1;
+          v17 = v46;
+          v18 = 1;
           if ((*(a1 + 48) & 1) == 0)
           {
-            v20 = 1;
-            if ((v47 & 1) == 0)
+            v18 = 1;
+            if ((v45 & 1) == 0)
             {
-              v20 = v46;
+              v18 = v44;
             }
           }
 
-          v18 = [MEMORY[0x277CCABB0] numberWithInt:v20 & 1];
-          v3 = *MEMORY[0x277D3FF38];
-          [v19 setProperty:? forKey:?];
-          MEMORY[0x277D82BD8](v18);
+          v16 = [MEMORY[0x277CCABB0] numberWithInt:v18 & 1];
+          [v17 setProperty:? forKey:?];
+          MEMORY[0x277D82BD8](v16);
         }
 
-        v15 = [v50 accountType];
-        v16 = [v15 identifier];
-        v4 = [v16 isEqualToString:*MEMORY[0x277CB8BA0]];
-        v40 = 0;
-        v17 = 0;
-        if (v4)
+        v13 = [v48 accountType];
+        v14 = [v13 identifier];
+        v3 = [v14 isEqualToString:*MEMORY[0x277CB8BA0]];
+        v38 = 0;
+        v15 = 0;
+        if (v3)
         {
-          v41 = [v50 objectForKeyedSubscript:@"primaryAccount"];
-          v40 = 1;
-          v17 = [v41 BOOLValue];
+          v39 = [v48 objectForKeyedSubscript:@"primaryAccount"];
+          v38 = 1;
+          v15 = [v39 BOOLValue];
         }
 
-        if (v40)
+        if (v38)
         {
-          MEMORY[0x277D82BD8](v41);
+          MEMORY[0x277D82BD8](v39);
         }
 
-        MEMORY[0x277D82BD8](v16);
-        MEMORY[0x277D82BD8](v15);
-        if (v17)
+        MEMORY[0x277D82BD8](v14);
+        MEMORY[0x277D82BD8](v13);
+        if (v15)
         {
           oslog = _ACUILogSystem();
           type = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
           {
             log = oslog;
-            __os_log_helper_16_2_3_8_32_4_0_8_64(v56, "[ACUISettingsController _specifiersForAccountsGroupWithCompletion:]_block_invoke_2", 557, v50);
-            _os_log_impl(&dword_23DC86000, log, type, "%s (%d) Hit our primary account, lets ensure this is at the top - %@", v56, 0x1Cu);
+            __os_log_helper_16_2_3_8_32_4_0_8_64(v54, "[ACUISettingsController _specifiersForAccountsGroupWithCompletion:]_block_invoke_2", 557, v48);
+            _os_log_impl(&dword_23DC86000, log, type, "%s (%d) Hit our primary account, lets ensure this is at the top - %@", v54, 0x1Cu);
           }
 
           objc_storeStrong(&oslog, 0);
-          [v51 insertObject:v48 atIndex:0];
+          [v49 insertObject:v46 atIndex:0];
         }
 
         else
         {
-          [v51 addObject:v48];
+          [v49 addObject:v46];
         }
       }
 
-      objc_storeStrong(&v48, 0);
-      ++v29;
-      if (v27 + 1 >= v30)
+      objc_storeStrong(&v46, 0);
+      ++v27;
+      if (v25 + 1 >= v28)
       {
-        v29 = 0;
-        v30 = [obj countByEnumeratingWithState:__b objects:v57 count:16];
-        if (!v30)
+        v27 = 0;
+        v28 = [obj countByEnumeratingWithState:__b objects:v55 count:16];
+        if (!v28)
         {
           break;
         }
@@ -1457,47 +1443,46 @@ void __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion___bl
   }
 
   MEMORY[0x277D82BD8](obj);
-  memset(v36, 0, sizeof(v36));
-  v12 = [v52 allKeys];
-  v13 = [v12 countByEnumeratingWithState:v36 objects:v55 count:16];
-  if (v13)
+  memset(v34, 0, sizeof(v34));
+  v10 = [v50 allKeys];
+  v11 = [v10 countByEnumeratingWithState:v34 objects:v53 count:16];
+  if (v11)
   {
-    v9 = *v36[2];
-    v10 = 0;
-    v11 = v13;
+    v7 = *v34[2];
+    v8 = 0;
+    v9 = v11;
     while (1)
     {
-      v8 = v10;
-      if (*v36[2] != v9)
+      v6 = v8;
+      if (*v34[2] != v7)
       {
-        objc_enumerationMutation(v12);
+        objc_enumerationMutation(v10);
       }
 
-      v37 = *(v36[1] + 8 * v10);
-      v35 = [v52 objectForKey:v37];
-      v34 = [*(a1 + 32) _specifierForCollectionCellLinkingToAccounts:v35 withGroupIdentifier:v37 underParentGroup:0];
-      if (v34)
+      v35 = *(v34[1] + 8 * v8);
+      v33 = [v50 objectForKey:v35];
+      v32 = [*(a1 + 32) _specifierForCollectionCellLinkingToAccounts:v33 withGroupIdentifier:v35 underParentGroup:0];
+      if (v32)
       {
         if ((_specifiersForAccountsGroupWithCompletion__pluginsHandleModificationRestriction & 1) == 0)
         {
-          v6 = v34;
-          v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48) & 1];
-          v5 = *MEMORY[0x277D3FF38];
-          [v6 setProperty:? forKey:?];
-          MEMORY[0x277D82BD8](v7);
+          v4 = v32;
+          v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48) & 1];
+          [v4 setProperty:? forKey:?];
+          MEMORY[0x277D82BD8](v5);
         }
 
-        [v51 addObject:v34];
+        [v49 addObject:v32];
       }
 
-      objc_storeStrong(&v34, 0);
-      objc_storeStrong(&v35, 0);
-      ++v10;
-      if (v8 + 1 >= v11)
+      objc_storeStrong(&v32, 0);
+      objc_storeStrong(&v33, 0);
+      ++v8;
+      if (v6 + 1 >= v9)
       {
-        v10 = 0;
-        v11 = [v12 countByEnumeratingWithState:v36 objects:v55 count:16];
-        if (!v11)
+        v8 = 0;
+        v9 = [v10 countByEnumeratingWithState:v34 objects:v53 count:16];
+        if (!v9)
         {
           break;
         }
@@ -1505,18 +1490,17 @@ void __68__ACUISettingsController__specifiersForAccountsGroupWithCompletion___bl
     }
   }
 
-  MEMORY[0x277D82BD8](v12);
+  MEMORY[0x277D82BD8](v10);
   if (*(a1 + 40))
   {
     (*(*(a1 + 40) + 16))();
   }
 
-  objc_storeStrong((*(a1 + 32) + 1472), v51);
-  objc_storeStrong(&v51, 0);
-  objc_storeStrong(&v52, 0);
-  objc_storeStrong(v53, 0);
+  objc_storeStrong((*(a1 + 32) + 1472), v49);
+  objc_storeStrong(&v49, 0);
+  objc_storeStrong(&v50, 0);
+  objc_storeStrong(v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_specifierForCollectionCellLinkingToAccounts:(id)accounts withGroupIdentifier:(id)identifier underParentGroup:(id)group
@@ -1714,7 +1698,6 @@ LABEL_9:
   objc_storeStrong(&v52, 0);
   objc_storeStrong(&v53, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v7 = v56;
 
   return v7;
@@ -1726,37 +1709,35 @@ LABEL_9:
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, account);
-  v5 = [location[0] copy];
-  v11 = [ACUIAccountSummaryCell specifierWithStyle:"specifierWithStyle:account:target:controllerLoadAction:" account:3 target:? controllerLoadAction:?];
-  MEMORY[0x277D82BD8](v5);
-  v7 = v11;
+  v4 = [location[0] copy];
+  v9 = [ACUIAccountSummaryCell specifierWithStyle:"specifierWithStyle:account:target:controllerLoadAction:" account:3 target:? controllerLoadAction:?];
+  MEMORY[0x277D82BD8](v4);
+  v5 = v9;
   specifier = [(ACUISettingsController *)selfCopy specifier];
-  v6 = MEMORY[0x277D3FD90];
-  v8 = [specifier propertyForKey:*MEMORY[0x277D3FD90]];
-  v3 = *v6;
-  [v7 setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v8);
+  v6 = [specifier propertyForKey:*MEMORY[0x277D3FD90]];
+  [v5 setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v6);
   MEMORY[0x277D82BD8](specifier);
-  v10 = MEMORY[0x277D82BE0](v11);
-  objc_storeStrong(&v11, 0);
+  v8 = MEMORY[0x277D82BE0](v9);
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
 
-  return v10;
+  return v8;
 }
 
 - (id)_addAccountSpecifier
 {
   if (!self->_addAccountSpecifier)
   {
-    v14 = MEMORY[0x277D3FAD8];
-    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v15 = [v16 localizedStringForKey:? value:? table:?];
-    v2 = [v14 preferenceSpecifierNamed:v15 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+    v11 = MEMORY[0x277D3FAD8];
+    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v12 = [v13 localizedStringForKey:? value:? table:?];
+    v2 = [v11 preferenceSpecifierNamed:v12 target:self set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
     addAccountSpecifier = self->_addAccountSpecifier;
     self->_addAccountSpecifier = v2;
     MEMORY[0x277D82BD8](addAccountSpecifier);
-    MEMORY[0x277D82BD8](v15);
-    MEMORY[0x277D82BD8](v16);
+    MEMORY[0x277D82BD8](v12);
+    MEMORY[0x277D82BD8](v13);
     [(PSSpecifier *)self->_addAccountSpecifier setProperty:@"ADD_ACCOUNT" forKey:*MEMORY[0x277D3FFB8]];
     if (self->_filteredDataclass)
     {
@@ -1764,23 +1745,20 @@ LABEL_9:
     }
   }
 
-  v17 = ![(ACUISettingsController *)self _isAccountModificationDisabledByRestrictions];
+  v14 = ![(ACUISettingsController *)self _isAccountModificationDisabledByRestrictions];
+  v6 = self->_addAccountSpecifier;
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:v14];
+  [PSSpecifier setProperty:v6 forKey:"setProperty:forKey:"];
+  MEMORY[0x277D82BD8](v7);
   v8 = self->_addAccountSpecifier;
-  v9 = [MEMORY[0x277CCABB0] numberWithBool:v17];
-  v4 = *MEMORY[0x277D3FF38];
+  specifier = [(ACUISettingsController *)self specifier];
+  v9 = [specifier propertyForKey:*MEMORY[0x277D3FD90]];
   [PSSpecifier setProperty:v8 forKey:"setProperty:forKey:"];
   MEMORY[0x277D82BD8](v9);
-  v11 = self->_addAccountSpecifier;
-  specifier = [(ACUISettingsController *)self specifier];
-  v10 = MEMORY[0x277D3FD90];
-  v12 = [specifier propertyForKey:*MEMORY[0x277D3FD90]];
-  v5 = *v10;
-  [PSSpecifier setProperty:v11 forKey:"setProperty:forKey:"];
-  MEMORY[0x277D82BD8](v12);
   MEMORY[0x277D82BD8](specifier);
-  v6 = self->_addAccountSpecifier;
+  v4 = self->_addAccountSpecifier;
 
-  return v6;
+  return v4;
 }
 
 - (id)_specifierForScheduleSettings
@@ -2063,7 +2041,6 @@ void __52__ACUISettingsController__fetchLazyLoadedSpecifiers__block_invoke_2(NSO
   [*(a1[4].isa + *v6) setContentOffset:0 animated:{v4, v5}];
   objc_storeStrong(&location, 0);
   objc_storeStrong(&v25, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_specifiersForSettingsProvidedByPlugin:(id)plugin
@@ -2072,41 +2049,40 @@ void __52__ACUISettingsController__fetchLazyLoadedSpecifiers__block_invoke_2(NSO
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, plugin);
-  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   specifiers = [location[0] specifiers];
   if ([specifiers count])
   {
-    v14 = [specifiers mutableCopy];
-    v11 = MEMORY[0x277D3FAD8];
+    v13 = [specifiers mutableCopy];
+    v10 = MEMORY[0x277D3FAD8];
     headerText = [location[0] headerText];
-    v13 = [v11 groupSpecifierWithName:?];
+    v12 = [v10 groupSpecifierWithName:?];
     MEMORY[0x277D82BD8](headerText);
-    [v14 insertObject:v13 atIndex:0];
+    [v13 insertObject:v12 atIndex:0];
     if (objc_opt_respondsToSelector())
     {
       footerText = [location[0] footerText];
-      v3 = *MEMORY[0x277D3FF88];
-      [v13 setProperty:? forKey:?];
+      [v12 setProperty:? forKey:?];
       MEMORY[0x277D82BD8](footerText);
     }
 
     pluginToSpecifiersMap = selfCopy->_pluginToSpecifiersMap;
-    v7 = v14;
-    v4 = objc_opt_class();
-    v9 = NSStringFromClass(v4);
-    [(NSMutableDictionary *)pluginToSpecifiersMap setObject:v7 forKey:?];
-    MEMORY[0x277D82BD8](v9);
-    [v16 addObjectsFromArray:v14];
+    v6 = v13;
+    v3 = objc_opt_class();
+    v8 = NSStringFromClass(v3);
+    [(NSMutableDictionary *)pluginToSpecifiersMap setObject:v6 forKey:?];
+    MEMORY[0x277D82BD8](v8);
+    [v15 addObjectsFromArray:v13];
+    objc_storeStrong(&v12, 0);
     objc_storeStrong(&v13, 0);
-    objc_storeStrong(&v14, 0);
   }
 
-  v6 = MEMORY[0x277D82BE0](v16);
+  v5 = MEMORY[0x277D82BE0](v15);
   objc_storeStrong(&specifiers, 0);
-  objc_storeStrong(&v16, 0);
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
 
-  return v6;
+  return v5;
 }
 
 - (id)_specifiersForLoadingMessage
@@ -2140,7 +2116,6 @@ void __52__ACUISettingsController__fetchLazyLoadedSpecifiers__block_invoke_2(NSO
   }
 
   v7 = selfCopy->_loadingInProgressSpecifiers;
-  *MEMORY[0x277D85DE8];
   v5 = v7;
 
   return v5;
@@ -2283,7 +2258,6 @@ void __52__ACUISettingsController__fetchLazyLoadedSpecifiers__block_invoke_2(NSO
 LABEL_32:
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -2456,7 +2430,6 @@ LABEL_32:
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)accountWasAdded:(id)added

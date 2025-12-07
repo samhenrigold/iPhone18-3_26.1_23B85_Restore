@@ -164,18 +164,18 @@ LABEL_23:
 
 + (int64_t)visitIncidentTypeFromString:(id)string
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (!stringCopy)
   {
     v4 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "+[RTVisit visitIncidentTypeFromString:]";
-      v11 = 1024;
-      LODWORD(v12) = 153;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: typeString (in %s:%d)", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "+[RTVisit visitIncidentTypeFromString:]";
+      v10 = 1024;
+      LODWORD(v11) = 153;
+      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: typeString (in %s:%d)", &v8, 0x12u);
     }
   }
 
@@ -199,23 +199,22 @@ LABEL_23:
       goto LABEL_13;
     }
 
-    v8 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412802;
-      v10 = stringCopy;
-      v11 = 2080;
-      v12 = "+[RTVisit visitIncidentTypeFromString:]";
-      v13 = 1024;
-      v14 = 163;
-      _os_log_error_impl(&dword_1BF1C4000, v8, OS_LOG_TYPE_ERROR, "Invalid type string, %@. (in %s:%d)", &v9, 0x1Cu);
+      v8 = 138412802;
+      v9 = stringCopy;
+      v10 = 2080;
+      v11 = "+[RTVisit visitIncidentTypeFromString:]";
+      v12 = 1024;
+      v13 = 163;
+      _os_log_error_impl(&dword_1BF1C4000, v7, OS_LOG_TYPE_ERROR, "Invalid type string, %@. (in %s:%d)", &v8, 0x1Cu);
     }
   }
 
   v5 = 0;
 LABEL_13:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -487,34 +486,34 @@ LABEL_49:
 
 + (BOOL)validVisitSources:(id)sources
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   sourcesCopy = sources;
-  v4 = [sourcesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [sourcesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(sourcesCopy);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) unsignedIntValue] > 3)
+        if ([*(*(&v10 + 1) + 8 * i) unsignedIntValue] > 3)
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [sourcesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [sourcesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -527,7 +526,6 @@ LABEL_49:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

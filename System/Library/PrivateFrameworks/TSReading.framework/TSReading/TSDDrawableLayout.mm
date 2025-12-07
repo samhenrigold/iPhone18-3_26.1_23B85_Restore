@@ -127,7 +127,7 @@
     }
 
     v9 = v8;
-    [(TSDAbstractLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self);
     [v9 transformUsingAffineTransform:v13];
     v10 = [[TSDWrapPolygon alloc] initWithPath:v9];
     self->mCachedWrapPolygon = v10;
@@ -244,7 +244,7 @@ LABEL_8:
 
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v8 = *&v19.a;
     v9 = *&v19.c;
     v10 = *&v19.tx;
@@ -259,7 +259,7 @@ LABEL_8:
 
   v11 = *(MEMORY[0x277CBF348] + 8);
   v17 = vaddq_f64(v10, vmlaq_n_f64(vmulq_n_f64(v9, v11), v8, *MEMORY[0x277CBF348]));
-  [(TSDLayoutGeometry *)v6 transform:*&v11];
+  objc_msgSend_transform(v6, *&v11, v7, *MEMORY[0x277CBF348], *&v11);
   v12 = TSDSubtractPoints(v17.f64[0], v17.f64[1], vaddq_f64(*&v19.tx, vmlaq_n_f64(vmulq_n_f64(*&v19.c, v15), *&v19.a, v16)).f64[0]);
   mCachedWrapPolygon = self->mCachedWrapPolygon;
   CGAffineTransformMakeTranslation(&v19, v12, v14);

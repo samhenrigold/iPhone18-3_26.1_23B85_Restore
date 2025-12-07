@@ -21,11 +21,11 @@
 
 - (_HKSampleQueryConfiguration)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v27.receiver = self;
-  v27.super_class = _HKSampleQueryConfiguration;
-  v5 = [(HKQueryServerConfiguration *)&v27 initWithCoder:coderCopy];
+  v26.receiver = self;
+  v26.super_class = _HKSampleQueryConfiguration;
+  v5 = [(HKQueryServerConfiguration *)&v26 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -45,38 +45,37 @@
     v5->_limit = [coderCopy decodeIntegerForKey:@"limit"];
     v5->_includeAutomaticTimeZones = [coderCopy decodeBoolForKey:@"includeAutomaticTimeZones"];
     v5->_includeContributorInformation = [coderCopy decodeBoolForKey:@"includeContributor"];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v16 = v5->_sortDescriptors;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v24;
+      v19 = *v23;
       do
       {
         v20 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v23 + 1) + 8 * v20++) allowEvaluation];
+          [*(*(&v22 + 1) + 8 * v20++) allowEvaluation];
         }
 
         while (v18 != v20);
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v18);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

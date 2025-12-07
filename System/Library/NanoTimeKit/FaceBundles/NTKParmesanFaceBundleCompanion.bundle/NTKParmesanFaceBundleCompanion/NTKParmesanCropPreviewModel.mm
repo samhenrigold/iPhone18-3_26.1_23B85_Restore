@@ -32,40 +32,40 @@
 
 - (id)description
 {
-  v5 = MEMORY[0x277CCACA8];
+  v4 = MEMORY[0x277CCACA8];
   photo = self->_photo;
   maskedPhoto = self->_maskedPhoto;
-  objc_msgSend_cgRect(self->_crop, a2, v2, v3);
-  if (v12 <= 1.0)
+  objc_msgSend_cgRect(self->_crop, a2, v2);
+  if (v10 <= 1.0)
   {
-    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"{ %.5f, %.5f, %.5f, %.5f }", v9, v10, v11, *&v12, v13);
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"{ %.5f, %.5f, %.5f, %.5f }", v8, v9, *&v10, v11);
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"{ %.1f, %.1f, %.1f, %.1f }", v9, v10, v11, *&v12, v13);
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"{ %.1f, %.1f, %.1f, %.1f }", v8, v9, *&v10, v11);
   }
-  v14 = ;
-  v17 = v14;
-  v18 = "NO";
+  v12 = ;
+  v14 = v12;
+  v15 = "NO";
   if (self->_useDepthEffect)
   {
-    v19 = "YES";
+    v16 = "YES";
   }
 
   else
   {
-    v19 = "NO";
+    v16 = "NO";
   }
 
   if (self->_revertable)
   {
-    v18 = "YES";
+    v15 = "YES";
   }
 
-  v20 = objc_msgSend_stringWithFormat_(v5, v15, @"[previewModel: photo=%@, mask=%@, crop=%@, timelayout=%@, useDepth=%s, revertable=%s]", v16, photo, maskedPhoto, v14, self->_timeLayout, v19, v18);
+  v17 = objc_msgSend_stringWithFormat_(v4, v13, @"[previewModel: photo=%@, mask=%@, crop=%@, timelayout=%@, useDepth=%s, revertable=%s]", photo, maskedPhoto, v12, self->_timeLayout, v16, v15);
 
-  return v20;
+  return v17;
 }
 
 @end

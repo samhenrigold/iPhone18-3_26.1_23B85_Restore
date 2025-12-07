@@ -1,5 +1,5 @@
 @interface NSFileManager(OFNSFileManagerExtensions)
-+ (uint64_t)temporaryFilePathWithExtension:()OFNSFileManagerExtensions;
++ (NSString)temporaryFilePathWithExtension:()OFNSFileManagerExtensions;
 + (uint64_t)temporaryFileURLWithExtension:()OFNSFileManagerExtensions;
 - (FTS)copySource:()OFNSFileManagerExtensions toDestination:withProgressionBlock:;
 - (uint64_t)createTemporaryDirectoryAppropriateForForPath:()OFNSFileManagerExtensions error:;
@@ -10,7 +10,7 @@
 
 @implementation NSFileManager(OFNSFileManagerExtensions)
 
-+ (uint64_t)temporaryFilePathWithExtension:()OFNSFileManagerExtensions
++ (NSString)temporaryFilePathWithExtension:()OFNSFileManagerExtensions
 {
   v4 = NSTemporaryDirectory();
   v5 = [objc_msgSend(MEMORY[0x277CCACA8] "generateUUID")];

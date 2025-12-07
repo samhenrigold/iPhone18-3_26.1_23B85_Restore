@@ -35,7 +35,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10000D62C(context, v10, v9);
-  sub_100006BA0(v10);
+  sub_100006BA0(v10, v9);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -66,7 +66,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10000DCD8(context, v10, v9);
-  sub_100006BA0(v10);
+  sub_100006BA0(v10, v9);
 }
 
 - (_TtC16FinanceUIService27FinanceRemoteViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -98,7 +98,7 @@
   }
 
   v12.receiver = self;
-  v12.super_class = type metadata accessor for FinanceRemoteViewController();
+  v12.super_class = type metadata accessor for FinanceRemoteViewController(0);
   v10 = [(FinanceRemoteViewController *)&v12 initWithNibName:v9 bundle:bundleCopy];
 
   return v10;
@@ -117,7 +117,7 @@
   coderCopy = coder;
   Logger.init(subsystem:category:)();
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FinanceRemoteViewController();
+  v8.super_class = type metadata accessor for FinanceRemoteViewController(0);
   v6 = [(FinanceRemoteViewController *)&v8 initWithCoder:coderCopy];
 
   if (v6)

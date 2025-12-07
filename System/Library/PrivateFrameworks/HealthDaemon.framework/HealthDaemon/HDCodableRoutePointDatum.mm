@@ -199,7 +199,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -219,7 +218,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  latitude = self->_latitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -234,7 +232,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  longitude = self->_longitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -249,7 +246,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  altitude = self->_altitude;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -264,12 +260,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  odometer = self->_odometer;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    signalEnvironmentType = self->_signalEnvironmentType;
     PBDataWriterWriteInt32Field();
   }
 

@@ -11,16 +11,16 @@
 
 @implementation TPSSizes
 
-id __23__TPSSizes_na_identity__block_invoke()
+id __23__TPSSizes_na_identity__block_invoke(uint64_t a1)
 {
   if (TPSSizesRegularKey_block_invoke_na_once_token_0 != -1)
   {
     __23__TPSSizes_na_identity__block_invoke_cold_1();
   }
 
-  v1 = TPSSizesRegularKey_block_invoke_na_once_object_0;
+  v2 = TPSSizesRegularKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __23__TPSSizes_na_identity__block_invoke_2()

@@ -57,18 +57,26 @@
       v18 = v14;
     }
 
-    v23.origin.x = bounds + v18;
-    v23.size.width = a5 - (v14 + v16);
-    v23.size.height = a6 - (v13 + v15);
-    v21.origin.x = v23.origin.x;
-    v21.origin.y = v17;
-    v21.size.width = v23.size.width;
-    v21.size.height = v23.size.height;
-    v23.origin.y = v17;
-    CGRectDivide(v23, &slice, &v21, v17 - v17, CGRectMinYEdge);
-    [*(self + 456) sizeThatFits:{v21.size.width, 1.79769313e308}];
-    CGRectDivide(v21, &slice, &v21, v19, CGRectMinYEdge);
-    PKSizeAlignedInRect();
+    v33.origin.x = bounds + v18;
+    v33.size.width = a5 - (v14 + v16);
+    v33.size.height = a6 - (v13 + v15);
+    v31.origin.x = v33.origin.x;
+    v31.origin.y = v17;
+    v31.size.width = v33.size.width;
+    v31.size.height = v33.size.height;
+    v33.origin.y = v17;
+    CGRectDivide(v33, &slice, &v31, v17 - v17, CGRectMinYEdge);
+    [*(self + 456) sizeThatFits:{v31.size.width, 1.79769313e308}];
+    v20 = v19;
+    v22 = *&v21;
+    CGRectDivide(v31, &slice, &v31, v21, CGRectMinYEdge);
+    v23.n128_u64[0] = *&slice.origin.x;
+    v24.n128_u64[0] = *&slice.origin.y;
+    v25.n128_u64[0] = *&slice.size.width;
+    v26.n128_u64[0] = *&slice.size.height;
+    v27.n128_u64[0] = v20;
+    v28.n128_u64[0] = v22;
+    PKSizeAlignedInRect(3, v27, v28, v23, v24, v25, v26, v29);
     if (a2)
     {
       [*(self + 456) setFrame:?];

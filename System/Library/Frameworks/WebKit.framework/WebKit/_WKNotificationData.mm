@@ -133,7 +133,7 @@
     *&v5->_anon_a8[56] = v19;
     *&v5->_anon_a8[8] = v21;
     *&v5->_anon_a8[24] = v20;
-    WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(&v5->_anon_a8[72], data + 224);
+    WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(&v5->_anon_a8[72], (data + 224));
     *&v5->_anon_a8[88] = *(data + 120);
   }
 
@@ -458,7 +458,7 @@ LABEL_8:
       return;
     }
 
-    v7 = WTF::fastMalloc(v6);
+    v7 = WTF::fastMalloc(0, v6);
     v8 = v7;
     v9 = 0;
     do

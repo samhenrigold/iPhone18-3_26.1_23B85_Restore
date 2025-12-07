@@ -6,6 +6,8 @@
 - (BOOL)sendOutgoingData:(id)data forEndpointWithUUID:(id)d connectionUUID:(id)iD;
 - (BOOL)setNeedOutZLP:(BOOL)p maxOutLength:(unsigned int)length forConnectionUUID:(id)d;
 - (BOOL)setUSBHostHIDInterface:(unsigned __int8)interface withHIDFunction:(unsigned int)function forConnectionUUID:(id)d;
+- (BOOL)startDetectUSBBillboardDeviceWithVID:(unsigned __int16)d PID:(unsigned __int16)iD;
+- (BOOL)stopDetectUSBBillboardDeviceWithVID:(unsigned __int16)d PID:(unsigned __int16)iD;
 - (void)VIDPIDServiceAdded:(unsigned int)added;
 - (void)VIDPIDServiceRemoved:(unsigned int)removed;
 - (void)_handleCloseEASessionNotificationForEndpoint:(id)endpoint connection:(id)connection;
@@ -185,7 +187,7 @@
 
 void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v2 = gNumLogObjects < 1;
@@ -240,47 +242,47 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
     {
       v7 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
       *buf = 136315650;
-      v71 = "[AccessoryTransportPluginUSBHost startPlugin]_block_invoke";
-      v72 = 1024;
-      v73 = 186;
-      v74 = 2112;
-      v75 = v7;
+      v70 = "[AccessoryTransportPluginUSBHost startPlugin]_block_invoke";
+      v71 = 1024;
+      v72 = 186;
+      v73 = 2112;
+      v74 = v7;
       _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d trafficWaitList %@", buf, 0x1Cu);
     }
 
-    v60 = [MEMORY[0x277CBEAA8] date];
-    v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v59 = [MEMORY[0x277CBEAA8] date];
+    v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v9 = [WeakRetained accessoryiAPIntefaceTrafficWaitList];
     v10 = [v9 allKeys];
 
     obj = v10;
-    v11 = [v10 countByEnumeratingWithState:&v65 objects:v80 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v64 objects:v79 count:16];
     v12 = 0x2812FF000uLL;
     if (v11)
     {
       v13 = v11;
-      v59 = *v66;
+      v58 = *v65;
       v14 = MEMORY[0x277D86220];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v66 != v59)
+          if (*v65 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v65 + 1) + 8 * i);
+          v16 = *(*(&v64 + 1) + 8 * i);
           v17 = objc_loadWeakRetained((a1 + 40));
           v18 = [v17 accessoryiAPIntefaceTrafficWaitList];
           v19 = [v18 objectForKey:v16];
 
-          [v60 timeIntervalSince1970];
+          [v59 timeIntervalSince1970];
           v21 = v20;
           [v19 creationTime];
           v23 = v22;
@@ -296,9 +298,9 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v71 = v24;
-              v72 = 1024;
-              v73 = v25;
+              v70 = v24;
+              v71 = 1024;
+              v72 = v25;
               _os_log_error_impl(&dword_2336F5000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -309,15 +311,15 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            v71 = "[AccessoryTransportPluginUSBHost startPlugin]_block_invoke";
-            v72 = 1024;
-            v73 = 198;
-            v74 = 2112;
-            v75 = v16;
-            v76 = 2112;
-            v77 = v19;
-            v78 = 2048;
-            v79 = ((v21 - v23) * 1000.0);
+            v70 = "[AccessoryTransportPluginUSBHost startPlugin]_block_invoke";
+            v71 = 1024;
+            v72 = 198;
+            v73 = 2112;
+            v74 = v16;
+            v75 = 2112;
+            v76 = v19;
+            v77 = 2048;
+            v78 = ((v21 - v23) * 1000.0);
             _os_log_impl(&dword_2336F5000, v26, OS_LOG_TYPE_DEFAULT, "%s:%d connectionUUID %@, iapInterface %@, timeSinceCreationMs %llu", buf, 0x30u);
           }
 
@@ -342,9 +344,9 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
               if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                v71 = v30;
-                v72 = 1024;
-                v73 = v31;
+                v70 = v30;
+                v71 = 1024;
+                v72 = v31;
                 _os_log_error_impl(&dword_2336F5000, v14, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
@@ -356,41 +358,41 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              v71 = ((v21 - v23) * 1000.0);
+              v70 = ((v21 - v23) * 1000.0);
               _os_log_impl(&dword_2336F5000, v32, OS_LOG_TYPE_DEFAULT, "No iAP traffic for %llu msec!!!", buf, 0xCu);
             }
 
             [v19 unlockOtherInterfaces];
-            [v57 addObject:v16];
+            [v56 addObject:v16];
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v65 objects:v80 count:16];
+        v13 = [obj countByEnumeratingWithState:&v64 objects:v79 count:16];
       }
 
       while (v13);
     }
 
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
-    v34 = v57;
-    v35 = [v34 countByEnumeratingWithState:&v61 objects:v69 count:16];
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v34 = v56;
+    v35 = [v34 countByEnumeratingWithState:&v60 objects:v68 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v62;
+      v37 = *v61;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v62 != v37)
+          if (*v61 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v39 = *(*(&v61 + 1) + 8 * j);
+          v39 = *(*(&v60 + 1) + 8 * j);
           v40 = objc_loadWeakRetained((a1 + 40));
           v41 = [v40 accessoryiAPIntefaceTrafficWaitList];
           [v41 removeObjectForKey:v39];
@@ -402,7 +404,7 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
           [v45 setAccessoryiAPIntefaceTrafficWaitListCount:v44];
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v60 objects:v68 count:16];
       }
 
       while (v36);
@@ -430,7 +432,7 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
       v49 = [v48 accessoryiAPIntefaceTrafficWaitList];
       v50 = [v49 count];
       *buf = 134217984;
-      v71 = v50;
+      v70 = v50;
       _os_log_impl(&dword_2336F5000, v46, OS_LOG_TYPE_DEFAULT, "%lu more pending iAPInterfaceTrafficWait!!!", buf, 0xCu);
     }
 
@@ -445,8 +447,6 @@ void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke(uint64_t a1
       dispatch_source_set_timer(v54, v55, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __46__AccessoryTransportPluginUSBHost_startPlugin__block_invoke_24(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
@@ -590,7 +590,7 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
 
 - (void)serviceAdded:(unsigned int)added
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v187 = *MEMORY[0x277D85DE8];
   v3 = 0x2812FF000uLL;
   v4 = 0x2812FF000uLL;
   if (gLogObjects)
@@ -630,110 +630,109 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
     v9 = v8;
     v10 = MEMORY[0x277D86220];
     v11 = *MEMORY[0x277CBECE8];
-    v141 = *MEMORY[0x277CFD288];
-    v140 = *MEMORY[0x277CFD280];
-    v139 = *MEMORY[0x277CFD2B8];
-    v12 = *MEMORY[0x277CFD260];
-    v142 = *MEMORY[0x277CFD260];
-    v143 = *MEMORY[0x277CFD278];
+    v139 = *MEMORY[0x277CFD288];
+    v138 = *MEMORY[0x277CFD280];
+    v137 = *MEMORY[0x277CFD2B8];
+    v140 = *MEMORY[0x277CFD260];
+    v141 = *MEMORY[0x277CFD278];
     allocator = *MEMORY[0x277CBECE8];
     do
     {
-      v13 = *(v3 + 1880);
-      v14 = *(v4 + 1864);
-      if (v13)
+      v12 = *(v3 + 1880);
+      v13 = *(v4 + 1864);
+      if (v12)
       {
-        v15 = v14 < 1;
+        v14 = v13 < 1;
       }
 
       else
       {
-        v15 = 1;
+        v14 = 1;
       }
 
-      if (v15)
+      if (v14)
       {
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          *v182 = 134218240;
-          *&v182[4] = v13;
-          *&v182[12] = 1024;
-          *&v182[14] = v14;
-          _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v182, 0x12u);
+          *v180 = 134218240;
+          *&v180[4] = v12;
+          *&v180[12] = 1024;
+          *&v180[14] = v13;
+          _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v180, 0x12u);
         }
 
+        v15 = v10;
         v16 = v10;
-        v17 = v10;
       }
 
       else
       {
-        v17 = *v13;
+        v16 = *v12;
       }
 
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        [(AccessoryTransportPluginUSBHost *)&v171 serviceAdded:v172];
+        [(AccessoryTransportPluginUSBHost *)&v169 serviceAdded:v170];
       }
 
-      v18 = *(v3 + 1880);
-      v19 = *(v4 + 1864);
-      if (v18 && v19 >= 1)
+      v17 = *(v3 + 1880);
+      v18 = *(v4 + 1864);
+      if (v17 && v18 >= 1)
       {
-        v20 = *v18;
+        v19 = *v17;
       }
 
       else
       {
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          *v182 = 134218240;
-          *&v182[4] = v18;
-          *&v182[12] = 1024;
-          *&v182[14] = v19;
-          _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v182, 0x12u);
+          *v180 = 134218240;
+          *&v180[4] = v17;
+          *&v180[12] = 1024;
+          *&v180[14] = v18;
+          _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", v180, 0x12u);
         }
 
-        v21 = v10;
         v20 = v10;
+        v19 = v10;
       }
 
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        *v182 = 67109120;
-        *&v182[4] = v9;
-        _os_log_debug_impl(&dword_2336F5000, v20, OS_LOG_TYPE_DEBUG, "io_service_t: %u", v182, 8u);
+        *v180 = 67109120;
+        *&v180[4] = v9;
+        _os_log_debug_impl(&dword_2336F5000, v19, OS_LOG_TYPE_DEBUG, "io_service_t: %u", v180, 8u);
       }
 
-      v187 = 0u;
-      v188 = 0u;
       v185 = 0u;
       v186 = 0u;
       v183 = 0u;
       v184 = 0u;
-      memset(v182, 0, sizeof(v182));
+      v181 = 0u;
+      v182 = 0u;
+      memset(v180, 0, sizeof(v180));
       properties = 0;
       entryID = 0;
-      v22 = MEMORY[0x2383AACD0](v9, v182);
-      v23 = *(v3 + 1880);
-      v24 = *(v4 + 1864);
-      if (v23)
+      v21 = MEMORY[0x2383AACD0](v9, v180);
+      v22 = *(v3 + 1880);
+      v23 = *(v4 + 1864);
+      if (v22)
       {
-        v25 = v24 <= 0;
+        v24 = v23 <= 0;
       }
 
       else
       {
-        v25 = 1;
+        v24 = 1;
       }
 
-      v26 = !v25;
-      if (v22)
+      v25 = !v24;
+      if (v21)
       {
-        v27 = v22;
-        if (v26)
+        v26 = v21;
+        if (v25)
         {
-          v28 = *v23;
+          v27 = *v22;
         }
 
         else
@@ -741,74 +740,74 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v23;
+            *&buf[4] = v22;
             *&buf[12] = 1024;
-            *&buf[14] = v24;
+            *&buf[14] = v23;
+            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          }
+
+          v28 = v10;
+          v27 = v10;
+        }
+
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          *&buf[4] = v26;
+          _os_log_error_impl(&dword_2336F5000, v27, OS_LOG_TYPE_ERROR, "IORegistryEntryGetName failed: %08x", buf, 8u);
+        }
+      }
+
+      else
+      {
+        if (v25)
+        {
+          v27 = *v22;
+        }
+
+        else
+        {
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 134218240;
+            *&buf[4] = v22;
+            *&buf[12] = 1024;
+            *&buf[14] = v23;
             _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
           v29 = v10;
-          v28 = v10;
+          v27 = v10;
         }
 
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109120;
-          *&buf[4] = v27;
-          _os_log_error_impl(&dword_2336F5000, v28, OS_LOG_TYPE_ERROR, "IORegistryEntryGetName failed: %08x", buf, 8u);
-        }
-      }
-
-      else
-      {
-        if (v26)
-        {
-          v28 = *v23;
-        }
-
-        else
-        {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 134218240;
-            *&buf[4] = v23;
-            *&buf[12] = 1024;
-            *&buf[14] = v24;
-            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v30 = v10;
-          v28 = v10;
-        }
-
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          *&buf[4] = v182;
-          _os_log_debug_impl(&dword_2336F5000, v28, OS_LOG_TYPE_DEBUG, "Registry entry name: %s", buf, 0xCu);
+          *&buf[4] = v180;
+          _os_log_debug_impl(&dword_2336F5000, v27, OS_LOG_TYPE_DEBUG, "Registry entry name: %s", buf, 0xCu);
         }
       }
 
       RegistryEntryID = IORegistryEntryGetRegistryEntryID(v9, &entryID);
-      v32 = *(v3 + 1880);
-      v33 = *(v4 + 1864);
-      if (v32)
+      v31 = *(v3 + 1880);
+      v32 = *(v4 + 1864);
+      if (v31)
       {
-        v34 = v33 <= 0;
+        v33 = v32 <= 0;
       }
 
       else
       {
-        v34 = 1;
+        v33 = 1;
       }
 
-      v35 = !v34;
+      v34 = !v33;
       if (RegistryEntryID)
       {
-        v36 = RegistryEntryID;
-        if (v35)
+        v35 = RegistryEntryID;
+        if (v34)
         {
-          v37 = *v32;
+          v36 = *v31;
         }
 
         else
@@ -816,76 +815,76 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v32;
+            *&buf[4] = v31;
             *&buf[12] = 1024;
-            *&buf[14] = v33;
+            *&buf[14] = v32;
+            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          }
+
+          v37 = v10;
+          v36 = v10;
+        }
+
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          *&buf[4] = v35;
+          _os_log_error_impl(&dword_2336F5000, v36, OS_LOG_TYPE_ERROR, "IORegistryEntryGetRegistryEntryID failed: %08x", buf, 8u);
+        }
+      }
+
+      else
+      {
+        if (v34)
+        {
+          v36 = *v31;
+        }
+
+        else
+        {
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 134218240;
+            *&buf[4] = v31;
+            *&buf[12] = 1024;
+            *&buf[14] = v32;
             _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
           v38 = v10;
-          v37 = v10;
+          v36 = v10;
         }
 
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109120;
-          *&buf[4] = v36;
-          _os_log_error_impl(&dword_2336F5000, v37, OS_LOG_TYPE_ERROR, "IORegistryEntryGetRegistryEntryID failed: %08x", buf, 8u);
-        }
-      }
-
-      else
-      {
-        if (v35)
-        {
-          v37 = *v32;
-        }
-
-        else
-        {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 134218240;
-            *&buf[4] = v32;
-            *&buf[12] = 1024;
-            *&buf[14] = v33;
-            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v39 = v10;
-          v37 = v10;
-        }
-
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
           *&buf[4] = entryID;
           *&buf[12] = 2048;
           *&buf[14] = entryID;
-          _os_log_debug_impl(&dword_2336F5000, v37, OS_LOG_TYPE_DEBUG, "Registry entry ID: %llu 0x%llX", buf, 0x16u);
+          _os_log_debug_impl(&dword_2336F5000, v36, OS_LOG_TYPE_DEBUG, "Registry entry ID: %llu 0x%llX", buf, 0x16u);
         }
       }
 
-      v40 = IORegistryEntryCreateCFProperties(v9, &properties, v11, 0);
-      v41 = v40;
-      v42 = *(v3 + 1880);
-      v43 = *(v4 + 1864);
-      if (v42)
+      v39 = IORegistryEntryCreateCFProperties(v9, &properties, v11, 0);
+      v40 = v39;
+      v41 = *(v3 + 1880);
+      v42 = *(v4 + 1864);
+      if (v41)
       {
-        v44 = v43 <= 0;
+        v43 = v42 <= 0;
       }
 
       else
       {
-        v44 = 1;
+        v43 = 1;
       }
 
-      v45 = !v44;
-      if (v40 || !properties)
+      v44 = !v43;
+      if (v39 || !properties)
       {
-        if (v45)
+        if (v44)
         {
-          v46 = *v42;
+          v45 = *v41;
         }
 
         else
@@ -893,72 +892,72 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v42;
+            *&buf[4] = v41;
             *&buf[12] = 1024;
-            *&buf[14] = v43;
+            *&buf[14] = v42;
+            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+          }
+
+          v46 = v10;
+          v45 = v10;
+        }
+
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 67109120;
+          *&buf[4] = v40;
+          _os_log_error_impl(&dword_2336F5000, v45, OS_LOG_TYPE_ERROR, "IORegistryEntryCreateCFProperties failed: %08x", buf, 8u);
+        }
+      }
+
+      else
+      {
+        if (v44)
+        {
+          v45 = *v41;
+        }
+
+        else
+        {
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 134218240;
+            *&buf[4] = v41;
+            *&buf[12] = 1024;
+            *&buf[14] = v42;
             _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
           v47 = v10;
-          v46 = v10;
+          v45 = v10;
         }
 
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 67109120;
-          *&buf[4] = v41;
-          _os_log_error_impl(&dword_2336F5000, v46, OS_LOG_TYPE_ERROR, "IORegistryEntryCreateCFProperties failed: %08x", buf, 8u);
-        }
-      }
-
-      else
-      {
-        if (v45)
-        {
-          v46 = *v42;
-        }
-
-        else
-        {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 134218240;
-            *&buf[4] = v42;
-            *&buf[12] = 1024;
-            *&buf[14] = v43;
-            _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v48 = v10;
-          v46 = v10;
-        }
-
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
           *&buf[4] = properties;
-          _os_log_debug_impl(&dword_2336F5000, v46, OS_LOG_TYPE_DEBUG, "serviceProperties: %@", buf, 0xCu);
+          _os_log_debug_impl(&dword_2336F5000, v45, OS_LOG_TYPE_DEBUG, "serviceProperties: %@", buf, 0xCu);
         }
       }
 
       CFProperty = IORegistryEntryCreateCFProperty(v9, @"idVendor", v11, 0);
-      v50 = IORegistryEntryCreateCFProperty(v9, @"idProduct", v11, 0);
+      v49 = IORegistryEntryCreateCFProperty(v9, @"idProduct", v11, 0);
       valuePtr = 0;
       if (CFProperty)
       {
         CFNumberGetValue(CFProperty, kCFNumberSInt16Type, &valuePtr + 2);
       }
 
-      if (v50)
+      if (v49)
       {
-        CFNumberGetValue(v50, kCFNumberSInt16Type, &valuePtr);
+        CFNumberGetValue(v49, kCFNumberSInt16Type, &valuePtr);
       }
 
-      v51 = *(v3 + 1880);
-      v52 = *(v4 + 1864);
-      if (v51 && v52 >= 1)
+      v50 = *(v3 + 1880);
+      v51 = *(v4 + 1864);
+      if (v50 && v51 >= 1)
       {
-        v10 = *v51;
+        v10 = *v50;
       }
 
       else
@@ -966,13 +965,13 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          *&buf[4] = v51;
+          *&buf[4] = v50;
           *&buf[12] = 1024;
-          *&buf[14] = v52;
+          *&buf[14] = v51;
           _os_log_error_impl(&dword_2336F5000, v10, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
-        v53 = v10;
+        v52 = v10;
       }
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -984,13 +983,13 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
         *&buf[18] = 1024;
         *&buf[20] = v9;
         *&buf[24] = 2080;
-        *&buf[26] = v182;
+        *&buf[26] = v180;
         *&buf[34] = 2048;
         *&buf[36] = entryID;
         *&buf[44] = 2112;
         *&buf[46] = CFProperty;
         *&buf[54] = 2112;
-        *&buf[56] = v50;
+        *&buf[56] = v49;
         *&buf[64] = 1024;
         *&buf[66] = HIWORD(valuePtr);
         *&buf[70] = 1024;
@@ -1011,38 +1010,38 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
         CFRelease(CFProperty);
       }
 
-      if (v50)
+      if (v49)
       {
-        CFRelease(v50);
+        CFRelease(v49);
       }
 
-      v54 = HIWORD(valuePtr);
-      v55 = valuePtr;
+      v53 = HIWORD(valuePtr);
+      v54 = valuePtr;
       if (MGGetBoolAnswer())
       {
-        v56 = 1;
+        v55 = 1;
       }
 
       else
       {
-        v56 = 6;
+        v55 = 6;
       }
 
-      v57 = v55 & 0xFFFE | (v54 << 16);
-      v150 = v9;
-      if (v57 == 95164176)
+      v56 = v54 & 0xFFFE | (v53 << 16);
+      v148 = v9;
+      if (v56 == 95164176)
       {
-        v147 = v56;
-        v58 = IORegistryEntrySearchCFProperty(v9, "IOService", @"AID Info", v11, 3u);
-        v59 = v58;
-        cf = v58;
-        if (v58)
+        v145 = v55;
+        v57 = IORegistryEntrySearchCFProperty(v9, "IOService", @"AID Info", v11, 3u);
+        v58 = v57;
+        cf = v57;
+        if (v57)
         {
-          Value = CFDictionaryGetValue(v58, @"Digital ID");
-          CFDictionaryGetValue(v59, @"Accessory Name");
-          CFDictionaryGetValue(v59, @"Accessory Manufacturer");
-          CFDictionaryGetValue(v59, @"Accessory Model");
-          v59 = CFDictionaryGetValue(v59, @"MikeyBus Info");
+          Value = CFDictionaryGetValue(v57, @"Digital ID");
+          CFDictionaryGetValue(v58, @"Accessory Name");
+          CFDictionaryGetValue(v58, @"Accessory Manufacturer");
+          CFDictionaryGetValue(v58, @"Accessory Model");
+          v58 = CFDictionaryGetValue(v58, @"MikeyBus Info");
         }
 
         else
@@ -1050,29 +1049,29 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           Value = 0;
         }
 
-        v63 = *(v3 + 1880);
-        v64 = *(v4 + 1864);
-        if (v63 && v64 >= 1)
+        v62 = *(v3 + 1880);
+        v63 = *(v4 + 1864);
+        if (v62 && v63 >= 1)
         {
-          v65 = *v63;
+          v64 = *v62;
         }
 
         else
         {
-          v65 = MEMORY[0x277D86220];
+          v64 = MEMORY[0x277D86220];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v63;
+            *&buf[4] = v62;
             *&buf[12] = 1024;
-            *&buf[14] = v64;
-            _os_log_error_impl(&dword_2336F5000, v65, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            *&buf[14] = v63;
+            _os_log_error_impl(&dword_2336F5000, v64, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
-          v66 = v65;
+          v65 = v64;
         }
 
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
           *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
@@ -1081,35 +1080,35 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           *&buf[18] = 1024;
           *&buf[20] = v9;
           *&buf[24] = 2080;
-          *&buf[26] = v182;
+          *&buf[26] = v180;
           *&buf[34] = 2112;
           *&buf[36] = Value;
-          _os_log_impl(&dword_2336F5000, v65, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', digitalID %@", buf, 0x2Cu);
+          _os_log_impl(&dword_2336F5000, v64, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', digitalID %@", buf, 0x2Cu);
         }
 
-        v67 = *(v3 + 1880);
-        v68 = *(v4 + 1864);
-        if (v67 && v68 >= 1)
+        v66 = *(v3 + 1880);
+        v67 = *(v4 + 1864);
+        if (v66 && v67 >= 1)
         {
-          v69 = *v67;
+          v68 = *v66;
         }
 
         else
         {
-          v69 = MEMORY[0x277D86220];
+          v68 = MEMORY[0x277D86220];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v67;
+            *&buf[4] = v66;
             *&buf[12] = 1024;
-            *&buf[14] = v68;
-            _os_log_error_impl(&dword_2336F5000, v69, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            *&buf[14] = v67;
+            _os_log_error_impl(&dword_2336F5000, v68, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
-          v70 = v69;
+          v69 = v68;
         }
 
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
           *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
@@ -1119,32 +1118,32 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           *&buf[20] = v9;
           *&buf[24] = 2112;
           *&buf[26] = cf;
-          _os_log_impl(&dword_2336F5000, v69, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, aidInfo %@", buf, 0x22u);
+          _os_log_impl(&dword_2336F5000, v68, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, aidInfo %@", buf, 0x22u);
         }
 
-        v71 = *(v3 + 1880);
-        v72 = *(v4 + 1864);
-        if (v71 && v72 >= 1)
+        v70 = *(v3 + 1880);
+        v71 = *(v4 + 1864);
+        if (v70 && v71 >= 1)
         {
-          v73 = *v71;
+          v72 = *v70;
         }
 
         else
         {
-          v73 = MEMORY[0x277D86220];
+          v72 = MEMORY[0x277D86220];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v71;
+            *&buf[4] = v70;
             *&buf[12] = 1024;
-            *&buf[14] = v72;
-            _os_log_error_impl(&dword_2336F5000, v73, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            *&buf[14] = v71;
+            _os_log_error_impl(&dword_2336F5000, v72, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
-          v74 = v73;
+          v73 = v72;
         }
 
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
           *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
@@ -1153,42 +1152,42 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           *&buf[18] = 1024;
           *&buf[20] = v9;
           *&buf[24] = 2112;
-          *&buf[26] = v59;
-          _os_log_impl(&dword_2336F5000, v73, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, mikeyBusInfo %@", buf, 0x22u);
+          *&buf[26] = v58;
+          _os_log_impl(&dword_2336F5000, v72, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, mikeyBusInfo %@", buf, 0x22u);
         }
 
-        if (Value && (v75 = CFGetTypeID(Value), v75 == CFDataGetTypeID()) && CFDataGetLength(Value) == 6)
+        if (Value && (v74 = CFGetTypeID(Value), v74 == CFDataGetTypeID()) && CFDataGetLength(Value) == 6)
         {
-          v167 = 0;
+          v165 = 0;
           *buffer = 0;
-          v190.location = 0;
-          v190.length = 6;
-          CFDataGetBytes(Value, v190, buffer);
-          v76 = *(v3 + 1880);
-          v77 = *(v4 + 1864);
-          if (v76 && v77 >= 1)
+          v188.location = 0;
+          v188.length = 6;
+          CFDataGetBytes(Value, v188, buffer);
+          v75 = *(v3 + 1880);
+          v76 = *(v4 + 1864);
+          if (v75 && v76 >= 1)
           {
-            v78 = *v76;
-            v79 = MEMORY[0x277D86220];
+            v77 = *v75;
+            v78 = MEMORY[0x277D86220];
           }
 
           else
           {
-            v79 = MEMORY[0x277D86220];
+            v78 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *&buf[4] = v76;
+              *&buf[4] = v75;
               *&buf[12] = 1024;
-              *&buf[14] = v77;
-              _os_log_error_impl(&dword_2336F5000, v79, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+              *&buf[14] = v76;
+              _os_log_error_impl(&dword_2336F5000, v78, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v126 = v79;
-            v78 = v79;
+            v125 = v78;
+            v77 = v78;
           }
 
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136317186;
             *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
@@ -1197,7 +1196,7 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
             *&buf[18] = 1024;
             *&buf[20] = v9;
             *&buf[24] = 2080;
-            *&buf[26] = v182;
+            *&buf[26] = v180;
             *&buf[34] = 1024;
             *&buf[36] = HIWORD(valuePtr);
             *&buf[40] = 1024;
@@ -1208,111 +1207,111 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
             *&buf[54] = buffer[0] & 3;
             *&buf[58] = 1024;
             *&buf[60] = buffer[2] & 1;
-            _os_log_debug_impl(&dword_2336F5000, v78, OS_LOG_TYPE_DEBUG, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, _mb %x, _uart %x, _bd %x", buf, 0x40u);
+            _os_log_debug_impl(&dword_2336F5000, v77, OS_LOG_TYPE_DEBUG, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, _mb %x, _uart %x, _bd %x", buf, 0x40u);
           }
 
-          v127 = buffer[0];
-          v128 = buffer[2];
-          v129 = *(v3 + 1880);
-          v130 = *(v4 + 1864);
-          if (v129 && v130 >= 1)
+          v126 = buffer[0];
+          v127 = buffer[2];
+          v128 = *(v3 + 1880);
+          v129 = *(v4 + 1864);
+          if (v128 && v129 >= 1)
           {
-            v79 = *v129;
+            v78 = *v128;
           }
 
           else
           {
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *&buf[4] = v129;
+              *&buf[4] = v128;
               *&buf[12] = 1024;
-              *&buf[14] = v130;
-              _os_log_error_impl(&dword_2336F5000, v79, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+              *&buf[14] = v129;
+              _os_log_error_impl(&dword_2336F5000, v78, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v131 = v79;
+            v130 = v78;
           }
 
-          v132 = v128 & 1;
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+          v131 = v127 & 1;
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
           {
             *buf = 136317186;
             *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
             *&buf[12] = 1024;
             *&buf[14] = 460;
             *&buf[18] = 1024;
-            *&buf[20] = v150;
+            *&buf[20] = v148;
             *&buf[24] = 2080;
-            *&buf[26] = v182;
+            *&buf[26] = v180;
             *&buf[34] = 1024;
             *&buf[36] = HIWORD(valuePtr);
             *&buf[40] = 1024;
             *&buf[42] = valuePtr;
             *&buf[46] = 1024;
-            *&buf[48] = (v127 >> 2) & 1;
+            *&buf[48] = (v126 >> 2) & 1;
             *&buf[52] = 1024;
-            *&buf[54] = (v127 & 3) != 0;
+            *&buf[54] = (v126 & 3) != 0;
             *&buf[58] = 1024;
-            *&buf[60] = v132;
-            _os_log_impl(&dword_2336F5000, v79, OS_LOG_TYPE_INFO, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, _mb %d, _uart %d, _bd %d", buf, 0x40u);
+            *&buf[60] = v131;
+            _os_log_impl(&dword_2336F5000, v78, OS_LOG_TYPE_INFO, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, _mb %d, _uart %d, _bd %d", buf, 0x40u);
           }
 
-          if ((v127 & 3) != 0)
+          if ((v126 & 3) != 0)
           {
-            v133 = 6;
-          }
-
-          else
-          {
-            v133 = 1;
-          }
-
-          if ((v127 & 7) != 0)
-          {
-            v62 = v133;
+            v132 = 6;
           }
 
           else
           {
-            v62 = 7;
+            v132 = 1;
           }
 
-          if (v127 & 7 | v132)
+          if ((v126 & 7) != 0)
           {
-            v134 = *(v3 + 1880);
-            v135 = *(v4 + 1864);
-            LODWORD(v9) = v150;
-            if (v134 && v135 >= 1)
+            v61 = v132;
+          }
+
+          else
+          {
+            v61 = 7;
+          }
+
+          if (v126 & 7 | v131)
+          {
+            v133 = *(v3 + 1880);
+            v134 = *(v4 + 1864);
+            LODWORD(v9) = v148;
+            if (v133 && v134 >= 1)
             {
-              v136 = *v134;
+              v135 = *v133;
             }
 
             else
             {
-              v136 = MEMORY[0x277D86220];
+              v135 = MEMORY[0x277D86220];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *&buf[4] = v134;
+                *&buf[4] = v133;
                 *&buf[12] = 1024;
-                *&buf[14] = v135;
-                _os_log_error_impl(&dword_2336F5000, v136, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+                *&buf[14] = v134;
+                _os_log_error_impl(&dword_2336F5000, v135, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
-              v137 = v136;
+              v136 = v135;
             }
 
-            if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316930;
               *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
               *&buf[12] = 1024;
               *&buf[14] = 483;
               *&buf[18] = 1024;
-              *&buf[20] = v150;
+              *&buf[20] = v148;
               *&buf[24] = 2080;
-              *&buf[26] = v182;
+              *&buf[26] = v180;
               *&buf[34] = 1024;
               *&buf[36] = HIWORD(valuePtr);
               *&buf[40] = 1024;
@@ -1320,8 +1319,8 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
               *&buf[46] = 1024;
               *&buf[48] = 8;
               *&buf[52] = 1024;
-              *&buf[54] = v62;
-              _os_log_impl(&dword_2336F5000, v136, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override transportType %{coreacc:ACCEndpoint_TransportType_t}d -> %{coreacc:ACCEndpoint_TransportType_t}d", buf, 0x3Au);
+              *&buf[54] = v61;
+              _os_log_impl(&dword_2336F5000, v135, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override transportType %{coreacc:ACCEndpoint_TransportType_t}d -> %{coreacc:ACCEndpoint_TransportType_t}d", buf, 0x3Au);
             }
 
             valuePtr = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x, 0x%x", HIWORD(valuePtr), valuePtr];
@@ -1330,40 +1329,40 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           else
           {
             valuePtr = 0;
-            v62 = 8;
-            LODWORD(v9) = v150;
+            v61 = 8;
+            LODWORD(v9) = v148;
           }
         }
 
         else
         {
           valuePtr = 0;
-          v62 = 8;
+          v61 = 8;
           if (HIWORD(valuePtr) == 1452 && valuePtr == 5905)
           {
-            v80 = *(v3 + 1880);
-            v81 = *(v4 + 1864);
-            if (v80 && v81 >= 1)
+            v79 = *(v3 + 1880);
+            v80 = *(v4 + 1864);
+            if (v79 && v80 >= 1)
             {
-              v82 = *v80;
+              v81 = *v79;
             }
 
             else
             {
-              v82 = MEMORY[0x277D86220];
+              v81 = MEMORY[0x277D86220];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *&buf[4] = v80;
+                *&buf[4] = v79;
                 *&buf[12] = 1024;
-                *&buf[14] = v81;
-                _os_log_error_impl(&dword_2336F5000, v82, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+                *&buf[14] = v80;
+                _os_log_error_impl(&dword_2336F5000, v81, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
-              v83 = v82;
+              v82 = v81;
             }
 
-            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316930;
               *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
@@ -1372,7 +1371,7 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
               *&buf[18] = 1024;
               *&buf[20] = v9;
               *&buf[24] = 2080;
-              *&buf[26] = v182;
+              *&buf[26] = v180;
               *&buf[34] = 1024;
               *&buf[36] = HIWORD(valuePtr);
               *&buf[40] = 1024;
@@ -1381,202 +1380,202 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
               *&buf[48] = 8;
               *&buf[52] = 1024;
               *&buf[54] = 7;
-              _os_log_impl(&dword_2336F5000, v82, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override transportType %{coreacc:ACCEndpoint_TransportType_t}d -> %{coreacc:ACCEndpoint_TransportType_t}d", buf, 0x3Au);
+              _os_log_impl(&dword_2336F5000, v81, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override transportType %{coreacc:ACCEndpoint_TransportType_t}d -> %{coreacc:ACCEndpoint_TransportType_t}d", buf, 0x3Au);
             }
 
             valuePtr = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x, 0x%x", HIWORD(valuePtr), valuePtr];
-            v62 = 7;
+            v61 = 7;
           }
         }
 
-        v56 = v147;
+        v55 = v145;
       }
 
       else
       {
         cf = 0;
         valuePtr = 0;
-        v62 = 8;
+        v61 = 8;
       }
 
-      v84 = [(ACCTransportPlugin *)self createConnectionWithType:v56 andIdentifier:0];
-      if (v57 == 95164176)
+      v83 = [(ACCTransportPlugin *)self createConnectionWithType:v55 andIdentifier:0];
+      if (v56 == 95164176)
       {
-        v144 = v62;
-        v85 = valuePtr;
-        v86 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIWORD(valuePtr)];
-        v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:valuePtr];
-        v180[0] = v141;
-        v180[1] = v140;
-        v181[0] = v86;
-        v181[1] = v87;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v181 forKeys:v180 count:2];
-        v88 = *(v3 + 1880);
-        v89 = *(v4 + 1864);
-        if (v88 && v89 >= 1)
+        v142 = v61;
+        v84 = valuePtr;
+        v85 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIWORD(valuePtr)];
+        v86 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:valuePtr];
+        v178[0] = v139;
+        v178[1] = v138;
+        v179[0] = v85;
+        v179[1] = v86;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v179 forKeys:v178 count:2];
+        v87 = *(v3 + 1880);
+        v88 = *(v4 + 1864);
+        if (v87 && v88 >= 1)
         {
-          v90 = *v88;
+          v89 = *v87;
         }
 
         else
         {
-          v91 = MEMORY[0x277D86220];
+          v90 = MEMORY[0x277D86220];
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *&buf[4] = v88;
+            *&buf[4] = v87;
             *&buf[12] = 1024;
-            *&buf[14] = v89;
-            _os_log_error_impl(&dword_2336F5000, v91, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            *&buf[14] = v88;
+            _os_log_error_impl(&dword_2336F5000, v90, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
-          v92 = v91;
-          v90 = v91;
+          v91 = v90;
+          v89 = v90;
         }
 
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316674;
           *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
           *&buf[12] = 1024;
           *&buf[14] = 530;
           *&buf[18] = 1024;
-          *&buf[20] = v150;
+          *&buf[20] = v148;
           *&buf[24] = 2080;
-          *&buf[26] = v182;
+          *&buf[26] = v180;
           *&buf[34] = 1024;
           *&buf[36] = HIWORD(valuePtr);
           *&buf[40] = 1024;
           *&buf[42] = valuePtr;
           *&buf[46] = 2112;
           *&buf[48] = v9;
-          _os_log_impl(&dword_2336F5000, v90, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override adapterVID/PID, newProperties = %@", buf, 0x38u);
+          _os_log_impl(&dword_2336F5000, v89, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override adapterVID/PID, newProperties = %@", buf, 0x38u);
         }
 
-        v93 = [v9 copy];
-        [(ACCTransportPlugin *)self setProperties:v93 forConnectionWithUUID:v84];
+        v92 = [v9 copy];
+        [(ACCTransportPlugin *)self setProperties:v92 forConnectionWithUUID:v83];
 
-        LODWORD(v9) = v150;
-        valuePtr = v85;
-        v62 = v144;
+        LODWORD(v9) = v148;
+        valuePtr = v84;
+        v61 = v142;
       }
 
       ParentOfClass = usbUtil_findParentOfClass(v9, "IOUSBHostDevice", "IOService");
-      v148 = valuePtr;
+      v146 = valuePtr;
       if (ParentOfClass)
       {
-        v95 = ParentOfClass;
-        v96 = usbUtil_findParentOfClass(ParentOfClass, "IOAccessoryManager", "IOPort");
-        if (v96)
+        v94 = ParentOfClass;
+        v95 = usbUtil_findParentOfClass(ParentOfClass, "IOAccessoryManager", "IOPort");
+        if (v95)
         {
-          v97 = v96;
-          v98 = IORegistryEntryCreateCFProperty(v96, @"Description", allocator, 0);
-          if (v98 || (v178 = 0u, v179 = 0u, memset(buf, 0, sizeof(buf)), !MEMORY[0x2383AACD0](v97, buf)) && (v98 = CFStringCreateWithCString(allocator, buf, 0x8000100u)) != 0)
+          v96 = v95;
+          v97 = IORegistryEntryCreateCFProperty(v95, @"Description", allocator, 0);
+          if (v97 || (v176 = 0u, v177 = 0u, memset(buf, 0, sizeof(buf)), !MEMORY[0x2383AACD0](v96, buf)) && (v97 = CFStringCreateWithCString(allocator, buf, 0x8000100u)) != 0)
           {
-            v99 = v98;
-            v175 = v139;
-            v176 = v98;
-            v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
+            v98 = v97;
+            v173 = v137;
+            v174 = v97;
+            v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
 
-            v100 = *(v3 + 1880);
-            v101 = *(v4 + 1864);
-            if (v100 && v101 >= 1)
+            v99 = *(v3 + 1880);
+            v100 = *(v4 + 1864);
+            if (v99 && v100 >= 1)
             {
-              v102 = *v100;
+              v101 = *v99;
             }
 
             else
             {
-              v103 = MEMORY[0x277D86220];
+              v102 = MEMORY[0x277D86220];
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *&buf[4] = v100;
+                *&buf[4] = v99;
                 *&buf[12] = 1024;
-                *&buf[14] = v101;
-                _os_log_error_impl(&dword_2336F5000, v103, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+                *&buf[14] = v100;
+                _os_log_error_impl(&dword_2336F5000, v102, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
               }
 
-              v104 = v103;
-              v102 = v103;
+              v103 = v102;
+              v101 = v102;
             }
 
-            if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136316674;
               *&buf[4] = "[AccessoryTransportPluginUSBHost serviceAdded:]";
               *&buf[12] = 1024;
               *&buf[14] = 553;
               *&buf[18] = 1024;
-              *&buf[20] = v150;
+              *&buf[20] = v148;
               *&buf[24] = 2080;
-              *&buf[26] = v182;
+              *&buf[26] = v180;
               *&buf[34] = 1024;
               *&buf[36] = HIWORD(valuePtr);
               *&buf[40] = 1024;
               *&buf[42] = valuePtr;
               *&buf[46] = 2112;
               *&buf[48] = v9;
-              _os_log_impl(&dword_2336F5000, v102, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override managerParent, newProperties = %@", buf, 0x38u);
+              _os_log_impl(&dword_2336F5000, v101, OS_LOG_TYPE_DEFAULT, "%s:%d service %d, name '%s', vid / pid = 0x%x / 0x%x, override managerParent, newProperties = %@", buf, 0x38u);
             }
 
-            v105 = [v9 copy];
-            [(ACCTransportPlugin *)self setProperties:v105 forConnectionWithUUID:v84];
+            v104 = [v9 copy];
+            [(ACCTransportPlugin *)self setProperties:v104 forConnectionWithUUID:v83];
 
-            LODWORD(v9) = v150;
+            LODWORD(v9) = v148;
           }
 
-          IOObjectRelease(v95);
-          valuePtr = v148;
+          IOObjectRelease(v94);
+          valuePtr = v146;
         }
 
         else
         {
-          LODWORD(v97) = v95;
+          LODWORD(v96) = v94;
         }
 
-        IOObjectRelease(v97);
+        IOObjectRelease(v96);
       }
 
-      v106 = [(ACCTransportPlugin *)self createEndpointWithTransportType:v62 andProtocol:0 andIdentifier:valuePtr forConnectionWithUUID:v84 publishConnection:0];
-      if (v106)
+      v105 = [(ACCTransportPlugin *)self createEndpointWithTransportType:v61 andProtocol:0 andIdentifier:valuePtr forConnectionWithUUID:v83 publishConnection:0];
+      if (v105)
       {
-        v107 = v3;
-        v173[0] = v143;
-        v108 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIWORD(valuePtr)];
-        v173[1] = v142;
-        v174[0] = v108;
-        v109 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:valuePtr];
-        v174[1] = v109;
-        v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:2];
+        v106 = v3;
+        v171[0] = v141;
+        v107 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIWORD(valuePtr)];
+        v171[1] = v140;
+        v172[0] = v107;
+        v108 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:valuePtr];
+        v172[1] = v108;
+        v109 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:2];
 
-        [(ACCTransportPlugin *)self setAccessoryInfo:v110 forEndpointWithUUID:v106];
+        [(ACCTransportPlugin *)self setAccessoryInfo:v109 forEndpointWithUUID:v105];
         if (cf)
         {
-          v111 = objc_alloc(MEMORY[0x277CBEAC0]);
-          v112 = [MEMORY[0x277CCACA8] stringWithCString:"AID Info" encoding:4];
-          v113 = [v111 initWithObjectsAndKeys:{cf, v112, 0}];
+          v110 = objc_alloc(MEMORY[0x277CBEAC0]);
+          v111 = [MEMORY[0x277CCACA8] stringWithCString:"AID Info" encoding:4];
+          v112 = [v110 initWithObjectsAndKeys:{cf, v111, 0}];
 
-          [(ACCTransportPlugin *)self setProperties:v113 forConnectionWithUUID:v84];
+          [(ACCTransportPlugin *)self setProperties:v112 forConnectionWithUUID:v83];
         }
 
-        [(ACCTransportPlugin *)self publishConnectionWithUUID:v84];
-        v114 = [AccessoryIAPInterface alloc];
-        v115 = HIWORD(valuePtr);
-        v116 = valuePtr;
-        v160[0] = MEMORY[0x277D85DD0];
-        v160[1] = 3221225472;
-        v160[2] = __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke;
-        v160[3] = &unk_2789ECED8;
-        v117 = v106;
-        v161 = v117;
+        [(ACCTransportPlugin *)self publishConnectionWithUUID:v83];
+        v113 = [AccessoryIAPInterface alloc];
+        v114 = HIWORD(valuePtr);
+        v115 = valuePtr;
+        v158[0] = MEMORY[0x277D85DD0];
+        v158[1] = 3221225472;
+        v158[2] = __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke;
+        v158[3] = &unk_2789ECED8;
+        v116 = v105;
+        v159 = v116;
         selfCopy = self;
-        v118 = v84;
-        v163 = v118;
-        v164 = HIWORD(valuePtr);
-        v165 = valuePtr;
-        v119 = [(AccessoryIAPInterface *)v114 initWithInterface:v150 vid:v115 pid:v116 aidInfo:cf andDataInHandler:v160];
-        if (v119)
+        v117 = v83;
+        v161 = v117;
+        v162 = HIWORD(valuePtr);
+        v163 = valuePtr;
+        v118 = [(AccessoryIAPInterface *)v113 initWithInterface:v148 vid:v114 pid:v115 aidInfo:cf andDataInHandler:v158];
+        if (v118)
         {
           accessoryConnectionsLock = [(AccessoryTransportPluginUSBHost *)self accessoryConnectionsLock];
           block[0] = MEMORY[0x277D85DD0];
@@ -1584,11 +1583,11 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
           block[2] = __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84;
           block[3] = &unk_2789ECEB0;
           block[4] = self;
-          v155 = v119;
-          v156 = v118;
-          v158 = HIWORD(valuePtr);
-          v159 = valuePtr;
-          v157 = v117;
+          v153 = v118;
+          v154 = v117;
+          v156 = HIWORD(valuePtr);
+          v157 = valuePtr;
+          v155 = v116;
           dispatch_sync(accessoryConnectionsLock, block);
 
           v4 = 0x2812FF000;
@@ -1596,41 +1595,41 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
 
         else
         {
-          v121 = *(v3 + 1880);
-          v122 = gNumLogObjects;
-          if (v121 && gNumLogObjects >= 1)
+          v120 = *(v3 + 1880);
+          v121 = gNumLogObjects;
+          if (v120 && gNumLogObjects >= 1)
           {
-            v123 = *v121;
+            v122 = *v120;
           }
 
           else
           {
-            v124 = MEMORY[0x277D86220];
+            v123 = MEMORY[0x277D86220];
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              *&buf[4] = v121;
+              *&buf[4] = v120;
               *&buf[12] = 1024;
-              *&buf[14] = v122;
-              _os_log_error_impl(&dword_2336F5000, v124, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+              *&buf[14] = v121;
+              _os_log_error_impl(&dword_2336F5000, v123, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
-            v125 = v124;
-            v123 = v124;
-            v3 = v107;
+            v124 = v123;
+            v122 = v123;
+            v3 = v106;
           }
 
           v4 = 0x2812FF000;
-          if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
           {
-            [(AccessoryTransportPluginUSBHost *)&v152 serviceAdded:v153];
+            [(AccessoryTransportPluginUSBHost *)&v150 serviceAdded:v151];
           }
 
-          [(ACCTransportPlugin *)self destroyConnectionWithUUID:v118];
+          [(ACCTransportPlugin *)self destroyConnectionWithUUID:v117];
         }
 
-        LODWORD(v9) = v150;
-        valuePtr = v148;
+        LODWORD(v9) = v148;
+        valuePtr = v146;
       }
 
       IOObjectRelease(v9);
@@ -1646,13 +1645,11 @@ uint64_t __56__AccessoryTransportPluginUSBHost_startConfiguringIOKit__block_invo
 
     while (v9);
   }
-
-  v138 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (gLogSignpostObjects)
@@ -1689,9 +1686,9 @@ uint64_t __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke(uint6
     {
       v12 = *(a1 + 32);
       *buf = 138412546;
-      v37 = v12;
-      v38 = 2048;
-      v39 = [v6 length];
+      v36 = v12;
+      v37 = 2048;
+      v38 = [v6 length];
       _os_signpost_emit_with_name_impl(&dword_2336F5000, v9, OS_SIGNPOST_EVENT, v11, "Endpoint RECV", "Received incoming data! %@, %lu bytes", buf, 0x16u);
     }
   }
@@ -1704,10 +1701,10 @@ uint64_t __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke(uint6
     block[2] = __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_80;
     block[3] = &unk_2789ECEB0;
     block[4] = *(a1 + 40);
-    v32 = v5;
-    v33 = *(a1 + 48);
-    v34 = *(a1 + 32);
-    v35 = *(a1 + 56);
+    v31 = v5;
+    v32 = *(a1 + 48);
+    v33 = *(a1 + 32);
+    v34 = *(a1 + 56);
     dispatch_sync(v13, block);
   }
 
@@ -1737,9 +1734,9 @@ uint64_t __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke(uint6
     v21 = *(a1 + 32);
     v22 = [v6 length];
     *buf = 138412546;
-    v37 = v21;
-    v38 = 2048;
-    v39 = v22;
+    v36 = v21;
+    v37 = 2048;
+    v38 = v22;
     _os_signpost_emit_with_name_impl(&dword_2336F5000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Endpoint RECV", "Received incoming data! %@, %lu bytes", buf, 0x16u);
   }
 
@@ -1780,24 +1777,23 @@ LABEL_37:
       v27 = *(a1 + 32);
       v28 = [v6 length];
       *buf = 136315650;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v27;
-      v40 = 2048;
-      v41 = v28;
+      v36 = v26;
+      v37 = 2112;
+      v38 = v27;
+      v39 = 2048;
+      v40 = v28;
       _os_signpost_emit_with_name_impl(&dword_2336F5000, v24, OS_SIGNPOST_INTERVAL_END, v16, "Endpoint RECV", "%s handling Received incoming data! %@, %lu bytes", buf, 0x20u);
     }
   }
 
 LABEL_42:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_80(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
   v3 = [v2 count];
 
@@ -1832,23 +1828,23 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_80(uint64
       v13 = *(a1 + 64);
       v14 = *(a1 + 66);
       v15 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
-      v22 = 136316930;
-      v23 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
-      v24 = 1024;
-      v25 = 640;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v12;
-      v30 = 2048;
-      v31 = ((v6 - v8) * 1000.0);
-      v32 = 1024;
-      v33 = v13;
-      v34 = 1024;
-      v35 = v14;
-      v36 = 2112;
-      v37 = v15;
-      _os_log_impl(&dword_2336F5000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d received data for %@ - %@, timeSinceCreation %llu, vid / pid = 0x%x / 0x%x, trafficWaitList %@", &v22, 0x46u);
+      v21 = 136316930;
+      v22 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
+      v23 = 1024;
+      v24 = 640;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v12;
+      v29 = 2048;
+      v30 = ((v6 - v8) * 1000.0);
+      v31 = 1024;
+      v32 = v13;
+      v33 = 1024;
+      v34 = v14;
+      v35 = 2112;
+      v36 = v15;
+      _os_log_impl(&dword_2336F5000, v9, OS_LOG_TYPE_DEFAULT, "%s:%d received data for %@ - %@, timeSinceCreation %llu, vid / pid = 0x%x / 0x%x, trafficWaitList %@", &v21, 0x46u);
     }
 
     v16 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
@@ -1866,13 +1862,11 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_80(uint64
     v20 = [*(a1 + 32) accessoryiAPIntefaceTrafficTimer];
     dispatch_source_set_timer(v20, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryConnections];
   [v2 setObject:*(a1 + 40) forKey:*(a1 + 48)];
 
@@ -1908,19 +1902,19 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
     v7 = *(a1 + 64);
     v8 = *(a1 + 66);
     v9 = *(a1 + 40);
-    v22 = 136316418;
-    v23 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
-    v24 = 1024;
-    v25 = 682;
-    v26 = 2048;
-    v27 = v6;
-    v28 = 1024;
-    *v29 = v7;
-    *&v29[4] = 1024;
-    *&v29[6] = v8;
-    *v30 = 2112;
-    *&v30[2] = v9;
-    _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d registryEntryID %llu, vid / pid = 0x%x / 0x%x, iapInterface %@", &v22, 0x32u);
+    v21 = 136316418;
+    v22 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
+    v23 = 1024;
+    v24 = 682;
+    v25 = 2048;
+    v26 = v6;
+    v27 = 1024;
+    *v28 = v7;
+    *&v28[4] = 1024;
+    *&v28[6] = v8;
+    *v29 = 2112;
+    *&v29[2] = v9;
+    _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "%s:%d registryEntryID %llu, vid / pid = 0x%x / 0x%x, iapInterface %@", &v21, 0x32u);
   }
 
   if (platform_systemInfo_supportsUSBC())
@@ -1948,21 +1942,21 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
       v14 = *(a1 + 64);
       v15 = *(a1 + 66);
       v16 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
-      v22 = 136316674;
-      v23 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
-      v24 = 1024;
-      v25 = 687;
-      v26 = 2112;
-      v27 = v12;
-      v28 = 2112;
-      *v29 = v13;
-      *&v29[8] = 1024;
-      *v30 = v14;
-      *&v30[4] = 1024;
-      *&v30[6] = v15;
-      v31 = 2112;
-      v32 = v16;
-      _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d add to trafficWaitList for %@ - %@, vid / pid = 0x%x / 0x%x, trafficWaitList %@", &v22, 0x3Cu);
+      v21 = 136316674;
+      v22 = "[AccessoryTransportPluginUSBHost serviceAdded:]_block_invoke";
+      v23 = 1024;
+      v24 = 687;
+      v25 = 2112;
+      v26 = v12;
+      v27 = 2112;
+      *v28 = v13;
+      *&v28[8] = 1024;
+      *v29 = v14;
+      *&v29[4] = 1024;
+      *&v29[6] = v15;
+      v30 = 2112;
+      v31 = v16;
+      _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "%s:%d add to trafficWaitList for %@ - %@, vid / pid = 0x%x / 0x%x, trafficWaitList %@", &v21, 0x3Cu);
     }
 
     v17 = [*(a1 + 32) accessoryiAPIntefaceTrafficWaitList];
@@ -1975,13 +1969,11 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
     v20 = dispatch_time(0, 50000000);
     dispatch_source_set_timer(v19, v20, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceRemoved:(unsigned int)removed
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 1;
@@ -2015,15 +2007,15 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
 
   for (i = IOIteratorNext(removed); i; i = IOIteratorNext(removed))
   {
-    memset(v38, 0, sizeof(v38));
-    v32 = 0;
+    memset(v37, 0, sizeof(v37));
+    v31 = 0;
     entryID = 0;
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy_;
-    v31 = __Block_byref_object_dispose_;
-    if (!MEMORY[0x2383AACD0](i, v38))
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy_;
+    v30 = __Block_byref_object_dispose_;
+    if (!MEMORY[0x2383AACD0](i, v37))
     {
       v9 = gLogObjects;
       v10 = gNumLogObjects;
@@ -2038,9 +2030,9 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v35 = v9;
-          v36 = 1024;
-          LODWORD(v37) = v10;
+          v34 = v9;
+          v35 = 1024;
+          LODWORD(v36) = v10;
           _os_log_error_impl(&dword_2336F5000, v12, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -2051,7 +2043,7 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v35 = v38;
+        v34 = v37;
         _os_log_debug_impl(&dword_2336F5000, v11, OS_LOG_TYPE_DEBUG, "Registry entry name: %s", buf, 0xCu);
       }
     }
@@ -2071,9 +2063,9 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v35 = v14;
-          v36 = 1024;
-          LODWORD(v37) = v15;
+          v34 = v14;
+          v35 = 1024;
+          LODWORD(v36) = v15;
           _os_log_error_impl(&dword_2336F5000, v17, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
@@ -2084,9 +2076,9 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v35 = entryID;
-        v36 = 2048;
-        v37 = entryID;
+        v34 = entryID;
+        v35 = 2048;
+        v36 = entryID;
         _os_log_debug_impl(&dword_2336F5000, v16, OS_LOG_TYPE_DEBUG, "Registry entry ID: %llu 0x%llX", buf, 0x16u);
       }
     }
@@ -2097,28 +2089,28 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
     block[2] = __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke;
     block[3] = &unk_2789ECF00;
     block[4] = self;
-    block[5] = &v27;
+    block[5] = &v26;
     block[6] = entryID;
     dispatch_sync(accessoryConnectionsLock, block);
 
-    if (v28[5])
+    if (v27[5])
     {
       [(ACCTransportPlugin *)self destroyConnectionWithUUID:?];
       accessoryNativeUSBEndpointsLock = [(AccessoryTransportPluginUSBHost *)self accessoryNativeUSBEndpointsLock];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_2;
-      v25[3] = &unk_2789ECE88;
-      v25[4] = self;
-      dispatch_sync(accessoryNativeUSBEndpointsLock, v25);
-
-      activeEAInterfacesLock = [(AccessoryTransportPluginUSBHost *)self activeEAInterfacesLock];
       v24[0] = MEMORY[0x277D85DD0];
       v24[1] = 3221225472;
-      v24[2] = __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3;
+      v24[2] = __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_2;
       v24[3] = &unk_2789ECE88;
       v24[4] = self;
-      dispatch_sync(activeEAInterfacesLock, v24);
+      dispatch_sync(accessoryNativeUSBEndpointsLock, v24);
+
+      activeEAInterfacesLock = [(AccessoryTransportPluginUSBHost *)self activeEAInterfacesLock];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3;
+      v23[3] = &unk_2789ECE88;
+      v23[4] = self;
+      dispatch_sync(activeEAInterfacesLock, v23);
     }
 
     v22 = IOObjectRelease(i);
@@ -2127,37 +2119,35 @@ void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_84(uint64
       printf("Couldn’t release raw device object: %08x\n", v22);
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) accessoryConnections];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v15;
+    v6 = *v14;
 LABEL_3:
     v7 = 0;
     v8 = v5;
     while (1)
     {
-      if (*v15 != v6)
+      if (*v14 != v6)
       {
         objc_enumerationMutation(v2);
       }
 
-      objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(*(&v14 + 1) + 8 * v7));
+      objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(*(&v13 + 1) + 8 * v7));
       v9 = [*(a1 + 32) accessoryConnections];
       v5 = [v9 objectForKey:*(*(*(a1 + 40) + 8) + 40)];
 
@@ -2173,7 +2163,7 @@ LABEL_3:
       v8 = v5;
       if (v4 == v7)
       {
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -2198,8 +2188,6 @@ LABEL_12:
     v12 = [*(a1 + 32) accessoryConnections];
     [v12 removeObjectForKey:*(*(*(a1 + 40) + 8) + 40)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_2(uint64_t a1)
@@ -2210,28 +2198,28 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_2(uint6
 
 void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) activeEAInterfaces];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         v8 = [*(a1 + 32) activeEAInterfaces];
         v9 = [v8 objectForKey:v7];
 
@@ -2240,7 +2228,7 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint6
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -2248,13 +2236,11 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint6
 
   v10 = [*(a1 + 32) activeEAInterfaces];
   [v10 removeAllObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleOpenEASessionNotificationForEndpoint:(id)endpoint connection:(id)connection
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   connectionCopy = connection;
   if (gLogObjects)
@@ -2286,7 +2272,7 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint6
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = endpointCopy;
+    v27 = endpointCopy;
     _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "Opening EA USB Session Notification for endpoint %@", buf, 0xCu);
   }
 
@@ -2312,7 +2298,7 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint6
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v13;
+    v27 = v13;
     _os_log_impl(&dword_2336F5000, v14, OS_LOG_TYPE_DEFAULT, "EA sessionUUID is %@", buf, 0xCu);
   }
 
@@ -2322,17 +2308,15 @@ void __50__AccessoryTransportPluginUSBHost_serviceRemoved___block_invoke_3(uint6
   block[2] = __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationForEndpoint_connection___block_invoke;
   block[3] = &unk_2789ECF50;
   block[4] = self;
-  v23 = connectionCopy;
-  v24 = v11;
-  v25 = endpointCopy;
-  v26 = v13;
+  v22 = connectionCopy;
+  v23 = v11;
+  v24 = endpointCopy;
+  v25 = v13;
   v17 = v13;
   v18 = endpointCopy;
   v19 = v11;
   v20 = connectionCopy;
   dispatch_sync(accessoryConnectionsLock, block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationForEndpoint_connection___block_invoke(uint64_t a1)
@@ -2451,7 +2435,7 @@ void __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationForEn
 
 uint64_t __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationForEndpoint_connection___block_invoke_86(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (gLogObjects)
@@ -2483,23 +2467,22 @@ uint64_t __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationF
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = *(a1 + 32);
-    v14 = 138412802;
-    v15 = v10;
-    v16 = 2048;
-    v17 = [v6 length];
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_2336F5000, v9, OS_LOG_TYPE_INFO, "EAInterface: endpointUUID %@, received %lu bytes, %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v10;
+    v15 = 2048;
+    v16 = [v6 length];
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_2336F5000, v9, OS_LOG_TYPE_INFO, "EAInterface: endpointUUID %@, received %lu bytes, %@", &v13, 0x20u);
   }
 
   v11 = [*(a1 + 40) processIncomingData:v6 forEndpointWithUUID:*(a1 + 32)];
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)_handleCloseEASessionNotificationForEndpoint:(id)endpoint connection:(id)connection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   connectionCopy = connection;
   if (gLogObjects)
@@ -2531,7 +2514,7 @@ uint64_t __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationF
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = endpointCopy;
+    v18 = endpointCopy;
     _os_log_impl(&dword_2336F5000, v10, OS_LOG_TYPE_DEFAULT, "Closing EA USB Session Notification for endpoint %@", buf, 0xCu);
   }
 
@@ -2541,13 +2524,11 @@ uint64_t __90__AccessoryTransportPluginUSBHost__handleOpenEASessionNotificationF
   block[2] = __91__AccessoryTransportPluginUSBHost__handleCloseEASessionNotificationForEndpoint_connection___block_invoke;
   block[3] = &unk_2789ECF78;
   block[4] = self;
-  v16 = endpointCopy;
-  v17 = connectionCopy;
+  v15 = endpointCopy;
+  v16 = connectionCopy;
   v12 = connectionCopy;
   v13 = endpointCopy;
   dispatch_sync(activeEAInterfacesLock, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __91__AccessoryTransportPluginUSBHost__handleCloseEASessionNotificationForEndpoint_connection___block_invoke(uint64_t a1)
@@ -2598,7 +2579,7 @@ void __91__AccessoryTransportPluginUSBHost__handleCloseEASessionNotificationForE
 
 - (void)_handleOpenSocketFromAccessoryToAppNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   if (gLogObjects)
   {
@@ -2629,22 +2610,20 @@ void __91__AccessoryTransportPluginUSBHost__handleCloseEASessionNotificationForE
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = userInfo;
+    v14 = userInfo;
     _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_DEFAULT, "OpenSocket From Accessory To App Native EA USB Session Notification, userInfo %@", buf, 0xCu);
   }
 
   v8 = [userInfo objectForKey:*MEMORY[0x277CFD1F8]];
   activeEAInterfacesLock = [(AccessoryTransportPluginUSBHost *)self activeEAInterfacesLock];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAccessoryToAppNotification___block_invoke;
-  v12[3] = &unk_2789ECFA0;
-  v12[4] = self;
-  v13 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAccessoryToAppNotification___block_invoke;
+  v11[3] = &unk_2789ECFA0;
+  v11[4] = self;
+  v12 = v8;
   v10 = v8;
-  dispatch_sync(activeEAInterfacesLock, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_sync(activeEAInterfacesLock, v11);
 }
 
 void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAccessoryToAppNotification___block_invoke(uint64_t a1)
@@ -2662,7 +2641,7 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAccessoryToAppNo
 
 - (void)_handleOpenSocketFromAppToAccessoryNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   if (gLogObjects)
   {
@@ -2693,22 +2672,20 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAccessoryToAppNo
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = userInfo;
+    v14 = userInfo;
     _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_DEFAULT, "OpenSocket From App To Accessory Native EA USB Session Notification, userInfo %@", buf, 0xCu);
   }
 
   v8 = [userInfo objectForKey:*MEMORY[0x277CFD1F8]];
   activeEAInterfacesLock = [(AccessoryTransportPluginUSBHost *)self activeEAInterfacesLock];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNotification___block_invoke;
-  v12[3] = &unk_2789ECFA0;
-  v12[4] = self;
-  v13 = v8;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNotification___block_invoke;
+  v11[3] = &unk_2789ECFA0;
+  v11[4] = self;
+  v12 = v8;
   v10 = v8;
-  dispatch_sync(activeEAInterfacesLock, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_sync(activeEAInterfacesLock, v11);
 }
 
 void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNotification___block_invoke(uint64_t a1)
@@ -2726,24 +2703,24 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
 
 - (void)unlockUSBHostInterfacesForConnectionUUID:(id)d
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v61[0] = 0;
-  v61[1] = v61;
-  v61[2] = 0x2020000000;
-  v62 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x2020000000;
-  v60 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x2020000000;
+  v61 = 0;
   v56 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 0;
   v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   if (gLogObjects && gNumLogObjects >= 1)
   {
     v5 = *gLogObjects;
@@ -2763,7 +2740,7 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v66 = dCopy;
+    v65 = dCopy;
     _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_INFO, "Unlocking USB interfaces for connection %@...", buf, 0xCu);
   }
 
@@ -2773,43 +2750,43 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
   block[2] = __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionUUID___block_invoke;
   block[3] = &unk_2789ECFC8;
   block[4] = self;
-  v35 = dCopy;
-  v44 = v35;
-  v45 = v61;
-  v46 = &v57;
-  v47 = &v53;
-  v48 = &v49;
+  v34 = dCopy;
+  v43 = v34;
+  v44 = v60;
+  v45 = &v56;
+  v46 = &v52;
+  v47 = &v48;
   dispatch_sync(accessoryConnectionsLock, block);
 
-  v8 = [AccessoryEAInterface findNativeEAInterfacesForRegistryID:v58[3]];
+  v8 = [AccessoryEAInterface findNativeEAInterfacesForRegistryID:v57[3]];
   v9 = v8;
   if (v8 && [v8 count])
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = v9;
-    v10 = [obj countByEnumeratingWithState:&v39 objects:v77 count:16];
+    v10 = [obj countByEnumeratingWithState:&v38 objects:v76 count:16];
     v11 = 0;
     if (v10)
     {
-      v34 = *v40;
-      v33 = v9;
+      v33 = *v39;
+      v32 = v9;
       do
       {
-        v36 = v10;
-        for (i = 0; i != v36; ++i)
+        v35 = v10;
+        for (i = 0; i != v35; ++i)
         {
-          if (*v40 != v34)
+          if (*v39 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          if (*(v50 + 12) == 5904)
+          if (*(v49 + 12) == 5904)
           {
-            v13 = *(v54 + 12) == 1452;
-            if (*(v54 + 12) == 1452)
+            v13 = *(v53 + 12) == 1452;
+            if (*(v53 + 12) == 1452)
             {
               v14 = 5;
             }
@@ -2819,7 +2796,7 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
               v14 = 6;
             }
 
-            if (*(v54 + 12) == 1452)
+            if (*(v53 + 12) == 1452)
             {
               v15 = 5;
             }
@@ -2837,7 +2814,7 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
             v14 = 6;
           }
 
-          v16 = *(*(&v39 + 1) + 8 * i);
+          v16 = *(*(&v38 + 1) + 8 * i);
           v17 = gLogObjects;
           v18 = gNumLogObjects;
           if (gLogObjects)
@@ -2857,9 +2834,9 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v66 = v17;
-              v67 = 1024;
-              v68 = v18;
+              v65 = v17;
+              v66 = 1024;
+              v67 = v18;
               _os_log_error_impl(&dword_2336F5000, v21, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -2875,67 +2852,65 @@ void __83__AccessoryTransportPluginUSBHost__handleOpenSocketFromAppToAccessoryNo
 
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v24 = *(v54 + 12);
-            v25 = *(v50 + 12);
+            v24 = *(v53 + 12);
+            v25 = *(v49 + 12);
             *buf = 138413570;
-            v66 = v16;
-            v67 = 1024;
-            v68 = v24;
-            v69 = 1024;
-            v70 = v25;
-            v71 = 1024;
-            v72 = v13;
-            v73 = 1024;
-            v74 = v14;
-            v75 = 1024;
-            v76 = v15;
+            v65 = v16;
+            v66 = 1024;
+            v67 = v24;
+            v68 = 1024;
+            v69 = v25;
+            v70 = 1024;
+            v71 = v13;
+            v72 = 1024;
+            v73 = v14;
+            v74 = 1024;
+            v75 = v15;
             _os_log_impl(&dword_2336F5000, v23, OS_LOG_TYPE_DEFAULT, "unlockOtherInterfaces nativeEAProtocolString '%@', vid / pid = (0x%x / 0x%x), useEAService %d, protocol %{coreacc:ACCEndpoint_Protocol_t}d, transportType %{coreacc:ACCEndpoint_TransportType_t}d", buf, 0x2Au);
           }
 
-          v9 = v33;
-          v26 = [(ACCTransportPlugin *)self createEndpointWithTransportType:v15 andProtocol:v14 andIdentifier:v16 forConnectionWithUUID:v35 publishConnection:0];
+          v9 = v32;
+          v26 = [(ACCTransportPlugin *)self createEndpointWithTransportType:v15 andProtocol:v14 andIdentifier:v16 forConnectionWithUUID:v34 publishConnection:0];
 
           accessoryNativeUSBEndpointsLock = [(AccessoryTransportPluginUSBHost *)self accessoryNativeUSBEndpointsLock];
-          v37[0] = MEMORY[0x277D85DD0];
-          v37[1] = 3221225472;
-          v37[2] = __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionUUID___block_invoke_94;
-          v37[3] = &unk_2789ECF78;
-          v37[4] = self;
-          v37[5] = v16;
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionUUID___block_invoke_94;
+          v36[3] = &unk_2789ECF78;
+          v36[4] = self;
+          v36[5] = v16;
           v11 = v26;
-          v38 = v11;
-          dispatch_sync(accessoryNativeUSBEndpointsLock, v37);
+          v37 = v11;
+          dispatch_sync(accessoryNativeUSBEndpointsLock, v36);
         }
 
-        v10 = [obj countByEnumeratingWithState:&v39 objects:v77 count:16];
+        v10 = [obj countByEnumeratingWithState:&v38 objects:v76 count:16];
       }
 
       while (v10);
     }
 
-    v63[0] = *MEMORY[0x277CFD278];
-    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v54 + 12)];
-    v63[1] = *MEMORY[0x277CFD260];
-    v64[0] = v28;
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v50 + 12)];
-    v64[1] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
+    v62[0] = *MEMORY[0x277CFD278];
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v53 + 12)];
+    v62[1] = *MEMORY[0x277CFD260];
+    v63[0] = v28;
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(v49 + 12)];
+    v63[1] = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
 
     [(ACCTransportPlugin *)self setAccessoryInfo:v30 forEndpointWithUUID:v11];
-    [(ACCTransportPlugin *)self publishConnectionWithUUID:v35];
+    [(ACCTransportPlugin *)self publishConnectionWithUUID:v34];
   }
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v57, 8);
-  _Block_object_dispose(v61, 8);
-
-  v31 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(v60, 8);
 }
 
 void __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionUUID___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryConnections];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -2978,16 +2953,14 @@ void __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionU
       v7 = @"no";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "unlockOtherInterfaces succeeded? %@. Ignoring result anyways", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "unlockOtherInterfaces succeeded? %@. Ignoring result anyways", &v8, 0xCu);
   }
 
   *(*(*(a1 + 56) + 8) + 24) = [v3 parentDeviceRegistryEntryID];
   *(*(*(a1 + 64) + 8) + 24) = [v3 vid];
   *(*(*(a1 + 72) + 8) + 24) = [v3 pid];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __76__AccessoryTransportPluginUSBHost_unlockUSBHostInterfacesForConnectionUUID___block_invoke_94(uint64_t a1)
@@ -3051,7 +3024,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
 
 - (void)VIDPIDServiceAdded:(unsigned int)added
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 1;
@@ -3089,22 +3062,22 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
     v10 = v8;
     v11 = MEMORY[0x277D86220];
     allocator = *MEMORY[0x277CBECE8];
-    v69 = *MEMORY[0x277CFD250];
-    v67 = *MEMORY[0x277CFD270];
-    v68 = *MEMORY[0x277CFD240];
-    v65 = *MEMORY[0x277CFD230];
-    v66 = *MEMORY[0x277CFD248];
-    v64 = *MEMORY[0x277CFD238];
+    v68 = *MEMORY[0x277CFD250];
+    v66 = *MEMORY[0x277CFD270];
+    v67 = *MEMORY[0x277CFD240];
+    v64 = *MEMORY[0x277CFD230];
+    v65 = *MEMORY[0x277CFD248];
+    v63 = *MEMORY[0x277CFD238];
     *&v9 = 136315138;
-    v63 = v9;
+    v62 = v9;
     addedCopy = added;
     selfCopy = self;
     do
     {
-      memset(v92, 0, sizeof(v92));
+      memset(v91, 0, sizeof(v91));
       properties = 0;
       entryID = 0;
-      v12 = MEMORY[0x2383AACD0](v10, v92);
+      v12 = MEMORY[0x2383AACD0](v10, v91);
       v13 = gLogObjects;
       v14 = gNumLogObjects;
       if (gLogObjects)
@@ -3131,9 +3104,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v13;
-            v90 = 1024;
-            LODWORD(v91) = v14;
+            v88 = v13;
+            v89 = 1024;
+            LODWORD(v90) = v14;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3144,7 +3117,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v89) = v17;
+          LODWORD(v88) = v17;
           _os_log_error_impl(&dword_2336F5000, v18, OS_LOG_TYPE_ERROR, "IORegistryEntryGetName failed: %08x", buf, 8u);
         }
       }
@@ -3161,9 +3134,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v13;
-            v90 = 1024;
-            LODWORD(v91) = v14;
+            v88 = v13;
+            v89 = 1024;
+            LODWORD(v90) = v14;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3173,8 +3146,8 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
 
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v63;
-          v89 = v92;
+          *buf = v62;
+          v88 = v91;
           _os_log_debug_impl(&dword_2336F5000, v18, OS_LOG_TYPE_DEBUG, "Registry entry name: %s", buf, 0xCu);
         }
       }
@@ -3206,9 +3179,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v22;
-            v90 = 1024;
-            LODWORD(v91) = v23;
+            v88 = v22;
+            v89 = 1024;
+            LODWORD(v90) = v23;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3219,7 +3192,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v89) = v26;
+          LODWORD(v88) = v26;
           _os_log_error_impl(&dword_2336F5000, v27, OS_LOG_TYPE_ERROR, "IORegistryEntryGetRegistryEntryID failed: %08x", buf, 8u);
         }
       }
@@ -3236,9 +3209,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v22;
-            v90 = 1024;
-            LODWORD(v91) = v23;
+            v88 = v22;
+            v89 = 1024;
+            LODWORD(v90) = v23;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3249,9 +3222,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v89 = entryID;
-          v90 = 2048;
-          v91 = entryID;
+          v88 = entryID;
+          v89 = 2048;
+          v90 = entryID;
           _os_log_debug_impl(&dword_2336F5000, v27, OS_LOG_TYPE_DEBUG, "Registry entry ID: %llu 0x%llX", buf, 0x16u);
         }
       }
@@ -3283,9 +3256,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v32;
-            v90 = 1024;
-            LODWORD(v91) = v33;
+            v88 = v32;
+            v89 = 1024;
+            LODWORD(v90) = v33;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3295,7 +3268,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          LODWORD(v89) = v31;
+          LODWORD(v88) = v31;
           _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "IORegistryEntryCreateCFProperties failed: %08x", buf, 8u);
         }
       }
@@ -3312,9 +3285,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v89 = v32;
-            v90 = 1024;
-            LODWORD(v91) = v33;
+            v88 = v32;
+            v89 = 1024;
+            LODWORD(v90) = v33;
             _os_log_error_impl(&dword_2336F5000, v11, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3324,7 +3297,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v89 = properties;
+          v88 = properties;
           _os_log_debug_impl(&dword_2336F5000, v11, OS_LOG_TYPE_DEBUG, "serviceProperties: %@", buf, 0xCu);
         }
       }
@@ -3335,54 +3308,54 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
         properties = 0;
       }
 
-      v38 = [(ACCTransportPlugin *)self createConnectionWithType:6 andIdentifier:0, v63];
+      v38 = [(ACCTransportPlugin *)self createConnectionWithType:6 andIdentifier:0, v62];
       v39 = [(ACCTransportPlugin *)self createEndpointWithTransportType:8 andProtocol:5 andIdentifier:@"com.medtronic.cdc.protocol" forConnectionWithUUID:v38 publishConnection:0];
       if (v39)
       {
         v40 = [AccessoryUSBCDCInterface alloc];
-        v81[0] = MEMORY[0x277D85DD0];
-        v81[1] = 3221225472;
-        v81[2] = __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke;
-        v81[3] = &unk_2789ED018;
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke;
+        v80[3] = &unk_2789ED018;
         v41 = v39;
-        v82 = v41;
+        v81 = v41;
         selfCopy2 = self;
-        v42 = [(AccessoryUSBCDCInterface *)v40 initWithInterface:v10 protocol:@"com.medtronic.cdc.protocol" endpointUUID:v41 andDataInHandler:v81];
+        v42 = [(AccessoryUSBCDCInterface *)v40 initWithInterface:v10 protocol:@"com.medtronic.cdc.protocol" endpointUUID:v41 andDataInHandler:v80];
         if (v42)
         {
-          v74 = v10;
+          v73 = v10;
           accessoryConnectionsLock = [(AccessoryTransportPluginUSBHost *)self accessoryConnectionsLock];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101;
           block[3] = &unk_2789ECF78;
           block[4] = self;
-          v73 = v42;
+          v72 = v42;
           v44 = v42;
-          v79 = v44;
-          v72 = v38;
-          v80 = v72;
+          v78 = v44;
+          v71 = v38;
+          v79 = v71;
           dispatch_sync(accessoryConnectionsLock, block);
 
-          v86[0] = v69;
+          v85[0] = v68;
           ioregProperties = [(AccessoryUSBCDCInterface *)v44 ioregProperties];
           v46 = [ioregProperties objectForKey:@"USB Product Name"];
-          v87[0] = v46;
-          v86[1] = v68;
+          v86[0] = v46;
+          v85[1] = v67;
           ioregProperties2 = [(AccessoryUSBCDCInterface *)v44 ioregProperties];
           v48 = [ioregProperties2 objectForKey:@"USB Vendor Name"];
-          v87[1] = v48;
-          v86[2] = v67;
+          v86[1] = v48;
+          v85[2] = v66;
           ioregProperties3 = [(AccessoryUSBCDCInterface *)v44 ioregProperties];
           v50 = [ioregProperties3 objectForKey:@"USB Serial Number"];
-          v87[2] = v50;
-          v87[3] = @"Unknown";
-          v86[3] = v66;
-          v86[4] = v65;
-          v86[5] = v64;
-          v87[4] = @"Unknown";
-          v87[5] = @"Unknown";
-          v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:6];
+          v86[2] = v50;
+          v86[3] = @"Unknown";
+          v85[3] = v65;
+          v85[4] = v64;
+          v85[5] = v63;
+          v86[4] = @"Unknown";
+          v86[5] = @"Unknown";
+          v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:6];
 
           v52 = gLogObjects;
           v53 = gNumLogObjects;
@@ -3397,9 +3370,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v89 = v52;
-              v90 = 1024;
-              LODWORD(v91) = v53;
+              v88 = v52;
+              v89 = 1024;
+              LODWORD(v90) = v53;
               _os_log_error_impl(&dword_2336F5000, v59, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -3408,19 +3381,19 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
           }
 
           self = selfCopy;
-          LODWORD(v10) = v74;
+          LODWORD(v10) = v73;
           added = addedCopy;
           if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v89 = v51;
+            v88 = v51;
             _os_log_impl(&dword_2336F5000, v54, OS_LOG_TYPE_INFO, "accInfoDictionary = %@", buf, 0xCu);
           }
 
           [(ACCTransportPlugin *)selfCopy setAccessoryInfo:v51 forEndpointWithUUID:v41];
-          [(ACCTransportPlugin *)selfCopy publishConnectionWithUUID:v72];
+          [(ACCTransportPlugin *)selfCopy publishConnectionWithUUID:v71];
 
-          v55 = v73;
+          v55 = v72;
         }
 
         else
@@ -3439,9 +3412,9 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *buf = 134218240;
-              v89 = v56;
-              v90 = 1024;
-              LODWORD(v91) = v57;
+              v88 = v56;
+              v89 = 1024;
+              LODWORD(v90) = v57;
               _os_log_error_impl(&dword_2336F5000, v58, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
             }
 
@@ -3450,7 +3423,7 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
 
           if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            [(AccessoryTransportPluginUSBHost *)&v76 VIDPIDServiceAdded:v77];
+            [(AccessoryTransportPluginUSBHost *)&v75 VIDPIDServiceAdded:v76];
           }
 
           [(ACCTransportPlugin *)self destroyConnectionWithUUID:v38];
@@ -3465,13 +3438,11 @@ void __74__AccessoryTransportPluginUSBHost_lockUSBHostInterfacesForConnectionUUI
 
     while (v10);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (gLogSignpostObjects)
@@ -3507,11 +3478,11 @@ uint64_t __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke
     if (os_signpost_enabled(v9))
     {
       v12 = *(a1 + 32);
-      v30 = 138412546;
-      v31 = v12;
-      v32 = 2048;
-      v33 = [v6 length];
-      _os_signpost_emit_with_name_impl(&dword_2336F5000, v9, OS_SIGNPOST_EVENT, v11, "Endpoint RECV", "Received incoming data! %@, %lu bytes", &v30, 0x16u);
+      v29 = 138412546;
+      v30 = v12;
+      v31 = 2048;
+      v32 = [v6 length];
+      _os_signpost_emit_with_name_impl(&dword_2336F5000, v9, OS_SIGNPOST_EVENT, v11, "Endpoint RECV", "Received incoming data! %@, %lu bytes", &v29, 0x16u);
     }
   }
 
@@ -3540,11 +3511,11 @@ uint64_t __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke
   {
     v20 = *(a1 + 32);
     v21 = [v6 length];
-    v30 = 138412546;
-    v31 = v20;
-    v32 = 2048;
-    v33 = v21;
-    _os_signpost_emit_with_name_impl(&dword_2336F5000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v15, "Endpoint RECV", "Received incoming data! %@, %lu bytes", &v30, 0x16u);
+    v29 = 138412546;
+    v30 = v20;
+    v31 = 2048;
+    v32 = v21;
+    _os_signpost_emit_with_name_impl(&dword_2336F5000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v15, "Endpoint RECV", "Received incoming data! %@, %lu bytes", &v29, 0x16u);
   }
 
   v22 = [*(a1 + 40) processIncomingData:v6 forEndpointWithUUID:*(a1 + 32)];
@@ -3583,19 +3554,18 @@ LABEL_34:
 
       v26 = *(a1 + 32);
       v27 = [v6 length];
-      v30 = 136315650;
-      v31 = v25;
-      v32 = 2112;
-      v33 = v26;
-      v34 = 2048;
-      v35 = v27;
-      _os_signpost_emit_with_name_impl(&dword_2336F5000, v23, OS_SIGNPOST_INTERVAL_END, v15, "Endpoint RECV", "%s handling Received incoming data! %@, %lu bytes", &v30, 0x20u);
+      v29 = 136315650;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v26;
+      v33 = 2048;
+      v34 = v27;
+      _os_signpost_emit_with_name_impl(&dword_2336F5000, v23, OS_SIGNPOST_INTERVAL_END, v15, "Endpoint RECV", "%s handling Received incoming data! %@, %lu bytes", &v29, 0x20u);
     }
   }
 
 LABEL_39:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -3607,7 +3577,7 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
 
 - (void)VIDPIDServiceRemoved:(unsigned int)removed
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v5 = gNumLogObjects < 1;
@@ -3645,15 +3615,15 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
     removedCopy = removed;
     do
     {
-      memset(v35, 0, 128);
-      v29 = 0;
+      memset(v34, 0, 128);
+      v28 = 0;
       entryID = 0;
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x3032000000;
-      v27 = __Block_byref_object_copy_;
-      v28 = __Block_byref_object_dispose_;
-      if (!MEMORY[0x2383AACD0](v8, v35))
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x3032000000;
+      v26 = __Block_byref_object_copy_;
+      v27 = __Block_byref_object_dispose_;
+      if (!MEMORY[0x2383AACD0](v8, v34))
       {
         v9 = gLogObjects;
         v10 = gNumLogObjects;
@@ -3668,9 +3638,9 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v32 = v9;
-            v33 = 1024;
-            LODWORD(v34) = v10;
+            v31 = v9;
+            v32 = 1024;
+            LODWORD(v33) = v10;
             _os_log_error_impl(&dword_2336F5000, v12, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3682,7 +3652,7 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v32 = v35;
+          v31 = v34;
           _os_log_debug_impl(&dword_2336F5000, v11, OS_LOG_TYPE_DEBUG, "Registry entry name: %s", buf, 0xCu);
         }
       }
@@ -3702,9 +3672,9 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            v32 = v14;
-            v33 = 1024;
-            LODWORD(v34) = v15;
+            v31 = v14;
+            v32 = 1024;
+            LODWORD(v33) = v15;
             _os_log_error_impl(&dword_2336F5000, v17, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
           }
 
@@ -3716,9 +3686,9 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v32 = entryID;
-          v33 = 2048;
-          v34 = entryID;
+          v31 = entryID;
+          v32 = 2048;
+          v33 = entryID;
           _os_log_debug_impl(&dword_2336F5000, v16, OS_LOG_TYPE_DEBUG, "Registry entry ID: %llu 0x%llX", buf, 0x16u);
         }
       }
@@ -3729,10 +3699,10 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
       block[2] = __56__AccessoryTransportPluginUSBHost_VIDPIDServiceRemoved___block_invoke;
       block[3] = &unk_2789ED040;
       block[4] = self;
-      block[5] = &v24;
+      block[5] = &v23;
       dispatch_sync(accessoryConnectionsLock, block);
 
-      if (v25[5])
+      if (v24[5])
       {
         [(ACCTransportPlugin *)self destroyConnectionWithUUID:?];
       }
@@ -3743,40 +3713,38 @@ void __54__AccessoryTransportPluginUSBHost_VIDPIDServiceAdded___block_invoke_101
         printf("Couldn’t release raw device object: %08x\n", v20);
       }
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
 
       v8 = IOIteratorNext(removed);
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __56__AccessoryTransportPluginUSBHost_VIDPIDServiceRemoved___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) activeUSBCDCInterfaces];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v14 != v5)
+      if (*v13 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(*(&v13 + 1) + 8 * v6));
+      objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(*(&v12 + 1) + 8 * v6));
       v7 = [*(a1 + 32) activeUSBCDCInterfaces];
       v8 = [v7 objectForKey:*(*(*(a1 + 40) + 8) + 40)];
 
@@ -3787,7 +3755,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -3814,8 +3782,6 @@ LABEL_9:
     v11 = [*(a1 + 32) activeUSBCDCInterfaces];
     [v11 removeObjectForKey:*(*(*(a1 + 40) + 8) + 40)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setUSBHostHIDInterface:(unsigned __int8)interface withHIDFunction:(unsigned int)function forConnectionUUID:(id)d
@@ -3955,14 +3921,14 @@ void __80__AccessoryTransportPluginUSBHost_setNeedOutZLP_maxOutLength_forConnect
 
 - (BOOL)sendOutgoingData:(id)data forEndpointWithUUID:(id)d connectionUUID:(id)iD
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   iDCopy = iD;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   if (acc_userDefaultsLogging_BOOLForKey(@"TransportSignpost"))
   {
     if (gLogSignpostObjects && gNumLogSignpostObjects >= 4)
@@ -3996,7 +3962,7 @@ void __80__AccessoryTransportPluginUSBHost_setNeedOutZLP_maxOutLength_forConnect
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v36 = 0;
+  v35 = 0;
   activeEAInterfacesLock = [(AccessoryTransportPluginUSBHost *)self activeEAInterfacesLock];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -4004,33 +3970,32 @@ void __80__AccessoryTransportPluginUSBHost_setNeedOutZLP_maxOutLength_forConnect
   block[3] = &unk_2789ED0B8;
   block[4] = self;
   v16 = dCopy;
-  v27 = v16;
-  v29 = &v31;
+  v26 = v16;
+  v28 = &v30;
   v17 = dataCopy;
-  v28 = v17;
-  v30 = buf;
+  v27 = v17;
+  v29 = buf;
   dispatch_sync(activeEAInterfacesLock, block);
 
   if ((*(*&buf[8] + 24) & 1) == 0)
   {
     accessoryConnectionsLock = [(AccessoryTransportPluginUSBHost *)self accessoryConnectionsLock];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __87__AccessoryTransportPluginUSBHost_sendOutgoingData_forEndpointWithUUID_connectionUUID___block_invoke_2;
-    v22[3] = &unk_2789ED0E0;
-    v22[4] = self;
-    v23 = iDCopy;
-    v25 = &v31;
-    v24 = v17;
-    dispatch_sync(accessoryConnectionsLock, v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __87__AccessoryTransportPluginUSBHost_sendOutgoingData_forEndpointWithUUID_connectionUUID___block_invoke_2;
+    v21[3] = &unk_2789ED0E0;
+    v21[4] = self;
+    v22 = iDCopy;
+    v24 = &v30;
+    v23 = v17;
+    dispatch_sync(accessoryConnectionsLock, v21);
   }
 
-  v19 = *(v32 + 24);
+  v19 = *(v31 + 24);
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19 & 1;
 }
 
@@ -4070,13 +4035,31 @@ void __87__AccessoryTransportPluginUSBHost_sendOutgoingData_forEndpointWithUUID_
   }
 }
 
+- (BOOL)startDetectUSBBillboardDeviceWithVID:(unsigned __int16)d PID:(unsigned __int16)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  v6 = +[AccessoryUSBBillboardDeviceManager sharedManager];
+  LOBYTE(iDCopy) = [v6 startDetectUSBBillboardDeviceWithVID:dCopy PID:iDCopy];
+
+  return iDCopy;
+}
+
+- (BOOL)stopDetectUSBBillboardDeviceWithVID:(unsigned __int16)d PID:(unsigned __int16)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  v6 = +[AccessoryUSBBillboardDeviceManager sharedManager];
+  LOBYTE(iDCopy) = [v6 stopDetectUSBBillboardDeviceWithVID:dCopy PID:iDCopy];
+
+  return iDCopy;
+}
+
 void __48__AccessoryTransportPluginUSBHost_serviceAdded___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_3_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

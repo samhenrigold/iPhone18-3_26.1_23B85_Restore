@@ -87,43 +87,42 @@ uint64_t __122__HDUserDomainConceptAPIObjectManager_allUserAnnotatedMedicationsF
 {
   v6 = *(a1 + 40);
   v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  v9 = *(a1 + 32);
-  v10 = v7;
-  v11 = v6;
-  v12 = a2;
+  v8 = *(a1 + 32);
+  v9 = v7;
+  v10 = v6;
+  v11 = a2;
   objc_opt_self();
-  v13 = [v11 daemon];
+  v12 = [v10 daemon];
 
-  v14 = [v13 userDomainConceptEntityRegistry];
-  v15 = [v12 identifier];
-  v16 = [v14 userDomainConceptEntityClassForTypeIdentifier:v15];
+  v13 = [v12 userDomainConceptEntityRegistry];
+  v14 = [v11 identifier];
+  v15 = [v13 userDomainConceptEntityClassForTypeIdentifier:v14];
 
-  if (v16)
+  if (v15)
   {
-    v24 = 0;
-    v17 = [v16 generateUserAnnotatedMedicationForUserDomainConcept:v12 userAnnotatedMedicationOut:&v24 transaction:v10 error:a4];
+    v23 = 0;
+    v16 = [v15 generateUserAnnotatedMedicationForUserDomainConcept:v11 userAnnotatedMedicationOut:&v23 transaction:v9 error:a4];
 
-    v18 = v24;
-    if (v17)
+    v17 = v23;
+    if (v16)
     {
-      [v9 hk_addNonNilObject:v18];
+      [v8 hk_addNonNilObject:v17];
     }
   }
 
   else
   {
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = MEMORY[0x277CCACA8];
-    v21 = [v12 identifier];
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = MEMORY[0x277CCACA8];
+    v20 = [v11 identifier];
 
-    v22 = [v20 stringWithFormat:@"Could not determine User Domain Concept entity class for identifier %@", v21];
-    [v19 hk_assignError:a4 code:100 description:v22];
+    v21 = [v19 stringWithFormat:@"Could not determine User Domain Concept entity class for identifier %@", v20];
+    [v18 hk_assignError:a4 code:100 description:v21];
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 + (id)allAPIObjectsFromUserDomainConceptsWithProfile:(id)profile error:(id *)error
@@ -180,43 +179,42 @@ uint64_t __92__HDUserDomainConceptAPIObjectManager_allAPIObjectsFromUserDomainCo
 {
   v6 = *(a1 + 40);
   v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  v9 = *(a1 + 32);
-  v10 = v7;
-  v11 = v6;
-  v12 = a2;
+  v8 = *(a1 + 32);
+  v9 = v7;
+  v10 = v6;
+  v11 = a2;
   objc_opt_self();
-  v13 = [v11 daemon];
+  v12 = [v10 daemon];
 
-  v14 = [v13 userDomainConceptEntityRegistry];
-  v15 = [v12 identifier];
-  v16 = [v14 userDomainConceptEntityClassForTypeIdentifier:v15];
+  v13 = [v12 userDomainConceptEntityRegistry];
+  v14 = [v11 identifier];
+  v15 = [v13 userDomainConceptEntityClassForTypeIdentifier:v14];
 
-  if (v16)
+  if (v15)
   {
-    v24 = 0;
-    v17 = [v16 generateAPIObjectForUserDomainConcept:v12 apiObjectOut:&v24 transaction:v10 error:a4];
+    v23 = 0;
+    v16 = [v15 generateAPIObjectForUserDomainConcept:v11 apiObjectOut:&v23 transaction:v9 error:a4];
 
-    v18 = v24;
-    if (v17)
+    v17 = v23;
+    if (v16)
     {
-      [v9 hk_addNonNilObject:v18];
+      [v8 hk_addNonNilObject:v17];
     }
   }
 
   else
   {
-    v19 = MEMORY[0x277CCA9B8];
-    v20 = MEMORY[0x277CCACA8];
-    v21 = [v12 identifier];
+    v18 = MEMORY[0x277CCA9B8];
+    v19 = MEMORY[0x277CCACA8];
+    v20 = [v11 identifier];
 
-    v22 = [v20 stringWithFormat:@"Could not determine User Domain Concept entity class for identifier %@", v21];
-    [v19 hk_assignError:a4 code:100 description:v22];
+    v21 = [v19 stringWithFormat:@"Could not determine User Domain Concept entity class for identifier %@", v20];
+    [v18 hk_assignError:a4 code:100 description:v21];
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 @end

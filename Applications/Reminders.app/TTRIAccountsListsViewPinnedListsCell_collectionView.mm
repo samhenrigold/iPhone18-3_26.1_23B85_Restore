@@ -18,11 +18,11 @@
 
 - (void)layoutMarginsDidChange
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(TTRIAccountsListsViewPinnedListsCell_collectionView *)&v3 layoutMarginsDidChange];
-  sub_100026468();
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType();
+  v2 = v4.receiver;
+  layoutMarginsDidChange = [(TTRIAccountsListsViewPinnedListsCell_collectionView *)&v4 layoutMarginsDidChange];
+  sub_100026468(layoutMarginsDidChange);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
@@ -78,7 +78,7 @@
   selfCopy = self;
   sub_1001C54BC();
 
-  sub_100058000(&qword_100780A40);
+  sub_100058000(&qword_100780A40, &unk_10063B460);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

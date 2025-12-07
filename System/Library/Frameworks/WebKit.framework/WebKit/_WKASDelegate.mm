@@ -23,7 +23,7 @@
   if (WTF::WeakPtr<WebKit::WebPageProxy,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator BOOL(pageCopy))
   {
     v4 = WTF::WeakPtr<WebKit::WebPageProxy,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(pageCopy);
-    WebKit::WebPageProxy::cocoaView(v4, &v6);
+    WebKit::WebPageProxy::cocoaView(&v6, v4);
     WTF::RetainPtr<WKWebView>::operator=(selfCopy + 1, &v6);
     WTF::RetainPtr<WKWebView>::~RetainPtr(&v6);
   }

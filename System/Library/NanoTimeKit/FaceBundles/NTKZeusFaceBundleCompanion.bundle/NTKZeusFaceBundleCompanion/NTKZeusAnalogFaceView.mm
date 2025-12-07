@@ -78,15 +78,15 @@
 
 - (void)_loadSnapshotContentViews
 {
-  v59.receiver = self;
-  v59.super_class = NTKZeusAnalogFaceView;
-  [(NTKZeusAnalogFaceView *)&v59 _loadSnapshotContentViews];
-  v58 = 0.0;
-  v56 = 0u;
+  v61.receiver = self;
+  v61.super_class = NTKZeusAnalogFaceView;
+  [(NTKZeusAnalogFaceView *)&v61 _loadSnapshotContentViews];
+  v60 = 0.0;
+  v58 = 0u;
+  v59 = 0u;
   v57 = 0u;
-  v55 = 0u;
   v3 = [(NTKZeusAnalogFaceView *)self device:0];
-  sub_14DA4(v3, &v54);
+  sub_14DA4(v3, &v56);
 
   if (!self->_backgroundView)
   {
@@ -111,23 +111,23 @@
     numeralsView = self->_numeralsView;
     self->_numeralsView = v12;
 
-    v14 = sub_11BC0();
+    v15 = sub_11BC0(v14);
     layer = [(NTKZeusAnalogNumeralsView *)self->_numeralsView layer];
-    [layer setActions:v14];
+    [layer setActions:v15];
 
     contentView2 = [(NTKZeusAnalogFaceView *)self contentView];
     [contentView2 addSubview:self->_numeralsView];
 
-    v17 = [NTKZeusAnalogNumeralsView alloc];
+    v18 = [NTKZeusAnalogNumeralsView alloc];
     device3 = [(NTKZeusAnalogFaceView *)self device];
     palette2 = [(NTKZeusAnalogFaceView *)self palette];
-    v20 = [(NTKZeusAnalogNumeralsView *)v17 initWithDevice:device3 palette:palette2 style:self->_style density:self->_density];
+    v21 = [(NTKZeusAnalogNumeralsView *)v18 initWithDevice:device3 palette:palette2 style:self->_style density:self->_density];
     numeralsTransitionView = self->_numeralsTransitionView;
-    self->_numeralsTransitionView = v20;
+    self->_numeralsTransitionView = v21;
 
-    v22 = sub_11BC0();
+    v24 = sub_11BC0(v23);
     layer2 = [(NTKZeusAnalogNumeralsView *)self->_numeralsTransitionView layer];
-    [layer2 setActions:v22];
+    [layer2 setActions:v24];
 
     [(NTKZeusAnalogNumeralsView *)self->_numeralsTransitionView setAlpha:0.0];
     contentView3 = [(NTKZeusAnalogFaceView *)self contentView];
@@ -136,56 +136,56 @@
 
   if (!self->_logoUpperView)
   {
-    v25 = objc_opt_new();
+    v27 = objc_opt_new();
     logoUpperView = self->_logoUpperView;
-    self->_logoUpperView = v25;
+    self->_logoUpperView = v27;
 
-    v27 = [NTKZeusAnalogFaceBundle imageWithName:@"ZeusAnalogLogo1"];
-    [(UIImageView *)self->_logoUpperView setImage:v27];
+    v29 = [NTKZeusAnalogFaceBundle imageWithName:@"ZeusAnalogLogo1"];
+    [(UIImageView *)self->_logoUpperView setImage:v29];
 
     [(NTKZeusAnalogFaceView *)self bounds];
-    v28 = *(&v55 + 1);
-    v30 = (v29 - *(&v55 + 1)) * 0.5;
+    v30 = *(&v57 + 1);
+    v32 = (v31 - *(&v57 + 1)) * 0.5;
     [(NTKZeusAnalogFaceView *)self bounds];
-    [(UIImageView *)self->_logoUpperView setFrame:v30, *(&v57 + 1) + v31 * 0.5 - *&v56, v28];
+    [(UIImageView *)self->_logoUpperView setFrame:v32, *(&v59 + 1) + v33 * 0.5 - *&v58, v30];
     contentView4 = [(NTKZeusAnalogFaceView *)self contentView];
     [contentView4 addSubview:self->_logoUpperView];
   }
 
   if (!self->_logoLowerView)
   {
-    v33 = objc_opt_new();
+    v35 = objc_opt_new();
     logoLowerView = self->_logoLowerView;
-    self->_logoLowerView = v33;
+    self->_logoLowerView = v35;
 
-    v35 = [NTKZeusAnalogFaceBundle imageWithName:@"ZeusAnalogLogo2"];
-    [(UIImageView *)self->_logoLowerView setImage:v35];
+    v37 = [NTKZeusAnalogFaceBundle imageWithName:@"ZeusAnalogLogo2"];
+    [(UIImageView *)self->_logoLowerView setImage:v37];
 
     [(NTKZeusAnalogFaceView *)self bounds];
-    v36 = *(&v56 + 1);
-    v38 = (v37 - *(&v56 + 1)) * 0.5;
+    v38 = *(&v58 + 1);
+    v40 = (v39 - *(&v58 + 1)) * 0.5;
     [(UIImageView *)self->_logoUpperView frame];
-    [(UIImageView *)self->_logoLowerView setFrame:v38, CGRectGetMaxY(v60) + v58, v36, *&v57];
+    [(UIImageView *)self->_logoLowerView setFrame:v40, CGRectGetMaxY(v62) + v60, v38, *&v59];
     contentView5 = [(NTKZeusAnalogFaceView *)self contentView];
     [contentView5 addSubview:self->_logoLowerView];
   }
 
   if (!self->_cornerView)
   {
-    v40 = [NTKRoundedCornerOverlayView alloc];
+    v42 = [NTKRoundedCornerOverlayView alloc];
     [(NTKZeusAnalogFaceView *)self bounds];
-    v42 = v41;
     v44 = v43;
     v46 = v45;
     v48 = v47;
+    v50 = v49;
     device4 = [(NTKZeusAnalogFaceView *)self device];
-    v50 = [v40 initWithFrame:device4 forDeviceCornerRadius:{v42, v44, v46, v48}];
+    v52 = [v42 initWithFrame:device4 forDeviceCornerRadius:{v44, v46, v48, v50}];
     cornerView = self->_cornerView;
-    self->_cornerView = v50;
+    self->_cornerView = v52;
 
-    v52 = self->_cornerView;
+    v54 = self->_cornerView;
     contentView6 = [(NTKZeusAnalogFaceView *)self contentView];
-    [(NTKZeusAnalogFaceView *)self insertSubview:v52 aboveSubview:contentView6];
+    [(NTKZeusAnalogFaceView *)self insertSubview:v54 aboveSubview:contentView6];
   }
 }
 

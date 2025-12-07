@@ -40,7 +40,7 @@
 
   if (!firstObject)
   {
-    v8 = 0;
+    v9 = 0;
     goto LABEL_22;
   }
 
@@ -49,21 +49,21 @@
 
   if (!bundleIdentifier)
   {
-    path2 = VSErrorLogObject();
+    path2 = VSErrorLogObject(v7);
     if (os_log_type_enabled(path2, OS_LOG_TYPE_ERROR))
     {
       +[VSPersistentContainer directoryURL];
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_21;
   }
 
-  v7 = [firstObject URLByAppendingPathComponent:bundleIdentifier];
-  v8 = v7;
-  if (!v7)
+  v8 = [firstObject URLByAppendingPathComponent:bundleIdentifier];
+  v9 = v8;
+  if (!v8)
   {
-    path2 = VSErrorLogObject();
+    path2 = VSErrorLogObject(0);
     if (os_log_type_enabled(path2, OS_LOG_TYPE_ERROR))
     {
       +[VSPersistentContainer directoryURL];
@@ -72,24 +72,24 @@
     goto LABEL_21;
   }
 
-  path = [v7 path];
+  path = [v8 path];
 
   if (!path)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The [directoryURL path] parameter must not be nil."];
   }
 
-  path2 = [v8 path];
-  v18 = 0;
-  v11 = [v2 createDirectoryAtPath:path2 withIntermediateDirectories:0 attributes:0 error:&v18];
-  v12 = v18;
-  v13 = v12;
-  if ((v11 & 1) == 0)
+  path2 = [v9 path];
+  v20 = 0;
+  v12 = [v2 createDirectoryAtPath:path2 withIntermediateDirectories:0 attributes:0 error:&v20];
+  v13 = v20;
+  v14 = v13;
+  if ((v12 & 1) == 0)
   {
-    domain = [v12 domain];
+    domain = [v13 domain];
     if ([domain isEqual:*MEMORY[0x277CCA050]])
     {
-      code = [v13 code];
+      code = [v14 code];
 
       if (code == 516)
       {
@@ -101,8 +101,8 @@
     {
     }
 
-    v16 = VSErrorLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = VSErrorLogObject(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       +[VSPersistentContainer directoryURL];
     }
@@ -113,7 +113,7 @@ LABEL_20:
 LABEL_21:
 LABEL_22:
 
-  return v8;
+  return v9;
 }
 
 - (void)migrateContainerIfNecessary
@@ -125,10 +125,10 @@ LABEL_22:
 
 - (VSPersistentContainer)initWithModelVersion:(int64_t)version
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = VSPersistentContainer;
-  v4 = [(VSPersistentContainer *)&v21 init];
+  v23[1] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = VSPersistentContainer;
+  v4 = [(VSPersistentContainer *)&v22 init];
   v5 = v4;
   if (v4)
   {
@@ -150,15 +150,15 @@ LABEL_22:
     [v12 setShouldMigrateStoreAutomatically:1];
     [v12 setShouldInferMappingModelAutomatically:1];
     v13 = v5->_persistentContainer;
-    v22[0] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v23[0] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     [(NSPersistentContainer *)v13 setPersistentStoreDescriptions:v14];
 
-    v15 = VSDefaultLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = VSDefaultLogObject(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_23AB8E000, v15, OS_LOG_TYPE_DEFAULT, "Will load persistent stores for developer identity providers.", v20, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_23AB8E000, v16, OS_LOG_TYPE_DEFAULT, "Will load persistent stores for developer identity providers.", v21, 2u);
     }
 
     [(NSPersistentContainer *)v5->_persistentContainer loadPersistentStoresWithCompletionHandler:&__block_literal_global_7];
@@ -176,17 +176,17 @@ LABEL_22:
 void __46__VSPersistentContainer_initWithModelVersion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Did load persistent stores for developer identity providers.", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Did load persistent stores for developer identity providers.", v7, 2u);
   }
 
   if (v3)
   {
-    v5 = VSErrorLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = VSErrorLogObject(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__VSPersistentContainer_initWithModelVersion___block_invoke_cold_1();
     }

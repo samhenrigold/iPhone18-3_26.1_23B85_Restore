@@ -83,6 +83,7 @@
 - (void)_setDocumentCatalogMetadata:(id)metadata withNSpace:(id)space prefix:(id)prefix rootPath:(id)path;
 - (void)asyncFindString:(id)string withDelegate:(id)delegate onQueue:(id)queue;
 - (void)asyncFindStrings:(id)strings withOptions:(unint64_t)options withDelegate:(id)delegate onQueue:(id)queue;
+- (void)beginBatchPageChanges;
 - (void)beginFindString:(NSString *)string withOptions:(NSStringCompareOptions)options;
 - (void)beginFindStrings:(NSArray *)strings withOptions:(NSStringCompareOptions)options;
 - (void)callDelegateDidReceiveAnalysis:(id)analysis forPage:(id)page;
@@ -1514,27 +1515,27 @@ LABEL_19:
 - (BOOL)_writeAppendMode:(CGDataConsumer *)mode
 {
   selfCopy = self;
-  v129 = *MEMORY[0x1E69E9840];
+  v130 = *MEMORY[0x1E69E9840];
   pageCount = [(PDFDocument *)self pageCount];
   v5 = objc_opt_new();
-  v103 = pageCount;
+  v104 = pageCount;
   if (!pageCount)
   {
 LABEL_5:
-    v100 = +[PDFDocument pdfDocumentAppendModeActiveForThisThread];
+    v101 = +[PDFDocument pdfDocumentAppendModeActiveForThisThread];
     [PDFDocument setPDFDocumentAppendModeActiveForThisThread:1];
-    v99 = +[PDFPage isNativeRotationDrawingEnabledForThisThread];
+    v100 = +[PDFPage isNativeRotationDrawingEnabledForThisThread];
     [PDFPage setNativeRotationDrawingEnabledForThisThread:1];
-    v106 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v102 = v5;
-    if (!v103)
+    v107 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v103 = v5;
+    if (!v104)
     {
       goto LABEL_78;
     }
 
     v10 = 0;
     allocator = *MEMORY[0x1E695E480];
-    v108 = selfCopy;
+    v109 = selfCopy;
     while (1)
     {
       v11 = [(PDFDocument *)selfCopy pageAtIndex:v10];
@@ -1544,61 +1545,63 @@ LABEL_5:
       CGPDFPageSetRotationAngle();
       for (i = 0; i != 5; ++i)
       {
-        v14 = PDFRectToCGRect([v11 boundsForBox:i]);
-        v16 = v15;
-        v18 = v17;
-        v20 = v19;
+        [v11 boundsForBox:i];
+        PDFRectToCGRect();
+        v15 = v14;
+        v17 = v16;
+        v19 = v18;
+        v21 = v20;
         BoxRect = CGPDFPageGetBoxRect(page, i);
-        if (v18 > 0.0 && v20 > 0.0)
+        if (v19 > 0.0 && v21 > 0.0)
         {
-          v138 = BoxRect;
-          v131.origin.x = v14;
-          v131.origin.y = v16;
-          v131.size.width = v18;
-          v131.size.height = v20;
-          if (!CGRectEqualToRect(v131, v138))
+          v139 = BoxRect;
+          v132.origin.x = v15;
+          v132.origin.y = v17;
+          v132.size.width = v19;
+          v132.size.height = v21;
+          if (!CGRectEqualToRect(v132, v139))
           {
             CGPDFPageSetBoxRect();
           }
         }
       }
 
-      v104 = v10;
-      v105 = v11;
-      v21 = [v5 objectAtIndex:v10];
-      v121 = 0u;
+      v105 = v10;
+      v106 = v11;
+      v22 = [v5 objectAtIndex:v10];
       v122 = 0u;
       v123 = 0u;
       v124 = 0u;
-      v22 = [v21 countByEnumeratingWithState:&v121 objects:v128 count:16];
-      if (v22)
+      v125 = 0u;
+      v23 = [v22 countByEnumeratingWithState:&v122 objects:v129 count:16];
+      if (v23)
       {
-        v23 = v22;
-        v24 = 0;
-        v25 = *v122;
+        v24 = v23;
+        v25 = 0;
+        v26 = *v123;
         while (1)
         {
-          v26 = 0;
+          v27 = 0;
           do
           {
-            if (*v122 != v25)
+            if (*v123 != v26)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v121 + 1) + 8 * v26);
-            annotation = [v27 annotation];
+            v28 = *(*(&v122 + 1) + 8 * v27);
+            annotation = [v28 annotation];
             [annotation setShouldHideInteractiveBackgroundColor:1];
-            if (![v27 changeType])
+            if (![v28 changeType])
             {
-              v30 = [annotation valueForAnnotationKey:@"/AAPL:SFF"];
-              if (v30)
+              v31 = [annotation valueForAnnotationKey:@"/AAPL:SFF"];
+              if (v31)
               {
-                v31 = v30;
+                v32 = v31;
                 contents = [annotation contents];
-                v33 = [contents length];
+                v34 = [contents length];
 
-                if (!v33)
+                if (!v34)
                 {
                   goto LABEL_32;
                 }
@@ -1607,107 +1610,107 @@ LABEL_5:
               goto LABEL_30;
             }
 
-            if ([v27 changeType] == 1 || objc_msgSend(v27, "changeType") == 4)
+            if ([v28 changeType] == 1 || objc_msgSend(v28, "changeType") == 4)
             {
-              if ([annotation CGPDFAnnotation] || (objc_msgSend(annotation, "valueForAnnotationKey:", @"/AAPL:SFF"), v34 = objc_claimAutoreleasedReturnValue(), v34, !v34))
+              if ([annotation CGPDFAnnotation] || (objc_msgSend(annotation, "valueForAnnotationKey:", @"/AAPL:SFF"), v35 = objc_claimAutoreleasedReturnValue(), v35, !v35))
               {
-                if ([v27 changeType] == 1)
+                if ([v28 changeType] == 1)
                 {
                   [annotation setDictionaryRef:0];
                 }
 
-                -[PDFDocument _sanitizeAnnotationDictionary:](v108, "_sanitizeAnnotationDictionary:", [annotation dictionaryRefExcludingParentOrPopup]);
+                -[PDFDocument _sanitizeAnnotationDictionary:](v109, "_sanitizeAnnotationDictionary:", [annotation dictionaryRefExcludingParentOrPopup]);
                 CGPDFPageSubstituteAnnotationDictionary();
-                v29 = [v27 changeType] == 4;
+                v30 = [v28 changeType] == 4;
                 goto LABEL_25;
               }
 
 LABEL_30:
-              v35 = [(PDFDocument *)v108 _createCGPDFAnnotationForAnnotation:annotation];
-              if (v35)
+              v36 = [(PDFDocument *)v109 _createCGPDFAnnotationForAnnotation:annotation];
+              if (v36)
               {
-                v36 = v35;
+                v37 = v36;
                 CGPDFPageAddAnnotation();
-                CFRelease(v36);
-                v24 = 1;
+                CFRelease(v37);
+                v25 = 1;
               }
 
               goto LABEL_32;
             }
 
-            if ([v27 changeType] == 2)
+            if ([v28 changeType] == 2)
             {
               cGPDFAnnotation = [annotation CGPDFAnnotation];
               if (cGPDFAnnotation)
               {
-                v38 = cGPDFAnnotation;
+                v39 = cGPDFAnnotation;
                 CFRetain(cGPDFAnnotation);
                 CGPDFPageRemoveAnnotation();
                 [annotation setCGPDFAnnotation:0];
-                CFRelease(v38);
+                CFRelease(v39);
               }
             }
 
-            else if ([v27 changeType] == 3)
+            else if ([v28 changeType] == 3)
             {
-              v29 = [annotation CGPDFAnnotation] != 0;
+              v30 = [annotation CGPDFAnnotation] != 0;
 LABEL_25:
-              v24 |= v29;
+              v25 |= v30;
             }
 
 LABEL_32:
             [annotation setShouldHideInteractiveBackgroundColor:0];
 
-            ++v26;
+            ++v27;
           }
 
-          while (v23 != v26);
-          v39 = [v21 countByEnumeratingWithState:&v121 objects:v128 count:16];
-          v23 = v39;
-          if (!v39)
+          while (v24 != v27);
+          v40 = [v22 countByEnumeratingWithState:&v122 objects:v129 count:16];
+          v24 = v40;
+          if (!v40)
           {
-            v5 = v102;
-            if (v24)
+            v5 = v103;
+            if (v25)
             {
               Mutable = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
-              annotations = [v105 annotations];
-              v117 = 0u;
+              annotations = [v106 annotations];
               v118 = 0u;
               v119 = 0u;
               v120 = 0u;
-              v42 = [annotations countByEnumeratingWithState:&v117 objects:v127 count:16];
-              if (v42)
+              v121 = 0u;
+              v43 = [annotations countByEnumeratingWithState:&v118 objects:v128 count:16];
+              if (v43)
               {
-                v43 = v42;
-                v44 = *v118;
+                v44 = v43;
+                v45 = *v119;
                 do
                 {
-                  for (j = 0; j != v43; ++j)
+                  for (j = 0; j != v44; ++j)
                   {
-                    if (*v118 != v44)
+                    if (*v119 != v45)
                     {
                       objc_enumerationMutation(annotations);
                     }
 
-                    v46 = *(*(&v117 + 1) + 8 * j);
-                    cGPDFAnnotation2 = [v46 CGPDFAnnotation];
+                    v47 = *(*(&v118 + 1) + 8 * j);
+                    cGPDFAnnotation2 = [v47 CGPDFAnnotation];
                     if (cGPDFAnnotation2)
                     {
-                      v48 = cGPDFAnnotation2;
-                      if (([v46 shouldBurnIn] & 1) == 0)
+                      v49 = cGPDFAnnotation2;
+                      if (([v47 shouldBurnIn] & 1) == 0)
                       {
-                        CFArrayAppendValue(Mutable, v48);
+                        CFArrayAppendValue(Mutable, v49);
                       }
                     }
                   }
 
-                  v43 = [annotations countByEnumeratingWithState:&v117 objects:v127 count:16];
+                  v44 = [annotations countByEnumeratingWithState:&v118 objects:v128 count:16];
                 }
 
-                while (v43);
+                while (v44);
               }
 
-              if ([v105 pageRef] && CFArrayGetCount(Mutable) >= 1)
+              if ([v106 pageRef] && CFArrayGetCount(Mutable) >= 1)
               {
                 CGPDFPageSortAnnotations();
               }
@@ -1720,29 +1723,29 @@ LABEL_32:
         }
       }
 
-      v115 = 0u;
       v116 = 0u;
-      v113 = 0u;
+      v117 = 0u;
       v114 = 0u;
-      v49 = v21;
-      v50 = [v49 countByEnumeratingWithState:&v113 objects:v126 count:16];
-      if (!v50)
+      v115 = 0u;
+      v50 = v22;
+      v51 = [v50 countByEnumeratingWithState:&v114 objects:v127 count:16];
+      if (!v51)
       {
         goto LABEL_69;
       }
 
-      v51 = v50;
-      v52 = *v114;
+      v52 = v51;
+      v53 = *v115;
       do
       {
-        for (k = 0; k != v51; ++k)
+        for (k = 0; k != v52; ++k)
         {
-          if (*v114 != v52)
+          if (*v115 != v53)
           {
-            objc_enumerationMutation(v49);
+            objc_enumerationMutation(v50);
           }
 
-          annotation2 = [*(*(&v113 + 1) + 8 * k) annotation];
+          annotation2 = [*(*(&v114 + 1) + 8 * k) annotation];
           if ([annotation2 CGPDFAnnotation])
           {
             popup = [annotation2 popup];
@@ -1769,65 +1772,65 @@ LABEL_32:
             if (cGPDFAnnotation3)
             {
               CGPDFAnnotationSetAnnotationForKey();
-              [v106 addObject:annotation2];
+              [v107 addObject:annotation2];
             }
           }
 
 LABEL_67:
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v113 objects:v126 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v114 objects:v127 count:16];
       }
 
-      while (v51);
+      while (v52);
 LABEL_69:
 
-      akPageAdaptor = [v105 akPageAdaptor];
-      v60 = akPageAdaptor;
+      akPageAdaptor = [v106 akPageAdaptor];
+      v61 = akPageAdaptor;
       if (akPageAdaptor)
       {
         akPageModelController = [akPageAdaptor akPageModelController];
         cropAnnotation = [akPageModelController cropAnnotation];
-        v63 = cropAnnotation;
+        v64 = cropAnnotation;
         if (cropAnnotation)
         {
           if ([cropAnnotation cropApplied])
           {
-            v132 = CGPDFPageGetBoxRect(page, kCGPDFCropBox);
-            v133 = CGRectIntegral(v132);
-            x = v133.origin.x;
-            y = v133.origin.y;
-            width = v133.size.width;
-            height = v133.size.height;
-            [v63 rectangle];
-            v69 = v68;
-            v71 = v70;
-            v73 = v72;
-            v75 = v74;
-            v139 = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
-            v134.origin.x = v69;
-            v134.origin.y = v71;
-            v134.size.width = v73;
-            v134.size.height = v75;
-            v135 = CGRectIntersection(v134, v139);
-            v136 = CGRectIntegral(v135);
-            if (v136.size.width > 0.0)
+            v133 = CGPDFPageGetBoxRect(page, kCGPDFCropBox);
+            v134 = CGRectIntegral(v133);
+            x = v134.origin.x;
+            y = v134.origin.y;
+            width = v134.size.width;
+            height = v134.size.height;
+            [v64 rectangle];
+            v70 = v69;
+            v72 = v71;
+            v74 = v73;
+            v76 = v75;
+            v140 = CGPDFPageGetBoxRect(page, kCGPDFMediaBox);
+            v135.origin.x = v70;
+            v135.origin.y = v72;
+            v135.size.width = v74;
+            v135.size.height = v76;
+            v136 = CGRectIntersection(v135, v140);
+            v137 = CGRectIntegral(v136);
+            if (v137.size.width > 0.0)
             {
-              v76 = v136.size.height;
-              if (v136.size.height > 0.0)
+              v77 = v137.size.height;
+              if (v137.size.height > 0.0)
               {
-                v77 = v136.origin.x;
-                v78 = v136.origin.y;
-                v79 = v136.size.width;
-                v137.origin.x = x;
-                v137.origin.y = y;
-                v137.size.width = width;
-                v137.size.height = height;
-                v140.origin.x = v77;
-                v140.origin.y = v78;
-                v140.size.width = v79;
-                v140.size.height = v76;
-                if (!CGRectEqualToRect(v137, v140))
+                v78 = v137.origin.x;
+                v79 = v137.origin.y;
+                v80 = v137.size.width;
+                v138.origin.x = x;
+                v138.origin.y = y;
+                v138.size.width = width;
+                v138.size.height = height;
+                v141.origin.x = v78;
+                v141.origin.y = v79;
+                v141.size.width = v80;
+                v141.size.height = v77;
+                if (!CGRectEqualToRect(v138, v141))
                 {
                   CGPDFPageSetBoxRect();
                 }
@@ -1837,72 +1840,72 @@ LABEL_69:
         }
       }
 
-      [v105 clearAnnotationChanges];
-      v10 = v104 + 1;
-      selfCopy = v108;
-      if (v104 + 1 == v103)
+      [v106 clearAnnotationChanges];
+      v10 = v105 + 1;
+      selfCopy = v109;
+      if (v105 + 1 == v104)
       {
 LABEL_78:
         if ([(PDFDocument *)selfCopy bookmarksChanged]&& [(PDFDocument *)selfCopy allowsDocumentAssembly])
         {
           [(PDFDocument *)selfCopy updateBookmarksInPDFDocument];
-          v80 = [(PDFDocument *)selfCopy newXMPFromData:selfCopy->_documentCatalogMetadata preserveExistingXMPMetadata:1];
-          if (v80)
+          v81 = [(PDFDocument *)selfCopy newXMPFromData:selfCopy->_documentCatalogMetadata preserveExistingXMPMetadata:1];
+          if (v81)
           {
-            v81 = v80;
+            v82 = v81;
             CGPDFDocumentAppendMetadata();
-            CFRelease(v81);
+            CFRelease(v82);
           }
 
           bookmarkedPages = [(PDFDocument *)selfCopy bookmarkedPages];
-          v83 = [bookmarkedPages copy];
+          v84 = [bookmarkedPages copy];
           initialBookmarkedPageIndices = selfCopy->_initialBookmarkedPageIndices;
-          selfCopy->_initialBookmarkedPageIndices = v83;
+          selfCopy->_initialBookmarkedPageIndices = v84;
         }
 
         if (selfCopy->_attributes && (!selfCopy->_appendedAttributes || ![(NSDictionary *)selfCopy->_attributes isEqualToDictionary:?]))
         {
           CGPDFDocumentAppendDocumentInfo();
-          v85 = [(NSDictionary *)selfCopy->_attributes copy];
+          v86 = [(NSDictionary *)selfCopy->_attributes copy];
           appendedAttributes = selfCopy->_appendedAttributes;
-          selfCopy->_appendedAttributes = v85;
+          selfCopy->_appendedAttributes = v86;
         }
 
-        [PDFPage setNativeRotationDrawingEnabledForThisThread:v99];
-        [PDFDocument setPDFDocumentAppendModeActiveForThisThread:v100];
-        v87 = CGPDFDocumentCopyToConsumerWithChanges();
-        v109 = 0u;
+        [PDFPage setNativeRotationDrawingEnabledForThisThread:v100];
+        [PDFDocument setPDFDocumentAppendModeActiveForThisThread:v101];
+        v88 = CGPDFDocumentCopyToConsumerWithChanges();
         v110 = 0u;
         v111 = 0u;
         v112 = 0u;
-        v88 = v106;
-        v89 = [v88 countByEnumeratingWithState:&v109 objects:v125 count:16];
-        if (!v89)
+        v113 = 0u;
+        v89 = v107;
+        v90 = [v89 countByEnumeratingWithState:&v110 objects:v126 count:16];
+        if (!v90)
         {
 LABEL_100:
 
-          v5 = v102;
+          v5 = v103;
           goto LABEL_102;
         }
 
-        v90 = v89;
-        v91 = *v110;
+        v91 = v90;
+        v92 = *v111;
         while (2)
         {
-          v92 = 0;
+          v93 = 0;
 LABEL_90:
-          if (*v110 != v91)
+          if (*v111 != v92)
           {
-            objc_enumerationMutation(v88);
+            objc_enumerationMutation(v89);
           }
 
-          v93 = *(*(&v109 + 1) + 8 * v92);
-          cGPDFAnnotation4 = [v93 CGPDFAnnotation];
-          popup3 = [v93 popup];
+          v94 = *(*(&v110 + 1) + 8 * v93);
+          cGPDFAnnotation4 = [v94 CGPDFAnnotation];
+          popup3 = [v94 popup];
 
           if (popup3)
           {
-            v96 = 0;
+            v97 = 0;
             if (!cGPDFAnnotation4)
             {
               goto LABEL_98;
@@ -1911,25 +1914,25 @@ LABEL_90:
 
           else
           {
-            parent2 = [v93 parent];
+            parent2 = [v94 parent];
 
-            v96 = parent2 == 0;
+            v97 = parent2 == 0;
             if (!cGPDFAnnotation4)
             {
               goto LABEL_98;
             }
           }
 
-          if (!v96)
+          if (!v97)
           {
             CGPDFAnnotationSetAnnotationForKey();
           }
 
 LABEL_98:
-          if (v90 == ++v92)
+          if (v91 == ++v93)
           {
-            v90 = [v88 countByEnumeratingWithState:&v109 objects:v125 count:16];
-            if (!v90)
+            v91 = [v89 countByEnumeratingWithState:&v110 objects:v126 count:16];
+            if (!v91)
             {
               goto LABEL_100;
             }
@@ -1956,16 +1959,16 @@ LABEL_98:
     v9 = annotationChanges;
     [v5 insertObject:annotationChanges atIndex:v6];
 
-    if (v103 == ++v6)
+    if (v104 == ++v6)
     {
       goto LABEL_5;
     }
   }
 
-  v87 = 0;
+  v88 = 0;
 LABEL_102:
 
-  return v87;
+  return v88;
 }
 
 - (CGPDFAnnotation)_createCGPDFAnnotationForAnnotation:(id)annotation
@@ -2430,7 +2433,7 @@ uint64_t __58__PDFDocument_newXMPFromData_preserveExistingXMPMetadata___block_in
 {
   if (GetDefaultsWriteAKEnabled() && !self->_akDocumentAdaptor)
   {
-    _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFDocument", "%s: Called when the document adaptor wasn't set up yet.", v3, v4, v5, v6, v7, "[PDFDocument akDocumentAdaptor]");
+    _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFDocument", "%s: Called when the document adaptor wasn't set up yet.", "[PDFDocument akDocumentAdaptor]");
   }
 
   akDocumentAdaptor = self->_akDocumentAdaptor;
@@ -2749,10 +2752,10 @@ void __60__PDFDocument_preloadDataOfPagesInRange_onQueue_completion___block_invo
   ++*(*(*(a1 + 40) + 8) + 24);
 }
 
-void __60__PDFDocument_preloadDataOfPagesInRange_onQueue_completion___block_invoke_2(uint64_t a1)
+void __60__PDFDocument_preloadDataOfPagesInRange_onQueue_completion___block_invoke_2(void *a1)
 {
   CGDataProviderGetBytesInRanges();
-  v2 = *(a1 + 48);
+  v2 = a1[6];
 
   free(v2);
 }
@@ -3716,15 +3719,15 @@ void __80__PDFDocument_requirePasswordsIfNeededUsingPresentingViewController_com
   [v3 setSecureTextEntry:1];
 }
 
-uint64_t __80__PDFDocument_requirePasswordsIfNeededUsingPresentingViewController_completion___block_invoke_2(uint64_t result)
+id *__80__PDFDocument_requirePasswordsIfNeededUsingPresentingViewController_completion___block_invoke_2(id *result)
 {
-  if (*(result + 40))
+  if (result[5])
   {
     v1 = result;
-    result = [*(result + 32) _canSaveWithEncryption];
+    result = [result[4] _canSaveWithEncryption];
     if (result)
     {
-      v2 = *(*(v1 + 40) + 16);
+      v2 = *(v1[5] + 2);
 
       return v2();
     }
@@ -6109,6 +6112,13 @@ LABEL_14:
   }
 
   objc_sync_exit(v3);
+}
+
+- (void)beginBatchPageChanges
+{
+  pagesOrderedSet = self->_pagesOrderedSet;
+  self->_pagesOrderedSet = 0;
+  MEMORY[0x1EEE66BB8](self, pagesOrderedSet);
 }
 
 - (void)endBatchPageChanges

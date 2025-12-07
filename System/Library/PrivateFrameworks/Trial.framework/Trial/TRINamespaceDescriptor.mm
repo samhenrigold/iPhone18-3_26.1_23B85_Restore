@@ -16,6 +16,7 @@
 - (TRINamespaceDescriptor)initWithDictionary:(id)dictionary;
 - (TRINamespaceDescriptor)initWithNamespaceName:(id)name downloadNCV:(unsigned int)v optionalParams:(id)params;
 - (id)dictionary;
+- (id)factorsAbsolutePathAsOwner:(BOOL)owner;
 - (unint64_t)hash;
 @end
 
@@ -23,7 +24,7 @@
 
 + (id)descriptorPathForNamespaceName:(id)name fromDirectory:(id)directory
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   directoryCopy = directory;
   v7 = objc_autoreleasePoolPush();
@@ -44,23 +45,23 @@ LABEL_30:
     }
 
     v13 = v12;
-    v35 = 0;
-    if ([defaultManager fileExistsAtPath:directoryCopy isDirectory:&v35])
+    v34 = 0;
+    if ([defaultManager fileExistsAtPath:directoryCopy isDirectory:&v34])
     {
-      if ((v35 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
         v15 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v39 = directoryCopy;
+          v38 = directoryCopy;
           _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "Tried to look for namespace descriptors at this path, but it is a file and not a directory: %@", buf, 0xCu);
         }
 
         goto LABEL_29;
       }
 
-      v29 = v11;
+      v28 = v11;
       obj = location;
       v14 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&obj];
       objc_storeStrong(&location, obj);
@@ -70,13 +71,13 @@ LABEL_30:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v39 = directoryCopy;
-          v40 = 2112;
-          v41 = location;
+          v38 = directoryCopy;
+          v39 = 2112;
+          v40 = location;
           _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "cannot access files in directory: %@ -- %@", buf, 0x16u);
         }
 
-        v11 = v29;
+        v11 = v28;
 LABEL_29:
 
         v16 = 0;
@@ -86,45 +87,45 @@ LABEL_29:
 
     else
     {
-      v29 = v11;
+      v28 = v11;
       v14 = MEMORY[0x277CBEBF8];
     }
 
-    v28 = v7;
+    v27 = v7;
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.Trial.NamespaceDescriptor.%d.", v13];
     nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.Trial.NamespaceDescriptor.%@.", nameCopy];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v19 = v14;
-    v20 = [v19 countByEnumeratingWithState:&v30 objects:v37 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v29 objects:v36 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
-      v27 = directoryCopy;
+      v22 = *v30;
+      v26 = directoryCopy;
       while (2)
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v30 + 1) + 8 * i);
+          v24 = *(*(&v29 + 1) + 8 * i);
           if ([v24 hasPrefix:v17] & 1) != 0 || (objc_msgSend(v24, "hasPrefix:", nameCopy))
           {
-            directoryCopy = v27;
-            v16 = [v27 stringByAppendingPathComponent:v24];
+            directoryCopy = v26;
+            v16 = [v26 stringByAppendingPathComponent:v24];
 
             goto LABEL_26;
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v30 objects:v37 count:16];
-        directoryCopy = v27;
+        v21 = [v19 countByEnumeratingWithState:&v29 objects:v36 count:16];
+        directoryCopy = v26;
         if (v21)
         {
           continue;
@@ -134,11 +135,11 @@ LABEL_29:
       }
     }
 
-    v16 = v29;
+    v16 = v28;
 LABEL_26:
 
-    v7 = v28;
-    v11 = v29;
+    v7 = v27;
+    v11 = v28;
     goto LABEL_30;
   }
 
@@ -146,9 +147,9 @@ LABEL_26:
   if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v39 = nameCopy;
-    v40 = 2112;
-    v41 = location;
+    v38 = nameCopy;
+    v39 = 2112;
+    v40 = location;
     _os_log_error_impl(&dword_22EA6B000, defaultManager, OS_LOG_TYPE_ERROR, "could not sanitize namespace %@ -- %@", buf, 0x16u);
   }
 
@@ -156,20 +157,19 @@ LABEL_26:
 LABEL_31:
 
   objc_autoreleasePoolPop(v7);
-  v25 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)loadFromFile:(id)file
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v4 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = fileCopy;
+    v16 = fileCopy;
     _os_log_debug_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_DEBUG, "Loading namespace descriptor from path: %@", buf, 0xCu);
   }
 
@@ -180,9 +180,9 @@ LABEL_31:
   }
 
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:fileCopy isDirectory:0];
-  v15 = 0;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5 error:&v15];
-  v7 = v15;
+  v14 = 0;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5 error:&v14];
+  v7 = v14;
   v8 = v7;
   if (!v6)
   {
@@ -210,9 +210,9 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v8;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v8;
       _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "failed to parse dictionary from file: %@ (%@)", buf, 0x16u);
     }
 
@@ -223,14 +223,13 @@ LABEL_15:
 LABEL_16:
 
 LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)loadWithNamespaceName:(id)name fromDirectory:(id)directory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [self descriptorPathForNamespaceName:nameCopy fromDirectory:directory];
   v8 = [self loadFromFile:v7];
@@ -241,11 +240,11 @@ LABEL_17:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       namespaceName = [v8 namespaceName];
-      v16 = 138412546;
-      v17 = nameCopy;
-      v18 = 2112;
-      v19 = namespaceName;
-      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "namespace descriptor loaded from file has unexpected namespace name: %@ != %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = nameCopy;
+      v17 = 2112;
+      v18 = namespaceName;
+      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "namespace descriptor loaded from file has unexpected namespace name: %@ != %@", &v15, 0x16u);
     }
 
     v11 = 0;
@@ -256,14 +255,12 @@ LABEL_17:
     v11 = v8;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (TRINamespaceDescriptor)initWithNamespaceName:(id)name downloadNCV:(unsigned int)v optionalParams:(id)params
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   paramsCopy = params;
   if (!paramsCopy)
@@ -271,9 +268,9 @@ LABEL_17:
     paramsCopy = objc_opt_new();
   }
 
-  v25.receiver = self;
-  v25.super_class = TRINamespaceDescriptor;
-  v11 = [(TRINamespaceDescriptor *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = TRINamespaceDescriptor;
+  v11 = [(TRINamespaceDescriptor *)&v24 init];
   v12 = v11;
   if (v11)
   {
@@ -294,9 +291,9 @@ LABEL_17:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v27 = @"Namespace Upgrade Compatibility Versions";
-        v28 = 2112;
-        v29 = upgradeNCVs;
+        v26 = @"Namespace Upgrade Compatibility Versions";
+        v27 = 2112;
+        v28 = upgradeNCVs;
         _os_log_error_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_ERROR, "%@ %@ is not valid. Setting it to nil", buf, 0x16u);
       }
 
@@ -323,19 +320,18 @@ LABEL_17:
     v12->_optedOutOfDefaults = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (TRINamespaceDescriptor)initWithDictionary:(id)dictionary
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"Namespace Compatibility Version"];
   unsignedIntValue = [v6 unsignedIntValue];
 
-  v84 = [dictionaryCopy objectForKeyedSubscript:@"Namespace Name"];
-  if (!v84)
+  v83 = [dictionaryCopy objectForKeyedSubscript:@"Namespace Name"];
+  if (!v83)
   {
     v8 = [dictionaryCopy objectForKeyedSubscript:@"Namespace Id"];
     if (!v8)
@@ -350,11 +346,11 @@ LABEL_17:
       v8 = &unk_28436F998;
     }
 
-    v84 = [MEMORY[0x277D73B50] namespaceNameFromId:{objc_msgSend(v8, "unsignedIntValue")}];
+    v83 = [MEMORY[0x277D73B50] namespaceNameFromId:{objc_msgSend(v8, "unsignedIntValue")}];
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"App Container Id"];
-  v83 = v10;
+  v82 = v10;
   if (v10)
   {
     v11 = v10;
@@ -365,16 +361,16 @@ LABEL_17:
       [currentHandler handleFailureInMethod:a2 object:self file:@"TRINamespaceDescriptor.m" lineNumber:182 description:@"app container id provided but unspecified container type"];
     }
 
-    v85 = +[TRIAppContainer containerWithIdentifier:type:](TRIAppContainer, "containerWithIdentifier:type:", v11, [v12 integerValue]);
+    v84 = +[TRIAppContainer containerWithIdentifier:type:](TRIAppContainer, "containerWithIdentifier:type:", v11, [v12 integerValue]);
   }
 
   else
   {
-    v85 = 0;
+    v84 = 0;
   }
 
   v13 = [dictionaryCopy objectForKeyedSubscript:@"Factor Path"];
-  v82 = v13;
+  v81 = v13;
   if (v13)
   {
     v14 = v13;
@@ -415,11 +411,11 @@ LABEL_17:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 138412802;
-          v97 = v84;
-          v98 = 2112;
-          v99 = v21;
-          v100 = 2112;
-          v101 = v24;
+          v96 = v83;
+          v97 = 2112;
+          v98 = v21;
+          v99 = 2112;
+          v100 = v24;
           _os_log_impl(&dword_22EA6B000, v26, OS_LOG_TYPE_INFO, "Found invalid factors path for %@: %@. Changing it to be %@", buf, 0x20u);
         }
 
@@ -481,8 +477,8 @@ LABEL_28:
 
   v34 = [dictionaryCopy objectForKeyedSubscript:@"Namespace Upgrade Compatibility Versions"];
   objc_opt_class();
-  v80 = v28;
-  v81 = v15;
+  v79 = v28;
+  v80 = v15;
   if (objc_opt_isKindOfClass())
   {
     selfCopy5 = self;
@@ -494,35 +490,35 @@ LABEL_28:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v72 = v29;
-      v74 = v18;
-      v76 = unsignedIntValue;
+      v71 = v29;
+      v73 = v18;
+      v75 = unsignedIntValue;
       selfCopy2 = self;
       v37 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v34, "count")}];
+      v89 = 0u;
       v90 = 0u;
       v91 = 0u;
       v92 = 0u;
-      v93 = 0u;
       v38 = v34;
-      v39 = [v38 countByEnumeratingWithState:&v90 objects:v95 count:16];
+      v39 = [v38 countByEnumeratingWithState:&v89 objects:v94 count:16];
       if (v39)
       {
         v40 = v39;
-        v41 = *v91;
+        v41 = *v90;
         do
         {
           for (i = 0; i != v40; ++i)
           {
-            if (*v91 != v41)
+            if (*v90 != v41)
             {
               objc_enumerationMutation(v38);
             }
 
-            v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v90 + 1) + 8 * i), "integerValue")}];
+            v43 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v89 + 1) + 8 * i), "integerValue")}];
             [v37 addObject:v43];
           }
 
-          v40 = [v38 countByEnumeratingWithState:&v90 objects:v95 count:16];
+          v40 = [v38 countByEnumeratingWithState:&v89 objects:v94 count:16];
         }
 
         while (v40);
@@ -530,9 +526,9 @@ LABEL_28:
 
       v36 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v37];
       selfCopy5 = selfCopy2;
-      unsignedIntValue = v76;
-      v29 = v72;
-      v18 = v74;
+      unsignedIntValue = v75;
+      v29 = v71;
+      v18 = v73;
     }
 
     else
@@ -543,36 +539,36 @@ LABEL_28:
         v44 = [v34 componentsSeparatedByString:{@", "}];
         if (v44)
         {
-          v73 = v29;
-          v75 = v18;
-          v77 = unsignedIntValue;
+          v72 = v29;
+          v74 = v18;
+          v76 = unsignedIntValue;
           selfCopy3 = self;
           v45 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v44, "count")}];
+          v85 = 0u;
           v86 = 0u;
           v87 = 0u;
           v88 = 0u;
-          v89 = 0u;
-          v71 = v44;
+          v70 = v44;
           v46 = v44;
-          v47 = [v46 countByEnumeratingWithState:&v86 objects:v94 count:16];
+          v47 = [v46 countByEnumeratingWithState:&v85 objects:v93 count:16];
           if (v47)
           {
             v48 = v47;
-            v49 = *v87;
+            v49 = *v86;
             do
             {
               for (j = 0; j != v48; ++j)
               {
-                if (*v87 != v49)
+                if (*v86 != v49)
                 {
                   objc_enumerationMutation(v46);
                 }
 
-                v51 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v86 + 1) + 8 * j), "integerValue")}];
+                v51 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(*(&v85 + 1) + 8 * j), "integerValue")}];
                 [v45 addObject:v51];
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v86 objects:v94 count:16];
+              v48 = [v46 countByEnumeratingWithState:&v85 objects:v93 count:16];
             }
 
             while (v48);
@@ -580,10 +576,10 @@ LABEL_28:
 
           v36 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v45];
           selfCopy5 = selfCopy3;
-          unsignedIntValue = v77;
-          v29 = v73;
-          v18 = v75;
-          v44 = v71;
+          unsignedIntValue = v76;
+          v29 = v72;
+          v18 = v74;
+          v44 = v70;
         }
 
         else
@@ -604,7 +600,7 @@ LABEL_28:
   v52 = objc_opt_new();
   v53 = v18;
   [v52 setFactorsURL:v18];
-  [v52 setAppContainer:v85];
+  [v52 setAppContainer:v84];
   [v52 setUpgradeNCVs:v36];
   [v52 setResourceAttributionIdentifier:v29];
   v54 = [dictionaryCopy objectForKeyedSubscript:@"CloudKit Container Id"];
@@ -653,14 +649,13 @@ LABEL_28:
     [v52 setAvailableToRootUser:{objc_msgSend(v65, "BOOLValue")}];
   }
 
-  v66 = [(TRINamespaceDescriptor *)selfCopy5 initWithNamespaceName:v84 downloadNCV:unsignedIntValue optionalParams:v52];
+  v66 = [(TRINamespaceDescriptor *)selfCopy5 initWithNamespaceName:v83 downloadNCV:unsignedIntValue optionalParams:v52];
   v67 = v66;
-  if (!v82)
+  if (!v81)
   {
     v66->_optedOutOfDefaults = 1;
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return v67;
 }
 
@@ -696,22 +691,92 @@ LABEL_28:
   return v7;
 }
 
+- (id)factorsAbsolutePathAsOwner:(BOOL)owner
+{
+  ownerCopy = owner;
+  v23 = *MEMORY[0x277D85DE8];
+  factorsURL = [(TRINamespaceDescriptor *)self factorsURL];
+  v6 = [factorsURL triPathAsOwner:ownerCopy];
+
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  if ([v6 isAbsolutePath])
+  {
+    goto LABEL_9;
+  }
+
+  appContainer = [(TRINamespaceDescriptor *)self appContainer];
+
+  if (!appContainer)
+  {
+    goto LABEL_9;
+  }
+
+  appContainer2 = [(TRINamespaceDescriptor *)self appContainer];
+  v9 = appContainer2;
+  if (ownerCopy)
+  {
+    [appContainer2 containerURLAsOwner];
+  }
+
+  else
+  {
+    [appContainer2 containerURL];
+  }
+  v10 = ;
+
+  path = [v10 path];
+
+  if (path)
+  {
+    v12 = MEMORY[0x277CCACA8];
+    path2 = [v10 path];
+    v20[0] = path2;
+    v20[1] = v6;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v15 = [v12 pathWithComponents:v14];
+
+    v6 = v15;
+LABEL_9:
+    v6 = v6;
+    v16 = v6;
+    goto LABEL_10;
+  }
+
+  v18 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  {
+    factorsURL2 = [(TRINamespaceDescriptor *)self factorsURL];
+    *buf = 138412290;
+    v22 = factorsURL2;
+    _os_log_error_impl(&dword_22EA6B000, v18, OS_LOG_TYPE_ERROR, "factorsAbsolutePathAsOwner: can't resolve containerDir for factorsURL: %@", buf, 0xCu);
+  }
+
+  v16 = 0;
+LABEL_10:
+
+  return v16;
+}
+
 - (id)dictionary
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28[0] = @"Namespace Name";
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27[0] = @"Namespace Name";
   namespaceName = [(TRINamespaceDescriptor *)self namespaceName];
-  v29[0] = namespaceName;
-  v28[1] = @"Namespace Compatibility Version";
+  v28[0] = namespaceName;
+  v27[1] = @"Namespace Compatibility Version";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[TRINamespaceDescriptor downloadNCV](self, "downloadNCV")}];
-  v29[1] = v4;
-  v28[2] = @"CloudKit Container Id";
+  v28[1] = v4;
+  v27[2] = @"CloudKit Container Id";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:{-[TRINamespaceDescriptor cloudKitContainerId](self, "cloudKitContainerId")}];
-  v29[2] = v5;
-  v28[3] = @"Purgeability Level";
+  v28[2] = v5;
+  v27[3] = @"Purgeability Level";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[TRINamespaceDescriptor purgeabilityLevel](self, "purgeabilityLevel")}];
-  v29[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v28[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
   v8 = [v7 mutableCopy];
 
   factorsURL = [(TRINamespaceDescriptor *)self factorsURL];
@@ -772,34 +837,32 @@ LABEL_28:
     [v8 setObject:v25 forKeyedSubscript:@"Available To Root User"];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)writeToFile:(id)file
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   stringByDeletingLastPathComponent = [fileCopy stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v20 = 0;
-  v7 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v19];
+  v8 = v19;
 
   if (v7)
   {
     v9 = MEMORY[0x277CCAC58];
     dictionary = [(TRINamespaceDescriptor *)self dictionary];
-    v19 = 0;
-    v11 = [v9 dataWithPropertyList:dictionary format:100 options:0 error:&v19];
-    v12 = v19;
+    v18 = 0;
+    v11 = [v9 dataWithPropertyList:dictionary format:100 options:0 error:&v18];
+    v12 = v18;
 
     if (v11)
     {
-      v18 = v12;
-      v13 = [v11 writeToFile:fileCopy options:268435457 error:&v18];
-      v8 = v18;
+      v17 = v12;
+      v13 = [v11 writeToFile:fileCopy options:268435457 error:&v17];
+      v8 = v17;
 
       if (v13)
       {
@@ -811,9 +874,9 @@ LABEL_28:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v22 = fileCopy;
-        v23 = 2112;
-        v24 = v8;
+        v21 = fileCopy;
+        v22 = 2112;
+        v23 = v8;
         _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "failed to write namespace descriptor to file: %@ -- %@", buf, 0x16u);
       }
 
@@ -826,7 +889,7 @@ LABEL_28:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v22 = v12;
+        v21 = v12;
         _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "failed to serialize namespace descriptor -- %@", buf, 0xCu);
       }
     }
@@ -840,16 +903,15 @@ LABEL_28:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v22 = stringByDeletingLastPathComponent;
-    v23 = 2112;
-    v24 = v8;
+    v21 = stringByDeletingLastPathComponent;
+    v22 = 2112;
+    v23 = v8;
     _os_log_error_impl(&dword_22EA6B000, v11, OS_LOG_TYPE_ERROR, "failed to create directory for namespace descriptor: %@ -- %@", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_14:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -890,7 +952,7 @@ LABEL_14:
 
 - (BOOL)_upgradeNCVsIsValid:(id)valid
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   v5 = [(TRINamespaceDescriptor *)self _upgradeNCVsArePositiveIntegers:validCopy];
   if (!v5)
@@ -898,48 +960,47 @@ LABEL_14:
     v6 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = @"Namespace Upgrade Compatibility Versions";
-      v11 = 2112;
-      v12 = validCopy;
-      _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, "%@ %@ must consist of positive integers", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = @"Namespace Upgrade Compatibility Versions";
+      v10 = 2112;
+      v11 = validCopy;
+      _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, "%@ %@ must consist of positive integers", &v8, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_upgradeNCVsArePositiveIntegers:(id)integers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   integersCopy = integers;
-  v4 = [integersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [integersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(integersCopy);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) intValue] < 1)
+        if ([*(*(&v10 + 1) + 8 * i) intValue] < 1)
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [integersCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [integersCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -952,13 +1013,12 @@ LABEL_14:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (BOOL)removeDescriptorWithNamespaceName:(id)name fromDirectory:(id)directory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAA00];
   directoryCopy = directory;
   nameCopy = name;
@@ -967,32 +1027,32 @@ LABEL_11:
 
   if (v9)
   {
-    v17 = 0;
-    if ([defaultManager fileExistsAtPath:v9 isDirectory:&v17])
+    v16 = 0;
+    if ([defaultManager fileExistsAtPath:v9 isDirectory:&v16])
     {
-      if (v17 == 1)
+      if (v16 == 1)
       {
         v10 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v19 = v9;
+          v18 = v9;
           _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "expected file not directory at path %@", buf, 0xCu);
         }
       }
 
-      v16 = 0;
-      v11 = [defaultManager removeItemAtPath:v9 error:&v16];
-      v12 = v16;
+      v15 = 0;
+      v11 = [defaultManager removeItemAtPath:v9 error:&v15];
+      v12 = v15;
       if (v12)
       {
         v13 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v19 = v9;
-          v20 = 2112;
-          v21 = v12;
+          v18 = v9;
+          v19 = 2112;
+          v20 = v12;
           _os_log_error_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_ERROR, "failed to delete file %@ -- %@", buf, 0x16u);
         }
       }
@@ -1009,7 +1069,6 @@ LABEL_11:
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1072,36 +1131,36 @@ uint64_t __62__TRINamespaceDescriptor_descriptorsForDirectory_filterBlock___bloc
 
 + (void)enumerateDescriptorsInDirectory:(id)directory block:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   blockCopy = block;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v25];
-  v9 = v25;
+  v24 = 0;
+  v8 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v24];
+  v9 = v24;
   if (v8)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = v8;
-    v10 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v19 = v9;
-      v12 = *v22;
+      v18 = v9;
+      v12 = *v21;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           v15 = objc_autoreleasePoolPush();
           v16 = [directoryCopy stringByAppendingPathComponent:v14];
           v17 = [TRINamespaceDescriptor loadFromFile:v16];
@@ -1120,7 +1179,7 @@ uint64_t __62__TRINamespaceDescriptor_descriptorsForDirectory_filterBlock___bloc
           objc_autoreleasePoolPop(v15);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v11 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v11)
         {
           continue;
@@ -1130,7 +1189,7 @@ uint64_t __62__TRINamespaceDescriptor_descriptorsForDirectory_filterBlock___bloc
       }
 
 LABEL_15:
-      v9 = v19;
+      v9 = v18;
     }
   }
 
@@ -1140,14 +1199,12 @@ LABEL_15:
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v28 = directoryCopy;
-      v29 = 2112;
-      v30 = v9;
+      v27 = directoryCopy;
+      v28 = 2112;
+      v29 = v9;
       _os_log_error_impl(&dword_22EA6B000, obj, OS_LOG_TYPE_ERROR, "failed to read contents of directory %@: %@", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isEqualToNamespaceDescriptor:(id)descriptor

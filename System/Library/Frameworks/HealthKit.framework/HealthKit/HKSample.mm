@@ -295,19 +295,18 @@ LABEL_8:
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration
 {
   var0 = configuration.var0;
-  v45.receiver = self;
-  v45.super_class = HKSample;
-  v6 = [(HKObject *)&v45 _validateWithConfiguration:configuration.var0, configuration.var1];
+  v43.receiver = self;
+  v43.super_class = HKSample;
+  v6 = [(HKObject *)&v43 _validateWithConfiguration:configuration.var0, configuration.var1];
   v7 = v6;
   if (v6)
   {
     v8 = v6;
 LABEL_14:
-    v27 = v8;
+    v25 = v8;
     goto LABEL_15;
   }
 
-  sampleType = self->_sampleType;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -318,16 +317,15 @@ LABEL_14:
   sampleType = [(HKSample *)self sampleType];
   startTimestamp = self->_startTimestamp;
   endTimestamp = self->_endTimestamp;
-  v44 = 0;
-  v13 = [sampleType _validateStartDate:&v44 endDate:startTimestamp error:endTimestamp];
-  v14 = v44;
+  v42 = 0;
+  v12 = [sampleType _validateStartDate:&v42 endDate:startTimestamp error:endTimestamp];
+  v13 = v42;
 
-  if (v13)
+  if (v12)
   {
     if ((var0 & 2) == 0 && HKProgramSDKAtLeast())
     {
-      v16 = self->_startTimestamp;
-      v15 = self->_endTimestamp;
+      v14 = self->_endTimestamp;
     }
 
     if ((var0 & 1) == 0 && HKProgramSDKAtLeast())
@@ -335,21 +333,21 @@ LABEL_14:
       sampleType2 = [(HKSample *)self sampleType];
       if ([sampleType2 isMaximumDurationRestricted])
       {
-        v18 = self->_endTimestamp - self->_startTimestamp;
+        v16 = self->_endTimestamp - self->_startTimestamp;
         sampleType3 = [(HKSample *)self sampleType];
         [sampleType3 maximumAllowedDuration];
-        v21 = v20;
+        v19 = v18;
 
-        if (v18 > v21)
+        if (v16 > v19)
         {
-          v41 = MEMORY[0x1E696ABC0];
-          v22 = objc_opt_class();
-          v23 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_startTimestamp];
-          v24 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_endTimestamp];
-          v25 = self->_sampleType;
-          [(HKSampleType *)v25 maximumAllowedDuration];
-          [v41 hk_errorForInvalidArgument:@"@" class:v22 selector:a2 format:{@"startDate (%@) and endDate (%@) exceed the maximum allowed duration for this sample type. Maximum duration for type %@ is %f", v23, v24, v25, v26}];
-          v27 = LABEL_23:;
+          v39 = MEMORY[0x1E696ABC0];
+          v20 = objc_opt_class();
+          v21 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_startTimestamp];
+          v22 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_endTimestamp];
+          sampleType = self->_sampleType;
+          [(HKSampleType *)sampleType maximumAllowedDuration];
+          [v39 hk_errorForInvalidArgument:@"@" class:v20 selector:a2 format:{@"startDate (%@) and endDate (%@) exceed the maximum allowed duration for this sample type. Maximum duration for type %@ is %f", v21, v22, sampleType, v24}];
+          v25 = LABEL_23:;
 
           goto LABEL_28;
         }
@@ -362,20 +360,20 @@ LABEL_14:
       sampleType4 = [(HKSample *)self sampleType];
       if ([sampleType4 isMinimumDurationRestricted])
       {
-        v30 = self->_endTimestamp - self->_startTimestamp;
+        v28 = self->_endTimestamp - self->_startTimestamp;
         sampleType5 = [(HKSample *)self sampleType];
         [sampleType5 minimumAllowedDuration];
-        v33 = v32;
+        v31 = v30;
 
-        if (v30 < v33)
+        if (v28 < v31)
         {
-          v42 = MEMORY[0x1E696ABC0];
-          v34 = objc_opt_class();
-          v23 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_startTimestamp];
-          v24 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_endTimestamp];
-          v35 = self->_sampleType;
-          [(HKSampleType *)v35 minimumAllowedDuration];
-          [v42 hk_errorForInvalidArgument:@"@" class:v34 selector:a2 format:{@"Duration between startDate (%@) and endDate (%@) is below the minimum allowed duration for this sample type. Minimum duration for type %@ is %f", v23, v24, v35, v36}];
+          v40 = MEMORY[0x1E696ABC0];
+          v32 = objc_opt_class();
+          v21 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_startTimestamp];
+          v22 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:self->_endTimestamp];
+          v33 = self->_sampleType;
+          [(HKSampleType *)v33 minimumAllowedDuration];
+          [v40 hk_errorForInvalidArgument:@"@" class:v32 selector:a2 format:{@"Duration between startDate (%@) and endDate (%@) is below the minimum allowed duration for this sample type. Minimum duration for type %@ is %f", v21, v22, v33, v34}];
           goto LABEL_23;
         }
       }
@@ -387,25 +385,25 @@ LABEL_14:
 
     sampleType6 = [(HKSample *)self sampleType];
     metadata = [(HKObject *)self metadata];
-    v43 = 0;
-    v39 = [sampleType6 hk_validateMetadata:metadata sample:self error:&v43];
-    v40 = v43;
+    v41 = 0;
+    v37 = [sampleType6 hk_validateMetadata:metadata sample:self error:&v41];
+    v38 = v41;
 
-    v27 = 0;
-    if ((v39 & 1) == 0)
+    v25 = 0;
+    if ((v37 & 1) == 0)
     {
-      v27 = v40;
+      v25 = v38;
     }
 
     goto LABEL_28;
   }
 
-  v27 = v14;
+  v25 = v13;
 LABEL_28:
 
 LABEL_15:
 
-  return v27;
+  return v25;
 }
 
 - (void)_setSampleType:(id)type

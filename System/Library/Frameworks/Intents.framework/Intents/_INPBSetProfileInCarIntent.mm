@@ -254,7 +254,6 @@ LABEL_27:
 
   if ([(_INPBSetProfileInCarIntent *)self hasDefaultProfile])
   {
-    defaultProfile = self->_defaultProfile;
     PBDataWriterWriteBOOLField();
   }
 
@@ -276,13 +275,13 @@ LABEL_27:
 
   profileNumber = [(_INPBSetProfileInCarIntent *)self profileNumber];
 
-  v12 = toCopy;
+  v11 = toCopy;
   if (profileNumber)
   {
     profileNumber2 = [(_INPBSetProfileInCarIntent *)self profileNumber];
     PBDataWriterWriteSubmessage();
 
-    v12 = toCopy;
+    v11 = toCopy;
   }
 }
 

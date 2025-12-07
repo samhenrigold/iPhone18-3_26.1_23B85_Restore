@@ -40,7 +40,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC7ChatKit37CKPhotoStackPhotoContentContainerView_contentView) = 0;
   v8 = OBJC_IVAR____TtC7ChatKit37CKPhotoStackPhotoContentContainerView_containerViewMaskLayer;
   memset(v11, 0, sizeof(v11));
-  *(&self->super.super.super.isa + v8) = [objc_allocWithZone(type metadata accessor for CKBalloonMaskLayer()) initWithDescriptor_];
+  *(&self->super.super.super.isa + v8) = [objc_allocWithZone(type metadata accessor for CKBalloonMaskLayer(0)) initWithDescriptor_];
   v10.receiver = self;
   v10.super_class = type metadata accessor for CKPhotoStackPhotoContentContainerView();
   return [(CKPhotoStackPhotoContentContainerView *)&v10 initWithFrame:x, y, width, height];

@@ -23,13 +23,13 @@ void ___APBrokerGroupStopReceiverPollingInternal_block_invoke(uint64_t a1)
       if (gLogCategory_APBrokerGroup != -1)
       {
 LABEL_6:
-        LogPrintF();
+        LogPrintF(&gLogCategory_APBrokerGroup, "void _APBrokerGroupStopReceiverPollingInternal(APBrokerGroupRef)_block_invoke", 33554482, "[%{ptr}] Stopped receiver polling\n", v2);
         return;
       }
 
       if (_LogCategory_Initialize())
       {
-        v4 = *(a1 + 32);
+        v2 = *(a1 + 32);
         goto LABEL_6;
       }
     }

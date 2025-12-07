@@ -29,8 +29,12 @@
 - (void)pickerViewCell:(id)cell didSelectRow:(int64_t)row;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)setViewModel:(id)model;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -38,12 +42,12 @@
 
 - (VSCredentialEntryViewController_iOS)initWithNibName:(id)name bundle:(id)bundle
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   bundleCopy = bundle;
-  v23.receiver = self;
-  v23.super_class = VSCredentialEntryViewController_iOS;
-  v8 = [(VSCredentialEntryViewController_iOS *)&v23 initWithNibName:nameCopy bundle:bundleCopy];
+  v22.receiver = self;
+  v22.super_class = VSCredentialEntryViewController_iOS;
+  v8 = [(VSCredentialEntryViewController_iOS *)&v22 initWithNibName:nameCopy bundle:bundleCopy];
   if (v8)
   {
     v9 = objc_alloc_init(MEMORY[0x277CE2348]);
@@ -52,23 +56,22 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
     objc_initWeak(&location, v8);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __62__VSCredentialEntryViewController_iOS_initWithNibName_bundle___block_invoke;
-    v20 = &unk_279E1A638;
-    objc_copyWeak(&v21, &location);
-    v12 = [defaultCenter addObserverForName:*MEMORY[0x277D770B0] object:0 queue:mainQueue usingBlock:&v17];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __62__VSCredentialEntryViewController_iOS_initWithNibName_bundle___block_invoke;
+    v19 = &unk_279E1A638;
+    objc_copyWeak(&v20, &location);
+    v12 = [defaultCenter addObserverForName:*MEMORY[0x277D770B0] object:0 queue:mainQueue usingBlock:&v16];
     objc_storeWeak(&v8->_textFieldTextDidChangeObserver, v12);
 
-    v24[0] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:{1, v17, v18, v19, v20}];
+    v23[0] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:{1, v16, v17, v18, v19}];
     v14 = [(VSCredentialEntryViewController_iOS *)v8 registerForTraitChanges:v13 withHandler:&__block_literal_global_18];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -102,28 +105,28 @@
 
 - (id)_specifierForTextField:(id)field
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   specifiers = [(ACUIViewController *)self specifiers];
-  v6 = [specifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [specifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(specifiers);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [(VSCredentialEntryViewController_iOS *)self _textFieldForSpecifier:v10];
         v12 = v11;
         if (v11 == fieldCopy)
@@ -134,7 +137,7 @@
         }
       }
 
-      v7 = [specifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [specifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -146,8 +149,6 @@
 
   v13 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -190,31 +191,31 @@ LABEL_11:
 
 - (id)_credentialEntryFieldForSpecifier:(id)specifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   viewModel = [(VSCredentialEntryViewController_iOS *)self viewModel];
   credentialEntryFields = [viewModel credentialEntryFields];
 
-  v7 = [credentialEntryFields countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [credentialEntryFields countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(credentialEntryFields);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         identifier = [v12 identifier];
         identifier2 = [specifierCopy identifier];
         v15 = [identifier isEqualToString:identifier2];
@@ -227,7 +228,7 @@ LABEL_11:
         }
       }
 
-      v8 = [credentialEntryFields countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [credentialEntryFields countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -237,8 +238,6 @@ LABEL_11:
   {
     v9 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -361,7 +360,7 @@ LABEL_11:
 
 - (void)setViewModel:(id)model
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (self->_viewModel != modelCopy)
   {
@@ -377,26 +376,26 @@ LABEL_11:
     [v9 setEnabled:0];
     [(ACUIViewController *)self setDoneButton:v9];
     array = [MEMORY[0x277CBEB18] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     credentialEntryFields = [(VSCredentialEntryViewModel *)modelCopy credentialEntryFields];
-    v12 = [credentialEntryFields countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v12 = [credentialEntryFields countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v39;
+      v14 = *v38;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v14)
+          if (*v38 != v14)
           {
             objc_enumerationMutation(credentialEntryFields);
           }
 
-          v16 = *(*(&v38 + 1) + 8 * i);
+          v16 = *(*(&v37 + 1) + 8 * i);
           v17 = [(VSCredentialEntryViewController_iOS *)self _createSpecifierForField:v16];
           identifier = [v16 identifier];
           [v17 setIdentifier:identifier];
@@ -404,7 +403,7 @@ LABEL_11:
           [array addObject:v17];
         }
 
-        v13 = [credentialEntryFields countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v13 = [credentialEntryFields countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v13);
@@ -445,11 +444,11 @@ LABEL_11:
           [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The additionalMessageOrNil parameter must not be nil."];
         }
 
-        v42[0] = v28;
-        v42[1] = v27;
+        v41[0] = v28;
+        v41[1] = v27;
         v29 = MEMORY[0x277CBEA60];
         v30 = v27;
-        v31 = [v29 arrayWithObjects:v42 count:2];
+        v31 = [v29 arrayWithObjects:v41 count:2];
 
         message = [v31 componentsJoinedByString:@"\n\n"];
       }
@@ -467,43 +466,41 @@ LABEL_11:
 
     [(VSCredentialEntryViewController_iOS *)self _startObservingViewModel:modelCopy];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildButtonsIfNeeded
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   viewModel = [(VSCredentialEntryViewController_iOS *)self viewModel];
   if (viewModel)
   {
     buttonView = [(VSCredentialEntryViewController_iOS *)self buttonView];
     [buttonView removeAllButtons];
 
-    v35 = viewModel;
+    v34 = viewModel;
     v5 = viewModel;
     [(VSCredentialEntryViewController_iOS *)self setButtons:MEMORY[0x277CBEBF8]];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v34 = v5;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = v5;
     buttons = [v5 buttons];
-    v7 = [buttons countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v7 = [buttons countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v37;
+      v9 = *v36;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v37 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(buttons);
           }
 
-          v11 = *(*(&v36 + 1) + 8 * i);
+          v11 = *(*(&v35 + 1) + 8 * i);
           v12 = objc_alloc_init(VSMultilineButton);
           whiteColor = [MEMORY[0x277D75348] whiteColor];
           [(VSMultilineButton *)v12 setTitleColor:whiteColor forState:1];
@@ -544,13 +541,13 @@ LABEL_11:
           [(VSCredentialEntryViewController_iOS *)self setButtons:v24];
         }
 
-        v8 = [buttons countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v8 = [buttons countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v8);
     }
 
-    linkURL = [v34 linkURL];
+    linkURL = [v33 linkURL];
 
     if (linkURL)
     {
@@ -558,7 +555,7 @@ LABEL_11:
       whiteColor2 = [MEMORY[0x277D75348] whiteColor];
       [(VSMultilineButton *)v26 setTitleColor:whiteColor2 forState:1];
 
-      linkTitle = [v34 linkTitle];
+      linkTitle = [v33 linkTitle];
       [(VSMultilineButton *)v26 setTitle:linkTitle forState:0];
 
       titleLabel4 = [(VSMultilineButton *)v26 titleLabel];
@@ -576,10 +573,8 @@ LABEL_11:
       [buttonView3 addButton:v26];
     }
 
-    viewModel = v35;
+    viewModel = v34;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pickerButtonSelected
@@ -716,7 +711,7 @@ LABEL_11:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -764,20 +759,20 @@ LABEL_14:
 
   if (kVSKeyValueObservingContext_ValidationState_0 == context)
   {
-    v24 = [changeCopy objectForKey:*MEMORY[0x277CCA300]];
-    unsignedIntegerValue = [v24 unsignedIntegerValue];
+    v23 = [changeCopy objectForKey:*MEMORY[0x277CCA300]];
+    unsignedIntegerValue = [v23 unsignedIntegerValue];
 
-    v26 = [v13 objectForKey:*MEMORY[0x277CCA2F0]];
-    unsignedIntegerValue2 = [v26 unsignedIntegerValue];
+    v25 = [v13 objectForKey:*MEMORY[0x277CCA2F0]];
+    unsignedIntegerValue2 = [v25 unsignedIntegerValue];
 
-    v28 = VSDefaultLogObject();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = VSDefaultLogObject();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v36 = unsignedIntegerValue;
-      v37 = 2048;
-      v38 = unsignedIntegerValue2;
-      _os_log_impl(&dword_270DD4000, v28, OS_LOG_TYPE_DEFAULT, "credential entry controller validation state changed from %lu to %lu", buf, 0x16u);
+      v35 = unsignedIntegerValue;
+      v36 = 2048;
+      v37 = unsignedIntegerValue2;
+      _os_log_impl(&dword_270DD4000, v27, OS_LOG_TYPE_DEFAULT, "credential entry controller validation state changed from %lu to %lu", buf, 0x16u);
     }
 
     if (unsignedIntegerValue2 != 3)
@@ -807,55 +802,53 @@ LABEL_14:
 
   else if (kVSKeyValueObservingContext_PickerSelectedItemIndex == context)
   {
-    v30 = MEMORY[0x277D85DD0];
-    v31 = 3221225472;
-    v32 = __86__VSCredentialEntryViewController_iOS_observeValueForKeyPath_ofObject_change_context___block_invoke;
-    v33 = &unk_279E19290;
+    v29 = MEMORY[0x277D85DD0];
+    v30 = 3221225472;
+    v31 = __86__VSCredentialEntryViewController_iOS_observeValueForKeyPath_ofObject_change_context___block_invoke;
+    v32 = &unk_279E19290;
     selfCopy = self;
     VSPerformBlockOnMainThread();
   }
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = VSCredentialEntryViewController_iOS;
-    [(VSCredentialEntryViewController_iOS *)&v29 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v28.receiver = self;
+    v28.super_class = VSCredentialEntryViewController_iOS;
+    [(VSCredentialEntryViewController_iOS *)&v28 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 
 LABEL_15:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelButtonTapped:(id)tapped
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   viewModel = [(VSCredentialEntryViewController_iOS *)self viewModel];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   credentialEntryFields = [viewModel credentialEntryFields];
-  v6 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(credentialEntryFields);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) setText:&stru_2880B8BB0];
+        [*(*(&v11 + 1) + 8 * v9++) setText:&stru_2880B8BB0];
       }
 
       while (v7 != v9);
-      v7 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -863,8 +856,6 @@ LABEL_15:
 
   delegate = [(VSCredentialEntryViewController_iOS *)self delegate];
   [delegate authenticationViewControllerDidCancel:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)doneButtonPressed:(id)pressed
@@ -915,6 +906,39 @@ LABEL_15:
   VSAuthenticationViewControllerViewDidLoad(self);
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSCredentialEntryViewController_iOS;
+  [(VSCredentialEntryViewController_iOS *)&v4 viewWillAppear:appear];
+  [(VSCredentialEntryViewController_iOS *)self buildButtonsIfNeeded];
+  VSAuthenticationViewControllerViewWillAppear(self);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VSCredentialEntryViewController_iOS;
+  [(VSCredentialEntryViewController_iOS *)&v4 viewDidAppear:appear];
+  VSAuthenticationViewControllerViewDidAppear(self);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSCredentialEntryViewController_iOS;
+  [(VSCredentialEntryViewController_iOS *)&v4 viewWillDisappear:disappear];
+  VSAuthenticationViewControllerViewWillDisappear(self);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = VSCredentialEntryViewController_iOS;
+  [(VSCredentialEntryViewController_iOS *)&v4 viewDidDisappear:disappear];
+  VSAuthenticationViewControllerViewDidDisappear(self);
+}
+
 - (void)viewDidLayoutSubviews
 {
   v2.receiver = self;
@@ -936,41 +960,39 @@ LABEL_15:
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
 {
   width = size.width;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [(VSCredentialEntryViewController_iOS *)self buttonView:coordinator];
   subviews = [v5 subviews];
 
-  v7 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         [v11 frame];
         v13 = width - v12;
         [v11 setFrame:floorf(v13 * 0.5)];
       }
 
-      v8 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (VSAuthenticationViewControllerDelegate)delegate
@@ -989,11 +1011,10 @@ LABEL_15:
 
 - (void)_presentError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will present error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will present error: %@", &v2, 0xCu);
 }
 
 @end

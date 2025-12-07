@@ -19,43 +19,41 @@
 
 - (void)usePotentialSuggestions:(id)suggestions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [suggestionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [suggestionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(suggestionsCopy);
         }
 
-        [(NSMutableSet *)self->_usedPotentialSuggestions addObject:*(*(&v10 + 1) + 8 * v8++)];
+        [(NSMutableSet *)self->_usedPotentialSuggestions addObject:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [suggestionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [suggestionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)assetsMatchingSocialGroup:(id)group betweenStartDate:(id)date andEndDate:(id)endDate matchingAssetUUID:(id)d
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   dCopy = d;
@@ -65,9 +63,9 @@
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v34 = dateCopy;
-    v35 = 2112;
-    v36 = endDateCopy;
+    v33 = dateCopy;
+    v34 = 2112;
+    v35 = endDateCopy;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "Recent SocialGroup Centric: Computing eligible socialgroup assets between %@ and %@", buf, 0x16u);
   }
 
@@ -77,26 +75,24 @@
   v18 = [groupCopy count];
 
   v19 = MEMORY[0x277CCAC30];
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betweenStartDate_andEndDate_matchingAssetUUID___block_invoke;
-  v30 = &unk_2788817C0;
-  v31 = v17;
-  v32 = v18 >> 1;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betweenStartDate_andEndDate_matchingAssetUUID___block_invoke;
+  v29 = &unk_2788817C0;
+  v30 = v17;
+  v31 = v18 >> 1;
   v20 = v17;
-  v21 = [v19 predicateWithBlock:&v27];
-  v22 = [v16 filteredArrayUsingPredicate:{v21, v27, v28, v29, v30}];
+  v21 = [v19 predicateWithBlock:&v26];
+  v22 = [v16 filteredArrayUsingPredicate:{v21, v26, v27, v28, v29}];
 
   v23 = loggingConnection;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     v24 = [v22 count];
     *buf = 134217984;
-    v34 = v24;
+    v33 = v24;
     _os_log_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_DEFAULT, "Recent SocialGroup Centric: found %lu eligible assets", buf, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -131,7 +127,7 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
 
 - (id)assetsWithPersonsBetweenStartDate:(id)date andEndDate:(id)endDate matchAssetUUID:(id)d
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   dCopy = d;
@@ -142,7 +138,7 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
     photoLibrary = [session photoLibrary];
     clsPrefetchOptionsForKeyAsset = [MEMORY[0x277CD97A8] clsPrefetchOptionsForKeyAsset];
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v55 = objc_autoreleasePoolPush();
+    v54 = objc_autoreleasePoolPush();
     noVideoPredicate = [objc_opt_class() noVideoPredicate];
     v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{noVideoPredicate, 0}];
     if (dateCopy)
@@ -151,7 +147,7 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
       [v14 addObject:dateCopy];
     }
 
-    v59 = v14;
+    v58 = v14;
     if (endDateCopy)
     {
       endDateCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"dateCreated <= %@", endDateCopy];
@@ -164,10 +160,10 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
       [v14 addObject:dCopy];
     }
 
-    v57 = endDateCopy;
-    v58 = dateCopy;
-    v56 = dCopy;
-    v54 = noVideoPredicate;
+    v56 = endDateCopy;
+    v57 = dateCopy;
+    v55 = dCopy;
+    v53 = noVideoPredicate;
     if ([v14 count] <= 1)
     {
       [v14 firstObject];
@@ -177,21 +173,21 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
     {
       [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v14];
     }
-    v53 = ;
-    v18 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:v53];
+    v52 = ;
+    v18 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:v52];
     v19 = +[PGCurationManager assetPropertySetsForCuration];
     [v18 setFetchPropertySets:v19];
 
     [v18 setChunkSizeForFetch:500];
     verifiedPersons = [(PGRecentSocialGroupCentricSuggester *)self verifiedPersons];
-    v52 = v18;
-    v61 = [MEMORY[0x277CD97A8] fetchAssetsForPersons:? options:?];
-    v20 = [v61 count];
+    v51 = v18;
+    v60 = [MEMORY[0x277CD97A8] fetchAssetsForPersons:? options:?];
+    v20 = [v60 count];
     if (v20)
     {
       v21 = v20;
       v22 = 0;
-      v60 = v20;
+      v59 = v20;
       do
       {
         context = objc_autoreleasePoolPush();
@@ -206,37 +202,37 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
         }
 
         v24 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{v22, v23}];
-        v25 = [v61 objectsAtIndexes:v24];
+        v25 = [v60 objectsAtIndexes:v24];
 
         v26 = objc_alloc(MEMORY[0x277CD98D0]);
-        fetchType = [v61 fetchType];
-        fetchPropertySets = [v61 fetchPropertySets];
+        fetchType = [v60 fetchType];
+        fetchPropertySets = [v60 fetchPropertySets];
         v29 = [v26 initWithObjects:v25 photoLibrary:photoLibrary fetchType:fetchType fetchPropertySets:fetchPropertySets identifier:0 registerIfNeeded:0];
 
         v30 = MEMORY[0x277CD97A8];
         curationContext = [session curationContext];
         v32 = [v30 clsAllAssetsFromFetchResult:v29 prefetchOptions:clsPrefetchOptionsForKeyAsset curationContext:curationContext];
 
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
         v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         v33 = v32;
-        v34 = [v33 countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v34 = [v33 countByEnumeratingWithState:&v65 objects:v69 count:16];
         if (v34)
         {
           v35 = v34;
-          v36 = *v67;
+          v36 = *v66;
           do
           {
             for (i = 0; i != v35; ++i)
             {
-              if (*v67 != v36)
+              if (*v66 != v36)
               {
                 objc_enumerationMutation(v33);
               }
 
-              v38 = *(*(&v66 + 1) + 8 * i);
+              v38 = *(*(&v65 + 1) + 8 * i);
               if ([(PGAbstractSuggester *)self assetIsValidForSuggesting:v38])
               {
                 uuid = [v38 uuid];
@@ -244,7 +240,7 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
               }
             }
 
-            v35 = [v33 countByEnumeratingWithState:&v66 objects:v70 count:16];
+            v35 = [v33 countByEnumeratingWithState:&v65 objects:v69 count:16];
           }
 
           while (v35);
@@ -252,13 +248,13 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
 
         objc_autoreleasePoolPop(context);
         v22 += 500;
-        v21 = v60;
+        v21 = v59;
       }
 
-      while (v22 < v60);
+      while (v22 < v59);
     }
 
-    objc_autoreleasePoolPop(v55);
+    objc_autoreleasePoolPop(v54);
     v40 = [MEMORY[0x277CCAC30] predicateWithFormat:@"uuid IN %@", v12];
     v41 = [(PGAbstractSuggester *)self defaultAssetFetchOptionsWithInternalPredicate:v40];
     v42 = +[PGCurationManager assetPropertySetsForCuration];
@@ -272,14 +268,13 @@ BOOL __111__PGRecentSocialGroupCentricSuggester_assetsMatchingSocialGroup_betwee
     self->_eligibleAssets = v46;
 
     eligibleAssets = self->_eligibleAssets;
-    endDateCopy = v57;
-    dateCopy = v58;
-    dCopy = v56;
+    endDateCopy = v56;
+    dateCopy = v57;
+    dCopy = v55;
   }
 
   v48 = eligibleAssets;
 
-  v49 = *MEMORY[0x277D85DE8];
   return eligibleAssets;
 }
 
@@ -337,39 +332,39 @@ void __80__PGRecentSocialGroupCentricSuggester_potentialSuggestionsWithOptions_p
 
 void __80__PGRecentSocialGroupCentricSuggester_potentialSuggestionsWithOptions_progress___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, float a5)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = objc_autoreleasePoolPush();
   if ([v9 count] >= 2)
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v56 objects:v62 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v55 objects:v61 count:16];
     if (v14)
     {
       v15 = v14;
-      v44 = v12;
-      v45 = v11;
-      v46 = v10;
-      v47 = v9;
+      v43 = v12;
+      v44 = v11;
+      v45 = v10;
+      v46 = v9;
       v16 = 0;
       v17 = 0;
-      v18 = *v57;
+      v18 = *v56;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v57 != v18)
+          if (*v56 != v18)
           {
             objc_enumerationMutation(v13);
           }
 
-          v20 = *(*(&v56 + 1) + 8 * i);
+          v20 = *(*(&v55 + 1) + 8 * i);
           v21 = [v20 universalStartDate];
           if ([v21 compare:*(a1 + 32)] == 1 || (objc_msgSend(v20, "universalEndDate"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "compare:", *(a1 + 40)), v22, v23 == -1))
           {
@@ -395,17 +390,17 @@ void __80__PGRecentSocialGroupCentricSuggester_potentialSuggestionsWithOptions_p
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v56 objects:v62 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v55 objects:v61 count:16];
       }
 
       while (v15);
 
       if ((v17 & 1) == 0)
       {
-        v10 = v46;
-        v9 = v47;
-        v12 = v44;
-        v11 = v45;
+        v10 = v45;
+        v9 = v46;
+        v12 = v43;
+        v11 = v44;
         goto LABEL_38;
       }
 
@@ -419,75 +414,75 @@ void __80__PGRecentSocialGroupCentricSuggester_potentialSuggestionsWithOptions_p
         }
       }
 
-      v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v47, "count")}];
+      v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v46, "count")}];
+      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
       v54 = 0u;
-      v55 = 0u;
-      v27 = v47;
-      v28 = [v27 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v27 = v46;
+      v28 = [v27 countByEnumeratingWithState:&v51 objects:v60 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v53;
+        v30 = *v52;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v53 != v30)
+            if (*v52 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = [*(*(&v52 + 1) + 8 * j) localIdentifier];
+            v32 = [*(*(&v51 + 1) + 8 * j) localIdentifier];
             [v26 addObject:v32];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v52 objects:v61 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v51 objects:v60 count:16];
         }
 
         while (v29);
       }
 
       v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v13, "count")}];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       v34 = v13;
-      v35 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
-      v11 = v45;
+      v35 = [v34 countByEnumeratingWithState:&v47 objects:v59 count:16];
+      v11 = v44;
       if (v35)
       {
         v36 = v35;
-        v37 = *v49;
+        v37 = *v48;
         do
         {
           for (k = 0; k != v36; ++k)
           {
-            if (*v49 != v37)
+            if (*v48 != v37)
             {
               objc_enumerationMutation(v34);
             }
 
-            v39 = [*(*(&v48 + 1) + 8 * k) localIdentifier];
+            v39 = [*(*(&v47 + 1) + 8 * k) localIdentifier];
             [v33 addObject:v39];
           }
 
-          v36 = [v34 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v36 = [v34 countByEnumeratingWithState:&v47 objects:v59 count:16];
         }
 
         while (v36);
       }
 
       v40 = [PGPotentialRecentSocialGroupCentricSuggestion alloc];
-      v10 = v46;
+      v10 = v45;
       *&v41 = a5;
-      v42 = [(PGPotentialRecentSocialGroupCentricSuggestion *)v40 initWithPersonLocalIdentifiers:v26 personWeights:v46 momentLocalIdentifiers:v33 weight:v16 notSeenSinceDate:v41];
+      v42 = [(PGPotentialRecentSocialGroupCentricSuggestion *)v40 initWithPersonLocalIdentifiers:v26 personWeights:v45 momentLocalIdentifiers:v33 weight:v16 notSeenSinceDate:v41];
       [*(a1 + 48) addObject:v42];
 
-      v9 = v47;
-      v12 = v44;
+      v9 = v46;
+      v12 = v43;
     }
 
     else
@@ -500,8 +495,6 @@ LABEL_38:
   }
 
   objc_autoreleasePoolPop(v12);
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextSocialGroupPotentialSuggestionWithProgress:(id)progress
@@ -564,37 +557,37 @@ LABEL_38:
 
 - (id)socialGroupPotentialSuggestionsWithOptions:(id)options progress:(id)progress
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   progressCopy = progress;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = 0;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
   v58 = 0;
-  v43 = _Block_copy(progressCopy);
-  v39 = progressCopy;
-  if (v43)
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = 0;
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v42 = _Block_copy(progressCopy);
+  v38 = progressCopy;
+  if (v42)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v56[3] >= 0.01)
+    if (Current - v55[3] >= 0.01)
     {
-      v56[3] = Current;
-      v54 = 0;
-      v43[2](v43, &v54, 0.0);
-      v8 = *(v60 + 24) | v54;
-      *(v60 + 24) = v8;
+      v55[3] = Current;
+      v53 = 0;
+      v42[2](v42, &v53, 0.0);
+      v8 = *(v59 + 24) | v53;
+      *(v59 + 24) = v8;
       if (v8)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v66 = 288;
-          v67 = 2080;
-          v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          v65 = 288;
+          v66 = 2080;
+          v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           v9 = MEMORY[0x277D86220];
 LABEL_17:
           _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -609,26 +602,26 @@ LABEL_17:
   selfCopy = self;
   if (!self->_allPotentialSuggestions)
   {
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __91__PGRecentSocialGroupCentricSuggester_socialGroupPotentialSuggestionsWithOptions_progress___block_invoke;
-    v49[3] = &unk_27888A188;
-    v50 = v43;
-    v51 = &v55;
-    v52 = &v59;
-    v53 = 0x3F847AE147AE147BLL;
-    v10 = [(PGRecentSocialGroupCentricSuggester *)self potentialSuggestionsWithOptions:optionsCopy progress:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __91__PGRecentSocialGroupCentricSuggester_socialGroupPotentialSuggestionsWithOptions_progress___block_invoke;
+    v48[3] = &unk_27888A188;
+    v49 = v42;
+    v50 = &v54;
+    v51 = &v58;
+    v52 = 0x3F847AE147AE147BLL;
+    v10 = [(PGRecentSocialGroupCentricSuggester *)self potentialSuggestionsWithOptions:optionsCopy progress:v48];
     allPotentialSuggestions = self->_allPotentialSuggestions;
     self->_allPotentialSuggestions = v10;
 
-    if (*(v60 + 24) == 1)
+    if (*(v59 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v66 = 295;
-        v67 = 2080;
-        v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        v65 = 295;
+        v66 = 2080;
+        v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -636,24 +629,24 @@ LABEL_17:
     }
   }
 
-  if (v43)
+  if (v42)
   {
     v12 = CFAbsoluteTimeGetCurrent();
-    if (v12 - v56[3] >= 0.01)
+    if (v12 - v55[3] >= 0.01)
     {
-      v56[3] = v12;
-      v54 = 0;
-      v43[2](v43, &v54, 0.3);
-      v13 = *(v60 + 24) | v54;
-      *(v60 + 24) = v13;
+      v55[3] = v12;
+      v53 = 0;
+      v42[2](v42, &v53, 0.3);
+      v13 = *(v59 + 24) | v53;
+      *(v59 + 24) = v13;
       if (v13)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v66 = 298;
-          v67 = 2080;
-          v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          v65 = 298;
+          v66 = 2080;
+          v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           v9 = MEMORY[0x277D86220];
           goto LABEL_17;
         }
@@ -665,47 +658,47 @@ LABEL_18:
     }
   }
 
-  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = [(NSArray *)self->_allPotentialSuggestions count];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = self->_allPotentialSuggestions;
-  v16 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v64 count:16];
+  v16 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v63 count:16];
   if (v16)
   {
     v17 = 1.0 / v15;
-    v18 = *v46;
+    v18 = *v45;
     v19 = 0.0;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v46 != v18)
+        if (*v45 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v45 + 1) + 8 * i);
-        if (v43)
+        v21 = *(*(&v44 + 1) + 8 * i);
+        if (v42)
         {
           v22 = CFAbsoluteTimeGetCurrent();
-          if (v22 - v56[3] >= 0.01)
+          if (v22 - v55[3] >= 0.01)
           {
-            v56[3] = v22;
-            v54 = 0;
-            v43[2](v43, &v54, v19 * 0.6 + 0.3);
-            v23 = *(v60 + 24) | v54;
-            *(v60 + 24) = v23;
+            v55[3] = v22;
+            v53 = 0;
+            v42[2](v42, &v53, v19 * 0.6 + 0.3);
+            v23 = *(v59 + 24) | v53;
+            *(v59 + 24) = v23;
             if (v23)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v66 = 305;
-                v67 = 2080;
-                v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+                v65 = 305;
+                v66 = 2080;
+                v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -728,7 +721,7 @@ LABEL_18:
           if ([v30 count])
           {
             [v21 setAssets:v30];
-            [v40 addObject:v21];
+            [v39 addObject:v21];
           }
 
           objc_autoreleasePoolPop(v24);
@@ -738,7 +731,7 @@ LABEL_18:
         v19 = v17 + v19;
       }
 
-      v16 = [(NSArray *)obj countByEnumeratingWithState:&v45 objects:v64 count:16];
+      v16 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v63 count:16];
       if (v16)
       {
         continue;
@@ -748,14 +741,14 @@ LABEL_18:
     }
   }
 
-  if (v43 && (v31 = CFAbsoluteTimeGetCurrent(), v31 - v56[3] >= 0.01) && (v56[3] = v31, v54 = 0, v43[2](v43, &v54, 0.9), v32 = *(v60 + 24) | v54, *(v60 + 24) = v32, (v32 & 1) != 0))
+  if (v42 && (v31 = CFAbsoluteTimeGetCurrent(), v31 - v55[3] >= 0.01) && (v55[3] = v31, v53 = 0, v42[2](v42, &v53, 0.9), v32 = *(v59 + 24) | v53, *(v59 + 24) = v32, (v32 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v66 = 325;
-      v67 = 2080;
-      v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+      v65 = 325;
+      v66 = 2080;
+      v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -766,18 +759,18 @@ LABEL_41:
   else
   {
     v33 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"assets.@count" ascending:0];
-    v63 = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+    v62 = v33;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
 
-    [v40 sortUsingDescriptors:v34];
-    if (v43 && (v35 = CFAbsoluteTimeGetCurrent(), v35 - v56[3] >= 0.01) && (v56[3] = v35, v54 = 0, v43[2](v43, &v54, 1.0), v36 = *(v60 + 24) | v54, *(v60 + 24) = v36, (v36 & 1) != 0))
+    [v39 sortUsingDescriptors:v34];
+    if (v42 && (v35 = CFAbsoluteTimeGetCurrent(), v35 - v55[3] >= 0.01) && (v55[3] = v35, v53 = 0, v42[2](v42, &v53, 1.0), v36 = *(v59 + 24) | v53, *(v59 + 24) = v36, (v36 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v66 = 331;
-        v67 = 2080;
-        v68 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        v65 = 331;
+        v66 = 2080;
+        v67 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -786,15 +779,13 @@ LABEL_41:
 
     else
     {
-      v14 = v40;
+      v14 = v39;
     }
   }
 
 LABEL_51:
-  _Block_object_dispose(&v55, 8);
-  _Block_object_dispose(&v59, 8);
-
-  v37 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v58, 8);
 
   return v14;
 }
@@ -820,37 +811,37 @@ void __91__PGRecentSocialGroupCentricSuggester_socialGroupPotentialSuggestionsWi
 
 - (id)longTimeNoSeeSocialGroupPotentialSuggestionsWithOptions:(id)options progress:(id)progress
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   progressCopy = progress;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
-  v65 = 0;
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2020000000;
   v61 = 0;
-  v47 = _Block_copy(progressCopy);
-  v42 = progressCopy;
-  if (v47)
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
+  v46 = _Block_copy(progressCopy);
+  v41 = progressCopy;
+  if (v46)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v59[3] >= 0.01)
+    if (Current - v58[3] >= 0.01)
     {
-      v59[3] = Current;
-      v57 = 0;
-      v47[2](v47, &v57, 0.0);
-      v8 = *(v63 + 24) | v57;
-      *(v63 + 24) = v8;
+      v58[3] = Current;
+      v56 = 0;
+      v46[2](v46, &v56, 0.0);
+      v8 = *(v62 + 24) | v56;
+      *(v62 + 24) = v8;
       if (v8)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v69 = 233;
-          v70 = 2080;
-          v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          v68 = 233;
+          v69 = 2080;
+          v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           v9 = MEMORY[0x277D86220];
 LABEL_17:
           _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -865,26 +856,26 @@ LABEL_17:
   selfCopy = self;
   if (!self->_allPotentialSuggestions)
   {
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentialSuggestionsWithOptions_progress___block_invoke;
-    v52[3] = &unk_27888A188;
-    v53 = v47;
-    v54 = &v58;
-    v55 = &v62;
-    v56 = 0x3F847AE147AE147BLL;
-    v10 = [(PGRecentSocialGroupCentricSuggester *)self potentialSuggestionsWithOptions:optionsCopy progress:v52];
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentialSuggestionsWithOptions_progress___block_invoke;
+    v51[3] = &unk_27888A188;
+    v52 = v46;
+    v53 = &v57;
+    v54 = &v61;
+    v55 = 0x3F847AE147AE147BLL;
+    v10 = [(PGRecentSocialGroupCentricSuggester *)self potentialSuggestionsWithOptions:optionsCopy progress:v51];
     allPotentialSuggestions = self->_allPotentialSuggestions;
     self->_allPotentialSuggestions = v10;
 
-    if (*(v63 + 24) == 1)
+    if (*(v62 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v69 = 240;
-        v70 = 2080;
-        v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        v68 = 240;
+        v69 = 2080;
+        v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -892,24 +883,24 @@ LABEL_17:
     }
   }
 
-  if (v47)
+  if (v46)
   {
     v12 = CFAbsoluteTimeGetCurrent();
-    if (v12 - v59[3] >= 0.01)
+    if (v12 - v58[3] >= 0.01)
     {
-      v59[3] = v12;
-      v57 = 0;
-      v47[2](v47, &v57, 0.3);
-      v13 = *(v63 + 24) | v57;
-      *(v63 + 24) = v13;
+      v58[3] = v12;
+      v56 = 0;
+      v46[2](v46, &v56, 0.3);
+      v13 = *(v62 + 24) | v56;
+      *(v62 + 24) = v13;
       if (v13)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v69 = 243;
-          v70 = 2080;
-          v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          v68 = 243;
+          v69 = 2080;
+          v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           v9 = MEMORY[0x277D86220];
           goto LABEL_17;
         }
@@ -921,47 +912,47 @@ LABEL_18:
     }
   }
 
-  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v15 = [(NSArray *)self->_allPotentialSuggestions count];
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = self->_allPotentialSuggestions;
-  v16 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v67 count:16];
+  v16 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v66 count:16];
   if (v16)
   {
     v17 = 1.0 / v15;
-    v18 = *v49;
+    v18 = *v48;
     v19 = 0.0;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v49 != v18)
+        if (*v48 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v48 + 1) + 8 * i);
-        if (v47)
+        v21 = *(*(&v47 + 1) + 8 * i);
+        if (v46)
         {
           v22 = CFAbsoluteTimeGetCurrent();
-          if (v22 - v59[3] >= 0.01)
+          if (v22 - v58[3] >= 0.01)
           {
-            v59[3] = v22;
-            v57 = 0;
-            v47[2](v47, &v57, v19 * 0.6 + 0.3);
-            v23 = *(v63 + 24) | v57;
-            *(v63 + 24) = v23;
+            v58[3] = v22;
+            v56 = 0;
+            v46[2](v46, &v56, v19 * 0.6 + 0.3);
+            v23 = *(v62 + 24) | v56;
+            *(v62 + 24) = v23;
             if (v23)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
               {
                 *buf = 67109378;
-                v69 = 250;
-                v70 = 2080;
-                v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+                v68 = 250;
+                v69 = 2080;
+                v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
                 _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
               }
 
@@ -990,7 +981,7 @@ LABEL_18:
             if ([v32 count])
             {
               [v21 setAssets:v32];
-              [v43 addObject:v21];
+              [v42 addObject:v21];
             }
 
             objc_autoreleasePoolPop(v26);
@@ -1001,7 +992,7 @@ LABEL_18:
         v19 = v17 + v19;
       }
 
-      v16 = [(NSArray *)obj countByEnumeratingWithState:&v48 objects:v67 count:16];
+      v16 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v66 count:16];
       if (v16)
       {
         continue;
@@ -1011,14 +1002,14 @@ LABEL_18:
     }
   }
 
-  if (v47 && (v33 = CFAbsoluteTimeGetCurrent(), v33 - v59[3] >= 0.01) && (v59[3] = v33, v57 = 0, v47[2](v47, &v57, 0.9), v34 = *(v63 + 24) | v57, *(v63 + 24) = v34, (v34 & 1) != 0))
+  if (v46 && (v33 = CFAbsoluteTimeGetCurrent(), v33 - v58[3] >= 0.01) && (v58[3] = v33, v56 = 0, v46[2](v46, &v56, 0.9), v34 = *(v62 + 24) | v56, *(v62 + 24) = v34, (v34 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v69 = 273;
-      v70 = 2080;
-      v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+      v68 = 273;
+      v69 = 2080;
+      v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -1029,20 +1020,20 @@ LABEL_42:
   else
   {
     v35 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"notSeenSinceDate" ascending:1];
-    v66[0] = v35;
+    v65[0] = v35;
     v36 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"assets.@count" ascending:0];
-    v66[1] = v36;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+    v65[1] = v36;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
 
-    [v43 sortUsingDescriptors:v37];
-    if (v47 && (v38 = CFAbsoluteTimeGetCurrent(), v38 - v59[3] >= 0.01) && (v59[3] = v38, v57 = 0, v47[2](v47, &v57, 1.0), v39 = *(v63 + 24) | v57, *(v63 + 24) = v39, (v39 & 1) != 0))
+    [v42 sortUsingDescriptors:v37];
+    if (v46 && (v38 = CFAbsoluteTimeGetCurrent(), v38 - v58[3] >= 0.01) && (v58[3] = v38, v56 = 0, v46[2](v46, &v56, 1.0), v39 = *(v62 + 24) | v56, *(v62 + 24) = v39, (v39 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v69 = 280;
-        v70 = 2080;
-        v71 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        v68 = 280;
+        v69 = 2080;
+        v70 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1051,15 +1042,13 @@ LABEL_42:
 
     else
     {
-      v14 = v43;
+      v14 = v42;
     }
   }
 
 LABEL_52:
-  _Block_object_dispose(&v58, 8);
-  _Block_object_dispose(&v62, 8);
-
-  v40 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v61, 8);
 
   return v14;
 }
@@ -1085,7 +1074,7 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
 
 - (BOOL)canGenerateSuggestionWithAsset:(id)asset onDate:(id)date
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   dateCopy = date;
   v8 = objc_alloc_init(PGSuggestionOptions);
@@ -1094,10 +1083,10 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
   creationDate = [assetCopy creationDate];
   [(PGSuggestionOptions *)v8 setUniversalStartDate:creationDate];
 
-  v23 = @"assetUUID";
+  v22 = @"assetUUID";
   uuid = [assetCopy uuid];
-  v24[0] = uuid;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v23[0] = uuid;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   [(PGSuggestionOptions *)v8 setAdditionalOptions:v11];
 
   [(PGSuggestionOptions *)v8 setMaximumNumberOfSuggestions:1];
@@ -1127,32 +1116,31 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)suggestionsWithOptions:(id)options progress:(id)progress
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   progressCopy = progress;
   v6 = _Block_copy(progressCopy);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
   v40 = 0;
-  if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v38[3] >= 0.01) && (v38[3] = v7, v36 = 0, (*(v6 + 2))(v6, &v36, 0.0), v8 = *(v42 + 24) | v36, *(v42 + 24) = v8, (v8 & 1) != 0))
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  if (v6 && (v7 = CFAbsoluteTimeGetCurrent(), v7 - v37[3] >= 0.01) && (v37[3] = v7, v35 = 0, (*(v6 + 2))(v6, &v35, 0.0), v8 = *(v41 + 24) | v35, *(v41 + 24) = v8, (v8 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v46 = 176;
-      v47 = 2080;
-      v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+      v45 = 176;
+      v46 = 2080;
+      v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -1162,7 +1150,7 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
   else
   {
     [(PGRecentSocialGroupCentricSuggester *)self startSuggestingWithOptions:optionsCopy];
-    v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
     maximumNumberOfSuggestions = [optionsCopy maximumNumberOfSuggestions];
     v11 = 0;
     if (maximumNumberOfSuggestions)
@@ -1180,14 +1168,14 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
     while (v11 < v12)
     {
       v15 = objc_autoreleasePoolPush();
-      if (v6 && (Current = CFAbsoluteTimeGetCurrent(), Current - v38[3] >= 0.01) && (v38[3] = Current, v36 = 0, (*(v6 + 2))(v6, &v36, v13), v17 = *(v42 + 24) | v36, *(v42 + 24) = v17, (v17 & 1) != 0))
+      if (v6 && (Current = CFAbsoluteTimeGetCurrent(), Current - v37[3] >= 0.01) && (v37[3] = Current, v35 = 0, (*(v6 + 2))(v6, &v35, v13), v17 = *(v41 + 24) | v35, *(v41 + 24) = v17, (v17 & 1) != 0))
       {
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v46 = 187;
-          v47 = 2080;
-          v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          v45 = 187;
+          v46 = 2080;
+          v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1196,34 +1184,34 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
 
       else
       {
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress___block_invoke;
-        v29[3] = &unk_278886858;
-        v30 = v6;
-        v31 = &v37;
-        v34 = v13;
-        v35 = 1.0 / v12;
-        v33 = 0x3F847AE147AE147BLL;
-        v32 = &v41;
-        v19 = [(PGRecentSocialGroupCentricSuggester *)self nextSuggestionWithProgress:v29];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress___block_invoke;
+        v28[3] = &unk_278886858;
+        v29 = v6;
+        v30 = &v36;
+        v33 = v13;
+        v34 = 1.0 / v12;
+        v32 = 0x3F847AE147AE147BLL;
+        v31 = &v40;
+        v19 = [(PGRecentSocialGroupCentricSuggester *)self nextSuggestionWithProgress:v28];
         v20 = v19;
-        if (*(v42 + 24) == 1)
+        if (*(v41 + 24) == 1)
         {
           v18 = 1;
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v46 = 192;
-            v47 = 2080;
-            v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+            v45 = 192;
+            v46 = 2080;
+            v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
             _os_log_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
 
         else if (v19)
         {
-          [v28 addObject:v19];
+          [v27 addObject:v19];
           v18 = 0;
           ++v11;
           v13 = 1.0 / v12 + v13;
@@ -1241,7 +1229,7 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
         if (v18 != 3)
         {
           v9 = MEMORY[0x277CBEBF8];
-          v21 = v28;
+          v21 = v27;
           goto LABEL_35;
         }
 
@@ -1249,15 +1237,15 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
       }
     }
 
-    v21 = v28;
-    if (v6 && (v22 = CFAbsoluteTimeGetCurrent(), v22 - v38[3] >= 0.01) && (v38[3] = v22, v36 = 0, (*(v6 + 2))(v6, &v36, 1.0), v23 = *(v42 + 24) | v36, *(v42 + 24) = v23, (v23 & 1) != 0))
+    v21 = v27;
+    if (v6 && (v22 = CFAbsoluteTimeGetCurrent(), v22 - v37[3] >= 0.01) && (v37[3] = v22, v35 = 0, (*(v6 + 2))(v6, &v35, 1.0), v23 = *(v41 + 24) | v35, *(v41 + 24) = v23, (v23 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v46 = 202;
-        v47 = 2080;
-        v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        v45 = 202;
+        v46 = 2080;
+        v47 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1266,16 +1254,14 @@ void __104__PGRecentSocialGroupCentricSuggester_longTimeNoSeeSocialGroupPotentia
 
     else
     {
-      v9 = v28;
+      v9 = v27;
     }
 
 LABEL_35:
   }
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v41, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v40, 8);
 
   return v9;
 }
@@ -1319,35 +1305,35 @@ void __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress__
 
 - (id)nextSuggestionWithProgress:(id)progress
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v3 = _Block_copy(progressCopy);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
   v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
   if (v3)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v53[3] >= 0.01)
+    if (Current - v52[3] >= 0.01)
     {
-      v53[3] = Current;
-      v51 = 0;
-      (*(v3 + 2))(v3, &v51, 0.0);
-      v5 = *(v57 + 24) | v51;
-      *(v57 + 24) = v5;
+      v52[3] = Current;
+      v50 = 0;
+      (*(v3 + 2))(v3, &v50, 0.0);
+      v5 = *(v56 + 24) | v50;
+      *(v56 + 24) = v5;
       if (v5)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v61 = 97;
-          *&v61[4] = 2080;
-          *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          *v60 = 97;
+          *&v60[4] = 2080;
+          *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1369,7 +1355,7 @@ void __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress__
   }
 
   v9 = 0;
-  v39 = (v3 + 16);
+  v38 = (v3 + 16);
   v10 = loggingConnection;
   do
   {
@@ -1379,29 +1365,29 @@ void __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress__
     }
 
     v11 = objc_autoreleasePoolPush();
-    if (!v3 || (v10 = loggingConnection, v12 = CFAbsoluteTimeGetCurrent(), v12 - v53[3] < 0.01) || (v53[3] = v12, v51 = 0, (*(v3 + 2))(v3, &v51, 0.5), v13 = *(v57 + 24) | v51, *(v57 + 24) = v13, (v13 & 1) == 0))
+    if (!v3 || (v10 = loggingConnection, v12 = CFAbsoluteTimeGetCurrent(), v12 - v52[3] < 0.01) || (v52[3] = v12, v50 = 0, (*(v3 + 2))(v3, &v50, 0.5), v13 = *(v56 + 24) | v50, *(v56 + 24) = v13, (v13 & 1) == 0))
     {
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __66__PGRecentSocialGroupCentricSuggester_nextSuggestionWithProgress___block_invoke;
-      v46[3] = &unk_27888A188;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __66__PGRecentSocialGroupCentricSuggester_nextSuggestionWithProgress___block_invoke;
+      v45[3] = &unk_27888A188;
       v15 = v3;
-      v47 = v15;
-      v48 = &v52;
-      v50 = 0x3F847AE147AE147BLL;
-      v49 = &v56;
-      v16 = [(PGRecentSocialGroupCentricSuggester *)self nextLongTimeNoSeeSocialGroupPotentialSuggestionWithProgress:v46];
+      v46 = v15;
+      v47 = &v51;
+      v49 = 0x3F847AE147AE147BLL;
+      v48 = &v55;
+      v16 = [(PGRecentSocialGroupCentricSuggester *)self nextLongTimeNoSeeSocialGroupPotentialSuggestionWithProgress:v45];
       v17 = v16;
-      if (*(v57 + 24) == 1)
+      if (*(v56 + 24) == 1)
       {
         v14 = 1;
         v18 = MEMORY[0x277D86220];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *v61 = 112;
-          *&v61[4] = 2080;
-          *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+          *v60 = 112;
+          *&v60[4] = 2080;
+          *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
           _os_log_impl(&dword_22F0FC000, v18, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -1411,23 +1397,23 @@ void __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress__
 
       if (!v16)
       {
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __66__PGRecentSocialGroupCentricSuggester_nextSuggestionWithProgress___block_invoke_189;
-        v41[3] = &unk_27888A188;
-        v42 = v15;
-        v43 = &v52;
-        v45 = 0x3F847AE147AE147BLL;
-        v44 = &v56;
-        v17 = [(PGRecentSocialGroupCentricSuggester *)self nextLongTimeNoSeeSocialGroupPotentialSuggestionWithProgress:v41];
-        if (*(v57 + 24) == 1)
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __66__PGRecentSocialGroupCentricSuggester_nextSuggestionWithProgress___block_invoke_189;
+        v40[3] = &unk_27888A188;
+        v41 = v15;
+        v42 = &v51;
+        v44 = 0x3F847AE147AE147BLL;
+        v43 = &v55;
+        v17 = [(PGRecentSocialGroupCentricSuggester *)self nextLongTimeNoSeeSocialGroupPotentialSuggestionWithProgress:v40];
+        if (*(v56 + 24) == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v61 = 119;
-            *&v61[4] = 2080;
-            *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+            *v60 = 119;
+            *&v60[4] = 2080;
+            *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1435,7 +1421,7 @@ void __71__PGRecentSocialGroupCentricSuggester_suggestionsWithOptions_progress__
         }
       }
 
-      if (!v3 || (v19 = CFAbsoluteTimeGetCurrent(), v19 - v53[3] < 0.01) || (v53[3] = v19, v51 = 0, (*v39)(v15, &v51, 0.5), v20 = *(v57 + 24) | v51, *(v57 + 24) = v20, (v20 & 1) == 0))
+      if (!v3 || (v19 = CFAbsoluteTimeGetCurrent(), v19 - v52[3] < 0.01) || (v52[3] = v19, v50 = 0, (*v38)(v15, &v50, 0.5), v20 = *(v56 + 24) | v50, *(v56 + 24) = v20, (v20 & 1) == 0))
       {
         if (!v17)
         {
@@ -1455,14 +1441,14 @@ LABEL_49:
         assets = [v17 assets];
         v25 = [curationManager bestAssetInAssets:assets options:v22];
 
-        if (v3 && (v26 = CFAbsoluteTimeGetCurrent(), v26 - v53[3] >= 0.01) && (v53[3] = v26, v51 = 0, (*v39)(v15, &v51, 0.5), v27 = *(v57 + 24) | v51, *(v57 + 24) = v27, (v27 & 1) != 0))
+        if (v3 && (v26 = CFAbsoluteTimeGetCurrent(), v26 - v52[3] >= 0.01) && (v52[3] = v26, v50 = 0, (*v38)(v15, &v50, 0.5), v27 = *(v56 + 24) | v50, *(v56 + 24) = v27, (v27 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v61 = 131;
-            *&v61[4] = 2080;
-            *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+            *v60 = 131;
+            *&v60[4] = 2080;
+            *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -1505,9 +1491,9 @@ LABEL_48:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v61 = 122;
-        *&v61[4] = 2080;
-        *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        *v60 = 122;
+        *&v60[4] = 2080;
+        *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1520,9 +1506,9 @@ LABEL_32:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      *v61 = 107;
-      *&v61[4] = 2080;
-      *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+      *v60 = 107;
+      *&v60[4] = 2080;
+      *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -1546,7 +1532,7 @@ LABEL_53:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      *v61 = v9;
+      *v60 = v9;
       _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_DEFAULT, "Recent SocialGroup Centric: Suggesting %{private}@", buf, 0xCu);
     }
 
@@ -1572,21 +1558,21 @@ LABEL_53:
 
 LABEL_56:
   v32 = CFAbsoluteTimeGetCurrent();
-  if (v32 - v53[3] >= 0.01)
+  if (v32 - v52[3] >= 0.01)
   {
-    v53[3] = v32;
-    v51 = 0;
-    (*(v3 + 2))(v3, &v51, 1.0);
-    v33 = *(v57 + 24) | v51;
-    *(v57 + 24) = v33;
+    v52[3] = v32;
+    v50 = 0;
+    (*(v3 + 2))(v3, &v50, 1.0);
+    v33 = *(v56 + 24) | v50;
+    *(v56 + 24) = v33;
     if (v33)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        *v61 = 161;
-        *&v61[4] = 2080;
-        *&v61[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
+        *v60 = 161;
+        *&v60[4] = 2080;
+        *&v60[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Single Asset Suggester/PGRecentSocialGroupCentricSuggester.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -1600,10 +1586,8 @@ LABEL_64:
 LABEL_65:
 
 LABEL_66:
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v56, 8);
-
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
 
   return v6;
 }

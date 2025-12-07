@@ -36,6 +36,7 @@
 - (void)onqueue_start;
 - (void)onqueue_updateForCloudPairing;
 - (void)restartLTKTimer;
+- (void)sendCreateSecretWithStepData:(id)data sessionID:(unsigned int)d;
 - (void)sendSetupRequest;
 - (void)start;
 - (void)transport:(id)transport didReceiveMessageACKForIdentifier:(id)identifier;
@@ -73,7 +74,7 @@
       watchBuildVersion = v8->_watchBuildVersion;
       v8->_watchBuildVersion = productBuildVersion;
 
-      [v14 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v14);
       v19 = sub_100111E28(buf);
       watchOSVersion = v8->_watchOSVersion;
       v8->_watchOSVersion = v19;
@@ -1794,6 +1795,52 @@ LABEL_30:
   v6 = v2;
   v4 = v2;
   [v3 generateLocalAttestedLTKIfNeccessaryWithCompletion:v5];
+}
+
+- (void)sendCreateSecretWithStepData:(id)data sessionID:(unsigned int)d
+{
+  v4 = *&d;
+  dataCopy = data;
+  v7 = auto_unlock_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Sending SDUnlockSetupCreateSecret", buf, 2u);
+  }
+
+  [(SDAutoUnlockPairingLockSession *)self setSendState:2];
+  v8 = objc_alloc_init(SDUnlockSetupCreateSecret);
+  [(SDUnlockSetupCreateSecret *)v8 setSessionID:v4];
+  [(SDUnlockSetupCreateSecret *)v8 setToken:dataCopy];
+
+  v9 = objc_opt_new();
+  [(SDAutoUnlockPairingLockSession *)self setTokenExchangeDate:v9];
+
+  useAttestedProtocol = [(SDAutoUnlockPairingLockSession *)self useAttestedProtocol];
+  transport = [(SDAutoUnlockPairingSession *)self transport];
+  data = [(SDUnlockSetupCreateSecret *)v8 data];
+  deviceID = [(SDAutoUnlockPairingSession *)self deviceID];
+  sessionID = [(SDAutoUnlockPairingSession *)self sessionID];
+  v15 = [NSNumber numberWithInteger:[(SDAutoUnlockPairingLockSession *)self messageTimeout]];
+  v18 = _NSConcreteStackBlock;
+  v19 = 3221225472;
+  v20 = sub_100078DEC;
+  v21 = &unk_1008CE090;
+  selfCopy = self;
+  if (useAttestedProtocol)
+  {
+    v16 = 2003;
+  }
+
+  else
+  {
+    v16 = 103;
+  }
+
+  v17 = [transport sendAutoUnlockPayload:data toDevice:deviceID type:v16 sessionID:sessionID queueOneID:0 timeout:v15 completion:{&v18, v18, v19, v20, v21, selfCopy}];
+  [(SDAutoUnlockPairingLockSession *)self setTokenMessageIdentifier:v17];
+
+  [(SDAutoUnlockPairingSession *)self restartResponseTimer:sub_1001F0530([(SDAutoUnlockPairingLockSession *)self responseTimeout])];
 }
 
 - (void)transport:(id)transport didReceivePayload:(id)payload type:(unsigned __int16)type deviceID:(id)d

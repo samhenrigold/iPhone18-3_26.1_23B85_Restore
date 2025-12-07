@@ -547,7 +547,7 @@ LABEL_13:
 LABEL_14:
   if (error && _malformedCertificateError)
   {
-    *error = [_malformedCertificateError MCCopyAsPrimaryError];
+    *error = objc_msgSend_MCCopyAsPrimaryError(_malformedCertificateError);
   }
 
   return _malformedCertificateError == 0;

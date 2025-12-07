@@ -315,7 +315,7 @@ __CFString *__65__AMSCookieDatabaseSchema_migrateVersion0to1WithMigration_error_
   [(AMSAutoBugCaptureReport *)v17 captureWithDelay:0 events:0 payload:0 actions:v18 completionHandler:0.0];
 }
 
-void __71__AMSCookieDatabaseSchema__sendAutoBugCaptureReportWithSubtypeContext___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __71__AMSCookieDatabaseSchema__sendAutoBugCaptureReportWithSubtypeContext___block_invoke(void *a1, uint64_t a2, void *a3)
 {
   v23 = *MEMORY[0x1E69E9840];
   v4 = a3;

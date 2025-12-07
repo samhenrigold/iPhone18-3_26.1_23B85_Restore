@@ -9,7 +9,7 @@
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
   sub_1AAEBE00C();
-  sub_1AAD135EC(&qword_1EB426A90, sub_1AAEBE00C);
+  sub_1AAD135EC(&qword_1EB426A90, sub_1AAEBE00C, MEMORY[0x1E69E81B8]);
   v6 = sub_1AAF8FA44();
   eventCopy = event;
   selfCopy = self;
@@ -33,10 +33,11 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    v5 = 0uLL;
+    memset(v7, 0, sizeof(v7));
   }
 
-  return sub_1AAEBD718(v6, action);
+  return sub_1AAEBD718(v7, action, v5);
 }
 
 @end

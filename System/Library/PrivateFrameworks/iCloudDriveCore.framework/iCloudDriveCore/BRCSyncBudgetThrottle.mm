@@ -82,24 +82,22 @@
 
 - (void)updateForTime:(double)time
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   t0 = self->_t0;
   v4 = vcvtmd_s64_f64((time - t0) / 60.0);
-  if (v4 < 0)
+  if ((v4 & 0x8000000000000000) == 0)
   {
-LABEL_12:
-    self->_t0 = time;
-    goto LABEL_13;
-  }
+    if (!v4)
+    {
+      return;
+    }
 
-  if (v4)
-  {
     v5 = 0;
     v6 = 0;
     values = self->_values;
     v8 = *&self->_values[4];
-    v19[0] = *self->_values;
-    v19[1] = v8;
+    v18[0] = *self->_values;
+    v18[1] = v8;
     v9 = 0.0;
     do
     {
@@ -118,7 +116,7 @@ LABEL_12:
           do
           {
             v13 = v5 + 1;
-            v9 = v9 + *(v19 + v5);
+            v9 = v9 + *(v18 + v5);
             v14 = __sums[++v5];
           }
 
@@ -131,7 +129,7 @@ LABEL_12:
         }
 
         *&v15 = (v12 - __sums[v13 - 1]);
-        v16 = *(v19 + v13) * *&v15;
+        v16 = *(v18 + v13) * *&v15;
         LOWORD(v15) = __intervals[v13];
         v17 = v9 + (v16 / v15);
         values[v6] = v17;
@@ -144,11 +142,9 @@ LABEL_12:
 
     while (v6 != 8);
     time = t0 + v4 * 60.0;
-    goto LABEL_12;
   }
 
-LABEL_13:
-  v18 = *MEMORY[0x277D85DE8];
+  self->_t0 = time;
 }
 
 - (double)_timeToLoseAmount:(float)amount count:(int)count
@@ -311,14 +307,13 @@ LABEL_13:
 
 - (void)initWithCoder:(os_log_t)log .cold.1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid length: %ld%@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_223E7A000, log, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid length: %ld%@", &v4, 0x16u);
 }
 
 @end

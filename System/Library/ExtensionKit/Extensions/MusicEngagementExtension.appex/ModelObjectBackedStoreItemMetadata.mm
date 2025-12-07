@@ -55,49 +55,49 @@
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary expirationDate:(id)date
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for Date();
-    (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
+    v8 = type metadata accessor for Date();
+    (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for Date();
-    (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+    v9 = type metadata accessor for Date();
+    (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
   }
 
-  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v8, v7);
+  return ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:expirationDate:)(v7, v6);
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithStorePlatformDictionary:(id)dictionary parentStoreItemMetadata:(id)metadata expirationDate:(id)date
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v16 - v8;
-  v10 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  __chkstk_darwin();
+  v8 = &v15 - v7;
+  v9 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   if (date)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = type metadata accessor for Date();
-    (*(*(v11 - 8) + 56))(v9, 0, 1, v11);
+    v10 = type metadata accessor for Date();
+    (*(*(v10 - 8) + 56))(v8, 0, 1, v10);
   }
 
   else
   {
-    v12 = type metadata accessor for Date();
-    (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+    v11 = type metadata accessor for Date();
+    (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   }
 
   metadataCopy = metadata;
-  v14 = specialized ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:parentStoreItemMetadata:expirationDate:)(v10, metadataCopy, v9);
+  v13 = specialized ModelObjectBackedStoreItemMetadata.init(storePlatformDictionary:parentStoreItemMetadata:expirationDate:)(v9, metadataCopy, v8);
 
-  return v14;
+  return v13;
 }
 
 - (_TtC9MusicCore34ModelObjectBackedStoreItemMetadata)initWithCoder:(id)coder

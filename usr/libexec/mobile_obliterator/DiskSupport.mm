@@ -37,7 +37,7 @@
 
 - (BOOL)traverseFolderAndRemoveItems:(id)items exceptions:(id)exceptions
 {
-  v6 = [objc_msgSend(exceptions objectForKeyedSubscript:{off_10002C2E0), "isEqualToString:", @"remove"}];
+  v6 = objc_msgSend_isEqualToString_([exceptions objectForKeyedSubscript:off_10002C2E0]);
   obj = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtPath:"contentsOfDirectoryAtPath:error:" error:items, 0];
   v7 = &IOMobileFramebufferCreateDisplayList_ptr;
   v8 = "Keeping";
@@ -260,21 +260,21 @@ LABEL_25:
       }
 
       free(v38);
-      v43 = [(__CFString *)v17 isEqualToString:@"remove"];
+      v43 = objc_msgSend_isEqualToString_(v17);
       v44 = "removed";
       if (v43)
       {
         goto LABEL_61;
       }
 
-      v45 = [(__CFString *)v17 isEqualToString:@"keep"];
+      v45 = objc_msgSend_isEqualToString_(v17);
       v44 = "kept";
       if (v45)
       {
         goto LABEL_61;
       }
 
-      if ([(__CFString *)v17 isEqualToString:@"traverse"])
+      if (objc_msgSend_isEqualToString_(v17))
       {
         v164 = v43;
         v46 = objc_alloc_init(NSMutableDictionary);

@@ -28,63 +28,63 @@
 
 - (id)_addNotifications:(id)notifications andPickups:(id)pickups toApplicationUsageInCategoryUsage:(id)usage
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   pickupsCopy = pickups;
   usageCopy = usage;
   v9 = [notifications mutableCopy];
-  v43 = pickupsCopy;
+  v42 = pickupsCopy;
   v10 = [pickupsCopy mutableCopy];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v11 = usageCopy;
-  v46 = [v11 countByEnumeratingWithState:&v59 objects:v68 count:16];
-  if (v46)
+  v45 = [v11 countByEnumeratingWithState:&v58 objects:v67 count:16];
+  if (v45)
   {
-    v44 = *v60;
-    v45 = v11;
+    v43 = *v59;
+    v44 = v11;
     v12 = 0x277CBE000uLL;
     do
     {
       v13 = 0;
       do
       {
-        if (*v60 != v44)
+        if (*v59 != v43)
         {
           objc_enumerationMutation(v11);
         }
 
-        v47 = v13;
-        v14 = *(*(&v59 + 1) + 8 * v13);
+        v46 = v13;
+        v14 = *(*(&v58 + 1) + 8 * v13);
+        v54 = 0u;
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
         obj = [v14 applicationUsage];
-        v15 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
+        v15 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
         if (v15)
         {
           v16 = v15;
-          v49 = *v56;
+          v48 = *v55;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v56 != v49)
+              if (*v55 != v48)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v55 + 1) + 8 * i);
+              v18 = *(*(&v54 + 1) + 8 * i);
               canonicalBundleIdentifier = [v18 canonicalBundleIdentifier];
               v20 = [v9 objectForKeyedSubscript:canonicalBundleIdentifier];
               v21 = v20;
               if (v20)
               {
-                v65 = canonicalBundleIdentifier;
-                v66 = v20;
-                v22 = [*(v12 + 2752) dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+                v64 = canonicalBundleIdentifier;
+                v65 = v20;
+                v22 = [*(v12 + 2752) dictionaryWithObjects:&v65 forKeys:&v64 count:1];
                 [v18 setUserNotificationsByBundleIdentifier:v22];
 
                 [v9 setObject:0 forKeyedSubscript:canonicalBundleIdentifier];
@@ -94,9 +94,9 @@
               v24 = v23;
               if (v23)
               {
-                v63 = canonicalBundleIdentifier;
-                v64 = v23;
-                [*(v12 + 2752) dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+                v62 = canonicalBundleIdentifier;
+                v63 = v23;
+                [*(v12 + 2752) dictionaryWithObjects:&v63 forKeys:&v62 count:1];
                 v25 = v10;
                 v26 = v9;
                 v28 = v27 = v12;
@@ -109,27 +109,27 @@
               }
             }
 
-            v16 = [obj countByEnumeratingWithState:&v55 objects:v67 count:16];
+            v16 = [obj countByEnumeratingWithState:&v54 objects:v66 count:16];
           }
 
           while (v16);
         }
 
-        v13 = v47 + 1;
-        v11 = v45;
+        v13 = v46 + 1;
+        v11 = v44;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [v45 countByEnumeratingWithState:&v59 objects:v68 count:16];
+      while (v46 + 1 != v45);
+      v45 = [v44 countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
   if ([v9 count] || objc_msgSend(v10, "count"))
   {
     v29 = [v11 indexOfObjectPassingTest:&__block_literal_global_1];
-    v30 = v43;
+    v30 = v42;
     if (v29 == 0x7FFFFFFFFFFFFFFFLL)
     {
       v31 = [USCategoryUsageReport alloc];
@@ -146,29 +146,29 @@
     applicationUsage = [(USCategoryUsageReport *)v32 applicationUsage];
     v35 = [applicationUsage mutableCopy];
 
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_2;
-    v52[3] = &unk_279E0A410;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_2;
+    v51[3] = &unk_279E0A410;
     v36 = v10;
-    v53 = v36;
+    v52 = v36;
     v37 = v35;
-    v54 = v37;
-    [v9 enumerateKeysAndObjectsUsingBlock:v52];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_3;
-    v50[3] = &unk_279E09C78;
-    v51 = v37;
+    v53 = v37;
+    [v9 enumerateKeysAndObjectsUsingBlock:v51];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_3;
+    v49[3] = &unk_279E09C78;
+    v50 = v37;
     v38 = v37;
-    [v36 enumerateKeysAndObjectsUsingBlock:v50];
+    [v36 enumerateKeysAndObjectsUsingBlock:v49];
     [(USCategoryUsageReport *)v32 setApplicationUsage:v38];
   }
 
   else
   {
     v33 = 0;
-    v30 = v43;
+    v30 = v42;
   }
 
   if (v33)
@@ -183,7 +183,6 @@
 
   v40 = v39;
 
-  v41 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
@@ -197,16 +196,16 @@ uint64_t __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCa
 
 void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
   v8 = v7;
   if (v7)
   {
-    v17 = v5;
-    v18[0] = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v5;
+    v17[0] = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
@@ -216,30 +215,27 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
 
   v10 = *(a1 + 40);
   v11 = [USApplicationUsageReport alloc];
-  v15 = v5;
-  v16 = v6;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v14 = v5;
+  v15 = v6;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
   v13 = [(USApplicationUsageReport *)v11 initWithCanonicalBundleIdentifier:v5 applicationUsageTrusted:1 totalUsageTime:MEMORY[0x277CBEC10] applicationUsageByBundleIdentifier:MEMORY[0x277CBEC10] webUsageByDomain:v12 userNotificationsByBundleIdentifier:v9 pickupsByBundleIdentifier:0.0];
   [v10 addObject:v13];
 
   [*(a1 + 32) setObject:0 forKeyedSubscript:v5];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCategoryUsage___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a3;
   v6 = a2;
   v7 = [USApplicationUsageReport alloc];
-  v11 = v6;
-  v12[0] = v5;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = v6;
+  v11[0] = v5;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v9 = [(USApplicationUsageReport *)v7 initWithCanonicalBundleIdentifier:v6 applicationUsageTrusted:1 totalUsageTime:MEMORY[0x277CBEC10] applicationUsageByBundleIdentifier:MEMORY[0x277CBEC10] webUsageByDomain:MEMORY[0x277CBEC10] userNotificationsByBundleIdentifier:v8 pickupsByBundleIdentifier:0.0];
   [v4 addObject:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (USUsageReport)initWithScreenTime:(double)time longestSession:(id)session categoryUsage:(id)usage pickupsWithoutApplicationUsage:(unint64_t)applicationUsage firstPickup:(id)pickup interval:(id)interval timeZone:(id)zone lastEventDate:(id)self0
@@ -295,7 +291,7 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
 
 - (USUsageReport)initWithCoder:(id)coder
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_alloc(MEMORY[0x277CBEB98]);
   v6 = objc_opt_class();
@@ -307,18 +303,18 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
   v12 = v11;
   if (v8 && v9 && v10 && v11 && [coderCopy containsValueForKey:@"LongestSession"] && objc_msgSend(coderCopy, "containsValueForKey:", @"ScreenTime") && objc_msgSend(coderCopy, "containsValueForKey:", @"PickupsWithoutApplicationUsage") && objc_msgSend(coderCopy, "containsValueForKey:", @"FirstPickup"))
   {
-    v33.receiver = self;
-    v33.super_class = USUsageReport;
-    v13 = [(USUsageReport *)&v33 init];
+    v32.receiver = self;
+    v32.super_class = USUsageReport;
+    v13 = [(USUsageReport *)&v32 init];
     v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"LongestSession"];
     [coderCopy decodeDoubleForKey:@"ScreenTime"];
     v16 = v15;
-    v32 = [coderCopy decodeIntegerForKey:@"PickupsWithoutApplicationUsage"];
+    v31 = [coderCopy decodeIntegerForKey:@"PickupsWithoutApplicationUsage"];
     v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"FirstPickup"];
     if (([coderCopy containsValueForKey:@"ApplicationUsageIncludesPickupsAndNotifications"] & 1) == 0)
     {
-      v30 = v14;
-      v31 = v13;
+      v29 = v14;
+      v30 = v13;
       v18 = objc_alloc(MEMORY[0x277CBEB98]);
       v19 = objc_opt_class();
       v20 = objc_opt_class();
@@ -328,16 +324,16 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
       v24 = v23;
       if (v22 && v23)
       {
-        v29 = [(USUsageReport *)v31 _addNotifications:v22 andPickups:v23 toApplicationUsageInCategoryUsage:v8];
+        v28 = [(USUsageReport *)v30 _addNotifications:v22 andPickups:v23 toApplicationUsageInCategoryUsage:v8];
 
-        v8 = v29;
+        v8 = v28;
       }
 
-      v14 = v30;
-      v13 = v31;
+      v14 = v29;
+      v13 = v30;
     }
 
-    [(USUsageReport *)v13 _usUsageReportCommonInitWithScreenTime:v14 longestSession:v8 categoryUsage:v32 pickupsWithoutApplicationUsage:v17 firstPickup:v9 interval:v10 timeZone:v16 lastEventDate:v12];
+    [(USUsageReport *)v13 _usUsageReportCommonInitWithScreenTime:v14 longestSession:v8 categoryUsage:v31 pickupsWithoutApplicationUsage:v17 firstPickup:v9 interval:v10 timeZone:v16 lastEventDate:v12];
 
     self = v13;
     selfCopy = self;
@@ -348,13 +344,13 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544130;
-      v35 = v8;
-      v36 = 2114;
-      v37 = v9;
-      v38 = 2114;
-      v39 = v10;
-      v40 = 2114;
-      v41 = v12;
+      v34 = v8;
+      v35 = 2114;
+      v36 = v9;
+      v37 = 2114;
+      v38 = v10;
+      v39 = 2114;
+      v40 = v12;
       _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to decode USUsageReport with categoryUsage: %{public}@, interval: %{public}@, timeZone: %{public}@, lastEventDate: %{public}@", buf, 0x2Au);
     }
 
@@ -364,7 +360,6 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
     selfCopy = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -390,130 +385,126 @@ void __80__USUsageReport__addNotifications_andPickups_toApplicationUsageInCatego
 
 - (NSDictionary)userNotificationsByBundleIdentifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   categoryUsage = [(USUsageReport *)self categoryUsage];
-  v5 = [categoryUsage countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [categoryUsage countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(categoryUsage);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         applicationUsage = [v9 applicationUsage];
-        v11 = [applicationUsage countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [applicationUsage countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(applicationUsage);
               }
 
-              userNotificationsByBundleIdentifier = [*(*(&v18 + 1) + 8 * j) userNotificationsByBundleIdentifier];
+              userNotificationsByBundleIdentifier = [*(*(&v17 + 1) + 8 * j) userNotificationsByBundleIdentifier];
               [v3 addEntriesFromDictionary:userNotificationsByBundleIdentifier];
             }
 
-            v12 = [applicationUsage countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [applicationUsage countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [categoryUsage countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [categoryUsage countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSDictionary)pickupsByBundleIdentifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   categoryUsage = [(USUsageReport *)self categoryUsage];
-  v5 = [categoryUsage countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [categoryUsage countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(categoryUsage);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         applicationUsage = [v9 applicationUsage];
-        v11 = [applicationUsage countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [applicationUsage countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(applicationUsage);
               }
 
-              pickupsByBundleIdentifier = [*(*(&v18 + 1) + 8 * j) pickupsByBundleIdentifier];
+              pickupsByBundleIdentifier = [*(*(&v17 + 1) + 8 * j) pickupsByBundleIdentifier];
               [v3 addEntriesFromDictionary:pickupsByBundleIdentifier];
             }
 
-            v12 = [applicationUsage countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [applicationUsage countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [categoryUsage countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [categoryUsage countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

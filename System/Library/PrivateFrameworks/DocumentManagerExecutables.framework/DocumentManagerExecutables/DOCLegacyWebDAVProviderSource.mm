@@ -41,7 +41,7 @@
   collectionCopy = collection;
   errorCopy = error;
   selfCopy = self;
-  specialized DOCLegacyWebDAVProviderSource.collection(_:didEncounterError:)();
+  specialized DOCLegacyWebDAVProviderSource.collection(_:didEncounterError:)(errorCopy);
 }
 
 @end

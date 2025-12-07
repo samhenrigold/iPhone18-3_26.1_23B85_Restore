@@ -49,13 +49,13 @@
   sub_20C3E8E3C();
   sub_20C3E8E2C();
   sub_20C3E8E1C();
-  isCurrentExecutor = swift_task_isCurrentExecutor();
-  if ((isCurrentExecutor & 1) == 0)
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
-    isCurrentExecutor = swift_task_reportUnexpectedExecutor();
+    swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = CGSizeMake(isCurrentExecutor);
+  CGSizeMake();
+  v4 = v3;
   v6 = v5;
   selfCopy = self;
   [(PlatterlessNonScalingButton *)selfCopy sizeThatFits:v4, v6];
@@ -87,11 +87,11 @@
   v9 = v8;
   v11 = v10;
 
-  v13 = CGSizeMake(v12);
-  v15 = v11 + v14 + v14;
-  v16 = v9 + v13 + v13;
-  result.height = v15;
-  result.width = v16;
+  CGSizeMake();
+  v13 = v11 + v12 + v12;
+  v15 = v9 + v14 + v14;
+  result.height = v13;
+  result.width = v15;
   return result;
 }
 

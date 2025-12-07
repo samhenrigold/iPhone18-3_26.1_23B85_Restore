@@ -16,10 +16,10 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v19 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = MUBendableGrabberView;
-  [(MUBendableGrabberView *)&v13 drawRect:?];
+  v18 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = MUBendableGrabberView;
+  [(MUBendableGrabberView *)&v12 drawRect:?];
   CurrentContext = UIGraphicsGetCurrentContext();
   if (CurrentContext)
   {
@@ -31,15 +31,13 @@
     CGContextSetLineCap(v9, kCGLineCapRound);
     points.x = v10 * 0.5 + x;
     points.y = y + height - v10 * 0.5;
-    v15 = x + width * 0.5;
-    v16 = v10 * 0.5 + y;
-    v17 = x + width - v10 * 0.5;
-    v18 = points.y;
+    v14 = x + width * 0.5;
+    v15 = v10 * 0.5 + y;
+    v16 = x + width - v10 * 0.5;
+    v17 = points.y;
     CGContextAddLines(v9, &points, 3uLL);
     CGContextStrokePath(v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)_intrinsicSizeWithAngle:(double)angle

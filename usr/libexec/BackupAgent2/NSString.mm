@@ -1,4 +1,5 @@
 @interface NSString
+- (BOOL)mb_openatWithMode:(unsigned __int16)mode error:(id *)error setupDir:(id)dir itemAccessor:(id)accessor;
 - (id)_mb_openatWithMode:(unsigned __int16)mode setupDir:(id)dir itemAccessor:(id)accessor;
 - (void)mb_splitIntoBase:(int *)base andRelativePath:(const char *)path;
 @end
@@ -104,6 +105,29 @@ LABEL_15:
   }
 
   return v10;
+}
+
+- (BOOL)mb_openatWithMode:(unsigned __int16)mode error:(id *)error setupDir:(id)dir itemAccessor:(id)accessor
+{
+  v7 = [(NSString *)self _mb_openatWithMode:mode setupDir:dir itemAccessor:accessor];
+  if (error)
+  {
+    v8 = v7 == 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  v9 = v8;
+  if (!v8)
+  {
+    v7 = v7;
+    *error = v7;
+  }
+
+  return v9;
 }
 
 @end

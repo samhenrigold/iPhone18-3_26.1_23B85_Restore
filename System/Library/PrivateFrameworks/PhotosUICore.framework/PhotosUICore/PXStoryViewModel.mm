@@ -599,7 +599,7 @@ void __70__PXStoryViewModel_Diagnostics__diagnosticTextForHUDType_displaySize___
   }
 }
 
-uint64_t __56__PXStoryViewModel_setShouldSimplifyUIForAccessibility___block_invoke(uint64_t a1)
+void *__56__PXStoryViewModel_setShouldSimplifyUIForAccessibility___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _invalidateShouldAutoHideChrome];
   if (*(a1 + 40) == 1)
@@ -1214,9 +1214,9 @@ LABEL_3:
     {
       selfCopy = self;
       mainAssetInfoUpdater = [(PXStoryViewModel *)self mainAssetInfoUpdater];
-      info = [mainAssetInfoUpdater info];
+      v49 = objc_msgSend_info(mainAssetInfoUpdater);
 
-      if (!info)
+      if (!v49)
       {
         v28 = 0;
         v44 = 0;
@@ -1226,8 +1226,8 @@ LABEL_3:
         goto LABEL_24;
       }
 
-      v50 = [info objectForKeyedSubscript:@"PXStoryViewModelMainAssetInfoLocationDescriptionKey"];
-      v51 = [info objectForKeyedSubscript:@"PXStoryViewModelMainAssetInfoDateDescriptionKey"];
+      v50 = [v49 objectForKeyedSubscript:@"PXStoryViewModelMainAssetInfoLocationDescriptionKey"];
+      v51 = [v49 objectForKeyedSubscript:@"PXStoryViewModelMainAssetInfoDateDescriptionKey"];
       v57 = selfCopy;
       mainConfiguration = [(PXStoryViewModel *)selfCopy mainConfiguration];
       preferAssetLocationAndCreationDateForClipTitleAndSubtitle = [mainConfiguration preferAssetLocationAndCreationDateForClipTitleAndSubtitle];
@@ -2277,7 +2277,7 @@ void __48__PXStoryViewModel__updateControllersActiveness__block_invoke_5(uint64_
   v4 = mainModel;
   if (mainModel)
   {
-    [mainModel playbackDuration];
+    objc_msgSend_playbackDuration(mainModel);
   }
 
   else
@@ -2304,7 +2304,7 @@ void __48__PXStoryViewModel__updateControllersActiveness__block_invoke_5(uint64_
   [(PXStoryViewModel *)self setPlaybackFractionCompleted:?];
   if (mainModel)
   {
-    [mainModel nominalPlaybackTime];
+    objc_msgSend_nominalPlaybackTime(mainModel);
   }
 
   else
@@ -2357,7 +2357,7 @@ void __45__PXStoryViewModel__updateViewModeTransition__block_invoke(uint64_t a1,
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 swipeDownInteractionState];
+    objc_msgSend_swipeDownInteractionState(v4);
   }
 
   else
@@ -2449,7 +2449,7 @@ void __46__PXStoryViewModel__updateMainModelProperties__block_invoke(uint64_t a1
 {
   viewLayoutSpecManager = [(PXStoryViewModel *)self viewLayoutSpecManager];
   mainConfiguration = [(PXStoryViewModel *)self mainConfiguration];
-  [viewLayoutSpecManager setStoryConfigurationOptions:{objc_msgSend(mainConfiguration, "options")}];
+  [viewLayoutSpecManager setStoryConfigurationOptions:objc_msgSend_options(mainConfiguration)];
 
   customGeneralChromeTitleConfiguration = [(PXStoryViewModel *)self customGeneralChromeTitleConfiguration];
   [viewLayoutSpecManager setCustomGeneralChromeTitleConfiguration:customGeneralChromeTitleConfiguration];
@@ -3021,7 +3021,7 @@ void __53__PXStoryViewModel__scheduleMuteToggleButtonAutoHide__block_invoke(uint
   }
 }
 
-uint64_t __38__PXStoryViewModel_setIsInSelectMode___block_invoke(uint64_t a1, void *a2)
+void *__38__PXStoryViewModel_setIsInSelectMode___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 attemptSetInSelectMode:*(a1 + 40)];
   if ((result & 1) == 0)
@@ -3085,7 +3085,7 @@ uint64_t __38__PXStoryViewModel_setIsInSelectMode___block_invoke(uint64_t a1, vo
     mainModel = [(PXStoryViewModel *)self mainModel];
     timeline = [mainModel timeline];
     firstSegmentIdentifier = [timeline firstSegmentIdentifier];
-    [(PXStoryViewModel *)self scrubberPosition];
+    objc_msgSend_scrubberPosition(self);
     v10 = *&v13[16 * (v14 > 0.5)];
 
     desiredPlayState = [(PXStoryViewModel *)self desiredPlayState];
@@ -3150,7 +3150,7 @@ void __50__PXStoryViewModel_rewindToBeginning_rewindMusic___block_invoke_2(uint6
   [*(a1 + 32) setWantsChromeVisible:{objc_msgSend(*(a1 + 32), "shouldSimplifyUIForAccessibility")}];
   [*(a1 + 32) setWantsRelatedOverlayVisible:0];
   [*(a1 + 32) setDesiredPlayState:*(a1 + 40)];
-  if (*(a1 + 41) == 1 && *(a1 + 40) == 1)
+  if (__PAIR64__(*(a1 + 41), *(a1 + 40)) == 0x100000001)
   {
     v5 = [*(a1 + 32) mainConfiguration];
     v6 = [v5 isAppleMusicPreview];
@@ -3193,7 +3193,7 @@ void __50__PXStoryViewModel_rewindToBeginning_rewindMusic___block_invoke_2(uint6
   v13 = timeline;
   if (timeline)
   {
-    [timeline timeRange];
+    objc_msgSend_timeRange(timeline);
   }
 
   else
@@ -3420,7 +3420,7 @@ void __45__PXStoryViewModel_setRelatedConfigurations___block_invoke_554(uint64_t
 {
   v6 = a2;
   [v6 setViewMode:3];
-  if ([*(a1 + 32) options] == 4)
+  if (objc_msgSend_options(*(a1 + 32)) == 4)
   {
     v3 = 2;
   }
@@ -3631,7 +3631,7 @@ void __29__PXStoryViewModel_toggleHUD__block_invoke(uint64_t a1, void *a2)
   return identifier;
 }
 
-uint64_t __59__PXStoryViewModel_skipToBeginningOfSegmentWithIdentifier___block_invoke(uint64_t a1, void *a2)
+void *__59__PXStoryViewModel_skipToBeginningOfSegmentWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 skipToBeginningOfSegmentWithIdentifier:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -3688,7 +3688,7 @@ uint64_t __59__PXStoryViewModel_skipToBeginningOfSegmentWithIdentifier___block_i
   return v11;
 }
 
-uint64_t __58__PXStoryViewModel_skipToSegmentWithOffset_byTappingEdge___block_invoke(uint64_t a1, void *a2)
+void *__58__PXStoryViewModel_skipToSegmentWithOffset_byTappingEdge___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 skipToSegmentWithOffset:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -4925,7 +4925,7 @@ void __44__PXStoryViewModel_setShouldAutoHideChrome___block_invoke(uint64_t a1)
     v32 = *(v15 + 75);
     *(v15 + 75) = v31;
 
-    [*(v15 + 75) setStoryConfigurationOptions:{objc_msgSend(configurationCopy, "options")}];
+    [*(v15 + 75) setStoryConfigurationOptions:objc_msgSend_options(configurationCopy)];
     [*(v15 + 75) registerChangeObserver:v15 context:ViewLayoutSpecManagerObservationContext];
     *(v15 + 35) = -268435457;
     [v28 addDeferredKeyObserver:v15];

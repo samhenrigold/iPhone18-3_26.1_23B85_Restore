@@ -57,32 +57,31 @@
     {
       manager = [(EPCentralManager *)self->_centralManager manager];
       v8 = [manager retrievePeripheralsWithIdentifiers:self->_deviceIDs];
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           v12 = 0;
           do
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v16 + 1) + 8 * v12);
             (*(self->_block + 2))();
-            v12 = v12 + 1;
+            ++v12;
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);

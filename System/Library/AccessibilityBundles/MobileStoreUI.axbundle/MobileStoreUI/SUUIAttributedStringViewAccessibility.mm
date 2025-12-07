@@ -35,7 +35,7 @@
 
 - (id)accessibilityLabel
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   accessibilityUserDefinedLabel = [(SUUIAttributedStringViewAccessibility *)self accessibilityUserDefinedLabel];
 
   if (accessibilityUserDefinedLabel)
@@ -45,16 +45,16 @@
 
   else
   {
-    v26 = 0;
-    objc_opt_class();
     v25 = 0;
+    objc_opt_class();
+    v24 = 0;
     v5 = [(SUUIAttributedStringViewAccessibility *)self safeValueForKey:@"_layout"];
     v6 = __UIAccessibilitySafeClass();
 
     v7 = [v6 safeValueForKey:@"attributedString"];
     v8 = __UIAccessibilityCastAsClass();
 
-    if (v26 == 1)
+    if (v25 == 1)
     {
       abort();
     }
@@ -62,31 +62,31 @@
     accessibilityUserDefinedLabel2 = [v8 string];
   }
 
-  v26 = 0;
+  v25 = 0;
   objc_opt_class();
   v9 = [(SUUIAttributedStringViewAccessibility *)self safeValueForKey:@"_requiredBadges"];
   v10 = __UIAccessibilityCastAsClass();
 
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         if (v16)
         {
           accessibilityLabel = [v16 accessibilityLabel];
@@ -96,13 +96,11 @@
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return accessibilityUserDefinedLabel2;
 }
@@ -149,7 +147,7 @@
   return v9;
 }
 
-uint64_t __60__SUUIAttributedStringViewAccessibility_accessibilityTraits__block_invoke(uint64_t a1, void *a2)
+void *__60__SUUIAttributedStringViewAccessibility_accessibilityTraits__block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 lineHeight];
@@ -215,22 +213,21 @@ void __60__SUUIAttributedStringViewAccessibility__accessibilityLinks__block_invo
   if (a2)
   {
     [*(a1 + 32) boundingRectForGlyphRange:a3 inTextContainer:{a4, *(a1 + 40)}];
-    v10 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:*(a1 + 48)];
+    v9 = [objc_alloc(MEMORY[0x29EDC78F8]) initWithAccessibilityContainer:*(a1 + 48)];
     v7 = [*(a1 + 56) attributedSubstringFromRange:{a3, a4}];
     v8 = [v7 string];
-    [v10 setAccessibilityLabel:v8];
+    [v9 setAccessibilityLabel:v8];
 
-    v9 = *(a1 + 48);
     UIAccessibilityFrameForBounds();
-    [v10 setAccessibilityFrame:?];
-    [v10 setAccessibilityTraits:*MEMORY[0x29EDC7F98]];
-    [*(a1 + 64) addObject:v10];
+    [v9 setAccessibilityFrame:?];
+    [v9 setAccessibilityTraits:*MEMORY[0x29EDC7F98]];
+    [*(a1 + 64) addObject:v9];
   }
 }
 
 - (id)accessibilityCustomRotors
 {
-  v16[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   _accessibilityLinks = [(SUUIAttributedStringViewAccessibility *)self _accessibilityLinks];
   v4 = [_accessibilityLinks count];
 
@@ -241,27 +238,25 @@ void __60__SUUIAttributedStringViewAccessibility__accessibilityLinks__block_invo
     {
       objc_initWeak(&location, self);
       v6 = objc_alloc(MEMORY[0x29EDC78E8]);
-      v10 = MEMORY[0x29EDCA5F8];
-      v11 = 3221225472;
-      v12 = __66__SUUIAttributedStringViewAccessibility_accessibilityCustomRotors__block_invoke;
-      v13 = &unk_29F2D8ED0;
-      objc_copyWeak(&v14, &location);
-      v5 = [v6 initWithSystemType:1 itemSearchBlock:&v10];
-      [(SUUIAttributedStringViewAccessibility *)self _accessibilitySetRetainedValue:v5 forKey:@"AXCustomRotor", v10, v11, v12, v13];
-      objc_destroyWeak(&v14);
+      v9 = MEMORY[0x29EDCA5F8];
+      v10 = 3221225472;
+      v11 = __66__SUUIAttributedStringViewAccessibility_accessibilityCustomRotors__block_invoke;
+      v12 = &unk_29F2D8ED0;
+      objc_copyWeak(&v13, &location);
+      v5 = [v6 initWithSystemType:1 itemSearchBlock:&v9];
+      [(SUUIAttributedStringViewAccessibility *)self _accessibilitySetRetainedValue:v5 forKey:@"AXCustomRotor", v9, v10, v11, v12];
+      objc_destroyWeak(&v13);
       objc_destroyWeak(&location);
     }
 
-    v16[0] = v5;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
+    v15[0] = v5;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

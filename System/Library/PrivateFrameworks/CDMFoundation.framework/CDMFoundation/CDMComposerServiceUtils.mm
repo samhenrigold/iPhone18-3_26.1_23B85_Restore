@@ -6,10 +6,10 @@
 
 + (void)logNluRequestForInsights:(id)insights
 {
-  v207[2] = *MEMORY[0x1E69E9840];
+  v206[2] = *MEMORY[0x1E69E9840];
   insightsCopy = insights;
   v4 = CDMLogContext;
-  v201 = insightsCopy;
+  v200 = insightsCopy;
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
@@ -17,11 +17,11 @@
     requestId = [siriNLUTypeObj requestId];
     v8 = [requestId idA];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
-    v206 = 2114;
-    v207[0] = v8;
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
+    v205 = 2114;
+    v206[0] = v8;
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nRequest ID: %{public}@", buf, 0x20u);
 
     v4 = CDMLogContext;
@@ -29,17 +29,17 @@
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v193 = v4;
+    v192 = v4;
     siriNLUTypeObj2 = [insightsCopy siriNLUTypeObj];
     requestId2 = [siriNLUTypeObj2 requestId];
-    v196 = [requestId2 idA];
+    v195 = [requestId2 idA];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"saliententities";
-    v206 = 2112;
-    v207[0] = v196;
-    _os_log_debug_impl(&dword_1DC287000, v193, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nRequest ID: %@", buf, 0x20u);
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"saliententities";
+    v205 = 2112;
+    v206[0] = v195;
+    _os_log_debug_impl(&dword_1DC287000, v192, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nRequest ID: %@", buf, 0x20u);
 
     v4 = CDMLogContext;
   }
@@ -51,11 +51,11 @@
     currentTurnInput = [siriNLUTypeObj3 currentTurnInput];
     startTimestamp = [currentTurnInput startTimestamp];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
-    v206 = 2048;
-    v207[0] = startTimestamp;
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
+    v205 = 2048;
+    v206[0] = startTimestamp;
     _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nCurrent Turn Timestamp: %llu", buf, 0x20u);
 
     v4 = CDMLogContext;
@@ -70,11 +70,11 @@
     firstObject = [asrOutputs firstObject];
     utterance = [firstObject utterance];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
-    v206 = 2112;
-    v207[0] = utterance;
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
+    v205 = 2112;
+    v206[0] = utterance;
     _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nCurrent Turn Utterance: %@", buf, 0x20u);
 
     v4 = CDMLogContext;
@@ -83,9 +83,9 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n===== Current Turn Context =====", buf, 0x16u);
     v4 = CDMLogContext;
   }
@@ -93,9 +93,9 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n======== NL Context  ===========", buf, 0x16u);
     v4 = CDMLogContext;
   }
@@ -103,9 +103,9 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n========== Active Tasks ========", buf, 0x16u);
   }
 
@@ -123,10 +123,10 @@
     nlContext2 = [turnContext2 nlContext];
     [nlContext2 activeTasks];
     v30 = v29 = siriNLUTypeObj5;
-    v200 = [v30 count];
+    v199 = [v30 count];
 
-    v31 = &unk_1EDAC9000;
-    if (v200)
+    v31 = qword_1EDAC8F98 + 104;
+    if (v199)
     {
       goto LABEL_21;
     }
@@ -135,22 +135,22 @@
   else
   {
 
-    v31 = &unk_1EDAC9000;
+    v31 = &qword_1EDAC8F98[13];
   }
 
-  v32 = *(v31 + 219);
+  v32 = v31[219];
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v32, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nNo active tasks", buf, 0x16u);
   }
 
 LABEL_21:
   v33 = 0;
-  v34 = v201;
+  v34 = v200;
   while (1)
   {
     siriNLUTypeObj7 = [v34 siriNLUTypeObj];
@@ -160,7 +160,7 @@ LABEL_21:
     activeTasks2 = [nlContext3 activeTasks];
     v40 = [activeTasks2 count];
 
-    v41 = *(v31 + 219);
+    v41 = v31[219];
     v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
     if (v40 <= v33)
     {
@@ -179,17 +179,17 @@ LABEL_21:
       v50 = [activeTasks3 objectAtIndexedSubscript:v33];
       v51 = [v43 printableTask:v50];
       *buf = 136315906;
-      v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-      v204 = 2112;
-      v205 = @"summary";
-      v206 = 1024;
-      LODWORD(v207[0]) = v33;
-      WORD2(v207[0]) = 2112;
-      *(v207 + 6) = v51;
+      v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+      v203 = 2112;
+      v204 = @"summary";
+      v205 = 1024;
+      LODWORD(v206[0]) = v33;
+      WORD2(v206[0]) = 2112;
+      *(v206 + 6) = v51;
       _os_log_impl(&dword_1DC287000, v44, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nCurrent Turn Active Task %d: %@", buf, 0x26u);
 
-      v34 = v201;
-      v31 = &unk_1EDAC9000;
+      v34 = v200;
+      v31 = qword_1EDAC8F98 + 104;
     }
 
     ++v33;
@@ -198,9 +198,9 @@ LABEL_21:
   if (v42)
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n========== Executed Tasks =======", buf, 0x16u);
   }
 
@@ -219,10 +219,10 @@ LABEL_21:
     nlContext6 = [turnContext5 nlContext];
     [nlContext6 executedTasks];
     v64 = v63 = siriNLUTypeObj9;
-    v197 = [v64 count];
+    v196 = [v64 count];
 
-    v65 = &unk_1EDAC9000;
-    if (v197)
+    v65 = qword_1EDAC8F98 + 104;
+    if (v196)
     {
       goto LABEL_34;
     }
@@ -231,22 +231,22 @@ LABEL_21:
   else
   {
 
-    v65 = &unk_1EDAC9000;
+    v65 = &qword_1EDAC8F98[13];
   }
 
-  v66 = *(v65 + 219);
+  v66 = v65[219];
   if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v66, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nNo executed tasks", buf, 0x16u);
   }
 
 LABEL_34:
   v67 = 0;
-  v68 = v201;
+  v68 = v200;
   while (1)
   {
     siriNLUTypeObj11 = [v68 siriNLUTypeObj];
@@ -256,7 +256,7 @@ LABEL_34:
     executedTasks2 = [nlContext7 executedTasks];
     v74 = [executedTasks2 count];
 
-    v75 = *(v65 + 219);
+    v75 = v65[219];
     v76 = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
     if (v74 <= v67)
     {
@@ -275,17 +275,17 @@ LABEL_34:
       v84 = [executedTasks3 objectAtIndexedSubscript:v67];
       v85 = [v77 printableTask:v84];
       *buf = 136315906;
-      v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-      v204 = 2112;
-      v205 = @"summary";
-      v206 = 1024;
-      LODWORD(v207[0]) = v67;
-      WORD2(v207[0]) = 2112;
-      *(v207 + 6) = v85;
+      v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+      v203 = 2112;
+      v204 = @"summary";
+      v205 = 1024;
+      LODWORD(v206[0]) = v67;
+      WORD2(v206[0]) = 2112;
+      *(v206 + 6) = v85;
       _os_log_impl(&dword_1DC287000, v78, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nCurrent Turn Executed Task %d: %@", buf, 0x26u);
 
-      v68 = v201;
-      v65 = &unk_1EDAC9000;
+      v68 = v200;
+      v65 = qword_1EDAC8F98 + 104;
     }
 
     ++v67;
@@ -294,9 +294,9 @@ LABEL_34:
   if (v76)
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v75, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n========== Salient Entities ====", buf, 0x16u);
   }
 
@@ -315,32 +315,32 @@ LABEL_34:
     nlContext10 = [turnContext8 nlContext];
     [nlContext10 salientEntities];
     v98 = v97 = siriNLUTypeObj13;
-    v198 = [v98 count];
+    v197 = [v98 count];
 
-    if (v198)
+    if (v197)
     {
-      v99 = &unk_1EDAC9000;
+      v99 = &qword_1EDAC8F98[13];
       v100 = CDMLogContext;
-      v101 = v201;
+      v101 = v200;
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
       {
         v102 = v100;
-        siriNLUTypeObj15 = [v201 siriNLUTypeObj];
+        siriNLUTypeObj15 = [v200 siriNLUTypeObj];
         currentTurnInput13 = [siriNLUTypeObj15 currentTurnInput];
         turnContext9 = [currentTurnInput13 turnContext];
         nlContext11 = [turnContext9 nlContext];
         salientEntities2 = [nlContext11 salientEntities];
         v108 = [salientEntities2 count];
         *buf = 136315650;
-        v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-        v204 = 2112;
-        v205 = @"summary";
-        v206 = 2048;
-        v207[0] = v108;
+        v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+        v203 = 2112;
+        v204 = @"summary";
+        v205 = 2048;
+        v206[0] = v108;
         _os_log_impl(&dword_1DC287000, v102, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n%lu salient entities. See salient entities section for more.", buf, 0x20u);
 
-        v101 = v201;
-        v99 = &unk_1EDAC9000;
+        v101 = v200;
+        v99 = qword_1EDAC8F98 + 104;
       }
 
       goto LABEL_50;
@@ -351,31 +351,31 @@ LABEL_34:
   {
   }
 
-  v99 = &unk_1EDAC9000;
+  v99 = &qword_1EDAC8F98[13];
   v109 = CDMLogContext;
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v109, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nNo salient entities", buf, 0x16u);
     v109 = CDMLogContext;
   }
 
-  v101 = v201;
+  v101 = v200;
   if (os_log_type_enabled(v109, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"saliententities";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"saliententities";
     _os_log_debug_impl(&dword_1DC287000, v109, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nNo salient entities", buf, 0x16u);
   }
 
 LABEL_50:
   v110 = 0;
-  v199 = 136315907;
+  v198 = 136315907;
   while (1)
   {
     siriNLUTypeObj16 = [v101 siriNLUTypeObj];
@@ -385,7 +385,7 @@ LABEL_50:
     salientEntities3 = [nlContext12 salientEntities];
     v116 = [salientEntities3 count];
 
-    v117 = *(v99 + 219);
+    v117 = v99[219];
     if (v116 <= v110)
     {
       break;
@@ -402,18 +402,18 @@ LABEL_50:
       salientEntities4 = [nlContext13 salientEntities];
       v125 = [salientEntities4 objectAtIndexedSubscript:v110];
       v126 = [v118 printableEntityCandidate:v125];
-      *buf = v199;
-      v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-      v204 = 2112;
-      v205 = @"saliententities";
-      v206 = 1024;
-      LODWORD(v207[0]) = v110;
-      WORD2(v207[0]) = 2117;
-      *(v207 + 6) = v126;
+      *buf = v198;
+      v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+      v203 = 2112;
+      v204 = @"saliententities";
+      v205 = 1024;
+      LODWORD(v206[0]) = v110;
+      WORD2(v206[0]) = 2117;
+      *(v206 + 6) = v126;
       _os_log_debug_impl(&dword_1DC287000, v119, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nCurrent Turn Salient Entity %d: %{sensitive}@", buf, 0x26u);
 
-      v101 = v201;
-      v99 = &unk_1EDAC9000;
+      v101 = v200;
+      v99 = qword_1EDAC8F98 + 104;
     }
 
     ++v110;
@@ -422,9 +422,9 @@ LABEL_50:
   if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v117, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n========== SDAs ================", buf, 0x16u);
   }
 
@@ -443,13 +443,13 @@ LABEL_50:
     nlContext15 = [turnContext12 nlContext];
     [nlContext15 systemDialogActs];
     v139 = v138 = siriNLUTypeObj18;
-    v199 = [v139 count];
+    v198 = [v139 count];
 
-    if (v199)
+    if (v198)
     {
       v140 = 0;
-      v141 = v201;
-      v142 = &unk_1EDAC9000;
+      v141 = v200;
+      v142 = &qword_1EDAC8F98[13];
       while (1)
       {
         siriNLUTypeObj20 = [v141 siriNLUTypeObj];
@@ -464,7 +464,7 @@ LABEL_50:
           break;
         }
 
-        v149 = *(v142 + 219);
+        v149 = v142[219];
         if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
         {
           v150 = MEMORY[0x1E69D1438];
@@ -477,17 +477,17 @@ LABEL_50:
           v157 = [systemDialogActs3 objectAtIndexedSubscript:v140];
           v158 = [v150 printableSystemDialogAct:v157];
           *buf = 136315906;
-          v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-          v204 = 2112;
-          v205 = @"summary";
-          v206 = 1024;
-          LODWORD(v207[0]) = v140;
-          WORD2(v207[0]) = 2112;
-          *(v207 + 6) = v158;
+          v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+          v203 = 2112;
+          v204 = @"summary";
+          v205 = 1024;
+          LODWORD(v206[0]) = v140;
+          WORD2(v206[0]) = 2112;
+          *(v206 + 6) = v158;
           _os_log_impl(&dword_1DC287000, v151, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nCurrent Turn SDA %d: %@", buf, 0x26u);
 
-          v141 = v201;
-          v142 = &unk_1EDAC9000;
+          v141 = v200;
+          v142 = qword_1EDAC8F98 + 104;
         }
 
         ++v140;
@@ -501,28 +501,28 @@ LABEL_50:
   {
   }
 
-  v142 = &unk_1EDAC9000;
+  v142 = &qword_1EDAC8F98[13];
   v159 = CDMLogContext;
-  v141 = v201;
+  v141 = v200;
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v159, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nNo SDAs", buf, 0x16u);
   }
 
 LABEL_67:
-  v160 = *(v142 + 219);
+  v160 = v142[219];
   if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
     _os_log_impl(&dword_1DC287000, v160, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n======== Legacy Context ========", buf, 0x16u);
-    v160 = *(v142 + 219);
+    v160 = v142[219];
   }
 
   if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
@@ -534,32 +534,32 @@ LABEL_67:
     turnContext15 = [currentTurnInput20 turnContext];
     legacyNlContext = [turnContext15 legacyNlContext];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
-    v206 = 2112;
-    v207[0] = legacyNlContext;
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
+    v205 = 2112;
+    v206[0] = legacyNlContext;
     _os_log_impl(&dword_1DC287000, v162, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n%@", buf, 0x20u);
 
-    v160 = *(v161 + 219);
+    v160 = v161[219];
   }
 
   if (os_log_type_enabled(v160, OS_LOG_TYPE_DEFAULT))
   {
     v167 = v160;
-    siriNLUTypeObj23 = [v201 siriNLUTypeObj];
+    siriNLUTypeObj23 = [v200 siriNLUTypeObj];
     previousTurnInputs = [siriNLUTypeObj23 previousTurnInputs];
     v170 = [previousTurnInputs count];
     *buf = 136315650;
-    v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-    v204 = 2112;
-    v205 = @"summary";
-    v206 = 2048;
-    v207[0] = v170;
+    v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+    v203 = 2112;
+    v204 = @"summary";
+    v205 = 2048;
+    v206[0] = v170;
     _os_log_impl(&dword_1DC287000, v167, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nPrevious turn input count: %zu", buf, 0x20u);
   }
 
-  siriNLUTypeObj24 = [v201 siriNLUTypeObj];
+  siriNLUTypeObj24 = [v200 siriNLUTypeObj];
   previousTurnInputs2 = [siriNLUTypeObj24 previousTurnInputs];
   v173 = [previousTurnInputs2 count];
 
@@ -572,19 +572,19 @@ LABEL_67:
       if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
       {
         v176 = v175;
-        v177 = v201;
-        siriNLUTypeObj25 = [v201 siriNLUTypeObj];
+        v177 = v200;
+        siriNLUTypeObj25 = [v200 siriNLUTypeObj];
         previousTurnInputs3 = [siriNLUTypeObj25 previousTurnInputs];
         v180 = [previousTurnInputs3 objectAtIndexedSubscript:v174];
         startTimestamp2 = [v180 startTimestamp];
         *buf = 136315906;
-        v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-        v204 = 2112;
-        v205 = @"summary";
-        v206 = 1024;
-        LODWORD(v207[0]) = v174;
-        WORD2(v207[0]) = 2048;
-        *(v207 + 6) = startTimestamp2;
+        v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+        v203 = 2112;
+        v204 = @"summary";
+        v205 = 1024;
+        LODWORD(v206[0]) = v174;
+        WORD2(v206[0]) = 2048;
+        *(v206 + 6) = startTimestamp2;
         _os_log_impl(&dword_1DC287000, v176, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nPrevious Turn %d Timestamp: %llu", buf, 0x26u);
 
         v175 = CDMLogContext;
@@ -592,7 +592,7 @@ LABEL_67:
 
       else
       {
-        v177 = v201;
+        v177 = v200;
       }
 
       if (os_log_type_enabled(v175, OS_LOG_TYPE_DEFAULT))
@@ -605,16 +605,16 @@ LABEL_67:
         firstObject2 = [asrOutputs2 firstObject];
         utterance2 = [firstObject2 utterance];
         *buf = 136315906;
-        v203 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
-        v204 = 2112;
-        v205 = @"summary";
-        v206 = 1024;
-        LODWORD(v207[0]) = v174;
-        WORD2(v207[0]) = 2112;
-        *(v207 + 6) = utterance2;
+        v202 = "+[CDMComposerServiceUtils logNluRequestForInsights:]";
+        v203 = 2112;
+        v204 = @"summary";
+        v205 = 1024;
+        LODWORD(v206[0]) = v174;
+        WORD2(v206[0]) = 2112;
+        *(v206 + 6) = utterance2;
         _os_log_impl(&dword_1DC287000, v182, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\nPrevious Turn %d Utterance: %@", buf, 0x26u);
 
-        v177 = v201;
+        v177 = v200;
       }
 
       ++v174;
@@ -625,8 +625,6 @@ LABEL_67:
 
     while (v191 > v174);
   }
-
-  v192 = *MEMORY[0x1E69E9840];
 }
 
 @end

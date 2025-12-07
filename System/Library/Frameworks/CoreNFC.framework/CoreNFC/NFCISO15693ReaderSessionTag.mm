@@ -251,17 +251,17 @@
 
 - (id)_parseResponseData:(id)data outError:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = [(NFCISO15693ReaderSessionTag *)self _parseResponseErrorWithData:dataCopy];
   if (v7)
   {
     if (error)
     {
-      v14 = @"ISO15693TagResponseErrorCode";
+      v13 = @"ISO15693TagResponseErrorCode";
       v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-      v15[0] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v14[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       *error = [NFCError errorWithCode:102 userInfo:v9];
     }
 
@@ -280,14 +280,12 @@
 
   v11 = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)sendCustomCommandWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   v9 = _os_activity_create(&dword_23728C000, "NFCISO15693ReaderSessionTag sendCustomCommandWithConfiguration:completionHandler:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -333,16 +331,16 @@
     *&state[4] = v18;
     *&state[8] = 2082;
     *&state[10] = v19;
-    v72 = 2082;
-    v73 = v20;
-    v74 = 1024;
-    v75 = 303;
+    v71 = 2082;
+    v72 = v20;
+    v73 = 1024;
+    v74 = 303;
     _os_log_impl(&dword_23728C000, v16, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", state, 0x22u);
   }
 
-  v70 = 0;
-  v21 = [configurationCopy asNSDataWithError:&v70];
-  v22 = v70;
+  v69 = 0;
+  v21 = [configurationCopy asNSDataWithError:&v69];
+  v22 = v69;
   if (v22)
   {
     v23 = v22;
@@ -352,15 +350,15 @@
       v25 = v24;
       v26 = object_getClass(self);
       v27 = class_isMetaClass(v26);
-      v57 = object_getClassName(self);
-      v60 = sel_getName(a2);
+      v56 = object_getClassName(self);
+      v59 = sel_getName(a2);
       v28 = 45;
       if (v27)
       {
         v28 = 43;
       }
 
-      v25(3, "%c[%{public}s %{public}s]:%i %@ in commandConfiguration asNSDataWithError", v28, v57, v60, 320, v23);
+      v25(3, "%c[%{public}s %{public}s]:%i %@ in commandConfiguration asNSDataWithError", v28, v56, v59, 320, v23);
     }
 
     v29 = NFSharedLogGetLogger();
@@ -383,12 +381,12 @@
       *&state[4] = v31;
       *&state[8] = 2082;
       *&state[10] = v32;
-      v72 = 2082;
-      v73 = v33;
-      v74 = 1024;
-      v75 = 320;
-      v76 = 2112;
-      v77 = v23;
+      v71 = 2082;
+      v72 = v33;
+      v73 = 1024;
+      v74 = 320;
+      v75 = 2112;
+      v76 = v23;
       _os_log_impl(&dword_23728C000, v29, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %@ in commandConfiguration asNSDataWithError", state, 0x2Cu);
     }
 
@@ -398,11 +396,11 @@
 
   else
   {
+    v67 = 0;
     v68 = 0;
-    v69 = 0;
-    [(NFCISO15693ReaderSessionTag *)self _transceiveWithData:v21 receivedData:&v69 commandConfig:configurationCopy error:&v68];
-    v35 = v69;
-    v36 = v68;
+    [(NFCISO15693ReaderSessionTag *)self _transceiveWithData:v21 receivedData:&v68 commandConfig:configurationCopy error:&v67];
+    v35 = v68;
+    v36 = v67;
     if (v36 || [v35 length] < 2)
     {
       sel = a2;
@@ -419,18 +417,18 @@
         v43 = handlerCopy;
         v44 = object_getClassName(self);
         v45 = sel_getName(sel);
-        v61 = [v35 length];
+        v60 = [v35 length];
         v46 = 45;
         if (v40)
         {
           v46 = 43;
         }
 
-        v58 = v44;
+        v57 = v44;
         handlerCopy = v43;
         v21 = v42;
         configurationCopy = v41;
-        v38(3, "%c[%{public}s %{public}s]:%i %@ with response length = %lu", v46, v58, v45, 316, v23, v61);
+        v38(3, "%c[%{public}s %{public}s]:%i %@ with response length = %lu", v46, v57, v45, 316, v23, v60);
       }
 
       v47 = NFSharedLogGetLogger();
@@ -454,14 +452,14 @@
         *&state[4] = v49;
         *&state[8] = 2082;
         *&state[10] = v50;
-        v72 = 2082;
-        v73 = v51;
-        v74 = 1024;
-        v75 = 316;
-        v76 = 2112;
-        v77 = v23;
-        v78 = 2048;
-        v79 = v52;
+        v71 = 2082;
+        v72 = v51;
+        v73 = 1024;
+        v74 = 316;
+        v75 = 2112;
+        v76 = v23;
+        v77 = 2048;
+        v78 = v52;
         _os_log_impl(&dword_23728C000, v47, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %@ with response length = %lu", state, 0x36u);
       }
 
@@ -470,30 +468,28 @@
 
     else
     {
-      v67 = 0;
-      v34 = [(NFCISO15693ReaderSessionTag *)self _parseResponseData:v35 outError:&v67];
-      v23 = v67;
+      v66 = 0;
+      v34 = [(NFCISO15693ReaderSessionTag *)self _parseResponseData:v35 outError:&v66];
+      v23 = v66;
     }
   }
 
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = sub_2372ADA34;
-  v63[3] = &unk_278A29C60;
-  v65 = v23;
-  v66 = handlerCopy;
-  v64 = v34;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = sub_2372ADA34;
+  v62[3] = &unk_278A29C60;
+  v64 = v23;
+  v65 = handlerCopy;
+  v63 = v34;
   v53 = v23;
   v54 = v34;
   v55 = handlerCopy;
-  [(NFCTag *)self dispatchOnDelegateQueueAsync:v63];
-
-  v56 = *MEMORY[0x277D85DE8];
+  [(NFCTag *)self dispatchOnDelegateQueueAsync:v62];
 }
 
 - (void)readMultipleBlocksWithConfiguration:(id)configuration completionHandler:(id)handler
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   handlerCopy = handler;
   v9 = _os_activity_create(&dword_23728C000, "NFCISO15693ReaderSessionTag readMultipleBlocksWithConfiguration:completionHandler:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -540,21 +536,21 @@
     *&state[4] = v19;
     *&state[8] = 2082;
     *&state[10] = v20;
-    v83 = 2082;
-    v84 = v21;
-    v85 = 1024;
-    v86 = 336;
+    v82 = 2082;
+    v83 = v21;
+    v84 = 1024;
+    v85 = 336;
     _os_log_impl(&dword_23728C000, v17, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i ", state, 0x22u);
   }
 
-  v81.receiver = self;
-  v81.super_class = NFCISO15693ReaderSessionTag;
-  identifier = [(NFCTag *)&v81 identifier];
-  v80 = 0;
-  v23 = [configurationCopy asNSDataArrayWithUID:identifier error:&v80];
-  v24 = v80;
+  v80.receiver = self;
+  v80.super_class = NFCISO15693ReaderSessionTag;
+  identifier = [(NFCTag *)&v80 identifier];
+  v79 = 0;
+  v23 = [configurationCopy asNSDataArrayWithUID:identifier error:&v79];
+  v24 = v79;
 
-  v69 = configurationCopy;
+  v68 = configurationCopy;
   if (v24)
   {
     v25 = NFLogGetLogger();
@@ -563,15 +559,15 @@
       v26 = v25;
       v27 = object_getClass(self);
       v28 = class_isMetaClass(v27);
-      v60 = object_getClassName(self);
-      v63 = sel_getName(a2);
+      v59 = object_getClassName(self);
+      v62 = sel_getName(a2);
       v29 = 45;
       if (v28)
       {
         v29 = 43;
       }
 
-      v26(3, "%c[%{public}s %{public}s]:%i %@ in readConfiguration asNSDataArrayWithUID", v29, v60, v63, 366, v24);
+      v26(3, "%c[%{public}s %{public}s]:%i %@ in readConfiguration asNSDataArrayWithUID", v29, v59, v62, 366, v24);
     }
 
     v30 = NFSharedLogGetLogger();
@@ -596,12 +592,12 @@
       v23 = v32;
       *&state[8] = 2082;
       *&state[10] = v34;
-      v83 = 2082;
-      v84 = v35;
-      v85 = 1024;
-      v86 = 366;
-      v87 = 2112;
-      v88 = v24;
+      v82 = 2082;
+      v83 = v35;
+      v84 = 1024;
+      v85 = 366;
+      v86 = 2112;
+      v87 = v24;
       _os_log_impl(&dword_23728C000, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %@ in readConfiguration asNSDataArrayWithUID", state, 0x2Cu);
     }
   }
@@ -609,53 +605,53 @@
   else
   {
     sel = a2;
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v30 = v23;
-    v36 = [v30 countByEnumeratingWithState:&v76 objects:v91 count:16];
+    v36 = [v30 countByEnumeratingWithState:&v75 objects:v90 count:16];
     if (v36)
     {
       v37 = v36;
-      v65 = v23;
-      v66 = handlerCopy;
-      v68 = v10;
-      v38 = *v77;
+      v64 = v23;
+      v65 = handlerCopy;
+      v67 = v10;
+      v38 = *v76;
       while (2)
       {
         for (i = 0; i != v37; ++i)
         {
-          if (*v77 != v38)
+          if (*v76 != v38)
           {
             objc_enumerationMutation(v30);
           }
 
-          v40 = *(*(&v76 + 1) + 8 * i);
+          v40 = *(*(&v75 + 1) + 8 * i);
+          v73 = 0;
           v74 = 0;
-          v75 = 0;
-          [(NFCISO15693ReaderSessionTag *)self _transceiveWithData:v40 receivedData:&v75 commandConfig:configurationCopy error:&v74];
-          v41 = v75;
-          v24 = v74;
+          [(NFCISO15693ReaderSessionTag *)self _transceiveWithData:v40 receivedData:&v74 commandConfig:configurationCopy error:&v73];
+          v41 = v74;
+          v24 = v73;
           if ([v41 length] >= 2)
           {
             v42 = [(NFCISO15693ReaderSessionTag *)self _parseResponseErrorWithData:v41];
             if (v42)
             {
-              v89 = @"ISO15693TagResponseErrorCode";
+              v88 = @"ISO15693TagResponseErrorCode";
               v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v42];
-              v90 = v43;
-              v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+              v89 = v43;
+              v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
               v45 = [NFCError errorWithCode:102 userInfo:v44];
 
-              configurationCopy = v69;
+              configurationCopy = v68;
               v24 = v45;
             }
 
             else
             {
               v43 = [v41 subdataWithRange:{1, objc_msgSend(v41, "length") - 1}];
-              [v68 appendData:v43];
+              [v67 appendData:v43];
             }
           }
 
@@ -667,19 +663,19 @@
               v47 = v46;
               v48 = object_getClass(self);
               v49 = class_isMetaClass(v48);
-              v61 = object_getClassName(self);
-              v64 = sel_getName(sel);
+              v60 = object_getClassName(self);
+              v63 = sel_getName(sel);
               v50 = 45;
               if (v49)
               {
                 v50 = 43;
               }
 
-              v47(3, "%c[%{public}s %{public}s]:%i %@", v50, v61, v64, 360, v24);
+              v47(3, "%c[%{public}s %{public}s]:%i %@", v50, v60, v63, 360, v24);
             }
 
             v51 = NFSharedLogGetLogger();
-            v10 = v68;
+            v10 = v67;
             if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
             {
               v52 = object_getClass(self);
@@ -699,22 +695,22 @@
               *&state[4] = v53;
               *&state[8] = 2082;
               *&state[10] = v54;
-              v83 = 2082;
-              v84 = v55;
-              v85 = 1024;
-              v86 = 360;
-              v87 = 2112;
-              v88 = v24;
+              v82 = 2082;
+              v83 = v55;
+              v84 = 1024;
+              v85 = 360;
+              v86 = 2112;
+              v87 = v24;
               _os_log_impl(&dword_23728C000, v51, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i %@", state, 0x2Cu);
             }
 
-            v23 = v65;
-            handlerCopy = v66;
+            v23 = v64;
+            handlerCopy = v65;
             goto LABEL_45;
           }
         }
 
-        v37 = [v30 countByEnumeratingWithState:&v76 objects:v91 count:16];
+        v37 = [v30 countByEnumeratingWithState:&v75 objects:v90 count:16];
         if (v37)
         {
           continue;
@@ -724,9 +720,9 @@
       }
 
       v24 = 0;
-      v23 = v65;
-      handlerCopy = v66;
-      v10 = v68;
+      v23 = v64;
+      handlerCopy = v65;
+      v10 = v67;
     }
 
     else
@@ -737,19 +733,17 @@
 
 LABEL_45:
 
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = sub_2372AE12C;
-  v70[3] = &unk_278A29C60;
-  v72 = v24;
-  v73 = handlerCopy;
-  v71 = v10;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = sub_2372AE12C;
+  v69[3] = &unk_278A29C60;
+  v71 = v24;
+  v72 = handlerCopy;
+  v70 = v10;
   v56 = v24;
   v57 = v10;
   v58 = handlerCopy;
-  [(NFCTag *)self dispatchOnDelegateQueueAsync:v70];
-
-  v59 = *MEMORY[0x277D85DE8];
+  [(NFCTag *)self dispatchOnDelegateQueueAsync:v69];
 }
 
 - (void)stayQuietWithCompletionHandler:(id)handler

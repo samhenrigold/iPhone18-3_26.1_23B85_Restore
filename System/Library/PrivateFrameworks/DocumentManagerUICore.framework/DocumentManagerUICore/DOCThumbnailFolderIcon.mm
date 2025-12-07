@@ -89,7 +89,7 @@ uint64_t __37__DOCThumbnailFolderIcon_folderIcons__block_invoke(uint64_t a1)
 {
   height = size.height;
   width = size.width;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (_folderIconForSize_scale__onceToken != -1)
   {
     +[DOCThumbnailFolderIcon _folderIconForSize:scale:];
@@ -105,25 +105,25 @@ uint64_t __37__DOCThumbnailFolderIcon_folderIcons__block_invoke(uint64_t a1)
   else
   {
     [self folderIcons];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v10 = v25 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = v24 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
 LABEL_7:
       v14 = 0;
       while (1)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * v14);
+        v15 = *(*(&v21 + 1) + 8 * v14);
         [v15 imageDimension];
         if (vabdd_f64(width, v16) < 1.0)
         {
@@ -132,7 +132,7 @@ LABEL_7:
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v12)
           {
             goto LABEL_7;
@@ -155,13 +155,13 @@ LABEL_7:
 LABEL_13:
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __51__DOCThumbnailFolderIcon__folderIconForSize_scale___block_invoke_2;
-    v21[3] = &__block_descriptor_48_e39_B32__0__DOCThumbnailFolderIcon_8Q16_B24l;
-    *&v21[4] = width;
-    *&v21[5] = height;
-    v18 = [v10 indexOfObjectPassingTest:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __51__DOCThumbnailFolderIcon__folderIconForSize_scale___block_invoke_2;
+    v20[3] = &__block_descriptor_48_e39_B32__0__DOCThumbnailFolderIcon_8Q16_B24l;
+    *&v20[4] = width;
+    *&v20[5] = height;
+    v18 = [v10 indexOfObjectPassingTest:v20];
     if (v18 == 0x7FFFFFFFFFFFFFFFLL)
     {
       [v10 lastObject];
@@ -177,8 +177,6 @@ LABEL_19:
     [_folderIconForSize_scale__folderIconCache setObject:v17 forKey:v7];
     v9 = v17;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -495,15 +493,13 @@ void __80__DOCThumbnailFolderIcon__badgedFolderIconForBadge_badgeSize_bottomInse
   v9 = [v6 CGContext];
 
   CGContextSaveGState(v9);
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 56);
   [*(a1 + 32) size];
   UIRectCenteredXInRect();
+  v11 = v10;
   v13 = v12;
   v15 = v14;
-  v17 = v16;
   [*(a1 + 32) size];
-  [*(a1 + 40) drawInRect:{v13, v18 - *(a1 + 64) - *(a1 + 56), v15, v17}];
+  [*(a1 + 40) drawInRect:{v11, v16 - *(a1 + 64) - *(a1 + 56), v13, v15}];
 
   CGContextRestoreGState(v9);
 }

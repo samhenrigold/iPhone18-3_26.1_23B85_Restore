@@ -3,6 +3,7 @@
 - (BOOL)_canStartMonitoringForClient:(id)client withError:(id *)error;
 - (BOOL)_getHeadlessClientStatus;
 - (BOOL)_hasEntitlements:(id)entitlements;
+- (BOOL)_isProcessAlive:(int)alive;
 - (BOOL)_shouldAcceptNewConnection:(id)connection;
 - (BOOL)_shouldAcceptheadlessClientConnection:(id)connection;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
@@ -19,6 +20,7 @@
 - (void)_cancelQueryTimer;
 - (void)_collectMetricsAndUpdateHeadlessClient;
 - (void)_collectMetricsWithTimeout:(int)timeout;
+- (void)_collectMetricsWithTimeout:(int)timeout andUpdateClient:(id)client;
 - (void)_emitPowerSignpostWithMetric:(id)metric value:(id)value;
 - (void)_emitPowerSignpostWithMetric:(id)metric value:(id)value pid:(id)pid;
 - (void)_handleConnectionEndedWithClient:(id)client;
@@ -232,13 +234,11 @@ void __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke(ui
 
 id __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_112(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"monitoringDuration";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"monitoringDuration";
   v1 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -264,7 +264,7 @@ id __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_112(
   return selfCopy;
 }
 
-uint64_t __51__PPSMetricMonitorService__getHeadlessClientStatus__block_invoke(uint64_t a1)
+void *__51__PPSMetricMonitorService__getHeadlessClientStatus__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) hasHeadlessClient];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -273,30 +273,30 @@ uint64_t __51__PPSMetricMonitorService__getHeadlessClientStatus__block_invoke(ui
 
 - (double)_postAccountingProcessesForSubsystem:(int64_t)subsystem processes:(id)processes metrics:(id)metrics
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   processesCopy = processes;
   metricsCopy = metrics;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v9 = [processesCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [processesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     v12 = 0.0;
-    v28 = processesCopy;
+    v27 = processesCopy;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(processesCopy);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         delegate = [(PPSMetricMonitorService *)self delegate];
         v16 = [delegate pidForProcessName:v14];
 
@@ -333,12 +333,12 @@ uint64_t __51__PPSMetricMonitorService__getHeadlessClientStatus__block_invoke(ui
             value = [gpuEnergy value];
             v12 = v12 + [value unsignedLongLongValue] / 1000000000.0;
 
-            processesCopy = v28;
+            processesCopy = v27;
           }
         }
       }
 
-      v10 = [processesCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [processesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (!v10)
       {
         goto LABEL_17;
@@ -349,7 +349,6 @@ uint64_t __51__PPSMetricMonitorService__getHeadlessClientStatus__block_invoke(ui
   v12 = 0.0;
 LABEL_17:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -383,7 +382,7 @@ LABEL_17:
 
 - (void)emitTracingToolPowerMetrics:(id)metrics ofClient:(id)client
 {
-  v260 = *MEMORY[0x277D85DE8];
+  v264 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   clientCopy = client;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
@@ -407,12 +406,12 @@ LABEL_17:
     v15 = 0;
   }
 
-  v223 = v15;
+  v227 = v15;
   networkingTrackPreviousMct = [(PPSMetricMonitorService *)self networkingTrackPreviousMct];
   if (v10 <= previousMct)
   {
-    v112 = PPSMetricMonitorLogHandleForCategory(2);
-    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
+    v115 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
     {
       [PPSMetricMonitorService emitTracingToolPowerMetrics:ofClient:];
     }
@@ -449,43 +448,43 @@ LABEL_17:
     v22 = v21;
 
     [(PPSMetricMonitorService *)self _postAccountingProcessesForSubsystem:0 processes:self->_postAccountingProcessesScreenState metrics:metricsCopy];
-    v221 = v23;
+    v225 = v23;
     [(PPSMetricMonitorService *)self _postAccountingProcessesForSubsystem:1 processes:self->_postAccountingProcessesScreenState metrics:metricsCopy];
-    v222 = v24;
+    v226 = v24;
     [(PPSMetricMonitorService *)self _postAccountingProcessesForSubsystem:0 processes:self->_postAccountingAudio metrics:metricsCopy];
     v26 = v25;
-    v228 = 0u;
-    v229 = 0u;
-    v230 = 0u;
-    v231 = 0u;
-    v151 = clientCopy;
+    v232 = 0u;
+    v233 = 0u;
+    v234 = 0u;
+    v235 = 0u;
+    v155 = clientCopy;
     obj = [clientCopy monitoredPIDs];
-    v27 = [obj countByEnumeratingWithState:&v228 objects:v259 count:16];
-    v225 = v10;
+    v27 = [obj countByEnumeratingWithState:&v232 objects:v263 count:16];
+    v229 = v10;
     if (v27)
     {
       v28 = v27;
+      v222 = 0;
       v218 = 0;
-      v214 = 0;
-      v152 = previousGPUMct + 1;
-      v217 = v10 - v17;
-      v227 = *v229;
+      v156 = previousGPUMct + 1;
+      v221 = v10 - v17;
+      v231 = *v233;
       selfCopy = self;
-      v216 = metricsCopy;
-      v220 = previousGPUMct;
-      v153 = v17;
+      v220 = metricsCopy;
+      v224 = previousGPUMct;
+      v157 = v17;
       do
       {
         v29 = 0;
-        v224 = v28;
+        v228 = v28;
         do
         {
-          if (*v229 != v227)
+          if (*v233 != v231)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v228 + 1) + 8 * v29);
+          v30 = *(*(&v232 + 1) + 8 * v29);
           processMetrics = [metricsCopy processMetrics];
           v32 = [processMetrics objectForKey:v30];
 
@@ -510,7 +509,7 @@ LABEL_17:
 
               else
               {
-                v40 = v221 * v39;
+                v40 = v225 * v39;
               }
 
               if (v39 <= 0.0)
@@ -520,7 +519,7 @@ LABEL_17:
 
               else
               {
-                v41 = v222 * v39;
+                v41 = v226 * v39;
               }
 
               processMetrics3 = [metricsCopy processMetrics];
@@ -549,232 +548,232 @@ LABEL_17:
               value2 = [gpuEnergy value];
               v55 = (v41 + [value2 unsignedLongLongValue] / 1000000000.0) / v22;
 
-              v56 = powerMetricsTotalsLogHandle();
+              v57 = powerMetricsTotalsLogHandle(v56);
               intValue = [v30 intValue];
               if ((intValue - 1) <= 0xFFFFFFFD)
               {
-                v58 = intValue;
-                if (os_signpost_enabled(v56))
+                v59 = intValue;
+                if (os_signpost_enabled(v57))
                 {
-                  spid = v58;
+                  spid = v59;
                   headlessClientTrackedProcesses2 = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
-                  v210 = [headlessClientTrackedProcesses2 objectForKeyedSubscript:v30];
-                  uTF8String = [v210 UTF8String];
+                  v214 = [headlessClientTrackedProcesses2 objectForKeyedSubscript:v30];
+                  uTF8String = [v214 UTF8String];
                   [(PPSMetricMonitorService *)self _quantizePowerMetric:(v45 + unsignedLongLongValue / 1000000000.0) / v22];
-                  v177 = v59;
+                  v181 = v60;
                   [(PPSMetricMonitorService *)self _quantizePowerMetric:v55];
-                  v175 = v60;
+                  v179 = v61;
                   processMetrics6 = [metricsCopy processMetrics];
-                  v206 = [processMetrics6 objectForKeyedSubscript:v30];
-                  qosUtility = [v206 qosUtility];
+                  v210 = [processMetrics6 objectForKeyedSubscript:v30];
+                  qosUtility = [v210 qosUtility];
                   [qosUtility doubleValue];
-                  v173 = v61;
+                  v177 = v62;
                   processMetrics7 = [metricsCopy processMetrics];
-                  v200 = [processMetrics7 objectForKeyedSubscript:v30];
-                  qosBackground = [v200 qosBackground];
+                  v204 = [processMetrics7 objectForKeyedSubscript:v30];
+                  qosBackground = [v204 qosBackground];
                   [qosBackground doubleValue];
-                  v170 = v62;
+                  v174 = v63;
                   processMetrics8 = [metricsCopy processMetrics];
-                  v194 = [processMetrics8 objectForKeyedSubscript:v30];
-                  qosUserInitiated = [v194 qosUserInitiated];
+                  v198 = [processMetrics8 objectForKeyedSubscript:v30];
+                  qosUserInitiated = [v198 qosUserInitiated];
                   [qosUserInitiated doubleValue];
-                  v167 = v63;
+                  v171 = v64;
                   processMetrics9 = [metricsCopy processMetrics];
-                  v188 = [processMetrics9 objectForKeyedSubscript:v30];
-                  qosUserInteractive = [v188 qosUserInteractive];
+                  v192 = [processMetrics9 objectForKeyedSubscript:v30];
+                  qosUserInteractive = [v192 qosUserInteractive];
                   [qosUserInteractive doubleValue];
-                  v164 = v64;
+                  v168 = v65;
                   processMetrics10 = [metricsCopy processMetrics];
-                  v182 = [processMetrics10 objectForKeyedSubscript:v30];
-                  cpuInstructions = [v182 cpuInstructions];
+                  v186 = [processMetrics10 objectForKeyedSubscript:v30];
+                  cpuInstructions = [v186 cpuInstructions];
                   value3 = [cpuInstructions value];
                   unsignedLongLongValue2 = [value3 unsignedLongLongValue];
                   processMetrics11 = [metricsCopy processMetrics];
-                  v176 = [processMetrics11 objectForKeyedSubscript:v30];
-                  aneTime = [v176 aneTime];
+                  v180 = [processMetrics11 objectForKeyedSubscript:v30];
+                  aneTime = [v180 aneTime];
                   [aneTime doubleValue];
-                  v159 = v65;
+                  v163 = v66;
                   processMetrics12 = [metricsCopy processMetrics];
-                  v171 = [processMetrics12 objectForKeyedSubscript:v30];
-                  locationDesiredAccuracy = [v171 locationDesiredAccuracy];
+                  v175 = [processMetrics12 objectForKeyedSubscript:v30];
+                  locationDesiredAccuracy = [v175 locationDesiredAccuracy];
                   [locationDesiredAccuracy doubleValue];
-                  v66 = v26;
-                  v68 = v67;
+                  v67 = v26;
+                  v69 = v68;
                   processMetrics13 = [metricsCopy processMetrics];
-                  v166 = [processMetrics13 objectForKeyedSubscript:v30];
-                  applicationState = [v166 applicationState];
+                  v170 = [processMetrics13 objectForKeyedSubscript:v30];
+                  applicationState = [v170 applicationState];
                   intValue2 = [applicationState intValue];
                   processMetrics14 = [metricsCopy processMetrics];
-                  v162 = [processMetrics14 objectForKeyedSubscript:v30];
-                  displayPower = [v162 displayPower];
+                  v166 = [processMetrics14 objectForKeyedSubscript:v30];
+                  displayPower = [v166 displayPower];
                   [displayPower doubleValue];
-                  [(PPSMetricMonitorService *)self _quantizePowerMetric:v69 / v22];
-                  v70 = v22;
-                  v72 = v71;
-                  v154 = [(PPSMetricMonitorService *)self previousMct]+ 1;
+                  [(PPSMetricMonitorService *)self _quantizePowerMetric:v70 / v22];
+                  v71 = v22;
+                  v73 = v72;
+                  v158 = [(PPSMetricMonitorService *)self previousMct]+ 1;
                   processMetrics15 = [metricsCopy processMetrics];
-                  v157 = [processMetrics15 objectForKeyedSubscript:v30];
-                  qosDefault = [v157 qosDefault];
+                  v161 = [processMetrics15 objectForKeyedSubscript:v30];
+                  qosDefault = [v161 qosDefault];
                   [qosDefault doubleValue];
-                  v74 = v73;
+                  v75 = v74;
                   processMetrics16 = [metricsCopy processMetrics];
-                  v76 = [processMetrics16 objectForKeyedSubscript:v30];
-                  [v76 qosMaintenance];
-                  v78 = v77 = v56;
-                  [v78 doubleValue];
-                  v79 = v55;
-                  v81 = v80;
+                  v77 = [processMetrics16 objectForKeyedSubscript:v30];
+                  [v77 qosMaintenance];
+                  v79 = v78 = v57;
+                  [v79 doubleValue];
+                  v80 = v55;
+                  v82 = v81;
                   processMetrics17 = [metricsCopy processMetrics];
-                  v83 = [processMetrics17 objectForKeyedSubscript:v30];
-                  qosUnspecified = [v83 qosUnspecified];
+                  v84 = [processMetrics17 objectForKeyedSubscript:v30];
+                  qosUnspecified = [v84 qosUnspecified];
                   [qosUnspecified doubleValue];
                   *buf = 136450306;
-                  v233 = uTF8String;
-                  v234 = 2050;
-                  v235 = v177;
-                  v236 = 2050;
-                  v237 = v175;
+                  v237 = uTF8String;
                   v238 = 2050;
-                  *v239 = v173;
-                  *&v239[8] = 2050;
-                  *v240 = v170;
-                  *&v240[8] = 2050;
-                  *&v240[10] = v167;
-                  *&v240[18] = 2050;
-                  *&v240[20] = v164;
-                  *&v240[28] = 2050;
-                  *&v240[30] = unsignedLongLongValue2;
-                  v241 = 2050;
-                  v242 = v159;
-                  v243 = 2050;
-                  v244 = v68;
-                  v26 = v66;
-                  v245 = 1026;
-                  v246 = intValue2;
+                  v239 = v181;
+                  v240 = 2050;
+                  v241 = v179;
+                  v242 = 2050;
+                  *v243 = v177;
+                  *&v243[8] = 2050;
+                  *v244 = v174;
+                  *&v244[8] = 2050;
+                  *&v244[10] = v171;
+                  *&v244[18] = 2050;
+                  *&v244[20] = v168;
+                  *&v244[28] = 2050;
+                  *&v244[30] = unsignedLongLongValue2;
+                  v245 = 2050;
+                  v246 = v163;
                   v247 = 2050;
-                  v248 = v72;
-                  v22 = v70;
-                  v249 = 2050;
-                  v250 = v154;
+                  v248 = v69;
+                  v26 = v67;
+                  v249 = 1026;
+                  v250 = intValue2;
                   v251 = 2050;
-                  v252 = v225;
+                  v252 = v73;
+                  v22 = v71;
                   v253 = 2050;
-                  v254 = v74;
+                  v254 = v158;
                   v255 = 2050;
-                  v256 = v81;
-                  v55 = v79;
+                  v256 = v229;
                   v257 = 2050;
-                  v258 = v85;
-                  _os_signpost_emit_with_name_impl(&dword_22E4FA000, v77, OS_SIGNPOST_EVENT, spid, "Per-app subsystem power", "Process name: %{public}s\nSignpost ID is PID\nCPU Power Impact = %{public, name=CPU_Power_Impact}.2f\nGPU Power Impact = %{public, name=GPU_Power_Impact}.2f\nQOS Utility = %{public, name=QOS_Utility, units=s}.2f s\nQOS Background = %{public, name=QOS_Background, units=s}.2f s\nQOS User Initiated = %{public, name=QOS_User_Initiated, units=s}.2f s\nQOS User Interactive = %{public, name=QOS_User_Interactive, units=s}.2f s\nCPU Instructions = %{public, name=CPU_Instructions}lld \nANE Time = %{public, name=ANE_Time, units=s}.2f s \nLocation Desired Accuracy = %{public, name=Location_Desired_Accuracy}.2f \nApplication State = %{public, name=Application_State}d \nDisplay Power Impact = %{public, name=Display_Power_Impact}.2f\n%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nQOS Default = %{public, name=QOS_Default, units=s}.2f s\nQOS Maintenance = %{public, name=QOS_Maintenance, units=s}.2f s\nQOS Unspecified = %{public, name=QOS_Unspecified, units=s}.2f s\n", buf, 0xA8u);
+                  v258 = v75;
+                  v259 = 2050;
+                  v260 = v82;
+                  v55 = v80;
+                  v261 = 2050;
+                  v262 = v86;
+                  _os_signpost_emit_with_name_impl(&dword_22E4FA000, v78, OS_SIGNPOST_EVENT, spid, "Per-app subsystem power", "Process name: %{public}s\nSignpost ID is PID\nCPU Power Impact = %{public, name=CPU_Power_Impact}.2f\nGPU Power Impact = %{public, name=GPU_Power_Impact}.2f\nQOS Utility = %{public, name=QOS_Utility, units=s}.2f s\nQOS Background = %{public, name=QOS_Background, units=s}.2f s\nQOS User Initiated = %{public, name=QOS_User_Initiated, units=s}.2f s\nQOS User Interactive = %{public, name=QOS_User_Interactive, units=s}.2f s\nCPU Instructions = %{public, name=CPU_Instructions}lld \nANE Time = %{public, name=ANE_Time, units=s}.2f s \nLocation Desired Accuracy = %{public, name=Location_Desired_Accuracy}.2f \nApplication State = %{public, name=Application_State}d \nDisplay Power Impact = %{public, name=Display_Power_Impact}.2f\n%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nQOS Default = %{public, name=QOS_Default, units=s}.2f s\nQOS Maintenance = %{public, name=QOS_Maintenance, units=s}.2f s\nQOS Unspecified = %{public, name=QOS_Unspecified, units=s}.2f s\n", buf, 0xA8u);
 
-                  metricsCopy = v216;
-                  v56 = v77;
+                  metricsCopy = v220;
+                  v57 = v78;
 
                   self = selfCopy;
                 }
               }
 
-              v28 = v224;
-              if (v223 > v220)
+              v28 = v228;
+              if (v227 > v224)
               {
-                v86 = powerMetricsTotalsLogHandle();
+                v88 = powerMetricsTotalsLogHandle(v87);
                 intValue3 = [v30 intValue];
                 if ((intValue3 - 1) <= 0xFFFFFFFD)
                 {
-                  v88 = intValue3;
-                  if (os_signpost_enabled(v86))
+                  v90 = intValue3;
+                  if (os_signpost_enabled(v88))
                   {
-                    v89 = v88;
+                    v91 = v90;
                     headlessClientTrackedProcesses3 = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
-                    v91 = [headlessClientTrackedProcesses3 objectForKeyedSubscript:v30];
-                    *&v92 = COERCE_DOUBLE([v91 UTF8String]);
+                    v93 = [headlessClientTrackedProcesses3 objectForKeyedSubscript:v30];
+                    *&v94 = COERCE_DOUBLE([v93 UTF8String]);
                     [(PPSMetricMonitorService *)self _quantizePowerMetric:v55];
                     *buf = 134349826;
-                    v233 = v152;
-                    v234 = 2050;
-                    v235 = v223;
-                    v236 = 2082;
-                    v237 = *&v92;
-                    v28 = v224;
+                    v237 = v156;
                     v238 = 2050;
-                    *v239 = v93;
-                    _os_signpost_emit_with_name_impl(&dword_22E4FA000, v86, OS_SIGNPOST_EVENT, v89, "Per-app GPU power impact", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nProcess name: %{public}s\nSignpost ID is PID\nGPU Power Impact = %{public, name=GPU_Power_Impact}.2f\n", buf, 0x2Au);
-                  }
-                }
-
-                v214 = 1;
-              }
-
-              processMetrics18 = [metricsCopy processMetrics];
-              v95 = [processMetrics18 objectForKeyedSubscript:v30];
-              networkingPower = [v95 networkingPower];
-
-              if (networkingPower)
-              {
-                delegate2 = [(PPSMetricMonitorService *)self delegate];
-                [delegate2 getSecondsFromMachTime:v217];
-                v99 = v98;
-
-                v100 = powerMetricsTotalsLogHandle();
-                intValue4 = [v30 intValue];
-                if ((intValue4 - 1) <= 0xFFFFFFFD)
-                {
-                  v102 = intValue4;
-                  if (os_signpost_enabled(v100))
-                  {
-                    v203 = v102;
-                    headlessClientTrackedProcesses4 = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
-                    v213 = [headlessClientTrackedProcesses4 objectForKeyedSubscript:v30];
-                    *&v193 = COERCE_DOUBLE([v213 UTF8String]);
-                    processMetrics19 = [metricsCopy processMetrics];
-                    v209 = [processMetrics19 objectForKeyedSubscript:v30];
-                    wifiIn = [v209 wifiIn];
-                    intValue5 = [wifiIn intValue];
-                    processMetrics20 = [metricsCopy processMetrics];
-                    v201 = [processMetrics20 objectForKeyedSubscript:v30];
-                    wifiOut = [v201 wifiOut];
-                    spida = [wifiOut intValue];
-                    processMetrics21 = [metricsCopy processMetrics];
-                    v195 = [processMetrics21 objectForKeyedSubscript:v30];
-                    cellIn = [v195 cellIn];
-                    intValue6 = [cellIn intValue];
-                    processMetrics22 = [metricsCopy processMetrics];
-                    v104 = [processMetrics22 objectForKeyedSubscript:v30];
-                    cellOut = [v104 cellOut];
-                    intValue7 = [cellOut intValue];
-                    processMetrics23 = [v216 processMetrics];
-                    v108 = [processMetrics23 objectForKeyedSubscript:v30];
-                    networkingPower2 = [v108 networkingPower];
-                    [networkingPower2 doubleValue];
-                    [(PPSMetricMonitorService *)selfCopy _quantizePowerMetric:v110 / v99];
-                    *buf = 134350850;
-                    v233 = v153;
-                    v234 = 2050;
-                    v235 = v225;
-                    v236 = 2082;
-                    v237 = *&v193;
-                    v238 = 1026;
-                    *v239 = intValue5;
-                    *&v239[4] = 1026;
-                    *&v239[6] = spida;
-                    *v240 = 1026;
-                    *&v240[2] = intValue6;
-                    *&v240[6] = 1026;
-                    *&v240[8] = intValue7;
-                    metricsCopy = v216;
-                    *&v240[12] = 2050;
-                    *&v240[14] = v111;
-                    _os_signpost_emit_with_name_impl(&dword_22E4FA000, v100, OS_SIGNPOST_EVENT, v203, "Per-app networking power", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nProcess name: %{public}s\nSignpost ID is PID\nWifi In = %{public, name=Wifi_In, units=B}d B\nWifi Out = %{public, name=Wifi_Out, units=B}d B\nCellular In = %{public, name=Cellular_In, units=B}d B\nCellular Out = %{public, name=Cellular_Out, units=B}d B\nNetworking Power Impact = %{public, name=Networking_Power_Impact}.2f\n", buf, 0x42u);
-
-                    self = selfCopy;
-                    v28 = v224;
+                    v239 = v227;
+                    v240 = 2082;
+                    v241 = *&v94;
+                    v28 = v228;
+                    v242 = 2050;
+                    *v243 = v95;
+                    _os_signpost_emit_with_name_impl(&dword_22E4FA000, v88, OS_SIGNPOST_EVENT, v91, "Per-app GPU power impact", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nProcess name: %{public}s\nSignpost ID is PID\nGPU Power Impact = %{public, name=GPU_Power_Impact}.2f\n", buf, 0x2Au);
                   }
                 }
 
                 v218 = 1;
               }
 
-              v10 = v225;
+              processMetrics18 = [metricsCopy processMetrics];
+              v97 = [processMetrics18 objectForKeyedSubscript:v30];
+              networkingPower = [v97 networkingPower];
+
+              if (networkingPower)
+              {
+                delegate2 = [(PPSMetricMonitorService *)self delegate];
+                [delegate2 getSecondsFromMachTime:v221];
+                v101 = v100;
+
+                v103 = powerMetricsTotalsLogHandle(v102);
+                intValue4 = [v30 intValue];
+                if ((intValue4 - 1) <= 0xFFFFFFFD)
+                {
+                  v105 = intValue4;
+                  if (os_signpost_enabled(v103))
+                  {
+                    v207 = v105;
+                    headlessClientTrackedProcesses4 = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
+                    v217 = [headlessClientTrackedProcesses4 objectForKeyedSubscript:v30];
+                    *&v197 = COERCE_DOUBLE([v217 UTF8String]);
+                    processMetrics19 = [metricsCopy processMetrics];
+                    v213 = [processMetrics19 objectForKeyedSubscript:v30];
+                    wifiIn = [v213 wifiIn];
+                    intValue5 = [wifiIn intValue];
+                    processMetrics20 = [metricsCopy processMetrics];
+                    v205 = [processMetrics20 objectForKeyedSubscript:v30];
+                    wifiOut = [v205 wifiOut];
+                    spida = [wifiOut intValue];
+                    processMetrics21 = [metricsCopy processMetrics];
+                    v199 = [processMetrics21 objectForKeyedSubscript:v30];
+                    cellIn = [v199 cellIn];
+                    intValue6 = [cellIn intValue];
+                    processMetrics22 = [metricsCopy processMetrics];
+                    v107 = [processMetrics22 objectForKeyedSubscript:v30];
+                    cellOut = [v107 cellOut];
+                    intValue7 = [cellOut intValue];
+                    processMetrics23 = [v220 processMetrics];
+                    v111 = [processMetrics23 objectForKeyedSubscript:v30];
+                    networkingPower2 = [v111 networkingPower];
+                    [networkingPower2 doubleValue];
+                    [(PPSMetricMonitorService *)selfCopy _quantizePowerMetric:v113 / v101];
+                    *buf = 134350850;
+                    v237 = v157;
+                    v238 = 2050;
+                    v239 = v229;
+                    v240 = 2082;
+                    v241 = *&v197;
+                    v242 = 1026;
+                    *v243 = intValue5;
+                    *&v243[4] = 1026;
+                    *&v243[6] = spida;
+                    *v244 = 1026;
+                    *&v244[2] = intValue6;
+                    *&v244[6] = 1026;
+                    *&v244[8] = intValue7;
+                    metricsCopy = v220;
+                    *&v244[12] = 2050;
+                    *&v244[14] = v114;
+                    _os_signpost_emit_with_name_impl(&dword_22E4FA000, v103, OS_SIGNPOST_EVENT, v207, "Per-app networking power", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nProcess name: %{public}s\nSignpost ID is PID\nWifi In = %{public, name=Wifi_In, units=B}d B\nWifi Out = %{public, name=Wifi_Out, units=B}d B\nCellular In = %{public, name=Cellular_In, units=B}d B\nCellular Out = %{public, name=Cellular_Out, units=B}d B\nNetworking Power Impact = %{public, name=Networking_Power_Impact}.2f\n", buf, 0x42u);
+
+                    self = selfCopy;
+                    v28 = v228;
+                  }
+                }
+
+                v222 = 1;
+              }
+
+              v10 = v229;
             }
           }
 
@@ -782,7 +781,7 @@ LABEL_17:
         }
 
         while (v28 != v29);
-        v28 = [obj countByEnumeratingWithState:&v228 objects:v259 count:16];
+        v28 = [obj countByEnumeratingWithState:&v232 objects:v263 count:16];
       }
 
       while (v28);
@@ -790,90 +789,90 @@ LABEL_17:
 
     else
     {
+      v222 = 0;
       v218 = 0;
-      v214 = 0;
     }
 
     delegate3 = [(PPSMetricMonitorService *)self delegate];
     isPluggedIn = [delegate3 isPluggedIn];
 
-    v115 = 0.0;
+    v118 = 0.0;
     if ((isPluggedIn & 1) == 0)
     {
       delegate4 = [(PPSMetricMonitorService *)self delegate];
       [delegate4 batteryCapacity];
-      v118 = v117;
+      v121 = v120;
 
       systemLoadPower = [metricsCopy systemLoadPower];
       [systemLoadPower doubleValue];
-      v121 = v120 * 1000.0 / v118 * 100.0;
+      v124 = v123 * 1000.0 / v121 * 100.0;
 
-      v115 = v121 / v22;
+      v118 = v124 / v22;
     }
 
     delegate5 = [(PPSMetricMonitorService *)self delegate];
     [delegate5 brightnessPercent];
-    v124 = v123;
+    v127 = v126;
 
-    v125 = powerMetricsTotalsLogHandle();
-    if (os_signpost_enabled(v125))
+    v129 = powerMetricsTotalsLogHandle(v128);
+    if (os_signpost_enabled(v129))
     {
-      v126 = [(PPSMetricMonitorService *)self previousMct]+ 1;
+      v130 = [(PPSMetricMonitorService *)self previousMct]+ 1;
       thermalPressure = [metricsCopy thermalPressure];
       displayAPL = [metricsCopy displayAPL];
       [displayAPL doubleValue];
-      v130 = v129;
+      v134 = v133;
       displayFPS = [metricsCopy displayFPS];
       [displayFPS doubleValue];
       *buf = 134350848;
-      v233 = v126;
-      v234 = 2050;
-      v235 = v225;
-      v236 = 2050;
-      v237 = v115;
+      v237 = v130;
       v238 = 2050;
-      *v239 = thermalPressure;
-      *&v239[8] = 1026;
-      *v240 = isPluggedIn;
-      *&v240[4] = 2050;
-      *&v240[6] = v130;
-      *&v240[14] = 2050;
-      *&v240[16] = v132;
-      *&v240[24] = 2050;
-      *&v240[26] = round(v124 * 100.0);
-      _os_signpost_emit_with_name_impl(&dword_22E4FA000, v125, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SystemMetrics", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nSystem Power Usage (sampled power) = %{public, name=System_Power_Usage, units=%/hr}.2f %%/hr\nThermal State = %{public, name=Thermal_State}ld \nCharging Status = %{public, name=Charging_State}d \nDisplay APL = %{public, name=Display_APL}.2f \nFrame Rate = %{public, name=Frame_Rate, units =fps}.2f FPS \nDisplay Brightness Percentage = %{public, name=Display_Brightness_Percentage, units=%}.2f %%\n", buf, 0x4Eu);
+      v239 = v229;
+      v240 = 2050;
+      v241 = v118;
+      v242 = 2050;
+      *v243 = thermalPressure;
+      *&v243[8] = 1026;
+      *v244 = isPluggedIn;
+      *&v244[4] = 2050;
+      *&v244[6] = v134;
+      *&v244[14] = 2050;
+      *&v244[16] = v136;
+      *&v244[24] = 2050;
+      *&v244[26] = round(v127 * 100.0);
+      _os_signpost_emit_with_name_impl(&dword_22E4FA000, v129, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SystemMetrics", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\nSystem Power Usage (sampled power) = %{public, name=System_Power_Usage, units=%/hr}.2f %%/hr\nThermal State = %{public, name=Thermal_State}ld \nCharging Status = %{public, name=Charging_State}d \nDisplay APL = %{public, name=Display_APL}.2f \nFrame Rate = %{public, name=Frame_Rate, units =fps}.2f FPS \nDisplay Brightness Percentage = %{public, name=Display_Brightness_Percentage, units=%}.2f %%\n", buf, 0x4Eu);
 
-      v10 = v225;
+      v10 = v229;
     }
 
-    v133 = PPSMetricMonitorLogHandleForCategory(2);
-    if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
+    v137 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v137, OS_LOG_TYPE_DEBUG))
     {
       [PPSMetricMonitorService emitTracingToolPowerMetrics:metricsCopy ofClient:?];
     }
 
-    v134 = PPSMetricMonitorLogHandleForCategory(2);
-    clientCopy = v151;
-    if (os_log_type_enabled(v134, OS_LOG_TYPE_DEBUG))
+    v138 = PPSMetricMonitorLogHandleForCategory(2);
+    clientCopy = v155;
+    if (os_log_type_enabled(v138, OS_LOG_TYPE_DEBUG))
     {
       [PPSMetricMonitorService emitTracingToolPowerMetrics:metricsCopy ofClient:?];
     }
 
-    v135 = PPSMetricMonitorLogHandleForCategory(2);
-    if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
+    v139 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEBUG))
     {
       [PPSMetricMonitorService emitTracingToolPowerMetrics:metricsCopy ofClient:?];
     }
 
     [(PPSMetricMonitorService *)self setPreviousMct:v10];
-    if (v218)
+    if (v222)
     {
       [(PPSMetricMonitorService *)self setNetworkingTrackPreviousMct:v10];
     }
 
-    if (v214)
+    if (v218)
     {
-      [(PPSMetricMonitorService *)self setPreviousGPUMct:v223];
+      [(PPSMetricMonitorService *)self setPreviousGPUMct:v227];
     }
 
     sleepWakeHistory = [(PPSMetricMonitorService *)self sleepWakeHistory];
@@ -883,15 +882,15 @@ LABEL_17:
       goto LABEL_72;
     }
 
-    v138 = lastObject;
+    v142 = lastObject;
     sleepWakeHistory2 = [(PPSMetricMonitorService *)self sleepWakeHistory];
     lastObject2 = [sleepWakeHistory2 lastObject];
     isEmitted = [lastObject2 isEmitted];
 
     if ((isEmitted & 1) == 0)
     {
-      v142 = powerMetricsTotalsLogHandle();
-      if (os_signpost_enabled(v142))
+      v147 = powerMetricsTotalsLogHandle(v146);
+      if (os_signpost_enabled(v147))
       {
         sleepWakeHistory3 = [(PPSMetricMonitorService *)self sleepWakeHistory];
         lastObject3 = [sleepWakeHistory3 lastObject];
@@ -900,10 +899,10 @@ LABEL_17:
         lastObject4 = [sleepWakeHistory4 lastObject];
         wakeTime = [lastObject4 wakeTime];
         *buf = 134349312;
-        v233 = sleepTime;
-        v234 = 2050;
-        v235 = wakeTime;
-        _os_signpost_emit_with_name_impl(&dword_22E4FA000, v142, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DidSleep", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\n", buf, 0x16u);
+        v237 = sleepTime;
+        v238 = 2050;
+        v239 = wakeTime;
+        _os_signpost_emit_with_name_impl(&dword_22E4FA000, v147, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "DidSleep", "%{public, signpost.description:begin_time}llu\n%{public, signpost.description:end_time}llu\n", buf, 0x16u);
       }
 
       sleepWakeHistory = [(PPSMetricMonitorService *)self sleepWakeHistory];
@@ -913,13 +912,11 @@ LABEL_17:
 LABEL_72:
     }
   }
-
-  v150 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitPowerMetrics:(id)metrics ofClient:(id)client
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   clientCopy = client;
   v8 = PPSMetricMonitorLogHandleForCategory(2);
@@ -958,28 +955,28 @@ LABEL_72:
   v22 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(metricsCopy, "inducedThermalPressure")}];
   [(PPSMetricMonitorService *)self _emitPowerSignpostWithMetric:@"Induced_Thermal_State" value:v22];
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
-  v110 = clientCopy;
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v109 = clientCopy;
   obj = [clientCopy monitoredPIDs];
-  v23 = [obj countByEnumeratingWithState:&v117 objects:v122 count:16];
+  v23 = [obj countByEnumeratingWithState:&v116 objects:v121 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v118;
+    v25 = *v117;
     do
     {
       v26 = 0;
       do
       {
-        if (*v118 != v25)
+        if (*v117 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v117 + 1) + 8 * v26);
+        v27 = *(*(&v116 + 1) + 8 * v26);
         processMetrics = [metricsCopy processMetrics];
         v29 = [processMetrics objectForKeyedSubscript:v27];
         gpuCost = [v29 gpuCost];
@@ -1020,7 +1017,7 @@ LABEL_72:
       }
 
       while (v24 != v26);
-      v24 = [obj countByEnumeratingWithState:&v117 objects:v122 count:16];
+      v24 = [obj countByEnumeratingWithState:&v116 objects:v121 count:16];
     }
 
     while (v24);
@@ -1058,27 +1055,27 @@ LABEL_72:
   value20 = [wifiPower value];
   [(PPSMetricMonitorService *)self _emitPowerSignpostWithMetric:@"WiFi_Power_W" value:value20];
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
   v114 = 0u;
-  obja = [v110 monitoredPIDs];
-  v68 = [obja countByEnumeratingWithState:&v113 objects:v121 count:16];
+  v115 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  obja = [v109 monitoredPIDs];
+  v68 = [obja countByEnumeratingWithState:&v112 objects:v120 count:16];
   if (v68)
   {
     v69 = v68;
-    v70 = *v114;
+    v70 = *v113;
     do
     {
       v71 = 0;
       do
       {
-        if (*v114 != v70)
+        if (*v113 != v70)
         {
           objc_enumerationMutation(obja);
         }
 
-        v72 = *(*(&v113 + 1) + 8 * v71);
+        v72 = *(*(&v112 + 1) + 8 * v71);
         processMetrics7 = [metricsCopy processMetrics];
         v74 = [processMetrics7 objectForKeyedSubscript:v72];
         energyCost = [v74 energyCost];
@@ -1137,18 +1134,16 @@ LABEL_72:
       }
 
       while (v69 != v71);
-      v69 = [obja countByEnumeratingWithState:&v113 objects:v121 count:16];
+      v69 = [obja countByEnumeratingWithState:&v112 objects:v120 count:16];
     }
 
     while (v69);
   }
-
-  v109 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldAcceptNewConnection:(id)connection
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   processIdentifier = [connectionCopy processIdentifier];
   v6 = PPSMetricMonitorLogHandleForCategory(3);
@@ -1181,36 +1176,35 @@ LABEL_72:
   block[2] = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_246;
   block[3] = &unk_278847BC0;
   block[4] = self;
-  v32 = processIdentifier;
+  v31 = processIdentifier;
   v15 = connectionCopy;
-  v30 = v15;
+  v29 = v15;
   v16 = v13;
-  v31 = v16;
+  v30 = v16;
   dispatch_sync(metricQueryQueue, block);
 
   objc_initWeak(&buf, self);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_248;
-  v26[3] = &unk_278847C10;
-  v28 = processIdentifier;
-  v26[4] = self;
-  objc_copyWeak(&v27, &buf);
-  [v15 setInterruptionHandler:v26];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_2;
-  v22 = &unk_278847C10;
-  v25 = processIdentifier;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_248;
+  v25[3] = &unk_278847C10;
+  v27 = processIdentifier;
+  v25[4] = self;
+  objc_copyWeak(&v26, &buf);
+  [v15 setInterruptionHandler:v25];
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_2;
+  v21 = &unk_278847C10;
+  v24 = processIdentifier;
   selfCopy = self;
-  objc_copyWeak(&v24, &buf);
-  [v15 setInvalidationHandler:&v19];
+  objc_copyWeak(&v23, &buf);
+  [v15 setInvalidationHandler:&v18];
   [v15 resume];
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&buf);
 
-  v17 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1226,7 +1220,7 @@ void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke(uin
 
 void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_246(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [[PPSClient alloc] initWithConnection:*(a1 + 40) remoteProxy:*(a1 + 48)];
   v3 = [*(a1 + 32) clients];
   v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 56)];
@@ -1238,25 +1232,23 @@ void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_246
     v6 = *(a1 + 56);
     v7 = [*(a1 + 32) clients];
     v8 = [v7 allKeys];
-    v10[0] = 67109378;
-    v10[1] = v6;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_DEFAULT, "New client connection from PID %d. Current clients: %@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = v6;
+    v10 = 2112;
+    v11 = v8;
+    _os_log_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_DEFAULT, "New client connection from PID %d. Current clients: %@", v9, 0x12u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_248(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = PPSMetricMonitorLogHandleForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 67109120;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_22E4FA000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection from PID: %d interrupted", buf, 8u);
   }
 
@@ -1265,13 +1257,12 @@ void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_248
   block[1] = 3221225472;
   block[2] = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_249;
   block[3] = &unk_278847BE8;
-  objc_copyWeak(&v7, (a1 + 40));
-  v8 = *(a1 + 48);
+  objc_copyWeak(&v6, (a1 + 40));
+  v7 = *(a1 + 48);
   block[4] = *(a1 + 32);
   dispatch_sync(v4, block);
 
-  objc_destroyWeak(&v7);
-  v5 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v6);
 }
 
 void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_249(uint64_t a1)
@@ -1308,13 +1299,13 @@ void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_249
 
 void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = PPSMetricMonitorLogHandleForCategory(3);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 67109120;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_22E4FA000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection from PID %d invalidated", buf, 8u);
   }
 
@@ -1323,13 +1314,12 @@ void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_2(u
   block[1] = 3221225472;
   block[2] = __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_250;
   block[3] = &unk_278847BE8;
-  objc_copyWeak(&v7, (a1 + 40));
-  v8 = *(a1 + 48);
+  objc_copyWeak(&v6, (a1 + 40));
+  v7 = *(a1 + 48);
   block[4] = *(a1 + 32);
   dispatch_sync(v4, block);
 
-  objc_destroyWeak(&v7);
-  v5 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v6);
 }
 
 void __54__PPSMetricMonitorService__shouldAcceptNewConnection___block_invoke_250(uint64_t a1)
@@ -1482,7 +1472,7 @@ void __54__PPSMetricMonitorService__collectMetricsWithTimeout___block_invoke(uin
 
 - (void)startHeadlessUpdateTimer:(double)timer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = PPSMetricMonitorLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -1512,8 +1502,6 @@ void __54__PPSMetricMonitorService__collectMetricsWithTimeout___block_invoke(uin
 
   headlessUpdateTimer3 = [(PPSMetricMonitorService *)self headlessUpdateTimer];
   dispatch_resume(headlessUpdateTimer3);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PPSMetricMonitorService_startHeadlessUpdateTimer___block_invoke(uint64_t a1)
@@ -1536,13 +1524,13 @@ void __52__PPSMetricMonitorService_startHeadlessUpdateTimer___block_invoke(uint6
 
 - (void)setHeadlessQueryTimer:(double)timer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = PPSMetricMonitorLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
+    v10 = 134217984;
     timerCopy = timer;
-    _os_log_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Starting headless query timer with interval: %f", &v11, 0xCu);
+    _os_log_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Starting headless query timer with interval: %f", &v10, 0xCu);
   }
 
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
@@ -1565,8 +1553,6 @@ void __52__PPSMetricMonitorService_startHeadlessUpdateTimer___block_invoke(uint6
     headlessUpdateTimer2 = [(PPSMetricMonitorService *)self headlessUpdateTimer];
     dispatch_source_set_timer(headlessUpdateTimer2, 0, (timer * 1000000000.0), 0x989680uLL);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -1647,7 +1633,7 @@ void __61__PPSMetricMonitorService_setUpWithConfiguration_completion___block_inv
 
 - (void)startMonitoringSystemMetricsWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   processIdentifier = [currentConnection processIdentifier];
@@ -1661,41 +1647,41 @@ void __61__PPSMetricMonitorService_setUpWithConfiguration_completion___block_inv
   }
 
   *buf = 0;
-  v30 = buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
-  v34 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__1;
-  v27 = __Block_byref_object_dispose__1;
-  v28 = 0;
+  v29 = buf;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__1;
+  v32 = __Block_byref_object_dispose__1;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1;
+  v26 = __Block_byref_object_dispose__1;
+  v27 = 0;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___block_invoke;
-  v18 = &unk_278847C88;
-  v21 = buf;
-  v22 = &v23;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___block_invoke;
+  v17 = &unk_278847C88;
+  v20 = buf;
+  v21 = &v22;
   selfCopy = self;
   v9 = completionCopy;
-  v20 = v9;
-  dispatch_sync(metricQueryQueue, &v15);
+  v19 = v9;
+  dispatch_sync(metricQueryQueue, &v14);
 
-  if (!v24[5])
+  if (!v23[5])
   {
-    config = [*(v30 + 5) config];
+    config = [*(v29 + 5) config];
     if ([config isHeadless])
     {
-      config2 = [*(v30 + 5) config];
+      config2 = [*(v29 + 5) config];
       v12 = [config2 mode] == 0;
 
       if (v12)
       {
         self->_previousMct = mach_continuous_time();
-        config3 = [*(v30 + 5) config];
+        config3 = [*(v29 + 5) config];
         [config3 updateInterval];
         [(PPSMetricMonitorService *)self startHeadlessUpdateTimer:?];
 
@@ -1710,10 +1696,8 @@ void __61__PPSMetricMonitorService_setUpWithConfiguration_completion___block_inv
     (*(v9 + 2))(v9, 0);
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   _Block_object_dispose(buf, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___block_invoke(uint64_t a1)
@@ -1751,27 +1735,25 @@ void __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___
 
   else
   {
-    v17 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 40) + 16))();
   }
 }
 
 - (void)startMonitoringProcessWithPID:(id)d completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   dCopy2 = d;
   v9 = [v6 arrayWithObjects:&dCopy count:1];
 
-  [(PPSMetricMonitorService *)self startMonitoringProcessesWithPID:v9 completion:completionCopy, dCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPSMetricMonitorService *)self startMonitoringProcessesWithPID:v9 completion:completionCopy, dCopy, v11];
 }
 
 - (void)startMonitoringProcessesWithPID:(id)d completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
@@ -1782,48 +1764,48 @@ void __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___
   {
     *buf = 67109378;
     *&buf[4] = processIdentifier;
-    LOWORD(v31) = 2112;
-    *(&v31 + 2) = dCopy;
+    LOWORD(v30) = 2112;
+    *(&v30 + 2) = dCopy;
     _os_log_impl(&dword_22E4FA000, v10, OS_LOG_TYPE_DEFAULT, "Start monitoring processes with pids was called by client: %d PID: %@", buf, 0x12u);
   }
 
   *buf = 0;
-  *&v31 = buf;
-  *(&v31 + 1) = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
-  v34 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__1;
-  v28 = __Block_byref_object_dispose__1;
-  v29 = 0;
+  *&v30 = buf;
+  *(&v30 + 1) = 0x3032000000;
+  v31 = __Block_byref_object_copy__1;
+  v32 = __Block_byref_object_dispose__1;
+  v33 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__1;
+  v27 = __Block_byref_object_dispose__1;
+  v28 = 0;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___block_invoke;
   block[3] = &unk_278847CB0;
-  v22 = buf;
-  v23 = &v24;
+  v21 = buf;
+  v22 = &v23;
   block[4] = self;
   v12 = completionCopy;
-  v21 = v12;
+  v20 = v12;
   v13 = dCopy;
-  v20 = v13;
+  v19 = v13;
   dispatch_sync(metricQueryQueue, block);
 
-  if (!v25[5])
+  if (!v24[5])
   {
-    config = [*(v31 + 40) config];
+    config = [*(v30 + 40) config];
     if ([config isHeadless])
     {
-      config2 = [*(v31 + 40) config];
+      config2 = [*(v30 + 40) config];
       v16 = [config2 mode] == 0;
 
       if (v16)
       {
-        config3 = [*(v31 + 40) config];
+        config3 = [*(v30 + 40) config];
         [config3 updateInterval];
         [(PPSMetricMonitorService *)self startHeadlessUpdateTimer:?];
 
@@ -1838,15 +1820,13 @@ void __70__PPSMetricMonitorService_startMonitoringSystemMetricsWithCompletion___
     (*(v12 + 2))(v12, 0);
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v23, 8);
   _Block_object_dispose(buf, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clients];
   v3 = MEMORY[0x277CCABB0];
   v4 = [MEMORY[0x277CCAE80] currentConnection];
@@ -1881,26 +1861,26 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
     v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
     [*(*(*(a1 + 56) + 8) + 40) setRequestedProcessNames:v16];
 
-    v60 = 0u;
-    v61 = 0u;
     v58 = 0u;
     v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v17 = v14;
-    v18 = [v17 countByEnumeratingWithState:&v58 objects:v64 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v59;
+      v20 = *v57;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v59 != v20)
+          if (*v57 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v58 + 1) + 8 * i);
+          v22 = *(*(&v56 + 1) + 8 * i);
           v23 = [*(a1 + 32) fullProcessNameForPid:{objc_msgSend(v22, "intValue")}];
           if (v23)
           {
@@ -1912,7 +1892,7 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v58 objects:v64 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v56 objects:v62 count:16];
       }
 
       while (v19);
@@ -1923,28 +1903,28 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
 
     if (v27)
     {
-      v52 = [MEMORY[0x277CBEB58] set];
+      v50 = [MEMORY[0x277CBEB58] set];
       [*(a1 + 32) _addProcessesNeededForAccounting:*(*(*(a1 + 56) + 8) + 40)];
-      v56 = 0u;
-      v57 = 0u;
       v54 = 0u;
       v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v28 = [*(*(*(a1 + 56) + 8) + 40) requestedProcessNames];
-      v29 = [v28 countByEnumeratingWithState:&v54 objects:v63 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v52 objects:v61 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v55;
+        v31 = *v53;
         do
         {
           for (j = 0; j != v30; ++j)
           {
-            if (*v55 != v31)
+            if (*v53 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v54 + 1) + 8 * j);
+            v33 = *(*(&v52 + 1) + 8 * j);
             v34 = [*(a1 + 32) delegate];
             v35 = [v34 pidForProcessName:v33];
 
@@ -1953,21 +1933,21 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
               v36 = [MEMORY[0x277CCABB0] numberWithInt:v35];
               [v17 addObject:v36];
 
-              [v52 addObject:v33];
+              [v50 addObject:v33];
               v37 = [*(a1 + 32) headlessClientTrackedProcesses];
               v38 = [MEMORY[0x277CCABB0] numberWithInt:v35];
               [v37 setObject:v33 forKeyedSubscript:v38];
             }
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v54 objects:v63 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v52 objects:v61 count:16];
         }
 
         while (v30);
       }
 
       v39 = [*(*(*(a1 + 56) + 8) + 40) requestedProcessNames];
-      [v39 minusSet:v52];
+      [v39 minusSet:v50];
     }
 
     v40 = [*(*(*(a1 + 56) + 8) + 40) config];
@@ -1996,9 +1976,9 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
     v47 = *(a1 + 32);
     v48 = *(*(*(a1 + 56) + 8) + 40);
     v49 = *(*(a1 + 64) + 8);
-    v53 = *(v49 + 40);
-    [v47 startMonitoringPids:v17 forClient:v48 withError:&v53];
-    objc_storeStrong((v49 + 40), v53);
+    v51 = *(v49 + 40);
+    [v47 startMonitoringPids:v17 forClient:v48 withError:&v51];
+    objc_storeStrong((v49 + 40), v51);
     if (*(*(*(a1 + 64) + 8) + 40))
     {
       (*(*(a1 + 48) + 16))();
@@ -2007,24 +1987,20 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
 
   else
   {
-    v50 = *(*(*(a1 + 64) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringProcessWithName:(id)name completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = MEMORY[0x277CBEA60];
   completionCopy = completion;
   nameCopy2 = name;
   v9 = [v6 arrayWithObjects:&nameCopy count:1];
 
-  [(PPSMetricMonitorService *)self startMonitoringProcessesWithName:v9 completion:completionCopy, nameCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPSMetricMonitorService *)self startMonitoringProcessesWithName:v9 completion:completionCopy, nameCopy, v11];
 }
 
 - (void)_addProcessesNeededForAccounting:(id)accounting
@@ -2055,7 +2031,7 @@ LABEL_5:
 
 - (void)startMonitoringProcessesWithName:(id)name completion:(id)completion
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   completionCopy = completion;
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
@@ -2066,77 +2042,77 @@ LABEL_5:
   {
     *buf = 67109378;
     *&buf[4] = processIdentifier;
-    LOWORD(v59) = 2112;
-    *(&v59 + 2) = nameCopy;
+    LOWORD(v58) = 2112;
+    *(&v58 + 2) = nameCopy;
     _os_log_impl(&dword_22E4FA000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring processes with names was called by client: %d processName: %@ ", buf, 0x12u);
   }
 
   *buf = 0;
-  *&v59 = buf;
-  *(&v59 + 1) = 0x3032000000;
-  v60 = __Block_byref_object_copy__1;
-  v61 = __Block_byref_object_dispose__1;
-  v62 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__1;
-  v55 = __Block_byref_object_dispose__1;
-  v56 = 0;
+  *&v58 = buf;
+  *(&v58 + 1) = 0x3032000000;
+  v59 = __Block_byref_object_copy__1;
+  v60 = __Block_byref_object_dispose__1;
+  v61 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__1;
+  v54 = __Block_byref_object_dispose__1;
+  v55 = 0;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke;
   block[3] = &unk_278847CD8;
-  v48 = &v51;
-  v49 = buf;
+  v47 = &v50;
+  v48 = buf;
   block[4] = self;
-  v50 = processIdentifier;
-  v31 = completionCopy;
-  v47 = v31;
+  v49 = processIdentifier;
+  v30 = completionCopy;
+  v46 = v30;
   dispatch_sync(metricQueryQueue, block);
 
-  if (!*(v59 + 40))
+  if (!*(v58 + 40))
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:nameCopy];
-    [v52[5] setMonitoredProcessNames:v10];
+    [v51[5] setMonitoredProcessNames:v10];
 
     v11 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:nameCopy];
-    [v52[5] setRequestedProcessNames:v11];
+    [v51[5] setRequestedProcessNames:v11];
 
-    config = [v52[5] config];
+    config = [v51[5] config];
     isHeadless = [config isHeadless];
 
     if (isHeadless)
     {
-      [(PPSMetricMonitorService *)self _addProcessesNeededForAccounting:v52[5], v31];
+      [(PPSMetricMonitorService *)self _addProcessesNeededForAccounting:v51[5], v30];
       self->_previousMct = mach_continuous_time();
       self->_networkingTrackPreviousMct = mach_continuous_time();
       self->_previousGPUMct = mach_continuous_time();
     }
 
-    v33 = [MEMORY[0x277CBEB58] set];
+    v32 = [MEMORY[0x277CBEB58] set];
     array = [MEMORY[0x277CBEB18] array];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    requestedProcessNames = [v52[5] requestedProcessNames];
-    v16 = [requestedProcessNames countByEnumeratingWithState:&v42 objects:v57 count:16];
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    requestedProcessNames = [v51[5] requestedProcessNames];
+    v16 = [requestedProcessNames countByEnumeratingWithState:&v41 objects:v56 count:16];
     if (v16)
     {
-      v17 = *v43;
+      v17 = *v42;
       do
       {
         v18 = 0;
         do
         {
-          if (*v43 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(requestedProcessNames);
           }
 
-          v19 = *(*(&v42 + 1) + 8 * v18);
+          v19 = *(*(&v41 + 1) + 8 * v18);
           delegate = [(PPSMetricMonitorService *)self delegate];
           v21 = [delegate pidForProcessName:v19];
 
@@ -2145,8 +2121,8 @@ LABEL_5:
             v22 = [MEMORY[0x277CCABB0] numberWithInt:v21];
             [array addObject:v22];
 
-            [v33 addObject:v19];
-            config2 = [v52[5] config];
+            [v32 addObject:v19];
+            config2 = [v51[5] config];
             isHeadless2 = [config2 isHeadless];
 
             if (isHeadless2)
@@ -2161,32 +2137,30 @@ LABEL_5:
         }
 
         while (v16 != v18);
-        v16 = [requestedProcessNames countByEnumeratingWithState:&v42 objects:v57 count:16];
+        v16 = [requestedProcessNames countByEnumeratingWithState:&v41 objects:v56 count:16];
       }
 
       while (v16);
     }
 
     metricQueryQueue2 = [(PPSMetricMonitorService *)self metricQueryQueue];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2;
-    v35[3] = &unk_278847D00;
-    v41 = &v51;
-    v36 = array;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2;
+    v34[3] = &unk_278847D00;
+    v40 = &v50;
+    v35 = array;
     selfCopy = self;
-    v38 = nameCopy;
-    v39 = v33;
-    v40 = v31;
-    v28 = v33;
+    v37 = nameCopy;
+    v38 = v32;
+    v39 = v30;
+    v28 = v32;
     v29 = array;
-    dispatch_sync(metricQueryQueue2, v35);
+    dispatch_sync(metricQueryQueue2, v34);
   }
 
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v50, 8);
   _Block_object_dispose(buf, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke(uint64_t a1)
@@ -2204,22 +2178,21 @@ uint64_t __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completi
   obj = *(v9 + 40);
   [v7 _canStartMonitoringForClient:v8 withError:&obj];
   objc_storeStrong((v9 + 40), obj);
-  v10 = *(*(*(a1 + 56) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 
 void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count] || (objc_msgSend(*(*(*(a1 + 72) + 8) + 40), "config"), v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "isHeadless"), v2, v3))
   {
     v4 = a1 + 72;
     v6 = *(a1 + 32);
     v5 = *(a1 + 40);
     v7 = *(*(*(a1 + 72) + 8) + 40);
-    v23 = 0;
-    [v5 startMonitoringPids:v6 forClient:v7 withError:&v23];
-    v8 = v23;
+    v22 = 0;
+    [v5 startMonitoringPids:v6 forClient:v7 withError:&v22];
+    v8 = v22;
     if (v8)
     {
       v9 = v8;
@@ -2234,7 +2207,7 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
       v11 = PPSMetricMonitorLogHandleForCategory(2);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_2((a1 + 56), a1 + 72);
+        __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_2(a1 + 56, a1 + 72);
       }
 
       v12 = [*(*(*v4 + 8) + 40) config];
@@ -2267,24 +2240,22 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
     v17 = PPSMetricMonitorLogHandleForCategory(2);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_1(a1);
+      __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_1();
     }
 
     v18 = *(a1 + 64);
     v19 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"Invalid process name";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"Invalid process name";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v21 = [v19 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:5 userInfo:v20];
     (*(v18 + 16))(v18, v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringPids:(id)pids forClient:(id)client withError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pidsCopy = pids;
   clientCopy = client;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
@@ -2294,11 +2265,11 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     connection = [clientCopy connection];
-    v22[0] = 67109378;
-    v22[1] = [connection processIdentifier];
-    v23 = 2112;
-    v24 = pidsCopy;
-    _os_log_impl(&dword_22E4FA000, v11, OS_LOG_TYPE_DEFAULT, "Start monitoring pids was called by client: %d pids: %@ ", v22, 0x12u);
+    v21[0] = 67109378;
+    v21[1] = [connection processIdentifier];
+    v22 = 2112;
+    v23 = pidsCopy;
+    _os_log_impl(&dword_22E4FA000, v11, OS_LOG_TYPE_DEFAULT, "Start monitoring pids was called by client: %d pids: %@ ", v21, 0x12u);
   }
 
   config = [clientCopy config];
@@ -2329,13 +2300,11 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
 
   v20 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:pidsCopy];
   [clientCopy setMonitoredPIDs:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startMonitoringProcessesWithNames:(id)names withPIDs:(id)ds completion:(id)completion
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   dsCopy = ds;
   completionCopy = completion;
@@ -2347,71 +2316,71 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
   {
     *buf = 67109634;
     *&buf[4] = processIdentifier;
-    *v78 = 2112;
-    *&v78[2] = namesCopy;
-    *&v78[10] = 2112;
-    *&v78[12] = dsCopy;
+    *v77 = 2112;
+    *&v77[2] = namesCopy;
+    *&v77[10] = 2112;
+    *&v77[12] = dsCopy;
     _os_log_impl(&dword_22E4FA000, v11, OS_LOG_TYPE_DEFAULT, "Start monitoring processes with names and pids was called by client: %d process names: %@, PIDs: %@ ", buf, 0x1Cu);
   }
 
   *buf = 0;
-  *v78 = buf;
-  *&v78[8] = 0x3032000000;
-  *&v78[16] = __Block_byref_object_copy__1;
-  v79 = __Block_byref_object_dispose__1;
-  v80 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__1;
-  v72 = __Block_byref_object_dispose__1;
-  v73 = 0;
+  *v77 = buf;
+  *&v77[8] = 0x3032000000;
+  *&v77[16] = __Block_byref_object_copy__1;
+  v78 = __Block_byref_object_dispose__1;
+  v79 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__1;
+  v71 = __Block_byref_object_dispose__1;
+  v72 = 0;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPIDs_completion___block_invoke;
   block[3] = &unk_278847CD8;
-  v65 = &v68;
-  v66 = buf;
+  v64 = &v67;
+  v65 = buf;
   block[4] = self;
-  v67 = processIdentifier;
-  v42 = completionCopy;
-  v64 = v42;
+  v66 = processIdentifier;
+  v41 = completionCopy;
+  v63 = v41;
   dispatch_sync(metricQueryQueue, block);
 
-  if (*(*v78 + 40))
+  if (*(*v77 + 40))
   {
-    v42[2]();
+    v41[2]();
   }
 
   else
   {
     v13 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:namesCopy];
-    [v69[5] setMonitoredProcessNames:v13];
+    [v68[5] setMonitoredProcessNames:v13];
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v14 = dsCopy;
-    v15 = [v14 countByEnumeratingWithState:&v59 objects:v76 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v58 objects:v75 count:16];
     if (v15)
     {
-      v16 = *v60;
+      v16 = *v59;
       do
       {
         v17 = 0;
         do
         {
-          if (*v60 != v16)
+          if (*v59 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = -[PPSMetricMonitorService fullProcessNameForPid:](self, "fullProcessNameForPid:", [*(*(&v59 + 1) + 8 * v17) intValue]);
+          v18 = -[PPSMetricMonitorService fullProcessNameForPid:](self, "fullProcessNameForPid:", [*(*(&v58 + 1) + 8 * v17) intValue]);
           if (v18)
           {
-            monitoredProcessNames = [v69[5] monitoredProcessNames];
+            monitoredProcessNames = [v68[5] monitoredProcessNames];
             [monitoredProcessNames addObject:v18];
           }
 
@@ -2419,45 +2388,45 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v59 objects:v76 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v58 objects:v75 count:16];
       }
 
       while (v15);
     }
 
     v20 = [objc_alloc(MEMORY[0x277CBEB58]) initWithArray:namesCopy];
-    [v69[5] setRequestedProcessNames:v20];
+    [v68[5] setRequestedProcessNames:v20];
 
-    config = [v69[5] config];
+    config = [v68[5] config];
     LODWORD(v20) = [config isHeadless];
 
     if (v20)
     {
-      [(PPSMetricMonitorService *)self _addProcessesNeededForAccounting:v69[5]];
+      [(PPSMetricMonitorService *)self _addProcessesNeededForAccounting:v68[5]];
     }
 
-    v44 = [MEMORY[0x277CBEB58] set];
+    v43 = [MEMORY[0x277CBEB58] set];
     v22 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v14];
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
-    requestedProcessNames = [v69[5] requestedProcessNames];
-    v24 = [requestedProcessNames countByEnumeratingWithState:&v55 objects:v75 count:16];
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    requestedProcessNames = [v68[5] requestedProcessNames];
+    v24 = [requestedProcessNames countByEnumeratingWithState:&v54 objects:v74 count:16];
     if (v24)
     {
-      v25 = *v56;
+      v25 = *v55;
       do
       {
         v26 = 0;
         do
         {
-          if (*v56 != v25)
+          if (*v55 != v25)
           {
             objc_enumerationMutation(requestedProcessNames);
           }
 
-          v27 = *(*(&v55 + 1) + 8 * v26);
+          v27 = *(*(&v54 + 1) + 8 * v26);
           delegate = [(PPSMetricMonitorService *)self delegate];
           v29 = [delegate pidForProcessName:v27];
 
@@ -2466,63 +2435,63 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
             v30 = [MEMORY[0x277CCABB0] numberWithInt:v29];
             [v22 addObject:v30];
 
-            [v44 addObject:v27];
+            [v43 addObject:v27];
           }
 
           ++v26;
         }
 
         while (v24 != v26);
-        v24 = [requestedProcessNames countByEnumeratingWithState:&v55 objects:v75 count:16];
+        v24 = [requestedProcessNames countByEnumeratingWithState:&v54 objects:v74 count:16];
       }
 
       while (v24);
     }
 
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__1;
-    v53 = __Block_byref_object_dispose__1;
-    v54 = 0;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__1;
+    v52 = __Block_byref_object_dispose__1;
+    v53 = 0;
     metricQueryQueue2 = [(PPSMetricMonitorService *)self metricQueryQueue];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPIDs_completion___block_invoke_2;
-    v45[3] = &unk_278847D28;
-    v45[4] = self;
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPIDs_completion___block_invoke_2;
+    v44[3] = &unk_278847D28;
+    v44[4] = self;
     v32 = v22;
-    v46 = v32;
-    v47 = &v68;
-    v48 = &v49;
-    dispatch_sync(metricQueryQueue2, v45);
+    v45 = v32;
+    v46 = &v67;
+    v47 = &v48;
+    dispatch_sync(metricQueryQueue2, v44);
 
-    if (v50[5])
+    if (v49[5])
     {
-      v42[2]();
+      v41[2]();
     }
 
     else
     {
-      requestedProcessNames2 = [v69[5] requestedProcessNames];
-      [requestedProcessNames2 minusSet:v44];
+      requestedProcessNames2 = [v68[5] requestedProcessNames];
+      [requestedProcessNames2 minusSet:v43];
 
       v34 = PPSMetricMonitorLogHandleForCategory(2);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        requestedProcessNames3 = [v69[5] requestedProcessNames];
-        [(PPSMetricMonitorService *)v44 startMonitoringProcessesWithNames:requestedProcessNames3 withPIDs:v74 completion:v34];
+        requestedProcessNames3 = [v68[5] requestedProcessNames];
+        [(PPSMetricMonitorService *)v43 startMonitoringProcessesWithNames:requestedProcessNames3 withPIDs:v73 completion:v34];
       }
 
-      requestedProcessNames4 = [v69[5] requestedProcessNames];
+      requestedProcessNames4 = [v68[5] requestedProcessNames];
       v37 = [requestedProcessNames4 count] == 0;
 
       if (!v37)
       {
-        [(PPSMetricMonitorService *)self _startProcessPollingTimer:v69[5]];
+        [(PPSMetricMonitorService *)self _startProcessPollingTimer:v68[5]];
       }
 
-      config2 = [v69[5] config];
+      config2 = [v68[5] config];
       isHeadless = [config2 isHeadless];
 
       if (isHeadless)
@@ -2530,16 +2499,14 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
         [(PPSMetricMonitorService *)self _startHeadlessTimeoutTimer];
       }
 
-      (v42[2])(v42, 0);
+      (v41[2])(v41, 0);
     }
 
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v48, 8);
   }
 
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v67, 8);
   _Block_object_dispose(buf, 8);
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPIDs_completion___block_invoke(uint64_t a1)
@@ -2557,7 +2524,6 @@ uint64_t __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPID
   obj = *(v9 + 40);
   [v7 _canStartMonitoringForClient:v8 withError:&obj];
   objc_storeStrong((v9 + 40), obj);
-  v10 = *(*(*(a1 + 56) + 8) + 40);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -2572,32 +2538,64 @@ void __81__PPSMetricMonitorService_startMonitoringProcessesWithNames_withPIDs_co
   objc_storeStrong((v4 + 40), obj);
 }
 
+- (void)_collectMetricsWithTimeout:(int)timeout andUpdateClient:(id)client
+{
+  v4 = *&timeout;
+  clientCopy = client;
+  v7 = PPSMetricMonitorLogHandleForCategory(2);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    [PPSMetricMonitorService _collectMetricsWithTimeout:clientCopy andUpdateClient:?];
+  }
+
+  metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
+  dispatch_assert_queue_V2(metricQueryQueue);
+
+  [(PPSMetricMonitorService *)self _collectMetricsWithTimeout:v4];
+  config = [clientCopy config];
+  LODWORD(metricQueryQueue) = [config updateDelegate];
+
+  if (metricQueryQueue)
+  {
+    remoteProxy = [clientCopy remoteProxy];
+    clientMetrics = [clientCopy clientMetrics];
+    v12 = [clientMetrics copy];
+    [remoteProxy updateWithMetricCollection:v12];
+  }
+
+  config2 = [clientCopy config];
+  emitSignposts = [config2 emitSignposts];
+
+  if (emitSignposts)
+  {
+    clientMetrics2 = [clientCopy clientMetrics];
+    [(PPSMetricMonitorService *)self emitPowerMetrics:clientMetrics2 ofClient:clientCopy];
+  }
+}
+
 - (void)finishMonitoringAndSendMetrics
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) clients];
-  v3 = (a1 + 40);
-  v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
-  v5 = [v2 objectForKeyedSubscript:v4];
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
+  v4 = [v2 objectForKeyedSubscript:v3];
 
-  [*(a1 + 32) _collectMetricsWithTimeout:5 andUpdateClient:v5];
-  v6 = PPSMetricMonitorLogHandleForCategory(2);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  [*(a1 + 32) _collectMetricsWithTimeout:5 andUpdateClient:v4];
+  v5 = PPSMetricMonitorLogHandleForCategory(2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke_cold_1(v3);
+    __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke_cold_1();
   }
 
-  v7 = [v5 clientMetrics];
-  v8 = [v5 monitoredPIDs];
-  [v7 clearMetrics:v8];
+  v6 = [v4 clientMetrics];
+  v7 = [v4 monitoredPIDs];
+  [v6 clearMetrics:v7];
 }
 
 - (void)collectMetricsOnDemand:(id)demand
@@ -2626,65 +2624,62 @@ void __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke(
 
 void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke(uint64_t a1)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) clients];
-  v3 = (a1 + 48);
-  v4 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v5 = [v2 objectForKeyedSubscript:v4];
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
+  v4 = [v2 objectForKeyedSubscript:v3];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [v5 requestedProcessNames];
-    v7 = [v6 count];
+    v5 = [v4 requestedProcessNames];
+    v6 = [v5 count];
 
-    if (v7)
+    if (v6)
     {
-      v8 = PPSMetricMonitorLogHandleForCategory(2);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = PPSMetricMonitorLogHandleForCategory(2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_1(v5, v8);
+        __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_1(v4, v7);
       }
     }
 
-    [*(a1 + 32) _collectMetricsWithTimeout:1 andUpdateClient:v5];
-    v9 = *(a1 + 40);
-    v10 = [v5 clientMetrics];
-    v11 = [v10 copy];
-    (*(v9 + 16))(v9, v11, 0);
+    [*(a1 + 32) _collectMetricsWithTimeout:1 andUpdateClient:v4];
+    v8 = *(a1 + 40);
+    v9 = [v4 clientMetrics];
+    v10 = [v9 copy];
+    (*(v8 + 16))(v8, v10, 0);
 
-    v12 = PPSMetricMonitorLogHandleForCategory(2);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke_cold_1(v3);
+      __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke_cold_1();
     }
 
-    v13 = [v5 clientMetrics];
-    v14 = [v5 monitoredPIDs];
-    [v13 clearMetrics:v14];
+    v12 = [v4 clientMetrics];
+    v13 = [v4 monitoredPIDs];
+    [v12 clearMetrics:v13];
   }
 
   else
   {
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"PID %d does not have a valid connection", *v3];
-    v15 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = v13;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-    v14 = [v15 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:0 userInfo:v16];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"PID %d does not have a valid connection", *(a1 + 48)];
+    v14 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v13 = [v14 errorWithDomain:@"com.apple.PerfPowerMetricMonitor" code:0 userInfo:v15];
 
-    v17 = PPSMetricMonitorLogHandleForCategory(2);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_3();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canStartMonitoringForClient:(id)client withError:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   clientCopy = client;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
   dispatch_assert_queue_V2(metricQueryQueue);
@@ -2717,37 +2712,37 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke(uint64_
       }
 
       v13 = MEMORY[0x277CCA9B8];
-      v27 = *MEMORY[0x277CCA450];
-      v28 = @"Only one headless client is allowed";
+      v26 = *MEMORY[0x277CCA450];
+      v27 = @"Only one headless client is allowed";
       v14 = MEMORY[0x277CBEAC0];
-      v15 = &v28;
-      v16 = &v27;
+      v15 = &v27;
+      v16 = &v26;
     }
 
     else
     {
       connection = [clientCopy connection];
-      v23 = [(PPSMetricMonitorService *)self _hasEntitlements:connection];
+      v22 = [(PPSMetricMonitorService *)self _hasEntitlements:connection];
 
-      if (v23)
+      if (v22)
       {
         v19 = 1;
         [(PPSMetricMonitorService *)self setHasHeadlessClient:1];
         goto LABEL_14;
       }
 
-      v24 = PPSMetricMonitorLogHandleForCategory(2);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = PPSMetricMonitorLogHandleForCategory(2);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [PPSMetricMonitorService _canStartMonitoringForClient:withError:];
       }
 
       v13 = MEMORY[0x277CCA9B8];
-      v25 = *MEMORY[0x277CCA450];
-      v26 = @"Missing headless client entitlement";
+      v24 = *MEMORY[0x277CCA450];
+      v25 = @"Missing headless client entitlement";
       v14 = MEMORY[0x277CBEAC0];
-      v15 = &v26;
-      v16 = &v25;
+      v15 = &v25;
+      v16 = &v24;
     }
   }
 
@@ -2760,11 +2755,11 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke(uint64_
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30[0] = @"Client config is nil";
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"Client config is nil";
     v14 = MEMORY[0x277CBEAC0];
-    v15 = v30;
-    v16 = &v29;
+    v15 = v29;
+    v16 = &v28;
   }
 
   v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
@@ -2773,13 +2768,12 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke(uint64_
   v19 = 0;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)_handleConnectionEndedWithClient:(id)client
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   metricQueryQueue = [(PPSMetricMonitorService *)self metricQueryQueue];
   dispatch_assert_queue_V2(metricQueryQueue);
@@ -2816,39 +2810,39 @@ LABEL_14:
   {
     v15 = [MEMORY[0x277CBEB58] set];
     clients2 = [(PPSMetricMonitorService *)self clients];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __60__PPSMetricMonitorService__handleConnectionEndedWithClient___block_invoke;
-    v33[3] = &unk_278847C38;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __60__PPSMetricMonitorService__handleConnectionEndedWithClient___block_invoke;
+    v32[3] = &unk_278847C38;
     v17 = v15;
-    v34 = v17;
-    [clients2 enumerateKeysAndObjectsUsingBlock:v33];
+    v33 = v17;
+    [clients2 enumerateKeysAndObjectsUsingBlock:v32];
 
     monitoredPIDs2 = [clientCopy monitoredPIDs];
     v19 = [monitoredPIDs2 mutableCopy];
 
     [v19 minusSet:v17];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v20 = v19;
-    v21 = [v20 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v30;
+      v23 = *v29;
       do
       {
         v24 = 0;
         do
         {
-          if (*v30 != v23)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v29 + 1) + 8 * v24);
+          v25 = *(*(&v28 + 1) + 8 * v24);
           delegate = [(PPSMetricMonitorService *)self delegate];
           [delegate removeMonitoredProcessWithPID:{objc_msgSend(v25, "intValue")}];
 
@@ -2856,7 +2850,7 @@ LABEL_14:
         }
 
         while (v22 != v24);
-        v22 = [v20 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v22);
@@ -2869,8 +2863,6 @@ LABEL_14:
   {
     [clientCopy setClientMetrics:0];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PPSMetricMonitorService__handleConnectionEndedWithClient___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2934,9 +2926,29 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+- (BOOL)_isProcessAlive:(int)alive
+{
+  v3 = *&alive;
+  v5 = [(PPSMetricMonitorService *)self fullProcessNameForPid:?];
+  if (v5)
+  {
+    headlessClientTrackedProcesses = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
+    v7 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+    v8 = [headlessClientTrackedProcesses objectForKeyedSubscript:v7];
+    v9 = [v5 isEqualToString:v8];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
 - (id)_checkIfProcessesAreAlive:(id)alive
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   aliveCopy = alive;
   v5 = PPSMetricMonitorLogHandleForCategory(2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -2949,37 +2961,37 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
 
   if (v7)
   {
-    v27 = [(PPSMetricMonitorService *)self _findProcesses:aliveCopy];
+    v26 = [(PPSMetricMonitorService *)self _findProcesses:aliveCopy];
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   monitoredPIDs = [aliveCopy monitoredPIDs];
   v9 = [monitoredPIDs copy];
 
   obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        intValue = [*(*(&v29 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v28 + 1) + 8 * i) intValue];
         if (![(PPSMetricMonitorService *)self _isProcessAlive:intValue])
         {
           headlessClientTrackedProcesses = [(PPSMetricMonitorService *)self headlessClientTrackedProcesses];
@@ -2990,7 +3002,7 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v34 = v17;
+            v33 = v17;
             _os_log_impl(&dword_22E4FA000, v18, OS_LOG_TYPE_INFO, "Process %@ has exited", buf, 0xCu);
           }
 
@@ -3010,20 +3022,18 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v11 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v11);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (id)_findProcesses:(id)processes
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   processesCopy = processes;
   v5 = proc_listpids(1u, 0, 0, 0);
   if ((v5 & 0x80000000) != 0 || (v6 = v5, v7 = v5, (v8 = malloc_type_malloc(v5, 0x100004052888210uLL)) == 0))
@@ -3035,7 +3045,7 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
   {
     v9 = v8;
     memset(v8, 255, v7);
-    v28 = v9;
+    v27 = v9;
     v10 = proc_listpids(1u, 0, v9, v6);
     v11 = objc_opt_new();
     v12 = PPSMetricMonitorLogHandleForCategory(2);
@@ -3072,9 +3082,9 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
             if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v30 = v14;
-              v31 = 2112;
-              v32 = v16;
+              v29 = v14;
+              v30 = 2112;
+              v31 = v16;
               _os_log_impl(&dword_22E4FA000, v19, OS_LOG_TYPE_INFO, "Found PID (%d) for %@. Adding to monitor.", buf, 0x12u);
             }
 
@@ -3102,10 +3112,8 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
       while (v13);
     }
 
-    free(v28);
+    free(v27);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3144,7 +3152,7 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
 
 - (id)fullProcessNameForPid:(int)pid
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (pid < 1 || (bzero(buffer, 0x1000uLL), proc_pidpath(pid, buffer, 0x1000u) < 1))
   {
     v4 = 0;
@@ -3156,8 +3164,6 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
     v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:basename(buffer)];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -3165,7 +3171,7 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
 {
   valueCopy = value;
   metricCopy = metric;
-  v7 = PLLogPowerSignpost();
+  v7 = PLLogPowerSignpost(metricCopy);
   PLEmitPowerSignpost(v7, metricCopy, valueCopy, 0);
 }
 
@@ -3174,7 +3180,7 @@ void __53__PPSMetricMonitorService__startProcessPollingTimer___block_invoke(uint
   pidCopy = pid;
   valueCopy = value;
   metricCopy = metric;
-  v10 = PLLogPowerSignpost();
+  v10 = PLLogPowerSignpost(metricCopy);
   PLEmitPowerSignpost(v10, metricCopy, valueCopy, pidCopy);
 }
 
@@ -3371,10 +3377,54 @@ uint64_t __53__PPSMetricMonitorService__startHeadlessTimeoutTimer__block_invoke(
 
 - (void)_sendMetricMonitorTimeoutNotification
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = notify_post("com.apple.perfpowermetricmonitor.monitoring_timed_out");
+  if (v2)
+  {
+    v3 = v2;
+    v4 = 0;
+    while (1)
+    {
+      v5 = PPSMetricMonitorLogHandleForCategory(2);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      if (v4 == 3)
+      {
+        break;
+      }
+
+      if (v6)
+      {
+        *buf = 67109376;
+        v8 = v4;
+        v9 = 1024;
+        v10 = v3;
+        _os_log_error_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_ERROR, "Failed to post metricmonitor timeout notification(attempt %d). Status: %d Retrying", buf, 0xEu);
+      }
+
+      ++v4;
+      v3 = notify_post("com.apple.perfpowermetricmonitor.monitoring_timed_out");
+      if (!v3)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    if (v6)
+    {
+      [PPSMetricMonitorService _sendMetricMonitorTimeoutNotification];
+    }
+  }
+
+  else
+  {
+LABEL_7:
+    v5 = PPSMetricMonitorLogHandleForCategory(2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22E4FA000, v5, OS_LOG_TYPE_DEFAULT, "Successfully posted metricmonitor timeout notification.", buf, 2u);
+    }
+  }
 }
 
 - (BOOL)_hasEntitlements:(id)entitlements
@@ -3417,11 +3467,9 @@ void __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_co
 
 void __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitTracingToolPowerMetrics:ofClient:.cold.1()
@@ -3433,48 +3481,37 @@ void __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_co
 
 - (void)emitTracingToolPowerMetrics:ofClient:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitTracingToolPowerMetrics:(void *)a1 ofClient:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 displayPower];
   [v1 doubleValue];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitTracingToolPowerMetrics:(void *)a1 ofClient:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 cellularPower];
   [v1 doubleValue];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitTracingToolPowerMetrics:(void *)a1 ofClient:.cold.5(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 wifiPower];
   [v1 doubleValue];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitPowerMetrics:ofClient:.cold.1()
@@ -3493,55 +3530,37 @@ void __55__PPSMetricMonitorService_stopMonitoringHeadlessClient__block_invoke_co
 
 - (void)_collectMetricsWithTimeout:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_collectMetricsWithTimeout:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PPSMetricMonitorService__collectMetricsWithTimeout___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PPSMetricMonitorService__collectMetricsWithTimeout___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHeadlessQueryTimer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setUpWithConfiguration:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___block_invoke_cold_1()
@@ -3553,31 +3572,16 @@ void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___
 
 void __70__PPSMetricMonitorService_startMonitoringProcessesWithPID_completion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_1(uint64_t a1)
+void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion___block_invoke_2_cold_2(uint64_t *a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v9 = [*(*(*a2 + 8) + 40) requestedProcessNames];
+  v7 = [*(*(*a2 + 8) + 40) requestedProcessNames];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)startMonitoringProcessesWithNames:(uint8_t *)buf withPIDs:(os_log_t)log completion:.cold.1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -3591,63 +3595,42 @@ void __71__PPSMetricMonitorService_startMonitoringProcessesWithName_completion__
 
 - (void)_collectMetricsWithTimeout:(void *)a1 andUpdateClient:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
   [v1 processIdentifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __57__PPSMetricMonitorService_finishMonitoringAndSendMetrics__block_invoke_cold_1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectMetricsOnDemand:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 requestedProcessNames];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_22E4FA000, a2, OS_LOG_TYPE_ERROR, "Failed to find matching PID for process name(s): %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22E4FA000, a2, OS_LOG_TYPE_ERROR, "Failed to find matching PID for process name(s): %@", v4, 0xCu);
 }
 
 void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_canStartMonitoringForClient:(void *)a1 withError:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
   [v1 processIdentifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_canStartMonitoringForClient:withError:.cold.2()
@@ -3666,37 +3649,29 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_3(
 
 - (void)_canStartMonitoringForClient:(void *)a1 withError:(NSObject *)a2 .cold.4(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 connection];
   [v3 processIdentifier];
   OUTLINED_FUNCTION_5_0();
-  _os_log_fault_impl(&dword_22E4FA000, a2, OS_LOG_TYPE_FAULT, "Client %d config is nil", v5, 8u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_22E4FA000, a2, OS_LOG_TYPE_FAULT, "Client %d config is nil", v4, 8u);
 }
 
 - (void)_handleConnectionEndedWithClient:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
   [v1 processIdentifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startProcessPollingTimer:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
   [v1 processIdentifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startProcessPollingTimer:.cold.2()
@@ -3708,14 +3683,11 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_3(
 
 - (void)_checkIfProcessesAreAlive:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 connection];
   [v1 processIdentifier];
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_findProcesses:.cold.1()
@@ -3741,67 +3713,54 @@ void __50__PPSMetricMonitorService_collectMetricsOnDemand___block_invoke_cold_3(
 
 - (void)_updateAndTrimSleepWakeHistoryRelativeTo:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [a1 sleepTime];
-  v7 = 134218240;
-  v8 = a2;
+  v6 = 134218240;
+  v7 = a2;
   OUTLINED_FUNCTION_8();
-  v9 = v5;
-  _os_log_error_impl(&dword_22E4FA000, a3, OS_LOG_TYPE_ERROR, "Queried sleep time (%llu) is older than last known sleep time (%llu). Ignoring.", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = v5;
+  _os_log_error_impl(&dword_22E4FA000, a3, OS_LOG_TYPE_ERROR, "Queried sleep time (%llu) is older than last known sleep time (%llu). Ignoring.", &v6, 0x16u);
 }
 
 - (void)_updateAndTrimSleepWakeHistoryRelativeTo:(void *)a1 .cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 sleepTime];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndTrimSleepWakeHistoryRelativeTo:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndTrimSleepWakeHistoryRelativeTo:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 sleepWakeHistory];
   [v3 count];
   [a2 count];
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAndTrimSleepWakeHistoryRelativeTo:(void *)a1 .cold.6(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 sleepWakeHistory];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hasEntitlements:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

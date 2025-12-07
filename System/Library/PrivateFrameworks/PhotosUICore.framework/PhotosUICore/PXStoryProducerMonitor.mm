@@ -18,7 +18,7 @@
 
 - (void)_updateIsLikelyToKeepUp
 {
-  [(PXStoryProducerMonitor *)self startTime];
+  objc_msgSend_startTime(self, a2);
   v4 = v3;
   [(PXStoryProducerMonitor *)self lastTime];
   if (v5 > v4)
@@ -42,7 +42,7 @@
 
 - (void)reset
 {
-  [(PXStoryProducerMonitor *)self currentTime];
+  objc_msgSend_currentTime(self, a2);
   [(PXStoryProducerMonitor *)self setStartTime:?];
   [(PXStoryProducerMonitor *)self setLastFractionCompleted:0.0];
 
@@ -65,7 +65,7 @@
     [(PXStoryProducerMonitor *)self setLastFractionCompleted:v4];
   }
 
-  [(PXStoryProducerMonitor *)self currentTime];
+  objc_msgSend_currentTime(self);
   [(PXStoryProducerMonitor *)self setLastTime:?];
 }
 
@@ -172,7 +172,7 @@
       v5->_storyQueue = v8;
     }
 
-    [(PXStoryProducerMonitor *)v5 currentTime];
+    objc_msgSend_currentTime(v5);
     v5->_startTime = v10;
     v11 = [[off_1E7721940 alloc] initWithTarget:v5 needsUpdateSelector:sel__setNeedsUpdate];
     updater = v5->_updater;

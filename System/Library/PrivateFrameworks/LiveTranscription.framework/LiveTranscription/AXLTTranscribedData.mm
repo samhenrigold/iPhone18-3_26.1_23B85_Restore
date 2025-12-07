@@ -1,5 +1,7 @@
 @interface AXLTTranscribedData
 - (AXLTTranscribedData)initWithCoder:(id)coder;
+- (AXLTTranscribedData)initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0;
+- (AXLTTranscribedData)initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0 resultType:(int64_t)self1;
 - (AXLTTranscribedData)initWithTranscription:(id)transcription requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0;
 - (id)_initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0 resultType:(int64_t)self1 isV2:(BOOL)self2;
 - (void)encodeWithCoder:(id)coder;
@@ -45,6 +47,20 @@
   }
 
   return v21;
+}
+
+- (AXLTTranscribedData)initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0 resultType:(int64_t)self1
+{
+  LOBYTE(v13) = 1;
+  LOBYTE(v12) = silence;
+  return [(AXLTTranscribedData *)self _initWithTranscribedText:text requestType:type timestamp:timestamp pid:*&pid appID:d appName:name assetState:state silence:v12 resultType:resultType isV2:v13];
+}
+
+- (AXLTTranscribedData)initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0
+{
+  LOBYTE(v12) = 0;
+  LOBYTE(v11) = silence;
+  return [(AXLTTranscribedData *)self _initWithTranscribedText:text requestType:type timestamp:timestamp pid:*&pid appID:d appName:name assetState:state silence:v11 resultType:0 isV2:v12];
 }
 
 - (id)_initWithTranscribedText:(id)text requestType:(int64_t)type timestamp:(id)timestamp pid:(int)pid appID:(id)d appName:(id)name assetState:(int64_t)state silence:(BOOL)self0 resultType:(int64_t)self1 isV2:(BOOL)self2

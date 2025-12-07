@@ -11,7 +11,7 @@ void pg_query_free_deparse_result(void *a1, uint64_t a2)
   free(a1);
 }
 
-uint64_t deparseCreateTableAsStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseCreateTableAsStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CREATE ");
   v4 = *(*(*(a2 + 16) + 8) + 33);
@@ -75,7 +75,7 @@ LABEL_11:
     result = appendStringInfoString(a1, "WITH NO DATA ");
   }
 
-  v10 = a1[2];
+  v10 = *(a1 + 2);
   v11 = __OFSUB__(v10, 1);
   v12 = v10 - 1;
   if (v12 < 0 == v11)
@@ -83,7 +83,7 @@ LABEL_11:
     v13 = *a1;
     if (*(*a1 + v12) == 32)
     {
-      a1[2] = v12;
+      *(a1 + 2) = v12;
       *(v13 + v12) = 0;
     }
   }
@@ -91,7 +91,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t deparseCreateSeqStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseCreateSeqStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CREATE ");
   v4 = *(*(a2 + 8) + 33);
@@ -134,7 +134,7 @@ LABEL_6:
     while (v8 < *(v7 + 4));
   }
 
-  v9 = a1[2];
+  v9 = *(a1 + 2);
   v10 = __OFSUB__(v9, 1);
   v11 = v9 - 1;
   if (v11 < 0 == v10)
@@ -142,7 +142,7 @@ LABEL_6:
     v12 = *a1;
     if (*(*a1 + v11) == 32)
     {
-      a1[2] = v11;
+      *(a1 + 2) = v11;
       *(v12 + v11) = 0;
     }
   }
@@ -150,7 +150,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t deparseCreateStmt(_DWORD *a1, uint64_t a2, int a3)
+uint64_t deparseCreateStmt(uint64_t *a1, uint64_t a2, int a3)
 {
   appendStringInfoString(a1, "CREATE ");
   if (a3)
@@ -199,7 +199,7 @@ LABEL_8:
   }
 
   v9 = *(a2 + 16);
-  v68 = a2;
+  v62 = a2;
   if (v9 && *(v9 + 4) >= 1)
   {
     appendStringInfoChar(a1, 40);
@@ -337,7 +337,7 @@ LABEL_43:
           if ((v14[4] & 0x80) == 0)
           {
 LABEL_34:
-            v18 = a1[2];
+            v18 = *(a1 + 2);
             v19 = __OFSUB__(v18, 1);
             v20 = v18 - 1;
             if (v20 < 0 == v19)
@@ -350,7 +350,7 @@ LABEL_34:
 
 LABEL_44:
           appendStringInfoString(a1, v17);
-          v21 = a1[2];
+          v21 = *(a1 + 2);
           v19 = __OFSUB__(v21, 1);
           v20 = v21 - 1;
           if (v20 < 0 == v19)
@@ -359,16 +359,16 @@ LABEL_45:
             v22 = *a1;
             if (*(*a1 + v20) == 32)
             {
-              a1[2] = v20;
+              *(a1 + 2) = v20;
               *(v22 + v20) = 0;
             }
           }
 
 LABEL_47:
-          a2 = v68;
+          a2 = v62;
           if (v13 + v12)
           {
-            v23 = v13 + v12 >= (*(*(v68 + 16) + 16) + 8 * *(*(v68 + 16) + 4));
+            v23 = v13 + v12 >= (*(*(v62 + 16) + 16) + 8 * *(*(v62 + 16) + 4));
           }
 
           else
@@ -432,44 +432,44 @@ LABEL_56:
   }
 
 LABEL_108:
-  v62 = *(a2 + 24);
-  if (v62 && *(v62 + 4) >= 1)
+  v56 = *(a2 + 24);
+  if (v56 && *(v56 + 4) >= 1)
   {
     appendStringInfoString(a1, "INHERITS (");
-    if (*(v62 + 4) >= 1)
+    if (*(v56 + 4) >= 1)
     {
-      v63 = 0;
-      v64 = 8;
+      v57 = 0;
+      v58 = 8;
       do
       {
-        v65 = *(v62 + 16);
-        deparseRangeVar(a1, *(v65 + 8 * v63), 0);
-        v66 = *(v62 + 4);
-        if (v65 + v64)
+        v59 = *(v56 + 16);
+        deparseRangeVar(a1, *(v59 + 8 * v57), 0);
+        v60 = *(v56 + 4);
+        if (v59 + v58)
         {
-          v67 = v65 + v64 >= (*(v62 + 16) + 8 * v66);
+          v61 = v59 + v58 >= (*(v56 + 16) + 8 * v60);
         }
 
         else
         {
-          v67 = 1;
+          v61 = 1;
         }
 
-        if (!v67)
+        if (!v61)
         {
           appendStringInfoString(a1, ", ");
-          v66 = *(v62 + 4);
+          v60 = *(v56 + 4);
         }
 
-        ++v63;
-        v64 += 8;
+        ++v57;
+        v58 += 8;
       }
 
-      while (v63 < v66);
+      while (v57 < v60);
     }
 
     result = appendStringInfoString(a1, ") ");
-    a2 = v68;
+    a2 = v62;
   }
 
 LABEL_58:
@@ -498,94 +498,94 @@ LABEL_58:
         else if (*(v29 + 16))
         {
           appendStringInfoChar(a1, 40);
-          deparseExpr(a1, *(v29 + 16), v32, v33, v34, v35, v36, v37);
+          deparseExpr(a1, *(v29 + 16));
           appendStringInfoString(a1, ") ");
         }
 
-        v38 = *(v29 + 24);
-        if (v38 && *(v38 + 4) >= 1)
+        v32 = *(v29 + 24);
+        if (v32 && *(v32 + 4) >= 1)
         {
           appendStringInfoString(a1, "COLLATE ");
-          if (*(v38 + 4) >= 1)
+          if (*(v32 + 4) >= 1)
           {
-            v39 = 0;
-            v40 = 8;
+            v33 = 0;
+            v34 = 8;
             do
             {
-              v41 = *(v38 + 16);
-              v42 = quote_identifier(*(*(v41 + 8 * v39) + 8));
-              appendStringInfoString(a1, v42);
-              v43 = *(v38 + 4);
-              if (v41 + v40)
+              v35 = *(v32 + 16);
+              v36 = quote_identifier(*(*(v35 + 8 * v33) + 8));
+              appendStringInfoString(a1, v36);
+              v37 = *(v32 + 4);
+              if (v35 + v34)
               {
-                v44 = v41 + v40 >= (*(v38 + 16) + 8 * v43);
+                v38 = v35 + v34 >= (*(v32 + 16) + 8 * v37);
               }
 
               else
               {
-                v44 = 1;
+                v38 = 1;
               }
 
-              if (!v44)
+              if (!v38)
               {
                 appendStringInfoChar(a1, 46);
-                v43 = *(v38 + 4);
+                v37 = *(v32 + 4);
               }
 
-              ++v39;
-              v40 += 8;
+              ++v33;
+              v34 += 8;
             }
 
-            while (v39 < v43);
+            while (v33 < v37);
           }
 
           appendStringInfoChar(a1, 32);
         }
 
-        v45 = *(v29 + 32);
-        if (v45 && *(v45 + 4) >= 1)
+        v39 = *(v29 + 32);
+        if (v39 && *(v39 + 4) >= 1)
         {
-          v46 = 0;
-          v47 = 8;
+          v40 = 0;
+          v41 = 8;
           do
           {
-            v48 = *(v45 + 16);
-            v49 = quote_identifier(*(*(v48 + 8 * v46) + 8));
-            appendStringInfoString(a1, v49);
-            v50 = *(v45 + 4);
-            if (v48 + v47)
+            v42 = *(v39 + 16);
+            v43 = quote_identifier(*(*(v42 + 8 * v40) + 8));
+            appendStringInfoString(a1, v43);
+            v44 = *(v39 + 4);
+            if (v42 + v41)
             {
-              v51 = v48 + v47 >= (*(v45 + 16) + 8 * v50);
+              v45 = v42 + v41 >= (*(v39 + 16) + 8 * v44);
             }
 
             else
             {
-              v51 = 1;
+              v45 = 1;
             }
 
-            if (!v51)
+            if (!v45)
             {
               appendStringInfoChar(a1, 46);
-              v50 = *(v45 + 4);
+              v44 = *(v39 + 4);
             }
 
-            ++v46;
-            v47 += 8;
+            ++v40;
+            v41 += 8;
           }
 
-          while (v46 < v50);
+          while (v40 < v44);
         }
 
-        v52 = a1[2];
-        v19 = __OFSUB__(v52, 1);
-        v53 = v52 - 1;
-        if (v53 < 0 == v19)
+        v46 = *(a1 + 2);
+        v19 = __OFSUB__(v46, 1);
+        v47 = v46 - 1;
+        if (v47 < 0 == v19)
         {
-          v54 = *a1;
-          if (*(*a1 + v53) == 32)
+          v48 = *a1;
+          if (*(*a1 + v47) == 32)
           {
-            a1[2] = v53;
-            *(v54 + v53) = 0;
+            *(a1 + 2) = v47;
+            *(v48 + v47) = 0;
           }
         }
 
@@ -602,54 +602,54 @@ LABEL_58:
 
     appendStringInfoChar(a1, 41);
     result = appendStringInfoChar(a1, 32);
-    a2 = v68;
+    a2 = v62;
   }
 
   if (*(a2 + 88))
   {
     appendStringInfoString(a1, "USING ");
-    v55 = quote_identifier(*(a2 + 88));
-    result = appendStringInfoString(a1, v55);
+    v49 = quote_identifier(*(a2 + 88));
+    result = appendStringInfoString(a1, v49);
   }
 
-  v56 = *(a2 + 64);
-  if (v56 && *(v56 + 4) >= 1)
+  v50 = *(a2 + 64);
+  if (v50 && *(v50 + 4) >= 1)
   {
     appendStringInfoString(a1, "WITH ");
-    deparseRelOptions(a1, v56);
+    deparseRelOptions(a1, v50);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v57 = *(a2 + 72) - 1;
-  if (v57 <= 2)
+  v51 = *(a2 + 72) - 1;
+  if (v51 <= 2)
   {
-    result = appendStringInfoString(a1, (&off_1E6E54F30)[v57]);
+    result = appendStringInfoString(a1, (&off_1E6E54F30)[v51]);
   }
 
   if (*(a2 + 80))
   {
     appendStringInfoString(a1, "TABLESPACE ");
-    v58 = quote_identifier(*(a2 + 80));
-    result = appendStringInfoString(a1, v58);
+    v52 = quote_identifier(*(a2 + 80));
+    result = appendStringInfoString(a1, v52);
   }
 
-  v59 = a1[2];
-  v19 = __OFSUB__(v59, 1);
-  v60 = v59 - 1;
-  if (v60 < 0 == v19)
+  v53 = *(a1 + 2);
+  v19 = __OFSUB__(v53, 1);
+  v54 = v53 - 1;
+  if (v54 < 0 == v19)
   {
-    v61 = *a1;
-    if (*(*a1 + v60) == 32)
+    v55 = *a1;
+    if (*(*a1 + v54) == 32)
     {
-      a1[2] = v60;
-      *(v61 + v60) = 0;
+      *(a1 + 2) = v54;
+      *(v55 + v54) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseCreateTrigStmt(void *a1, uint64_t a2)
+uint64_t deparseCreateTrigStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CREATE ");
   if (*(a2 + 64) == 1)
@@ -866,82 +866,82 @@ LABEL_51:
   {
 LABEL_52:
     appendStringInfoString(a1, "WHEN (");
-    deparseExpr(a1, *(a2 + 56), v23, v24, v25, v26, v27, v28);
+    deparseExpr(a1, *(a2 + 56));
     appendStringInfoString(a1, ") ");
   }
 
 LABEL_53:
   appendStringInfoString(a1, "EXECUTE FUNCTION ");
-  v29 = *(a2 + 24);
-  if (v29 && *(v29 + 4) >= 1)
+  v23 = *(a2 + 24);
+  if (v23 && *(v23 + 4) >= 1)
   {
-    v30 = 0;
-    v31 = 8;
+    v24 = 0;
+    v25 = 8;
     do
     {
-      v32 = *(v29 + 16);
-      v33 = quote_identifier(*(*(v32 + 8 * v30) + 8));
-      appendStringInfoString(a1, v33);
-      v34 = *(v29 + 4);
-      if (v32 + v31)
+      v26 = *(v23 + 16);
+      v27 = quote_identifier(*(*(v26 + 8 * v24) + 8));
+      appendStringInfoString(a1, v27);
+      v28 = *(v23 + 4);
+      if (v26 + v25)
       {
-        v35 = v32 + v31 >= (*(v29 + 16) + 8 * v34);
+        v29 = v26 + v25 >= (*(v23 + 16) + 8 * v28);
       }
 
       else
       {
-        v35 = 1;
+        v29 = 1;
       }
 
-      if (!v35)
+      if (!v29)
       {
         appendStringInfoChar(a1, 46);
-        v34 = *(v29 + 4);
+        v28 = *(v23 + 4);
       }
 
-      ++v30;
-      v31 += 8;
+      ++v24;
+      v25 += 8;
     }
 
-    while (v30 < v34);
+    while (v24 < v28);
   }
 
   appendStringInfoChar(a1, 40);
-  v36 = *(a2 + 32);
-  if (v36 && *(v36 + 4) >= 1)
+  v30 = *(a2 + 32);
+  if (v30 && *(v30 + 4) >= 1)
   {
-    v37 = 0;
-    v38 = 8;
+    v31 = 0;
+    v32 = 8;
     do
     {
-      v39 = *(v36 + 16);
-      deparseStringLiteral(a1, *(*(v39 + 8 * v37) + 8));
-      if (v39 + v38)
+      v33 = *(v30 + 16);
+      deparseStringLiteral(a1, *(*(v33 + 8 * v31) + 8));
+      if (v33 + v32)
       {
-        v40 = v39 + v38 >= (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4));
+        v34 = v33 + v32 >= (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4));
       }
 
       else
       {
-        v40 = 1;
+        v34 = 1;
       }
 
-      if (!v40)
+      if (!v34)
       {
         appendStringInfoString(a1, ", ");
       }
 
-      ++v37;
-      v38 += 8;
+      ++v31;
+      v32 += 8;
     }
 
-    while (v37 < *(v36 + 4));
+    while (v31 < *(v30 + 4));
   }
 
   return appendStringInfoChar(a1, 41);
 }
 
-uint64_t deparseDeclareCursorStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseDeclareCursorStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "DECLARE ");
   v4 = quote_identifier(*(a2 + 8));
@@ -1012,11 +1012,12 @@ LABEL_7:
   return deparseSelectStmt(a1, v6);
 }
 
-uint64_t deparseDeleteStmt(uint64_t a1, uint64_t *a2)
+uint64_t deparseDeleteStmt(uint64_t *a1, void *a2)
 {
-  if (a2[5])
+  v4 = a2[5];
+  if (v4)
   {
-    deparseWithClause(a1);
+    deparseWithClause(a1, v4);
     appendStringInfoChar(a1, 32);
   }
 
@@ -1026,74 +1027,74 @@ uint64_t deparseDeleteStmt(uint64_t a1, uint64_t *a2)
   if (a2[2])
   {
     appendStringInfoString(a1, "USING ");
-    v11 = a2[2];
-    if (v11 && *(v11 + 4) >= 1)
+    v6 = a2[2];
+    if (v6 && *(v6 + 4) >= 1)
     {
-      v12 = 0;
-      v13 = 8;
+      v7 = 0;
+      v8 = 8;
       do
       {
-        v14 = *(v11 + 16);
-        deparseTableRef(a1, *(v14 + 8 * v12), v5, v6, v7, v8, v9, v10);
-        v15 = *(v11 + 4);
-        if (v14 + v13)
+        v9 = *(v6 + 16);
+        deparseTableRef(a1, *(v9 + 8 * v7));
+        v10 = *(v6 + 4);
+        if (v9 + v8)
         {
-          v16 = v14 + v13 >= (*(v11 + 16) + 8 * v15);
+          v11 = v9 + v8 >= (*(v6 + 16) + 8 * v10);
         }
 
         else
         {
-          v16 = 1;
+          v11 = 1;
         }
 
-        if (!v16)
+        if (!v11)
         {
           appendStringInfoString(a1, ", ");
-          v15 = *(v11 + 4);
+          v10 = *(v6 + 4);
         }
 
-        ++v12;
-        v13 += 8;
+        ++v7;
+        v8 += 8;
       }
 
-      while (v12 < v15);
+      while (v7 < v10);
     }
 
     result = appendStringInfoChar(a1, 32);
   }
 
-  v17 = a2[3];
-  if (v17)
+  v12 = a2[3];
+  if (v12)
   {
     appendStringInfoString(a1, "WHERE ");
-    deparseExpr(a1, v17);
+    deparseExpr(a1, v12);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v18 = a2[4];
-  if (v18 && *(v18 + 4) >= 1)
+  v13 = a2[4];
+  if (v13 && *(v13 + 4) >= 1)
   {
     appendStringInfoString(a1, "RETURNING ");
     result = deparseTargetList(a1, a2[4]);
   }
 
-  v19 = *(a1 + 8);
-  v20 = __OFSUB__(v19, 1);
-  v21 = v19 - 1;
-  if (v21 < 0 == v20)
+  v14 = *(a1 + 2);
+  v15 = __OFSUB__(v14, 1);
+  v16 = v14 - 1;
+  if (v16 < 0 == v15)
   {
-    v22 = *a1;
-    if (*(*a1 + v21) == 32)
+    v17 = *a1;
+    if (*(*a1 + v16) == 32)
     {
-      *(a1 + 8) = v21;
-      *(v22 + v21) = 0;
+      *(a1 + 2) = v16;
+      *(v17 + v16) = 0;
     }
   }
 
   return result;
 }
 
-void *deparseExecuteStmt(void *a1, uint64_t a2)
+void *deparseExecuteStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "EXECUTE ");
   v4 = quote_identifier(*(a2 + 8));
@@ -1102,37 +1103,37 @@ void *deparseExecuteStmt(void *a1, uint64_t a2)
   if (v6 && *(v6 + 4) >= 1)
   {
     appendStringInfoChar(a1, 40);
-    v13 = *(a2 + 16);
-    if (v13 && *(v13 + 4) >= 1)
+    v7 = *(a2 + 16);
+    if (v7 && *(v7 + 4) >= 1)
     {
-      v14 = 0;
-      v15 = 8;
+      v8 = 0;
+      v9 = 8;
       do
       {
-        v16 = *(v13 + 16);
-        deparseExpr(a1, *(v16 + 8 * v14), v7, v8, v9, v10, v11, v12);
-        v17 = *(v13 + 4);
-        if (v16 + v15)
+        v10 = *(v7 + 16);
+        deparseExpr(a1, *(v10 + 8 * v8));
+        v11 = *(v7 + 4);
+        if (v10 + v9)
         {
-          v18 = v16 + v15 >= (*(v13 + 16) + 8 * v17);
+          v12 = v10 + v9 >= (*(v7 + 16) + 8 * v11);
         }
 
         else
         {
-          v18 = 1;
+          v12 = 1;
         }
 
-        if (!v18)
+        if (!v12)
         {
           appendStringInfoString(a1, ", ");
-          v17 = *(v13 + 4);
+          v11 = *(v7 + 4);
         }
 
-        ++v14;
-        v15 += 8;
+        ++v8;
+        v9 += 8;
       }
 
-      while (v14 < v17);
+      while (v8 < v11);
     }
 
     return appendStringInfoChar(a1, 41);
@@ -1141,7 +1142,7 @@ void *deparseExecuteStmt(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t deparseGrantStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseGrantStmt(uint64_t *a1, uint64_t a2)
 {
   if (*(a2 + 4))
   {
@@ -1468,7 +1469,7 @@ uint64_t deparseGrantStmt(_DWORD *a1, uint64_t a2)
           goto LABEL_99;
         case 22:
           appendStringInfoString(a1, "LARGE OBJECT ");
-          deparseNumericOnlyList(a1, v12, v47, v48, v49, v50, v51, v52);
+          deparseNumericOnlyList(a1, v12);
           break;
         case 28:
           v46 = "PROCEDURE ";
@@ -1511,81 +1512,81 @@ LABEL_102:
   appendStringInfoChar(a1, 32);
   if (*(a2 + 4))
   {
-    v53 = "TO ";
+    v47 = "TO ";
   }
 
   else
   {
-    v53 = "FROM ";
+    v47 = "FROM ";
   }
 
-  result = appendStringInfoString(a1, v53);
-  v55 = *(a2 + 32);
-  if (v55 && *(v55 + 4) >= 1)
+  result = appendStringInfoString(a1, v47);
+  v49 = *(a2 + 32);
+  if (v49 && *(v49 + 4) >= 1)
   {
-    v56 = 0;
-    v57 = 8;
+    v50 = 0;
+    v51 = 8;
     do
     {
-      v58 = *(v55 + 16);
-      v59 = *(v58 + 8 * v56);
-      v60 = *(v59 + 4);
-      if (v60 > 1)
+      v52 = *(v49 + 16);
+      v53 = *(v52 + 8 * v50);
+      v54 = *(v53 + 4);
+      if (v54 > 1)
       {
-        if (v60 == 2)
+        if (v54 == 2)
         {
-          v61 = a1;
-          v62 = "SESSION_USER";
+          v55 = a1;
+          v56 = "SESSION_USER";
           goto LABEL_118;
         }
 
-        if (v60 == 3)
+        if (v54 == 3)
         {
-          v61 = a1;
-          v62 = "public";
+          v55 = a1;
+          v56 = "public";
           goto LABEL_118;
         }
       }
 
       else
       {
-        if (!v60)
+        if (!v54)
         {
-          v62 = quote_identifier(*(v59 + 8));
-          v61 = a1;
+          v56 = quote_identifier(*(v53 + 8));
+          v55 = a1;
           goto LABEL_118;
         }
 
-        if (v60 == 1)
+        if (v54 == 1)
         {
-          v61 = a1;
-          v62 = "CURRENT_USER";
+          v55 = a1;
+          v56 = "CURRENT_USER";
 LABEL_118:
-          appendStringInfoString(v61, v62);
+          appendStringInfoString(v55, v56);
         }
       }
 
-      if (v58 + v57)
+      if (v52 + v51)
       {
-        v63 = v58 + v57 >= (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4));
+        v57 = v52 + v51 >= (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4));
       }
 
       else
       {
-        v63 = 1;
+        v57 = 1;
       }
 
-      if (!v63)
+      if (!v57)
       {
         appendStringInfoChar(a1, 44);
       }
 
       result = appendStringInfoChar(a1, 32);
-      ++v56;
-      v57 += 8;
+      ++v50;
+      v51 += 8;
     }
 
-    while (v56 < *(v55 + 4));
+    while (v50 < *(v49 + 4));
   }
 
   if ((*(a2 + 4) & 1) != 0 && *(a2 + 40) == 1)
@@ -1598,23 +1599,23 @@ LABEL_118:
     result = appendStringInfoString(a1, "CASCADE ");
   }
 
-  v64 = a1[2];
-  v65 = __OFSUB__(v64, 1);
-  v66 = v64 - 1;
-  if (v66 < 0 == v65)
+  v58 = *(a1 + 2);
+  v59 = __OFSUB__(v58, 1);
+  v60 = v58 - 1;
+  if (v60 < 0 == v59)
   {
-    v67 = *a1;
-    if (*(*a1 + v66) == 32)
+    v61 = *a1;
+    if (*(*a1 + v60) == 32)
     {
-      a1[2] = v66;
-      *(v67 + v66) = 0;
+      *(a1 + 2) = v60;
+      *(v61 + v60) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseIndexStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseIndexStmt(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CREATE ");
   if (*(a2 + 104) == 1)
@@ -1666,195 +1667,196 @@ LABEL_7:
   }
 
   appendStringInfoChar(a1, 40);
-  v12 = *(a2 + 40);
-  if (v12 && *(v12 + 4) >= 1)
+  v6 = *(a2 + 40);
+  if (v6 && *(v6 + 4) >= 1)
   {
-    v13 = 0;
-    v14 = 8;
+    v7 = 0;
+    v8 = 8;
     do
     {
-      v15 = *(v12 + 16);
-      deparseIndexElem(a1, *(v15 + 8 * v13), v6, v7, v8, v9, v10, v11);
-      if (v15 + v14)
+      v9 = *(v6 + 16);
+      deparseIndexElem(a1, *(v9 + 8 * v7));
+      if (v9 + v8)
       {
-        v16 = v15 + v14 >= (*(*(a2 + 40) + 16) + 8 * *(*(a2 + 40) + 4));
+        v10 = v9 + v8 >= (*(*(a2 + 40) + 16) + 8 * *(*(a2 + 40) + 4));
       }
 
       else
       {
-        v16 = 1;
+        v10 = 1;
       }
 
-      if (!v16)
+      if (!v10)
       {
         appendStringInfoString(a1, ", ");
       }
 
-      ++v13;
-      v14 += 8;
+      ++v7;
+      v8 += 8;
     }
 
-    while (v13 < *(v12 + 4));
+    while (v7 < *(v6 + 4));
   }
 
   result = appendStringInfoString(a1, ") ");
-  v18 = *(a2 + 48);
-  if (v18 && *(v18 + 4) > 0)
+  v12 = *(a2 + 48);
+  if (v12 && *(v12 + 4) > 0)
   {
     appendStringInfoString(a1, "INCLUDE (");
-    v25 = *(a2 + 48);
-    if (v25 && *(v25 + 4) >= 1)
+    v13 = *(a2 + 48);
+    if (v13 && *(v13 + 4) >= 1)
     {
-      v26 = 0;
-      v27 = 8;
+      v14 = 0;
+      v15 = 8;
       do
       {
-        v28 = *(v25 + 16);
-        deparseIndexElem(a1, *(v28 + 8 * v26), v19, v20, v21, v22, v23, v24);
-        if (v28 + v27)
+        v16 = *(v13 + 16);
+        deparseIndexElem(a1, *(v16 + 8 * v14));
+        if (v16 + v15)
         {
-          v29 = v28 + v27 >= (*(*(a2 + 48) + 16) + 8 * *(*(a2 + 48) + 4));
+          v17 = v16 + v15 >= (*(*(a2 + 48) + 16) + 8 * *(*(a2 + 48) + 4));
         }
 
         else
         {
-          v29 = 1;
+          v17 = 1;
         }
 
-        if (!v29)
+        if (!v17)
         {
           appendStringInfoString(a1, ", ");
         }
 
-        ++v26;
-        v27 += 8;
+        ++v14;
+        v15 += 8;
       }
 
-      while (v26 < *(v25 + 4));
+      while (v14 < *(v13 + 4));
     }
 
     result = appendStringInfoString(a1, ") ");
   }
 
-  v30 = *(a2 + 56);
-  if (v30 && *(v30 + 4) >= 1)
+  v18 = *(a2 + 56);
+  if (v18 && *(v18 + 4) >= 1)
   {
     appendStringInfoString(a1, "WITH ");
-    deparseRelOptions(a1, v30);
+    deparseRelOptions(a1, v18);
     result = appendStringInfoChar(a1, 32);
   }
 
   if (*(a2 + 32))
   {
     appendStringInfoString(a1, "TABLESPACE ");
-    v31 = quote_identifier(*(a2 + 32));
-    appendStringInfoString(a1, v31);
+    v19 = quote_identifier(*(a2 + 32));
+    appendStringInfoString(a1, v19);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v32 = *(a2 + 64);
-  if (v32)
+  v20 = *(a2 + 64);
+  if (v20)
   {
     appendStringInfoString(a1, "WHERE ");
-    deparseExpr(a1, v32, v33, v34, v35, v36, v37, v38);
+    deparseExpr(a1, v20);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v39 = a1[2];
-  v40 = __OFSUB__(v39, 1);
-  v41 = v39 - 1;
-  if (v41 < 0 == v40)
+  v21 = *(a1 + 2);
+  v22 = __OFSUB__(v21, 1);
+  v23 = v21 - 1;
+  if (v23 < 0 == v22)
   {
-    v42 = *a1;
-    if (*(*a1 + v41) == 32)
+    v24 = *a1;
+    if (*(*a1 + v23) == 32)
     {
-      a1[2] = v41;
-      *(v42 + v41) = 0;
+      *(a1 + 2) = v23;
+      *(v24 + v23) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseInsertStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseInsertStmt(uint64_t *a1, uint64_t a2)
 {
-  if (*(a2 + 48))
+  v4 = *(a2 + 48);
+  if (v4)
   {
-    deparseWithClause(a1);
+    deparseWithClause(a1, v4);
     appendStringInfoChar(a1, 32);
   }
 
   appendStringInfoString(a1, "INSERT INTO ");
   deparseRangeVar(a1, *(a2 + 8), 1);
   appendStringInfoChar(a1, 32);
-  v4 = *(a2 + 16);
-  if (v4 && *(v4 + 4) >= 1)
+  v5 = *(a2 + 16);
+  if (v5 && *(v5 + 4) >= 1)
   {
     appendStringInfoChar(a1, 40);
-    v5 = *(a2 + 16);
-    if (v5 && *(v5 + 4) >= 1)
+    v6 = *(a2 + 16);
+    if (v6 && *(v6 + 4) >= 1)
     {
-      v6 = 0;
-      v7 = 8;
+      v7 = 0;
+      v8 = 8;
       do
       {
-        v8 = *(v5 + 16);
-        v9 = *(v8 + 8 * v6);
-        v10 = quote_identifier(*(v9 + 8));
-        appendStringInfoString(a1, v10);
-        deparseOptIndirection(a1, *(v9 + 16), 0);
-        v11 = *(v5 + 4);
-        if (v8 + v7)
+        v9 = *(v6 + 16);
+        v10 = *(v9 + 8 * v7);
+        v11 = quote_identifier(*(v10 + 8));
+        appendStringInfoString(a1, v11);
+        deparseOptIndirection(a1, *(v10 + 16), 0);
+        v12 = *(v6 + 4);
+        if (v9 + v8)
         {
-          v12 = v8 + v7 >= (*(v5 + 16) + 8 * v11);
+          v13 = v9 + v8 >= (*(v6 + 16) + 8 * v12);
         }
 
         else
         {
-          v12 = 1;
+          v13 = 1;
         }
 
-        if (!v12)
+        if (!v13)
         {
           appendStringInfoString(a1, ", ");
-          v11 = *(v5 + 4);
+          v12 = *(v6 + 4);
         }
 
-        ++v6;
-        v7 += 8;
+        ++v7;
+        v8 += 8;
       }
 
-      while (v6 < v11);
+      while (v7 < v12);
     }
 
     appendStringInfoString(a1, ") ");
   }
 
-  v13 = *(a2 + 56);
-  if (v13 == 1)
+  v14 = *(a2 + 56);
+  if (v14 == 1)
   {
-    v14 = "OVERRIDING USER VALUE ";
+    v15 = "OVERRIDING USER VALUE ";
   }
 
   else
   {
-    if (v13 != 2)
+    if (v14 != 2)
     {
       goto LABEL_20;
     }
 
-    v14 = "OVERRIDING SYSTEM VALUE ";
+    v15 = "OVERRIDING SYSTEM VALUE ";
   }
 
-  appendStringInfoString(a1, v14);
+  appendStringInfoString(a1, v15);
 LABEL_20:
-  v15 = *(a2 + 24);
-  if (v15)
+  v16 = *(a2 + 24);
+  if (v16)
   {
-    deparseSelectStmt(a1, v15);
+    deparseSelectStmt(a1, v16);
     result = appendStringInfoChar(a1, 32);
-    v17 = *(a2 + 32);
-    if (!v17)
+    v18 = *(a2 + 32);
+    if (!v18)
     {
       goto LABEL_59;
     }
@@ -1863,160 +1865,160 @@ LABEL_20:
   else
   {
     result = appendStringInfoString(a1, "DEFAULT VALUES ");
-    v17 = *(a2 + 32);
-    if (!v17)
+    v18 = *(a2 + 32);
+    if (!v18)
     {
       goto LABEL_59;
     }
   }
 
   appendStringInfoString(a1, "ON CONFLICT ");
-  v18 = *(v17 + 8);
-  if (v18)
+  v19 = *(v18 + 8);
+  if (v19)
   {
-    v19 = *(v18 + 8);
-    if (v19 && *(v19 + 4) >= 1)
+    v20 = *(v19 + 8);
+    if (v20 && *(v20 + 4) >= 1)
     {
       appendStringInfoChar(a1, 40);
-      v26 = *(v18 + 8);
-      if (v26 && *(v26 + 4) >= 1)
+      v21 = *(v19 + 8);
+      if (v21 && *(v21 + 4) >= 1)
       {
-        v27 = 0;
-        v28 = 8;
+        v22 = 0;
+        v23 = 8;
         do
         {
-          v29 = *(v26 + 16);
-          deparseIndexElem(a1, *(v29 + 8 * v27), v20, v21, v22, v23, v24, v25);
-          if (v29 + v28)
+          v24 = *(v21 + 16);
+          deparseIndexElem(a1, *(v24 + 8 * v22));
+          if (v24 + v23)
           {
-            v30 = v29 + v28 >= (*(*(v18 + 8) + 16) + 8 * *(*(v18 + 8) + 4));
+            v25 = v24 + v23 >= (*(*(v19 + 8) + 16) + 8 * *(*(v19 + 8) + 4));
           }
 
           else
           {
-            v30 = 1;
+            v25 = 1;
           }
 
-          if (!v30)
+          if (!v25)
           {
             appendStringInfoString(a1, ", ");
           }
 
-          ++v27;
-          v28 += 8;
+          ++v22;
+          v23 += 8;
         }
 
-        while (v27 < *(v26 + 4));
+        while (v22 < *(v21 + 4));
       }
 
       appendStringInfoString(a1, ") ");
     }
 
-    if (*(v18 + 24))
+    if (*(v19 + 24))
     {
       appendStringInfoString(a1, "ON CONSTRAINT ");
-      v31 = quote_identifier(*(v18 + 24));
-      appendStringInfoString(a1, v31);
+      v26 = quote_identifier(*(v19 + 24));
+      appendStringInfoString(a1, v26);
       appendStringInfoChar(a1, 32);
     }
 
-    v32 = *(v18 + 16);
-    if (v32)
+    v27 = *(v19 + 16);
+    if (v27)
     {
       appendStringInfoString(a1, "WHERE ");
-      deparseExpr(a1, v32);
+      deparseExpr(a1, v27);
       appendStringInfoChar(a1, 32);
     }
 
-    v33 = a1[2];
-    v34 = __OFSUB__(v33, 1);
-    v35 = v33 - 1;
-    if (v35 < 0 == v34)
+    v28 = *(a1 + 2);
+    v29 = __OFSUB__(v28, 1);
+    v30 = v28 - 1;
+    if (v30 < 0 == v29)
     {
-      v36 = *a1;
-      if (*(*a1 + v35) == 32)
+      v31 = *a1;
+      if (*(*a1 + v30) == 32)
       {
-        a1[2] = v35;
-        *(v36 + v35) = 0;
+        *(a1 + 2) = v30;
+        *(v31 + v30) = 0;
       }
     }
 
     appendStringInfoChar(a1, 32);
   }
 
-  v37 = *(v17 + 4);
-  if (v37 == 1)
+  v32 = *(v18 + 4);
+  if (v32 == 1)
   {
-    v38 = "DO NOTHING ";
+    v33 = "DO NOTHING ";
   }
 
   else
   {
-    if (v37 != 2)
+    if (v32 != 2)
     {
       goto LABEL_50;
     }
 
-    v38 = "DO UPDATE ";
+    v33 = "DO UPDATE ";
   }
 
-  appendStringInfoString(a1, v38);
+  appendStringInfoString(a1, v33);
 LABEL_50:
-  v39 = *(v17 + 16);
-  if (v39 && *(v39 + 4) >= 1)
+  v34 = *(v18 + 16);
+  if (v34 && *(v34 + 4) >= 1)
   {
     appendStringInfoString(a1, "SET ");
-    deparseSetClauseList(a1, *(v17 + 16));
+    deparseSetClauseList(a1, *(v18 + 16));
     appendStringInfoChar(a1, 32);
   }
 
-  v40 = *(v17 + 24);
-  if (v40)
+  v35 = *(v18 + 24);
+  if (v35)
   {
     appendStringInfoString(a1, "WHERE ");
-    deparseExpr(a1, v40);
+    deparseExpr(a1, v35);
     appendStringInfoChar(a1, 32);
   }
 
-  v41 = a1[2];
-  v34 = __OFSUB__(v41, 1);
-  v42 = v41 - 1;
-  if (v42 < 0 == v34)
+  v36 = *(a1 + 2);
+  v29 = __OFSUB__(v36, 1);
+  v37 = v36 - 1;
+  if (v37 < 0 == v29)
   {
-    v43 = *a1;
-    if (*(*a1 + v42) == 32)
+    v38 = *a1;
+    if (*(*a1 + v37) == 32)
     {
-      a1[2] = v42;
-      *(v43 + v42) = 0;
+      *(a1 + 2) = v37;
+      *(v38 + v37) = 0;
     }
   }
 
   result = appendStringInfoChar(a1, 32);
 LABEL_59:
-  v44 = *(a2 + 40);
-  if (v44 && *(v44 + 4) >= 1)
+  v39 = *(a2 + 40);
+  if (v39 && *(v39 + 4) >= 1)
   {
     appendStringInfoString(a1, "RETURNING ");
     result = deparseTargetList(a1, *(a2 + 40));
   }
 
-  v45 = a1[2];
-  v34 = __OFSUB__(v45, 1);
-  v46 = v45 - 1;
-  if (v46 < 0 == v34)
+  v40 = *(a1 + 2);
+  v29 = __OFSUB__(v40, 1);
+  v41 = v40 - 1;
+  if (v41 < 0 == v29)
   {
-    v47 = *a1;
-    if (*(*a1 + v46) == 32)
+    v42 = *a1;
+    if (*(*a1 + v41) == 32)
     {
-      a1[2] = v46;
-      *(v47 + v46) = 0;
+      *(a1 + 2) = v41;
+      *(v42 + v41) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseSelectStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseSelectStmt(uint64_t *a1, uint64_t a2)
 {
   v2 = a2;
   v4 = *(a2 + 120);
@@ -2245,98 +2247,98 @@ LABEL_133:
   }
 
 LABEL_134:
-  v64 = *(v2 + 32);
-  if (v64 && *(v64 + 4) >= 1)
+  v58 = *(v2 + 32);
+  if (v58 && *(v58 + 4) >= 1)
   {
     appendStringInfoString(a1, "FROM ");
-    if (*(v64 + 4) >= 1)
+    if (*(v58 + 4) >= 1)
     {
-      v71 = 0;
-      v72 = 8;
+      v59 = 0;
+      v60 = 8;
       do
       {
-        v73 = *(v64 + 16);
-        deparseTableRef(a1, *(v73 + 8 * v71), v65, v66, v67, v68, v69, v70);
-        v74 = *(v64 + 4);
-        if (v73 + v72)
+        v61 = *(v58 + 16);
+        deparseTableRef(a1, *(v61 + 8 * v59));
+        v62 = *(v58 + 4);
+        if (v61 + v60)
         {
-          v75 = v73 + v72 >= (*(v64 + 16) + 8 * v74);
+          v63 = v61 + v60 >= (*(v58 + 16) + 8 * v62);
         }
 
         else
         {
-          v75 = 1;
+          v63 = 1;
         }
 
-        if (!v75)
+        if (!v63)
         {
           appendStringInfoString(a1, ", ");
-          v74 = *(v64 + 4);
+          v62 = *(v58 + 4);
         }
 
-        ++v71;
-        v72 += 8;
+        ++v59;
+        v60 += 8;
       }
 
-      while (v71 < v74);
+      while (v59 < v62);
     }
 
     appendStringInfoChar(a1, 32);
   }
 
-  v76 = *(v2 + 40);
-  if (v76)
+  v64 = *(v2 + 40);
+  if (v64)
   {
     appendStringInfoString(a1, "WHERE ");
-    deparseExpr(a1, v76);
+    deparseExpr(a1, v64);
     appendStringInfoChar(a1, 32);
   }
 
-  v77 = *(v2 + 48);
-  if (v77 && *(v77 + 4) >= 1)
+  v65 = *(v2 + 48);
+  if (v65 && *(v65 + 4) >= 1)
   {
     appendStringInfoString(a1, "GROUP BY ");
-    v78 = *(v2 + 48);
-    if (v78 && *(v78 + 4) >= 1)
+    v66 = *(v2 + 48);
+    if (v66 && *(v66 + 4) >= 1)
     {
-      v79 = 0;
-      v80 = 8;
+      v67 = 0;
+      v68 = 8;
       do
       {
-        v81 = *(v78 + 16);
-        v82 = *(v81 + 8 * v79);
-        if (*v82 == 376)
+        v69 = *(v66 + 16);
+        v70 = *(v69 + 8 * v67);
+        if (*v70 == 376)
         {
-          deparseGroupingSet(a1, v82);
+          deparseGroupingSet(a1, v70);
         }
 
         else
         {
-          deparseExpr(a1, v82);
+          deparseExpr(a1, v70);
         }
 
-        v83 = *(v78 + 4);
-        if (v81 + v80)
+        v71 = *(v66 + 4);
+        if (v69 + v68)
         {
-          v84 = v81 + v80 >= (*(v78 + 16) + 8 * v83);
+          v72 = v69 + v68 >= (*(v66 + 16) + 8 * v71);
         }
 
         else
         {
-          v84 = 1;
+          v72 = 1;
         }
 
-        if (!v84)
+        if (!v72)
         {
           appendStringInfoString(a1, ", ");
-          v83 = *(v78 + 4);
+          v71 = *(v66 + 4);
         }
 
-        ++v79;
-        v80 += 8;
+        ++v67;
+        v68 += 8;
       }
 
-      while (v79 < v83);
+      while (v67 < v71);
     }
 
     appendStringInfoChar(a1, 32);
@@ -2352,38 +2354,38 @@ LABEL_134:
   if (*(v2 + 64))
   {
     appendStringInfoString(a1, "WINDOW ");
-    v85 = *(v2 + 64);
-    if (v85 && *(v85 + 4) >= 1)
+    v73 = *(v2 + 64);
+    if (v73 && *(v73 + 4) >= 1)
     {
-      v86 = 0;
-      v87 = 8;
+      v74 = 0;
+      v75 = 8;
       do
       {
-        v88 = *(v85 + 16);
-        v89 = *(v88 + 8 * v86);
-        appendStringInfoString(a1, *(v89 + 8));
+        v76 = *(v73 + 16);
+        v77 = *(v76 + 8 * v74);
+        appendStringInfoString(a1, *(v77 + 8));
         appendStringInfoString(a1, " AS ");
-        deparseWindowDef(a1, v89);
-        if (v88 + v87)
+        deparseWindowDef(a1, v77);
+        if (v76 + v75)
         {
-          v90 = v88 + v87 >= (*(*(v2 + 64) + 16) + 8 * *(*(v2 + 64) + 4));
+          v78 = v76 + v75 >= (*(*(v2 + 64) + 16) + 8 * *(*(v2 + 64) + 4));
         }
 
         else
         {
-          v90 = 1;
+          v78 = 1;
         }
 
-        if (!v90)
+        if (!v78)
         {
           appendStringInfoString(a1, ", ");
         }
 
-        ++v86;
-        v87 += 8;
+        ++v74;
+        v75 += 8;
       }
 
-      while (v86 < *(v85 + 4));
+      while (v74 < *(v73 + 4));
     }
 
     goto LABEL_64;
@@ -2396,68 +2398,68 @@ LABEL_65:
     goto LABEL_179;
   }
 
-  v39 = *(v2 + 104);
-  if (v39 == 1)
+  v33 = *(v2 + 104);
+  if (v33 == 1)
   {
-    v40 = "LIMIT ";
+    v34 = "LIMIT ";
   }
 
   else
   {
-    if (v39 != 2)
+    if (v33 != 2)
     {
       goto LABEL_71;
     }
 
-    v40 = "FETCH FIRST ";
+    v34 = "FETCH FIRST ";
   }
 
-  appendStringInfoString(a1, v40);
+  appendStringInfoString(a1, v34);
 LABEL_71:
-  v41 = *(v2 + 96);
-  v42 = *v41;
-  if (*v41 > 347)
+  v35 = *(v2 + 96);
+  v36 = *v35;
+  if (*v35 > 347)
   {
-    if (v42 > 352)
+    if (v36 > 352)
     {
-      switch(v42)
+      switch(v36)
       {
         case 353:
           deparseAIndirection(a1, *(v2 + 96));
           break;
         case 354:
           appendStringInfoString(a1, "ARRAY[");
-          v58 = *(v41 + 1);
-          if (v58 && *(v58 + 4) >= 1)
+          v52 = *(v35 + 8);
+          if (v52 && *(v52 + 4) >= 1)
           {
-            v59 = 0;
-            v60 = 8;
+            v53 = 0;
+            v54 = 8;
             do
             {
-              v61 = *(v58 + 16);
-              deparseExpr(a1, *(v61 + 8 * v59));
-              v62 = *(v58 + 4);
-              if (v61 + v60)
+              v55 = *(v52 + 16);
+              deparseExpr(a1, *(v55 + 8 * v53));
+              v56 = *(v52 + 4);
+              if (v55 + v54)
               {
-                v63 = v61 + v60 >= (*(v58 + 16) + 8 * v62);
+                v57 = v55 + v54 >= (*(v52 + 16) + 8 * v56);
               }
 
               else
               {
-                v63 = 1;
+                v57 = 1;
               }
 
-              if (!v63)
+              if (!v57)
               {
                 appendStringInfoString(a1, ", ");
-                v62 = *(v58 + 4);
+                v56 = *(v52 + 4);
               }
 
-              ++v59;
-              v60 += 8;
+              ++v53;
+              v54 += 8;
             }
 
-            while (v59 < v62);
+            while (v53 < v56);
           }
 
           appendStringInfoChar(a1, 93);
@@ -2472,12 +2474,12 @@ LABEL_71:
 
     else
     {
-      switch(v42)
+      switch(v36)
       {
         case 348:
-          if (v41[1])
+          if (*(v35 + 4))
           {
-            appendStringInfo(a1, "$%d", v33, v34, v35, v36, v37, v38, v41[1]);
+            appendStringInfo(a1, "$%d", *(v35 + 4));
           }
 
           else
@@ -2487,16 +2489,16 @@ LABEL_71:
 
           break;
         case 349:
-          v57 = v41[2];
-          v56 = v41 + 2;
-          if (v57 == 225)
+          v51 = *(v35 + 8);
+          v50 = v35 + 8;
+          if (v51 == 225)
           {
             appendStringInfoString(a1, "ALL");
           }
 
           else
           {
-            deparseValue(a1, v56, 11, v34, v35, v36, v37, v38);
+            deparseValue(a1, v50, 11);
           }
 
           break;
@@ -2511,69 +2513,69 @@ LABEL_71:
     goto LABEL_177;
   }
 
-  if (v42 > 133)
+  if (v36 > 133)
   {
-    switch(v42)
+    switch(v36)
     {
       case 134:
-        if (!v41[5])
+        if (!*(v35 + 20))
         {
           appendStringInfoString(a1, "ROW");
         }
 
         appendStringInfoString(a1, "(");
-        v50 = *(v41 + 1);
-        if (v50 && *(v50 + 4) >= 1)
+        v44 = *(v35 + 8);
+        if (v44 && *(v44 + 4) >= 1)
         {
-          v51 = 0;
-          v52 = 8;
+          v45 = 0;
+          v46 = 8;
           do
           {
-            v53 = *(v50 + 16);
-            deparseExpr(a1, *(v53 + 8 * v51));
-            v54 = *(v50 + 4);
-            if (v53 + v52)
+            v47 = *(v44 + 16);
+            deparseExpr(a1, *(v47 + 8 * v45));
+            v48 = *(v44 + 4);
+            if (v47 + v46)
             {
-              v55 = v53 + v52 >= (*(v50 + 16) + 8 * v54);
+              v49 = v47 + v46 >= (*(v44 + 16) + 8 * v48);
             }
 
             else
             {
-              v55 = 1;
+              v49 = 1;
             }
 
-            if (!v55)
+            if (!v49)
             {
               appendStringInfoString(a1, ", ");
-              v54 = *(v50 + 4);
+              v48 = *(v44 + 4);
             }
 
-            ++v51;
-            v52 += 8;
+            ++v45;
+            v46 += 8;
           }
 
-          while (v51 < v54);
+          while (v45 < v48);
         }
 
         break;
       case 346:
         appendStringInfoChar(a1, 40);
-        deparseAExpr(a1, v41);
+        deparseAExpr(a1, v35);
         break;
       case 347:
-        v43 = **(*(v41 + 1) + 16);
-        if (*v43 == 223)
+        v37 = **(*(v35 + 8) + 16);
+        if (*v37 == 223)
         {
-          v91 = quote_identifier(*(v43 + 8));
-          appendStringInfoString(a1, v91);
+          v79 = quote_identifier(*(v37 + 8));
+          appendStringInfoString(a1, v79);
         }
 
-        else if (*v43 == 351)
+        else if (*v37 == 351)
         {
           appendStringInfoChar(a1, 42);
         }
 
-        deparseOptIndirection(a1, *(v41 + 1), 1);
+        deparseOptIndirection(a1, *(v35 + 8), 1);
         goto LABEL_177;
       default:
         goto LABEL_216;
@@ -2582,40 +2584,40 @@ LABEL_71:
     goto LABEL_119;
   }
 
-  if (v42 == 110)
+  if (v36 == 110)
   {
     appendStringInfoString(a1, "GROUPING(");
-    v44 = *(v41 + 1);
-    if (v44 && *(v44 + 4) >= 1)
+    v38 = *(v35 + 8);
+    if (v38 && *(v38 + 4) >= 1)
     {
-      v45 = 0;
-      v46 = 8;
+      v39 = 0;
+      v40 = 8;
       do
       {
-        v47 = *(v44 + 16);
-        deparseExpr(a1, *(v47 + 8 * v45));
-        v48 = *(v44 + 4);
-        if (v47 + v46)
+        v41 = *(v38 + 16);
+        deparseExpr(a1, *(v41 + 8 * v39));
+        v42 = *(v38 + 4);
+        if (v41 + v40)
         {
-          v49 = v47 + v46 >= (*(v44 + 16) + 8 * v48);
+          v43 = v41 + v40 >= (*(v38 + 16) + 8 * v42);
         }
 
         else
         {
-          v49 = 1;
+          v43 = 1;
         }
 
-        if (!v49)
+        if (!v43)
         {
           appendStringInfoString(a1, ", ");
-          v48 = *(v44 + 4);
+          v42 = *(v38 + 4);
         }
 
-        ++v45;
-        v46 += 8;
+        ++v39;
+        v40 += 8;
       }
 
-      while (v45 < v48);
+      while (v39 < v42);
     }
 
 LABEL_119:
@@ -2623,16 +2625,15 @@ LABEL_119:
     goto LABEL_177;
   }
 
-  if (v42 != 120)
+  if (v36 != 120)
   {
-    if (v42 == 130)
+    if (v36 == 130)
     {
       deparseCaseExpr(a1, *(v2 + 96));
       goto LABEL_177;
     }
 
 LABEL_216:
-    v115 = *(v2 + 96);
     deparseSelectStmt_cold_1();
   }
 
@@ -2652,104 +2653,104 @@ LABEL_179:
     result = appendStringInfoChar(a1, 32);
   }
 
-  v92 = *(v2 + 112);
-  if (v92 && *(v92 + 4) >= 1)
+  v80 = *(v2 + 112);
+  if (v80 && *(v80 + 4) >= 1)
   {
-    v93 = 0;
+    v81 = 0;
     while (1)
     {
-      v94 = v2;
-      v95 = *(v92 + 16) + 8 * v93;
-      v96 = *v95;
-      v97 = *(*v95 + 16) - 1;
-      if (v97 <= 3)
+      v82 = v2;
+      v83 = *(v80 + 16) + 8 * v81;
+      v84 = *v83;
+      v85 = *(*v83 + 16) - 1;
+      if (v85 <= 3)
       {
-        appendStringInfoString(a1, (&off_1E6E54E80)[v97]);
+        appendStringInfoString(a1, (&off_1E6E54E80)[v85]);
       }
 
-      v98 = *(v96 + 8);
-      if (v98)
+      v86 = *(v84 + 8);
+      if (v86)
       {
-        if (*(v98 + 4) >= 1)
+        if (*(v86 + 4) >= 1)
         {
           appendStringInfoString(a1, "OF ");
-          v99 = *(v96 + 8);
-          if (v99)
+          v87 = *(v84 + 8);
+          if (v87)
           {
-            if (*(v99 + 4) >= 1)
+            if (*(v87 + 4) >= 1)
             {
-              v100 = 0;
-              v101 = 8;
+              v88 = 0;
+              v89 = 8;
               do
               {
-                v102 = *(v99 + 16);
-                deparseRangeVar(a1, *(v102 + 8 * v100), 0);
-                v103 = *(v99 + 4);
-                if (v102 + v101)
+                v90 = *(v87 + 16);
+                deparseRangeVar(a1, *(v90 + 8 * v88), 0);
+                v91 = *(v87 + 4);
+                if (v90 + v89)
                 {
-                  v104 = v102 + v101 >= (*(v99 + 16) + 8 * v103);
+                  v92 = v90 + v89 >= (*(v87 + 16) + 8 * v91);
                 }
 
                 else
                 {
-                  v104 = 1;
+                  v92 = 1;
                 }
 
-                if (!v104)
+                if (!v92)
                 {
                   appendStringInfoString(a1, ", ");
-                  v103 = *(v99 + 4);
+                  v91 = *(v87 + 4);
                 }
 
-                ++v100;
-                v101 += 8;
+                ++v88;
+                v89 += 8;
               }
 
-              while (v100 < v103);
+              while (v88 < v91);
             }
           }
         }
       }
 
-      v105 = *(v96 + 20);
-      if (v105 == 2)
+      v93 = *(v84 + 20);
+      if (v93 == 2)
       {
-        v106 = "NOWAIT";
-        v2 = v94;
+        v94 = "NOWAIT";
+        v2 = v82;
       }
 
       else
       {
-        v2 = v94;
-        if (v105 != 1)
+        v2 = v82;
+        if (v93 != 1)
         {
           goto LABEL_203;
         }
 
-        v106 = "SKIP LOCKED";
+        v94 = "SKIP LOCKED";
       }
 
-      appendStringInfoString(a1, v106);
+      appendStringInfoString(a1, v94);
 LABEL_203:
-      v107 = a1[2];
-      v108 = __OFSUB__(v107, 1);
-      v109 = v107 - 1;
-      if (v109 < 0 == v108)
+      v95 = *(a1 + 2);
+      v96 = __OFSUB__(v95, 1);
+      v97 = v95 - 1;
+      if (v97 < 0 == v96)
       {
-        v110 = *a1;
-        if (*(*a1 + v109) == 32)
+        v98 = *a1;
+        if (*(*a1 + v97) == 32)
         {
-          a1[2] = v109;
-          *(v110 + v109) = 0;
+          *(a1 + 2) = v97;
+          *(v98 + v97) = 0;
         }
       }
 
-      if (v95 != -8 && v95 + 8 < (*(*(v2 + 112) + 16) + 8 * *(*(v2 + 112) + 4)))
+      if (v83 != -8 && v83 + 8 < (*(*(v2 + 112) + 16) + 8 * *(*(v2 + 112) + 4)))
       {
         appendStringInfoString(a1, " ");
       }
 
-      if (++v93 >= *(v92 + 4))
+      if (++v81 >= *(v80 + 4))
       {
         result = appendStringInfoChar(a1, 32);
         break;
@@ -2757,105 +2758,106 @@ LABEL_203:
     }
   }
 
-  v112 = a1[2];
-  v108 = __OFSUB__(v112, 1);
-  v113 = v112 - 1;
-  if (v113 < 0 == v108)
+  v100 = *(a1 + 2);
+  v96 = __OFSUB__(v100, 1);
+  v101 = v100 - 1;
+  if (v101 < 0 == v96)
   {
-    v114 = *a1;
-    if (*(*a1 + v113) == 32)
+    v102 = *a1;
+    if (*(*a1 + v101) == 32)
     {
-      a1[2] = v113;
-      *(v114 + v113) = 0;
+      *(a1 + 2) = v101;
+      *(v102 + v101) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseUpdateStmt(uint64_t a1, uint64_t *a2)
+uint64_t deparseUpdateStmt(uint64_t *a1, void *a2)
 {
-  if (a2[6])
+  v4 = a2[6];
+  if (v4)
   {
-    deparseWithClause(a1);
+    deparseWithClause(a1, v4);
     appendStringInfoChar(a1, 32);
   }
 
   appendStringInfoString(a1, "UPDATE ");
   deparseRangeVar(a1, a2[1], 0);
   result = appendStringInfoChar(a1, 32);
-  v5 = a2[2];
-  if (v5 && *(v5 + 4) >= 1)
+  v6 = a2[2];
+  if (v6 && *(v6 + 4) >= 1)
   {
     appendStringInfoString(a1, "SET ");
     deparseSetClauseList(a1, a2[2]);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v6 = a2[4];
-  if (v6 && *(v6 + 4) >= 1)
+  v7 = a2[4];
+  if (v7 && *(v7 + 4) >= 1)
   {
     appendStringInfoString(a1, "FROM ");
-    if (*(v6 + 4) >= 1)
+    if (*(v7 + 4) >= 1)
     {
-      v13 = 0;
-      v14 = 8;
+      v8 = 0;
+      v9 = 8;
       do
       {
-        v15 = *(v6 + 16);
-        deparseTableRef(a1, *(v15 + 8 * v13), v7, v8, v9, v10, v11, v12);
-        v16 = *(v6 + 4);
-        if (v15 + v14)
+        v10 = *(v7 + 16);
+        deparseTableRef(a1, *(v10 + 8 * v8));
+        v11 = *(v7 + 4);
+        if (v10 + v9)
         {
-          v17 = v15 + v14 >= (*(v6 + 16) + 8 * v16);
+          v12 = v10 + v9 >= (*(v7 + 16) + 8 * v11);
         }
 
         else
         {
-          v17 = 1;
+          v12 = 1;
         }
 
-        if (!v17)
+        if (!v12)
         {
           appendStringInfoString(a1, ", ");
-          v16 = *(v6 + 4);
+          v11 = *(v7 + 4);
         }
 
-        ++v13;
-        v14 += 8;
+        ++v8;
+        v9 += 8;
       }
 
-      while (v13 < v16);
+      while (v8 < v11);
     }
 
     result = appendStringInfoChar(a1, 32);
   }
 
-  v18 = a2[3];
-  if (v18)
+  v13 = a2[3];
+  if (v13)
   {
     appendStringInfoString(a1, "WHERE ");
-    deparseExpr(a1, v18);
+    deparseExpr(a1, v13);
     result = appendStringInfoChar(a1, 32);
   }
 
-  v19 = a2[5];
-  if (v19 && *(v19 + 4) >= 1)
+  v14 = a2[5];
+  if (v14 && *(v14 + 4) >= 1)
   {
     appendStringInfoString(a1, "RETURNING ");
     result = deparseTargetList(a1, a2[5]);
   }
 
-  v20 = *(a1 + 8);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v22 < 0 == v21)
+  v15 = *(a1 + 2);
+  v16 = __OFSUB__(v15, 1);
+  v17 = v15 - 1;
+  if (v17 < 0 == v16)
   {
-    v23 = *a1;
-    if (*(*a1 + v22) == 32)
+    v18 = *a1;
+    if (*(*a1 + v17) == 32)
     {
-      *(a1 + 8) = v22;
-      *(v23 + v22) = 0;
+      *(a1 + 2) = v17;
+      *(v18 + v17) = 0;
     }
   }
 
@@ -2895,35 +2897,35 @@ uint64_t deparseVariableSetStmt(uint64_t result, uint64_t a2)
       appendStringInfoString(v3, "LOCAL ");
     }
 
-    v23 = *(a2 + 8);
-    if (!strcmp(v23, "TRANSACTION"))
+    v17 = *(a2 + 8);
+    if (!strcmp(v17, "TRANSACTION"))
     {
-      v25 = "TRANSACTION ";
+      v19 = "TRANSACTION ";
     }
 
     else
     {
-      if (strcmp(v23, "SESSION CHARACTERISTICS"))
+      if (strcmp(v17, "SESSION CHARACTERISTICS"))
       {
-        result = strcmp(v23, "TRANSACTION SNAPSHOT");
+        result = strcmp(v17, "TRANSACTION SNAPSHOT");
         if (!result)
         {
           appendStringInfoString(v3, "TRANSACTION SNAPSHOT ");
-          v27 = *(**(*(a2 + 16) + 16) + 16);
+          v21 = *(**(*(a2 + 16) + 16) + 16);
 
-          return deparseStringLiteral(v3, v27);
+          return deparseStringLiteral(v3, v21);
         }
 
         return result;
       }
 
-      v25 = "SESSION CHARACTERISTICS AS TRANSACTION ";
+      v19 = "SESSION CHARACTERISTICS AS TRANSACTION ";
     }
 
-    appendStringInfoString(v3, v25);
-    v26 = *(a2 + 16);
+    appendStringInfoString(v3, v19);
+    v20 = *(a2 + 16);
 
-    return deparseTransactionModeList(v3, v26);
+    return deparseTransactionModeList(v3, v20);
   }
 
   else
@@ -2938,8 +2940,8 @@ uint64_t deparseVariableSetStmt(uint64_t result, uint64_t a2)
           appendStringInfoString(v3, "LOCAL ");
         }
 
-        v24 = quote_identifier(*(a2 + 8));
-        appendStringInfoString(v3, v24);
+        v18 = quote_identifier(*(a2 + 8));
+        appendStringInfoString(v3, v18);
         v6 = " TO DEFAULT";
       }
 
@@ -2975,38 +2977,38 @@ LABEL_44:
     v7 = quote_identifier(*(a2 + 8));
     appendStringInfoString(v3, v7);
     result = appendStringInfoString(v3, " TO ");
-    v14 = *(a2 + 16);
-    if (v14 && *(v14 + 4) >= 1)
+    v8 = *(a2 + 16);
+    if (v8 && *(v8 + 4) >= 1)
     {
-      v15 = 0;
-      v16 = 8;
+      v9 = 0;
+      v10 = 8;
       do
       {
-        v17 = *(v14 + 16);
-        v18 = *(v17 + 8 * v15);
-        if (*v18 == 349)
+        v11 = *(v8 + 16);
+        v12 = *(v11 + 8 * v9);
+        if (*v12 == 349)
         {
-          v20 = *(v18 + 8);
-          switch(v20)
+          v14 = *(v12 + 8);
+          switch(v14)
           {
             case 223:
-              result = deparseOptBooleanOrString(v3, *(v18 + 16));
+              result = deparseOptBooleanOrString(v3, *(v12 + 16));
               break;
             case 222:
-              result = appendStringInfoString(v3, *(v18 + 16));
+              result = appendStringInfoString(v3, *(v12 + 16));
               break;
             case 221:
-              result = appendStringInfo(v3, "%d", v8, v9, v10, v11, v12, v13, *(v18 + 16));
+              result = appendStringInfo(v3, "%d", *(v12 + 16));
               break;
           }
         }
 
-        else if (*v18 == 348)
+        else if (*v12 == 348)
         {
-          v19 = *(v18 + 4);
-          if (v19)
+          v13 = *(v12 + 4);
+          if (v13)
           {
-            result = appendStringInfo(v3, "$%d", v8, v9, v10, v11, v12, v13, v19);
+            result = appendStringInfo(v3, "$%d", v13);
           }
 
           else
@@ -3015,35 +3017,35 @@ LABEL_44:
           }
         }
 
-        v21 = *(v14 + 4);
-        if (v17 + v16)
+        v15 = *(v8 + 4);
+        if (v11 + v10)
         {
-          v22 = v17 + v16 >= (*(v14 + 16) + 8 * v21);
+          v16 = v11 + v10 >= (*(v8 + 16) + 8 * v15);
         }
 
         else
         {
-          v22 = 1;
+          v16 = 1;
         }
 
-        if (!v22)
+        if (!v16)
         {
           result = appendStringInfoString(v3, ", ");
-          v21 = *(v14 + 4);
+          v15 = *(v8 + 4);
         }
 
-        ++v15;
-        v16 += 8;
+        ++v9;
+        v10 += 8;
       }
 
-      while (v15 < v21);
+      while (v9 < v15);
     }
   }
 
   return result;
 }
 
-uint64_t deparseViewStmt(_DWORD *a1, uint64_t a2)
+uint64_t deparseViewStmt(uint64_t a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CREATE ");
   if (*(a2 + 32) == 1)
@@ -3138,7 +3140,7 @@ LABEL_7:
 
   result = appendStringInfoString(a1, v17);
 LABEL_28:
-  v18 = a1[2];
+  v18 = *(a1 + 8);
   v19 = __OFSUB__(v18, 1);
   v20 = v18 - 1;
   if (v20 < 0 == v19)
@@ -3146,7 +3148,7 @@ LABEL_28:
     v21 = *a1;
     if (*(*a1 + v20) == 32)
     {
-      a1[2] = v20;
+      *(a1 + 8) = v20;
       *(v21 + v20) = 0;
     }
   }
@@ -3154,7 +3156,7 @@ LABEL_28:
   return result;
 }
 
-unint64_t deparseCreatedbOptList(unint64_t result, uint64_t a2)
+void *deparseCreatedbOptList(void *result, uint64_t a2)
 {
   if (a2 && *(a2 + 4) >= 1)
   {
@@ -3168,8 +3170,8 @@ unint64_t deparseCreatedbOptList(unint64_t result, uint64_t a2)
       {
         appendStringInfoString(v3, "CONNECTION LIMIT");
         result = appendStringInfoChar(v3, 32);
-        v19 = *(v6 + 24);
-        if (!v19)
+        v14 = *(v6 + 24);
+        if (!v14)
         {
           goto LABEL_15;
         }
@@ -3177,32 +3179,32 @@ unint64_t deparseCreatedbOptList(unint64_t result, uint64_t a2)
 
       else
       {
-        v8 = pstrdup(v7);
-        v9 = v8;
-        v10 = *v8;
-        if (*v8)
+        v9 = pstrdup(v7, v8);
+        v10 = v9;
+        v11 = *v9;
+        if (*v9)
         {
-          v11 = v8 + 1;
+          v12 = v9 + 1;
           do
           {
-            *(v11 - 1) = pg_toupper(v10);
-            v12 = *v11++;
-            v10 = v12;
+            *(v12 - 1) = pg_toupper(v11);
+            v13 = *v12++;
+            v11 = v13;
           }
 
-          while (v12);
+          while (v13);
         }
 
-        appendStringInfoString(v3, v9);
-        pfree(v9);
+        appendStringInfoString(v3, v10);
+        pfree(v10);
         result = appendStringInfoChar(v3, 32);
-        v19 = *(v6 + 24);
-        if (!v19)
+        v14 = *(v6 + 24);
+        if (!v14)
         {
 LABEL_15:
           result = appendStringInfoString(v3, "DEFAULT");
 LABEL_16:
-          v20 = v5 + 8;
+          v15 = v5 + 8;
           if (v5 != -8)
           {
             goto LABEL_17;
@@ -3212,12 +3214,12 @@ LABEL_16:
         }
       }
 
-      if (*v19 != 223)
+      if (*v14 != 223)
       {
-        if (*v19 == 221)
+        if (*v14 == 221)
         {
-          result = appendStringInfo(v3, "%d", v13, v14, v15, v16, v17, v18, *(v19 + 2));
-          v20 = v5 + 8;
+          result = appendStringInfo(v3, "%d", *(v14 + 8));
+          v15 = v5 + 8;
           if (v5 != -8)
           {
             goto LABEL_17;
@@ -3229,12 +3231,12 @@ LABEL_16:
         goto LABEL_16;
       }
 
-      result = deparseOptBooleanOrString(v3, v19[1]);
-      v20 = v5 + 8;
+      result = deparseOptBooleanOrString(v3, *(v14 + 8));
+      v15 = v5 + 8;
       if (v5 != -8)
       {
 LABEL_17:
-        if (v20 < *(a2 + 16) + 8 * *(a2 + 4))
+        if (v15 < *(a2 + 16) + 8 * *(a2 + 4))
         {
           result = appendStringInfoChar(v3, 32);
         }
@@ -3376,63 +3378,63 @@ void *deparseNameList(void *result, uint64_t a2)
   return result;
 }
 
-void *deparseExpr(void *result, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *deparseExpr(uint64_t *result, int *a2)
 {
-  v8 = a2;
-  v9 = result;
-  v10 = *a2;
+  v2 = a2;
+  v3 = result;
+  v4 = *a2;
   if (*a2 > 345)
   {
 LABEL_10:
-    if (v10 <= 352)
+    if (v4 <= 352)
     {
-      if (v10 <= 347)
+      if (v4 <= 347)
       {
-        if (v10 == 346)
+        if (v4 == 346)
         {
 
-          return deparseAExpr(v9, v8);
+          return deparseAExpr(v3, v2);
         }
 
-        if (v10 == 347)
+        if (v4 == 347)
         {
-          v22 = **(*(v8 + 8) + 16);
-          if (*v22 == 223)
+          v16 = **(*(v2 + 1) + 16);
+          if (*v16 == 223)
           {
-            v67 = quote_identifier(*(v22 + 8));
-            appendStringInfoString(v9, v67);
+            v61 = quote_identifier(*(v16 + 8));
+            appendStringInfoString(v3, v61);
           }
 
-          else if (*v22 == 351)
+          else if (*v16 == 351)
           {
-            appendStringInfoChar(v9, 42);
+            appendStringInfoChar(v3, 42);
           }
 
-          v68 = *(v8 + 8);
+          v62 = *(v2 + 1);
 
-          return deparseOptIndirection(v9, v68, 1);
+          return deparseOptIndirection(v3, v62, 1);
         }
       }
 
       else
       {
-        switch(v10)
+        switch(v4)
         {
           case 348:
-            if (!*(v8 + 4))
+            if (!v2[1])
             {
-              v53 = v9;
-              v54 = 63;
+              v47 = v3;
+              v48 = 63;
               goto LABEL_162;
             }
 
-            return appendStringInfo(v9, "$%d", a3, a4, a5, a6, a7, a8, *(v8 + 4));
+            return appendStringInfo(v3, "$%d");
           case 349:
 
-            return deparseValue(v9, (v8 + 8), 11, a4, a5, a6, a7, a8);
+            return deparseValue(v3, (v2 + 2), 11);
           case 350:
 
-            return deparseFuncCall(v9, v8);
+            return deparseFuncCall(v3, v2);
         }
       }
 
@@ -3440,276 +3442,110 @@ LABEL_180:
       deparseExpr_cold_1();
     }
 
-    if (v10 <= 356)
+    if (v4 <= 356)
     {
-      if (v10 == 353)
+      if (v4 == 353)
       {
 
-        return deparseAIndirection(v9, v8);
+        return deparseAIndirection(v3, v2);
       }
 
-      if (v10 == 354)
+      if (v4 == 354)
       {
-        appendStringInfoString(v9, "ARRAY[");
-        v23 = *(v8 + 8);
-        if (v23 && *(v23 + 4) >= 1)
+        appendStringInfoString(v3, "ARRAY[");
+        v17 = *(v2 + 1);
+        if (v17 && *(v17 + 4) >= 1)
         {
-          v24 = 0;
-          v25 = 8;
+          v18 = 0;
+          v19 = 8;
           do
           {
-            v26 = *(v23 + 16);
-            deparseExpr(v9, *(v26 + 8 * v24));
-            v27 = *(v23 + 4);
-            if (v26 + v25)
+            v20 = *(v17 + 16);
+            deparseExpr(v3, *(v20 + 8 * v18));
+            v21 = *(v17 + 4);
+            if (v20 + v19)
             {
-              v28 = v26 + v25 >= (*(v23 + 16) + 8 * v27);
+              v22 = v20 + v19 >= (*(v17 + 16) + 8 * v21);
             }
 
             else
             {
-              v28 = 1;
+              v22 = 1;
             }
 
-            if (!v28)
+            if (!v22)
             {
-              appendStringInfoString(v9, ", ");
-              v27 = *(v23 + 4);
+              appendStringInfoString(v3, ", ");
+              v21 = *(v17 + 4);
             }
 
-            ++v24;
-            v25 += 8;
+            ++v18;
+            v19 += 8;
           }
 
-          while (v24 < v27);
+          while (v18 < v21);
         }
 
-        v53 = v9;
-        v54 = 93;
+        v47 = v3;
+        v48 = 93;
         goto LABEL_162;
       }
 
       goto LABEL_180;
     }
 
-    if (v10 == 357)
+    if (v4 == 357)
     {
 
-      return deparseTypeCast(v9, v8);
+      return deparseTypeCast(v3, v2);
     }
 
-    if (v10 == 358)
+    if (v4 == 358)
     {
 
-      return deparseCollateClause(v9, v8);
+      return deparseCollateClause(v3, v2);
     }
 
-    if (v10 != 385)
+    if (v4 != 385)
     {
       goto LABEL_180;
     }
 
-    appendStringInfoString(v9, "xmlserialize(");
-    v14 = *(v8 + 4);
-    if (v14)
+    appendStringInfoString(v3, "xmlserialize(");
+    v8 = v2[1];
+    if (v8)
     {
-      if (v14 != 1)
+      if (v8 != 1)
       {
         goto LABEL_168;
       }
 
-      v15 = "content ";
+      v9 = "content ";
     }
 
     else
     {
-      v15 = "document ";
+      v9 = "document ";
     }
 
-    appendStringInfoString(v9, v15);
+    appendStringInfoString(v3, v9);
 LABEL_168:
-    deparseExpr(v9, *(v8 + 8));
-    appendStringInfoString(v9, " AS ");
-    deparseTypeName(v9, *(v8 + 16));
-    v29 = ")";
+    deparseExpr(v3, *(v2 + 1));
+    appendStringInfoString(v3, " AS ");
+    deparseTypeName(v3, *(v2 + 2));
+    v23 = ")";
 LABEL_169:
 
-    return appendStringInfoString(v9, v29);
+    return appendStringInfoString(v3, v23);
   }
 
   while (2)
   {
-    switch(v10)
+    switch(v4)
     {
       case 110:
-        appendStringInfoString(v9, "GROUPING(");
-        v39 = *(v8 + 8);
-        if (v39 && *(v39 + 4) >= 1)
-        {
-          v40 = 0;
-          v41 = 8;
-          do
-          {
-            v42 = *(v39 + 16);
-            deparseExpr(v9, *(v42 + 8 * v40));
-            v43 = *(v39 + 4);
-            if (v42 + v41)
-            {
-              v44 = v42 + v41 >= (*(v39 + 16) + 8 * v43);
-            }
-
-            else
-            {
-              v44 = 1;
-            }
-
-            if (!v44)
-            {
-              appendStringInfoString(v9, ", ");
-              v43 = *(v39 + 4);
-            }
-
-            ++v40;
-            v41 += 8;
-          }
-
-          while (v40 < v43);
-        }
-
-        goto LABEL_161;
-      case 119:
-        v11 = *(v8 + 4);
-        if (v11 != 2)
-        {
-          if (v11 == 1)
-          {
-            v55 = *(v8 + 8);
-            if (v55 && *(v55 + 4) >= 1)
-            {
-              v56 = 0;
-              v57 = 0;
-              do
-              {
-                v58 = *(v55 + 16);
-                v59 = *(v58 + v56);
-                if (*v59 == 119 && v59[1] <= 1u)
-                {
-                  appendStringInfoChar(v9, 40);
-                  deparseExpr(v9, *(v58 + v56));
-                  result = appendStringInfoChar(v9, 41);
-                }
-
-                else
-                {
-                  result = deparseExpr(v9, v59);
-                }
-
-                if (v58 + v56 != -8 && v58 + v56 + 8 < (*(*(v8 + 8) + 16) + 8 * *(*(v8 + 8) + 4)))
-                {
-                  result = appendStringInfoString(v9, " OR ");
-                }
-
-                ++v57;
-                v56 += 8;
-              }
-
-              while (v57 < *(v55 + 4));
-            }
-          }
-
-          else if (!v11)
-          {
-            v16 = *(v8 + 8);
-            if (v16)
-            {
-              if (*(v16 + 4) >= 1)
-              {
-                v17 = 0;
-                v18 = 0;
-                do
-                {
-                  v19 = *(v16 + 16);
-                  v20 = *(v19 + v17);
-                  if (*v20 == 119 && v20[1] <= 1u)
-                  {
-                    appendStringInfoChar(v9, 40);
-                    deparseExpr(v9, *(v19 + v17));
-                    result = appendStringInfoChar(v9, 41);
-                  }
-
-                  else
-                  {
-                    result = deparseExpr(v9, v20);
-                  }
-
-                  if (v19 + v17 != -8 && v19 + v17 + 8 < (*(*(v8 + 8) + 16) + 8 * *(*(v8 + 8) + 4)))
-                  {
-                    result = appendStringInfoString(v9, " AND ");
-                  }
-
-                  ++v18;
-                  v17 += 8;
-                }
-
-                while (v18 < *(v16 + 4));
-              }
-            }
-          }
-
-          return result;
-        }
-
-        v12 = **(*(v8 + 8) + 16);
-        if (*v12 != 119)
-        {
-          result = appendStringInfoString(v9, "NOT ");
-LABEL_9:
-          v8 = **(*(v8 + 8) + 16);
-          v10 = *v8;
-          if (*v8 > 345)
-          {
-            goto LABEL_10;
-          }
-
-          continue;
-        }
-
-        v13 = v12[1];
-        if (v13)
-        {
-          result = appendStringInfoString(v9, "NOT ");
-          if (v13 == 1)
-          {
-            goto LABEL_148;
-          }
-
-          goto LABEL_9;
-        }
-
-        appendStringInfoString(v9, "NOT ");
-LABEL_148:
-        appendStringInfoChar(v9, 40);
-        deparseExpr(v9, **(*(v8 + 8) + 16));
-LABEL_161:
-        v53 = v9;
-        v54 = 41;
-LABEL_162:
-
-        return appendStringInfoChar(v53, v54);
-      case 120:
-
-        return deparseSubLink(v9, v8);
-      case 130:
-
-        return deparseCaseExpr(v9, v8);
-      case 134:
-        if (!*(v8 + 20))
-        {
-          appendStringInfoString(v9, "ROW");
-        }
-
-        appendStringInfoString(v9, "(");
-        v33 = *(v8 + 8);
+        appendStringInfoString(v3, "GROUPING(");
+        v33 = *(v2 + 1);
         if (v33 && *(v33 + 4) >= 1)
         {
           v34 = 0;
@@ -3717,7 +3553,7 @@ LABEL_162:
           do
           {
             v36 = *(v33 + 16);
-            deparseExpr(v9, *(v36 + 8 * v34));
+            deparseExpr(v3, *(v36 + 8 * v34));
             v37 = *(v33 + 4);
             if (v36 + v35)
             {
@@ -3731,7 +3567,7 @@ LABEL_162:
 
             if (!v38)
             {
-              appendStringInfoString(v9, ", ");
+              appendStringInfoString(v3, ", ");
               v37 = *(v33 + 4);
             }
 
@@ -3743,181 +3579,347 @@ LABEL_162:
         }
 
         goto LABEL_161;
-      case 136:
-        appendStringInfoString(v9, "COALESCE(");
-        v47 = *(v8 + 16);
-        if (v47 && *(v47 + 4) >= 1)
+      case 119:
+        v5 = v2[1];
+        if (v5 != 2)
         {
-          v48 = 0;
-          v49 = 8;
+          if (v5 == 1)
+          {
+            v49 = *(v2 + 1);
+            if (v49 && *(v49 + 4) >= 1)
+            {
+              v50 = 0;
+              v51 = 0;
+              do
+              {
+                v52 = *(v49 + 16);
+                v53 = *(v52 + v50);
+                if (*v53 == 119 && v53[1] <= 1)
+                {
+                  appendStringInfoChar(v3, 40);
+                  deparseExpr(v3, *(v52 + v50));
+                  result = appendStringInfoChar(v3, 41);
+                }
+
+                else
+                {
+                  result = deparseExpr(v3, v53);
+                }
+
+                if (v52 + v50 != -8 && v52 + v50 + 8 < (*(*(v2 + 1) + 16) + 8 * *(*(v2 + 1) + 4)))
+                {
+                  result = appendStringInfoString(v3, " OR ");
+                }
+
+                ++v51;
+                v50 += 8;
+              }
+
+              while (v51 < *(v49 + 4));
+            }
+          }
+
+          else if (!v5)
+          {
+            v10 = *(v2 + 1);
+            if (v10)
+            {
+              if (*(v10 + 4) >= 1)
+              {
+                v11 = 0;
+                v12 = 0;
+                do
+                {
+                  v13 = *(v10 + 16);
+                  v14 = *(v13 + v11);
+                  if (*v14 == 119 && v14[1] <= 1)
+                  {
+                    appendStringInfoChar(v3, 40);
+                    deparseExpr(v3, *(v13 + v11));
+                    result = appendStringInfoChar(v3, 41);
+                  }
+
+                  else
+                  {
+                    result = deparseExpr(v3, v14);
+                  }
+
+                  if (v13 + v11 != -8 && v13 + v11 + 8 < (*(*(v2 + 1) + 16) + 8 * *(*(v2 + 1) + 4)))
+                  {
+                    result = appendStringInfoString(v3, " AND ");
+                  }
+
+                  ++v12;
+                  v11 += 8;
+                }
+
+                while (v12 < *(v10 + 4));
+              }
+            }
+          }
+
+          return result;
+        }
+
+        v6 = **(*(v2 + 1) + 16);
+        if (*v6 != 119)
+        {
+          result = appendStringInfoString(v3, "NOT ");
+LABEL_9:
+          v2 = **(*(v2 + 1) + 16);
+          v4 = *v2;
+          if (*v2 > 345)
+          {
+            goto LABEL_10;
+          }
+
+          continue;
+        }
+
+        v7 = v6[1];
+        if (v7)
+        {
+          result = appendStringInfoString(v3, "NOT ");
+          if (v7 == 1)
+          {
+            goto LABEL_148;
+          }
+
+          goto LABEL_9;
+        }
+
+        appendStringInfoString(v3, "NOT ");
+LABEL_148:
+        appendStringInfoChar(v3, 40);
+        deparseExpr(v3, **(*(v2 + 1) + 16));
+LABEL_161:
+        v47 = v3;
+        v48 = 41;
+LABEL_162:
+
+        return appendStringInfoChar(v47, v48);
+      case 120:
+
+        return deparseSubLink(v3, v2);
+      case 130:
+
+        return deparseCaseExpr(v3, v2);
+      case 134:
+        if (!v2[5])
+        {
+          appendStringInfoString(v3, "ROW");
+        }
+
+        appendStringInfoString(v3, "(");
+        v27 = *(v2 + 1);
+        if (v27 && *(v27 + 4) >= 1)
+        {
+          v28 = 0;
+          v29 = 8;
           do
           {
-            v50 = *(v47 + 16);
-            deparseExpr(v9, *(v50 + 8 * v48));
-            v51 = *(v47 + 4);
-            if (v50 + v49)
+            v30 = *(v27 + 16);
+            deparseExpr(v3, *(v30 + 8 * v28));
+            v31 = *(v27 + 4);
+            if (v30 + v29)
             {
-              v52 = v50 + v49 >= (*(v47 + 16) + 8 * v51);
+              v32 = v30 + v29 >= (*(v27 + 16) + 8 * v31);
             }
 
             else
             {
-              v52 = 1;
+              v32 = 1;
             }
 
-            if (!v52)
+            if (!v32)
             {
-              appendStringInfoString(v9, ", ");
-              v51 = *(v47 + 4);
+              appendStringInfoString(v3, ", ");
+              v31 = *(v27 + 4);
             }
 
-            ++v48;
-            v49 += 8;
+            ++v28;
+            v29 += 8;
           }
 
-          while (v48 < v51);
+          while (v28 < v31);
+        }
+
+        goto LABEL_161;
+      case 136:
+        appendStringInfoString(v3, "COALESCE(");
+        v41 = *(v2 + 2);
+        if (v41 && *(v41 + 4) >= 1)
+        {
+          v42 = 0;
+          v43 = 8;
+          do
+          {
+            v44 = *(v41 + 16);
+            deparseExpr(v3, *(v44 + 8 * v42));
+            v45 = *(v41 + 4);
+            if (v44 + v43)
+            {
+              v46 = v44 + v43 >= (*(v41 + 16) + 8 * v45);
+            }
+
+            else
+            {
+              v46 = 1;
+            }
+
+            if (!v46)
+            {
+              appendStringInfoString(v3, ", ");
+              v45 = *(v41 + 4);
+            }
+
+            ++v42;
+            v43 += 8;
+          }
+
+          while (v42 < v45);
         }
 
         goto LABEL_161;
       case 137:
-        v31 = *(v8 + 16);
-        if (v31)
+        v25 = v2[4];
+        if (v25)
         {
-          if (v31 != 1)
+          if (v25 != 1)
           {
             goto LABEL_152;
           }
 
-          v32 = "LEAST(";
+          v26 = "LEAST(";
         }
 
         else
         {
-          v32 = "GREATEST(";
+          v26 = "GREATEST(";
         }
 
-        appendStringInfoString(v9, v32);
+        appendStringInfoString(v3, v26);
 LABEL_152:
-        v61 = *(v8 + 24);
-        if (v61 && *(v61 + 4) >= 1)
+        v55 = *(v2 + 3);
+        if (v55 && *(v55 + 4) >= 1)
         {
-          v62 = 0;
-          v63 = 8;
+          v56 = 0;
+          v57 = 8;
           do
           {
-            v64 = *(v61 + 16);
-            deparseExpr(v9, *(v64 + 8 * v62));
-            v65 = *(v61 + 4);
-            if (v64 + v63)
+            v58 = *(v55 + 16);
+            deparseExpr(v3, *(v58 + 8 * v56));
+            v59 = *(v55 + 4);
+            if (v58 + v57)
             {
-              v66 = v64 + v63 >= (*(v61 + 16) + 8 * v65);
+              v60 = v58 + v57 >= (*(v55 + 16) + 8 * v59);
             }
 
             else
             {
-              v66 = 1;
+              v60 = 1;
             }
 
-            if (!v66)
+            if (!v60)
             {
-              appendStringInfoString(v9, ", ");
-              v65 = *(v61 + 4);
+              appendStringInfoString(v3, ", ");
+              v59 = *(v55 + 4);
             }
 
-            ++v62;
-            v63 += 8;
+            ++v56;
+            v57 += 8;
           }
 
-          while (v62 < v65);
+          while (v56 < v59);
         }
 
         goto LABEL_161;
       case 138:
-        v30 = *(v8 + 4);
-        if (v30 <= 0xE)
+        v24 = v2[1];
+        if (v24 <= 0xE)
         {
-          result = appendStringInfoString(v9, (&off_1E6E54EB8)[v30]);
+          result = appendStringInfoString(v3, (&off_1E6E54EB8)[v24]);
         }
 
-        if (*(v8 + 12) != -1)
+        if (v2[3] != -1)
         {
-          return appendStringInfo(v9, "(%d)", a3, a4, a5, a6, a7, a8, *(v8 + 12));
+          return appendStringInfo(v3, "(%d)");
         }
 
         return result;
       case 139:
 
-        return deparseXmlExpr(v9, v8);
+        return deparseXmlExpr(v3, v2);
       case 140:
-        result = deparseExpr(v9, *(v8 + 8));
-        v45 = *(v8 + 16);
-        if (v45 == 1)
+        result = deparseExpr(v3, *(v2 + 1));
+        v39 = v2[4];
+        if (v39 == 1)
         {
-          v29 = " IS NOT NULL";
+          v23 = " IS NOT NULL";
         }
 
         else
         {
-          if (v45)
+          if (v39)
           {
             return result;
           }
 
-          v29 = " IS NULL";
+          v23 = " IS NULL";
         }
 
         goto LABEL_169;
       case 141:
-        result = deparseExpr(v9, *(v8 + 8));
-        v46 = *(v8 + 16);
-        if (v46 > 2)
+        result = deparseExpr(v3, *(v2 + 1));
+        v40 = v2[4];
+        if (v40 > 2)
         {
-          switch(v46)
+          switch(v40)
           {
             case 3:
-              v29 = " IS NOT FALSE";
+              v23 = " IS NOT FALSE";
               break;
             case 4:
-              v29 = " IS UNKNOWN";
+              v23 = " IS UNKNOWN";
               break;
             case 5:
-              v29 = " IS NOT UNKNOWN";
+              v23 = " IS NOT UNKNOWN";
               break;
             default:
               return result;
           }
         }
 
-        else if (v46)
+        else if (v40)
         {
-          if (v46 == 1)
+          if (v40 == 1)
           {
-            v29 = " IS NOT TRUE";
+            v23 = " IS NOT TRUE";
           }
 
           else
           {
-            if (v46 != 2)
+            if (v40 != 2)
             {
               return result;
             }
 
-            v29 = " IS FALSE";
+            v23 = " IS FALSE";
           }
         }
 
         else
         {
-          v29 = " IS TRUE";
+          v23 = " IS TRUE";
         }
 
         goto LABEL_169;
       case 144:
-        v29 = "DEFAULT";
+        v23 = "DEFAULT";
         goto LABEL_169;
       case 145:
-        appendStringInfoString(v9, "CURRENT OF ");
-        v29 = quote_identifier(*(v8 + 8));
+        appendStringInfoString(v3, "CURRENT OF ");
+        v23 = quote_identifier(*(v2 + 1));
         goto LABEL_169;
       default:
         goto LABEL_180;
@@ -3967,21 +3969,21 @@ _BYTE *deparseConstraint(_DWORD *a1, uint64_t a2)
       appendStringInfoString(a1, v7);
 LABEL_133:
       appendStringInfoString(a1, "AS IDENTITY ");
-      v83 = *(a2 + 80);
-      if (v83 && *(v83 + 4) >= 1)
+      v65 = *(a2 + 80);
+      if (v65 && *(v65 + 4) >= 1)
       {
         appendStringInfoChar(a1, 40);
-        if (*(v83 + 4) >= 1)
+        if (*(v65 + 4) >= 1)
         {
-          v84 = 0;
+          v66 = 0;
           do
           {
-            deparseSeqOptElem(a1, *(*(v83 + 16) + 8 * v84));
+            deparseSeqOptElem(a1, *(*(v65 + 16) + 8 * v66));
             appendStringInfoChar(a1, 32);
-            ++v84;
+            ++v66;
           }
 
-          while (v84 < *(v83 + 4));
+          while (v66 < *(v65 + 4));
         }
 
         appendStringInfoChar(a1, 41);
@@ -4014,14 +4016,14 @@ LABEL_133:
       }
 
       appendStringInfoChar(a1, 40);
-      v16 = *(a2 + 72);
-      if (!v16 || *(v16 + 4) < 1)
+      v10 = *(a2 + 72);
+      if (!v10 || *(v10 + 4) < 1)
       {
         goto LABEL_38;
       }
 
-      v17 = 0;
-      v18 = 8;
+      v11 = 0;
+      v12 = 8;
       break;
     case 9:
       v5 = *(a2 + 136);
@@ -4050,57 +4052,57 @@ LABEL_133:
 
   do
   {
-    v19 = *(v16 + 16);
-    v20 = *(v19 + 8 * v17);
-    deparseIndexElem(a1, **(v20 + 16), v10, v11, v12, v13, v14, v15);
+    v13 = *(v10 + 16);
+    v14 = *(v13 + 8 * v11);
+    deparseIndexElem(a1, **(v14 + 16));
     appendStringInfoString(a1, " WITH ");
-    v21 = *(*(v20 + 16) + 8);
-    if (!v21)
+    v15 = *(*(v14 + 16) + 8);
+    if (!v15)
     {
       goto LABEL_33;
     }
 
-    v22 = *(v21 + 4);
-    if (v22 == 1)
+    v16 = *(v15 + 4);
+    if (v16 == 1)
     {
-      v24 = *(v21 + 16);
+      v18 = *(v15 + 16);
     }
 
     else
     {
-      if (v22 != 2)
+      if (v16 != 2)
       {
         goto LABEL_33;
       }
 
-      v23 = quote_identifier(*(**(v21 + 16) + 8));
-      appendStringInfoString(a1, v23);
+      v17 = quote_identifier(*(**(v15 + 16) + 8));
+      appendStringInfoString(a1, v17);
       appendStringInfoChar(a1, 46);
-      v24 = *(v21 + 16) + 8 * (*(v21 + 4) - 1);
+      v18 = *(v15 + 16) + 8 * (*(v15 + 4) - 1);
     }
 
-    appendStringInfoString(a1, *(*v24 + 8));
+    appendStringInfoString(a1, *(*v18 + 8));
 LABEL_33:
-    if (v19 + v18)
+    if (v13 + v12)
     {
-      v25 = v19 + v18 >= (*(*(a2 + 72) + 16) + 8 * *(*(a2 + 72) + 4));
+      v19 = v13 + v12 >= (*(*(a2 + 72) + 16) + 8 * *(*(a2 + 72) + 4));
     }
 
     else
     {
-      v25 = 1;
+      v19 = 1;
     }
 
-    if (!v25)
+    if (!v19)
     {
       appendStringInfoString(a1, ", ");
     }
 
-    ++v17;
-    v18 += 8;
+    ++v11;
+    v12 += 8;
   }
 
-  while (v17 < *(v16 + 4));
+  while (v11 < *(v10 + 4));
 LABEL_38:
   appendStringInfoString(a1, ") ");
   if (*(a2 + 120))
@@ -4115,83 +4117,83 @@ LABEL_41:
   }
 
 LABEL_42:
-  v26 = *(a2 + 56);
-  if (v26 && *(v26 + 4) >= 1)
+  v20 = *(a2 + 56);
+  if (v20 && *(v20 + 4) >= 1)
   {
     appendStringInfoChar(a1, 40);
-    v27 = *(a2 + 56);
-    if (v27 && *(v27 + 4) >= 1)
+    v21 = *(a2 + 56);
+    if (v21 && *(v21 + 4) >= 1)
     {
-      v28 = 0;
-      v29 = 8;
+      v22 = 0;
+      v23 = 8;
       do
       {
-        v30 = *(v27 + 16);
-        v31 = quote_identifier(*(*(v30 + 8 * v28) + 8));
-        appendStringInfoString(a1, v31);
-        v32 = *(v27 + 4);
-        if (v30 + v29)
+        v24 = *(v21 + 16);
+        v25 = quote_identifier(*(*(v24 + 8 * v22) + 8));
+        appendStringInfoString(a1, v25);
+        v26 = *(v21 + 4);
+        if (v24 + v23)
         {
-          v33 = v30 + v29 >= (*(v27 + 16) + 8 * v32);
+          v27 = v24 + v23 >= (*(v21 + 16) + 8 * v26);
         }
 
         else
         {
-          v33 = 1;
+          v27 = 1;
         }
 
-        if (!v33)
+        if (!v27)
         {
           appendStringInfoString(a1, ", ");
-          v32 = *(v27 + 4);
+          v26 = *(v21 + 4);
         }
 
-        ++v28;
-        v29 += 8;
+        ++v22;
+        v23 += 8;
       }
 
-      while (v28 < v32);
+      while (v22 < v26);
     }
 
     appendStringInfoString(a1, ") ");
   }
 
-  v34 = *(a2 + 136);
-  if (v34 && *(v34 + 4) >= 1)
+  v28 = *(a2 + 136);
+  if (v28 && *(v28 + 4) >= 1)
   {
     appendStringInfoChar(a1, 40);
-    v35 = *(a2 + 136);
-    if (v35 && *(v35 + 4) >= 1)
+    v29 = *(a2 + 136);
+    if (v29 && *(v29 + 4) >= 1)
     {
-      v36 = 0;
-      v37 = 8;
+      v30 = 0;
+      v31 = 8;
       do
       {
-        v38 = *(v35 + 16);
-        v39 = quote_identifier(*(*(v38 + 8 * v36) + 8));
-        appendStringInfoString(a1, v39);
-        v40 = *(v35 + 4);
-        if (v38 + v37)
+        v32 = *(v29 + 16);
+        v33 = quote_identifier(*(*(v32 + 8 * v30) + 8));
+        appendStringInfoString(a1, v33);
+        v34 = *(v29 + 4);
+        if (v32 + v31)
         {
-          v41 = v38 + v37 >= (*(v35 + 16) + 8 * v40);
+          v35 = v32 + v31 >= (*(v29 + 16) + 8 * v34);
         }
 
         else
         {
-          v41 = 1;
+          v35 = 1;
         }
 
-        if (!v41)
+        if (!v35)
         {
           appendStringInfoString(a1, ", ");
-          v40 = *(v35 + 4);
+          v34 = *(v29 + 4);
         }
 
-        ++v36;
-        v37 += 8;
+        ++v30;
+        v31 += 8;
       }
 
-      while (v36 < v40);
+      while (v30 < v34);
     }
 
     appendStringInfoString(a1, ") ");
@@ -4202,44 +4204,44 @@ LABEL_42:
     appendStringInfoString(a1, "REFERENCES ");
     deparseRangeVar(a1, *(a2 + 128), 0);
     appendStringInfoChar(a1, 32);
-    v42 = *(a2 + 144);
-    if (v42)
+    v36 = *(a2 + 144);
+    if (v36)
     {
-      if (*(v42 + 4) >= 1)
+      if (*(v36 + 4) >= 1)
       {
         appendStringInfoChar(a1, 40);
-        v43 = *(a2 + 144);
-        if (v43 && *(v43 + 4) >= 1)
+        v37 = *(a2 + 144);
+        if (v37 && *(v37 + 4) >= 1)
         {
-          v44 = 0;
-          v45 = 8;
+          v38 = 0;
+          v39 = 8;
           do
           {
-            v46 = *(v43 + 16);
-            v47 = quote_identifier(*(*(v46 + 8 * v44) + 8));
-            appendStringInfoString(a1, v47);
-            v48 = *(v43 + 4);
-            if (v46 + v45)
+            v40 = *(v37 + 16);
+            v41 = quote_identifier(*(*(v40 + 8 * v38) + 8));
+            appendStringInfoString(a1, v41);
+            v42 = *(v37 + 4);
+            if (v40 + v39)
             {
-              v49 = v46 + v45 >= (*(v43 + 16) + 8 * v48);
+              v43 = v40 + v39 >= (*(v37 + 16) + 8 * v42);
             }
 
             else
             {
-              v49 = 1;
+              v43 = 1;
             }
 
-            if (!v49)
+            if (!v43)
             {
               appendStringInfoString(a1, ", ");
-              v48 = *(v43 + 4);
+              v42 = *(v37 + 4);
             }
 
-            ++v44;
-            v45 += 8;
+            ++v38;
+            v39 += 8;
           }
 
-          while (v44 < v48);
+          while (v38 < v42);
         }
 
         appendStringInfoString(a1, ") ");
@@ -4252,131 +4254,131 @@ LABEL_42:
     appendStringInfoString(a1, "MATCH FULL ");
   }
 
-  v50 = *(a2 + 153);
-  if (v50 > 0x6D)
+  v44 = *(a2 + 153);
+  if (v44 > 0x6D)
   {
-    if (v50 == 110)
+    if (v44 == 110)
     {
-      v51 = "ON UPDATE SET NULL ";
+      v45 = "ON UPDATE SET NULL ";
     }
 
     else
     {
-      if (v50 != 114)
+      if (v44 != 114)
       {
         goto LABEL_91;
       }
 
-      v51 = "ON UPDATE RESTRICT ";
+      v45 = "ON UPDATE RESTRICT ";
     }
 
     goto LABEL_90;
   }
 
-  if (v50 == 99)
+  if (v44 == 99)
   {
-    v51 = "ON UPDATE CASCADE ";
+    v45 = "ON UPDATE CASCADE ";
 LABEL_90:
-    appendStringInfoString(a1, v51);
+    appendStringInfoString(a1, v45);
     goto LABEL_91;
   }
 
-  if (v50 == 100)
+  if (v44 == 100)
   {
-    v51 = "ON UPDATE SET DEFAULT ";
+    v45 = "ON UPDATE SET DEFAULT ";
     goto LABEL_90;
   }
 
 LABEL_91:
-  v52 = *(a2 + 154);
-  if (v52 > 0x6D)
+  v46 = *(a2 + 154);
+  if (v46 > 0x6D)
   {
-    if (v52 == 110)
+    if (v46 == 110)
     {
-      v53 = "ON DELETE SET NULL ";
+      v47 = "ON DELETE SET NULL ";
     }
 
     else
     {
-      if (v52 != 114)
+      if (v46 != 114)
       {
         goto LABEL_101;
       }
 
-      v53 = "ON DELETE RESTRICT ";
+      v47 = "ON DELETE RESTRICT ";
     }
 
 LABEL_100:
-    appendStringInfoString(a1, v53);
+    appendStringInfoString(a1, v47);
     goto LABEL_101;
   }
 
-  if (v52 == 99)
+  if (v46 == 99)
   {
-    v53 = "ON DELETE CASCADE ";
+    v47 = "ON DELETE CASCADE ";
     goto LABEL_100;
   }
 
-  if (v52 == 100)
+  if (v46 == 100)
   {
-    v53 = "ON DELETE SET DEFAULT ";
+    v47 = "ON DELETE SET DEFAULT ";
     goto LABEL_100;
   }
 
 LABEL_101:
-  v54 = *(a2 + 64);
-  if (v54 && *(v54 + 4) >= 1)
+  v48 = *(a2 + 64);
+  if (v48 && *(v48 + 4) >= 1)
   {
     appendStringInfoString(a1, "INCLUDE (");
-    v55 = *(a2 + 64);
-    if (v55 && *(v55 + 4) >= 1)
+    v49 = *(a2 + 64);
+    if (v49 && *(v49 + 4) >= 1)
     {
-      v56 = 0;
-      v57 = 8;
+      v50 = 0;
+      v51 = 8;
       do
       {
-        v58 = *(v55 + 16);
-        v59 = quote_identifier(*(*(v58 + 8 * v56) + 8));
-        appendStringInfoString(a1, v59);
-        v60 = *(v55 + 4);
-        if (v58 + v57)
+        v52 = *(v49 + 16);
+        v53 = quote_identifier(*(*(v52 + 8 * v50) + 8));
+        appendStringInfoString(a1, v53);
+        v54 = *(v49 + 4);
+        if (v52 + v51)
         {
-          v61 = v58 + v57 >= (*(v55 + 16) + 8 * v60);
+          v55 = v52 + v51 >= (*(v49 + 16) + 8 * v54);
         }
 
         else
         {
-          v61 = 1;
+          v55 = 1;
         }
 
-        if (!v61)
+        if (!v55)
         {
           appendStringInfoString(a1, ", ");
-          v60 = *(v55 + 4);
+          v54 = *(v49 + 4);
         }
 
-        ++v56;
-        v57 += 8;
+        ++v50;
+        v51 += 8;
       }
 
-      while (v56 < v60);
+      while (v50 < v54);
     }
 
     appendStringInfoString(a1, ") ");
   }
 
-  v62 = *(a2 + 88);
-  if (v62)
+  v56 = *(a2 + 88);
+  if (v56)
   {
-    v63 = quote_identifier(v62);
-    appendStringInfo(a1, "USING INDEX %s ", v64, v65, v66, v67, v68, v69, v63);
+    v57 = quote_identifier(v56);
+    appendStringInfo(a1, "USING INDEX %s ", v57);
   }
 
   result = *(a2 + 96);
   if (result)
   {
-    v71 = quote_identifier(result);
-    result = appendStringInfo(a1, "USING INDEX TABLESPACE %s ", v72, v73, v74, v75, v76, v77, v71);
+    v59 = quote_identifier(result);
+    result = appendStringInfo(a1, "USING INDEX TABLESPACE %s ", v59);
   }
 
   if (*(a2 + 16) == 1)
@@ -4401,17 +4403,17 @@ LABEL_126:
     }
 
 LABEL_121:
-    v78 = a1[2];
-    v79 = __OFSUB__(v78, 1);
-    v80 = v78 - 1;
-    if (v80 < 0 == v79)
+    v60 = a1[2];
+    v61 = __OFSUB__(v60, 1);
+    v62 = v60 - 1;
+    if (v62 < 0 == v61)
     {
 LABEL_128:
-      v82 = *a1;
-      if (*(*a1 + v80) == 32)
+      v64 = *a1;
+      if (*(*a1 + v62) == 32)
       {
-        a1[2] = v80;
-        *(v82 + v80) = 0;
+        a1[2] = v62;
+        *(v64 + v62) = 0;
       }
     }
   }
@@ -4438,10 +4440,10 @@ LABEL_120:
 
 LABEL_127:
     result = appendStringInfoString(a1, "NOT VALID ");
-    v81 = a1[2];
-    v79 = __OFSUB__(v81, 1);
-    v80 = v81 - 1;
-    if (v80 < 0 == v79)
+    v63 = a1[2];
+    v61 = __OFSUB__(v63, 1);
+    v62 = v63 - 1;
+    if (v62 < 0 == v61)
     {
       goto LABEL_128;
     }
@@ -4837,7 +4839,7 @@ LABEL_53:
       deparseExpr(v3, **(*(a2 + 32) + 16));
       appendStringInfoString(v3, ", version ");
       v15 = *(*(*(a2 + 32) + 16) + 8);
-      if (*(v15 + 8) == 225)
+      if (v15[2] == 225)
       {
         appendStringInfoString(v3, "NO VALUE");
         v16 = *(*(*(*(a2 + 32) + 16) + 16) + 16);
@@ -4942,8 +4944,8 @@ LABEL_30:
     }
 
 LABEL_21:
-    v21 = v4[2];
-    if (v21 == 222 || v21 == 221 && (v4[4] & 0x80000000) != 0)
+    v16 = v4[2];
+    if (v16 == 222 || v16 == 221 && v4[4] < 0)
     {
       appendStringInfoChar(a1, 40);
       deparseExpr(a1, *(a2 + 8));
@@ -4955,17 +4957,17 @@ LABEL_24:
     deparseExpr(a1, v4);
 LABEL_26:
     appendStringInfoString(a1, "::");
-    v22 = *(a2 + 16);
+    v17 = *(a2 + 16);
 
-    return deparseTypeName(a1, v22);
+    return deparseTypeName(a1, v17);
   }
 
   appendStringInfoString(a1, "char ");
 
-  return deparseValue(a1, v9 + 2, 11, v16, v17, v18, v19, v20);
+  return deparseValue(a1, (v9 + 2), 11);
 }
 
-uint64_t deparseAExpr(uint64_t result, uint64_t a2)
+uint64_t *deparseAExpr(uint64_t *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 16);
@@ -5395,17 +5397,17 @@ LABEL_103:
   return result;
 }
 
-void *deparseCaseExpr(uint64_t a1, void *a2)
+void *deparseCaseExpr(uint64_t a1, uint64_t a2)
 {
   appendStringInfoString(a1, "CASE ");
-  v4 = a2[2];
+  v4 = *(a2 + 16);
   if (v4)
   {
     deparseExpr(a1, v4);
     appendStringInfoChar(a1, 32);
   }
 
-  v5 = a2[3];
+  v5 = *(a2 + 24);
   if (v5 && *(v5 + 4) >= 1)
   {
     v6 = 0;
@@ -5423,17 +5425,17 @@ void *deparseCaseExpr(uint64_t a1, void *a2)
     while (v6 < *(v5 + 4));
   }
 
-  if (a2[4])
+  if (*(a2 + 32))
   {
     appendStringInfoString(a1, "ELSE ");
-    deparseExpr(a1, a2[4]);
+    deparseExpr(a1, *(a2 + 32));
     appendStringInfoChar(a1, 32);
   }
 
   return appendStringInfoString(a1, "END");
 }
 
-uint64_t deparseSubLink(uint64_t result, uint64_t a2)
+uint64_t *deparseSubLink(uint64_t *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 4);
@@ -5751,7 +5753,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t deparseWindowDef(uint64_t a1, uint64_t a2)
+uint64_t deparseWindowDef(uint64_t *a1, uint64_t a2)
 {
   appendStringInfoChar(a1, 40);
   v4 = *(a2 + 16);
@@ -5960,7 +5962,7 @@ LABEL_55:
   }
 
 LABEL_56:
-  v22 = *(a1 + 8);
+  v22 = *(a1 + 2);
   v23 = __OFSUB__(v22, 1);
   v24 = v22 - 1;
   if (v24 < 0 == v23)
@@ -5968,7 +5970,7 @@ LABEL_56:
     v25 = *a1;
     if (*(*a1 + v24) == 32)
     {
-      *(a1 + 8) = v24;
+      *(a1 + 2) = v24;
       *(v25 + v24) = 0;
     }
   }
@@ -5998,7 +6000,7 @@ uint64_t isOp(_BYTE *a1)
   return 0;
 }
 
-void *deparseExprList(void *result, uint64_t a2)
+uint64_t deparseExprList(uint64_t result, uint64_t a2)
 {
   if (a2 && *(a2 + 4) >= 1)
   {
@@ -6036,7 +6038,7 @@ void *deparseExprList(void *result, uint64_t a2)
   return result;
 }
 
-void *deparseXmlAttributeList(void *result, uint64_t a2)
+uint64_t deparseXmlAttributeList(uint64_t result, uint64_t a2)
 {
   if (a2 && *(a2 + 4) >= 1)
   {
@@ -6211,42 +6213,42 @@ LABEL_38:
   if (!strcmp(v7, "timetz"))
   {
     appendStringInfoString(v3, "time ");
-    v44 = *(a2 + 24);
-    if (!v44 || *(v44 + 4) < 1)
+    v32 = *(a2 + 24);
+    if (!v32 || *(v32 + 4) < 1)
     {
       goto LABEL_105;
     }
 
     appendStringInfoChar(v3, 40);
-    v51 = *(a2 + 24);
-    if (v51 && *(v51 + 4) >= 1)
+    v33 = *(a2 + 24);
+    if (v33 && *(v33 + 4) >= 1)
     {
-      v52 = 0;
-      v53 = 8;
+      v34 = 0;
+      v35 = 8;
       do
       {
-        v54 = *(v51 + 16);
-        appendStringInfo(v3, "%d", v45, v46, v47, v48, v49, v50, *(*(v54 + 8 * v52) + 16));
-        if (v54 + v53)
+        v36 = *(v33 + 16);
+        appendStringInfo(v3, "%d", *(*(v36 + 8 * v34) + 16));
+        if (v36 + v35)
         {
-          v55 = v54 + v53 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
+          v37 = v36 + v35 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
         }
 
         else
         {
-          v55 = 1;
+          v37 = 1;
         }
 
-        if (!v55)
+        if (!v37)
         {
           appendStringInfoString(v3, ", ");
         }
 
-        ++v52;
-        v53 += 8;
+        ++v34;
+        v35 += 8;
       }
 
-      while (v52 < *(v51 + 4));
+      while (v34 < *(v33 + 4));
     }
 
     goto LABEL_104;
@@ -6261,42 +6263,42 @@ LABEL_38:
   if (!strcmp(v7, "timestamptz"))
   {
     appendStringInfoString(v3, "timestamp ");
-    v56 = *(a2 + 24);
-    if (!v56 || *(v56 + 4) < 1)
+    v38 = *(a2 + 24);
+    if (!v38 || *(v38 + 4) < 1)
     {
       goto LABEL_105;
     }
 
     appendStringInfoChar(v3, 40);
-    v63 = *(a2 + 24);
-    if (v63 && *(v63 + 4) >= 1)
+    v39 = *(a2 + 24);
+    if (v39 && *(v39 + 4) >= 1)
     {
-      v64 = 0;
-      v65 = 8;
+      v40 = 0;
+      v41 = 8;
       do
       {
-        v66 = *(v63 + 16);
-        appendStringInfo(v3, "%d", v57, v58, v59, v60, v61, v62, *(*(v66 + 8 * v64) + 16));
-        if (v66 + v65)
+        v42 = *(v39 + 16);
+        appendStringInfo(v3, "%d", *(*(v42 + 8 * v40) + 16));
+        if (v42 + v41)
         {
-          v67 = v66 + v65 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
+          v43 = v42 + v41 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
         }
 
         else
         {
-          v67 = 1;
+          v43 = 1;
         }
 
-        if (!v67)
+        if (!v43)
         {
           appendStringInfoString(v3, ", ");
         }
 
-        ++v64;
-        v65 += 8;
+        ++v40;
+        v41 += 8;
       }
 
-      while (v64 < *(v63 + 4));
+      while (v40 < *(v39 + 4));
     }
 
 LABEL_104:
@@ -6318,106 +6320,106 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v68 = *(a2 + 24);
-  if (!v68 || (v69 = *(v68 + 4)) == 0)
+  v44 = *(a2 + 24);
+  if (!v44 || (v45 = *(v44 + 4)) == 0)
   {
     v9 = "interval";
     goto LABEL_38;
   }
 
-  if (v69 < 1)
+  if (v45 < 1)
   {
     goto LABEL_21;
   }
 
-  v70 = *(**(v68 + 16) + 16);
+  v46 = *(**(v44 + 16) + 16);
   result = appendStringInfoString(v3, "interval");
-  if (v70 <= 2047)
+  if (v46 <= 2047)
   {
-    if (v70 > 7)
+    if (v46 > 7)
     {
-      switch(v70)
+      switch(v46)
       {
         case 8:
-          v77 = " day";
+          v47 = " day";
           goto LABEL_140;
         case 1024:
-          v77 = " hour";
+          v47 = " hour";
           goto LABEL_140;
         case 1032:
-          v77 = " day to hour";
+          v47 = " day to hour";
           goto LABEL_140;
       }
     }
 
     else
     {
-      switch(v70)
+      switch(v46)
       {
         case 2:
-          v77 = " month";
+          v47 = " month";
           goto LABEL_140;
         case 4:
-          v77 = " year";
+          v47 = " year";
           goto LABEL_140;
         case 6:
-          v77 = " year to month";
+          v47 = " year to month";
           goto LABEL_140;
       }
     }
   }
 
-  else if (v70 <= 4095)
+  else if (v46 <= 4095)
   {
-    switch(v70)
+    switch(v46)
     {
       case 2048:
-        v77 = " minute";
+        v47 = " minute";
         goto LABEL_140;
       case 3072:
-        v77 = " hour to minute";
+        v47 = " hour to minute";
         goto LABEL_140;
       case 3080:
-        v77 = " day to minute";
+        v47 = " day to minute";
         goto LABEL_140;
     }
   }
 
-  else if (v70 > 7167)
+  else if (v46 > 7167)
   {
-    if (v70 == 7168)
+    if (v46 == 7168)
     {
-      v77 = " hour to second";
+      v47 = " hour to second";
       goto LABEL_140;
     }
 
-    if (v70 == 7176)
+    if (v46 == 7176)
     {
-      v77 = " day to second";
+      v47 = " day to second";
       goto LABEL_140;
     }
   }
 
   else
   {
-    if (v70 == 4096)
+    if (v46 == 4096)
     {
-      v77 = " second";
+      v47 = " second";
       goto LABEL_140;
     }
 
-    if (v70 == 6144)
+    if (v46 == 6144)
     {
-      v77 = " minute to second";
+      v47 = " minute to second";
 LABEL_140:
-      result = appendStringInfoString(v3, v77);
+      result = appendStringInfoString(v3, v47);
     }
   }
 
-  v78 = *(a2 + 24);
-  if (v78 && *(v78 + 4) == 2 && (v79 = *(*(*(v78 + 16) + 8) + 16), v79 != 0xFFFF))
+  v48 = *(a2 + 24);
+  if (v48 && *(v48 + 4) == 2 && (v49 = *(*(*(v48 + 16) + 8) + 16), v49 != 0xFFFF))
   {
-    result = appendStringInfo(v3, "(%d)", v71, v72, v73, v74, v75, v76, v79);
+    result = appendStringInfo(v3, "(%d)", v49);
     v16 = 1;
   }
 
@@ -6438,38 +6440,38 @@ LABEL_41:
     if ((v16 & 1) == 0)
     {
       appendStringInfoChar(v3, 40);
-      v24 = *(a2 + 24);
-      if (v24 && *(v24 + 4) >= 1)
+      v18 = *(a2 + 24);
+      if (v18 && *(v18 + 4) >= 1)
       {
-        v25 = 0;
-        v26 = 8;
+        v19 = 0;
+        v20 = 8;
         do
         {
-          v27 = *(v24 + 16);
-          v28 = *(v27 + 8 * v25);
-          v29 = *v28;
-          if (*v28 == 347)
+          v21 = *(v18 + 16);
+          v22 = *(v21 + 8 * v19);
+          v23 = *v22;
+          if (*v22 == 347)
           {
-            v30 = **(*(v28 + 1) + 16);
-            if (*v30 == 223)
+            v24 = **(*(v22 + 1) + 16);
+            if (*v24 == 223)
             {
-              v31 = quote_identifier(*(v30 + 8));
-              appendStringInfoString(v3, v31);
+              v25 = quote_identifier(*(v24 + 8));
+              appendStringInfoString(v3, v25);
             }
 
-            else if (*v30 == 351)
+            else if (*v24 == 351)
             {
               appendStringInfoChar(v3, 42);
             }
 
-            deparseOptIndirection(v3, *(v28 + 1), 1);
+            deparseOptIndirection(v3, *(v22 + 1), 1);
           }
 
-          else if (v29 == 348)
+          else if (v23 == 348)
           {
-            if (v28[1])
+            if (v22[1])
             {
-              appendStringInfo(v3, "$%d", v18, v19, v20, v21, v22, v23, v28[1]);
+              appendStringInfo(v3, "$%d", v22[1]);
             }
 
             else
@@ -6478,60 +6480,60 @@ LABEL_41:
             }
           }
 
-          else if (v29 == 349)
+          else if (v23 == 349)
           {
-            deparseValue(v3, v28 + 2, 11, v19, v20, v21, v22, v23);
+            deparseValue(v3, (v22 + 2), 11);
           }
 
-          if (v27 + v26)
+          if (v21 + v20)
           {
-            v32 = v27 + v26 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
+            v26 = v21 + v20 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
           }
 
           else
           {
-            v32 = 1;
+            v26 = 1;
           }
 
-          if (!v32)
+          if (!v26)
           {
             appendStringInfoString(v3, ", ");
           }
 
-          ++v25;
-          v26 += 8;
+          ++v19;
+          v20 += 8;
         }
 
-        while (v25 < *(v24 + 4));
+        while (v19 < *(v18 + 4));
       }
 
       result = appendStringInfoChar(v3, 41);
     }
   }
 
-  v33 = *(a2 + 40);
-  if (v33 && *(v33 + 4) >= 1)
+  v27 = *(a2 + 40);
+  if (v27 && *(v27 + 4) >= 1)
   {
-    v34 = 0;
+    v28 = 0;
     do
     {
-      v35 = *(v33 + 16);
+      v29 = *(v27 + 16);
       appendStringInfoChar(v3, 91);
-      v42 = *(v35 + 8 * v34);
-      if (*v42 == 221)
+      v30 = *(v29 + 8 * v28);
+      if (*v30 == 221)
       {
-        v43 = v42[2];
-        if (v43 != -1)
+        v31 = v30[2];
+        if (v31 != -1)
         {
-          appendStringInfo(v3, "%d", v36, v37, v38, v39, v40, v41, v43);
+          appendStringInfo(v3, "%d", v31);
         }
       }
 
       result = appendStringInfoChar(v3, 93);
-      ++v34;
+      ++v28;
     }
 
-    while (v34 < *(v33 + 4));
+    while (v28 < *(v27 + 4));
   }
 
   if (*(a2 + 21))
@@ -6543,98 +6545,98 @@ LABEL_41:
   return result;
 }
 
-void *deparseValue(void *result, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *deparseValue(void *result, uint64_t a2, int a3)
 {
-  v8 = *a2;
+  v3 = *a2;
   if (*a2 <= 222)
   {
-    if (v8 != 221)
+    if (v3 != 221)
     {
-      if (v8 == 222)
+      if (v3 == 222)
       {
-        v9 = *(a2 + 1);
+        v4 = *(a2 + 8);
 
-        return appendStringInfoString(result, v9);
+        return appendStringInfoString(result, v4);
       }
 
       goto LABEL_29;
     }
 
-    return appendStringInfo(result, "%d", a3, a4, a5, a6, a7, a8, a2[2]);
+    return appendStringInfo(result, "%d", *(a2 + 8));
   }
 
   else
   {
-    switch(v8)
+    switch(v3)
     {
       case 223:
-        v9 = *(a2 + 1);
+        v4 = *(a2 + 8);
         if (a3 != 11)
         {
           if (a3 == 10)
           {
-            v10 = result;
-            v9 = quote_identifier(v9);
-            result = v10;
+            v5 = result;
+            v4 = quote_identifier(v4);
+            result = v5;
 
-            return appendStringInfoString(result, v9);
+            return appendStringInfoString(result, v4);
           }
 
 LABEL_6:
 
-          return appendStringInfoString(result, v9);
+          return appendStringInfoString(result, v4);
         }
 
         break;
       case 224:
-        v11 = **(a2 + 1);
-        if (v11 == 98)
+        v6 = **(a2 + 8);
+        if (v6 == 98)
         {
-          v12 = result;
-          v13 = a2;
-          v14 = 98;
+          v7 = result;
+          v8 = a2;
+          v9 = 98;
         }
 
         else
         {
-          if (v11 != 120)
+          if (v6 != 120)
           {
             return result;
           }
 
-          v12 = result;
-          v13 = a2;
-          v14 = 120;
+          v7 = result;
+          v8 = a2;
+          v9 = 120;
         }
 
-        appendStringInfoChar(result, v14);
-        v9 = (*(v13 + 1) + 1);
-        result = v12;
+        appendStringInfoChar(result, v9);
+        v4 = (*(v8 + 8) + 1);
+        result = v7;
         break;
       case 225:
-        v9 = "NULL";
+        v4 = "NULL";
         goto LABEL_6;
       default:
 LABEL_29:
         deparseValue_cold_1();
     }
 
-    return deparseStringLiteral(result, v9);
+    return deparseStringLiteral(result, v4);
   }
 }
 
-void *deparseNumericOnly(void *result, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *deparseNumericOnly(void *result, uint64_t a2)
 {
   if (*a2 == 222)
   {
-    v9 = *(a2 + 1);
+    v3 = *(a2 + 8);
 
-    return appendStringInfoString(result, v9);
+    return appendStringInfoString(result, v3);
   }
 
   else if (*a2 == 221)
   {
-    return appendStringInfo(result, "%d", a3, a4, a5, a6, a7, a8, a2[2]);
+    return appendStringInfo(result, "%d", *(a2 + 8));
   }
 
   return result;
@@ -6705,12 +6707,12 @@ void *deparseSubqueryOp(uint64_t a1, uint64_t a2)
   if (!a2)
   {
     v8 = "OPERATOR(";
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   if (*(a2 + 4) != 1)
   {
-LABEL_14:
+LABEL_13:
     appendStringInfoString(v2, "OPERATOR(");
     v9 = *(a2 + 4);
     if (v9 == 1)
@@ -6722,7 +6724,7 @@ LABEL_14:
     {
       if (v9 != 2)
       {
-        goto LABEL_20;
+        goto LABEL_19;
       }
 
       v10 = quote_identifier(*(**(a2 + 16) + 8));
@@ -6732,9 +6734,9 @@ LABEL_14:
     }
 
     v8 = *(*v11 + 8);
-LABEL_19:
+LABEL_18:
     appendStringInfoString(v2, v8);
-LABEL_20:
+LABEL_19:
     v6 = ")";
     a1 = v2;
 
@@ -6742,7 +6744,7 @@ LABEL_20:
   }
 
   v4 = *(**(a2 + 16) + 8);
-  if (*v4 == 126 && v4[1] == 126 && !v4[2])
+  if (__PAIR64__(v4[1], *v4) == 0x7E0000007ELL && !v4[2])
   {
     v6 = "LIKE";
   }
@@ -6774,7 +6776,7 @@ LABEL_20:
           return appendStringInfoString(a1, v6);
         }
 
-        goto LABEL_14;
+        goto LABEL_13;
       }
 
       v6 = "NOT ILIKE";
@@ -6785,16 +6787,16 @@ LABEL_20:
   return appendStringInfoString(a1, v6);
 }
 
-_BYTE *deparseIndexElem(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_BYTE *deparseIndexElem(_DWORD *a1, uint64_t a2)
 {
   result = *(a2 + 8);
   if (result)
   {
-    v11 = quote_identifier(result);
-    appendStringInfoString(a1, v11);
+    v5 = quote_identifier(result);
+    appendStringInfoString(a1, v5);
     result = appendStringInfoChar(a1, 32);
-    v12 = *(a2 + 32);
-    if (!v12)
+    v6 = *(a2 + 32);
+    if (!v6)
     {
       goto LABEL_22;
     }
@@ -6802,12 +6804,12 @@ _BYTE *deparseIndexElem(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     goto LABEL_12;
   }
 
-  v13 = *(a2 + 16);
-  if (!v13)
+  v7 = *(a2 + 16);
+  if (!v7)
   {
 LABEL_11:
-    v12 = *(a2 + 32);
-    if (!v12)
+    v6 = *(a2 + 32);
+    if (!v6)
     {
       goto LABEL_22;
     }
@@ -6815,156 +6817,156 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ((*v13 - 136) < 4 || ((v14 = *v13 - 350, v15 = v14 > 0x23, v16 = (1 << v14) & 0x800000081, !v15) ? (v17 = v16 == 0) : (v17 = 1), !v17))
+  if ((*v7 - 136) < 4 || ((v8 = *v7 - 350, v9 = v8 > 0x23, v10 = (1 << v8) & 0x800000081, !v9) ? (v11 = v10 == 0) : (v11 = 1), !v11))
   {
-    result = deparseFuncExprWindowless(a1, v13, a3, a4, a5, a6, a7, a8);
+    result = deparseFuncExprWindowless(a1, v7);
     goto LABEL_11;
   }
 
   appendStringInfoChar(a1, 40);
   deparseExpr(a1, *(a2 + 16));
   result = appendStringInfoString(a1, ") ");
-  v12 = *(a2 + 32);
-  if (!v12)
+  v6 = *(a2 + 32);
+  if (!v6)
   {
     goto LABEL_22;
   }
 
 LABEL_12:
-  if (*(v12 + 4) >= 1)
+  if (*(v6 + 4) >= 1)
   {
     appendStringInfoString(a1, "COLLATE ");
-    if (*(v12 + 4) >= 1)
+    if (*(v6 + 4) >= 1)
     {
-      v18 = 0;
-      v19 = 8;
+      v12 = 0;
+      v13 = 8;
       do
       {
-        v20 = *(v12 + 16);
-        v21 = quote_identifier(*(*(v20 + 8 * v18) + 8));
-        appendStringInfoString(a1, v21);
-        v22 = *(v12 + 4);
-        if (v20 + v19)
+        v14 = *(v6 + 16);
+        v15 = quote_identifier(*(*(v14 + 8 * v12) + 8));
+        appendStringInfoString(a1, v15);
+        v16 = *(v6 + 4);
+        if (v14 + v13)
         {
-          v23 = v20 + v19 >= (*(v12 + 16) + 8 * v22);
+          v17 = v14 + v13 >= (*(v6 + 16) + 8 * v16);
         }
 
         else
         {
-          v23 = 1;
+          v17 = 1;
         }
 
-        if (!v23)
+        if (!v17)
         {
           appendStringInfoChar(a1, 46);
-          v22 = *(v12 + 4);
+          v16 = *(v6 + 4);
         }
 
-        ++v18;
-        v19 += 8;
+        ++v12;
+        v13 += 8;
       }
 
-      while (v18 < v22);
+      while (v12 < v16);
     }
 
     result = appendStringInfoChar(a1, 32);
   }
 
 LABEL_22:
-  v24 = *(a2 + 40);
-  if (v24 && *(v24 + 4) >= 1)
+  v18 = *(a2 + 40);
+  if (v18 && *(v18 + 4) >= 1)
   {
-    v25 = 0;
-    v26 = 8;
+    v19 = 0;
+    v20 = 8;
     do
     {
-      v27 = *(v24 + 16);
-      v28 = quote_identifier(*(*(v27 + 8 * v25) + 8));
-      appendStringInfoString(a1, v28);
-      v29 = *(v24 + 4);
-      if (v27 + v26)
+      v21 = *(v18 + 16);
+      v22 = quote_identifier(*(*(v21 + 8 * v19) + 8));
+      appendStringInfoString(a1, v22);
+      v23 = *(v18 + 4);
+      if (v21 + v20)
       {
-        v30 = v27 + v26 >= (*(v24 + 16) + 8 * v29);
+        v24 = v21 + v20 >= (*(v18 + 16) + 8 * v23);
       }
 
       else
       {
-        v30 = 1;
+        v24 = 1;
       }
 
-      if (!v30)
+      if (!v24)
       {
         appendStringInfoChar(a1, 46);
-        v29 = *(v24 + 4);
+        v23 = *(v18 + 4);
       }
 
-      ++v25;
-      v26 += 8;
+      ++v19;
+      v20 += 8;
     }
 
-    while (v25 < v29);
-    v31 = *(a2 + 48);
-    if (v31 && *(v31 + 4) >= 1)
+    while (v19 < v23);
+    v25 = *(a2 + 48);
+    if (v25 && *(v25 + 4) >= 1)
     {
-      deparseRelOptions(a1, v31);
+      deparseRelOptions(a1, v25);
     }
 
     result = appendStringInfoChar(a1, 32);
   }
 
-  v32 = *(a2 + 56);
-  if (v32 == 1)
+  v26 = *(a2 + 56);
+  if (v26 == 1)
   {
-    v33 = "ASC ";
+    v27 = "ASC ";
   }
 
   else
   {
-    if (v32 != 2)
+    if (v26 != 2)
     {
       goto LABEL_40;
     }
 
-    v33 = "DESC ";
+    v27 = "DESC ";
   }
 
-  result = appendStringInfoString(a1, v33);
+  result = appendStringInfoString(a1, v27);
 LABEL_40:
-  v34 = *(a2 + 60);
-  if (v34 == 1)
+  v28 = *(a2 + 60);
+  if (v28 == 1)
   {
-    v35 = "NULLS FIRST ";
+    v29 = "NULLS FIRST ";
   }
 
   else
   {
-    if (v34 != 2)
+    if (v28 != 2)
     {
       goto LABEL_45;
     }
 
-    v35 = "NULLS LAST ";
+    v29 = "NULLS LAST ";
   }
 
-  result = appendStringInfoString(a1, v35);
+  result = appendStringInfoString(a1, v29);
 LABEL_45:
-  v36 = a1[2];
-  v37 = __OFSUB__(v36, 1);
-  v38 = v36 - 1;
-  if (v38 < 0 == v37)
+  v30 = a1[2];
+  v31 = __OFSUB__(v30, 1);
+  v32 = v30 - 1;
+  if (v32 < 0 == v31)
   {
-    v39 = *a1;
-    if (*(*a1 + v38) == 32)
+    v33 = *a1;
+    if (*(*a1 + v32) == 32)
     {
-      a1[2] = v38;
-      *(v39 + v38) = 0;
+      a1[2] = v32;
+      *(v33 + v32) = 0;
     }
   }
 
   return result;
 }
 
-uint64_t deparseRangeVar(uint64_t a1, uint64_t a2, int a3)
+uint64_t deparseRangeVar(uint64_t *a1, uint64_t a2, int a3)
 {
   if ((a3 & 0xFFFFFFFE) != 8 && (*(a2 + 32) & 1) == 0)
   {
@@ -7045,7 +7047,7 @@ uint64_t deparseRangeVar(uint64_t a1, uint64_t a2, int a3)
     result = appendStringInfoChar(a1, 32);
   }
 
-  v22 = *(a1 + 8);
+  v22 = *(a1 + 2);
   v23 = __OFSUB__(v22, 1);
   v24 = v22 - 1;
   if (v24 < 0 == v23)
@@ -7053,7 +7055,7 @@ uint64_t deparseRangeVar(uint64_t a1, uint64_t a2, int a3)
     v25 = *a1;
     if (*(*a1 + v24) == 32)
     {
-      *(a1 + 8) = v24;
+      *(a1 + 2) = v24;
       *(v25 + v24) = 0;
     }
   }
@@ -7064,105 +7066,105 @@ uint64_t deparseRangeVar(uint64_t a1, uint64_t a2, int a3)
 unint64_t deparseSeqOptElem(void *a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  if (*v4 == 97 && *(v4 + 1) == 115 && !*(v4 + 2))
+  if (__PAIR64__(*(v4 + 1), *v4) == 0x7300000061 && !v4[2])
   {
     appendStringInfoString(a1, "AS ");
-    v17 = *(a2 + 24);
+    v11 = *(a2 + 24);
 
-    return deparseTypeName(a1, v17);
+    return deparseTypeName(a1, v11);
   }
 
   if (!strcmp(v4, "cache"))
   {
     result = appendStringInfoString(a1, "CACHE ");
-    v13 = *(a2 + 24);
-    v14 = *v13;
-    if (*v13 != 222)
+    v7 = *(a2 + 24);
+    v8 = *v7;
+    if (*v7 != 222)
     {
-      goto LABEL_24;
+      goto LABEL_23;
     }
 
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
   if (!strcmp(v4, "cycle"))
   {
-    v15 = *(*(a2 + 24) + 8);
-    if (v15)
+    v9 = *(*(a2 + 24) + 8);
+    if (v9)
     {
-      if (v15 != 1)
+      if (v9 != 1)
       {
-        goto LABEL_6;
+        goto LABEL_5;
       }
 
-      v16 = "CYCLE";
+      v10 = "CYCLE";
     }
 
     else
     {
-      v16 = "NO CYCLE";
-    }
-
-LABEL_34:
-
-    return appendStringInfoString(a1, v16);
-  }
-
-LABEL_6:
-  if (!strcmp(v4, "increment"))
-  {
-    result = appendStringInfoString(a1, "INCREMENT ");
-    v13 = *(a2 + 24);
-    v14 = *v13;
-    if (*v13 != 222)
-    {
-      goto LABEL_24;
+      v10 = "NO CYCLE";
     }
 
 LABEL_33:
-    v16 = *(v13 + 1);
-    goto LABEL_34;
+
+    return appendStringInfoString(a1, v10);
+  }
+
+LABEL_5:
+  if (!strcmp(v4, "increment"))
+  {
+    result = appendStringInfoString(a1, "INCREMENT ");
+    v7 = *(a2 + 24);
+    v8 = *v7;
+    if (*v7 != 222)
+    {
+      goto LABEL_23;
+    }
+
+LABEL_32:
+    v10 = *(v7 + 1);
+    goto LABEL_33;
   }
 
   if (!strcmp(v4, "maxvalue"))
   {
     if (!*(a2 + 24))
     {
-      v16 = "NO MAXVALUE";
-      goto LABEL_34;
-    }
-
-    result = appendStringInfoString(a1, "MAXVALUE ");
-    v13 = *(a2 + 24);
-    v14 = *v13;
-    if (*v13 == 222)
-    {
+      v10 = "NO MAXVALUE";
       goto LABEL_33;
     }
 
-    goto LABEL_24;
+    result = appendStringInfoString(a1, "MAXVALUE ");
+    v7 = *(a2 + 24);
+    v8 = *v7;
+    if (*v7 == 222)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_23;
   }
 
   if (!strcmp(v4, "minvalue"))
   {
     if (!*(a2 + 24))
     {
-      v16 = "NO MINVALUE";
-      goto LABEL_34;
-    }
-
-    result = appendStringInfoString(a1, "MINVALUE ");
-    v13 = *(a2 + 24);
-    v14 = *v13;
-    if (*v13 == 222)
-    {
+      v10 = "NO MINVALUE";
       goto LABEL_33;
     }
 
-LABEL_24:
-    if (v14 == 221)
+    result = appendStringInfoString(a1, "MINVALUE ");
+    v7 = *(a2 + 24);
+    v8 = *v7;
+    if (*v7 == 222)
     {
-      return appendStringInfo(a1, "%d", v7, v8, v9, v10, v11, v12, v13[2]);
+      goto LABEL_32;
+    }
+
+LABEL_23:
+    if (v8 == 221)
+    {
+      return appendStringInfo(a1, "%d", v7[2]);
     }
 
     return result;
@@ -7171,38 +7173,38 @@ LABEL_24:
   if (!strcmp(v4, "owned_by"))
   {
     result = appendStringInfoString(a1, "OWNED BY ");
-    v18 = *(a2 + 24);
-    if (v18 && *(v18 + 4) >= 1)
+    v12 = *(a2 + 24);
+    if (v12 && *(v12 + 4) >= 1)
     {
-      v19 = 0;
-      v20 = 8;
+      v13 = 0;
+      v14 = 8;
       do
       {
-        v21 = *(v18 + 16);
-        v22 = quote_identifier(*(*(v21 + 8 * v19) + 8));
-        result = appendStringInfoString(a1, v22);
-        v23 = *(v18 + 4);
-        if (v21 + v20)
+        v15 = *(v12 + 16);
+        v16 = quote_identifier(*(*(v15 + 8 * v13) + 8));
+        result = appendStringInfoString(a1, v16);
+        v17 = *(v12 + 4);
+        if (v15 + v14)
         {
-          v24 = v21 + v20 >= (*(v18 + 16) + 8 * v23);
+          v18 = v15 + v14 >= (*(v12 + 16) + 8 * v17);
         }
 
         else
         {
-          v24 = 1;
+          v18 = 1;
         }
 
-        if (!v24)
+        if (!v18)
         {
           result = appendStringInfoChar(a1, 46);
-          v23 = *(v18 + 4);
+          v17 = *(v12 + 4);
         }
 
-        ++v19;
-        v20 += 8;
+        ++v13;
+        v14 += 8;
       }
 
-      while (v19 < v23);
+      while (v13 < v17);
     }
   }
 
@@ -7213,7 +7215,7 @@ LABEL_24:
       if (!strcmp(v4, "start"))
       {
         v6 = "START ";
-        goto LABEL_58;
+        goto LABEL_57;
       }
 
       result = strcmp(v4, "restart");
@@ -7225,185 +7227,185 @@ LABEL_24:
       if (*(a2 + 24))
       {
         v6 = "RESTART ";
-LABEL_58:
+LABEL_57:
         appendStringInfoString(a1, v6);
-        v38 = *(a2 + 24);
+        v26 = *(a2 + 24);
 
-        return deparseNumericOnly(a1, v38, v32, v33, v34, v35, v36, v37);
+        return deparseNumericOnly(a1, v26);
       }
 
-      v16 = "RESTART";
-      goto LABEL_34;
+      v10 = "RESTART";
+      goto LABEL_33;
     }
 
     result = appendStringInfoString(a1, "SEQUENCE NAME ");
-    v25 = *(a2 + 24);
-    if (v25 && *(v25 + 4) >= 1)
+    v19 = *(a2 + 24);
+    if (v19 && *(v19 + 4) >= 1)
     {
-      v26 = 0;
-      v27 = 8;
+      v20 = 0;
+      v21 = 8;
       do
       {
-        v28 = *(v25 + 16);
-        v29 = quote_identifier(*(*(v28 + 8 * v26) + 8));
-        result = appendStringInfoString(a1, v29);
-        v30 = *(v25 + 4);
-        if (v28 + v27)
+        v22 = *(v19 + 16);
+        v23 = quote_identifier(*(*(v22 + 8 * v20) + 8));
+        result = appendStringInfoString(a1, v23);
+        v24 = *(v19 + 4);
+        if (v22 + v21)
         {
-          v31 = v28 + v27 >= (*(v25 + 16) + 8 * v30);
+          v25 = v22 + v21 >= (*(v19 + 16) + 8 * v24);
         }
 
         else
         {
-          v31 = 1;
+          v25 = 1;
         }
 
-        if (!v31)
+        if (!v25)
         {
           result = appendStringInfoChar(a1, 46);
-          v30 = *(v25 + 4);
+          v24 = *(v19 + 4);
         }
 
-        ++v26;
-        v27 += 8;
+        ++v20;
+        v21 += 8;
       }
 
-      while (v26 < v30);
+      while (v20 < v24);
     }
   }
 
   return result;
 }
 
-void *deparseFuncExprWindowless(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *deparseFuncExprWindowless(void *result, uint64_t a2)
 {
-  v9 = result;
-  v10 = *a2;
+  v3 = result;
+  v4 = *a2;
   if (*a2 <= 138)
   {
-    if (v10 == 136)
+    if (v4 == 136)
     {
       appendStringInfoString(result, "COALESCE(");
-      v14 = *(a2 + 16);
-      if (v14 && *(v14 + 4) >= 1)
+      v8 = *(a2 + 16);
+      if (v8 && *(v8 + 4) >= 1)
       {
-        v15 = 0;
-        v16 = 8;
+        v9 = 0;
+        v10 = 8;
         do
         {
-          v17 = *(v14 + 16);
-          deparseExpr(v9, *(v17 + 8 * v15));
-          v18 = *(v14 + 4);
-          if (v17 + v16)
+          v11 = *(v8 + 16);
+          deparseExpr(v3, *(v11 + 8 * v9));
+          v12 = *(v8 + 4);
+          if (v11 + v10)
           {
-            v19 = v17 + v16 >= (*(v14 + 16) + 8 * v18);
+            v13 = v11 + v10 >= (*(v8 + 16) + 8 * v12);
           }
 
           else
           {
-            v19 = 1;
+            v13 = 1;
           }
 
-          if (!v19)
+          if (!v13)
           {
-            appendStringInfoString(v9, ", ");
-            v18 = *(v14 + 4);
+            appendStringInfoString(v3, ", ");
+            v12 = *(v8 + 4);
           }
 
-          ++v15;
-          v16 += 8;
+          ++v9;
+          v10 += 8;
         }
 
-        while (v15 < v18);
+        while (v9 < v12);
       }
 
       goto LABEL_55;
     }
 
-    if (v10 != 137)
+    if (v4 != 137)
     {
-      if (v10 == 138)
+      if (v4 == 138)
       {
-        v11 = *(a2 + 4);
-        if (v11 <= 0xE)
+        v5 = *(a2 + 4);
+        if (v5 <= 0xE)
         {
-          result = appendStringInfoString(result, (&off_1E6E54EB8)[v11]);
+          result = appendStringInfoString(result, (&off_1E6E54EB8)[v5]);
         }
 
         if (*(a2 + 12) != -1)
         {
-          return appendStringInfo(v9, "(%d)", a3, a4, a5, a6, a7, a8, *(a2 + 12));
+          return appendStringInfo(v3, "(%d)", *(a2 + 12));
         }
       }
 
       return result;
     }
 
-    v20 = *(a2 + 16);
-    if (v20)
+    v14 = *(a2 + 16);
+    if (v14)
     {
-      if (v20 != 1)
+      if (v14 != 1)
       {
 LABEL_46:
-        v22 = *(a2 + 24);
-        if (v22 && *(v22 + 4) >= 1)
+        v16 = *(a2 + 24);
+        if (v16 && *(v16 + 4) >= 1)
         {
-          v23 = 0;
-          v24 = 8;
+          v17 = 0;
+          v18 = 8;
           do
           {
-            v25 = *(v22 + 16);
-            deparseExpr(v9, *(v25 + 8 * v23));
-            v26 = *(v22 + 4);
-            if (v25 + v24)
+            v19 = *(v16 + 16);
+            deparseExpr(v3, *(v19 + 8 * v17));
+            v20 = *(v16 + 4);
+            if (v19 + v18)
             {
-              v27 = v25 + v24 >= (*(v22 + 16) + 8 * v26);
+              v21 = v19 + v18 >= (*(v16 + 16) + 8 * v20);
             }
 
             else
             {
-              v27 = 1;
+              v21 = 1;
             }
 
-            if (!v27)
+            if (!v21)
             {
-              appendStringInfoString(v9, ", ");
-              v26 = *(v22 + 4);
+              appendStringInfoString(v3, ", ");
+              v20 = *(v16 + 4);
             }
 
-            ++v23;
-            v24 += 8;
+            ++v17;
+            v18 += 8;
           }
 
-          while (v23 < v26);
+          while (v17 < v20);
         }
 
 LABEL_55:
 
-        return appendStringInfoChar(v9, 41);
+        return appendStringInfoChar(v3, 41);
       }
 
-      v21 = "LEAST(";
+      v15 = "LEAST(";
     }
 
     else
     {
-      v21 = "GREATEST(";
+      v15 = "GREATEST(";
     }
 
-    appendStringInfoString(result, v21);
+    appendStringInfoString(result, v15);
     goto LABEL_46;
   }
 
-  if (v10 <= 356)
+  if (v4 <= 356)
   {
-    if (v10 == 139)
+    if (v4 == 139)
     {
 
       return deparseXmlExpr(result, a2);
     }
 
-    else if (v10 == 350)
+    else if (v4 == 350)
     {
 
       return deparseFuncCall(result, a2);
@@ -7412,36 +7414,36 @@ LABEL_55:
     return result;
   }
 
-  if (v10 != 357)
+  if (v4 != 357)
   {
-    if (v10 != 385)
+    if (v4 != 385)
     {
       return result;
     }
 
     appendStringInfoString(result, "xmlserialize(");
-    v12 = *(a2 + 4);
-    if (v12)
+    v6 = *(a2 + 4);
+    if (v6)
     {
-      if (v12 != 1)
+      if (v6 != 1)
       {
 LABEL_41:
-        deparseExpr(v9, *(a2 + 8));
-        appendStringInfoString(v9, " AS ");
-        deparseTypeName(v9, *(a2 + 16));
+        deparseExpr(v3, *(a2 + 8));
+        appendStringInfoString(v3, " AS ");
+        deparseTypeName(v3, *(a2 + 16));
 
-        return appendStringInfoString(v9, ")");
+        return appendStringInfoString(v3, ")");
       }
 
-      v13 = "content ";
+      v7 = "content ";
     }
 
     else
     {
-      v13 = "document ";
+      v7 = "document ";
     }
 
-    appendStringInfoString(v9, v13);
+    appendStringInfoString(v3, v7);
     goto LABEL_41;
   }
 
@@ -7453,101 +7455,101 @@ uint64_t deparseRelOptions(void *a1, uint64_t a2)
   appendStringInfoChar(a1, 40);
   if (a2 && *(a2 + 4) >= 1)
   {
-    v9 = 0;
-    v10 = 8;
+    v4 = 0;
+    v5 = 8;
     do
     {
-      v11 = *(a2 + 16);
-      v12 = *(v11 + 8 * v9);
-      v13 = v12[1];
-      if (v13)
+      v6 = *(a2 + 16);
+      v7 = *(v6 + 8 * v4);
+      v8 = v7[1];
+      if (v8)
       {
-        v14 = quote_identifier(v13);
-        appendStringInfoString(a1, v14);
+        v9 = quote_identifier(v8);
+        appendStringInfoString(a1, v9);
         appendStringInfoChar(a1, 46);
       }
 
-      v15 = v12[2];
-      if (v15)
+      v10 = v7[2];
+      if (v10)
       {
-        v16 = quote_identifier(v15);
-        appendStringInfoString(a1, v16);
-        if (v12[2])
+        v11 = quote_identifier(v10);
+        appendStringInfoString(a1, v11);
+        if (v7[2])
         {
-          if (v12[3])
+          if (v7[3])
           {
             appendStringInfoChar(a1, 61);
           }
         }
       }
 
-      v17 = v12[3];
-      if (v17)
+      v12 = v7[3];
+      if (v12)
       {
-        deparseDefArg(a1, v17, 0, v4, v5, v6, v7, v8);
+        deparseDefArg(a1, v12, 0);
       }
 
-      if (v11 + v10)
+      if (v6 + v5)
       {
-        v18 = v11 + v10 >= (*(a2 + 16) + 8 * *(a2 + 4));
+        v13 = v6 + v5 >= (*(a2 + 16) + 8 * *(a2 + 4));
       }
 
       else
       {
-        v18 = 1;
+        v13 = 1;
       }
 
-      if (!v18)
+      if (!v13)
       {
         appendStringInfoString(a1, ", ");
       }
 
-      ++v9;
-      v10 += 8;
+      ++v4;
+      v5 += 8;
     }
 
-    while (v9 < *(a2 + 4));
+    while (v4 < *(a2 + 4));
   }
 
   return appendStringInfoChar(a1, 41);
 }
 
-void *deparseDefArg(void *result, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *deparseDefArg(void *result, uint64_t a2, char a3)
 {
-  v8 = *a2;
+  v3 = *a2;
   if (*a2 <= 225)
   {
-    if ((v8 - 221) < 2)
+    if ((v3 - 221) < 2)
     {
 
-      return deparseValue(result, a2, 0, a4, a5, a6, a7, a8);
+      return deparseValue(result, a2, 0);
     }
 
-    if (v8 != 223)
+    if (v3 != 223)
     {
       return result;
     }
 
-    v9 = result;
-    v10 = *(a2 + 8);
-    if ((a3 & 1) == 0 && !strcmp(v10, "none"))
+    v4 = result;
+    v5 = *(a2 + 8);
+    if ((a3 & 1) == 0 && !strcmp(v5, "none"))
     {
-      v21 = "NONE";
-      result = v9;
+      v16 = "NONE";
+      result = v4;
     }
 
     else
     {
-      v11 = ScanKeywordLookup(v10, &ScanKeywords);
-      v12 = *v10;
-      if (*v10)
+      v6 = ScanKeywordLookup(v5, &ScanKeywords);
+      v7 = *v5;
+      if (*v5)
       {
-        v13 = (v10 + 1);
-        while ((v12 - 97) < 0x1A || v12 == 95 || (v12 - 48) <= 9)
+        v8 = (v5 + 1);
+        while ((v7 - 97) < 0x1A || v7 == 95 || (v7 - 48) <= 9)
         {
-          v14 = *v13++;
-          v12 = v14;
-          if (!v14)
+          v9 = *v8++;
+          v7 = v9;
+          if (!v9)
           {
             goto LABEL_27;
           }
@@ -7557,23 +7559,23 @@ void *deparseDefArg(void *result, uint64_t a2, char a3, uint64_t a4, uint64_t a5
       }
 
 LABEL_27:
-      if (v11 < 0 || ScanKeywordCategories[v11] != 3)
+      if (v6 < 0 || ScanKeywordCategories[v6] != 3)
       {
 LABEL_32:
 
-        return deparseStringLiteral(v9, v10);
+        return deparseStringLiteral(v4, v5);
       }
 
-      result = v9;
-      v21 = v10;
+      result = v4;
+      v16 = v5;
     }
 
-    return appendStringInfoString(result, v21);
+    return appendStringInfoString(result, v16);
   }
 
-  if (v8 != 226)
+  if (v3 != 226)
   {
-    if (v8 == 366)
+    if (v3 == 366)
     {
 
       return deparseTypeName(result, a2);
@@ -7582,39 +7584,39 @@ LABEL_32:
     return result;
   }
 
-  v15 = *(a2 + 4);
-  if (v15 == 1)
+  v10 = *(a2 + 4);
+  if (v10 == 1)
   {
-    v21 = *(**(a2 + 16) + 8);
+    v16 = *(**(a2 + 16) + 8);
 
-    return appendStringInfoString(result, v21);
+    return appendStringInfoString(result, v16);
   }
 
-  if (v15 != 2)
+  if (v10 != 2)
   {
     return result;
   }
 
-  v16 = result;
+  v11 = result;
   appendStringInfoString(result, "OPERATOR(");
-  v18 = *(a2 + 4);
-  if (v18 == 1)
+  v13 = *(a2 + 4);
+  if (v13 == 1)
   {
-    v20 = *(a2 + 16);
+    v15 = *(a2 + 16);
     goto LABEL_42;
   }
 
-  if (v18 == 2)
+  if (v13 == 2)
   {
-    v19 = quote_identifier(*(**(a2 + 16) + 8));
-    appendStringInfoString(v16, v19);
-    appendStringInfoChar(v16, 46);
-    v20 = *(a2 + 16) + 8 * (*(a2 + 4) - 1);
+    v14 = quote_identifier(*(**(a2 + 16) + 8));
+    appendStringInfoString(v11, v14);
+    appendStringInfoChar(v11, 46);
+    v15 = *(a2 + 16) + 8 * (*(a2 + 4) - 1);
 LABEL_42:
-    appendStringInfoString(v16, *(*v20 + 8));
+    appendStringInfoString(v11, *(*v15 + 8));
   }
 
-  return appendStringInfoChar(v16, 41);
+  return appendStringInfoChar(v11, 41);
 }
 
 uint64_t deparseAggregateWithArgtypes(void *a1, uint64_t a2)
@@ -7696,7 +7698,7 @@ uint64_t deparseAggregateWithArgtypes(void *a1, uint64_t a2)
   return appendStringInfoChar(a1, 41);
 }
 
-uint64_t deparseFunctionWithArgtypes(uint64_t result, uint64_t a2)
+_DWORD *deparseFunctionWithArgtypes(_DWORD *result, uint64_t a2)
 {
   v3 = result;
   v4 = *(a2 + 8);
@@ -7871,19 +7873,19 @@ LABEL_8:
   if (*(a2 + 32))
   {
     appendStringInfoString(a1, "= ");
-    result = deparseExpr(a1, *(a2 + 32), v8, v9, v10, v11, v12, v13);
+    result = deparseExpr(a1, *(a2 + 32));
   }
 
-  v14 = a1[2];
-  v15 = __OFSUB__(v14, 1);
-  v16 = v14 - 1;
-  if (v16 < 0 == v15)
+  v8 = a1[2];
+  v9 = __OFSUB__(v8, 1);
+  v10 = v8 - 1;
+  if (v10 < 0 == v9)
   {
-    v17 = *a1;
-    if (*(*a1 + v16) == 32)
+    v11 = *a1;
+    if (*(*a1 + v10) == 32)
     {
-      a1[2] = v16;
-      *(v17 + v16) = 0;
+      a1[2] = v10;
+      *(v11 + v10) = 0;
     }
   }
 
@@ -8178,9 +8180,9 @@ LABEL_5:
     v12 = "COST ";
 LABEL_30:
     appendStringInfoString(a1, v12);
-    v18 = *(a2 + 24);
+    v13 = *(a2 + 24);
 
-    return deparseValue(a1, v18, 0, v13, v14, v15, v16, v17);
+    return deparseValue(a1, v13, 0);
   }
 
   if (!strcmp(v4, "rows"))
@@ -8213,38 +8215,38 @@ LABEL_30:
   }
 
   result = appendStringInfoString(a1, "SUPPORT ");
-  v19 = *(a2 + 24);
-  if (v19 && *(v19 + 4) >= 1)
+  v14 = *(a2 + 24);
+  if (v14 && *(v14 + 4) >= 1)
   {
-    v20 = 0;
-    v21 = 8;
+    v15 = 0;
+    v16 = 8;
     do
     {
-      v22 = *(v19 + 16);
-      v23 = quote_identifier(*(*(v22 + 8 * v20) + 8));
-      result = appendStringInfoString(a1, v23);
-      v24 = *(v19 + 4);
-      if (v22 + v21)
+      v17 = *(v14 + 16);
+      v18 = quote_identifier(*(*(v17 + 8 * v15) + 8));
+      result = appendStringInfoString(a1, v18);
+      v19 = *(v14 + 4);
+      if (v17 + v16)
       {
-        v25 = v22 + v21 >= (*(v19 + 16) + 8 * v24);
+        v20 = v17 + v16 >= (*(v14 + 16) + 8 * v19);
       }
 
       else
       {
-        v25 = 1;
+        v20 = 1;
       }
 
-      if (!v25)
+      if (!v20)
       {
         result = appendStringInfoChar(a1, 46);
-        v24 = *(v19 + 4);
+        v19 = *(v14 + 4);
       }
 
-      ++v20;
-      v21 += 8;
+      ++v15;
+      v16 += 8;
     }
 
-    while (v20 < v24);
+    while (v15 < v19);
   }
 
   return result;
@@ -8264,12 +8266,12 @@ void *deparseOperatorDefList(void *result, uint64_t a2)
       v8 = quote_identifier(*(v7 + 16));
       appendStringInfoString(v3, v8);
       appendStringInfoString(v3, " = ");
-      v14 = *(v7 + 24);
-      if (v14)
+      v9 = *(v7 + 24);
+      if (v9)
       {
-        result = deparseDefArg(v3, v14, 1, v9, v10, v11, v12, v13);
-        v15 = *(a2 + 4);
-        v16 = v6 + v5;
+        result = deparseDefArg(v3, v9, 1);
+        v10 = *(a2 + 4);
+        v11 = v6 + v5;
         if (v6 + v5)
         {
           goto LABEL_9;
@@ -8279,15 +8281,15 @@ void *deparseOperatorDefList(void *result, uint64_t a2)
       else
       {
         result = appendStringInfoString(v3, "NONE");
-        v15 = *(a2 + 4);
-        v16 = v6 + v5;
+        v10 = *(a2 + 4);
+        v11 = v6 + v5;
         if (v6 + v5)
         {
 LABEL_9:
-          if (v16 < *(a2 + 16) + 8 * v15)
+          if (v11 < *(a2 + 16) + 8 * v10)
           {
             result = appendStringInfoString(v3, ", ");
-            v15 = *(a2 + 4);
+            v10 = *(a2 + 4);
           }
         }
       }
@@ -8296,44 +8298,44 @@ LABEL_9:
       v5 += 8;
     }
 
-    while (v4 < v15);
+    while (v4 < v10);
   }
 
   return result;
 }
 
-uint64_t deparseColumnDef(uint64_t result, void *a2)
+_DWORD *deparseColumnDef(_DWORD *result, uint64_t a2)
 {
   v3 = result;
-  v4 = a2[1];
+  v4 = *(a2 + 8);
   if (v4)
   {
     appendStringInfoString(result, v4);
     result = appendStringInfoChar(v3, 32);
   }
 
-  v5 = a2[2];
+  v5 = *(a2 + 16);
   if (v5)
   {
     deparseTypeName(v3, v5);
     result = appendStringInfoChar(v3, 32);
   }
 
-  if (a2[4])
+  if (*(a2 + 32))
   {
     appendStringInfoString(v3, "USING ");
-    deparseExpr(v3, a2[4]);
+    deparseExpr(v3, *(a2 + 32));
     result = appendStringInfoChar(v3, 32);
   }
 
-  v6 = a2[12];
+  v6 = *(a2 + 96);
   if (v6)
   {
     deparseCreateGenericOptions(v3, v6);
     result = appendStringInfoChar(v3, 32);
   }
 
-  v7 = a2[11];
+  v7 = *(a2 + 88);
   if (v7 && *(v7 + 4) >= 1)
   {
     v8 = 0;
@@ -8347,7 +8349,7 @@ uint64_t deparseColumnDef(uint64_t result, void *a2)
     while (v8 < *(v7 + 4));
   }
 
-  v9 = a2[9];
+  v9 = *(a2 + 72);
   if (v9)
   {
     result = deparseCollateClause(v3, v9);
@@ -8369,7 +8371,7 @@ uint64_t deparseColumnDef(uint64_t result, void *a2)
   return result;
 }
 
-void *deparsePartitionBoundSpec(void *a1, uint64_t a2)
+void *deparsePartitionBoundSpec(uint64_t *a1, uint64_t a2)
 {
   if (*(a2 + 5) == 1)
   {
@@ -8378,82 +8380,46 @@ void *deparsePartitionBoundSpec(void *a1, uint64_t a2)
   }
 
   result = appendStringInfoString(a1, "FOR VALUES ");
-  v11 = *(a2 + 4);
-  switch(v11)
+  v5 = *(a2 + 4);
+  switch(v5)
   {
     case 'r':
       appendStringInfoString(a1, "FROM (");
-      v30 = *(a2 + 24);
-      if (v30 && *(v30 + 4) >= 1)
+      v12 = *(a2 + 24);
+      if (v12 && *(v12 + 4) >= 1)
       {
-        v31 = 0;
-        v32 = 8;
+        v13 = 0;
+        v14 = 8;
         do
         {
-          v33 = *(v30 + 16);
-          deparseExpr(a1, *(v33 + 8 * v31), v24, v25, v26, v27, v28, v29);
-          v34 = *(v30 + 4);
-          if (v33 + v32)
+          v15 = *(v12 + 16);
+          deparseExpr(a1, *(v15 + 8 * v13));
+          v16 = *(v12 + 4);
+          if (v15 + v14)
           {
-            v35 = v33 + v32 >= (*(v30 + 16) + 8 * v34);
+            v17 = v15 + v14 >= (*(v12 + 16) + 8 * v16);
           }
 
           else
           {
-            v35 = 1;
+            v17 = 1;
           }
 
-          if (!v35)
+          if (!v17)
           {
             appendStringInfoString(a1, ", ");
-            v34 = *(v30 + 4);
+            v16 = *(v12 + 4);
           }
 
-          ++v31;
-          v32 += 8;
+          ++v13;
+          v14 += 8;
         }
 
-        while (v31 < v34);
+        while (v13 < v16);
       }
 
       appendStringInfoString(a1, ") TO (");
-      v42 = *(a2 + 32);
-      if (v42 && *(v42 + 4) >= 1)
-      {
-        v43 = 0;
-        v44 = 8;
-        do
-        {
-          v45 = *(v42 + 16);
-          deparseExpr(a1, *(v45 + 8 * v43), v36, v37, v38, v39, v40, v41);
-          v46 = *(v42 + 4);
-          if (v45 + v44)
-          {
-            v47 = v45 + v44 >= (*(v42 + 16) + 8 * v46);
-          }
-
-          else
-          {
-            v47 = 1;
-          }
-
-          if (!v47)
-          {
-            appendStringInfoString(a1, ", ");
-            v46 = *(v42 + 4);
-          }
-
-          ++v43;
-          v44 += 8;
-        }
-
-        while (v43 < v46);
-      }
-
-      break;
-    case 'l':
-      appendStringInfoString(a1, "IN (");
-      v18 = *(a2 + 16);
+      v18 = *(a2 + 32);
       if (v18 && *(v18 + 4) >= 1)
       {
         v19 = 0;
@@ -8461,7 +8427,7 @@ void *deparsePartitionBoundSpec(void *a1, uint64_t a2)
         do
         {
           v21 = *(v18 + 16);
-          deparseExpr(a1, *(v21 + 8 * v19), v12, v13, v14, v15, v16, v17);
+          deparseExpr(a1, *(v21 + 8 * v19));
           v22 = *(v18 + 4);
           if (v21 + v20)
           {
@@ -8487,9 +8453,44 @@ void *deparsePartitionBoundSpec(void *a1, uint64_t a2)
       }
 
       break;
+    case 'l':
+      appendStringInfoString(a1, "IN (");
+      v6 = *(a2 + 16);
+      if (v6 && *(v6 + 4) >= 1)
+      {
+        v7 = 0;
+        v8 = 8;
+        do
+        {
+          v9 = *(v6 + 16);
+          deparseExpr(a1, *(v9 + 8 * v7));
+          v10 = *(v6 + 4);
+          if (v9 + v8)
+          {
+            v11 = v9 + v8 >= (*(v6 + 16) + 8 * v10);
+          }
+
+          else
+          {
+            v11 = 1;
+          }
+
+          if (!v11)
+          {
+            appendStringInfoString(a1, ", ");
+            v10 = *(v6 + 4);
+          }
+
+          ++v7;
+          v8 += 8;
+        }
+
+        while (v7 < v10);
+      }
+
+      break;
     case 'h':
-      v48 = *(a2 + 12);
-      return appendStringInfo(a1, "WITH (MODULUS %d, REMAINDER %d)", v5, v6, v7, v8, v9, v10, *(a2 + 8));
+      return appendStringInfo(a1, "WITH (MODULUS %d, REMAINDER %d)", *(a2 + 8), *(a2 + 12));
     default:
       return result;
   }
@@ -8561,44 +8562,44 @@ uint64_t deparseDefinition(void *a1, uint64_t a2)
       if (*(v7 + 24))
       {
         appendStringInfoString(a1, " = ");
-        deparseDefArg(a1, *(v7 + 24), 0, v9, v10, v11, v12, v13);
+        deparseDefArg(a1, *(v7 + 24), 0);
       }
 
-      v14 = *(a2 + 4);
+      v9 = *(a2 + 4);
       if (v6 + v5)
       {
-        v15 = v6 + v5 >= (*(a2 + 16) + 8 * v14);
+        v10 = v6 + v5 >= (*(a2 + 16) + 8 * v9);
       }
 
       else
       {
-        v15 = 1;
+        v10 = 1;
       }
 
-      if (!v15)
+      if (!v10)
       {
         appendStringInfoString(a1, ", ");
-        v14 = *(a2 + 4);
+        v9 = *(a2 + 4);
       }
 
       ++v4;
       v5 += 8;
     }
 
-    while (v4 < v14);
+    while (v4 < v9);
   }
 
   return appendStringInfoChar(a1, 41);
 }
 
-unint64_t deparseAlterRoleElem(uint64_t a1, uint64_t a2)
+uint64_t deparseAlterRoleElem(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
   if (strcmp(v4, "password"))
   {
     if (!strcmp(v4, "connectionlimit"))
     {
-      return appendStringInfo(a1, "CONNECTION LIMIT %d", v5, v6, v7, v8, v9, v10, *(*(a2 + 24) + 8));
+      return appendStringInfo(a1, "CONNECTION LIMIT %d");
     }
 
     if (strcmp(v4, "validUntil"))
@@ -8608,16 +8609,16 @@ unint64_t deparseAlterRoleElem(uint64_t a1, uint64_t a2)
         goto LABEL_33;
       }
 
-      v23 = *(*(a2 + 24) + 8);
-      if (!v23)
+      v10 = *(*(a2 + 24) + 8);
+      if (!v10)
       {
-        v13 = "NOSUPERUSER";
+        v7 = "NOSUPERUSER";
         goto LABEL_26;
       }
 
-      if (v23 == 1)
+      if (v10 == 1)
       {
-        v13 = "SUPERUSER";
+        v7 = "SUPERUSER";
       }
 
       else
@@ -8628,16 +8629,16 @@ unint64_t deparseAlterRoleElem(uint64_t a1, uint64_t a2)
         }
 
 LABEL_33:
-        v24 = *(*(a2 + 24) + 8);
-        if (!v24)
+        v11 = *(*(a2 + 24) + 8);
+        if (!v11)
         {
-          v13 = "NOCREATEROLE";
+          v7 = "NOCREATEROLE";
           goto LABEL_26;
         }
 
-        if (v24 == 1)
+        if (v11 == 1)
         {
-          v13 = "CREATEROLE";
+          v7 = "CREATEROLE";
         }
 
         else
@@ -8648,16 +8649,16 @@ LABEL_33:
           }
 
 LABEL_36:
-          v25 = *(*(a2 + 24) + 8);
-          if (!v25)
+          v12 = *(*(a2 + 24) + 8);
+          if (!v12)
           {
-            v13 = "NOREPLICATION";
+            v7 = "NOREPLICATION";
             goto LABEL_26;
           }
 
-          if (v25 == 1)
+          if (v12 == 1)
           {
-            v13 = "REPLICATION";
+            v7 = "REPLICATION";
           }
 
           else
@@ -8668,16 +8669,16 @@ LABEL_36:
             }
 
 LABEL_39:
-            v26 = *(*(a2 + 24) + 8);
-            if (!v26)
+            v13 = *(*(a2 + 24) + 8);
+            if (!v13)
             {
-              v13 = "NOCREATEDB";
+              v7 = "NOCREATEDB";
               goto LABEL_26;
             }
 
-            if (v26 == 1)
+            if (v13 == 1)
             {
-              v13 = "CREATEDB";
+              v7 = "CREATEDB";
             }
 
             else
@@ -8688,16 +8689,16 @@ LABEL_39:
               }
 
 LABEL_46:
-              v27 = *(*(a2 + 24) + 8);
-              if (!v27)
+              v14 = *(*(a2 + 24) + 8);
+              if (!v14)
               {
-                v13 = "NOLOGIN";
+                v7 = "NOLOGIN";
                 goto LABEL_26;
               }
 
-              if (v27 == 1)
+              if (v14 == 1)
               {
-                v13 = "LOGIN";
+                v7 = "LOGIN";
               }
 
               else
@@ -8708,10 +8709,10 @@ LABEL_59:
                   goto LABEL_10;
                 }
 
-                v28 = *(*(a2 + 24) + 8);
-                if (v28)
+                v15 = *(*(a2 + 24) + 8);
+                if (v15)
                 {
-                  if (v28 != 1)
+                  if (v15 != 1)
                   {
 LABEL_10:
                     result = strcmp(v4, "inherit");
@@ -8720,31 +8721,31 @@ LABEL_10:
                       return result;
                     }
 
-                    v12 = *(*(a2 + 24) + 8);
-                    if (v12)
+                    v6 = *(*(a2 + 24) + 8);
+                    if (v6)
                     {
-                      if (v12 != 1)
+                      if (v6 != 1)
                       {
                         return result;
                       }
 
-                      v13 = "INHERIT";
+                      v7 = "INHERIT";
                     }
 
                     else
                     {
-                      v13 = "NOINHERIT";
+                      v7 = "NOINHERIT";
                     }
 
                     goto LABEL_26;
                   }
 
-                  v13 = "BYPASSRLS";
+                  v7 = "BYPASSRLS";
                 }
 
                 else
                 {
-                  v13 = "NOBYPASSRLS";
+                  v7 = "NOBYPASSRLS";
                 }
               }
             }
@@ -8754,36 +8755,35 @@ LABEL_10:
 
 LABEL_26:
 
-      return appendStringInfoString(a1, v13);
+      return appendStringInfoString(a1, v7);
     }
 
     appendStringInfoString(a1, "VALID UNTIL ");
-    v20 = *(a2 + 24);
+    v8 = *(a2 + 24);
 LABEL_22:
-    v22 = *(v20 + 8);
+    v9 = *(v8 + 8);
 
-    return deparseStringLiteral(a1, v22);
+    return deparseStringLiteral(a1, v9);
   }
 
   result = appendStringInfoString(a1, "PASSWORD ");
-  v20 = *(a2 + 24);
-  if (!v20)
+  v8 = *(a2 + 24);
+  if (!v8)
   {
-    v13 = "NULL";
+    v7 = "NULL";
     goto LABEL_26;
   }
 
-  if (*v20 == 223)
+  if (*v8 == 223)
   {
     goto LABEL_22;
   }
 
-  if (*v20 == 348)
+  if (*v8 == 348)
   {
-    v21 = *(v20 + 4);
-    if (v21)
+    if (*(v8 + 4))
     {
-      return appendStringInfo(a1, "$%d", v14, v15, v16, v17, v18, v19, v21);
+      return appendStringInfo(a1, "$%d");
     }
 
     else
@@ -8866,7 +8866,7 @@ uint64_t deparseAnyNameList(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t deparseQualifiedNameList(uint64_t result, uint64_t a2)
+uint64_t *deparseQualifiedNameList(uint64_t *result, uint64_t a2)
 {
   if (a2 && *(a2 + 4) >= 1)
   {
@@ -8904,7 +8904,7 @@ uint64_t deparseQualifiedNameList(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t deparseIntoClause(_DWORD *a1, uint64_t a2)
+uint64_t deparseIntoClause(uint64_t a1, uint64_t a2)
 {
   deparseRangeVar(a1, *(a2 + 8), 0);
   v4 = *(a2 + 16);
@@ -8979,7 +8979,7 @@ uint64_t deparseIntoClause(_DWORD *a1, uint64_t a2)
     result = appendStringInfoChar(a1, 32);
   }
 
-  v17 = a1[2];
+  v17 = *(a1 + 8);
   v18 = __OFSUB__(v17, 1);
   v19 = v17 - 1;
   if (v19 < 0 == v18)
@@ -8987,7 +8987,7 @@ uint64_t deparseIntoClause(_DWORD *a1, uint64_t a2)
     v20 = *a1;
     if (*(*a1 + v19) == 32)
     {
-      a1[2] = v19;
+      *(a1 + 8) = v19;
       *(v20 + v19) = 0;
     }
   }
@@ -8995,7 +8995,7 @@ uint64_t deparseIntoClause(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-unint64_t deparseOpclassItemList(unint64_t result, uint64_t a2)
+_DWORD *deparseOpclassItemList(_DWORD *result, uint64_t a2)
 {
   if (a2 && *(a2 + 4) >= 1)
   {
@@ -9019,57 +9019,57 @@ unint64_t deparseOpclassItemList(unint64_t result, uint64_t a2)
       }
 
       appendStringInfoString(v3, "FUNCTION ");
-      result = appendStringInfo(v3, "%d ", v22, v23, v24, v25, v26, v27, *(v6 + 16));
+      result = appendStringInfo(v3, "%d ", *(v6 + 16));
       if (*(v6 + 32))
       {
         appendStringInfoChar(v3, 40);
-        v28 = *(v6 + 32);
-        if (v28 && *(v28 + 4) >= 1)
+        v16 = *(v6 + 32);
+        if (v16 && *(v16 + 4) >= 1)
         {
-          v29 = 0;
-          v30 = 8;
+          v17 = 0;
+          v18 = 8;
           do
           {
-            v31 = *(v28 + 16);
-            deparseTypeName(v3, *(v31 + 8 * v29));
-            v32 = *(v28 + 4);
-            if (v31 + v30)
+            v19 = *(v16 + 16);
+            deparseTypeName(v3, *(v19 + 8 * v17));
+            v20 = *(v16 + 4);
+            if (v19 + v18)
             {
-              v33 = v31 + v30 >= (*(v28 + 16) + 8 * v32);
+              v21 = v19 + v18 >= (*(v16 + 16) + 8 * v20);
             }
 
             else
             {
-              v33 = 1;
+              v21 = 1;
             }
 
-            if (!v33)
+            if (!v21)
             {
               appendStringInfoString(v3, ", ");
-              v32 = *(v28 + 4);
+              v20 = *(v16 + 4);
             }
 
-            ++v29;
-            v30 += 8;
+            ++v17;
+            v18 += 8;
           }
 
-          while (v29 < v32);
+          while (v17 < v20);
         }
 
         result = appendStringInfoString(v3, ") ");
       }
 
-      v40 = *(v6 + 8);
-      if (v40)
+      v28 = *(v6 + 8);
+      if (v28)
       {
-        result = deparseFunctionWithArgtypes(v3, v40);
+        result = deparseFunctionWithArgtypes(v3, v28);
       }
 
 LABEL_46:
-      v41 = v3[2];
-      v42 = __OFSUB__(v41, 1);
-      v43 = v41 - 1;
-      if (v43 < 0 == v42)
+      v29 = v3[2];
+      v30 = __OFSUB__(v29, 1);
+      v31 = v29 - 1;
+      if (v31 < 0 == v30)
       {
         goto LABEL_50;
       }
@@ -9092,48 +9092,48 @@ LABEL_52:
     }
 
     appendStringInfoString(v3, "OPERATOR ");
-    result = appendStringInfo(v3, "%d ", v8, v9, v10, v11, v12, v13, *(v6 + 16));
-    v14 = *(v6 + 8);
-    if (!v14)
+    result = appendStringInfo(v3, "%d ", *(v6 + 16));
+    v8 = *(v6 + 8);
+    if (!v8)
     {
 LABEL_12:
       if (*(v6 + 24))
       {
         result = appendStringInfoString(v3, "FOR ORDER BY ");
-        v15 = *(v6 + 24);
-        if (v15)
+        v9 = *(v6 + 24);
+        if (v9)
         {
-          if (*(v15 + 4) >= 1)
+          if (*(v9 + 4) >= 1)
           {
-            v16 = 0;
-            v17 = 8;
+            v10 = 0;
+            v11 = 8;
             do
             {
-              v18 = *(v15 + 16);
-              v19 = quote_identifier(*(*(v18 + 8 * v16) + 8));
-              result = appendStringInfoString(v3, v19);
-              v20 = *(v15 + 4);
-              if (v18 + v17)
+              v12 = *(v9 + 16);
+              v13 = quote_identifier(*(*(v12 + 8 * v10) + 8));
+              result = appendStringInfoString(v3, v13);
+              v14 = *(v9 + 4);
+              if (v12 + v11)
               {
-                v21 = v18 + v17 >= (*(v15 + 16) + 8 * v20);
+                v15 = v12 + v11 >= (*(v9 + 16) + 8 * v14);
               }
 
               else
               {
-                v21 = 1;
+                v15 = 1;
               }
 
-              if (!v21)
+              if (!v15)
               {
                 result = appendStringInfoChar(v3, 46);
-                v20 = *(v15 + 4);
+                v14 = *(v9 + 4);
               }
 
-              ++v16;
-              v17 += 8;
+              ++v10;
+              v11 += 8;
             }
 
-            while (v16 < v20);
+            while (v10 < v14);
           }
         }
       }
@@ -9141,54 +9141,54 @@ LABEL_12:
       if (*(v6 + 32))
       {
         appendStringInfoChar(v3, 40);
-        v34 = *(v6 + 32);
-        if (v34 && *(v34 + 4) >= 1)
+        v22 = *(v6 + 32);
+        if (v22 && *(v22 + 4) >= 1)
         {
-          v35 = 0;
-          v36 = 8;
+          v23 = 0;
+          v24 = 8;
           do
           {
-            v37 = *(v34 + 16);
-            deparseTypeName(v3, *(v37 + 8 * v35));
-            v38 = *(v34 + 4);
-            if (v37 + v36)
+            v25 = *(v22 + 16);
+            deparseTypeName(v3, *(v25 + 8 * v23));
+            v26 = *(v22 + 4);
+            if (v25 + v24)
             {
-              v39 = v37 + v36 >= (*(v34 + 16) + 8 * v38);
+              v27 = v25 + v24 >= (*(v22 + 16) + 8 * v26);
             }
 
             else
             {
-              v39 = 1;
+              v27 = 1;
             }
 
-            if (!v39)
+            if (!v27)
             {
               appendStringInfoString(v3, ", ");
-              v38 = *(v34 + 4);
+              v26 = *(v22 + 4);
             }
 
-            ++v35;
-            v36 += 8;
+            ++v23;
+            v24 += 8;
           }
 
-          while (v35 < v38);
+          while (v23 < v26);
         }
 
         result = appendStringInfoChar(v3, 41);
-        v44 = v3[2];
-        v42 = __OFSUB__(v44, 1);
-        v43 = v44 - 1;
-        if (v43 < 0 != v42)
+        v32 = v3[2];
+        v30 = __OFSUB__(v32, 1);
+        v31 = v32 - 1;
+        if (v31 < 0 != v30)
         {
           goto LABEL_52;
         }
 
 LABEL_50:
-        v45 = *v3;
-        if (*(*v3 + v43) == 32)
+        v33 = *v3;
+        if (*(*v3 + v31) == 32)
         {
-          v3[2] = v43;
-          *(v45 + v43) = 0;
+          v3[2] = v31;
+          *(v33 + v31) = 0;
         }
 
         goto LABEL_52;
@@ -9197,36 +9197,36 @@ LABEL_50:
       goto LABEL_46;
     }
 
-    if (*(v14 + 16))
+    if (*(v8 + 16))
     {
-      deparseOperatorWithArgtypes(v3, v14);
+      deparseOperatorWithArgtypes(v3, v8);
     }
 
     else
     {
-      v47 = *(v14 + 8);
-      if (v47)
+      v35 = *(v8 + 8);
+      if (v35)
       {
-        v48 = *(v47 + 4);
-        if (v48 == 1)
+        v36 = *(v35 + 4);
+        if (v36 == 1)
         {
-          v50 = *(v47 + 16);
+          v38 = *(v35 + 16);
         }
 
         else
         {
-          if (v48 != 2)
+          if (v36 != 2)
           {
             goto LABEL_11;
           }
 
-          v49 = quote_identifier(*(**(v47 + 16) + 8));
-          appendStringInfoString(v3, v49);
+          v37 = quote_identifier(*(**(v35 + 16) + 8));
+          appendStringInfoString(v3, v37);
           appendStringInfoChar(v3, 46);
-          v50 = *(v47 + 16) + 8 * (*(v47 + 4) - 1);
+          v38 = *(v35 + 16) + 8 * (*(v35 + 4) - 1);
         }
 
-        appendStringInfoString(v3, *(*v50 + 8));
+        appendStringInfoString(v3, *(*v38 + 8));
       }
     }
 
@@ -9238,98 +9238,98 @@ LABEL_11:
   return result;
 }
 
-uint64_t deparseTableRef(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *deparseTableRef(uint64_t *result, uint64_t a2)
 {
-  v9 = result;
-  v10 = *a2;
+  v3 = result;
+  v4 = *a2;
   if (*a2 > 361)
   {
-    if (v10 != 362)
+    if (v4 != 362)
     {
-      if (v10 == 363)
+      if (v4 == 363)
       {
         deparseRangeVar(result, *(a2 + 8), 0);
-        appendStringInfoString(v9, " TABLESAMPLE ");
-        v49 = *(a2 + 16);
-        if (v49 && *(v49 + 4) >= 1)
+        appendStringInfoString(v3, " TABLESAMPLE ");
+        v37 = *(a2 + 16);
+        if (v37 && *(v37 + 4) >= 1)
         {
-          v50 = 0;
-          v51 = 8;
+          v38 = 0;
+          v39 = 8;
           do
           {
-            v52 = *(v49 + 16);
-            v53 = quote_identifier(*(*(v52 + 8 * v50) + 8));
-            appendStringInfoString(v9, v53);
-            v54 = *(v49 + 4);
-            if (v52 + v51)
+            v40 = *(v37 + 16);
+            v41 = quote_identifier(*(*(v40 + 8 * v38) + 8));
+            appendStringInfoString(v3, v41);
+            v42 = *(v37 + 4);
+            if (v40 + v39)
             {
-              v55 = v52 + v51 >= (*(v49 + 16) + 8 * v54);
+              v43 = v40 + v39 >= (*(v37 + 16) + 8 * v42);
             }
 
             else
             {
-              v55 = 1;
+              v43 = 1;
             }
 
-            if (!v55)
+            if (!v43)
             {
-              appendStringInfoChar(v9, 46);
-              v54 = *(v49 + 4);
+              appendStringInfoChar(v3, 46);
+              v42 = *(v37 + 4);
             }
 
-            ++v50;
-            v51 += 8;
+            ++v38;
+            v39 += 8;
           }
 
-          while (v50 < v54);
+          while (v38 < v42);
         }
 
-        appendStringInfoChar(v9, 40);
-        v56 = *(a2 + 24);
-        if (v56 && *(v56 + 4) >= 1)
+        appendStringInfoChar(v3, 40);
+        v44 = *(a2 + 24);
+        if (v44 && *(v44 + 4) >= 1)
         {
-          v57 = 0;
-          v58 = 8;
+          v45 = 0;
+          v46 = 8;
           do
           {
-            v59 = *(v56 + 16);
-            deparseExpr(v9, *(v59 + 8 * v57));
-            v60 = *(v56 + 4);
-            if (v59 + v58)
+            v47 = *(v44 + 16);
+            deparseExpr(v3, *(v47 + 8 * v45));
+            v48 = *(v44 + 4);
+            if (v47 + v46)
             {
-              v61 = v59 + v58 >= (*(v56 + 16) + 8 * v60);
+              v49 = v47 + v46 >= (*(v44 + 16) + 8 * v48);
             }
 
             else
             {
-              v61 = 1;
+              v49 = 1;
             }
 
-            if (!v61)
+            if (!v49)
             {
-              appendStringInfoString(v9, ", ");
-              v60 = *(v56 + 4);
+              appendStringInfoString(v3, ", ");
+              v48 = *(v44 + 4);
             }
 
-            ++v57;
-            v58 += 8;
+            ++v45;
+            v46 += 8;
           }
 
-          while (v57 < v60);
+          while (v45 < v48);
         }
 
-        result = appendStringInfoString(v9, ") ");
+        result = appendStringInfoString(v3, ") ");
         if (*(a2 + 32))
         {
-          appendStringInfoString(v9, "REPEATABLE (");
-          deparseExpr(v9, *(a2 + 32));
-          result = appendStringInfoString(v9, ") ");
+          appendStringInfoString(v3, "REPEATABLE (");
+          deparseExpr(v3, *(a2 + 32));
+          result = appendStringInfoString(v3, ") ");
         }
 
         goto LABEL_201;
       }
 
-      if (v10 != 364)
+      if (v4 != 364)
       {
         return result;
       }
@@ -9339,180 +9339,180 @@ uint64_t deparseTableRef(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4,
         appendStringInfoString(result, "LATERAL ");
       }
 
-      appendStringInfoString(v9, "xmltable(");
+      appendStringInfoString(v3, "xmltable(");
       if (*(a2 + 24))
       {
-        appendStringInfoString(v9, "xmlnamespaces(");
-        v17 = *(a2 + 24);
-        if (v17 && *(v17 + 4) >= 1)
+        appendStringInfoString(v3, "xmlnamespaces(");
+        v11 = *(a2 + 24);
+        if (v11 && *(v11 + 4) >= 1)
         {
-          v18 = 0;
-          v19 = 8;
+          v12 = 0;
+          v13 = 8;
           do
           {
-            v20 = *(v17 + 16);
-            v21 = *(v20 + 8 * v18);
-            if (!*(v21 + 8))
+            v14 = *(v11 + 16);
+            v15 = *(v14 + 8 * v12);
+            if (!*(v15 + 8))
             {
-              appendStringInfoString(v9, "DEFAULT ");
+              appendStringInfoString(v3, "DEFAULT ");
             }
 
-            deparseExpr(v9, *(v21 + 24));
-            if (*(v21 + 8))
+            deparseExpr(v3, *(v15 + 24));
+            if (*(v15 + 8))
             {
-              appendStringInfoString(v9, " AS ");
-              v22 = quote_identifier(*(v21 + 8));
-              appendStringInfoString(v9, v22);
+              appendStringInfoString(v3, " AS ");
+              v16 = quote_identifier(*(v15 + 8));
+              appendStringInfoString(v3, v16);
             }
 
-            v23 = *(v17 + 4);
-            if (v20 + v19)
+            v17 = *(v11 + 4);
+            if (v14 + v13)
             {
-              v24 = v20 + v19 >= (*(v17 + 16) + 8 * v23);
+              v18 = v14 + v13 >= (*(v11 + 16) + 8 * v17);
             }
 
             else
             {
-              v24 = 1;
+              v18 = 1;
             }
 
-            if (!v24)
+            if (!v18)
             {
-              appendStringInfoString(v9, ", ");
-              v23 = *(v17 + 4);
+              appendStringInfoString(v3, ", ");
+              v17 = *(v11 + 4);
             }
 
-            ++v18;
-            v19 += 8;
+            ++v12;
+            v13 += 8;
           }
 
-          while (v18 < v23);
+          while (v12 < v17);
         }
 
-        appendStringInfoString(v9, "), ");
+        appendStringInfoString(v3, "), ");
       }
 
-      appendStringInfoChar(v9, 40);
-      deparseExpr(v9, *(a2 + 16));
-      appendStringInfoChar(v9, 41);
-      appendStringInfoString(v9, " PASSING ");
-      deparseExpr(v9, *(a2 + 8));
-      appendStringInfoString(v9, " COLUMNS ");
-      v62 = *(a2 + 32);
-      if (v62 && *(v62 + 4) >= 1)
+      appendStringInfoChar(v3, 40);
+      deparseExpr(v3, *(a2 + 16));
+      appendStringInfoChar(v3, 41);
+      appendStringInfoString(v3, " PASSING ");
+      deparseExpr(v3, *(a2 + 8));
+      appendStringInfoString(v3, " COLUMNS ");
+      v50 = *(a2 + 32);
+      if (v50 && *(v50 + 4) >= 1)
       {
-        v63 = 0;
-        v64 = 8;
+        v51 = 0;
+        v52 = 8;
         do
         {
-          v65 = *(v62 + 16);
-          v66 = *(v65 + 8 * v63);
-          v67 = quote_identifier(*(v66 + 8));
-          appendStringInfoString(v9, v67);
-          appendStringInfoChar(v9, 32);
-          v68 = "FOR ORDINALITY ";
-          if (*(v66 + 24))
+          v53 = *(v50 + 16);
+          v54 = *(v53 + 8 * v51);
+          v55 = quote_identifier(*(v54 + 8));
+          appendStringInfoString(v3, v55);
+          appendStringInfoChar(v3, 32);
+          v56 = "FOR ORDINALITY ";
+          if (*(v54 + 24))
           {
             goto LABEL_98;
           }
 
-          deparseTypeName(v9, *(v66 + 16));
-          appendStringInfoChar(v9, 32);
-          if (*(v66 + 32))
+          deparseTypeName(v3, *(v54 + 16));
+          appendStringInfoChar(v3, 32);
+          if (*(v54 + 32))
           {
-            appendStringInfoString(v9, "PATH ");
-            deparseExpr(v9, *(v66 + 32));
-            appendStringInfoChar(v9, 32);
+            appendStringInfoString(v3, "PATH ");
+            deparseExpr(v3, *(v54 + 32));
+            appendStringInfoChar(v3, 32);
           }
 
-          if (*(v66 + 40))
+          if (*(v54 + 40))
           {
-            appendStringInfoString(v9, "DEFAULT ");
-            deparseExpr(v9, *(v66 + 40));
-            appendStringInfoChar(v9, 32);
+            appendStringInfoString(v3, "DEFAULT ");
+            deparseExpr(v3, *(v54 + 40));
+            appendStringInfoChar(v3, 32);
           }
 
-          v68 = "NOT NULL ";
-          if (*(v66 + 25) == 1)
+          v56 = "NOT NULL ";
+          if (*(v54 + 25) == 1)
           {
 LABEL_98:
-            appendStringInfoString(v9, v68);
+            appendStringInfoString(v3, v56);
           }
 
-          v69 = v9[2];
-          v70 = __OFSUB__(v69, 1);
-          v71 = v69 - 1;
-          if (v71 < 0 == v70)
+          v57 = *(v3 + 2);
+          v58 = __OFSUB__(v57, 1);
+          v59 = v57 - 1;
+          if (v59 < 0 == v58)
           {
-            v72 = *v9;
-            if (*(*v9 + v71) == 32)
+            v60 = *v3;
+            if (*(*v3 + v59) == 32)
             {
-              v9[2] = v71;
-              *(v72 + v71) = 0;
+              *(v3 + 2) = v59;
+              *(v60 + v59) = 0;
             }
           }
 
-          if (v65 + v64 && v65 + v64 < (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4)))
+          if (v53 + v52 && v53 + v52 < (*(*(a2 + 32) + 16) + 8 * *(*(a2 + 32) + 4)))
           {
-            appendStringInfoString(v9, ", ");
+            appendStringInfoString(v3, ", ");
           }
 
-          ++v63;
-          v64 += 8;
+          ++v51;
+          v52 += 8;
         }
 
-        while (v63 < *(v62 + 4));
+        while (v51 < *(v50 + 4));
       }
 
-      result = appendStringInfoString(v9, ") ");
+      result = appendStringInfoString(v3, ") ");
       if (!*(a2 + 40))
       {
         goto LABEL_201;
       }
 
-      appendStringInfoString(v9, "AS ");
-      v73 = *(a2 + 40);
-      v74 = quote_identifier(*(v73 + 8));
-      result = appendStringInfoString(v9, v74);
-      v75 = *(v73 + 16);
-      if (!v75 || *(v75 + 4) < 1)
+      appendStringInfoString(v3, "AS ");
+      v61 = *(a2 + 40);
+      v62 = quote_identifier(*(v61 + 8));
+      result = appendStringInfoString(v3, v62);
+      v63 = *(v61 + 16);
+      if (!v63 || *(v63 + 4) < 1)
       {
         goto LABEL_201;
       }
 
-      appendStringInfoChar(v9, 40);
-      v76 = *(v73 + 16);
-      if (v76 && *(v76 + 4) >= 1)
+      appendStringInfoChar(v3, 40);
+      v64 = *(v61 + 16);
+      if (v64 && *(v64 + 4) >= 1)
       {
-        v77 = 0;
-        v78 = 8;
+        v65 = 0;
+        v66 = 8;
         do
         {
-          v79 = *(v76 + 16);
-          v80 = quote_identifier(*(*(v79 + 8 * v77) + 8));
-          appendStringInfoString(v9, v80);
-          v81 = *(v76 + 4);
-          if (v79 + v78)
+          v67 = *(v64 + 16);
+          v68 = quote_identifier(*(*(v67 + 8 * v65) + 8));
+          appendStringInfoString(v3, v68);
+          v69 = *(v64 + 4);
+          if (v67 + v66)
           {
-            v82 = v79 + v78 >= (*(v76 + 16) + 8 * v81);
+            v70 = v67 + v66 >= (*(v64 + 16) + 8 * v69);
           }
 
           else
           {
-            v82 = 1;
+            v70 = 1;
           }
 
-          if (!v82)
+          if (!v70)
           {
-            appendStringInfoString(v9, ", ");
-            v81 = *(v76 + 4);
+            appendStringInfoString(v3, ", ");
+            v69 = *(v64 + 4);
           }
 
-          ++v77;
-          v78 += 8;
+          ++v65;
+          v66 += 8;
         }
 
-        while (v77 < v81);
+        while (v65 < v69);
       }
 
       goto LABEL_200;
@@ -9525,70 +9525,70 @@ LABEL_98:
 
     if (*(a2 + 6) == 1)
     {
-      appendStringInfoString(v9, "ROWS FROM ");
-      appendStringInfoChar(v9, 40);
-      v35 = *(a2 + 8);
-      if (v35 && *(v35 + 4) >= 1)
+      appendStringInfoString(v3, "ROWS FROM ");
+      appendStringInfoChar(v3, 40);
+      v23 = *(a2 + 8);
+      if (v23 && *(v23 + 4) >= 1)
       {
-        v36 = 0;
+        v24 = 0;
         do
         {
-          v37 = *(v35 + 16) + 8 * v36;
-          v38 = *v37;
-          deparseFuncExprWindowless(v9, **(*v37 + 16), v29, v30, v31, v32, v33, v34);
-          appendStringInfoChar(v9, 32);
-          v39 = *(*(v38 + 16) + 8);
-          if (v39 && *(v39 + 4) >= 1)
+          v25 = *(v23 + 16) + 8 * v24;
+          v26 = *v25;
+          deparseFuncExprWindowless(v3, **(*v25 + 16));
+          appendStringInfoChar(v3, 32);
+          v27 = *(*(v26 + 16) + 8);
+          if (v27 && *(v27 + 4) >= 1)
           {
-            appendStringInfoString(v9, "AS (");
-            if (*(v39 + 4) >= 1)
+            appendStringInfoString(v3, "AS (");
+            if (*(v27 + 4) >= 1)
             {
-              v40 = 0;
-              v41 = 8;
+              v28 = 0;
+              v29 = 8;
               do
               {
-                v42 = *(v39 + 16);
-                deparseColumnDef(v9, *(v42 + 8 * v40));
-                v43 = *(v39 + 4);
-                if (v42 + v41)
+                v30 = *(v27 + 16);
+                deparseColumnDef(v3, *(v30 + 8 * v28));
+                v31 = *(v27 + 4);
+                if (v30 + v29)
                 {
-                  v44 = v42 + v41 >= (*(v39 + 16) + 8 * v43);
+                  v32 = v30 + v29 >= (*(v27 + 16) + 8 * v31);
                 }
 
                 else
                 {
-                  v44 = 1;
+                  v32 = 1;
                 }
 
-                if (!v44)
+                if (!v32)
                 {
-                  appendStringInfoString(v9, ", ");
-                  v43 = *(v39 + 4);
+                  appendStringInfoString(v3, ", ");
+                  v31 = *(v27 + 4);
                 }
 
-                ++v40;
-                v41 += 8;
+                ++v28;
+                v29 += 8;
               }
 
-              while (v40 < v43);
+              while (v28 < v31);
             }
 
-            appendStringInfoChar(v9, 41);
+            appendStringInfoChar(v3, 41);
           }
 
-          if (v37 != -8 && v37 + 8 < (*(*(a2 + 8) + 16) + 8 * *(*(a2 + 8) + 4)))
+          if (v25 != -8 && v25 + 8 < (*(*(a2 + 8) + 16) + 8 * *(*(a2 + 8) + 4)))
           {
-            appendStringInfoString(v9, ", ");
+            appendStringInfoString(v3, ", ");
           }
 
-          ++v36;
+          ++v24;
         }
 
-        while (v36 < *(v35 + 4));
+        while (v24 < *(v23 + 4));
       }
 
-      appendStringInfoChar(v9, 41);
-      result = appendStringInfoChar(v9, 32);
+      appendStringInfoChar(v3, 41);
+      result = appendStringInfoChar(v3, 32);
       if (*(a2 + 5) != 1)
       {
         goto LABEL_121;
@@ -9597,172 +9597,172 @@ LABEL_98:
 
     else
     {
-      deparseFuncExprWindowless(v9, **(**(*(a2 + 8) + 16) + 16), a3, a4, a5, a6, a7, a8);
-      result = appendStringInfoChar(v9, 32);
+      deparseFuncExprWindowless(v3, **(**(*(a2 + 8) + 16) + 16));
+      result = appendStringInfoChar(v3, 32);
       if (*(a2 + 5) != 1)
       {
         goto LABEL_121;
       }
     }
 
-    result = appendStringInfoString(v9, "WITH ORDINALITY ");
+    result = appendStringInfoString(v3, "WITH ORDINALITY ");
 LABEL_121:
-    v83 = *(a2 + 16);
-    if (v83)
+    v71 = *(a2 + 16);
+    if (v71)
     {
-      v84 = quote_identifier(*(v83 + 8));
-      appendStringInfoString(v9, v84);
-      v85 = *(v83 + 16);
-      if (v85 && *(v85 + 4) >= 1)
+      v72 = quote_identifier(*(v71 + 8));
+      appendStringInfoString(v3, v72);
+      v73 = *(v71 + 16);
+      if (v73 && *(v73 + 4) >= 1)
       {
-        appendStringInfoChar(v9, 40);
-        v86 = *(v83 + 16);
-        if (v86 && *(v86 + 4) >= 1)
+        appendStringInfoChar(v3, 40);
+        v74 = *(v71 + 16);
+        if (v74 && *(v74 + 4) >= 1)
         {
-          v87 = 0;
-          v88 = 8;
+          v75 = 0;
+          v76 = 8;
           do
           {
-            v89 = *(v86 + 16);
-            v90 = quote_identifier(*(*(v89 + 8 * v87) + 8));
-            appendStringInfoString(v9, v90);
-            v91 = *(v86 + 4);
-            if (v89 + v88)
+            v77 = *(v74 + 16);
+            v78 = quote_identifier(*(*(v77 + 8 * v75) + 8));
+            appendStringInfoString(v3, v78);
+            v79 = *(v74 + 4);
+            if (v77 + v76)
             {
-              v92 = v89 + v88 >= (*(v86 + 16) + 8 * v91);
+              v80 = v77 + v76 >= (*(v74 + 16) + 8 * v79);
             }
 
             else
             {
-              v92 = 1;
+              v80 = 1;
             }
 
-            if (!v92)
+            if (!v80)
             {
-              appendStringInfoString(v9, ", ");
-              v91 = *(v86 + 4);
+              appendStringInfoString(v3, ", ");
+              v79 = *(v74 + 4);
             }
 
-            ++v87;
-            v88 += 8;
+            ++v75;
+            v76 += 8;
           }
 
-          while (v87 < v91);
+          while (v75 < v79);
         }
 
-        appendStringInfoChar(v9, 41);
+        appendStringInfoChar(v3, 41);
       }
 
-      result = appendStringInfoChar(v9, 32);
+      result = appendStringInfoChar(v3, 32);
     }
 
-    v95 = *(a2 + 24);
-    if (!v95 || *(v95 + 4) < 1)
+    v83 = *(a2 + 24);
+    if (!v83 || *(v83 + 4) < 1)
     {
       goto LABEL_201;
     }
 
     if (!*(a2 + 16))
     {
-      appendStringInfoString(v9, "AS ");
+      appendStringInfoString(v3, "AS ");
     }
 
-    appendStringInfoChar(v9, 40);
-    v96 = *(a2 + 24);
-    if (v96 && *(v96 + 4) >= 1)
+    appendStringInfoChar(v3, 40);
+    v84 = *(a2 + 24);
+    if (v84 && *(v84 + 4) >= 1)
     {
-      v97 = 0;
-      v98 = 8;
+      v85 = 0;
+      v86 = 8;
       do
       {
-        v99 = *(v96 + 16);
-        deparseColumnDef(v9, *(v99 + 8 * v97));
-        if (v99 + v98)
+        v87 = *(v84 + 16);
+        deparseColumnDef(v3, *(v87 + 8 * v85));
+        if (v87 + v86)
         {
-          v100 = v99 + v98 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
+          v88 = v87 + v86 >= (*(*(a2 + 24) + 16) + 8 * *(*(a2 + 24) + 4));
         }
 
         else
         {
-          v100 = 1;
+          v88 = 1;
         }
 
-        if (!v100)
+        if (!v88)
         {
-          appendStringInfoString(v9, ", ");
+          appendStringInfoString(v3, ", ");
         }
 
-        ++v97;
-        v98 += 8;
+        ++v85;
+        v86 += 8;
       }
 
-      while (v97 < *(v96 + 4));
+      while (v85 < *(v84 + 4));
     }
 
     goto LABEL_200;
   }
 
-  if (v10 != 103)
+  if (v4 != 103)
   {
-    if (v10 != 150)
+    if (v4 != 150)
     {
-      if (v10 == 361)
+      if (v4 == 361)
       {
         if (*(a2 + 4) == 1)
         {
           appendStringInfoString(result, "LATERAL ");
         }
 
-        appendStringInfoChar(v9, 40);
-        deparseSelectStmt(v9, *(a2 + 8));
-        result = appendStringInfoChar(v9, 41);
+        appendStringInfoChar(v3, 40);
+        deparseSelectStmt(v3, *(a2 + 8));
+        result = appendStringInfoChar(v3, 41);
         if (*(a2 + 16))
         {
-          appendStringInfoChar(v9, 32);
-          v11 = *(a2 + 16);
-          v12 = quote_identifier(*(v11 + 8));
-          result = appendStringInfoString(v9, v12);
-          v13 = *(v11 + 16);
-          if (v13)
+          appendStringInfoChar(v3, 32);
+          v5 = *(a2 + 16);
+          v6 = quote_identifier(*(v5 + 8));
+          result = appendStringInfoString(v3, v6);
+          v7 = *(v5 + 16);
+          if (v7)
           {
-            if (*(v13 + 4) >= 1)
+            if (*(v7 + 4) >= 1)
             {
-              appendStringInfoChar(v9, 40);
-              v14 = *(v11 + 16);
-              if (v14 && *(v14 + 4) >= 1)
+              appendStringInfoChar(v3, 40);
+              v8 = *(v5 + 16);
+              if (v8 && *(v8 + 4) >= 1)
               {
-                v15 = 0;
-                v16 = 8;
+                v9 = 0;
+                v10 = 8;
                 do
                 {
-                  v25 = *(v14 + 16);
-                  v26 = quote_identifier(*(*(v25 + 8 * v15) + 8));
-                  appendStringInfoString(v9, v26);
-                  v27 = *(v14 + 4);
-                  if (v25 + v16)
+                  v19 = *(v8 + 16);
+                  v20 = quote_identifier(*(*(v19 + 8 * v9) + 8));
+                  appendStringInfoString(v3, v20);
+                  v21 = *(v8 + 4);
+                  if (v19 + v10)
                   {
-                    v28 = v25 + v16 >= (*(v14 + 16) + 8 * v27);
+                    v22 = v19 + v10 >= (*(v8 + 16) + 8 * v21);
                   }
 
                   else
                   {
-                    v28 = 1;
+                    v22 = 1;
                   }
 
-                  if (!v28)
+                  if (!v22)
                   {
-                    appendStringInfoString(v9, ", ");
-                    v27 = *(v14 + 4);
+                    appendStringInfoString(v3, ", ");
+                    v21 = *(v8 + 4);
                   }
 
-                  ++v15;
-                  v16 += 8;
+                  ++v9;
+                  v10 += 8;
                 }
 
-                while (v15 < v27);
+                while (v9 < v21);
               }
 
-              return appendStringInfoChar(v9, 41);
+              return appendStringInfoChar(v3, 41);
             }
           }
         }
@@ -9771,173 +9771,173 @@ LABEL_121:
       return result;
     }
 
-    v46 = *(a2 + 48);
-    v47 = *(a2 + 24);
-    if (*v47 == 150)
+    v34 = *(a2 + 48);
+    v35 = *(a2 + 24);
+    if (*v35 == 150)
     {
-      v48 = *(v47 + 48) == 0;
-      if (!v46)
+      v36 = *(v35 + 48) == 0;
+      if (!v34)
       {
 LABEL_135:
-        deparseTableRef(v9, *(a2 + 16));
-        appendStringInfoChar(v9, 32);
+        deparseTableRef(v3, *(a2 + 16));
+        appendStringInfoChar(v3, 32);
         if (*(a2 + 8) == 1)
         {
-          appendStringInfoString(v9, "NATURAL ");
+          appendStringInfoString(v3, "NATURAL ");
         }
 
-        v93 = *(a2 + 4);
-        if (v93 > 1)
+        v81 = *(a2 + 4);
+        if (v81 > 1)
         {
-          if (v93 == 2)
+          if (v81 == 2)
           {
-            v94 = "FULL ";
+            v82 = "FULL ";
           }
 
           else
           {
-            if (v93 != 3)
+            if (v81 != 3)
             {
               goto LABEL_169;
             }
 
-            v94 = "RIGHT ";
+            v82 = "RIGHT ";
           }
         }
 
-        else if (v93)
+        else if (v81)
         {
-          if (v93 != 1)
+          if (v81 != 1)
           {
             goto LABEL_169;
           }
 
-          v94 = "LEFT ";
+          v82 = "LEFT ";
         }
 
         else
         {
-          if ((*(a2 + 8) & 1) != 0 || *(a2 + 40) || (v101 = *(a2 + 32)) != 0 && *(v101 + 4))
+          if ((*(a2 + 8) & 1) != 0 || *(a2 + 40) || (v89 = *(a2 + 32)) != 0 && *(v89 + 4))
           {
 LABEL_169:
-            appendStringInfoString(v9, "JOIN ");
-            if (v48)
+            appendStringInfoString(v3, "JOIN ");
+            if (v36)
             {
-              appendStringInfoChar(v9, 40);
-              deparseTableRef(v9, *(a2 + 24));
-              appendStringInfoChar(v9, 41);
-              result = appendStringInfoChar(v9, 32);
+              appendStringInfoChar(v3, 40);
+              deparseTableRef(v3, *(a2 + 24));
+              appendStringInfoChar(v3, 41);
+              result = appendStringInfoChar(v3, 32);
               if (!*(a2 + 40))
               {
 LABEL_174:
-                v102 = *(a2 + 32);
-                if (v102 && *(v102 + 4) >= 1)
+                v90 = *(a2 + 32);
+                if (v90 && *(v90 + 4) >= 1)
                 {
-                  appendStringInfoString(v9, "USING (");
-                  v103 = *(a2 + 32);
-                  if (v103 && *(v103 + 4) >= 1)
+                  appendStringInfoString(v3, "USING (");
+                  v91 = *(a2 + 32);
+                  if (v91 && *(v91 + 4) >= 1)
                   {
-                    v104 = 0;
-                    v105 = 8;
+                    v92 = 0;
+                    v93 = 8;
                     do
                     {
-                      v106 = *(v103 + 16);
-                      v107 = quote_identifier(*(*(v106 + 8 * v104) + 8));
-                      appendStringInfoString(v9, v107);
-                      v108 = *(v103 + 4);
-                      if (v106 + v105)
+                      v94 = *(v91 + 16);
+                      v95 = quote_identifier(*(*(v94 + 8 * v92) + 8));
+                      appendStringInfoString(v3, v95);
+                      v96 = *(v91 + 4);
+                      if (v94 + v93)
                       {
-                        v109 = v106 + v105 >= (*(v103 + 16) + 8 * v108);
+                        v97 = v94 + v93 >= (*(v91 + 16) + 8 * v96);
                       }
 
                       else
                       {
-                        v109 = 1;
+                        v97 = 1;
                       }
 
-                      if (!v109)
+                      if (!v97)
                       {
-                        appendStringInfoString(v9, ", ");
-                        v108 = *(v103 + 4);
+                        appendStringInfoString(v3, ", ");
+                        v96 = *(v91 + 4);
                       }
 
-                      ++v104;
-                      v105 += 8;
+                      ++v92;
+                      v93 += 8;
                     }
 
-                    while (v104 < v108);
+                    while (v92 < v96);
                   }
 
-                  result = appendStringInfoString(v9, ") ");
+                  result = appendStringInfoString(v3, ") ");
                 }
 
-                if (v46)
+                if (v34)
                 {
-                  result = appendStringInfoString(v9, ") ");
+                  result = appendStringInfoString(v3, ") ");
                 }
 
-                v110 = *(a2 + 48);
-                if (!v110)
-                {
-                  goto LABEL_201;
-                }
-
-                v111 = quote_identifier(*(v110 + 8));
-                result = appendStringInfoString(v9, v111);
-                v112 = *(v110 + 16);
-                if (!v112 || *(v112 + 4) < 1)
+                v98 = *(a2 + 48);
+                if (!v98)
                 {
                   goto LABEL_201;
                 }
 
-                appendStringInfoChar(v9, 40);
-                v113 = *(v110 + 16);
-                if (v113 && *(v113 + 4) >= 1)
+                v99 = quote_identifier(*(v98 + 8));
+                result = appendStringInfoString(v3, v99);
+                v100 = *(v98 + 16);
+                if (!v100 || *(v100 + 4) < 1)
                 {
-                  v114 = 0;
-                  v115 = 8;
+                  goto LABEL_201;
+                }
+
+                appendStringInfoChar(v3, 40);
+                v101 = *(v98 + 16);
+                if (v101 && *(v101 + 4) >= 1)
+                {
+                  v102 = 0;
+                  v103 = 8;
                   do
                   {
-                    v116 = *(v113 + 16);
-                    v117 = quote_identifier(*(*(v116 + 8 * v114) + 8));
-                    appendStringInfoString(v9, v117);
-                    v118 = *(v113 + 4);
-                    if (v116 + v115)
+                    v104 = *(v101 + 16);
+                    v105 = quote_identifier(*(*(v104 + 8 * v102) + 8));
+                    appendStringInfoString(v3, v105);
+                    v106 = *(v101 + 4);
+                    if (v104 + v103)
                     {
-                      v119 = v116 + v115 >= (*(v113 + 16) + 8 * v118);
+                      v107 = v104 + v103 >= (*(v101 + 16) + 8 * v106);
                     }
 
                     else
                     {
-                      v119 = 1;
+                      v107 = 1;
                     }
 
-                    if (!v119)
+                    if (!v107)
                     {
-                      appendStringInfoString(v9, ", ");
-                      v118 = *(v113 + 4);
+                      appendStringInfoString(v3, ", ");
+                      v106 = *(v101 + 4);
                     }
 
-                    ++v114;
-                    v115 += 8;
+                    ++v102;
+                    v103 += 8;
                   }
 
-                  while (v114 < v118);
+                  while (v102 < v106);
                 }
 
 LABEL_200:
-                result = appendStringInfoChar(v9, 41);
+                result = appendStringInfoChar(v3, 41);
 LABEL_201:
-                v120 = v9[2];
-                v70 = __OFSUB__(v120, 1);
-                v121 = v120 - 1;
-                if (v121 < 0 == v70)
+                v108 = *(v3 + 2);
+                v58 = __OFSUB__(v108, 1);
+                v109 = v108 - 1;
+                if (v109 < 0 == v58)
                 {
-                  v122 = *v9;
-                  if (*(*v9 + v121) == 32)
+                  v110 = *v3;
+                  if (*(*v3 + v109) == 32)
                   {
-                    v9[2] = v121;
-                    *(v122 + v121) = 0;
+                    *(v3 + 2) = v109;
+                    *(v110 + v109) = 0;
                   }
                 }
 
@@ -9947,32 +9947,32 @@ LABEL_201:
 
             else
             {
-              deparseTableRef(v9, *(a2 + 24));
-              result = appendStringInfoChar(v9, 32);
+              deparseTableRef(v3, *(a2 + 24));
+              result = appendStringInfoChar(v3, 32);
               if (!*(a2 + 40))
               {
                 goto LABEL_174;
               }
             }
 
-            appendStringInfoString(v9, "ON ");
-            deparseExpr(v9, *(a2 + 40));
-            result = appendStringInfoChar(v9, 32);
+            appendStringInfoString(v3, "ON ");
+            deparseExpr(v3, *(a2 + 40));
+            result = appendStringInfoChar(v3, 32);
             goto LABEL_174;
           }
 
-          v94 = "CROSS ";
+          v82 = "CROSS ";
         }
 
-        appendStringInfoString(v9, v94);
+        appendStringInfoString(v3, v82);
         goto LABEL_169;
       }
     }
 
     else
     {
-      v48 = 0;
-      if (!v46)
+      v36 = 0;
+      if (!v34)
       {
         goto LABEL_135;
       }

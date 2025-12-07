@@ -1,48 +1,48 @@
-void sub_25FC5C100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5C100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __cxa_guard_abort(&qword_280C5E3A0);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5C138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5C138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t HGGPURenderer::label(PCICCTransferFunctionLUT **this)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
-  HGRenderer::label(__p, this);
-  if ((v16 & 0x80u) == 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v18);
+  HGRenderer::label(this);
+  if ((v17 & 0x80u) == 0)
   {
-    v2 = __p;
+    v3 = __p;
   }
 
   else
   {
-    v2 = __p[0];
+    v3 = __p[0];
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v17 & 0x80u) == 0)
   {
-    v3 = v16;
+    v4 = v17;
   }
 
   else
   {
-    v3 = __p[1];
+    v4 = __p[1];
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, v2, v3);
-  if (v16 < 0)
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, v3, v4);
+  if (v17 < 0)
   {
     operator delete(__p[0]);
-    v4 = this[139];
-    if (!v4)
+    v5 = this[139];
+    if (!v5)
     {
       goto LABEL_13;
     }
@@ -50,44 +50,44 @@ uint64_t HGGPURenderer::label(PCICCTransferFunctionLUT **this)
 
   else
   {
-    v4 = this[139];
-    if (!v4)
+    v5 = this[139];
+    if (!v5)
     {
       goto LABEL_13;
     }
   }
 
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, " ID:0x", 6);
-  *(v5 + *(*v5 - 24) + 8) = *(v5 + *(*v5 - 24) + 8) & 0xFFFFFFB5 | 8;
-  LUTEnd = PCICCTransferFunctionLUT::getLUTEnd(v4);
-  MEMORY[0x2666E9BA0](v5, *(LUTEnd + 24));
-  v7 = PCICCTransferFunctionLUT::getLUTEnd(v4);
-  if (HGMetalDeviceInfo::name(v7))
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, " ID:0x", 6);
+  *(v6 + *(*v6 - 24) + 8) = *(v6 + *(*v6 - 24) + 8) & 0xFFFFFFB5 | 8;
+  LUTEnd = PCICCTransferFunctionLUT::getLUTEnd(v5);
+  MEMORY[0x2666E9BA0](v6, *(LUTEnd + 24));
+  v8 = PCICCTransferFunctionLUT::getLUTEnd(v5);
+  if (HGMetalDeviceInfo::name(v8))
   {
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, " (", 2);
-    v9 = PCICCTransferFunctionLUT::getLUTEnd(v4);
-    v10 = HGMetalDeviceInfo::name(v9);
-    v11 = strlen(v10);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ")", 1);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, " (", 2);
+    v10 = PCICCTransferFunctionLUT::getLUTEnd(v5);
+    v11 = HGMetalDeviceInfo::name(v10);
+    v12 = strlen(v11);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ")", 1);
   }
 
 LABEL_13:
   std::stringbuf::str();
-  v17[0] = *MEMORY[0x277D82818];
-  v13 = *(MEMORY[0x277D82818] + 72);
-  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v18 = v13;
-  v19 = MEMORY[0x277D82878] + 16;
-  if (v21 < 0)
+  v18[0] = *MEMORY[0x277D82818];
+  v14 = *(MEMORY[0x277D82818] + 72);
+  *(v18 + *(v18[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v19 = v14;
+  v20 = MEMORY[0x277D82878] + 16;
+  if (v22 < 0)
   {
-    operator delete(v20[7].__locale_);
+    operator delete(v21[7].__locale_);
   }
 
-  v19 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v20);
+  v20 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v21);
   std::iostream::~basic_iostream();
-  return MEMORY[0x2666E9E10](&v22);
+  return MEMORY[0x2666E9E10](&v23);
 }
 
 void sub_25FC5C404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -103,8 +103,9 @@ void sub_25FC5C404(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HGGPURenderer::ShouldAllocateGLTexture(uint64_t a1, unsigned int a2, unsigned int a3, int a4)
+uint64_t HGGPURenderer::ShouldAllocateGLTexture(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
+  v4 = a4;
   if (*(a1 + 1281) == 1)
   {
     result = *(a1 + 1472);
@@ -129,9 +130,9 @@ uint64_t HGGPURenderer::ShouldAllocateGLTexture(uint64_t a1, unsigned int a2, un
     }
   }
 
-  if (a4 <= 41)
+  if (v4 <= 41)
   {
-    v13 = s_HGFormatInfos[8 * a4 + 3];
+    v13 = s_HGFormatInfos[8 * v4 + 3];
   }
 
   else
@@ -142,8 +143,9 @@ uint64_t HGGPURenderer::ShouldAllocateGLTexture(uint64_t a1, unsigned int a2, un
   return a3 * a2 * v13 < *(a1 + 1256);
 }
 
-uint64_t HGGPURenderer::ShouldAllocateTexture(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, int a6)
+uint64_t HGGPURenderer::ShouldAllocateTexture(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4, int a5, int a6)
 {
+  v6 = a4;
   if (*(a1 + 1281) == 1)
   {
     if (a5)
@@ -168,7 +170,7 @@ LABEL_20:
         return result;
       }
 
-      v17 = HGTextureManager::maxTextureSizeGL(result, a4);
+      v17 = HGTextureManager::maxTextureSizeGL(result, v6);
       result = 0;
       if (v17 < a2 || v17 < a3)
       {
@@ -194,9 +196,9 @@ LABEL_20:
   }
 
 LABEL_23:
-  if (a4 <= 41)
+  if (v6 <= 41)
   {
-    v18 = s_HGFormatInfos[8 * a4 + 3];
+    v18 = s_HGFormatInfos[8 * v6 + 3];
   }
 
   else
@@ -273,9 +275,9 @@ uint64_t HGGPURenderer::GetGLTexture(HGGPURenderer *this, HGBitmap *a2, char *a3
   return 0;
 }
 
-void sub_25FC5C8EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC5C8EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -355,9 +357,9 @@ uint64_t HGGPURenderer::GetRawGLTexture(HGGPURenderer *this, HGBitmap *a2, char 
   return 0;
 }
 
-void sub_25FC5CB9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC5CB9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -416,9 +418,9 @@ HGBitmap *HGGPURenderer::GetMetalTexture(HGGPURenderer *this, HGBitmap *a2, char
   }
 }
 
-void sub_25FC5CE00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC5CE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -455,30 +457,30 @@ HGBitmap *HGGPURenderer::GetBitmap(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       if ((v5 & 0x20) != 0)
       {
-        v13 = *(a2 + 16);
-        if (v13 != a3)
+        v12 = *(a2 + 16);
+        if (v12 != a3)
         {
-          HGLogger::warning("HGGPURenderer::GetBitmap() -- Requested format (%s) doesn't match the bitmap's format (%s) and will be ignored.", a2, a3, *&s_HGFormatInfos[8 * a3 + 6], *&s_HGFormatInfos[8 * v13 + 6]);
+          HGLogger::warning("HGGPURenderer::GetBitmap() -- Requested format (%s) doesn't match the bitmap's format (%s) and will be ignored.", a2, a3, *&s_HGFormatInfos[8 * a3 + 6], *&s_HGFormatInfos[8 * v12 + 6]);
         }
 
-        v14 = HGObject::operator new(0x80uLL);
-        HGBitmap::HGBitmap(v14, *(v3 + 20), *(v3 + 28), *(v3 + 4));
-        HGGPURenderer::ReadbackMetalTexture(a1, v3, v14);
-        v3 = v14;
+        v13 = HGObject::operator new(0x80uLL);
+        HGBitmap::HGBitmap(v13, *(v3 + 20), *(v3 + 28), *(v3 + 16));
+        HGGPURenderer::ReadbackMetalTexture(a1, v3, v13);
+        v3 = v13;
       }
 
       else
       {
         v7 = *(a1 + 1168);
-        HGGLContext::context(&v16, *(a1 + 1144));
-        HGGLState::SetCurrentContextGuard::SetCurrentContextGuard(v17, v7, &v16);
-        PCSharedCount::PCSharedCount(&v16);
+        HGGLContext::context(&v14, *(a1 + 1144));
+        HGGLState::SetCurrentContextGuard::SetCurrentContextGuard(v15, v7, &v14);
+        PCSharedCount::PCSharedCount(&v14);
         if (*(v3 + 13))
         {
           (*(*a1 + 144))(a1, v3);
           v10 = HGObject::operator new(0x80uLL);
-          v15 = HGBitmap::HGBitmap(v10, *(v3 + 20), *(v3 + 28), a3);
-          (*(*a1 + 344))(a1, *(v3 + 20), *(v3 + 28), v10, v15);
+          HGBitmap::HGBitmap(v10, *(v3 + 20), *(v3 + 28), a3);
+          (*(*a1 + 344))(a1, *(v3 + 20), *(v3 + 28), v10);
         }
 
         else
@@ -489,13 +491,13 @@ HGBitmap *HGGPURenderer::GetBitmap(uint64_t a1, uint64_t a2, uint64_t a3)
           HGGPURenderer::Copy(a1, *(v3 + 20), 0, v9);
           (*(*a1 + 152))(a1, 0, 0, 0, 0);
           v10 = HGObject::operator new(0x80uLL);
-          v11 = HGBitmap::HGBitmap(v10, *(Buffer + 20), *(Buffer + 28), *(Buffer + 4));
-          (*(*a1 + 344))(a1, *(v10 + 20), *(v10 + 28), v10, v11);
+          HGBitmap::HGBitmap(v10, *(Buffer + 20), *(Buffer + 28), *(Buffer + 4));
+          (*(*a1 + 344))(a1, *(v10 + 20), *(v10 + 28), v10);
           (*(*a1 + 144))(a1, 0);
           (*(*Buffer + 24))(Buffer);
         }
 
-        HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(v17);
+        HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(v15);
         v3 = v10;
       }
     }
@@ -523,16 +525,16 @@ void sub_25FC5D2D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5D318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC5D318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5D32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC5D32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -574,7 +576,6 @@ void HGGPURenderer::ReadbackMetalTexture(HGGPURenderer *this, HGBitmap *a2, HGBi
 
 uint64_t HGGPURenderer::Copy(HGGPURenderer *this, HGRect a2, const char *a3, char *a4)
 {
-  v4 = a3;
   v5 = *&a2.var2;
   v6 = *&a2.var0;
   v8 = atomic_load(HGLogger::_enabled);
@@ -584,7 +585,7 @@ uint64_t HGGPURenderer::Copy(HGGPURenderer *this, HGRect a2, const char *a3, cha
   }
 
   v9 = *(this + 161);
-  v10 = HGString::sample2d(0x60620, v4, 0, v26);
+  v10 = HGString::sample2d(0x60620, a3, 0, v26);
   v13 = HGString::c_str(v26, v10, v11, v12);
   Entry = HGGLShaderCache::GetEntry(v9, v13);
   HGString::~HGString(v26);
@@ -599,7 +600,7 @@ uint64_t HGGPURenderer::Copy(HGGPURenderer *this, HGRect a2, const char *a3, cha
     v16 = Entry;
   }
 
-  v17 = *(this + 3 * v4 + 4);
+  v17 = *(this + 3 * a3 + 4);
   if (v16)
   {
     v18 = v17 == 0;
@@ -620,21 +621,21 @@ uint64_t HGGPURenderer::Copy(HGGPURenderer *this, HGRect a2, const char *a3, cha
     LODWORD(v25) = -*(v17 + 20);
     HIDWORD(v25) = -*(v17 + 24);
     (*(*v19 + 32))(v19, v20, v6, v5, v21, v22, TextureRect, v24, v25);
-    HGHandler::TexCoord(v19, v4, 0, 0, 0);
+    HGHandler::TexCoord(v19, a3, 0, 0, 0);
     (*(*v19 + 168))(v19);
     (*(*v19 + 40))(v19);
     *&v27.var0 = v6;
     *&v27.var2 = v5;
-    HGGPURenderer::Rect(this, v19, v27, (v4 + 1));
+    HGGPURenderer::Rect(this, v19, v27, (a3 + 1));
     return (*(*this + 392))(this, v19);
   }
 
   return result;
 }
 
-void sub_25FC5D6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC5D6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGString::~HGString(va);
   _Unwind_Resume(a1);
 }
@@ -701,7 +702,7 @@ void sub_25FC5D800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HGGPURenderer::StartGPUCapture(void)::$_0::operator()(uint64_t a1, uint64_t *a2)
+uint64_t HGGPURenderer::StartGPUCapture(void)::$_0::operator()(void *a1, uint64_t *a2)
 {
   v3 = *a2;
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v21);
@@ -796,51 +797,49 @@ void sub_25FC5DB28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5DBBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25FC5DBBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t HGGPURenderer::RenderBgn(HGGPURenderer *this, int a2)
+void HGGPURenderer::RenderBgn(HGGLState **this, int a2)
 {
   HGRenderer::RenderBgn(this, a2);
   if (*(this + 1281) == 1)
   {
-    HGCVGLTextureFactory::flush(*(this + 147));
-    HGGLState::startContextTracking(*(this + 146));
-    HGTextureManager::renderBgn(*(this + 184));
-    v3 = *(this + 146);
+    HGCVGLTextureFactory::flush(this[147]);
+    HGGLState::startContextTracking(this[146]);
+    HGTextureManager::renderBgn(this[184]);
+    v3 = this[146];
     if (v3)
     {
-      v4 = *(this + *(this + 290) + 143);
+      v4 = this[*(this + 290) + 143];
       if (v4)
       {
-        HGGLContext::context(&v8, v4);
+        HGGLContext::context(&v7, v4);
       }
 
       else
       {
-        HGGLContextPtr::HGGLContextPtr(&v8, 0);
+        HGGLContextPtr::HGGLContextPtr(&v7, 0);
       }
 
-      HGGLState::setCurrentContext(v3, &v8.var0);
-      PCSharedCount::PCSharedCount(&v8);
+      HGGLState::setCurrentContext(v3, &v7.var0);
+      PCSharedCount::PCSharedCount(&v7);
     }
 
     glIsTexture(0);
   }
 
-  result = HGGLShaderCache::ClearStats(*(this + 161));
-  v6 = *(this + 139);
-  if (v6)
+  HGGLShaderCache::ClearStats(this[161]);
+  v5 = this[139];
+  if (v5)
   {
     HGGPURenderer::StartGPUCapture(this);
-    return OZChannelBase::setRangeName(v6, v7);
+    OZChannelBase::setRangeName(v5, v6);
   }
-
-  return result;
 }
 
 double HGGPURenderer::RenderEnd(HGGPURenderer *this, int a2)
@@ -1130,23 +1129,23 @@ LABEL_26:
   HGTraceGuard::~HGTraceGuard(v22);
 }
 
-void sub_25FC5E278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5E28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5E2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -1418,23 +1417,23 @@ LABEL_60:
   return a2;
 }
 
-void sub_25FC5E844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5E858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC5E86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC5E86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -1458,7 +1457,7 @@ void HGGPURenderer::AddTextureUsage(HGGPURenderer *this, HGBitmap *a2)
   *(this + 310) = -1;
 }
 
-uint64_t HGGPURenderer::TextureUsageCount(HGGPURenderer *this)
+unint64_t HGGPURenderer::TextureUsageCount(HGGPURenderer *this)
 {
   result = *(this + 310);
   if (result == -1)
@@ -1786,17 +1785,17 @@ int HGGPURenderer::GetParameter(uint64_t a1, int a2)
   return a1;
 }
 
-char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7)
+char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8)
 {
   v7 = *(a1 + 620);
   if (v7 == 2)
   {
-    a5 = 1;
+    a6 = 1;
   }
 
   if (v7)
   {
-    v9 = a5 == 0;
+    v9 = a6 == 0;
   }
 
   else
@@ -1806,14 +1805,14 @@ char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, uint64_t a3, int a4, i
 
   if (!v9)
   {
-    if (a3 == 24)
+    if (a4 == 24)
     {
       v12 = 23;
     }
 
     else
     {
-      v12 = a3;
+      v12 = a4;
     }
 
     v21 = 0;
@@ -1857,16 +1856,16 @@ char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, uint64_t a3, int a4, i
     return v11;
   }
 
-  if (a4 == 1)
+  if (a5 == 1)
   {
-    v10 = (*(*a1 + 336))(a1, *&a2.var0, *&a2.var2, a3, a6, a7);
+    v10 = (*(*a1 + 336))(a1, *&a2.var0, *&a2.var2, a4, a7, a8);
     v11 = HGObject::operator new(0x80uLL);
     HGBuffer::HGBuffer(v11, *(v10 + 20), v10);
     (*(*v10 + 24))(v10);
     return v11;
   }
 
-  return HGGPURenderer::CreateBuffer(a1, a2, a3, a6);
+  return HGGPURenderer::CreateBuffer(a1, a2, a4, a7);
 }
 
 void sub_25FC5F584(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -1877,7 +1876,7 @@ void sub_25FC5F584(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, int a3, int a4)
+char *HGGPURenderer::CreateBuffer(uint64_t a1, HGRect a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
@@ -1971,7 +1970,7 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  HGLogger::error("CreateBuffer() : format == kHGFormat_Null.\n", *&a2.var0, *&a2.var2);
+  HGLogger::error("CreateBuffer() : format == kHGFormat_Null.\n", *&a2.var0, *&a2.var2, a3, a4);
   return 0;
 }
 
@@ -2023,7 +2022,7 @@ void *HGGPURenderer::CreateTexture(HGGPURenderer *this, uint64_t a2, HGGPURender
   return result;
 }
 
-void *HGGPURenderer::CreateMetalTexture(uint64_t a1, uint64_t a2, uint64_t a3, int a4, char a5, int a6)
+void *HGGPURenderer::CreateMetalTexture(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v9 = *(a1 + 1112);
   if (*(v9 + 52) == 1)
@@ -2074,7 +2073,7 @@ void sub_25FC5FB7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const char *HGGPURenderer::ReadBitmap(const char *this, HGRect a2, HGBitmap *a3)
+void HGGPURenderer::ReadBitmap(HGGPURenderer *this, HGRect a2, HGBitmap *a3)
 {
   if (*(this + 3))
   {
@@ -2085,9 +2084,8 @@ const char *HGGPURenderer::ReadBitmap(const char *this, HGRect a2, HGBitmap *a3)
       {
         v5 = *&a2.var2;
         v6 = *&a2.var0;
-        v7 = this;
         v8 = *(this + 146);
-        v9 = *&this[8 * *(this + 290) + 1144];
+        v9 = *(this + *(this + 290) + 143);
         if (v9)
         {
           HGGLContext::context(&v10, v9);
@@ -2100,27 +2098,25 @@ const char *HGGPURenderer::ReadBitmap(const char *this, HGRect a2, HGBitmap *a3)
 
         HGGLState::SetCurrentContextGuard::SetCurrentContextGuard(v11, v8, &v10);
         PCSharedCount::PCSharedCount(&v10);
-        if (*(v7 + 1281) == 1 && *(v7 + 1244))
+        if (*(this + 1281) == 1 && *(this + 311))
         {
           glFlush();
         }
 
-        *(v7 + 1244) = 0;
+        *(this + 311) = 0;
         *&v13.var0 = v6;
         *&v13.var2 = v5;
-        HGGPURenderer::ReadBitmapClassic(v7, v13, a3);
+        HGGPURenderer::ReadBitmapClassic(this, v13, a3);
       }
 
-      return HGLogger::error("ReadBitmap() : bmp->m_Format == kHGFormat_Null. No readback attempted.\n", *&a2.var0, *&a2.var2);
+      HGLogger::error("ReadBitmap() : bmp->m_Format == kHGFormat_Null. No readback attempted.\n", *&a2.var0, *&a2.var2);
     }
   }
-
-  return this;
 }
 
-void sub_25FC5FCF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC5FCF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -2149,7 +2145,7 @@ void HGGPURenderer::ReadBitmapClassic(HGGPURenderer *this, HGRect a2, HGBitmap *
   HGRectIntersection(v4, v3, *(*(this + 3) + 20), *(*(this + 3) + 28));
   *v8 = 0;
   v9 = 0;
-  HGRenderUtils::BufferFiller::BufferFiller(v6);
+  HGRenderUtils::BufferFiller::BufferFiller(&v6);
 }
 
 void sub_25FC60060(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, int a21, int a22, char a23)
@@ -2180,7 +2176,7 @@ void HGGPURenderer::ReadBitmapWithPBO(HGGPURenderer *this, HGRect a2, HGBitmap *
   HGRectIntersection(v4, v3, *(v6 + 20), *(v6 + 28));
   *v9 = 0;
   v10 = 0;
-  HGRenderUtils::BufferFiller::BufferFiller(v7);
+  HGRenderUtils::BufferFiller::BufferFiller(&v7);
 }
 
 void sub_25FC60AA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, PCSharedCount a15, uint64_t a16, uint64_t a17, PCSharedCount a18, void *__p, uint64_t a20, uint64_t a21, char a22)
@@ -2261,7 +2257,7 @@ uint64_t HGGPURenderer::LoadNullMetalTexture(HGGPURenderer *this)
 
   else
   {
-    v4 = HGRectMake4i(0, 0, 1u, 1u);
+    v4 = HGRectMake4i(0, 0, 1, 1);
     v6 = v5;
     v7 = HGObject::operator new(0x80uLL);
     HGBitmap::HGBitmap(v7, v4, v6, 24);
@@ -2289,32 +2285,32 @@ unsigned int *HGGPURenderer::LoadTexture(HGGPURenderer *this, HGRect a2, HGBitma
 {
   v6 = *&a2.var2;
   v7 = *&a2.var0;
-  HGTraceGuard::HGTraceGuard(v143, "lt", 1, "HGGPURenderer::LoadTexture");
+  HGTraceGuard::HGTraceGuard(v141, "lt", 1, "HGGPURenderer::LoadTexture");
   v9 = *(this + 146);
   v10 = *(this + *(this + 290) + 143);
   if (v10)
   {
-    HGGLContext::context(&v141, v10);
+    HGGLContext::context(&v139, v10);
   }
 
   else
   {
-    HGGLContextPtr::HGGLContextPtr(&v141, 0);
+    HGGLContextPtr::HGGLContextPtr(&v139, 0);
   }
 
-  HGGLState::SetCurrentContextGuard::SetCurrentContextGuard(v142, v9, &v141);
-  PCSharedCount::PCSharedCount(&v141);
+  HGGLState::SetCurrentContextGuard::SetCurrentContextGuard(v140, v9, &v139);
+  PCSharedCount::PCSharedCount(&v139);
   if (!a3)
   {
     NullGLTexture = HGGPURenderer::LoadNullGLTexture(this);
     goto LABEL_9;
   }
 
-  *&v140.var0 = 0;
-  *&v140.var2 = 0;
-  *&v140.var0 = HGRectIntersection(v7, v6, *(a3 + 20), *(a3 + 28));
-  *&v140.var2 = v11;
-  if (HGRect::IsNull(&v140) || *(a3 + 4) == 31)
+  *&v138.var0 = 0;
+  *&v138.var2 = 0;
+  *&v138.var0 = HGRectIntersection(v7, v6, *(a3 + 20), *(a3 + 28));
+  *&v138.var2 = v11;
+  if (HGRect::IsNull(&v138) || *(a3 + 4) == 31)
   {
 LABEL_7:
     NullGLTexture = HGGPURenderer::LoadNullGLTexture(this);
@@ -2347,11 +2343,11 @@ LABEL_9:
     HGTraceGuard::HGTraceGuard(v136, "lt", 1, "LoadTexture -- via CVOpenGLTextureCacheCreateTextureFromImage");
     v21 = *(this + 147);
     (*(*CVBitmapStorage + 16))(CVBitmapStorage);
-    *&v139.var0 = CVBitmapStorage;
-    HGCVGLTextureFactory::create(&__p, v21, &v139);
-    if (*&v139.var0)
+    *&v137.var0 = CVBitmapStorage;
+    HGCVGLTextureFactory::create(&__p, v21, &v137);
+    if (*&v137.var0)
     {
-      (*(**&v139.var0 + 24))(*&v139.var0);
+      (*(**&v137.var0 + 24))(*&v137.var0);
     }
 
     v22 = __p;
@@ -2403,33 +2399,33 @@ LABEL_29:
   {
     if (v25 == 31)
     {
-      v140.var2 = vcvts_n_s32_f32(ceilf(v140.var2 / 6.0), 2uLL);
-      v140.var0 = vcvts_n_s32_f32(floorf(v140.var0 / 6.0), 2uLL);
-      v28 = *&v140.var0;
-      LODWORD(v26) = vcvtps_s32_f32((v140.var2 * 3.0) * 0.5);
-      v29 = *&v140.var2 & 0xFFFFFFFF00000000 | v26;
-      var0 = vcvtms_s32_f32((v140.var0 * 3.0) * 0.5);
+      v138.var2 = vcvts_n_s32_f32(ceilf(v138.var2 / 6.0), 2uLL);
+      v138.var0 = vcvts_n_s32_f32(floorf(v138.var0 / 6.0), 2uLL);
+      v28 = *&v138.var0;
+      LODWORD(v26) = vcvtps_s32_f32((v138.var2 * 3.0) * 0.5);
+      v29 = *&v138.var2 & 0xFFFFFFFF00000000 | v26;
+      var0 = vcvtms_s32_f32((v138.var0 * 3.0) * 0.5);
     }
 
     else
     {
-      v28 = *&v140.var0;
-      v29 = *&v140.var2;
-      var0 = v140.var0;
+      v28 = *&v138.var0;
+      v29 = *&v138.var2;
+      var0 = v138.var0;
     }
   }
 
   else
   {
-    v140.var2 = vcvtps_s32_f32(v140.var2 * 0.5);
-    v140.var0 = vcvtms_s32_f32(v140.var0 * 0.5);
-    v28 = *&v140.var0;
-    v29 = *&v140.var2 & 0xFFFFFFFF00000000 | (v140.var2 + v140.var2);
+    v138.var2 = vcvtps_s32_f32(v138.var2 * 0.5);
+    v138.var0 = vcvtms_s32_f32(v138.var0 * 0.5);
+    v28 = *&v138.var0;
+    v29 = *&v138.var2 & 0xFFFFFFFF00000000 | (v138.var2 + v138.var2);
     var0 = (v28 + v28);
   }
 
   v31 = s_Alignments[v27];
-  v139 = v140;
+  v137 = v138;
   if (a4 && !*HGBitmap::GetEdgePolicy(a3))
   {
     v32 = *(this + 335);
@@ -2437,18 +2433,18 @@ LABEL_29:
     {
       v33 = HGRectMake4i(-v32, -v32, v32, *(this + 335));
       v35 = v34;
-      *&v144.var0 = v33;
-      *&v144.var2 = v35;
-      HGRect::Grow(&v139, v144);
+      *&v142.var0 = v33;
+      *&v142.var2 = v35;
+      HGRect::Grow(&v137, v142);
     }
 
-    *&v139.var0 = HGTextureManager::adjustTextureSize(*(this + 184), v139);
-    *&v139.var2 = v36;
+    *&v137.var0 = HGTextureManager::adjustTextureSize(*(this + 184), v137);
+    *&v137.var2 = v36;
   }
 
   v124 = var0;
   v125 = v29;
-  IsEqual = HGRectIsEqual(*&v139.var0, *&v139.var2, *&v140.var0, *&v140.var2);
+  IsEqual = HGRectIsEqual(*&v137.var0, *&v137.var2, *&v138.var0, *&v138.var2);
   v40 = atomic_load(HGLogger::_enabled);
   if (v40)
   {
@@ -2458,13 +2454,13 @@ LABEL_29:
   v41 = atomic_load(HGLogger::_enabled);
   if (v41)
   {
-    HGLogger::log("lt", 1, "inter rect  : [%d %d %d %d]\n", v37, v38, v140.var0, v140.var1, v140.var2, v140.var3);
+    HGLogger::log("lt", 1, "inter rect  : [%d %d %d %d]\n", v37, v38, v138.var0, v138.var1, v138.var2, v138.var3);
   }
 
   v42 = atomic_load(HGLogger::_enabled);
   if (v42)
   {
-    HGLogger::log("lt", 1, "padded rect : [%d %d %d %d]\n", v37, v38, v139.var0, v139.var1, v139.var2, v139.var3);
+    HGLogger::log("lt", 1, "padded rect : [%d %d %d %d]\n", v37, v38, v137.var0, v137.var1, v137.var2, v137.var3);
   }
 
   v43 = atomic_load(HGLogger::_enabled);
@@ -2479,10 +2475,10 @@ LABEL_29:
     HGLogger::log("lt", 1, "padded : %s\n", v37, v38, v44);
   }
 
-  var2 = v139.var2;
-  var3 = v139.var3;
-  v47 = v139.var0;
-  var1 = v139.var1;
+  var2 = v137.var2;
+  var3 = v137.var3;
+  v47 = v137.var0;
+  var1 = v137.var1;
   v49 = atomic_load(HGLogger::_enabled);
   if (v49)
   {
@@ -2506,8 +2502,8 @@ LABEL_29:
   v54 = *(a3 + 7);
   v55 = *(a3 + 8);
   v129 = IsEqual;
-  v56 = IsEqual && v54 * (v139.var2 - v139.var0) == v55;
-  v122 = v54 * (v140.var2 - v140.var0);
+  v56 = IsEqual && v54 * (v137.var2 - v137.var0) == v55;
+  v122 = v54 * (v138.var2 - v138.var0);
   v123 = *(a3 + 8);
   v57 = v122 == v55 || v56;
   v58 = atomic_load(HGLogger::_enabled);
@@ -2578,20 +2574,20 @@ LABEL_29:
 
   HGGLContext::isES2(*(this + *(this + 290) + 143));
   v14 = HGObject::operator new(0xC8uLL);
-  *&v145.var2 = v125;
-  *&v145.var0 = v28 & 0xFFFFFFFF00000000 | v124;
-  HGGLTexture::HGGLTexture(v14, v145, a3, this);
+  *&v143.var2 = v125;
+  *&v143.var0 = v28 & 0xFFFFFFFF00000000 | v124;
+  HGGLTexture::HGGLTexture(v14, v143, a3, this);
   v69 = &s_HGFormatInfos[8 * v14[4]];
   v70 = *v69;
   v71 = v69[1];
   v72 = v69[2];
-  *(v14 + 5) = v140;
+  *(v14 + 5) = v138;
   HGTextureManager::TextureInfo::TextureInfo(v136, 3553, var2 - v47, var3 - var1, v70, v71, v72);
   if (v56)
   {
     v73 = *(v14 + 8);
-    v137 = *(v14 + 10);
-    v138 = v73;
+    v136[3] = *(v14 + 10);
+    v136[4] = v73;
   }
 
   HGTextureManager::createTexture(*(this + 184), v14 + 42, v136);
@@ -2599,7 +2595,7 @@ LABEL_29:
   HGTextureManager::bindTexture(*(this + 184), 0xDE1u, v14[42]);
   v14[40] = 3553;
   *(v14 + 22) = *(v14 + 21);
-  *(v14 + 9) = v139;
+  *(v14 + 9) = v137;
   if (!v56)
   {
     HGTextureManager::texImage2D(*(this + 184), v136);
@@ -2616,8 +2612,8 @@ LABEL_29:
     v77 = *(v14 + 10);
     v78 = v14[5];
     v79 = v14[6];
-    v80 = v78 - v139.var0;
-    v81 = v79 - v139.var1;
+    v80 = v78 - v137.var0;
+    v81 = v79 - v137.var1;
     v82 = v14[7] - v78;
     v83 = v14[8] - v79;
     if (v122 == v123)
@@ -2653,25 +2649,25 @@ LABEL_29:
     __p = 0;
     v133 = 0;
     v134 = 0;
-    v91 = v140.var0;
-    v92 = v140.var3;
-    v130 = v140.var2;
-    v93 = v139.var0;
-    v94 = v139.var2;
-    v95 = v139.var3;
-    if (v139.var1 >= v140.var1)
+    v91 = v138.var0;
+    v92 = v138.var3;
+    v130 = v138.var2;
+    v93 = v137.var0;
+    v94 = v137.var2;
+    v95 = v137.var3;
+    if (v137.var1 >= v138.var1)
     {
       v99 = 0;
-      v96 = v140.var1;
-      v100 = v140.var3;
+      v96 = v138.var1;
+      v100 = v138.var3;
     }
 
     else
     {
-      v126 = v140.var0;
-      v127 = v139.var2;
-      v96 = v140.var1;
-      *&v131 = HGRectMake4i(v139.var0, v139.var1, v139.var2, v140.var1);
+      v126 = v138.var0;
+      v127 = v137.var2;
+      v96 = v138.var1;
+      *&v131 = HGRectMake4i(v137.var0, v137.var1, v137.var2, v138.var1);
       *(&v131 + 1) = v97;
       std::vector<HGRect>::push_back[abi:ne200100](&__p, &v131);
       v98 = vsub_s32(*(&v131 + 8), *&v131);
@@ -2750,7 +2746,7 @@ LABEL_29:
       do
       {
         v118 = &s_HGFormatInfos[8 * v14[4]];
-        glTexSubImage2D(0xDE1u, 0, *v116 - v139.var0, v116[1] - v139.var1, v116[2] - *v116, v116[3] - v116[1], v118[1], v118[2], pixels);
+        glTexSubImage2D(0xDE1u, 0, *v116 - v137.var0, v116[1] - v137.var1, v116[2] - *v116, v116[3] - v116[1], v118[1], v118[2], pixels);
         v116 += 4;
       }
 
@@ -2784,8 +2780,8 @@ LABEL_118:
   HGTextureManager::bindTexture(*(this + 184), 0xDE1u, 0);
   (*(*a3 + 24))(a3);
 LABEL_10:
-  HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(v142);
-  HGTraceGuard::~HGTraceGuard(v143);
+  HGGLState::SetCurrentContextGuard::~SetCurrentContextGuard(v140);
+  HGTraceGuard::~HGTraceGuard(v141);
   return v14;
 }
 
@@ -2935,16 +2931,16 @@ LABEL_28:
   return result;
 }
 
-void sub_25FC627BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCSharedCount a10)
+void sub_25FC627BC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCSharedCount a10)
 {
   if (a10.var0)
   {
-    (*(*a10.var0 + 24))(a10.var0);
+    (*(*a10.var0 + 24))(a10.var0, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3126,10 +3122,10 @@ void HGGPURenderer::BindCachedFramebuffer(HGGPURenderer *this, uint64_t a2, uint
 
   std::mutex::lock(qword_280C5E398);
   framebuffers = *(this + 298);
-  if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
   {
     v8 = qword_280C5E3B8;
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       goto LABEL_4;
     }
@@ -3139,7 +3135,7 @@ void HGGPURenderer::BindCachedFramebuffer(HGGPURenderer *this, uint64_t a2, uint
   {
     HGGPURenderer::BindCachedFramebuffer();
     v8 = qword_280C5E3B8;
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
 LABEL_4:
       if (v8 != &qword_280C5E3B0)
@@ -3170,7 +3166,7 @@ LABEL_5:
   }
 
 LABEL_8:
-  if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
   {
     if (v8 == &qword_280C5E3B0)
     {
@@ -3191,7 +3187,7 @@ LABEL_8:
   {
 LABEL_25:
     HGTraceGuard::HGTraceGuard(v23, "framebuffer", 2, "BindCachedFramebuffer()");
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       if (v8 == &qword_280C5E3B0)
       {
@@ -3216,10 +3212,10 @@ LABEL_25:
 
     *(v8 + 32) = 0;
 LABEL_30:
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       v16 = qword_280C5E3B8;
-      if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
       {
         goto LABEL_38;
       }
@@ -3229,7 +3225,7 @@ LABEL_30:
 
     HGGPURenderer::UnBindCachedFramebuffer();
     v16 = qword_280C5E3B8;
-    if ((atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_280C5E3A8, memory_order_acquire) & 1) == 0)
     {
 LABEL_32:
       HGGPURenderer::UnBindCachedFramebuffer();
@@ -3248,7 +3244,7 @@ LABEL_38:
 
     v16 = &qword_280C5E3B0;
 LABEL_45:
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       if (v16 == &qword_280C5E3B0)
       {
@@ -3263,7 +3259,7 @@ LABEL_45:
       {
 LABEL_47:
         glGenFramebuffers(1, &framebuffers);
-        if ((atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire) & 1) == 0)
+        if ((atomic_load_explicit(byte_280C5E3A8, memory_order_acquire) & 1) == 0)
         {
           HGGPURenderer::UnBindCachedFramebuffer();
         }
@@ -3280,9 +3276,9 @@ LABEL_47:
 
     *(v16 + 32) = 1;
     framebuffers = *(v16 + 7);
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
-      if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
       {
         goto LABEL_55;
       }
@@ -3291,11 +3287,11 @@ LABEL_47:
     else
     {
       HGGPURenderer::UnBindCachedFramebuffer();
-      if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
       {
 LABEL_55:
         v18 = qword_280C5E3B8;
-        if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+        if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
         {
           goto LABEL_56;
         }
@@ -3306,7 +3302,7 @@ LABEL_55:
 
     HGGPURenderer::UnBindCachedFramebuffer();
     v18 = qword_280C5E3B8;
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
 LABEL_56:
       if (v16 != v18)
@@ -3343,9 +3339,9 @@ LABEL_59:
     goto LABEL_60;
   }
 
-  if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       goto LABEL_15;
     }
@@ -3354,11 +3350,11 @@ LABEL_59:
   else
   {
     HGGPURenderer::BindCachedFramebuffer();
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
 LABEL_15:
       v9 = qword_280C5E3B8;
-      if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
       {
         goto LABEL_16;
       }
@@ -3369,7 +3365,7 @@ LABEL_15:
 
   HGGPURenderer::BindCachedFramebuffer();
   v9 = qword_280C5E3B8;
-  if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
   {
 LABEL_16:
     if (v8 == v9)
@@ -3411,23 +3407,23 @@ LABEL_60:
   FBOStrategy::cleanupCache(v22);
 }
 
-void sub_25FC63268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC63268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6327C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC6327C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC63290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC63290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -3453,7 +3449,7 @@ BOOL HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, HGRect a3)
 
   if (SHIDWORD(v5) < SHIDWORD(v3))
   {
-    v15 = HGRectMake4i(var0, HIDWORD(v5), v3, HIDWORD(v3));
+    v15 = HGRectMake4i(var0, SHIDWORD(v5), v3, SHIDWORD(v3));
     v17 = v16;
     *&v30.var0 = v15;
     *&v30.var2 = v17;
@@ -3463,7 +3459,7 @@ BOOL HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, HGRect a3)
 
   if (v6 > var0)
   {
-    v19 = HGRectMake4i(var0, var1, v6, HIDWORD(v5));
+    v19 = HGRectMake4i(var0, var1, v6, SHIDWORD(v5));
     v21 = v20;
     *&v31.var0 = v19;
     *&v31.var2 = v21;
@@ -3473,7 +3469,7 @@ BOOL HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, HGRect a3)
 
   if (v5 < v3)
   {
-    v23 = HGRectMake4i(v5, var1, v3, HIDWORD(v5));
+    v23 = HGRectMake4i(v5, var1, v3, SHIDWORD(v5));
     v25 = v24;
     *&v32.var0 = v23;
     *&v32.var2 = v25;
@@ -3485,7 +3481,7 @@ BOOL HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, HGRect a3)
   return v10;
 }
 
-void HGGPURenderer::BindMultiSampleBuffer(HGGPURenderer *this, signed int a2, int a3, const char *a4, char *a5)
+void HGGPURenderer::BindMultiSampleBuffer(HGGPURenderer *this, int a2, int a3, const char *a4, char *a5)
 {
   v6 = a2;
   if (a2 == 1 && (a3 & 1) == 0)
@@ -3576,12 +3572,12 @@ void HGGPURenderer::ResolveMultiSampleBuffer(HGGPURenderer *this)
   glFramebufferTexture2D(0x8D40u, 0x8CE0u, *(*(this + 3) + 152), *(*(this + 3) + 156), 0);
 }
 
-void HGGPURenderer::SetLastMetalCmdBuffer(uint64_t a1)
+void HGGPURenderer::SetLastMetalCmdBuffer(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 1320);
-  if (v2)
+  v3 = *(a1 + 1320);
+  if (v3)
   {
-    HGMetalCommandBufferRef::~HGMetalCommandBufferRef(v2);
+    HGMetalCommandBufferRef::~HGMetalCommandBufferRef(v3);
     MEMORY[0x2666E9F00]();
   }
 
@@ -3603,18 +3599,18 @@ void HGGPURenderer::GetContext(uint64_t a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
   }
 }
 
-const char *HGGPURenderer::ValidateCurrentContext(const char *this)
+HGGLContext **HGGPURenderer::ValidateCurrentContext(HGGLContext **this)
 {
-  if (this[1281] == 1 && HG_RENDERER_ENV::VALIDATE_CURRENT_GL_CONTEXT == 1)
+  if (*(this + 1281) == 1 && HG_RENDERER_ENV::VALIDATE_CURRENT_GL_CONTEXT == 1)
   {
     v2 = this;
-    HGGLGetCurrentContext();
+    HGGLGetCurrentContext(this);
     CGColorSpace = PCColorSpaceHandle::getCGColorSpace(&v6);
     PCSharedCount::PCSharedCount(&v6);
-    this = HGGLContext::ptr(*(v2 + 1144));
+    this = HGGLContext::ptr(v2[143]);
     if (CGColorSpace != this)
     {
-      this = HGGLContext::ptr(*(v2 + 1152));
+      this = HGGLContext::ptr(v2[144]);
       if (CGColorSpace != this)
       {
         return HGLogger::warning("ValidateCurrentContext() : Invalid OpenGL context.", v4, v5);
@@ -3753,7 +3749,7 @@ LABEL_48:
     goto LABEL_59;
   }
 
-  v21 = *(v7 + 12) & 0x30;
+  v21 = *(v7 + 3) & 0x30;
   if (!v21)
   {
     v7 = (*(*a1 + 352))(a1, *(v7 + 20), *(v7 + 28), v7);
@@ -3764,7 +3760,7 @@ LABEL_48:
     }
   }
 
-  v22 = *(v7 + 128);
+  v22 = *(v7 + 16);
   if (v22 && v22 != a1)
   {
     v23 = 0;
@@ -3777,7 +3773,7 @@ LABEL_43:
 
   v51 = v21;
   *v19 = v7;
-  HGTextureManager::bindTexture(*(a1 + 184), *(v7 + 160), *(v7 + 168));
+  HGTextureManager::bindTexture(*(a1 + 184), *(v7 + 40), *(v7 + 42));
   v25 = *(a1 + 184);
   isES2 = HGGLContext::isES2(*&a1[2 * a1[290] + 286]);
   HGTextureManager::sizeHint(v25, v7, isES2, v27, v28);
@@ -3785,18 +3781,18 @@ LABEL_43:
   if (v31)
   {
     v32 = "RECT";
-    if (*(v7 + 160) == 3553)
+    if (*(v7 + 40) == 3553)
     {
       v32 = "2D";
     }
 
-    HGLogger::log("gpu", 1, "Binding %s texture ID %d to unit %d\n", v29, v30, v32, *(v7 + 168), a2);
+    HGLogger::log("gpu", 1, "Binding %s texture ID %d to unit %d\n", v29, v30, v32, *(v7 + 21), a2);
   }
 
-  *(v7 + 184) |= 1 << a1[290];
+  *(v7 + 46) |= 1 << a1[290];
   (*(*v7 + 16))(v7);
-  v33 = *(v7 + 188);
-  *(v7 + 188) = v33 + 1;
+  v33 = *(v7 + 47);
+  *(v7 + 47) = v33 + 1;
   if (!v33)
   {
     HGGLTexture::AttachRenderer(v7, a1);
@@ -3805,7 +3801,7 @@ LABEL_43:
     a1[310] = -1;
   }
 
-  v34 = *(v7 + 160);
+  v34 = *(v7 + 40);
   if (*HGBitmap::GetEdgePolicy(v7) == 1)
   {
     v37 = atomic_load(HGLogger::_enabled);
@@ -4087,7 +4083,7 @@ LABEL_9:
   return v2;
 }
 
-uint64_t HGGPURenderer::RenderTilesBegin(uint64_t result, uint64_t a2)
+unsigned int *HGGPURenderer::RenderTilesBegin(unsigned int *result, uint64_t a2)
 {
   v2 = *(a2 + 212);
   *(a2 + 212) = v2 + 1;
@@ -4239,14 +4235,17 @@ LABEL_13:
   return result;
 }
 
-char *HGGPURenderer::RenderTiles(uint64_t a1, const char *a2, char *a3, uint64_t a4, uint64_t a5, HGBitmap *a6, unsigned __int8 a7, unsigned __int8 a8)
+HGBuffer *HGGPURenderer::RenderTiles(uint64_t a1, const char *a2, char *a3, uint64_t a4, uint64_t a5, HGBitmap *a6, uint64_t a7, uint64_t a8)
 {
   if (!a5)
   {
-    HGLogger::error("RenderTiles() : format == kHGFormat_Null.\n", a2, a3);
+    HGLogger::error("RenderTiles() : format == kHGFormat_Null.\n", a2, a3, a4, a5, a6, a7, a8);
     return 0;
   }
 
+  v8 = a8;
+  v9 = a7;
+  v10 = a6;
   HGAutoReleasePoolScopeGuard::HGAutoReleasePoolScopeGuard(&v27);
   v16 = *(a1 + 1144);
   if (v16 && HGGLContext::ptr(v16))
@@ -4255,12 +4254,12 @@ char *HGGPURenderer::RenderTiles(uint64_t a1, const char *a2, char *a3, uint64_t
     HGGLContext::setVirtualScreen(*(a1 + 1152));
   }
 
-  if (!a6 || (*(a6 + 12) & 0x30) == 0)
+  if (!v10 || (*(v10 + 12) & 0x30) == 0)
   {
     v24 = 0;
     v23 = 1;
 LABEL_12:
-    v25 = HGGPURenderer::ProcessNode(a1, a2, a3, a4, a5, a6, v24, 0, a7, a8);
+    v25 = HGGPURenderer::ProcessNode(a1, a2, a3, a4, a5, v10, v24, 0, v9, v8);
     (*(*a1 + 144))(a1, 0);
     if ((v23 & 1) == 0)
     {
@@ -4270,12 +4269,12 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  (*(*a6 + 16))(a6);
-  if ((~*(a6 + 3) & 0x220) != 0 || (MetalStorage = HGMetalTexture::getMetalStorage(a6, v17)) == 0 || (v19 = *(HGMetalDeviceInfo::getDeviceInfo(MetalStorage[17]) + 24), LUTEnd = PCICCTransferFunctionLUT::getLUTEnd(*(a1 + 1112)), v19 == *(LUTEnd + 24)))
+  (*(*v10 + 16))(v10);
+  if ((~*(v10 + 3) & 0x220) != 0 || (MetalStorage = HGMetalTexture::getMetalStorage(v10, v17)) == 0 || (v19 = *(HGMetalDeviceInfo::getDeviceInfo(MetalStorage[17]) + 24), LUTEnd = PCICCTransferFunctionLUT::getLUTEnd(*(a1 + 1112)), v19 == *(LUTEnd + 24)))
   {
     v23 = 0;
-    v24 = a6;
-    a6 = 0;
+    v24 = v10;
+    v10 = 0;
     goto LABEL_12;
   }
 
@@ -4286,64 +4285,65 @@ LABEL_14:
   return v25;
 }
 
-void sub_25FC64790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC64790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC647A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC647A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC647B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC647B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC647CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC647CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC647E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC647E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC647F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC647F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC64808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC64808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC6481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-char *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, char *a7, int a8, unsigned __int8 a9, unsigned __int8 a10)
+HGBuffer *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, HGBuffer *a7, uint64_t a8, unsigned __int8 a9, unsigned __int8 a10)
 {
+  v10 = a8;
   if (a6)
   {
     LUTEnd = PCICCTransferFunctionLUT::getLUTEnd(*(a1 + 1112));
@@ -4351,7 +4351,7 @@ char *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     {
       v23 = HGObject::operator new(0x80uLL);
       HGBuffer::HGBuffer(v23, *(a6 + 20), a6);
-      v21 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, v23, a8, a9, a10);
+      v21 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, v23, v10, a9, a10);
       if (v23)
       {
         (*(*v23 + 24))(v23);
@@ -4365,7 +4365,7 @@ char *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
       *&v34.var0 = *(v19 + 20);
       *&v34.var2 = *(v19 + 28);
       HGBuffer::HGBuffer(v20, v34, v19);
-      v21 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, v20, a8, a9, a10);
+      v21 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, v20, v10, a9, a10);
       HGGPURenderer::FinishMetalCommandBuffer(a1);
       if (v20)
       {
@@ -4377,7 +4377,7 @@ char *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
     else
     {
-      v24 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, 0, a8, a9, a10);
+      v24 = HGGPURenderer::ProcessNodeInternal(a1, a2, a3, a4, a5, 0, v10, a9, a10);
       v26 = v24;
       v27 = *(v24 + 3);
       if ((v27 & 1) != 0 || (v27 & 0x30) == 0)
@@ -4400,10 +4400,10 @@ char *HGGPURenderer::ProcessNode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
         if (*(v31 + 4) == *(a6 + 16))
         {
-          HGRenderUtils::BufferCopier::BufferCopier(v32);
+          HGRenderUtils::BufferCopier::BufferCopier(&v32);
         }
 
-        HGRenderUtils::BufferReformatter::BufferReformatter(v32);
+        HGRenderUtils::BufferReformatter::BufferReformatter(&v32);
       }
 
       if ((v27 & 0x20) != 0)
@@ -4684,9 +4684,9 @@ HGBitmap *HGGPURenderer::ConvertToNonGLTexture(HGGPURenderer *this, HGBitmap *a2
   }
 }
 
-void sub_25FC65720(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC65720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGSignPost::EventScopeGuard::~EventScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -4805,9 +4805,9 @@ HGBitmap *HGGPURenderer::ConvertToNonMetalTexture(HGGPURenderer *this, HGBitmap 
   }
 }
 
-void sub_25FC65BFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC65BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGSignPost::EventScopeGuard::~EventScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -4909,7 +4909,7 @@ LABEL_2:
     v21 = HGRectIntersection(*(MetalStorage + 20), *(MetalStorage + 28), v7, v6);
     *&v25.var0 = v22;
     *&v25.var2 = 0;
-    HGMetalTexture::createFromBuffer(v20, v20[12], MetalStorage, v21, v25, &v23);
+    HGMetalTexture::createFromBuffer(&v23, v20, v20[12], MetalStorage, v21, v25);
     NullMetalTexture = v23;
     if (!v23)
     {
@@ -5011,7 +5011,7 @@ BOOL HGGPURenderer::ClearBuffer(_BOOL8 this, HGBuffer *a2, HGRect a3, HGRect a4)
   return this;
 }
 
-BOOL HGGPURenderer::ClearMetal(HGGPURenderer *this, HGBuffer *a2, HGRect a3, HGRect a4)
+BOOL HGGPURenderer::ClearMetal(HGGPURenderer *this, HGBitmap *a2, HGRect a3, HGRect a4)
 {
   v4 = *&a4.var2;
   var0 = a4.var0;
@@ -5019,40 +5019,40 @@ BOOL HGGPURenderer::ClearMetal(HGGPURenderer *this, HGBuffer *a2, HGRect a3, HGR
   v7 = a3.var0;
   var1 = a3.var1;
   v11 = a4.var1;
-  HGTraceGuard::HGTraceGuard(v18, "gpu", 2, "clear texture borders to zero");
+  HGTraceGuard::HGTraceGuard(v22, "gpu", 2, "clear texture borders to zero");
   v12 = var1 > v11;
   if (var1 > v11)
   {
-    *&v19.var0 = HGRectMake4i(var0, v11, v4, var1);
-    *&v19.var2 = v13;
-    HGGPURenderer::ClearMetal(this, a2, v19);
+    *&v23.var0 = HGRectMake4i(var0, v11, v4, var1);
+    *&v23.var2 = v13;
+    HGGPURenderer::ClearMetal(this, a2, v23, v14);
   }
 
   if (SHIDWORD(v6) < SHIDWORD(v4))
   {
-    *&v20.var0 = HGRectMake4i(var0, HIDWORD(v6), v4, HIDWORD(v4));
-    *&v20.var2 = v14;
-    HGGPURenderer::ClearMetal(this, a2, v20);
+    *&v24.var0 = HGRectMake4i(var0, SHIDWORD(v6), v4, SHIDWORD(v4));
+    *&v24.var2 = v15;
+    HGGPURenderer::ClearMetal(this, a2, v24, v16);
     v12 = 1;
   }
 
   if (v7 > var0)
   {
-    *&v21.var0 = HGRectMake4i(var0, var1, v7, HIDWORD(v6));
-    *&v21.var2 = v15;
-    HGGPURenderer::ClearMetal(this, a2, v21);
+    *&v25.var0 = HGRectMake4i(var0, var1, v7, SHIDWORD(v6));
+    *&v25.var2 = v17;
+    HGGPURenderer::ClearMetal(this, a2, v25, v18);
     v12 = 1;
   }
 
   if (v6 < v4)
   {
-    *&v22.var0 = HGRectMake4i(v6, var1, v4, HIDWORD(v6));
-    *&v22.var2 = v16;
-    HGGPURenderer::ClearMetal(this, a2, v22);
+    *&v26.var0 = HGRectMake4i(v6, var1, v4, SHIDWORD(v6));
+    *&v26.var2 = v19;
+    HGGPURenderer::ClearMetal(this, a2, v26, v20);
     v12 = 1;
   }
 
-  HGTraceGuard::~HGTraceGuard(v18);
+  HGTraceGuard::~HGTraceGuard(v22);
   return v12;
 }
 
@@ -5072,18 +5072,18 @@ uint64_t HGGPURenderer::ClearBuffer(uint64_t this, HGBuffer *a2, HGRect a3)
       if (MetalStorage || CVBitmapStorage && v7 == 1)
       {
         (*(*v6 + 144))(v6, 0);
-        *&v12.var0 = v4;
-        *&v12.var2 = v3;
+        *&v13.var0 = v4;
+        *&v13.var2 = v3;
 
-        return HGGPURenderer::ClearMetal(v6, a2, v12);
+        return HGGPURenderer::ClearMetal(v6, a2, v13, v12);
       }
 
       else
       {
         (*(*v6 + 144))(v6, a2);
-        *&v16.var0 = v4;
-        *&v16.var2 = v3;
-        this = HGGPURenderer::Clear(v6, v16, v13, v14);
+        *&v17.var0 = v4;
+        *&v17.var2 = v3;
+        this = HGGPURenderer::Clear(v6, v17, v14, v15);
         *(v6 + 311) = 1;
       }
     }
@@ -5191,9 +5191,9 @@ uint64_t HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, const char *a3, ch
   return result;
 }
 
-void sub_25FC6690C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC6690C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGString::~HGString(va);
   _Unwind_Resume(a1);
 }
@@ -5299,9 +5299,9 @@ uint64_t HGGPURenderer::Clear(HGGPURenderer *this, HGRect a2, float *a3, char *a
   return result;
 }
 
-void sub_25FC66DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC66DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGString::~HGString(va);
   _Unwind_Resume(a1);
 }
@@ -5335,7 +5335,7 @@ void HGGPURenderer::Rect(HGGPURenderer *this, HGHandler *a2, HGRect a3, uint64_t
           v19 = v20;
         }
 
-        v6 = HGRectMake4i(*(&v19 + 1), HIDWORD(v6), *&v19, HIDWORD(v5));
+        v6 = HGRectMake4i(*(&v19 + 1), SHIDWORD(v6), *&v19, SHIDWORD(v5));
         v5 = v21;
         v9 = HIDWORD(v6);
       }
@@ -5346,9 +5346,9 @@ void HGGPURenderer::Rect(HGGPURenderer *this, HGHandler *a2, HGRect a3, uint64_t
       if (!HGRenderer::RenderCheckPoint(this))
       {
         HGLogger::warning("HGGPURenderer::Rect() needs a HGHandler!\n", v24, v25);
-        *&v27.var0 = v6;
-        *&v27.var2 = v5;
-        HGGPURenderer::Clear(this, v27);
+        *&v29.var0 = v6;
+        *&v29.var2 = v5;
+        HGGPURenderer::Clear(this, v29, v26, v27);
       }
     }
 
@@ -5357,8 +5357,8 @@ void HGGPURenderer::Rect(HGGPURenderer *this, HGHandler *a2, HGRect a3, uint64_t
       (*(*a2 + 192))(a2, v6, v5, a4);
     }
 
-    v26 = atomic_load(HGLogger::_enabled);
-    if (v26)
+    v28 = atomic_load(HGLogger::_enabled);
+    if (v28)
     {
       HGLogger::log("gpu", 1, "rect[0..%d]: { %d, %d, %d, %d }\n", v22, v23, a4, v6, v9, v5, HIDWORD(v5));
     }
@@ -5367,7 +5367,7 @@ void HGGPURenderer::Rect(HGGPURenderer *this, HGHandler *a2, HGRect a3, uint64_t
   }
 }
 
-std::string *HGGPURenderer::CopyMetal(HGGPURenderer *this, HGBitmap *a2, HGRect a3, char *a4, uint64_t a5, __n128 *a6, int a7)
+std::string *HGGPURenderer::CopyMetal(HGGPURenderer *this, HGBitmap *a2, HGRect a3, char *a4, const HGBlendingInfo *a5, __n128 *a6, int a7)
 {
   v7 = *&a3.var2;
   v8 = *&a3.var0;
@@ -5642,10 +5642,11 @@ LABEL_4:
   return 0;
 }
 
-char *HGGPURenderer::ProcessNodeInternal(HGRenderer *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char *Buffer, int a7, int a8, unsigned __int8 a9)
+HGBuffer *HGGPURenderer::ProcessNodeInternal(int64x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, HGBuffer *Buffer, int a7, uint64_t a8, unsigned __int8 a9)
 {
+  v9 = a8;
   v17 = HGRectIntersection(a3, a4, *(a2 + 152), *(a2 + 160));
-  if (!a8 || (v19 = a3, v20 = a4, (*(a1 + 808) & 1) == 0))
+  if (!v9 || (v19 = a3, v20 = a4, (a1[50].i8[8] & 1) == 0))
   {
     v19 = v17;
     v20 = v18;
@@ -5666,14 +5667,14 @@ char *HGGPURenderer::ProcessNodeInternal(HGRenderer *a1, uint64_t a2, uint64_t a
       HGRenderer::SetTilesROI(a1, a2, v37);
       v35 = &unk_2872196F0;
       HGTraversal::RecursiveTraversal<(HGTraversal::NodeInput)1,(HGTraversal::InputOrder)0>::operator()(&v34, a1, a2, &v35);
-      Buffer = HGGPURenderer::ProcessOnePage(a1, a2, a3, a4, __p, a5, Buffer, a8, a9);
+      Buffer = HGGPURenderer::ProcessOnePage(a1, a2, a3, a4, __p, a5, Buffer, v9, a9);
       v35 = &unk_287219768;
       HGTraversal::RecursiveTraversal<(HGTraversal::NodeInput)1,(HGTraversal::InputOrder)0>::operator()(&v34, a1, a2, &v35);
     }
 
     else
     {
-      Buffer = HGGPURenderer::ProcessOnePage(a1, a2, a3, a4, __p, a5, Buffer, a8, a9);
+      Buffer = HGGPURenderer::ProcessOnePage(a1, a2, a3, a4, __p, a5, Buffer, v9, a9);
     }
 
     goto LABEL_26;
@@ -5697,7 +5698,7 @@ char *HGGPURenderer::ProcessNodeInternal(HGRenderer *a1, uint64_t a2, uint64_t a
     NodeRenderAPI = HGGPURenderer::GetNodeRenderAPI(a1, a2);
     *&v36.var0 = v19;
     *&v36.var2 = v20;
-    Buffer = HGGPURenderer::CreateBuffer(a1, v36, a5, NodeRenderAPI, (*(a2 + 16) >> 12) & 1, a9 & ~a8, (*(a1 + 1336) & 1) == 0);
+    Buffer = HGGPURenderer::CreateBuffer(a1, v36, a5, NodeRenderAPI, (*(a2 + 16) >> 12) & 1, a9 & ~v9, (a1[83].i8[8] & 1) == 0);
     v24 = __p;
     v23 = v32;
     if (__p == v32)
@@ -5835,9 +5836,9 @@ void HGGPURenderer::BuildPagesList(uint64_t a1, uint64_t a2, HGNode *a3, uint64_
 
     if (v5 - v6 <= v11)
     {
-      v22 = HGRectMake4i(v6, HIDWORD(v6), v5, (HIDWORD(v5) + HIDWORD(v6)) >> 1);
+      v22 = HGRectMake4i(v6, SHIDWORD(v6), v5, (HIDWORD(v5) + HIDWORD(v6)) >> 1);
       v24 = v23;
-      v25 = HGRectMake4i(v6, (HIDWORD(v5) + HIDWORD(v6)) >> 1, v5, HIDWORD(v5));
+      v25 = HGRectMake4i(v6, (HIDWORD(v5) + HIDWORD(v6)) >> 1, v5, SHIDWORD(v5));
       v27 = v26;
       HGGPURenderer::BuildPagesList(v9, v8, v7, v22, v24);
       a1 = v9;
@@ -5850,9 +5851,9 @@ void HGGPURenderer::BuildPagesList(uint64_t a1, uint64_t a2, HGNode *a3, uint64_
     else
     {
       v15 = (v5 + v6) >> 1;
-      v16 = HGRectMake4i(v6, HIDWORD(v6), v15, HIDWORD(v5));
+      v16 = HGRectMake4i(v6, SHIDWORD(v6), v15, SHIDWORD(v5));
       v18 = v17;
-      v19 = HGRectMake4i(v15, v10, v5, HIDWORD(v5));
+      v19 = HGRectMake4i(v15, v10, v5, SHIDWORD(v5));
       v21 = v20;
       HGGPURenderer::BuildPagesList(v9, v8, v7, v16, v18);
       a1 = v9;
@@ -5901,7 +5902,7 @@ LABEL_13:
   }
 }
 
-HGBuffer *HGGPURenderer::ProcessOnePage(int64x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, char *a7, int a8, unsigned __int8 a9)
+HGBuffer *HGGPURenderer::ProcessOnePage(int64x2_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, HGBuffer *a7, int a8, unsigned __int8 a9)
 {
   HGGPURenderer::PurgePostDeleteEvents(a1);
   if (a7)
@@ -6469,9 +6470,9 @@ LABEL_11:
   HGTextureManager::deleteTexture(v16, v17, v18, v19);
 }
 
-void sub_25FC68BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC68BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGGLSetCurrentContextGuard::~HGGLSetCurrentContextGuard(va);
   _Unwind_Resume(a1);
 }
@@ -6580,19 +6581,19 @@ uint64_t HGGPURenderer::ReleaseTexture(int64x2_t *this, HGGLTexture *a2, char *a
       }
     }
 
-    v8 = v6 - v5 - 8;
-    if (v6 != (v5 + 8))
+    v8 = v6 - (v5 + 8);
+    if (v6 != v5 + 8)
     {
       v9 = this;
       v10 = a2;
       v11 = a3;
-      memmove(v5, (v5 + 8), v6 - v5 - 8);
+      memmove(v5, (v5 + 8), v6 - (v5 + 8));
       this = v9;
       a2 = v10;
       a3 = v11;
     }
 
-    this[76].i64[1] = &v8[v5];
+    this[76].i64[1] = v5 + v8;
     this[77].i32[2] = -1;
     v3 = vars8;
   }
@@ -6613,65 +6614,65 @@ void HGGPURenderer::GetString(uint64_t a1@<X1>, HGString *a2@<X8>)
   }
 }
 
-uint64_t HGGPURenderer::BindProgram(uint64_t a1)
+uint64_t HGGPURenderer::BindProgram(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v97 = *MEMORY[0x277D85DE8];
-  if (!v2)
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v101 = *MEMORY[0x277D85DE8];
+  if (!v6)
   {
     return 0;
   }
 
-  v3 = v2;
-  v4 = v1;
-  if (HGLimits::ismetal((v2 + 4)))
+  v7 = v6;
+  v8 = v5;
+  if (HGLimits::ismetal((v6 + 4)))
   {
-    v5 = *v3 ^ (2 * (v3[2] ^ v3[1] ^ v3[3]));
-    v6 = *(*(*(v4 + 1112) + 24) + 168);
+    v9 = *v7 ^ (2 * (v7[2] ^ v7[1] ^ v7[3]));
+    v10 = *(*(*(v8 + 1112) + 24) + 168);
     *(&source[0].__r_.__value_.__s + 23) = 12;
     strcpy(source, "fragmentFunc");
     *(&shaders.__r_.__value_.__s + 23) = 10;
     strcpy(&shaders, "vertexFunc");
-    Function = HGMetalFunctionCache::getFunction(v6, source, v5);
-    FunctionWithSource = HGMetalFunctionCache::getFunction(v6, &shaders, v5);
+    Function = HGMetalFunctionCache::getFunction(v10, source, v9);
+    FunctionWithSource = HGMetalFunctionCache::getFunction(v10, &shaders, v9);
     if (Function)
     {
       goto LABEL_62;
     }
 
-    v14 = HGString::c_str(v3 + 8, v11, v12, v13);
-    v15 = strlen(v14);
-    if (v15 >= 0x7FFFFFFFFFFFFFF8)
+    v18 = HGString::c_str(v7 + 8, v15, v16, v17);
+    v19 = strlen(v18);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v15;
-    if (v15 >= 0x17)
+    v23 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v94 = v15;
-    if (v15)
+    v98 = v19;
+    if (v19)
     {
-      v15 = memmove(__dst, v14, v15);
+      memmove(__dst, v18, v19);
     }
 
-    *(__dst + v19) = 0;
-    v47 = __dst;
-    if ((v94 & 0x80u) == 0)
+    *(__dst + v23) = 0;
+    v51 = __dst;
+    if ((v98 & 0x80u) == 0)
     {
-      v48 = v94;
+      v52 = v98;
     }
 
     else
     {
-      v47 = __dst[0];
-      v48 = __dst[1];
+      v51 = __dst[0];
+      v52 = __dst[1];
     }
 
-    v49 = (v47 + v48);
+    v53 = (v51 + v52);
     size = HIBYTE(shaders.__r_.__value_.__r.__words[2]);
     p_shaders = &shaders;
     if ((shaders.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -6682,31 +6683,31 @@ uint64_t HGGPURenderer::BindProgram(uint64_t a1)
 
     if (size)
     {
-      if (v48 < size || (v52 = v49 - size + 1, v52 == v47))
+      if (v52 < size || (v56 = v53 - size + 1, v56 == v51))
       {
 LABEL_32:
         *length = 0;
-        v91 = 0;
-        v92 = 0;
+        v95 = 0;
+        v96 = 0;
         goto LABEL_56;
       }
 
-      while (*v47 != p_shaders->__r_.__value_.__s.__data_[0])
+      while (*v51 != p_shaders->__r_.__value_.__s.__data_[0])
       {
 LABEL_48:
-        v47 = (v47 + 1);
-        if (v47 == v52)
+        v51 = (v51 + 1);
+        if (v51 == v56)
         {
           goto LABEL_32;
         }
       }
 
-      v65 = 1;
-      while (size != v65)
+      v69 = 1;
+      while (size != v69)
       {
-        v66 = *(v47 + v65);
-        v67 = p_shaders->__r_.__value_.__s.__data_[v65++];
-        if (v66 != v67)
+        v70 = *(v51 + v69);
+        v71 = p_shaders->__r_.__value_.__s.__data_[v69++];
+        if (v70 != v71)
         {
           goto LABEL_48;
         }
@@ -6714,26 +6715,26 @@ LABEL_48:
     }
 
     *length = 0;
-    v91 = 0;
-    v92 = 0;
-    if (v47 == v49)
+    v95 = 0;
+    v96 = 0;
+    if (v51 == v53)
     {
 LABEL_56:
-      HGMetalUtils::stringForMetalHeader(v15);
+      HGMetalUtils::stringForMetalHeader();
     }
 
-    v68 = HGString::c_str(v3 + 8, v16, v17, v18);
-    MEMORY[0x2666E99D0](length, v68);
-    Function = HGMetalFunctionCache::getFunctionWithSource(v6, source, v5, length);
+    v72 = HGString::c_str(v7 + 8, v20, v21, v22);
+    MEMORY[0x2666E99D0](length, v72);
+    Function = HGMetalFunctionCache::getFunctionWithSource(v10, source, v9, length);
     if (!FunctionWithSource)
     {
-      FunctionWithSource = HGMetalFunctionCache::getFunctionWithSource(v6, &shaders, v5, __dst);
+      FunctionWithSource = HGMetalFunctionCache::getFunctionWithSource(v10, &shaders, v9, __dst);
     }
 
-    if (SHIBYTE(v92) < 0)
+    if (SHIBYTE(v96) < 0)
     {
       operator delete(*length);
-      if ((v94 & 0x80000000) == 0)
+      if ((v98 & 0x80000000) == 0)
       {
 LABEL_61:
         if (Function)
@@ -6745,7 +6746,7 @@ LABEL_61:
       }
     }
 
-    else if ((v94 & 0x80000000) == 0)
+    else if ((v98 & 0x80000000) == 0)
     {
       goto LABEL_61;
     }
@@ -6754,28 +6755,28 @@ LABEL_61:
     if (Function)
     {
 LABEL_62:
-      v69 = atomic_load(HGLogger::_enabled);
-      if (v69)
-      {
-        HGLogger::log("gpu", 1, "bind metal {\n", v8, v9);
-      }
-
-      HGLogger::indent(1);
       v73 = atomic_load(HGLogger::_enabled);
       if (v73)
       {
-        v74 = HGString::c_str(v3 + 8, v70, v71, v72);
-        HGLogger::log("gpu", 3, "\n%s\n", v75, v76, v74);
+        HGLogger::log("gpu", 1, "bind metal {\n", v12, v13);
       }
 
-      v36 = *(v4 + 1312);
-      (*(*v36 + 16))(v36, v4);
-      HGMetalHandler::AddMTLFunction(v36, Function);
-      HGMetalHandler::SetAttributeFlags(v36, *(v3 + 24));
-      HGMetalHandler::SetTextureCoords(v36, *(v3 + 26));
+      HGLogger::indent(1);
+      v77 = atomic_load(HGLogger::_enabled);
+      if (v77)
+      {
+        v78 = HGString::c_str(v7 + 8, v74, v75, v76);
+        HGLogger::log("gpu", 3, "\n%s\n", v79, v80, v78);
+      }
+
+      v40 = *(v8 + 1312);
+      (*(*v40 + 16))(v40, v8);
+      HGMetalHandler::AddMTLFunction(v40, Function);
+      HGMetalHandler::SetAttributeFlags(v40, *(v7 + 24));
+      HGMetalHandler::SetTextureCoords(v40, *(v7 + 26));
       if (FunctionWithSource)
       {
-        HGMetalHandler::AddMTLFunction(v36, FunctionWithSource);
+        HGMetalHandler::AddMTLFunction(v40, FunctionWithSource);
       }
 
       if ((SHIBYTE(shaders.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6787,143 +6788,143 @@ LABEL_62:
     }
 
 LABEL_73:
-    v78 = atomic_load(HGLogger::_enabled);
-    if (v78)
-    {
-      HGLogger::log("gpu", 1, "bind metal shader failed(%d) {\n", v8, v9, 4294967237);
-    }
-
-    HGLogger::indent(1);
     v82 = atomic_load(HGLogger::_enabled);
     if (v82)
     {
-      v83 = HGString::c_str(v3 + 8, v79, v80, v81);
-      HGLogger::log("gpu", 3, "%s\n", v84, v85, v83);
+      HGLogger::log("gpu", 1, "bind metal shader failed(%d) {\n", v12, v13, 4294967237);
+    }
+
+    HGLogger::indent(1);
+    v86 = atomic_load(HGLogger::_enabled);
+    if (v86)
+    {
+      v87 = HGString::c_str(v7 + 8, v83, v84, v85);
+      HGLogger::log("gpu", 3, "%s\n", v88, v89, v87);
     }
 
     HGLogger::indent(0xFFFFFFFFLL);
-    v88 = atomic_load(HGLogger::_enabled);
-    if (v88)
+    v92 = atomic_load(HGLogger::_enabled);
+    if (v92)
     {
-      HGLogger::log("gpu", 1, "}\n", v86, v87);
+      HGLogger::log("gpu", 1, "}\n", v90, v91);
     }
 
-    HGGLShaderCache::DisableEntry(*(v4 + 1288), v3, -59);
-    v36 = 0;
+    HGGLShaderCache::DisableEntry(*(v8 + 1288), v7, -59);
+    v40 = 0;
     if ((SHIBYTE(shaders.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_69:
       if ((SHIBYTE(source[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-        return v36;
+        return v40;
       }
 
 LABEL_81:
       operator delete(source[0].__r_.__value_.__l.__data_);
-      return v36;
+      return v40;
     }
 
 LABEL_80:
     operator delete(shaders.__r_.__value_.__l.__data_);
     if ((SHIBYTE(source[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      return v36;
+      return v40;
     }
 
     goto LABEL_81;
   }
 
-  v20 = HGGLShaderCache::Enable(*(v4 + 1288), v3, 0, 0);
-  if (!v20)
+  v24 = HGGLShaderCache::Enable(*(v8 + 1288), v7, 0, 0);
+  if (!v24)
   {
-    if (HGLimits::isarb((v3 + 4)))
+    if (HGLimits::isarb((v7 + 4)))
     {
-      v39 = atomic_load(HGLogger::_enabled);
-      if (v39)
-      {
-        HGLogger::log("gpu", 1, "bind arb {\n", v37, v38);
-      }
-
-      HGLogger::indent(1);
       v43 = atomic_load(HGLogger::_enabled);
       if (v43)
       {
-        v44 = HGString::c_str(v3 + 8, v40, v41, v42);
-        HGLogger::log("gpu", 3, "\n%s\n", v45, v46, v44);
-      }
-    }
-
-    else if (v3[4] >> 9 >= 0x303)
-    {
-      v53 = atomic_load(HGLogger::_enabled);
-      if (v53)
-      {
-        HGLogger::log("gpu", 1, "bind glsl {\n", v37, v38);
+        HGLogger::log("gpu", 1, "bind arb {\n", v41, v42);
       }
 
       HGLogger::indent(1);
-      v55 = atomic_load(HGLogger::_enabled);
-      if ((v55 & 1) != 0 && HGLogger::getLevel("gpu", v54) >= 1)
+      v47 = atomic_load(HGLogger::_enabled);
+      if (v47)
       {
-        v56 = *(*(v3 + 15) + 8);
+        v48 = HGString::c_str(v7 + 8, v44, v45, v46);
+        HGLogger::log("gpu", 3, "\n%s\n", v49, v50, v48);
+      }
+    }
+
+    else if (v7[4] >> 9 >= 0x303)
+    {
+      v57 = atomic_load(HGLogger::_enabled);
+      if (v57)
+      {
+        HGLogger::log("gpu", 1, "bind glsl {\n", v41, v42);
+      }
+
+      HGLogger::indent(1);
+      v59 = atomic_load(HGLogger::_enabled);
+      if ((v59 & 1) != 0 && HGLogger::getLevel("gpu", v58) >= 1)
+      {
+        v60 = *(*(v7 + 15) + 8);
         LODWORD(__dst[0]) = 0;
-        glGetAttachedShaders(v56, 3, __dst, &shaders);
-        v59 = atomic_load(HGLogger::_enabled);
-        if (v59)
+        glGetAttachedShaders(v60, 3, __dst, &shaders);
+        v63 = atomic_load(HGLogger::_enabled);
+        if (v63)
         {
-          HGLogger::log("gpu", 1, "num attached shaders : %d\n", v57, v58, LODWORD(__dst[0]));
+          HGLogger::log("gpu", 1, "num attached shaders : %d\n", v61, v62, LODWORD(__dst[0]));
         }
 
         HGLogger::indent(1);
         if (SLODWORD(__dst[0]) >= 1)
         {
-          v62 = 0;
+          v66 = 0;
           do
           {
-            v63 = atomic_load(HGLogger::_enabled);
-            if (v63)
+            v67 = atomic_load(HGLogger::_enabled);
+            if (v67)
             {
-              HGLogger::log("gpu", 1, "shader #%d : %d\n", v60, v61, v62, *(&shaders.__r_.__value_.__l.__data_ + v62));
+              HGLogger::log("gpu", 1, "shader #%d : %d\n", v64, v65, v66, *(&shaders.__r_.__value_.__l.__data_ + v66));
             }
 
             length[0] = 0;
-            glGetShaderSource(*(&shaders.__r_.__value_.__l.__data_ + v62), 0x4000, length, source);
-            v64 = atomic_load(HGLogger::_enabled);
-            if (v64)
+            glGetShaderSource(*(&shaders.__r_.__value_.__l.__data_ + v66), 0x4000, length, source);
+            v68 = atomic_load(HGLogger::_enabled);
+            if (v68)
             {
-              HGLogger::log("gpu", 3, "\n%s\n", v60, v61, source);
+              HGLogger::log("gpu", 3, "\n%s\n", v64, v65, source);
             }
 
-            ++v62;
+            ++v66;
           }
 
-          while (v62 < SLODWORD(__dst[0]));
+          while (v66 < SLODWORD(__dst[0]));
         }
 
         HGLogger::indent(0xFFFFFFFFLL);
       }
     }
 
-    if (HGLimits::isarb((v3 + 4)))
+    if (HGLimits::isarb((v7 + 4)))
     {
-      return (*(**(v4 + 1296) + 16))(*(v4 + 1296), v4);
+      return (*(**(v8 + 1296) + 16))(*(v8 + 1296), v8);
     }
 
-    if (v3[4] >> 9 < 0x303)
+    if (v7[4] >> 9 < 0x303)
     {
       return 0;
     }
 
-    return (*(**(v4 + 1304) + 208))(*(v4 + 1304), v4, *(*(v3 + 15) + 8));
+    return (*(**(v8 + 1304) + 208))(*(v8 + 1304), v8, *(*(v7 + 15) + 8));
   }
 
-  v23 = atomic_load(HGLogger::_enabled);
-  if (v23)
+  v27 = atomic_load(HGLogger::_enabled);
+  if (v27)
   {
-    HGLogger::log("gpu", 1, "failed(%d) {\n", v21, v22, v20);
+    HGLogger::log("gpu", 1, "failed(%d) {\n", v25, v26, v24);
     HGLogger::indent(1);
-    v27 = atomic_load(HGLogger::_enabled);
-    if ((v27 & 1) == 0)
+    v31 = atomic_load(HGLogger::_enabled);
+    if ((v31 & 1) == 0)
     {
       goto LABEL_11;
     }
@@ -6932,13 +6933,13 @@ LABEL_80:
   else
   {
     HGLogger::indent(1);
-    v31 = atomic_load(HGLogger::_enabled);
-    if ((v31 & 1) == 0)
+    v35 = atomic_load(HGLogger::_enabled);
+    if ((v35 & 1) == 0)
     {
 LABEL_11:
       HGLogger::indent(0xFFFFFFFFLL);
-      v30 = atomic_load(HGLogger::_enabled);
-      if (v30)
+      v34 = atomic_load(HGLogger::_enabled);
+      if (v34)
       {
         goto LABEL_15;
       }
@@ -6947,14 +6948,14 @@ LABEL_11:
     }
   }
 
-  v32 = HGString::c_str(v3 + 8, v24, v25, v26);
-  HGLogger::log("gpu", 3, "%s\n", v33, v34, v32);
+  v36 = HGString::c_str(v7 + 8, v28, v29, v30);
+  HGLogger::log("gpu", 3, "%s\n", v37, v38, v36);
   HGLogger::indent(0xFFFFFFFFLL);
-  v35 = atomic_load(HGLogger::_enabled);
-  if (v35)
+  v39 = atomic_load(HGLogger::_enabled);
+  if (v39)
   {
 LABEL_15:
-    HGLogger::log("gpu", 1, "}\n", v28, v29);
+    HGLogger::log("gpu", 1, "}\n", v32, v33);
   }
 
   return 0;
@@ -7007,7 +7008,7 @@ LABEL_9:
   goto LABEL_9;
 }
 
-uint64_t HGGPURenderer::BindProgramDescriptor(uint64_t a1, HGProgramDescriptor **a2)
+HGMetalHandler *HGGPURenderer::BindProgramDescriptor(uint64_t a1, HGProgramDescriptor **a2)
 {
   v4 = *(a1 + 1312);
   (*(*v4 + 16))(v4, a1);
@@ -7332,7 +7333,7 @@ LABEL_10:
   _Unwind_Resume(a1);
 }
 
-uint64_t HGGPURenderer::BindProgram(HGGPURenderer *this, const char *a2, void *a3)
+uint64_t HGGPURenderer::BindProgram(HGGPURenderer *this, HGString *a2, void *a3)
 {
   v8 = 0;
   HGString::HGString(v7, a2, 0, 0xFFu);
@@ -7349,9 +7350,9 @@ uint64_t HGGPURenderer::BindProgram(HGGPURenderer *this, const char *a2, void *a
   }
 }
 
-void sub_25FC6A3D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC6A3D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGString::~HGString(va);
   _Unwind_Resume(a1);
 }
@@ -7375,7 +7376,7 @@ void HGGPURenderer::UnBindProgram(HGGPURenderer *this, HGHandler *a2)
 
 uint64_t HGGPURenderer::GetConcatenationMask(HGGPURenderer *this, HGNode *a2)
 {
-  HGNode::GetProgramDescriptor(a2, &v11);
+  HGNode::GetProgramDescriptor(&v11, a2);
   HGProgramDescriptor::GetSignature(v11, v9);
   v4 = v10;
   if (v10)
@@ -7418,11 +7419,11 @@ uint64_t HGGPURenderer::GetConcatenationMask(HGGPURenderer *this, HGNode *a2)
   return v6;
 }
 
-void sub_25FC6A558(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_25FC6A558(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 24))(a16);
+    (*(*a16 + 24))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -7674,44 +7675,44 @@ LABEL_73:
   return v8;
 }
 
-void sub_25FC6AA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AA9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6AAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6AAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6AADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6AAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7722,7 +7723,7 @@ uint64_t HGGPURenderer::GenProgram2(HGGPURenderer *this, HGNode *a2)
   v4 = (*(*a2 + 48))(a2);
   snprintf(__str, 0x100uLL, "GenProgram2(node = %p, %s)", a2, v4);
   HGTraceGuard::HGTraceGuard(v18, "concat", 1, __str);
-  HGNode::GetProgramDescriptor(a2, &v17);
+  HGNode::GetProgramDescriptor(&v17, a2);
   if (!v17)
   {
     v6 = (a2 + 16);
@@ -7828,32 +7829,30 @@ LABEL_33:
   return v14;
 }
 
-void sub_25FC6ADD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FC6ADD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    (*(*a4 + 24))(a4);
+    (*(*a7 + 24))(a7, a2, a3, a4);
   }
 
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t HGGPURenderer::CreateDepthBufferManagers(uint64_t this)
+void HGGPURenderer::CreateDepthBufferManagers(HGGPURenderer *this)
 {
-  if (*(this + 1281) == 1 && *(this + 224) == *(this + 232))
+  if (*(this + 1281) == 1 && *(this + 28) == *(this + 29))
   {
     operator new();
   }
-
-  return this;
 }
 
 void FBOStrategy::cleanupCache(FBOStrategy *this)
 {
   HGTraceGuard::HGTraceGuard(v13, "framebuffer", 2, "cleanupCache()");
-  if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
   {
     v3 = qword_280C5E3C0;
     if (qword_280C5E3C0 < 0x20)
@@ -7878,7 +7877,7 @@ void FBOStrategy::cleanupCache(FBOStrategy *this)
   }
 
   std::mutex::lock(qword_280C5E398);
-  if ((atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E3A8, memory_order_acquire) & 1) == 0)
   {
     HGGPURenderer::UnBindCachedFramebuffer();
   }
@@ -7887,7 +7886,7 @@ void FBOStrategy::cleanupCache(FBOStrategy *this)
   v5 = v3;
   do
   {
-    if (atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E3A8, memory_order_acquire))
     {
       if (v4 == qword_280C5E3B8)
       {
@@ -7909,7 +7908,7 @@ void FBOStrategy::cleanupCache(FBOStrategy *this)
     {
       framebuffers = *(v9 + 7);
       glDeleteFramebuffers(1, &framebuffers);
-      if ((atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire) & 1) == 0)
+      if ((atomic_load_explicit(byte_280C5E3A8, memory_order_acquire) & 1) == 0)
       {
         HGGPURenderer::UnBindCachedFramebuffer();
       }
@@ -7945,7 +7944,7 @@ LABEL_18:
   v11 = atomic_load(HGLogger::_enabled);
   if (v11)
   {
-    if ((atomic_load_explicit(&qword_280C5E3A8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_280C5E3A8, memory_order_acquire) & 1) == 0)
     {
       HGGPURenderer::UnBindCachedFramebuffer();
     }
@@ -7956,43 +7955,43 @@ LABEL_18:
   HGTraceGuard::~HGTraceGuard(v13);
 }
 
-void sub_25FC6B1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6B1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __cxa_guard_abort(&qword_280C5E3A0);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6B1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6B1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6B208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6B208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6B21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6B21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC6B230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC6B230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,HGBitmap **,false>(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,HGBitmap **,false>(unint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v9 = result;
 LABEL_2:
@@ -8176,7 +8175,7 @@ LABEL_61:
 
       if (v21 >= *(a2 - 1))
       {
-        v57 = v10 + 1;
+        v57 = (v10 + 1);
         do
         {
           v10 = v57;
@@ -8185,7 +8184,7 @@ LABEL_61:
             break;
           }
 
-          ++v57;
+          v57 += 8;
         }
 
         while (v21 >= *v10);
@@ -9228,14 +9227,14 @@ LABEL_33:
   return 1;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,HGBitmap **,HGBitmap **>(unint64_t *a1, unint64_t *a2, unint64_t *a3)
+unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,HGBitmap **,HGBitmap **>(char *a1, unint64_t *a2, unint64_t *a3)
 {
   if (a1 == a2)
   {
     return a3;
   }
 
-  v3 = a2 - a1;
+  v3 = (a2 - a1) >> 3;
   if (v3 >= 2)
   {
     v4 = (v3 - 2) >> 1;
@@ -9245,11 +9244,11 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       if (v4 >= v5)
       {
         v7 = (2 * (v5 & 0x1FFFFFFFFFFFFFFFLL)) | 1;
-        v8 = &a1[v7];
+        v8 = &a1[8 * v7];
         if (2 * (v5 & 0x1FFFFFFFFFFFFFFFLL) + 2 >= v3)
         {
           v9 = *v8;
-          v11 = &a1[v5];
+          v11 = &a1[8 * v5];
           v12 = *v11;
           if (*v8 >= *v11)
           {
@@ -9276,7 +9275,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
             v7 = 2 * (v5 & 0x1FFFFFFFFFFFFFFFLL) + 2;
           }
 
-          v11 = &a1[v5];
+          v11 = &a1[8 * v5];
           v12 = *v11;
           if (v9 >= *v11)
           {
@@ -9291,7 +9290,7 @@ LABEL_21:
               }
 
               v13 = (2 * v7) | 1;
-              v8 = &a1[v13];
+              v8 = &a1[8 * v13];
               v7 = 2 * v7 + 2;
               if (v7 < v3)
               {
@@ -9359,7 +9358,7 @@ LABEL_21:
       goto LABEL_54;
     }
 
-    v17 = a1 + 2;
+    v17 = (a1 + 16);
     for (i = a2; i != a3; ++i)
     {
       v18 = *i;
@@ -9367,10 +9366,10 @@ LABEL_21:
       {
         *i = *a1;
         *a1 = v18;
-        v19 = a1[1];
+        v19 = *(a1 + 1);
         if (a2 - a1 == 16)
         {
-          v20 = a1 + 1;
+          v20 = (a1 + 8);
           v21 = 1;
           if (v19 >= v18)
           {
@@ -9383,13 +9382,13 @@ LABEL_21:
           v22 = v19 >= *v17;
           if (v19 >= *v17)
           {
-            v20 = a1 + 1;
+            v20 = (a1 + 8);
           }
 
           else
           {
             v19 = *v17;
-            v20 = a1 + 2;
+            v20 = (a1 + 16);
           }
 
           if (v22)
@@ -9416,7 +9415,7 @@ LABEL_45:
               }
 
               v24 = (2 * v21) | 1;
-              v20 = &a1[v24];
+              v20 = &a1[8 * v24];
               v21 = 2 * v21 + 2;
               if (v21 < v3)
               {
@@ -9469,8 +9468,8 @@ LABEL_54:
       {
         while (1)
         {
-          v36 = &v29[v26];
-          v35 = v36 + 1;
+          v36 = &v29[8 * v26];
+          v35 = (v36 + 8);
           v37 = (2 * v26) | 1;
           v26 = 2 * v26 + 2;
           if (v26 < v3)
@@ -9480,15 +9479,15 @@ LABEL_54:
 
           v26 = v37;
           *v29 = *v35;
-          v29 = v36 + 1;
+          v29 = v36 + 8;
           if (v37 > v28)
           {
             goto LABEL_69;
           }
         }
 
-        v32 = v36[2];
-        v31 = v36 + 2;
+        v32 = *(v36 + 2);
+        v31 = (v36 + 16);
         v30 = v32;
         v33 = *(v31 - 1);
         v34 = v33 >= v32;
@@ -9528,7 +9527,7 @@ LABEL_69:
         if (!v6)
         {
           v40 = v39 >> 1;
-          v41 = &a1[v40];
+          v41 = &a1[8 * v40];
           v42 = *v41;
           v43 = *v35;
           if (*v41 < *v35)
@@ -9543,7 +9542,7 @@ LABEL_69:
               }
 
               v40 = (v40 - 1) >> 1;
-              v41 = &a1[v40];
+              v41 = &a1[8 * v40];
               v42 = *v41;
             }
 
@@ -9562,7 +9561,7 @@ LABEL_69:
   return i;
 }
 
-void HGGPURenderer::ProcessOnePageBegin(HGNode *)::RenderBufferedTilesVisitor::visitNodePost(uint64_t a1, HGRenderer *a2, uint64_t *a3)
+void HGGPURenderer::ProcessOnePageBegin(HGNode *)::RenderBufferedTilesVisitor::visitNodePost(uint64_t a1, int64x2_t *a2, uint64_t *a3)
 {
   if (a3[24])
   {
@@ -9571,10 +9570,10 @@ void HGGPURenderer::ProcessOnePageBegin(HGNode *)::RenderBufferedTilesVisitor::v
 
   v30[7] = v3;
   v30[8] = v4;
-  (*(*a2 + 320))(a2, a3, 1);
+  (*(a2->i64[0] + 320))(a2, a3, 1);
   if (!HGRectIsNull(*(a3 + 220), *(a3 + 228)))
   {
-    v7 = *(a2 + 154);
+    v7 = a2[38].i32[2];
     if (v7 == 1 || v7 != 2 && *(a3 + 59) > 1)
     {
       v8 = atomic_load(HGLogger::_enabled);
@@ -9616,7 +9615,7 @@ void HGGPURenderer::ProcessOnePageBegin(HGNode *)::RenderBufferedTilesVisitor::v
       (*(*v14 + 24))(v14);
 LABEL_12:
       a3[31] = NullGLTexture;
-      (*(*a2 + 144))(a2, 0);
+      (*(a2->i64[0] + 144))(a2, 0);
     }
   }
 
@@ -9649,7 +9648,7 @@ uint64_t HGGPURenderer::ProcessOnePageEnd(HGNode *)::ReleaseBufferedTilesVisitor
   result = *(a3 + 248);
   if (result)
   {
-    result = (*(*result + 24))(result);
+    result = (*(*result + 24))(result, a2);
     *(a3 + 248) = 0;
   }
 

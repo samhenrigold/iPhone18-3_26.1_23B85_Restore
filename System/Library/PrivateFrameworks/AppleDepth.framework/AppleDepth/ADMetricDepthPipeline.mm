@@ -65,9 +65,9 @@
       CVPixelBufferLockBaseAddress(output, 0);
       memset(&buf, 0, sizeof(buf));
       v12 = MEMORY[0x277CBF3A0];
-      PixelBufferUtils::asVImageBuffer(uncertainty, *MEMORY[0x277CBF3A0], &buf);
+      PixelBufferUtils::asVImageBuffer(&buf, uncertainty, *MEMORY[0x277CBF3A0]);
       memset(&v74, 0, sizeof(v74));
-      PixelBufferUtils::asVImageBuffer(output, *v12, &v74);
+      PixelBufferUtils::asVImageBuffer(&v74, output, *v12);
       height = buf.height;
       if (!buf.height || (width = buf.width) == 0)
       {
@@ -375,13 +375,13 @@ LABEL_16:
     BytesPerRow = CVPixelBufferGetBytesPerRow(pixelBufferOut);
     CVPixelBufferLockBaseAddress(v34, 1uLL);
     BaseAddress = CVPixelBufferGetBaseAddress(v34);
-    v35 = (timestamp + (i << 6));
+    v35 = timestamp + (i << 6);
     v36 = vtrn2q_s32(transform, depth);
     v36.i32[2] = pose.i32[1];
     v37 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(transform, pose), depth), calibration.f32[0]), v36, *calibration.f32, 1), vzip1q_s32(vzip2q_s32(transform, pose), vdupq_laneq_s32(depth, 2)), calibration, 2);
-    v39 = v35[2];
-    v38 = v35[3];
-    v40 = v35[1];
+    v39 = *(v35 + 32);
+    v38 = *(v35 + 48);
+    v40 = *(v35 + 16);
     [*(self + 32) warpDepth:a14 srcCalibration:v65 dstCalibration:v25 poseTransform:v34 warpedDepth:{*vmlaq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(*v35, *transform.i32), v40, *depth.i32), v39, *pose.i32), 0, v38).i64, *vmlaq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(*v35, *transform.i8, 1), v40, *depth.i8, 1), v39, *pose.i8, 1), 0, v38).i64, *vmlaq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(*v35, transform, 2), v40, depth, 2), v39, pose, 2), 0, v38).i64, *vaddq_f32(v38, vmlsq_laneq_f32(vmlsq_lane_f32(vmulq_n_f32(*v35, vnegq_f32(v37).f32[0]), v40, *v37.f32, 1), v39, v37, 2)).i64}];
     echoIds = [v32 echoIds];
     cameraPixels = [v32 cameraPixels];
@@ -411,9 +411,9 @@ LABEL_16:
     v46 = 0;
     *a16 = v32;
     v48 = *v35;
-    v49 = v35[1];
-    v50 = v35[3];
-    *(a17 + 2) = v35[2];
+    v49 = *(v35 + 16);
+    v50 = *(v35 + 48);
+    *(a17 + 2) = *(v35 + 32);
     *(a17 + 3) = v50;
     *a17 = v48;
     *(a17 + 1) = v49;
@@ -917,7 +917,7 @@ LABEL_24:
 {
   CVPixelBufferLockBaseAddress(mask, 0);
   memset(&__dst, 0, sizeof(__dst));
-  PixelBufferUtils::asVImageBuffer(mask, *MEMORY[0x277CBF3A0], &__dst);
+  PixelBufferUtils::asVImageBuffer(&__dst, mask, *MEMORY[0x277CBF3A0]);
   if (__dst.rowBytes == 640 && (PixelFormatType = CVPixelBufferGetPixelFormatType(mask), PixelBufferUtils::pixelSizeForPixelFormat(PixelFormatType, 0) == 2))
   {
     defaults = [objc_opt_class() defaults];
@@ -1084,18 +1084,18 @@ LABEL_8:
   width = to.size.width;
   y = to.origin.y;
   x = to.origin.x;
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   embeddingsCopy = embeddings;
   bufferCopy = buffer;
   offsetCopy = offset;
-  v34 = 335683472;
-  v35 = 0u;
+  v35 = 335683472;
   v36 = 0u;
+  v37 = 0u;
   kdebug_trace();
   if ([bufferCopy width] == (width * 0.125) && objc_msgSend(bufferCopy, "height") == (height * 0.125))
   {
-    v32 = &offsetCopy;
-    v17 = std::__hash_table<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_downscaledJasperBuffer.__table_.__bucket_list_.__ptr_, offsetCopy)[4];
+    v33 = &offsetCopy;
+    v17 = std::__hash_table<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_downscaledJasperBuffer, offsetCopy, &v33)[4];
     *buf = &unk_285231598;
     *&buf[8] = v17;
     CVPixelBufferRetain(v17);
@@ -1127,32 +1127,33 @@ LABEL_8:
         v27 = pixelBufferOut;
       }
 
-      v32 = &unk_285231598;
+      v33 = &unk_285231598;
       texture = v27;
       CVPixelBufferRetain(v27);
       CVPixelBufferRelease(v27);
       pixelBufferOut = &offsetCopy;
-      v28 = std::__hash_table<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_downscaledJasperBuffer.__table_.__bucket_list_.__ptr_, offsetCopy);
+      v28 = std::__hash_table<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,PixelBufferSharedPtr>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,PixelBufferSharedPtr>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->_downscaledJasperBuffer, offsetCopy, &pixelBufferOut);
       CVPixelBufferRelease(v28[4]);
-      v28[4] = v27;
+      v29 = texture;
+      v28[4] = texture;
       texture = 0;
       CVPixelBufferRelease(*&buf[8]);
-      *&buf[8] = CVPixelBufferRetain(v27);
-      v32 = &unk_285231598;
-      CVPixelBufferRelease(0);
+      *&buf[8] = CVPixelBufferRetain(v29);
+      v33 = &unk_285231598;
+      CVPixelBufferRelease(texture);
     }
 
     if (embeddingsCopy)
     {
       pointCloudFilter = [(ADMetricDepthPipelineParameters *)self->_pipelineParameters pointCloudFilter];
-      v30 = [embeddingsCopy projectJasperPointsFilteredBy:pointCloudFilter croppedBy:by rotatedBy:*&buf[8] andScaledInto:{x, y, width, height}];
+      v31 = [embeddingsCopy projectJasperPointsFilteredBy:pointCloudFilter croppedBy:by rotatedBy:*&buf[8] andScaledInto:{x, y, width, height}];
 
-      if (v30)
+      if (v31)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v32) = 0;
-          _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error while projecting jasper points", &v32, 2u);
+          LOWORD(v33) = 0;
+          _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error while projecting jasper points", &v33, 2u);
         }
 
         goto LABEL_25;
@@ -1163,14 +1164,14 @@ LABEL_8:
     {
       if (ADDebugUtilsADVerboseLogsEnabled == 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received nil jasper point cloud", &v32, 2u);
+        LOWORD(v33) = 0;
+        _os_log_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received nil jasper point cloud", &v33, 2u);
       }
 
       PixelBufferUtils::blacken(*&buf[8], v20);
     }
 
-    v30 = [(ADEmbeddings *)self->_jasperEmbeddings embedDepthMapUsingFourierEncoding:*&buf[8] outputBuffer:bufferCopy outputChannelOffset:0 outputBatchOffset:offsetCopy, v32];
+    v31 = [(ADEmbeddings *)self->_jasperEmbeddings embedDepthMapUsingFourierEncoding:*&buf[8] outputBuffer:bufferCopy outputChannelOffset:0 outputBatchOffset:offsetCopy];
 LABEL_25:
     *buf = &unk_285231598;
     CVPixelBufferRelease(*&buf[8]);
@@ -1183,18 +1184,18 @@ LABEL_25:
     *&buf[4] = width;
     *&buf[12] = 2048;
     *&buf[14] = height;
-    v40 = 2048;
+    v41 = 2048;
     width2 = [bufferCopy width];
-    v42 = 2048;
+    v43 = 2048;
     height2 = [bufferCopy height];
     _os_log_error_impl(&dword_2402F6000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Crop dimensions expected to be x8 than target buffer, actually it is (%zux%zu) vs expected (%zux%zu)", buf, 0x2Au);
   }
 
-  v30 = -22953;
+  v31 = -22953;
 LABEL_26:
   kdebug_trace();
 
-  return v30;
+  return v31;
 }
 
 - (int64_t)filterJasperPointCloud:(id)cloud usingPearlInput:(__CVBuffer *)input
@@ -1322,7 +1323,7 @@ LABEL_42:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      PixelBufferUtils::pixelFormatAsString(PixelFormatType, buf);
+      PixelBufferUtils::pixelFormatAsString(buf, PixelFormatType);
       v47 = v50 >= 0 ? buf : *buf;
       *v51 = 136315138;
       v52 = v47;

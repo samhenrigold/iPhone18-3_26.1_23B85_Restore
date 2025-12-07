@@ -40,16 +40,16 @@
 
 - (void)_fetchBucketAtURL:(id)l withClientBlindedHash:(id)hash completionHandler:(id)handler
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   hashCopy = hash;
   handlerCopy = handler;
   if ([hashCopy length])
   {
-    v17 = @"x-req-p";
+    v16 = @"x-req-p";
     v11 = [MEMORY[0x1E696AEC0] safari_stringAsHexWithData:hashCopy];
-    v18[0] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
@@ -57,16 +57,14 @@
     v12 = 0;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke;
-  v15[3] = &unk_1E7CF32A0;
-  v15[4] = self;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke;
+  v14[3] = &unk_1E7CF32A0;
+  v14[4] = self;
+  v15 = handlerCopy;
   v13 = handlerCopy;
-  [(WBSPasswordBreachRequestManager *)self _buildRequestWithURL:lCopy headers:v12 completionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(WBSPasswordBreachRequestManager *)self _buildRequestWithURL:lCopy headers:v12 completionHandler:v14];
 }
 
 void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -88,40 +86,43 @@ void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHa
   v9 = a4;
   if (v9)
   {
-    v10 = v9;
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = v9;
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_1(v11, v10);
+      __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_1(v12, v11);
     }
 
     goto LABEL_4;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v10 = v8;
-    if ([v10 safari_statusCodeGroup] == 2)
+    v11 = v8;
+    v15 = [v11 safari_statusCodeGroup];
+    if (v15 == 2)
     {
-      v43 = 0;
-      v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v7 options:1 error:&v43];
-      v13 = v43;
-      if (v12)
+      v52 = 0;
+      v17 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v7 options:1 error:&v52];
+      v18 = v52;
+      v20 = v18;
+      if (v17)
       {
-        v14 = [[WBSPasswordBreachBloomFilter alloc] initWithSerializedRepresentation:v12];
-        if (v14)
+        v22 = [[WBSPasswordBreachBloomFilter alloc] initWithSerializedRepresentation:v17];
+        if (v22)
         {
-          v15 = [v10 valueForHTTPHeaderField:@"x-res-p"];
-          if ([v15 length])
+          v23 = [v11 valueForHTTPHeaderField:@"x-res-p"];
+          if ([v23 length])
           {
-            v16 = [MEMORY[0x1E695DEF0] safari_dataWithHexString:v15];
-            if (![v16 length])
+            v24 = [MEMORY[0x1E695DEF0] safari_dataWithHexString:v23];
+            if (![v24 length])
             {
-              v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v26 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
-                __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_4(v17, v18, v19, v20, v21, v22, v23, v24);
+                __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_4(v26, v27, v28, v29, v30, v31, v32, v33);
               }
             }
 
@@ -136,10 +137,10 @@ void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHa
 
         else
         {
-          v35 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v44 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v21);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_5(v35, v36, v37, v38, v39, v40, v41, v42);
+            __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_5(v44, v45, v46, v47, v48, v49, v50, v51);
           }
 
           (*(*(a1 + 32) + 16))();
@@ -148,10 +149,10 @@ void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHa
 
       else
       {
-        v34 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v43 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v18, v19);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_6(v34, v13);
+          __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_6(v43, v20);
         }
 
         (*(*(a1 + 32) + 16))();
@@ -160,10 +161,10 @@ void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHa
       goto LABEL_5;
     }
 
-    v33 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v42 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v15, v16);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_3(v33, v10);
+      __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_3(v42, v11);
     }
 
 LABEL_4:
@@ -173,10 +174,10 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v25 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v34 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(isKindOfClass, v14);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_2(v25, v26, v27, v28, v29, v30, v31, v32);
+    __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_2(v34, v35, v36, v37, v38, v39, v40, v41);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -185,42 +186,41 @@ LABEL_6:
 
 - (void)_buildRequestWithURL:(id)l headers:(id)headers completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   handlerCopy = handler;
   v9 = [MEMORY[0x1E695AC18] requestWithURL:l];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v10 = headersCopy;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
-        v16 = [v10 objectForKeyedSubscript:{v15, v18}];
+        v15 = *(*(&v17 + 1) + 8 * i);
+        v16 = [v10 objectForKeyedSubscript:{v15, v17}];
         [v9 setValue:v16 forHTTPHeaderField:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
   handlerCopy[2](handlerCopy, v9);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchHighFrequencyBucketWithCompletionHandler:(id)handler
@@ -240,90 +240,90 @@ LABEL_6:
 
 - (void)fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes:(id)hashes completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   hashesCopy = hashes;
   handlerCopy = handler;
   v7 = dispatch_group_create();
-  v30 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(hashesCopy, "count")}];
+  v31 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(hashesCopy, "count")}];
   configuration = [(WBSPasswordBreachContext *)self->_context configuration];
   verboseSensitiveLoggingEnabled = [configuration verboseSensitiveLoggingEnabled];
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
   obj = hashesCopy;
-  v31 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
-  if (v31)
+  v32 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+  if (v32)
   {
-    v29 = *v39;
+    v30 = *v40;
     do
     {
       v10 = 0;
       do
       {
-        if (*v39 != v29)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * v10);
+        v11 = *(*(&v39 + 1) + 8 * v10);
         v12 = v7;
         dispatch_group_enter(v7);
         v13 = [obj objectForKeyedSubscript:v11];
+        v15 = v13;
         if (verboseSensitiveLoggingEnabled)
         {
-          v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v13, v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
-            v20 = MEMORY[0x1E696AEC0];
-            v21 = v14;
-            second = [v13 second];
-            v23 = [v20 safari_stringAsHexWithData:second];
-            first = [v13 first];
+            v22 = MEMORY[0x1E696AEC0];
+            v23 = v16;
+            second = [v15 second];
+            v25 = [v22 safari_stringAsHexWithData:second];
+            first = [v15 first];
             *buf = 138740483;
-            v43 = v11;
-            v44 = 2117;
-            v45 = v23;
-            v46 = 2117;
-            v47 = first;
-            _os_log_debug_impl(&dword_1B8447000, v21, OS_LOG_TYPE_DEBUG, "Looking up password with UUID %{sensitive}@, client-blinded hash %{sensitive}@ in bucket %{sensitive}@", buf, 0x20u);
+            v44 = v11;
+            v45 = 2117;
+            v46 = v25;
+            v47 = 2117;
+            v48 = first;
+            _os_log_debug_impl(&dword_1B8447000, v23, OS_LOG_TYPE_DEBUG, "Looking up password with UUID %{sensitive}@, client-blinded hash %{sensitive}@ in bucket %{sensitive}@", buf, 0x20u);
           }
         }
 
         configuration2 = [(WBSPasswordBreachContext *)self->_context configuration];
         lowFrequencyBucketURL = [configuration2 lowFrequencyBucketURL];
-        first2 = [v13 first];
-        v18 = [lowFrequencyBucketURL URLByAppendingPathComponent:first2];
+        first2 = [v15 first];
+        v20 = [lowFrequencyBucketURL URLByAppendingPathComponent:first2];
 
-        second2 = [v13 second];
-        v33[0] = MEMORY[0x1E69E9820];
-        v33[1] = 3221225472;
-        v33[2] = __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke;
-        v33[3] = &unk_1E7CF32F0;
-        v37 = verboseSensitiveLoggingEnabled;
-        v34 = v30;
-        v35 = v11;
+        second2 = [v15 second];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke;
+        v34[3] = &unk_1E7CF32F0;
+        v38 = verboseSensitiveLoggingEnabled;
+        v35 = v31;
+        v36 = v11;
         v7 = v12;
-        v36 = v12;
-        [(WBSPasswordBreachRequestManager *)self _fetchBucketAtURL:v18 withClientBlindedHash:second2 completionHandler:v33];
+        v37 = v12;
+        [(WBSPasswordBreachRequestManager *)self _fetchBucketAtURL:v20 withClientBlindedHash:second2 completionHandler:v34];
 
         ++v10;
       }
 
-      while (v31 != v10);
-      v31 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+      while (v32 != v10);
+      v32 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
-    while (v31);
+    while (v32);
   }
 
   configuration3 = [(WBSPasswordBreachContext *)self->_context configuration];
-  v26 = dispatch_time(0, 1000000000 * [configuration3 lowFrequencyBucketFetchTimeout]);
-  dispatch_group_wait(v7, v26);
+  v28 = dispatch_time(0, 1000000000 * [configuration3 lowFrequencyBucketFetchTimeout]);
+  dispatch_group_wait(v7, v28);
 
-  handlerCopy[2](handlerCopy, v30);
-  v27 = *MEMORY[0x1E69E9840];
+  handlerCopy[2](handlerCopy, v31);
 }
 
 void __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -333,66 +333,56 @@ void __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIde
   v7 = v6;
   if (*(a1 + 56) == 1)
   {
-    if ([v6 length])
+    v8 = [v6 length];
+    if (v8)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke_cold_1(v8, v7);
+        __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke_cold_1(v10, v7);
       }
     }
   }
 
-  v9 = [[WBSPair alloc] initWithFirst:v5 second:v7];
-  [*(a1 + 32) setObject:v9 forKeyedSubscript:*(a1 + 40)];
+  v11 = [[WBSPair alloc] initWithFirst:v5 second:v7];
+  [*(a1 + 32) setObject:v11 forKeyedSubscript:*(a1 + 40)];
 
   dispatch_group_leave(*(a1 + 48));
 }
 
 void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v10 = [a2 safari_privacyPreservingDescription];
+  v9 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_3(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v3 = a1;
   [a2 statusCode];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 8u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __93__WBSPasswordBreachRequestManager__fetchBucketAtURL_withClientBlindedHash_completionHandler___block_invoke_2_cold_6(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v10 = [a2 safari_privacyPreservingDescription];
+  v9 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __120__WBSPasswordBreachRequestManager_fetchLowFrequencyBucketsForBucketIdentifiersAndClientBlindedHashes_completionHandler___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = a1;
   v5 = [v3 safari_stringAsHexWithData:a2];
-  v7 = 138739971;
-  v8 = v5;
-  _os_log_debug_impl(&dword_1B8447000, v4, OS_LOG_TYPE_DEBUG, "\tReceived server-client-blinded hash %{sensitive}@", &v7, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138739971;
+  v7 = v5;
+  _os_log_debug_impl(&dword_1B8447000, v4, OS_LOG_TYPE_DEBUG, "\tReceived server-client-blinded hash %{sensitive}@", &v6, 0xCu);
 }
 
 @end

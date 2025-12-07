@@ -167,7 +167,7 @@ void __64__ICManagedObjectContextChangeController_performUpdatesIfNeeded__block_
 
         v10 = *(*(&v22 + 1) + 8 * v9);
         userInfo = [changeCopy userInfo];
-        v12 = [userInfo objectForKeyedSubscript:v10];
+        v12 = objc_msgSend_objectForKeyedSubscript_(userInfo);
 
         if ([v10 isEqualToString:v8])
         {

@@ -19,10 +19,10 @@
 
 - (ARGPUCubemapProjector)init
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v67.receiver = self;
-  v67.super_class = ARGPUCubemapProjector;
-  v2 = [(ARGPUCubemapProjector *)&v67 init];
+  v77 = *MEMORY[0x1E69E9840];
+  v70.receiver = self;
+  v70.super_class = ARGPUCubemapProjector;
+  v2 = [(ARGPUCubemapProjector *)&v70 init];
   v3 = +[ARSharedGPUDevice sharedInstance];
   device = [v3 device];
   device = v2->_device;
@@ -32,8 +32,7 @@
   commandQueue = v2->_commandQueue;
   v2->_commandQueue = newCommandQueue;
 
-  [(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.cubemapprojector.queue"];
-  v8 = ARKitCoreBundle();
+  v8 = ARKitCoreBundle([(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.cubemapprojector.queue"]);
   v9 = [v8 URLForResource:@"default" withExtension:@"metallib"];
   if (!v9)
   {
@@ -55,9 +54,9 @@
 
   [v14 setDepthAttachmentPixelFormat:252];
   v17 = v2->_device;
-  v66 = 0;
-  v18 = [(MTLDevice *)v17 newRenderPipelineStateWithDescriptor:v14 error:&v66];
-  v19 = v66;
+  v69 = 0;
+  v18 = [(MTLDevice *)v17 newRenderPipelineStateWithDescriptor:v14 error:&v69];
+  v19 = v69;
   cubemapPipelineStateSRGB_BGRA = v2->_cubemapPipelineStateSRGB_BGRA;
   v2->_cubemapPipelineStateSRGB_BGRA = v18;
 
@@ -68,50 +67,50 @@
       [ARGPUCubemapProjector init];
     }
 
-    v21 = ARShouldUseLogTypeError_internalOSVersion_41;
-    v22 = _ARLogGeneral_33();
-    v23 = v22;
-    if (v21 == 1)
+    v22 = ARShouldUseLogTypeError_internalOSVersion_41;
+    v23 = _ARLogGeneral_33(v21);
+    v24 = v23;
+    if (v22 == 1)
     {
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_11;
       }
 
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138543874;
-      v69 = v25;
-      v70 = 2048;
-      v71 = v2;
-      v72 = 2112;
-      v73 = v19;
-      v26 = "%{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
-      v27 = v23;
-      v28 = OS_LOG_TYPE_ERROR;
+      v72 = v26;
+      v73 = 2048;
+      v74 = v2;
+      v75 = 2112;
+      v76 = v19;
+      v27 = "%{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
+      v28 = v24;
+      v29 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         goto LABEL_11;
       }
 
-      v29 = objc_opt_class();
-      v25 = NSStringFromClass(v29);
+      v30 = objc_opt_class();
+      v26 = NSStringFromClass(v30);
       *buf = 138543874;
-      v69 = v25;
-      v70 = 2048;
-      v71 = v2;
-      v72 = 2112;
-      v73 = v19;
-      v26 = "Error: %{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
-      v27 = v23;
-      v28 = OS_LOG_TYPE_INFO;
+      v72 = v26;
+      v73 = 2048;
+      v74 = v2;
+      v75 = 2112;
+      v76 = v19;
+      v27 = "Error: %{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
+      v28 = v24;
+      v29 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v27, v28, v26, buf, 0x20u);
+    _os_log_impl(&dword_1C241C000, v28, v29, v27, buf, 0x20u);
 
 LABEL_11:
     if (!v2->_cubemapPipelineStateSRGB_BGRA)
@@ -121,16 +120,16 @@ LABEL_11:
   }
 
   colorAttachments2 = [v14 colorAttachments];
-  v31 = [colorAttachments2 objectAtIndexedSubscript:0];
-  [v31 setPixelFormat:71];
+  v32 = [colorAttachments2 objectAtIndexedSubscript:0];
+  [v32 setPixelFormat:71];
 
-  v32 = v2->_device;
-  v65 = v19;
-  v33 = [(MTLDevice *)v32 newRenderPipelineStateWithDescriptor:v14 error:&v65];
-  v34 = v65;
+  v33 = v2->_device;
+  v68 = v19;
+  v34 = [(MTLDevice *)v33 newRenderPipelineStateWithDescriptor:v14 error:&v68];
+  v35 = v68;
 
   cubemapPipelineStateSRGB_RGBA = v2->_cubemapPipelineStateSRGB_RGBA;
-  v2->_cubemapPipelineStateSRGB_RGBA = v33;
+  v2->_cubemapPipelineStateSRGB_RGBA = v34;
 
   if (v2->_cubemapPipelineStateSRGB_RGBA)
   {
@@ -142,58 +141,58 @@ LABEL_11:
     [ARGPUCubemapProjector init];
   }
 
-  v36 = ARShouldUseLogTypeError_internalOSVersion_41;
-  v37 = _ARLogGeneral_33();
-  v38 = v37;
-  if (v36 == 1)
+  v38 = ARShouldUseLogTypeError_internalOSVersion_41;
+  v39 = _ARLogGeneral_33(v37);
+  v40 = v39;
+  if (v38 == 1)
   {
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v41 = objc_opt_class();
+      v42 = NSStringFromClass(v41);
       *buf = 138543874;
-      v69 = v40;
-      v70 = 2048;
-      v71 = v2;
-      v72 = 2112;
-      v73 = v34;
-      v41 = "%{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
-      v42 = v38;
-      v43 = OS_LOG_TYPE_ERROR;
+      v72 = v42;
+      v73 = 2048;
+      v74 = v2;
+      v75 = 2112;
+      v76 = v35;
+      v43 = "%{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
+      v44 = v40;
+      v45 = OS_LOG_TYPE_ERROR;
 LABEL_20:
-      _os_log_impl(&dword_1C241C000, v42, v43, v41, buf, 0x20u);
+      _os_log_impl(&dword_1C241C000, v44, v45, v43, buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
-    v44 = objc_opt_class();
-    v40 = NSStringFromClass(v44);
+    v46 = objc_opt_class();
+    v42 = NSStringFromClass(v46);
     *buf = 138543874;
-    v69 = v40;
-    v70 = 2048;
-    v71 = v2;
-    v72 = 2112;
-    v73 = v34;
-    v41 = "Error: %{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
-    v42 = v38;
-    v43 = OS_LOG_TYPE_INFO;
+    v72 = v42;
+    v73 = 2048;
+    v74 = v2;
+    v75 = 2112;
+    v76 = v35;
+    v43 = "Error: %{public}@ <%p>: Failed to create cube map srgb pipeline state, error %@";
+    v44 = v40;
+    v45 = OS_LOG_TYPE_INFO;
     goto LABEL_20;
   }
 
 LABEL_22:
   [v14 setLabel:@"com.apple.arkit.cubemapprojector.hdrpipeline"];
   colorAttachments3 = [v14 colorAttachments];
-  v46 = [colorAttachments3 objectAtIndexedSubscript:0];
-  [v46 setPixelFormat:115];
+  v48 = [colorAttachments3 objectAtIndexedSubscript:0];
+  [v48 setPixelFormat:115];
 
-  v47 = v2->_device;
-  v64 = v34;
-  v48 = [(MTLDevice *)v47 newRenderPipelineStateWithDescriptor:v14 error:&v64];
-  v49 = v64;
+  v49 = v2->_device;
+  v67 = v35;
+  v50 = [(MTLDevice *)v49 newRenderPipelineStateWithDescriptor:v14 error:&v67];
+  v51 = v67;
 
   cubemapPipelineStateHDR = v2->_cubemapPipelineStateHDR;
-  v2->_cubemapPipelineStateHDR = v48;
+  v2->_cubemapPipelineStateHDR = v50;
 
   if (v2->_cubemapPipelineStateHDR)
   {
@@ -205,50 +204,50 @@ LABEL_22:
     [ARGPUCubemapProjector init];
   }
 
-  v51 = ARShouldUseLogTypeError_internalOSVersion_41;
-  v52 = _ARLogGeneral_33();
-  v53 = v52;
-  if (v51 == 1)
+  v54 = ARShouldUseLogTypeError_internalOSVersion_41;
+  v55 = _ARLogGeneral_33(v53);
+  v56 = v55;
+  if (v54 == 1)
   {
-    if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_31;
     }
 
-    v54 = objc_opt_class();
-    v55 = NSStringFromClass(v54);
+    v57 = objc_opt_class();
+    v58 = NSStringFromClass(v57);
     *buf = 138543874;
-    v69 = v55;
-    v70 = 2048;
-    v71 = v2;
-    v72 = 2112;
-    v73 = v49;
-    v56 = "%{public}@ <%p>: Failed to create cube map HDR pipeline state, error %@";
-    v57 = v53;
-    v58 = OS_LOG_TYPE_ERROR;
+    v72 = v58;
+    v73 = 2048;
+    v74 = v2;
+    v75 = 2112;
+    v76 = v51;
+    v59 = "%{public}@ <%p>: Failed to create cube map HDR pipeline state, error %@";
+    v60 = v56;
+    v61 = OS_LOG_TYPE_ERROR;
   }
 
   else
   {
-    if (!os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
       goto LABEL_31;
     }
 
-    v59 = objc_opt_class();
-    v55 = NSStringFromClass(v59);
+    v62 = objc_opt_class();
+    v58 = NSStringFromClass(v62);
     *buf = 138543874;
-    v69 = v55;
-    v70 = 2048;
-    v71 = v2;
-    v72 = 2112;
-    v73 = v49;
-    v56 = "Error: %{public}@ <%p>: Failed to create cube map HDR pipeline state, error %@";
-    v57 = v53;
-    v58 = OS_LOG_TYPE_INFO;
+    v72 = v58;
+    v73 = 2048;
+    v74 = v2;
+    v75 = 2112;
+    v76 = v51;
+    v59 = "Error: %{public}@ <%p>: Failed to create cube map HDR pipeline state, error %@";
+    v60 = v56;
+    v61 = OS_LOG_TYPE_INFO;
   }
 
-  _os_log_impl(&dword_1C241C000, v57, v58, v56, buf, 0x20u);
+  _os_log_impl(&dword_1C241C000, v60, v61, v59, buf, 0x20u);
 
 LABEL_31:
   if (!v2->_cubemapPipelineStateHDR)
@@ -257,12 +256,12 @@ LABEL_31:
   }
 
 LABEL_32:
-  v60 = objc_alloc_init(MEMORY[0x1E6974050]);
-  [v60 setDepthCompareFunction:1];
-  [v60 setDepthWriteEnabled:1];
-  v61 = [(MTLDevice *)v2->_device newDepthStencilStateWithDescriptor:v60];
+  v63 = objc_alloc_init(MEMORY[0x1E6974050]);
+  [v63 setDepthCompareFunction:1];
+  [v63 setDepthWriteEnabled:1];
+  v64 = [(MTLDevice *)v2->_device newDepthStencilStateWithDescriptor:v63];
   cubemapDepthState = v2->_cubemapDepthState;
-  v2->_cubemapDepthState = v61;
+  v2->_cubemapDepthState = v64;
 
   return v2;
 }

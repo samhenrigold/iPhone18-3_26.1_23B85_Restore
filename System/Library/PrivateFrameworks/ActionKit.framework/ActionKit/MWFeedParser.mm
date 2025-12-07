@@ -771,7 +771,7 @@ LABEL_64:
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   parserCopy = parser;
   elementCopy = element;
   iCopy = i;
@@ -784,46 +784,46 @@ LABEL_64:
   [(MWFeedParser *)self setCurrentElementAttributes:attributesCopy];
   if (self->parseStructureAsContent)
   {
-    v38 = nameCopy;
-    v39 = iCopy;
-    v40 = elementCopy;
-    v41 = parserCopy;
+    v37 = nameCopy;
+    v38 = iCopy;
+    v39 = elementCopy;
+    v40 = parserCopy;
     [(NSMutableString *)self->currentText appendFormat:@"<%@", elementCopy];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v37 = attributesCopy;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v36 = attributesCopy;
     v19 = attributesCopy;
-    v20 = [v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v43;
+      v22 = *v42;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v43 != v22)
+          if (*v42 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v42 + 1) + 8 * i);
+          v24 = *(*(&v41 + 1) + 8 * i);
           currentText = self->currentText;
           v26 = [v19 objectForKey:v24];
           stringByEncodingHTMLEntities = [v26 stringByEncodingHTMLEntities];
           [(NSMutableString *)currentText appendFormat:@" %@=%@", v24, stringByEncodingHTMLEntities];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v21);
     }
 
-    elementCopy = v40;
-    if (([v40 isEqualToString:@"br"] & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"img") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"input") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"hr") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"link") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"base") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"basefont") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"frame") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"meta") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"area") & 1) != 0 || (objc_msgSend(v40, "isEqualToString:", @"col") & 1) != 0 || objc_msgSend(v40, "isEqualToString:", @"param"))
+    elementCopy = v39;
+    if (([v39 isEqualToString:@"br"] & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"img") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"input") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"hr") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"link") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"base") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"basefont") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"frame") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"meta") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"area") & 1) != 0 || (objc_msgSend(v39, "isEqualToString:", @"col") & 1) != 0 || objc_msgSend(v39, "isEqualToString:", @"param"))
     {
       v28 = self->currentText;
       v29 = @" />";
@@ -836,10 +836,10 @@ LABEL_64:
     }
 
     [(NSMutableString *)v28 appendString:v29];
-    parserCopy = v41;
-    nameCopy = v38;
-    iCopy = v39;
-    attributesCopy = v37;
+    parserCopy = v40;
+    nameCopy = v37;
+    iCopy = v38;
+    attributesCopy = v36;
     goto LABEL_54;
   }
 
@@ -953,9 +953,9 @@ LABEL_40:
 
   if (self->feedType == 3)
   {
-    v35 = [attributesCopy objectForKey:@"type"];
-    v36 = v35;
-    if (v35 && [v35 isEqualToString:@"xhtml"])
+    v34 = [attributesCopy objectForKey:@"type"];
+    v35 = v34;
+    if (v34 && [v34 isEqualToString:@"xhtml"])
     {
       self->parseStructureAsContent = 1;
       [(MWFeedParser *)self setPathOfElementWithXHTMLType:self->currentPath];
@@ -964,8 +964,6 @@ LABEL_40:
 
 LABEL_54:
   objc_autoreleasePoolPop(v17);
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parsingFailedWithErrorCode:(int)code andDescription:(id)description

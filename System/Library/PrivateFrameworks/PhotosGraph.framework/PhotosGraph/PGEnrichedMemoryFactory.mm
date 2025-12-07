@@ -8,6 +8,7 @@
 - (id)_extendedCuratedAssetsWithFeeder:(id)feeder options:(id)options progressBlock:(id)block;
 - (id)_keyAssetWithFeeder:(id)feeder options:(id)options progressBlock:(id)block;
 - (id)_memoryEnricherFromTriggeredMemory:(id)memory;
+- (id)curatedAssetUUIDsWithTriggeredMemory:(id)memory keyAsset:(id)asset extendedCuratedAssetUUIDs:(id)ds targetCurationDuration:(double)duration allowGuestAsset:(BOOL)guestAsset progressReporter:(id)reporter;
 - (id)debugEnrichedMemoryWithTriggeredMemory:(id)memory withConfiguration:(id)configuration progressReporter:(id)reporter;
 - (id)enrichedMemoryWithTriggeredMemory:(id)memory withConfiguration:(id)configuration progressReporter:(id)reporter debug:(BOOL)debug;
 - (unint64_t)_numberOfGuestAssetInAssets:(id)assets;
@@ -495,21 +496,21 @@ LABEL_21:
 
 - (id)_extendedCuratedAssetsWithFeeder:(id)feeder options:(id)options progressBlock:(id)block
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   feederCopy = feeder;
   optionsCopy = options;
   blockCopy = block;
   v11 = _Block_copy(blockCopy);
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
   v53 = 0;
-  v38 = feederCopy;
-  if (!v11 || (v12 = CFAbsoluteTimeGetCurrent(), v12 - v51[3] < 0.01) || (v51[3] = v12, v49 = 0, (*(v11 + 2))(v11, &v49, 0.0), v13 = *(v55 + 24) | v49, *(v55 + 24) = v13, (v13 & 1) == 0))
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v37 = feederCopy;
+  if (!v11 || (v12 = CFAbsoluteTimeGetCurrent(), v12 - v50[3] < 0.01) || (v50[3] = v12, v48 = 0, (*(v11 + 2))(v11, &v48, 0.0), v13 = *(v54 + 24) | v48, *(v54 + 24) = v13, (v13 & 1) == 0))
   {
     allItems = [feederCopy allItems];
     if (![allItems count])
@@ -523,24 +524,24 @@ LABEL_27:
     photoLibrary = [(PGMemoryCurationSession *)self->_memoryCurationSession photoLibrary];
     v16 = [[PGDejunkerDeduper_PHAsset alloc] initWithSimilarityModelClass:objc_opt_class()];
     [(PGDejunkerDeduper *)v16 setLoggingConnection:self->_loggingConnection];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_progressBlock___block_invoke;
-    v44[3] = &unk_27888A188;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_progressBlock___block_invoke;
+    v43[3] = &unk_27888A188;
     v17 = v11;
-    v45 = v17;
-    v46 = &v50;
-    v47 = &v54;
-    v48 = 0x3F847AE147AE147BLL;
-    v18 = [(PGDejunkerDeduper_PHAsset *)v16 dejunkedDedupedAssetsInAssets:allItems options:optionsCopy debugInfo:0 progressBlock:v44];
-    if (*(v55 + 24) == 1)
+    v44 = v17;
+    v45 = &v49;
+    v46 = &v53;
+    v47 = 0x3F847AE147AE147BLL;
+    v18 = [(PGDejunkerDeduper_PHAsset *)v16 dejunkedDedupedAssetsInAssets:allItems options:optionsCopy debugInfo:0 progressBlock:v43];
+    if (*(v54 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v59 = 592;
-        v60 = 2080;
-        v61 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        v58 = 592;
+        v59 = 2080;
+        v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
         v19 = MEMORY[0x277D86220];
 LABEL_11:
         _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -552,41 +553,41 @@ LABEL_11:
       v20 = [PGCurationManager maximumNumberOfItemsForDuration:10 withTotalNumberOfItems:-1];
       if ([v18 count] > v20)
       {
-        v36 = -[PGCurationOptions initWithDuration:]([PGCurationOptions alloc], "initWithDuration:", [optionsCopy duration]);
-        [(PGCurationOptions *)v36 setLastPassMovieAdditionEnabled:0];
+        v35 = -[PGCurationOptions initWithDuration:]([PGCurationOptions alloc], "initWithDuration:", [optionsCopy duration]);
+        [(PGCurationOptions *)v35 setLastPassMovieAdditionEnabled:0];
         identifiersOfRequiredItems = [optionsCopy identifiersOfRequiredItems];
-        [(PGCurationOptions *)v36 setUuidsOfRequiredAssets:identifiersOfRequiredItems];
+        [(PGCurationOptions *)v35 setUuidsOfRequiredAssets:identifiersOfRequiredItems];
 
-        v34 = optionsCopy;
+        v33 = optionsCopy;
         v22 = objc_alloc(MEMORY[0x277CD98D0]);
         v23 = MEMORY[0x277CBEB98];
         v24 = +[PGCurationManager assetPropertySetsForCuration];
         v25 = [v23 setWithArray:v24];
-        v35 = [v22 initWithObjects:v18 photoLibrary:photoLibrary fetchType:0 fetchPropertySets:v25 identifier:0 registerIfNeeded:0];
+        v34 = [v22 initWithObjects:v18 photoLibrary:photoLibrary fetchType:0 fetchPropertySets:v25 identifier:0 registerIfNeeded:0];
 
         v26 = objc_alloc(MEMORY[0x277D27710]);
         curationContext = [(PGMemoryCurationSession *)self->_memoryCurationSession curationContext];
-        v28 = [v26 initWithAssetFetchResult:v35 curationContext:curationContext];
+        v28 = [v26 initWithAssetFetchResult:v34 curationContext:curationContext];
 
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_progressBlock___block_invoke_294;
-        v39[3] = &unk_27888A188;
-        v40 = v17;
-        v41 = &v50;
-        v42 = &v54;
-        v43 = 0x3F847AE147AE147BLL;
-        v29 = [(PGEnrichedMemoryFactory *)self _curatedAssetsWithFeeder:v28 options:v36 progressBlock:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_progressBlock___block_invoke_294;
+        v38[3] = &unk_27888A188;
+        v39 = v17;
+        v40 = &v49;
+        v41 = &v53;
+        v42 = 0x3F847AE147AE147BLL;
+        v29 = [(PGEnrichedMemoryFactory *)self _curatedAssetsWithFeeder:v28 options:v35 progressBlock:v38];
 
-        optionsCopy = v34;
-        if (*(v55 + 24) == 1)
+        optionsCopy = v33;
+        if (*(v54 + 24) == 1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v59 = 606;
-            v60 = 2080;
-            v61 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+            v58 = 606;
+            v59 = 2080;
+            v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -598,7 +599,7 @@ LABEL_11:
         v18 = v29;
       }
 
-      if (!v11 || (Current = CFAbsoluteTimeGetCurrent(), Current - v51[3] < 0.01) || (v51[3] = Current, v49 = 0, (*(v17 + 2))(v17, &v49, 1.0), v31 = *(v55 + 24) | v49, *(v55 + 24) = v31, (v31 & 1) == 0))
+      if (!v11 || (Current = CFAbsoluteTimeGetCurrent(), Current - v50[3] < 0.01) || (v50[3] = Current, v48 = 0, (*(v17 + 2))(v17, &v48, 1.0), v31 = *(v54 + 24) | v48, *(v54 + 24) = v31, (v31 & 1) == 0))
       {
         v18 = v18;
         v14 = v18;
@@ -608,9 +609,9 @@ LABEL_11:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v59 = 609;
-        v60 = 2080;
-        v61 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        v58 = 609;
+        v59 = 2080;
+        v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
         v19 = MEMORY[0x277D86220];
         goto LABEL_11;
       }
@@ -625,18 +626,16 @@ LABEL_26:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v59 = 578;
-    v60 = 2080;
-    v61 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+    v58 = 578;
+    v59 = 2080;
+    v60 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v14 = MEMORY[0x277CBEBF8];
 LABEL_28:
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v54, 8);
-
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v53, 8);
 
   return v14;
 }
@@ -726,34 +725,34 @@ void __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_prog
 
 - (unint64_t)_numberOfGuestAssetInAssets:(id)assets
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [assetsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [assetsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) sourceType] == 32)
+        if ([*(*(&v10 + 1) + 8 * i) sourceType] == 32)
         {
           ++v6;
         }
       }
 
-      v5 = [assetsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [assetsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -764,8 +763,342 @@ void __82__PGEnrichedMemoryFactory__extendedCuratedAssetsWithFeeder_options_prog
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
+}
+
+- (id)curatedAssetUUIDsWithTriggeredMemory:(id)memory keyAsset:(id)asset extendedCuratedAssetUUIDs:(id)ds targetCurationDuration:(double)duration allowGuestAsset:(BOOL)guestAsset progressReporter:(id)reporter
+{
+  guestAssetCopy = guestAsset;
+  v92 = *MEMORY[0x277D85DE8];
+  memoryCopy = memory;
+  assetCopy = asset;
+  dsCopy = ds;
+  reporterCopy = reporter;
+  v16 = self->_loggingConnection;
+  v17 = os_signpost_id_generate(v16);
+  v18 = v16;
+  v19 = v18;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "MemoryCurationForLength", "", buf, 2u);
+  }
+
+  info = 0;
+  mach_timebase_info(&info);
+  v20 = mach_absolute_time();
+  v21 = [(PGEnrichedMemoryFactory *)self _memoryEnricherFromTriggeredMemory:memoryCopy];
+  if (!v21)
+  {
+    v25 = MEMORY[0x277CBEBF8];
+    goto LABEL_25;
+  }
+
+  v22 = objc_opt_class();
+  v74 = NSStringFromClass(v22);
+  v23 = reporterCopy;
+  *buf = 0;
+  v84 = buf;
+  v85 = 0x2020000000;
+  v86 = 0;
+  v24 = [v23 isCancelledWithProgress:0.0];
+  v84[24] = v24;
+  if (v24)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *v88 = 67109378;
+      *v89 = 494;
+      *&v89[4] = 2080;
+      *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+    }
+
+    v25 = MEMORY[0x277CBEBF8];
+    goto LABEL_24;
+  }
+
+  v73 = [v21 relevantFeederForTriggeredMemory:memoryCopy inGraph:self->_graph allowGuestAsset:guestAssetCopy progressReporter:v23];
+  if (v73)
+  {
+    if (v84[24])
+    {
+      v84[24] = 1;
+      goto LABEL_16;
+    }
+
+    v26 = [v23 isCancelledWithProgress:0.05];
+    v84[24] = v26;
+    if (v26)
+    {
+LABEL_16:
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        *v88 = 67109378;
+        *v89 = 503;
+        *&v89[4] = 2080;
+        *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        v27 = MEMORY[0x277D86220];
+LABEL_21:
+        _os_log_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+        goto LABEL_22;
+      }
+
+      goto LABEL_22;
+    }
+
+    v72 = [v21 relevantCurationFeederForTriggeredMemory:memoryCopy relevantFeeder:v73 inGraph:self->_graph allowGuestAsset:guestAssetCopy progressReporter:v23];
+    if (!v72)
+    {
+      v72 = v73;
+    }
+
+    if (v84[24])
+    {
+      v84[24] = 1;
+LABEL_36:
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        *v88 = 67109378;
+        *v89 = 511;
+        *&v89[4] = 2080;
+        *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+      }
+
+      v25 = MEMORY[0x277CBEBF8];
+      goto LABEL_72;
+    }
+
+    v33 = [v23 isCancelledWithProgress:0.3];
+    v84[24] = v33;
+    if (v33)
+    {
+      goto LABEL_36;
+    }
+
+    v69 = [v21 uuidsOfRequiredAssetsWithKeyAsset:assetCopy triggeredMemory:memoryCopy inGraph:self->_graph progressReporter:v23];
+    v34 = MEMORY[0x277CCAC30];
+    v81[0] = MEMORY[0x277D85DD0];
+    v81[1] = 3221225472;
+    v81[2] = __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_keyAsset_extendedCuratedAssetUUIDs_targetCurationDuration_allowGuestAsset_progressReporter___block_invoke;
+    v81[3] = &unk_278886008;
+    v65 = dsCopy;
+    v82 = v65;
+    v35 = [v34 predicateWithBlock:v81];
+    v68 = [v69 filteredSetUsingPredicate:v35];
+
+    v70 = self->_loggingConnection;
+    v36 = os_signpost_id_generate(v70);
+    v37 = v70;
+    v38 = v37;
+    v63 = v36 - 1;
+    spid = v36;
+    if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v39 = v37;
+      v40 = os_signpost_enabled(v37);
+      v38 = v39;
+      if (v40)
+      {
+        *v88 = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v39, OS_SIGNPOST_INTERVAL_BEGIN, spid, "CuratedAsset", "", v88, 2u);
+        v38 = v39;
+      }
+    }
+
+    v67 = v38;
+
+    v80 = 0;
+    mach_timebase_info(&v80);
+    v62 = mach_absolute_time();
+    v41 = [v21 curationOptionsWithRequiredAssetUUIDs:v68 eligibleAssetUUIDs:v65 triggeredMemory:memoryCopy];
+    [v41 setUseDurationBasedCuration:1];
+    [v41 setMinimumDuration:0.0];
+    [v41 setTargetDuration:duration];
+    [v41 setFailIfMinimumDurationNotReached:0];
+    v71 = v41;
+    if (v84[24])
+    {
+      v84[24] = 1;
+LABEL_45:
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        *v88 = 67109378;
+        *v89 = 528;
+        *&v89[4] = 2080;
+        *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+      }
+
+      v25 = MEMORY[0x277CBEBF8];
+      goto LABEL_71;
+    }
+
+    v42 = [v23 isCancelledWithProgress:0.35];
+    v84[24] = v42;
+    if (v42)
+    {
+      goto LABEL_45;
+    }
+
+    v77[0] = MEMORY[0x277D85DD0];
+    v77[1] = 3221225472;
+    v77[2] = __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_keyAsset_extendedCuratedAssetUUIDs_targetCurationDuration_allowGuestAsset_progressReporter___block_invoke_284;
+    v77[3] = &unk_278889448;
+    v79 = buf;
+    v61 = v23;
+    v78 = v61;
+    v66 = [(PGEnrichedMemoryFactory *)self _curatedAssetsWithFeeder:v72 options:v41 progressBlock:v77];
+    if (v84[24] == 1)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        *v88 = 67109378;
+        *v89 = 533;
+        *&v89[4] = 2080;
+        *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+      }
+
+      v25 = MEMORY[0x277CBEBF8];
+      goto LABEL_70;
+    }
+
+    v43 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v66];
+    allObjects = [v43 allObjects];
+
+    v44 = mach_absolute_time();
+    numer = v80.numer;
+    denom = v80.denom;
+    v47 = v67;
+    v48 = v47;
+    if (v63 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
+    {
+      *v88 = 138412290;
+      *v89 = v74;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v48, OS_SIGNPOST_INTERVAL_END, spid, "CuratedAsset", "%@", v88, 0xCu);
+    }
+
+    v49 = v48;
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+    {
+      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v74];
+      *v88 = 136315650;
+      *v89 = "CuratedAsset";
+      *&v89[8] = 2112;
+      *&v89[10] = v50;
+      v90 = 2048;
+      v91 = ((((v44 - v62) * numer) / denom) / 1000000.0);
+      v51 = v50;
+      _os_log_impl(&dword_22F0FC000, v49, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v88, 0x20u);
+    }
+
+    v52 = mach_absolute_time();
+    v54 = info.numer;
+    v53 = info.denom;
+    v55 = v19;
+    v56 = v55;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+    {
+      *v88 = 138412290;
+      *v89 = v74;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v56, OS_SIGNPOST_INTERVAL_END, v17, "MemoryCurationForLength", "%@", v88, 0xCu);
+    }
+
+    v57 = v56;
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+    {
+      v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v74];
+      *v88 = 136315650;
+      *v89 = "MemoryCurationForLength";
+      *&v89[8] = 2112;
+      *&v89[10] = v58;
+      v90 = 2048;
+      v91 = ((((v52 - v20) * v54) / v53) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v57, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v88, 0x20u);
+    }
+
+    if (v84[24])
+    {
+      v84[24] = 1;
+    }
+
+    else
+    {
+      v59 = [v61 isCancelledWithProgress:1.0];
+      v84[24] = v59;
+      if ((v59 & 1) == 0)
+      {
+        v25 = allObjects;
+LABEL_69:
+
+LABEL_70:
+LABEL_71:
+
+LABEL_72:
+        goto LABEL_23;
+      }
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    {
+      *v88 = 67109378;
+      *v89 = 540;
+      *&v89[4] = 2080;
+      *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v88, 0x12u);
+    }
+
+    v25 = MEMORY[0x277CBEBF8];
+    goto LABEL_69;
+  }
+
+  if (v84[24])
+  {
+    v84[24] = 1;
+  }
+
+  else
+  {
+    v28 = [v23 isCancelledWithProgress:1.0];
+    v84[24] = v28;
+    if ((v28 & 1) == 0)
+    {
+      v30 = self->_loggingConnection;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
+        *v88 = 138412290;
+        *v89 = v32;
+        _os_log_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] nil feeder for triggered memory from enricher %@", v88, 0xCu);
+      }
+
+      goto LABEL_22;
+    }
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    *v88 = 67109378;
+    *v89 = 498;
+    *&v89[4] = 2080;
+    *&v89[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+    v27 = MEMORY[0x277D86220];
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  v25 = MEMORY[0x277CBEBF8];
+LABEL_23:
+
+LABEL_24:
+  _Block_object_dispose(buf, 8);
+
+LABEL_25:
+
+  return v25;
 }
 
 uint64_t __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_keyAsset_extendedCuratedAssetUUIDs_targetCurationDuration_allowGuestAsset_progressReporter___block_invoke_284(uint64_t a1, _BYTE *a2, double a3)
@@ -794,7 +1127,7 @@ uint64_t __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_key
 - (id)enrichedMemoryWithTriggeredMemory:(id)memory withConfiguration:(id)configuration progressReporter:(id)reporter debug:(BOOL)debug
 {
   debugCopy = debug;
-  v302 = *MEMORY[0x277D85DE8];
+  v301 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   configurationCopy = configuration;
   reporterCopy = reporter;
@@ -810,7 +1143,7 @@ uint64_t __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_key
 
   info = 0;
   mach_timebase_info(&info);
-  v262 = mach_absolute_time();
+  v261 = mach_absolute_time();
   v15 = [[PGEnrichedMemory alloc] initWithTriggeredMemory:memoryCopy];
   if ([configurationCopy skipEnrichment])
   {
@@ -819,26 +1152,26 @@ uint64_t __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_key
   }
 
   allowGuestAsset = [configurationCopy allowGuestAsset];
-  v268 = [(PGEnrichedMemoryFactory *)self _memoryEnricherFromTriggeredMemory:memoryCopy];
+  v267 = [(PGEnrichedMemoryFactory *)self _memoryEnricherFromTriggeredMemory:memoryCopy];
   v17 = objc_opt_class();
-  v263 = NSStringFromClass(v17);
+  v262 = NSStringFromClass(v17);
   v18 = reporterCopy;
   *buf = 0;
-  v295 = buf;
-  v296 = 0x2020000000;
-  v297 = 0;
-  v267 = v18;
+  v294 = buf;
+  v295 = 0x2020000000;
+  v296 = 0;
+  v266 = v18;
   v19 = [v18 isCancelledWithProgress:0.0];
-  v295[24] = v19;
+  v294[24] = v19;
   if (v19)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v299 = 67109378;
-      *v300 = 239;
-      *&v300[4] = 2080;
-      *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+      *v298 = 67109378;
+      *v299 = 239;
+      *&v299[4] = 2080;
+      *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
     }
 
     v16 = 0;
@@ -851,107 +1184,107 @@ uint64_t __155__PGEnrichedMemoryFactory_curatedAssetUUIDsWithTriggeredMemory_key
   v23 = v22;
   if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
-    *v299 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "Feeder", "", v299, 2u);
+    *v298 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22F0FC000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "Feeder", "", v298, 2u);
   }
 
-  v258 = v23;
+  v257 = v23;
 
-  v293 = 0;
-  mach_timebase_info(&v293);
+  v292 = 0;
+  mach_timebase_info(&v292);
   v24 = mach_absolute_time();
-  v25 = [v268 relevantFeederForTriggeredMemory:memoryCopy inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v267];
-  v261 = v25;
+  v25 = [v267 relevantFeederForTriggeredMemory:memoryCopy inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v266];
+  v260 = v25;
   if (v25)
   {
     -[PGEnrichedMemory setNumberOfRelevantAssets:](v15, "setNumberOfRelevantAssets:", [v25 numberOfItems]);
-    if (v295[24])
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
       goto LABEL_19;
     }
 
-    v26 = [v267 isCancelledWithProgress:0.05];
-    v295[24] = v26;
+    v26 = [v266 isCancelledWithProgress:0.05];
+    v294[24] = v26;
     if (v26)
     {
 LABEL_19:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 256;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 256;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
       goto LABEL_21;
     }
 
-    v257 = [v268 relevantCurationFeederForTriggeredMemory:memoryCopy relevantFeeder:v261 inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v267];
-    if (!v257)
+    v256 = [v267 relevantCurationFeederForTriggeredMemory:memoryCopy relevantFeeder:v260 inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v266];
+    if (!v256)
     {
-      v257 = v261;
+      v256 = v260;
     }
 
-    if (v295[24])
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
 LABEL_35:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 264;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 264;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
       v16 = 0;
       goto LABEL_68;
     }
 
-    v32 = [v267 isCancelledWithProgress:0.1];
-    v295[24] = v32;
+    v32 = [v266 isCancelledWithProgress:0.1];
+    v294[24] = v32;
     if (v32)
     {
       goto LABEL_35;
     }
 
-    v256 = [v268 relevantKeyCurationFeederForTriggeredMemory:memoryCopy inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v267];
-    if (!v256)
+    v255 = [v267 relevantKeyCurationFeederForTriggeredMemory:memoryCopy inGraph:self->_graph allowGuestAsset:allowGuestAsset progressReporter:v266];
+    if (!v255)
     {
-      v256 = v257;
+      v255 = v256;
     }
 
-    if (v295[24])
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
 LABEL_43:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 272;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 272;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
       v16 = 0;
       goto LABEL_67;
     }
 
-    v33 = [v267 isCancelledWithProgress:0.15];
-    v295[24] = v33;
+    v33 = [v266 isCancelledWithProgress:0.15];
+    v294[24] = v33;
     if (v33)
     {
       goto LABEL_43;
     }
 
-    v254 = mach_absolute_time();
-    numer = v293.numer;
-    denom = v293.denom;
-    v36 = v258;
+    v253 = mach_absolute_time();
+    numer = v292.numer;
+    denom = v292.denom;
+    v36 = v257;
     v37 = v36;
     v38 = v36;
     if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
@@ -960,9 +1293,9 @@ LABEL_43:
       v37 = v38;
       if (v39)
       {
-        *v299 = 138412290;
-        *v300 = v263;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v38, OS_SIGNPOST_INTERVAL_END, v21, "Feeder", "%@", v299, 0xCu);
+        *v298 = 138412290;
+        *v299 = v262;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v38, OS_SIGNPOST_INTERVAL_END, v21, "Feeder", "%@", v298, 0xCu);
         v37 = v38;
       }
     }
@@ -970,15 +1303,15 @@ LABEL_43:
     v40 = v38;
     if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-      v42 = v41 = (((v254 - v24) * numer) / denom) / 1000000.0;
-      *v299 = 136315650;
-      *v300 = "Feeder";
-      *&v300[8] = 2112;
-      *&v300[10] = v42;
-      *&v300[18] = 2048;
-      v301 = v41;
-      _os_log_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+      v42 = v41 = (((v253 - v24) * numer) / denom) / 1000000.0;
+      *v298 = 136315650;
+      *v299 = "Feeder";
+      *&v299[8] = 2112;
+      *&v299[10] = v42;
+      *&v299[18] = 2048;
+      v300 = v41;
+      _os_log_impl(&dword_22F0FC000, v40, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
     }
 
     v43 = self->_loggingConnection;
@@ -987,60 +1320,60 @@ LABEL_43:
     v46 = v45;
     if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
     {
-      *v299 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v44, "KeyAsset", "", v299, 2u);
+      *v298 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v44, "KeyAsset", "", v298, 2u);
     }
 
-    v253 = v46;
+    v252 = v46;
 
-    v292 = 0;
-    mach_timebase_info(&v292);
-    v248 = mach_absolute_time();
-    v47 = [v268 keyAssetCurationOptionsWithTriggeredMemory:memoryCopy inGraph:self->_graph];
+    v291 = 0;
+    mach_timebase_info(&v291);
+    v247 = mach_absolute_time();
+    v47 = [v267 keyAssetCurationOptionsWithTriggeredMemory:memoryCopy inGraph:self->_graph];
     [v47 setAllowGuestAsset:allowGuestAsset];
-    v289[0] = MEMORY[0x277D85DD0];
-    v289[1] = 3221225472;
-    v289[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke;
-    v289[3] = &unk_278889448;
-    v291 = buf;
-    v250 = v267;
-    v252 = v47;
-    v290 = v250;
-    v255 = [(PGEnrichedMemoryFactory *)self _keyAssetWithFeeder:v256 options:v47 progressBlock:v289];
-    if (v295[24] == 1)
+    v288[0] = MEMORY[0x277D85DD0];
+    v288[1] = 3221225472;
+    v288[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke;
+    v288[3] = &unk_278889448;
+    v290 = buf;
+    v249 = v266;
+    v251 = v47;
+    v289 = v249;
+    v254 = [(PGEnrichedMemoryFactory *)self _keyAssetWithFeeder:v255 options:v47 progressBlock:v288];
+    if (v294[24] == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 285;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        *v298 = 67109378;
+        *v299 = 285;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
         v48 = MEMORY[0x277D86220];
 LABEL_64:
-        _os_log_impl(&dword_22F0FC000, v48, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v48, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
         goto LABEL_65;
       }
 
       goto LABEL_65;
     }
 
-    if (!v255)
+    if (!v254)
     {
       goto LABEL_61;
     }
 
-    if ([v255 clsAvoidIfPossibleAsKeyItemForMemories:1 allowGuestAsset:allowGuestAsset])
+    if ([v254 clsAvoidIfPossibleAsKeyItemForMemories:1 allowGuestAsset:allowGuestAsset])
     {
-      if (v295[24])
+      if (v294[24])
       {
-        v295[24] = 1;
+        v294[24] = 1;
 LABEL_62:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          *v299 = 67109378;
-          *v300 = 287;
-          *&v300[4] = 2080;
-          *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+          *v298 = 67109378;
+          *v299 = 287;
+          *&v299[4] = 2080;
+          *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
           v48 = MEMORY[0x277D86220];
           goto LABEL_64;
         }
@@ -1056,16 +1389,16 @@ LABEL_68:
       }
 
 LABEL_61:
-      v49 = [v250 isCancelledWithProgress:1.0];
-      v295[24] = v49;
+      v49 = [v249 isCancelledWithProgress:1.0];
+      v294[24] = v49;
       if ((v49 & 1) == 0)
       {
         loggingConnection = self->_loggingConnection;
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
         {
-          *v299 = 138412290;
-          *v300 = memoryCopy;
-          _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] No viable key asset found, returning nil enrichedMemory for %@", v299, 0xCu);
+          *v298 = 138412290;
+          *v299 = memoryCopy;
+          _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] No viable key asset found, returning nil enrichedMemory for %@", v298, 0xCu);
         }
 
         if (debugCopy)
@@ -1081,110 +1414,110 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    uuid = [v255 uuid];
+    uuid = [v254 uuid];
     [(PGEnrichedMemory *)v15 setKeyAssetUUID:uuid];
 
-    v246 = mach_absolute_time();
-    v54 = v292.numer;
-    v53 = v292.denom;
-    v55 = v253;
+    v245 = mach_absolute_time();
+    v53 = v291.numer;
+    v52 = v291.denom;
+    v54 = v252;
+    v55 = v54;
+    if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+    {
+      *v298 = 138412290;
+      *v299 = v262;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v55, OS_SIGNPOST_INTERVAL_END, v44, "KeyAsset", "%@", v298, 0xCu);
+    }
+
     v56 = v55;
-    if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
     {
-      *v299 = 138412290;
-      *v300 = v263;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v56, OS_SIGNPOST_INTERVAL_END, v44, "KeyAsset", "%@", v299, 0xCu);
+      v262 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+      *v298 = 136315650;
+      *v299 = "KeyAsset";
+      *&v299[8] = 2112;
+      *&v299[10] = v262;
+      *&v299[18] = 2048;
+      v300 = ((((v245 - v247) * v53) / v52) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v56, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
     }
 
-    v57 = v56;
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+    v248 = [v267 uuidsOfRequiredAssetsWithKeyAsset:v254 triggeredMemory:memoryCopy inGraph:self->_graph progressReporter:v249];
+    v58 = self->_loggingConnection;
+    v59 = os_signpost_id_generate(v58);
+    v60 = v58;
+    v61 = v60;
+    v237 = v59 - 1;
+    if (v59 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
     {
-      v263 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-      *v299 = 136315650;
-      *v300 = "KeyAsset";
-      *&v300[8] = 2112;
-      *&v300[10] = v263;
-      *&v300[18] = 2048;
-      v301 = ((((v246 - v248) * v54) / v53) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v57, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+      *v298 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v61, OS_SIGNPOST_INTERVAL_BEGIN, v59, "ExtendedCuratedAsset", "", v298, 2u);
     }
 
-    v249 = [v268 uuidsOfRequiredAssetsWithKeyAsset:v255 triggeredMemory:memoryCopy inGraph:self->_graph progressReporter:v250];
-    v59 = self->_loggingConnection;
-    v60 = os_signpost_id_generate(v59);
-    v61 = v59;
-    v62 = v61;
-    v238 = v60 - 1;
-    if (v60 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
-    {
-      *v299 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v62, OS_SIGNPOST_INTERVAL_BEGIN, v60, "ExtendedCuratedAsset", "", v299, 2u);
-    }
+    spid = v59;
+    v246 = v61;
 
-    spid = v60;
-    v247 = v62;
-
-    v288 = 0;
-    mach_timebase_info(&v288);
-    v235 = mach_absolute_time();
+    v287 = 0;
+    mach_timebase_info(&v287);
+    v234 = mach_absolute_time();
     context = objc_autoreleasePoolPush();
-    v63 = [v268 extendedCurationOptionsWithRequiredAssetUUIDs:v249 triggeredMemory:memoryCopy];
-    v285[0] = MEMORY[0x277D85DD0];
-    v285[1] = 3221225472;
-    v285[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_262;
-    v285[3] = &unk_278889448;
-    v287 = buf;
-    log = v250;
-    v286 = log;
-    v64 = [(PGEnrichedMemoryFactory *)self _extendedCuratedAssetsWithFeeder:v257 options:v63 progressBlock:v285];
-    v242 = v63;
-    v65 = v295[24];
-    if (v65 == 1)
+    v62 = [v267 extendedCurationOptionsWithRequiredAssetUUIDs:v248 triggeredMemory:memoryCopy];
+    v284[0] = MEMORY[0x277D85DD0];
+    v284[1] = 3221225472;
+    v284[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_262;
+    v284[3] = &unk_278889448;
+    v286 = buf;
+    log = v249;
+    v285 = log;
+    v63 = [(PGEnrichedMemoryFactory *)self _extendedCuratedAssetsWithFeeder:v256 options:v62 progressBlock:v284];
+    v241 = v62;
+    v64 = v294[24];
+    if (v64 == 1)
     {
+      v65 = MEMORY[0x277D86220];
       v66 = MEMORY[0x277D86220];
-      v67 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 316;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, v66, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 316;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, v65, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
-      v251 = 0;
+      v250 = 0;
     }
 
     else
     {
-      v66 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v64];
-      v251 = [v268 extendedCurationOptionsWithRequiredAssetUUIDs:v66 triggeredMemory:memoryCopy];
+      v65 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v63];
+      v250 = [v267 extendedCurationOptionsWithRequiredAssetUUIDs:v65 triggeredMemory:memoryCopy];
     }
 
     objc_autoreleasePoolPop(context);
-    if (v65)
+    if (v64)
     {
       goto LABEL_98;
     }
 
-    if (v295[24])
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
       goto LABEL_96;
     }
 
-    v69 = [log isCancelledWithProgress:0.3];
-    v295[24] = v69;
-    if (v69)
+    v68 = [log isCancelledWithProgress:0.3];
+    v294[24] = v68;
+    if (v68)
     {
 LABEL_96:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 323;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 323;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
 LABEL_98:
@@ -1194,32 +1527,32 @@ LABEL_99:
       goto LABEL_66;
     }
 
-    v70 = objc_autoreleasePoolPush();
-    v282[0] = MEMORY[0x277D85DD0];
-    v282[1] = 3221225472;
-    v282[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_264;
-    v282[3] = &unk_278889448;
-    v284 = buf;
-    v229 = log;
-    v283 = v229;
-    contexta = [(PGEnrichedMemoryFactory *)self _extendedCuratedAssetsWithFeeder:v261 options:v251 progressBlock:v282];
-    v71 = v295[24];
-    if (v71 == 1)
+    v69 = objc_autoreleasePoolPush();
+    v281[0] = MEMORY[0x277D85DD0];
+    v281[1] = 3221225472;
+    v281[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_264;
+    v281[3] = &unk_278889448;
+    v283 = buf;
+    v228 = log;
+    v282 = v228;
+    contexta = [(PGEnrichedMemoryFactory *)self _extendedCuratedAssetsWithFeeder:v260 options:v250 progressBlock:v281];
+    v70 = v294[24];
+    if (v70 == 1)
     {
+      v71 = MEMORY[0x277D86220];
       v72 = MEMORY[0x277D86220];
-      v73 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 331;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 331;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
     }
 
-    objc_autoreleasePoolPop(v70);
-    if (v71)
+    objc_autoreleasePoolPop(v69);
+    if (v70)
     {
       v16 = 0;
 LABEL_128:
@@ -1227,142 +1560,142 @@ LABEL_128:
       goto LABEL_99;
     }
 
-    v243 = [PGMemoryGenerationHelper assetUUIDsFromAssets:contexta];
-    allObjects = [v243 allObjects];
+    v242 = [PGMemoryGenerationHelper assetUUIDsFromAssets:contexta];
+    allObjects = [v242 allObjects];
     [(PGEnrichedMemory *)v15 setExtendedCuratedAssetUUIDs:allObjects];
 
-    v75 = mach_absolute_time();
-    v76 = v288.numer;
-    v77 = v288.denom;
-    v78 = v247;
+    v74 = mach_absolute_time();
+    v75 = v287.numer;
+    v76 = v287.denom;
+    v77 = v246;
+    v78 = v77;
+    if (v237 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v77))
+    {
+      *v298 = 138412290;
+      *v299 = v262;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v78, OS_SIGNPOST_INTERVAL_END, spid, "ExtendedCuratedAsset", "%@", v298, 0xCu);
+    }
+
     v79 = v78;
-    if (v238 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v78))
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
     {
-      *v299 = 138412290;
-      *v300 = v263;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v79, OS_SIGNPOST_INTERVAL_END, spid, "ExtendedCuratedAsset", "%@", v299, 0xCu);
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+      v81 = v80 = (((v74 - v234) * v75) / v76) / 1000000.0;
+      *v298 = 136315650;
+      *v299 = "ExtendedCuratedAsset";
+      *&v299[8] = 2112;
+      *&v299[10] = v81;
+      *&v299[18] = 2048;
+      v300 = v80;
+      _os_log_impl(&dword_22F0FC000, v79, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
     }
 
-    v80 = v79;
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+    v82 = self->_loggingConnection;
+    v83 = os_signpost_id_generate(v82);
+    loga = v82;
+    v235 = v83;
+    v84 = v83 - 1;
+    if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(loga))
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-      v82 = v81 = (((v75 - v235) * v76) / v77) / 1000000.0;
-      *v299 = 136315650;
-      *v300 = "ExtendedCuratedAsset";
-      *&v300[8] = 2112;
-      *&v300[10] = v82;
-      *&v300[18] = 2048;
-      v301 = v81;
-      _os_log_impl(&dword_22F0FC000, v80, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+      *v298 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, loga, OS_SIGNPOST_INTERVAL_BEGIN, v83, "CuratedAsset", "", v298, 2u);
     }
 
-    v83 = self->_loggingConnection;
-    v84 = os_signpost_id_generate(v83);
-    loga = v83;
-    v236 = v84;
-    v85 = v84 - 1;
-    if (v84 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(loga))
-    {
-      *v299 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, loga, OS_SIGNPOST_INTERVAL_BEGIN, v84, "CuratedAsset", "", v299, 2u);
-    }
-
-    v281 = 0;
-    mach_timebase_info(&v281);
+    v280 = 0;
+    mach_timebase_info(&v280);
     spida = mach_absolute_time();
-    v239 = [v268 curationOptionsWithRequiredAssetUUIDs:v249 eligibleAssetUUIDs:v243 triggeredMemory:memoryCopy];
-    if (v295[24])
+    v238 = [v267 curationOptionsWithRequiredAssetUUIDs:v248 eligibleAssetUUIDs:v242 triggeredMemory:memoryCopy];
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
 LABEL_117:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 344;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 344;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
       v16 = 0;
       goto LABEL_127;
     }
 
-    v86 = [v229 isCancelledWithProgress:0.3];
-    v295[24] = v86;
-    if (v86)
+    v85 = [v228 isCancelledWithProgress:0.3];
+    v294[24] = v85;
+    if (v85)
     {
       goto LABEL_117;
     }
 
-    v226 = objc_autoreleasePoolPush();
-    v278[0] = MEMORY[0x277D85DD0];
-    v278[1] = 3221225472;
-    v278[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_266;
-    v278[3] = &unk_278889448;
-    v280 = buf;
-    v224 = v229;
-    v279 = v224;
-    v230 = [(PGEnrichedMemoryFactory *)self _curatedAssetsWithFeeder:v257 options:v239 progressBlock:v278];
-    v87 = v295[24];
-    if (v87 == 1)
+    v225 = objc_autoreleasePoolPush();
+    v277[0] = MEMORY[0x277D85DD0];
+    v277[1] = 3221225472;
+    v277[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_266;
+    v277[3] = &unk_278889448;
+    v279 = buf;
+    v223 = v228;
+    v278 = v223;
+    v229 = [(PGEnrichedMemoryFactory *)self _curatedAssetsWithFeeder:v256 options:v238 progressBlock:v277];
+    v86 = v294[24];
+    if (v86 == 1)
     {
+      v87 = MEMORY[0x277D86220];
       v88 = MEMORY[0x277D86220];
-      v89 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 353;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 353;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
     }
 
-    objc_autoreleasePoolPop(v226);
-    if (v87)
+    objc_autoreleasePoolPop(v225);
+    if (v86)
     {
       goto LABEL_125;
     }
 
-    v90 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v230];
-    allObjects2 = [v90 allObjects];
+    v89 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v229];
+    allObjects2 = [v89 allObjects];
     [(PGEnrichedMemory *)v15 setCuratedAssetUUIDs:allObjects2];
 
-    v92 = mach_absolute_time();
-    v93 = v281.numer;
-    v94 = v281.denom;
-    v95 = loga;
+    v91 = mach_absolute_time();
+    v92 = v280.numer;
+    v93 = v280.denom;
+    v94 = loga;
+    v95 = v94;
+    if (v84 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
+    {
+      *v298 = 138412290;
+      *v299 = v262;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v95, OS_SIGNPOST_INTERVAL_END, v235, "CuratedAsset", "%@", v298, 0xCu);
+    }
+
     v96 = v95;
-    if (v85 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v95))
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_INFO))
     {
-      *v299 = 138412290;
-      *v300 = v263;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v96, OS_SIGNPOST_INTERVAL_END, v236, "CuratedAsset", "%@", v299, 0xCu);
+      v2622 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+      *v298 = 136315650;
+      *v299 = "CuratedAsset";
+      *&v299[8] = 2112;
+      *&v299[10] = v2622;
+      *&v299[18] = 2048;
+      v300 = ((((v91 - spida) * v92) / v93) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v96, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
     }
 
-    v97 = v96;
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
-    {
-      v2632 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-      *v299 = 136315650;
-      *v300 = "CuratedAsset";
-      *&v300[8] = 2112;
-      *&v300[10] = v2632;
-      *&v300[18] = 2048;
-      v301 = ((((v92 - spida) * v93) / v94) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v97, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
-    }
-
-    v99 = [v230 count];
+    v98 = [v229 count];
     minimumNumberOfCuratedAssets = [configurationCopy minimumNumberOfCuratedAssets];
-    v101 = minimumNumberOfCuratedAssets;
-    if (v99 < minimumNumberOfCuratedAssets)
+    v100 = minimumNumberOfCuratedAssets;
+    if (v98 < minimumNumberOfCuratedAssets)
     {
-      if (v295[24])
+      if (v294[24])
       {
-        v295[24] = 1;
+        v294[24] = 1;
 LABEL_141:
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
@@ -1374,33 +1707,33 @@ LABEL_127:
           goto LABEL_128;
         }
 
-        *v299 = 67109378;
-        *v300 = 363;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        v106 = MEMORY[0x277D86220];
+        *v298 = 67109378;
+        *v299 = 363;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        v105 = MEMORY[0x277D86220];
 LABEL_143:
-        _os_log_impl(&dword_22F0FC000, v106, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        _os_log_impl(&dword_22F0FC000, v105, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
         goto LABEL_125;
       }
 
-      v105 = [v224 isCancelledWithProgress:1.0];
-      v295[24] = v105;
-      if (v105)
+      v104 = [v223 isCancelledWithProgress:1.0];
+      v294[24] = v104;
+      if (v104)
       {
         goto LABEL_141;
       }
 
-      v133 = self->_loggingConnection;
-      if (os_log_type_enabled(v133, OS_LOG_TYPE_DEFAULT))
+      v132 = self->_loggingConnection;
+      if (os_log_type_enabled(v132, OS_LOG_TYPE_DEFAULT))
       {
-        *v299 = 67109634;
-        *v300 = v99;
-        *&v300[4] = 1024;
-        *&v300[6] = v101;
-        *&v300[10] = 2112;
-        *&v300[12] = memoryCopy;
-        _os_log_impl(&dword_22F0FC000, v133, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Not enough curated assets, found %d but require at least %d, returning nil enrichedMemory for %@", v299, 0x18u);
+        *v298 = 67109634;
+        *v299 = v98;
+        *&v299[4] = 1024;
+        *&v299[6] = v100;
+        *&v299[10] = 2112;
+        *&v299[12] = memoryCopy;
+        _os_log_impl(&dword_22F0FC000, v132, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Not enough curated assets, found %d but require at least %d, returning nil enrichedMemory for %@", v298, 0x18u);
       }
 
       if (!debugCopy)
@@ -1416,32 +1749,32 @@ LABEL_174:
 
     if (allowGuestAsset)
     {
-      v102 = [(PGEnrichedMemoryFactory *)self _numberOfGuestAssetInAssets:v230];
+      v101 = [(PGEnrichedMemoryFactory *)self _numberOfGuestAssetInAssets:v229];
       [configurationCopy maximumRatioOfGuestAssets];
-      v103 = v102 / v99;
-      if (v103 > v104)
+      v102 = v101 / v98;
+      if (v102 > v103)
       {
-        if (v295[24])
+        if (v294[24])
         {
-          v295[24] = 1;
+          v294[24] = 1;
         }
 
         else
         {
-          v134 = [v224 isCancelledWithProgress:1.0];
-          v295[24] = v134;
-          if ((v134 & 1) == 0)
+          v133 = [v223 isCancelledWithProgress:1.0];
+          v294[24] = v133;
+          if ((v133 & 1) == 0)
           {
-            v138 = self->_loggingConnection;
-            if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
+            v137 = self->_loggingConnection;
+            if (os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT))
             {
-              *v299 = 138412802;
-              *v300 = memoryCopy;
-              *&v300[8] = 2048;
-              *&v300[10] = v102;
-              *&v300[18] = 2048;
-              *&v301 = (v103 * v99);
-              _os_log_impl(&dword_22F0FC000, v138, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Too many guest assets featured for %@: %lu > %lu", v299, 0x20u);
+              *v298 = 138412802;
+              *v299 = memoryCopy;
+              *&v299[8] = 2048;
+              *&v299[10] = v101;
+              *&v299[18] = 2048;
+              *&v300 = (v102 * v98);
+              _os_log_impl(&dword_22F0FC000, v137, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Too many guest assets featured for %@: %lu > %lu", v298, 0x20u);
             }
 
             if (!debugCopy)
@@ -1459,15 +1792,15 @@ LABEL_174:
           goto LABEL_125;
         }
 
-        *v299 = 67109378;
-        *v300 = 378;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        v106 = MEMORY[0x277D86220];
+        *v298 = 67109378;
+        *v299 = 378;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        v105 = MEMORY[0x277D86220];
         goto LABEL_143;
       }
 
-      [(PGEnrichedMemory *)v15 setFeaturesGuestAssets:v102 != 0];
+      [(PGEnrichedMemory *)v15 setFeaturesGuestAssets:v101 != 0];
     }
 
     else
@@ -1475,124 +1808,124 @@ LABEL_174:
       [(PGEnrichedMemory *)v15 setFeaturesGuestAssets:0];
     }
 
-    v107 = self->_loggingConnection;
-    v108 = os_signpost_id_generate(v107);
-    v260 = v107;
-    spidb = v108;
-    v109 = v108 - 1;
-    if (v109 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v260))
+    v106 = self->_loggingConnection;
+    v107 = os_signpost_id_generate(v106);
+    v259 = v106;
+    spidb = v107;
+    v108 = v107 - 1;
+    if (v108 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v259))
     {
-      *v299 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v260, OS_SIGNPOST_INTERVAL_BEGIN, spidb, "RepresentativeAssets", "", v299, 2u);
+      *v298 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v259, OS_SIGNPOST_INTERVAL_BEGIN, spidb, "RepresentativeAssets", "", v298, 2u);
     }
 
-    v277 = 0;
-    mach_timebase_info(&v277);
-    v227 = mach_absolute_time();
-    allItems = [v261 allItems];
-    v274[0] = MEMORY[0x277D85DD0];
-    v274[1] = 3221225472;
-    v274[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_269;
-    v274[3] = &unk_278889448;
-    v276 = buf;
-    v225 = v224;
-    v275 = v225;
-    v237 = [PGCurationManager representativeAssetsForAssets:allItems extendedCuratedAssets:contexta progressBlock:v274];
+    v276 = 0;
+    mach_timebase_info(&v276);
+    v226 = mach_absolute_time();
+    allItems = [v260 allItems];
+    v273[0] = MEMORY[0x277D85DD0];
+    v273[1] = 3221225472;
+    v273[2] = __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withConfiguration_progressReporter_debug___block_invoke_269;
+    v273[3] = &unk_278889448;
+    v275 = buf;
+    v224 = v223;
+    v274 = v224;
+    v236 = [PGCurationManager representativeAssetsForAssets:allItems extendedCuratedAssets:contexta progressBlock:v273];
 
-    if (v295[24] == 1)
+    if (v294[24] == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 399;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 399;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
       v16 = 0;
       goto LABEL_216;
     }
 
-    v111 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v237];
-    allObjects3 = [v111 allObjects];
+    v110 = [PGMemoryGenerationHelper assetUUIDsFromAssets:v236];
+    allObjects3 = [v110 allObjects];
     [(PGEnrichedMemory *)v15 setRepresentativeAssetUUIDs:allObjects3];
 
-    v113 = mach_absolute_time();
-    v114 = v277.numer;
-    v115 = v277.denom;
-    v116 = v260;
+    v112 = mach_absolute_time();
+    v113 = v276.numer;
+    v114 = v276.denom;
+    v115 = v259;
+    v116 = v115;
+    if (v108 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v115))
+    {
+      *v298 = 138412290;
+      *v299 = v262;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v116, OS_SIGNPOST_INTERVAL_END, spidb, "RepresentativeAssets", "%@", v298, 0xCu);
+    }
+
     v117 = v116;
-    if (v109 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v116))
+    if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
     {
-      *v299 = 138412290;
-      *v300 = v263;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v117, OS_SIGNPOST_INTERVAL_END, spidb, "RepresentativeAssets", "%@", v299, 0xCu);
+      v2623 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+      *v298 = 136315650;
+      *v299 = "RepresentativeAssets";
+      *&v299[8] = 2112;
+      *&v299[10] = v2623;
+      *&v299[18] = 2048;
+      v300 = ((((v112 - v226) * v113) / v114) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v117, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
     }
 
-    v118 = v117;
-    if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
+    v119 = self->_loggingConnection;
+    v120 = os_signpost_id_generate(v119);
+    v227 = v119;
+    v218 = v120;
+    v121 = v120 - 1;
+    if (v120 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v227))
     {
-      v2633 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-      *v299 = 136315650;
-      *v300 = "RepresentativeAssets";
-      *&v300[8] = 2112;
-      *&v300[10] = v2633;
-      *&v300[18] = 2048;
-      v301 = ((((v113 - v227) * v114) / v115) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v118, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+      *v298 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v227, OS_SIGNPOST_INTERVAL_BEGIN, v120, "TitleGeneration", "", v298, 2u);
     }
 
-    v120 = self->_loggingConnection;
-    v121 = os_signpost_id_generate(v120);
-    v228 = v120;
-    v219 = v121;
-    v122 = v121 - 1;
-    if (v121 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v228))
-    {
-      *v299 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v228, OS_SIGNPOST_INTERVAL_BEGIN, v121, "TitleGeneration", "", v299, 2u);
-    }
-
-    v273 = 0;
-    mach_timebase_info(&v273);
-    v214 = mach_absolute_time();
-    spidc = [v268 titleGeneratorForTriggeredMemory:memoryCopy withKeyAsset:v255 curatedAssets:v230 extendedCuratedAssets:contexta titleGenerationContext:self->_titleGenerationContext inGraph:self->_graph];
+    v272 = 0;
+    mach_timebase_info(&v272);
+    v213 = mach_absolute_time();
+    spidc = [v267 titleGeneratorForTriggeredMemory:memoryCopy withKeyAsset:v254 curatedAssets:v229 extendedCuratedAssets:contexta titleGenerationContext:self->_titleGenerationContext inGraph:self->_graph];
     if (spidc)
     {
       title = [spidc title];
       stringValue = [title stringValue];
-      v223 = [stringValue stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+      v222 = [stringValue stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
 
-      if ([v223 length])
+      if ([v222 length])
       {
-        [(PGEnrichedMemory *)v15 setTitle:v223];
+        [(PGEnrichedMemory *)v15 setTitle:v222];
         subtitle = [spidc subtitle];
         stringValue2 = [subtitle stringValue];
         [(PGEnrichedMemory *)v15 setSubtitle:stringValue2];
 
         subtitle2 = [(PGEnrichedMemory *)v15 subtitle];
-        v126 = [subtitle2 length] == 0;
+        v125 = [subtitle2 length] == 0;
 
-        if (v126)
+        if (v125)
         {
-          if (v295[24])
+          if (v294[24])
           {
-            v295[24] = 1;
+            v294[24] = 1;
           }
 
           else
           {
-            v146 = [v225 isCancelledWithProgress:1.0];
-            v295[24] = v146;
-            if ((v146 & 1) == 0)
+            v145 = [v224 isCancelledWithProgress:1.0];
+            v294[24] = v145;
+            if ((v145 & 1) == 0)
             {
-              v162 = self->_loggingConnection;
-              if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+              v161 = self->_loggingConnection;
+              if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
               {
-                *v299 = 138412290;
-                *v300 = memoryCopy;
-                _os_log_error_impl(&dword_22F0FC000, v162, OS_LOG_TYPE_ERROR, "[PGEnrichedMemoryFactory] No subtitle generated, returning nil enrichedMemory for %@", v299, 0xCu);
+                *v298 = 138412290;
+                *v299 = memoryCopy;
+                _os_log_error_impl(&dword_22F0FC000, v161, OS_LOG_TYPE_ERROR, "[PGEnrichedMemoryFactory] No subtitle generated, returning nil enrichedMemory for %@", v298, 0xCu);
               }
 
               if (debugCopy)
@@ -1610,15 +1943,15 @@ LABEL_213:
             }
           }
 
+          v146 = MEMORY[0x277D86220];
           v147 = MEMORY[0x277D86220];
-          v148 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v147, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v146, OS_LOG_TYPE_INFO))
           {
-            *v299 = 67109378;
-            *v300 = 437;
-            *&v300[4] = 2080;
-            *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+            *v298 = 67109378;
+            *v299 = 437;
+            *&v299[4] = 2080;
+            *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
           }
 
 LABEL_211:
@@ -1627,110 +1960,110 @@ LABEL_211:
         }
 
         -[PGEnrichedMemory setTitleCategory:](v15, "setTitleCategory:", [title category]);
-        v265 = mach_absolute_time();
-        v127 = v273.numer;
-        v128 = v273.denom;
-        v129 = v228;
+        v264 = mach_absolute_time();
+        v126 = v272.numer;
+        v127 = v272.denom;
+        v128 = v227;
+        v129 = v128;
+        if (v121 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v128))
+        {
+          *v298 = 138412290;
+          *v299 = v262;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v129, OS_SIGNPOST_INTERVAL_END, v218, "TitleGeneration", "%@", v298, 0xCu);
+        }
+
         v130 = v129;
-        if (v122 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v129))
+        if (os_log_type_enabled(v130, OS_LOG_TYPE_INFO))
         {
-          *v299 = 138412290;
-          *v300 = v263;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v130, OS_SIGNPOST_INTERVAL_END, v219, "TitleGeneration", "%@", v299, 0xCu);
+          v2624 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+          *v298 = 136315650;
+          *v299 = "TitleGeneration";
+          *&v299[8] = 2112;
+          *&v299[10] = v2624;
+          *&v299[18] = 2048;
+          v300 = ((((v264 - v213) * v126) / v127) / 1000000.0);
+          _os_log_impl(&dword_22F0FC000, v130, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
         }
 
-        v131 = v130;
-        if (os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
+        if (v294[24])
         {
-          v2634 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-          *v299 = 136315650;
-          *v300 = "TitleGeneration";
-          *&v300[8] = 2112;
-          *&v300[10] = v2634;
-          *&v300[18] = 2048;
-          v301 = ((((v265 - v214) * v127) / v128) / 1000000.0);
-          _os_log_impl(&dword_22F0FC000, v131, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
-        }
-
-        if (v295[24])
-        {
-          v295[24] = 1;
+          v294[24] = 1;
           goto LABEL_196;
         }
 
-        v139 = [v225 isCancelledWithProgress:0.5];
-        v295[24] = v139;
-        if (v139)
+        v138 = [v224 isCancelledWithProgress:0.5];
+        v294[24] = v138;
+        if (v138)
         {
 LABEL_196:
+          v139 = MEMORY[0x277D86220];
           v140 = MEMORY[0x277D86220];
-          v141 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v140, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v139, OS_LOG_TYPE_INFO))
           {
-            *v299 = 67109378;
-            *v300 = 448;
-            *&v300[4] = 2080;
-            *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+            *v298 = 67109378;
+            *v299 = 448;
+            *&v299[4] = 2080;
+            *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
           }
 
           goto LABEL_211;
         }
 
-        v149 = self->_loggingConnection;
-        v150 = os_signpost_id_generate(v149);
-        v151 = v149;
-        v152 = v151;
-        v220 = v150;
-        v153 = v150 - 1;
-        if (v153 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v151))
+        v148 = self->_loggingConnection;
+        v149 = os_signpost_id_generate(v148);
+        v150 = v148;
+        v151 = v150;
+        v219 = v149;
+        v152 = v149 - 1;
+        if (v152 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v150))
         {
-          *v299 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v152, OS_SIGNPOST_INTERVAL_BEGIN, v220, "ChapterTitleGeneration", "", v299, 2u);
+          *v298 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v151, OS_SIGNPOST_INTERVAL_BEGIN, v219, "ChapterTitleGeneration", "", v298, 2u);
         }
 
-        v272 = 0;
-        mach_timebase_info(&v272);
-        v215 = mach_absolute_time();
-        v266 = [v268 chapterTitleGeneratorForTriggeredMemory:memoryCopy curatedAssets:v230 extendedCuratedAssets:contexta titleGenerationContext:self->_titleGenerationContext inGraph:self->_graph];
-        if (v266)
+        v271 = 0;
+        mach_timebase_info(&v271);
+        v214 = mach_absolute_time();
+        v265 = [v267 chapterTitleGeneratorForTriggeredMemory:memoryCopy curatedAssets:v229 extendedCuratedAssets:contexta titleGenerationContext:self->_titleGenerationContext inGraph:self->_graph];
+        if (v265)
         {
-          generateChapterTitles = [v266 generateChapterTitles];
+          generateChapterTitles = [v265 generateChapterTitles];
           [(PGEnrichedMemory *)v15 setChapterTitles:generateChapterTitles];
         }
 
-        v155 = mach_absolute_time();
-        v156 = v272.numer;
-        v157 = v272.denom;
-        v158 = v152;
-        v159 = v158;
-        if (v153 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v158))
+        v154 = mach_absolute_time();
+        v155 = v271.numer;
+        v156 = v271.denom;
+        v157 = v151;
+        v158 = v157;
+        if (v152 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v157))
         {
-          *v299 = 138412290;
-          *v300 = v263;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v159, OS_SIGNPOST_INTERVAL_END, v220, "ChapterTitleGeneration", "%@", v299, 0xCu);
+          *v298 = 138412290;
+          *v299 = v262;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v158, OS_SIGNPOST_INTERVAL_END, v219, "ChapterTitleGeneration", "%@", v298, 0xCu);
         }
 
-        v221 = v159;
-        if (os_log_type_enabled(v221, OS_LOG_TYPE_INFO))
+        v220 = v158;
+        if (os_log_type_enabled(v220, OS_LOG_TYPE_INFO))
         {
-          v2635 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-          *v299 = 136315650;
-          *v300 = "ChapterTitleGeneration";
-          *&v300[8] = 2112;
-          *&v300[10] = v2635;
-          *&v300[18] = 2048;
-          v301 = ((((v155 - v215) * v156) / v157) / 1000000.0);
-          _os_log_impl(&dword_22F0FC000, v221, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+          v2625 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+          *v298 = 136315650;
+          *v299 = "ChapterTitleGeneration";
+          *&v299[8] = 2112;
+          *&v299[10] = v2625;
+          *&v299[18] = 2048;
+          v300 = ((((v154 - v214) * v155) / v156) / 1000000.0);
+          _os_log_impl(&dword_22F0FC000, v220, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
         }
 
-        if (v295[24])
+        if (v294[24])
         {
-          v295[24] = 1;
+          v294[24] = 1;
 LABEL_238:
+          v163 = MEMORY[0x277D86220];
           v164 = MEMORY[0x277D86220];
-          v165 = MEMORY[0x277D86220];
-          if (!os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+          if (!os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
           {
 LABEL_241:
             v16 = 0;
@@ -1739,242 +2072,242 @@ LABEL_242:
             goto LABEL_213;
           }
 
-          *v299 = 67109378;
-          *v300 = 457;
-          *&v300[4] = 2080;
-          *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+          *v298 = 67109378;
+          *v299 = 457;
+          *&v299[4] = 2080;
+          *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
 LABEL_240:
-          _os_log_impl(&dword_22F0FC000, v164, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+          _os_log_impl(&dword_22F0FC000, v163, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
           goto LABEL_241;
         }
 
-        v163 = [v225 isCancelledWithProgress:0.55];
-        v295[24] = v163;
-        if (v163)
+        v162 = [v224 isCancelledWithProgress:0.55];
+        v294[24] = v162;
+        if (v162)
         {
           goto LABEL_238;
         }
 
-        v166 = objc_opt_class();
+        v165 = objc_opt_class();
         localDate = [configurationCopy localDate];
-        -[PGEnrichedMemory setNotificationLevel:](v15, "setNotificationLevel:", [v166 notificationLevelForTriggeredMemory:memoryCopy withLocalDate:localDate graph:self->_graph]);
+        -[PGEnrichedMemory setNotificationLevel:](v15, "setNotificationLevel:", [v165 notificationLevelForTriggeredMemory:memoryCopy withLocalDate:localDate graph:self->_graph]);
 
-        v168 = objc_opt_class();
+        v167 = objc_opt_class();
         notificationLevel = [(PGEnrichedMemory *)v15 notificationLevel];
         [(PGEnrichedMemory *)v15 electionScore];
-        [v168 notificationScoreForNotificationLevel:notificationLevel electionScore:?];
+        [v167 notificationScoreForNotificationLevel:notificationLevel electionScore:?];
         [(PGEnrichedMemory *)v15 setScore:?];
-        if (v295[24])
+        if (v294[24])
         {
-          v295[24] = 1;
+          v294[24] = 1;
 LABEL_246:
-          v164 = MEMORY[0x277D86220];
-          v171 = MEMORY[0x277D86220];
-          if (!os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+          v163 = MEMORY[0x277D86220];
+          v170 = MEMORY[0x277D86220];
+          if (!os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
           {
             goto LABEL_241;
           }
 
-          *v299 = 67109378;
-          *v300 = 463;
-          *&v300[4] = 2080;
-          *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+          *v298 = 67109378;
+          *v299 = 463;
+          *&v299[4] = 2080;
+          *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
           goto LABEL_240;
         }
 
-        v170 = [v225 isCancelledWithProgress:0.6];
-        v295[24] = v170;
-        if (v170)
+        v169 = [v224 isCancelledWithProgress:0.6];
+        v294[24] = v169;
+        if (v169)
         {
           goto LABEL_246;
         }
 
-        v172 = self->_loggingConnection;
-        v173 = os_signpost_id_generate(v172);
-        v174 = v172;
-        v175 = v174;
-        if (v173 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v174))
+        v171 = self->_loggingConnection;
+        v172 = os_signpost_id_generate(v171);
+        v173 = v171;
+        v174 = v173;
+        if (v172 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v173))
         {
-          *v299 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v175, OS_SIGNPOST_INTERVAL_BEGIN, v173, "MoodGenerator", "", v299, 2u);
+          *v298 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v174, OS_SIGNPOST_INTERVAL_BEGIN, v172, "MoodGenerator", "", v298, 2u);
         }
 
-        v271 = 0;
-        mach_timebase_info(&v271);
-        v216 = mach_absolute_time();
-        [v268 generateMoodForEnrichedMemory:v15 extendedCuratedAssets:contexta configuration:configurationCopy inGraph:self->_graph];
-        v212 = mach_absolute_time();
-        v176 = v271;
-        v177 = v175;
-        v178 = v177;
-        if (v173 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v177))
+        v270 = 0;
+        mach_timebase_info(&v270);
+        v215 = mach_absolute_time();
+        [v267 generateMoodForEnrichedMemory:v15 extendedCuratedAssets:contexta configuration:configurationCopy inGraph:self->_graph];
+        v211 = mach_absolute_time();
+        v175 = v270;
+        v176 = v174;
+        v177 = v176;
+        if (v172 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v176))
         {
-          *v299 = 138412290;
-          *v300 = v263;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v178, OS_SIGNPOST_INTERVAL_END, v173, "MoodGenerator", "%@", v299, 0xCu);
+          *v298 = 138412290;
+          *v299 = v262;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v177, OS_SIGNPOST_INTERVAL_END, v172, "MoodGenerator", "%@", v298, 0xCu);
         }
 
-        v164 = v178;
-        if (os_log_type_enabled(v164, OS_LOG_TYPE_INFO))
+        v163 = v177;
+        if (os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
         {
-          v2636 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-          *v299 = 136315650;
-          *v300 = "MoodGenerator";
-          *&v300[8] = 2112;
-          *&v300[10] = v2636;
-          *&v300[18] = 2048;
-          v301 = ((((v212 - v216) * v176.numer) / v176.denom) / 1000000.0);
-          _os_log_impl(&dword_22F0FC000, v164, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+          v2626 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+          *v298 = 136315650;
+          *v299 = "MoodGenerator";
+          *&v299[8] = 2112;
+          *&v299[10] = v2626;
+          *&v299[18] = 2048;
+          v300 = ((((v211 - v215) * v175.numer) / v175.denom) / 1000000.0);
+          _os_log_impl(&dword_22F0FC000, v163, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
         }
 
-        if (v295[24])
+        if (v294[24])
         {
-          v295[24] = 1;
+          v294[24] = 1;
           goto LABEL_259;
         }
 
-        v180 = [v225 isCancelledWithProgress:0.7];
-        v295[24] = v180;
-        if (v180)
+        v179 = [v224 isCancelledWithProgress:0.7];
+        v294[24] = v179;
+        if (v179)
         {
 LABEL_259:
+          v180 = MEMORY[0x277D86220];
           v181 = MEMORY[0x277D86220];
-          v182 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
           {
-            *v299 = 67109378;
-            *v300 = 470;
-            *&v300[4] = 2080;
-            *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-            _os_log_impl(&dword_22F0FC000, v181, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+            *v298 = 67109378;
+            *v299 = 470;
+            *&v299[4] = 2080;
+            *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+            _os_log_impl(&dword_22F0FC000, v180, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
           }
 
           goto LABEL_275;
         }
 
-        v183 = self->_loggingConnection;
-        v184 = os_signpost_id_generate(v183);
-        v217 = v183;
-        v209 = v184;
-        v210 = v184 - 1;
-        if (v184 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v217))
+        v182 = self->_loggingConnection;
+        v183 = os_signpost_id_generate(v182);
+        v216 = v182;
+        v208 = v183;
+        v209 = v183 - 1;
+        if (v183 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v216))
         {
-          *v299 = 0;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v217, OS_SIGNPOST_INTERVAL_BEGIN, v184, "MoodKeywordComputer", "", v299, 2u);
+          *v298 = 0;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v216, OS_SIGNPOST_INTERVAL_BEGIN, v183, "MoodKeywordComputer", "", v298, 2u);
         }
 
-        v270 = 0;
-        mach_timebase_info(&v270);
-        v208 = mach_absolute_time();
+        v269 = 0;
+        mach_timebase_info(&v269);
+        v207 = mach_absolute_time();
         moodKeywordComputer = self->_moodKeywordComputer;
         suggestedMood = [(PGEnrichedMemory *)v15 suggestedMood];
         graph = self->_graph;
         locationHelper = [(PGMemoryCurationSession *)self->_memoryCurationSession locationHelper];
-        v187 = [(PGMoodKeywordComputer *)moodKeywordComputer moodKeywordsForTriggeredMemory:memoryCopy suggestedMood:suggestedMood inGraph:graph locationHelper:locationHelper];
-        [(PGEnrichedMemory *)v15 setLegacyMoodKeywords:v187];
+        v186 = [(PGMoodKeywordComputer *)moodKeywordComputer moodKeywordsForTriggeredMemory:memoryCopy suggestedMood:suggestedMood inGraph:graph locationHelper:locationHelper];
+        [(PGEnrichedMemory *)v15 setLegacyMoodKeywords:v186];
 
-        v188 = mach_absolute_time();
-        v189 = v270;
-        v190 = v217;
-        v191 = v190;
-        if (v210 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v190))
+        v187 = mach_absolute_time();
+        v188 = v269;
+        v189 = v216;
+        v190 = v189;
+        if (v209 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v189))
         {
-          *v299 = 138412290;
-          *v300 = v263;
-          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v191, OS_SIGNPOST_INTERVAL_END, v209, "MoodKeywordComputer", "%@", v299, 0xCu);
+          *v298 = 138412290;
+          *v299 = v262;
+          _os_signpost_emit_with_name_impl(&dword_22F0FC000, v190, OS_SIGNPOST_INTERVAL_END, v208, "MoodKeywordComputer", "%@", v298, 0xCu);
         }
 
-        v181 = v191;
-        if (os_log_type_enabled(v181, OS_LOG_TYPE_INFO))
+        v180 = v190;
+        if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
         {
-          [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-          v193 = v192 = (((v188 - v208) * v189.numer) / v189.denom) / 1000000.0;
-          *v299 = 136315650;
-          *v300 = "MoodKeywordComputer";
-          *&v300[8] = 2112;
-          *&v300[10] = v193;
-          *&v300[18] = 2048;
-          v301 = v192;
-          _os_log_impl(&dword_22F0FC000, v181, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
+          [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+          v192 = v191 = (((v187 - v207) * v188.numer) / v188.denom) / 1000000.0;
+          *v298 = 136315650;
+          *v299 = "MoodKeywordComputer";
+          *&v299[8] = 2112;
+          *&v299[10] = v192;
+          *&v299[18] = 2048;
+          v300 = v191;
+          _os_log_impl(&dword_22F0FC000, v180, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
         }
 
-        if (v295[24])
+        if (v294[24])
         {
-          v295[24] = 1;
+          v294[24] = 1;
         }
 
         else
         {
-          v194 = [v225 isCancelledWithProgress:0.8];
-          v295[24] = v194;
-          if ((v194 & 1) == 0)
+          v193 = [v224 isCancelledWithProgress:0.8];
+          v294[24] = v193;
+          if ((v193 & 1) == 0)
           {
-            v197 = mach_absolute_time();
-            v199 = info.numer;
-            v198 = info.denom;
-            v200 = v14;
+            v196 = mach_absolute_time();
+            v198 = info.numer;
+            v197 = info.denom;
+            v199 = v14;
+            v200 = v199;
+            if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v199))
+            {
+              *v298 = 138412290;
+              *v299 = v262;
+              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v200, OS_SIGNPOST_INTERVAL_END, v12, "MemoryElectionEnrichment", "%@", v298, 0xCu);
+            }
+
             v201 = v200;
-            if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v200))
+            if (os_log_type_enabled(v201, OS_LOG_TYPE_INFO))
             {
-              *v299 = 138412290;
-              *v300 = v263;
-              _os_signpost_emit_with_name_impl(&dword_22F0FC000, v201, OS_SIGNPOST_INTERVAL_END, v12, "MemoryElectionEnrichment", "%@", v299, 0xCu);
+              [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v262];
+              v203 = v202 = (((v196 - v261) * v198) / v197) / 1000000.0;
+              *v298 = 136315650;
+              *v299 = "MemoryElectionEnrichment";
+              *&v299[8] = 2112;
+              *&v299[10] = v203;
+              *&v299[18] = 2048;
+              v300 = v202;
+              _os_log_impl(&dword_22F0FC000, v201, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v298, 0x20u);
             }
 
-            v202 = v201;
-            if (os_log_type_enabled(v202, OS_LOG_TYPE_INFO))
+            if (v294[24])
             {
-              [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v263];
-              v204 = v203 = (((v197 - v262) * v199) / v198) / 1000000.0;
-              *v299 = 136315650;
-              *v300 = "MemoryElectionEnrichment";
-              *&v300[8] = 2112;
-              *&v300[10] = v204;
-              *&v300[18] = 2048;
-              v301 = v203;
-              _os_log_impl(&dword_22F0FC000, v202, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v299, 0x20u);
-            }
-
-            if (v295[24])
-            {
-              v295[24] = 1;
+              v294[24] = 1;
             }
 
             else
             {
-              v205 = [v225 isCancelledWithProgress:1.0];
-              v295[24] = v205;
-              if ((v205 & 1) == 0)
+              v204 = [v224 isCancelledWithProgress:1.0];
+              v294[24] = v204;
+              if ((v204 & 1) == 0)
               {
                 v16 = v15;
                 goto LABEL_276;
               }
             }
 
+            v205 = MEMORY[0x277D86220];
             v206 = MEMORY[0x277D86220];
-            v207 = MEMORY[0x277D86220];
-            if (os_log_type_enabled(v206, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v205, OS_LOG_TYPE_INFO))
             {
-              *v299 = 67109378;
-              *v300 = 480;
-              *&v300[4] = 2080;
-              *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-              _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+              *v298 = 67109378;
+              *v299 = 480;
+              *&v299[4] = 2080;
+              *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+              _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
             }
 
             goto LABEL_274;
           }
         }
 
+        v194 = MEMORY[0x277D86220];
         v195 = MEMORY[0x277D86220];
-        v196 = MEMORY[0x277D86220];
-        if (os_log_type_enabled(v195, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v194, OS_LOG_TYPE_INFO))
         {
-          *v299 = 67109378;
-          *v300 = 477;
-          *&v300[4] = 2080;
-          *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+          *v298 = 67109378;
+          *v299 = 477;
+          *&v299[4] = 2080;
+          *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
         }
 
 LABEL_274:
@@ -1986,23 +2319,23 @@ LABEL_276:
         goto LABEL_242;
       }
 
-      if (v295[24])
+      if (v294[24])
       {
-        v295[24] = 1;
+        v294[24] = 1;
       }
 
       else
       {
-        v142 = [v225 isCancelledWithProgress:1.0];
-        v295[24] = v142;
-        if ((v142 & 1) == 0)
+        v141 = [v224 isCancelledWithProgress:1.0];
+        v294[24] = v141;
+        if ((v141 & 1) == 0)
         {
-          v161 = self->_loggingConnection;
-          if (os_log_type_enabled(v161, OS_LOG_TYPE_ERROR))
+          v160 = self->_loggingConnection;
+          if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
           {
-            *v299 = 138412290;
-            *v300 = memoryCopy;
-            _os_log_error_impl(&dword_22F0FC000, v161, OS_LOG_TYPE_ERROR, "[PGEnrichedMemoryFactory] No title generated, returning nil enrichedMemory for %@", v299, 0xCu);
+            *v298 = 138412290;
+            *v299 = memoryCopy;
+            _os_log_error_impl(&dword_22F0FC000, v160, OS_LOG_TYPE_ERROR, "[PGEnrichedMemoryFactory] No title generated, returning nil enrichedMemory for %@", v298, 0xCu);
           }
 
           if (debugCopy)
@@ -2016,15 +2349,15 @@ LABEL_276:
         }
       }
 
+      v142 = MEMORY[0x277D86220];
       v143 = MEMORY[0x277D86220];
-      v144 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v143, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v142, OS_LOG_TYPE_INFO))
       {
-        *v299 = 67109378;
-        *v300 = 423;
-        *&v300[4] = 2080;
-        *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+        *v298 = 67109378;
+        *v299 = 423;
+        *&v299[4] = 2080;
+        *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
       }
 
 LABEL_203:
@@ -2034,23 +2367,23 @@ LABEL_214:
       goto LABEL_215;
     }
 
-    if (v295[24])
+    if (v294[24])
     {
-      v295[24] = 1;
+      v294[24] = 1;
     }
 
     else
     {
-      v135 = [v225 isCancelledWithProgress:1.0];
-      v295[24] = v135;
-      if ((v135 & 1) == 0)
+      v134 = [v224 isCancelledWithProgress:1.0];
+      v294[24] = v134;
+      if ((v134 & 1) == 0)
       {
-        v145 = self->_loggingConnection;
-        if (os_log_type_enabled(v145, OS_LOG_TYPE_DEFAULT))
+        v144 = self->_loggingConnection;
+        if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
         {
-          *v299 = 138412290;
-          *v300 = memoryCopy;
-          _os_log_impl(&dword_22F0FC000, v145, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Nil titleGenerator, returning nil enrichedMemory for %@", v299, 0xCu);
+          *v298 = 138412290;
+          *v299 = memoryCopy;
+          _os_log_impl(&dword_22F0FC000, v144, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] Nil titleGenerator, returning nil enrichedMemory for %@", v298, 0xCu);
         }
 
         if (debugCopy)
@@ -2069,40 +2402,40 @@ LABEL_216:
       }
     }
 
+    v135 = MEMORY[0x277D86220];
     v136 = MEMORY[0x277D86220];
-    v137 = MEMORY[0x277D86220];
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v135, OS_LOG_TYPE_INFO))
     {
-      *v299 = 67109378;
-      *v300 = 409;
-      *&v300[4] = 2080;
-      *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+      *v298 = 67109378;
+      *v299 = 409;
+      *&v299[4] = 2080;
+      *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
     }
 
     goto LABEL_188;
   }
 
-  if (v295[24])
+  if (v294[24])
   {
-    v295[24] = 1;
+    v294[24] = 1;
 LABEL_23:
     v28 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v299 = 67109378;
-      *v300 = 245;
-      *&v300[4] = 2080;
-      *&v300[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v299, 0x12u);
+      *v298 = 67109378;
+      *v299 = 245;
+      *&v299[4] = 2080;
+      *&v299[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/PGEnrichedMemoryFactory.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v298, 0x12u);
     }
 
     v16 = 0;
     goto LABEL_70;
   }
 
-  v27 = [v267 isCancelledWithProgress:1.0];
-  v295[24] = v27;
+  v27 = [v266 isCancelledWithProgress:1.0];
+  v294[24] = v27;
   if (v27)
   {
     goto LABEL_23;
@@ -2113,9 +2446,9 @@ LABEL_23:
   {
     v30 = objc_opt_class();
     v31 = NSStringFromClass(v30);
-    *v299 = 138412290;
-    *v300 = v31;
-    _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] nil feeder for triggered memory from enricher %@", v299, 0xCu);
+    *v298 = 138412290;
+    *v299 = v31;
+    _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_DEFAULT, "[PGEnrichedMemoryFactory] nil feeder for triggered memory from enricher %@", v298, 0xCu);
   }
 
   if (debugCopy)
@@ -2128,14 +2461,13 @@ LABEL_23:
 LABEL_21:
   v16 = 0;
 LABEL_69:
-  v28 = v261;
+  v28 = v260;
 LABEL_70:
 
 LABEL_71:
   _Block_object_dispose(buf, 8);
 
 LABEL_72:
-  v50 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2277,7 +2609,7 @@ uint64_t __102__PGEnrichedMemoryFactory_enrichedMemoryWithTriggeredMemory_withCo
 
 - (id)_memoryEnricherFromTriggeredMemory:(id)memory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   v5 = [[PGMemoryGenerator alloc] initWithMemoryCurationSession:self->_memoryCurationSession loggingConnection:self->_loggingConnection];
   memoryCategory = [memoryCopy memoryCategory];
@@ -2290,9 +2622,9 @@ LABEL_5:
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
         v9 = loggingConnection;
-        v13 = 134217984;
+        v12 = 134217984;
         memoryCategory2 = [memoryCopy memoryCategory];
-        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "+[PGEnrichedMemoryFactory memoryGeneratorClassFromTriggeredMemory:] is not compatible with legacy category: %lu", &v13, 0xCu);
+        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "+[PGEnrichedMemoryFactory memoryGeneratorClassFromTriggeredMemory:] is not compatible with legacy category: %lu", &v12, 0xCu);
       }
 
       v5 = 0;
@@ -2401,8 +2733,6 @@ LABEL_38:
         break;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

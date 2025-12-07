@@ -56,7 +56,7 @@
   *v8 = 0;
   v8[1] = 0;
   v9 = OBJC_IVAR____TtC9WorkoutUI18WKUIBreadcrumbPath_protectedBreadcrumbData;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy9WorkoutUI18WKUIBreadcrumbPathC14BreadcrumbData33_DEB42BD608773CB55C8F413DFA93ADD5LLVSo16os_unfair_lock_sVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy9WorkoutUI18WKUIBreadcrumbPathC14BreadcrumbData33_DEB42BD608773CB55C8F413DFA93ADD5LLVSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy9WorkoutUI18WKUIBreadcrumbPathC14BreadcrumbData33_DEB42BD608773CB55C8F413DFA93ADD5LLVSo16os_unfair_lock_sVGMR);
   v10 = swift_allocObject();
   *(v10 + 56) = 0;
   *(v10 + 16) = MEMORY[0x277D84F90];

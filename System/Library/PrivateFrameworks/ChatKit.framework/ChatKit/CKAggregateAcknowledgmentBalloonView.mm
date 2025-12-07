@@ -64,7 +64,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1909197A8();
+  sub_1909197A8(view);
 }
 
 - (BOOL)invertTailDirection
@@ -132,7 +132,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_190917364();
+  sub_190917364(selfCopy);
 }
 
 - (void)playInsertionAnimationOnTopPlatter

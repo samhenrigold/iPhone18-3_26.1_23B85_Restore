@@ -25,16 +25,15 @@
 
 - (BOOL)isKindOfTransformer:(Class)transformer
 {
-  v7.receiver = self;
-  v7.super_class = HMDValueTransformerAdapter;
-  if ([(HMDValueTransformer *)&v7 isKindOfTransformer:?])
+  v5.receiver = self;
+  v5.super_class = HMDValueTransformerAdapter;
+  if ([(HMDValueTransformer *)&v5 isKindOfTransformer:?])
   {
     isKindOfClass = 1;
   }
 
   else
   {
-    transformer = self->_transformer;
     isKindOfClass = objc_opt_isKindOfClass();
   }
 

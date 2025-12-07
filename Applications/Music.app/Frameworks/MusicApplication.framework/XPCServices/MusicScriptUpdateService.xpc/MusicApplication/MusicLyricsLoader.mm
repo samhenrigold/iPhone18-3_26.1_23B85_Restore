@@ -8,20 +8,20 @@
 + (BOOL)supportsLyricsFor:(id)for
 {
   forCopy = for;
-  v4 = _s11MusicCoreUI12LyricsLoaderC08supportsD03forSbSo11MPModelSongC_tFZ_0(forCopy);
+  v5 = _s11MusicCoreUI12LyricsLoaderC08supportsD03forSbSo11MPModelSongC_tFZ_0(forCopy, v4);
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 - (MusicLyricsLoader)init
 {
   v3 = OBJC_IVAR___MusicLyricsLoader_operationQueue;
   v4 = [objc_allocWithZone(NSOperationQueue) init];
-  [v4 setMaxConcurrentOperationCount:1];
+  v5 = [v4 setMaxConcurrentOperationCount:1];
   *(&self->super.isa + v3) = v4;
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for LyricsLoader();
-  return [(MusicLyricsLoader *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for LyricsLoader(v5, v6);
+  return [(MusicLyricsLoader *)&v8 init];
 }
 
 @end

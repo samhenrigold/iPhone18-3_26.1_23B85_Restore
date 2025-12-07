@@ -9,6 +9,7 @@
 - (void)_performSyncForAccountChangeWithCompletion:(id)completion;
 - (void)_resetCachedOwnerIdentifiers;
 - (void)_rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles:(id)profiles;
+- (void)_setHealthAccountDataclassEnabled:(BOOL)enabled completion:(id)completion;
 - (void)_triggerSyncForAccountChange;
 - (void)accountConfigurationDidChangeWithCompletion:(id)completion;
 - (void)daemonReady:(id)ready;
@@ -104,7 +105,7 @@ uint64_t __74__HDCloudSyncAccountProvider_accountConfigurationDidChangeWithCompl
 
 - (id)disableAndDeleteAllSyncDataWithCompletion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -116,80 +117,79 @@ uint64_t __74__HDCloudSyncAccountProvider_accountConfigurationDidChangeWithCompl
   }
 
   v6 = objc_alloc_init(MEMORY[0x277D10BB0]);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke;
-  v36[3] = &unk_278619568;
-  v36[4] = self;
-  v25 = completionCopy;
-  v37 = v25;
-  [v6 setDidFinish:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke;
+  v35[3] = &unk_278619568;
+  v35[4] = self;
+  v24 = completionCopy;
+  v36 = v24;
+  [v6 setDidFinish:v35];
   [v6 beginTask];
   [v6 beginTask];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_2;
-  v34[3] = &unk_2786130B0;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_2;
+  v33[3] = &unk_2786130B0;
   v7 = v6;
-  v35 = v7;
-  [(HDCloudSyncAccountProvider *)self disableSyncLocallyWithCompletion:v34];
+  v34 = v7;
+  [(HDCloudSyncAccountProvider *)self disableSyncLocallyWithCompletion:v33];
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
   daemon = [WeakRetained daemon];
   profileManager = [daemon profileManager];
 
-  v24 = profileManager;
+  v23 = profileManager;
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
-  v27 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v26 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{objc_msgSend(allProfileIdentifiers, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = allProfileIdentifiers;
-  v12 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v12 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v31;
+    v14 = *v30;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
+        v16 = *(*(&v29 + 1) + 8 * i);
         v17 = objc_loadWeakRetained(&self->_coordinator);
         daemon2 = [v17 daemon];
         profileManager2 = [daemon2 profileManager];
         v20 = [profileManager2 profileForIdentifier:v16];
 
         [v7 beginTask];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_3;
-        v28[3] = &unk_2786130B0;
-        v29 = v7;
-        v21 = [(HDCloudSyncAccountProvider *)self _disableAndDeleteAllSyncDataForProfile:v20 completion:v28];
-        [v27 addChild:v21 withPendingUnitCount:1];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_3;
+        v27[3] = &unk_2786130B0;
+        v28 = v7;
+        v21 = [(HDCloudSyncAccountProvider *)self _disableAndDeleteAllSyncDataForProfile:v20 completion:v27];
+        [v26 addChild:v21 withPendingUnitCount:1];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v13 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v13);
   }
 
   [v7 finishTask];
-  v22 = *MEMORY[0x277D85DE8];
 
-  return v27;
+  return v26;
 }
 
 void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a4;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC328];
@@ -209,34 +209,32 @@ void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion_
     v10 = v7;
     v11 = [v6 firstObject];
     *buf = 138543874;
-    v23 = v8;
-    v24 = 2114;
-    v25 = v9;
-    v26 = 2114;
-    v27 = v11;
+    v22 = v8;
+    v23 = 2114;
+    v24 = v9;
+    v25 = 2114;
+    v26 = v11;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: finish disableAndDeleteCloudSyncData: success (%{public}@), error (%{public}@)", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_306;
-  v17[3] = &unk_278626CF0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_306;
+  v16[3] = &unk_278626CF0;
   v12 = *(a1 + 32);
   v13 = *(a1 + 40);
-  v21 = a3;
+  v20 = a3;
   v14 = *(a1 + 32);
-  v18 = v6;
-  v19 = v14;
-  v20 = v13;
+  v17 = v6;
+  v18 = v14;
+  v19 = v13;
   v15 = v6;
-  [v12 disableSyncLocallyWithCompletion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v12 disableSyncLocallyWithCompletion:v16];
 }
 
 void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_306(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -244,14 +242,14 @@ void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion_
     [v6 hk_removeObjectsForKeysWithPrefix:@"HDLastLongTimeWithoutSuccessfulCloudSyncReportDate"];
 
     v7 = objc_alloc_init(MEMORY[0x277D10BB0]);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_308;
-    v10[3] = &unk_278626CC8;
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    v11 = *(a1 + 32);
-    [v7 setDidFinish:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_308;
+    v9[3] = &unk_278626CC8;
+    v11 = *(a1 + 48);
+    v12 = *(a1 + 56);
+    v10 = *(a1 + 32);
+    [v7 setDidFinish:v9];
     [*(a1 + 40) _rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles:v7];
   }
 
@@ -262,14 +260,12 @@ void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion_
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Failed to disable cloud sync: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HDCloudSyncAccountProvider_disableAndDeleteAllSyncDataWithCompletion___block_invoke_308(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -395,15 +391,15 @@ LABEL_14:
 
 - (id)getPersistedAccountInfo
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [standardUserDefaults objectForKey:@"HDCloudSyncAccountInfo"];
 
   if (v3)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
+    v5 = v8;
     if (!v4)
     {
       _HKInitializeLogging();
@@ -411,7 +407,7 @@ LABEL_14:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v11 = v5;
+        v10 = v5;
         _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to decode persisted CK account info: %{public}@", buf, 0xCu);
       }
     }
@@ -421,8 +417,6 @@ LABEL_14:
   {
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -472,9 +466,38 @@ LABEL_14:
   return v12;
 }
 
+- (void)_setHealthAccountDataclassEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  os_unfair_lock_lock(&self->_lock);
+  v7 = self->_lock_accountStore;
+  os_unfair_lock_unlock(&self->_lock);
+  aa_primaryAppleAccount = [(ACAccountStore *)v7 aa_primaryAppleAccount];
+  v9 = aa_primaryAppleAccount;
+  if (aa_primaryAppleAccount)
+  {
+    [aa_primaryAppleAccount setEnabled:enabledCopy forDataclass:*MEMORY[0x277CB9130]];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __75__HDCloudSyncAccountProvider__setHealthAccountDataclassEnabled_completion___block_invoke;
+    v11[3] = &unk_278626D18;
+    v11[4] = self;
+    v13 = enabledCopy;
+    v12 = completionCopy;
+    [(ACAccountStore *)v7 saveAccount:v9 withCompletionHandler:v11];
+  }
+
+  else
+  {
+    v10 = [MEMORY[0x277CCA9B8] hk_error:100 format:@"cannot set Health dataclass enabled state because the primary account is nil"];
+    (*(completionCopy + 2))(completionCopy, 0, v10);
+  }
+}
+
 void __75__HDCloudSyncAccountProvider__setHealthAccountDataclassEnabled_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -495,77 +518,75 @@ void __75__HDCloudSyncAccountProvider__setHealthAccountDataclassEnabled_completi
       }
 
       v10 = *MEMORY[0x277CB9130];
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v10;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: set enabled = %{public}@ for dataclass %{public}@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v8;
+      v16 = 2114;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: set enabled = %{public}@ for dataclass %{public}@", &v14, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      v13 = @"YES";
+      v12 = @"YES";
     }
 
     else
     {
-      v13 = @"NO";
+      v12 = @"NO";
     }
 
-    v14 = *MEMORY[0x277CB9130];
-    v15 = 138544130;
-    v16 = v12;
-    v17 = 2114;
-    v18 = v5;
-    v19 = 2114;
-    v20 = v13;
-    v21 = 2114;
-    v22 = v14;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: error %{public}@ trying to set enabled = %{public}@ for dataclass %{public}@", &v15, 0x2Au);
+    v13 = *MEMORY[0x277CB9130];
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: error %{public}@ trying to set enabled = %{public}@ for dataclass %{public}@", &v14, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles:(id)profiles
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   [profilesCopy beginTask];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_coordinator);
   daemon = [WeakRetained daemon];
   profileManager = [daemon profileManager];
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
 
   obj = allProfileIdentifiers;
-  v9 = [allProfileIdentifiers countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [allProfileIdentifiers countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       v12 = 0;
       do
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * v12);
+        v13 = *(*(&v24 + 1) + 8 * v12);
         v14 = objc_loadWeakRetained(&self->_coordinator);
         daemon2 = [v14 daemon];
         profileManager2 = [daemon2 profileManager];
@@ -576,32 +597,31 @@ void __75__HDCloudSyncAccountProvider__setHealthAccountDataclassEnabled_completi
           [profilesCopy beginTask];
           cloudSyncManager = [v17 cloudSyncManager];
           ownerIdentifierManager = [cloudSyncManager ownerIdentifierManager];
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles___block_invoke;
-          v22[3] = &unk_278616020;
-          v23 = v17;
-          v24 = profilesCopy;
-          [ownerIdentifierManager rollOwnerDifferentiatorAfterCloudSyncDisableWithCompletion:v22];
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles___block_invoke;
+          v21[3] = &unk_278616020;
+          v22 = v17;
+          v23 = profilesCopy;
+          [ownerIdentifierManager rollOwnerDifferentiatorAfterCloudSyncDisableWithCompletion:v21];
         }
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
   [profilesCopy finishTask];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisableForAllProfiles___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -611,9 +631,9 @@ void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisa
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated owner identifier after disabling cloud sync.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated owner identifier after disabling cloud sync.", &v10, 0xCu);
     }
 
     [*(a1 + 40) finishTask];
@@ -623,23 +643,21 @@ void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisa
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = v10;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to update owner differentiator after disabling cloud sync: %{public}@.", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to update owner differentiator after disabling cloud sync: %{public}@.", &v10, 0x16u);
     }
 
     [*(a1 + 40) failTaskWithError:v5];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerSyncForAccountChange
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC328];
   v4 = *MEMORY[0x277CCC328];
@@ -647,15 +665,15 @@ void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisa
   {
     *buf = 138543618;
     selfCopy2 = self;
-    v12 = 2048;
-    v13 = 0x404E000000000000;
+    v11 = 2048;
+    v12 = 0x404E000000000000;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling post-account-change sync with grace period %lf", buf, 0x16u);
   }
 
   accountChangeBackgroundTask = self->_accountChangeBackgroundTask;
-  v9 = 0;
-  [(HDOneShotBackgroundTask *)accountChangeBackgroundTask submitRequestWithMaximumDelay:&v9 error:&__block_literal_global_176 completion:60.0];
-  v6 = v9;
+  v8 = 0;
+  [(HDOneShotBackgroundTask *)accountChangeBackgroundTask submitRequestWithMaximumDelay:&v8 error:&__block_literal_global_176 completion:60.0];
+  v6 = v8;
   if (v6)
   {
     _HKInitializeLogging();
@@ -664,13 +682,11 @@ void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisa
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v12 = 2114;
-      v13 = v6;
+      v11 = 2114;
+      v12 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to submit a request for account change sync: %{public}@.", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performSyncForAccountChangeWithCompletion:(id)completion
@@ -696,29 +712,27 @@ void __90__HDCloudSyncAccountProvider__rollOwnerDifferentiatorAfterCloudSyncDisa
 
 void __73__HDCloudSyncAccountProvider__performSyncForAccountChangeWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud sync triggered by account changes (iCloud login or health dataclass enabled)", buf, 0xCu);
   }
 
   v4 = [[HDCloudSyncContext alloc] initForPurpose:0 options:0 reason:2 backgroundTask:*(*(a1 + 32) + 40)];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__HDCloudSyncAccountProvider__performSyncForAccountChangeWithCompletion___block_invoke_337;
-  v9[3] = &unk_2786173C8;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__HDCloudSyncAccountProvider__performSyncForAccountChangeWithCompletion___block_invoke_337;
+  v8[3] = &unk_2786173C8;
   v6 = *(a1 + 40);
-  v9[4] = *(a1 + 32);
-  v10 = v6;
-  v7 = [WeakRetained syncAllProfilesWithContext:v4 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[4] = *(a1 + 32);
+  v9 = v6;
+  v7 = [WeakRetained syncAllProfilesWithContext:v4 completion:v8];
 }
 
 void __73__HDCloudSyncAccountProvider__performSyncForAccountChangeWithCompletion___block_invoke_337(uint64_t a1, int a2, void *a3)

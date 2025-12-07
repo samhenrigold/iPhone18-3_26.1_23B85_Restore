@@ -56,18 +56,20 @@
 - (void)_prepareFileCoordinationProviders;
 - (void)_provideItemAtURL:(id)l toReaderWithID:(id)d completionHandler:(id)handler;
 - (void)_provideItemAtURL:(id)l withInfo:(id)info completionHandler:(id)handler;
+- (void)_provideItemAtURL:(id)l withReaderID:(id)d withProcessID:(int)iD withAuditToken:(id *)token kernelInfo:(id)info readingOptions:(unint64_t)options completionHandler:(id)handler;
 - (void)_providedItemAtURL:(id)l didGainPresenterWithInfo:(id)info;
 - (void)_providedItemAtURL:(id)l didLosePresenterWithID:(id)d;
 - (void)_providedItemAtURL:(id)l withPresenterWithID:(id)d didMoveToURL:(id)rL;
 - (void)_registerFileCoordinatorAndSpaceForceWithCompletion:(id)completion;
 - (void)_registerInSpaceForce;
-- (void)_shouldDisconnectDueToLowDiskSpace;
 - (void)_startObservingRootAndResumeIndexerWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion;
+- (void)_startWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion;
 - (void)_unregisterFromFileCoordinatorAndSpaceForce;
 - (void)_unregisterURLFromSpaceForce:(id)force;
 - (void)_writerWithID:(id)d didFinishWritingForURL:(id)l;
 - (void)callExtensionForItemDidChange:(id)change request:(id)request completionHandler:(id)handler;
 - (void)cancelPendingCoordinations;
+- (void)createRootAndObserveIfNeededWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion;
 - (void)createRootURLWithCompletion:(id)completion;
 - (void)daemonSideItemChange:(id)change changedFields:(unint64_t)fields request:(id)request completionHandler:(id)handler;
 - (void)didChangeItemID:(id)d request:(id)request completionHandler:(id)handler;
@@ -78,6 +80,7 @@
 - (void)downloadVersionWithItemID:(id)d etag:(id)etag request:(id)request completionHandler:(id)handler;
 - (void)downloadVersionWithItemID:(id)d version:(id)version originalURL:(id)l completionHandler:(id)handler;
 - (void)dumpStateTo:(id)to providerDomain:(id)domain options:(unint64_t)options request:(id)request completionHandler:(id)handler;
+- (void)extensionIndexer:(id)indexer didChangeNeedsAuthentification:(BOOL)authentification;
 - (void)fetchOperationServiceOrEndpointWithRequest:(id)request completionHandler:(id)handler;
 - (void)finishSetup;
 - (void)forceFSIngestionForItemID:(id)d request:(id)request completionHandler:(id)handler;
@@ -88,9 +91,13 @@
 - (void)removeEbihilSymlink;
 - (void)setDefaultBackend:(id)backend;
 - (void)setExtensionBackend:(id)backend;
+- (void)setHiddenByUser:(BOOL)user;
 - (void)setNsDomainOrNilForDefault:(id)default;
 - (void)setProvidedItemRecursiveGenerationCount:(id)count forItemAtURL:(id)l;
-- (void)shouldDisconnectWithStartupError;
+- (void)setSupportsRemoteVersions:(BOOL)versions;
+- (void)setSupportsSearch:(BOOL)search;
+- (void)setSupportsSyncingTrash:(BOOL)trash;
+- (void)setUserEnabled:(BOOL)enabled;
 - (void)startWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion;
 - (void)stopIndexer;
 - (void)unregisterFromSpaceForceWithUrl:(id)url;
@@ -273,7 +280,7 @@
 
 - (BOOL)_shouldDisconnectDueToLowDiskSpace
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   shouldDisconnectDueToLowDiskSpace = selfCopy->_shouldDisconnectDueToLowDiskSpace;
@@ -304,9 +311,9 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         fp_obfuscatedProviderDomainID = [(NSString *)selfCopy->_providerDomainID fp_obfuscatedProviderDomainID];
-        v14 = 138412290;
-        v15 = fp_obfuscatedProviderDomainID;
-        _os_log_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] [diskspace] Disconnecting %@ due to low disk space.", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = fp_obfuscatedProviderDomainID;
+        _os_log_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] [diskspace] Disconnecting %@ due to low disk space.", &v13, 0xCu);
       }
     }
 
@@ -327,21 +334,19 @@ LABEL_13:
 LABEL_14:
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (BOOL)backgroundActivityIsPaused
 {
-  defaultBackend = self->_defaultBackend;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_defaultBackend;
+  defaultBackend = self->_defaultBackend;
 
-  return [(FPDDomainBackend *)v4 backgroundActivityIsPaused];
+  return [(FPDDomainBackend *)defaultBackend backgroundActivityIsPaused];
 }
 
 - (BOOL)supportsSyncingTrash
@@ -362,15 +367,14 @@ LABEL_14:
 
 - (int64_t)errorGenerationCount
 {
-  defaultBackend = self->_defaultBackend;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return -1;
   }
 
-  v4 = self->_defaultBackend;
+  defaultBackend = self->_defaultBackend;
 
-  return [(FPDDomainBackend *)v4 errorGenerationCount];
+  return [(FPDDomainBackend *)defaultBackend errorGenerationCount];
 }
 
 - (BOOL)supportsRemoteVersions
@@ -585,7 +589,7 @@ void __106__FPDDomain_initWithIdentifier_nsDomain_extensionStorageURLs_purposeId
 
 - (NSError)errorReflectingDisconnectionState
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   disconnectionState = [(FPDDomain *)self disconnectionState];
   if (disconnectionState == 1)
   {
@@ -596,14 +600,12 @@ void __106__FPDDomain_initWithIdentifier_nsDomain_extensionStorageURLs_purposeId
   {
     v4 = MEMORY[0x1E696ABC0];
     v5 = *MEMORY[0x1E6967190];
-    v10 = *MEMORY[0x1E6967198];
+    v9 = *MEMORY[0x1E6967198];
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:disconnectionState];
-    v11[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v3 = [v4 errorWithDomain:v5 code:-1004 userInfo:v7];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -780,24 +782,24 @@ void __106__FPDDomain_initWithIdentifier_nsDomain_extensionStorageURLs_purposeId
 
 - (void)refreshConnectionState
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   obj = self;
   objc_sync_enter(obj);
-  if (![(FPDDomain *)obj isPendingInitialization]&& ((v2 = obj->_extensionBackend, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (v4 = obj->_defaultBackend, objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass()) : (isKindOfClass = 1), (isKindOfClass & 1) == [(FPDDomain *)obj isConnectedToAppExtension]))
+  if (![(FPDDomain *)obj isPendingInitialization]&& ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) ? (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass()) : (isKindOfClass = 1), (isKindOfClass & 1) == [(FPDDomain *)obj isConnectedToAppExtension]))
   {
     errorReflectingDisconnectionState = [(FPDDomain *)obj errorReflectingDisconnectionState];
     if (errorReflectingDisconnectionState)
     {
-      v7 = fp_current_or_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v4 = fp_current_or_default_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v28 = obj;
-        _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEFAULT, "[NOTICE] domain %{public}@ is being disconnected, switching to a dead-end backend", buf, 0xCu);
+        v23 = obj;
+        _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] domain %{public}@ is being disconnected, switching to a dead-end backend", buf, 0xCu);
       }
 
-      v8 = [[FPDDeadEndExtensionSession alloc] initWithError:errorReflectingDisconnectionState];
-      v9 = [[FPDDomainDeadEndBackend alloc] initWithDomain:obj];
+      v5 = [[FPDDeadEndExtensionSession alloc] initWithError:errorReflectingDisconnectionState];
+      v6 = [[FPDDomainDeadEndBackend alloc] initWithDomain:obj];
       if ([(FPDDomain *)obj isUsingFPFS])
       {
         extensionBackend = obj->_extensionBackend;
@@ -808,65 +810,61 @@ void __106__FPDDomain_initWithIdentifier_nsDomain_extensionStorageURLs_purposeId
         extensionBackend = obj->_defaultBackend;
       }
 
-      v16 = extensionBackend;
+      v13 = extensionBackend;
     }
 
     else
     {
-      v11 = fp_current_or_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v8 = fp_current_or_default_log();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v28 = obj;
-        _os_log_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEFAULT, "[NOTICE] domain %{public}@ is being re-connected, enabling extension backend", buf, 0xCu);
+        v23 = obj;
+        _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEFAULT, "[NOTICE] domain %{public}@ is being re-connected, enabling extension backend", buf, 0xCu);
       }
 
       WeakRetained = objc_loadWeakRetained(&obj->_provider);
       asAppExtensionBackedProvider = [WeakRetained asAppExtensionBackedProvider];
 
-      v14 = [FPDExtensionSession alloc];
+      v11 = [FPDExtensionSession alloc];
       sharedSessionQueue = [asAppExtensionBackedProvider sharedSessionQueue];
-      v8 = [(FPDExtensionSession *)v14 initWithDomain:obj extension:asAppExtensionBackedProvider queue:sharedSessionQueue];
+      v5 = [(FPDExtensionSession *)v11 initWithDomain:obj extension:asAppExtensionBackedProvider queue:sharedSessionQueue];
 
-      v9 = obj->_deactivatedBackend;
-      v16 = 0;
+      v6 = obj->_deactivatedBackend;
+      v13 = 0;
     }
 
-    defaultBackend = obj->_defaultBackend;
     if (objc_opt_respondsToSelector())
     {
       [(FPDDomainBackend *)obj->_defaultBackend updateShouldRetryThrottledOperations:errorReflectingDisconnectionState == 0 completionHandler:&__block_literal_global_119];
     }
 
-    [(FPDDeadEndExtensionSession *)v8 start];
-    v18 = obj->_session;
-    objc_storeStrong(&obj->_session, v8);
+    [(FPDDeadEndExtensionSession *)v5 start];
+    v14 = obj->_session;
+    objc_storeStrong(&obj->_session, v5);
     isUsingFPFS = [(FPDDomain *)obj isUsingFPFS];
-    v20 = 128;
+    v16 = 128;
     if (isUsingFPFS)
     {
-      v20 = 136;
+      v16 = 136;
     }
 
-    v21 = *(&obj->super.isa + v20);
-    *(&obj->super.isa + v20) = v9;
-    v22 = v9;
+    v17 = *(&obj->super.isa + v16);
+    *(&obj->super.isa + v16) = v6;
+    v18 = v6;
 
     deactivatedBackend = obj->_deactivatedBackend;
-    obj->_deactivatedBackend = v16;
-    v24 = v16;
+    obj->_deactivatedBackend = v13;
+    v20 = v13;
 
     objc_sync_exit(obj);
-    [(FPDExtensionSessionProtocol *)v18 cancelAsync];
-    [(FPDExtensionSessionProtocol *)v18 invalidate];
-
-    v25 = *MEMORY[0x1E69E9840];
+    [(FPDExtensionSessionProtocol *)v14 cancelAsync];
+    [(FPDExtensionSessionProtocol *)v14 invalidate];
   }
 
   else
   {
     objc_sync_exit(obj);
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -883,12 +881,62 @@ void __35__FPDDomain_refreshConnectionState__block_invoke(uint64_t a1, void *a2)
   }
 }
 
+- (void)setUserEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x1E69E9840];
+  if (enabled || (WeakRetained = objc_loadWeakRetained(&self->_provider), [WeakRetained descriptor], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "canToggleDomainVisibility"), v6, WeakRetained, (v7 & 1) != 0))
+  {
+    nsDomain = [(FPDDomain *)self nsDomain];
+    [nsDomain setUserEnabled:enabledCopy];
+  }
+
+  else
+  {
+    v8 = fp_current_or_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy = self;
+      _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] ignoring user-disabling the domain, because its visibility cannot be changed for %@", buf, 0xCu);
+    }
+
+    nsDomain2 = [(FPDDomain *)self nsDomain];
+    [nsDomain2 setUserEnabled:1];
+  }
+}
+
 - (BOOL)isHiddenByUser
 {
   nsDomain = [(FPDDomain *)self nsDomain];
   isHiddenByUser = [nsDomain isHiddenByUser];
 
   return isHiddenByUser;
+}
+
+- (void)setHiddenByUser:(BOOL)user
+{
+  userCopy = user;
+  v13 = *MEMORY[0x1E69E9840];
+  if (user || (WeakRetained = objc_loadWeakRetained(&self->_provider), [WeakRetained descriptor], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "canToggleDomainVisibility"), v6, WeakRetained, (v7 & 1) != 0))
+  {
+    nsDomain = [(FPDDomain *)self nsDomain];
+    [nsDomain setHiddenByUser:userCopy];
+  }
+
+  else
+  {
+    v8 = fp_current_or_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy = self;
+      _os_log_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] ignoring user-disabling the domain, because its visibility cannot be changed for %@", buf, 0xCu);
+    }
+
+    nsDomain2 = [(FPDDomain *)self nsDomain];
+    [nsDomain2 setHiddenByUser:0];
+  }
 }
 
 - (void)setNsDomainOrNilForDefault:(id)default
@@ -962,29 +1010,27 @@ LABEL_15:
 
 void __40__FPDDomain_setNsDomainOrNilForDefault___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) isHidden];
-    v8 = [WeakRetained[8] isHidden];
-    v9[0] = 67109634;
-    v9[1] = v7;
-    v10 = 1024;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_ERROR, "[ERROR] Failed switching indexer from %d to %d: %@", v9, 0x18u);
+    v6 = [*(a1 + 32) isHidden];
+    v7 = [WeakRetained[8] isHidden];
+    v8[0] = 67109634;
+    v8[1] = v6;
+    v9 = 1024;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_ERROR, "[ERROR] Failed switching indexer from %d to %d: %@", v8, 0x18u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldDisconnectWithStartupError
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   startupError = [(FPDDomain *)self startupError];
   v4 = [startupError fp_isPOSIXErrorCode:28];
 
@@ -993,9 +1039,9 @@ void __40__FPDDomain_setNsDomainOrNilForDefault___block_invoke(uint64_t a1, void
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
+      v14 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] [diskspace] Initializing disconnected (low disk space) provider for %@", &v15, 0xCu);
+      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] [diskspace] Initializing disconnected (low disk space) provider for %@", &v14, 0xCu);
     }
 
     volume = [(FPDDomain *)self volume];
@@ -1013,53 +1059,237 @@ void __40__FPDDomain_setNsDomainOrNilForDefault___block_invoke(uint64_t a1, void
         [FPDDomain shouldDisconnectWithStartupError];
       }
     }
+
+LABEL_15:
+
+    return 1;
+  }
+
+  startupError2 = [(FPDDomain *)self startupError];
+  v9 = [startupError2 fp_isFileProviderInternalError:22];
+
+  if (v9)
+  {
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDDomain shouldDisconnectWithStartupError];
+    }
+
+    goto LABEL_15;
+  }
+
+  startupError3 = [(FPDDomain *)self startupError];
+  v11 = [startupError3 fp_isFileProviderInternalError:23];
+
+  if (v11)
+  {
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDDomain shouldDisconnectWithStartupError];
+    }
+
+    goto LABEL_15;
+  }
+
+  return 0;
+}
+
+- (void)finishSetup
+{
+  WeakRetained = objc_loadWeakRetained(&self->_provider);
+
+  if (!WeakRetained)
+  {
+    v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no domain"];
+    v46 = fp_current_or_default_log();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+    {
+      +[FPDVolume prettyNameForDomain:];
+    }
+
+    __assert_rtn("-[FPDDomain finishSetup]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 628, [v45 UTF8String]);
+  }
+
+  errorReflectingDisconnectionState = [(FPDDomain *)self errorReflectingDisconnectionState];
+  if (errorReflectingDisconnectionState)
+  {
+    v5 = [[FPDDeadEndExtensionSession alloc] initWithError:errorReflectingDisconnectionState];
+    session = self->_session;
+    self->_session = v5;
   }
 
   else
   {
-    startupError2 = [(FPDDomain *)self startupError];
-    v9 = [startupError2 fp_isFileProviderInternalError:22];
+    v7 = objc_loadWeakRetained(&self->_provider);
+    session = [v7 asAppExtensionBackedProvider];
 
-    if (v9)
+    v8 = [FPDExtensionSession alloc];
+    sharedSessionQueue = [session sharedSessionQueue];
+    v10 = [(FPDExtensionSession *)v8 initWithDomain:self extension:session queue:sharedSessionQueue];
+    v11 = self->_session;
+    self->_session = v10;
+  }
+
+  if (self->_fpfsTestingBackendClass)
+  {
+    v12 = fp_current_or_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v7 = fp_current_or_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      [FPDDomain finishSetup];
+    }
+
+    v13 = [objc_alloc(self->_fpfsTestingBackendClass) initWithDomain:self];
+    defaultBackend = self->_defaultBackend;
+    self->_defaultBackend = v13;
+
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = self->_defaultBackend;
+    }
+
+    else
+    {
+      v15 = [[FPDDomainExtensionBackend alloc] initWithDomain:self];
+    }
+
+    extensionBackend = self->_extensionBackend;
+    self->_extensionBackend = v15;
+    goto LABEL_16;
+  }
+
+  if (self->_fpfsClass)
+  {
+    v16 = objc_loadWeakRetained(&self->_provider);
+    if ([v16 supportsFPFS])
+    {
+      isReplicated = [(NSFileProviderDomain *)self->_nsDomain isReplicated];
+
+      if (!isReplicated)
       {
-        [FPDDomain shouldDisconnectWithStartupError];
+        goto LABEL_28;
+      }
+
+LABEL_20:
+      if ([(FPDDomain *)self unableToStartup]&& [(FPDDomain *)self shouldDisconnectWithStartupError])
+      {
+        v21 = [FPDDomainDeadEndBackend alloc];
+        startupError = [(FPDDomain *)self startupError];
+        v23 = [(FPDDomainDeadEndBackend *)v21 initWithDomain:self materializationError:startupError];
+        v24 = self->_extensionBackend;
+        self->_extensionBackend = v23;
+
+        v25 = [objc_alloc(self->_fpfsClass) initWithDomain:self];
+        deactivatedBackend = self->_deactivatedBackend;
+        self->_deactivatedBackend = v25;
+      }
+
+      else
+      {
+        isConnectedToAppExtension = [(FPDDomain *)self isConnectedToAppExtension];
+        v28 = fp_current_or_default_log();
+        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
+        if (isConnectedToAppExtension)
+        {
+          if (v29)
+          {
+            [FPDDomain finishSetup];
+          }
+
+          v30 = 136;
+        }
+
+        else
+        {
+          if (v29)
+          {
+            [FPDDomain finishSetup];
+          }
+
+          v41 = [[FPDDomainDeadEndBackend alloc] initWithDomain:self];
+          v28 = self->_extensionBackend;
+          self->_extensionBackend = v41;
+          v30 = 200;
+        }
+
+        v42 = [[FPDDomainExtensionBackend alloc] initWithDomain:self];
+        v43 = *(&self->super.isa + v30);
+        *(&self->super.isa + v30) = v42;
+
+        if (![(FPDDomain *)self isHiddenDefaultDomain])
+        {
+          v44 = [objc_alloc(self->_fpfsClass) initWithDomain:self];
+          extensionBackend = self->_defaultBackend;
+          self->_defaultBackend = v44;
+LABEL_16:
+
+LABEL_17:
+          self->_isUsingFPFS = 1;
+          goto LABEL_36;
+        }
+      }
+
+      objc_storeStrong(&self->_defaultBackend, self->_extensionBackend);
+      goto LABEL_17;
+    }
+
+    v19 = objc_loadWeakRetained(&self->_provider);
+    if ([v19 testingProvider])
+    {
+      isReplicated2 = [(NSFileProviderDomain *)self->_nsDomain isReplicated];
+
+      if (isReplicated2)
+      {
+        goto LABEL_20;
       }
     }
 
     else
     {
-      startupError3 = [(FPDDomain *)self startupError];
-      v11 = [startupError3 fp_isFileProviderInternalError:23];
-
-      if (!v11)
-      {
-        result = 0;
-        goto LABEL_16;
-      }
-
-      v7 = fp_current_or_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-      {
-        [FPDDomain shouldDisconnectWithStartupError];
-      }
     }
   }
 
-  result = 1;
-LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
-}
+LABEL_28:
+  isConnectedToAppExtension2 = [(FPDDomain *)self isConnectedToAppExtension];
+  v32 = fp_current_or_default_log();
+  v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
+  if (isConnectedToAppExtension2)
+  {
+    if (v33)
+    {
+      [FPDDomain finishSetup];
+    }
 
-- (void)finishSetup
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] Initializing regular provider for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+    v34 = [[FPDDomainExtensionBackend alloc] initWithDomain:self];
+    v35 = self->_defaultBackend;
+    self->_defaultBackend = v34;
+
+    v36 = self->_defaultBackend;
+    v37 = self->_extensionBackend;
+    self->_extensionBackend = v36;
+  }
+
+  else
+  {
+    if (v33)
+    {
+      [FPDDomain finishSetup];
+    }
+
+    v38 = [[FPDDomainDeadEndBackend alloc] initWithDomain:self];
+    v39 = self->_defaultBackend;
+    self->_defaultBackend = v38;
+
+    objc_storeStrong(&self->_extensionBackend, self->_defaultBackend);
+    v40 = [[FPDDomainExtensionBackend alloc] initWithDomain:self];
+    v37 = self->_deactivatedBackend;
+    self->_deactivatedBackend = v40;
+  }
+
+LABEL_36:
+  [(NSFileProviderDomain *)self->_nsDomain setReplicated:?];
 }
 
 - (BOOL)createRootByImportingDirectoryAtURL:(id)l knownFolders:(id)folders error:(id *)error
@@ -1072,13 +1302,13 @@ LABEL_16:
 
 - (void)createRootURLWithCompletion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = self->_defaultBackend;
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v40 = 0;
+  v39 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   nsDomain = [(FPDDomain *)self nsDomain];
   personaIdentifier = [nsDomain personaIdentifier];
@@ -1100,11 +1330,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v39 = 0;
-  v15 = [currentPersona copyCurrentPersonaContextWithError:&v39];
-  v16 = v39;
-  v17 = v40;
-  v40 = v15;
+  v38 = 0;
+  v15 = [currentPersona copyCurrentPersonaContextWithError:&v38];
+  v16 = v38;
+  v17 = v39;
+  v39 = v15;
 
   if (v16)
   {
@@ -1127,9 +1357,9 @@ LABEL_13:
       nsDomain4 = [(FPDDomain *)self nsDomain];
       personaIdentifier4 = [nsDomain4 personaIdentifier];
       *buf = 138412546;
-      v42 = personaIdentifier4;
-      v43 = 2112;
-      v44 = v21;
+      v41 = personaIdentifier4;
+      v42 = 2112;
+      v43 = v21;
       _os_log_error_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
     }
   }
@@ -1163,14 +1393,14 @@ LABEL_14:
 
       v30 = [(FPDExtensionSessionProtocol *)self->_session newFileProviderProxyWithTimeout:0 pid:-1.0];
       requestFromTheSystem = [MEMORY[0x1E6967518] requestFromTheSystem];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __41__FPDDomain_createRootURLWithCompletion___block_invoke;
-      v35[3] = &unk_1E83BF7B0;
-      v35[4] = self;
-      v37 = completionCopy;
-      v36 = v5;
-      [v30 itemForItemID:v24 request:requestFromTheSystem completionHandler:v35];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __41__FPDDomain_createRootURLWithCompletion___block_invoke;
+      v34[3] = &unk_1E83BF7B0;
+      v34[4] = self;
+      v36 = completionCopy;
+      v35 = v5;
+      [v30 itemForItemID:v24 request:requestFromTheSystem completionHandler:v34];
     }
   }
 
@@ -1182,14 +1412,13 @@ LABEL_14:
       [FPDDomain createRootURLWithCompletion:];
     }
 
-    v38 = 0;
-    v26 = [(FPDDomainBackend *)v5 createRootByImportingURL:0 knownFolders:MEMORY[0x1E695E0F0] error:&v38];
-    v24 = v38;
+    v37 = 0;
+    v26 = [(FPDDomainBackend *)v5 createRootByImportingURL:0 knownFolders:MEMORY[0x1E695E0F0] error:&v37];
+    v24 = v37;
     (completionCopy)[2](completionCopy, v26, v24);
   }
 
   _FPRestorePersona();
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FPDDomain_createRootURLWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1209,9 +1438,8 @@ void __41__FPDDomain_createRootURLWithCompletion___block_invoke(uint64_t a1, uin
   dispatch_async(v7, v9);
 }
 
-void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2(void *a1)
+void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2(void *a1, uint64_t a2)
 {
-  v2 = a1 + 4;
   v3 = a1[4];
   v4 = fp_current_or_default_log();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
@@ -1219,10 +1447,9 @@ void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2(void *a1)
   {
     if (v5)
     {
-      __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_1(a1, v2);
+      __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_1();
     }
 
-    v12 = a1[4];
     (*(a1[7] + 16))();
   }
 
@@ -1233,60 +1460,60 @@ void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2(void *a1)
       __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_2(a1, v4, v6, v7, v8, v9, v10, v11);
     }
 
-    v13 = a1[6];
-    v16 = 0;
-    v14 = [v13 createRootByImportingURL:0 knownFolders:MEMORY[0x1E695E0F0] error:&v16];
-    v15 = v16;
+    v12 = a1[6];
+    v15 = 0;
+    v13 = [v12 createRootByImportingURL:0 knownFolders:MEMORY[0x1E695E0F0] error:&v15];
+    v14 = v15;
     (*(a1[7] + 16))();
   }
 }
 
 - (void)_prepareFileCoordinationProviders
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v23 = fileCoordinationProviderByURL;
-  objc_sync_enter(v23);
+  v37 = *MEMORY[0x1E69E9840];
+  v22 = fileCoordinationProviderByURL;
+  objc_sync_enter(v22);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   selfCopy = self;
   coordinationRootURLs = [(FPDDomain *)self coordinationRootURLs];
   v4 = 0;
-  v5 = [coordinationRootURLs countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v5 = [coordinationRootURLs countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v5)
   {
     obj = coordinationRootURLs;
-    v25 = *v33;
+    v24 = *v32;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v32 + 1) + 8 * i);
+        v7 = *(*(&v31 + 1) + 8 * i);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v8 = fileCoordinationProviderByURL;
-        v9 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v9)
         {
-          v10 = *v29;
+          v10 = *v28;
           while (2)
           {
             for (j = 0; j != v9; j = j + 1)
             {
-              if (*v29 != v10)
+              if (*v28 != v10)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v12 = *(*(&v28 + 1) + 8 * j);
+              v12 = *(*(&v27 + 1) + 8 * j);
               if ([v12 fp_relationshipToItemAtURL:v7] == 1)
               {
                 v13 = [fileCoordinationProviderByURL objectForKeyedSubscript:v12];
@@ -1295,7 +1522,7 @@ void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2(void *a1)
               }
             }
 
-            v9 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
             if (v9)
             {
               continue;
@@ -1340,13 +1567,13 @@ LABEL_16:
       }
 
       coordinationRootURLs = obj;
-      v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v5);
   }
 
-  objc_sync_exit(v23);
+  objc_sync_exit(v22);
   nsDomain = [(FPDDomain *)selfCopy nsDomain];
   v19 = v4 == [nsDomain replicatedKnownFolders];
 
@@ -1354,15 +1581,13 @@ LABEL_16:
   {
     WeakRetained = objc_loadWeakRetained(&selfCopy->_provider);
     identifier = selfCopy->_identifier;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __46__FPDDomain__prepareFileCoordinationProviders__block_invoke;
-    v27[3] = &unk_1E83BDFC8;
-    v27[4] = selfCopy;
-    [WeakRetained setReplicatedKnownFolders:v4 forDomainIdentifier:identifier completionHandler:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __46__FPDDomain__prepareFileCoordinationProviders__block_invoke;
+    v26[3] = &unk_1E83BDFC8;
+    v26[4] = selfCopy;
+    [WeakRetained setReplicatedKnownFolders:v4 forDomainIdentifier:identifier completionHandler:v26];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __46__FPDDomain__prepareFileCoordinationProviders__block_invoke(uint64_t a1)
@@ -1439,22 +1664,21 @@ void __66__FPDDomain__checkDomainConnectionPermittedWithCompletionHandler___bloc
 
   self->_isObservingRoot = 1;
   [(FPDDomain *)self _prepareFileCoordinationProviders];
-  v12 = self->_serialQueue;
-  v15 = MEMORY[0x1E69E9820];
-  v16 = reasonCopy;
-  v13 = asAppExtensionBackedProvider;
-  v14 = reasonCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = reasonCopy;
+  v12 = asAppExtensionBackedProvider;
+  v13 = reasonCopy;
   fp_dispatch_async_with_logs();
-  [(FPDDomain *)self _registerFileCoordinatorAndSpaceForceWithCompletion:completionCopy, v15, 3221225472, __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke, &unk_1E83BEB68, self];
+  [(FPDDomain *)self _registerFileCoordinatorAndSpaceForceWithCompletion:completionCopy, v14, 3221225472, __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke, &unk_1E83BEB68, self];
 }
 
-uint64_t __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke(uint64_t a1)
+uint64_t __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   section = __fp_create_section();
   v14 = section;
-  v3 = fp_current_or_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(a1 + 32);
     v8 = v7[8];
@@ -1465,23 +1689,21 @@ uint64_t __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllow
     v18 = v8;
     v19 = 2112;
     v20 = v9;
-    _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx starting domain %@ with backend %@", buf, 0x20u);
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx starting domain %@ with backend %@", buf, 0x20u);
   }
 
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke_132;
   v10[3] = &unk_1E83BF800;
-  v10[4] = v4;
+  v10[4] = v5;
   v11 = *(a1 + 40);
   v13 = *(a1 + 56);
   v12 = *(a1 + 48);
-  [v4 _checkDomainConnectionPermittedWithCompletionHandler:v10];
+  [v5 _checkDomainConnectionPermittedWithCompletionHandler:v10];
 
-  result = __fp_leave_section_Debug();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return __fp_leave_section_Debug();
 }
 
 void __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke_132(uint64_t a1, void *a2)
@@ -1604,14 +1826,65 @@ void __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDB
   }
 }
 
+- (void)createRootAndObserveIfNeededWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion
+{
+  dropCopy = drop;
+  reasonCopy = reason;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  v10 = [(FPDDomain *)self log];
+  v20 = fpfs_adopt_log();
+
+  if (self->_isObservingRoot)
+  {
+    completionCopy[2](completionCopy);
+  }
+
+  else if (([(FPDDomainBackend *)self->_defaultBackend needsRootsCreation]& 1) != 0)
+  {
+    v11 = fp_current_or_default_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDDomain createRootAndObserveIfNeededWithReason:userAllowedDBDrop:completion:];
+    }
+
+    v12 = self->_rootCreationPacer;
+    [(FPPacer *)v12 suspend];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke;
+    v15[3] = &unk_1E83BF828;
+    v15[4] = self;
+    v13 = v12;
+    v16 = v13;
+    v18 = completionCopy;
+    v17 = reasonCopy;
+    v19 = dropCopy;
+    [(FPDDomain *)self createRootURLWithCompletion:v15];
+  }
+
+  else
+  {
+    v14 = fp_current_or_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      [FPDDomain createRootAndObserveIfNeededWithReason:userAllowedDBDrop:completion:];
+    }
+
+    [(FPDDomain *)self _startObservingRootAndResumeIndexerWithReason:reasonCopy userAllowedDBDrop:dropCopy completion:completionCopy];
+  }
+
+  __fp_pop_log();
+}
+
 void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 168));
   v7 = [*(a1 + 32) log];
-  v21 = fpfs_adopt_log();
+  v19 = fpfs_adopt_log();
 
   v8 = *(a1 + 32);
   if (v8[121] == 1)
@@ -1624,15 +1897,15 @@ void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_co
   {
     if (!v6)
     {
-      v16 = *(a1 + 64);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke_136;
-      v18[3] = &unk_1E83BE310;
-      v17 = *(a1 + 48);
-      v19 = *(a1 + 40);
-      v20 = *(a1 + 56);
-      [v8 _startObservingRootAndResumeIndexerWithReason:v17 userAllowedDBDrop:v16 completion:v18];
+      v14 = *(a1 + 64);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke_136;
+      v16[3] = &unk_1E83BE310;
+      v15 = *(a1 + 48);
+      v17 = *(a1 + 40);
+      v18 = *(a1 + 56);
+      [v8 _startObservingRootAndResumeIndexerWithReason:v15 userAllowedDBDrop:v14 completion:v16];
 
       goto LABEL_9;
     }
@@ -1640,20 +1913,19 @@ void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_co
     v10 = fp_current_or_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       [v6 fp_prettyDescription];
       objc_claimAutoreleasedReturnValue();
       __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke_cold_1();
     }
 
-    v12 = [*(a1 + 32) defaultBackend];
-    [v12 invalidate];
+    v11 = [*(a1 + 32) defaultBackend];
+    [v11 invalidate];
 
-    v13 = *(a1 + 32);
-    if ((v13[50] & 1) == 0)
+    v12 = *(a1 + 32);
+    if ((v12[50] & 1) == 0)
     {
-      v14 = [v13 indexer];
-      [v14 start];
+      v13 = [v12 indexer];
+      [v13 start];
 
       *(*(a1 + 32) + 50) = 1;
     }
@@ -1663,8 +1935,6 @@ void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_co
   (*(*(a1 + 56) + 16))();
 LABEL_9:
   __fp_pop_log();
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke_136(uint64_t a1)
@@ -1678,8 +1948,7 @@ uint64_t __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDro
 - (void)didRefreshRootURLsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  log = self->_log;
-  v13 = fpfs_adopt_log();
+  v12 = fpfs_adopt_log();
   WeakRetained = objc_loadWeakRetained(&self->_provider);
   manager = [WeakRetained manager];
   server = [manager server];
@@ -1691,8 +1960,8 @@ uint64_t __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDro
   block[2] = __53__FPDDomain_didRefreshRootURLsWithCompletionHandler___block_invoke;
   block[3] = &unk_1E83BE310;
   block[4] = self;
-  v12 = handlerCopy;
-  v10 = handlerCopy;
+  v11 = handlerCopy;
+  v9 = handlerCopy;
   dispatch_sync(serialQueue, block);
 
   __fp_pop_log();
@@ -1709,12 +1978,178 @@ uint64_t __53__FPDDomain_didRefreshRootURLsWithCompletionHandler___block_invoke(
 
 - (void)diskImportFinished
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
-  v4 = v0;
-  OUTLINED_FUNCTION_13_0(&dword_1CEFC7000, v1, v1, "[ERROR] failed to clear import cookie for domain %@: %@", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  OUTLINED_FUNCTION_13_0(&dword_1CEFC7000, v1, v1, "[ERROR] failed to clear import cookie for domain %@: %@", v2);
+}
+
+- (void)_startWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion
+{
+  dropCopy = drop;
+  v52 = *MEMORY[0x1E69E9840];
+  reasonCopy = reason;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  indexer = [(FPDDomain *)self indexer];
+
+  if (indexer)
+  {
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ domain already registered"];
+    v32 = fp_current_or_default_log();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+    {
+      +[FPDVolume prettyNameForDomain:];
+    }
+
+    v33 = v31;
+    __assert_rtn("-[FPDDomain _startWithReason:userAllowedDBDrop:completion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 979, [v31 UTF8String]);
+  }
+
+  identifier = [(FPDDomain *)self identifier];
+
+  if (!identifier)
+  {
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no domain"];
+    v35 = fp_current_or_default_log();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+    {
+      +[FPDVolume prettyNameForDomain:];
+    }
+
+    v36 = v34;
+    __assert_rtn("-[FPDDomain _startWithReason:userAllowedDBDrop:completion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 980, [v34 UTF8String]);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_provider);
+
+  if (!WeakRetained)
+  {
+    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no provider"];
+    v38 = fp_current_or_default_log();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+    {
+      +[FPDVolume prettyNameForDomain:];
+    }
+
+    v39 = v37;
+    __assert_rtn("-[FPDDomain _startWithReason:userAllowedDBDrop:completion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 981, [v37 UTF8String]);
+  }
+
+  self->_started = 1;
+  v45 = fpfs_adopt_log();
+  section = __fp_create_section();
+  v13 = fp_current_or_default_log();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier2 = [(FPDDomain *)self identifier];
+    fp_obfuscatedFilename = [identifier2 fp_obfuscatedFilename];
+    *buf = 134218498;
+    v47 = section;
+    v48 = 2114;
+    v49 = fp_obfuscatedFilename;
+    v50 = 2114;
+    v51 = reasonCopy;
+    _os_log_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEFAULT, "[NOTICE] ┏%llx starting domain %{public}@ with reason %{public}@", buf, 0x20u);
+  }
+
+  [(FPDExtensionSessionProtocol *)self->_session start];
+  provider = [(FPDDomain *)self provider];
+  isAppExtensionReachable = [provider isAppExtensionReachable];
+
+  if ((isAppExtensionReachable & 1) == 0)
+  {
+    defaultBackend = [(FPDDomain *)self defaultBackend];
+    [defaultBackend startWithReason:reasonCopy userAllowedDBDrop:dropCopy error:0];
+
+    goto LABEL_13;
+  }
+
+  if ([(FPDDomain *)self isHiddenDefaultDomain])
+  {
+LABEL_13:
+    completionCopy[2](completionCopy);
+    goto LABEL_14;
+  }
+
+  defaultBackend2 = [(FPDDomain *)self defaultBackend];
+  isDeadEndBackend = [defaultBackend2 isDeadEndBackend];
+
+  if (isDeadEndBackend)
+  {
+    v20 = fp_current_or_default_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1CEFC7000, v20, OS_LOG_TYPE_INFO, "[INFO] registering for coordination and returning early for deadend backend", buf, 2u);
+    }
+
+    [(FPDDomain *)self _prepareFileCoordinationProviders];
+    [(FPDDomain *)self _registerFileCoordinatorAndSpaceForceWithCompletion:completionCopy];
+  }
+
+  else
+  {
+    provider2 = [(FPDDomain *)self provider];
+    asAppExtensionBackedProvider = [provider2 asAppExtensionBackedProvider];
+
+    if (![(FPDDomain *)self userEnabled]|| [(FPDDomain *)self isHiddenByUser]|| [(FPDDomain *)self isHidden])
+    {
+      v24 = 0;
+    }
+
+    else
+    {
+      v24 = [(FPDDomain *)self forceDisableIndexing]^ 1;
+    }
+
+    defaultBackend3 = [(FPDDomain *)self defaultBackend];
+    v43 = 0;
+    v26 = [defaultBackend3 createIndexerWithExtension:asAppExtensionBackedProvider enabled:v24 error:&v43];
+    v27 = v43;
+
+    if (v26)
+    {
+      [v26 setDelegate:self];
+      [(FPDDomain *)self setIndexer:v26];
+      indexer2 = [(FPDDomain *)self indexer];
+      v29 = indexer2 == 0;
+
+      if (v29)
+      {
+        v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ should not be nil"];
+        v41 = fp_current_or_default_log();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+        {
+          +[FPDVolume prettyNameForDomain:];
+        }
+
+        v42 = v40;
+        __assert_rtn("-[FPDDomain _startWithReason:userAllowedDBDrop:completion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 1033, [v40 UTF8String]);
+      }
+
+      [(FPDDomain *)self createRootAndObserveIfNeededWithReason:reasonCopy userAllowedDBDrop:dropCopy completion:completionCopy];
+      [(FPPacer *)self->_rootCreationPacer resume];
+    }
+
+    else
+    {
+      v30 = fp_current_or_default_log();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        [v27 fp_prettyDescription];
+        objc_claimAutoreleasedReturnValue();
+        [FPDDomain _startWithReason:userAllowedDBDrop:completion:];
+      }
+
+      completionCopy[2](completionCopy);
+    }
+  }
+
+LABEL_14:
+  __fp_leave_section_Notice();
+  __fp_pop_log();
 }
 
 - (void)startWithReason:(id)reason userAllowedDBDrop:(BOOL)drop completion:(id)completion
@@ -1737,61 +2172,61 @@ uint64_t __53__FPDDomain_didRefreshRootURLsWithCompletionHandler___block_invoke(
 
 - (void)cancelPendingCoordinations
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableDictionary *)self->_coordinatorMetadataPerURL copy];
   [(NSMutableDictionary *)self->_coordinatorMetadataPerURL removeAllObjects];
-  v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
+  v17 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3072 userInfo:0];
   v4 = [MEMORY[0x1E696AC28] responseWithError:?];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v19 = v3;
+  v18 = v3;
   allValues = [v3 allValues];
-  v6 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       v9 = 0;
       do
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * v9);
+        v10 = *(*(&v23 + 1) + 8 * v9);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         allValues2 = [v10 allValues];
-        v12 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v12 = [allValues2 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v21;
+          v14 = *v20;
           do
           {
             v15 = 0;
             do
             {
-              if (*v21 != v14)
+              if (*v20 != v14)
               {
                 objc_enumerationMutation(allValues2);
               }
 
-              completionHandler = [*(*(&v20 + 1) + 8 * v15) completionHandler];
+              completionHandler = [*(*(&v19 + 1) + 8 * v15) completionHandler];
               (completionHandler)[2](completionHandler, v4);
 
               ++v15;
             }
 
             while (v13 != v15);
-            v13 = [allValues2 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v13 = [allValues2 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v13);
@@ -1801,22 +2236,18 @@ uint64_t __53__FPDDomain_didRefreshRootURLsWithCompletionHandler___block_invoke(
       }
 
       while (v9 != v7);
-      v7 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopIndexer
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __24__FPDDomain_stopIndexer__block_invoke(uint64_t a1)
@@ -1855,197 +2286,192 @@ void __24__FPDDomain_stopIndexer__block_invoke(uint64_t a1)
 
 - (void)invalidateWithReason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   self->_invalidated = 1;
   section = __fp_create_section();
-  v9[5] = section;
+  v8[5] = section;
   v6 = fp_current_or_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v11 = section;
-    v12 = 2112;
+    v10 = section;
+    v11 = 2112;
     selfCopy = self;
-    v14 = 2114;
-    v15 = reasonCopy;
+    v13 = 2114;
+    v14 = reasonCopy;
     _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] ┏%llx Invalidating %@ (reason: %{public}@)...", buf, 0x20u);
   }
 
   [(FPDDomain *)self _unregisterFromFileCoordinatorAndSpaceForce];
   serialQueue = self->_serialQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __34__FPDDomain_invalidateWithReason___block_invoke;
-  v9[3] = &unk_1E83BE068;
-  v9[4] = self;
-  dispatch_sync(serialQueue, v9);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __34__FPDDomain_invalidateWithReason___block_invoke;
+  v8[3] = &unk_1E83BE068;
+  v8[4] = self;
+  dispatch_sync(serialQueue, v8);
   [(NSURL *)self->_previouslyAccessedSecurityScopedURL stopAccessingSecurityScopedResource];
   __fp_leave_section_Notice();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPDDomain_invalidateWithReason___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 176);
-  v5 = fpfs_adopt_log();
-  v3 = *(a1 + 32);
-  if ((*(v3 + 51) & 1) == 0)
+  v4 = fpfs_adopt_log();
+  v2 = *(a1 + 32);
+  if ((*(v2 + 51) & 1) == 0)
   {
-    *(v3 + 50) = 1;
-    v4 = [*(a1 + 32) indexer];
-    [v4 invalidate];
+    *(v2 + 50) = 1;
+    v3 = [*(a1 + 32) indexer];
+    [v3 invalidate];
 
     *(*(a1 + 32) + 51) = 1;
-    v3 = *(a1 + 32);
+    v2 = *(a1 + 32);
   }
 
-  [*(v3 + 128) invalidate];
+  [*(v2 + 128) invalidate];
   [*(a1 + 32) cancelPendingCoordinations];
   __fp_pop_log();
 }
 
 - (id)cleanupDomainWithMode:(unint64_t)mode
 {
-  v47[1] = *MEMORY[0x1E69E9840];
-  log = self->_log;
-  v39 = fpfs_adopt_log();
+  v45[1] = *MEMORY[0x1E69E9840];
+  v37 = fpfs_adopt_log();
   provider = [(FPDDomain *)self provider];
   identifier = [provider identifier];
   if ([identifier isEqualToString:@"com.apple.filesystems.UserFS.FileProvider"])
   {
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
     provider2 = [(FPDDomain *)self provider];
     identifier2 = [provider2 identifier];
-    v8 = [identifier2 isEqualToString:@"com.apple.SMBClientProvider.FileProvider"];
+    v7 = [identifier2 isEqualToString:@"com.apple.SMBClientProvider.FileProvider"];
   }
 
   mEMORY[0x1E697A0F8] = [MEMORY[0x1E697A0F8] sharedInstance];
   providerDomainID = [(FPDDomain *)self providerDomainID];
-  v47[0] = providerDomainID;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
-  [mEMORY[0x1E697A0F8] removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers:v13 completionHandler:&__block_literal_global_157];
+  v45[0] = providerDomainID;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  [mEMORY[0x1E697A0F8] removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers:v12 completionHandler:&__block_literal_global_157];
 
-  v38 = 0;
-  v14 = [(FPDDomain *)self cleanupDomainWithMode:mode error:&v38];
-  v15 = v38;
-  if (v15)
+  v36 = 0;
+  v13 = [(FPDDomain *)self cleanupDomainWithMode:mode error:&v36];
+  v14 = v36;
+  if (v14)
   {
-    v16 = fp_current_or_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = fp_current_or_default_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       providerDomainID2 = [(FPDDomain *)self providerDomainID];
       fp_obfuscatedProviderDomainID = [providerDomainID2 fp_obfuscatedProviderDomainID];
-      fp_prettyDescription = [v15 fp_prettyDescription];
+      fp_prettyDescription = [v14 fp_prettyDescription];
       *buf = 138412802;
-      v42 = fp_obfuscatedProviderDomainID;
-      v43 = 2048;
+      v40 = fp_obfuscatedProviderDomainID;
+      v41 = 2048;
       modeCopy = mode;
-      v45 = 2112;
-      v46 = fp_prettyDescription;
-      _os_log_error_impl(&dword_1CEFC7000, v16, OS_LOG_TYPE_ERROR, "[ERROR] removing domain %@ with mode %lu faile with %@", buf, 0x20u);
+      v43 = 2112;
+      v44 = fp_prettyDescription;
+      _os_log_error_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_ERROR, "[ERROR] removing domain %@ with mode %lu faile with %@", buf, 0x20u);
     }
 
     goto LABEL_8;
   }
 
-  if (!v14)
+  if (!v13)
   {
 LABEL_8:
     resultURL = 0;
     goto LABEL_11;
   }
 
-  resultURL = [v14 resultURL];
+  resultURL = [v13 resultURL];
 LABEL_11:
   indexer = [(FPDDomain *)self indexer];
   if (indexer)
   {
-    v19 = v8;
+    v18 = v7;
   }
 
   else
   {
-    v19 = 1;
+    v18 = 1;
   }
 
-  if (v19)
+  if (v18)
   {
-    if (v8)
+    if (v7)
     {
-      v20 = fp_current_or_default_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = fp_current_or_default_log();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         providerDomainID3 = [(FPDDomain *)self providerDomainID];
         fp_obfuscatedProviderDomainID2 = [providerDomainID3 fp_obfuscatedProviderDomainID];
-        [(FPDDomain *)fp_obfuscatedProviderDomainID2 cleanupDomainWithMode:v40, v20, providerDomainID3];
+        [(FPDDomain *)fp_obfuscatedProviderDomainID2 cleanupDomainWithMode:v38, v19, providerDomainID3];
       }
     }
   }
 
   else
   {
-    v23 = fp_current_or_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v22 = fp_current_or_default_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       providerDomainID4 = [(FPDDomain *)self providerDomainID];
       fp_obfuscatedProviderDomainID3 = [providerDomainID4 fp_obfuscatedProviderDomainID];
-      [(FPDDomain *)fp_obfuscatedProviderDomainID3 cleanupDomainWithMode:v40, v23, providerDomainID4];
+      [(FPDDomain *)fp_obfuscatedProviderDomainID3 cleanupDomainWithMode:v38, v22, providerDomainID4];
     }
 
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __35__FPDDomain_cleanupDomainWithMode___block_invoke_158;
-    v37[3] = &unk_1E83BDFC8;
-    v37[4] = self;
-    [indexer dropIndexForReason:1 completion:v37];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __35__FPDDomain_cleanupDomainWithMode___block_invoke_158;
+    v35[3] = &unk_1E83BDFC8;
+    v35[4] = self;
+    [indexer dropIndexForReason:1 completion:v35];
   }
 
   supportURL = [(FPDDomain *)self supportURL];
-  v27 = fp_current_or_default_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v26 = fp_current_or_default_log();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v42 = supportURL;
-    _os_log_impl(&dword_1CEFC7000, v27, OS_LOG_TYPE_INFO, "[INFO] removing support directory at %@", buf, 0xCu);
+    v40 = supportURL;
+    _os_log_impl(&dword_1CEFC7000, v26, OS_LOG_TYPE_INFO, "[INFO] removing support directory at %@", buf, 0xCu);
   }
 
-  v28 = supportURL;
+  v27 = supportURL;
   [supportURL fileSystemRepresentation];
   if ((fpfs_recursive_unlinkat() & 0x80000000) != 0)
   {
-    v29 = fp_current_or_default_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v28 = fp_current_or_default_log();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = __error();
-      v31 = strerror(*v30);
-      [(FPDDomain *)v31 cleanupDomainWithMode:buf, supportURL, v29];
+      v29 = __error();
+      v30 = strerror(*v29);
+      [(FPDDomain *)v30 cleanupDomainWithMode:buf, supportURL, v28];
     }
   }
 
   else
   {
-    v29 = fp_current_or_default_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v28 = fp_current_or_default_log();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       [FPDDomain cleanupDomainWithMode:];
     }
   }
 
   __fp_pop_log();
-  v32 = *MEMORY[0x1E69E9840];
 
   return resultURL;
 }
 
 void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = fp_current_or_default_log();
   v5 = v4;
@@ -2055,11 +2481,11 @@ void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void 
     {
       v6 = [*(a1 + 32) indexer];
       v7 = [v3 fp_prettyDescription];
-      v9 = 138412546;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to async drop index for %@: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to async drop index for %@: %@", &v8, 0x16u);
     }
   }
 
@@ -2067,8 +2493,33 @@ void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void 
   {
     __35__FPDDomain_cleanupDomainWithMode___block_invoke_158_cold_1(a1);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)extensionIndexer:(id)indexer didChangeNeedsAuthentification:(BOOL)authentification
+{
+  authentificationCopy = authentification;
+  indexerCopy = indexer;
+  v12 = fpfs_adopt_log();
+  if (!authentificationCopy && !self->_isObservingRoot)
+  {
+    [(FPPacer *)self->_rootCreationPacer signal];
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_provider);
+  manager = [WeakRetained manager];
+  server = [manager server];
+  [server signalProviderChanges];
+
+  defaultBackend = [(FPDDomain *)self defaultBackend];
+  LOBYTE(manager) = objc_opt_respondsToSelector();
+
+  if (manager)
+  {
+    defaultBackend2 = [(FPDDomain *)self defaultBackend];
+    [defaultBackend2 didChangeNeedsAuthentification:authentificationCopy];
+  }
+
+  __fp_pop_log();
 }
 
 - (id)_physicalURLForURL:(id)l
@@ -2240,7 +2691,7 @@ void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void 
   handlerCopy = handler;
   if (infoCopy)
   {
-    [infoCopy readerAuditToken];
+    objc_msgSend_readerAuditToken(infoCopy);
   }
 
   else
@@ -2252,7 +2703,7 @@ void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void 
   readerID = [infoCopy readerID];
   if (infoCopy)
   {
-    [infoCopy readerAuditToken];
+    objc_msgSend_readerAuditToken(infoCopy);
   }
 
   else
@@ -2264,20 +2715,213 @@ void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158(uint64_t a1, void 
   -[FPDDomain _provideItemAtURL:withReaderID:withProcessID:withAuditToken:kernelInfo:readingOptions:completionHandler:](self, "_provideItemAtURL:withReaderID:withProcessID:withAuditToken:kernelInfo:readingOptions:completionHandler:", lCopy, readerID, v11, &atoken, kernelMaterializationInfo, [infoCopy readingOptions], handlerCopy);
 }
 
+- (void)_provideItemAtURL:(id)l withReaderID:(id)d withProcessID:(int)iD withAuditToken:(id *)token kernelInfo:(id)info readingOptions:(unint64_t)options completionHandler:(id)handler
+{
+  v12 = *&iD;
+  v74 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  dCopy = d;
+  infoCopy = info;
+  handlerCopy = handler;
+  fpfs_adopt_log();
+  v59 = v58 = options;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  if (v12)
+  {
+    v17 = FPExecutableNameForProcessIdentifier();
+  }
+
+  else
+  {
+    v17 = @"(unknown)";
+  }
+
+  v18 = [FPDCoordinator requestForClaimID:dCopy];
+  v19 = v18;
+  if (v18)
+  {
+    v20 = MEMORY[0x1E696AEC0];
+    processName = [v18 processName];
+    v49 = [v20 stringWithFormat:@"%@ (on behalf of %@)", v17, processName];
+
+    memset(buf, 0, sizeof(buf));
+    objc_msgSend_audit_token(v19);
+    if ((*buf & *&buf[8] & *&buf[16] & *&buf[24]) == -1)
+    {
+      v22 = fp_current_or_default_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      {
+        fp_shortDescription = [lCopy fp_shortDescription];
+        *v69 = 138412802;
+        *&v69[4] = fp_shortDescription;
+        v70 = 2112;
+        v71 = v49;
+        v72 = 2114;
+        v73 = dCopy;
+        _os_log_fault_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_FAULT, "[CRIT] _provideItemAtURL for %@: requestToken is empty, consumer:%@, readerID: %{public}@", v69, 0x20u);
+      }
+    }
+  }
+
+  else
+  {
+    v49 = v17;
+  }
+
+  v43 = v56[3];
+  if ((v43 & 0x40000000) != 0)
+  {
+    fileMaterializationInfo = [infoCopy fileMaterializationInfo];
+    operation = [infoCopy operation];
+    if (fileMaterializationInfo)
+    {
+      v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%lld, %lld>", objc_msgSend(fileMaterializationInfo, "offset"), objc_msgSend(fileMaterializationInfo, "size")];
+      goto LABEL_16;
+    }
+
+    v46 = 0;
+  }
+
+  else
+  {
+    v46 = 0;
+    operation = 0;
+  }
+
+  fileMaterializationInfo = 0;
+LABEL_16:
+  *v69 = __fp_create_section();
+  v23 = fp_current_or_default_log();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    tokenCopy = token;
+    v24 = v12;
+    v25 = dCopy;
+    v26 = *v69;
+    fp_prettyDescription = [(FPDDomain *)self fp_prettyDescription];
+    fp_shortDescription2 = [lCopy fp_shortDescription];
+    v29 = [MEMORY[0x1E696AEC0] fp_coordinatorReadingOptions:v56[3]];
+    v30 = v29;
+    v31 = @"<full>";
+    *buf = 134219522;
+    if (v46)
+    {
+      v31 = v46;
+    }
+
+    *&buf[4] = v26;
+    *&buf[12] = 2112;
+    *&buf[14] = fp_prettyDescription;
+    *&buf[22] = 2112;
+    *&buf[24] = fp_shortDescription2;
+    v61 = 2112;
+    v62 = v49;
+    v63 = 2114;
+    dCopy = v25;
+    v64 = v25;
+    v65 = 2114;
+    v66 = v29;
+    v67 = 2114;
+    v68 = v31;
+    _os_log_impl(&dword_1CEFC7000, v23, OS_LOG_TYPE_DEFAULT, "[NOTICE] ┏%llx ⭕️ NSFileCoordinator requested %@ to provide item at %@ (consumer: %@, readerID: %{public}@, options: %{public}@, range: %{public}@)", buf, 0x48u);
+
+    v12 = v24;
+    token = tokenCopy;
+  }
+
+  if ((*(v56 + 27) & 0x40) == 0)
+  {
+    goto LABEL_27;
+  }
+
+  v32 = _executableNameIsBlockedForMaterialization_once;
+  v33 = v49;
+  if (v32 != -1)
+  {
+    [FPDDomain _provideItemAtURL:withReaderID:withProcessID:withAuditToken:kernelInfo:readingOptions:completionHandler:];
+  }
+
+  v34 = [_executableNameIsBlockedForMaterialization_blockedProcesses containsObject:v33];
+
+  if (v34)
+  {
+    v35 = fp_current_or_default_log();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      *&buf[4] = v33;
+      _os_log_impl(&dword_1CEFC7000, v35, OS_LOG_TYPE_INFO, "[INFO] ⛔️ item not provided, consumer %@ blocked by the system", buf, 0xCu);
+    }
+
+    v36 = 1;
+  }
+
+  else
+  {
+LABEL_27:
+    v36 = 0;
+  }
+
+  if ([(FPDDomain *)self _isProviderBlockingConsumer:v49])
+  {
+    v37 = fp_current_or_default_log();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      *&buf[4] = v49;
+      _os_log_impl(&dword_1CEFC7000, v37, OS_LOG_TYPE_INFO, "[INFO] ⛔️ item not provided, consumer %@ blocked by the provider", buf, 0xCu);
+    }
+
+    v36 = 1;
+  }
+
+  if (!v19)
+  {
+    v38 = fpfs_supports_partial_materialization() & operation;
+    v39 = (v43 >> 30) & 1;
+    v40 = *&token->var0[4];
+    *buf = *token->var0;
+    *&buf[16] = v40;
+    if (v38 == 1)
+    {
+      [FPDRequest requestForPID:v12 auditToken:buf fromPOSIX:v39 kernelFileInfo:fileMaterializationInfo];
+    }
+
+    else
+    {
+      [FPDRequest requestForPID:v12 auditToken:buf fromPOSIX:v39];
+    }
+    v19 = ;
+  }
+
+  [v19 setShouldFailCoordinationIfDownloadRequired:v36];
+  v50 = lCopy;
+  v51 = dCopy;
+  v52 = v19;
+  v53 = v49;
+  v54 = handlerCopy;
+  fp_dispatch_async_with_logs();
+
+  __fp_leave_section_Notice();
+  _Block_object_dispose(&v55, 8);
+  __fp_pop_log();
+}
+
 void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 176);
-  v25 = fpfs_adopt_log();
-  v3 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
-  v4 = v3;
-  if (v3)
+  v24 = fpfs_adopt_log();
+  v2 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:*(a1 + 40)];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 objectForKeyedSubscript:*(a1 + 48)];
+    v4 = [v2 objectForKeyedSubscript:*(a1 + 48)];
 
-    if (v5)
+    if (v4)
     {
-      v6 = fp_current_or_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = fp_current_or_default_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_cold_1();
       }
@@ -2288,49 +2932,49 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
 
   else
   {
-    v4 = [MEMORY[0x1E695DF90] dictionary];
-    [*(*(a1 + 32) + 8) setObject:v4 forKeyedSubscript:*(a1 + 40)];
+    v3 = [MEMORY[0x1E695DF90] dictionary];
+    [*(*(a1 + 32) + 8) setObject:v3 forKeyedSubscript:*(a1 + 40)];
   }
 
-  v7 = *(a1 + 88);
-  if ((v7 & 0x10) != 0)
+  v6 = *(a1 + 88);
+  if ((v6 & 0x10) != 0)
   {
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 80) + 8) + 24) |= 0x20000uLL;
-    v7 = *(a1 + 88);
+    v6 = *(a1 + 88);
   }
 
-  if ((v7 & 0xA) != 0)
+  if ((v6 & 0xA) != 0)
   {
     [*(a1 + 56) setAllowsResurrection:1];
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v11 = *(v9 + 128);
-  v12 = *(*(*(a1 + 80) + 8) + 24);
-  v14 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_178;
-  v19[3] = &unk_1E83BF8A0;
-  v19[4] = v9;
-  v20 = v10;
-  v21 = *(a1 + 48);
-  v22 = *(a1 + 64);
-  v24 = *(a1 + 88);
-  v18 = *(a1 + 72);
-  v15 = v18;
-  v23 = v18;
-  v16 = [v11 startProvidingItemAtURL:v20 readerID:v14 readingOptions:v12 request:v13 completionHandler:v19];
-  v17 = [[FPCoordinationContext alloc] initWithProgress:v16 completionHandler:*(a1 + 72)];
-  [v4 setObject:v17 forKeyedSubscript:*(a1 + 48)];
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v10 = *(v8 + 128);
+  v11 = *(*(*(a1 + 80) + 8) + 24);
+  v13 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_178;
+  v18[3] = &unk_1E83BF8A0;
+  v18[4] = v8;
+  v19 = v9;
+  v20 = *(a1 + 48);
+  v21 = *(a1 + 64);
+  v23 = *(a1 + 88);
+  v17 = *(a1 + 72);
+  v14 = v17;
+  v22 = v17;
+  v15 = [v10 startProvidingItemAtURL:v19 readerID:v13 readingOptions:v11 request:v12 completionHandler:v18];
+  v16 = [[FPCoordinationContext alloc] initWithProgress:v15 completionHandler:*(a1 + 72)];
+  [v3 setObject:v16 forKeyedSubscript:*(a1 + 48)];
 
 LABEL_14:
   __fp_pop_log();
@@ -2361,7 +3005,7 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
 
 void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _removeProgressForProvidingItemAtURL:*(a1 + 40) toReaderWithID:*(a1 + 48)];
   v3 = *(a1 + 56);
   v4 = fp_current_or_default_log();
@@ -2376,19 +3020,19 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
       v9 = *(a1 + 48);
       v10 = [MEMORY[0x1E696AEC0] fp_coordinatorReadingOptions:*(*(*(a1 + 80) + 8) + 24)];
       v11 = *(a1 + 88);
-      v19 = 138413570;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v8;
-      v25 = 2114;
-      v26 = v9;
-      v27 = 2114;
-      v28 = v10;
-      v29 = 1024;
-      v30 = v11;
-      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ❌ NSFileCoordinator: failed providing item at %@: %@ (consumer: %@, readerID: %{public}@, options: %{public}@, kernelOperation: 0x%x)", &v19, 0x3Au);
+      v18 = 138413570;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2114;
+      v25 = v9;
+      v26 = 2114;
+      v27 = v10;
+      v28 = 1024;
+      v29 = v11;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ❌ NSFileCoordinator: failed providing item at %@: %@ (consumer: %@, readerID: %{public}@, options: %{public}@, kernelOperation: 0x%x)", &v18, 0x3Au);
     }
   }
 
@@ -2398,15 +3042,15 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
     v13 = *(a1 + 64);
     v14 = *(a1 + 48);
     v15 = [MEMORY[0x1E696AEC0] fp_coordinatorReadingOptions:*(*(*(a1 + 80) + 8) + 24)];
-    v19 = 138413058;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2114;
-    v24 = v14;
-    v25 = 2114;
-    v26 = v15;
-    _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ✅ NSFileCoordinator: providing item at %@ (consumer: %@, readerID: %{public}@, options: %{public}@)", &v19, 0x2Au);
+    v18 = 138413058;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2114;
+    v23 = v14;
+    v24 = 2114;
+    v25 = v15;
+    _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] ✅ NSFileCoordinator: providing item at %@ (consumer: %@, readerID: %{public}@, options: %{public}@)", &v18, 0x2Au);
   }
 
   v16 = [*(a1 + 32) getProvidedItemRecursiveGenerationCountForItemAtURL:*(a1 + 40)];
@@ -2430,55 +3074,49 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
       __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_2_cold_1();
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelProvidingItemAtURL:(id)l toReaderWithID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
-  log = self->_log;
-  v18 = fpfs_adopt_log();
+  v15 = fpfs_adopt_log();
   if (dCopy && [MEMORY[0x1E696ABF8] _processIdentifierForID:dCopy])
   {
-    v9 = FPExecutableNameForProcessIdentifier();
+    v8 = FPExecutableNameForProcessIdentifier();
   }
 
   else
   {
-    v9 = @"(unknown)";
+    v8 = @"(unknown)";
   }
 
   section = __fp_create_section();
-  v11 = fp_current_or_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v10 = fp_current_or_default_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     fp_prettyDescription = [(FPDDomain *)self fp_prettyDescription];
     fp_shortDescription = [lCopy fp_shortDescription];
     *buf = 134219010;
-    v20 = section;
-    v21 = 2112;
-    v22 = fp_prettyDescription;
-    v23 = 2112;
-    v24 = fp_shortDescription;
-    v25 = 2112;
-    v26 = v9;
-    v27 = 2112;
-    v28 = dCopy;
-    _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx ❌ NSFileCoordinator cancelled request for %@ to provide item at %@ (consumer: %@, readerID: %@)", buf, 0x34u);
+    v17 = section;
+    v18 = 2112;
+    v19 = fp_prettyDescription;
+    v20 = 2112;
+    v21 = fp_shortDescription;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = dCopy;
+    _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx ❌ NSFileCoordinator cancelled request for %@ to provide item at %@ (consumer: %@, readerID: %@)", buf, 0x34u);
   }
 
-  serialQueue = self->_serialQueue;
-  v16 = lCopy;
-  v17 = dCopy;
+  v13 = lCopy;
+  v14 = dCopy;
   fp_dispatch_async_with_logs();
 
   __fp_leave_section_Debug();
   __fp_pop_log();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke(uint64_t a1)
@@ -2506,7 +3144,7 @@ void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke(uin
 
 - (void)_writerWithID:(id)d didFinishWritingForURL:(id)l
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   lCopy = l;
   if (dCopy)
@@ -2527,19 +3165,19 @@ void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke(uin
   v9 = @"(unknown)";
 LABEL_6:
   section = __fp_create_section();
-  v24 = section;
+  v23 = section;
   v11 = fp_current_or_default_log();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     fp_shortDescription = [lCopy fp_shortDescription];
     *buf = 134218754;
-    v26 = section;
-    v27 = 2112;
-    v28 = fp_shortDescription;
-    v29 = 2112;
-    v30 = v9;
-    v31 = 2112;
-    v32 = dCopy;
+    v25 = section;
+    v26 = 2112;
+    v27 = fp_shortDescription;
+    v28 = 2112;
+    v29 = v9;
+    v30 = 2112;
+    v31 = dCopy;
     _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx NSFileCoordinator is telling us the item at %@ was changed (consumer: %@, writerID: %@)", buf, 0x2Au);
   }
 
@@ -2559,18 +3197,17 @@ LABEL_6:
 
   v15 = self->_defaultBackend;
   v16 = [FPDRequest requestForPID:v8];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke;
-  v20[3] = &unk_1E83BF910;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke;
+  v19[3] = &unk_1E83BF910;
   v17 = lCopy;
-  v21 = v17;
+  v20 = v17;
   selfCopy = self;
-  v23 = v8;
-  [(FPDDomainBackend *)v15 itemForURL:v17 options:0 request:v16 completionHandler:v20];
+  v22 = v8;
+  [(FPDDomainBackend *)v15 itemForURL:v17 options:0 request:v16 completionHandler:v19];
 
   __fp_leave_section_Debug();
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2611,7 +3248,7 @@ void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke(uint64_
 
 - (void)_providedItemAtURL:(id)l didGainPresenterWithInfo:(id)info
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   lCopy = l;
   infoCopy = info;
   section = __fp_create_section();
@@ -2634,7 +3271,7 @@ void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke(uint64_
     memset(buf, 0, 32);
     if (infoCopy)
     {
-      [infoCopy presenterAuditToken];
+      objc_msgSend_presenterAuditToken(infoCopy);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_provider);
@@ -2646,19 +3283,19 @@ void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke(uint64_
 
     defaultBackend = self->_defaultBackend;
     v15 = +[FPDRequest requestForSelf];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke;
-    v22[3] = &unk_1E83BF938;
-    v23 = lCopy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke;
+    v21[3] = &unk_1E83BF938;
+    v22 = lCopy;
     v16 = presenterManager;
-    v24 = v16;
+    v23 = v16;
     v17 = infoCopy;
-    v27 = *buf;
-    v28 = *&buf[16];
-    v25 = v17;
-    v26 = v13;
-    [(FPDDomainBackend *)defaultBackend itemIDForURL:v23 requireProviderItemID:0 request:v15 completionHandler:v22];
+    v26 = *buf;
+    v27 = *&buf[16];
+    v24 = v17;
+    v25 = v13;
+    [(FPDDomainBackend *)defaultBackend itemIDForURL:v22 requireProviderItemID:0 request:v15 completionHandler:v21];
   }
 
   else
@@ -2671,8 +3308,6 @@ void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke(uint64_
   }
 
   __fp_leave_section_Debug();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2708,23 +3343,22 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
 
 - (void)_providedItemAtURL:(id)l didLosePresenterWithID:(id)d
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
-  log = self->_log;
-  v16 = fpfs_adopt_log();
+  v14 = fpfs_adopt_log();
   section = __fp_create_section();
-  v10 = fp_current_or_default_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v9 = fp_current_or_default_log();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     fp_shortDescription = [lCopy fp_shortDescription];
     *buf = 134218498;
-    v18 = section;
+    v16 = section;
+    v17 = 2112;
+    v18 = fp_shortDescription;
     v19 = 2112;
-    v20 = fp_shortDescription;
-    v21 = 2112;
-    v22 = dCopy;
-    _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Item at %@ losing presenter %@", buf, 0x20u);
+    v20 = dCopy;
+    _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Item at %@ losing presenter %@", buf, 0x20u);
   }
 
   if ([(FPDDomain *)self _wantsPresenterNotifications])
@@ -2747,21 +3381,18 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
 
   __fp_leave_section_Debug();
   __fp_pop_log();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_providedItemAtURL:(id)l withPresenterWithID:(id)d didMoveToURL:(id)rL
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   rLCopy = rL;
-  log = self->_log;
-  v36 = fpfs_adopt_log();
+  v34 = fpfs_adopt_log();
   section = __fp_create_section();
-  v12 = fp_current_or_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v11 = fp_current_or_default_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     fp_shortDescription = [lCopy fp_shortDescription];
     fp_shortDescription2 = [rLCopy fp_shortDescription];
@@ -2771,9 +3402,9 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
     *&buf[14] = fp_shortDescription;
     *&buf[22] = 2112;
     *&buf[24] = dCopy;
-    v38 = 2112;
-    v39 = fp_shortDescription2;
-    _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Item at %@, presenter %@, moving to %@", buf, 0x2Au);
+    v36 = 2112;
+    v37 = fp_shortDescription2;
+    _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Item at %@, presenter %@, moving to %@", buf, 0x2Au);
   }
 
   if ([(FPDDomain *)self _wantsPresenterNotifications])
@@ -2782,34 +3413,34 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
     server = [WeakRetained server];
     presenterManager = [server presenterManager];
 
-    v16 = [presenterManager presenterWithID:dCopy];
-    v17 = v16;
-    if (v16)
+    v15 = [presenterManager presenterWithID:dCopy];
+    v16 = v15;
+    if (v15)
     {
       memset(buf, 0, sizeof(buf));
-      [v16 auditToken];
+      objc_msgSend_auditToken(v15);
       [presenterManager removePresenter:dCopy];
-      v18 = [presenterManager promisePresenterWithID:dCopy];
+      v17 = [presenterManager promisePresenterWithID:dCopy];
       defaultBackend = self->_defaultBackend;
-      v20 = +[FPDRequest requestForSelf];
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block_invoke;
-      v28[3] = &unk_1E83BF938;
-      v29 = rLCopy;
-      v30 = presenterManager;
-      v21 = dCopy;
-      v33 = *buf;
-      v34 = *&buf[16];
-      v31 = v21;
-      v32 = v18;
-      [(FPDDomainBackend *)defaultBackend itemIDForURL:v29 requireProviderItemID:0 request:v20 completionHandler:v28];
+      v19 = +[FPDRequest requestForSelf];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block_invoke;
+      v26[3] = &unk_1E83BF938;
+      v27 = rLCopy;
+      v28 = presenterManager;
+      v20 = dCopy;
+      v31 = *buf;
+      v32 = *&buf[16];
+      v29 = v20;
+      v30 = v17;
+      [(FPDDomainBackend *)defaultBackend itemIDForURL:v27 requireProviderItemID:0 request:v19 completionHandler:v26];
     }
 
     else
     {
-      v22 = fp_current_or_default_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = fp_current_or_default_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         fp_shortDescription3 = [lCopy fp_shortDescription];
         fp_shortDescription4 = [rLCopy fp_shortDescription];
@@ -2819,7 +3450,7 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
         *&buf[14] = fp_shortDescription3;
         *&buf[22] = 2112;
         *&buf[24] = fp_shortDescription4;
-        _os_log_error_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Move of a presenter %@ from %@ to %@ notified but no previous presenter existed", buf, 0x20u);
+        _os_log_error_impl(&dword_1CEFC7000, v21, OS_LOG_TYPE_ERROR, "[ERROR] Move of a presenter %@ from %@ to %@ notified but no previous presenter existed", buf, 0x20u);
       }
     }
   }
@@ -2835,8 +3466,6 @@ void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke(
 
   __fp_leave_section_Debug();
   __fp_pop_log();
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2872,12 +3501,12 @@ void __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block
 
 - (void)_movingItemAtURL:(id)l withInfo:(id)info completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   lCopy = l;
   infoCopy = info;
   handlerCopy = handler;
   section = __fp_create_section();
-  v23 = section;
+  v22 = section;
   v12 = fp_current_or_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
@@ -2885,27 +3514,26 @@ void __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block
     destinationDirectoryURL = [infoCopy destinationDirectoryURL];
     fp_shortDescription2 = [destinationDirectoryURL fp_shortDescription];
     *buf = 134218498;
-    v25 = section;
-    v26 = 2112;
-    v27 = fp_shortDescription;
-    v28 = 2112;
-    v29 = fp_shortDescription2;
+    v24 = section;
+    v25 = 2112;
+    v26 = fp_shortDescription;
+    v27 = 2112;
+    v28 = fp_shortDescription2;
     _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Checking if download is required for moving %@ to %@", buf, 0x20u);
   }
 
   defaultBackend = [(FPDDomain *)self defaultBackend];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke;
-  v20[3] = &unk_1E83BF960;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke;
+  v19[3] = &unk_1E83BF960;
   v14 = lCopy;
-  v21 = v14;
+  v20 = v14;
   v15 = handlerCopy;
-  v22 = v15;
-  [defaultBackend movingItemAtURL:v14 withInfo:infoCopy completionHandler:v20];
+  v21 = v15;
+  [defaultBackend movingItemAtURL:v14 withInfo:infoCopy completionHandler:v19];
 
   __fp_leave_section_Debug();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2922,17 +3550,16 @@ void __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke(
 
 - (void)_registerFileCoordinatorAndSpaceForceWithCompletion:(id)completion
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   block = completion;
-  log = self->_log;
-  v56 = fpfs_adopt_log();
+  v54 = fpfs_adopt_log();
   if ([MEMORY[0x1E69672F0] runningInSyncBubble])
   {
-    v5 = fp_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] shared iPad: skipping file coordination registration because we're just finishing sync", buf, 2u);
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_INFO, "[INFO] shared iPad: skipping file coordination registration because we're just finishing sync", buf, 2u);
     }
 
     dispatch_async(self->_serialQueue, block);
@@ -2940,130 +3567,128 @@ void __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke(
 
   else
   {
-    v33 = objc_opt_new();
-    v6 = dispatch_group_create();
+    v31 = objc_opt_new();
+    v5 = dispatch_group_create();
     WeakRetained = objc_loadWeakRetained(&self->_provider);
     identifier = [WeakRetained identifier];
 
-    v8 = objc_loadWeakRetained(&self->_provider);
-    if (!v8)
+    v7 = objc_loadWeakRetained(&self->_provider);
+    if (!v7)
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no provider"];
-      v24 = fp_current_or_default_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no provider"];
+      v22 = fp_current_or_default_log();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
       {
         +[FPDVolume prettyNameForDomain:];
       }
 
-      v25 = v23;
-      __assert_rtn("-[FPDDomain _registerFileCoordinatorAndSpaceForceWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 1656, [v23 UTF8String]);
+      v23 = v21;
+      __assert_rtn("-[FPDDomain _registerFileCoordinatorAndSpaceForceWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 1656, [v21 UTF8String]);
     }
 
     if (!identifier)
     {
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no provider identifier"];
-      v27 = fp_current_or_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ no provider identifier"];
+      v25 = fp_current_or_default_log();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         +[FPDVolume prettyNameForDomain:];
       }
 
-      v28 = v26;
-      __assert_rtn("-[FPDDomain _registerFileCoordinatorAndSpaceForceWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 1657, [v26 UTF8String]);
+      v26 = v24;
+      __assert_rtn("-[FPDDomain _registerFileCoordinatorAndSpaceForceWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDDomain.m", 1657, [v24 UTF8String]);
     }
 
     obj = fileCoordinationProviderByURL;
     objc_sync_enter(obj);
-    v9 = MEMORY[0x1E695DFD8];
+    v8 = MEMORY[0x1E695DFD8];
     coordinationRootURLs = [(FPDDomain *)self coordinationRootURLs];
-    v35 = [v9 setWithArray:coordinationRootURLs];
+    v33 = [v8 setWithArray:coordinationRootURLs];
 
-    v53 = 0u;
-    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     allKeys = [fileCoordinationProviderByURL allKeys];
-    v12 = [allKeys countByEnumeratingWithState:&v51 objects:v57 count:16];
-    if (v12)
+    v11 = [allKeys countByEnumeratingWithState:&v49 objects:v55 count:16];
+    if (v11)
     {
-      v13 = *v52;
-      v31 = v39;
-      v32 = v45;
+      v12 = *v50;
+      v29 = v37;
+      v30 = v43;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v52 != v13)
+          if (*v50 != v12)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v15 = *(*(&v51 + 1) + 8 * i);
-          v16 = [fileCoordinationProviderByURL objectForKeyedSubscript:{v15, obj, block, v31, v32}];
-          delegate = [v16 delegate];
-          v18 = delegate == self;
+          v14 = *(*(&v49 + 1) + 8 * i);
+          v15 = [fileCoordinationProviderByURL objectForKeyedSubscript:{v14, obj, block, v29, v30}];
+          delegate = [v15 delegate];
+          v17 = delegate == self;
 
-          if (v18)
+          if (v17)
           {
-            dispatch_group_enter(v6);
-            if ([v35 containsObject:v15])
+            dispatch_group_enter(v5);
+            if ([v33 containsObject:v14])
             {
               providedItemsOperationQueue = self->_providedItemsOperationQueue;
-              v44[0] = MEMORY[0x1E69E9820];
-              v44[1] = 3221225472;
-              v45[0] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke;
-              v45[1] = &unk_1E83BE0E0;
-              v45[2] = self;
-              v46 = v33;
-              v47 = v15;
-              v48 = v16;
-              v49 = v6;
-              v50 = identifier;
-              [(NSOperationQueue *)providedItemsOperationQueue addOperationWithBlock:v44];
+              v42[0] = MEMORY[0x1E69E9820];
+              v42[1] = 3221225472;
+              v43[0] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke;
+              v43[1] = &unk_1E83BE0E0;
+              v43[2] = self;
+              v44 = v31;
+              v45 = v14;
+              v46 = v15;
+              v47 = v5;
+              v48 = identifier;
+              [(NSOperationQueue *)providedItemsOperationQueue addOperationWithBlock:v42];
             }
 
             else
             {
-              [fileCoordinationProviderByURL removeObjectForKey:v15];
-              v20 = self->_providedItemsOperationQueue;
-              v38[0] = MEMORY[0x1E69E9820];
-              v38[1] = 3221225472;
-              v39[0] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_194;
-              v39[1] = &unk_1E83BF988;
-              v40 = v16;
-              v41 = v6;
+              [fileCoordinationProviderByURL removeObjectForKey:v14];
+              v19 = self->_providedItemsOperationQueue;
+              v36[0] = MEMORY[0x1E69E9820];
+              v36[1] = 3221225472;
+              v37[0] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_194;
+              v37[1] = &unk_1E83BF988;
+              v38 = v15;
+              v39 = v5;
               selfCopy = self;
-              v43 = v15;
-              [(NSOperationQueue *)v20 addOperationWithBlock:v38];
+              v41 = v14;
+              [(NSOperationQueue *)v19 addOperationWithBlock:v36];
             }
           }
         }
 
-        v12 = [allKeys countByEnumeratingWithState:&v51 objects:v57 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
-      while (v12);
+      while (v11);
     }
 
     objc_sync_exit(obj);
     [(FPDDomain *)self _registerInSpaceForce];
     serialQueue = self->_serialQueue;
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_195;
-    v36[3] = &unk_1E83BF9B0;
-    v37 = block;
-    dispatch_group_notify(v6, serialQueue, v36);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_195;
+    v34[3] = &unk_1E83BF9B0;
+    v35 = block;
+    dispatch_group_notify(v5, serialQueue, v34);
   }
 
   __fp_pop_log();
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 208));
   v3 = [WeakRetained descriptor];
   if (([v3 hasExplicitExtensionStorageURLs]& 1) != 0)
@@ -3075,24 +3700,24 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
 
   if ((v4 & 1) == 0)
   {
-    v26 = 0;
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 48) path];
-    LODWORD(v11) = [v11 fileExistsAtPath:v12 isDirectory:&v26];
-    v13 = v26;
+    v25 = 0;
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 48) path];
+    LODWORD(v10) = [v10 fileExistsAtPath:v11 isDirectory:&v25];
+    v12 = v25;
 
-    if (v11 && (v13 & 1) != 0)
+    if (v10 && (v12 & 1) != 0)
     {
       WeakRetained = 0;
       goto LABEL_3;
     }
 
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 48);
-    v25 = 0;
-    v16 = [v14 createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:&v25];
-    WeakRetained = v25;
-    if (v16)
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 48);
+    v24 = 0;
+    v15 = [v13 createDirectoryAtURL:v14 withIntermediateDirectories:1 attributes:0 error:&v24];
+    WeakRetained = v24;
+    if (v15)
     {
       goto LABEL_3;
     }
@@ -3100,15 +3725,15 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
     v3 = fp_current_or_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v17 = [*(a1 + 48) fp_shortDescription];
-      v18 = [*(a1 + 32) fp_prettyDescription];
-      v19 = [WeakRetained fp_prettyDescription];
+      v16 = [*(a1 + 48) fp_shortDescription];
+      v17 = [*(a1 + 32) fp_prettyDescription];
+      v18 = [WeakRetained fp_prettyDescription];
       *buf = 138412802;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v18;
-      v31 = 2112;
-      v32 = v19;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v18;
       _os_log_error_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_ERROR, "[ERROR] ❌ Error preparing documentStorage directory %@ for provider %@: %@", buf, 0x20u);
     }
 
@@ -3127,29 +3752,27 @@ LABEL_3:
     [*(a1 + 56) setRegistered:1];
     v5 = MEMORY[0x1E696ABF8];
     v6 = *(a1 + 56);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_193;
-    v20[3] = &unk_1E83BE5A8;
-    v20[4] = *(a1 + 32);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_193;
+    v19[3] = &unk_1E83BE5A8;
+    v19[4] = *(a1 + 32);
     v7 = *(a1 + 72);
     v8 = *(a1 + 48);
     v9 = *(a1 + 56);
-    v21 = v7;
-    v22 = v8;
-    v23 = v9;
-    v24 = *(a1 + 64);
-    [v5 _addFileProvider:v6 completionHandler:v20];
+    v20 = v7;
+    v21 = v8;
+    v22 = v9;
+    v23 = *(a1 + 64);
+    [v5 _addFileProvider:v6 completionHandler:v19];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_193(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) log];
-  v9 = fpfs_adopt_log();
+  v8 = fpfs_adopt_log();
 
   v3 = fp_current_or_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -3159,25 +3782,23 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
     v6 = [*(a1 + 48) fp_shortDescription];
     v7 = *(a1 + 56);
     *buf = 138413058;
-    v11 = v4;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
     _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] 🅿️ Registered file provider extension %@ (%@) for path %@: %@", buf, 0x2Au);
   }
 
   dispatch_group_leave(*(a1 + 64));
   __fp_pop_log();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block_invoke_194(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isRegistered])
   {
     [*(a1 + 32) setRegistered:0];
@@ -3190,33 +3811,31 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
       v5 = [WeakRetained identifier];
       v6 = [*(a1 + 56) fp_shortDescription];
       v7 = *(a1 + 32);
-      v11 = 138413058;
-      v12 = v3;
+      v9 = 138413058;
+      v10 = v3;
+      v11 = 2112;
+      v12 = v5;
       v13 = 2112;
-      v14 = v5;
+      v14 = v6;
       v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] 🅾️ Deregistered file provider extension %@ (%@) for path %@: %@", &v11, 0x2Au);
+      v16 = v7;
+      _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] 🅾️ Deregistered file provider extension %@ (%@) for path %@: %@", &v9, 0x2Au);
     }
 
     dispatch_group_leave(*(a1 + 40));
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = *MEMORY[0x1E69E9840];
+    v8 = *(a1 + 40);
 
-    dispatch_group_leave(v9);
+    dispatch_group_leave(v8);
   }
 }
 
 - (void)_registerInSpaceForce
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(FPDDomain *)self isUsingFPFS]&& FPFeatureFlagSpaceAttributionIsEnabled())
   {
     v3 = fp_current_or_default_log();
@@ -3227,10 +3846,10 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
       identifier = [provider identifier];
       *buf = 138412802;
       selfCopy = self;
-      v16 = 2112;
-      v17 = checkableURLs;
-      v18 = 2112;
-      v19 = identifier;
+      v15 = 2112;
+      v16 = checkableURLs;
+      v17 = 2112;
+      v18 = identifier;
       _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] %@: Space Attribution registration for paths %@ and bundle %@", buf, 0x20u);
     }
 
@@ -3240,20 +3859,18 @@ void __65__FPDDomain__registerFileCoordinatorAndSpaceForceWithCompletion___block
     saPathManager = self->_saPathManager;
     provider2 = [(FPDDomain *)self provider];
     identifier2 = [provider2 identifier];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __34__FPDDomain__registerInSpaceForce__block_invoke_2;
-    v13[3] = &unk_1E83BDFC8;
-    v13[4] = self;
-    [(SAPathManager *)saPathManager registerPaths:v8 forBundleID:identifier2 completionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __34__FPDDomain__registerInSpaceForce__block_invoke_2;
+    v12[3] = &unk_1E83BDFC8;
+    v12[4] = self;
+    [(SAPathManager *)saPathManager registerPaths:v8 forBundleID:identifier2 completionHandler:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPDDomain__registerInSpaceForce__block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = fp_current_or_default_log();
   v5 = v4;
@@ -3270,77 +3887,72 @@ void __34__FPDDomain__registerInSpaceForce__block_invoke_2(uint64_t a1, void *a2
     v6 = [*(a1 + 32) checkableURLs];
     v7 = [*(a1 + 32) provider];
     v8 = [v7 identifier];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] Paths %@ were registered in Space Attribution with bundle %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] Paths %@ were registered in Space Attribution with bundle %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterFromFileCoordinatorAndSpaceForce
 {
-  v25 = *MEMORY[0x1E69E9840];
-  log = self->_log;
-  v23 = fpfs_adopt_log();
+  v23 = *MEMORY[0x1E69E9840];
+  v21 = fpfs_adopt_log();
   obj = fileCoordinationProviderByURL;
   objc_sync_enter(obj);
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   coordinationRootURLs = [(FPDDomain *)self coordinationRootURLs];
-  v5 = [coordinationRootURLs countByEnumeratingWithState:&v19 objects:v24 count:16];
-  if (v5)
+  v4 = [coordinationRootURLs countByEnumeratingWithState:&v17 objects:v22 count:16];
+  if (v4)
   {
-    v6 = *v20;
+    v5 = *v18;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(coordinationRootURLs);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        v9 = [fileCoordinationProviderByURL objectForKeyedSubscript:{v8, obj}];
-        delegate = [v9 delegate];
-        v11 = delegate == self;
+        v7 = *(*(&v17 + 1) + 8 * i);
+        v8 = [fileCoordinationProviderByURL objectForKeyedSubscript:{v7, obj}];
+        delegate = [v8 delegate];
+        v10 = delegate == self;
 
-        if (v11)
+        if (v10)
         {
-          [fileCoordinationProviderByURL removeObjectForKey:v8];
+          [fileCoordinationProviderByURL removeObjectForKey:v7];
           providedItemsOperationQueue = self->_providedItemsOperationQueue;
-          v15[0] = MEMORY[0x1E69E9820];
-          v15[1] = 3221225472;
-          v15[2] = __56__FPDDomain__unregisterFromFileCoordinatorAndSpaceForce__block_invoke;
-          v15[3] = &unk_1E83BDE60;
-          v16 = v9;
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __56__FPDDomain__unregisterFromFileCoordinatorAndSpaceForce__block_invoke;
+          v13[3] = &unk_1E83BDE60;
+          v14 = v8;
           selfCopy = self;
-          v18 = v8;
-          [(NSOperationQueue *)providedItemsOperationQueue addOperationWithBlock:v15];
+          v16 = v7;
+          [(NSOperationQueue *)providedItemsOperationQueue addOperationWithBlock:v13];
         }
       }
 
-      v5 = [coordinationRootURLs countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v4 = [coordinationRootURLs countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
-    while (v5);
+    while (v4);
   }
 
   objc_sync_exit(obj);
   [(NSOperationQueue *)self->_providedItemsOperationQueue waitUntilAllOperationsAreFinished];
   __fp_pop_log();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FPDDomain__unregisterFromFileCoordinatorAndSpaceForce__block_invoke(id *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([a1[4] isRegistered])
   {
     [a1[4] setRegistered:0];
@@ -3354,24 +3966,22 @@ void __56__FPDDomain__unregisterFromFileCoordinatorAndSpaceForce__block_invoke(i
       v5 = [WeakRetained identifier];
       v6 = [a1[6] fp_shortDescription];
       v7 = a1[4];
-      v9 = 138413058;
-      v10 = v3;
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] 🅾️ Deregistered file provider extension %@ (%@) for path %@: %@", &v9, 0x2Au);
+      v8 = 138413058;
+      v9 = v3;
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_INFO, "[INFO] 🅾️ Deregistered file provider extension %@ (%@) for path %@: %@", &v8, 0x2Au);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterURLFromSpaceForce:(id)force
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   forceCopy = force;
   if ([(FPDDomain *)self isUsingFPFS]&& FPFeatureFlagSpaceAttributionIsEnabled())
   {
@@ -3382,33 +3992,31 @@ void __56__FPDDomain__unregisterFromFileCoordinatorAndSpaceForce__block_invoke(i
       identifier = [provider identifier];
       *buf = 138412802;
       selfCopy = self;
-      v18 = 2112;
-      v19 = forceCopy;
-      v20 = 2112;
-      v21 = identifier;
+      v17 = 2112;
+      v18 = forceCopy;
+      v19 = 2112;
+      v20 = identifier;
       _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] %@: Space Attribution unregistration for path %@ and bundle %@", buf, 0x20u);
     }
 
     saPathManager = self->_saPathManager;
-    v15 = forceCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+    v14 = forceCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
     provider2 = [(FPDDomain *)self provider];
     identifier2 = [provider2 identifier];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __42__FPDDomain__unregisterURLFromSpaceForce___block_invoke;
-    v13[3] = &unk_1E83BE760;
-    v13[4] = self;
-    v14 = forceCopy;
-    [(SAPathManager *)saPathManager unregisterURLs:v9 forBundleID:identifier2 completionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __42__FPDDomain__unregisterURLFromSpaceForce___block_invoke;
+    v12[3] = &unk_1E83BE760;
+    v12[4] = self;
+    v13 = forceCopy;
+    [(SAPathManager *)saPathManager unregisterURLs:v9 forBundleID:identifier2 completionHandler:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __42__FPDDomain__unregisterURLFromSpaceForce___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = fp_current_or_default_log();
   v5 = v4;
@@ -3425,19 +4033,17 @@ void __42__FPDDomain__unregisterURLFromSpaceForce___block_invoke(uint64_t a1, vo
     v6 = *(a1 + 40);
     v7 = [*(a1 + 32) provider];
     v8 = [v7 identifier];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] Path %@ was unregistered from Space Attribution with bundle %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_INFO, "[INFO] Path %@ was unregistered from Space Attribution with bundle %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isProviderForRealPathURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (([(FPDDomainBackend *)self->_defaultBackend isProviderForRealPathURL:lCopy]& 1) != 0)
   {
@@ -3456,34 +4062,34 @@ LABEL_2:
         extensionStorageURLs = [provider extensionStorageURLs];
 
         pathRelativeToDocumentStorage = [(NSFileProviderDomain *)self->_nsDomain pathRelativeToDocumentStorage];
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         v10 = extensionStorageURLs;
-        v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v22;
+          v13 = *v21;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v22 != v13)
+              if (*v21 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v21 + 1) + 8 * i);
+              v15 = *(*(&v20 + 1) + 8 * i);
               v16 = v15;
               v17 = v15;
               if (pathRelativeToDocumentStorage)
               {
-                v17 = [v15 URLByAppendingPathComponent:{pathRelativeToDocumentStorage, v21}];
+                v17 = [v15 URLByAppendingPathComponent:{pathRelativeToDocumentStorage, v20}];
               }
 
-              v18 = [v16 fp_realPathRelationshipToItemAtRealPathURL:{lCopy, v21}];
+              v18 = [v16 fp_realPathRelationshipToItemAtRealPathURL:{lCopy, v20}];
 
               if (v18 != 2)
               {
@@ -3492,7 +4098,7 @@ LABEL_2:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
             if (v12)
             {
               continue;
@@ -3512,37 +4118,34 @@ LABEL_2:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)daemonSideItemChange:(id)change changedFields:(unint64_t)fields request:(id)request completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   changeCopy = change;
   handlerCopy = handler;
   requestCopy = request;
   defaultBackend = [(FPDDomain *)self defaultBackend];
-  v23[0] = changeCopy;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __74__FPDDomain_daemonSideItemChange_changedFields_request_completionHandler___block_invoke;
-  v18[3] = &unk_1E83BF9F8;
-  v19 = changeCopy;
+  v22[0] = changeCopy;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __74__FPDDomain_daemonSideItemChange_changedFields_request_completionHandler___block_invoke;
+  v17[3] = &unk_1E83BF9F8;
+  v18 = changeCopy;
   selfCopy = self;
-  v21 = handlerCopy;
+  v20 = handlerCopy;
   fieldsCopy = fields;
   v15 = handlerCopy;
   v16 = changeCopy;
-  [defaultBackend bulkItemChanges:v14 changedFields:fields request:requestCopy completionHandler:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [defaultBackend bulkItemChanges:v14 changedFields:fields request:requestCopy completionHandler:v17];
 }
 
 void __74__FPDDomain_daemonSideItemChange_changedFields_request_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = a3;
   v7 = a2;
@@ -3557,24 +4160,22 @@ void __74__FPDDomain_daemonSideItemChange_changedFields_request_completionHandle
     v12 = fp_current_or_default_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = [*(a1 + 40) identifier];
-      v15 = *(a1 + 56);
-      v16 = *(a1 + 32);
-      v17 = 138413058;
-      v18 = v14;
-      v19 = 2048;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_error_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_ERROR, "[ERROR] can't notify extension %@ of item change %lu for item %@; %@", &v17, 0x2Au);
+      v13 = [*(a1 + 40) identifier];
+      v14 = *(a1 + 56);
+      v15 = *(a1 + 32);
+      v16 = 138413058;
+      v17 = v13;
+      v18 = 2048;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v11;
+      _os_log_error_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_ERROR, "[ERROR] can't notify extension %@ of item change %lu for item %@; %@", &v16, 0x2Au);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeItemID:(id)d request:(id)request completionHandler:(id)handler
@@ -3582,102 +4183,98 @@ void __74__FPDDomain_daemonSideItemChange_changedFields_request_completionHandle
   dCopy = d;
   requestCopy = request;
   handlerCopy = handler;
-  serialQueue = self->_serialQueue;
-  v15 = requestCopy;
-  v16 = handlerCopy;
-  v12 = requestCopy;
-  v13 = handlerCopy;
-  v14 = dCopy;
+  v8 = requestCopy;
+  v9 = handlerCopy;
+  v10 = dCopy;
   fp_dispatch_async_with_logs();
 }
 
-void __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke(id *a1)
+void __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke(id *a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_cold_1(a1);
+    __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_cold_1();
   }
 
-  v3 = [a1[4] domainIdentifier];
-  v4 = [v3 isEqualToString:*(a1[5] + 18)];
+  v4 = [a1[4] domainIdentifier];
+  v5 = [v4 isEqualToString:*(a1[5] + 18)];
 
-  if ((v4 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
-    v13 = a1[7];
-    v14 = [a1[4] domainIdentifier];
+    v14 = a1[7];
+    v15 = [a1[4] domainIdentifier];
 LABEL_9:
-    v15 = FPInvalidParameterError();
-    v13[2](v13, v15);
+    v16 = FPInvalidParameterError();
+    v14[2](v14, v16);
 
     return;
   }
 
-  v5 = [a1[4] providerID];
+  v6 = [a1[4] providerID];
   WeakRetained = objc_loadWeakRetained(a1[5] + 26);
-  v7 = [WeakRetained identifier];
-  v8 = [v5 isEqualToString:v7];
+  v8 = [WeakRetained identifier];
+  v9 = [v6 isEqualToString:v8];
 
-  if ((v8 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v13 = a1[7];
-    v14 = [a1[4] providerID];
+    v14 = a1[7];
+    v15 = [a1[4] providerID];
     goto LABEL_9;
   }
 
-  v9 = [a1[4] identifier];
-  v10 = [v9 isEqualToString:*MEMORY[0x1E6967298]];
+  v10 = [a1[4] identifier];
+  v11 = [v10 isEqualToString:*MEMORY[0x1E6967298]];
 
-  v11 = a1[5];
-  if (v10)
+  v12 = a1[5];
+  if (v11)
   {
-    v12 = [v11 defaultBackend];
-    [v12 workingSetDidChangeWithCompletionHandler:a1[7]];
+    v13 = [v12 defaultBackend];
+    [v13 workingSetDidChangeWithCompletionHandler:a1[7]];
   }
 
   else
   {
-    v16 = [v11 provider];
-    v17 = [v16 server];
-    v18 = [v17 presenterManager];
-    [v18 signalPresentersForItemID:a1[4]];
+    v17 = [v12 provider];
+    v18 = [v17 server];
+    v19 = [v18 presenterManager];
+    [v19 signalPresentersForItemID:a1[4]];
 
-    v19 = [a1[5] defaultBackend];
-    LOBYTE(v17) = objc_opt_respondsToSelector();
+    v20 = [a1[5] defaultBackend];
+    LOBYTE(v18) = objc_opt_respondsToSelector();
 
-    v20 = a1[5];
-    if (v17)
+    v21 = a1[5];
+    if (v18)
     {
-      v21 = [v20 defaultBackend];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_209;
-      v24[3] = &unk_1E83BE3B0;
-      v23 = *(a1 + 2);
-      v22 = v23.i64[0];
-      v25 = vextq_s8(v23, v23, 8uLL);
-      v26 = a1[6];
-      v27 = a1[7];
-      [v21 didChangeItemID:v22 completionHandler:v24];
+      v22 = [v21 defaultBackend];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_209;
+      v25[3] = &unk_1E83BE3B0;
+      v24 = *(a1 + 2);
+      v23 = v24.i64[0];
+      v26 = vextq_s8(v24, v24, 8uLL);
+      v27 = a1[6];
+      v28 = a1[7];
+      [v22 didChangeItemID:v23 completionHandler:v25];
     }
 
     else
     {
-      [v20 callExtensionForItemDidChange:a1[4] request:a1[6] completionHandler:a1[7]];
+      [v21 callExtensionForItemDidChange:a1[4] request:a1[6] completionHandler:a1[7]];
     }
   }
 }
 
 void __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_209(uint64_t a1)
 {
-  v7 = *(a1 + 32);
-  v2 = *(v7 + 168);
-  v3 = *(&v7 + 1);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 56);
-  *&v6 = v4;
-  *(&v6 + 1) = v5;
-  v8 = v6;
+  v6 = *(a1 + 32);
+  v2 = *(&v6 + 1);
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 56);
+  *&v5 = v3;
+  *(&v5 + 1) = v4;
+  v7 = v5;
   fp_dispatch_async_with_logs();
 }
 
@@ -3706,7 +4303,7 @@ void __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_20
 
 void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -3720,11 +4317,11 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
       {
         v8 = [*(a1 + 32) identifier];
         v9 = *(a1 + 40);
-        v11 = 138412546;
-        v12 = v8;
-        v13 = 2112;
-        v14 = v9;
-        _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_INFO, "[INFO] Extension %@ signalled for item at %@ without active enumerators, not launching it", &v11, 0x16u);
+        v10 = 138412546;
+        v11 = v8;
+        v12 = 2112;
+        v13 = v9;
+        _os_log_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_INFO, "[INFO] Extension %@ signalled for item at %@ without active enumerators, not launching it", &v10, 0x16u);
       }
     }
 
@@ -3735,8 +4332,6 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchOperationServiceOrEndpointWithRequest:(id)request completionHandler:(id)handler
@@ -3758,24 +4353,22 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
 - (id)materializedURLForItemID:(id)d
 {
   dCopy = d;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
-    v6 = [(FPDDomainBackend *)self->_defaultBackend materializedURLForItemID:dCopy];
+    v5 = [(FPDDomainBackend *)self->_defaultBackend materializedURLForItemID:dCopy];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)forceIngestionAtURL:(id)l
 {
   lCopy = l;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     [(FPDDomainBackend *)self->_defaultBackend forceIngestionAtURL:lCopy];
@@ -3786,7 +4379,6 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
 {
   dCopy = d;
   requestCopy = request;
-  defaultBackend = self->_defaultBackend;
   handlerCopy = handler;
   if (objc_opt_respondsToSelector())
   {
@@ -3804,7 +4396,6 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
   dCopy = d;
   requestCopy = request;
   handlerCopy = handler;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     [(FPDDomainBackend *)self->_defaultBackend forceIngestionForItemID:dCopy request:requestCopy openFD:1 completionHandler:handlerCopy];
@@ -3812,8 +4403,8 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
 
   else
   {
-    v11 = FPNotSupportedError();
-    handlerCopy[2](handlerCopy, 0, v11);
+    v10 = FPNotSupportedError();
+    handlerCopy[2](handlerCopy, 0, v10);
   }
 }
 
@@ -3823,7 +4414,6 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
   requestCopy = request;
   progressCopy = progress;
   handlerCopy = handler;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     [(FPDDomainBackend *)self->_defaultBackend downloadItemWithItemID:dCopy request:requestCopy progress:progressCopy completionHandler:handlerCopy];
@@ -3831,35 +4421,33 @@ void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___b
 
   else
   {
-    v14 = FPNotSupportedError();
-    handlerCopy[2](handlerCopy, 0, v14);
+    v13 = FPNotSupportedError();
+    handlerCopy[2](handlerCopy, 0, v13);
   }
 }
 
 - (void)downloadVersionThumbnail:(id)thumbnail version:(id)version completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   thumbnailCopy = thumbnail;
   versionCopy = version;
   handlerCopy = handler;
   defaultBackend = self->_defaultBackend;
   fileURL = [thumbnailCopy fileURL];
   version = [versionCopy version];
-  v23[0] = version;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __64__FPDDomain_downloadVersionThumbnail_version_completionHandler___block_invoke;
-  v19[3] = &unk_1E83BFA48;
-  v20 = thumbnailCopy;
-  v21 = versionCopy;
-  v22 = handlerCopy;
+  v22[0] = version;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __64__FPDDomain_downloadVersionThumbnail_version_completionHandler___block_invoke;
+  v18[3] = &unk_1E83BFA48;
+  v19 = thumbnailCopy;
+  v20 = versionCopy;
+  v21 = handlerCopy;
   v15 = handlerCopy;
   v16 = versionCopy;
   v17 = thumbnailCopy;
-  [(FPDDomainBackend *)defaultBackend fetchThumbnailsAtURL:fileURL versions:v14 size:v19 perThumbnailCompletionHandler:&__block_literal_global_223 completionHandler:1024.0, 1024.0];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(FPDDomainBackend *)defaultBackend fetchThumbnailsAtURL:fileURL versions:v14 size:v18 perThumbnailCompletionHandler:&__block_literal_global_223 completionHandler:1024.0, 1024.0];
 }
 
 void __64__FPDDomain_downloadVersionThumbnail_version_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7)
@@ -3892,26 +4480,25 @@ void __64__FPDDomain_downloadVersionThumbnail_version_completionHandler___block_
   etagCopy = etag;
   requestCopy = request;
   handlerCopy = handler;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
-    v15 = self->_defaultBackend;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___block_invoke;
-    v17[3] = &unk_1E83BFAC0;
-    v21 = handlerCopy;
-    v17[4] = self;
-    v18 = etagCopy;
-    v19 = dCopy;
-    v20 = requestCopy;
-    [(FPDDomainBackend *)v15 itemForItemID:v19 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 request:v20 completionHandler:v17];
+    defaultBackend = self->_defaultBackend;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___block_invoke;
+    v16[3] = &unk_1E83BFAC0;
+    v20 = handlerCopy;
+    v16[4] = self;
+    v17 = etagCopy;
+    v18 = dCopy;
+    v19 = requestCopy;
+    [(FPDDomainBackend *)defaultBackend itemForItemID:v18 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 request:v19 completionHandler:v16];
   }
 
   else
   {
-    v16 = FPNotSupportedError();
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v16);
+    v15 = FPNotSupportedError();
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, 0, v15);
   }
 }
 
@@ -3971,27 +4558,27 @@ void __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___
 
 void __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v9 etag];
         v11 = [v10 isEqualToString:*(a1 + 32)];
 
@@ -4008,7 +4595,7 @@ void __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v6)
       {
         continue;
@@ -4023,8 +4610,6 @@ void __70__FPDDomain_downloadVersionWithItemID_etag_request_completionHandler___
   v14 = FPItemNotFoundError();
   (*(v12 + 16))(v12, 0, 0, 0, v14);
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)downloadVersionWithItemID:(id)d version:(id)version originalURL:(id)l completionHandler:(id)handler
@@ -4033,7 +4618,6 @@ LABEL_11:
   versionCopy = version;
   lCopy = l;
   handlerCopy = handler;
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     [(FPDDomainBackend *)self->_defaultBackend downloadVersionWithItemID:dCopy version:versionCopy originalURL:lCopy completionHandler:handlerCopy];
@@ -4041,40 +4625,37 @@ LABEL_11:
 
   else
   {
-    v14 = FPNotSupportedError();
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v14);
+    v13 = FPNotSupportedError();
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
   }
 }
 
 - (int64_t)nonEvictableSpace
 {
-  defaultBackend = self->_defaultBackend;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_defaultBackend;
+  defaultBackend = self->_defaultBackend;
 
-  return [(FPDDomainBackend *)v4 nonEvictableSpace];
+  return [(FPDDomainBackend *)defaultBackend nonEvictableSpace];
 }
 
 - (int64_t)accumulatedSizeOfPinnedItems
 {
-  defaultBackend = self->_defaultBackend;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_defaultBackend;
+  defaultBackend = self->_defaultBackend;
 
-  return [(FPDDomainBackend *)v4 accumulatedSizeOfPinnedItems];
+  return [(FPDDomainBackend *)defaultBackend accumulatedSizeOfPinnedItems];
 }
 
 - (id)accumulatedSizeOfItems
 {
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     accumulatedSizeOfItems = [(FPDDomainBackend *)self->_defaultBackend accumulatedSizeOfItems];
@@ -4090,7 +4671,6 @@ LABEL_11:
 
 - (id)providerVersion
 {
-  defaultBackend = self->_defaultBackend;
   if (objc_opt_respondsToSelector())
   {
     providerVersion = [(FPDDomainBackend *)self->_defaultBackend providerVersion];
@@ -4104,6 +4684,20 @@ LABEL_11:
   return providerVersion;
 }
 
+- (void)setSupportsSyncingTrash:(BOOL)trash
+{
+  trashCopy = trash;
+  nsDomain = [(FPDDomain *)self nsDomain];
+  [nsDomain setSupportsSyncingTrash:trashCopy];
+}
+
+- (void)setSupportsSearch:(BOOL)search
+{
+  searchCopy = search;
+  nsDomain = [(FPDDomain *)self nsDomain];
+  [nsDomain setSupportsSearch:searchCopy];
+}
+
 - (BOOL)supportsStringSearchRequest
 {
   nsDomain = [(FPDDomain *)self nsDomain];
@@ -4112,9 +4706,16 @@ LABEL_11:
   return supportsStringSearchRequest;
 }
 
+- (void)setSupportsRemoteVersions:(BOOL)versions
+{
+  versionsCopy = versions;
+  nsDomain = [(FPDDomain *)self nsDomain];
+  [nsDomain setSupportsRemoteVersions:versionsCopy];
+}
+
 - (void)dumpStateTo:(id)to providerDomain:(id)domain options:(unint64_t)options request:(id)request completionHandler:(id)handler
 {
-  v145 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   toCopy = to;
   domainCopy = domain;
   requestCopy = request;
@@ -4315,16 +4916,16 @@ LABEL_11:
     v18 = v52;
   }
 
-  v122 = v48;
-  v123 = v47;
+  v118 = v48;
+  v119 = v47;
   [toCopy write:{@"  + features: %@%@%@%@%@\n", v45, v18, v47, v46, v48}];
   rootURLs = [(FPDDomain *)self rootURLs];
   v64 = [rootURLs count];
 
   selfCopy = self;
-  v125 = v45;
-  v126 = v18;
-  v124 = v46;
+  v121 = v45;
+  v122 = v18;
+  v120 = v46;
   if (v64)
   {
     rootURLs2 = [(FPDDomain *)self rootURLs];
@@ -4342,30 +4943,30 @@ LABEL_11:
     {
       v70 = domainCopy;
       [toCopy write:@"  + roots:\n"];
-      v141 = 0u;
-      v142 = 0u;
-      v140 = 0u;
-      v139 = 0u;
+      v137 = 0u;
+      v138 = 0u;
+      v136 = 0u;
+      v135 = 0u;
       rootURLs4 = [(FPDDomain *)self rootURLs];
-      v72 = [rootURLs4 countByEnumeratingWithState:&v139 objects:v144 count:16];
+      v72 = [rootURLs4 countByEnumeratingWithState:&v135 objects:v140 count:16];
       if (v72)
       {
         v73 = v72;
-        v74 = *v140;
+        v74 = *v136;
         do
         {
           for (i = 0; i != v73; ++i)
           {
-            if (*v140 != v74)
+            if (*v136 != v74)
             {
               objc_enumerationMutation(rootURLs4);
             }
 
-            fp_shortDescription2 = [*(*(&v139 + 1) + 8 * i) fp_shortDescription];
+            fp_shortDescription2 = [*(*(&v135 + 1) + 8 * i) fp_shortDescription];
             [toCopy write:{@"    + %@\n", fp_shortDescription2}];
           }
 
-          v73 = [rootURLs4 countByEnumeratingWithState:&v139 objects:v144 count:16];
+          v73 = [rootURLs4 countByEnumeratingWithState:&v135 objects:v140 count:16];
         }
 
         while (v73);
@@ -4384,21 +4985,18 @@ LABEL_11:
   }
 
   [toCopy write:{@"  + FPDDomain instance: <%@:%p>\n", objc_opt_class(), self}];
-  defaultBackend = self->_defaultBackend;
-  [toCopy write:{@"      - default backend: <%@:%p>\n", objc_opt_class(), defaultBackend}];
-  extensionBackend = self->_extensionBackend;
-  [toCopy write:{@"      - extension backend: <%@:%p>\n", objc_opt_class(), extensionBackend}];
-  deactivatedBackend = self->_deactivatedBackend;
-  [toCopy write:{@"      - deactivated backend: <%@:%p>\n", objc_opt_class(), deactivatedBackend}];
+  [toCopy write:{@"      - default backend: <%@:%p>\n", objc_opt_class(), self->_defaultBackend}];
+  [toCopy write:{@"      - extension backend: <%@:%p>\n", objc_opt_class(), self->_extensionBackend}];
+  [toCopy write:{@"      - deactivated backend: <%@:%p>\n", objc_opt_class(), self->_deactivatedBackend}];
   [toCopy write:{@"      - volume: %@\n", self->_volume}];
   nsDomain13 = [(FPDDomain *)self nsDomain];
   personaIdentifier = [nsDomain13 personaIdentifier];
-  v82 = objc_loadWeakRetained(&self->_provider);
-  descriptor = [v82 descriptor];
+  v79 = objc_loadWeakRetained(&self->_provider);
+  descriptor = [v79 descriptor];
   personaIdentifier2 = [descriptor personaIdentifier];
-  v85 = personaIdentifier2;
-  v86 = toCopy;
-  v129 = domainCopy;
+  v82 = personaIdentifier2;
+  v83 = toCopy;
+  v125 = domainCopy;
   if (personaIdentifier == personaIdentifier2)
   {
   }
@@ -4406,33 +5004,33 @@ LABEL_11:
   else
   {
     [(FPDDomain *)self nsDomain];
-    v87 = v121 = personaIdentifier;
-    personaIdentifier3 = [v87 personaIdentifier];
-    v89 = objc_loadWeakRetained(&self->_provider);
-    [v89 descriptor];
-    v91 = v90 = nsDomain13;
-    personaIdentifier4 = [v91 personaIdentifier];
-    v120 = [personaIdentifier3 isEqual:personaIdentifier4];
+    v84 = v117 = personaIdentifier;
+    personaIdentifier3 = [v84 personaIdentifier];
+    v86 = objc_loadWeakRetained(&self->_provider);
+    [v86 descriptor];
+    v88 = v87 = nsDomain13;
+    personaIdentifier4 = [v88 personaIdentifier];
+    v116 = [personaIdentifier3 isEqual:personaIdentifier4];
 
-    toCopy = v86;
-    domainCopy = v129;
-    if ((v120 & 1) == 0)
+    toCopy = v83;
+    domainCopy = v125;
+    if ((v116 & 1) == 0)
     {
-      [v86 startFgColor:1];
+      [v83 startFgColor:1];
     }
   }
 
-  v93 = selfCopy;
+  v90 = selfCopy;
   nsDomain14 = [(FPDDomain *)selfCopy nsDomain];
   personaIdentifier5 = [nsDomain14 personaIdentifier];
-  v96 = personaIdentifier5;
-  v97 = @"none";
+  v93 = personaIdentifier5;
+  v94 = @"none";
   if (personaIdentifier5)
   {
-    v97 = personaIdentifier5;
+    v94 = personaIdentifier5;
   }
 
-  [toCopy write:{@"  + persona: %@\n", v97}];
+  [toCopy write:{@"  + persona: %@\n", v94}];
 
   [toCopy reset];
   nsDomain15 = [(FPDDomain *)selfCopy nsDomain];
@@ -4444,75 +5042,73 @@ LABEL_11:
     userInfo2 = [nsDomain16 userInfo];
 
     [toCopy write:{@"  + userInfo: %d keys\n", objc_msgSend(userInfo2, "count")}];
-    v137 = 0u;
-    v138 = 0u;
-    v135 = 0u;
-    v136 = 0u;
-    v102 = userInfo2;
-    v103 = [v102 countByEnumeratingWithState:&v135 objects:v143 count:16];
-    if (v103)
+    v133 = 0u;
+    v134 = 0u;
+    v131 = 0u;
+    v132 = 0u;
+    v99 = userInfo2;
+    v100 = [v99 countByEnumeratingWithState:&v131 objects:v139 count:16];
+    if (v100)
     {
-      v104 = v103;
-      v105 = *v136;
+      v101 = v100;
+      v102 = *v132;
       do
       {
-        for (j = 0; j != v104; ++j)
+        for (j = 0; j != v101; ++j)
         {
-          if (*v136 != v105)
+          if (*v132 != v102)
           {
-            objc_enumerationMutation(v102);
+            objc_enumerationMutation(v99);
           }
 
-          v107 = *(*(&v135 + 1) + 8 * j);
+          v104 = *(*(&v131 + 1) + 8 * j);
           if ((options & 2) != 0)
           {
-            fp_obfuscatedFilename3 = [v102 objectForKeyedSubscript:*(*(&v135 + 1) + 8 * j)];
-            v112 = objc_opt_class();
-            v109 = NSStringFromClass(v112);
-            v111 = [v102 objectForKeyedSubscript:v107];
-            v118 = v107;
-            toCopy = v86;
-            [v86 write:{@"      %@: %@ - %@\n", v118, v109, v111}];
+            fp_obfuscatedFilename3 = [v99 objectForKeyedSubscript:*(*(&v131 + 1) + 8 * j)];
+            v109 = objc_opt_class();
+            v106 = NSStringFromClass(v109);
+            v108 = [v99 objectForKeyedSubscript:v104];
+            v114 = v104;
+            toCopy = v83;
+            [v83 write:{@"      %@: %@ - %@\n", v114, v106, v108}];
           }
 
           else
           {
-            fp_obfuscatedFilename3 = [*(*(&v135 + 1) + 8 * j) fp_obfuscatedFilename];
-            v109 = [v102 objectForKeyedSubscript:v107];
-            v110 = objc_opt_class();
-            v111 = NSStringFromClass(v110);
-            toCopy = v86;
-            [v86 write:{@"      %@: %@\n", fp_obfuscatedFilename3, v111, v119}];
+            fp_obfuscatedFilename3 = [*(*(&v131 + 1) + 8 * j) fp_obfuscatedFilename];
+            v106 = [v99 objectForKeyedSubscript:v104];
+            v107 = objc_opt_class();
+            v108 = NSStringFromClass(v107);
+            toCopy = v83;
+            [v83 write:{@"      %@: %@\n", fp_obfuscatedFilename3, v108, v115}];
           }
         }
 
-        v104 = [v102 countByEnumeratingWithState:&v135 objects:v143 count:16];
+        v101 = [v99 countByEnumeratingWithState:&v131 objects:v139 count:16];
       }
 
-      while (v104);
+      while (v101);
     }
 
-    domainCopy = v129;
-    v93 = selfCopy;
+    domainCopy = v125;
+    v90 = selfCopy;
   }
 
   [toCopy write:@"  + indexer:\n"];
-  indexer = [(FPDDomain *)v93 indexer];
+  indexer = [(FPDDomain *)v90 indexer];
   [indexer dumpStateTo:toCopy];
 
-  defaultBackend = [(FPDDomain *)v93 defaultBackend];
-  v132[0] = MEMORY[0x1E69E9820];
-  v132[1] = 3221225472;
-  v132[2] = __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandler___block_invoke;
-  v132[3] = &unk_1E83BFA20;
-  v132[4] = v93;
-  v133 = toCopy;
-  v134 = handlerCopy;
-  v115 = handlerCopy;
-  v116 = toCopy;
-  [defaultBackend dumpStateTo:v116 options:options request:requestCopy completionHandler:v132];
-
-  v117 = *MEMORY[0x1E69E9840];
+  defaultBackend = [(FPDDomain *)v90 defaultBackend];
+  v128[0] = MEMORY[0x1E69E9820];
+  v128[1] = 3221225472;
+  v128[2] = __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandler___block_invoke;
+  v128[3] = &unk_1E83BFA20;
+  v128[4] = v90;
+  v129 = toCopy;
+  v130 = handlerCopy;
+  v112 = handlerCopy;
+  v113 = toCopy;
+  [defaultBackend dumpStateTo:v113 options:options request:requestCopy completionHandler:v128];
 }
 
 void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4535,47 +5131,44 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
 
 void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 208));
   v3 = [WeakRetained server];
   v4 = [v3 presenterManager];
   v5 = [v4 presentersForDomain:*(a1 + 32)];
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v13 + 1) + 8 * v10++) dumpStateTo:{*(a1 + 40), v13}];
+        [*(*(&v11 + 1) + 8 * v10++) dumpStateTo:{*(a1 + 40), v11}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   [*(a1 + 40) write:@"\n"];
-  v11 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)providerSupportURL
@@ -4590,8 +5183,7 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
   {
     v13 = MEMORY[0x1E696AEC0];
     provider2 = [(FPDDomain *)self provider];
-    identifier2 = [provider2 identifier];
-    v16 = objc_claimAutoreleasedReturnValue();
+    v16 = identifier2 = [provider2 identifier];
 
     v17 = fp_current_or_default_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
@@ -4622,8 +5214,7 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
   {
     v10 = MEMORY[0x1E696AEC0];
     provider = [(FPDDomain *)self provider];
-    identifier2 = [provider identifier];
-    v13 = objc_claimAutoreleasedReturnValue();
+    v13 = identifier2 = [provider identifier];
 
     v14 = fp_current_or_default_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
@@ -4653,13 +5244,12 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
 {
   v5 = sub_1CF9E5A58();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
   selfCopy = self;
-  sub_1CF1B5EF0(v9);
-  (*(v6 + 8))(v9, v5);
+  sub_1CF1B5EF0(v8);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -4668,21 +5258,20 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
 {
   v4 = sub_1CF9E5A58();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = (v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = (v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   selfCopy = self;
   volume = [(FPDDomain *)selfCopy volume];
   removedURL = [(FPDVolume *)volume removedURL];
 
   sub_1CF9E59D8();
-  v14[2].isa = v8;
-  sub_1CF1AF818(1702260589, 0xE400000000000000, sub_1CF1B7E48, v14);
+  v13[2].isa = v7;
+  sub_1CF1AF818(1702260589, 0xE400000000000000, sub_1CF1B7E48, v13);
 
-  v12 = sub_1CF9E5928();
-  (*(v5 + 8))(v8, v4);
+  v11 = sub_1CF9E5928();
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
 }
 
 - (void)removeEbihilSymlink
@@ -4702,49 +5291,47 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
 - (id)getDefaultRootExposureSymlinkURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1CF1B3FCC(v6);
+  sub_1CF1B3FCC(v5);
 
-  v8 = sub_1CF9E5A58();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1CF9E5A58();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1CF9E5928();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1CF9E5928();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)unregisterFromSpaceForceWithUrl:(id)url
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (url)
   {
     sub_1CF9E59D8();
-    v9 = sub_1CF9E5A58();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1CF9E5A58();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1CF9E5A58();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1CF9E5A58();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
   sub_1CF1B4D9C();
 
-  sub_1CEFCCC44(v8, &unk_1EC4BE310, qword_1CF9FCBE0);
+  sub_1CEFCCC44(v7, &unk_1EC4BE310, qword_1CF9FCBE0);
 }
 
 - (BOOL)mergeSyncRootsWithPathsManager:(id)manager error:(id *)error
@@ -4756,117 +5343,34 @@ void __74__FPDDomain_dumpStateTo_providerDomain_options_request_completionHandle
   return 1;
 }
 
-- (void)_shouldDisconnectDueToLowDiskSpace
+void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_6(&dword_1CEFC7000, v0, v1, "[CRIT] domain %@ doesn't have a volume, cannot determine disk space state", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __35__FPDDomain_refreshConnectionState__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, v0, v1, "[ERROR] error in updateShouldRetryThrottledOperations: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)shouldDisconnectWithStartupError
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_6(&dword_1CEFC7000, v0, v1, "[CRIT] [diskspace] domain %@ is in low disk space, but does not have a volume assigned; will not monitor for recovery", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootURLWithCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, v0, v1, "[ERROR] won't restore persona: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootURLWithCompletion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@: is not the default domain, creating a root right away", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootURLWithCompletion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@: is the default domain, fetching the root first", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootURLWithCompletion:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@: is a hidden default domain, ignoring", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  v9 = *(a1 + 40);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_15_0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __41__FPDDomain_createRootURLWithCompletion___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a2, a3, "[DEBUG] %@: creating default root", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, a2, a3, "[DEBUG] %@: creating default root", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke_132_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __88__FPDDomain__startObservingRootAndResumeIndexerWithReason_userAllowedDBDrop_completion___block_invoke_132_cold_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootAndObserveIfNeededWithReason:userAllowedDBDrop:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@: root already created", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)createRootAndObserveIfNeededWithReason:userAllowedDBDrop:completion:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] %@: need root creation", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_completion___block_invoke_cold_1()
@@ -4899,14 +5403,6 @@ void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_co
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0xCu);
 }
 
-- (void)cleanupDomainWithMode:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] removed support directory at %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)cleanupDomainWithMode:(uint64_t)a3 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4)
 {
   *a2 = 138412546;
@@ -4918,13 +5414,10 @@ void __81__FPDDomain_createRootAndObserveIfNeededWithReason_userAllowedDBDrop_co
 
 void __35__FPDDomain_cleanupDomainWithMode___block_invoke_158_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(a1) indexer];
+  v1 = [OUTLINED_FUNCTION_8(a1) indexer];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToken_kernelInfo_readingOptions_completionHandler___block_invoke_cold_2()
@@ -4943,21 +5436,17 @@ void __117__FPDDomain__provideItemAtURL_withReaderID_withProcessID_withAuditToke
 
 void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 progress];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_14(&dword_1CEFC7000, a2, a3, "[ERROR] got cancellation request for unknown reader ID %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_14(&dword_1CEFC7000, a2, a3, "[ERROR] got cancellation request for unknown reader ID %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_writerWithID:didFinishWritingForURL:.cold.1()
@@ -4971,14 +5460,11 @@ void __54__FPDDomain__cancelProvidingItemAtURL_toReaderWithID___block_invoke_col
 void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v0 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_8(v0) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_providedItemAtURL:didGainPresenterWithInfo:.cold.1()
@@ -4991,118 +5477,88 @@ void __50__FPDDomain__writerWithID_didFinishWritingForURL___block_invoke_cold_1(
 void __57__FPDDomain__providedItemAtURL_didGainPresenterWithInfo___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
-  v4 = [v0 fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v3 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __65__FPDDomain__providedItemAtURL_withPresenterWithID_didMoveToURL___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_8(v2) fp_shortDescription];
-  v4 = [v0 fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_8(v1) fp_shortDescription];
+  v3 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __57__FPDDomain__movingItemAtURL_withInfo_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
   v2 = v1;
-  v11 = *MEMORY[0x1E69E9840];
   [v1 requiresProviding];
   v3 = [*(v0 + 32) fp_shortDescription];
   v4 = [v2 syncRootID];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPDDomain__registerInSpaceForce__block_invoke_2_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 32);
   v7 = [v6 checkableURLs];
   v8 = [*(a1 + 32) provider];
   v9 = [v8 identifier];
   v10 = [a2 fp_prettyDescription];
-  v14 = 138413058;
-  v15 = v6;
+  v13 = 138413058;
+  v14 = v6;
   OUTLINED_FUNCTION_3_1();
-  v16 = v7;
-  v17 = v11;
-  v18 = v9;
-  v19 = v11;
-  v20 = v12;
-  _os_log_fault_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_FAULT, "[CRIT] %@: paths %@ for bundle %@ Space Attribution registration error: %@", &v14, 0x2Au);
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = v7;
+  v16 = v11;
+  v17 = v9;
+  v18 = v11;
+  v19 = v12;
+  _os_log_fault_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_FAULT, "[CRIT] %@: paths %@ for bundle %@ Space Attribution registration error: %@", &v13, 0x2Au);
 }
 
 void __42__FPDDomain__unregisterURLFromSpaceForce___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = *(v2 + 40);
   v4 = [*(v2 + 32) provider];
   v5 = [v4 identifier];
   v6 = [v1 fp_prettyDescription];
   OUTLINED_FUNCTION_3_0();
-  v11 = v3;
-  v12 = v7;
-  v13 = v5;
-  v14 = v7;
-  v15 = v8;
-  _os_log_fault_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %@: path %@ for bundle %@ Space Attribution unregistration error: %@", v10, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __55__FPDDomain_didChangeItemID_request_completionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = v3;
+  v11 = v7;
+  v12 = v5;
+  v13 = v7;
+  v14 = v8;
+  _os_log_fault_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_FAULT, "[CRIT] %@: path %@ for bundle %@ Space Attribution unregistration error: %@", v9, 0x2Au);
 }
 
 void __69__FPDDomain_callExtensionForItemDidChange_request_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v2 = v1;
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = [*(v1 + 32) identifier];
-  v4 = *(v2 + 40);
-  v5 = [v0 fp_prettyDescription];
+  v2 = [*(v1 + 32) identifier];
+  v3 = [v0 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
 void __64__FPDDomain_downloadVersionThumbnail_version_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_8(a1) providerItemID];
-  v4 = [*(a1 + 40) etag];
+  v2 = [OUTLINED_FUNCTION_8(a1) providerItemID];
+  v3 = [*(a1 + 40) etag];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 @end

@@ -11,6 +11,8 @@
 - (void)setModelValue:(id)value forSpecifier:(id)specifier;
 - (void)updateHeroImageSpecifier;
 - (void)updateSaveItem;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -48,6 +50,24 @@
   navigationItem = [(CPSURLOverrideDetailsController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:self->_cancelItem];
   [navigationItem setRightBarButtonItem:self->_saveItem];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CPSURLOverrideDetailsController;
+  [(CPSURLOverrideDetailsController *)&v5 viewDidAppear:appear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 addObserver:self selector:"_anyTextFieldDidUpdate:" name:UITextFieldTextDidChangeNotification object:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CPSURLOverrideDetailsController;
+  [(CPSURLOverrideDetailsController *)&v5 viewDidDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self name:UITextFieldTextDidChangeNotification object:0];
 }
 
 - (void)saveAndDismiss:(id)dismiss

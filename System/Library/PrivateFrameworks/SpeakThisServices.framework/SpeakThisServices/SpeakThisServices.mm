@@ -88,112 +88,103 @@ void __25__SpeakThisServices_init__block_invoke(uint64_t a1)
 
 - (void)_checkSpringBoardStarted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = _checkSpringBoardStarted_token;
   if (_checkSpringBoardStarted_token != -1 || (notify_register_check("com.apple.springboard.finishedstartup", &_checkSpringBoardStarted_token), v3 = _checkSpringBoardStarted_token, _checkSpringBoardStarted_token != -1))
   {
     state64 = 0;
     notify_get_state(v3, &state64);
     buffer = 0u;
-    memset(v8, 0, sizeof(v8));
+    memset(v7, 0, sizeof(v7));
     if (proc_pidinfo(state64, 13, 0, &buffer, 64) == 64)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
+      v4 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
       -[SpeakThisServices setSystemAppReady:](self, "setSystemAppReady:", [v4 isEqualToString:@"SpringBoard"]);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakThisWithOptions:(int64_t)options errorHandler:(id)handler
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"STSMessageKeyOptions";
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"STSMessageKeyOptions";
   v6 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   v8 = [v6 numberWithInteger:options];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [(SpeakThisServices *)self _sendMessage:v9 withIdentifier:1 errorHandler:handlerCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakThisWithOptions:(int64_t)options useAppAtPoint:(CGPoint)point errorHandler:(id)handler
 {
   y = point.y;
   x = point.x;
-  v17[3] = *MEMORY[0x277D85DE8];
-  v16[0] = @"STSMessageKeyOptions";
+  v16[3] = *MEMORY[0x277D85DE8];
+  v15[0] = @"STSMessageKeyOptions";
   v9 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   v11 = [v9 numberWithInteger:options];
-  v17[0] = v11;
-  v16[1] = @"STSMessageKeyAppPointX";
+  v16[0] = v11;
+  v15[1] = @"STSMessageKeyAppPointX";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:x];
-  v17[1] = v12;
-  v16[2] = @"STSMessageKeyAppPointY";
+  v16[1] = v12;
+  v15[2] = @"STSMessageKeyAppPointY";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:y];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
   [(SpeakThisServices *)self _sendMessage:v14 withIdentifier:1 errorHandler:handlerCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakThisWithOptions:(int64_t)options forAppWithBundleID:(id)d errorHandler:(id)handler
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"STSMessageKeyOptions";
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"STSMessageKeyOptions";
   v8 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   dCopy = d;
   v11 = [v8 numberWithInteger:options];
-  v14[1] = @"STSMessageKeyBundleID";
-  v15[0] = v11;
-  v15[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[1] = @"STSMessageKeyBundleID";
+  v14[0] = v11;
+  v14[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(SpeakThisServices *)self _sendMessage:v12 withIdentifier:1 errorHandler:handlerCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakThisWithOptions:(int64_t)options forSceneID:(id)d errorHandler:(id)handler
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"STSMessageKeyOptions";
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"STSMessageKeyOptions";
   v8 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   dCopy = d;
   v11 = [v8 numberWithInteger:options];
-  v14[1] = @"STSMessageKeySceneID";
-  v15[0] = v11;
-  v15[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[1] = @"STSMessageKeySceneID";
+  v14[0] = v11;
+  v14[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   [(SpeakThisServices *)self _sendMessage:v12 withIdentifier:1 errorHandler:handlerCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speakThisWithOptions:(int64_t)options forAppWithBundleID:(id)d rootElementAccessibilityIdentifier:(id)identifier errorHandler:(id)handler
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17[0] = @"STSMessageKeyOptions";
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16[0] = @"STSMessageKeyOptions";
   v10 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   identifierCopy = identifier;
   dCopy = d;
   v14 = [v10 numberWithInteger:options];
-  v18[0] = v14;
-  v18[1] = dCopy;
-  v17[1] = @"STSMessageKeyBundleID";
-  v17[2] = @"STSMessageKeyRootElementAccessibilityIdentifier";
-  v18[2] = identifierCopy;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v17[0] = v14;
+  v17[1] = dCopy;
+  v16[1] = @"STSMessageKeyBundleID";
+  v16[2] = @"STSMessageKeyRootElementAccessibilityIdentifier";
+  v17[2] = identifierCopy;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   [(SpeakThisServices *)self _sendMessage:v15 withIdentifier:1 errorHandler:handlerCopy];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showSpeechController:(id)controller
@@ -213,39 +204,35 @@ void __25__SpeakThisServices_init__block_invoke(uint64_t a1)
 
 - (void)updateSpeakingRateTo:(int64_t)to errorHandler:(id)handler
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"STSMessageKeySpeakingRate";
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"STSMessageKeySpeakingRate";
   v6 = MEMORY[0x277CCABB0];
   handlerCopy = handler;
   v8 = [v6 numberWithInteger:to];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   [(SpeakThisServices *)self _sendMessage:v9 withIdentifier:13 errorHandler:handlerCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionWithServiceWasInterruptedForUserInterfaceClient:(id)client
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = AXLogSpeakScreen();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = clientCopy;
+    v9 = clientCopy;
     _os_log_impl(&dword_26B2C7000, v5, OS_LOG_TYPE_DEFAULT, "Connection with service was interrupted for %@.", buf, 0xCu);
   }
 
   mainAccessQueue = [MEMORY[0x277CE6948] mainAccessQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterfaceClient___block_invoke;
-  v8[3] = &unk_279CD8908;
-  v8[4] = self;
-  [mainAccessQueue performAsynchronousWritingBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterfaceClient___block_invoke;
+  v7[3] = &unk_279CD8908;
+  v7[4] = self;
+  [mainAccessQueue performAsynchronousWritingBlock:v7];
 }
 
 void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterfaceClient___block_invoke(uint64_t a1)
@@ -330,14 +317,14 @@ void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterface
 
 - (void)userInterfaceClient:(id)client processMessageFromServerAsynchronously:(id)asynchronously withIdentifier:(unint64_t)identifier completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   asynchronouslyCopy = asynchronously;
   v9 = [asynchronouslyCopy objectForKeyedSubscript:@"STSUUID"];
   v10 = AXLogSpeakScreen();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v23 = asynchronouslyCopy;
+    v22 = asynchronouslyCopy;
     _os_log_impl(&dword_26B2C7000, v10, OS_LOG_TYPE_INFO, "Received reply: %@", buf, 0xCu);
   }
 
@@ -366,7 +353,7 @@ void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterface
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = v18;
+        v22 = v18;
         _os_log_impl(&dword_26B2C7000, v19, OS_LOG_TYPE_INFO, "Posted error handler: %@", buf, 0xCu);
       }
 
@@ -375,13 +362,11 @@ void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterface
       self->_errorHandlerCallbacks = 0;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessage:(id)message withIdentifier:(unint64_t)identifier errorHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
@@ -402,27 +387,25 @@ void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterface
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v28 = messageCopy;
-    v29 = 2048;
+    v27 = messageCopy;
+    v28 = 2048;
     identifierCopy = identifier;
     _os_log_impl(&dword_26B2C7000, v17, OS_LOG_TYPE_INFO, "Sending message: %@, STSMessageIdentifier: %lu", buf, 0x16u);
   }
 
   _client = [(SpeakThisServices *)self _client];
   mainAccessQueue = [MEMORY[0x277CE6948] mainAccessQueue];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __80__SpeakThisServices__sendMessage_withIdentifier_errorHandler_completionHandler___block_invoke;
-  v23[3] = &unk_279CD8930;
-  v23[4] = self;
-  v24 = handlerCopy;
-  v25 = completionHandlerCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __80__SpeakThisServices__sendMessage_withIdentifier_errorHandler_completionHandler___block_invoke;
+  v22[3] = &unk_279CD8930;
+  v22[4] = self;
+  v23 = handlerCopy;
+  v24 = completionHandlerCopy;
   identifierCopy2 = identifier;
   v20 = completionHandlerCopy;
   v21 = handlerCopy;
-  [_client sendAsynchronousMessage:messageCopy withIdentifier:identifier targetAccessQueue:mainAccessQueue completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [_client sendAsynchronousMessage:messageCopy withIdentifier:identifier targetAccessQueue:mainAccessQueue completion:v22];
 }
 
 void __80__SpeakThisServices__sendMessage_withIdentifier_errorHandler_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -480,22 +463,19 @@ void __80__SpeakThisServices__sendMessage_withIdentifier_errorHandler_completion
 
 void __79__SpeakThisServices_connectionWithServiceWasInterruptedForUserInterfaceClient___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B2C7000, a2, OS_LOG_TYPE_ERROR, "Error notifying SpeakThis of setting change: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B2C7000, a2, OS_LOG_TYPE_ERROR, "Error notifying SpeakThis of setting change: %@", &v2, 0xCu);
 }
 
 - (void)userInterfaceClient:(uint64_t)a1 processMessageFromServer:(NSObject *)a2 withIdentifier:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_26B2C7000, a2, OS_LOG_TYPE_FAULT, "Did not recognize UI message coming from SpeakThis UI server: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_26B2C7000, a2, OS_LOG_TYPE_FAULT, "Did not recognize UI message coming from SpeakThis UI server: %@", &v4, 0xCu);
 }
 
 @end

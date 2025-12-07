@@ -93,10 +93,10 @@
 
 - (BloomFilter)initWithExpectedNumberOfItems:(unint64_t)items falsePositiveRate:(double)rate seed:(unsigned int)seed
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = BloomFilter;
-  v8 = [(BloomFilter *)&v24 init];
+  v38 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = BloomFilter;
+  v8 = [(BloomFilter *)&v23 init];
   if (v8)
   {
     SSRLogInitIfNeeded();
@@ -123,24 +123,23 @@
       v20 = v13;
       v21 = [(BitVector *)v19 description];
       *buf = 136316674;
-      v26 = "[BloomFilter initWithExpectedNumberOfItems:falsePositiveRate:seed:]";
-      v27 = 2048;
-      v28 = expectedNumberOfItems;
-      v29 = 2048;
-      v30 = falsePositiveRate;
-      v31 = 2048;
-      v32 = numberOfBits;
-      v33 = 2048;
-      v34 = numberHashes;
-      v35 = 2048;
-      v36 = seedCopy;
-      v37 = 2112;
-      v38 = v21;
+      v25 = "[BloomFilter initWithExpectedNumberOfItems:falsePositiveRate:seed:]";
+      v26 = 2048;
+      v27 = expectedNumberOfItems;
+      v28 = 2048;
+      v29 = falsePositiveRate;
+      v30 = 2048;
+      v31 = numberOfBits;
+      v32 = 2048;
+      v33 = numberHashes;
+      v34 = 2048;
+      v35 = seedCopy;
+      v36 = 2112;
+      v37 = v21;
       _os_log_impl(&dword_225E12000, v20, OS_LOG_TYPE_INFO, "%s _expectedNumberOfItems: %lu\n _falsePositiveRate: %f\n _numberOfBits: %lu\n _numberHashes: %lu\n seed: %lu\n BitVector: %@\n", buf, 0x48u);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

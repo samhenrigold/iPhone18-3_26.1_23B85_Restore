@@ -50,38 +50,36 @@
 
 - (void)cancel
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = objc_msgSend_itemGroupContexts(self, a2, v2, 0);
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v12, v16, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v11, v15, 16);
   if (v5)
   {
     v8 = v5;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v3);
         }
 
-        objc_msgSend_cancel(*(*(&v12 + 1) + 8 * v10++), v6, v7);
+        objc_msgSend_cancel(*(*(&v11 + 1) + 8 * v10++), v6, v7);
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v12, v16, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v11, v15, 16);
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addItemGroupContext:(id)context
@@ -95,28 +93,28 @@
 
 - (void)start
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = objc_msgSend_itemGroupContexts(self, a2, v2);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v22, v26, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v21, v25, 16);
   if (v6)
   {
     v9 = v6;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         v13 = objc_msgSend_itemGroupSetCompletionGroup(self, v7, v8);
         dispatch_group_enter(v13);
 
@@ -125,7 +123,7 @@
       }
 
       while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v22, v26, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v21, v25, 16);
     }
 
     while (v9);
@@ -139,8 +137,6 @@
   block[3] = &unk_278545A00;
   block[4] = self;
   dispatch_group_notify(v18, v19, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDOperation)operation

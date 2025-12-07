@@ -103,8 +103,8 @@ void __104__SBWidgetMetricsServer_initWithSystemMetricsProvider_lockScreenMetric
 
   authenticator = [(SBWidgetMetricsServer *)self authenticator];
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
-  v11 = [authenticator authenticateAuditToken:auditToken];
+  v10 = objc_msgSend_auditToken(remoteProcess);
+  v11 = [authenticator authenticateAuditToken:v10];
 
   if (v11)
   {

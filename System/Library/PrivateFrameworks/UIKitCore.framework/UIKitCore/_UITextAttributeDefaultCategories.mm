@@ -174,9 +174,9 @@ LABEL_10:
 
   else
   {
-    v8 = [(_UITextAttributeDefaults *)v4 isEqual:v5];
+    isEqual = objc_msgSend_isEqual_(v4);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_10;
     }
@@ -198,9 +198,9 @@ LABEL_12:
 
   if (v11 && v12)
   {
-    v14 = [(_UITextAttributeDefaults *)v11 isEqual:v12];
+    v14 = objc_msgSend_isEqual_(v11);
 
-    if (!v14)
+    if ((v14 & 1) == 0)
     {
       goto LABEL_20;
     }
@@ -227,9 +227,9 @@ LABEL_21:
 
   if (v17 && v18)
   {
-    v20 = [(_UITextAttributeDefaults *)v17 isEqual:v18];
+    v20 = objc_msgSend_isEqual_(v17);
 
-    if (!v20)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_29;
     }

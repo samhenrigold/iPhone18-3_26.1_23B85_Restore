@@ -231,34 +231,32 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[8] = *MEMORY[0x277D85DE8];
-  v14[0] = @"type";
+  v14[8] = *MEMORY[0x277D85DE8];
+  v13[0] = @"type";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[COConstituent type](self, "type")}];
-  v15[0] = v3;
-  v14[1] = @"identifier";
+  v14[0] = v3;
+  v13[1] = @"identifier";
   identifier = [(COConstituent *)self identifier];
-  v15[1] = identifier;
-  v14[2] = @"sw";
+  v14[1] = identifier;
+  v13[2] = @"sw";
   software = [(COConstituent *)self software];
-  v15[2] = software;
-  v14[3] = @"dc";
+  v14[2] = software;
+  v13[3] = @"dc";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:{-[COConstituent device](self, "device")}];
-  v15[3] = v6;
-  v14[4] = @"pr";
+  v14[3] = v6;
+  v13[4] = @"pr";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:{-[COConstituent isPowerRisk](self, "isPowerRisk") ^ 1}];
-  v15[4] = v7;
-  v14[5] = @"tr";
+  v14[4] = v7;
+  v13[5] = @"tr";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[COConstituent isThermalRisk](self, "isThermalRisk") ^ 1}];
-  v15[5] = v8;
-  v14[6] = @"wn";
+  v14[5] = v8;
+  v13[6] = @"wn";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[COConstituent isWired](self, "isWired")}];
-  v15[6] = v9;
-  v14[7] = @"bo";
+  v14[6] = v9;
+  v13[7] = @"bo";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[COConstituent supportsBackoff](self, "supportsBackoff")}];
-  v15[7] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:8];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[7] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:8];
 
   return v11;
 }
@@ -419,7 +417,7 @@ LABEL_23:
 
 - (id)_timeAwareUUID
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v3 = v2;
   if (v2 < 0.0)
@@ -427,8 +425,8 @@ LABEL_23:
     v4 = COCoreLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "Clock not synchronized, going to poll.", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "Clock not synchronized, going to poll.", v14, 2u);
     }
   }
 
@@ -453,8 +451,8 @@ LABEL_23:
       goto LABEL_19;
     }
 
-    *v15 = 134217984;
-    *&v15[4] = v3;
+    *v14 = 134217984;
+    *&v14[4] = v3;
     v11 = "Clock synchronized. time = %llu";
   }
 
@@ -470,28 +468,26 @@ LABEL_23:
       goto LABEL_19;
     }
 
-    *v15 = 134217984;
-    *&v15[4] = v3;
+    *v14 = 134217984;
+    *&v14[4] = v3;
     v11 = "Clock not synchronized. Using distant future %llu";
   }
 
-  _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, v11, v15, 0xCu);
+  _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, v11, v14, 0xCu);
 LABEL_19:
 
   if ([MEMORY[0x277CFD0B8] isFastFoldEnabled])
   {
-    *v15 = bswap64(v3);
-    *&v15[8] = bswap32(arc4random());
-    v16 = bswap32(arc4random());
-    uUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v15];
+    *v14 = bswap64(v3);
+    *&v14[8] = bswap32(arc4random());
+    v15 = bswap32(arc4random());
+    uUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v14];
   }
 
   else
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return uUID;
 }

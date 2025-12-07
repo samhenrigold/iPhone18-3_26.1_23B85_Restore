@@ -1,452 +1,73 @@
-uint64_t Shape.delta(_:from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v237 = a1;
-  v197 = a2;
-  v220 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
-  v219 = *(v220 - 8);
-  MEMORY[0x1EEE9AC00](v220);
-  v196 = &v177 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v195 = &v177 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v214 = &v177 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v238 = &v177 - v9;
-  v222 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
-  v221 = *(v222 - 8);
-  MEMORY[0x1EEE9AC00](v222);
-  v194 = &v177 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v193 = &v177 - v12;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v213 = &v177 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v239 = &v177 - v16;
-  v224 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
-  v223 = *(v224 - 8);
-  MEMORY[0x1EEE9AC00](v224);
-  v192 = &v177 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v191 = &v177 - v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
-  MEMORY[0x1EEE9AC00](v20 - 8);
-  v212 = &v177 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v240 = &v177 - v23;
-  v226 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
-  v225 = *(v226 - 8);
-  MEMORY[0x1EEE9AC00](v226);
-  v190 = &v177 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v189 = &v177 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
-  MEMORY[0x1EEE9AC00](v27 - 8);
-  v211 = &v177 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v241 = &v177 - v30;
-  v228 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
-  v227 = *(v228 - 8);
-  MEMORY[0x1EEE9AC00](v228);
-  v188 = &v177 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v32);
-  v187 = &v177 - v33;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
-  MEMORY[0x1EEE9AC00](v34 - 8);
-  v210 = &v177 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v242 = &v177 - v37;
-  v230 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
-  v229 = *(v230 - 8);
-  MEMORY[0x1EEE9AC00](v230);
-  v186 = &v177 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v39);
-  v185 = &v177 - v40;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
-  MEMORY[0x1EEE9AC00](v41 - 8);
-  v209 = &v177 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v43);
-  v243 = &v177 - v44;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
-  MEMORY[0x1EEE9AC00](v45 - 8);
-  v208 = &v177 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v47);
-  v244 = &v177 - v48;
-  v232 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
-  v231 = *(v232 - 8);
-  MEMORY[0x1EEE9AC00](v232);
-  v184 = &v177 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v50);
-  v183 = &v177 - v51;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-  MEMORY[0x1EEE9AC00](v52 - 8);
-  v207 = &v177 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v54);
-  v206 = &v177 - v55;
-  MEMORY[0x1EEE9AC00](v56);
-  v245 = &v177 - v57;
-  MEMORY[0x1EEE9AC00](v58);
-  v246 = &v177 - v59;
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd);
-  v61 = *(v60 - 8);
-  v233 = v60;
-  v234 = v61;
-  MEMORY[0x1EEE9AC00](v60);
-  v181 = &v177 - ((v62 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v63);
-  v180 = &v177 - v64;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
-  MEMORY[0x1EEE9AC00](v65 - 8);
-  v205 = &v177 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v67);
-  v248 = &v177 - v68;
-  v253 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
-  v236 = *(v253 - 8);
-  MEMORY[0x1EEE9AC00](v253);
-  v218 = &v177 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v70);
-  v179 = &v177 - v71;
-  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
-  v198 = v72;
-  v235 = *(v72 - 8);
-  MEMORY[0x1EEE9AC00](v72);
-  v178 = &v177 - ((v73 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v74);
-  v177 = &v177 - v75;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-  MEMORY[0x1EEE9AC00](v76 - 8);
-  v204 = &v177 - ((v77 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v78);
-  v203 = &v177 - v79;
-  MEMORY[0x1EEE9AC00](v80);
-  v250 = &v177 - v81;
-  MEMORY[0x1EEE9AC00](v82);
-  v251 = &v177 - v83;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-  MEMORY[0x1EEE9AC00](v84 - 8);
-  v202 = &v177 - ((v85 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v86);
-  v201 = &v177 - v87;
-  MEMORY[0x1EEE9AC00](v88);
-  v200 = &v177 - v89;
-  MEMORY[0x1EEE9AC00](v90);
-  v247 = &v177 - v91;
-  MEMORY[0x1EEE9AC00](v92);
-  v249 = &v177 - v93;
-  MEMORY[0x1EEE9AC00](v94);
-  v252 = &v177 - v95;
-  v96 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
-  v182 = *(v96 - 8);
-  v97 = v182;
-  MEMORY[0x1EEE9AC00](v96);
-  v99 = &v177 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v100);
-  v102 = &v177 - v101;
-  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-  MEMORY[0x1EEE9AC00](v103 - 8);
-  v199 = &v177 - ((v104 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v105);
-  v215 = &v177 - v106;
-  v216 = v96;
-  CRRegister.projectedValue.getter();
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v107 = *(v97 + 8);
-  v107(v99, v96);
-  v107(v102, v96);
-  type metadata accessor for Shape(0);
-  CRRegister.delta(_:from:)();
-  v108 = v177;
-  CRRegister.projectedValue.getter();
-  v109 = v178;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v110 = v235[1];
-  v110(v109, v72);
-  v110(v108, v72);
-  CRRegister.projectedValue.getter();
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v110(v109, v72);
-  v110(v108, v72);
-  v217 = v2;
-  v111 = v179;
-  v112 = v253;
-  CRRegister.projectedValue.getter();
-  v113 = v218;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v114 = v113;
-  v178 = v236[1];
-  v115 = v178;
-  (v178)(v114, v112);
-  v115(v111, v112);
-  v116 = v180;
-  v117 = v233;
-  CRRegister.projectedValue.getter();
-  v118 = v181;
-  CRRegister.projectedValue.getter();
-  v119 = v118;
-  CRRegister.delta(_:from:)();
-  v120 = *(v234 + 8);
-  v120(v119, v117);
-  v120(v116, v117);
-  CRRegister.projectedValue.getter();
-  v121 = v218;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v122 = v121;
-  v123 = v178;
-  (v178)(v122, v112);
-  v123(v111, v112);
-  v124 = v183;
-  v125 = v232;
-  CRRegister.projectedValue.getter();
-  v126 = v184;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v127 = *(v231 + 1);
-  v127(v126, v125);
-  v127(v124, v125);
-  CRRegister.projectedValue.getter();
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v127(v126, v125);
-  v127(v124, v125);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
-  CRAttributedString.delta(_:from:)();
-  v128 = v185;
-  v129 = v230;
-  CRRegister.projectedValue.getter();
-  v130 = v186;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v131 = *(v229 + 8);
-  v131(v130, v129);
-  v131(v128, v129);
-  v132 = v187;
-  v133 = v228;
-  CRRegister.projectedValue.getter();
-  v134 = v188;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v135 = *(v227 + 8);
-  v135(v134, v133);
-  v135(v132, v133);
-  v136 = v189;
-  v137 = v226;
-  CRRegister.projectedValue.getter();
-  v138 = v190;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v139 = *(v225 + 8);
-  v139(v138, v137);
-  v139(v136, v137);
-  v140 = v191;
-  v141 = v224;
-  CRRegister.projectedValue.getter();
-  v142 = v192;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v143 = *(v223 + 8);
-  v143(v142, v141);
-  v143(v140, v141);
-  v144 = v193;
-  v145 = v222;
-  CRRegister.projectedValue.getter();
-  v146 = v194;
-  CRRegister.projectedValue.getter();
-  CRRegister.delta(_:from:)();
-  v147 = *(v221 + 8);
-  v147(v146, v145);
-  v147(v144, v145);
-  v148 = v195;
-  v149 = v220;
-  CRRegister.projectedValue.getter();
-  v150 = v196;
-  CRRegister.projectedValue.getter();
-  v151 = v150;
-  CRRegister.delta(_:from:)();
-  v152 = *(v219 + 8);
-  v153 = v151;
-  v154 = v215;
-  v152(v153, v149);
-  v152(v148, v149);
-  v155 = v182;
-  if ((*(v182 + 48))(v154, 1, v216) == 1 && (v156 = v236[6], v156(v252, 1, v253) == 1) && (v157 = v235[6], v157(v251, 1, v198) == 1) && v157(v250, 1, v198) == 1 && v156(v249, 1, v253) == 1 && (*(v234 + 48))(v248, 1, v233) == 1 && v156(v247, 1, v253) == 1 && (v158 = *(v231 + 6), v158(v246, 1, v232) == 1) && v158(v245, 1, v232) == 1 && (v159 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd), (*(*(v159 - 8) + 48))(v244, 1, v159) == 1) && (*(v229 + 48))(v243, 1, v230) == 1 && (*(v227 + 48))(v242, 1, v228) == 1 && (*(v225 + 48))(v241, 1, v226) == 1 && (*(v223 + 48))(v240, 1, v224) == 1 && (*(v221 + 48))(v239, 1, v222) == 1 && (*(v219 + 48))(v238, 1, v220) == 1)
-  {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v154, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-    v160 = type metadata accessor for Shape.Partial(0);
-    (*(*(v160 - 8) + 56))(v197, 1, 1, v160);
-  }
-
-  else
-  {
-    outlined init with copy of Date?(v154, v199, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-    outlined init with copy of Date?(v252, v200, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined init with copy of Date?(v251, v203, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-    outlined init with copy of Date?(v250, v204, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-    outlined init with copy of Date?(v249, v201, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined init with copy of Date?(v248, v205, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
-    outlined init with copy of Date?(v247, v202, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined init with copy of Date?(v246, v206, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-    outlined init with copy of Date?(v245, v207, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-    outlined init with copy of Date?(v244, v208, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
-    outlined init with copy of Date?(v243, v209, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
-    outlined init with copy of Date?(v242, v210, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
-    outlined init with copy of Date?(v241, v211, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
-    outlined init with copy of Date?(v240, v212, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
-    outlined init with copy of Date?(v239, v213, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
-    outlined init with copy of Date?(v238, v214, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
-    v161 = v197;
-    (*(v155 + 56))(v197, 1, 1, v216);
-    v162 = type metadata accessor for Shape.Partial(0);
-    v163 = v162[5];
-    v164 = v236[7];
-    v165 = v253;
-    v164(v161 + v163, 1, 1, v253);
-    v237 = v162[6];
-    v166 = v235[7];
-    v167 = v198;
-    v166(v161 + v237, 1, 1, v198);
-    v236 = v162[7];
-    v166(v236 + v161, 1, 1, v167);
-    v235 = v162[8];
-    v164(v235 + v161, 1, 1, v165);
-    v218 = v162[9];
-    (*(v234 + 56))(&v218[v161], 1, 1, v233);
-    v234 = v162[10];
-    v164(v161 + v234, 1, 1, v165);
-    v253 = v162[11];
-    v168 = *(v231 + 7);
-    v169 = v232;
-    v168(v161 + v253, 1, 1, v232);
-    v233 = v162[12];
-    v168(v161 + v233, 1, 1, v169);
-    v170 = v162[13];
-    v232 = v170;
-    v171 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd);
-    (*(*(v171 - 8) + 56))(v161 + v170, 1, 1, v171);
-    v231 = v162[14];
-    (*(v229 + 56))(&v231[v161], 1, 1, v230);
-    v230 = v162[15];
-    (*(v227 + 56))(v161 + v230, 1, 1, v228);
-    v172 = v162[16];
-    (*(v225 + 56))(v161 + v172, 1, 1, v226);
-    v173 = v162[17];
-    (*(v223 + 56))(v161 + v173, 1, 1, v224);
-    v174 = v162[18];
-    (*(v221 + 56))(v161 + v174, 1, 1, v222);
-    v175 = v162[19];
-    (*(v219 + 56))(v161 + v175, 1, 1, v220);
-    outlined assign with take of UUID?(v199, v161, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-    outlined assign with take of UUID?(v200, v161 + v163, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined assign with take of UUID?(v203, v161 + v237, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-    outlined assign with take of UUID?(v204, v236 + v161, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-    outlined assign with take of UUID?(v201, v235 + v161, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined assign with take of UUID?(v205, &v218[v161], &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
-    outlined assign with take of UUID?(v202, v161 + v234, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-    outlined assign with take of UUID?(v206, v161 + v253, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-    outlined assign with take of UUID?(v207, v161 + v233, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-    outlined assign with take of UUID?(v208, v161 + v232, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
-    outlined assign with take of UUID?(v209, &v231[v161], &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
-    outlined assign with take of UUID?(v210, v161 + v230, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
-    outlined assign with take of UUID?(v211, v161 + v172, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
-    outlined assign with take of UUID?(v212, v161 + v173, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
-    outlined assign with take of UUID?(v213, v161 + v174, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
-    outlined assign with take of UUID?(v214, v161 + v175, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v215, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-    (*(*(v162 - 1) + 56))(v161, 0, 1, v162);
-  }
-
-  outlined destroy of StocksKitCurrencyCache.Provider?(v238, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v239, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v240, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v241, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v242, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v243, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v244, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v245, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v246, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v247, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v248, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v249, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v250, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v251, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
-  return outlined destroy of StocksKitCurrencyCache.Provider?(v252, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
-}
-
 BOOL Shape.canMerge(delta:)(uint64_t a1)
 {
   v267 = a1;
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
   MEMORY[0x1EEE9AC00](v1 - 8);
   v244 = &v206 - v2;
-  v213 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
+  v213 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR);
   v217 = *(v213 - 8);
   MEMORY[0x1EEE9AC00](v213);
   v208 = &v206 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
   v207 = &v206 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v221 = &v206 - v7;
-  v216 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
+  v216 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
   v222 = *(v216 - 8);
   MEMORY[0x1EEE9AC00](v216);
   v210 = &v206 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
   v209 = &v206 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v226 = &v206 - v12;
-  v220 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
+  v220 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR);
   v227 = *(v220 - 8);
   MEMORY[0x1EEE9AC00](v220);
   v212 = &v206 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
   v211 = &v206 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
   MEMORY[0x1EEE9AC00](v16 - 8);
   v230 = &v206 - v17;
-  v225 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
+  v225 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR);
   v231 = *(v225 - 8);
   MEMORY[0x1EEE9AC00](v225);
   v215 = &v206 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
   v214 = &v206 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
   MEMORY[0x1EEE9AC00](v21 - 8);
   v238 = &v206 - v22;
-  v229 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
+  v229 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
   v234 = *(v229 - 8);
   MEMORY[0x1EEE9AC00](v229);
   v219 = &v206 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v24);
   v218 = &v206 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
   MEMORY[0x1EEE9AC00](v26 - 8);
   v243 = &v206 - v27;
-  v233 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
+  v233 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
   v237 = *(v233 - 8);
   MEMORY[0x1EEE9AC00](v233);
   v224 = &v206 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v29);
   v223 = &v206 - v30;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
   MEMORY[0x1EEE9AC00](v31 - 8);
   v241 = &v206 - v32;
-  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd);
+  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMR);
   v236 = *(v242 - 8);
   MEMORY[0x1EEE9AC00](v242);
   v228 = &v206 - v33;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
   MEMORY[0x1EEE9AC00](v34 - 8);
   v240 = &v206 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v36);
   v250 = &v206 - v37;
-  v254 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
+  v254 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR);
   v251 = *(v254 - 8);
   MEMORY[0x1EEE9AC00](v254);
   v232 = &v206 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -454,21 +75,21 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   v245 = &v206 - v40;
   MEMORY[0x1EEE9AC00](v41);
   v235 = &v206 - v42;
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
   MEMORY[0x1EEE9AC00](v43 - 8);
   v258 = &v206 - v44;
-  v259 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd);
+  v259 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMR);
   v253 = *(v259 - 8);
   MEMORY[0x1EEE9AC00](v259);
   v247 = &v206 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v46);
   v246 = &v206 - v47;
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
   MEMORY[0x1EEE9AC00](v48 - 8);
   v260 = &v206 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v50);
   v262 = &v206 - v51;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
   v263 = *(v52 - 8);
   MEMORY[0x1EEE9AC00](v52);
   v252 = &v206 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -476,14 +97,14 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   v261 = &v206 - v55;
   MEMORY[0x1EEE9AC00](v56);
   v256 = &v206 - v57;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v58 - 8);
   v249 = &v206 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v60);
   v257 = &v206 - v61;
   MEMORY[0x1EEE9AC00](v62);
   v64 = &v206 - v63;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
   v264 = *(v65 - 8);
   v265 = v65;
   MEMORY[0x1EEE9AC00](v65);
@@ -494,19 +115,19 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   v248 = &v206 - v70;
   MEMORY[0x1EEE9AC00](v71);
   v73 = &v206 - v72;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v74 - 8);
   v76 = &v206 - v75;
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v78 = *(v77 - 8);
   MEMORY[0x1EEE9AC00](v77);
   v80 = &v206 - ((v79 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v81);
   v83 = &v206 - v82;
-  outlined init with copy of Date?(v267, v76, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  outlined init with copy of Date?(v267, v76, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   if ((*(v78 + 48))(v76, 1, v77) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v76, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v76, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   }
 
   else
@@ -525,13 +146,13 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
 
   v266 = type metadata accessor for Shape.Partial(0);
   v86 = v267;
-  outlined init with copy of Date?(v267 + v266[5], v64, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+  outlined init with copy of Date?(v267 + v266[5], v64, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   v87 = v264;
   v88 = v265;
   v89 = *(v264 + 48);
   if (v89(v64, 1, v265) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v64, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v64, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   }
 
   else
@@ -549,12 +170,12 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   }
 
   v93 = v262;
-  outlined init with copy of Date?(v86 + v266[6], v262, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[6], v262, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
   v94 = v263;
   v95 = *(v263 + 48);
   if (v95(v93, 1, v52) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v93, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v93, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
   }
 
   else
@@ -580,10 +201,10 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   }
 
   v103 = v260;
-  outlined init with copy of Date?(v86 + v266[7], v260, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[7], v260, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
   if (v95(v103, 1, v52) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v103, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v103, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
     v104 = v265;
   }
 
@@ -607,10 +228,10 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   }
 
   v110 = v257;
-  outlined init with copy of Date?(v86 + v266[8], v257, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+  outlined init with copy of Date?(v86 + v266[8], v257, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   if (v89(v110, 1, v104) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v110, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v110, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     v111 = v258;
     v112 = v259;
   }
@@ -637,11 +258,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[9], v111, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+  outlined init with copy of Date?(v86 + v266[9], v111, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
   v120 = v253;
   if ((*(v253 + 48))(v111, 1, v112) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v111, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v111, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
     v121 = v254;
   }
 
@@ -667,11 +288,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   }
 
   v128 = v249;
-  outlined init with copy of Date?(v86 + v266[10], v249, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+  outlined init with copy of Date?(v86 + v266[10], v249, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   v129 = v265;
   if (v89(v128, 1, v265) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     v130 = v250;
   }
 
@@ -694,12 +315,12 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[11], v130, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+  outlined init with copy of Date?(v86 + v266[11], v130, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
   v136 = v251;
   v137 = *(v251 + 48);
   if (v137(v130, 1, v121) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v130, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v130, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
   }
 
   else
@@ -721,10 +342,10 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
   }
 
   v143 = v240;
-  outlined init with copy of Date?(v86 + v266[12], v240, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+  outlined init with copy of Date?(v86 + v266[12], v240, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
   if (v137(v143, 1, v121) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v143, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v143, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
     v144 = v244;
     v145 = v243;
     v146 = v242;
@@ -753,11 +374,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[13], v147, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+  outlined init with copy of Date?(v86 + v266[13], v147, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
   v153 = v236;
   if ((*(v236 + 48))(v147, 1, v146) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v147, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v147, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
     v154 = v237;
     v155 = v238;
   }
@@ -768,7 +389,7 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     (*(v153 + 32))(v228, v147, v146);
     v157 = v153;
     type metadata accessor for Shape(0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR);
     v158 = CRAttributedString.canMerge(delta:)();
     (*(v157 + 8))(v156, v146);
     v154 = v237;
@@ -779,12 +400,12 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[14], v145, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[14], v145, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
   v159 = v233;
   v160 = v144;
   if ((*(v154 + 48))(v145, 1, v233) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v145, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v145, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
     v161 = v234;
   }
 
@@ -807,11 +428,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[15], v155, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+  outlined init with copy of Date?(v86 + v266[15], v155, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
   v167 = v229;
   if ((*(v161 + 48))(v155, 1, v229) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v155, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v155, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
     v168 = v231;
     v169 = v230;
   }
@@ -836,12 +457,12 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[16], v169, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+  outlined init with copy of Date?(v86 + v266[16], v169, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
   v175 = v225;
   v176 = v160;
   if ((*(v168 + 48))(v169, 1, v225) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v169, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v169, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
     v177 = v227;
     v178 = v226;
   }
@@ -866,11 +487,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[17], v178, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[17], v178, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
   v184 = v220;
   if ((*(v177 + 48))(v178, 1, v220) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v178, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v178, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
     v185 = v222;
     v186 = v221;
   }
@@ -895,11 +516,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[18], v186, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[18], v186, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
   v192 = v216;
   if ((*(v185 + 48))(v186, 1, v216) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v186, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v186, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
     v193 = v217;
   }
 
@@ -922,11 +543,11 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
     }
   }
 
-  outlined init with copy of Date?(v86 + v266[19], v176, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+  outlined init with copy of Date?(v86 + v266[19], v176, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
   v199 = v213;
   if ((*(v193 + 48))(v176, 1, v213) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v176, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v176, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
     return 1;
   }
 
@@ -945,10 +566,10 @@ BOOL Shape.canMerge(delta:)(uint64_t a1)
 
 BOOL Shape.merge(delta:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v269 = &v204[-v4];
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR);
   v270 = *(v5 - 8);
   v271 = v5;
   MEMORY[0x1EEE9AC00](v5);
@@ -957,10 +578,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v233 = &v204[-v8];
   MEMORY[0x1EEE9AC00](v9);
   v232 = &v204[-v10];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v266 = &v204[-v12];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
   v267 = *(v13 - 8);
   v268 = v13;
   MEMORY[0x1EEE9AC00](v13);
@@ -969,10 +590,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v230 = &v204[-v16];
   MEMORY[0x1EEE9AC00](v17);
   v229 = &v204[-v18];
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
   MEMORY[0x1EEE9AC00](v19 - 8);
   v263 = &v204[-v20];
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR);
   v264 = *(v21 - 8);
   v265 = v21;
   MEMORY[0x1EEE9AC00](v21);
@@ -981,10 +602,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v227 = &v204[-v24];
   MEMORY[0x1EEE9AC00](v25);
   v226 = &v204[-v26];
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
   MEMORY[0x1EEE9AC00](v27 - 8);
   v260 = &v204[-v28];
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR);
   v261 = *(v29 - 8);
   v262 = v29;
   MEMORY[0x1EEE9AC00](v29);
@@ -993,10 +614,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v224 = &v204[-v32];
   MEMORY[0x1EEE9AC00](v33);
   v223 = &v204[-v34];
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
   MEMORY[0x1EEE9AC00](v35 - 8);
   v258 = &v204[-v36];
-  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
+  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
   v259 = *(v275 - 8);
   MEMORY[0x1EEE9AC00](v275);
   v222 = &v204[-((v37 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1004,10 +625,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v221 = &v204[-v39];
   MEMORY[0x1EEE9AC00](v40);
   v220 = &v204[-v41];
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
   MEMORY[0x1EEE9AC00](v42 - 8);
   v255 = &v204[-v43];
-  v257 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
+  v257 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
   v256 = *(v257 - 8);
   MEMORY[0x1EEE9AC00](v257);
   v219 = &v204[-((v44 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1015,19 +636,19 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v218 = &v204[-v46];
   MEMORY[0x1EEE9AC00](v47);
   v217 = &v204[-v48];
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
   MEMORY[0x1EEE9AC00](v49 - 8);
   v253 = &v204[-v50];
-  v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd);
+  v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMR);
   v254 = *(v274 - 8);
   MEMORY[0x1EEE9AC00](v274);
   v216 = &v204[-v51];
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
   MEMORY[0x1EEE9AC00](v52 - 8);
   v252 = &v204[-((v53 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v54);
   v249 = &v204[-v55];
-  v277 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
+  v277 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR);
   v273 = *(v277 - 8);
   MEMORY[0x1EEE9AC00](v277);
   v215 = &v204[-((v56 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1037,10 +658,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v250 = &v204[-v60];
   MEMORY[0x1EEE9AC00](v61);
   v214 = &v204[-v62];
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
   MEMORY[0x1EEE9AC00](v63 - 8);
   v246 = &v204[-v64];
-  v248 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd);
+  v248 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMR);
   v247 = *(v248 - 8);
   MEMORY[0x1EEE9AC00](v248);
   v213 = &v204[-((v65 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1048,12 +669,12 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v212 = &v204[-v67];
   MEMORY[0x1EEE9AC00](v68);
   v211 = &v204[-v69];
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
   MEMORY[0x1EEE9AC00](v70 - 8);
   v240 = &v204[-((v71 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v72);
   v235 = &v204[-v73];
-  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
   v279 = *(v242 - 8);
   MEMORY[0x1EEE9AC00](v242);
   v209 = &v204[-((v74 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1063,14 +684,14 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v238 = &v204[-v78];
   MEMORY[0x1EEE9AC00](v79);
   v207 = &v204[-v80];
-  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v81 - 8);
   v245 = &v204[-((v82 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v83);
   v241 = &v204[-v84];
   MEMORY[0x1EEE9AC00](v85);
   v87 = &v204[-v86];
-  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
+  v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
   v276 = *(v272 - 8);
   MEMORY[0x1EEE9AC00](v272);
   v210 = &v204[-((v88 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1082,10 +703,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   v208 = &v204[-v94];
   MEMORY[0x1EEE9AC00](v95);
   v206 = &v204[-v96];
-  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v97 - 8);
   v99 = &v204[-v98];
-  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v101 = *(v100 - 8);
   MEMORY[0x1EEE9AC00](v100);
   v103 = &v204[-((v102 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -1098,10 +719,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
   {
     v205 = v110;
     v280 = a1;
-    outlined init with copy of Date?(a1, v99, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(a1, v99, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     if ((*(v101 + 48))(v99, 1, v100) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v99, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v99, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
       v111 = v1;
     }
 
@@ -1120,7 +741,7 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
     v113 = v279;
     v279 = type metadata accessor for Shape.Partial(0);
-    outlined init with copy of Date?(v280 + v279[5], v87, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v280 + v279[5], v87, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     v114 = v276;
     v115 = *(v276 + 48);
     v116 = v272;
@@ -1130,7 +751,7 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     v118 = v242;
     if (v117 == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v87, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v87, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
@@ -1143,13 +764,13 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     }
 
     v120 = v235;
-    outlined init with copy of Date?(v280 + v279[6], v235, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[6], v235, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
     v121 = *(v113 + 6);
     v122 = (v121)(v120, 1, v118);
     v278 = v111;
     if (v122 == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v120, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v120, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
     }
 
     else
@@ -1173,10 +794,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     }
 
     v128 = v240;
-    outlined init with copy of Date?(v280 + v279[7], v240, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[7], v240, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
     if ((v121)(v128, 1, v118) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGSgMR);
     }
 
     else
@@ -1198,10 +819,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     v129 = v248;
     v130 = v247;
     v135 = v241;
-    outlined init with copy of Date?(v280 + v279[8], v241, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v280 + v279[8], v241, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     if (v236(v135, 1, v116) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v135, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v135, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
@@ -1220,10 +841,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     }
 
     v139 = v246;
-    outlined init with copy of Date?(v280 + v279[9], v246, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+    outlined init with copy of Date?(v280 + v279[9], v246, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
     if ((*(v130 + 48))(v139, 1, v129) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v139, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v139, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGSgMR);
     }
 
     else
@@ -1246,10 +867,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     }
 
     v145 = v245;
-    outlined init with copy of Date?(v280 + v279[10], v245, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v280 + v279[10], v245, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     if (v236(v145, 1, v116) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v145, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v145, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
@@ -1270,11 +891,11 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     v149 = v273;
     v150 = v274;
     v151 = v249;
-    outlined init with copy of Date?(v280 + v279[11], v249, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+    outlined init with copy of Date?(v280 + v279[11], v249, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
     v152 = *(v149 + 48);
     if (v152(v151, 1, v277) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v151, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v151, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
     }
 
     else
@@ -1297,10 +918,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
     v158 = v257;
     v159 = v252;
-    outlined init with copy of Date?(v280 + v279[12], v252, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+    outlined init with copy of Date?(v280 + v279[12], v252, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
     if (v152(v159, 1, v277) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v159, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v159, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGSgMR);
     }
 
     else
@@ -1325,10 +946,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     v167 = v259;
     v168 = v275;
     v169 = v254;
-    outlined init with copy of Date?(v280 + v279[13], v253, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+    outlined init with copy of Date?(v280 + v279[13], v253, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
     if ((*(v169 + 48))(v165, 1, v150) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v165, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v165, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GSgMR);
     }
 
     else
@@ -1336,17 +957,17 @@ BOOL Shape.merge(delta:)(uint64_t a1)
       v170 = v216;
       (*(v169 + 32))(v216, v165, v150);
       type metadata accessor for Shape(0);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR);
       CRAttributedString.merge(delta:)();
       (*(v169 + 8))(v170, v150);
     }
 
     v171 = v255;
     v172 = v256;
-    outlined init with copy of Date?(v280 + v279[14], v255, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[14], v255, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
     if ((*(v172 + 48))(v171, 1, v158) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v171, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v171, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGSgMR);
     }
 
     else
@@ -1367,10 +988,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
     v176 = v258;
     v177 = v264;
-    outlined init with copy of Date?(v280 + v279[15], v258, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+    outlined init with copy of Date?(v280 + v279[15], v258, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
     if ((*(v167 + 48))(v176, 1, v168) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v176, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v176, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGSgMR);
     }
 
     else
@@ -1391,10 +1012,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     v181 = v260;
     v182 = v267;
     v183 = v262;
-    outlined init with copy of Date?(v280 + v279[16], v260, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+    outlined init with copy of Date?(v280 + v279[16], v260, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
     if ((*(v166 + 48))(v181, 1, v183) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v181, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v181, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGSgMR);
     }
 
     else
@@ -1414,10 +1035,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
     v187 = v263;
     v188 = v265;
-    outlined init with copy of Date?(v280 + v279[17], v263, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[17], v263, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
     if ((*(v177 + 48))(v187, 1, v188) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v187, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v187, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGSgMR);
     }
 
     else
@@ -1437,10 +1058,10 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
     v192 = v266;
     v193 = v268;
-    outlined init with copy of Date?(v280 + v279[18], v266, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[18], v266, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
     if ((*(v182 + 48))(v192, 1, v193) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v192, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v192, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGSgMR);
     }
 
     else
@@ -1459,12 +1080,12 @@ BOOL Shape.merge(delta:)(uint64_t a1)
     }
 
     v197 = v269;
-    outlined init with copy of Date?(v280 + v279[19], v269, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+    outlined init with copy of Date?(v280 + v279[19], v269, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
     v198 = v270;
     v199 = v271;
     if ((*(v270 + 48))(v197, 1, v271) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v197, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v197, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGSgMR);
     }
 
     else
@@ -1490,7 +1111,7 @@ BOOL Shape.merge(delta:)(uint64_t a1)
 
 uint64_t protocol witness for CRDT.context.getter in conformance Shape(uint64_t a1)
 {
-  v2 = _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_13(&lazy protocol witness table cache variable for type Shape and conformance Shape, type metadata accessor for Shape);
+  v2 = _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_13(&lazy protocol witness table cache variable for type Shape and conformance Shape, type metadata accessor for Shape, &protocol conformance descriptor for Shape);
 
   return MEMORY[0x1EEDF5248](a1, v2);
 }
@@ -1507,7 +1128,7 @@ uint64_t protocol witness for CRMergeable.merge(_:) in conformance Shape(uint64_
 
 uint64_t protocol witness for CRCodable.minAppFormatVersion.getter in conformance Shape()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR);
   v0 = CRAttributedString.attributedString.getter();
   v1 = [v0 string];
 
@@ -1560,91 +1181,119 @@ uint64_t _s8PaperKit9ShapeTypeOWOhTm_1(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
+double protocol witness for ShapeTextBox.textResizeBehavior.getter in conformance Shape()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
+  CRRegister.wrappedValue.getter();
+  return result;
+}
+
+double protocol witness for ShapeTextBox.textResizeBehavior.setter in conformance Shape(uint64_t *a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
+  CRRegister.wrappedValue.setter();
+  return result;
+}
+
+double protocol witness for ShapeTextBox.emptyStringAttributes.getter in conformance Shape()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
+  CRRegister.wrappedValue.getter();
+  return result;
+}
+
 uint64_t protocol witness for ShapeTextBox.emptyStringAttributes.setter in conformance Shape(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  outlined init with copy of Date?(a1, &v5 - v3, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
+  outlined init with copy of Date?(a1, &v5 - v3, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
   CRRegister.wrappedValue.setter();
-  return outlined destroy of StocksKitCurrencyCache.Provider?(a1, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd);
+  return outlined destroy of StocksKitCurrencyCache.Provider?(a1, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMR);
 }
 
 double protocol witness for ShapeTextBox.opacity.getter in conformance Shape()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
   CRRegister.wrappedValue.getter();
   return v1;
+}
+
+double protocol witness for ShapeTextBox.opacity.setter in conformance Shape(double a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
+  CRRegister.wrappedValue.setter();
+  return result;
 }
 
 uint64_t specialized static Shape.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v143 = a2;
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR);
   v107 = *(v108 - 8);
   MEMORY[0x1EEE9AC00](v108);
   v106 = v104 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
   v105 = v104 - v5;
-  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
+  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
   v111 = *(v112 - 8);
   MEMORY[0x1EEE9AC00](v112);
   v110 = v104 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
   v109 = v104 - v8;
-  v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
+  v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR);
   v115 = *(v116 - 8);
   MEMORY[0x1EEE9AC00](v116);
   v114 = v104 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
   v113 = v104 - v11;
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
+  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR);
   v119 = *(v120 - 8);
   MEMORY[0x1EEE9AC00](v120);
   v118 = v104 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
   v117 = v104 - v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
   v123 = *(v15 - 8);
   v124 = v15;
   MEMORY[0x1EEE9AC00](v15);
   v122 = v104 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
   v121 = v104 - v18;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
   v127 = *(v19 - 8);
   v128 = v19;
   MEMORY[0x1EEE9AC00](v19);
   v126 = v104 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v21);
   v125 = v104 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR);
   v131 = *(v23 - 8);
   v132 = v23;
   MEMORY[0x1EEE9AC00](v23);
   v130 = v104 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v25);
   v129 = v104 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMR);
   v135 = *(v27 - 8);
   v136 = v27;
   MEMORY[0x1EEE9AC00](v27);
   v134 = v104 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v29);
   v133 = v104 - v30;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
   v137 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v139 = v104 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v33);
   v138 = v104 - v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
   v141 = *(v35 - 8);
   MEMORY[0x1EEE9AC00](v35);
   v140 = v104 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v37);
   v39 = v104 - v38;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v41 = *(v40 - 8);
   MEMORY[0x1EEE9AC00](v40);
   v43 = v104 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1653,27 +1302,27 @@ uint64_t specialized static Shape.== infix(_:_:)(uint64_t a1, uint64_t a2)
   v142 = a1;
   CRRegister.projectedValue.getter();
   CRRegister.projectedValue.getter();
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGRect> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGRect> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR, MEMORY[0x1E6995090]);
   LOBYTE(a1) = dispatch thunk of static Equatable.== infix(_:_:)();
   v47 = *(v41 + 8);
   v47(v43, v40);
   v47(v46, v40);
   if ((a1 & 1) != 0
-    && (v48 = type metadata accessor for Shape(0), v49 = lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGFloat> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0)
-    && (v50 = v31, v104[0] = v49, CRRegister.projectedValue.getter(), v104[1] = v48, v51 = v140, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<Color?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd), v52 = dispatch thunk of static Equatable.== infix(_:_:)(), v53 = *(v141 + 8), v53(v51, v35), v53(v39, v35), (v52 & 1) != 0)
+    && (v48 = type metadata accessor for Shape(0), v49 = lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGFloat> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR, MEMORY[0x1E6995090]), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0)
+    && (v50 = v31, v104[0] = v49, CRRegister.projectedValue.getter(), v104[1] = v48, v51 = v140, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<Color?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR, MEMORY[0x1E6995090]), v52 = dispatch thunk of static Equatable.== infix(_:_:)(), v53 = *(v141 + 8), v53(v51, v35), v53(v39, v35), (v52 & 1) != 0)
     && (CRRegister.projectedValue.getter(), CRRegister.projectedValue.getter(), v54 = dispatch thunk of static Equatable.== infix(_:_:)(), v53(v51, v35), v53(v39, v35), (v54 & 1) != 0)
     && (v55 = v138, CRRegister.projectedValue.getter(), v56 = v139, CRRegister.projectedValue.getter(), v57 = dispatch thunk of static Equatable.== infix(_:_:)(), v58 = *(v137 + 8), v58(v56, v31), v58(v55, v31), (v57 & 1) != 0)
-    && (v59 = v133, v60 = v136, CRRegister.projectedValue.getter(), v61 = v134, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<ShapeType> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd), LODWORD(v141) = dispatch thunk of static Equatable.== infix(_:_:)(), v62 = *(v135 + 8), v62(v61, v60), v62(v59, v60), (v141 & 1) != 0)
+    && (v59 = v133, v60 = v136, CRRegister.projectedValue.getter(), v61 = v134, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<ShapeType> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMR, MEMORY[0x1E6995090]), LODWORD(v141) = dispatch thunk of static Equatable.== infix(_:_:)(), v62 = *(v135 + 8), v62(v61, v60), v62(v59, v60), (v141 & 1) != 0)
     && (v63 = v138, CRRegister.projectedValue.getter(), v64 = v139, CRRegister.projectedValue.getter(), v65 = dispatch thunk of static Equatable.== infix(_:_:)(), v58(v64, v50), v58(v63, v50), (v65 & 1) != 0)
-    && (v66 = v129, v67 = v132, CRRegister.projectedValue.getter(), v68 = v130, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CRExtensible<LineEnd>> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd), v69 = dispatch thunk of static Equatable.== infix(_:_:)(), v70 = *(v131 + 8), v70(v68, v67), v70(v66, v67), (v69 & 1) != 0)
+    && (v66 = v129, v67 = v132, CRRegister.projectedValue.getter(), v68 = v130, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CRExtensible<LineEnd>> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR, MEMORY[0x1E6995090]), v69 = dispatch thunk of static Equatable.== infix(_:_:)(), v70 = *(v131 + 8), v70(v68, v67), v70(v66, v67), (v69 & 1) != 0)
     && (CRRegister.projectedValue.getter(), CRRegister.projectedValue.getter(), v71 = dispatch thunk of static Equatable.== infix(_:_:)(), v70(v68, v67), v70(v66, v67), (v71 & 1) != 0)
-    && (__swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRAttributedString<TextAttributeScope> and conformance CRAttributedString<A>, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0)
-    && (v72 = v125, v73 = v128, CRRegister.projectedValue.getter(), v74 = v126, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CRAttributedString<TextAttributeScope>.Attributes?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd), v75 = dispatch thunk of static Equatable.== infix(_:_:)(), v76 = *(v127 + 8), v76(v74, v73), v76(v72, v73), (v75 & 1) != 0)
-    && (v77 = v121, v78 = v124, CRRegister.projectedValue.getter(), v79 = v122, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CanvasElementAutoresizeBehavior> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd), v80 = dispatch thunk of static Equatable.== infix(_:_:)(), v81 = *(v123 + 8), v81(v79, v78), v81(v77, v78), (v80 & 1) != 0)
-    && (v82 = v117, v83 = v120, CRRegister.projectedValue.getter(), v84 = v118, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CanvasElementFlags> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd), v85 = dispatch thunk of static Equatable.== infix(_:_:)(), v86 = *(v119 + 8), v86(v84, v83), v86(v82, v83), (v85 & 1) != 0)
-    && (v87 = v113, v88 = v116, CRRegister.projectedValue.getter(), v89 = v114, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<StrokeStyle?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd), v90 = dispatch thunk of static Equatable.== infix(_:_:)(), v91 = *(v115 + 8), v91(v89, v88), v91(v87, v88), (v90 & 1) != 0)
-    && (v92 = v109, v93 = v112, CRRegister.projectedValue.getter(), v94 = v110, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<Shadow?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd), v95 = dispatch thunk of static Equatable.== infix(_:_:)(), v96 = *(v111 + 8), v96(v94, v93), v96(v92, v93), (v95 & 1) != 0)
-    && (v97 = v105, v98 = v108, CRRegister.projectedValue.getter(), v99 = v106, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<ShapeAuxiliaryInfo?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd), v100 = dispatch thunk of static Equatable.== infix(_:_:)(), v101 = *(v107 + 8), v101(v99, v98), v101(v97, v98), (v100 & 1) != 0))
+    && (__swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRAttributedString<TextAttributeScope> and conformance CRAttributedString<A>, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR, MEMORY[0x1E69952F0]), (dispatch thunk of static Equatable.== infix(_:_:)() & 1) != 0)
+    && (v72 = v125, v73 = v128, CRRegister.projectedValue.getter(), v74 = v126, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CRAttributedString<TextAttributeScope>.Attributes?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR, MEMORY[0x1E6995090]), v75 = dispatch thunk of static Equatable.== infix(_:_:)(), v76 = *(v127 + 8), v76(v74, v73), v76(v72, v73), (v75 & 1) != 0)
+    && (v77 = v121, v78 = v124, CRRegister.projectedValue.getter(), v79 = v122, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CanvasElementAutoresizeBehavior> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR, MEMORY[0x1E6995090]), v80 = dispatch thunk of static Equatable.== infix(_:_:)(), v81 = *(v123 + 8), v81(v79, v78), v81(v77, v78), (v80 & 1) != 0)
+    && (v82 = v117, v83 = v120, CRRegister.projectedValue.getter(), v84 = v118, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CanvasElementFlags> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR, MEMORY[0x1E6995090]), v85 = dispatch thunk of static Equatable.== infix(_:_:)(), v86 = *(v119 + 8), v86(v84, v83), v86(v82, v83), (v85 & 1) != 0)
+    && (v87 = v113, v88 = v116, CRRegister.projectedValue.getter(), v89 = v114, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<StrokeStyle?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR, MEMORY[0x1E6995090]), v90 = dispatch thunk of static Equatable.== infix(_:_:)(), v91 = *(v115 + 8), v91(v89, v88), v91(v87, v88), (v90 & 1) != 0)
+    && (v92 = v109, v93 = v112, CRRegister.projectedValue.getter(), v94 = v110, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<Shadow?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR, MEMORY[0x1E6995090]), v95 = dispatch thunk of static Equatable.== infix(_:_:)(), v96 = *(v111 + 8), v96(v94, v93), v96(v92, v93), (v95 & 1) != 0)
+    && (v97 = v105, v98 = v108, CRRegister.projectedValue.getter(), v99 = v106, CRRegister.projectedValue.getter(), lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<ShapeAuxiliaryInfo?> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR, MEMORY[0x1E6995090]), v100 = dispatch thunk of static Equatable.== infix(_:_:)(), v101 = *(v107 + 8), v101(v99, v98), v101(v97, v98), (v100 & 1) != 0))
   {
     v102 = static UnknownProperties.== infix(_:_:)();
   }
@@ -1694,7 +1343,7 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
   v210 = *(v212 - 8);
   MEMORY[0x1EEE9AC00](v212);
   v211 = &v204 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit11StrokeStyleOSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit11StrokeStyleOSgMd, &_s8PaperKit11StrokeStyleOSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v217 = &v204 - v10;
   v226 = type metadata accessor for CGPathFillRule();
@@ -1709,16 +1358,16 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
   v222 = (&v204 - v15);
   MEMORY[0x1EEE9AC00](v16);
   v216 = (&v204 - v17);
-  *&v229 = COERCE_DOUBLE(type metadata accessor for Shadow());
+  *&v229 = COERCE_DOUBLE(type metadata accessor for Shadow(0));
   v236 = *(v229 - 8);
   MEMORY[0x1EEE9AC00](v229);
   v219 = &v204 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit6ShadowVSgMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit6ShadowVSgMd, &_s8PaperKit6ShadowVSgMR);
   MEMORY[0x1EEE9AC00](v19 - 8);
   v228 = &v204 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v21);
   v223 = &v204 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit5ColorVSgMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   MEMORY[0x1EEE9AC00](v23 - 8);
   v214 = &v204 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v25);
@@ -1737,14 +1386,14 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
   v39 = &v204 - v38;
   MEMORY[0x1EEE9AC00](v40);
   v42 = &v204 - v41;
-  v215 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v215 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   CRRegister.wrappedValue.getter();
   a = t1.a;
   b = t1.b;
   c = t1.c;
   d = t1.d;
   v47 = type metadata accessor for Shape(0);
-  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
+  v242 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
   CRRegister.value.getter();
   v48 = t1.a;
   v241 = a - c * 0.0;
@@ -1803,7 +1452,7 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
   CGAffineTransformConcat(&t2, &t1, &v248);
   v238 = *&a1;
   CGContextSaveGState(a1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR);
   CRRegister.wrappedValue.getter();
   v237 = a3;
   v231 = v12;
@@ -1814,7 +1463,7 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
     {
       v241 = COERCE_DOUBLE(v61);
       v62 = [*&v241 annotations];
-      type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation);
+      type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation, 0x1E6978018);
       v63 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       MEMORY[0x1EEE9AC00](v64);
@@ -1898,7 +1547,7 @@ void specialized Shape.renderSync<A>(in:id:capsule:options:)(CGContext *a1, uint
             CRRegister.wrappedValue.getter();
             v90 = t1.a - MinX;
             v91 = t1.b - v89;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR);
             CRRegister.wrappedValue.getter();
             if (*&t1.ty)
             {
@@ -1939,7 +1588,7 @@ LABEL_97:
   v97 = v246;
   v98 = v247;
   v99 = v47[11];
-  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
+  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR);
   v209 = v99;
   CRRegister.wrappedValue.getter();
   v101 = 1;
@@ -1964,30 +1613,30 @@ LABEL_97:
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
     CRRegister.wrappedValue.getter();
     v102 = *(v12 + 48);
     v103 = v12;
     v104 = v239;
     v105 = v102(v42, 1, v239) != 1;
-    outlined destroy of StocksKitCurrencyCache.Provider?(v42, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v42, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   }
 
   v106 = v47[6];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
   *&v230 = v106;
   CRRegister.wrappedValue.getter();
   v241 = *(v103 + 48);
   LODWORD(v106) = (*&v241)(v39, 1, v104);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v39, &_s8PaperKit5ColorVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v39, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   v107 = v229;
   if (v106 == 1 || !v105 || (CRRegister.wrappedValue.getter(), t1.a >= 1.0))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
     v109 = v223;
     CRRegister.wrappedValue.getter();
     LODWORD(v240) = (*(v236 + 48))(v109, 1, v107) != 1;
-    outlined destroy of StocksKitCurrencyCache.Provider?(v109, &_s8PaperKit6ShadowVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v109, &_s8PaperKit6ShadowVSgMd, &_s8PaperKit6ShadowVSgMR);
     v75 = v234;
     if (!v101 || !v105)
     {
@@ -2072,12 +1721,12 @@ LABEL_99:
   }
 
 LABEL_38:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
   v116 = v228;
   CRRegister.wrappedValue.getter();
   if ((*(v236 + 48))(v116, 1, v107) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v116, &_s8PaperKit6ShadowVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v116, &_s8PaperKit6ShadowVSgMd, &_s8PaperKit6ShadowVSgMR);
   }
 
   else
@@ -2123,7 +1772,7 @@ LABEL_38:
     v137 = v218;
     CRRegister.wrappedValue.getter();
     v138 = (*&v241)(v137, 1, v110);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v137, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v137, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
     v139 = 1.0;
     if (v138 != 1)
     {
@@ -2149,7 +1798,7 @@ LABEL_38:
   CRRegister.wrappedValue.getter();
   if ((*&v241)(v128, 1, v110) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v128, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   }
 
   else
@@ -2205,10 +1854,10 @@ LABEL_102:
   CRRegister.wrappedValue.getter();
   if ((*&v241)(v154, 1, v110) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v154, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v154, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
     v155 = v227;
     (*(v231 + 56))(v227, 1, 1, v110);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v155, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v155, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
     v156 = v237;
 LABEL_91:
     if (LODWORD(v240))
@@ -2225,7 +1874,7 @@ LABEL_91:
     v196 = v195;
     v198 = v197;
     v200 = v199;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
     CRRegister.wrappedValue.getter();
     if ((LOBYTE(v248.a) & 2) != 0)
     {
@@ -2334,13 +1983,13 @@ LABEL_67:
       CGContextSetLineWidth(v108, t1.a);
       v173 = Shape.renderedLineCap.getter();
       CGContextSetLineCap(v108, v173);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR);
       CRRegister.wrappedValue.getter();
       v174 = (*(v210 + 48))(v164, 1, v212);
       v175 = v211;
       if (v174 == 1)
       {
-        outlined destroy of StocksKitCurrencyCache.Provider?(v164, &_s8PaperKit11StrokeStyleOSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v164, &_s8PaperKit11StrokeStyleOSgMd, &_s8PaperKit11StrokeStyleOSgMR);
       }
 
       else
@@ -2479,24 +2128,24 @@ uint64_t specialized Shape.render<A>(in:id:capsule:options:)()
 
 uint64_t specialized Shape.hdrHeadroom(in:)()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV4RunsVy8PaperKit18TextAttributeScopeV_GMd);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringV4RunsVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV4RunsVy8PaperKit18TextAttributeScopeV_GMR);
   v12 = *(v0 - 8);
   v13 = v0;
   MEMORY[0x1EEE9AC00](v0);
   v2 = &v12 - v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit5ColorVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v12 - v7;
   type metadata accessor for Shape(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
   CRRegister.wrappedValue.getter();
   v9 = type metadata accessor for Color(0);
   v10 = *(*(v9 - 8) + 48);
   if (v10(v8, 1, v9) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   }
 
   else
@@ -2508,7 +2157,7 @@ uint64_t specialized Shape.hdrHeadroom(in:)()
   CRRegister.wrappedValue.getter();
   if (v10(v5, 1, v9) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s8PaperKit5ColorVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR);
   }
 
   else
@@ -2517,7 +2166,7 @@ uint64_t specialized Shape.hdrHeadroom(in:)()
     _s8PaperKit9ShapeTypeOWOhTm_1(v5, type metadata accessor for Color);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR);
   CRAttributedString.runs.getter();
   CRAttributedString.Runs<>.maxHDRHeadroom.getter();
   return (*(v12 + 8))(v2, v13);
@@ -2525,11 +2174,11 @@ uint64_t specialized Shape.hdrHeadroom(in:)()
 
 uint64_t specialized Shape.indexableTextContent<A>(in:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8PaperKit20IndexableTextContentVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy8PaperKit20IndexableTextContentVGMd, &_ss23_ContiguousArrayStorageCy8PaperKit20IndexableTextContentVGMR);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1D4058CF0;
   type metadata accessor for Shape(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMd, &_s9Coherence18CRAttributedStringVy8PaperKit18TextAttributeScopeVGMR);
   v1 = CRAttributedString.attributedString.getter();
   v2 = [v1 string];
 
@@ -2551,46 +2200,46 @@ uint64_t _s8PaperKit9ShapeTypeOWObTm_0(uint64_t a1, uint64_t a2, uint64_t (*a3)(
   return a2;
 }
 
-void type metadata completion function for Shape()
+void type metadata completion function for Shape(uint64_t a1)
 {
-  type metadata accessor for CRRegister<CGRect>();
-  if (v0 <= 0x3F)
+  type metadata accessor for CRRegister<CGRect>(319);
+  if (v1 <= 0x3F)
   {
     _s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMaTm_1(319, &lazy cache variable for type metadata for CRRegister<CGFloat>, lazy protocol witness table accessor for type CGFloat and conformance CGFloat, MEMORY[0x1E69E7DE0], MEMORY[0x1E6995070]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for CRRegister<Color?>(319, &lazy cache variable for type metadata for CRRegister<Color?>, &_s8PaperKit5ColorVSgMd, &_s8PaperKit5ColorVSgMR, lazy protocol witness table accessor for type Color? and conformance <A> A?);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for CRRegister<ShapeType>();
-        if (v3 <= 0x3F)
+        type metadata accessor for CRRegister<ShapeType>(319);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for CRRegister<CRExtensible<LineEnd>>();
-          if (v4 <= 0x3F)
+          type metadata accessor for CRRegister<CRExtensible<LineEnd>>(319);
+          if (v5 <= 0x3F)
           {
             _s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMaTm_1(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>, lazy protocol witness table accessor for type TextAttributeScope and conformance TextAttributeScope, &type metadata for TextAttributeScope, MEMORY[0x1E69952D8]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               type metadata accessor for CRRegister<Color?>(319, &lazy cache variable for type metadata for CRRegister<CRAttributedString<TextAttributeScope>.Attributes?>, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMd, &_s9Coherence18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgMR, lazy protocol witness table accessor for type CRAttributedString<TextAttributeScope>.Attributes? and conformance <A> A?);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 _s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMaTm_1(319, &lazy cache variable for type metadata for CRRegister<CanvasElementAutoresizeBehavior>, lazy protocol witness table accessor for type CanvasElementAutoresizeBehavior and conformance CanvasElementAutoresizeBehavior, &type metadata for CanvasElementAutoresizeBehavior, MEMORY[0x1E6995070]);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   _s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMaTm_1(319, &lazy cache variable for type metadata for CRRegister<CanvasElementFlags>, lazy protocol witness table accessor for type CanvasElementFlags and conformance CanvasElementFlags, &type metadata for CanvasElementFlags, MEMORY[0x1E6995070]);
-                  if (v8 <= 0x3F)
+                  if (v9 <= 0x3F)
                   {
                     type metadata accessor for CRRegister<Color?>(319, &lazy cache variable for type metadata for CRRegister<StrokeStyle?>, &_s8PaperKit11StrokeStyleOSgMd, &_s8PaperKit11StrokeStyleOSgMR, lazy protocol witness table accessor for type StrokeStyle? and conformance <A> A?);
-                    if (v9 <= 0x3F)
+                    if (v10 <= 0x3F)
                     {
                       type metadata accessor for CRRegister<Color?>(319, &lazy cache variable for type metadata for CRRegister<Shadow?>, &_s8PaperKit6ShadowVSgMd, &_s8PaperKit6ShadowVSgMR, lazy protocol witness table accessor for type Shadow? and conformance <A> A?);
-                      if (v10 <= 0x3F)
+                      if (v11 <= 0x3F)
                       {
                         type metadata accessor for CRRegister<Color?>(319, &lazy cache variable for type metadata for CRRegister<ShapeAuxiliaryInfo?>, &_s8PaperKit18ShapeAuxiliaryInfoVSgMd, &_s8PaperKit18ShapeAuxiliaryInfoVSgMR, lazy protocol witness table accessor for type ShapeAuxiliaryInfo? and conformance <A> A?);
-                        if (v11 <= 0x3F)
+                        if (v12 <= 0x3F)
                         {
                           type metadata accessor for UnknownProperties();
-                          if (v12 <= 0x3F)
+                          if (v13 <= 0x3F)
                           {
                             swift_cvw_initStructMetadataWithLayoutString();
                           }
@@ -2608,39 +2257,39 @@ void type metadata completion function for Shape()
   }
 }
 
-void type metadata accessor for CRRegister<ShapeType>()
+void type metadata accessor for CRRegister<ShapeType>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CRRegister<ShapeType>)
   {
     type metadata accessor for ShapeType(255);
-    _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_13(&lazy protocol witness table cache variable for type ShapeType and conformance ShapeType, type metadata accessor for ShapeType);
-    v0 = type metadata accessor for CRRegister();
-    if (!v1)
+    _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_13(&lazy protocol witness table cache variable for type ShapeType and conformance ShapeType, type metadata accessor for ShapeType, &protocol conformance descriptor for ShapeType);
+    v1 = type metadata accessor for CRRegister();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CRRegister<ShapeType>);
+      atomic_store(v1, &lazy cache variable for type metadata for CRRegister<ShapeType>);
     }
   }
 }
 
-void type metadata accessor for CRRegister<CRExtensible<LineEnd>>()
+void type metadata accessor for CRRegister<CRExtensible<LineEnd>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMd);
-    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRExtensible<LineEnd> and conformance CRExtensible<A>, &_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMd);
-    v0 = type metadata accessor for CRRegister();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMd, &_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMR);
+    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRExtensible<LineEnd> and conformance CRExtensible<A>, &_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMd, &_s9Coherence12CRExtensibleOy8PaperKit7LineEndOGMR, MEMORY[0x1E69950E8]);
+    v1 = type metadata accessor for CRRegister();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>);
+      atomic_store(v1, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>);
     }
   }
 }
 
-void type metadata accessor for CRRegister<Color?>(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t a4, void (*a5)(void))
+void type metadata accessor for CRRegister<Color?>(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(void))
 {
   if (!*a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3, a4);
     a5();
     v7 = type metadata accessor for CRRegister();
     if (!v8)
@@ -2650,19 +2299,19 @@ void type metadata accessor for CRRegister<Color?>(uint64_t a1, unint64_t *a2, u
   }
 }
 
-void type metadata completion function for Shape.ObservableDifference()
+void type metadata completion function for Shape.ObservableDifference(uint64_t a1)
 {
   _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(319, &lazy cache variable for type metadata for CRValueObservableDifference?, MEMORY[0x1E6995380]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(319, &lazy cache variable for type metadata for ShapeType.ObservableDifference?, type metadata accessor for ShapeType.ObservableDifference);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.ObservableDifference?, &_s9Coherence18CRAttributedStringV20ObservableDifferenceVy8PaperKit18TextAttributeScopeV_GMd);
-      if (v2 <= 0x3F)
+      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.ObservableDifference?, &_s9Coherence18CRAttributedStringV20ObservableDifferenceVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV20ObservableDifferenceVy8PaperKit18TextAttributeScopeV_GMR);
+      if (v3 <= 0x3F)
       {
         _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(319, &lazy cache variable for type metadata for StrokeStyle.ObservableDifference?, type metadata accessor for StrokeStyle.ObservableDifference);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -2671,7 +2320,7 @@ void type metadata completion function for Shape.ObservableDifference()
   }
 }
 
-void _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -2684,43 +2333,43 @@ void _s9Coherence27CRValueObservableDifferenceOSgMaTm_3(uint64_t a1, unint64_t *
   }
 }
 
-void type metadata completion function for Shape.MutatingAction()
+void type metadata completion function for Shape.MutatingAction(uint64_t a1)
 {
-  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGRect>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GMd);
-  if (v0 <= 0x3F)
+  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGRect>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GMR);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGFloat>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy12CoreGraphics7CGFloatV_AhA7CRValue8PaperKityHCg_GMd);
-    if (v1 <= 0x3F)
+    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGFloat>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy12CoreGraphics7CGFloatV_AhA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy12CoreGraphics7CGFloatV_AhA7CRValue8PaperKityHCg_GMR);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Color?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit5ColorVSg_GMd);
-      if (v2 <= 0x3F)
+      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Color?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit5ColorVSg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit5ColorVSg_GMR);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeType>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit9ShapeTypeO_GMd);
-        if (v3 <= 0x3F)
+        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeType>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit9ShapeTypeO_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit9ShapeTypeO_GMR);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVyAA12CRExtensibleOy8PaperKit7LineEndOG_GMd);
-          if (v4 <= 0x3F)
+          type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVyAA12CRExtensibleOy8PaperKit7LineEndOG_GMd, &_s9Coherence10CRRegisterV14MutatingActionVyAA12CRExtensibleOy8PaperKit7LineEndOG_GMR);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.MutatingAction?, &_s9Coherence18CRAttributedStringV14MutatingActionVy8PaperKit18TextAttributeScopeV_GMd);
-            if (v5 <= 0x3F)
+            type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.MutatingAction?, &_s9Coherence18CRAttributedStringV14MutatingActionVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV14MutatingActionVy8PaperKit18TextAttributeScopeV_GMR);
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRAttributedString<TextAttributeScope>.Attributes?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSg_GMd);
-              if (v6 <= 0x3F)
+              type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRAttributedString<TextAttributeScope>.Attributes?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSg_GMR);
+              if (v7 <= 0x3F)
               {
-                type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementAutoresizeBehavior>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit31CanvasElementAutoresizeBehaviorV_GMd);
-                if (v7 <= 0x3F)
+                type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementAutoresizeBehavior>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit31CanvasElementAutoresizeBehaviorV_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit31CanvasElementAutoresizeBehaviorV_GMR);
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementFlags>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18CanvasElementFlagsV_GMd);
-                  if (v8 <= 0x3F)
+                  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementFlags>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18CanvasElementFlagsV_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18CanvasElementFlagsV_GMR);
+                  if (v9 <= 0x3F)
                   {
-                    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<StrokeStyle?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit11StrokeStyleOSg_GMd);
-                    if (v9 <= 0x3F)
+                    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<StrokeStyle?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit11StrokeStyleOSg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit11StrokeStyleOSg_GMR);
+                    if (v10 <= 0x3F)
                     {
-                      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Shadow?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit6ShadowVSg_GMd);
-                      if (v10 <= 0x3F)
+                      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Shadow?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit6ShadowVSg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit6ShadowVSg_GMR);
+                      if (v11 <= 0x3F)
                       {
-                        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeAuxiliaryInfo?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18ShapeAuxiliaryInfoVSg_GMd);
-                        if (v11 <= 0x3F)
+                        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeAuxiliaryInfo?>.MutatingAction?, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18ShapeAuxiliaryInfoVSg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVy8PaperKit18ShapeAuxiliaryInfoVSg_GMR);
+                        if (v12 <= 0x3F)
                         {
                           swift_cvw_initStructMetadataWithLayoutString();
                         }
@@ -2737,43 +2386,43 @@ void type metadata completion function for Shape.MutatingAction()
   }
 }
 
-void type metadata completion function for Shape.Partial()
+void type metadata completion function for Shape.Partial(uint64_t a1)
 {
-  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGRect>?, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
-  if (v0 <= 0x3F)
+  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGRect>?, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGFloat>?, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd);
-    if (v1 <= 0x3F)
+    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CGFloat>?, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVy12CoreGraphics7CGFloatVAfA7CRValue8PaperKityHCg_GMR);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Color?>?, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd);
-      if (v2 <= 0x3F)
+      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Color?>?, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit5ColorVSgGMR);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeType>?, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd);
-        if (v3 <= 0x3F)
+        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeType>?, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMd, &_s9Coherence10CRRegisterVy8PaperKit9ShapeTypeOGMR);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>?, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd);
-          if (v4 <= 0x3F)
+          type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRExtensible<LineEnd>>?, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMd, &_s9Coherence10CRRegisterVyAA12CRExtensibleOy8PaperKit7LineEndOGGMR);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.Partial?, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd);
-            if (v5 <= 0x3F)
+            type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRAttributedString<TextAttributeScope>.Partial?, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMd, &_s9Coherence18CRAttributedStringV7PartialVy8PaperKit18TextAttributeScopeV_GMR);
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRAttributedString<TextAttributeScope>.Attributes?>?, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd);
-              if (v6 <= 0x3F)
+              type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CRAttributedString<TextAttributeScope>.Attributes?>?, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMd, &_s9Coherence10CRRegisterVyAA18CRAttributedStringV10AttributesVy8PaperKit18TextAttributeScopeV_GSgGMR);
+              if (v7 <= 0x3F)
               {
-                type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementAutoresizeBehavior>?, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd);
-                if (v7 <= 0x3F)
+                type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementAutoresizeBehavior>?, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMd, &_s9Coherence10CRRegisterVy8PaperKit31CanvasElementAutoresizeBehaviorVGMR);
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementFlags>?, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd);
-                  if (v8 <= 0x3F)
+                  type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<CanvasElementFlags>?, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMd, &_s9Coherence10CRRegisterVy8PaperKit18CanvasElementFlagsVGMR);
+                  if (v9 <= 0x3F)
                   {
-                    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<StrokeStyle?>?, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd);
-                    if (v9 <= 0x3F)
+                    type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<StrokeStyle?>?, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMd, &_s9Coherence10CRRegisterVy8PaperKit11StrokeStyleOSgGMR);
+                    if (v10 <= 0x3F)
                     {
-                      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Shadow?>?, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd);
-                      if (v10 <= 0x3F)
+                      type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<Shadow?>?, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit6ShadowVSgGMR);
+                      if (v11 <= 0x3F)
                       {
-                        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeAuxiliaryInfo?>?, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd);
-                        if (v11 <= 0x3F)
+                        type metadata accessor for Ref<PKStrokeInheritedProperties>.ObservableDifference?(319, &lazy cache variable for type metadata for CRRegister<ShapeAuxiliaryInfo?>?, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMd, &_s9Coherence10CRRegisterVy8PaperKit18ShapeAuxiliaryInfoVSgGMR);
+                        if (v12 <= 0x3F)
                         {
                           swift_cvw_initStructMetadataWithLayoutString();
                         }
@@ -2790,11 +2439,13 @@ void type metadata completion function for Shape.Partial()
   }
 }
 
-uint64_t block_copy_helper_66(uint64_t a1, uint64_t a2)
+double block_copy_helper_66(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 unint64_t ShapeConfiguration.Shape.symbolName.getter()
@@ -2858,7 +2509,7 @@ unint64_t lazy protocol witness table accessor for type [ShapeConfiguration.Shap
   result = lazy protocol witness table cache variable for type [ShapeConfiguration.Shape] and conformance [A];
   if (!lazy protocol witness table cache variable for type [ShapeConfiguration.Shape] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8PaperKit18ShapeConfigurationV0C0OGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay8PaperKit18ShapeConfigurationV0C0OGMd, &_sSay8PaperKit18ShapeConfigurationV0C0OGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [ShapeConfiguration.Shape] and conformance [A]);
   }
@@ -2868,7 +2519,7 @@ unint64_t lazy protocol witness table accessor for type [ShapeConfiguration.Shap
 
 uint64_t CanvasCalculateDocument.expressionForAnyGraphable(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v15 - v7;
   v9 = type metadata accessor for UUID();
@@ -2876,13 +2527,13 @@ uint64_t CanvasCalculateDocument.expressionForAnyGraphable(_:)(uint64_t a1, uint
   MEMORY[0x1EEE9AC00](v9);
   v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for GraphableExpression(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySSGMd, &_s9Coherence10CRRegisterVySSGMR);
   CRRegister.wrappedValue.getter();
   UUID.init(uuidString:)();
 
   if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_s10Foundation4UUIDVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   }
 
   else
@@ -2900,25 +2551,25 @@ uint64_t CanvasCalculateDocument.expressionForAnyGraphable(_:)(uint64_t a1, uint
   return (*(a3 + 56))(a1, a2, a3);
 }
 
-BOOL CalculateExpression.isActuallyGraphable.getter()
+BOOL CalculateExpression.isActuallyGraphable.getter(__n128 a1)
 {
   if (CalculateExpression.isGraphable.getter())
   {
     return 1;
   }
 
-  v5 = &type metadata for PencilAndPaperFeatureFlags;
-  v6 = lazy protocol witness table accessor for type PencilAndPaperFeatureFlags and conformance PencilAndPaperFeatureFlags();
-  v4[0] = 7;
-  v1 = isFeatureEnabled(_:)();
-  __swift_destroy_boxed_opaque_existential_0(v4);
-  if ((v1 & 1) == 0)
+  v5[3] = &type metadata for PencilAndPaperFeatureFlags;
+  v5[4] = lazy protocol witness table accessor for type PencilAndPaperFeatureFlags and conformance PencilAndPaperFeatureFlags();
+  LOBYTE(v5[0]) = 7;
+  v2 = isFeatureEnabled(_:)();
+  __swift_destroy_boxed_opaque_existential_0(v5);
+  if ((v2 & 1) == 0)
   {
     return 0;
   }
 
   CalculateExpression.graphableVariable.getter();
-  if (v2)
+  if (v3)
   {
 
     return 1;
@@ -2926,25 +2577,25 @@ BOOL CalculateExpression.isActuallyGraphable.getter()
 
   else
   {
-    v3 = *(CalculateExpression.graphableVariables.getter() + 16);
+    v4 = *(CalculateExpression.graphableVariables.getter() + 16);
 
-    return v3 != 0;
+    return v4 != 0;
   }
 }
 
 void *CalculateExpression.pkTokens.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, _s10Foundation6LocaleVSgMR);
   MEMORY[0x1EEE9AC00](v1 - 8);
-  v123 = &v106 - v2;
-  v119 = type metadata accessor for CalculateExpression.TokenType();
-  v3 = *(v119 - 8);
-  MEMORY[0x1EEE9AC00](v119);
-  v118 = &v106 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v138 = MEMORY[0x1E69E7CC0];
-  v131 = CalculateExpression.expression.getter();
+  v127 = &v110 - v2;
+  v123 = type metadata accessor for CalculateExpression.TokenType();
+  v3 = *(v123 - 8);
+  MEMORY[0x1EEE9AC00](v123);
+  v122 = &v110 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v142 = MEMORY[0x1E69E7CC0];
+  v135 = CalculateExpression.expression.getter();
   v6 = v5;
-  v117 = v0;
+  v121 = v0;
   CalculateExpression.plain.getter();
   v7 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
 
@@ -2952,9 +2603,9 @@ void *CalculateExpression.pkTokens.getter()
   if (v7 >> 62)
   {
 LABEL_67:
-    v74 = v8;
+    v76 = v8;
     v9 = __CocoaSet.count.getter();
-    v8 = v74;
+    v8 = v76;
     if (v9)
     {
       goto LABEL_3;
@@ -2962,111 +2613,112 @@ LABEL_67:
 
 LABEL_68:
 
-    v124 = 0;
-    v73 = MEMORY[0x1E69E7CC0];
+    v128 = 0;
+    v75 = MEMORY[0x1E69E7CC0];
 LABEL_69:
-    v75 = CalculateExpression.error.getter();
-    if (v75)
+    v77 = CalculateExpression.error.getter();
+    if (v77)
     {
-      v76 = v75;
-      if (CalculateExpression.pkShouldShowErrors.getter() & 1) == 0 || (CalculateExpression.isGraphable.getter())
+      v79 = v77;
+      CalculateExpression.pkShouldShowErrors.getter(v78);
+      if (v80 & 1) == 0 || (CalculateExpression.isGraphable.getter())
       {
 LABEL_72:
 
 LABEL_77:
-        v72 = specialized _arrayForceCast<A, B>(_:)(v73);
+        v74 = specialized _arrayForceCast<A, B>(_:)(v75);
 
-        return v72;
+        return v74;
       }
 
       CalculateExpression.graphableVariable.getter();
-      if (!v77)
+      if (!v81)
       {
-        v79 = *(CalculateExpression.graphableVariables.getter() + 16);
+        v83 = *(CalculateExpression.graphableVariables.getter() + 16);
 
-        if (v79 != 1 && !v124)
+        if (v83 != 1 && !v128)
         {
           swift_getErrorValue();
-          v80 = Error.localizedDescription.getter();
-          v82 = v81;
+          v84 = Error.localizedDescription.getter();
+          v86 = v85;
 
-          v83 = HIBYTE(v82) & 0xF;
-          if ((v82 & 0x2000000000000000) == 0)
+          v87 = HIBYTE(v86) & 0xF;
+          if ((v86 & 0x2000000000000000) == 0)
           {
-            v83 = v80 & 0xFFFFFFFFFFFFLL;
+            v87 = v84 & 0xFFFFFFFFFFFFLL;
           }
 
-          if (v83)
+          if (v87)
           {
             swift_getErrorValue();
-            v84 = Error.localizedDescription.getter();
-            v86 = v85;
+            v88 = Error.localizedDescription.getter();
+            v90 = v89;
             if (one-time initialization token for mathLogger != -1)
             {
               swift_once();
             }
 
-            v87 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v87, mathLogger);
+            v91 = type metadata accessor for Logger();
+            __swift_project_value_buffer(v91, mathLogger);
 
-            v88 = Logger.logObject.getter();
-            v89 = static os_log_type_t.default.getter();
+            v92 = Logger.logObject.getter();
+            v93 = static os_log_type_t.default.getter();
 
-            if (os_log_type_enabled(v88, v89))
+            if (os_log_type_enabled(v92, v93))
             {
-              v90 = swift_slowAlloc();
-              v91 = swift_slowAlloc();
-              v134 = v91;
-              *v90 = 136380931;
-              v92 = CalculateExpression.expression.getter();
-              v94 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v93, &v134);
+              v94 = swift_slowAlloc();
+              v95 = swift_slowAlloc();
+              v138 = v95;
+              *v94 = 136380931;
+              v96 = CalculateExpression.expression.getter();
+              v98 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v97, &v138);
 
-              *(v90 + 4) = v94;
-              *(v90 + 12) = 2080;
-              *(v90 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v84, v86, &v134);
-              _os_log_impl(&dword_1D38C4000, v88, v89, "Found expression error for: %{private}s => %s", v90, 0x16u);
+              *(v94 + 4) = v98;
+              *(v94 + 12) = 2080;
+              *(v94 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, v90, &v138);
+              _os_log_impl(&dword_1D38C4000, v92, v93, "Found expression error for: %{private}s => %s", v94, 0x16u);
               swift_arrayDestroy();
-              MEMORY[0x1DA6D0660](v91, -1, -1);
-              MEMORY[0x1DA6D0660](v90, -1, -1);
+              MEMORY[0x1DA6D0660](v95, -1, -1);
+              MEMORY[0x1DA6D0660](v94, -1, -1);
             }
 
-            v95 = [objc_allocWithZone(MEMORY[0x1E6978488]) init];
-            v96 = MEMORY[0x1DA6CCED0](v84, v86);
+            v99 = [objc_allocWithZone(MEMORY[0x1E6978488]) init];
+            v100 = MEMORY[0x1DA6CCED0](v88, v90);
 
-            [v95 setErrorString_];
+            [v99 setErrorString_];
 
-            v97 = _convertErrorToNSError(_:)();
-            v98 = [v97 localizedFailureReason];
+            v101 = _convertErrorToNSError(_:)();
+            v102 = [v101 localizedFailureReason];
 
-            [v95 setErrorReasonString_];
-            v99 = [objc_allocWithZone(MEMORY[0x1E69784A0]) init];
-            [v99 setType_];
-            v100 = v131;
-            [v99 setCharacterRange_];
-            v101 = MEMORY[0x1DA6CCED0](v100, v6);
+            [v99 setErrorReasonString_];
+            v103 = [objc_allocWithZone(MEMORY[0x1E69784A0]) init];
+            [v103 setType_];
+            v104 = v135;
+            [v103 setCharacterRange_];
+            v105 = MEMORY[0x1DA6CCED0](v104, v6);
 
-            [v99 setText_];
+            [v103 setText_];
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-            v102 = swift_allocObject();
-            *(v102 + 16) = xmmword_1D405CEB0;
-            *(v102 + 32) = v95;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+            v106 = swift_allocObject();
+            *(v106 + 16) = xmmword_1D405CEB0;
+            *(v106 + 32) = v99;
             type metadata accessor for PKMathRecognitionError();
-            v103 = v95;
+            v107 = v99;
             isa = Array._bridgeToObjectiveC()().super.isa;
 
-            [v99 setErrors_];
+            [v103 setErrors_];
 
-            v105 = v99;
+            v109 = v103;
             MEMORY[0x1DA6CD190]();
-            if (*((v138 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v138 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v142 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v142 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
             specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-            v73 = v138;
+            v75 = v142;
             goto LABEL_77;
           }
         }
@@ -3085,39 +2737,39 @@ LABEL_77:
   }
 
 LABEL_3:
-  v124 = 0;
+  v128 = 0;
   v10 = 0;
-  v116 = v8 & 0xC000000000000001;
-  v108 = v8 & 0xFFFFFFFFFFFFFF8;
-  v110 = v8;
-  v107 = v8 + 32;
-  v115 = (v3 + 88);
-  v114 = *MEMORY[0x1E6992178];
-  v109 = *MEMORY[0x1E69921A8];
-  v106 = (v3 + 8);
+  v120 = v8 & 0xC000000000000001;
+  v112 = v8 & 0xFFFFFFFFFFFFFF8;
+  v114 = v8;
+  v111 = v8 + 32;
+  v119 = (v3 + 88);
+  v118 = *MEMORY[0x1E6992178];
+  v113 = *MEMORY[0x1E69921A8];
+  v110 = (v3 + 8);
   v11 = HIBYTE(v6) & 0xF;
   if ((v6 & 0x2000000000000000) == 0)
   {
-    v11 = v131 & 0xFFFFFFFFFFFFLL;
+    v11 = v135 & 0xFFFFFFFFFFFFLL;
   }
 
   v12 = 11;
-  if (((v6 >> 60) & ((v131 & 0x800000000000000) == 0)) == 0)
+  if (((v6 >> 60) & ((v135 & 0x800000000000000) == 0)) == 0)
   {
     v12 = 7;
   }
 
-  v122 = v12 | (v11 << 16);
-  v113 = 4 * v11;
+  v126 = v12 | (v11 << 16);
+  v117 = 4 * v11;
   v3 = 15;
-  v111 = MEMORY[0x1E69E7CC0];
-  v128 = v6;
-  v112 = v9;
+  v115 = MEMORY[0x1E69E7CC0];
+  v132 = v6;
+  v116 = v9;
   while (1)
   {
-    if (v116)
+    if (v120)
     {
-      v8 = MEMORY[0x1DA6CE0C0](v10, v110);
+      v8 = MEMORY[0x1DA6CE0C0](v10, v114);
       v13 = v8;
       v14 = __OFADD__(v10, 1);
       v15 = v10 + 1;
@@ -3129,12 +2781,12 @@ LABEL_3:
 
     else
     {
-      if (v10 >= *(v108 + 16))
+      if (v10 >= *(v112 + 16))
       {
         goto LABEL_66;
       }
 
-      v13 = *(v107 + 8 * v10);
+      v13 = *(v111 + 8 * v10);
 
       v14 = __OFADD__(v10, 1);
       v15 = v10 + 1;
@@ -3150,32 +2802,32 @@ LABEL_66:
       }
     }
 
-    v125 = v15;
+    v129 = v15;
     v16 = dispatch thunk of CalculateExpression.Token.text.getter();
     v18 = v17;
     if (String.count.getter() < 2)
     {
-      v121 = 0;
-      v126 = 0xE000000000000000;
+      v125 = 0;
+      v130 = 0xE000000000000000;
     }
 
     else
     {
-      v121 = String.stringByInsertingLaTeXSpaces()(v16, v18);
-      v126 = v19;
+      v125 = String.stringByInsertingLaTeXSpaces()(v16, v18);
+      v130 = v19;
     }
 
     v20 = [objc_allocWithZone(MEMORY[0x1E69784A0]) init];
     [v20 setIsTrigonometric_];
-    v21 = v118;
+    v21 = v122;
     CalculateExpression.Token.type.getter();
-    v22 = (*v115)(v21, v119);
-    if (v22 == v114)
+    v22 = (*v119)(v21, v123);
+    if (v22 == v118)
     {
       v8 = [v20 setType_];
     }
 
-    else if (v22 == v109)
+    else if (v22 == v113)
     {
       v8 = [v20 setType_];
     }
@@ -3183,41 +2835,41 @@ LABEL_66:
     else
     {
       [v20 setType_];
-      v8 = (*v106)(v118, v119);
+      v8 = (*v110)(v122, v123);
     }
 
-    if (v113 < v3 >> 14)
+    if (v117 < v3 >> 14)
     {
       goto LABEL_65;
     }
 
-    v129 = v20;
-    v130 = v13;
-    v134 = String.subscript.getter();
-    v135 = v23;
-    v136 = v24;
-    v137 = v25;
-    v120 = v16;
-    v132 = v16;
-    v133 = v18;
+    v133 = v20;
+    v134 = v13;
+    v138 = String.subscript.getter();
+    v139 = v23;
+    v140 = v24;
+    v141 = v25;
+    v124 = v16;
+    v136 = v16;
+    v137 = v18;
     v26 = type metadata accessor for Locale();
     v27 = *(*(v26 - 8) + 56);
-    v28 = v123;
-    v27(v123, 1, 1, v26);
+    v28 = v127;
+    v27(v127, 1, 1, v26);
     lazy protocol witness table accessor for type Substring and conformance Substring();
-    v127 = lazy protocol witness table accessor for type String and conformance String();
+    v131 = lazy protocol witness table accessor for type String and conformance String();
     v29 = StringProtocol.range<A>(of:options:range:locale:)();
     v31 = v30;
-    outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s10Foundation6LocaleVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s10Foundation6LocaleVSgMd, _s10Foundation6LocaleVSgMR);
 
     if (v31)
     {
       break;
     }
 
-    v40 = v120;
+    v40 = v124;
 LABEL_33:
-    v41 = v129;
+    v41 = v133;
     if ((v18 & 0x1000000000000000) != 0)
     {
       v42 = String.UTF16View._foreignCount()();
@@ -3231,150 +2883,151 @@ LABEL_33:
     v43 = v42;
     if ([v41 type] || (dispatch thunk of CalculateExpression.Token.isTrigonometric.getter() & 1) != 0)
     {
-      v44 = MEMORY[0x1E69E7CC0];
-      v132 = MEMORY[0x1E69E7CC0];
-      if (CalculateExpression.pkShouldShowErrors.getter())
+      v45 = MEMORY[0x1E69E7CC0];
+      v136 = MEMORY[0x1E69E7CC0];
+      CalculateExpression.pkShouldShowErrors.getter(v44);
+      if (v46)
       {
-        v126 = v29;
-        v45 = dispatch thunk of CalculateExpression.Token.errors.getter();
-        v46 = *(v45 + 16);
-        v121 = v45;
-        if (v46)
+        v130 = v29;
+        v47 = dispatch thunk of CalculateExpression.Token.errors.getter();
+        v48 = *(v47 + 16);
+        v125 = v47;
+        if (v48)
         {
-          v47 = (v45 + 32);
+          v49 = (v47 + 32);
           do
           {
-            v48 = *v47;
+            v50 = *v49;
             swift_getErrorValue();
-            v49 = v48;
-            v50 = Error.localizedDescription.getter();
-            v52 = v51;
-            v53 = HIBYTE(v51) & 0xF;
-            if ((v51 & 0x2000000000000000) == 0)
+            v51 = v50;
+            v52 = Error.localizedDescription.getter();
+            v54 = v53;
+            v55 = HIBYTE(v53) & 0xF;
+            if ((v53 & 0x2000000000000000) == 0)
             {
-              v53 = v50 & 0xFFFFFFFFFFFFLL;
+              v55 = v52 & 0xFFFFFFFFFFFFLL;
             }
 
-            if (v53)
+            if (v55)
             {
-              v54 = v50;
-              v55 = [objc_allocWithZone(MEMORY[0x1E6978488]) init];
-              v56 = MEMORY[0x1DA6CCED0](v54, v52);
+              v56 = v52;
+              v57 = [objc_allocWithZone(MEMORY[0x1E6978488]) init];
+              v58 = MEMORY[0x1DA6CCED0](v56, v54);
 
-              [v55 setErrorString_];
+              [v57 setErrorString_];
 
-              v57 = _convertErrorToNSError(_:)();
-              v58 = [v57 localizedFailureReason];
+              v59 = _convertErrorToNSError(_:)();
+              v60 = [v59 localizedFailureReason];
 
-              [v55 setErrorReasonString_];
-              v59 = v55;
+              [v57 setErrorReasonString_];
+              v61 = v57;
               MEMORY[0x1DA6CD190]();
-              if (*((v132 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v132 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+              if (*((v136 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v136 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
               {
                 specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
               }
 
               specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-              v44 = v132;
+              v45 = v136;
             }
 
             else
             {
             }
 
-            ++v47;
-            --v46;
+            ++v49;
+            --v48;
           }
 
-          while (v46);
+          while (v48);
         }
 
-        v41 = v129;
+        v41 = v133;
       }
 
-      v134 = v131;
-      v135 = v128;
-      v60 = String.Index.utf16Offset<A>(in:)();
-      v61 = MEMORY[0x1DA6CCED0](v40, v18);
+      v138 = v135;
+      v139 = v132;
+      v62 = String.Index.utf16Offset<A>(in:)();
+      v63 = MEMORY[0x1DA6CCED0](v40, v18);
 
       [v41 setText_];
 
       [v41 setCharacterRange_];
       type metadata accessor for PKMathRecognitionError();
-      v62 = Array._bridgeToObjectiveC()().super.isa;
+      v64 = Array._bridgeToObjectiveC()().super.isa;
       [v41 setErrors_];
 
-      v63 = v41;
+      v65 = v41;
       MEMORY[0x1DA6CD190]();
-      if (*((v138 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v138 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v142 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v142 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v111 = v138;
-      v64 = v112;
-      if (!v124)
+      v115 = v142;
+      v66 = v116;
+      if (!v128)
       {
-        v10 = v125;
-        if (v44 >> 62)
+        v10 = v129;
+        if (v45 >> 62)
         {
-          v65 = __CocoaSet.count.getter();
+          v67 = __CocoaSet.count.getter();
         }
 
         else
         {
-          v65 = *((v44 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v67 = *((v45 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        v124 = v65 != 0;
+        v128 = v67 != 0;
         goto LABEL_10;
       }
 
-      v124 = 1;
+      v128 = 1;
     }
 
     else
     {
 
-      v64 = v112;
+      v66 = v116;
     }
 
-    v10 = v125;
+    v10 = v129;
 LABEL_10:
-    v6 = v128;
+    v6 = v132;
     v3 = String.index(_:offsetBy:)();
 
-    if (v10 == v64)
+    if (v10 == v66)
     {
 
-      v73 = v111;
+      v75 = v115;
       goto LABEL_69;
     }
   }
 
-  v18 = v126;
-  v32 = HIBYTE(v126) & 0xF;
-  v33 = v121;
-  if ((v126 & 0x2000000000000000) == 0)
+  v18 = v130;
+  v32 = HIBYTE(v130) & 0xF;
+  v33 = v125;
+  if ((v130 & 0x2000000000000000) == 0)
   {
-    v32 = v121 & 0xFFFFFFFFFFFFLL;
+    v32 = v125 & 0xFFFFFFFFFFFFLL;
   }
 
   if (v32)
   {
-    v134 = String.subscript.getter();
-    v135 = v34;
-    v136 = v35;
-    v137 = v36;
-    v132 = v33;
-    v133 = v18;
-    v37 = v123;
-    v27(v123, 1, 1, v26);
+    v138 = String.subscript.getter();
+    v139 = v34;
+    v140 = v35;
+    v141 = v36;
+    v136 = v33;
+    v137 = v18;
+    v37 = v127;
+    v27(v127, 1, 1, v26);
     v29 = StringProtocol.range<A>(of:options:range:locale:)();
     v39 = v38;
-    outlined destroy of StocksKitCurrencyCache.Provider?(v37, &_s10Foundation6LocaleVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v37, &_s10Foundation6LocaleVSgMd, _s10Foundation6LocaleVSgMR);
 
     if ((v39 & 1) == 0)
     {
@@ -3388,18 +3041,18 @@ LABEL_10:
     swift_once();
   }
 
-  v66 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v66, logger);
-  v67 = Logger.logObject.getter();
-  v68 = static os_log_type_t.default.getter();
-  v69 = os_log_type_enabled(v67, v68);
-  v70 = v129;
-  if (v69)
+  v68 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v68, logger);
+  v69 = Logger.logObject.getter();
+  v70 = static os_log_type_t.default.getter();
+  v71 = os_log_type_enabled(v69, v70);
+  v72 = v133;
+  if (v71)
   {
-    v71 = swift_slowAlloc();
-    *v71 = 0;
-    _os_log_impl(&dword_1D38C4000, v67, v68, "Error parsing Calculate tokens", v71, 2u);
-    MEMORY[0x1DA6D0660](v71, -1, -1);
+    v73 = swift_slowAlloc();
+    *v73 = 0;
+    _os_log_impl(&dword_1D38C4000, v69, v70, "Error parsing Calculate tokens", v73, 2u);
+    MEMORY[0x1DA6D0660](v73, -1, -1);
   }
 
   return MEMORY[0x1E69E7CC0];
@@ -3407,49 +3060,49 @@ LABEL_10:
 
 uint64_t CalculateExpression.isDeclaration.getter()
 {
-  v188 = *MEMORY[0x1E69E9840];
-  v173 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd);
-  MEMORY[0x1EEE9AC00](v173);
-  v155 = v146 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v192 = *MEMORY[0x1E69E9840];
+  v177 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMR);
+  MEMORY[0x1EEE9AC00](v177);
+  v159 = v150 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v1);
-  v166 = v146 - v2;
+  v170 = v150 - v2;
   MEMORY[0x1EEE9AC00](v3);
-  v167 = (v146 - v4);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+  v171 = (v150 - v4);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v7 = v146 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v150 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v156 = v146 - v9;
+  v160 = v150 - v9;
   MEMORY[0x1EEE9AC00](v10);
-  v12 = v146 - v11;
+  v12 = v150 - v11;
   MEMORY[0x1EEE9AC00](v13);
-  v15 = v146 - v14;
+  v15 = v150 - v14;
   MEMORY[0x1EEE9AC00](v16);
-  v18 = v146 - v17;
+  v18 = v150 - v17;
   MEMORY[0x1EEE9AC00](v19);
-  v21 = v146 - v20;
+  v21 = v150 - v20;
   MEMORY[0x1EEE9AC00](v22);
-  v24 = v146 - v23;
+  v24 = v150 - v23;
   MEMORY[0x1EEE9AC00](v25);
-  v169 = v146 - v26;
+  v173 = v150 - v26;
   MEMORY[0x1EEE9AC00](v27);
-  v165 = v146 - v28;
+  v169 = v150 - v28;
   MEMORY[0x1EEE9AC00](v29);
-  v170 = v146 - v30;
+  v174 = v150 - v30;
   MEMORY[0x1EEE9AC00](v31);
-  v172 = v146 - v32;
+  v176 = v150 - v32;
   MEMORY[0x1EEE9AC00](v33);
-  v174 = v146 - v34;
-  v176 = type metadata accessor for CalculateExpression.TokenType();
-  v35 = *(v176 - 8);
-  MEMORY[0x1EEE9AC00](v176);
-  v182 = v146 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v178 = v150 - v34;
+  v180 = type metadata accessor for CalculateExpression.TokenType();
+  v35 = *(v180 - 8);
+  MEMORY[0x1EEE9AC00](v180);
+  v186 = v150 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v37);
-  v183 = v146 - v38;
+  v187 = v150 - v38;
   MEMORY[0x1EEE9AC00](v39);
-  v175 = v146 - v40;
+  v179 = v150 - v40;
   MEMORY[0x1EEE9AC00](v41);
-  v43 = v146 - v42;
+  v43 = v150 - v42;
   CalculateExpression.plain.getter();
   v44 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
 
@@ -3460,17 +3113,17 @@ uint64_t CalculateExpression.isDeclaration.getter()
 
   for (i = *((v44 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = __CocoaSet.count.getter())
   {
-    v171 = v15;
-    v186 = v35;
-    v168 = v24;
-    v150 = v7;
-    v157 = v12;
-    v154 = v18;
-    v153 = v21;
+    v175 = v15;
+    v190 = v35;
+    v172 = v24;
+    v154 = v7;
+    v161 = v12;
+    v158 = v18;
+    v157 = v21;
     if (i)
     {
-      v185 = v44;
-      v187 = MEMORY[0x1E69E7CC0];
+      v189 = v44;
+      v191 = MEMORY[0x1E69E7CC0];
       specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, i & ~(i >> 63), 0);
       if (i < 0)
       {
@@ -3479,10 +3132,10 @@ uint64_t CalculateExpression.isDeclaration.getter()
       }
 
       v46 = 0;
-      v18 = v187;
-      v47 = v185 & 0xC000000000000001;
+      v18 = v191;
+      v47 = v189 & 0xC000000000000001;
       v15 = v35 + 32;
-      v7 = v176;
+      v7 = v180;
       do
       {
         if (v47)
@@ -3496,18 +3149,18 @@ uint64_t CalculateExpression.isDeclaration.getter()
 
         CalculateExpression.Token.type.getter();
 
-        v187 = v18;
+        v191 = v18;
         v12 = *(v18 + 2);
         v48 = *(v18 + 3);
         if (v12 >= v48 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v48 > 1, v12 + 1, 1);
-          v18 = v187;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v12 + 1, 1);
+          v18 = v191;
         }
 
         ++v46;
         *(v18 + 2) = v12 + 1;
-        (*(v186 + 4))(&v18[((v186[80] + 32) & ~v186[80]) + *(v186 + 9) * v12], v43, v7);
+        (*(v190 + 4))(&v18[((v190[80] + 32) & ~v190[80]) + *(v190 + 9) * v12], v43, v7);
       }
 
       while (i != v46);
@@ -3517,71 +3170,71 @@ uint64_t CalculateExpression.isDeclaration.getter()
     {
 
       v18 = MEMORY[0x1E69E7CC0];
-      v7 = v176;
+      v7 = v180;
     }
 
-    v35 = v175;
-    v181 = *(v18 + 2);
-    if (!v181)
+    v35 = v179;
+    v185 = *(v18 + 2);
+    if (!v185)
     {
       break;
     }
 
     v21 = 0;
-    v180 = (v186 + 16);
-    LODWORD(v179) = *MEMORY[0x1E6992140];
-    v24 = v186 + 8;
-    v177 = (v186 + 32);
-    v178 = (v186 + 104);
+    v184 = (v190 + 16);
+    LODWORD(v183) = *MEMORY[0x1E6992140];
+    v24 = v190 + 8;
+    v181 = (v190 + 32);
+    v182 = (v190 + 104);
     v44 = MEMORY[0x1E69E7CC0];
-    v43 = v186;
+    v43 = v190;
     while (v21 < *(v18 + 2))
     {
       v15 = v44;
-      v185 = (v43[80] + 32) & ~v43[80];
-      v184 = *(v43 + 9);
-      (*(v43 + 2))(v35, &v18[v185 + v184 * v21], v7);
-      v12 = v183;
-      (*(v43 + 13))(v183, v179, v7);
-      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType();
-      v49 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v50 = *(v43 + 1);
-      v50(v12, v7);
-      if (v49)
+      v189 = (v43[80] + 32) & ~v43[80];
+      v188 = *(v43 + 9);
+      (*(v43 + 2))(v35, &v18[v189 + v188 * v21], v7);
+      v12 = v187;
+      v49.n128_f64[0] = (*(v43 + 13))(v187, v183, v7);
+      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType(v49);
+      v50 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v51 = *(v43 + 1);
+      v51(v12, v7);
+      if (v50)
       {
-        v50(v35, v7);
+        v51(v35, v7);
         v44 = v15;
       }
 
       else
       {
-        v12 = *v177;
-        (*v177)(v182, v35, v7);
+        v12 = *v181;
+        (*v181)(v186, v35, v7);
         v44 = v15;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v187 = v15;
+        v191 = v15;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2) + 1, 1);
-          v44 = v187;
+          v44 = v191;
         }
 
-        v53 = *(v44 + 16);
-        v52 = *(v44 + 24);
-        if (v53 >= v52 >> 1)
+        v54 = *(v44 + 16);
+        v53 = *(v44 + 24);
+        if (v54 >= v53 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v52 > 1, v53 + 1, 1);
-          v44 = v187;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v53 > 1), v54 + 1, 1);
+          v44 = v191;
         }
 
-        *(v44 + 16) = v53 + 1;
-        v54 = v44 + v185 + v53 * v184;
-        v7 = v176;
-        (v12)(v54, v182, v176);
-        v35 = v175;
+        *(v44 + 16) = v54 + 1;
+        v55 = v44 + v189 + v54 * v188;
+        v7 = v180;
+        (v12)(v55, v186, v180);
+        v35 = v179;
       }
 
-      if (v181 == ++v21)
+      if (v185 == ++v21)
       {
         goto LABEL_26;
       }
@@ -3595,168 +3248,168 @@ LABEL_99:
   v44 = MEMORY[0x1E69E7CC0];
 LABEL_26:
 
-  v55 = *(v44 + 16);
-  if (v55 >= 2)
+  v56 = *(v44 + 16);
+  if (v56 >= 2)
   {
-    v56 = 2;
+    v57 = 2;
   }
 
   else
   {
-    v56 = *(v44 + 16);
+    v57 = *(v44 + 16);
   }
 
-  v57 = v186;
-  v58 = v186[80];
-  v59 = (v58 + 32) & ~v58;
-  v180 = v44 + v59;
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMd);
-  v61 = *(v57 + 9);
-  v164 = v58;
-  v162 = v60;
-  v160 = v59 + 2 * v61;
-  v62 = swift_allocObject();
-  v159 = xmmword_1D405C990;
-  *(v62 + 16) = xmmword_1D405C990;
-  v63 = v57 + 104;
-  v64 = *(v57 + 13);
-  v64(v62 + v59, *MEMORY[0x1E69921A8], v7);
-  v65 = *MEMORY[0x1E6992168];
-  v185 = v61;
-  v177 = (v62 + v59);
-  v158 = v65;
-  v163 = v63;
-  v161 = v64;
-  (v64)(v62 + v59 + v61);
-  v182 = v44;
-  v66 = v168;
-  if (v55 <= 1)
+  v58 = v190;
+  v59 = v190[80];
+  v60 = (v59 + 32) & ~v59;
+  v184 = v44 + v60;
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMd, &_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMR);
+  v62 = *(v58 + 9);
+  v168 = v59;
+  v166 = v61;
+  v164 = v60 + 2 * v62;
+  v63 = swift_allocObject();
+  v163 = xmmword_1D405C990;
+  *(v63 + 16) = xmmword_1D405C990;
+  v64 = v58 + 104;
+  v65 = *(v58 + 13);
+  v65(v63 + v60, *MEMORY[0x1E69921A8], v7);
+  v66 = *MEMORY[0x1E6992168];
+  v189 = v62;
+  v181 = (v63 + v60);
+  v162 = v66;
+  v167 = v64;
+  v165 = v65;
+  (v65)(v63 + v60 + v62);
+  v186 = v44;
+  v67 = v172;
+  if (v56 <= 1)
   {
-    v152 = v56;
-    v151 = v55;
+    v156 = v57;
+    v155 = v56;
 
-    v74 = v44;
-    v75 = v171;
-    v76 = v153;
-    v77 = v169;
+    v75 = v44;
+    v76 = v175;
+    v77 = v157;
+    v78 = v173;
     goto LABEL_34;
   }
 
-  if (v44 == v62)
+  if (v44 == v63)
   {
 LABEL_44:
 
     return 1;
   }
 
-  v146[1] = v62;
-  v152 = v56;
-  v151 = v55;
-  v147 = v59;
-  v67 = v186;
-  v68 = v174;
-  v178 = *(v186 + 2);
-  v179 = (v186 + 16);
-  v178(v174, v180, v7);
-  v184 = *(v67 + 7);
-  (v184)(v68, 0, 1, v7);
+  v150[1] = v63;
+  v156 = v57;
+  v155 = v56;
+  v151 = v60;
+  v68 = v190;
+  v69 = v178;
+  v182 = *(v190 + 2);
+  v183 = (v190 + 16);
+  v182(v178, v184, v7);
+  v188 = *(v68 + 7);
+  (v188)(v69, 0, 1, v7);
   swift_retain_n();
-  v69 = v172;
-  outlined init with copy of CalculateExpression.TokenType?(v68, v172);
-  v70 = v7;
-  v71 = *(v67 + 6);
-  v72 = v71(v69, 1, v70);
-  v73 = v167;
-  if (v72 == 1)
+  v70 = v176;
+  outlined init with copy of CalculateExpression.TokenType?(v69, v176);
+  v71 = v7;
+  v72 = *(v68 + 6);
+  v73 = v72(v70, 1, v71);
+  v74 = v171;
+  if (v73 == 1)
   {
 LABEL_32:
-    outlined destroy of StocksKitCurrencyCache.Provider?(v174, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v69, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v178, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v70, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
 
     goto LABEL_44;
   }
 
-  LODWORD(v181) = 0;
-  v103 = 0;
-  v148 = (v186 + 32);
-  v149 = (v186 + 8);
+  LODWORD(v185) = 0;
+  v104 = 0;
+  v152 = (v190 + 32);
+  v153 = (v190 + 8);
   while (2)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v69, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    if (v103 == 2)
+    outlined destroy of StocksKitCurrencyCache.Provider?(v70, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    if (v104 == 2)
     {
-      v107 = 1;
-      v108 = v176;
-      v109 = v170;
+      v108 = 1;
+      v109 = v180;
+      v110 = v174;
     }
 
     else
     {
-      v108 = v176;
-      v109 = v170;
-      v178(v170, v177 + v103 * v185, v176);
-      v107 = 0;
-      ++v103;
+      v109 = v180;
+      v110 = v174;
+      v182(v174, v181 + v104 * v189, v180);
+      v108 = 0;
+      ++v104;
     }
 
-    (v184)(v109, v107, 1, v108);
-    v110 = *(v173 + 48);
-    outlined init with take of CalculateExpression.TokenType?(v174, v73);
-    outlined init with take of CalculateExpression.TokenType?(v109, v73 + v110);
-    if (v71(v73, 1, v108) == 1)
+    (v188)(v110, v108, 1, v109);
+    v111 = *(v177 + 48);
+    outlined init with take of CalculateExpression.TokenType?(v178, v74);
+    outlined init with take of CalculateExpression.TokenType?(v110, v74 + v111);
+    if (v72(v74, 1, v109) == 1)
     {
-      if (v71((v73 + v110), 1, v108) != 1)
+      if (v72((v74 + v111), 1, v109) != 1)
       {
         goto LABEL_90;
       }
 
-      outlined destroy of StocksKitCurrencyCache.Provider?(v73, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v74, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
       goto LABEL_57;
     }
 
-    v111 = v165;
-    outlined init with copy of CalculateExpression.TokenType?(v73, v165);
-    if (v71((v73 + v110), 1, v108) != 1)
+    v112 = v169;
+    outlined init with copy of CalculateExpression.TokenType?(v74, v169);
+    if (v72((v74 + v111), 1, v109) != 1)
     {
-      v112 = v73 + v110;
-      v113 = v183;
-      (*v148)(v183, v112, v108);
-      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType();
-      LODWORD(v175) = dispatch thunk of static Equatable.== infix(_:_:)();
-      v114 = *v149;
-      v115 = v113;
-      v73 = v167;
-      (*v149)(v115, v108);
-      v114(v111, v108);
-      v44 = v182;
-      outlined destroy of StocksKitCurrencyCache.Provider?(v73, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-      if ((v175 & 1) == 0)
+      v113 = v74 + v111;
+      v114 = v187;
+      v115.n128_f64[0] = (*v152)(v187, v113, v109);
+      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType(v115);
+      LODWORD(v179) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v116 = *v153;
+      v117 = v114;
+      v74 = v171;
+      (*v153)(v117, v109);
+      v116(v112, v109);
+      v44 = v186;
+      outlined destroy of StocksKitCurrencyCache.Provider?(v74, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+      if ((v179 & 1) == 0)
       {
         goto LABEL_91;
       }
 
 LABEL_57:
-      if (v181)
+      if (v185)
       {
-        v106 = 1;
-        v105 = v176;
-        v69 = v172;
-        v104 = v174;
+        v107 = 1;
+        v106 = v180;
+        v70 = v176;
+        v105 = v178;
       }
 
       else
       {
-        v104 = v174;
-        v105 = v176;
-        v178(v174, v180 + v185, v176);
-        v106 = 0;
-        v69 = v172;
+        v105 = v178;
+        v106 = v180;
+        v182(v178, v184 + v189, v180);
+        v107 = 0;
+        v70 = v176;
       }
 
-      LODWORD(v181) = 1;
-      (v184)(v104, v106, 1, v105);
-      outlined init with copy of CalculateExpression.TokenType?(v104, v69);
-      if (v71(v69, 1, v105) == 1)
+      LODWORD(v185) = 1;
+      (v188)(v105, v107, 1, v106);
+      outlined init with copy of CalculateExpression.TokenType?(v105, v70);
+      if (v72(v70, 1, v106) == 1)
       {
         goto LABEL_32;
       }
@@ -3767,39 +3420,39 @@ LABEL_57:
     break;
   }
 
-  (*v149)(v111, v108);
+  (*v153)(v112, v109);
 LABEL_90:
-  outlined destroy of StocksKitCurrencyCache.Provider?(v73, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v74, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMR);
 LABEL_91:
 
-  v74 = v44;
-  v75 = v171;
-  v7 = v176;
-  v66 = v168;
-  v77 = v169;
-  v76 = v153;
-  v59 = v147;
+  v75 = v44;
+  v76 = v175;
+  v7 = v180;
+  v67 = v172;
+  v78 = v173;
+  v77 = v157;
+  v60 = v151;
 LABEL_34:
-  if (*(v74 + 16) < v152)
+  if (*(v75 + 16) < v156)
   {
 LABEL_101:
     __break(1u);
   }
 
-  v78 = swift_allocObject();
-  *(v78 + 16) = v159;
-  v79 = v161;
-  v161(v78 + v59, *MEMORY[0x1E6992160], v7);
-  v174 = (v78 + v59);
-  v79(v78 + v59 + v185, v158, v7);
-  if (v151 < 2)
+  v79 = swift_allocObject();
+  *(v79 + 16) = v163;
+  v80 = v165;
+  v165(v79 + v60, *MEMORY[0x1E6992160], v7);
+  v178 = (v79 + v60);
+  v80(v79 + v60 + v189, v162, v7);
+  if (v155 < 2)
   {
-    v88 = v182;
+    v89 = v186;
 
     goto LABEL_40;
   }
 
-  if (v182 == v78)
+  if (v186 == v79)
   {
 LABEL_59:
 
@@ -3808,118 +3461,118 @@ LABEL_74:
     return 1;
   }
 
-  v147 = v59;
-  v80 = v186;
-  v81 = *(v186 + 2);
-  v177 = (v186 + 16);
-  v175 = v81;
-  (v81)(v77, v180, v7);
-  v82 = *(v80 + 7);
-  (v82)(v77, 0, 1, v7);
-  outlined init with copy of CalculateExpression.TokenType?(v77, v66);
-  v83 = v80;
-  v84 = v80 + 56;
-  v85 = *(v83 + 6);
-  v86 = v7;
-  v87 = v82;
-  v184 = v83 + 48;
-  if (v85(v66, 1, v86) == 1)
+  v151 = v60;
+  v81 = v190;
+  v82 = *(v190 + 2);
+  v181 = (v190 + 16);
+  v179 = v82;
+  (v82)(v78, v184, v7);
+  v83 = *(v81 + 7);
+  (v83)(v78, 0, 1, v7);
+  outlined init with copy of CalculateExpression.TokenType?(v78, v67);
+  v84 = v81;
+  v85 = v81 + 56;
+  v86 = *(v84 + 6);
+  v87 = v7;
+  v88 = v83;
+  v188 = v84 + 48;
+  if (v86(v67, 1, v87) == 1)
   {
 LABEL_38:
-    outlined destroy of StocksKitCurrencyCache.Provider?(v77, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v66, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v78, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v67, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
     goto LABEL_59;
   }
 
-  LODWORD(v181) = 0;
-  v116 = 0;
-  v167 = (v186 + 32);
-  v172 = v186 + 8;
-  v170 = v82;
-  v178 = v85;
+  LODWORD(v185) = 0;
+  v118 = 0;
+  v171 = (v190 + 32);
+  v176 = v190 + 8;
+  v174 = v83;
+  v182 = v86;
   while (2)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v66, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    if (v116 == 2)
+    outlined destroy of StocksKitCurrencyCache.Provider?(v67, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    if (v118 == 2)
     {
-      v119 = 1;
-      v179 = 2;
-      v120 = v176;
+      v121 = 1;
+      v183 = 2;
+      v122 = v180;
     }
 
     else
     {
-      v120 = v176;
-      (v175)(v76, &v174[v116 * v185], v176);
-      v119 = 0;
-      v179 = v116 + 1;
+      v122 = v180;
+      (v179)(v77, &v178[v118 * v189], v180);
+      v121 = 0;
+      v183 = v118 + 1;
     }
 
-    v87(v76, v119, 1, v120);
-    v121 = *(v173 + 48);
-    v122 = v166;
-    outlined init with take of CalculateExpression.TokenType?(v77, v166);
-    outlined init with take of CalculateExpression.TokenType?(v76, v122 + v121);
-    v123 = v178;
-    if (v178(v122, 1uLL, v120) == 1)
+    v88(v77, v121, 1, v122);
+    v123 = *(v177 + 48);
+    v124 = v170;
+    outlined init with take of CalculateExpression.TokenType?(v78, v170);
+    outlined init with take of CalculateExpression.TokenType?(v77, v124 + v123);
+    v125 = v182;
+    if (v182(v124, 1uLL, v122) == 1)
     {
-      if (v123(v122 + v121, 1, v120) != 1)
+      if (v125(v124 + v123, 1, v122) != 1)
       {
         goto LABEL_93;
       }
 
-      outlined destroy of StocksKitCurrencyCache.Provider?(v122, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v124, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
       goto LABEL_71;
     }
 
-    v124 = v76;
-    v125 = v154;
-    outlined init with copy of CalculateExpression.TokenType?(v122, v154);
-    if (v123(v122 + v121, 1, v120) != 1)
+    v126 = v77;
+    v127 = v158;
+    outlined init with copy of CalculateExpression.TokenType?(v124, v158);
+    if (v125(v124 + v123, 1, v122) != 1)
     {
-      v126 = v84;
-      v127 = v78;
-      v128 = v183;
-      (*v167)(v183, v122 + v121, v120);
-      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType();
-      v129 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v130 = *v172;
-      v131 = v128;
-      v78 = v127;
-      v84 = v126;
-      v87 = v170;
-      (*v172)(v131, v120);
-      v130(v125, v120);
-      outlined destroy of StocksKitCurrencyCache.Provider?(v122, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-      v66 = v168;
-      v76 = v124;
-      v123 = v178;
-      if ((v129 & 1) == 0)
+      v128 = v85;
+      v129 = v79;
+      v130 = v187;
+      v131.n128_f64[0] = (*v171)(v187, v124 + v123, v122);
+      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType(v131);
+      v132 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v133 = *v176;
+      v134 = v130;
+      v79 = v129;
+      v85 = v128;
+      v88 = v174;
+      (*v176)(v134, v122);
+      v133(v127, v122);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v124, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+      v67 = v172;
+      v77 = v126;
+      v125 = v182;
+      if ((v132 & 1) == 0)
       {
         goto LABEL_94;
       }
 
 LABEL_71:
-      if (v181)
+      if (v185)
       {
-        v118 = 1;
-        v117 = v176;
-        v77 = v169;
+        v120 = 1;
+        v119 = v180;
+        v78 = v173;
       }
 
       else
       {
-        v77 = v169;
-        v117 = v176;
-        (v175)(v169, v180 + v185, v176);
-        v118 = 0;
+        v78 = v173;
+        v119 = v180;
+        (v179)(v173, v184 + v189, v180);
+        v120 = 0;
       }
 
-      v116 = v179;
-      LODWORD(v181) = 1;
-      v87(v77, v118, 1, v117);
-      outlined init with copy of CalculateExpression.TokenType?(v77, v66);
-      if (v123(v66, 1, v117) == 1)
+      v118 = v183;
+      LODWORD(v185) = 1;
+      v88(v78, v120, 1, v119);
+      outlined init with copy of CalculateExpression.TokenType?(v78, v67);
+      if (v125(v67, 1, v119) == 1)
       {
         goto LABEL_38;
       }
@@ -3930,140 +3583,140 @@ LABEL_71:
     break;
   }
 
-  (*v172)(v125, v120);
+  (*v176)(v127, v122);
 LABEL_93:
-  outlined destroy of StocksKitCurrencyCache.Provider?(v122, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v124, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMR);
 LABEL_94:
-  v88 = v182;
+  v89 = v186;
 
-  v75 = v171;
-  v7 = v176;
-  v59 = v147;
+  v76 = v175;
+  v7 = v180;
+  v60 = v151;
 LABEL_40:
-  v89 = *(v88 + 2);
-  v90 = swift_allocObject();
-  *(v90 + 1) = v159;
-  v91 = &v90[v59];
-  v92 = &v90[v59];
-  v93 = v161;
-  v161(v92, *MEMORY[0x1E6992188], v7);
-  v177 = v91;
-  v93(v91 + v185, v158, v7);
-  v94 = v155;
-  if (v89 <= 1)
+  v90 = *(v89 + 2);
+  v91 = swift_allocObject();
+  *(v91 + 1) = v163;
+  v92 = &v91[v60];
+  v93 = &v91[v60];
+  v94 = v165;
+  v165(v93, *MEMORY[0x1E6992188], v7);
+  v181 = v92;
+  v94(v92 + v189, v162, v7);
+  v95 = v159;
+  if (v90 <= 1)
   {
     goto LABEL_45;
   }
 
-  if (v88 == v90)
+  if (v89 == v91)
   {
 
     goto LABEL_74;
   }
 
-  v172 = v90;
-  v95 = v186;
-  v96 = *(v186 + 2);
-  v181 = v186 + 16;
-  v179 = v96;
-  v96(v75, v180, v7);
-  v97 = (v95 + 56);
-  v184 = *(v95 + 7);
-  (v184)(v75, 0, 1, v7);
-  v98 = v75;
-  v99 = v95;
-  v100 = v157;
-  outlined init with copy of CalculateExpression.TokenType?(v98, v157);
-  v101 = *(v95 + 6);
-  if (v101(v100, 1, v7) == 1)
+  v176 = v91;
+  v96 = v190;
+  v97 = *(v190 + 2);
+  v185 = v190 + 16;
+  v183 = v97;
+  v97(v76, v184, v7);
+  v98 = (v96 + 56);
+  v188 = *(v96 + 7);
+  (v188)(v76, 0, 1, v7);
+  v99 = v76;
+  v100 = v96;
+  v101 = v161;
+  outlined init with copy of CalculateExpression.TokenType?(v99, v161);
+  v102 = *(v96 + 6);
+  if (v102(v101, 1, v7) == 1)
   {
 LABEL_43:
-    outlined destroy of StocksKitCurrencyCache.Provider?(v171, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v100, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v175, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v101, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
 
     goto LABEL_74;
   }
 
-  v132 = 0;
-  v133 = 0;
-  v174 = v99 + 32;
-  v175 = v99 + 8;
-  v178 = v97;
+  v135 = 0;
+  v136 = 0;
+  v178 = v100 + 32;
+  v179 = v100 + 8;
+  v182 = v98;
   while (2)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v100, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-    if (v133 == 2)
+    outlined destroy of StocksKitCurrencyCache.Provider?(v101, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+    if (v136 == 2)
     {
-      v137 = 1;
-      v138 = v156;
-      v139 = v176;
+      v140 = 1;
+      v141 = v160;
+      v142 = v180;
     }
 
     else
     {
-      v139 = v176;
-      v138 = v156;
-      (v179)(v156, v177 + v133 * v185, v176);
-      v137 = 0;
-      ++v133;
+      v142 = v180;
+      v141 = v160;
+      (v183)(v160, v181 + v136 * v189, v180);
+      v140 = 0;
+      ++v136;
     }
 
-    (v184)(v138, v137, 1, v139);
-    v140 = *(v173 + 48);
-    outlined init with take of CalculateExpression.TokenType?(v171, v94);
-    outlined init with take of CalculateExpression.TokenType?(v138, v94 + v140);
-    if (v101(v94, 1, v139) == 1)
+    (v188)(v141, v140, 1, v142);
+    v143 = *(v177 + 48);
+    outlined init with take of CalculateExpression.TokenType?(v175, v95);
+    outlined init with take of CalculateExpression.TokenType?(v141, v95 + v143);
+    if (v102(v95, 1, v142) == 1)
     {
-      if (v101(v94 + v140, 1, v139) != 1)
+      if (v102(v95 + v143, 1, v142) != 1)
       {
         goto LABEL_96;
       }
 
-      outlined destroy of StocksKitCurrencyCache.Provider?(v94, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v95, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
       goto LABEL_87;
     }
 
-    v141 = v150;
-    outlined init with copy of CalculateExpression.TokenType?(v94, v150);
-    if (v101(v94 + v140, 1, v139) != 1)
+    v144 = v154;
+    outlined init with copy of CalculateExpression.TokenType?(v95, v154);
+    if (v102(v95 + v143, 1, v142) != 1)
     {
-      v142 = v94 + v140;
-      v143 = v183;
-      (*v174)(v183, v142, v139);
-      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType();
-      LODWORD(v186) = dispatch thunk of static Equatable.== infix(_:_:)();
-      v144 = *v175;
-      v145 = v143;
-      v94 = v155;
-      (*v175)(v145, v139);
-      v144(v141, v139);
-      outlined destroy of StocksKitCurrencyCache.Provider?(v94, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
-      if ((v186 & 1) == 0)
+      v145 = v95 + v143;
+      v146 = v187;
+      v147.n128_f64[0] = (*v178)(v187, v145, v142);
+      lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType(v147);
+      LODWORD(v190) = dispatch thunk of static Equatable.== infix(_:_:)();
+      v148 = *v179;
+      v149 = v146;
+      v95 = v159;
+      (*v179)(v149, v142);
+      v148(v144, v142);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v95, &_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
+      if ((v190 & 1) == 0)
       {
         goto LABEL_45;
       }
 
 LABEL_87:
-      if (v132)
+      if (v135)
       {
-        v136 = 1;
-        v134 = v171;
-        v135 = v176;
+        v139 = 1;
+        v137 = v175;
+        v138 = v180;
       }
 
       else
       {
-        v134 = v171;
-        v135 = v176;
-        (v179)(v171, v180 + v185, v176);
-        v136 = 0;
+        v137 = v175;
+        v138 = v180;
+        (v183)(v175, v184 + v189, v180);
+        v139 = 0;
       }
 
-      v132 = 1;
-      (v184)(v134, v136, 1, v135);
-      v100 = v157;
-      outlined init with copy of CalculateExpression.TokenType?(v134, v157);
-      if (v101(v100, 1, v135) == 1)
+      v135 = 1;
+      (v188)(v137, v139, 1, v138);
+      v101 = v161;
+      outlined init with copy of CalculateExpression.TokenType?(v137, v161);
+      if (v102(v101, 1, v138) == 1)
       {
         goto LABEL_43;
       }
@@ -4074,9 +3727,9 @@ LABEL_87:
     break;
   }
 
-  (*v175)(v141, v139);
+  (*v179)(v144, v142);
 LABEL_96:
-  outlined destroy of StocksKitCurrencyCache.Provider?(v94, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v95, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMd, &_s9Calculate0A10ExpressionC9TokenTypeOSg_AFtMR);
 LABEL_45:
 
   return 0;
@@ -4094,27 +3747,27 @@ unint64_t lazy protocol witness table accessor for type Substring and conformanc
   return result;
 }
 
-uint64_t CalculateExpression.ppkGraphExpressionType.getter@<X0>(char *a1@<X8>)
+void CalculateExpression.ppkGraphExpressionType.getter(char *a1@<X8>)
 {
-  v2 = type metadata accessor for CalculateExpression.GraphableType();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for CalculateExpression.GraphableType();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   CalculateExpression.graphableType.getter();
-  result = (*(v3 + 88))(v5, v2);
-  if (result == *MEMORY[0x1E69920E0])
+  v7 = (*(v4 + 88))(v6, v3);
+  if (v7 == *MEMORY[0x1E69920E0])
   {
-    v7 = *(CalculateExpression.graphableVariables.getter() + 16);
+    v8 = *(CalculateExpression.graphableVariables.getter() + 16);
 
-    if (!v7)
+    if (!v8)
     {
 LABEL_5:
       *a1 = 0;
-      return result;
+      return;
     }
 
-    result = CalculateExpression.graphableVariable.getter();
-    if (v8)
+    CalculateExpression.graphableVariable.getter();
+    if (v9)
     {
 
       goto LABEL_5;
@@ -4123,23 +3776,23 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if (result == *MEMORY[0x1E69920D0])
+  if (v7 == *MEMORY[0x1E69920D0])
   {
 LABEL_7:
-    v9 = 1;
+    v10 = 1;
 LABEL_10:
-    *a1 = v9;
-    return result;
+    *a1 = v10;
+    return;
   }
 
-  if (result == *MEMORY[0x1E69920D8])
+  if (v7 == *MEMORY[0x1E69920D8])
   {
-    v9 = 2;
+    v10 = 2;
     goto LABEL_10;
   }
 
   *a1 = 0;
-  return (*(v3 + 8))(v5, v2);
+  (*(v4 + 8))(v6, v3);
 }
 
 uint64_t String.stringByInsertingLaTeXSpaces()(uint64_t a1, unint64_t a2)
@@ -4172,203 +3825,197 @@ uint64_t String.stringByInsertingLaTeXSpaces()(uint64_t a1, unint64_t a2)
   return 0;
 }
 
-void *CalculateExpression.pkNeedsCurrencyAttribution.getter()
+void *CalculateExpression.pkNeedsCurrencyAttribution.getter(uint64_t a1)
 {
   result = CalculateExpression.result.getter();
   if (result)
   {
-    v1 = result;
-    v2 = [result unitType];
+    v2 = result;
+    v3 = [result unitType];
 
-    return (v2 == 16);
+    return (v3 == 16);
   }
 
   return result;
 }
 
-uint64_t CalculateExpression.pkShouldShowErrors.getter()
+void CalculateExpression.pkShouldShowErrors.getter(__n128 a1)
 {
-  v0 = type metadata accessor for CalculateExpression.TokenType();
-  v1 = *(v0 - 8);
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = &v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v28 - v5;
-  if ((CalculateExpression.isLikelyMath.getter() & 1) == 0)
-  {
-    return 0;
-  }
-
-  CalculateExpression.plain.getter();
-  v7 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
-
-  if (v7 >> 62)
-  {
-    goto LABEL_33;
-  }
-
-  v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
-LABEL_4:
-
-  v9 = MEMORY[0x1E69921A8];
-  if (v8 != 1)
-  {
-    goto LABEL_39;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMd);
-  v10 = *(v1 + 9);
-  v11 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_1D405C990;
-  v13 = v12 + v11;
-  v14 = *(v1 + 13);
-  v14(v13, *v9, v0);
-  v14(v13 + v10, *MEMORY[0x1E6992188], v0);
-  CalculateExpression.plain.getter();
-  v15 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
-
-  if ((v15 & 0xC000000000000001) != 0)
-  {
-    MEMORY[0x1DA6CE0C0](0, v15);
-  }
-
-  else
-  {
-    if (!*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      __break(1u);
-      return result;
-    }
-  }
-
-  CalculateExpression.Token.type.getter();
-
-  v17 = specialized Sequence<>.contains(_:)(v6, v12);
-  swift_setDeallocating();
-  swift_arrayDestroy();
-  swift_deallocClassInstance();
-  (*(v1 + 1))(v6, v0);
-  v9 = MEMORY[0x1E69921A8];
-  if (v17)
-  {
-    return 0;
-  }
-
-LABEL_39:
-  if ((CalculateExpression.isDeclaration.getter() & 1) == 0 || CalculateExpression.isActuallyGraphable.getter() || (result = CalculateExpression.referenceCount.getter()) != 0)
+  v1 = type metadata accessor for CalculateExpression.TokenType();
+  v2 = *(v1 - 8);
+  MEMORY[0x1EEE9AC00](v1);
+  v4 = &v29 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v29 - v6;
+  if (CalculateExpression.isLikelyMath.getter())
   {
     CalculateExpression.plain.getter();
-    v18 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
+    v8 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
 
-    v32 = v18 & 0xFFFFFFFFFFFFFF8;
-    if (v18 >> 62)
+    if (v8 >> 62)
     {
-      v34 = __CocoaSet.count.getter();
+      goto LABEL_32;
+    }
+
+    v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+LABEL_4:
+
+    v10 = MEMORY[0x1E69921A8];
+    if (v9 != 1)
+    {
+      goto LABEL_38;
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMd, &_ss23_ContiguousArrayStorageCy9Calculate0D10ExpressionC9TokenTypeOGMR);
+    v11 = *(v2 + 9);
+    v12 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_1D405C990;
+    v14 = v13 + v12;
+    v15 = *(v2 + 13);
+    v15(v14, *v10, v1);
+    v15(v14 + v11, *MEMORY[0x1E6992188], v1);
+    CalculateExpression.plain.getter();
+    v16 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
+
+    if ((v16 & 0xC000000000000001) != 0)
+    {
+      MEMORY[0x1DA6CE0C0](0, v16);
     }
 
     else
     {
-      v34 = *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (!*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      {
+        __break(1u);
+        return;
+      }
     }
 
-    v19 = 0;
-    v33 = v18 & 0xC000000000000001;
-    v31 = *v9;
-    v20 = (v1 + 104);
-    v21 = (v1 + 8);
-    v29 = *MEMORY[0x1E6992178];
-    v28 = *MEMORY[0x1E6992160];
-    v30 = v18;
-    while (1)
+    CalculateExpression.Token.type.getter();
+
+    v17 = specialized Sequence<>.contains(_:)(v7, v13);
+    swift_setDeallocating();
+    swift_arrayDestroy();
+    swift_deallocClassInstance();
+    (*(v2 + 1))(v7, v1);
+    v10 = MEMORY[0x1E69921A8];
+    if (!v17)
     {
-      if (v34 == v19)
+LABEL_38:
+      if ((CalculateExpression.isDeclaration.getter() & 1) == 0 || CalculateExpression.isActuallyGraphable.getter(v18) || CalculateExpression.referenceCount.getter())
       {
+        CalculateExpression.plain.getter();
+        v19 = dispatch thunk of CalculateExpression.PlainExpression.tokens.getter();
 
-        return 0;
-      }
-
-      if (v33)
-      {
-        MEMORY[0x1DA6CE0C0](v19, v18);
-        if (__OFADD__(v19, 1))
+        v33 = v19 & 0xFFFFFFFFFFFFFF8;
+        if (v19 >> 62)
         {
+          v35 = __CocoaSet.count.getter();
+        }
+
+        else
+        {
+          v35 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        }
+
+        v20 = 0;
+        v34 = v19 & 0xC000000000000001;
+        v32 = *v10;
+        v21 = (v2 + 104);
+        v22 = (v2 + 8);
+        v30 = *MEMORY[0x1E6992178];
+        v29 = *MEMORY[0x1E6992160];
+        v31 = v19;
+        while (1)
+        {
+          if (v35 == v20)
+          {
+
+            return;
+          }
+
+          if (v34)
+          {
+            MEMORY[0x1DA6CE0C0](v20, v19);
+            if (__OFADD__(v20, 1))
+            {
 LABEL_27:
-          __break(1u);
+              __break(1u);
 LABEL_28:
 
-          return 1;
+              return;
+            }
+          }
+
+          else
+          {
+            if (v20 >= *(v33 + 16))
+            {
+              __break(1u);
+LABEL_32:
+              v9 = __CocoaSet.count.getter();
+              goto LABEL_4;
+            }
+
+            if (__OFADD__(v20, 1))
+            {
+              goto LABEL_27;
+            }
+          }
+
+          CalculateExpression.Token.type.getter();
+          v23 = *v21;
+          (*v21)(v4, v32, v1);
+          v24 = static CalculateExpression.GraphableType.== infix(_:_:)();
+          v2 = *v22;
+          (*v22)(v4, v1);
+          v2(v7, v1);
+          if (v24)
+          {
+            v25 = *(dispatch thunk of CalculateExpression.Token.errors.getter() + 16);
+
+            if (!v25)
+            {
+              goto LABEL_28;
+            }
+          }
+
+          CalculateExpression.Token.type.getter();
+          v23(v4, v30, v1);
+          v26 = static CalculateExpression.GraphableType.== infix(_:_:)();
+          v2(v4, v1);
+          v2(v7, v1);
+          if (v26)
+          {
+            goto LABEL_28;
+          }
+
+          CalculateExpression.Token.type.getter();
+          v27 = CalculateExpression.TokenType.isConstant.getter();
+          v2(v7, v1);
+          if (v27)
+          {
+            goto LABEL_28;
+          }
+
+          CalculateExpression.Token.type.getter();
+          v23(v4, v29, v1);
+          v28 = static CalculateExpression.GraphableType.== infix(_:_:)();
+
+          v2(v4, v1);
+          v2(v7, v1);
+          ++v20;
+          v19 = v31;
+          if (v28)
+          {
+
+            return;
+          }
         }
-      }
-
-      else
-      {
-        if (v19 >= *(v32 + 16))
-        {
-          __break(1u);
-LABEL_33:
-          v8 = __CocoaSet.count.getter();
-          goto LABEL_4;
-        }
-
-        if (__OFADD__(v19, 1))
-        {
-          goto LABEL_27;
-        }
-      }
-
-      CalculateExpression.Token.type.getter();
-      v22 = *v20;
-      (*v20)(v3, v31, v0);
-      v23 = static CalculateExpression.GraphableType.== infix(_:_:)();
-      v1 = *v21;
-      (*v21)(v3, v0);
-      v1(v6, v0);
-      if (v23)
-      {
-        v24 = *(dispatch thunk of CalculateExpression.Token.errors.getter() + 16);
-
-        if (!v24)
-        {
-          goto LABEL_28;
-        }
-      }
-
-      CalculateExpression.Token.type.getter();
-      v22(v3, v29, v0);
-      v25 = static CalculateExpression.GraphableType.== infix(_:_:)();
-      v1(v3, v0);
-      v1(v6, v0);
-      if (v25)
-      {
-        goto LABEL_28;
-      }
-
-      CalculateExpression.Token.type.getter();
-      v26 = CalculateExpression.TokenType.isConstant.getter();
-      v1(v6, v0);
-      if (v26)
-      {
-        goto LABEL_28;
-      }
-
-      CalculateExpression.Token.type.getter();
-      v22(v3, v28, v0);
-      v27 = static CalculateExpression.GraphableType.== infix(_:_:)();
-
-      v1(v3, v0);
-      v1(v6, v0);
-      ++v19;
-      v18 = v30;
-      if (v27)
-      {
-
-        return 1;
       }
     }
   }
-
-  return result;
 }
 
 unint64_t type metadata accessor for PKMathRecognitionError()
@@ -4384,7 +4031,7 @@ unint64_t type metadata accessor for PKMathRecognitionError()
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType()
+unint64_t lazy protocol witness table accessor for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType(__n128 a1)
 {
   result = lazy protocol witness table cache variable for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType;
   if (!lazy protocol witness table cache variable for type CalculateExpression.TokenType and conformance CalculateExpression.TokenType)
@@ -4399,14 +4046,14 @@ unint64_t lazy protocol witness table accessor for type CalculateExpression.Toke
 
 uint64_t outlined init with copy of CalculateExpression.TokenType?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined init with take of CalculateExpression.TokenType?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Calculate0A10ExpressionC9TokenTypeOSgMd, &_s9Calculate0A10ExpressionC9TokenTypeOSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -4494,25 +4141,25 @@ void PaperKitExtensionDocumentViewController.extensionHostSafeAreaInsets.modify(
   }
 }
 
-void PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1, _BYTE *a2, char *a3, char *a4)
 {
   v180 = a2;
   v184 = a1;
-  v173 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMd);
+  v173 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMR);
   v172 = *(v173 - 8);
   MEMORY[0x1EEE9AC00](v173);
   v171 = &v142[-v6];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v177 = &v142[-v8];
-  v170 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMd);
+  v170 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMR);
   v169 = *(v170 - 8);
   MEMORY[0x1EEE9AC00](v170);
   v168 = &v142[-v9];
   v10 = type metadata accessor for CRKeyPath();
   MEMORY[0x1EEE9AC00](v10 - 8);
   v160 = &v142[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v158 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CRAssetVSgMd);
+  v158 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CRAssetVSgMd, &_s9Coherence7CRAssetVSgMR);
   MEMORY[0x1EEE9AC00](v158);
   v156 = &v142[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v13);
@@ -4524,20 +4171,20 @@ void PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceCont
   v163 = *(FileVersionPolicy - 8);
   MEMORY[0x1EEE9AC00](FileVersionPolicy);
   v162 = &v142[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGMd, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGMR);
   v18 = *(v17 - 8);
   MEMORY[0x1EEE9AC00](v17);
   v166 = &v142[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v20);
   v176 = &v142[-v21];
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMR);
   MEMORY[0x1EEE9AC00](v22 - 8);
   v165 = &v142[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v24);
   v26 = &v142[-v25];
   MEMORY[0x1EEE9AC00](v27);
   v29 = &v142[-v28];
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x1EEE9AC00](v30 - 8);
   v32 = &v142[-v31];
   ObjectType = type metadata accessor for URL();
@@ -4558,9 +4205,10 @@ void PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceCont
   }
 
 LABEL_2:
-  for (i = MEMORY[0x1E69E7CD0]; ; i = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x1E69E7CC0]))
+  v37 = MEMORY[0x1E69E7CD0];
+  while (1)
   {
-    *(v4 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentCancellables) = i;
+    *(v4 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentCancellables) = v37;
     *(v4 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_delegate + 8) = 0;
     swift_unknownObjectWeakInit();
     v38 = (v4 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_extensionHostSafeAreaInsets);
@@ -4592,9 +4240,9 @@ LABEL_2:
     v64 = v184;
     (*(v34 + 16))(v183, v184, ObjectType);
     v26 = v180;
-    outlined init with copy of Date?(v180, v32, &_s10Foundation3URLVSgMd);
-    outlined init with copy of Date?(a3, &v186, &_s9Coherence18EncryptionDelegate_pSgMd);
-    v65 = objc_allocWithZone(type metadata accessor for PaperDocumentInlineView());
+    outlined init with copy of Date?(v180, v32, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined init with copy of Date?(a3, &v186, &_s9Coherence18EncryptionDelegate_pSgMd, &_s9Coherence18EncryptionDelegate_pSgMR);
+    v65 = objc_allocWithZone(type metadata accessor for PaperDocumentInlineView(0));
     v104 = PaperDocumentInlineView.init(paperURL:coherenceContextURL:encryptionDelegate:)(v63, v32, &v186);
     swift_beginAccess();
     swift_unknownObjectWeakAssign();
@@ -4605,8 +4253,8 @@ LABEL_2:
     {
       v125 = v62;
 LABEL_30:
-      outlined destroy of StocksKitCurrencyCache.Provider?(a3, &_s9Coherence18EncryptionDelegate_pSgMd);
-      outlined destroy of StocksKitCurrencyCache.Provider?(v26, &_s10Foundation3URLVSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(a3, &_s9Coherence18EncryptionDelegate_pSgMd, &_s9Coherence18EncryptionDelegate_pSgMR);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v26, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
       (*(v34 + 8))(v64, ObjectType);
       v139 = &v104[OBJC_IVAR____TtC8PaperKit23PaperDocumentInlineView_delegate];
       swift_beginAccess();
@@ -4666,7 +4314,7 @@ LABEL_27:
       a4 = *(v137 + 8);
       ObjectType = swift_getObjectType();
       v34 = swift_unknownObjectWeakLoadStrong();
-      a3 = (a4 + 224);
+      a3 = a4 + 224;
       v26 = *(a4 + 28);
       v4 = v138;
       (v26)(v34, ObjectType, a4);
@@ -4708,6 +4356,8 @@ LABEL_33:
     {
       goto LABEL_2;
     }
+
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   }
 
   type metadata accessor for CRContext();
@@ -4720,14 +4370,14 @@ LABEL_33:
   v43(v29, 1, 1, v17);
   v175 = v29;
   v147 = v26;
-  outlined init with copy of Date?(v29, v26, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd);
+  outlined init with copy of Date?(v29, v26, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMR);
   v178 = v34;
   v44 = *(v34 + 16);
   v179 = ObjectType;
   v154 = v34 + 16;
   v153 = v44;
   v44(v183, v184, ObjectType);
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Coherence16CRCodableVersionOGMd);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9Coherence16CRCodableVersionOGMd, &_ss23_ContiguousArrayStorageCy9Coherence16CRCodableVersionOGMR);
   v46 = type metadata accessor for CRCodableVersion();
   v47 = *(v46 - 8);
   v48 = *(v47 + 72);
@@ -4750,12 +4400,12 @@ LABEL_33:
     swift_once();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence17CRDataStoreBundleCy8PaperKit0E8DocumentVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence17CRDataStoreBundleCy8PaperKit0E8DocumentVGMd, &_s9Coherence17CRDataStoreBundleCy8PaperKit0E8DocumentVGMR);
   swift_allocObject();
 
   v54 = v148;
   v55 = CRDataStoreBundle.init(_:sync:at:allowedEncodings:allowedAppFormats:writableAppFormats:)();
-  outlined destroy of StocksKitCurrencyCache.Provider?(v175, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v175, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMd, &_s9Coherence7CapsuleVy8PaperKit0C8DocumentVGSgMR);
   *&v182[OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentSyncManager] = v55;
   v175 = v55;
   swift_retain_n();
@@ -4797,14 +4447,14 @@ LABEL_33:
   FileVersionPolicy = v77 + 56;
   v78 = v177;
   (v162)(v177, 1, 1, v163);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMd);
-  v159 = type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSRunLoop);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMd, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMR);
+  v159 = type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSRunLoop, 0x1E695DFD0);
   v160 = MEMORY[0x1E695BED8];
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type AnyPublisher<Capsule<PaperDocument>, Error> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMd);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type AnyPublisher<Capsule<PaperDocument>, Error> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMd, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5Error_pGMR, MEMORY[0x1E695BED8]);
   v158 = lazy protocol witness table accessor for type NSRunLoop and conformance NSRunLoop();
   v79 = v168;
   Publisher.receive<A>(on:options:)();
-  outlined destroy of StocksKitCurrencyCache.Provider?(v78, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v78, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
   v80 = swift_allocObject();
   v81 = v182;
@@ -4821,7 +4471,7 @@ LABEL_33:
   swift_allocObject();
   swift_unknownObjectWeakInit();
   v183 = MEMORY[0x1E695BE98];
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Capsule<PaperDocument>, Error>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMd);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Capsule<PaperDocument>, Error>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5Error_pGSo9NSRunLoopCGMR, MEMORY[0x1E695BE98]);
   v88 = v81;
   v89 = v170;
   Publisher.sink(receiveCompletion:receiveValue:)();
@@ -4833,7 +4483,7 @@ LABEL_33:
 
   v90 = v165;
   v91 = *&v165[OBJC_IVAR____TtC8PaperKit27PaperDocumentViewController_passThroughSubject];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA18PassthroughSubjectCy9Coherence7CapsuleVy8PaperKit0H8DocumentVGs5NeverOGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA18PassthroughSubjectCy9Coherence7CapsuleVy8PaperKit0H8DocumentVGs5NeverOGGMd, &_s7Combine12PublisherBoxCyAA18PassthroughSubjectCy9Coherence7CapsuleVy8PaperKit0H8DocumentVGs5NeverOGGMR);
   v92 = swift_allocObject();
   *(v92 + 16) = v91;
   v186 = v92;
@@ -4842,11 +4492,11 @@ LABEL_33:
   v185 = v93;
   v94 = v177;
   (v162)(v177, 1, 1, v163);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMd);
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type AnyPublisher<Capsule<PaperDocument>, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMd, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMR);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type AnyPublisher<Capsule<PaperDocument>, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMd, &_s7Combine12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0F8DocumentVGs5NeverOGMR, v160);
   v95 = v171;
   Publisher.receive<A>(on:options:)();
-  outlined destroy of StocksKitCurrencyCache.Provider?(v94, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v94, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMd, &_sSo9NSRunLoopC10FoundationE16SchedulerOptionsVSgMR);
 
   v96 = swift_allocObject();
   swift_weakInit();
@@ -4854,7 +4504,7 @@ LABEL_33:
   v97 = swift_allocObject();
   *(v97 + 16) = v96;
   *(v97 + 24) = v88;
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Capsule<PaperDocument>, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMd);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<Capsule<PaperDocument>, Never>, NSRunLoop> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVy9Coherence7CapsuleVy8PaperKit0I8DocumentVGs5NeverOGSo9NSRunLoopCGMR, v183);
   v98 = v173;
   Publisher<>.sink(receiveValue:)();
 
@@ -4936,8 +4586,8 @@ LABEL_39:
 
     [v104 didMoveToParentViewController_];
 
-    outlined destroy of StocksKitCurrencyCache.Provider?(v109, &_s9Coherence18EncryptionDelegate_pSgMd);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v108, &_s10Foundation3URLVSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v109, &_s9Coherence18EncryptionDelegate_pSgMd, &_s9Coherence18EncryptionDelegate_pSgMR);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v108, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     (*(v112 + 8))(v184, v111);
     (*(v181 + 8))(v176, v161);
     v124 = &OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentViewController;
@@ -4983,7 +4633,7 @@ void closure #1 in PaperKitExtensionDocumentViewController.init(paperDocumentURL
       v18 = swift_slowAlloc();
       v30[0] = v18;
       *v17 = 136315394;
-      lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x1E6968FB0]);
+      lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FE0]);
       v19 = dispatch thunk of CustomStringConvertible.description.getter();
       v21 = v20;
       (*(v7 + 8))(v9, v6);
@@ -4993,7 +4643,7 @@ void closure #1 in PaperKitExtensionDocumentViewController.init(paperDocumentURL
       *(v17 + 12) = 2080;
       v29[2] = v10;
       v23 = v10;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
       v24 = String.init<A>(describing:)();
       v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, v30);
 
@@ -5033,32 +4683,32 @@ void closure #1 in PaperKitExtensionDocumentViewController.init(paperDocumentURL
   }
 }
 
-void closure #2 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1)
+void closure #2 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
-    v4 = *(Strong + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentViewController);
-    if (v4)
+    v4 = Strong;
+    v5 = *(Strong + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentViewController);
+    if (v5)
     {
-      v5 = OBJC_IVAR____TtC8PaperKit27PaperDocumentViewController_paperDocumentView;
+      v6 = OBJC_IVAR____TtC8PaperKit27PaperDocumentViewController_paperDocumentView;
       swift_beginAccess();
-      v6 = *&v4[v5];
-      if (v6)
+      v7 = *&v5[v6];
+      if (v7)
       {
-        v7 = v4;
-        v8 = v6;
+        v8 = v5;
+        v9 = v7;
         specialized PaperDocumentView.merge<A>(_:from:page:)(a1, 3u, 0);
 
-        v3 = v7;
+        v4 = v8;
       }
     }
   }
 }
 
-uint64_t closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)()
+uint64_t closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
@@ -5073,27 +4723,27 @@ uint64_t closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumen
   return result;
 }
 
-void closure #1 in closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)()
+void closure #1 in closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(uint64_t a1)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = &v10 - v1;
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v3 = &v11 - v2;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
-    v5 = type metadata accessor for TaskPriority();
-    (*(*(v5 - 8) + 56))(v2, 1, 1, v5);
+    v5 = Strong;
+    v6 = type metadata accessor for TaskPriority();
+    (*(*(v6 - 8) + 56))(v3, 1, 1, v6);
     type metadata accessor for MainActor();
-    v6 = v4;
-    v7 = static MainActor.shared.getter();
-    v8 = swift_allocObject();
-    v9 = MEMORY[0x1E69E85E0];
-    v8[2] = v7;
-    v8[3] = v9;
-    v8[4] = v6;
-    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v2, &async function pointer to partial apply for closure #1 in closure #1 in closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:), v8);
+    v7 = v5;
+    v8 = static MainActor.shared.getter();
+    v9 = swift_allocObject();
+    v10 = MEMORY[0x1E69E85E0];
+    v9[2] = v8;
+    v9[3] = v10;
+    v9[4] = v7;
+    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0, v3, &async function pointer to partial apply for closure #1 in closure #1 in closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:), v9);
   }
 }
 
@@ -5211,7 +4861,7 @@ uint64_t specialized firstSubview #1 <A>(in:) in PaperKitExtensionDocumentViewCo
   else
   {
     v5 = [a1 subviews];
-    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIView);
+    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIView, 0x1E69DD250);
     v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     if (v6 >> 62)
@@ -5354,27 +5004,25 @@ void PaperKitExtensionDocumentViewController.adjustScaleAndInterpageSpacing()()
   }
 }
 
-uint64_t PaperKitExtensionDocumentViewController.paperDocumentDidFailToLoad(_:)(void *a1)
+double PaperKitExtensionDocumentViewController.paperDocumentDidFailToLoad(_:)(void *a1)
 {
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
     specialized ExtensionViewController.documentViewController(_:didFailToLoad:)(a1);
 
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   return result;
 }
 
-uint64_t PaperKitExtensionDocumentViewController.paperDocumentDidSave()(void (*a1)(void))
+double PaperKitExtensionDocumentViewController.paperDocumentDidSave()(void (*a1)(void))
 {
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
     a1();
 
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   return result;
@@ -5471,7 +5119,7 @@ void PaperKitExtensionDocumentViewController.paperDocumentDidLoad(dataModel:view
           v39 = [v37 constraintEqualToAnchor:v38 constant:7.0];
           LODWORD(v40) = 1144750080;
           [v39 setPriority_];
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
           v41 = swift_allocObject();
           *(v41 + 16) = xmmword_1D4078150;
           v42 = [v4 view];
@@ -5564,7 +5212,7 @@ void PaperKitExtensionDocumentViewController.paperDocumentDidLoad(dataModel:view
                       {
                         v87 = objc_opt_self();
                         *(v41 + 128) = v86;
-                        type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+                        type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x1E696ACD8);
                         v88 = v39;
                         v89 = v86;
                         isa = Array._bridgeToObjectiveC()().super.isa;
@@ -5826,45 +5474,45 @@ LABEL_11:
   }
 }
 
-unsigned __int8 *PaperKitExtensionDocumentViewController.indirectPointerTouchMode.setter(unsigned __int8 *result)
+double PaperKitExtensionDocumentViewController.indirectPointerTouchMode.setter(unsigned __int8 *a1)
 {
-  v2 = *result;
+  v2 = *a1;
   v3 = *(v1 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_inlineView);
   if (v3)
   {
     v4 = OBJC_IVAR____TtC8PaperKit23PaperDocumentInlineView_paperDocumentView;
-    result = swift_beginAccess();
-    v5 = *(v3 + v4);
-    if (v5)
+    swift_beginAccess();
+    v6 = *(v3 + v4);
+    if (v6)
     {
-      if (v5[OBJC_IVAR____TtC8PaperKit17PaperDocumentView__indirectPointerTouchMode] != v2)
+      if (v6[OBJC_IVAR____TtC8PaperKit17PaperDocumentView__indirectPointerTouchMode] != v2)
       {
         KeyPath = swift_getKeyPath();
-        v13[1] = v13;
+        v14[1] = v14;
         MEMORY[0x1EEE9AC00](KeyPath);
-        v13[3] = v5;
-        lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView);
-        v7 = v5;
+        v14[3] = v6;
+        lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView, &protocol conformance descriptor for PaperDocumentView);
+        v8 = v6;
         ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
       }
     }
   }
 
-  v8 = *(v1 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentViewController);
-  if (v8)
+  v9 = *(v1 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentViewController);
+  if (v9)
   {
-    v9 = OBJC_IVAR____TtC8PaperKit27PaperDocumentViewController_paperDocumentView;
-    result = swift_beginAccess();
-    v10 = *(v8 + v9);
-    if (v10)
+    v10 = OBJC_IVAR____TtC8PaperKit27PaperDocumentViewController_paperDocumentView;
+    swift_beginAccess();
+    v11 = *(v9 + v10);
+    if (v11)
     {
-      if (v10[OBJC_IVAR____TtC8PaperKit17PaperDocumentView__indirectPointerTouchMode] != v2)
+      if (v11[OBJC_IVAR____TtC8PaperKit17PaperDocumentView__indirectPointerTouchMode] != v2)
       {
-        v11 = swift_getKeyPath();
-        MEMORY[0x1EEE9AC00](v11);
-        v13[2] = v10;
-        lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView);
-        v12 = v10;
+        v12 = swift_getKeyPath();
+        MEMORY[0x1EEE9AC00](v12);
+        v14[2] = v11;
+        lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(&lazy protocol witness table cache variable for type PaperDocumentView and conformance PaperDocumentView, type metadata accessor for PaperDocumentView, &protocol conformance descriptor for PaperDocumentView);
+        v13 = v11;
         ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
       }
     }
@@ -5902,7 +5550,7 @@ void PaperKitExtensionDocumentViewController.showParticipantCursors.setter(char 
   }
 }
 
-void (*PaperKitExtensionDocumentViewController.showParticipantCursors.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*PaperKitExtensionDocumentViewController.showParticipantCursors.modify(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5922,7 +5570,7 @@ void (*PaperKitExtensionDocumentViewController.showParticipantCursors.modify(uin
   return PaperKitExtensionDocumentViewController.showParticipantCursors.modify;
 }
 
-void PaperKitExtensionDocumentViewController.showParticipantCursors.modify(void **a1, char a2)
+void PaperKitExtensionDocumentViewController.showParticipantCursors.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -5951,7 +5599,7 @@ void PaperKitExtensionDocumentViewController.showParticipantCursors.modify(void 
   free(v3);
 }
 
-void (*PaperKitExtensionDocumentViewController.liveStreamMessenger.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*PaperKitExtensionDocumentViewController.liveStreamMessenger.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5977,7 +5625,14 @@ void (*PaperKitExtensionDocumentViewController.liveStreamMessenger.modify(uint64
   return PaperKitExtensionDocumentViewController.liveStreamMessenger.modify;
 }
 
-uint64_t PaperKitExtensionDocumentViewController.participantDetailsDataSource.setter(uint64_t a1, uint64_t a2)
+double PaperKitExtensionDocumentViewController.participantDetailsDataSource.getter()
+{
+  swift_beginAccess();
+  swift_unknownObjectRetain();
+  return result;
+}
+
+double PaperKitExtensionDocumentViewController.participantDetailsDataSource.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = (v3 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_participantDetailsDataSource);
@@ -6006,10 +5661,11 @@ uint64_t PaperKitExtensionDocumentViewController.participantDetailsDataSource.se
     PaperDocumentViewController.participantDetailsDataSource.setter(v12, v13);
   }
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
-void (*PaperKitExtensionDocumentViewController.participantDetailsDataSource.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*PaperKitExtensionDocumentViewController.participantDetailsDataSource.modify(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -6029,7 +5685,7 @@ void (*PaperKitExtensionDocumentViewController.participantDetailsDataSource.modi
   return PaperKitExtensionDocumentViewController.participantDetailsDataSource.modify;
 }
 
-void PaperKitExtensionDocumentViewController.participantDetailsDataSource.modify(void **a1, char a2)
+void PaperKitExtensionDocumentViewController.participantDetailsDataSource.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -6096,7 +5752,7 @@ Swift::Void __swiftcall PaperKitExtensionDocumentViewController.participantDetai
   }
 }
 
-uint64_t PaperKitExtensionDocumentViewController.liveStreamMessenger.setter(uint64_t a1, uint64_t a2, void *a3, void (*a4)(uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t))
+double PaperKitExtensionDocumentViewController.liveStreamMessenger.setter(uint64_t a1, uint64_t a2, void *a3, void (*a4)(uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t))
 {
   v8 = v5;
   v10 = v8 + *a3;
@@ -6121,10 +5777,11 @@ uint64_t PaperKitExtensionDocumentViewController.liveStreamMessenger.setter(uint
     a5(v16, v17);
   }
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
-void (*PaperKitExtensionDocumentViewController.textualContextProvider.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*PaperKitExtensionDocumentViewController.textualContextProvider.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -6197,7 +5854,7 @@ void PaperKitExtensionDocumentViewController.viewControllerForPresentingUI.sette
   swift_unknownObjectWeakAssign();
 }
 
-uint64_t (*PaperKitExtensionDocumentViewController.viewControllerForPresentingUI.modify(uint64_t *a1))()
+void (*PaperKitExtensionDocumentViewController.viewControllerForPresentingUI.modify(uint64_t *a1))(id **a1, char a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -6224,7 +5881,7 @@ id PaperKitExtensionDocumentViewController.__allocating_init(nibName:bundle:)(ui
   v4 = v3;
   if (a2)
   {
-    v6 = MEMORY[0x1DA6CCED0]();
+    v6 = MEMORY[0x1DA6CCED0](a1);
   }
 
   else
@@ -6267,7 +5924,7 @@ void protocol witness for PaperKitAttachment.viewControllerForPresentingUI.sette
   swift_unknownObjectWeakAssign();
 }
 
-uint64_t (*protocol witness for PaperKitAttachment.viewControllerForPresentingUI.modify in conformance PaperKitExtensionDocumentViewController(uint64_t *a1))()
+void (*protocol witness for PaperKitAttachment.viewControllerForPresentingUI.modify in conformance PaperKitExtensionDocumentViewController(uint64_t *a1))(id **a1, char a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -6289,14 +5946,13 @@ uint64_t (*protocol witness for PaperKitAttachment.viewControllerForPresentingUI
   return protocol witness for PaperKitAttachment.viewControllerForPresentingUI.modify in conformance PaperKitExtensionDocumentViewController;
 }
 
-uint64_t protocol witness for PaperDocumentInlineViewDelegate.paperDocumentDidSave() in conformance PaperKitExtensionDocumentViewController(uint64_t a1, uint64_t a2, void (*a3)(void))
+double protocol witness for PaperDocumentInlineViewDelegate.paperDocumentDidSave() in conformance PaperKitExtensionDocumentViewController(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
     a3();
 
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   return result;
@@ -6317,6 +5973,13 @@ uint64_t (*protocol witness for PaperKitStreamableAttachment.liveStreamMessenger
   *a1 = v2;
   v2[4] = PaperKitExtensionDocumentViewController.liveStreamMessenger.modify(v2);
   return protocol witness for PaperKitCalculateDocumentAttachment.calculateDocumentExpressionSolvingBehavior.modify in conformance PaperTextAttachmentView;
+}
+
+double protocol witness for PaperKitStreamableAttachment.participantDetailsDataSource.getter in conformance PaperKitExtensionDocumentViewController()
+{
+  swift_beginAccess();
+  swift_unknownObjectRetain();
+  return result;
 }
 
 uint64_t (*protocol witness for PaperKitStreamableAttachment.participantDetailsDataSource.modify in conformance PaperKitExtensionDocumentViewController(uint64_t **a1))()
@@ -6370,11 +6033,13 @@ void partial apply for closure #1 in PaperKitExtensionDocumentViewController.ini
   closure #1 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(a1, v1 + v4, v5);
 }
 
-uint64_t block_copy_helper_67(uint64_t a1, uint64_t a2)
+double block_copy_helper_67(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type PaperKitExtensionDocumentViewController.Layout and conformance PaperKitExtensionDocumentViewController.Layout()
@@ -6389,14 +6054,14 @@ unint64_t lazy protocol witness table accessor for type PaperKitExtensionDocumen
   return result;
 }
 
-uint64_t keypath_set_27Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+uint64_t keypath_set_27Tm(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   v7 = swift_unknownObjectRetain();
   return a5(v7, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type PaperDocument and conformance PaperDocument(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6418,7 +6083,7 @@ void specialized PaperKitExtensionDocumentViewController.init(coder:)()
   *(v0 + OBJC_IVAR____TtC8PaperKit39PaperKitExtensionDocumentViewController_paperDocumentSyncManager) = 0;
   if (MEMORY[0x1E69E7CC0] >> 62 && __CocoaSet.count.getter())
   {
-    v1 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+    _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
   }
 
   else
@@ -6460,11 +6125,11 @@ uint64_t partial apply for closure #1 in closure #1 in closure #3 in PaperKitExt
   return closure #1 in closure #1 in closure #3 in PaperKitExtensionDocumentViewController.init(paperDocumentURL:coherenceContextURL:encryptionDelegate:layout:)(a1, v4, v5, v6);
 }
 
-id PPKPDFIconCollectionViewCell_iOS_Swift.__deallocating_deinit()
+id PPKPDFIconCollectionViewCell_iOS_Swift.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PPKPDFIconCollectionViewCell_iOS_Swift();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for PPKPDFIconCollectionViewCell_iOS_Swift();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 Swift::Void __swiftcall FontSizeViewController.viewDidLoad()()
@@ -6518,7 +6183,7 @@ LABEL_8:
 
   [v14 addSubview_];
   v15 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v16 = swift_allocObject();
   *(v16 + 16) = xmmword_1D4065C70;
   v17 = [v12 centerXAnchor];
@@ -6616,7 +6281,7 @@ LABEL_9:
   __break(1u);
 }
 
-uint64_t type metadata accessor for ShapeLayout()
+uint64_t type metadata accessor for ShapeLayout(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ShapeLayout;
   if (!type metadata singleton initialization cache for ShapeLayout)
@@ -6638,11 +6303,11 @@ void *ShapeLayout.createView<A>(in:canvas:parent:)(uint64_t a1, void *a2, void *
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v38 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit5ShapeVGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit5ShapeVGMd, &_s9Coherence3RefVy8PaperKit5ShapeVGMR);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = v38 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit5ShapeVGMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit5ShapeVGMd, &_s9Coherence7CapsuleVy8PaperKit5ShapeVGMR);
   v14 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13);
   v16 = v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6683,7 +6348,7 @@ void *ShapeLayout.createView<A>(in:canvas:parent:)(uint64_t a1, void *a2, void *
   v47.size.height = height;
   v30 = CGRectGetHeight(v47);
   (*(v14 + 16))(v16, v20, v13);
-  v31 = objc_allocWithZone(type metadata accessor for ShapeView());
+  v31 = objc_allocWithZone(type metadata accessor for ShapeView(0));
   v32 = v39;
   v33 = v39;
   v34 = v40;
@@ -6698,7 +6363,7 @@ unint64_t lazy protocol witness table accessor for type Ref<Shape> and conforman
   result = lazy protocol witness table cache variable for type Ref<Shape> and conformance Ref<A>;
   if (!lazy protocol witness table cache variable for type Ref<Shape> and conformance Ref<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9Coherence3RefVy8PaperKit5ShapeVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s9Coherence3RefVy8PaperKit5ShapeVGMd, &_s9Coherence3RefVy8PaperKit5ShapeVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Ref<Shape> and conformance Ref<A>);
   }
@@ -6890,7 +6555,7 @@ LABEL_20:
 uint64_t CRAssetOrData.asset.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v4 = type metadata accessor for CRAssetOrData();
+  v4 = type metadata accessor for CRAssetOrData(0);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of CRAssetOrData(v2, v6);
@@ -6910,7 +6575,7 @@ uint64_t CRAssetOrData.asset.getter@<X0>(uint64_t a1@<X8>)
   }
 }
 
-uint64_t type metadata accessor for CRAssetOrData()
+uint64_t type metadata accessor for CRAssetOrData(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CRAssetOrData;
   if (!type metadata singleton initialization cache for CRAssetOrData)
@@ -6923,7 +6588,7 @@ uint64_t type metadata accessor for CRAssetOrData()
 
 uint64_t outlined destroy of CRAssetOrData(uint64_t a1)
 {
-  v2 = type metadata accessor for CRAssetOrData();
+  v2 = type metadata accessor for CRAssetOrData(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -6931,7 +6596,7 @@ uint64_t outlined destroy of CRAssetOrData(uint64_t a1)
 uint64_t CRAssetOrData.dataAsset.getter@<X0>(__int128 *a1@<X8>)
 {
   v2 = v1;
-  v4 = type metadata accessor for CRAssetOrData();
+  v4 = type metadata accessor for CRAssetOrData(0);
   MEMORY[0x1EEE9AC00](v4);
   v6 = (&v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   outlined init with copy of CRAssetOrData(v2, v6);
@@ -6959,35 +6624,36 @@ uint64_t CRDataAsset.init(_:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t
   v6 = type metadata accessor for SHA256();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = type metadata accessor for SHA256Digest();
-  v10 = *(v23 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = a3;
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for SHA256Digest();
+  v10 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = a3;
   a3[2] = a1;
   a3[3] = a2;
   outlined copy of Data._Representation(a1, a2);
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620]);
+  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620], MEMORY[0x1E6966618]);
   dispatch thunk of HashFunction.init()();
   outlined copy of Data._Representation(a1, a2);
   specialized Data._Representation.withUnsafeBytes<A>(_:)(a1, a2);
   outlined consume of Data._Representation(a1, a2);
   dispatch thunk of HashFunction.finalize()();
   (*(v7 + 8))(v9, v6);
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0]);
-  v13 = v23;
+  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0], MEMORY[0x1E69663D8]);
+  v13 = v24;
   v14 = Digest.makeIterator()();
-  v16 = specialized _copySequenceToContiguousArray<A>(_:)(v14, v15);
+  specialized _copySequenceToContiguousArray<A>(_:)(v14, v15);
+  v17 = v16;
 
-  v17 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v16);
-  v19 = v18;
+  v18 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v17);
+  v20 = v19;
 
   outlined consume of Data._Representation(a1, a2);
   result = (*(v10 + 8))(v12, v13);
-  v21 = v24;
-  *v24 = v17;
-  v21[1] = v19;
+  v22 = v25;
+  *v25 = v18;
+  v22[1] = v20;
   return result;
 }
 
@@ -7005,52 +6671,55 @@ uint64_t CRDataAsset.data.getter()
   return v1;
 }
 
-uint64_t CRDataAsset.init(from:)@<X0>(uint64_t *a1@<X8>)
+void CRDataAsset.init(from:)(uint64_t *a2@<X8>)
 {
-  v3 = type metadata accessor for SHA256();
-  v27 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SHA256Digest();
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for SHA256();
+  v28 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SHA256Digest();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
 
-  v10 = Data.init(from:)();
-  if (v1)
+  v11 = Data.init(from:)();
+  if (v2)
   {
   }
 
-  v24 = v6;
-  v13 = v10;
-  v26 = v7;
-  v14 = v11;
-  outlined copy of Data._Representation(v10, v11);
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620]);
-  v25 = a1;
-  dispatch thunk of HashFunction.init()();
-  outlined copy of Data._Representation(v13, v14);
-  specialized Data._Representation.withUnsafeBytes<A>(_:)(v13, v14);
-  outlined consume of Data._Representation(v13, v14);
-  dispatch thunk of HashFunction.finalize()();
-  (*(v27 + 8))(v5, v3);
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0]);
-  v15 = v24;
-  v16 = Digest.makeIterator()();
-  v18 = specialized _copySequenceToContiguousArray<A>(_:)(v16, v17);
+  else
+  {
+    v25 = v7;
+    v13 = v11;
+    v27 = v8;
+    v14 = v12;
+    outlined copy of Data._Representation(v11, v12);
+    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620], MEMORY[0x1E6966618]);
+    v26 = a2;
+    dispatch thunk of HashFunction.init()();
+    outlined copy of Data._Representation(v13, v14);
+    specialized Data._Representation.withUnsafeBytes<A>(_:)(v13, v14);
+    outlined consume of Data._Representation(v13, v14);
+    dispatch thunk of HashFunction.finalize()();
+    (*(v28 + 8))(v6, v4);
+    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0], MEMORY[0x1E69663D8]);
+    v15 = v25;
+    v16 = Digest.makeIterator()();
+    specialized _copySequenceToContiguousArray<A>(_:)(v16, v17);
+    v19 = v18;
 
-  v19 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v18);
-  v21 = v20;
+    v20 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v19);
+    v22 = v21;
 
-  outlined consume of Data._Representation(v13, v14);
+    outlined consume of Data._Representation(v13, v14);
 
-  result = (*(v26 + 8))(v9, v15);
-  v22 = v25;
-  *v25 = v19;
-  v22[1] = v21;
-  v22[2] = v13;
-  v22[3] = v14;
-  return result;
+    (*(v27 + 8))(v10, v15);
+    v23 = v26;
+    *v26 = v20;
+    v23[1] = v22;
+    v23[2] = v13;
+    v23[3] = v14;
+  }
 }
 
 uint64_t protocol witness for CRType.copy(renamingReferences:) in conformance CRDataAsset@<X0>(uint64_t *a1@<X8>)
@@ -7068,7 +6737,7 @@ uint64_t protocol witness for CRType.copy(renamingReferences:) in conformance CR
   return outlined copy of Data._Representation(v4, v5);
 }
 
-uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance CRDataAsset()
+uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance CRDataAsset(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   lazy protocol witness table accessor for type CRDataAsset and conformance CRDataAsset();
   lazy protocol witness table accessor for type CRDataAsset and conformance CRDataAsset();
@@ -7100,152 +6769,153 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return v2[0];
 }
 
-uint64_t CRAssetOrData.init(from:)@<X0>(uint64_t a1@<X8>)
+uint64_t CRAssetOrData.init(from:)@<X0>(uint64_t a2@<X8>)
 {
-  v3 = type metadata accessor for SHA256();
-  v32 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v5 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for SHA256Digest();
-  v33 = *(v6 - 8);
-  v34 = v6;
-  MEMORY[0x1EEE9AC00](v6);
-  v35 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for CRAssetOrData();
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CRAssetVSgMd);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v13 = &v29 - v12;
+  v4 = type metadata accessor for SHA256();
+  v34 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v31 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SHA256Digest();
+  v35 = *(v7 - 8);
+  v36 = v7;
+  MEMORY[0x1EEE9AC00](v7);
+  v37 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for CRAssetOrData(0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = (&v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CRAssetVSgMd, &_s9Coherence7CRAssetVSgMR);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = &v31 - v13;
 
   CRAsset.init(from:)();
-  if (v1)
+  if (v2)
   {
-    v31 = v8;
+    v33 = v9;
 
-    v14 = type metadata accessor for CRAsset();
-    (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v13, &_s9Coherence7CRAssetVSgMd);
+    v15 = type metadata accessor for CRAsset();
+    (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v14, &_s9Coherence7CRAssetVSgMd, &_s9Coherence7CRAssetVSgMR);
 
-    v17 = Data.init(from:)();
-    v19 = v18;
-    outlined copy of Data._Representation(v17, v18);
-    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620]);
-    v30 = a1;
+    v18 = Data.init(from:)();
+    v20 = v19;
+    outlined copy of Data._Representation(v18, v19);
+    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620], MEMORY[0x1E6966618]);
+    v32 = a2;
     dispatch thunk of HashFunction.init()();
-    outlined copy of Data._Representation(v17, v19);
-    specialized Data._Representation.withUnsafeBytes<A>(_:)(v17, v19);
-    outlined consume of Data._Representation(v17, v19);
+    outlined copy of Data._Representation(v18, v20);
+    specialized Data._Representation.withUnsafeBytes<A>(_:)(v18, v20);
+    outlined consume of Data._Representation(v18, v20);
     dispatch thunk of HashFunction.finalize()();
-    (*(v32 + 8))(v5, v3);
-    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0]);
-    v20 = v34;
-    v21 = v35;
-    v22 = Digest.makeIterator()();
-    v24 = specialized _copySequenceToContiguousArray<A>(_:)(v22, v23);
+    (*(v34 + 8))(v6, v4);
+    lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256Digest and conformance SHA256Digest, MEMORY[0x1E69663E0], MEMORY[0x1E69663D8]);
+    v21 = v36;
+    v22 = v37;
+    v23 = Digest.makeIterator()();
+    specialized _copySequenceToContiguousArray<A>(_:)(v23, v24);
+    v26 = v25;
 
-    v25 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v24);
-    v32 = v26;
+    v27 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v26);
+    v34 = v28;
 
-    outlined consume of Data._Representation(v17, v19);
+    outlined consume of Data._Representation(v18, v20);
 
-    (*(v33 + 8))(v21, v20);
-    v27 = v32;
-    *v10 = v25;
-    v10[1] = v27;
-    v10[2] = v17;
-    v10[3] = v19;
+    (*(v35 + 8))(v22, v21);
+    v29 = v34;
+    *v11 = v27;
+    v11[1] = v29;
+    v11[2] = v18;
+    v11[3] = v20;
     swift_storeEnumTagMultiPayload();
-    return outlined init with take of CRAssetOrData(v10, v30);
+    return outlined init with take of CRAssetOrData(v11, v32);
   }
 
   else
   {
 
-    v15 = type metadata accessor for CRAsset();
-    v16 = *(v15 - 8);
-    (*(v16 + 56))(v13, 0, 1, v15);
-    (*(v16 + 32))(a1, v13, v15);
+    v16 = type metadata accessor for CRAsset();
+    v17 = *(v16 - 8);
+    (*(v17 + 56))(v14, 0, 1, v16);
+    (*(v17 + 32))(a2, v14, v16);
     return swift_storeEnumTagMultiPayload();
   }
 }
 
-uint64_t CRAssetOrData.encode(to:)()
+uint64_t CRAssetOrData.encode(to:)(uint64_t a1)
 {
-  v1 = type metadata accessor for CRAsset();
-  v2 = *(v1 - 8);
-  MEMORY[0x1EEE9AC00](v1);
-  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for CRAssetOrData();
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = (&v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of CRAssetOrData(v0, v7);
+  v2 = type metadata accessor for CRAsset();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for CRAssetOrData(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = (&v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of CRAssetOrData(v1, v8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v8 = *v7;
-    v9 = v7[1];
-    v11 = v7[2];
-    v10 = v7[3];
+    v9 = *v8;
+    v10 = v8[1];
+    v12 = v8[2];
+    v11 = v8[3];
     Data.encode(to:)();
-    outlined consume of Data._Representation(v8, v9);
-    return outlined consume of Data._Representation(v11, v10);
+    outlined consume of Data._Representation(v9, v10);
+    return outlined consume of Data._Representation(v12, v11);
   }
 
   else
   {
-    (*(v2 + 32))(v4, v7, v1);
+    (*(v3 + 32))(v5, v8, v2);
     CRAsset.encode(to:)();
-    return (*(v2 + 8))(v4, v1);
+    return (*(v3 + 8))(v5, v2);
   }
 }
 
-uint64_t CRAssetOrData.visitReferences(_:)()
+uint64_t CRAssetOrData.visitReferences(_:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for CRAssetOrData();
-  MEMORY[0x1EEE9AC00](v2);
-  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for CRAsset();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of CRAssetOrData(v1, v4);
+  v2 = v1;
+  v3 = type metadata accessor for CRAssetOrData(0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for CRAsset();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of CRAssetOrData(v2, v5);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    return outlined destroy of CRAssetOrData(v4);
+    return outlined destroy of CRAssetOrData(v5);
   }
 
-  (*(v6 + 32))(v8, v4, v5);
+  (*(v7 + 32))(v9, v5, v6);
   CRAsset.visitReferences(_:)();
-  return (*(v6 + 8))(v8, v5);
+  return (*(v7 + 8))(v9, v6);
 }
 
-uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance CRAssetOrData()
+uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance CRAssetOrData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type CRAssetOrData and conformance CRAssetOrData, type metadata accessor for CRAssetOrData);
-  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type CRAssetOrData and conformance CRAssetOrData, type metadata accessor for CRAssetOrData);
+  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type CRAssetOrData and conformance CRAssetOrData, type metadata accessor for CRAssetOrData, &protocol conformance descriptor for CRAssetOrData);
+  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type CRAssetOrData and conformance CRAssetOrData, type metadata accessor for CRAssetOrData, &protocol conformance descriptor for CRAssetOrData);
 
   return CRValue<>.observableDifference(from:with:)();
 }
 
-uint64_t protocol witness for CRType.visitReferences(_:) in conformance CRAssetOrData(uint64_t a1)
+uint64_t protocol witness for CRType.visitReferences(_:) in conformance CRAssetOrData(uint64_t a1, uint64_t a2)
 {
-  v2 = v1;
+  v3 = v2;
   MEMORY[0x1EEE9AC00](a1);
-  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for CRAsset();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of CRAssetOrData(v2, v4);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for CRAsset();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of CRAssetOrData(v3, v5);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    return outlined destroy of CRAssetOrData(v4);
+    return outlined destroy of CRAssetOrData(v5);
   }
 
-  (*(v6 + 32))(v8, v4, v5);
+  (*(v7 + 32))(v9, v5, v6);
   CRAsset.visitReferences(_:)();
-  return (*(v6 + 8))(v8, v5);
+  return (*(v7 + 8))(v9, v6);
 }
 
 unint64_t CRAssetOrData.debugDescription.getter()
@@ -7255,7 +6925,7 @@ unint64_t CRAssetOrData.debugDescription.getter()
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for CRAssetOrData();
+  v6 = type metadata accessor for CRAssetOrData(0);
   MEMORY[0x1EEE9AC00](v6);
   v8 = (v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   outlined init with copy of CRAssetOrData(v1, v8);
@@ -7309,9 +6979,43 @@ unint64_t CRAssetOrData.debugDescription.getter()
   return v14;
 }
 
-uint64_t specialized _copySequenceToContiguousArray<A>(_:)(uint64_t result, uint64_t a2)
+uint64_t specialized Data._Representation.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2)
 {
-  v2 = *(result + 16);
+  v2 = a2 >> 62;
+  if ((a2 >> 62) <= 1)
+  {
+    if (!v2)
+    {
+      type metadata accessor for SHA256();
+      lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620], MEMORY[0x1E6966618]);
+      return dispatch thunk of HashFunction.update(bufferPointer:)();
+    }
+
+    v4 = a1;
+    v5 = a1 >> 32;
+    if (a1 >> 32 < a1)
+    {
+      __break(1u);
+    }
+
+    return specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v4, v5);
+  }
+
+  if (v2 == 2)
+  {
+    v4 = *(a1 + 16);
+    v5 = *(a1 + 24);
+    return specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v4, v5);
+  }
+
+  type metadata accessor for SHA256();
+  lazy protocol witness table accessor for type SHA256 and conformance SHA256(&lazy protocol witness table cache variable for type SHA256 and conformance SHA256, MEMORY[0x1E6966620], MEMORY[0x1E6966618]);
+  return dispatch thunk of HashFunction.update(bufferPointer:)();
+}
+
+void specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
   v3 = MEMORY[0x1E69E7CC0];
   v4 = v2 - a2;
   if (v2 != a2)
@@ -7333,7 +7037,7 @@ LABEL_31:
       }
 
       v5 = 0;
-      v6 = (a2 + result + 32);
+      v6 = (a2 + a1 + 32);
       v7 = (MEMORY[0x1E69E7CC0] + 32);
       while (1)
       {
@@ -7358,7 +7062,7 @@ LABEL_31:
             v12 = v11;
           }
 
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5UInt8VGMd, &_ss23_ContiguousArrayStorageCys5UInt8VGMR);
           v13 = swift_allocObject();
           v14 = 2 * _swift_stdlib_malloc_size_0(v13) - 64;
           v13[2] = v12;
@@ -7406,29 +7110,26 @@ LABEL_28:
   v5 = 0;
 LABEL_23:
   v19 = v3[3];
-  if (v19 < 2)
+  if (v19 >= 2)
   {
-    return v3;
-  }
-
-  v20 = v19 >> 1;
-  v18 = __OFSUB__(v20, v5);
-  v21 = v20 - v5;
-  if (!v18)
-  {
-    v3[2] = v21;
-    return v3;
-  }
+    v20 = v19 >> 1;
+    v18 = __OFSUB__(v20, v5);
+    v21 = v20 - v5;
+    if (!v18)
+    {
+      v3[2] = v21;
+      return;
+    }
 
 LABEL_32:
-  __break(1u);
-  return result;
+    __break(1u);
+  }
 }
 
-void specialized _copySequenceToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
+void specialized _copySequenceToContiguousArray<A>(_:)(unint64_t a1, uint64_t a2)
 {
   v64 = a2;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMd);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMd, &_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMR);
   v3 = *(v65 - 8);
   MEMORY[0x1EEE9AC00](v65);
   v5 = v55 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -7468,7 +7169,7 @@ LABEL_3:
 
       else
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMd, &_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMR);
         v13 = *(v3 + 72);
         v14 = (*(v3 + 80) + 32) & ~*(v3 + 80);
         v15 = swift_allocObject();
@@ -7596,7 +7297,7 @@ LABEL_84:
   v22 = a1 & 0xFFFFFFFFFFFFFF8;
   v63 = a1 & 0xC000000000000001;
 LABEL_33:
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     v30 = a1;
   }
@@ -7683,7 +7384,7 @@ LABEL_40:
           v42 = v41;
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMd, &_ss23_ContiguousArrayStorageCySo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtGMR);
         v43 = *(v3 + 72);
         v5 = v58;
         v38 = swift_allocObject();
@@ -7785,12 +7486,12 @@ uint64_t specialized static CRAssetOrData.== infix(_:_:)(uint64_t a1, uint64_t a
   v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v34 - v8;
-  v10 = type metadata accessor for CRAssetOrData();
+  v10 = type metadata accessor for CRAssetOrData(0);
   MEMORY[0x1EEE9AC00](v10);
   v12 = (&v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x1EEE9AC00](v13);
   v15 = &v34 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit13CRAssetOrDataO_ACtMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit13CRAssetOrDataO_ACtMd, &_s8PaperKit13CRAssetOrDataO_ACtMR);
   MEMORY[0x1EEE9AC00](v16 - 8);
   v18 = &v34 - v17;
   v20 = (&v34 + *(v19 + 56) - v17);
@@ -7842,14 +7543,14 @@ LABEL_9:
     (*(v35 + 8))(v15, v4);
   }
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v18, &_s8PaperKit13CRAssetOrDataO_ACtMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v18, &_s8PaperKit13CRAssetOrDataO_ACtMd, &_s8PaperKit13CRAssetOrDataO_ACtMR);
   v29 = 0;
   return v29 & 1;
 }
 
 uint64_t outlined init with take of CRAssetOrData(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CRAssetOrData();
+  v4 = type metadata accessor for CRAssetOrData(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -7951,10 +7652,10 @@ uint64_t storeEnumTagSinglePayload for CRDataAsset(uint64_t result, unsigned int
   return result;
 }
 
-uint64_t type metadata completion function for CRAssetOrData()
+uint64_t type metadata completion function for CRAssetOrData(uint64_t a1)
 {
   result = type metadata accessor for CRAsset();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     return 0;
@@ -7965,12 +7666,12 @@ uint64_t type metadata completion function for CRAssetOrData()
 
 uint64_t outlined init with take of (CHReflowableTextToken, PKDrawing)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMd, &_sSo21CHReflowableTextTokenC_9PencilKit9PKDrawingVtMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type SHA256 and conformance SHA256(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SHA256 and conformance SHA256(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8191,15 +7892,15 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance LineEnd
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LineEnd()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LineEnd(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1DA6CE810](qword_1D4078A20[v1]);
+  MEMORY[0x1DA6CE810](qword_1D4078A20[v2]);
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance LineEnd()
+uint64_t protocol witness for CRType.observableDifference(from:with:) in conformance LineEnd(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
@@ -8207,14 +7908,14 @@ uint64_t protocol witness for CRType.observableDifference(from:with:) in conform
   return CRValue<>.observableDifference(from:with:)();
 }
 
-uint64_t protocol witness for CRCodable.init(from:) in conformance LineEnd()
+void *protocol witness for CRCodable.init(from:) in conformance LineEnd()
 {
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
   return CRValue<>.init(from:)();
 }
 
-uint64_t protocol witness for CRCodable.encode(to:) in conformance LineEnd()
+uint64_t protocol witness for CRCodable.encode(to:) in conformance LineEnd(uint64_t a1, uint64_t a2)
 {
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
   lazy protocol witness table accessor for type LineEnd and conformance LineEnd();
@@ -8372,17 +8073,18 @@ LABEL_12:
   return CGPathCreateWithEllipseInRect(*&v10, 0);
 }
 
-uint64_t PKDrawingStruct.init()()
+double PKDrawingStruct.init()()
 {
   type metadata accessor for CGRect(0);
-  _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_14(&lazy protocol witness table cache variable for type CGRect and conformance CGRect, type metadata accessor for CGRect);
+  _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_14(&lazy protocol witness table cache variable for type CGRect and conformance CGRect, type metadata accessor for CGRect, &protocol conformance descriptor for CGRect);
   CRRegister.init(wrappedValue:)();
   type metadata accessor for PKDrawingStruct(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
-  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR, MEMORY[0x1E69953B0]);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR, MEMORY[0x1E69953C8]);
   CROrderedSet.init()();
-  return UnknownProperties.init()();
+  UnknownProperties.init()();
+  return result;
 }
 
 double PKDrawingStruct.bounds<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8408,13 +8110,15 @@ uint64_t PKDrawingStruct.filteredStrokes<A>(in:isIncluded:)(uint64_t a1, uint64_
   return v5;
 }
 
-uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, unsigned int (*a3)(char *, uint64_t, uint64_t), uint64_t a4)
+double PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, unsigned int (*a3)(char *, uint64_t, uint64_t), uint64_t a4)
 {
   v7 = type metadata accessor for CRKeyPath();
   v12 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(closure #1 in PKDrawingStruct.deleteStrokes<A, B>(_:in:), 0, a3, v7, MEMORY[0x1E69E73E0], a4, MEMORY[0x1E69E7410], v8);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9Coherence9CRKeyPathVGMd);
-  v10 = lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type [CRKeyPath] and conformance [A], &_sSay9Coherence9CRKeyPathVGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay9Coherence9CRKeyPathVGMd, &_sSay9Coherence9CRKeyPathVGMR);
+  v10 = lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type [CRKeyPath] and conformance [A], &_sSay9Coherence9CRKeyPathVGMd, &_sSay9Coherence9CRKeyPathVGMR, MEMORY[0x1E69E6328]);
   PKDrawingStruct.deleteStrokes<A, B>(_:in:)(&v12, a2, v9, v10);
+
+  return result;
 }
 
 uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void (*a1)(char *, char *), uint64_t a2, unsigned int (*a3)(char *, uint64_t, uint64_t), char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -8553,21 +8257,21 @@ uint64_t PKDrawingStruct.allStrokes<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a
 {
   v24 = a2;
   v25 = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v19 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v19 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v20 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v19 - v12;
   v14 = MEMORY[0x1E69E7CD0];
   v26 = MEMORY[0x1E69E7CD0];
   type metadata accessor for PKDrawingStruct(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   CROrderedSet.makeIterator()();
   v21 = v13;
   CROrderedSet.Iterator.next()();
@@ -8597,9 +8301,16 @@ uint64_t PKDrawingStruct.allStrokes<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a
 
 double PKDrawingStruct.canvasBounds.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   CRRegister.wrappedValue.getter();
   return v1;
+}
+
+double PKDrawingStruct.canvasBounds.setter(double a1, double a2, double a3, double a4)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  CRRegister.wrappedValue.setter();
+  return result;
 }
 
 uint64_t PKDrawingStruct.requiredContentVersion<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8607,23 +8318,23 @@ uint64_t PKDrawingStruct.requiredContentVersion<A>(in:)(uint64_t a1, uint64_t a2
   v30 = a3;
   v38 = a2;
   v39 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
   v37 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v30 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v30 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v30 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v31 = *(v13 - 8);
   MEMORY[0x1EEE9AC00](v13);
   v15 = &v30 - v14;
   type metadata accessor for PKDrawingStruct(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   CROrderedSet.makeIterator()();
   v40 = v15;
   v41 = v13;
@@ -8687,7 +8398,7 @@ uint64_t static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(uint64_t 
   v87 = type metadata accessor for PKStrokeInheritedProperties(0);
   MEMORY[0x1EEE9AC00](v87);
   v78 = v72 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit27PKStrokeInheritedPropertiesVGMd);
+  v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit27PKStrokeInheritedPropertiesVGMd, &_s9Coherence3RefVy8PaperKit27PKStrokeInheritedPropertiesVGMR);
   v13 = *(v86 - 8);
   MEMORY[0x1EEE9AC00](v86);
   v77 = v72 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8703,17 +8414,17 @@ uint64_t static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(uint64_t 
   v93 = v72 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v22);
   v92 = v72 - v23;
-  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
+  v100 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
   v24 = *(v100 - 8);
   MEMORY[0x1EEE9AC00](v100);
   v91 = v72 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMR);
   MEMORY[0x1EEE9AC00](v26 - 8);
   v28 = v72 - v27;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMR);
   MEMORY[0x1EEE9AC00](v29 - 8);
   v31 = v72 - v30;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMR);
   v33 = *(v32 - 8);
   MEMORY[0x1EEE9AC00](v32);
   v35 = v72 - v34;
@@ -8729,7 +8440,7 @@ uint64_t static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(uint64_t 
     v37 = *(a1 + 16);
     if (v37)
     {
-      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7WeakRefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+      v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7WeakRefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence7WeakRefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
       v39 = *(v38 - 8);
       v40 = a1 + ((*(v39 + 80) + 32) & ~*(v39 + 80));
       v99 = (v24 + 48);
@@ -8757,7 +8468,7 @@ uint64_t static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(uint64_t 
         v43 = a4;
         v44 = v91;
         (*v90)(v91, v28, v41);
-        outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMR);
         v45 = v92;
         CRRegister.value.getter();
         (*v89)(v44, v41);
@@ -8793,13 +8504,13 @@ uint64_t static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(uint64_t 
         {
           v49 = v81;
           Ref.subscript.getter();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMd, &_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMR);
           v50 = v82;
           CRRegister.wrappedValue.getter();
           outlined destroy of PKDrawingStruct.Partial(v49, type metadata accessor for PKStrokeStruct);
           v51 = v86;
           v74 = Ref.subscript.modify();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMR);
           v52 = CRRegister.wrappedValue.modify();
           v54 = v53;
           v55 = v53[1];
@@ -8832,7 +8543,7 @@ LABEL_23:
 
         v60 = v76;
         Ref.subscript.getter();
-        v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMd);
+        v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMd, &_s9Coherence10CRRegisterVyAA3RefVy8PaperKit27PKStrokeInheritedPropertiesVGGMR);
         v62 = v77;
         v73 = v61;
         CRRegister.wrappedValue.getter();
@@ -8842,7 +8553,7 @@ LABEL_23:
         Ref.subscript.getter();
         v74 = *v83;
         v74(v62, v64);
-        v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd);
+        v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo17CGAffineTransformVAeA7CRValue8PaperKityHCg_GMR);
         CRRegister.wrappedValue.getter();
         outlined destroy of PKDrawingStruct.Partial(v63, type metadata accessor for PKStrokeInheritedProperties);
         if (vabdd_f64(t1.a, v6) >= 0.001 || vabdd_f64(t1.b, v7) >= 0.001 || vabdd_f64(t1.c, v8) >= 0.001 || vabdd_f64(t1.d, v9) >= 0.001 || vabdd_f64(t1.tx, v10) >= 0.1 || vabdd_f64(t1.ty, v11) >= 0.1)
@@ -8880,10 +8591,10 @@ LABEL_7:
         }
       }
 
-      outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v28, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGSgMR);
       (*v98)(v31, 1, 1, v32);
 LABEL_6:
-      result = outlined destroy of StocksKitCurrencyCache.Provider?(v31, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd);
+      result = outlined destroy of StocksKitCurrencyCache.Provider?(v31, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMR);
       goto LABEL_7;
     }
   }
@@ -8891,15 +8602,15 @@ LABEL_6:
   return result;
 }
 
-uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v58 = a4;
   v64 = a2;
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v54 = *(v66 - 8);
   MEMORY[0x1EEE9AC00](v66);
   v68 = &v53 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v59 = &v53 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
@@ -8910,7 +8621,7 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
   v77 = *(v55 - 8);
   MEMORY[0x1EEE9AC00](v55);
   v74 = &v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v57 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
   v79 = &v53 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8920,7 +8631,7 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
   v62 = &v53 - v19;
   MEMORY[0x1EEE9AC00](v20);
   v22 = &v53 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence9CRKeyPathVSgMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence9CRKeyPathVSgMd, &_s9Coherence9CRKeyPathVSgMR);
   MEMORY[0x1EEE9AC00](v23 - 8);
   v25 = &v53 - v24;
   v26 = *(a3 - 8);
@@ -8957,16 +8668,16 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
     {
       v51 = v35;
       v69(v74, v25, v35);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
-      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<TaggedStroke> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
+      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<TaggedStroke> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR, MEMORY[0x1E6995078]);
       Ref.init(id:)();
       type metadata accessor for PKDrawingStruct(0);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
       v52 = v70;
       CROrderedSet.remove(_:)();
       if ((*v46)(v52, 1, v14) == 1)
       {
-        outlined destroy of StocksKitCurrencyCache.Provider?(v52, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v52, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
         v48 = v63;
         (*v61)(v63, v22, v14);
         v49 = v62;
@@ -8979,7 +8690,7 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
       else
       {
         (*v47)(v22, v14);
-        outlined destroy of StocksKitCurrencyCache.Provider?(v52, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v52, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
       }
 
       dispatch thunk of IteratorProtocol.next()();
@@ -8993,7 +8704,7 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
   if (*(*v78 + 16))
   {
     type metadata accessor for PKDrawingStruct(0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
     CROrderedSet.makeIterator()();
     swift_beginAccess();
     v37 = (v57 + 48);
@@ -9018,7 +8729,7 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
         v42 = v79;
         v44 = v43;
         v41 = v60;
-        outlined destroy of StocksKitCurrencyCache.Provider?(v44, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v44, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
       }
 
       (*v39)(v42, v14);
@@ -9027,6 +8738,8 @@ uint64_t PKDrawingStruct.deleteStrokes<A, B>(_:in:)(uint64_t a1, uint64_t a2, ui
     while (*(*v78 + 16));
     (*(v54 + 8))(v68, v66);
   }
+
+  return result;
 }
 
 void (*PKDrawingStruct.canvasBounds.modify(uint64_t *a1))(void *a1)
@@ -9043,21 +8756,21 @@ void (*PKDrawingStruct.canvasBounds.modify(uint64_t *a1))(void *a1)
 
   v3 = v2;
   *a1 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   *(v3 + 32) = CRRegister.wrappedValue.modify();
   return PKStrokeInheritedProperties.inherited.modify;
 }
 
 uint64_t PKDrawingStruct.$canvasBounds.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
 
   return CRRegister.projectedValue.getter();
 }
 
 uint64_t key path setter for PKDrawingStruct.$canvasBounds : PKDrawingStruct(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9072,7 +8785,7 @@ uint64_t key path setter for PKDrawingStruct.$canvasBounds : PKDrawingStruct(uin
 
 uint64_t PKDrawingStruct.$canvasBounds.setter(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v3 = *(v2 - 8);
   v4 = MEMORY[0x1EEE9AC00](v2);
   (*(v3 + 16))(&v7 - v5, a1, v2, v4);
@@ -9096,7 +8809,7 @@ void (*PKDrawingStruct.$canvasBounds.modify(void *a1))(uint64_t a1, char a2)
   v5 = v4;
   *a1 = v4;
   *v4 = v1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v5[1] = v6;
   v7 = *(v6 - 8);
   v5[2] = v7;
@@ -9123,7 +8836,7 @@ void (*PKDrawingStruct.$canvasBounds.modify(void *a1))(uint64_t a1, char a2)
 uint64_t PKDrawingStruct.strokes.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = *(type metadata accessor for PKDrawingStruct(0) + 20);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
@@ -9132,7 +8845,7 @@ uint64_t PKDrawingStruct.strokes.getter@<X0>(uint64_t a1@<X8>)
 uint64_t PKDrawingStruct.strokes.setter(uint64_t a1)
 {
   v3 = *(type metadata accessor for PKDrawingStruct(0) + 20);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   v5 = *(*(v4 - 8) + 40);
 
   return v5(v1 + v3, a1, v4);
@@ -9141,21 +8854,21 @@ uint64_t PKDrawingStruct.strokes.setter(uint64_t a1)
 BOOL PKDrawingStruct.Partial.merge(delta:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v49 = *(v4 - 8);
   v50 = v4;
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v42 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v48 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v42 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v13 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
   v47 = &v42 - v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v42 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
@@ -9172,23 +8885,23 @@ BOOL PKDrawingStruct.Partial.merge(delta:)(uint64_t a1)
     v45 = v24;
     v46 = v11;
     v44 = v6;
-    outlined init with copy of Date?(v2, v20, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v2, v20, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     v25 = v2;
     v43 = v13;
     v26 = *(v13 + 48);
     v27 = v26(v20, 1, v12);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v20, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v20, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     if (v27 == 1)
     {
-      outlined assign with copy of CRRegister<Ref<PKStrokeInheritedProperties>?>?(v51, v25, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+      outlined assign with copy of CRRegister<Ref<PKStrokeInheritedProperties>?>?(v51, v25, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
     {
-      outlined init with copy of Date?(v51, v17, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+      outlined init with copy of Date?(v51, v17, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
       if (v26(v17, 1, v12) == 1)
       {
-        outlined destroy of StocksKitCurrencyCache.Provider?(v17, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v17, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
       }
 
       else
@@ -9208,27 +8921,27 @@ BOOL PKDrawingStruct.Partial.merge(delta:)(uint64_t a1)
     v30 = v50;
     v31 = *(v21 + 20);
     v32 = v46;
-    outlined init with copy of Date?(v25 + v31, v46, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+    outlined init with copy of Date?(v25 + v31, v46, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
     v33 = v49;
     v34 = *(v49 + 48);
     LODWORD(v30) = v34(v32, 1, v30);
-    outlined destroy of StocksKitCurrencyCache.Provider?(v32, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v32, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
     v35 = *(v21 + 20);
     if (v30 == 1)
     {
-      outlined assign with copy of CRRegister<Ref<PKStrokeInheritedProperties>?>?(v51 + v35, v25 + v31, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+      outlined assign with copy of CRRegister<Ref<PKStrokeInheritedProperties>?>?(v51 + v35, v25 + v31, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
       LOBYTE(v24) = v45;
     }
 
     else
     {
       v36 = v48;
-      outlined init with copy of Date?(v51 + v35, v48, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+      outlined init with copy of Date?(v51 + v35, v48, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
       v37 = v34(v36, 1, v50);
       LOBYTE(v24) = v45;
       if (v37 == 1)
       {
-        outlined destroy of StocksKitCurrencyCache.Provider?(v36, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+        outlined destroy of StocksKitCurrencyCache.Provider?(v36, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
       }
 
       else
@@ -9252,26 +8965,26 @@ BOOL PKDrawingStruct.Partial.merge(delta:)(uint64_t a1)
 
 BOOL PKDrawingStruct.Partial.canMerge(delta:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v31 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v30 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v35 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v34 = &v30 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
   v14 = &v30 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v16 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
   v18 = &v30 - v17;
   v32 = a1;
-  outlined init with copy of Date?(a1, v14, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  outlined init with copy of Date?(a1, v14, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   v19 = *(v16 + 48);
   if (v19(v14, 1, v15) == 1)
   {
@@ -9282,7 +8995,7 @@ BOOL PKDrawingStruct.Partial.canMerge(delta:)(uint64_t a1)
   else
   {
     (*(v16 + 32))(v18, v14, v15);
-    outlined init with copy of Date?(v33, v11, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v33, v11, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     v20 = v7;
     if (v19(v11, 1, v15) != 1)
     {
@@ -9303,23 +9016,23 @@ BOOL PKDrawingStruct.Partial.canMerge(delta:)(uint64_t a1)
     (*(v16 + 8))(v18, v15);
   }
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v11, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v11, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   v22 = v34;
   v21 = v35;
 LABEL_6:
   v23 = type metadata accessor for PKDrawingStruct.Partial(0);
-  outlined init with copy of Date?(v32 + *(v23 + 20), v6, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  outlined init with copy of Date?(v32 + *(v23 + 20), v6, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   v24 = *(v21 + 48);
   if (v24(v6, 1, v20) == 1)
   {
 LABEL_9:
-    outlined destroy of StocksKitCurrencyCache.Provider?(v6, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v6, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
     return 1;
   }
 
   (*(v21 + 32))(v22, v6, v20);
   v6 = v31;
-  outlined init with copy of Date?(v33 + *(v23 + 20), v31, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  outlined init with copy of Date?(v33 + *(v23 + 20), v31, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   if (v24(v6, 1, v20) == 1)
   {
     (*(v21 + 8))(v22, v20);
@@ -9333,57 +9046,57 @@ LABEL_9:
   return (v28 & 1) != 0;
 }
 
-uint64_t PKDrawingStruct.Partial.visitReferences(_:)()
+uint64_t PKDrawingStruct.Partial.visitReferences(_:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
-  MEMORY[0x1EEE9AC00](v2 - 8);
-  v4 = &v14 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v7 = &v14 - v6;
-  outlined init with copy of Date?(v1, &v14 - v6, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
-  v9 = *(v8 - 8);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  v2 = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v15 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v15 - v7;
+  outlined init with copy of Date?(v2, &v15 - v7, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  v10 = *(v9 - 8);
+  if ((*(v10 + 48))(v8, 1, v9) == 1)
   {
-    outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   }
 
   else
   {
     CRRegister.visitReferences(_:)();
-    (*(v9 + 8))(v7, v8);
+    (*(v10 + 8))(v8, v9);
   }
 
-  v10 = type metadata accessor for PKDrawingStruct.Partial(0);
-  outlined init with copy of Date?(v1 + *(v10 + 20), v4, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
-  v12 = *(v11 - 8);
-  if ((*(v12 + 48))(v4, 1, v11) == 1)
+  v11 = type metadata accessor for PKDrawingStruct.Partial(0);
+  outlined init with copy of Date?(v2 + *(v11 + 20), v5, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
+  v13 = *(v12 - 8);
+  if ((*(v13 + 48))(v5, 1, v12) == 1)
   {
-    return outlined destroy of StocksKitCurrencyCache.Provider?(v4, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+    return outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   }
 
   CROrderedSet.MergeableDelta.visitReferences(_:)();
-  return (*(v12 + 8))(v4, v11);
+  return (*(v13 + 8))(v5, v12);
 }
 
-uint64_t PKDrawingStruct.Partial.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double PKDrawingStruct.Partial.init(from:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v35 = v27 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v36 = v27 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v9 = *(v8 - 8);
   v10 = *(v9 + 56);
   v11 = v9 + 56;
   v10(a2, 1, 1, v8);
   v12 = *(type metadata accessor for PKDrawingStruct.Partial(0) + 20);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v14 = *(v13 - 8);
   v15 = *(v14 + 56);
   v16 = v14 + 56;
@@ -9412,7 +9125,7 @@ uint64_t PKDrawingStruct.Partial.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     if (dispatch thunk of CRDecoder.CRDTKeyedContainer.decoder(forKey:)())
     {
       type metadata accessor for CGRect(0);
-      _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_14(&lazy protocol witness table cache variable for type CGRect and conformance CGRect, type metadata accessor for CGRect);
+      _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_14(&lazy protocol witness table cache variable for type CGRect and conformance CGRect, type metadata accessor for CGRect, &protocol conformance descriptor for CGRect);
       v21 = v20;
       v22 = v37;
       CRRegister.init(from:)();
@@ -9421,11 +9134,11 @@ uint64_t PKDrawingStruct.Partial.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
       if (v22)
       {
 
-        return outlined destroy of PKDrawingStruct.Partial(v18, type metadata accessor for PKDrawingStruct.Partial);
+        goto LABEL_3;
       }
 
       v32(v21, 0, 1, v31);
-      outlined assign with take of UUID?(v21, v18, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+      outlined assign with take of UUID?(v21, v18, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
@@ -9438,76 +9151,81 @@ uint64_t PKDrawingStruct.Partial.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
     v25 = v33;
     if (!v24)
     {
+
+      return result;
     }
 
-    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
-    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
-    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
+    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR, MEMORY[0x1E69953B0]);
+    lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type Ref<CRRegister<TaggedStroke>> and conformance Ref<A>, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR, MEMORY[0x1E69953C8]);
     v26 = v35;
     CROrderedSet.MergeableDelta.init(from:)();
 
     if (!v23)
     {
       v28(v26, 0, 1, v29);
-      return outlined assign with take of UUID?(v26, v18 + v25, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+      outlined assign with take of UUID?(v26, v18 + v25, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+      return result;
     }
   }
 
-  return outlined destroy of PKDrawingStruct.Partial(v18, type metadata accessor for PKDrawingStruct.Partial);
+LABEL_3:
+  outlined destroy of PKDrawingStruct.Partial(v18, type metadata accessor for PKDrawingStruct.Partial);
+  return result;
 }
 
-uint64_t PKDrawingStruct.Partial.encode(to:)()
+double PKDrawingStruct.Partial.encode(to:)()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
   MEMORY[0x1EEE9AC00](v1 - 8);
   v3 = &v21 - v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v24 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v21 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v21 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v13 = &v21 - v12;
-  result = dispatch thunk of CREncoder.keyedContainer()();
+  dispatch thunk of CREncoder.keyedContainer()();
   if (!v0)
   {
     v22 = v3;
     v23 = v6;
     v15 = v25;
-    outlined init with copy of Date?(v25, v9, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+    outlined init with copy of Date?(v25, v9, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     if ((*(v11 + 48))(v9, 1, v10) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v9, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v9, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GSgMR);
     }
 
     else
     {
       (*(v11 + 32))(v13, v9, v10);
-      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGRect> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd);
+      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<CGRect> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR, MEMORY[0x1E6995080]);
       dispatch thunk of CREncoder.CRDTKeyedContainer.encode<A>(_:forKey:)();
       (*(v11 + 8))(v13, v10);
     }
 
     v16 = type metadata accessor for PKDrawingStruct.Partial(0);
     v17 = v22;
-    outlined init with copy of Date?(v15 + *(v16 + 20), v22, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+    outlined init with copy of Date?(v15 + *(v16 + 20), v22, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
     v18 = v24;
     v19 = (*(v24 + 48))(v17, 1, v4);
     v20 = v23;
     if (v19 == 1)
     {
 
-      return outlined destroy of StocksKitCurrencyCache.Provider?(v17, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v17, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
     }
 
     else
     {
       (*(v18 + 32))(v23, v17, v4);
-      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CROrderedSet<Ref<CRRegister<TaggedStroke>>>.MergeableDelta and conformance CROrderedSet<A>.MergeableDelta, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+      lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CROrderedSet<Ref<CRRegister<TaggedStroke>>>.MergeableDelta and conformance CROrderedSet<A>.MergeableDelta, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MergeableDeltaVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR, MEMORY[0x1E6995110]);
       dispatch thunk of CREncoder.CRDTKeyedContainer.encode<A>(_:forKey:)();
       (*(v18 + 8))(v20, v4);
     }
@@ -9516,34 +9234,34 @@ uint64_t PKDrawingStruct.Partial.encode(to:)()
   return result;
 }
 
-void closure #1 in PKDrawingStruct.bounds<A>(in:)(CGFloat *a1@<X0>, objc_class *a2@<X2>, CGRect *a3@<X8>)
+void closure #1 in PKDrawingStruct.bounds<A>(in:)(CGFloat *a1@<X0>, objc_class *a2@<X2>, CGRect *a5@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = (&v23 - v8);
-  v10 = *a1;
-  v11 = a1[1];
-  v12 = a1[2];
-  v13 = a1[3];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = (&v25 - v10);
+  v12 = *a1;
+  v13 = a1[1];
+  v14 = a1[2];
+  v15 = a1[3];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   Ref.subscript.getter();
-  v14 = type metadata accessor for Capsule();
+  v16 = type metadata accessor for Capsule();
   WitnessTable = swift_getWitnessTable();
-  v16 = specialized CRRegister<>.bounds(in:)(a2, v9, v14, WitnessTable);
-  v18 = v17;
+  v18 = specialized CRRegister<>.bounds(in:)(a2, v11, v16, WitnessTable);
   v20 = v19;
   v22 = v21;
-  (*(v7 + 8))(v9, v6);
-  v24.origin.x = v10;
-  v24.origin.y = v11;
-  v24.size.width = v12;
-  v24.size.height = v13;
-  v25.origin.x = v16;
-  v25.origin.y = v18;
-  v25.size.width = v20;
-  v25.size.height = v22;
-  *a3 = CGRectUnion(v24, v25);
+  v24 = v23;
+  (*(v9 + 8))(v11, v8);
+  v26.origin.x = v12;
+  v26.origin.y = v13;
+  v26.size.width = v14;
+  v26.size.height = v15;
+  v27.origin.x = v18;
+  v27.origin.y = v20;
+  v27.size.width = v22;
+  v27.size.height = v24;
+  *a5 = CGRectUnion(v26, v27);
 }
 
 uint64_t PKDrawingStruct.visitStrokes<A>(in:_:)(uint64_t a1, void (*a2)(unsigned int (*)(char *, uint64_t, uint64_t)), uint64_t a3)
@@ -9551,19 +9269,19 @@ uint64_t PKDrawingStruct.visitStrokes<A>(in:_:)(uint64_t a1, void (*a2)(unsigned
   v20 = a2;
   v21 = a3;
   v19 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = (&v17 - v5);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v18 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v12 = &v17 - v11;
   type metadata accessor for PKDrawingStruct(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   CROrderedSet.makeIterator()();
   v22 = v10;
   v13 = v12;
@@ -9591,21 +9309,21 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
   v70 = a4;
   v75 = a3;
   v72 = a1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v61 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v7 = &v58 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v7 = (&v58 - v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v58 - v9;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd);
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence10CRSequenceV8IteratorVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR);
   v60 = *(v74 - 8);
   MEMORY[0x1EEE9AC00](v74);
   v69 = &v58 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMR);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v64 = &v58 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   v66 = *(v14 - 8);
   v67 = v14;
   MEMORY[0x1EEE9AC00](v14);
@@ -9621,10 +9339,10 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
   v24 = &v58 - v23;
   MEMORY[0x1EEE9AC00](v25);
   v27 = &v58 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMR);
   MEMORY[0x1EEE9AC00](v28 - 8);
   v30 = &v58 - v29;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
   v68 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v33 = &v58 - v32;
@@ -9636,21 +9354,21 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
   if (swift_getEnumCaseMultiPayload())
   {
     outlined destroy of PKDrawingStruct.Partial(v24, type metadata accessor for TaggedStroke);
-    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd);
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMR);
     (*(*(v34 - 8) + 56))(v30, 1, 1, v34);
   }
 
   else
   {
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd);
+    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMR);
     v36 = *(v35 - 8);
     (*(v36 + 32))(v30, v24, v35);
     (*(v36 + 56))(v30, 0, 1, v35);
   }
 
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGMR);
   v38 = (*(*(v37 - 8) + 48))(v30, 1, v37);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v30, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v30, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMd, &_s9Coherence3RefVy8PaperKit14PKStrokeStructVGSgMR);
   v40 = v69;
   v39 = v70;
   if (v38 == 1)
@@ -9662,7 +9380,7 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
     outlined init with take of PKDrawingStruct.MutatingAction(v41, v63, type metadata accessor for TaggedStroke);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd);
+      v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMR);
       v44 = v42;
       v45 = *(v43 - 8);
       v46 = v64;
@@ -9673,17 +9391,17 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
     else
     {
       outlined destroy of PKDrawingStruct.Partial(v42, type metadata accessor for TaggedStroke);
-      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd);
+      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMR);
       v46 = v64;
       (*(*(v48 - 8) + 56))(v64, 1, 1, v48);
     }
 
-    v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd);
+    v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMR);
     v50 = *(v49 - 8);
     if ((*(v50 + 48))(v46, 1, v49) == 1)
     {
       (*(v68 + 8))(v58, v71);
-      return outlined destroy of StocksKitCurrencyCache.Provider?(v46, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd);
+      return outlined destroy of StocksKitCurrencyCache.Provider?(v46, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMR);
     }
 
     else
@@ -9728,9 +9446,9 @@ uint64_t visit #1 <A>(node:) in PKDrawingStruct.visitStrokes<A>(in:_:)(unsigned 
   }
 }
 
-uint64_t closure #1 in PKDrawingStruct.filteredStrokes<A>(in:isIncluded:)(uint64_t a1, uint64_t (*a2)(uint64_t, __n128), uint64_t a3, void **a4)
+uint64_t closure #1 in PKDrawingStruct.filteredStrokes<A>(in:isIncluded:)(uint64_t a1, uint64_t (*a2)(uint64_t, __n128), uint64_t a3, uint64_t *a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v8 = *(v7 - 8);
   v9 = MEMORY[0x1EEE9AC00](v7);
   v11 = &v17 - v10;
@@ -9751,7 +9469,7 @@ uint64_t closure #1 in PKDrawingStruct.filteredStrokes<A>(in:isIncluded:)(uint64
     v15 = v13[3];
     if (v16 >= v15 >> 1)
     {
-      v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v15 > 1, v16 + 1, 1, v13);
+      v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v13);
       *a4 = v13;
     }
 
@@ -9767,7 +9485,7 @@ uint64_t removeSubstrokes #1 <A, B>(from:) in PKDrawingStruct.deleteStrokes<A, B
   v52 = a4;
   v53 = a5;
   v61 = a1;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence10CRSequenceVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
   v55 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9778,19 +9496,19 @@ uint64_t removeSubstrokes #1 <A, B>(from:) in PKDrawingStruct.deleteStrokes<A, B
   v13 = &v48 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
   v16 = &v48 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMR);
   MEMORY[0x1EEE9AC00](v17 - 8);
   v19 = &v48 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
   v56 = *(v20 - 8);
   MEMORY[0x1EEE9AC00](v20);
   v22 = &v48 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGMR);
   v59 = *(v23 - 8);
   v60 = v23;
   MEMORY[0x1EEE9AC00](v23);
   v54 = &v48 - v24;
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   MEMORY[0x1EEE9AC00](v25 - 8);
   v27 = &v48 - v26;
   swift_beginAccess();
@@ -9805,10 +9523,10 @@ uint64_t removeSubstrokes #1 <A, B>(from:) in PKDrawingStruct.deleteStrokes<A, B
   swift_beginAccess();
   specialized Set._Variant.remove(_:)(v61, v27);
   swift_endAccess();
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd);
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
   v29 = 1;
   v30 = (*(*(v28 - 8) + 48))(v27, 1, v28);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v27, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v27, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGSgMR);
   if (v30 == 1)
   {
     v31 = v50;
@@ -9839,7 +9557,7 @@ uint64_t removeSubstrokes #1 <A, B>(from:) in PKDrawingStruct.deleteStrokes<A, B
     (*(v33 + 56))(v19, v34, 1, v32);
     if ((*(v33 + 48))(v19, 1, v32) == 1)
     {
-      outlined destroy of StocksKitCurrencyCache.Provider?(v19, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd);
+      outlined destroy of StocksKitCurrencyCache.Provider?(v19, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMd, &_s9Coherence3RefVyAA10CRSequenceVyACyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGGSgMR);
       return 0;
     }
 
@@ -9897,4 +9615,179 @@ uint64_t removeSubstrokes #1 <A, B>(from:) in PKDrawingStruct.deleteStrokes<A, B
   }
 
   return v29;
+}
+
+double PKDrawingStruct.apply<A>(_:concat:in:)(double *a1, int a2, void *a3)
+{
+  type metadata accessor for PKDrawingStruct(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7WeakRefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence7WeakRefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
+  v6 = CROrderedSet.map<A>(_:)();
+  static PKDrawingStruct.transformStrokes<A>(_:with:concat:in:)(v6, a1, a2, a3);
+
+  return result;
+}
+
+uint64_t closure #1 in PKDrawingStruct.apply<A>(_:concat:in:)()
+{
+  v0 = type metadata accessor for CRKeyPath();
+  MEMORY[0x1EEE9AC00](v0 - 8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMd, &_s9Coherence3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGMR);
+  Ref.id.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CRRegister<TaggedStroke> and conformance CRRegister<A>, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMd, &_s9Coherence10CRRegisterVy8PaperKit12TaggedStrokeOGMR, MEMORY[0x1E6995078]);
+  return WeakRef.init(id:)();
+}
+
+uint64_t PKDrawingStruct.append<A>(_:in:)(uint64_t a1)
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
+  v2 = *(v1 - 8);
+  MEMORY[0x1EEE9AC00](v1);
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for PKDrawingStruct(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _sSo6CGRectVAB9Coherence7CRValue8PaperKitWlTm_14(&lazy protocol witness table cache variable for type PKDrawingStruct and conformance PKDrawingStruct, type metadata accessor for PKDrawingStruct, &protocol conformance descriptor for PKDrawingStruct);
+  Capsule.Ref.import<A>(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence7CapsuleVy8PaperKit15PKDrawingStructVGMd, &_s9Coherence7CapsuleVy8PaperKit15PKDrawingStructVGMR);
+  Capsule.root.getter();
+  (*(v2 + 16))(v4, &v7[*(v5 + 20)], v1);
+  outlined destroy of PKDrawingStruct.Partial(v7, type metadata accessor for PKDrawingStruct);
+  lazy protocol witness table accessor for type HStack<TupleView<(ModifiedContent<Text, _PaddingLayout>, Spacer, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<_ConditionalContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, ModifiedContent<<<opaque return type of View.dynamicTypeSize(_:)>>.0, _EnvironmentKeyWritingModifier<AnyShapeStyle?>>>>, _FrameLayout>, _PaddingLayout>, _ContentShapeModifier<Rectangle>>, AccessibilityAttachmentModifier>)>> and conformance HStack<A>(&lazy protocol witness table cache variable for type CROrderedSet<Ref<CRRegister<TaggedStroke>>> and conformance CROrderedSet<A>, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR, MEMORY[0x1E6995150]);
+  CROrderedSet.append<A>(contentsOf:)();
+  return (*(v2 + 8))(v4, v1);
+}
+
+uint64_t PKDrawingStruct.merge(_:)(uint64_t a1)
+{
+  v2 = type metadata accessor for MergeResult();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  PKDrawingStruct.merge(_:)(a1, v5);
+  return (*(v3 + 8))(v5, v2);
+}
+
+uint64_t PKDrawingStruct.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v18[0] = a2;
+  v18[1] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v19 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = v18 - v6;
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v18 - v9;
+  v20 = type metadata accessor for MergeResult();
+  v11 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MergeResult.init()();
+  CRRegister.projectedValue.getter();
+  CRRegister.projectedValue.getter();
+  CRRegister.merge(_:)();
+  v14 = *(v3 + 8);
+  v14(v10, v2);
+  (*(v3 + 16))(v19, v7, v2);
+  CRRegister.projectedValue.setter();
+  v14(v7, v2);
+  MergeResult.merge(_:)();
+  v15 = *(v11 + 8);
+  v16 = v20;
+  v15(v13, v20);
+  type metadata accessor for PKDrawingStruct(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
+  CROrderedSet.merge(_:)();
+  MergeResult.merge(_:)();
+  v15(v13, v16);
+  UnknownProperties.merge(_:)();
+  MergeResult.merge(_:)();
+  return (v15)(v13, v16);
+}
+
+uint64_t PKDrawingStruct.actionUndoingDifference(from:)@<X0>(uint64_t a2@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v22 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v22 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMR);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v22 - v14;
+  CRRegister.projectedValue.getter();
+  CRRegister.projectedValue.getter();
+  CRRegister.actionUndoingDifference(from:)();
+  v16 = *(v7 + 8);
+  v16(v9, v6);
+  v16(v12, v6);
+  type metadata accessor for PKDrawingStruct(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
+  CROrderedSet.actionUndoingDifference(from:)();
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GMR);
+  if ((*(*(v17 - 8) + 48))(v15, 1, v17) == 1 && (v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMd, &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GMR), (*(*(v18 - 8) + 48))(v5, 1, v18) == 1))
+  {
+    outlined destroy of StocksKitCurrencyCache.Provider?(v15, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMR);
+    v19 = type metadata accessor for PKDrawingStruct.MutatingAction(0);
+    (*(*(v19 - 8) + 56))(a2, 1, 1, v19);
+  }
+
+  else
+  {
+    outlined init with copy of Date?(v15, a2, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMR);
+    v20 = type metadata accessor for PKDrawingStruct.MutatingAction(0);
+    outlined init with copy of Date?(v5, a2 + *(v20 + 20), &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+    outlined destroy of StocksKitCurrencyCache.Provider?(v15, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMd, &_s9Coherence10CRRegisterV14MutatingActionVySo6CGRectV_AgA7CRValue8PaperKityHCg_GSgMR);
+    (*(*(v20 - 8) + 56))(a2, 0, 1, v20);
+  }
+
+  return outlined destroy of StocksKitCurrencyCache.Provider?(v5, &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMd, &_s9Coherence12CROrderedSetV14MutatingActionVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGG_GSgMR);
+}
+
+uint64_t PKDrawingStruct.apply(_:)(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMd, &_s9Coherence10CRRegisterVySo6CGRectVAeA7CRValue8PaperKityHCg_GMR);
+  v17 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v17 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8PaperKit15PKDrawingStructV14MutatingActionVSgMd, &_s8PaperKit15PKDrawingStructV14MutatingActionVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v17 - v9;
+  v11 = type metadata accessor for PKDrawingStruct.MutatingAction(0);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Date?(a1, v10, &_s8PaperKit15PKDrawingStructV14MutatingActionVSgMd, &_s8PaperKit15PKDrawingStructV14MutatingActionVSgMR);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  {
+    return outlined destroy of StocksKitCurrencyCache.Provider?(v10, &_s8PaperKit15PKDrawingStructV14MutatingActionVSgMd, &_s8PaperKit15PKDrawingStructV14MutatingActionVSgMR);
+  }
+
+  outlined init with take of PKDrawingStruct.MutatingAction(v10, v14, type metadata accessor for PKDrawingStruct.MutatingAction);
+  CRRegister.projectedValue.getter();
+  CRRegister.apply(_:)();
+  v16 = v17;
+  (*(v17 + 16))(v4, v7, v2);
+  CRRegister.projectedValue.setter();
+  (*(v16 + 8))(v7, v2);
+  type metadata accessor for PKDrawingStruct(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMd, &_s9Coherence12CROrderedSetVyAA3RefVyAA10CRRegisterVy8PaperKit12TaggedStrokeOGGGMR);
+  CROrderedSet.apply(_:)();
+  return outlined destroy of PKDrawingStruct.Partial(v14, type metadata accessor for PKDrawingStruct.MutatingAction);
+}
+
+uint64_t outlined destroy of PKDrawingStruct.Partial(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
 }

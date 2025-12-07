@@ -24,65 +24,70 @@
 
 - (void)run
 {
-  v23 = 0;
+  v24 = 0;
   v3 = +[NSThread beginManagedContextSession];
   v4 = objc_alloc_init(NSFetchRequest);
   [v4 setEntity:{+[MicroPaymentDownload downloadEntityFromContext:](MicroPaymentDownload, "downloadEntityFromContext:", v3)}];
   [v4 setPredicate:{+[NSPredicate predicateWithFormat:](NSPredicate, "predicateWithFormat:", @"downloadID=%lld", self->_downloadID)}];
-  v5 = [v3 executeFetchRequest:v4 error:&v23];
+  v5 = [v3 executeFetchRequest:v4 error:&v24];
   if (!v5 || (v6 = v5, [v5 count] != 1))
   {
-    v15 = +[SSLogConfig sharedDaemonConfig];
-    if (!v15)
+    v16 = +[SSLogConfig sharedDaemonConfig];
+    if (!v16)
     {
-      v15 = +[SSLogConfig sharedConfig];
+      v16 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v15 shouldLog];
-    if ([v15 shouldLogToDisk])
+    shouldLog = [v16 shouldLog];
+    if ([v16 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v18) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v18) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v16 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v17 &= 2u;
+      v18 = v18;
     }
 
-    if (v17)
+    else
     {
-      v18 = objc_opt_class();
+      v18 &= 2u;
+    }
+
+    if (v18)
+    {
+      v20 = objc_opt_class();
       downloadID = self->_downloadID;
-      v24 = 138412802;
-      v25 = v18;
-      v26 = 2048;
-      v27 = downloadID;
-      v28 = 2112;
-      v29 = v23;
-      LODWORD(v22) = 32;
-      v20 = _os_log_send_and_compose_impl();
-      if (v20)
+      v25 = 138412802;
+      v26 = v20;
+      v27 = 2048;
+      v28 = downloadID;
+      v29 = 2112;
+      v30 = v24;
+      v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not get download: %lld, error: %@", &v25, 32);
+      if (v22)
       {
-        v21 = v20;
-        [NSString stringWithCString:v20 encoding:4, &v24, v22];
-        free(v21);
+        v23 = v22;
+        [NSString stringWithCString:v22 encoding:4];
+        free(v23);
         SSFileLog();
       }
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
-  if (!-[RefreshMicroPaymentDownloadOperation _refreshDownload:error:](self, "_refreshDownload:error:", [v6 objectAtIndex:0], &v23))
+  if (!-[RefreshMicroPaymentDownloadOperation _refreshDownload:error:](self, "_refreshDownload:error:", [v6 objectAtIndex:0], &v24))
   {
-LABEL_25:
-    v14 = 0;
-    goto LABEL_26;
+LABEL_27:
+    v15 = 0;
+    goto LABEL_28;
   }
 
   v7 = +[SSLogConfig sharedDaemonConfig];
@@ -94,45 +99,50 @@ LABEL_25:
   shouldLog2 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog2 | 2;
+    LODWORD(v9) = shouldLog2 | 2;
   }
 
   else
   {
-    v9 = shouldLog2;
+    LODWORD(v9) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v10 = objc_opt_class();
-    v11 = self->_downloadID;
-    v24 = 138412546;
-    v25 = v10;
-    v26 = 2048;
-    v27 = v11;
-    LODWORD(v22) = 22;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v11 = objc_opt_class();
+    v12 = self->_downloadID;
+    v25 = 138412546;
+    v26 = v11;
+    v27 = 2048;
+    v28 = v12;
+    v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Refreshed download: %lld", &v25, 22);
+    if (v13)
     {
-      v13 = v12;
-      [NSString stringWithCString:v12 encoding:4, &v24, v22];
-      free(v13);
+      v14 = v13;
+      [NSString stringWithCString:v13 encoding:4];
+      free(v14);
       SSFileLog();
     }
   }
 
   sub_1000CE00C(v3);
-  v14 = 1;
-LABEL_26:
+  v15 = 1;
+LABEL_28:
 
   +[NSThread endManagedContextSession];
-  [(RefreshMicroPaymentDownloadOperation *)self setError:v23];
-  [(RefreshMicroPaymentDownloadOperation *)self setSuccess:v14];
+  [(RefreshMicroPaymentDownloadOperation *)self setError:v24];
+  [(RefreshMicroPaymentDownloadOperation *)self setSuccess:v15];
 }
 
 - (id)_newIdentityForPayment:(id)payment
@@ -205,7 +215,7 @@ LABEL_26:
 
 - (BOOL)_refreshDownload:(id)download error:(id *)error
 {
-  v45 = 0;
+  v54 = 0;
   payment = [download payment];
   transactionIdentifier = [payment transactionIdentifier];
   if (transactionIdentifier)
@@ -225,240 +235,279 @@ LABEL_26:
       shouldLog = [v13 shouldLog];
       if ([v13 shouldLogToDisk])
       {
-        v15 = shouldLog | 2;
+        LODWORD(v15) = shouldLog | 2;
       }
 
       else
       {
-        v15 = shouldLog;
+        LODWORD(v15) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject = [v13 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+      {
+        v15 = v15;
+      }
+
+      else
       {
         v15 &= 2u;
       }
 
       if (v15)
       {
-        v16 = objc_opt_class();
+        v17 = objc_opt_class();
         downloadID = self->_downloadID;
-        v46 = 138412802;
-        v47 = v16;
-        v48 = 2048;
-        v49 = downloadID;
-        v50 = 2112;
-        v51 = v9;
-        LODWORD(v44) = 32;
-        v43 = &v46;
-        v18 = _os_log_send_and_compose_impl();
-        if (v18)
+        v55 = 138412802;
+        v56 = v17;
+        v57 = 2048;
+        v58 = downloadID;
+        v59 = 2112;
+        v60 = v9;
+        v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Refreshing download: %lld / %@", &v55, 32);
+        if (v19)
         {
-          v19 = v18;
-          v20 = [NSString stringWithCString:v18 encoding:4, &v46, v44];
-          free(v19);
-          v43 = v20;
+          v20 = v19;
+          v21 = [NSString stringWithCString:v19 encoding:4];
+          free(v20);
+          v52 = v21;
           SSFileLog();
         }
       }
 
-      v21 = objc_alloc_init(LoadMicroPaymentQueuePaymentsOperation);
-      [(LoadMicroPaymentQueuePaymentsOperation *)v21 setRequest:v12];
-      [(LoadMicroPaymentQueuePaymentsOperation *)v21 setURLBagKey:@"p2-in-app-pending-transactions"];
-      if (([(RefreshMicroPaymentDownloadOperation *)self runSubOperation:v21 returningError:&v45]& 1) != 0)
+      v22 = objc_alloc_init(LoadMicroPaymentQueuePaymentsOperation);
+      [(LoadMicroPaymentQueuePaymentsOperation *)v22 setRequest:v12];
+      [(LoadMicroPaymentQueuePaymentsOperation *)v22 setURLBagKey:@"p2-in-app-pending-transactions"];
+      if (([(RefreshMicroPaymentDownloadOperation *)self runSubOperation:v22 returningError:&v54]& 1) != 0)
       {
-        payments = [(MicroPaymentQueueResponse *)[(LoadMicroPaymentQueuePaymentsOperation *)v21 response] payments];
+        payments = [(MicroPaymentQueueResponse *)[(LoadMicroPaymentQueuePaymentsOperation *)v22 response] payments];
         if ([(NSArray *)payments count]== 1)
         {
           LOBYTE(self) = [(RefreshMicroPaymentDownloadOperation *)self _updateDownload:download withDictionary:[(NSArray *)payments objectAtIndex:0]];
-          goto LABEL_59;
+          goto LABEL_65;
         }
 
-        v36 = +[SSLogConfig sharedDaemonConfig];
-        if (!v36)
+        v44 = +[SSLogConfig sharedDaemonConfig];
+        if (!v44)
         {
-          v36 = +[SSLogConfig sharedConfig];
+          v44 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v36 shouldLog];
-        if ([v36 shouldLogToDisk])
+        shouldLog2 = [v44 shouldLog];
+        if ([v44 shouldLogToDisk])
         {
-          v38 = shouldLog2 | 2;
+          LODWORD(v46) = shouldLog2 | 2;
         }
 
         else
         {
-          v38 = shouldLog2;
+          LODWORD(v46) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([v36 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject2 = [v44 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v38 &= 2u;
+          v46 = v46;
         }
 
-        if (!v38)
+        else
         {
-          goto LABEL_58;
+          v46 &= 2u;
         }
 
-        v39 = objc_opt_class();
-        v40 = [(NSArray *)payments count];
-        v41 = self->_downloadID;
-        v46 = 138412802;
-        v47 = v39;
-        v48 = 2048;
-        v49 = v40;
-        v50 = 2048;
-        v51 = v41;
-        LODWORD(v44) = 32;
+        if (!v46)
+        {
+          goto LABEL_64;
+        }
+
+        v48 = objc_opt_class();
+        v49 = [(NSArray *)payments count];
+        v50 = self->_downloadID;
+        v55 = 138412802;
+        v56 = v48;
+        v57 = 2048;
+        v58 = v49;
+        v59 = 2048;
+        v60 = v50;
+        LODWORD(v53) = 32;
+        v43 = _os_log_send_and_compose_impl(v46, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Unexpected count: %lu when refreshing download: %lld", &v55, v53);
       }
 
       else
       {
-        v31 = +[SSLogConfig sharedDaemonConfig];
-        if (!v31)
+        v37 = +[SSLogConfig sharedDaemonConfig];
+        if (!v37)
         {
-          v31 = +[SSLogConfig sharedConfig];
+          v37 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v31 shouldLog];
-        if ([v31 shouldLogToDisk])
+        shouldLog3 = [v37 shouldLog];
+        if ([v37 shouldLogToDisk])
         {
-          v33 = shouldLog3 | 2;
+          LODWORD(v39) = shouldLog3 | 2;
         }
 
         else
         {
-          v33 = shouldLog3;
+          LODWORD(v39) = shouldLog3;
         }
 
-        if (!os_log_type_enabled([v31 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject3 = [v37 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
         {
-          v33 &= 2u;
+          v39 = v39;
         }
 
-        if (!v33)
+        else
         {
-          goto LABEL_58;
+          v39 &= 2u;
         }
 
-        v34 = objc_opt_class();
-        v35 = self->_downloadID;
-        v46 = 138412802;
-        v47 = v34;
-        v48 = 2048;
-        v49 = v35;
-        v50 = 2112;
-        v51 = v45;
-        LODWORD(v44) = 32;
+        if (!v39)
+        {
+          goto LABEL_64;
+        }
+
+        v41 = objc_opt_class();
+        v42 = self->_downloadID;
+        v55 = 138412802;
+        v56 = v41;
+        v57 = 2048;
+        v58 = v42;
+        v59 = 2112;
+        v60 = v54;
+        LODWORD(v53) = 32;
+        v43 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not refresh download: %lld, error: %@", &v55, v53);
       }
 
-      self = _os_log_send_and_compose_impl();
-      if (!self)
+      self = v43;
+      if (!v43)
       {
-        goto LABEL_59;
+        goto LABEL_65;
       }
 
-      [NSString stringWithCString:self encoding:4, &v46, v44];
+      [NSString stringWithCString:v43 encoding:4];
       free(self);
       SSFileLog();
-LABEL_58:
+LABEL_64:
       LOBYTE(self) = 0;
-LABEL_59:
+LABEL_65:
 
       if (!error)
       {
         return self;
       }
 
-      goto LABEL_60;
+      goto LABEL_66;
     }
 
-    v26 = +[SSLogConfig sharedDaemonConfig];
-    if (!v26)
+    v31 = +[SSLogConfig sharedDaemonConfig];
+    if (!v31)
     {
-      v26 = +[SSLogConfig sharedConfig];
+      v31 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog4 = [v26 shouldLog];
-    if ([v26 shouldLogToDisk])
+    shouldLog4 = [v31 shouldLog];
+    if ([v31 shouldLogToDisk])
     {
-      v28 = shouldLog4 | 2;
+      LODWORD(v33) = shouldLog4 | 2;
     }
 
     else
     {
-      v28 = shouldLog4;
+      LODWORD(v33) = shouldLog4;
     }
 
-    if (!os_log_type_enabled([v26 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject4 = [v31 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v28 &= 2u;
+      v33 = v33;
     }
 
-    if (!v28)
+    else
     {
-      goto LABEL_35;
+      v33 &= 2u;
     }
+
+    if (!v33)
+    {
+      goto LABEL_39;
+    }
+
+    v35 = objc_opt_class();
+    v36 = self->_downloadID;
+    v55 = 138412546;
+    v56 = v35;
+    v57 = 2048;
+    v58 = v36;
+    v30 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: No identity for download: %lld", &v55, 22);
   }
 
   else
   {
-    v23 = +[SSLogConfig sharedDaemonConfig];
-    if (!v23)
+    v24 = +[SSLogConfig sharedDaemonConfig];
+    if (!v24)
     {
-      v23 = +[SSLogConfig sharedConfig];
+      v24 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v23 shouldLog];
-    if ([v23 shouldLogToDisk])
+    shouldLog5 = [v24 shouldLog];
+    if ([v24 shouldLogToDisk])
     {
-      v25 = shouldLog5 | 2;
+      LODWORD(v26) = shouldLog5 | 2;
     }
 
     else
     {
-      v25 = shouldLog5;
+      LODWORD(v26) = shouldLog5;
     }
 
-    if (!os_log_type_enabled([v23 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject5 = [v24 OSLogObject];
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      v25 &= 2u;
+      v26 = v26;
     }
 
-    if (!v25)
+    else
     {
-      goto LABEL_35;
+      v26 &= 2u;
     }
+
+    if (!v26)
+    {
+      goto LABEL_39;
+    }
+
+    v28 = objc_opt_class();
+    v29 = self->_downloadID;
+    v55 = 138412546;
+    v56 = v28;
+    v57 = 2048;
+    v58 = v29;
+    v30 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: No transaction ID for download: %lld", &v55, 22);
   }
 
-  v29 = objc_opt_class();
-  v30 = self->_downloadID;
-  v46 = 138412546;
-  v47 = v29;
-  v48 = 2048;
-  v49 = v30;
-  LODWORD(v44) = 22;
-  self = _os_log_send_and_compose_impl();
-  if (!self)
+  self = v30;
+  if (!v30)
   {
-    goto LABEL_36;
+    goto LABEL_40;
   }
 
-  [NSString stringWithCString:self encoding:4, &v46, v44];
+  [NSString stringWithCString:v30 encoding:4];
   free(self);
   SSFileLog();
-LABEL_35:
+LABEL_39:
   LOBYTE(self) = 0;
-LABEL_36:
+LABEL_40:
   if (!error)
   {
     return self;
   }
 
-LABEL_60:
+LABEL_66:
   if ((self & 1) == 0)
   {
-    *error = v45;
+    *error = v54;
   }
 
   return self;

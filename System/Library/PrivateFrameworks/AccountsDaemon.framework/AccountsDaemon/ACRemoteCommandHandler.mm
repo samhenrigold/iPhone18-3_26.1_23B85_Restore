@@ -123,7 +123,7 @@ void __50__ACRemoteCommandHandler__saveAccount_completion___block_invoke(uint64_
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __50__ACRemoteCommandHandler__saveAccount_completion___block_invoke_cold_2(a1);
+      __50__ACRemoteCommandHandler__saveAccount_completion___block_invoke_cold_2();
     }
   }
 
@@ -204,17 +204,17 @@ LABEL_11:
 
 void __81__ACRemoteCommandHandler__promptUserForAccountCredential_withOptions_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _ACLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v13 = 138412546;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_221D2F000, v6, OS_LOG_TYPE_DEFAULT, "Renewal completed with result: %@. Error: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_221D2F000, v6, OS_LOG_TYPE_DEFAULT, "Renewal completed with result: %@. Error: %@", &v12, 0x16u);
   }
 
   if (*(a1 + 40))
@@ -236,8 +236,6 @@ void __81__ACRemoteCommandHandler__promptUserForAccountCredential_withOptions_co
   {
     __81__ACRemoteCommandHandler__promptUserForAccountCredential_withOptions_completion___block_invoke_cold_1();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteAccount:(id)account withCompletion:(id)completion
@@ -295,78 +293,57 @@ void __81__ACRemoteCommandHandler__promptUserForAccountCredential_withOptions_co
 
 - (void)handleCommand:forAccount:options:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136381443;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136381443;
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@, %@)", v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_221D2F000, v2, OS_LOG_TYPE_DEBUG, "%{private}s:%{public}d called (%@, %@)", v3, 0x26u);
 }
 
 void __50__ACRemoteCommandHandler__saveAccount_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Save verified account failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __50__ACRemoteCommandHandler__saveAccount_completion___block_invoke_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Save verified account failed: %@", &v2, 0xCu);
 }
 
 - (void)_promptUserForAccountCredential:withOptions:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __81__ACRemoteCommandHandler__promptUserForAccountCredential_withOptions_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAccountsWithCompletion:options:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateFetchedAccountsCacheWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateFetchedAccountsCacheWithCompletion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

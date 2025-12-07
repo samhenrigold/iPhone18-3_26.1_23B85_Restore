@@ -2,6 +2,8 @@
 + (id)activeDataSetRecordFromKeychainDictionary:(id)dictionary;
 + (id)computedUniqueIdentifierForBorderAgent:(id)agent network:(id)network keychainAccessGroup:(id)group;
 + (id)computedUniqueIdentifierForNetwork:(id)network keychainAccessGroup:(id)group;
++ (id)keyChainQueryFetchForNumberOfActiveDataSetOperationForKeychainAccessGroup:(id)group count:(int)count;
++ (id)keyChainQueryFetchForNumberOfActiveDataSetOperationForThreadNetworkWithKeychainAccessGroup:(id)group count:(int)count clientKeychainAccessGroup:(id)accessGroup;
 + (id)keyChainQueryFetchForOneActiveDataSetOperationForThreadNetwork:(id)network;
 + (id)keyChainQueryForDeleteActiveDataSetOperationForNetworkAndBorderAgent:(id)agent borderAgent:(id)borderAgent;
 + (id)keyChainQueryForDeleteActiveDataSetOperationForThreadNetworkBorderAgent:(id)agent;
@@ -11,6 +13,7 @@
 + (id)keyChainQueryForDeleteAllActiveDataSetOperationForThreadNetwork:(id)network;
 + (id)keyChainQueryForDeleteAllActiveDataSetOperationForThreadNetworkWithKeychainAccessGroup:(id)group clientKeychainAccessGroup:(id)accessGroup;
 + (id)keyChainQueryForDeleteAllActiveDataSetOperationWithKeychainAccessGroup:(id)group;
++ (id)keyChainQueryForDeleteNumberOfActiveDataSetOperationWithKeychainAccessGroup:(id)group count:(int)count;
 + (id)keyChainQueryForFetchActiveDataSetRecordOperationForBorderAgent:(id)agent;
 + (id)keyChainQueryForFetchActiveDataSetRecordOperationForBorderAgentWithKeychainAccessGroup:(id)group clientKeychainAccessGroup:(id)accessGroup;
 + (id)keyChainQueryForFetchActiveDataSetRecordOperationForNetworkAndBorderAgent:(id)agent borderAgent:(id)borderAgent;
@@ -942,6 +945,67 @@ LABEL_11:
   return v7;
 }
 
++ (id)keyChainQueryFetchForNumberOfActiveDataSetOperationForThreadNetworkWithKeychainAccessGroup:(id)group count:(int)count clientKeychainAccessGroup:(id)accessGroup
+{
+  v5 = *&count;
+  v15[0] = kSecAttrAccount;
+  accessGroupCopy = accessGroup;
+  groupCopy = group;
+  networkName = [groupCopy networkName];
+  v16[0] = networkName;
+  v15[1] = kSecAttrServer;
+  extendedPANID = [groupCopy extendedPANID];
+
+  v11 = base64StringFromData_0(extendedPANID);
+  v16[1] = v11;
+  v16[2] = accessGroupCopy;
+  v15[2] = kSecAttrPath;
+  v15[3] = kSecClass;
+  v16[3] = kSecClassInternetPassword;
+  v16[4] = kSecAttrSynchronizableAny;
+  v15[4] = kSecAttrSynchronizable;
+  v15[5] = kSecAttrSyncViewHint;
+  v16[5] = kSecAttrViewHintHome;
+  v16[6] = &__kCFBooleanTrue;
+  v15[6] = kSecReturnData;
+  v15[7] = kSecReturnAttributes;
+  v16[7] = &__kCFBooleanTrue;
+  v15[8] = kSecMatchLimit;
+  v12 = [NSNumber numberWithInt:v5];
+  v15[9] = kSecAttrAccessGroup;
+  v16[8] = v12;
+  v16[9] = @"com.apple.thread.dataset";
+  v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:10];
+
+  return v13;
+}
+
++ (id)keyChainQueryFetchForNumberOfActiveDataSetOperationForKeychainAccessGroup:(id)group count:(int)count
+{
+  v4 = *&count;
+  v9[0] = kSecAttrPath;
+  v9[1] = kSecClass;
+  v10[0] = group;
+  v10[1] = kSecClassInternetPassword;
+  v9[2] = kSecAttrSynchronizable;
+  v9[3] = kSecAttrSyncViewHint;
+  v10[2] = kSecAttrSynchronizableAny;
+  v10[3] = kSecAttrViewHintHome;
+  v9[4] = kSecReturnData;
+  v9[5] = kSecReturnAttributes;
+  v10[4] = &__kCFBooleanTrue;
+  v10[5] = &__kCFBooleanTrue;
+  v9[6] = kSecMatchLimit;
+  groupCopy = group;
+  v6 = [NSNumber numberWithInt:v4];
+  v9[7] = kSecAttrAccessGroup;
+  v10[6] = v6;
+  v10[7] = @"com.apple.thread.dataset";
+  v7 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:8];
+
+  return v7;
+}
+
 + (id)keyChainQueryForDeleteAllActiveDataSetOperationForThreadNetworkWithKeychainAccessGroup:(id)group clientKeychainAccessGroup:(id)accessGroup
 {
   v12[0] = kSecAttrAccount;
@@ -1009,6 +1073,28 @@ LABEL_11:
   v4 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:5];
 
   return v4;
+}
+
++ (id)keyChainQueryForDeleteNumberOfActiveDataSetOperationWithKeychainAccessGroup:(id)group count:(int)count
+{
+  v4 = *&count;
+  v9[0] = kSecAttrPath;
+  v9[1] = kSecClass;
+  v10[0] = group;
+  v10[1] = kSecClassInternetPassword;
+  v9[2] = kSecAttrSynchronizable;
+  v9[3] = kSecAttrSyncViewHint;
+  v10[2] = kSecAttrSynchronizableAny;
+  v10[3] = kSecAttrViewHintHome;
+  v9[4] = kSecMatchLimit;
+  groupCopy = group;
+  v6 = [NSNumber numberWithInt:v4];
+  v9[5] = kSecAttrAccessGroup;
+  v10[4] = v6;
+  v10[5] = @"com.apple.thread.dataset";
+  v7 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:6];
+
+  return v7;
 }
 
 @end

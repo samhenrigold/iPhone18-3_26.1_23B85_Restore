@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)placeTypeAsString:(int)string;
 - (int)StringAsPlaceType:(id)type;
 - (int)placeType;
 - (unint64_t)hash;
@@ -41,6 +42,111 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)placeTypeAsString:(int)string
+{
+  v4 = @"PlaceType_Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_16;
+    case 1:
+      v4 = @"AreaOfInterest";
+
+      break;
+    case 2:
+      v4 = @"PointOfInterest";
+
+      break;
+    case 3:
+      v4 = @"Address";
+
+      break;
+    case 4:
+      v4 = @"Country";
+
+      break;
+    case 5:
+      v4 = @"AdministrativeArea";
+
+      break;
+    case 6:
+      v4 = @"SubAdministrativeArea";
+
+      break;
+    case 7:
+      v4 = @"Locality";
+
+      break;
+    case 8:
+      v4 = @"TimeZone";
+
+      break;
+    case 9:
+      v4 = @"SubLocality";
+
+      break;
+    case 10:
+      v4 = @"Ocean";
+
+      break;
+    case 11:
+      v4 = @"InlandWater";
+
+      break;
+    case 12:
+      v4 = @"Island";
+
+      break;
+    case 13:
+      v4 = @"Street";
+
+      break;
+    case 14:
+      v4 = @"Admin";
+
+      break;
+    case 15:
+      v4 = @"Postal";
+
+      break;
+    case 16:
+      v4 = @"Intersection";
+
+      break;
+    case 17:
+      v4 = @"Building";
+
+      break;
+    case 18:
+      v4 = @"Continent";
+
+      break;
+    case 19:
+      v4 = @"Region";
+
+      break;
+    case 20:
+      v4 = @"Division";
+
+      break;
+    default:
+      if (string == 1000)
+      {
+        v4 = @"Undefined";
+      }
+
+      else
+      {
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_16:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsPlaceType:(id)type
@@ -315,25 +421,24 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_placeName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_category)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    placeType = self->_placeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -352,15 +457,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  placeSource = self->_placeSource;
   PBDataWriterWriteUint64Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_8:
-    mapItemMUID = self->_mapItemMUID;
     PBDataWriterWriteUint64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:

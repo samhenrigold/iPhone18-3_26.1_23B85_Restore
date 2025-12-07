@@ -9,7 +9,6 @@
 - (id)_findExistingSaltError:(id *)error;
 - (id)_findOrCreateSalt;
 - (id)_queryKeychainError:(id *)error;
-- (void)_createSalt;
 - (void)_deleteSalt;
 - (void)salt;
 @end
@@ -74,7 +73,7 @@ void __40__EDInteractionEventLogSaltProvider_log__block_invoke(uint64_t a1)
 
 - (NSData)salt
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   salt = self->_salt;
   if (!salt)
@@ -97,8 +96,6 @@ void __40__EDInteractionEventLogSaltProvider_log__block_invoke(uint64_t a1)
       [(EDInteractionEventLogSaltProvider *)v8 salt];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -147,24 +144,24 @@ LABEL_10:
 
 - (id)_queryKeychainError:(id *)error
 {
-  v19[6] = *MEMORY[0x1E69E9840];
+  v18[6] = *MEMORY[0x1E69E9840];
   v4 = *MEMORY[0x1E697B008];
   v5 = *MEMORY[0x1E697AE88];
-  v18[0] = *MEMORY[0x1E697AFF8];
-  v18[1] = v5;
-  v19[0] = v4;
-  v19[1] = @"com.apple.mail.interaction-log.salt";
+  v17[0] = *MEMORY[0x1E697AFF8];
+  v17[1] = v5;
+  v18[0] = v4;
+  v18[1] = @"com.apple.mail.interaction-log.salt";
   v6 = *MEMORY[0x1E697B318];
-  v18[2] = *MEMORY[0x1E697AEB0];
-  v18[3] = v6;
-  v19[2] = MEMORY[0x1E695E118];
-  v19[3] = MEMORY[0x1E695E118];
+  v17[2] = *MEMORY[0x1E697AEB0];
+  v17[3] = v6;
+  v18[2] = MEMORY[0x1E695E118];
+  v18[3] = MEMORY[0x1E695E118];
   v7 = *MEMORY[0x1E697B260];
-  v18[4] = *MEMORY[0x1E697B310];
-  v18[5] = v7;
-  v19[4] = MEMORY[0x1E695E118];
-  v19[5] = &unk_1F45E66B8;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v17[4] = *MEMORY[0x1E697B310];
+  v17[5] = v7;
+  v18[4] = MEMORY[0x1E695E118];
+  v18[5] = &unk_1F45E66B8;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
   result = 0;
   v9 = SecItemCopyMatching(v8, &result);
   v10 = v9;
@@ -175,8 +172,8 @@ LABEL_10:
       v11 = [objc_opt_class() log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "No salt found", v16, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "No salt found", v15, 2u);
       }
     }
 
@@ -206,8 +203,6 @@ LABEL_10:
 
   v12 = 0;
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -318,7 +313,7 @@ uint64_t __60__EDInteractionEventLogSaltProvider__findExistingSaltError___block_
 
 - (id)_createSalt
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [objc_opt_class() log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -329,34 +324,34 @@ uint64_t __60__EDInteractionEventLogSaltProvider__findExistingSaltError___block_
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *buf = v3;
-  v27 = v3;
+  v26 = v3;
   arc4random_buf(buf, 0x20uLL);
   v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:32];
   ef_hexString = [v4 ef_hexString];
   v6 = [ef_hexString dataUsingEncoding:4];
 
   v7 = *MEMORY[0x1E697AFF8];
-  v21[0] = *MEMORY[0x1E697B3C0];
-  v21[1] = v7;
+  v20[0] = *MEMORY[0x1E697B3C0];
+  v20[1] = v7;
   v8 = *MEMORY[0x1E697B008];
-  v25[0] = v6;
-  v25[1] = v8;
+  v24[0] = v6;
+  v24[1] = v8;
   v9 = *MEMORY[0x1E697AE88];
-  v22 = *MEMORY[0x1E697ABD0];
-  v25[2] = @"com.apple.mail";
-  v25[3] = @"com.apple.mail.interaction-log.salt";
+  v21 = *MEMORY[0x1E697ABD0];
+  v24[2] = @"com.apple.mail";
+  v24[3] = @"com.apple.mail.interaction-log.salt";
   v10 = MEMORY[0x1E696AD98];
   currentDevice = [MEMORY[0x1E699B7B0] currentDevice];
   v12 = [v10 numberWithInt:{objc_msgSend(currentDevice, "isInternal") ^ 1}];
   v13 = *MEMORY[0x1E697ABD8];
   v14 = *MEMORY[0x1E697ABE0];
-  v25[4] = v12;
-  v25[5] = v14;
+  v24[4] = v12;
+  v24[5] = v14;
   v15 = *MEMORY[0x1E697AEB0];
-  v23 = v13;
-  v24 = v15;
-  v25[6] = MEMORY[0x1E695E118];
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v21 count:7];
+  v22 = v13;
+  v23 = v15;
+  v24[6] = MEMORY[0x1E695E118];
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v20 count:7];
 
   if (SecItemAdd(v16, 0))
   {
@@ -374,17 +369,39 @@ uint64_t __60__EDInteractionEventLogSaltProvider__findExistingSaltError___block_
     v18 = v4;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (void)_deleteSalt
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = [objc_opt_class() log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "Will delete salt", v8, 2u);
+  }
+
+  v3 = *MEMORY[0x1E697B008];
+  v4 = *MEMORY[0x1E697ABD0];
+  v9[0] = *MEMORY[0x1E697AFF8];
+  v9[1] = v4;
+  v10[0] = v3;
+  v10[1] = @"com.apple.mail";
+  v5 = *MEMORY[0x1E697AEB0];
+  v9[2] = *MEMORY[0x1E697AE88];
+  v9[3] = v5;
+  v10[2] = @"com.apple.mail.interaction-log.salt";
+  v10[3] = MEMORY[0x1E695E118];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  if (SecItemDelete(v6))
+  {
+    v7 = [objc_opt_class() log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [EDInteractionEventLogSaltProvider _deleteSalt];
+    }
+  }
 }
 
 - (BOOL)migrateAccessClass
@@ -439,22 +456,6 @@ LABEL_12:
   *buf = 138412290;
   *(buf + 4) = v3;
   _os_log_fault_impl(&dword_1C61EF000, log, OS_LOG_TYPE_FAULT, "Could not generate salt. Device unlocked since boot: %@", buf, 0xCu);
-}
-
-- (void)_queryKeychainError:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_createSalt
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

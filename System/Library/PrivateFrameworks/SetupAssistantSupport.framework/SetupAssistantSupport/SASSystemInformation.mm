@@ -28,9 +28,9 @@
 
 + (id)storageAvailable
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(&v10, 0, 512);
-  v2 = statfs([@"/private/var" fileSystemRepresentation], &v10);
+  v10 = *MEMORY[0x277D85DE8];
+  memset(&v9, 0, 512);
+  v2 = statfs([@"/private/var" fileSystemRepresentation], &v9);
   if (v2)
   {
     v3 = v2;
@@ -45,35 +45,31 @@
 
   else
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10.f_bavail * v10.f_bsize];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9.f_bavail * v9.f_bsize];
     v4 = +[SASLogging facility];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22E4D7000, v4, OS_LOG_TYPE_DEFAULT, "storageAvailable returning %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22E4D7000, v4, OS_LOG_TYPE_DEFAULT, "storageAvailable returning %@", &v7, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)storageCapacity
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = MGCopyAnswer();
   v3 = [v2 objectForKey:*MEMORY[0x277D823C0]];
   v4 = +[SASLogging facility];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_22E4D7000, v4, OS_LOG_TYPE_DEFAULT, "storageCapacity returning %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_22E4D7000, v4, OS_LOG_TYPE_DEFAULT, "storageCapacity returning %@", &v6, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -163,11 +159,10 @@ LABEL_17:
 
 + (void)storageAvailable
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_22E4D7000, a2, OS_LOG_TYPE_ERROR, "storageAvailable statfs failed with error %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_22E4D7000, a2, OS_LOG_TYPE_ERROR, "storageAvailable statfs failed with error %d", v2, 8u);
 }
 
 @end

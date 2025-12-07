@@ -17,8 +17,8 @@
 
 - (void)gatherWithRedaction:(int64_t)redaction completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1C3F20, &qword_1C6472680) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1C3F20, &qword_1C6472680);
+  MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

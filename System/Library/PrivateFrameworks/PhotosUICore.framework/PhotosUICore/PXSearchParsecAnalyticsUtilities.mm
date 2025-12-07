@@ -73,7 +73,7 @@
   return v8;
 }
 
-uint64_t __62__PXSearchParsecAnalyticsUtilities__wordCountForSearchString___block_invoke(uint64_t a1, void *a2)
+void *__62__PXSearchParsecAnalyticsUtilities__wordCountForSearchString___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isEqualToString:*MEMORY[0x1E6977A18]];
   if (result)

@@ -524,7 +524,7 @@ void __26__PKPhysicsWorld_addBody___block_invoke(uint64_t a1)
   v3 = *(a1 + 40);
   if (v3)
   {
-    [v3 _bodyDef];
+    objc_msgSend__bodyDef(v3);
   }
 
   else
@@ -600,11 +600,10 @@ void __26__PKPhysicsWorld_addBody___block_invoke(uint64_t a1)
 void __29__PKPhysicsWorld_removeBody___block_invoke(uint64_t a1)
 {
   *(*(a1 + 48) + 240) = 0;
-  v2 = [*(a1 + 32) _world];
-  b2World::DestroyBody(v2, *(a1 + 48), v3);
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
+  b2World::DestroyBody([*(a1 + 32) _world], *(a1 + 48));
+  v2 = *(*(a1 + 40) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 - (void)removeAllBodies
@@ -702,11 +701,10 @@ void __29__PKPhysicsWorld_removeBody___block_invoke(uint64_t a1)
 void __33__PKPhysicsWorld_removeAllBodies__block_invoke(uint64_t a1)
 {
   *(*(a1 + 48) + 240) = 0;
-  v2 = [*(a1 + 32) _world];
-  b2World::DestroyBody(v2, *(a1 + 48), v3);
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = 0;
+  b2World::DestroyBody([*(a1 + 32) _world], *(a1 + 48));
+  v2 = *(*(a1 + 40) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 - (void)addJoint:(id)joint
@@ -879,7 +877,7 @@ void __27__PKPhysicsWorld_addField___block_invoke(uint64_t a1)
   v3 = *(a1 + 40);
   if (v3)
   {
-    [v3 _field];
+    objc_msgSend__field(v3);
     v5 = v4;
     if (*(&v4 + 1))
     {
@@ -912,7 +910,7 @@ void __27__PKPhysicsWorld_addField___block_invoke(uint64_t a1)
   if (fieldCopy)
   {
     v6 = *(self->_world + 12894);
-    [fieldCopy _field];
+    objc_msgSend__field(fieldCopy);
     v9 = v7;
     v10 = v8;
     if (v8)
@@ -1227,7 +1225,7 @@ void __27__PKPhysicsWorld_addField___block_invoke(uint64_t a1)
             goto LABEL_14;
           }
 
-          [v14 outline];
+          objc_msgSend_outline(v14);
           if (__p)
           {
             interiorCopy = interior;
@@ -1266,7 +1264,7 @@ void __27__PKPhysicsWorld_addField___block_invoke(uint64_t a1)
               *(&v48 + 1) = *(&v48 + 1) / *(&v47 + 1);
             }
 
-            [v14 outline];
+            objc_msgSend_outline(v14);
             v26 = __p;
             if (v45)
             {

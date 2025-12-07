@@ -114,15 +114,15 @@
 - (id)performStringQuery:(id)query
 {
   queryCopy = query;
-  v5 = emf_signpost_get_log();
+  v5 = emf_signpost_get_log(queryCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = emf_signpost_get_log();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = emf_signpost_get_log(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "PerformSearchEngineQuery", &unk_1AF0BC4C3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "PerformSearchEngineQuery", &unk_1AF0BC4C3, buf, 2u);
   }
 
   indexManager = [(EMFEmojiSearchEngine *)self indexManager];
@@ -132,68 +132,68 @@
   defaultIndex = [indexManager2 defaultIndex];
   if (stemmedIndex)
   {
-    v13 = [(EMFEmojiSearchEngine *)self _performStringQueryUntokenized:queryCopy usingIndex:defaultIndex];
+    v14 = [(EMFEmojiSearchEngine *)self _performStringQueryUntokenized:queryCopy usingIndex:defaultIndex];
 
-    if ([v13 count])
+    if ([v14 count])
     {
-      v13 = v13;
-      v14 = 0;
-      v15 = v13;
+      v14 = v14;
+      v15 = 0;
+      v16 = v14;
     }
 
     else
     {
       indexManager3 = [(EMFEmojiSearchEngine *)self indexManager];
       defaultIndex2 = [indexManager3 defaultIndex];
-      v18 = [(EMFEmojiSearchEngine *)self _performStringQueryOverride:queryCopy usingIndex:defaultIndex2];
+      v19 = [(EMFEmojiSearchEngine *)self _performStringQueryOverride:queryCopy usingIndex:defaultIndex2];
 
-      v14 = v18 != 0;
-      if (v18)
+      v15 = v19 != 0;
+      if (v19)
       {
-        v15 = v18;
+        v16 = v19;
       }
 
       else
       {
         indexManager4 = [(EMFEmojiSearchEngine *)self indexManager];
         defaultIndex3 = [indexManager4 defaultIndex];
-        v15 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:defaultIndex3 shouldAutocomplete:1 shouldStem:0];
+        v16 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:defaultIndex3 shouldAutocomplete:1 shouldStem:0];
       }
     }
   }
 
   else
   {
-    v15 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:defaultIndex shouldAutocomplete:1 shouldStem:1];
+    v16 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:defaultIndex shouldAutocomplete:1 shouldStem:1];
 
-    v14 = 0;
-    v13 = indexManager2;
+    v15 = 0;
+    v14 = indexManager2;
   }
 
-  v21 = v15;
-  v22 = [v21 count];
-  v23 = v21;
-  if (!v14)
+  v22 = v16;
+  v23 = [v22 count];
+  v24 = v22;
+  if (!v15)
   {
-    v23 = v21;
-    if (!v22)
+    v24 = v22;
+    if (!v23)
     {
       indexManager5 = [(EMFEmojiSearchEngine *)self indexManager];
       stemmedIndex2 = [indexManager5 stemmedIndex];
-      v23 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:stemmedIndex2 shouldAutocomplete:0 shouldStem:1];
+      v24 = [(EMFEmojiSearchEngine *)self _performStringQuery:queryCopy usingIndex:stemmedIndex2 shouldAutocomplete:0 shouldStem:1];
     }
   }
 
-  v26 = emf_signpost_get_log();
-  v27 = v26;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  v27 = emf_signpost_get_log(v23);
+  v28 = v27;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
   {
-    *v31 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v27, OS_SIGNPOST_INTERVAL_END, v6, "PerformSearchEngineQuery", &unk_1AF0BC4C3, v31, 2u);
+    *v32 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1AF04E000, v28, OS_SIGNPOST_INTERVAL_END, v6, "PerformSearchEngineQuery", &unk_1AF0BC4C3, v32, 2u);
   }
 
-  v28 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v23];
-  array = [v28 array];
+  v29 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v24];
+  array = [v29 array];
 
   return array;
 }

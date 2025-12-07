@@ -24,9 +24,9 @@
 
 - (_VVMFLogInterceptor)init
 {
-  v18.receiver = self;
-  v18.super_class = _VVMFLogInterceptor;
-  v2 = [(_VVMFLogInterceptor *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = _VVMFLogInterceptor;
+  v2 = [(_VVMFLogInterceptor *)&v19 init];
   if (v2)
   {
     v3 = [NSBundle bundleForClass:objc_opt_class()];
@@ -49,11 +49,11 @@
     v14 = +[NSNotificationCenter defaultCenter];
     [v14 addObserver:v2 selector:"handleMFReloadNetworkLoggingNotification:" name:MFReloadNetworkLoggingNotification object:0];
 
-    v15 = sub_10002EE18();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_10002EE18(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I _VVMFLogInterceptor created", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I _VVMFLogInterceptor created", buf, 2u);
     }
   }
 
@@ -68,16 +68,16 @@
   serialQueue = self->_serialQueue;
   self->_serialQueue = 0;
 
-  v5 = sub_10002EE18();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10002EE18(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I _VVMFLogInterceptor destroyed", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#I _VVMFLogInterceptor destroyed", buf, 2u);
   }
 
-  v6.receiver = self;
-  v6.super_class = _VVMFLogInterceptor;
-  [(_VVMFLogInterceptor *)&v6 dealloc];
+  v7.receiver = self;
+  v7.super_class = _VVMFLogInterceptor;
+  [(_VVMFLogInterceptor *)&v7 dealloc];
 }
 
 - (void)configureLoggingClass
@@ -136,7 +136,7 @@
 - (void)handleMFReloadNetworkLoggingNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_10002EE18();
+  v5 = sub_10002EE18(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;

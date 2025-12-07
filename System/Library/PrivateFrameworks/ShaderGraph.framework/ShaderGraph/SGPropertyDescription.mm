@@ -38,8 +38,6 @@
 
 - (NSString)description
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
 
   return @objc SGTypeDescription.description.getter(self, a2, closure #1 in SGPropertyDescription.description.getter);
 }

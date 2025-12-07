@@ -17,24 +17,22 @@
   return v3;
 }
 
-void __68__GKLeaderboardChallengeParticipantInternal_secureCodedPropertyKeys__block_invoke()
+void __68__GKLeaderboardChallengeParticipantInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"playerID";
-  v4[0] = objc_opt_class();
-  v3[1] = @"formattedScoreValue";
-  v4[1] = objc_opt_class();
-  v3[2] = @"scoreValue";
-  v4[2] = objc_opt_class();
-  v3[3] = @"attemptCount";
-  v4[3] = objc_opt_class();
-  v3[4] = @"rank";
-  v4[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_50;
-  secureCodedPropertyKeys_sSecureCodedKeys_50 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"playerID";
+  v5[0] = objc_opt_class();
+  v4[1] = @"formattedScoreValue";
+  v5[1] = objc_opt_class();
+  v4[2] = @"scoreValue";
+  v5[2] = objc_opt_class();
+  v4[3] = @"attemptCount";
+  v5[3] = objc_opt_class();
+  v4[4] = @"rank";
+  v5[4] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:5];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_50;
+  secureCodedPropertyKeys_sSecureCodedKeys_50 = v2;
 }
 
 - (GKLeaderboardChallengeParticipantInternal)initWithServerFragment:(id)fragment

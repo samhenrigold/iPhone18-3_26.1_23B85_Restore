@@ -79,25 +79,23 @@
   location[1] = a2;
   if (self->_initTime)
   {
-    v8 = mach_absolute_time();
-    [(AKCAReporter *)selfCopy machAbsoluteTimeToTimeInterval:v8 - selfCopy->_initTime];
-    v7 = *&v2;
-    v5 = [NSNumber numberWithDouble:v2];
+    v6 = mach_absolute_time();
+    [(AKCAReporter *)selfCopy machAbsoluteTimeToTimeInterval:v6 - selfCopy->_initTime];
+    v5 = *&v2;
+    v3 = [NSNumber numberWithDouble:v2];
     [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
-    _objc_release(v5);
+    _objc_release(v3);
     selfCopy->_initTime = 0;
     oslog = _AKLogSystem();
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
     {
-      sub_100074370(v12, selfCopy->_eventName, v7);
-      _os_log_debug_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "Sending Report: %@ (time: %f)", v12, 0x16u);
+      sub_100074370(v10, selfCopy->_eventName, v5);
+      _os_log_debug_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEBUG, "Sending Report: %@ (time: %f)", v10, 0x16u);
     }
 
     objc_storeStrong(&oslog, 0);
     if (&_AnalyticsSendEvent)
     {
-      eventName = selfCopy->_eventName;
-      reportData = selfCopy->_reportData;
       AnalyticsSendEvent();
     }
   }
@@ -105,11 +103,11 @@
   else
   {
     location[0] = _AKLogSystem();
-    v9 = OS_LOG_TYPE_DEBUG;
+    v7 = OS_LOG_TYPE_DEBUG;
     if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEBUG))
     {
-      sub_1000194D4(v13, selfCopy->_eventName);
-      _os_log_debug_impl(&_mh_execute_header, location[0], v9, "Already sent AKCA event: %@", v13, 0xCu);
+      sub_1000194D4(v11, selfCopy->_eventName);
+      _os_log_debug_impl(&_mh_execute_header, location[0], v7, "Already sent AKCA event: %@", v11, 0xCu);
     }
 
     objc_storeStrong(location, 0);

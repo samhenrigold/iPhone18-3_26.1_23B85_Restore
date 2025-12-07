@@ -2,6 +2,7 @@
 - (float)score;
 - (id)asTwoPhaseIterator;
 - (id)getChildren;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -74,6 +75,19 @@
   v2 = new_OrgApacheLuceneSearchScorer_ChildScorer_initWithOrgApacheLuceneSearchScorer_withNSString_(self->reqScorer_, @"MUST");
 
   return JavaUtilCollections_singletonWithId_(v2);
+}
+
+- (int)advanceWithInt:(int)int
+{
+  reqApproximation = self->reqApproximation_;
+  if (!reqApproximation)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneSearchDocIdSetIterator *)reqApproximation advanceWithInt:*&int];
+
+  return sub_1000B0F74(self, v5);
 }
 
 - (id)asTwoPhaseIterator

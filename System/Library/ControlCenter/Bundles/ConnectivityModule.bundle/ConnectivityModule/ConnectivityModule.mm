@@ -15,14 +15,14 @@ uint64_t sub_29C962BF8(uint64_t a1, const char *a2, uint64_t a3)
   return objc_msgSend_setDelegate_(v6, v4, v5);
 }
 
-void sub_29C962EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C962EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29C962F14(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_29C962F14(uint64_t a1, const char *a2, uint64_t a3)
 {
   result = objc_msgSend_airplaneMode(*(*(a1 + 32) + 1128), a2, a3);
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -46,23 +46,17 @@ void sub_29C964958(uint64_t a1, const char *a2, uint64_t a3)
 void sub_29C9671A4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = WeakRetained;
-  if (WeakRetained)
+  if (WeakRetained && _NETRBClientCreate())
   {
-    v4 = *(WeakRetained + 143);
-    if (_NETRBClientCreate())
+    v2 = *MEMORY[0x29EDC0C90];
+    if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *MEMORY[0x29EDC0C90];
-      if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
-      {
-        *v7 = 0;
-        _os_log_impl(&dword_29C961000, v5, OS_LOG_TYPE_DEFAULT, "[Hotspot] Starting hotspot service", v7, 2u);
-      }
-
-      v6 = *(a1 + 40);
-      _NETRBClientSetGlobalServiceState();
-      _NETRBClientDestroy();
+      *v3 = 0;
+      _os_log_impl(&dword_29C961000, v2, OS_LOG_TYPE_DEFAULT, "[Hotspot] Starting hotspot service", v3, 2u);
     }
+
+    _NETRBClientSetGlobalServiceState();
+    _NETRBClientDestroy();
   }
 }
 
@@ -75,7 +69,7 @@ void sub_29C967324(_Unwind_Exception *a1)
 
 void sub_29C967340(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   isDiscoverable = objc_msgSend_isDiscoverable(WeakRetained, v5, v6);
 
@@ -85,21 +79,19 @@ void sub_29C967340(uint64_t a1, int a2)
     if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = a2;
+      v13 = a2;
       _os_log_impl(&dword_29C961000, v8, OS_LOG_TYPE_DEFAULT, "[Hotspot] Hotspot discoverability changed to %d", buf, 8u);
     }
 
-    v10[0] = MEMORY[0x29EDCA5F8];
-    v10[1] = 3221225472;
-    v10[2] = sub_29C96747C;
-    v10[3] = &unk_29F337440;
-    objc_copyWeak(&v11, (a1 + 32));
-    v12 = a2;
-    dispatch_async(MEMORY[0x29EDCA578], v10);
-    objc_destroyWeak(&v11);
+    v9[0] = MEMORY[0x29EDCA5F8];
+    v9[1] = 3221225472;
+    v9[2] = sub_29C96747C;
+    v9[3] = &unk_29F337440;
+    objc_copyWeak(&v10, (a1 + 32));
+    v11 = a2;
+    dispatch_async(MEMORY[0x29EDCA578], v9);
+    objc_destroyWeak(&v10);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C96747C(uint64_t a1)
@@ -113,92 +105,88 @@ void sub_29C96747C(uint64_t a1)
 
 void sub_29C9675B4(uint64_t a1)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v22 = 0;
-    v4 = *(WeakRetained + 143);
-    v5 = _NETRBClientCreate();
-    v6 = v5;
-    if (v5)
+    v19 = 0;
+    v3 = _NETRBClientCreate();
+    v4 = v3;
+    if (v3)
     {
-      v21 = 0;
-      v20 = 0;
+      v18 = 0;
+      v17 = 0;
       _NETRBClientGetGlobalServiceState();
       _NETRBClientGetHostCount();
       _NETRBClientDestroy();
-      v19 = 0;
-      v18 = 0;
-      v7 = _CTServerConnectionCreateWithIdentifier();
-      if (v7)
+      v16 = 0;
+      v15 = 0;
+      v5 = _CTServerConnectionCreateWithIdentifier();
+      if (v5)
       {
-        v8 = v7;
+        v6 = v5;
         _CTServerConnectionGetCellularDataSettings();
-        CFRelease(v8);
-        v9 = HIBYTE(v19) == 1;
-        v10 = v19 == 1;
-        v11 = v18 == 1;
+        CFRelease(v6);
+        v7 = HIBYTE(v16) == 1;
+        v8 = v16 == 1;
+        v9 = v15 == 1;
       }
 
       else
       {
-        v11 = 0;
-        v10 = 0;
         v9 = 0;
+        v8 = 0;
+        v7 = 0;
       }
 
-      v12 = *MEMORY[0x29EDC0C90];
+      v10 = *MEMORY[0x29EDC0C90];
       if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134350336;
-        v24 = v3;
-        v25 = 1024;
-        v26 = 0;
-        v27 = 1024;
-        v28 = 0;
-        v29 = 1024;
-        v30 = v9;
-        v31 = 1024;
-        v32 = v10;
-        v33 = 1024;
-        v34 = v11;
-        _os_log_impl(&dword_29C961000, v12, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Evaluating state... (shouldShowTethering: %d, isDataPrevented: %d, isCellularDataCapable: %d, isCellularDataEnabled: %d, isAirplaneModeEnabled: %d)", buf, 0x2Au);
+        v21 = WeakRetained;
+        v22 = 1024;
+        v23 = 0;
+        v24 = 1024;
+        v25 = 0;
+        v26 = 1024;
+        v27 = v7;
+        v28 = 1024;
+        v29 = v8;
+        v30 = 1024;
+        v31 = v9;
+        _os_log_impl(&dword_29C961000, v10, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Evaluating state... (shouldShowTethering: %d, isDataPrevented: %d, isCellularDataCapable: %d, isCellularDataEnabled: %d, isAirplaneModeEnabled: %d)", buf, 0x2Au);
       }
 
-      v6 = (!v9 || !v10 || v11) | 1;
+      v4 = (!v7 || !v8 || v9) | 1;
     }
 
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 3221225472;
     block[2] = sub_29C967838;
     block[3] = &unk_29F337490;
-    objc_copyWeak(&v15, (a1 + 40));
-    v17 = v6 & 1;
-    v16 = v22;
+    objc_copyWeak(&v12, (a1 + 40));
+    v14 = v4 & 1;
+    v13 = v19;
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x29EDCA578], block);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v12);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C967838(uint64_t a1)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v46 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   isHotspotRestricted = objc_msgSend__isHotspotRestricted(WeakRetained, v3, v4);
   v6 = MEMORY[0x29EDC0C90];
   v7 = *MEMORY[0x29EDC0C90];
   if (os_log_type_enabled(*MEMORY[0x29EDC0C90], OS_LOG_TYPE_DEFAULT))
   {
-    v37 = 134349312;
-    v38 = WeakRetained;
-    v39 = 1024;
-    v40 = isHotspotRestricted;
-    _os_log_impl(&dword_29C961000, v7, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Evaluating state... (isHotspotRestricted: %d)", &v37, 0x12u);
+    v36 = 134349312;
+    v37 = WeakRetained;
+    v38 = 1024;
+    v39 = isHotspotRestricted;
+    _os_log_impl(&dword_29C961000, v7, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Evaluating state... (isHotspotRestricted: %d)", &v36, 0x12u);
   }
 
   objc_msgSend_setInoperative_(WeakRetained, v8, (*(a1 + 52) | isHotspotRestricted) & 1);
@@ -235,18 +223,16 @@ void sub_29C967838(uint64_t a1)
     isInoperative = objc_msgSend_isInoperative(WeakRetained, v27, v28);
     isEnabled = objc_msgSend_isEnabled(WeakRetained, v30, v31);
     v35 = objc_msgSend_connections(WeakRetained, v33, v34);
-    v37 = 134350080;
-    v38 = WeakRetained;
-    v39 = 1024;
-    v40 = isInoperative;
-    v41 = 1024;
-    v42 = isEnabled;
-    v43 = 1024;
-    v44 = v23;
-    v45 = 1024;
-    v46 = v35;
-    _os_log_impl(&dword_29C961000, v26, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Updated state [ inoperative: %d enabled: %d discoverable: %d connections: %d ]", &v37, 0x24u);
+    v36 = 134350080;
+    v37 = WeakRetained;
+    v38 = 1024;
+    v39 = isInoperative;
+    v40 = 1024;
+    v41 = isEnabled;
+    v42 = 1024;
+    v43 = v23;
+    v44 = 1024;
+    v45 = v35;
+    _os_log_impl(&dword_29C961000, v26, OS_LOG_TYPE_DEFAULT, "[Hotspot] (%{public}p) Updated state [ inoperative: %d enabled: %d discoverable: %d connections: %d ]", &v36, 0x24u);
   }
-
-  v36 = *MEMORY[0x29EDCA608];
 }

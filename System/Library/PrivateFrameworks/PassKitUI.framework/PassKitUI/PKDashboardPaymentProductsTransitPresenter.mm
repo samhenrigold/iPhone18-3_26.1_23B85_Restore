@@ -1065,21 +1065,21 @@ LABEL_9:
 LABEL_10:
 }
 
-uint64_t __121__PKDashboardPaymentProductsTransitPresenter_didSelectItem_inCollectionView_atIndexPath_navigationController_canPresent___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__121__PKDashboardPaymentProductsTransitPresenter_didSelectItem_inCollectionView_atIndexPath_navigationController_canPresent___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;
 }
 
-uint64_t __121__PKDashboardPaymentProductsTransitPresenter_didSelectItem_inCollectionView_atIndexPath_navigationController_canPresent___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__121__PKDashboardPaymentProductsTransitPresenter_didSelectItem_inCollectionView_atIndexPath_navigationController_canPresent___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) presentViewController:a3 animated:1 completion:0];
+    return [result[4] presentViewController:a3 animated:1 completion:0];
   }
 
   return result;

@@ -1,6 +1,7 @@
 @interface PMEditorRootViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PMEditorRootViewControllerAccessibility
@@ -52,6 +53,14 @@ id __85__PMEditorRootViewControllerAccessibility__accessibilityLoadAccessibility
   v3 = accessibilityMemoriesLocalizedString(v2);
 
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PMEditorRootViewControllerAccessibility;
+  [(PMEditorRootViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(PMEditorRootViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

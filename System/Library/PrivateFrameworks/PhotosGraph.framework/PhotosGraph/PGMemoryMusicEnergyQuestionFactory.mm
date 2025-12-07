@@ -6,27 +6,27 @@
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = _Block_copy(blockCopy);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
   if (v7)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    if (Current - v36[3] >= 0.01)
+    if (Current - v35[3] >= 0.01)
     {
-      v36[3] = Current;
-      v34 = 0;
-      v7[2](v7, &v34, 0.0);
-      v9 = *(v40 + 24) | v34;
-      *(v40 + 24) = v9;
+      v35[3] = Current;
+      v33 = 0;
+      v7[2](v7, &v33, 0.0);
+      v9 = *(v39 + 24) | v33;
+      *(v39 + 24) = v9;
       if (v9)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -37,9 +37,9 @@ LABEL_19:
         }
 
         *buf = 67109378;
-        v44 = 43;
-        v45 = 2080;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
+        v43 = 43;
+        v44 = 2080;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
         v10 = MEMORY[0x277D86220];
 LABEL_11:
         _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -50,25 +50,25 @@ LABEL_11:
     if (!limit)
     {
       v11 = CFAbsoluteTimeGetCurrent();
-      if (v11 - v36[3] < 0.01)
+      if (v11 - v35[3] < 0.01)
       {
         goto LABEL_19;
       }
 
-      v36[3] = v11;
-      v34 = 0;
-      v7[2](v7, &v34, 1.0);
-      v12 = *(v40 + 24) | v34;
-      *(v40 + 24) = v12;
+      v35[3] = v11;
+      v33 = 0;
+      v7[2](v7, &v33, 1.0);
+      v12 = *(v39 + 24) | v33;
+      *(v39 + 24) = v12;
       if ((v12 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_19;
       }
 
       *buf = 67109378;
-      v44 = 47;
-      v45 = 2080;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
+      v43 = 47;
+      v44 = 2080;
+      v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
       v10 = MEMORY[0x277D86220];
       goto LABEL_11;
     }
@@ -82,29 +82,29 @@ LABEL_11:
   v13 = [MEMORY[0x277CBEB58] set];
   workingContext = [(PGSurveyQuestionFactory *)self workingContext];
   photoLibrary = [workingContext photoLibrary];
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __79__PGMemoryMusicEnergyQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
-  v26 = &unk_278880550;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = __79__PGMemoryMusicEnergyQuestionFactory_generateQuestionsWithLimit_progressBlock___block_invoke;
+  v25 = &unk_278880550;
   selfCopy = self;
   v16 = v13;
-  v28 = v16;
+  v27 = v16;
   limitCopy = limit;
   v17 = v7;
-  v29 = v17;
-  v30 = &v35;
-  v33 = 0x3F847AE147AE147BLL;
-  v31 = &v39;
-  [PGMemoryMusicQuestionUtils enumerateMemoryMusicSuggestionsInPhotoLibrary:photoLibrary block:&v23];
+  v28 = v17;
+  v29 = &v34;
+  v32 = 0x3F847AE147AE147BLL;
+  v30 = &v38;
+  [PGMemoryMusicQuestionUtils enumerateMemoryMusicSuggestionsInPhotoLibrary:photoLibrary block:&v22];
 
-  if (v7 && (v18 = CFAbsoluteTimeGetCurrent(), v18 - v36[3] >= 0.01) && (v36[3] = v18, v34 = 0, v17[2](v17, &v34, 1.0), v19 = *(v40 + 24) | v34, *(v40 + 24) = v19, (v19 & 1) != 0))
+  if (v7 && (v18 = CFAbsoluteTimeGetCurrent(), v18 - v35[3] >= 0.01) && (v35[3] = v18, v33 = 0, v17[2](v17, &v33, 1.0), v19 = *(v39 + 24) | v33, *(v39 + 24) = v19, (v19 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v44 = 71;
-      v45 = 2080;
-      v46 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
+      v43 = 71;
+      v44 = 2080;
+      v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/Music/MusicEnergy/PGMemoryMusicEnergyQuestionFactory.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -117,10 +117,8 @@ LABEL_11:
   }
 
 LABEL_22:
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v39, 8);
-
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
 
   return allObjects;
 }

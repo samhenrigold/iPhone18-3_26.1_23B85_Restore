@@ -4,6 +4,7 @@
 - (FCNetworkEvent)initWithType:(int)type URLRequest:(id)request requestUUID:(id)d startTime:(double)time HTTPResponse:(id)response metrics:(id)metrics smarterFetchSources:(id)sources smarterFetchStrategy:(id)self0 error:(id)self1;
 - (FCNetworkEvent)initWithType:(int)type URLSessionTask:(id)task requestUUID:(id)d startTime:(double)time smarterFetchSources:(id)sources smarterFetchStrategy:(id)strategy;
 - (FCNetworkEvent)initWithType:(int)type ckRequestInfo:(id)info operationID:(id)d startTime:(double)time containerName:(id)name error:(id)error;
+- (FCNetworkEvent)initWithType:(int)type rcNetworkEvent:(id)event;
 - (NSDateInterval)dateInterval;
 - (double)endTime;
 - (double)totalDuration;
@@ -234,6 +235,24 @@
   }
 
   return v55;
+}
+
+- (FCNetworkEvent)initWithType:(int)type rcNetworkEvent:(id)event
+{
+  v4 = *&type;
+  eventCopy = event;
+  request = [eventCopy request];
+  operationID = [eventCopy operationID];
+  requestID = [eventCopy requestID];
+  startDate = [eventCopy startDate];
+  [startDate timeIntervalSinceReferenceDate];
+  v12 = v11;
+  response = [eventCopy response];
+  metrics = [eventCopy metrics];
+  error = [eventCopy error];
+
+  v16 = [(FCNetworkEvent *)self initWithType:v4 URLRequest:request operationID:operationID requestUUID:requestID startTime:response HTTPResponse:metrics metrics:v12 containerName:0 error:error];
+  return v16;
 }
 
 - (FCNetworkEvent)initWithType:(int)type URLSessionTask:(id)task requestUUID:(id)d startTime:(double)time smarterFetchSources:(id)sources smarterFetchStrategy:(id)strategy

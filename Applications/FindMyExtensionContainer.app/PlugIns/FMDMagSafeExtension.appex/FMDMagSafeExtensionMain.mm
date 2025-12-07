@@ -14,27 +14,28 @@
 - (void)beginRequestWithExtensionContext:(id)context
 {
   contextCopy = context;
-  v5 = sub_100001508();
+  v5 = sub_100001508(contextCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = contextCopy;
-    v15 = 2112;
+    v14 = 138412546;
+    v15 = contextCopy;
+    v16 = 2112;
     selfCopy = self;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@ and accessory provider = %@", &v13, 0x16u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@ and accessory provider = %@", &v14, 0x16u);
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v6 = sub_100001508();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100001508(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v13 = 138412290;
-      v14 = v7;
-      v8 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@", &v13, 0xCu);
+      v8 = objc_opt_class();
+      v14 = 138412290;
+      v15 = v8;
+      v9 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "beginRequestWithExtensionCalled with context %@", &v14, 0xCu);
     }
 
     [contextCopy setAccessoryProvider:self];
@@ -42,18 +43,18 @@
 
   _auxiliaryConnection = [contextCopy _auxiliaryConnection];
   remoteObjectProxy = [_auxiliaryConnection remoteObjectProxy];
-  v11 = remoteObjectProxy;
-  if (remoteObjectProxy && [remoteObjectProxy conformsToProtocol:&OBJC_PROTOCOL___FMDExtAccessoryDelegateProtocol])
+  v12 = remoteObjectProxy;
+  if (remoteObjectProxy && (remoteObjectProxy = [remoteObjectProxy conformsToProtocol:&OBJC_PROTOCOL___FMDExtAccessoryDelegateProtocol], remoteObjectProxy))
   {
-    [(FMDMagSafeExtensionMain *)self setHostProxy:v11];
+    [(FMDMagSafeExtensionMain *)self setHostProxy:v12];
   }
 
   else
   {
-    v12 = sub_100001508();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100001508(remoteObjectProxy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1000150A8(v11, v12);
+      sub_1000150A8(v12, v13);
     }
   }
 }
@@ -170,7 +171,7 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v7 = sub_100004FC8();
+  v7 = sub_100004FC8(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

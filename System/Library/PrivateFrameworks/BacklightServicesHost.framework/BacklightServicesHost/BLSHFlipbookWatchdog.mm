@@ -70,47 +70,60 @@
 
 - (void)enableAlertsUsingDefaults
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.BacklightServices"];
-  v6 = @"blsh_1hz_flipbook_watchdog_enabled";
-  v7[0] = MEMORY[0x277CBEC28];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"blsh_1hz_flipbook_watchdog_enabled";
+  v6[0] = MEMORY[0x277CBEC28];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v3 registerDefaults:v4];
 
   self->_alertsEnabled = [v3 BOOLForKey:@"blsh_1hz_flipbook_watchdog_enabled"];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mainQueue_alertFor1hzFlipbookFrameMiss:(int64_t)miss
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v5 = bls_flipbook_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(BLSHFlipbookWatchdog *)self _mainQueue_alertFor1hzFlipbookFrameMiss:miss, v5];
   }
 
-  v9 = @"missedFrames";
+  v8 = @"missedFrames";
   v6 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_lastKnown_aodStatsFlipbookMiss];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   AnalyticsSendEvent();
 
   if (self->_alertsEnabled)
   {
     _BLSHShowFlipbook1hzMissAlert(self->_lastKnown_aodStatsFlipbookMiss);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_globalQueue_initializeDCPStats
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = IOReportCopyChannelsInGroup();
+  if (v3)
+  {
+    self->_ioReportSubscription = IOReportCreateSubscription();
+  }
+
+  if (!self->_ioReportSubscription || !self->_ioReportSubscribedChannels)
+  {
+    v4 = bls_flipbook_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      [BLSHFlipbookWatchdog _globalQueue_initializeDCPStats];
+    }
+  }
+
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  [(BLSHFlipbookWatchdog *)self _globalQueue_refreshDCPStats:1];
 }
 
 - (void)_globalQueue_refreshDCPStats:(BOOL)stats
@@ -136,33 +149,32 @@
   }
 }
 
-uint64_t __53__BLSHFlipbookWatchdog__globalQueue_refreshDCPStats___block_invoke(uint64_t a1)
+uint64_t __53__BLSHFlipbookWatchdog__globalQueue_refreshDCPStats___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = IOReportChannelGetChannelName();
-  if ([v2 isEqualToString:@"1hz_frame_miss_"])
+  v3 = IOReportChannelGetChannelName();
+  if ([v3 isEqualToString:@"1hz_frame_miss_"])
   {
-    v3 = 0;
+    v4 = 0;
     *(*(*(a1 + 32) + 8) + 24) = IOReportSimpleGetIntegerValue();
   }
 
   else
   {
-    v3 = 16;
+    v4 = 16;
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)_mainQueue_alertFor1hzFlipbookFrameMiss:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 40);
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_error_impl(&dword_21FD11000, log, OS_LOG_TYPE_ERROR, "1hz Flipbook frame miss detected from DCP stats. New miss count = %lld, delta = %lld", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_error_impl(&dword_21FD11000, log, OS_LOG_TYPE_ERROR, "1hz Flipbook frame miss detected from DCP stats. New miss count = %lld, delta = %lld", &v4, 0x16u);
 }
 
 @end

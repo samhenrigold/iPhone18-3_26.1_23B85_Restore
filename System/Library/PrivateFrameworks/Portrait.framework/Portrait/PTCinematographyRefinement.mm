@@ -50,7 +50,7 @@
     v11 = focusFramesOptions;
     if (focusFramesOptions)
     {
-      [focusFramesOptions maximumRackFocusPullTime];
+      objc_msgSend_maximumRackFocusPullTime(focusFramesOptions);
     }
 
     else
@@ -88,30 +88,30 @@
 
 - (void)addFrames:(id)frames
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   framesCopy = frames;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v5 = [framesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v25 = 0u;
+  v5 = [framesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v22;
+    v8 = *v23;
     *&v6 = 138412290;
-    v20 = v6;
+    v21 = v6;
     do
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(framesCopy);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         refinedFrameNumber = [(PTCinematographyRefinement *)self refinedFrameNumber];
 
         if (refinedFrameNumber)
@@ -137,12 +137,12 @@
 
           else
           {
-            _snapshot2 = _PTLogSystem();
+            _snapshot2 = _PTLogSystem(v17);
             if (os_log_type_enabled(_snapshot2, OS_LOG_TYPE_INFO))
             {
               _frameNumber = [v10 _frameNumber];
-              *buf = v20;
-              v26 = _frameNumber;
+              *buf = v21;
+              v27 = _frameNumber;
               _os_log_impl(&dword_2243FB000, _snapshot2, OS_LOG_TYPE_INFO, "warning: snapshot missing from refined frame %@", buf, 0xCu);
             }
           }
@@ -168,7 +168,7 @@
       }
 
       while (v7 != v9);
-      v7 = [framesCopy countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v7 = [framesCopy countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v7);
@@ -183,7 +183,7 @@
 - (void)startRecording
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 134217984;
@@ -198,7 +198,7 @@
 - (void)stopRecording
 {
   v6 = *MEMORY[0x277D85DE8];
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 134217984;
@@ -221,22 +221,24 @@
   {
     [(PTCinematographyRefinement *)self _performRackFocusPullsStartingAtIndex:self->_firstIndexToLookForTransitions];
     v3 = [(PTCinematographyRefinement *)self _extractFramesReturningAll:self->_shouldReturnAllCachedFrames];
-    if ([(NSMutableArray *)self->_frames count])
+    v4 = [(NSMutableArray *)self->_frames count];
+    if (v4)
     {
-      v4 = [(NSMutableArray *)self->_frames count]- 1;
+      v4 = [(NSMutableArray *)self->_frames count];
+      v5 = v4 - 1;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
 
-    self->_firstIndexToLookForTransitions = v4;
+    self->_firstIndexToLookForTransitions = v5;
     self->_shouldReturnAllCachedFrames = 0;
-    v5 = _PTLogSystem();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+    v6 = _PTLogSystem(v4);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
 
-    if (v6)
+    if (v7)
     {
       [PTCinematographyFrame _debugLogFrames:v3 label:@"Refined Cinematography"];
     }
@@ -276,12 +278,13 @@
 {
   [(PTCinematographyFrameDetectionSmoother *)self->_smoother endFrames];
   [(PTCinematographyRefinement *)self _moveAlongSmoothedFrames];
-  if (![(PTCinematographyFrameDetectionSmoother *)self->_smoother isNextFrameAtEnd])
+  isNextFrameAtEnd = [(PTCinematographyFrameDetectionSmoother *)self->_smoother isNextFrameAtEnd];
+  if ((isNextFrameAtEnd & 1) == 0)
   {
-    v3 = _PTLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _PTLogSystem(isNextFrameAtEnd);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      [(PTCinematographyRefinement *)v3 _endSmoothedFrames];
+      [(PTCinematographyRefinement *)v4 _endSmoothedFrames];
     }
   }
 }
@@ -328,7 +331,7 @@
 {
   v32 = *MEMORY[0x277D85DE8];
   labelCopy = label;
-  v9 = _PTLogSystem();
+  v9 = _PTLogSystem(labelCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v21 = [(NSMutableArray *)self->_frames objectAtIndexedSubscript:fromIndex];
@@ -363,7 +366,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 time];
+    objc_msgSend_time(v7);
   }
 
   else
@@ -377,7 +380,7 @@
   v11 = v10;
   if (v10)
   {
-    [v10 time];
+    objc_msgSend_time(v10);
   }
 
   else
@@ -408,7 +411,7 @@
       v25 = v24;
       if (v24)
       {
-        [v24 time];
+        objc_msgSend_time(v24);
       }
 
       else
@@ -456,7 +459,7 @@
     v6 = v5;
     if (v5)
     {
-      [v5 time];
+      objc_msgSend_time(v5);
     }
 
     else
@@ -469,7 +472,7 @@
     v8 = focusFramesOptions;
     if (focusFramesOptions)
     {
-      [focusFramesOptions maximumRackFocusPullTime];
+      objc_msgSend_maximumRackFocusPullTime(focusFramesOptions);
     }
 
     else
@@ -511,7 +514,7 @@
     v7 = v6;
     if (v6)
     {
-      [v6 time];
+      objc_msgSend_time(v6);
     }
 
     else

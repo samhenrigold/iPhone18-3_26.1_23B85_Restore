@@ -6,13 +6,13 @@
 - (BOOL)_addButton:(id)button;
 - (BOOL)_addOption:(id)option;
 - (BOOL)addButtonWithTitle:(id)title;
+- (BOOL)addOptionWithTitle:(id)title selected:(BOOL)selected;
 - (IOUserNotification)initWithHeader:(id)header andMessage:(id)message;
 - (NSArray)buttons;
 - (NSArray)options;
 - (id)_userNotificationDictionary;
 - (id)description;
 - (unint64_t)_userNotificationOptionFlags;
-- (void)_userNotificationDictionary;
 - (void)dealloc;
 - (void)dismissNotification;
 - (void)presentNotification;
@@ -249,6 +249,14 @@ void __33__IOUserNotification__addOption___block_invoke(uint64_t a1)
   }
 }
 
+- (BOOL)addOptionWithTitle:(id)title selected:(BOOL)selected
+{
+  v5 = [IOUserNotificationOption optionWithTitle:title selected:selected];
+  LOBYTE(self) = [(IOUserNotification *)self _addOption:v5];
+
+  return self;
+}
+
 - (void)presentNotificationWithResponseHandler:(id)handler
 {
   [(IOUserNotification *)self setResponseHandler:handler];
@@ -269,21 +277,21 @@ void __33__IOUserNotification__addOption___block_invoke(uint64_t a1)
 
 void __41__IOUserNotification_presentNotification__block_invoke(uint64_t a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v33[1] = *MEMORY[0x277D85DE8];
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   v2 = [IOUserNotification _findCFUserNotificationForUserNotification:*(a1 + 32)];
-  v30[3] = v2;
+  v29[3] = v2;
   if (v2)
   {
     CFRetain(v2);
-    if (v30[3])
+    if (v29[3])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
@@ -301,17 +309,17 @@ void __41__IOUserNotification_presentNotification__block_invoke(uint64_t a1)
   }
 
   v3 = [*(a1 + 32) thread];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __41__IOUserNotification_presentNotification__block_invoke_14;
-  v23[3] = &unk_2796A3268;
-  v23[4] = *(a1 + 32);
-  v23[5] = &v29;
-  v23[6] = &v25;
-  [v3 dispatchSync:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __41__IOUserNotification_presentNotification__block_invoke_14;
+  v22[3] = &unk_2796A3268;
+  v22[4] = *(a1 + 32);
+  v22[5] = &v28;
+  v22[6] = &v24;
+  [v3 dispatchSync:v22];
 
-  v4 = *(v26 + 6);
-  if (v30[3] && !v4)
+  v4 = *(v25 + 6);
+  if (v29[3] && !v4)
   {
     [*(a1 + 32) setVisible:1];
     v5 = +[IOUserNotification _notificationMapTableLock];
@@ -319,14 +327,14 @@ void __41__IOUserNotification_presentNotification__block_invoke(uint64_t a1)
 
     v6 = +[IOUserNotification _notificationMapTable];
     v7 = *(a1 + 32);
-    v8 = [MEMORY[0x277CCAE60] valueWithPointer:v30[3]];
+    v8 = [MEMORY[0x277CCAE60] valueWithPointer:v29[3]];
     [v6 setObject:v7 forKey:v8];
 
     v9 = +[IOUserNotification _notificationMapTableLock];
     [v9 unlock];
 
-    CFRetain(v30[3]);
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(*MEMORY[0x277CBECE8], v30[3], _userNotificationCallback, 0);
+    CFRetain(v29[3]);
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(*MEMORY[0x277CBECE8], v29[3], _userNotificationCallback, 0);
     v11 = [*(a1 + 32) thread];
     v12 = [v11 runLoop];
     v13 = [v12 getCFRunLoop];
@@ -338,15 +346,15 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v20 = MEMORY[0x277CCA9B8];
-  v33 = *MEMORY[0x277CCA450];
-  v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"CFUserNotificationCreate() failed! (error: %d)", v4];
-  v34[0] = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-  v14 = [v20 errorWithDomain:@"IOUserNotificationErrorDomain" code:2 userInfo:v22];
+  v19 = MEMORY[0x277CCA9B8];
+  v32 = *MEMORY[0x277CCA450];
+  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"CFUserNotificationCreate() failed! (error: %d)", v4];
+  v33[0] = v20;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+  v14 = [v19 errorWithDomain:@"IOUserNotificationErrorDomain" code:2 userInfo:v21];
 
 LABEL_11:
-  v15 = v30[3];
+  v15 = v29[3];
   if (v15)
   {
     CFRelease(v15);
@@ -364,10 +372,8 @@ LABEL_11:
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
 }
 
 void __41__IOUserNotification_presentNotification__block_invoke_14(uint64_t a1)
@@ -560,7 +566,7 @@ void __41__IOUserNotification_dismissNotification__block_invoke_2(uint64_t a1)
   return v6;
 }
 
-uint64_t __50__IOUserNotification__userNotificationOptionFlags__block_invoke(uint64_t a1, void *a2, char a3)
+void *__50__IOUserNotification__userNotificationOptionFlags__block_invoke(uint64_t a1, void *a2, char a3)
 {
   result = [a2 selected];
   if (result)
@@ -573,7 +579,7 @@ uint64_t __50__IOUserNotification__userNotificationOptionFlags__block_invoke(uin
 
 - (id)_userNotificationDictionary
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([(IOUserNotification *)self shouldDisplayOnTop])
   {
@@ -661,9 +667,9 @@ uint64_t __50__IOUserNotification__userNotificationOptionFlags__block_invoke(uin
   {
     v26 = MEMORY[0x277CCAAB0];
     extensionItems2 = [(IOUserNotification *)self extensionItems];
-    v62 = 0;
-    v28 = [v26 archivedDataWithRootObject:extensionItems2 requiringSecureCoding:1 error:&v62];
-    v29 = v62;
+    v61 = 0;
+    v28 = [v26 archivedDataWithRootObject:extensionItems2 requiringSecureCoding:1 error:&v61];
+    v29 = v61;
     [dictionary setObject:v28 forKey:*MEMORY[0x277D67358]];
 
     if (v29 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -711,31 +717,31 @@ uint64_t __50__IOUserNotification__userNotificationOptionFlags__block_invoke(uin
   if (v46)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     optionsMutable2 = [(IOUserNotification *)self optionsMutable];
-    v49 = [optionsMutable2 countByEnumeratingWithState:&v58 objects:v63 count:16];
+    v49 = [optionsMutable2 countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v59;
+      v51 = *v58;
       do
       {
         for (i = 0; i != v50; ++i)
         {
-          if (*v59 != v51)
+          if (*v58 != v51)
           {
             objc_enumerationMutation(optionsMutable2);
           }
 
-          title4 = [*(*(&v58 + 1) + 8 * i) title];
+          title4 = [*(*(&v57 + 1) + 8 * i) title];
           v54 = [title4 copy];
           [array addObject:v54];
         }
 
-        v50 = [optionsMutable2 countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v50 = [optionsMutable2 countByEnumeratingWithState:&v57 objects:v62 count:16];
       }
 
       while (v50);
@@ -745,8 +751,6 @@ uint64_t __50__IOUserNotification__userNotificationOptionFlags__block_invoke(uin
   }
 
   v55 = [dictionary copy];
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v55;
 }
@@ -791,30 +795,30 @@ uint64_t __47__IOUserNotification__notificationMapTableLock__block_invoke()
 
 + (__CFUserNotification)_findCFUserNotificationForUserNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v4 = +[IOUserNotification _notificationMapTableLock];
   [v4 lock];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = +[IOUserNotification _notificationMapTable];
-  pointerValue = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  pointerValue = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (pointerValue)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != pointerValue; i = (i + 1))
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = +[IOUserNotification _notificationMapTable];
         v11 = [v10 objectForKey:v9];
 
@@ -826,7 +830,7 @@ uint64_t __47__IOUserNotification__notificationMapTableLock__block_invoke()
         }
       }
 
-      pointerValue = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      pointerValue = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (pointerValue)
       {
         continue;
@@ -841,40 +845,7 @@ LABEL_11:
   v12 = +[IOUserNotification _notificationMapTableLock];
   [v12 unlock];
 
-  v13 = *MEMORY[0x277D85DE8];
   return pointerValue;
-}
-
-void __40__IOUserNotification_updateNotification__block_invoke_21_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __41__IOUserNotification_dismissNotification__block_invoke_22_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __41__IOUserNotification_dismissNotification__block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_userNotificationDictionary
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

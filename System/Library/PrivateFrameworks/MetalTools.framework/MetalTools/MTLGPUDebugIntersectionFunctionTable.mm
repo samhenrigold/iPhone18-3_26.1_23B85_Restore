@@ -81,20 +81,19 @@
 
 - (void)_setupIdentifier
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 setDataType:116];
   [v3 setIndex:0];
   originalObject = [(MTLToolsObject *)self->super.super.super._device originalObject];
-  v8[0] = v3;
-  v5 = [originalObject newArgumentEncoderWithArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v8, 1)}];
+  v7[0] = v3;
+  v5 = [originalObject newArgumentEncoderWithArguments:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 1)}];
 
   v6 = [-[MTLToolsObject originalObject](self->super.super.super._device "originalObject")];
   [v5 setArgumentBuffer:v6 offset:0];
   [v5 setIntersectionFunctionTable:-[MTLToolsObject originalObject](self atIndex:{"originalObject"), 0}];
 
   self->_gpuIdentifier = *[v6 contents];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useWithComputeEncoder:(id)encoder usage:(unint64_t)usage

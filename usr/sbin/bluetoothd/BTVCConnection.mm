@@ -176,11 +176,18 @@ LABEL_10:
 - (NSString)description
 {
   identifier = [(BTVCDevice *)self->_peerDevice identifier];
-  [(NSNumber *)self->_connectionHandle intValue];
-  [(NSMutableSet *)self->_clients count];
-  v4 = NSPrintF();
+  intValue = [(NSNumber *)self->_connectionHandle intValue];
+  connected = self->_connected;
+  v6 = [(NSMutableSet *)self->_clients count];
+  v7 = "no";
+  if (connected)
+  {
+    v7 = "yes";
+  }
 
-  return v4;
+  v8 = NSPrintF("BTVCConnection %{ptr}@, Peer %@, Handle 0x%04X Connected %s, Clients %ld", self, identifier, intValue, v7, v6);
+
+  return v8;
 }
 
 - (void)_setConnectionHeader:(id)header

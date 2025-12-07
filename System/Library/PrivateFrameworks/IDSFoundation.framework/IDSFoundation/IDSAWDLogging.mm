@@ -30,7 +30,7 @@
 
 - (void)_submitAWDMetric:(id)metric withContainer:(id)container
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   metricCopy = metric;
   containerCopy = container;
   v8 = containerCopy;
@@ -49,16 +49,16 @@
       }
 
       *buf = 67109378;
-      v14 = metricId;
-      v15 = 2112;
-      v16 = v12;
+      v19 = metricId;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEBUG, "Submitted metric: 0x%x succeeded? %@", buf, 0x12u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
     {
-      [v8 metricId];
-      _IDSLogV(1, @"IDSFoundation", @"IDSAWDLogging", @"Submitted metric: 0x%x succeeded? %@");
+      metricId2 = [v8 metricId];
+      _IDSLogV(1, @"IDSFoundation", @"IDSAWDLogging", @"Submitted metric: 0x%x succeeded? %@", v14, v15, v16, v17, metricId2);
     }
   }
 }

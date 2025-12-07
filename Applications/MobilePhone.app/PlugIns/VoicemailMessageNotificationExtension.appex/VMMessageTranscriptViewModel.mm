@@ -292,22 +292,22 @@ LABEL_13:
 
   if (confidence - 2 < 2)
   {
-    v8 = PHVoicemailTranscriptAttributedPrefix();
-    v9 = PHVoicemailTranscriptAttributedSuffix();
+    v9 = PHVoicemailTranscriptAttributedPrefix(v8);
+    v10 = PHVoicemailTranscriptAttributedSuffix(v9);
     messageTranscriptAttributedText = [(VMMessageTranscriptViewModel *)self messageTranscriptAttributedText];
-    v11 = [messageTranscriptAttributedText mutableCopy];
+    v12 = [messageTranscriptAttributedText mutableCopy];
 
-    [v11 insertAttributedString:v8 atIndex:0];
-    [v11 appendAttributedString:v9];
-    v12 = objc_alloc_init(NSMutableParagraphStyle);
-    [v8 size];
-    [v12 setHeadIndent:?];
-    v13 = +[UIFont telephonyUIBodyShortFont];
-    [v5 setObject:v13 forKeyedSubscript:NSFontAttributeName];
+    [v12 insertAttributedString:v9 atIndex:0];
+    [v12 appendAttributedString:v10];
+    v13 = objc_alloc_init(NSMutableParagraphStyle);
+    [v9 size];
+    [v13 setHeadIndent:?];
+    v14 = +[UIFont telephonyUIBodyShortFont];
+    [v5 setObject:v14 forKeyedSubscript:NSFontAttributeName];
 
-    [v5 setObject:v12 forKeyedSubscript:NSParagraphStyleAttributeName];
-    [v11 addAttributes:v5 range:{0, objc_msgSend(v11, "length")}];
-    v14 = [v11 copy];
+    [v5 setObject:v13 forKeyedSubscript:NSParagraphStyleAttributeName];
+    [v12 addAttributes:v5 range:{0, objc_msgSend(v12, "length")}];
+    v15 = [v12 copy];
 
 LABEL_5:
     goto LABEL_7;
@@ -315,23 +315,23 @@ LABEL_5:
 
   if (confidence == 1)
   {
-    v15 = +[NSBundle mainBundle];
-    v8 = [v15 localizedStringForKey:@"VOICEMAILUI_MESSAGE_TRANSCRIPT_VIEW_MESSAGE_CONFIDENCE_NONE" value:&stru_10008C168 table:@"VoicemailUI"];
+    v16 = +[NSBundle mainBundle];
+    v9 = [v16 localizedStringForKey:@"VOICEMAILUI_MESSAGE_TRANSCRIPT_VIEW_MESSAGE_CONFIDENCE_NONE" value:&stru_10008C168 table:@"VoicemailUI"];
 
-    v9 = objc_alloc_init(NSMutableParagraphStyle);
-    [v9 setAlignment:4];
-    v16 = +[UIFont telephonyUIBodyShortFont];
-    [v5 setObject:v16 forKeyedSubscript:NSFontAttributeName];
+    v10 = objc_alloc_init(NSMutableParagraphStyle);
+    [v10 setAlignment:4];
+    v17 = +[UIFont telephonyUIBodyShortFont];
+    [v5 setObject:v17 forKeyedSubscript:NSFontAttributeName];
 
-    [v5 setObject:v9 forKeyedSubscript:NSParagraphStyleAttributeName];
-    v14 = [[NSAttributedString alloc] initWithString:v8 attributes:v5];
+    [v5 setObject:v10 forKeyedSubscript:NSParagraphStyleAttributeName];
+    v15 = [[NSAttributedString alloc] initWithString:v9 attributes:v5];
     goto LABEL_5;
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_7:
 
-  return v14;
+  return v15;
 }
 
 - (id)localizedAttributedTitleForConfidence:(unint64_t)confidence

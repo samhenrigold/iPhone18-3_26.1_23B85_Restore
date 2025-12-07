@@ -62,7 +62,7 @@
 
 void __40__HVConsumerCoordinator_statsWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v36[8] = *MEMORY[0x277D85DE8];
+  v35[8] = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_group_leave(*(*(a1 + 32) + 40));
   v4 = *(v3 + 1);
@@ -73,86 +73,84 @@ void __40__HVConsumerCoordinator_statsWithError___block_invoke(uint64_t a1, void
     v7 = [v6 throttlingState];
     [v5 setObject:v7 forKeyedSubscript:@"PowerBudget"];
 
-    v35[0] = @"Allowed & Registered";
+    v34[0] = @"Allowed & Registered";
     v8 = [(HVBudget *)v4 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:1 levelOfService:?];
-    v30 = HVDataSourceDescription(v8);
-    v36[0] = v30;
-    v35[1] = @"Always Allow Override";
-    v28 = HVDataSourceDescription(v4[2]);
-    v36[1] = v28;
-    v35[2] = @"Always Deny Override";
+    v29 = HVDataSourceDescription(v8);
+    v35[0] = v29;
+    v34[1] = @"Always Allow Override";
+    v27 = HVDataSourceDescription(v4[2]);
+    v35[1] = v27;
+    v34[2] = @"Always Deny Override";
     v9 = HVDataSourceDescription(v4[3]);
-    v36[2] = v9;
-    v35[3] = @"Realtime";
+    v35[2] = v9;
+    v34[3] = @"Realtime";
     v10 = HVDataSourceDescription(v4[8]);
-    v36[3] = v10;
-    v35[4] = @"Periodic Background";
+    v35[3] = v10;
+    v34[4] = @"Periodic Background";
     v11 = HVDataSourceDescription(v4[5]);
-    v36[4] = v11;
-    v35[5] = @"Budgeted";
+    v35[4] = v11;
+    v34[5] = @"Budgeted";
     v12 = HVDataSourceDescription(v4[7]);
-    v36[5] = v12;
-    v35[6] = @"Delayed Budgeted";
+    v35[5] = v12;
+    v34[6] = @"Delayed Budgeted";
     v13 = HVDataSourceDescription(v4[6]);
-    v36[6] = v13;
-    v35[7] = @"No Service";
+    v35[6] = v13;
+    v34[7] = @"No Service";
     v14 = HVDataSourceDescription(v4[4]);
-    v36[7] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:8];
-    v32 = v5;
+    v35[7] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:8];
+    v31 = v5;
     [v5 setObject:v15 forKeyedSubscript:@"Sources"];
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
-  if (v32)
+  if (v31)
   {
-    [*(a1 + 40) setObject:v32 forKeyedSubscript:@"Budget"];
+    [*(a1 + 40) setObject:v31 forKeyedSubscript:@"Budget"];
   }
 
-  v33[0] = @"Mail";
-  v31 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[0] = v31;
-  v33[1] = @"Messages";
-  v29 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[1] = v29;
-  v33[2] = @"News";
-  v27 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[2] = v27;
-  v33[3] = @"Notes";
+  v32[0] = @"Mail";
+  v30 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
+  v33[0] = v30;
+  v32[1] = @"Messages";
+  v28 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
+  v33[1] = v28;
+  v32[2] = @"News";
   v26 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[3] = v26;
-  v33[4] = @"Parsec";
+  v33[2] = v26;
+  v32[3] = @"Notes";
   v25 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[4] = v25;
-  v33[5] = @"Photos";
+  v33[3] = v25;
+  v32[4] = @"Parsec";
+  v24 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
+  v33[4] = v24;
+  v32[5] = @"Photos";
   v16 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[5] = v16;
-  v33[6] = @"Reminders";
+  v33[5] = v16;
+  v32[6] = @"Reminders";
   v17 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[6] = v17;
-  v33[7] = @"Safari";
+  v33[6] = v17;
+  v32[7] = @"Safari";
   v18 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[7] = v18;
-  v33[8] = @"Siri";
+  v33[7] = v18;
+  v32[8] = @"Siri";
   v19 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[8] = v19;
-  v33[9] = @"ThirdPartyApp";
+  v33[8] = v19;
+  v32[9] = @"ThirdPartyApp";
   v20 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[9] = v20;
-  v33[10] = @"Interactions";
+  v33[9] = v20;
+  v32[10] = @"Interactions";
   v21 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[10] = v21;
-  v33[11] = @"UserActivities";
+  v33[10] = v21;
+  v32[11] = @"UserActivities";
   v22 = [(HVConsumerCoordinator *)*(a1 + 32) _statsForConsumers:?];
-  v34[11] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:12];
+  v33[11] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:12];
   [*(a1 + 40) setObject:v23 forKeyedSubscript:@"Consumers"];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HVConsumerCoordinator_statsWithError___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -175,52 +173,50 @@ void __40__HVConsumerCoordinator_statsWithError___block_invoke_2(uint64_t a1, ui
 
 void __40__HVConsumerCoordinator_statsWithError___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"Level of Service";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"Level of Service";
   v5 = MEMORY[0x277CCABB0];
   v6 = a3;
   v7 = a2;
   v8 = [v5 numberWithUnsignedChar:{objc_msgSend(v6, "levelOfService")}];
-  v13[1] = @"Consumers";
-  v14[0] = v8;
+  v12[1] = @"Consumers";
+  v13[0] = v8;
   v9 = [v6 consumers];
 
   v10 = [v9 allObjects];
-  v14[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [*(a1 + 32) setObject:v11 forKeyedSubscript:v7];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_statsForConsumers:(uint64_t)consumers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v21 = v3;
+  v20 = v3;
   if (consumers)
   {
     v4 = v3;
-    v22 = objc_opt_new();
+    v21 = objc_opt_new();
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v5 = v4;
-    v25 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v25)
+    v24 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v24)
     {
-      v6 = *v27;
+      v6 = *v26;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v27 != v6)
+          if (*v26 != v6)
           {
             objc_enumerationMutation(v5);
           }
 
-          v8 = *(*(&v26 + 1) + 8 * i);
+          v8 = *(*(&v25 + 1) + 8 * i);
           consumerName = [v8 consumerName];
           v10 = [v5 objectForKey:v8];
           v11 = v10;
@@ -247,47 +243,45 @@ void __40__HVConsumerCoordinator_statsWithError___block_invoke_3(uint64_t a1, vo
 
           else
           {
-            v31[0] = @"Level of Service";
-            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v10 + 8)];
-            *&buf = v23;
-            v31[1] = @"Documents Consumed";
+            v30[0] = @"Level of Service";
+            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*(v10 + 8)];
+            *&buf = v22;
+            v30[1] = @"Documents Consumed";
             v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11[3]];
             *(&buf + 1) = v13;
-            v31[2] = @"Documents Ignored";
+            v30[2] = @"Documents Ignored";
             v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11[4]];
-            v33 = v14;
-            v31[3] = @"Number of Extractions";
+            v32 = v14;
+            v30[3] = @"Number of Extractions";
             [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11[5]];
-            v15 = v24 = consumerName;
-            v34 = v15;
-            v31[4] = @"Number of Interruptions";
+            v15 = v23 = consumerName;
+            v33 = v15;
+            v30[4] = @"Number of Interruptions";
             v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11[6]];
-            v35 = v16;
-            v31[5] = @"Errors Reported";
+            v34 = v16;
+            v30[5] = @"Errors Reported";
             v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v11[7]];
-            v36 = v17;
-            v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v31 count:6];
+            v35 = v17;
+            v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&buf forKeys:v30 count:6];
 
-            consumerName = v24;
-            [v22 setObject:v18 forKeyedSubscript:v24];
+            consumerName = v23;
+            [v21 setObject:v18 forKeyedSubscript:v23];
           }
         }
 
-        v25 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v24 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (BOOL)registerNotificationsConsumer:(id)consumer levelOfService:(unsigned __int8)service
@@ -742,7 +736,7 @@ void __61__HVConsumerCoordinator_registerMailConsumer_levelOfService___block_inv
 
 void __56__HVConsumerCoordinator_deleteContentWithRequest_error___block_invoke(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_group_leave(*(*(a1 + 32) + 40));
   v4 = [*(a1 + 40) bundleIdentifier];
@@ -821,39 +815,39 @@ LABEL_24:
   v8 = hv_default_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v40 = [v7 count];
-    v41 = *(a1 + 40);
+    v39 = [v7 count];
+    v40 = *(a1 + 40);
     *buf = 134218243;
-    v60 = v40;
-    v61 = 2113;
-    v62 = v41;
+    v59 = v39;
+    v60 = 2113;
+    v61 = v40;
     _os_log_debug_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEBUG, "HVConsumerCoordinator: deleteContentWithRequest: consumer count: %tu request: %{private}@", buf, 0x16u);
   }
 
-  v42 = v7;
+  v41 = v7;
   if (v7)
   {
     v9 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v7, "count", v7)}];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v53;
+      v13 = *v52;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v53 != v13)
+          if (*v52 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v52 + 1) + 8 * i);
+          v15 = *(*(&v51 + 1) + 8 * i);
           v16 = objc_autoreleasePoolPush();
           v17 = [v15 deleteDataDerivedFromContentMatchingRequest:*(a1 + 40)];
           v18 = [v15 consumerName];
@@ -862,7 +856,7 @@ LABEL_24:
           objc_autoreleasePoolPop(v16);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
       while (v12);
@@ -874,27 +868,27 @@ LABEL_24:
     v9 = 0;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v43 = v3;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v42 = v3;
   v19 = v3[12];
-  v20 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v49;
+    v22 = *v48;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v49 != v22)
+        if (*v48 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v48 + 1) + 8 * j);
+        v24 = *(*(&v47 + 1) + 8 * j);
         v25 = objc_autoreleasePoolPush();
         v26 = [v24 consumerName];
         v27 = [v9 containsObject:v26];
@@ -907,32 +901,32 @@ LABEL_24:
         objc_autoreleasePoolPop(v25);
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v21);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v29 = v43[13];
-  v30 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v29 = v42[13];
+  v30 = [v29 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v45;
+    v32 = *v44;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v45 != v32)
+        if (*v44 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v44 + 1) + 8 * k);
+        v34 = *(*(&v43 + 1) + 8 * k);
         v35 = objc_autoreleasePoolPush();
         v36 = [v34 consumerName];
         v37 = [v9 containsObject:v36];
@@ -945,13 +939,11 @@ LABEL_24:
         objc_autoreleasePoolPop(v35);
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v31);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreConsumptionOfDataSources:(unsigned int)sources
@@ -969,7 +961,7 @@ LABEL_24:
 
 void __57__HVConsumerCoordinator_restoreConsumptionOfDataSources___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 40);
   v4 = a2;
   dispatch_group_leave(v3);
@@ -977,9 +969,9 @@ void __57__HVConsumerCoordinator_restoreConsumptionOfDataSources___block_invoke(
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HVDataSourceDescription(*(a1 + 40));
-    v12 = 138543362;
-    v13 = v6;
-    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: restoreConsumptionOfDataSources: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v6;
+    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: restoreConsumptionOfDataSources: %{public}@", &v11, 0xCu);
   }
 
   v7 = v4[1];
@@ -991,13 +983,11 @@ void __57__HVConsumerCoordinator_restoreConsumptionOfDataSources___block_invoke(
     {
       v9 = [(HVBudget *)v7 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:1 levelOfService:?];
       v10 = HVDataSourceDescription(v9);
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableConsumptionOfDataSources:(unsigned int)sources
@@ -1015,7 +1005,7 @@ void __57__HVConsumerCoordinator_restoreConsumptionOfDataSources___block_invoke(
 
 void __57__HVConsumerCoordinator_disableConsumptionOfDataSources___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 40);
   v4 = a2;
   dispatch_group_leave(v3);
@@ -1023,9 +1013,9 @@ void __57__HVConsumerCoordinator_disableConsumptionOfDataSources___block_invoke(
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HVDataSourceDescription(*(a1 + 40));
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: disableConsumptionOfDataSources: %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v6;
+    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: disableConsumptionOfDataSources: %{public}@", &v14, 0xCu);
   }
 
   v7 = v4[1];
@@ -1041,13 +1031,11 @@ void __57__HVConsumerCoordinator_disableConsumptionOfDataSources___block_invoke(
     {
       v12 = [(HVBudget *)v7 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:1 levelOfService:?];
       v13 = HVDataSourceDescription(v12);
-      v15 = 138412290;
-      v16 = v13;
-      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v13;
+      _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableConsumptionOfDataSources:(unsigned int)sources
@@ -1065,7 +1053,7 @@ void __57__HVConsumerCoordinator_disableConsumptionOfDataSources___block_invoke(
 
 void __56__HVConsumerCoordinator_enableConsumptionOfDataSources___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 32) + 40);
   v4 = a2;
   dispatch_group_leave(v3);
@@ -1073,9 +1061,9 @@ void __56__HVConsumerCoordinator_enableConsumptionOfDataSources___block_invoke(u
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HVDataSourceDescription(*(a1 + 40));
-    v14 = 138543362;
-    v15 = v6;
-    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: enableConsumptionOfDataSources: %{public}@", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v6;
+    _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: enableConsumptionOfDataSources: %{public}@", &v13, 0xCu);
   }
 
   v7 = v4[1];
@@ -1090,19 +1078,17 @@ void __56__HVConsumerCoordinator_enableConsumptionOfDataSources___block_invoke(u
     {
       v11 = [(HVBudget *)v7 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:1 levelOfService:?];
       v12 = HVDataSourceDescription(v11);
-      v14 = 138412290;
-      v15 = v12;
-      _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v12;
+      _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "HVBudget: Sources With Budget And Consumers Available: %@", &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)harvestContentWithMinimumLevelOfService:(unsigned __int8)service ignoringDiscretionaryPowerBudget:(BOOL)budget error:(id *)error shouldContinueBlock:(id)block
 {
   serviceCopy = service;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = hv_default_log_handle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -1114,55 +1100,55 @@ void __56__HVConsumerCoordinator_enableConsumptionOfDataSources___block_invoke(u
 
   if ((blockCopy[2])())
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 0;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
     v40 = 0;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignoringDiscretionaryPowerBudget_error_shouldContinueBlock___block_invoke;
-    v33[3] = &unk_278968E58;
-    v35 = &v41;
-    v36 = &v37;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignoringDiscretionaryPowerBudget_error_shouldContinueBlock___block_invoke;
+    v32[3] = &unk_278968E58;
+    v34 = &v40;
+    v35 = &v36;
     v10 = blockCopy;
-    v33[4] = self;
-    v34 = v10;
-    v11 = MEMORY[0x238381E60](v33);
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 1;
+    v32[4] = self;
+    v33 = v10;
+    v11 = MEMORY[0x238381E60](v32);
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = 1;
     *buf = 0;
-    v46 = buf;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__691;
-    v49 = __Block_byref_object_dispose__692;
-    v50 = 0;
+    v45 = buf;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__691;
+    v48 = __Block_byref_object_dispose__692;
+    v49 = 0;
     do
     {
-      while (*(v38 + 24) != 1)
+      while (*(v37 + 24) != 1)
       {
-        if ((v42[3] & 1) == 0)
+        if ((v41[3] & 1) == 0)
         {
-          *(v38 + 24) = 0;
+          *(v37 + 24) = 0;
           lock = self->_lock;
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignoringDiscretionaryPowerBudget_error_shouldContinueBlock___block_invoke_117;
-          v22[3] = &unk_278968E80;
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignoringDiscretionaryPowerBudget_error_shouldContinueBlock___block_invoke_117;
+          v21[3] = &unk_278968E80;
           budgetCopy = budget;
-          v27 = serviceCopy;
-          v24 = &v29;
-          v22[4] = self;
-          v23 = v11;
-          v25 = buf;
-          [(_PASLock *)lock runWithLockAcquired:v22 shouldContinueBlock:v23];
+          v26 = serviceCopy;
+          v23 = &v28;
+          v21[4] = self;
+          v22 = v11;
+          v24 = buf;
+          [(_PASLock *)lock runWithLockAcquired:v21 shouldContinueBlock:v22];
 
-          if (v42[3] & 1) == 0 && (v38[3])
+          if (v41[3] & 1) == 0 && (v37[3])
           {
             continue;
           }
@@ -1174,31 +1160,31 @@ void __56__HVConsumerCoordinator_enableConsumptionOfDataSources___block_invoke(u
       v12 = hv_default_log_handle();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        *v28 = 0;
-        _os_log_debug_impl(&dword_2321EC000, v12, OS_LOG_TYPE_DEBUG, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService waiting for lock contention to subside...", v28, 2u);
+        *v27 = 0;
+        _os_log_debug_impl(&dword_2321EC000, v12, OS_LOG_TYPE_DEBUG, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService waiting for lock contention to subside...", v27, 2u);
       }
 
       waitingForLock = self->_waitingForLock;
       v14 = dispatch_time(0, 1000000000);
       v15 = dispatch_group_wait(waitingForLock, v14) != 0;
-      *(v38 + 24) = v15;
+      *(v37 + 24) = v15;
     }
 
     while ((blockCopy[2](v10) & 1) != 0);
-    *(v42 + 24) = 1;
+    *(v41 + 24) = 1;
 LABEL_15:
-    v17 = *(v30 + 24);
-    if (error && (v30[3] & 1) == 0)
+    v17 = *(v29 + 24);
+    if (error && (v29[3] & 1) == 0)
     {
-      *error = *(v46 + 5);
-      v17 = *(v30 + 24);
+      *error = *(v45 + 5);
+      v17 = *(v29 + 24);
     }
 
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v29, 8);
-    _Block_object_dispose(&v37, 8);
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v40, 8);
   }
 
   else
@@ -1206,7 +1192,6 @@ LABEL_15:
     v17 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
@@ -1224,7 +1209,6 @@ uint64_t __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ig
     return 0;
   }
 
-  v5 = a1[5];
   if ((*(a1[5] + 16))())
   {
     if (!dispatch_group_wait(*(a1[4] + 40), 0))
@@ -1232,11 +1216,11 @@ uint64_t __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ig
       return 1;
     }
 
-    v6 = hv_default_log_handle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = hv_default_log_handle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService interruptedByLockContention, will unlock to let other threads use the lock for a bit", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService interruptedByLockContention, will unlock to let other threads use the lock for a bit", v6, 2u);
     }
 
     v1 = v3;
@@ -1244,11 +1228,11 @@ uint64_t __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ig
 
   else
   {
-    v6 = hv_default_log_handle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = hv_default_log_handle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2321EC000, v6, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService shouldContinueBlock returned NO", buf, 2u);
+      _os_log_impl(&dword_2321EC000, v5, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService shouldContinueBlock returned NO", buf, 2u);
     }
   }
 
@@ -1259,7 +1243,7 @@ uint64_t __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ig
 
 void __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignoringDiscretionaryPowerBudget_error_shouldContinueBlock___block_invoke_117(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 64) != 1)
@@ -1270,7 +1254,7 @@ void __124__HVConsumerCoordinator_harvestContentWithMinimumLevelOfService_ignori
   v5 = v3[1];
   if (v5)
   {
-    if (v5[10])
+    if (*(v5 + 40))
     {
 LABEL_4:
       v6 = 0;
@@ -1319,7 +1303,7 @@ LABEL_6:
   {
     v12 = HVDataSourceDescription(v10);
     *buf = 138543362;
-    v25 = v12;
+    v24 = v12;
     _os_log_impl(&dword_2321EC000, v11, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: harvestContentWithMinimumLevelOfService: sources after applying budget: %{public}@", buf, 0xCu);
   }
 
@@ -1352,13 +1336,11 @@ LABEL_6:
       *(v21 + 40) = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_consumeContentFromAllDataSources:(int)sources minimumLevelOfService:(char)service inMemoryItemsOnly:(void *)only guardedData:(void *)data shouldContinueBlock:(void *)block error:
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   onlyCopy = only;
   dataCopy = data;
   v15 = hv_default_log_handle();
@@ -1373,37 +1355,37 @@ LABEL_6:
   }
 
   v18 = sources != 1 || dataCopy == 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 1;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 1;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v54 = __Block_byref_object_copy__691;
-  v55 = __Block_byref_object_dispose__692;
-  v56 = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevelOfService_inMemoryItemsOnly_guardedData_shouldContinueBlock_error___block_invoke;
-  v32[3] = &unk_278968ED0;
+  v53 = __Block_byref_object_copy__691;
+  v54 = __Block_byref_object_dispose__692;
+  v55 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevelOfService_inMemoryItemsOnly_guardedData_shouldContinueBlock_error___block_invoke;
+  v31[3] = &unk_278968ED0;
   sourcesCopy = sources;
-  v41 = v18;
+  v40 = v18;
   v19 = onlyCopy;
-  v39 = a2;
-  v33 = v19;
+  v38 = a2;
+  v32 = v19;
   selfCopy = self;
   serviceCopy = service;
   v20 = dataCopy;
-  v35 = v20;
-  v36 = &v43;
-  v37 = buf;
-  v38 = &v47;
-  HVDataSourceRunBlockPerSetBit(a2, v32);
+  v34 = v20;
+  v35 = &v42;
+  v36 = buf;
+  v37 = &v46;
+  HVDataSourceRunBlockPerSetBit(a2, v31);
   if (block)
   {
     v21 = *(*&buf[8] + 40);
@@ -1414,13 +1396,13 @@ LABEL_6:
   }
 
   v22 = *(self + 24);
-  v23 = *(v44 + 6);
-  v31 = 0;
-  v24 = [v22 dequeuedContentConsumedForDataSources:v23 withError:&v31];
-  v25 = v31;
+  v23 = *(v43 + 6);
+  v30 = 0;
+  v24 = [v22 dequeuedContentConsumedForDataSources:v23 withError:&v30];
+  v25 = v30;
   if (v24)
   {
-    v26 = *(v48 + 24);
+    v26 = *(v47 + 24);
   }
 
   else
@@ -1428,9 +1410,9 @@ LABEL_6:
     v27 = hv_default_log_handle();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
-      *v51 = 138412290;
-      v52 = v25;
-      _os_log_fault_impl(&dword_2321EC000, v27, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: _consumeContentWithGuardedData: consumptionCompletedWithError: %@", v51, 0xCu);
+      *v50 = 138412290;
+      v51 = v25;
+      _os_log_fault_impl(&dword_2321EC000, v27, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: _consumeContentWithGuardedData: consumptionCompletedWithError: %@", v50, 0xCu);
     }
 
     if (block)
@@ -1446,16 +1428,16 @@ LABEL_6:
     }
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v47, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
   return v26 & 1;
 }
 
-void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevelOfService_inMemoryItemsOnly_guardedData_shouldContinueBlock_error___block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevelOfService_inMemoryItemsOnly_guardedData_shouldContinueBlock_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v32 = 0;
   v33 = &v32;
   v34 = 0x2020000000;
@@ -1485,12 +1467,12 @@ void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevel
   v13 = v12;
   if (v10)
   {
-    if ((*(v10 + 8) & a2) != 0)
+    if ((*(v10 + 8) & v4) != 0)
     {
       v20(v12, v6);
     }
 
-    else if (!v7 || [(HVBudget *)v10 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:a2 levelOfService:v6]== a2)
+    else if (!v7 || [(HVBudget *)v10 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:v4 levelOfService:v6]== v4)
     {
       v14 = *(v10 + 40);
       v15 = objc_autoreleasePoolPush();
@@ -1513,7 +1495,7 @@ void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevel
         v38 = __82__HVBudget_performWorkForOneDataSource_levelOfService_requireRegistrations_block___block_invoke_2;
         v39 = &unk_278969A48;
         v40 = v10;
-        v42 = a2;
+        v42 = v4;
         v41 = v45;
         v43 = v6;
         [v16 doDiscretionaryWork:v44 orElse:buf];
@@ -1538,28 +1520,28 @@ void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevel
 
 void __137__HVConsumerCoordinator__consumeContentFromAllDataSources_minimumLevelOfService_inMemoryItemsOnly_guardedData_shouldContinueBlock_error___block_invoke_2(uint64_t a1, unsigned int a2)
 {
-  v172 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   v4 = hv_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HVDataSourceDescription(*(a1 + 96));
     v6 = *(a1 + 104);
     *buf = 67109634;
-    *v166 = a2;
-    *&v166[4] = 2114;
-    *&v166[6] = v5;
-    *&v166[14] = 1024;
-    *&v166[16] = v6;
+    *v165 = a2;
+    *&v165[4] = 2114;
+    *&v165[6] = v5;
+    *&v165[14] = 1024;
+    *&v165[16] = v6;
     _os_log_impl(&dword_2321EC000, v4, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: consumeContentFromDataSources: effective LoS %hhu for %{public}@ with minimum LoS %hhu", buf, 0x18u);
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
   v7 = *(a1 + 100);
-  v126 = *(a1 + 105);
+  v125 = *(a1 + 105);
   v8 = *(a1 + 32);
   v9 = *(a1 + 48);
   v10 = *(a1 + 40);
-  v134 = v9;
+  v133 = v9;
   if (!v8)
   {
 
@@ -1572,8 +1554,8 @@ LABEL_172:
     goto LABEL_173;
   }
 
-  v127 = [(HVConsumerCoordinator *)v8 _consumersForOneDataSource:v7 guardedData:v10];
-  v140 = a2;
+  v126 = [(HVConsumerCoordinator *)v8 _consumersForOneDataSource:v7 guardedData:v10];
+  v139 = a2;
   if (v7 > 255)
   {
     if (v7 > 4095)
@@ -1715,7 +1697,7 @@ LABEL_148:
       if (os_log_type_enabled(v103, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109120;
-        *v166 = v7;
+        *v165 = v7;
         _os_log_fault_impl(&dword_2321EC000, v103, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: _consumeAllContentFromOneDataSource: unknown datasource value: %u", buf, 8u);
       }
 
@@ -1729,35 +1711,35 @@ LABEL_148:
   }
 
 LABEL_43:
-  v129 = *v11;
+  v128 = *v11;
   if (!*v11)
   {
     goto LABEL_148;
   }
 
-  v123 = a1;
-  v125 = [[HVDataSourceContentState alloc] initWithDataSource:v7 basePath:v8[4]];
+  v122 = a1;
+  v124 = [[HVDataSourceContentState alloc] initWithDataSource:v7 basePath:v8[4]];
   v12 = 0;
-  v139 = v7;
-  v137 = v8;
-  v128 = v10;
+  v138 = v7;
+  v136 = v8;
+  v127 = v10;
   while (2)
   {
-    v130 = v12;
+    v129 = v12;
     v13 = objc_autoreleasePoolPush();
-    v14 = v125;
-    v133 = v10;
-    v15 = v134;
-    v135 = v127;
-    v161 = 0;
-    v162 = 0;
-    v16 = v8[3];
+    v14 = v124;
+    v132 = v10;
+    v15 = v133;
+    v134 = v126;
     v160 = 0;
-    v136 = v14;
-    v17 = v140;
-    LOBYTE(v14) = [v16 dequeueContent:&v162 contentProtection:&v161 dataSource:v7 dataSourceContentState:v14 minimumLevelOfService:v140 inMemoryItemsOnly:v126 error:&v160];
-    v18 = v160;
-    v132 = v15;
+    v161 = 0;
+    v16 = v8[3];
+    v159 = 0;
+    v135 = v14;
+    v17 = v139;
+    LOBYTE(v14) = [v16 dequeueContent:&v161 contentProtection:&v160 dataSource:v7 dataSourceContentState:v14 minimumLevelOfService:v139 inMemoryItemsOnly:v125 error:&v159];
+    v18 = v159;
+    v131 = v15;
     context = v13;
     if ((v14 & 1) == 0)
     {
@@ -1765,18 +1747,18 @@ LABEL_43:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v166 = v18;
+        *v165 = v18;
         _os_log_error_impl(&dword_2321EC000, v26, OS_LOG_TYPE_ERROR, "HVConsumerCoordinator: _consumeOneContentFromOneDataSource: dequeueContent error: %@", buf, 0xCu);
       }
 
       v27 = v18;
       v28 = 0;
-      v168[0] = 0;
+      v167[0] = 0;
       v29 = v18;
       goto LABEL_123;
     }
 
-    if (!v162)
+    if (!v161)
     {
       v30 = hv_default_log_handle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
@@ -1787,15 +1769,15 @@ LABEL_43:
 
       v28 = 0;
       v29 = 0;
-      v168[0] = 1;
+      v167[0] = 1;
       goto LABEL_123;
     }
 
     v19 = [HVConsumptionContext alloc];
-    v143 = [(HVConsumptionContext *)v19 initWithContent:v162 contentProtection:v161 scheduledTaskShouldContinueBlock:v15];
-    v20 = HVDataSourceContentStateKey(v7, v162);
-    v21 = [(HVDataSourceContentState *)v136 deferredContentStates];
-    v124 = v20;
+    v142 = [(HVConsumptionContext *)v19 initWithContent:v161 contentProtection:v160 scheduledTaskShouldContinueBlock:v15];
+    v20 = HVDataSourceContentStateKey(v7, v161);
+    v21 = [(HVDataSourceContentState *)v135 deferredContentStates];
+    v123 = v20;
     v22 = [v21 objectForKeyedSubscript:v20];
     v23 = [v22 mutableCopy];
     v24 = v23;
@@ -1808,13 +1790,13 @@ LABEL_43:
     {
       v31 = [HVMutableContentState alloc];
       v32 = [MEMORY[0x277CBEB98] set];
-      v25 = [(HVMutableContentState *)v31 initWithConsumers:v32 levelOfService:v140];
+      v25 = [(HVMutableContentState *)v31 initWithConsumers:v32 levelOfService:v139];
     }
 
     v33 = [(HVContentState *)v25 levelOfService];
-    if (v33 >= v140)
+    if (v33 >= v139)
     {
-      v34 = v140;
+      v34 = v139;
     }
 
     else
@@ -1823,26 +1805,26 @@ LABEL_43:
     }
 
     [(HVMutableContentState *)v25 setLevelOfService:v34];
-    v35 = [(HVDataSourceContentState *)v136 deferredContentStates];
-    [v35 setObject:0 forKeyedSubscript:v124];
+    v35 = [(HVDataSourceContentState *)v135 deferredContentStates];
+    [v35 setObject:0 forKeyedSubscript:v123];
 
     v36 = hv_default_log_handle();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      *v166 = v143;
-      *&v166[8] = 2112;
-      *&v166[10] = v127;
+      *v165 = v142;
+      *&v165[8] = 2112;
+      *&v165[10] = v126;
       _os_log_debug_impl(&dword_2321EC000, v36, OS_LOG_TYPE_DEBUG, "HVConsumerCoordinator: _consumeOneContentFromOneDataSource: context: %@ consumers: %@", buf, 0x16u);
     }
 
-    v158 = 0u;
-    v159 = 0u;
-    v156 = 0u;
     v157 = 0u;
-    v37 = v135;
-    v145 = [v37 countByEnumeratingWithState:&v156 objects:buf count:16];
-    if (!v145)
+    v158 = 0u;
+    v155 = 0u;
+    v156 = 0u;
+    v37 = v134;
+    v144 = [v37 countByEnumeratingWithState:&v155 objects:buf count:16];
+    if (!v144)
     {
 
       v29 = 0;
@@ -1850,28 +1832,28 @@ LABEL_43:
       goto LABEL_122;
     }
 
-    v138 = 0;
-    v144 = *v157;
+    v137 = 0;
+    v143 = *v156;
     v38 = 1;
-    v141 = v37;
-    v142 = v25;
+    v140 = v37;
+    v141 = v25;
     while (2)
     {
       v39 = 0;
       do
       {
-        if (*v157 != v144)
+        if (*v156 != v143)
         {
           objc_enumerationMutation(v37);
         }
 
-        v40 = *(*(&v156 + 1) + 8 * v39);
+        v40 = *(*(&v155 + 1) + 8 * v39);
         v41 = objc_autoreleasePoolPush();
         v42 = [v37 objectForKey:v40];
         if (!v42)
         {
           v82 = [MEMORY[0x277CCA890] currentHandler];
-          [v82 handleFailureInMethod:sel__consumeOneContentFromOneDataSource_minimumLevelOfService_inMemoryItemsOnly_dataSourceContentState_guardedData_shouldContinueBlock_contentWasAvailable_consumers_consumerSelector_error_ object:v137 file:@"HVConsumerCoordinator.m" lineNumber:681 description:{@"Consumer %@ is missing state", v40}];
+          [v82 handleFailureInMethod:sel__consumeOneContentFromOneDataSource_minimumLevelOfService_inMemoryItemsOnly_dataSourceContentState_guardedData_shouldContinueBlock_contentWasAvailable_consumers_consumerSelector_error_ object:v136 file:@"HVConsumerCoordinator.m" lineNumber:681 description:{@"Consumer %@ is missing state", v40}];
         }
 
         if (![v42 levelOfService])
@@ -1879,38 +1861,38 @@ LABEL_43:
           v57 = hv_default_log_handle();
           if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
-            *v168 = 138412290;
-            v169 = v40;
-            _os_log_impl(&dword_2321EC000, v57, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSource: ignoring consumer %@ registered for No Service.", v168, 0xCu);
+            *v167 = 138412290;
+            v168 = v40;
+            _os_log_impl(&dword_2321EC000, v57, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSource: ignoring consumer %@ registered for No Service.", v167, 0xCu);
           }
 
           goto LABEL_96;
         }
 
-        v148 = v18;
-        v43 = v162;
+        v147 = v18;
+        v43 = v161;
         v44 = v40;
         v45 = v42;
         v46 = v25;
-        v149 = v143;
+        v148 = v142;
         v47 = v43;
         v48 = [v44 consumerName];
         v49 = [(HVContentState *)v46 consumers];
         v50 = [v49 containsObject:v48];
 
-        v150 = v45;
-        v146 = v41;
-        v147 = v47;
+        v149 = v45;
+        v145 = v41;
+        v146 = v47;
         if (v50)
         {
           v51 = hv_default_log_handle();
           if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             v52 = [v47 uniqueId];
-            *v168 = 138412546;
-            v169 = v48;
-            v170 = 2112;
-            *v171 = v52;
+            *v167 = 138412546;
+            v168 = v48;
+            v169 = 2112;
+            *v170 = v52;
             v53 = v51;
             v54 = "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: consumer %@ has already seen content %@";
             goto LABEL_72;
@@ -1919,19 +1901,19 @@ LABEL_43:
           goto LABEL_74;
         }
 
-        if ([v45 levelOfService] < v140)
+        if ([v45 levelOfService] < v139)
         {
           v51 = hv_default_log_handle();
           if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             v58 = [v45 levelOfService];
-            *v168 = 138412802;
-            v169 = v48;
-            v170 = 1024;
-            *v171 = v58;
-            *&v171[4] = 1024;
-            *&v171[6] = v140;
-            _os_log_impl(&dword_2321EC000, v51, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: consumer %@ registered at LoS %hhu which is below minimum LoS %hhu.", v168, 0x18u);
+            *v167 = 138412802;
+            v168 = v48;
+            v169 = 1024;
+            *v170 = v58;
+            *&v170[4] = 1024;
+            *&v170[6] = v139;
+            _os_log_impl(&dword_2321EC000, v51, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: consumer %@ registered at LoS %hhu which is below minimum LoS %hhu.", v167, 0x18u);
           }
 
           v56 = 1;
@@ -1939,21 +1921,21 @@ LABEL_43:
           goto LABEL_82;
         }
 
-        v70 = [v44 methodForSelector:v129];
+        v70 = [v44 methodForSelector:v128];
         if (!v70)
         {
           v51 = hv_default_log_handle();
           if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
           {
-            *v168 = 138412290;
-            v169 = v44;
-            _os_log_fault_impl(&dword_2321EC000, v51, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: methodForSelector on %@ failed", v168, 0xCu);
+            *v167 = 138412290;
+            v168 = v44;
+            _os_log_fault_impl(&dword_2321EC000, v51, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: methodForSelector on %@ failed", v167, 0xCu);
           }
 
           goto LABEL_74;
         }
 
-        v51 = v70(v44, v129, v149);
+        v51 = v70(v44, v128, v148);
         v71 = [v51 contentWasProcessed];
         v72 = [v71 BOOLValue];
 
@@ -1986,31 +1968,31 @@ LABEL_43:
           v52 = hv_default_log_handle();
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
-            *v168 = 138412546;
-            v169 = v44;
-            v170 = 2112;
-            *v171 = v45;
+            *v167 = 138412546;
+            v168 = v44;
+            v169 = 2112;
+            *v170 = v45;
             v53 = v52;
             v54 = "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: %@ consumed content: new state = %@";
 LABEL_72:
-            _os_log_impl(&dword_2321EC000, v53, OS_LOG_TYPE_DEFAULT, v54, v168, 0x16u);
+            _os_log_impl(&dword_2321EC000, v53, OS_LOG_TYPE_DEFAULT, v54, v167, 0x16u);
           }
 
 LABEL_74:
           v55 = 0;
           v56 = 1;
 LABEL_82:
-          v59 = v148;
-          v60 = v148;
+          v59 = v147;
+          v60 = v147;
           goto LABEL_83;
         }
 
         v77 = hv_default_log_handle();
         if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
         {
-          *v168 = 138412290;
-          v169 = v44;
-          _os_log_impl(&dword_2321EC000, v77, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: %@ reported being interrupted so exiting early and leaving content in queue", v168, 0xCu);
+          *v167 = 138412290;
+          v168 = v44;
+          _os_log_impl(&dword_2321EC000, v77, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeOneContentFromOneDataSourceToOneConsumer: %@ reported being interrupted so exiting early and leaving content in queue", v167, 0xCu);
         }
 
         [v45 setNumberOfInterruptions:{objc_msgSend(v45, "numberOfInterruptions") + 1}];
@@ -2018,21 +2000,21 @@ LABEL_82:
         v78 = v60;
         v56 = 0;
         v55 = 1;
-        v59 = v148;
+        v59 = v147;
 LABEL_83:
 
         v61 = v60;
-        v25 = v142;
-        v41 = v146;
+        v25 = v141;
+        v41 = v145;
         if (v55)
         {
-          v62 = v162;
+          v62 = v161;
           v63 = [v62 uniqueId];
-          v64 = v137[3];
-          v163 = 0;
-          v65 = [v64 dequeuedContentNotConsumed:v62 dataSource:v139 error:&v163];
+          v64 = v136[3];
+          v162 = 0;
+          v65 = [v64 dequeuedContentNotConsumed:v62 dataSource:v138 error:&v162];
 
-          v66 = v163;
+          v66 = v162;
           v67 = hv_default_log_handle();
           v68 = v67;
           if (v65)
@@ -2041,16 +2023,16 @@ LABEL_83:
             {
 LABEL_93:
 
-              v138 = 1;
+              v137 = 1;
               goto LABEL_94;
             }
 
-            v69 = HVDataSourceDescription(v139);
-            *v168 = 138412546;
-            v169 = v63;
-            v170 = 2114;
-            *v171 = v69;
-            _os_log_impl(&dword_2321EC000, v68, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _reportDeferralWithContent: reenqueued %@ to %{public}@", v168, 0x16u);
+            v69 = HVDataSourceDescription(v138);
+            *v167 = 138412546;
+            v168 = v63;
+            v169 = 2114;
+            *v170 = v69;
+            _os_log_impl(&dword_2321EC000, v68, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _reportDeferralWithContent: reenqueued %@ to %{public}@", v167, 0x16u);
           }
 
           else
@@ -2060,12 +2042,12 @@ LABEL_93:
               goto LABEL_93;
             }
 
-            v69 = HVDataSourceDescription(v139);
-            *v168 = 138412546;
-            v169 = v63;
-            v170 = 2114;
-            *v171 = v69;
-            _os_log_error_impl(&dword_2321EC000, v68, OS_LOG_TYPE_ERROR, "HVConsumerCoordinator: _reportDeferralWithContent: failed to reenqueue %@ to %{public}@", v168, 0x16u);
+            v69 = HVDataSourceDescription(v138);
+            *v167 = 138412546;
+            v168 = v63;
+            v169 = 2114;
+            *v170 = v69;
+            _os_log_error_impl(&dword_2321EC000, v68, OS_LOG_TYPE_ERROR, "HVConsumerCoordinator: _reportDeferralWithContent: failed to reenqueue %@ to %{public}@", v167, 0x16u);
           }
 
           goto LABEL_93;
@@ -2076,10 +2058,10 @@ LABEL_94:
         if ((v56 & 1) == 0)
         {
 
-          objc_autoreleasePoolPop(v146);
-          v7 = v139;
-          v17 = v140;
-          if ((v138 & 1) == 0)
+          objc_autoreleasePoolPop(v145);
+          v7 = v138;
+          v17 = v139;
+          if ((v137 & 1) == 0)
           {
             goto LABEL_119;
           }
@@ -2088,16 +2070,16 @@ LABEL_94:
         }
 
         v18 = v61;
-        v37 = v141;
+        v37 = v140;
 LABEL_96:
 
         objc_autoreleasePoolPop(v41);
         ++v39;
       }
 
-      while (v145 != v39);
-      v83 = [v37 countByEnumeratingWithState:&v156 objects:buf count:16];
-      v145 = v83;
+      while (v144 != v39);
+      v83 = [v37 countByEnumeratingWithState:&v155 objects:buf count:16];
+      v144 = v83;
       if (v83)
       {
         continue;
@@ -2106,10 +2088,10 @@ LABEL_96:
       break;
     }
 
-    if ((v138 & 1) == 0)
+    if ((v137 & 1) == 0)
     {
-      v7 = v139;
-      v17 = v140;
+      v7 = v138;
+      v17 = v139;
       if (v38)
       {
         v29 = 0;
@@ -2122,12 +2104,12 @@ LABEL_96:
     }
 
     v61 = v18;
-    v7 = v139;
-    v17 = v140;
+    v7 = v138;
+    v17 = v139;
 LABEL_113:
     v84 = [(HVMutableContentState *)v25 copy];
-    v85 = [(HVDataSourceContentState *)v136 deferredContentStates];
-    [v85 setObject:v84 forKeyedSubscript:v124];
+    v85 = [(HVDataSourceContentState *)v135 deferredContentStates];
+    [v85 setObject:v84 forKeyedSubscript:v123];
 
     if (v38)
     {
@@ -2143,17 +2125,17 @@ LABEL_119:
 LABEL_120:
     v18 = v61;
 LABEL_121:
-    v8 = v137;
+    v8 = v136;
 LABEL_122:
-    v168[0] = v86;
+    v167[0] = v86;
 
     v28 = 1;
 LABEL_123:
 
-    v88 = v168[0];
+    v88 = v167[0];
     v89 = v29;
 
-    if (v134 && ((v134)[2](v132) & 1) == 0)
+    if (v133 && ((v133)[2](v131) & 1) == 0)
     {
       v91 = hv_default_log_handle();
       if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
@@ -2170,8 +2152,8 @@ LABEL_123:
       v90 = 1;
     }
 
-    v10 = v128;
-    v92 = v128[1];
+    v10 = v127;
+    v92 = v127[1];
     if (v92 && [(HVBudget *)v92 sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:v7 levelOfService:v17]== v7)
     {
       v93 = 1;
@@ -2187,7 +2169,7 @@ LABEL_123:
       }
 
       v93 = 0;
-      v10 = v128;
+      v10 = v127;
     }
 
     objc_autoreleasePoolPop(context);
@@ -2196,27 +2178,27 @@ LABEL_123:
       v12 = v89;
       if ((v90 & v93 & v28 & 1) == 0)
       {
-        v154 = 0u;
-        v155 = 0u;
-        v152 = 0u;
         v153 = 0u;
-        v95 = v135;
-        v96 = [v95 countByEnumeratingWithState:&v152 objects:v164 count:16];
+        v154 = 0u;
+        v151 = 0u;
+        v152 = 0u;
+        v95 = v134;
+        v96 = [v95 countByEnumeratingWithState:&v151 objects:v163 count:16];
         if (v96)
         {
           v97 = v96;
-          v98 = *v153;
+          v98 = *v152;
           v99 = 4;
           do
           {
             for (i = 0; i != v97; ++i)
             {
-              if (*v153 != v98)
+              if (*v152 != v98)
               {
                 objc_enumerationMutation(v95);
               }
 
-              v101 = [v95 objectForKey:*(*(&v152 + 1) + 8 * i)];
+              v101 = [v95 objectForKey:*(*(&v151 + 1) + 8 * i)];
               if ([v101 levelOfService])
               {
                 v102 = [v101 levelOfService];
@@ -2227,7 +2209,7 @@ LABEL_123:
               }
             }
 
-            v97 = [v95 countByEnumeratingWithState:&v152 objects:v164 count:16];
+            v97 = [v95 countByEnumeratingWithState:&v151 objects:v163 count:16];
           }
 
           while (v97);
@@ -2238,13 +2220,13 @@ LABEL_123:
           v99 = 4;
         }
 
-        if ([v95 count] && (v140 > v99 || ((v28 | v90 & v93 ^ 1) & 1) != 0))
+        if ([v95 count] && (v139 > v99 || ((v28 | v90 & v93 ^ 1) & 1) != 0))
         {
-          v111 = v136;
-          [(HVDataSourceContentState *)v136 saveStateWithError:0];
+          v111 = v135;
+          [(HVDataSourceContentState *)v135 saveStateWithError:0];
           v110 = 0;
           v109 = 1;
-          a1 = v123;
+          a1 = v122;
         }
 
         else
@@ -2254,32 +2236,32 @@ LABEL_123:
             v112 = hv_default_log_handle();
             if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
             {
-              v113 = HVDataSourceDescription(v139);
+              v113 = HVDataSourceDescription(v138);
               *buf = 138543362;
-              *v166 = v113;
+              *v165 = v113;
               _os_log_impl(&dword_2321EC000, v112, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator<%{public}@>: no consumers found for data source!", buf, 0xCu);
             }
           }
 
-          v114 = v137[4];
-          v151 = 0;
-          v115 = [HVDataSourceContentState deleteStateForDataSource:v139 basePath:v114 error:&v151];
-          v116 = v151;
-          a1 = v123;
-          v111 = v136;
+          v114 = v136[4];
+          v150 = 0;
+          v115 = [HVDataSourceContentState deleteStateForDataSource:v138 basePath:v114 error:&v150];
+          v116 = v150;
+          a1 = v122;
+          v111 = v135;
           if (!v115)
           {
             v117 = hv_default_log_handle();
             if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
             {
-              v118 = v137[4];
-              v119 = HVDataSourceDescription(v139);
+              v118 = v136[4];
+              v119 = HVDataSourceDescription(v138);
               *buf = 138543874;
-              *v166 = v118;
-              *&v166[8] = 2112;
-              *&v166[10] = v119;
-              *&v166[18] = 2112;
-              v167 = v116;
+              *v165 = v118;
+              *&v165[8] = 2112;
+              *&v165[10] = v119;
+              *&v165[18] = 2112;
+              v166 = v116;
               _os_log_impl(&dword_2321EC000, v117, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: _consumeAllContentFromOneDataSource<%{public}@>: failed to delete state file at %@: %@", buf, 0x20u);
             }
           }
@@ -2301,15 +2283,15 @@ LABEL_123:
   if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    *v166 = v89;
+    *v165 = v89;
     _os_log_error_impl(&dword_2321EC000, v107, OS_LOG_TYPE_ERROR, "HVConsumerCoordinator: _consumeAllContentFromOneDataSource: error: %@", buf, 0xCu);
   }
 
   v108 = v89;
   v109 = 0;
   v110 = v89;
-  a1 = v123;
-  v111 = v136;
+  a1 = v122;
+  v111 = v135;
 LABEL_169:
 
   v106 = v110;
@@ -2336,8 +2318,6 @@ LABEL_173:
 
     **(a1 + 88) = 1;
   }
-
-  v122 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_consumersForOneDataSource:(void *)source guardedData:
@@ -2482,62 +2462,60 @@ LABEL_40:
 
 - (void)contentAvailableFromSources:(unsigned int)sources
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = os_transaction_create();
   v7 = hv_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HVDataSourceDescription(sources);
     *buf = 138543362;
-    v14 = v8;
+    v13 = v8;
     _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: contentAvailableFromSources: %{public}@", buf, 0xCu);
   }
 
   dispatch_group_enter(self->_waitingForLock);
   lock = self->_lock;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke;
-  v11[3] = &unk_278968E30;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke;
+  v10[3] = &unk_278968E30;
   sourcesCopy = sources;
-  v11[4] = self;
-  v11[5] = a2;
-  [(_PASLock *)lock runWithLockAcquired:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[4] = self;
+  v10[5] = a2;
+  [(_PASLock *)lock runWithLockAcquired:v10];
 }
 
 void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   dispatch_group_leave(*(*(a1 + 32) + 40));
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v4 = *(a1 + 48);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke_2;
-  v19 = &unk_278968E08;
-  v20 = *(a1 + 32);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke_2;
+  v18 = &unk_278968E08;
+  v19 = *(a1 + 32);
   v5 = v3;
   v6 = *(a1 + 40);
-  v22 = &v24;
-  v23 = v6;
-  v21 = v5;
-  HVDataSourceRunBlockPerSetBit(v4, &v16);
-  if (*(v25 + 24) == 1)
+  v21 = &v23;
+  v22 = v6;
+  v20 = v5;
+  HVDataSourceRunBlockPerSetBit(v4, &v15);
+  if (*(v24 + 24) == 1)
   {
-    [HVScheduledTasks delayedBudgetedContentAvailable:v16];
+    [HVScheduledTasks delayedBudgetedContentAvailable:v15];
     v7 = [(HVBudget *)v5[1] sourcesFilteredByBudgetAndRegistrationsFromAvailableSources:2 levelOfService:?];
     v8 = hv_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = HVDataSourceDescription(v7);
       *buf = 138543362;
-      v29 = v9;
+      v28 = v9;
       _os_log_impl(&dword_2321EC000, v8, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: sources after applying budget: %{public}@", buf, 0xCu);
     }
 
@@ -2554,7 +2532,7 @@ void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke(uint
   {
     v13 = HVDataSourceDescription(v11);
     *buf = 138543362;
-    v29 = v13;
+    v28 = v13;
     _os_log_impl(&dword_2321EC000, v12, OS_LOG_TYPE_DEFAULT, "HVConsumerCoordinator: sources after applying budget: %{public}@", buf, 0xCu);
   }
 
@@ -2564,40 +2542,39 @@ void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke(uint
     [(HVConsumerCoordinator *)v14 _consumeContentFromAllDataSources:v11 minimumLevelOfService:3 inMemoryItemsOnly:0 guardedData:v5 shouldContinueBlock:0 error:0];
   }
 
-  _Block_object_dispose(&v24, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke_2(uint64_t a1, int a2, _BYTE *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(HVConsumerCoordinator *)*(a1 + 32) _consumersForOneDataSource:a2 guardedData:*(a1 + 40)];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = v19 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = v18 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         v12 = [v5 objectForKey:v10];
         if (!v12)
         {
           [MEMORY[0x277CCA890] currentHandler];
-          v13 = v15 = v10;
-          [v13 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"HVConsumerCoordinator.m" lineNumber:221 description:{@"Consumer %@ is missing state", v15}];
+          v13 = v14 = v10;
+          [v13 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"HVConsumerCoordinator.m" lineNumber:221 description:{@"Consumer %@ is missing state", v14}];
         }
 
         if ([v12 levelOfService] == 2)
@@ -2612,7 +2589,7 @@ void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke_2(ui
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -2623,18 +2600,16 @@ void __53__HVConsumerCoordinator_contentAvailableFromSources___block_invoke_2(ui
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HVConsumerCoordinator)initWithQueues:(id)queues path:(id)path
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   queuesCopy = queues;
   pathCopy = path;
-  v29.receiver = self;
-  v29.super_class = HVConsumerCoordinator;
-  v9 = [(HVConsumerCoordinator *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = HVConsumerCoordinator;
+  v9 = [(HVConsumerCoordinator *)&v28 init];
   if (v9)
   {
     v10 = dispatch_group_create();
@@ -2649,9 +2624,9 @@ LABEL_13:
     objc_sync_enter(defaultManager);
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     v16 = v9->_path;
-    v28 = 0;
-    v17 = [defaultManager2 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v28];
-    v18 = v28;
+    v27 = 0;
+    v17 = [defaultManager2 createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v27];
+    v18 = v27;
 
     if ((v17 & 1) == 0)
     {
@@ -2659,7 +2634,7 @@ LABEL_13:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v31 = v18;
+        v30 = v18;
         _os_log_fault_impl(&dword_2321EC000, v19, OS_LOG_TYPE_FAULT, "HVConsumerCoordinator: failed to create ConsumerCoordinator subdirectory: %@", buf, 0xCu);
       }
     }
@@ -2679,7 +2654,6 @@ LABEL_13:
     [(HVQueues *)v9->_queues registerQueueObserver:v9 dispatchQueue:v9->_serialQueue];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

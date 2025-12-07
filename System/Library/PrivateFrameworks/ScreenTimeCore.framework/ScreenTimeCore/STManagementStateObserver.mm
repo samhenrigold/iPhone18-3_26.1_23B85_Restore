@@ -91,7 +91,6 @@ void __70__STManagementStateObserver_createObserverWithDSID_completionHandler___
   else
   {
     [*(a1 + 32) setContactManagementState:a2];
-    v8 = *(a1 + 32);
     v7 = *(*(a1 + 40) + 16);
   }
 
@@ -110,9 +109,9 @@ void __70__STManagementStateObserver_createObserverWithDSID_completionHandler___
   [managementState contactManagementStateForDSID:dsid completionHandler:v5];
 }
 
-void __57__STManagementStateObserver__screenTimeSettingsDidChange__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __57__STManagementStateObserver__screenTimeSettingsDidChange__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -129,35 +128,31 @@ void __57__STManagementStateObserver__screenTimeSettingsDidChange__block_invoke(
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(a1 + 32) contactManagementState];
-      v10 = 134218240;
-      v11 = v8;
-      v12 = 2048;
-      v13 = a2;
-      _os_log_impl(&dword_1B831F000, v7, OS_LOG_TYPE_DEFAULT, "Contact management state changed from %lld to %lld", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = v8;
+      v11 = 2048;
+      v12 = a2;
+      _os_log_impl(&dword_1B831F000, v7, OS_LOG_TYPE_DEFAULT, "Contact management state changed from %lld to %lld", &v9, 0x16u);
     }
 
     [*(a1 + 32) setContactManagementState:a2];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __70__STManagementStateObserver_createObserverWithDSID_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch initial contact management state: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch initial contact management state: %{public}@", &v2, 0xCu);
 }
 
 void __57__STManagementStateObserver__screenTimeSettingsDidChange__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch contact management state: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch contact management state: %{public}@", &v2, 0xCu);
 }
 
 @end

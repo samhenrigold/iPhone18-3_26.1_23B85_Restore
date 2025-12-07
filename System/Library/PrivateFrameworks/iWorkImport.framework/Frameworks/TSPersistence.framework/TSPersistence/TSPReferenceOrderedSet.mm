@@ -240,46 +240,46 @@ LABEL_15:
 
 - (void)enumerateItemsUsingBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy && self->_count)
   {
-    v24 = 0;
+    v23 = 0;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v5 = self->_items;
-    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v20, v25, 16);
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v24, 16);
     if (v7)
     {
       v10 = v7;
-      v11 = *v21;
+      v11 = *v20;
 LABEL_5:
       v12 = 0;
       while (1)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * v12);
-        v14 = objc_msgSend_tsp_identifier(v13, v8, v9, v20);
+        v13 = *(*(&v19 + 1) + 8 * v12);
+        v14 = objc_msgSend_tsp_identifier(v13, v8, v9, v19);
         v18 = (objc_msgSend_tsp_isLazyReference(v13, v15, v16) & 1) != 0 ? objc_msgSend_containsIndex_(self->_removedLazyReferencesIndexSet, v17, v14) : objc_msgSend_containsIndex_(self->_removedObjectsIndexSet, v17, v14);
         if ((v18 & 1) == 0)
         {
-          blockCopy[2](blockCopy, v13, &v24);
+          blockCopy[2](blockCopy, v13, &v23);
         }
 
-        if (v24)
+        if (v23)
         {
           break;
         }
 
         if (v10 == ++v12)
         {
-          v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v20, v25, 16);
+          v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v19, v24, 16);
           if (v10)
           {
             goto LABEL_5;
@@ -290,8 +290,6 @@ LABEL_5:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unionSet:(id)set

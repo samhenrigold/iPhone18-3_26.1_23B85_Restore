@@ -60,7 +60,7 @@
 
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001E084(&self->_fileSystemName);
+    sub_10001E084();
   }
 
   v8 = dlsym(self->dyLibHandle, "livefiles_plugin_init");
@@ -81,7 +81,7 @@
   {
     if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001E0EC(&self->_fileSystemName);
+      sub_10001E0EC();
     }
 
     FSOps = self->_FSOps;
@@ -89,7 +89,7 @@
     {
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
       {
-        sub_10001E154(&self->_fileSystemName);
+        sub_10001E154();
       }
 
       v10 = (self->_FSOps->var1)();
@@ -125,7 +125,7 @@
     {
       if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10001E1F8(&self->_FSOps);
+        sub_10001E1F8();
       }
 
       return 22;
@@ -230,9 +230,9 @@ LABEL_2:
 {
   if (self->refcount)
   {
-    v3 = self->refcount - 1;
-    self->refcount = v3;
-    if (!v3)
+    v2 = self->refcount - 1;
+    self->refcount = v2;
+    if (!v2)
     {
 
       [(UVFSPlugin *)self unloadFileSystemDyLib];
@@ -241,7 +241,7 @@ LABEL_2:
 
   else if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_FAULT))
   {
-    sub_10001E368(self);
+    sub_10001E368();
   }
 }
 

@@ -81,9 +81,9 @@
     dispatch_once(&qword_1ED4A7C18, &__block_literal_global_4);
   }
 
-  v0 = _MergedGlobals_7;
+  v1 = _MergedGlobals_7;
 
-  return v0;
+  return v1;
 }
 
 void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
@@ -170,8 +170,8 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
 
 - (id)initWithXPCEndpoint:(void *)endpoint oneshot:(char)oneshot nonLaunching:(uint64_t)launching targetPID:(void *)d targetDescription:
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v51 = a2;
+  v63 = *MEMORY[0x1E69E9840];
+  v50 = a2;
   endpointCopy = endpoint;
   dCopy = d;
   if (self)
@@ -182,40 +182,40 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v41 = MEMORY[0x1E696AEC0];
+        v40 = MEMORY[0x1E696AEC0];
         classForCoder = [v13 classForCoder];
         if (!classForCoder)
         {
           classForCoder = objc_opt_class();
         }
 
-        v43 = NSStringFromClass(classForCoder);
-        v44 = objc_opt_class();
-        v45 = NSStringFromClass(v44);
-        v46 = [v41 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"oneshot", v43, v45];
+        v42 = NSStringFromClass(classForCoder);
+        v43 = objc_opt_class();
+        v44 = NSStringFromClass(v43);
+        v45 = [v40 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"oneshot", v42, v44];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v47 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
-          v48 = objc_opt_class();
-          v49 = NSStringFromClass(v48);
+          v46 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
+          v47 = objc_opt_class();
+          v48 = NSStringFromClass(v47);
           *buf = 138544642;
-          v53 = v47;
-          v54 = 2114;
-          v55 = v49;
-          v56 = 2048;
+          v52 = v46;
+          v53 = 2114;
+          v54 = v48;
+          v55 = 2048;
           selfCopy4 = self;
-          v58 = 2114;
-          v59 = @"BSXPCServiceConnectionEndpoint.m";
-          v60 = 1024;
-          v61 = 65;
-          v62 = 2114;
-          v63 = v46;
+          v57 = 2114;
+          v58 = @"BSXPCServiceConnectionEndpoint.m";
+          v59 = 1024;
+          v60 = 65;
+          v61 = 2114;
+          v62 = v45;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        v50 = v46;
-        [v46 UTF8String];
+        v49 = v45;
+        [v45 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A848FCCLL);
@@ -227,25 +227,25 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
       launching = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid targetPID %i", launching];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v20 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
+        v19 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         *buf = 138544642;
-        v53 = v20;
-        v54 = 2114;
-        v55 = v22;
-        v56 = 2048;
+        v52 = v19;
+        v53 = 2114;
+        v54 = v21;
+        v55 = 2048;
         selfCopy4 = self;
-        v58 = 2114;
-        v59 = @"BSXPCServiceConnectionEndpoint.m";
-        v60 = 1024;
-        v61 = 66;
-        v62 = 2114;
-        v63 = launching;
+        v57 = 2114;
+        v58 = @"BSXPCServiceConnectionEndpoint.m";
+        v59 = 1024;
+        v60 = 66;
+        v61 = 2114;
+        v62 = launching;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v23 = launching;
+      v22 = launching;
       [launching UTF8String];
       _bs_set_crash_log_message();
       __break(0);
@@ -256,32 +256,32 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
     v15 = MEMORY[0x1E696AEC0];
     if (!v14)
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = [v15 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"targetDescription", v25];
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
+      v25 = [v15 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"targetDescription", v24];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v27 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
+        v26 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         *buf = 138544642;
-        v53 = v27;
-        v54 = 2114;
-        v55 = v29;
-        v56 = 2048;
+        v52 = v26;
+        v53 = 2114;
+        v54 = v28;
+        v55 = 2048;
         selfCopy4 = self;
-        v58 = 2114;
-        v59 = @"BSXPCServiceConnectionEndpoint.m";
-        v60 = 1024;
-        v61 = 67;
-        v62 = 2114;
-        v63 = v26;
+        v57 = 2114;
+        v58 = @"BSXPCServiceConnectionEndpoint.m";
+        v59 = 1024;
+        v60 = 67;
+        v61 = 2114;
+        v62 = v25;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v30 = v26;
-      [v26 UTF8String];
+      v29 = v25;
+      [v25 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A848D40);
@@ -290,61 +290,60 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v31 = MEMORY[0x1E696AEC0];
+      v30 = MEMORY[0x1E696AEC0];
       classForCoder2 = [v14 classForCoder];
       if (!classForCoder2)
       {
         classForCoder2 = objc_opt_class();
       }
 
-      v33 = NSStringFromClass(classForCoder2);
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
-      v36 = [v31 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetDescription", v33, v35];
+      v32 = NSStringFromClass(classForCoder2);
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
+      v35 = [v30 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"targetDescription", v32, v34];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v37 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
-        v38 = objc_opt_class();
-        v39 = NSStringFromClass(v38);
+        v36 = NSStringFromSelector(sel_initWithXPCEndpoint_oneshot_nonLaunching_targetPID_targetDescription_);
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
         *buf = 138544642;
-        v53 = v37;
-        v54 = 2114;
-        v55 = v39;
-        v56 = 2048;
+        v52 = v36;
+        v53 = 2114;
+        v54 = v38;
+        v55 = 2048;
         selfCopy4 = self;
-        v58 = 2114;
-        v59 = @"BSXPCServiceConnectionEndpoint.m";
-        v60 = 1024;
-        v61 = 67;
-        v62 = 2114;
-        v63 = v36;
+        v57 = 2114;
+        v58 = @"BSXPCServiceConnectionEndpoint.m";
+        v59 = 1024;
+        v60 = 67;
+        v61 = 2114;
+        v62 = v35;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v40 = v36;
-      [v36 UTF8String];
+      v39 = v35;
+      [v35 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A848E84);
     }
 
-    v16 = v51;
-    self = [(BSXPCServiceConnectionEndpoint *)self _initWithXPCEndpoint:v51 oneshot:v13 nonLaunching:oneshot targetPID:launching withTargetDescription:v14];
+    v16 = v50;
+    self = [(BSXPCServiceConnectionEndpoint *)self _initWithXPCEndpoint:v50 oneshot:v13 nonLaunching:oneshot targetPID:launching withTargetDescription:v14];
   }
 
   else
   {
-    v16 = v51;
+    v16 = v50;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (uint64_t)compare:(uint64_t)compare
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!compare)
@@ -356,33 +355,33 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
   v5 = v3;
   if (!v5)
   {
-    v24 = MEMORY[0x1E696AEC0];
-    v25 = objc_opt_class();
-    v26 = NSStringFromClass(v25);
-    v27 = [v24 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"other", v26];
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = [v23 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"other", v25];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = NSStringFromSelector(sel_compare_);
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v27 = NSStringFromSelector(sel_compare_);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138544642;
-      v43 = v28;
-      v44 = 2114;
-      v45 = v30;
-      v46 = 2048;
-      *v47 = compare;
-      *&v47[8] = 2114;
-      *&v47[10] = @"BSXPCServiceConnectionEndpoint.m";
-      v48 = 1024;
-      v49 = 86;
-      v50 = 2114;
-      v51 = v27;
+      v42 = v27;
+      v43 = 2114;
+      v44 = v29;
+      v45 = 2048;
+      *v46 = compare;
+      *&v46[8] = 2114;
+      *&v46[10] = @"BSXPCServiceConnectionEndpoint.m";
+      v47 = 1024;
+      v48 = 86;
+      v49 = 2114;
+      v50 = v26;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v31 = v27;
-    [v27 UTF8String];
+    v30 = v26;
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A84945CLL);
@@ -391,40 +390,40 @@ void __46__BSXPCServiceConnectionEndpoint_nullEndpoint__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v32 = MEMORY[0x1E696AEC0];
+    v31 = MEMORY[0x1E696AEC0];
     classForCoder = [v5 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v34 = NSStringFromClass(classForCoder);
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    v37 = [v32 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"other", v34, v36];
+    v33 = NSStringFromClass(classForCoder);
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    v36 = [v31 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"other", v33, v35];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(sel_compare_);
-      v39 = objc_opt_class();
-      v40 = NSStringFromClass(v39);
+      v37 = NSStringFromSelector(sel_compare_);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       *buf = 138544642;
-      v43 = v38;
-      v44 = 2114;
-      v45 = v40;
-      v46 = 2048;
-      *v47 = compare;
-      *&v47[8] = 2114;
-      *&v47[10] = @"BSXPCServiceConnectionEndpoint.m";
-      v48 = 1024;
-      v49 = 86;
-      v50 = 2114;
-      v51 = v37;
+      v42 = v37;
+      v43 = 2114;
+      v44 = v39;
+      v45 = 2048;
+      *v46 = compare;
+      *&v46[8] = 2114;
+      *&v46[10] = @"BSXPCServiceConnectionEndpoint.m";
+      v47 = 1024;
+      v48 = 86;
+      v49 = 2114;
+      v50 = v36;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v41 = v37;
-    [v37 UTF8String];
+    v40 = v36;
+    [v36 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8495A4);
@@ -454,23 +453,23 @@ LABEL_13:
     {
       if (v10 != 1)
       {
-        v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid xpc_endpoint_compare result : %i l=%@ r=%@", v10, v8, v9];
+        v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid xpc_endpoint_compare result : %i l=%@ r=%@", v10, v8, v9];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSComparisonResult __endpointCompare(__strong xpc_endpoint_t, __strong xpc_endpoint_t)"}];
+          v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSComparisonResult __endpointCompare(__strong xpc_endpoint_t, __strong xpc_endpoint_t)"}];
           *buf = 138544130;
-          v43 = v22;
-          v44 = 2114;
-          v45 = @"BSXPCServiceConnectionEndpoint.m";
-          v46 = 1024;
-          *v47 = 31;
-          *&v47[4] = 2114;
-          *&v47[6] = v21;
+          v42 = v21;
+          v43 = 2114;
+          v44 = @"BSXPCServiceConnectionEndpoint.m";
+          v45 = 1024;
+          *v46 = 31;
+          *&v46[4] = 2114;
+          *&v46[6] = v20;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
         }
 
-        v23 = v21;
-        [v21 UTF8String];
+        v22 = v20;
+        [v20 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A84933CLL);
@@ -526,30 +525,29 @@ LABEL_23:
 
   if (*(compare + 8) == v5[8])
   {
-    v16 = *(compare + 12);
-    v17 = *(v5 + 3);
-    v18 = v16 == v17;
-    v19 = v16 < v17;
-    v20 = -1;
-    if (!v19)
+    v15 = *(compare + 12);
+    v16 = *(v5 + 3);
+    v17 = v15 == v16;
+    v18 = v15 < v16;
+    v19 = -1;
+    if (!v18)
     {
-      v20 = 1;
+      v19 = 1;
     }
 
-    if (v18)
+    if (v17)
     {
       v11 = 0;
     }
 
     else
     {
-      v11 = v20;
+      v11 = v19;
     }
   }
 
 LABEL_22:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -580,8 +578,6 @@ LABEL_22:
       goto LABEL_3;
     }
 
-    oneshot = self->_oneshot;
-    v11 = equalCopy->_oneshot;
     if (BSEqualObjects() && self->_nonLaunching == equalCopy->_nonLaunching)
     {
       v6 = self->_targetPID == equalCopy->_targetPID;

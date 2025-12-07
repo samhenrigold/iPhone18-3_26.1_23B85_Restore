@@ -266,18 +266,18 @@ void __97__SUICTickMarkView_startAnimationsForTickMark_fadeInFrames_pauseFrames_
   self->_safetyTimer = 0;
 }
 
-uint64_t __38__SUICTickMarkView_handleSafetyTimer___block_invoke(uint64_t result)
+void *__38__SUICTickMarkView_handleSafetyTimer___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 440))
   {
     v2 = result;
     *(v1 + 440) = 0;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (*(v3 + 464))
     {
       [*(v3 + 472) lock];
-      v4 = *(v2 + 32);
+      v4 = v2[4];
       if (*(v4 + 456))
       {
         [*(v4 + 472) unlock];
@@ -286,12 +286,12 @@ uint64_t __38__SUICTickMarkView_handleSafetyTimer___block_invoke(uint64_t result
       else
       {
         *(v4 + 456) = 1;
-        [*(*(v2 + 32) + 472) unlock];
-        (*(*(*(v2 + 32) + 464) + 16))();
+        [*(v2[4] + 472) unlock];
+        (*(*(v2[4] + 464) + 16))();
       }
     }
 
-    v5 = *(v2 + 32);
+    v5 = v2[4];
 
     return [v5 setNeedsDisplay];
   }

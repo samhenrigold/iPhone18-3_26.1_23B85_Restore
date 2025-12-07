@@ -372,7 +372,7 @@ LABEL_10:
   return v6;
 }
 
-uint64_t __58__PXPhotoKitCollectionsDataSource_indexPathForCollection___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__58__PXPhotoKitCollectionsDataSource_indexPathForCollection___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 indexOfObject:a1[4]];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -391,17 +391,17 @@ uint64_t __58__PXPhotoKitCollectionsDataSource_indexPathForCollection___block_in
   v7 = v6;
   if (v6)
   {
-    [v6 indexPath];
+    objc_msgSend_indexPath(v6);
     if (v26 == [(PXPhotoKitCollectionsDataSource *)self identifier])
     {
-      [v7 indexPath];
+      objc_msgSend_indexPath(v7);
       section = v24;
       identifier = v23;
       v10 = v25;
       goto LABEL_19;
     }
 
-    [v7 indexPath];
+    objc_msgSend_indexPath(v7);
     v12 = v21;
     v11 = v22 == 0x7FFFFFFFFFFFFFFFLL;
   }

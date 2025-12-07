@@ -140,7 +140,7 @@ LABEL_12:
 
 - (id)_generateDayOfWeekHistogramWithTachogramClassifier:(id)classifier error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   classifierCopy = classifier;
   v6 = HKHRAFibBurdenDayOfWeekHistogramOverride();
   if (v6)
@@ -160,20 +160,20 @@ LABEL_12:
 
   errorCopy = error;
   v9 = 0;
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
-  v39 = 0;
-  v40 = 0;
-  v35 = 0;
-  v36 = 0;
   v38 = 0;
+  v39 = 0;
+  v34 = 0;
+  v35 = 0;
+  v37 = 0;
   for (i = 1; i != 8; ++i)
   {
     v11 = objc_autoreleasePoolPush();
     classificationRetriever = self->_classificationRetriever;
-    v42 = v9;
-    v13 = [(HKHRAFibBurdenTachogramClassificationsRetriever *)classificationRetriever tachogramClassificationsForLastSixWeeksOfWeekday:i tachogramClassifier:classifierCopy error:&v42];
-    v14 = v42;
+    v41 = v9;
+    v13 = [(HKHRAFibBurdenTachogramClassificationsRetriever *)classificationRetriever tachogramClassificationsForLastSixWeeksOfWeekday:i tachogramClassifier:classifierCopy error:&v41];
+    v14 = v41;
 
     if (!v13)
     {
@@ -181,13 +181,13 @@ LABEL_12:
       v13 = HKHRAFibBurdenLogForCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v30 = [(HKHRAFibBurdenAnalyzer *)self _logDayNameForWeekday:i];
+        v29 = [(HKHRAFibBurdenAnalyzer *)self _logDayNameForWeekday:i];
         *buf = 138412802;
         selfCopy3 = self;
-        v45 = 2112;
-        v46 = v30;
-        v47 = 2112;
-        v48 = v14;
+        v44 = 2112;
+        v45 = v29;
+        v46 = 2112;
+        v47 = v14;
         _os_log_error_impl(&dword_229486000, v13, OS_LOG_TYPE_ERROR, "[%@] Error received while classifying tachograms for %@, aborting day of week histogram burden analysis: %@", buf, 0x20u);
       }
 
@@ -205,9 +205,9 @@ LABEL_35:
 
     burdenDeterminer = self->_burdenDeterminer;
     v16 = [MEMORY[0x277CCABB0] numberWithInteger:i];
-    v41 = v14;
-    v17 = [(HKHRAFibBurdenDeterminer *)burdenDeterminer burdenForTachogramClassifications:v13 calculationType:2 calculationTypeContext:v16 error:&v41];
-    v9 = v41;
+    v40 = v14;
+    v17 = [(HKHRAFibBurdenDeterminer *)burdenDeterminer burdenForTachogramClassifications:v13 calculationType:2 calculationTypeContext:v16 error:&v40];
+    v9 = v40;
 
     if (!v17)
     {
@@ -215,13 +215,13 @@ LABEL_35:
       v26 = HKHRAFibBurdenLogForCategory();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v31 = [(HKHRAFibBurdenAnalyzer *)self _logDayNameForWeekday:i];
+        v30 = [(HKHRAFibBurdenAnalyzer *)self _logDayNameForWeekday:i];
         *buf = 138412802;
         selfCopy3 = self;
-        v45 = 2112;
-        v46 = v31;
-        v47 = 2112;
-        v48 = v9;
+        v44 = 2112;
+        v45 = v30;
+        v46 = 2112;
+        v47 = v9;
         _os_log_error_impl(&dword_229486000, v26, OS_LOG_TYPE_ERROR, "[%@] Error received while determining burden for %@, aborting day of week histogram burden analysis: %@", buf, 0x20u);
       }
 
@@ -232,27 +232,27 @@ LABEL_35:
     {
       if (i == 1)
       {
-        v18 = v34;
-        v19 = v38;
-        v20 = v39;
-        v21 = v40;
-        v34 = v17;
+        v18 = v33;
+        v19 = v37;
+        v20 = v38;
+        v21 = v39;
+        v33 = v17;
         goto LABEL_24;
       }
 
       if (i == 2)
       {
-        v18 = v33;
-        v19 = v38;
-        v20 = v39;
-        v21 = v40;
-        v33 = v17;
+        v18 = v32;
+        v19 = v37;
+        v20 = v38;
+        v21 = v39;
+        v32 = v17;
         goto LABEL_24;
       }
 
-      v20 = v39;
-      v18 = v40;
-      v19 = v38;
+      v20 = v38;
+      v18 = v39;
+      v19 = v37;
       v21 = v17;
       if (i == 3)
       {
@@ -266,41 +266,41 @@ LABEL_35:
       {
         if (i != 4)
         {
-          v19 = v38;
-          v18 = v39;
+          v19 = v37;
+          v18 = v38;
           v20 = v17;
-          v21 = v40;
+          v21 = v39;
 LABEL_24:
           v22 = v17;
 
-          v38 = v19;
-          v39 = v20;
-          v40 = v21;
+          v37 = v19;
+          v38 = v20;
+          v39 = v21;
           goto LABEL_25;
         }
 
-        v18 = v36;
-        v19 = v38;
-        v20 = v39;
-        v36 = v17;
+        v18 = v35;
+        v19 = v37;
+        v20 = v38;
+        v35 = v17;
 LABEL_22:
-        v21 = v40;
+        v21 = v39;
         goto LABEL_24;
       }
 
       if (i == 6)
       {
-        v18 = v35;
-        v19 = v38;
-        v20 = v39;
-        v35 = v17;
+        v18 = v34;
+        v19 = v37;
+        v20 = v38;
+        v34 = v17;
         goto LABEL_22;
       }
 
-      v18 = v38;
-      v20 = v39;
+      v18 = v37;
+      v20 = v38;
       v19 = v17;
-      v21 = v40;
+      v21 = v39;
       if (i == 7)
       {
         goto LABEL_24;
@@ -315,8 +315,8 @@ LABEL_25:
   if (v9)
   {
 LABEL_27:
-    v24 = v33;
-    v23 = v34;
+    v24 = v32;
+    v23 = v33;
     if (errorCopy)
     {
       v25 = v9;
@@ -334,65 +334,64 @@ LABEL_27:
   }
 
 LABEL_36:
-  v24 = v33;
-  v23 = v34;
-  if (v34 && v33 && v40 && v36 && v39 && v35 && v38)
+  v24 = v32;
+  v23 = v33;
+  if (v33 && v32 && v39 && v35 && v38 && v34 && v37)
   {
-    v8 = [objc_alloc(MEMORY[0x277D12F30]) initWithSundayBurden:v34 mondayBurden:v33 tuesdayBurden:v40 wednesdayBurden:v36 thursdayBurden:v39 fridayBurden:v35 saturdayBurden:v38];
+    v8 = [objc_alloc(MEMORY[0x277D12F30]) initWithSundayBurden:v33 mondayBurden:v32 tuesdayBurden:v39 wednesdayBurden:v35 thursdayBurden:v38 fridayBurden:v34 saturdayBurden:v37];
 LABEL_45:
     v6 = 0;
     goto LABEL_46;
   }
 
   _HKInitializeLogging();
-  v29 = HKHRAFibBurdenLogForCategory();
+  v28 = HKHRAFibBurdenLogForCategory();
   v6 = 0;
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
   {
-    [HKHRAFibBurdenAnalyzer _generateDayOfWeekHistogramWithTachogramClassifier:v29 error:?];
+    [HKHRAFibBurdenAnalyzer _generateDayOfWeekHistogramWithTachogramClassifier:v28 error:?];
   }
 
   v8 = 0;
 LABEL_46:
 
 LABEL_47:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_generateTimeOfDayHistogramWithTachogramClassifier:(id)classifier error:(id *)error
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   classifierCopy = classifier;
   v6 = HKHRAFibBurdenTimeOfDayHistogramOverride();
   if (!v6)
   {
-    v65 = 0;
-    v9 = [(HKHRAFibBurdenAnalyzer *)self _julianDayToTimeZoneMappingForPastSixWeeksWithError:&v65];
-    v10 = v65;
+    v64 = 0;
+    v9 = [(HKHRAFibBurdenAnalyzer *)self _julianDayToTimeZoneMappingForPastSixWeeksWithError:&v64];
+    v10 = v64;
     v11 = v10;
-    v55 = v9;
+    v54 = v9;
     if (v9)
     {
-      v61 = 0;
-      v62 = v10;
+      v60 = 0;
+      v61 = v10;
       errorCopy = error;
       v12 = 0;
       v13 = 0;
-      v59 = 0;
-      v60 = 0;
-      v57 = 0;
       v58 = 0;
+      v59 = 0;
+      v56 = 0;
+      v57 = 0;
       v14 = 0;
       while (1)
       {
         v15 = objc_autoreleasePoolPush();
         v16 = v14 + 4;
         classificationRetriever = self->_classificationRetriever;
-        v64 = v62;
-        v18 = [(HKHRAFibBurdenTachogramClassificationsRetriever *)classificationRetriever tachogramClassificationsForLastSixWeeksOfHoursFrom:v14 to:v14 + 4 julianDayToMajorityTimeZone:v55 tachogramClassifier:classifierCopy error:&v64];
-        v19 = v64;
+        v63 = v61;
+        v18 = [(HKHRAFibBurdenTachogramClassificationsRetriever *)classificationRetriever tachogramClassificationsForLastSixWeeksOfHoursFrom:v14 to:v14 + 4 julianDayToMajorityTimeZone:v54 tachogramClassifier:classifierCopy error:&v63];
+        v19 = v63;
 
         if (!v18)
         {
@@ -404,9 +403,9 @@ LABEL_47:
         selfCopy = self;
         burdenDeterminer = self->_burdenDeterminer;
         v24 = [MEMORY[0x277CCABB0] numberWithInteger:v20];
-        v63 = v19;
-        v25 = [(HKHRAFibBurdenDeterminer *)burdenDeterminer burdenForTachogramClassifications:v18 calculationType:1 calculationTypeContext:v24 error:&v63];
-        v62 = v63;
+        v62 = v19;
+        v25 = [(HKHRAFibBurdenDeterminer *)burdenDeterminer burdenForTachogramClassifications:v18 calculationType:1 calculationTypeContext:v24 error:&v62];
+        v61 = v62;
 
         if (!v25)
         {
@@ -417,12 +416,12 @@ LABEL_47:
           {
             *buf = 138413058;
             selfCopy3 = selfCopy;
-            v68 = 2048;
-            v69 = v20;
-            v70 = 2048;
-            v71 = v20 + 4;
-            v72 = 2112;
-            v73 = v62;
+            v67 = 2048;
+            v68 = v20;
+            v69 = 2048;
+            v70 = v20 + 4;
+            v71 = 2112;
+            v72 = v61;
             _os_log_error_impl(&dword_229486000, v43, OS_LOG_TYPE_ERROR, "[%@] Error received while determining burden between hours %ld and %ld, aborting day of week histogram burden analysis: %@", buf, 0x2Au);
           }
 
@@ -432,21 +431,21 @@ LABEL_47:
 
         v26 = v25;
         v27 = v26;
-        v29 = v57;
-        v28 = v58;
+        v29 = v56;
+        v28 = v57;
         if (v12 == 4)
-        {
-          v30 = v58;
-        }
-
-        else
         {
           v30 = v57;
         }
 
+        else
+        {
+          v30 = v56;
+        }
+
         if (v12 == 4)
         {
-          v31 = v57;
+          v31 = v56;
         }
 
         else
@@ -461,38 +460,38 @@ LABEL_47:
 
         else
         {
-          v32 = v58;
+          v32 = v57;
         }
 
-        v34 = v59;
-        v33 = v60;
+        v34 = v58;
+        v33 = v59;
         if (v12 == 3)
         {
-          v30 = v59;
-          v31 = v57;
-          v32 = v58;
+          v30 = v58;
+          v31 = v56;
+          v32 = v57;
           v35 = v26;
         }
 
         else
         {
-          v35 = v59;
+          v35 = v58;
         }
 
-        v36 = v61;
+        v36 = v60;
         if (v12 == 1)
-        {
-          v37 = v61;
-        }
-
-        else
         {
           v37 = v60;
         }
 
+        else
+        {
+          v37 = v59;
+        }
+
         if (v12 == 1)
         {
-          v38 = v60;
+          v38 = v59;
         }
 
         else
@@ -507,7 +506,7 @@ LABEL_47:
 
         else
         {
-          v39 = v61;
+          v39 = v60;
         }
 
         if (v12)
@@ -518,8 +517,8 @@ LABEL_47:
         else
         {
           v37 = v21;
-          v38 = v60;
-          v39 = v61;
+          v38 = v59;
+          v39 = v60;
           v40 = v27;
         }
 
@@ -534,8 +533,8 @@ LABEL_47:
           v30 = v37;
         }
 
-        v57 = v29;
-        v58 = v28;
+        v56 = v29;
+        v57 = v28;
         if (v12 <= 2)
         {
           v33 = v38;
@@ -546,14 +545,14 @@ LABEL_47:
           v34 = v35;
         }
 
-        v59 = v34;
-        v60 = v33;
+        v58 = v34;
+        v59 = v33;
         if (v12 <= 2)
         {
           v36 = v39;
         }
 
-        v61 = v36;
+        v60 = v36;
         if (v12 <= 2)
         {
           v13 = v40;
@@ -580,30 +579,30 @@ LABEL_47:
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v68 = 2048;
-        v69 = v14;
-        v70 = 2048;
-        v71 = v14 + 4;
-        v72 = 2112;
-        v73 = v19;
+        v67 = 2048;
+        v68 = v14;
+        v69 = 2048;
+        v70 = v14 + 4;
+        v71 = 2112;
+        v72 = v19;
         _os_log_error_impl(&dword_229486000, v18, OS_LOG_TYPE_ERROR, "[%@] Error received while classifying tachograms between hours %ld and %ld, aborting time of day histogram burden analysis: %@", buf, 0x2Au);
       }
 
-      v62 = v19;
+      v61 = v19;
 LABEL_57:
 
       objc_autoreleasePoolPop(v15);
 LABEL_58:
-      v44 = v62;
-      if (v62)
+      v44 = v61;
+      if (v61)
       {
-        v46 = v57;
-        v45 = v58;
+        v46 = v56;
+        v45 = v57;
         if (errorCopy)
         {
-          v47 = v62;
+          v47 = v61;
           v8 = 0;
-          *errorCopy = v62;
+          *errorCopy = v61;
         }
 
         else
@@ -613,21 +612,21 @@ LABEL_58:
         }
 
         v6 = 0;
-        v49 = v60;
-        v48 = v61;
-        v50 = v59;
+        v49 = v59;
+        v48 = v60;
+        v50 = v58;
       }
 
       else
       {
-        v49 = v60;
-        v48 = v61;
-        v45 = v58;
-        v50 = v59;
-        v46 = v57;
-        if (v13 && v61 && v60 && v59 && v58 && v57)
+        v49 = v59;
+        v48 = v60;
+        v45 = v57;
+        v50 = v58;
+        v46 = v56;
+        if (v13 && v60 && v59 && v58 && v57 && v56)
         {
-          v8 = [objc_alloc(MEMORY[0x277D12F68]) initWithMidnightToFourAMBurden:v13 fourAMtoEightAMBurden:v61 eightAMToNoonBurden:v60 noonToFourPMBurden:v59 fourPMToEightPMBurden:v58 eightPMToMidnightBurden:v57];
+          v8 = [objc_alloc(MEMORY[0x277D12F68]) initWithMidnightToFourAMBurden:v13 fourAMtoEightAMBurden:v60 eightAMToNoonBurden:v59 noonToFourPMBurden:v58 fourPMToEightPMBurden:v57 eightPMToMidnightBurden:v56];
           v6 = 0;
         }
 
@@ -689,8 +688,6 @@ LABEL_77:
   v8 = v6;
 LABEL_78:
 
-  v52 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
@@ -721,29 +718,12 @@ LABEL_78:
   }
 }
 
-- (void)generateSevenDayBurdenWithRange:breadcrumbManager:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%@] Error received while classifying tachograms, aborting seven day burden analysis: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_generateDayOfWeekHistogramWithTachogramClassifier:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Expected to have all buckets filled in, at least one missing!", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_generateTimeOfDayHistogramWithTachogramClassifier:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%@] Error received while determining julian day to majority time zone, aborting time of day histogram burden analysis: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_229486000, a2, OS_LOG_TYPE_FAULT, "[%@] Expected to have all buckets filled in, at least one missing!", &v2, 0xCu);
 }
 
 @end

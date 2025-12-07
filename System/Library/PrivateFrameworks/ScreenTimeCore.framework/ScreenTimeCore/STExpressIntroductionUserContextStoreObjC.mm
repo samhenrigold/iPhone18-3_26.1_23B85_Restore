@@ -8,7 +8,7 @@
 
 + (id)sharedInstance
 {
-  v2 = [objc_allocWithZone(type metadata accessor for STExpressIntroductionUserContextStoreObjC()) init];
+  v2 = [objc_allocWithZone(type metadata accessor for STExpressIntroductionUserContextStoreObjC(0)) init];
 
   return v2;
 }
@@ -17,7 +17,7 @@
 {
   static STExpressIntroduction.Internal.UserDefaultsBackedUserContextStore.shared.getter();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for STExpressIntroductionUserContextStoreObjC();
+  v4.super_class = type metadata accessor for STExpressIntroductionUserContextStoreObjC(0);
   return [(STExpressIntroductionUserContextStoreObjC *)&v4 init];
 }
 

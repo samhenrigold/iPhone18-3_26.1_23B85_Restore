@@ -83,11 +83,11 @@
       keyFormat_didWarn = 1;
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v8, v9, v10, v11, v12, v13, v7);
+      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v7);
       if (([(CUIStructuredThemeStore *)self isMemberOfClass:objc_opt_class()]& 1) == 0)
       {
-        v14 = NSStringFromSelector(a2);
-        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v15, v16, v17, v18, v19, v20, v14);
+        v8 = NSStringFromSelector(a2);
+        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v8);
       }
     }
 
@@ -148,11 +148,11 @@
       maximumRenditionKeyTokenCount_didWarn = 1;
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v8, v9, v10, v11, v12, v13, v7);
+      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v7);
       if (([(CUIStructuredThemeStore *)self isMemberOfClass:objc_opt_class()]& 1) == 0)
       {
-        v14 = NSStringFromSelector(a2);
-        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v15, v16, v17, v18, v19, v20, v14);
+        v8 = NSStringFromSelector(a2);
+        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v8);
       }
     }
 
@@ -176,11 +176,11 @@
       usesCUISystemThemeRenditionKey_didWarn = 1;
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v8, v9, v10, v11, v12, v13, v7);
+      _CUILog(1, "%@ where the _store ivar hasn't been initialized won't behave well.", v7);
       if (([(CUIStructuredThemeStore *)self isMemberOfClass:objc_opt_class()]& 1) == 0)
       {
-        v14 = NSStringFromSelector(a2);
-        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v15, v16, v17, v18, v19, v20, v14);
+        v8 = NSStringFromSelector(a2);
+        _CUILog(1, "Subclasses of CUIStructuredThemeStore that don't use _store should override %@", v8);
       }
     }
 
@@ -464,7 +464,7 @@
   keySemantics = [(CUICommonAssetStorage *)self->_store keySemantics];
   storageVersion = [(CUICommonAssetStorage *)self->_store storageVersion];
 
-  return CUIDefaultThemeRenditionKeyFormat(keySemantics, storageVersion, v5, v6, v7, v8, v9, v10);
+  return CUIDefaultThemeRenditionKeyFormat(keySemantics, storageVersion);
 }
 
 - (id)debugDescriptionForKeyList:(const _renditionkeytoken *)list
@@ -810,8 +810,7 @@ LABEL_23:
   bytes2 = [v5 bytes];
   if (bytes2 && *bytes2 != 1129599817 && bytes2[1] <= 1u)
   {
-    v27 = [-[CUIStructuredThemeStore store](self "store")];
-    _CUILog(4, "CoreUI: [CUIStructuredThemeStore lookupAssetForKey:] got invalid CSIData for AssetCatalog '%@'", v28, v29, v30, v31, v32, v33, v27);
+    _CUILog(4, "CoreUI: -[CUIStructuredThemeStore lookupAssetForKey:] got invalid CSIData for AssetCatalog '%@'", [-[CUIStructuredThemeStore store](self "store")]);
     return 0;
   }
 
@@ -828,7 +827,7 @@ LABEL_23:
 
   else
   {
-    signature = [(CUIStructuredThemeStore *)self copyKeySignatureForKey:key withBytesNoCopy:v31 length:256];
+    signature = [(CUIStructuredThemeStore *)self copyKeySignatureForKey:key withBytesNoCopy:v26 length:256];
   }
 
   os_unfair_lock_lock(&self->_cacheLock);
@@ -839,19 +838,20 @@ LABEL_23:
     v9 = [(CUIStructuredThemeStore *)self lookupAssetForKey:key];
     if (v9)
     {
-      if (CUILogRenditionLogEnabled())
+      v10 = CUILogRenditionLogEnabled();
+      if (v10)
       {
-        v10 = CUILogHandle();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v12 = CUILogHandle(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           path = [(CUICommonAssetStorage *)self->_store path];
           *buf = 138543874;
-          v26 = path;
-          v27 = 2050;
+          v21 = path;
+          v22 = 2050;
           bytes = [(CUIThemeRendition *)v9 bytes];
-          v29 = 2114;
+          v24 = 2114;
           signatureCopy2 = signature;
-          _os_log_impl(&dword_18DF47000, v10, OS_LOG_TYPE_INFO, "CoreUI-l %{public}@ %{public}p %{public}@", buf, 0x20u);
+          _os_log_impl(&dword_18DF47000, v12, OS_LOG_TYPE_INFO, "CoreUI-l %{public}@ %{public}p %{public}@", buf, 0x20u);
         }
       }
 
@@ -864,8 +864,7 @@ LABEL_23:
       [(CUIThemeRendition *)v9 _setStructuredThemeStore:self];
       if (!v9)
       {
-        v12 = [-[CUIStructuredThemeStore store](self "store")];
-        _CUILog(4, "CoreUI: Error calling [CUIThemeRendition initWithCSIData:forKey:] failed catalog '%@'", v13, v14, v15, v16, v17, v18, v12);
+        _CUILog(4, "CoreUI: Error calling -[CUIThemeRendition initWithCSIData:forKey: inVersion:] failed catalog '%@'", [-[CUIStructuredThemeStore store](self "store")]);
       }
     }
 
@@ -873,21 +872,21 @@ LABEL_23:
     cache = self->_cache;
     if (cache && v9)
     {
-      v20 = [(NSMutableDictionary *)cache objectForKey:signature];
-      if (v20)
+      v15 = [(NSMutableDictionary *)cache objectForKey:signature];
+      if (v15)
       {
-        v21 = v20;
-        if (v9 != v20)
+        v16 = v15;
+        if (v9 != v15)
         {
-          v22 = v9;
-          v9 = v21;
+          v17 = v9;
+          v9 = v16;
         }
       }
 
       else
       {
-        v23 = [[NSString alloc] initWithUTF8String:{objc_msgSend(signature, "UTF8String")}];
-        [(NSMutableDictionary *)self->_cache setObject:v9 forKey:v23];
+        v18 = [[NSString alloc] initWithUTF8String:{objc_msgSend(signature, "UTF8String")}];
+        [(NSMutableDictionary *)self->_cache setObject:v9 forKey:v18];
       }
     }
 

@@ -11,6 +11,8 @@
 - (void)dumpStateAt:(double)at;
 - (void)restoreDefaults;
 - (void)setCellOutrankAdvised:(BOOL)advised;
+- (void)setCellOutrankAdvisedViaInterfaceUse:(BOOL)use;
+- (void)setCellOutrankAdvisedViaLargeTransfers:(BOOL)transfers;
 - (void)setEnabled:(BOOL)enabled;
 @end
 
@@ -44,7 +46,7 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
 
 - (int)largeTransfersMeetInitialThreshold:(id)threshold
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   thresholdCopy = threshold;
   if (([thresholdCopy numWiFiRxUpperThresholdTransferSizes] || objc_msgSend(thresholdCopy, "numWiFiRxLowerThresholdTransferSizes") >= self->_numLowerTransferThresholdFlowsForUpperThreshold) && (objc_msgSend(thresholdCopy, "transferSizeRelatedRecentWiFiRxThroughput"), v5 > self->_minTransferSizeThroughputForUpgrade))
   {
@@ -57,25 +59,25 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
       numLowerTransferThresholdFlowsForUpperThreshold = self->_numLowerTransferThresholdFlowsForUpperThreshold;
       [thresholdCopy transferSizeRelatedRecentWiFiRxThroughput];
       minTransferSizeThroughputForUpgrade = self->_minTransferSizeThroughputForUpgrade;
-      v17 = 134219008;
-      v18 = numWiFiRxUpperThresholdTransferSizes;
-      v19 = 2048;
-      v20 = numWiFiRxLowerThresholdTransferSizes;
-      v21 = 1024;
-      v22 = numLowerTransferThresholdFlowsForUpperThreshold;
-      v23 = 2048;
-      v24 = v12;
-      v25 = 2048;
-      v26 = minTransferSizeThroughputForUpgrade;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "WiFiThroughputAdviser  largeTransfersMeetInitialThreshold, assess above as nums %zd %zd (need %d) tput %.6f target %.6f", &v17, 0x30u);
+      v16 = 134219008;
+      v17 = numWiFiRxUpperThresholdTransferSizes;
+      v18 = 2048;
+      v19 = numWiFiRxLowerThresholdTransferSizes;
+      v20 = 1024;
+      v21 = numLowerTransferThresholdFlowsForUpperThreshold;
+      v22 = 2048;
+      v23 = v12;
+      v24 = 2048;
+      v25 = minTransferSizeThroughputForUpgrade;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "WiFiThroughputAdviser  largeTransfersMeetInitialThreshold, assess above as nums %zd %zd (need %d) tput %.6f target %.6f", &v16, 0x30u);
     }
 
     v13 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138543362;
-      v18 = thresholdCopy;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser  largeTransfersMeetInitialThreshold, assessor status %{public}@", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = thresholdCopy;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser  largeTransfersMeetInitialThreshold, assessor status %{public}@", &v16, 0xCu);
     }
 
     v14 = 1;
@@ -86,13 +88,12 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (int)largeTransfersMeetContinuedThreshold:(id)threshold
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   thresholdCopy = threshold;
   if ([thresholdCopy numWiFiRxUpperThresholdTransferSizes] || objc_msgSend(thresholdCopy, "numCellRxUpperThresholdTransferSizes") || objc_msgSend(thresholdCopy, "numWiFiRxLowerThresholdTransferSizes") || objc_msgSend(thresholdCopy, "numCellRxLowerThresholdTransferSizes"))
   {
@@ -116,14 +117,13 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
   v7 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v10[0] = 67109378;
-    v10[1] = v6;
-    v11 = 2114;
-    v12 = thresholdCopy;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser largeTransfersMeetContinuedThreshold, assess %d for %{public}@", v10, 0x12u);
+    v9[0] = 67109378;
+    v9[1] = v6;
+    v10 = 2114;
+    v11 = thresholdCopy;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser largeTransfersMeetContinuedThreshold, assess %d for %{public}@", v9, 0x12u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -144,15 +144,15 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v24 = *MEMORY[0x277D85DE8];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __36__WiFiThroughputAdviser_setEnabled___block_invoke;
-  v21[3] = &unk_27898A0C8;
-  v21[4] = self;
+  v23 = *MEMORY[0x277D85DE8];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __36__WiFiThroughputAdviser_setEnabled___block_invoke;
+  v20[3] = &unk_27898A0C8;
+  v20[4] = self;
   if (setEnabled__pred != -1)
   {
-    dispatch_once(&setEnabled__pred, v21);
+    dispatch_once(&setEnabled__pred, v20);
   }
 
   if (self->_enabled != enabledCopy)
@@ -180,7 +180,7 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
           {
             pendingConfigurationParams = self->_pendingConfigurationParams;
             *buf = 138412290;
-            v23 = pendingConfigurationParams;
+            v22 = pendingConfigurationParams;
             _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "WiFiThroughputAdviser set delayed configuration %@", buf, 0xCu);
           }
 
@@ -198,12 +198,12 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
 
       queue = [(WiFiThroughputAdviser *)self queue];
       v16 = queue;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __36__WiFiThroughputAdviser_setEnabled___block_invoke_4;
-      v20[3] = &unk_27898A0C8;
-      v20[4] = self;
-      v17 = v20;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __36__WiFiThroughputAdviser_setEnabled___block_invoke_4;
+      v19[3] = &unk_27898A0C8;
+      v19[4] = self;
+      v17 = v19;
     }
 
     else
@@ -222,7 +222,6 @@ uint64_t __39__WiFiThroughputAdviser_sharedInstance__block_invoke(uint64_t a1)
   }
 
   self->_enabled = enabledCopy;
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __36__WiFiThroughputAdviser_setEnabled___block_invoke(uint64_t a1)
@@ -274,23 +273,54 @@ void __36__WiFiThroughputAdviser_setEnabled___block_invoke_2_6(uint64_t a1)
   }
 }
 
+- (void)setCellOutrankAdvisedViaInterfaceUse:(BOOL)use
+{
+  if (self->_cellOutrankAdvisedViaInterfaceUse != use)
+  {
+    useCopy = use;
+    [(WiFiThroughputAdviser *)self willChangeValueForKey:@"cellOutrankAdvisedViaInterfaceUse"];
+    self->_cellOutrankAdvisedViaInterfaceUse = useCopy;
+    [(WiFiThroughputAdviser *)self didChangeValueForKey:@"cellOutrankAdvisedViaInterfaceUse"];
+    if (useCopy || !self->_cellOutrankAdvisedViaLargeTransfers)
+    {
+
+      [(WiFiThroughputAdviser *)self setCellOutrankAdvised:useCopy];
+    }
+  }
+}
+
+- (void)setCellOutrankAdvisedViaLargeTransfers:(BOOL)transfers
+{
+  if (self->_cellOutrankAdvisedViaLargeTransfers != transfers)
+  {
+    transfersCopy = transfers;
+    [(WiFiThroughputAdviser *)self willChangeValueForKey:@"cellOutrankAdvisedViaLargeTransfers"];
+    self->_cellOutrankAdvisedViaLargeTransfers = transfersCopy;
+    [(WiFiThroughputAdviser *)self didChangeValueForKey:@"cellOutrankAdvisedViaLargeTransfers"];
+    if (transfersCopy || !self->_cellOutrankAdvisedViaInterfaceUse)
+    {
+
+      [(WiFiThroughputAdviser *)self setCellOutrankAdvised:transfersCopy];
+    }
+  }
+}
+
 - (void)checkLargeTransfersAt:(double)at
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
     transferAssessor = self->_transferAssessor;
-    v7 = 134218242;
-    v8 = transferAssessor;
-    v9 = 2112;
-    v10 = transferAssessor;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "checkLargeTransfersAt, assessor %p %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = transferAssessor;
+    v8 = 2112;
+    v9 = transferAssessor;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "checkLargeTransfersAt, assessor %p %@", &v6, 0x16u);
   }
 
   [(LargeTransferAssessor *)self->_transferAssessor checkLargeTransfersAt:apparentTime()];
   [(WiFiThroughputAdviser *)self setCellOutrankAdvisedViaLargeTransfers:[(LargeTransferAssessor *)self->_transferAssessor assessedPositive]];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkHeavyInterfaceUseAt:(double)at
@@ -371,7 +401,7 @@ LABEL_13:
 
 - (void)didPollFlowsAt:(double)at periodic:(BOOL)periodic
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -380,13 +410,13 @@ LABEL_13:
     v9 = v6;
     LODWORD(flowOracle) = [(FlowOracle *)flowOracle hasSustainedResponsiveHighWiFiInterfaceThroughput];
     hasSustainedResponsiveHighCellInterfaceThroughput = [(FlowOracle *)self->_flowOracle hasSustainedResponsiveHighCellInterfaceThroughput];
-    v12[0] = 67109632;
-    v12[1] = enabled;
-    v13 = 1024;
-    v14 = flowOracle;
-    v15 = 1024;
-    v16 = hasSustainedResponsiveHighCellInterfaceThroughput;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser didPollFlowsAt enabled %d wifi sustained %d cell sustained %d", v12, 0x14u);
+    v11[0] = 67109632;
+    v11[1] = enabled;
+    v12 = 1024;
+    v13 = flowOracle;
+    v14 = 1024;
+    v15 = hasSustainedResponsiveHighCellInterfaceThroughput;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "WiFiThroughputAdviser didPollFlowsAt enabled %d wifi sustained %d cell sustained %d", v11, 0x14u);
   }
 
   if (self->_enabled)
@@ -394,8 +424,6 @@ LABEL_13:
     [(WiFiThroughputAdviser *)self checkHeavyInterfaceUseAt:at];
     [(WiFiThroughputAdviser *)self checkLargeTransfersAt:at];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreDefaults
@@ -407,16 +435,16 @@ LABEL_13:
 
 - (BOOL)setConfiguration:(id)configuration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (configurationCopy)
   {
     v5 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
     {
-      v14 = 138412290;
-      v15 = configurationCopy;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "WiFiThroughputAdviser set configuration %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = configurationCopy;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "WiFiThroughputAdviser set configuration %@", &v13, 0xCu);
     }
 
     logHandle = [configurationCopy logHandle];
@@ -449,82 +477,79 @@ LABEL_13:
     [configurationCopy setLogHandle:logHandle];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)dumpStateAt:(double)at
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ((activeTraceTargets & 8) != 0)
   {
-    traceEntry(3, "[WiFiThroughputAdviser dumpStateAt:]", "%t", v3, v4, v5, v6, v7, *&at);
+    traceEntry(3, "[WiFiThroughputAdviser dumpStateAt:]", "%t", *&at);
   }
 
-  v10 = flowScrutinyLogHandle;
+  v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "=========================== START OF WIFITHROUGHPUTADVISER STATE DUMP ===========================", buf, 2u);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "=========================== START OF WIFITHROUGHPUTADVISER STATE DUMP ===========================", buf, 2u);
   }
 
-  v11 = [(WiFiThroughputAdviser *)self getStateAt:at];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
-  if (v12)
+  v6 = [(WiFiThroughputAdviser *)self getStateAt:at];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  if (v7)
   {
-    v13 = v12;
-    v14 = *v21;
+    v8 = v7;
+    v9 = *v15;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v14)
+        if (*v15 != v9)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v6);
         }
 
-        v16 = flowScrutinyLogHandle;
+        v11 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           *buf = 138543362;
-          v25 = v17;
-          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+          v19 = v12;
+          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
-    while (v13);
+    while (v8);
   }
 
-  v18 = flowScrutinyLogHandle;
+  v13 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "=========================== END OF WIFITHROUGHPUTADVISER STATE DUMP ===========================", buf, 2u);
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "=========================== END OF WIFITHROUGHPUTADVISER STATE DUMP ===========================", buf, 2u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getStateAt:(double)at
 {
   if ((activeTraceTargets & 8) != 0)
   {
-    traceEntry(3, "[WiFiThroughputAdviser getStateAt:]", "%t", v3, v4, v5, v6, v7, *&at);
+    traceEntry(3, "[WiFiThroughputAdviser getStateAt:]", "%t", *&at);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"WiFiThroughputAdviser: enabled %d outrank-advised %d via-throughput %d via-large-transfer %d", self->_enabled, self->_cellOutrankAdvised, self->_cellOutrankAdvisedViaInterfaceUse, self->_cellOutrankAdvisedViaLargeTransfers];
-  [array addObject:v10];
-  v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"WiFiThroughputAdviser configuration: hi-ifuse-dampening %.3f transfer continued-tput %.6f %.6f num-lower-xfer %d", *&self->_lastHighInterfaceUseDampeningInterval, *&self->_minTransferSizeThroughputForUpgrade, *&self->_minRequiredLargeTransferThroughputForContinuedOutrank, self->_numLowerTransferThresholdFlowsForUpperThreshold];
-  [array addObject:v11];
+  v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"WiFiThroughputAdviser: enabled %d outrank-advised %d via-throughput %d via-large-transfer %d", self->_enabled, self->_cellOutrankAdvised, self->_cellOutrankAdvisedViaInterfaceUse, self->_cellOutrankAdvisedViaLargeTransfers];
+  [array addObject:v5];
+  v6 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"WiFiThroughputAdviser configuration: hi-ifuse-dampening %.3f transfer continued-tput %.6f %.6f num-lower-xfer %d", *&self->_lastHighInterfaceUseDampeningInterval, *&self->_minTransferSizeThroughputForUpgrade, *&self->_minRequiredLargeTransferThroughputForContinuedOutrank, self->_numLowerTransferThresholdFlowsForUpperThreshold];
+  [array addObject:v6];
   getState = [(LargeTransferAssessor *)self->_transferAssessor getState];
   if (getState)
   {
@@ -536,11 +561,11 @@ LABEL_13:
   {
     flowScrutinizer = [(FlowOracle *)flowOracle flowScrutinizer];
     wifiInterfaceSampler = [flowScrutinizer wifiInterfaceSampler];
-    v16 = [wifiInterfaceSampler getState:1];
+    v11 = [wifiInterfaceSampler getState:1];
 
-    if (v16)
+    if (v11)
     {
-      [array addObjectsFromArray:v16];
+      [array addObjectsFromArray:v11];
     }
   }
 

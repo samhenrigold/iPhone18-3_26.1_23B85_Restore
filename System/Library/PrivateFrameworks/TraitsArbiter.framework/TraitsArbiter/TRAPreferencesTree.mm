@@ -1,6 +1,7 @@
 @interface TRAPreferencesTree
 + (TRAPreferencesTree)treeWithNodesSpecifications:(id)specifications traversalType:(int64_t)type debugName:(id)name;
 - (id)_initWithRootChildren:(id)children traversalType:(int64_t)type debugName:(id)name;
+- (id)_recursiveDescriptionWithChildrenInZOrder:(BOOL)order;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)participantsTopologicalSort;
 - (id)succinctDescription;
@@ -12,39 +13,37 @@
 
 - (id)participantsTopologicalSort
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   topologicalSort = [(TRAPreferencesTree *)self topologicalSort];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(topologicalSort, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = topologicalSort;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        participant = [*(*(&v12 + 1) + 8 * i) participant];
+        participant = [*(*(&v11 + 1) + 8 * i) participant];
         [v3 addObject:participant];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -186,112 +185,115 @@ LABEL_3:
 
   v21 = v43;
   v22 = [[TRAPreferencesTree alloc] _initWithRootChildren:v46 traversalType:type debugName:v43];
-  if ((v13 & 1) == 0 && [v46 count])
+  v23 = v22;
+  if ((v13 & 1) == 0)
   {
-    v42 = v22;
-    v23 = [MEMORY[0x277CBEB18] arrayWithArray:v46];
-    v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v23, "count")}];
-    v44 = v23;
-    v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v23, "count")}];
-    do
+    v22 = [v46 count];
+    if (v22)
     {
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      v25 = v44;
-      v51 = [v25 countByEnumeratingWithState:&v58 objects:v67 count:16];
-      if (v51)
+      v42 = v23;
+      v24 = [MEMORY[0x277CBEB18] arrayWithArray:v46];
+      v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v24, "count")}];
+      v44 = v24;
+      v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v24, "count")}];
+      do
       {
-        v48 = *v59;
-        v49 = v25;
-        do
+        v60 = 0u;
+        v61 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v26 = v44;
+        v51 = [v26 countByEnumeratingWithState:&v58 objects:v67 count:16];
+        if (v51)
         {
-          v26 = 0;
+          v48 = *v59;
+          v49 = v26;
           do
           {
-            if (*v59 != v48)
+            v27 = 0;
+            do
             {
-              objc_enumerationMutation(v25);
-            }
-
-            v53 = v26;
-            v27 = *(*(&v58 + 1) + 8 * v26);
-            v54 = 0u;
-            v55 = 0u;
-            v56 = 0u;
-            v57 = 0u;
-            v28 = v52;
-            v29 = [v28 countByEnumeratingWithState:&v54 objects:v66 count:16];
-            if (v29)
-            {
-              v30 = v29;
-              v31 = *v55;
-              do
+              if (*v59 != v48)
               {
-                for (j = 0; j != v30; ++j)
-                {
-                  if (*v55 != v31)
-                  {
-                    objc_enumerationMutation(v28);
-                  }
-
-                  v33 = *(*(&v54 + 1) + 8 * j);
-                  parentParticipant2 = [v33 parentParticipant];
-                  participant2 = [v27 participant];
-
-                  if (parentParticipant2 == participant2)
-                  {
-                    v36 = [TRAPreferencesTreeNode alloc];
-                    participant3 = [v33 participant];
-                    v38 = [(TRAPreferencesTreeNode *)v36 initWithParticipant:participant3];
-
-                    [v33 order];
-                    [(TRAPreferencesTreeNode *)v38 setOrder:?];
-                    [v27 addChild:v38];
-                    [v24 addObject:v38];
-                  }
-                }
-
-                v30 = [v28 countByEnumeratingWithState:&v54 objects:v66 count:16];
+                objc_enumerationMutation(v26);
               }
 
-              while (v30);
+              v53 = v27;
+              v28 = *(*(&v58 + 1) + 8 * v27);
+              v54 = 0u;
+              v55 = 0u;
+              v56 = 0u;
+              v57 = 0u;
+              v29 = v52;
+              v30 = [v29 countByEnumeratingWithState:&v54 objects:v66 count:16];
+              if (v30)
+              {
+                v31 = v30;
+                v32 = *v55;
+                do
+                {
+                  for (j = 0; j != v31; ++j)
+                  {
+                    if (*v55 != v32)
+                    {
+                      objc_enumerationMutation(v29);
+                    }
+
+                    v34 = *(*(&v54 + 1) + 8 * j);
+                    parentParticipant2 = [v34 parentParticipant];
+                    participant2 = [v28 participant];
+
+                    if (parentParticipant2 == participant2)
+                    {
+                      v37 = [TRAPreferencesTreeNode alloc];
+                      participant3 = [v34 participant];
+                      v39 = [(TRAPreferencesTreeNode *)v37 initWithParticipant:participant3];
+
+                      [v34 order];
+                      [(TRAPreferencesTreeNode *)v39 setOrder:?];
+                      [v28 addChild:v39];
+                      [v25 addObject:v39];
+                    }
+                  }
+
+                  v31 = [v29 countByEnumeratingWithState:&v54 objects:v66 count:16];
+                }
+
+                while (v31);
+              }
+
+              [v50 addObject:v28];
+              v27 = v53 + 1;
+              v26 = v49;
             }
 
-            [v50 addObject:v27];
-            v26 = v53 + 1;
-            v25 = v49;
+            while (v53 + 1 != v51);
+            v51 = [v49 countByEnumeratingWithState:&v58 objects:v67 count:16];
           }
 
-          while (v53 + 1 != v51);
-          v51 = [v49 countByEnumeratingWithState:&v58 objects:v67 count:16];
+          while (v51);
         }
 
-        while (v51);
+        [v26 removeObjectsInArray:v50];
+        [v26 addObjectsFromArray:v25];
+        [v25 removeAllObjects];
+        [v50 removeAllObjects];
       }
 
-      [v25 removeObjectsInArray:v50];
-      [v25 addObjectsFromArray:v24];
-      [v24 removeAllObjects];
-      [v50 removeAllObjects];
+      while ([v26 count]);
+
+      v23 = v42;
+      v21 = v43;
     }
-
-    while ([v25 count]);
-
-    v22 = v42;
-    v21 = v43;
   }
 
-  v39 = TRALogCommon();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+  v40 = TRALogCommon(v22);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
   {
     +[TRAPreferencesTree treeWithNodesSpecifications:traversalType:debugName:];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v23;
 }
 
 - (id)succinctDescription
@@ -318,6 +320,21 @@ LABEL_3:
   return build;
 }
 
+- (id)_recursiveDescriptionWithChildrenInZOrder:(BOOL)order
+{
+  orderCopy = order;
+  string = [MEMORY[0x277CCAB68] string];
+  v6 = MEMORY[0x277CCACA8];
+  debugName = [(TRAPreferencesTree *)self debugName];
+  v8 = [v6 stringWithFormat:@"   ◼︎ %@ Root", debugName];
+  [string appendString:v8];
+
+  appendDescription(0, self->_rootChildren, string, 0, self->_traversalType, orderCopy);
+  [string appendString:@"   "];
+
+  return string;
+}
+
 + (void)treeWithNodesSpecifications:traversalType:debugName:.cold.1()
 {
   OUTLINED_FUNCTION_0();
@@ -337,16 +354,14 @@ LABEL_3:
 + (void)treeWithNodesSpecifications:traversalType:debugName:.cold.3()
 {
   OUTLINED_FUNCTION_0();
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [v2 debugName];
   v4 = [v1 recursiveDescription];
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_debug_impl(&dword_26F353000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_debug_impl(&dword_26F353000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@", &v5, 0x16u);
 }
 
 @end

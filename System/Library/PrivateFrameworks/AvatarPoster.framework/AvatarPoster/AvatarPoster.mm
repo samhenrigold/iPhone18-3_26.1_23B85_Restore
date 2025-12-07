@@ -1,6 +1,6 @@
-uint64_t PRPosterBoundingShape.contactsUIBoundingShape.getter@<X0>(uint64_t a1@<X8>)
+uint64_t PRPosterBoundingShape.contactsUIBoundingShape.getter@<X0>(uint64_t a2@<X8>)
 {
-  v2 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E550080, &qword_24197F018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E550080, &qword_24197F018);
   MEMORY[0x28223BE20]();
   v4 = &v8 - v3;
   sub_24197EE24();
@@ -8,11 +8,11 @@ uint64_t PRPosterBoundingShape.contactsUIBoundingShape.getter@<X0>(uint64_t a1@<
   v6 = *(v5 - 8);
   if ((*(v6 + 48))(v4, 1, v5) != 1)
   {
-    return (*(v6 + 32))(a1, v4, v5);
+    return (*(v6 + 32))(a2, v4, v5);
   }
 
   sub_24197D568(v4);
-  return (*(v6 + 104))(a1, *MEMORY[0x277CBDBC8], v5);
+  return (*(v6 + 104))(a2, *MEMORY[0x277CBDBC8], v5);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -20,7 +20,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -53,23 +52,21 @@ id AvatarPosterConfiguration.avatarRecord.getter()
   return v7;
 }
 
-uint64_t sub_24197D66C(uint64_t a1, unint64_t a2)
+void sub_24197D66C(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_24197D680(a1, a2);
+    sub_24197D680(a1, a2);
   }
-
-  return a1;
 }
 
-uint64_t sub_24197D680(uint64_t a1, unint64_t a2)
+void sub_24197D680(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -569,20 +566,20 @@ uint64_t sub_24197E968()
   return result;
 }
 
-uint64_t sub_24197ECD8(void *a1, uint64_t *a2)
+uint64_t sub_24197ECD8(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 == -1)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   else
   {
     swift_once();
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  return MEMORY[0x2821FE848](v3);
+  return MEMORY[0x2821FE848](v4);
 }
 
 __n128 __swift_memcpy16_8(__n128 *a1, __n128 *a2)

@@ -21,7 +21,7 @@
 
 + (double)roundCount:(unint64_t)count toSignificantFigure:(unint64_t)figure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = 0.0;
   if (count)
   {
@@ -30,7 +30,7 @@
       countCopy = count;
       v7 = log10(count);
       v8 = __exp10(figure - ceil(v7));
-      v4 = round(v8 * countCopy) / v8;
+      return round(v8 * countCopy) / v8;
     }
 
     else
@@ -38,14 +38,13 @@
       v9 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315138;
-        v13 = "+[_INAggregator roundCount:toSignificantFigure:]";
-        _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s WARNING: asking to round a value to 0 significant figures makes no sense — answer is 0.", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "+[_INAggregator roundCount:toSignificantFigure:]";
+        _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s WARNING: asking to round a value to 0 significant figures makes no sense — answer is 0.", &v11, 0xCu);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

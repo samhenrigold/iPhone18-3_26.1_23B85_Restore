@@ -153,7 +153,7 @@ uint64_t keyword(const char *a1)
 
 uint64_t newroute(int a1, const char **a2)
 {
-  v49 = 0;
+  v47 = 0;
   if (uid)
   {
     newroute_cold_1();
@@ -207,7 +207,7 @@ uint64_t newroute(int a1, const char **a2)
 
             v16 = v2[2];
             v14 = v2 + 2;
-            v5 = getaddr(1, v16, &v49);
+            v5 = getaddr(1, v16, &v47);
             v8 = *v14;
             goto LABEL_36;
           case 15:
@@ -405,14 +405,14 @@ LABEL_48:
 
         else
         {
-          getaddr(2, v11, &v49);
+          getaddr(2, v11, &v47);
           v6 = v11;
         }
       }
 
       else
       {
-        v5 = getaddr(1, v11, &v49);
+        v5 = getaddr(1, v11, &v47);
         v8 = v11;
       }
 
@@ -505,8 +505,8 @@ LABEL_83:
   *__error() = 0;
   if (!rtmsg(*v4, v31))
   {
-    v42 = 0;
-    v41 = 1;
+    v40 = 0;
+    v39 = 1;
     goto LABEL_101;
   }
 
@@ -524,29 +524,26 @@ LABEL_93:
       goto LABEL_98;
     }
 
-    v36 = v49;
-    if (!v49)
+    if (!v47)
     {
       goto LABEL_98;
     }
 
-    h_addr_list = v49->h_addr_list;
-    v39 = h_addr_list[1];
-    v38 = h_addr_list + 1;
-    if (!v39)
+    h_addr_list = v47->h_addr_list;
+    v38 = h_addr_list[1];
+    v37 = h_addr_list + 1;
+    if (!v38)
     {
       goto LABEL_98;
     }
 
-    v49->h_addr_list = v38;
-    v40 = *v38;
-    v36->h_length;
+    v47->h_addr_list = v37;
     __memmove_chk();
     ++v34;
     *__error() = 0;
     if (!rtmsg(*v4, v31))
     {
-      v41 = 1;
+      v39 = 1;
       goto LABEL_99;
     }
   }
@@ -557,57 +554,57 @@ LABEL_93:
   }
 
 LABEL_98:
-  v41 = 0;
+  v39 = 0;
 LABEL_99:
-  v42 = v34 > 1;
+  v40 = v34 > 1;
 LABEL_101:
   if (*v4 == 103)
   {
     exit(0);
   }
 
-  v43 = *__error();
-  v44 = "host";
+  v41 = *__error();
+  v42 = "host";
   if (v28)
   {
-    v44 = "net";
+    v42 = "net";
   }
 
-  printf("%s %s %s", v4, v44, v8);
+  printf("%s %s %s", v4, v42, v8);
   if (*v6)
   {
     printf(": gateway %s", v6);
-    if ((v42 & v41) == 1 && af == 2)
+    if ((v40 & v39) == 1 && af == 2)
     {
-      v45.s_addr = DWORD1(so_gate);
-      v46 = inet_ntoa(v45);
-      printf(" (%s)", v46);
+      v43.s_addr = DWORD1(so_gate);
+      v44 = inet_ntoa(v43);
+      printf(" (%s)", v44);
       return putchar(10);
     }
   }
 
-  if (v41)
+  if (v39)
   {
     return putchar(10);
   }
 
-  switch(v43)
+  switch(v41)
   {
     case 3:
-      v48 = "not in table";
+      v46 = "not in table";
       break;
     case 55:
-      v48 = "routing table overflow";
+      v46 = "routing table overflow";
       break;
     case 16:
-      v48 = "entry in use";
+      v46 = "entry in use";
       break;
     default:
-      v48 = strerror(v43);
+      v46 = strerror(v41);
       break;
   }
 
-  return printf(": %s\n", v48);
+  return printf(": %s\n", v46);
 }
 
 void monitor(char *lowpc, char *highpc, char *buf, int bufsiz, int cntsiz)
@@ -653,7 +650,7 @@ LABEL_215:
       case 1u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 2;
+          v21 = qword_10000C790 | 2;
           goto LABEL_160;
         }
 
@@ -662,7 +659,7 @@ LABEL_215:
       case 2u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x1000;
+          v20 = monitor_filter | 0x1000;
           goto LABEL_162;
         }
 
@@ -671,7 +668,7 @@ LABEL_215:
       case 3u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x400000;
+          v20 = monitor_filter | 0x400000;
           goto LABEL_162;
         }
 
@@ -680,7 +677,7 @@ LABEL_215:
       case 4u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 8;
+          v21 = qword_10000C790 | 8;
           goto LABEL_160;
         }
 
@@ -689,7 +686,7 @@ LABEL_215:
       case 5u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x100;
+          v20 = monitor_filter | 0x100;
           goto LABEL_162;
         }
 
@@ -698,7 +695,7 @@ LABEL_215:
       case 6u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x2000000;
+          v20 = monitor_filter | 0x2000000;
           goto LABEL_162;
         }
 
@@ -707,7 +704,7 @@ LABEL_215:
       case 7u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x20000000;
+          v20 = monitor_filter | 0x20000000;
           goto LABEL_162;
         }
 
@@ -716,7 +713,7 @@ LABEL_215:
       case 8u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x2000;
+          v21 = qword_10000C790 | 0x2000;
           goto LABEL_160;
         }
 
@@ -725,7 +722,7 @@ LABEL_215:
       case 9u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x80;
+          v20 = monitor_filter | 0x80;
           goto LABEL_162;
         }
 
@@ -734,9 +731,9 @@ LABEL_215:
       case 0xAu:
         if (!v11)
         {
-          v22 = qword_10000C790 | 4;
+          v21 = qword_10000C790 | 4;
 LABEL_160:
-          qword_10000C790 = v22;
+          qword_10000C790 = v21;
           goto LABEL_163;
         }
 
@@ -745,7 +742,7 @@ LABEL_160:
       case 0xBu:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x10000;
+          v21 = qword_10000C790 | 0x10000;
           goto LABEL_160;
         }
 
@@ -754,7 +751,7 @@ LABEL_160:
       case 0xDu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x40;
+          v20 = monitor_filter | 0x40;
           goto LABEL_162;
         }
 
@@ -763,7 +760,7 @@ LABEL_160:
       case 0xEu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x10;
+          v20 = monitor_filter | 0x10;
           goto LABEL_162;
         }
 
@@ -772,7 +769,7 @@ LABEL_160:
       case 0x11u:
         if (!v11)
         {
-          v21 = monitor_filter | 2;
+          v20 = monitor_filter | 2;
           goto LABEL_162;
         }
 
@@ -781,7 +778,7 @@ LABEL_160:
       case 0x13u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x10;
+          v21 = qword_10000C790 | 0x10;
           goto LABEL_160;
         }
 
@@ -790,7 +787,7 @@ LABEL_160:
       case 0x14u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x200000;
+          v21 = qword_10000C790 | 0x200000;
           goto LABEL_160;
         }
 
@@ -799,7 +796,7 @@ LABEL_160:
       case 0x15u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x100000;
+          v21 = qword_10000C790 | 0x100000;
           goto LABEL_160;
         }
 
@@ -808,7 +805,7 @@ LABEL_160:
       case 0x16u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x20000;
+          v21 = qword_10000C790 | 0x20000;
           goto LABEL_160;
         }
 
@@ -817,7 +814,7 @@ LABEL_160:
       case 0x18u:
         if (!v11)
         {
-          v21 = monitor_filter | 4;
+          v20 = monitor_filter | 4;
           goto LABEL_162;
         }
 
@@ -826,7 +823,7 @@ LABEL_160:
       case 0x19u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x40000000;
+          v20 = monitor_filter | 0x40000000;
           goto LABEL_162;
         }
 
@@ -852,10 +849,8 @@ LABEL_160:
         if (*__endptr)
         {
           dword_10000C774 = if_nametoindex(*v16);
-          v20 = *v16;
           if (!dword_10000C774)
           {
-            v32 = *v16;
             errx(64, "bad interface name: %s", v19);
           }
 
@@ -866,7 +861,6 @@ LABEL_160:
         {
           if (v18 >= 0x10000)
           {
-            v31 = *v16;
             errx(64, "interface index to big %s", buf);
           }
 
@@ -878,21 +872,21 @@ LABEL_160:
 
         if (v11)
         {
-          v23 = 2;
+          v22 = 2;
         }
 
         else
         {
-          v23 = 1;
+          v22 = 1;
         }
 
-        dword_10000C770 = v23;
+        dword_10000C770 = v22;
         v7 = v16;
         goto LABEL_163;
       case 0x1Eu:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x4000;
+          v21 = qword_10000C790 | 0x4000;
           goto LABEL_160;
         }
 
@@ -901,7 +895,7 @@ LABEL_160:
       case 0x1Fu:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x40000;
+          v21 = qword_10000C790 | 0x40000;
           goto LABEL_160;
         }
 
@@ -910,7 +904,7 @@ LABEL_160:
       case 0x20u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x4000000;
+          v20 = monitor_filter | 0x4000000;
           goto LABEL_162;
         }
 
@@ -919,7 +913,7 @@ LABEL_160:
       case 0x21u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x1000000;
+          v20 = monitor_filter | 0x1000000;
           goto LABEL_162;
         }
 
@@ -928,7 +922,7 @@ LABEL_160:
       case 0x27u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x400;
+          v20 = monitor_filter | 0x400;
           goto LABEL_162;
         }
 
@@ -937,7 +931,7 @@ LABEL_160:
       case 0x28u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x200000;
+          v20 = monitor_filter | 0x200000;
           goto LABEL_162;
         }
 
@@ -946,7 +940,7 @@ LABEL_160:
       case 0x29u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x100;
+          v21 = qword_10000C790 | 0x100;
           goto LABEL_160;
         }
 
@@ -955,7 +949,7 @@ LABEL_160:
       case 0x2Cu:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x80;
+          v21 = qword_10000C790 | 0x80;
           goto LABEL_160;
         }
 
@@ -964,7 +958,7 @@ LABEL_160:
       case 0x2Du:
         if (!v11)
         {
-          v21 = monitor_filter | 0x20;
+          v20 = monitor_filter | 0x20;
           goto LABEL_162;
         }
 
@@ -973,7 +967,7 @@ LABEL_160:
       case 0x30u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x800000;
+          v20 = monitor_filter | 0x800000;
           goto LABEL_162;
         }
 
@@ -982,7 +976,7 @@ LABEL_160:
       case 0x33u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x1000;
+          v21 = qword_10000C790 | 0x1000;
           goto LABEL_160;
         }
 
@@ -991,7 +985,7 @@ LABEL_160:
       case 0x34u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x8000;
+          v21 = qword_10000C790 | 0x8000;
           goto LABEL_160;
         }
 
@@ -1000,7 +994,7 @@ LABEL_160:
       case 0x35u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x80000;
+          v21 = qword_10000C790 | 0x80000;
           goto LABEL_160;
         }
 
@@ -1009,7 +1003,7 @@ LABEL_160:
       case 0x36u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x2000;
+          v20 = monitor_filter | 0x2000;
           goto LABEL_162;
         }
 
@@ -1018,7 +1012,7 @@ LABEL_160:
       case 0x39u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x100000;
+          v20 = monitor_filter | 0x100000;
           goto LABEL_162;
         }
 
@@ -1027,7 +1021,7 @@ LABEL_160:
       case 0x3Au:
         if (!v11)
         {
-          v21 = monitor_filter | 0x10000;
+          v20 = monitor_filter | 0x10000;
           goto LABEL_162;
         }
 
@@ -1036,7 +1030,7 @@ LABEL_160:
       case 0x3Cu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x8000;
+          v20 = monitor_filter | 0x8000;
           goto LABEL_162;
         }
 
@@ -1045,7 +1039,7 @@ LABEL_160:
       case 0x3Du:
         if (!v11)
         {
-          v21 = monitor_filter | 0x4000;
+          v20 = monitor_filter | 0x4000;
           goto LABEL_162;
         }
 
@@ -1054,9 +1048,9 @@ LABEL_160:
       case 0x3Eu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x40000;
+          v20 = monitor_filter | 0x40000;
 LABEL_162:
-          LODWORD(monitor_filter) = v21;
+          LODWORD(monitor_filter) = v20;
           goto LABEL_163;
         }
 
@@ -1065,7 +1059,7 @@ LABEL_162:
       case 0x3Fu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x8000000;
+          v20 = monitor_filter | 0x8000000;
           goto LABEL_162;
         }
 
@@ -1074,7 +1068,7 @@ LABEL_162:
       case 0x41u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x40;
+          v21 = qword_10000C790 | 0x40;
           goto LABEL_160;
         }
 
@@ -1083,7 +1077,7 @@ LABEL_162:
       case 0x42u:
         if (!v11)
         {
-          v21 = monitor_filter | 8;
+          v20 = monitor_filter | 8;
           goto LABEL_162;
         }
 
@@ -1092,7 +1086,7 @@ LABEL_162:
       case 0x43u:
         if (!v11)
         {
-          v22 = qword_10000C790 | 0x800;
+          v21 = qword_10000C790 | 0x800;
           goto LABEL_160;
         }
 
@@ -1101,7 +1095,7 @@ LABEL_162:
       case 0x44u:
         if (!v11)
         {
-          v21 = monitor_filter | 0x10000000;
+          v20 = monitor_filter | 0x10000000;
           goto LABEL_162;
         }
 
@@ -1110,7 +1104,7 @@ LABEL_162:
       case 0x4Au:
         if (!v11)
         {
-          v21 = monitor_filter | 0x800;
+          v20 = monitor_filter | 0x800;
           goto LABEL_162;
         }
 
@@ -1121,7 +1115,7 @@ LABEL_112:
       case 0x4Bu:
         if (!v11)
         {
-          v21 = monitor_filter | 1;
+          v20 = monitor_filter | 1;
           goto LABEL_162;
         }
 
@@ -1130,7 +1124,7 @@ LABEL_112:
       case 0x4Cu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x20000;
+          v20 = monitor_filter | 0x20000;
           goto LABEL_162;
         }
 
@@ -1139,7 +1133,7 @@ LABEL_112:
       case 0x4Fu:
         if (!v11)
         {
-          v21 = monitor_filter | 0x200;
+          v20 = monitor_filter | 0x200;
           goto LABEL_162;
         }
 
@@ -1171,9 +1165,9 @@ LABEL_175:
       do
       {
 LABEL_176:
-        v33 = 0;
-        v24 = read(s, &__endptr, 0x800uLL);
-        v33 = time(0);
+        v30 = 0;
+        v23 = read(s, &__endptr, 0x800uLL);
+        v30 = time(0);
         if (BYTE2(__endptr) != 5)
         {
           goto LABEL_212;
@@ -1192,14 +1186,14 @@ LABEL_176:
         {
           if (BYTE3(__endptr) == 14)
           {
-            v25 = v36;
-            v26 = &v39;
+            v24 = v33;
+            v25 = &v36;
             goto LABEL_188;
           }
 
-          v25 = WORD2(__endptr);
-          v26 = &v38;
-          v27 = &v36;
+          v24 = WORD2(__endptr);
+          v25 = &v35;
+          v26 = &v33;
           if (WORD2(__endptr))
           {
             goto LABEL_202;
@@ -1208,40 +1202,40 @@ LABEL_176:
 
         else
         {
-          v25 = v36;
-          v26 = &v37;
+          v24 = v33;
+          v25 = &v34;
 LABEL_188:
-          v27 = &__endptr + 2;
-          if (v25)
+          v26 = &__endptr + 2;
+          if (v24)
           {
             goto LABEL_202;
           }
         }
 
-        v25 = *v27;
-        if (!*v27)
+        v24 = *v26;
+        if (!*v26)
         {
           goto LABEL_202;
         }
 
-        v28 = 1;
+        v27 = 1;
         while (1)
         {
-          if ((v28 & v25) != 0)
+          if ((v27 & v24) != 0)
           {
-            if (*(v26 + 1) == 18)
+            if (*(v25 + 1) == 18)
             {
-              v25 = *(v26 + 1);
+              v24 = *(v25 + 1);
 LABEL_202:
               if (dword_10000C770 == 2)
               {
-                if (dword_10000C774 != v25)
+                if (dword_10000C774 != v24)
                 {
                   goto LABEL_207;
                 }
               }
 
-              else if (dword_10000C770 != 1 || dword_10000C774 == v25)
+              else if (dword_10000C770 != 1 || dword_10000C774 == v24)
               {
 LABEL_207:
                 if (!monitor_filter)
@@ -1251,17 +1245,17 @@ LABEL_207:
 
                 if (BYTE3(__endptr) - 12 < 2 || BYTE3(__endptr) - 15 < 2 || BYTE3(__endptr) == 14)
                 {
-                  if (match_msg_flags(v35))
+                  if (match_msg_flags(v32))
                   {
                     goto LABEL_212;
                   }
                 }
 
-                else if (match_msg_flags(v35))
+                else if (match_msg_flags(v32))
                 {
 LABEL_212:
-                  v30 = ctime(&v33);
-                  printf("\ngot message of size %ld on %s", v24, v30);
+                  v29 = ctime(&v30);
+                  printf("\ngot message of size %ld on %s", v23, v29);
                   print_rtmsg(&__endptr);
                 }
               }
@@ -1269,36 +1263,36 @@ LABEL_212:
               goto LABEL_176;
             }
 
-            if (*v26)
+            if (*v25)
             {
-              v29 = ((*v26 - 1) & 0xFFFFFFFC) + 4;
+              v28 = ((*v25 - 1) & 0xFFFFFFFC) + 4;
             }
 
             else
             {
-              v29 = 4;
+              v28 = 4;
             }
 
-            v26 = (v26 + v29);
+            v25 = (v25 + v28);
           }
 
-          v28 *= 2;
-          if (!v28)
+          v27 *= 2;
+          if (!v27)
           {
-            v25 = 0;
+            v24 = 0;
             goto LABEL_202;
           }
         }
       }
 
-      v25 = v36;
-      v26 = (&v37 + 4);
+      v24 = v33;
+      v25 = (&v34 + 4);
       goto LABEL_188;
     }
   }
 }
 
-ssize_t flushroutes(int a1, uint64_t a2)
+uint64_t flushroutes(int a1, uint64_t a2)
 {
   if (uid)
   {
@@ -1468,17 +1462,17 @@ unsigned __int16 *print_rtmsg(unsigned __int16 *result)
   v2 = *(v1 + 3);
   if ((v2 - 12) < 2)
   {
-    printf("metric %d, flags:", *(v1 + 16));
-    bprintf(__stdoutp, *(v1 + 8), routeflags);
-    v3 = *(v1 + 4);
-    v4 = (v1 + 20);
+    printf("metric %d, flags:", *(v1 + 4));
+    bprintf(__stdoutp, *(v1 + 2), routeflags);
+    v3 = *(v1 + 1);
+    v4 = (v1 + 10);
     goto LABEL_11;
   }
 
   if ((v2 - 15) < 2)
   {
-    v3 = *(v1 + 4);
-    v4 = (v1 + 16);
+    v3 = *(v1 + 1);
+    v4 = (v1 + 8);
 LABEL_11:
 
     return pmsg_addrs(v4, v3);
@@ -1486,19 +1480,19 @@ LABEL_11:
 
   if (v2 == 14)
   {
-    printf("if# %d, flags:", *(v1 + 12));
-    bprintf(__stdoutp, *(v1 + 8), ifnetflags);
-    v3 = *(v1 + 4);
-    v4 = (v1 + 112);
+    printf("if# %d, flags:", v1[6]);
+    bprintf(__stdoutp, *(v1 + 2), ifnetflags);
+    v3 = *(v1 + 1);
+    v4 = (v1 + 56);
     goto LABEL_11;
   }
 
-  printf("pid: %ld, seq %d, errno %d, ", *(v1 + 16), *(v1 + 20), *(v1 + 24));
-  v5 = *(v1 + 8);
+  printf("pid: %ld, seq %d, errno %d, ", *(v1 + 4), *(v1 + 5), *(v1 + 6));
+  v5 = *(v1 + 2);
   if ((v5 & 0x1000000) != 0)
   {
-    printf("ifscope %d, ", *(v1 + 4));
-    v5 = *(v1 + 8);
+    printf("ifscope %d, ", v1[2]);
+    v5 = *(v1 + 2);
   }
 
   if ((v5 & 0x4000000) != 0)
@@ -1507,7 +1501,7 @@ LABEL_11:
   }
 
   printf("flags:");
-  bprintf(__stdoutp, *(v1 + 8), routeflags);
+  bprintf(__stdoutp, *(v1 + 2), routeflags);
 
   return pmsg_common(v1);
 }
@@ -1540,41 +1534,40 @@ char *routename(sockaddr_dl *a1)
   switch(sdl_family)
   {
     case 30:
-      *&v21.sa_len = 7708;
-      *&v21.sa_data[6] = 0;
-      v23 = 0;
+      *&v20.sa_len = 7708;
+      *&v20.sa_data[6] = 0;
       v22 = 0;
+      v21 = 0;
       __memcpy_chk();
-      if (sdl_len == 28 && v21.sa_data[6] == 255 && (v21.sa_data[7] & 0xF) == 1)
+      if (sdl_len == 28 && v20.sa_data[6] == 255 && (v20.sa_data[7] & 0xF) == 1)
       {
-        v23 = bswap32(*&v21.sa_data[8]) >> 16;
-        *&v21.sa_data[8] = 0;
+        v22 = bswap32(*&v20.sa_data[8]) >> 16;
+        *&v20.sa_data[8] = 0;
       }
 
       if (nflag)
       {
-        v19 = 34;
+        v18 = 34;
       }
 
       else
       {
-        v19 = 32;
+        v18 = 32;
       }
 
-      if (getnameinfo(&v21, 0x1Cu, routename_line, 0x101u, 0, 0, v19))
+      if (getnameinfo(&v20, 0x1Cu, routename_line, 0x101u, 0, 0, v18))
       {
         goto LABEL_37;
       }
 
       break;
     case 18:
-      sdl_index = a1->sdl_index;
       link_ntoa(a1);
       snprintf(routename_line, 0x101uLL, "index: %u %s");
       break;
     case 2:
       v5 = *&a1->sdl_type;
-      *&v21.sa_len = v5;
+      *&v20.sa_len = v5;
       if (sdl_len < 4 || !v5)
       {
         goto LABEL_37;
@@ -1582,23 +1575,23 @@ char *routename(sockaddr_dl *a1)
 
       if (!nflag)
       {
-        v13 = gethostbyaddr(&v21, 4u, 2);
-        if (v13)
+        v12 = gethostbyaddr(&v20, 4u, 2);
+        if (v12)
         {
-          p_h_name = &v13->h_name;
-          v15 = index(v13->h_name, 46);
-          if (v15)
+          p_h_name = &v12->h_name;
+          v14 = index(v12->h_name, 46);
+          if (v14)
           {
-            v16 = v15;
-            if (!strcmp(v15 + 1, &routename_domain))
+            v15 = v14;
+            if (!strcmp(v14 + 1, &routename_domain))
             {
-              *v16 = 0;
+              *v15 = 0;
             }
           }
 
-          v17 = *p_h_name;
-          v18 = strlen(v17);
-          if (clean_non_printable(v17, v18))
+          v16 = *p_h_name;
+          v17 = strlen(v16);
+          if (clean_non_printable(v16, v17))
           {
 LABEL_37:
             __strlcpy_chk();
@@ -1610,26 +1603,26 @@ LABEL_37:
       snprintf(routename_line, 0x101uLL, "%u.%u.%u.%u");
       break;
     default:
-      v7 = (sdl_len + 1) & 0x1FELL;
-      v8 = snprintf(routename_line, 0x101uLL, "(%d)", a1->sdl_family);
-      if (v7 >= 3 && v8 <= 256)
+      v6 = (sdl_len + 1) & 0x1FELL;
+      v7 = snprintf(routename_line, 0x101uLL, "(%d)", a1->sdl_family);
+      if (v6 >= 3 && v7 <= 256)
       {
-        v9 = &a1->sdl_len + v7;
-        v10 = v8;
+        v8 = &a1->sdl_len + v6;
+        v9 = v7;
         p_sdl_type = &a1->sdl_type;
         do
         {
-          v12 = snprintf(&routename_line[v10], 257 - v10, " %x", *(p_sdl_type - 1));
-          if (p_sdl_type >= v9)
+          v11 = snprintf(&routename_line[v9], 257 - v9, " %x", *(p_sdl_type - 1));
+          if (p_sdl_type >= v8)
           {
             break;
           }
 
-          v10 += v12;
+          v9 += v11;
           p_sdl_type += 2;
         }
 
-        while (v10 < 257);
+        while (v9 < 257);
       }
 
       break;
@@ -2465,7 +2458,7 @@ LABEL_62:
 
 void sockaddr(_BYTE *a1, unsigned __int8 *a2)
 {
-  v5 = (a2 + 1);
+  v5 = a2 + 1;
   v4 = *a2;
   v6 = &a2[v4];
   bzero(a2, v4);
@@ -2772,7 +2765,7 @@ void print_getmsg(unsigned __int16 *a1, int a2)
     v7 = 0;
     v8 = 0;
     v9 = 0;
-    v10 = (a1 + 46);
+    v10 = a1 + 46;
     v11 = 1;
     do
     {
@@ -2785,7 +2778,7 @@ void print_getmsg(unsigned __int16 *a1, int a2)
             v8 = v10;
           }
 
-          else if (v11 == 16 && v10->sdl_family == 18 && v10->sdl_nlen)
+          else if (v11 == 16 && *(v10 + 1) == 18 && *(v10 + 5))
           {
             v7 = v10;
           }
@@ -2814,9 +2807,9 @@ void print_getmsg(unsigned __int16 *a1, int a2)
           }
         }
 
-        if (v10->sdl_len)
+        if (*v10)
         {
-          v13 = ((v10->sdl_len - 1) & 0xFFFFFFFC) + 4;
+          v13 = ((*v10 - 1) & 0xFFFFFFFC) + 4;
         }
 
         else
@@ -2856,7 +2849,7 @@ LABEL_32:
 
       if (v7)
       {
-        printf("  interface: %.*s\n", v7->sdl_nlen, v7->sdl_data);
+        printf("  interface: %.*s\n", *(v7 + 5), v7 + 8);
       }
 
       goto LABEL_39;
@@ -2904,8 +2897,18 @@ LABEL_39:
   }
 
   printf("%8u%c ", *(a1 + 15), v17);
-  v18 = (*(a1 + 16) + 500) / 0x3E8uLL;
   if ((*(a1 + 9) & 0x40) != 0)
+  {
+    v18 = 76;
+  }
+
+  else
+  {
+    v18 = 32;
+  }
+
+  printf("%8u%c ", (*(a1 + 16) + 500) / 0x3E8u, v18);
+  if ((*(a1 + 9) & 0x80) != 0)
   {
     v19 = 76;
   }
@@ -2915,9 +2918,19 @@ LABEL_39:
     v19 = 32;
   }
 
-  printf("%8u%c ", (*(a1 + 16) + 500) / 0x3E8u, v19);
-  v20 = (*(a1 + 17) + 500) / 0x3E8uLL;
-  if ((*(a1 + 9) & 0x80) != 0)
+  printf("%8u%c ", (*(a1 + 17) + 500) / 0x3E8u, v19);
+  if ((*(a1 + 9) & 2) != 0)
+  {
+    v20 = 76;
+  }
+
+  else
+  {
+    v20 = 32;
+  }
+
+  printf("%8u%c ", *(a1 + 11), v20);
+  if (*(a1 + 9))
   {
     v21 = 76;
   }
@@ -2927,43 +2940,21 @@ LABEL_39:
     v21 = 32;
   }
 
-  printf("%8u%c ", (*(a1 + 17) + 500) / 0x3E8u, v21);
-  if ((*(a1 + 9) & 2) != 0)
+  printf("%8u%c ", *(a1 + 10), v21);
+  v22 = *(a1 + 12);
+  if (v22)
   {
-    v22 = 76;
+    v22 = *(a1 + 12) - time(0);
+    *(a1 + 12) = v22;
   }
 
-  else
-  {
-    v22 = 32;
-  }
-
-  printf("%8u%c ", *(a1 + 11), v22);
-  if (*(a1 + 9))
-  {
-    v23 = 76;
-  }
-
-  else
+  v23 = 76;
+  if ((*(a1 + 9) & 4) == 0)
   {
     v23 = 32;
   }
 
-  printf("%8u%c ", *(a1 + 10), v23);
-  v24 = *(a1 + 12);
-  if (v24)
-  {
-    v24 = *(a1 + 12) - time(0);
-    *(a1 + 12) = v24;
-  }
-
-  v25 = 76;
-  if ((*(a1 + 9) & 4) == 0)
-  {
-    v25 = 32;
-  }
-
-  printf("%8d%c\n", v24, v25);
+  printf("%8d%c\n", v22, v23);
   if (verbose)
   {
 
@@ -2979,7 +2970,7 @@ LABEL_39:
   }
 }
 
-FILE *bprintf(FILE *result, unsigned int a2, char *a3)
+uint64_t bprintf(uint64_t result, unsigned int a2, char *a3)
 {
   if (a2)
   {
@@ -3102,8 +3093,8 @@ uint64_t pmsg_common(uint64_t a1)
 
 uint64_t match_msg_flags(unsigned int a1)
 {
-  v1 = dword_10000C76C & a1;
-  if ((dword_10000C76C & a1 & 1) != 0 || (v1 & 2) != 0 || (v1 & 4) != 0 || (v1 & 8) != 0 || (v1 & 0x10) != 0 || (v1 & 0x20) != 0 || (v1 & 0x40) != 0 || (v1 & 0x80) != 0 || (v1 & 0x100) != 0 || (v1 & 0x200) != 0 || (v1 & 0x400) != 0 || (v1 & 0x800) != 0 || (v1 & 0x1000) != 0 || (v1 & 0x2000) != 0 || (v1 & 0x4000) != 0 || (v1 & 0x8000) != 0 || (v1 & 0x10000) != 0 || (v1 & 0x20000) != 0 || (v1 & 0x40000) != 0 || (v1 & 0x100000) != 0 || (v1 & 0x200000) != 0 || (v1 & 0x400000) != 0 || (v1 & 0x800000) != 0 || (v1 & 0x1000000) != 0 || (v1 & 0x2000000) != 0 || (v1 & 0x4000000) != 0 || (v1 & 0x8000000) != 0 || (v1 & 0x10000000) != 0 || (v1 & 0x20000000) != 0 || (v1 & 0x40000000) != 0 || (a1 & 1) == 0 && (monitor_filter & 1) != 0 || (a1 & 2) == 0 && (monitor_filter & 2) != 0 || (a1 & 4) == 0 && (monitor_filter & 4) != 0 || (a1 & 8) == 0 && (monitor_filter & 8) != 0 || (a1 & 0x10) == 0 && (monitor_filter & 0x10) != 0 || (a1 & 0x20) == 0 && (monitor_filter & 0x20) != 0 || (a1 & 0x40) == 0 && (monitor_filter & 0x40) != 0 || (a1 & 0x80) == 0 && (monitor_filter & 0x80) != 0 || (a1 & 0x100) == 0 && (monitor_filter & 0x100) != 0 || (a1 & 0x200) == 0 && (monitor_filter & 0x200) != 0 || (a1 & 0x400) == 0 && (monitor_filter & 0x400) != 0 || (a1 & 0x800) == 0 && (monitor_filter & 0x800) != 0 || (a1 & 0x1000) == 0 && (monitor_filter & 0x1000) != 0 || (a1 & 0x2000) == 0 && (monitor_filter & 0x2000) != 0 || (a1 & 0x4000) == 0 && (monitor_filter & 0x4000) != 0 || (a1 & 0x8000) == 0 && (monitor_filter & 0x8000) != 0 || (a1 & 0x10000) == 0 && (monitor_filter & 0x10000) != 0 || (a1 & 0x20000) == 0 && (monitor_filter & 0x20000) != 0 || (a1 & 0x40000) == 0 && (monitor_filter & 0x40000) != 0 || (a1 & 0x100000) == 0 && (monitor_filter & 0x100000) != 0 || (a1 & 0x200000) == 0 && (monitor_filter & 0x200000) != 0 || (a1 & 0x400000) == 0 && (monitor_filter & 0x400000) != 0 || (a1 & 0x800000) == 0 && (monitor_filter & 0x800000) != 0 || (a1 & 0x1000000) == 0 && (monitor_filter & 0x1000000) != 0 || (a1 & 0x2000000) == 0 && (monitor_filter & 0x2000000) != 0 || (a1 & 0x4000000) == 0 && (monitor_filter & 0x4000000) != 0 || (a1 & 0x8000000) == 0 && (monitor_filter & 0x8000000) != 0 || (a1 & 0x10000000) == 0 && (monitor_filter & 0x10000000) != 0 || (a1 & 0x20000000) == 0 && (monitor_filter & 0x20000000) != 0)
+  v1 = HIDWORD(monitor_filter) & a1;
+  if ((HIDWORD(monitor_filter) & a1 & 1) != 0 || (v1 & 2) != 0 || (v1 & 4) != 0 || (v1 & 8) != 0 || (v1 & 0x10) != 0 || (v1 & 0x20) != 0 || (v1 & 0x40) != 0 || (v1 & 0x80) != 0 || (v1 & 0x100) != 0 || (v1 & 0x200) != 0 || (v1 & 0x400) != 0 || (v1 & 0x800) != 0 || (v1 & 0x1000) != 0 || (v1 & 0x2000) != 0 || (v1 & 0x4000) != 0 || (v1 & 0x8000) != 0 || (v1 & 0x10000) != 0 || (v1 & 0x20000) != 0 || (v1 & 0x40000) != 0 || (v1 & 0x100000) != 0 || (v1 & 0x200000) != 0 || (v1 & 0x400000) != 0 || (v1 & 0x800000) != 0 || (v1 & 0x1000000) != 0 || (v1 & 0x2000000) != 0 || (v1 & 0x4000000) != 0 || (v1 & 0x8000000) != 0 || (v1 & 0x10000000) != 0 || (v1 & 0x20000000) != 0 || (v1 & 0x40000000) != 0 || (a1 & 1) == 0 && (monitor_filter & 1) != 0 || (a1 & 2) == 0 && (monitor_filter & 2) != 0 || (a1 & 4) == 0 && (monitor_filter & 4) != 0 || (a1 & 8) == 0 && (monitor_filter & 8) != 0 || (a1 & 0x10) == 0 && (monitor_filter & 0x10) != 0 || (a1 & 0x20) == 0 && (monitor_filter & 0x20) != 0 || (a1 & 0x40) == 0 && (monitor_filter & 0x40) != 0 || (a1 & 0x80) == 0 && (monitor_filter & 0x80) != 0 || (a1 & 0x100) == 0 && (monitor_filter & 0x100) != 0 || (a1 & 0x200) == 0 && (monitor_filter & 0x200) != 0 || (a1 & 0x400) == 0 && (monitor_filter & 0x400) != 0 || (a1 & 0x800) == 0 && (monitor_filter & 0x800) != 0 || (a1 & 0x1000) == 0 && (monitor_filter & 0x1000) != 0 || (a1 & 0x2000) == 0 && (monitor_filter & 0x2000) != 0 || (a1 & 0x4000) == 0 && (monitor_filter & 0x4000) != 0 || (a1 & 0x8000) == 0 && (monitor_filter & 0x8000) != 0 || (a1 & 0x10000) == 0 && (monitor_filter & 0x10000) != 0 || (a1 & 0x20000) == 0 && (monitor_filter & 0x20000) != 0 || (a1 & 0x40000) == 0 && (monitor_filter & 0x40000) != 0 || (a1 & 0x100000) == 0 && (monitor_filter & 0x100000) != 0 || (a1 & 0x200000) == 0 && (monitor_filter & 0x200000) != 0 || (a1 & 0x400000) == 0 && (monitor_filter & 0x400000) != 0 || (a1 & 0x800000) == 0 && (monitor_filter & 0x800000) != 0 || (a1 & 0x1000000) == 0 && (monitor_filter & 0x1000000) != 0 || (a1 & 0x2000000) == 0 && (monitor_filter & 0x2000000) != 0 || (a1 & 0x4000000) == 0 && (monitor_filter & 0x4000000) != 0 || (a1 & 0x8000000) == 0 && (monitor_filter & 0x8000000) != 0 || (a1 & 0x10000000) == 0 && (monitor_filter & 0x10000000) != 0 || (a1 & 0x20000000) == 0 && (monitor_filter & 0x20000000) != 0)
   {
     return 0;
   }

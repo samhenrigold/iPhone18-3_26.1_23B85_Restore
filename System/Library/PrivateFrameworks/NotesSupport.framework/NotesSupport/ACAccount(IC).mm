@@ -2,13 +2,13 @@
 - (BOOL)ic_hasPersonaIdentifier;
 - (uint64_t)ic_hasICloudEmailAddress;
 - (uint64_t)ic_isICloudNotesAccount;
-- (uint64_t)ic_isManagedAppleID;
-- (uint64_t)ic_isNotesMigrated;
-- (uint64_t)ic_isPrimaryAppleAccount;
 - (uint64_t)ic_shouldCreateSeparatePersistentStore;
 - (uint64_t)ic_supportsHTMLNotes;
-- (uint64_t)ic_supportsModernNotes;
 - (void)ic_hasICloudEmailAddress;
+- (void)ic_isManagedAppleID;
+- (void)ic_isNotesMigrated;
+- (void)ic_isPrimaryAppleAccount;
+- (void)ic_supportsModernNotes;
 @end
 
 @implementation ACAccount(IC)
@@ -72,7 +72,7 @@
   return v5;
 }
 
-- (uint64_t)ic_isManagedAppleID
+- (void)ic_isManagedAppleID
 {
   result = [self ic_isICloudNotesAccount];
   if (result)
@@ -84,7 +84,7 @@
   return result;
 }
 
-- (uint64_t)ic_supportsModernNotes
+- (void)ic_supportsModernNotes
 {
   result = [self isProvisionedForDataclass:*MEMORY[0x1E69596C0]];
   if (result)
@@ -92,7 +92,7 @@
     result = [self ic_isICloudNotesAccount];
     if (result)
     {
-      return [self ic_isBasicAccountClass] ^ 1;
+      return ([self ic_isBasicAccountClass] ^ 1);
     }
   }
 
@@ -119,7 +119,7 @@
   return result;
 }
 
-- (uint64_t)ic_isNotesMigrated
+- (void)ic_isNotesMigrated
 {
   result = [self ic_isICloudNotesAccount];
   if (result)
@@ -131,7 +131,7 @@
   return result;
 }
 
-- (uint64_t)ic_isPrimaryAppleAccount
+- (void)ic_isPrimaryAppleAccount
 {
   result = [self ic_isICloudNotesAccount];
   if (result)

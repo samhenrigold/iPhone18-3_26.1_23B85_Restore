@@ -123,25 +123,25 @@
 
 - (void)_resume
 {
-  [(GSDaemon *)self waitUntilDeviceIsUnlocked];
-  v3 = sub_100003164();
+  v3 = sub_100003164([(GSDaemon *)self waitUntilDeviceIsUnlocked]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315650;
-    v6 = getprogname();
-    v7 = 2080;
-    v8 = "Oct 10 2025";
-    v9 = 2080;
-    v10 = "21:38:39";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] %s starting, built @ %s %s", &v5, 0x20u);
+    v6 = 136315650;
+    v7 = getprogname();
+    v8 = 2080;
+    v9 = "Oct 10 2025";
+    v10 = 2080;
+    v11 = "21:38:39";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] %s starting, built @ %s %s", &v6, 0x20u);
   }
 
-  if (setiopolicy_np(7, 0, 1) < 0)
+  v4 = setiopolicy_np(7, 0, 1);
+  if ((v4 & 0x80000000) != 0)
   {
-    v4 = sub_100003164();
-    if (os_log_type_enabled(v4, 0x90u))
+    v5 = sub_100003164(v4);
+    if (os_log_type_enabled(v5, 0x90u))
     {
-      sub_100027664(v4);
+      sub_100027664(v5);
     }
 
     exit(1);
@@ -166,7 +166,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_100003164();
+  v3 = sub_100003164(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -174,8 +174,7 @@
   }
 
   [(NSXPCListener *)self->_listener invalidate];
-  +[GSStorageManager shutdownLibraries];
-  v4 = sub_100003164();
+  v4 = sub_100003164(+[GSStorageManager shutdownLibraries]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -190,24 +189,25 @@
   connectionCopy = connection;
   v5 = [[GSClient alloc] initWithConnection:connectionCopy];
   processIdentifier = [connectionCopy processIdentifier];
-  v7 = sub_100006FB4();
-  [connectionCopy setExportedInterface:v7];
+  v7 = processIdentifier;
+  v8 = sub_100006FB4(processIdentifier);
+  [connectionCopy setExportedInterface:v8];
 
   [connectionCopy setExportedObject:v5];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000107DC;
-  v11[3] = &unk_1000411C0;
-  v12 = processIdentifier;
-  v11[4] = connectionCopy;
-  [connectionCopy setInterruptionHandler:v11];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_10001088C;
-  v9[3] = &unk_1000411C0;
-  v10 = processIdentifier;
-  v9[4] = connectionCopy;
-  [connectionCopy setInvalidationHandler:v9];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000107DC;
+  v12[3] = &unk_1000411C0;
+  v13 = v7;
+  v12[4] = connectionCopy;
+  [connectionCopy setInterruptionHandler:v12];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10001088C;
+  v10[3] = &unk_1000411C0;
+  v11 = v7;
+  v10[4] = connectionCopy;
+  [connectionCopy setInvalidationHandler:v10];
   [connectionCopy resume];
 
   return 1;

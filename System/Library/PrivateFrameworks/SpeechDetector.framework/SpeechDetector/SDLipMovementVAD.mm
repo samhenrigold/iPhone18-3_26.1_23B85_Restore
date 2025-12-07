@@ -17,10 +17,10 @@
 
 - (void)runModel
 {
-  v81[3] = *MEMORY[0x277D85DE8];
-  v72 = 0;
-  v69 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_287BD29B0 dataType:65568 error:&v72];
-  v64 = v72;
+  v80[3] = *MEMORY[0x277D85DE8];
+  v71 = 0;
+  v68 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:&unk_287BD29B0 dataType:65568 error:&v71];
+  v63 = v71;
   v3 = [&unk_287BD29C8 objectAtIndexedSubscript:1];
   intValue = [v3 intValue];
 
@@ -52,12 +52,12 @@
           v19 = v18 = v6;
           v20 = [v19 objectAtIndex:{objc_msgSend(v16, "intValue")}];
 
-          v81[0] = v8;
+          v80[0] = v8;
           v21 = [*(v9 + 2992) numberWithInt:v5];
-          v81[1] = v21;
+          v80[1] = v21;
           v22 = [*(v9 + 2992) numberWithInt:v13];
-          v81[2] = v22;
-          [*(v10 + 2656) arrayWithObjects:v81 count:3];
+          v80[2] = v22;
+          [*(v10 + 2656) arrayWithObjects:v80 count:3];
           v23 = v9;
           v24 = v5;
           v26 = v25 = v8;
@@ -65,7 +65,7 @@
           v6 = v18;
           self = selfCopy;
           v7 = 0x2803FC000;
-          [v69 setObject:v20 forKeyedSubscript:v26];
+          [v68 setObject:v20 forKeyedSubscript:v26];
 
           ++v13;
           v27 = [v6 objectAtIndexedSubscript:2];
@@ -89,16 +89,16 @@
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  [dictionary setObject:v69 forKey:@"input_1"];
-  v71 = 0;
-  v31 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v71];
-  v66 = v71;
-  v67 = v31;
+  [dictionary setObject:v68 forKey:@"input_1"];
+  v70 = 0;
+  v31 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:dictionary error:&v70];
+  v65 = v70;
+  v66 = v31;
   lipMovementVADModel = self->_lipMovementVADModel;
   options = self->_options;
-  v70 = v64;
-  v34 = [(MLModel *)lipMovementVADModel predictionFromFeatures:v31 options:options error:&v70];
-  v35 = v70;
+  v69 = v63;
+  v34 = [(MLModel *)lipMovementVADModel predictionFromFeatures:v31 options:options error:&v69];
+  v35 = v69;
 
   if (v35)
   {
@@ -106,16 +106,16 @@
     if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v74 = "[SDLipMovementVAD runModel]";
-      v75 = 2114;
-      v76 = *&v35;
+      v73 = "[SDLipMovementVAD runModel]";
+      v74 = 2114;
+      v75 = *&v35;
       _os_log_error_impl(&dword_26B2CF000, v36, OS_LOG_TYPE_ERROR, "%s Error when running inference for LipMovementVAD: %{public}@", buf, 0x16u);
     }
   }
 
-  v65 = v35;
-  v63 = [v34 featureValueForName:@"Identity_1"];
-  multiArrayValue = [v63 multiArrayValue];
+  v64 = v35;
+  v62 = [v34 featureValueForName:@"Identity_1"];
+  multiArrayValue = [v62 multiArrayValue];
   v38 = [multiArrayValue objectForKeyedSubscript:&unk_287BD29F8];
   [v38 floatValue];
   v40 = v39;
@@ -160,22 +160,20 @@
   if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v74 = "[SDLipMovementVAD runModel]";
-    v75 = 2048;
-    v76 = v41;
-    v77 = 2048;
-    v78 = v49;
-    v79 = 2048;
-    v80 = v46;
+    v73 = "[SDLipMovementVAD runModel]";
+    v74 = 2048;
+    v75 = v41;
+    v76 = 2048;
+    v77 = v49;
+    v78 = 2048;
+    v79 = v46;
     _os_log_impl(&dword_26B2CF000, v61, OS_LOG_TYPE_DEFAULT, "%s LipMovementVAD ran prediction, output is: %f. Probability of speech: %f, Probability of no speech: %f", buf, 0x2Au);
   }
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFaceTrackingData:(id)data atMachAbsTime:(unint64_t)time
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = [dataCopy objectForKeyedSubscript:*MEMORY[0x277CECEC0]];
@@ -200,11 +198,11 @@
       v15 = SDLogContextFacilityLocalSRBridge;
       if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 136315394;
-        v25 = "[SDLipMovementVAD addFaceTrackingData:atMachAbsTime:]";
-        v26 = 2114;
-        v27 = v10;
-        _os_log_impl(&dword_26B2CF000, v15, OS_LOG_TYPE_DEFAULT, "%s Received nonnul metadata object from AppleCVA, but nil blendshapes or unexpected amount of blendshapes. Blendshape object: %{public}@", &v24, 0x16u);
+        v23 = 136315394;
+        v24 = "[SDLipMovementVAD addFaceTrackingData:atMachAbsTime:]";
+        v25 = 2114;
+        v26 = v10;
+        _os_log_impl(&dword_26B2CF000, v15, OS_LOG_TYPE_DEFAULT, "%s Received nonnul metadata object from AppleCVA, but nil blendshapes or unexpected amount of blendshapes. Blendshape object: %{public}@", &v23, 0x16u);
       }
     }
 
@@ -248,8 +246,6 @@
     self->_framesToNextPrediction = 6;
     [(SDLipMovementVAD *)self runModel];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupBlendshapeIndexArray
@@ -279,11 +275,11 @@ void __45__SDLipMovementVAD_setupBlendshapeIndexArray__block_invoke(uint64_t a1,
 
 - (SDLipMovementVAD)initWithModelFile:(id)file
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v25.receiver = self;
-  v25.super_class = SDLipMovementVAD;
-  v6 = [(SDLipMovementVAD *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = SDLipMovementVAD;
+  v6 = [(SDLipMovementVAD *)&v24 init];
   v7 = v6;
   if (!v6)
   {
@@ -296,7 +292,7 @@ void __45__SDLipMovementVAD_setupBlendshapeIndexArray__block_invoke(uint64_t a1,
     if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v27 = "[SDLipMovementVAD initWithModelFile:]";
+      v26 = "[SDLipMovementVAD initWithModelFile:]";
       _os_log_error_impl(&dword_26B2CF000, v18, OS_LOG_TYPE_ERROR, "%s No path found for lip movement model.", buf, 0xCu);
     }
 
@@ -318,9 +314,9 @@ void __45__SDLipMovementVAD_setupBlendshapeIndexArray__block_invoke(uint64_t a1,
   options = v7->_options;
   v7->_options = v12;
 
-  v24 = 0;
-  v14 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v11 configuration:v10 error:&v24];
-  v15 = v24;
+  v23 = 0;
+  v14 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v11 configuration:v10 error:&v23];
+  v15 = v23;
   lipMovementVADModel = v7->_lipMovementVADModel;
   v7->_lipMovementVADModel = v14;
 
@@ -329,15 +325,15 @@ void __45__SDLipMovementVAD_setupBlendshapeIndexArray__block_invoke(uint64_t a1,
     v19 = SDLogContextFacilityLocalSRBridge;
     if (os_log_type_enabled(SDLogContextFacilityLocalSRBridge, OS_LOG_TYPE_ERROR))
     {
-      v22 = v19;
+      v21 = v19;
       localizedDescription = [v15 localizedDescription];
       *buf = 136315650;
-      v27 = "[SDLipMovementVAD initWithModelFile:]";
-      v28 = 2114;
-      v29 = v11;
-      v30 = 2114;
-      v31 = localizedDescription;
-      _os_log_error_impl(&dword_26B2CF000, v22, OS_LOG_TYPE_ERROR, "%s Failed to load LipMovementVAD model from %{public}@ with error: %{public}@", buf, 0x20u);
+      v26 = "[SDLipMovementVAD initWithModelFile:]";
+      v27 = 2114;
+      v28 = v11;
+      v29 = 2114;
+      v30 = localizedDescription;
+      _os_log_error_impl(&dword_26B2CF000, v21, OS_LOG_TYPE_ERROR, "%s Failed to load LipMovementVAD model from %{public}@ with error: %{public}@", buf, 0x20u);
     }
 
 LABEL_12:
@@ -349,7 +345,6 @@ LABEL_6:
   v17 = v7;
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

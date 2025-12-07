@@ -11,7 +11,7 @@
 {
   timeoutCopy = timeout;
   stateCopy = state;
-  v62 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   v6 = objc_opt_new();
   requestParameters = [v6 requestParameters];
   [requestParameters setQualityOfService:25];
@@ -64,7 +64,7 @@
         if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v57 = v27;
+          v56 = v27;
           _os_log_impl(&dword_2990ED000, v22, OS_LOG_TYPE_INFO, "Logging DoH timeout failure after only %llums, not incrementing failure counter", buf, 0xCu);
         }
 
@@ -105,11 +105,11 @@
           v36 = "timeout ";
         }
 
-        v57 = v36;
-        v58 = 2048;
-        v59 = v29;
-        v60 = 2048;
-        v61 = v33;
+        v56 = v36;
+        v57 = 2048;
+        v58 = v29;
+        v59 = 2048;
+        v60 = v33;
         _os_log_impl(&dword_2990ED000, v34, OS_LOG_TYPE_INFO, "Logging DoH %sfailure %llu (bucket %llu), keeping filtered state", buf, 0x20u);
       }
 
@@ -118,7 +118,7 @@
 
     else
     {
-      v52 = v33;
+      v51 = v33;
       v40 = [DNSHeuristics countersExceedThreshold:v29 burstCounter:v33];
       v41 = _mdns_heuristics_log();
       v34 = v41;
@@ -133,12 +133,12 @@
             v42 = "timeout ";
           }
 
-          v57 = v42;
-          v58 = 2048;
-          v59 = v29;
-          v60 = 2048;
-          v37 = v52;
-          v61 = v52;
+          v56 = v42;
+          v57 = 2048;
+          v58 = v29;
+          v59 = 2048;
+          v37 = v51;
+          v60 = v51;
           _os_log_impl(&dword_2990ED000, v34, OS_LOG_TYPE_DEFAULT, "Logging DoH %sfailure %llu (bucket %llu), moving into filtered state", buf, 0x20u);
           v35 = 1;
           goto LABEL_48;
@@ -158,12 +158,12 @@
             v45 = "timeout ";
           }
 
-          v57 = v45;
-          v58 = 2048;
-          v59 = v29;
-          v60 = 2048;
-          v37 = v52;
-          v61 = v52;
+          v56 = v45;
+          v57 = 2048;
+          v58 = v29;
+          v59 = 2048;
+          v37 = v51;
+          v60 = v51;
           _os_log_impl(&dword_2990ED000, v34, OS_LOG_TYPE_INFO, "Logging DoH %sfailure %llu (bucket %llu), keeping unfiltered state", buf, 0x20u);
           v35 = 0;
           goto LABEL_48;
@@ -172,21 +172,21 @@
         v35 = 0;
       }
 
-      v37 = v52;
+      v37 = v51;
     }
 
 LABEL_48:
 
-    v54[0] = @"LastFailureTimestamp";
+    v53[0] = @"LastFailureTimestamp";
     v46 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v13];
-    v55[0] = v46;
-    v54[1] = @"LongCount";
+    v54[0] = v46;
+    v53[1] = @"LongCount";
     v47 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v29];
-    v55[1] = v47;
-    v54[2] = @"BurstCount";
+    v54[1] = v47;
+    v53[2] = @"BurstCount";
     v48 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:v37];
-    v55[2] = v48;
-    v22 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v55 forKeys:v54 count:3];
+    v54[2] = v48;
+    v22 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v54 forKeys:v53 count:3];
 
     v20 = currentKnownNetworkProfile;
     LODWORD(v46) = [DNSHeuristics setNetworkSettings:currentKnownNetworkProfile value:v22];
@@ -210,7 +210,7 @@ LABEL_48:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v57 = v39;
+          v56 = v39;
           _os_log_impl(&dword_2990ED000, v22, OS_LOG_TYPE_INFO, "Logging DoH success after %llums, keeping filtered state", buf, 0xCu);
         }
 
@@ -247,7 +247,7 @@ LABEL_49:
       }
 
       *buf = 134217984;
-      v57 = (v13 - unsignedIntegerValue);
+      v56 = (v13 - unsignedIntegerValue);
       v23 = "Logging DoH success after %llums, clearing filtered state";
       v24 = v22;
       v25 = 12;
@@ -261,25 +261,23 @@ LABEL_49:
 LABEL_50:
   [v6 invalidate];
 
-  v50 = *MEMORY[0x29EDCA608];
   return v28;
 }
 
 + (id)copyEmptyHeuristicState
 {
-  v9[3] = *MEMORY[0x29EDCA608];
-  v8[0] = @"LastFailureTimestamp";
+  v8[3] = *MEMORY[0x29EDCA608];
+  v7[0] = @"LastFailureTimestamp";
   v2 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:0];
-  v9[0] = v2;
-  v8[1] = @"LongCount";
+  v8[0] = v2;
+  v7[1] = @"LongCount";
   v3 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:0];
-  v9[1] = v3;
-  v8[2] = @"BurstCount";
+  v8[1] = v3;
+  v7[2] = @"BurstCount";
   v4 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:10];
-  v9[2] = v4;
-  v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v8[2] = v4;
+  v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 

@@ -19,26 +19,26 @@
   return v3;
 }
 
-void __65__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNames__block_invoke()
+void __65__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNames__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10[7] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = [v0 objectClassOutputNameForObjectClassID:1 modelVersion:1 error:0];
-  v2 = [v0 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:{0, v1}];
-  v10[1] = v2;
-  v3 = [v0 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
-  v10[2] = v3;
-  v4 = [v0 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
-  v10[3] = v4;
-  v5 = [v0 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
-  v10[4] = v5;
-  v6 = [v0 objectClassOutputNameForObjectClassID:64 modelVersion:1 error:0];
-  v10[5] = v6;
-  v7 = [v0 objectClassOutputNameForObjectClassID:2 modelVersion:1 error:0];
-  v10[6] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:7];
-  v9 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNames]::outputNames;
-  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNames]::outputNames = v8;
+  v12[7] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = [v2 objectClassOutputNameForObjectClassID:1 modelVersion:1 error:0];
+  v4 = [v2 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:{0, v3}];
+  v12[1] = v4;
+  v5 = [v2 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
+  v12[2] = v5;
+  v6 = [v2 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
+  v12[3] = v6;
+  v7 = [v2 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
+  v12[4] = v7;
+  v8 = [v2 objectClassOutputNameForObjectClassID:64 modelVersion:1 error:0];
+  v12[5] = v8;
+  v9 = [v2 objectClassOutputNameForObjectClassID:2 modelVersion:1 error:0];
+  v12[6] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
+  v11 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNames]::outputNames;
+  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNames]::outputNames = v10;
 }
 
 + (id)outputMaskBlobNameToRequestKey
@@ -53,48 +53,48 @@ void __65__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNames__block
   return v3;
 }
 
-void __76__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNameToRequestKey__block_invoke()
+void __76__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNameToRequestKey__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25[7] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v23 = [v0 objectClassOutputNameForObjectClassID:1 modelVersion:1 error:0];
-  v24[0] = v23;
-  v1 = objc_opt_class();
-  v21 = NSStringFromClass(v1);
-  v25[0] = v21;
-  v22 = [v0 objectClassOutputNameForObjectClassID:2 modelVersion:1 error:0];
-  v24[1] = v22;
+  v27[7] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
-  v20 = NSStringFromClass(v2);
-  v25[1] = v20;
-  v3 = [v0 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
-  v24[2] = v3;
+  v25 = [v2 objectClassOutputNameForObjectClassID:1 modelVersion:1 error:0];
+  v26[0] = v25;
+  v3 = objc_opt_class();
+  v23 = NSStringFromClass(v3);
+  v27[0] = v23;
+  v24 = [v2 objectClassOutputNameForObjectClassID:2 modelVersion:1 error:0];
+  v26[1] = v24;
   v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v25[2] = v5;
-  v6 = [v0 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:0];
-  v24[3] = v6;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v25[3] = v8;
-  v9 = [v0 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
-  v24[4] = v9;
-  v10 = objc_opt_class();
-  v11 = NSStringFromClass(v10);
-  v25[4] = v11;
-  v12 = [v0 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
-  v24[5] = v12;
-  v13 = objc_opt_class();
-  v14 = NSStringFromClass(v13);
-  v25[5] = v14;
-  v15 = [v0 objectClassOutputNameForObjectClassID:64 modelVersion:1 error:0];
-  v24[6] = v15;
-  v16 = objc_opt_class();
-  v17 = NSStringFromClass(v16);
-  v25[6] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
-  v19 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
-  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v18;
+  v22 = NSStringFromClass(v4);
+  v27[1] = v22;
+  v5 = [v2 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
+  v26[2] = v5;
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v27[2] = v7;
+  v8 = [v2 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:0];
+  v26[3] = v8;
+  v9 = objc_opt_class();
+  v10 = NSStringFromClass(v9);
+  v27[3] = v10;
+  v11 = [v2 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
+  v26[4] = v11;
+  v12 = objc_opt_class();
+  v13 = NSStringFromClass(v12);
+  v27[4] = v13;
+  v14 = [v2 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
+  v26[5] = v14;
+  v15 = objc_opt_class();
+  v16 = NSStringFromClass(v15);
+  v27[5] = v16;
+  v17 = [v2 objectClassOutputNameForObjectClassID:64 modelVersion:1 error:0];
+  v26[6] = v17;
+  v18 = objc_opt_class();
+  v19 = NSStringFromClass(v18);
+  v27[6] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v21 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
+  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v20;
 }
 
 + (id)outputMaskBlobNameToFeatureName
@@ -109,25 +109,25 @@ void __76__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNameToReques
   return v3;
 }
 
-void __77__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNameToFeatureName__block_invoke()
+void __77__VNE5RTSemanticSegmentationMultiGeneratorV4_outputMaskBlobNameToFeatureName__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = [v0 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
-  v7[0] = v1;
-  v8[0] = @"human_attribute_skin";
-  v2 = [v0 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:0];
-  v7[1] = v2;
-  v8[1] = @"human_attribute_hair";
-  v3 = [v0 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
-  v7[2] = v3;
-  v8[2] = @"human_attribute_facial_hair";
-  v4 = [v0 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
-  v7[3] = v4;
-  v8[3] = @"human_attribute_teeth";
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:4];
-  v6 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToFeatureName]::outputMaskBlobNameToFeatureName;
-  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToFeatureName]::outputMaskBlobNameToFeatureName = v5;
+  v10[4] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = [v2 objectClassOutputNameForObjectClassID:4 modelVersion:1 error:0];
+  v9[0] = v3;
+  v10[0] = @"human_attribute_skin";
+  v4 = [v2 objectClassOutputNameForObjectClassID:8 modelVersion:1 error:0];
+  v9[1] = v4;
+  v10[1] = @"human_attribute_hair";
+  v5 = [v2 objectClassOutputNameForObjectClassID:16 modelVersion:1 error:0];
+  v9[2] = v5;
+  v10[2] = @"human_attribute_facial_hair";
+  v6 = [v2 objectClassOutputNameForObjectClassID:32 modelVersion:1 error:0];
+  v9[3] = v6;
+  v10[3] = @"human_attribute_teeth";
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v8 = +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToFeatureName]::outputMaskBlobNameToFeatureName;
+  +[VNE5RTSemanticSegmentationMultiGeneratorV4 outputMaskBlobNameToFeatureName]::outputMaskBlobNameToFeatureName = v7;
 }
 
 + (id)createE5RTFunctionDescriptorForConfigurationOptions:(id)options error:(id *)error

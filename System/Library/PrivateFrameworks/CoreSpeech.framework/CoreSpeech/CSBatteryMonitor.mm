@@ -4,6 +4,7 @@
 - (unsigned)_checkBatteryState;
 - (void)_didReceiveBatteryStatusChanged:(unsigned __int8)changed;
 - (void)_didReceiveBatteryStatusChangedInQueue:(unsigned __int8)queue;
+- (void)_notifyObserver:(id)observer withBatteryState:(unsigned __int8)state;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
@@ -37,6 +38,17 @@
   else
   {
     return 2;
+  }
+}
+
+- (void)_notifyObserver:(id)observer withBatteryState:(unsigned __int8)state
+{
+  stateCopy = state;
+  observerCopy = observer;
+  [(CSBatteryMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSBatteryMonitor:self didReceiveBatteryStatusChanged:stateCopy];
   }
 }
 

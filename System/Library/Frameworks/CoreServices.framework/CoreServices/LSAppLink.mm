@@ -11,6 +11,7 @@
 + (id)_appLinksWithState:(id)state context:(LSContext *)context limit:(unint64_t)limit error:(id *)error;
 + (id)_dispatchQueue;
 + (id)appLinksWithURL:(id)l limit:(unint64_t)limit error:(id *)error;
++ (id)appLinksWithURL:(id)l limit:(unint64_t)limit includeLinksForCurrentApplication:(BOOL)application error:(id *)error;
 + (void)_openAppLink:(id)link state:(id)state completionHandler:(id)handler;
 + (void)_openWithAppLink:(id)link state:(id)state completionHandler:(id)handler;
 + (void)afterAppLinksBecomeAvailableForURL:(id)l limit:(unint64_t)limit performBlock:(id)block;
@@ -51,6 +52,57 @@
   v5 = [self appLinksWithURL:l limit:limit includeLinksForCurrentApplication:0 error:error];
 
   return v5;
+}
+
++ (id)appLinksWithURL:(id)l limit:(unint64_t)limit includeLinksForCurrentApplication:(BOOL)application error:(id *)error
+{
+  applicationCopy = application;
+  lCopy = l;
+  v13 = lCopy;
+  if (lCopy)
+  {
+    if (limit)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:77 description:{@"Invalid parameter not satisfying: %@", @"aURL != nil"}];
+
+    if (limit)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:78 description:{@"Invalid parameter not satisfying: %@", @"limit > 0"}];
+
+LABEL_3:
+  if ([__LSDefaultsGetSharedInstance(lCopy v12)])
+  {
+    currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler3 handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:79 description:@"Cannot call this method from within the Launch Services daemon."];
+  }
+
+  v14 = objc_alloc_init(_LSAppLinkOpenState);
+  v15 = [(_LSAppLinkOpenState *)v14 setURL:v13];
+  [(_LSAppLinkOpenState *)v14 setAuditToken:_LSGetAuditTokenForSelf(v15, v16)];
+  [(_LSAppLinkOpenState *)v14 setIncludeLinksForCallingApplication:applicationCopy];
+  v25 = 0;
+  v17 = [self _appLinksWithState:v14 context:0 limit:limit error:&v25];
+  v18 = v25;
+  v19 = v18;
+  if (error && !v17)
+  {
+    v20 = v18;
+    *error = v19;
+  }
+
+  return v17;
 }
 
 + (void)getAppLinkWithURL:(id)l completionHandler:(id)handler
@@ -159,7 +211,7 @@ LABEL_3:
 
 + (BOOL)areEnabledByDefault
 {
-  if (![__LSDefaultsGetSharedInstance() isAppleInternal])
+  if (![__LSDefaultsGetSharedInstance(self a2)])
   {
     return 1;
   }
@@ -296,7 +348,7 @@ LABEL_3:
 
 + (BOOL)currentProcessHasReadAccess
 {
-  v3 = _LSGetAuditTokenForSelf();
+  v3 = _LSGetAuditTokenForSelf(self, a2);
   if (v3)
   {
     v4 = v3[1];
@@ -310,22 +362,22 @@ LABEL_3:
 
 + (BOOL)auditTokenHasReadAccess:(id *)access
 {
-  v4 = _LSAuditTokenMayMapDatabase(access);
-  if (v4)
+  MayMapDatabase = _LSAuditTokenMayMapDatabase(access);
+  if (MayMapDatabase)
   {
     v5 = _LSSWCServiceDetailsClass();
     v6 = *&access->var0[4];
     v8[0] = *access->var0;
     v8[1] = v6;
-    LOBYTE(v4) = [v5 auditTokenHasReadAccess:v8];
+    LOBYTE(MayMapDatabase) = [(objc_class *)v5 auditTokenHasReadAccess:v8];
   }
 
-  return v4;
+  return MayMapDatabase;
 }
 
 + (BOOL)currentProcessHasWriteAccess
 {
-  v3 = _LSGetAuditTokenForSelf();
+  v3 = _LSGetAuditTokenForSelf(self, a2);
   if (v3)
   {
     v4 = v3[1];
@@ -343,14 +395,14 @@ LABEL_3:
   v5 = *&access->var0[4];
   v7[0] = *access->var0;
   v7[1] = v5;
-  return [v4 auditTokenHasWriteAccess:v7];
+  return [(objc_class *)v4 auditTokenHasWriteAccess:v7];
 }
 
 - (void)openWithConfiguration:(id)configuration completionHandler:(id)handler
 {
   configurationCopy = configuration;
   handlerCopy = handler;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(handlerCopy v9)])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:336 description:@"Cannot call this method from within the Launch Services daemon."];
@@ -362,22 +414,21 @@ LABEL_3:
   block[2] = __59__LSAppLink_Open__openWithConfiguration_completionHandler___block_invoke;
   block[3] = &unk_1E6A193B8;
   block[4] = self;
-  v14 = configurationCopy;
-  v15 = handlerCopy;
-  v10 = handlerCopy;
-  v11 = configurationCopy;
+  v15 = configurationCopy;
+  v16 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = configurationCopy;
   dispatch_async(_dispatchQueue, block);
 }
 
 void __59__LSAppLink_Open__openWithConfiguration_completionHandler___block_invoke(uint64_t a1)
 {
-  v4 = objc_alloc_init(_LSAppLinkOpenState);
+  v3 = objc_alloc_init(_LSAppLinkOpenState);
   v2 = [*(a1 + 32) URL];
-  [(_LSAppLinkOpenState *)v4 setURL:v2];
+  [(_LSAppLinkOpenState *)v3 setURL:v2];
 
-  [(_LSAppLinkOpenState *)v4 setOpenConfiguration:*(a1 + 40)];
-  v3 = *(a1 + 32);
-  [objc_opt_class() _openWithAppLink:v3 state:v4 completionHandler:*(a1 + 48)];
+  [(_LSAppLinkOpenState *)v3 setOpenConfiguration:*(a1 + 40)];
+  [objc_opt_class() _openWithAppLink:*(a1 + 32) state:v3 completionHandler:*(a1 + 48)];
 }
 
 + (void)openWithURL:(id)l configuration:(id)configuration completionHandler:(id)handler
@@ -385,25 +436,25 @@ void __59__LSAppLink_Open__openWithConfiguration_completionHandler___block_invok
   lCopy = l;
   configurationCopy = configuration;
   handlerCopy = handler;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(handlerCopy v12)])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:361 description:@"Cannot call this method from within the Launch Services daemon."];
   }
 
   _dispatchQueue = [self _dispatchQueue];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__LSAppLink_Open__openWithURL_configuration_completionHandler___block_invoke;
-  v17[3] = &unk_1E6A1A520;
-  v18 = lCopy;
-  v19 = configurationCopy;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__LSAppLink_Open__openWithURL_configuration_completionHandler___block_invoke;
+  v18[3] = &unk_1E6A1A520;
+  v19 = lCopy;
+  v20 = configurationCopy;
+  v21 = handlerCopy;
   selfCopy = self;
-  v13 = handlerCopy;
-  v14 = configurationCopy;
-  v15 = lCopy;
-  dispatch_async(_dispatchQueue, v17);
+  v14 = handlerCopy;
+  v15 = configurationCopy;
+  v16 = lCopy;
+  dispatch_async(_dispatchQueue, v18);
 }
 
 void __63__LSAppLink_Open__openWithURL_configuration_completionHandler___block_invoke(uint64_t a1)
@@ -493,7 +544,7 @@ void __108__LSAppLink_OpenStrategy__openInWebBrowser_setOpenStrategy_webBrowserS
 
 void __108__LSAppLink_OpenStrategy__openInWebBrowser_setOpenStrategy_webBrowserState_configuration_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setOpenStrategy:*(a1 + 64)];
   v2 = objc_alloc_init(_LSAppLinkOpenState);
   v3 = [*(a1 + 32) URL];
@@ -503,26 +554,23 @@ void __108__LSAppLink_OpenStrategy__openInWebBrowser_setOpenStrategy_webBrowserS
   [(_LSAppLinkOpenState *)v2 setOpenConfiguration:*(a1 + 48)];
   if (*(a1 + 72) == 1)
   {
-    v9 = MEMORY[0x1E69E9820];
-    v10 = 3221225472;
-    v11 = __108__LSAppLink_OpenStrategy__openInWebBrowser_setOpenStrategy_webBrowserState_configuration_completionHandler___block_invoke_3;
-    v12 = &unk_1E6A19090;
-    v13 = *(a1 + 56);
+    v7 = MEMORY[0x1E69E9820];
+    v8 = 3221225472;
+    v9 = __108__LSAppLink_OpenStrategy__openInWebBrowser_setOpenStrategy_webBrowserState_configuration_completionHandler___block_invoke_3;
+    v10 = &unk_1E6A19090;
+    v11 = *(a1 + 56);
     v4 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:?];
     v5 = [*(a1 + 32) URL];
-    v14 = @"_LSAppLinkOpenStateLaunchOptionKey";
-    v15[0] = v2;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-    [v4 performOpenOperationWithURL:v5 fileHandle:0 bundleIdentifier:@"com.apple.mobilesafari" documentIdentifier:0 isContentManaged:0 sourceAuditToken:0 userInfo:0 options:v6 delegate:0 completionHandler:{*(a1 + 56), v9, v10, v11, v12}];
+    v12 = @"_LSAppLinkOpenStateLaunchOptionKey";
+    v13[0] = v2;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    [v4 performOpenOperationWithURL:v5 fileHandle:0 bundleIdentifier:@"com.apple.mobilesafari" documentIdentifier:0 isContentManaged:0 sourceAuditToken:0 userInfo:0 options:v6 delegate:0 completionHandler:{*(a1 + 56), v7, v8, v9, v10}];
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    [objc_opt_class() _openWithAppLink:v7 state:v2 completionHandler:*(a1 + 56)];
+    [objc_opt_class() _openWithAppLink:*(a1 + 32) state:v2 completionHandler:*(a1 + 56)];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __37__LSAppLink_Internal___dispatchQueue__block_invoke()
@@ -544,14 +592,14 @@ void __37__LSAppLink_Internal___dispatchQueue__block_invoke()
 
 + (id)_appLinksWithState:(id)state context:(LSContext *)context limit:(unint64_t)limit error:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v11 = [stateCopy URL];
   if (!v11 || (objc_opt_class(), (stateCopy == 0) | ((objc_opt_isKindOfClass() & 1) == 0)))
   {
-    v28 = *MEMORY[0x1E696A278];
-    v29[0] = @"invalid input parameters";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A278];
+    v28[0] = @"invalid input parameters";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v12, "+[LSAppLink(Internal) _appLinksWithState:context:limit:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 691);
     v20 = 0;
   }
@@ -559,9 +607,9 @@ void __37__LSAppLink_Internal___dispatchQueue__block_invoke()
   else
   {
     v12 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:v11 resolvingAgainstBaseURL:1];
-    v27 = 0;
-    v13 = [self URLComponentsAreValidForAppLinks:v12 error:&v27];
-    v14 = v27;
+    v26 = 0;
+    v13 = [self URLComponentsAreValidForAppLinks:v12 error:&v26];
+    v14 = v26;
     v15 = v14;
     if (v13)
     {
@@ -573,9 +621,9 @@ void __37__LSAppLink_Internal___dispatchQueue__block_invoke()
       lowercaseString2 = [host lowercaseString];
       [v12 setHost:lowercaseString2];
 
-      v26 = 0;
-      v20 = [self _appLinksWithState:stateCopy context:context limit:limit URLComponents:v12 error:&v26];
-      v21 = v26;
+      v25 = 0;
+      v20 = [self _appLinksWithState:stateCopy context:context limit:limit URLComponents:v12 error:&v25];
+      v21 = v25;
     }
 
     else
@@ -592,8 +640,6 @@ void __37__LSAppLink_Internal___dispatchQueue__block_invoke()
     v23 = v22;
     *error = v22;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -642,34 +688,35 @@ LABEL_3:
 
 + (void)_openWithAppLink:(id)link state:(id)state completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   stateCopy = state;
   handlerCopy = handler;
+  v13 = handlerCopy;
   if (!(linkCopy | stateCopy))
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSAppLink.mm" lineNumber:725 description:{@"Invalid parameter not satisfying: %@", @"appLink != nil || openState != nil"}];
   }
 
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) == 0)
+  if (([__LSDefaultsGetSharedInstance(handlerCopy v12)] & 1) == 0)
   {
-    v13 = &__block_literal_global_227;
-    if (handlerCopy)
+    v15 = &__block_literal_global_227;
+    if (v13)
     {
-      v13 = handlerCopy;
+      v15 = v13;
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __64__LSAppLink_Internal___openWithAppLink_state_completionHandler___block_invoke_2;
-    v29[3] = &unk_1E6A19090;
-    handlerCopy = v13;
-    v30 = handlerCopy;
-    v14 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v29];
-    [v14 openAppLink:linkCopy state:stateCopy completionHandler:handlerCopy];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __64__LSAppLink_Internal___openWithAppLink_state_completionHandler___block_invoke_2;
+    v33[3] = &unk_1E6A19090;
+    v13 = v15;
+    v34 = v13;
+    v16 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v33];
+    [v16 openAppLink:linkCopy state:stateCopy completionHandler:v13];
 
-    v12 = v30;
+    v14 = v34;
     goto LABEL_12;
   }
 
@@ -677,18 +724,18 @@ LABEL_3:
   {
     if (linkCopy)
     {
-      v12 = 0;
+      v14 = 0;
       goto LABEL_7;
     }
 
-    v28 = 0;
-    v17 = [self _appLinksWithState:stateCopy context:0 limit:1 error:&v28];
-    v12 = v28;
-    if (v17)
+    v32 = 0;
+    v18 = [self _appLinksWithState:stateCopy context:0 limit:1 error:&v32];
+    v14 = v32;
+    if (v18)
     {
-      if ([v17 count])
+      if ([v18 count])
       {
-        linkCopy = [v17 firstObject];
+        linkCopy = [v18 firstObject];
 
         if (linkCopy)
         {
@@ -696,7 +743,7 @@ LABEL_7:
           if ([linkCopy isEnabled])
           {
 LABEL_8:
-            [self _openAppLink:linkCopy state:stateCopy completionHandler:handlerCopy];
+            [self _openAppLink:linkCopy state:stateCopy completionHandler:v13];
             goto LABEL_12;
           }
 
@@ -705,25 +752,27 @@ LABEL_8:
 
           if (ignoreAppLinkEnabledProperty)
           {
-            auditToken = [stateCopy auditToken];
-            v21 = auditToken;
-            if (auditToken)
+            v21 = objc_msgSend_auditToken(stateCopy);
+            v22 = v21;
+            if (v21)
             {
-              if (_LSCheckEntitlementForAuditToken(auditToken, @"com.apple.private.canIgnoreAppLinkEnabledProperty"))
+              if (_LSCheckEntitlementForAuditToken(v21, @"com.apple.private.canIgnoreAppLinkEnabledProperty"))
               {
                 goto LABEL_8;
               }
 
-              if (_LSCheckEntitlementForAuditToken(v21, @"com.apple.private.canIgnoreAppLinkOpenStrategy"))
+              v23 = _LSCheckEntitlementForAuditToken(v22, @"com.apple.private.canIgnoreAppLinkOpenStrategy");
+              if (v23)
               {
-                if ([__LSDefaultsGetSharedInstance() isAppleInternal])
+                v25 = [__LSDefaultsGetSharedInstance(v23 v24)];
+                if (v25)
                 {
-                  v22 = _LSDefaultLog();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v26 = _LSDefaultLog(v25);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
-                    v23 = _LSGetPIDFromToken(v21);
-                    v24 = _LSCopyExecutableURLForAuditToken(v21);
-                    [(LSAppLink(Internal) *)v23 _openWithAppLink:v24 state:buf completionHandler:v22];
+                    v27 = _LSGetPIDFromToken(v22);
+                    v28 = _LSCopyExecutableURLForAuditToken(v22);
+                    [(LSAppLink(Internal) *)v27 _openWithAppLink:v28 state:buf completionHandler:v26];
                   }
                 }
 
@@ -732,53 +781,51 @@ LABEL_8:
             }
           }
 
-          if (handlerCopy)
+          if (v13)
           {
-            v25 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -912, 0, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 795);
-            (*(handlerCopy + 2))(handlerCopy, 0, v25);
+            v29 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -912, 0, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 795);
+            (*(v13 + 2))(v13, 0, v29);
           }
 
           goto LABEL_12;
         }
 
 LABEL_32:
-        if (handlerCopy)
+        if (v13)
         {
-          (*(handlerCopy + 2))(handlerCopy, 0, v12);
+          (*(v13 + 2))(v13, 0, v14);
         }
 
         linkCopy = 0;
         goto LABEL_12;
       }
 
-      v26 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 763);
+      v30 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 763);
 
-      v12 = v26;
+      v14 = v30;
     }
 
     goto LABEL_32;
   }
 
-  if (!handlerCopy)
+  if (!v13)
   {
     goto LABEL_13;
   }
 
-  v31 = *MEMORY[0x1E696A278];
-  v32 = @"invalid input parameters";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-  v16 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v12, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 809);
-  (*(handlerCopy + 2))(handlerCopy, 0, v16);
+  v35 = *MEMORY[0x1E696A278];
+  v36 = @"invalid input parameters";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+  v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v14, "+[LSAppLink(Internal) _openWithAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 809);
+  (*(v13 + 2))(v13, 0, v17);
 
 LABEL_12:
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_openAppLink:(id)link state:(id)state completionHandler:(id)handler
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   linkCopy = link;
   stateCopy = state;
   handlerCopy = handler;
@@ -808,18 +855,18 @@ LABEL_3:
   targetApplicationRecord = [linkCopy targetApplicationRecord];
   if ([targetApplicationRecord isSystemPlaceholder])
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __60__LSAppLink_Internal___openAppLink_state_completionHandler___block_invoke;
-    v33[3] = &unk_1E6A19090;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __60__LSAppLink_Internal___openAppLink_state_completionHandler___block_invoke;
+    v32[3] = &unk_1E6A19090;
     v13 = handlerCopy;
-    v34 = v13;
-    v14 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v33];
+    v33 = v13;
+    v14 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v32];
     bundleIdentifier = [targetApplicationRecord bundleIdentifier];
     v16 = [linkCopy URL];
     [v14 failedToOpenApplication:bundleIdentifier withURL:v16 completionHandler:v13];
 
-    v17 = v34;
+    v17 = v33;
 LABEL_18:
 
     goto LABEL_19;
@@ -829,15 +876,15 @@ LABEL_18:
 
   if (xPCConnection)
   {
-    v32 = 0;
-    v19 = [linkCopy _userActivityWithState:stateCopy error:&v32];
-    v20 = v32;
+    v31 = 0;
+    v19 = [linkCopy _userActivityWithState:stateCopy error:&v31];
+    v20 = v31;
     v21 = v20;
     if (v19)
     {
-      v31 = v20;
-      v22 = _LSGetDataForUserActivity(v19, &v31);
-      v17 = v31;
+      v30 = v20;
+      v22 = _LSGetDataForUserActivity(v19, &v30);
+      v17 = v30;
 
       if (v22)
       {
@@ -869,9 +916,9 @@ LABEL_18:
 
   if (handlerCopy)
   {
-    v35 = *MEMORY[0x1E696A278];
-    v36[0] = @"openState.XPCConnection";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A278];
+    v35[0] = @"openState.XPCConnection";
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v26 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "+[LSAppLink(Internal) _openAppLink:state:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 842);
     (*(handlerCopy + 2))(handlerCopy, 0, v26);
 
@@ -879,40 +926,38 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)URLComponentsAreValidForAppLinks:(id)links error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   linksCopy = links;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = +[_LSAppLinkPlugIn plugInClasses];
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v15 + 1) + 8 * i) canHandleURLComponents:linksCopy])
+        if ([*(*(&v14 + 1) + 8 * i) canHandleURLComponents:linksCopy])
         {
           v12 = 1;
           goto LABEL_16;
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -928,9 +973,9 @@ LABEL_19:
   {
     if (error)
     {
-      v19 = *MEMORY[0x1E696A980];
-      v20 = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696A980];
+      v19 = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A978], -1002, v11, "+[LSAppLink(Private) URLComponentsAreValidForAppLinks:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSAppLink.mm", 920);
     }
 
@@ -948,36 +993,35 @@ LABEL_15:
   *error = v12 = 0;
 LABEL_16:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (id)_appLinksWithState:(id)state context:(LSContext *)context limit:(unint64_t)limit URLComponents:(id)components error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   componentsCopy = components;
-  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = +[_LSAppLinkPlugIn plugInClasses];
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = 0;
-    v13 = *v30;
+    v13 = *v29;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         if ([(objc_class *)v15 canHandleURLComponents:componentsCopy])
         {
           v16 = objc_alloc_init(v15);
@@ -988,11 +1032,11 @@ LABEL_16:
 
             [v16 setLimit:limit];
             [v16 setState:stateCopy];
-            v28 = v12;
-            v18 = [v16 appLinksWithContext:context error:&v28];
-            v19 = v28;
+            v27 = v12;
+            v18 = [v16 appLinksWithContext:context error:&v27];
+            v19 = v27;
 
-            if (!v18 || ([v27 addObjectsFromArray:v18], v20 = objc_msgSend(v27, "count") < limit, v18, !v20))
+            if (!v18 || ([v26 addObjectsFromArray:v18], v20 = objc_msgSend(v26, "count") < limit, v18, !v20))
             {
 
               v12 = v19;
@@ -1009,7 +1053,7 @@ LABEL_16:
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v11)
       {
         continue;
@@ -1023,7 +1067,7 @@ LABEL_16:
     if (v12)
     {
 
-      v27 = 0;
+      v26 = 0;
       goto LABEL_24;
     }
   }
@@ -1032,11 +1076,11 @@ LABEL_16:
   {
   }
 
-  if ([v27 count])
+  if ([v26 count])
   {
-    if ([v27 count] > limit)
+    if ([v26 count] > limit)
     {
-      [v27 removeObjectsInRange:{limit, objc_msgSend(v27, "count") - limit}];
+      [v26 removeObjectsInRange:{limit, objc_msgSend(v26, "count") - limit}];
     }
 
     v12 = 0;
@@ -1048,15 +1092,13 @@ LABEL_16:
   }
 
 LABEL_24:
-  if (error && !v27)
+  if (error && !v26)
   {
     v21 = v12;
     *error = v12;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 - (id)_userActivityWithState:(id)state error:(id *)error

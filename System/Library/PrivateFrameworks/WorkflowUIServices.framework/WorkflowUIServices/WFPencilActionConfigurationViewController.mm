@@ -10,36 +10,36 @@
 - (void)configureSheetPresentationStyle
 {
   v3 = +[WFPencilActionConfigurationMetricsProvider sharedProvider];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  interfaceOrientation = [(WFPencilActionConfigurationViewController *)self interfaceOrientation];
+  v16 = 0u;
+  v14 = 0u;
+  [(WFPencilActionConfigurationViewController *)self interfaceOrientation];
   if (v3)
   {
-    [v3 metricsWithInterfaceOrientation:interfaceOrientation];
+    objc_msgSend_metricsWithInterfaceOrientation_(v3);
   }
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
+    v18 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v14 = 0u;
   }
 
   [(WFPencilActionConfigurationViewController *)self setModalPresentationStyle:2];
@@ -53,29 +53,29 @@
   [sheetPresentationController3 _setWantsBottomAttached:1];
 
   sheetPresentationController4 = [(WFPencilActionConfigurationViewController *)self sheetPresentationController];
-  [sheetPresentationController4 _setGrabberTopSpacing:*&v20];
+  [sheetPresentationController4 _setGrabberTopSpacing:*&v19];
 
   sheetPresentationController5 = [(WFPencilActionConfigurationViewController *)self sheetPresentationController];
-  v10 = *&v21;
+  v9 = *&v20;
   view = [(WFPencilActionConfigurationViewController *)self view];
   _UISheetMinimumTopInset();
-  [sheetPresentationController5 _setAdditionalMinimumTopInset:v10 - v12];
+  [sheetPresentationController5 _setAdditionalMinimumTopInset:v9 - v11];
 
   sheetPresentationController6 = [(WFPencilActionConfigurationViewController *)self sheetPresentationController];
-  [sheetPresentationController6 setPreferredCornerRadius:*(&v20 + 1)];
+  [sheetPresentationController6 setPreferredCornerRadius:*(&v19 + 1)];
 
-  v14[8] = v23;
-  v14[9] = v24;
-  v14[10] = v25;
-  v14[4] = v19;
-  v14[5] = v20;
-  v14[6] = v21;
-  v14[7] = v22;
-  v14[0] = v15;
-  v14[1] = v16;
-  v14[2] = v17;
-  v14[3] = v18;
-  [v3 sheetPreferredContentSizeWithMetrics:v14];
+  v13[8] = v22;
+  v13[9] = v23;
+  v13[10] = v24;
+  v13[4] = v18;
+  v13[5] = v19;
+  v13[6] = v20;
+  v13[7] = v21;
+  v13[0] = v14;
+  v13[1] = v15;
+  v13[2] = v16;
+  v13[3] = v17;
+  [v3 sheetPreferredContentSizeWithMetrics:v13];
   [(WFPencilActionConfigurationViewController *)self setPreferredContentSize:?];
 }
 

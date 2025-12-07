@@ -462,7 +462,7 @@
 - (void)setDurationSnapshot:(id *)snapshot
 {
   v21 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayUIGeneralLogging();
+  v5 = CarPlayUIGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     var3 = snapshot->var3;
@@ -605,13 +605,14 @@
 
 - (void)runUntilNextDisplayLinkEvent
 {
-  if ([(CADisplayLink *)self->_displayLink isPaused])
+  isPaused = [(CADisplayLink *)self->_displayLink isPaused];
+  if (isPaused)
   {
-    v3 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CarPlayUIGeneralLogging(isPaused);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_243134000, v3, OS_LOG_TYPE_DEFAULT, "Progress view animation resumed", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_243134000, v4, OS_LOG_TYPE_DEFAULT, "Progress view animation resumed", v5, 2u);
     }
 
     [(CADisplayLink *)self->_displayLink setPaused:0];
@@ -621,17 +622,21 @@
 - (void)pauseDisplayLinkIfNeeded
 {
   p_durationSnapshot = &self->_durationSnapshot;
-  if ((fabsf(self->_durationSnapshot.rate) <= 0.00000011921 || self->_durationSnapshot.isLiveContent) && ![(CADisplayLink *)self->_displayLink isPaused])
+  if (fabsf(self->_durationSnapshot.rate) <= 0.00000011921 || self->_durationSnapshot.isLiveContent)
   {
-    v4 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    isPaused = [(CADisplayLink *)self->_displayLink isPaused];
+    if ((isPaused & 1) == 0)
     {
-      *v6 = 0;
-      _os_log_impl(&dword_243134000, v4, OS_LOG_TYPE_DEFAULT, "Progress view animation paused", v6, 2u);
-    }
+      v5 = CarPlayUIGeneralLogging(isPaused);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *v7 = 0;
+        _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "Progress view animation paused", v7, 2u);
+      }
 
-    v5 = fabsf(p_durationSnapshot->rate) <= 0.00000011921 || p_durationSnapshot->isLiveContent;
-    [(CADisplayLink *)self->_displayLink setPaused:v5 & 1];
+      v6 = fabsf(p_durationSnapshot->rate) <= 0.00000011921 || p_durationSnapshot->isLiveContent;
+      [(CADisplayLink *)self->_displayLink setPaused:v6 & 1];
+    }
   }
 }
 

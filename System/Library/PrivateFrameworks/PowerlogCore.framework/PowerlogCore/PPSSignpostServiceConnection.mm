@@ -30,28 +30,28 @@
   return v2;
 }
 
-void __36__PPSSignpostServiceConnection_init__block_invoke()
+void __36__PPSSignpostServiceConnection_init__block_invoke(uint64_t a1)
 {
-  v0 = PPSLogSignpostController();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = PPSLogSignpostController(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __36__PPSSignpostServiceConnection_init__block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __36__PPSSignpostServiceConnection_init__block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
-void __36__PPSSignpostServiceConnection_init__block_invoke_14()
+void __36__PPSSignpostServiceConnection_init__block_invoke_14(uint64_t a1)
 {
-  v0 = PPSLogSignpostController();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = PPSLogSignpostController(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __36__PPSSignpostServiceConnection_init__block_invoke_14_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __36__PPSSignpostServiceConnection_init__block_invoke_14_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
 void __36__PPSSignpostServiceConnection_init__block_invoke_17(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = PPSLogSignpostController();
+  v3 = PPSLogSignpostController(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __36__PPSSignpostServiceConnection_init__block_invoke_17_cold_1(v2);
@@ -71,11 +71,10 @@ void __36__PPSSignpostServiceConnection_init__block_invoke_17(uint64_t a1, void 
 
 void __36__PPSSignpostServiceConnection_init__block_invoke_17_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
-  OUTLINED_FUNCTION_1_2(&dword_1D8611000, v2, v3, "Connection error occurred: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_2(&dword_1D8611000, v2, v3, "Connection error occurred: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

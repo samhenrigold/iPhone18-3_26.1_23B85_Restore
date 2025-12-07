@@ -7,28 +7,27 @@
 
 - (id)childProgressReporterToCheckpoint:(double)checkpoint
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (checkpoint > 1.0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     checkpointCopy2 = checkpoint;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: newCheckpoint (%f) > 1.0", &v9, 0xCu);
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: newCheckpoint (%f) > 1.0", &v8, 0xCu);
   }
 
   previousCheckpoint = self->_previousCheckpoint;
   if (previousCheckpoint > checkpoint && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = 134218240;
+    v8 = 134218240;
     checkpointCopy2 = checkpoint;
-    v11 = 2048;
-    v12 = previousCheckpoint;
-    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: newCheckpoint (%f) < _previousCheckpoint (%f)", &v9, 0x16u);
+    v10 = 2048;
+    v11 = previousCheckpoint;
+    _os_log_error_impl(&dword_255870000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "MAProgressReporter: newCheckpoint (%f) < _previousCheckpoint (%f)", &v8, 0x16u);
     previousCheckpoint = self->_previousCheckpoint;
   }
 
   v6 = [(MAProgressReporter *)self->_progressReporter childProgressReporterFromStart:previousCheckpoint toEnd:checkpoint];
   self->_previousCheckpoint = checkpoint;
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -97,7 +97,7 @@
 
   if (v6)
   {
-    type metadata accessor for PreferencePane();
+    type metadata accessor for PreferencePane(0);
     v4 = sub_25B716830();
   }
 
@@ -113,7 +113,7 @@
 {
   if (panes)
   {
-    type metadata accessor for PreferencePane();
+    type metadata accessor for PreferencePane(0);
     sub_25B716840();
   }
 
@@ -167,7 +167,6 @@
 
   v5 = OBJC_IVAR____TtC12NanoUniverse14PreferencePane_pickerOptions;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = optionsCopy;
 }
 
@@ -183,7 +182,7 @@
 {
   v4 = sub_25B7167D0();
   v6 = v5;
-  type metadata accessor for PreferencePane();
+  type metadata accessor for PreferencePane(0);
   v7 = sub_25B716840();
   PreferencePane.init(name:panes:)(v4, v6, v7);
   return result;
@@ -207,28 +206,27 @@
   v4 = sub_25B7167D0();
   v6 = v5;
   selfCopy = self;
-  sub_25B6FA948(v4, v6, v16);
+  sub_25B6FA948(v4, v6, v15);
 
-  v8 = v17;
-  if (v17)
+  v8 = v16;
+  if (v16)
   {
-    v9 = __swift_project_boxed_opaque_existential_0(v16, v17);
+    v9 = __swift_project_boxed_opaque_existential_0(v15, v16);
     v10 = *(v8 - 8);
-    v11 = *(v10 + 64);
     MEMORY[0x28223BE20](v9);
-    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v13);
-    v14 = sub_25B716AE0();
-    (*(v10 + 8))(v13, v8);
-    __swift_destroy_boxed_opaque_existential_0(v16);
+    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v12);
+    v13 = sub_25B716AE0();
+    (*(v10 + 8))(v12, v8);
+    __swift_destroy_boxed_opaque_existential_0(v15);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)set:(id)set forKey:(id)key
@@ -244,16 +242,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_25B7167D0();
+  v10 = sub_25B7167D0();
+  v12 = v11;
 
-  sub_25B6FAD6C(v10);
+  sub_25B6FAD6C(v13, v10, v12);
 
-  sub_25B6F6328(v10);
+  sub_25B6F6328(v13);
 }
 
 - (void)preferencePaneDidChangeWithPreference:(id)preference
@@ -276,7 +275,7 @@
 - (void)reset
 {
   selfCopy = self;
-  sub_25B6FB18C();
+  sub_25B6FB18C(selfCopy, v2);
 }
 
 - (_TtC12NanoUniverse14PreferencePane)init

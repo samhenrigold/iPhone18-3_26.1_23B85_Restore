@@ -9,7 +9,7 @@
 + (id)sharedInstance
 {
   objc_opt_self();
-  v0 = _MergedGlobals_39;
+  v1 = _MergedGlobals_39;
   if (!_MergedGlobals_39)
   {
     if (qword_280BCF580 != -1)
@@ -17,10 +17,10 @@
       dispatch_once(&qword_280BCF580, &__block_literal_global_5);
     }
 
-    v0 = _MergedGlobals_39;
+    v1 = _MergedGlobals_39;
   }
 
-  return v0;
+  return v1;
 }
 
 void __36__BCSIdentityService_sharedInstance__block_invoke()
@@ -52,7 +52,7 @@ void __36__BCSIdentityService_sharedInstance__block_invoke()
 
 - (id)businessChatAccount
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_businessChatAccount)
@@ -60,27 +60,27 @@ void __36__BCSIdentityService_sharedInstance__block_invoke()
     v3 = selfCopy->_IDSServiceFactory;
     makeIDSService = [(BCSIDSServiceFactoryProtocol *)v3 makeIDSService];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     accounts = [makeIDSService accounts];
-    v6 = [accounts countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [accounts countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = 0;
       v8 = 0;
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           if ([v11 accountType] == 1)
           {
             v12 = v11;
@@ -96,7 +96,7 @@ void __36__BCSIdentityService_sharedInstance__block_invoke()
           }
         }
 
-        v6 = [accounts countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [accounts countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
@@ -129,14 +129,13 @@ LABEL_18:
   objc_sync_exit(selfCopy);
 
   v17 = selfCopy->_businessChatAccount;
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (void)refreshIDStatusForBizID:(id)d completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   if (completionCopy)
@@ -146,7 +145,7 @@ LABEL_18:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __54__BCSIdentityService__addIDSIDQueryControllerDelegate__block_invoke;
-      v27 = &unk_278D38CC8;
+      v26 = &unk_278D38CC8;
       selfCopy = self;
       if (_addIDSIDQueryControllerDelegate_onceToken != -1)
       {
@@ -170,7 +169,7 @@ LABEL_18:
       *&buf[12] = 2048;
       *&buf[14] = v9;
       *&buf[22] = 2112;
-      v27 = dCopy;
+      v26 = dCopy;
       _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s Cached IDSIDStatus result: %ld for destination: %@", buf, 0x20u);
     }
 
@@ -187,15 +186,15 @@ LABEL_18:
         v11 = 0;
       }
 
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke_13;
-      v21[3] = &unk_278D39AA8;
-      v22 = dCopy;
-      [(BCSIDSQueryControllerProtocol *)v11 refreshIDStatusForDestination:v22 service:@"com.apple.private.alloy.biz" listenerID:@"com.apple.businesschatservice.bizItemController" queue:self completionBlock:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke_13;
+      v20[3] = &unk_278D39AA8;
+      v21 = dCopy;
+      [(BCSIDSQueryControllerProtocol *)v11 refreshIDStatusForDestination:v21 service:@"com.apple.private.alloy.biz" listenerID:@"com.apple.businesschatservice.bizItemController" queue:self completionBlock:v20];
 
       completionCopy[2](completionCopy, v9 == 1);
-      v12 = v22;
+      v12 = v21;
     }
 
     else
@@ -251,30 +250,28 @@ LABEL_18:
         serialDispatchQueue = 0;
       }
 
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke;
-      v23[3] = &unk_278D39A80;
-      v24 = dCopy;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke;
+      v22[3] = &unk_278D39A80;
+      v23 = dCopy;
       selfCopy2 = self;
-      [(BCSIDSQueryControllerProtocol *)v18 refreshIDStatusForDestination:v24 service:@"com.apple.private.alloy.biz" listenerID:@"com.apple.businesschatservice.bizItemController" queue:serialDispatchQueue completionBlock:v23];
+      [(BCSIDSQueryControllerProtocol *)v18 refreshIDStatusForDestination:v23 service:@"com.apple.private.alloy.biz" listenerID:@"com.apple.businesschatservice.bizItemController" queue:serialDispatchQueue completionBlock:v22];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = ABSLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 134218242;
-    v22 = a2;
-    v23 = 2112;
-    v24 = v5;
+    v21 = a2;
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "IDSIDStatus result: %ld for destination: %@", buf, 0x16u);
   }
 
@@ -283,35 +280,35 @@ void __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke(
   {
     v7 = [*(v6 + 24) objectForKey:*(a1 + 32)];
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:buf count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:buf count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
           if (a2)
           {
-            v14 = *(*(&v17 + 1) + 8 * i);
+            v14 = *(*(&v16 + 1) + 8 * i);
             (*(v14 + 16))(v14, a2 == 1);
             v15 = MEMORY[0x245D07100](v14);
-            [v8 addObject:{v15, v17}];
+            [v8 addObject:{v15, v16}];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:buf count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:buf count:16];
       }
 
       while (v11);
@@ -319,25 +316,21 @@ void __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke(
 
     [v9 minusSet:v8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __57__BCSIdentityService_refreshIDStatusForBizID_completion___block_invoke_13(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = ABSLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 134218242;
-    v8 = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "Refreshed IDSIDStatus result: %ld for destination: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_242072000, v4, OS_LOG_TYPE_DEFAULT, "Refreshed IDSIDStatus result: %ld for destination: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54__BCSIdentityService__addIDSIDQueryControllerDelegate__block_invoke(uint64_t a1)

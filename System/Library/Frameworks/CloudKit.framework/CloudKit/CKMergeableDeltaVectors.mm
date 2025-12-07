@@ -9,6 +9,7 @@
 - (CKMergeableDeltaVectors)initWithPreviousStateVector:(id)vector currentStateVector:(id)stateVector;
 - (CKMergeableDeltaVectors)initWithPreviousVector:(id)vector contentsVector:(id)contentsVector removalsVector:(id)removalsVector dependenciesVector:(id)dependenciesVector;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithStringSiteIdentifiers:(BOOL)identifiers usingSuperscripts:(BOOL)superscripts;
 - (unint64_t)hash;
 - (unint64_t)protobufSize;
 @end
@@ -106,7 +107,7 @@
 
 + (id)mergeableDeltaMetadataVectorsByCombiningVectors:(id)vectors
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   vectorsCopy = vectors;
   v4 = [CKMergeableDeltaVectors alloc];
   v5 = objc_opt_new();
@@ -115,27 +116,27 @@
   v8 = objc_opt_new();
   v10 = objc_msgSend_initWithPreviousVector_contentsVector_removalsVector_dependenciesVector_(v4, v9, v5, v6, v7, v8);
 
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
   v105 = 0u;
+  v106 = 0u;
+  v103 = 0u;
+  v104 = 0u;
   v11 = vectorsCopy;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v104, v108, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v103, v107, 16);
   if (v13)
   {
     v16 = v13;
-    v17 = *v105;
+    v17 = *v104;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v105 != v17)
+        if (*v104 != v17)
         {
           objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v104 + 1) + 8 * i);
-        v20 = objc_msgSend_previous(v10, v14, v15, v104);
+        v19 = *(*(&v103 + 1) + 8 * i);
+        v20 = objc_msgSend_previous(v10, v14, v15, v103);
         v23 = objc_msgSend_previous(v19, v21, v22);
         objc_msgSend_unionVector_(v20, v24, v23);
 
@@ -152,7 +153,7 @@
         objc_msgSend_unionVector_(v41, v45, v44);
       }
 
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v104, v108, 16);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v103, v107, 16);
     }
 
     while (v16);
@@ -190,8 +191,6 @@
     v100 = objc_opt_new();
     objc_msgSend_intersectVector_(v99, v101, v100);
   }
-
-  v102 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -358,6 +357,33 @@ LABEL_18:
   return v47 ^ 1;
 }
 
+- (id)descriptionWithStringSiteIdentifiers:(BOOL)identifiers usingSuperscripts:(BOOL)superscripts
+{
+  superscriptsCopy = superscripts;
+  identifiersCopy = identifiers;
+  v7 = objc_opt_new();
+  objc_msgSend_appendString_(v7, v8, @"{\n");
+  v11 = objc_msgSend_previous(self, v9, v10);
+  v13 = objc_msgSend_descriptionWithStringSiteIdentifiers_usingSuperscripts_(v11, v12, identifiersCopy, superscriptsCopy);
+  objc_msgSend_appendFormat_(v7, v14, @"  Previous: %@\n", v13);
+
+  v17 = objc_msgSend_contents(self, v15, v16);
+  v19 = objc_msgSend_descriptionWithStringSiteIdentifiers_usingSuperscripts_(v17, v18, identifiersCopy, superscriptsCopy);
+  objc_msgSend_appendFormat_(v7, v20, @"  Contents: %@\n", v19);
+
+  v23 = objc_msgSend_removals(self, v21, v22);
+  v25 = objc_msgSend_descriptionWithStringSiteIdentifiers_usingSuperscripts_(v23, v24, identifiersCopy, superscriptsCopy);
+  objc_msgSend_appendFormat_(v7, v26, @"  Removals: %@\n", v25);
+
+  v29 = objc_msgSend_dependencies(self, v27, v28);
+  v31 = objc_msgSend_descriptionWithStringSiteIdentifiers_usingSuperscripts_(v29, v30, identifiersCopy, superscriptsCopy);
+  objc_msgSend_appendFormat_(v7, v32, @"  Dependencies: %@\n", v31);
+
+  objc_msgSend_appendString_(v7, v33, @"}");
+
+  return v7;
+}
+
 + (id)pDistributedTimestampsFromDeltaMetadataVectors:(id)vectors
 {
   vectorsCopy = vectors;
@@ -377,74 +403,74 @@ LABEL_18:
 
 + (id)pDistributedTimestampsWithPreviousVector:(id)vector contentsVector:(id)contentsVector removalsVector:(id)removalsVector dependenciesVector:(id)dependenciesVector
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   contentsVectorCopy = contentsVector;
   removalsVectorCopy = removalsVector;
   dependenciesVectorCopy = dependenciesVector;
-  v60 = vectorCopy;
-  objc_sync_enter(v60);
-  v59 = contentsVectorCopy;
+  v59 = vectorCopy;
   objc_sync_enter(v59);
-  v58 = removalsVectorCopy;
+  v58 = contentsVectorCopy;
   objc_sync_enter(v58);
+  v57 = removalsVectorCopy;
+  objc_sync_enter(v57);
   v13 = dependenciesVectorCopy;
   objc_sync_enter(v13);
   v14 = objc_opt_new();
-  v56 = objc_msgSend_set(MEMORY[0x1E695DFA8], v15, v16);
-  if (v60)
-  {
-    v19 = objc_msgSend_allSiteIdentifiers(v60, v17, v18);
-    objc_msgSend_unionSet_(v56, v20, v19);
-  }
-
+  v55 = objc_msgSend_set(MEMORY[0x1E695DFA8], v15, v16);
   if (v59)
   {
-    v21 = objc_msgSend_allSiteIdentifiers(v59, v17, v18);
-    objc_msgSend_unionSet_(v56, v22, v21);
+    v19 = objc_msgSend_allSiteIdentifiers(v59, v17, v18);
+    objc_msgSend_unionSet_(v55, v20, v19);
+  }
+
+  if (v58)
+  {
+    v21 = objc_msgSend_allSiteIdentifiers(v58, v17, v18);
+    objc_msgSend_unionSet_(v55, v22, v21);
   }
 
   if (v13)
   {
     v23 = objc_msgSend_allSiteIdentifiers(v13, v17, v18);
-    objc_msgSend_unionSet_(v56, v24, v23);
+    objc_msgSend_unionSet_(v55, v24, v23);
   }
 
-  if (v58)
+  if (v57)
   {
-    v25 = objc_msgSend_allSiteIdentifiers(v58, v17, v18);
-    objc_msgSend_unionSet_(v56, v26, v25);
+    v25 = objc_msgSend_allSiteIdentifiers(v57, v17, v18);
+    objc_msgSend_unionSet_(v55, v26, v25);
   }
 
-  objc_msgSend_allObjects(v56, v17, v18);
+  objc_msgSend_allObjects(v55, v17, v18);
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  obj = v62 = 0u;
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v61, v65, 16);
+  v60 = 0u;
+  obj = v61 = 0u;
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v60, v64, 16);
   if (v29)
   {
-    v30 = *v62;
+    v30 = *v61;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v62 != v30)
+        if (*v61 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v61 + 1) + 8 * i);
+        v32 = *(*(&v60 + 1) + 8 * i);
         v33 = objc_msgSend_pSiteIdentifierFromSiteIdentifier_(CKDistributedSiteIdentifier, v28, v32);
         objc_msgSend_addSiteIdentifiers_(v14, v34, v33);
         v35 = objc_opt_new();
-        v37 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v36, v60, v32);
+        v37 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v36, v59, v32);
         objc_msgSend_setPreviousVector_(v35, v38, v37);
 
-        v40 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v39, v59, v32);
+        v40 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v39, v58, v32);
         objc_msgSend_setContentsVector_(v35, v41, v40);
 
-        v43 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v42, v58, v32);
+        v43 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v42, v57, v32);
         objc_msgSend_setRemovalsVector_(v35, v44, v43);
 
         v46 = objc_msgSend_pVersionVectorFromAttributedVector_siteIdentifier_(CKDistributedTimestampAttributedVector, v45, v13, v32);
@@ -456,19 +482,17 @@ LABEL_18:
         }
       }
 
-      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v61, v65, 16);
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v28, &v60, v64, 16);
     }
 
     while (v29);
   }
 
   objc_sync_exit(v13);
+  objc_sync_exit(v57);
+
   objc_sync_exit(v58);
-
   objc_sync_exit(v59);
-  objc_sync_exit(v60);
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

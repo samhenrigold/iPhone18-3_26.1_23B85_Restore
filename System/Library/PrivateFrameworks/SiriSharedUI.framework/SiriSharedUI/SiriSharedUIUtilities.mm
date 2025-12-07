@@ -725,8 +725,9 @@ LABEL_28:
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithInteger:a2];
+  v12 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21E3EB000, v6, v7, "%s unhandled siri session state: %@. Falling back to SUICOrbViewModeOff", v8, v9, v10, v11, 2u);
+  OUTLINED_FUNCTION_1(&dword_21E3EB000, v6, v7, "%s unhandled siri session state: %@. Falling back to SUICOrbViewModeOff", v8, v9, v10, v11, v12);
 }
 
 + (void)orbViewModeForSiriSessionState:(void *)a1 isAttending:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
@@ -734,8 +735,9 @@ LABEL_28:
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithInteger:a2];
+  v12 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_21E3EB000, v6, v7, "%s unhandled siri session state: %@. Falling back to SUICOrbViewModeOff", v8, v9, v10, v11, 2u);
+  OUTLINED_FUNCTION_1(&dword_21E3EB000, v6, v7, "%s unhandled siri session state: %@. Falling back to SUICOrbViewModeOff", v8, v9, v10, v11, v12);
 }
 
 @end

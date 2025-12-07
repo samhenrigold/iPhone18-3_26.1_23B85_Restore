@@ -101,9 +101,9 @@
 
 - (void)viewDidLoad
 {
-  v6.receiver = self;
-  v6.super_class = THNotesViewControllerPad;
-  [(THNotesViewController *)&v6 viewDidLoad];
+  v8.receiver = self;
+  v8.super_class = THNotesViewControllerPad;
+  [(THNotesViewController *)&v8 viewDidLoad];
   notesDetailViewController = [(THNotesViewController *)self notesDetailViewController];
   [(UINavigationController *)[(THNotesViewControllerPad *)self detailNavigationController] setViewControllers:[NSArray arrayWithObjects:&notesDetailViewController count:1]];
   notesSplitViewController = [(THNotesViewControllerPad *)self notesSplitViewController];
@@ -113,20 +113,20 @@
   [view setBackgroundColor:{+[UIColor bc_booksBackground](UIColor, "bc_booksBackground")}];
   [(THNotesViewControllerPad *)self addChildViewController:notesSplitViewController];
   [-[THNotesViewControllerPad view](self "view")];
-  v7[0] = [(THNotesViewControllerPad *)self masterNavigationController];
-  v7[1] = [(THNotesViewControllerPad *)self detailNavigationController];
-  [(UISplitViewController *)notesSplitViewController setViewControllers:[NSArray arrayWithObjects:v7 count:2]];
-  [(THNotesDetailTableViewController *)[(THNotesViewController *)self notesDetailViewController] setDelegate:self];
+  v9[0] = [(THNotesViewControllerPad *)self masterNavigationController];
+  v9[1] = [(THNotesViewControllerPad *)self detailNavigationController];
+  [(UISplitViewController *)notesSplitViewController setViewControllers:[NSArray arrayWithObjects:v9 count:2]];
+  v5 = [(THNotesDetailTableViewController *)[(THNotesViewController *)self notesDetailViewController] setDelegate:self];
   if (!self->_noSearchResultsViewController)
   {
     self->_noSearchResultsViewController = objc_alloc_init(THNotesNoSearchResultsViewController);
     [(THNotesDetailTableViewController *)[(THNotesViewController *)self notesDetailViewController] addChildViewController:[(THNotesViewControllerPad *)self noSearchResultsViewController]];
     view2 = [(THNotesNoSearchResultsViewController *)self->_noSearchResultsViewController view];
     [-[THNotesDetailTableViewController view](-[THNotesViewController notesDetailViewController](self "notesDetailViewController")];
-    [view2 setHidden:1];
+    v5 = [view2 setHidden:1];
   }
 
-  -[THNotesSidebarViewController setTitle:](-[THNotesViewController notesSidebarViewController](self, "notesSidebarViewController"), "setTitle:", [THBundle() localizedStringForKey:@"Chapters" value:&stru_471858 table:0]);
+  -[THNotesSidebarViewController setTitle:](-[THNotesViewController notesSidebarViewController](self, "notesSidebarViewController"), "setTitle:", [THBundle(v5 v6)]);
   [(THNotesViewControllerPad *)self p_layoutViewsForOrientation:[(THNotesViewControllerPad *)self p_interfaceOrientation] duration:0.0];
 }
 
@@ -327,20 +327,20 @@
   notesSidebarViewController = [(THNotesViewController *)self notesSidebarViewController];
   notesDetailViewController = [(THNotesViewController *)self notesDetailViewController];
   v10 = [UIBarButtonItem alloc];
-  v43 = editingCopy;
+  v46 = editingCopy;
   if (editingCopy)
   {
     self->_actionButtonItem = [v10 initWithBarButtonSystemItem:9 target:self action:"handleAction:"];
     self->_deleteButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:16 target:self action:"handleDelete:"];
     areAllNotesSelected = [(THNotesDetailTableViewController *)notesDetailViewController areAllNotesSelected];
-    v12 = [[NSSet alloc] initWithObjects:{-[THNotesViewControllerPad p_textForSelectAllButton:](self, "p_textForSelectAllButton:", 0), -[THNotesViewControllerPad p_textForSelectAllButton:](self, "p_textForSelectAllButton:", 1), 0}];
-    v13 = [UIBarButtonItem alloc];
-    v14 = [(THNotesViewControllerPad *)self p_textForSelectAllButton:areAllNotesSelected];
-    v15 = v13;
+    v13 = [[NSSet alloc] initWithObjects:{-[THNotesViewControllerPad p_textForSelectAllButton:](self, "p_textForSelectAllButton:", 0), -[THNotesViewControllerPad p_textForSelectAllButton:](self, "p_textForSelectAllButton:", 1), 0}];
+    v14 = [UIBarButtonItem alloc];
+    v15 = [(THNotesViewControllerPad *)self p_textForSelectAllButton:areAllNotesSelected];
+    v16 = v14;
     p_selectAllButtonItem = &self->_selectAllButtonItem;
-    v16 = [v15 initWithTitle:v14 style:0 target:self action:"handleSelectAll:"];
-    self->_selectAllButtonItem = v16;
-    [(UIBarButtonItem *)v16 setPossibleTitles:v12];
+    v17 = [v16 initWithTitle:v15 style:0 target:self action:"handleSelectAll:"];
+    self->_selectAllButtonItem = v17;
+    [(UIBarButtonItem *)v17 setPossibleTitles:v13];
     [(UIBarButtonItem *)self->_selectAllButtonItem setTag:areAllNotesSelected];
 
     [(THNotesViewControllerPad *)self p_updateEditButtons];
@@ -348,20 +348,21 @@
 
   else
   {
-    *p_studyButtonItem = [v10 initWithTitle:objc_msgSend(THBundle() style:"localizedStringForKey:value:table:" target:@"Study Cards" action:{&stru_471858, 0), 0, self, "handleStudy:"}];
-    *p_selectButtonItem = [[UIBarButtonItem alloc] initWithTitle:objc_msgSend(THBundle() style:"localizedStringForKey:value:table:" target:@"Select" action:{&stru_471858, 0), 0, self, "handleEdit:"}];
+    *p_studyButtonItem = [v10 initWithTitle:objc_msgSend(THBundle(v10 style:v11) target:"localizedStringForKey:value:table:" action:{@"Study Cards", &stru_471858, 0), 0, self, "handleStudy:"}];
+    v18 = [UIBarButtonItem alloc];
+    *p_selectButtonItem = [v18 initWithTitle:objc_msgSend(THBundle(v18 style:v19) target:"localizedStringForKey:value:table:" action:{@"Select", &stru_471858, 0), 0, self, "handleEdit:"}];
   }
 
-  v17 = [-[THNotesDetailTableViewController navigationController](notesDetailViewController "navigationController")];
-  v18 = notesSidebarViewController;
+  v20 = [-[THNotesDetailTableViewController navigationController](notesDetailViewController "navigationController")];
+  v21 = notesSidebarViewController;
   navigationItem = [(THNotesSidebarViewController *)notesSidebarViewController navigationItem];
   if (navigationItem)
   {
-    v20 = navigationItem;
+    v23 = navigationItem;
     if (collapsedCopy)
     {
-      v21 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"handleDone:"];
-      [v20 setRightBarButtonItem:v21];
+      v24 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"handleDone:"];
+      [v23 setRightBarButtonItem:v24];
     }
 
     else
@@ -373,75 +374,75 @@
   navigationItem2 = [(THNotesDetailTableViewController *)notesDetailViewController navigationItem];
   if (navigationItem2)
   {
-    v23 = navigationItem2;
-    v41 = notesDetailViewController;
-    v24 = p_selectAllButtonItem;
+    v26 = navigationItem2;
+    v44 = notesDetailViewController;
+    v27 = p_selectAllButtonItem;
     [navigationItem2 setLeftItemsSupplementBackButton:1];
-    v25 = objc_alloc_init(NSMutableArray);
-    v26 = objc_alloc_init(NSMutableArray);
-    v27 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"handleDone:"];
-    [v26 addObject:v27];
+    v28 = objc_alloc_init(NSMutableArray);
+    v29 = objc_alloc_init(NSMutableArray);
+    v30 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:0 target:self action:"handleDone:"];
+    [v29 addObject:v30];
 
-    if (v43)
+    if (v46)
     {
-      if (v17)
+      if (v20)
       {
-        [v25 addObject:self->_actionButtonItem];
-        v28 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
-        [v28 setWidth:20.0];
-        [v25 addObject:v28];
+        [v28 addObject:self->_actionButtonItem];
+        v31 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
+        [v31 setWidth:20.0];
+        [v28 addObject:v31];
 
         p_deleteButtonItem = &self->_deleteButtonItem;
-        v30 = v24;
+        v33 = v27;
 LABEL_13:
-        [v25 addObject:*p_deleteButtonItem];
-        [v26 addObject:*v30];
+        [v28 addObject:*p_deleteButtonItem];
+        [v29 addObject:*v33];
       }
     }
 
     else
     {
       p_deleteButtonItem = &self->_studyButtonItem;
-      v30 = &self->_selectButtonItem;
-      if (v17)
+      v33 = &self->_selectButtonItem;
+      if (v20)
       {
         goto LABEL_13;
       }
     }
 
-    [v23 setLeftBarButtonItems:v25];
-    [v23 setRightBarButtonItems:v26];
+    [v26 setLeftBarButtonItems:v28];
+    [v26 setRightBarButtonItems:v29];
 
-    v18 = notesSidebarViewController;
-    p_selectAllButtonItem = v24;
-    notesDetailViewController = v41;
+    v21 = notesSidebarViewController;
+    p_selectAllButtonItem = v27;
+    notesDetailViewController = v44;
   }
 
-  v31 = objc_alloc_init(NSMutableArray);
-  v32 = v31;
-  if ((v17 & 1) == 0)
+  v34 = objc_alloc_init(NSMutableArray);
+  v35 = v34;
+  if ((v20 & 1) == 0)
   {
-    v33 = &self->_studyButtonItem;
-    v34 = &self->_selectButtonItem;
-    if (v43)
+    v36 = &self->_studyButtonItem;
+    v37 = &self->_selectButtonItem;
+    if (v46)
     {
-      [v31 addObject:self->_actionButtonItem];
-      v35 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
-      [v35 setWidth:20.0];
-      [v32 addObject:v35];
+      [v34 addObject:self->_actionButtonItem];
+      v38 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:6 target:0 action:0];
+      [v38 setWidth:20.0];
+      [v35 addObject:v38];
 
-      v33 = &self->_deleteButtonItem;
-      v34 = p_selectAllButtonItem;
+      v36 = &self->_deleteButtonItem;
+      v37 = p_selectAllButtonItem;
     }
 
-    [v32 addObject:*v33];
-    v36 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:5 target:0 action:0];
-    [v32 addObject:v36];
+    [v35 addObject:*v36];
+    v39 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:5 target:0 action:0];
+    [v35 addObject:v39];
 
-    [v32 addObject:*v34];
+    [v35 addObject:*v37];
   }
 
-  [(THNotesDetailTableViewController *)notesDetailViewController setToolbarItems:v32];
+  [(THNotesDetailTableViewController *)notesDetailViewController setToolbarItems:v35];
 
   if (*p_studyButtonItem)
   {
@@ -450,15 +451,15 @@ LABEL_13:
 
   if (*p_selectButtonItem)
   {
-    providerIndex = [(THNotesSidebarViewController *)v18 providerIndex];
-    v38 = providerIndex != 0x7FFFFFFFFFFFFFFFLL && [-[NSArray objectAtIndex:](-[THNotesViewController sectionProviders](self "sectionProviders")] != 0;
-    [*p_selectButtonItem setEnabled:v38];
+    providerIndex = [(THNotesSidebarViewController *)v21 providerIndex];
+    v41 = providerIndex != 0x7FFFFFFFFFFFFFFFLL && [-[NSArray objectAtIndex:](-[THNotesViewController sectionProviders](self "sectionProviders")] != 0;
+    [*p_selectButtonItem setEnabled:v41];
   }
 
-  v39 = +[UIColor bc_booksKeyColor];
+  v42 = +[UIColor bc_booksKeyColor];
   view = [(THNotesViewControllerPad *)self view];
 
-  [view setTintColor:v39];
+  [view setTintColor:v42];
 }
 
 - (void)p_layoutViewsForOrientation:(int64_t)orientation duration:(double)duration
@@ -483,67 +484,69 @@ LABEL_13:
   providerIndex = [(THNotesSidebarViewController *)[(THNotesViewController *)self notesSidebarViewController] providerIndex];
   if (providerIndex != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = [(NSArray *)[(THNotesViewController *)self sectionProviders] objectAtIndex:providerIndex];
-    if ([-[THNotesViewController searchText](self "searchText")])
+    v11 = [(NSArray *)[(THNotesViewController *)self sectionProviders] objectAtIndex:providerIndex];
+    v4 = [-[THNotesViewController searchText](self "searchText")];
+    if (v4)
     {
-      annotationCount = [v8 annotationCount];
+      annotationCount = [v11 annotationCount];
       if (annotationCount == &dword_0 + 1)
       {
-        v10 = THBundle();
-        v11 = @"1 Result";
+        v12 = THBundle(1, v7);
+        v13 = @"1 Result";
         goto LABEL_13;
       }
 
-      v5 = annotationCount;
+      v8 = annotationCount;
       if (annotationCount)
       {
-        v6 = THBundle();
-        v7 = @"%lu Results";
+        v9 = THBundle(annotationCount, v7);
+        v10 = @"%lu Results";
         goto LABEL_15;
       }
 
 LABEL_9:
-      v10 = THBundle();
-      v11 = @"No Results Found";
+      v12 = THBundle(annotationCount, v7);
+      v13 = @"No Results Found";
 LABEL_13:
-      v12 = [v10 localizedStringForKey:v11 value:&stru_471858 table:0];
+      v14 = [v12 localizedStringForKey:v13 value:&stru_471858 table:0];
       goto LABEL_16;
     }
 
 LABEL_10:
-    v10 = THBundle();
-    v11 = @"My Notes";
+    v12 = THBundle(v4, v5);
+    v13 = @"My Notes";
     goto LABEL_13;
   }
 
-  if (![-[THNotesViewController searchText](self "searchText")])
+  v4 = [-[THNotesViewController searchText](self "searchText")];
+  if (!v4)
   {
     goto LABEL_10;
   }
 
-  numberOfNotes = [(THNotesViewController *)self numberOfNotes];
-  if (numberOfNotes == 1)
+  annotationCount = [(THNotesViewController *)self numberOfNotes];
+  if (annotationCount == &dword_0 + 1)
   {
-    v10 = THBundle();
-    v11 = @"All Chapters: 1 Result";
+    v12 = THBundle(1, v7);
+    v13 = @"All Chapters: 1 Result";
     goto LABEL_13;
   }
 
-  v5 = numberOfNotes;
-  if (!numberOfNotes)
+  v8 = annotationCount;
+  if (!annotationCount)
   {
     goto LABEL_9;
   }
 
-  v6 = THBundle();
-  v7 = @"All Chapters: %lu Results";
+  v9 = THBundle(annotationCount, v7);
+  v10 = @"All Chapters: %lu Results";
 LABEL_15:
-  v12 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", [v6 localizedStringForKey:v7 value:&stru_471858 table:0], v5);
+  v14 = +[NSString localizedStringWithFormat:](NSString, "localizedStringWithFormat:", [v9 localizedStringForKey:v10 value:&stru_471858 table:0], v8);
 LABEL_16:
-  v13 = v12;
+  v15 = v14;
   notesDetailViewController = [(THNotesViewController *)self notesDetailViewController];
 
-  [(THNotesDetailTableViewController *)notesDetailViewController setTitle:v13];
+  [(THNotesDetailTableViewController *)notesDetailViewController setTitle:v15];
 }
 
 - (void)endEditingDidDelete:(BOOL)delete
@@ -867,7 +870,7 @@ LABEL_16:
 
 - (id)p_textForSelectAllButton:(int64_t)button
 {
-  v4 = THBundle();
+  v4 = THBundle(self, a2);
   if (button)
   {
     v5 = @"Deselect All";

@@ -253,9 +253,9 @@
 
 - (_APRSManager)init
 {
-  v28.receiver = self;
-  v28.super_class = _APRSManager;
-  v2 = [(_APRSManager *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _APRSManager;
+  v2 = [(_APRSManager *)&v27 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.aprs", "appResume.manager");
@@ -295,22 +295,21 @@
     signpostReaderDate = v2->_signpostReaderDate;
     v2->_signpostReaderDate = v19;
 
-    v21 = v2->_signpostReaderDate;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v22 = v2->_signpostReaderDate;
+      v21 = v2->_signpostReaderDate;
       v2->_signpostReaderDate = 0;
     }
 
     [(_APRSManager *)v2 registerTasks];
-    v23 = +[_APRSBiomeAppKillEventWriter sharedInstance];
+    v22 = +[_APRSBiomeAppKillEventWriter sharedInstance];
     appKillEventWriter = v2->_appKillEventWriter;
-    v2->_appKillEventWriter = v23;
+    v2->_appKillEventWriter = v22;
 
-    v25 = +[_APRSBiomeEventAnalyzer sharedInstance];
+    v24 = +[_APRSBiomeEventAnalyzer sharedInstance];
     eventAnalyzer = v2->_eventAnalyzer;
-    v2->_eventAnalyzer = v25;
+    v2->_eventAnalyzer = v24;
   }
 
   return v2;

@@ -555,7 +555,7 @@ LABEL_3:
   v10 = getCurrentTransform;
   if (getCurrentTransform)
   {
-    [getCurrentTransform getTransformMatrix];
+    objc_msgSend_getTransformMatrix(getCurrentTransform);
   }
 
   else
@@ -1031,7 +1031,7 @@ LABEL_19:
       v10 = getCurrentTransform;
       if (getCurrentTransform)
       {
-        [getCurrentTransform getTransformMatrix];
+        objc_msgSend_getTransformMatrix(getCurrentTransform);
       }
 
       else

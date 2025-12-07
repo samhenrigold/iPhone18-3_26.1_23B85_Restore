@@ -47,11 +47,10 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v6.receiver = self;
-  v6.super_class = DAEventDevice;
+  v4.receiver = self;
+  v4.super_class = DAEventDevice;
   objectCopy = object;
-  [(DAEvent *)&v6 encodeWithXPCObject:objectCopy];
-  device = self->_device;
+  [(DAEvent *)&v4 encodeWithXPCObject:objectCopy];
   CUXPCEncodeObject();
 }
 
@@ -97,40 +96,42 @@
     v5 = 12;
   }
 
-  v16 = v5;
-  v15.receiver = self;
-  v15.super_class = DAEventDevice;
-  v6 = [(DAEvent *)&v15 descriptionWithLevel:?];
+  v19 = v5;
+  v18.receiver = self;
+  v18.super_class = DAEventDevice;
+  v6 = [(DAEvent *)&v18 descriptionWithLevel:?];
   v7 = [v6 mutableCopy];
 
   if ((level & 0x8000000) == 0)
   {
-    objc_opt_class();
-    CUAppendF();
-    v8 = v7;
+    v17 = v7;
+    v8 = objc_opt_class();
+    CUAppendF(&v17, &v19, "%@", v8);
+    v9 = v17;
 
-    v7 = v8;
+    v7 = v9;
   }
 
   device = self->_device;
   if (device)
   {
-    v14 = device;
-    CUAppendF();
-    v10 = v7;
+    v16 = v7;
+    v11 = device;
+    CUAppendF(&v16, &v19, "device %@", v11);
+    v12 = v16;
 
-    v7 = v10;
+    v7 = v12;
   }
 
-  v11 = &stru_285B4C350;
+  v13 = &stru_285B4C350;
   if (v7)
   {
-    v11 = v7;
+    v13 = v7;
   }
 
-  v12 = v11;
+  v14 = v13;
 
-  return v12;
+  return v14;
 }
 
 - (DAEventDevice)initWithXPCObject:(id)object error:(id *)error
@@ -154,10 +155,10 @@
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v12 = objc_opt_class();
+  v6 = objc_opt_class();
   v3 = OUTLINED_FUNCTION_8();
-  v11 = DAErrorF(v3, v4, v5, v6, v7, v8, v9, v10, v12);
-  OUTLINED_FUNCTION_3_0(v11);
+  v5 = DAErrorF(v3, v4, v6);
+  OUTLINED_FUNCTION_3_0(v5);
 }
 
 @end

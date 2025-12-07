@@ -37,23 +37,22 @@
 - (_EXExtensionInstanceIdentifier)initWithIdentifier:(id)identifier
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v11 - v6;
+  v6 = &v10 - v5;
   if (identifier)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = type metadata accessor for UUID();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v7 = type metadata accessor for UUID();
+    (*(*(v7 - 8) + 56))(v6, 0, 1, v7);
   }
 
   else
   {
-    v9 = type metadata accessor for UUID();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v8 = type metadata accessor for UUID();
+    (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
   }
 
-  return _EXExtensionInstanceIdentifier.init(instanceIdentifier:)(v7);
+  return _EXExtensionInstanceIdentifier.init(instanceIdentifier:)(v6);
 }
 
 - (NSString)description
@@ -61,16 +60,16 @@
   selfCopy = self;
   _StringGuts.grow(_:)(36);
 
-  type metadata accessor for UUID();
-  lazy protocol witness table accessor for type UUID and conformance UUID();
-  v3 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1865F37A0](v3);
+  v3 = type metadata accessor for UUID();
+  lazy protocol witness table accessor for type UUID and conformance UUID(v3, v4);
+  v5 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1865F37A0](v5);
 
   MEMORY[0x1865F37A0](93, 0xE100000000000000);
 
-  v4 = MEMORY[0x1865F36D0](0xD000000000000021, 0x80000001848C4AD0);
+  v6 = MEMORY[0x1865F36D0](0xD000000000000021, 0x80000001848C4AD0);
 
-  return v4;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -86,24 +85,23 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for NSDictionary(0, &lazy cache variable for type metadata for NSUUID, 0x1E696AFB0);
   coderCopy = coder;
   result = NSCoder.decodeObject<A>(of:forKey:)();
   if (result)
   {
-    v12 = result;
+    v11 = result;
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-    (*(v6 + 32))(self + OBJC_IVAR____EXExtensionInstanceIdentifier_identifier, v9, v5);
-    v13 = type metadata accessor for _EXExtensionInstanceIdentifier();
-    v15.receiver = self;
-    v15.super_class = v13;
-    v14 = [(_EXExtensionInstanceIdentifier *)&v15 init];
+    (*(v6 + 32))(self + OBJC_IVAR____EXExtensionInstanceIdentifier_identifier, v8, v5);
+    v12 = type metadata accessor for _EXExtensionInstanceIdentifier(0);
+    v14.receiver = self;
+    v14.super_class = v12;
+    v13 = [(_EXExtensionInstanceIdentifier *)&v14 init];
 
-    return v14;
+    return v13;
   }
 
   else
@@ -118,29 +116,27 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
   isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
-  v9 = [(_EXExtensionInstanceIdentifier *)self initWithIdentifier:isa];
+  (*(v4 + 8))(v6, v3);
+  v8 = [(_EXExtensionInstanceIdentifier *)self initWithIdentifier:isa];
 
-  return v9;
+  return v8;
 }
 
 - (NSUUID)identifier
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____EXExtensionInstanceIdentifier_identifier, v3);
-  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____EXExtensionInstanceIdentifier_identifier, v3);
+  v7.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v8.super.isa;
+  return v7.super.isa;
 }
 
 - (BOOL)isDefault

@@ -69,22 +69,21 @@
 - (NSURL)px_assetDirectory
 {
   v3 = sub_100004120(&unk_10004A5E0, &qword_100035720);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v13 - v5;
+  v5 = &v12 - v4;
   selfCopy = self;
-  sub_100006DC4(v6);
+  sub_100006DC4(v5);
 
-  v8 = sub_10002F1B4();
-  v10 = 0;
-  if (sub_1000103D4(v6, 1, v8) != 1)
+  v7 = sub_10002F1B4();
+  v9 = 0;
+  if (sub_1000103D4(v5, 1, v7) != 1)
   {
-    sub_10002F134(v9);
-    v10 = v11;
-    (*(*(v8 - 8) + 8))(v6, v8);
+    sub_10002F134(v8);
+    v9 = v10;
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
-  return v10;
+  return v9;
 }
 
 - (int64_t)px_backlightLuminance

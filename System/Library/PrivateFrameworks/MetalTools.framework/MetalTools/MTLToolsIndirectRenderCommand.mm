@@ -53,6 +53,8 @@
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setTriangleFillMode:(unint64_t)mode;
 - (void)setVertexBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index;
 - (void)setVertexBuffer:(id)buffer offset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index;
@@ -326,6 +328,23 @@
   *&v11 = clamp;
 
   [baseObject setDepthBias:v9 slopeScale:v10 clamp:v11];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilFrontReferenceValue:v5 backReferenceValue:v4];
+}
+
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilReferenceValue:v3];
 }
 
 - (void)setDepthClipMode:(unint64_t)mode

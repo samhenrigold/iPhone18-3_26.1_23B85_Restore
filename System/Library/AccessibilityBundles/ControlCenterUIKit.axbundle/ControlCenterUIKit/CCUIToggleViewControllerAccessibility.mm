@@ -55,9 +55,8 @@ LABEL_9:
 
 Method __79__CCUIToggleViewControllerAccessibility__accessibilityControlCenterButtonLabel__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  Superclass = class_getSuperclass(v2);
+  v1 = objc_opt_class();
+  Superclass = class_getSuperclass(v1);
   result = class_getInstanceMethod(Superclass, sel__accessibilityControlCenterButtonLabel);
   _accessibilityControlCenterButtonLabel_superclassMethodAvailable = result != 0;
   if (!result)
@@ -106,9 +105,8 @@ LABEL_9:
 
 Method __84__CCUIToggleViewControllerAccessibility__accessibilityControlCenterButtonIdentifier__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  Superclass = class_getSuperclass(v2);
+  v1 = objc_opt_class();
+  Superclass = class_getSuperclass(v1);
   result = class_getInstanceMethod(Superclass, sel__accessibilityControlCenterButtonIdentifier);
   _accessibilityControlCenterButtonIdentifier_superclassMethodAvailable = result != 0;
   if (!result)
@@ -157,9 +155,8 @@ LABEL_9:
 
 Method __78__CCUIToggleViewControllerAccessibility__accessibilityControlCenterButtonHint__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  Superclass = class_getSuperclass(v2);
+  v1 = objc_opt_class();
+  Superclass = class_getSuperclass(v1);
   result = class_getInstanceMethod(Superclass, sel__accessibilityControlCenterButtonHint);
   _accessibilityControlCenterButtonHint_superclassMethodAvailable = result != 0;
   if (!result)

@@ -11,10 +11,10 @@
   queriesCopy = queries;
   connectionCopy = connection;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(dictionary v7)])
   {
-    v7 = _LSServer_DatabaseExecutionContext();
-    [(LSDBExecutionContext *)v7 assertActiveForThisThread];
+    v8 = _LSServer_DatabaseExecutionContext();
+    [(LSDBExecutionContext *)v8 assertActiveForThisThread];
   }
 
   v38 = 0u;
@@ -22,13 +22,13 @@
   v36 = 0u;
   v37 = 0u;
   obj = queriesCopy;
-  v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (v9)
   {
     v19 = *v37;
     v18 = 0;
 LABEL_5:
-    v9 = 0;
+    v10 = 0;
     while (1)
     {
       if (*v37 != v19)
@@ -36,7 +36,7 @@ LABEL_5:
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v36 + 1) + 8 * v9);
+      v11 = *(*(&v36 + 1) + 8 * v10);
       v30 = 0;
       v31 = &v30;
       v32 = 0x3032000000;
@@ -55,33 +55,33 @@ LABEL_5:
       v23[3] = &unk_1E6A1DAC0;
       v23[4] = &v30;
       v23[5] = &v24;
-      [(_LSLocalQueryResolver *)self _enumerateResolvedResultsOfQuery:v10 XPCConnection:connectionCopy withBlock:v23];
-      v11 = v31[5];
-      if (v11)
+      [(_LSLocalQueryResolver *)self _enumerateResolvedResultsOfQuery:v11 XPCConnection:connectionCopy withBlock:v23];
+      v12 = v31[5];
+      if (v12)
       {
-        [dictionary setObject:v31[5] forKeyedSubscript:v10];
+        [dictionary setObject:v31[5] forKeyedSubscript:v11];
       }
 
       else
       {
 
-        v12 = v25[5];
+        v13 = v25[5];
         dictionary = 0;
-        v18 = v12;
+        v18 = v13;
       }
 
       _Block_object_dispose(&v24, 8);
 
       _Block_object_dispose(&v30, 8);
-      if (!v11)
+      if (!v12)
       {
         break;
       }
 
-      if (v8 == ++v9)
+      if (v9 == ++v10)
       {
-        v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-        if (v8)
+        v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v9)
         {
           goto LABEL_5;
         }
@@ -98,66 +98,65 @@ LABEL_5:
 
   if (error && !dictionary)
   {
-    v13 = v18;
+    v14 = v18;
     *error = v18;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 - (void)_enumerateResolvedResultsOfQuery:(id)query XPCConnection:(id)connection withBlock:(id)block
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   connectionCopy = connection;
   blockCopy = block;
-  isInXCTestRigInsecure = [__LSDefaultsGetSharedInstance() isInXCTestRigInsecure];
-  if (((queryCopy != 0) & isInXCTestRigInsecure) != 1)
+  v11 = [__LSDefaultsGetSharedInstance(blockCopy v10)];
+  if (((queryCopy != 0) & v11) != 1)
   {
     goto LABEL_12;
   }
 
-  v11 = objc_autoreleasePoolPush();
-  v41 = 0;
-  v12 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:queryCopy requiringSecureCoding:1 error:&v41];
-  v13 = v41;
-  if (!v12)
+  v12 = objc_autoreleasePoolPush();
+  v44 = 0;
+  v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:queryCopy requiringSecureCoding:1 error:&v44];
+  v14 = v44;
+  v15 = v14;
+  if (!v13)
   {
-    v16 = _LSDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = _LSDefaultLog(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(_LSLocalQueryResolver *)v13 _enumerateResolvedResultsOfQuery:v16 XPCConnection:v17 withBlock:v18, v19, v20, v21, v22];
+      [(_LSLocalQueryResolver *)v15 _enumerateResolvedResultsOfQuery:v19 XPCConnection:v20 withBlock:v21, v22, v23, v24, v25];
     }
 
     goto LABEL_10;
   }
 
-  v40 = v13;
-  v14 = [MEMORY[0x1E696ACD0] ls_unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v40];
-  v15 = v40;
+  v43 = v14;
+  v16 = [MEMORY[0x1E696ACD0] ls_unarchivedObjectOfClass:objc_opt_class() fromData:v13 error:&v43];
+  v17 = v43;
 
-  if (!v14)
+  if (!v16)
   {
-    v16 = _LSDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = _LSDefaultLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(_LSLocalQueryResolver *)v15 _enumerateResolvedResultsOfQuery:v16 XPCConnection:v23 withBlock:v24, v25, v26, v27, v28];
+      [(_LSLocalQueryResolver *)v17 _enumerateResolvedResultsOfQuery:v19 XPCConnection:v26 withBlock:v27, v28, v29, v30, v31];
     }
 
     queryCopy = 0;
-    v13 = v15;
+    v15 = v17;
 LABEL_10:
 
     goto LABEL_11;
   }
 
-  v13 = v15;
-  queryCopy = v14;
+  v15 = v17;
+  queryCopy = v16;
 LABEL_11:
 
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v12);
 LABEL_12:
   if (!queryCopy || ![queryCopy _requiresDatabaseMappingEntitlement])
   {
@@ -167,87 +166,87 @@ LABEL_12:
   if (connectionCopy)
   {
     _xpcConnection = [connectionCopy _xpcConnection];
-    v30 = _LSXPCConnectionMayMapDatabase(_xpcConnection) == 0;
+    v33 = _LSXPCConnectionMayMapDatabase(_xpcConnection) == 0;
   }
 
   else
   {
-    v30 = 0;
+    v33 = 0;
   }
 
-  if (((v30 | isInXCTestRigInsecure ^ 1) & 1) == 0)
+  if (((v33 | v11 ^ 1) & 1) == 0)
   {
-    v30 = +[_LSQueryContext simulateLimitedMappingForXCTests];
+    v33 = +[_LSQueryContext simulateLimitedMappingForXCTests];
   }
 
-  if (!v30)
+  if (!v33)
   {
     goto LABEL_24;
   }
 
-  if ([queryCopy isLegacy])
+  isLegacy = [queryCopy isLegacy];
+  if (isLegacy)
   {
-    v31 = _LSDefaultLog();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v35 = _LSDefaultLog(isLegacy);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       processIdentifier = [connectionCopy processIdentifier];
       *buf = 138543618;
       *&buf[4] = queryCopy;
       *&buf[12] = 1024;
       *&buf[14] = processIdentifier;
-      _os_log_impl(&dword_18162D000, v31, OS_LOG_TYPE_DEFAULT, "Unentitled query %{public}@ issued from pid %i. Allowing due to legacy SPI.", buf, 0x12u);
+      _os_log_impl(&dword_18162D000, v35, OS_LOG_TYPE_DEFAULT, "Unentitled query %{public}@ issued from pid %i. Allowing due to legacy SPI.", buf, 0x12u);
     }
 
 LABEL_24:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v45 = 0;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __82___LSLocalQueryResolver__enumerateResolvedResultsOfQuery_XPCConnection_withBlock___block_invoke;
-    v37[3] = &unk_1E6A1DAE8;
-    v39 = buf;
-    v38 = blockCopy;
-    [queryCopy _enumerateWithXPCConnection:connectionCopy block:v37];
-    v33 = v38;
+    v48 = 0;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __82___LSLocalQueryResolver__enumerateResolvedResultsOfQuery_XPCConnection_withBlock___block_invoke;
+    v40[3] = &unk_1E6A1DAE8;
+    v42 = buf;
+    v41 = blockCopy;
+    [queryCopy _enumerateWithXPCConnection:connectionCopy block:v40];
+    v37 = v41;
     goto LABEL_25;
   }
 
-  v35 = _LSDefaultLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v38 = _LSDefaultLog(isLegacy);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
-    -[_LSLocalQueryResolver _enumerateResolvedResultsOfQuery:XPCConnection:withBlock:].cold.3(queryCopy, v46, [connectionCopy processIdentifier], v35);
+    -[_LSLocalQueryResolver _enumerateResolvedResultsOfQuery:XPCConnection:withBlock:].cold.3(queryCopy, v49, [connectionCopy processIdentifier], v38);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v45 = 0;
-  v42 = *MEMORY[0x1E696A278];
-  v43 = @"Query not allowed";
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-  v33 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v36, "[_LSLocalQueryResolver _enumerateResolvedResultsOfQuery:XPCConnection:withBlock:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSQuery/LSQueryContext.mm", 308);
+  v48 = 0;
+  v45 = *MEMORY[0x1E696A278];
+  v46 = @"Query not allowed";
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+  v37 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -54, v39, "[_LSLocalQueryResolver _enumerateResolvedResultsOfQuery:XPCConnection:withBlock:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSQuery/LSQueryContext.mm", 308);
 
-  (*(blockCopy + 2))(blockCopy, 0, v33, *&buf[8] + 24);
+  (*(blockCopy + 2))(blockCopy, 0, v37, *&buf[8] + 24);
 LABEL_25:
 
   _Block_object_dispose(buf, 8);
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateResolvedResultsOfQuery:(uint64_t)a3 XPCConnection:(uint64_t)a4 withBlock:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to decode query: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to decode query: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_enumerateResolvedResultsOfQuery:(uint64_t)a3 XPCConnection:(uint64_t)a4 withBlock:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to encode query: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to encode query: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_enumerateResolvedResultsOfQuery:(int)a3 XPCConnection:(os_log_t)log withBlock:.cold.3(uint64_t a1, uint8_t *buf, int a3, os_log_t log)

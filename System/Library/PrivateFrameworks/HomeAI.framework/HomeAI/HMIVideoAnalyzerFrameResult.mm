@@ -55,57 +55,44 @@
   redactedCopy = [frame redactedCopy];
   events = [(HMIVideoAnalyzerFrameResult *)self events];
   [(HMIVideoAnalyzerFrameResult *)self regionOfInterest];
-  v7 = [v3 initWithFrame:redactedCopy events:events regionOfInterest:?];
+  v7 = [v3 initWithFrame:? events:? regionOfInterest:?];
 
   return v7;
 }
 
 - (id)attributeDescriptions
 {
-  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   frame = [(HMIVideoAnalyzerFrameResult *)self frame];
-  v5 = [v3 initWithName:@"Frame" value:frame];
+  v5 = [v3 initWithName:? value:?];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   events = [(HMIVideoAnalyzerFrameResult *)self events];
-  v8 = [v6 initWithName:@"Events" value:events];
-  v14[1] = v8;
-  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v12 = [v6 initWithName:? value:?];
+  v8 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMIVideoAnalyzerFrameResult *)self regionOfInterest];
-  v10 = NSStringFromRect(v16);
-  v11 = [v9 initWithName:@"Region of Interest" value:v10];
-  v14[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v9 = NSStringFromRect(v15);
+  v13 = [v8 initWithName:? value:?];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v12;
+  return v10;
 }
 
 - (id)maxConfidenceEventForEventClass:(Class)class
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__0;
-  v14 = __Block_byref_object_dispose__0;
-  v15 = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x3032000000;
+  v10 = __Block_byref_object_copy__0;
+  v11 = __Block_byref_object_dispose__0;
+  v12 = 0;
   events = [(HMIVideoAnalyzerFrameResult *)self events];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __63__HMIVideoAnalyzerFrameResult_maxConfidenceEventForEventClass___block_invoke;
-  v9[3] = &__block_descriptor_40_e31_B16__0__HMIVideoAnalyzerEvent_8lu32l8;
-  v9[4] = class;
-  v5 = [events na_filter:v9];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__HMIVideoAnalyzerFrameResult_maxConfidenceEventForEventClass___block_invoke_2;
-  v8[3] = &unk_278752EF8;
-  v8[4] = &v10;
-  [v5 na_each:v8];
+  v4 = [events na_filter:?];
+  [v4 na_each:{MEMORY[0x277D85DD0], 3221225472, __63__HMIVideoAnalyzerFrameResult_maxConfidenceEventForEventClass___block_invoke_2, &unk_278752EF8, &v7}];
 
-  v6 = v11[5];
-  _Block_object_dispose(&v10, 8);
+  v5 = v8[5];
+  _Block_object_dispose(&v7, 8);
 
-  return v6;
+  return v5;
 }
 
 void __63__HMIVideoAnalyzerFrameResult_maxConfidenceEventForEventClass___block_invoke_2(uint64_t a1, void *a2)
@@ -138,15 +125,10 @@ LABEL_5:
 
 - (id)maxConfidenceEvents
 {
-  v3 = +[HMIVideoAnalyzerEvent eventClasses];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __50__HMIVideoAnalyzerFrameResult_maxConfidenceEvents__block_invoke;
-  v6[3] = &unk_278752F20;
-  v6[4] = self;
-  v4 = [v3 na_map:v6];
+  v2 = +[HMIVideoAnalyzerEvent eventClasses];
+  v3 = [v2 na_map:?];
 
-  return v4;
+  return v3;
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)time
@@ -154,7 +136,7 @@ LABEL_5:
   result = self->_frame;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result presentationTimeStamp];
+    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)retstr presentationTimeStamp];
   }
 
   retstr->var0 = 0;
@@ -165,8 +147,8 @@ LABEL_5:
 
 + (id)combineFrameResults:(id)results withResults:(id)withResults
 {
-  v4 = [results arrayByAddingObjectsFromArray:withResults];
-  v5 = [v4 sortedArrayUsingComparator:&__block_literal_global_6];
+  v4 = [results arrayByAddingObjectsFromArray:?];
+  v5 = [v4 sortedArrayUsingComparator:?];
   v6 = [v5 mutableCopy];
 
   if ([v6 count] >= 2)
@@ -175,12 +157,12 @@ LABEL_5:
     v8 = 1;
     do
     {
-      v9 = [v6 objectAtIndexedSubscript:{v7, v32.value, *&v32.timescale, v32.epoch, time1.value, *&time1.timescale, time1.epoch}];
-      v10 = [v6 objectAtIndexedSubscript:v8];
+      v9 = [v6 objectAtIndexedSubscript:{v32.value, *&v32.timescale, v32.epoch, time1.value, *&time1.timescale, time1.epoch}];
+      v10 = [v6 objectAtIndexedSubscript:?];
       v11 = v10;
       if (v9)
       {
-        [v9 time];
+        [&time1 time];
         if (!v11)
         {
           goto LABEL_7;
@@ -198,7 +180,7 @@ LABEL_7:
         }
       }
 
-      [v11 time];
+      [&v32 time];
 LABEL_8:
       if (CMTimeCompare(&time1, &v32))
       {
@@ -211,26 +193,26 @@ LABEL_8:
         frame = [v9 frame];
         events = [v9 events];
         events2 = [v11 events];
-        v16 = [events setByAddingObjectsFromSet:events2];
+        v16 = [events setByAddingObjectsFromSet:?];
         [v9 regionOfInterest];
         v18 = v17;
         v20 = v19;
         v22 = v21;
         v24 = v23;
         [v11 regionOfInterest];
-        v37.origin.x = v25;
-        v37.origin.y = v26;
-        v37.size.width = v27;
-        v37.size.height = v28;
+        v36.origin.x = v25;
+        v36.origin.y = v26;
+        v36.size.width = v27;
+        v36.size.height = v28;
         v35.origin.x = v18;
         v35.origin.y = v20;
         v35.size.width = v22;
         v35.size.height = v24;
-        v36 = CGRectUnion(v35, v37);
-        v29 = [(HMIVideoAnalyzerFrameResult *)v12 initWithFrame:frame events:v16 regionOfInterest:v36.origin.x, v36.origin.y, v36.size.width, v36.size.height];
+        CGRectUnion(v35, v36);
+        v29 = [HMIVideoAnalyzerFrameResult initWithFrame:v12 events:"initWithFrame:events:regionOfInterest:" regionOfInterest:?];
 
-        [v6 replaceObjectAtIndex:v7 withObject:v29];
-        [v6 removeObjectAtIndex:v8];
+        [v6 replaceObjectAtIndex:? withObject:?];
+        [v6 removeObjectAtIndex:?];
       }
 
       v8 = v7 + 1;
@@ -262,14 +244,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v4 time];
+  [&time1 time];
   if (!v6)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [v6 time];
+  [&v9 time];
 LABEL_6:
   v7 = CMTimeCompare(&time1, &v9) > 0;
 
@@ -278,29 +260,24 @@ LABEL_6:
 
 - (HMIVideoAnalyzerFrameResult)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = objc_opt_class();
-  v6 = NSStringFromSelector(sel_frame);
-  v7 = [coderCopy decodeObjectOfClass:v5 forKey:v6];
+  objc_opt_class();
+  v5 = NSStringFromSelector(sel_frame);
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v8 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  v10 = [v8 setWithArray:v9];
-  v11 = NSStringFromSelector(sel_events);
-  v12 = [coderCopy decodeObjectOfClasses:v10 forKey:v11];
+  v7 = MEMORY[0x277CBEB98];
+  objc_opt_class();
+  objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v9 = [v7 setWithArray:?];
+  v10 = NSStringFromSelector(sel_events);
+  v11 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
-  v13 = NSStringFromSelector(sel_regionOfInterest);
-  [coderCopy decodeRectForKey:v13];
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
+  v12 = NSStringFromSelector(sel_regionOfInterest);
+  [coderCopy decodeRectForKey:?];
 
-  v22 = [(HMIVideoAnalyzerFrameResult *)self initWithFrame:v7 events:v12 regionOfInterest:v15, v17, v19, v21];
-  return v22;
+  v13 = [HMIVideoAnalyzerFrameResult initWithFrame:"initWithFrame:events:regionOfInterest:" events:? regionOfInterest:?];
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -308,19 +285,15 @@ LABEL_6:
   coderCopy = coder;
   frame = [(HMIVideoAnalyzerFrameResult *)self frame];
   v6 = NSStringFromSelector(sel_frame);
-  [coderCopy encodeObject:frame forKey:v6];
+  [coderCopy encodeObject:? forKey:?];
 
   events = [(HMIVideoAnalyzerFrameResult *)self events];
   v8 = NSStringFromSelector(sel_events);
-  [coderCopy encodeObject:events forKey:v8];
+  [coderCopy encodeObject:? forKey:?];
 
   [(HMIVideoAnalyzerFrameResult *)self regionOfInterest];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v17 = NSStringFromSelector(sel_regionOfInterest);
-  [coderCopy encodeRect:v17 forKey:{v10, v12, v14, v16}];
+  v9 = NSStringFromSelector(sel_regionOfInterest);
+  [coderCopy encodeRect:? forKey:?];
 }
 
 - (CGRect)regionOfInterest

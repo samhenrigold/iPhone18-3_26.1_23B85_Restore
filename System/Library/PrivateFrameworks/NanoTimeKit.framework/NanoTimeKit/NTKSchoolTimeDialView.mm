@@ -171,24 +171,24 @@
   }
 }
 
-void __48__NTKSchoolTimeDialView_setActiveHour_animated___block_invoke(uint64_t a1)
+void __48__NTKSchoolTimeDialView_setActiveHour_animated___block_invoke(uint64_t a1, double a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    v3 = [*(a1 + 40) _activeHourColor];
-    v4 = [*(a1 + 40) _inactiveHourColor];
-    v5 = NTKInterpolateBetweenColors();
-    [v2 setTextColor:v5];
+    v5 = [*(a1 + 40) _activeHourColor];
+    v6 = [*(a1 + 40) _inactiveHourColor];
+    v7 = NTKInterpolateBetweenColors(a2);
+    [v4 setTextColor:v7];
   }
 
-  v6 = *(a1 + 48);
-  if (v6)
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    v9 = [*(a1 + 40) _inactiveHourColor];
-    v7 = [*(a1 + 40) _activeHourColor];
-    v8 = NTKInterpolateBetweenColors();
-    [v6 setTextColor:v8];
+    v11 = [*(a1 + 40) _inactiveHourColor];
+    v9 = [*(a1 + 40) _activeHourColor];
+    v10 = NTKInterpolateBetweenColors(a2);
+    [v8 setTextColor:v10];
   }
 }
 

@@ -14,6 +14,7 @@
 - (NSString)developerSpecifiedTitle;
 - (WFLinkAction)initWithIdentifier:(id)identifier metadata:(id)metadata definition:(id)definition serializedParameters:(id)parameters appIntentDescriptor:(id)descriptor fullyQualifiedActionIdentifier:(id)actionIdentifier;
 - (WFLinkAction)linkActionWithSerializedParameters;
+- (WFLinkAction)linkActionWithSerializedParametersUsingConnectionPolicy:(BOOL)policy;
 - (id)currentParameterStates;
 - (id)generatedResourceNodes;
 - (id)icon;
@@ -98,7 +99,7 @@
 
 - (id)parameterDefinitions
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   parameterDefinitions = self->_parameterDefinitions;
   null = [MEMORY[0x1E695DFB0] null];
 
@@ -115,9 +116,9 @@
 
   else
   {
-    v33.receiver = self;
-    v33.super_class = WFLinkAction;
-    parameterDefinitions = [(WFAction *)&v33 parameterDefinitions];
+    v32.receiver = self;
+    v32.super_class = WFLinkAction;
+    parameterDefinitions = [(WFAction *)&v32 parameterDefinitions];
     if ([(NSArray *)parameterDefinitions count])
     {
       parameterDefinitions = 0;
@@ -127,31 +128,31 @@
     else
     {
       v7 = objc_opt_new();
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       metadata = [(WFAppIntentExecutionAction *)self metadata];
       wf_parameterDefinitions = [metadata wf_parameterDefinitions];
 
-      v10 = [wf_parameterDefinitions countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v10 = [wf_parameterDefinitions countByEnumeratingWithState:&v28 objects:v37 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v30;
+        v12 = *v29;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v30 != v12)
+            if (*v29 != v12)
             {
               objc_enumerationMutation(wf_parameterDefinitions);
             }
 
-            [v7 addObject:*(*(&v29 + 1) + 8 * i)];
+            [v7 addObject:*(*(&v28 + 1) + 8 * i)];
           }
 
-          v11 = [wf_parameterDefinitions countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v11 = [wf_parameterDefinitions countByEnumeratingWithState:&v28 objects:v37 count:16];
         }
 
         while (v11);
@@ -160,18 +161,18 @@
       if (![(WFLinkAction *)self showWhenRunParameterIsHidden])
       {
         v14 = [WFParameterDefinition alloc];
-        v37[0] = @"ShowWhenRun";
-        v36[0] = @"Key";
-        v36[1] = @"Class";
+        v36[0] = @"ShowWhenRun";
+        v35[0] = @"Key";
+        v35[1] = @"Class";
         v15 = objc_opt_class();
         v16 = NSStringFromClass(v15);
-        v37[1] = v16;
-        v37[2] = MEMORY[0x1E695E118];
-        v36[2] = @"DefaultValue";
-        v36[3] = @"Label";
+        v36[1] = v16;
+        v36[2] = MEMORY[0x1E695E118];
+        v35[2] = @"DefaultValue";
+        v35[3] = @"Label";
         v17 = WFLocalizedString(@"Show When Run");
-        v37[3] = v17;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:4];
+        v36[3] = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:4];
         v19 = [(WFParameterDefinition *)v14 initWithDictionary:v18];
 
         [v7 addObject:v19];
@@ -180,18 +181,18 @@
       if (![(WFLinkAction *)self openWhenRunParameterIsHidden])
       {
         v20 = [WFParameterDefinition alloc];
-        v35[0] = @"OpenWhenRun";
-        v34[0] = @"Key";
-        v34[1] = @"Class";
+        v34[0] = @"OpenWhenRun";
+        v33[0] = @"Key";
+        v33[1] = @"Class";
         v21 = objc_opt_class();
         v22 = NSStringFromClass(v21);
-        v35[1] = v22;
-        v35[2] = MEMORY[0x1E695E118];
-        v34[2] = @"DefaultValue";
-        v34[3] = @"Label";
+        v34[1] = v22;
+        v34[2] = MEMORY[0x1E695E118];
+        v33[2] = @"DefaultValue";
+        v33[3] = @"Label";
         v23 = WFLocalizedString(@"Open When Run");
-        v35[3] = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:4];
+        v34[3] = v23;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:4];
         v25 = [(WFParameterDefinition *)v20 initWithDictionary:v24];
 
         [v7 addObject:v25];
@@ -213,8 +214,6 @@
       self->_parameterDefinitions = null2;
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -332,7 +331,7 @@ LABEL_9:
 
 - (id)inputDictionary
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   inputDictionary = self->_inputDictionary;
   null = [MEMORY[0x1E695DFB0] null];
 
@@ -349,9 +348,9 @@ LABEL_9:
 
   else
   {
-    v26.receiver = self;
-    v26.super_class = WFLinkAction;
-    inputDictionary = [(WFAction *)&v26 inputDictionary];
+    v25.receiver = self;
+    v25.super_class = WFLinkAction;
+    inputDictionary = [(WFAction *)&v25 inputDictionary];
     v7 = objc_opt_class();
     metadata = [(WFAppIntentExecutionAction *)self metadata];
     inputDictionary = [v7 inputParameterMetadataWithActionMetadata:metadata];
@@ -379,22 +378,22 @@ LABEL_9:
 
         v16 = v14;
 
-        v27[0] = @"Multiple";
+        v26[0] = @"Multiple";
         v17 = MEMORY[0x1E696AD98];
         objc_opt_class();
         v18 = [v17 numberWithBool:objc_opt_isKindOfClass() & 1];
-        v28[0] = v18;
-        v27[1] = @"Types";
+        v27[0] = v18;
+        v26[1] = @"Types";
         [v11 if_map:&__block_literal_global_235];
-        v19 = v25 = valueType;
-        v28[1] = v19;
-        v27[2] = @"ParameterKey";
+        v19 = v24 = valueType;
+        v27[1] = v19;
+        v26[2] = @"ParameterKey";
         name = [(NSDictionary *)inputDictionary name];
-        v28[2] = name;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+        v27[2] = name;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
         [v16 addEntriesFromDictionary:v21];
 
-        valueType = v25;
+        valueType = v24;
         bundleIdentifier = [v16 copy];
       }
 
@@ -427,8 +426,6 @@ LABEL_9:
   }
 
 LABEL_19:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return bundleIdentifier;
 }
@@ -595,7 +592,7 @@ void __133__WFLinkAction_Documents__getDocumentsLinkValueFromParameterMetadata_p
 
 + (Class)classForLinkActionWithIdentifier:(id)identifier metadata:(id)metadata
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   metadataCopy = metadata;
   linkActionClassOverrides = [self linkActionClassOverrides];
@@ -615,28 +612,28 @@ LABEL_14:
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     currentHandler = [metadataCopy systemProtocols];
-    v12 = [currentHandler countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [currentHandler countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v21 = a2;
-      v14 = *v23;
+      v20 = a2;
+      v14 = *v22;
       while (2)
       {
         v15 = 0;
         do
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(currentHandler);
           }
 
-          identifier = [*(*(&v22 + 1) + 8 * v15) identifier];
+          identifier = [*(*(&v21 + 1) + 8 * v15) identifier];
           if (identifier)
           {
             linkProtocolClassOverrides = [self linkProtocolClassOverrides];
@@ -645,7 +642,7 @@ LABEL_14:
             if (v10)
             {
 
-              a2 = v21;
+              a2 = v20;
               goto LABEL_14;
             }
           }
@@ -654,7 +651,7 @@ LABEL_14:
         }
 
         while (v13 != v15);
-        v13 = [currentHandler countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [currentHandler countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v13)
         {
           continue;
@@ -670,324 +667,321 @@ LABEL_14:
 LABEL_15:
   v18 = v10;
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void __53__WFLinkAction_Overrides__linkProtocolClassOverrides__block_invoke()
 {
-  v14[10] = *MEMORY[0x1E69E9840];
-  v13[0] = *MEMORY[0x1E69AC340];
+  v13[10] = *MEMORY[0x1E69E9840];
+  v12[0] = *MEMORY[0x1E69AC340];
   v0 = objc_opt_self();
-  v14[0] = v0;
-  v13[1] = *MEMORY[0x1E69AC398];
+  v13[0] = v0;
+  v12[1] = *MEMORY[0x1E69AC398];
   v1 = objc_opt_self();
-  v14[1] = v1;
-  v13[2] = *MEMORY[0x1E69AC400];
+  v13[1] = v1;
+  v12[2] = *MEMORY[0x1E69AC400];
   v2 = objc_opt_self();
-  v14[2] = v2;
-  v13[3] = *MEMORY[0x1E69AC380];
+  v13[2] = v2;
+  v12[3] = *MEMORY[0x1E69AC380];
   v3 = objc_opt_self();
-  v14[3] = v3;
-  v13[4] = *MEMORY[0x1E69AC488];
+  v13[3] = v3;
+  v12[4] = *MEMORY[0x1E69AC488];
   v4 = objc_opt_self();
-  v14[4] = v4;
-  v13[5] = *MEMORY[0x1E69AC350];
+  v13[4] = v4;
+  v12[5] = *MEMORY[0x1E69AC350];
   v5 = objc_opt_self();
-  v14[5] = v5;
-  v13[6] = *MEMORY[0x1E69AC3F0];
+  v13[5] = v5;
+  v12[6] = *MEMORY[0x1E69AC3F0];
   v6 = objc_opt_self();
-  v14[6] = v6;
-  v13[7] = *MEMORY[0x1E69AC370];
+  v13[6] = v6;
+  v12[7] = *MEMORY[0x1E69AC370];
   v7 = objc_opt_self();
-  v14[7] = v7;
-  v13[8] = *MEMORY[0x1E69AC4F0];
+  v13[7] = v7;
+  v12[8] = *MEMORY[0x1E69AC4F0];
   v8 = objc_opt_self();
-  v14[8] = v8;
-  v13[9] = *MEMORY[0x1E69AC3D0];
+  v13[8] = v8;
+  v12[9] = *MEMORY[0x1E69AC3D0];
   v9 = objc_opt_self();
-  v14[9] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:10];
+  v13[9] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:10];
   v11 = linkProtocolClassOverrides_linkProtocolClassOverrides;
   linkProtocolClassOverrides_linkProtocolClassOverrides = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __51__WFLinkAction_Overrides__linkActionClassOverrides__block_invoke()
 {
-  v111[87] = *MEMORY[0x1E69E9840];
-  v110[0] = @"com.apple.mobiletimer.StartStopwatchIntent";
-  v101 = objc_opt_self();
-  v111[0] = v101;
-  v110[1] = @"com.apple.mobiletimer.DeleteAlarmIntent";
+  v110[87] = *MEMORY[0x1E69E9840];
+  v109[0] = @"com.apple.mobiletimer.StartStopwatchIntent";
   v100 = objc_opt_self();
-  v111[1] = v100;
-  v110[2] = @"com.apple.mobilecal.Close";
+  v110[0] = v100;
+  v109[1] = @"com.apple.mobiletimer.DeleteAlarmIntent";
   v99 = objc_opt_self();
-  v111[2] = v99;
-  v110[3] = @"com.apple.mobilecal.CreateCalendar";
+  v110[1] = v99;
+  v109[2] = @"com.apple.mobilecal.Close";
   v98 = objc_opt_self();
-  v111[3] = v98;
-  v110[4] = @"com.apple.mobilecal.DeleteCalendar";
+  v110[2] = v98;
+  v109[3] = @"com.apple.mobilecal.CreateCalendar";
   v97 = objc_opt_self();
-  v111[4] = v97;
-  v110[5] = @"com.apple.mobilecal.OpenScreen";
+  v110[3] = v97;
+  v109[4] = @"com.apple.mobilecal.DeleteCalendar";
   v96 = objc_opt_self();
-  v111[5] = v96;
-  v110[6] = @"com.apple.iBooks.BookReaderChangePageNavigationIntent";
+  v110[4] = v96;
+  v109[5] = @"com.apple.mobilecal.OpenScreen";
   v95 = objc_opt_self();
-  v111[6] = v95;
-  v110[7] = @"com.apple.iBooks.BookReaderChangeThemeIntent";
+  v110[5] = v95;
+  v109[6] = @"com.apple.iBooks.BookReaderChangePageNavigationIntent";
   v94 = objc_opt_self();
-  v111[7] = v94;
-  v110[8] = @"com.apple.iBooks.BookReaderNavigatePagesIntent";
+  v110[6] = v94;
+  v109[7] = @"com.apple.iBooks.BookReaderChangeThemeIntent";
   v93 = objc_opt_self();
-  v111[8] = v93;
-  v110[9] = @"com.apple.iBooks.BookAppEntity";
+  v110[7] = v93;
+  v109[8] = @"com.apple.iBooks.BookReaderNavigatePagesIntent";
   v92 = objc_opt_self();
-  v111[9] = v92;
-  v110[10] = @"com.apple.mobilenotes.AddTagsToNotesLinkAction";
+  v110[8] = v92;
+  v109[9] = @"com.apple.iBooks.BookAppEntity";
   v91 = objc_opt_self();
-  v111[10] = v91;
-  v110[11] = @"com.apple.mobilenotes.RemoveTagsFromNotesLinkAction";
+  v110[9] = v91;
+  v109[10] = @"com.apple.mobilenotes.AddTagsToNotesLinkAction";
   v90 = objc_opt_self();
-  v111[11] = v90;
-  v110[12] = @"com.apple.mobilenotes.MoveNotesToFolderLinkAction";
+  v110[10] = v90;
+  v109[11] = @"com.apple.mobilenotes.RemoveTagsFromNotesLinkAction";
   v89 = objc_opt_self();
-  v111[12] = v89;
-  v110[13] = @"com.apple.mobilenotes.OpenAppLocationLinkAction";
+  v110[11] = v89;
+  v109[12] = @"com.apple.mobilenotes.MoveNotesToFolderLinkAction";
   v88 = objc_opt_self();
-  v111[13] = v88;
-  v110[14] = @"com.apple.mobilenotes.PinNotesLinkAction";
+  v110[12] = v88;
+  v109[13] = @"com.apple.mobilenotes.OpenAppLocationLinkAction";
   v87 = objc_opt_self();
-  v111[14] = v87;
-  v110[15] = @"com.apple.mobilenotes.CreateFolderLinkAction";
+  v110[13] = v87;
+  v109[14] = @"com.apple.mobilenotes.PinNotesLinkAction";
   v86 = objc_opt_self();
-  v111[15] = v86;
-  v110[16] = @"com.apple.mobilenotes.CreateTagLinkAction";
+  v110[14] = v86;
+  v109[15] = @"com.apple.mobilenotes.CreateFolderLinkAction";
   v85 = objc_opt_self();
-  v111[16] = v85;
-  v110[17] = @"com.apple.mobilenotes.DeleteTagsLinkAction";
+  v110[15] = v85;
+  v109[16] = @"com.apple.mobilenotes.CreateTagLinkAction";
   v84 = objc_opt_self();
-  v111[17] = v84;
-  v110[18] = @"com.apple.mobilenotes.DeleteFoldersLinkAction";
+  v110[16] = v84;
+  v109[17] = @"com.apple.mobilenotes.DeleteTagsLinkAction";
   v83 = objc_opt_self();
-  v111[18] = v83;
-  v110[19] = @"com.apple.mobilenotes.OpenFolderLinkAction";
+  v110[17] = v83;
+  v109[18] = @"com.apple.mobilenotes.DeleteFoldersLinkAction";
   v82 = objc_opt_self();
-  v111[19] = v82;
-  v110[20] = @"com.apple.mobilenotes.OpenTagLinkAction";
+  v110[18] = v82;
+  v109[19] = @"com.apple.mobilenotes.OpenFolderLinkAction";
   v81 = objc_opt_self();
-  v111[20] = v81;
-  v110[21] = @"com.apple.mobilenotes.OpenAccountLinkAction";
+  v110[19] = v81;
+  v109[20] = @"com.apple.mobilenotes.OpenTagLinkAction";
   v80 = objc_opt_self();
-  v111[21] = v80;
-  v110[22] = @"com.apple.mobilenotes.ChangeSettingLinkAction";
+  v110[20] = v80;
+  v109[21] = @"com.apple.mobilenotes.OpenAccountLinkAction";
   v79 = objc_opt_self();
-  v111[22] = v79;
-  v110[23] = @"is.workflow.actions.filter.notes";
+  v110[21] = v79;
+  v109[22] = @"com.apple.mobilenotes.ChangeSettingLinkAction";
   v78 = objc_opt_self();
-  v111[23] = v78;
-  v110[24] = @"com.apple.VoiceMemos.ChangeRecordingPlaybackSetting";
+  v110[22] = v78;
+  v109[23] = @"is.workflow.actions.filter.notes";
   v77 = objc_opt_self();
-  v111[24] = v77;
-  v110[25] = @"com.apple.VoiceMemos.PlaybackVoiceMemoIntent";
+  v110[23] = v77;
+  v109[24] = @"com.apple.VoiceMemos.ChangeRecordingPlaybackSetting";
   v76 = objc_opt_self();
-  v111[25] = v76;
-  v110[26] = @"com.apple.VoiceMemos.SearchRecordings";
+  v110[24] = v76;
+  v109[25] = @"com.apple.VoiceMemos.PlaybackVoiceMemoIntent";
   v75 = objc_opt_self();
-  v111[26] = v75;
-  v110[27] = @"com.apple.VoiceMemos.CreateFolder";
+  v110[25] = v75;
+  v109[26] = @"com.apple.VoiceMemos.SearchRecordings";
   v74 = objc_opt_self();
-  v111[27] = v74;
-  v110[28] = @"com.apple.VoiceMemos.DeleteFolder";
+  v110[26] = v74;
+  v109[27] = @"com.apple.VoiceMemos.CreateFolder";
   v73 = objc_opt_self();
-  v111[28] = v73;
-  v110[29] = @"com.apple.VoiceMemos.DeleteRecording";
+  v110[27] = v73;
+  v109[28] = @"com.apple.VoiceMemos.DeleteFolder";
   v72 = objc_opt_self();
-  v111[29] = v72;
-  v110[30] = @"com.apple.VoiceMemos.OpenFolder";
+  v110[28] = v72;
+  v109[29] = @"com.apple.VoiceMemos.DeleteRecording";
   v71 = objc_opt_self();
-  v111[30] = v71;
-  v110[31] = @"com.apple.VoiceMemos.SelectRecording";
+  v110[29] = v71;
+  v109[30] = @"com.apple.VoiceMemos.OpenFolder";
   v70 = objc_opt_self();
-  v111[31] = v70;
-  v110[32] = @"com.apple.VoiceMemos.RCRecordingEntity";
+  v110[30] = v70;
+  v109[31] = @"com.apple.VoiceMemos.SelectRecording";
   v69 = objc_opt_self();
-  v111[32] = v69;
-  v110[33] = @"com.apple.reminders.TTRCreateListAppIntent";
+  v110[31] = v69;
+  v109[32] = @"com.apple.VoiceMemos.RCRecordingEntity";
   v68 = objc_opt_self();
-  v111[33] = v68;
-  v110[34] = @"com.apple.reminders.TTROpenSmartListAppIntent";
+  v110[32] = v68;
+  v109[33] = @"com.apple.reminders.TTRCreateListAppIntent";
   v67 = objc_opt_self();
-  v111[34] = v67;
-  v110[35] = @"com.apple.mobilesafari.CreateNewTab";
+  v110[33] = v67;
+  v109[34] = @"com.apple.reminders.TTROpenSmartListAppIntent";
   v66 = objc_opt_self();
-  v111[35] = v66;
-  v110[36] = @"com.apple.mobilesafari.CreateNewPrivateTab";
+  v110[34] = v66;
+  v109[35] = @"com.apple.mobilesafari.CreateNewTab";
   v65 = objc_opt_self();
-  v111[36] = v65;
-  v110[37] = @"com.apple.mobilesafari.CloseTab";
+  v110[35] = v65;
+  v109[36] = @"com.apple.mobilesafari.CreateNewPrivateTab";
   v64 = objc_opt_self();
-  v111[37] = v64;
-  v110[38] = @"com.apple.mobilesafari.CreateNewTabGroup";
+  v110[36] = v64;
+  v109[37] = @"com.apple.mobilesafari.CloseTab";
   v63 = objc_opt_self();
-  v111[38] = v63;
-  v110[39] = @"com.apple.mobilesafari.OpenTabGroup";
+  v110[37] = v63;
+  v109[38] = @"com.apple.mobilesafari.CreateNewTabGroup";
   v62 = objc_opt_self();
-  v111[39] = v62;
-  v110[40] = @"com.apple.mobilesafari.OpenTab";
+  v110[38] = v62;
+  v109[39] = @"com.apple.mobilesafari.OpenTabGroup";
   v61 = objc_opt_self();
-  v111[40] = v61;
-  v110[41] = @"com.apple.mobilesafari.OpenBookmark";
+  v110[39] = v61;
+  v109[40] = @"com.apple.mobilesafari.OpenTab";
   v60 = objc_opt_self();
-  v111[41] = v60;
-  v110[42] = @"com.apple.mobilesafari.OpenReadingListItem";
+  v110[40] = v60;
+  v109[41] = @"com.apple.mobilesafari.OpenBookmark";
   v59 = objc_opt_self();
-  v111[42] = v59;
-  v110[43] = @"com.apple.mobilesafari.OpenView";
+  v110[41] = v59;
+  v109[42] = @"com.apple.mobilesafari.OpenReadingListItem";
   v58 = objc_opt_self();
-  v111[43] = v58;
-  v110[44] = @"com.apple.mobilesafari.BookmarkEntity";
+  v110[42] = v58;
+  v109[43] = @"com.apple.mobilesafari.OpenView";
   v57 = objc_opt_self();
-  v111[44] = v57;
-  v110[45] = @"com.apple.mobilesafari.ReadingListItemEntity";
+  v110[43] = v57;
+  v109[44] = @"com.apple.mobilesafari.BookmarkEntity";
   v56 = objc_opt_self();
-  v111[45] = v56;
-  v110[46] = @"com.apple.mobilesafari.TabEntity";
+  v110[44] = v56;
+  v109[45] = @"com.apple.mobilesafari.ReadingListItemEntity";
   v55 = objc_opt_self();
-  v111[46] = v55;
-  v110[47] = @"com.apple.mobilesafari.TabGroupEntity";
+  v110[45] = v55;
+  v109[46] = @"com.apple.mobilesafari.TabEntity";
   v54 = objc_opt_self();
-  v111[47] = v54;
-  v110[48] = @"com.apple.mobilesafari.ChangeReaderModeState";
+  v110[46] = v54;
+  v109[47] = @"com.apple.mobilesafari.TabGroupEntity";
   v53 = objc_opt_self();
-  v111[48] = v53;
-  v110[49] = @"com.apple.musicrecognition.RecognizeMusicIntent";
+  v110[47] = v53;
+  v109[48] = @"com.apple.mobilesafari.ChangeReaderModeState";
   v52 = objc_opt_self();
-  v111[49] = v52;
-  v110[50] = @"com.apple.shortcuts.CreateWorkflowAction";
+  v110[48] = v52;
+  v109[49] = @"com.apple.musicrecognition.RecognizeMusicIntent";
   v51 = objc_opt_self();
-  v111[50] = v51;
-  v110[51] = @"com.apple.shortcuts.DeleteWorkflowAction";
+  v110[49] = v51;
+  v109[50] = @"com.apple.shortcuts.CreateWorkflowAction";
   v50 = objc_opt_self();
-  v111[51] = v50;
-  v110[52] = @"com.apple.shortcuts.SearchShortcutsAction";
+  v110[50] = v50;
+  v109[51] = @"com.apple.shortcuts.DeleteWorkflowAction";
   v49 = objc_opt_self();
-  v111[52] = v49;
-  v110[53] = @"com.apple.shortcuts.CreateShortcutiCloudLinkAction";
+  v110[51] = v49;
+  v109[52] = @"com.apple.shortcuts.SearchShortcutsAction";
   v48 = objc_opt_self();
-  v111[53] = v48;
-  v110[54] = @"com.apple.shortcuts.RunShortcutIntent";
-  v111[54] = objc_opt_class();
-  v110[55] = @"com.apple.shortcuts.RunShortcutConfigurationIntent";
-  v111[55] = objc_opt_class();
-  v110[56] = @"com.apple.shortcuts.WFShortcutsSmallWidgetConfigurationIntent";
-  v111[56] = objc_opt_class();
-  v110[57] = @"com.apple.shortcuts.WFShortcutsWidgetConfigurationIntent";
-  v111[57] = objc_opt_class();
-  v110[58] = @"com.apple.shortcuts.SetDataRoamingAction";
+  v110[52] = v48;
+  v109[53] = @"com.apple.shortcuts.CreateShortcutiCloudLinkAction";
   v47 = objc_opt_self();
-  v111[58] = v47;
-  v110[59] = @"com.apple.shortcuts.SetDefaultCellularPlanAction";
+  v110[53] = v47;
+  v109[54] = @"com.apple.shortcuts.RunShortcutIntent";
+  v110[54] = objc_opt_class();
+  v109[55] = @"com.apple.shortcuts.RunShortcutConfigurationIntent";
+  v110[55] = objc_opt_class();
+  v109[56] = @"com.apple.shortcuts.WFShortcutsSmallWidgetConfigurationIntent";
+  v110[56] = objc_opt_class();
+  v109[57] = @"com.apple.shortcuts.WFShortcutsWidgetConfigurationIntent";
+  v110[57] = objc_opt_class();
+  v109[58] = @"com.apple.shortcuts.SetDataRoamingAction";
   v46 = objc_opt_self();
-  v111[59] = v46;
-  v110[60] = @"com.apple.shortcuts.ResetCellularDataStatisticsAction";
+  v110[58] = v46;
+  v109[59] = @"com.apple.shortcuts.SetDefaultCellularPlanAction";
   v45 = objc_opt_self();
-  v111[60] = v45;
-  v110[61] = @"com.apple.shortcuts.ToggleCellularPlanAction";
+  v110[59] = v45;
+  v109[60] = @"com.apple.shortcuts.ResetCellularDataStatisticsAction";
   v44 = objc_opt_self();
-  v111[61] = v44;
-  v110[62] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.AdjustToneIntent";
+  v110[60] = v44;
+  v109[61] = @"com.apple.shortcuts.ToggleCellularPlanAction";
   v43 = objc_opt_self();
-  v111[62] = v43;
-  v110[63] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.FormatListIntent";
+  v110[61] = v43;
+  v109[62] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.AdjustToneIntent";
   v42 = objc_opt_self();
-  v111[63] = v42;
-  v110[64] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.FormatTableIntent";
+  v110[62] = v42;
+  v109[63] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.FormatListIntent";
   v41 = objc_opt_self();
-  v111[64] = v41;
-  v110[65] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.ProofreadIntent";
+  v110[63] = v41;
+  v109[64] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.FormatTableIntent";
   v40 = objc_opt_self();
-  v111[65] = v40;
-  v110[66] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.RewriteTextIntent";
+  v110[64] = v40;
+  v109[65] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.ProofreadIntent";
   v39 = objc_opt_self();
-  v111[66] = v39;
-  v110[67] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.SummarizeTextIntent";
+  v110[65] = v39;
+  v109[66] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.RewriteTextIntent";
   v38 = objc_opt_self();
-  v111[67] = v38;
-  v110[68] = @"com.apple.UIKitCore.InsertIntelligenceText";
+  v110[66] = v38;
+  v109[67] = @"com.apple.WritingTools.WritingToolsAppIntentsExtension.SummarizeTextIntent";
   v37 = objc_opt_self();
-  v111[68] = v37;
-  v110[69] = @"com.apple.AppKit.InsertIntelligenceText";
+  v110[67] = v37;
+  v109[68] = @"com.apple.UIKitCore.InsertIntelligenceText";
   v36 = objc_opt_self();
-  v111[69] = v36;
-  v110[70] = @"com.apple.intelligenceplatform.IntelligencePlatform.IntelligencePlatformDataActionsAppIntentsExtension.FindSportsEvents";
+  v110[68] = v36;
+  v109[69] = @"com.apple.AppKit.InsertIntelligenceText";
   v35 = objc_opt_self();
-  v111[70] = v35;
-  v110[71] = @"com.apple.intelligenceplatform.IntelligencePlatform.IntelligencePlatformDataActionsAppIntentsExtension.CalculateAppUsageIntent";
+  v110[69] = v35;
+  v109[70] = @"com.apple.intelligenceplatform.IntelligencePlatform.IntelligencePlatformDataActionsAppIntentsExtension.FindSportsEvents";
   v34 = objc_opt_self();
-  v111[71] = v34;
-  v110[72] = *MEMORY[0x1E69E1218];
+  v110[70] = v34;
+  v109[71] = @"com.apple.intelligenceplatform.IntelligencePlatform.IntelligencePlatformDataActionsAppIntentsExtension.CalculateAppUsageIntent";
   v33 = objc_opt_self();
-  v111[72] = v33;
-  v110[73] = @"com.apple.ShortcutsActions.OpenCameraAction";
+  v110[71] = v33;
+  v109[72] = *MEMORY[0x1E69E1218];
   v32 = objc_opt_self();
-  v111[73] = v32;
-  v110[74] = @"com.apple.AppKit.RunIntelligenceCommandForKey";
+  v110[72] = v32;
+  v109[73] = @"com.apple.ShortcutsActions.OpenCameraAction";
   v31 = objc_opt_self();
-  v111[74] = v31;
-  v110[75] = @"com.apple.siri.VisualIntelligenceCameraLaunch";
+  v110[73] = v31;
+  v109[74] = @"com.apple.AppKit.RunIntelligenceCommandForKey";
   v30 = objc_opt_self();
-  v111[75] = v30;
-  v110[76] = @"com.apple.GenerativePlaygroundApp.GenerateImageIntent";
+  v110[74] = v30;
+  v109[75] = @"com.apple.siri.VisualIntelligenceCameraLaunch";
   v29 = objc_opt_self();
-  v111[76] = v29;
-  v110[77] = @"com.apple.Photos.OpenMemoryCreationViewIntent";
+  v110[75] = v29;
+  v109[76] = @"com.apple.GenerativePlaygroundApp.GenerateImageIntent";
   v28 = objc_opt_self();
-  v111[77] = v28;
-  v110[78] = @"com.apple.mobileslideshow.OpenMemoryCreationViewIntent";
+  v110[76] = v28;
+  v109[77] = @"com.apple.Photos.OpenMemoryCreationViewIntent";
   v27 = objc_opt_self();
-  v111[78] = v27;
-  v110[79] = @"com.apple.Home.ToggleIntent";
+  v110[77] = v27;
+  v109[78] = @"com.apple.mobileslideshow.OpenMemoryCreationViewIntent";
+  v26 = objc_opt_self();
+  v110[78] = v26;
+  v109[79] = @"com.apple.Home.ToggleIntent";
   v0 = objc_opt_self();
-  v111[79] = v0;
-  v110[80] = @"com.apple.Home.CameraClipEntity";
+  v110[79] = v0;
+  v109[80] = @"com.apple.Home.CameraClipEntity";
   v1 = objc_opt_self();
-  v111[80] = v1;
-  v110[81] = @"com.apple.Home.DeviceEntity";
+  v110[80] = v1;
+  v109[81] = @"com.apple.Home.DeviceEntity";
   v2 = objc_opt_self();
-  v111[81] = v2;
-  v110[82] = @"com.apple.Home.RoomEntity";
+  v110[81] = v2;
+  v109[82] = @"com.apple.Home.RoomEntity";
   v3 = objc_opt_self();
-  v111[82] = v3;
-  v110[83] = @"com.apple.Home.SceneEntity";
+  v110[82] = v3;
+  v109[83] = @"com.apple.Home.SceneEntity";
   v4 = objc_opt_self();
-  v111[83] = v4;
-  v110[84] = @"com.apple.Home.HomeEntity";
+  v110[83] = v4;
+  v109[84] = @"com.apple.Home.HomeEntity";
   v5 = objc_opt_self();
-  v111[84] = v5;
-  v110[85] = @"com.apple.Home.SelectedHomeEntity";
+  v110[84] = v5;
+  v109[85] = @"com.apple.Home.SelectedHomeEntity";
   v6 = objc_opt_self();
-  v111[85] = v6;
-  v110[86] = @"com.apple.Home.ZoneEntity";
+  v110[85] = v6;
+  v109[86] = @"com.apple.Home.ZoneEntity";
   v7 = objc_opt_self();
-  v111[86] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:v110 count:87];
+  v110[86] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:87];
   v9 = linkActionClassOverrides_linkActionClassOverrides;
   linkActionClassOverrides_linkActionClassOverrides = v8;
 
   if (NSClassFromString(&cfstr_Wfcreatenoteac.isa))
   {
     v10 = linkActionClassOverrides_linkActionClassOverrides;
-    v108[0] = @"com.apple.mobilenotes.SharingExtension";
-    v109[0] = NSClassFromString(&cfstr_Wfcreatenoteac.isa);
-    v108[1] = @"is.workflow.actions.appendnote";
-    v109[1] = NSClassFromString(&cfstr_Wfappendtonote.isa);
-    v108[2] = @"is.workflow.actions.shownote";
-    v109[2] = NSClassFromString(&cfstr_Wfshownoteacti.isa);
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v109 forKeys:v108 count:3];
+    v107[0] = @"com.apple.mobilenotes.SharingExtension";
+    v108[0] = NSClassFromString(&cfstr_Wfcreatenoteac.isa);
+    v107[1] = @"is.workflow.actions.appendnote";
+    v108[1] = NSClassFromString(&cfstr_Wfappendtonote.isa);
+    v107[2] = @"is.workflow.actions.shownote";
+    v108[2] = NSClassFromString(&cfstr_Wfshownoteacti.isa);
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:3];
     v12 = [v10 if_dictionaryByAddingEntriesFromDictionary:v11];
     v13 = linkActionClassOverrides_linkActionClassOverrides;
     linkActionClassOverrides_linkActionClassOverrides = v12;
@@ -996,11 +990,11 @@ void __51__WFLinkAction_Overrides__linkActionClassOverrides__block_invoke()
   if (NSClassFromString(&cfstr_Wfstarttimerac.isa))
   {
     v14 = linkActionClassOverrides_linkActionClassOverrides;
-    v106[0] = @"is.workflow.actions.timer.start";
-    v107[0] = NSClassFromString(&cfstr_Wfstarttimerac.isa);
-    v106[1] = @"com.apple.mobiletimer.INCreateTimerIntent";
-    v107[1] = NSClassFromString(&cfstr_Wfstarttimerac.isa);
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:2];
+    v105[0] = @"is.workflow.actions.timer.start";
+    v106[0] = NSClassFromString(&cfstr_Wfstarttimerac.isa);
+    v105[1] = @"com.apple.mobiletimer.INCreateTimerIntent";
+    v106[1] = NSClassFromString(&cfstr_Wfstarttimerac.isa);
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:v105 count:2];
     v16 = [v14 if_dictionaryByAddingEntriesFromDictionary:v15];
     v17 = linkActionClassOverrides_linkActionClassOverrides;
     linkActionClassOverrides_linkActionClassOverrides = v16;
@@ -1009,11 +1003,11 @@ void __51__WFLinkAction_Overrides__linkActionClassOverrides__block_invoke()
   if (NSClassFromString(&cfstr_Wflinkclockcre.isa))
   {
     v18 = linkActionClassOverrides_linkActionClassOverrides;
-    v104[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent";
-    v105[0] = NSClassFromString(&cfstr_Wflinkclockcre.isa);
-    v104[1] = @"com.apple.mobiletimer.CreateAlarmIntent";
-    v105[1] = NSClassFromString(&cfstr_Wflinkclockcre.isa);
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:2];
+    v103[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent";
+    v104[0] = NSClassFromString(&cfstr_Wflinkclockcre.isa);
+    v103[1] = @"com.apple.mobiletimer.CreateAlarmIntent";
+    v104[1] = NSClassFromString(&cfstr_Wflinkclockcre.isa);
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:2];
     v20 = [v18 if_dictionaryByAddingEntriesFromDictionary:v19];
     v21 = linkActionClassOverrides_linkActionClassOverrides;
     linkActionClassOverrides_linkActionClassOverrides = v20;
@@ -1022,17 +1016,15 @@ void __51__WFLinkAction_Overrides__linkActionClassOverrides__block_invoke()
   if (NSClassFromString(&cfstr_Wflinkclocktog.isa))
   {
     v22 = linkActionClassOverrides_linkActionClassOverrides;
-    v102[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent";
-    v103[0] = NSClassFromString(&cfstr_Wflinkclocktog.isa);
-    v102[1] = @"com.apple.mobiletimer.ToggleAlarmIntent";
-    v103[1] = NSClassFromString(&cfstr_Wflinkclocktog.isa);
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:2];
+    v101[0] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTToggleAlarmIntent";
+    v102[0] = NSClassFromString(&cfstr_Wflinkclocktog.isa);
+    v101[1] = @"com.apple.mobiletimer.ToggleAlarmIntent";
+    v102[1] = NSClassFromString(&cfstr_Wflinkclocktog.isa);
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2];
     v24 = [v22 if_dictionaryByAddingEntriesFromDictionary:v23];
     v25 = linkActionClassOverrides_linkActionClassOverrides;
     linkActionClassOverrides_linkActionClassOverrides = v24;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)action:(id)action parameterStateDidChangeForKey:(id)key
@@ -1206,20 +1198,20 @@ void __99__WFLinkAction_getAlertForLinkResult_encodedSnippetActionToolInvocation
 
 void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = [*(a1 + 32) connection];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invoke_347;
-    v11[3] = &unk_1E837B490;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invoke_347;
+    v10[3] = &unk_1E837B490;
     v8 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v8;
-    [v7 fetchDestinationMDMAccountIdentifierForAction:v5 completionHandler:v11];
+    v10[4] = *(a1 + 32);
+    v11 = v8;
+    [v7 fetchDestinationMDMAccountIdentifierForAction:v5 completionHandler:v10];
   }
 
   else
@@ -1228,19 +1220,17 @@ void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invok
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v14 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
+      v13 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Failed to get LNAction for MDM accountIdentifier fetch.", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invoke_347(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getWFAppIntentsLogObject();
@@ -1249,11 +1239,11 @@ void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invok
   {
     if (v8)
     {
-      v16 = 136315394;
-      v17 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s MDM: Setting an account destination with identifier %@.", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s MDM: Setting an account destination with identifier %@.", &v15, 0x16u);
     }
 
     v9 = MEMORY[0x1E6996C68];
@@ -1267,9 +1257,9 @@ void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invok
   {
     if (v8)
     {
-      v16 = 136315138;
-      v17 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s LNAction returned a nil accountIdentifier.", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[WFLinkAction getContentDestinationWithCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEBUG, "%s LNAction returned a nil accountIdentifier.", &v15, 0xCu);
     }
 
     v12 = MEMORY[0x1E6996C90];
@@ -1280,8 +1270,6 @@ void __59__WFLinkAction_getContentDestinationWithCompletionHandler___block_invok
 
     v6 = v14;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executor:(id)executor didPerformActionWithResult:(id)result error:(id)error
@@ -1370,46 +1358,46 @@ void __48__WFLinkAction_executor_needsChoiceWithRequest___block_invoke_2(uint64_
 
 - (void)presentAlertForChoiceRequest:(id)request dialogString:(id)string
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   stringCopy = string;
   v7 = [MEMORY[0x1E6996C70] alertWithPreferredStyle:0];
-  v20 = stringCopy;
+  v19 = stringCopy;
   [v7 setTitle:stringCopy];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = [requestCopy options];
-  v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = MEMORY[0x1E6996C78];
         title = [v12 title];
         wf_localizedString = [title wf_localizedString];
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __58__WFLinkAction_presentAlertForChoiceRequest_dialogString___block_invoke;
-        v22[3] = &unk_1E837F870;
-        v23 = requestCopy;
-        v24 = v12;
-        v16 = [v13 buttonWithTitle:wf_localizedString style:0 handler:v22];
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = __58__WFLinkAction_presentAlertForChoiceRequest_dialogString___block_invoke;
+        v21[3] = &unk_1E837F870;
+        v22 = requestCopy;
+        v23 = v12;
+        v16 = [v13 buttonWithTitle:wf_localizedString style:0 handler:v21];
         [v7 addButton:v16];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -1417,8 +1405,6 @@ void __48__WFLinkAction_executor_needsChoiceWithRequest___block_invoke_2(uint64_
 
   userInterface = [(WFAction *)self userInterface];
   [userInterface presentAlert:v7];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executor:(id)executor needsDisambiguationWithRequest:(id)request
@@ -1534,7 +1520,7 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
 
 - (void)performPresentationAction:(id)action
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   [(WFAppIntentExecutionAction *)self setDidRunOpensIntent:1];
   if ((objc_opt_respondsToSelector() & 1) != 0 && ([actionCopy valueForKey:@"url"], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
@@ -1552,9 +1538,9 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
     fullyQualifiedLinkActionIdentifier = [(WFAppIntentExecutionAction *)self fullyQualifiedLinkActionIdentifier];
     bundleIdentifier = [fullyQualifiedLinkActionIdentifier bundleIdentifier];
     identifier = [actionCopy identifier];
-    v26 = 0;
-    v13 = [v9 actionForBundleIdentifier:bundleIdentifier andActionIdentifier:identifier error:&v26];
-    v14 = v26;
+    v25 = 0;
+    v13 = [v9 actionForBundleIdentifier:bundleIdentifier andActionIdentifier:identifier error:&v25];
+    v14 = v25;
 
     if (v13)
     {
@@ -1563,9 +1549,9 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
       connectionPolicySignals = [(WFAppIntentExecutionAction *)self connectionPolicySignals];
       v17 = [v15 policyWithActionMetadata:v13 signals:connectionPolicySignals];
 
-      v25 = v14;
-      v18 = [v17 connectionWithError:&v25];
-      v19 = v25;
+      v24 = v14;
+      v18 = [v17 connectionWithError:&v24];
+      v19 = v24;
 
       os_unfair_lock_unlock(&self->_connectionLock);
       if (v18)
@@ -1586,9 +1572,9 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v28 = "[WFLinkAction performPresentationAction:]";
-          v29 = 2114;
-          v30 = v19;
+          v27 = "[WFLinkAction performPresentationAction:]";
+          v28 = 2114;
+          v29 = v19;
           _os_log_impl(&dword_1CA256000, v23, OS_LOG_TYPE_ERROR, "%s Failed to initialize LNConnection: %{public}@.", buf, 0x16u);
         }
       }
@@ -1600,13 +1586,11 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
       v19 = v14;
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performPresentationActionWithResult:(id)result
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   output = [resultCopy output];
   showOutputAction = [output showOutputAction];
@@ -1619,26 +1603,26 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
     if (isRunningWithExternalUI)
     {
       v9 = objc_opt_new();
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       parameters = [showOutputAction parameters];
-      v11 = [parameters countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v11 = [parameters countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v28;
+        v13 = *v27;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v28 != v13)
+            if (*v27 != v13)
             {
               objc_enumerationMutation(parameters);
             }
 
-            v15 = *(*(&v27 + 1) + 8 * i);
+            v15 = *(*(&v26 + 1) + 8 * i);
             value = [v15 value];
 
             if (value)
@@ -1649,7 +1633,7 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
             }
           }
 
-          v12 = [parameters countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v12 = [parameters countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v12);
@@ -1657,16 +1641,16 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
 
       fullyQualifiedLinkActionIdentifier = [(WFAppIntentExecutionAction *)self fullyQualifiedLinkActionIdentifier];
       bundleIdentifier = [fullyQualifiedLinkActionIdentifier bundleIdentifier];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __52__WFLinkAction_performPresentationActionWithResult___block_invoke;
-      v23[3] = &unk_1E8377988;
-      v23[4] = self;
-      v24 = showOutputAction;
-      v25 = v9;
-      v26 = resultCopy;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __52__WFLinkAction_performPresentationActionWithResult___block_invoke;
+      v22[3] = &unk_1E8377988;
+      v22[4] = self;
+      v23 = showOutputAction;
+      v24 = v9;
+      v25 = resultCopy;
       v21 = v9;
-      [WFToolInvocation invocationFrom:v24 bundleIdentifier:bundleIdentifier deviceIdentifier:0 completionHandler:v23];
+      [WFToolInvocation invocationFrom:v23 bundleIdentifier:bundleIdentifier deviceIdentifier:0 completionHandler:v22];
     }
 
     else
@@ -1674,8 +1658,6 @@ void __47__WFLinkAction_executor_needsValueWithRequest___block_invoke(uint64_t a
       [(WFLinkAction *)self performPresentationAction:showOutputAction];
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __52__WFLinkAction_performPresentationActionWithResult___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1980,6 +1962,15 @@ LABEL_6:
 LABEL_12:
 }
 
+- (WFLinkAction)linkActionWithSerializedParametersUsingConnectionPolicy:(BOOL)policy
+{
+  policyCopy = policy;
+  currentParameterStates = [(WFLinkAction *)self currentParameterStates];
+  v6 = [(WFAppIntentExecutionAction *)self linkActionWithParameterStates:currentParameterStates usingConnectionPolicy:policyCopy];
+
+  return v6;
+}
+
 - (WFLinkAction)linkActionWithSerializedParameters
 {
   currentParameterStates = [(WFLinkAction *)self currentParameterStates];
@@ -1991,7 +1982,7 @@ LABEL_12:
 - (void)updateParameterVisibility
 {
   selfCopy = self;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   actionSummary = [(WFAppIntentExecutionAction *)self actionSummary];
   v4 = actionSummary;
   if (actionSummary)
@@ -2009,62 +2000,62 @@ LABEL_12:
 
       if (!v8)
       {
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         obj = [(WFAction *)selfCopy parameters];
-        v30 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-        if (v30)
+        v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v29)
         {
-          v31 = v30;
-          v32 = *v41;
+          v30 = v29;
+          v31 = *v40;
           do
           {
-            for (i = 0; i != v31; ++i)
+            for (i = 0; i != v30; ++i)
             {
-              if (*v41 != v32)
+              if (*v40 != v31)
               {
                 objc_enumerationMutation(obj);
               }
 
-              [*(*(&v40 + 1) + 8 * i) setHidden:0];
+              [*(*(&v39 + 1) + 8 * i) setHidden:0];
             }
 
-            v31 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+            v30 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
           }
 
-          while (v31);
+          while (v30);
         }
 
         goto LABEL_17;
       }
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     metadata = [(WFAppIntentExecutionAction *)selfCopy metadata];
     parameters = [metadata parameters];
 
     obj = parameters;
-    v11 = [parameters countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v11 = [parameters countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v37;
-      v34 = selfCopy;
+      v13 = *v36;
+      v33 = selfCopy;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          name = [*(*(&v36 + 1) + 8 * j) name];
+          name = [*(*(&v35 + 1) + 8 * j) name];
           v16 = [(WFAction *)selfCopy parameterForKey:name];
 
           summaryString2 = [v4 summaryString];
@@ -2087,7 +2078,7 @@ LABEL_12:
             v4 = v22;
             v13 = v21;
             v12 = v20;
-            selfCopy = v34;
+            selfCopy = v33;
           }
 
           if ([(WFAction *)selfCopy shouldInsertExpandingParameterForParameter:v16])
@@ -2103,7 +2094,7 @@ LABEL_12:
           [v16 attributesDidChange];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v12 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v12);
@@ -2111,8 +2102,6 @@ LABEL_12:
 
 LABEL_17:
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceUpdateParameterVisibility
@@ -2129,109 +2118,105 @@ LABEL_17:
 
 - (id)currentParameterStates
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   parameters = [(WFAction *)self parameters];
   v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(parameters, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = parameters;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v10 key];
         v12 = [(WFAction *)self parameterStateForKey:v11];
         v13 = [v10 key];
         [v4 if_setValueIfNonNil:v12 forKey:v13];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)generatedResourceNodes
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = WFLinkAction;
-  generatedResourceNodes = [(WFAction *)&v27 generatedResourceNodes];
-  v22 = [generatedResourceNodes mutableCopy];
+  v33 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = WFLinkAction;
+  generatedResourceNodes = [(WFAction *)&v26 generatedResourceNodes];
+  v21 = [generatedResourceNodes mutableCopy];
 
   parameterDefinitions = [(WFLinkAction *)self parameterDefinitions];
   v5 = [parameterDefinitions if_compactMap:&__block_literal_global_320];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v31[0] = @"WFResourceClass";
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v30[0] = @"WFResourceClass";
         v11 = objc_opt_class();
         v12 = NSStringFromClass(v11);
-        v31[1] = @"RequiredResources";
-        v32[0] = v12;
-        v28[0] = @"WFResourceClass";
+        v30[1] = @"RequiredResources";
+        v31[0] = v12;
+        v27[0] = @"WFResourceClass";
         v13 = objc_opt_class();
         v14 = NSStringFromClass(v13);
-        v29[0] = v14;
-        v29[1] = v10;
-        v28[1] = @"WFParameterKey";
-        v28[2] = @"WFParameterValue";
-        v29[2] = &unk_1F4A99D70;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
-        v30 = v15;
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-        v32[1] = v16;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+        v28[0] = v14;
+        v28[1] = v10;
+        v27[1] = @"WFParameterKey";
+        v27[2] = @"WFParameterValue";
+        v28[2] = &unk_1F4A99D70;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+        v29 = v15;
+        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+        v31[1] = v16;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
         v18 = [[WFResourceNode alloc] initWithDefinition:v17];
-        [v22 addObject:v18];
+        [v21 addObject:v18];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v7);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 id __38__WFLinkAction_generatedResourceNodes__block_invoke(uint64_t a1, void *a2)
@@ -2374,9 +2359,9 @@ LABEL_10:
   metadata = [(WFAppIntentExecutionAction *)self metadata];
   customIntentClassName = [metadata customIntentClassName];
   _className = [intentCopy _className];
-  v10 = [customIntentClassName isEqualToString:_className];
+  isEqualToString = objc_msgSend_isEqualToString_(customIntentClassName);
 
-  if (v10)
+  if (isEqualToString)
   {
     parametersByKey = [(WFAction *)self parametersByKey];
     v12 = [MEMORY[0x1E696EA80] localizerForLanguage:0];
@@ -2393,54 +2378,54 @@ LABEL_10:
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   keyCopy = key;
   v8 = [(WFAction *)self parameterStateForKey:keyCopy];
   v9 = [v8 isEqual:stateCopy];
 
-  v33.receiver = self;
-  v33.super_class = WFLinkAction;
-  v10 = [(WFAction *)&v33 setParameterState:stateCopy forKey:keyCopy];
+  v32.receiver = self;
+  v32.super_class = WFLinkAction;
+  v10 = [(WFAction *)&v32 setParameterState:stateCopy forKey:keyCopy];
   v11 = v10;
   if (!stateCopy || (v9 & 1) == 0)
   {
-    v24 = v10;
+    v23 = v10;
     dependentParameterIdentifiers = [(WFAppIntentExecutionAction *)self dependentParameterIdentifiers];
     v13 = [dependentParameterIdentifiers objectForKeyedSubscript:keyCopy];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v29 + 1) + 8 * i);
+          v19 = *(*(&v28 + 1) + 8 * i);
           v20 = [(WFAction *)self parameterForKey:v19];
           if (v20 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v25[0] = MEMORY[0x1E69E9820];
-            v25[1] = 3221225472;
-            v25[2] = __41__WFLinkAction_setParameterState_forKey___block_invoke;
-            v25[3] = &unk_1E83778F0;
-            v25[4] = self;
-            v26 = v20;
-            v27 = v19;
-            v28 = v26;
-            [(WFAppIntentExecutionAction *)self loadDefaultSerializedRepresentationForEnumeration:v26 completionHandler:v25];
+            v24[0] = MEMORY[0x1E69E9820];
+            v24[1] = 3221225472;
+            v24[2] = __41__WFLinkAction_setParameterState_forKey___block_invoke;
+            v24[3] = &unk_1E83778F0;
+            v24[4] = self;
+            v25 = v20;
+            v26 = v19;
+            v27 = v25;
+            [(WFAppIntentExecutionAction *)self loadDefaultSerializedRepresentationForEnumeration:v25 completionHandler:v24];
           }
 
           else
@@ -2448,7 +2433,7 @@ LABEL_10:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v16);
@@ -2457,10 +2442,9 @@ LABEL_10:
     dependentParameterIdentifiers2 = [(WFAppIntentExecutionAction *)self dependentParameterIdentifiers];
     [dependentParameterIdentifiers2 removeAllObjects];
 
-    v11 = v24;
+    v11 = v23;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2618,7 +2602,7 @@ void __47__WFLinkAction_updateParameterSummaryIfNeeded___block_invoke(uint64_t a
 
 void __47__WFLinkAction_updateParameterSummaryIfNeeded___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   if (v7)
@@ -2627,22 +2611,20 @@ void __47__WFLinkAction_updateParameterSummaryIfNeeded___block_invoke_2(uint64_t
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "[WFLinkAction updateParameterSummaryIfNeeded:]_block_invoke_2";
-      v15 = 2112;
-      v16 = v7;
+      v13 = "[WFLinkAction updateParameterSummaryIfNeeded:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Failed to process all parameters when updating parameter summary, this is not an fatal error continuing %@", buf, 0x16u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __47__WFLinkAction_updateParameterSummaryIfNeeded___block_invoke_291;
-  v11[3] = &unk_1E83778C8;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __47__WFLinkAction_updateParameterSummaryIfNeeded___block_invoke_291;
+  v10[3] = &unk_1E83778C8;
   v9 = *(a1 + 32);
-  v12 = *(a1 + 40);
-  [v9 getLinkActionWithProcessedParameters:v6 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 40);
+  [v9 getLinkActionWithProcessedParameters:v6 completionHandler:v10];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -2712,7 +2694,7 @@ LABEL_11:
 
 - (void)runSnippetActionWithLinkAction:(id)action
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   systemProtocols = [actionCopy systemProtocols];
   snippetProtocol = [MEMORY[0x1E69ACA50] snippetProtocol];
@@ -2722,13 +2704,13 @@ LABEL_11:
   {
     fullyQualifiedLinkActionIdentifier = [(WFAppIntentExecutionAction *)self fullyQualifiedLinkActionIdentifier];
     bundleIdentifier = [fullyQualifiedLinkActionIdentifier bundleIdentifier];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __47__WFLinkAction_runSnippetActionWithLinkAction___block_invoke;
-    v12[3] = &unk_1E83778A0;
-    v12[4] = self;
-    v13 = actionCopy;
-    [WFToolInvocation invocationFrom:v13 bundleIdentifier:bundleIdentifier deviceIdentifier:0 completionHandler:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __47__WFLinkAction_runSnippetActionWithLinkAction___block_invoke;
+    v11[3] = &unk_1E83778A0;
+    v11[4] = self;
+    v12 = actionCopy;
+    [WFToolInvocation invocationFrom:v12 bundleIdentifier:bundleIdentifier deviceIdentifier:0 completionHandler:v11];
   }
 
   else
@@ -2737,12 +2719,10 @@ LABEL_11:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v15 = "[WFLinkAction runSnippetActionWithLinkAction:]";
+      v14 = "[WFLinkAction runSnippetActionWithLinkAction:]";
       _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s Trying to run Snippet Action with a non SnippetIntent", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47__WFLinkAction_runSnippetActionWithLinkAction___block_invoke(uint64_t a1, void *a2)
@@ -2763,7 +2743,7 @@ void __47__WFLinkAction_runSnippetActionWithLinkAction___block_invoke(uint64_t a
 
 - (void)runAsynchronouslyWithLinkAction:(id)action
 {
-  v64[2] = *MEMORY[0x1E69E9840];
+  v63[2] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   if ([(WFAppIntentExecutionAction *)self actionIsExecutedFromAnotherDevice])
   {
@@ -2771,15 +2751,15 @@ void __47__WFLinkAction_runSnippetActionWithLinkAction___block_invoke(uint64_t a
     {
       connection = WFLocalizedString(@"Sorry, you can’t do that here. Try it on your iPhone instead.");
       v9 = MEMORY[0x1E696ABC0];
-      v63[0] = *MEMORY[0x1E696A588];
+      v62[0] = *MEMORY[0x1E696A588];
       v10 = MEMORY[0x1E696AEC0];
       v11 = WFLocalizedString(@"Could Not Run “%@”");
       localizedName = [(WFAction *)self localizedName];
       v13 = [v10 localizedStringWithFormat:v11, localizedName];
-      v63[1] = *MEMORY[0x1E696A578];
-      v64[0] = v13;
-      v64[1] = connection;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+      v62[1] = *MEMORY[0x1E696A578];
+      v63[0] = v13;
+      v63[1] = connection;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:2];
       runningDelegate2 = [v9 errorWithDomain:@"WFActionErrorDomain" code:15 userInfo:v14];
 
       [(WFAppIntentExecutionAction *)self finishRunningWithError:runningDelegate2];
@@ -2798,27 +2778,7 @@ LABEL_34:
 
   skipExecutingInSiri = [(WFAppIntentExecutionAction *)self skipExecutingInSiri];
 
-  if (skipExecutingInSiri)
-  {
-    goto LABEL_10;
-  }
-
-  v18 = objc_alloc(MEMORY[0x1E69E0CD0]);
-  appDescriptor = [(WFAppIntentExecutionAction *)self appDescriptor];
-  bundleIdentifier = [appDescriptor bundleIdentifier];
-  localizedName2 = [(WFAction *)self localizedName];
-  v22 = [v18 initWithAction:actionCopy bundleIdentifier:bundleIdentifier nameOverride:localizedName2 showWhenRun:{-[WFLinkAction showsWhenRun](self, "showsWhenRun")}];
-
-  userInterface2 = [(WFAction *)self userInterface];
-  v61[0] = MEMORY[0x1E69E9820];
-  v61[1] = 3221225472;
-  v61[2] = __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke;
-  v61[3] = &unk_1E8377850;
-  v61[4] = self;
-  v62 = actionCopy;
-  LOBYTE(bundleIdentifier) = [userInterface2 performSiriRequest:v22 completionHandler:v61];
-
-  if ((bundleIdentifier & 1) == 0)
+  if (skipExecutingInSiri || (v18 = objc_alloc(MEMORY[0x1E69E0CD0]), -[WFAppIntentExecutionAction appDescriptor](self, "appDescriptor"), v19 = objc_claimAutoreleasedReturnValue(), [v19 bundleIdentifier], v20 = objc_claimAutoreleasedReturnValue(), -[WFAction localizedName](self, "localizedName"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v18, "initWithAction:bundleIdentifier:nameOverride:showWhenRun:", actionCopy, v20, v21, -[WFLinkAction showsWhenRun](self, "showsWhenRun")), v21, v20, v19, -[WFAction userInterface](self, "userInterface"), v23 = objc_claimAutoreleasedReturnValue(), v60[0] = MEMORY[0x1E69E9820], v60[1] = 3221225472, v60[2] = __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke, v60[3] = &unk_1E8377850, v60[4] = self, v61 = actionCopy, LOBYTE(v20) = objc_msgSend(v23, "performSiriRequest:completionHandler:", v22, v60), v23, v61, v22, (v20 & 1) == 0))
   {
 LABEL_10:
     connection = [(WFAppIntentExecutionAction *)self connection];
@@ -2858,9 +2818,9 @@ LABEL_10:
 LABEL_25:
       sessionKitToastDurationsPerRunSourceDefinition = [(WFAction *)self sessionKitToastDurationsPerRunSourceDefinition];
       v44 = [[WFActionSessionKitSessionConfiguration alloc] initWithBundleIdentifier:runningDelegate2 toastDurationPerRunSource:sessionKitToastDurationsPerRunSourceDefinition];
-      v60 = 0;
-      v45 = [(WFAction *)self allowSessionKitSessionsIfNeededWithConfiguration:v44 error:&v60];
-      v46 = v60;
+      v59 = 0;
+      v45 = [(WFAction *)self allowSessionKitSessionsIfNeededWithConfiguration:v44 error:&v59];
+      v46 = v59;
       v47 = v46;
       if (!v45)
       {
@@ -2920,7 +2880,7 @@ LABEL_37:
 
     if (v35)
     {
-      bundleIdentifier2 = [connection bundleIdentifier];
+      bundleIdentifier = [connection bundleIdentifier];
     }
 
     else
@@ -2937,19 +2897,19 @@ LABEL_37:
         metadata3 = [(WFAppIntentExecutionAction *)self metadata];
         systemProtocols4 = [metadata3 systemProtocols];
         audioRecordingProtocol = [MEMORY[0x1E69ACA50] audioRecordingProtocol];
-        v59 = [systemProtocols4 containsObject:audioRecordingProtocol];
+        v58 = [systemProtocols4 containsObject:audioRecordingProtocol];
 
-        if (!v59)
+        if (!v58)
         {
           goto LABEL_39;
         }
       }
 
-      bundleIdentifier2 = *MEMORY[0x1E69E0EB0];
+      bundleIdentifier = *MEMORY[0x1E69E0EB0];
     }
 
-    runningDelegate2 = bundleIdentifier2;
-    if (bundleIdentifier2)
+    runningDelegate2 = bundleIdentifier;
+    if (bundleIdentifier)
     {
       goto LABEL_25;
     }
@@ -2963,13 +2923,11 @@ LABEL_39:
   }
 
 LABEL_38:
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -3009,16 +2967,16 @@ void __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke(uint64_t 
     }
 
     v18 = *(a1 + 32);
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke_270;
-    v21[3] = &unk_1E837C1E8;
-    v21[4] = v18;
-    v22 = v17;
-    v23 = v3;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke_270;
+    v20[3] = &unk_1E837C1E8;
+    v20[4] = v18;
+    v21 = v17;
+    v22 = v3;
     v8 = v3;
     v19 = v17;
-    [v18 showResultIfNeeded:v19 completionHandler:v21];
+    [v18 showResultIfNeeded:v19 completionHandler:v20];
   }
 
   else
@@ -3028,10 +2986,10 @@ void __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke(uint64_t 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v25 = "[WFLinkAction runAsynchronouslyWithLinkAction:]_block_invoke";
-      v26 = 2112;
-      v27 = objc_opt_class();
-      v6 = v27;
+      v24 = "[WFLinkAction runAsynchronouslyWithLinkAction:]_block_invoke";
+      v25 = 2112;
+      v26 = objc_opt_class();
+      v6 = v26;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_FAULT, "%s Received unexpected interaction response of type %@", buf, 0x16u);
     }
 
@@ -3041,8 +2999,6 @@ void __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke(uint64_t 
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __48__WFLinkAction_runAsynchronouslyWithLinkAction___block_invoke_270(uint64_t a1)
@@ -3430,19 +3386,17 @@ LABEL_10:
 
 void __35__WFLinkAction_wasAddedToWorkflow___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = getWFAppIntentsLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[WFLinkAction wasAddedToWorkflow:]_block_invoke";
-    v7 = 2114;
-    v8 = v2;
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to preload default parameter states: %{public}@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[WFLinkAction wasAddedToWorkflow:]_block_invoke";
+    v6 = 2114;
+    v7 = v2;
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_ERROR, "%s Failed to preload default parameter states: %{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (WFLinkAction)initWithIdentifier:(id)identifier metadata:(id)metadata definition:(id)definition serializedParameters:(id)parameters appIntentDescriptor:(id)descriptor fullyQualifiedActionIdentifier:(id)actionIdentifier
@@ -3508,14 +3462,14 @@ BOOL __57__WFLinkAction_inputParameterMetadataWithActionMetadata___block_invoke_
 
 + (id)providedActionWithIdentifier:(id)identifier serializedParameters:(id)parameters
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   identifierCopy = identifier;
   v7 = +[WFLinkActionProvider sharedProvider];
   v8 = [[WFActionRequest alloc] initWithActionIdentifier:identifierCopy serializedParameters:parametersCopy];
 
-  v15[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   [v7 createActionsForRequests:v9];
 
   result = [(WFActionRequest *)v8 result];
@@ -3540,7 +3494,6 @@ BOOL __57__WFLinkAction_inputParameterMetadataWithActionMetadata___block_invoke_
 
   v12 = v11;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -3670,22 +3623,21 @@ void __90__WFLinkAction_NamedQueries__fetchSuggestedEntitiesForParameterWithKey_
   if (a2)
   {
     v3 = [a2 allItems];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __90__WFLinkAction_NamedQueries__fetchSuggestedEntitiesForParameterWithKey_completionHandler___block_invoke_2;
-    v7[3] = &unk_1E837D420;
-    v8 = *(a1 + 32);
-    v4 = [v3 if_compactMap:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __90__WFLinkAction_NamedQueries__fetchSuggestedEntitiesForParameterWithKey_completionHandler___block_invoke_2;
+    v6[3] = &unk_1E837D420;
+    v7 = *(a1 + 32);
+    v4 = [v3 if_compactMap:v6];
 
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 }
 

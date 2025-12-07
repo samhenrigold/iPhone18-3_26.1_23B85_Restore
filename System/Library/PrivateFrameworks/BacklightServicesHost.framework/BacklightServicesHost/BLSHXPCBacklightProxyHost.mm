@@ -9,6 +9,7 @@
 - (id)getFlipbookState;
 - (id)performChangeRequest:(id)request;
 - (uint64_t)isValid;
+- (void)backlight:(id)backlight didChangeAlwaysOnEnabled:(BOOL)enabled;
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvents:(id)events abortedEvents:(id)abortedEvents;
 - (void)beginObservation;
 - (void)clientProcessStateUpdate:(uint64_t)update;
@@ -90,12 +91,11 @@
 
 - (void)dealloc
 {
-  v1 = OUTLINED_FUNCTION_4_7(self, *MEMORY[0x277D85DE8]);
-  v4 = 134218240;
-  v5 = v1;
+  OUTLINED_FUNCTION_4_7(*MEMORY[0x277D85DE8]);
+  v2 = 134218240;
+  v3 = v0;
   OUTLINED_FUNCTION_1_14();
-  _os_log_fault_impl(&dword_21FD11000, v2, OS_LOG_TYPE_FAULT, "%p must invalidate before deallocating service for pid:%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "%p must invalidate before deallocating service for pid:%d", &v2, 0x12u);
 }
 
 - (id)getBacklightState
@@ -172,7 +172,7 @@
 
 - (void)nowObservingWithMask:(id)mask completion:(id)completion
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   maskCopy = mask;
   completionCopy = completion;
   if ((([maskCopy isObservingActivatingWithEvent] & 1) != 0 || objc_msgSend(maskCopy, "isObservingDeactivatingWithEvent")) && (self->_entitlements & 8) == 0)
@@ -180,15 +180,15 @@
     v8 = bls_backlight_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [BLSHXPCBacklightProxyHost nowObservingWithMask:? completion:?];
+      [BLSHXPCBacklightProxyHost nowObservingWithMask:completion:];
     }
 
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277CF0828];
-    v42 = *MEMORY[0x277CCA450];
+    v41 = *MEMORY[0x277CCA450];
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Observing activating/deactivating requires entitlement %@", @"com.apple.backlight.allowsActivationObservation"];
-    v43[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v42[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v13 = [v9 errorWithDomain:v10 code:21 userInfo:v12];
 
     [0 addObject:v13];
@@ -202,15 +202,15 @@
     v15 = bls_backlight_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [BLSHXPCBacklightProxyHost nowObservingWithMask:? completion:?];
+      [BLSHXPCBacklightProxyHost nowObservingWithMask:completion:];
     }
 
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CF0828];
-    v40 = *MEMORY[0x277CCA450];
+    v39 = *MEMORY[0x277CCA450];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Observing performing all events requires entitlement %@", @"com.apple.backlight.allowsPerformingEventObservation"];
-    v41 = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v40 = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
     v20 = [v16 errorWithDomain:v17 code:21 userInfo:v19];
 
     [0 addObject:v20];
@@ -224,7 +224,7 @@
   {
     v23 = MEMORY[0x277CCA9B8];
     v24 = *MEMORY[0x277CF0828];
-    v38[0] = *MEMORY[0x277CCA450];
+    v37[0] = *MEMORY[0x277CCA450];
     v25 = MEMORY[0x277CCACA8];
     localizedFailureReason = [firstObject localizedFailureReason];
     localizedDescription = localizedFailureReason;
@@ -234,10 +234,10 @@
     }
 
     v28 = [v25 stringWithFormat:@"Missing multiple observation entitlements including '%@'", localizedDescription];
-    v38[1] = *MEMORY[0x277CCA578];
-    v39[0] = v28;
-    v39[1] = 0;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v37[1] = *MEMORY[0x277CCA578];
+    v38[0] = v28;
+    v38[1] = 0;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
     v30 = [v23 errorWithDomain:v24 code:21 userInfo:v29];
 
     if (!localizedFailureReason)
@@ -284,8 +284,6 @@
   }
 
   completionCopy[2](completionCopy, firstObject);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)beginObservation
@@ -302,7 +300,7 @@
       v6 = bls_backlight_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(BLSHXPCBacklightProxyHost *)self beginObservation];
+        [BLSHXPCBacklightProxyHost beginObservation];
       }
     }
 
@@ -368,7 +366,7 @@ void __45__BLSHXPCBacklightProxyHost_beginObservation__block_invoke(uint64_t a1,
 
 void __45__BLSHXPCBacklightProxyHost_beginObservation__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -377,14 +375,12 @@ void __45__BLSHXPCBacklightProxyHost_beginObservation__block_invoke_2(uint64_t a
     [v5 setValues:1];
     [v3 setStateDescriptor:v5];
     v6 = [MEMORY[0x277D46FA0] predicateMatchingTarget:*(a1 + 32)];
-    v9[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     [v3 setPredicates:v7];
 
     [v3 setUpdateHandler:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)observesDeactivation
@@ -406,7 +402,7 @@ void __45__BLSHXPCBacklightProxyHost_beginObservation__block_invoke_2(uint64_t a
 
 - (id)performChangeRequest:(id)request
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (([(BLSHXPCBacklightProxyHost *)self isValid]& 1) != 0)
   {
@@ -416,20 +412,19 @@ void __45__BLSHXPCBacklightProxyHost_beginObservation__block_invoke_2(uint64_t a
       v7 = bls_backlight_log();
       if (OUTLINED_FUNCTION_5_6(v7))
       {
-        clientPid = self->_clientPid;
         OUTLINED_FUNCTION_0_14();
         OUTLINED_FUNCTION_2_11();
-        _os_log_error_impl(v33, v34, v35, v36, v37, 0x1Cu);
+        _os_log_error_impl(v31, v32, v33, v34, v35, 0x1Cu);
       }
 
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CF0828];
-      v54 = *MEMORY[0x277CCA450];
+      v50 = *MEMORY[0x277CCA450];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ no entitlement %@", requestCopy, @"com.apple.backlight.backlightaccess"];
-      v55 = v10;
+      v51 = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = &v55;
-      v13 = &v54;
+      v12 = &v51;
+      v13 = &v50;
 LABEL_13:
       v21 = [v11 dictionaryWithObjects:v12 forKeys:v13 count:1];
       v19 = [v8 errorWithDomain:v9 code:21 userInfo:v21];
@@ -442,45 +437,43 @@ LABEL_13:
       v20 = bls_backlight_log();
       if (OUTLINED_FUNCTION_5_6(v20))
       {
-        v38 = self->_clientPid;
         OUTLINED_FUNCTION_0_14();
         OUTLINED_FUNCTION_2_11();
-        _os_log_error_impl(v39, v40, v41, v42, v43, 0x1Cu);
+        _os_log_error_impl(v36, v37, v38, v39, v40, 0x1Cu);
       }
 
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CF0828];
-      v52 = *MEMORY[0x277CCA450];
+      v48 = *MEMORY[0x277CCA450];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ no entitlement %@", requestCopy, @"com.apple.backlight.performrequest"];
-      v53 = v10;
+      v49 = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = &v53;
-      v13 = &v52;
+      v12 = &v49;
+      v13 = &v48;
       goto LABEL_13;
     }
 
     if ((entitlements & 1) == 0 && [requestCopy sourceEvent] != 10)
     {
-      v25 = bls_backlight_log();
-      if (OUTLINED_FUNCTION_5_6(v25))
+      v24 = bls_backlight_log();
+      if (OUTLINED_FUNCTION_5_6(v24))
       {
-        v44 = self->_clientPid;
         OUTLINED_FUNCTION_0_14();
         OUTLINED_FUNCTION_2_11();
-        _os_log_error_impl(v45, v46, v47, v48, v49, 0x1Cu);
+        _os_log_error_impl(v41, v42, v43, v44, v45, 0x1Cu);
       }
 
       v8 = MEMORY[0x277CCA9B8];
       v9 = *MEMORY[0x277CF0828];
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ no entitlement %@", requestCopy, @"com.apple.backlight.anysource", *MEMORY[0x277CCA450]];
-      v51 = v10;
+      v47 = v10;
       v11 = MEMORY[0x277CBEAC0];
-      v12 = &v51;
-      v13 = &v50;
+      v12 = &v47;
+      v13 = &v46;
       goto LABEL_13;
     }
 
-    v24 = [(BLSBacklightProxy *)self->_localBacklightProxy performChangeRequest:requestCopy];
+    v23 = [(BLSBacklightProxy *)self->_localBacklightProxy performChangeRequest:requestCopy];
     v19 = 0;
   }
 
@@ -489,73 +482,72 @@ LABEL_13:
     v14 = bls_backlight_log();
     if (OUTLINED_FUNCTION_5_6(v14))
     {
-      v26 = self->_clientPid;
-      v56 = 67109120;
-      v57 = v26;
+      clientPid = self->_clientPid;
+      v52 = 67109120;
+      v53 = clientPid;
       OUTLINED_FUNCTION_2_11();
-      _os_log_error_impl(v27, v28, v29, v30, v31, 8u);
+      _os_log_error_impl(v26, v27, v28, v29, v30, 8u);
     }
 
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CF0828];
-    v58 = *MEMORY[0x277CCA450];
+    v54 = *MEMORY[0x277CCA450];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"proxy is invalid for pid:%d", self->_clientPid];
-    v59[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v55[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
     v19 = [v15 errorWithDomain:v16 code:4 userInfo:v18];
   }
 
 LABEL_14:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (void)endObservation
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if (!self || (os_unfair_lock_lock((self + 48)), v2 = *(self + 54), os_unfair_lock_unlock((self + 48)), v2 != 1))
+  v10 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_10:
-    v9 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  os_unfair_lock_lock((self + 48));
-  v3 = *(self + 16);
-  [*(self + 24) invalidate];
-  v4 = *(self + 24);
-  *(self + 24) = 0;
-
-  v5 = *(self + 16);
-  *(self + 16) = 0;
-
-  os_unfair_lock_unlock((self + 48));
-  if (!v3)
-  {
-    v8 = bls_backlight_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    os_unfair_lock_lock((self + 48));
+    v2 = *(self + 54);
+    os_unfair_lock_unlock((self + 48));
+    if (v2 == 1)
     {
-      v10 = *(self + 40);
-      v11 = 134218240;
-      selfCopy = self;
-      OUTLINED_FUNCTION_1_14();
-      _os_log_fault_impl(&dword_21FD11000, v8, OS_LOG_TYPE_FAULT, "%p was not observing from pid:%d", &v11, 0x12u);
+      os_unfair_lock_lock((self + 48));
+      v3 = *(self + 16);
+      [*(self + 24) invalidate];
+      v4 = *(self + 24);
+      *(self + 24) = 0;
+
+      v5 = *(self + 16);
+      *(self + 16) = 0;
+
+      os_unfair_lock_unlock((self + 48));
+      if (v3)
+      {
+        v6 = *(self + 8);
+
+        [v6 removeObserver:self];
+      }
+
+      else
+      {
+        v7 = bls_backlight_log();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+        {
+          v8 = 134218240;
+          selfCopy = self;
+          OUTLINED_FUNCTION_1_14();
+          _os_log_fault_impl(&dword_21FD11000, v7, OS_LOG_TYPE_FAULT, "%p was not observing from pid:%d", &v8, 0x12u);
+        }
+      }
     }
-
-    goto LABEL_10;
   }
-
-  v6 = *(self + 8);
-  v7 = *MEMORY[0x277D85DE8];
-
-  [v6 removeObserver:self];
 }
 
 - (void)clientProcessStateUpdate:(uint64_t)update
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (update)
   {
     os_unfair_lock_lock((update + 48));
@@ -579,28 +571,26 @@ LABEL_10:
       v8 = bls_backlight_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v11 = *(update + 40);
-        v12 = NSStringFromBLSBacklightState();
-        v13 = 134218498;
+        v10 = *(update + 40);
+        v11 = NSStringFromBLSBacklightState();
+        v12 = 134218498;
         updateCopy = update;
-        v15 = 1024;
-        v16 = v11;
-        v17 = 2114;
-        v18 = v12;
-        _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%p client now running pid:%d update to backlight state:%{public}@", &v13, 0x1Cu);
+        v14 = 1024;
+        v15 = v10;
+        v16 = 2114;
+        v17 = v11;
+        _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%p client now running pid:%d update to backlight state:%{public}@", &v12, 0x1Cu);
       }
 
       v9 = [MEMORY[0x277CCABB0] numberWithInteger:backlightState];
       [v5 didCompleteUpdateToState:v9 forEvents:0 abortedEvents:0];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)backlight:(id)backlight didCompleteUpdateToState:(int64_t)state forEvents:(id)events abortedEvents:(id)abortedEvents
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   abortedEventsCopy = abortedEvents;
   if ([(BLSHXPCBacklightProxyHost *)self isValid])
@@ -617,8 +607,8 @@ LABEL_10:
         if (eventsCopy)
         {
           firstObject = [eventsCopy firstObject];
-          v29[0] = firstObject;
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+          v28[0] = firstObject;
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
 
           eventsCopy = v15;
         }
@@ -638,22 +628,33 @@ LABEL_10:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         clientPid = self->_clientPid;
-        v19 = NSStringFromBLSBacklightState();
-        v20 = NSStringFromBLSBacklightChangeEvents();
-        v21 = 134218754;
+        v18 = NSStringFromBLSBacklightState();
+        v19 = NSStringFromBLSBacklightChangeEvents();
+        v20 = 134218754;
         selfCopy = self;
-        v23 = 1024;
-        v24 = clientPid;
-        v25 = 2114;
-        v26 = v19;
-        v27 = 2114;
-        v28 = v20;
-        _os_log_debug_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEBUG, "%p client not running pid:%d will not notify backlight update to state:%{public}@ events:%{public}@", &v21, 0x26u);
+        v22 = 1024;
+        v23 = clientPid;
+        v24 = 2114;
+        v25 = v18;
+        v26 = 2114;
+        v27 = v19;
+        _os_log_debug_impl(&dword_21FD11000, v16, OS_LOG_TYPE_DEBUG, "%p client not running pid:%d will not notify backlight update to state:%{public}@ events:%{public}@", &v20, 0x26u);
       }
     }
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)backlight:(id)backlight didChangeAlwaysOnEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(BLSHXPCBacklightProxyHost *)self isValid])
+  {
+    os_unfair_lock_lock(&self->_lock);
+    v6 = self->_lock_observingClient;
+    os_unfair_lock_unlock(&self->_lock);
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    [(BLSXPCBacklightProxyClientInterface *)v6 didChangeAlwaysOnEnabled:v7];
+  }
 }
 
 - (void)observePerformingEvent:(uint64_t)event
@@ -674,34 +675,31 @@ LABEL_10:
   }
 }
 
-- (void)nowObservingWithMask:(uint64_t)a1 completion:.cold.1(uint64_t a1)
+- (void)nowObservingWithMask:completion:.cold.1()
 {
-  OUTLINED_FUNCTION_4_7(a1, *MEMORY[0x277D85DE8]);
-  v3 = 138412546;
-  v4 = @"com.apple.backlight.allowsActivationObservation";
+  OUTLINED_FUNCTION_4_7(*MEMORY[0x277D85DE8]);
+  v1 = 138412546;
+  v2 = @"com.apple.backlight.allowsActivationObservation";
   OUTLINED_FUNCTION_1_14();
-  _os_log_error_impl(&dword_21FD11000, v1, OS_LOG_TYPE_ERROR, "Observing activating/deactivating requires entitlement %@ pid:%d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FD11000, v0, OS_LOG_TYPE_ERROR, "Observing activating/deactivating requires entitlement %@ pid:%d", &v1, 0x12u);
 }
 
-- (void)nowObservingWithMask:(uint64_t)a1 completion:.cold.2(uint64_t a1)
+- (void)nowObservingWithMask:completion:.cold.2()
 {
-  OUTLINED_FUNCTION_4_7(a1, *MEMORY[0x277D85DE8]);
-  v3 = 138412546;
-  v4 = @"com.apple.backlight.allowsPerformingEventObservation";
+  OUTLINED_FUNCTION_4_7(*MEMORY[0x277D85DE8]);
+  v1 = 138412546;
+  v2 = @"com.apple.backlight.allowsPerformingEventObservation";
   OUTLINED_FUNCTION_1_14();
-  _os_log_error_impl(&dword_21FD11000, v1, OS_LOG_TYPE_ERROR, "Observing performing all events requires entitlement %@ pid:%d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FD11000, v0, OS_LOG_TYPE_ERROR, "Observing performing all events requires entitlement %@ pid:%d", &v1, 0x12u);
 }
 
 - (void)beginObservation
 {
-  v1 = OUTLINED_FUNCTION_4_7(self, *MEMORY[0x277D85DE8]);
-  v4 = 134218240;
-  v5 = v1;
+  OUTLINED_FUNCTION_4_7(*MEMORY[0x277D85DE8]);
+  v2 = 134218240;
+  v3 = v0;
   OUTLINED_FUNCTION_1_14();
-  _os_log_fault_impl(&dword_21FD11000, v2, OS_LOG_TYPE_FAULT, "%p already observing from pid:%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_21FD11000, v1, OS_LOG_TYPE_FAULT, "%p already observing from pid:%d", &v2, 0x12u);
 }
 
 @end

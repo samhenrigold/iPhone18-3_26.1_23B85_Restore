@@ -159,44 +159,44 @@
 
 - (id)centerCellFromCollectionView:(id)view
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   viewCopy = view;
   [viewCopy bounds];
   AX_CGRectGetCenter();
   v5 = v4;
   v7 = v6;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   indexPathsForVisibleItems = [viewCopy indexPathsForVisibleItems];
-  v9 = [indexPathsForVisibleItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [indexPathsForVisibleItems countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v17 != v11)
+      if (*v16 != v11)
       {
         objc_enumerationMutation(indexPathsForVisibleItems);
       }
 
-      v13 = [viewCopy cellForItemAtIndexPath:*(*(&v16 + 1) + 8 * v12)];
+      v13 = [viewCopy cellForItemAtIndexPath:*(*(&v15 + 1) + 8 * v12)];
       [v13 bounds];
       [viewCopy convertRect:v13 fromView:?];
-      v23.x = v5;
-      v23.y = v7;
-      if (CGRectContainsPoint(v24, v23))
+      v22.x = v5;
+      v22.y = v7;
+      if (CGRectContainsPoint(v23, v22))
       {
         break;
       }
 
       if (v10 == ++v12)
       {
-        v10 = [indexPathsForVisibleItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [indexPathsForVisibleItems countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -212,8 +212,6 @@ LABEL_3:
 LABEL_9:
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }

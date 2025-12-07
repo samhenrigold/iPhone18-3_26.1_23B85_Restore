@@ -16,10 +16,12 @@
 - (id)fetchStorageStats;
 - (id)fetchTimingStats:(id)stats;
 - (id)persistPath;
+- (id)roundNumber:(id)number toSignificantDigits:(int)digits;
 - (id)systemUsageStats;
 - (void)_addDailyStats:(id)stats;
 - (void)_postDailyStats:(id)stats;
 - (void)_reportBroadcastLowDiskNotification:(id)notification forVolume:(id)volume;
+- (void)_reportLowDiskFunctionalFailure:(id)failure failureType:(int)type isRoot:(BOOL)root;
 - (void)_reportPurgeTimingInfo:(id)info;
 - (void)_reportPurgeableTimingInfo:(id)info;
 - (void)_reportReceivedLowDiskNotification:(id)notification forVolume:(id)volume;
@@ -1276,6 +1278,15 @@ void __47__CacheDeleteAnalytics_anonymizeAndFlush_name___block_invoke(uint64_t a
   }
 
   return result;
+}
+
+- (id)roundNumber:(id)number toSignificantDigits:(int)digits
+{
+  v4 = *&digits;
+  [number doubleValue];
+  [(CacheDeleteAnalytics *)self round:v4 toSignificantDigits:?];
+
+  return [NSNumber numberWithDouble:?];
 }
 
 - (double)machTimeToSeconds:(unint64_t)seconds
@@ -2767,6 +2778,32 @@ LABEL_13:
   rootCopy = root;
   v10 = failureCopy;
   dispatch_sync(serialQueue, block);
+}
+
+- (void)_reportLowDiskFunctionalFailure:(id)failure failureType:(int)type isRoot:(BOOL)root
+{
+  v5 = *&type;
+  if (root)
+  {
+    v8 = "Root";
+  }
+
+  else
+  {
+    v8 = "Ext";
+  }
+
+  failureCopy = failure;
+  v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"lowDiskFunctionalFailure_%d_%s_%s", v5, v8, [failure UTF8String]);
+  v11 = CDGetLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v13 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "_reportLowDiskFunctionalFailure key: %@", buf, 0xCu);
+  }
+
+  [(CacheDeleteAnalytics *)self incrementDailyValueForKey:v10];
 }
 
 @end

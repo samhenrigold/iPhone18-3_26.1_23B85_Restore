@@ -134,11 +134,8 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  userAgent = self->_userAgent;
   PBDataWriterWriteStringField();
-  xDsid = self->_xDsid;
   PBDataWriterWriteStringField();
-  xAppleStorefront = self->_xAppleStorefront;
   PBDataWriterWriteStringField();
   if (self->_xGuid)
   {
@@ -155,36 +152,35 @@
     PBDataWriterWriteStringField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_cookies;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_cookies;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v10 = v9;
-    v11 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v12 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
-        v12 = v12 + 1;
+        ++v9;
       }
 
-      while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v10);
+    while (v7);
   }
 
   if (self->_pfm)
@@ -194,7 +190,6 @@
 
   if (*&self->_has)
   {
-    clientVersion = self->_clientVersion;
     PBDataWriterWriteInt32Field();
   }
 }

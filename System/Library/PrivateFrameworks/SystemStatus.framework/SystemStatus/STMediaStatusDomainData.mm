@@ -507,7 +507,6 @@ id __41__STMediaStatusDomainData_initWithCoder___block_invoke(void *a1, uint64_t
 
 uint64_t __41__STMediaStatusDomainData_initWithCoder___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(a1 + 40);
   result = objc_opt_isKindOfClass();
   if ((result & 1) == 0)
   {

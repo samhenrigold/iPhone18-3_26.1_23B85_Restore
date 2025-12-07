@@ -45,7 +45,7 @@
 - (PXPhotoKitPlayMovieAssetActionPerformer)initWithActionType:(id)type
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for PhotoKitPlayMovieAssetActionPerformer();
+  v5.super_class = type metadata accessor for PhotoKitPlayMovieAssetActionPerformer(self, a2);
   return [(PXActionPerformer *)&v5 initWithActionType:type];
 }
 

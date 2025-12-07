@@ -44,15 +44,13 @@
 
 void __30__CPLFeature_featureWithName___block_invoke()
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"MomentShare";
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"MomentShare";
   v0 = objc_alloc_init(CPLMomentShareFeature);
-  v5[0] = v0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = featureWithName__features;
   featureWithName__features = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

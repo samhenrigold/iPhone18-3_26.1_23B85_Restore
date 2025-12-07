@@ -1,10 +1,8 @@
 @interface ContactRelationResolutionResult
 + (id)confirmationRequiredWithContactRelationToConfirm:(id)confirm;
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm;
 + (id)disambiguationWithContactRelationsToDisambiguate:(id)disambiguate;
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate;
 + (id)successWithResolvedContactRelation:(id)relation;
-+ (id)successWithResolvedObject:(id)object;
 @end
 
 @implementation ContactRelationResolutionResult
@@ -37,26 +35,13 @@
   return v5;
 }
 
-+ (id)successWithResolvedObject:(id)object
-{
-  objectCopy = object;
-  static ContactRelationResolutionResult.success(with:)();
-  return static ContactRelationResolutionResult.disambiguation(with:)();
-}
-
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   type metadata accessor for INObject();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  static ContactRelationResolutionResult.success(with:)();
-  return static ContactRelationResolutionResult.confirmationRequired(with:)();
-}
-
-+ (id)confirmationRequiredWithObjectToConfirm:(id)confirm
-{
-  confirmCopy = confirm;
-  static ContactRelationResolutionResult.confirmationRequired(with:)();
-  return ContactRelationResolutionResult.__allocating_init(JSONDictionary:intent:)();
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  static ContactRelationResolutionResult.success(with:)(v3);
+  static ContactRelationResolutionResult.confirmationRequired(with:)(v4);
+  return result;
 }
 
 @end

@@ -113,7 +113,7 @@ void __100__CLKComplicationTemplateGraphicRectangularLargeText__enumerateFullCol
   qword_27DE91CE8 = v3;
   [v5 setNewestAllowedSizeClass:&unk_284A34128];
   [v5 scaledValue:3 withOverride:12.0 forSizeClass:13.5];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1558 = v4;
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1558[0] = v4;
 }
 
 @end

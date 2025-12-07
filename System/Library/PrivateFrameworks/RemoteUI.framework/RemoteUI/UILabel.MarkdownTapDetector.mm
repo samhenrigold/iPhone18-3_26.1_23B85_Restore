@@ -8,7 +8,7 @@
 
 - (void)didTapLabel:(id)label
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0, &unk_21BA92240);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v17 - v6;
   v8 = sub_21BA864AC();
@@ -37,7 +37,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0, &unk_21BA92240);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v13 - v6;
   v8 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x78);

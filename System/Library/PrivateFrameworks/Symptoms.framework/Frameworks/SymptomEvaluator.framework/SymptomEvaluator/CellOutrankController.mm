@@ -7,6 +7,7 @@
 - (double)cellOutrankIconSetDuration;
 - (double)cellOutrankPossibleDuration;
 - (id)getState:(BOOL)state;
+- (void)_foregroundAppActivity:(id)activity uuid:(id)uuid isForeground:(BOOL)foreground;
 - (void)_updateExploitNumbers;
 - (void)assertFallbackForClient:(id)client process:(id)process;
 - (void)assessIconState;
@@ -31,7 +32,7 @@
 
 - (void)assessIconState
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   [(CellOutrankController *)self checkInvariants:@"assessIconState entry"];
   if (![(CellOutrankController *)self cellOutranksWiFi])
   {
@@ -54,9 +55,9 @@
         {
           v21 = v20;
           *buf = 136315394;
-          *v49 = currentUsageString([(CellOutrankController *)self currentUsage]);
-          *&v49[8] = 2080;
-          v50 = currentUsageString(v19);
+          *v48 = currentUsageString([(CellOutrankController *)self currentUsage]);
+          *&v48[8] = 2080;
+          v49 = currentUsageString(v19);
           _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "COSMCtrl assessIconState: no longer in Outrank, current usage %s -> %s", buf, 0x16u);
         }
 
@@ -73,9 +74,9 @@
           cellOutrankEffective2 = [(CellOutrankController *)self cellOutrankEffective];
           flowBasedIconRecommendation = [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser flowBasedIconRecommendation];
           *buf = 67109376;
-          *v49 = cellOutrankEffective2;
-          *&v49[4] = 1024;
-          *&v49[6] = flowBasedIconRecommendation;
+          *v48 = cellOutrankEffective2;
+          *&v48[4] = 1024;
+          *&v48[6] = flowBasedIconRecommendation;
           _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "COSMCtrl assessIconState: no longer in Outrank, cellOutrankEffective %d -> %d", buf, 0xEu);
         }
 
@@ -95,7 +96,7 @@
       [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setActive:1];
     }
 
-    goto LABEL_65;
+    return;
   }
 
   if (!self->_cellOutranksWiFi)
@@ -103,30 +104,30 @@
     goto LABEL_15;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v3 = self->_activeApps;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (!v4)
   {
     goto LABEL_14;
   }
 
   v5 = v4;
-  v6 = *v45;
+  v6 = *v44;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v45 != v6)
+      if (*v44 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v44 + 1) + 8 * i);
-      v9 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v8, v44];
+      v8 = *(*(&v43 + 1) + 8 * i);
+      v9 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v8, v43];
       if ([v9 isForeground])
       {
         if ([v9 connectionCount] >= 1)
@@ -138,7 +139,7 @@
 LABEL_64:
             [(CellOutrankController *)self setCurrentUsage:v28];
 
-            goto LABEL_65;
+            return;
           }
 
           v29 = outrankLogHandle;
@@ -148,11 +149,11 @@ LABEL_64:
             connectionCount = [v9 connectionCount];
             bundleName = [v9 bundleName];
             *buf = 134218498;
-            *v49 = connectionCount;
-            *&v49[8] = 2114;
-            v50 = v8;
-            v51 = 2114;
-            v52 = bundleName;
+            *v48 = connectionCount;
+            *&v48[8] = 2114;
+            v49 = v8;
+            v50 = 2114;
+            v51 = bundleName;
             _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "COSMCtrl assessIconState: set cellOutrankEffective because of assertion count %lld on %{public}@  %{public}@", buf, 0x20u);
 
 LABEL_61:
@@ -178,7 +179,7 @@ LABEL_61:
               v34 = v33;
               bundleName3 = [v9 bundleName];
               *buf = 138543362;
-              *v49 = bundleName3;
+              *v48 = bundleName3;
               _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEFAULT, "COSMCtrl _set cellOutrankEffective because bundle name requires icon when in outrank, %{public}@", buf, 0xCu);
             }
 
@@ -198,9 +199,9 @@ LABEL_61:
             v30 = v41;
             bundleName4 = [v9 bundleName];
             *buf = 138543618;
-            *v49 = v8;
-            *&v49[8] = 2114;
-            v50 = bundleName4;
+            *v48 = v8;
+            *&v48[8] = 2114;
+            v49 = bundleName4;
             _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "COSMCtrl assessIconState: set cellOutrankEffective because of session activity %{public}@  %{public}@", buf, 0x16u);
 
             goto LABEL_61;
@@ -216,7 +217,7 @@ LABEL_63:
 LABEL_12:
     }
 
-    v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (v5)
     {
       continue;
@@ -264,7 +265,7 @@ LABEL_15:
           v17 = v15;
           cellOutrankEffective3 = [(CellOutrankController *)self cellOutrankEffective];
           *buf = 67109120;
-          *v49 = cellOutrankEffective3;
+          *v48 = cellOutrankEffective3;
           _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "COSMCtrl assessIconState icon background flows, state %d -> 1", buf, 8u);
         }
       }
@@ -289,9 +290,9 @@ LABEL_15:
         cellOutrankEffective5 = [(CellOutrankController *)self cellOutrankEffective];
         flowBasedIconRecommendation3 = [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser flowBasedIconRecommendation];
         *buf = 67109376;
-        *v49 = cellOutrankEffective5;
-        *&v49[4] = 1024;
-        *&v49[6] = flowBasedIconRecommendation3;
+        *v48 = cellOutrankEffective5;
+        *&v48[4] = 1024;
+        *&v48[6] = flowBasedIconRecommendation3;
         _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "COSMCtrl assessIconState: mismatched cellOutrankEffective %d flow checks say %d", buf, 0xEu);
       }
 
@@ -300,35 +301,33 @@ LABEL_15:
   }
 
   [(CellOutrankController *)self checkInvariants:@"assessIconState exit"];
-LABEL_65:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExploitNumbers
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v3 = self->_activeApps;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v25;
+    v7 = *v24;
     *&v5 = 138412290;
-    v23 = v5;
+    v22 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i), v23, v24];
+        v9 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i), v22, v23];
         if ([v9 isForeground])
         {
           if ([v9 countedAsExploitingOutrank])
@@ -338,8 +337,8 @@ LABEL_65:
             {
               v11 = v10;
               bundleName = [v9 bundleName];
-              *buf = v23;
-              v29 = bundleName;
+              *buf = v22;
+              v28 = bundleName;
               _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "COSMCtrl _updateExploitNumbers already counted exploit %@", buf, 0xCu);
             }
           }
@@ -362,8 +361,8 @@ LABEL_65:
 
                 v16 = v20;
                 bundleName2 = [v9 bundleName];
-                *buf = v23;
-                v29 = bundleName2;
+                *buf = v22;
+                v28 = bundleName2;
                 v18 = v16;
                 v19 = "COSMCtrl _updateExploitNumbers new count as exploit %@";
               }
@@ -380,8 +379,8 @@ LABEL_65:
 
                 v16 = v21;
                 bundleName2 = [v9 bundleName];
-                *buf = v23;
-                v29 = bundleName2;
+                *buf = v22;
+                v28 = bundleName2;
                 v18 = v16;
                 v19 = "COSMCtrl _updateExploitNumbers new count as non exploit %@";
               }
@@ -399,8 +398,8 @@ LABEL_65:
               {
                 v16 = v15;
                 bundleName2 = [v9 bundleName];
-                *buf = v23;
-                v29 = bundleName2;
+                *buf = v22;
+                v28 = bundleName2;
                 v18 = v16;
                 v19 = "COSMCtrl _updateExploitNumbers move from non-exploit -> exploit %@";
 LABEL_19:
@@ -413,13 +412,11 @@ LABEL_19:
 LABEL_20:
       }
 
-      v6 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v6 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v6);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(uint64_t a1)
@@ -438,7 +435,7 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(ui
 
 - (BOOL)applyPolicyDelta
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v4 = v3;
   v5 = outrankLogHandle;
@@ -450,35 +447,35 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(ui
 
   [(CellOutrankController *)self checkInvariants:@"applyPolicyDelta entry"];
   [(NSMutableDictionary *)self->_activeApps allKeys];
+  v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
-  obj = v103 = 0u;
-  v94 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
-  if (!v94)
+  obj = v102 = 0u;
+  v93 = [obj countByEnumeratingWithState:&v99 objects:v110 count:16];
+  if (!v93)
   {
     v81 = 0;
     goto LABEL_66;
   }
 
-  v92 = 0;
+  v91 = 0;
   v7 = 0;
-  v8 = *v101;
+  v8 = *v100;
   *&v6 = 138412290;
-  v87 = v6;
-  v88 = *v101;
+  v86 = v6;
+  v87 = *v100;
   do
   {
     v9 = 0;
     do
     {
-      if (*v101 != v8)
+      if (*v100 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v100 + 1) + 8 * v9);
-      v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v10, v87];
+      v10 = *(*(&v99 + 1) + 8 * v9);
+      v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v10, v86];
       v12 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
       {
@@ -489,16 +486,16 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(ui
         isForeground = [v11 isForeground];
         foregroundSessionActivity = [v11 foregroundSessionActivity];
         *buf = 138544386;
-        *v106 = v10;
-        *&v106[8] = 2114;
-        v107 = bundleName;
-        *v108 = 2048;
-        *&v108[2] = policyId;
-        v109 = 1024;
-        *v110 = isForeground;
+        *v105 = v10;
+        *&v105[8] = 2114;
+        v106 = bundleName;
+        *v107 = 2048;
+        *&v107[2] = policyId;
+        v108 = 1024;
+        *v109 = isForeground;
         v9 = v16;
-        *&v110[4] = 1024;
-        *&v110[6] = foregroundSessionActivity;
+        *&v109[4] = 1024;
+        *&v109[6] = foregroundSessionActivity;
         _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "COSMCtrl applyPolicyDelta for %{public}@ -> %{public}@  policy id %llu  fg %d fg-activity %d", buf, 0x2Cu);
       }
 
@@ -521,9 +518,9 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(ui
                 policyId3 = [v11 policyId];
                 bundleName2 = [v11 bundleName];
                 *buf = 134218242;
-                *v106 = policyId3;
-                *&v106[8] = 2114;
-                v107 = bundleName2;
+                *v105 = policyId3;
+                *&v105[8] = 2114;
+                v106 = bundleName2;
                 _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEFAULT, "COSMCtrl applyPolicyDelta remove policy %llu from %{public}@", buf, 0x16u);
               }
             }
@@ -535,18 +532,18 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102(ui
                 v75 = v23;
                 policyId4 = [v11 policyId];
                 *buf = 134217984;
-                *v106 = policyId4;
+                *v105 = policyId4;
                 _os_log_impl(&dword_23255B000, v75, OS_LOG_TYPE_ERROR, "COSMCtrl applyPolicyDelta fail to remove policy %llu", buf, 0xCu);
               }
 
-              LODWORD(v92) = v92 + 1;
+              LODWORD(v91) = v91 + 1;
             }
 
             [v11 setPolicyId:0];
             v7 = (v7 + 1);
-            v50 = HIDWORD(v92) - 1;
+            v50 = HIDWORD(v91) - 1;
 LABEL_50:
-            HIDWORD(v92) = v50;
+            HIDWORD(v91) = v50;
           }
         }
       }
@@ -559,7 +556,7 @@ LABEL_50:
 
           if (!policy)
           {
-            v90 = v9;
+            v89 = v9;
             v28 = v7;
             v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
             v30 = [MEMORY[0x277CD92E0] effectiveApplication:v10];
@@ -581,18 +578,18 @@ LABEL_50:
               v38 = outrankLogHandle;
               if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
               {
-                *buf = v87;
-                *v106 = v29;
+                *buf = v86;
+                *v105 = v29;
                 _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, "COSMCtrl applyPolicyDelta: initWithOrder fails for conditions %{pubilc}@", buf, 0xCu);
               }
 
-              LODWORD(v92) = v92 + 1;
+              LODWORD(v91) = v91 + 1;
             }
 
             v7 = v28;
 
-            v8 = v88;
-            v9 = v90;
+            v8 = v87;
+            v9 = v89;
           }
 
           policy3 = [v11 policy];
@@ -616,13 +613,13 @@ LABEL_50:
                 v47 = v11;
                 v49 = v48 = v9;
                 *buf = 134218754;
-                *v106 = policyId6;
-                *&v106[8] = 2114;
-                v107 = policy5;
-                *v108 = 2114;
-                *&v108[2] = v10;
-                v109 = 2114;
-                *v110 = v49;
+                *v105 = policyId6;
+                *&v105[8] = 2114;
+                v106 = policy5;
+                *v107 = 2114;
+                *&v107[2] = v10;
+                v108 = 2114;
+                *v109 = v49;
                 _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEFAULT, "COSMCtrl applyPolicyDelta policy id %llu for %{public}@ on  %{public}@ -> %{public}@", buf, 0x2Au);
 
                 v9 = v48;
@@ -630,7 +627,7 @@ LABEL_50:
               }
 
               v7 = (v7 + 1);
-              v50 = HIDWORD(v92) + 1;
+              v50 = HIDWORD(v91) + 1;
               goto LABEL_50;
             }
 
@@ -639,11 +636,11 @@ LABEL_50:
               v77 = v43;
               policy6 = [v11 policy];
               *buf = 138543362;
-              *v106 = policy6;
+              *v105 = policy6;
               _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_ERROR, "COSMCtrl applyPolicyDelta fail to add policy %{public}@@", buf, 0xCu);
             }
 
-            LODWORD(v92) = v92 + 1;
+            LODWORD(v91) = v91 + 1;
           }
         }
       }
@@ -664,11 +661,11 @@ LABEL_50:
             v57 = v11;
             v59 = v58 = v9;
             *buf = 138543874;
-            *v106 = bundleName3;
-            *&v106[8] = 2114;
-            v107 = v56;
-            *v108 = 2114;
-            *&v108[2] = v59;
+            *v105 = bundleName3;
+            *&v105[8] = 2114;
+            v106 = v56;
+            *v107 = 2114;
+            *&v107[2] = v59;
             _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_ERROR, "COSMCtrl applyPolicyDelta unexpected absence of policy on appRecord %{public}@ bg time + grace %{public}@  now %{public}@", buf, 0x20u);
 
             v9 = v58;
@@ -682,29 +679,29 @@ LABEL_50:
           [v11 stateChangeTime];
           if (v61 + self->_activeAppsCacheRetainPeriod < v4)
           {
-            v95 = v11;
-            v91 = v9;
-            v89 = v7;
+            v94 = v11;
+            v90 = v9;
+            v88 = v7;
             allKeys = [(NSMutableDictionary *)self->_activeFallbackClients allKeys];
+            v95 = 0u;
             v96 = 0u;
             v97 = 0u;
             v98 = 0u;
-            v99 = 0u;
-            v63 = [allKeys countByEnumeratingWithState:&v96 objects:v104 count:16];
+            v63 = [allKeys countByEnumeratingWithState:&v95 objects:v103 count:16];
             if (v63)
             {
               v64 = v63;
-              v65 = *v97;
+              v65 = *v96;
               do
               {
                 for (i = 0; i != v64; ++i)
                 {
-                  if (*v97 != v65)
+                  if (*v96 != v65)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v67 = *(*(&v96 + 1) + 8 * i);
+                  v67 = *(*(&v95 + 1) + 8 * i);
                   v68 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:v67];
                   processUUID = [v68 processUUID];
                   v70 = [processUUID isEqual:v10];
@@ -715,16 +712,16 @@ LABEL_50:
                     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
                     {
                       v72 = v71;
-                      bundleName4 = [v95 bundleName];
+                      bundleName4 = [v94 bundleName];
                       v74 = [v68 count];
                       *buf = 138544130;
-                      *v106 = v67;
-                      *&v106[8] = 2114;
-                      v107 = v10;
-                      *v108 = 2114;
-                      *&v108[2] = bundleName4;
-                      v109 = 2048;
-                      *v110 = v74;
+                      *v105 = v67;
+                      *&v105[8] = 2114;
+                      v106 = v10;
+                      *v107 = 2114;
+                      *&v107[2] = bundleName4;
+                      v108 = 2048;
+                      *v109 = v74;
                       _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEFAULT, "COSMCtrl applyPolicyDelta: age out assertion tracker %{public}@ -> %{public}@ -> %{public}@  count %llu", buf, 0x2Au);
                     }
 
@@ -732,7 +729,7 @@ LABEL_50:
                   }
                 }
 
-                v64 = [allKeys countByEnumeratingWithState:&v96 objects:v104 count:16];
+                v64 = [allKeys countByEnumeratingWithState:&v95 objects:v103 count:16];
               }
 
               while (v64);
@@ -740,10 +737,10 @@ LABEL_50:
 
             [(NSMutableDictionary *)self->_activeApps setObject:0 forKeyedSubscript:v10];
 
-            v7 = v89;
-            v8 = v88;
-            v9 = v91;
-            v11 = v95;
+            v7 = v88;
+            v8 = v87;
+            v9 = v90;
+            v11 = v94;
           }
         }
       }
@@ -751,30 +748,30 @@ LABEL_50:
       ++v9;
     }
 
-    while (v9 != v94);
-    v79 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
-    v94 = v79;
+    while (v9 != v93);
+    v79 = [obj countByEnumeratingWithState:&v99 objects:v110 count:16];
+    v93 = v79;
   }
 
   while (v79);
   if (v7 < 1)
   {
-    v81 = v92;
+    v81 = v91;
   }
 
   else
   {
     apply = [(NEPolicySession *)self->_nePolicySession apply];
-    v81 = v92;
+    v81 = v91;
     if (apply)
     {
-      self->_nePolicyCount += HIDWORD(v92);
-      [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setNePolicyCount:[(FlowBasedIconAdviser *)self->_flowBasedIconAdviser nePolicyCount]+ HIDWORD(v92)];
+      self->_nePolicyCount += HIDWORD(v91);
+      [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setNePolicyCount:[(FlowBasedIconAdviser *)self->_flowBasedIconAdviser nePolicyCount]+ HIDWORD(v91)];
     }
 
     else
     {
-      v81 = v92 + 1;
+      v81 = v91 + 1;
       v82 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
@@ -788,15 +785,15 @@ LABEL_50:
     {
       nePolicyCount = self->_nePolicyCount;
       *buf = 67110144;
-      *v106 = v7;
-      *&v106[4] = 1024;
-      *&v106[6] = HIDWORD(v92);
-      LOWORD(v107) = 1024;
-      *(&v107 + 2) = nePolicyCount;
-      HIWORD(v107) = 1024;
-      *v108 = v81;
-      *&v108[4] = 1024;
-      *&v108[6] = apply;
+      *v105 = v7;
+      *&v105[4] = 1024;
+      *&v105[6] = HIDWORD(v91);
+      LOWORD(v106) = 1024;
+      *(&v106 + 2) = nePolicyCount;
+      HIWORD(v106) = 1024;
+      *v107 = v81;
+      *&v107[4] = 1024;
+      *&v107[6] = apply;
       _os_log_impl(&dword_23255B000, v83, OS_LOG_TYPE_DEFAULT, "COSMCtrl applyPolicyDelta exit,  numChanges %d  delta %d policy count %d errCount %d apply result %d", buf, 0x20u);
     }
   }
@@ -804,36 +801,35 @@ LABEL_50:
 LABEL_66:
   [(CellOutrankController *)self checkInvariants:@"applyPolicyDelta exit"];
 
-  v85 = *MEMORY[0x277D85DE8];
   return v81 == 0;
 }
 
 - (void)ensureMaintenanceTimer
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     graceTimerRunning = self->_graceTimerRunning;
     evictionTimerRunning = self->_evictionTimerRunning;
     *buf = 67109376;
-    *v52 = graceTimerRunning;
-    *&v52[4] = 1024;
-    *&v52[6] = evictionTimerRunning;
+    *v51 = graceTimerRunning;
+    *&v51[4] = 1024;
+    *&v51[6] = evictionTimerRunning;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "COSMCtrl ensureMaintenanceTimer grace %d evict %d", buf, 0xEu);
   }
 
   if (self->_evictionTimerRunning && self->_graceTimerRunning)
   {
-    goto LABEL_41;
+    return;
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v6 = self->_activeApps;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v47 objects:v54 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v46 objects:v53 count:16];
   if (!v7)
   {
 
@@ -845,19 +841,19 @@ LABEL_66:
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v48;
+  v11 = *v47;
   selfCopy = self;
   obj = v6;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v48 != v11)
+      if (*v47 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v47 + 1) + 8 * i)];
+      v14 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v46 + 1) + 8 * i)];
       if ([v14 isForeground])
       {
         goto LABEL_21;
@@ -914,7 +910,7 @@ LABEL_21:
       self = selfCopy;
     }
 
-    v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+    v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v46 objects:v53 count:16];
   }
 
   while (v8);
@@ -940,9 +936,9 @@ LABEL_21:
       v30 = v29;
       bundleName = [v10 bundleName];
       *buf = 134218242;
-      *v52 = v28;
-      *&v52[8] = 2114;
-      v53 = bundleName;
+      *v51 = v28;
+      *&v51[8] = 2114;
+      v52 = bundleName;
       _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEFAULT, "COSMCtrl ensureMaintenanceTimer set delay %.3f for grace timer on %{public}@", buf, 0x16u);
     }
 
@@ -979,28 +975,25 @@ LABEL_21:
       v39 = v38;
       bundleName2 = [v9 bundleName];
       *buf = 134218242;
-      *v52 = v37;
-      *&v52[8] = 2114;
-      v53 = bundleName2;
+      *v51 = v37;
+      *&v51[8] = 2114;
+      v52 = bundleName2;
       _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_DEFAULT, "COSMCtrl ensureMaintenanceTimer set delay %.3f for eviction timer on %{public}@", buf, 0x16u);
     }
 
     v41 = dispatch_time(0, (v37 * 1000000000.0));
     queue2 = [(CellOutrankController *)self queue];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102;
-    v45[3] = &unk_27898A0C8;
-    v45[4] = self;
-    dispatch_after(v41, queue2, v45);
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __47__CellOutrankController_ensureMaintenanceTimer__block_invoke_102;
+    v44[3] = &unk_27898A0C8;
+    v44[4] = self;
+    dispatch_after(v41, queue2, v44);
 
     self->_evictionTimerRunning = 1;
   }
 
 LABEL_40:
-
-LABEL_41:
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didSampleFlows
@@ -1026,14 +1019,14 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke(uint64
 
 - (BOOL)removeAllPolicies
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     activeApps = self->_activeApps;
     v5 = v3;
     *buf = 67109120;
-    LODWORD(v46) = [(NSMutableDictionary *)activeApps count];
+    LODWORD(v45) = [(NSMutableDictionary *)activeApps count];
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "COSMCtrl removeAllPolicies, active app count is %d", buf, 8u);
   }
 
@@ -1049,7 +1042,7 @@ uint64_t __47__CellOutrankController_ensureMaintenanceTimer__block_invoke(uint64
     }
 
 LABEL_11:
-    v35 = 1;
+    v34 = 1;
     goto LABEL_18;
   }
 
@@ -1075,7 +1068,7 @@ LABEL_10:
     {
       v12 = self->_nePolicySession;
       *buf = 138543362;
-      v46 = v12;
+      v45 = v12;
       v11 = "COSMCtrl removeAllPolicies failure to apply on %{public}@";
       goto LABEL_16;
     }
@@ -1088,35 +1081,35 @@ LABEL_10:
     {
       v10 = self->_nePolicySession;
       *buf = 138543362;
-      v46 = v10;
+      v45 = v10;
       v11 = "COSMCtrl removeAllPolicies failure to remove from %{public}@";
 LABEL_16:
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
     }
   }
 
-  v35 = 0;
+  v34 = 0;
 LABEL_18:
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v13 = self->_activeApps;
-  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v41;
+    v16 = *v40;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v41 != v16)
+        if (*v40 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
+        v18 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v39 + 1) + 8 * i)];
         v19 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
         {
@@ -1124,9 +1117,9 @@ LABEL_18:
           policyId = [v18 policyId];
           bundleName = [v18 bundleName];
           *buf = 134218242;
-          v46 = policyId;
-          v47 = 2114;
-          v48 = bundleName;
+          v45 = policyId;
+          v46 = 2114;
+          v47 = bundleName;
           _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_INFO, "COSMCtrl removeAllPolicies,  remove policy %llu from %{public}@", buf, 0x16u);
         }
 
@@ -1134,7 +1127,7 @@ LABEL_18:
         [v18 setPolicy:0];
       }
 
-      v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v15);
@@ -1142,25 +1135,25 @@ LABEL_18:
 
   [(CellOutrankController *)self deleteAllAssertionTrackers];
   allKeys = [(NSMutableDictionary *)self->_activeApps allKeys];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v24 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v24 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v37;
+    v26 = *v36;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v37 != v26)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v28 = *(*(&v36 + 1) + 8 * j);
+        v28 = *(*(&v35 + 1) + 8 * j);
         v29 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v28];
         if (([v29 isForeground] & 1) == 0)
         {
@@ -1170,7 +1163,7 @@ LABEL_18:
             v31 = v30;
             bundleName2 = [v29 bundleName];
             *buf = 138543362;
-            v46 = bundleName2;
+            v45 = bundleName2;
             _os_log_impl(&dword_23255B000, v31, OS_LOG_TYPE_INFO, "COSMCtrl remove non-foreground appRecord for %{public}@", buf, 0xCu);
           }
 
@@ -1178,7 +1171,7 @@ LABEL_18:
         }
       }
 
-      v25 = [allKeys countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v25 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v25);
@@ -1187,13 +1180,12 @@ LABEL_18:
   self->_nePolicyCount = 0;
   [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setNePolicyCount:0];
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v35;
+  return v34;
 }
 
 - (BOOL)updatePolicy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_neAgent && self->_neAgentRegistration && self->_nePolicySession)
   {
     if (self->_cellOutranksWiFi)
@@ -1207,12 +1199,12 @@ LABEL_18:
     }
 
     v8 = applyPolicyDelta;
-    v11 = outrankLogHandle;
+    v10 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 67109120;
-      LODWORD(v13) = v8;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "COSMCtrl updatePolicy returns %d", &v12, 8u);
+      v11 = 67109120;
+      LODWORD(v12) = v8;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSMCtrl updatePolicy returns %d", &v11, 8u);
     }
   }
 
@@ -1224,19 +1216,18 @@ LABEL_18:
       neAgent = self->_neAgent;
       neAgentRegistration = self->_neAgentRegistration;
       nePolicySession = self->_nePolicySession;
-      v12 = 134218496;
-      v13 = neAgent;
-      v14 = 2048;
-      v15 = neAgentRegistration;
-      v16 = 2048;
-      v17 = nePolicySession;
-      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "COSMCtrl updatePolicy called with NE policies not set, agent %p registration %p session %p", &v12, 0x20u);
+      v11 = 134218496;
+      v12 = neAgent;
+      v13 = 2048;
+      v14 = neAgentRegistration;
+      v15 = 2048;
+      v16 = nePolicySession;
+      _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_ERROR, "COSMCtrl updatePolicy called with NE policies not set, agent %p registration %p session %p", &v11, 0x20u);
     }
 
     LOBYTE(v8) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1271,13 +1262,13 @@ LABEL_18:
 
 - (void)setCellInterfaceName:(id)name
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v44 = nameCopy;
+    v43 = nameCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellInterfaceName %{public}@", buf, 0xCu);
   }
 
@@ -1311,7 +1302,7 @@ LABEL_18:
         {
           v13 = self->_neAgent;
           *buf = 138543362;
-          v44 = v13;
+          v43 = v13;
           _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellInterfaceName created _neAgent %{public}@", buf, 0xCu);
         }
 
@@ -1326,7 +1317,7 @@ LABEL_18:
           {
             v17 = self->_neAgentRegistration;
             *buf = 138543362;
-            v44 = v17;
+            v43 = v17;
             _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellInterfaceName created _neAgentRegistration %{public}@", buf, 0xCu);
           }
 
@@ -1357,30 +1348,30 @@ LABEL_18:
               self->_neAgentInstanceNumber = v20;
               objc_initWeak(buf, self);
               v21 = self->_neAgent;
-              v40[0] = MEMORY[0x277D85DD0];
-              v40[1] = 3221225472;
-              v40[2] = __46__CellOutrankController_setCellInterfaceName___block_invoke;
-              v40[3] = &unk_27898B6E8;
-              objc_copyWeak(&v41, buf);
-              v42 = v20;
-              [(NEPathControllerNetworkAgent *)v21 setAssertHandler:v40];
+              v39[0] = MEMORY[0x277D85DD0];
+              v39[1] = 3221225472;
+              v39[2] = __46__CellOutrankController_setCellInterfaceName___block_invoke;
+              v39[3] = &unk_27898B6E8;
+              objc_copyWeak(&v40, buf);
+              v41 = v20;
+              [(NEPathControllerNetworkAgent *)v21 setAssertHandler:v39];
               v22 = self->_neAgent;
-              v37[0] = MEMORY[0x277D85DD0];
-              v37[1] = 3221225472;
-              v37[2] = __46__CellOutrankController_setCellInterfaceName___block_invoke_119;
-              v37[3] = &unk_27898B710;
-              objc_copyWeak(&v38, buf);
-              v39 = v20;
-              [(NEPathControllerNetworkAgent *)v22 setUnassertHandler:v37];
+              v36[0] = MEMORY[0x277D85DD0];
+              v36[1] = 3221225472;
+              v36[2] = __46__CellOutrankController_setCellInterfaceName___block_invoke_119;
+              v36[3] = &unk_27898B710;
+              objc_copyWeak(&v37, buf);
+              v38 = v20;
+              [(NEPathControllerNetworkAgent *)v22 setUnassertHandler:v36];
               v23 = outrankLogHandle;
               if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
               {
-                *v36 = 0;
-                _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellInterfaceName success in applying new NE policy", v36, 2u);
+                *v35 = 0;
+                _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellInterfaceName success in applying new NE policy", v35, 2u);
               }
 
-              objc_destroyWeak(&v38);
-              objc_destroyWeak(&v41);
+              objc_destroyWeak(&v37);
+              objc_destroyWeak(&v40);
               objc_destroyWeak(buf);
               goto LABEL_34;
             }
@@ -1403,13 +1394,13 @@ LABEL_34:
               v32 = self->_neAgentRegistration;
               v33 = self->_nePolicySession;
               *buf = 138544130;
-              v44 = nameCopy;
-              v45 = 2114;
-              v46 = v31;
-              v47 = 2114;
-              v48 = v32;
-              v49 = 2114;
-              v50 = v33;
+              v43 = nameCopy;
+              v44 = 2114;
+              v45 = v31;
+              v46 = 2114;
+              v47 = v32;
+              v48 = 2114;
+              v49 = v33;
               _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellInterfaceName for %{public}@ gives _neAgent %{public}@ _neAgentRegistration %{public}@ _nePolicySession %{public}@", buf, 0x2Au);
             }
 
@@ -1447,7 +1438,7 @@ LABEL_31:
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = nameCopy;
+        v43 = nameCopy;
         v25 = "COSMCtrl setCellInterfaceName unable to create neAgent on interface %{public}@";
         v26 = v24;
         v27 = 12;
@@ -1463,8 +1454,6 @@ LABEL_32:
 LABEL_36:
   v34 = self->_cellInterfaceName;
   self->_cellInterfaceName = nameCopy;
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CellOutrankController_setCellInterfaceName___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1490,41 +1479,38 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke(uint64_t a1
 
 void __46__CellOutrankController_setCellInterfaceName___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   if (v2 == [*(a1 + 32) neAgentInstanceNumber])
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v6 = *MEMORY[0x277D85DE8];
 
     [v3 assertFallbackForClient:v4 process:v5];
   }
 
   else
   {
-    v7 = outrankLogHandle;
+    v6 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 56);
-      v9 = *(a1 + 32);
-      v10 = v7;
-      v11 = [v9 neAgentInstanceNumber];
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v15[0] = 67109890;
-      v15[1] = v8;
-      v16 = 1024;
+      v7 = *(a1 + 56);
+      v8 = *(a1 + 32);
+      v9 = v6;
+      v10 = [v8 neAgentInstanceNumber];
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      v13[0] = 67109890;
+      v13[1] = v7;
+      v14 = 1024;
+      v15 = v10;
+      v16 = 2114;
       v17 = v11;
       v18 = 2114;
       v19 = v12;
-      v20 = 2114;
-      v21 = v13;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "COSMCtrl _neAgent setUnassertHandler instance number %d mismatch current %d on assert %{public}@ -> %{public}@", v15, 0x22u);
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "COSMCtrl _neAgent setUnassertHandler instance number %d mismatch current %d on assert %{public}@ -> %{public}@", v13, 0x22u);
     }
-
-    v14 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1549,52 +1535,49 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke_119(uint64_
 
 void __46__CellOutrankController_setCellInterfaceName___block_invoke_2_120(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2 == [*(a1 + 32) neAgentInstanceNumber])
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v5 = *MEMORY[0x277D85DE8];
 
     [v3 unassertFallbackForClient:v4];
   }
 
   else
   {
-    v6 = outrankLogHandle;
+    v5 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 48);
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = [v8 neAgentInstanceNumber];
-      v11 = *(a1 + 40);
-      v13[0] = 67109634;
-      v13[1] = v7;
-      v14 = 1024;
+      v6 = *(a1 + 48);
+      v7 = *(a1 + 32);
+      v8 = v5;
+      v9 = [v7 neAgentInstanceNumber];
+      v10 = *(a1 + 40);
+      v11[0] = 67109634;
+      v11[1] = v6;
+      v12 = 1024;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "COSMCtrl _neAgent setUnassertHandler instance number %d mismatch current %d on unassert %{public}@", v13, 0x18u);
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "COSMCtrl _neAgent setUnassertHandler instance number %d mismatch current %d on unassert %{public}@", v11, 0x18u);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)setCellOutranksWiFi:(BOOL)fi
 {
   fiCopy = fi;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     cellOutranksWiFi = self->_cellOutranksWiFi;
     *buf = 67109376;
-    v25 = cellOutranksWiFi;
-    v26 = 1024;
-    LODWORD(v27) = fiCopy;
+    v24 = cellOutranksWiFi;
+    v25 = 1024;
+    LODWORD(v26) = fiCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellOutranksWiFi %d -> %d", buf, 0xEu);
   }
 
@@ -1606,27 +1589,27 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke_2_120(uint6
     {
       self->_numAppsExploitingOutrank = 0;
       self->_numAppsNonExploitingOutrank = 0;
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v9 = self->_activeApps;
-      v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v10 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v19 objects:v29 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         do
         {
           v13 = 0;
           do
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v13), v20];
+            v14 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v19 + 1) + 8 * v13), v19];
             [v14 setCountedAsExploitingOutrank:0];
             [v14 setCountedAsNonExploitingOutrank:0];
 
@@ -1634,7 +1617,7 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke_2_120(uint6
           }
 
           while (v11 != v13);
-          v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v20 objects:v30 count:16];
+          v11 = [(NSMutableDictionary *)v9 countByEnumeratingWithState:&v19 objects:v29 count:16];
         }
 
         while (v11);
@@ -1662,33 +1645,31 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke_2_120(uint6
         neAgent = self->_neAgent;
         nePolicySession = self->_nePolicySession;
         *buf = 67109632;
-        v25 = v16;
-        v26 = 2048;
-        v27 = neAgent;
-        v28 = 2048;
-        v29 = nePolicySession;
+        v24 = v16;
+        v25 = 2048;
+        v26 = neAgent;
+        v27 = 2048;
+        v28 = nePolicySession;
         _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSMCtrl setCellOutranksWiFi  -> %d, unable to change policy, agent %p session %p", buf, 0x1Cu);
       }
     }
 
     [(CellOutrankController *)self assessIconState];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCellOutrankEffective:(BOOL)effective
 {
   effectiveCopy = effective;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     cellOutrankEffective = self->_cellOutrankEffective;
     *buf = 67109376;
-    v14 = cellOutrankEffective;
-    v15 = 1024;
-    v16 = effectiveCopy;
+    v13 = cellOutrankEffective;
+    v14 = 1024;
+    v15 = effectiveCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSMCtrl setCellOutrankEffective %d -> %d", buf, 0xEu);
   }
 
@@ -1715,24 +1696,22 @@ void __46__CellOutrankController_setCellInterfaceName___block_invoke_2_120(uint6
       dispatch_after(v9, queue, block);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __49__CellOutrankController_setCellOutrankEffective___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 105);
     LODWORD(v3) = *(v3 + 106);
-    v12 = 67109376;
-    *v13 = v4;
-    *&v13[4] = 1024;
-    *&v13[6] = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellOutrankEffective after dampening, effective %d last signalled %d", &v12, 0xEu);
+    v11 = 67109376;
+    *v12 = v4;
+    *&v12[4] = 1024;
+    *&v12[6] = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellOutrankEffective after dampening, effective %d last signalled %d", &v11, 0xEu);
   }
 
   *(*(a1 + 32) + 76) = 0;
@@ -1760,31 +1739,35 @@ void __49__CellOutrankController_setCellOutrankEffective___block_invoke(uint64_t
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(*(a1 + 32) + 106);
-      v12 = 136315394;
-      *v13 = "com.apple.symptoms.celloutrankeffective";
-      *&v13[8] = 1024;
-      v14 = v10;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellOutrankIcon  sent %s notification with contents %d", &v12, 0x12u);
+      v11 = 136315394;
+      *v12 = "com.apple.symptoms.celloutrankeffective";
+      *&v12[8] = 1024;
+      v13 = v10;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCellOutrankIcon  sent %s notification with contents %d", &v11, 0x12u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentUsage:(unsigned int)usage
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315138;
-    *v16 = currentUsageString(usage);
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSMCtrl setCurrentUsage %s", &v15, 0xCu);
+    v14 = 136315138;
+    *v15 = currentUsageString(usage);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "COSMCtrl setCurrentUsage %s", &v14, 0xCu);
   }
 
   if (self->_currentUsage == usage)
   {
-    goto LABEL_16;
+LABEL_16:
+    if (usage == 5)
+    {
+      return;
+    }
+
+    goto LABEL_17;
   }
 
   v6 = outrankLogHandle;
@@ -1793,15 +1776,15 @@ void __49__CellOutrankController_setCellOutrankEffective___block_invoke(uint64_t
     currentUsage = self->_currentUsage;
     v8 = currentUsageString(currentUsage);
     v9 = currentUsageString(usage);
-    v15 = 67109890;
-    *v16 = currentUsage;
-    *&v16[4] = 2080;
-    *&v16[6] = v8;
-    v17 = 1024;
+    v14 = 67109890;
+    *v15 = currentUsage;
+    *&v15[4] = 2080;
+    *&v15[6] = v8;
+    v16 = 1024;
     usageCopy = usage;
-    v19 = 2080;
-    v20 = v9;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCurrentUsage %d (%s)-> %d (%s)", &v15, 0x22u);
+    v18 = 2080;
+    v19 = v9;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCurrentUsage %d (%s)-> %d (%s)", &v14, 0x22u);
   }
 
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -1824,31 +1807,25 @@ void __49__CellOutrankController_setCellOutrankEffective___block_invoke(uint64_t
   *(&self->super.isa + v12) = v10 - self->_cellCurrentUsageTimerStartTime + *(&self->super.isa + v12);
 LABEL_11:
   self->_cellCurrentUsageTimerStartTime = v10;
-  if (usage - 1 < 2)
+  if (usage - 1 >= 2)
   {
-    if ([(FlowBasedIconAdviser *)self->_flowBasedIconAdviser active])
-    {
-      v13 = outrankLogHandle;
-      if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCurrentUsage stop _flowBasedIconAdviser", &v15, 2u);
-      }
+    goto LABEL_16;
+  }
 
-      [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setActive:0];
+  if ([(FlowBasedIconAdviser *)self->_flowBasedIconAdviser active])
+  {
+    v13 = outrankLogHandle;
+    if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSMCtrl setCurrentUsage stop _flowBasedIconAdviser", &v14, 2u);
     }
 
-    goto LABEL_17;
+    [(FlowBasedIconAdviser *)self->_flowBasedIconAdviser setActive:0];
   }
 
-LABEL_16:
-  if (usage != 5)
-  {
 LABEL_17:
-    self->_currentUsage = usage;
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
+  self->_currentUsage = usage;
 }
 
 - (double)cellOutrankPossibleDuration
@@ -1877,55 +1854,53 @@ LABEL_17:
 
 - (void)deleteAllAssertionTrackers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_activeFallbackClients allKeys];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v14;
+    v7 = *v13;
     *&v5 = 138543362;
-    v12 = v5;
+    v11 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v12;
-          v18 = v9;
+          *buf = v11;
+          v17 = v9;
           _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSMCtrl deleteAllAssertionTrackers, remove connection %{public}@", buf, 0xCu);
         }
 
-        [(CellOutrankController *)self deleteAssertionTracker:v9, v12];
+        [(CellOutrankController *)self deleteAssertionTracker:v9, v11];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAssertionTracker:(id)tracker
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
   v5 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:trackerCopy];
   v6 = v5;
@@ -1936,11 +1911,11 @@ LABEL_17:
       v12 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412546;
-        v18 = trackerCopy;
-        v19 = 2112;
-        v20 = v6;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "COSMCtrl: deleteAssertionTracker tracker with no AppRecord %@ -> %@", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = trackerCopy;
+        v18 = 2112;
+        v19 = v6;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "COSMCtrl: deleteAssertionTracker tracker with no AppRecord %@ -> %@", &v16, 0x16u);
       }
 
       goto LABEL_19;
@@ -1959,13 +1934,13 @@ LABEL_17:
         v10 = outrankLogHandle;
         if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          v17 = 138412802;
-          v18 = trackerCopy;
-          v19 = 2112;
-          v20 = v6;
-          v21 = 2112;
-          v22 = v9;
-          _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSMCtrl: deleteAssertionTracker %@ -> %@  -> %@", &v17, 0x20u);
+          v16 = 138412802;
+          v17 = trackerCopy;
+          v18 = 2112;
+          v19 = v6;
+          v20 = 2112;
+          v21 = v9;
+          _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSMCtrl: deleteAssertionTracker %@ -> %@  -> %@", &v16, 0x20u);
         }
 
         goto LABEL_18;
@@ -1974,13 +1949,13 @@ LABEL_17:
       v15 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412802;
-        v18 = trackerCopy;
-        v19 = 2112;
-        v20 = v6;
-        v21 = 2112;
-        v22 = v9;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSMCtrl: deleteAssertionTracker %@ -> %@ preventing negative assertion count on %@", &v17, 0x20u);
+        v16 = 138412802;
+        v17 = trackerCopy;
+        v18 = 2112;
+        v19 = v6;
+        v20 = 2112;
+        v21 = v9;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "COSMCtrl: deleteAssertionTracker %@ -> %@ preventing negative assertion count on %@", &v16, 0x20u);
       }
 
       v14 = @"Negative assertion count";
@@ -1991,9 +1966,9 @@ LABEL_17:
       v13 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v17 = 138412290;
-        v18 = v6;
-        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "COSMCtrl: deleteAssertionTracker %@ no AppRecord despite assertion hasAppRecord", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v6;
+        _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "COSMCtrl: deleteAssertionTracker %@ no AppRecord despite assertion hasAppRecord", &v16, 0xCu);
       }
 
       v14 = @"Missing expected AppRecord";
@@ -2010,19 +1985,17 @@ LABEL_19:
   v11 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = trackerCopy;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSMCtrl: deleteAssertionTracker no action as %@ -> <nil>", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = trackerCopy;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSMCtrl: deleteAssertionTracker no action as %@ -> <nil>", &v16, 0xCu);
   }
 
 LABEL_20:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertFallbackForClient:(id)client process:(id)process
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   processCopy = process;
   v8 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:processCopy];
@@ -2039,13 +2012,13 @@ LABEL_20:
       bundleName = @"<unknown>";
     }
 
-    v26 = 138543874;
-    v27 = clientCopy;
-    v28 = 2114;
-    v29 = processCopy;
-    v30 = 2114;
-    v31 = bundleName;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSMCtrl assertFallbackForClient %{public}@ -> %{public}@ %{public}@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = clientCopy;
+    v27 = 2114;
+    v28 = processCopy;
+    v29 = 2114;
+    v30 = bundleName;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSMCtrl assertFallbackForClient %{public}@ -> %{public}@ %{public}@", &v25, 0x20u);
     if (v8)
     {
     }
@@ -2072,15 +2045,15 @@ LABEL_20:
         v18 = v17;
         processUUID2 = [(NEClientAssertionTracker *)v12 processUUID];
         v20 = [(NEClientAssertionTracker *)v12 count];
-        v26 = 138544130;
-        v27 = clientCopy;
-        v28 = 2114;
-        v29 = processCopy;
-        v30 = 2114;
-        v31 = processUUID2;
-        v32 = 2048;
-        v33 = v20;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "COSMCtrl: assertFallbackForClient changed process uuid for parent %{public}@ -> %{public}@ when already -> %{public}@ with count %llu, disposing", &v26, 0x2Au);
+        v25 = 138544130;
+        v26 = clientCopy;
+        v27 = 2114;
+        v28 = processCopy;
+        v29 = 2114;
+        v30 = processUUID2;
+        v31 = 2048;
+        v32 = v20;
+        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "COSMCtrl: assertFallbackForClient changed process uuid for parent %{public}@ -> %{public}@ when already -> %{public}@ with count %llu, disposing", &v25, 0x2Au);
       }
 
       [(CellOutrankController *)self deleteAssertionTracker:clientCopy];
@@ -2101,9 +2074,9 @@ LABEL_20:
       v16 = outrankLogHandle;
       if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
       {
-        v26 = 138412290;
-        v27 = v15;
-        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "COSMCtrl assertFallbackForClient bump connection count for appRecord %@", &v26, 0xCu);
+        v25 = 138412290;
+        v26 = v15;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "COSMCtrl assertFallbackForClient bump connection count for appRecord %@", &v25, 0xCu);
       }
     }
   }
@@ -2120,21 +2093,19 @@ LABEL_20:
     activeFallbackClients = self->_activeFallbackClients;
     v23 = v21;
     v24 = [(NSMutableDictionary *)activeFallbackClients objectForKeyedSubscript:clientCopy];
-    v26 = 138543874;
-    v27 = clientCopy;
-    v28 = 2114;
-    v29 = processCopy;
-    v30 = 2114;
-    v31 = v24;
-    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "COSMCtrl assertFallbackForClient exit, %{public}@ -> %{public}@, entry %{public}@", &v26, 0x20u);
+    v25 = 138543874;
+    v26 = clientCopy;
+    v27 = 2114;
+    v28 = processCopy;
+    v29 = 2114;
+    v30 = v24;
+    _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "COSMCtrl assertFallbackForClient exit, %{public}@ -> %{public}@, entry %{public}@", &v25, 0x20u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unassertFallbackForClient:(id)client
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:clientCopy];
 
@@ -2159,15 +2130,15 @@ LABEL_20:
         bundleName = @"<unknown>";
       }
 
-      v15 = 138544130;
-      v16 = clientCopy;
-      v17 = 2114;
-      v18 = processUUID2;
-      v19 = 2114;
-      v20 = bundleName;
-      v21 = 2048;
-      v22 = [v6 count];
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "COSMCtrl unassertFallbackForClient %{public}@ -> %{public}@ %{public}@  count %llu", &v15, 0x2Au);
+      v14 = 138544130;
+      v15 = clientCopy;
+      v16 = 2114;
+      v17 = processUUID2;
+      v18 = 2114;
+      v19 = bundleName;
+      v20 = 2048;
+      v21 = [v6 count];
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "COSMCtrl unassertFallbackForClient %{public}@ -> %{public}@ %{public}@  count %llu", &v14, 0x2Au);
       if (v9)
       {
       }
@@ -2185,9 +2156,9 @@ LABEL_20:
     v13 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
-      v16 = clientCopy;
-      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSMCtrl: unassertFallbackForClient possible dup remove of client %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = clientCopy;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "COSMCtrl: unassertFallbackForClient possible dup remove of client %{public}@", &v14, 0xCu);
     }
   }
 
@@ -2195,8 +2166,219 @@ LABEL_20:
   {
     [(CellOutrankController *)self assessIconState];
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_foregroundAppActivity:(id)activity uuid:(id)uuid isForeground:(BOOL)foreground
+{
+  foregroundCopy = foreground;
+  v48 = *MEMORY[0x277D85DE8];
+  activityCopy = activity;
+  uuidCopy = uuid;
+  v10 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 138543874;
+    v38 = uuidCopy;
+    v39 = 2114;
+    v40 = activityCopy;
+    v41 = 1024;
+    LODWORD(v42) = foregroundCopy;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "COSMCtrl _foregroundAppActivity entry for %{public}@ -> %{public}@  fg %d", buf, 0x1Cu);
+  }
+
+  if (uuidCopy)
+  {
+    v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:uuidCopy];
+LABEL_5:
+    if (v11)
+    {
+      bundleName = [(ForegroundAppRecord *)v11 bundleName];
+      v13 = [activityCopy isEqual:bundleName];
+
+      if ((v13 & 1) == 0)
+      {
+        v14 = outrankLogHandle;
+        if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543874;
+          v38 = uuidCopy;
+          v39 = 2114;
+          v40 = activityCopy;
+          v41 = 2114;
+          v42 = v11;
+          _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, "COSMCtrl _foregroundAppActivity uuid %{public}@  -> %{public}@  but cache has %{public}@", buf, 0x20u);
+        }
+
+        [(CellOutrankController *)self reportABCCase:@"Cache bundle name mismatch"];
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      v11 = objc_alloc_init(ForegroundAppRecord);
+      [(ForegroundAppRecord *)v11 setBundleName:activityCopy];
+      [(NSMutableDictionary *)self->_activeApps setObject:v11 forKeyedSubscript:uuidCopy];
+    }
+
+    [(ForegroundAppRecord *)v11 setIsForeground:foregroundCopy];
+    if (foregroundCopy)
+    {
+      if (self->_neAgent && self->_neAgentRegistration && self->_nePolicySession && self->_cellOutranksWiFi)
+      {
+        [(CellOutrankController *)self updatePolicy];
+      }
+
+      goto LABEL_41;
+    }
+
+    if ([(ForegroundAppRecord *)v11 foregroundSessionActivity])
+    {
+      if ([(ForegroundAppRecord *)v11 countedAsExploitingOutrank])
+      {
+        goto LABEL_40;
+      }
+
+      [(ForegroundAppRecord *)v11 setCountedAsExploitingOutrank:1];
+      ++self->_numAppsExploitingOutrank;
+      v24 = outrankLogHandle;
+      if (!os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_40;
+      }
+
+      *buf = 138412290;
+      v38 = activityCopy;
+      v25 = "COSMCtrl _foregroundAppActivity count exploiting for %@";
+    }
+
+    else
+    {
+      if ([(ForegroundAppRecord *)v11 countedAsNonExploitingOutrank])
+      {
+        goto LABEL_40;
+      }
+
+      [(ForegroundAppRecord *)v11 setCountedAsNonExploitingOutrank:1];
+      ++self->_numAppsNonExploitingOutrank;
+      v24 = outrankLogHandle;
+      if (!os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_40;
+      }
+
+      *buf = 138412290;
+      v38 = activityCopy;
+      v25 = "COSMCtrl _foregroundAppActivity count non-exploiting for %@";
+    }
+
+    _os_log_impl(&dword_23255B000, v24, OS_LOG_TYPE_DEBUG, v25, buf, 0xCu);
+LABEL_40:
+    [(ForegroundAppRecord *)v11 setForegroundSessionActivity:0];
+    [(CellOutrankController *)self ensureMaintenanceTimer];
+LABEL_41:
+    [(CellOutrankController *)self assessIconState];
+    v28 = outrankLogHandle;
+    if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      v29 = v28;
+      policyId = [(ForegroundAppRecord *)v11 policyId];
+      foregroundSessionActivity = [(ForegroundAppRecord *)v11 foregroundSessionActivity];
+      *buf = 138544386;
+      v38 = uuidCopy;
+      v39 = 2114;
+      v40 = activityCopy;
+      v41 = 2048;
+      v42 = policyId;
+      v43 = 1024;
+      v44 = foregroundCopy;
+      v45 = 1024;
+      v46 = foregroundSessionActivity;
+      _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "COSMCtrl _foregroundAppActivity exit for %{public}@ -> %{public}@  policy id %llu  fg %d fg-activity %d", buf, 0x2Cu);
+    }
+
+    goto LABEL_43;
+  }
+
+  v32 = foregroundCopy;
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v15 = self->_activeApps;
+  v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v34;
+LABEL_12:
+    v19 = 0;
+    while (1)
+    {
+      if (*v34 != v18)
+      {
+        objc_enumerationMutation(v15);
+      }
+
+      v20 = *(*(&v33 + 1) + 8 * v19);
+      v21 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v20];
+      bundleName2 = [v21 bundleName];
+      v23 = [activityCopy isEqualToString:bundleName2];
+
+      if (v23)
+      {
+        break;
+      }
+
+      if (v17 == ++v19)
+      {
+        v17 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
+        if (v17)
+        {
+          goto LABEL_12;
+        }
+
+        goto LABEL_18;
+      }
+    }
+
+    v26 = outrankLogHandle;
+    if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      v38 = activityCopy;
+      v39 = 2114;
+      v40 = v20;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "COSMCtrl _foregroundAppActivity incoming bundle %{public}@ has nil supplied UUID, finds existing %{public}@", buf, 0x16u);
+    }
+
+    uuidCopy = v20;
+    v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:uuidCopy];
+
+    foregroundCopy = v32;
+    if (uuidCopy)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else
+  {
+LABEL_18:
+
+    v11 = 0;
+  }
+
+  v27 = outrankLogHandle;
+  if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138543362;
+    v38 = activityCopy;
+    _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_ERROR, "COSMCtrl _foregroundAppActivity incoming bundle %{public}@ has nil supplied UUID, no existing entries so skip", buf, 0xCu);
+  }
+
+  uuidCopy = 0;
+LABEL_43:
 }
 
 - (void)setQueue:(id)queue
@@ -2223,7 +2405,7 @@ LABEL_20:
 
 void __34__CellOutrankController_setQueue___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 userInfo];
   v5 = [v4 objectForKeyedSubscript:@"kAppStateKeyForegroundActivityState"];
@@ -2235,17 +2417,17 @@ void __34__CellOutrankController_setQueue___block_invoke(uint64_t a1, void *a2)
   if (v7)
   {
     v10 = *(*(a1 + 32) + 8);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __34__CellOutrankController_setQueue___block_invoke_138;
-    v15[3] = &unk_27898A378;
-    v16 = v8;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __34__CellOutrankController_setQueue___block_invoke_138;
+    v14[3] = &unk_27898A378;
+    v15 = v8;
     v11 = v7;
-    v19 = v6;
+    v18 = v6;
     v12 = *(a1 + 32);
-    v17 = v11;
-    v18 = v12;
-    dispatch_async(v10, v15);
+    v16 = v11;
+    v17 = v12;
+    dispatch_async(v10, v14);
   }
 
   else
@@ -2254,35 +2436,31 @@ void __34__CellOutrankController_setQueue___block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v3;
+      v20 = v3;
       _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_ERROR, "COSMCtrl foregroundAppObserver gets incomplete %{public}@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __34__CellOutrankController_setQueue___block_invoke_138(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 56);
-    v8 = 138543874;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v4;
-    v12 = 1024;
-    v13 = v5;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "COSMCtrl foregroundAppObserver gets %{public}@ for %{public}@ state %d", &v8, 0x1Cu);
+    v7 = 138543874;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v4;
+    v11 = 1024;
+    v12 = v5;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_INFO, "COSMCtrl foregroundAppObserver gets %{public}@ for %{public}@ state %d", &v7, 0x1Cu);
   }
 
-  result = [*(a1 + 48) _foregroundAppActivity:*(a1 + 40) uuid:*(a1 + 32) isForeground:*(a1 + 56)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) _foregroundAppActivity:*(a1 + 40) uuid:*(a1 + 32) isForeground:*(a1 + 56)];
 }
 
 - (CellOutrankController)init
@@ -2367,7 +2545,7 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
 - (id)getState:(BOOL)state
 {
   stateCopy = state;
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   i = 0x277CCA000uLL;
   v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"COSMCtrl interface %@ _nePolicyCount %d grace-tmr %d evict-tmr %d", self->_cellInterfaceName, self->_nePolicyCount, self->_graceTimerRunning, self->_evictionTimerRunning];
@@ -2423,7 +2601,7 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
     [v5 addObject:v25];
   }
 
-  v53 = stateCopy;
+  v52 = stateCopy;
   if (stateCopy)
   {
     v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"COSMCtrl agent %@", self->_neAgent];
@@ -2436,29 +2614,29 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
     [v5 addObject:v28];
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   obj = self->_activeApps;
   selfCopy = self;
-  v61 = v5;
-  v57 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v66 objects:v71 count:16];
-  if (v57)
+  v60 = v5;
+  v56 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+  if (v56)
   {
-    v56 = *v67;
+    v55 = *v66;
     do
     {
-      for (i = 0; i != v57; ++i)
+      for (i = 0; i != v56; ++i)
       {
-        if (*v67 != v56)
+        if (*v66 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v66 + 1) + 8 * i);
+        v29 = *(*(&v65 + 1) + 8 * i);
         v30 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:v29];
-        v58 = objc_alloc(MEMORY[0x277CCACA8]);
+        v57 = objc_alloc(MEMORY[0x277CCACA8]);
         bundleName = [v30 bundleName];
         isForeground = [v30 isForeground];
         v33 = @"<distant-future>";
@@ -2466,12 +2644,12 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
         {
           [v30 stateChangeTime];
           v33 = dateStringMillisecondsFromReferenceInterval(v34);
-          v55 = v33;
+          v54 = v33;
         }
 
-        v35 = [v58 initWithFormat:@"COSMCtrl Foreground App Record %@ -> %@ state-change-at %@ fg %d fg-activity %d policy %llu connections %llu closed %llu", v29, bundleName, v33, objc_msgSend(v30, "isForeground"), objc_msgSend(v30, "foregroundSessionActivity"), objc_msgSend(v30, "policyId"), objc_msgSend(v30, "connectionCount"), objc_msgSend(v30, "closedConnectionCount")];
-        v5 = v61;
-        [v61 addObject:v35];
+        v35 = [v57 initWithFormat:@"COSMCtrl Foreground App Record %@ -> %@ state-change-at %@ fg %d fg-activity %d policy %llu connections %llu closed %llu", v29, bundleName, v33, objc_msgSend(v30, "isForeground"), objc_msgSend(v30, "foregroundSessionActivity"), objc_msgSend(v30, "policyId"), objc_msgSend(v30, "connectionCount"), objc_msgSend(v30, "closedConnectionCount")];
+        v5 = v60;
+        [v60 addObject:v35];
 
         if ((isForeground & 1) == 0)
         {
@@ -2480,32 +2658,32 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
         self = selfCopy;
       }
 
-      v57 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v66 objects:v71 count:16];
+      v56 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
-    while (v57);
+    while (v56);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v59 = self->_activeFallbackClients;
-  v36 = [(NSMutableDictionary *)v59 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v58 = self->_activeFallbackClients;
+  v36 = [(NSMutableDictionary *)v58 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v63;
+    v38 = *v62;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v63 != v38)
+        if (*v62 != v38)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v58);
         }
 
-        v40 = *(*(&v62 + 1) + 8 * j);
+        v40 = *(*(&v61 + 1) + 8 * j);
         v41 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:v40];
         activeApps = self->_activeApps;
         processUUID = [v41 processUUID];
@@ -2525,8 +2703,8 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
         }
 
         v48 = [v45 initWithFormat:@"COSMCtrl Assertion tracker %@ -> %@ -> %@  count %llu", v40, processUUID2, v47, objc_msgSend(v41, "count")];
-        v5 = v61;
-        [v61 addObject:v48];
+        v5 = v60;
+        [v60 addObject:v48];
 
         if (v44)
         {
@@ -2535,7 +2713,7 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
         self = selfCopy;
       }
 
-      v37 = [(NSMutableDictionary *)v59 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v37 = [(NSMutableDictionary *)v58 countByEnumeratingWithState:&v61 objects:v69 count:16];
     }
 
     while (v37);
@@ -2544,44 +2722,42 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
   flowBasedIconAdviser = self->_flowBasedIconAdviser;
   if (flowBasedIconAdviser)
   {
-    v50 = [(FlowBasedIconAdviser *)flowBasedIconAdviser getState:v53];
+    v50 = [(FlowBasedIconAdviser *)flowBasedIconAdviser getState:v52];
     [v5 addObjectsFromArray:v50];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)checkInvariants:(id)invariants
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   invariantsCopy = invariants;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v5 = self->_activeApps;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v30 objects:v41 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v29 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->_activeApps objectForKeyedSubscript:*(*(&v29 + 1) + 8 * i)];
         v8 += [v11 connectionCount];
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v29 objects:v40 count:16];
     }
 
     while (v7);
@@ -2592,31 +2768,31 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v12 = self->_activeFallbackClients;
-  v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v26 objects:v40 count:16];
+  v13 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v25 objects:v39 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v27;
+    v16 = *v26;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:*(*(&v26 + 1) + 8 * j)];
+        v18 = [(NSMutableDictionary *)self->_activeFallbackClients objectForKeyedSubscript:*(*(&v25 + 1) + 8 * j)];
         v15 += [v18 hasAppRecord];
       }
 
-      v14 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v26 objects:v40 count:16];
+      v14 = [(NSMutableDictionary *)v12 countByEnumeratingWithState:&v25 objects:v39 count:16];
     }
 
     while (v14);
@@ -2633,11 +2809,11 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109634;
-      v35 = v8;
-      v36 = 1024;
-      v37 = v15;
-      v38 = 2112;
-      v39 = invariantsCopy;
+      v34 = v8;
+      v35 = 1024;
+      v36 = v15;
+      v37 = 2112;
+      v38 = invariantsCopy;
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "COSMCtrl invariant check failure, via apps %d via trackers %d for %@", buf, 0x18u);
     }
   }
@@ -2651,9 +2827,9 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
       numForegroundAppsExploitingOutrank = [(CellOutrankController *)self numForegroundAppsExploitingOutrank];
       numForegroundAppsNonExploitingOutrank = [(CellOutrankController *)self numForegroundAppsNonExploitingOutrank];
       *buf = 67109376;
-      v35 = numForegroundAppsExploitingOutrank;
-      v36 = 1024;
-      v37 = numForegroundAppsNonExploitingOutrank;
+      v34 = numForegroundAppsExploitingOutrank;
+      v35 = 1024;
+      v36 = numForegroundAppsNonExploitingOutrank;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "COSMCtrl invariant check failure, via exploit count %d non-exploit %d", buf, 0xEu);
     }
   }
@@ -2667,7 +2843,6 @@ uint64_t __39__CellOutrankController_sharedInstance__block_invoke(uint64_t a1)
   [(CellOutrankController *)self reportABCCase:invariantsCopy];
 
 LABEL_29:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportABCCase:(id)case

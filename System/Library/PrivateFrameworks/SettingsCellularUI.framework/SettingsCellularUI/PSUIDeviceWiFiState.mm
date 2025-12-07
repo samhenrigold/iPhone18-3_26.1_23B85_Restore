@@ -65,7 +65,7 @@ uint64_t __37__PSUIDeviceWiFiState_sharedInstance__block_invoke()
 
 - (BOOL)isConnectedOverWiFi
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CD9200] = [MEMORY[0x277CD9200] sharedDefaultEvaluator];
   path = [mEMORY[0x277CD9200] path];
 
@@ -74,8 +74,8 @@ uint64_t __37__PSUIDeviceWiFiState_sharedInstance__block_invoke()
     getLogger = [(PSUIDeviceWiFiState *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "[NWPathEvaluator path] empty", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "[NWPathEvaluator path] empty", &v9, 2u);
     }
 
     goto LABEL_11;
@@ -86,8 +86,8 @@ uint64_t __37__PSUIDeviceWiFiState_sharedInstance__block_invoke()
     getLogger = [(PSUIDeviceWiFiState *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network path is not available", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network path is not available", &v9, 2u);
     }
 
 LABEL_11:
@@ -105,14 +105,13 @@ LABEL_11:
       v7 = "ON";
     }
 
-    v10 = 136315138;
-    v11 = v7;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "WiFi : %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = v7;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "WiFi : %s", &v9, 0xCu);
   }
 
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -128,21 +127,19 @@ LABEL_12:
 
 void __70__PSUIDeviceWiFiState_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315394;
-    v5 = "[PSUIDeviceWiFiState observeValueForKeyPath:ofObject:change:context:]_block_invoke";
-    v6 = 2112;
-    v7 = @"PSWiFiConnectivityChanged";
-    _os_log_impl(&dword_2658DE000, v1, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v4, 0x16u);
+    v3 = 136315394;
+    v4 = "[PSUIDeviceWiFiState observeValueForKeyPath:ofObject:change:context:]_block_invoke";
+    v5 = 2112;
+    v6 = @"PSWiFiConnectivityChanged";
+    _os_log_impl(&dword_2658DE000, v1, OS_LOG_TYPE_DEFAULT, "%s posting notification %@ from main thread", &v3, 0x16u);
   }
 
   v2 = [MEMORY[0x277CCAB98] defaultCenter];
   [v2 postNotificationName:@"PSWiFiConnectivityChanged" object:0];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

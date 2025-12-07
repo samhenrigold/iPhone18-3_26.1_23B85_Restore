@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    feature = self->_feature;
     PBDataWriterWriteInt32Field();
   }
 }

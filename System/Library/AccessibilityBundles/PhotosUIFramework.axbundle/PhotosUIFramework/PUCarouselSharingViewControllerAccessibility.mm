@@ -1,6 +1,7 @@
 @interface PUCarouselSharingViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_updateCell:(id)cell forItemAtIndexPath:(id)path;
+- (void)_updateMainViewAnimated:(BOOL)animated;
 @end
 
 @implementation PUCarouselSharingViewControllerAccessibility
@@ -61,32 +62,38 @@
 
 uint64_t __79__PUCarouselSharingViewControllerAccessibility__updateCell_forItemAtIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _photoCollectionAtIndex:{objc_msgSend(*(a1 + 40), "section")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _photoCollectionAtIndex:{objc_msgSend(*(a1 + 40), "section")}];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __79__PUCarouselSharingViewControllerAccessibility__updateCell_forItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) assetsInAssetCollection:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) assetsInAssetCollection:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 uint64_t __79__PUCarouselSharingViewControllerAccessibility__updateCell_forItemAtIndexPath___block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) objectAtIndex:{objc_msgSend(*(a1 + 40), "item")}];
 
   return MEMORY[0x2A1C71028]();
+}
+
+- (void)_updateMainViewAnimated:(BOOL)animated
+{
+  v7.receiver = self;
+  v7.super_class = PUCarouselSharingViewControllerAccessibility;
+  [(PUCarouselSharingViewControllerAccessibility *)&v7 _updateMainViewAnimated:animated];
+  objc_opt_class();
+  v4 = [(PUCarouselSharingViewControllerAccessibility *)self safeValueForKey:@"mainCollectionView"];
+  v5 = __UIAccessibilityCastAsClass();
+
+  v6 = accessibilityPULocalizedString(@"sharing.collection.list");
+  [v5 setAccessibilityLabel:v6];
+
+  [v5 setAccessibilityIdentifier:@"photoSharingCollectionView"];
 }
 
 @end

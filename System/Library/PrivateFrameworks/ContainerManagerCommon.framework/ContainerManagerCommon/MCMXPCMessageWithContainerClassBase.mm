@@ -1,5 +1,4 @@
 @interface MCMXPCMessageWithContainerClassBase
-- (MCMContainerConfiguration)containerConfig;
 - (MCMXPCMessageWithContainerClassBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
 - (unsigned)disposition;
 @end
@@ -8,35 +7,26 @@
 
 - (unsigned)disposition
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = MCMXPCMessageWithContainerClassBase;
-  disposition = [(MCMXPCMessageBase *)&v7 disposition];
+  v7 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = MCMXPCMessageWithContainerClassBase;
+  disposition = [(MCMXPCMessageBase *)&v6 disposition];
   if (disposition == 1)
   {
     containerConfig = [(MCMXPCMessageWithContainerClassBase *)self containerConfig];
     disposition = [containerConfig disposition];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return disposition;
-}
-
-- (MCMContainerConfiguration)containerConfig
-{
-  result = self->_containerConfig;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (MCMXPCMessageWithContainerClassBase)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v21.receiver = self;
-  v21.super_class = MCMXPCMessageWithContainerClassBase;
-  v9 = [(MCMXPCMessageBase *)&v21 initWithXPCObject:objectCopy context:context error:error];
+  v20.receiver = self;
+  v20.super_class = MCMXPCMessageWithContainerClassBase;
+  v9 = [(MCMXPCMessageBase *)&v20 initWithXPCObject:objectCopy context:context error:error];
   if (v9)
   {
     v10 = v9;
@@ -79,7 +69,6 @@
 
 LABEL_10:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -62,8 +62,8 @@
 
 - (void)cancelPreorders:(id)preorders withCompletionBlock:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v36 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -82,73 +82,71 @@
       v9 = shouldLog;
     }
 
-    if (os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v10 = v9;
+      v11 = v9;
     }
 
     else
     {
-      v10 = v9 & 2;
+      v11 = v9 & 2;
     }
 
-    if (v10)
+    if (v11)
     {
-      v35 = 136446210;
-      v36 = "[SSPreorderManager cancelPreorders:withCompletionBlock:]";
-      LODWORD(v28) = 12;
-      v27 = &v35;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v34 = 136446210;
+      v35 = "[SSPreorderManager cancelPreorders:withCompletionBlock:]";
+      if (v12)
       {
-        v12 = v11;
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v35, v28}];
-        free(v12);
-        SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
+        v13 = v12;
+        v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+        free(v13);
+        SSFileLog(v7, @"%@", v15, v16, v17, v18, v19, v20, v14);
       }
     }
   }
 
-  v20 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v20, "0", 35);
-  v21 = xpc_array_create(0, 0);
+  v21 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v21, "0", 35);
+  v22 = xpc_array_create(0, 0);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v22 = [preorders countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v22)
+  v23 = [preorders countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v23)
   {
-    v23 = v22;
-    v24 = *v31;
+    v24 = v23;
+    v25 = *v30;
     do
     {
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v31 != v24)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(preorders);
         }
 
-        xpc_array_set_int64(v21, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v30 + 1) + 8 * i) persistentIdentifier]);
+        xpc_array_set_int64(v22, 0xFFFFFFFFFFFFFFFFLL, [*(*(&v29 + 1) + 8 * i) persistentIdentifier]);
       }
 
-      v23 = [preorders countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v24 = [preorders countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v23);
+    while (v24);
   }
 
-  xpc_dictionary_set_value(v20, "1", v21);
-  xpc_release(v21);
+  xpc_dictionary_set_value(v21, "1", v22);
+  xpc_release(v22);
   connection = self->_connection;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke;
-  v29[3] = &unk_1E84AC7E0;
-  v29[4] = block;
-  [(SSXPCConnection *)connection sendMessage:v20 withReply:v29];
-  xpc_release(v20);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke;
+  v28[3] = &unk_1E84AC7E0;
+  v28[4] = block;
+  [(SSXPCConnection *)connection sendMessage:v21 withReply:v28];
+  xpc_release(v21);
 }
 
 void __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke(uint64_t a1, void *a2)
@@ -187,7 +185,7 @@ void __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke(
 - (NSArray)preorders
 {
   v26 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -206,28 +204,27 @@ void __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke(
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       LODWORD(v21) = 136446210;
       *(&v21 + 4) = "[SSPreorderManager preorders]";
-      LODWORD(v19) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v21, v19}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -246,9 +243,9 @@ void __57__SSPreorderManager_cancelPreorders_withCompletionBlock___block_invoke(
   block[4] = self;
   block[5] = &v21;
   dispatch_sync(dispatchQueue, block);
-  v17 = *(*(&v21 + 1) + 40);
+  v18 = *(*(&v21 + 1) + 40);
   _Block_object_dispose(&v21, 8);
-  return v17;
+  return v18;
 }
 
 id __30__SSPreorderManager_preorders__block_invoke(uint64_t a1)
@@ -310,7 +307,7 @@ intptr_t __30__SSPreorderManager_preorders__block_invoke_2(uint64_t a1, xpc_obje
 - (void)reloadFromServer
 {
   v20 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -329,36 +326,35 @@ intptr_t __30__SSPreorderManager_preorders__block_invoke_2(uint64_t a1, xpc_obje
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
       v18 = 136446210;
       v19 = "[SSPreorderManager reloadFromServer]";
-      LODWORD(v17) = 12;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v18, v17}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
 
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v16, "0", 36);
-  [(SSXPCConnection *)self->_connection sendMessage:v16];
-  xpc_release(v16);
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v17, "0", 36);
+  [(SSXPCConnection *)self->_connection sendMessage:v17];
+  xpc_release(v17);
 }
 
 - (void)removeObserver:(id)observer
@@ -456,8 +452,8 @@ void __39__SSPreorderManager__connectAsObserver__block_invoke_2(uint64_t a1)
 
 - (void)_registerAsObserver
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v22 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -476,29 +472,27 @@ void __39__SSPreorderManager__connectAsObserver__block_invoke_2(uint64_t a1)
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
-      v21 = 136446210;
-      v22 = "[SSPreorderManager _registerAsObserver]";
-      LODWORD(v20) = 12;
-      v19 = &v21;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v20 = 136446210;
+      v21 = "[SSPreorderManager _registerAsObserver]";
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v21, v20}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
@@ -506,14 +500,14 @@ void __39__SSPreorderManager__connectAsObserver__block_invoke_2(uint64_t a1)
   createXPCEndpoint = [(SSXPCConnection *)self->_observerConnection createXPCEndpoint];
   if (createXPCEndpoint)
   {
-    v17 = createXPCEndpoint;
-    v18 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v18, "0", 33);
-    SSXPCDictionarySetCFObject(v18, "1", self->_itemKinds);
-    xpc_dictionary_set_value(v18, "2", v17);
-    [(SSXPCConnection *)self->_connection sendMessage:v18];
+    v18 = createXPCEndpoint;
+    v19 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v19, "0", 33);
+    SSXPCDictionarySetCFObject(v19, "1", self->_itemKinds);
+    xpc_dictionary_set_value(v19, "2", v18);
+    [(SSXPCConnection *)self->_connection sendMessage:v19];
+    xpc_release(v19);
     xpc_release(v18);
-    xpc_release(v17);
   }
 }
 
@@ -544,7 +538,7 @@ void __39__SSPreorderManager__connectAsObserver__block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __45__SSPreorderManager__sendMessageToObservers___block_invoke(uint64_t a1)
+void *__45__SSPreorderManager__sendMessageToObservers___block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -574,7 +568,7 @@ uint64_t __45__SSPreorderManager__sendMessageToObservers___block_invoke(uint64_t
           [v8 performSelector:*(a1 + 48) withObject:*(a1 + 32)];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);

@@ -9,10 +9,10 @@
 
 - (id)description
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v11[0] = @"isActive";
+  v10[0] = @"isActive";
   if ([(LACSharedMode *)self isActive])
   {
     v5 = @"YES";
@@ -23,8 +23,8 @@
     v5 = @"NO";
   }
 
-  v11[1] = @"isConfirmed";
-  v12[0] = v5;
+  v10[1] = @"isConfirmed";
+  v11[0] = v5;
   if ([(LACSharedMode *)self isConfirmed])
   {
     v6 = @"YES";
@@ -35,11 +35,9 @@
     v6 = @"NO";
   }
 
-  v12[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v7];;
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -53,7 +53,7 @@
     v7 = qword_1000EB4C0;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 0;
+      v38 = 0;
       v8 = sub_1000011A8(1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
@@ -67,8 +67,8 @@
 
       if (v9)
       {
-        v36 = 0;
-        v10 = _os_log_send_and_compose_impl();
+        v37 = 0;
+        v10 = _os_log_send_and_compose_impl(v9, &v38, 0, 0, &_mh_execute_header, v7, 0, "BUBBLED Client ARRIVED", &v37, 2);
         v11 = v10;
         if (v10)
         {
@@ -92,7 +92,7 @@
     v19 = qword_1000EB4C0;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = 0;
+      v38 = 0;
       v20 = sub_1000011A8(1);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
@@ -106,8 +106,9 @@
 
       if (v21)
       {
-        v36 = 0;
-        v22 = _os_log_send_and_compose_impl();
+        v37 = 0;
+        LODWORD(v30) = 2;
+        v22 = _os_log_send_and_compose_impl(v21, &v38, 0, 0, &_mh_execute_header, v19, 0, "BUBBLE Client XPC CONN SETUP", &v37, v30);
         v23 = v22;
         if (v22)
         {
@@ -135,16 +136,16 @@
     v27 = +[RDServer sharedServer];
     [connectionCopy setExportedObject:v27];
 
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100078A70;
+    v32[3] = &unk_1000DCFF8;
+    v16 = &v33;
+    v33 = v6;
+    [connectionCopy setInvalidationHandler:v32];
+    v17 = v31;
     v31[0] = _NSConcreteStackBlock;
     v31[1] = 3221225472;
-    v31[2] = sub_100078A70;
-    v31[3] = &unk_1000DCFF8;
-    v16 = &v32;
-    v32 = v6;
-    [connectionCopy setInvalidationHandler:v31];
-    v17 = v30;
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
     v18 = sub_100078AC8;
   }
 
@@ -162,16 +163,16 @@
     v15 = +[RDServer sharedServer];
     [connectionCopy setExportedObject:v15];
 
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_1000789C0;
+    v35[3] = &unk_1000DCFF8;
+    v16 = &v36;
+    v36 = v6;
+    [connectionCopy setInvalidationHandler:v35];
+    v17 = v34;
     v34[0] = _NSConcreteStackBlock;
     v34[1] = 3221225472;
-    v34[2] = sub_1000789C0;
-    v34[3] = &unk_1000DCFF8;
-    v16 = &v35;
-    v35 = v6;
-    [connectionCopy setInvalidationHandler:v34];
-    v17 = v33;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
     v18 = sub_100078A18;
   }
 

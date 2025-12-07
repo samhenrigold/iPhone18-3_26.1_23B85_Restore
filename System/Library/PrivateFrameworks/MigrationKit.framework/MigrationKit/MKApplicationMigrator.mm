@@ -86,7 +86,7 @@
 
 - (void)import:(id)import
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   importCopy = import;
   v5 = +[MKLog log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -96,9 +96,9 @@
     _os_log_impl(&dword_2592D2000, v5, OS_LOG_TYPE_INFO, "%@ will import applications.", buf, 0xCu);
   }
 
-  v14 = 0;
-  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:importCopy options:0 error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:importCopy options:0 error:&v13];
+  v7 = v13;
   if (v7)
   {
     v8 = +[MKLog log];
@@ -151,13 +151,11 @@
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drainQueue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_identifiers count];
   if (v3)
   {
@@ -171,39 +169,36 @@
       v4 = v3;
     }
 
-    v12 = [(NSMutableArray *)self->_identifiers subarrayWithRange:0, v4];
+    v10 = [(NSMutableArray *)self->_identifiers subarrayWithRange:0, v4];
     [(MKApplicationMigrator *)self lookup:?];
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = self->_totalCount - self->_matchedAppsCount;
-    v7 = +[MKLog log];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = self->_totalCount - self->_matchedAppsCount;
+    v6 = +[MKLog log];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       totalCount = self->_totalCount;
       matchedAppsCount = self->_matchedAppsCount;
       *buf = 138413058;
       selfCopy = self;
+      v13 = 2048;
+      v14 = totalCount;
       v15 = 2048;
-      v16 = totalCount;
+      v16 = matchedAppsCount;
       v17 = 2048;
-      v18 = matchedAppsCount;
-      v19 = 2048;
-      v20 = v6;
-      _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "%@ is done. total_count=%ld, matched_apps_count=%ld, not_matched_apps_count=%ld", buf, 0x2Au);
+      v18 = v5;
+      _os_log_impl(&dword_2592D2000, v6, OS_LOG_TYPE_INFO, "%@ is done. total_count=%ld, matched_apps_count=%ld, not_matched_apps_count=%ld", buf, 0x2Au);
     }
 
-    v10 = objc_alloc_init(MKApplicationAnalytics);
-    [(MKApplicationAnalytics *)v10 send:self->_matchedAppsCount mismatchedApps:v6];
+    v9 = objc_alloc_init(MKApplicationAnalytics);
+    [(MKApplicationAnalytics *)v9 send:self->_matchedAppsCount mismatchedApps:v5];
 
     if (self->_isImporting)
     {
       [(MKApplicationMigrator *)self import];
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -242,7 +237,7 @@ void __32__MKApplicationMigrator_lookup___block_invoke(uint64_t a1, void *a2, vo
 
 - (void)didLookup:(id)lookup identifiers:(id)identifiers error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   lookupCopy = lookup;
   identifiersCopy = identifiers;
   errorCopy = error;
@@ -255,13 +250,13 @@ void __32__MKApplicationMigrator_lookup___block_invoke(uint64_t a1, void *a2, vo
   v14 = +[MKLog log];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412802;
-    v18 = selfCopy;
-    v19 = 2048;
-    v20 = [lookupCopy count];
-    v21 = 2112;
-    v22 = errorCopy;
-    _os_log_impl(&dword_2592D2000, v14, OS_LOG_TYPE_INFO, "%@ did lookup android ids. apps=%ld, error=%@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = selfCopy;
+    v18 = 2048;
+    v19 = [lookupCopy count];
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&dword_2592D2000, v14, OS_LOG_TYPE_INFO, "%@ did lookup android ids. apps=%ld, error=%@", &v16, 0x20u);
   }
 
   if (errorCopy)
@@ -289,8 +284,6 @@ void __32__MKApplicationMigrator_lookup___block_invoke(uint64_t a1, void *a2, vo
 
   objc_autoreleasePoolPop(v13);
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)import:(id)import identifiers:(id)identifiers
@@ -455,31 +448,31 @@ void __31__MKApplicationMigrator_lookup__block_invoke(uint64_t a1, void *a2, voi
 
 - (void)install:(id)install
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = install;
-  v4 = [obj countByEnumeratingWithState:&v37 objects:v53 count:16];
+  v4 = [obj countByEnumeratingWithState:&v36 objects:v52 count:16];
   if (v4)
   {
     v6 = v4;
-    v36 = *v38;
+    v35 = *v37;
     *&v5 = 138413570;
-    v33 = v5;
+    v32 = v5;
     selfCopy = self;
     do
     {
       v7 = 0;
       do
       {
-        if (*v38 != v36)
+        if (*v37 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * v7);
+        v8 = *(*(&v36 + 1) + 8 * v7);
         v9 = +[MKLog log];
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
@@ -489,18 +482,18 @@ void __31__MKApplicationMigrator_lookup__block_invoke(uint64_t a1, void *a2, voi
           developer = [v8 developer];
           iconURL = [v8 iconURL];
           isFree = [v8 isFree];
-          *buf = v33;
-          v42 = bundleIdentifier;
-          v43 = 2112;
-          v44 = appStoreIdentifier;
-          v45 = 2112;
-          v46 = name;
-          v47 = 2112;
-          v48 = developer;
-          v49 = 2112;
-          v50 = iconURL;
-          v51 = 1024;
-          v52 = isFree;
+          *buf = v32;
+          v41 = bundleIdentifier;
+          v42 = 2112;
+          v43 = appStoreIdentifier;
+          v44 = 2112;
+          v45 = name;
+          v46 = 2112;
+          v47 = developer;
+          v48 = 2112;
+          v49 = iconURL;
+          v50 = 1024;
+          v51 = isFree;
           _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "will install an application. bundle_id=%@, appstore_id=%@, name=%@, developer=%@, icon=%@, free=%d", buf, 0x3Au);
 
           self = selfCopy;
@@ -540,59 +533,56 @@ void __31__MKApplicationMigrator_lookup__block_invoke(uint64_t a1, void *a2, voi
       }
 
       while (v6 != v7);
-      v6 = [obj countByEnumeratingWithState:&v37 objects:v53 count:16];
+      v6 = [obj countByEnumeratingWithState:&v36 objects:v52 count:16];
     }
 
     while (v6);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)prompt
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v2 = dispatch_semaphore_create(0);
-  v21[0] = *MEMORY[0x277CBF188];
+  v20[0] = *MEMORY[0x277CBF188];
   v3 = MKLocalizedString(@"APP_MIGRATION_PROMPT_TITLE");
-  v22[0] = v3;
-  v21[1] = *MEMORY[0x277CBF198];
+  v21[0] = v3;
+  v20[1] = *MEMORY[0x277CBF198];
   v4 = MKLocalizedString(@"APP_MIGRATION_PROMPT_MESSAGE");
-  v22[1] = v4;
-  v21[2] = *MEMORY[0x277CBF1E8];
+  v21[1] = v4;
+  v20[2] = *MEMORY[0x277CBF1E8];
   v5 = MKLocalizedString(@"APP_MIGRATION_PROMPT_CHOICE_YES");
-  v22[2] = v5;
-  v21[3] = *MEMORY[0x277CBF1C0];
+  v21[2] = v5;
+  v20[3] = *MEMORY[0x277CBF1C0];
   v6 = MKLocalizedString(@"APP_MIGRATION_PROMPT_CHOICE_NO");
-  v22[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
-  v20[0] = 0;
-  v20[1] = v20;
-  v20[2] = 0x2020000000;
-  v20[3] = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v7);
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x2020000000;
+  v19[3] = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v7);
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v8 = dispatch_get_global_queue(25, 0);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __31__MKApplicationMigrator_prompt__block_invoke;
-  v12[3] = &unk_2798DCCC8;
-  v14 = v20;
-  v15 = &v16;
-  v13 = v2;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __31__MKApplicationMigrator_prompt__block_invoke;
+  v11[3] = &unk_2798DCCC8;
+  v13 = v19;
+  v14 = &v15;
+  v12 = v2;
   v9 = v2;
-  dispatch_async(v8, v12);
+  dispatch_async(v8, v11);
 
   dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  LOBYTE(v2) = *(v17 + 24);
+  LOBYTE(v2) = *(v16 + 24);
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(v19, 8);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -607,56 +597,56 @@ intptr_t __31__MKApplicationMigrator_prompt__block_invoke(uint64_t a1)
 
 - (void)purchase
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = dispatch_semaphore_create(0);
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
   v39 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
   appStoreIdentifiers = [(MKApplicationDatabase *)self->_db appStoreIdentifiers];
   v5 = 0;
   v6 = *MEMORY[0x277D6A288];
   *&v7 = 138412290;
-  v19 = v7;
+  v18 = v7;
   while (v5 < [appStoreIdentifiers count])
   {
     v8 = [appStoreIdentifiers objectAtIndexedSubscript:v5];
     v9 = +[MKLog log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LODWORD(buf) = v19;
+      LODWORD(buf) = v18;
       *(&buf + 4) = v8;
       _os_log_impl(&dword_2592D2000, v9, OS_LOG_TYPE_INFO, "will lookup a store item. id=%@", &buf, 0xCu);
     }
 
     v10 = objc_alloc_init(MEMORY[0x277D69B18]);
     [v10 setValue:v8 forParameter:v6];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __33__MKApplicationMigrator_purchase__block_invoke;
-    v25[3] = &unk_2798DCD18;
-    v27 = &v40;
-    v28 = &v36;
-    v29 = &v30;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __33__MKApplicationMigrator_purchase__block_invoke;
+    v24[3] = &unk_2798DCD18;
+    v26 = &v39;
+    v27 = &v35;
+    v28 = &v29;
     v11 = v3;
-    v26 = v11;
-    [v10 startWithItemLookupBlock:v25];
+    v25 = v11;
+    [v10 startWithItemLookupBlock:v24];
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-    v12 = v37;
-    v13 = v41;
-    if (v37[3] < 10)
+    v12 = v36;
+    v13 = v40;
+    if (v36[3] < 10)
     {
-      if (v41[3])
+      if (v40[3])
       {
         goto LABEL_9;
       }
@@ -664,7 +654,7 @@ intptr_t __31__MKApplicationMigrator_prompt__block_invoke(uint64_t a1)
 
     else
     {
-      *(v41 + 24) = 0;
+      *(v40 + 24) = 0;
     }
 
     *(v13 + 24) = 0;
@@ -682,34 +672,32 @@ LABEL_9:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy_;
-  v47 = __Block_byref_object_dispose_;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy_;
+  v46 = __Block_byref_object_dispose_;
   v15 = objc_alloc(MEMORY[0x277D69C20]);
-  v48 = [v15 initWithPurchases:v31[5]];
+  v47 = [v15 initWithPurchases:v30[5]];
   v16 = *(*(&buf + 1) + 40);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __33__MKApplicationMigrator_purchase__block_invoke_29;
-  v22[3] = &unk_2798DCD40;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __33__MKApplicationMigrator_purchase__block_invoke_29;
+  v21[3] = &unk_2798DCD40;
   p_buf = &buf;
-  v23 = v3;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __33__MKApplicationMigrator_purchase__block_invoke_31;
-  v20[3] = &unk_2798DCD68;
-  v17 = v23;
-  v21 = v17;
-  [v16 startWithPurchaseResponseBlock:v22 completionBlock:v20];
+  v22 = v3;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __33__MKApplicationMigrator_purchase__block_invoke_31;
+  v19[3] = &unk_2798DCD68;
+  v17 = v22;
+  v20 = v17;
+  [v16 startWithPurchaseResponseBlock:v21 completionBlock:v19];
   dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v29, 8);
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v40, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v39, 8);
 }
 
 void __33__MKApplicationMigrator_purchase__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -791,21 +779,20 @@ void __33__MKApplicationMigrator_purchase__block_invoke_29(uint64_t a1, void *a2
 
 void __34__MKApplicationMigrator_purchase2__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = +[MKLog log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "result=%@, error=%@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_2592D2000, v7, OS_LOG_TYPE_INFO, "result=%@, error=%@", &v8, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purchase:(id)purchase handleAuthenticateRequest:(id)request completion:(id)completion

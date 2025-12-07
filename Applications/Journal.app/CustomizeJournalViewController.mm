@@ -16,9 +16,9 @@
 
 - (_TtC7Journal30CustomizeJournalViewController)initWithCoder:(id)coder
 {
-  sub_1000F24EC(&unk_100AD4D10);
+  sub_1000F24EC(&unk_100AD4D10, &qword_10095E810);
   UIViewController.ViewLoading.init()();
-  sub_1000065A8(0, &qword_100AD43B0);
+  sub_1000065A8(0, &qword_100AD43B0, UIBarButtonItem_ptr);
   UIViewController.ViewLoading.init()();
   UIViewController.ViewLoading.init()();
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC7Journal30CustomizeJournalViewController_colorPickerViewController) = 0;
@@ -37,7 +37,7 @@
 {
   appearingCopy = appearing;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CustomizeJournalViewController();
+  v9.super_class = type metadata accessor for CustomizeJournalViewController(0);
   v4 = v9.receiver;
   [(CustomizeJournalViewController *)&v9 viewIsAppearing:appearingCopy];
   traitCollection = [v4 traitCollection];
@@ -63,7 +63,7 @@
 - (void)viewWillLayoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CustomizeJournalViewController();
+  v4.super_class = type metadata accessor for CustomizeJournalViewController(0);
   v2 = v4.receiver;
   [(CustomizeJournalViewController *)&v4 viewWillLayoutSubviews];
   swift_getKeyPath();
@@ -75,7 +75,7 @@
 
 - (void)didTapDone
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -113,7 +113,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1005A3F7C(viewCopy);
+  sub_1005A3F7C(viewCopy, v9);
   LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);
@@ -129,7 +129,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1005A4FFC();
+  sub_1005A4FFC(v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -139,7 +139,7 @@
   controllerCopy = controller;
   colorCopy = color;
   selfCopy = self;
-  sub_1005A5288();
+  sub_1005A5288(colorCopy);
 }
 
 @end

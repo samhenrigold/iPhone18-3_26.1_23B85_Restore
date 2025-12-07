@@ -18,7 +18,7 @@
 
 - (id)dictionaryRepresentation
 {
-  sub_1A870CCE0(&qword_1EB303718);
+  sub_1A870CCE0(&qword_1EB303718, &unk_1A88EA7C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A88E14F0;
   *(inited + 32) = 0x6974736567677573;
@@ -28,11 +28,11 @@
   dictionaryRepresentation = [(IMChipSuggestion *)suggestion dictionaryRepresentation];
 
   v7 = sub_1A88C81A8();
-  *(inited + 72) = sub_1A870CCE0(&unk_1EB3091D0);
+  *(inited + 72) = sub_1A870CCE0(&unk_1EB3091D0, &qword_1A88EAC10);
   *(inited + 48) = v7;
   sub_1A8738AAC(inited);
   swift_setDeallocating();
-  sub_1A85EF638(inited + 32, &qword_1EB303720);
+  sub_1A85EF638(inited + 32, &qword_1EB303720, qword_1A88E3DC8);
 
   v8 = sub_1A88C8188();
 

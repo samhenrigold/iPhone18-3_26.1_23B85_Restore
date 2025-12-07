@@ -27,7 +27,7 @@
 
 - (id)getIdentifierForContextSync:(id)sync
 {
-  sub_24E69A5C4(0, &qword_27F21C8C8);
+  sub_24E69A5C4(0, &qword_27F21C8C8, 0x277CD4640);
   syncCopy = sync;
   selfCopy = self;
   v7 = sub_24F92C448();

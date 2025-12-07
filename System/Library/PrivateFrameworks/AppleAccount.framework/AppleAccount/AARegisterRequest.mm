@@ -62,7 +62,7 @@
   v6 = [v4 aa_setXMLBodyWithParameters:bodyDictionary];
 
   v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v6 length:"bytes") encoding:{objc_msgSend(v6, "length"), 4}];
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -104,8 +104,7 @@
   v17 = +[AADeviceInfo udid];
   [v4 setValue:v17 forHTTPHeaderField:@"Device-UDID"];
 
-  [v4 aa_addMultiUserDeviceHeaderIfEnabled];
-  v18 = _AALogSystem();
+  v18 = _AALogSystem([v4 aa_addMultiUserDeviceHeaderIfEnabled]);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = [v4 description];
@@ -114,18 +113,16 @@
     _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
-  v20 = _AALogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = _AALogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = objc_opt_class();
+    v22 = objc_opt_class();
     allHTTPHeaderFields = [v4 allHTTPHeaderFields];
-    v23 = [v21 redactedHeadersFromHTTPHeaders:allHTTPHeaderFields];
+    v24 = [v22 redactedHeadersFromHTTPHeaders:allHTTPHeaderFields];
     *buf = 138412290;
-    v33 = v23;
-    _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "HTTP Headers: %@", buf, 0xCu);
+    v33 = v24;
+    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "HTTP Headers: %@", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

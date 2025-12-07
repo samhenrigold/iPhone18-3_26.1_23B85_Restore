@@ -1550,7 +1550,7 @@ LABEL_20:
 LABEL_15:
       }
 
-      v50 = OUTLINED_FUNCTION_3(v66, v67);
+      v50 = OUTLINED_FUNCTION_3(v66, v67, v68, v69);
       if (!v50)
       {
 LABEL_17:

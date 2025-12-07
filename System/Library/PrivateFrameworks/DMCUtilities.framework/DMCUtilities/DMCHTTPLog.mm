@@ -44,7 +44,7 @@
 
 + (void)_writeRequestLogToURL:(id)l request:(id)request response:(id)response responseData:(id)data responseError:(id)error
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   lCopy = l;
   requestCopy = request;
   responseCopy = response;
@@ -60,7 +60,7 @@
   hTTPMethod = [requestCopy HTTPMethod];
   v20 = [v17 stringWithFormat:@"%@-%@.txt", v16, hTTPMethod];
 
-  v81 = lCopy;
+  v92 = lCopy;
   v21 = [lCopy URLByAppendingPathComponent:v20 isDirectory:0];
   for (i = 1; ; ++i)
   {
@@ -89,105 +89,106 @@
 
   if (v32)
   {
-    v90 = 0;
-    v33 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v21 error:&v90];
-    v34 = v90;
-    if (v33)
+    v101 = 0;
+    v35 = [MEMORY[0x1E696AC00] fileHandleForWritingToURL:v21 error:&v101];
+    v36 = v101;
+    v38 = v36;
+    if (v35)
     {
       array = [MEMORY[0x1E695DF70] array];
       [array addObject:@"<<<<< Request"];
-      v75 = v34;
-      v36 = MEMORY[0x1E696AEC0];
+      v86 = v38;
+      v40 = MEMORY[0x1E696AEC0];
       hTTPMethod3 = [v18 HTTPMethod];
       [v18 URL];
-      v38 = v77 = v33;
-      path3 = [v38 path];
-      v40 = [v36 stringWithFormat:@"%@ %@ HTTP/1.1", hTTPMethod3, path3];
-      [array addObject:v40];
+      v42 = v88 = v35;
+      path3 = [v42 path];
+      v44 = [v40 stringWithFormat:@"%@ %@ HTTP/1.1", hTTPMethod3, path3];
+      [array addObject:v44];
 
       allHTTPHeaderFields = [v18 allHTTPHeaderFields];
-      v88[0] = MEMORY[0x1E69E9820];
-      v88[1] = 3221225472;
-      v88[2] = __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_responseError___block_invoke;
-      v88[3] = &unk_1E7ADCB20;
-      v42 = array;
-      v89 = v42;
-      [allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:v88];
+      v99[0] = MEMORY[0x1E69E9820];
+      v99[1] = 3221225472;
+      v99[2] = __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_responseError___block_invoke;
+      v99[3] = &unk_1E7ADCB20;
+      v46 = array;
+      v100 = v46;
+      [allHTTPHeaderFields enumerateKeysAndObjectsUsingBlock:v99];
 
-      [v42 addObject:@"\n"];
-      v43 = [v42 componentsJoinedByString:@"\n"];
-      v44 = [v43 dataUsingEncoding:4];
-      v87 = 0;
-      LOBYTE(v38) = [v77 writeData:v44 error:&v87];
-      v45 = v87;
+      [v46 addObject:@"\n"];
+      v47 = [v46 componentsJoinedByString:@"\n"];
+      v48 = [v47 dataUsingEncoding:4];
+      v98 = 0;
+      LOBYTE(v42) = [v88 writeData:v48 error:&v98];
+      v49 = v98;
 
-      if ((v38 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
-        v46 = *DMCLogObjects();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v52 = *DMCLogObjects(v50, v51);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v92 = v21;
-          v93 = 2112;
-          v94 = v45;
-          _os_log_impl(&dword_1B1630000, v46, OS_LOG_TYPE_ERROR, "Could not write HTTP request headers to file %@: %@", buf, 0x16u);
+          v103 = v21;
+          v104 = 2112;
+          v105 = v49;
+          _os_log_impl(&dword_1B1630000, v52, OS_LOG_TYPE_ERROR, "Could not write HTTP request headers to file %@: %@", buf, 0x16u);
         }
       }
 
       hTTPBody = [v18 HTTPBody];
-      v48 = responseCopy;
-      v76 = hTTPBody;
+      v54 = responseCopy;
+      v87 = hTTPBody;
       if (hTTPBody)
       {
-        v86 = 0;
-        v49 = [v77 writeData:hTTPBody error:&v86];
-        v50 = v86;
-        v51 = v45;
-        v45 = v50;
+        v97 = 0;
+        v55 = [v88 writeData:hTTPBody error:&v97];
+        v56 = v97;
+        v57 = v49;
+        v49 = v56;
 
-        if ((v49 & 1) == 0)
+        if ((v55 & 1) == 0)
         {
-          v52 = *DMCLogObjects();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v60 = *DMCLogObjects(v58, v59);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v92 = v21;
-            v93 = 2112;
-            v94 = v45;
-            _os_log_impl(&dword_1B1630000, v52, OS_LOG_TYPE_ERROR, "Could not write HTTP request body to file %@: %@", buf, 0x16u);
+            v103 = v21;
+            v104 = 2112;
+            v105 = v49;
+            _os_log_impl(&dword_1B1630000, v60, OS_LOG_TYPE_ERROR, "Could not write HTTP request body to file %@: %@", buf, 0x16u);
           }
         }
       }
 
-      v73 = v45;
+      v84 = v49;
       array2 = [MEMORY[0x1E695DF70] array];
 
       [array2 addObject:@"\n>>>>> Response"];
       if (responseCopy)
       {
-        v54 = MEMORY[0x1E696AEC0];
+        v62 = MEMORY[0x1E696AEC0];
         statusCode = [responseCopy statusCode];
-        v56 = [MEMORY[0x1E696AC68] localizedStringForStatusCode:{objc_msgSend(responseCopy, "statusCode")}];
-        v57 = [v54 stringWithFormat:@"HTTP/1.1 %ld %@", statusCode, v56];
-        [array2 addObject:v57];
+        v64 = [MEMORY[0x1E696AC68] localizedStringForStatusCode:{objc_msgSend(responseCopy, "statusCode")}];
+        v65 = [v62 stringWithFormat:@"HTTP/1.1 %ld %@", statusCode, v64];
+        [array2 addObject:v65];
 
         allHeaderFields = [responseCopy allHeaderFields];
-        v84[0] = MEMORY[0x1E69E9820];
-        v84[1] = 3221225472;
-        v84[2] = __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_responseError___block_invoke_37;
-        v84[3] = &unk_1E7ADCB20;
-        v59 = array2;
-        v85 = v59;
-        [allHeaderFields enumerateKeysAndObjectsUsingBlock:v84];
+        v95[0] = MEMORY[0x1E69E9820];
+        v95[1] = 3221225472;
+        v95[2] = __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_responseError___block_invoke_37;
+        v95[3] = &unk_1E7ADCB20;
+        v67 = array2;
+        v96 = v67;
+        [allHeaderFields enumerateKeysAndObjectsUsingBlock:v95];
 
-        [v59 addObject:@"\n"];
+        [v67 addObject:@"\n"];
       }
 
       else if (errorCopy)
       {
         [array2 addObject:@"--- Error ---"];
-        v64 = [errorCopy description];
-        [array2 addObject:v64];
+        v72 = [errorCopy description];
+        [array2 addObject:v72];
       }
 
       else
@@ -195,93 +196,91 @@
         [array2 addObject:@"--- Unknown Error ---"];
       }
 
-      v74 = array2;
-      v65 = [array2 componentsJoinedByString:@"\n"];
-      v66 = [v65 dataUsingEncoding:4];
-      v83 = 0;
-      v67 = [v77 writeData:v66 error:&v83];
-      v68 = v83;
+      v85 = array2;
+      v73 = [array2 componentsJoinedByString:@"\n"];
+      v74 = [v73 dataUsingEncoding:4];
+      v94 = 0;
+      v75 = [v88 writeData:v74 error:&v94];
+      v76 = v94;
 
-      if ((v67 & 1) == 0)
+      if ((v75 & 1) == 0)
       {
-        v69 = *DMCLogObjects();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        v79 = *DMCLogObjects(v77, v78);
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v92 = v21;
-          v93 = 2112;
-          v94 = v68;
-          _os_log_impl(&dword_1B1630000, v69, OS_LOG_TYPE_ERROR, "Could not write HTTP response headers to file %@: %@", buf, 0x16u);
+          v103 = v21;
+          v104 = 2112;
+          v105 = v76;
+          _os_log_impl(&dword_1B1630000, v79, OS_LOG_TYPE_ERROR, "Could not write HTTP response headers to file %@: %@", buf, 0x16u);
         }
       }
 
-      v62 = dataCopy;
+      v70 = dataCopy;
       if (dataCopy)
       {
-        v82 = 0;
-        v33 = v77;
-        v70 = [v77 writeData:dataCopy error:&v82];
-        v34 = v82;
+        v93 = 0;
+        v35 = v88;
+        v80 = [v88 writeData:dataCopy error:&v93];
+        v38 = v93;
 
-        if ((v70 & 1) == 0)
+        if ((v80 & 1) == 0)
         {
-          v71 = *DMCLogObjects();
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+          v83 = *DMCLogObjects(v81, v82);
+          if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v92 = v21;
-            v93 = 2112;
-            v94 = v34;
-            _os_log_impl(&dword_1B1630000, v71, OS_LOG_TYPE_ERROR, "Could not write HTTP response body to file %@: %@", buf, 0x16u);
+            v103 = v21;
+            v104 = 2112;
+            v105 = v38;
+            _os_log_impl(&dword_1B1630000, v83, OS_LOG_TYPE_ERROR, "Could not write HTTP response body to file %@: %@", buf, 0x16u);
           }
         }
       }
 
       else
       {
-        v34 = v68;
-        v33 = v77;
+        v38 = v76;
+        v35 = v88;
       }
 
-      [v33 closeFile];
+      [v35 closeFile];
     }
 
     else
     {
-      v63 = *DMCLogObjects();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v71 = *DMCLogObjects(v36, v37);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v92 = v21;
-        v93 = 2112;
-        v94 = v34;
-        _os_log_impl(&dword_1B1630000, v63, OS_LOG_TYPE_ERROR, "Could not open HTTP request log file %@: %@", buf, 0x16u);
+        v103 = v21;
+        v104 = 2112;
+        v105 = v38;
+        _os_log_impl(&dword_1B1630000, v71, OS_LOG_TYPE_ERROR, "Could not open HTTP request log file %@: %@", buf, 0x16u);
       }
 
-      v62 = dataCopy;
-      v48 = responseCopy;
+      v70 = dataCopy;
+      v54 = responseCopy;
     }
 
-    v61 = errorCopy;
+    v69 = errorCopy;
   }
 
   else
   {
-    v60 = *DMCLogObjects();
-    v61 = errorCopy;
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    v68 = *DMCLogObjects(v33, v34);
+    v69 = errorCopy;
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v92 = v21;
-      _os_log_impl(&dword_1B1630000, v60, OS_LOG_TYPE_ERROR, "Could not create HTTP request log file %@", buf, 0xCu);
+      v103 = v21;
+      _os_log_impl(&dword_1B1630000, v68, OS_LOG_TYPE_ERROR, "Could not create HTTP request log file %@", buf, 0xCu);
     }
 
-    v34 = 0;
-    v62 = dataCopy;
-    v48 = responseCopy;
+    v38 = 0;
+    v70 = dataCopy;
+    v54 = responseCopy;
   }
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 void __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_responseError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -300,40 +299,38 @@ void __80__DMCHTTPLog__writeRequestLogToURL_request_response_responseData_respon
 
 + (id)_logDirectoryForIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFF8];
   identifierCopy = identifier;
   v5 = [v3 fileURLWithPath:@"/tmp/DMCHTTPLogs"];
   v6 = [v5 URLByAppendingPathComponent:identifierCopy isDirectory:1];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v14 = 0;
-  v8 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v14];
-  v9 = v14;
+  v15 = 0;
+  v8 = [defaultManager createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v15];
+  v9 = v15;
 
   if (v8)
   {
-    v10 = v6;
+    v12 = v6;
   }
 
   else
   {
-    v11 = *DMCLogObjects();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = *DMCLogObjects(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_ERROR, "Could not create HTTP logs directory %@: %@", buf, 0x16u);
+      v17 = v6;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_ERROR, "Could not create HTTP logs directory %@: %@", buf, 0x16u);
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v12;
 }
 
 @end

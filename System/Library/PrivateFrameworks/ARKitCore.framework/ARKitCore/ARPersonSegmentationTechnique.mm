@@ -13,36 +13,37 @@
 
 - (ARPersonSegmentationTechnique)init
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.personsegmentationtechnique");
-  v9.receiver = self;
-  v9.super_class = ARPersonSegmentationTechnique;
-  v4 = [(ARMLImageProcessingTechnique *)&v9 initWithDispatchQueue:v3 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.personsegmentationtechnique", 0xFFFFFFFFLL);
+  v10.receiver = self;
+  v10.super_class = ARPersonSegmentationTechnique;
+  v4 = [(ARMLImageProcessingTechnique *)&v10 initWithDispatchQueue:v3 networkInputScaleBeforeRotation:1 delegateInference:256.0, 192.0];
+  v5 = v4;
   if (v4)
   {
-    v5 = _ARLogTechnique_10();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _ARLogTechnique_10(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v11 = v7;
-      v12 = 2048;
-      v13 = v4;
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running person segmentation by ARPersonSegmentationTechnique.", buf, 0x16u);
+      v12 = v8;
+      v13 = 2048;
+      v14 = v5;
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running person segmentation by ARPersonSegmentationTechnique.", buf, 0x16u);
     }
 
-    v4->_outputSegmentationCopyPixelBufferPool = 0;
-    v4->_scaledSegmentationOutputPixelBufferPool = 0;
-    v4->_disableTemporalSegmentation = 0;
+    v5->_outputSegmentationCopyPixelBufferPool = 0;
+    v5->_scaledSegmentationOutputPixelBufferPool = 0;
+    v5->_disableTemporalSegmentation = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)_prepareOnce:(BOOL)once
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E69C9CD0]);
   [v4 setRunByE5RT:1];
   [v4 setEngineType:1];
@@ -64,38 +65,38 @@
     [ARPersonSegmentationTechnique _prepareOnce:];
   }
 
-  v9 = ARShouldUseLogTypeError_internalOSVersion_14;
-  v10 = _ARLogGeneral_5();
-  v11 = v10;
-  if (v9 == 1)
+  v10 = ARShouldUseLogTypeError_internalOSVersion_14;
+  v11 = _ARLogGeneral_5(v9);
+  v12 = v11;
+  if (v10 == 1)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2048;
+      v24 = v14;
+      v25 = 2048;
       selfCopy2 = self;
-      v14 = "%{public}@ <%p>: SIPeopleSegmentationAlgorithm could not be initialized!";
-      v15 = v11;
-      v16 = OS_LOG_TYPE_ERROR;
+      v15 = "%{public}@ <%p>: SIPeopleSegmentationAlgorithm could not be initialized!";
+      v16 = v12;
+      v17 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-      _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v16, v17, v15, buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v17 = objc_opt_class();
-    v13 = NSStringFromClass(v17);
+    v18 = objc_opt_class();
+    v14 = NSStringFromClass(v18);
     *buf = 138543618;
-    v22 = v13;
-    v23 = 2048;
+    v24 = v14;
+    v25 = 2048;
     selfCopy2 = self;
-    v14 = "Error: %{public}@ <%p>: SIPeopleSegmentationAlgorithm could not be initialized!";
-    v15 = v11;
-    v16 = OS_LOG_TYPE_INFO;
+    v15 = "Error: %{public}@ <%p>: SIPeopleSegmentationAlgorithm could not be initialized!";
+    v16 = v12;
+    v17 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
   }
 
@@ -106,17 +107,17 @@ LABEL_9:
 
   if ((ARSkipCrashOnCrash_skipCrashOnCrash & 1) == 0)
   {
-    v18 = MEMORY[0x1E696AEC0];
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SIPeopleSegmentationAlgorithm could not be initialized!"];
-    v20 = [v18 stringWithFormat:@"ARCrash: %@", v19];
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SIPeopleSegmentationAlgorithm could not be initialized!"];
+    v21 = [v19 stringWithFormat:@"ARCrash: %@", v20];
 
-    qword_1EBF41A28 = strdup([v20 UTF8String]);
-    if (!ARInternalOSBuild())
+    qword_1EBF41A28 = strdup([v21 UTF8String]);
+    if (!ARInternalOSBuild(qword_1EBF41A28, v22))
     {
       abort();
     }
 
-    ARAbortWithError(v20);
+    ARAbortWithError(v21);
   }
 
 LABEL_15:
@@ -172,7 +173,7 @@ LABEL_15:
 {
   height = interest.height;
   width = interest.width;
-  v106 = *MEMORY[0x1E69E9840];
+  v107 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   imageDataCopy = imageData;
   if (self->_algorithm)
@@ -194,12 +195,12 @@ LABEL_15:
   [dataCopy imageResolution];
   IsLandscape = CGSizeAspectRatioIsLandscape(v15, v16);
   v18 = [(ARMLImageProcessingTechnique *)self getDeviceOrientationFromImageData:imageDataCopy];
-  v19 = _ARLogTechnique_10();
+  v19 = _ARLogTechnique_10(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     v21 = objc_opt_class();
     v22 = NSStringFromClass(v21);
-    [imageDataCopy timestamp];
+    objc_msgSend_timestamp(imageDataCopy);
     v24 = v23;
     [dataCopy imageResolution];
     v26 = v25;
@@ -209,23 +210,23 @@ LABEL_15:
     v30 = v29;
     [imageDataCopy imageResolution];
     *buf = 138545410;
-    v89 = v22;
-    v90 = 2048;
+    v90 = v22;
+    v91 = 2048;
     selfCopy5 = self;
-    v92 = 2048;
-    v93 = v24;
-    v94 = 2048;
-    v95 = v26;
-    v96 = 2048;
-    v97 = v28;
-    v98 = 2048;
-    v99 = v30;
-    v100 = 2048;
-    v101 = v31;
-    v102 = 2048;
-    v103 = width;
-    v104 = 2048;
-    v105 = height;
+    v93 = 2048;
+    v94 = v24;
+    v95 = 2048;
+    v96 = v26;
+    v97 = 2048;
+    v98 = v28;
+    v99 = 2048;
+    v100 = v30;
+    v101 = 2048;
+    v102 = v31;
+    v103 = 2048;
+    v104 = width;
+    v105 = 2048;
+    v106 = height;
     _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: [%f] Got imageData %fx%f, originalImageData %fx%f, ROI: %fx%f", buf, 0x5Cu);
   }
 
@@ -255,13 +256,13 @@ LABEL_15:
   }
 
   v40 = v35;
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   [(ARPersonSegmentationTechnique *)self _startMLRunNetworkSignpostWithTimestamp:?];
   -[SIImageInputData setInputImageBuffer:](self->_imageInputData, "setInputImageBuffer:", [dataCopy pixelBuffer]);
   [(SIPeopleSegmentationAlgorithm *)self->_algorithm runWithInput:self->_imageInputData output:v40 resolutionConfiguration:v32];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   [(ARPersonSegmentationTechnique *)self _endMLRunNetworkSignpostWithTimestamp:?];
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v42 = v41;
   inputImageBuffer = [(SIImageInputData *)self->_imageInputData inputImageBuffer];
   v44 = inputImageBuffer;
@@ -294,16 +295,17 @@ LABEL_15:
   v62 = v61;
   if (v61)
   {
-    v83[0] = MEMORY[0x1E69E9820];
-    v83[1] = 3221225472;
-    v84 = __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke;
-    v85 = &__block_descriptor_40_e5_v8__0l;
-    v86 = v61;
+    v84[0] = MEMORY[0x1E69E9820];
+    v84[1] = 3221225472;
+    v85 = __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke;
+    v86 = &__block_descriptor_40_e5_v8__0l;
+    v87 = v61;
     v63 = ARResizeBufferWithNearestNeighbors([v40 segmentation], v61, 1uLL);
+    v64 = v63;
     if (!v63)
     {
       [v53 setPixelBuffer:v62];
-      v84(v83);
+      v85(v84);
 LABEL_20:
       segmentationRotationTechnique = self->_segmentationRotationTechnique;
       if (!segmentationRotationTechnique || [(ARImageRotationTechnique *)segmentationRotationTechnique rotationAngle]!= tensor || [(ARImageRotationTechnique *)self->_segmentationRotationTechnique mirrorMode])
@@ -327,21 +329,21 @@ LABEL_20:
         v60 = CVPixelBufferRetain(pixelBuffer2);
       }
 
-      v69 = v60;
-      v82[0] = MEMORY[0x1E69E9820];
-      v82[1] = 3221225472;
-      v82[2] = __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke_26;
-      v82[3] = &__block_descriptor_40_e5_v8__0l;
-      v82[4] = v60;
-      v70 = [ARSegmentationData alloc];
-      [imageDataCopy timestamp];
-      v71 = [(ARSegmentationData *)v70 initWithTimestamp:v69 segmentationBuffer:?];
-      v87 = v71;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v87 count:1];
-      [dataCopy timestamp];
+      v70 = v60;
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke_26;
+      v83[3] = &__block_descriptor_40_e5_v8__0l;
+      v83[4] = v60;
+      v71 = [ARSegmentationData alloc];
+      objc_msgSend_timestamp(imageDataCopy);
+      v72 = [(ARSegmentationData *)v71 initWithTimestamp:v70 segmentationBuffer:?];
+      v88 = v72;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
+      objc_msgSend_timestamp(dataCopy);
       [(ARPersonSegmentationTechnique *)self _endMLCreateResultSignpostWithTimestamp:?];
 
-      __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke_26(v82);
+      __121__ARPersonSegmentationTechnique_runNeuralNetworkWithImageData_originalImageData_regionOfInterest_rotationOfResultTensor___block_invoke_26(v83);
       goto LABEL_49;
     }
 
@@ -350,39 +352,39 @@ LABEL_20:
       [ARPersonSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
     }
 
-    v64 = ARShouldUseLogTypeError_internalOSVersion_14;
-    v65 = _ARLogTechnique_10();
-    v66 = v65;
-    if (v64 == 1)
+    v65 = ARShouldUseLogTypeError_internalOSVersion_14;
+    v66 = _ARLogTechnique_10(v63);
+    v67 = v66;
+    if (v65 == 1)
     {
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        v67 = objc_opt_class();
-        v68 = NSStringFromClass(v67);
+        v68 = objc_opt_class();
+        v69 = NSStringFromClass(v68);
         *buf = 138543874;
-        v89 = v68;
-        v90 = 2048;
+        v90 = v69;
+        v91 = 2048;
         selfCopy5 = self;
-        v92 = 1024;
-        LODWORD(v93) = v63;
-        _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer: %i", buf, 0x1Cu);
+        v93 = 1024;
+        LODWORD(v94) = v64;
+        _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to resample pixel buffer: %i", buf, 0x1Cu);
       }
     }
 
-    else if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
     {
-      v77 = objc_opt_class();
-      v78 = NSStringFromClass(v77);
+      v78 = objc_opt_class();
+      v79 = NSStringFromClass(v78);
       *buf = 138543874;
-      v89 = v78;
-      v90 = 2048;
+      v90 = v79;
+      v91 = 2048;
       selfCopy5 = self;
-      v92 = 1024;
-      LODWORD(v93) = v63;
-      _os_log_impl(&dword_1C241C000, v66, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer: %i", buf, 0x1Cu);
+      v93 = 1024;
+      LODWORD(v94) = v64;
+      _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Unable to resample pixel buffer: %i", buf, 0x1Cu);
     }
 
-    v84(v83);
+    v85(v84);
   }
 
   else
@@ -392,32 +394,32 @@ LABEL_20:
       [ARPersonSegmentationTechnique runNeuralNetworkWithImageData:originalImageData:regionOfInterest:rotationOfResultTensor:];
     }
 
-    v72 = ARShouldUseLogTypeError_internalOSVersion_14;
-    v73 = _ARLogTechnique_10();
-    v74 = v73;
-    if (v72 == 1)
+    v73 = ARShouldUseLogTypeError_internalOSVersion_14;
+    v74 = _ARLogTechnique_10(v61);
+    v75 = v74;
+    if (v73 == 1)
     {
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
       {
-        v75 = objc_opt_class();
-        v76 = NSStringFromClass(v75);
+        v76 = objc_opt_class();
+        v77 = NSStringFromClass(v76);
         *buf = 138543618;
-        v89 = v76;
-        v90 = 2048;
+        v90 = v77;
+        v91 = 2048;
         selfCopy5 = self;
-        _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create scaled person segmentation buffer", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to create scaled person segmentation buffer", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
     {
-      v79 = objc_opt_class();
-      v80 = NSStringFromClass(v79);
+      v80 = objc_opt_class();
+      v81 = NSStringFromClass(v80);
       *buf = 138543618;
-      v89 = v80;
-      v90 = 2048;
+      v90 = v81;
+      v91 = 2048;
       selfCopy5 = self;
-      _os_log_impl(&dword_1C241C000, v74, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create scaled person segmentation buffer", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v75, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to create scaled person segmentation buffer", buf, 0x16u);
     }
   }
 
@@ -431,7 +433,7 @@ LABEL_50:
 
 - (__CVBuffer)_createCopyWithCVPixelBufferPoolForBuffer:(__CVBuffer *)buffer
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   Width = CVPixelBufferGetWidth(buffer);
   Height = CVPixelBufferGetHeight(buffer);
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
@@ -443,38 +445,38 @@ LABEL_50:
       [ARPersonSegmentationTechnique _prepareOnce:];
     }
 
-    v18 = ARShouldUseLogTypeError_internalOSVersion_14;
-    v19 = _ARLogTechnique_10();
-    v20 = v19;
-    if (v18 == 1)
+    v19 = ARShouldUseLogTypeError_internalOSVersion_14;
+    v20 = _ARLogTechnique_10(v8);
+    v21 = v20;
+    if (v19 == 1)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = objc_opt_class();
-        v22 = NSStringFromClass(v21);
-        v29 = 138543618;
-        v30 = v22;
-        v31 = 2048;
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        v30 = 138543618;
+        v31 = v23;
+        v32 = 2048;
         selfCopy4 = self;
-        v23 = "%{public}@ <%p>: Failed to create a copied buffer for person segmentation result";
-        v24 = v20;
-        v25 = OS_LOG_TYPE_ERROR;
+        v24 = "%{public}@ <%p>: Failed to create a copied buffer for person segmentation result";
+        v25 = v21;
+        v26 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_1C241C000, v24, v25, v23, &v29, 0x16u);
+        _os_log_impl(&dword_1C241C000, v25, v26, v24, &v30, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v26 = objc_opt_class();
-      v22 = NSStringFromClass(v26);
-      v29 = 138543618;
-      v30 = v22;
-      v31 = 2048;
+      v27 = objc_opt_class();
+      v23 = NSStringFromClass(v27);
+      v30 = 138543618;
+      v31 = v23;
+      v32 = 2048;
       selfCopy4 = self;
-      v23 = "Error: %{public}@ <%p>: Failed to create a copied buffer for person segmentation result";
-      v24 = v20;
-      v25 = OS_LOG_TYPE_INFO;
+      v24 = "Error: %{public}@ <%p>: Failed to create a copied buffer for person segmentation result";
+      v25 = v21;
+      v26 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
@@ -482,45 +484,46 @@ LABEL_15:
   }
 
   v9 = v8;
-  if ((ARPixelBufferCopy(buffer, v8) & 1) == 0)
+  v10 = ARPixelBufferCopy(buffer, v8);
+  if ((v10 & 1) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_14 != -1)
     {
       [ARPersonSegmentationTechnique _prepareOnce:];
     }
 
-    v10 = ARShouldUseLogTypeError_internalOSVersion_14;
-    v11 = _ARLogTechnique_10();
-    v12 = v11;
-    if (v10 == 1)
+    v11 = ARShouldUseLogTypeError_internalOSVersion_14;
+    v12 = _ARLogTechnique_10(v10);
+    v13 = v12;
+    if (v11 == 1)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v29 = 138543618;
-        v30 = v14;
-        v31 = 2048;
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v30 = 138543618;
+        v31 = v15;
+        v32 = 2048;
         selfCopy4 = self;
-        v15 = "%{public}@ <%p>: Failed to copy for person segmentation result";
-        v16 = v12;
-        v17 = OS_LOG_TYPE_ERROR;
+        v16 = "%{public}@ <%p>: Failed to copy for person segmentation result";
+        v17 = v13;
+        v18 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-        _os_log_impl(&dword_1C241C000, v16, v17, v15, &v29, 0x16u);
+        _os_log_impl(&dword_1C241C000, v17, v18, v16, &v30, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v27 = objc_opt_class();
-      v14 = NSStringFromClass(v27);
-      v29 = 138543618;
-      v30 = v14;
-      v31 = 2048;
+      v28 = objc_opt_class();
+      v15 = NSStringFromClass(v28);
+      v30 = 138543618;
+      v31 = v15;
+      v32 = 2048;
       selfCopy4 = self;
-      v15 = "Error: %{public}@ <%p>: Failed to copy for person segmentation result";
-      v16 = v12;
-      v17 = OS_LOG_TYPE_INFO;
+      v16 = "Error: %{public}@ <%p>: Failed to copy for person segmentation result";
+      v17 = v13;
+      v18 = OS_LOG_TYPE_INFO;
       goto LABEL_19;
     }
 

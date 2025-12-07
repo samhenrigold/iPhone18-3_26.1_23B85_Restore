@@ -121,78 +121,62 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke(uint64_
   v8 = objc_getAssociatedObject(v4, ~v6);
   v9 = [v8 unsignedIntegerValue] ^ v7;
 
-  v10 = *(a1 + 32);
   if (v9)
   {
-    if (v10)
-    {
-      v15 = *(v10 + 408);
-    }
-
     if (objc_opt_respondsToSelector())
     {
-      v16 = *(a1 + 32);
-      if (v16)
+      v13 = *(a1 + 32);
+      if (v13)
       {
-        v17 = *(v16 + 408);
+        v14 = *(v13 + 408);
       }
 
       else
       {
-        v17 = 0;
+        v14 = 0;
       }
 
-      v14 = [v17 paidTagESLArticleListIDPrefix];
-      goto LABEL_17;
+      v12 = [v14 paidTagESLArticleListIDPrefix];
+      goto LABEL_13;
     }
   }
 
-  else
+  else if (objc_opt_respondsToSelector())
   {
+    v10 = *(a1 + 32);
     if (v10)
     {
       v11 = *(v10 + 408);
     }
 
-    if (objc_opt_respondsToSelector())
+    else
     {
-      v12 = *(a1 + 32);
-      if (v12)
-      {
-        v13 = *(v12 + 408);
-      }
-
-      else
-      {
-        v13 = 0;
-      }
-
-      v14 = [v13 freeTagESLArticleListIDPrefix];
-      goto LABEL_17;
+      v11 = 0;
     }
+
+    v12 = [v11 freeTagESLArticleListIDPrefix];
+    goto LABEL_13;
   }
 
-  v14 = 0;
-LABEL_17:
+  v12 = 0;
+LABEL_13:
 
-  return v14;
+  return v12;
 }
 
 void __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_4(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ found no prefix for per-tag ESL article lists", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ found no prefix for per-tag ESL article lists", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint64_t a1, void *a2)
@@ -215,7 +199,7 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
 
 - (void)performOperation
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (FCProcessIsMemoryConstrained())
   {
     if (self)
@@ -231,8 +215,8 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
         objc_setProperty_nonatomic_copy(v3, v6, v7, 376);
       }
 
-      v44[0] = @"articleIDs";
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+      v43[0] = @"articleIDs";
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
       if (v3)
       {
         objc_setProperty_nonatomic_copy(v3, v8, v9, 384);
@@ -241,13 +225,13 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
       v10 = objc_opt_new();
       v11 = objc_opt_new();
       newValue = MEMORY[0x1E69E9820];
-      v33 = 3221225472;
-      v34 = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_2;
-      v35 = &unk_1E7C38B88;
+      v32 = 3221225472;
+      v33 = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_2;
+      v34 = &unk_1E7C38B88;
       v12 = v11;
       selfCopy2 = v12;
       v14 = v10;
-      v37 = v14;
+      v36 = v14;
       if (v3)
       {
         objc_setProperty_nonatomic_copy(v3, v13, &newValue, 416);
@@ -256,10 +240,10 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_6;
-      v40 = &unk_1E7C36E78;
+      v39 = &unk_1E7C36E78;
       selfCopy4 = self;
-      v42 = v14;
-      v43[0] = v12;
+      v41 = v14;
+      v42[0] = v12;
       v15 = v12;
       v17 = v14;
       if (v3)
@@ -296,34 +280,34 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
 
       [(FCCKBatchedMultiFetchQueryOperation *)v22 setRecordIDs:?];
       newValue = MEMORY[0x1E69E9820];
-      v33 = 3221225472;
-      v34 = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_22;
-      v35 = &unk_1E7C36D40;
+      v32 = 3221225472;
+      v33 = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_22;
+      v34 = &unk_1E7C36D40;
       selfCopy2 = self;
       v25 = [MEMORY[0x1E695DEC8] fc_array:&newValue];
       [(FCCKBatchedMultiFetchQueryOperation *)v22 setRecordSpecs:v25];
 
       v26 = objc_opt_new();
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_2;
-      v44[3] = &unk_1E7C36D68;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_2;
+      v43[3] = &unk_1E7C36D68;
       v28 = v26;
-      v45 = v28;
+      v44 = v28;
       if (v22)
       {
-        objc_setProperty_nonatomic_copy(v22, v27, v44, 448);
+        objc_setProperty_nonatomic_copy(v22, v27, v43, 448);
       }
 
       objc_initWeak(&location, v22);
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_3;
-      v40 = &unk_1E7C399A8;
+      v39 = &unk_1E7C399A8;
       selfCopy4 = self;
       v29 = v28;
-      v42 = v29;
-      objc_copyWeak(v43, &location);
+      v41 = v29;
+      objc_copyWeak(v42, &location);
       if (v22)
       {
         objc_setProperty_nonatomic_copy(v22, v30, buf, 464);
@@ -331,7 +315,7 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
 
       [(FCOperation *)self associateChildOperation:v22];
       [(FCOperation *)v22 start];
-      objc_destroyWeak(v43);
+      objc_destroyWeak(v42);
 
       objc_destroyWeak(&location);
     }
@@ -341,13 +325,11 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke;
-      v40 = &unk_1E7C36EA0;
+      v39 = &unk_1E7C36EA0;
       selfCopy4 = self;
       __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke(buf);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -364,26 +346,24 @@ id __52__FCTagCuratedESLArticlesOperation_prepareOperation__block_invoke_16(uint
 
 uint64_t __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no article list IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no article list IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_22(uint64_t a1, void *a2)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -392,15 +372,15 @@ void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__
     objc_setProperty_nonatomic_copy(v4, v5, @"ArticleList", 16);
   }
 
-  v25[0] = @"articleIDs";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v24[0] = @"articleIDs";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v7, v8, 24);
   }
 
-  v24 = @"articleIDs";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = @"articleIDs";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v9, v10, 32);
@@ -442,24 +422,22 @@ void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__
   }
 
   [v3 addObject:v13];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_3(id *a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
   {
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_4;
-    v40 = &unk_1E7C36C58;
-    v41 = a1[4];
-    v42 = v4;
-    [v41 finishedPerformingOperationWithError:v42];
+    v36 = MEMORY[0x1E69E9820];
+    v37 = 3221225472;
+    v38 = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_4;
+    v39 = &unk_1E7C36C58;
+    v40 = a1[4];
+    v41 = v4;
+    [v40 finishedPerformingOperationWithError:v41];
   }
 
   else
@@ -467,62 +445,62 @@ void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__
     v6 = [a1[5] readOnlyArray];
     v7 = [v6 fc_arrayOfObjectsPassingTest:&__block_literal_global_30_0];
     v8 = MEMORY[0x1E695DF20];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_6;
-    v35[3] = &unk_1E7C36EC8;
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_6;
+    v34[3] = &unk_1E7C36EC8;
     v9 = v7;
-    v36 = v9;
-    v10 = [v8 fc_dictionary:v35];
+    v35 = v9;
+    v10 = [v8 fc_dictionary:v34];
     v11 = [v6 fc_arrayOfObjectsPassingTest:&__block_literal_global_34];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_8;
-    v33[3] = &unk_1E7C39980;
-    v33[4] = a1[4];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_8;
+    v32[3] = &unk_1E7C39980;
+    v32[4] = a1[4];
     v12 = v10;
-    v34 = v12;
-    v13 = [v11 fc_arrayByTransformingWithBlock:v33];
+    v33 = v12;
+    v13 = [v11 fc_arrayByTransformingWithBlock:v32];
     v14 = [a1[4] feedItemHandler];
 
     if (v14)
     {
-      v26 = v11;
-      v27 = v9;
-      v28 = v6;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v25 = v11;
+      v26 = v9;
+      v27 = v6;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v15 = v13;
-      v16 = [v15 countByEnumeratingWithState:&v29 objects:v43 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v28 objects:v42 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v30;
+        v18 = *v29;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v30 != v18)
+            if (*v29 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v29 + 1) + 8 * i);
+            v20 = *(*(&v28 + 1) + 8 * i);
             v21 = [a1[4] feedItemHandler];
             v21[2](v21, v20);
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v29 objects:v43 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v28 objects:v42 count:16];
         }
 
         while (v17);
       }
 
-      v9 = v27;
-      v6 = v28;
-      v11 = v26;
+      v9 = v26;
+      v6 = v27;
+      v11 = v25;
     }
 
     WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -535,8 +513,6 @@ void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__
 
     [a1[4] finishedPerformingOperationWithError:0];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_5(uint64_t a1, void *a2)
@@ -549,28 +525,28 @@ uint64_t __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleReque
 
 void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_6(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         v9 = [v8 recordID];
         v10 = [v9 recordName];
 
@@ -596,42 +572,40 @@ void __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__
 
         v13 = v12;
 
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v22;
+          v17 = *v21;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v22 != v17)
+              if (*v21 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              [v3 setObject:v10 forKeyedSubscript:*(*(&v21 + 1) + 8 * j)];
+              [v3 setObject:v10 forKeyedSubscript:*(*(&v20 + 1) + 8 * j)];
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v16);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v5);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __70__FCTagCuratedESLArticlesOperation__performOperationWithSingleRequest__block_invoke_7(uint64_t a1, void *a2)
@@ -739,55 +713,53 @@ void __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__bloc
 
 void __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_5(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
-        [v3 addObject:{v9, v11}];
+        v9 = *(*(&v10 + 1) + 8 * i);
+        [v3 addObject:{v9, v10}];
         [*(a1 + 40) setObject:*(a1 + 48) forKeyedSubscript:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_6(uint64_t a1, void *a2)
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
-    v24 = MEMORY[0x1E69E9820];
-    v25 = 3221225472;
-    v26 = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_7;
-    v27 = &unk_1E7C36C58;
-    v28 = *(a1 + 32);
-    v29 = v3;
-    [v28 finishedPerformingOperationWithError:v29];
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_7;
+    v26 = &unk_1E7C36C58;
+    v27 = *(a1 + 32);
+    v28 = v3;
+    [v27 finishedPerformingOperationWithError:v28];
   }
 
   else
@@ -815,8 +787,8 @@ void __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__bloc
       objc_setProperty_nonatomic_copy(v5, v11, v12, 376);
     }
 
-    v30[0] = @"articleIDs";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = @"articleIDs";
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     v15 = v13;
     if (v5)
     {
@@ -836,30 +808,28 @@ void __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__bloc
     newValue[2] = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_9;
     newValue[3] = &unk_1E7C38B88;
     newValue[4] = *(a1 + 32);
-    v23 = v16;
+    v22 = v16;
     v18 = v16;
     if (v5)
     {
       objc_setProperty_nonatomic_copy(v5, v17, newValue, 416);
     }
 
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_11;
-    v21[3] = &unk_1E7C36E50;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_11;
+    v20[3] = &unk_1E7C36E50;
     v19 = *(a1 + 32);
-    v21[4] = v19;
+    v20[4] = v19;
     if (v5)
     {
-      objc_setProperty_nonatomic_copy(v5, v17, v21, 424);
+      objc_setProperty_nonatomic_copy(v5, v17, v20, 424);
       v19 = *(a1 + 32);
     }
 
     [v19 associateChildOperation:v5];
     [(FCOperation *)v5 start];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 id __66__FCTagCuratedESLArticlesOperation__performOperationWithStreaming__block_invoke_8(uint64_t a1, void *a2)

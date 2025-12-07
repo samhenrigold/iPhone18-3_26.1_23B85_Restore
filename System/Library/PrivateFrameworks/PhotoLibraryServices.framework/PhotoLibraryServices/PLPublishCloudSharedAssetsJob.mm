@@ -27,7 +27,7 @@
   }
 
   pathExtension = [lCopy pathExtension];
-  if ([pathExtension isEqualToString:*MEMORY[0x1E69C09D0]])
+  if (objc_msgSend_isEqualToString_(pathExtension))
   {
     v13 = [objc_alloc(MEMORY[0x1E69C0918]) initWithBundleAtURL:lCopy];
     imagePath = [v13 imagePath];
@@ -121,7 +121,7 @@
 {
   v3 = MEMORY[0x1E695DF70];
   originalAssetUUIDs = [(PLPublishCloudSharedAssetsJob *)self originalAssetUUIDs];
-  v5 = [v3 arrayWithCapacity:{objc_msgSend(originalAssetUUIDs, "count")}];
+  v5 = [v3 arrayWithCapacity:objc_msgSend_count(originalAssetUUIDs)];
 
   v24[0] = 0;
   v24[1] = v24;
@@ -187,26 +187,26 @@ void __55__PLPublishCloudSharedAssetsJob_executeDaemonOperation__block_invoke(ui
       v5 = [*(a1 + 32) originalAssetUUIDs];
       v6 = [PLManagedAsset assetsWithUUIDs:v5 options:1 inLibrary:*(a1 + 40)];
 
-      v7 = [v6 count];
+      v7 = objc_msgSend_count(v6);
       v8 = [*(a1 + 32) originalAssetUUIDs];
-      v9 = [v8 count];
+      v9 = objc_msgSend_count(v8);
 
       if (v7 != v9)
       {
         v10 = PLPhotoSharingGetLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v11 = [v6 count];
+          v11 = objc_msgSend_count(v6);
           v12 = [*(a1 + 32) originalAssetUUIDs];
           *buf = 134218240;
           *&buf[4] = v11;
           *&buf[12] = 2048;
-          *&buf[14] = [v12 count];
+          *&buf[14] = objc_msgSend_count(v12);
           _os_log_impl(&dword_19BF1F000, v10, OS_LOG_TYPE_ERROR, "ERROR: Only found %lu originalAssets, expected %lu", buf, 0x16u);
         }
       }
 
-      v136 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v6, "count")}];
+      v136 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(v6)];
       v165 = 0u;
       v166 = 0u;
       v163 = 0u;
@@ -611,8 +611,8 @@ LABEL_102:
                 if (v137)
                 {
                   v96 = [v24 mediaGroupUUID];
-                  [v24 photoIrisVideoDuration];
-                  [v24 photoIrisStillDisplayTime];
+                  objc_msgSend_photoIrisVideoDuration(v24);
+                  objc_msgSend_photoIrisStillDisplayTime(v24);
                   [v72 becomePhotoIrisWithMediaGroupUUID:v96 mainFileMetadata:0 videoURL:v137 videoDuration:buf stillDisplayTime:&v149 options:v66];
                 }
 
@@ -840,9 +840,9 @@ LABEL_105:
   }
 }
 
-uint64_t __55__PLPublishCloudSharedAssetsJob_executeDaemonOperation__block_invoke_73(uint64_t a1)
+void *__55__PLPublishCloudSharedAssetsJob_executeDaemonOperation__block_invoke_73(uint64_t a1, const char *a2)
 {
-  result = [*(a1 + 32) count];
+  result = objc_msgSend_count(*(a1 + 32), a2);
   if (result)
   {
     result = [PLPhotoSharingHelper enqueueCloudSharedAssetsForPublishToServer:*(a1 + 32) inSharedAlbum:*(*(*(a1 + 40) + 8) + 40)];
@@ -1111,7 +1111,7 @@ void __46__PLPublishCloudSharedAssetsJob_runDaemonSide__block_invoke(uint64_t a1
     v21 = objc_alloc_init(objc_opt_class());
     [v21 setOriginalAssetUUIDs:dsCopy];
 
-    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(infosCopy, "count")}];
+    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(infosCopy)];
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
     v25[2] = __170__PLPublishCloudSharedAssetsJob_publishBatchOfOriginalAssetUUIDs_toSharedAlbum_withAssetsSharingInfos_customExportsInfo_trimmedVideoPathInfo_isNewAlbum_batchCommentText___block_invoke;

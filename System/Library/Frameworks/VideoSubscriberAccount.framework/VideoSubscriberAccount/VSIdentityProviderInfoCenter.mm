@@ -31,9 +31,11 @@
 
 uint64_t __44__VSIdentityProviderInfoCenter_sharedCenter__block_invoke()
 {
-  sharedCenter___vs_lazy_init_variable = objc_alloc_init(VSIdentityProviderInfoCenter);
+  v0 = objc_alloc_init(VSIdentityProviderInfoCenter);
+  v1 = sharedCenter___vs_lazy_init_variable;
+  sharedCenter___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSIdentityProviderInfoCenter)init
@@ -83,44 +85,20 @@ uint64_t __44__VSIdentityProviderInfoCenter_sharedCenter__block_invoke()
   return v2;
 }
 
-id __36__VSIdentityProviderInfoCenter_init__block_invoke()
+id __36__VSIdentityProviderInfoCenter_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v0 = VSLoadInterfaceFramework(&v5);
-  v1 = v5;
-  if (v0)
-  {
-    v2 = objc_alloc_init(NSClassFromString(@"VSIdentityProviderFetchAllOperation"));
-  }
-
-  else
-  {
-    v3 = VSErrorLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      __36__VSIdentityProviderInfoCenter_init__block_invoke_cold_1();
-    }
-
-    v2 = 0;
-  }
-
-  return v2;
-}
-
-id __36__VSIdentityProviderInfoCenter_init__block_invoke_52(uint64_t a1, void *a2)
-{
-  v2 = a2;
   v8 = 0;
-  v3 = VSLoadInterfaceFramework(&v8);
-  v4 = v8;
-  if (v3)
+  v2 = VSLoadInterfaceFramework(&v8);
+  v3 = v8;
+  v4 = v3;
+  if (v2)
   {
-    v5 = [objc_alloc(NSClassFromString(@"VSIdentityProviderFetchOperation")) initWithIdentityProviderID:v2];
+    v5 = objc_alloc_init(NSClassFromString(@"VSIdentityProviderFetchAllOperation"));
   }
 
   else
   {
-    v6 = VSErrorLogObject();
+    v6 = VSErrorLogObject(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __36__VSIdentityProviderInfoCenter_init__block_invoke_cold_1();
@@ -130,6 +108,32 @@ id __36__VSIdentityProviderInfoCenter_init__block_invoke_52(uint64_t a1, void *a
   }
 
   return v5;
+}
+
+id __36__VSIdentityProviderInfoCenter_init__block_invoke_52(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  v9 = 0;
+  v3 = VSLoadInterfaceFramework(&v9);
+  v4 = v9;
+  v5 = v4;
+  if (v3)
+  {
+    v6 = [objc_alloc(NSClassFromString(@"VSIdentityProviderFetchOperation")) initWithIdentityProviderID:v2];
+  }
+
+  else
+  {
+    v7 = VSErrorLogObject(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      __36__VSIdentityProviderInfoCenter_init__block_invoke_cold_1();
+    }
+
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (void)dealloc
@@ -191,38 +195,39 @@ void __83__VSIdentityProviderInfoCenter_enqueueSetTopBoxProfileProviderQueryWith
 - (void)enqueueIdentityProviderAppsQueryWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v17 = 0;
-  v5 = VSLoadInterfaceFramework(&v17);
-  v6 = v17;
+  v18 = 0;
+  v5 = VSLoadInterfaceFramework(&v18);
+  v6 = v18;
+  v7 = v6;
   if (v5)
   {
-    v7 = objc_alloc_init(NSClassFromString(@"VSIdentityProviderFetchAllOperation"));
-    v8 = MEMORY[0x277CCA8C8];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __79__VSIdentityProviderInfoCenter_enqueueIdentityProviderAppsQueryWithCompletion___block_invoke;
-    v14[3] = &unk_278B73758;
-    v15 = v7;
-    v16 = completionCopy;
-    v9 = v7;
-    v10 = [v8 blockOperationWithBlock:v14];
-    [v10 addDependency:v9];
+    v8 = objc_alloc_init(NSClassFromString(@"VSIdentityProviderFetchAllOperation"));
+    v9 = MEMORY[0x277CCA8C8];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __79__VSIdentityProviderInfoCenter_enqueueIdentityProviderAppsQueryWithCompletion___block_invoke;
+    v15[3] = &unk_278B73758;
+    v16 = v8;
+    v17 = completionCopy;
+    v10 = v8;
+    v11 = [v9 blockOperationWithBlock:v15];
+    [v11 addDependency:v10];
     privateQueue = [(VSIdentityProviderInfoCenter *)self privateQueue];
-    [privateQueue addOperation:v9];
+    [privateQueue addOperation:v10];
 
     privateQueue2 = [(VSIdentityProviderInfoCenter *)self privateQueue];
-    [privateQueue2 addOperation:v10];
+    [privateQueue2 addOperation:v11];
   }
 
   else
   {
-    v13 = VSErrorLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = VSErrorLogObject(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [VSIdentityProviderInfoCenter enqueueIdentityProviderAppsQueryWithCompletion:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, v6);
+    (*(completionCopy + 2))(completionCopy, 0, v7);
   }
 }
 
@@ -325,7 +330,7 @@ void __79__VSIdentityProviderInfoCenter_enqueueIdentityProviderAppsQueryWithComp
 void __79__VSIdentityProviderInfoCenter_enqueueIdentityProviderAppsQueryWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __79__VSIdentityProviderInfoCenter_enqueueIdentityProviderAppsQueryWithCompletion___block_invoke_3_cold_1();
@@ -695,7 +700,7 @@ LABEL_20:
 
 void __39__VSIdentityProviderInfoCenter__fetch___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40))
   {
     v5 = a3;
@@ -704,12 +709,12 @@ void __39__VSIdentityProviderInfoCenter__fetch___block_invoke_3(uint64_t a1, voi
     [(VSIdentityProviderInfoQueryResult *)v7 setIdentityProvider:*(a1 + 32)];
     [(VSIdentityProviderInfoQueryResult *)v7 setDesignatedAppBundleIdentifier:v6];
 
-    v8 = VSDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VSDefaultLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "will return identity provider info result: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "will return identity provider info result: %@", &v10, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -777,7 +782,7 @@ void __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_
 
   else
   {
-    v11 = VSDefaultLogObject();
+    v11 = VSDefaultLogObject(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -797,33 +802,33 @@ void __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_
 
   if (v6)
   {
-    v7 = v6;
-    [v7 start];
-    [v7 waitUntilFinished];
-    v8 = [v7 result];
+    v8 = v6;
+    [v8 start];
+    [v8 waitUntilFinished];
+    v9 = [v8 result];
 
-    v9 = [v8 forceUnwrapObject];
+    v10 = [v9 forceUnwrapObject];
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_4;
-    v13[3] = &unk_278B745B0;
-    v15 = *(a1 + 48);
-    v14 = *(a1 + 40);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_5;
-    v11[3] = &unk_278B73910;
-    v12 = *(a1 + 48);
-    [v9 unwrapObject:v13 error:v11];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_4;
+    v14[3] = &unk_278B745B0;
+    v16 = *(a1 + 48);
+    v15 = *(a1 + 40);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_5;
+    v12[3] = &unk_278B73910;
+    v13 = *(a1 + 48);
+    [v10 unwrapObject:v14 error:v12];
   }
 
   else
   {
-    v10 = VSErrorLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_3_cold_1(v10);
+      __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_3_cold_1(v11);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -832,7 +837,7 @@ void __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_
 
 uint64_t __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_98(uint64_t a1)
 {
-  v2 = VSErrorLogObject();
+  v2 = VSErrorLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_98_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -844,7 +849,7 @@ uint64_t __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___bl
 void __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_99(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_99_cold_1();
@@ -901,7 +906,7 @@ void __86__VSIdentityProviderInfoCenter_fetchIdentityProviderAppBundleIdFromDeve
 void __86__VSIdentityProviderInfoCenter_fetchIdentityProviderAppBundleIdFromDeveloperSettings___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = VSErrorLogObject();
+  v4 = VSErrorLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __86__VSIdentityProviderInfoCenter_fetchIdentityProviderAppBundleIdFromDeveloperSettings___block_invoke_3_cold_1();
@@ -921,6 +926,13 @@ void __86__VSIdentityProviderInfoCenter_fetchIdentityProviderAppBundleIdFromDeve
   {
     return default;
   }
+}
+
+void __64__VSIdentityProviderInfoCenter_fetchAccountAndIdentityProvider___block_invoke_98_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Account %@ did not have an identity provider id", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

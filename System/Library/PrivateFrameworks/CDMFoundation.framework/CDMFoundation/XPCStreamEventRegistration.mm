@@ -31,7 +31,6 @@
   streamCopy = stream;
   assetsCopy = assets;
   metadataCopy = metadata;
-  dagServiceClass = self->_dagServiceClass;
   if (objc_opt_respondsToSelector())
   {
     [(objc_class *)self->_dagServiceClass handleXPCEvent:invokeCopy fromStream:streamCopy withAssets:assetsCopy withSelfMetadata:metadataCopy];

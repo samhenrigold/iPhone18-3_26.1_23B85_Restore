@@ -18,7 +18,7 @@
 
 - (HMMediaDestinationControllerData)initWithProtoBufferData:(id)data
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [[HMMediaGroupProtoMediaDestinationControllerData alloc] initWithData:dataCopy];
   v6 = v5;
@@ -29,15 +29,15 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v46 = 138543618;
-      v47 = v18;
-      v48 = 2112;
-      v49 = objc_opt_class();
+      v45 = 138543618;
+      v46 = v18;
+      v47 = 2112;
+      v48 = objc_opt_class();
       v19 = "%{public}@[%@] Error deserializing ProtoBuffer data";
       v20 = v17;
       v21 = 22;
 LABEL_11:
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, v19, &v46, v21);
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, v19, &v45, v21);
     }
 
 LABEL_12:
@@ -54,12 +54,12 @@ LABEL_12:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v46 = 138543874;
-      v47 = v18;
-      v48 = 2112;
-      v49 = objc_opt_class();
-      v50 = 2112;
-      v51 = v6;
+      v45 = 138543874;
+      v46 = v18;
+      v47 = 2112;
+      v48 = objc_opt_class();
+      v49 = 2112;
+      v50 = v6;
       v19 = "%{public}@[%@] missing field=identifier from data=%@";
       v20 = v17;
       v21 = 32;
@@ -128,13 +128,13 @@ LABEL_12:
           if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             v43 = HMFGetLogIdentifier();
-            v46 = 138543874;
-            v47 = v43;
-            v48 = 2112;
-            v49 = objc_opt_class();
-            v50 = 2112;
-            v51 = v6;
-            _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=supportedOptions from data=%@", &v46, 0x20u);
+            v45 = 138543874;
+            v46 = v43;
+            v47 = 2112;
+            v48 = objc_opt_class();
+            v49 = 2112;
+            v50 = v6;
+            _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=supportedOptions from data=%@", &v45, 0x20u);
           }
 
           objc_autoreleasePoolPop(v41);
@@ -153,13 +153,13 @@ LABEL_12:
         if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           v40 = HMFGetLogIdentifier();
-          v46 = 138543874;
-          v47 = v40;
-          v48 = 2112;
-          v49 = objc_opt_class();
-          v50 = 2112;
-          v51 = v6;
-          _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=availableDestinations from data=%@", &v46, 0x20u);
+          v45 = 138543874;
+          v46 = v40;
+          v47 = 2112;
+          v48 = objc_opt_class();
+          v49 = 2112;
+          v50 = v6;
+          _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=availableDestinations from data=%@", &v45, 0x20u);
         }
 
         objc_autoreleasePoolPop(v38);
@@ -174,13 +174,13 @@ LABEL_12:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v46 = 138543874;
-        v47 = v28;
-        v48 = 2112;
-        v49 = objc_opt_class();
-        v50 = 2112;
-        v51 = v6;
-        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=destinationIdentifier from data=%@", &v46, 0x20u);
+        v45 = 138543874;
+        v46 = v28;
+        v47 = 2112;
+        v48 = objc_opt_class();
+        v49 = 2112;
+        v50 = v6;
+        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=destinationIdentifier from data=%@", &v45, 0x20u);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -195,13 +195,13 @@ LABEL_12:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v46 = 138543874;
-      v47 = v25;
-      v48 = 2112;
-      v49 = objc_opt_class();
-      v50 = 2112;
-      v51 = v6;
-      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=parentIdentifier from data=%@", &v46, 0x20u);
+      v45 = 138543874;
+      v46 = v25;
+      v47 = 2112;
+      v48 = objc_opt_class();
+      v49 = 2112;
+      v50 = v6;
+      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@[%@] missing field=parentIdentifier from data=%@", &v45, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
@@ -209,7 +209,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  v44 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -224,7 +223,7 @@ id __60__HMMediaDestinationControllerData_initWithProtoBufferData___block_invoke
 
 - (id)encodeToProtoBufferData
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(HMMediaGroupProtoMediaDestinationControllerData);
   identifier = [(HMMediaDestinationControllerData *)self identifier];
   uUIDString = [identifier UUIDString];
@@ -264,15 +263,13 @@ id __60__HMMediaDestinationControllerData_initWithProtoBufferData___block_invoke
 
   else
   {
-    v21[0] = @"00000000-0000-0000-0000-000000000000";
-    availableDestinations2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = @"00000000-0000-0000-0000-000000000000";
+    availableDestinations2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     v17 = [availableDestinations2 mutableCopy];
     [(HMMediaGroupProtoMediaDestinationControllerData *)v3 setAvailableDestinations:v17];
   }
 
   data = [(HMMediaGroupProtoMediaDestinationControllerData *)v3 data];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return data;
 }
@@ -298,23 +295,23 @@ id __60__HMMediaDestinationControllerData_initWithProtoBufferData___block_invoke
 
 - (HMMediaDestinationControllerData)initWithCoder:(id)coder
 {
-  v52[2] = *MEMORY[0x1E69E9840];
+  v51[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationControllerIdentifierCodingKey"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationControllerParentIdentifierCodingKey"];
-  v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationControllerDestinationIdentifierCodingKey"];
+  v42 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationControllerDestinationIdentifierCodingKey"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMMediaDestinationControllerSupportedOptionsCodingKey"];
   unsignedIntegerValue = [v7 unsignedIntegerValue];
   v8 = MEMORY[0x1E695DFD8];
-  v52[0] = objc_opt_class();
-  v52[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+  v51[0] = objc_opt_class();
+  v51[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"HMMediaDestinationControllerAvailableDestinationIdentifiersCodingKey"];
 
   if (v11)
   {
-    v12 = v43;
+    v12 = v42;
     if (!v5)
     {
       goto LABEL_14;
@@ -331,15 +328,15 @@ id __60__HMMediaDestinationControllerData_initWithProtoBufferData___block_invoke
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v16;
+      v44 = v16;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Using legacy encoding to get available destination identifiers", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     v17 = MEMORY[0x1E695DFD8];
-    v51[0] = objc_opt_class();
-    v51[1] = objc_opt_class();
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+    v50[0] = objc_opt_class();
+    v50[1] = objc_opt_class();
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
     v19 = [v17 setWithArray:v18];
     v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"HMMediaDestinationControllerAvailableDestinationsCodingKey"];
 
@@ -357,39 +354,39 @@ id __60__HMMediaDestinationControllerData_initWithProtoBufferData___block_invoke
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v24;
+      v44 = v24;
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Using legacy homed encoding to get available destination identifiers", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
     v25 = MEMORY[0x1E695DFD8];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+    v49[0] = objc_opt_class();
+    v49[1] = objc_opt_class();
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
     v27 = [v25 setWithArray:v26];
     v11 = [coderCopy decodeObjectOfClasses:v27 forKey:@"HMDMediaDestinationControllerAvailableDestinationIdentifiersCodingKey"];
 
     if (v11)
     {
 LABEL_10:
-      v12 = v43;
+      v12 = v42;
     }
 
     else
     {
-      v37 = objc_autoreleasePoolPush();
-      v38 = v22;
-      v39 = HMFGetOSLogHandle();
-      v12 = v43;
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v36 = objc_autoreleasePoolPush();
+      v37 = v22;
+      v38 = HMFGetOSLogHandle();
+      v12 = v42;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v40 = HMFGetLogIdentifier();
+        v39 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v45 = v40;
-        _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@Could not get encoded available destination identifiers", buf, 0xCu);
+        v44 = v39;
+        _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@Could not get encoded available destination identifiers", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v37);
+      objc_autoreleasePoolPop(v36);
       v11 = MEMORY[0x1E695E0F0];
     }
 
@@ -417,11 +414,11 @@ LABEL_14:
   {
     v34 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v45 = v34;
-    v46 = 2112;
-    v47 = v5;
-    v48 = 2112;
-    v49 = v6;
+    v44 = v34;
+    v45 = 2112;
+    v46 = v5;
+    v47 = 2112;
+    v48 = v6;
     _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode data with identifier: %@ parent identifier: %@", buf, 0x20u);
   }
 
@@ -429,7 +426,6 @@ LABEL_14:
   v29 = 0;
 LABEL_17:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -471,22 +467,7 @@ LABEL_17:
       {
         parentIdentifier = [(HMMediaDestinationControllerData *)self parentIdentifier];
         parentIdentifier2 = [(HMMediaDestinationControllerData *)v6 parentIdentifier];
-        if (![parentIdentifier hmf_isEqualToUUID:parentIdentifier2])
-        {
-          goto LABEL_15;
-        }
-
-        destinationIdentifier = [(HMMediaDestinationControllerData *)self destinationIdentifier];
-        destinationIdentifier2 = [(HMMediaDestinationControllerData *)v6 destinationIdentifier];
-        v13 = HMFEqualObjects();
-
-        if (!v13)
-        {
-          goto LABEL_15;
-        }
-
-        supportedOptions = [(HMMediaDestinationControllerData *)self supportedOptions];
-        if (supportedOptions == [(HMMediaDestinationControllerData *)v6 supportedOptions])
+        if ([parentIdentifier hmf_isEqualToUUID:parentIdentifier2] && (-[HMMediaDestinationControllerData destinationIdentifier](self, "destinationIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), -[HMMediaDestinationControllerData destinationIdentifier](v6, "destinationIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && (v14 = -[HMMediaDestinationControllerData supportedOptions](self, "supportedOptions"), v14 == -[HMMediaDestinationControllerData supportedOptions](v6, "supportedOptions")))
         {
           availableDestinationIdentifiers = [(HMMediaDestinationControllerData *)self availableDestinationIdentifiers];
           v16 = [availableDestinationIdentifiers count];
@@ -510,7 +491,6 @@ LABEL_17:
 
         else
         {
-LABEL_15:
           v19 = 0;
         }
       }
@@ -574,25 +554,24 @@ uint64_t __44__HMMediaDestinationControllerData_isEqual___block_invoke(uint64_t 
 
 uint64_t __47__HMMediaDestinationControllerData_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_25107;
-  logCategory__hmf_once_v1_25107 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_25107;
+  logCategory__hmf_once_v1_25107 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSArray)attributeDescriptions
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   identifier = [(HMMediaDestinationControllerData *)self identifier];
   v4 = [v3 initWithName:@"identifier" value:identifier];
-  v23[0] = v4;
+  v22[0] = v4;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   parentIdentifier = [(HMMediaDestinationControllerData *)self parentIdentifier];
   v7 = [v5 initWithName:@"parentIdentifier" value:parentIdentifier];
-  v23[1] = v7;
+  v22[1] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   destinationIdentifier = [(HMMediaDestinationControllerData *)self destinationIdentifier];
   v10 = destinationIdentifier;
@@ -607,18 +586,16 @@ uint64_t __47__HMMediaDestinationControllerData_logCategory__block_invoke()
   }
 
   v12 = [v8 initWithName:@"destinationIdentifier" value:v11];
-  v23[2] = v12;
+  v22[2] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   v14 = HMMediaDestinationControllerSupportOptionsAsString([(HMMediaDestinationControllerData *)self supportedOptions]);
   v15 = [v13 initWithName:@"supportedOptions" value:v14];
-  v23[3] = v15;
+  v22[3] = v15;
   v16 = objc_alloc(MEMORY[0x1E69A29C8]);
   availableDestinationIdentifiers = [(HMMediaDestinationControllerData *)self availableDestinationIdentifiers];
   v18 = [v16 initWithName:@"availableDestinationIdentifiers" value:availableDestinationIdentifiers];
-  v23[4] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:5];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v22[4] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
 
   return v19;
 }

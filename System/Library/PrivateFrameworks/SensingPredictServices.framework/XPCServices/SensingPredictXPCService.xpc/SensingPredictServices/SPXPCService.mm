@@ -325,7 +325,7 @@ LABEL_8:
     {
       if (dword_100015F40 <= 30 && (dword_100015F40 != -1 || _LogCategory_Initialize()))
       {
-        sub_100009EBC(p_currentContext, v8, &self->_spFusedState);
+        sub_100009EBC(p_currentContext);
       }
 
       v17 = 0u;
@@ -418,7 +418,7 @@ LABEL_8:
   {
     if (dword_100015F40 <= 30 && (dword_100015F40 != -1 || _LogCategory_Initialize()))
     {
-      sub_100009F7C(&self->_currentContext, v8);
+      sub_100009F7C(&self->_currentContext);
     }
 
     [(SPContext *)self->_currentContext setLocationCategory:v8];

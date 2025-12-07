@@ -222,14 +222,11 @@
 
 - (void)markAsEvergreen
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method", "-[SCWebHeadline markAsEvergreen]"];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[SCWebHeadline markAsEvergreen]", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (NSDate)displayDate
@@ -1052,1010 +1049,758 @@
 
 - (void)enumerateTopicConversionStatsWithBlock:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method", "-[SCWebHeadline enumerateTopicConversionStatsWithBlock:]"];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[SCWebHeadline enumerateTopicConversionStatsWithBlock:]", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)addSurfacedByArticleListID:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method", "-[SCWebHeadline addSurfacedByArticleListID:]"];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[SCWebHeadline addSurfacedByArticleListID:]", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)applyConditionalScore:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s method", "-[SCWebHeadline applyConditionalScore:]"];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "[SCWebHeadline applyConditionalScore:]", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)displayDate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "displayDate"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "displayDate", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)usesImageOnTopLayout
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "usesImageOnTopLayout"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "usesImageOnTopLayout", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)topStoryType
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "topStoryType"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "topStoryType", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isTopStory
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isTopStory"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isTopStory", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)tileProminenceScore
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "tileProminenceScore"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "tileProminenceScore", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedByBinID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedByBinID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedByBinID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedByTopicID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedByTopicID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedByTopicID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedByChannelID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedByChannelID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedByChannelID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedBySectionID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedBySectionID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedBySectionID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedByTagIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedByTagIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedByTagIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)referencedArticleID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "referencedArticleID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "referencedArticleID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)primaryAudience
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "primaryAudience"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "primaryAudience", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)titleCompact
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "titleCompact"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "titleCompact", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)backendArticleVersion
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "backendArticleVersion"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "backendArticleVersion", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)thumbnailFocalFrame
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "thumbnailFocalFrame"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "thumbnailFocalFrame", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)lastModifiedDate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "lastModifiedDate"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "lastModifiedDate", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)lastFetchedDate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "lastFetchedDate"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "lastFetchedDate", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)topics
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "topics"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "topics", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)topicIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "topicIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "topicIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)endOfArticleTopicIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "endOfArticleTopicIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "endOfArticleTopicIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoURL
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoURL"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoURL", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoDuration
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoDuration"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoDuration", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isFeatureCandidate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isFeatureCandidate"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isFeatureCandidate", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isSponsored
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isSponsored"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isSponsored", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)sponsoredBy
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "sponsoredBy"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sponsoredBy", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)iAdCategories
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "iAdCategories"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "iAdCategories", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)iAdKeywords
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "iAdKeywords"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "iAdKeywords", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)iAdSectionIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "iAdSectionIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "iAdSectionIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)blockedStorefrontIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "blockedStorefrontIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "blockedStorefrontIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)allowedStorefrontIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "allowedStorefrontIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "allowedStorefrontIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isDeleted
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isDeleted"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isDeleted", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isDraft
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isDraft"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isDraft", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)localDraftPath
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "localDraftPath"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "localDraftPath", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)relatedArticleIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "relatedArticleIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "relatedArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)moreFromPublisherArticleIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "moreFromPublisherArticleIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "moreFromPublisherArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)minimumNewsVersion
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "minimumNewsVersion"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "minimumNewsVersion", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)coverArt
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "coverArt"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "coverArt", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoCallToActionTitle
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoCallToActionTitle"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoCallToActionTitle", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoCallToActionURL
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoCallToActionURL"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoCallToActionURL", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)needsRapidUpdates
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "needsRapidUpdates"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "needsRapidUpdates", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)showMinimalChrome
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "showMinimalChrome"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "showMinimalChrome", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isBoundToContext
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isBoundToContext"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isBoundToContext", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isHiddenFromFeeds
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isHiddenFromFeeds"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isHiddenFromFeeds", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)sourceFeedID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "sourceFeedID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sourceFeedID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publisherID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publisherID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publisherID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)globalUserFeedback
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "globalUserFeedback"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "globalUserFeedback", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)hasGlobalUserFeedback
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "hasGlobalUserFeedback"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "hasGlobalUserFeedback", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)articleContentType
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "articleContentType"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleContentType", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)halfLife
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "halfLife"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "halfLife", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isBlockedExplicitContent
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isBlockedExplicitContent"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isBlockedExplicitContent", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)feedOrder
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "feedOrder"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedOrder", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isFromBlockedStorefront
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isFromBlockedStorefront"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isFromBlockedStorefront", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isExplicitContent
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isExplicitContent"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isExplicitContent", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)feedID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "feedID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)order
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "order"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "order", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)sourceChannelID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "sourceChannelID"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sourceChannelID", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publishDateMilliseconds
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publishDateMilliseconds"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publishDateMilliseconds", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)feedHalfLifeMilliseconds
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "feedHalfLifeMilliseconds"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedHalfLifeMilliseconds", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)globalScore
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "globalScore"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "globalScore", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)canBePurchased
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "canBePurchased"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "canBePurchased", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)globalCohorts
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "globalCohorts"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "globalCohorts", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publisherCohorts
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publisherCohorts"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publisherCohorts", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)articleRecirculationConfigJSON
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "articleRecirculationConfigJSON"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleRecirculationConfigJSON", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publisherSpecifiedArticleIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publisherSpecifiedArticleIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publisherSpecifiedArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)associatedAd
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "associatedAd"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "associatedAd", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isHiddenFromAutoFavorites
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isHiddenFromAutoFavorites"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isHiddenFromAutoFavorites", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)showPublisherLogo
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "showPublisherLogo"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "showPublisherLogo", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isFullTrackAvailableToAll
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isFullTrackAvailableToAll"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isFullTrackAvailableToAll", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)narrators
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "narrators"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "narrators", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)disablePrerollAds
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "disablePrerollAds"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "disablePrerollAds", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)disableTapToChannel
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "disableTapToChannel"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "disableTapToChannel", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)globalConversionStats
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "globalConversionStats"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "globalConversionStats", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publisherConversionStats
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publisherConversionStats"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publisherConversionStats", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)publisherTagMetadata
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "publisherTagMetadata"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "publisherTagMetadata", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)hasVideoStillImage
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "hasVideoStillImage"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "hasVideoStillImage", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoStillImage
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoStillImage"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoStillImage", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)videoType
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "videoType"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "videoType", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)isCoread
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "isCoread"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "isCoread", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)nativeAdCampaignData
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "nativeAdCampaignData"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "nativeAdCampaignData", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)sportsEventIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "sportsEventIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sportsEventIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)surfacedByArticleListIDs
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property"];
+  v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"SCWebHeadline does not support the %s property", "surfacedByArticleListIDs"];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "surfacedByArticleListIDs", v7, 2u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1DAA3F000, MEMORY[0x1E69E9C10], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation AXSPencilExtendedSqueezeRangeEnabled
 
-uint64_t ___AXSPencilExtendedSqueezeRangeEnabled_block_invoke()
+void *___AXSPencilExtendedSqueezeRangeEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

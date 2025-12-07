@@ -107,41 +107,39 @@ void __39__COBrowserObserverSet_removeObserver___block_invoke(uint64_t a1)
 
 void __56__COBrowserObserverSet_informObserverAboutDevice_added___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
+  v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v9 + 1) + 8 * v6) block];
+        v7 = [*(*(&v8 + 1) + 8 * v6) block];
         v7[2](v7, *(a1 + 48), *(a1 + 40));
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withLock:(id)lock

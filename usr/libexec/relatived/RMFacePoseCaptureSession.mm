@@ -1373,10 +1373,10 @@ LABEL_35:
 
         if (v27)
         {
-          [v13 detectedFacesTimestamp];
+          objc_msgSend_detectedFacesTimestamp(v13);
           if (v25)
           {
-            [v25 time];
+            objc_msgSend_time(v25);
           }
 
           else
@@ -1421,7 +1421,7 @@ LABEL_35:
           {
             if (v25)
             {
-              [v25 time];
+              objc_msgSend_time(v25);
             }
 
             else
@@ -1499,7 +1499,7 @@ LABEL_44:
     if (handler)
     {
       handler2 = [(RMFacePoseCaptureSession *)selfCopy handler];
-      [v13 detectedFacesTimestamp];
+      objc_msgSend_detectedFacesTimestamp(v13);
       (handler2)[2](handler2, v36, &time1);
     }
 

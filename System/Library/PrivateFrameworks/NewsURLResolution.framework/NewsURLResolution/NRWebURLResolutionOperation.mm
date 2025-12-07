@@ -210,47 +210,41 @@ uint64_t __47__NRWebURLResolutionOperation_performOperation__block_invoke_5(uint
 
 - (void)initWithWebURL:bloomFilterInfoService:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "webURL != nil"];
-  v3 = 136315906;
-  v4 = "[NRWebURLResolutionOperation initWithWebURL:bloomFilterInfoService:]";
-  v5 = 2080;
-  v6 = "NRWebURLResolutionOperation.m";
-  v7 = 1024;
+  v2 = 136315906;
+  v3 = "[NRWebURLResolutionOperation initWithWebURL:bloomFilterInfoService:]";
+  v4 = 2080;
+  v5 = "NRWebURLResolutionOperation.m";
+  v6 = 1024;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3);
-
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2);
 }
 
 - (void)initWithWebURL:bloomFilterInfoService:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "bloomFilterInfoService != nil"];
-  v3 = 136315906;
-  v4 = "[NRWebURLResolutionOperation initWithWebURL:bloomFilterInfoService:]";
-  v5 = 2080;
-  v6 = "NRWebURLResolutionOperation.m";
-  v7 = 1024;
+  v2 = 136315906;
+  v3 = "[NRWebURLResolutionOperation initWithWebURL:bloomFilterInfoService:]";
+  v4 = 2080;
+  v5 = "NRWebURLResolutionOperation.m";
+  v6 = 1024;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3);
-
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2);
 }
 
 - (void)validateOperation
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"web URL resolution operations requires a bloom filter info service"];
-  v3 = 136315906;
-  v4 = "[NRWebURLResolutionOperation validateOperation]";
-  v5 = 2080;
-  v6 = "NRWebURLResolutionOperation.m";
-  v7 = 1024;
+  v2 = 136315906;
+  v3 = "[NRWebURLResolutionOperation validateOperation]";
+  v4 = 2080;
+  v5 = "NRWebURLResolutionOperation.m";
+  v6 = 1024;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v3);
-
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25C33C000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v2);
 }
 
 @end

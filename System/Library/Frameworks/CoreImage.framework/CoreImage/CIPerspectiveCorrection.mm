@@ -215,7 +215,7 @@
   *v64.i64 = fmax((v64.f32[2] + vaddv_f32(*v64.f32)), 0.000001);
   v64.f32[0] = *v64.i64;
   v123 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v62, v62, 8uLL), *&vextq_s8(v63, v63, 8uLL)), vadd_f32(vzip1_s32(*v62.i8, *v63.i8), vzip2_s32(*v62.i8, *v63.i8))), vdup_lane_s32(*v64.f32, 0));
-  Rectangle::Union(&v124, &v123, &v121);
+  Rectangle::Union(&v121, &v124, &v123);
   *&v124.var0 = v121;
   v65 = v54 + v56;
   v66 = v98;
@@ -230,7 +230,7 @@
   *v70.i64 = fmax((v70.f32[2] + vaddv_f32(*v70.f32)), 0.000001);
   v70.f32[0] = *v70.i64;
   v123 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v68, v68, 8uLL), *&vextq_s8(v69, v69, 8uLL)), vadd_f32(vzip1_s32(*v68.i8, *v69.i8), vzip2_s32(*v68.i8, *v69.i8))), vdup_lane_s32(*v70.f32, 0));
-  Rectangle::Union(&v124, &v123, &v121);
+  Rectangle::Union(&v121, &v124, &v123);
   *&v124.var0 = v121;
   *&v124.var2 = v122;
   v71 = v55 + y;
@@ -244,7 +244,7 @@
   *v75.i64 = fmax((v75.f32[2] + vaddv_f32(*v75.f32)), 0.000001);
   v75.f32[0] = *v75.i64;
   v123 = vdiv_f32(*v73.i8, vdup_lane_s32(*v75.f32, 0));
-  Rectangle::Union(&v124, &v123, &v121);
+  Rectangle::Union(&v121, &v124, &v123);
   *&v124.var0 = v121;
   *&v124.var2 = v122;
   v76 = v99;
@@ -256,7 +256,7 @@
   *v79.i64 = fmax((v79.f32[2] + vaddv_f32(*v79.f32)), 0.000001);
   v79.f32[0] = *v79.i64;
   v123 = vdiv_f32(*v77.i8, vdup_lane_s32(*v79.f32, 0));
-  Rectangle::Union(&v124, &v123, &v121);
+  Rectangle::Union(&v121, &v124, &v123);
   v45 = vmvnq_s8(vuzp1q_s32(vceqq_f64(v121, vdupq_n_s64(0xFFDFFFFFFFFFFFFFLL)), vceqq_f64(v122, vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL))));
   if ((vmaxv_u16(vmovn_s32(v45)) & 1) == 0)
   {
@@ -318,11 +318,11 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
 
   else
   {
-    v50.origin.x = v8;
-    v50.origin.y = a3;
-    v50.size.width = a4;
-    v50.size.height = a5;
-    IsNull = CGRectIsNull(v50);
+    v51.origin.x = v8;
+    v51.origin.y = a3;
+    v51.size.width = a4;
+    v51.size.height = a5;
+    IsNull = CGRectIsNull(v51);
     if (IsNull)
     {
       v10 = 0.0;
@@ -353,9 +353,9 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
   v44 = a1[3];
   v45 = a1[2];
   v46 = a1[4];
-  *&v49.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
-  v49.var2 = 0.0;
-  v49.var3 = 0.0;
+  *&v50.var0 = vdupq_n_s64(0x7FF0000000000000uLL);
+  v50.var2 = 0.0;
+  v50.var3 = 0.0;
   v13 = v8;
   v14 = a3;
   __asm { FMOV            V3.4S, #1.0 }
@@ -371,13 +371,14 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
   v23 = vmulq_f32(v46, v20);
   *v23.i64 = fmax((v23.f32[2] + vaddv_f32(*v23.f32)), 0.000001);
   v23.f32[0] = *v23.i64;
-  v48 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v21, v21, 8uLL), *&vextq_s8(v22, v22, 8uLL)), vadd_f32(vzip1_s32(*v21.i8, *v22.i8), vzip2_s32(*v21.i8, *v22.i8))), vdup_lane_s32(*v23.f32, 0));
-  Rectangle::Union(&v49, &v48, &v47);
+  v49 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v21, v21, 8uLL), *&vextq_s8(v22, v22, 8uLL)), vadd_f32(vzip1_s32(*v21.i8, *v22.i8), vzip2_s32(*v21.i8, *v22.i8))), vdup_lane_s32(*v23.f32, 0));
+  Rectangle::Union(&v47, &v50, &v49);
   v24 = v10 + v8;
   v25 = v42;
   v25.f32[0] = v24;
   v43 = v25;
-  v49 = v47;
+  *&v50.var0 = v47;
+  *&v50.var2 = v48;
   v26 = v25;
   v26.f32[1] = v39;
   v27 = vmulq_f32(v45, v26);
@@ -385,9 +386,10 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
   v29 = vmulq_f32(v46, v26);
   *v29.i64 = fmax((v29.f32[2] + vaddv_f32(*v29.f32)), 0.000001);
   v29.f32[0] = *v29.i64;
-  v48 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v27, v27, 8uLL), *&vextq_s8(v28, v28, 8uLL)), vadd_f32(vzip1_s32(*v27.i8, *v28.i8), vzip2_s32(*v27.i8, *v28.i8))), vdup_lane_s32(*v29.f32, 0));
-  Rectangle::Union(&v49, &v48, &v47);
-  v49 = v47;
+  v49 = vdiv_f32(vadd_f32(vzip1_s32(*&vextq_s8(v27, v27, 8uLL), *&vextq_s8(v28, v28, 8uLL)), vadd_f32(vzip1_s32(*v27.i8, *v28.i8), vzip2_s32(*v27.i8, *v28.i8))), vdup_lane_s32(*v29.f32, 0));
+  Rectangle::Union(&v47, &v50, &v49);
+  *&v50.var0 = v47;
+  *&v50.var2 = v48;
   v30 = v11 + a3;
   v40 = v30;
   v31 = v41;
@@ -398,9 +400,10 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
   v34 = vmulq_f32(v46, v31);
   *v34.i64 = fmax((v34.f32[2] + vaddv_f32(*v34.f32)), 0.000001);
   v34.f32[0] = *v34.i64;
-  v48 = vdiv_f32(*v32.i8, vdup_lane_s32(*v34.f32, 0));
-  Rectangle::Union(&v49, &v48, &v47);
-  v49 = v47;
+  v49 = vdiv_f32(*v32.i8, vdup_lane_s32(*v34.f32, 0));
+  Rectangle::Union(&v47, &v50, &v49);
+  *&v50.var0 = v47;
+  *&v50.var2 = v48;
   v35 = v43;
   v35.f32[1] = v40;
   v36 = vmulq_f32(v45, v35);
@@ -409,8 +412,8 @@ void __38__CIPerspectiveCorrection_outputImage__block_invoke(float32x4_t *a1, do
   v38 = vmulq_f32(v46, v35);
   *v38.i64 = fmax((v38.f32[2] + vaddv_f32(*v38.f32)), 0.000001);
   v38.f32[0] = *v38.i64;
-  v48 = vdiv_f32(*v36.i8, vdup_lane_s32(*v38.f32, 0));
-  Rectangle::Union(&v49, &v48, &v47);
+  v49 = vdiv_f32(*v36.i8, vdup_lane_s32(*v38.f32, 0));
+  Rectangle::Union(&v47, &v50, &v49);
 }
 
 @end

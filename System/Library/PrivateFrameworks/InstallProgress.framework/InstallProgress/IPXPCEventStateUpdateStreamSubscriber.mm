@@ -26,35 +26,33 @@
 
 - (void)beginHandshake
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   keys = [@"type" UTF8String];
   values = xpc_uint64_create(0xFFFFFFFFFFFFFFFFLL);
   v3 = xpc_dictionary_create(&keys, &values, 1uLL);
-  v4 = _IPServerLog();
+  v4 = _IPServerLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     token = self->_token;
     *buf = 134217984;
-    v12 = token;
+    v11 = token;
     _os_log_impl(&dword_254C69000, v4, OS_LOG_TYPE_DEFAULT, "beginning handshake for subscriber %llu", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke;
-  v8[3] = &unk_2797B1FB8;
-  v8[4] = self;
-  [WeakRetained subscriber:self firePayload:v3 withReply:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke;
+  v7[3] = &unk_2797B1FB8;
+  v7[4] = self;
+  [WeakRetained subscriber:self firePayload:v3 withReply:v7];
 }
 
 void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _IPServerLog();
+  v4 = _IPServerLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = IPXPCCopyDescription(v3);
@@ -64,33 +62,33 @@ void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke(ui
   }
 
   *buf = 0u;
-  v27 = 0u;
+  v26 = 0u;
   xpc_dictionary_get_audit_token();
-  v6 = xpc_copy_entitlement_for_token();
-  v7 = v6;
-  if (v6 && MEMORY[0x259C29850](v6) == MEMORY[0x277D86448] && xpc_BOOL_get_value(v7))
+  value = xpc_copy_entitlement_for_token();
+  v7 = value;
+  if (value && (value = MEMORY[0x259C29850](value), value == MEMORY[0x277D86448]) && (value = xpc_BOOL_get_value(v7), (value & 1) != 0))
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = *(*(a1 + 32) + 8);
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
+          v13 = *(*(&v20 + 1) + 8 * v12);
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
           v15 = *(a1 + 32);
           v16 = [v13 XPCDictionaryRepresentation];
@@ -100,7 +98,7 @@ void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke(ui
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -114,17 +112,15 @@ void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke(ui
 
   else
   {
-    v19 = _IPServerLog();
+    v19 = _IPServerLog(value);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke_cold_1(a1);
+      __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke_cold_1();
     }
 
     v18 = objc_loadWeakRetained((*(a1 + 32) + 32));
     [v18 subscriberFailedHandshake:*(a1 + 32)];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendOrEnqueueUpdateMessage:(id)message
@@ -151,15 +147,6 @@ void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke(ui
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __55__IPXPCEventStateUpdateStreamSubscriber_beginHandshake__block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*(a1 + 32) + 24);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

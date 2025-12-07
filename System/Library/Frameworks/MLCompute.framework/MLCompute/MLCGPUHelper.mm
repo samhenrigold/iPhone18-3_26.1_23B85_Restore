@@ -1,10 +1,118 @@
 @interface MLCGPUHelper
++ (id)allocateAndCopyToTemporaryMPSImageBatchForTensor:(id)tensor commandBuffer:(id)buffer batchSize:(unint64_t)size copyingKernel:(id)kernel sourceMTLBuffer:(id)lBuffer MLCDataType:(int)type heapAllocator:(id)allocator;
 + (id)allocateMPSImageBatchForTensor:(id)tensor commandBuffer:(id)buffer kernel:(id)kernel batchSize:(unint64_t)size heapAllocator:(id)allocator imageBatchIsTemporary:(BOOL)temporary;
++ (void)concatChannelsForwardWithParams:(ConcatImageParams)params sourceImageBatch:(id)batch resultImageBatch:(id)imageBatch commandBuffer:(id)buffer device:(id)device deviceIndex:(unint64_t)index;
 + (void)copyMPSImageBatchToMTLBuffer:(id)buffer commandBuffer:(id)commandBuffer sourceImageBatch:(id)batch destinationMTLBuffer:(id)lBuffer MLCDataType:(int)type;
 + (void)copyMTLBufferToMPSImageBatch:(id)batch commandBuffer:(id)buffer sourceMTLBuffer:(id)lBuffer destinationImageBatch:(id)imageBatch MLCDataType:(int)type;
 @end
 
 @implementation MLCGPUHelper
+
++ (void)concatChannelsForwardWithParams:(ConcatImageParams)params sourceImageBatch:(id)batch resultImageBatch:(id)imageBatch commandBuffer:(id)buffer device:(id)device deviceIndex:(unint64_t)index
+{
+  v11 = *&params.var0;
+  paramsCopy = params;
+  var2 = params.var2;
+  batchCopy = batch;
+  imageBatchCopy = imageBatch;
+  bufferCopy = buffer;
+  deviceCopy = device;
+  context = objc_autoreleasePoolPush();
+  v16 = (v11 & 0x30000) == 0;
+  v17 = WORD2(v11);
+  v18 = [batchCopy objectAtIndexedSubscript:0];
+  width = [v18 width];
+
+  v20 = [batchCopy objectAtIndexedSubscript:0];
+  height = [v20 height];
+
+  v41 = width;
+  v23 = width < 9 || height < 9;
+  if (v23)
+  {
+    v24 = 8;
+  }
+
+  else
+  {
+    v24 = 16;
+  }
+
+  if (v23)
+  {
+    v25 = 3;
+  }
+
+  else
+  {
+    v25 = 4;
+  }
+
+  v26 = [batchCopy count];
+  v27 = (var2 & 3) == 0 && v16;
+  v28 = v26 != 1 && v27;
+  v45 = bufferCopy;
+  v29 = [bufferCopy computeCommandEncoderWithDispatchType:v28];
+  v44 = deviceCopy;
+  if (v17 > 4)
+  {
+    [deviceCopy gpuPipelineStatesForwardConcat2DArray];
+  }
+
+  else
+  {
+    [deviceCopy gpuPipelineStatesForwardConcat2D];
+  }
+  v30 = ;
+  v31 = [v30 objectAtIndexedSubscript:index];
+  [v29 setComputePipelineState:v31];
+
+  [v29 memoryBarrierWithScope:2];
+  if ([batchCopy count])
+  {
+    v32 = 0;
+    v33 = (v24 - 1 + v41) >> v25;
+    v34 = (v24 - 1 + height) >> v25;
+    do
+    {
+      v35 = [batchCopy objectAtIndexedSubscript:v32];
+      texture = [v35 texture];
+      [v29 setTexture:texture atIndex:0];
+
+      var0 = paramsCopy.var0;
+      v38 = [imageBatchCopy objectAtIndexedSubscript:v32];
+      texture2 = [v38 texture];
+      if (var0)
+      {
+        v40 = 1;
+      }
+
+      else
+      {
+        v40 = 2;
+      }
+
+      [v29 setTexture:texture2 atIndex:v40];
+
+      [v29 setBytes:&paramsCopy length:6 atIndex:0];
+      v48[0] = v33;
+      v48[1] = v34;
+      v48[2] = 1;
+      v47[0] = v24;
+      v47[1] = v24;
+      v47[2] = 1;
+      [v29 dispatchThreadgroups:v48 threadsPerThreadgroup:v47];
+      ++v32;
+    }
+
+    while (v32 < [batchCopy count]);
+  }
+
+  [v29 endEncoding];
+  GPU_clearTemporaryImageBatchReadCount(batchCopy);
+
+  objc_autoreleasePoolPop(context);
+}
 
 + (void)copyMTLBufferToMPSImageBatch:(id)batch commandBuffer:(id)buffer sourceMTLBuffer:(id)lBuffer destinationImageBatch:(id)imageBatch MLCDataType:(int)type
 {
@@ -132,34 +240,42 @@ LABEL_14:
   return v29;
 }
 
++ (id)allocateAndCopyToTemporaryMPSImageBatchForTensor:(id)tensor commandBuffer:(id)buffer batchSize:(unint64_t)size copyingKernel:(id)kernel sourceMTLBuffer:(id)lBuffer MLCDataType:(int)type heapAllocator:(id)allocator
+{
+  v9 = *&type;
+  lBufferCopy = lBuffer;
+  kernelCopy = kernel;
+  bufferCopy = buffer;
+  v18 = [self allocateMPSImageBatchForTensor:tensor commandBuffer:bufferCopy kernel:kernelCopy batchSize:size heapAllocator:allocator imageBatchIsTemporary:1];
+  [self copyMTLBufferToMPSImageBatch:kernelCopy commandBuffer:bufferCopy sourceMTLBuffer:lBufferCopy destinationImageBatch:v18 MLCDataType:v9];
+
+  return v18;
+}
+
 + (void)allocateMPSImageBatchForTensor:(NSObject *)a3 commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:.cold.1(const char *a1, void *a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 descriptor];
   v7 = [v6 shape];
   v8 = [v7 objectAtIndexedSubscript:1];
-  v10 = 138412546;
-  v11 = v5;
-  v12 = 1024;
-  v13 = [v8 intValue];
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: featureChannel = %d is not supported on GPU", &v10, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412546;
+  v10 = v5;
+  v11 = 1024;
+  v12 = [v8 intValue];
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: featureChannel = %d is not supported on GPU", &v9, 0x12u);
 }
 
 + (void)allocateMPSImageBatchForTensor:(NSObject *)a3 commandBuffer:kernel:batchSize:heapAllocator:imageBatchIsTemporary:.cold.2(const char *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [a2 descriptor];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 1024;
-  v11 = [v6 dataType];
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Illegal tensor data type:%d", &v8, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 1024;
+  v10 = [v6 dataType];
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%@: Illegal tensor data type:%d", &v7, 0x12u);
 }
 
 @end

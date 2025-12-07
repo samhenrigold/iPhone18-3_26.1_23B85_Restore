@@ -270,15 +270,15 @@ LABEL_29:
 
 - (void)_applyScale:(CGFloat)scale atLocation:(double)location touchDistance:(double)distance withEvent:(double)event
 {
-  if (!self)
+  if (!result)
   {
     return;
   }
 
-  v12 = *(self + 96);
+  v12 = result[12];
   [a2 timestamp];
   v14 = v13;
-  v15 = *(self + 88);
+  v15 = result[11];
   if (v15 == 1.0)
   {
     v16 = 0;
@@ -290,20 +290,20 @@ LABEL_29:
     v16 = (v15 >= 1.0 || v15 <= scale) && v17;
   }
 
-  v19 = *(self + 56);
-  *(self + 168) = location;
-  *(self + 176) = distance;
-  *(self + 72) = *(self + 64);
+  v19 = result[7];
+  result[21] = location;
+  result[22] = distance;
+  result[9] = result[8];
   [a2 timestamp];
-  *(self + 56) = v20;
-  if ([a2 type] || objc_msgSend(*(self + 152), "dominantComponent") == 2)
+  *(result + 7) = v20;
+  if ([a2 type] || objc_msgSend(*(result + 19), "dominantComponent") == 2)
   {
     v21 = v14 - v19;
     CGAffineTransformMakeScale(&v30, scale, scale);
     v22 = *&v30.c;
-    *(self + 96) = *&v30.a;
-    *(self + 112) = v22;
-    *(self + 128) = *&v30.tx;
+    *(result + 6) = *&v30.a;
+    *(result + 7) = v22;
+    *(result + 8) = *&v30.tx;
     if ([a2 type])
     {
       type = [a2 type];
@@ -323,7 +323,7 @@ LABEL_29:
 
     if (v21 <= 0.0)
     {
-      if (v21 != 0.0 || (v21 = *(self + 80), v21 <= 0.0))
+      if (v21 != 0.0 || (v21 = result[10], v21 <= 0.0))
       {
         mainScreen = [objc_opt_self() mainScreen];
         [mainScreen _refreshRate];
@@ -333,7 +333,7 @@ LABEL_29:
 
     else
     {
-      *(self + 80) = v21;
+      result[10] = v21;
     }
 
     if (!v25)
@@ -346,13 +346,13 @@ LABEL_29:
 
   else
   {
-    *(self + 40) = event / *(self + 96);
+    result[5] = event / result[12];
     v28 = 0.0;
   }
 
-  *(self + 64) = v28;
+  result[8] = v28;
 LABEL_31:
-  if ([self state])
+  if ([result state])
   {
     v29 = 1;
   }
@@ -364,7 +364,7 @@ LABEL_31:
 
   if ((v29 & 1) == 0)
   {
-    [(_UIGestureRecognizerDriver *)self _setState:1 notifyDelegate:?];
+    [(_UIGestureRecognizerDriver *)result _setState:1 notifyDelegate:?];
   }
 }
 

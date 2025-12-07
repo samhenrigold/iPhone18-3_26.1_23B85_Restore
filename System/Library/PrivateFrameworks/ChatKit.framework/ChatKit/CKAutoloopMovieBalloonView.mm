@@ -212,7 +212,7 @@ void __58__CKAutoloopMovieBalloonView__autoloopAVAudioSessionQueue__block_invoke
   v74 = 0u;
   v71 = 0u;
   v72 = 0u;
-  [(CKBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   videoPlayerMaskLayer = self->_videoPlayerMaskLayer;
   if (!videoPlayerMaskLayer)
   {
@@ -965,28 +965,28 @@ void __41__CKAutoloopMovieBalloonView_setIsMuted___block_invoke_2(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __53__CKAutoloopMovieBalloonView__thermalStateDidChange___block_invoke(uint64_t a1)
+uint64_t __53__CKAutoloopMovieBalloonView__thermalStateDidChange___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = [MEMORY[0x1E696AE30] processInfo];
-      v4 = [v3 thermalState];
-      v5 = [*(a1 + 32) _thermalStateAcceptableForLooping];
-      v6 = @"NO";
-      if (v5)
+      v4 = [MEMORY[0x1E696AE30] processInfo];
+      v5 = [v4 thermalState];
+      v6 = [*(a1 + 32) _thermalStateAcceptableForLooping];
+      v7 = @"NO";
+      if (v6)
       {
-        v6 = @"YES";
+        v7 = @"YES";
       }
 
-      v8 = 134218242;
-      v9 = v4;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Thermal state changed to %lu, setting loop playback to paused:%@", &v8, 0x16u);
+      v9 = 134218242;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Thermal state changed to %lu, setting loop playback to paused:%@", &v9, 0x16u);
     }
   }
 

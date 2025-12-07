@@ -1,12 +1,63 @@
 @interface CMSensorDataList
 - (BOOL)_updatePointers;
+- (CMSensorDataList)initWithIdentifier:(unint64_t)identifier andType:(int)type;
 - (id).cxx_construct;
+- (id)initFrom:(double)from to:(double)to withType:(int)type;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (void)_updateCurrentBlockProperties;
 - (void)dealloc;
 @end
 
 @implementation CMSensorDataList
+
+- (CMSensorDataList)initWithIdentifier:(unint64_t)identifier andType:(int)type
+{
+  v4 = *&type;
+  v16.receiver = self;
+  v16.super_class = CMSensorDataList;
+  v6 = [(CMSensorDataList *)&v16 init];
+  if (v6)
+  {
+    v7 = objc_alloc_init(CMSensorRecorderInternal);
+    v6->fProxy = v7;
+    v6->fCurrentBlock = objc_msgSend_newMetaSinceID_forType_(v7, v8, identifier, v4);
+    v9 = objc_alloc(MEMORY[0x1E695DF70]);
+    v6->fCachedData = objc_msgSend_initWithCapacity_(v9, v10, 16);
+    v6->fDataType = v4;
+    if (!v6->fCurrentBlock || (objc_msgSend__updateCurrentBlockProperties(v6, v11, v12), v6->fCurrentIdentifier = v6->fCurrentBlockIdentifier, v6->fDataBuffer = 0, *&v6->fRetrievedDataBufferIdentifier = xmmword_19B7B9600, (objc_msgSend__updatePointers(v6, v13, v14) & 1) == 0))
+    {
+
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
+- (id)initFrom:(double)from to:(double)to withType:(int)type
+{
+  v5 = *&type;
+  v23.receiver = self;
+  v23.super_class = CMSensorDataList;
+  v8 = [(CMSensorDataList *)&v23 init];
+  if (v8)
+  {
+    v9 = objc_alloc_init(CMSensorRecorderInternal);
+    v8->fProxy = v9;
+    v8->fMetaArray = objc_msgSend_newMetaFrom_to_forType_(v9, v10, v5, from, to);
+    v11 = objc_alloc(MEMORY[0x1E695DF70]);
+    v8->fCachedData = objc_msgSend_initWithCapacity_(v11, v12, 16);
+    v8->fDataType = v5;
+    fMetaArray = v8->fMetaArray;
+    if (!fMetaArray || !objc_msgSend_count(fMetaArray, v13, v14) || (v8->fCurrentBlock = objc_msgSend_objectAtIndexedSubscript_(v8->fMetaArray, v16, 0), objc_msgSend__updateCurrentBlockProperties(v8, v17, v18), fCurrentBlockIdentifier = v8->fCurrentBlockIdentifier, v8->fCurrentIdentifier = fCurrentBlockIdentifier, v8->fStartingIdentifier = fCurrentBlockIdentifier, v8->fDataBuffer = 0, *&v8->fRetrievedDataBufferIdentifier = xmmword_19B7B9600, (objc_msgSend__updatePointers(v8, v20, v21) & 1) == 0))
+    {
+
+      return 0;
+    }
+  }
+
+  return v8;
+}
 
 - (void)dealloc
 {
@@ -166,43 +217,38 @@ LABEL_27:
 
 - (BOOL)_updatePointers
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   fCurrentBlock = self->fCurrentBlock;
-  if (fCurrentBlock && self->fCurrentIdentifier == self->fCurrentBlockIdentifier)
+  if (!fCurrentBlock || self->fCurrentIdentifier != self->fCurrentBlockIdentifier)
   {
-    if (self->fRetrievedDataBufferIdentifier == self->fCurrentBlockDataIdentifier)
+    fMetaArray = self->fMetaArray;
+
+    if (fMetaArray)
     {
-LABEL_35:
-      result = 1;
-      goto LABEL_36;
+      self->fCurrentBlock = 0;
+      v8 = self->fCurrentIdentifier - self->fStartingIdentifier;
+      if (v8 >= objc_msgSend_count(self->fMetaArray, v6, v7))
+      {
+        result = 0;
+        self->fCurrentBlock = 0;
+        return result;
+      }
+
+      v10 = objc_msgSend_objectAtIndexedSubscript_(self->fMetaArray, v9, v8);
     }
 
-    goto LABEL_11;
-  }
+    else
+    {
+      v10 = objc_msgSend_newMetaByID_forType_(self->fProxy, v6, self->fCurrentIdentifier, self->fDataType);
+    }
 
-  fMetaArray = self->fMetaArray;
-
-  if (!fMetaArray)
-  {
-    v10 = objc_msgSend_newMetaByID_forType_(self->fProxy, v6, self->fCurrentIdentifier, self->fDataType);
-    goto LABEL_9;
-  }
-
-  self->fCurrentBlock = 0;
-  v8 = self->fCurrentIdentifier - self->fStartingIdentifier;
-  if (v8 < objc_msgSend_count(self->fMetaArray, v6, v7))
-  {
-    v10 = objc_msgSend_objectAtIndexedSubscript_(self->fMetaArray, v9, v8);
-LABEL_9:
     self->fCurrentBlock = v10;
     objc_msgSend__updateCurrentBlockProperties(self, v11, v12);
     v15 = self->fCurrentBlock;
     self->fCurrentIdentifier = self->fCurrentBlockIdentifier;
     if (!v15)
     {
-LABEL_31:
-      result = 0;
-      goto LABEL_36;
+      return 0;
     }
 
     if (self->fRetrievedDataBufferIdentifier == self->fCurrentBlockDataIdentifier)
@@ -221,8 +267,8 @@ LABEL_15:
 
       else if (fDataType == 1)
       {
-        v27 = self->fDataBufferPtr;
-        self->fGyroUnpacker.fData = &v27[objc_msgSend_offset(self->fCurrentBlock, v13, v14)];
+        v28 = self->fDataBufferPtr;
+        self->fGyroUnpacker.fData = &v28[objc_msgSend_offset(self->fCurrentBlock, v13, v14)];
         self->fGyroUnpacker.fBitsLeft = 0;
         *&self->fGyroUnpacker.fTimestampLast = 0u;
         *self->fGyroUnpacker.fSampleLast = 0u;
@@ -230,8 +276,8 @@ LABEL_15:
 
       else if (fDataType)
       {
-        v29 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v13, v14);
-        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v29, v30, a2, self, @"CMSensorRecorder.mm", 400, @"Unexpected sensor type!");
+        v30 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v13, v14);
+        objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v30, v31, a2, self, @"CMSensorRecorder.mm", 400, @"Unexpected sensor type!");
       }
 
       else
@@ -245,7 +291,7 @@ LABEL_15:
         self->fAccelUnpacker.fSampleLast[2] = 0;
       }
 
-      goto LABEL_35;
+      return 1;
     }
 
 LABEL_11:
@@ -289,22 +335,25 @@ LABEL_11:
         dispatch_once(&qword_1EAFE29C8, &unk_1F0E284E0);
       }
 
-      v26 = _os_log_send_and_compose_impl();
+      v34[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE29D0, 16, "Unable to allocate buffer for sensor recorder.", v34, 2);
+      v27 = v26;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSensorDataList _updatePointers]", "CoreLocation: %s\n", v26);
-      if (v26 != buf)
+      if (v27 != buf)
       {
-        free(v26);
+        free(v27);
       }
     }
 
-    goto LABEL_31;
+    return 0;
   }
 
-  result = 0;
-  self->fCurrentBlock = 0;
-LABEL_36:
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
+  if (self->fRetrievedDataBufferIdentifier != self->fCurrentBlockDataIdentifier)
+  {
+    goto LABEL_11;
+  }
+
+  return 1;
 }
 
 - (id).cxx_construct

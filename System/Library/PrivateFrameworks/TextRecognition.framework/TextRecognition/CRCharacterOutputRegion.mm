@@ -1,7 +1,7 @@
 @interface CRCharacterOutputRegion
 + (id)characterWithText:(id)text confidence:(unint64_t)confidence quad:(id)quad baselineAngle:(double)angle;
 + (id)characterWithTextFeature:(id)feature imageSize:(CGSize)size confidenceThresholdProvider:(id)provider;
-+ (id)characterWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx imageSize:(uint64_t)size confidenceThresholdProvider:(void *)provider;
++ (id)characterWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx imageSize:(double)size confidenceThresholdProvider:(double)provider;
 - (BOOL)isEqual:(id)equal;
 - (CRCharacterOutputRegion)init;
 - (CRCharacterOutputRegion)initWithCRCodableDataRepresentation:(id)representation version:(int64_t)version offset:(unint64_t *)offset;
@@ -75,7 +75,7 @@
   width = size.width;
   featureCopy = feature;
   providerCopy = provider;
-  v11 = [(CRCharacterOutputRegion *)width characterWithTextFeature:self candidateIdx:featureCopy imageSize:0 confidenceThresholdProvider:providerCopy];
+  height = [(CRCharacterOutputRegion *)self characterWithTextFeature:featureCopy candidateIdx:0 imageSize:providerCopy confidenceThresholdProvider:width, height];
   stringValueCandidates = [featureCopy stringValueCandidates];
   v13 = [stringValueCandidates count];
 
@@ -93,8 +93,8 @@
       v19 = 0;
       do
       {
-        v20 = [(CRCharacterOutputRegion *)width characterWithTextFeature:self candidateIdx:featureCopy imageSize:v19 confidenceThresholdProvider:providerCopy];
-        [v16 addObject:v20];
+        height2 = [(CRCharacterOutputRegion *)self characterWithTextFeature:featureCopy candidateIdx:v19 imageSize:providerCopy confidenceThresholdProvider:width, height];
+        [v16 addObject:height2];
 
         ++v19;
         stringValueCandidates4 = [featureCopy stringValueCandidates];
@@ -105,58 +105,58 @@
     }
 
     v23 = [MEMORY[0x1E695DEC8] arrayWithArray:v16];
-    [v11 setCandidates:v23];
+    [height setCandidates:v23];
   }
 
-  [v11 setNumberOfLines:0];
+  [height setNumberOfLines:0];
 
-  return v11;
+  return height;
 }
 
-+ (id)characterWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx imageSize:(uint64_t)size confidenceThresholdProvider:(void *)provider
++ (id)characterWithTextFeature:(uint64_t)feature candidateIdx:(void *)idx imageSize:(double)size confidenceThresholdProvider:(double)provider
 {
-  providerCopy = provider;
   idxCopy = idx;
+  v11 = a2;
   v12 = objc_opt_self();
-  selectedLocale = [idxCopy selectedLocale];
-  v14 = [providerCopy thresholdsForTextRegion:idxCopy withLocale:selectedLocale];
+  selectedLocale = [v11 selectedLocale];
+  v14 = [idxCopy thresholdsForTextRegion:v11 withLocale:selectedLocale];
 
-  candidateProbs = [idxCopy candidateProbs];
-  v16 = [candidateProbs objectAtIndexedSubscript:size];
+  candidateProbs = [v11 candidateProbs];
+  v16 = [candidateProbs objectAtIndexedSubscript:feature];
   [v16 doubleValue];
   v17 = [CRImageReaderOutput confidenceLevelForConfidenceScore:v14 confidenceThresholds:?];
 
   v18 = [CRNormalizedQuad alloc];
-  [idxCopy topLeft];
+  [v11 topLeft];
   v20 = v19;
   v22 = v21;
-  [idxCopy topRight];
+  [v11 topRight];
   v24 = v23;
   v26 = v25;
-  [idxCopy bottomRight];
+  [v11 bottomRight];
   v28 = v27;
   v30 = v29;
-  [idxCopy bottomLeft];
-  v33 = [(CRNormalizedQuad *)v18 initWithNormalizedTopLeft:v20 topRight:v22 bottomRight:v24 bottomLeft:v26 size:v28, v30, v31, v32, *&self, *&a2];
-  stringValueCandidates = [idxCopy stringValueCandidates];
-  v35 = [stringValueCandidates objectAtIndexedSubscript:size];
-  [idxCopy baselineAngle];
+  [v11 bottomLeft];
+  v33 = [(CRNormalizedQuad *)v18 initWithNormalizedTopLeft:v20 topRight:v22 bottomRight:v24 bottomLeft:v26 size:v28, v30, v31, v32, *&size, *&provider];
+  stringValueCandidates = [v11 stringValueCandidates];
+  v35 = [stringValueCandidates objectAtIndexedSubscript:feature];
+  [v11 baselineAngle];
   v37 = [v12 characterWithText:v35 confidence:v17 quad:v33 baselineAngle:v36];
 
-  candidateProbs2 = [idxCopy candidateProbs];
-  v39 = [candidateProbs2 objectAtIndexedSubscript:size];
+  candidateProbs2 = [v11 candidateProbs];
+  v39 = [candidateProbs2 objectAtIndexedSubscript:feature];
   [v39 floatValue];
   [v37 setRawConfidence:?];
 
-  candidateActivationProbs = [idxCopy candidateActivationProbs];
-  v41 = [candidateActivationProbs objectAtIndexedSubscript:size];
+  candidateActivationProbs = [v11 candidateActivationProbs];
+  v41 = [candidateActivationProbs objectAtIndexedSubscript:feature];
   [v41 floatValue];
   [v37 setActivationProbability:v42];
 
-  selectedLocale2 = [idxCopy selectedLocale];
+  selectedLocale2 = [v11 selectedLocale];
   [v37 setRecognizedLocale:selectedLocale2];
 
-  uuid = [idxCopy uuid];
+  uuid = [v11 uuid];
 
   [v37 setUuid:uuid];
   [v37 setNumberOfLines:0];

@@ -45,7 +45,7 @@ void __48__LNSiriVocabulary_donateWithCompletionHandler___block_invoke(uint64_t 
 
 - (void)setCorporaByPriority:(id)priority completionHandler:(id)handler
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   priorityCopy = priority;
   handlerCopy = handler;
   if (+[LNFeatureFlags isVocabularyDonationEnabled])
@@ -53,31 +53,31 @@ void __48__LNSiriVocabulary_donateWithCompletionHandler___block_invoke(uint64_t 
     corpora = self->_corpora;
     if (corpora)
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v9 = corpora;
-      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v27;
+        v12 = *v26;
         do
         {
           v13 = 0;
           do
           {
-            if (*v27 != v12)
+            if (*v26 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            [*(*(&v26 + 1) + 8 * v13++) removeObserver:self];
+            [*(*(&v25 + 1) + 8 * v13++) removeObserver:self];
           }
 
           while (v11 != v13);
-          v11 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v11 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
         while (v11);
@@ -88,31 +88,31 @@ void __48__LNSiriVocabulary_donateWithCompletionHandler___block_invoke(uint64_t 
     v15 = self->_corpora;
     self->_corpora = v14;
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v16 = self->_corpora;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v23;
+      v19 = *v22;
       do
       {
         v20 = 0;
         do
         {
-          if (*v23 != v19)
+          if (*v22 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          [*(*(&v22 + 1) + 8 * v20++) setObserver:{self, v22}];
+          [*(*(&v21 + 1) + 8 * v20++) setObserver:{self, v21}];
         }
 
         while (v18 != v20);
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v18);
@@ -120,8 +120,6 @@ void __48__LNSiriVocabulary_donateWithCompletionHandler___block_invoke(uint64_t 
 
     [(LNSiriVocabulary *)self donateWithCompletionHandler:handlerCopy];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (LNSiriVocabulary)initWithBundleIdentifier:(id)identifier donatorClient:(id)client picker:(id)picker
@@ -242,28 +240,28 @@ void __66__LNSiriVocabulary_initWithBundleIdentifier_donatorClient_picker___bloc
 
 uint64_t __66__LNSiriVocabulary_initWithBundleIdentifier_donatorClient_picker___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         if (v7)
         {
           (*(v7 + 16))(v7, *(a1 + 40));
@@ -273,15 +271,13 @@ uint64_t __66__LNSiriVocabulary_initWithBundleIdentifier_donatorClient_picker___
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(*(a1 + 32) + 56) removeAllObjects];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 56) removeAllObjects];
 }
 
 + (id)vocabularyForBundleIdentifier:(id)identifier

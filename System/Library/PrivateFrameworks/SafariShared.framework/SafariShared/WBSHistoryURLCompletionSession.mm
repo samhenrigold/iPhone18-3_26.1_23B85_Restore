@@ -233,11 +233,11 @@ void __155__WBSHistoryURLCompletionSession_getBestMatchesForTypedString_filterRe
   }
 }
 
-uint64_t __155__WBSHistoryURLCompletionSession_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_3(uint64_t result)
+id *__155__WBSHistoryURLCompletionSession_getBestMatchesForTypedString_filterResultsUsingProfileIdentifier_limit_forQueryID_withSearchParameters_completionHandler___block_invoke_3(id *result)
 {
-  if ((*(*(*(result + 72) + 8) + 24) & 1) == 0)
+  if ((*(*(result[9] + 1) + 24) & 1) == 0)
   {
-    return [*(result + 32) _getBestMatchesForTypedString:*(result + 40) filterResultsUsingProfileIdentifier:*(result + 48) limit:*(result + 80) forQueryID:*(result + 88) withSearchParameters:*(result + 56) completionHandler:*(result + 64)];
+    return [result[4] _getBestMatchesForTypedString:result[5] filterResultsUsingProfileIdentifier:result[6] limit:result[10] forQueryID:result[11] withSearchParameters:result[7] completionHandler:result[8]];
   }
 
   return result;

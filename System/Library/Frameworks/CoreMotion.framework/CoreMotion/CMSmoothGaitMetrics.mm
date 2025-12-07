@@ -17,8 +17,8 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v36[5] = *MEMORY[0x1E69E9840];
-  v35[0] = @"startTime";
+  v35[5] = *MEMORY[0x1E69E9840];
+  v34[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
@@ -29,26 +29,24 @@
     v13 = v10;
   }
 
-  v36[0] = v13;
-  v35[1] = @"walkingSpeed";
+  v35[0] = v13;
+  v34[1] = @"walkingSpeed";
   v14 = MEMORY[0x1E696AD98];
   objc_msgSend_walkingSpeed(self, v11, v12);
-  v36[1] = objc_msgSend_numberWithDouble_(v14, v15, v16);
-  v35[2] = @"stepLength";
+  v35[1] = objc_msgSend_numberWithDouble_(v14, v15, v16);
+  v34[2] = @"stepLength";
   v17 = MEMORY[0x1E696AD98];
   objc_msgSend_stepLength(self, v18, v19);
-  v36[2] = objc_msgSend_numberWithDouble_(v17, v20, v21);
-  v35[3] = @"distance";
+  v35[2] = objc_msgSend_numberWithDouble_(v17, v20, v21);
+  v34[3] = @"distance";
   v22 = MEMORY[0x1E696AD98];
   objc_msgSend_distance(self, v23, v24);
-  v36[3] = objc_msgSend_numberWithDouble_(v22, v25, v26);
-  v35[4] = @"doubleSupportPercentage";
+  v35[3] = objc_msgSend_numberWithDouble_(v22, v25, v26);
+  v34[4] = @"doubleSupportPercentage";
   v27 = MEMORY[0x1E696AD98];
   objc_msgSend_doubleSupportPercentage(self, v28, v29);
-  v36[4] = objc_msgSend_numberWithDouble_(v27, v30, v31);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, v36, v35, 5);
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  v35[4] = objc_msgSend_numberWithDouble_(v27, v30, v31);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v32, v35, v34, 5);
 }
 
 - (CMSmoothGaitMetrics)initWithRecordId:(unint64_t)id startDate:(id)date walkingSpeed:(double)speed stepLength:(double)length cycleTime:(double)time distance:(double)distance doubleSupportPercentage:(double)percentage asymmetryProbability:(double)self0 numGaitMetrics:(unsigned int)self1

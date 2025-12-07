@@ -58,7 +58,7 @@
   v21 = &v20;
   v22 = 0x2020000000;
   unsignedIntegerValue = [v9 unsignedIntegerValue];
-  v10 = __atxlog_handle_notification_management();
+  v10 = __atxlog_handle_notification_management(unsignedIntegerValue);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = objc_opt_class();
@@ -84,70 +84,71 @@
 
 void __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke(uint64_t a1, void *a2, int a3, unint64_t a4, void *a5)
 {
-  *&v25[13] = *MEMORY[0x1E69E9840];
+  *&v27[13] = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a5;
+  v11 = v10;
   if (v10)
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_cold_1(a1, v10, v11);
+      __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_cold_1(a1, v11, v12);
     }
   }
 
-  v12 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = __atxlog_handle_notification_management(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = NSStringFromSelector(*(a1 + 56));
+    v14 = NSStringFromSelector(*(a1 + 56));
     *buf = 138412546;
-    v23 = v13;
-    v24 = 2048;
-    *v25 = a4;
-    _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "%@: Number of days of data = %lu", buf, 0x16u);
+    v25 = v14;
+    v26 = 2048;
+    *v27 = a4;
+    _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "%@: Number of days of data = %lu", buf, 0x16u);
   }
 
   if (a4)
   {
-    v14 = *(*(a1 + 48) + 8);
-    if (*(v14 + 24) > a4)
+    v16 = *(*(a1 + 48) + 8);
+    if (*(v16 + 24) > a4)
     {
-      *(v14 + 24) = a4;
+      *(v16 + 24) = a4;
     }
   }
 
   else
   {
-    v15 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_notification_management(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_cold_2(a1, v15);
+      __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_cold_2(a1, v17);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_7;
-  v21[3] = &unk_1E80C5368;
-  v21[4] = *(a1 + 48);
-  v16 = [v9 _pas_mappedArrayWithTransform:v21];
-  v17 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_7;
+  v23[3] = &unk_1E80C5368;
+  v23[4] = *(a1 + 48);
+  v18 = [v9 _pas_mappedArrayWithTransform:v23];
+  v19 = __atxlog_handle_notification_management(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [v16 count];
-    v19 = *(*(*(a1 + 48) + 8) + 24);
+    v20 = [v18 count];
+    v21 = *(*(*(a1 + 48) + 8) + 24);
     *buf = 134218496;
-    v23 = v18;
-    v24 = 1024;
-    *v25 = a3;
-    v25[2] = 2048;
-    *&v25[3] = v19;
-    _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "Returning %ld apps with notification counts, containsMessageAndTimeSensitiveData=%{BOOL}d, numberOfDays=%ld", buf, 0x1Cu);
+    v25 = v20;
+    v26 = 1024;
+    *v27 = a3;
+    v27[2] = 2048;
+    *&v27[3] = v21;
+    _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "Returning %ld apps with notification counts, containsMessageAndTimeSensitiveData=%{BOOL}d, numberOfDays=%ld", buf, 0x1Cu);
   }
 
-  v20 = [*(a1 + 32) sortDigestResponseWithNoNotificationVolume:v16];
+  v22 = [*(a1 + 32) sortDigestResponseWithNoNotificationVolume:v18];
 
   (*(*(a1 + 40) + 16))();
 }
@@ -161,7 +162,7 @@ ATXDigestSetupResponse *__104__ATXDigestSetupFlowClient__helperAppsSortedByNotif
   v7 = *(*(*(a1 + 32) + 8) + 24);
   v8 = [v3 numTimeSensitiveNonMessageNotifications];
   v9 = *(*(*(a1 + 32) + 8) + 24);
-  v10 = __atxlog_handle_notification_management();
+  v10 = __atxlog_handle_notification_management(v8);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __104__ATXDigestSetupFlowClient__helperAppsSortedByNotificationsReceivedInPreviousNumDays_completionHandler___block_invoke_7_cold_1(v3, v10);

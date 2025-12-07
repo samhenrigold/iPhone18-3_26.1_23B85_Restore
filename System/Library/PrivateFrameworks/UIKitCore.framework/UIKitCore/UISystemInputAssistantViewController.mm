@@ -673,7 +673,7 @@ LABEL_6:
   renderConfig = [systemInputAssistantView renderConfig];
   if ([renderConfig lightKeyboard])
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
 
   else
@@ -3679,7 +3679,7 @@ void __96__UISystemInputAssistantViewController__beginObservingInputAssistantIte
 {
   pathCopy = path;
   changeCopy = change;
-  if ([pathCopy isEqualToString:@"bounds"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     v9 = [changeCopy objectForKey:*MEMORY[0x1E696A4F0]];
     [v9 CGRectValue];
@@ -3725,7 +3725,7 @@ void __96__UISystemInputAssistantViewController__beginObservingInputAssistantIte
 
   else
   {
-    if ([pathCopy isEqualToString:@"centerBarButtonGroups"])
+    if (objc_msgSend_isEqualToString_(pathCopy))
     {
       _currentInputDelegate = [(UISystemInputAssistantViewController *)self _currentInputDelegate];
       [(UISystemInputAssistantViewController *)self automaticallySetCenterViewControllerBasedOnInputDelegate:_currentInputDelegate];
@@ -3738,7 +3738,7 @@ void __96__UISystemInputAssistantViewController__beginObservingInputAssistantIte
 
       _currentInputDelegate = [changeCopy objectForKey:*MEMORY[0x1E696A4F0]];
       v34 = [changeCopy objectForKey:*MEMORY[0x1E696A500]];
-      if ([pathCopy hasSuffix:@"BarButtonGroups"] && (v34 != _currentInputDelegate || (objc_msgSend(v34, "isEqual:", _currentInputDelegate) & 1) == 0))
+      if ([pathCopy hasSuffix:@"BarButtonGroups"] && (v34 != _currentInputDelegate || (objc_msgSend_isEqual_(v34) & 1) == 0))
       {
         v35 = +[UIKeyboardImpl activeInstance];
         remoteTextInputPartner = [v35 remoteTextInputPartner];
@@ -3797,9 +3797,9 @@ void __96__UISystemInputAssistantViewController__beginObservingInputAssistantIte
   if ([v8 _shouldMinimizeForHardwareKeyboard])
   {
     name = [notificationCopy name];
-    v10 = [name isEqualToString:@"UITextInputSourceDidChangeNotification"];
+    isEqualToString = objc_msgSend_isEqualToString_(name);
 
-    if (v10)
+    if (isEqualToString)
     {
       dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_720);
     }
@@ -4637,9 +4637,9 @@ LABEL_6:
 {
   backgroundCopy = background;
   v5 = +[UIKeyboard keyboardBundleIdentifier];
-  v6 = [v5 isEqualToString:@"com.apple.Playgrounds"];
+  isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-  if (v6)
+  if (isEqualToString)
   {
     if (!backgroundCopy)
     {

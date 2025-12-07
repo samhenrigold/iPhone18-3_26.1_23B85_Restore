@@ -47,11 +47,10 @@
 {
   v4 = sub_29E752168();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x2A1C7C4A8](v4);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v7);
-  v11 = &v16 - v10;
+  v6 = MEMORY[0x2A1C7C4A8](v4);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v6);
+  v10 = &v12 - v9;
   sub_29E7544C8();
   sub_29E7544B8();
   sub_29E754468();
@@ -61,18 +60,16 @@
   }
 
   sub_29E752158();
-  (*(v5 + 16))(v9, v11, v4);
+  (*(v5 + 16))(v8, v10, v4);
   selfCopy = self;
   [(HostingConfigurationCell *)selfCopy bounds];
-  CGRectGetWidth(v17);
-  v13 = sub_29E7509F8();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
+  CGRectGetWidth(v13);
+  sub_29E7509F8();
   swift_allocObject();
   sub_29E7509E8();
   (*((*MEMORY[0x29EDCA1E8] & selfCopy->super.super.super.super.super.isa) + 0x50))();
 
-  (*(v5 + 8))(v11, v4);
+  (*(v5 + 8))(v10, v4);
 }
 
 @end

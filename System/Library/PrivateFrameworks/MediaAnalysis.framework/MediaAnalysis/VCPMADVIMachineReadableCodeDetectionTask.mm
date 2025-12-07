@@ -112,18 +112,23 @@ void __50__VCPMADVIMachineReadableCodeDetectionTask_cancel__block_invoke(uint64_
 
 - (int)run
 {
-  v72[1] = *MEMORY[0x1E69E9840];
-  if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  v82[1] = *MEMORY[0x1E69E9840];
+  v3 = MediaAnalysisLogLevel();
+  if (v3 >= 6)
   {
-    *buf = 0;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIMachineReadableCodeDetectionTask running...", buf, 2u);
+    v3 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+    if (v3)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIMachineReadableCodeDetectionTask running...", buf, 2u);
+    }
   }
 
-  if (!VCPPhotosMRCCachingEnabled() || ([(VCPMADServiceImageAsset *)self->_imageAsset barcodeObservations], (v3 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!VCPPhotosMRCCachingEnabled(v3, v4) || ([(VCPMADServiceImageAsset *)self->_imageAsset barcodeObservations], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v63 = 0;
-    v62 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v63 orientation:&v62])
+    v73 = 0;
+    v72 = 0;
+    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v73 orientation:&v72])
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -132,20 +137,20 @@ void __50__VCPMADVIMachineReadableCodeDetectionTask_cancel__block_invoke(uint64_
       }
 
       request = self->_request;
-      v9 = MEMORY[0x1E696ABC0];
-      v70 = *MEMORY[0x1E696A578];
-      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v71 = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-      v12 = [v9 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v11];
-      [(MADVIMachineReadableCodeDetectionRequest *)request setError:v12];
-      v7 = 0;
+      v11 = MEMORY[0x1E696ABC0];
+      v80 = *MEMORY[0x1E696A578];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
+      v81 = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+      v14 = [v11 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v13];
+      [(MADVIMachineReadableCodeDetectionRequest *)request setError:v14];
+      v9 = 0;
       goto LABEL_51;
     }
 
-    v10 = +[VCPMADMachineReadableCodeResource sharedResource];
-    v13 = +[VCPMADResourceManager sharedManager];
-    v11 = [v13 activateResource:v10];
+    v12 = +[VCPMADMachineReadableCodeResource sharedResource];
+    v15 = +[VCPMADResourceManager sharedManager];
+    v13 = [v15 activateResource:v12];
 
     mad_defaultRequest = [MEMORY[0x1E69844A0] mad_defaultRequest];
     if (!mad_defaultRequest)
@@ -156,24 +161,24 @@ void __50__VCPMADVIMachineReadableCodeDetectionTask_cancel__block_invoke(uint64_
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to configure VNDetectBarcodesRequest", buf, 2u);
       }
 
-      v20 = self->_request;
-      v21 = MEMORY[0x1E696ABC0];
-      v68 = *MEMORY[0x1E696A578];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to configure VNDetectBarcodesRequest"];
-      v69 = v22;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-      v24 = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v23];
-      [(MADVIMachineReadableCodeDetectionRequest *)v20 setError:v24];
+      v23 = self->_request;
+      v24 = MEMORY[0x1E696ABC0];
+      v78 = *MEMORY[0x1E696A578];
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to configure VNDetectBarcodesRequest"];
+      v79 = v25;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+      v27 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v26];
+      [(MADVIMachineReadableCodeDetectionRequest *)v23 setError:v27];
 
-      v12 = 0;
-      v7 = 0;
+      v14 = 0;
+      v9 = 0;
       goto LABEL_50;
     }
 
     symbologies = [(MADVIMachineReadableCodeDetectionRequest *)self->_request symbologies];
-    v15 = [symbologies count] == 0;
+    v17 = [symbologies count] == 0;
 
-    if (!v15)
+    if (!v17)
     {
       symbologies2 = [(MADVIMachineReadableCodeDetectionRequest *)self->_request symbologies];
       [mad_defaultRequest setSymbologies:symbologies2];
@@ -185,100 +190,100 @@ void __50__VCPMADVIMachineReadableCodeDetectionTask_cancel__block_invoke(uint64_
     block[2] = __47__VCPMADVIMachineReadableCodeDetectionTask_run__block_invoke;
     block[3] = &unk_1E834D238;
     block[4] = self;
-    v18 = mad_defaultRequest;
-    v61 = v18;
+    v20 = mad_defaultRequest;
+    v71 = v20;
     dispatch_sync(cancelQueue, block);
-    v19 = atomic_load(&self->_canceled);
-    if (v19)
+    v22 = atomic_load(&self->_canceled);
+    if (v22)
     {
-      v12 = 0;
-      v7 = -128;
+      v14 = 0;
+      v9 = -128;
 LABEL_49:
 
 LABEL_50:
 LABEL_51:
 
-      CF<__CVBuffer *>::~CF(&v63);
-      return v7;
+      CF<__CVBuffer *>::~CF(&v73);
+      return v9;
     }
 
-    v25 = VCPSignPostLog();
-    v26 = os_signpost_id_generate(v25);
+    v28 = VCPSignPostLog(v21);
+    v29 = os_signpost_id_generate(v28);
 
-    v27 = VCPSignPostLog();
-    v28 = v27;
-    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    v31 = VCPSignPostLog(v30);
+    v32 = v31;
+    if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
     {
       signpostPayload = self->_signpostPayload;
       *buf = 138412290;
-      v67 = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v26, "VNImageRequestHandler_init", "%@", buf, 0xCu);
+      v77 = signpostPayload;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v29, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v30 = objc_alloc(MEMORY[0x1E69845B8]);
-    v31 = v63;
-    v32 = v62;
-    session = [v10 session];
-    v57 = [v30 initWithCVPixelBuffer:v31 orientation:v32 options:MEMORY[0x1E695E0F8] session:session];
+    v34 = objc_alloc(MEMORY[0x1E69845B8]);
+    v35 = v73;
+    v36 = v72;
+    session = [v12 session];
+    v67 = [v34 initWithCVPixelBuffer:v35 orientation:v36 options:MEMORY[0x1E695E0F8] session:session];
 
-    v34 = VCPSignPostLog();
-    v35 = v34;
-    if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
-    {
-      v36 = self->_signpostPayload;
-      *buf = 138412290;
-      v67 = v36;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v26, "VNImageRequestHandler_init", "%@", buf, 0xCu);
-    }
-
-    v37 = VCPSignPostLog();
-    v38 = os_signpost_id_generate(v37);
-
-    v39 = VCPSignPostLog();
+    v39 = VCPSignPostLog(v38);
     v40 = v39;
-    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+    if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
       v41 = self->_signpostPayload;
       *buf = 138412290;
-      v67 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_BEGIN, v38, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+      v77 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, v29, "VNImageRequestHandler_init", "%@", buf, 0xCu);
     }
 
-    v65 = v18;
-    v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
-    v59 = 0;
-    v43 = [v57 performRequests:v42 error:&v59];
-    v12 = v59;
+    v43 = VCPSignPostLog(v42);
+    v44 = os_signpost_id_generate(v43);
 
-    v44 = VCPSignPostLog();
-    v45 = v44;
-    if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+    v46 = VCPSignPostLog(v45);
+    v47 = v46;
+    if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
     {
-      v46 = self->_signpostPayload;
+      v48 = self->_signpostPayload;
       *buf = 138412290;
-      v67 = v46;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_END, v38, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+      v77 = v48;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v47, OS_SIGNPOST_INTERVAL_BEGIN, v44, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
     }
 
-    if (v43)
+    v75 = v20;
+    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+    v69 = 0;
+    v50 = [v67 performRequests:v49 error:&v69];
+    v14 = v69;
+
+    v52 = VCPSignPostLog(v51);
+    v53 = v52;
+    if (v44 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
     {
-      v47 = self->_request;
-      v48 = objc_alloc(MEMORY[0x1E69AE430]);
-      results = [v18 results];
-      v50 = [v48 initWithObservations:results];
-      v64 = v50;
-      v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
-      [(MADVIMachineReadableCodeDetectionRequest *)v47 setResults:v51];
+      v54 = self->_signpostPayload;
+      *buf = 138412290;
+      v77 = v54;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_END, v44, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+    }
+
+    if (v50)
+    {
+      v55 = self->_request;
+      v56 = objc_alloc(MEMORY[0x1E69AE430]);
+      results = [v20 results];
+      v58 = [v56 initWithObservations:results];
+      v74 = v58;
+      v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+      [(MADVIMachineReadableCodeDetectionRequest *)v55 setResults:v59];
 
       results2 = [(MADVIMachineReadableCodeDetectionRequest *)self->_request results];
       firstObject = [results2 firstObject];
-      [firstObject setExecutionNanoseconds:{objc_msgSend(v18, "executionNanoseconds")}];
+      [firstObject setExecutionNanoseconds:{objc_msgSend(v20, "executionNanoseconds")}];
 
-      if (VCPPhotosMRCCachingEnabled())
+      if (VCPPhotosMRCCachingEnabled(v62, v63))
       {
         if ([(VCPMADVIMachineReadableCodeDetectionTask *)self canReuseResultsForRequest])
         {
-          results3 = [v18 results];
+          results3 = [v20 results];
           [(VCPMADServiceImageAsset *)self->_imageAsset setBarcodeObservations:results3];
         }
 
@@ -292,26 +297,26 @@ LABEL_51:
 
     else
     {
-      v55 = atomic_load(&self->_canceled);
-      if (v55)
+      v65 = atomic_load(&self->_canceled);
+      if (v65)
       {
-        v7 = -128;
+        v9 = -128;
 LABEL_48:
 
         goto LABEL_49;
       }
 
-      [(MADVIMachineReadableCodeDetectionRequest *)self->_request setError:v12];
+      [(MADVIMachineReadableCodeDetectionRequest *)self->_request setError:v14];
     }
 
-    [v11 reset];
+    [v13 reset];
     if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
     {
       *buf = 0;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADVIMachineReadableCodeDetectionTask complete", buf, 2u);
     }
 
-    v7 = 0;
+    v9 = 0;
     goto LABEL_48;
   }
 
@@ -321,11 +326,11 @@ LABEL_48:
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[MRC] Custom request configuration; overriding to use cached data", buf, 2u);
   }
 
-  v4 = self->_request;
-  v5 = [objc_alloc(MEMORY[0x1E69AE430]) initWithObservations:v3];
-  v72[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
-  [(MADVIMachineReadableCodeDetectionRequest *)v4 setResults:v6];
+  v6 = self->_request;
+  v7 = [objc_alloc(MEMORY[0x1E69AE430]) initWithObservations:v5];
+  v82[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:1];
+  [(MADVIMachineReadableCodeDetectionRequest *)v6 setResults:v8];
 
   return 0;
 }

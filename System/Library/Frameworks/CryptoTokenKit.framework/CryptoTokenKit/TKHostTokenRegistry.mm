@@ -17,6 +17,7 @@
 - (void)keychainItemsModified:(id)modified;
 - (void)loadTokensFromStore:(id)store;
 - (void)markModified;
+- (void)notifyTokenReinsertion:(id)reinsertion persistent:(BOOL)persistent;
 - (void)preloadTokens;
 - (void)registerClassIDs:(id)ds;
 - (void)removeTokenWithTokenID:(id)d removeRegistered:(BOOL)registered;
@@ -77,25 +78,25 @@
   if (&_CPCopyBundleIdentifierAndTeamFromAuditToken)
   {
     v4 = *&token->var0[4];
-    *v23[0].val = *token->var0;
-    *&v23[0].val[4] = v4;
-    CPCopyBundleIdentifierAndTeamFromAuditToken();
+    *v24[0].val = *token->var0;
+    *&v24[0].val[4] = v4;
+    self = CPCopyBundleIdentifierAndTeamFromAuditToken();
   }
 
-  v5 = sub_1000049CC();
+  v5 = sub_1000049CC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10001DD80();
   }
 
   v6 = *&token->var0[4];
-  *v23[0].val = *token->var0;
-  *&v23[0].val[4] = v6;
-  v7 = audit_token_to_pid(v23);
-  v8 = proc_pidpath(v7, v23, 0x1000u);
+  *v24[0].val = *token->var0;
+  *&v24[0].val[4] = v6;
+  v7 = audit_token_to_pid(v24);
+  v8 = proc_pidpath(v7, v24, 0x1000u);
   if (v8 <= 0)
   {
-    v10 = sub_1000049CC();
+    v10 = sub_1000049CC(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10001DFF0();
@@ -104,10 +105,10 @@
     goto LABEL_21;
   }
 
-  v9 = [[NSString alloc] initWithBytes:v23 length:v8 encoding:4];
+  v9 = [[NSString alloc] initWithBytes:v24 length:v8 encoding:4];
   if (!v9)
   {
-    v10 = sub_1000049CC();
+    v10 = sub_1000049CC(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10001DF7C();
@@ -120,7 +121,7 @@
   v11 = [NSURL fileURLWithPath:v9];
   if (!v11)
   {
-    v12 = sub_1000049CC();
+    v12 = sub_1000049CC(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10001DF0C();
@@ -133,7 +134,7 @@
   v13 = _CFBundleCopyBundleURLForExecutableURL();
   if (!v13)
   {
-    v18 = sub_1000049CC();
+    v18 = sub_1000049CC(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10001DE9C();
@@ -158,7 +159,7 @@ LABEL_22:
 
   else
   {
-    v21 = sub_1000049CC();
+    v21 = sub_1000049CC(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_10001DDBC();
@@ -172,8 +173,8 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v22 = sub_1000049CC();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v23 = sub_1000049CC(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     sub_10001DE2C();
   }
@@ -191,15 +192,16 @@ LABEL_23:
   if (!v3)
   {
 LABEL_18:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_19;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v4 = sub_1000049CC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1000049CC(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10001E078();
     }
@@ -209,31 +211,31 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
+  v15 = 0u;
+  v5 = v3;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v14;
+    v7 = v6;
+    v8 = *v15;
     while (2)
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v7)
+        if (*v15 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v10 = objc_opt_isKindOfClass();
+        if ((v10 & 1) == 0)
         {
-          v11 = sub_1000049CC();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = sub_1000049CC(v10);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             sub_10001E0B4();
           }
@@ -242,8 +244,8 @@ LABEL_17:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-      if (v6)
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v7)
       {
         continue;
       }
@@ -252,10 +254,10 @@ LABEL_17:
     }
   }
 
-  v10 = v4;
+  v11 = v5;
 LABEL_19:
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -265,7 +267,7 @@ LABEL_19:
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -282,30 +284,34 @@ LABEL_19:
     goto LABEL_5;
   }
 
-  if (v10 && [v10 count])
+  if (v10)
   {
-    v9 = [v11 objectAtIndexedSubscript:0];
+    v10 = [v10 count];
+    if (v10)
+    {
+      v9 = [v11 objectAtIndexedSubscript:0];
 LABEL_5:
-    v12 = [TKTokenConfiguration interfaceForProtocol:v18];
-    [v8 setExportedInterface:v12];
+      v12 = [TKTokenConfiguration interfaceForProtocol:v18];
+      [v8 setExportedInterface:v12];
 
-    v13 = [[TKHostTokenRegistryConfigurationProxy alloc] initWithRegistry:self callerBundleID:v9 allowedForBundles:v11];
-    [v8 setExportedObject:v13];
+      v13 = [[TKHostTokenRegistryConfigurationProxy alloc] initWithRegistry:self callerBundleID:v9 allowedForBundles:v11];
+      [v8 setExportedObject:v13];
 
-    v14 = +[TKTokenConfiguration interfaceForChangeProtocol];
-    [v8 setRemoteObjectInterface:v14];
+      v14 = +[TKTokenConfiguration interfaceForChangeProtocol];
+      [v8 setRemoteObjectInterface:v14];
 
-    [v8 resume];
-    selfCopy = self;
-    objc_sync_enter(selfCopy);
-    [(NSHashTable *)selfCopy->_clientConnections addObject:v8];
-    objc_sync_exit(selfCopy);
+      [v8 resume];
+      selfCopy = self;
+      objc_sync_enter(selfCopy);
+      [(NSHashTable *)selfCopy->_clientConnections addObject:v8];
+      objc_sync_exit(selfCopy);
 
-    v16 = 1;
-    goto LABEL_12;
+      v16 = 1;
+      goto LABEL_12;
+    }
   }
 
-  v9 = sub_1000049CC();
+  v9 = sub_1000049CC(v10);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     sub_10001E0F0(v8, v9);
@@ -493,45 +499,45 @@ LABEL_12:
 
     if (storageDirty)
     {
-      v30 = a2;
+      v32 = a2;
       v6 = [&__NSDictionary0__struct mutableCopy];
       v7 = [&__NSDictionary0__struct mutableCopy];
-      v34 = 0u;
-      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       obj = selfCopy->_tokensByTokenID;
-      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
-      v32 = selfCopy;
+      v8 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v34 = selfCopy;
       if (v8)
       {
         v9 = v8;
-        v10 = *v35;
+        v10 = *v37;
         do
         {
           for (i = 0; i != v9; i = i + 1)
           {
-            if (*v35 != v10)
+            if (*v37 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v34 + 1) + 8 * i);
+            v12 = *(*(&v36 + 1) + 8 * i);
             v13 = [(NSMutableDictionary *)selfCopy->_tokensByTokenID objectForKeyedSubscript:v12];
             if (([v13 persistent] & 1) != 0 || (objc_msgSend(v13, "keychainItems"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "count"), v14, v15))
             {
-              v33 = 0;
-              v16 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v33];
-              v17 = v33;
+              v35 = 0;
+              v16 = [NSKeyedArchiver archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v35];
+              v17 = v35;
               if (!v16)
               {
-                sub_10001E180(v30, selfCopy, v13, v17);
+                sub_10001E180(v32, selfCopy, v13, v17);
               }
 
               isRegistered = [v13 isRegistered];
               stringRepresentation = [v12 stringRepresentation];
               v20 = isRegistered == 0;
-              selfCopy = v32;
+              selfCopy = v34;
               if (v20)
               {
                 v21 = v6;
@@ -546,40 +552,41 @@ LABEL_12:
             }
           }
 
-          v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v36 objects:v40 count:16];
         }
 
         while (v9);
       }
 
-      v22 = sub_1000049CC();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = sub_1000049CC(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         sub_10001E200();
       }
 
-      v23 = v32;
-      storage2 = [(TKHostTokenRegistry *)v32 storage];
-      v25 = [(TKHostTokenRegistry *)v32 stringForStorageKey:0];
-      v26 = v6;
-      [storage2 setObject:v6 forKey:v25];
+      v24 = v34;
+      storage2 = [(TKHostTokenRegistry *)v34 storage];
+      v26 = [(TKHostTokenRegistry *)v34 stringForStorageKey:0];
+      v27 = v6;
+      [storage2 setObject:v6 forKey:v26];
 
-      storage3 = [(TKHostTokenRegistry *)v32 storage];
-      v28 = [(TKHostTokenRegistry *)v32 stringForStorageKey:2];
-      [storage3 setObject:v7 forKey:v28];
+      storage3 = [(TKHostTokenRegistry *)v34 storage];
+      v29 = [(TKHostTokenRegistry *)v34 stringForStorageKey:2];
+      [storage3 setObject:v7 forKey:v29];
 
-      if (!CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication))
+      v30 = CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
+      if (!v30)
       {
-        v29 = sub_1000049CC();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v31 = sub_1000049CC(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           sub_10001E23C();
         }
 
-        v23 = v32;
+        v24 = v34;
       }
 
-      v23->_storageDirty = 0;
+      v24->_storageDirty = 0;
     }
   }
 }
@@ -629,17 +636,16 @@ LABEL_12:
       driver = [v10 driver];
       [driver releaseTokenWithTokenID:dCopy];
 
-      v15 = selfCopy;
-      objc_sync_enter(v15);
+      v16 = selfCopy;
+      objc_sync_enter(v16);
       [(NSMutableDictionary *)selfCopy->_toBeRemovedTokens removeObjectForKey:dCopy];
-      objc_sync_exit(v15);
+      objc_sync_exit(v16);
     }
 
     else
     {
       [v10 setSlotName:0];
-      [v10 setDriver:0];
-      v11 = sub_1000049CC();
+      v11 = sub_1000049CC([v10 setDriver:0]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         sub_10001E278();
@@ -650,21 +656,21 @@ LABEL_12:
       [driver2 releaseTokenWithTokenID:dCopy];
     }
 
-    v16 = sub_1000049CC();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = sub_1000049CC(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       persistent = [v10 persistent];
-      v18 = @"non-persistent";
+      v19 = @"non-persistent";
       if (persistent)
       {
-        v18 = @"persistent";
+        v19 = @"persistent";
       }
 
-      v20 = 138543618;
-      v21 = v18;
-      v22 = 2114;
-      v23 = dCopy;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Removing %{public}@ token %{public}@ from system", &v20, 0x16u);
+      v21 = 138543618;
+      v22 = v19;
+      v23 = 2114;
+      v24 = dCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Removing %{public}@ token %{public}@ from system", &v21, 0x16u);
     }
 
     delegate = [(TKHostTokenRegistry *)selfCopy delegate];
@@ -676,15 +682,34 @@ LABEL_12:
 
   else
   {
-    [v7 commit];
-    v13 = sub_1000049CC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_1000049CC([v7 commit]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10001E2E8();
     }
 
     objc_sync_exit(selfCopy);
   }
+}
+
+- (void)notifyTokenReinsertion:(id)reinsertion persistent:(BOOL)persistent
+{
+  persistentCopy = persistent;
+  reinsertionCopy = reinsertion;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v7 = [(NSMutableDictionary *)selfCopy->_tokensByTokenID objectForKeyedSubscript:reinsertionCopy];
+
+  if (v7)
+  {
+    delegate = [(TKHostTokenRegistry *)selfCopy delegate];
+    [delegate hostTokenRegistry:selfCopy removedToken:reinsertionCopy persistent:persistentCopy];
+
+    delegate2 = [(TKHostTokenRegistry *)selfCopy delegate];
+    [delegate2 hostTokenRegistry:selfCopy addedToken:reinsertionCopy persistent:persistentCopy];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (id)createTokenWithTokenID:(id)d persistent:(BOOL)persistent
@@ -745,8 +770,7 @@ LABEL_12:
         [(TKHostToken *)v4 setRegistry:selfCopy];
       }
 
-      [(NSMutableDictionary *)self->_tokensByTokenID setObject:v4 forKeyedSubscript:dCopy];
-      v15 = sub_1000049CC();
+      v15 = sub_1000049CC([(NSMutableDictionary *)self->_tokensByTokenID setObject:v4 forKeyedSubscript:dCopy]);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
@@ -787,7 +811,7 @@ LABEL_22:
 - (void)loadTokensFromStore:(id)store
 {
   storeCopy = store;
-  v4 = sub_1000049CC();
+  v4 = sub_1000049CC(storeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10001E358();
@@ -799,186 +823,188 @@ LABEL_22:
   storage = self->_storage;
   self->_storage = v7;
 
-  if ([(TKHostTokenRegistry *)self resetDB])
+  resetDB = [(TKHostTokenRegistry *)self resetDB];
+  if (resetDB)
   {
-    v9 = sub_1000049CC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_1000049CC(resetDB);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "cleaning existing registry DB", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "cleaning existing registry DB", buf, 2u);
     }
 
     storage = [(TKHostTokenRegistry *)self storage];
-    v11 = [(TKHostTokenRegistry *)self stringForStorageKey:1];
-    [storage removeObjectForKey:v11];
+    v12 = [(TKHostTokenRegistry *)self stringForStorageKey:1];
+    [storage removeObjectForKey:v12];
 
     storage2 = [(TKHostTokenRegistry *)self storage];
-    v13 = [(TKHostTokenRegistry *)self stringForStorageKey:0];
-    [storage2 removeObjectForKey:v13];
+    v14 = [(TKHostTokenRegistry *)self stringForStorageKey:0];
+    [storage2 removeObjectForKey:v14];
 
     storage3 = [(TKHostTokenRegistry *)self storage];
-    v15 = [(TKHostTokenRegistry *)self stringForStorageKey:2];
-    [storage3 removeObjectForKey:v15];
+    v16 = [(TKHostTokenRegistry *)self stringForStorageKey:2];
+    [storage3 removeObjectForKey:v16];
   }
 
-  v51 = [(TKHostTokenRegistry *)self beginTransaction:@"loadTokensFromStore"];
+  v54 = [(TKHostTokenRegistry *)self beginTransaction:@"loadTokensFromStore"];
   storage4 = [(TKHostTokenRegistry *)self storage];
-  v17 = [(TKHostTokenRegistry *)self stringForStorageKey:2];
-  v18 = [storage4 objectForKey:v17];
-  v19 = v18;
-  if (v18)
+  v18 = [(TKHostTokenRegistry *)self stringForStorageKey:2];
+  v19 = [storage4 objectForKey:v18];
+  v20 = v19;
+  if (v19)
   {
-    v20 = v18;
+    v21 = v19;
   }
 
   else
   {
-    v20 = &__NSDictionary0__struct;
+    v21 = &__NSDictionary0__struct;
   }
 
-  v48 = v20;
+  v51 = v21;
 
   storage5 = [(TKHostTokenRegistry *)self storage];
-  v22 = [(TKHostTokenRegistry *)self stringForStorageKey:0];
-  v23 = [storage5 objectForKey:v22];
-  v24 = v23;
-  if (v23)
+  v23 = [(TKHostTokenRegistry *)self stringForStorageKey:0];
+  v24 = [storage5 objectForKey:v23];
+  v25 = v24;
+  if (v24)
   {
-    v25 = v23;
+    v26 = v24;
   }
 
   else
   {
-    v25 = &__NSDictionary0__struct;
+    v26 = &__NSDictionary0__struct;
   }
 
-  v26 = v25;
+  v27 = v26;
 
-  v50 = [v26 mutableCopy];
-  [v50 addEntriesFromDictionary:v48];
+  v53 = [v27 mutableCopy];
+  [v53 addEntriesFromDictionary:v51];
 
-  v57 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v27 = [v50 copy];
-  v28 = [v27 countByEnumeratingWithState:&v55 objects:v63 count:16];
-  if (v28)
+  v59 = 0u;
+  v28 = [v53 copy];
+  v29 = [v28 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  if (v29)
   {
-    v29 = *v56;
+    v30 = *v59;
     do
     {
-      v30 = 0;
+      v31 = 0;
       do
       {
-        if (*v56 != v29)
+        if (*v59 != v30)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v28);
         }
 
-        v31 = *(*(&v55 + 1) + 8 * v30);
-        v32 = objc_opt_class();
-        v33 = [v27 objectForKeyedSubscript:v31];
-        v54 = 0;
-        v34 = [NSKeyedUnarchiver unarchivedObjectOfClass:v32 fromData:v33 error:&v54];
-        v35 = v54;
+        v32 = *(*(&v58 + 1) + 8 * v31);
+        v33 = objc_opt_class();
+        v34 = [v28 objectForKeyedSubscript:v32];
+        v57 = 0;
+        v35 = [NSKeyedUnarchiver unarchivedObjectOfClass:v33 fromData:v34 error:&v57];
+        v36 = v57;
 
-        if (v34)
+        if (v35)
         {
-          [v34 setRegistry:self];
-          if (([v34 persistent] & 1) != 0 || objc_msgSend(v34, "isRegistered"))
+          [v35 setRegistry:self];
+          persistent = [v35 persistent];
+          if ((persistent & 1) != 0 || (persistent = [v35 isRegistered], persistent))
           {
-            v36 = sub_1000049CC();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+            v39 = sub_1000049CC(persistent);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
             {
-              if ([v34 persistent])
+              if ([v35 persistent])
               {
-                v43 = @"persistent";
+                v46 = @"persistent";
               }
 
               else
               {
-                v43 = @"registered";
+                v46 = @"registered";
               }
 
-              tokenID = [v34 tokenID];
+              tokenID = [v35 tokenID];
               *buf = 138412546;
-              v60 = v43;
-              v61 = 2114;
-              v62 = tokenID;
-              _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Read %@ token %{public}@", buf, 0x16u);
+              v63 = v46;
+              v64 = 2114;
+              v65 = tokenID;
+              _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "Read %@ token %{public}@", buf, 0x16u);
             }
 
             tokensByTokenID = self->_tokensByTokenID;
-            tokenID2 = [v34 tokenID];
-            [(NSMutableDictionary *)tokensByTokenID setObject:v34 forKeyedSubscript:tokenID2];
+            tokenID2 = [v35 tokenID];
+            [(NSMutableDictionary *)tokensByTokenID setObject:v35 forKeyedSubscript:tokenID2];
           }
 
           else
           {
-            v39 = sub_1000049CC();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+            v42 = sub_1000049CC(persistent);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
-              tokenID3 = [v34 tokenID];
+              tokenID3 = [v35 tokenID];
               *buf = 138543362;
-              v60 = tokenID3;
-              _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Deleting keychain items from token %{public}@", buf, 0xCu);
+              v63 = tokenID3;
+              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Deleting keychain items from token %{public}@", buf, 0xCu);
             }
 
-            [v34 setKeychainItems:&__NSArray0__struct];
-            markModified = [v51 markModified];
-            tokenID2 = [v34 tokenID];
-            v42 = [v51 keychainItemsModified:tokenID2];
+            [v35 setKeychainItems:&__NSArray0__struct];
+            markModified = [v54 markModified];
+            tokenID2 = [v35 tokenID];
+            v45 = [v54 keychainItemsModified:tokenID2];
           }
         }
 
         else
         {
-          tokenID2 = sub_1000049CC();
+          tokenID2 = sub_1000049CC(v37);
           if (os_log_type_enabled(tokenID2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v60 = v31;
-            v61 = 2114;
-            v62 = v35;
+            v63 = v32;
+            v64 = 2114;
+            v65 = v36;
             _os_log_error_impl(&_mh_execute_header, tokenID2, OS_LOG_TYPE_ERROR, "Failed to read data of token %{public}@ - skipping. Error: %{public}@", buf, 0x16u);
           }
         }
 
-        v30 = v30 + 1;
+        v31 = v31 + 1;
       }
 
-      while (v28 != v30);
-      v45 = [v27 countByEnumeratingWithState:&v55 objects:v63 count:16];
-      v28 = v45;
+      while (v29 != v31);
+      v48 = [v28 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v29 = v48;
     }
 
-    while (v45);
+    while (v48);
   }
 
   reloadTokenClassesFromStore = [(TKHostTokenRegistry *)self reloadTokenClassesFromStore];
   [(TKHostTokenRegistry *)self registerClassIDs:reloadTokenClassesFromStore];
-  [v51 commit];
+  [v54 commit];
   objc_initWeak(buf, self);
   keychain = [(TKHostTokenRegistry *)self keychain];
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_1000064D0;
-  v52[3] = &unk_1000389E8;
-  objc_copyWeak(&v53, buf);
-  [keychain accessKeychainWithBlock:v52];
+  v55[0] = _NSConcreteStackBlock;
+  v55[1] = 3221225472;
+  v55[2] = sub_1000064D0;
+  v55[3] = &unk_1000389E8;
+  objc_copyWeak(&v56, buf);
+  [keychain accessKeychainWithBlock:v55];
 
-  objc_destroyWeak(&v53);
+  objc_destroyWeak(&v56);
   objc_destroyWeak(buf);
 }
 
 - (id)reloadTokenClassesFromStore
 {
   v2 = [(TKHostTokenRegistry *)self beginTransaction:@"reloadTokenClassesFromStore"];
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2020000000;
-  v79 = 0;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x2020000000;
+  v81 = 0;
   storage = [(TKHostTokenRegistry *)self storage];
   v4 = [(TKHostTokenRegistry *)self stringForStorageKey:1];
   v5 = [storage objectForKey:v4];
@@ -991,67 +1017,67 @@ LABEL_22:
   }
 
   tokenExtensions = [v2 tokenExtensions];
-  v74[0] = _NSConcreteStackBlock;
-  v74[1] = 3221225472;
-  v74[2] = sub_100006FA4;
-  v74[3] = &unk_100038A10;
-  v53 = [&__NSDictionary0__struct mutableCopy];
-  v75 = v53;
-  [tokenExtensions enumerateKeysAndObjectsUsingBlock:v74];
+  v76[0] = _NSConcreteStackBlock;
+  v76[1] = 3221225472;
+  v76[2] = sub_100006FA4;
+  v76[3] = &unk_100038A10;
+  v55 = [&__NSDictionary0__struct mutableCopy];
+  v77 = v55;
+  [tokenExtensions enumerateKeysAndObjectsUsingBlock:v76];
+  v74 = 0u;
+  v75 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
   obj = v5;
-  v52 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
-  if (v52)
+  v54 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
+  if (v54)
   {
-    v51 = *v71;
+    v53 = *v73;
     *&v6 = 138543618;
-    v49 = v6;
+    v51 = v6;
     do
     {
       v7 = 0;
       do
       {
-        if (*v71 != v51)
+        if (*v73 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v70 + 1) + 8 * v7);
-        v9 = [obj objectForKeyedSubscript:{v8, v49}];
-        v10 = [v53 objectForKeyedSubscript:v8];
+        v8 = *(*(&v72 + 1) + 8 * v7);
+        v9 = [obj objectForKeyedSubscript:{v8, v51}];
+        v10 = [v55 objectForKeyedSubscript:v8];
         v11 = [v9 isEqual:v10];
-        v55 = v7;
+        v57 = v7;
 
         if ((v11 & 1) == 0)
         {
-          v12 = [v53 objectForKeyedSubscript:v8];
+          v12 = [v55 objectForKeyedSubscript:v8];
           v13 = v12 == 0;
 
           if (v13)
           {
             v14 = [&__NSArray0__struct mutableCopy];
+            v70 = 0u;
+            v71 = 0u;
             v68 = 0u;
             v69 = 0u;
-            v66 = 0u;
-            v67 = 0u;
             v15 = self->_tokensByTokenID;
-            v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v66 objects:v85 count:16];
+            v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v68 objects:v87 count:16];
             if (v16)
             {
-              v17 = *v67;
+              v17 = *v69;
               do
               {
                 for (i = 0; i != v16; i = i + 1)
                 {
-                  if (*v67 != v17)
+                  if (*v69 != v17)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v19 = *(*(&v66 + 1) + 8 * i);
+                  v19 = *(*(&v68 + 1) + 8 * i);
                   classID = [v19 classID];
                   v21 = [classID isEqualToString:v8];
 
@@ -1062,156 +1088,157 @@ LABEL_22:
                   }
                 }
 
-                v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v66 objects:v85 count:16];
+                v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v68 objects:v87 count:16];
               }
 
               while (v16);
             }
 
-            v23 = sub_1000049CC();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            v24 = sub_1000049CC(v23);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
-              v24 = [tokenExtensions objectForKeyedSubscript:v8];
-              identifier = [v24 identifier];
-              v26 = [v14 count];
-              *buf = v49;
-              v82 = identifier;
-              v83 = 1024;
-              v84 = v26;
-              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Token driver %{public}@ disappeared, deleting its %d tokens", buf, 0x12u);
+              v25 = [tokenExtensions objectForKeyedSubscript:v8];
+              identifier = [v25 identifier];
+              v27 = [v14 count];
+              *buf = v51;
+              v84 = identifier;
+              v85 = 1024;
+              v86 = v27;
+              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Token driver %{public}@ disappeared, deleting its %d tokens", buf, 0x12u);
             }
 
+            v66 = 0u;
+            v67 = 0u;
             v64 = 0u;
             v65 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v27 = v14;
-            v28 = [v27 countByEnumeratingWithState:&v62 objects:v80 count:16];
-            if (v28)
+            v28 = v14;
+            v29 = [v28 countByEnumeratingWithState:&v64 objects:v82 count:16];
+            if (v29)
             {
-              v29 = *v63;
+              v30 = *v65;
               do
               {
-                for (j = 0; j != v28; j = j + 1)
+                for (j = 0; j != v29; j = j + 1)
                 {
-                  if (*v63 != v29)
+                  if (*v65 != v30)
                   {
-                    objc_enumerationMutation(v27);
+                    objc_enumerationMutation(v28);
                   }
 
-                  v31 = *(*(&v62 + 1) + 8 * j);
-                  [v31 setKeychainItems:&__NSArray0__struct];
+                  v32 = *(*(&v64 + 1) + 8 * j);
+                  [v32 setKeychainItems:&__NSArray0__struct];
                   tokensByTokenID = self->_tokensByTokenID;
-                  tokenID = [v31 tokenID];
+                  tokenID = [v32 tokenID];
                   [(NSMutableDictionary *)tokensByTokenID removeObjectForKey:tokenID];
 
                   markModified = [v2 markModified];
-                  tokenID2 = [v31 tokenID];
-                  v36 = [v2 keychainItemsModified:tokenID2];
+                  tokenID2 = [v32 tokenID];
+                  v37 = [v2 keychainItemsModified:tokenID2];
                 }
 
-                v28 = [v27 countByEnumeratingWithState:&v62 objects:v80 count:16];
+                v29 = [v28 countByEnumeratingWithState:&v64 objects:v82 count:16];
               }
 
-              while (v28);
+              while (v29);
             }
           }
 
-          *(v77 + 24) = 1;
+          *(v79 + 24) = 1;
         }
 
-        v7 = v55 + 1;
+        v7 = v57 + 1;
       }
 
-      while ((v55 + 1) != v52);
-      v52 = [obj countByEnumeratingWithState:&v70 objects:v86 count:16];
+      while ((v57 + 1) != v54);
+      v54 = [obj countByEnumeratingWithState:&v72 objects:v88 count:16];
     }
 
-    while (v52);
+    while (v54);
   }
 
-  v37 = [&__NSDictionary0__struct mutableCopy];
-  v57[0] = _NSConcreteStackBlock;
-  v57[1] = 3221225472;
-  v57[2] = sub_100007038;
-  v57[3] = &unk_100038A38;
-  v38 = obj;
-  v58 = v38;
-  v39 = v37;
-  v59 = v39;
-  v40 = tokenExtensions;
-  v60 = v40;
-  v61 = &v76;
-  [v53 enumerateKeysAndObjectsUsingBlock:v57];
-  if (*(v77 + 24) == 1)
+  v38 = [&__NSDictionary0__struct mutableCopy];
+  v59[0] = _NSConcreteStackBlock;
+  v59[1] = 3221225472;
+  v59[2] = sub_100007038;
+  v59[3] = &unk_100038A38;
+  v39 = obj;
+  v60 = v39;
+  v40 = v38;
+  v61 = v40;
+  v41 = tokenExtensions;
+  v62 = v41;
+  v63 = &v78;
+  v42 = [v55 enumerateKeysAndObjectsUsingBlock:v59];
+  if (*(v79 + 24) == 1)
   {
-    v41 = sub_1000049CC();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v43 = sub_1000049CC(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001E404([v53 count], buf, v41);
+      sub_10001E404([v55 count], buf, v43);
     }
 
-    allKeys = [v53 allKeys];
+    allKeys = [v55 allKeys];
     tokenClassIDs = self->_tokenClassIDs;
     self->_tokenClassIDs = allKeys;
 
     storage2 = [(TKHostTokenRegistry *)self storage];
-    v45 = [(TKHostTokenRegistry *)self stringForStorageKey:1];
-    [storage2 setObject:v53 forKey:v45];
+    v47 = [(TKHostTokenRegistry *)self stringForStorageKey:1];
+    [storage2 setObject:v55 forKey:v47];
   }
 
   [v2 commit];
-  v46 = v60;
-  v47 = v39;
+  v48 = v62;
+  v49 = v40;
 
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v78, 8);
 
-  return v47;
+  return v49;
 }
 
 - (void)registerClassIDs:(id)ds
 {
   dsCopy = ds;
-  v25 = [(TKHostTokenRegistry *)self beginTransaction:@"registerClassIDs"];
+  v27 = [(TKHostTokenRegistry *)self beginTransaction:@"registerClassIDs"];
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   obj = [dsCopy allKeys];
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v5)
   {
-    v7 = *v29;
+    v7 = *v31;
     *&v6 = 138543618;
-    v24 = v6;
+    v26 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v29 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v8);
+        v9 = *(*(&v30 + 1) + 8 * v8);
         driverCache = [(TKHostTokenRegistry *)self driverCache];
         v11 = [dsCopy objectForKeyedSubscript:v9];
         v12 = [driverCache hostTokenDriverFromExtension:v11];
 
-        v27 = 0;
-        LODWORD(driverCache) = [v12 configureWithError:&v27];
-        v13 = v27;
+        v29 = 0;
+        LODWORD(driverCache) = [v12 configureWithError:&v29];
+        v13 = v29;
+        v14 = v13;
         if (driverCache)
         {
-          v14 = sub_1000049CC();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v15 = sub_1000049CC(v13);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
             extension = [v12 extension];
             identifier = [extension identifier];
             *buf = 138543362;
-            v33 = identifier;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "New token driver %{public}@ successfully configured", buf, 0xCu);
+            v35 = identifier;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "New token driver %{public}@ successfully configured", buf, 0xCu);
           }
         }
 
@@ -1219,25 +1246,25 @@ LABEL_22:
         {
           selfCopy = self;
           objc_sync_enter(selfCopy);
-          v18 = [(NSArray *)self->_tokenClassIDs mutableCopy];
-          [v18 removeObject:v9];
-          v19 = [v18 copy];
+          v19 = [(NSArray *)self->_tokenClassIDs mutableCopy];
+          [v19 removeObject:v9];
+          v20 = [v19 copy];
           tokenClassIDs = self->_tokenClassIDs;
-          self->_tokenClassIDs = v19;
+          self->_tokenClassIDs = v20;
 
-          markModified = [v25 markModified];
+          markModified = [v27 markModified];
           objc_sync_exit(selfCopy);
 
-          v14 = sub_1000049CC();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = sub_1000049CC(v23);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             extension2 = [v12 extension];
             identifier2 = [extension2 identifier];
-            *buf = v24;
-            v33 = identifier2;
-            v34 = 2114;
-            v35 = v13;
-            _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Configuration of token driver %{public}@ failed: %{public}@", buf, 0x16u);
+            *buf = v26;
+            v35 = identifier2;
+            v36 = 2114;
+            v37 = v14;
+            _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Configuration of token driver %{public}@ failed: %{public}@", buf, 0x16u);
           }
         }
 
@@ -1245,13 +1272,13 @@ LABEL_22:
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v5);
   }
 
-  [v25 commit];
+  [v27 commit];
 }
 
 - (id)stringForStorageKey:(int64_t)key

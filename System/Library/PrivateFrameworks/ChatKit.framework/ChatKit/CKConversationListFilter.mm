@@ -132,17 +132,17 @@ LABEL_6:
 - (BOOL)_isSpamFilteredConversation:(id)conversation
 {
   conversationCopy = conversation;
-  if (CKMessageSpamFilteringEnabled() && ([conversationCopy chat], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "account"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "service"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69A5C90], "smsService"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v4, v6 == v7) && objc_msgSend(conversationCopy, "wasDetectedAsSMSCategory"))
+  if (CKMessageSpamFilteringEnabled(conversationCopy, v4) && ([conversationCopy chat], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "account"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "service"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E69A5C90], "smsService"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v5, v7 == v8) && objc_msgSend(conversationCopy, "wasDetectedAsSMSCategory"))
   {
-    v8 = [conversationCopy isKnownSender] ^ 1;
+    v9 = [conversationCopy isKnownSender] ^ 1;
   }
 
   else
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(v9) = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (unint64_t)_spamFilterInboxForConversation:(id)conversation

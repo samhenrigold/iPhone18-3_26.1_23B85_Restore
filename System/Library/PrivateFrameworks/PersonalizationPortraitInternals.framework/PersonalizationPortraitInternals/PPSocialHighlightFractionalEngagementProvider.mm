@@ -80,22 +80,11 @@ LABEL_15:
 - (id)valueForHighlight:(id)highlight
 {
   v4 = (*(self->_keyBlock + 2))();
-  if (!v4)
+  if (v4 && (-[NSMutableDictionary objectForKeyedSubscript:](self->_engagementsByKey, "objectForKeyedSubscript:", v4), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 unsignedIntegerValue], v5, -[NSMutableDictionary objectForKeyedSubscript:](self->_offeredByKey, "objectForKeyedSubscript:", v4), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "unsignedIntegerValue"), v7, v6 | v8))
   {
-    goto LABEL_3;
-  }
-
-  v5 = [(NSMutableDictionary *)self->_engagementsByKey objectForKeyedSubscript:v4];
-  unsignedIntegerValue = [v5 unsignedIntegerValue];
-
-  v7 = [(NSMutableDictionary *)self->_offeredByKey objectForKeyedSubscript:v4];
-  unsignedIntegerValue2 = [v7 unsignedIntegerValue];
-
-  if (unsignedIntegerValue | unsignedIntegerValue2)
-  {
-    if (unsignedIntegerValue)
+    if (v6)
     {
-      v11 = unsignedIntegerValue2 == 0;
+      v11 = v8 == 0;
     }
 
     else
@@ -110,13 +99,12 @@ LABEL_15:
 
     else
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithDouble:unsignedIntegerValue / unsignedIntegerValue2];
+      v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6 / v8];
     }
   }
 
   else
   {
-LABEL_3:
     v9 = &unk_284786100;
   }
 

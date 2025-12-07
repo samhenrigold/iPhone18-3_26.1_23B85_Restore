@@ -150,33 +150,32 @@ void __40__AXCaptionPreviewView__updateSubtitle___block_invoke(uint64_t a1)
   return v2;
 }
 
-void __35__AXCaptionPreviewView_cloudImages__block_invoke()
+void __35__AXCaptionPreviewView_cloudImages__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(NSMutableArray);
-  v1 = cloudImages_Clouds;
-  cloudImages_Clouds = v0;
+  v1 = objc_alloc_init(NSMutableArray);
+  v2 = cloudImages_Clouds;
+  cloudImages_Clouds = v1;
 
-  v2 = [NSBundle bundleForClass:objc_opt_class()];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v3 = [&off_27D088 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = [&off_27D088 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v14;
+    v5 = v4;
+    v6 = *v10;
     do
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v5; i = i + 1)
       {
-        if (*v14 != v5)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(&off_27D088);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
-        v8 = [UIImage imageNamed:v7 inBundle:v2, v9, v10, v11, v12];
+        v8 = [UIImage imageNamed:*(*(&v9 + 1) + 8 * i) inBundle:v3];
         if (v8)
         {
           [cloudImages_Clouds addObject:v8];
@@ -184,18 +183,14 @@ void __35__AXCaptionPreviewView_cloudImages__block_invoke()
 
         else
         {
-          v11 = v7;
-          v12 = v2;
-          v10 = @"Unable to find image named %@ in bundle %@";
-          LOBYTE(v9) = 1;
-          _AXLogWithFacility();
+          _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unable to find image named %@ in bundle %@");
         }
       }
 
-      v4 = [&off_27D088 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [&off_27D088 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v4);
+    while (v5);
   }
 }
 

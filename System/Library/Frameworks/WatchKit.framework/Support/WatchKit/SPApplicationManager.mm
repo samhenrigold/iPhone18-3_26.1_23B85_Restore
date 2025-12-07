@@ -101,36 +101,36 @@
 
   if (bOOLValue)
   {
-    v7 = wk_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = wk_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v18 = "[SPApplicationManager registerForContinuousPluginDiscovery]";
-      v19 = 1024;
-      v20 = 239;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: PLUGIN_LOADING: SPEnableExcessivePluginLoadingLogging default is set, so logging is on", buf, 0x12u);
+      v19 = "[SPApplicationManager registerForContinuousPluginDiscovery]";
+      v20 = 1024;
+      v21 = 239;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: PLUGIN_LOADING: SPEnableExcessivePluginLoadingLogging default is set, so logging is on", buf, 0x12u);
     }
   }
 
-  v8 = +[NSMutableDictionary dictionary];
-  [(SPApplicationManager *)self setContinuouslyDiscoveredPlugins:v8];
+  v9 = +[NSMutableDictionary dictionary];
+  [(SPApplicationManager *)self setContinuouslyDiscoveredPlugins:v9];
 
   objc_initWeak(buf, self);
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1000171D0;
-  v13[3] = &unk_100045D28;
-  objc_copyWeak(&v14, buf);
-  [(SPApplicationManager *)self setPluginsFoundBlock:v13];
-  v9 = +[PKHost defaultHost];
-  v15 = @"WKAppBundleIdentifier";
-  v16 = @"<>";
-  v10 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000171D0;
+  v14[3] = &unk_100045D28;
+  objc_copyWeak(&v15, buf);
+  [(SPApplicationManager *)self setPluginsFoundBlock:v14];
+  v10 = +[PKHost defaultHost];
+  v16 = @"WKAppBundleIdentifier";
+  v17 = @"<>";
+  v11 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
   pluginsFoundBlock = [(SPApplicationManager *)self pluginsFoundBlock];
-  v12 = [v9 continuouslyDiscoverPlugInsForAttributes:v10 flags:0 found:pluginsFoundBlock];
-  [(SPApplicationManager *)self setWkContinuousDiscoveryToken:v12];
+  v13 = [v10 continuouslyDiscoverPlugInsForAttributes:v11 flags:0 found:pluginsFoundBlock];
+  [(SPApplicationManager *)self setWkContinuousDiscoveryToken:v13];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 
@@ -149,7 +149,7 @@
     v9 = [v7 objectForKeyedSubscript:@"plugin"];
     if (!v9)
     {
-      v10 = wk_default_log();
+      v10 = wk_default_log(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_100029A84();
@@ -254,26 +254,26 @@
   if (v12)
   {
     objc_initWeak(&location, self);
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100019898;
-    v14[3] = &unk_100045ED8;
-    v15 = v12;
-    objc_copyWeak(&v20, &location);
-    v18 = completionCopy;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100019898;
+    v15[3] = &unk_100045ED8;
+    v16 = v12;
+    objc_copyWeak(&v21, &location);
+    v19 = completionCopy;
     selfCopy = self;
-    v17 = applicationCopy;
-    v19 = blockCopy;
-    [(SPApplicationManager *)self waitForPreviousPluginToFinishEnding:v15 toComplete:v14];
+    v18 = applicationCopy;
+    v20 = blockCopy;
+    [(SPApplicationManager *)self waitForPreviousPluginToFinishEnding:v16 toComplete:v15];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v13 = wk_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = wk_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100029BBC();
     }
@@ -286,7 +286,7 @@
 {
   deathCopy = death;
   extensionCopy = extension;
-  v7 = wk_default_log();
+  v7 = wk_default_log(extensionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
@@ -496,35 +496,35 @@
 
     if (intValue - 4 > 0xFFFFFFFD)
     {
-      v12 = [v8 copy];
+      v13 = [v8 copy];
     }
 
     else
     {
-      v11 = wk_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = wk_default_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136446978;
-        v15 = "[SPApplicationManager pluginIdentifierForProtocolIdentifier:]";
-        v16 = 1024;
-        v17 = 588;
-        v18 = 2114;
-        v19 = identifierCopy;
-        v20 = 2114;
-        v21 = v8;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Asked for plugin for %{public}@. Answer is %{public}@, but status is not installed, so returning nil.", &v14, 0x26u);
+        v15 = 136446978;
+        v16 = "[SPApplicationManager pluginIdentifierForProtocolIdentifier:]";
+        v17 = 1024;
+        v18 = 588;
+        v19 = 2114;
+        v20 = identifierCopy;
+        v21 = 2114;
+        v22 = v8;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: Asked for plugin for %{public}@. Answer is %{public}@, but status is not installed, so returning nil.", &v15, 0x26u);
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)identifierForPluginProxy:(id)proxy
@@ -696,47 +696,49 @@ LABEL_11:
 
   if (v8)
   {
-    v9 = [v8 objectForKeyedSubscript:@"SPContainerAppBundleId"];
-    v10 = [v8 objectForKeyedSubscript:@"SPPluginBundleIdKey"];
-    v11 = [NSMutableArray arrayWithCapacity:3];
-    [v11 addObject:v5];
-    if (v9)
-    {
-      [v11 addObject:v9];
-    }
-
+    v10 = [v8 objectForKeyedSubscript:@"SPContainerAppBundleId"];
+    v11 = [v8 objectForKeyedSubscript:@"SPPluginBundleIdKey"];
+    v12 = [NSMutableArray arrayWithCapacity:3];
+    [v12 addObject:v5];
     if (v10)
     {
-      [v11 addObject:v10];
+      [v12 addObject:v10];
     }
 
-    if ([v6 isEqualToString:@"a"])
+    if (v11)
     {
-      v12 = wk_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      [v12 addObject:v11];
+    }
+
+    v13 = [v6 isEqualToString:@"a"];
+    if (v13)
+    {
+      v14 = wk_default_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136446722;
-        v32 = "[SPApplicationManager updateCoreDuetSession:]";
-        v33 = 1024;
-        v34 = 719;
-        v35 = 2114;
-        v36 = v11;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: calling [_CDClientContext addObjects:] with %{public}@", &v31, 0x1Cu);
+        v20 = 136446722;
+        v21 = "[SPApplicationManager updateCoreDuetSession:]";
+        v22 = 1024;
+        v23 = 719;
+        v24 = 2114;
+        v25 = v12;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: calling [_CDClientContext addObjects:] with %{public}@", &v20, 0x1Cu);
       }
 
       userContext = [sub_10001B538() userContext];
-      v21 = [sub_10001B618(userContext v14];
-      [userContext addObjects:v11 toArrayAtKeyPath:v21];
+      keyPathForServicesAppearingForeground = [sub_10001B618() keyPathForServicesAppearingForeground];
+      [userContext addObjects:v12 toArrayAtKeyPath:keyPathForServicesAppearingForeground];
     }
 
     else
     {
-      v22 = [v6 isEqualToString:@"d"];
-      v23 = wk_default_log();
-      userContext = v23;
-      if (!v22)
+      v17 = [v6 isEqualToString:@"d"];
+      v18 = v17;
+      v19 = wk_default_log(v17);
+      userContext = v19;
+      if (!v18)
       {
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           sub_100029E30();
         }
@@ -744,28 +746,28 @@ LABEL_11:
         goto LABEL_19;
       }
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 136446722;
-        v32 = "[SPApplicationManager updateCoreDuetSession:]";
-        v33 = 1024;
-        v34 = 723;
-        v35 = 2114;
-        v36 = v11;
-        _os_log_impl(&_mh_execute_header, userContext, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: calling [_CDClientContext removeObjects:] with %{public}@", &v31, 0x1Cu);
+        v20 = 136446722;
+        v21 = "[SPApplicationManager updateCoreDuetSession:]";
+        v22 = 1024;
+        v23 = 723;
+        v24 = 2114;
+        v25 = v12;
+        _os_log_impl(&_mh_execute_header, userContext, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: calling [_CDClientContext removeObjects:] with %{public}@", &v20, 0x1Cu);
       }
 
       userContext = [sub_10001B538() userContext];
-      v21 = [sub_10001B618(userContext v24];
-      [userContext removeObjects:v11 fromArrayAtKeyPath:v21];
+      keyPathForServicesAppearingForeground = [sub_10001B618() keyPathForServicesAppearingForeground];
+      [userContext removeObjects:v12 fromArrayAtKeyPath:keyPathForServicesAppearingForeground];
     }
 
 LABEL_19:
     goto LABEL_20;
   }
 
-  v9 = wk_default_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = wk_default_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     sub_100029EC0();
   }
@@ -811,7 +813,7 @@ LABEL_20:
 - (void)markPluginWithIdentifierNeedsBeginUsing:(id)using
 {
   usingCopy = using;
-  v5 = wk_default_log();
+  v5 = wk_default_log(usingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -853,7 +855,7 @@ LABEL_20:
 - (void)notifyActiveForPluginWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = wk_default_log();
+  v5 = wk_default_log(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -884,7 +886,7 @@ LABEL_20:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = wk_default_log();
+  v8 = wk_default_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;

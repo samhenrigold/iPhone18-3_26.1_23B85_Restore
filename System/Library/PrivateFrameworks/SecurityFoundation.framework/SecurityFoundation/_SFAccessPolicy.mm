@@ -14,17 +14,17 @@
 
 + (id)accessPolicyWithSecAccessibility:(__CFString *)accessibility error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (CFEqual(accessibility, *MEMORY[0x277CDBF10]))
   {
     v7 = 2;
 LABEL_3:
     v8 = 1;
 LABEL_6:
-    v17 = 0uLL;
-    v15 = v8;
     v16 = 0uLL;
-    v9 = [[self alloc] initWithAccessibility:&v15 sharingPolicy:v7];
+    v14 = v8;
+    v15 = 0uLL;
+    v9 = [[self alloc] initWithAccessibility:&v14 sharingPolicy:v7];
     goto LABEL_7;
   }
 
@@ -50,17 +50,16 @@ LABEL_6:
 
   if (error)
   {
-    v12 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
+    v11 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA450];
     accessibility = [MEMORY[0x277CCACA8] stringWithFormat:@"invalid secAccessibility for SFAccessPolicy: %@", accessibility];
-    v19[0] = accessibility;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-    *error = [v12 errorWithDomain:@"SFKeychainErrorDomain" code:10 userInfo:v14];
+    v18[0] = accessibility;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    *error = [v11 errorWithDomain:@"SFKeychainErrorDomain" code:10 userInfo:v13];
   }
 
   v9 = 0;
 LABEL_7:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -91,11 +90,11 @@ LABEL_7:
 
 - (_SFAccessPolicy)initWithCoder:(id)coder
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = _SFAccessPolicy;
-  v5 = [(_SFAccessPolicy *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = _SFAccessPolicy;
+  v5 = [(_SFAccessPolicy *)&v15 init];
   if (v5)
   {
     if ([coderCopy containsValueForKey:@"SFAccessPolicyAccessibilityMode"])
@@ -111,9 +110,9 @@ LABEL_7:
     if (![coderCopy containsValueForKey:@"SFAccessPolicySharingMode"] || (v7 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"SFAccessPolicySharingMode"), v6 < 0) || v7 < 0)
     {
       v11 = MEMORY[0x277CCA9B8];
-      v17 = *MEMORY[0x277CCA450];
-      v18[0] = @"failed to deserialize SFAccessPolicy instance";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = *MEMORY[0x277CCA450];
+      v17[0] = @"failed to deserialize SFAccessPolicy instance";
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       v13 = [v11 errorWithDomain:@"SFKeychainErrorDomain" code:4 userInfo:v12];
       [coderCopy failWithError:v13];
 
@@ -133,7 +132,6 @@ LABEL_7:
   v10 = v5;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -179,7 +177,7 @@ LABEL_11:
       {
         v6 = v5;
         mode = self->_accessibility.mode;
-        [(_SFAccessPolicy *)v6 accessibility];
+        objc_msgSend_accessibility(v6);
         if (mode == v14 && (sharingPolicy = self->_sharingPolicy, sharingPolicy == [(_SFAccessPolicy *)v6 sharingPolicy]))
         {
           accessGroup = self->_accessGroup;

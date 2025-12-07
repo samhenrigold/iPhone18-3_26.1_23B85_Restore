@@ -1185,10 +1185,10 @@ LABEL_6:
     if (v8)
     {
       v9 = [[SBScrollToAppLayoutSwitcherEventResponse alloc] initWithAppLayout:v8 alignment:0 animated:0];
-      v10 = SBAppendSwitcherModifierResponse(v9, v4);
+      v10 = SBAppendSwitcherModifierResponse();
 
       v11 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:30 updateMode:2];
-      v4 = SBAppendSwitcherModifierResponse(v11, v10);
+      v4 = SBAppendSwitcherModifierResponse();
     }
   }
 
@@ -1219,7 +1219,7 @@ LABEL_6:
   v14.super_class = SBShelfCarouselSwitcherModifier;
   v11 = [(SBSwitcherModifier *)&v14 handleTapAppLayoutEvent:eventCopy];
 
-  v12 = SBAppendSwitcherModifierResponse(v10, v11);
+  v12 = SBAppendSwitcherModifierResponse();
 
   return v12;
 }
@@ -1230,10 +1230,10 @@ LABEL_6:
   v9.super_class = SBShelfCarouselSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v9 handleShelfFocusedDisplayItemsChangedEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:3];
-  v7 = SBAppendSwitcherModifierResponse(v6, v5);
+  v7 = SBAppendSwitcherModifierResponse();
 
   return v7;
 }

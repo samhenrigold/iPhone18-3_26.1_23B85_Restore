@@ -27,6 +27,7 @@
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account;
 - (void)postProcessApplicationData;
 - (void)saveToCalendarWithParentASEvent:(id)event existingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
+- (void)setObject:(id)object forDCCPT:(int)t;
 - (void)takeValuesFromParentForAccount:(id)account;
 @end
 
@@ -115,6 +116,29 @@
   }
 
   return v2 & 1;
+}
+
+- (void)setObject:(id)object forDCCPT:(int)t
+{
+  v4 = *&t;
+  objectCopy = object;
+  placeHolder = [(ASEventException *)self placeHolder];
+
+  if (!placeHolder)
+  {
+    v7 = objc_opt_new();
+    [(ASEventException *)self setPlaceHolder:v7];
+  }
+
+  v8 = objectCopy;
+  if (objectCopy)
+  {
+    placeHolder2 = [(ASEventException *)self placeHolder];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    [placeHolder2 setObject:objectCopy forKeyedSubscript:v10];
+
+    v8 = objectCopy;
+  }
 }
 
 + (id)asParseRules
@@ -262,22 +286,11 @@
 
 - (BOOL)verifyExternalIdsForAccountID:(id)d
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   clientID = [(ASChangedCollectionLeaf *)self clientID];
 
-  if (!clientID)
-  {
-    goto LABEL_9;
-  }
-
-  v6 = +[ASLocalDBHelper sharedInstance];
-  [v6 calDatabaseForAccountID:dCopy];
-  clientID2 = [(ASChangedCollectionLeaf *)self clientID];
-  [clientID2 intValue];
-  v8 = CalDatabaseCopyCalendarItemWithRowID();
-
-  if (v8)
+  if (clientID && (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 calDatabaseForAccountID:dCopy], -[ASChangedCollectionLeaf clientID](self, "clientID"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "intValue"), v8 = CalDatabaseCopyCalendarItemWithRowID(), v7, v6, v8))
   {
     v9 = CalCalendarItemCopyExternalID();
     v10 = CalEventCopyOriginalEvent();
@@ -301,8 +314,8 @@
           {
             *buf = 67109378;
             ID = CalEntityGetID();
-            v32 = 2112;
-            v33 = v13;
+            v31 = 2112;
+            v32 = v13;
             _os_log_impl(&dword_24A0AC000, v15, v16, "Calling CalCalendarItemSetExternalID to set event with RowID: %d with external ID: %@", buf, 0x12u);
           }
 
@@ -310,30 +323,30 @@
           v14 = 1;
         }
 
-        v24 = v13;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
+        v23 = v13;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         exceptions = [(ASEvent *)self exceptions];
-        v18 = [exceptions countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v18 = [exceptions countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v26;
+          v20 = *v25;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v26 != v20)
+              if (*v25 != v20)
               {
                 objc_enumerationMutation(exceptions);
               }
 
-              v14 |= [*(*(&v25 + 1) + 8 * i) verifyExternalIdsForAccountID:dCopy];
+              v14 |= [*(*(&v24 + 1) + 8 * i) verifyExternalIdsForAccountID:dCopy];
             }
 
-            v19 = [exceptions countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v19 = [exceptions countByEnumeratingWithState:&v24 objects:v28 count:16];
           }
 
           while (v19);
@@ -358,11 +371,9 @@
 
   else
   {
-LABEL_9:
     LOBYTE(v14) = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -539,7 +550,7 @@ LABEL_8:
 
 - (void)takeValuesFromParentForAccount:(id)account
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   originalEvent = [(ASEventException *)self originalEvent];
   eventUID = [originalEvent eventUID];
@@ -665,30 +676,30 @@ LABEL_8:
     attendees2 = [originalEvent11 attendees];
 
     v47 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(attendees2, "count")}];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
     v48 = attendees2;
-    v49 = [v48 countByEnumeratingWithState:&v84 objects:v88 count:16];
+    v49 = [v48 countByEnumeratingWithState:&v83 objects:v87 count:16];
     if (v49)
     {
       v50 = v49;
-      v51 = *v85;
+      v51 = *v84;
       do
       {
         for (i = 0; i != v50; ++i)
         {
-          if (*v85 != v51)
+          if (*v84 != v51)
           {
             objc_enumerationMutation(v48);
           }
 
-          copyOfSelfWithoutLocalID = [*(*(&v84 + 1) + 8 * i) copyOfSelfWithoutLocalID];
+          copyOfSelfWithoutLocalID = [*(*(&v83 + 1) + 8 * i) copyOfSelfWithoutLocalID];
           [v47 addObject:copyOfSelfWithoutLocalID];
         }
 
-        v50 = [v48 countByEnumeratingWithState:&v84 objects:v88 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v83 objects:v87 count:16];
       }
 
       while (v50);
@@ -775,8 +786,6 @@ LABEL_8:
 
     [(ASEventException *)self setExceptionStartTime:v82];
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadAttributesFromCalEvent:(void *)event withKnownExceptionDate:(id)date forAccount:(id)account
@@ -894,7 +903,7 @@ LABEL_8:
 
 - (void)appendActiveSyncDataForTask:(id)task toWBXMLData:(id)data
 {
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   isDeleted = [(ASEventException *)self isDeleted];
@@ -1217,27 +1226,27 @@ LABEL_68:
     if ((v106 & 1) == 0)
     {
       [dataCopy openProspectiveTag:7];
-      v119 = 0u;
-      v120 = 0u;
-      v117 = 0u;
       v118 = 0u;
+      v119 = 0u;
+      v116 = 0u;
+      v117 = 0u;
       attendees3 = [(ASEvent *)self attendees];
-      v108 = [attendees3 countByEnumeratingWithState:&v117 objects:v121 count:16];
+      v108 = [attendees3 countByEnumeratingWithState:&v116 objects:v120 count:16];
       if (v108)
       {
         v109 = v108;
         v110 = 0;
-        v111 = *v118;
+        v111 = *v117;
         do
         {
           for (i = 0; i != v109; ++i)
           {
-            if (*v118 != v111)
+            if (*v117 != v111)
             {
               objc_enumerationMutation(attendees3);
             }
 
-            v113 = *(*(&v117 + 1) + 8 * i);
+            v113 = *(*(&v116 + 1) + 8 * i);
             if ([v113 status] != 6)
             {
               [dataCopy openTag:8];
@@ -1247,7 +1256,7 @@ LABEL_68:
             }
           }
 
-          v109 = [attendees3 countByEnumeratingWithState:&v117 objects:v121 count:16];
+          v109 = [attendees3 countByEnumeratingWithState:&v116 objects:v120 count:16];
         }
 
         while (v109);
@@ -1270,8 +1279,6 @@ LABEL_68:
   }
 
 LABEL_85:
-
-  v114 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadClientIDs
@@ -1307,11 +1314,11 @@ LABEL_85:
 
 - (ASEventException)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = ASEventException;
-  v6 = [(ASEvent *)&v14 initWithCoder:coderCopy];
+  v13.receiver = self;
+  v13.super_class = ASEventException;
+  v6 = [(ASEvent *)&v13 initWithCoder:coderCopy];
   if (v6)
   {
     if (([coderCopy allowsKeyedCoding] & 1) == 0)
@@ -1323,15 +1330,14 @@ LABEL_85:
     [(ASEventException *)v6 setIsDeleted:v7];
 
     v8 = MEMORY[0x277CBEB98];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"exceptionStartTime"];
     [(ASEventException *)v6 setExceptionStartTime:v11];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

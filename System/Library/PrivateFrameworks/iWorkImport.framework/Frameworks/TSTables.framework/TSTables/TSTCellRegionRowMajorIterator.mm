@@ -11,19 +11,19 @@
 - (TSTCellRegionRowMajorIterator)initWithCellRegion:(id)region
 {
   regionCopy = region;
-  v15.receiver = self;
-  v15.super_class = TSTCellRegionRowMajorIterator;
-  v5 = [(TSTCellRegionRowMajorIterator *)&v15 init];
-  v8 = v5;
+  v13.receiver = self;
+  v13.super_class = TSTCellRegionRowMajorIterator;
+  v5 = [(TSTCellRegionRowMajorIterator *)&v13 init];
+  v7 = v5;
   if (v5)
   {
-    objc_msgSend_fillCellRangeRowMajorSet_leftToRight_(regionCopy, v6, &v5->mCellRangeSet, 1, v7);
-    v8->mBoundingCellRange.origin = objc_msgSend_boundingCellRange(regionCopy, v9, v10, v11, v12);
-    v8->mBoundingCellRange.size = v13;
-    v8->mCellID = *(v8->mCellRangeSet.__tree_.__begin_node_ + 28);
+    objc_msgSend_fillCellRangeRowMajorSet_leftToRight_(regionCopy, v6, &v5->mCellRangeSet, 1);
+    v7->mBoundingCellRange.origin = objc_msgSend_boundingCellRange(regionCopy, v8, v9, v10);
+    v7->mBoundingCellRange.size = v11;
+    v7->mCellID = *(v7->mCellRangeSet.__tree_.__begin_node_ + 28);
   }
 
-  return v8;
+  return v7;
 }
 
 - (TSUCellCoord)getNext
@@ -61,7 +61,7 @@
       LODWORD(v11) = v11 + 1;
       if (!v3)
       {
-        sub_2214546F4(p_mCellRangeSet, &v11);
+        sub_2214546F4(p_mCellRangeSet, &v11, &v11);
       }
 
       self->mCellID = *(self->mCellRangeSet.__tree_.__begin_node_ + 28);
@@ -141,7 +141,7 @@ LABEL_35:
       operator delete(begin_node);
       TSUCellRect::insetTop(&v18);
 LABEL_33:
-      sub_2214546F4(&self->mCellRangeSet, &v18.origin);
+      sub_2214546F4(&self->mCellRangeSet, &v18.origin, &v18);
       goto LABEL_34;
     }
 

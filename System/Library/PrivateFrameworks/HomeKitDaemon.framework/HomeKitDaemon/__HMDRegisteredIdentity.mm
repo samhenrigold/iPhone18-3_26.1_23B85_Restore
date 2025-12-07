@@ -33,7 +33,7 @@
     v5 = [(__HMDRegisteredIdentity *)&v12 init];
     if (v5)
     {
-      v6 = [identityCopy copy];
+      v6 = objc_msgSend_copy(identityCopy);
       identity = v5->_identity;
       v5->_identity = v6;
 

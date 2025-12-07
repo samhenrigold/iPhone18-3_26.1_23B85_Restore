@@ -3,7 +3,7 @@ uint64_t MIMachOUnhideArchsSavingOriginalHeader(const char *a1)
   size = 0;
   v15 = 0;
   v2 = open(a1, 256);
-  if (v2 < 0)
+  if ((v2 & 0x80000000) != 0)
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
@@ -60,7 +60,7 @@ uint64_t MIMachOUnhideArchsSavingOriginalHeader(const char *a1)
     v9 = open(a1, 258);
     if ((v9 & 0x80000000) == 0)
     {
-      v3 = v9;
+      LODWORD(v3) = v9;
       if (fsetxattr(v9, "com.apple.installd.hidden_archs_fat_header", v4, size, 0, 2))
       {
         if (gLogHandle && *(gLogHandle + 44) < 3)
@@ -298,7 +298,7 @@ LABEL_17:
 
 uint64_t hardlink_copy_hierarchy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, CFErrorRef *a10)
 {
-  v10 = MEMORY[0x2A1C7C4A8]();
+  v10 = MEMORY[0x2A1C7C4A8](a1, a2, a3, a4, a5, a6, a7, a8);
   v12 = v11;
   v14 = v13;
   v16 = v15;
@@ -307,18 +307,18 @@ uint64_t hardlink_copy_hierarchy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   v22 = v21;
   v24 = v23;
   v25 = v10;
-  v331 = *MEMORY[0x29EDCA608];
+  v341 = *MEMORY[0x29EDCA608];
   bzero(to, 0x400uLL);
-  bzero(v290, 0x400uLL);
-  bzero(&v288, 0x410uLL);
-  v287[0] = v25;
-  v287[1] = 0;
-  v26 = fts_open_b(v287, 85, &__block_literal_global);
+  bzero(v300, 0x400uLL);
+  bzero(&v298, 0x410uLL);
+  v297[0] = v25;
+  v297[1] = 0;
+  v26 = fts_open_b(v297, 85, &__block_literal_global);
   if (!v26)
   {
     v41 = __error();
-    strerror(*v41);
-    v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 746, v42, v43, 0, v44, @"fts_open of %s failed: %s", v45, v25);
+    v42 = strerror(*v41);
+    v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 746, v43, v44, 0, v45, @"fts_open of %s failed: %s", v46, v25, v42);
     goto LABEL_24;
   }
 
@@ -328,12 +328,12 @@ uint64_t hardlink_copy_hierarchy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
     bzero(cf, 0x400uLL);
     if (__strlcpy_chk() < 0x400)
     {
-      LOWORD(v252.st_dev) = 0;
+      LOWORD(v262.st_dev) = 0;
       *__str = 0;
-      if ((realpath_parent_no_symlink(cf, v290, &v252, __str) & 1) == 0)
+      if ((realpath_parent_no_symlink(cf, v300, &v262, __str) & 1) == 0)
       {
-        v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 786, v55, v56, *__str, v57, @"Failed to realpath parent of %s", v58, cf);
-        v64 = *__str;
+        v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 786, v56, v57, *__str, v58, @"Failed to realpath parent of %s", v59, cf);
+        v66 = *__str;
         if (!*__str)
         {
           goto LABEL_23;
@@ -342,50 +342,51 @@ uint64_t hardlink_copy_hierarchy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
         goto LABEL_22;
       }
 
-      if (!LOWORD(v252.st_dev) || (v252.st_dev & 0xF000) == 0x4000)
+      if (!LOWORD(v262.st_dev) || (v262.st_dev & 0xF000) == 0x4000)
       {
-        v84 = 0;
         v85 = 0;
-        goto LABEL_42;
+        v86 = 0;
+        goto LABEL_41;
       }
 
-      v54 = _CreateAndLogDMError("hardlink_copy_hierarchy", 792, v55, v56, 0, v57, @"Entity exists at %s but it's not a directory", v58, v290);
+      v55 = _CreateAndLogDMError("hardlink_copy_hierarchy", 792, v56, v57, 0, v58, @"Entity exists at %s but it's not a directory", v59, v300);
       goto LABEL_14;
     }
 
-    v51 = @"Destination path was too long";
-    v52 = 779;
+    v52 = @"Destination path was too long";
+    v53 = 779;
 LABEL_13:
-    v54 = _CreateAndLogDMError("hardlink_copy_hierarchy", v52, v47, v48, 0, v49, v51, v50, v243);
+    v55 = _CreateAndLogDMError("hardlink_copy_hierarchy", v53, v48, v49, 0, v50, v52, v51, v245, st_mode, v254);
 LABEL_14:
-    v46 = v54;
+    v47 = v55;
     goto LABEL_23;
   }
 
-  if (!realpath_DARWIN_EXTSN(v24, v290))
+  if (!realpath_DARWIN_EXTSN(v24, v300))
   {
-    v53 = __error();
-    strerror(*v53);
-    LOBYTE(v243) = v24;
-    v51 = @"realpath of '%s' failed at element '%s': %s";
-    v52 = 752;
+    v54 = __error();
+    st_mode = v300;
+    v254 = strerror(*v54);
+    v245 = v24;
+    v52 = @"realpath of '%s' failed at element '%s': %s";
+    v53 = 752;
     goto LABEL_13;
   }
 
-  memset(&v252, 0, sizeof(v252));
+  memset(&v262, 0, sizeof(v262));
   v28 = open(v22, 256);
   if (v28 < 0)
   {
-    v59 = __error();
-    strerror(*v59);
-    v36 = _CreateAndLogDMError("open_delta_manifest", 416, v60, v61, 0, v62, @"Could not open %s: %s", v63, v22);
+    v60 = __error();
+    v61 = strerror(*v60);
+    v36 = _CreateAndLogDMError("open_delta_manifest", 416, v62, v63, 0, v64, @"Could not open %s: %s", v65, v22, v61);
 LABEL_20:
-    v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 758, v37, v38, v36, v39, @"Failed to open manifest %s", v40, v22);
+    v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 758, v37, v38, v36, v39, @"Failed to open manifest %s", v40, v22);
     if (v36)
     {
-      v64 = v36;
+      v66 = v36;
 LABEL_22:
-      CFRelease(v64);
+      CFRelease(v66);
     }
 
 LABEL_23:
@@ -394,11 +395,11 @@ LABEL_23:
   }
 
   v29 = v28;
-  if (fstat(v28, &v252))
+  if (fstat(v28, &v262))
   {
     v30 = __error();
-    strerror(*v30);
-    v35 = _CreateAndLogDMError("open_delta_manifest", 421, v31, v32, 0, v33, @"Could not stat %s: %s", v34, v22);
+    v247 = strerror(*v30);
+    v35 = _CreateAndLogDMError("open_delta_manifest", 421, v31, v32, 0, v33, @"Could not stat %s: %s", v34, v22, v247);
 LABEL_7:
     v36 = v35;
 LABEL_8:
@@ -406,35 +407,45 @@ LABEL_8:
     goto LABEL_20;
   }
 
-  v67 = mmap(0, v252.st_size, 1, 1026, v29, 0);
-  if (v67 == -1)
+  v68 = mmap(0, v262.st_size, 1, 1026, v29, 0);
+  if (v68 == -1)
   {
-    v163 = __error();
-    strerror(*v163);
-    v35 = _CreateAndLogDMError("open_delta_manifest", 435, v164, v165, 0, v166, @"Failed to map file at %s; error %s", v167, v22);
+    v164 = __error();
+    v249 = strerror(*v164);
+    v35 = _CreateAndLogDMError("open_delta_manifest", 435, v165, v166, 0, v167, @"Failed to map file at %s; error %s", v168, v22, v249);
     goto LABEL_7;
   }
 
-  v250 = v67;
-  if (madvise(v67, v252.st_size, 2) && (!gLogHandle || *(gLogHandle + 44) >= 3))
+  v260 = v68;
+  if (madvise(v68, v262.st_size, 2) && (!gLogHandle || *(gLogHandle + 44) >= 3))
   {
-    v68 = __error();
-    LOBYTE(v243) = strerror(*v68);
+    v69 = __error();
+    v245 = strerror(*v69);
     MOLogWrite();
   }
 
-  v69 = malloc_type_calloc(1uLL, 0x18uLL, 0x1010040113C0ABBuLL);
-  if (!v69)
+  v70 = malloc_type_calloc(1uLL, 0x18uLL, 0x1010040113C0ABBuLL);
+  if (!v70)
   {
-    v36 = _CreateAndLogDMError("open_delta_manifest", 446, v70, v71, 0, v72, @"Failed to allocate command stream object", v73, v243);
-    munmap(v250, v252.st_size);
+    v36 = _CreateAndLogDMError("open_delta_manifest", 446, v71, v72, 0, v73, @"Failed to allocate command stream object", v74);
+    munmap(v260, v262.st_size);
     goto LABEL_8;
   }
 
-  v74 = v69;
-  *v69 = v250;
-  v69[1] = v252.st_size;
-  v69[2] = 0;
+  v75 = v70;
+  *v70 = v260;
+  v70[1] = v262.st_size;
+  v70[2] = 0;
+  v340 = 0u;
+  v339 = 0u;
+  v338 = 0u;
+  v337 = 0u;
+  v336 = 0u;
+  v335 = 0u;
+  v334 = 0u;
+  v333 = 0u;
+  v332 = 0u;
+  v331 = 0u;
   v330 = 0u;
   v329 = 0u;
   v328 = 0u;
@@ -456,17 +467,17 @@ LABEL_8:
   v312 = 0u;
   v311 = 0u;
   v310 = 0u;
-  v309 = 0u;
-  v308 = 0u;
-  v307 = 0u;
-  v306 = 0u;
-  v305 = 0u;
-  v304 = 0u;
-  v303 = 0u;
-  v302 = 0u;
-  v301 = 0u;
-  v300 = 0u;
   *cf = 0u;
+  v295 = 0u;
+  v296 = 0u;
+  v293 = 0u;
+  v294 = 0u;
+  v291 = 0u;
+  v292 = 0u;
+  v289 = 0u;
+  v290 = 0u;
+  v287 = 0u;
+  v288 = 0u;
   v285 = 0u;
   v286 = 0u;
   v283 = 0u;
@@ -487,104 +498,84 @@ LABEL_8:
   v270 = 0u;
   v267 = 0u;
   v268 = 0u;
-  v265 = 0u;
-  v266 = 0u;
-  v263 = 0u;
-  v264 = 0u;
-  v261 = 0u;
-  v262 = 0u;
-  v259 = 0u;
-  v260 = 0u;
-  v257 = 0u;
-  v258 = 0u;
   *__str = 0u;
-  v256 = 0u;
-  v254 = 0;
-  v253 = 0;
-  v298 = 0;
-  v297 = 0;
-  if ((read_string_to_terminator(v69, 0, &v253, 6uLL) & 1) == 0)
+  v266 = 0u;
+  v264 = 0;
+  v263 = 0;
+  v308 = 0;
+  v307 = 0;
+  if ((read_string_to_terminator(v70, 0, &v263, 6uLL) & 1) == 0)
   {
-    v168 = @"Failed to read magic";
-    v169 = 299;
-LABEL_169:
-    v79 = _CreateAndLogDMError("validate_stream", v169, v75, v76, 0, v77, v168, v78, v243);
-    goto LABEL_170;
+    v169 = @"Failed to read magic";
+    v170 = 299;
+LABEL_168:
+    v80 = _CreateAndLogDMError("validate_stream", v170, v76, v77, 0, v78, v169, v79, v245);
+    goto LABEL_169;
   }
 
-  if (v253 ^ 0x44617069 | v254)
+  if (v263 ^ 0x44617069 | v264)
   {
-    v79 = _CreateAndLogDMError("validate_stream", 305, v75, v76, 0, v77, @"Stream had invalid magic: %s", v78, &v253);
+    v80 = _CreateAndLogDMError("validate_stream", 305, v76, v77, 0, v78, @"Stream had invalid magic: %s", v79, &v263);
+LABEL_169:
+    v171 = v80;
 LABEL_170:
-    v170 = v79;
-LABEL_171:
-    v36 = _CreateAndLogDMError("open_delta_manifest", 456, v80, v81, v170, v82, @"Invalid manifest file at %s", v83, v22);
-    if (v170)
+    v36 = _CreateAndLogDMError("open_delta_manifest", 456, v81, v82, v171, v83, @"Invalid manifest file at %s", v84, v22);
+    if (v171)
     {
-      CFRelease(v170);
+      CFRelease(v171);
     }
 
-    munmap(v250, v252.st_size);
-    free(v74);
+    munmap(v260, v262.st_size);
+    free(v75);
     goto LABEL_8;
   }
 
-  if ((read_string_to_terminator(v74, 0, &v297, 0xAuLL) & 1) == 0)
+  if ((read_string_to_terminator(v75, 0, &v307, 0xAuLL) & 1) == 0)
   {
-    v168 = @"Failed to read version from manifest header";
-    v169 = 310;
+    v169 = @"Failed to read version from manifest header";
+    v170 = 310;
+    goto LABEL_168;
+  }
+
+  v172 = strtol(&v307, 0, 10);
+  if ((v172 - 4) <= 0xFFFFFFFFFFFFFFFCLL)
+  {
+    v80 = _CreateAndLogDMError("validate_stream", 318, v173, v174, 0, v175, @"Manifest had invalid version: %ld; expected 1, 2, or 3", v176, v172);
     goto LABEL_169;
   }
 
-  v171 = strtol(&v297, 0, 10);
-  if ((v171 - 4) <= 0xFFFFFFFFFFFFFFFCLL)
+  v259 = v172;
+  if ((read_string_to_terminator(v75, 0, cf, 0x200uLL) & 1) == 0)
   {
-    v79 = _CreateAndLogDMError("validate_stream", 318, v172, v173, 0, v174, @"Manifest had invalid version: %ld; expected 1, 2, or 3", v175, v171);
-    goto LABEL_170;
+    v169 = @"Failed to read manifest source version";
+    v170 = 323;
+    goto LABEL_168;
   }
 
-  v249 = v171;
-  if ((read_string_to_terminator(v74, 0, cf, 0x200uLL) & 1) == 0)
-  {
-    v168 = @"Failed to read manifest source version";
-    v169 = 323;
-    goto LABEL_169;
-  }
-
-  v248 = v74;
+  v258 = v75;
   if (v20)
   {
-    v180 = v18;
+    v181 = v18;
   }
 
   else
   {
-    v180 = "";
+    v181 = "";
   }
 
   if (v20)
   {
-    v181 = v20;
+    v182 = v20;
   }
 
   else
   {
-    v181 = "0";
+    v182 = "0";
   }
 
   if (v20)
   {
-    v182 = " ";
-  }
-
-  else
-  {
-    v182 = "";
-  }
-
-  if (v180)
-  {
-    v183 = v180;
+    v183 = " ";
   }
 
   else
@@ -592,210 +583,224 @@ LABEL_171:
     v183 = "";
   }
 
-  if (snprintf(__str, 0x200uLL, "%s%s%s", v181, v182, v183) > 0x1FF)
+  if (v181)
   {
-    v188 = _CreateAndLogDMError("validate_stream", 350, v184, v185, 0, v186, @"Incoming expected source version string %s%s%s was too long", v187, v181);
+    v184 = v181;
+  }
+
+  else
+  {
+    v184 = "";
+  }
+
+  if (snprintf(__str, 0x200uLL, "%s%s%s", v182, v183, v184) > 0x1FF)
+  {
+    v189 = _CreateAndLogDMError("validate_stream", 350, v185, v186, 0, v187, @"Incoming expected source version string %s%s%s was too long", v188, v182, v183, v184);
+LABEL_240:
+    v171 = v189;
 LABEL_241:
-    v170 = v188;
-LABEL_242:
-    v74 = v248;
-    goto LABEL_171;
+    v75 = v258;
+    goto LABEL_170;
   }
 
   for (i = __str; *i == 10; ++i)
   {
     *i = 32;
-LABEL_237:
+LABEL_236:
     ;
   }
 
   if (*i)
   {
-    goto LABEL_237;
+    goto LABEL_236;
   }
 
   if (strcmp(__str, cf))
   {
-    v243 = cf;
-    v210 = @"Got manifest for version %s, but expected version %s";
-    v211 = 357;
+    v245 = cf;
+    st_mode = __str;
+    v212 = @"Got manifest for version %s, but expected version %s";
+    v213 = 357;
+    goto LABEL_239;
+  }
+
+  if (v259 < 2)
+  {
+    goto LABEL_262;
+  }
+
+  v306 = 0;
+  v305 = 0u;
+  v304 = 0u;
+  v303 = 0u;
+  *v302 = 0u;
+  if (!read_string_to_terminator(v258, 0, v302, 0x41uLL))
+  {
+    v212 = @"Failed to read stream";
+    v213 = 375;
+LABEL_239:
+    v189 = _CreateAndLogDMError("validate_stream", v213, v208, v209, 0, v210, v212, v211, v245, st_mode, v254);
     goto LABEL_240;
-  }
-
-  if (v249 < 2)
-  {
-    goto LABEL_263;
-  }
-
-  v296 = 0;
-  v295 = 0u;
-  v294 = 0u;
-  v293 = 0u;
-  *v292 = 0u;
-  if (!read_string_to_terminator(v248, 0, v292, 0x41uLL))
-  {
-    v210 = @"Failed to read stream";
-    v211 = 375;
-LABEL_240:
-    v188 = _CreateAndLogDMError("validate_stream", v211, v206, v207, 0, v208, v210, v209, v243);
-    goto LABEL_241;
   }
 
   if (!v16)
   {
-    v210 = @"expected_infoplisthash is NULL";
-    v211 = 371;
-    goto LABEL_240;
+    v212 = @"expected_infoplisthash is NULL";
+    v213 = 371;
+    goto LABEL_239;
   }
 
-  if (memcmp(v16, v292, 0x41uLL))
+  if (memcmp(v16, v302, 0x41uLL))
   {
-    v210 = @"Compare of info plist hash failed";
-    v211 = 367;
-    goto LABEL_240;
+    v212 = @"Compare of info plist hash failed";
+    v213 = 367;
+    goto LABEL_239;
   }
 
-  if (v249 != 2)
+  if (v259 != 2)
   {
-    v292[0] = 0;
-    if ((validate_supported_devices(v248, v12, v292) & 1) == 0)
+    v302[0] = 0;
+    if ((validate_supported_devices(v258, v12, v302) & 1) == 0)
     {
-      v170 = _CreateAndLogDMError("validate_stream", 384, v230, v231, v292[0], v232, @"Failed to validate supported devices", v233, v243);
-      if (v292[0])
+      v171 = _CreateAndLogDMError("validate_stream", 384, v232, v233, v302[0], v234, @"Failed to validate supported devices", v235);
+      if (v302[0])
       {
-        CFRelease(v292[0]);
+        CFRelease(v302[0]);
       }
 
-      goto LABEL_242;
+      goto LABEL_241;
     }
   }
 
-LABEL_263:
+LABEL_262:
   close(v29);
   cf[0] = 0;
-  if ((read_next_manifest_command(v248, &v288, cf, v234, v235, v236, v237, v238) & 1) == 0)
+  if ((read_next_manifest_command(v258, &v298, cf, v236, v237, v238, v239, v240) & 1) == 0)
   {
-    v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 765, v239, v240, cf[0], v241, @"Failed to read first manifest command", v242, v243);
+    v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 765, v241, v242, cf[0], v243, @"Failed to read first manifest command", v244);
     if (cf[0])
     {
       CFRelease(cf[0]);
     }
 
+    v178 = 0;
+    v124 = -1;
+    v85 = v258;
+    goto LABEL_248;
+  }
+
+  v86 = v298 != 120;
+  v85 = v258;
+LABEL_41:
+  v261 = strlen(v25);
+  v87 = fts_read(v27);
+  if (!v87)
+  {
     v177 = 0;
-    v123 = -1;
-    v84 = v248;
+LABEL_177:
+    if (v22 && v298 != 120)
+    {
+      v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1110, v88, v89, 0, v91, @"Got done processing bundle but there were still commands remaining in manifest.", v93, v245, st_mode, v254);
+      goto LABEL_246;
+    }
+
+    v47 = 0;
+    if (a9)
+    {
+      *a9 = v177;
+    }
+
+    v124 = -1;
+    v178 = 1;
+    if (v85)
+    {
+      goto LABEL_248;
+    }
+
     goto LABEL_249;
   }
 
-  v85 = v288 != 120;
-  v84 = v248;
-LABEL_42:
-  v251 = strlen(v25);
-  v86 = fts_read(v27);
-  if (!v86)
-  {
-    v176 = 0;
-LABEL_178:
-    if (v22 && v288 != 120)
-    {
-      v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1110, v87, v88, 0, v90, @"Got done processing bundle but there were still commands remaining in manifest.", v92, v243);
-      goto LABEL_247;
-    }
-
-    v46 = 0;
-    if (a9)
-    {
-      *a9 = v176;
-    }
-
-    v123 = -1;
-    v177 = 1;
-    if (v84)
-    {
-      goto LABEL_249;
-    }
-
-    goto LABEL_250;
-  }
-
-  v93 = v86;
-  v94 = 0;
-  v247 = v84;
+  v94 = v87;
+  v95 = 0;
+  v257 = v85;
   while (2)
   {
     to[0].__pn_.__r_.__value_.__s.__data_[0] = 0;
-    fts_info = v93->fts_info;
+    fts_info = v94->fts_info;
     if (fts_info > 0xD || ((1 << fts_info) & 0x314A) == 0)
     {
-      v100 = 0;
       v101 = 0;
+      v102 = 0;
     }
 
     else
     {
-      v97 = &v93->fts_path[v251];
-      v99 = *v97;
-      v98 = v97 + 1;
-      if (v99 == 47)
+      v98 = &v94->fts_path[v261];
+      v100 = *v98;
+      v99 = v98 + 1;
+      if (v100 == 47)
       {
-        v100 = v98;
+        v101 = v99;
       }
 
       else
       {
-        v100 = &v93->fts_path[v251];
+        v101 = &v94->fts_path[v261];
       }
 
-      if (((fts_info != 6) & v85) == 1 && !_utf_aware_strcmp(v289, v100))
+      if (((fts_info != 6) & v86) == 1 && !_utf_aware_strcmp(v299, v101))
       {
         if (gLogHandle && *(gLogHandle + 44) >= 7)
         {
-          LOBYTE(v243) = v288;
+          st_mode = v299;
+          v254 = v101;
+          v245 = v298;
           MOLogWrite();
         }
 
-        v101 = 1;
+        v102 = 1;
       }
 
       else
       {
-        v101 = 0;
+        v102 = 0;
       }
 
-      fts_info = v93->fts_info;
+      fts_info = v94->fts_info;
     }
 
     if (fts_info > 7)
     {
       if ((fts_info - 12) < 2)
       {
-        if (v101 && (v288 == 43 || v288 == 45))
+        if (v102 && (v298 == 43 || v298 == 45))
         {
-          goto LABEL_151;
+          goto LABEL_150;
         }
 
-        LOWORD(v252.st_dev) = 0;
+        LOWORD(v262.st_dev) = 0;
         *__str = 0;
-        if (make_and_check_dest_path(v290, v100, to, &v252, __str))
+        if (make_and_check_dest_path(v300, v101, to, &v262, __str))
         {
-          if (LOWORD(v252.st_dev))
+          if (LOWORD(v262.st_dev))
           {
-            v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 855, v102, v103, 0, v104, @"Entity with mode 0%o exists at symlink location in dest path %s", v105, v252.st_dev);
-            goto LABEL_247;
+            v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 855, v103, v104, 0, v105, @"Entity with mode 0%o exists at symlink location in dest path %s", v106, LOWORD(v262.st_dev), to, v254);
+            goto LABEL_246;
           }
 
-          v106 = v85;
-          v107 = v94;
-          v108 = gLogHandle;
+          v107 = v86;
+          v108 = v95;
+          v109 = gLogHandle;
           if (gLogHandle)
           {
-            p_fts_path = &v93->fts_path;
-            fts_path = v93->fts_path;
-            if (*(gLogHandle + 44) <= 6 || (v243 = v93->fts_path, MOLogWrite(), v108 = gLogHandle, fts_path = *p_fts_path, gLogHandle))
+            p_fts_path = &v94->fts_path;
+            fts_path = v94->fts_path;
+            if (*(gLogHandle + 44) <= 6 || (v245 = v94->fts_path, st_mode = to, MOLogWrite(), v109 = gLogHandle, fts_path = *p_fts_path, gLogHandle))
             {
-              if (*(v108 + 44) >= 7)
+              if (*(v109 + 44) >= 7)
               {
-                LOBYTE(v243) = fts_path;
+                v245 = fts_path;
+                st_mode = to;
                 MOLogWrite();
               }
             }
@@ -803,66 +808,66 @@ LABEL_178:
 
           else
           {
-            p_fts_path = &v93->fts_path;
-            fts_path = v93->fts_path;
+            p_fts_path = &v94->fts_path;
+            fts_path = v94->fts_path;
           }
 
-          v138 = readlink(fts_path, cf, 0x400uLL);
-          if (v138 < 0)
+          v139 = readlink(fts_path, cf, 0x400uLL);
+          if (v139 < 0)
           {
             if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-LABEL_212:
-              v189 = __error();
-              strerror(*v189);
+LABEL_211:
+              v190 = __error();
+              strerror(*v190);
               MOLogWrite();
             }
 
-LABEL_213:
-            v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 862, v139, v88, 0, v90, @"Failed to copy symlink %s to %s", v92, *p_fts_path);
-            goto LABEL_247;
+LABEL_212:
+            v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 862, v140, v89, 0, v91, @"Failed to copy symlink %s to %s", v93, *p_fts_path, to, v254);
+            goto LABEL_246;
           }
 
-          *(cf + v138) = 0;
+          *(cf + v139) = 0;
           if (symlink(cf, to))
           {
             if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-              goto LABEL_212;
+              goto LABEL_211;
             }
 
-            goto LABEL_213;
+            goto LABEL_212;
           }
 
-          v94 = v107;
-LABEL_132:
-          v85 = v106;
-LABEL_151:
-          v94 += v93->fts_statp->st_blocks;
-          goto LABEL_152;
+          v95 = v108;
+LABEL_131:
+          v86 = v107;
+LABEL_150:
+          v95 += v94->fts_statp->st_blocks;
+          goto LABEL_151;
         }
 
-        v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 848, v102, v103, *__str, v104, @"Failed to make dest path for symlink %s", v105, v100);
-        v179 = *__str;
+        v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 848, v103, v104, *__str, v105, @"Failed to make dest path for symlink %s", v106, v101);
+        v180 = *__str;
         if (!*__str)
         {
-          goto LABEL_248;
+          goto LABEL_247;
         }
 
-        goto LABEL_215;
+        goto LABEL_214;
       }
 
       if (fts_info == 8)
       {
-        goto LABEL_72;
+        goto LABEL_71;
       }
 
       if (fts_info == 10)
       {
-        goto LABEL_188;
+        goto LABEL_187;
       }
 
-      goto LABEL_152;
+      goto LABEL_151;
     }
 
     if (fts_info > 3)
@@ -870,29 +875,31 @@ LABEL_151:
       if (fts_info == 6)
       {
         LOWORD(cf[0]) = 0;
-        if (make_and_check_dest_path(v290, v100, to, cf, 0))
+        if (make_and_check_dest_path(v300, v101, to, cf, 0))
         {
-          if ((cf[0] & 0xF000) == 0x4000 && (st_mode = v93->fts_statp->st_mode, st_mode != LOWORD(cf[0])))
+          if ((cf[0] & 0xF000) == 0x4000 && (v127 = v94->fts_statp->st_mode, v127 != LOWORD(cf[0])))
           {
             if (gLogHandle && *(gLogHandle + 44) >= 7)
             {
-              v243 = to;
+              v245 = to;
+              st_mode = v94->fts_statp->st_mode;
               MOLogWrite();
-              LOWORD(st_mode) = v93->fts_statp->st_mode;
+              LOWORD(v127) = v94->fts_statp->st_mode;
             }
 
-            if (chmod(to, st_mode))
+            if (chmod(to, v127))
             {
-              v158 = __error();
-              strerror(*v158);
-              v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1060, v159, v160, 0, v161, @"chmod of '%s' failed: %s", v162, to);
-              goto LABEL_247;
+              v159 = __error();
+              v248 = strerror(*v159);
+              v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1060, v160, v161, 0, v162, @"chmod of '%s' failed: %s", v163, to, v248, v254);
+              goto LABEL_246;
             }
           }
 
           else if (gLogHandle && *(gLogHandle + 44) >= 7)
           {
-            LOBYTE(v243) = cf[0];
+            v245 = LOWORD(cf[0]);
+            st_mode = v101;
             MOLogWrite();
           }
         }
@@ -900,95 +907,93 @@ LABEL_151:
 
       else if (fts_info == 4 || fts_info == 7)
       {
-LABEL_188:
-        fts_errno = v93->fts_errno;
-        v245 = v93->fts_path;
-        v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1078, v87, v88, 0, v90, @"FTS in %s returned an error %d for path '%s'", v92, "hardlink_copy_hierarchy");
-        goto LABEL_247;
+LABEL_187:
+        v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1078, v88, v89, 0, v91, @"FTS in %s returned an error %d for path '%s'", v93, "hardlink_copy_hierarchy", v94->fts_errno, v94->fts_path);
+        goto LABEL_246;
       }
 
-      goto LABEL_152;
+      goto LABEL_151;
     }
 
     if (fts_info == 1)
     {
-      if (v101 && (v288 == 45 || v288 == 43))
+      if (v102 && (v298 == 45 || v298 == 43))
       {
-        if (fts_set(v27, v93, 4))
+        if (fts_set(v27, v94, 4))
         {
-          v219 = __error();
-          strerror(*v219);
-          v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1012, v220, v221, 0, v222, @"Failed to skip directory %s: %s", v223, v100);
-          goto LABEL_247;
+          v221 = __error();
+          v251 = strerror(*v221);
+          v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1012, v222, v223, 0, v224, @"Failed to skip directory %s: %s", v225, v101, v251, v254);
+          goto LABEL_246;
         }
 
         if (gLogHandle && *(gLogHandle + 44) >= 7)
         {
-          LOBYTE(v243) = v100;
+          v245 = v101;
           MOLogWrite();
         }
 
-LABEL_153:
+LABEL_152:
         cf[0] = 0;
-        if (read_next_manifest_command(v84, &v288, cf, v88, v89, v90, v91, v92))
+        if (read_next_manifest_command(v85, &v298, cf, v89, v90, v91, v92, v93))
         {
-          if (v288 == 120)
+          if (v298 == 120)
           {
             if (gLogHandle && *(gLogHandle + 44) >= 7)
             {
               MOLogWrite();
             }
 
-            v85 = 0;
+            v86 = 0;
           }
 
-LABEL_159:
-          v93 = fts_read(v27);
-          if (!v93)
+LABEL_158:
+          v94 = fts_read(v27);
+          if (!v94)
           {
-            v176 = v94 << 9;
-            goto LABEL_178;
+            v177 = v95 << 9;
+            goto LABEL_177;
           }
 
           continue;
         }
 
-        v178 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1094, v154, v155, cf[0], v156, @"Failed to read next manifest command", v157, v243);
-LABEL_185:
-        v46 = v178;
-        v179 = cf[0];
+        v179 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1094, v155, v156, cf[0], v157, @"Failed to read next manifest command", v158, v245, st_mode, v254);
+LABEL_184:
+        v47 = v179;
+        v180 = cf[0];
         if (!cf[0])
         {
-          goto LABEL_248;
+          goto LABEL_247;
         }
 
-LABEL_215:
-        CFRelease(v179);
-        goto LABEL_248;
+LABEL_214:
+        CFRelease(v180);
+        goto LABEL_247;
       }
 
       *__str = 0;
       cf[0] = 0;
-      if ((make_and_check_dest_path(v290, v100, to, __str, cf) & 1) == 0)
+      if ((make_and_check_dest_path(v300, v101, to, __str, cf) & 1) == 0)
       {
-        v178 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1023, v133, v88, cf[0], v90, @"Failed to make dest path for directory %s", v92, v100);
-        goto LABEL_185;
+        v179 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1023, v134, v89, cf[0], v91, @"Failed to make dest path for directory %s", v93, v101, st_mode, v254);
+        goto LABEL_184;
       }
 
       if (*__str && (*__str & 0xF000) != 0x4000)
       {
-        v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1030, v133, v88, 0, v90, @"Non-directory entity with mode 0%o exists at directory location in dest path %s", v92, __str[0]);
-        goto LABEL_247;
+        v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1030, v134, v89, 0, v91, @"Non-directory entity with mode 0%o exists at directory location in dest path %s", v93, *__str, to, v254);
+        goto LABEL_246;
       }
 
       if (*__str)
       {
-        if (*__str != (v93->fts_statp->st_mode | 0x80) && chmod(to, v93->fts_statp->st_mode | 0x80))
+        if (*__str != (v94->fts_statp->st_mode | 0x80) && chmod(to, v94->fts_statp->st_mode | 0x80))
         {
-          v229 = __error();
-          strerror(*v229);
-          v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1043, v134, v135, 0, v136, @"Failed to make destination directory %s writable: %s", v137, to);
-          goto LABEL_247;
+          v231 = __error();
+          v253 = strerror(*v231);
+          v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1043, v135, v136, 0, v137, @"Failed to make destination directory %s writable: %s", v138, to, v253, v254);
+          goto LABEL_246;
         }
       }
 
@@ -996,26 +1001,26 @@ LABEL_215:
       {
         if (gLogHandle && *(gLogHandle + 44) >= 7)
         {
-          v243 = to;
+          v245 = to;
           MOLogWrite();
         }
 
-        if (mkdir(to, v93->fts_statp->st_mode | 0x80))
+        if (mkdir(to, v94->fts_statp->st_mode | 0x80))
         {
-          v224 = __error();
-          strerror(*v224);
-          v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1038, v225, v226, 0, v227, @"mkdir of '%s' failed: %s", v228, to);
-          goto LABEL_247;
+          v226 = __error();
+          v252 = strerror(*v226);
+          v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 1038, v227, v228, 0, v229, @"mkdir of '%s' failed: %s", v230, to, v252, v254);
+          goto LABEL_246;
         }
       }
 
-LABEL_152:
-      if (!v101)
+LABEL_151:
+      if (!v102)
       {
-        goto LABEL_159;
+        goto LABEL_158;
       }
 
-      goto LABEL_153;
+      goto LABEL_152;
     }
 
     break;
@@ -1023,248 +1028,247 @@ LABEL_152:
 
   if (fts_info != 3)
   {
-    goto LABEL_152;
+    goto LABEL_151;
   }
 
-LABEL_72:
-  if (v288 == 94)
+LABEL_71:
+  if (v298 == 94)
   {
-    v111 = v101;
+    v112 = v102;
   }
 
   else
   {
-    v111 = 0;
+    v112 = 0;
   }
 
-  if (v111 != 1)
+  if (v112 != 1)
   {
-    if (v101 && (v288 == 45 || v288 == 43))
+    if (v102 && (v298 == 45 || v298 == 43))
     {
       if (gLogHandle && *(gLogHandle + 44) >= 7)
       {
-        LOBYTE(v243) = v100;
+        v245 = v101;
         MOLogWrite();
       }
 
-      goto LABEL_151;
+      goto LABEL_150;
     }
 
     *__str = 0;
     cf[0] = 0;
-    if ((make_and_check_dest_path(v290, v100, to, __str, cf) & 1) == 0)
+    if ((make_and_check_dest_path(v300, v101, to, __str, cf) & 1) == 0)
     {
-      v178 = _CreateAndLogDMError("hardlink_copy_hierarchy", 975, v127, v128, cf[0], v129, @"Failed to make dest path for file %s", v130, v100);
-      goto LABEL_185;
+      v179 = _CreateAndLogDMError("hardlink_copy_hierarchy", 975, v128, v129, cf[0], v130, @"Failed to make dest path for file %s", v131, v101, st_mode, v254);
+      goto LABEL_184;
     }
 
     if (*__str)
     {
-      v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 982, v127, v128, 0, v129, @"Entity with mode 0%o exists at file location in dest path %s", v130, __str[0]);
-      goto LABEL_247;
+      v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 982, v128, v129, 0, v130, @"Entity with mode 0%o exists at file location in dest path %s", v131, *__str, to, v254);
+      goto LABEL_246;
     }
 
-    v106 = v85;
+    v107 = v86;
     if (gLogHandle && *(gLogHandle + 44) >= 7)
     {
-      v243 = v93->fts_path;
+      v245 = v94->fts_path;
+      st_mode = to;
       MOLogWrite();
     }
 
-    if (link(v93->fts_path, to))
+    if (link(v94->fts_path, to))
     {
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
-        v131 = v93->fts_path;
-        v132 = __error();
-        strerror(*v132);
-        LOBYTE(v243) = v131;
-        v84 = v247;
+        v132 = v94->fts_path;
+        v133 = __error();
+        st_mode = to;
+        v254 = strerror(*v133);
+        v245 = v132;
+        v85 = v257;
         MOLogWrite();
       }
 
-      if (copyfile(v93->fts_path, to, 0, 0xC000Fu))
+      if (copyfile(v94->fts_path, to, 0, 0xC000Fu))
       {
-        v212 = v93->fts_path;
-        v213 = __error();
-        strerror(*v213);
-        v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 991, v214, v215, 0, v216, @"copyfile of %s to %s failed: %s", v217, v212);
-        goto LABEL_247;
+        v214 = v94->fts_path;
+        v215 = __error();
+        v255 = strerror(*v215);
+        v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 991, v216, v217, 0, v218, @"copyfile of %s to %s failed: %s", v219, v214, to, v255);
+        goto LABEL_246;
       }
     }
 
-    goto LABEL_132;
+    goto LABEL_131;
   }
 
-  LOWORD(v292[0]) = 0;
+  LOWORD(v302[0]) = 0;
   bzero(cf, 0x400uLL);
-  *&v252.st_dev = 0;
-  if ((make_and_check_dest_path(v290, v100, to, v292, &v252) & 1) == 0)
+  *&v262.st_dev = 0;
+  if ((make_and_check_dest_path(v300, v101, to, v302, &v262) & 1) == 0)
   {
-    v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 882, v112, v113, *&v252.st_dev, v114, @"Failed to make dest path for file %s", v115, v100);
-    v179 = *&v252.st_dev;
-    if (!*&v252.st_dev)
+    v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 882, v113, v114, *&v262.st_dev, v115, @"Failed to make dest path for file %s", v116, v101);
+    v180 = *&v262.st_dev;
+    if (!*&v262.st_dev)
     {
-      goto LABEL_248;
+      goto LABEL_247;
     }
 
-    goto LABEL_215;
+    goto LABEL_214;
   }
 
-  v116 = v94;
-  v117 = v292[0];
-  if (LOWORD(v292[0]))
+  v117 = v95;
+  v118 = v302[0];
+  if (LOWORD(v302[0]))
   {
     if (snprintf(cf, 0x400uLL, "%s.XXXXXX", to) >= 0x400)
     {
-      v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 894, v118, v119, 0, v120, @"failed to make newfile path: %s.XXXXXXX", v121, to);
-      goto LABEL_247;
+      v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 894, v119, v120, 0, v121, @"failed to make newfile path: %s.XXXXXXX", v122, to, st_mode, v254);
+      goto LABEL_246;
     }
 
-    v122 = mkstemp(cf);
-    if (v122 == -1)
+    v123 = mkstemp(cf);
+    if (v123 == -1)
     {
-      v190 = __error();
-      strerror(*v190);
-      v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 899, v191, v192, 0, v193, @"mktemp failed for %s : %s", v194, cf);
-      goto LABEL_247;
+      v191 = __error();
+      v250 = strerror(*v191);
+      v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 899, v192, v193, 0, v194, @"mktemp failed for %s : %s", v195, cf, v250, v254);
+      goto LABEL_246;
     }
 
-    v123 = v122;
-    v246 = v85;
-    v124 = v93->fts_path;
+    v124 = v123;
+    v256 = v86;
+    v125 = v94->fts_path;
     bzero(__str, 0x400uLL);
-    if (!v14 || _utf_aware_strcmp(v124, v14))
+    if (!v14 || _utf_aware_strcmp(v125, v14))
     {
-      v125 = 0;
-      goto LABEL_145;
+      v126 = 0;
+      goto LABEL_144;
     }
 
     if (snprintf(__str, 0x400uLL, "%s.XXXXXX", to) >= 0x400)
     {
-      v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 914, v140, v141, 0, v142, @"failed to make newfile path: %s.XXXXXXX", v143, to);
-      goto LABEL_226;
+      v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 914, v141, v142, 0, v143, @"failed to make newfile path: %s.XXXXXXX", v144, to);
+      goto LABEL_225;
     }
 
-    LOBYTE(v297) = 0;
-    if (MIMachOCreateHiddenArchsExecutableIfNeeded(v14, __str, &v297))
+    LOBYTE(v307) = 0;
+    if (MIMachOCreateHiddenArchsExecutableIfNeeded(v14, __str, &v307))
     {
-      v125 = v297;
-      if (v297)
+      v126 = v307;
+      if (v307)
       {
-        v124 = __str;
+        v125 = __str;
       }
 
-LABEL_145:
-      if (patch_file(v124, to, v123))
+LABEL_144:
+      if (patch_file(v125, to, v124))
       {
-        v195 = _CreateAndLogDMError("hardlink_copy_hierarchy", 934, v148, v149, 0, v150, @"patch_file failed for:\n\t%s\n\t%s\n\t%s", v151, v124);
+        v196 = _CreateAndLogDMError("hardlink_copy_hierarchy", 934, v149, v150, 0, v151, @"patch_file failed for:\n\t%s\n\t%s\n\t%s", v152, v125, cf, to);
       }
 
       else
       {
-        if (!fchmod(v123, v117))
+        if (!fchmod(v124, v118))
         {
-          close(v123);
-          rename(cf, to, v152);
-          if (!v153)
+          close(v124);
+          rename(cf, to, v153);
+          if (!v154)
           {
-            if (v125)
+            if (v126)
             {
-              unlink(v124);
+              unlink(v125);
             }
 
-            v94 = v116;
-            v84 = v247;
-            v85 = v246;
-            goto LABEL_151;
+            v95 = v117;
+            v85 = v257;
+            v86 = v256;
+            goto LABEL_150;
           }
 
-          v199 = __error();
-          strerror(*v199);
-          v46 = _CreateAndLogDMError("hardlink_copy_hierarchy", 948, v200, v201, 0, v202, @"rename of %s to %s failed: %s", v203, cf);
-          v123 = -1;
+          v200 = __error();
+          v201 = strerror(*v200);
+          v47 = _CreateAndLogDMError("hardlink_copy_hierarchy", 948, v202, v203, 0, v204, @"rename of %s to %s failed: %s", v205, cf, to, v201);
+          v124 = -1;
+LABEL_224:
+          v85 = v257;
 LABEL_225:
-          v84 = v247;
-LABEL_226:
-          v177 = 0;
-          if (v84)
+          v178 = 0;
+          if (v85)
           {
-            goto LABEL_249;
+            goto LABEL_248;
           }
 
-          goto LABEL_250;
+          goto LABEL_249;
         }
 
-        v196 = __error();
-        v243 = cf;
-        strerror(*v196);
-        v197 = @"chmod failed for %s : %s";
-        v198 = 939;
-LABEL_221:
-        v195 = _CreateAndLogDMError("hardlink_copy_hierarchy", v198, v144, v145, 0, v146, v197, v147, v243);
+        v197 = __error();
+        v245 = cf;
+        st_mode = strerror(*v197);
+        v198 = @"chmod failed for %s : %s";
+        v199 = 939;
+LABEL_220:
+        v196 = _CreateAndLogDMError("hardlink_copy_hierarchy", v199, v145, v146, 0, v147, v198, v148, v245, st_mode, v254);
       }
 
-      v46 = v195;
-      goto LABEL_225;
+      v47 = v196;
+      goto LABEL_224;
     }
 
-    v197 = @"Failed to create hidden archs executable";
-    v198 = 920;
-    goto LABEL_221;
+    v198 = @"Failed to create hidden archs executable";
+    v199 = 920;
+    goto LABEL_220;
   }
 
-  v218 = _CreateAndLogDMError("hardlink_copy_hierarchy", 889, v112, v113, 0, v114, @"Entity does not exist at file location in dest path %s", v115, to);
+  v220 = _CreateAndLogDMError("hardlink_copy_hierarchy", 889, v113, v114, 0, v115, @"Entity does not exist at file location in dest path %s", v116, to, st_mode, v254);
+LABEL_246:
+  v47 = v220;
 LABEL_247:
-  v46 = v218;
+  v178 = 0;
+  v124 = -1;
+  if (v85)
+  {
 LABEL_248:
-  v177 = 0;
-  v123 = -1;
-  if (v84)
-  {
+    munmap(*v85, v85[1]);
+    free(v85);
+  }
+
 LABEL_249:
-    munmap(*v84, v84[1]);
-    free(v84);
-  }
-
-LABEL_250:
   fts_close(v27);
-  if ((v123 & 0x80000000) == 0)
+  if ((v124 & 0x80000000) == 0)
   {
-    close(v123);
+    close(v124);
   }
 
-  if (v177)
+  if (v178)
   {
-    result = 1;
-    goto LABEL_29;
+    return 1;
   }
 
 LABEL_24:
   if (a10)
   {
     result = 0;
-    *a10 = v46;
+    *a10 = v47;
   }
 
   else
   {
-    if (v46)
+    if (v47)
     {
-      CFRelease(v46);
+      CFRelease(v47);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_29:
-  v66 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t _utf_aware_strcmp(char *cStr, const char *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = *MEMORY[0x29EDB8ED8];
   v4 = CFStringCreateWithCString(*MEMORY[0x29EDB8ED8], cStr, 0x8000100u);
   v5 = CFStringCreateWithCString(v3, a2, 0x8000100u);
@@ -1294,26 +1298,26 @@ LABEL_7:
     CFRelease(v5);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
-CFErrorRef _CreateAndLogDMError(const char *a1, int a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, const __CFString *a7, uint64_t a8, char a9)
+CFErrorRef _CreateAndLogDMError(const char *a1, int a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, const __CFString *a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   valuePtr = a2;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-  v13 = CFStringCreateWithCString(0, a1, 0x8000100u);
-  CFDictionaryAddValue(Mutable, @"FunctionName", v13);
+  v12 = CFStringCreateWithCString(0, a1, 0x8000100u);
+  CFDictionaryAddValue(Mutable, @"FunctionName", v12);
+  if (v12)
+  {
+    CFRelease(v12);
+  }
+
+  v13 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  CFDictionaryAddValue(Mutable, @"SourceFileLine", v13);
   if (v13)
   {
     CFRelease(v13);
-  }
-
-  v14 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"SourceFileLine", v14);
-  if (v14)
-  {
-    CFRelease(v14);
   }
 
   if (a5)
@@ -1321,25 +1325,25 @@ CFErrorRef _CreateAndLogDMError(const char *a1, int a2, uint64_t a3, uint64_t a4
     CFDictionaryAddValue(Mutable, *MEMORY[0x29EDB8F68], a5);
   }
 
-  v15 = CFStringCreateWithFormatAndArguments(0, 0, a7, &a9);
+  v14 = CFStringCreateWithFormatAndArguments(0, 0, a7, va);
   if (!gLogHandle || *(gLogHandle + 44) >= 3)
   {
     MOLogWrite();
   }
 
-  CFDictionaryAddValue(Mutable, *MEMORY[0x29EDB8F58], v15);
-  if (v15)
+  CFDictionaryAddValue(Mutable, *MEMORY[0x29EDB8F58], v14);
+  if (v14)
   {
-    CFRelease(v15);
+    CFRelease(v14);
   }
 
-  v16 = CFErrorCreate(0, @"MIInstallerDeltaErrorDomain", 1, Mutable);
+  v15 = CFErrorCreate(0, @"MIInstallerDeltaErrorDomain", 1, Mutable);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v16;
+  return v15;
 }
 
 uint64_t read_next_manifest_command(void *a1, char *a2, CFErrorRef *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1356,7 +1360,7 @@ uint64_t read_next_manifest_command(void *a1, char *a2, CFErrorRef *a3, uint64_t
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      LOBYTE(v29) = 1;
+      v28 = 1;
       MOLogWrite();
     }
 
@@ -1408,8 +1412,7 @@ uint64_t read_next_manifest_command(void *a1, char *a2, CFErrorRef *a3, uint64_t
 LABEL_12:
       if (v17 != 120 || *v15 == 69 && a2[2] == 79 && a2[3] == 70)
       {
-        v23 = 1;
-        goto LABEL_33;
+        return 1;
       }
 
       v24 = @"Got malformed EOF marker";
@@ -1417,13 +1420,14 @@ LABEL_12:
       goto LABEL_27;
     }
 
-    v29 = __str;
+    v28 = __str;
+    v29 = a2 + 1;
     v24 = @"Invalid touch time %s found for path %s";
     v25 = 535;
   }
 
 LABEL_27:
-  v26 = _CreateAndLogDMError("read_next_manifest_command", v25, a3, a4, 0, a6, v24, a8, v29);
+  v26 = _CreateAndLogDMError("read_next_manifest_command", v25, a3, a4, 0, a6, v24, a8, v28, v29);
 LABEL_28:
   if (a3)
   {
@@ -1438,11 +1442,9 @@ LABEL_28:
       CFRelease(v26);
     }
 
-    v23 = 0;
+    return 0;
   }
 
-LABEL_33:
-  v27 = *MEMORY[0x29EDCA608];
   return v23;
 }
 
@@ -1461,11 +1463,11 @@ uint64_t realpath_parent_no_symlink(const char *a1, char *a2, mode_t *a3, CFErro
     v14 = &a1[v13 - 1];
     if (v14 < a1)
     {
-      v30 = a1;
+      v31 = a1;
       v15 = @"Failed to find parent of '%s'";
       v16 = 588;
 LABEL_10:
-      v17 = _CreateAndLogDMError("realpath_parent_no_symlink", v16, v9, v10, 0, v11, v15, v12, v30);
+      v17 = _CreateAndLogDMError("realpath_parent_no_symlink", v16, v9, v10, 0, v11, v15, v12, v31);
 LABEL_11:
       if (!a4)
       {
@@ -1489,8 +1491,8 @@ LABEL_11:
   if (!realpath_DARWIN_EXTSN(a1, a2))
   {
     v24 = __error();
-    strerror(*v24);
-    v17 = _CreateAndLogDMError("realpath_parent_no_symlink", 599, v25, v26, 0, v27, @"realpath of '%s' failed at element '%s': %s", v28, a1);
+    v25 = strerror(*v24);
+    v17 = _CreateAndLogDMError("realpath_parent_no_symlink", 599, v26, v27, 0, v28, @"realpath of '%s' failed at element '%s': %s", v29, a1, a2, v25);
     a1[v13] = 47;
     if (!a4)
     {
@@ -1518,15 +1520,15 @@ LABEL_12:
   }
 
 LABEL_14:
-  memset(&v31, 0, sizeof(v31));
-  if (lstat(a2, &v31))
+  memset(&v32, 0, sizeof(v32));
+  if (lstat(a2, &v32))
   {
     st_mode = 0;
     goto LABEL_22;
   }
 
-  st_mode = v31.st_mode;
-  if ((v31.st_mode & 0xF000) == 0xA000)
+  st_mode = v32.st_mode;
+  if ((v32.st_mode & 0xF000) == 0xA000)
   {
     v17 = _CreateAndLogDMError("realpath_parent_no_symlink", 618, v19, v20, 0, v21, @"Found symlink at destination path %s; this is not allowed.", v22, a2);
     goto LABEL_11;
@@ -1539,7 +1541,7 @@ LABEL_22:
 
 uint64_t make_and_check_dest_path(const char *a1, const char *a2, char *a3, mode_t *a4, CFErrorRef *a5)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   bzero(__str, 0x400uLL);
   if (snprintf(__str, 0x400uLL, "%s/%s", a1, a2) < 0x400)
   {
@@ -1558,16 +1560,15 @@ uint64_t make_and_check_dest_path(const char *a1, const char *a2, char *a3, mode
 
     if (!_utf_aware_strcmp(__str, a3))
     {
-      result = 1;
-      goto LABEL_15;
+      return 1;
     }
 
-    v14 = _CreateAndLogDMError("make_and_check_dest_path", 709, v19, v20, 0, v21, @"realpath'd destpath '%s' is different from non-realpath '%s'", v22, a3);
+    v14 = _CreateAndLogDMError("make_and_check_dest_path", 709, v19, v20, 0, v21, @"realpath'd destpath '%s' is different from non-realpath '%s'", v22, a3, __str);
   }
 
   else
   {
-    v14 = _CreateAndLogDMError("make_and_check_dest_path", 695, v10, v11, 0, v12, @"Dest path '%s/%s' was too long", v13, a1);
+    v14 = _CreateAndLogDMError("make_and_check_dest_path", 695, v10, v11, 0, v12, @"Dest path '%s/%s' was too long", v13, a1, a2);
   }
 
   v23 = v14;
@@ -1585,11 +1586,9 @@ LABEL_7:
       CFRelease(v23);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_15:
-  v25 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1636,7 +1635,7 @@ uint64_t validate_supported_devices(void *a1, const __CFArray *a2, CFErrorRef *a
     v35 = @"Failed to malloc buffer for line";
     v36 = 200;
 LABEL_23:
-    v33 = _CreateAndLogDMError("validate_supported_devices", v36, v6, v7, 0, v8, v35, v9, v43);
+    v33 = _CreateAndLogDMError("validate_supported_devices", v36, v6, v7, 0, v8, v35, v9);
     free(v10);
     goto LABEL_24;
   }
@@ -1675,7 +1674,7 @@ LABEL_23:
   v19 = ArrayBySeparatingStrings;
   if (!ArrayBySeparatingStrings || !CFArrayGetCount(ArrayBySeparatingStrings))
   {
-    v38 = _CreateAndLogDMError("validate_supported_devices", 228, v15, v16, 0, v17, @"Failed to split patch supported devices string", v18, v43);
+    v38 = _CreateAndLogDMError("validate_supported_devices", 228, v15, v16, 0, v17, @"Failed to split patch supported devices string", v18);
 LABEL_32:
     v33 = v38;
     free(v10);
@@ -1691,7 +1690,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v44 = v13;
+  v43 = v13;
   v20 = MEMORY[0x29EDB9000];
   Mutable = CFArrayCreateMutable(v11, 0, MEMORY[0x29EDB9000]);
   v22 = CFArrayCreateMutable(v11, 0, v20);
@@ -1702,9 +1701,9 @@ LABEL_32:
     for (i = 0; i != Count; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
-      v45.location = 0;
-      v45.length = v24;
-      if (!CFArrayContainsValue(v19, v45, ValueAtIndex))
+      v44.location = 0;
+      v44.length = v24;
+      if (!CFArrayContainsValue(v19, v44, ValueAtIndex))
       {
         CFArrayAppendValue(Mutable, ValueAtIndex);
       }
@@ -1716,9 +1715,9 @@ LABEL_32:
     for (j = 0; j != v24; ++j)
     {
       v28 = CFArrayGetValueAtIndex(v19, j);
-      v46.location = 0;
-      v46.length = Count;
-      if (!CFArrayContainsValue(a2, v46, v28))
+      v45.location = 0;
+      v45.length = Count;
+      if (!CFArrayContainsValue(a2, v45, v28))
       {
         CFArrayAppendValue(v22, v28);
       }
@@ -1729,12 +1728,12 @@ LABEL_32:
   {
     v33 = _CreateAndLogDMError("validate_supported_devices", 242, v29, v30, 0, v31, @"Expected supported devices had devices that were not in patch: %@", v32, Mutable);
     v34 = 0;
-    v13 = v44;
+    v13 = v43;
   }
 
   else
   {
-    v13 = v44;
+    v13 = v43;
     if (v22 && CFArrayGetCount(v22))
     {
       v33 = _CreateAndLogDMError("validate_supported_devices", 247, v39, v40, 0, v41, @"Patch listed devices that were not in expected supported devices: %@", v42, v22);
@@ -1927,17 +1926,17 @@ __CFString *MICopyUnlocalizedDescriptionForContainerExtendedError()
 
 uint64_t patchFile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   buf = 0;
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  if ((*(a3 + 16))(a3, 3, &v38, 32, 0) != 32)
+  if ((*(a3 + 16))(a3, 3, &v37, 32, 0) != 32)
   {
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
-      goto LABEL_38;
+      return 0;
     }
 
 LABEL_34:
@@ -1945,16 +1944,14 @@ LABEL_34:
     strerror(*v27);
 LABEL_37:
     MOLogWrite();
-LABEL_38:
-    v26 = 0;
-    goto LABEL_39;
+    return 0;
   }
 
-  if (v38 != 0x3034464649445342)
+  if (v37 != 0x3034464649445342)
   {
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
-      goto LABEL_38;
+      return 0;
     }
 
     goto LABEL_37;
@@ -1965,20 +1962,20 @@ LABEL_38:
   {
     if (gLogHandle && *(gLogHandle + 44) < 3)
     {
-      goto LABEL_38;
+      return 0;
     }
 
     goto LABEL_34;
   }
 
   v10 = v9;
-  v11 = BZOpen(a3, 5, a4, *(&v38 + 1) + 32);
+  v11 = BZOpen(a3, 5, a4, *(&v37 + 1) + 32);
   if (!v11)
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v30 = __error();
-      strerror(*v30);
+      v29 = __error();
+      strerror(*v29);
       MOLogWrite();
     }
 
@@ -1987,13 +1984,13 @@ LABEL_38:
   }
 
   v12 = v11;
-  v13 = BZOpen(a3, 6, a4, *(&v38 + 1) + v39 + 32);
+  v13 = BZOpen(a3, 6, a4, *(&v37 + 1) + v38 + 32);
   if (!v13)
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v31 = __error();
-      strerror(*v31);
+      v30 = __error();
+      strerror(*v30);
       MOLogWrite();
     }
 
@@ -2007,8 +2004,8 @@ LABEL_38:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v32 = __error();
-      strerror(*v32);
+      v31 = __error();
+      strerror(*v31);
       MOLogWrite();
     }
 
@@ -2022,8 +2019,8 @@ LABEL_38:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v33 = __error();
-      strerror(*v33);
+      v32 = __error();
+      strerror(*v32);
       MOLogWrite();
     }
 
@@ -2032,7 +2029,7 @@ LABEL_38:
   }
 
   v18 = v17;
-  if (!*(&v39 + 1))
+  if (!*(&v38 + 1))
   {
     v26 = 1;
     goto LABEL_80;
@@ -2040,7 +2037,7 @@ LABEL_38:
 
   v19 = 0;
   v20 = 0;
-  v34 = v12;
+  v33 = v12;
   while (1)
   {
     if (BZRead(v10, &buf, 24) != 24)
@@ -2053,9 +2050,9 @@ LABEL_38:
       goto LABEL_78;
     }
 
-    if (v37 < 0)
+    if (v36 < 0)
     {
-      v37 = -(v37 & 0x7FFFFFFFFFFFFFFFLL);
+      v36 = -(v36 & 0x7FFFFFFFFFFFFFFFLL);
     }
 
     v21 = buf;
@@ -2065,8 +2062,8 @@ LABEL_38:
     }
 
 LABEL_23:
-    v24 = v36;
-    if (v36)
+    v24 = v35;
+    if (v35)
     {
       while (1)
       {
@@ -2078,7 +2075,7 @@ LABEL_23:
 
         if ((*(a5 + 16))(a5, 2, v18, v25, v19) != v25)
         {
-          v12 = v34;
+          v12 = v33;
           if (gLogHandle && *(gLogHandle + 44) < 3)
           {
             goto LABEL_79;
@@ -2095,7 +2092,7 @@ LABEL_23:
         }
       }
 
-      v12 = v34;
+      v12 = v33;
       if (gLogHandle && *(gLogHandle + 44) < 3)
       {
         goto LABEL_79;
@@ -2109,10 +2106,10 @@ LABEL_79:
     }
 
 LABEL_30:
-    v20 += v37;
+    v20 += v36;
     v26 = 1;
-    v12 = v34;
-    if (v19 >= *(&v39 + 1))
+    v12 = v33;
+    if (v19 >= *(&v38 + 1))
     {
       goto LABEL_80;
     }
@@ -2140,7 +2137,7 @@ LABEL_30:
       goto LABEL_69;
     }
 
-    if (v22 != BZRead(v34, v18, v22))
+    if (v22 != BZRead(v33, v18, v22))
     {
       if (!gLogHandle || *(gLogHandle + 44) >= 3)
       {
@@ -2180,7 +2177,7 @@ LABEL_68:
 
 LABEL_69:
   v26 = 0;
-  v12 = v34;
+  v12 = v33;
 LABEL_80:
   free(v18);
 LABEL_81:
@@ -2191,8 +2188,6 @@ LABEL_83:
   BZClose(v12);
 LABEL_84:
   BZClose(v10);
-LABEL_39:
-  v28 = *MEMORY[0x29EDCA608];
   return v26;
 }
 
@@ -2383,24 +2378,22 @@ LABEL_26:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t _fh_read(unsigned int *a1)
+uint64_t _fh_read(uint64_t a1)
 {
-  v2 = *a1;
-  v3 = *(a1 + 2);
-  result = (*(*(a1 + 3) + 16))();
+  result = (*(*(a1 + 24) + 16))();
   if (result == -1)
   {
     return 0xFFFFFFFFLL;
   }
 
-  *(a1 + 2) += result;
+  *(a1 + 16) += result;
   return result;
 }
 
 __CFString *MICopyProcessNameForPid()
 {
   v0 = MEMORY[0x2A1C7C4A8]();
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v1 = proc_pidpath(v0, buffer, 0x1000u);
   if (v1 < 1)
   {
@@ -2413,69 +2406,76 @@ __CFString *MICopyProcessNameForPid()
     v3 = [v2 lastPathComponent];
   }
 
-  v4 = *MEMORY[0x29EDCA608];
-
   return v3;
 }
 
 id MIFetchInfoForUsername(const char *a1, uid_t *a2, gid_t *a3, void *a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (sysconf(71) == -1)
   {
-    MIFetchInfoForUsername_cold_2(&v16, v21);
+    MIFetchInfoForUsername_cold_2(&v17, v22);
   }
 
   v8 = MEMORY[0x2A1C7C4A8]();
-  memset(&v16, 0, sizeof(v16));
-  v15 = 0;
-  result = getpwnam_r(a1, &v16, &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v9, &v15);
+  memset(&v17, 0, sizeof(v17));
+  v16 = 0;
+  result = getpwnam_r(a1, &v17, &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v9, &v16);
   if (result)
   {
-    v14 = 0;
-    memset(v21, 0, sizeof(v21));
+    v15 = 0;
+    memset(v22, 0, sizeof(v22));
+    v11 = MEMORY[0x29EDCA988];
     v12 = result;
-    os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-    v13 = strerror(v12);
-    v17 = 136315394;
-    v18 = a1;
-    v19 = 2080;
-    v20 = v13;
-    _os_log_send_and_compose_impl();
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    v14 = strerror(v12);
+    v18 = 136315394;
+    v19 = a1;
+    v20 = 2080;
+    v21 = v14;
+    _os_log_send_and_compose_impl(v13, &v15, v22, 80, &dword_296A1B000, v11, 16, "getpwnam_r failed for user %s : %s", &v18, 22);
     _os_crash_msg();
     __break(1u);
-LABEL_13:
-    MIFetchInfoForUsername_cold_1(&v17, v21);
+LABEL_16:
+    MIFetchInfoForUsername_cold_1(&v18, v22, a1);
   }
 
-  if (!v15)
+  if (!v16)
   {
-    goto LABEL_13;
+    goto LABEL_16;
   }
 
   if (a2)
   {
-    *a2 = v16.pw_uid;
+    *a2 = v17.pw_uid;
   }
 
   if (a3)
   {
-    *a3 = v16.pw_gid;
+    *a3 = v17.pw_gid;
   }
 
   if (a4)
   {
-    result = [MEMORY[0x29EDB8E70] fileURLWithFileSystemRepresentation:v16.pw_dir isDirectory:1 relativeToURL:0];
+    result = [MEMORY[0x29EDB8E70] fileURLWithFileSystemRepresentation:v17.pw_dir isDirectory:1 relativeToURL:0];
     *a4 = result;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t MIFetchInfoForUID(uint64_t a1, void *a2, gid_t *a3, void *a4, void *a5)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   if (sysconf(71) == -1)
   {
     v19 = *__error();
@@ -2493,9 +2493,9 @@ uint64_t MIFetchInfoForUID(uint64_t a1, void *a2, gid_t *a3, void *a4, void *a5)
   }
 
   v10 = MEMORY[0x2A1C7C4A8]();
-  memset(&v30, 0, sizeof(v30));
-  v29 = 0;
-  v12 = getpwuid_r(a1, &v30, &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v11, &v29);
+  memset(&v29, 0, sizeof(v29));
+  v28 = 0;
+  v12 = getpwuid_r(a1, &v29, &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v11, &v28);
   if (v12)
   {
     v14 = *MEMORY[0x29EDB9EF8];
@@ -2507,7 +2507,7 @@ uint64_t MIFetchInfoForUID(uint64_t a1, void *a2, gid_t *a3, void *a4, void *a5)
     goto LABEL_5;
   }
 
-  if (!v29)
+  if (!v28)
   {
     _CreateError("MIFetchInfoForUID", 155, *MEMORY[0x29EDB9EF8], 2, 0, 0, @"getpwuid_r succeeded but no user was found with uid %d", v13, a1);
     goto LABEL_4;
@@ -2515,21 +2515,21 @@ uint64_t MIFetchInfoForUID(uint64_t a1, void *a2, gid_t *a3, void *a4, void *a5)
 
   if (a2)
   {
-    *a2 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v30.pw_name];
+    *a2 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:v29.pw_name];
   }
 
   if (a3)
   {
-    *a3 = v30.pw_gid;
+    *a3 = v29.pw_gid;
   }
 
   if (a4)
   {
     v18 = 1;
-    v26 = [MEMORY[0x29EDB8E70] fileURLWithFileSystemRepresentation:v30.pw_dir isDirectory:1 relativeToURL:0];
-    v27 = v26;
+    v25 = [MEMORY[0x29EDB8E70] fileURLWithFileSystemRepresentation:v29.pw_dir isDirectory:1 relativeToURL:0];
+    v26 = v25;
     v17 = 0;
-    *a4 = v26;
+    *a4 = v25;
   }
 
   else
@@ -2553,18 +2553,17 @@ LABEL_8:
 
 LABEL_10:
 
-  v24 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
-void MIGetCurrentMobileUserInfo(_DWORD *a1, _DWORD *a2)
+void MIGetCurrentMobileUserInfo(_DWORD *result, _DWORD *a2)
 {
   if (MIGetCurrentMobileUserInfo_onceToken != -1)
   {
     MIGetCurrentMobileUserInfo_cold_1();
   }
 
-  *a1 = MIGetCurrentMobileUserInfo_uid;
+  *result = MIGetCurrentMobileUserInfo_uid;
   *a2 = MIGetCurrentMobileUserInfo_gid;
 }
 
@@ -2644,9 +2643,10 @@ LABEL_16:
 
 uint64_t MIRestoreIdentity()
 {
-  v4 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v0 = getuid();
-  if (!(v0 | getgid()))
+  v1 = getgid();
+  if (!(v0 | v1))
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT))
     {
@@ -2663,14 +2663,32 @@ uint64_t MIRestoreIdentity()
   if (result)
   {
     v3 = *__error();
-    os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-    strerror(v3);
-    _os_log_send_and_compose_impl();
+    v7 = 0;
+    memset(v15, 0, sizeof(v15));
+    v4 = MEMORY[0x29EDCA988];
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      v5 = 3;
+    }
+
+    else
+    {
+      v5 = 2;
+    }
+
+    v8[0] = 67109890;
+    v8[1] = v0;
+    v9 = 1024;
+    v10 = v1;
+    v11 = 1024;
+    v12 = v3;
+    v13 = 2080;
+    v14 = strerror(v3);
+    _os_log_send_and_compose_impl(v5, &v7, v15, 80, &dword_296A1B000, v4, 16, "pthread_setugid_np failed to restore root privs from %u/%u; error %d (%s); aborting because this thread is in a bad state.", v8, 30, v6);
     _os_crash_msg();
     __break(1u);
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3074,96 +3092,95 @@ id MILoadFilteredPlist(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = a2;
-  v27 = 0;
-  cf = 0;
   v26 = 0;
-  v7 = [MEMORY[0x29EDB8DA0] dataWithContentsOfURL:v5 options:3 error:&v26];
-  v8 = v26;
+  cf = 0;
+  v25 = 0;
+  v7 = [MEMORY[0x29EDB8DA0] dataWithContentsOfURL:v5 options:3 error:&v25];
+  v8 = v25;
   if (!v7)
   {
-    v13 = [v5 path];
-    v17 = _CreateAndLogError("MILoadFilteredPlist", 541, @"MIInstallerErrorDomain", 4, v8, 0, @"Failed to read plist from %@", v16, v13);
+    v12 = [v5 path];
+    v16 = _CreateAndLogError("MILoadFilteredPlist", 541, @"MIInstallerErrorDomain", 4, v8, 0, @"Failed to read plist from %@", v15, v12);
     goto LABEL_21;
   }
 
   if (!v6)
   {
-    v25 = 0;
-    v11 = [MEMORY[0x29EDBA0C0] propertyListWithData:v7 options:0 format:0 error:&v25];
-    v14 = v25;
+    v24 = 0;
+    v10 = [MEMORY[0x29EDBA0C0] propertyListWithData:v7 options:0 format:0 error:&v24];
+    v13 = v24;
 
-    if (!v11)
+    if (!v10)
     {
-      v13 = [v5 path];
-      v17 = _CreateAndLogError("MILoadFilteredPlist", 559, @"MIInstallerErrorDomain", 4, v14, 0, @"Failed to decode plist from %@", v21, v13);
+      v12 = [v5 path];
+      v16 = _CreateAndLogError("MILoadFilteredPlist", 559, @"MIInstallerErrorDomain", 4, v13, 0, @"Failed to decode plist from %@", v20, v12);
       goto LABEL_20;
     }
 
-    v8 = v14;
+    v8 = v13;
     goto LABEL_12;
   }
 
-  v9 = *MEMORY[0x29EDB8ED8];
   Filtered = _CFPropertyListCreateFiltered();
-  v11 = v27;
+  v10 = v26;
   if (Filtered)
   {
-    v12 = v27 == 0;
+    v11 = v26 == 0;
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
-  if (!v12)
+  if (!v11)
   {
-    v27 = 0;
+    v26 = 0;
 LABEL_12:
     objc_opt_class();
-    v13 = v11;
+    v12 = v10;
     if (objc_opt_isKindOfClass())
     {
-      v18 = v13;
+      v17 = v12;
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    if (v18)
+    if (v17)
     {
-      v17 = v8;
+      v16 = v8;
       goto LABEL_24;
     }
 
-    v19 = objc_opt_class();
-    v14 = NSStringFromClass(v19);
-    _CreateAndLogError("MILoadFilteredPlist", 565, @"MIInstallerErrorDomain", 4, 0, 0, @"Object returned from _CFPropertyListCreateFiltered was not a dictionary, was type %@", v20, v14);
+    v18 = objc_opt_class();
+    v13 = NSStringFromClass(v18);
+    _CreateAndLogError("MILoadFilteredPlist", 565, @"MIInstallerErrorDomain", 4, 0, 0, @"Object returned from _CFPropertyListCreateFiltered was not a dictionary, was type %@", v19, v13);
     goto LABEL_18;
   }
 
-  v13 = cf;
+  v12 = cf;
   cf = 0;
-  v14 = [v5 path];
-  _CreateAndLogError("MILoadFilteredPlist", 550, @"MIInstallerErrorDomain", 4, v13, 0, @"Failed to decode plist from %@", v15, v14);
-  v17 = LABEL_18:;
+  v13 = [v5 path];
+  _CreateAndLogError("MILoadFilteredPlist", 550, @"MIInstallerErrorDomain", 4, v12, 0, @"Failed to decode plist from %@", v14, v13);
+  v16 = LABEL_18:;
 
 LABEL_20:
-  v8 = v14;
+  v8 = v13;
 LABEL_21:
 
   if (a3)
   {
-    v22 = v17;
-    v13 = 0;
-    *a3 = v17;
+    v21 = v16;
+    v12 = 0;
+    *a3 = v16;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
 LABEL_24:
@@ -3173,47 +3190,46 @@ LABEL_24:
     cf = 0;
   }
 
-  if (v27)
+  if (v26)
   {
-    CFRelease(v27);
-    v27 = 0;
+    CFRelease(v26);
+    v26 = 0;
   }
 
-  v23 = v13;
+  v22 = v12;
 
-  return v23;
+  return v22;
 }
 
-id MICopyCurrentBuildVersion()
+id MICopyCurrentBuildVersion(uint64_t a1)
 {
   if (MICopyCurrentBuildVersion_onceToken != -1)
   {
     MICopyCurrentBuildVersion_cold_1();
   }
 
-  v1 = MICopyCurrentBuildVersion_buildVersion;
+  v2 = MICopyCurrentBuildVersion_buildVersion;
 
-  return v1;
+  return v2;
 }
 
 void __MICopyCurrentBuildVersion_block_invoke()
 {
-  v0 = *MEMORY[0x29EDB8EC8];
-  v1 = _CFCopySystemVersionDictionaryValue();
+  v0 = _CFCopySystemVersionDictionaryValue();
   objc_opt_class();
-  v2 = v1;
+  v1 = v0;
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
+    v2 = v1;
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  v4 = MICopyCurrentBuildVersion_buildVersion;
-  MICopyCurrentBuildVersion_buildVersion = v3;
+  v3 = MICopyCurrentBuildVersion_buildVersion;
+  MICopyCurrentBuildVersion_buildVersion = v2;
 
   if (!MICopyCurrentBuildVersion_buildVersion && (!gLogHandle || *(gLogHandle + 44) >= 3))
   {
@@ -3244,11 +3260,11 @@ void MIClearResourceAssertion()
 
 id MICreateSHA256Digest(void *a1, void *a2)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v3 = a1;
   memset(md, 0, sizeof(md));
-  memset(&v51, 0, sizeof(v51));
-  if (lstat([v3 fileSystemRepresentation], &v51))
+  memset(&v50, 0, sizeof(v50));
+  if (lstat([v3 fileSystemRepresentation], &v50))
   {
     v4 = __error();
     v5 = *v4;
@@ -3261,11 +3277,11 @@ id MICreateSHA256Digest(void *a1, void *a2)
     goto LABEL_3;
   }
 
-  if (v51.st_size <= 0xFFFFFFF)
+  if (v50.st_size <= 0xFFFFFFF)
   {
-    v50 = 0;
-    v12 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithContentsOfURL:v3 options:3 error:&v50];
-    v10 = v50;
+    v49 = 0;
+    v12 = [objc_alloc(MEMORY[0x29EDB8DA0]) initWithContentsOfURL:v3 options:3 error:&v49];
+    v10 = v49;
     if (v12)
     {
       v13 = v12;
@@ -3305,21 +3321,21 @@ LABEL_28:
     goto LABEL_3;
   }
 
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x8810000000;
-  v48 = "";
-  memset(&v49, 0, sizeof(v49));
-  CC_SHA256_Init(&v49);
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x8810000000;
+  v47 = "";
+  memset(&v48, 0, sizeof(v48));
+  CC_SHA256_Init(&v48);
   v14 = v3;
   v15 = [v3 fileSystemRepresentation];
-  v41[0] = MEMORY[0x29EDCA5F8];
-  v41[1] = 3221225472;
-  v42 = __MICreateSHA256Digest_block_invoke;
-  v43 = &unk_29EE50840;
-  v44 = &v45;
-  v16 = v41;
-  memset(&v52, 0, sizeof(v52));
+  v40[0] = MEMORY[0x29EDCA5F8];
+  v40[1] = 3221225472;
+  v41 = __MICreateSHA256Digest_block_invoke;
+  v42 = &unk_29EE50840;
+  v43 = &v44;
+  v16 = v40;
+  memset(&v51, 0, sizeof(v51));
   v17 = open(v15, 256);
   v18 = v17;
   if (v17 < 0)
@@ -3338,7 +3354,7 @@ LABEL_21:
 
   else
   {
-    if (fstat(v17, &v52))
+    if (fstat(v17, &v51))
     {
       if (gLogHandle && *(gLogHandle + 44) < 3)
       {
@@ -3348,14 +3364,14 @@ LABEL_21:
       goto LABEL_12;
     }
 
-    if (v52.st_size >= 0x10000)
+    if (v51.st_size >= 0x10000)
     {
       st_size = 0x10000;
     }
 
     else
     {
-      st_size = v52.st_size;
+      st_size = v51.st_size;
     }
 
     v21 = malloc_type_malloc(st_size, 0x57186DA8uLL);
@@ -3378,32 +3394,32 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v34 = v52.st_size;
-    if (v52.st_size < 1)
+    v33 = v51.st_size;
+    if (v51.st_size < 1)
     {
       v20 = 1;
       goto LABEL_23;
     }
 
-    v40 = v16;
-    v35 = 0;
+    v39 = v16;
+    v34 = 0;
     while (1)
     {
-      v36 = v34 - v35;
-      if (st_size >= v36)
+      v35 = v33 - v34;
+      if (st_size >= v35)
       {
-        st_size = v36;
+        st_size = v35;
       }
 
-      v37 = read(v18, v21, st_size);
-      v38 = v37;
-      if (v37 == -1)
+      v36 = read(v18, v21, st_size);
+      v37 = v36;
+      if (v36 == -1)
       {
         if (!gLogHandle || *(gLogHandle + 44) >= 3)
         {
-          v39 = __error();
-          v16 = v40;
-          strerror(*v39);
+          v38 = __error();
+          v16 = v39;
+          strerror(*v38);
           MOLogWrite();
           goto LABEL_21;
         }
@@ -3411,17 +3427,17 @@ LABEL_23:
         goto LABEL_60;
       }
 
-      if (v37 <= 0)
+      if (v36 <= 0)
       {
         break;
       }
 
-      v20 = v42(v40, v21, v37);
+      v20 = v41(v39, v21, v36);
       if (v20)
       {
-        v35 += v38;
-        v34 = v52.st_size;
-        if (v35 < v52.st_size)
+        v34 += v37;
+        v33 = v51.st_size;
+        if (v34 < v51.st_size)
         {
           continue;
         }
@@ -3433,14 +3449,14 @@ LABEL_23:
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
       MOLogWrite();
-      v16 = v40;
+      v16 = v39;
       goto LABEL_21;
     }
 
 LABEL_60:
     v20 = 0;
 LABEL_61:
-    v16 = v40;
+    v16 = v39;
   }
 
   if (v18 != -1)
@@ -3454,16 +3470,16 @@ LABEL_24:
     free(v21);
   }
 
-  CC_SHA256_Final(md, (v46 + 4));
+  CC_SHA256_Final(md, (v45 + 4));
   if (v20)
   {
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
     v10 = 0;
     goto LABEL_28;
   }
 
   v10 = _CreateAndLogError("MICreateSHA256Digest", 148, @"MIInstallerErrorDomain", 4, 0, 0, @"Failed to read %@", v23, v3);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
 LABEL_3:
   v11 = 0;
   if (!a2)
@@ -3480,14 +3496,12 @@ LABEL_31:
 
 LABEL_33:
 
-  v31 = *MEMORY[0x29EDCA608];
-
   return v11;
 }
 
-void sub_296A21AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A21AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3536,8 +3550,8 @@ uint64_t MIApplyAppPatch(void *a1, void *a2, void *a3, void *a4)
       goto LABEL_82;
     }
 
-    v56 = [v14 path];
-    v62 = v56;
+    v57 = [v14 path];
+    v62 = v57;
     v63 = v16;
     goto LABEL_81;
   }
@@ -3565,7 +3579,7 @@ uint64_t MIApplyAppPatch(void *a1, void *a2, void *a3, void *a4)
 
     v91 = 0;
     v23 = 0;
-    v57 = 0;
+    v58 = 0;
     v16 = v19;
     goto LABEL_88;
   }
@@ -3588,8 +3602,8 @@ uint64_t MIApplyAppPatch(void *a1, void *a2, void *a3, void *a4)
       goto LABEL_82;
     }
 
-    v56 = [v94 path];
-    v62 = v56;
+    v57 = [v94 path];
+    v62 = v57;
     v63 = v16;
 LABEL_81:
     MOLogWrite();
@@ -3621,14 +3635,14 @@ LABEL_82:
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v55 = [v94 path];
-      v62 = v55;
+      v56 = [v94 path];
+      v62 = v56;
 LABEL_99:
       MOLogWrite();
     }
 
 LABEL_83:
-    v57 = 0;
+    v58 = 0;
     goto LABEL_88;
   }
 
@@ -3785,9 +3799,9 @@ LABEL_28:
         v9 = v87;
       }
 
-      objc_opt_class();
+      v50 = objc_opt_class();
       v76 = v47;
-      if (MIArrayContainsOnlyClass(v47))
+      if (MIArrayContainsOnlyClass(v47, v50))
       {
         v74 = [v93 URLByAppendingPathComponent:v77 isDirectory:0];
         if (!gLogHandle || *(gLogHandle + 44) >= 5)
@@ -3801,20 +3815,20 @@ LABEL_28:
         cf = 0;
         if (hardlink_copy_hierarchy([v93 fileSystemRepresentation], objc_msgSend(v31, "fileSystemRepresentation"), objc_msgSend(v88, "fileSystemRepresentation"), objc_msgSend(v79, "UTF8String"), objc_msgSend(v78, "UTF8String"), objc_msgSend(v84, "UTF8String"), objc_msgSend(v74, "fileSystemRepresentation"), v47, 0, &cf))
         {
-          v50 = +[MIFileManager defaultManager];
+          v51 = +[MIFileManager defaultManager];
           v96 = v16;
-          v51 = [v50 removeItemAtURL:v88 error:&v96];
+          v52 = [v51 removeItemAtURL:v88 error:&v96];
           v70 = v96;
 
           v9 = v87;
-          if (v51)
+          if (v52)
           {
             [v91 removeObjectForKey:v27];
             v43 = 0;
 LABEL_67:
             v23 = v82;
             v44 = v88;
-            v52 = v74;
+            v53 = v74;
             v16 = v70;
             goto LABEL_68;
           }
@@ -3838,12 +3852,12 @@ LABEL_67:
         {
           if (!gLogHandle || *(gLogHandle + 44) >= 3)
           {
-            v53 = [v93 path];
-            v54 = [v31 path];
+            v54 = [v93 path];
+            v55 = [v31 path];
             v64 = [v88 path];
             v65 = cf;
-            v62 = v53;
-            v63 = v54;
+            v62 = v54;
+            v63 = v55;
             MOLogWrite();
           }
 
@@ -3858,7 +3872,7 @@ LABEL_67:
         }
 
         v23 = v82;
-        v52 = v74;
+        v53 = v74;
 LABEL_68:
 
         goto LABEL_69;
@@ -3868,7 +3882,7 @@ LABEL_68:
       {
         v62 = [v93 path];
         MOLogWrite();
-        v52 = v62;
+        v53 = v62;
         v43 = 6;
         v23 = v82;
         v44 = v88;
@@ -3911,8 +3925,8 @@ LABEL_74:
     v10 = v67;
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v55 = [v25 allKeys];
-      v62 = v55;
+      v56 = [v25 allKeys];
+      v62 = v56;
       goto LABEL_99;
     }
 
@@ -3933,69 +3947,68 @@ LABEL_74:
     goto LABEL_83;
   }
 
-  v57 = 1;
+  v58 = 1;
 LABEL_88:
-  v58 = [MIFileManager defaultManager:v62];
+  v59 = [MIFileManager defaultManager:v62];
   v95 = v16;
-  [v58 removeItemAtURL:v14 error:&v95];
-  v59 = v95;
+  [v59 removeItemAtURL:v14 error:&v95];
+  v60 = v95;
 
-  v60 = *MEMORY[0x29EDCA608];
-  return v57 & 1;
+  return v58 & 1;
 }
 
 id _FindBundles(void *a1)
 {
-  v38[6] = *MEMORY[0x29EDCA608];
+  v37[6] = *MEMORY[0x29EDCA608];
   v1 = a1;
   v2 = objc_opt_new();
   v3 = +[MIFileManager defaultManager];
-  v36 = 0;
-  v4 = [v3 urlsForItemsInDirectoryAtURL:v1 ignoringSymlinks:1 error:&v36];
-  v5 = v36;
+  v35 = 0;
+  v4 = [v3 urlsForItemsInDirectoryAtURL:v1 ignoringSymlinks:1 error:&v35];
+  v5 = v35;
 
   if (v4)
   {
-    v25 = v5;
-    v26 = v1;
-    v27 = v2;
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
+    v24 = v5;
+    v25 = v1;
+    v26 = v2;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v33;
+      v8 = *v32;
       v9 = *MEMORY[0x29EDB8F10];
-      v30 = *MEMORY[0x29EDB8F20];
-      v29 = *MEMORY[0x29EDB8EC0];
-      v28 = *MEMORY[0x29EDB8F08];
+      v29 = *MEMORY[0x29EDB8F20];
+      v28 = *MEMORY[0x29EDB8EC0];
+      v27 = *MEMORY[0x29EDB8F08];
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v33 != v8)
+          if (*v32 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v32 + 1) + 8 * i);
+          v11 = *(*(&v31 + 1) + 8 * i);
           v12 = [v11 pathExtension];
           v13 = v12;
           if (v12 && [v12 isEqualToString:@"app"])
           {
-            v38[0] = v9;
-            v38[1] = v30;
-            v38[2] = v29;
-            v38[3] = v28;
-            v38[4] = @"UISupportedDevices";
-            v38[5] = @"SupportedDevices";
+            v37[0] = v9;
+            v37[1] = v29;
+            v37[2] = v28;
+            v37[3] = v27;
+            v37[4] = @"UISupportedDevices";
+            v37[5] = @"SupportedDevices";
             v14 = MEMORY[0x29EDB8D80];
             v15 = v11;
-            v16 = [v14 arrayWithObjects:v38 count:6];
+            v16 = [v14 arrayWithObjects:v37 count:6];
             v17 = [MEMORY[0x29EDB8E50] setWithArray:v16];
             v18 = MILoadInfoPlist(v15, v17);
 
@@ -4003,64 +4016,62 @@ id _FindBundles(void *a1)
             v19 = [v18 objectForKeyedSubscript:v9];
             if (v19)
             {
-              [v27 setObject:v18 forKeyedSubscript:v19];
+              [v26 setObject:v18 forKeyedSubscript:v19];
             }
 
             else if (!gLogHandle || *(gLogHandle + 44) >= 3)
             {
-              v23 = v18;
+              v22 = v18;
               MOLogWrite();
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v7);
     }
 
-    v2 = v27;
-    v20 = v27;
-    v1 = v26;
-    v5 = v25;
+    v2 = v26;
+    v20 = v26;
+    v1 = v25;
+    v5 = v24;
   }
 
   else
   {
     if (!gLogHandle || *(gLogHandle + 44) >= 3)
     {
-      v24 = [v1 path];
+      v23 = [v1 path];
       MOLogWrite();
     }
 
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x29EDCA608];
-
   return v20;
 }
 
 uint64_t _CreateZipFromDirectory(void *a1, void *a2)
 {
-  v13[3] = *MEMORY[0x29EDCA608];
+  v12[3] = *MEMORY[0x29EDCA608];
   v3 = a1;
   v4 = a2;
-  v11 = fopen([v4 fileSystemRepresentation], "w+x");
-  if (v11)
+  v10 = fopen([v4 fileSystemRepresentation], "w+x");
+  if (v10)
   {
     v5 = *MEMORY[0x29EDC6D78];
-    v12[0] = *MEMORY[0x29EDC6D70];
-    v12[1] = v5;
-    v13[0] = *MEMORY[0x29EDC6D68];
-    v13[1] = MEMORY[0x29EDB8EB0];
-    v12[2] = *MEMORY[0x29EDC6D80];
-    v13[2] = &unk_2A1DE8570;
-    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v11[0] = *MEMORY[0x29EDC6D70];
+    v11[1] = v5;
+    v12[0] = *MEMORY[0x29EDC6D68];
+    v12[1] = MEMORY[0x29EDB8EB0];
+    v11[2] = *MEMORY[0x29EDC6D80];
+    v12[2] = &unk_2A1DE8570;
+    v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
     [v3 fileSystemRepresentation];
     StreamableZip = SZArchiverCreateStreamableZip();
-    fclose(v11);
+    fclose(v10);
   }
 
   else
@@ -4076,7 +4087,6 @@ uint64_t _CreateZipFromDirectory(void *a1, void *a2)
     StreamableZip = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return StreamableZip;
 }
 
@@ -4333,14 +4343,15 @@ LABEL_6:
   return 0;
 }
 
-uint64_t TraverseDirectoryWithPostTraversal(uint64_t a1, char a2, unsigned int a3, void *a4, void *a5, void *a6)
+uint64_t TraverseDirectoryWithPostTraversal(uint64_t a1, uint64_t a2, unsigned int a3, void *a4, void *a5, void *a6)
 {
-  v132 = *MEMORY[0x29EDCA608];
+  v9 = a2;
+  v131 = *MEMORY[0x29EDCA608];
   v11 = a5;
   v12 = a6;
+  v107 = 0;
   v108 = 0;
-  v109 = 0;
-  v107 = 5;
+  v106 = 5;
   if (a3)
   {
     v13 = -1610579959;
@@ -4351,10 +4362,10 @@ uint64_t TraverseDirectoryWithPostTraversal(uint64_t a1, char a2, unsigned int a
     v13 = -1610612727;
   }
 
-  HIDWORD(v107) = v13 & 0xBDB8FFFF | (((a3 >> 1) & 7) << 16) & 0xBDBFFFFF | (((a3 >> 5) & 1) << 22) & 0xBDFFFFFF | (((a3 >> 4) & 1) << 30) | (((a3 >> 6) & 1) << 25);
+  HIDWORD(v106) = v13 & 0xBDB8FFFF | (((a3 >> 1) & 7) << 16) & 0xBDBFFFFF | (((a3 >> 5) & 1) << 22) & 0xBDFFFFFF | (((a3 >> 4) & 1) << 30) | (((a3 >> 6) & 1) << 25);
   if ((a3 & 0x80) != 0)
   {
-    LODWORD(v109) = 1;
+    LODWORD(v108) = 1;
     v14 = 5;
     if ((a3 & 0x100) == 0)
     {
@@ -4368,17 +4379,17 @@ uint64_t TraverseDirectoryWithPostTraversal(uint64_t a1, char a2, unsigned int a
   if ((a3 & 0x100) != 0)
   {
 LABEL_8:
-    LODWORD(v109) = v14;
+    LODWORD(v108) = v14;
   }
 
 LABEL_9:
   if ((a3 & 0x200) != 0)
   {
-    HIDWORD(v109) = 512;
+    HIDWORD(v108) = 512;
   }
 
-  HIDWORD(v108) = 6;
-  bzero(&v126, 0x420uLL);
+  HIDWORD(v107) = 6;
+  bzero(&v125, 0x420uLL);
   if (!a1)
   {
     _CreateAndLogError("TraverseDirectoryWithPostTraversal", 912, @"MIInstallerErrorDomain", 25, 0, 0, @"%s was called with a NULL path parameter.", v15, "_Bool TraverseDirectoryWithPostTraversal(const char *, TraverseDirectoryOptions, TraverseDirectoryAdditionalFetchProperties, NSError *__autoreleasing *, __strong TraverseDirectoryItemBlock, __strong TraverseDirectoryPostTraversalBlock)");
@@ -4393,16 +4404,16 @@ LABEL_9:
     goto LABEL_23;
   }
 
-  v130 = v16;
-  v18 = _CreateAndPushContinuation(&v126);
+  v129 = v16;
+  v18 = _CreateAndPushContinuation(&v125);
   if (!v18)
   {
-    _CreateAndLogError("TraverseDirectoryWithPostTraversal", 927, *MEMORY[0x29EDB9EF8], 12, 0, 0, @"Failed to create a continuation", v19, v102);
+    _CreateAndLogError("TraverseDirectoryWithPostTraversal", 927, *MEMORY[0x29EDB9EF8], 12, 0, 0, @"Failed to create a continuation", v19, v101);
     goto LABEL_22;
   }
 
-  v105 = a4;
-  if (a2)
+  v104 = a4;
+  if (v9)
   {
     v30 = 0;
   }
@@ -4411,456 +4422,456 @@ LABEL_9:
   {
     v20 = v18;
     v21 = v11;
-    v119 = 0;
-    v117 = 0u;
-    v118 = 0u;
-    v115 = 0u;
+    v118 = 0;
     v116 = 0u;
-    v113 = 0u;
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
     *__errnum = 0u;
-    v125 = 0;
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
+    v124 = 0;
     v122 = 0u;
+    v123 = 0u;
     v120 = 0u;
-    v111 = 0;
-    v112 = 0;
+    v121 = 0u;
+    v119 = 0u;
     v110 = 0;
-    ContinuationFD = _GetContinuationFD(&v126, v20, 0, &v111);
-    v23 = v111;
+    v111 = 0;
+    v109 = 0;
+    ContinuationFD = _GetContinuationFD(&v125, v20, 0, &v110);
+    v23 = v110;
     if (ContinuationFD == -1)
     {
-      v29 = a2;
+      v29 = v9;
     }
 
     else
     {
-      if (fgetattrlist(ContinuationFD, &v107, *(v20 + 8), 0x4000uLL, 32 * (HIDWORD(v109) != 0)))
+      if (fgetattrlist(ContinuationFD, &v106, *(v20 + 8), 0x4000uLL, 32 * (HIDWORD(v108) != 0)))
       {
         v24 = *__error();
         v25 = *MEMORY[0x29EDB9EF8];
         v26 = v24;
         strerror(v24);
-        _CreateAndLogError("_CallBlockForBaseItem", 844, v25, v26, 0, 0, @"fgetattrlist for %s failed: %s", v27, v129);
+        _CreateAndLogError("_CallBlockForBaseItem", 844, v25, v26, 0, 0, @"fgetattrlist for %s failed: %s", v27, v128);
       }
 
       else
       {
-        _ParseAttributeBuf(v129, *(v20 + 8), &v113, &v112, 0, &v110);
-        if (DWORD1(v115) != 2)
+        _ParseAttributeBuf(v128, *(v20 + 8), &v112, &v111, 0, &v109);
+        if (DWORD1(v114) != 2)
         {
-          v74 = *(v20 + 24);
-          if ((v74 & 0x80000000) == 0)
+          v73 = *(v20 + 24);
+          if ((v73 & 0x80000000) == 0)
           {
-            close(v74);
+            close(v73);
             *(v20 + 24) = -1;
           }
         }
 
-        v75 = v130 + 24;
-        v76 = 25;
-        if (v75 < 0x19)
+        v74 = v129 + 24;
+        v75 = 25;
+        if (v74 < 0x19)
         {
-          v76 = v130 + 24;
+          v75 = v129 + 24;
         }
 
-        v77 = v130;
-        while (v77 + 24 >= 26)
+        v76 = v129;
+        while (v76 + 24 >= 26)
         {
-          v78 = v129[--v77];
-          if (v78 == 47)
+          v77 = v128[--v76];
+          if (v77 == 47)
           {
-            v76 = v77 + 25;
+            v75 = v76 + 25;
 LABEL_111:
-            v29 = a2;
-            v79 = _CallClientBlock(a2, v129, v130, &v126 + v76, v75 - v76, 0, &v113, &v120, v112, v21);
-            v71 = 0;
-            v69 = v110 | (v79 != 0) | (DWORD1(v115) != 2);
-            v70 = 1;
+            v29 = v9;
+            v78 = _CallClientBlock(v9, v128, v129, &v125 + v75, v74 - v75, 0, &v112, &v119, v111, v21);
+            v70 = 0;
+            v68 = v109 | (v78 != 0) | (DWORD1(v114) != 2);
+            v69 = 1;
             goto LABEL_96;
           }
         }
 
-        if (*(&v126 + v76 - 1) == 47)
+        if (*(&v125 + v75 - 1) == 47)
         {
           goto LABEL_111;
         }
 
-        _CreateAndLogError("_CallBlockForBaseItem", 860, @"MIInstallerErrorDomain", 4, 0, 0, @"Failed to locate last path element in %s", v73, v129);
+        _CreateAndLogError("_CallBlockForBaseItem", 860, @"MIInstallerErrorDomain", 4, 0, 0, @"Failed to locate last path element in %s", v72, v128);
       }
       v28 = ;
-      v29 = a2;
+      v29 = v9;
 
       v23 = v28;
     }
 
-    v68 = v23;
+    v67 = v23;
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
-    v71 = v23;
+    v70 = v23;
 LABEL_96:
 
-    v30 = v71;
-    if (!v70)
+    v30 = v70;
+    if (!v69)
     {
       goto LABEL_127;
     }
 
-    a2 = v29;
-    if (v69)
+    v9 = v29;
+    if (v68)
     {
       goto LABEL_98;
     }
   }
 
-  v35 = v126;
-  if (!v126)
+  v34 = v125;
+  if (!v125)
   {
     goto LABEL_98;
   }
 
-  v103 = (v12 + 16);
+  v102 = (v12 + 16);
 LABEL_30:
-  v126 = *v35;
-  --v131;
-  if (*&v35[1] || (AttrBuffer = _GetAttrBuffer(&v126), (v35[1] = AttrBuffer) != 0))
+  v125 = *v34;
+  --v130;
+  if (*&v34[1] || (AttrBuffer = _GetAttrBuffer(&v125), (v34[1] = AttrBuffer) != 0))
   {
     while (1)
     {
-      v106 = v11;
-      v39 = v12;
-      v125 = 0;
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
+      v105 = v11;
+      v38 = v12;
+      v124 = 0;
       v122 = 0u;
+      v123 = 0u;
       v120 = 0u;
-      v119 = 0;
-      v117 = 0u;
-      v118 = 0u;
-      v115 = 0u;
+      v121 = 0u;
+      v119 = 0u;
+      v118 = 0;
       v116 = 0u;
-      v113 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v112 = 0u;
       *__errnum = 0u;
-      v40 = v35[3].u16[2];
-      if (!v35[3].i16[2])
+      v39 = v34[3].u16[2];
+      if (!v34[3].i16[2])
       {
         goto LABEL_69;
       }
 
-      v41 = v35[2].u32[0];
-      v42 = v35[2].u32[1];
-      v43 = v41 - v42;
-      if (v41 < v42)
+      v40 = v34[2].u32[0];
+      v41 = v34[2].u32[1];
+      v42 = v40 - v41;
+      if (v40 < v41)
       {
-        _CreateAndLogError("_ProcessContinuation", 670, @"MIInstallerErrorDomain", 4, 0, 0, @"Internal error: totalProcessedEntryCount (%u) was less than reprocessCount (%u)", v38, v35[2].u32[0]);
-        v72 = LABEL_100:;
+        _CreateAndLogError("_ProcessContinuation", 670, @"MIInstallerErrorDomain", 4, 0, 0, @"Internal error: totalProcessedEntryCount (%u) was less than reprocessCount (%u)", v37, v34[2].u32[0]);
+        v71 = LABEL_100:;
 LABEL_120:
-        v86 = v72;
+        v85 = v71;
 
-        v87 = v72;
+        v86 = v71;
 LABEL_121:
-        v88 = v87;
+        v87 = v86;
 
-        v89 = v35[1];
-        if (v89)
+        v88 = v34[1];
+        if (v88)
         {
-          *v89 = v127;
-          v127 = v89;
+          *v88 = v126;
+          v126 = v88;
         }
 
-        v90 = v35[3].i32[0];
-        if ((v90 & 0x80000000) == 0)
+        v89 = v34[3].i32[0];
+        if ((v89 & 0x80000000) == 0)
         {
-          close(v90);
-          v35[3].i32[0] = -1;
+          close(v89);
+          v34[3].i32[0] = -1;
         }
 
-        *v35 = v128;
-        v128 = v35;
+        *v34 = v127;
+        v127 = v34;
         goto LABEL_126;
       }
 
-      if (v41 == v42)
+      if (v40 == v41)
       {
-        v44 = v35[3].u16[3];
+        v43 = v34[3].u16[3];
       }
 
       else
       {
-        if (v43 >= v40)
+        if (v42 >= v39)
         {
-          v35[2].i32[1] = v42 + v40;
-          v35[3].i16[3] = v40;
+          v34[2].i32[1] = v41 + v39;
+          v34[3].i16[3] = v39;
           goto LABEL_69;
         }
 
-        v44 = (v41 - v42);
-        v35[3].i16[3] = v43;
-        v35[2].i32[1] = v41;
+        v43 = (v40 - v41);
+        v34[3].i16[3] = v42;
+        v34[2].i32[1] = v40;
       }
 
-      v45 = v35[1];
-      if (v44)
+      v44 = v34[1];
+      if (v43)
       {
+        v45 = 0;
         v46 = 0;
-        v47 = 0;
         while (1)
         {
-          v48 = *(*&v45 + v47);
-          v47 += v48;
-          if (v47 > 0x4000)
+          v47 = *(*&v44 + v46);
+          v46 += v47;
+          if (v46 > 0x4000)
           {
             break;
           }
 
-          if (++v46 >= v44)
+          if (++v45 >= v43)
           {
             goto LABEL_44;
           }
         }
 
-        _CreateAndLogError("_ProcessContinuation", 705, @"MIInstallerErrorDomain", 4, 0, 0, @"Read entry length %u for entry %hu but that put us off the end of the buffer", v38, v48);
+        _CreateAndLogError("_ProcessContinuation", 705, @"MIInstallerErrorDomain", 4, 0, 0, @"Read entry length %u for entry %hu but that put us off the end of the buffer", v37, v47);
         goto LABEL_100;
       }
 
-      v47 = 0;
+      v46 = 0;
 LABEL_44:
-      v104 = v11;
-      if (v44 < v40)
+      v103 = v11;
+      if (v43 < v39)
       {
         while (1)
         {
-          v111 = 0;
-          v112 = 0;
           v110 = 0;
-          _ParseAttributeBuf(v129, *&v45 + v47, &v113, &v111, &v112, &v110);
-          v50 = v112;
-          if (!v112)
+          v111 = 0;
+          v109 = 0;
+          _ParseAttributeBuf(v128, *&v44 + v46, &v112, &v110, &v111, &v109);
+          v49 = v111;
+          if (!v111)
           {
             break;
           }
 
-          v47 += v113;
-          if (v47 > 0x4000)
+          v46 += v112;
+          if (v46 > 0x4000)
           {
-            v80 = @"MIInstallerErrorDomain";
-            v102 = v113;
-            v81 = @"Read entry length %u for entry %hu but that put us off the end of the buffer";
-            v82 = 729;
+            v79 = @"MIInstallerErrorDomain";
+            v101 = v112;
+            v80 = @"Read entry length %u for entry %hu but that put us off the end of the buffer";
+            v81 = 729;
             goto LABEL_114;
           }
 
-          v51 = __errnum[2];
+          v50 = __errnum[2];
           if (__errnum[2])
           {
-            v84 = *MEMORY[0x29EDB9EF8];
+            v83 = *MEMORY[0x29EDB9EF8];
             strerror(__errnum[2]);
-            _CreateAndLogError("_ProcessContinuation", 736, v84, v51, 0, 0, @"got error while processing entry %hu in %s : %s", v85, v44);
+            _CreateAndLogError("_ProcessContinuation", 736, v83, v50, 0, 0, @"got error while processing entry %hu in %s : %s", v84, v43);
             goto LABEL_119;
           }
 
-          v52 = (v115 - 1);
-          if (!_PushPathBuf(&v126, v112, v52))
+          v51 = (v114 - 1);
+          if (!_PushPathBuf(&v125, v111, v51))
           {
-            v80 = *MEMORY[0x29EDB9EF8];
-            v102 = v50;
-            v81 = @"Could not append element %s of length %zd to path %s because it would make the path longer than MAXPATHLEN";
-            v82 = 743;
-            v83 = 63;
+            v79 = *MEMORY[0x29EDB9EF8];
+            v101 = v49;
+            v80 = @"Could not append element %s of length %zd to path %s because it would make the path longer than MAXPATHLEN";
+            v81 = 743;
+            v82 = 63;
             goto LABEL_118;
           }
 
-          v53 = _CallClientBlock(a2, v129, v130, v50, v52, v131 + 1, &v113, &v120, v111, v106);
-          if (v53 == 2)
+          v52 = _CallClientBlock(v9, v128, v129, v49, v51, v130 + 1, &v112, &v119, v110, v105);
+          if (v52 == 2)
           {
-            v110 = 1;
+            v109 = 1;
           }
 
-          else if (v53 == 1)
+          else if (v52 == 1)
           {
             goto LABEL_131;
           }
 
-          ++v35[3].i16[3];
-          v35[2] = vadd_s32(v35[2], 0x100000001);
-          if (DWORD1(v115) == 2)
+          ++v34[3].i16[3];
+          v34[2] = vadd_s32(v34[2], 0x100000001);
+          if (DWORD1(v114) == 2)
           {
-            if ((v110 & 1) == 0)
+            if ((v109 & 1) == 0)
             {
-              *v35 = v126;
-              v126 = v35;
-              ++v131;
-              if (_CreateAndPushContinuation(&v126))
+              *v34 = v125;
+              v125 = v34;
+              ++v130;
+              if (_CreateAndPushContinuation(&v125))
               {
 
-                v11 = v104;
+                v11 = v103;
                 goto LABEL_92;
               }
 
-              v80 = *MEMORY[0x29EDB9EF8];
-              v81 = @"Failed to create a continuation";
-              v82 = 773;
-              v83 = 12;
+              v79 = *MEMORY[0x29EDB9EF8];
+              v80 = @"Failed to create a continuation";
+              v81 = 773;
+              v82 = 12;
 LABEL_118:
-              _CreateAndLogError("_ProcessContinuation", v82, v80, v83, 0, 0, v81, v49, v102);
-              v72 = LABEL_119:;
-              v11 = v104;
+              _CreateAndLogError("_ProcessContinuation", v81, v79, v82, 0, 0, v80, v48, v101);
+              v71 = LABEL_119:;
+              v11 = v103;
               goto LABEL_120;
             }
 
             if (v12)
             {
-              v54 = objc_autoreleasePoolPush();
-              v55 = (*v103)(v39, v129);
-              objc_autoreleasePoolPop(v54);
-              if (!v55)
+              v53 = objc_autoreleasePoolPush();
+              v54 = (*v102)(v38, v128);
+              objc_autoreleasePoolPop(v53);
+              if (!v54)
               {
 LABEL_131:
 
-                v98 = v35[1];
-                v11 = v104;
-                if (v98)
+                v97 = v34[1];
+                v11 = v103;
+                if (v97)
                 {
-                  *v98 = v127;
-                  v127 = v98;
+                  *v97 = v126;
+                  v126 = v97;
                 }
 
-                v99 = v35[3].i32[0];
-                if ((v99 & 0x80000000) == 0)
+                v98 = v34[3].i32[0];
+                if ((v98 & 0x80000000) == 0)
                 {
-                  close(v99);
-                  v35[3].i32[0] = -1;
+                  close(v98);
+                  v34[3].i32[0] = -1;
                 }
 
-                *v35 = v128;
-                v128 = v35;
+                *v34 = v127;
+                v127 = v34;
                 goto LABEL_98;
               }
             }
           }
 
-          v56 = v130;
-          if (v130)
+          v55 = v129;
+          if (v129)
           {
-            v11 = v104;
+            v11 = v103;
             do
             {
-              v57 = v56 - 1;
-              v58 = v129[v56 - 1] == 47 || v56 == 1;
-              --v56;
+              v56 = v55 - 1;
+              v57 = v128[v55 - 1] == 47 || v55 == 1;
+              --v55;
             }
 
-            while (!v58);
-            v56 = v57;
+            while (!v57);
+            v55 = v56;
           }
 
           else
           {
-            v11 = v104;
+            v11 = v103;
           }
 
-          v44 = (v44 + 1);
-          v129[v56] = 0;
-          v130 = v56;
-          if (v44 >= v35[3].u16[2])
+          v43 = (v43 + 1);
+          v128[v55] = 0;
+          v129 = v55;
+          if (v43 >= v34[3].u16[2])
           {
             goto LABEL_69;
           }
         }
 
-        v80 = @"MIInstallerErrorDomain";
-        v102 = v44;
-        v81 = @"Entry %hu in %s did not include name information even though we requested it.";
-        v82 = 722;
+        v79 = @"MIInstallerErrorDomain";
+        v101 = v43;
+        v80 = @"Entry %hu in %s did not include name information even though we requested it.";
+        v81 = 722;
 LABEL_114:
-        v83 = 4;
+        v82 = 4;
         goto LABEL_118;
       }
 
 LABEL_69:
 
-      *&v113 = 0;
-      v59 = _GetContinuationFD(&v126, v35, 1, &v113);
-      v60 = v113;
-      if (v59 == -1)
+      *&v112 = 0;
+      v58 = _GetContinuationFD(&v125, v34, 1, &v112);
+      v59 = v112;
+      if (v58 == -1)
       {
         goto LABEL_129;
       }
 
-      v61 = getattrlistbulk(v59, &v107, *&v35[1], 0x4000uLL, 32 * (HIDWORD(v109) != 0));
-      if (!v61)
+      v60 = getattrlistbulk(v58, &v106, *&v34[1], 0x4000uLL, 32 * (HIDWORD(v108) != 0));
+      if (!v60)
       {
 
-        if (!v12 || (a2 & 1) != 0 && !v126)
+        if (!v12 || (v9 & 1) != 0 && !v125)
         {
           goto LABEL_78;
         }
 
-        v62 = objc_autoreleasePoolPush();
-        if (!(*v103)(v39, v129))
+        v61 = objc_autoreleasePoolPush();
+        if (!(*v102)(v38, v128))
         {
-          v100 = v35[1];
-          if (v100)
+          v99 = v34[1];
+          if (v99)
           {
-            *v100 = v127;
-            v127 = v100;
+            *v99 = v126;
+            v126 = v99;
           }
 
-          v101 = v35[3].i32[0];
-          if ((v101 & 0x80000000) == 0)
+          v100 = v34[3].i32[0];
+          if ((v100 & 0x80000000) == 0)
           {
-            close(v101);
-            v35[3].i32[0] = -1;
+            close(v100);
+            v34[3].i32[0] = -1;
           }
 
-          *v35 = v128;
-          v128 = v35;
-          objc_autoreleasePoolPop(v62);
+          *v34 = v127;
+          v127 = v34;
+          objc_autoreleasePoolPop(v61);
           goto LABEL_98;
         }
 
-        objc_autoreleasePoolPop(v62);
+        objc_autoreleasePoolPop(v61);
 LABEL_78:
-        v63 = v130;
-        if (v130)
+        v62 = v129;
+        if (v129)
         {
           do
           {
-            v64 = v63 - 1;
-            v65 = v129[v63 - 1] == 47 || v63 == 1;
-            --v63;
+            v63 = v62 - 1;
+            v64 = v128[v62 - 1] == 47 || v62 == 1;
+            --v62;
           }
 
-          while (!v65);
-          v63 = v64;
+          while (!v64);
+          v62 = v63;
         }
 
-        v129[v63] = 0;
-        v130 = v63;
-        v66 = v35[1];
-        if (v66)
+        v128[v62] = 0;
+        v129 = v62;
+        v65 = v34[1];
+        if (v65)
         {
-          *v66 = v127;
-          v127 = v66;
+          *v65 = v126;
+          v126 = v65;
         }
 
-        v67 = v35[3].i32[0];
-        if ((v67 & 0x80000000) == 0)
+        v66 = v34[3].i32[0];
+        if ((v66 & 0x80000000) == 0)
         {
-          close(v67);
-          v35[3].i32[0] = -1;
+          close(v66);
+          v34[3].i32[0] = -1;
         }
 
-        *v35 = v128;
-        v128 = v35;
+        *v34 = v127;
+        v127 = v34;
 LABEL_92:
-        v35 = v126;
-        if (!v126)
+        v34 = v125;
+        if (!v125)
         {
 LABEL_98:
-          _DestroyTraversalState(&v126);
+          _DestroyTraversalState(&v125);
           v32 = 1;
           goto LABEL_26;
         }
@@ -4868,36 +4879,36 @@ LABEL_98:
         goto LABEL_30;
       }
 
-      if (v61 == -1)
+      if (v60 == -1)
       {
-        v91 = *__error();
-        v92 = *MEMORY[0x29EDB9EF8];
-        v93 = v91;
-        v94 = v35[2].u32[0];
-        strerror(v91);
-        v96 = _CreateAndLogError("_PopulateAttrBuf", 425, v92, v93, 0, 0, @"getattrlistbulk failed on entry %u in %s : %s", v95, v94);
+        v90 = *__error();
+        v91 = *MEMORY[0x29EDB9EF8];
+        v92 = v90;
+        v93 = v34[2].u32[0];
+        strerror(v90);
+        v95 = _CreateAndLogError("_PopulateAttrBuf", 425, v91, v92, 0, 0, @"getattrlistbulk failed on entry %u in %s : %s", v94, v93);
 
-        v60 = v96;
+        v59 = v95;
 LABEL_129:
-        v97 = v60;
+        v96 = v59;
 
-        v87 = v60;
+        v86 = v59;
         goto LABEL_121;
       }
 
-      v35[3].i16[2] = v61;
-      v35[3].i16[3] = 0;
+      v34[3].i16[2] = v60;
+      v34[3].i16[3] = 0;
     }
   }
 
-  v88 = _CreateAndLogError("TraverseDirectoryWithPostTraversal", 952, *MEMORY[0x29EDB9EF8], 12, 0, 0, @"Failed to locate an attrBuf", v37, v102);
+  v87 = _CreateAndLogError("TraverseDirectoryWithPostTraversal", 952, *MEMORY[0x29EDB9EF8], 12, 0, 0, @"Failed to locate an attrBuf", v36, v101);
 
 LABEL_126:
-  v30 = v88;
+  v30 = v87;
 LABEL_127:
-  a4 = v105;
+  a4 = v104;
 LABEL_23:
-  _DestroyTraversalState(&v126);
+  _DestroyTraversalState(&v125);
   if (a4)
   {
     v31 = v30;
@@ -4912,7 +4923,6 @@ LABEL_23:
 
 LABEL_26:
 
-  v33 = *MEMORY[0x29EDCA608];
   return v32;
 }
 
@@ -5262,42 +5272,41 @@ uint64_t MIBooleanValue(void *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t MIArrayContainsOnlyClass(void *a1)
+uint64_t MIArrayContainsOnlyClass(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v2 = a1;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
+    v4 = v3;
+    v5 = *v10;
     while (2)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * v5);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
 
-        ++v5;
+        ++v6;
       }
 
-      while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v3)
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v4)
       {
         continue;
       }
@@ -5309,51 +5318,49 @@ uint64_t MIArrayContainsOnlyClass(void *a1)
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
-id MIArrayFilteredToContainOnlyClass(void *a1)
+id MIArrayFilteredToContainOnlyClass(void *a1, uint64_t a2)
 {
   v17 = *MEMORY[0x29EDCA608];
-  v1 = a1;
-  v2 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+  v2 = a1;
+  v3 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v2, "count")}];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v13;
+    v6 = v5;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v6)
+        if (*v13 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [v2 addObject:{v8, v12}];
+          [v3 addObject:{v9, v12}];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v9 = [v2 copy];
-  v10 = *MEMORY[0x29EDCA608];
+  v10 = [v3 copy];
 
-  return v9;
+  return v10;
 }
 
 uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
@@ -5377,9 +5384,9 @@ uint64_t MIDictionaryContainsOnlyClasses(void *a1, uint64_t a2, uint64_t a3)
   return v6;
 }
 
-void sub_296A247A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A247A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5422,20 +5429,20 @@ id MIStringifyObject(void *a1)
   return v3;
 }
 
-id MIArrayifyThing(void *a1)
+id MIArrayifyThing(void *a1, uint64_t a2)
 {
-  v7[1] = *MEMORY[0x29EDCA608];
-  v1 = a1;
-  if (v1)
+  v8[1] = *MEMORY[0x29EDCA608];
+  v3 = a1;
+  if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (MIArrayContainsOnlyClass(v1))
+      if (MIArrayContainsOnlyClass(v3, a2))
       {
-        v2 = v1;
+        v4 = v3;
 LABEL_7:
-        v3 = v2;
+        v5 = v4;
         goto LABEL_12;
       }
     }
@@ -5444,23 +5451,23 @@ LABEL_7:
     {
       if (objc_opt_isKindOfClass())
       {
-        v7[0] = v1;
-        v2 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
+        v8[0] = v3;
+        v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
         goto LABEL_7;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v4 = [v1 allObjects];
-        if (MIArrayContainsOnlyClass(v4))
+        v6 = [v3 allObjects];
+        if (MIArrayContainsOnlyClass(v6, a2))
         {
-          v3 = v4;
+          v5 = v6;
         }
 
         else
         {
-          v3 = 0;
+          v5 = 0;
         }
 
         goto LABEL_12;
@@ -5468,12 +5475,10 @@ LABEL_7:
     }
   }
 
-  v3 = 0;
+  v5 = 0;
 LABEL_12:
 
-  v5 = *MEMORY[0x29EDCA608];
-
-  return v3;
+  return v5;
 }
 
 BOOL MICompareObjects(void *a1, void *a2)
@@ -5513,7 +5518,7 @@ uint64_t _removefile_error_callback(_removefile_state *a1, uint64_t a2, _DWORD *
   return 0;
 }
 
-uint64_t _CopyfileStatusCallback(uint64_t a1, int a2, uint64_t a3, const char *a4, uint64_t a5, void *a6)
+uint64_t _CopyfileStatusCallback(const char *a1, int a2, uint64_t a3, const char *a4, uint64_t a5, void *a6)
 {
   if (a2 == 3)
   {
@@ -5652,10 +5657,11 @@ LABEL_28:
   return 0;
 }
 
-void sub_296A268C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_296A268C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 136), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5666,39 +5672,40 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_296A272C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_296A272C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
+  va_start(va, a49);
   _Block_object_dispose(&a32, 8);
   _Block_object_dispose(&a36, 8);
   _Block_object_dispose(&a40, 8);
   _Block_object_dispose(&a44, 8);
-  _Block_object_dispose(&a50, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A27DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_296A27DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A28070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A28070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A282B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A282B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5714,30 +5721,30 @@ unint64_t _DTypeForVFSType(unsigned int a1)
   return v1 & 0xF;
 }
 
-void sub_296A28910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A28910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A29484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296A29484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A295EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296A295EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A29D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296A29D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5985,64 +5992,64 @@ LABEL_12:
   return v18;
 }
 
-void sub_296A2ACDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296A2ACDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_296A2AEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296A2AEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _CheckRealpathHasBasePrefix(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = a1;
   v4 = a2;
-  bzero(v26, 0x400uLL);
-  realpath_DARWIN_EXTSN([v3 fileSystemRepresentation], v26);
-  v5 = [MEMORY[0x29EDBA0F8] stringWithFileSystemRepresentation:v26];
+  bzero(v25, 0x400uLL);
+  realpath_DARWIN_EXTSN([v3 fileSystemRepresentation], v25);
+  v5 = [MEMORY[0x29EDBA0F8] stringWithFileSystemRepresentation:v25];
   v6 = [v5 pathComponents];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = [v4 pathComponents];
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v22;
-    v20 = v4;
+    v11 = *v21;
+    v19 = v4;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if (v10 >= [v6 count] || (objc_msgSend(v6, "objectAtIndexedSubscript:", v10), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, (v15 & 1) == 0))
         {
           if (gLogHandle && *(gLogHandle + 44) < 3)
           {
             v16 = 0;
-            v4 = v20;
+            v4 = v19;
           }
 
           else
           {
             [v3 fileSystemRepresentation];
-            v4 = v20;
-            v19 = [v20 path];
+            v4 = v19;
+            v18 = [v19 path];
             MOLogWrite();
 
             v16 = 0;
@@ -6054,9 +6061,9 @@ uint64_t _CheckRealpathHasBasePrefix(void *a1, void *a2)
         ++v10;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
       v16 = 1;
-      v4 = v20;
+      v4 = v19;
       if (v9)
       {
         continue;
@@ -6073,13 +6080,12 @@ uint64_t _CheckRealpathHasBasePrefix(void *a1, void *a2)
 
 LABEL_16:
 
-  v17 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
-void sub_296A2DEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_296A2DEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6194,7 +6200,7 @@ unint64_t *bom_copier_copy_file_update_handler(uint64_t a1, uint64_t a2, uint64_
   return result;
 }
 
-uint64_t create_new_header_for_hiding(int a1, void *a2, size_t *a3, int a4)
+uint64_t create_new_header_for_hiding(uint64_t a1, void *a2, size_t *a3, int a4)
 {
   v9 = 0;
   v10 = 0;
@@ -6223,7 +6229,7 @@ LABEL_7:
 
       if (a4)
       {
-        return create_reordered_hidden_disk_header(a1, a2, a3, HIDWORD(v9), SHIDWORD(v10));
+        return create_reordered_hidden_disk_header(a1, a2, a3, HIDWORD(v9), HIDWORD(v10));
       }
 
       syslog(3, "arm64 slice at index %u, not last (nfat_arch = %u)\n");
@@ -6240,8 +6246,9 @@ LABEL_7:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t examine_binary(int a1, uint64_t a2)
+uint64_t examine_binary(uint64_t a1, uint64_t a2)
 {
+  v3 = a1;
   fat_header = 0;
   memset(&v21, 0, sizeof(v21));
   memset(&v20, 0, sizeof(v20));
@@ -6250,7 +6257,7 @@ uint64_t examine_binary(int a1, uint64_t a2)
   result = fstat(a1, &v20);
   if (result != -1)
   {
-    if (read_or_error(a1, &fat_header, 8uLL, 0))
+    if (read_or_error(v3, &fat_header, 8uLL, 0))
     {
       if (fat_header.magic != -1095041334)
       {
@@ -6260,7 +6267,7 @@ uint64_t examine_binary(int a1, uint64_t a2)
       swap_fat_header(&fat_header, NX_LittleEndian);
       nfat_arch = fat_header.nfat_arch;
       *(a2 + 4) = fat_header.nfat_arch;
-      if (read_fat_arch(a1, nfat_arch, &v21))
+      if (read_fat_arch(v3, nfat_arch, &v21))
       {
         if (v21.cputype == 16777228)
         {
@@ -6270,7 +6277,7 @@ uint64_t examine_binary(int a1, uint64_t a2)
           {
             if (v21.size + v21.offset > 0x1F)
             {
-              if (read_or_error(a1, &v18, 0x20uLL, v21.offset) && v18 == -17958193 && HIDWORD(v18) == 2)
+              if (read_or_error(v3, &v18, 0x20uLL, v21.offset) && v18 == -17958193 && HIDWORD(v18) == 2)
               {
                 *a2 |= 0x10u;
                 ++fat_header.nfat_arch;
@@ -6289,7 +6296,7 @@ uint64_t examine_binary(int a1, uint64_t a2)
           v6 = 0;
           while (1)
           {
-            if (!read_fat_arch(a1, v6, &v21))
+            if (!read_fat_arch(v3, v6, &v21))
             {
               return 0xFFFFFFFFLL;
             }
@@ -6319,7 +6326,7 @@ uint64_t examine_binary(int a1, uint64_t a2)
               return 0xFFFFFFFFLL;
             }
 
-            if (!read_or_error(a1, &v18, 0x20uLL, v21.offset))
+            if (!read_or_error(v3, &v18, 0x20uLL, v21.offset))
             {
               return 0xFFFFFFFFLL;
             }
@@ -6364,7 +6371,7 @@ LABEL_29:
               while (1)
               {
                 v17 = 0;
-                v12 = slice_pread(a1, &v17, 8uLL, v11, v21.offset, v21.size);
+                v12 = slice_pread(v3, &v17, 8uLL, v11, v21.offset, v21.size);
                 v13 = v12;
                 if (!v12)
                 {
@@ -6385,7 +6392,7 @@ LABEL_29:
 
               v15 = 0;
               v16 = 0;
-              if (!slice_pread(a1, &v15, 0x10uLL, v11, v21.offset, v21.size))
+              if (!slice_pread(v3, &v15, 0x10uLL, v11, v21.offset, v21.size))
               {
 LABEL_42:
                 v14 = 1;
@@ -6433,7 +6440,7 @@ LABEL_43:
   return result;
 }
 
-uint64_t create_reordered_hidden_disk_header(int a1, void *a2, size_t *a3, unsigned int a4, int a5)
+uint64_t create_reordered_hidden_disk_header(uint64_t a1, void *a2, size_t *a3, unsigned int a4, unsigned int a5)
 {
   if (a4 >= 0x401)
   {
@@ -6444,6 +6451,7 @@ LABEL_7:
     return 0xFFFFFFFFLL;
   }
 
+  v11 = a1;
   v12 = 20 * a4 + 8;
   v13 = malloc_type_malloc(v12, 0x6C149251uLL);
   if (!v13)
@@ -6454,7 +6462,7 @@ LABEL_7:
   }
 
   v14 = v13;
-  if (read_or_error(a1, v13, v12, 0))
+  if (read_or_error(v11, v13, v12, 0))
   {
     result = 0;
     v16 = &v14[5 * a4 - 5];
@@ -6498,7 +6506,7 @@ uint64_t create_fat_disk_header(unsigned int a1, void *a2, void *a3)
   return result;
 }
 
-uint64_t create_new_header_for_unhiding(int a1, void *a2, void *a3)
+uint64_t create_new_header_for_unhiding(uint64_t a1, void *a2, void *a3)
 {
   v6 = 0;
   v7 = 0;
@@ -6585,7 +6593,7 @@ LABEL_12:
   {
     close(v9);
     v13 = open(a1, 258);
-    v9 = v13;
+    LODWORD(v9) = v13;
     if (v13 == -1)
     {
       v17 = __error();
@@ -6676,7 +6684,7 @@ BOOL slice_pread(int a1, void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t
   }
 }
 
-void MIFetchInfoForUsername_cold_1(uint64_t *a1, _OWORD *a2)
+void MIFetchInfoForUsername_cold_1(void *a1, _OWORD *a2, uint64_t a3)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -6684,14 +6692,25 @@ void MIFetchInfoForUsername_cold_1(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-  _os_log_send_and_compose_impl();
-  v3 = *a1;
+  v6 = MEMORY[0x29EDCA988];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  v8 = 136315138;
+  v9 = a3;
+  _os_log_send_and_compose_impl(v7, a1, a2, 80, &dword_296A1B000, v6, 16, "getpwnam_r succeeded but no user was found with name %s", &v8);
   _os_crash_msg();
   __break(1u);
 }
 
-void MIFetchInfoForUsername_cold_2(uint64_t *a1, _OWORD *a2)
+void MIFetchInfoForUsername_cold_2(void *a1, _OWORD *a2)
 {
   v4 = *__error();
   *a1 = 0;
@@ -6700,28 +6719,36 @@ void MIFetchInfoForUsername_cold_2(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-  strerror(v4);
-  _os_log_send_and_compose_impl();
-  v5 = *a1;
+  v5 = MEMORY[0x29EDCA988];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    v6 = 3;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  v7 = 136315138;
+  v8 = strerror(v4);
+  _os_log_send_and_compose_impl(v6, a1, a2, 80, &dword_296A1B000, v5, 16, "Failed to get home dir path size: %s", &v7);
   _os_crash_msg();
   __break(1u);
 }
 
 void MIAssumeIdentity_cold_1()
 {
-  v3 = *MEMORY[0x29EDCA608];
-  v1 = 136315138;
-  v2 = "MIAssumeIdentity";
-  _os_log_fault_impl(&dword_296A1B000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "%s: Attempting to assume an identity of 0/0, which should be the default for the helper service", &v1, 0xCu);
-  v0 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
+  v0 = 136315138;
+  v1 = "MIAssumeIdentity";
+  _os_log_fault_impl(&dword_296A1B000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "%s: Attempting to assume an identity of 0/0, which should be the default for the helper service", &v0, 0xCu);
 }
 
 void MIRestoreIdentity_cold_1()
 {
-  v3 = *MEMORY[0x29EDCA608];
-  v1 = 136315138;
-  v2 = "MIRestoreIdentity";
-  _os_log_fault_impl(&dword_296A1B000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "%s: Attempting to restore an identity without having first assumed an identity", &v1, 0xCu);
-  v0 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
+  v0 = 136315138;
+  v1 = "MIRestoreIdentity";
+  _os_log_fault_impl(&dword_296A1B000, MEMORY[0x29EDCA988], OS_LOG_TYPE_FAULT, "%s: Attempting to restore an identity without having first assumed an identity", &v0, 0xCu);
 }

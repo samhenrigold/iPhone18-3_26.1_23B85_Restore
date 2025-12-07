@@ -20,47 +20,52 @@ void sub_1000010A4(id a1)
   _objc_release_x1();
 }
 
+void sub_100001A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100001A98(void *a1)
 {
   v2 = mach_continuous_time();
   v3 = os_signpost_id_generate(qword_10000C8C0);
-  v15 = 0;
-  v16 = 0;
-  LODWORD(v16) = a1[17];
-  v4 = *(*(a1[4] + 8) + 24);
+  v13 = 0;
+  v14 = 0;
+  LODWORD(v14) = a1[17];
   kdebug_trace();
-  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v15) == -1)
+  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v13) == -1)
   {
-    v5 = qword_10000C8C0;
+    v4 = qword_10000C8C0;
     if (os_log_type_enabled(qword_10000C8C0, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[23];
-      v7 = v5;
-      v8 = NSStringFromSelector(v6);
-      v9 = *__error();
-      v10 = __error();
-      v11 = strerror(*v10);
+      v5 = a1[23];
+      v6 = v4;
+      v7 = NSStringFromSelector(v5);
+      v8 = *__error();
+      v9 = __error();
+      v10 = strerror(*v9);
       *buf = 138412802;
-      *v18 = v8;
-      *&v18[8] = 1024;
-      *&v18[10] = v9;
-      v19 = 2080;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
+      *v16 = v7;
+      *&v16[8] = 1024;
+      *&v16[10] = v8;
+      v17 = 2080;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
     }
   }
 
-  v12 = *(*(a1[4] + 8) + 24);
   kdebug_trace();
-  v13 = qword_10000C8C0;
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = qword_10000C8C0;
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 67109376;
-    *v18 = v16;
-    *&v18[4] = 2050;
-    *&v18[6] = v2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, v3, "_ANED_MODEL_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
+    *v16 = v14;
+    *&v16[4] = 2050;
+    *&v16[6] = v2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, v3, "_ANED_MODEL_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
   }
 }
 
@@ -95,47 +100,52 @@ void sub_100001CA8(uint64_t a1, void *a2, size_t a3)
   }
 }
 
+void sub_100002370(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000023A8(void *a1)
 {
   v2 = mach_continuous_time();
   v3 = os_signpost_id_generate(qword_10000C8C0);
-  v15 = 0;
-  v16 = 0;
-  LODWORD(v16) = a1[17];
-  v4 = *(*(a1[4] + 8) + 24);
+  v13 = 0;
+  v14 = 0;
+  LODWORD(v14) = a1[17];
   kdebug_trace();
-  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v15) == -1)
+  if (fcntl(*(*(a1[4] + 8) + 24), 44, &v13) == -1)
   {
-    v5 = qword_10000C8C0;
+    v4 = qword_10000C8C0;
     if (os_log_type_enabled(qword_10000C8C0, OS_LOG_TYPE_INFO))
     {
-      v6 = a1[23];
-      v7 = v5;
-      v8 = NSStringFromSelector(v6);
-      v9 = *__error();
-      v10 = __error();
-      v11 = strerror(*v10);
+      v5 = a1[23];
+      v6 = v4;
+      v7 = NSStringFromSelector(v5);
+      v8 = *__error();
+      v9 = __error();
+      v10 = strerror(*v9);
       *buf = 138412802;
-      *v18 = v8;
-      *&v18[8] = 1024;
-      *&v18[10] = v9;
-      v19 = 2080;
-      v20 = v11;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
+      *v16 = v7;
+      *&v16[8] = 1024;
+      *&v16[10] = v8;
+      v17 = 2080;
+      v18 = v10;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@: fcntl(F_RDADVISE). errno=%d : %s", buf, 0x1Cu);
     }
   }
 
-  v12 = *(*(a1[4] + 8) + 24);
   kdebug_trace();
-  v13 = qword_10000C8C0;
-  v14 = v13;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v11 = qword_10000C8C0;
+  v12 = v11;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 67109376;
-    *v18 = v16;
-    *&v18[4] = 2050;
-    *&v18[6] = v2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_EVENT, v3, "_ANED_WEIGHT_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
+    *v16 = v14;
+    *&v16[4] = 2050;
+    *&v16[6] = v2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, v3, "_ANED_WEIGHT_READ_ADVISE", "size=%d\n %{public, signpost.description:begin_time}llu ", buf, 0x12u);
   }
 }
 

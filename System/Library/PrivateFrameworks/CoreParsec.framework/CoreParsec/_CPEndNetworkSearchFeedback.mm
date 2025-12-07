@@ -252,19 +252,16 @@ LABEL_40:
   toCopy = to;
   if ([(_CPEndNetworkSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPEndNetworkSearchFeedback *)self responseSize])
   {
-    responseSize = self->_responseSize;
     PBDataWriterWriteInt64Field();
   }
 
   if ([(_CPEndNetworkSearchFeedback *)self statusCode])
   {
-    statusCode = self->_statusCode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -272,7 +269,6 @@ LABEL_40:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 
@@ -280,22 +276,19 @@ LABEL_40:
 
   if (parsecStatus)
   {
-    parsecStatus = self->_parsecStatus;
     PBDataWriterWriteStringField();
   }
 
-  v11 = [(_CPEndNetworkSearchFeedback *)self fbq];
+  v6 = [(_CPEndNetworkSearchFeedback *)self fbq];
 
-  if (v11)
+  if (v6)
   {
-    fbq = self->_fbq;
     PBDataWriterWriteStringField();
   }
 
   [(_CPEndNetworkSearchFeedback *)self duration];
-  if (v13 != 0.0)
+  if (v7 != 0.0)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -303,7 +296,6 @@ LABEL_40:
 
   if (partialClientIp)
   {
-    partialClientIp = self->_partialClientIp;
     PBDataWriterWriteStringField();
   }
 
@@ -317,30 +309,26 @@ LABEL_40:
 
   if ([(_CPEndNetworkSearchFeedback *)self endpointType])
   {
-    endpointType = self->_endpointType;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPEndNetworkSearchFeedback *)self rawResponseSize])
   {
-    rawResponseSize = self->_rawResponseSize;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPEndNetworkSearchFeedback *)self decompressedResponseSize])
   {
-    decompressedResponseSize = self->_decompressedResponseSize;
     PBDataWriterWriteUint64Field();
   }
 
   edge = [(_CPEndNetworkSearchFeedback *)self edge];
 
-  v23 = toCopy;
+  v12 = toCopy;
   if (edge)
   {
-    edge = self->_edge;
     PBDataWriterWriteStringField();
-    v23 = toCopy;
+    v12 = toCopy;
   }
 }
 

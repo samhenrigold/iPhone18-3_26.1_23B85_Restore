@@ -8,10 +8,10 @@
 + (void)setupFactoryWithGalleryControllerState:(id)state
 {
   sub_21B6C90C4();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD931C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD931C0, qword_21B6D8880);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_21B6D7FE0;
-  *(v4 + 56) = type metadata accessor for PBFGalleryControllerState();
+  *(v4 + 56) = type metadata accessor for PBFGalleryControllerState(0);
   *(v4 + 64) = sub_21B6393E8();
   *(v4 + 32) = state;
   stateCopy = state;

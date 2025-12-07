@@ -196,9 +196,9 @@ LABEL_6:
   *(v9 + 40) = WeakRetained;
 }
 
-void __99__MPMediaEntityCache__entityWithIdentifier_mediaEntityType_collectionGroupingType_loadEntityBlock___block_invoke_2(void *a1, uint64_t a2)
+void __99__MPMediaEntityCache__entityWithIdentifier_mediaEntityType_collectionGroupingType_loadEntityBlock___block_invoke_2(void *a1, uint64_t **a2)
 {
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   if (!v3)
   {
 LABEL_8:
@@ -276,7 +276,7 @@ void __99__MPMediaEntityCache__entityWithIdentifier_mediaEntityType_collectionGr
   }
 }
 
-void __73__MPMediaEntityCache_removeEntityWithIdentifier_dataProviderEntityClass___block_invoke(uint64_t a1, void **a2)
+void __73__MPMediaEntityCache_removeEntityWithIdentifier_dataProviderEntityClass___block_invoke(uint64_t a1, void ***a2)
 {
   v2 = a2[1];
   if (!v2)
@@ -285,7 +285,7 @@ void __73__MPMediaEntityCache_removeEntityWithIdentifier_dataProviderEntityClass
   }
 
   v3 = *(a1 + 32);
-  v4 = a2 + 1;
+  v4 = (a2 + 1);
   v5 = a2[1];
   do
   {
@@ -298,7 +298,7 @@ void __73__MPMediaEntityCache_removeEntityWithIdentifier_dataProviderEntityClass
   }
 
   while (v5);
-  if (v4 == a2 + 1 || v3 < v4[4])
+  if (v4 == (a2 + 1) || v3 < v4[4])
   {
     return;
   }
@@ -333,7 +333,7 @@ void __73__MPMediaEntityCache_removeEntityWithIdentifier_dataProviderEntityClass
     *a2 = v7;
   }
 
-  a2[2] = a2[2] - 1;
+  a2[2] = (a2[2] - 1);
   v9 = *v4;
   v10 = v4;
   if (*v4)
@@ -401,7 +401,7 @@ LABEL_24:
     v10[1] = v17;
     if (v17)
     {
-      v17[2] = v10;
+      *(v17 + 2) = v10;
     }
 
     *(v10 + 24) = *(v4 + 24);
@@ -457,7 +457,7 @@ LABEL_24:
     }
 
     v24 = *v14;
-    if (*v14 && *(v24 + 24) != 1)
+    if (*v14 && v24[24] != 1)
     {
       v25 = v14[1];
       if (v25 && (v25[3] & 1) == 0)
@@ -468,9 +468,9 @@ LABEL_73:
 
       else
       {
-        *(v24 + 24) = 1;
+        v24[24] = 1;
         *(v14 + 24) = 0;
-        v33 = v24[1];
+        v33 = *(v24 + 1);
         *v14 = v33;
         if (v33)
         {
@@ -478,15 +478,15 @@ LABEL_73:
         }
 
         v34 = v14[2];
-        v24[2] = v34;
+        *(v24 + 2) = v34;
         v34[*v34 != v14] = v24;
-        v24[1] = v14;
+        *(v24 + 1) = v14;
         v14[2] = v24;
         v25 = v14;
       }
 
-      v35 = v24[2];
-      *(v24 + 24) = *(v35 + 24);
+      v35 = *(v24 + 2);
+      v24[24] = *(v35 + 24);
       *(v35 + 24) = 1;
       *(v25 + 24) = 1;
       v36 = *(v35 + 1);
@@ -547,7 +547,7 @@ LABEL_65:
   }
 
   v30 = *v14;
-  if (*v14 && *(v30 + 24) != 1)
+  if (*v14 && v30[24] != 1)
   {
     goto LABEL_82;
   }
@@ -568,7 +568,7 @@ LABEL_67:
     goto LABEL_65;
   }
 
-  if (v30 && (v30[3] & 1) == 0)
+  if (v30 && (v30[24] & 1) == 0)
   {
 LABEL_82:
     v31 = v14;
@@ -594,7 +594,7 @@ LABEL_83:
   v35 = v31[2];
   *(v31 + 24) = *(v35 + 24);
   *(v35 + 24) = 1;
-  *(v30 + 24) = 1;
+  v30[24] = 1;
   v36 = *v35;
   v41 = *(*v35 + 8);
   *v35 = v41;

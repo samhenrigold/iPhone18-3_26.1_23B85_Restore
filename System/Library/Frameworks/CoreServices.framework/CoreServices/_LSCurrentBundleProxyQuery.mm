@@ -30,35 +30,36 @@
 {
   connectionCopy = connection;
   blockCopy = block;
+  v7 = blockCopy;
   if (!connectionCopy)
   {
-    v8 = _LSGetMainBundleURL();
-    if (v8)
+    v9 = _LSGetMainBundleURL(blockCopy);
+    if (v9)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v11 = 0;
-    v10 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -120, 0, "[_LSCurrentBundleProxyQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSBundleQuery.mm", 81);
+    v12 = 0;
+    v11 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -120, 0, "[_LSCurrentBundleProxyQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSBundleQuery.mm", 81);
     goto LABEL_6;
   }
 
   _xpcConnection = [connectionCopy _xpcConnection];
-  v8 = _LSCopyBundleURLForXPCConnection(_xpcConnection, 1);
+  v9 = _LSCopyBundleURLForXPCConnection(_xpcConnection, 1);
 
-  if (!v8)
+  if (!v9)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v12 = 0;
-  v9 = [LSBundleProxy bundleProxyForURL:v8 error:&v12];
-  v10 = v12;
-  v11 = v9;
+  v13 = 0;
+  v10 = [LSBundleProxy bundleProxyForURL:v9 error:&v13];
+  v11 = v13;
+  v12 = v10;
 LABEL_6:
-  blockCopy[2](blockCopy, v11, v10);
+  (v7)[2](v7, v12, v11);
 }
 
 - (BOOL)isEqual:(id)equal

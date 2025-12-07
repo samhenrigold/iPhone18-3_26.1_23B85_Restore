@@ -88,167 +88,185 @@
 
 - (void)_purchaseRequestDidSucceedNotification:(id)notification
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(notification "userInfo")];
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    v6 = [objc_msgSend(v4 "URLResponse")];
-    if (v6)
+    mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+    if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = [objc_msgSend(MEMORY[0x1E69D4A28] "consumer")];
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v8 = [v7 objectForKey:@"metrics"];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-          shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-          if ([mEMORY[0x1E69D4938] shouldLogToDisk])
-          {
-            v11 = shouldLog | 2;
-          }
-
-          else
-          {
-            v11 = shouldLog;
-          }
-
-          if (os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
-          {
-            v12 = v11;
-          }
-
-          else
-          {
-            v12 = v11 & 2;
-          }
-
-          if (v12)
-          {
-            *v31 = 138412290;
-            *&v31[4] = self;
-            LODWORD(v30) = 12;
-            v29 = v31;
-            v13 = _os_log_send_and_compose_impl();
-            if (v13)
-            {
-              v14 = v13;
-              v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, v31, v30}];
-              free(v14);
-              v29 = v15;
-              SSFileLog();
-            }
-          }
-
-          [(SUScriptNotificationObserver *)self _dispatchEventWithDictionary:v8 forName:@"buyConfirmed", v29];
-        }
-
-        return;
-      }
-
-      mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-      if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
-      {
-        v26 = shouldLog2 | 2;
-      }
-
-      else
-      {
-        v26 = shouldLog2;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v26 &= 2u;
-      }
-
-      if (v26)
-      {
-        goto LABEL_36;
-      }
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
-      shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
-      if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
-      {
-        v23 = shouldLog3 | 2;
-      }
-
-      else
-      {
-        v23 = shouldLog3;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_ERROR))
-      {
-        v23 &= 2u;
-      }
-
-      if (v23)
-      {
-LABEL_36:
-        *v31 = 138412546;
-        *&v31[4] = objc_opt_class();
-        *&v31[12] = 2112;
-        *&v31[14] = v5;
-        LODWORD(v30) = 22;
-        v27 = _os_log_send_and_compose_impl();
-        if (!v27)
-        {
-          return;
-        }
-
-        v28 = v27;
-        [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:{4, v31, v30, *v31, *&v31[16]}];
-        free(v28);
-        goto LABEL_38;
-      }
+      LODWORD(v19) = shouldLog;
     }
+
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v19 = v19;
+    }
+
+    else
+    {
+      v19 &= 2u;
+    }
+
+    if (!v19)
+    {
+      return;
+    }
+
+    *v32 = 138412546;
+    *&v32[4] = objc_opt_class();
+    *&v32[12] = 2112;
+    *&v32[14] = 0;
+    v21 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "[%@] Purchase response (%@) was nil.", v32, 22);
+    if (!v21)
+    {
+      return;
+    }
+
+LABEL_41:
+    v30 = v21;
+    [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+    free(v30);
+    SSFileLog();
+    return;
   }
 
-  else
+  v5 = v4;
+  v6 = [objc_msgSend(v4 "URLResponse")];
+  if (!v6)
+  {
+    mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
+    if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
+    {
+      LODWORD(v24) = shouldLog2 | 2;
+    }
+
+    else
+    {
+      LODWORD(v24) = shouldLog2;
+    }
+
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v24 = v24;
+    }
+
+    else
+    {
+      v24 &= 2u;
+    }
+
+    if (!v24)
+    {
+      return;
+    }
+
+    *v32 = 138412546;
+    *&v32[4] = objc_opt_class();
+    *&v32[12] = 2112;
+    *&v32[14] = v5;
+    v21 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 16, "[%@] Purchase response (%@) notification did not  have body data", v32, 22, *v32, *&v32[8]);
+    goto LABEL_40;
+  }
+
+  v7 = [objc_msgSend(MEMORY[0x1E69D4A28] "consumer")];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
+    if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
+    {
+      LODWORD(v28) = shouldLog3 | 2;
+    }
+
+    else
+    {
+      LODWORD(v28) = shouldLog3;
+    }
+
+    oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+    {
+      v28 = v28;
+    }
+
+    else
+    {
+      v28 &= 2u;
+    }
+
+    if (!v28)
+    {
+      return;
+    }
+
+    *v32 = 138412546;
+    *&v32[4] = objc_opt_class();
+    *&v32[12] = 2112;
+    *&v32[14] = v5;
+    v21 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "[%@] Purchase response (%@) notification did not have a ProtocolConsumer plist", v32, 22, *v32, *&v32[8]);
+LABEL_40:
+    if (!v21)
+    {
+      return;
+    }
+
+    goto LABEL_41;
+  }
+
+  v8 = [v7 objectForKey:@"metrics"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
     mEMORY[0x1E69D4938]4 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
     if ([mEMORY[0x1E69D4938]4 shouldLogToDisk])
     {
-      v18 = shouldLog4 | 2;
+      v11 = shouldLog4 | 2;
     }
 
     else
     {
-      v18 = shouldLog4;
+      v11 = shouldLog4;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]4 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject4 = [mEMORY[0x1E69D4938]4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v18 &= 2u;
+      v13 = v11;
     }
 
-    if (v18)
+    else
     {
-      *v31 = 138412546;
-      *&v31[4] = objc_opt_class();
-      *&v31[12] = 2112;
-      *&v31[14] = 0;
-      LODWORD(v30) = 22;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v13 = v11 & 2;
+    }
+
+    if (v13)
+    {
+      *v32 = 138412290;
+      *&v32[4] = self;
+      v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject4, 0, "[%@] Purchase succeeded. Sending buy confirmed", v32, 12);
+      if (v14)
       {
-        v20 = v19;
-        [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, v31, v30}];
-        free(v20);
-LABEL_38:
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        v31 = v16;
         SSFileLog();
       }
     }
+
+    [(SUScriptNotificationObserver *)self _dispatchEventWithDictionary:v8 forName:@"buyConfirmed", v31];
   }
 }
 
@@ -364,34 +382,33 @@ void __81__SUScriptNotificationObserver__dispatchSafariEventWithDictionary_andId
           v8 = v7;
         }
 
-        if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        v9 = [v6 OSLogObject];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = v8;
+          v10 = v8;
         }
 
         else
         {
-          v9 = v8 & 2;
+          v10 = v8 & 2;
         }
 
-        if (v9)
+        if (v10)
         {
           v15 = 138412290;
           v16 = v5;
-          LODWORD(v14) = 12;
-          v13 = &v15;
-          v10 = _os_log_send_and_compose_impl();
-          if (v10)
+          v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v9, 0, "Found receiver for safariviewcontrollerdataupdate event, data: %@", &v15, 12);
+          if (v11)
           {
-            v11 = v10;
-            v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v15, v14}];
-            free(v11);
-            v13 = v12;
+            v12 = v11;
+            v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+            free(v12);
+            v14 = v13;
             SSFileLog();
           }
         }
 
-        [*(a1 + 48) _dispatchEvent:v5 forName:{@"safariviewcontrollerdataupdate", v13}];
+        [*(a1 + 48) _dispatchEvent:v5 forName:{@"safariviewcontrollerdataupdate", v14}];
       }
     }
   }

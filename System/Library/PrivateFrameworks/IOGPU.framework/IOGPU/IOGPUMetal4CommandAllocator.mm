@@ -85,8 +85,7 @@
               {
                 if (*__globalGPUCommPage)
                 {
-                  v8 = *&self->_MTL4CommandAllocator_opaque[v6];
-                  IOGPUDeviceTraceEvent();
+                  IOGPUDeviceTraceEvent(0, 8, 39, *&self->_MTL4CommandAllocator_opaque[v6], 0, 0, 0);
                 }
 
                 LOBYTE(v7) = 1;
@@ -318,9 +317,7 @@
           IOGPUMetalCommandBufferStorageDealloc(tqh_first);
           if (*__globalGPUCommPage)
           {
-            v8 = *&self->_MTL4CommandAllocator_opaque[*v4];
-            v9 = *&tqh_first->var31;
-            IOGPUDeviceTraceEvent();
+            IOGPUDeviceTraceEvent(0, 8, 40, *&self->_MTL4CommandAllocator_opaque[*v4], *&tqh_first->var31, 0, 0);
           }
 
           tqh_first = var0;
@@ -332,9 +329,9 @@
 
     ++self->_generation;
     os_unfair_lock_unlock(&self->_lock);
-    v10.receiver = self;
-    v10.super_class = IOGPUMetal4CommandAllocator;
-    [(_MTL4CommandAllocator *)&v10 reset];
+    v8.receiver = self;
+    v8.super_class = IOGPUMetal4CommandAllocator;
+    [(_MTL4CommandAllocator *)&v8 reset];
   }
 }
 

@@ -18,19 +18,18 @@
 - (void)viewDidLoad
 {
   v3 = sub_1000032D4(&unk_100115E10, &qword_1000D27F0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v10 - v5;
-  v7 = type metadata accessor for TaskPriority();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_100039A94(0, 0, v6, &unk_1000D2800, v8);
+  sub_100039A94(0, 0, v5, &unk_1000D2800, v7);
 
-  sub_10002D02C(v6, &unk_100115E10, &qword_1000D27F0);
+  sub_10002D02C(v5, &unk_100115E10, &qword_1000D27F0);
 }
 
 - (_TtC10ClockAngel25SecureStopwatchController)initWithNibName:(id)name bundle:(id)bundle
@@ -73,12 +72,11 @@
 - (void)didUpdateCurrentInterval:(double)interval adjustedCurrentInterval:(double)currentInterval totalInterval:(double)totalInterval adjustedTotalInterval:(double)adjustedTotalInterval isStopwatchRunning:(BOOL)running isStopwatchStopped:(BOOL)stopped
 {
   selfCopy = self;
-  sub_1000317D4(stopped);
+  sub_1000317D4(stopped, interval, currentInterval, totalInterval, adjustedTotalInterval);
 }
 
 - (void)didClearAllLaps
 {
-  v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC10ClockAngel25SecureStopwatchController_observableModel);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -105,7 +103,6 @@
 
 - (void)didResetLapTimer
 {
-  v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC10ClockAngel25SecureStopwatchController_observableModel);
   swift_getKeyPath();
   swift_getKeyPath();
 

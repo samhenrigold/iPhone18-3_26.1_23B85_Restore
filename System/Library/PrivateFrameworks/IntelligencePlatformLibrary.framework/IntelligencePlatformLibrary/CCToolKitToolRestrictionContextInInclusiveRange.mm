@@ -172,7 +172,7 @@ LABEL_21:
 
         v10 = 0;
         self->_upperBound = v29;
-        v34 = 17;
+        v33 = 17;
       }
 
       else
@@ -189,7 +189,6 @@ LABEL_21:
             v30 = objc_opt_class();
             NSStringFromClass(v30);
             v32 = v31 = dataCopy;
-            v33 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
 
             dataCopy = v31;
@@ -220,10 +219,10 @@ LABEL_38:
 
         v10 = 0;
         self->_lowerBound = v26;
-        v34 = 16;
+        v33 = 16;
       }
 
-      *(&self->super.super.isa + v34) = 1;
+      *(&self->super.super.isa + v33) = 1;
       goto LABEL_38;
     }
 
@@ -239,22 +238,21 @@ LABEL_38:
 LABEL_41:
   if (!*&v6[*v9])
   {
-    v38 = 1;
+    v36 = 1;
     goto LABEL_45;
   }
 
 LABEL_42:
-  v35 = objc_opt_class();
-  v10 = NSStringFromClass(v35);
-  v36 = *&v6[*v9];
-  v37 = CCInvalidBufferErrorForMessage();
+  v34 = objc_opt_class();
+  v10 = NSStringFromClass(v34);
+  v35 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_43:
-  v38 = 0;
+  v36 = 0;
 LABEL_45:
 
-  return v38;
+  return v36;
 }
 
 - (CCToolKitToolRestrictionContextInInclusiveRange)initWithLowerBound:(id)bound upperBound:(id)upperBound error:(id *)error

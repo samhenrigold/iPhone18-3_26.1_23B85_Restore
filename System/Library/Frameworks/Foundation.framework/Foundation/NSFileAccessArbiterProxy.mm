@@ -1156,7 +1156,7 @@ intptr_t __51__NSFileAccessArbiterProxy_itemHasPresentersAtURL___block_invoke_2(
   return v3;
 }
 
-uint64_t __60__NSFileAccessArbiterProxy__fileReactorDebuggingInformation__block_invoke(uint64_t a1, void *a2)
+void *__60__NSFileAccessArbiterProxy__fileReactorDebuggingInformation__block_invoke(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -1178,7 +1178,8 @@ uint64_t __60__NSFileAccessArbiterProxy__fileReactorDebuggingInformation__block_
           objc_enumerationMutation(a2);
         }
 
-        [*(a1 + 32) appendFormat:@"%@\n", *(*(&v9 + 1) + 8 * v7++)];
+        [*(a1 + 32) appendFormat:@"%@\n", *(*(&v9 + 1) + 8 * v7)];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);

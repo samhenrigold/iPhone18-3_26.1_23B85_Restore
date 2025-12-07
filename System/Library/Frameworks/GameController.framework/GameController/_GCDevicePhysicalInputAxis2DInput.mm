@@ -1,7 +1,5 @@
 @interface _GCDevicePhysicalInputAxis2DInput
 + (unsigned)updateContextSize;
-- (BOOL)_canWrap;
-- (BOOL)_isAnalog;
 - (BOOL)canWrap;
 - (BOOL)isAnalog;
 - (BOOL)update:(void *)update forUsages:(unint64_t)usages with:(id)with;
@@ -13,17 +11,19 @@
 - (double)_value;
 - (double)lastValueLatency;
 - (double)lastValueTimestamp;
+- (id)__setLastValueTimestamp:(id *)result;
+- (id)__setValue:(float)value;
+- (id)_canWrap;
+- (id)_isAnalog;
+- (id)_setAnalog:(id *)result;
+- (id)_setCanWrap:(id *)result;
+- (id)_setLastValueTimestamp:(id *)result;
+- (id)_setSources:(id *)result;
+- (id)_setValue:(float)value;
+- (id)_setValueDidChangeHandler:(id *)result;
+- (id)_sources;
+- (id)_valueDidChangeHandler;
 - (id)valueDidChangeHandler;
-- (uint64_t)__setLastValueTimestamp:(uint64_t)result;
-- (uint64_t)__setValue:(float)value;
-- (uint64_t)_setAnalog:(uint64_t)result;
-- (uint64_t)_setCanWrap:(uint64_t)result;
-- (uint64_t)_setLastValueTimestamp:(uint64_t)result;
-- (uint64_t)_setSources:(uint64_t)result;
-- (uint64_t)_setValue:(float)value;
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result;
-- (uint64_t)_sources;
-- (uint64_t)_valueDidChangeHandler;
 - (uint64_t)isEqualToInput:(uint64_t)input;
 - (uint64_t)update:(float)update withValue:(float)value timestamp:;
 - (void)postCommit:(const void *)commit sender:(id)sender;
@@ -86,7 +86,7 @@ LABEL_3:
   }
 
   _sources = [(_GCDevicePhysicalInputAxis2DInput *)with _sources];
-  v21 = [(_GCDevicePhysicalInputAxis2DInput *)self _setSources:_sources];
+  v21 = [(_GCDevicePhysicalInputAxis2DInput *)&self->super.super.isa _setSources:_sources];
   *(update + v10) = *(update + v10) & 0xFE | v21;
 
   if (with)
@@ -110,7 +110,7 @@ LABEL_39:
   }
 
 LABEL_20:
-  v23 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v22 forSlot:&self->_isAnalogSlot];
+  v23 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:v22 forSlot:&self->_isAnalogSlot];
   if (v23)
   {
     v24 = 2;
@@ -144,7 +144,7 @@ LABEL_41:
   }
 
 LABEL_25:
-  v26 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v25 forSlot:&self->_canWrapSlot];
+  v26 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:v25 forSlot:&self->_canWrapSlot];
   if (v26)
   {
     v27 = 4;
@@ -171,7 +171,7 @@ LABEL_4:
 
 LABEL_29:
   _valueDidChangeHandler = [(_GCDevicePhysicalInputAxis2DInput *)with _valueDidChangeHandler];
-  v29 = [(_GCDevicePhysicalInputAxis2DInput *)self _setValueDidChangeHandler:_valueDidChangeHandler];
+  v29 = [(_GCDevicePhysicalInputAxis2DInput *)&self->super.super.isa _setValueDidChangeHandler:_valueDidChangeHandler];
   if (v29)
   {
     v30 = 8;
@@ -206,7 +206,7 @@ LABEL_5:
       if (self)
       {
 LABEL_7:
-        v14 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
+        v14 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:&self->_valueSlot forSlot:?];
         if (v14)
         {
           v15 = 16;
@@ -234,7 +234,7 @@ LABEL_10:
           if (self)
           {
 LABEL_12:
-            v17 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v16 forSlot:&self->_valueTimestampSlot];
+            v17 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _testAndSetPrimitiveValue:v16 forSlot:&self->_valueTimestampSlot];
             if (v17)
             {
               v18 = 32;
@@ -456,14 +456,13 @@ LABEL_16:
 - (_GCDevicePhysicalInputAxis2DInput)initWithParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v16.receiver = self;
-  v16.super_class = _GCDevicePhysicalInputAxis2DInput;
-  v5 = [(_GCDevicePhysicalInputView *)&v16 initWithParameters:parametersCopy];
+  v14.receiver = self;
+  v14.super_class = _GCDevicePhysicalInputAxis2DInput;
+  v5 = [(_GCDevicePhysicalInputView *)&v14 initWithParameters:parametersCopy];
   v6 = v5;
   if (parametersCopy)
   {
-    [(_GCDevicePhysicalInputAxis2DInput *)v5 _setSources:?];
-    v7 = *(parametersCopy + 8);
+    [(_GCDevicePhysicalInputAxis2DInput *)&v5->super.super.isa _setSources:?];
     if (!v6)
     {
       goto LABEL_4;
@@ -472,12 +471,12 @@ LABEL_16:
     goto LABEL_3;
   }
 
-  [(_GCDevicePhysicalInputAxis2DInput *)v5 _setSources:?];
+  [(_GCDevicePhysicalInputAxis2DInput *)&v5->super.super.isa _setSources:?];
   if (v6)
   {
 LABEL_3:
-    v8 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v8 _testAndSetPrimitiveValue:v9 forSlot:v10];
+    v7 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v7 _testAndSetPrimitiveValue:v8 forSlot:v9];
   }
 
 LABEL_4:
@@ -491,12 +490,11 @@ LABEL_4:
     goto LABEL_6;
   }
 
-  v11 = *(parametersCopy + 9);
   if (v6)
   {
 LABEL_6:
-    v12 = OUTLINED_FUNCTION_2_3();
-    [(_GCDevicePhysicalInputView *)v12 _testAndSetPrimitiveValue:v13 forSlot:v14];
+    v10 = OUTLINED_FUNCTION_2_3();
+    [(_GCDevicePhysicalInputView *)v10 _testAndSetPrimitiveValue:v11 forSlot:v12];
   }
 
 LABEL_7:
@@ -504,7 +502,7 @@ LABEL_7:
   return v6;
 }
 
-- (uint64_t)_setSources:(uint64_t)result
+- (id)_setSources:(id *)result
 {
   if (result)
   {
@@ -523,7 +521,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setAnalog:(uint64_t)result
+- (id)_setAnalog:(id *)result
 {
   if (result)
   {
@@ -533,7 +531,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setCanWrap:(uint64_t)result
+- (id)_setCanWrap:(id *)result
 {
   if (result)
   {
@@ -543,7 +541,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_sources
+- (id)_sources
 {
   if (result)
   {
@@ -554,7 +552,7 @@ LABEL_7:
   return result;
 }
 
-- (BOOL)_isAnalog
+- (id)_isAnalog
 {
   if (result)
   {
@@ -565,7 +563,7 @@ LABEL_7:
   return result;
 }
 
-- (BOOL)_canWrap
+- (id)_canWrap
 {
   if (result)
   {
@@ -576,7 +574,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_valueDidChangeHandler
+- (id)_valueDidChangeHandler
 {
   if (result)
   {
@@ -587,13 +585,13 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setValueDidChangeHandler:(uint64_t)result
+- (id)_setValueDidChangeHandler:(id *)result
 {
   if (result)
   {
     v2 = result;
     v3 = _Block_copy(aBlock);
-    v4 = [(_GCDevicePhysicalInputView *)v2 _testAndSetObjectValue:v3 forSlot:v2 + 48 policy:771];
+    v4 = [(_GCDevicePhysicalInputView *)v2 _testAndSetObjectValue:v3 forSlot:(v2 + 6) policy:771];
 
     return v4;
   }
@@ -613,7 +611,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_setValue:(float)value
+- (id)_setValue:(float)value
 {
   if (result)
   {
@@ -636,7 +634,7 @@ LABEL_7:
   }
 }
 
-- (uint64_t)_setLastValueTimestamp:(uint64_t)result
+- (id)_setLastValueTimestamp:(id *)result
 {
   if (result)
   {
@@ -712,7 +710,7 @@ LABEL_12:
   return inputCopy;
 }
 
-- (uint64_t)__setValue:(float)value
+- (id)__setValue:(float)value
 {
   if (result)
   {
@@ -722,7 +720,7 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)__setLastValueTimestamp:(uint64_t)result
+- (id)__setLastValueTimestamp:(id *)result
 {
   if (result)
   {
@@ -734,7 +732,7 @@ LABEL_12:
 
 - (id)valueDidChangeHandler
 {
-  _valueDidChangeHandler = [(_GCDevicePhysicalInputAxis2DInput *)self _valueDidChangeHandler];
+  _valueDidChangeHandler = [(_GCDevicePhysicalInputAxis2DInput *)&self->super.super.isa _valueDidChangeHandler];
 
   return _valueDidChangeHandler;
 }
@@ -743,7 +741,7 @@ LABEL_12:
 {
   if (self)
   {
-    v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v2 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?];
     v3 = OUTLINED_FUNCTION_1_14(v2);
   }
 
@@ -762,7 +760,7 @@ LABEL_12:
 {
   if (self)
   {
-    v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v2 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = OUTLINED_FUNCTION_5_5(v2);
   }
 
@@ -773,7 +771,7 @@ LABEL_12:
 {
   if (self)
   {
-    v2 = [(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?];
+    v2 = [(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?];
     LOBYTE(self) = OUTLINED_FUNCTION_5_5(v2);
   }
 
@@ -784,7 +782,7 @@ LABEL_12:
 {
   if (self)
   {
-    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+    return COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?]);
   }
 
   else
@@ -814,13 +812,13 @@ LABEL_6:
   }
 
 LABEL_3:
-  v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)self _primitiveValueForSlot:?]);
+  v3 = COERCE_DOUBLE([(_GCDevicePhysicalInputView *)&self->super.super.isa _primitiveValueForSlot:?]);
   return (mach_absolute_time() * lastValueLatency_sTimebaseInfo_1 / dword_1EC73603C) / 1000000000.0 - v3;
 }
 
 - (NSSet)sources
 {
-  _sources = [(_GCDevicePhysicalInputAxis2DInput *)self _sources];
+  _sources = [(_GCDevicePhysicalInputAxis2DInput *)&self->super.super.isa _sources];
 
   return _sources;
 }
@@ -857,7 +855,7 @@ LABEL_3:
   return result;
 }
 
-- (void)postCommit:(uint64_t)a1 sender:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
+- (void)postCommit:(id *)a1 sender:(uint64_t)a2 .cold.1(id *a1, uint64_t a2)
 {
   v4 = [(_GCDevicePhysicalInputAxis2DInput *)a1 _valueDidChangeHandler];
   if (v4)
@@ -874,7 +872,7 @@ LABEL_3:
       v5.n128_u64[0] = 0;
     }
 
-    v4[2](v4, a2, a1, v5);
+    (v4[2])(v4, a2, a1, v5);
   }
 }
 

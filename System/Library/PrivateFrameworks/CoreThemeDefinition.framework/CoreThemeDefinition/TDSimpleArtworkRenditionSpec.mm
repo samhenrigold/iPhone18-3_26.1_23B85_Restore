@@ -9,6 +9,7 @@
 - (CGSize)physicalSizeInMeters;
 - (id)_sliceRectanglesForRenditionSize:(id)size unadjustedSliceRectangles:(id *)rectangles imageSlicesNeedAdjustment:(BOOL *)adjustment newRenditionSize:(id *)renditionSize;
 - (id)associatedFileModificationDateWithDocument:(id)document;
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document;
 - (int)_rawPixelFormatOfCGImage:(CGImage *)image;
 - (void)awakeFromFetch;
 - (void)copyAttributesInto:(id)into;
@@ -173,35 +174,35 @@
 
 - (id)_sliceRectanglesForRenditionSize:(id)size unadjustedSliceRectangles:(id *)rectangles imageSlicesNeedAdjustment:(BOOL *)adjustment newRenditionSize:(id *)renditionSize
 {
-  v166 = *MEMORY[0x277D85DE8];
+  v165 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   _slicesToUseForCSI = [(TDSimpleArtworkRenditionSpec *)self _slicesToUseForCSI];
   identifier = [(TDThemeConstant *)[(TDRenditionSpec *)self renditionType] identifier];
   if ([_slicesToUseForCSI count])
   {
-    v162 = 0u;
-    v163 = 0u;
-    v160 = 0u;
     v161 = 0u;
-    v12 = [_slicesToUseForCSI countByEnumeratingWithState:&v160 objects:v165 count:16];
+    v162 = 0u;
+    v159 = 0u;
+    v160 = 0u;
+    v12 = [_slicesToUseForCSI countByEnumeratingWithState:&v159 objects:v164 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v161;
+      v14 = *v160;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v161 != v14)
+          if (*v160 != v14)
           {
             objc_enumerationMutation(_slicesToUseForCSI);
           }
 
-          [*(*(&v160 + 1) + 8 * i) sliceRect];
+          [*(*(&v159 + 1) + 8 * i) sliceRect];
           [array addObject:{objc_msgSend(MEMORY[0x277CCAE60], "valueWithRect:")}];
         }
 
-        v13 = [_slicesToUseForCSI countByEnumeratingWithState:&v160 objects:v165 count:16];
+        v13 = [_slicesToUseForCSI countByEnumeratingWithState:&v159 objects:v164 count:16];
       }
 
       while (v13);
@@ -229,10 +230,10 @@
       v59 = v58 - (v55 + v57);
       if (v53 > 0.0 || v59 > 0.0)
       {
-        v76 = (renditionSize->var0 - v53);
+        v75 = (renditionSize->var0 - v53);
         var1 = renditionSize->var1;
         *adjustment = 1;
-        renditionSize->var0 = v76;
+        renditionSize->var0 = v75;
         renditionSize->var1 = (var1 - v59);
         goto LABEL_41;
       }
@@ -304,9 +305,9 @@
         v46 = v27;
         v47 = v29;
 LABEL_37:
-        v75 = [v40 arrayWithObjects:{v41, v42, objc_msgSend(v43, "valueWithRect:", v44, v45, v46, v47), 0}];
+        v74 = [v40 arrayWithObjects:{v41, v42, objc_msgSend(v43, "valueWithRect:", v44, v45, v46, v47), 0}];
 LABEL_55:
-        array = v75;
+        array = v74;
         goto LABEL_31;
       }
 
@@ -318,27 +319,27 @@ LABEL_55:
       if ([array2 count] == 3)
       {
         [objc_msgSend(array2 objectAtIndex:{1), "rectValue"}];
-        v63 = v62;
-        v65 = v64;
+        v62 = v61;
+        v64 = v63;
         [objc_msgSend(array2 objectAtIndex:{2), "rectValue"}];
-        v68 = v67;
-        v70 = v69;
-        v72 = v71;
-        v73 = v66 - (v63 + v65);
-        if (v73 < 0.0)
+        v67 = v66;
+        v69 = v68;
+        v71 = v70;
+        v72 = v65 - (v62 + v64);
+        if (v72 < 0.0)
         {
-          v73 = 0.0;
+          v72 = 0.0;
         }
 
-        v74 = v66 - v73;
+        v73 = v65 - v72;
         v40 = MEMORY[0x277CBEA60];
         v41 = [array2 objectAtIndex:0];
         v42 = [array2 objectAtIndex:1];
         v43 = MEMORY[0x277CCAE60];
-        v44 = v74;
-        v45 = v68;
-        v46 = v70;
-        v47 = v72;
+        v44 = v73;
+        v45 = v67;
+        v46 = v69;
+        v47 = v71;
         goto LABEL_37;
       }
 
@@ -357,106 +358,106 @@ LABEL_41:
     if ([array count] == 9)
     {
       [objc_msgSend(array objectAtIndex:{0), "rectValue"}];
-      v156 = v79;
-      v158 = v78;
-      v154 = v81;
-      v155 = v80;
+      v155 = v78;
+      v157 = v77;
+      v153 = v80;
+      v154 = v79;
       [objc_msgSend(array objectAtIndex:{1), "rectValue"}];
-      v83 = v82;
-      v152 = v85;
-      v153 = v84;
-      v87 = v86;
+      v82 = v81;
+      v151 = v84;
+      v152 = v83;
+      v86 = v85;
       [objc_msgSend(array objectAtIndex:{2), "rectValue"}];
-      v89 = v88;
-      v150 = v91;
-      v151 = v90;
-      v149 = v92;
+      v88 = v87;
+      v149 = v90;
+      v150 = v89;
+      v148 = v91;
       [objc_msgSend(array objectAtIndex:{3), "rectValue"}];
-      v147 = v94;
-      v148 = v93;
-      v96 = v95;
-      v129 = v97;
+      v146 = v93;
+      v147 = v92;
+      v95 = v94;
+      v128 = v96;
       [objc_msgSend(array objectAtIndex:{4), "rectValue"}];
-      v145 = v99;
-      v146 = v98;
-      v143 = v101;
-      v144 = v100;
+      v144 = v98;
+      v145 = v97;
+      v142 = v100;
+      v143 = v99;
       [objc_msgSend(array objectAtIndex:{5), "rectValue"}];
-      v103 = v102;
-      v141 = v105;
-      v142 = v104;
-      v140 = v106;
+      v102 = v101;
+      v140 = v104;
+      v141 = v103;
+      v139 = v105;
       [objc_msgSend(array objectAtIndex:{6), "rectValue"}];
-      v138 = v108;
-      v139 = v107;
-      v110 = v109;
-      v137 = v111;
+      v137 = v107;
+      v138 = v106;
+      v109 = v108;
+      v136 = v110;
       [objc_msgSend(array objectAtIndex:{7), "rectValue"}];
-      v135 = v113;
-      v136 = v112;
-      v115 = v114;
-      v134 = v116;
+      v134 = v112;
+      v135 = v111;
+      v114 = v113;
+      v133 = v115;
       [objc_msgSend(array objectAtIndex:{8), "rectValue"}];
-      v132 = v120;
-      v133 = v119;
-      v121 = v89 - (v83 + v87);
-      v122 = v117 - v121;
-      if (v121 <= 0.0)
+      v131 = v119;
+      v132 = v118;
+      v120 = v88 - (v82 + v86);
+      v121 = v116 - v120;
+      if (v120 <= 0.0)
       {
-        v123 = v89;
+        v122 = v88;
       }
 
       else
       {
-        v123 = v89 - v121;
+        v122 = v88 - v120;
       }
 
-      if (v121 <= 0.0)
+      if (v120 <= 0.0)
       {
-        v124 = v103;
+        v123 = v102;
       }
 
       else
       {
-        v124 = v103 - v121;
+        v123 = v102 - v120;
       }
 
-      if (v121 <= 0.0)
+      if (v120 <= 0.0)
       {
-        v125 = v117;
+        v124 = v116;
       }
 
       else
       {
-        v125 = v117 - v121;
+        v124 = v116 - v120;
       }
 
-      v126 = v110 - (v96 + v129);
-      v127 = v118 - v126;
-      if (v126 <= 0.0)
+      v125 = v109 - (v95 + v128);
+      v126 = v117 - v125;
+      if (v125 <= 0.0)
       {
-        v128 = v118;
+        v127 = v117;
       }
 
       else
       {
-        v110 = v110 - v126;
-        v115 = v115 - v126;
-        v128 = v118 - v126;
+        v109 = v109 - v125;
+        v114 = v114 - v125;
+        v127 = v117 - v125;
       }
 
-      v130 = v128;
-      v131 = v125;
-      v164[0] = [MEMORY[0x277CCAE60] valueWithRect:{v158, v156, v155, v154, v127, v122}];
-      v164[1] = [MEMORY[0x277CCAE60] valueWithRect:{v83, v153, v87, v152}];
-      v164[2] = [MEMORY[0x277CCAE60] valueWithRect:{v123, v151, v150, v149}];
-      v164[3] = [MEMORY[0x277CCAE60] valueWithRect:{v148, v96, v147, v129}];
-      v164[4] = [MEMORY[0x277CCAE60] valueWithRect:{v146, v145, v144, v143}];
-      v164[5] = [MEMORY[0x277CCAE60] valueWithRect:{v124, v142, v141, v140}];
-      v164[6] = [MEMORY[0x277CCAE60] valueWithRect:{v139, v110, v138, v137}];
-      v164[7] = [MEMORY[0x277CCAE60] valueWithRect:{v136, v115, v135, v134}];
-      v164[8] = [MEMORY[0x277CCAE60] valueWithRect:{v131, v130, v133, v132}];
-      v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v164 count:9];
+      v129 = v127;
+      v130 = v124;
+      v163[0] = [MEMORY[0x277CCAE60] valueWithRect:{v157, v155, v154, v153, v126, v121}];
+      v163[1] = [MEMORY[0x277CCAE60] valueWithRect:{v82, v152, v86, v151}];
+      v163[2] = [MEMORY[0x277CCAE60] valueWithRect:{v122, v150, v149, v148}];
+      v163[3] = [MEMORY[0x277CCAE60] valueWithRect:{v147, v95, v146, v128}];
+      v163[4] = [MEMORY[0x277CCAE60] valueWithRect:{v145, v144, v143, v142}];
+      v163[5] = [MEMORY[0x277CCAE60] valueWithRect:{v123, v141, v140, v139}];
+      v163[6] = [MEMORY[0x277CCAE60] valueWithRect:{v138, v109, v137, v136}];
+      v163[7] = [MEMORY[0x277CCAE60] valueWithRect:{v135, v114, v134, v133}];
+      v163[8] = [MEMORY[0x277CCAE60] valueWithRect:{v130, v129, v132, v131}];
+      v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v163 count:9];
       array2 = array;
       goto LABEL_55;
     }
@@ -468,7 +469,6 @@ LABEL_41:
   array2 = array;
 LABEL_31:
   *rectangles = array2;
-  v60 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -952,6 +952,761 @@ LABEL_92:
   }
 
   return Image;
+}
+
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document
+{
+  dCopy = d;
+  BitsPerComponent = compression;
+  v160 = *MEMORY[0x277D85DE8];
+  production = [(TDSimpleArtworkRenditionSpec *)self production];
+  asset = [(TDSimpleArtworkRenditionSpec *)self asset];
+  v158 = 0;
+  v157 = 0;
+  v156 = 1246774599;
+  identifier = [(TDThemeConstant *)[(TDRenditionSpec *)self renditionType] identifier];
+  if (identifier == 1006)
+  {
+    v12 = objc_alloc(MEMORY[0x277D02668]);
+    v13 = [v12 initWithCanvasSize:0 sliceCount:1006 layout:{*MEMORY[0x277CCA870], *(MEMORY[0x277CCA870] + 8)}];
+    [v13 setScaleFactor:{objc_msgSend(-[TDSimpleArtworkRenditionSpec keySpec](self, "keySpec"), "scaleFactor")}];
+    [v13 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+    v14 = [v13 CSIRepresentationWithCompression:BitsPerComponent];
+
+    return v14;
+  }
+
+  v15 = identifier;
+  Width = *MEMORY[0x277CBF3A8];
+  v17 = *(MEMORY[0x277CBF3A8] + 8);
+  v18 = [asset fileURLWithDocument:document];
+  if ([asset rawData])
+  {
+    v135 = dCopy;
+    v136 = BitsPerComponent;
+    image = 0;
+    v156 = 1145132097;
+LABEL_5:
+    LODWORD(BitsPerComponent) = 1;
+    goto LABEL_40;
+  }
+
+  v19 = [(TDSimpleArtworkRenditionSpec *)self _createImageRefWithURL:v18 andDocument:document format:&v156 vectorBased:&v157];
+  image = v19;
+  if (v19)
+  {
+LABEL_7:
+    if (v156 == 1145132097)
+    {
+      v135 = dCopy;
+      v136 = BitsPerComponent;
+      goto LABEL_5;
+    }
+
+    if (v156 == 1246774599 || v156 == 1212500294)
+    {
+      if (v19)
+      {
+        v136 = BitsPerComponent;
+        v135 = dCopy;
+        if (v156 == 1212500294 && [(TDSimpleArtworkRenditionSpec *)self isBackstop])
+        {
+          LODWORD(BitsPerComponent) = 0;
+          v156 = 1095911234;
+        }
+
+        else
+        {
+          LODWORD(BitsPerComponent) = 1;
+        }
+
+        Width = CGImageGetWidth(image);
+        Height = CGImageGetHeight(image);
+        goto LABEL_39;
+      }
+    }
+
+    else if (v19)
+    {
+      v135 = dCopy;
+      v136 = BitsPerComponent;
+      Width = CGImageGetWidth(v19);
+      Height = CGImageGetHeight(image);
+      LODWORD(BitsPerComponent) = 0;
+LABEL_39:
+      v17 = Height;
+LABEL_40:
+      LODWORD(v158) = Width;
+      HIDWORD(v158) = v17;
+      v155 = 0;
+      v154 = 0;
+      v47 = [(TDSimpleArtworkRenditionSpec *)self _sliceRectanglesForRenditionSize:v158 unadjustedSliceRectangles:&v154 imageSlicesNeedAdjustment:&v155 newRenditionSize:&v158];
+      v134 = v15;
+      if ([production renditionSubtype])
+      {
+        LOWORD(v15) = [objc_msgSend(production "renditionSubtype")];
+      }
+
+      v139 = asset;
+      if (!BitsPerComponent)
+      {
+        if ([(TDSimpleArtworkRenditionSpec *)self parentRendition])
+        {
+          v161 = NSRectFromString([(TDSimpleArtworkRenditionSpec *)self nonAlphaImageAreaString]);
+          x = v161.origin.x;
+          y = v161.origin.y;
+          v66 = v161.size.width;
+          v67 = v161.size.height;
+          v68 = NSSizeFromString([(TDSimpleArtworkRenditionSpec *)self originalImageSizeString]);
+          [(TDRenditionSpec *)self packedPoint];
+          v70 = v69;
+          v72 = v71;
+          v162.origin.x = x;
+          v162.origin.y = y;
+          v162.size.width = v66;
+          v162.size.height = v67;
+          if (!CGRectIsEmpty(v162))
+          {
+            LODWORD(v158) = v66;
+            HIDWORD(v158) = v67;
+          }
+
+          v73 = BitsPerComponent;
+          v74 = objc_alloc(MEMORY[0x277D02668]);
+          v75 = [v74 initWithInternalReferenceRect:v15 layout:{v70, v72, v158, SHIDWORD(v158)}];
+          v163.origin.x = x;
+          v163.origin.y = y;
+          v163.size.width = v66;
+          v163.size.height = v67;
+          if (!CGRectIsEmpty(v163))
+          {
+            [v75 setAlphaCroppedFrame:{x, y, v66, v67}];
+            [v75 setOriginalUncroppedSize:{v68.width, v68.height}];
+          }
+
+          v76 = objc_alloc_init(MEMORY[0x277D026D0]);
+          BitsPerComponent = [objc_alloc(MEMORY[0x277D026C8]) initWithKeyList:{objc_msgSend(objc_msgSend(-[TDSimpleArtworkRenditionSpec parentRendition](self, "parentRendition"), "keySpec"), "key")}];
+          [v76 setReferenceKey:BitsPerComponent];
+          [v75 addLayerReference:v76];
+
+          LOBYTE(BitsPerComponent) = v73;
+          v77 = image;
+        }
+
+        else
+        {
+          v78 = objc_alloc(MEMORY[0x277D02668]);
+          v75 = [v78 initWithCanvasSize:objc_msgSend(v47 sliceCount:"count") layout:{v15, v158, SHIDWORD(v158)}];
+          v77 = image;
+        }
+
+        [v75 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+        [v75 setPixelFormat:v156];
+        [v75 setName:{objc_msgSend(asset, "name")}];
+        if (!v77)
+        {
+          goto LABEL_88;
+        }
+
+LABEL_80:
+        if (v156 != 1246774599 && v156 != 1212500294)
+        {
+          v85 = BitsPerComponent;
+          BitsPerComponent = CGImageGetBitsPerComponent(v77);
+          monochrome = [(TDSimpleArtworkRenditionSpec *)self monochrome];
+          allowsExtendedRangePixelFormats = [document allowsExtendedRangePixelFormats];
+          if ([objc_msgSend(-[TDSimpleArtworkRenditionSpec keySpec](self "keySpec")] == 1)
+          {
+            if (CUIImageIsWideGamut())
+            {
+              if (allowsExtendedRangePixelFormats)
+              {
+                v88 = 4;
+              }
+
+              else
+              {
+                v88 = 3;
+              }
+
+              [v75 setPixelFormat:1380401751];
+            }
+
+            else
+            {
+              if (BitsPerComponent > 8)
+              {
+                v90 = monochrome;
+              }
+
+              else
+              {
+                v90 = 0;
+              }
+
+              if (v90 != 1)
+              {
+                v129 = BitsPerComponent >= 9;
+                LOBYTE(BitsPerComponent) = v85;
+                asset = v139;
+                v88 = v135;
+                if (v129)
+                {
+                  if (monochrome)
+                  {
+                    v88 = 2;
+                  }
+
+                  else
+                  {
+                    v88 = 1;
+                  }
+
+                  if (monochrome)
+                  {
+                    v130 = 1195456544;
+                  }
+
+                  else
+                  {
+                    v130 = 1095911234;
+                  }
+
+                  [v75 setPixelFormat:v130];
+                }
+
+LABEL_105:
+                [v75 setAllowsMultiPassEncoding:{-[TDSimpleArtworkRenditionSpec allowsMultiPassEncoding](self, "allowsMultiPassEncoding")}];
+                [v75 setAllowsOptimalRowbytesPacking:{-[TDSimpleArtworkRenditionSpec allowsOptimalRowbytesPacking](self, "allowsOptimalRowbytesPacking")}];
+                [v75 setColorSpaceID:v88];
+                [v75 setIsVectorBased:v157];
+                [v75 setExifOrientation:{objc_msgSend(asset, "exifOrientation")}];
+                [v75 setAllowsPaletteImageCompression:{-[TDSimpleArtworkRenditionSpec allowsPaletteImageCompression](self, "allowsPaletteImageCompression")}];
+                [v75 setAllowsHevcCompression:{-[TDSimpleArtworkRenditionSpec allowsHevcCompression](self, "allowsHevcCompression")}];
+                [v75 setAllowsDeepmapImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmapCompression](self, "allowsDeepmapCompression")}];
+                [v75 setAllowsDeepmap2ImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmap2Compression](self, "allowsDeepmap2Compression")}];
+                if ([-[TDSimpleArtworkRenditionSpec compressionType](self "compressionType")])
+                {
+                  [v75 setCompressionType:{objc_msgSend(-[TDSimpleArtworkRenditionSpec compressionType](self, "compressionType"), "identifier")}];
+                }
+
+                [v75 setScaleFactor:{objc_msgSend(asset, "scaleFactor")}];
+                v91 = MEMORY[0x277D02650];
+                v140 = *(MEMORY[0x277D02650] + 16);
+                *imageb = *MEMORY[0x277D02650];
+                v153.origin = *MEMORY[0x277D02650];
+                v153.size = v140;
+                v93 = *(MEMORY[0x277D02650] + 32);
+                v92 = *(MEMORY[0x277D02650] + 40);
+                [(TDSimpleArtworkRenditionSpec *)self alignmentRect];
+                v94 = v164.origin.x;
+                v95 = v164.origin.y;
+                v96 = v164.size.width;
+                v97 = v164.size.height;
+                if (!NSEqualRects(v164, *MEMORY[0x277CCA868]) && (v94 >= 0.0 || v95 >= 0.0 || v94 + v96 <= Width || v95 + v97 <= v17))
+                {
+                  if (self)
+                  {
+                    objc_msgSend__edgeMetricsForAlignmentRect_originalRenditionSize_newRenditionSize_(self, v94, v95, v96, v97);
+                    v92 = *(&v152 + 1);
+                    v93 = *&v152;
+                  }
+
+                  else
+                  {
+                    v152 = 0u;
+                    memset(&mediaBox, 0, sizeof(mediaBox));
+                    v92 = 0.0;
+                    v93 = 0.0;
+                  }
+
+                  v153 = mediaBox;
+                }
+
+                mediaBox = v153;
+                *&v152 = v93;
+                *(&v152 + 1) = v92;
+                *value = *imageb;
+                v149 = v140;
+                v150 = *(v91 + 32);
+                if (CSIEqualMetrics())
+                {
+                  memset(&v153, 0, sizeof(v153));
+                  v93 = v158;
+                  v92 = SHIDWORD(v158);
+                }
+
+                [v75 setClampMetrics:{objc_msgSend(document, "_clampMetrics")}];
+                mediaBox = v153;
+                *&v152 = v93;
+                *(&v152 + 1) = v92;
+                [v75 addMetrics:&mediaBox];
+                [v75 setBlendMode:0];
+                [v75 setOpacity:1.0];
+                if ([(TDSimpleArtworkRenditionSpec *)self parentRendition])
+                {
+                  goto LABEL_119;
+                }
+
+                if (([production makeOpaqueIfPossible] & 1) != 0 || v156 == 1195456544 || v156 == 1195454774)
+                {
+                  AlphaInfo = CUICGImageGetAlphaInfo();
+                  if ((BitsPerComponent & 1) == 0)
+                  {
+                    goto LABEL_133;
+                  }
+                }
+
+                else
+                {
+                  AlphaInfo = CGImageGetBitmapInfo(v77) & 0x1F;
+                  if ((BitsPerComponent & 1) == 0)
+                  {
+LABEL_133:
+                    v105 = objc_alloc(MEMORY[0x277D02660]);
+                    documentCopy = document;
+                    v98 = [v105 initWithPixelWidth:v158 pixelHeight:HIDWORD(v158)];
+                    [v98 setAllowsMultiPassEncoding:{-[TDSimpleArtworkRenditionSpec allowsMultiPassEncoding](self, "allowsMultiPassEncoding")}];
+                    [v98 setAllowsOptimalRowbytesPacking:{-[TDSimpleArtworkRenditionSpec allowsOptimalRowbytesPacking](self, "allowsOptimalRowbytesPacking")}];
+                    [v98 setAllowsCompactCompression:{-[TDSimpleArtworkRenditionSpec allowsCompactCompression](self, "allowsCompactCompression")}];
+                    [v98 setPixelFormat:objc_msgSend(v75, "pixelFormat")];
+                    [v98 setColorSpaceID:{objc_msgSend(v75, "colorSpaceID")}];
+                    [v98 setSourceAlphaInfo:AlphaInfo];
+                    [v98 setTargetPlatform:{objc_msgSend(documentCopy, "targetPlatform")}];
+                    [v75 addBitmap:v98];
+                    bitmapContext = [v98 bitmapContext];
+                    if (CGImageGetBitsPerComponent(v77) >= 9 && CGBitmapContextGetBitsPerComponent(bitmapContext) == 8)
+                    {
+                      v108 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4B8]);
+                      v109 = CUIConvertDeepImageTo8();
+                      if (v109)
+                      {
+                        v110 = v109;
+                        CFRelease(v77);
+                        v77 = v110;
+                      }
+
+                      CFRelease(v108);
+                    }
+
+                    if (v155 == 1)
+                    {
+                      if (bitmapContext && [v47 count])
+                      {
+                        CGContextSaveGState(bitmapContext);
+                        CGContextSetBlendMode(bitmapContext, kCGBlendModeCopy);
+                        if ([v47 count])
+                        {
+                          v111 = 0;
+                          do
+                          {
+                            [objc_msgSend(v154 objectAtIndex:{v111), "rectValue"}];
+                            v113 = v112;
+                            v115 = v114;
+                            v117 = v116;
+                            v119 = v118;
+                            [objc_msgSend(v47 objectAtIndex:{v111), "rectValue"}];
+                            if (v117 > 0.0 && v119 > 0.0)
+                            {
+                              v124 = v120;
+                              v125 = v122;
+                              v126 = v123;
+                              if ((v134 & 0xFFFFFFFE) == 2)
+                              {
+                                v127 = SHIDWORD(v158) - (v121 + v123);
+                              }
+
+                              else
+                              {
+                                v127 = v121;
+                              }
+
+                              v165.origin.x = v113;
+                              v165.origin.y = v115;
+                              v165.size.width = v117;
+                              v165.size.height = v119;
+                              v128 = CGImageCreateWithImageInRect(v77, v165);
+                              v166.origin.x = v124;
+                              v166.origin.y = v127;
+                              v166.size.width = v125;
+                              v166.size.height = v126;
+                              CGContextDrawImage(bitmapContext, v166, v128);
+                              CGImageRelease(v128);
+                            }
+
+                            ++v111;
+                          }
+
+                          while (v111 < [v47 count]);
+                        }
+
+                        CGContextRestoreGState(bitmapContext);
+                      }
+                    }
+
+                    else if (bitmapContext)
+                    {
+                      v167.origin.x = 0.0;
+                      v167.origin.y = 0.0;
+                      v167.size.width = Width;
+                      v167.size.height = v17;
+                      CGContextDrawImage(bitmapContext, v167, v77);
+                    }
+
+                    goto LABEL_120;
+                  }
+                }
+
+LABEL_119:
+                v98 = 0;
+LABEL_120:
+                v146 = 0u;
+                v147 = 0u;
+                v144 = 0u;
+                v145 = 0u;
+                v99 = [v47 countByEnumeratingWithState:&v144 objects:v159 count:16];
+                if (v99)
+                {
+                  v100 = v99;
+                  v101 = *v145;
+                  do
+                  {
+                    for (i = 0; i != v100; ++i)
+                    {
+                      if (*v145 != v101)
+                      {
+                        objc_enumerationMutation(v47);
+                      }
+
+                      [*(*(&v144 + 1) + 8 * i) rectValue];
+                      [v75 addSliceRect:?];
+                    }
+
+                    v100 = [v47 countByEnumeratingWithState:&v144 objects:v159 count:16];
+                  }
+
+                  while (v100);
+                }
+
+                [(TDSimpleArtworkRenditionSpec *)self physicalSizeInMeters];
+                [v75 setPhysicalSizeInMeters:?];
+                [v75 setTemplateRenderingMode:{objc_msgSend(objc_msgSend(production, "templateRenderingMode"), "identifier")}];
+                [v75 setOptOutOfThinning:{objc_msgSend(production, "optOutOfThinning")}];
+                [v75 setPreserveForArchiveOnly:{-[TDSimpleArtworkRenditionSpec preserveForArchiveOnly](self, "preserveForArchiveOnly")}];
+                [v75 setPreservedVectorRepresentation:{objc_msgSend(production, "preservesVectorRepresentation")}];
+                [v75 setIsFlippable:{objc_msgSend(production, "isFlippable")}];
+                [v75 setExcludedFromContrastFilter:{objc_msgSend(objc_msgSend(production, "isExcludedFromFilter"), "BOOLValue")}];
+                [v75 setRenditionProperties:{-[TDRenditionSpec propertiesAsDictionary](self, "propertiesAsDictionary")}];
+                v14 = [v75 CSIRepresentationWithCompression:v136];
+
+                CGImageRelease(v77);
+                return v14;
+              }
+
+              if (allowsExtendedRangePixelFormats)
+              {
+                v88 = 6;
+              }
+
+              else
+              {
+                v88 = 2;
+              }
+            }
+
+            LOBYTE(BitsPerComponent) = v85;
+          }
+
+          else
+          {
+            if (monochrome)
+            {
+              v88 = 2;
+            }
+
+            else
+            {
+              v88 = 1;
+            }
+
+            if (monochrome)
+            {
+              v89 = 1195456544;
+            }
+
+            else
+            {
+              v89 = 1095911234;
+            }
+
+            [v75 setPixelFormat:v89];
+            LOBYTE(BitsPerComponent) = v85;
+          }
+
+          asset = v139;
+          goto LABEL_105;
+        }
+
+LABEL_88:
+        v88 = v135;
+        goto LABEL_105;
+      }
+
+      mediaBox.origin.x = 0.0;
+      v48 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v18 options:2 error:0];
+      v49 = v48;
+      if (v156 == 1246774599 || v156 == 1212500294)
+      {
+        v50 = CGImageSourceCreateWithData(v48, 0);
+        if (v50)
+        {
+          v51 = v50;
+          v132 = BitsPerComponent;
+          documentCopy2 = document;
+          v52 = CGImageSourceCopyMetadataAtIndex(v50, 0, 0);
+          v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          cf = v52;
+          [v53 setObject:v52 forKey:*MEMORY[0x277CD2D58]];
+          v54 = objc_alloc_init(MEMORY[0x277CBEB28]);
+          Type = CGImageSourceGetType(v51);
+          v56 = CGImageDestinationCreateWithData(v54, Type, 1uLL, 0);
+          if (v56)
+          {
+            v57 = v56;
+            value[0] = 0;
+            v58 = v49;
+            v59 = production;
+            v60 = *MEMORY[0x277CBED28];
+            [v53 setObject:*MEMORY[0x277CBED28] forKey:*MEMORY[0x277CD2D88]];
+            v61 = v60;
+            production = v59;
+            [v53 setObject:v61 forKey:*MEMORY[0x277CD2D80]];
+            v62 = CGImageDestinationCopyImageSource(v57, v51, v53, value);
+            if (v62)
+            {
+              v63 = v58;
+            }
+
+            else
+            {
+              v63 = v54;
+            }
+
+            if (v62)
+            {
+              v49 = v54;
+            }
+
+            else
+            {
+              v49 = v58;
+            }
+
+            CFRelease(v57);
+          }
+
+          else
+          {
+          }
+
+          document = documentCopy2;
+          asset = v139;
+
+          CFRelease(cf);
+          CFRelease(v51);
+          LOBYTE(BitsPerComponent) = v132;
+        }
+
+        v84 = objc_alloc(MEMORY[0x277D02668]);
+        v75 = [v84 initWithRawData:v49 pixelFormat:v156 layout:v15];
+        [v75 setName:{objc_msgSend(asset, "name")}];
+        [v75 setAllowsPaletteImageCompression:{-[TDSimpleArtworkRenditionSpec allowsPaletteImageCompression](self, "allowsPaletteImageCompression")}];
+        [v75 setAllowsHevcCompression:{-[TDSimpleArtworkRenditionSpec allowsHevcCompression](self, "allowsHevcCompression")}];
+        [v75 setAllowsDeepmapImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmapCompression](self, "allowsDeepmapCompression")}];
+        [v75 setAllowsDeepmap2ImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmap2Compression](self, "allowsDeepmap2Compression")}];
+        [v75 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+LABEL_79:
+        v77 = image;
+
+        if (!image)
+        {
+          goto LABEL_88;
+        }
+
+        goto LABEL_80;
+      }
+
+      v79 = objc_alloc(MEMORY[0x277D02668]);
+      v75 = [v79 initWithRawData:v49 pixelFormat:v156 layout:1000];
+      [v75 setAllowsPaletteImageCompression:{-[TDSimpleArtworkRenditionSpec allowsPaletteImageCompression](self, "allowsPaletteImageCompression")}];
+      [v75 setAllowsHevcCompression:{-[TDSimpleArtworkRenditionSpec allowsHevcCompression](self, "allowsHevcCompression")}];
+      [v75 setAllowsDeepmapImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmapCompression](self, "allowsDeepmapCompression")}];
+      [v75 setAllowsDeepmap2ImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmap2Compression](self, "allowsDeepmap2Compression")}];
+      [v75 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+      if ([objc_msgSend(-[TDSimpleArtworkRenditionSpec production](self "production")])
+      {
+        v80 = COERCE_DOUBLE([-[TDSimpleArtworkRenditionSpec production](self "production")]);
+      }
+
+      else
+      {
+        if (![v18 getResourceValue:&mediaBox forKey:*MEMORY[0x277CBE918] error:0])
+        {
+          [v75 setName:{objc_msgSend(asset, "name")}];
+          goto LABEL_78;
+        }
+
+        v80 = mediaBox.origin.x;
+      }
+
+      [v75 setUtiType:*&v80];
+LABEL_78:
+      v135 = 0;
+      goto LABEL_79;
+    }
+
+    return 0;
+  }
+
+  if (v156 == 1398163232)
+  {
+    goto LABEL_65;
+  }
+
+  if (v156 != 1346651680)
+  {
+    goto LABEL_7;
+  }
+
+  v20 = CGPDFDocumentCreateWithURL(v18);
+  if (!v20)
+  {
+LABEL_65:
+    v43 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v18 options:2 error:0];
+  }
+
+  else
+  {
+    v21 = v20;
+    imagea = production;
+    v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v23 = *MEMORY[0x277CBEEE8];
+    v24 = *MEMORY[0x277CBF5C0];
+    [v22 setObject:*MEMORY[0x277CBEEE8] forKeyedSubscript:*MEMORY[0x277CBF5C0]];
+    v25 = *MEMORY[0x277CBF590];
+    [v22 setObject:v23 forKeyedSubscript:*MEMORY[0x277CBF590]];
+    v26 = *MEMORY[0x277CBF588];
+    [v22 setObject:v23 forKeyedSubscript:*MEMORY[0x277CBF588]];
+    Info = CGPDFDocumentGetInfo(v21);
+    if (Info)
+    {
+      v28 = Info;
+      value[0] = 0;
+      if (CGPDFDictionaryGetString(Info, "Producer", value))
+      {
+        v29 = CGPDFStringCopyTextString(value[0]);
+        if (v29)
+        {
+          v30 = v29;
+          [v22 setObject:v29 forKeyedSubscript:v24];
+          CFRelease(v30);
+        }
+      }
+
+      v138 = asset;
+      if (CGPDFDictionaryGetString(v28, "CreationDate", value))
+      {
+        v31 = CGPDFStringCopyDate(value[0]);
+        if (v31)
+        {
+          v32 = v31;
+          [v22 setObject:v31 forKeyedSubscript:v26];
+          CFRelease(v32);
+        }
+      }
+
+      ID = CGPDFDocumentGetID(v21);
+      Count = CGPDFArrayGetCount(ID);
+      if (Count)
+      {
+        v35 = Count;
+        v137 = v25;
+        v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v37 = 0;
+        v38 = *MEMORY[0x277CBECE8];
+        do
+        {
+          if (CGPDFArrayGetString(ID, v37, value))
+          {
+            BytePtr = CGPDFStringGetBytePtr(value[0]);
+            Length = CGPDFStringGetLength(value[0]);
+            if (Length)
+            {
+              v41 = CFDataCreate(v38, BytePtr, Length);
+              [v36 addObject:v41];
+              CFRelease(v41);
+            }
+          }
+
+          ++v37;
+        }
+
+        while (v35 != v37);
+        [v22 setObject:v36 forKeyedSubscript:v137];
+      }
+
+      asset = v138;
+    }
+
+    CGPDFDocumentEnableTaggedStructureSerialization();
+    Page = CGPDFDocumentGetPage(v21, 1uLL);
+    mediaBox = CGPDFPageGetBoxRect(Page, kCGPDFCropBox);
+    v43 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v44 = CGDataConsumerCreateWithCFData(v43);
+    v45 = CGPDFContextCreate(v44, &mediaBox, v22);
+    CGDataConsumerRelease(v44);
+    CGPDFContextBeginPage(v45, 0);
+    CGContextDrawPDFPage(v45, Page);
+    CGPDFContextEndPage(v45);
+    CGPDFContextClose(v45);
+    CGContextRelease(v45);
+    CGPDFDocumentRelease(v21);
+
+    production = imagea;
+  }
+
+  v81 = objc_alloc(MEMORY[0x277D02668]);
+  v82 = [v81 initWithRawData:v43 pixelFormat:v156 layout:9];
+  [v82 setIsVectorBased:1];
+  [v82 setName:{objc_msgSend(asset, "name")}];
+  if (v156 == 1398163232)
+  {
+    colorSpaceID = [(TDSimpleArtworkRenditionSpec *)self colorSpaceID];
+  }
+
+  else
+  {
+    colorSpaceID = 0;
+  }
+
+  [v82 setColorSpaceID:colorSpaceID];
+  [v82 setScaleFactor:0];
+  [v82 setIsFlippable:{objc_msgSend(production, "isFlippable")}];
+  [(TDSimpleArtworkRenditionSpec *)self physicalSizeInMeters];
+  [v82 setPhysicalSizeInMeters:?];
+  [v82 setAllowsPaletteImageCompression:{-[TDSimpleArtworkRenditionSpec allowsPaletteImageCompression](self, "allowsPaletteImageCompression")}];
+  [v82 setAllowsHevcCompression:{-[TDSimpleArtworkRenditionSpec allowsHevcCompression](self, "allowsHevcCompression")}];
+  [v82 setAllowsDeepmapImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmapCompression](self, "allowsDeepmapCompression")}];
+  [v82 setAllowsDeepmap2ImageCompression:{-[TDSimpleArtworkRenditionSpec allowsDeepmap2Compression](self, "allowsDeepmap2Compression")}];
+  [v82 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
+  if (v156 == 1398163232)
+  {
+    [v82 setCompressionType:2];
+  }
+
+  v14 = [v82 CSIRepresentationWithCompression:0];
+
+  return v14;
 }
 
 - (CGSize)_scaleRecognitionImageFromSize:(CGSize)size

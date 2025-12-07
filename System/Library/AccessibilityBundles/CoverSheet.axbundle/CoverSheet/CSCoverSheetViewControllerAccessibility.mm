@@ -6,6 +6,7 @@
 - (BOOL)_axShowTodayView;
 - (id)accessibilityCustomActions;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_presentModalViewController:(id)controller shouldDismissOverlays:(BOOL)overlays animated:(BOOL)animated completion:(id)completion;
 - (void)_updateChargingSubtitleWithString:(id)string timeout:(double)timeout;
 - (void)viewDidLoad;
 @end
@@ -46,6 +47,14 @@
   v3.super_class = CSCoverSheetViewControllerAccessibility;
   [(CSCoverSheetViewControllerAccessibility *)&v3 viewDidLoad];
   [(CSCoverSheetViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)_presentModalViewController:(id)controller shouldDismissOverlays:(BOOL)overlays animated:(BOOL)animated completion:(id)completion
+{
+  v6.receiver = self;
+  v6.super_class = CSCoverSheetViewControllerAccessibility;
+  [(CSCoverSheetViewControllerAccessibility *)&v6 _presentModalViewController:controller shouldDismissOverlays:overlays animated:animated completion:completion];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 - (id)accessibilityCustomActions
@@ -173,7 +182,7 @@ LABEL_16:
   return v4 & 1;
 }
 
-uint64_t __81__CSCoverSheetViewControllerAccessibility__accessibilityShowWallpaperCollections__block_invoke(uint64_t a1)
+void *__81__CSCoverSheetViewControllerAccessibility__accessibilityShowWallpaperCollections__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _handlePosterSwitcherActivation:*(a1 + 40)];
   result = [*(a1 + 32) _isPresentingPosterSwitcher];
@@ -195,7 +204,7 @@ uint64_t __81__CSCoverSheetViewControllerAccessibility__accessibilityShowWallpap
   return v3;
 }
 
-uint64_t __69__CSCoverSheetViewControllerAccessibility__axIsCapabilityRestricted___block_invoke(uint64_t a1)
+void *__69__CSCoverSheetViewControllerAccessibility__axIsCapabilityRestricted___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) areRestrictedCapabilities:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -77,40 +77,41 @@
 - (void)_deferCaptureButtonEventsToSceneWithIdentityToken:(id)token PID:(int)d
 {
   v4 = *&d;
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
+  v8 = tokenCopy;
   if (self->_currentDeferralTargetPid != v4)
   {
-    v8 = SBLogCameraCaptureOverlay();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogCameraCaptureOverlay(tokenCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = BSProcessDescriptionForPID();
-      v19 = 138412290;
-      v20 = v9;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Deferring full-fidelity capture button events to: %@", &v19, 0xCu);
+      v10 = BSProcessDescriptionForPID();
+      v20 = 138412290;
+      v21 = v10;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Deferring full-fidelity capture button events to: %@", &v20, 0xCu);
     }
 
     [(BSInvalidatable *)self->_deferringRuleAssertion invalidate];
     deferringRuleAssertion = self->_deferringRuleAssertion;
     self->_deferringRuleAssertion = 0;
 
-    v11 = objc_opt_new();
+    v12 = objc_opt_new();
     ui_cameraCaptureButtonEnvironment = [MEMORY[0x277CF0628] ui_cameraCaptureButtonEnvironment];
-    [v11 setEnvironment:ui_cameraCaptureButtonEnvironment];
-    v13 = objc_opt_new();
-    [v13 setPid:v4];
-    v14 = MEMORY[0x277CF0650];
-    stringRepresentation = [tokenCopy stringRepresentation];
-    v16 = [v14 tokenForString:stringRepresentation];
+    [v12 setEnvironment:ui_cameraCaptureButtonEnvironment];
+    v14 = objc_opt_new();
+    [v14 setPid:v4];
+    v15 = MEMORY[0x277CF0650];
+    stringRepresentation = [v8 stringRepresentation];
+    v17 = [v15 tokenForString:stringRepresentation];
 
-    if (v16)
+    if (v17)
     {
-      [v13 setToken:v16];
+      [v14 setToken:v17];
     }
 
-    v17 = [(BKSHIDEventDeliveryManager *)self->_deliveryManager deferEventsMatchingPredicate:v11 toTarget:v13 withReason:@"Entitled Capture Button Consumer Active"];
-    v18 = self->_deferringRuleAssertion;
-    self->_deferringRuleAssertion = v17;
+    v18 = [(BKSHIDEventDeliveryManager *)self->_deliveryManager deferEventsMatchingPredicate:v12 toTarget:v14 withReason:@"Entitled Capture Button Consumer Active"];
+    v19 = self->_deferringRuleAssertion;
+    self->_deferringRuleAssertion = v18;
 
     self->_currentDeferralTargetPid = v4;
     objc_storeStrong(&self->_currentDeferralSceneIdentityToken, token);
@@ -121,7 +122,7 @@
 {
   if (self->_deferringRuleAssertion)
   {
-    v3 = SBLogCameraCaptureOverlay();
+    v3 = SBLogCameraCaptureOverlay(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;

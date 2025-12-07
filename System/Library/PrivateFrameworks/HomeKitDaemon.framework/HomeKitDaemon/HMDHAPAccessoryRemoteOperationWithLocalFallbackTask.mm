@@ -59,7 +59,7 @@
 
 void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -79,7 +79,7 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
 
     v8 = v7;
 
-    v39 = v8;
+    v38 = v8;
     v9 = [v8 logEvents];
     v10 = [v9 mutableCopy];
 
@@ -90,19 +90,19 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
     v15 = [v14 mutableCopy];
 
     v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "count")}];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_377;
-    v44[3] = &unk_2786895C8;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_377;
+    v43[3] = &unk_2786895C8;
     v17 = v15;
-    v45 = v17;
-    v46 = v5;
+    v44 = v17;
+    v45 = v5;
     v18 = v16;
-    v47 = v18;
+    v46 = v18;
     v19 = v10;
-    v48 = v19;
-    v49 = v12;
-    v20 = [v3 na_map:v44];
+    v47 = v19;
+    v48 = v12;
+    v20 = [v3 na_map:v43];
     v21 = [v20 mutableCopy];
 
     [v5 addCharacteristicResponses:v18 isRemote:1];
@@ -113,12 +113,12 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
       v24 = [v23 UUIDString];
       [v22 updateLogEvents:v19 withResponses:v18 forTaskID:v24 shouldSubmit:1];
 
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_379;
-      v42[3] = &unk_2786892F0;
-      v43 = v19;
-      [v18 na_each:v42];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_379;
+      v41[3] = &unk_2786892F0;
+      v42 = v19;
+      [v18 na_each:v41];
     }
 
     if ([v17 count] && (objc_msgSend(v5, "supportsMultiPartResponse") & 1) == 0)
@@ -130,13 +130,13 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v51 = v27;
-        v52 = 2112;
-        v53 = v25;
-        v54 = 2112;
-        v55 = v17;
-        v56 = 2112;
-        v57 = v3;
+        v50 = v27;
+        v51 = 2112;
+        v52 = v25;
+        v53 = 2112;
+        v54 = v17;
+        v55 = 2112;
+        v56 = v3;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@[%@] Missing remote responses. Falling back to locally processing requests: %@ -> %@", buf, 0x2Au);
       }
 
@@ -146,12 +146,12 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
 
     if ([v21 count])
     {
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_380;
-      v40[3] = &unk_2786895F0;
-      objc_copyWeak(&v41, (a1 + 32));
-      v28 = [v5 _makeLocalTaskWithRequests:v21 completion:v40];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_380;
+      v39[3] = &unk_2786895F0;
+      objc_copyWeak(&v40, (a1 + 32));
+      v28 = [v5 _makeLocalTaskWithRequests:v21 completion:v39];
       [v5 setFallbackLocalTask:v28];
 
       v29 = [v5 fallbackLocalTask];
@@ -176,7 +176,7 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
       v32 = [v5 fallbackLocalTask];
       [v32 execute];
 
-      objc_destroyWeak(&v41);
+      objc_destroyWeak(&v40);
     }
 
     else
@@ -194,19 +194,17 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v35;
+      v50 = v35;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for HMDHAPAccessoryRemoteOperationWithLocalFallbackTask remote task completion handler", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v33);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 id __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_377(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 error];
   v5 = *(a1 + 32);
@@ -226,11 +224,11 @@ id __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompleti
       v18 = HMFGetLogIdentifier();
       v19 = *(a1 + 40);
       *buf = 138543874;
-      v38 = v18;
-      v39 = 2112;
-      v40 = v19;
-      v41 = 2112;
-      v42 = v3;
+      v37 = v18;
+      v38 = 2112;
+      v39 = v19;
+      v40 = 2112;
+      v41 = v3;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Lost reference to accessory for response: %@", buf, 0x20u);
     }
 
@@ -284,11 +282,11 @@ LABEL_9:
       v30 = HMFGetLogIdentifier();
       v31 = *(a1 + 40);
       *buf = 138543874;
-      v38 = v30;
-      v39 = 2112;
-      v40 = v31;
-      v41 = 2112;
-      v42 = v3;
+      v37 = v30;
+      v38 = 2112;
+      v39 = v31;
+      v40 = 2112;
+      v41 = v3;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@[%@] Skip falling back to locally processing accessory for response: %@", buf, 0x20u);
     }
 
@@ -301,16 +299,16 @@ LABEL_9:
     if (v29)
     {
       v32 = HMFGetLogIdentifier();
-      v36 = *(a1 + 40);
+      v35 = *(a1 + 40);
       v33 = [v3 request];
       *buf = 138544130;
-      v38 = v32;
-      v39 = 2112;
-      v40 = v36;
-      v41 = 2112;
-      v42 = v33;
-      v43 = 2112;
-      v44 = v3;
+      v37 = v32;
+      v38 = 2112;
+      v39 = v35;
+      v40 = 2112;
+      v41 = v33;
+      v42 = 2112;
+      v43 = v3;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@[%@] Falling back to locally processing request: %@ -> %@", buf, 0x2Au);
     }
 
@@ -324,7 +322,6 @@ LABEL_9:
   }
 
 LABEL_21:
-  v34 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -346,7 +343,7 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
 
 void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskCompletionHandler__block_invoke_380(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -363,15 +360,13 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback local task completion", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback local task completion", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)completion
@@ -397,7 +392,7 @@ void __83__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__remoteTaskComple
 
 void __65__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask_completion__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -424,15 +419,13 @@ void __65__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask_completion__block
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for HMDHAPAccessoryRemoteOperationWithLocalFallbackTask completion", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for HMDHAPAccessoryRemoteOperationWithLocalFallbackTask completion", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldFallbackLocallyWithError:(id)error accessory:(id)accessory
@@ -678,7 +671,7 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
 
 void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningForSuspendedAccessoriesWithRequests___block_invoke_4(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -690,66 +683,64 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 48), "count")}];
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 56), "count")}];
     v10 = *(a1 + 64);
-    v23 = 138544642;
-    v24 = v5;
-    v25 = 2112;
-    v26 = v6;
-    v27 = 2112;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v9;
-    v33 = 2112;
-    v34 = v10;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Scanning locally for suspended accessory (%@/%@/%@) completed with error: %@.", &v23, 0x3Eu);
+    v22 = 138544642;
+    v23 = v5;
+    v24 = 2112;
+    v25 = v6;
+    v26 = 2112;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v9;
+    v32 = 2112;
+    v33 = v10;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Scanning locally for suspended accessory (%@/%@/%@) completed with error: %@.", &v22, 0x3Eu);
   }
 
   objc_autoreleasePoolPop(v2);
   if (!*(a1 + 64) && [*(a1 + 56) count])
   {
-    v12 = objc_autoreleasePoolPush();
-    v13 = *(a1 + 32);
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v11 = objc_autoreleasePoolPush();
+    v12 = *(a1 + 32);
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = HMFGetLogIdentifier();
-      v16 = *(a1 + 32);
-      v17 = [*(a1 + 40) name];
-      v18 = [*(a1 + 40) uuid];
-      v19 = [v18 UUIDString];
-      v20 = [*(a1 + 40) uniqueIdentifier];
-      v21 = [*(a1 + 48) count];
-      v23 = 138544642;
-      v24 = v15;
-      v25 = 2112;
-      v26 = v16;
-      v27 = 2112;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v20;
-      v33 = 2048;
-      v34 = v21;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Adding responses for suspended accessory %@/%@/%@ with %ld requests", &v23, 0x3Eu);
+      v14 = HMFGetLogIdentifier();
+      v15 = *(a1 + 32);
+      v16 = [*(a1 + 40) name];
+      v17 = [*(a1 + 40) uuid];
+      v18 = [v17 UUIDString];
+      v19 = [*(a1 + 40) uniqueIdentifier];
+      v20 = [*(a1 + 48) count];
+      v22 = 138544642;
+      v23 = v14;
+      v24 = 2112;
+      v25 = v15;
+      v26 = 2112;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v18;
+      v30 = 2112;
+      v31 = v19;
+      v32 = 2048;
+      v33 = v20;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Adding responses for suspended accessory %@/%@/%@ with %ld requests", &v22, 0x3Eu);
     }
 
-    objc_autoreleasePoolPop(v12);
+    objc_autoreleasePoolPop(v11);
     [*(a1 + 32) addCharacteristicResponses:*(a1 + 56) isRemote:0];
     if ([*(a1 + 32) supportsMultiPartResponse])
     {
-      v22 = [*(a1 + 32) completion];
-      v22[2](v22, *(a1 + 56));
+      v21 = [*(a1 + 32) completion];
+      v21[2](v21, *(a1 + 56));
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)execute
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   [(HMDHAPAccessoryTask *)self setExecutionTime:date];
 
@@ -767,17 +758,17 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v41 = v39 = v6;
+    v40 = v38 = v6;
     requests2 = [(HMDHAPAccessoryTask *)selfCopy requests];
-    v34 = [requests2 count];
-    v33 = HMFBooleanToString();
+    v33 = [requests2 count];
+    v32 = HMFBooleanToString();
     context2 = [(HMDHAPAccessoryTask *)selfCopy context];
     home2 = [context2 home];
     [home2 remoteAccessIsEnabled];
     v12 = HMFBooleanToString();
     [(HMDHAPAccessoryTask *)selfCopy context];
-    v35 = v40 = v9;
-    home3 = [v35 home];
+    v34 = v39 = v9;
+    home3 = [v34 home];
     primaryResident = [home3 primaryResident];
     [primaryResident isReachable];
     v15 = HMFBooleanToString();
@@ -786,22 +777,22 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
     [home4 isCompanionReachable];
     v18 = HMFBooleanToString();
     *buf = 138544642;
-    v44 = v41;
-    v45 = 2048;
-    v46 = v34;
-    v47 = 2112;
-    v48 = v33;
-    v49 = 2112;
-    v50 = v12;
-    v51 = 2112;
-    v52 = v15;
+    v43 = v40;
+    v44 = 2048;
+    v45 = v33;
+    v46 = 2112;
+    v47 = v32;
+    v48 = 2112;
+    v49 = v12;
+    v50 = 2112;
+    v51 = v15;
     v19 = v15;
-    v53 = 2112;
-    v54 = v18;
+    v52 = 2112;
+    v53 = v18;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Executing %lu read/write tasks with isAwayFromHome: %@, isRemoteAccessEnabled: %@, isPrimaryResidentReachable: %@, isCompanionReachable: %@", buf, 0x3Eu);
 
-    v9 = v40;
-    v6 = v39;
+    v9 = v39;
+    v6 = v38;
   }
 
   objc_autoreleasePoolPop(v9);
@@ -813,12 +804,12 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
 
   else
   {
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __62__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask_execute__block_invoke;
-    v42[3] = &unk_278689500;
-    v42[4] = selfCopy;
-    v21 = [v6 na_map:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __62__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask_execute__block_invoke;
+    v41[3] = &unk_278689500;
+    v41[4] = selfCopy;
+    v21 = [v6 na_map:v41];
   }
 
   if ([v21 count])
@@ -848,8 +839,6 @@ void __105__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask__startScanningFo
     remoteTask = [(HMDHAPAccessoryRemoteOperationWithLocalFallbackTask *)selfCopy remoteTask];
     [remoteTask execute];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 id __62__HMDHAPAccessoryRemoteOperationWithLocalFallbackTask_execute__block_invoke(uint64_t a1, void *a2)

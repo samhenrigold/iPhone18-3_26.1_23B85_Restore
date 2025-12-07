@@ -20,7 +20,7 @@
 
 - (void)setupFlowProtocolWithUUID:(void *)d
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = malloc_type_calloc(1uLL, 0x40uLL, 0x10A0040C9AB51B7uLL);
   if (v4)
@@ -38,13 +38,11 @@
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 134217984;
-      v9 = 64;
-      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "calloc(%zu) failed", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = 64;
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "calloc(%zu) failed", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

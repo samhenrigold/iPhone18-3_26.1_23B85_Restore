@@ -123,7 +123,7 @@
       v16 = v5->_proxyInfo;
       v17 = v15;
       vendor = [(NSPPrivacyProxyProxyInfo *)v16 vendor];
-      v19 = sub_100002834(v14, v17, vendor, v5, 1);
+      v19 = sub_100002834(&v14->super.isa, v17, vendor, v5, 1);
       tokenRegistration = v5->_tokenRegistration;
       v5->_tokenRegistration = v19;
 

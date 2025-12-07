@@ -11,119 +11,120 @@
 
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)options
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   sessionCopy = session;
-  if (SBSIsSystemApertureAvailable())
+  v10 = SBSIsSystemApertureAvailable();
+  if (v10)
   {
     role = [sessionCopy role];
-    v11 = [role isEqualToString:*MEMORY[0x277D68050]];
-    v12 = [role isEqualToString:*MEMORY[0x277D68058]];
-    v13 = v12;
-    if ((v11 & 1) != 0 || v12)
+    v12 = [role isEqualToString:*MEMORY[0x277D68050]];
+    v13 = [role isEqualToString:*MEMORY[0x277D68058]];
+    v14 = v13;
+    if ((v12 & 1) != 0 || v13)
     {
-      v14 = @"systemApertureCurtain";
-      if (v11)
+      v15 = @"systemApertureCurtain";
+      if (v12)
       {
-        v14 = @"systemAperture";
+        v15 = @"systemAperture";
       }
 
       debugName = self->_debugName;
-      self->_debugName = &v14->isa;
+      self->_debugName = &v15->isa;
     }
 
-    v16 = SBLogContinuityDisplay();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogContinuityDisplay(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = self->_debugName;
+      v18 = self->_debugName;
       *buf = 134218242;
-      v31 = sceneCopy;
-      v32 = 2114;
-      v33 = v17;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "System Aperture Scene <%p>:%{public}@ willConnectToSession", buf, 0x16u);
+      v32 = sceneCopy;
+      v33 = 2114;
+      v34 = v18;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "System Aperture Scene <%p>:%{public}@ willConnectToSession", buf, 0x16u);
     }
 
-    if (v11)
+    if (v12)
     {
-      v18 = objc_opt_class();
-      v19 = sceneCopy;
-      if (v18)
+      v19 = objc_opt_class();
+      v20 = sceneCopy;
+      if (v19)
       {
         if (objc_opt_isKindOfClass())
         {
-          v18 = v19;
+          v19 = v20;
         }
 
         else
         {
-          v18 = 0;
+          v19 = 0;
         }
       }
 
-      v20 = v18;
+      v21 = v19;
 
-      if (!v20)
+      if (!v21)
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate scene:willConnectToSession:options:];
       }
 
-      objc_storeStrong(&self->_systemApertureContinuityWindowScene, v18);
+      objc_storeStrong(&self->_systemApertureContinuityWindowScene, v19);
       windowScene = self->_windowScene;
-      self->_windowScene = v20;
-      v22 = v20;
+      self->_windowScene = v21;
+      v23 = v21;
 
       currentHandler = +[SBContinuitySessionManager sharedInstance];
-      v24 = [currentHandler registerSystemApertureWindowScene:v22];
+      v25 = [currentHandler registerSystemApertureWindowScene:v23];
     }
 
     else
     {
-      if (!v13)
+      if (!v14)
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler handleFailureInMethod:a2 object:self file:@"SBSystemApertureContinuityDelayedUIWindowSceneDelegate.m" lineNumber:76 description:{@"unexpected role for SBSystemApertureContinuityWindowSceneDelegate: %@", role}];
         goto LABEL_29;
       }
 
-      v25 = objc_opt_class();
-      v26 = sceneCopy;
-      if (v25)
+      v26 = objc_opt_class();
+      v27 = sceneCopy;
+      if (v26)
       {
         if (objc_opt_isKindOfClass())
         {
-          v25 = v26;
+          v26 = v27;
         }
 
         else
         {
-          v25 = 0;
+          v26 = 0;
         }
       }
 
-      v27 = v25;
+      v28 = v26;
 
-      if (!v27)
+      if (!v28)
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate scene:willConnectToSession:options:];
       }
 
-      objc_storeStrong(&self->_systemApertureContinuityCurtainWindowScene, v25);
-      v28 = self->_windowScene;
-      self->_windowScene = v27;
-      v22 = v27;
+      objc_storeStrong(&self->_systemApertureContinuityCurtainWindowScene, v26);
+      v29 = self->_windowScene;
+      self->_windowScene = v28;
+      v23 = v28;
 
       currentHandler = +[SBContinuitySessionManager sharedInstance];
-      v24 = [currentHandler registerSystemApertureCurtainWindowScene:v22];
+      v25 = [currentHandler registerSystemApertureCurtainWindowScene:v23];
     }
 
     continuitySessionManagerRegistration = self->_continuitySessionManagerRegistration;
-    self->_continuitySessionManagerRegistration = v24;
+    self->_continuitySessionManagerRegistration = v25;
 
 LABEL_29:
     goto LABEL_30;
   }
 
-  role = SBLogContinuityDisplay();
+  role = SBLogContinuityDisplay(v10);
   if (os_log_type_enabled(role, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -137,7 +138,7 @@ LABEL_30:
 {
   v15 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
-  v5 = SBLogContinuityDisplay();
+  v5 = SBLogContinuityDisplay(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     debugName = self->_debugName;
@@ -165,31 +166,32 @@ LABEL_30:
 
 - (void)didConnectToSession:(id)session
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
+  v6 = sessionCopy;
   if (self->_continuitySession)
   {
     [SBSystemApertureContinuityDelayedUIWindowSceneDelegate didConnectToSession:];
   }
 
-  v6 = SBLogContinuityDisplay();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogContinuityDisplay(sessionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     windowScene = self->_windowScene;
     debugName = self->_debugName;
-    v11 = 134218754;
-    v12 = windowScene;
-    v13 = 2114;
-    v14 = debugName;
-    v15 = 2048;
-    v16 = sessionCopy;
-    v17 = 2112;
-    v18 = sessionCopy;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ connected to session: <%p>:%@", &v11, 0x2Au);
+    v12 = 134218754;
+    v13 = windowScene;
+    v14 = 2114;
+    v15 = debugName;
+    v16 = 2048;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ connected to session: <%p>:%@", &v12, 0x2Au);
   }
 
   objc_storeStrong(&self->_continuitySession, session);
-  [sessionCopy addStateObserver:self];
+  [v6 addStateObserver:self];
   _FBSScene = [(UIWindowScene *)self->_windowScene _FBSScene];
   continuitySessionParticipantClientComponent = [_FBSScene continuitySessionParticipantClientComponent];
 
@@ -198,8 +200,8 @@ LABEL_30:
     [SBSystemApertureContinuityDelayedUIWindowSceneDelegate didConnectToSession:];
   }
 
-  [continuitySessionParticipantClientComponent setContinuitySession:sessionCopy];
-  [(SBSystemApertureContinuityDelayedUIWindowSceneDelegate *)self continuitySessionDidUpdateState:sessionCopy];
+  [continuitySessionParticipantClientComponent setContinuitySession:v6];
+  [(SBSystemApertureContinuityDelayedUIWindowSceneDelegate *)self continuitySessionDidUpdateState:v6];
 }
 
 - (void)continuitySessionDidUpdateState:(id)state
@@ -285,10 +287,11 @@ LABEL_30:
     v8 = reasons;
     if (self->_systemApertureContinuityWindowScene)
     {
-      if ([reasons containsObject:@"checkpoint.waiting-for-ui-ready"])
+      v9 = objc_msgSend_containsObject_(reasons);
+      if (v9)
       {
-        v9 = SBLogContinuitySession();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = SBLogContinuitySession(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureContinuityDelayedUIWindowSceneDelegate continuitySessionDidUpdateState:];
         }
@@ -310,10 +313,11 @@ LABEL_48:
         goto LABEL_48;
       }
 
-      if ([reasons containsObject:@"checkpoint.waiting-for-system-aperture-ui-ready"])
+      v11 = objc_msgSend_containsObject_(reasons);
+      if (v11)
       {
-        v9 = SBLogContinuitySession();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = SBLogContinuitySession(v11);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           [SBSystemApertureContinuityDelayedUIWindowSceneDelegate continuitySessionDidUpdateState:];
         }
@@ -352,68 +356,69 @@ LABEL_49:
 
 - (void)_initializeUIIfNecessaryForReason:(id)reason
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v6 = SBLogContinuitySession();
+  v6 = SBLogContinuitySession(reasonCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     windowScene = self->_windowScene;
     debugName = self->_debugName;
-    v23 = 134218498;
-    v24 = windowScene;
-    v25 = 2114;
-    v26 = debugName;
-    v27 = 2114;
-    v28 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ initializing UI if necessary - %{public}@", &v23, 0x20u);
+    v26 = 134218498;
+    v27 = windowScene;
+    v28 = 2114;
+    v29 = debugName;
+    v30 = 2114;
+    v31 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ initializing UI if necessary - %{public}@", &v26, 0x20u);
   }
 
   if (self->_initializedUI)
   {
-    mainWindowScene = SBLogContinuitySession();
-    if (os_log_type_enabled(mainWindowScene, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogContinuitySession(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_21ED4E000, mainWindowScene, OS_LOG_TYPE_DEFAULT, "--> already initialized UI", &v23, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "--> already initialized UI", &v26, 2u);
     }
   }
 
   else
   {
     state = [(SBContinuitySession *)self->_continuitySession state];
-    v11 = SBLogContinuitySession();
-    mainWindowScene = v11;
+    v12 = SBLogContinuitySession(state);
+    v10 = v12;
     if (state == 7)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _initializeUIIfNecessaryForReason:];
-      }
-
-      v12 = SBLogContinuitySession();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _initializeUIIfNecessaryForReason:];
       }
 
+      v14 = SBLogContinuitySession(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _initializeUIIfNecessaryForReason:];
+      }
+
       mainWindowScene = [(SBContinuitySession *)self->_continuitySession mainWindowScene];
+      v10 = mainWindowScene;
       if (!mainWindowScene)
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _initializeUIIfNecessaryForReason:];
       }
 
-      v13 = SBLogContinuitySession();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = SBLogContinuitySession(mainWindowScene);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        _sceneIdentifier = [mainWindowScene _sceneIdentifier];
-        v23 = 134218242;
-        v24 = mainWindowScene;
-        v25 = 2114;
-        v26 = _sceneIdentifier;
-        _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "--> associated main window scene is <%p>:%{public}@", &v23, 0x16u);
+        _sceneIdentifier = [v10 _sceneIdentifier];
+        v26 = 134218242;
+        v27 = v10;
+        v28 = 2114;
+        v29 = _sceneIdentifier;
+        _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "--> associated main window scene is <%p>:%{public}@", &v26, 0x16u);
       }
 
-      systemApertureController = [mainWindowScene systemApertureController];
+      systemApertureController = [v10 systemApertureController];
       if (!systemApertureController)
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _initializeUIIfNecessaryForReason:];
@@ -422,7 +427,7 @@ LABEL_49:
       systemApertureContinuityWindowScene = self->_systemApertureContinuityWindowScene;
       if (systemApertureContinuityWindowScene)
       {
-        [(SBAccessoryWindowScene *)systemApertureContinuityWindowScene setAssociatedWindowScene:mainWindowScene];
+        [(SBAccessoryWindowScene *)systemApertureContinuityWindowScene setAssociatedWindowScene:v10];
         [systemApertureController highLevelContinuitySystemApertureWindowSceneDidConnect:self->_systemApertureContinuityWindowScene];
         [(SBContinuitySession *)self->_continuitySession noteSystemApertureUIIsReady:self->_systemApertureContinuityWindowScene];
       }
@@ -432,7 +437,7 @@ LABEL_49:
         systemApertureContinuityCurtainWindowScene = self->_systemApertureContinuityCurtainWindowScene;
         if (systemApertureContinuityCurtainWindowScene)
         {
-          [(SBAccessoryWindowScene *)systemApertureContinuityCurtainWindowScene setAssociatedWindowScene:mainWindowScene];
+          [(SBAccessoryWindowScene *)systemApertureContinuityCurtainWindowScene setAssociatedWindowScene:v10];
           [systemApertureController superHighLevelContinuityCurtainWindowSceneDidConnect:self->_systemApertureContinuityCurtainWindowScene];
           [(SBContinuitySession *)self->_continuitySession noteSystemApertureCurtainUIIsReady:self->_systemApertureContinuityCurtainWindowScene];
         }
@@ -447,28 +452,28 @@ LABEL_49:
       self->_initializedUI = 1;
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = self->_windowScene;
-      v18 = self->_debugName;
+      v20 = self->_windowScene;
+      v21 = self->_debugName;
       continuitySession = self->_continuitySession;
       if (continuitySession)
       {
-        v20 = NSStringFromSBContinuitySessionState(state);
+        v23 = NSStringFromSBContinuitySessionState(state);
       }
 
       else
       {
-        v20 = @".unknown because we don't have a session yet!";
+        v23 = @".unknown because we don't have a session yet!";
       }
 
-      v23 = 134218498;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v18;
-      v27 = 2114;
-      v28 = v20;
-      _os_log_impl(&dword_21ED4E000, mainWindowScene, OS_LOG_TYPE_DEFAULT, "<%p>:%{public}@ refuses to initialize UI because the session state is %{public}@", &v23, 0x20u);
+      v26 = 134218498;
+      v27 = v20;
+      v28 = 2114;
+      v29 = v21;
+      v30 = 2114;
+      v31 = v23;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "<%p>:%{public}@ refuses to initialize UI because the session state is %{public}@", &v26, 0x20u);
       if (continuitySession)
       {
       }
@@ -478,20 +483,20 @@ LABEL_49:
 
 - (void)_tearDownUIAndInvalidateIfNecessaryForReason:(id)reason
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v6 = SBLogContinuitySession();
+  v6 = SBLogContinuitySession(reasonCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     windowScene = self->_windowScene;
     debugName = self->_debugName;
-    v20 = 134218498;
-    v21 = windowScene;
-    v22 = 2114;
-    v23 = debugName;
+    v22 = 134218498;
+    v23 = windowScene;
     v24 = 2114;
-    v25 = reasonCopy;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ tear down UI and invalidate if necessary - %{public}@", &v20, 0x20u);
+    v25 = debugName;
+    v26 = 2114;
+    v27 = reasonCopy;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "System aperture scene <%p>:%{public}@ tear down UI and invalidate if necessary - %{public}@", &v22, 0x20u);
   }
 
   if (!self->_invalidated)
@@ -501,23 +506,23 @@ LABEL_49:
     self->_continuitySession = 0;
 
     initializedUI = self->_initializedUI;
-    associatedWindowScene = SBLogContinuitySession();
-    v13 = os_log_type_enabled(associatedWindowScene, OS_LOG_TYPE_DEFAULT);
+    associatedWindowScene = SBLogContinuitySession(v13);
+    v15 = os_log_type_enabled(associatedWindowScene, OS_LOG_TYPE_DEFAULT);
     if (!initializedUI)
     {
-      if (v13)
+      if (v15)
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_21ED4E000, associatedWindowScene, OS_LOG_TYPE_DEFAULT, "--> never initialized UI", &v20, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_21ED4E000, associatedWindowScene, OS_LOG_TYPE_DEFAULT, "--> never initialized UI", &v22, 2u);
       }
 
       goto LABEL_21;
     }
 
-    if (v13)
+    if (v15)
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_21ED4E000, associatedWindowScene, OS_LOG_TYPE_DEFAULT, "--> tearing down UI now...", &v20, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_21ED4E000, associatedWindowScene, OS_LOG_TYPE_DEFAULT, "--> tearing down UI now...", &v22, 2u);
     }
 
     systemApertureContinuityWindowScene = self->_systemApertureContinuityWindowScene;
@@ -525,14 +530,14 @@ LABEL_49:
     {
       associatedWindowScene = [(SBAccessoryWindowScene *)systemApertureContinuityWindowScene associatedWindowScene];
       systemApertureController = [associatedWindowScene systemApertureController];
-      v16 = systemApertureController;
+      v18 = systemApertureController;
       if (associatedWindowScene)
       {
         if (systemApertureController)
         {
 LABEL_13:
-          [v16 highLevelContinuitySystemApertureWindowSceneDidDisconnect:self->_systemApertureContinuityWindowScene];
-          v17 = self->_systemApertureContinuityWindowScene;
+          [v18 highLevelContinuitySystemApertureWindowSceneDidDisconnect:self->_systemApertureContinuityWindowScene];
+          v19 = self->_systemApertureContinuityWindowScene;
           self->_systemApertureContinuityWindowScene = 0;
 LABEL_20:
 
@@ -545,7 +550,7 @@ LABEL_21:
       else
       {
         [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _tearDownUIAndInvalidateIfNecessaryForReason:];
-        if (v16)
+        if (v18)
         {
           goto LABEL_13;
         }
@@ -565,14 +570,14 @@ LABEL_21:
 
     associatedWindowScene = [(SBAccessoryWindowScene *)systemApertureContinuityCurtainWindowScene associatedWindowScene];
     systemApertureController2 = [associatedWindowScene systemApertureController];
-    v16 = systemApertureController2;
+    v18 = systemApertureController2;
     if (associatedWindowScene)
     {
       if (systemApertureController2)
       {
 LABEL_19:
-        [v16 superHighLevelContinuityCurtainWindowSceneDidDisconnect:self->_systemApertureContinuityCurtainWindowScene];
-        v17 = self->_systemApertureContinuityCurtainWindowScene;
+        [v18 superHighLevelContinuityCurtainWindowSceneDidDisconnect:self->_systemApertureContinuityCurtainWindowScene];
+        v19 = self->_systemApertureContinuityCurtainWindowScene;
         self->_systemApertureContinuityCurtainWindowScene = 0;
         goto LABEL_20;
       }
@@ -581,7 +586,7 @@ LABEL_19:
     else
     {
       [SBSystemApertureContinuityDelayedUIWindowSceneDelegate _tearDownUIAndInvalidateIfNecessaryForReason:];
-      if (v16)
+      if (v18)
       {
         goto LABEL_19;
       }
@@ -591,11 +596,11 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v9 = SBLogContinuitySession();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogContinuitySession(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v20) = 0;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "--> already invalidated", &v20, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "--> already invalidated", &v22, 2u);
   }
 
 LABEL_22:

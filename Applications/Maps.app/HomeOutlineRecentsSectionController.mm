@@ -77,10 +77,10 @@
       lineItem = [historyEntry lineItem];
 
       v20 = [[IncompleteTransitLineItem alloc] initWithTransitLine:lineItem];
-      configuration = [(HomeOutlineSectionController *)self configuration];
-      actionCoordinator = [configuration actionCoordinator];
-      configuration2 = [(HomeOutlineSectionController *)self configuration];
-      homeActionDelegate = [configuration2 homeActionDelegate];
+      v21 = objc_msgSend_configuration(self);
+      actionCoordinator = [v21 actionCoordinator];
+      v23 = objc_msgSend_configuration(self);
+      homeActionDelegate = [v23 homeActionDelegate];
       homeContaineeViewController = [homeActionDelegate homeContaineeViewController];
       [tappedCopy bounds];
       [actionCoordinator viewController:homeContaineeViewController openTransitLineCard:v20 sourceView:tappedCopy sourceRect:?];
@@ -90,8 +90,8 @@
 
 - (void)_presentAllRecents
 {
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  actionCoordinator = [configuration actionCoordinator];
+  v3 = objc_msgSend_configuration(self, a2);
+  actionCoordinator = [v3 actionCoordinator];
   [actionCoordinator toggleTopLevelRecents];
 }
 
@@ -226,8 +226,8 @@
     v10 = [NSArray arrayWithObjects:&v13 count:1];
     [(HomeOutlineSectionController *)self beginDeletions:v10];
 
-    configuration = [(HomeOutlineSectionController *)self configuration];
-    actionCoordinator = [configuration actionCoordinator];
+    v11 = objc_msgSend_configuration(self);
+    actionCoordinator = [v11 actionCoordinator];
     [actionCoordinator deleteMarkedLocation:searchResult];
   }
 }
@@ -394,8 +394,8 @@ LABEL_15:
     v6 = v8;
   }
 
-  configuration = [(HomeOutlineSectionController *)self configuration];
-  sectionIdentifier = [configuration sectionIdentifier];
+  v9 = objc_msgSend_configuration(self);
+  sectionIdentifier = [v9 sectionIdentifier];
   v23[0] = _NSConcreteStackBlock;
   v23[1] = 3221225472;
   v23[2] = sub_100DB4E3C;

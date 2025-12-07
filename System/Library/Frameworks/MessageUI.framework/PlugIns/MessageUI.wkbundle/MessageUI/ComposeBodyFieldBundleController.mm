@@ -4,10 +4,14 @@
 - (ComposeBodyFieldBundleController)initWithPlugIn:(id)in contextController:(id)controller;
 - (MFComposeBodyFieldObserver)observerProxy;
 - (id)webProcessPlugInBrowserContextController:(id)controller frame:(id)frame willSendRequestForResource:(unint64_t)resource request:(id)request redirectResponse:(id)response;
+- (void)_addMarkupString:(id)string quote:(BOOL)quote emptyFirst:(BOOL)first prepended:(BOOL)prepended composeType:(int64_t)type attachmentInfoByURL:(id)l completionHandler:(id)handler;
 - (void)_performSignatureControllerMethodOnPage:(id)page withArguments:(id)arguments;
+- (void)_setDirty:(BOOL)dirty;
 - (void)_webProcessPlugInBrowserContextControllerDidChangeByEditing:(id)editing;
 - (void)addLink:(id)link;
+- (void)addMailAttributesBeforeDisplayHidingTrailingEmptyQuotes:(BOOL)quotes shouldQuote:(BOOL)quote;
 - (void)addMarkupString:(id)string quote:(BOOL)quote emptyFirst:(BOOL)first prepended:(BOOL)prepended composeType:(int64_t)type attachmentInfoByURL:(id)l;
+- (void)addSignature:(id)signature prepend:(BOOL)prepend;
 - (void)addTextDescriptionToLink:(id)link;
 - (void)appendOrReplace:(id)replace withMarkupString:(id)string quote:(BOOL)quote composeType:(int64_t)type attachmentInfoByURL:(id)l completionHandler:(id)handler;
 - (void)containsRichText:(id)text;
@@ -23,6 +27,7 @@
 - (void)insertString:(id)string;
 - (void)invalidate;
 - (void)plainTextContentUsingAttachmentInfoByIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)prependPreamble:(id)preamble quote:(BOOL)quote layoutDirection:(int64_t)direction;
 - (void)removeMediaAttachment:(id)attachment completionHandler:(id)handler;
 - (void)replaceFilenamePlaceholderWithAttachment:(id)attachment identifier:(id)identifier;
 - (void)replaceFilenamePlaceholderWithImage:(id)image completionHandler:(id)handler;
@@ -30,6 +35,7 @@
 - (void)setCaretPosition:(unint64_t)position;
 - (void)setDirty:(BOOL)dirty completionHandler:(id)handler;
 - (void)setReplacementFilenamesByContentID:(id)d;
+- (void)updateLinkFromExistingLink:(id)link isEditing:(BOOL)editing;
 - (void)updateSignature:(id)signature;
 @end
 
@@ -165,7 +171,8 @@
   v33[22] = "/*\n * Copyright (c) <%= Time.now.strftime(fmt=%Y) %> Apple Inc. All rights reserved.\n */\nuse strict;MessageBodyDOMParser.prototype.enqueueParagraphNode=function(e,t){this.enqueueParagraphJSNodeWithTagName(e,t)},MessageBodyDOMParser.prototype._consumeAccumulatedNodes=function(e){for (let t of e)this.enqueueParagraphNode(t,t.tagName);this.flushParagraphNodes()},MessageBodyDOMParser.prototype.parse=function(){let e=this._document.body,t=[],s=[],n=e,o=0,a=o;for (this.willBeginParsing();n&&this.shouldProceedParsing();){let r=null,i=o;if (n.hasChildNodes())r=n.firstChild,i++,s=[],t.push(s);else if (s.push(n),!(r=n.nextSibling)){let o=n;for (;!(r=o.nextSibling)&&(o=o.parentNode)&&o!==e;){let e=--i>=a;if (!e){for (let e of t)this._consumeAccumulatedNodes(e),e.length=0;a=-1}t.pop(),s=t[t.length-1],e&&s.push(o)}}if (n=r,o=i,n instanceof Element){let e=n.tagName;if (this.isLandmarkTagName(e)){a=o;for (let e of t)this._consumeAccumulatedNodes(e),e.length=0}}}for (let e of t)this._consumeAccumulatedNodes(e);return this.didFinishParsing(),!0},MessageBodyDOMParser.prototype.copyConsumableNodesAndAppendInnerTextToStringAccumulator=function(e,t){for (let s of e.jsNodes()){let e=null,n=null;if (s instanceof Element){let t=s;n=t.mf_isAttachment()?\\xa0:t.innerText,e=t.tagName}else s instanceof Text&&(n=s.data);if (MFMessageBodyParser.isLinebreakImpliedBeforeTagName(e)&&t.appendNewline(),n&&t.appendRange(0,n.length,n),MFMessageBodyParser.isLinebreakImpliedAfterTagName(e)&&t.appendNewline(),t.isFull())break}return null},MessageBodyDOMParser.prototype.rangeForElement=function(e){let t=this._document.createRange(),s=e.jsNodes();return t.setStartBefore(s[0]),t.setEndAfter(s[s.length-1]),t},MessageBodyDOMParser.prototype.extendRangeToElement=function(e,t){let s=t.jsNodes();e.setEndAfter(s[s.length-1])},MessageBodyDOMParser.prototype.rangeFromElementToElement=function(e,t){let s=this._document.createRange();s.setStartBefore(e.jsNodes()[0]);let n=t.jsNodes();return s.setEndAfter(n[n.length-1]),s};";
   v33[23] = qword_1E138;
   v33[24] = "MessageBodyDOMQuoteSubparser.js";
-  v33[25] = "/*\n * Copyright (c) <%= Time.now.strftime(fmt=%Y) %> Apple Inc. All rights reserved.\n */\nuse strict;MessageBodyDOMQuoteSubparser.prototype.AttributeEmpty=1,MessageBodyDOMQuoteSubparser.prototype.AttributeWhitespace=4,MessageBodyDOMQuoteSubparser.prototype.AttributeAttribution=8,MessageBodyDOMQuoteSubparser.prototype.AttributeAttributionPrefix=128,MessageBodyDOMQuoteSubparser.prototype.doesRangeContainAnyElementWithTagName=function(t,e){let n=!1,i=t.commonAncestorContainer;if (i instanceof Element){let s=i.getElementsByTagName(e),r=s.length;for (let e=0;e<r;e++)if (t.intersectsNode(s.item(e))){n=!0;break}}return n},MessageBodyDOMQuoteSubparser.prototype._enumerateSurroundableRangesInRange=function(t,e){let n=t.startContainer,i=t.endContainer;if (n===i)e(t);else{let s=t.commonAncestorContainer,r=t.cloneRange(),o=n.mf_childNodeAtIndex(t.startOffset),a=!0;for (;n!==s;)a?r.setStartBefore(o):r.setStartAfter(o),r.setEndAfter(o.mf_lastSibling()),e(r),n=(o=n).parentNode,a=!1;let d=i.mf_childNodeAtIndex(t.endOffset-1),l=!0;for (;i!==s;)l?r.setEndAfter(d):r.setEndBefore(d),r.setStartBefore(d.mf_firstSibling()),e(r),i=(d=i).parentNode,l=!1;a?r.setStartBefore(o):r.setStartAfter(o),l?r.setEndAfter(d):r.setEndBefore(d),e(r)}},MessageBodyDOMQuoteSubparser.prototype.messageBodyParserFoundMessageBodyElement=function(t,e){if (this.foundDedentedAttributionRangeHandler){const n=2;if (this._unindentedSiblingNodes||(this._unindentedSiblingNodes=[]),this._lastUnindentedAttributionHint&&e.quoteLevel()===this._lastUnindentedElement.quoteLevel()+1&&(this._lastUnindentedAttributionHint.setJSNodes(this._lastUnindentedAttributionHint.jsNodes().concat(this._unindentedSiblingNodes)),this._lastUnindentedAttributionHint.valueForAttributes(this.AttributeAttribution))){let e=t.rangeFromElementToElement(this._lastUnindentedAttributionHint,this._lastUnindentedElement);this._enumerateSurroundableRangesInRange(e,t=>{this.foundDedentedAttributionRangeHandler(t)}),this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=undefined,this._unindentedSiblingGap=0,this._unindentedSiblingNodes.length=0}if (e.valueForAttributes(this.AttributeAttributionPrefix)){this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=e.retainExternally();for (let t of e.jsNodes())this._unindentedSiblingNodes.push(t)}else if (this._lastUnindentedAttributionHint)if (this._unindentedSiblingGap>n)this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=undefined,this._unindentedSiblingGap=0,this._unindentedSiblingNodes.length=0;else{for (let t of e.jsNodes())this._unindentedSiblingNodes.push(t);this._unindentedSiblingGap++}this._lastUnindentedElement&&this._lastUnindentedElement.releaseExternally(),this._lastUnindentedElement=e.retainExternally()}if (this.foundTrailingEmptyQuoteRangeHandler){if (this._trailingEmptyQuoteRange){let n=!1;e.quoteLevel()<this._trailingEmptyQuoteLevel?this.doesRangeContainAnyElementWithTagName(this._trailingEmptyQuoteRange,img)||this._enumerateSurroundableRangesInRange(this._trailingEmptyQuoteRange,t=>{this.foundTrailingEmptyQuoteRangeHandler(t)}):e.quoteLevel()===this._trailingEmptyQuoteLevel&&0!==e.valueForAttributes(this.AttributeEmpty|this.AttributeWhitespace)&&(n=!0),n?t.extendRangeToElement(this._trailingEmptyQuoteRange,e):this._trailingEmptyQuoteRange=null}!this._trailingEmptyQuoteRange&&e.quoteLevel()>0&&0!==e.valueForAttributes(this.AttributeEmpty|this.AttributeWhitespace)&&(this._trailingEmptyQuoteRange=t.rangeForElement(e),this._trailingEmptyQuoteLevel=e.quoteLevel())}};";
+            "use strict;MessageBodyDOMQuoteSubparser.prototype.AttributeEmpty=1,MessageBodyDOMQuoteSubparser.prototype.AttributeWhitespace=4,MessageBodyDOMQuoteSubparser.prototype.AttributeAttribution=8,MessageBodyDOMQuoteSubparser.prototype.AttributeAttributionPrefix=128,MessageBodyDOMQuoteSubparser.prototype.doesRangeContainAnyElementWithTagName=function(t,e){let n=!1,i=t.commonAncestorContainer;if (i instanceof Element){let s=i.getElementsByTagName(e),r=s.length;for (let e=0;e<r;e++)if (t.intersectsNode(s.item(e))){n=!0;break}}return n},MessageBodyDOMQuoteSubparser.prototype._enumerateSurroundableRangesInRange=function(t,e){let n=t.startContainer,i=t.endContainer;if (n===i)e(t);else{let s=t.commonAncestorContainer,r=t.cloneRange(),o=n.mf_childNodeAtIndex(t.startOffset),a=!0;for (;n!==s;)a?r.setStartBefore(o):r.setStartAfter(o),r.setEndAfter(o.mf_lastSibling()),e(r),n=(o=n).parentNode,a=!1;let d=i.mf_childNodeAtIndex(t.endOffset-1),l=!0;for (;i!==s;)l?r.setEndAfter(d):r.setEndBefore(d),r.setStartBefore(d.mf_firstSibling()),e(r),i=(d=i).parentNode,l=!1;a?r.setStartBefore(o):r.setStartAfter(o),l?r.setEndAfter(d):r.setEndBefore(d),e(r)}},MessageBodyDOMQuoteSubparser.prototype.messageBodyParserFoundMessageBodyElement=function(t,e){if (this.foundDedentedAttributionRangeHandler){const n=2;if (this._unindentedSiblingNodes||(this._unindentedSiblingNodes=[]),this._lastUnindentedAttributionHint&&e.quoteLevel()===this._lastUnindentedElement.quoteLevel()+1&&(this._lastUnindentedAttributionHint.setJSNodes(this._lastUnindentedAttributionHint.jsNodes().concat(this._unindentedSiblingNodes)),this._lastUnindentedAttributionHint.valueForAttributes(this.AttributeAttribution))){let e=t.rangeFromElementToElement(this._lastUnindentedAttributionHint,this._lastUnindentedElement);this._enumerateSurroundableRangesInRange(e,t=>{this.foundDedentedAttributionRangeHandler(t)}),this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=undefined,this._unindentedSiblingGap=0,this._unindentedSiblingNodes.length=0}if (e.valueForAttributes(this.AttributeAttributionPrefix)){this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=e.retainExternally();for (let t of e.jsNodes())this._unindentedSiblingNodes.push(t)}else if (this._lastUnindentedAttributionHint)if (this._unindentedSiblingGap>n)this._lastUnindentedAttributionHint&&this._lastUnindentedAttributionHint.releaseExternally(),this._lastUnindentedAttributionHint=undefined,this._unindentedSiblingGap=0,this._unindentedSiblingNodes.length=0;else{for (let t of e.jsNodes())this._unindentedSiblingNodes.push(t);this._unindentedSiblingGap++}this._lastUnindentedElement&&this._lastUnindentedElement.releaseExternally(),this._lastUnindentedElement=e.retainExternally()}if (this.foundTrailingEmptyQuoteRangeHandler){if (this._trailingEmptyQuoteRange){let n=!1;e.quoteLevel()<this._trailingEmptyQuoteLevel?this.doesRangeContainAnyElementWithTagName(this._trailingEmptyQuoteRange,img)||this._enumerateSurroundableRangesInRange(this._trailingEmptyQuoteRange,t=>{this.foundTrailingEmptyQuoteRangeHandler(t)}):e.quote"
+            "Level()===this._trailingEmptyQuoteLevel&&0!==e.valueForAttributes(this.AttributeEmpty|this.AttributeWhitespace)&&(n=!0),n?t.extendRangeToElement(this._trailingEmptyQuoteRange,e):this._trailingEmptyQuoteRange=null}!this._trailingEmptyQuoteRange&&e.quoteLevel()>0&&0!==e.valueForAttributes(this.AttributeEmpty|this.AttributeWhitespace)&&(this._trailingEmptyQuoteRange=t.rangeForElement(e),this._trailingEmptyQuoteLevel=e.quoteLevel())}};";
   v33[26] = qword_1E140;
   v33[27] = "NodeExtras.js";
   v33[28] = "/*\n * Copyright (c) <%= Time.now.strftime(fmt=%Y) %> Apple Inc. All rights reserved.\n */\nuse strict;Node.prototype.mf_isAttachment=function(){let t=!1;if (this instanceof Element){let e=this;wrapper===e.getAttribute(x-apple-mail)?t=!0:IS_PAD()&&ATTACHMENT===e.tagName&&(t=!0)}return t},Node.prototype.mf_childNodeAtIndex=function(t){let e=this.firstChild;for (;e&&t>0;)e=e.nextSibling,t--;return e},Node.prototype.mf_firstSibling=function(){let t=this,e=null;for (;e=t.previousSibling;)t=e;return t},Node.prototype.mf_lastSibling=function(){let t=this,e=null;for (;e=t.nextSibling;)t=e;return t},Node.prototype.recursivelyRemoveMailAttributes=function(){let t=this.firstChild;for (;t;){let e=t.nextSibling;t.recursivelyRemoveMailAttributes(),t=e}};";
@@ -342,6 +349,68 @@
   return observerProxy;
 }
 
+- (void)_setDirty:(BOOL)dirty
+{
+  dirty = self->_dirty;
+  self->_dirty = dirty;
+  if (dirty != dirty)
+  {
+    dirtyCopy = dirty;
+    observerProxy = [(ComposeBodyFieldBundleController *)self observerProxy];
+    [observerProxy composeBodyFieldIsDirtyChanged:dirtyCopy];
+  }
+}
+
+- (void)prependPreamble:(id)preamble quote:(BOOL)quote layoutDirection:(int64_t)direction
+{
+  quoteCopy = quote;
+  preambleCopy = preamble;
+  preambleCopy = [NSNumber numberWithBool:quoteCopy, preambleCopy];
+  v12[1] = preambleCopy;
+  v10 = [NSNumber numberWithInt:direction == 0];
+  v12[2] = v10;
+  v11 = [NSArray arrayWithObjects:v12 count:3];
+  [(ComposeBodyFieldBundleController *)self performBodyFieldMethodOnPage:@"prependPreamble" withArguments:v11];
+}
+
+- (void)_addMarkupString:(id)string quote:(BOOL)quote emptyFirst:(BOOL)first prepended:(BOOL)prepended composeType:(int64_t)type attachmentInfoByURL:(id)l completionHandler:(id)handler
+{
+  prependedCopy = prepended;
+  firstCopy = first;
+  quoteCopy = quote;
+  stringCopy = string;
+  lCopy = l;
+  handlerCopy = handler;
+  v17 = +[ComposeBodyFieldBundleController log];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    allKeys = [lCopy allKeys];
+    *buf = 138543362;
+    v30 = allKeys;
+    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "addMarkupString attachments %{public}@", buf, 0xCu);
+  }
+
+  jsBodyField = [(ComposeBodyFieldBundleController *)self jsBodyField];
+  v28[0] = stringCopy;
+  v20 = [NSNumber numberWithBool:quoteCopy];
+  v28[1] = v20;
+  v21 = [NSNumber numberWithBool:firstCopy];
+  v28[2] = v21;
+  v22 = [NSNumber numberWithBool:prependedCopy];
+  v28[3] = v22;
+  v23 = [NSNumber numberWithBool:(type < 0xA) & (0x274u >> type)];
+  v28[4] = v23;
+  v28[5] = lCopy;
+  v24 = [NSArray arrayWithObjects:v28 count:6];
+  v25 = [jsBodyField invokeMethod:@"addMarkupString" withArguments:v24];
+
+  if (handlerCopy)
+  {
+    toObject = [v25 toObject];
+    handlerCopy[2](handlerCopy, toObject);
+  }
+}
+
 - (void)addMarkupString:(id)string quote:(BOOL)quote emptyFirst:(BOOL)first prepended:(BOOL)prepended composeType:(int64_t)type attachmentInfoByURL:(id)l
 {
   v15[0] = _NSConcreteStackBlock;
@@ -378,6 +447,17 @@
   v15 = stringCopy;
   v16 = replaceCopy;
   [(ComposeBodyFieldBundleController *)selfCopy performOnPage:v17];
+}
+
+- (void)addMailAttributesBeforeDisplayHidingTrailingEmptyQuotes:(BOOL)quotes shouldQuote:(BOOL)quote
+{
+  quoteCopy = quote;
+  v6 = [NSNumber numberWithBool:quotes];
+  v9[0] = v6;
+  v7 = [NSNumber numberWithBool:quoteCopy];
+  v9[1] = v7;
+  v8 = [NSArray arrayWithObjects:v9 count:2];
+  [(ComposeBodyFieldBundleController *)self performBodyFieldMethodOnPage:@"addMailAttributesBeforeDisplay" withArguments:v8];
 }
 
 - (void)setReplacementFilenamesByContentID:(id)d
@@ -584,6 +664,17 @@
   [(ComposeBodyFieldBundleController *)self performBodyFieldMethodOnPage:@"updateLink" withArguments:v5];
 }
 
+- (void)updateLinkFromExistingLink:(id)link isEditing:(BOOL)editing
+{
+  editingCopy = editing;
+  linkCopy = link;
+  v9[0] = linkCopy;
+  v7 = [NSNumber numberWithBool:editingCopy];
+  v9[1] = v7;
+  v8 = [NSArray arrayWithObjects:v9 count:2];
+  [(ComposeBodyFieldBundleController *)self performBodyFieldMethodOnPage:@"updateLink" withArguments:v8];
+}
+
 - (void)addTextDescriptionToLink:(id)link
 {
   linkCopy = link;
@@ -612,6 +703,17 @@
   v5 = argumentsCopy;
   v6 = pageCopy;
   [(ComposeBodyFieldBundleController *)selfCopy performOnPage:v7];
+}
+
+- (void)addSignature:(id)signature prepend:(BOOL)prepend
+{
+  prependCopy = prepend;
+  signatureCopy = signature;
+  v9[0] = signatureCopy;
+  v7 = [NSNumber numberWithBool:prependCopy];
+  v9[1] = v7;
+  v8 = [NSArray arrayWithObjects:v9 count:2];
+  [(ComposeBodyFieldBundleController *)self _performSignatureControllerMethodOnPage:@"addSignature" withArguments:v8];
 }
 
 - (void)updateSignature:(id)signature

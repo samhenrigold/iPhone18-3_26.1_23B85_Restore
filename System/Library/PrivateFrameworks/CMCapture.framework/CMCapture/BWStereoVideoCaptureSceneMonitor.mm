@@ -89,9 +89,9 @@
   }
 
   flagsCopy = flags;
-  if (![objc_msgSend(statistics "portType")])
+  if (!objc_msgSend_isEqualToString_([statistics portType]))
   {
-    if ([objc_msgSend(statistics "portType")])
+    if (objc_msgSend_isEqualToString_([statistics portType]))
     {
       if (self->_subjectTooCloseMonitoringEnabled)
       {

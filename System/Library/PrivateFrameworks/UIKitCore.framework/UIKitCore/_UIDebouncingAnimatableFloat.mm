@@ -9,9 +9,10 @@
 
 - (double)value
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIDebouncingAnimatableFloat();
-  [(UIViewFloatAnimatableProperty *)&v3 value];
+  v3 = type metadata accessor for _UIDebouncingAnimatableFloat();
+  v6.receiver = self;
+  v6.super_class = v4;
+  [(UIViewFloatAnimatableProperty *)&v6 value];
   return result;
 }
 
@@ -25,9 +26,10 @@
 
   else
   {
-    v6.receiver = selfCopy;
-    v6.super_class = type metadata accessor for _UIDebouncingAnimatableFloat();
-    [(UIViewFloatAnimatableProperty *)&v6 setValue:value];
+    type metadata accessor for _UIDebouncingAnimatableFloat();
+    v7.receiver = selfCopy;
+    v7.super_class = v5;
+    [(UIViewFloatAnimatableProperty *)&v7 setValue:value];
   }
 }
 

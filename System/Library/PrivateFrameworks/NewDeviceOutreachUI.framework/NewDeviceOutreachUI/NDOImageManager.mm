@@ -100,7 +100,7 @@ uint64_t __32__NDOImageManager_sharedManager__block_invoke(uint64_t a1)
 
 void __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -116,11 +116,11 @@ void __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke(uin
     block[1] = 3221225472;
     block[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_5;
     block[3] = &unk_2799782E8;
-    v42 = *(a1 + 48);
-    v41 = v9;
+    v39 = *(a1 + 48);
+    v38 = v9;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v11 = v42;
+    v11 = v39;
   }
 
   else if (v7)
@@ -131,55 +131,54 @@ void __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke(uin
       v12 = [*(a1 + 32) imageCache];
       [v12 setObject:v11 forKey:*(a1 + 40)];
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_2;
-      v31[3] = &unk_2799782E8;
-      v33 = *(a1 + 48);
-      v32 = v11;
-      dispatch_async(MEMORY[0x277D85CD0], v31);
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_2;
+      v28[3] = &unk_2799782E8;
+      v30 = *(a1 + 48);
+      v29 = v11;
+      dispatch_async(MEMORY[0x277D85CD0], v28);
 
-      v13 = v33;
+      v13 = v30;
     }
 
     else
     {
-      v21 = _NDOLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = _NDOLogSystem();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_cold_2();
       }
 
-      v43[0] = @"data";
-      v43[1] = @"response";
-      v44[0] = v7;
-      v22 = v8;
+      v40[0] = @"data";
+      v40[1] = @"response";
+      v41[0] = v7;
+      v21 = v8;
       if (!v8)
       {
-        v22 = [MEMORY[0x277CBEB68] null];
+        v21 = [MEMORY[0x277CBEB68] null];
       }
 
-      v44[1] = v22;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+      v41[1] = v21;
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
       if (!v8)
       {
       }
 
-      v23 = MEMORY[0x277CCA9B8];
-      v24 = *(a1 + 32);
-      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v26 = [v25 bundleIdentifier];
-      v27 = [v23 errorWithDomain:v26 code:2 userInfo:v13];
+      v22 = MEMORY[0x277CCA9B8];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v24 = [v23 bundleIdentifier];
+      v25 = [v22 errorWithDomain:v24 code:2 userInfo:v13];
 
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_14;
-      v34[3] = &unk_2799782E8;
-      v28 = *(a1 + 48);
-      v35 = v27;
-      v36 = v28;
-      v29 = v27;
-      dispatch_async(MEMORY[0x277D85CD0], v34);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_14;
+      v31[3] = &unk_2799782E8;
+      v26 = *(a1 + 48);
+      v32 = v25;
+      v33 = v26;
+      v27 = v25;
+      dispatch_async(MEMORY[0x277D85CD0], v31);
     }
   }
 
@@ -192,23 +191,20 @@ void __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke(uin
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v16 = *(a1 + 32);
-    v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v18 = [v17 bundleIdentifier];
-    v19 = [v15 errorWithDomain:v18 code:1 userInfo:0];
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v17 = [v16 bundleIdentifier];
+    v18 = [v15 errorWithDomain:v17 code:1 userInfo:0];
 
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_6;
-    v37[3] = &unk_2799782E8;
-    v20 = *(a1 + 48);
-    v38 = v19;
-    v39 = v20;
-    v11 = v19;
-    dispatch_async(MEMORY[0x277D85CD0], v37);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __54__NDOImageManager_fetchImageWithURLString_completion___block_invoke_6;
+    v34[3] = &unk_2799782E8;
+    v19 = *(a1 + 48);
+    v35 = v18;
+    v36 = v19;
+    v11 = v18;
+    dispatch_async(MEMORY[0x277D85CD0], v34);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -41,11 +41,10 @@
     v7 = off_1E74423E0[changeType];
   }
 
-  updateFlags = self->_updateFlags;
-  v9 = _IDSBinaryStringForValue();
-  v10 = [v3 stringWithFormat:@"<%@: %p change: %@ updateFlags: %@; pseudonym: %@>", v5, self, v7, v9, self->_pseudonym];;
+  v8 = _IDSBinaryStringForValue();
+  v9 = [v3 stringWithFormat:@"<%@: %p change: %@ updateFlags: %@; pseudonym: %@>", v5, self, v7, v8, self->_pseudonym];;
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

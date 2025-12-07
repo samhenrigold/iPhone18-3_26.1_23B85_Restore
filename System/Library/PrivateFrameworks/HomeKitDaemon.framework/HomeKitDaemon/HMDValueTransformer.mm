@@ -53,34 +53,34 @@
 
 - (id)reverseTransformedValue:(id)value
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy)
   {
-    v15 = 0;
-    v5 = [(HMDValueTransformer *)self reverseTransformedValue:valueCopy error:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [(HMDValueTransformer *)self reverseTransformedValue:valueCopy error:&v14];
+    v6 = v14;
     if (!v5)
     {
       if (v6)
       {
-        v16 = *MEMORY[0x277CCA7E8];
-        v17[0] = v6;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        v15 = *MEMORY[0x277CCA7E8];
+        v16[0] = v6;
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v10 = MEMORY[0x277CCACA8];
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = [v10 stringWithFormat:@"%@ reverseTransformedValue failed", v12];
+      v9 = MEMORY[0x277CCACA8];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v9 stringWithFormat:@"%@ reverseTransformedValue failed", v11];
 
-      v14 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v13 userInfo:v9];
-      objc_exception_throw(v14);
+      v13 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v12 userInfo:v8];
+      objc_exception_throw(v13);
     }
   }
 
@@ -88,42 +88,40 @@
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)transformedValue:(id)value
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy)
   {
-    v15 = 0;
-    v5 = [(HMDValueTransformer *)self transformedValue:valueCopy error:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [(HMDValueTransformer *)self transformedValue:valueCopy error:&v14];
+    v6 = v14;
     if (!v5)
     {
       if (v6)
       {
-        v16 = *MEMORY[0x277CCA7E8];
-        v17[0] = v6;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        v15 = *MEMORY[0x277CCA7E8];
+        v16[0] = v6;
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v10 = MEMORY[0x277CCACA8];
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = [v10 stringWithFormat:@"%@ transformedValue failed", v12];
+      v9 = MEMORY[0x277CCACA8];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = [v9 stringWithFormat:@"%@ transformedValue failed", v11];
 
-      v14 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v13 userInfo:v9];
-      objc_exception_throw(v14);
+      v13 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v12 userInfo:v8];
+      objc_exception_throw(v13);
     }
   }
 
@@ -131,8 +129,6 @@
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -229,25 +225,15 @@
       if (!v5)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        if ((objc_opt_isKindOfClass() & 1) == 0 && ([nameCopy isEqualToString:*MEMORY[0x277CCA310]] & 1) == 0)
         {
-          v7 = off_278666378;
+          [nameCopy isEqualToString:*MEMORY[0x277CCA7D0]];
         }
 
-        else
-        {
-          v7 = off_278666378;
-          if (([nameCopy isEqualToString:*MEMORY[0x277CCA310]] & 1) == 0 && !objc_msgSend(nameCopy, "isEqualToString:", *MEMORY[0x277CCA7D0]))
-          {
-            v7 = off_278666370;
-          }
-        }
-
-        v8 = *v7;
         v5 = [objc_alloc(objc_opt_class()) initWithTransformer:v4];
-        v9 = valueTransformerForName__adaptersByName;
-        v10 = [nameCopy copy];
-        [v9 setObject:v5 forKey:v10];
+        v7 = valueTransformerForName__adaptersByName;
+        v8 = objc_msgSend_copy(nameCopy);
+        [v7 setObject:v5 forKey:v8];
       }
     }
   }

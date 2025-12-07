@@ -18,75 +18,7 @@ uint64_t ___HDDeleteQuantitySamplesOfType_block_invoke_2(uint64_t a1, uint64_t a
 
   v8 = [*(a1 + 32) protectedDatabase];
   v9 = v8;
-  if ((v7 & 0x8000000000000000) == 0)
-  {
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = ___HDExecuteSQLWithInt64_block_invoke;
-    v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v16 = v7;
-    if (![v8 executeSQL:@"DELETE FROM quantity_series_data WHERE series_identifier = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if (![v9 executeSQL:@"DELETE FROM quantity_sample_series WHERE data_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-  {
-    goto LABEL_13;
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if (![v9 executeSQL:@"DELETE FROM quantity_sample_statistics WHERE owner_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-  {
-    goto LABEL_13;
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if (![v9 executeSQL:@"DELETE FROM quantity_samples WHERE data_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-  {
-    goto LABEL_13;
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if (![v9 executeSQL:@"DELETE FROM samples WHERE data_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-  {
-    goto LABEL_13;
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if (![v9 executeSQL:@"DELETE FROM metadata_values WHERE object_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
-  {
-    goto LABEL_13;
-  }
-
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = ___HDExecuteSQLWithInt64_block_invoke;
-  v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v16 = v6;
-  if ([v9 executeSQL:@"DELETE FROM external_sync_ids WHERE object_id = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])
+  if ((v7 < 0 || (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v7, [v8 executeSQL:@"DELETE FROM quantity_series_data WHERE series_identifier = ?" error:a3 bindingHandler:&v12 enumerationHandler:0])) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM quantity_sample_series WHERE data_id = ?", a3, &v12, 0)) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM quantity_sample_statistics WHERE owner_id = ?", a3, &v12, 0)) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM quantity_samples WHERE data_id = ?", a3, &v12, 0)) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM samples WHERE data_id = ?", a3, &v12, 0)) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM metadata_values WHERE object_id = ?", a3, &v12, 0)) && (v12 = MEMORY[0x277D85DD0], v13 = 3221225472, v14 = ___HDExecuteSQLWithInt64_block_invoke, v15 = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v16 = v6, objc_msgSend(v9, "executeSQL:error:bindingHandler:enumerationHandler:", @"DELETE FROM external_sync_ids WHERE object_id = ?", a3, &v12, 0)))
   {
     v12 = MEMORY[0x277D85DD0];
     v13 = 3221225472;
@@ -98,7 +30,6 @@ uint64_t ___HDDeleteQuantitySamplesOfType_block_invoke_2(uint64_t a1, uint64_t a
 
   else
   {
-LABEL_13:
     v10 = 0;
   }
 

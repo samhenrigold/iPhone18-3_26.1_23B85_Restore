@@ -31,9 +31,9 @@
 
 - (JSALocalStorage)init
 {
-  v17.receiver = self;
-  v17.super_class = JSALocalStorage;
-  v2 = [(JSALocalStorage *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = JSALocalStorage;
+  v2 = [(JSALocalStorage *)&v18 init];
   if (v2)
   {
     v4 = [NSUserDefaults alloc];
@@ -50,31 +50,31 @@
 
     else
     {
-      v9 = JSALog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = JSALog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        sub_7FF94(v9);
+        sub_7FF94(v10);
       }
     }
 
     v2->_accessLock._os_unfair_lock_opaque = 0;
-    v10 = objc_alloc_init(NSMutableDictionary);
+    v11 = objc_alloc_init(NSMutableDictionary);
     values = v2->_values;
-    v2->_values = v10;
+    v2->_values = v11;
 
     objc_opt_class();
-    v12 = [(NSUserDefaults *)v2->_scriptingUserDefaults objectForKey:@"ScriptingLocalStorage"];
-    v13 = BUDynamicCast();
-    v14 = v13;
-    v15 = &__NSDictionary0__struct;
-    if (v13)
+    v13 = [(NSUserDefaults *)v2->_scriptingUserDefaults objectForKey:@"ScriptingLocalStorage"];
+    v14 = BUDynamicCast();
+    v15 = v14;
+    v16 = &__NSDictionary0__struct;
+    if (v14)
     {
-      v15 = v13;
+      v16 = v14;
     }
 
-    v16 = v15;
+    v17 = v16;
 
-    sub_7FD90(v2, v16);
+    sub_7FD90(v2, v17);
     [(NSUserDefaults *)v2->_scriptingUserDefaults addObserver:v2 forKeyPath:@"ScriptingLocalStorage" options:1 context:off_C99F0];
   }
 

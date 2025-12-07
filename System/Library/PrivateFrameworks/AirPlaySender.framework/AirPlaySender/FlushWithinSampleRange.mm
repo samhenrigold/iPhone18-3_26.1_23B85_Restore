@@ -3,192 +3,234 @@
 
 @implementation FlushWithinSampleRange
 
-uint64_t __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 100);
-  if ((*(a3 + 10) - v5) >= 1)
+  v53 = *MEMORY[0x277D85DE8];
+  v6 = a3 + 5;
+  v5 = *(a3 + 5);
+  v7 = *(a1 + 100);
+  if ((v5 - v7) >= 1)
   {
-    *(a3 + 10) = v5;
+    *v6 = v7;
   }
 
   if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
   {
-    if (*(a1 + 32))
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      CMBaseObjectGetDerivedStorage();
+      DerivedStorage = CMBaseObjectGetDerivedStorage();
     }
 
-    *time = *(a3 + 64);
-    *&time[16] = *(a3 + 80);
-    CMTimeGetSeconds(time);
-    LogPrintF();
-  }
-
-  v6 = *(a1 + 32);
-  v20 = *(a1 + 40);
-  v7 = *(a1 + 44);
-  v8 = *(a1 + 52);
-  v30 = *(a1 + 56);
-  v19 = *(a1 + 68);
-  v31 = *(a1 + 64);
-  v9 = *(a1 + 72);
-  v10 = *(a1 + 80);
-  v28 = *(a1 + 84);
-  v11 = *(a1 + 96);
-  v29 = *(a1 + 92);
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v25 = **&MEMORY[0x277CC08F0];
-  v24[0] = *MEMORY[0x277CEA038];
-  v13 = v24[0];
-  *(v24 + 12) = *(MEMORY[0x277CEA038] + 12);
-  v23[0] = v13;
-  *(v23 + 12) = *(v24 + 12);
-  *time = *(a3 + 16);
-  *&time[16] = *(a3 + 32);
-  *rhs = v7;
-  *&rhs[12] = v30;
-  *&rhs[8] = v8;
-  *&rhs[20] = v31;
-  CMTimeSubtract(&v25, time, rhs);
-  if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
-  {
-    __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_1();
-  }
-
-  *rhs = *(a3 + 64);
-  *&rhs[16] = *(a3 + 80);
-  *v22 = v25;
-  CMTimeSubtract(time, rhs, v22);
-  *(a3 + 64) = *time;
-  *(a3 + 80) = *&time[16];
-  if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
-  {
-    if (v6)
+    else
     {
-      CMBaseObjectGetDerivedStorage();
+      DerivedStorage = "";
     }
 
-    *time = v25;
-    CMTimeGetSeconds(time);
-    *time = *(a3 + 64);
-    *&time[16] = *(a3 + 80);
-    CMTimeGetSeconds(time);
-    LogPrintF();
+    v10 = *a3;
+    v11 = *(a3 + 5);
+    *time = *(a3 + 4);
+    *&time[16] = a3[10];
+    Seconds = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APAudioHoseManagerBuffered, "OSStatus audioHoseManagerBuffered_FlushWithinSampleRange(APAudioHoseManagerBufferedRef, uint16_t, uint32_t, CMTime, uint32_t, CMTime, int32_t)_block_invoke", 33554482, "HMB [%{ptr}] %sFlushing hose [%{ptr}]: current read idx = %u new read idx = %u current buffer level = %1.1f\n", v8, DerivedStorage, v10, v5, v11, *&Seconds);
   }
 
-  *(a3 + 40) = 256;
-  *(a3 + 56) = 0;
-  *(a3 + 48) = mach_absolute_time();
+  v13 = *(a1 + 32);
+  v41 = *(a1 + 40);
+  v14 = *(a1 + 44);
+  v15 = *(a1 + 52);
+  v51 = *(a1 + 56);
+  v40 = *(a1 + 68);
+  v52 = *(a1 + 64);
+  v16 = *(a1 + 72);
+  v17 = *(a1 + 80);
+  v49 = *(a1 + 84);
+  v18 = *(a1 + 96);
+  v50 = *(a1 + 92);
+  v19 = CMBaseObjectGetDerivedStorage();
+  v46 = **&MEMORY[0x277CC08F0];
+  v45[0] = *MEMORY[0x277CEA038];
+  v20 = v45[0];
+  *(v45 + 12) = *(MEMORY[0x277CEA038] + 12);
+  v44[0] = v20;
+  *(v44 + 12) = *(v45 + 12);
+  *time = *(a3 + 1);
+  *&time[16] = a3[4];
+  *rhs = v14;
+  *&rhs[12] = v51;
+  *&rhs[8] = v15;
+  *&rhs[20] = v52;
+  CMTimeSubtract(&v46, time, rhs);
   if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
   {
-    if (v6)
-    {
-      CMBaseObjectGetDerivedStorage();
-    }
-
-    *time = v7;
-    *&time[12] = v30;
-    *&time[8] = v8;
-    *&time[20] = v31;
-    CMTimeGetSeconds(time);
-    *time = v9;
-    *&time[12] = v28;
-    *&time[8] = v10;
-    *&time[20] = v29;
-    CMTimeGetSeconds(time);
-    LogPrintF();
+    __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_1(v13, a3, v6);
   }
 
-  if (!*(DerivedStorage + 186))
+  *rhs = *(a3 + 4);
+  *&rhs[16] = a3[10];
+  *v43 = v46;
+  CMTimeSubtract(time, rhs, v43);
+  *(a3 + 4) = *time;
+  a3[10] = *&time[16];
+  if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
   {
-    *rhs = v7;
-    *&rhs[12] = v30;
-    *&rhs[8] = v8;
-    *&rhs[20] = v31;
-    CMTimeConvertScale(time, rhs, v11, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+    v38 = v16;
+    v21 = v17;
+    v22 = v19;
+    v23 = v18;
+    if (v13)
+    {
+      v24 = CMBaseObjectGetDerivedStorage();
+    }
+
+    else
+    {
+      v24 = "";
+    }
+
+    v25 = *a3;
+    *time = v46;
+    v26 = CMTimeGetSeconds(time);
+    *time = *(a3 + 4);
+    *&time[16] = a3[10];
+    v27 = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APAudioHoseManagerBuffered, "OSStatus audioHoseManagerBuffered_flushHoseWithinSampleRange(APAudioHoseManagerBufferedRef, APAudioHoseManagerBufferedHoseDescriptorPtr, uint32_t, CMTime, uint32_t, CMTime, int32_t)", 33554482, "HMB [%{ptr}] %sFlushing hose [%{ptr}]: %f seconds flushed, new buffer level = %f\n", v13, v24, v25, *&v26, *&v27);
+    v18 = v23;
+    v19 = v22;
+    v17 = v21;
+    v16 = v38;
+  }
+
+  *(a3 + 20) = 256;
+  a3[7] = 0;
+  a3[6] = mach_absolute_time();
+  if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
+  {
+    v39 = v19;
+    v28 = v18;
+    if (v13)
+    {
+      v29 = CMBaseObjectGetDerivedStorage();
+    }
+
+    else
+    {
+      v29 = "";
+    }
+
+    v30 = *a3;
+    *time = v14;
+    *&time[12] = v51;
+    *&time[8] = v15;
+    *&time[20] = v52;
+    v31 = CMTimeGetSeconds(time);
+    *time = v16;
+    *&time[12] = v49;
+    *&time[8] = v17;
+    *&time[20] = v50;
+    v32 = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APAudioHoseManagerBuffered, "OSStatus audioHoseManagerBuffered_flushHoseWithinSampleRange(APAudioHoseManagerBufferedRef, APAudioHoseManagerBufferedHoseDescriptorPtr, uint32_t, CMTime, uint32_t, CMTime, int32_t)", 33554482, "HMB [%{ptr}] %s(burst) Flushing hose [%{ptr}]: Flush within range from seq # %u and RemoteMediaTS %1.6f (%lld/%d), until seq # %u and RemoteMediaTS %1.6f (%lld/%d)\n", v13, v29, v30, v41, *&v31, v14, v15, v40, *&v32, v16, v17);
+    v18 = v28;
+    v19 = v39;
+  }
+
+  if (!*(v19 + 186))
+  {
+    *rhs = v14;
+    *&rhs[12] = v51;
+    *&rhs[8] = v15;
+    *&rhs[20] = v52;
+    CMTimeConvertScale(time, rhs, v18, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
     APSAudioTransportTimeMakeWithRTPTime();
-    *rhs = v9;
-    *&rhs[12] = v28;
-    *&rhs[8] = v10;
-    *&rhs[20] = v29;
-    CMTimeConvertScale(time, rhs, v11, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+    *rhs = v16;
+    *&rhs[12] = v49;
+    *&rhs[8] = v17;
+    *&rhs[20] = v50;
+    CMTimeConvertScale(time, rhs, v18, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
     APSAudioTransportTimeMakeWithRTPTime();
-    if (!v6)
+    if (!v13)
     {
-      goto LABEL_30;
+      goto LABEL_33;
     }
 
-    goto LABEL_29;
+    goto LABEL_32;
   }
 
-  *time = v7;
-  *&time[12] = v30;
-  *&time[8] = v8;
-  *&time[20] = v31;
+  *time = v14;
+  *&time[12] = v51;
+  *&time[8] = v15;
+  *&time[20] = v52;
   APSAudioTransportTimeMakeWithMediaTime();
-  *time = v9;
-  *&time[12] = v28;
-  *&time[8] = v10;
-  *&time[20] = v29;
+  *time = v16;
+  *&time[12] = v49;
+  *&time[8] = v17;
+  *&time[20] = v50;
   APSAudioTransportTimeMakeWithMediaTime();
-  if (v6)
+  if (v13)
   {
-LABEL_29:
-    CFRetain(v6);
+LABEL_32:
+    CFRetain(v13);
   }
 
-LABEL_30:
-  v14 = *a3;
-  *v22 = v24[0];
-  *&v22[12] = *(v24 + 12);
-  *v21 = v23[0];
-  *&v21[12] = *(v23 + 12);
+LABEL_33:
+  v33 = *a3;
+  *v43 = v45[0];
+  *&v43[12] = *(v45 + 12);
+  *v42 = v44[0];
+  *&v42[12] = *(v44 + 12);
   APSEndpointStreamAudioHoseProtocolGetProtocolID();
   ProtocolVTable = CMBaseObjectGetProtocolVTable();
   if (ProtocolVTable)
   {
-    v16 = *(ProtocolVTable + 16);
-    if (v16)
+    v35 = *(ProtocolVTable + 16);
+    if (v35)
     {
-      v17 = *(v16 + 32);
-      if (v17)
+      v36 = *(v35 + 32);
+      if (v36)
       {
-        *time = *v22;
-        *&time[12] = *&v22[12];
-        *rhs = *v21;
-        *&rhs[12] = *&v21[12];
-        v17(v14, v20, time, v19, rhs, audioHoseManagerBuffered_hoseFlushWithinSampleRangeCallbackCompletionHandler, v6);
+        *time = *v43;
+        *&time[12] = *&v43[12];
+        *rhs = *v42;
+        *&rhs[12] = *&v42[12];
+        v36(v33, v41, time, v40, rhs, audioHoseManagerBuffered_hoseFlushWithinSampleRangeCallbackCompletionHandler, v13);
       }
 
       else
       {
-        audioHoseManagerBuffered_hoseFlushWithinSampleRangeCallbackCompletionHandler(v14, 0, MEMORY[0x277CEA038], 0, MEMORY[0x277CEA038], 0xFFFFCE12, v6);
+        audioHoseManagerBuffered_hoseFlushWithinSampleRangeCallbackCompletionHandler(v33, 0, MEMORY[0x277CEA038], 0, MEMORY[0x277CEA038], 0xFFFFCE12, v13);
       }
     }
   }
 
-  ++*(a3 + 144);
-  result = APMessageRingBufferedGetByteCountAtIndex(*(DerivedStorage + 200), (*(a3 + 10) + 1), (a3 + 88));
+  ++*(a3 + 36);
+  result = APMessageRingBufferedGetByteCountAtIndex(*(v19 + 200), (*(a3 + 5) + 1), a3 + 22);
   if (result)
   {
-    return __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_2();
+    return __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_2(result);
   }
 
   return result;
 }
 
-uint64_t __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_1()
+uint64_t __audioHoseManagerBuffered_FlushWithinSampleRange_block_invoke_cold_1(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
 {
   OUTLINED_FUNCTION_27();
   if (DerivedStorage)
   {
     DerivedStorage = CMBaseObjectGetDerivedStorage();
+    v14 = DerivedStorage;
   }
 
-  OUTLINED_FUNCTION_23_6(DerivedStorage, v1, v2, v3, v4, v5, v6, v7, v9, v10, v11, v12, v13, v14, v15, v16);
+  else
+  {
+    v14 = "";
+  }
+
+  v15 = *v4;
+  v16 = *a3;
+  v27 = OUTLINED_FUNCTION_23_6(DerivedStorage, v7, v8, v9, v10, v11, v12, v13, v22, v23, v24, v25, v26, v28, v29, v30);
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v17, v18, v19, v20, v3, v14, v15, v16, *&v27);
 }
 
 @end

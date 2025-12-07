@@ -599,4 +599,55 @@ LABEL_37:
   [imageView setContentMode:mode];
 }
 
+void __39__JFXImageView_JFXImageView_commonInit__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (JFXImageView_commonInit_s_enableDebugDrawing)
+  {
+    v8 = @"On";
+  }
+
+  else
+  {
+    v8 = @"Off";
+  }
+
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_0_2(&dword_242A3B000, a1, a3, "JFXImageView: JTImageViewDebugDraw %@", a5, a6, a7, a8, v9, HIDWORD(v8));
+}
+
+void __39__JFXImageView_JFXImageView_commonInit__block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (JFXImageView_commonInit_s_disableIOSurface)
+  {
+    v8 = @"Disallowed";
+  }
+
+  else
+  {
+    v8 = @"Allowed";
+  }
+
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_0_2(&dword_242A3B000, a1, a3, "JFXImageView: IOSurface is %@", a5, a6, a7, a8, v9, HIDWORD(v8));
+}
+
+void __39__JFXImageView_JFXImageView_commonInit__block_invoke_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (JFXImageView_commonInit_s_disableMetalKit)
+  {
+    v8 = @"Disallowed";
+  }
+
+  else
+  {
+    v8 = @"Allowed";
+  }
+
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_0_2(&dword_242A3B000, a1, a3, "JFXImageView: MetalKit is %@", a5, a6, a7, a8, v9, HIDWORD(v8));
+}
+
 @end

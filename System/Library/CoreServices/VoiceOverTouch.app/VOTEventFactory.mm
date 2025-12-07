@@ -3378,12 +3378,12 @@ LABEL_5:
     goto LABEL_64;
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   obj = v9;
-  v10 = [(NSArray *)obj countByEnumeratingWithState:&v83 objects:v89 count:16];
+  v10 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v88 count:16];
   if (!v10)
   {
     v58 = 0;
@@ -3391,19 +3391,19 @@ LABEL_5:
   }
 
   v11 = v10;
-  v72 = v9;
+  v71 = v9;
   v12 = 0;
-  v74 = *v84;
+  v73 = *v83;
 LABEL_8:
   v13 = 0;
   while (1)
   {
-    if (*v84 != v74)
+    if (*v83 != v73)
     {
       objc_enumerationMutation(obj);
     }
 
-    v14 = *(*(&v83 + 1) + 8 * v13);
+    v14 = *(*(&v82 + 1) + 8 * v13);
     [v14 frame];
     v16 = v15;
     v18 = v17;
@@ -3433,33 +3433,33 @@ LABEL_8:
 
     else if (-[VOTGestureEvent isDownEvent](eventCopy, "isDownEvent") || (v34 = objc_loadWeakRetained(&self->_directTouchManager), v35 = [v34 shouldTurnTrackingIntoDirectTouch], v34, v35))
     {
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
       v80 = 0u;
+      v81 = 0u;
+      v78 = 0u;
+      v79 = 0u;
       fingers = [(VOTGestureEvent *)eventCopy fingers];
-      v37 = [fingers countByEnumeratingWithState:&v79 objects:v88 count:16];
+      v37 = [fingers countByEnumeratingWithState:&v78 objects:v87 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v80;
+        v39 = *v79;
         while (2)
         {
           for (i = 0; i != v38; i = i + 1)
           {
-            if (*v80 != v39)
+            if (*v79 != v39)
             {
               objc_enumerationMutation(fingers);
             }
 
-            [*(*(&v79 + 1) + 8 * i) location];
-            v90.x = sub_1000517DC(v41);
-            v90.y = v42;
-            v92.origin.x = v25;
-            v92.origin.y = v27;
-            v92.size.width = v29;
-            v92.size.height = v31;
-            if (CGRectContainsPoint(v92, v90))
+            [*(*(&v78 + 1) + 8 * i) location];
+            v89.x = sub_1000517DC(v41);
+            v89.y = v42;
+            v91.origin.x = v25;
+            v91.origin.y = v27;
+            v91.size.width = v29;
+            v91.size.height = v31;
+            if (CGRectContainsPoint(v91, v89))
             {
               currentElement = [(VOTEventFactory *)self currentElement];
               v44 = [currentElement isEqual:v14];
@@ -3476,7 +3476,7 @@ LABEL_8:
             }
           }
 
-          v38 = [fingers countByEnumeratingWithState:&v79 objects:v88 count:16];
+          v38 = [fingers countByEnumeratingWithState:&v78 objects:v87 count:16];
           if (v38)
           {
             continue;
@@ -3519,33 +3519,33 @@ LABEL_44:
       }
     }
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     fingers2 = [(VOTGestureEvent *)eventCopy fingers];
-    v51 = [fingers2 countByEnumeratingWithState:&v75 objects:v87 count:16];
+    v51 = [fingers2 countByEnumeratingWithState:&v74 objects:v86 count:16];
     if (v51)
     {
       v52 = v51;
-      v53 = *v76;
+      v53 = *v75;
       while (2)
       {
         for (j = 0; j != v52; j = j + 1)
         {
-          if (*v76 != v53)
+          if (*v75 != v53)
           {
             objc_enumerationMutation(fingers2);
           }
 
-          [*(*(&v75 + 1) + 8 * j) location];
-          v91.x = sub_1000517DC(v55);
-          v91.y = v56;
-          v93.origin.x = v25;
-          v93.origin.y = v27;
-          v93.size.width = v29;
-          v93.size.height = v31;
-          if (CGRectContainsPoint(v93, v91))
+          [*(*(&v74 + 1) + 8 * j) location];
+          v90.x = sub_1000517DC(v55);
+          v90.y = v56;
+          v92.origin.x = v25;
+          v92.origin.y = v27;
+          v92.size.width = v29;
+          v92.size.height = v31;
+          if (CGRectContainsPoint(v92, v90))
           {
             [(VOTEventFactory *)self setLastTouchedDirectTouchElement:v14];
 
@@ -3553,7 +3553,7 @@ LABEL_44:
           }
         }
 
-        v52 = [fingers2 countByEnumeratingWithState:&v75 objects:v87 count:16];
+        v52 = [fingers2 countByEnumeratingWithState:&v74 objects:v86 count:16];
         if (v52)
         {
           continue;
@@ -3578,12 +3578,12 @@ LABEL_45:
 LABEL_46:
     if (++v13 == v11)
     {
-      v57 = [(NSArray *)obj countByEnumeratingWithState:&v83 objects:v89 count:16];
+      v57 = [(NSArray *)obj countByEnumeratingWithState:&v82 objects:v88 count:16];
       v11 = v57;
       if (!v57)
       {
         v58 = 0;
-        v9 = v72;
+        v9 = v71;
         goto LABEL_63;
       }
 
@@ -3596,7 +3596,7 @@ LABEL_46:
 
   if ([(NSArray *)self->_directInteractionElements containsObject:currentElement2])
   {
-    v9 = v72;
+    v9 = v71;
   }
 
   else
@@ -3605,7 +3605,7 @@ LABEL_46:
     lastTouchedDirectTouchElement = [(VOTEventFactory *)self lastTouchedDirectTouchElement];
     LODWORD(directInteractionElements) = [(NSArray *)directInteractionElements containsObject:lastTouchedDirectTouchElement];
 
-    v9 = v72;
+    v9 = v71;
     if (directInteractionElements)
     {
       [(VOTEventFactory *)self lastTouchedDirectTouchElement];
@@ -3613,9 +3613,8 @@ LABEL_46:
 
     else
     {
-      LOBYTE(v71) = 1;
-      _AXLogWithFacility();
-      [(NSArray *)self->_directInteractionElements firstObject:v71];
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not use current element as direct touch element, and last touched direct touch element was not in our list.  Using the first direct touch element in our list instead.");
+      [(NSArray *)self->_directInteractionElements firstObject];
     }
     v64 = ;
 
@@ -4395,7 +4394,7 @@ LABEL_31:
 
   [(SCRCGestureFactory *)self->_gestureFactory setSplitFlickEnabled:[(VOTEventFactory *)self brailleInputActive]];
   [(SCRCGestureFactory *)self->_gestureFactory setUsesAbsoluteDistanceForPinch:[(VOTEventFactory *)self brailleInputActive]];
-  [(SCRCGestureFactory *)self->_gestureFactory handleGestureEvent:eventCopy];
+  objc_msgSend_handleGestureEvent_(self->_gestureFactory);
   if (v10)
   {
     [(VOTEventFactory *)self resetEventFactory];
@@ -5549,7 +5548,7 @@ LABEL_251:
 {
   if (!CGRectIsNull(*ymmword_1001FEDC0))
   {
-    [objc_opt_class() _updateZoomFrame:{*ymmword_1001FEDC0, *&ymmword_1001FEDC0[16], *&ymmword_1001FEDC0[24]}];
+    [objc_opt_class() _updateZoomFrame:{*ymmword_1001FEDC0, *&ymmword_1001FEDC0[8], *&ymmword_1001FEDC0[16], *&ymmword_1001FEDC0[24]}];
     size = CGRectNull.size;
     *ymmword_1001FEDC0 = CGRectNull.origin;
     *&ymmword_1001FEDC0[16] = size;

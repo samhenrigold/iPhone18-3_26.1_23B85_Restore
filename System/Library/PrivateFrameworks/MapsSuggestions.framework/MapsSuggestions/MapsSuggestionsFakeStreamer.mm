@@ -50,10 +50,11 @@
   v6 = (self + OBJC_IVAR____TtC15MapsSuggestions27MapsSuggestionsFakeStreamer_callBackBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1C513EDF0(v7);
+  sub_1C513EDF0(v7, v8);
 }
 
 - (_TtC15MapsSuggestions27MapsSuggestionsFakeStreamer)initWithLookAheadPeriod:(double)period pingInterval:(double)interval notificationName:(id)name callBackBlock:(id)block simpleCallBack:(BOOL)back tenSecondEvent:(BOOL)event alreadyStartedEvent:(BOOL)startedEvent doubleEvent:(BOOL)self0

@@ -29,12 +29,12 @@
 
 - (void)viewDidLoad
 {
-  v5.receiver = self;
-  v5.super_class = BKAudioTurnModeViewController;
-  [(BKAudioTurnModeViewController *)&v5 viewDidLoad];
-  v3 = AEBundle();
-  v4 = [v3 localizedStringForKey:@"Turn Pages" value:&stru_1E7188 table:0];
-  [(BKAudioTurnModeViewController *)self setTitle:v4];
+  v6.receiver = self;
+  v6.super_class = BKAudioTurnModeViewController;
+  viewDidLoad = [(BKAudioTurnModeViewController *)&v6 viewDidLoad];
+  v4 = AEBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"Turn Pages" value:&stru_1E7188 table:0];
+  [(BKAudioTurnModeViewController *)self setTitle:v5];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -76,13 +76,13 @@
   turnState = [delegate turnState];
 
   v10 = [pathCopy row];
-  v11 = AEBundle();
-  v12 = v11;
+  v12 = AEBundle(v11);
+  v13 = v12;
   if (v10)
   {
-    v13 = [v11 localizedStringForKey:@"Manually" value:&stru_1E7188 table:0];
+    v14 = [v12 localizedStringForKey:@"Manually" value:&stru_1E7188 table:0];
     textLabel = [v7 textLabel];
-    [textLabel setText:v13];
+    [textLabel setText:v14];
 
     if (turnState)
     {
@@ -92,9 +92,9 @@
     goto LABEL_5;
   }
 
-  v17 = [v11 localizedStringForKey:@"Automatically" value:&stru_1E7188 table:0];
+  v18 = [v12 localizedStringForKey:@"Automatically" value:&stru_1E7188 table:0];
   textLabel2 = [v7 textLabel];
-  [textLabel2 setText:v17];
+  [textLabel2 setText:v18];
 
   if (turnState)
   {
@@ -103,8 +103,8 @@ LABEL_5:
   }
 
 LABEL_6:
-  v15 = +[UIColor whiteColor];
-  [v7 setBackgroundColor:v15];
+  v16 = +[UIColor whiteColor];
+  [v7 setBackgroundColor:v16];
 
   return v7;
 }

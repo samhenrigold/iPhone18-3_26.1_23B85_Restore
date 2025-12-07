@@ -141,7 +141,7 @@ LABEL_13:
     v10 = objc_alloc_init(SBMutableSwitcherTransitionRequest);
     [(SBSwitcherTransitionRequest *)v10 setAppLayout:v9];
     v11 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v10 gestureInitiated:0];
-    v12 = SBAppendSwitcherModifierResponse(v11, v5);
+    v12 = SBAppendSwitcherModifierResponse();
 
     [eventCopy handleWithReason:@"Main Switcher Root"];
     v5 = v12;

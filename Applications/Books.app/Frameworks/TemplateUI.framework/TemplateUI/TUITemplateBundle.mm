@@ -125,7 +125,7 @@
 
             v12 = *(*(&v29 + 1) + 8 * i);
             pathExtension = [v12 pathExtension];
-            v14 = [pathExtension isEqualToString:@"tpkg"];
+            v14 = objc_msgSend_isEqualToString_(pathExtension);
 
             if (v14)
             {

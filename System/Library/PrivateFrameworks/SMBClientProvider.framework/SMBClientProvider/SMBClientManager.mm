@@ -8,6 +8,7 @@
 - (void)addSMBServerOrShare:(id)share completionHandler:(id)handler;
 - (void)addVolumes:(id)volumes atServer:(id)server credentialType:(int64_t)type credential:(id)credential completionHandler:(id)handler;
 - (void)credentialTypesForServer:(id)server completionHandler:(id)handler;
+- (void)forgetVolume:(id)volume withFlags:(unsigned int)flags completionHandler:(id)handler;
 - (void)listenerForVolume:(id)volume completionHandler:(id)handler;
 - (void)sharesAtServer:(id)server credentialType:(int64_t)type credential:(id)credential completionHandler:(id)handler;
 - (void)volumesWithCompletionHandler:(id)handler;
@@ -95,6 +96,28 @@
   return v3;
 }
 
+- (void)forgetVolume:(id)volume withFlags:(unsigned int)flags completionHandler:(id)handler
+{
+  v5 = *&flags;
+  handlerCopy = handler;
+  v9 = *(&self->super.super.isa + *MEMORY[0x277D23DC8]);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __61__SMBClientManager_forgetVolume_withFlags_completionHandler___block_invoke;
+  v16[3] = &unk_279B50BA0;
+  v10 = handlerCopy;
+  v17 = v10;
+  volumeCopy = volume;
+  v12 = [v9 remoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__SMBClientManager_forgetVolume_withFlags_completionHandler___block_invoke_2;
+  v14[3] = &unk_279B50BA0;
+  v15 = v10;
+  v13 = v10;
+  [v12 ejectVolume:volumeCopy usingFlags:v5 reply:v14];
+}
+
 - (id)addVolume:(id)volume atServer:(id)server credentialType:(int64_t)type credential:(id)credential
 {
   volumeCopy = volume;
@@ -147,36 +170,36 @@
 
 - (void)addVolumes:(id)volumes atServer:(id)server credentialType:(int64_t)type credential:(id)credential completionHandler:(id)handler
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   volumesCopy = volumes;
   serverCopy = server;
   credentialCopy = credential;
   handlerCopy = handler;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
-  v69 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
-  v29 = volumesCopy;
-  v65 = [volumesCopy count];
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy_;
-  v60 = __Block_byref_object_dispose_;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = 0;
   v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__41;
-  v54 = __Block_byref_object_dispose__42;
-  v27 = handlerCopy;
-  v55 = MEMORY[0x266734E60](handlerCopy);
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v28 = volumesCopy;
+  v64 = [volumesCopy count];
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy_;
+  v59 = __Block_byref_object_dispose_;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__41;
+  v53 = __Block_byref_object_dispose__42;
+  v26 = handlerCopy;
+  v54 = MEMORY[0x266734E60](handlerCopy);
   v13 = objc_opt_new();
   v14 = objc_opt_new();
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [SMBClientManager addVolumes:atServer:credentialType:credential:completionHandler:];
@@ -189,63 +212,63 @@
 
   if ([volumesCopy count] < 0)
   {
-    v23 = v51[5];
+    v23 = v50[5];
     v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:34 userInfo:0];
     (*(v23 + 16))(v23, v14, v13, v17);
   }
 
   else
   {
-    if (!*(v63 + 6))
+    if (!*(v62 + 6))
     {
-      (*(v51[5] + 16))();
+      (*(v50[5] + 16))();
       goto LABEL_25;
     }
 
     v15 = *(&self->super.super.isa + *MEMORY[0x277D23DC8]);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke;
-    v46[3] = &unk_279B50C40;
-    v16 = v28;
-    v47 = v16;
-    v48 = &v66;
-    v49 = &v56;
-    v17 = [v15 remoteObjectProxyWithErrorHandler:v46];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke;
+    v45[3] = &unk_279B50C40;
+    v16 = v27;
+    v46 = v16;
+    v47 = &v65;
+    v48 = &v55;
+    v17 = [v15 remoteObjectProxyWithErrorHandler:v45];
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obj = volumesCopy;
-    v18 = [obj countByEnumeratingWithState:&v42 objects:v72 count:16];
+    v18 = [obj countByEnumeratingWithState:&v41 objects:v70 count:16];
     if (v18)
     {
       v19 = MEMORY[0x277D86220];
-      v20 = *v43;
+      v20 = *v42;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v43 != v20)
+          if (*v42 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v42 + 1) + 8 * i);
+          v22 = *(*(&v41 + 1) + 8 * i);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            [SMBClientManager addVolumes:buf atServer:v22 credentialType:&v71 credential:? completionHandler:?];
+            [SMBClientManager addVolumes:buf atServer:v22 credentialType:&buf[4] credential:? completionHandler:?];
           }
 
           [v16 lock];
-          if (*(v67 + 6))
+          if (*(v66 + 6))
           {
-            v24 = v51[5];
+            v24 = v50[5];
             if (v24)
             {
-              (*(v24 + 16))(v24, v14, v13, v57[5]);
-              v25 = v51[5];
-              v51[5] = 0;
+              (*(v24 + 16))(v24, v14, v13, v56[5]);
+              v25 = v50[5];
+              v50[5] = 0;
             }
 
             [v16 unlock];
@@ -253,22 +276,22 @@
           }
 
           [v16 unlock];
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_47;
-          v34[3] = &unk_279B50C68;
-          v34[4] = v22;
-          v38 = &v62;
-          v35 = v16;
-          v39 = &v66;
-          v40 = &v50;
-          v36 = v14;
-          v37 = v13;
-          v41 = &v56;
-          [v17 addVolume:v22 atServer:serverCopy credentialType:type credential:credentialCopy reply:v34];
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_47;
+          v33[3] = &unk_279B50C68;
+          v33[4] = v22;
+          v37 = &v61;
+          v34 = v16;
+          v38 = &v65;
+          v39 = &v49;
+          v35 = v14;
+          v36 = v13;
+          v40 = &v55;
+          [v17 addVolume:v22 atServer:serverCopy credentialType:type credential:credentialCopy reply:v33];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v42 objects:v72 count:16];
+        v18 = [obj countByEnumeratingWithState:&v41 objects:v70 count:16];
         if (v18)
         {
           continue;
@@ -282,13 +305,11 @@ LABEL_22:
   }
 
 LABEL_25:
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v49, 8);
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v66, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
 }
 
 void __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -310,7 +331,7 @@ void __84__SMBClientManager_addVolumes_atServer_credentialType_credential_comple
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_47_cold_1(v3, a1);
+    __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_47_cold_1();
   }
 
   [*(a1 + 40) lock];
@@ -452,61 +473,11 @@ void __67__SMBClientManager_sharesAtServer_credentialType_credential_error___blo
   [v10 SMBClientProtocolCredentialsForServer:serverCopy completionHandler:v8];
 }
 
-- (void)addVolume:atServer:credentialType:credential:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addVolumes:atServer:credentialType:credential:completionHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)addVolumes:(void *)a3 atServer:credentialType:credential:completionHandler:.cold.3(uint8_t *buf, uint64_t a2, void *a3)
 {
   *buf = 138412290;
   *a3 = a2;
   _os_log_error_impl(&dword_2642CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Iteration: '%@'", buf, 0xCu);
-}
-
-void __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SMBClientManager_addVolumes_atServer_credentialType_credential_completionHandler___block_invoke_47_cold_1(uint64_t a1, uint64_t a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *(a2 + 32);
-  v9 = *(*(*(a2 + 64) + 8) + 24);
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sharesAtServer:credentialType:credential:error:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)sharesAtServer:credentialType:credential:error:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

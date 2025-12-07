@@ -17,9 +17,9 @@
   v21 = 0;
   style = [elementCopy style];
   cardType = [style cardType];
-  v9 = [cardType isEqualToString:@"programmed"];
+  isEqualToString = objc_msgSend_isEqualToString_(cardType);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = objc_opt_class();
     v19[3] = v10;
@@ -67,7 +67,7 @@ LABEL_7:
   return v12;
 }
 
-uint64_t __52__SUUICardLayout_layoutWithCardViewElement_context___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__SUUICardLayout_layoutWithCardViewElement_context___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(*(*(a1 + 32) + 8) + 24) allowsViewElement:a2];
   if ((result & 1) == 0)

@@ -106,13 +106,13 @@ void __52___UISizeTrackingView__geometryChanged_forAncestor___block_invoke(uint6
   }
 }
 
-uint64_t __67___UISizeTrackingView__setNeedsRemoteViewServiceBoundingPathUpdate__block_invoke(uint64_t a1)
+void *__67___UISizeTrackingView__setNeedsRemoteViewServiceBoundingPathUpdate__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 512) &= ~8u;
   result = *(a1 + 32);
-  if ((*(result + 512) & 4) != 0)
+  if ((result[64] & 4) != 0)
   {
-    v3 = *(result + 424);
+    v3 = result[53];
     v4 = [result _boundingPathForRemoteViewService];
     [v3 __setBoundingPath:v4];
 

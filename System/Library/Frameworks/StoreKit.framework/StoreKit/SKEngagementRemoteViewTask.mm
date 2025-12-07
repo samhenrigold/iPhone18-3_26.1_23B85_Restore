@@ -125,13 +125,13 @@ void __47__SKEngagementRemoteViewTask_presentEngagement__block_invoke_1(uint64_t
   [v7 _presentViewController:v8];
 }
 
-uint64_t __47__SKEngagementRemoteViewTask_presentEngagement__block_invoke_2(uint64_t result, uint64_t a2)
+id *__47__SKEngagementRemoteViewTask_presentEngagement__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setError:a2];
-    v3 = *(v2 + 32);
+    [result[4] setError:a2];
+    v3 = v2[4];
 
     return [v3 _unblock];
   }

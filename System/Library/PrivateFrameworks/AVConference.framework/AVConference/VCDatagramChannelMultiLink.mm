@@ -427,14 +427,14 @@ LABEL_4:
   os_unfair_lock_unlock(&self->_stateLock);
 }
 
-uint64_t __96__VCDatagramChannelMultiLink_writeDatagram_datagramSize_datagramInfo_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__96__VCDatagramChannelMultiLink_writeDatagram_datagramSize_datagramInfo_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   if (*(a2 + 8))
   {
     result = *(a1 + 40);
     if (result)
     {
-      v5 = *(result + 16);
+      v5 = result[2];
 
       return v5();
     }
@@ -525,7 +525,7 @@ uint64_t __96__VCDatagramChannelMultiLink_writeDatagram_datagramSize_datagramInf
   return v3;
 }
 
-uint64_t __35__VCDatagramChannelMultiLink_start__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__35__VCDatagramChannelMultiLink_start__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v4 = *(a2 + 8);
   if (v4)
@@ -697,7 +697,7 @@ uint64_t __35__VCDatagramChannelMultiLink_start__block_invoke(uint64_t a1, uint6
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create new connection item", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create new connection item", v2, v3, v4, v5);
     }
   }
 }
@@ -801,7 +801,7 @@ uint64_t __35__VCDatagramChannelMultiLink_start__block_invoke(uint64_t a1, uint6
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d No connections present", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d No connections present", v2, v3, v4, v5);
     }
   }
 }
@@ -815,7 +815,7 @@ uint64_t __35__VCDatagramChannelMultiLink_start__block_invoke(uint64_t a1, uint6
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d No connections present", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d No connections present", v2, v3, v4, v5);
     }
   }
 }

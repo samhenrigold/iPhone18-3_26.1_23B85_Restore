@@ -1,5 +1,6 @@
 @interface FMDLocationTracker
 + (id)stringForLocationTrackerType:(unsigned __int8)type;
+- (FMDLocationTracker)initWithType:(unsigned __int8)type;
 - (FMDLocationTrackerDelegate)delegate;
 - (id)newLocationManager;
 - (void)_loadTrackingInfo;
@@ -17,7 +18,9 @@
 - (void)didAddNewTrackedLocation:(id)location;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type;
 - (void)registerDelegate:(id)delegate;
+- (void)updateLocationTrackingInfoWithTrackingStatus:(int64_t)status minSLCAccuracyThreshold:(double)threshold locateParams:(id)params trackNotifyEnabled:(BOOL)enabled maxLocations:(int64_t)locations keepAlive:(double)alive periodicCheckInterval:(double)interval minDistanceBetweenLocations:(double)self0 minTimeBetweenLocations:(double)self1 minTimeBetweenServerCalls:(double)self2;
 @end
 
 @implementation FMDLocationTracker
@@ -39,9 +42,27 @@
   return v3;
 }
 
+- (FMDLocationTracker)initWithType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v8.receiver = self;
+  v8.super_class = FMDLocationTracker;
+  v4 = [(FMDLocationTracker *)&v8 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(FMDLocationTracker *)v4 setLocationTrackerType:typeCopy];
+    [(FMDLocationTracker *)v5 _loadTrackingInfo];
+    v6 = [[FMDTrackedLocationsStore alloc] initWithLocationTracker:v5];
+    [(FMDLocationTracker *)v5 setTrackedLocationsStore:v6];
+  }
+
+  return v5;
+}
+
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10022C990(self);
@@ -82,6 +103,45 @@
   [(FMDLocationTracker *)self setDelegate:0];
 }
 
+- (void)updateLocationTrackingInfoWithTrackingStatus:(int64_t)status minSLCAccuracyThreshold:(double)threshold locateParams:(id)params trackNotifyEnabled:(BOOL)enabled maxLocations:(int64_t)locations keepAlive:(double)alive periodicCheckInterval:(double)interval minDistanceBetweenLocations:(double)self0 minTimeBetweenLocations:(double)self1 minTimeBetweenServerCalls:(double)self2
+{
+  enabledCopy = enabled;
+  paramsCopy = params;
+  [(FMDLocationTracker *)self setMinSLCAccuracyThreshold:threshold];
+  [(FMDLocationTracker *)self setLocateParams:paramsCopy];
+
+  [(FMDLocationTracker *)self setTrackingStatus:status];
+  [(FMDLocationTracker *)self setTrackNotifyEnabled:enabledCopy];
+  [(FMDLocationTracker *)self setMaxLocations:locations];
+  [(FMDLocationTracker *)self setKeepAlive:alive];
+  [(FMDLocationTracker *)self setPeriodicCheckInterval:interval];
+  [(FMDLocationTracker *)self setMinDistanceBetweenLocations:betweenLocations];
+  [(FMDLocationTracker *)self setMinTimeBetweenLocations:timeBetweenLocations];
+  [(FMDLocationTracker *)self setMinTimeBetweenServerCalls:calls];
+  if (![(FMDLocationTracker *)self trackingStatus])
+  {
+    [(FMDLocationTracker *)self setTrackingStatus:400];
+  }
+
+  [(FMDLocationTracker *)self _storeTrackingInfo];
+  delegate = [(FMDLocationTracker *)self delegate];
+
+  if (delegate)
+  {
+    if ([(FMDLocationTracker *)self isTrackingOn])
+    {
+
+      [(FMDLocationTracker *)self _startTracking];
+    }
+
+    else
+    {
+
+      [(FMDLocationTracker *)self _stopTracking];
+    }
+  }
+}
+
 - (void)deleteLocationTrackingInfoAndStopTracking
 {
   [(FMDLocationTracker *)self _stopTracking];
@@ -109,6 +169,17 @@
   }
 }
 
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  locationCopy = location;
+  if ([(FMDLocationTracker *)self isTrackingOn])
+  {
+    trackedLocationsStore = [(FMDLocationTracker *)self trackedLocationsStore];
+    [trackedLocationsStore recordLocation:locationCopy ofType:typeCopy];
+  }
+}
+
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
   managerCopy = manager;
@@ -116,13 +187,14 @@
   if ([locationsCopy count])
   {
     lastObject = [locationsCopy lastObject];
-    if (![(FMDLocationTracker *)self isTrackingOn])
+    isTrackingOn = [(FMDLocationTracker *)self isTrackingOn];
+    if ((isTrackingOn & 1) == 0)
     {
       delegate = [(FMDLocationTracker *)self delegate];
       fm_logID = [delegate fm_logID];
 
-      v15 = sub_100002880();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = sub_100002880(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         sub_10022EFBC();
       }
@@ -131,132 +203,131 @@
       goto LABEL_12;
     }
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100002880(isTrackingOn);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10022F030(lastObject);
     }
 
     locator = [(FMDLocationTracker *)self locator];
-    v11 = locator == 0;
+    v12 = locator == 0;
 
-    if (v11)
+    if (v12)
     {
-      v16 = sub_10017D9A8();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_10017D9A8(v13);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         type = [lastObject type];
         [lastObject horizontalAccuracy];
-        v19 = v18;
+        v22 = v21;
         [lastObject coordinate];
-        v21 = v20;
+        v24 = v23;
         [lastObject coordinate];
         *buf = 67109889;
-        *v53 = type;
-        *&v53[4] = 2049;
-        *&v53[6] = v19;
-        v54 = 2049;
-        v55 = v21;
-        v56 = 2049;
-        v57 = v22;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Processing SLC location with Position Type = %u, Accuracy = %{private}f, Latitude = %{private}f, Longitude = %{private}f", buf, 0x26u);
+        *v59 = type;
+        *&v59[4] = 2049;
+        *&v59[6] = v22;
+        v60 = 2049;
+        v61 = v24;
+        v62 = 2049;
+        v63 = v25;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Processing SLC location with Position Type = %u, Accuracy = %{private}f, Latitude = %{private}f, Longitude = %{private}f", buf, 0x26u);
       }
 
-      [lastObject horizontalAccuracy];
-      if (v23 >= 0.0)
+      horizontalAccuracy = [lastObject horizontalAccuracy];
+      if (v27 >= 0.0)
       {
         locateParams = [(FMDLocationTracker *)self locateParams];
-        v27 = [locateParams objectForKeyedSubscript:@"validityDuration"];
-        [v27 doubleValue];
-        v29 = v28;
+        v31 = [locateParams objectForKeyedSubscript:@"validityDuration"];
+        [v31 doubleValue];
+        v33 = v32;
 
-        v30 = +[NSDate date];
-        [v30 timeIntervalSinceReferenceDate];
-        v32 = v31;
+        v34 = +[NSDate date];
+        [v34 timeIntervalSinceReferenceDate];
+        v36 = v35;
 
         timestamp = [lastObject timestamp];
         [timestamp timeIntervalSinceReferenceDate];
-        v35 = v34;
+        v39 = v38;
 
-        if (v32 - v35 <= v29)
+        if (v36 - v39 <= v33)
         {
           [lastObject horizontalAccuracy];
-          v37 = v36;
-          [(FMDLocationTracker *)self minSLCAccuracyThreshold];
-          if (v37 <= v38)
+          v42 = v41;
+          minSLCAccuracyThreshold = [(FMDLocationTracker *)self minSLCAccuracyThreshold];
+          if (v42 <= v44)
           {
             [(FMDLocationTracker *)self setLastLocation:lastObject];
-            v45 = [[CLLocationFMGeoLocatableAdapter alloc] initWithLocation:lastObject];
+            v51 = [[CLLocationFMGeoLocatableAdapter alloc] initWithLocation:lastObject];
             trackedLocationsStore = [(FMDLocationTracker *)self trackedLocationsStore];
-            [trackedLocationsStore recordLocation:v45 ofType:1];
+            [trackedLocationsStore recordLocation:v51 ofType:1];
           }
 
           else
           {
-            v39 = sub_100002880();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+            v45 = sub_100002880(minSLCAccuracyThreshold);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
             {
-              sub_10022F0FC(v39);
+              sub_10022F0FC(v45);
             }
 
             objc_initWeak(&location, self);
-            v49[0] = _NSConcreteStackBlock;
-            v49[1] = 3221225472;
-            v49[2] = sub_1001D98C4;
-            v49[3] = &unk_1002D1230;
-            objc_copyWeak(&v50, &location);
-            v40 = objc_retainBlock(v49);
-            v47[0] = _NSConcreteStackBlock;
-            v47[1] = 3221225472;
-            v47[2] = sub_1001D99BC;
-            v47[3] = &unk_1002CD518;
-            objc_copyWeak(&v48, &location);
-            v41 = objc_retainBlock(v47);
-            [(FMDLocationTracker *)self _startLocateCycleWithLocatorPublishingBlock:v40 andStoppedLocatingBlock:v41];
-            v42 = sub_100002880();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+            v55[0] = _NSConcreteStackBlock;
+            v55[1] = 3221225472;
+            v55[2] = sub_1001D98C4;
+            v55[3] = &unk_1002D1230;
+            objc_copyWeak(&v56, &location);
+            v46 = objc_retainBlock(v55);
+            v53[0] = _NSConcreteStackBlock;
+            v53[1] = 3221225472;
+            v53[2] = sub_1001D99BC;
+            v53[3] = &unk_1002CD518;
+            objc_copyWeak(&v54, &location);
+            v47 = objc_retainBlock(v53);
+            v48 = sub_100002880([(FMDLocationTracker *)self _startLocateCycleWithLocatorPublishingBlock:v46 andStoppedLocatingBlock:v47]);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
             {
               locator2 = [(FMDLocationTracker *)self locator];
               fm_logID2 = [locator2 fm_logID];
-              sub_10022F140(fm_logID2, buf, v42, locator2);
+              sub_10022F140(fm_logID2, buf, v48, locator2);
             }
 
-            objc_destroyWeak(&v48);
-            objc_destroyWeak(&v50);
+            objc_destroyWeak(&v54);
+            objc_destroyWeak(&v56);
             objc_destroyWeak(&location);
           }
 
           goto LABEL_12;
         }
 
-        v24 = sub_100002880();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_100002880(v40);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *v53 = v29;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "SLC location is older than %.0f seconds. Ignoring this", buf, 0xCu);
+          *v59 = v33;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "SLC location is older than %.0f seconds. Ignoring this", buf, 0xCu);
         }
       }
 
       else
       {
-        v24 = sub_100002880();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_100002880(horizontalAccuracy);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           [lastObject horizontalAccuracy];
           *buf = 134217984;
-          *v53 = v25;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Invalid SLC location found with horizontalAccuracy of %f", buf, 0xCu);
+          *v59 = v29;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Invalid SLC location found with horizontalAccuracy of %f", buf, 0xCu);
         }
       }
     }
 
     else
     {
-      v12 = sub_100002880();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = sub_100002880(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        sub_10022F0B8(v12);
+        sub_10022F0B8(v14);
       }
     }
 
@@ -267,7 +338,7 @@ LABEL_12:
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100002880();
+  v5 = sub_100002880(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_10022F2D8();
@@ -289,13 +360,14 @@ LABEL_12:
 
 - (void)_startTracking
 {
-  if (+[FMDPreferencesMgr dontUseSLC])
+  v3 = +[FMDPreferencesMgr dontUseSLC];
+  if (v3)
   {
-    delegate = sub_100002880();
+    delegate = sub_100002880(v3);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, "SLC has been forcibly disabled. Not starting tracking.", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&_mh_execute_header, delegate, OS_LOG_TYPE_DEFAULT, "SLC has been forcibly disabled. Not starting tracking.", &v14, 2u);
     }
   }
 
@@ -314,26 +386,25 @@ LABEL_12:
     [locManager3 startMonitoringSignificantLocationChanges];
 
     delegate = [(FMDLocationTracker *)self delegate];
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(delegate);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [delegate fm_logID];
-      v13 = 138412290;
-      v14 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Enabling SLC for %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = fm_logID;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Enabling SLC for %@", &v14, 0xCu);
     }
 
-    v10 = +[NSDate date];
-    [(FMDLocationTracker *)self setLastFallbackRetryTime:v10];
+    v11 = +[NSDate date];
+    [(FMDLocationTracker *)self setLastFallbackRetryTime:v11];
 
-    [(FMDLocationTracker *)self _updateFallbackRetryTimer];
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002880([(FMDLocationTracker *)self _updateFallbackRetryTimer]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID2 = [delegate fm_logID];
-      v13 = 138412290;
-      v14 = fm_logID2;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Tracking is now active for %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = fm_logID2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Tracking is now active for %@", &v14, 0xCu);
     }
   }
 }
@@ -345,13 +416,13 @@ LABEL_12:
 
   if (locManager)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [delegate fm_logID];
-      v14 = 138412290;
-      v15 = fm_logID;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Disabling SLC for %@, if it was previously enabled", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = fm_logID;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Disabling SLC for %@, if it was previously enabled", &v15, 0xCu);
     }
 
     locManager2 = [(FMDLocationTracker *)self locManager];
@@ -360,16 +431,16 @@ LABEL_12:
     locManager3 = [(FMDLocationTracker *)self locManager];
     [locManager3 setDelegate:0];
 
-    [(FMDLocationTracker *)self setLocManager:0];
+    v5 = [(FMDLocationTracker *)self setLocManager:0];
   }
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v5);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID2 = [delegate fm_logID];
-    v14 = 138412290;
-    v15 = fm_logID2;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Tracking is now inactive for %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = fm_logID2;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Tracking is now inactive for %@", &v15, 0xCu);
   }
 
   [(FMDLocationTracker *)self _stopFallbackRetryTimer];
@@ -480,17 +551,17 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = sub_1001DAE88;
     block[3] = &unk_1002CD4C8;
-    v41 = fallbackRetryTimer;
+    v44 = fallbackRetryTimer;
     dispatch_async(&_dispatch_main_q, block);
   }
 
-  [(FMDLocationTracker *)self periodicCheckInterval];
-  v7 = v6 > 0.0;
-  timeStamp = sub_100002880();
-  v9 = os_log_type_enabled(timeStamp, OS_LOG_TYPE_DEFAULT);
-  if (v7)
+  periodicCheckInterval = [(FMDLocationTracker *)self periodicCheckInterval];
+  v8 = v7 > 0.0;
+  timeStamp = sub_100002880(periodicCheckInterval);
+  v10 = os_log_type_enabled(timeStamp, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, timeStamp, OS_LOG_TYPE_DEFAULT, "Checking whether I need to start a SLC fallback for tracked locations", buf, 2u);
@@ -504,15 +575,15 @@ LABEL_7:
 
       if (locatorRunning)
       {
-        timeStamp = sub_100002880();
+        timeStamp = sub_100002880(v14);
         if (os_log_type_enabled(timeStamp, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v13 = "A locate cycle is already in progress. Not starting the fallback now.";
-          v14 = timeStamp;
-          v15 = 2;
+          v15 = "A locate cycle is already in progress. Not starting the fallback now.";
+          v16 = timeStamp;
+          v17 = 2;
 LABEL_12:
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, v13, buf, v15);
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
           goto LABEL_31;
         }
 
@@ -526,107 +597,108 @@ LABEL_12:
     {
       if (lastFallbackRetryTime)
       {
-        v31 = [timeStamp laterDate:?];
+        v19 = [timeStamp laterDate:?];
+        v34 = v19;
 LABEL_19:
-        v18 = sub_100002880();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = sub_100002880(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           [(FMDLocationTracker *)self periodicCheckInterval];
           *buf = 138413058;
-          v43 = lastFallbackRetryTime;
-          v44 = 2112;
-          v45 = timeStamp;
-          v46 = 2112;
-          v47 = v31;
-          v48 = 2048;
-          v49 = v30;
-          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "lastFallbackRetryTime:%@ lastLocationTime:%@ latestRetryTime:%@ periodicCheckInterval:%f", buf, 0x2Au);
+          v46 = lastFallbackRetryTime;
+          v47 = 2112;
+          v48 = timeStamp;
+          v49 = 2112;
+          v50 = v34;
+          v51 = 2048;
+          v52 = v33;
+          _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "lastFallbackRetryTime:%@ lastLocationTime:%@ latestRetryTime:%@ periodicCheckInterval:%f", buf, 0x2Au);
         }
 
         [(FMDLocationTracker *)self periodicCheckInterval];
-        v19 = [v31 dateByAddingTimeInterval:?];
-        v20 = +[NSDate date];
-        v21 = [v20 compare:v19] == -1;
-        v22 = sub_100002880();
-        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-        if (v21)
+        v21 = [v34 dateByAddingTimeInterval:?];
+        v22 = +[NSDate date];
+        v23 = [v22 compare:v21];
+        v24 = v23 == -1;
+        v25 = sub_100002880(v23);
+        v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+        if (v24)
         {
-          if (v23)
+          if (v26)
           {
             *buf = 138412290;
-            v43 = v19;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Scheduling SLC fallback of tracked locations for %@", buf, 0xCu);
+            v46 = v21;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Scheduling SLC fallback of tracked locations for %@", buf, 0xCu);
           }
 
-          v33[0] = _NSConcreteStackBlock;
-          v33[1] = 3221225472;
-          v33[2] = sub_1001DAFF4;
-          v33[3] = &unk_1002CD4C8;
-          v34 = [[PCPersistentTimer alloc] initWithFireDate:v19 serviceIdentifier:@"com.apple.icloud.findmydeviced.trackingFallbackRetry" target:self selector:"_updateFallbackRetryTimer" userInfo:0];
-          v29 = v34;
-          dispatch_async(&_dispatch_main_q, v33);
-          [(FMDLocationTracker *)self setFallbackRetryTimer:v29];
+          v36[0] = _NSConcreteStackBlock;
+          v36[1] = 3221225472;
+          v36[2] = sub_1001DAFF4;
+          v36[3] = &unk_1002CD4C8;
+          v37 = [[PCPersistentTimer alloc] initWithFireDate:v21 serviceIdentifier:@"com.apple.icloud.findmydeviced.trackingFallbackRetry" target:self selector:"_updateFallbackRetryTimer" userInfo:0];
+          v32 = v37;
+          dispatch_async(&_dispatch_main_q, v36);
+          [(FMDLocationTracker *)self setFallbackRetryTimer:v32];
         }
 
         else
         {
-          if (v23)
+          if (v26)
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Time to do a SLC fallback for tracked locations", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Time to do a SLC fallback for tracked locations", buf, 2u);
           }
 
-          [(FMDLocationTracker *)self setLastFallbackRetryTime:v20];
+          [(FMDLocationTracker *)self setLastFallbackRetryTime:v22];
           objc_initWeak(&location, self);
-          v37[0] = _NSConcreteStackBlock;
-          v37[1] = 3221225472;
-          v37[2] = sub_1001DAE90;
-          v37[3] = &unk_1002D1230;
-          objc_copyWeak(&v38, &location);
-          v24 = objc_retainBlock(v37);
-          v35[0] = _NSConcreteStackBlock;
-          v35[1] = 3221225472;
-          v35[2] = sub_1001DAF88;
-          v35[3] = &unk_1002CD518;
-          objc_copyWeak(&v36, &location);
-          v25 = objc_retainBlock(v35);
-          [(FMDLocationTracker *)self _startLocateCycleWithLocatorPublishingBlock:v24 andStoppedLocatingBlock:v25];
-          v26 = sub_100002880();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+          v40[0] = _NSConcreteStackBlock;
+          v40[1] = 3221225472;
+          v40[2] = sub_1001DAE90;
+          v40[3] = &unk_1002D1230;
+          objc_copyWeak(&v41, &location);
+          v27 = objc_retainBlock(v40);
+          v38[0] = _NSConcreteStackBlock;
+          v38[1] = 3221225472;
+          v38[2] = sub_1001DAF88;
+          v38[3] = &unk_1002CD518;
+          objc_copyWeak(&v39, &location);
+          v28 = objc_retainBlock(v38);
+          v29 = sub_100002880([(FMDLocationTracker *)self _startLocateCycleWithLocatorPublishingBlock:v27 andStoppedLocatingBlock:v28]);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             locator3 = [(FMDLocationTracker *)self locator];
             fm_logID = [locator3 fm_logID];
-            sub_10022F34C(fm_logID, buf, v26, locator3);
+            sub_10022F34C(fm_logID, buf, v29, locator3);
           }
 
-          objc_destroyWeak(&v36);
-          objc_destroyWeak(&v38);
+          objc_destroyWeak(&v39);
+          objc_destroyWeak(&v41);
           objc_destroyWeak(&location);
         }
 
         goto LABEL_31;
       }
 
-      v17 = timeStamp;
+      v19 = timeStamp;
     }
 
     else
     {
-      v17 = lastFallbackRetryTime;
+      v19 = lastFallbackRetryTime;
     }
 
-    v31 = v17;
+    v34 = v19;
     goto LABEL_19;
   }
 
-  if (v9)
+  if (v10)
   {
     [(FMDLocationTracker *)self periodicCheckInterval];
     *buf = 134217984;
-    v43 = v16;
-    v13 = "SLC fallback is disabled (interval is %f)";
-    v14 = timeStamp;
-    v15 = 12;
+    v46 = v18;
+    v15 = "SLC fallback is disabled (interval is %f)";
+    v16 = timeStamp;
+    v17 = 12;
     goto LABEL_12;
   }
 

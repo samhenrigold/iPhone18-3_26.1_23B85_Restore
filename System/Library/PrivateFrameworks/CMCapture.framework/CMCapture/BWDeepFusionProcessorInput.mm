@@ -69,7 +69,7 @@
 
   else
   {
-    [BWDeepFusionProcessorInput addBuffer:metadata:bufferType:captureFrameFlags:lscGainMap:lscGainMapParameters:];
+    [(BWDeepFusionProcessorInput *)self addBuffer:a2 metadata:0 bufferType:metadata captureFrameFlags:type lscGainMap:flags lscGainMapParameters:map, parameters];
   }
 }
 

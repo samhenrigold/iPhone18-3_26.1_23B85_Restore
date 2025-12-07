@@ -2195,8 +2195,7 @@ LABEL_8:
 
 - (BOOL)cardDismissalHelperShouldObserveGestures:(id)gestures
 {
-  currentViewController = [(ContainerViewController *)self currentViewController];
-  result = (!currentViewController || (v5 = currentViewController, -[ContainerViewController currentViewController](self, "currentViewController"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 shouldCollapseOnMapGesture], v6, v5, v7)) && -[ContainerViewController containeeLayout](self, "containeeLayout") != 1 && -[ContainerViewController containerStyle](self, "containerStyle") == 1;
+  result = (!currentViewController || (v5 = currentViewController, -[ContainerViewController currentViewController](self, "currentViewController"), v6 = currentViewController = [(ContainerViewController *)self currentViewController];
   return result;
 }
 

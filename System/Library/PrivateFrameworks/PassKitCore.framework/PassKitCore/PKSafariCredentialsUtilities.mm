@@ -206,7 +206,7 @@ void __59__PKSafariCredentialsUtilities__retrieveSafariCredentials___block_invok
 {
   v9 = *MEMORY[0x1E69E9840];
   v6 = 0;
-  v2 = [getSFSafariCreditCardStoreClass[0]() savedCreditCardsWithError:&v6];
+  v2 = [(objc_class *)getSFSafariCreditCardStoreClass() savedCreditCardsWithError:&v6];
   v3 = v6;
   if (v2)
   {

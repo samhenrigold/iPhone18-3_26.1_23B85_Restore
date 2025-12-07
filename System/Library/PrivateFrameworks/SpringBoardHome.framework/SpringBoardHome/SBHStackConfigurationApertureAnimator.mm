@@ -450,7 +450,7 @@ uint64_t __81__SBHStackConfigurationApertureAnimator_finalizeAnimationAtEndpoint
   v33 = view;
 
   layer = [v33 layer];
-  [layer bounds];
+  objc_msgSend_bounds(layer);
   [layer convertRect:v71 toLayer:?];
   v36 = v35;
   v38 = v37;
@@ -458,7 +458,7 @@ uint64_t __81__SBHStackConfigurationApertureAnimator_finalizeAnimationAtEndpoint
   v23 = v40;
   pageControl = [v20 pageControl];
   layer2 = [pageControl layer];
-  [layer2 bounds];
+  objc_msgSend_bounds(layer2);
   [layer2 convertRect:v71 toLayer:?];
   MidX = CGRectGetMidX(v87);
   userInterfaceLayoutDirection = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection];
@@ -480,7 +480,7 @@ uint64_t __81__SBHStackConfigurationApertureAnimator_finalizeAnimationAtEndpoint
   memset(&v81, 0, sizeof(v81));
   if (pageControl)
   {
-    [pageControl transform];
+    objc_msgSend_transform(pageControl);
   }
 
   v28 = vabdd_f64(MidX, v50);
@@ -778,10 +778,10 @@ LABEL_23:
   [animation setDuration:INFINITY];
   [animation setAppliesY:1];
   [animation setAppliesX:1];
-  [targetViewCopy bounds];
+  objc_msgSend_bounds(targetViewCopy);
   v11 = v10;
   v13 = v12;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   [viewCopy convertRect:targetViewCopy toView:?];
   v15 = v14;
   v17 = v16;

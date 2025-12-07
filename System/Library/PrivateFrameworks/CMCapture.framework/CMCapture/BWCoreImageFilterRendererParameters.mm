@@ -3,7 +3,7 @@
 - (BWCoreImageFilterRendererParameters)initWithFilters:(id)filters originalOutputFilter:(id)filter;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)depthTypeForFilter:(id)filter;
-- (uint64_t)_ensureResourceRequirementsForFilters:(_BYTE *)filters outputRequiresFaceLandmarks:(_BYTE *)landmarks outputRequiresDepthMap:;
+- (void)_ensureResourceRequirementsForFilters:(_BYTE *)filters outputRequiresFaceLandmarks:(_BYTE *)landmarks outputRequiresDepthMap:;
 - (void)dealloc;
 - (void)setFilters:(id)filters;
 @end
@@ -70,7 +70,7 @@
       return 3;
     }
 
-    else if ([v5 containsObject:@"inputDisparity"] && ((objc_msgSend(objc_msgSend(filter, "name"), "isEqualToString:", @"CIPortraitEffectStage") & 1) != 0 || (objc_msgSend(objc_msgSend(filter, "name"), "isEqualToString:", @"CIPortraitEffectStageMono") & 1) != 0))
+    else if ([v5 containsObject:@"inputDisparity"] && ((objc_msgSend_isEqualToString_(objc_msgSend(filter, "name")) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(filter, "name")) & 1) != 0))
     {
       return 2;
     }
@@ -126,7 +126,7 @@
   return v6 & 1;
 }
 
-- (uint64_t)_ensureResourceRequirementsForFilters:(_BYTE *)filters outputRequiresFaceLandmarks:(_BYTE *)landmarks outputRequiresDepthMap:
+- (void)_ensureResourceRequirementsForFilters:(_BYTE *)filters outputRequiresFaceLandmarks:(_BYTE *)landmarks outputRequiresDepthMap:
 {
   if (result)
   {
@@ -159,7 +159,7 @@
           }
 
           v7 |= v11;
-          ++v9;
+          v9 = v9 + 1;
         }
 
         while (v5 != v9);

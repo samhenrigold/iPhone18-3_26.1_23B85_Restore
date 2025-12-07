@@ -11,6 +11,7 @@
 - (id)connectionWithEndpoint:(id)endpoint forMachService:(id)service;
 - (id)remoteXPCObjectForApplicationPid:(id)pid;
 - (void)_initializeDiagnosticextensionsdConnection;
+- (void)_releaseAppConnectionWithPid:(int)pid;
 - (void)_storeAppConnection:(id)connection;
 - (void)configureConnectionType:(unint64_t)type;
 - (void)configureDaemonMode;
@@ -156,7 +157,7 @@ uint64_t __33__DEDXPCConnector_startForDaemon__block_invoke(uint64_t a1)
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = [(DEDXPCConnector *)self validateConnection:connectionCopy];
@@ -167,7 +168,7 @@ uint64_t __33__DEDXPCConnector_startForDaemon__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v39 = processIdentifier;
+      v38 = processIdentifier;
       _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "New connection from pid [%ld]", buf, 0xCu);
     }
 
@@ -187,31 +188,31 @@ uint64_t __33__DEDXPCConnector_startForDaemon__block_invoke(uint64_t a1)
 
     [connectionCopy setExportedObject:v19];
     v20 = [connectionCopy description];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke;
-    v34[3] = &unk_278F66E10;
-    objc_copyWeak(&v36, buf);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke;
+    v33[3] = &unk_278F66E10;
+    objc_copyWeak(&v35, buf);
     v21 = v20;
-    v35 = v21;
-    v37 = processIdentifier;
-    [connectionCopy setInvalidationHandler:v34];
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke_26;
-    v30 = &unk_278F66E10;
-    objc_copyWeak(&v32, buf);
+    v34 = v21;
+    v36 = processIdentifier;
+    [connectionCopy setInvalidationHandler:v33];
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke_26;
+    v29 = &unk_278F66E10;
+    objc_copyWeak(&v31, buf);
     v22 = v21;
-    v31 = v22;
-    v33 = processIdentifier;
-    [connectionCopy setInterruptionHandler:&v27];
+    v30 = v22;
+    v32 = processIdentifier;
+    [connectionCopy setInterruptionHandler:&v26];
     v23 = objc_loadWeakRetained(buf);
-    [v23 _storeAppConnection:{connectionCopy, v27, v28, v29, v30}];
+    [v23 _storeAppConnection:{connectionCopy, v26, v27, v28, v29}];
 
     [connectionCopy resume];
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(buf);
   }
 
@@ -224,22 +225,21 @@ uint64_t __33__DEDXPCConnector_startForDaemon__block_invoke(uint64_t a1)
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained log];
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v10 = 138543362;
-    v11 = v4;
-    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "connection [%{public}@] was invalidated", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v4;
+    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "connection [%{public}@] was invalidated", &v9, 0xCu);
   }
 
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -249,28 +249,24 @@ void __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke(uin
 
   v8 = objc_loadWeakRetained((a1 + 40));
   [v8 _releaseAppConnectionWithPid:*(a1 + 48)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__DEDXPCConnector_listener_shouldAcceptNewConnection___block_invoke_26(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained log];
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v4;
-    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "connection [%{public}@] was interrupted", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "connection [%{public}@] was interrupted", &v6, 0xCu);
   }
 
   v5 = objc_loadWeakRetained((a1 + 40));
   [v5 _releaseAppConnectionWithPid:*(a1 + 48)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateConnection:(id)connection
@@ -478,16 +474,16 @@ void __57__DEDXPCConnector_connectionWithEndpoint_forMachService___block_invoke_
 
 void __52__DEDXPCConnector_remoteXPCObjectForApplicationPid___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) log];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = [*(a1 + 32) log];
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __52__DEDXPCConnector_remoteXPCObjectForApplicationPid___block_invoke_cold_1(a1);
+    __52__DEDXPCConnector_remoteXPCObjectForApplicationPid___block_invoke_cold_1();
   }
 }
 
 - (DEDXPCProtocol)diagnosticextensionsdXPCInterface
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   diagnosticextensionsdConnection = [(DEDXPCConnector *)self diagnosticextensionsdConnection];
 
   if (!diagnosticextensionsdConnection)
@@ -521,14 +517,12 @@ LABEL_7:
   }
 
   diagnosticextensionsdConnection2 = [(DEDXPCConnector *)self diagnosticextensionsdConnection];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke;
-  v10[3] = &unk_278F661A8;
-  v10[4] = self;
-  v7 = [diagnosticextensionsdConnection2 remoteObjectProxyWithErrorHandler:v10];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke;
+  v9[3] = &unk_278F661A8;
+  v9[4] = self;
+  v7 = [diagnosticextensionsdConnection2 remoteObjectProxyWithErrorHandler:v9];
 
   return v7;
 }
@@ -544,14 +538,14 @@ void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke(uint6
 
 - (void)_storeAppConnection:(id)connection
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = [(DEDXPCConnector *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109120;
-    v10[1] = [connectionCopy processIdentifier];
-    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Storing connection from PID [%i]", v10, 8u);
+    v9[0] = 67109120;
+    v9[1] = [connectionCopy processIdentifier];
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Storing connection from PID [%i]", v9, 8u);
   }
 
   selfCopy = self;
@@ -561,7 +555,27 @@ void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke(uint6
   [appConnections setObject:connectionCopy forKeyedSubscript:v7];
 
   objc_sync_exit(selfCopy);
+}
+
+- (void)_releaseAppConnectionWithPid:(int)pid
+{
+  v3 = *&pid;
   v9 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v5 = [(DEDXPCConnector *)selfCopy log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = v3;
+    _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Clearing connection [%i]", v8, 8u);
+  }
+
+  appConnections = [(DEDXPCConnector *)selfCopy appConnections];
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [appConnections removeObjectForKey:v7];
+
+  objc_sync_exit(selfCopy);
 }
 
 - (id)_connectionForPid:(id)pid
@@ -606,37 +620,37 @@ void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke(uint6
 
 - (NSArray)clientConnections
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:4];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   appConnections = [(DEDXPCConnector *)selfCopy appConnections];
   allKeys = [appConnections allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = objc_opt_new();
         [v11 setPid:v10];
         [v3 addObject:v11];
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -644,8 +658,6 @@ void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke(uint6
 
   objc_sync_exit(selfCopy);
   v12 = [MEMORY[0x277CBEA60] arrayWithArray:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -659,23 +671,20 @@ void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke(uint6
 
 void __33__DEDXPCConnector_startForDaemon__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "listening for service %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "listening for service %@", &v3, 0xCu);
 }
 
 void __33__DEDXPCConnector_startForDaemon__block_invoke_cold_2(NSObject *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACC8] currentThread];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_248AD7000, a1, OS_LOG_TYPE_DEBUG, "resuming listener from thread %@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_248AD7000, a1, OS_LOG_TYPE_DEBUG, "resuming listener from thread %@", &v3, 0xCu);
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
@@ -685,34 +694,15 @@ void __33__DEDXPCConnector_startForDaemon__block_invoke_cold_2(NSObject *a1)
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)validateConnection:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)connectionWithEndpoint:(NSObject *)a3 forMachService:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 description];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_248AD7000, a3, OS_LOG_TYPE_ERROR, "failed to initialize connection for mach service %{public}@ or endpoint %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __52__DEDXPCConnector_remoteXPCObjectForApplicationPid___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_248AD7000, a3, OS_LOG_TYPE_ERROR, "failed to initialize connection for mach service %{public}@ or endpoint %{public}@", &v6, 0x16u);
 }
 
 void __52__DEDXPCConnector_diagnosticextensionsdXPCInterface__block_invoke_cold_1()

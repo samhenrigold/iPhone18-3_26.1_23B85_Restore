@@ -39,9 +39,10 @@
     v14 = *&selfCopy->appliedConfiguration[OBJC_IVAR____TtC7Journal37CustomJournalEmojiIconCellContentView_appliedConfiguration];
     if (v14)
     {
+      v15 = *&selfCopy->appliedConfiguration[OBJC_IVAR____TtC7Journal37CustomJournalEmojiIconCellContentView_appliedConfiguration + 8];
 
       v14(v7, v9);
-      sub_100004DF8(v14);
+      sub_100004DF8(v14, v15);
     }
   }
 
@@ -55,10 +56,11 @@
   v4 = *&selfCopy->appliedConfiguration[OBJC_IVAR____TtC7Journal37CustomJournalEmojiIconCellContentView_appliedConfiguration + 16];
   if (v4)
   {
+    v5 = *&selfCopy->appliedConfiguration[OBJC_IVAR____TtC7Journal37CustomJournalEmojiIconCellContentView_appliedConfiguration + 24];
 
-    v4(v5);
+    v4(v6);
 
-    sub_100004DF8(v4);
+    sub_100004DF8(v4, v5);
   }
 
   else

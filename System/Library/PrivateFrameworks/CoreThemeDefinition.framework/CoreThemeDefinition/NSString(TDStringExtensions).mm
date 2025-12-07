@@ -6,22 +6,22 @@
 
 - (uint64_t)td_stringByStandardizingPath
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v41 = [self length];
+  v43 = *MEMORY[0x277D85DE8];
+  v40 = [self length];
   [objc_msgSend(self "stringByExpandingTildeInPath")];
-  __CUITransmutePathSlashes(&v42, &v41);
-  v2 = v41;
-  if (v41 < 2)
+  __CUITransmutePathSlashes(&v41, &v40);
+  v2 = v40;
+  if (v40 < 2)
   {
     v5 = 0;
   }
 
-  else if (*(&v41 + v41 + 3) == 47)
+  else if (*(&v40 + v40 + 3) == 47)
   {
     while (v2 > 2)
     {
       v3 = v2 - 1;
-      v4 = *(&v41 + v2-- + 2);
+      v4 = *(&v40 + v2-- + 2);
       if (v4 != 47)
       {
         goto LABEL_8;
@@ -34,13 +34,13 @@
 
   else
   {
-    v3 = v41;
+    v3 = v40;
 LABEL_8:
-    v5 = v42 == 92 && v43[0] == 92;
+    v5 = v41 == 92 && v42[0] == 92;
     v2 = v3;
   }
 
-  HasDotDot = _pathHasDotDot(&v42, v2, v5);
+  HasDotDot = _pathHasDotDot(&v41, v2, v5);
   v7 = -2 * v2;
   do
   {
@@ -50,7 +50,7 @@ LABEL_8:
     {
       if (v2 <= 4)
       {
-        v41 = v2;
+        v40 = v2;
 LABEL_28:
         v15 = 3;
         goto LABEL_32;
@@ -59,7 +59,7 @@ LABEL_28:
 
     else if (v2 < 3)
     {
-      v41 = v2;
+      v40 = v2;
       if (v2 != 2)
       {
         goto LABEL_103;
@@ -68,7 +68,7 @@ LABEL_28:
       goto LABEL_23;
     }
 
-    v10 = &v43[v2 - 1];
+    v10 = &v42[v2 - 1];
     if (*(v10 - 2) != 47)
     {
       break;
@@ -80,20 +80,20 @@ LABEL_28:
   }
 
   while (v11 == 46);
-  v41 = v8;
+  v40 = v8;
   if (v5)
   {
     goto LABEL_28;
   }
 
 LABEL_23:
-  if (v43[0] == 47)
+  if (v42[0] == 47)
   {
     v12 = 0;
-    while (v43[v12 - 1] == 46)
+    while (v42[v12 - 1] == 46)
     {
       v13 = v12 + 2;
-      v14 = v43[v12 + 2];
+      v14 = v42[v12 + 2];
       v12 += 2;
       if (v14 != 47)
       {
@@ -109,7 +109,7 @@ LABEL_23:
 
 LABEL_30:
     v8 -= v13;
-    v41 = v8;
+    v40 = v8;
     __memmove_chk();
   }
 
@@ -120,7 +120,7 @@ LABEL_32:
   {
     do
     {
-      v16 = &v43[v15 - 1];
+      v16 = &v42[v15 - 1];
       if (*v16 == 47 && v16[1] == 46 && v16[2] == 47)
       {
         memmove(v16 + 1, v16 + 3, 2 * (v8 - v15) - 6);
@@ -137,7 +137,7 @@ LABEL_32:
     }
 
     while (v15 < v8 - 2);
-    v41 = v8;
+    v40 = v8;
   }
 
   v17 = HasDotDot ^ 1;
@@ -148,7 +148,7 @@ LABEL_32:
 
   if ((v17 & 1) == 0)
   {
-    v40 = &v41 + 6;
+    v39 = &v40 + 6;
     v18 = v8;
     do
     {
@@ -157,7 +157,7 @@ LABEL_32:
         v19 = 3;
         if (v18 >= 4)
         {
-          while (v43[v19 - 1] != 47)
+          while (v42[v19 - 1] != 47)
           {
             if (v18 == ++v19)
             {
@@ -185,7 +185,7 @@ LABEL_32:
             break;
           }
 
-          v22 = v43[v19++];
+          v22 = v42[v19++];
           if (v22 == 47)
           {
             goto LABEL_58;
@@ -215,7 +215,7 @@ LABEL_58:
         v25 = v8;
         v26 = v18;
         v27 = v18;
-        v28 = &v43[v21 - 1];
+        v28 = &v42[v21 - 1];
         do
         {
           if (v27 != 3 && v21 < v27 - 4 && *v28 == 47 && v28[1] == 46 && v28[2] == 46 && v28[3] == 47)
@@ -234,7 +234,7 @@ LABEL_58:
 
           if (v27 >= 3 && v29 == v27 - 3)
           {
-            v30 = &v43[v29 - 1];
+            v30 = &v42[v29 - 1];
             if (*v30 == 47 && v30[1] == 46 && v30[2] == 46)
             {
               v25 = v27 - 2;
@@ -272,7 +272,7 @@ LABEL_58:
 
           v32 = 0;
           v33 = 2 * (v27 - 5 - v21);
-          v34 = &v43[v21 + 2];
+          v34 = &v42[v21 + 2];
           while (*(v34 - 2) != 47)
           {
             ++v32;
@@ -288,15 +288,15 @@ LABEL_58:
           if (v27 >= 4 && v35 < v27 - 4 && *(v34 - 1) == 46 && *v34 == 46 && v34[1] == 47)
           {
             v8 = v27 - v32 - 4;
-            memmove(&v43[v21], v34 + 2, v33);
+            memmove(&v42[v21], v34 + 2, v33);
             v18 = v8;
             goto LABEL_98;
           }
 
-          if (!(v21 + v32 + 4 - v27) && *(&v41 + v27 + 1) == 47 && *(&v41 + v27 + 2) == 46)
+          if (!(v21 + v32 + 4 - v27) && *(&v40 + v27 + 1) == 47 && *(&v40 + v27 + 2) == 46)
           {
             v18 = v21 + 1;
-            if (v43[v27 - 2] == 46)
+            if (v42[v27 - 2] == 46)
             {
               goto LABEL_98;
             }
@@ -315,14 +315,14 @@ LABEL_98:
       ;
     }
 
-    while (_pathHasDotDot(&v42, v18, v5) && v18 > 2);
-    v41 = v8;
+    while (_pathHasDotDot(&v41, v18, v5) && v18 > 2);
+    v40 = v8;
   }
 
 LABEL_103:
-  __CUITransmutePathSlashes(&v42, &v41);
-  v36 = v41;
-  if (v41 >= 2 && *(&v41 + v41 + 3) == 47)
+  __CUITransmutePathSlashes(&v41, &v40);
+  v36 = v40;
+  if (v40 >= 2 && *(&v40 + v40 + 3) == 47)
   {
     do
     {
@@ -331,15 +331,13 @@ LABEL_103:
         break;
       }
 
-      v37 = *(&v41 + v36-- + 2);
+      v37 = *(&v40 + v36-- + 2);
     }
 
     while (v37 == 47);
   }
 
-  result = [MEMORY[0x277CCACA8] stringWithCharacters:&v42 length:v40];
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CCACA8] stringWithCharacters:&v41 length:v39];
 }
 
 @end

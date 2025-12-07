@@ -190,7 +190,6 @@ void __70__NLSmartGoalStore_initWithHealthStore_userDefaults_activityMoveMode___
   }
 
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupDuplicateActivityTypes
@@ -286,7 +285,6 @@ void __70__NLSmartGoalStore_initWithHealthStore_userDefaults_activityMoveMode___
   v9 = MEMORY[0x277D82BE0](dictionary);
   objc_storeStrong(&dictionary, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -333,7 +331,6 @@ void __70__NLSmartGoalStore_initWithHealthStore_userDefaults_activityMoveMode___
   [(NLSmartGoalStore *)selfCopy lastPoolLengthWithActivityType:v6 completion:location[0], v3];
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)lastPoolLengthWithActivityType:(id)type completion:(id)completion
@@ -641,86 +638,83 @@ void __73__NLSmartGoalStore__populateOccurrenceRegistryFromHealthDatabaseIfNeede
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(v37, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __73__NLSmartGoalStore__populateOccurrenceRegistryFromHealthDatabaseIfNeeded__block_invoke_2(id *a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v26 = 0;
-  objc_storeStrong(&v26, a3);
   v25 = 0;
-  objc_storeStrong(&v25, a4);
-  v24[1] = a1;
-  if (v25)
+  objc_storeStrong(&v25, a3);
+  v24 = 0;
+  objc_storeStrong(&v24, a4);
+  v23[1] = a1;
+  if (v24)
   {
     _HKInitializeLogging();
-    v24[0] = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v23 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v24[0], OS_LOG_TYPE_ERROR))
+    v23[0] = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v22 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v23[0], OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v29, v25);
-      _os_log_error_impl(&dword_20AEA4000, v24[0], v23, "Failing populating occurrence data with error: %@", v29, 0xCu);
+      __os_log_helper_16_2_1_8_64(v28, v24);
+      _os_log_error_impl(&dword_20AEA4000, v23[0], v22, "Failing populating occurrence data with error: %@", v28, 0xCu);
     }
 
-    objc_storeStrong(v24, 0);
+    objc_storeStrong(v23, 0);
     WeakRetained = objc_loadWeakRetained(a1 + 4);
     [WeakRetained setShouldPopulateOccurrenceRegistryFromHealthDatabase:1];
-    v14 = [MEMORY[0x277CCAB98] defaultCenter];
-    v13 = objc_loadWeakRetained(a1 + 4);
-    v4 = *MEMORY[0x277D76758];
-    [v14 addObserver:? selector:? name:? object:?];
+    v13 = [MEMORY[0x277CCAB98] defaultCenter];
+    v12 = objc_loadWeakRetained(a1 + 4);
+    [v13 addObserver:? selector:? name:? object:?];
+    MEMORY[0x277D82BD8](v12);
     MEMORY[0x277D82BD8](v13);
-    MEMORY[0x277D82BD8](v14);
   }
 
-  else if (v26)
+  else if (v25)
   {
     _HKInitializeLogging();
-    v22 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v21 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v20 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v26, "count")}];
-      __os_log_helper_16_2_2_8_64_8_64(v28, v11, v25);
-      _os_log_impl(&dword_20AEA4000, v22, v21, "Populating occurrence registry with %@ workouts with error %@", v28, 0x16u);
-      MEMORY[0x277D82BD8](v11);
+      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
+      __os_log_helper_16_2_2_8_64_8_64(v27, v10, v24);
+      _os_log_impl(&dword_20AEA4000, v21, v20, "Populating occurrence registry with %@ workouts with error %@", v27, 0x16u);
+      MEMORY[0x277D82BD8](v10);
     }
 
-    objc_storeStrong(&v22, 0);
-    v10 = objc_loadWeakRetained(a1 + 4);
-    v7 = v26;
+    objc_storeStrong(&v21, 0);
     v9 = objc_loadWeakRetained(a1 + 4);
-    v8 = [v9 _priorVersionOccurrenceRegistry];
-    [v10 _buildWorkoutOccurrenceDataWithWorkouts:v7 priorVersionOccurrenceRegistry:?];
+    v6 = v25;
+    v8 = objc_loadWeakRetained(a1 + 4);
+    v7 = [v8 _priorVersionOccurrenceRegistry];
+    [v9 _buildWorkoutOccurrenceDataWithWorkouts:v6 priorVersionOccurrenceRegistry:?];
+    MEMORY[0x277D82BD8](v7);
     MEMORY[0x277D82BD8](v8);
     MEMORY[0x277D82BD8](v9);
-    MEMORY[0x277D82BD8](v10);
   }
 
   else
   {
     _HKInitializeLogging();
-    v20 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v19 = 16;
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v18 = 16;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v5 = v20;
-      v6 = v19;
-      __os_log_helper_16_0_0(v18);
-      _os_log_error_impl(&dword_20AEA4000, v5, v6, "Failing populating occurrence data due to no results", v18, 2u);
+      v4 = v19;
+      v5 = v18;
+      __os_log_helper_16_0_0(v17);
+      _os_log_error_impl(&dword_20AEA4000, v4, v5, "Failing populating occurrence data due to no results", v17, 2u);
     }
 
-    objc_storeStrong(&v20, 0);
+    objc_storeStrong(&v19, 0);
   }
 
+  objc_storeStrong(&v24, 0);
   objc_storeStrong(&v25, 0);
-  objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_willEnterForeground
@@ -833,7 +827,6 @@ void __73__NLSmartGoalStore__populateOccurrenceRegistryFromHealthDatabaseIfNeede
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&v44, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __91__NLSmartGoalStore__buildWorkoutOccurrenceDataWithWorkouts_priorVersionOccurrenceRegistry___block_invoke(uint64_t a1)
@@ -965,7 +958,6 @@ void __91__NLSmartGoalStore__buildWorkoutOccurrenceDataWithWorkouts_priorVersion
 
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_readOccurrenceRegistryForKey:(id)key
@@ -1032,7 +1024,6 @@ void __91__NLSmartGoalStore__buildWorkoutOccurrenceDataWithWorkouts_priorVersion
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_visibleActivityTypesWithDefaultActivityTypes:(id)types unsupportedActivityTypes:(id)activityTypes
@@ -1145,7 +1136,6 @@ void __91__NLSmartGoalStore__buildWorkoutOccurrenceDataWithWorkouts_priorVersion
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1369,7 +1359,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(v41, 0);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1473,7 +1462,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMainRegistryWithIndividualRegistry:(id)registry
@@ -1536,7 +1524,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)hideActivityType:(id)type
@@ -1578,7 +1565,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)workoutActivityTypesInFrequencyOrderDescendingWithDefaultActivities:(id)activities unsupportedActivities:(id)unsupportedActivities
@@ -1705,7 +1691,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
 
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v39;
 
   return v6;
@@ -1850,7 +1835,6 @@ BOOL __38__NLSmartGoalStore__visibleRegistries__block_invoke(void *a1, void *a2,
   objc_storeStrong(v14, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1947,7 +1931,6 @@ void __43__NLSmartGoalStore__listenForNotifications__block_invoke_2(id *a1, void
   }
 
   objc_storeStrong(v7, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -2016,7 +1999,6 @@ void __43__NLSmartGoalStore__listenForNotifications__block_invoke_2(id *a1, void
   objc_storeStrong(&allValues, 0);
   objc_storeStrong(&occurrenceRegistry, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,7 +9,7 @@
 
 - (uint64_t)__ck_writePNGToFilePath:()IMPNGImageWriting error:
 {
-  v6 = [MEMORY[0x1E695DFF8] URLWithString:?];
+  v6 = [MEMORY[0x1E695DFF8] URLWithString:a3];
   v7 = [self __ck_writePNGToURL:v6 error:a4];
 
   return v7;

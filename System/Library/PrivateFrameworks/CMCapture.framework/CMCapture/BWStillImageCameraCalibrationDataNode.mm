@@ -1,12 +1,12 @@
 @interface BWStillImageCameraCalibrationDataNode
 - (BWStillImageCameraCalibrationDataNode)initWithSensorConfigurationsByPortType:(id)type;
-- (uint64_t)_clearCaptureRequestState;
-- (uint64_t)_computeCameraCalibrationDataBetweenReferenceSampleBuffer:(opaqueCMSampleBuffer *)buffer auxiliarySampleBuffer:;
+- (id)_clearCaptureRequestState;
+- (id)_computeCameraCalibrationDataBetweenReferenceSampleBuffer:(opaqueCMSampleBuffer *)buffer auxiliarySampleBuffer:;
+- (id)_propagateDetectedObjects;
+- (id)_receivedExpectedInputsForCaptureRequest;
+- (id)_resolveProcessingMode;
+- (id)processorOptions;
 - (uint64_t)_loadAndConfigureCalibrationBundle;
-- (uint64_t)_propagateDetectedObjects;
-- (uint64_t)_receivedExpectedInputsForCaptureRequest;
-- (uint64_t)_resolveProcessingMode;
-- (uint64_t)processorOptions;
 - (void)_sensorConfigurationWithPortraitTuningParameters;
 - (void)dealloc;
 - (void)handleNodeError:(id)error forInput:(id)input;
@@ -59,21 +59,21 @@
     [-[FigCalibration metalContext](self->_calibrationProcessor "metalContext")];
   }
 
-  [(BWStillImageCameraCalibrationDataNode *)self _clearCaptureRequestState];
+  [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _clearCaptureRequestState];
   v3.receiver = self;
   v3.super_class = BWStillImageCameraCalibrationDataNode;
   [(BWNode *)&v3 dealloc];
 }
 
-- (uint64_t)_clearCaptureRequestState
+- (id)_clearCaptureRequestState
 {
   if (result)
   {
     v1 = result;
 
-    *(v1 + 160) = 0;
-    *(v1 + 152) = 0;
-    allValues = [*(v1 + 176) allValues];
+    v1[20] = 0;
+    v1[19] = 0;
+    allValues = [v1[22] allValues];
     OUTLINED_FUNCTION_43();
     v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
     if (v4)
@@ -89,7 +89,7 @@
             objc_enumerationMutation(allValues);
           }
 
-          [*(v1 + 16) emitSampleBuffer:*(8 * i)];
+          [v1[2] emitSampleBuffer:*(8 * i)];
         }
 
         OUTLINED_FUNCTION_43();
@@ -99,8 +99,8 @@
       while (v5);
     }
 
-    result = [*(v1 + 176) removeAllObjects];
-    *(v1 + 168) = 0;
+    result = [v1[22] removeAllObjects];
+    *(v1 + 42) = 0;
   }
 
   return result;
@@ -110,47 +110,63 @@
 {
   if (result)
   {
-    v1 = result;
-    v16 = 0;
+    v2 = result;
+    v27 = 0;
     processorOptions = [(BWStillImageCameraCalibrationDataNode *)result processorOptions];
-    if (processorOptions && (v3 = processorOptions, v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"Calibration", 1], (v5 = objc_msgSend(MEMORY[0x1E696AAE8], "bundleWithPath:", v4)) != 0))
+    if (processorOptions)
     {
-      v6 = v5;
-      if (![v5 loadAndReturnError:&v16])
+      v4 = processorOptions;
+      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"Calibration", 1];
+      v6 = [MEMORY[0x1E696AAE8] bundleWithPath:v5];
+      if (v6)
       {
-        return 4294954510;
-      }
-
-      v7 = objc_alloc_init([v6 principalClass]);
-      *(v1 + 184) = v7;
-      if (v7)
-      {
-        [v7 setOptions:v3];
-        v8 = [objc_msgSend(*(v1 + 8) "videoFormat")];
-        v9 = [objc_msgSend(*(v1 + 8) "videoFormat")];
-        v10 = *(v1 + 184);
-        v12[0] = v8;
-        v12[1] = v9;
-        v13 = 1067030938;
-        v14 = 0x1800000020;
-        v15 = 0;
-        [v10 setCalibrationConfig:v12];
-        v11 = [*(v1 + 184) prepareToProcess:0];
-        result = 0;
-        if (!v11)
+        v7 = v6;
+        if (![v6 loadAndReturnError:&v27])
         {
-          return result;
+          return 4294954510;
         }
 
-        fig_log_get_emitter();
+        v8 = objc_alloc_init([v7 principalClass]);
+        *(v2 + 184) = v8;
+        if (v8)
+        {
+          [v8 setOptions:v4];
+          v9 = [objc_msgSend(*(v2 + 8) "videoFormat")];
+          v10 = [objc_msgSend(*(v2 + 8) "videoFormat")];
+          v11 = *(v2 + 184);
+          v24 = v9;
+          v25 = v10;
+          LODWORD(v26) = 1067030938;
+          *(&v26 + 4) = 0x1800000020;
+          HIDWORD(v26) = 0;
+          [v11 setCalibrationConfig:&v24];
+          v12 = [*(v2 + 184) prepareToProcess:0];
+          result = 0;
+          if (!v12)
+          {
+            return result;
+          }
+
+          emitter = fig_log_get_emitter();
+          v17 = v1;
+          v16 = 479;
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWStillImageCameraCalibrationDataNode >>>>", v16, v17, v14, v15, v19);
+        }
+
+        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v21, v23, v24, v25, v26, *(&v26 + 1), v27);
+        emitter = OUTLINED_FUNCTION_2();
+        v16 = 465;
       }
 
       else
       {
         OUTLINED_FUNCTION_2();
         OUTLINED_FUNCTION_0_2();
-        FigDebugAssert3();
-        OUTLINED_FUNCTION_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v21, v23, v24, v25, v26, *(&v26 + 1), v27);
+        emitter = OUTLINED_FUNCTION_2();
+        v16 = 460;
       }
     }
 
@@ -158,11 +174,13 @@
     {
       OUTLINED_FUNCTION_2();
       OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v18, v20, v22, v24, v25, v26, *(&v26 + 1), v27);
+      emitter = OUTLINED_FUNCTION_2();
+      v16 = 452;
     }
 
-    return FigSignalErrorAtGM();
+    v17 = v1;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE0ELL, "<<<< BWStillImageCameraCalibrationDataNode >>>>", v16, v17, v14, v15, v19);
   }
 
   return result;
@@ -177,19 +195,19 @@
     v22 = OUTLINED_FUNCTION_8_30(v21);
     if (OUTLINED_FUNCTION_12(v22))
     {
-      v50 = 136315138;
+      v105 = 136315138;
       OUTLINED_FUNCTION_3_49("[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]");
-      OUTLINED_FUNCTION_7_36();
+      OUTLINED_FUNCTION_7_36(v23, v24, v25, v26, &dword_1AC90E000);
       OUTLINED_FUNCTION_15_17();
     }
 
-    OUTLINED_FUNCTION_0_52();
-    OUTLINED_FUNCTION_39_0();
+    v48 = OUTLINED_FUNCTION_0_52();
+    OUTLINED_FUNCTION_39_0(v48, v49, v50, v51, v52);
     OUTLINED_FUNCTION_5_45();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v53, v54, v55, v56, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_2();
-    v32 = OUTLINED_FUNCTION_4_5();
-    v39 = 175;
+    v57 = OUTLINED_FUNCTION_4_5();
+    v64 = 175;
     goto LABEL_49;
   }
 
@@ -197,23 +215,23 @@
   if (!v8)
   {
     FigCaptureGetFrameworkRadarComponent();
-    v23 = OUTLINED_FUNCTION_2_59();
-    v24 = OUTLINED_FUNCTION_8_30(v23);
-    if (OUTLINED_FUNCTION_12(v24))
+    v27 = OUTLINED_FUNCTION_2_59();
+    v28 = OUTLINED_FUNCTION_8_30(v27);
+    if (OUTLINED_FUNCTION_12(v28))
     {
-      v50 = 136315138;
+      v105 = 136315138;
       OUTLINED_FUNCTION_3_49("[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]");
-      OUTLINED_FUNCTION_7_36();
+      OUTLINED_FUNCTION_7_36(v29, v30, v31, v32, &dword_1AC90E000);
       OUTLINED_FUNCTION_15_17();
     }
 
-    OUTLINED_FUNCTION_0_52();
-    OUTLINED_FUNCTION_39_0();
+    v65 = OUTLINED_FUNCTION_0_52();
+    OUTLINED_FUNCTION_39_0(v65, v66, v67, v68, v69);
     OUTLINED_FUNCTION_5_45();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v70, v71, v72, v73, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_2();
-    v32 = OUTLINED_FUNCTION_4_5();
-    v39 = 178;
+    v57 = OUTLINED_FUNCTION_4_5();
+    v64 = 178;
     goto LABEL_49;
   }
 
@@ -222,23 +240,23 @@
   if (!v10)
   {
     FigCaptureGetFrameworkRadarComponent();
-    v25 = OUTLINED_FUNCTION_2_59();
-    v26 = OUTLINED_FUNCTION_8_30(v25);
-    if (OUTLINED_FUNCTION_12(v26))
+    v33 = OUTLINED_FUNCTION_2_59();
+    v34 = OUTLINED_FUNCTION_8_30(v33);
+    if (OUTLINED_FUNCTION_12(v34))
     {
-      v50 = 136315138;
+      v105 = 136315138;
       OUTLINED_FUNCTION_3_49("[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]");
-      OUTLINED_FUNCTION_7_36();
+      OUTLINED_FUNCTION_7_36(v35, v36, v37, v38, &dword_1AC90E000);
       OUTLINED_FUNCTION_15_17();
     }
 
-    OUTLINED_FUNCTION_0_52();
-    OUTLINED_FUNCTION_39_0();
+    v74 = OUTLINED_FUNCTION_0_52();
+    OUTLINED_FUNCTION_39_0(v74, v75, v76, v77, v78);
     OUTLINED_FUNCTION_5_45();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v79, v80, v81, v82, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_2();
-    v32 = OUTLINED_FUNCTION_4_5();
-    v39 = 181;
+    v57 = OUTLINED_FUNCTION_4_5();
+    v64 = 181;
     goto LABEL_49;
   }
 
@@ -253,28 +271,28 @@ LABEL_24:
   if (!v11)
   {
     FigCaptureGetFrameworkRadarComponent();
-    v27 = OUTLINED_FUNCTION_2_59();
-    v28 = OUTLINED_FUNCTION_8_30(v27);
-    if (OUTLINED_FUNCTION_12(v28))
+    v39 = OUTLINED_FUNCTION_2_59();
+    v40 = OUTLINED_FUNCTION_8_30(v39);
+    if (OUTLINED_FUNCTION_12(v40))
     {
-      v50 = 136315138;
+      v105 = 136315138;
       OUTLINED_FUNCTION_3_49("[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]");
-      OUTLINED_FUNCTION_7_36();
+      OUTLINED_FUNCTION_7_36(v41, v42, v43, v44, &dword_1AC90E000);
       OUTLINED_FUNCTION_15_17();
     }
 
-    OUTLINED_FUNCTION_0_52();
-    OUTLINED_FUNCTION_39_0();
+    v83 = OUTLINED_FUNCTION_0_52();
+    OUTLINED_FUNCTION_39_0(v83, v84, v85, v86, v87);
     OUTLINED_FUNCTION_5_45();
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(v88, v89, v90, v91, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
     OUTLINED_FUNCTION_13_2();
-    v32 = OUTLINED_FUNCTION_4_5();
-    v39 = 186;
+    v57 = OUTLINED_FUNCTION_4_5();
+    v64 = 186;
 LABEL_49:
-    FigCapturePleaseFileRadar(v32, v33, v34, v35, v36, v39, v37, v38, v43);
-    v40 = v4;
+    FigCapturePleaseFileRadar(v57, v58, v59, v60, v61, v64, v62, v63, v98);
+    v92 = v4;
 LABEL_50:
-    free(v40);
+    free(v92);
     goto LABEL_26;
   }
 
@@ -282,88 +300,88 @@ LABEL_50:
   captureSettings = self->_captureSettings;
   if (!captureSettings || (v14 = -[BWStillImageCaptureSettings settingsID](captureSettings, "settingsID"), v14 != [v12 settingsID]))
   {
-    [(BWStillImageCameraCalibrationDataNode *)self _clearCaptureRequestState];
+    [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _clearCaptureRequestState];
     self->_captureSettings = v12;
-    [(BWStillImageCameraCalibrationDataNode *)self _resolveProcessingMode];
+    [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _resolveProcessingMode];
   }
 
   if ([(NSMutableDictionary *)self->_inputSbufsByPortType objectForKeyedSubscript:v9])
   {
     FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-    v29 = OUTLINED_FUNCTION_2_59();
-    v5 = v29;
-    if (os_log_type_enabled(v29, v56))
+    v45 = OUTLINED_FUNCTION_2_59();
+    v5 = v45;
+    if (os_log_type_enabled(v45, v111))
     {
-      v31 = v57;
+      v47 = v112;
     }
 
     else
     {
-      v31 = v57 & 0xFFFFFFFE;
+      v47 = v112 & 0xFFFFFFFE;
     }
 
-    if (v31)
+    if (v47)
     {
-      v50 = 136315394;
-      v51 = "[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]";
-      v52 = 2112;
-      v53 = BWPortTypeToDisplayString(v9, v30);
+      v105 = 136315394;
+      v106 = "[BWStillImageCameraCalibrationDataNode renderSampleBuffer:forInput:]";
+      v107 = 2112;
+      v108 = BWPortTypeToDisplayString(v9, v46);
       _os_log_send_and_compose_impl();
     }
 
     OUTLINED_FUNCTION_0_52();
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v54 = 138412290;
-    v55 = BWPortTypeToDisplayString(v9, v41);
-    v42 = OUTLINED_FUNCTION_6_0();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v42, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageCameraCalibrationDataNode.m", 196, @"LastShownDate:BWStillImageCameraCalibrationDataNode.m:196", @"LastShownBuild:BWStillImageCameraCalibrationDataNode.m:196", 0);
-    v40 = v42;
+    v109 = 138412290;
+    v110 = BWPortTypeToDisplayString(v9, v93);
+    v97 = OUTLINED_FUNCTION_6_0(v110, v94, v95, v96, &dword_1AC90E000, MEMORY[0x1E69E9C10]);
+    FigCapturePleaseFileRadar(FrameworkRadarComponent, v97, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWStillImageCameraCalibrationDataNode.m", 196, @"LastShownDate:BWStillImageCameraCalibrationDataNode.m:196", @"LastShownBuild:BWStillImageCameraCalibrationDataNode.m:196", 0);
+    v92 = v97;
     goto LABEL_50;
   }
 
   [(NSMutableDictionary *)self->_inputSbufsByPortType setObject:buffer forKeyedSubscript:v9];
-  if ([(BWStillImageCameraCalibrationDataNode *)self _receivedExpectedInputsForCaptureRequest])
+  if ([(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _receivedExpectedInputsForCaptureRequest])
   {
     processingMode = self->_processingMode;
     if ((processingMode | 2) == 3)
     {
-      [(BWStillImageCameraCalibrationDataNode *)self _computeCameraCalibrationDataBetweenReferenceSampleBuffer:[(NSMutableDictionary *)self->_inputSbufsByPortType objectForKeyedSubscript:*off_1E798A0D0] auxiliarySampleBuffer:?];
+      [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _computeCameraCalibrationDataBetweenReferenceSampleBuffer:[(NSMutableDictionary *)self->_inputSbufsByPortType objectForKeyedSubscript:*off_1E798A0D0] auxiliarySampleBuffer:?];
       processingMode = self->_processingMode;
     }
 
     if ((processingMode & 0xFFFFFFFE) == 2)
     {
-      [(BWStillImageCameraCalibrationDataNode *)self _computeCameraCalibrationDataBetweenReferenceSampleBuffer:[(NSMutableDictionary *)self->_inputSbufsByPortType objectForKeyedSubscript:*off_1E798A0C0] auxiliarySampleBuffer:?];
+      [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _computeCameraCalibrationDataBetweenReferenceSampleBuffer:[(NSMutableDictionary *)self->_inputSbufsByPortType objectForKeyedSubscript:*off_1E798A0C0] auxiliarySampleBuffer:?];
     }
 
     if (self->_propagatesDetectedObjects)
     {
-      [(BWStillImageCameraCalibrationDataNode *)self _propagateDetectedObjects];
+      [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _propagateDetectedObjects];
     }
 
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
+    v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     allValues = [(NSMutableDictionary *)self->_inputSbufsByPortType allValues];
-    v17 = [allValues countByEnumeratingWithState:&v46 objects:v45 count:16];
+    v17 = [allValues countByEnumeratingWithState:&v101 objects:v100 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v47;
+      v19 = *v102;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v47 != v19)
+          if (*v102 != v19)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [(BWNodeOutput *)self->super._output emitSampleBuffer:*(*(&v46 + 1) + 8 * i)];
+          [(BWNodeOutput *)self->super._output emitSampleBuffer:*(*(&v101 + 1) + 8 * i)];
         }
 
-        v18 = [allValues countByEnumeratingWithState:&v46 objects:v45 count:16];
+        v18 = [allValues countByEnumeratingWithState:&v101 objects:v100 count:16];
       }
 
       while (v18);
@@ -382,17 +400,17 @@ LABEL_26:
 
   if (v5)
   {
-    [(BWStillImageCameraCalibrationDataNode *)self _clearCaptureRequestState];
+    [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _clearCaptureRequestState];
   }
 }
 
-- (uint64_t)_resolveProcessingMode
+- (id)_resolveProcessingMode
 {
   if (result)
   {
     v1 = result;
     v2 = [MEMORY[0x1E695DFA8] set];
-    captureStreamSettings = [*(v1 + 160) captureStreamSettings];
+    captureStreamSettings = [v1[20] captureStreamSettings];
     OUTLINED_FUNCTION_43();
     v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
     if (v5)
@@ -418,7 +436,7 @@ LABEL_26:
       while (v6);
     }
 
-    *(v1 + 152) = v2;
+    v1[19] = v2;
     v9 = [v2 containsObject:*off_1E798A0D0];
     v10 = *off_1E798A0C0;
     if (v9)
@@ -467,19 +485,19 @@ LABEL_26:
       v12 = v13;
     }
 
-    *(v1 + 168) = v12;
+    *(v1 + 42) = v12;
   }
 
   return result;
 }
 
-- (uint64_t)_receivedExpectedInputsForCaptureRequest
+- (id)_receivedExpectedInputsForCaptureRequest
 {
   if (result)
   {
     v1 = result;
-    v2 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(*(result + 176), "allKeys")}];
-    v3 = *(v1 + 152);
+    v2 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(result[22], "allKeys")}];
+    v3 = v1[19];
 
     return [v2 isEqualToSet:v3];
   }
@@ -487,11 +505,11 @@ LABEL_26:
   return result;
 }
 
-- (uint64_t)_computeCameraCalibrationDataBetweenReferenceSampleBuffer:(opaqueCMSampleBuffer *)buffer auxiliarySampleBuffer:
+- (id)_computeCameraCalibrationDataBetweenReferenceSampleBuffer:(opaqueCMSampleBuffer *)buffer auxiliarySampleBuffer:
 {
   if (result)
   {
-    [*(result + 184) setReferenceSampleBuffer:a2];
+    [result[23] setReferenceSampleBuffer:a2];
     [OUTLINED_FUNCTION_13_22() setAuxiliarySampleBuffer:buffer];
     process = [OUTLINED_FUNCTION_13_22() process];
     if (process <= 3 && process != 1)
@@ -516,7 +534,7 @@ LABEL_26:
   return result;
 }
 
-- (uint64_t)_propagateDetectedObjects
+- (id)_propagateDetectedObjects
 {
   if (result)
   {
@@ -527,7 +545,7 @@ LABEL_26:
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
-    obj = [*(v1 + 176) allValues];
+    obj = [v1[22] allValues];
     result = [obj countByEnumeratingWithState:&v73 objects:v72 count:16];
     if (result)
     {
@@ -553,17 +571,17 @@ LABEL_26:
           v11 = [CMGetAttachment(v10 v6];
           if ([objc_msgSend(CMGetAttachment(v10 v6])
           {
-            v4 = [*(v1 + 144) objectForKeyedSubscript:v11];
+            v4 = [v1[18] objectForKeyedSubscript:v11];
             v42 = v10;
           }
 
           else
           {
             [array addObject:v10];
-            [v40 addObject:{objc_msgSend(*(v1 + 144), "objectForKeyedSubscript:", v11)}];
+            [v40 addObject:{objc_msgSend(v1[18], "objectForKeyedSubscript:", v11)}];
           }
 
-          ++v9;
+          v9 = (v9 + 1);
         }
 
         while (v3 != v9);
@@ -582,7 +600,7 @@ LABEL_26:
           v71 = 0u;
           v68 = 0u;
           v69 = 0u;
-          result = OUTLINED_FUNCTION_16_19(0, v12, v13, v14, v15, v16, v17, v18, v40, v42, obj, array, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, 0);
+          result = OUTLINED_FUNCTION_16_19(0, v12, v13, v14, v15, v16, v17, v18, v40, v42, obj, array, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67);
           if (result)
           {
             v21 = result;
@@ -623,11 +641,11 @@ LABEL_26:
 
                 v32 = BWProcessWiderAndNarrowerFOVBuffersForFacePropagation(v30, v31, v29);
                 ++v22;
-                ++v24;
+                v24 = (v24 + 1);
               }
 
               while (v21 != v24);
-              result = OUTLINED_FUNCTION_16_19(v32, v33, v34, v35, v36, v37, v38, v39, v41, v43, obja, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68);
+              result = OUTLINED_FUNCTION_16_19(v32, v33, v34, v35, v36, v37, v38, v39, v41, v43, obja, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67);
               v21 = result;
             }
 
@@ -643,13 +661,13 @@ LABEL_26:
 
 - (void)handleNodeError:(id)error forInput:(id)input
 {
-  [(BWStillImageCameraCalibrationDataNode *)self _clearCaptureRequestState];
+  [(BWStillImageCameraCalibrationDataNode *)&self->super.super.isa _clearCaptureRequestState];
   output = self->super._output;
 
   [(BWNodeOutput *)output emitNodeError:error];
 }
 
-- (uint64_t)processorOptions
+- (id)processorOptions
 {
   if (result)
   {
@@ -662,8 +680,7 @@ LABEL_26:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_11();
-LABEL_17:
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
         return 0;
       }
     }
@@ -674,7 +691,7 @@ LABEL_17:
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    allValues = [*(v1 + 128) allValues];
+    allValues = [v1[16] allValues];
     v6 = [allValues countByEnumeratingWithState:&v15 objects:v14 count:16];
     if (v6)
     {
@@ -702,7 +719,8 @@ LABEL_17:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_11();
-      goto LABEL_17;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+      return 0;
     }
 
     v10 = *off_1E798A970;

@@ -70,33 +70,33 @@
 
 - (BOOL)hasVideoAsset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_assets;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isVideo])
+        if ([*(*(&v7 + 1) + 8 * i) isVideo])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -108,37 +108,36 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)setMetadata:(id)metadata
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&selfCopy->_metadata, metadata);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   assets = [(MSASAssetCollection *)selfCopy assets];
-  v8 = [assets countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [assets countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(assets);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * v10);
+        v11 = *(*(&v14 + 1) + 8 * v10);
         v12 = [metadataCopy objectForKey:@"batchDateCreated"];
         [v11 setBatchCreationDate:v12];
 
@@ -149,14 +148,13 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v8 = [assets countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [assets countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMetadataValue:(id)value forKey:(id)key
@@ -398,10 +396,10 @@ LABEL_11:
 
 - (id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = MSASAssetCollection;
-  v3 = [(MSASAssetCollection *)&v22 description];
+  v23 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = MSASAssetCollection;
+  v3 = [(MSASAssetCollection *)&v21 description];
   v4 = [v3 mutableCopy];
 
   if (self->_GUID)
@@ -475,38 +473,36 @@ LABEL_11:
     if ([(NSArray *)self->_assets count])
     {
       [v4 appendFormat:@" Assets:\n"];
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       v10 = self->_assets;
-      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [*(*(&v18 + 1) + 8 * i) description];
+            v15 = [*(*(&v17 + 1) + 8 * i) description];
             [v4 appendFormat:@"%@\n", v15];
           }
 
-          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v12 = [(NSArray *)v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
         }
 
         while (v12);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -687,7 +683,7 @@ LABEL_11:
 
 - (id)MSASPProtocolDictionary
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   gUID = [(MSASAssetCollection *)self GUID];
   if (gUID)
@@ -699,17 +695,8 @@ LABEL_11:
   if (fileName)
   {
     v6 = fileName;
-    if (![(MSASAssetCollection *)self isVideo])
+    if (!-[MSASAssetCollection isVideo](self, "isVideo") || ([v6 pathExtension], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"mp4"), v7, (v8 & 1) != 0) || (objc_msgSend(v6, "stringByDeletingPathExtension"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "stringByAppendingPathExtension:", @"mp4"), v10 = objc_claimAutoreleasedReturnValue(), v6, v9, (v6 = v10) != 0))
     {
-      goto LABEL_7;
-    }
-
-    pathExtension = [v6 pathExtension];
-    v8 = [pathExtension isEqualToString:@"mp4"];
-
-    if ((v8 & 1) != 0 || ([v6 stringByDeletingPathExtension], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "stringByAppendingPathExtension:", @"mp4"), v10 = objc_claimAutoreleasedReturnValue(), v6, v9, (v6 = v10) != 0))
-    {
-LABEL_7:
       [dictionary setObject:v6 forKey:@"filename"];
     }
   }
@@ -736,30 +723,30 @@ LABEL_7:
     assets2 = [(MSASAssetCollection *)self assets];
     v18 = [v16 arrayWithCapacity:{objc_msgSend(assets2, "count")}];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     assets3 = [(MSASAssetCollection *)self assets];
-    v20 = [assets3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v20 = [assets3 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v28;
+      v22 = *v27;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v28 != v22)
+          if (*v27 != v22)
           {
             objc_enumerationMutation(assets3);
           }
 
-          mSASPProtocolDictionary = [*(*(&v27 + 1) + 8 * i) MSASPProtocolDictionary];
+          mSASPProtocolDictionary = [*(*(&v26 + 1) + 8 * i) MSASPProtocolDictionary];
           [v18 addObject:mSASPProtocolDictionary];
         }
 
-        v21 = [assets3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v21 = [assets3 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v21);
@@ -771,14 +758,12 @@ LABEL_7:
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 + (id)MSASPAssetCollectionFromProtocolDictionary:(id)dictionary
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy mutableCopy];
   v5 = objc_alloc_init(MSASAssetCollection);
@@ -800,12 +785,12 @@ LABEL_7:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v78 = [v4 objectForKey:@"files"];
+    v77 = [v4 objectForKey:@"files"];
   }
 
   else
   {
-    v78 = 0;
+    v77 = 0;
   }
 
   [v4 removeObjectForKey:@"files"];
@@ -821,7 +806,7 @@ LABEL_7:
     v11 = 0;
   }
 
-  v77 = v8;
+  v76 = v8;
 
   [v4 removeObjectForKey:@"mediaAssetType"];
   if (v11)
@@ -834,7 +819,7 @@ LABEL_7:
     v12 = 0;
   }
 
-  v76 = v11;
+  v75 = v11;
   v13 = [v4 objectForKey:@"assetguid"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -853,7 +838,7 @@ LABEL_7:
     [(MSASAssetCollection *)v5 setGUID:v14];
   }
 
-  v75 = v14;
+  v74 = v14;
   v15 = [v4 objectForKey:@"filename"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -872,7 +857,7 @@ LABEL_7:
     [(MSASAssetCollection *)v5 setFileName:v16];
   }
 
-  v74 = v16;
+  v73 = v16;
   v17 = [v4 objectForKey:@"servertimestamp"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -912,7 +897,7 @@ LABEL_7:
     [(MSASAssetCollection *)v5 setPersonID:v22];
   }
 
-  v72 = v22;
+  v71 = v22;
   v23 = [v4 objectForKey:@"firstname"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -933,7 +918,7 @@ LABEL_7:
     [(MSASAssetCollection *)v5 setFirstName:v24];
   }
 
-  v71 = v24;
+  v70 = v24;
   v26 = [v4 objectForKey:@"lastname"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -989,12 +974,12 @@ LABEL_7:
     [(MSASAssetCollection *)v5 setEmail:v32];
   }
 
-  v69 = v32;
-  v73 = v18;
+  v68 = v32;
+  v72 = v18;
   v33 = v30;
   v34 = [v30 objectForKey:@"createdbyme"];
   objc_opt_class();
-  v70 = v27;
+  v69 = v27;
   if (objc_opt_isKindOfClass())
   {
     v35 = [v30 objectForKey:@"createdbyme"];
@@ -1021,7 +1006,7 @@ LABEL_7:
     v39 = [0 isEqualToString:@"1"];
   }
 
-  v40 = v78;
+  v40 = v77;
 
   [v4 removeObjectForKey:@"candelete"];
   [(MSASAssetCollection *)v5 setIsDeletable:v39];
@@ -1061,44 +1046,44 @@ LABEL_7:
     -[MSASAssetCollection setPhotoNumber:](v5, "setPhotoNumber:", [v44 longLongValue]);
   }
 
-  v68 = v42;
-  if (!v78)
+  v67 = v42;
+  if (!v77)
   {
-    v54 = v77;
-    if (!v77)
+    v54 = v76;
+    if (!v76)
     {
       goto LABEL_102;
     }
 
-    v65 = v44;
-    v66 = v5;
-    v67 = v4;
+    v64 = v44;
+    v65 = v5;
+    v66 = v4;
     v45 = [MSAsset MSASPAssetFromProtocolDictionary:v4];
     if (v45)
     {
       [array addObject:v45];
     }
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
-    v55 = v77;
-    v56 = [v55 countByEnumeratingWithState:&v79 objects:v87 count:16];
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v55 = v76;
+    v56 = [v55 countByEnumeratingWithState:&v78 objects:v86 count:16];
     if (v56)
     {
       v57 = v56;
-      v58 = *v80;
+      v58 = *v79;
       do
       {
         for (i = 0; i != v57; ++i)
         {
-          if (*v80 != v58)
+          if (*v79 != v58)
           {
             objc_enumerationMutation(v55);
           }
 
-          v60 = *(*(&v79 + 1) + 8 * i);
+          v60 = *(*(&v78 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1110,7 +1095,7 @@ LABEL_7:
           }
         }
 
-        v57 = [v55 countByEnumeratingWithState:&v79 objects:v87 count:16];
+        v57 = [v55 countByEnumeratingWithState:&v78 objects:v86 count:16];
       }
 
       while (v57);
@@ -1119,31 +1104,31 @@ LABEL_7:
     goto LABEL_100;
   }
 
-  v67 = v4;
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
+  v66 = v4;
   v84 = 0u;
-  v45 = v78;
-  v46 = [v45 countByEnumeratingWithState:&v83 objects:v92 count:16];
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
+  v45 = v77;
+  v46 = [v45 countByEnumeratingWithState:&v82 objects:v91 count:16];
   if (v46)
   {
     v47 = v46;
-    v65 = v44;
-    v66 = v5;
-    v64 = v33;
-    v48 = *v84;
+    v64 = v44;
+    v65 = v5;
+    v63 = v33;
+    v48 = *v83;
     v49 = MEMORY[0x277D86220];
     do
     {
       for (j = 0; j != v47; ++j)
       {
-        if (*v84 != v48)
+        if (*v83 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        v51 = *(*(&v83 + 1) + 8 * j);
+        v51 = *(*(&v82 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1157,31 +1142,29 @@ LABEL_7:
           {
             isVideo = [v52 isVideo];
             *buf = 67109376;
-            v89 = isVideo;
-            v90 = 1024;
-            v91 = v12;
+            v88 = isVideo;
+            v89 = 1024;
+            v90 = v12;
             _os_log_error_impl(&dword_245B99000, v49, OS_LOG_TYPE_ERROR, "Found inconsistency of media asset type between asset (%d) and asset collection (%d)", buf, 0xEu);
           }
         }
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v83 objects:v92 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v82 objects:v91 count:16];
     }
 
     while (v47);
-    v33 = v64;
+    v33 = v63;
 LABEL_100:
-    v44 = v65;
-    v5 = v66;
-    v40 = v78;
+    v44 = v64;
+    v5 = v65;
+    v40 = v77;
   }
 
-  v4 = v67;
-  v54 = v77;
+  v4 = v66;
+  v54 = v76;
 LABEL_102:
-  [(MSASAssetCollection *)v5 setAssets:array, v64];
-
-  v62 = *MEMORY[0x277D85DE8];
+  [(MSASAssetCollection *)v5 setAssets:array, v63];
 
   return v5;
 }

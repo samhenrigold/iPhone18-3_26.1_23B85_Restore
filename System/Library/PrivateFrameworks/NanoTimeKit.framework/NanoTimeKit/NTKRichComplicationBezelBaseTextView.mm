@@ -109,7 +109,7 @@
   v18 = self->_label;
   if (v18)
   {
-    [(CLKUIColoringView *)v18 transform];
+    objc_msgSend_transform(v18);
     v19 = self->_label;
   }
 

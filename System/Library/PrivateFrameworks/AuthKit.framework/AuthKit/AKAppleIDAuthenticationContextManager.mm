@@ -156,7 +156,6 @@
 
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v41;
 
   return v3;
@@ -421,7 +420,6 @@ void __59__AKAppleIDAuthenticationContextManager_unregisterContext___block_invok
   objc_storeStrong(&v84, 0);
   objc_storeStrong(&v85, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenticationResults_error_forContextID_completion___block_invoke(void *a1)
@@ -462,19 +460,18 @@ void __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenticati
   objc_storeStrong(&oslog, 0);
   (*(a1[4] + 16))();
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenticationResults_error_forContextID_completion___block_invoke_35(NSObject *a1, char a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = a1;
-  v7 = a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v7 = a1;
+  v6 = a2;
   oslog[1] = a1;
   oslog[0] = _AKLogSystem();
   if (os_log_type_enabled(oslog[0], OS_LOG_TYPE_DEFAULT))
   {
-    if (v7)
+    if (v6)
     {
       v2 = @"YES";
     }
@@ -484,15 +481,12 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
       v2 = @"NO";
     }
 
-    __os_log_helper_16_2_1_8_64(v9, v2);
-    _os_log_impl(&dword_193225000, oslog[0], OS_LOG_TYPE_DEFAULT, "Delegate says to continue? %@", v9, 0xCu);
+    __os_log_helper_16_2_1_8_64(v8, v2);
+    _os_log_impl(&dword_193225000, oslog[0], OS_LOG_TYPE_DEFAULT, "Delegate says to continue? %@", v8, 0xCu);
   }
 
   objc_storeStrong(oslog, 0);
-  isa = a1[4].isa;
-  result = (*(a1[5].isa + 2))();
-  *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[5].isa + 2))();
 }
 
 - (void)presentKeepUsingUIForContext:(id)context appleID:(id)d completion:(id)completion
@@ -1003,7 +997,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissServerProvidedUIForContext:(id)context completion:(id)completion
@@ -1369,7 +1362,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)presentProximityPairingUIForContext:(id)context verificationCode:(id)code completion:(id)completion
@@ -1455,7 +1447,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)presentProximityPinCodeUIForContext:(id)context completion:(id)completion
@@ -1538,7 +1529,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)activateProximitySession:(id)session context:(id)context completion:(id)completion
@@ -1624,7 +1614,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v26, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissProximityPairingUIForContext:(id)context completion:(id)completion
@@ -1707,7 +1696,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)showProximityErrorForContext:(id)context completion:(id)completion
@@ -1781,7 +1769,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)provisionAnisetteForContext:(id)context withCompletion:(id)completion
@@ -1836,7 +1823,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)syncAnisetteForContext:(id)context withSIMData:(id)data completion:(id)completion
@@ -1894,7 +1880,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)eraseAnisetteForContext:(id)context withCompletion:(id)completion
@@ -1949,7 +1934,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v11, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAnisetteDataForContext:(id)context provisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
@@ -2005,7 +1989,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)legacyAnisetteDataForContext:(id)context DSID:(id)d withCompletion:(id)completion
@@ -2063,7 +2046,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchPeerAttestationDataForContext:(id)context withRequest:(id)request completion:(id)completion
@@ -2159,7 +2141,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_clientSideContextForServerContext:(id)context
@@ -2235,7 +2216,6 @@ uint64_t __111__AKAppleIDAuthenticationContextManager_shouldContinueWithAuthenti
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v3 = v28;
 
   return v3;

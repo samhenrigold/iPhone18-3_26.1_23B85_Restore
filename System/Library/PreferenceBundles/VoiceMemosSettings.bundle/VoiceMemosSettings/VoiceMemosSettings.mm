@@ -32,12 +32,12 @@ unint64_t sub_2950()
 
 uint64_t sub_29C0(uint64_t a1)
 {
-  v2 = *(*(sub_3828() - 8) + 64);
+  sub_3828();
   __chkstk_darwin();
-  v3 = *(*(sub_3758() - 8) + 64);
+  sub_3758();
   __chkstk_darwin();
-  v4 = [objc_allocWithZone(PSSpecifier) init];
-  [v4 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+  v2 = [objc_allocWithZone(PSSpecifier) init];
+  [v2 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
   sub_3818();
   sub_3748();
   return sub_3718();
@@ -51,123 +51,109 @@ uint64_t sub_2AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[3] = a2;
   v5 = sub_3758();
   v4[6] = v5;
-  v6 = *(v5 - 8);
-  v4[7] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[7] = *(v5 - 8);
   v4[8] = swift_task_alloc();
-  v8 = sub_3778();
-  v4[9] = v8;
-  v9 = *(v8 - 8);
-  v4[10] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = sub_3778();
+  v4[9] = v6;
+  v4[10] = *(v6 - 8);
   v4[11] = swift_task_alloc();
-  v11 = sub_3708();
-  v4[12] = v11;
-  v12 = *(v11 - 8);
-  v4[13] = v12;
-  v13 = *(v12 + 64) + 15;
+  v7 = sub_3708();
+  v4[12] = v7;
+  v4[13] = *(v7 - 8);
   v4[14] = swift_task_alloc();
   sub_3808();
   v4[15] = sub_37F8();
-  v15 = sub_37E8();
+  v9 = sub_37E8();
 
-  return _swift_task_switch(sub_2CAC, v15, v14);
+  return _swift_task_switch(sub_2CAC, v9, v8);
 }
 
 uint64_t sub_2CAC()
 {
-  v2 = v0[14];
-  v1 = v0[15];
-  v3 = v0[12];
-  v4 = v0[13];
-  v5 = v0[11];
-  v6 = v0[3];
+  v1 = v0[14];
+  v2 = v0[12];
+  v3 = v0[13];
 
   sub_37A8();
-  v7 = sub_36F8();
-  v9 = v8;
-  (*(v4 + 8))(v2, v3);
+  v4 = sub_36F8();
+  v6 = v5;
+  (*(v3 + 8))(v1, v2);
   sub_3798();
-  v10 = v7 == 0xD00000000000001BLL && 0x8000000000004670 == v9;
-  if (v10 || (sub_3838() & 1) != 0 || v7 == 0xD000000000000024 && 0x8000000000004690 == v9 || (sub_3838() & 1) != 0)
+  v7 = v4 == 0xD00000000000001BLL && 0x8000000000004670 == v6;
+  if (v7 || (sub_3838() & 1) != 0 || v4 == 0xD000000000000024 && 0x8000000000004690 == v6 || (sub_3838() & 1) != 0)
   {
-    v11 = v0[4];
-    v12 = sub_37D8();
+    v8 = v0[4];
+    v9 = sub_37D8();
 
-    v13 = [v11 specifierForID:v12];
+    v10 = [v8 specifierForID:v9];
 
-    if (v13)
+    if (v10)
     {
-      v14 = v0[11];
-      v16 = v0[7];
-      v15 = v0[8];
-      v17 = v0[6];
-      v18 = v0[4];
-      [v13 setTarget:v18];
-      v19 = sub_37D8();
-      [v13 setProperty:v18 forKey:v19];
+      v12 = v0[7];
+      v11 = v0[8];
+      v13 = v0[6];
+      v14 = v0[4];
+      [v10 setTarget:v14];
+      v15 = sub_37D8();
+      [v10 setProperty:v14 forKey:v15];
 
       sub_355C();
-      v20 = v13;
+      v16 = v10;
       sub_3738();
-      sub_35A8(&unk_C4D0, &type metadata accessor for PreferencesControllerRecipe);
+      sub_35A8(&unk_C4D0, &type metadata accessor for PreferencesControllerRecipe, &protocol conformance descriptor for PreferencesControllerRecipe);
       sub_3768();
 
-      (*(v16 + 8))(v15, v17);
+      (*(v12 + 8))(v11, v13);
     }
   }
 
-  else if (v7 == 0xD000000000000022 && 0x80000000000046C0 == v9 || (sub_3838() & 1) != 0 || v7 == 0xD00000000000001ELL && 0x80000000000046F0 == v9 || (sub_3838() & 1) != 0 || v7 == 0xD00000000000001CLL && 0x8000000000004710 == v9 || (sub_3838() & 1) != 0)
+  else if (v4 == 0xD000000000000022 && 0x80000000000046C0 == v6 || (sub_3838() & 1) != 0 || v4 == 0xD00000000000001ELL && 0x80000000000046F0 == v6 || (sub_3838() & 1) != 0 || v4 == 0xD00000000000001CLL && 0x8000000000004710 == v6 || (sub_3838() & 1) != 0)
   {
-    v29 = v0[5];
-    v30 = sub_37D8();
+    v22 = v0[5];
+    v23 = sub_37D8();
 
-    [v29 setSpecifierIdentifierToScrollAndHighlight:v30];
+    [v22 setSpecifierIdentifierToScrollAndHighlight:v23];
   }
 
   else
   {
   }
 
-  v21 = v0[14];
-  v23 = v0[10];
-  v22 = v0[11];
-  v25 = v0[8];
-  v24 = v0[9];
-  v26 = v0[2];
+  v18 = v0[10];
+  v17 = v0[11];
+  v19 = v0[9];
   sub_37B8();
-  (*(v23 + 8))(v22, v24);
+  (*(v18 + 8))(v17, v19);
 
-  v27 = v0[1];
+  v20 = v0[1];
 
-  return v27();
+  return v20();
 }
 
 uint64_t sub_304C()
 {
   v1 = sub_3278(&qword_C4B0, &qword_4100);
   v2 = *(v1 - 8);
-  v3 = (*(v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v15 - v4;
-  v6 = *v0;
-  v7 = *(v0 + 8);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v6;
-  *(v8 + 24) = v7;
+  v4 = &v14 - v3;
+  v5 = *v0;
+  v6 = *(v0 + 8);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v5;
+  *(v7 + 24) = v6;
   sub_3728();
-  sub_35A8(&qword_C4B8, &type metadata accessor for PreferencesControllerView);
+  sub_35A8(&qword_C4B8, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  v8 = v5;
   v9 = v6;
-  v10 = v7;
   sub_37C8();
-  v11 = swift_allocObject();
-  *(v11 + 16) = v9;
-  *(v11 + 24) = v10;
+  v10 = swift_allocObject();
+  *(v10 + 16) = v8;
+  *(v10 + 24) = v9;
   sub_34B0();
+  v11 = v8;
   v12 = v9;
-  v13 = v10;
   sub_3788();
-  return (*(v2 + 8))(v5, v1);
+  return (*(v2 + 8))(v4, v1);
 }
 
 id sub_321C@<X0>(void *a1@<X8>)
@@ -184,7 +170,6 @@ uint64_t sub_3278(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -212,12 +197,11 @@ uint64_t sub_3308(uint64_t a1, uint64_t a2)
 
 uint64_t sub_33BC()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_34B0()
@@ -238,7 +222,6 @@ uint64_t sub_3514(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -259,7 +242,7 @@ unint64_t sub_355C()
   return result;
 }
 
-uint64_t sub_35A8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_35A8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

@@ -40,33 +40,31 @@
 
 - (id)trackEvaluationMetrics:(id)metrics minibatchStats:(id)stats
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   resultsLock = self->_resultsLock;
   statsCopy = stats;
   metricsCopy = metrics;
   [(NSLock *)resultsLock lock];
   results = self->_results;
-  v17[0] = @"minibatchStats";
-  v17[1] = @"evaluationMetrics";
-  v18[0] = statsCopy;
-  v18[1] = metricsCopy;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = @"minibatchStats";
+  v16[1] = @"evaluationMetrics";
+  v17[0] = statsCopy;
+  v17[1] = metricsCopy;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [(NSMutableArray *)results addObject:v10];
 
   v11 = [(NSMutableArray *)self->_results copy];
   [(NSLock *)self->_resultsLock unlock];
-  v15 = @"results";
-  v16 = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = @"results";
+  v15 = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
 
   return v12;
 }
 
 - (id)trackGradient:(id)gradient scaleFactor:(float)factor minibatchStats:(id)stats evaluationMetrics:(id)metrics serverIteration:(unint64_t)iteration
 {
-  v31[5] = *MEMORY[0x277D85DE8];
+  v30[5] = *MEMORY[0x277D85DE8];
   planId = self->_planId;
   metricsCopy = metrics;
   statsCopy = stats;
@@ -79,35 +77,33 @@
 
   [(NSLock *)self->_resultsLock lock];
   results = self->_results;
-  v31[0] = v19;
-  v30[0] = @"gradient";
-  v30[1] = @"scaleFactor";
+  v30[0] = v19;
+  v29[0] = @"gradient";
+  v29[1] = @"scaleFactor";
   *&v21 = factor;
   v22 = [MEMORY[0x277CCABB0] numberWithFloat:v21];
-  v31[1] = v22;
-  v31[2] = statsCopy;
-  v30[2] = @"minibatchStats";
-  v30[3] = @"evaluationMetrics";
-  v30[4] = @"AWDGradientMessage";
-  v31[3] = metricsCopy;
-  v31[4] = v18;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:5];
+  v30[1] = v22;
+  v30[2] = statsCopy;
+  v29[2] = @"minibatchStats";
+  v29[3] = @"evaluationMetrics";
+  v29[4] = @"AWDGradientMessage";
+  v30[3] = metricsCopy;
+  v30[4] = v18;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
   [(NSMutableArray *)results addObject:v23];
 
   v24 = [(NSMutableArray *)self->_results copy];
   [(NSLock *)self->_resultsLock unlock];
-  v28 = @"results";
-  v29 = v24;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = @"results";
+  v28 = v24;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
 
   return v25;
 }
 
 - (id)trackWeights:(id)weights scaleFactor:(float)factor minibatchStats:(id)stats evaluationMetrics:(id)metrics
 {
-  v29[5] = *MEMORY[0x277D85DE8];
+  v28[5] = *MEMORY[0x277D85DE8];
   planId = self->_planId;
   metricsCopy = metrics;
   statsCopy = stats;
@@ -120,28 +116,26 @@
 
   [(NSLock *)self->_resultsLock lock];
   results = self->_results;
-  v29[0] = v17;
-  v28[0] = @"weights";
-  v28[1] = @"scaleFactor";
+  v28[0] = v17;
+  v27[0] = @"weights";
+  v27[1] = @"scaleFactor";
   *&v19 = factor;
   v20 = [MEMORY[0x277CCABB0] numberWithFloat:v19];
-  v29[1] = v20;
-  v29[2] = statsCopy;
-  v28[2] = @"minibatchStats";
-  v28[3] = @"evaluationMetrics";
-  v28[4] = @"AWDWeightsMessage";
-  v29[3] = metricsCopy;
-  v29[4] = v16;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:5];
+  v28[1] = v20;
+  v28[2] = statsCopy;
+  v27[2] = @"minibatchStats";
+  v27[3] = @"evaluationMetrics";
+  v27[4] = @"AWDWeightsMessage";
+  v28[3] = metricsCopy;
+  v28[4] = v16;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:5];
   [(NSMutableArray *)results addObject:v21];
 
   v22 = [(NSMutableArray *)self->_results copy];
   [(NSLock *)self->_resultsLock unlock];
-  v26 = @"results";
-  v27 = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = @"results";
+  v26 = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
 
   return v23;
 }

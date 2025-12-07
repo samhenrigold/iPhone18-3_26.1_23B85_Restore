@@ -10,27 +10,27 @@
 
 - (SCBackgroundSystemTask)init
 {
-  v7.receiver = self;
-  v7.super_class = SCBackgroundSystemTask;
-  v2 = [(SCBackgroundSystemTask *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = SCBackgroundSystemTask;
+  v2 = [(SCBackgroundSystemTask *)&v8 init];
   v3 = v2;
-  if (v2 && ![(SCBackgroundSystemTask *)v2 _conformsToTaskHandling])
+  if (v2 && (v4 = [(SCBackgroundSystemTask *)v2 _conformsToTaskHandling], (v4 & 1) == 0))
   {
-    v5 = SCLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SCLogger(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(SCBackgroundSystemTask *)v3 init];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = v3;
+    v5 = v3;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)registerForTaskUsingQueue:(id)queue
@@ -54,24 +54,23 @@
 
 - (void)rejectAndCloseTask:(id)task reason:(id)reason
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   reasonCopy = reason;
-  v8 = SCLogger();
+  v8 = SCLogger(reasonCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     identifier = [(SCBackgroundSystemTask *)self identifier];
-    v11 = 138412802;
-    v12 = identifier;
-    v13 = 2112;
-    v14 = taskCopy;
-    v15 = 2112;
-    v16 = reasonCopy;
-    _os_log_error_impl(&dword_262556000, v8, OS_LOG_TYPE_ERROR, "SC task %@ will not handle BGST task %@. Reason: %@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = identifier;
+    v12 = 2112;
+    v13 = taskCopy;
+    v14 = 2112;
+    v15 = reasonCopy;
+    _os_log_error_impl(&dword_262556000, v8, OS_LOG_TYPE_ERROR, "SC task %@ will not handle BGST task %@. Reason: %@", &v10, 0x20u);
   }
 
   [taskCopy setTaskCompleted];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_conformsToTaskHandling
@@ -80,28 +79,21 @@
 
   if (identifier)
   {
-    isRepeating = [(SCBackgroundSystemTask *)self isRepeating];
-    v5 = &selRef_repeatingTaskHandler;
-    if (!isRepeating)
-    {
-      v5 = &selRef_nonRepeatingTaskHandler;
-    }
-
-    v6 = *v5;
-    v7 = objc_opt_respondsToSelector();
+    [(SCBackgroundSystemTask *)self isRepeating];
+    v4 = objc_opt_respondsToSelector();
   }
 
   else
   {
-    v7 = 0;
+    v4 = 0;
   }
 
-  return v7 & 1;
+  return v4 & 1;
 }
 
 - (void)init
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   identifier = [self identifier];
   isRepeating = [self isRepeating];
   v6 = @"handleNonRepeatingTask";
@@ -110,13 +102,11 @@
     v6 = @"handleRepeatingTask";
   }
 
-  v8 = 138412546;
-  v9 = identifier;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Couldn't initialize task for identifier %@ and/or selector %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = identifier;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_262556000, a2, OS_LOG_TYPE_ERROR, "Couldn't initialize task for identifier %@ and/or selector %@", &v7, 0x16u);
 }
 
 @end

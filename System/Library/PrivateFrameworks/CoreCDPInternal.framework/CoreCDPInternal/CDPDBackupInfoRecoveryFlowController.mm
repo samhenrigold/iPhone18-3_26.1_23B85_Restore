@@ -116,15 +116,15 @@ void __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_
       v16 = [*(a1 + 32) uiProvider];
       v17 = [*(a1 + 32) recoveryContext];
       v18 = [v17 context];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_3;
-      v40[3] = &unk_278E24EF0;
-      v42 = *(a1 + 40);
-      v41 = v13;
-      [v16 cdpContext:v18 showError:v41 withCompletion:v40];
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_3;
+      v39[3] = &unk_278E24EF0;
+      v41 = *(a1 + 40);
+      v40 = v13;
+      [v16 cdpContext:v18 showError:v40 withCompletion:v39];
 
-      v19 = v42;
+      v19 = v41;
 LABEL_4:
 
 LABEL_11:
@@ -146,14 +146,14 @@ LABEL_11:
       v22 = [*(a1 + 32) errorProvider];
       v23 = [*(a1 + 32) errorProvider];
       v24 = [v23 cooldownErrorWithUnderlyingError:0];
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_20;
-      v38[3] = &unk_278E24780;
-      v39 = *(a1 + 40);
-      [v22 handleSoftLimitError:v24 completion:v38];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_20;
+      v37[3] = &unk_278E24780;
+      v38 = *(a1 + 40);
+      [v22 handleSoftLimitError:v24 completion:v37];
 
-      v19 = v39;
+      v19 = v38;
       goto LABEL_4;
     }
 
@@ -163,21 +163,20 @@ LABEL_11:
 
     if (![*(*(a1 + 32) + 64) count])
     {
+      v32 = [*(a1 + 32) errorProvider];
       v33 = [*(a1 + 32) errorProvider];
-      v34 = [*(a1 + 32) errorProvider];
-      v35 = [v34 globalHardLimitError];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_24;
-      v36[3] = &unk_278E24780;
-      v37 = *(a1 + 40);
-      [v33 handleHardLimitError:v35 completion:v36];
+      v34 = [v33 globalHardLimitError];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___block_invoke_24;
+      v35[3] = &unk_278E24780;
+      v36 = *(a1 + 40);
+      [v32 handleHardLimitError:v34 completion:v35];
 
-      v19 = v37;
+      v19 = v36;
       goto LABEL_4;
     }
 
-    v32 = *(*(a1 + 32) + 64);
     v25 = *(*(a1 + 40) + 16);
 LABEL_10:
     v25();
@@ -226,29 +225,27 @@ uint64_t __64__CDPDBackupInfoRecoveryFlowController_retrieveInflatedDevices___bl
 
 - (id)_recoveryListFromDevices:(id)devices
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14[0] = &unk_2858221F8;
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13[0] = &unk_2858221F8;
   v3 = MEMORY[0x277CBEB18];
   devicesCopy = devices;
   array = [v3 array];
-  v15[0] = array;
-  v14[1] = &unk_2858221E0;
+  v14[0] = array;
+  v13[1] = &unk_2858221E0;
   array2 = [MEMORY[0x277CBEB18] array];
-  v15[1] = array2;
-  v14[2] = &unk_285822210;
+  v14[1] = array2;
+  v13[2] = &unk_285822210;
   array3 = [MEMORY[0x277CBEB18] array];
-  v15[2] = array3;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = array3;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__CDPDBackupInfoRecoveryFlowController__recoveryListFromDevices___block_invoke;
-  v12[3] = &unk_278E24F40;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__CDPDBackupInfoRecoveryFlowController__recoveryListFromDevices___block_invoke;
+  v11[3] = &unk_278E24F40;
   v9 = v8;
-  v13 = v9;
-  [devicesCopy enumerateObjectsUsingBlock:v12];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = v9;
+  [devicesCopy enumerateObjectsUsingBlock:v11];
 
   return v9;
 }
@@ -389,10 +386,9 @@ uint64_t __93__CDPDBackupInfoRecoveryFlowController_secretValidator_didFailRecov
 
 void __93__CDPDBackupInfoRecoveryFlowController_secretValidator_didFailRecoveryWithErrors_completion___block_invoke_5(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = _CDPStateError();
-  (*(v2 + 16))(v2, 0, v3);
+  v1 = *(a1 + 40);
+  v2 = _CDPStateError();
+  (*(v1 + 16))(v1, 0, v2);
 }
 
 void __87__CDPDBackupInfoRecoveryFlowController__updateRecordRecoveryStatusForRecordDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -436,29 +432,26 @@ void __87__CDPDBackupInfoRecoveryFlowController__updateRecordRecoveryStatusForRe
 
 void __68__CDPDBackupInfoRecoveryFlowController_beginRecoveryWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to recover data dictionary: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to recover data dictionary: %@", &v2, 0xCu);
 }
 
 void __68__CDPDBackupInfoRecoveryFlowController_beginRecoveryWithCompletion___block_invoke_cold_2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 recoveredInfo];
-  OUTLINED_FUNCTION_0_6(&dword_24510B000, v2, v3, "Parsing recovered data: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_6(&dword_24510B000, v2, v3, "Parsing recovered data: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __68__CDPDBackupInfoRecoveryFlowController_beginRecoveryWithCompletion___block_invoke_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 allKeys];
-  OUTLINED_FUNCTION_0_6(&dword_24510B000, v2, v3, "Recovered data dictionary with keys: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_6(&dword_24510B000, v2, v3, "Recovered data dictionary with keys: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

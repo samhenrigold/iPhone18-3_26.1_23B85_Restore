@@ -88,178 +88,181 @@
 
 - (int)_extractMetadataFromTopToBottomRowsFromDictionary:(__CFDictionary *)dictionary cameraMetadata:(id *)metadata quaternion:(id *)quaternion
 {
-  v5 = MEMORY[0x1EEE9AC00](self);
-  if (!v6 || (v9 = v7) == 0 || (v10 = v8) == 0)
+  v6 = MEMORY[0x1EEE9AC00](self, a2, dictionary, metadata);
+  if (!v7 || (v10 = v8) == 0 || (v11 = v9) == 0)
   {
-    [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:v62 cameraMetadata:? quaternion:?];
-    return v62[0];
+    [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:? cameraMetadata:? quaternion:?];
+    return v73;
   }
 
-  v11 = v6;
-  v12 = v5;
-  v13 = [v5 _getAllMetadataFromDictionary:? cameraMetadata:?];
-  if (v13)
+  v12 = v7;
+  v13 = v6;
+  v14 = [v6 _getAllMetadataFromDictionary:? cameraMetadata:?];
+  if (v14)
   {
-    v56 = v13;
+    v64 = v14;
     [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:];
-    return v56;
+    return v64;
   }
 
-  v59 = 0;
-  v60 = 0;
-  if (*(v9 + 88) == 0)
+  v70 = 0;
+  v71 = 0;
+  if (*(v10 + 88) == 0)
   {
-    *(v9 + 96) = *(v12 + 1);
+    *(v10 + 96) = *(v13 + 1);
   }
 
-  v14 = *(v12 + 2);
-  v15 = *(v12 + 3);
-  v62[0] = 0;
-  v62[1] = 0;
+  v15 = *(v13 + 2);
+  v16 = *(v13 + 3);
+  v73 = 0;
+  v74 = 0;
   __asm { FMOV            V0.2D, #1.0 }
 
-  v63 = _Q0;
+  v75 = _Q0;
   FigCFDictionaryGetCGRectIfPresent();
-  v21 = v14;
-  v22 = v21 * 0.0 + 0.5;
-  v23 = llroundf(v22);
-  v24 = v15;
-  v25 = v24 * 0.0 + 0.5;
-  v26 = *(&v63 + 1);
-  *&v21 = v21 * *&v63 + -0.5;
-  v27 = llroundf(*&v21);
-  *(v12 + 9) = v23;
-  *(v12 + 10) = llroundf(v25);
-  *&v21 = v24 * v26 + -0.5;
-  v28 = llroundf(*&v21);
-  *(v12 + 11) = v27;
-  *(v12 + 12) = v28;
-  v29 = *(v9 + 32) + *(v9 + 48) * -0.5 + (v28 + -1.0) / v28 * 0.5 * *(v9 + 56);
-  *(v9 + 72) = v29;
-  v58 = 0;
-  Value = CFDictionaryGetValue(v11, *off_1E798B540);
-  v31 = portIndexFromPortType(Value, &v58);
-  if (v31)
+  v22 = v15;
+  v23 = v22 * 0.0 + 0.5;
+  v24 = llroundf(v23);
+  v25 = v16;
+  v26 = v25 * 0.0 + 0.5;
+  v27 = *(&v75 + 1);
+  *&v22 = v22 * *&v75 + -0.5;
+  v28 = llroundf(*&v22);
+  *(v13 + 9) = v24;
+  *(v13 + 10) = llroundf(v26);
+  *&v22 = v25 * v27 + -0.5;
+  v29 = llroundf(*&v22);
+  *(v13 + 11) = v28;
+  *(v13 + 12) = v29;
+  v30 = *(v10 + 32) + *(v10 + 48) * -0.5 + (v29 + -1.0) / v29 * 0.5 * *(v10 + 56);
+  *(v10 + 72) = v30;
+  HIDWORD(v69) = 0;
+  Value = CFDictionaryGetValue(v12, *off_1E798B540);
+  v38 = portIndexFromPortType(Value, &v69 + 1, v32, v33, v34, v35, v36, v37, v66);
+  if (v38)
   {
-    v56 = v31;
+    v64 = v38;
     [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:];
-    return v56;
+    return v64;
   }
 
-  v32 = v58;
-  v33 = *(v12 + 6814);
-  v34 = *(v12 + 1289);
-  bzero(&v64, 0x14A0uLL);
-  bzero(v62, 0x2FD0uLL);
-  v61 = 0;
-  MotionDataFromISP = FigMotionGetMotionDataFromISP(v11, &v64, 0, 110, &v61 + 1, 0, v62, 510, &v61);
+  v39 = SHIDWORD(v69);
+  v40 = *(v13 + 6814);
+  v41 = *(v13 + 1289);
+  bzero(&v76, 0x14A0uLL);
+  bzero(&v73, 0x2FD0uLL);
+  v72 = 0;
+  MotionDataFromISP = FigMotionGetMotionDataFromISP(v12, &v76, 0, 110, &v72 + 1, 0, &v73, 510, &v72);
   if (MotionDataFromISP)
   {
-    v56 = MotionDataFromISP;
+    v64 = MotionDataFromISP;
     fig_log_get_emitter();
-    FigDebugAssert3();
+    LODWORD(v67) = v64;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v67, v5, v69, v70, v71, v72, v73, v74);
     fig_log_get_emitter();
-    FigDebugAssert3();
-    return v56;
+    LODWORD(v68) = v64;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v68, v5, v69, v70, v71, v72, v73, v74);
+    return v64;
   }
 
-  v36 = v12 + 10328;
-  v37 = HIDWORD(v61);
-  if (SHIDWORD(v61) >= 1)
+  v43 = v13 + 10328;
+  v44 = HIDWORD(v72);
+  if (SHIDWORD(v72) >= 1)
   {
-    v38 = *(v12 + 16);
-    v39 = &v65;
+    v45 = *(v13 + 16);
+    v46 = &v77;
     do
     {
-      *&v12[8 * v38 + 72] = v34 - v33 + *(v39 - 1);
-      v40 = &v12[32 * v38 + 2120];
-      v42 = *v39;
-      v41 = *(v39 + 1);
-      v39 += 6;
-      *v40 = v42;
-      *(v40 + 1) = v41;
-      v38 = (*(v12 + 16) + 1);
-      *(v12 + 16) = v38;
-      --v37;
+      *&v13[8 * v45 + 72] = v41 - v40 + *(v46 - 1);
+      v47 = &v13[32 * v45 + 2120];
+      v49 = *v46;
+      v48 = *(v46 + 1);
+      v46 += 6;
+      *v47 = v49;
+      *(v47 + 1) = v48;
+      v45 = (*(v13 + 16) + 1);
+      *(v13 + 16) = v45;
+      --v44;
     }
 
-    while (v37);
+    while (v44);
   }
 
-  v43 = v61;
-  if (v61 >= 1)
+  v50 = v72;
+  if (v72 >= 1)
   {
-    v44 = v12 + 26744;
-    v45 = *&v36[4 * v32];
-    v46 = vdup_n_s32(0x3C23D700u);
-    v47 = vdup_n_s32(0x3F7D70A4u);
-    v48 = v12 + 26720;
-    v49 = v12 + 26752;
-    v50 = &v63;
+    v51 = v13 + 26744;
+    v52 = *&v43[4 * v39];
+    v53 = vdup_n_s32(0x3C23D700u);
+    v54 = vdup_n_s32(0x3F7D70A4u);
+    v55 = v13 + 26720;
+    v56 = v13 + 26752;
+    v57 = &v75;
     do
     {
-      *&v12[4096 * v32 + 10336 + 8 * v45] = v50[-2];
-      *&v12[4096 * v32 + 18528 + 8 * v45] = v50[-1];
-      if (v44[v32])
+      *&v13[4096 * v39 + 10336 + 8 * v52] = v57[-2];
+      *&v13[4096 * v39 + 18528 + 8 * v52] = v57[-1];
+      if (v51[v39])
       {
-        *(*&v48[8 * v32] + 8 * v45) = *v50;
-        *&v49[8 * v32] = *v50;
-        v44[v32] = 0;
+        *(*&v55[8 * v39] + 8 * v52) = *v57;
+        *&v56[8 * v39] = *v57;
+        v51[v39] = 0;
       }
 
       else
       {
-        v51 = vmla_f32(vmul_f32(*v50, v46), v47, *&v49[8 * v32]);
-        *(*&v48[8 * v32] + 8 * v45) = v51;
-        *&v49[8 * v32] = v51;
+        v58 = vmla_f32(vmul_f32(*v57, v53), v54, *&v56[8 * v39]);
+        *(*&v55[8 * v39] + 8 * v52) = v58;
+        *&v56[8 * v39] = v58;
       }
 
-      v45 = (*&v36[4 * v32] + 1) & 0x1FF;
-      *&v36[4 * v32] = v45;
-      v50 += 3;
-      --v43;
+      v52 = (*&v43[4 * v39] + 1) & 0x1FF;
+      *&v43[4 * v39] = v52;
+      v57 += 3;
+      --v50;
     }
 
-    while (v43);
+    while (v50);
   }
 
-  FigMotionComputeQuaternionForTimeStamp((v12 + 64), v10, v12 + 10322, v29);
-  if (!v12[10322])
+  FigMotionComputeQuaternionForTimeStamp((v13 + 64), v11, v13 + 10322, v30);
+  if (!v13[10322])
   {
-    [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:v62 cameraMetadata:? quaternion:?];
-    return v62[0];
+    [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:? cameraMetadata:? quaternion:?];
+    return v73;
   }
 
-  *v10 = FigMotionMultiplyQuaternions(v10, v12 + 3346);
-  *(v10 + 1) = v52;
-  *(v10 + 2) = v53;
-  *(v10 + 3) = v54;
-  if (*(v9 + 12))
+  *v11 = FigMotionMultiplyQuaternions(v11, v13 + 3346);
+  *(v11 + 1) = v59;
+  *(v11 + 2) = v60;
+  *(v11 + 3) = v61;
+  if (*(v10 + 12))
   {
-    if (*(v12 + 6811) == 1)
+    if (*(v13 + 6811) == 1)
     {
-      v55 = (v12 + 27136);
+      v62 = (v13 + 27136);
     }
 
     else
     {
-      v55 = 0;
+      v62 = 0;
     }
 
-    v56 = FigMotionComputeLensMovementAndSagForTimeStamp((v12 + 10328), v12 + 3391, v55, v58, v29, *(v9 + 16));
-    if (v56)
+    v63 = FigMotionComputeLensMovementAndSagForTimeStamp((v13 + 10328), v13 + 3391, v62, SHIDWORD(v69), v30, *(v10 + 16));
+    v64 = v63;
+    if (v63)
     {
-      [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:];
+      [BWPreviewGyroStabilization _extractMetadataFromTopToBottomRowsFromDictionary:v63 cameraMetadata:? quaternion:?];
     }
   }
 
   else
   {
-    v56 = 0;
-    *(v12 + 27128) = 0u;
+    v64 = 0;
+    *(v13 + 27128) = 0u;
   }
 
-  return v56;
+  return v64;
 }
 
 - (int)_computeMotionStatisticsWithQuaternion:(id *)quaternion focalLength:(float)length maxAngleAccumulateOut:(double *)out maxAngleInstantOut:(double *)instantOut translationOut:
@@ -398,7 +401,7 @@
   v52 = 0;
   v53 = 0;
   v54 = 0;
-  [(BWPreviewGyroStabilization *)self _updateTripodSmoothParametersWithSphereVideoEnabled:v12 frameRateNormalization:frameRateNormalizationFactor];
+  objc_msgSend__updateTripodSmoothParametersWithSphereVideoEnabled_frameRateNormalization_(self, a2, v12, frameRateNormalizationFactor);
   if ([(BWPreviewGyroStabilizationTripodDetection *)self->_previewTripodDetection empty])
   {
     p_lowpassParameter = &v52;
@@ -520,7 +523,7 @@
 
   v10 = (levelCopy - 1);
   v11 = &filtering[v10];
-  FigMotionInterpolateQuaternionsByAngle(&quaternionCopy, &v11->var0, parameter);
+  FigMotionInterpolateQuaternionsByAngle(&quaternionCopy, parameter, &v11->var0);
   v11->var0 = v12;
   v11->var1 = v13;
   v11->var2 = v14;
@@ -530,7 +533,7 @@
     v16 = &filtering[v10 - 1];
     do
     {
-      FigMotionInterpolateQuaternionsByAngle(&v16[1], &v16->var0, parameter);
+      FigMotionInterpolateQuaternionsByAngle(&v16[1], parameter, &v16->var0);
       v16->var0 = v17;
       v16->var1 = v18;
       v16->var2 = v19;
@@ -810,7 +813,7 @@ LABEL_20:
   v45 = v36;
 LABEL_43:
   [(BWPreviewGyroStabilization *)selfCopy3 _applyCascadeFiltering:stabilizedCenterQuaternionAdjusted quaternion:v45 lowpassParameter:v39 cascadeLevel:v40, v41, v42, v14];
-  FigMotionInterpolateQuaternionsByAngle(&v66, &self->_lowpassQuaternionsInstant.w, 0.05);
+  FigMotionInterpolateQuaternionsByAngle(&v66, 0.05, &self->_lowpassQuaternionsInstant.w);
   self->_lowpassQuaternionsInstant.w = v46;
   self->_lowpassQuaternionsInstant.x = v47;
   self->_lowpassQuaternionsInstant.y = v48;
@@ -960,64 +963,79 @@ LABEL_51:
     bzero(metadata, 0x90uLL);
     metadata->var14.var0 = 0;
     metadata->var14.var1 = 0;
-    v6 = *(MEMORY[0x1E695F058] + 16);
-    time[0] = *MEMORY[0x1E695F058];
-    time[1] = v6;
+    timea = *MEMORY[0x1E695F058];
+    time_16 = *(MEMORY[0x1E695F058] + 16);
     if (FigCFDictionaryGetCGRectIfPresent())
     {
-      v7 = llround(*(time + 1));
-      metadata->var14.var0.var0 = llround(*time);
-      metadata->var14.var0.var1 = v7;
-      v8 = llround(*(&time[1] + 1));
-      metadata->var14.var1.var0 = llround(*&time[1]);
-      metadata->var14.var1.var1 = v8;
+      metadata->var14.var0.var0 = llround(*&timea);
+      metadata->var14.var0.var1 = llround(*(&timea + 1));
+      metadata->var14.var1.var0 = llround(*&time_16);
+      metadata->var14.var1.var1 = llround(*(&time_16 + 1));
     }
 
     metadata->var3 = CFDictionaryContainsKey(dictionary, *off_1E798B6B0);
     if (FigCFDictionaryGetDoubleIfPresent())
     {
-      v11 = 0;
+      HIDWORD(v21) = 0;
       if (FigCFDictionaryGetInt32IfPresent() || FigCFDictionaryGetInt32IfPresent())
       {
-        metadata->var10 = v11 / 1000000.0;
+        metadata->var10 = 0 / 1000000.0;
         if (!FigCFDictionaryGetInt32IfPresent())
         {
           metadata->var17 = 1;
         }
 
-        v10 = 0;
         FigCFDictionaryGetFloatIfPresent();
+        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v17, v18, v19, v20, 0, timea, DWORD2(timea));
+        v11 = OUTLINED_FUNCTION_2();
+        v14 = 903;
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v17, v18, v19, v20, v21, timea, DWORD2(timea));
+        v11 = OUTLINED_FUNCTION_2();
+        v14 = 884;
       }
     }
 
-    OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_0_2();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_2();
-    return FigSignalErrorAtGM();
+    else
+    {
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_0_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v17, v18, v19, v20, v21, timea, DWORD2(timea));
+      v11 = OUTLINED_FUNCTION_2();
+      v14 = 879;
+    }
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v11, 0xFFFFCE11, "(Fig)", v14, v4, v12, v13, v16);
   }
 
   else
   {
     OUTLINED_FUNCTION_2();
     OUTLINED_FUNCTION_0_2();
-    FigDebugAssert3();
-    OUTLINED_FUNCTION_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v17, v18, v19, v20, v21, time, time_8);
+    v7 = OUTLINED_FUNCTION_2();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, 0xFFFFCE14, "(Fig)", 0x364, v4, v8, v9, v27);
   }
 }
 
 - (int)_limitSmoothParameterToOverscanWithQuaternion:(id *)quaternion cameraMetadata:(id *)metadata minSmoothParameter:(float)parameter smoothParameterInOut:(float *)out
 {
-  v25 = 1;
+  BYTE6(v31) = 1;
   self->_transformContext.prevTransformLimited = 0;
-  v11 = *out;
+  v12 = *out;
   OUTLINED_FUNCTION_4_58();
-  result = pgs_iir_TestCorrectionFitsForSmoothParameter(v12, v13, v14, v15, metadata, v16, v17, &v25, v11);
+  result = pgs_iir_TestCorrectionFitsForSmoothParameter(v13, v14, v15, v12, v16, metadata, v17, v18, &v31 + 6);
   if (!result)
   {
-    if (v25)
+    if (BYTE6(v31))
     {
       return 0;
     }
@@ -1025,12 +1043,12 @@ LABEL_51:
     else
     {
       self->_transformContext.prevTransformLimited = 1;
-      if (v11 < parameter)
+      if (v12 < parameter)
       {
         OUTLINED_FUNCTION_2();
-        FigDebugAssert3();
-        OUTLINED_FUNCTION_2();
-        result = FigSignalErrorAtGM();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v6, v30, v31, v32, v33, v34, v35);
+        v26 = OUTLINED_FUNCTION_2();
+        result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v26, 0xFFFFCE14, "(Fig)", 0x1B0, v6, v27, v28, v29);
       }
 
       else
@@ -1038,18 +1056,18 @@ LABEL_51:
         while (1)
         {
           parameterCopy = parameter;
-          if ((v11 - parameter) <= 0.01)
+          if ((v12 - parameter) <= 0.01)
           {
             break;
           }
 
-          v26 = 0;
-          parameter = (v11 + parameter) * 0.5;
+          HIBYTE(v31) = 0;
+          parameter = (v12 + parameter) * 0.5;
           OUTLINED_FUNCTION_4_58();
-          result = pgs_iir_TestCorrectionFitsForSmoothParameter(v20, v21, quaternion, v22, metadata, v23, v24, &v26, (v11 + parameterCopy) * 0.5);
-          if (!v26)
+          result = pgs_iir_TestCorrectionFitsForSmoothParameter(v21, v22, quaternion, (v12 + parameterCopy) * 0.5, v23, metadata, v24, v25, &v31 + 7);
+          if ((HIBYTE(v31) & 1) == 0)
           {
-            v11 = (v11 + parameterCopy) * 0.5;
+            v12 = (v12 + parameterCopy) * 0.5;
             parameter = parameterCopy;
           }
 
@@ -1071,34 +1089,13 @@ LABEL_11:
   return result;
 }
 
-- (uint64_t)_extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_extractMetadataFromTopToBottomRowsFromDictionary:cameraMetadata:quaternion:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)_extractMetadataFromTopToBottomRowsFromDictionary:(_DWORD *)a1 cameraMetadata:quaternion:.cold.4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "(Fig)", 0x3D9, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -1107,9 +1104,9 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "(Fig)", 0x3A3, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -1118,9 +1115,9 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFFFFBLL, "(Fig)", 0x146, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -1129,9 +1126,9 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "(Fig)", 0x3FC, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }
@@ -1140,34 +1137,20 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE14, "(Fig)", 0x3FB, v1, v4, v5, v8);
   *a1 = result;
   return result;
-}
-
-- (uint64_t)computeStabilizationShiftUsingMetadata:pixelBufferDimensions:pixelSizeInMicrons:stabilizationShiftOut:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)computeStabilizationShiftUsingMetadata:pixelBufferDimensions:pixelSizeInMicrons:stabilizationShiftOut:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 - (uint64_t)computeStabilizationShiftUsingMetadata:(_DWORD *)a1 pixelBufferDimensions:pixelSizeInMicrons:stabilizationShiftOut:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_8();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2_8();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v9, v10, v11, v12, v13, vars0, vars8);
+  v3 = OUTLINED_FUNCTION_2_8();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, 0xFFFFCE0FLL, "(Fig)", 0x552, v1, v4, v5, v8);
   *a1 = result;
   return result;
 }

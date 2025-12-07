@@ -57,30 +57,28 @@ void __54__FCNewsPersonalizationTrainingBiases_initWithBiases___block_invoke_2(u
 
 + (id)identifiersForEventType:(id)type feedType:(id)feedType groupType:(id)groupType
 {
-  v21[7] = *MEMORY[0x1E69E9840];
+  v20[7] = *MEMORY[0x1E69E9840];
   groupTypeCopy = groupType;
   feedTypeCopy = feedType;
   typeCopy = type;
   v10 = [FCNewsPersonalizationTrainingBias identifierForEventType:typeCopy feedType:feedTypeCopy groupType:groupTypeCopy];
   v11 = [FCNewsPersonalizationTrainingBias identifierForEventType:typeCopy feedType:0 groupType:groupTypeCopy, v10];
-  v21[1] = v11;
+  v20[1] = v11;
   v12 = [FCNewsPersonalizationTrainingBias identifierForEventType:typeCopy feedType:feedTypeCopy groupType:0];
-  v21[2] = v12;
+  v20[2] = v12;
   v13 = [FCNewsPersonalizationTrainingBias identifierForEventType:0 feedType:feedTypeCopy groupType:groupTypeCopy];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = [FCNewsPersonalizationTrainingBias identifierForEventType:typeCopy feedType:0 groupType:0];
 
-  v21[4] = v14;
+  v20[4] = v14;
   v15 = [FCNewsPersonalizationTrainingBias identifierForEventType:0 feedType:feedTypeCopy groupType:0];
 
-  v21[5] = v15;
+  v20[5] = v15;
   v16 = [FCNewsPersonalizationTrainingBias identifierForEventType:0 feedType:0 groupType:groupTypeCopy];
 
-  v21[6] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:7];
+  v20[6] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:7];
   v18 = [v17 fc_arrayByTransformingWithBlock:&__block_literal_global_98];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -105,7 +103,7 @@ void *__82__FCNewsPersonalizationTrainingBiases_identifiersForEventType_feedType
 
 - (double)biasForEventType:(id)type feedType:(id)feedType groupType:(id)groupType
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   feedTypeCopy = feedType;
   groupTypeCopy = groupType;
@@ -114,27 +112,27 @@ void *__82__FCNewsPersonalizationTrainingBiases_identifiersForEventType_feedType
 
   if (v12)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = [FCNewsPersonalizationTrainingBiases identifiersForEventType:typeCopy feedType:feedTypeCopy groupType:groupTypeCopy, 0];
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
     v15 = 1.0;
     if (v14)
     {
       v16 = v14;
-      v17 = *v26;
+      v17 = *v25;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(*(&v24 + 1) + 8 * i);
           biases2 = [(FCNewsPersonalizationTrainingBiases *)self biases];
           v21 = [biases2 objectForKeyedSubscript:v19];
 
@@ -147,7 +145,7 @@ void *__82__FCNewsPersonalizationTrainingBiases_identifiersForEventType_feedType
           }
         }
 
-        v16 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v16)
         {
           continue;
@@ -165,7 +163,6 @@ LABEL_12:
     v15 = 1.0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

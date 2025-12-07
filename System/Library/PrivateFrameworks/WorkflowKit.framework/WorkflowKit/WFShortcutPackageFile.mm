@@ -56,13 +56,13 @@
 
 - (id)generateSignedShortcutFileRepresentationWithAccount:(id)account error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = getWFSecurityLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
+    v19 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
     _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Generating Signed Shortcut Data with AppleID information", buf, 0xCu);
   }
 
@@ -73,9 +73,9 @@
   RandomKey = SecKeyCreateRandomKey(dictionary, 0);
   v10 = [WFShortcutSigningContext contextWithAppleIDAccount:accountCopy signingKey:RandomKey];
 
-  v18 = 0;
-  v11 = [(WFShortcutPackageFile *)self generateSignedShortcutFileRepresentationWithPrivateKey:RandomKey signingContext:v10 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [(WFShortcutPackageFile *)self generateSignedShortcutFileRepresentationWithPrivateKey:RandomKey signingContext:v10 error:&v17];
+  v12 = v17;
   v13 = getWFSecurityLogObject();
   v14 = v13;
   if (v11)
@@ -83,7 +83,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v20 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
+      v19 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_INFO, "%s Generated Signed Shortcut Data with AppleID information Successfully", buf, 0xCu);
     }
   }
@@ -93,9 +93,9 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
-      v21 = 2112;
-      v22 = v12;
+      v19 = "[WFShortcutPackageFile generateSignedShortcutFileRepresentationWithAccount:error:]";
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s Failed to generate Signed Shortcut Data with AppleID information: %@", buf, 0x16u);
     }
 
@@ -106,14 +106,12 @@
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)generateSignedShortcutFileRepresentationWithPrivateKey:(__SecKey *)key signingContext:(id)context error:(id *)error
 {
-  v48[2] = *MEMORY[0x1E69E9840];
+  v47[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   generateAuthData = [contextCopy generateAuthData];
   if (generateAuthData)
@@ -160,12 +158,12 @@
         if (error)
         {
           v19 = MEMORY[0x1E696ABC0];
-          v47[0] = *MEMORY[0x1E696A578];
+          v46[0] = *MEMORY[0x1E696A578];
           v20 = WFLocalizedString(@"Failed to sign shortcut");
-          v47[1] = *MEMORY[0x1E696AA08];
-          v48[0] = v20;
-          v48[1] = error;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+          v46[1] = *MEMORY[0x1E696AA08];
+          v47[0] = v20;
+          v47[1] = error;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
           *error = [v19 errorWithDomain:@"WFWorkflowErrorDomain" code:4 userInfo:v21];
         }
 
@@ -196,10 +194,10 @@ LABEL_20:
       AEAContextSetFieldBlob(v13, 5u, 0, [generateAuthData bytes], objc_msgSend(generateAuthData, "length"));
       temporaryWorkingDirectoryURL2 = [(WFShortcutPackageFile *)self temporaryWorkingDirectoryURL];
       fileName = [(WFShortcutPackageFile *)self fileName];
-      v42 = [temporaryWorkingDirectoryURL2 URLByAppendingPathComponent:fileName];
+      v41 = [temporaryWorkingDirectoryURL2 URLByAppendingPathComponent:fileName];
 
-      v25 = v42;
-      s = AAFileStreamOpenWithPath([v42 fileSystemRepresentation], 514, 0x1A4u);
+      v25 = v41;
+      s = AAFileStreamOpenWithPath([v41 fileSystemRepresentation], 514, 0x1A4u);
       stream = AEAEncryptionOutputStreamOpen(s, v13, 0, 0);
       v26 = AAFieldKeySetCreateWithString("TYP,PAT,LNK,DEV,DAT,MOD,FLG,MTM,BTM,CTM,HLC,CLC");
       v27 = v26;
@@ -219,12 +217,12 @@ LABEL_20:
         goto LABEL_38;
       }
 
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __101__WFShortcutPackageFile_generateSignedShortcutFileRepresentationWithPrivateKey_signingContext_error___block_invoke_2;
-      v44[3] = &__block_descriptor_40_e5_v8__0l;
-      v44[4] = v26;
-      v40 = _Block_copy(v44);
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __101__WFShortcutPackageFile_generateSignedShortcutFileRepresentationWithPrivateKey_signingContext_error___block_invoke_2;
+      v43[3] = &__block_descriptor_40_e5_v8__0l;
+      v43[4] = v26;
+      v39 = _Block_copy(v43);
       v28 = v11;
       v29 = AAPathListCreateWithDirectoryContents([v11 fileSystemRepresentation], 0, 0, 0, 0, 0);
       v30 = v29;
@@ -244,12 +242,12 @@ LABEL_20:
         goto LABEL_37;
       }
 
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __101__WFShortcutPackageFile_generateSignedShortcutFileRepresentationWithPrivateKey_signingContext_error___block_invoke_3;
-      v43[3] = &__block_descriptor_40_e5_v8__0l;
-      v43[4] = v29;
-      v38 = _Block_copy(v43);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __101__WFShortcutPackageFile_generateSignedShortcutFileRepresentationWithPrivateKey_signingContext_error___block_invoke_3;
+      v42[3] = &__block_descriptor_40_e5_v8__0l;
+      v42[4] = v29;
+      v37 = _Block_copy(v42);
       v31 = AAEncodeArchiveOutputStreamOpen(stream, 0, 0, 0, 0);
       if (v31)
       {
@@ -261,10 +259,10 @@ LABEL_20:
           AAByteStreamClose(s);
           v33 = MEMORY[0x1E6996E20];
           sanitizedName = [(WFShortcutPackageFile *)self sanitizedName];
-          v15 = [v33 fileWithURL:v42 options:3 ofType:0 proposedFilename:sanitizedName];
+          v15 = [v33 fileWithURL:v41 options:3 ofType:0 proposedFilename:sanitizedName];
 
           fileManager = [(WFShortcutPackageFile *)self fileManager];
-          [fileManager removeItemAtURL:v42 error:0];
+          [fileManager removeItemAtURL:v41 error:0];
 
           goto LABEL_36;
         }
@@ -281,10 +279,10 @@ LABEL_32:
         WFShortcutPackageFileFailedToSignShortcutFileError();
         *error = v15 = 0;
 LABEL_36:
-        v38[2](v38);
+        v37[2](v37);
 
 LABEL_37:
-        v40[2](v40);
+        v39[2](v39);
 
 LABEL_38:
         goto LABEL_39;
@@ -324,14 +322,12 @@ LABEL_41:
 
 LABEL_42:
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (void)preformShortcutDataExtractionWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = getWFSecurityLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -392,27 +388,27 @@ LABEL_19:
     if (!AEAContextGetFieldBlob(v13, 5u, 0, *buf, v14, 0))
     {
       v15 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v14 length:*buf];
-      v19 = [WFShortcutSigningContext contextWithAuthData:v15];
-      if (v19)
+      v18 = [WFShortcutSigningContext contextWithAuthData:v15];
+      if (v18)
       {
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke;
-        v21[3] = &unk_1E8376628;
-        v24 = completionCopy;
-        v22 = v19;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke;
+        v20[3] = &unk_1E8376628;
+        v23 = completionCopy;
+        v21 = v18;
         selfCopy = self;
-        v25 = v13;
-        v26 = v11;
-        [v22 validateWithCompletion:v21];
+        v24 = v13;
+        v25 = v11;
+        [v21 validateWithCompletion:v20];
 
-        v20 = v24;
+        v19 = v23;
       }
 
       else
       {
-        v20 = WFShortcutPackageFileInvalidShortcutFileError();
-        (*(completionCopy + 2))(completionCopy, 0, 0, 0, v20);
+        v19 = WFShortcutPackageFileInvalidShortcutFileError();
+        (*(completionCopy + 2))(completionCopy, 0, 0, 0, v19);
       }
 
       goto LABEL_16;
@@ -426,12 +422,11 @@ LABEL_19:
 LABEL_16:
 
 LABEL_20:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = a5;
   if (a2)
@@ -472,14 +467,14 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
           [v25 createDirectoryAtURL:v22 withIntermediateDirectories:0 attributes:0 error:0];
         }
 
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke_3;
-        v47[3] = &unk_1E837F870;
-        v47[4] = *(a1 + 40);
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke_3;
+        v46[3] = &unk_1E837F870;
+        v46[4] = *(a1 + 40);
         v17 = v22;
-        v48 = v17;
-        v46 = _Block_copy(v47);
+        v47 = v17;
+        v45 = _Block_copy(v46);
         v26 = v17;
         v27 = AAExtractArchiveOutputStreamOpen([v17 fileSystemRepresentation], 0, 0, 1uLL, 0);
         if (v27)
@@ -490,7 +485,7 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
           if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             *buf = 136315138;
-            v51 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
+            v50 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
             _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_INFO, "%s Extracting Signed Shortcut Data", buf, 0xCu);
           }
 
@@ -501,9 +496,9 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
             if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v51 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
-              v52 = 2050;
-              v53 = v29;
+              v50 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
+              v51 = 2050;
+              v52 = v29;
               _os_log_impl(&dword_1CA256000, v34, OS_LOG_TYPE_ERROR, "%s Failed to extract signed shortcut data with %{public}zd entries", buf, 0x16u);
             }
 
@@ -514,22 +509,22 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
 
           else
           {
-            v41 = v29;
+            v40 = v29;
             v30 = [v17 URLByAppendingPathComponent:@"Shortcut.wflow"];
-            v43 = MEMORY[0x1E6996E20];
+            v42 = MEMORY[0x1E6996E20];
             v31 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcuts.workflow-file"];
             v32 = [*(a1 + 40) fileName];
-            v44 = [v43 fileWithURL:v30 options:3 ofType:v31 proposedFilename:v32];
+            v43 = [v42 fileWithURL:v30 options:3 ofType:v31 proposedFilename:v32];
 
-            if (v44)
+            if (v43)
             {
               v33 = getWFSecurityLogObject();
               if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v51 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
-                v52 = 2048;
-                v53 = v41;
+                v50 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
+                v51 = 2048;
+                v52 = v40;
                 _os_log_impl(&dword_1CA256000, v33, OS_LOG_TYPE_INFO, "%s Signed Shortcut Data Extracted Successfully with %zd entries", buf, 0x16u);
               }
 
@@ -544,7 +539,7 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
               if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315138;
-                v51 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
+                v50 = "[WFShortcutPackageFile preformShortcutDataExtractionWithCompletion:]_block_invoke";
                 _os_log_impl(&dword_1CA256000, v37, OS_LOG_TYPE_ERROR, "%s Could not find the main shortcut Shortcut.wflow file in the archive", buf, 0xCu);
               }
 
@@ -562,7 +557,7 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
           (*(v36 + 16))(v36, 0, 0, 0, v30);
         }
 
-        v46[2](v46);
+        v45[2](v45);
       }
 
       v12[2](v12);
@@ -580,8 +575,6 @@ void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___b
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __69__WFShortcutPackageFile_preformShortcutDataExtractionWithCompletion___block_invoke_3(uint64_t a1)

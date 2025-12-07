@@ -1,5 +1,6 @@
 @interface DiagnosticCaseStorageAnalytics
 - (DiagnosticCaseStorageAnalytics)init;
+- (DiagnosticCaseStorageAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache;
 - (id)diagnosticCaseDictionaryKeys;
 - (id)diagnosticCaseStorageDictionaryForIdentifier:(id)identifier properties:(id)properties;
 - (id)diagnosticCaseStorageWithId:(id)id;
@@ -19,6 +20,13 @@
   v4 = [(ObjectAnalytics *)&v6 initWithWorkspace:v3 entityName:@"DiagnosticCaseStorage" withCache:1];
 
   return v4;
+}
+
+- (DiagnosticCaseStorageAnalytics)initWithWorkspace:(id)workspace withCache:(BOOL)cache
+{
+  v5.receiver = self;
+  v5.super_class = DiagnosticCaseStorageAnalytics;
+  return [(ObjectAnalytics *)&v5 initWithWorkspace:workspace entityName:@"DiagnosticCaseStorage" withCache:cache];
 }
 
 - (id)diagnosticCaseStorageWithId:(id)id
@@ -100,7 +108,7 @@
 - (id)historicalDiagnosticCaseStorageDictionaryFromIdentifier:(id)identifier withEvents:(BOOL)events count:(unint64_t)count
 {
   eventsCopy = events;
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   diagnosticCaseDictionaryKeys = [(DiagnosticCaseStorageAnalytics *)self diagnosticCaseDictionaryKeys];
   v10 = diagnosticCaseDictionaryKeys;
@@ -140,11 +148,9 @@
   }
 
   v16 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"timeStamp" ascending:0];
-  v21[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v18 = [(ObjectAnalytics *)self fetchEntityDictionariesWithProperties:v10 predicate:v15 sortDescriptors:v17 limit:count];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

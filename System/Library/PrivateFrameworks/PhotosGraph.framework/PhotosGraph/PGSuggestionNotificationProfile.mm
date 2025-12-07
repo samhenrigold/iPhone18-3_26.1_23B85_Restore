@@ -15,16 +15,16 @@
 
 - (unsigned)notificationQualityForHighlightNode:(id)node
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   meaningLabels = [nodeCopy meaningLabels];
   personNodes = [nodeCopy personNodes];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNode___block_invoke;
-  v35[3] = &unk_27887F678;
-  v35[4] = self;
-  v7 = [MEMORY[0x277CCAC30] predicateWithBlock:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNode___block_invoke;
+  v34[3] = &unk_27887F678;
+  v34[4] = self;
+  v7 = [MEMORY[0x277CCAC30] predicateWithBlock:v34];
   v8 = [personNodes filteredSetUsingPredicate:v7];
 
   v9 = [v8 count];
@@ -39,7 +39,7 @@ LABEL_9:
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = meaningLabels;
+        v36 = meaningLabels;
         _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Highlight node notification quality must see: %@", buf, 0xCu);
       }
 
@@ -54,31 +54,31 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v28 = v9;
-    v29 = v8;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v27 = v9;
+    v28 = v8;
     v32 = 0u;
-    v30 = personNodes;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = personNodes;
     v16 = personNodes;
-    v17 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
     if (v17)
     {
       v18 = v17;
       v19 = 0;
       v20 = 0;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(v16);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * i);
+          v23 = *(*(&v30 + 1) + 8 * i);
           if (([v23 isMeNode] & 1) == 0)
           {
             v20 += [v23 isFavorite];
@@ -86,7 +86,7 @@ LABEL_9:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
       }
 
       while (v18);
@@ -100,18 +100,18 @@ LABEL_9:
 
     v24 = self->_loggingConnection;
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-    if (v28 || v20 || v19)
+    if (v27 || v20 || v19)
     {
       if (v25)
       {
         *buf = 138413058;
-        v37 = meaningLabels;
-        v38 = 2048;
-        v39 = v28;
-        v40 = 2048;
-        v41 = v20;
-        v42 = 2048;
-        v43 = v19;
+        v36 = meaningLabels;
+        v37 = 2048;
+        v38 = v27;
+        v39 = 2048;
+        v40 = v20;
+        v41 = 2048;
+        v42 = v19;
         _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Highlight node notification quality stellar: it has a meaning %@ and important people (previous sharing recipients %lu, favorites %lu, best social group %lu)", buf, 0x2Au);
       }
 
@@ -123,15 +123,15 @@ LABEL_9:
       if (v25)
       {
         *buf = 138412290;
-        v37 = meaningLabels;
+        v36 = meaningLabels;
         _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Highlight node notification quality great: it has a meaning %@", buf, 0xCu);
       }
 
       v13 = 2;
     }
 
-    v8 = v29;
-    personNodes = v30;
+    v8 = v28;
+    personNodes = v29;
   }
 
   else
@@ -143,7 +143,7 @@ LABEL_9:
       if (v12)
       {
         *buf = 134217984;
-        v37 = v9;
+        v36 = v9;
         _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Highlight node notification quality great: it contains %lu previous sharing recipients", buf, 0xCu);
       }
 
@@ -164,7 +164,6 @@ LABEL_9:
 
 LABEL_36:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -181,58 +180,58 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
 
 - (void)_determineUserTypeAndEligibility
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CD9948] = [MEMORY[0x277CD9948] sharedMomentSharePhotoLibrary];
   librarySpecificFetchOptions = [mEMORY[0x277CD9948] librarySpecificFetchOptions];
 
-  v58 = objc_opt_new();
-  v52 = librarySpecificFetchOptions;
+  v57 = objc_opt_new();
+  v51 = librarySpecificFetchOptions;
   [MEMORY[0x277CD97B8] fetchAssetCollectionsWithType:7 subtype:0x7FFFFFFFFFFFFFFFLL options:librarySpecificFetchOptions];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  obj = v70 = 0u;
-  v53 = [obj countByEnumeratingWithState:&v67 objects:v86 count:16];
+  obj = v69 = 0u;
+  v52 = [obj countByEnumeratingWithState:&v66 objects:v85 count:16];
   v5 = 0;
   v6 = 0;
-  if (v53)
+  if (v52)
   {
-    v51 = *v68;
+    v50 = *v67;
     do
     {
-      v48 = v6;
+      v47 = v6;
       v7 = 0;
       do
       {
-        v56 = v5;
-        if (*v68 != v51)
+        v55 = v5;
+        if (*v67 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v54 = *(*(&v67 + 1) + 8 * v7);
-        v55 = v7;
-        v8 = [MEMORY[0x277CD99C8] fetchParticipantsInShare:v48 options:?];
+        v53 = *(*(&v66 + 1) + 8 * v7);
+        v54 = v7;
+        v8 = [MEMORY[0x277CD99C8] fetchParticipantsInShare:v47 options:?];
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v63 objects:v85 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v62 objects:v84 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v64;
+          v11 = *v63;
           do
           {
             v12 = 0;
             do
             {
-              if (*v64 != v11)
+              if (*v63 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v63 + 1) + 8 * v12);
+              v13 = *(*(&v62 + 1) + 8 * v12);
               emailAddress = [v13 emailAddress];
               if (emailAddress || ([v13 phoneNumber], (emailAddress = objc_claimAutoreleasedReturnValue()) != 0))
               {
@@ -241,7 +240,7 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
                 cNIdentifier = [v16 CNIdentifier];
                 if ([cNIdentifier length])
                 {
-                  [v58 addObject:cNIdentifier];
+                  [v57 addObject:cNIdentifier];
                 }
 
                 else
@@ -250,9 +249,9 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
                   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    *v72 = v13;
-                    *&v72[8] = 2112;
-                    *v73 = v15;
+                    *v71 = v13;
+                    *&v71[8] = 2112;
+                    *v72 = v15;
                     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] No person node found for share participant: %@, identifier: %@", buf, 0x16u);
                   }
                 }
@@ -264,7 +263,7 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  *v72 = v13;
+                  *v71 = v13;
                   _os_log_impl(&dword_22F0FC000, v19, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] No identifier available for share participant: %@", buf, 0xCu);
                 }
               }
@@ -273,18 +272,18 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
             }
 
             while (v10 != v12);
-            v20 = [v8 countByEnumeratingWithState:&v63 objects:v85 count:16];
+            v20 = [v8 countByEnumeratingWithState:&v62 objects:v84 count:16];
             v10 = v20;
           }
 
           while (v20);
         }
 
-        creationDate = [v54 creationDate];
+        creationDate = [v53 creationDate];
         v22 = creationDate;
-        if (v56)
+        if (v55)
         {
-          v23 = [creationDate laterDate:v56];
+          v23 = [creationDate laterDate:v55];
 
           v5 = v23;
         }
@@ -294,41 +293,41 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
           v5 = creationDate;
         }
 
-        v7 = v55 + 1;
+        v7 = v54 + 1;
       }
 
-      while (v55 + 1 != v53);
-      v6 = v48 + v53;
-      v53 = [obj countByEnumeratingWithState:&v67 objects:v86 count:16];
+      while (v54 + 1 != v52);
+      v6 = v47 + v52;
+      v52 = [obj countByEnumeratingWithState:&v66 objects:v85 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
-  v49 = v6;
-  objc_storeStrong(&self->_shareParticipantContactIdentifiers, v58);
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  v48 = v6;
+  objc_storeStrong(&self->_shareParticipantContactIdentifiers, v57);
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v24 = self->_existingSuggestions;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v59 objects:v84 count:16];
+  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v58 objects:v83 count:16];
   if (v25)
   {
     v26 = v25;
     v27 = 0;
-    v57 = 0;
-    v28 = *v60;
+    v56 = 0;
+    v28 = *v59;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v60 != v28)
+        if (*v59 != v28)
         {
           objc_enumerationMutation(v24);
         }
 
-        v30 = *(*(&v59 + 1) + 8 * i);
+        v30 = *(*(&v58 + 1) + 8 * i);
         if ([v30 notificationState])
         {
           dateOfLastNotification = self->_dateOfLastNotification;
@@ -350,7 +349,7 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
 
           if ([v30 state] == 3)
           {
-            ++v57;
+            ++v56;
           }
 
           else if ([v30 state] == 4)
@@ -376,7 +375,7 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
         }
       }
 
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v59 objects:v84 count:16];
+      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v58 objects:v83 count:16];
     }
 
     while (v26);
@@ -385,13 +384,13 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
   else
   {
     v27 = 0;
-    v57 = 0;
+    v56 = 0;
   }
 
   v40 = v5;
   if (v5)
   {
-    v41 = v49 == 0;
+    v41 = v48 == 0;
   }
 
   else
@@ -405,7 +404,7 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
     v43 = 1;
   }
 
-  else if (v49 >= 3 && v57)
+  else if (v48 >= 3 && v56)
   {
     v43 = 2;
   }
@@ -427,30 +426,28 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
   {
     shareParticipantContactIdentifiers = self->_shareParticipantContactIdentifiers;
     *buf = 67110914;
-    *v72 = v27 < 4;
-    *&v72[4] = 1024;
-    *&v72[6] = v43;
-    *v73 = 2112;
-    *&v73[2] = shareParticipantContactIdentifiers;
-    v74 = 1024;
-    v75 = v42;
-    v76 = 2048;
-    v77 = v49;
-    v78 = 2112;
-    v79 = v40;
-    v80 = 2048;
-    v81 = v57;
-    v82 = 2048;
-    v83 = v27;
+    *v71 = v27 < 4;
+    *&v71[4] = 1024;
+    *&v71[6] = v43;
+    *v72 = 2112;
+    *&v72[2] = shareParticipantContactIdentifiers;
+    v73 = 1024;
+    v74 = v42;
+    v75 = 2048;
+    v76 = v48;
+    v77 = 2112;
+    v78 = v40;
+    v79 = 2048;
+    v80 = v56;
+    v81 = 2048;
+    v82 = v27;
     _os_log_impl(&dword_22F0FC000, v45, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Summary for Notification Profile:\n\teligibleForNotification: %d\n\tuserType: %d\n\tshareParticipantContactIdentifiers: %@\n\tuserNeverShared: %d\n\tnumberOfMomentShare: %lu\n\tlastMomentShare: %@\n\tnumberOfSuccessfulNotifications: %lu\n\tnumberOfUnsuccessfulNotifications: %lu\n\t", buf, 0x46u);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldNotifyForSuggestion:(id)suggestion withOptions:(id)options
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   v7 = MEMORY[0x277D27690];
   localToday = [options localToday];
@@ -489,13 +486,13 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
         loggingConnection = self->_loggingConnection;
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = 67109634;
-          *v30 = v20 > v18;
-          *&v30[4] = 2048;
-          *&v30[6] = v18 / 86400.0;
-          *&v30[14] = 2112;
-          *&v30[16] = v9;
-          _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Should notify for suggestion: %d (requiredTimeIntervalFromLastNotification %.0f - queryDate %@)", &v29, 0x1Cu);
+          v28 = 67109634;
+          *v29 = v20 > v18;
+          *&v29[4] = 2048;
+          *&v29[6] = v18 / 86400.0;
+          *&v29[14] = 2112;
+          *&v29[16] = v9;
+          _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Should notify for suggestion: %d (requiredTimeIntervalFromLastNotification %.0f - queryDate %@)", &v28, 0x1Cu);
         }
       }
 
@@ -535,13 +532,13 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
         v26 = off_27887F698[userType];
       }
 
-      v29 = 67109634;
-      *v30 = v13;
-      *&v30[4] = 2112;
-      *&v30[6] = v24;
-      *&v30[14] = 2112;
-      *&v30[16] = v26;
-      _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Should notify for suggestion: %d (notification quality %@ - user type %@)", &v29, 0x1Cu);
+      v28 = 67109634;
+      *v29 = v13;
+      *&v29[4] = 2112;
+      *&v29[6] = v24;
+      *&v29[14] = 2112;
+      *&v29[16] = v26;
+      _os_log_impl(&dword_22F0FC000, v22, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Should notify for suggestion: %d (notification quality %@ - user type %@)", &v28, 0x1Cu);
     }
   }
 
@@ -551,18 +548,17 @@ uint64_t __71__PGSuggestionNotificationProfile_notificationQualityForHighlightNo
     LOBYTE(v13) = 0;
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 134218498;
-      *v30 = 7;
-      *&v30[8] = 2112;
-      *&v30[10] = v9;
-      *&v30[18] = 2112;
-      *&v30[20] = universalEndDate;
-      _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Cannot notify suggestion: above time window limit of %lu days (query date %@, suggestion date %@)", &v29, 0x20u);
+      v28 = 134218498;
+      *v29 = 7;
+      *&v29[8] = 2112;
+      *&v29[10] = v9;
+      *&v29[18] = 2112;
+      *&v29[20] = universalEndDate;
+      _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_DEFAULT, "[Sharing Suggestion] Cannot notify suggestion: above time window limit of %lu days (query date %@, suggestion date %@)", &v28, 0x20u);
       LOBYTE(v13) = 0;
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -12,21 +12,20 @@
 - (NSData)sessionId
 {
   v3 = type metadata accessor for SASTeardown(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = (&v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = (&v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
+  v6();
 
-  v9 = *v6;
-  v10 = v6[1];
-  sub_10005F0F8(*v6, v10);
-  sub_10006CDDC(v6, type metadata accessor for SASTeardown);
-  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v10);
+  v8 = *v5;
+  v9 = v5[1];
+  sub_10005F0F8(*v5, v9);
+  sub_10006CDDC(v5, type metadata accessor for SASTeardown);
+  v10.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v9);
 
-  return v11.super.isa;
+  return v10.super.isa;
 }
 
 - (void)setSessionId:(id)id
@@ -52,16 +51,15 @@
 - (int64_t)reason
 {
   v3 = type metadata accessor for SASTeardown(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
-  v9 = *(v6 + 2);
-  LOBYTE(v7) = v6[24];
-  sub_10006CDDC(v6, type metadata accessor for SASTeardown);
-  sub_100057054(v9, v7);
+  v6();
+  v8 = *(v5 + 2);
+  LOBYTE(v6) = v5[24];
+  sub_10006CDDC(v5, type metadata accessor for SASTeardown);
+  sub_100057054(v8, v6);
 
   return 0;
 }
@@ -90,35 +88,33 @@
 - (_TtC21transparencyStaticKey12GSASTeardown)init
 {
   v3 = type metadata accessor for SASTeardown(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100057BCC(v6);
-  sub_10006CEA4(v6, self + OBJC_IVAR____TtC21transparencyStaticKey12GSASTeardown_teardown, type metadata accessor for SASTeardown);
-  v7 = type metadata accessor for GSASTeardown(0);
-  v9.receiver = self;
-  v9.super_class = v7;
-  return [(GSASTeardown *)&v9 init];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_100057BCC(v5);
+  sub_10006CEA4(v5, self + OBJC_IVAR____TtC21transparencyStaticKey12GSASTeardown_teardown, type metadata accessor for SASTeardown);
+  v6 = type metadata accessor for GSASTeardown(0);
+  v8.receiver = self;
+  v8.super_class = v6;
+  return [(GSASTeardown *)&v8 init];
 }
 
 - (NSData)data
 {
   v3 = type metadata accessor for SASTeardown(0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *((swift_isaMask & self->super.isa) + 0x58);
+  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *((swift_isaMask & self->super.isa) + 0x58);
   selfCopy = self;
-  v7();
-  sub_10006CE3C(&qword_1000AE3E8, type metadata accessor for SASTeardown);
-  v9 = Message.serializedData(partial:)();
-  v11 = v10;
+  v6();
+  sub_10006CE3C(&qword_1000AE3E8, type metadata accessor for SASTeardown, &unk_10008CAD8);
+  v8 = Message.serializedData(partial:)();
+  v10 = v9;
 
-  sub_10006CDDC(v6, type metadata accessor for SASTeardown);
-  v12.super.isa = Data._bridgeToObjectiveC()().super.isa;
-  sub_10005F14C(v9, v11);
+  sub_10006CDDC(v5, type metadata accessor for SASTeardown);
+  v11.super.isa = Data._bridgeToObjectiveC()().super.isa;
+  sub_10005F14C(v8, v10);
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 @end

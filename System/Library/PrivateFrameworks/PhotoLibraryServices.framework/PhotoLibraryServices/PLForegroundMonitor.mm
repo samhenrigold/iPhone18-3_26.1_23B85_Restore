@@ -320,7 +320,7 @@ void __62__PLForegroundMonitor_startMonitoringBundleIdentifiers_block___block_in
 
   if (!self->_monitoredBundleIdentifiers || ([v3 isEqual:?] & 1) == 0)
   {
-    if ([v3 count])
+    if (objc_msgSend_count(v3, v10))
     {
       [(PLForegroundMonitor *)self _startMonitoringBundleIdentifiers:v3];
     }

@@ -394,25 +394,27 @@
 
 - (void)p_configureAnimated:(BOOL)animated
 {
-  if (isPad() && (WeakRetained = objc_loadWeakRetained(&self->mSearchBar), [WeakRetained setShowsCancelButton:0], WeakRetained, (-[THSearchViewController _isInPopoverPresentation](self, "_isInPopoverPresentation") & 1) == 0))
+  v4 = isPad();
+  if (v4 && (WeakRetained = objc_loadWeakRetained(&self->mSearchBar), [WeakRetained setShowsCancelButton:0], WeakRetained, v4 = -[THSearchViewController _isInPopoverPresentation](self, "_isInPopoverPresentation"), (v4 & 1) == 0))
   {
-    v17 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:24 target:self action:"p_dismissSearchView:"];
+    v4 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:24 target:self action:"p_dismissSearchView:"];
+    v19 = v4;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  v5 = THBundle();
-  v6 = [v5 localizedStringForKey:@"Search Book" value:&stru_471858 table:0];
+  v7 = THBundle(v4, v5);
+  v8 = [v7 localizedStringForKey:@"Search Book" value:&stru_471858 table:0];
   resultsViewController = [(THSearchViewController *)self resultsViewController];
   navigationItem = [resultsViewController navigationItem];
-  [navigationItem setTitle:v6];
+  [navigationItem setTitle:v8];
 
   resultsViewController2 = [(THSearchViewController *)self resultsViewController];
   navigationItem2 = [resultsViewController2 navigationItem];
-  [navigationItem2 setRightBarButtonItem:v17];
+  [navigationItem2 setRightBarButtonItem:v19];
 
   if ([(THSearchController *)self->mSearchController indexLoaded])
   {
@@ -440,8 +442,8 @@
     if (currentQuery2)
     {
       currentQuery3 = [(THSearchController *)self->mSearchController currentQuery];
-      v15 = objc_loadWeakRetained(&self->mSearchBar);
-      [v15 setText:currentQuery3];
+      v17 = objc_loadWeakRetained(&self->mSearchBar);
+      [v17 setText:currentQuery3];
     }
   }
 
@@ -715,21 +717,21 @@ LABEL_12:
 
 - (void)viewDidLoad
 {
-  v92.receiver = self;
-  v92.super_class = THSearchViewController;
-  [(THSearchViewController *)&v92 viewDidLoad];
+  v96.receiver = self;
+  v96.super_class = THSearchViewController;
+  [(THSearchViewController *)&v96 viewDidLoad];
   view = [(THSearchViewController *)self view];
   v4 = +[UIColor whiteColor];
-  v90 = view;
+  v94 = view;
   [view setBackgroundColor:v4];
 
-  v91 = objc_alloc_init(UIView);
-  [v91 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v95 = objc_alloc_init(UIView);
+  [v95 setTranslatesAutoresizingMaskIntoConstraints:0];
   v5 = +[UIColor clearColor];
-  [v91 setBackgroundColor:v5];
+  [v95 setBackgroundColor:v5];
 
-  [v91 setUserInteractionEnabled:0];
-  [(THSearchViewController *)self setContentContainerView:v91];
+  [v95 setUserInteractionEnabled:0];
+  [(THSearchViewController *)self setContentContainerView:v95];
   v6 = [[UIView alloc] initWithFrame:{0.0, 0.0, 375.0, 44.0}];
   v7 = +[UIColor blueColor];
   [v6 setBackgroundColor:v7];
@@ -759,38 +761,38 @@ LABEL_12:
   objc_storeStrong(&self->mNoIndexActivityIndicatorView, v12);
   centerXAnchor = [v8 centerXAnchor];
   centerXAnchor2 = [v6 centerXAnchor];
-  v81 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v94[0] = v81;
+  v85 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v98[0] = v85;
   topAnchor = [v8 topAnchor];
   topAnchor2 = [v6 topAnchor];
-  v76 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v94[1] = v76;
+  v80 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v98[1] = v80;
   bottomAnchor = [v8 bottomAnchor];
   bottomAnchor2 = [v6 bottomAnchor];
-  v73 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v94[2] = v73;
+  v77 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v98[2] = v77;
   widthAnchor = [v8 widthAnchor];
   widthAnchor2 = [v6 widthAnchor];
-  v70 = [widthAnchor constraintLessThanOrEqualToAnchor:widthAnchor2 constant:-30.0];
-  v94[3] = v70;
+  v74 = [widthAnchor constraintLessThanOrEqualToAnchor:widthAnchor2 constant:-30.0];
+  v98[3] = v74;
   centerYAnchor = [v12 centerYAnchor];
-  v89 = v6;
+  v93 = v6;
   centerYAnchor2 = [v6 centerYAnchor];
   v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v94[4] = v13;
+  v98[4] = v13;
   trailingAnchor = [v12 trailingAnchor];
-  v88 = v8;
+  v92 = v8;
   leadingAnchor = [v8 leadingAnchor];
   v16 = [trailingAnchor constraintEqualToAnchor:leadingAnchor constant:-10.0];
-  v94[5] = v16;
+  v98[5] = v16;
   widthAnchor3 = [v12 widthAnchor];
   v18 = [widthAnchor3 constraintEqualToConstant:20.0];
-  v94[6] = v18;
-  v87 = v12;
+  v98[6] = v18;
+  v91 = v12;
   heightAnchor = [v12 heightAnchor];
   v20 = [heightAnchor constraintEqualToConstant:20.0];
-  v94[7] = v20;
-  v21 = [NSArray arrayWithObjects:v94 count:8];
+  v98[7] = v20;
+  v21 = [NSArray arrayWithObjects:v98 count:8];
   [NSLayoutConstraint activateConstraints:v21];
 
   WeakRetained = objc_loadWeakRetained(&self->mSearchBar);
@@ -798,7 +800,7 @@ LABEL_12:
 
   v23 = objc_loadWeakRetained(&self->mSearchBar);
   [v23 frame];
-  self->_searchBarHeight = CGRectGetHeight(v95);
+  self->_searchBarHeight = CGRectGetHeight(v99);
 
   v24 = [[THSearchTableViewController alloc] initWithNibName:0 bundle:0];
   [(THSearchViewController *)self setResultsViewController:v24];
@@ -827,25 +829,25 @@ LABEL_12:
   v34 = objc_loadWeakRetained(&self->mSearchBar);
   [v34 setDelegate:self];
 
-  v35 = THBundle();
-  v36 = [v35 localizedStringForKey:@"In this book" value:&stru_471858 table:0];
-  v37 = objc_loadWeakRetained(&self->mSearchBar);
-  [v37 setPlaceholder:v36];
+  v37 = THBundle(v35, v36);
+  v38 = [v37 localizedStringForKey:@"In this book" value:&stru_471858 table:0];
+  v39 = objc_loadWeakRetained(&self->mSearchBar);
+  [v39 setPlaceholder:v38];
 
-  v38 = [THSearchTableViewDataSource alloc];
+  v40 = [THSearchTableViewDataSource alloc];
   searchController = [(THSearchViewController *)self searchController];
-  v40 = [(THSearchTableViewDataSource *)v38 initWithSearchController:searchController searchViewMode:0];
-  [(THSearchViewController *)self setResultsDataSource:v40];
+  v42 = [(THSearchTableViewDataSource *)v40 initWithSearchController:searchController searchViewMode:0];
+  [(THSearchViewController *)self setResultsDataSource:v42];
 
-  v41 = [THSearchTableViewDataSource alloc];
+  v43 = [THSearchTableViewDataSource alloc];
   searchController2 = [(THSearchViewController *)self searchController];
-  v43 = [(THSearchTableViewDataSource *)v41 initWithSearchController:searchController2 searchViewMode:2];
-  [(THSearchViewController *)self setDetailsDataSource:v43];
+  v45 = [(THSearchTableViewDataSource *)v43 initWithSearchController:searchController2 searchViewMode:2];
+  [(THSearchViewController *)self setDetailsDataSource:v45];
 
-  v44 = [THSearchTableViewDataSource alloc];
+  v46 = [THSearchTableViewDataSource alloc];
   searchController3 = [(THSearchViewController *)self searchController];
-  v46 = [(THSearchTableViewDataSource *)v44 initWithSearchController:searchController3 searchViewMode:1];
-  [(THSearchViewController *)self setSuggestionsDataSource:v46];
+  v48 = [(THSearchTableViewDataSource *)v46 initWithSearchController:searchController3 searchViewMode:1];
+  [(THSearchViewController *)self setSuggestionsDataSource:v48];
 
   resultsViewController2 = [(THSearchViewController *)self resultsViewController];
   [(THSearchViewController *)self p_configureTableViewController:resultsViewController2];
@@ -861,38 +863,39 @@ LABEL_12:
 
   resultsViewController5 = [(THSearchViewController *)self resultsViewController];
   view3 = [resultsViewController5 view];
-  [view3 addSubview:v91];
+  [view3 addSubview:v95];
 
-  topAnchor3 = [v91 topAnchor];
+  topAnchor3 = [v95 topAnchor];
   topAnchor4 = [view2 topAnchor];
-  v80 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v93[0] = v80;
-  leadingAnchor2 = [v91 leadingAnchor];
+  v84 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v97[0] = v84;
+  leadingAnchor2 = [v95 leadingAnchor];
   leadingAnchor3 = [view2 leadingAnchor];
-  v55 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3];
-  v93[1] = v55;
-  trailingAnchor2 = [v91 trailingAnchor];
+  v57 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3];
+  v97[1] = v57;
+  trailingAnchor2 = [v95 trailingAnchor];
   trailingAnchor3 = [view2 trailingAnchor];
-  v58 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
-  v93[2] = v58;
-  bottomAnchor3 = [v91 bottomAnchor];
-  v86 = view2;
+  v60 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
+  v97[2] = v60;
+  bottomAnchor3 = [v95 bottomAnchor];
+  v90 = view2;
   bottomAnchor4 = [view2 bottomAnchor];
-  v61 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v93[3] = v61;
-  v62 = [NSArray arrayWithObjects:v93 count:4];
-  [NSLayoutConstraint activateConstraints:v62];
+  v63 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v97[3] = v63;
+  v64 = [NSArray arrayWithObjects:v97 count:4];
+  [NSLayoutConstraint activateConstraints:v64];
 
-  if (![(THSearchController *)self->mSearchController indexLoaded])
+  indexLoaded = [(THSearchController *)self->mSearchController indexLoaded];
+  if ((indexLoaded & 1) == 0)
   {
-    v63 = THBundle();
-    v64 = [v63 localizedStringForKey:@"Search Index Loading…" value:&stru_471858 table:0];
-    [(UILabel *)self->mNoIndexViewLabel setText:v64];
+    v67 = THBundle(indexLoaded, v66);
+    v68 = [v67 localizedStringForKey:@"Search Index Loading…" value:&stru_471858 table:0];
+    [(UILabel *)self->mNoIndexViewLabel setText:v68];
 
     [(THSearchViewController *)self setNoIndexViewVisible:1];
-    v65 = +[NSNotificationCenter defaultCenter];
-    [v65 addObserver:self selector:"p_searchIndexLoaded:" name:THSearchControllerDidLoadIndexNotification object:self->mSearchController];
-    [v65 addObserver:self selector:"p_searchPaginationResultsUpdated:" name:THSearchControllerDidUpdatePaginationResultsNotification object:self->mSearchController];
+    v69 = +[NSNotificationCenter defaultCenter];
+    [v69 addObserver:self selector:"p_searchIndexLoaded:" name:THSearchControllerDidLoadIndexNotification object:self->mSearchController];
+    [v69 addObserver:self selector:"p_searchPaginationResultsUpdated:" name:THSearchControllerDidUpdatePaginationResultsNotification object:self->mSearchController];
     [(THSearchController *)self->mSearchController loadIndex];
   }
 
@@ -1375,49 +1378,49 @@ LABEL_12:
   }
 
   rank = [resultCopy rank];
-  if (rank - 6 >= 2 && rank == 1)
+  if ((rank - 6) >= 2 && rank == 1)
   {
-    v59 = viewCopy;
-    v13 = THBundle();
-    resultLabel4 = [v13 localizedStringForKey:@"Glossary: %@" value:&stru_471858 table:0];
+    v62 = viewCopy;
+    v14 = THBundle(rank, v13);
+    resultLabel4 = [v14 localizedStringForKey:@"Glossary: %@" value:&stru_471858 table:0];
 
     term = [resultCopy term];
-    v16 = [NSString stringWithFormat:resultLabel4, term];
+    v17 = [NSString stringWithFormat:resultLabel4, term];
     titleLabel = [cellCopy titleLabel];
-    [titleLabel setText:v16];
+    [titleLabel setText:v17];
 
     mSearchController = self->mSearchController;
     term2 = [resultCopy term];
-    v20 = [(THSearchController *)mSearchController summaryForGlossaryTerm:term2];
+    v21 = [(THSearchController *)mSearchController summaryForGlossaryTerm:term2];
 
-    if (!v20)
+    if (!v21)
     {
-      v21 = THBundle();
-      v22 = [v21 localizedStringForKey:@"(Glossary entry for \\U201C%@\\U201D)" value:&stru_471858 table:0];
+      v24 = THBundle(v22, v23);
+      v25 = [v24 localizedStringForKey:@"(Glossary entry for \\U201C%@\\U201D)" value:&stru_471858 table:0];
 
       term3 = [resultCopy term];
-      v20 = [NSString stringWithFormat:v22, term3];
+      v21 = [NSString stringWithFormat:v25, term3];
     }
 
     resultLabel = [cellCopy resultLabel];
-    [resultLabel setText:v20];
+    [resultLabel setText:v21];
 
     searchController = [(THSearchViewController *)self searchController];
     currentQuery = [searchController currentQuery];
-    v27 = [v20 rangeOfString:currentQuery];
-    v29 = v28;
+    v30 = [v21 rangeOfString:currentQuery];
+    v32 = v31;
     resultLabel2 = [cellCopy resultLabel];
-    [resultLabel2 setBoldRange:{v27, v29}];
+    [resultLabel2 setBoldRange:{v30, v32}];
 
-    viewCopy = v59;
+    viewCopy = v62;
   }
 
   else
   {
     title2 = [resultCopy title];
-    v32 = [title2 length];
+    v35 = [title2 length];
 
-    if (v32)
+    if (v35)
     {
       [resultCopy title];
     }
@@ -1426,9 +1429,9 @@ LABEL_12:
     {
       [resultCopy term];
     }
-    v33 = ;
+    v36 = ;
     titleLabel2 = [cellCopy titleLabel];
-    [titleLabel2 setText:v33];
+    [titleLabel2 setText:v36];
 
     displayPageNumber = [resultCopy displayPageNumber];
     pageNumberLabel = [cellCopy pageNumberLabel];
@@ -1439,9 +1442,9 @@ LABEL_12:
     [resultLabel3 setText:context];
 
     contextRangeForResult = [resultCopy contextRangeForResult];
-    v41 = v40;
+    v44 = v43;
     resultLabel4 = [cellCopy resultLabel];
-    [resultLabel4 setBoldRange:{contextRangeForResult, v41}];
+    [resultLabel4 setBoldRange:{contextRangeForResult, v44}];
   }
 
   themePage = [(THSearchViewController *)self themePage];
@@ -1460,16 +1463,16 @@ LABEL_12:
   [resultLabel5 setTextColor:primaryTextColor];
 
   [viewCopy frame];
-  v50 = v49;
-  v52 = v51;
-  v54 = v53;
-  v56 = v55;
+  v53 = v52;
+  v55 = v54;
+  v57 = v56;
+  v59 = v58;
 
-  v62.origin.x = v50;
-  v62.origin.y = v52;
-  v62.size.width = v54;
-  v62.size.height = v56;
-  [cellCopy setMaxWidth:CGRectGetWidth(v62)];
+  v65.origin.x = v53;
+  v65.origin.y = v55;
+  v65.size.width = v57;
+  v65.size.height = v59;
+  [cellCopy setMaxWidth:CGRectGetWidth(v65)];
   secondaryBackgroundColor = [themePage secondaryBackgroundColor];
   focusShapeView = [cellCopy focusShapeView];
   [focusShapeView setFillColor:secondaryBackgroundColor];
@@ -1528,23 +1531,23 @@ LABEL_12:
   textLabel2 = [v8 textLabel];
   [textLabel2 setTextColor:primaryTextColor];
 
-  v16 = THBundle();
-  v17 = v16;
+  v18 = THBundle(v16, v17);
+  v19 = v18;
   if (kind)
   {
-    v18 = @"See all %lu media results…";
+    v20 = @"See all %lu media results…";
   }
 
   else
   {
-    v18 = @"See all %lu text results…";
+    v20 = @"See all %lu text results…";
   }
 
-  v19 = [v16 localizedStringForKey:v18 value:&stru_471858 table:0];
+  v21 = [v18 localizedStringForKey:v20 value:&stru_471858 table:0];
 
-  v20 = [NSString localizedStringWithFormat:v19, count];
+  v22 = [NSString localizedStringWithFormat:v21, count];
   textLabel3 = [v8 textLabel];
-  [textLabel3 setText:v20];
+  [textLabel3 setText:v22];
 
   textLabel4 = [v8 textLabel];
   [textLabel4 setNumberOfLines:0];

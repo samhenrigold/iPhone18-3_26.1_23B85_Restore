@@ -121,7 +121,7 @@ LABEL_9:
   memset(v22, 0, sizeof(v22));
   if (infoCopy)
   {
-    [infoCopy fpContentInfo];
+    objc_msgSend_fpContentInfo(infoCopy);
   }
 
   v21 = 0;

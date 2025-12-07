@@ -70,11 +70,11 @@ void __47__DYLaunchdCheckin__connectToSocketDescriptor___block_invoke(uint64_t a
 
 void __47__DYLaunchdCheckin__connectToSocketDescriptor___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (!dispatch_source_testcancel(*(*(a1 + 32) + 8)))
   {
-    v5 = 0;
-    if (accept(*(a1 + 48), &v6, &v5) == -1)
+    v4 = 0;
+    if (accept(*(a1 + 48), &v5, &v4) == -1)
     {
       v3 = [MEMORY[0x277D0AFC0] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
       [*(a1 + 40) setError:v3];
@@ -90,36 +90,28 @@ void __47__DYLaunchdCheckin__connectToSocketDescriptor___block_invoke_2(uint64_t
     v2 = ;
     [*(a1 + 40) setResult:v2];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_unixListenSocketDescriptor
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = socket(1, 1, 0);
-  bzero(&v7, 0x6AuLL);
-  v7.sa_family = 1;
+  bzero(&v6, 0x6AuLL);
+  v6.sa_family = 1;
   fileSystemRepresentation = [(NSString *)self->_socketPath fileSystemRepresentation];
-  v7.sa_len = strlen(fileSystemRepresentation);
-  strncpy(v7.sa_data, fileSystemRepresentation, 0x67uLL);
-  if (bind(v3, &v7, 0x6Au))
+  v6.sa_len = strlen(fileSystemRepresentation);
+  strncpy(v6.sa_data, fileSystemRepresentation, 0x67uLL);
+  if (bind(v3, &v6, 0x6Au))
   {
-    result = -1;
+    return -1;
   }
 
-  else if (listen(v3, 1))
+  if (listen(v3, 1))
   {
-    result = -1;
+    return -1;
   }
 
-  else
-  {
-    result = v3;
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 - (DYLaunchdCheckin)checkinWithBlock:(id)block

@@ -5,6 +5,7 @@
 - (void)presentAlertForExtensionName:(id)name completion:(id)completion;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ILClassificationAndReportingSettingsController
@@ -37,6 +38,23 @@
   [(ILClassificationAndReportingSettingsController *)&v4 viewDidLoad];
   v3 = [ILClassificationSettingsStrings localizedStringForKey:@"REPORTING_MARKETING_NAME"];
   [(ILClassificationAndReportingSettingsController *)self setTitle:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = ILClassificationAndReportingSettingsController;
+  [(ILClassificationAndReportingSettingsController *)&v9 viewWillAppear:appear];
+  extensionSpecifiers = [(ILClassificationAndReportingSettingsController *)self extensionSpecifiers];
+
+  if (extensionSpecifiers)
+  {
+    v5 = +[ILClassificationController sharedInstance];
+    electedExtension = [v5 electedExtension];
+    v7 = +[ILClassificationController sharedInstance];
+    extensions = [v7 extensions];
+    [(ILClassificationAndReportingSettingsController *)self createExtensionSpecifiersWithElectedExtension:electedExtension allExtensions:extensions];
+  }
 }
 
 - (id)specifiers

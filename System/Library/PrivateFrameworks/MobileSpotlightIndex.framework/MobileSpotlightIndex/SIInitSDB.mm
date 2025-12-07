@@ -18,11 +18,11 @@ uint64_t ___SIInitSDB_block_invoke_4(uint64_t a1, int a2)
   }
 }
 
-void ___SIInitSDB_block_invoke(uint64_t a1, uint64_t a2)
+void ___SIInitSDB_block_invoke(uint64_t result, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
+    v3 = *(result + 32);
     v4 = malloc_type_malloc(0x28uLL, 0x10A0040A9CEF559uLL);
     v5 = 0;
     atomic_store(1u, v4);

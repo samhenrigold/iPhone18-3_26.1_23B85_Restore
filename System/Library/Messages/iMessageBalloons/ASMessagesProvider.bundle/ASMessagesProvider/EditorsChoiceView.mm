@@ -11,21 +11,22 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  width = fits.width;
   ObjectType = swift_getObjectType();
-  v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_preferredLineCount);
-  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_shouldCapWidthByAvailableWidth);
-  v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_useAdsLocale);
-  v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_useCase);
-  v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_size);
+  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_preferredLineCount);
+  v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_shouldCapWidthByAvailableWidth);
+  v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_useAdsLocale);
+  v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_useCase);
+  v10 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider17EditorsChoiceView_size);
   selfCopy = self;
-  sub_2E368C(v9, v5, v6, selfCopy, v7, v8, ObjectType);
-  v12 = v11;
-  v14 = v13;
+  sub_2E368C(v10, v6, v7, selfCopy, width, v8, v9, ObjectType);
+  v13 = v12;
+  v15 = v14;
 
-  v15 = v12;
-  v16 = v14;
-  result.height = v16;
-  result.width = v15;
+  v16 = v13;
+  v17 = v15;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 
@@ -64,7 +65,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_2E1CC0(x, y, width, height);
+  sub_2E1CC0(selfCopy, x, y, width, height);
 }
 
 - (void)tintColorDidChange

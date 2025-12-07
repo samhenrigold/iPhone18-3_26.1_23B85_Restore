@@ -7,7 +7,7 @@ uint64_t __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke(uint64
 {
   if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
   {
-    __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke_cold_1(a1);
+    __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke_cold_1(a1, a3);
   }
 
   v5 = *a3;
@@ -32,15 +32,33 @@ uint64_t __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke(uint64
   return result;
 }
 
-uint64_t __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke_cold_1(uint64_t a1)
+uint64_t __audioHoseManagerBuffered_NotifyHosesDataAvailable_block_invoke_cold_1(uint64_t a1, uint64_t *a2)
 {
-  if (*(a1 + 32))
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    CMBaseObjectGetDerivedStorage();
+    DerivedStorage = CMBaseObjectGetDerivedStorage();
   }
 
+  else
+  {
+    DerivedStorage = "";
+  }
+
+  v5 = "local";
+  if (!*(a2 + 8))
+  {
+    v5 = "remote";
+  }
+
+  v15 = *(a2 + 41) != 0;
+  v16 = *(a2 + 5);
+  v12 = *a2;
+  v13 = v5;
+  v11 = DerivedStorage;
+  v14 = *(a2 + 40) != 0;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v6, v7, v8, v9, v3, v11, v12, v13, v14, v15, v16);
 }
 
 @end

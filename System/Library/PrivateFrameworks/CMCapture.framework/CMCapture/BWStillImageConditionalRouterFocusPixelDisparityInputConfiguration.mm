@@ -39,7 +39,7 @@ uint64_t __74__BWStillImageConditionalRouterFocusPixelDisparityInputConfiguratio
   return 1;
 }
 
-uint64_t __74__BWStillImageConditionalRouterFocusPixelDisparityInputConfiguration_init__block_invoke_2(uint64_t a1, void *a2, _DWORD *a3)
+uint64_t __74__BWStillImageConditionalRouterFocusPixelDisparityInputConfiguration_init__block_invoke_2(uint64_t a1, void *a2, unsigned int *a3)
 {
   v4 = [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(a2 "stillImageSettings")];
   if (a3)

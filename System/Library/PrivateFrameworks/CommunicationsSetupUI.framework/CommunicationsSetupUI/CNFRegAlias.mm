@@ -6,6 +6,7 @@
 - (BOOL)isTemporaryPhoneNumberAlias;
 - (BOOL)validate;
 - (CNFRegAlias)initWithAccount:(id)account alias:(id)alias;
+- (CNFRegAlias)initWithAlias:(id)alias type:(int64_t)type selected:(BOOL)selected deviceAliasIdentifier:(id)identifier;
 - (NSDate)expirationDate;
 - (NSString)displayName;
 - (NSString)identifier;
@@ -19,6 +20,26 @@
 @end
 
 @implementation CNFRegAlias
+
+- (CNFRegAlias)initWithAlias:(id)alias type:(int64_t)type selected:(BOOL)selected deviceAliasIdentifier:(id)identifier
+{
+  selectedCopy = selected;
+  aliasCopy = alias;
+  identifierCopy = identifier;
+  v15.receiver = self;
+  v15.super_class = CNFRegAlias;
+  v12 = [(CNFRegAlias *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(CNFRegAlias *)v12 setAlias:aliasCopy];
+    [(CNFRegAlias *)v13 setGivenAliasType:type];
+    [(CNFRegAlias *)v13 setSelectedDeviceAlias:selectedCopy];
+    [(CNFRegAlias *)v13 setDeviceAliasIdentifier:identifierCopy];
+  }
+
+  return v13;
+}
 
 - (CNFRegAlias)initWithAccount:(id)account alias:(id)alias
 {
@@ -282,28 +303,8 @@
   v3 = CNFRegLocalPhoneNumberDisplayString();
   v4 = [alias isEqualToIgnoringCase:v3];
 
-  if (v4)
+  if (v4 & 1) != 0 || (CNFRegFormattedPhoneNumberForString(alias), v5 = objc_claimAutoreleasedReturnValue(), CNFRegLocalPhoneNumberDisplayString(), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 isEqualToIgnoringCase:v6], v6, v5, (v7) || (CommunicationsSetupUIBundle(), v8 = objc_claimAutoreleasedReturnValue(), CNFRegStringTableName(), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "localizedStringForKey:value:table:", @"YOUR_NUMBER_STRING", &stru_2856D3978, v9), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(alias, "isEqualToIgnoringCase:", v10), v10, v9, v8, (v11))
   {
-    goto LABEL_4;
-  }
-
-  v5 = CNFRegFormattedPhoneNumberForString(alias);
-  v6 = CNFRegLocalPhoneNumberDisplayString();
-  v7 = [v5 isEqualToIgnoringCase:v6];
-
-  if (v7)
-  {
-    goto LABEL_4;
-  }
-
-  v8 = CommunicationsSetupUIBundle();
-  v9 = CNFRegStringTableName();
-  v10 = [v8 localizedStringForKey:@"YOUR_NUMBER_STRING" value:&stru_2856D3978 table:v9];
-  v11 = [alias isEqualToIgnoringCase:v10];
-
-  if (v11)
-  {
-LABEL_4:
     v12 = 1;
   }
 

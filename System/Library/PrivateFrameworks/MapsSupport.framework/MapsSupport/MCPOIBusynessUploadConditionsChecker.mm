@@ -170,25 +170,7 @@ LABEL_17:
 {
   inferenceCopy = inference;
   locationCopy = location;
-  if (!inferenceCopy)
-  {
-    goto LABEL_10;
-  }
-
-  referenceLocation = [inferenceCopy referenceLocation];
-
-  if (!referenceLocation)
-  {
-    goto LABEL_10;
-  }
-
-  referenceLocation2 = [inferenceCopy referenceLocation];
-  [referenceLocation2 horizontalAccuracy];
-  v10 = v9;
-  GEOConfigGetDouble();
-  v12 = v11;
-
-  if (v10 < v12)
+  if (inferenceCopy && ([inferenceCopy referenceLocation], v7 = objc_claimAutoreleasedReturnValue(), v7, v7) && (objc_msgSend(inferenceCopy, "referenceLocation"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "horizontalAccuracy"), v10 = v9, GEOConfigGetDouble(), v12 = v11, v8, v10 < v12))
   {
     v13 = +[MCPOIBusynessLocationOfInterestManager sharedLocationOfInterestManagerInstance];
     suppressedLocationsOfInterestUUIDs = [v13 suppressedLocationsOfInterestUUIDs];
@@ -201,8 +183,8 @@ LABEL_17:
       goto LABEL_12;
     }
 
-    referenceLocation3 = [inferenceCopy referenceLocation];
-    [referenceLocation3 horizontalAccuracy];
+    referenceLocation = [inferenceCopy referenceLocation];
+    [referenceLocation horizontalAccuracy];
     v19 = v18;
     [locationCopy horizontalAccuracy];
     v21 = v19 + v20;
@@ -214,10 +196,10 @@ LABEL_17:
       v21 = v23;
     }
 
-    referenceLocation4 = [inferenceCopy referenceLocation];
-    [referenceLocation4 coordinate];
-    referenceLocation5 = [inferenceCopy referenceLocation];
-    [referenceLocation5 coordinate];
+    referenceLocation2 = [inferenceCopy referenceLocation];
+    [referenceLocation2 coordinate];
+    referenceLocation3 = [inferenceCopy referenceLocation];
+    [referenceLocation3 coordinate];
     [locationCopy coordinate];
     [locationCopy coordinate];
     GEOCalculateDistanceHighPrecision();
@@ -237,7 +219,6 @@ LABEL_12:
 
   else
   {
-LABEL_10:
     v29 = 0;
   }
 

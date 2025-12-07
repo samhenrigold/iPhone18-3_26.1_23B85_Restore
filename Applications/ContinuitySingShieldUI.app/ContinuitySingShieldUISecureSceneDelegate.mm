@@ -17,7 +17,7 @@
 - (void)sceneWillEnterForeground:(id)foreground
 {
   foregroundCopy = foreground;
-  v5 = sub_100005368();
+  v5 = sub_100005368(foregroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 136315650;
@@ -33,7 +33,7 @@
 - (void)sceneDidEnterBackground:(id)background
 {
   backgroundCopy = background;
-  v5 = sub_100005368();
+  v5 = sub_100005368(backgroundCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 136315650;

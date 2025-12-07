@@ -104,7 +104,7 @@ LABEL_3:
   infoCopy = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 LABEL_6:
-  v8 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest());
+  v8 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest(0));
   v9 = sub_1001EE5D4(0, 0, v5, 0, 0, infoCopy, v7);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -139,7 +139,7 @@ LABEL_3:
   infoCopy = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
 LABEL_6:
-  v10 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest());
+  v10 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest(0));
   v11 = sub_1001EE5D4(v5, v7, 0, 0, 0, infoCopy, v9);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -174,7 +174,7 @@ LABEL_3:
   infoCopy = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
 LABEL_6:
-  v10 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest());
+  v10 = objc_allocWithZone(type metadata accessor for NetworkMediaManifest(0));
   v11 = sub_1001EE5D4(0, 0, 0, v5, v7, infoCopy, v9);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -200,14 +200,14 @@ LABEL_6:
 
   selfCopy = self;
   sub_1001EF2E4(v7, v6);
-  sub_1000112B4(v7);
+  sub_1000112B4(v7, v6);
 }
 
 + (void)fetchPlayerItemsFor:(id)for completion:(id)completion
 {
   v5 = type metadata accessor for MediaRequest.ContentType();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = _Block_copy(completion);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
@@ -231,10 +231,10 @@ LABEL_6:
   v13[3] = v9;
   v13[4] = v11;
   v14 = v12;
-  sub_100013CB4(v9);
+  sub_100013CB4(v9, v11);
   sub_1001EF530(0, v10, v14, v8, 0x7FFFFFFFFFFFFFFFLL, 0x14, _swiftEmptyArrayStorage, 0, sub_1001F6FFC, v13);
 
-  sub_1000112B4(v9);
+  sub_1000112B4(v9, v11);
 
   (*(v6 + 8))(v8, v5);
 }
@@ -302,7 +302,7 @@ LABEL_6:
 - (unint64_t)currentIndex
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for NetworkMediaManifest();
+  v3.super_class = type metadata accessor for NetworkMediaManifest(0);
   return [(MTNetworkMediaManifest *)&v3 currentIndex];
 }
 
@@ -316,7 +316,7 @@ LABEL_6:
   else
   {
     v5.receiver = selfCopy;
-    v5.super_class = type metadata accessor for NetworkMediaManifest();
+    v5.super_class = type metadata accessor for NetworkMediaManifest(0);
     [(MTNetworkMediaManifest *)&v5 setCurrentIndex:index];
     sub_1001F62C0(0, 0);
   }

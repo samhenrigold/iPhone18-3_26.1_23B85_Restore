@@ -23,23 +23,23 @@ void ___UIApplicationIsSystemApplication_block_invoke()
       {
         v7 = v6;
         v8 = [v5 objectAtIndex:v6 - 2];
-        v9 = [v8 isEqualToString:@"Applications"];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
         v10 = (v7 - 2);
-        if (v7 == 2 || (v9 & 1) != 0)
+        if (v7 == 2 || (isEqualToString & 1) != 0)
         {
-          byte_1EA992DDA = v9;
+          byte_1EA992DDA = isEqualToString;
 LABEL_20:
 
           goto LABEL_21;
         }
 
         v11 = [v5 objectAtIndex:v7 - 3];
-        v12 = [v11 isEqualToString:@"AppleInternal"];
+        v12 = objc_msgSend_isEqualToString_(v11);
         v13 = v12;
         if (v12)
         {
           v10 = [v5 objectAtIndex:v7 - 2];
-          if ([v10 isEqualToString:@"Applications"])
+          if (objc_msgSend_isEqualToString_(v10))
           {
             v14 = 1;
 LABEL_17:
@@ -65,7 +65,7 @@ LABEL_19:
         }
 
         v15 = [v5 objectAtIndex:v7 - 4];
-        byte_1EA992DDA = [v15 isEqualToString:@"Applications"];
+        byte_1EA992DDA = objc_msgSend_isEqualToString_(v15);
 
         if ((v13 & 1) == 0)
         {

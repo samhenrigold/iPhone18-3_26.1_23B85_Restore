@@ -32,26 +32,25 @@
 - (void)incrementRequestCountForBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
   v6 = sub_1000037A0(&qword_100010CC0, &qword_100007560);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v18 - v8;
-  v10 = _Block_copy(handler);
-  v11 = sub_1000061F4();
-  v13 = v12;
-  v14 = swift_allocObject();
-  *(v14 + 16) = v10;
-  v15 = sub_100006244();
-  (*(*(v15 - 8) + 56))(v9, 1, 1, v15);
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = self;
-  v16[5] = v11;
-  v16[6] = v13;
-  v16[7] = sub_10000467C;
-  v16[8] = v14;
+  v8 = &v17 - v7;
+  v9 = _Block_copy(handler);
+  v10 = sub_1000061F4();
+  v12 = v11;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v9;
+  v14 = sub_100006244();
+  (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = self;
+  v15[5] = v10;
+  v15[6] = v12;
+  v15[7] = sub_10000467C;
+  v15[8] = v13;
   selfCopy = self;
-  sub_100003E84(0, 0, v9, &unk_100007678, v16);
+  sub_100003E84(0, 0, v8, &unk_100007678, v15);
 }
 
 - (_TtC22ScreenTimeWebExtension19STURLRequestLimiter)init

@@ -18,6 +18,7 @@
 - (void)_destroySession:(id)session;
 - (void)_sendMessage:(id)message andCancelInvitationIfNecessaryForSession:(id)session;
 - (void)_sendMessage:(id)message andDeclineInvitationIfNecessaryForSession:(id)session;
+- (void)_startSession:(id)session withMessage:(id)message identifiers:(id)identifiers timeout:(int64_t)timeout declineOnError:(BOOL)error;
 - (void)acceptInvitationForIdentifier:(id)identifier;
 - (void)cancelOrDeclineInvitationForIdentifier:(id)identifier;
 - (void)dealloc;
@@ -26,8 +27,10 @@
 - (void)prepareConnectedSessionsToEnd;
 - (void)prepareSessionToEndForIdentifier:(id)identifier;
 - (void)sendMessage:(id)message andStartSessionIfNecessaryForIdentifier:(id)identifier toDestination:(id)destination timeout:(int64_t)timeout completionHandler:(id)handler;
+- (void)sendMessage:(id)message andStartSessionIfNecessaryForIdentifier:(id)identifier toDevicesSupportingProvider:(id)provider requiresConversationRelay:(BOOL)relay withTimeout:(int64_t)timeout;
 - (void)sendMessage:(id)message andStartSessionIfNecessaryForIdentifiers:(id)identifiers toDestination:(id)destination timeout:(int64_t)timeout completionHandler:(id)handler;
 - (void)sendMessage:(id)message forCall:(id)call completionHandler:(id)handler;
+- (void)sendMessage:(id)message forIdentifier:(id)identifier toDestinations:(id)destinations customizedForRemoteProtocolVersion:(id)version waitUntilConnected:(BOOL)connected completionHandler:(id)handler;
 - (void)service:(id)service account:(id)account inviteReceivedForSession:(id)session fromID:(id)d withContext:(id)context;
 - (void)session:(id)session endedWithReason:(int)reason;
 - (void)session:(id)session receivedData:(id)data fromDestination:(id)destination device:(id)device;
@@ -89,7 +92,7 @@
 
   else
   {
-    v9 = sub_100004778();
+    v9 = sub_100004778(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -166,7 +169,7 @@
 
   else
   {
-    v18 = sub_100004778();
+    v18 = sub_100004778(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       if (supportCopy)
@@ -198,7 +201,7 @@
 - (id)_createSessionToDevices:(id)devices
 {
   devicesCopy = devices;
-  v4 = sub_100004778();
+  v4 = sub_100004778(devicesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -235,7 +238,7 @@
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -260,7 +263,7 @@
 - (id)_createSessionToDestinations:(id)destinations
 {
   destinationsCopy = destinations;
-  v4 = sub_100004778();
+  v4 = sub_100004778(destinationsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -278,7 +281,7 @@
 
   else
   {
-    v6 = sub_100004778();
+    v6 = sub_100004778(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v10) = 0;
@@ -294,7 +297,7 @@
 - (void)_destroySession:(id)session
 {
   sessionCopy = session;
-  v5 = sub_100004778();
+  v5 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -526,7 +529,7 @@ LABEL_10:
 - (void)prepareSessionToEndForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -540,7 +543,7 @@ LABEL_10:
 
 - (void)prepareConnectedSessionsToEnd
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -583,7 +586,7 @@ LABEL_10:
 - (void)acceptInvitationForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -598,7 +601,7 @@ LABEL_10:
 - (void)cancelOrDeclineInvitationForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004778();
+  v5 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -612,7 +615,7 @@ LABEL_10:
 
 - (void)endEndingSessions
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -650,6 +653,269 @@ LABEL_10:
 
     while (v6);
   }
+}
+
+- (void)_startSession:(id)session withMessage:(id)message identifiers:(id)identifiers timeout:(int64_t)timeout declineOnError:(BOOL)error
+{
+  errorCopy = error;
+  identifiersCopy = identifiers;
+  messageCopy = message;
+  sessionCopy = session;
+  [messageCopy addProtocolVersion];
+  v15 = [CSDIDSDualSessionProvider alloc];
+  v16 = +[TUCallCenter sharedInstance];
+  queue = [v16 queue];
+  v21 = [(CSDIDSDualSessionProvider *)v15 initWithSession:sessionCopy queue:queue];
+
+  v18 = [[CSDRelayIDSDualSession alloc] initAsInitiatorWithSessionProvider:v21 identifiers:identifiersCopy];
+  [v18 setDelegate:self];
+  [v18 setInvitationTimeout:timeout];
+  data = [messageCopy data];
+
+  [v18 sendDataAndSendInvitationIfNecessary:data declineOnError:errorCopy];
+  sessions = [(CSDRelayIDSSessionMessenger *)self sessions];
+  [sessions addObject:v18];
+}
+
+- (void)sendMessage:(id)message andStartSessionIfNecessaryForIdentifier:(id)identifier toDevicesSupportingProvider:(id)provider requiresConversationRelay:(BOOL)relay withTimeout:(int64_t)timeout
+{
+  relayCopy = relay;
+  messageCopy = message;
+  identifierCopy = identifier;
+  providerCopy = provider;
+  v14 = sub_100004778(providerCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    if (relayCopy)
+    {
+      v15 = @"YES";
+    }
+
+    else
+    {
+      v15 = @"NO";
+    }
+
+    typeString = [messageCopy typeString];
+    *buf = 138413058;
+    v68 = providerCopy;
+    v69 = 2112;
+    v70 = v15;
+    v71 = 2112;
+    v72 = typeString;
+    v73 = 2112;
+    v74 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "sendMessageAndStartSessionIfNecessary for service %@ requiresConversationRelay %@ and message type %@: %@", buf, 0x2Au);
+  }
+
+  v17 = [(CSDRelayIDSSessionMessenger *)self activeSessionForIdentifier:identifierCopy];
+  v18 = v17;
+  if (v17)
+  {
+    currentSession5 = sub_100004778(v17);
+    if (os_log_type_enabled(currentSession5, OS_LOG_TYPE_ERROR))
+    {
+      sub_10047DB6C();
+    }
+
+    goto LABEL_9;
+  }
+
+  currentSession = [(CSDRelayIDSSessionMessenger *)self currentSession];
+
+  if (currentSession)
+  {
+    v24 = providerCopy;
+    v25 = [(CSDRelayIDSSessionMessenger *)self deviceOrDestinationWithActiveSessionCanReceiveMessagesForCallProvider:providerCopy needsConversationRelaySupport:relayCopy];
+    v26 = v25;
+    currentSession5 = sub_100004778(v25);
+    v27 = os_log_type_enabled(currentSession5, OS_LOG_TYPE_DEFAULT);
+    if (v26)
+    {
+      providerCopy = v24;
+      if (v27)
+      {
+        if (relayCopy)
+        {
+          v28 = @"YES";
+        }
+
+        else
+        {
+          v28 = @"NO";
+        }
+
+        currentSession2 = [(CSDRelayIDSSessionMessenger *)self currentSession];
+        *buf = 138412802;
+        v68 = v24;
+        v69 = 2112;
+        v70 = v28;
+        v71 = 2112;
+        v72 = currentSession2;
+        _os_log_impl(&_mh_execute_header, currentSession5, OS_LOG_TYPE_DEFAULT, "A session exists with a destination/device that supports provider %@ and support conversation relay %@ : %@", buf, 0x20u);
+      }
+
+      currentSession3 = [(CSDRelayIDSSessionMessenger *)self currentSession];
+      remoteProtocolVersion = [currentSession3 remoteProtocolVersion];
+
+      if (remoteProtocolVersion > 0)
+      {
+        deviceWithActiveSession = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
+
+        v35 = sub_100004778(v34);
+        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+        if (deviceWithActiveSession)
+        {
+          if (v36)
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Starting another session to the device", buf, 2u);
+          }
+
+          deviceWithActiveSession2 = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
+          v64 = deviceWithActiveSession2;
+          v38 = [NSArray arrayWithObjects:&v64 count:1];
+          v39 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDevices:v38];
+        }
+
+        else
+        {
+          if (v36)
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Starting another session to the destination", buf, 2u);
+          }
+
+          deviceWithActiveSession2 = [(CSDRelayIDSSessionMessenger *)self destinationWithActiveSession];
+          v38 = [NSSet setWithObject:deviceWithActiveSession2];
+          v39 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDestinations:v38];
+        }
+
+        v21 = v39;
+
+        providerCopy = v24;
+        if (v21)
+        {
+          v63 = identifierCopy;
+          v56 = [NSArray arrayWithObjects:&v63 count:1];
+          [(CSDRelayIDSSessionMessenger *)self _startSession:v21 withMessage:messageCopy identifiers:v56 timeout:timeout declineOnError:0];
+
+LABEL_12:
+          goto LABEL_13;
+        }
+
+LABEL_10:
+        v21 = sub_100004778(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Did not create session", buf, 2u);
+        }
+
+        goto LABEL_12;
+      }
+
+      v53 = sub_100004778(v32);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "We'll send this message via the existing session", buf, 2u);
+      }
+
+      currentSession4 = [(CSDRelayIDSSessionMessenger *)self currentSession];
+      [currentSession4 addIdentifier:identifierCopy];
+
+      currentSession5 = [(CSDRelayIDSSessionMessenger *)self currentSession];
+      data = [messageCopy data];
+      [currentSession5 sendData:data waitUntilConnected:1 completion:0];
+    }
+
+    else if (v27)
+    {
+      v52 = @"NO";
+      if (relayCopy)
+      {
+        v52 = @"YES";
+      }
+
+      *buf = 138412546;
+      providerCopy = v24;
+      v68 = v24;
+      v69 = 2112;
+      v70 = v52;
+      _os_log_impl(&_mh_execute_header, currentSession5, OS_LOG_TYPE_DEFAULT, "[WARN] A session exists, but it's with a device that doesn't support provider %@ or requires conversation relay %@ and device does not support GFT relay. Not starting a new session", buf, 0x16u);
+    }
+
+    else
+    {
+      providerCopy = v24;
+    }
+
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  v40 = sub_100004778(v23);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  {
+    v41 = @"NO";
+    if (relayCopy)
+    {
+      v41 = @"YES";
+    }
+
+    *buf = 138412546;
+    v68 = providerCopy;
+    v69 = 2112;
+    v70 = v41;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "No session exists. Starting a new one by inviting all devices that support provider %@ and support conversation relay if necessary %@", buf, 0x16u);
+  }
+
+  v57 = providerCopy;
+
+  tuProvider = [messageCopy tuProvider];
+  v43 = [(CSDRelayIDSSessionMessenger *)self _createSessionsToAllDevicesSupportingProvider:tuProvider requiresConversationRelaySupport:relayCopy];
+
+  v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v44 = v43;
+  v45 = [v44 countByEnumeratingWithState:&v59 objects:v66 count:16];
+  if (v45)
+  {
+    v46 = v45;
+    v47 = *v60;
+    do
+    {
+      for (i = 0; i != v46; i = i + 1)
+      {
+        if (*v60 != v47)
+        {
+          objc_enumerationMutation(v44);
+        }
+
+        v49 = *(*(&v59 + 1) + 8 * i);
+        v65 = identifierCopy;
+        v50 = [NSArray arrayWithObjects:&v65 count:1];
+        [(CSDRelayIDSSessionMessenger *)self _startSession:v49 withMessage:messageCopy identifiers:v50 timeout:timeout declineOnError:0];
+      }
+
+      v46 = [v44 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    }
+
+    while (v46);
+  }
+
+  v51 = [v44 count];
+  providerCopy = v57;
+  if (!v51)
+  {
+    goto LABEL_10;
+  }
+
+LABEL_13:
 }
 
 - (BOOL)deviceOrDestinationWithActiveSessionCanReceiveMessagesForCallProvider:(id)provider needsConversationRelaySupport:(BOOL)support
@@ -711,14 +977,14 @@ LABEL_10:
   identifiersCopy = identifiers;
   destinationCopy = destination;
   handlerCopy = handler;
-  v16 = sub_100004778();
+  v16 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     typeString = [messageCopy typeString];
     *buf = 138412546;
-    v46 = typeString;
-    v47 = 2112;
-    v48 = messageCopy;
+    v50 = typeString;
+    v51 = 2112;
+    v52 = messageCopy;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "sendMessageAndStartSessionIfNecessary for message type %@: %@", buf, 0x16u);
   }
 
@@ -727,15 +993,15 @@ LABEL_10:
 
   if (v19)
   {
-    v20 = sub_100004778();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100004778(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_10047DBE8(identifiersCopy);
     }
 
 LABEL_7:
-    v21 = 0;
     v22 = 0;
+    v23 = 0;
     goto LABEL_8;
   }
 
@@ -743,71 +1009,71 @@ LABEL_7:
 
   if (!currentSession)
   {
-    v36 = sub_100004778();
-    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+    v40 = sub_100004778(v25);
+    v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
     if (!destinationCopy)
     {
-      if (v37)
+      if (v41)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[WARN] No IDSSession exists, and given device is nil. We can't start this session", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[WARN] No IDSSession exists, and given device is nil. We can't start this session", buf, 2u);
       }
 
       goto LABEL_7;
     }
 
-    if (v37)
+    if (v41)
     {
       *buf = 138412290;
-      v46 = destinationCopy;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "No IDSSession exists. Starting a new one by inviting to destination %@", buf, 0xCu);
+      v50 = destinationCopy;
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "No IDSSession exists. Starting a new one by inviting to destination %@", buf, 0xCu);
     }
 
     deviceWithActiveSession2 = [NSSet setWithObject:destinationCopy];
-    v22 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDestinations:deviceWithActiveSession2];
+    v23 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDestinations:deviceWithActiveSession2];
 LABEL_23:
 
-    if (v22)
+    if (v23)
     {
-      v21 = 1;
-      [(CSDRelayIDSSessionMessenger *)self _startSession:v22 withMessage:messageCopy identifiers:identifiersCopy timeout:timeout declineOnError:1];
+      v22 = 1;
+      [(CSDRelayIDSSessionMessenger *)self _startSession:v23 withMessage:messageCopy identifiers:identifiersCopy timeout:timeout declineOnError:1];
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
 LABEL_8:
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, v21, 1);
+      handlerCopy[2](handlerCopy, v22, 1);
     }
 
     goto LABEL_10;
   }
 
-  v24 = sub_100004778();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100004778(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     currentSession2 = [(CSDRelayIDSSessionMessenger *)self currentSession];
     *buf = 138412290;
-    v46 = currentSession2;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "A session exists: %@", buf, 0xCu);
+    v50 = currentSession2;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "A session exists: %@", buf, 0xCu);
   }
 
   currentSession3 = [(CSDRelayIDSSessionMessenger *)self currentSession];
   remoteProtocolVersion = [currentSession3 remoteProtocolVersion];
 
-  v28 = sub_100004778();
-  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+  v31 = sub_100004778(v30);
+  v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
   if (remoteProtocolVersion > 0)
   {
-    v42 = destinationCopy;
-    if (v29)
+    v46 = destinationCopy;
+    if (v32)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Starting a new session to the destination of the device with an active session", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Starting a new session to the destination of the device with an active session", buf, 2u);
     }
 
     deviceWithActiveSession = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
@@ -815,33 +1081,33 @@ LABEL_8:
 
     if (!destination)
     {
-      v41 = sub_100004778();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v45 = sub_100004778(v35);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot start a new session, no valid destination", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot start a new session, no valid destination", buf, 2u);
       }
 
-      v21 = 0;
       v22 = 0;
+      v23 = 0;
       goto LABEL_8;
     }
 
     deviceWithActiveSession2 = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
     destination2 = [deviceWithActiveSession2 destination];
     [NSSet setWithObject:destination2];
-    v35 = v34 = timeout;
-    v22 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDestinations:v35];
+    v39 = v38 = timeout;
+    v23 = [(CSDRelayIDSSessionMessenger *)self _createSessionToDestinations:v39];
 
-    timeout = v34;
-    destinationCopy = v42;
+    timeout = v38;
+    destinationCopy = v46;
     goto LABEL_23;
   }
 
-  if (v29)
+  if (v32)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Sending the message through the existing session", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Sending the message through the existing session", buf, 2u);
   }
 
   currentSession4 = [(CSDRelayIDSSessionMessenger *)self currentSession];
@@ -849,14 +1115,14 @@ LABEL_8:
 
   currentSession5 = [(CSDRelayIDSSessionMessenger *)self currentSession];
   data = [messageCopy data];
-  v43[0] = _NSConcreteStackBlock;
-  v43[1] = 3221225472;
-  v43[2] = sub_100247F18;
-  v43[3] = &unk_10061F8F0;
-  v44 = handlerCopy;
-  [currentSession5 sendData:data waitUntilConnected:1 completion:v43];
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_100247F18;
+  v47[3] = &unk_10061F8F0;
+  v48 = handlerCopy;
+  [currentSession5 sendData:data waitUntilConnected:1 completion:v47];
 
-  v22 = 0;
+  v23 = 0;
   handlerCopy = 0;
 LABEL_10:
 }
@@ -865,42 +1131,42 @@ LABEL_10:
 {
   messageCopy = message;
   identifierCopy = identifier;
-  v8 = sub_100004778();
+  v8 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     typeString = [messageCopy typeString];
-    v31 = 138412802;
-    v32 = identifierCopy;
-    v33 = 2112;
-    v34 = typeString;
+    v33 = 138412802;
+    v34 = identifierCopy;
     v35 = 2112;
-    v36 = messageCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "sendMessage:andAcceptInvitationIfNecessaryForIdentifier for identifier %@ and message type %@: %@", &v31, 0x20u);
+    v36 = typeString;
+    v37 = 2112;
+    v38 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "sendMessage:andAcceptInvitationIfNecessaryForIdentifier for identifier %@ and message type %@: %@", &v33, 0x20u);
   }
 
   [messageCopy addProtocolVersion];
   v10 = [(CSDRelayIDSSessionMessenger *)self activeSessionForIdentifier:identifierCopy];
-  v11 = sub_100004778();
+  v11 = sub_100004778(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 138412290;
-    v32 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v31, 0xCu);
+    v33 = 138412290;
+    v34 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v33, 0xCu);
   }
 
   currentSession = [(CSDRelayIDSSessionMessenger *)self currentSession];
 
   if (!currentSession)
   {
-    v22 = sub_100004778();
-    v23 = v22;
+    v24 = sub_100004778(v13);
+    v25 = v24;
     if (v10)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 138412290;
-        v32 = v10;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "No current session already exists, so sending the message through this session %@", &v31, 0xCu);
+        v33 = 138412290;
+        v34 = v10;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "No current session already exists, so sending the message through this session %@", &v33, 0xCu);
       }
 
       data = [messageCopy data];
@@ -909,43 +1175,43 @@ LABEL_10:
       goto LABEL_16;
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sessions = [(CSDRelayIDSSessionMessenger *)self sessions];
-      v31 = 138412802;
-      v32 = identifierCopy;
-      v33 = 2112;
-      v34 = messageCopy;
+      v33 = 138412802;
+      v34 = identifierCopy;
       v35 = 2112;
-      v36 = sessions;
-      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Could not determine session to accept for identifier %@ and message %@. All sessions: %@", &v31, 0x20u);
+      v36 = messageCopy;
+      v37 = 2112;
+      v38 = sessions;
+      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Could not determine session to accept for identifier %@ and message %@. All sessions: %@", &v33, 0x20u);
     }
 
 LABEL_23:
-    v25 = 0;
+    v27 = 0;
     goto LABEL_24;
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     currentSession2 = [(CSDRelayIDSSessionMessenger *)self currentSession];
-    v31 = 138412290;
-    v32 = currentSession2;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "A current session already exists: %@", &v31, 0xCu);
+    v33 = 138412290;
+    v34 = currentSession2;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "A current session already exists: %@", &v33, 0xCu);
   }
 
   currentSession3 = [(CSDRelayIDSSessionMessenger *)self currentSession];
   remoteProtocolVersion = [currentSession3 remoteProtocolVersion];
 
-  v17 = sub_100004778();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v19 = sub_100004778(v18);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
   if (remoteProtocolVersion <= 0)
   {
-    if (v18)
+    if (v20)
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Sending the message through the current session", &v31, 2u);
+      LOWORD(v33) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sending the message through the current session", &v33, 2u);
     }
 
     currentSession4 = [(CSDRelayIDSSessionMessenger *)self currentSession];
@@ -958,11 +1224,11 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (v18)
+  if (v20)
   {
-    v31 = 138412290;
-    v32 = v10;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Sending the message through the current session and declining this one %@", &v31, 0xCu);
+    v33 = 138412290;
+    v34 = v10;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Sending the message through the current session and declining this one %@", &v33, 0xCu);
   }
 
   currentSession6 = [(CSDRelayIDSSessionMessenger *)self currentSession];
@@ -974,36 +1240,36 @@ LABEL_23:
 
   [v10 sendDataAndDeclineInvitationIfNecessary:0];
 LABEL_16:
-  v25 = 1;
+  v27 = 1;
 LABEL_24:
 
-  return v25;
+  return v27;
 }
 
 - (BOOL)sendMessage:(id)message andCancelOrDeclineInvitationIfNecessaryForIdentifier:(id)identifier
 {
   messageCopy = message;
   identifierCopy = identifier;
-  v8 = sub_100004778();
+  v8 = sub_100004778(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     typeString = [messageCopy typeString];
-    v17 = 138412802;
-    v18 = identifierCopy;
-    v19 = 2112;
-    v20 = typeString;
-    v21 = 2112;
-    v22 = messageCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "sendMessage:andCancelOrDeclineInvitationIfNecessaryForIdentifier for identifier %@ and message type %@: %@", &v17, 0x20u);
+    v18 = 138412802;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = typeString;
+    v22 = 2112;
+    v23 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "sendMessage:andCancelOrDeclineInvitationIfNecessaryForIdentifier for identifier %@ and message type %@: %@", &v18, 0x20u);
   }
 
   v10 = [(CSDRelayIDSSessionMessenger *)self activeSessionForIdentifier:identifierCopy];
-  v11 = sub_100004778();
+  v11 = sub_100004778(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v17, 0xCu);
+    v18 = 138412290;
+    v19 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v18, 0xCu);
   }
 
   if (v10)
@@ -1026,15 +1292,15 @@ LABEL_24:
 
     else
     {
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         allIdentifiers2 = [v10 allIdentifiers];
-        v17 = 138412546;
-        v18 = allIdentifiers2;
-        v19 = 2112;
-        v20 = identifierCopy;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Session has multiple identifiers: %@. Removing identifier %@ and not canceling/declining", &v17, 0x16u);
+        v18 = 138412546;
+        v19 = allIdentifiers2;
+        v20 = 2112;
+        v21 = identifierCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Session has multiple identifiers: %@. Removing identifier %@ and not canceling/declining", &v18, 0x16u);
       }
 
       [(CSDRelayIDSSessionMessenger *)self sendMessage:messageCopy forIdentifier:identifierCopy];
@@ -1049,25 +1315,25 @@ LABEL_24:
 {
   messageCopy = message;
   sessionCopy = session;
-  v7 = sub_100004778();
+  v7 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     typeString = [messageCopy typeString];
-    v11 = 138412802;
-    v12 = sessionCopy;
-    v13 = 2112;
-    v14 = typeString;
-    v15 = 2112;
-    v16 = messageCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_sendMessage:andCancelInvitationIfNecessaryForIdentifier for session %@ and message type %@: %@", &v11, 0x20u);
+    v12 = 138412802;
+    v13 = sessionCopy;
+    v14 = 2112;
+    v15 = typeString;
+    v16 = 2112;
+    v17 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_sendMessage:andCancelInvitationIfNecessaryForIdentifier for session %@ and message type %@: %@", &v12, 0x20u);
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = sessionCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = sessionCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Session for identifier is %@", &v12, 0xCu);
   }
 
   data = [messageCopy data];
@@ -1078,7 +1344,7 @@ LABEL_24:
 {
   messageCopy = message;
   sessionCopy = session;
-  v7 = sub_100004778();
+  v7 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     typeString = [messageCopy typeString];
@@ -1091,8 +1357,7 @@ LABEL_24:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_sendMessage:andDeclineInvitationIfNecessaryForIdentifier for session %@ and message type %@: %@", &v11, 0x20u);
   }
 
-  [messageCopy addProtocolVersion];
-  v9 = sub_100004778();
+  v9 = sub_100004778([messageCopy addProtocolVersion]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -1112,21 +1377,22 @@ LABEL_24:
 
   [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionFireAndForgetKey];
   [v4 setObject:&__kCFBooleanFalse forKeyedSubscript:IDSSendMessageOptionWantsClientAcknowledgementKey];
-  if (+[IDSDevice pairedDeviceUniqueIDOverrideExists])
+  v6 = +[IDSDevice pairedDeviceUniqueIDOverrideExists];
+  if (v6)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Removing IDSSendMessageOptionForceLocalDeliveryKey key from sendMessage options because pairedDeviceUniqueIDOverride exists", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Removing IDSSendMessageOptionForceLocalDeliveryKey key from sendMessage options because pairedDeviceUniqueIDOverride exists", v10, 2u);
     }
 
     [v4 removeObjectForKey:IDSSendMessageOptionForceLocalDeliveryKey];
   }
 
-  v7 = [v4 copy];
+  v8 = [v4 copy];
 
-  return v7;
+  return v8;
 }
 
 - (void)sendMessage:(id)message forCall:(id)call completionHandler:(id)handler
@@ -1149,6 +1415,132 @@ LABEL_24:
   dispatch_async(queue, v15);
 }
 
+- (void)sendMessage:(id)message forIdentifier:(id)identifier toDestinations:(id)destinations customizedForRemoteProtocolVersion:(id)version waitUntilConnected:(BOOL)connected completionHandler:(id)handler
+{
+  connectedCopy = connected;
+  messageCopy = message;
+  identifierCopy = identifier;
+  destinationsCopy = destinations;
+  versionCopy = version;
+  handlerCopy = handler;
+  v19 = sub_100004778(handlerCopy);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    typeString = [messageCopy typeString];
+    *buf = 138413058;
+    v36 = typeString;
+    v37 = 2112;
+    v38 = identifierCopy;
+    v39 = 2112;
+    v40 = destinationsCopy;
+    v41 = 1024;
+    LODWORD(v42) = connectedCopy;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "for message type: %@ identifier: %@ destinations: %@ waitUntilConnected: %d", buf, 0x26u);
+  }
+
+  v22 = sub_100004778(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v36 = identifierCopy;
+    v37 = 2112;
+    v38 = messageCopy;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "identifier: %@ message: %@", buf, 0x16u);
+  }
+
+  if (identifierCopy)
+  {
+    [(CSDRelayIDSSessionMessenger *)self sessionForIdentifier:identifierCopy];
+  }
+
+  else
+  {
+    [(CSDRelayIDSSessionMessenger *)self currentSession];
+  }
+  v23 = ;
+  v24 = v23;
+  if (v23)
+  {
+    v25 = [messageCopy customizeForProtocolVersion:{objc_msgSend(v23, "remoteProtocolVersion")}];
+    v34 = 0;
+    if (versionCopy && (v25 = versionCopy[2](versionCopy, [v24 remoteProtocolVersion], &v34), (v34 & 1) != 0))
+    {
+      data = sub_100004778(v25);
+      if (os_log_type_enabled(data, OS_LOG_TYPE_DEFAULT))
+      {
+        typeString2 = [messageCopy typeString];
+        *buf = 138412546;
+        v36 = typeString2;
+        v37 = 2112;
+        v38 = messageCopy;
+        _os_log_impl(&_mh_execute_header, data, OS_LOG_TYPE_DEFAULT, "Not sending message because protocolVersionCustomizationBlock's preventMessageSend was set to YES for message type %@: %@", buf, 0x16u);
+      }
+    }
+
+    else
+    {
+      v28 = sub_100004778(v25);
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+      if (destinationsCopy)
+      {
+        if (v29)
+        {
+          typeString3 = [messageCopy typeString];
+          *buf = 138413058;
+          v36 = v24;
+          v37 = 2112;
+          v38 = typeString3;
+          v39 = 2112;
+          v40 = destinationsCopy;
+          v41 = 2112;
+          v42 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "sendMessage through session %@ for message type %@ to destinations %@: %@", buf, 0x2Au);
+        }
+
+        data = [messageCopy data];
+        [v24 sendData:data toDestinations:destinationsCopy completion:handlerCopy];
+      }
+
+      else
+      {
+        if (v29)
+        {
+          typeString4 = [messageCopy typeString];
+          *buf = 138412802;
+          v36 = v24;
+          v37 = 2112;
+          v38 = typeString4;
+          v39 = 2112;
+          v40 = messageCopy;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "sendMessage through session %@ for message type %@: %@", buf, 0x20u);
+        }
+
+        data = [messageCopy data];
+        [v24 sendData:data waitUntilConnected:connectedCopy completion:handlerCopy];
+      }
+    }
+  }
+
+  else
+  {
+    v31 = sub_100004778(0);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    {
+      typeString5 = [messageCopy typeString];
+      *buf = 138412546;
+      v36 = typeString5;
+      v37 = 2112;
+      v38 = messageCopy;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "No session available to send message type %@: %@", buf, 0x16u);
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, 1);
+    }
+  }
+}
+
 - (void)service:(id)service account:(id)account inviteReceivedForSession:(id)session fromID:(id)d withContext:(id)context
 {
   serviceCopy = service;
@@ -1156,13 +1548,13 @@ LABEL_24:
   sessionCopy = session;
   dCopy = d;
   contextCopy = context;
-  v40 = [IDSDestination destinationWithURI:dCopy];
+  v43 = [IDSDestination destinationWithURI:dCopy];
   v14 = +[CSDRelayIDSService sharedInstance];
   v15 = [v14 deviceForFromID:dCopy];
 
-  v39 = [[CSDMessagingRelayMessage alloc] initWithData:contextCopy];
+  v42 = [[CSDMessagingRelayMessage alloc] initWithData:contextCopy];
   delegate = [(CSDRelayIDSMessenger *)self delegate];
-  v16 = sub_100004778();
+  v16 = sub_100004778(delegate);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = +[NSDate date];
@@ -1172,91 +1564,92 @@ LABEL_24:
     *&buf[12] = 2112;
     *&buf[14] = dCopy;
     *&buf[22] = 2112;
-    v51 = v40;
-    *v52 = 2112;
-    *&v52[2] = v15;
-    *&v52[10] = 2112;
-    *&v52[12] = v39;
-    v53 = 2048;
-    v54 = v18;
+    v54 = v43;
+    *v55 = 2112;
+    *&v55[2] = v15;
+    *&v55[10] = 2112;
+    *&v55[12] = v42;
+    v56 = 2048;
+    v57 = v18;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Invite received for session %@ from (fromID=%@) destination %@ device %@ with message %@ (timestamp: %f)", buf, 0x3Eu);
   }
 
   currentSession = [(CSDRelayIDSSessionMessenger *)self currentSession];
+  v20 = currentSession;
   if (!currentSession)
   {
     goto LABEL_8;
   }
 
   destinationWithActiveSession = [(CSDRelayIDSSessionMessenger *)self destinationWithActiveSession];
-  if ([v40 isEqual:destinationWithActiveSession])
+  if ([v43 isEqual:destinationWithActiveSession])
   {
 
 LABEL_8:
-    v23 = sub_100004778();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100004778(currentSession);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       destinationWithActiveSession2 = [(CSDRelayIDSSessionMessenger *)self destinationWithActiveSession];
-      v25 = [v40 isEqual:destinationWithActiveSession2];
+      v26 = [v43 isEqual:destinationWithActiveSession2];
       if (v15)
       {
         deviceWithActiveSession = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
-        v26 = [v15 isEqual:deviceWithActiveSession];
+        v27 = [v15 isEqual:deviceWithActiveSession];
       }
 
       else
       {
-        v26 = 0;
+        v27 = 0;
       }
 
       currentSession2 = [(CSDRelayIDSSessionMessenger *)self currentSession];
       *buf = 67109632;
-      *&buf[4] = v25;
+      *&buf[4] = v26;
       *&buf[8] = 1024;
-      *&buf[10] = v26;
+      *&buf[10] = v27;
       *&buf[14] = 1024;
       *&buf[16] = currentSession2 == 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "... and it's from the same destination that we have an active session with (%d) or it's from the same device that we have an active session with (%d) or we don't have a session (%d)", buf, 0x14u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "... and it's from the same destination that we have an active session with (%d) or it's from the same device that we have an active session with (%d) or we don't have a session (%d)", buf, 0x14u);
 
       if (v15)
       {
       }
     }
 
-    if (v39)
+    if (v42)
     {
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v51 = sub_100028740;
-      *v52 = sub_10003291C;
-      *&v52[8] = self->_queue;
+      v54 = sub_100028740;
+      *v55 = sub_10003291C;
+      *&v55[8] = self->_queue;
       objc_initWeak(&location, self);
-      v41[0] = _NSConcreteStackBlock;
-      v41[1] = 3221225472;
-      v41[2] = sub_100249ABC;
-      v41[3] = &unk_10061F940;
-      v47 = buf;
-      objc_copyWeak(&v48, &location);
-      v42 = delegate;
-      v43 = v39;
-      v44 = sessionCopy;
-      v45 = v40;
-      v46 = v15;
-      [v42 checkShouldIgnoreSessionInviteWithMessage:v43 fromDestination:v45 completion:v41];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_100249ABC;
+      v44[3] = &unk_10061F940;
+      v50 = buf;
+      objc_copyWeak(&v51, &location);
+      v45 = delegate;
+      v46 = v42;
+      v47 = sessionCopy;
+      v48 = v43;
+      v49 = v15;
+      [v45 checkShouldIgnoreSessionInviteWithMessage:v46 fromDestination:v48 completion:v44];
 
-      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v51);
       objc_destroyWeak(&location);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_30;
     }
 
-    v28 = sub_100004778();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_100004778(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "... but there was no accompanying message so just ignoring the invite", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "... but there was no accompanying message so just ignoring the invite", buf, 2u);
     }
 
 LABEL_29:
@@ -1267,9 +1660,9 @@ LABEL_29:
   if (v15)
   {
     deviceWithActiveSession2 = [(CSDRelayIDSSessionMessenger *)self deviceWithActiveSession];
-    v22 = [v15 isEqual:deviceWithActiveSession2];
+    v23 = [v15 isEqual:deviceWithActiveSession2];
 
-    if (v22)
+    if (v23)
     {
       goto LABEL_8;
     }
@@ -1279,36 +1672,37 @@ LABEL_29:
   {
   }
 
-  v29 = sub_100004778();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_100004778(currentSession);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "... but it is from a different device than the one that we have an active session with", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "... but it is from a different device than the one that we have an active session with", buf, 2u);
   }
 
-  v30 = [delegate shouldDeclineSecondSessionInviteWithMessage:v39];
-  v28 = sub_100004778();
-  v31 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-  if (!v30)
+  v32 = [delegate shouldDeclineSecondSessionInviteWithMessage:v42];
+  v33 = v32;
+  v30 = sub_100004778(v32);
+  v34 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+  if (!v33)
   {
-    if (v31)
+    if (v34)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "... and we were NOT told to decline the invite, so just ignoring it", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "... and we were NOT told to decline the invite, so just ignoring it", buf, 2u);
     }
 
     goto LABEL_29;
   }
 
-  if (v31)
+  if (v34)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "... and we were told to decline the invite", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "... and we were told to decline the invite", buf, 2u);
   }
 
-  v32 = [[CSDMessagingRelayMessage alloc] initWithType:18];
-  [(CSDMessagingRelayMessage *)v32 setDisconnectedReason:10];
-  data = [(CSDMessagingRelayMessage *)v32 data];
+  v35 = [[CSDMessagingRelayMessage alloc] initWithType:18];
+  [(CSDMessagingRelayMessage *)v35 setDisconnectedReason:10];
+  data = [(CSDMessagingRelayMessage *)v35 data];
   [sessionCopy declineInvitationWithData:data];
 
 LABEL_30:
@@ -1326,12 +1720,12 @@ LABEL_30:
 - (void)session:(id)session endedWithReason:(int)reason
 {
   sessionCopy = session;
-  v7 = sub_100004778();
+  v7 = sub_100004778(sessionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 67109120;
-    LODWORD(v17) = reason;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Session ended with reason %d", &v16, 8u);
+    v17 = 67109120;
+    LODWORD(v18) = reason;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Session ended with reason %d", &v17, 8u);
   }
 
   delegate = [(CSDRelayIDSMessenger *)self delegate];
@@ -1341,12 +1735,12 @@ LABEL_30:
 
   if (v11)
   {
-    allIdentifiers2 = sub_100004778();
+    allIdentifiers2 = sub_100004778(v12);
     if (os_log_type_enabled(allIdentifiers2, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v11;
-      _os_log_impl(&_mh_execute_header, allIdentifiers2, OS_LOG_TYPE_DEFAULT, "Not notifying delegate of messenger connection end because a different active session with the same identifier exists: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v11;
+      _os_log_impl(&_mh_execute_header, allIdentifiers2, OS_LOG_TYPE_DEFAULT, "Not notifying delegate of messenger connection end because a different active session with the same identifier exists: %@", &v17, 0xCu);
     }
   }
 
@@ -1354,11 +1748,11 @@ LABEL_30:
   {
     if (reason == 5)
     {
-      v15 = sub_100004778();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100004778(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Notifying delegate that connection could not establish link", &v16, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Notifying delegate that connection could not establish link", &v17, 2u);
       }
 
       allIdentifiers2 = [sessionCopy allIdentifiers];
@@ -1372,11 +1766,11 @@ LABEL_30:
         goto LABEL_11;
       }
 
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Notifying delegate of connection failure", &v16, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Notifying delegate of connection failure", &v17, 2u);
       }
 
       allIdentifiers2 = [sessionCopy allIdentifiers];
@@ -1386,11 +1780,11 @@ LABEL_30:
 
   else
   {
-    v13 = sub_100004778();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004778(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Notifying delegate of connection end", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Notifying delegate of connection end", &v17, 2u);
     }
 
     allIdentifiers2 = [sessionCopy allIdentifiers];
@@ -1407,21 +1801,22 @@ LABEL_11:
   dataCopy = data;
   destinationCopy = destination;
   deviceCopy = device;
+  v14 = deviceCopy;
   if (dataCopy)
   {
-    v14 = [[CSDMessagingRelayMessage alloc] initWithData:dataCopy];
-    [sessionCopy setReceiverProtocolVersion:{-[CSDMessagingRelayMessage protocolVersion](v14, "protocolVersion")}];
+    v15 = [[CSDMessagingRelayMessage alloc] initWithData:dataCopy];
+    [sessionCopy setReceiverProtocolVersion:{-[CSDMessagingRelayMessage protocolVersion](v15, "protocolVersion")}];
     delegate = [(CSDRelayIDSMessenger *)self delegate];
-    [delegate messenger:self handledMessage:v14 fromDestination:destinationCopy device:deviceCopy];
+    [delegate messenger:self handledMessage:v15 fromDestination:destinationCopy device:v14];
   }
 
   else
   {
-    v16 = sub_100004778();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004778(deviceCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Received invitation accept with no data payload.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Received invitation accept with no data payload.", v18, 2u);
     }
   }
 }
@@ -1433,24 +1828,25 @@ LABEL_11:
   deviceCopy = device;
   destinationCopy = destination;
   delegate = [(CSDRelayIDSMessenger *)self delegate];
+  v15 = delegate;
   if (dataCopy)
   {
-    v15 = [[CSDMessagingRelayMessage alloc] initWithData:dataCopy];
+    v16 = [[CSDMessagingRelayMessage alloc] initWithData:dataCopy];
     remoteDevice = [sessionCopy remoteDevice];
-    [delegate messenger:self handledMessage:v15 fromDestination:destinationCopy device:remoteDevice];
+    [v15 messenger:self handledMessage:v16 fromDestination:destinationCopy device:remoteDevice];
   }
 
   else
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004778(delegate);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Received invitation cancel with no data payload. Assuming the invitation was answered elsewhere", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received invitation cancel with no data payload. Assuming the invitation was answered elsewhere", v19, 2u);
     }
 
-    v15 = [[CSDMessagingRelayMessage alloc] initWithType:5];
-    [delegate messenger:self handledMessage:v15 fromDestination:destinationCopy device:deviceCopy];
+    v16 = [[CSDMessagingRelayMessage alloc] initWithType:5];
+    [v15 messenger:self handledMessage:v16 fromDestination:destinationCopy device:deviceCopy];
   }
 }
 
@@ -1460,7 +1856,7 @@ LABEL_11:
   destinationCopy = destination;
   deviceCopy = device;
   sessionCopy = session;
-  v14 = sub_100004778();
+  v14 = sub_100004778(sessionCopy);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (dataCopy)
   {

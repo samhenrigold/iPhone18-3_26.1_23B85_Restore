@@ -110,7 +110,7 @@
   {
     v39 = MEMORY[0x1E696AEC0];
     v40 = [(MNLocation *)self _referenceFrameAsString:[(MNLocation *)self referenceFrame]];
-    [(MNLocation *)self clientLocation];
+    objc_msgSend_clientLocation(self);
     v41 = [(MNLocation *)self _referenceFrameAsString:v45];
     v42 = [v39 stringWithFormat:@"Reference frame: %@ (raw: %@)", v40, v41];
     [array addObject:v42];
@@ -168,7 +168,7 @@
 
 - (NSString)roadName
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   state = self->_state;
   if (!state)
   {
@@ -193,13 +193,13 @@ LABEL_11:
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "[MNLocation roadName]";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/MNLocation.m";
-      v12 = 1024;
-      v13 = 388;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v8, 0x1Cu);
+      v7 = 136315650;
+      v8 = "[MNLocation roadName]";
+      v9 = 2080;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Location/MNLocation.m";
+      v11 = 1024;
+      v12 = 388;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v7, 0x1Cu);
     }
 
     goto LABEL_11;
@@ -215,7 +215,6 @@ LABEL_7:
 
   roadName = [(GEORoadMatch *)self->_roadMatch roadName];
 LABEL_12:
-  v6 = *MEMORY[0x1E69E9840];
 
   return roadName;
 }
@@ -368,7 +367,7 @@ LABEL_12:
     if (!v5->_rawLocation)
     {
       v26 = objc_alloc(MEMORY[0x1E6985C40]);
-      [(MNLocation *)v5 clientLocation];
+      objc_msgSend_clientLocation(v5);
       v27 = [v26 initWithClientLocation:v31];
       v28 = v5->_rawLocation;
       v5->_rawLocation = v27;
@@ -513,16 +512,14 @@ LABEL_12:
     goto LABEL_74;
   }
 
-  v5 = *MEMORY[0x1E69A19F8];
-  v6 = *(MEMORY[0x1E69A19F8] + 8);
   if (GEOConfigGetBOOL())
   {
     timestamp = locationCopy[2];
-    v8 = self->_uuid;
-    v9 = v8;
-    if (v8 | timestamp)
+    v6 = self->_uuid;
+    v7 = v6;
+    if (v6 | timestamp)
     {
-      LOBYTE(timestamp) = [v8 isEqual:timestamp];
+      LOBYTE(timestamp) = [v6 isEqual:timestamp];
     }
 
     else
@@ -534,90 +531,90 @@ LABEL_12:
   }
 
   [(MNLocation *)self coordinate];
+  v9 = v8;
   v11 = v10;
-  v13 = v12;
   [locationCopy coordinate];
   LOBYTE(timestamp) = 0;
-  if (vabdd_f64(v11, v15) >= 0.000001)
+  if (vabdd_f64(v9, v13) >= 0.000001)
   {
     goto LABEL_75;
   }
 
-  if (vabdd_f64(v13, v14) >= 0.000001)
+  if (vabdd_f64(v11, v12) >= 0.000001)
   {
     goto LABEL_75;
   }
 
   [(MNLocation *)self rawCoordinate];
+  v15 = v14;
   v17 = v16;
-  v19 = v18;
   [locationCopy rawCoordinate];
   LOBYTE(timestamp) = 0;
-  if (vabdd_f64(v17, v21) >= 0.000001 || vabdd_f64(v19, v20) >= 0.000001)
+  if (vabdd_f64(v15, v19) >= 0.000001 || vabdd_f64(v17, v18) >= 0.000001)
   {
     goto LABEL_75;
   }
 
   [(MNLocation *)self altitude];
-  v23 = v22;
+  v21 = v20;
   [locationCopy altitude];
-  if (vabdd_f64(v23, v24) >= 0.000001)
+  if (vabdd_f64(v21, v22) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self horizontalAccuracy];
-  v26 = v25;
+  v24 = v23;
   [locationCopy horizontalAccuracy];
-  if (vabdd_f64(v26, v27) >= 0.000001)
+  if (vabdd_f64(v24, v25) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self verticalAccuracy];
-  v29 = v28;
+  v27 = v26;
   [locationCopy verticalAccuracy];
-  if (vabdd_f64(v29, v30) >= 0.000001)
+  if (vabdd_f64(v27, v28) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self course];
-  v32 = v31;
+  v30 = v29;
   [locationCopy course];
-  if (vabdd_f64(v32, v33) >= 0.000001)
+  if (vabdd_f64(v30, v31) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self rawCourse];
-  v35 = v34;
+  v33 = v32;
   [locationCopy rawCourse];
-  if (vabdd_f64(v35, v36) >= 0.000001)
+  if (vabdd_f64(v33, v34) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self courseAccuracy];
-  v38 = v37;
+  v36 = v35;
   [locationCopy courseAccuracy];
-  if (vabdd_f64(v38, v39) >= 0.000001)
+  if (vabdd_f64(v36, v37) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self speed];
-  v41 = v40;
+  v39 = v38;
   [locationCopy speed];
-  if (vabdd_f64(v41, v42) >= 0.000001)
+  if (vabdd_f64(v39, v40) >= 0.000001)
   {
     goto LABEL_74;
   }
 
   [(MNLocation *)self speedAccuracy];
-  v44 = v43;
+  v42 = v41;
   [locationCopy speedAccuracy];
-  if (vabdd_f64(v44, v45) >= 0.000001)
+  if (vabdd_f64(v42, v43) >= 0.000001)
   {
     goto LABEL_74;
   }
@@ -647,141 +644,36 @@ LABEL_12:
     goto LABEL_72;
   }
 
-  [(MNLocation *)self clientLocation];
-  [locationCopy clientLocation];
-  if (v132 != v131)
+  objc_msgSend_clientLocation(self);
+  objc_msgSend_clientLocation(locationCopy);
+  if (v130 != v129)
   {
     goto LABEL_72;
   }
 
   [(MNLocation *)self rawShiftedCoordinate];
+  v49 = v48;
   v51 = v50;
-  v53 = v52;
   [locationCopy rawShiftedCoordinate];
-  v55 = v54;
-  v57 = vabdd_f64(v51, v56);
+  v53 = v52;
+  v55 = vabdd_f64(v49, v54);
 
   LOBYTE(timestamp) = 0;
-  if (v57 >= 0.000001 || vabdd_f64(v53, v55) >= 0.000001)
+  if (v55 >= 0.000001 || vabdd_f64(v51, v53) >= 0.000001)
   {
     goto LABEL_75;
   }
 
-  if (self->_state != locationCopy[3])
+  if (self->_state != locationCopy[3] || (v56 = locationCopy[4], v57 = self->_routeID, v58 = v56, v57 | v58) && (v59 = v58, v60 = [v57 isEqual:v58], v59, v57, !v60) || (v61 = locationCopy[11], v62 = self->_roadName, v63 = v61, v62 | v63) && (v64 = v63, v65 = objc_msgSend(v62, "isEqual:", v63), v64, v62, !v65) || (v66 = locationCopy[12], v67 = self->_shieldText, v68 = v66, v67 | v68) && (v69 = v68, v70 = objc_msgSend(v67, "isEqual:", v68), v69, v67, !v70) || self->_shieldType != locationCopy[13] || self->_roadLineType != *(locationCopy + 28) || self->_rampType != *(locationCopy + 29) || self->_speedLimit != locationCopy[15] || self->_speedLimitIsMPH != *(locationCopy + 128) || self->_isDirectional != *(locationCopy + 144) || self->_locationUnreliable != *(locationCopy + 145) || (v71 = locationCopy[19], v72 = self->_expirationDate, v73 = v71, v72 | v73) && (v74 = v73, v75 = objc_msgSend(v72, "isEqual:", v73), v74, v72, !v75) || (v76 = locationCopy[20], v77 = self->_originalDate, v78 = v76, v77 | v78) && (v79 = v78, v80 = objc_msgSend(v77, "isEqual:", v78), v79, v77, !v80))
   {
-    goto LABEL_74;
-  }
-
-  v58 = locationCopy[4];
-  v59 = self->_routeID;
-  v60 = v58;
-  if (v59 | v60)
-  {
-    v61 = v60;
-    v62 = [v59 isEqual:v60];
-
-    if (!v62)
-    {
-      goto LABEL_74;
-    }
-  }
-
-  v63 = locationCopy[11];
-  v64 = self->_roadName;
-  v65 = v63;
-  if (v64 | v65)
-  {
-    v66 = v65;
-    v67 = [v64 isEqual:v65];
-
-    if (!v67)
-    {
-      goto LABEL_74;
-    }
-  }
-
-  v68 = locationCopy[12];
-  v69 = self->_shieldText;
-  v70 = v68;
-  if (v69 | v70)
-  {
-    v71 = v70;
-    v72 = [v69 isEqual:v70];
-
-    if (!v72)
-    {
-      goto LABEL_74;
-    }
-  }
-
-  if (self->_shieldType != locationCopy[13])
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_roadLineType != *(locationCopy + 28))
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_rampType != *(locationCopy + 29))
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_speedLimit != locationCopy[15])
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_speedLimitIsMPH != *(locationCopy + 128))
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_isDirectional != *(locationCopy + 144))
-  {
-    goto LABEL_74;
-  }
-
-  if (self->_locationUnreliable != *(locationCopy + 145))
-  {
-    goto LABEL_74;
-  }
-
-  v73 = locationCopy[19];
-  v74 = self->_expirationDate;
-  v75 = v73;
-  if (v74 | v75)
-  {
-    v76 = v75;
-    v77 = [v74 isEqual:v75];
-
-    if (!v77)
-    {
-      goto LABEL_74;
-    }
-  }
-
-  v78 = locationCopy[20];
-  v79 = self->_originalDate;
-  v80 = v78;
-  if (v79 | v80)
-  {
-    v81 = v80;
-    v82 = [v79 isEqual:v80];
-
-    if (!v82)
-    {
 LABEL_74:
-      LOBYTE(timestamp) = 0;
-      goto LABEL_75;
-    }
+    LOBYTE(timestamp) = 0;
+    goto LABEL_75;
   }
 
-  v83 = self->_routeMatch != 0;
+  v81 = self->_routeMatch != 0;
   routeMatch = [locationCopy routeMatch];
-  LODWORD(timestamp) = v83 ^ (routeMatch == 0);
+  LODWORD(timestamp) = v81 ^ (routeMatch == 0);
 
   routeMatch = self->_routeMatch;
   if (!routeMatch)
@@ -806,9 +698,9 @@ LABEL_74:
     goto LABEL_73;
   }
 
-  LODWORD(v87) = [(GEORouteMatch *)self->_routeMatch routeCoordinate]>> 32;
+  LODWORD(v85) = [(GEORouteMatch *)self->_routeMatch routeCoordinate]>> 32;
   timestamp2 = [locationCopy routeMatch];
-  if (vabds_f32(v87, COERCE_FLOAT([timestamp2 routeCoordinate] >> 32)) >= 0.000001)
+  if (vabds_f32(v85, COERCE_FLOAT([timestamp2 routeCoordinate] >> 32)) >= 0.000001)
   {
 LABEL_72:
 
@@ -817,10 +709,10 @@ LABEL_73:
   }
 
   [(GEORouteMatch *)self->_routeMatch locationCoordinate];
-  v89 = v88;
+  v87 = v86;
   routeMatch2 = [locationCopy routeMatch];
   [routeMatch2 locationCoordinate];
-  if (vabdd_f64(v89, v91) >= 0.000001)
+  if (vabdd_f64(v87, v89) >= 0.000001)
   {
 LABEL_71:
 
@@ -828,10 +720,10 @@ LABEL_71:
   }
 
   [(GEORouteMatch *)self->_routeMatch locationCoordinate];
-  v93 = v92;
+  v91 = v90;
   routeMatch3 = [locationCopy routeMatch];
   [routeMatch3 locationCoordinate];
-  if (vabdd_f64(v93, v95) >= 0.000001)
+  if (vabdd_f64(v91, v93) >= 0.000001)
   {
 LABEL_70:
 
@@ -839,10 +731,10 @@ LABEL_70:
   }
 
   [(GEORouteMatch *)self->_routeMatch matchedCourse];
-  v97 = v96;
+  v95 = v94;
   routeMatch4 = [locationCopy routeMatch];
   [routeMatch4 matchedCourse];
-  if (vabdd_f64(v97, v99) >= 0.000001)
+  if (vabdd_f64(v95, v97) >= 0.000001)
   {
 LABEL_69:
 
@@ -859,10 +751,10 @@ LABEL_68:
   }
 
   [(GEORouteMatch *)self->_routeMatch distanceFromRoute];
-  v103 = v102;
+  v101 = v100;
   routeMatch6 = [locationCopy routeMatch];
   [routeMatch6 distanceFromRoute];
-  if (vabdd_f64(v103, v105) >= 0.000001)
+  if (vabdd_f64(v101, v103) >= 0.000001)
   {
 LABEL_67:
 
@@ -870,22 +762,22 @@ LABEL_67:
   }
 
   [(GEORouteMatch *)self->_routeMatch modifiedHorizontalAccuracy];
-  v107 = v106;
+  v105 = v104;
   routeMatch7 = [locationCopy routeMatch];
   [routeMatch7 modifiedHorizontalAccuracy];
-  if (vabdd_f64(v107, v108) >= 0.000001)
+  if (vabdd_f64(v105, v106) >= 0.000001)
   {
 
     goto LABEL_67;
   }
 
   [(GEORouteMatch *)self->_routeMatch modifiedCourseAccuracy];
-  v110 = v109;
+  v108 = v107;
   routeMatch8 = [locationCopy routeMatch];
   [routeMatch8 modifiedCourseAccuracy];
-  v113 = vabdd_f64(v110, v112);
+  v111 = vabdd_f64(v108, v110);
 
-  if (v113 >= 0.000001)
+  if (v111 >= 0.000001)
   {
     goto LABEL_74;
   }
@@ -893,17 +785,17 @@ LABEL_67:
 LABEL_57:
   LODWORD(timestamp) = self->_roadMatch != 0;
   roadMatch = [locationCopy roadMatch];
-  v115 = timestamp ^ (roadMatch == 0);
+  v113 = timestamp ^ (roadMatch == 0);
 
   roadMatch = self->_roadMatch;
-  LOBYTE(timestamp) = (roadMatch == 0) & v115;
-  if (roadMatch && v115)
+  LOBYTE(timestamp) = (roadMatch == 0) & v113;
+  if (roadMatch && v113)
   {
     [(GEORoadMatch *)roadMatch coordinateOnRoad];
-    v118 = v117;
+    v116 = v115;
     roadMatch2 = [locationCopy roadMatch];
     [roadMatch2 coordinateOnRoad];
-    if (vabdd_f64(v118, v120) >= 0.000001)
+    if (vabdd_f64(v116, v118) >= 0.000001)
     {
       LOBYTE(timestamp) = 0;
     }
@@ -911,10 +803,10 @@ LABEL_57:
     else
     {
       [(GEORoadMatch *)self->_roadMatch coordinateOnRoad];
-      v122 = v121;
+      v120 = v119;
       roadMatch3 = [locationCopy roadMatch];
       [roadMatch3 coordinateOnRoad];
-      if (vabdd_f64(v122, v124) >= 0.000001)
+      if (vabdd_f64(v120, v122) >= 0.000001)
       {
         LOBYTE(timestamp) = 0;
       }
@@ -922,10 +814,10 @@ LABEL_57:
       else
       {
         [(GEORoadMatch *)self->_roadMatch courseOnRoad];
-        v126 = v125;
+        v124 = v123;
         roadMatch4 = [locationCopy roadMatch];
         [roadMatch4 courseOnRoad];
-        LOBYTE(timestamp) = vabdd_f64(v126, v128) < 0.000001;
+        LOBYTE(timestamp) = vabdd_f64(v124, v126) < 0.000001;
       }
     }
   }
@@ -938,14 +830,14 @@ LABEL_75:
 - (id)propagatedLocationForTimeInterval:(double)interval shouldProjectAlongRoute:(BOOL)route
 {
   routeCopy = route;
-  v41 = 0u;
-  memset(v42, 0, 28);
   v39 = 0u;
-  v40 = 0u;
-  memset(v38, 0, sizeof(v38));
+  memset(v40, 0, 28);
   v37 = 0u;
-  memset(&v36[2], 0, 32);
-  [(MNLocation *)self clientLocation];
+  v38 = 0u;
+  memset(v36, 0, sizeof(v36));
+  v35 = 0u;
+  memset(&v34[2], 0, 32);
+  objc_msgSend_clientLocation(self, a2);
   v7 = self->_routeMatch;
   if (routeCopy && [(MNLocation *)self _canProjectAlongRoute])
   {
@@ -955,86 +847,84 @@ LABEL_75:
     step = [(GEORouteMatch *)self->_routeMatch step];
     v12 = [route routeCoordinateForDistance:-[GEORouteMatch routeCoordinate](self->_routeMatch afterRouteCoordinate:{"routeCoordinate"), v9}];
     endRouteCoordinate = [step endRouteCoordinate];
-    v14 = *MEMORY[0x1E69A19E8];
-    v15 = *(MEMORY[0x1E69A19E8] + 8);
     if ((GEOConfigGetBOOL() & 1) == 0 && GEOPolylineCoordinateIsABeforeB())
     {
       v12 = endRouteCoordinate;
     }
 
     [route pointAtRouteCoordinate:v12];
+    v15 = v14;
     v17 = v16;
     v19 = v18;
-    v21 = v20;
     [route courseAtRouteCoordinateIndex:v12];
-    v23 = v22;
-    *(&v36[2] + 4) = v17;
-    *(&v36[2] + 12) = v19;
-    *(v38 + 12) = v22;
-    v24 = objc_alloc(MEMORY[0x1E69A2540]);
+    v21 = v20;
+    *(&v34[2] + 4) = v15;
+    *(&v34[2] + 12) = v17;
+    *(v36 + 12) = v20;
+    v22 = objc_alloc(MEMORY[0x1E69A2540]);
     stepIndex = [(GEORouteMatch *)self->_routeMatch stepIndex];
     timestamp = [(MNLocation *)self timestamp];
-    v27 = [v24 initWithRoute:route routeCoordinate:v12 locationCoordinate:stepIndex stepIndex:timestamp matchedCourse:v17 timestamp:{v19, v21, v23}];
+    v25 = [v22 initWithRoute:route routeCoordinate:v12 locationCoordinate:stepIndex stepIndex:timestamp matchedCourse:v15 timestamp:{v17, v19, v21}];
 
-    [v27 setIsGoodMatch:{-[GEORouteMatch isGoodMatch](self->_routeMatch, "isGoodMatch")}];
-    [v27 setShouldProjectLocationAlongRoute:{-[GEORouteMatch shouldProjectLocationAlongRoute](self->_routeMatch, "shouldProjectLocationAlongRoute")}];
+    [v25 setIsGoodMatch:{-[GEORouteMatch isGoodMatch](self->_routeMatch, "isGoodMatch")}];
+    [v25 setShouldProjectLocationAlongRoute:{-[GEORouteMatch shouldProjectLocationAlongRoute](self->_routeMatch, "shouldProjectLocationAlongRoute")}];
     [(GEORouteMatch *)self->_routeMatch distanceFromRoute];
-    [v27 setDistanceFromRoute:?];
+    [v25 setDistanceFromRoute:?];
     [(GEORouteMatch *)self->_routeMatch modifiedHorizontalAccuracy];
-    [v27 setModifiedHorizontalAccuracy:?];
+    [v25 setModifiedHorizontalAccuracy:?];
     [(GEORouteMatch *)self->_routeMatch modifiedCourseAccuracy];
-    [v27 setModifiedCourseAccuracy:?];
-    [v27 setIsTunnelProjection:{-[GEORouteMatch isTunnelProjection](self->_routeMatch, "isTunnelProjection")}];
-    [v27 setProjectedFrom:self->_routeMatch];
+    [v25 setModifiedCourseAccuracy:?];
+    [v25 setIsTunnelProjection:{-[GEORouteMatch isTunnelProjection](self->_routeMatch, "isTunnelProjection")}];
+    [v25 setProjectedFrom:self->_routeMatch];
 
-    v7 = v27;
+    v7 = v25;
   }
 
   else
   {
     route = [(MNLocation *)self propagateLocationToTime:interval];
     [route coordinate];
-    v29 = v28;
+    v27 = v26;
     [route coordinate];
-    *(&v36[2] + 4) = v29;
-    *(&v36[2] + 12) = v30;
+    *(&v34[2] + 4) = v27;
+    *(&v34[2] + 12) = v28;
     [route course];
-    *(v38 + 12) = v31;
+    *(v36 + 12) = v29;
   }
 
-  v32 = [MNLocation alloc];
-  v35[6] = v40;
-  v35[7] = v41;
-  v36[0] = v42[0];
-  *(v36 + 12) = *(v42 + 12);
-  v35[2] = v37;
-  v35[3] = v38[0];
-  v35[4] = v38[1];
-  v35[5] = v39;
-  v35[0] = v36[2];
-  v35[1] = v36[3];
-  v33 = [(MNLocation *)v32 initWithClientLocation:v35];
-  [(MNLocation *)v33 setState:self->_state];
-  [(MNLocation *)v33 setRouteMatch:v7];
-  [(MNLocation *)v33 setRoadMatch:self->_roadMatch];
-  [(MNLocation *)v33 setRawLocation:self->_rawLocation];
-  [(MNLocation *)v33 setRoadName:self->_roadName];
-  [(MNLocation *)v33 setShieldText:self->_shieldText];
-  [(MNLocation *)v33 setShieldType:self->_shieldType];
-  [(MNLocation *)v33 setRoadLineType:self->_roadLineType];
-  [(MNLocation *)v33 setRampType:self->_rampType];
-  [(MNLocation *)v33 setSpeedLimit:self->_speedLimit];
-  [(MNLocation *)v33 setSpeedLimitIsMPH:self->_speedLimitIsMPH];
-  [(MNLocation *)v33 setSpeedLimitShieldType:self->_speedLimitShieldType];
-  [(MNLocation *)v33 setIsDirectional:self->_isDirectional];
-  [(MNLocation *)v33 setLocationUnreliable:self->_locationUnreliable];
-  [(MNLocation *)v33 setExpirationDate:self->_expirationDate];
-  [(MNLocation *)v33 setOriginalDate:self->_originalDate];
-  [(MNLocation *)v33 setRawShiftedCoordinate:self->_rawShiftedCoordinate.latitude, self->_rawShiftedCoordinate.longitude];
-  [(MNLocation *)v33 setTraceIndex:self->_traceIndex];
-  [(MNLocation *)v33 setTraceTimestamp:self->_traceTimestamp];
+  v30 = [MNLocation alloc];
+  v33[6] = v38;
+  v33[7] = v39;
+  v34[0] = v40[0];
+  *(v34 + 12) = *(v40 + 12);
+  v33[2] = v35;
+  v33[3] = v36[0];
+  v33[4] = v36[1];
+  v33[5] = v37;
+  v33[0] = v34[2];
+  v33[1] = v34[3];
+  v31 = [(MNLocation *)v30 initWithClientLocation:v33];
+  [(MNLocation *)v31 setState:self->_state];
+  [(MNLocation *)v31 setRouteMatch:v7];
+  [(MNLocation *)v31 setRoadMatch:self->_roadMatch];
+  [(MNLocation *)v31 setRawLocation:self->_rawLocation];
+  [(MNLocation *)v31 setRoadName:self->_roadName];
+  [(MNLocation *)v31 setShieldText:self->_shieldText];
+  [(MNLocation *)v31 setShieldType:self->_shieldType];
+  [(MNLocation *)v31 setRoadLineType:self->_roadLineType];
+  [(MNLocation *)v31 setRampType:self->_rampType];
+  [(MNLocation *)v31 setSpeedLimit:self->_speedLimit];
+  [(MNLocation *)v31 setSpeedLimitIsMPH:self->_speedLimitIsMPH];
+  [(MNLocation *)v31 setSpeedLimitShieldType:self->_speedLimitShieldType];
+  [(MNLocation *)v31 setIsDirectional:self->_isDirectional];
+  [(MNLocation *)v31 setLocationUnreliable:self->_locationUnreliable];
+  [(MNLocation *)v31 setExpirationDate:self->_expirationDate];
+  [(MNLocation *)v31 setOriginalDate:self->_originalDate];
+  [(MNLocation *)v31 setRawShiftedCoordinate:self->_rawShiftedCoordinate.latitude, self->_rawShiftedCoordinate.longitude];
+  [(MNLocation *)v31 setTraceIndex:self->_traceIndex];
+  [(MNLocation *)v31 setTraceTimestamp:self->_traceTimestamp];
 
-  return v33;
+  return v31;
 }
 
 - (MNLocation)initWithRawLocation:(id)location locationFixType:(unint64_t)type
@@ -1057,13 +947,13 @@ LABEL_75:
     goto LABEL_7;
   }
 
-  [locationCopy clientLocation];
+  objc_msgSend_clientLocation(locationCopy);
   if ((type & 0xFFFFFFFFFFFFFFFDLL) != 0)
   {
     goto LABEL_9;
   }
 
-  [v8 clientLocation];
+  objc_msgSend_clientLocation(v8);
   if (DWORD2(v19[10]) != 2)
   {
 LABEL_7:
@@ -1116,7 +1006,7 @@ LABEL_9:
   memset(&v25[22], 0, 80);
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   if (type != 2)
@@ -1128,7 +1018,7 @@ LABEL_9:
 
     if (v11)
     {
-      [v11 clientLocation];
+      objc_msgSend_clientLocation(v11);
       if (DWORD2(v25[20]) == 2)
       {
         [v11 _navigation_rawShiftedCoordinate];
@@ -1140,7 +1030,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      [v11 clientLocation];
+      objc_msgSend_clientLocation(v11);
     }
 
     else
@@ -1202,7 +1092,7 @@ LABEL_14:
   memset(&v29[22], 0, 80);
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   if (type != 2)
@@ -1214,7 +1104,7 @@ LABEL_14:
 
     if (v11)
     {
-      [v11 clientLocation];
+      objc_msgSend_clientLocation(v11);
       if (DWORD2(v29[20]) == 2)
       {
         [v11 _navigation_rawShiftedCoordinate];
@@ -1226,7 +1116,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      [v11 clientLocation];
+      objc_msgSend_clientLocation(v11);
     }
 
     else
@@ -1368,7 +1258,7 @@ LABEL_14:
   v5 = locationCopy;
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   else
@@ -1402,8 +1292,6 @@ LABEL_14:
 
 uint64_t __33__MNLocation_puckLocationTracing__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A19F8];
-  v1 = *(MEMORY[0x1E69A19F8] + 8);
   result = GEOConfigGetBOOL();
   puckLocationTracing__puckLocationTracing = result;
   return result;

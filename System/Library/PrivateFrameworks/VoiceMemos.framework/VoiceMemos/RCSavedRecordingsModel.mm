@@ -7,6 +7,7 @@
 + (id)standardNameForRecordingWithCreationDate:(id)date uniqueID:(id)d;
 + (id)standardPathForRecordingWithCreationDate:(id)date uniqueID:(id)d fileExtension:(id)extension;
 + (id)standardURLForRecordingWithCreationDate:(id)date fileExtension:(id)extension;
++ (void)_determineImportabilityOfRecordingWithAudioAsset:(id)asset preferredFormat:(unsigned int)format completionHandler:(id)handler;
 + (void)determineImportabilityOfRecordingWithAudioURL:(id)l completionHandler:(id)handler;
 + (void)fetchMetadataForRecordingWithUUID:(id)d completionHandler:(id)handler;
 + (void)fetchRecordingUUIDsForExport:(id)export;
@@ -39,6 +40,7 @@
 - (id)_transactionsAndChangesForObjectIDs:(id)ds;
 - (id)_transactionsAndChangesWithPredicate:(id)predicate;
 - (id)_transactionsAndChangesWithRequest:(id)request;
+- (id)_userDefinedFolders:(id)folders searchOption:(int)option;
 - (id)cacheDeletedRecordings;
 - (id)createEncryptedFieldsMigration:(int)migration;
 - (id)duplicateRecording:(id)recording copyingResources:(BOOL)resources creationDate:(id)date error:(id *)error;
@@ -48,6 +50,7 @@
 - (id)existingFolderWithName:(id)name;
 - (id)existingFolderWithUUID:(id)d;
 - (id)existingFoldersWithName:(id)name searchOption:(int)option;
+- (id)existingRecordingsWithName:(id)name searchOption:(int)option error:(id *)error;
 - (id)folderWithName:(id)name;
 - (id)insertRecordingWithAudioFile:(id)file duration:(double)duration date:(id)date customTitleBase:(id)base uniqueID:(id)d error:(id *)error;
 - (id)nextRecordingDefaultLabelWithCustomTitleBase:(id)base;
@@ -125,7 +128,7 @@
 
 void __41__RCSavedRecordingsModel_audioProperties__block_invoke(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v1 = [*(*(a1 + 32) + 8) persistentStoreCoordinator];
   v2 = [v1 managedObjectModel];
 
@@ -135,26 +138,24 @@ void __41__RCSavedRecordingsModel_audioProperties__block_invoke(uint64_t a1)
 
   v6 = MEMORY[0x277CBEB98];
   v7 = [v5 objectForKeyedSubscript:@"audioDigest"];
-  v13[0] = v7;
+  v12[0] = v7;
   v8 = [v5 objectForKeyedSubscript:@"localDuration"];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v10 = [v6 setWithArray:v9];
   v11 = audioProperties_audioProperties;
   audioProperties_audioProperties = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_copyFileIntoImportFilesTemporaryDirectory:(id)directory error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   lastPathComponent = [directoryCopy lastPathComponent];
   if (lastPathComponent)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v8 = RCRecordingsDirectoryURL();
+    v8 = RCRecordingsDirectoryURL(defaultManager);
     v9 = [v8 URLByAppendingPathComponent:@".ImportFilesTemporaryDirectory"];
 
     [defaultManager createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:0 error:0];
@@ -178,15 +179,15 @@ void __41__RCSavedRecordingsModel_audioProperties__block_invoke(uint64_t a1)
   {
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277CCA738];
-    v19 = *MEMORY[0x277CCA760];
+    v18 = *MEMORY[0x277CCA760];
     null = directoryCopy;
     if (!directoryCopy)
     {
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v20[0] = null;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = null;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v13 errorWithDomain:v14 code:-1000 userInfo:v16];
 
     if (!directoryCopy)
@@ -196,7 +197,6 @@ void __41__RCSavedRecordingsModel_audioProperties__block_invoke(uint64_t a1)
     error = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -300,16 +300,16 @@ void __102__RCSavedRecordingsModel_ImportAdditions__importFileWithURL_shouldUseM
 
 + (void)importFileWithURL:(id)l withMetadata:(id)metadata completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (metadata)
   {
-    v20 = @"RCVoiceMemoMetadataKey";
+    v19 = @"RCVoiceMemoMetadataKey";
     metadataCopy = metadata;
     v8 = MEMORY[0x277CBEAC0];
     handlerCopy = handler;
     metadataCopy2 = metadata;
-    v11 = [v8 dictionaryWithObjects:&metadataCopy forKeys:&v20 count:1];
+    v11 = [v8 dictionaryWithObjects:&metadataCopy forKeys:&v19 count:1];
     v12 = MEMORY[0x277CBEAA8];
     creationTimeMillis = [metadataCopy2 creationTimeMillis];
     [creationTimeMillis doubleValue];
@@ -321,18 +321,16 @@ void __102__RCSavedRecordingsModel_ImportAdditions__importFileWithURL_shouldUseM
 
   else
   {
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"metadata cannot be nil";
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"metadata cannot be nil";
     v17 = MEMORY[0x277CBEAC0];
     handlerCopy2 = handler;
     v18 = 0;
-    v11 = [v17 dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v11 = [v17 dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:500 userInfo:v11];
 
     handlerCopy2[2](handlerCopy2, 0, v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (RCSavedRecordingsModel)init
@@ -411,7 +409,7 @@ void __52__RCSavedRecordingsModel_recordingsModelForContext___block_invoke(uint6
 
 + (id)savedRecordingsDirectory
 {
-  v2 = RCRecordingsDirectoryURL();
+  v2 = RCRecordingsDirectoryURL(self);
   path = [v2 path];
 
   return path;
@@ -492,7 +490,7 @@ uint64_t __55__RCSavedRecordingsModel_unencryptedTitleDateFormatter__block_invok
     v5 = *(v4 + 16);
     *(v4 + 16) = v3;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v3, v5);
   }
 
   return result;
@@ -681,7 +679,7 @@ uint64_t __48__RCSavedRecordingsModel_recordingWithFileName___block_invoke(void 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)_recordingsWithUniqueID:(id)d
@@ -726,7 +724,7 @@ uint64_t __50__RCSavedRecordingsModel__recordingsWithUniqueID___block_invoke(voi
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)recordingWithUniqueID:(id)d
@@ -771,7 +769,7 @@ uint64_t __50__RCSavedRecordingsModel_recordingsWithUniqueIDs___block_invoke(voi
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)cacheDeletedRecordings
@@ -844,7 +842,7 @@ void __50__RCSavedRecordingsModel_recordingsWithPredicate___block_invoke(void *a
 
 void __90__RCSavedRecordingsModel_enumerateExistingRecordingsWithProperties_sortDescriptors_block___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"CloudRecording"];
   v3 = v2;
   if (a1[4])
@@ -870,35 +868,35 @@ void __90__RCSavedRecordingsModel_enumerateExistingRecordingsWithProperties_sort
   }
 
   v6 = *(a1[6] + 8);
-  v24 = 0;
-  v7 = [v6 executeFetchRequest:v3 error:&v24];
-  v8 = v24;
+  v23 = 0;
+  v7 = [v6 executeFetchRequest:v3 error:&v23];
+  v8 = v23;
   if (v7)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (!v10)
     {
       goto LABEL_24;
     }
 
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (1)
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
+        v14 = *(*(&v19 + 1) + 8 * v13);
         if (a1[4])
         {
           v15 = v14;
@@ -927,7 +925,7 @@ LABEL_16:
       }
 
       while (v11 != v13);
-      v18 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v18 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       v11 = v18;
       if (!v18)
       {
@@ -943,8 +941,6 @@ LABEL_16:
   }
 
 LABEL_24:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateExistingRecordingsWithBlock:(id)block
@@ -1000,39 +996,37 @@ void __36__RCSavedRecordingsModel__allTitles__block_invoke(uint64_t a1, void *a2
 
 void __59__RCSavedRecordingsModel__enumerateFetchedRecordingTitles___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1[4] + 8) executeFetchRequest:a1[5] error:0];
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
-  v2 = v9 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v7 = 0u;
+  v2 = v8 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = [*(*(&v8 + 1) + 8 * i) title];
+        v6 = [*(*(&v7 + 1) + 8 * i) title];
         if (v6)
         {
           (*(a1[6] + 16))();
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_transactionHistorySinceToken:(id)token forStore:(id)store
@@ -1110,46 +1104,46 @@ void __65__RCSavedRecordingsModel__transactionHistorySinceToken_forStore___block
 
 void __79__RCSavedRecordingsModel_enumerateChangeHistorySinceToken_forStore_usingBlock___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _transactionHistorySinceToken:*(a1 + 40) forStore:*(a1 + 48)];
   v3 = v2;
   if (v2 && [v2 count])
   {
-    v18 = 0;
+    v17 = 0;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
 LABEL_5:
       v8 = 0;
       while (1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         (*(*(a1 + 56) + 16))(*(a1 + 56));
         v10 = [v9 token];
         v11 = *(*(a1 + 64) + 8);
         v12 = *(v11 + 40);
         *(v11 + 40) = v10;
 
-        if (v18)
+        if (v17)
         {
           break;
         }
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
           if (v6)
           {
             goto LABEL_5;
@@ -1160,8 +1154,6 @@ LABEL_5:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)transactionForToken:(id)token forStore:(id)store
@@ -1294,40 +1286,39 @@ void __63__RCSavedRecordingsModel__transactionsAndChangesWithPredicate___block_i
 
 void __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke(void *a1)
 {
-  v3 = a1 + 5;
   v2 = a1[5];
-  v4 = *(a1[4] + 8);
-  v11 = 0;
-  v5 = [v4 executeRequest:v2 error:&v11];
-  v6 = v11;
-  if (v5 && [v5 resultType] == 5)
+  v3 = *(a1[4] + 8);
+  v10 = 0;
+  v4 = [v3 executeRequest:v2 error:&v10];
+  v5 = v10;
+  if (v4 && [v4 resultType] == 5)
   {
-    v7 = [v5 result];
+    v6 = [v4 result];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = *(a1[6] + 8);
-      v9 = v7;
-      v10 = *(v8 + 40);
-      *(v8 + 40) = v9;
+      v7 = *(a1[6] + 8);
+      v8 = v6;
+      v9 = *(v7 + 40);
+      *(v7 + 40) = v8;
     }
 
     else
     {
-      v10 = OSLogForCategory(@"Default");
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = OSLogForCategory(@"Default");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_1(v7, v3);
+        __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_1();
       }
     }
   }
 
   else
   {
-    v7 = OSLogForCategory(@"Default");
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_2(v6, v3);
+      __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_2();
     }
   }
 }
@@ -1411,7 +1402,7 @@ id __71__RCSavedRecordingsModel_nextRecordingDefaultLabelWithCustomTitleBase___b
   {
     v3 = MEMORY[0x277CCACA8];
     v4 = *(a1 + 32);
-    v5 = RCLocalizedInteger(a2, 1);
+    v5 = RCLocalizedInteger(a2, 1u);
     v2 = [v3 stringWithFormat:@"%@ %@", v4, v5];
   }
 
@@ -1431,85 +1422,86 @@ id __71__RCSavedRecordingsModel_nextRecordingDefaultLabelWithCustomTitleBase___b
   }
 
   stringByStandardizingPath = [fileCopy stringByStandardizingPath];
+  v20 = stringByStandardizingPath;
   if (stringByStandardizingPath)
   {
     errorCopy = error;
-    v35 = dateCopy;
-    v20 = dCopy;
-    v21 = baseCopy;
-    v22 = fileCopy;
-    v23 = RCRecordingsDirectoryURL();
-    path = [v23 path];
-    v25 = [defaultManager rc_path:stringByStandardizingPath isChildOf:path];
+    v36 = dateCopy;
+    v21 = dCopy;
+    v22 = baseCopy;
+    v23 = fileCopy;
+    v24 = RCRecordingsDirectoryURL(stringByStandardizingPath);
+    path = [v24 path];
+    v26 = [defaultManager rc_path:v20 isChildOf:path];
 
-    if (v25)
+    if (v26)
     {
-      fileCopy = v22;
-      baseCopy = v21;
-      dCopy = v20;
-      dateCopy = v35;
+      fileCopy = v23;
+      baseCopy = v22;
+      dCopy = v21;
+      dateCopy = v36;
     }
 
     else
     {
-      v26 = [objc_opt_class() _copyFileIntoRecordingsDirectory:stringByStandardizingPath error:errorCopy];
+      v27 = [objc_opt_class() _copyFileIntoRecordingsDirectory:v20 error:errorCopy];
 
-      stringByStandardizingPath = v26;
-      fileCopy = v22;
-      baseCopy = v21;
-      dCopy = v20;
-      dateCopy = v35;
-      if (!v26)
+      v20 = v27;
+      fileCopy = v23;
+      baseCopy = v22;
+      dCopy = v21;
+      dateCopy = v36;
+      if (!v27)
       {
         goto LABEL_13;
       }
     }
   }
 
-  if ([defaultManager fileExistsAtPath:{stringByStandardizingPath, errorCopy}])
+  if ([defaultManager fileExistsAtPath:{v20, errorCopy}])
   {
-    v27 = MEMORY[0x277CE6650];
-    v28 = [MEMORY[0x277CBEBC0] fileURLWithPath:stringByStandardizingPath];
-    v29 = [v27 rc_preciseTimingAssetWithURL:v28];
+    v28 = MEMORY[0x277CE6650];
+    v29 = [MEMORY[0x277CBEBC0] fileURLWithPath:v20];
+    v30 = [v28 rc_preciseTimingAssetWithURL:v29];
   }
 
   else
   {
-    v29 = 0;
+    v30 = 0;
   }
 
   if (duration == -1.0)
   {
-    [v29 rc_durationInSeconds];
-    duration = v30;
+    [v30 rc_durationInSeconds];
+    duration = v31;
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__1;
-  v47 = __Block_byref_object_dispose__1;
-  v48 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__1;
+  v48 = __Block_byref_object_dispose__1;
+  v49 = 0;
   context = self->_context;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __100__RCSavedRecordingsModel_insertRecordingWithAudioFile_duration_date_customTitleBase_uniqueID_error___block_invoke;
-  v36[3] = &unk_279E43CD8;
-  v36[4] = self;
-  v41 = &v43;
-  v37 = dateCopy;
-  v32 = stringByStandardizingPath;
-  v38 = v32;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __100__RCSavedRecordingsModel_insertRecordingWithAudioFile_duration_date_customTitleBase_uniqueID_error___block_invoke;
+  v37[3] = &unk_279E43CD8;
+  v37[4] = self;
+  v42 = &v44;
+  v38 = dateCopy;
+  v33 = v20;
+  v39 = v33;
   durationCopy = duration;
-  v39 = baseCopy;
-  v40 = dCopy;
-  [(NSManagedObjectContext *)context performBlockAndWait:v36];
-  stringByStandardizingPath = v44[5];
+  v40 = baseCopy;
+  v41 = dCopy;
+  [(NSManagedObjectContext *)context performBlockAndWait:v37];
+  v20 = v45[5];
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
 LABEL_13:
 
-  return stringByStandardizingPath;
+  return v20;
 }
 
 uint64_t __100__RCSavedRecordingsModel_insertRecordingWithAudioFile_duration_date_customTitleBase_uniqueID_error___block_invoke(uint64_t a1)
@@ -1554,29 +1546,88 @@ uint64_t __100__RCSavedRecordingsModel_insertRecordingWithAudioFile_duration_dat
   return [v9 saveIfNecessary];
 }
 
-void __109__RCSavedRecordingsModel__determineImportabilityOfRecordingWithAudioAsset_preferredFormat_completionHandler___block_invoke(void *a1, void *a2, void *a3, void *a4)
++ (void)_determineImportabilityOfRecordingWithAudioAsset:(id)asset preferredFormat:(unsigned int)format completionHandler:(id)handler
 {
-  v7 = a3;
-  v8 = a4;
-  if ([a2 isEqual:a1[4]])
+  v6 = *&format;
+  v24 = *MEMORY[0x277D85DE8];
+  assetCopy = asset;
+  handlerCopy = handler;
+  v9 = [assetCopy URL];
+  pathExtension = [v9 pathExtension];
+  if (!pathExtension)
   {
-    v9 = a1[6];
-    v10 = *(a1[7] + 16);
+    v12 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      path = [v9 path];
+      *buf = 136315394;
+      v21 = "+[RCSavedRecordingsModel _determineImportabilityOfRecordingWithAudioAsset:preferredFormat:completionHandler:]";
+      v22 = 2112;
+      v23 = path;
+      _os_log_impl(&dword_272442000, v12, OS_LOG_TYPE_INFO, "%s -- NOTE: import disallowed because audioURL '%@' has no extension", buf, 0x16u);
+    }
+
+    goto LABEL_7;
+  }
+
+  [assetCopy rc_durationInSeconds];
+  if (v11 == 0.0)
+  {
+    v12 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [RCSavedRecordingsModel _determineImportabilityOfRecordingWithAudioAsset:v9 preferredFormat:? completionHandler:?];
+    }
+
+LABEL_7:
+
+    (*(handlerCopy + 2))(handlerCopy, -1, assetCopy, 0, 0);
+    goto LABEL_8;
+  }
+
+  if ([RCCaptureFormat supportsFileExtension:pathExtension])
+  {
+    (*(handlerCopy + 2))(handlerCopy, 1, assetCopy, 0, 0);
   }
 
   else
   {
-    v11 = OSLogForCategory(@"Default");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = @"m4a";
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __109__RCSavedRecordingsModel__determineImportabilityOfRecordingWithAudioAsset_preferredFormat_completionHandler___block_invoke;
+    v15[3] = &unk_279E43D00;
+    v16 = v14;
+    v17 = v9;
+    v19 = handlerCopy;
+    v18 = assetCopy;
+    [RCCaptureFormat AVAssetExportDetermineSettingsForExportingAsset:v18 preferredOutputExtension:v14 preferredFormat:v6 completionHandler:v15];
+  }
+
+LABEL_8:
+}
+
+void __109__RCSavedRecordingsModel__determineImportabilityOfRecordingWithAudioAsset_preferredFormat_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  v7 = a3;
+  v8 = a4;
+  if ([a2 isEqual:*(a1 + 32)])
+  {
+    v9 = *(*(a1 + 56) + 16);
+  }
+
+  else
+  {
+    v10 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __109__RCSavedRecordingsModel__determineImportabilityOfRecordingWithAudioAsset_preferredFormat_completionHandler___block_invoke_cold_1(a1);
     }
 
-    v12 = a1[6];
-    v10 = *(a1[7] + 16);
+    v9 = *(*(a1 + 56) + 16);
   }
 
-  v10();
+  v9();
 }
 
 + (void)determineImportabilityOfRecordingWithAudioURL:(id)l completionHandler:(id)handler
@@ -1742,7 +1793,7 @@ void __111__RCSavedRecordingsModel_importRecordingWithSourceAudioURL_name_date_x
 {
   memoImportCopy = memoImport;
   importCopy = import;
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   idCopy = id;
   namedCopy = named;
   infoCopy = info;
@@ -1763,15 +1814,15 @@ void __111__RCSavedRecordingsModel_importRecordingWithSourceAudioURL_name_date_x
       goto LABEL_70;
     }
 
-    v97 = v18;
-    v98 = v19;
-    v96 = infoCopy;
+    v96 = v18;
+    v97 = v19;
+    v95 = infoCopy;
     if (importCopy)
     {
       v21 = [infoCopy objectForKeyedSubscript:@"RCVoiceMemoMetadataKey"];
       if (v21)
       {
-        v94 = namedCopy;
+        v93 = namedCopy;
         v22 = idCopy;
         v23 = v20;
         v24 = v21;
@@ -1836,7 +1887,7 @@ void __111__RCSavedRecordingsModel_importRecordingWithSourceAudioURL_name_date_x
 
         enhanced = [v24 enhanced];
 
-        infoCopy = v96;
+        infoCopy = v95;
         if (enhanced)
         {
           enhanced2 = [v24 enhanced];
@@ -1844,8 +1895,8 @@ void __111__RCSavedRecordingsModel_importRecordingWithSourceAudioURL_name_date_x
         }
 
         idCopy = v22;
-        namedCopy = v94;
-        v20 = v98;
+        namedCopy = v93;
+        v20 = v97;
       }
 
       else
@@ -1857,7 +1908,7 @@ void __111__RCSavedRecordingsModel_importRecordingWithSourceAudioURL_name_date_x
         }
       }
 
-      v18 = v97;
+      v18 = v96;
     }
 
     if (!memoImportCopy)
@@ -1907,9 +1958,9 @@ LABEL_51:
           [v77 setIsSkipSilenceEnabled:{objc_msgSend(v83, "intValue") != 0}];
         }
 
-        infoCopy = v96;
-        v18 = v97;
-        v20 = v98;
+        infoCopy = v95;
+        v18 = v96;
+        v20 = v97;
       }
 
       [(RCSavedRecordingsModel *)self saveIfNecessary];
@@ -1918,9 +1969,9 @@ LABEL_70:
       goto LABEL_71;
     }
 
-    v91 = idCopy;
+    v90 = idCopy;
     v51 = v20;
-    v95 = namedCopy;
+    v94 = namedCopy;
     v52 = namedCopy;
     v53 = infoCopy;
     selfCopy2 = self;
@@ -1929,58 +1980,58 @@ LABEL_70:
     v55 = RCLocalizedFrameworkString(@"MUSIC_MEMOS_FOLDER_NAME");
     v56 = [(RCSavedRecordingsModel *)selfCopy2 folderWithName:v55];
 
-    v89 = v56;
+    v88 = v56;
     [(RCSavedRecordingsModel *)selfCopy2 addRecording:v51 toFolder:v56];
     uuid = [v51 uuid];
     creationDate = [v51 creationDate];
-    v92 = uuid;
-    v90 = v53;
+    v91 = uuid;
+    v89 = v53;
     v59 = [RCCaptureFormat AVAssetAuthoringMetadataWithCreationDate:creationDate title:v52 uniqueID:uuid musicMemoMetadata:v53];
 
     v60 = [v51 url];
 
-    v88 = v59;
+    v87 = v59;
     if (v60)
     {
       v61 = MEMORY[0x277CE63D8];
       v62 = [v51 url];
-      v103 = 0;
-      LOBYTE(v61) = [v61 rc_updateMetadataInFile:v62 withMetadata:v59 error:&v103];
-      v63 = v103;
+      v102 = 0;
+      LOBYTE(v61) = [v61 rc_updateMetadataInFile:v62 withMetadata:v59 error:&v102];
+      v63 = v102;
 
       if (v61)
       {
-        v87 = v63;
-        v64 = v92;
-        namedCopy = v95;
+        v86 = v63;
+        v64 = v91;
+        namedCopy = v94;
 LABEL_37:
         objectID = [v51 objectID];
         v67 = [(RCSavedRecordingsModel *)selfCopy2 recordingsWithUniqueID:v64];
         if ([v67 count] >= 2)
         {
-          v85 = v67;
-          v86 = v52;
+          v84 = v67;
+          v85 = v52;
           selfCopy3 = self;
-          v101 = 0u;
-          v102 = 0u;
-          v99 = 0u;
           v100 = 0u;
+          v101 = 0u;
+          v98 = 0u;
+          v99 = 0u;
           v68 = v67;
-          v69 = [v68 countByEnumeratingWithState:&v99 objects:v104 count:16];
+          v69 = [v68 countByEnumeratingWithState:&v98 objects:v103 count:16];
           if (v69)
           {
             v70 = v69;
-            v71 = *v100;
+            v71 = *v99;
             do
             {
               for (i = 0; i != v70; ++i)
               {
-                if (*v100 != v71)
+                if (*v99 != v71)
                 {
                   objc_enumerationMutation(v68);
                 }
 
-                v73 = *(*(&v99 + 1) + 8 * i);
+                v73 = *(*(&v98 + 1) + 8 * i);
                 objectID2 = [v73 objectID];
                 if ([objectID2 isEqual:objectID])
                 {
@@ -1997,29 +2048,29 @@ LABEL_37:
                 }
               }
 
-              v70 = [v68 countByEnumeratingWithState:&v99 objects:v104 count:16];
+              v70 = [v68 countByEnumeratingWithState:&v98 objects:v103 count:16];
             }
 
             while (v70);
           }
 
-          namedCopy = v95;
-          infoCopy = v96;
-          v18 = v97;
-          v64 = v92;
+          namedCopy = v94;
+          infoCopy = v95;
+          v18 = v96;
+          v64 = v91;
           self = selfCopy3;
-          v67 = v85;
-          v52 = v86;
+          v67 = v84;
+          v52 = v85;
         }
 
-        idCopy = v91;
-        v20 = v98;
+        idCopy = v90;
+        v20 = v97;
         goto LABEL_51;
       }
 
       v65 = OSLogForCategory(@"Service");
-      v64 = v92;
-      namedCopy = v95;
+      v64 = v91;
+      namedCopy = v94;
       if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         [RCSavedRecordingsModel _postProcessCloudRecordingForRecordingWithId:named:userInfo:isMigrationImport:isMusicMemoImport:sharingMetadata:];
@@ -2035,18 +2086,16 @@ LABEL_37:
       }
 
       v63 = 0;
-      v64 = v92;
-      namedCopy = v95;
+      v64 = v91;
+      namedCopy = v94;
     }
 
-    v87 = v63;
+    v86 = v63;
 
     goto LABEL_37;
   }
 
 LABEL_71:
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 + (void)importRecordingWithSourceAudioURL:(id)l name:(id)name date:(id)date userInfo:(id)info completionHandler:(id)handler
@@ -2054,36 +2103,34 @@ LABEL_71:
   nameCopy = name;
   dateCopy = date;
   infoCopy = info;
-  v13 = *MEMORY[0x277D861B8];
   lCopy = l;
   handlerCopy = handler;
   lCopy2 = l;
   [lCopy2 fileSystemRepresentation];
-  v17 = *MEMORY[0x277D861E8];
-  v18 = sandbox_extension_issue_file();
-  if (v18)
+  v16 = sandbox_extension_issue_file();
+  if (v16)
   {
-    v19 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v18 length:strlen(v18) + 1 freeWhenDone:1];
-    v20 = [objc_alloc(MEMORY[0x277CCAC90]) initWithURL:lCopy2 readonly:1 scope:v19];
+    v17 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v16 length:strlen(v16) + 1 freeWhenDone:1];
+    v18 = [objc_alloc(MEMORY[0x277CCAC90]) initWithURL:lCopy2 readonly:1 scope:v17];
 
-    v21 = +[RCSSavedRecordingService sharedService];
-    [v21 importRecordingWithSourceAudioURL:v20 name:nameCopy date:dateCopy userInfo:infoCopy importCompletionBlock:handlerCopy];
+    v19 = +[RCSSavedRecordingService sharedService];
+    [v19 importRecordingWithSourceAudioURL:v18 name:nameCopy date:dateCopy userInfo:infoCopy importCompletionBlock:handlerCopy];
   }
 
   else
   {
-    v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
-    v20 = [MEMORY[0x277CBEB38] dictionaryWithObject:v19 forKey:*MEMORY[0x277CCA7E8]];
-    [v20 setObject:lCopy2 forKeyedSubscript:*MEMORY[0x277CCA760]];
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
+    v18 = [MEMORY[0x277CBEB38] dictionaryWithObject:v17 forKey:*MEMORY[0x277CCA7E8]];
+    [v18 setObject:lCopy2 forKeyedSubscript:*MEMORY[0x277CCA760]];
 
-    v21 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:400 userInfo:v20];
-    handlerCopy[2](handlerCopy, 0, v21);
+    v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:400 userInfo:v18];
+    handlerCopy[2](handlerCopy, 0, v19);
   }
 }
 
 - (void)_importRecordingWithSourceAudioURL:(id)l name:(id)name date:(id)date uniqueID:(id)d preferredFormat:(unsigned int)format completionHandler:(id)handler
 {
-  v84[5] = *MEMORY[0x277D85DE8];
+  v83[5] = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
   dateCopy = date;
@@ -2098,7 +2145,7 @@ LABEL_71:
 
   startAccessingSecurityScopedResource = [v18 startAccessingSecurityScopedResource];
   v21 = &unk_272492000;
-  v65 = dCopy;
+  v64 = dCopy;
   selfCopy = self;
   if (!startAccessingSecurityScopedResource)
   {
@@ -2106,40 +2153,40 @@ LABEL_71:
     v34 = v18;
 LABEL_16:
     v45 = dateCopy;
-    v73[0] = MEMORY[0x277D85DD0];
+    v72[0] = MEMORY[0x277D85DD0];
     v46 = v21[145];
-    v73[1] = v46;
-    v73[2] = __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke;
-    v73[3] = &unk_279E43DA0;
+    v72[1] = v46;
+    v72[2] = __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke;
+    v72[3] = &unk_279E43DA0;
     v47 = v18;
-    v74 = v47;
+    v73 = v47;
     v34 = v34;
-    v75 = v34;
-    v77 = handlerCopy;
+    v74 = v34;
+    v76 = handlerCopy;
     rc_sharingMetadata = rc_sharingMetadata;
-    v76 = rc_sharingMetadata;
-    v48 = MEMORY[0x2743CA3B0](v73);
+    v75 = rc_sharingMetadata;
+    v48 = MEMORY[0x2743CA3B0](v72);
     v49 = [MEMORY[0x277CE6650] assetWithURL:v34];
     v50 = v49;
-    if (v49 && [v49 isPlayable] && (objc_msgSend(v50, "rc_audioTracks"), v62 = handlerCopy, v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "count"), v51, handlerCopy = v62, v52))
+    if (v49 && [v49 isPlayable] && (objc_msgSend(v50, "rc_audioTracks"), v61 = handlerCopy, v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "count"), v51, handlerCopy = v61, v52))
     {
       v53 = objc_opt_class();
-      v66[0] = MEMORY[0x277D85DD0];
-      v66[1] = v46;
-      v66[2] = __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke_103;
-      v66[3] = &unk_279E43DC8;
-      v67 = v47;
-      v72 = v48;
-      v68 = selfCopy;
-      v69 = nameCopy;
+      v65[0] = MEMORY[0x277D85DD0];
+      v65[1] = v46;
+      v65[2] = __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke_103;
+      v65[3] = &unk_279E43DC8;
+      v66 = v47;
+      v71 = v48;
+      v67 = selfCopy;
+      v68 = nameCopy;
       dateCopy = v45;
-      v70 = v45;
-      v71 = v65;
+      v69 = v45;
+      v70 = v64;
       v54 = v53;
-      handlerCopy = v62;
-      [v54 _determineImportabilityOfRecordingWithAudioAsset:v50 preferredFormat:format completionHandler:v66];
+      handlerCopy = v61;
+      [v54 _determineImportabilityOfRecordingWithAudioAsset:v50 preferredFormat:format completionHandler:v65];
 
-      v55 = v67;
+      v55 = v66;
     }
 
     else
@@ -2152,7 +2199,7 @@ LABEL_16:
     goto LABEL_22;
   }
 
-  v61 = nameCopy;
+  v60 = nameCopy;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v23 = [objc_opt_class() standardNameForRecordingWithCreationDate:dateCopy uniqueID:dCopy];
   pathExtension = [v18 pathExtension];
@@ -2161,21 +2208,21 @@ LABEL_16:
   v26 = MEMORY[0x277CBEBC0];
   v27 = NSTemporaryDirectory();
   v28 = [v26 fileURLWithPath:v27];
-  v60 = v25;
+  v59 = v25;
   v29 = [v28 URLByAppendingPathComponent:v25];
 
   v30 = [defaultManager rc_uniqueFileSystemURLWithPreferredURL:v29];
 
-  v79 = 0;
-  v31 = [defaultManager copyItemAtURL:v18 toURL:v30 error:&v79];
-  v32 = v79;
+  v78 = 0;
+  v31 = [defaultManager copyItemAtURL:v18 toURL:v30 error:&v78];
+  v32 = v78;
   [v18 stopAccessingSecurityScopedResource];
-  v59 = v32;
+  v58 = v32;
   if (v31)
   {
-    v57 = v31;
+    v56 = v31;
     v33 = handlerCopy;
-    v58 = dateCopy;
+    v57 = dateCopy;
     v34 = v30;
 
     v35 = [MEMORY[0x277CE6650] assetWithURL:v34];
@@ -2183,25 +2230,25 @@ LABEL_16:
     metadata = [v35 metadata];
     v38 = [metadata mutableCopy];
 
-    v84[0] = @"com.apple.iTunes.voice-memo-lrmx";
-    v84[1] = @"com.apple.iTunes.voice-memo-plrt";
-    v84[2] = @"com.apple.iTunes.voice-memo-nhnc";
-    v84[3] = @"com.apple.iTunes.voice-memo-skps";
-    v84[4] = @"com.apple.iTunes.voice-memo-sivl";
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:5];
+    v83[0] = @"com.apple.iTunes.voice-memo-lrmx";
+    v83[1] = @"com.apple.iTunes.voice-memo-plrt";
+    v83[2] = @"com.apple.iTunes.voice-memo-nhnc";
+    v83[3] = @"com.apple.iTunes.voice-memo-skps";
+    v83[4] = @"com.apple.iTunes.voice-memo-sivl";
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:5];
     v40 = MEMORY[0x277CCAC30];
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __removeSharingKeysPredicate_block_invoke;
-    v80[3] = &unk_279E44150;
-    v81 = v39;
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __removeSharingKeysPredicate_block_invoke;
+    v79[3] = &unk_279E44150;
+    v80 = v39;
     v41 = v39;
-    v42 = [v40 predicateWithBlock:v80];
+    v42 = [v40 predicateWithBlock:v79];
 
     [v38 filterUsingPredicate:v42];
-    v78 = 0;
-    LOBYTE(v42) = [MEMORY[0x277CE63D8] rc_updateMetadataInFile:v34 withMetadata:v38 error:&v78];
-    v43 = v78;
+    v77 = 0;
+    LOBYTE(v42) = [MEMORY[0x277CE63D8] rc_updateMetadataInFile:v34 withMetadata:v38 error:&v77];
+    v43 = v77;
     if ((v42 & 1) == 0)
     {
       v44 = OSLogForCategory(@"Default");
@@ -2211,8 +2258,8 @@ LABEL_16:
       }
     }
 
-    dateCopy = v58;
-    v31 = v57;
+    dateCopy = v57;
+    v31 = v56;
   }
 
   else
@@ -2220,9 +2267,9 @@ LABEL_16:
     v33 = handlerCopy;
     if (v32)
     {
-      v82 = *MEMORY[0x277CCA7E8];
-      v83 = v32;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+      v81 = *MEMORY[0x277CCA7E8];
+      v82 = v32;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
     }
 
     else
@@ -2236,7 +2283,7 @@ LABEL_16:
     v34 = v18;
   }
 
-  nameCopy = v61;
+  nameCopy = v60;
   handlerCopy = v33;
   v21 = &unk_272492000;
   if (v31)
@@ -2245,8 +2292,6 @@ LABEL_16:
   }
 
 LABEL_22:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2257,9 +2302,9 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
   {
     v7 = [MEMORY[0x277CCAA00] defaultManager];
     v8 = *(a1 + 40);
-    v13 = 0;
-    v9 = [v7 removeItemAtURL:v8 error:&v13];
-    v10 = v13;
+    v12 = 0;
+    v9 = [v7 removeItemAtURL:v8 error:&v12];
+    v10 = v12;
 
     if ((v9 & 1) == 0)
     {
@@ -2271,13 +2316,12 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
     }
   }
 
-  v12 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
 }
 
 void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke_103(uint64_t a1, unint64_t a2, void *a3, void *a4, void *a5)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -2291,15 +2335,13 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
     v12 = qword_2724924E8[a2 + 2];
     v13 = MEMORY[0x277CCA9B8];
     v14 = *(a1 + 32);
-    v18 = *MEMORY[0x277CCA760];
-    v19[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA760];
+    v18[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v16 = [v13 errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:v12 userInfo:v15];
 
     (*(*(a1 + 72) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_importImportableRecordingWithAudioAsset:(id)asset name:(id)name date:(id)date uniqueID:(id)d presetName:(id)presetName outputFileType:(id)type completionHandler:(id)handler
@@ -2314,36 +2356,37 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
   handlerCopy = handler;
   v16 = [assetCopy URL];
   pathExtension = [v16 pathExtension];
-  if (pathExtension && ([v16 pathExtension], v18 = objc_claimAutoreleasedReturnValue(), v19 = +[RCCaptureFormat supportsFileExtension:](RCCaptureFormat, "supportsFileExtension:", v18), v18, v19))
+  v18 = pathExtension;
+  if (pathExtension && ([v16 pathExtension], v19 = objc_claimAutoreleasedReturnValue(), v20 = +[RCCaptureFormat supportsFileExtension:](RCCaptureFormat, "supportsFileExtension:", v19), v19, v20))
   {
     [(RCSavedRecordingsModel *)self _insertRecordingWithImportableAudioURL:v16 name:nameCopy date:dateCopy uniqueID:dCopy completionHandler:handlerCopy];
   }
 
   else
   {
-    v20 = RCRecordingsDirectoryURL();
+    v21 = RCRecordingsDirectoryURL(pathExtension);
     lastPathComponent = [v16 lastPathComponent];
     stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
-    v23 = [v20 URLByAppendingPathComponent:stringByDeletingPathExtension];
-    v24 = [v23 URLByAppendingPathExtension:@"m4a"];
+    v24 = [v21 URLByAppendingPathComponent:stringByDeletingPathExtension];
+    v25 = [v24 URLByAppendingPathExtension:@"m4a"];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v26 = [defaultManager rc_uniqueFileSystemURLWithPreferredURL:v24];
+    v27 = [defaultManager rc_uniqueFileSystemURLWithPreferredURL:v25];
 
-    v27 = [objc_alloc(MEMORY[0x277CE6400]) initWithAsset:assetCopy presetName:presetNameCopy];
-    v28 = v27;
-    if (v27)
+    v28 = [objc_alloc(MEMORY[0x277CE6400]) initWithAsset:assetCopy presetName:presetNameCopy];
+    v29 = v28;
+    if (v28)
     {
-      [v27 setOutputFileType:typeCopy];
-      [v28 setOutputURL:v26];
-      v29 = [RCCaptureFormat AVAssetAuthoringMetadataWithCreationDate:dateCopy title:nameCopy uniqueID:dCopy];
-      [v28 setMetadata:v29];
+      [v28 setOutputFileType:typeCopy];
+      [v29 setOutputURL:v27];
+      v30 = [RCCaptureFormat AVAssetAuthoringMetadataWithCreationDate:dateCopy title:nameCopy uniqueID:dCopy];
+      [v29 setMetadata:v30];
 
-      v30 = OSLogForCategory(@"Default");
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v31 = OSLogForCategory(@"Default");
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         path = [v16 path];
-        [RCSavedRecordingsModel _importImportableRecordingWithAudioAsset:path name:v26 date:buf uniqueID:v30 presetName:? outputFileType:? completionHandler:?];
+        [RCSavedRecordingsModel _importImportableRecordingWithAudioAsset:path name:v27 date:buf uniqueID:v31 presetName:? outputFileType:? completionHandler:?];
       }
 
       v42[0] = MEMORY[0x277D85DD0];
@@ -2351,8 +2394,8 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
       v42[2] = __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name_date_uniqueID_presetName_outputFileType_completionHandler___block_invoke;
       v42[3] = &unk_279E43DF0;
       v43 = v16;
-      v44 = v26;
-      v45 = v28;
+      v44 = v27;
+      v45 = v29;
       selfCopy = self;
       v47 = nameCopy;
       v48 = dateCopy;
@@ -2363,21 +2406,19 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
 
     else
     {
-      v32 = MEMORY[0x277CCA9B8];
+      v33 = MEMORY[0x277CCA9B8];
       v52 = *MEMORY[0x277CCA470];
       v53[0] = @"unsupported format";
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-      v34 = [v32 errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:300 userInfo:v33];
-      (*(handlerCopy + 2))(handlerCopy, 0, v34);
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+      v35 = [v33 errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:300 userInfo:v34];
+      (*(handlerCopy + 2))(handlerCopy, 0, v35);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name_date_uniqueID_presetName_outputFileType_completionHandler___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -2395,10 +2436,10 @@ void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name
     v4 = [*v3 error];
     if (v4)
     {
-      v11 = *MEMORY[0x277CCA7E8];
+      v10 = *MEMORY[0x277CCA7E8];
       v5 = [*v3 error];
-      v12[0] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v11[0] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     }
 
     else
@@ -2416,8 +2457,6 @@ void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"RCSavedRecordingsImportErrorDomain" code:300 userInfo:v6];
     (*(v8 + 16))(v8, 0, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name_date_uniqueID_presetName_outputFileType_completionHandler___block_invoke_108(uint64_t a1)
@@ -2571,6 +2610,30 @@ uint64_t __50__RCSavedRecordingsModel_setEnhanced_ofRecording___block_invoke(uin
   return [v2 saveIfNecessary];
 }
 
+- (id)_userDefinedFolders:(id)folders searchOption:(int)option
+{
+  if (folders)
+  {
+    v5 = [RCQueryManager foldersWithNameFetchRequest:folders searchOption:*&option];
+    v6 = [(NSManagedObjectContext *)self->_context executeFetchRequest:v5 error:0];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+- (id)existingRecordingsWithName:(id)name searchOption:(int)option error:(id *)error
+{
+  v7 = [RCQueryManager recordingWithNameFetchRequest:name searchOption:*&option];
+  v8 = [(NSManagedObjectContext *)self->_context executeFetchRequest:v7 error:error];
+
+  return v8;
+}
+
 - (id)_foldersWithUUID:(id)d
 {
   v3 = MEMORY[0x277CBEBF8];
@@ -2623,7 +2686,7 @@ uint64_t __50__RCSavedRecordingsModel_setEnhanced_ofRecording___block_invoke(uin
 
 void __41__RCSavedRecordingsModel_folderWithName___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _userDefinedFolders:*(a1 + 40) searchOption:0];
   v3 = [v2 firstObject];
   v4 = *(*(a1 + 48) + 8);
@@ -2638,11 +2701,11 @@ void __41__RCSavedRecordingsModel_folderWithName___block_invoke(uint64_t a1)
     *(v7 + 40) = v6;
 
     v9 = *(*(a1 + 32) + 8);
-    v16[0] = *(*(*(a1 + 48) + 8) + 40);
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
-    v15 = 0;
-    v11 = [v9 obtainPermanentIDsForObjects:v10 error:&v15];
-    v12 = v15;
+    v15[0] = *(*(*(a1 + 48) + 8) + 40);
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14 = 0;
+    v11 = [v9 obtainPermanentIDsForObjects:v10 error:&v14];
+    v12 = v14;
 
     if ((v11 & 1) == 0)
     {
@@ -2655,8 +2718,6 @@ void __41__RCSavedRecordingsModel_folderWithName___block_invoke(uint64_t a1)
 
     [*(a1 + 32) saveIfNecessary];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recordingsFetchRequestForFolder:(id)folder
@@ -2759,7 +2820,7 @@ void __48__RCSavedRecordingsModel__countForFetchRequest___block_invoke(void *a1)
     v7 = OSLogForCategory(@"Default");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __48__RCSavedRecordingsModel__countForFetchRequest___block_invoke_cold_1(v6, v3);
+      __48__RCSavedRecordingsModel__countForFetchRequest___block_invoke_cold_1();
     }
 
     *(*(a1[6] + 8) + 24) = 0;
@@ -2869,7 +2930,7 @@ uint64_t __63__RCSavedRecordingsModel_existingFoldersWithName_searchOption___blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)existingFolderWithUUID:(id)d
@@ -2946,7 +3007,7 @@ void __39__RCSavedRecordingsModel_deleteFolder___block_invoke(uint64_t a1)
   v2 = OSLogForCategory(@"Default");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_1(a1);
+    __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 40) userFolders];
@@ -3026,55 +3087,53 @@ void __46__RCSavedRecordingsModel_renameFolder_toName___block_invoke(uint64_t a1
 
 void __49__RCSavedRecordingsModel_addRecordings_toFolder___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = a1[5];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
-        if (([v2 containsRecording:{v8, v10}] & 1) == 0)
+        v8 = *(*(&v9 + 1) + 8 * i);
+        if (([v2 containsRecording:{v8, v9}] & 1) == 0)
         {
           [v2 addRecording:v8];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [a1[6] saveIfNecessary];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRecording:(id)recording toFolder:(id)folder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   v6 = MEMORY[0x277CBEA60];
   folderCopy = folder;
   recordingCopy2 = recording;
   v9 = [v6 arrayWithObjects:&recordingCopy count:1];
 
-  [(RCSavedRecordingsModel *)self addRecordings:v9 toFolder:folderCopy, recordingCopy, v12];
-  v10 = *MEMORY[0x277D85DE8];
+  [(RCSavedRecordingsModel *)self addRecordings:v9 toFolder:folderCopy, recordingCopy, v11];
 }
 
 - (void)removeRecording:(id)recording fromFolder:(id)folder
@@ -3104,18 +3163,16 @@ void __53__RCSavedRecordingsModel_removeRecording_fromFolder___block_invoke(uint
 
 - (void)eraseRecording:(id)recording
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   if (!recordingCopy)
   {
     [RCSavedRecordingsModel eraseRecording:];
   }
 
-  v7[0] = recordingCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = recordingCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [(RCSavedRecordingsModel *)self eraseRecordings:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseRecordings:(id)recordings
@@ -3134,35 +3191,35 @@ void __53__RCSavedRecordingsModel_removeRecording_fromFolder___block_invoke(uint
 
 void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = OSLogForCategory(@"Default");
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v21 = "[RCSavedRecordingsModel eraseRecordings:]_block_invoke";
-          v22 = 2112;
-          v23 = v7;
+          v20 = "[RCSavedRecordingsModel eraseRecordings:]_block_invoke";
+          v21 = 2112;
+          v22 = v7;
           _os_log_debug_impl(&dword_272442000, v8, OS_LOG_TYPE_DEBUG, "%s -- erasing recording: %@", buf, 0x16u);
         }
 
@@ -3174,16 +3231,16 @@ void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v4);
   }
 
   v10 = *(a1 + 40);
-  v15 = 0;
-  v11 = [v10 saveIfNecessary:&v15];
-  v12 = v15;
+  v14 = 0;
+  v11 = [v10 saveIfNecessary:&v14];
+  v12 = v14;
   if ((v11 & 1) == 0)
   {
     v13 = OSLogForCategory(@"Default");
@@ -3192,24 +3249,20 @@ void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke(uint64_t a1)
       __42__RCSavedRecordingsModel_eraseRecordings___block_invoke_cold_1();
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteRecording:(id)recording
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   if (!recordingCopy)
   {
     [RCSavedRecordingsModel deleteRecording:];
   }
 
-  v7[0] = recordingCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = recordingCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [(RCSavedRecordingsModel *)self deleteRecordings:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteRecordings:(id)recordings
@@ -3228,37 +3281,37 @@ void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke(uint64_t a1)
 
 void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v15 = a1;
+  v14 = a1;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * v7);
+        v8 = *(*(&v16 + 1) + 8 * v7);
         v9 = OSLogForCategory(@"Default");
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v22 = "[RCSavedRecordingsModel deleteRecordings:]_block_invoke";
-          v23 = 2112;
-          v24 = v8;
+          v21 = "[RCSavedRecordingsModel deleteRecordings:]_block_invoke";
+          v22 = 2112;
+          v23 = v8;
           _os_log_debug_impl(&dword_272442000, v9, OS_LOG_TYPE_DEBUG, "%s -- deleting recording: %@", buf, 0x16u);
         }
 
@@ -3267,16 +3320,16 @@ void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *(v15 + 40);
-  v16 = 0;
-  v11 = [v10 saveIfNecessary:&v16];
-  v12 = v16;
+  v10 = *(v14 + 40);
+  v15 = 0;
+  v11 = [v10 saveIfNecessary:&v15];
+  v12 = v15;
   if ((v11 & 1) == 0)
   {
     v13 = OSLogForCategory(@"Default");
@@ -3285,24 +3338,20 @@ void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke(uint64_t a1)
       __43__RCSavedRecordingsModel_deleteRecordings___block_invoke_cold_1();
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreDeletedRecording:(id)recording
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   recordingCopy = recording;
   if (!recordingCopy)
   {
     [RCSavedRecordingsModel restoreDeletedRecording:];
   }
 
-  v7[0] = recordingCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = recordingCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [(RCSavedRecordingsModel *)self restoreDeletedRecordings:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreDeletedRecordings:(id)recordings
@@ -3321,35 +3370,35 @@ void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke(uint64_t a1)
 
 void __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
+        v6 = *(*(&v15 + 1) + 8 * v5);
         v7 = OSLogForCategory(@"Default");
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v21 = "[RCSavedRecordingsModel restoreDeletedRecordings:]_block_invoke";
-          v22 = 2112;
-          v23 = v6;
+          v20 = "[RCSavedRecordingsModel restoreDeletedRecordings:]_block_invoke";
+          v21 = 2112;
+          v22 = v6;
           _os_log_debug_impl(&dword_272442000, v7, OS_LOG_TYPE_DEBUG, "%s -- restoring recording: %@", buf, 0x16u);
         }
 
@@ -3358,16 +3407,16 @@ void __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke(uint64
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v3);
   }
 
   v8 = *(a1 + 40);
-  v15 = 0;
-  v9 = [v8 saveIfNecessary:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [v8 saveIfNecessary:&v14];
+  v10 = v14;
   v11 = v10;
   if ((v9 & 1) == 0 && v10)
   {
@@ -3377,8 +3426,6 @@ void __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke(uint64
       __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke_cold_1();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseRecordingsDeletedBeforeDate:(id)date
@@ -3397,44 +3444,44 @@ void __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke(uint64
 
 void __59__RCSavedRecordingsModel_eraseRecordingsDeletedBeforeDate___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [RCQueryManager evictionDateBeforeFetchRequest:*(a1 + 32)];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [*(*(a1 + 40) + 8) executeFetchRequest:v2 error:0];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = [v8 url];
         [RCComposition deleteFromFilesystem:v9];
 
         [*(*(a1 + 40) + 8) deleteObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   v10 = *(a1 + 40);
-  v15 = 0;
-  v11 = [v10 saveIfNecessary:&v15];
-  v12 = v15;
+  v14 = 0;
+  v11 = [v10 saveIfNecessary:&v14];
+  v12 = v14;
   if ((v11 & 1) == 0)
   {
     v13 = OSLogForCategory(@"Default");
@@ -3443,8 +3490,6 @@ void __59__RCSavedRecordingsModel_eraseRecordingsDeletedBeforeDate___block_invok
       __59__RCSavedRecordingsModel_eraseRecordingsDeletedBeforeDate___block_invoke_cold_1();
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseAllDeleted
@@ -3460,44 +3505,44 @@ void __59__RCSavedRecordingsModel_eraseRecordingsDeletedBeforeDate___block_invok
 
 void __41__RCSavedRecordingsModel_eraseAllDeleted__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = +[RCQueryManager allDeletedRecordingsFetchRequest];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [*(*(a1 + 32) + 8) executeFetchRequest:v2 error:0];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = [v8 url];
         [RCComposition deleteFromFilesystem:v9];
 
         [*(*(a1 + 32) + 8) deleteObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   v10 = *(a1 + 32);
-  v15 = 0;
-  v11 = [v10 saveIfNecessary:&v15];
-  v12 = v15;
+  v14 = 0;
+  v11 = [v10 saveIfNecessary:&v14];
+  v12 = v14;
   if ((v11 & 1) == 0)
   {
     v13 = OSLogForCategory(@"Default");
@@ -3506,8 +3551,6 @@ void __41__RCSavedRecordingsModel_eraseAllDeleted__block_invoke(uint64_t a1)
       __41__RCSavedRecordingsModel_eraseAllDeleted__block_invoke_cold_1();
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_copyPropertiesFromOriginalRecording:(id)recording newRecording:(id)newRecording
@@ -3634,40 +3677,39 @@ void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDa
   v16 = ;
 
   v17 = *(a1 + 40);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_2;
-  v27[3] = &unk_279E43EE0;
-  v33 = *(a1 + 64);
-  v27[4] = v17;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_2;
+  v26[3] = &unk_279E43EE0;
+  v32 = *(a1 + 64);
+  v26[4] = v17;
   v8 = v8;
-  v28 = v8;
-  v29 = *(a1 + 32);
-  v30 = *(a1 + 48);
+  v27 = v8;
+  v28 = *(a1 + 32);
+  v29 = *(a1 + 48);
   v18 = v16;
-  v31 = v18;
+  v30 = v18;
   v19 = v5;
-  v21 = a1 + 56;
   v20 = *(a1 + 56);
-  v32 = v19;
-  v34 = v20;
-  [v17 performWithSavingDisabled:v27];
+  v31 = v19;
+  v33 = v20;
+  [v17 performWithSavingDisabled:v26];
   if (*(*(*(a1 + 64) + 8) + 40))
   {
     [*(a1 + 40) _copyPropertiesFromOriginalRecording:*(a1 + 32) newRecording:?];
   }
 
-  v22 = *(a1 + 40);
-  v23 = *(*(a1 + 56) + 8);
-  obj = *(v23 + 40);
-  v24 = [v22 saveIfNecessary:&obj];
-  objc_storeStrong((v23 + 40), obj);
-  if ((v24 & 1) == 0)
+  v21 = *(a1 + 40);
+  v22 = *(*(a1 + 56) + 8);
+  obj = *(v22 + 40);
+  v23 = [v21 saveIfNecessary:&obj];
+  objc_storeStrong((v22 + 40), obj);
+  if ((v23 & 1) == 0)
   {
-    v25 = OSLogForCategory(@"Default");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = OSLogForCategory(@"Default");
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_cold_1(v21);
+      __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_cold_1();
     }
   }
 
@@ -3693,12 +3735,12 @@ void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDa
 
 - (void)mergeRecordings:(id)recordings
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   recordingsCopy = recordings;
   v5 = [recordingsCopy na_map:&__block_literal_global_2];
   v6 = [(RCSavedRecordingsModel *)self _transactionsAndChangesForObjectIDs:v5];
   [MEMORY[0x277CCAA00] defaultManager];
-  v40 = v39 = v6;
+  v39 = v38 = v6;
   v7 = [v6 count] - 1;
   if (v7 < 0)
   {
@@ -3708,13 +3750,13 @@ void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDa
 
   else
   {
-    v35 = v5;
-    v36 = recordingsCopy;
-    v37 = 0;
+    v34 = v5;
+    v35 = recordingsCopy;
+    v36 = 0;
     v8 = 0;
     do
     {
-      v9 = [v39 objectAtIndexedSubscript:v7];
+      v9 = [v38 objectAtIndexedSubscript:v7];
       changes = [v9 changes];
 
       v11 = [changes count];
@@ -3731,7 +3773,7 @@ void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDa
           {
             v16 = [v15 url];
             path = [v16 path];
-            v18 = [v40 fileExistsAtPath:path];
+            v18 = [v39 fileExistsAtPath:path];
 
             if (v18)
             {
@@ -3751,41 +3793,41 @@ void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDa
         path2 = [v20 path];
 
         v8 = path2;
-        v37 = objectID;
+        v36 = objectID;
       }
 
 LABEL_10:
     }
 
     while (v7-- > 0);
-    if (v37)
+    if (v36)
     {
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2;
-      v45[3] = &unk_279E43F50;
-      v38 = v37;
-      v46 = v38;
-      v23 = [v36 na_filter:v45];
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2;
+      v44[3] = &unk_279E43F50;
+      v37 = v36;
+      v45 = v37;
+      v23 = [v35 na_filter:v44];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
-      v24 = [v23 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v40 objects:v46 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v42;
+        v26 = *v41;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v42 != v26)
+            if (*v41 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v41 + 1) + 8 * i);
+            v28 = *(*(&v40 + 1) + 8 * i);
             v29 = [v28 url];
             path3 = [v29 path];
             v31 = [v8 isEqualToString:path3];
@@ -3804,26 +3846,24 @@ LABEL_10:
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v41 objects:v47 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v40 objects:v46 count:16];
         }
 
         while (v25);
       }
 
-      v5 = v35;
-      recordingsCopy = v36;
-      v33 = v38;
+      v5 = v34;
+      recordingsCopy = v35;
+      v33 = v37;
     }
 
     else
     {
       v33 = 0;
-      v5 = v35;
-      recordingsCopy = v36;
+      v5 = v34;
+      recordingsCopy = v35;
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t a1, void *a2)
@@ -3863,28 +3903,28 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
 
 - (void)_mergeFolders:(id)folders intoTargetFolder:(id)folder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   foldersCopy = folders;
   folderCopy = folder;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [foldersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [foldersCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(foldersCopy);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         uuid = [v12 uuid];
         v14 = [(RCSavedRecordingsModel *)self _recordingsForFolderUUID:uuid];
 
@@ -3896,45 +3936,43 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
         [(RCSavedRecordingsModel *)self deleteFolder:v12];
       }
 
-      v9 = [foldersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [foldersCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_mergeDuplicateUUIDFolders:(id)folders
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   foldersCopy = folders;
   if ([foldersCopy count] >= 2)
   {
     v6 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v7 = foldersCopy;
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v6 addObject:{*(*(&v20 + 1) + 8 * i), v20}];
+          [v6 addObject:{*(*(&v19 + 1) + 8 * i), v19}];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v19 objects:v29 count:16];
       }
 
       while (v9);
@@ -3951,11 +3989,11 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
         name = [lastObject name];
         uuid = [lastObject uuid];
         *buf = 136315650;
-        v25 = "[RCSavedRecordingsModel _mergeDuplicateUUIDFolders:]";
-        v26 = 2112;
-        v27 = name;
-        v28 = 2112;
-        v29 = uuid;
+        v24 = "[RCSavedRecordingsModel _mergeDuplicateUUIDFolders:]";
+        v25 = 2112;
+        v26 = name;
+        v27 = 2112;
+        v28 = uuid;
         _os_log_impl(&dword_272442000, v14, OS_LOG_TYPE_DEFAULT, "%s -- merging duplicate uuid user folder %@ - uuid = %@", buf, 0x20u);
       }
 
@@ -3969,23 +4007,22 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
     v5 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_mergeDuplicateNameFoldersWithName:(id)name
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v4 = [RCQueryManager foldersWithNameFetchRequest:name searchOption:0];
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"countOfRecordings" ascending:1];
-  v22[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   [v4 setSortDescriptors:v6];
 
   context = self->_context;
-  v17 = 0;
-  v8 = [(NSManagedObjectContext *)context executeFetchRequest:v4 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [(NSManagedObjectContext *)context executeFetchRequest:v4 error:&v16];
+  v9 = v16;
   v10 = [v8 count];
   if (v10 >= 2)
   {
@@ -3995,9 +4032,9 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
     {
       name = [lastObject name];
       *buf = 136315394;
-      v19 = "[RCSavedRecordingsModel _mergeDuplicateNameFoldersWithName:]";
-      v20 = 2112;
-      v21 = name;
+      v18 = "[RCSavedRecordingsModel _mergeDuplicateNameFoldersWithName:]";
+      v19 = 2112;
+      v20 = name;
       _os_log_impl(&dword_272442000, v12, OS_LOG_TYPE_DEFAULT, "%s -- merging duplicate named user folder %@", buf, 0x16u);
     }
 
@@ -4005,16 +4042,14 @@ uint64_t __42__RCSavedRecordingsModel_mergeRecordings___block_invoke_2(uint64_t 
     [(RCSavedRecordingsModel *)self _mergeFolders:v14 intoTargetFolder:lastObject];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 > 1;
 }
 
 - (void)_rerankFolders
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)reconcileChangedFolder:(id)folder change:(id)change
@@ -4163,7 +4198,7 @@ void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke(uint
     v5 = OSLogForCategory(@"Default");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke_cold_1(a1 + 48);
+      __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke_cold_1();
     }
 
     [*(*(a1 + 32) + 8) rollback];
@@ -4172,27 +4207,27 @@ void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke(uint
 
 - (void)_synchronizeRecordingsMetadata
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   updatedObjects = [(NSManagedObjectContext *)self->_context updatedObjects];
-  v3 = [updatedObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [updatedObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(updatedObjects);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         entity = [v7 entity];
         name = [entity name];
         v10 = [name isEqualToString:@"CloudRecording"];
@@ -4209,13 +4244,11 @@ void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke(uint
         }
       }
 
-      v4 = [updatedObjects countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [updatedObjects countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performWithSavingDisabled:(id)disabled
@@ -4244,7 +4277,7 @@ void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke(uint
     v13 = OSLogForCategory(@"Default");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [RCSavedRecordingsModel _copyFileIntoRecordingsDirectory:error error:?];
+      +[RCSavedRecordingsModel _copyFileIntoRecordingsDirectory:error:];
     }
 
     v12 = 0;
@@ -4672,7 +4705,7 @@ uint64_t __57__RCSavedRecordingsModel_createEncryptedFieldsMigration___block_inv
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (BOOL)encryptedFieldsMigrationExists
@@ -4893,26 +4926,24 @@ void __46__RCSavedRecordingsModel_recordingsWithTitle___block_invoke(void *a1)
 
 + (void)fetchRecordingUUIDsForExport:(id)export
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   exportCopy = export;
   v4 = OSLogForCategory(@"Service");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "+[RCSavedRecordingsModel(ExportAdditions) fetchRecordingUUIDsForExport:]";
+    v10 = "+[RCSavedRecordingsModel(ExportAdditions) fetchRecordingUUIDsForExport:]";
     _os_log_impl(&dword_272442000, v4, OS_LOG_TYPE_DEFAULT, "%s -- Sending service request to fetchRecordingUUIDsForExport", buf, 0xCu);
   }
 
   v5 = +[RCSSavedRecordingService sharedService];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __72__RCSavedRecordingsModel_ExportAdditions__fetchRecordingUUIDsForExport___block_invoke;
-  v8[3] = &unk_279E44578;
-  v9 = exportCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __72__RCSavedRecordingsModel_ExportAdditions__fetchRecordingUUIDsForExport___block_invoke;
+  v7[3] = &unk_279E44578;
+  v8 = exportCopy;
   v6 = exportCopy;
-  [v5 fetchRecordingUUIDsForExport:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [v5 fetchRecordingUUIDsForExport:v7];
 }
 
 + (void)fetchMetadataForRecordingWithUUID:(id)d completionHandler:(id)handler
@@ -4983,137 +5014,113 @@ void __95__RCSavedRecordingsModel_ExportAdditions__fetchMetadataForRecordingWith
 
 void __102__RCSavedRecordingsModel_ImportAdditions__importFileWithURL_shouldUseMetadataTitle_completionHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[RCSavedRecordingsModel(ImportAdditions) importFileWithURL:shouldUseMetadataTitle:completionHandler:]_block_invoke_2";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- removeError = %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[RCSavedRecordingsModel(ImportAdditions) importFileWithURL:shouldUseMetadataTitle:completionHandler:]_block_invoke_2";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- removeError = %@", &v2, 0x16u);
 }
 
 - (void)recordingWithID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: Unable to fetch recording (%@.)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: Unable to fetch recording (%@.)", v2, v3, v4, v5, v6);
 }
 
 void __90__RCSavedRecordingsModel_enumerateExistingRecordingsWithProperties_sortDescriptors_block___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: Unable to fetch recordings (%@.)", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- ERROR: Unable to fetch recordings (%@.)", v2, v3, v4, v5, v6);
 }
 
-void __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v6 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_272442000, v3, v4, "%s -- ERROR: Unexpected result type - result = %@, request = %@", v6);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- ERROR: Unexpected result type - result = %@, request = %@", v2);
 }
 
-void __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_2(uint64_t a1, uint64_t *a2)
+void __61__RCSavedRecordingsModel__transactionsAndChangesWithRequest___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v6 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_272442000, v3, v4, "%s -- ERROR: Unable to fetch change history (%@.), request = %@", v6);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- ERROR: Unable to fetch change history (%@.), request = %@", v2);
 }
 
 + (void)_determineImportabilityOfRecordingWithAudioAsset:(void *)a1 preferredFormat:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __109__RCSavedRecordingsModel__determineImportabilityOfRecordingWithAudioAsset_preferredFormat_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 40) path];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)determineImportabilityOfRecordingWithAudioURL:completionHandler:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to load playable asset for URL: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to load playable asset for URL: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)importRecordingWithSourceAudioURL:name:date:xpcConnection:userInfo:completionHandler:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- could not import Music Memo with conflicting uniqueID = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- could not import Music Memo with conflicting uniqueID = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_postProcessCloudRecordingForRecordingWithId:named:userInfo:isMigrationImport:isMusicMemoImport:sharingMetadata:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- No metadata present in userinfo %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- No metadata present in userinfo %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_postProcessCloudRecordingForRecordingWithId:named:userInfo:isMigrationImport:isMusicMemoImport:sharingMetadata:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- updateError = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- updateError = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_postProcessCloudRecordingForRecordingWithId:(os_log_t)log named:userInfo:isMigrationImport:isMusicMemoImport:sharingMetadata:.cold.3(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "postProcessMusicMemo";
-  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- Cannot update metadata for cloudrecording with nil url", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "postProcessMusicMemo";
+  _os_log_error_impl(&dword_272442000, log, OS_LOG_TYPE_ERROR, "%s -- Cannot update metadata for cloudrecording with nil url", &v1, 0xCu);
 }
 
 - (void)_postProcessCloudRecordingForRecordingWithId:named:userInfo:isMigrationImport:isMusicMemoImport:sharingMetadata:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to get recording with Id %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to get recording with Id %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_importRecordingWithSourceAudioURL:name:date:uniqueID:preferredFormat:completionHandler:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- Failed to remove sharing metadata for recording %@. Error: %@.", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- Failed to remove sharing metadata for recording %@. Error: %@.", v2);
 }
 
 void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_uniqueID_preferredFormat_completionHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- removeError = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- removeError = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_importImportableRecordingWithAudioAsset:(uint8_t *)buf name:(os_log_t)log date:uniqueID:presetName:outputFileType:completionHandler:.cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -5130,56 +5137,48 @@ void __114__RCSavedRecordingsModel__importRecordingWithSourceAudioURL_name_date_
 void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name_date_uniqueID_presetName_outputFileType_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_6();
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = [*(v2 + 32) path];
-  v4 = *(v1 + 40);
-  v6[0] = 136315650;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = [*(v1 + 32) path];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_272442000, v0, OS_LOG_TYPE_DEBUG, "%s -- Finished preparing asset %@ (exported to %@) for import...", v6, 0x20u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272442000, v0, OS_LOG_TYPE_DEBUG, "%s -- Finished preparing asset %@ (exported to %@) for import...", v3, 0x20u);
 }
 
 void __130__RCSavedRecordingsModel__importImportableRecordingWithAudioAsset_name_date_uniqueID_presetName_outputFileType_completionHandler___block_invoke_cold_2(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 status];
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x26u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __41__RCSavedRecordingsModel_folderWithName___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- obtainPermanentIDsForObjects failed %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- obtainPermanentIDsForObjects failed %@", v2, v3, v4, v5, v6);
 }
 
-void __48__RCSavedRecordingsModel__countForFetchRequest___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __48__RCSavedRecordingsModel__countForFetchRequest___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v6 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_272442000, v3, v4, "%s -- countForFetchRequest failed with error = %@, fetchRequest = %@", v6);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- countForFetchRequest failed with error = %@, fetchRequest = %@", v2);
 }
 
 void __37__RCSavedRecordingsModel_userFolders__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- executeFetchRequest error = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- executeFetchRequest error = %@", v2, v3, v4, v5, v6);
 }
 
 void __49__RCSavedRecordingsModel_existingFolderWithUUID___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_272442000, a1, a3, "%s -- executeFetchRequest failed %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "[RCSavedRecordingsModel existingFolderWithUUID:]_block_invoke";
+  *&v8[12] = 2112;
+  *&v8[14] = 0;
+  OUTLINED_FUNCTION_3(&dword_272442000, a1, a3, "%s -- executeFetchRequest failed %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)deleteFolder:.cold.1()
@@ -5198,21 +5197,18 @@ void __49__RCSavedRecordingsModel_existingFolderWithUUID___block_invoke_cold_1(N
   [v0 handleFailureInMethod:@"folder.folderType == RCFolderTypeUserDefined" object:? file:? lineNumber:? description:?];
 }
 
-void __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_1(uint64_t a1)
+void __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_272442000, v2, v3, "%s -- deleting folder: %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- deleting folder: %@", v2, v3, v4, v5, v6);
 }
 
 void __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting folder: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting folder: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)eraseRecording:.cold.1()
@@ -5225,10 +5221,9 @@ void __39__RCSavedRecordingsModel_deleteFolder___block_invoke_cold_2()
 
 void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error erasing recordings: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error erasing recordings: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)deleteRecording:.cold.1()
@@ -5241,10 +5236,9 @@ void __42__RCSavedRecordingsModel_eraseRecordings___block_invoke_cold_1()
 
 void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting recordings: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting recordings: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)restoreDeletedRecording:.cold.1()
@@ -5257,26 +5251,23 @@ void __43__RCSavedRecordingsModel_deleteRecordings___block_invoke_cold_1()
 
 void __51__RCSavedRecordingsModel_restoreDeletedRecordings___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error restoring recordings: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error restoring recordings: %@", v2, v3, v4, v5, v6);
 }
 
 void __59__RCSavedRecordingsModel_eraseRecordingsDeletedBeforeDate___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error restoring recording: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error restoring recording: %@", v2, v3, v4, v5, v6);
 }
 
 void __41__RCSavedRecordingsModel_eraseAllDeleted__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting all recordings: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_272442000, v0, v1, "%s -- Error deleting all recordings: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)duplicateRecording:copyingResources:creationDate:error:.cold.1()
@@ -5287,96 +5278,81 @@ void __41__RCSavedRecordingsModel_eraseAllDeleted__block_invoke_cold_1()
   [v0 handleFailureInMethod:@"recording != nil" object:? file:? lineNumber:? description:?];
 }
 
-void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_cold_1(uint64_t a1)
+void __81__RCSavedRecordingsModel_duplicateRecording_copyingResources_creationDate_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_272442000, v1, v2, "%s -- Error duplicating recording: %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Error duplicating recording: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_recordingsForFolderUUID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, v6);
 }
 
 void __56__RCSavedRecordingsModel_reconcileChangedFolder_change___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetchError = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetchError = %@", v2, v3, v4, v5, v6);
 }
 
-void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke_cold_1(uint64_t a1)
+void __53__RCSavedRecordingsModel___saveManagedObjectContext___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
-  v4[0] = 136315394;
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
+  v2[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  v5 = v1;
-  _os_log_fault_impl(&dword_272442000, v2, OS_LOG_TYPE_FAULT, "%s -- ERROR: Attempt to save database failed, possibly due to an entity with an invalid value.  Core Data error = %@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_fault_impl(&dword_272442000, v1, OS_LOG_TYPE_FAULT, "%s -- ERROR: Attempt to save database failed, possibly due to an entity with an invalid value.  Core Data error = %@", v2, 0x16u);
 }
 
-+ (void)_copyFileIntoRecordingsDirectory:(uint64_t *)a1 error:.cold.1(uint64_t *a1)
++ (void)_copyFileIntoRecordingsDirectory:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (a1)
-  {
-    v1 = *a1;
-  }
-
+  v6 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_272442000, v2, v3, "%s -- Warning: Could not copy audio file to recordings directory. %@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Warning: Could not copy audio file to recordings directory. %@", v2, v3, v4, v5, v6);
 }
 
 void __66__RCSavedRecordingsModel_objectIDsForRecordingsNeedingAssetExport__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- fetch request failed - error: %@", v2, v3, v4, v5, v6);
 }
 
 void __50__RCSavedRecordingsModel_encryptedFieldMigrations__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to fetch migrations, error = %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to fetch migrations, error = %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_recordingsWithFetchRequest:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- Recordings fetch request failed - error = %@, fetch request = %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_272442000, v0, v1, "%s -- Recordings fetch request failed - error = %@, fetch request = %@", v2);
 }
 
 void __46__RCSavedRecordingsModel_recordingsWithTitle___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to executeFetchRequest %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_272442000, v0, v1, "%s -- Failed to executeFetchRequest %@", v2, v3, v4, v5, v6);
 }
 
 void __95__RCSavedRecordingsModel_ExportAdditions__fetchMetadataForRecordingWithUUID_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 136315394;
-  v5 = "+[RCSavedRecordingsModel(ExportAdditions) fetchMetadataForRecordingWithUUID:completionHandler:]_block_invoke";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- Failed to access secure url for recording with UUID %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "+[RCSavedRecordingsModel(ExportAdditions) fetchMetadataForRecordingWithUUID:completionHandler:]_block_invoke";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_debug_impl(&dword_272442000, a2, OS_LOG_TYPE_DEBUG, "%s -- Failed to access secure url for recording with UUID %@", &v3, 0x16u);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation StepInPresentationOrderAndReportStepsTaken
 
-uint64_t __remoteSampleCursor_StepInPresentationOrderAndReportStepsTaken_block_invoke(uint64_t a1, CMBlockBufferRef theBuffer)
+uint64_t __remoteSampleCursor_StepInPresentationOrderAndReportStepsTaken_block_invoke(void *a1, CMBlockBufferRef theBuffer)
 {
   v7 = 0;
   dataPointerOut = 0;
@@ -41,10 +41,10 @@ uint64_t __remoteSampleCursor_StepInPresentationOrderAndReportStepsTaken_block_i
       *(v4 + 2) = 0u;
       *v4 = 0u;
       v5 = dataPointerOut;
-      *dataPointerOut = *(a1 + 32);
+      *dataPointerOut = a1[4];
       *(v5 + 1) = 0;
       *(v5 + 4) = 1936731000;
-      *(v5 + 42) = *(a1 + 40);
+      *(v5 + 42) = a1[5];
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       result = 0;
       v5[328] = *(*DerivedStorage + 40) > 1;
@@ -89,10 +89,10 @@ uint64_t __remoteSampleCursor_StepInPresentationOrderAndReportStepsTaken_block_i
   result = *(*(v1 + 40) + 16);
   if (result)
   {
-    result = FigPartialSampleTableGetDecodeTimeRange(result, v4, 0);
+    result = FigPartialSampleTableGetDecodeTimeRange(result, v13, 0);
     if (!result)
     {
-      return OUTLINED_FUNCTION_45_8();
+      return OUTLINED_FUNCTION_45_8(result, 0x196F08464, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13[0], v13[1], v13[2]);
     }
   }
 

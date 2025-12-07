@@ -29,9 +29,9 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
 
 - (ASDTSystemStatus)init
 {
-  v20.receiver = self;
-  v20.super_class = ASDTSystemStatus;
-  v2 = [(ASDTSystemStatus *)&v20 init];
+  v31.receiver = self;
+  v31.super_class = ASDTSystemStatus;
+  v2 = [(ASDTSystemStatus *)&v31 init];
   if (!v2)
   {
     goto LABEL_17;
@@ -44,10 +44,11 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
   [(ASDTSystemStatus *)v2 setDeviceUIDs:v4];
 
   mutex = [(ASDTSystemStatus *)v2 mutex];
-  if (!mutex || ([(ASDTSystemStatus *)v2 deviceUIDs], v6 = objc_claimAutoreleasedReturnValue(), v6, mutex, !v6))
+  v7 = mutex;
+  if (!mutex || ([(ASDTSystemStatus *)v2 deviceUIDs], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, !v8))
   {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(mutex, v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ASDTSystemStatus init];
     }
@@ -55,15 +56,16 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
     goto LABEL_9;
   }
 
-  *&v7 = -1;
-  *(&v7 + 1) = -1;
-  *task_info_out = v7;
-  v19 = v7;
+  *&v9 = -1;
+  *(&v9 + 1) = -1;
+  *task_info_out = v9;
+  v30 = v9;
   task_info_outCnt = 8;
-  if (task_info(*MEMORY[0x277D85F48], 0xFu, task_info_out, &task_info_outCnt))
+  v10 = task_info(*MEMORY[0x277D85F48], 0xFu, task_info_out, &task_info_outCnt);
+  if (v10)
   {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ASDTSystemStatus init];
     }
@@ -71,27 +73,28 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
     goto LABEL_9;
   }
 
-  if (!objc_opt_class() || !objc_opt_class() || !objc_opt_class())
+  v14 = objc_opt_class();
+  if (!v14 || (v14 = objc_opt_class()) == 0 || (v14 = objc_opt_class()) == 0)
   {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v12 = ASDTBaseLogType(v14, v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16[0]) = 0;
-      _os_log_impl(&dword_241659000, v8, OS_LOG_TYPE_INFO, "SystemStatus is not supported on this system.", v16, 2u);
+      LOWORD(v27[0]) = 0;
+      _os_log_impl(&dword_241659000, v12, OS_LOG_TYPE_INFO, "SystemStatus is not supported on this system.", v27, 2u);
     }
 
     goto LABEL_9;
   }
 
-  v10 = objc_alloc_init(MEMORY[0x277D6B9E8]);
-  [(ASDTSystemStatus *)v2 setPublisher:v10];
+  v16 = objc_alloc_init(MEMORY[0x277D6B9E8]);
+  [(ASDTSystemStatus *)v2 setPublisher:v16];
 
   publisher = [(ASDTSystemStatus *)v2 publisher];
 
   if (!publisher)
   {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = ASDTBaseLogType(v18, v19);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ASDTSystemStatus init];
     }
@@ -99,13 +102,13 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
     goto LABEL_9;
   }
 
-  v16[0] = *task_info_out;
-  v16[1] = v19;
-  v8 = [MEMORY[0x277D6B8E0] attributionWithAuditToken:v16];
-  if (v8)
+  v27[0] = *task_info_out;
+  v27[1] = v30;
+  v12 = [MEMORY[0x277D6B8E0] attributionWithAuditToken:v27];
+  if (v12)
   {
-    v12 = [objc_alloc(MEMORY[0x277D6B9D8]) initWithActivityAttribution:v8];
-    [(ASDTSystemStatus *)v2 setAttribution:v12];
+    v21 = [objc_alloc(MEMORY[0x277D6B9D8]) initWithActivityAttribution:v12];
+    [(ASDTSystemStatus *)v2 setAttribution:v21];
 
     attribution = [(ASDTSystemStatus *)v2 attribution];
 
@@ -113,12 +116,12 @@ uint64_t __32__ASDTSystemStatus_systemStatus__block_invoke()
     {
 
 LABEL_17:
-      v9 = v2;
+      v13 = v2;
       goto LABEL_18;
     }
 
-    v15 = ASDTBaseLogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v26 = ASDTBaseLogType(v23, v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [ASDTSystemStatus init];
     }
@@ -126,18 +129,18 @@ LABEL_17:
 
   else
   {
-    v15 = ASDTBaseLogType();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v26 = ASDTBaseLogType(0, v20);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [ASDTSystemStatus init];
     }
   }
 
 LABEL_9:
-  v9 = 0;
+  v13 = 0;
 LABEL_18:
 
-  return v9;
+  return v13;
 }
 
 - (BOOL)enabled

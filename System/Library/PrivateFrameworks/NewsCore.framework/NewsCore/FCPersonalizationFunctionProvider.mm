@@ -34,25 +34,25 @@
 
 - (FCPersonalizationFunctionProvider)initWithAppConfiguration:(id)configuration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
     *buf = 136315906;
-    v15 = "[FCPersonalizationFunctionProvider initWithAppConfiguration:]";
-    v16 = 2080;
-    v17 = "FCPersonalizationFunctionProvider.m";
-    v18 = 1024;
-    v19 = 33;
-    v20 = 2114;
-    v21 = v12;
+    v14 = "[FCPersonalizationFunctionProvider initWithAppConfiguration:]";
+    v15 = 2080;
+    v16 = "FCPersonalizationFunctionProvider.m";
+    v17 = 1024;
+    v18 = 33;
+    v19 = 2114;
+    v20 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v13.receiver = self;
-  v13.super_class = FCPersonalizationFunctionProvider;
-  v5 = [(FCPersonalizationFunctionProvider *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = FCPersonalizationFunctionProvider;
+  v5 = [(FCPersonalizationFunctionProvider *)&v12 init];
   if (v5)
   {
     [configurationCopy articleDiversificationSimilarityExpectationStart];
@@ -65,7 +65,6 @@
     v5->_articleDiversificationUniquePublisherExpectationYIntercept = v9;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

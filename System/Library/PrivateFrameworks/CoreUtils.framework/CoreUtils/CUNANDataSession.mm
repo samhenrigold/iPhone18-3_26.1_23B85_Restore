@@ -567,14 +567,14 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
   v2 = *(*(a1 + 32) + 120);
   if (v2)
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_2;
-    v21[3] = &unk_1E73A36C8;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_2;
+    v16[3] = &unk_1E73A36C8;
     v3 = *(a1 + 40);
-    v21[4] = *(a1 + 32);
-    v22 = v3;
-    [v2 generateStatisticsReportWithCompletionHandler:v21];
+    v16[4] = *(a1 + 32);
+    v17 = v3;
+    [v2 generateStatisticsReportWithCompletionHandler:v16];
   }
 
   else
@@ -598,20 +598,20 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
       v9 = *MEMORY[0x1E696A768];
       v10 = v5;
       v11 = v6;
-      v17 = NSErrorF_safe(v9, 4294960596, "No underlying data session", v12, v13, v14, v15, v16, v19[0]);
-      (*(v8 + 16))(v8, 0, v17);
+      v12 = NSErrorF_safe(v9, 4294960596, "No underlying data session");
+      (*(v8 + 16))(v8, 0, v12);
     }
 
     else
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_4;
-      v19[3] = &unk_1E73A36C8;
-      v19[4] = v4;
-      v20 = *(a1 + 40);
-      v18 = v5;
-      [v6 generateStatisticsReportForDataSession:v18 completionHandler:v19];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_4;
+      v14[3] = &unk_1E73A36C8;
+      v14[4] = v4;
+      v15 = *(a1 + 40);
+      v13 = v5;
+      [v6 generateStatisticsReportForDataSession:v13 completionHandler:v14];
     }
   }
 }
@@ -648,43 +648,43 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
   dispatch_async(v6, block);
 }
 
-void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_5(void *a1)
 {
-  v9 = a1[4];
-  v8 = a1[5];
-  v10 = a1[6];
-  if (v10)
+  v2 = a1[4];
+  v1 = a1[5];
+  v3 = a1[6];
+  if (v3)
   {
-    v14 = NSErrorF_safe(*MEMORY[0x1E696A768], (v10 + 313300), "Generate report failed", a4, v8 + 16, a6, a7, a8, v13);
-    (*(v8 + 16))(v8, v9, v14);
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], (v3 + 313300), "Generate report failed");
+    (*(v1 + 16))(v1, v2, v6);
   }
 
   else
   {
-    v11 = *(v8 + 16);
-    v12 = a1[5];
+    v4 = *(v1 + 16);
+    v5 = a1[5];
 
-    v11(v12, v9, 0);
+    v4(v5, v2, 0);
   }
 }
 
-void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_3(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___block_invoke_3(void *a1)
 {
-  v9 = a1[4];
-  v8 = a1[5];
-  v10 = a1[6];
-  if (v10)
+  v2 = a1[4];
+  v1 = a1[5];
+  v3 = a1[6];
+  if (v3)
   {
-    v14 = NSErrorF_safe(*MEMORY[0x1E696A768], (v10 + 313300), "Generate report failed", a4, v8 + 16, a6, a7, a8, v13);
-    (*(v8 + 16))(v8, v9, v14);
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], (v3 + 313300), "Generate report failed");
+    (*(v1 + 16))(v1, v2, v6);
   }
 
   else
   {
-    v11 = *(v8 + 16);
-    v12 = a1[5];
+    v4 = *(v1 + 16);
+    v5 = a1[5];
 
-    v11(v12, v9, 0);
+    v4(v5, v2, 0);
   }
 }
 
@@ -754,7 +754,7 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
 
 - (void)_activateWithCompletion:(id)completion
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = logger();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -765,7 +765,7 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
     v9 = v8;
     pairingPromptHandler = self->_pairingPromptHandler;
     *buf = 138413058;
-    v58 = peerEndpoint;
+    v55 = peerEndpoint;
     if (pairingPromptHandler)
     {
       v11 = "yes";
@@ -776,12 +776,12 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
       v11 = "no";
     }
 
-    v59 = 2112;
-    v60 = v7;
-    v61 = 2112;
-    v62 = v8;
-    v63 = 2080;
-    v64 = v11;
+    v56 = 2112;
+    v57 = v7;
+    v58 = 2112;
+    v59 = v8;
+    v60 = 2080;
+    v61 = v11;
     _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "Activate: endpoint=%@, controlFlags=%@, trafficFlags=%@, pair=%s", buf, 0x2Au);
   }
 
@@ -795,28 +795,28 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
       trafficFlags = self->_trafficFlags;
       if ((trafficFlags & 0x800) != 0)
       {
-        v28 = 2;
+        v23 = 2;
       }
 
       else
       {
-        v28 = (trafficFlags & 0x63300) != 0;
+        v23 = (trafficFlags & 0x63300) != 0;
       }
 
-      v29 = [objc_alloc(getWiFiAwareDataSessionClass[0]()) initWithDiscoveryResult:discoveryResult serviceType:v28 serviceSpecificInfo:self->_wfaServiceSpecificInfo];
+      v24 = [objc_alloc(getWiFiAwareDataSessionClass()) initWithDiscoveryResult:discoveryResult serviceType:v23 serviceSpecificInfo:self->_wfaServiceSpecificInfo];
       wfaDataSessionClient = self->_wfaDataSessionClient;
-      self->_wfaDataSessionClient = v29;
+      self->_wfaDataSessionClient = v24;
 
-      v37 = self->_wfaDataSessionClient;
-      if (v37)
+      v32 = self->_wfaDataSessionClient;
+      if (v32)
       {
         if (self->_wfaConnectionMode)
         {
-          [(WiFiAwareDataSession *)v37 setConnectionMode:?];
-          v37 = self->_wfaDataSessionClient;
+          [(WiFiAwareDataSession *)v32 setConnectionMode:?];
+          v32 = self->_wfaDataSessionClient;
         }
 
-        [(WiFiAwareDataSession *)v37 setDelegate:self];
+        [(WiFiAwareDataSession *)v32 setDelegate:self];
         if (self->_pairingPromptHandler)
         {
           if (!self->_wfaConnectionMode)
@@ -826,8 +826,8 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
 
           [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingCachingEnabled:1];
           [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingDelegate:self];
-          [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingMethod:2];
-          v38 = objc_alloc(getWiFiAwarePairingMetadataClass[0]());
+          v33 = [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingMethod:2];
+          v34 = objc_alloc(getWiFiAwarePairingMetadataClass(v33));
           if (self->_pairingBundleID)
           {
             pairingBundleID = self->_pairingBundleID;
@@ -838,7 +838,7 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
             pairingBundleID = @"com.apple.Setup";
           }
 
-          WeakRetained = [v38 initWithBundleID:pairingBundleID selfPairingName:@"Device" peerDeviceName:0 storageClass:1 lifetime:1 pairingClient:0.0];
+          WeakRetained = [v34 initWithBundleID:pairingBundleID selfPairingName:@"Device" peerDeviceName:0 storageClass:1 lifetime:1 pairingClient:0.0];
           [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingMetadata:WeakRetained];
         }
 
@@ -863,54 +863,54 @@ void __66__CUNANDataSession_generateStatisticsReportWithCompletionHandler___bloc
 
         if (self->_wfaPairingMetadata)
         {
-          [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingMetadata:?];
+          v46 = [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairingMetadata:?];
         }
 
         if (self->_wfaPairSetupServiceSpecificInfo)
         {
-          [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairSetupServiceSpecificInfo:?];
+          v46 = [(WiFiAwareDataSession *)self->_wfaDataSessionClient setPairSetupServiceSpecificInfo:?];
         }
 
         if ((self->_controlFlags & 2) != 0)
         {
-          automaticallyProvideInternetToResponders = [getWiFiAwareInternetSharingConfigurationClass[0]() automaticallyProvideInternetToResponders];
+          automaticallyProvideInternetToResponders = [getWiFiAwareInternetSharingConfigurationClass(v46) automaticallyProvideInternetToResponders];
           if (automaticallyProvideInternetToResponders)
           {
             [(WiFiAwareDataSession *)self->_wfaDataSessionClient setInternetSharingConfiguration:automaticallyProvideInternetToResponders];
           }
 
-          v51 = logger();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          v48 = logger();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            v52 = "success";
+            v49 = "success";
             if (!automaticallyProvideInternetToResponders)
             {
-              v52 = "failed";
+              v49 = "failed";
             }
 
             *buf = 136315138;
-            v58 = v52;
-            _os_log_impl(&dword_191EAF000, v51, OS_LOG_TYPE_DEFAULT, "AutomaticInfraRelay: %s", buf, 0xCu);
+            v55 = v49;
+            _os_log_impl(&dword_191EAF000, v48, OS_LOG_TYPE_DEFAULT, "AutomaticInfraRelay: %s", buf, 0xCu);
           }
         }
 
-        v53 = _Block_copy(completionCopy);
+        v50 = _Block_copy(completionCopy);
         activateCompletion = self->_activateCompletion;
-        self->_activateCompletion = v53;
+        self->_activateCompletion = v50;
 
         [(WiFiAwareDataSession *)self->_wfaDataSessionClient start];
         goto LABEL_50;
       }
 
-      v41 = NSErrorWithOSStatusF(4294960596, "Create WFA DataSession failed", v31, v32, v33, v34, v35, v36, v56);
-      v42 = logger();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v37 = NSErrorWithOSStatusF(4294960596, "Create WFA DataSession failed", v26, v27, v28, v29, v30, v31, v53);
+      v38 = logger();
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
 LABEL_28:
 
         if (completionCopy)
         {
-          (*(completionCopy + 2))(completionCopy, v41);
+          (*(completionCopy + 2))(completionCopy, v37);
         }
 
         goto LABEL_50;
@@ -919,18 +919,18 @@ LABEL_28:
 
     else
     {
-      v41 = NSErrorWithOSStatusF(4294960591, "No discovery result", v21, v22, v23, v24, v25, v26, v56);
-      v42 = logger();
-      if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v37 = NSErrorWithOSStatusF(4294960591, "No discovery result", v16, v17, v18, v19, v20, v21, v53);
+      v38 = logger();
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
       }
     }
 
-    v55 = NSPrintF("%{error}", v43, v44, v45, v46, v47, v48, v49, v41);
+    v52 = NSPrintF("%{error}", v39, v40, v41, v42, v43, v44, v45, v37);
     *buf = 138412290;
-    v58 = v55;
-    _os_log_error_impl(&dword_191EAF000, v42, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
+    v55 = v52;
+    _os_log_error_impl(&dword_191EAF000, v38, OS_LOG_TYPE_ERROR, "### Activate failed: %@", buf, 0xCu);
 
     goto LABEL_28;
   }
@@ -940,7 +940,7 @@ LABEL_28:
   {
     if (v14)
     {
-      discoveryResult = NSErrorF_safe(*MEMORY[0x1E696A768], v14, "Bad mock peer endpoint string", v15, v16, v17, v18, v19, v56);
+      discoveryResult = NSErrorF_safe(*MEMORY[0x1E696A768], v14, "Bad mock peer endpoint string");
       (*(completionCopy + 2))(completionCopy, discoveryResult);
 LABEL_50:
 

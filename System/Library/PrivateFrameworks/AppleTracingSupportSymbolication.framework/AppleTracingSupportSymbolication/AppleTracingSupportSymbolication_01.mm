@@ -1,36 +1,3 @@
-const void **SymbolicationSession::forEachSymbolChunk(const void **result, uint64_t a2)
-{
-  v2 = result[9];
-  if (v2)
-  {
-    v4 = result;
-    do
-    {
-      v5 = v4[1674];
-      v6 = v2[4];
-      if (v5)
-      {
-        FBSSignatureWithConfig = SharedLibrary::generateFBSSignatureWithConfig(v6, *v5);
-      }
-
-      else
-      {
-        FBSSignatureWithConfig = SharedLibrary::generateFBSSignature(v6);
-      }
-
-      v8 = FBSSignatureWithConfig;
-      v9 = 0;
-      std::function<void ()(__CFData const*)>::operator()(a2, FBSSignatureWithConfig);
-      result = ScopeGuard<void const*,ScopeGuardPolicy<void const*>>::~ScopeGuard(&v8);
-      v2 = *v2;
-    }
-
-    while (v2);
-  }
-
-  return result;
-}
-
 uint64_t std::function<void ()(__CFData const*)>::operator()(uint64_t a1, uint64_t a2)
 {
   v4 = a2;
@@ -46,7 +13,7 @@ uint64_t std::function<void ()(__CFData const*)>::operator()(uint64_t a1, uint64
 uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result, uint64_t a2)
 {
   v3 = result;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = *(*(result + 13392) + 32);
   if (v4)
   {
@@ -65,7 +32,7 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
         {
           v13 = i[4];
           *__str = i + 2;
-          v14 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2);
+          v14 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2, &std::piecewise_construct, __str);
           v15 = (v14 + 4);
           if (*(v14 + 55) < 0)
           {
@@ -80,13 +47,13 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
 
           if (*(v3[1674] + 32))
           {
-            UUID::uuidString((i + 1), __p);
-            if ((v22 & 1) == 0)
+            UUID::uuidString(__p, (i + 1));
+            if ((v21 & 1) == 0)
             {
               std::__throw_bad_optional_access[abi:ne200100]();
             }
 
-            if (v21 >= 0)
+            if (v20 >= 0)
             {
               v16 = __p;
             }
@@ -96,8 +63,8 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
               v16 = __p[0];
             }
 
-            v23 = i + 2;
-            v17 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2);
+            v22 = i + 2;
+            v17 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2, &std::piecewise_construct, &v22);
             v18 = (v17 + 4);
             if (*(v17 + 55) < 0)
             {
@@ -105,7 +72,7 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
             }
 
             snprintf(__str, 0x400uLL, "[Symbolication] failed to ingest dSYM: %s %s", v16, v18);
-            if (v22 == 1 && v21 < 0)
+            if (v21 == 1 && v20 < 0)
             {
               operator delete(__p[0]);
             }
@@ -136,7 +103,7 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
 
         v7 = i[4];
         *__str = i + 2;
-        v8 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2);
+        v8 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2, &std::piecewise_construct, __str);
         v9 = (v8 + 4);
         if (*(v8 + 55) < 0)
         {
@@ -148,7 +115,7 @@ uint64_t SymbolicationSession::forEachResymbolicatedSymbolChunk(uint64_t result,
         {
 LABEL_39:
           *__str = SharedLibrary::generateFBSSignature(i[4]);
-          v25 = 0;
+          v24 = 0;
           std::function<void ()(__CFData const*)>::operator()(a2, *__str);
           result = ScopeGuard<void const*,ScopeGuardPolicy<void const*>>::~ScopeGuard(__str);
           continue;
@@ -156,13 +123,13 @@ LABEL_39:
 
         if (*(v3[1674] + 32))
         {
-          UUID::uuidString((i + 1), __p);
-          if ((v22 & 1) == 0)
+          UUID::uuidString(__p, (i + 1));
+          if ((v21 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          if (v21 >= 0)
+          if (v20 >= 0)
           {
             v10 = __p;
           }
@@ -172,8 +139,8 @@ LABEL_39:
             v10 = __p[0];
           }
 
-          v23 = i + 2;
-          v11 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2);
+          v22 = i + 2;
+          v11 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(v3 + 1692, i + 2, &std::piecewise_construct, &v22);
           v12 = (v11 + 4);
           if (*(v11 + 55) < 0)
           {
@@ -181,7 +148,7 @@ LABEL_39:
           }
 
           snprintf(__str, 0x400uLL, "[Symbolication] failed to ingest dSYM: %s %s", v10, v12);
-          if (v22 == 1 && v21 < 0)
+          if (v21 == 1 && v20 < 0)
           {
             operator delete(__p[0]);
           }
@@ -202,7 +169,6 @@ LABEL_22:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -216,9 +182,9 @@ void sub_240F924A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(void *result)
+uint64_t SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(uint64_t result)
 {
-  v1 = result[9];
+  v1 = *(result + 72);
   if (v1)
   {
     v2 = result;
@@ -238,8 +204,8 @@ void *SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(void *result
 
         else
         {
-          SharedLibrary::path(v1[4], v4);
-          if ((v4[16] & 1) == 0)
+          SharedLibrary::path(&v4, v1[4]);
+          if ((v5 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
@@ -257,71 +223,66 @@ void *SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(void *result
   return result;
 }
 
-void SymbolicationSession::collectAvailableDsymPaths(SymbolicationSession *this)
+void SymbolicationSession::collectAvailableDsymPaths(uint64_t this)
 {
-  v1 = *(this + 1674);
+  v1 = *(this + 13392);
   if (*(v1 + 4) == 1)
   {
-    unfold_dsym_path(*(v1 + 16), &v26);
-    v3 = v26;
-    v4 = v27;
-    if (v26 != v27)
+    unfold_dsym_path(&v24, *(v1 + 16));
+    v3 = v24;
+    v4 = v25;
+    if (v24 != v25)
     {
       v5 = MEMORY[0x277D85DD0];
       do
       {
-        if (*(v3 + 23) < 0)
-        {
-          v6 = *v3;
-        }
-
-        v20 = v5;
-        v21 = 0x40000000;
-        v22 = ___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke;
-        v23 = &__block_descriptor_tmp_16;
-        v24 = this;
-        v25 = v3;
+        v18 = v5;
+        v19 = 0x40000000;
+        v20 = ___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke;
+        v21 = &__block_descriptor_tmp_16;
+        v22 = this;
+        v23 = v3;
         CSSymbolicatorForeachSymbolicatorWithPath();
-        v3 += 3;
+        v3 += 24;
       }
 
       while (v3 != v4);
     }
 
-    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v19.__pn_, (*(this + 1674) + 16));
-    std::__fs::filesystem::__status(&v19, 0);
-    if (SHIBYTE(v19.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v17.__pn_, (*(this + 13392) + 16));
+    std::__fs::filesystem::__status(&v17, 0);
+    if (SHIBYTE(v17.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v17.__pn_.__r_.__value_.__l.__data_);
     }
 
-    if (!*(this + 1695) && p.__r_.__value_.__s.__data_[0] == 2)
+    if (!*(this + 13560) && p.__r_.__value_.__s.__data_[0] == 2)
     {
-      std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&__p, (*(this + 1674) + 16));
-      MEMORY[0x245CD57F0](&v19, &__p, 0, 0);
+      std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&__p, (*(this + 13392) + 16));
+      MEMORY[0x245CD57F0](&v17, &__p, 0, 0);
       if (*(&__p.__rec_ + 7) < 0)
       {
         operator delete(__p.__imp_.__ptr_);
       }
 
-      v7 = *&v19.__pn_.__r_.__value_.__l.__data_;
-      if (v19.__pn_.__r_.__value_.__l.__size_)
+      v6 = *&v17.__pn_.__r_.__value_.__l.__data_;
+      if (v17.__pn_.__r_.__value_.__l.__size_)
       {
-        atomic_fetch_add_explicit((v19.__pn_.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
-        size = v19.__pn_.__r_.__value_.__l.__size_;
-        __p.__imp_ = v7;
-        __p.__rec_ = v19.__pn_.__r_.__value_.__s.__data_[16];
-        if (v19.__pn_.__r_.__value_.__l.__size_)
+        atomic_fetch_add_explicit((v17.__pn_.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
+        size = v17.__pn_.__r_.__value_.__l.__size_;
+        __p.__imp_ = v6;
+        __p.__rec_ = v17.__pn_.__r_.__value_.__s.__data_[16];
+        if (v17.__pn_.__r_.__value_.__l.__size_)
         {
-          atomic_fetch_add_explicit((v19.__pn_.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v17.__pn_.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](size);
         }
       }
 
       else
       {
-        __p.__imp_ = *&v19.__pn_.__r_.__value_.__l.__data_;
-        __p.__rec_ = v19.__pn_.__r_.__value_.__s.__data_[16];
+        __p.__imp_ = *&v17.__pn_.__r_.__value_.__l.__data_;
+        __p.__rec_ = v17.__pn_.__r_.__value_.__s.__data_[16];
       }
 
       while (1)
@@ -333,73 +294,68 @@ void SymbolicationSession::collectAvailableDsymPaths(SymbolicationSession *this)
             std::__shared_weak_count::__release_shared[abi:ne200100](__p.__imp_.__cntrl_);
           }
 
-          if (v19.__pn_.__r_.__value_.__l.__size_)
+          if (v17.__pn_.__r_.__value_.__l.__size_)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v19.__pn_.__r_.__value_.__l.__size_);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v17.__pn_.__r_.__value_.__l.__size_);
           }
 
           break;
         }
 
-        v9 = std::__fs::filesystem::recursive_directory_iterator::__dereference(&__p);
-        v10 = v9;
-        if (SHIBYTE(v9->__p_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+        v8 = std::__fs::filesystem::recursive_directory_iterator::__dereference(&__p);
+        v9 = v8;
+        if (SHIBYTE(v8->__p_.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&p, v9->__p_.__pn_.__r_.__value_.__l.__data_, v9->__p_.__pn_.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&p, v8->__p_.__pn_.__r_.__value_.__l.__data_, v8->__p_.__pn_.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          p = v9->__p_;
+          p = v8->__p_;
         }
 
-        v11 = std::string::ends_with[abi:ne200100](&p, ".dSYM");
-        v12 = v11;
+        v10 = std::string::ends_with[abi:ne200100](&p, ".dSYM");
+        v11 = v10;
         if (SHIBYTE(p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(p.__r_.__value_.__l.__data_);
-          if (!v12)
+          if (!v11)
           {
-            goto LABEL_33;
+            goto LABEL_29;
           }
         }
 
-        else if (!v11)
+        else if (!v10)
         {
-          goto LABEL_33;
+          goto LABEL_29;
         }
 
-        if (v10[23] >= 0)
+        if (v9[23] >= 0)
         {
-          v13 = v10;
+          v12 = v9;
         }
 
         else
         {
-          v13 = *v10;
+          v12 = *v9;
         }
 
-        unfold_dsym_path(v13, &p);
-        v15 = p.__r_.__value_.__l.__size_;
-        for (i = p.__r_.__value_.__r.__words[0]; i != v15; i += 24)
+        unfold_dsym_path(&p, v12);
+        v14 = p.__r_.__value_.__l.__size_;
+        for (i = p.__r_.__value_.__r.__words[0]; i != v14; i += 24)
         {
-          if (*(i + 23) < 0)
-          {
-            v16 = *i;
-          }
-
           CSSymbolicatorForeachSymbolicatorWithPath();
         }
 
         p_p = &p;
         std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_p);
-LABEL_33:
+LABEL_29:
         std::__fs::filesystem::recursive_directory_iterator::__increment(&__p, 0);
       }
     }
 
-    v19.__pn_.__r_.__value_.__r.__words[0] = &v26;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v19);
+    v17.__pn_.__r_.__value_.__r.__words[0] = &v24;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v17);
   }
 }
 
@@ -415,11 +371,11 @@ void sub_240F928C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void unfold_dsym_path(char *__s@<X0>, uint64_t a2@<X8>)
+void unfold_dsym_path(std::allocator<std::string> *__return_ptr a1@<X8>, char *__s@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = 0;
   std::string::basic_string[abi:ne200100]<0>(&v29, __s);
   if (std::string::ends_with[abi:ne200100](&v29, ".dSYM"))
   {
@@ -477,18 +433,18 @@ void unfold_dsym_path(char *__s@<X0>, uint64_t a2@<X8>)
         __p.__pn_ = v8->__p_;
       }
 
-      v10 = *(a2 + 8);
-      v9 = *(a2 + 16);
+      v10 = *(a1 + 1);
+      v9 = *(a1 + 2);
       if (v10 >= v9)
       {
-        v12 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *a2) >> 3);
+        v12 = 0xAAAAAAAAAAAAAAABLL * ((v10 - *a1) >> 3);
         v13 = v12 + 1;
         if (v12 + 1 > 0xAAAAAAAAAAAAAAALL)
         {
           std::vector<_CSBinaryImageInformation>::__throw_length_error[abi:ne200100]();
         }
 
-        v14 = 0xAAAAAAAAAAAAAAABLL * ((v9 - *a2) >> 3);
+        v14 = 0xAAAAAAAAAAAAAAABLL * ((v9 - *a1) >> 3);
         if (2 * v14 > v13)
         {
           v13 = 2 * v14;
@@ -504,10 +460,10 @@ void unfold_dsym_path(char *__s@<X0>, uint64_t a2@<X8>)
           v15 = v13;
         }
 
-        v30.__end_cap_.__value_ = a2;
+        v30.__end_cap_.__value_ = a1;
         if (v15)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a2, v15);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v15);
         }
 
         v16 = 24 * v12;
@@ -516,21 +472,21 @@ void unfold_dsym_path(char *__s@<X0>, uint64_t a2@<X8>)
         *v16 = v17;
         memset(&__p, 0, sizeof(__p));
         v18 = 24 * v12 + 24;
-        v19 = *(a2 + 8) - *a2;
+        v19 = *(a1 + 1) - *a1;
         v20 = 24 * v12 - v19;
-        memcpy((v16 - v19), *a2, v19);
-        v21 = *a2;
-        *a2 = v20;
-        *(a2 + 8) = v18;
-        v22 = *(a2 + 16);
-        *(a2 + 16) = 0;
+        memcpy((v16 - v19), *a1, v19);
+        v21 = *a1;
+        *a1 = v20;
+        *(a1 + 1) = v18;
+        v22 = *(a1 + 2);
+        *(a1 + 2) = 0;
         v30.__end_ = v21;
         v30.__end_cap_.__value_ = v22;
         v30.__first_ = v21;
         v30.__begin_ = v21;
         std::__split_buffer<std::string>::~__split_buffer(&v30);
         v23 = SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]);
-        *(a2 + 8) = v18;
+        *(a1 + 1) = v18;
         if (v23 < 0)
         {
           operator delete(__p.__pn_.__r_.__value_.__l.__data_);
@@ -542,7 +498,7 @@ void unfold_dsym_path(char *__s@<X0>, uint64_t a2@<X8>)
         v11 = *&__p.__pn_.__r_.__value_.__l.__data_;
         *(v10 + 16) = *(&__p.__pn_.__r_.__value_.__l + 2);
         *v10 = v11;
-        *(a2 + 8) = v10 + 24;
+        *(a1 + 1) = v10 + 24;
       }
 
       std::__fs::filesystem::directory_iterator::__increment(&v25, 0);
@@ -591,28 +547,26 @@ void sub_240F92BF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__int128 *___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke(uint64_t a1)
+__int128 *___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
   CSSymbolicatorGetSymbolOwner();
   result = CSSymbolOwnerGetCFUUIDBytes();
   if (result)
   {
-    v6 = *result;
-    v4 = *(a1 + 40);
-    result = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,UUID&,std::string&>((v2 + 13536), &v6);
+    v5 = *result;
+    return std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,UUID&,std::string&>((v3 + 13536), &v5);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-BOOL std::string::ends_with[abi:ne200100](uint64_t *a1, char *__s)
+BOOL std::string::ends_with[abi:ne200100](uint64_t **a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = *(a1 + 23);
-  if (v5 < 0)
+  if ((v5 & 0x8000000000000000) != 0)
   {
     v6 = a1;
     a1 = *a1;
@@ -624,37 +578,35 @@ BOOL std::string::ends_with[abi:ne200100](uint64_t *a1, char *__s)
   return std::string_view::ends_with[abi:ne200100](v8, __s, v4);
 }
 
-__int128 *___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke_2(uint64_t a1)
+__int128 *___ZN20SymbolicationSession25collectAvailableDsymPathsEv_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
   CSSymbolicatorGetSymbolOwner();
   result = CSSymbolOwnerGetCFUUIDBytes();
   if (result)
   {
-    v6 = *result;
-    v4 = *(a1 + 40);
-    result = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,UUID&,std::string&>((v2 + 13536), &v6);
+    v5 = *result;
+    return std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,UUID&,std::string&>((v3 + 13536), &v5);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t SymbolicationSession::fillSharedCacheFromChunkSymbolicator()
+uint64_t SymbolicationSession::fillSharedCacheFromChunkSymbolicator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  v7 = a3;
   SharedCacheBaseAddress = CSSymbolicatorGetSharedCacheBaseAddress();
   SharedCacheUUID = CSSymbolicatorGetSharedCacheUUID();
   if (SharedCacheUUID)
   {
-    SharedCacheDescription::SharedCacheDescription(v4, SharedCacheBaseAddress, 0, *SharedCacheUUID, *(SharedCacheUUID + 8));
+    SharedCacheDescription::SharedCacheDescription(v8, SharedCacheBaseAddress, 0, *SharedCacheUUID, *(SharedCacheUUID + 8));
     std::allocate_shared[abi:ne200100]<SharedCache,std::allocator<SharedCache>,_CSTypeRef &,std::shared_ptr<StringPool> &,0>();
   }
 
-  result = 5;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return 5;
 }
 
 void sub_240F92F4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -678,25 +630,25 @@ void ___ZN20SymbolicationSession36fillSharedCacheFromChunkSymbolicatorE10_CSType
   }
 }
 
-uint64_t SymbolicationSession::addProcessFromChunkSymbolicator(uint64_t a1)
+uint64_t SymbolicationSession::addProcessFromChunkSymbolicator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21[8] = *MEMORY[0x277D85DE8];
+  v22[8] = *MEMORY[0x277D85DE8];
   IsKernelSymbolicator = CSSymbolicatorIsKernelSymbolicator();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x4002000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  memset(v21, 0, 24);
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 0x40000000;
-  v11 = ___ZN20SymbolicationSession31addProcessFromChunkSymbolicatorE10_CSTypeRef_block_invoke;
-  v12 = &unk_278CBFF80;
-  v15 = IsKernelSymbolicator;
-  v13 = &v16;
-  v14 = a1;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x4002000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  memset(v22, 0, 24);
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 0x40000000;
+  v12 = ___ZN20SymbolicationSession31addProcessFromChunkSymbolicatorE10_CSTypeRef_block_invoke;
+  v13 = &unk_278CBFF80;
+  v16 = IsKernelSymbolicator;
+  v14 = &v17;
+  v15 = a1;
   CSSymbolicatorForeachSymbolOwnerAtTime();
-  if (v17[6] != v17[5])
+  if (v18[6] != v18[5])
   {
     if (IsKernelSymbolicator)
     {
@@ -708,38 +660,38 @@ uint64_t SymbolicationSession::addProcessFromChunkSymbolicator(uint64_t a1)
       Pid = CSSymbolicatorGetPid();
     }
 
-    v8 = Pid;
+    v9 = Pid;
     operator new();
   }
 
   if (IsKernelSymbolicator)
   {
-    v4 = 3;
+    v6 = 3;
   }
 
   else
   {
-    v4 = 6;
+    v6 = 6;
   }
 
-  _Block_object_dispose(&v16, 8);
-  *&v7 = v21;
-  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
+  _Block_object_dispose(&v17, 8);
+  *&v8 = v22;
+  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v8);
+  return v6;
 }
 
-void sub_240F93390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29)
+void sub_240F93390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  *(v32 - 152) = v30;
-  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v32 - 152));
+  va_start(va, a28);
+  *(v31 - 152) = v29;
+  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v31 - 152));
   _Block_object_dispose(&a19, 8);
-  *(v32 - 152) = v29;
-  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v32 - 152));
-  std::unique_ptr<Process>::~unique_ptr[abi:ne200100](&a29);
-  _Block_object_dispose((v32 - 216), 8);
-  *(v32 - 128) = v31;
-  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v32 - 128));
+  *(v31 - 152) = v28;
+  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v31 - 152));
+  std::unique_ptr<Process>::~unique_ptr[abi:ne200100](va);
+  _Block_object_dispose((v31 - 216), 8);
+  *(v31 - 128) = v30;
+  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100]((v31 - 128));
   _Unwind_Resume(a1);
 }
 
@@ -764,7 +716,7 @@ void ___ZN20SymbolicationSession31addProcessFromChunkSymbolicatorE10_CSTypeRef_b
   v15 = BaseAddress;
   if ((CSSymbolOwnerIsKextBundle() & 1) != 0 || *(a1 + 48) == 1)
   {
-    KernelLibraryBaseAddress = findKernelLibraryBaseAddress();
+    KernelLibraryBaseAddress = findKernelLibraryBaseAddress(a2);
     if (v9)
     {
       v10 = KernelLibraryBaseAddress;
@@ -943,48 +895,44 @@ uint64_t *std::unique_ptr<Process>::~unique_ptr[abi:ne200100](uint64_t *a1)
   return a1;
 }
 
-uint64_t SymbolicationSession::verifyKernelFromFileAndSetupLiveKernel(uint64_t a1)
+uint64_t SymbolicationSession::verifyKernelFromFileAndSetupLiveKernel(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   CSSymbolicatorGetAOutSymbolOwner();
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
-  if (CFUUIDBytes)
+  if (!CFUUIDBytes)
   {
-    v10 = *CFUUIDBytes;
-    memset(v8, 0, sizeof(v8));
-    KernelSymbolicator::sharedKernelSymbolicator(CFUUIDBytes);
-    CSSymbolicatorGetAOutSymbolOwner();
-    v3 = CSSymbolOwnerGetCFUUIDBytes();
-    if (v3)
-    {
-      v9 = *v3;
-      if (v10 == v9 && *(&v10 + 1) == *(&v9 + 1))
-      {
-        v5 = SymbolicationSession::addProcessFromChunkSymbolicator(a1);
-      }
+    return 3;
+  }
 
-      else
-      {
-        v5 = 7;
-      }
+  v14 = *CFUUIDBytes;
+  memset(v12, 0, sizeof(v12));
+  v5 = KernelSymbolicator::sharedKernelSymbolicator(CFUUIDBytes);
+  v7 = v6;
+  CSSymbolicatorGetAOutSymbolOwner();
+  v8 = CSSymbolOwnerGetCFUUIDBytes();
+  if (v8)
+  {
+    v13 = *v8;
+    if (v14 == v13 && *(&v14 + 1) == *(&v13 + 1))
+    {
+      v10 = SymbolicationSession::addProcessFromChunkSymbolicator(a1, v5, v7);
     }
 
     else
     {
-      v5 = 4;
+      v10 = 7;
     }
-
-    *&v9 = v8;
-    std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v9);
   }
 
   else
   {
-    v5 = 3;
+    v10 = 4;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v5;
+  *&v13 = v12;
+  std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v13);
+  return v10;
 }
 
 void sub_240F938E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
@@ -994,14 +942,14 @@ void sub_240F938E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(uint64_t a1)
+uint64_t SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = a1;
+  v9 = a1;
   if (atomic_load_explicit(&SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(_CSTypeRef)::dscMapFlag, memory_order_acquire) != -1)
   {
-    v5 = &v3;
-    v4 = &v5;
-    std::__call_once(&SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(_CSTypeRef)::dscMapFlag, &v4, std::__call_once_proxy[abi:ne200100]<std::tuple<SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(_CSTypeRef)::$_0 &&>>);
+    v11 = &v9;
+    v10 = &v11;
+    std::__call_once(&SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(_CSTypeRef)::dscMapFlag, &v10, std::__call_once_proxy[abi:ne200100]<std::tuple<SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(_CSTypeRef)::$_0 &&>>);
   }
 
   SharedCacheUUID = CSSymbolicatorGetSharedCacheUUID();
@@ -1010,7 +958,8 @@ uint64_t SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(
     return 5;
   }
 
-  SharedCacheSymbolicators::cachedSharedCacheSymbolicatorByUUID(*SharedCacheUUID, *(SharedCacheUUID + 8));
+  v5 = SharedCacheSymbolicators::cachedSharedCacheSymbolicatorByUUID(*SharedCacheUUID, *(SharedCacheUUID + 8));
+  v7 = v6;
   if (CSIsNull())
   {
     return 7;
@@ -1018,11 +967,11 @@ uint64_t SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(
 
   else
   {
-    return SymbolicationSession::fillSharedCacheFromChunkSymbolicator();
+    return SymbolicationSession::fillSharedCacheFromChunkSymbolicator(a1, v5, v7);
   }
 }
 
-uint64_t SymbolicationSession::addProcessFromModifiedNonFBSSymbolSource(uint64_t a1)
+uint64_t SymbolicationSession::addProcessFromModifiedNonFBSSymbolSource(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Signature = CSSymbolicatorCreateSignature();
   if (!Signature)
@@ -1030,27 +979,28 @@ uint64_t SymbolicationSession::addProcessFromModifiedNonFBSSymbolSource(uint64_t
     return 6;
   }
 
-  v3 = Signature;
-  CSSymbolicatorCreateWithSignature();
+  v5 = Signature;
+  v6 = CSSymbolicatorCreateWithSignature();
+  v8 = v7;
   if (CSIsNull())
   {
-    CFRelease(v3);
+    CFRelease(v5);
     return 6;
   }
 
-  v5 = SymbolicationSession::addProcessFromChunkSymbolicator(a1);
-  CFRelease(v3);
+  v10 = SymbolicationSession::addProcessFromChunkSymbolicator(a1, v6, v8);
+  CFRelease(v5);
   CSRelease();
-  return v5;
+  return v10;
 }
 
-uint64_t SymbolicationSession::extractSymbolicationChunksFromFile(SymbolicationSession *a1)
+uint64_t SymbolicationSession::extractSymbolicationChunksFromFile(void *a1, uint64_t a2)
 {
   v50 = *MEMORY[0x277D85DE8];
-  v2 = *(*(a1 + 1674) + 32);
-  if (v2)
+  v3 = *(a1[1674] + 32);
+  if (v3)
   {
-    v2("[Symbolication] Extracting symbolication related info and events from file");
+    v3("[Symbolication] Extracting symbolication related info and events from file", a2);
   }
 
   v45 = 0;
@@ -1078,8 +1028,8 @@ uint64_t SymbolicationSession::extractSymbolicationChunksFromFile(SymbolicationS
   v31 = &v41;
   v32 = a1;
   ktrace_file_iterate();
-  v3 = *(v34 + 6);
-  if (!v3)
+  v4 = *(v34 + 6);
+  if (!v4)
   {
     v18 = MEMORY[0x277D85DD0];
     v19 = 0x40000000;
@@ -1089,42 +1039,42 @@ uint64_t SymbolicationSession::extractSymbolicationChunksFromFile(SymbolicationS
     v23 = &v33;
     v24 = a1;
     ktrace_file_iterate();
-    v3 = *(v34 + 6);
-    if (!v3)
+    v4 = *(v34 + 6);
+    if (!v4)
     {
       if (*(v46 + 24) != 1 || *(v42 + 24) != 1 || *(v38 + 24) != 1)
       {
-        v3 = 2;
+        v4 = 2;
         goto LABEL_61;
       }
 
-      if (*(*(a1 + 1674) + 4) != 1)
+      if (*(a1[1674] + 4) != 1)
       {
         goto LABEL_59;
       }
 
       SymbolicationSession::collectAvailableDsymPaths(a1);
-      v4 = *(a1 + 1694);
-      if (!v4)
+      v5 = a1[1694];
+      if (!v5)
       {
         goto LABEL_62;
       }
 
-      v5 = 0;
+      v6 = 0;
       while (1)
       {
-        v6 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 7, v4 + 2);
-        v7 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1682, v4 + 2);
-        v8 = (v4 + 4);
-        if (v6)
+        v7 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 7, v5 + 2);
+        v8 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1682, v5 + 2);
+        v9 = (v5 + 4);
+        if (v7)
         {
-          if (*(a1 + 1685) && v7)
+          if (a1[1685] && v8)
           {
-            if (v7[4])
+            if (v8[4])
             {
-              if (*(*(a1 + 1674) + 32))
+              if (*(a1[1674] + 32))
               {
-                UUID::uuidString((v4 + 1), __p);
+                UUID::uuidString(__p, (v5 + 1));
                 if ((v17 & 1) == 0)
                 {
                   std::__throw_bad_optional_access[abi:ne200100]();
@@ -1132,31 +1082,31 @@ uint64_t SymbolicationSession::extractSymbolicationChunksFromFile(SymbolicationS
 
                 if (v16 >= 0)
                 {
-                  v9 = __p;
+                  v10 = __p;
                 }
 
                 else
                 {
-                  v9 = __p[0];
+                  v10 = __p[0];
                 }
 
-                snprintf(__str, 0x400uLL, "[Symbolication] Library with uuid: %s is fully symbolicated. No new symbols will be written for this library", v9);
+                snprintf(__str, 0x400uLL, "[Symbolication] Library with uuid: %s is fully symbolicated. No new symbols will be written for this library", v10);
                 if (v17 == 1 && v16 < 0)
                 {
                   operator delete(__p[0]);
                 }
 
 LABEL_56:
-                (*(*(a1 + 1674) + 32))(__str);
+                (*(a1[1674] + 32))(__str);
               }
             }
 
             else
             {
-              ++v5;
-              if (*(*(a1 + 1674) + 32))
+              ++v6;
+              if (*(a1[1674] + 32))
               {
-                UUID::uuidString((v4 + 1), __p);
+                UUID::uuidString(__p, (v5 + 1));
                 if ((v17 & 1) == 0)
                 {
                   std::__throw_bad_optional_access[abi:ne200100]();
@@ -1164,20 +1114,20 @@ LABEL_56:
 
                 if (v16 >= 0)
                 {
-                  v12 = __p;
+                  v13 = __p;
                 }
 
                 else
                 {
-                  v12 = __p[0];
+                  v13 = __p[0];
                 }
 
-                if (*(v4 + 55) < 0)
+                if (*(v5 + 55) < 0)
                 {
-                  v8 = *v8;
+                  v9 = *v9;
                 }
 
-                snprintf(__str, 0x400uLL, "[Symbolication] Current Apple Trace contains incomplete symbols for uuid: %s. New symbols will be written for this library based on %s", v12, v8);
+                snprintf(__str, 0x400uLL, "[Symbolication] Current Apple Trace contains incomplete symbols for uuid: %s. New symbols will be written for this library based on %s", v13, v9);
                 if (v17 == 1 && v16 < 0)
                 {
                   operator delete(__p[0]);
@@ -1190,10 +1140,10 @@ LABEL_56:
 
           else
           {
-            ++v5;
-            if (*(*(a1 + 1674) + 32))
+            ++v6;
+            if (*(a1[1674] + 32))
             {
-              UUID::uuidString((v4 + 1), __p);
+              UUID::uuidString(__p, (v5 + 1));
               if ((v17 & 1) == 0)
               {
                 std::__throw_bad_optional_access[abi:ne200100]();
@@ -1201,20 +1151,20 @@ LABEL_56:
 
               if (v16 >= 0)
               {
-                v11 = __p;
+                v12 = __p;
               }
 
               else
               {
-                v11 = __p[0];
+                v12 = __p[0];
               }
 
-              if (*(v4 + 55) < 0)
+              if (*(v5 + 55) < 0)
               {
-                v8 = *v8;
+                v9 = *v9;
               }
 
-              snprintf(__str, 0x400uLL, "[Symbolication] Current Apple Trace does not contain symbols for uuid: %s. The uuid is relevant for the file, new symbols will be written for this library based on %s", v11, v8);
+              snprintf(__str, 0x400uLL, "[Symbolication] Current Apple Trace does not contain symbols for uuid: %s. The uuid is relevant for the file, new symbols will be written for this library based on %s", v12, v9);
               if (v17 == 1 && v16 < 0)
               {
                 operator delete(__p[0]);
@@ -1225,9 +1175,9 @@ LABEL_56:
           }
         }
 
-        else if (*(*(a1 + 1674) + 32))
+        else if (*(a1[1674] + 32))
         {
-          UUID::uuidString((v4 + 1), __p);
+          UUID::uuidString(__p, (v5 + 1));
           if ((v17 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
@@ -1235,20 +1185,20 @@ LABEL_56:
 
           if (v16 >= 0)
           {
-            v10 = __p;
+            v11 = __p;
           }
 
           else
           {
-            v10 = __p[0];
+            v11 = __p[0];
           }
 
-          if (*(v4 + 55) < 0)
+          if (*(v5 + 55) < 0)
           {
-            v8 = *v8;
+            v9 = *v9;
           }
 
-          snprintf(__str, 0x400uLL, "[Symbolication] UUID: %s in %s is not relevant to current Apple Trace, it does not match any library found in file ", v10, v8);
+          snprintf(__str, 0x400uLL, "[Symbolication] UUID: %s in %s is not relevant to current Apple Trace, it does not match any library found in file ", v11, v9);
           if (v17 == 1 && v16 < 0)
           {
             operator delete(__p[0]);
@@ -1257,18 +1207,18 @@ LABEL_56:
           goto LABEL_56;
         }
 
-        v4 = *v4;
-        if (!v4)
+        v5 = *v5;
+        if (!v5)
         {
-          if (v5)
+          if (v6)
           {
 LABEL_59:
-            v3 = 0;
+            v4 = 0;
             break;
           }
 
 LABEL_62:
-          v3 = 8;
+          v4 = 8;
           break;
         }
       }
@@ -1280,11 +1230,10 @@ LABEL_61:
   _Block_object_dispose(&v37, 8);
   _Block_object_dispose(&v41, 8);
   _Block_object_dispose(&v45, 8);
-  v13 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v4;
 }
 
-void sub_240F93F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_240F93F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
 {
   _Block_object_dispose(&a34, 8);
   _Block_object_dispose(&a38, 8);
@@ -1293,166 +1242,152 @@ void sub_240F93F38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke(void *a1)
+BOOL ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke(void *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = a1[7];
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a1[7];
   if (ktrace_chunk_tag() == 20585)
   {
     *(*(a1[4] + 8) + 24) = 1;
     ktrace_chunk_size();
-    v3 = ktrace_chunk_copy_cfdata();
-    if (v3)
+    v4 = ktrace_chunk_copy_cfdata();
+    if (v4)
     {
-      v4 = v3;
-      MEMORY[0x245CD55A0](v3, 0);
+      v5 = v4;
+      v6 = MEMORY[0x245CD55A0](v4, 0);
+      v8 = v7;
       if (CSIsNull())
       {
         goto LABEL_24;
       }
 
-      v5 = *(*(v2 + 13392) + 4);
-      if ((v5 - 1) >= 2)
+      v9 = *(*(v3 + 13392) + 4);
+      if ((v9 - 1) >= 2)
       {
-        if (v5)
+        if (v9)
         {
           goto LABEL_24;
         }
 
-        v6 = SymbolicationSession::verifyKernelFromFileAndSetupLiveKernel(v2);
+        v10 = SymbolicationSession::verifyKernelFromFileAndSetupLiveKernel(v3, v6, v8);
       }
 
       else
       {
-        v6 = SymbolicationSession::addProcessFromChunkSymbolicator(v2);
+        v10 = SymbolicationSession::addProcessFromChunkSymbolicator(v3, v6, v8);
       }
 
-      *(*(a1[5] + 8) + 24) = v6;
+      *(*(a1[5] + 8) + 24) = v10;
 LABEL_24:
-      CFRelease(v4);
-      if (*(*(a1[5] + 8) + 24))
-      {
-        goto LABEL_25;
-      }
-
-LABEL_29:
-      result = 1;
-      goto LABEL_30;
+      CFRelease(v5);
+      return !*(*(a1[5] + 8) + 24);
     }
 
-    v13 = *(a1[5] + 8);
-    v14 = 3;
+    v17 = *(a1[5] + 8);
+    v18 = 3;
+LABEL_20:
+    *(v17 + 24) = v18;
+    return 0;
   }
 
-  else
+  if (ktrace_chunk_tag() == 20584)
   {
-    if (ktrace_chunk_tag() != 20584)
-    {
-      if (ktrace_chunk_tag() == 20583)
-      {
-        if (!*(*(v2 + 13392) + 4))
-        {
-          result = 0;
-          *(*(a1[5] + 8) + 24) = 9;
-          goto LABEL_30;
-        }
-
-        ktrace_chunk_size();
-        v10 = ktrace_chunk_copy_cfdata();
-        if (v10)
-        {
-          v11 = v10;
-          MEMORY[0x245CD55A0](v10, 0);
-          if ((CSIsNull() & 1) == 0)
-          {
-            CSSymbolicatorGetSymbolOwner();
-            if ((CSIsNull() & 1) == 0)
-            {
-              CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
-              if (CFUUIDBytes)
-              {
-                v19 = *CFUUIDBytes;
-                if (std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>((v2 + 13456), &v19))
-                {
-                  v18 = &v19;
-                  *(std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v2 + 13456), &v19) + 32) = 1;
-                }
-
-                else
-                {
-                  LOBYTE(v18) = CSSymbolOwnerGetSourceInfoCount() != 0;
-                  std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,UUID&,BOOL>((v2 + 13456), &v19);
-                }
-              }
-            }
-          }
-
-          CSRelease();
-          CFRelease(v11);
-        }
-      }
-
-      goto LABEL_29;
-    }
-
     *(*(a1[6] + 8) + 24) = 1;
     ktrace_chunk_size();
-    v7 = ktrace_chunk_copy_cfdata();
-    if (v7)
+    v11 = ktrace_chunk_copy_cfdata();
+    if (!v11)
     {
-      v8 = v7;
-      *&v19 = 0;
-      *(&v19 + 1) = &v19;
-      v20 = 0x2000000000;
-      v21 = 0;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 0x40000000;
-      v17[2] = ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_2;
-      v17[3] = &unk_278CBFFD0;
-      v17[5] = &v19;
-      v17[6] = v2;
-      v17[4] = a1[5];
-      MEMORY[0x245CD5610](v7, 0, v17);
-      CFRelease(v8);
-      v9 = *(*(&v19 + 1) + 24);
-      _Block_object_dispose(&v19, 8);
-      if (!v9)
-      {
-        goto LABEL_25;
-      }
-
-      goto LABEL_29;
+      v17 = *(a1[5] + 8);
+      v18 = 5;
+      goto LABEL_20;
     }
 
-    v13 = *(a1[5] + 8);
-    v14 = 5;
+    v12 = v11;
+    *&v22 = 0;
+    *(&v22 + 1) = &v22;
+    v23 = 0x2000000000;
+    v24 = 0;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 0x40000000;
+    v20[2] = ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_2;
+    v20[3] = &unk_278CBFFD0;
+    v20[5] = &v22;
+    v20[6] = v3;
+    v20[4] = a1[5];
+    MEMORY[0x245CD5610](v11, 0, v20);
+    CFRelease(v12);
+    v13 = *(*(&v22 + 1) + 24);
+    _Block_object_dispose(&v22, 8);
+    if (!v13)
+    {
+      return 0;
+    }
   }
 
-  *(v13 + 24) = v14;
-LABEL_25:
-  result = 0;
-LABEL_30:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  else if (ktrace_chunk_tag() == 20583)
+  {
+    if (!*(*(v3 + 13392) + 4))
+    {
+      result = 0;
+      *(*(a1[5] + 8) + 24) = 9;
+      return result;
+    }
+
+    ktrace_chunk_size();
+    v14 = ktrace_chunk_copy_cfdata();
+    if (v14)
+    {
+      v15 = v14;
+      MEMORY[0x245CD55A0](v14, 0);
+      if ((CSIsNull() & 1) == 0)
+      {
+        CSSymbolicatorGetSymbolOwner();
+        if ((CSIsNull() & 1) == 0)
+        {
+          CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
+          if (CFUUIDBytes)
+          {
+            v22 = *CFUUIDBytes;
+            if (std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>((v3 + 13456), &v22))
+            {
+              v21 = &v22;
+              *(std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v3 + 13456), &v22, &std::piecewise_construct, &v21) + 32) = 1;
+            }
+
+            else
+            {
+              LOBYTE(v21) = CSSymbolOwnerGetSourceInfoCount() != 0;
+              std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,UUID&,BOOL>((v3 + 13456), &v22, &v22, &v21);
+            }
+          }
+        }
+      }
+
+      CSRelease();
+      CFRelease(v15);
+    }
+  }
+
+  return 1;
 }
 
-uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_2(void *a1)
+uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
 {
   result = a1[6];
-  v3 = *(*(result + 13392) + 4);
-  if ((v3 - 1) >= 2)
+  v5 = *(*(result + 13392) + 4);
+  if ((v5 - 1) >= 2)
   {
-    if (v3)
+    if (v5)
     {
       goto LABEL_6;
     }
 
-    result = SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(result);
+    result = SymbolicationSession::verifySharedCacheFromFileAndSetupLiveSharedCache(result, a2, a3);
   }
 
   else
   {
-    result = SymbolicationSession::fillSharedCacheFromChunkSymbolicator();
+    result = SymbolicationSession::fillSharedCacheFromChunkSymbolicator(result, a2, a3);
   }
 
   *(*(a1[4] + 8) + 24) = result;
@@ -1465,29 +1400,29 @@ LABEL_6:
   return result;
 }
 
-uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_3(void *a1)
+uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_3(void *a1, uint64_t a2)
 {
-  v2 = a1[6];
-  v3 = 1;
+  v3 = a1[6];
+  v4 = 1;
   if (ktrace_chunk_tag() == 20586)
   {
     ktrace_chunk_size();
-    v4 = ktrace_chunk_copy_cfdata();
+    v5 = ktrace_chunk_copy_cfdata();
     *(*(a1[4] + 8) + 24) = 1;
-    if (v4)
+    if (v5)
     {
-      v5 = v4;
-      v7[0] = MEMORY[0x277D85DD0];
-      v7[1] = 0x40000000;
-      v7[2] = ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_4;
-      v7[3] = &unk_278CC0020;
-      v7[4] = a1[5];
-      v7[5] = v2;
-      MEMORY[0x245CD5610](v4, 0, v7);
-      CFRelease(v5);
+      v6 = v5;
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 0x40000000;
+      v8[2] = ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_4;
+      v8[3] = &unk_278CC0020;
+      v8[4] = a1[5];
+      v8[5] = v3;
+      MEMORY[0x245CD5610](v5, 0, v8);
+      CFRelease(v6);
       if (!*(*(a1[5] + 8) + 24))
       {
-        return v3;
+        return v4;
       }
     }
 
@@ -1499,26 +1434,26 @@ uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktra
     return 0;
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_4(uint64_t a1)
+uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktrace_file_block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = *(a1 + 40);
-  v3 = *(*(result + 13392) + 4);
-  if ((v3 - 1) >= 2)
+  v5 = *(*(result + 13392) + 4);
+  if ((v5 - 1) >= 2)
   {
-    if (v3)
+    if (v5)
     {
       return result;
     }
 
-    result = SymbolicationSession::addProcessFromModifiedNonFBSSymbolSource(result);
+    result = SymbolicationSession::addProcessFromModifiedNonFBSSymbolSource(result, a2, a3);
   }
 
   else
   {
-    result = SymbolicationSession::addProcessFromChunkSymbolicator(result);
+    result = SymbolicationSession::addProcessFromChunkSymbolicator(result, a2, a3);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1527,123 +1462,113 @@ uint64_t ___ZN20SymbolicationSession34extractSymbolicationChunksFromFileEP11ktra
 
 void SymbolicationSession::writeSymbolDataToKtraceFile(uint64_t a1, uint64_t a2)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v8 = 0;
   v4 = *(*(a1 + 13392) + 8);
-  if (v4 != 1)
+  if (v4 == 1)
   {
-    if (!v4)
+    SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(a1);
+    v6 = *(a1 + 13392);
+    if (*(v6 + 4) == 2)
     {
-      if (a2)
+      v7 = *(v6 + 32);
+      if (*(a1 + 13520))
       {
-        v14[0] = &unk_2852D6618;
-        v14[1] = a2;
-        v14[2] = &v10;
-        v14[3] = v14;
-        SymbolicationSession::forEachSymbolChunk(a1, v14);
-        std::__function::__value_func<void ()(__CFData const*)>::~__value_func[abi:ne200100](v14);
+        if (v7)
+        {
+          snprintf(buf, 0x400uLL, "Symbolication failed. No dSYMs were found by '%s'.", *(v6 + 40));
+          (*(*(a1 + 13392) + 32))(buf);
+        }
       }
 
-      ats_symbolication_log_init();
-      v5 = ats_symbolication_log;
-      if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
+      else if (v7)
       {
-        *buf = 67109120;
-        v13 = v10;
-        _os_log_impl(&dword_240F85000, v5, OS_LOG_TYPE_INFO, "Wrote %u symbol chunks", buf, 8u);
+
+        v7("[Symbolication] All libraries are symbolicated.");
       }
     }
 
-    goto LABEL_13;
+    else
+    {
+      v9[0] = &unk_2852D66A8;
+      v9[1] = a2;
+      v9[2] = &v8;
+      v9[3] = v9;
+      SymbolicationSession::forEachResymbolicatedSymbolChunk(a1, v9);
+      std::__function::__value_func<void ()(__CFData const*)>::~__value_func[abi:ne200100](v9);
+      if (*(*(a1 + 13392) + 32))
+      {
+        snprintf(buf, 0x400uLL, "[Symbolication] Successfully symbolicated %u libraries", v8);
+        (*(*(a1 + 13392) + 32))(buf);
+      }
+    }
   }
 
-  SymbolicationSession::filterUUIDsNeedingSymbolicationWithFile(a1);
-  v6 = *(a1 + 13392);
-  if (*(v6 + 4) != 2)
+  else if (!v4)
   {
-    v11[0] = &unk_2852D66A8;
-    v11[1] = a2;
-    v11[2] = &v10;
-    v11[3] = v11;
-    SymbolicationSession::forEachResymbolicatedSymbolChunk(a1, v11);
-    std::__function::__value_func<void ()(__CFData const*)>::~__value_func[abi:ne200100](v11);
-    if (*(*(a1 + 13392) + 32))
+    if (a2)
     {
-      snprintf(buf, 0x400uLL, "[Symbolication] Successfully symbolicated %u libraries", v10);
-      (*(*(a1 + 13392) + 32))(buf);
+      v12[0] = &unk_2852D6618;
+      v12[1] = a2;
+      v12[2] = &v8;
+      v12[3] = v12;
+      SymbolicationSession::forEachSymbolChunk(a1, v12);
+      std::__function::__value_func<void ()(__CFData const*)>::~__value_func[abi:ne200100](v12);
     }
 
-    goto LABEL_13;
-  }
-
-  v7 = *(v6 + 32);
-  if (*(a1 + 13520))
-  {
-    if (v7)
+    ats_symbolication_log_init();
+    v5 = ats_symbolication_log;
+    if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
     {
-      snprintf(buf, 0x400uLL, "Symbolication failed. No dSYMs were found by '%s'.", *(v6 + 40));
-      (*(*(a1 + 13392) + 32))(buf);
+      *buf = 67109120;
+      v11 = v8;
+      _os_log_impl(&dword_240F85000, v5, OS_LOG_TYPE_INFO, "Wrote %u symbol chunks", buf, 8u);
     }
-
-    goto LABEL_13;
   }
-
-  if (!v7)
-  {
-LABEL_13:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  v7("[Symbolication] All libraries are symbolicated.");
 }
 
-void sub_240F94750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_240F94750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__function::__value_func<void ()(__CFData const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t SymbolicationSession::createProcessMapsChunk(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2000000000;
-  v15 = 0;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2000000000;
-  v11 = 0;
-  v1 = *(a1 + 376);
+  v18 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2000000000;
+  v13 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2000000000;
+  v9 = 0;
   FlatbufferSignatureForSymbolicatorsWithBlock = CSSymbolicatorCreateFlatbufferSignatureForSymbolicatorsWithBlock();
   ats_symbolication_log_init();
-  v3 = ats_symbolication_log;
+  v2 = ats_symbolication_log;
   if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
   {
-    v4 = v13[3];
-    v5 = v9[3];
+    v3 = v11[3];
+    v4 = v7[3];
     *buf = 134218240;
+    v15 = v3;
+    v16 = 2048;
     v17 = v4;
-    v18 = 2048;
-    v19 = v5;
-    _os_log_impl(&dword_240F85000, v3, OS_LOG_TYPE_INFO, "Created %zu process maps, %zu failures", buf, 0x16u);
+    _os_log_impl(&dword_240F85000, v2, OS_LOG_TYPE_INFO, "Created %zu process maps, %zu failures", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v8, 8);
-  _Block_object_dispose(&v12, 8);
-  v6 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v10, 8);
   return FlatbufferSignatureForSymbolicatorsWithBlock;
 }
 
-void sub_240F948DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_240F948DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1685,26 +1610,26 @@ uint64_t ___ZN20SymbolicationSession22createProcessMapsChunkEP11ktrace_file_bloc
   return result;
 }
 
-void SymbolicationSession::writeProcessMapsToKtraceFile(std::once_flag::_State_type *a1)
+void SymbolicationSession::writeProcessMapsToKtraceFile(uint64_t a1, uint64_t a2)
 {
-  SymbolicationSession::updateProcessView<DyldKdebugHandler>(a1, (a1 + 52));
+  SymbolicationSession::updateProcessView<DyldKdebugHandler>(a1, (a1 + 416));
   ProcessMapsChunk = SymbolicationSession::createProcessMapsChunk(a1);
   if (ProcessMapsChunk)
   {
-    v3 = ProcessMapsChunk;
+    v4 = ProcessMapsChunk;
     CFDataGetBytePtr(ProcessMapsChunk);
-    CFDataGetLength(v3);
+    CFDataGetLength(v4);
     if (!ktrace_file_append_chunk())
     {
       ats_symbolication_log_init();
-      v4 = ats_symbolication_log;
+      v5 = ats_symbolication_log;
       if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_ERROR))
       {
-        SymbolicationSession::writeProcessMapsToKtraceFile(v4);
+        SymbolicationSession::writeProcessMapsToKtraceFile(v5);
       }
     }
 
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 
@@ -1715,17 +1640,17 @@ uint64_t SymbolicationSession::setKtraceSession(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_240F94C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_240F94C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v21 = v16;
-  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(v10 + v17);
+  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table((v10 + v17));
   std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(v18);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v10 + 13456);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v21);
   DyldKdebugHandler::~DyldKdebugHandler((v10 + 416));
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v10 + 352);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v10 + 312);
-  a10 = (v10 + 288);
+  a10 = v10 + 288;
   std::vector<std::unique_ptr<Process>>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::vector<Stackshot>::__destroy_vector::operator()[abi:ne200100](&a10);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v15);
@@ -1745,11 +1670,11 @@ void sub_240F94C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void SymbolicationSession::SymbolicationSession(SymbolicationSession *this)
 {
-  SymbolicationSession::SymbolicationSession();
+  SymbolicationSession::SymbolicationSession(this, 0);
 }
 
 {
-  SymbolicationSession::SymbolicationSession();
+  SymbolicationSession::SymbolicationSession(this, 0);
 }
 
 void SymbolicationSession::~SymbolicationSession(SymbolicationSession *this)
@@ -1771,8 +1696,8 @@ void SymbolicationSession::~SymbolicationSession(SymbolicationSession *this)
     ats_destroy_symbolication_config(v3);
   }
 
-  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 13536);
-  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 13496);
+  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 1692);
+  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 1687);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 13456);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 13400);
   DyldKdebugHandler::~DyldKdebugHandler((this + 416));
@@ -1783,11 +1708,11 @@ void SymbolicationSession::~SymbolicationSession(SymbolicationSession *this)
   v5 = (this + 264);
   std::vector<Stackshot>::__destroy_vector::operator()[abi:ne200100](&v5);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 224);
-  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 184);
+  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(this + 23);
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 144);
-  std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::~__hash_table(this + 96);
-  std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::~__hash_table(this + 56);
-  std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::~__hash_table(this + 16);
+  std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::~__hash_table(this + 12);
+  std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::~__hash_table(this + 7);
+  std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::~__hash_table(this + 2);
   v4 = *(this + 1);
   if (v4)
   {
@@ -1846,9 +1771,9 @@ uint64_t std::vector<Stackshot>::__emplace_back_slow_path<kcdata_iter &>(uint64_
   return v12;
 }
 
-void sub_240F94F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240F94F2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<Stackshot>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1863,7 +1788,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Stackshot>>(uint64_t 
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Stackshot>,Stackshot*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Stackshot>,Stackshot*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
 {
   v17 = a4;
   v18 = a4;
@@ -1913,7 +1838,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<St
     while (v6 != a3)
     {
       std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(a1, v6);
-      v6 += 424;
+      v6 += 53;
     }
   }
 
@@ -1960,15 +1885,15 @@ uint64_t std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibra
   return result;
 }
 
-uint64_t std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(uint64_t a1, uint64_t a2)
+void **std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(uint64_t a1, void **a2)
 {
-  std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(a2 + 384);
-  std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(a2 + 344);
-  std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(a2 + 200);
-  std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(a2 + 160);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 120);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 80);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 40);
+  std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table((a2 + 48));
+  std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table((a2 + 43));
+  std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table((a2 + 25));
+  std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table((a2 + 20));
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 15);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 10);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2 + 5);
 
   return std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(a2);
 }
@@ -1994,7 +1919,7 @@ uint64_t *std::_AllocatorDestroyRangeReverse<std::allocator<Stackshot>,Stackshot
     v5 = *result;
     do
     {
-      v3 -= 424;
+      v3 -= 53;
       result = std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(v5, v3);
     }
 
@@ -2015,20 +1940,20 @@ uint64_t std::__split_buffer<Stackshot>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::__split_buffer<Stackshot>::__destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
+void **std::__split_buffer<Stackshot>::__destruct_at_end[abi:ne200100](void **result, void **a2)
 {
   v3 = result;
   while (1)
   {
-    v4 = *(v3 + 16);
+    v4 = v3[2];
     if (v4 == a2)
     {
       break;
     }
 
-    v5 = *(v3 + 32);
-    *(v3 + 16) = v4 - 424;
-    result = std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(v5, v4 - 424);
+    v5 = v3[4];
+    v3[2] = v4 - 53;
+    result = std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(v5, v4 - 53);
   }
 
   return result;
@@ -2042,23 +1967,12 @@ uint64_t __Block_byref_object_copy__40(uint64_t result, uint64_t a2)
   return result;
 }
 
-unint64_t ___ZL28findKernelLibraryBaseAddress10_CSTypeRef_block_invoke(uint64_t a1)
+unint64_t ___ZL28findKernelLibraryBaseAddress10_CSTypeRef_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Name = CSRegionGetName();
   if (Name)
   {
-    v3 = strncmp(Name, "__TEXT_EXEC", 0xBuLL) == 0;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  v4 = CSRegionGetName();
-  if (v4)
-  {
-    v5 = strncmp(v4, "__PPLTEXT", 9uLL) == 0;
+    v5 = strncmp(Name, "__TEXT_EXEC", 0xBuLL) == 0;
   }
 
   else
@@ -2066,11 +1980,10 @@ unint64_t ___ZL28findKernelLibraryBaseAddress10_CSTypeRef_block_invoke(uint64_t 
     v5 = 0;
   }
 
-  result = CSRegionGetName();
-  if (result)
+  v6 = CSRegionGetName();
+  if (v6)
   {
-    result = strncmp(result, "__PPLTRAMP", 0xAuLL);
-    v7 = result == 0;
+    v7 = strncmp(v6, "__PPLTEXT", 9uLL) == 0;
   }
 
   else
@@ -2078,17 +1991,29 @@ unint64_t ___ZL28findKernelLibraryBaseAddress10_CSTypeRef_block_invoke(uint64_t 
     v7 = 0;
   }
 
-  if (v3 || v5 || v7)
+  result = CSRegionGetName();
+  if (result)
+  {
+    result = strncmp(result, "__PPLTRAMP", 0xAuLL);
+    v9 = result == 0;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (v5 || v7 || v9)
   {
     result = CSRegionGetRange();
-    v8 = *(*(a1 + 32) + 8);
-    if (*(v8 + 48) == 1 && result >= *(v8 + 40))
+    v10 = *(*(a1 + 32) + 8);
+    if (*(v10 + 48) == 1 && result >= *(v10 + 40))
     {
-      result = *(v8 + 40);
+      result = *(v10 + 40);
     }
 
-    *(v8 + 40) = result;
-    *(v8 + 48) = 1;
+    *(v10 + 40) = result;
+    *(v10 + 48) = 1;
   }
 
   return result;
@@ -2096,8 +2021,7 @@ unint64_t ___ZL28findKernelLibraryBaseAddress10_CSTypeRef_block_invoke(uint64_t 
 
 std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   size = a2->__r_.__value_.__l.__size_;
@@ -2232,7 +2156,7 @@ void sub_240F955BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2245,14 +2169,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2448,9 +2372,9 @@ uint64_t std::vector<ProcessLibrary>::__emplace_back_slow_path<unsigned long lon
   return v14;
 }
 
-void sub_240F95A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240F95A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ProcessLibrary>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2459,8 +2383,7 @@ uint64_t std::construct_at[abi:ne200100]<ProcessLibrary,unsigned long long &,std
 {
   v4 = *a2;
   v6 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   ProcessLibrary::ProcessLibrary(a1, v4, &v6);
   if (*(&v6 + 1))
   {
@@ -2480,7 +2403,7 @@ void sub_240F95AC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<ProcessLibrary>::__init_with_size[abi:ne200100]<ProcessLibrary*,ProcessLibrary*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ProcessLibrary>::__init_with_size[abi:ne200100]<ProcessLibrary*,ProcessLibrary*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2497,7 +2420,7 @@ void sub_240F95B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ProcessLibrary>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ProcessLibrary>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -2583,10 +2506,10 @@ void DyldKdebugHandler::~DyldKdebugHandler(DyldKdebugHandler *this)
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 12744);
   std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(this + 12704);
   std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(this + 12664);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 12624);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 12584);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 12544);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 12504);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 1578);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 1573);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 1568);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(this + 1563);
 }
 
 void std::vector<std::unique_ptr<Process>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -2626,45 +2549,45 @@ void std::vector<Stackshot>::__destroy_vector::operator()[abi:ne200100](void ***
   }
 }
 
-uint64_t std::vector<Stackshot>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
+void **std::vector<Stackshot>::__base_destruct_at_end[abi:ne200100](void **result, void **a2)
 {
   v3 = result;
-  for (i = *(result + 8); i != a2; result = std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(v3, i))
+  for (i = result[1]; i != a2; result = std::allocator_traits<std::allocator<Stackshot>>::destroy[abi:ne200100]<Stackshot,void,0>(v3, i))
   {
-    i -= 424;
+    i -= 53;
   }
 
-  *(v3 + 8) = a2;
+  v3[1] = a2;
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,MergedLibrary>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,MergedLibrary>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,MergedLibrary>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,MergedLibrary>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,MergedLibrary>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,MergedLibrary>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,MergedLibrary>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,MergedLibrary>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -2672,75 +2595,75 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(void *a1, LibraryDescription *this)
+void *std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(void *a1, LibraryDescription *this, _OWORD *a3)
 {
-  v4 = LibraryDescription::hash(this);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = LibraryDescription::hash(this);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -2748,44 +2671,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!LibraryDescription::operator==((v11 + 2), this))
+  if (!LibraryDescription::operator==((v12 + 2), this))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::find<SharedCacheDescription>(void *a1, SharedCacheDescription *this)
@@ -2829,7 +2752,7 @@ void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::share
       v12 = v11[1];
       if (v12 == v6)
       {
-        if (SharedCacheDescription::operator==((v11 + 2), this))
+        if (SharedCacheDescription::operator==(v11 + 2, this))
         {
           return v11;
         }
@@ -2865,18 +2788,17 @@ void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::share
   return v11;
 }
 
-void *std::__shared_ptr_emplace<SharedCache>::__shared_ptr_emplace[abi:ne200100]<SharedCacheDescription &,std::shared_ptr<StringPool> &,std::allocator<SharedCache>,0>(void *a1, uint64_t a2)
+void *std::__shared_ptr_emplace<SharedCache>::__shared_ptr_emplace[abi:ne200100]<SharedCacheDescription &,std::shared_ptr<StringPool> &,std::allocator<SharedCache>,0>(void *a1, uint64_t a2, void *a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2852D6578;
-  v3 = *(a2 + 16);
+  v4 = *(a2 + 16);
   v6[0] = *a2;
-  v6[1] = v3;
+  v6[1] = v4;
   v7 = *(a2 + 32);
-  SharedCache::SharedCache(a1 + 3, v6);
-  v4 = *MEMORY[0x277D85DE8];
+  SharedCache::SharedCache((a1 + 3), v6, a3);
   return a1;
 }
 
@@ -2888,35 +2810,35 @@ void std::__shared_ptr_emplace<SharedCache>::~__shared_ptr_emplace(std::__shared
   JUMPOUT(0x245CD5830);
 }
 
-void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__emplace_unique_key_args<SharedCacheDescription,SharedCacheDescription&,std::shared_ptr<SharedCache>>(void *a1, SharedCacheDescription *this)
+void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__emplace_unique_key_args<SharedCacheDescription,SharedCacheDescription&,std::shared_ptr<SharedCache>>(void *a1, SharedCacheDescription *this, uint64_t a3, uint64_t a4)
 {
-  v4 = SharedCacheDescription::hash(this);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = SharedCacheDescription::hash(this);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -2924,44 +2846,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!SharedCacheDescription::operator==((v11 + 2), this))
+  if (!SharedCacheDescription::operator==(v13 + 2, this))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -3014,56 +2936,48 @@ void *std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrar
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__shared_ptr_emplace<SharedLibrary>::__shared_ptr_emplace[abi:ne200100]<UUID &,std::string_view &,std::shared_ptr<StringPool> &,std::allocator<SharedLibrary>,0>(void *a1, void *a2, void *a3, uint64_t a4)
+void *std::__shared_ptr_emplace<SharedLibrary>::__shared_ptr_emplace[abi:ne200100]<UUID &,std::string_view &,std::shared_ptr<StringPool> &,std::allocator<SharedLibrary>,0>(void *a1, uint64_t *a2, uint64_t *a3, void *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2852D65C8;
-  SharedLibrary::SharedLibrary(a1 + 3, *a2, a2[1], *a3, a3[1], a4);
+  SharedLibrary::SharedLibrary((a1 + 3), *a2, a2[1], *a3, a3[1], a4);
   return a1;
 }
 
@@ -3075,33 +2989,33 @@ void std::__shared_ptr_emplace<SharedLibrary>::~__shared_ptr_emplace(std::__shar
   JUMPOUT(0x245CD5830);
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::__emplace_unique_key_args<UUID,UUID&,std::shared_ptr<SharedLibrary>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::__emplace_unique_key_args<UUID,UUID&,std::shared_ptr<SharedLibrary>>(void *a1, void *a2, _OWORD *a3, __int128 *a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -3109,44 +3023,44 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -3168,27 +3082,26 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-void *std::__shared_ptr_emplace<SharedLibrary>::__shared_ptr_emplace[abi:ne200100]<_CSTypeRef &,std::shared_ptr<StringPool> &,std::allocator<SharedLibrary>,0>(void *a1, void *a2, uint64_t a3)
+void *std::__shared_ptr_emplace<SharedLibrary>::__shared_ptr_emplace[abi:ne200100]<_CSTypeRef &,std::shared_ptr<StringPool> &,std::allocator<SharedLibrary>,0>(void *a1, uint64_t *a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2852D65C8;
-  SharedLibrary::SharedLibrary(a1 + 3, *a2, a2[1], a3);
+  SharedLibrary::SharedLibrary((a1 + 3), *a2, a2[1], a3);
   return a1;
 }
 
-std::once_flag::_State_type *SymbolicationSession::addNewProcessWithDataProvider<Stackshot>(std::once_flag::_State_type *result, int a2, Stackshot *a3)
+void SymbolicationSession::addNewProcessWithDataProvider<Stackshot>(SymbolicationSession *a1, uint64_t a2, Stackshot *a3)
 {
   if ((a2 & 0x80000000) == 0)
   {
-    SymbolicationSession::createProcess<Stackshot>(result, a2, a3);
+    SymbolicationSession::createProcess<Stackshot>(a1, a2, a3);
   }
-
-  return result;
 }
 
-void SymbolicationSession::updateProcessWithDataProvider<Stackshot>(std::once_flag::_State_type *a1, int a2, Stackshot *a3)
+void SymbolicationSession::updateProcessWithDataProvider<Stackshot>(SymbolicationSession *a1, uint64_t a2, Stackshot *a3)
 {
+  v4 = a2;
   LODWORD(v16) = a2;
   v6 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a1 + 39, &v16);
   if (v6)
@@ -3196,7 +3109,7 @@ void SymbolicationSession::updateProcessWithDataProvider<Stackshot>(std::once_fl
     v7 = v6[3];
     if (v7)
     {
-      SymbolicationSession::createProcessLibrariesForPid<Stackshot>(a1, a2, a3, &v16);
+      SymbolicationSession::createProcessLibrariesForPid<Stackshot>(a1, v4, a3, &v16);
       if (v17 != v16)
       {
         v15[0] = v16;
@@ -3210,7 +3123,7 @@ void SymbolicationSession::updateProcessWithDataProvider<Stackshot>(std::once_fl
         std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v12);
       }
 
-      SymbolicationSession::aotImagesForPid<Stackshot>(a3, a2, &v12);
+      SymbolicationSession::aotImagesForPid<Stackshot>(&v12, a3, v4);
       v8 = v12;
       if (v13 != v12)
       {
@@ -3260,13 +3173,14 @@ void sub_240F97008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SymbolicationSession::createProcess<Stackshot>(std::once_flag::_State_type *a1, int a2, Stackshot *a3)
+void SymbolicationSession::createProcess<Stackshot>(SymbolicationSession *a1, uint64_t a2, Stackshot *a3)
 {
-  v8[13] = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v9 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  LODWORD(v8[0]) = a2;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 44, v8);
-  SymbolicationSession::createProcessLibrariesForPid<Stackshot>(a1, a2, a3, &v6);
+  LODWORD(v8) = a2;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 44, &v8, &v8);
+  SymbolicationSession::createProcessLibrariesForPid<Stackshot>(a1, v4, a3, &v6);
   operator new();
 }
 
@@ -3289,47 +3203,47 @@ void sub_240F972D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SymbolicationSession::createProcessLibrariesForPid<Stackshot>@<X0>(std::once_flag::_State_type *a1@<X0>, int a2@<W1>, Stackshot *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t SymbolicationSession::createProcessLibrariesForPid<Stackshot>@<X0>(SymbolicationSession *a1@<X0>, int a2@<W1>, Stackshot *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   pid = a2;
   if (!std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a1 + 18, &pid))
   {
     if (proc_pidpath(pid, buffer, 0x400u) >= 1)
     {
-      v47 = MEMORY[0x277D85DD0];
-      v48 = 0x40000000;
-      v49 = ___ZN20SymbolicationSession28createProcessLibrariesForPidI9StackshotEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke;
-      v50 = &__block_descriptor_tmp_56;
-      v51 = a1;
+      v46 = MEMORY[0x277D85DD0];
+      v47 = 0x40000000;
+      v48 = ___ZN20SymbolicationSession28createProcessLibrariesForPidI9StackshotEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke;
+      v49 = &__block_descriptor_tmp_56;
+      v50 = a1;
       CSSymbolicatorForeachSymbolicatorWithPath();
     }
 
-    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 18, &pid);
+    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 18, &pid, &pid);
   }
 
-  SymbolicationSession::collectAllLibraryDescriptionsForPid<Stackshot>(a3, a1, pid, v45);
+  SymbolicationSession::collectAllLibraryDescriptionsForPid<Stackshot>(v44, a3, a1, pid);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v7 = v46;
-  if (v46)
+  v7 = v45;
+  if (v45)
   {
     while (1)
     {
       Address = LibraryDescription::loadAddress((v7 + 2));
-      *v54 = LibraryDescription::uuid((v7 + 2));
-      *&v54[8] = v8;
-      v9 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1675, v54);
+      *v53 = LibraryDescription::uuid((v7 + 2));
+      *&v53[8] = v8;
+      v9 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1675, v53);
       if (v9)
       {
         MergedLibrary::path(v9 + 2, &__s1);
-        if (v43)
+        if (v42)
         {
           goto LABEL_8;
         }
 
-        if (!std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::find<UUID>(a1 + 28, v54))
+        if (!std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::find<UUID>(a1 + 28, v53))
         {
           break;
         }
@@ -3339,11 +3253,11 @@ LABEL_57:
       v7 = *v7;
       if (!v7)
       {
-        goto LABEL_69;
+        return std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v44);
       }
     }
 
-    v40 = 0;
+    v39 = 0;
     __s = 0;
     v11 = OSLogLookupPathWithUUID();
     if (__s)
@@ -3360,7 +3274,7 @@ LABEL_57:
     {
       std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(buffer, &__s);
       std::__fs::filesystem::__status(buffer, 0);
-      v13 = v53;
+      v13 = v52;
       if ((buffer[23] & 0x80000000) != 0)
       {
         operator delete(*buffer);
@@ -3376,10 +3290,10 @@ LABEL_57:
           operator delete(*buffer);
         }
 
-        if (v14 == 2 && std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v54))
+        if (v14 == 2 && std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v53))
         {
-          __p[0] = v54;
-          v15 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+          __p[0] = v53;
+          v15 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
           v16 = (v15 + 4);
           if (*(v15 + 55) < 0)
           {
@@ -3392,31 +3306,31 @@ LABEL_57:
         v17 = *(v7 + 2);
         *buffer = *(v7 + 1);
         *&buffer[16] = v17;
-        v56 = *(v7 + 3);
+        v55 = *(v7 + 3);
         v18 = strlen(__s);
-        *&v56 = __s;
-        *(&v56 + 1) = v18;
+        *&v55 = __s;
+        *(&v55 + 1) = v18;
         SymbolicationSession::updateBestKnownLibraryDescriptions(a1, buffer);
-        if (v43 == 1)
+        if (v42 == 1)
         {
-          v43 = 0;
+          v42 = 0;
         }
 
         __s1.n128_u64[0] = __s;
         __s1.n128_u64[1] = strlen(__s);
-        v43 = 1;
+        v42 = 1;
       }
     }
 
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
-      if (!std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v54))
+      if (!std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v53))
       {
-        UUID::uuidString(v54, buffer);
+        UUID::uuidString(buffer, v53);
         if (buffer[24] == 1)
         {
           *__p = *buffer;
-          v39 = *&buffer[16];
+          v38 = *&buffer[16];
         }
 
         else
@@ -3433,7 +3347,7 @@ LABEL_57:
         if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
         {
           v35 = __p;
-          if (v39 < 0)
+          if (v38 < 0)
           {
             v35 = __p[0];
           }
@@ -3448,8 +3362,8 @@ LABEL_57:
         }
 
 LABEL_55:
-        std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(a1 + 28, v54);
-        if (SHIBYTE(v39) < 0)
+        std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(a1 + 28, v53, v53);
+        if (SHIBYTE(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -3460,9 +3374,9 @@ LABEL_55:
       v19 = *(v7 + 2);
       *buffer = *(v7 + 1);
       *&buffer[16] = v19;
-      v56 = *(v7 + 3);
-      __p[0] = v54;
-      v20 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+      v55 = *(v7 + 3);
+      __p[0] = v53;
+      v20 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
       v23 = v20[4];
       v21 = v20 + 4;
       v22 = v23;
@@ -3477,11 +3391,11 @@ LABEL_55:
         v22 = v21;
       }
 
-      *&v56 = v22;
-      *(&v56 + 1) = v24;
+      *&v55 = v22;
+      *(&v55 + 1) = v24;
       SymbolicationSession::updateBestKnownLibraryDescriptions(a1, buffer);
-      __p[0] = v54;
-      v25 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+      __p[0] = v53;
+      v25 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
       v28 = v25[4];
       v26 = v25 + 4;
       v27 = v28;
@@ -3498,7 +3412,7 @@ LABEL_55:
 
       __s1.n128_u64[0] = v27;
       __s1.n128_u64[1] = v29;
-      v43 = 1;
+      v42 = 1;
     }
 
 LABEL_8:
@@ -3506,7 +3420,7 @@ LABEL_8:
     {
       v10 = __s1.n128_u64[0];
 LABEL_42:
-      SymbolicationSession::sharedLibraryWithUUIDAndPath(a1, *v54, *&v54[8], v10, __s1.n128_i64[1], buffer);
+      SymbolicationSession::sharedLibraryWithUUIDAndPath(a1, *v53, *&v53[8], v10, __s1.n128_i64[1], buffer);
       v30 = a4[1];
       if (v30 >= a4[2])
       {
@@ -3528,7 +3442,7 @@ LABEL_42:
       goto LABEL_57;
     }
 
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
@@ -3539,11 +3453,11 @@ LABEL_42:
       goto LABEL_42;
     }
 
-    UUID::uuidString(v54, buffer);
+    UUID::uuidString(buffer, v53);
     if (buffer[24] == 1)
     {
       *__p = *buffer;
-      v39 = *&buffer[16];
+      v38 = *&buffer[16];
     }
 
     else
@@ -3559,13 +3473,13 @@ LABEL_42:
     v32 = ats_symbolication_log;
     if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
     {
-      if ((v43 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       v33 = __p;
-      if (v39 < 0)
+      if (v38 < 0)
       {
         v33 = __p[0];
       }
@@ -3576,18 +3490,15 @@ LABEL_42:
       *&buffer[14] = v33;
       *&buffer[22] = 2048;
       *&buffer[24] = Address;
-      LOWORD(v56) = 1024;
-      *(&v56 + 2) = pid;
+      LOWORD(v55) = 1024;
+      *(&v55 + 2) = pid;
       _os_log_impl(&dword_240F85000, v32, OS_LOG_TYPE_INFO, "NFS paths may cause hangs. Denying to process NFS path %s for %s @ 0x%llx (pid=%d)", buffer, 0x26u);
     }
 
     goto LABEL_55;
   }
 
-LABEL_69:
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v45);
-  v37 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v44);
 }
 
 void sub_240F97B34(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, char a50)
@@ -3597,14 +3508,14 @@ void sub_240F97B34(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   _Unwind_Resume(v50);
 }
 
-void SymbolicationSession::sharedCacheDescriptionForPid<Stackshot>(Stackshot *this@<X2>, int a2@<W1>, uint64_t a3@<X8>)
+void SymbolicationSession::sharedCacheDescriptionForPid<Stackshot>(uint64_t *__return_ptr a1@<X8>, Stackshot *this@<X2>, int a3@<W1>)
 {
-  Stackshot::sharedCacheDescriptionsForPid(this, a2, &v6);
+  Stackshot::sharedCacheDescriptionsForPid(this, a3, &v6);
   v4 = v6;
   if (v6 == v7)
   {
-    *a3 = 0;
-    *(a3 + 40) = 0;
+    *a1 = 0;
+    *(a1 + 40) = 0;
     if (!v4)
     {
       return;
@@ -3614,24 +3525,24 @@ void SymbolicationSession::sharedCacheDescriptionForPid<Stackshot>(Stackshot *th
   else
   {
     v5 = v6[1];
-    *a3 = *v6;
-    *(a3 + 16) = v5;
-    *(a3 + 32) = v4[4];
-    *(a3 + 40) = 1;
+    *a1 = *v6;
+    *(a1 + 1) = v5;
+    a1[4] = v4[4];
+    *(a1 + 40) = 1;
   }
 
   v7 = v4;
   operator delete(v4);
 }
 
-void SymbolicationSession::aotSharedCacheDescriptionForPid<Stackshot>(Stackshot *this@<X2>, int a2@<W1>, uint64_t a3@<X8>)
+void SymbolicationSession::aotSharedCacheDescriptionForPid<Stackshot>(uint64_t *__return_ptr a1@<X8>, Stackshot *this@<X2>, int a3@<W1>)
 {
-  Stackshot::aotSharedCacheDescriptionsForPid(this, a2, &v6);
+  Stackshot::aotSharedCacheDescriptionsForPid(this, a3, &v6);
   v4 = v6;
   if (v6 == v7)
   {
-    *a3 = 0;
-    *(a3 + 48) = 0;
+    *a1 = 0;
+    *(a1 + 48) = 0;
     if (!v4)
     {
       return;
@@ -3641,51 +3552,49 @@ void SymbolicationSession::aotSharedCacheDescriptionForPid<Stackshot>(Stackshot 
   else
   {
     v5 = v6[1];
-    *a3 = *v6;
-    *(a3 + 16) = v5;
-    *(a3 + 32) = v4[2];
-    *(a3 + 48) = 1;
+    *a1 = *v6;
+    *(a1 + 1) = v5;
+    *(a1 + 2) = v4[2];
+    *(a1 + 48) = 1;
   }
 
   v7 = v4;
   operator delete(v4);
 }
 
-void SymbolicationSession::aotImagesForPid<Stackshot>(Stackshot *this@<X2>, int a2@<W1>, void *a3@<X8>)
+void SymbolicationSession::aotImagesForPid<Stackshot>(uint64_t *__return_ptr a1@<X8>, Stackshot *this@<X2>, int a3@<W1>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  Stackshot::aotImageDescriptionsForPid(this, a2, &v10);
-  v4 = v10;
-  v5 = v11;
-  if (v10 != v11)
+  v13 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  Stackshot::aotImageDescriptionsForPid(this, a3, &v9);
+  v4 = v9;
+  v5 = v10;
+  if (v9 != v10)
   {
     do
     {
       v6 = *v4;
       v7 = v4[1];
       v8 = v4[2];
-      v13 = *(v4 + 6);
-      v12[1] = v7;
-      v12[2] = v8;
-      v12[0] = v6;
-      std::vector<AOTImage>::emplace_back<AOTImageDescription &>(a3, v12);
+      v12 = *(v4 + 6);
+      v11[1] = v7;
+      v11[2] = v8;
+      v11[0] = v6;
+      std::vector<AOTImage>::emplace_back<AOTImageDescription &>(a1, v11);
       v4 = (v4 + 56);
     }
 
     while (v4 != v5);
-    v4 = v10;
+    v4 = v9;
   }
 
   if (v4)
   {
-    v11 = v4;
+    v10 = v4;
     operator delete(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240F97DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -3700,42 +3609,43 @@ void sub_240F97DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *___ZN20SymbolicationSession28createProcessLibrariesForPidI9StackshotEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke(uint64_t a1)
+std::string *___ZN20SymbolicationSession28createProcessLibrariesForPidI9StackshotEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
   CSSymbolicatorGetSymbolOwner();
   result = CSSymbolOwnerGetCFUUIDBytes();
   if (result)
   {
-    v6 = *result;
+    v8 = *&result->__r_.__value_.__l.__data_;
     Path = CSSymbolOwnerGetPath();
-    v4 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v1 + 184), &v6);
-    result = std::string::__assign_external((v4 + 4), Path);
+    v7 = &v8;
+    v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v3 + 184), &v8, &std::piecewise_construct, &v7);
+    return std::string::__assign_external((v6 + 4), Path);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void SymbolicationSession::collectAllLibraryDescriptionsForPid<Stackshot>(Stackshot *this@<X2>, std::once_flag::_State_type *a2@<X0>, int a3@<W1>, uint64_t a4@<X8>)
+void SymbolicationSession::collectAllLibraryDescriptionsForPid<Stackshot>(uint64_t *__return_ptr a1@<X8>, Stackshot *this@<X2>, std::once_flag::_State_type *a3@<X0>, uint64_t a4@<X1>)
 {
-  v10 = a3;
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 1065353216;
-  if (!a3)
+  v5 = a4;
+  v10 = a4;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  if (!a4)
   {
-    SymbolicationSession::collectLiveLibraryDescriptionsForPid(a2, 0);
+    SymbolicationSession::collectLiveLibraryDescriptionsForPid(a3, a4);
   }
 
-  SymbolicationSession::collectProviderLibraryDescriptionsForPid<Stackshot>(a2, a3, this, a4);
-  if (*(a2[1674] + 24) == 1)
+  SymbolicationSession::collectProviderLibraryDescriptionsForPid<Stackshot>(a3, v5, this, a1);
+  if (*(a3[1674] + 24) == 1)
   {
-    v8 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a2 + 39, &v10);
+    v8 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a3 + 39, &v10);
     if (!v8 || (v9 = v8[3]) == 0 || v10 && !*Process::sharedCache(v9))
     {
-      SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<Stackshot>(a2, v10, this, a4);
+      SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<Stackshot>(a3, v10, this, a1);
     }
   }
 }
@@ -3822,7 +3732,7 @@ void SymbolicationSession::collectProviderLibraryDescriptionsForPid<Stackshot>(S
   {
     do
     {
-      std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v6);
+      std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v6, v6);
       SymbolicationSession::updateBestKnownLibraryDescriptions(a1, v6);
       v6 = (v6 + 48);
     }
@@ -3850,18 +3760,18 @@ void sub_240F981BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<Stackshot>(SymbolicationSession *a1, int a2, Stackshot *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  SymbolicationSession::sharedCacheDescriptionForPid<Stackshot>(a3, a2, v15);
-  if (v17 == 1)
+  v17 = *MEMORY[0x277D85DE8];
+  SymbolicationSession::sharedCacheDescriptionForPid<Stackshot>(v14, a3, a2);
+  if (v16 == 1)
   {
-    v13[0] = v15[0];
-    v13[1] = v15[1];
-    v14 = v16;
-    SymbolicationSession::sharedCacheWithDescription(a1, v13, &v11);
-    v6 = v11;
-    if (v12)
+    v12[0] = v14[0];
+    v12[1] = v14[1];
+    v13 = v15;
+    SymbolicationSession::sharedCacheWithDescription(a1, v12, &v10);
+    v6 = v10;
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     if (v6)
@@ -3871,14 +3781,12 @@ void SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<Stackshot
       v9 = *(v7 + 8);
       while (v8 != v9)
       {
-        std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v8);
+        std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v8, v8);
         SymbolicationSession::updateBestKnownLibraryDescriptions(a1, v8);
         v8 = (v8 + 48);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void *std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::find<UUID>(void *a1, void *a2)
@@ -3912,77 +3820,69 @@ void *std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(void *a1, void *a2)
+void *std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(void *a1, void *a2, _OWORD *a3)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = a2[1] ^ *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v6 = a2[1] ^ *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_22:
     operator new();
@@ -3990,49 +3890,49 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v8[2] != *a2 || v8[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t std::vector<AOTImage>::emplace_back<AOTImageDescription &>(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
   if (v5 >= v4)
@@ -4066,11 +3966,11 @@ uint64_t std::vector<AOTImage>::emplace_back<AOTImageDescription &>(uint64_t a1,
     }
 
     v12 = *(a2 + 16);
-    v19 = *a2;
-    v20 = v12;
-    v21 = *(a2 + 32);
-    v22 = *(a2 + 48);
-    v13 = AOTImage::AOTImage(72 * v8, &v19);
+    v18 = *a2;
+    v19 = v12;
+    v20 = *(a2 + 32);
+    v21 = *(a2 + 48);
+    v13 = AOTImage::AOTImage(72 * v8, &v18);
     v7 = v13 + 72;
     v14 = *(a1 + 8) - *a1;
     v15 = v13 - v14;
@@ -4088,17 +3988,16 @@ uint64_t std::vector<AOTImage>::emplace_back<AOTImageDescription &>(uint64_t a1,
   else
   {
     v6 = *(a2 + 16);
-    v19 = *a2;
-    v20 = v6;
-    v21 = *(a2 + 32);
-    v22 = *(a2 + 48);
-    AOTImage::AOTImage(v5, &v19);
+    v18 = *a2;
+    v19 = v6;
+    v20 = *(a2 + 32);
+    v21 = *(a2 + 48);
+    AOTImage::AOTImage(v5, &v18);
     v7 = v5 + 72;
     *(a1 + 8) = v7;
   }
 
   *(a1 + 8) = v7;
-  v17 = *MEMORY[0x277D85DE8];
   return v7 - 72;
 }
 
@@ -4114,16 +4013,13 @@ void sub_240F98748(_Unwind_Exception *exception_object)
 
 uint64_t std::__call_once_proxy[abi:ne200100]<std::tuple<SymbolicationSession::collectLiveLibraryDescriptionsForPid(int,std::unordered_set<LibraryDescription> &)::$_0 &&>>(uint64_t ***a1)
 {
-  v1 = ***a1;
   ats_symbolication_log_init();
-  v2 = ats_symbolication_log;
+  v1 = ats_symbolication_log;
   if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_DEBUG))
   {
-    std::__call_once_proxy[abi:ne200100]<std::tuple<SymbolicationSession::collectLiveLibraryDescriptionsForPid(int,std::unordered_set<LibraryDescription> &)::$_0 &&>>(v2);
+    std::__call_once_proxy[abi:ne200100]<std::tuple<SymbolicationSession::collectLiveLibraryDescriptionsForPid(int,std::unordered_set<LibraryDescription> &)::$_0 &&>>(v1);
   }
 
-  v3 = *(v1 + 13440);
-  v4 = *(v1 + 13448);
   return CSSymbolicatorForeachSymbolOwnerAtTime();
 }
 
@@ -4138,18 +4034,17 @@ void ___ZZN20SymbolicationSession36collectLiveLibraryDescriptionsForPidEiRNSt3__
   }
 }
 
-std::once_flag::_State_type *SymbolicationSession::addNewProcessWithDataProvider<DyldKdebugHandler>(std::once_flag::_State_type *result, int a2, DyldKdebugHandler *a3)
+void SymbolicationSession::addNewProcessWithDataProvider<DyldKdebugHandler>(SymbolicationSession *a1, uint64_t a2, DyldKdebugHandler *a3)
 {
   if ((a2 & 0x80000000) == 0)
   {
-    SymbolicationSession::createProcess<DyldKdebugHandler>(result, a2, a3);
+    SymbolicationSession::createProcess<DyldKdebugHandler>(a1, a2, a3);
   }
-
-  return result;
 }
 
-void SymbolicationSession::updateProcessWithDataProvider<DyldKdebugHandler>(std::once_flag::_State_type *a1, int a2, DyldKdebugHandler *a3)
+void SymbolicationSession::updateProcessWithDataProvider<DyldKdebugHandler>(SymbolicationSession *a1, uint64_t a2, DyldKdebugHandler *a3)
 {
+  v4 = a2;
   LODWORD(v16) = a2;
   v6 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a1 + 39, &v16);
   if (v6)
@@ -4157,7 +4052,7 @@ void SymbolicationSession::updateProcessWithDataProvider<DyldKdebugHandler>(std:
     v7 = v6[3];
     if (v7)
     {
-      SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>(a1, a2, a3, &v16);
+      SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>(a1, v4, a3, &v16);
       if (v17 != v16)
       {
         v15[0] = v16;
@@ -4171,7 +4066,7 @@ void SymbolicationSession::updateProcessWithDataProvider<DyldKdebugHandler>(std:
         std::vector<ProcessLibrary>::__destroy_vector::operator()[abi:ne200100](&v12);
       }
 
-      SymbolicationSession::aotImagesForPid<DyldKdebugHandler>(a3, a2, &v12);
+      SymbolicationSession::aotImagesForPid<DyldKdebugHandler>(&v12, a3, v4);
       v8 = v12;
       if (v13 != v12)
       {
@@ -4221,13 +4116,14 @@ void sub_240F989E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SymbolicationSession::createProcess<DyldKdebugHandler>(std::once_flag::_State_type *a1, int a2, DyldKdebugHandler *a3)
+void SymbolicationSession::createProcess<DyldKdebugHandler>(SymbolicationSession *a1, uint64_t a2, DyldKdebugHandler *a3)
 {
-  v8[13] = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v9 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  LODWORD(v8[0]) = a2;
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 44, v8);
-  SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>(a1, a2, a3, &v6);
+  LODWORD(v8) = a2;
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 44, &v8, &v8);
+  SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>(a1, v4, a3, &v6);
   operator new();
 }
 
@@ -4250,47 +4146,47 @@ void sub_240F98CB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>@<X0>(std::once_flag::_State_type *a1@<X0>, int a2@<W1>, DyldKdebugHandler *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t SymbolicationSession::createProcessLibrariesForPid<DyldKdebugHandler>@<X0>(SymbolicationSession *a1@<X0>, int a2@<W1>, DyldKdebugHandler *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   pid = a2;
   if (!std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a1 + 18, &pid))
   {
     if (proc_pidpath(pid, buffer, 0x400u) >= 1)
     {
-      v47 = MEMORY[0x277D85DD0];
-      v48 = 0x40000000;
-      v49 = ___ZN20SymbolicationSession28createProcessLibrariesForPidI17DyldKdebugHandlerEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke;
-      v50 = &__block_descriptor_tmp_65;
-      v51 = a1;
+      v46 = MEMORY[0x277D85DD0];
+      v47 = 0x40000000;
+      v48 = ___ZN20SymbolicationSession28createProcessLibrariesForPidI17DyldKdebugHandlerEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke;
+      v49 = &__block_descriptor_tmp_65;
+      v50 = a1;
       CSSymbolicatorForeachSymbolicatorWithPath();
     }
 
-    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 18, &pid);
+    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 18, &pid, &pid);
   }
 
-  SymbolicationSession::collectAllLibraryDescriptionsForPid<DyldKdebugHandler>(a3, a1, pid, v45);
+  SymbolicationSession::collectAllLibraryDescriptionsForPid<DyldKdebugHandler>(v44, a3, a1, pid);
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v7 = v46;
-  if (v46)
+  v7 = v45;
+  if (v45)
   {
     while (1)
     {
       Address = LibraryDescription::loadAddress((v7 + 2));
-      *v54 = LibraryDescription::uuid((v7 + 2));
-      *&v54[8] = v8;
-      v9 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1675, v54);
+      *v53 = LibraryDescription::uuid((v7 + 2));
+      *&v53[8] = v8;
+      v9 = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 1675, v53);
       if (v9)
       {
         MergedLibrary::path(v9 + 2, &__s1);
-        if (v43)
+        if (v42)
         {
           goto LABEL_8;
         }
 
-        if (!std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::find<UUID>(a1 + 28, v54))
+        if (!std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::find<UUID>(a1 + 28, v53))
         {
           break;
         }
@@ -4300,11 +4196,11 @@ LABEL_57:
       v7 = *v7;
       if (!v7)
       {
-        goto LABEL_69;
+        return std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v44);
       }
     }
 
-    v40 = 0;
+    v39 = 0;
     __s = 0;
     v11 = OSLogLookupPathWithUUID();
     if (__s)
@@ -4321,7 +4217,7 @@ LABEL_57:
     {
       std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(buffer, &__s);
       std::__fs::filesystem::__status(buffer, 0);
-      v13 = v53;
+      v13 = v52;
       if ((buffer[23] & 0x80000000) != 0)
       {
         operator delete(*buffer);
@@ -4337,10 +4233,10 @@ LABEL_57:
           operator delete(*buffer);
         }
 
-        if (v14 == 2 && std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v54))
+        if (v14 == 2 && std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v53))
         {
-          __p[0] = v54;
-          v15 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+          __p[0] = v53;
+          v15 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
           v16 = (v15 + 4);
           if (*(v15 + 55) < 0)
           {
@@ -4353,31 +4249,31 @@ LABEL_57:
         v17 = *(v7 + 2);
         *buffer = *(v7 + 1);
         *&buffer[16] = v17;
-        v56 = *(v7 + 3);
+        v55 = *(v7 + 3);
         v18 = strlen(__s);
-        *&v56 = __s;
-        *(&v56 + 1) = v18;
+        *&v55 = __s;
+        *(&v55 + 1) = v18;
         SymbolicationSession::updateBestKnownLibraryDescriptions(a1, buffer);
-        if (v43 == 1)
+        if (v42 == 1)
         {
-          v43 = 0;
+          v42 = 0;
         }
 
         __s1.n128_u64[0] = __s;
         __s1.n128_u64[1] = strlen(__s);
-        v43 = 1;
+        v42 = 1;
       }
     }
 
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
-      if (!std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v54))
+      if (!std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1 + 23, v53))
       {
-        UUID::uuidString(v54, buffer);
+        UUID::uuidString(buffer, v53);
         if (buffer[24] == 1)
         {
           *__p = *buffer;
-          v39 = *&buffer[16];
+          v38 = *&buffer[16];
         }
 
         else
@@ -4394,7 +4290,7 @@ LABEL_57:
         if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
         {
           v35 = __p;
-          if (v39 < 0)
+          if (v38 < 0)
           {
             v35 = __p[0];
           }
@@ -4409,8 +4305,8 @@ LABEL_57:
         }
 
 LABEL_55:
-        std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(a1 + 28, v54);
-        if (SHIBYTE(v39) < 0)
+        std::__hash_table<UUID,std::hash<UUID>,std::equal_to<UUID>,std::allocator<UUID>>::__emplace_unique_key_args<UUID,UUID&>(a1 + 28, v53, v53);
+        if (SHIBYTE(v38) < 0)
         {
           operator delete(__p[0]);
         }
@@ -4421,9 +4317,9 @@ LABEL_55:
       v19 = *(v7 + 2);
       *buffer = *(v7 + 1);
       *&buffer[16] = v19;
-      v56 = *(v7 + 3);
-      __p[0] = v54;
-      v20 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+      v55 = *(v7 + 3);
+      __p[0] = v53;
+      v20 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
       v23 = v20[4];
       v21 = v20 + 4;
       v22 = v23;
@@ -4438,11 +4334,11 @@ LABEL_55:
         v22 = v21;
       }
 
-      *&v56 = v22;
-      *(&v56 + 1) = v24;
+      *&v55 = v22;
+      *(&v55 + 1) = v24;
       SymbolicationSession::updateBestKnownLibraryDescriptions(a1, buffer);
-      __p[0] = v54;
-      v25 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v54);
+      __p[0] = v53;
+      v25 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(a1 + 23, v53, &std::piecewise_construct, __p);
       v28 = v25[4];
       v26 = v25 + 4;
       v27 = v28;
@@ -4459,7 +4355,7 @@ LABEL_55:
 
       __s1.n128_u64[0] = v27;
       __s1.n128_u64[1] = v29;
-      v43 = 1;
+      v42 = 1;
     }
 
 LABEL_8:
@@ -4467,7 +4363,7 @@ LABEL_8:
     {
       v10 = __s1.n128_u64[0];
 LABEL_42:
-      SymbolicationSession::sharedLibraryWithUUIDAndPath(a1, *v54, *&v54[8], v10, __s1.n128_i64[1], buffer);
+      SymbolicationSession::sharedLibraryWithUUIDAndPath(a1, *v53, *&v53[8], v10, __s1.n128_i64[1], buffer);
       v30 = a4[1];
       if (v30 >= a4[2])
       {
@@ -4489,7 +4385,7 @@ LABEL_42:
       goto LABEL_57;
     }
 
-    if ((v43 & 1) == 0)
+    if ((v42 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
@@ -4500,11 +4396,11 @@ LABEL_42:
       goto LABEL_42;
     }
 
-    UUID::uuidString(v54, buffer);
+    UUID::uuidString(buffer, v53);
     if (buffer[24] == 1)
     {
       *__p = *buffer;
-      v39 = *&buffer[16];
+      v38 = *&buffer[16];
     }
 
     else
@@ -4520,13 +4416,13 @@ LABEL_42:
     v32 = ats_symbolication_log;
     if (os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
     {
-      if ((v43 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       v33 = __p;
-      if (v39 < 0)
+      if (v38 < 0)
       {
         v33 = __p[0];
       }
@@ -4537,18 +4433,15 @@ LABEL_42:
       *&buffer[14] = v33;
       *&buffer[22] = 2048;
       *&buffer[24] = Address;
-      LOWORD(v56) = 1024;
-      *(&v56 + 2) = pid;
+      LOWORD(v55) = 1024;
+      *(&v55 + 2) = pid;
       _os_log_impl(&dword_240F85000, v32, OS_LOG_TYPE_INFO, "NFS paths may cause hangs. Denying to process NFS path %s for %s @ 0x%llx (pid=%d)", buffer, 0x26u);
     }
 
     goto LABEL_55;
   }
 
-LABEL_69:
-  result = std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v45);
-  v37 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v44);
 }
 
 void sub_240F99514(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, char a50)
@@ -4558,14 +4451,14 @@ void sub_240F99514(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   _Unwind_Resume(v50);
 }
 
-void SymbolicationSession::sharedCacheDescriptionForPid<DyldKdebugHandler>(DyldKdebugHandler *this@<X2>, int a2@<W1>, uint64_t a3@<X8>)
+void SymbolicationSession::sharedCacheDescriptionForPid<DyldKdebugHandler>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X2>, int a3@<W1>)
 {
-  DyldKdebugHandler::sharedCacheDescriptionsForPid(this, a2, &v6);
+  DyldKdebugHandler::sharedCacheDescriptionsForPid(&v6, this, a3);
   v4 = v6;
   if (v6 == v7)
   {
-    *a3 = 0;
-    *(a3 + 40) = 0;
+    *a1 = 0;
+    *(a1 + 40) = 0;
     if (!v4)
     {
       return;
@@ -4575,24 +4468,24 @@ void SymbolicationSession::sharedCacheDescriptionForPid<DyldKdebugHandler>(DyldK
   else
   {
     v5 = v6[1];
-    *a3 = *v6;
-    *(a3 + 16) = v5;
-    *(a3 + 32) = v4[4];
-    *(a3 + 40) = 1;
+    *a1 = *v6;
+    *(a1 + 1) = v5;
+    a1[4] = v4[4];
+    *(a1 + 40) = 1;
   }
 
   v7 = v4;
   operator delete(v4);
 }
 
-void SymbolicationSession::aotSharedCacheDescriptionForPid<DyldKdebugHandler>(DyldKdebugHandler *this@<X2>, int a2@<W1>, uint64_t a3@<X8>)
+void SymbolicationSession::aotSharedCacheDescriptionForPid<DyldKdebugHandler>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X2>, int a3@<W1>)
 {
-  DyldKdebugHandler::aotSharedCacheDescriptionsForPid(this, a2, &v6);
+  DyldKdebugHandler::aotSharedCacheDescriptionsForPid(&v6, this, a3);
   v4 = v6;
   if (v6 == v7)
   {
-    *a3 = 0;
-    *(a3 + 48) = 0;
+    *a1 = 0;
+    *(a1 + 48) = 0;
     if (!v4)
     {
       return;
@@ -4602,51 +4495,49 @@ void SymbolicationSession::aotSharedCacheDescriptionForPid<DyldKdebugHandler>(Dy
   else
   {
     v5 = v6[1];
-    *a3 = *v6;
-    *(a3 + 16) = v5;
-    *(a3 + 32) = v4[2];
-    *(a3 + 48) = 1;
+    *a1 = *v6;
+    *(a1 + 1) = v5;
+    *(a1 + 2) = v4[2];
+    *(a1 + 48) = 1;
   }
 
   v7 = v4;
   operator delete(v4);
 }
 
-void SymbolicationSession::aotImagesForPid<DyldKdebugHandler>(DyldKdebugHandler *this@<X2>, int a2@<W1>, void *a3@<X8>)
+void SymbolicationSession::aotImagesForPid<DyldKdebugHandler>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X2>, int a3@<W1>)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  DyldKdebugHandler::aotImageDescriptionsForPid(this, a2, &v10);
-  v4 = v10;
-  v5 = v11;
-  if (v10 != v11)
+  v13 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  DyldKdebugHandler::aotImageDescriptionsForPid(&v9, this, a3);
+  v4 = v9;
+  v5 = v10;
+  if (v9 != v10)
   {
     do
     {
       v6 = *v4;
       v7 = v4[1];
       v8 = v4[2];
-      v13 = *(v4 + 6);
-      v12[1] = v7;
-      v12[2] = v8;
-      v12[0] = v6;
-      std::vector<AOTImage>::emplace_back<AOTImageDescription &>(a3, v12);
+      v12 = *(v4 + 6);
+      v11[1] = v7;
+      v11[2] = v8;
+      v11[0] = v6;
+      std::vector<AOTImage>::emplace_back<AOTImageDescription &>(a1, v11);
       v4 = (v4 + 56);
     }
 
     while (v4 != v5);
-    v4 = v10;
+    v4 = v9;
   }
 
   if (v4)
   {
-    v11 = v4;
+    v10 = v4;
     operator delete(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240F997D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -4661,56 +4552,57 @@ void sub_240F997D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__int128 *___ZN20SymbolicationSession28createProcessLibrariesForPidI17DyldKdebugHandlerEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke(uint64_t a1)
+std::string *___ZN20SymbolicationSession28createProcessLibrariesForPidI17DyldKdebugHandlerEENSt3__16vectorI14ProcessLibraryNS2_9allocatorIS4_EEEEiRT_b_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 32);
   CSSymbolicatorGetSymbolOwner();
   result = CSSymbolOwnerGetCFUUIDBytes();
   if (result)
   {
-    v6 = *result;
+    v8 = *&result->__r_.__value_.__l.__data_;
     Path = CSSymbolOwnerGetPath();
-    v4 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v1 + 184), &v6);
-    result = std::string::__assign_external((v4 + 4), Path);
+    v7 = &v8;
+    v6 = std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>((v3 + 184), &v8, &std::piecewise_construct, &v7);
+    return std::string::__assign_external((v6 + 4), Path);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void SymbolicationSession::collectAllLibraryDescriptionsForPid<DyldKdebugHandler>(DyldKdebugHandler *this@<X2>, std::once_flag::_State_type *a2@<X0>, unsigned int a3@<W1>, uint64_t a4@<X8>)
+void SymbolicationSession::collectAllLibraryDescriptionsForPid<DyldKdebugHandler>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X2>, std::once_flag::_State_type *a3@<X0>, uint64_t a4@<X1>)
 {
-  v10 = a3;
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 1065353216;
-  if (!a3)
+  v5 = a4;
+  v10 = a4;
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  if (!a4)
   {
-    SymbolicationSession::collectLiveLibraryDescriptionsForPid(a2, 0);
+    SymbolicationSession::collectLiveLibraryDescriptionsForPid(a3, a4);
   }
 
-  SymbolicationSession::collectProviderLibraryDescriptionsForPid<DyldKdebugHandler>(a2, a3, this, a4);
-  if (*(a2[1674] + 24) == 1)
+  SymbolicationSession::collectProviderLibraryDescriptionsForPid<DyldKdebugHandler>(a3, v5, this, a1);
+  if (*(a3[1674] + 24) == 1)
   {
-    v8 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a2 + 39, &v10);
+    v8 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(a3 + 39, &v10);
     if (!v8 || (v9 = v8[3]) == 0 || v10 && !*Process::sharedCache(v9))
     {
-      SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<DyldKdebugHandler>(a2, v10, this, a4);
+      SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<DyldKdebugHandler>(a3, v10, this, a1);
     }
   }
 }
 
 void SymbolicationSession::collectProviderLibraryDescriptionsForPid<DyldKdebugHandler>(SymbolicationSession *a1, unsigned int a2, DyldKdebugHandler *this, void *a4)
 {
-  DyldKdebugHandler::libraryDescriptionsForPid(this, a2, &v8);
+  DyldKdebugHandler::libraryDescriptionsForPid(&v8, this, a2);
   v6 = v8;
   v7 = v9;
   if (v8 != v9)
   {
     do
     {
-      std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v6);
+      std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v6, v6);
       SymbolicationSession::updateBestKnownLibraryDescriptions(a1, v6);
       v6 = (v6 + 64);
     }
@@ -4738,18 +4630,18 @@ void sub_240F99A28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<DyldKdebugHandler>(SymbolicationSession *a1, int a2, DyldKdebugHandler *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  SymbolicationSession::sharedCacheDescriptionForPid<DyldKdebugHandler>(a3, a2, v15);
-  if (v17 == 1)
+  v17 = *MEMORY[0x277D85DE8];
+  SymbolicationSession::sharedCacheDescriptionForPid<DyldKdebugHandler>(v14, a3, a2);
+  if (v16 == 1)
   {
-    v13[0] = v15[0];
-    v13[1] = v15[1];
-    v14 = v16;
-    SymbolicationSession::sharedCacheWithDescription(a1, v13, &v11);
-    v6 = v11;
-    if (v12)
+    v12[0] = v14[0];
+    v12[1] = v14[1];
+    v13 = v15;
+    SymbolicationSession::sharedCacheWithDescription(a1, v12, &v10);
+    v6 = v10;
+    if (v11)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
     }
 
     if (v6)
@@ -4759,14 +4651,12 @@ void SymbolicationSession::collectSharedCacheLibraryDescriptionsForPid<DyldKdebu
       v9 = *(v7 + 8);
       while (v8 != v9)
       {
-        std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v8);
+        std::__hash_table<LibraryDescription,std::hash<LibraryDescription>,std::equal_to<LibraryDescription>,std::allocator<LibraryDescription>>::__emplace_unique_key_args<LibraryDescription,LibraryDescription const&>(a4, v8, v8);
         SymbolicationSession::updateBestKnownLibraryDescriptions(a1, v8);
         v8 = (v8 + 48);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 const void **ScopeGuard<void const*,ScopeGuardPolicy<void const*>>::~ScopeGuard(const void **a1)
@@ -4787,33 +4677,33 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -4821,44 +4711,44 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<UUID,std::string>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
@@ -4908,7 +4798,6 @@ void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordere
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_22:
-    v10 = a2[1] ^ *a2;
     std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__construct_node_hash<UUID const&,std::string_view>();
   }
 
@@ -4971,7 +4860,7 @@ void sub_240F9A1A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__erase_unique<UUID>(void *a1, void *a2)
+uint64_t std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__erase_unique<UUID>(void *a1, void *a2)
 {
   result = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(a1, a2);
   if (result)
@@ -5136,7 +5025,6 @@ void *std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordere
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_22:
-    v10 = a2[1] ^ *a2;
     std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__construct_node_hash<UUID&,std::string&>();
   }
 
@@ -5226,44 +5114,44 @@ void sub_240F9A6CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<SharedCache>::__shared_ptr_emplace[abi:ne200100]<_CSTypeRef &,std::shared_ptr<StringPool> &,std::allocator<SharedCache>,0>(void *a1, void *a2, uint64_t a3)
+void *std::__shared_ptr_emplace<SharedCache>::__shared_ptr_emplace[abi:ne200100]<_CSTypeRef &,std::shared_ptr<StringPool> &,std::allocator<SharedCache>,0>(void *a1, uint64_t *a2, uint64_t a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2852D6578;
-  SharedCache::SharedCache(a1 + 3, *a2, a2[1], a3);
+  SharedCache::SharedCache((a1 + 3), *a2, a2[1]);
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__emplace_unique_key_args<SharedCacheDescription,SharedCacheDescription&,std::shared_ptr<SharedCache>&>(void *a1, SharedCacheDescription *this)
+void *std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__emplace_unique_key_args<SharedCacheDescription,SharedCacheDescription&,std::shared_ptr<SharedCache>&>(void *a1, SharedCacheDescription *this, uint64_t a3, uint64_t *a4)
 {
-  v4 = SharedCacheDescription::hash(this);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = SharedCacheDescription::hash(this);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -5271,73 +5159,73 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!SharedCacheDescription::operator==((v11 + 2), this))
+  if (!SharedCacheDescription::operator==(v13 + 2, this))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,Process *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,Process *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,Process *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,Process *>>>::__emplace_unique_key_args<int,int &,Process *&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,Process *>,std::__unordered_map_hasher<int,std::__hash_value_type<int,Process *>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,Process *>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,Process *>>>::__emplace_unique_key_args<int,int &,Process *&>(void *a1, int *a2, _DWORD *a3, void *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5345,73 +5233,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,std::piecewise_construct_t const&,std::tuple<UUID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -5419,73 +5307,73 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,UUID&,BOOL>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<UUID,BOOL>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,BOOL>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,BOOL>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,BOOL>>>::__emplace_unique_key_args<UUID,UUID&,BOOL>(void *a1, void *a2, _OWORD *a3, _BYTE *a4)
 {
-  v2 = a2[1] ^ *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = a2[1] ^ *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_22;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = a2[1] ^ *a2;
-    if (v2 >= *&v3)
+    v7 = a2[1] ^ *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_22:
     operator new();
@@ -5493,44 +5381,44 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1])
+  if (v9[2] != *a2 || v9[3] != a2[1])
   {
     goto LABEL_21;
   }
 
-  return v7;
+  return v9;
 }
 
 __n128 std::__function::__func<SymbolicationSession::writeSymbolDataToKtraceFile(ktrace_file *)::$_0,std::allocator<SymbolicationSession::writeSymbolDataToKtraceFile(ktrace_file *)::$_0>,void ()(__CFData const*)>::__clone(uint64_t a1, uint64_t a2)
@@ -5547,7 +5435,6 @@ uint64_t std::__function::__func<SymbolicationSession::writeSymbolDataToKtraceFi
   if (*a2)
   {
     v3 = result;
-    v4 = *(result + 8);
     CFDataGetBytePtr(*a2);
     CFDataGetLength(v2);
     result = ktrace_file_append_chunk();
@@ -5616,7 +5503,6 @@ uint64_t std::__function::__func<SymbolicationSession::writeSymbolDataToKtraceFi
   if (*a2)
   {
     v3 = result;
-    v4 = *(result + 8);
     CFDataGetBytePtr(*a2);
     CFDataGetLength(v2);
     result = ktrace_file_append_chunk();
@@ -5646,9 +5532,9 @@ void std::__shared_ptr_emplace<StringPool>::~__shared_ptr_emplace(std::__shared_
   JUMPOUT(0x245CD5830);
 }
 
-uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5680,9 +5566,9 @@ void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::str
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::__unordered_map_hasher<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::hash<SharedCacheDescription>,std::equal_to<SharedCacheDescription>,true>,std::__unordered_map_equal<SharedCacheDescription,std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>,std::equal_to<SharedCacheDescription>,std::hash<SharedCacheDescription>,true>,std::allocator<std::__hash_value_type<SharedCacheDescription,std::shared_ptr<SharedCache>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5715,9 +5601,9 @@ void std::__hash_table<std::__hash_value_type<SharedCacheDescription,std::shared
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5750,9 +5636,9 @@ void std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::__unordered_map_hasher<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::hash<AOTSharedCacheDescription>,std::equal_to<AOTSharedCacheDescription>,true>,std::__unordered_map_equal<AOTSharedCacheDescription,std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>,std::equal_to<AOTSharedCacheDescription>,std::hash<AOTSharedCacheDescription>,true>,std::allocator<std::__hash_value_type<AOTSharedCacheDescription,std::shared_ptr<void *>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5785,9 +5671,9 @@ void std::__hash_table<std::__hash_value_type<AOTSharedCacheDescription,std::sha
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::string>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::string>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::string>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5819,34 +5705,23 @@ void std::__hash_table<std::__hash_value_type<UUID,std::string>,std::__unordered
   }
 }
 
-uint64_t *OUTLINED_FUNCTION_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  if (*(result + 23) < 0)
-  {
-    v3 = *result;
-  }
-
-  return result;
-}
-
-size_t Section::initializeWithCSSection(uint64_t *a1)
+size_t Section::initializeWithCSSection(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = CSRegionGetRange();
-  a1[1] = v2;
+  a1[1] = v4;
   Name = CSRegionGetName();
   if (Name)
   {
-    v4 = Name;
+    v6 = Name;
   }
 
   else
   {
-    v4 = &unk_240FA3A2E;
+    v6 = &unk_240FA3A2E;
   }
 
-  result = strlen(v4);
-  a1[2] = v4;
+  result = strlen(v6);
+  a1[2] = v6;
   a1[3] = result;
   return result;
 }
@@ -5867,12 +5742,12 @@ uint64_t Section::debug(Section *this)
   return puts(v2);
 }
 
-uint64_t Section::Section(uint64_t a1)
+uint64_t Section::Section(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *a1 = 0u;
-  Section::initializeWithCSSection(a1);
+  Section::initializeWithCSSection(a1, a2, a3);
   return a1;
 }
 
@@ -5880,7 +5755,7 @@ uint64_t Section::Section(uint64_t a1)
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *a1 = 0u;
-  Section::initializeWithCSSection(a1);
+  Section::initializeWithCSSection(a1, a2, a3);
   return a1;
 }
 
@@ -5943,7 +5818,7 @@ void SharedLibrary::SharedLibrary(SharedLibrary *this)
   operator new();
 }
 
-void sub_240F9BAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void **a12)
+void sub_240F9BAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12)
 {
   if (a11)
   {
@@ -5957,73 +5832,62 @@ void sub_240F9BAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  a12 = (v12 + 16);
+  a12 = v12 + 16;
   std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
 void SharedLibrary::initializeWithCSSymbolOwner(SharedLibrary *this)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v2 = *(this + 12);
-  *&v51 = *(this + 11);
-  *(&v51 + 1) = v2;
+  *&v44 = *(this + 11);
+  *(&v44 + 1) = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v3 = *(this + 7);
-  v4 = *(this + 8);
-  SharedLibraryMetadata::SharedLibraryMetadata(&v52, &v51);
-  v5 = v52;
-  v52 = 0uLL;
-  v6 = *(this + 19);
-  *(this + 9) = v5;
-  if (v6)
+  SharedLibraryMetadata::SharedLibraryMetadata(&v45, &v44, *(this + 7), *(this + 8));
+  v3 = v45;
+  v45 = 0uLL;
+  v4 = *(this + 19);
+  *(this + 9) = v3;
+  if (v4)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-    v6 = *(&v52 + 1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    v4 = *(&v45 + 1);
   }
 
-  v7 = v54;
-  *(this + 10) = v53;
-  *(this + 11) = v7;
-  v8 = v56;
-  *(this + 12) = v55;
-  *(this + 13) = v8;
-  v9 = v58;
-  *(this + 14) = v57;
-  *(this + 15) = v9;
-  *(this + 16) = v59;
-  if (v6)
+  v5 = v47;
+  *(this + 10) = v46;
+  *(this + 11) = v5;
+  v6 = v49;
+  *(this + 12) = v48;
+  *(this + 13) = v6;
+  v7 = v51;
+  *(this + 14) = v50;
+  *(this + 15) = v7;
+  *(this + 16) = v52;
+  if (v4)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  if (*(&v51 + 1))
+  if (*(&v44 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v51 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v44 + 1));
   }
 
-  v10 = *(this + 7);
-  v11 = *(this + 8);
   CSSymbolOwnerGetSymbolicator();
   CSSymbolicatorIsKernelSymbolicator();
-  *&v52 = 0;
-  *(&v52 + 1) = &v52;
-  *&v53 = 0x4002000000;
-  *(&v53 + 1) = __Block_byref_object_copy__0;
-  *&v54 = __Block_byref_object_dispose__0;
-  BYTE8(v54) = 0;
-  BYTE8(v55) = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x4002000000;
-  v47 = __Block_byref_object_copy__0;
-  v48 = __Block_byref_object_dispose__0;
-  v49 = 0;
-  v50 = 0;
+  *&v45 = 0;
+  *(&v45 + 1) = &v45;
+  *&v46 = 0x4002000000;
+  *(&v46 + 1) = __Block_byref_object_copy__0;
+  *&v47 = __Block_byref_object_dispose__0;
+  BYTE8(v47) = 0;
+  BYTE8(v48) = 0;
   v37 = 0;
   v38 = &v37;
   v39 = 0x4002000000;
@@ -6038,99 +5902,104 @@ void SharedLibrary::initializeWithCSSymbolOwner(SharedLibrary *this)
   v34 = __Block_byref_object_dispose__0;
   v35 = 0;
   v36 = 0;
-  v12 = *(this + 7);
-  v13 = *(this + 8);
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x4002000000;
+  v26 = __Block_byref_object_copy__0;
+  v27 = __Block_byref_object_dispose__0;
+  v28 = 0;
+  v29 = 0;
   CSSymbolOwnerForeachSegment();
-  v14 = *(&v52 + 1);
-  if (*(*(&v52 + 1) + 56))
+  v8 = *(&v45 + 1);
+  if (*(*(&v45 + 1) + 56))
   {
-    v15 = *(*(&v52 + 1) + 40);
-    v16 = v45;
-    v17 = v45 + 5;
-    v18 = v45 + 7;
-    if ((v45[7] & 1) == 0)
+    v9 = *(*(&v45 + 1) + 40);
+    v10 = v38;
+    v11 = v38 + 5;
+    v12 = v38 + 7;
+    if ((v38[7] & 1) == 0)
     {
-      v19 = -1;
+      v13 = -1;
 LABEL_16:
-      v20 = v38;
-      if (*(v38 + 56) == 1)
+      v14 = v31;
+      if (*(v31 + 56) == 1)
       {
-        v21 = v38[5];
+        v15 = v31[5];
       }
 
       else
       {
-        v21 = -1;
+        v15 = -1;
       }
 
-      if (v19 < v15)
+      if (v13 < v9)
       {
-        v15 = v19;
+        v9 = v13;
       }
 
-      if (v21 < v15)
+      if (v15 < v9)
       {
-        v15 = v21;
+        v9 = v15;
       }
 
-      *(this + 9) = v15;
+      *(this + 9) = v9;
       *(this + 80) = 1;
+      if (*(v8 + 56) == 1)
+      {
+        v16 = *(v8 + 48) + *(v8 + 40);
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      if (*v12 == 1)
+      {
+        v17 = v10[6] + *v11;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
       if (*(v14 + 56) == 1)
       {
-        v22 = *(v14 + 48) + *(v14 + 40);
+        v18 = v14[6] + v14[5];
       }
 
       else
       {
-        v22 = 0;
+        v18 = 0;
       }
 
-      if (*v18 == 1)
+      if (v16 > v17)
       {
-        v23 = v16[6] + *v17;
+        v17 = v16;
       }
 
-      else
+      if (v17 <= v18)
       {
-        v23 = 0;
-      }
-
-      if (*(v20 + 56) == 1)
-      {
-        v24 = v20[6] + v20[5];
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      if (v22 > v23)
-      {
-        v23 = v22;
-      }
-
-      if (v23 <= v24)
-      {
-        v23 = v24;
+        v17 = v18;
       }
 
       goto LABEL_36;
     }
 
 LABEL_15:
-    v19 = v16[5];
+    v13 = v10[5];
     goto LABEL_16;
   }
 
-  v16 = v45;
-  v18 = v45 + 7;
-  if (v45[7] & 1) != 0 || (v38[7])
+  v10 = v38;
+  v12 = v38 + 7;
+  if (v38[7] & 1) != 0 || (v31[7])
   {
-    v17 = v45 + 5;
-    v15 = -1;
-    v19 = -1;
-    if ((v45[7] & 1) == 0)
+    v11 = v38 + 5;
+    v9 = -1;
+    v13 = -1;
+    if ((v38[7] & 1) == 0)
     {
       goto LABEL_16;
     }
@@ -6138,12 +6007,12 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v29 = v31;
-  if (*(v31 + 56) == 1)
+  v22 = v24;
+  if (*(v24 + 56) == 1)
   {
-    *(this + 9) = v31[5];
+    *(this + 9) = v24[5];
     *(this + 80) = 1;
-    v23 = v29[6] + v29[5];
+    v17 = v22[6] + v22[5];
   }
 
   else
@@ -6153,35 +6022,35 @@ LABEL_15:
       goto LABEL_37;
     }
 
-    v23 = 0;
+    v17 = 0;
   }
 
 LABEL_36:
-  v25 = *(this + 9);
-  v26 = v23 >= v25;
-  v27 = v23 - v25;
-  if (!v26)
+  v19 = *(this + 9);
+  v20 = v17 >= v19;
+  v21 = v17 - v19;
+  if (!v20)
   {
 LABEL_37:
-    v27 = 0;
-    v25 = -1;
+    v21 = 0;
+    v19 = -1;
   }
 
-  *this = v25;
-  *(this + 1) = v27;
+  *this = v19;
+  *(this + 1) = v21;
+  _Block_object_dispose(&v23, 8);
   _Block_object_dispose(&v30, 8);
   _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v52, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
 }
 
-void sub_240F9BF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_240F9BF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6193,58 +6062,58 @@ __n128 __Block_byref_object_copy__0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t ___ZN13SharedLibrary27initializeWithCSSymbolOwnerEv_block_invoke(uint64_t a1)
+uint64_t ___ZN13SharedLibrary27initializeWithCSSymbolOwnerEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Range = CSRegionGetRange();
-  v4 = v3;
+  v6 = v5;
   result = CSRegionGetName();
   if (result)
   {
     result = strncmp(result, "__TEXT", 6uLL);
     if (!result)
     {
-      v6 = *(*(a1 + 32) + 8);
-      *(v6 + 40) = Range;
-      *(v6 + 48) = v4;
-      *(v6 + 56) = 1;
+      v8 = *(*(a1 + 32) + 8);
+      *(v8 + 40) = Range;
+      *(v8 + 48) = v6;
+      *(v8 + 56) = 1;
     }
   }
 
   if (*(a1 + 64) == 1)
   {
     Name = CSRegionGetName();
-    v8 = Name && strncmp(Name, "__TEXT_EXEC", 0xBuLL) == 0;
-    v9 = CSRegionGetName();
-    v10 = v9 && strncmp(v9, "__PPLTEXT", 9uLL) == 0;
+    v10 = Name && strncmp(Name, "__TEXT_EXEC", 0xBuLL) == 0;
+    v11 = CSRegionGetName();
+    v12 = v11 && strncmp(v11, "__PPLTEXT", 9uLL) == 0;
     result = CSRegionGetName();
     if (result)
     {
       result = strncmp(result, "__PPLTRAMP", 0xAuLL);
-      v11 = result == 0;
+      v13 = result == 0;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    if (v8 || v10 || v11)
+    if (v10 || v12 || v13)
     {
-      v12 = 56;
+      v14 = 56;
+      if (v12)
+      {
+        v14 = 48;
+      }
+
       if (v10)
       {
-        v12 = 48;
+        v14 = 40;
       }
 
-      if (v8)
-      {
-        v12 = 40;
-      }
-
-      v13 = *(*(a1 + v12) + 8);
-      *(v13 + 40) = Range;
-      *(v13 + 48) = v4;
-      *(v13 + 56) = 1;
+      v15 = *(*(a1 + v14) + 8);
+      *(v15 + 40) = Range;
+      *(v15 + 48) = v6;
+      *(v15 + 56) = 1;
     }
   }
 
@@ -6269,8 +6138,6 @@ uint64_t SharedLibrary::SharedLibrary(uint64_t a1, uint64_t a2, uint64_t a3, voi
   if (v9)
   {
     atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    v11 = *(a1 + 56);
-    v10 = *(a1 + 64);
   }
 
   *(a1 + 104) = 0u;
@@ -6294,7 +6161,7 @@ uint64_t SharedLibrary::SharedLibrary(uint64_t a1, uint64_t a2, uint64_t a3, voi
   return a1;
 }
 
-void sub_240F9C1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_240F9C1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v13 = *(v10 + 152);
   if (v13)
@@ -6309,14 +6176,14 @@ void sub_240F9C1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
-  a10 = (v10 + 16);
+  a10 = v10 + 16;
   std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
 
 uint64_t SharedLibrary::SharedLibrary(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *uu = a2;
   *&uu[8] = a3;
   *(a1 + 80) = 0;
@@ -6349,19 +6216,16 @@ uint64_t SharedLibrary::SharedLibrary(uint64_t a1, uint64_t a2, uint64_t a3, uin
   if (!uuid_is_null(uu))
   {
     CSSymbolicatorForeachSymbolicatorWithPath();
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
     if ((CSIsNull() & 1) == 0)
     {
       SharedLibrary::initializeWithCSSymbolOwner(a1);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_240F9C358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_240F9C358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v13 = *(v10 + 152);
   if (v13)
@@ -6376,17 +6240,14 @@ void sub_240F9C358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
-  a10 = (v10 + 16);
+  a10 = v10 + 16;
   std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](&a10);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN13SharedLibraryC2E4UUIDNSt3__117basic_string_viewIcNS1_11char_traitsIcEEEERKNS1_10shared_ptrI10StringPoolEE_block_invoke(void *a1)
+uint64_t ___ZN13SharedLibraryC2E4UUIDNSt3__117basic_string_viewIcNS1_11char_traitsIcEEEERKNS1_10shared_ptrI10StringPoolEE_block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  v3 = v2[5];
-  v4 = v2[6];
+  v4 = a1[4];
   result = CSIsNull();
   if (result)
   {
@@ -6398,37 +6259,31 @@ uint64_t ___ZN13SharedLibraryC2E4UUIDNSt3__117basic_string_viewIcNS1_11char_trai
       result = CSSymbolOwnerGetCFUUIDBytes();
       if (result)
       {
-        if (*result == a1[5] && *(result + 8) >> 64 == a1[6])
+        if (*result == a1[5] && *(result + 8) == a1[6])
         {
           result = CSRetain();
-          v2[5] = result;
-          v2[6] = v10;
-          v2[7] = SymbolOwner;
-          v2[8] = v8;
+          v4[5] = result;
+          v4[6] = v10;
+          v4[7] = SymbolOwner;
+          v4[8] = v8;
         }
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL SharedLibrary::operator==(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = SharedLibraryMetadata::uuid((a1 + 18));
-  v10 = v4;
-  v6 = v9 == SharedLibraryMetadata::uuid((a2 + 18)) && v10 == v5;
-  result = v6 && *a1 == *a2 && a1[1] == a2[1];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8 = SharedLibraryMetadata::uuid((a1 + 18));
+  v9 = v4;
+  v6 = v8 == SharedLibraryMetadata::uuid((a2 + 18)) && v9 == v5;
+  return v6 && *a1 == *a2 && a1[1] == a2[1];
 }
 
 uint64_t SharedLibrary::generateFBSSignatureWithConfig(void *a1, int a2)
 {
-  v4 = a1[7];
-  v5 = a1[8];
   if ((CSIsNull() & 1) != 0 || a2 != 2 && !a1[16])
   {
     return 0;
@@ -6437,9 +6292,6 @@ uint64_t SharedLibrary::generateFBSSignatureWithConfig(void *a1, int a2)
   CSAddressSetCreate();
   for (i = a1[15]; i; i = *i)
   {
-    v8 = i[2];
-    v9 = a1[7];
-    v10 = a1[8];
     CSSymbolOwnerGetSymbolWithAddress();
     if ((CSIsNull() & 1) == 0)
     {
@@ -6448,96 +6300,89 @@ uint64_t SharedLibrary::generateFBSSignatureWithConfig(void *a1, int a2)
     }
   }
 
-  v11 = a1[7];
-  v12 = a1[8];
   SparseSignatureWithFlags = CSSymbolOwnerCreateSparseSignatureWithFlags();
   CSRelease();
   if (!SparseSignatureWithFlags)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x4002000000;
-    v38 = __Block_byref_object_copy__2;
-    v39 = __Block_byref_object_dispose__3;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x4002000000;
+    v26 = __Block_byref_object_copy__2;
+    v27 = __Block_byref_object_dispose__3;
     __p = 0;
-    v41 = 0;
-    v42 = 0;
+    v29 = 0;
+    v30 = 0;
     std::vector<_CSTypeRef>::reserve(&__p, a1[16]);
     for (j = a1[15]; j; j = *j)
     {
-      v14 = j[2];
-      v15 = v36;
-      v16 = a1[7];
-      v17 = a1[8];
+      v7 = v24;
       SymbolWithAddress = CSSymbolOwnerGetSymbolWithAddress();
-      v20 = v19;
-      v22 = v15[6];
-      v21 = v15[7];
-      if (v22 >= v21)
+      v10 = v9;
+      v12 = v7[6];
+      v11 = v7[7];
+      if (v12 >= v11)
       {
-        v24 = v15[5];
-        v25 = v22 - v24;
-        v26 = (v22 - v24) >> 4;
-        v27 = v26 + 1;
-        if ((v26 + 1) >> 60)
+        v14 = v7[5];
+        v15 = v12 - v14;
+        v16 = (v12 - v14) >> 4;
+        v17 = v16 + 1;
+        if ((v16 + 1) >> 60)
         {
           std::vector<_CSBinaryImageInformation>::__throw_length_error[abi:ne200100]();
         }
 
-        v28 = v21 - v24;
-        if (v28 >> 3 > v27)
+        v18 = v11 - v14;
+        if (v18 >> 3 > v17)
         {
-          v27 = v28 >> 3;
+          v17 = v18 >> 3;
         }
 
-        if (v28 >= 0x7FFFFFFFFFFFFFF0)
+        if (v18 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v29 = 0xFFFFFFFFFFFFFFFLL;
+          v19 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v29 = v27;
+          v19 = v17;
         }
 
-        if (v29)
+        if (v19)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<_CSTypeRef>>((v15 + 5), v29);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<_CSTypeRef>>((v7 + 5), v19);
         }
 
-        v30 = (16 * v26);
-        *v30 = SymbolWithAddress;
-        v30[1] = v20;
-        v23 = 16 * v26 + 16;
-        memcpy(0, v24, v25);
-        v31 = v15[5];
-        v15[5] = 0;
-        v15[6] = v23;
-        v15[7] = 0;
-        if (v31)
+        v20 = (16 * v16);
+        *v20 = SymbolWithAddress;
+        v20[1] = v10;
+        v13 = 16 * v16 + 16;
+        memcpy(0, v14, v15);
+        v21 = v7[5];
+        v7[5] = 0;
+        v7[6] = v13;
+        v7[7] = 0;
+        if (v21)
         {
-          operator delete(v31);
+          operator delete(v21);
         }
       }
 
       else
       {
-        *v22 = SymbolWithAddress;
-        v22[1] = v19;
-        v23 = (v22 + 2);
+        *v12 = SymbolWithAddress;
+        v12[1] = v9;
+        v13 = (v12 + 2);
       }
 
-      v15[6] = v23;
+      v7[6] = v13;
     }
 
-    v32 = a1[7];
-    v33 = a1[8];
     CSSymbolOwnerCreateSparseDataWithBlock();
     SparseSignatureWithFlags = CSSymbolOwnerCreateSignature();
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v23, 8);
     if (__p)
     {
-      v41 = __p;
+      v29 = __p;
       operator delete(__p);
     }
   }
@@ -6545,7 +6390,7 @@ uint64_t SharedLibrary::generateFBSSignatureWithConfig(void *a1, int a2)
   return SparseSignatureWithFlags;
 }
 
-void sub_240F9C828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+void sub_240F9C828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
 {
   _Block_object_dispose(&a15, 8);
   if (__p)
@@ -6581,20 +6426,17 @@ void __Block_byref_object_dispose__3(uint64_t a1)
   }
 }
 
-void *std::vector<_CSTypeRef>::reserve(void *result, unint64_t a2)
+void std::vector<_CSTypeRef>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<_CSTypeRef>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<_CSTypeRef>>(a1, a2);
     }
 
     std::vector<_CSBinaryImageInformation>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 BOOL ___ZN13SharedLibrary30generateFBSSignatureWithConfigE48ats_symbolication_instruction_fetching_options_t_block_invoke(uint64_t a1, unint64_t a2, _OWORD *a3)
@@ -6612,35 +6454,31 @@ BOOL ___ZN13SharedLibrary30generateFBSSignatureWithConfigE48ats_symbolication_in
 
 uint64_t SharedLibrary::prepareForResymbolicationWithDsymPath(SharedLibrary *this, const char *a2)
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2000000000;
-  v12 = 0;
-  v3 = *(this + 7);
-  v4 = *(this + 8);
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2000000000;
+  v7 = 0;
   CSSymbolOwnerSetPathForSymbolication();
-  v5 = *(this + 5);
-  v6 = *(this + 6);
   CSSymbolicatorResymbolicateFromDebugSymbolsInfo();
-  v7 = *(v10 + 24);
-  _Block_object_dispose(&v9, 8);
-  return v7;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
-void sub_240F9CA34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_240F9CA34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ___ZN13SharedLibrary37prepareForResymbolicationWithDsymPathEPKc_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (CFUUIDBytes)
   {
-    *v25 = *CFUUIDBytes;
+    *v24 = *CFUUIDBytes;
     if (a4)
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -6648,11 +6486,11 @@ void ___ZN13SharedLibrary37prepareForResymbolicationWithDsymPathEPKc_block_invok
       v7 = ats_symbolication_log;
       if (!os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_15;
+        return;
       }
 
-      UUID::uuidString(v25, __p);
-      if (v19 >= 0)
+      UUID::uuidString(__p, v24);
+      if (v18 >= 0)
       {
         v8 = __p;
       }
@@ -6663,7 +6501,7 @@ void ___ZN13SharedLibrary37prepareForResymbolicationWithDsymPathEPKc_block_invok
       }
 
       *buf = 136315138;
-      v22 = v8;
+      v21 = v8;
       v9 = "Resymbolication: sucessfully ingested symbol data from dSYM for UUID: %s";
       v10 = v7;
       v11 = 12;
@@ -6675,11 +6513,11 @@ void ___ZN13SharedLibrary37prepareForResymbolicationWithDsymPathEPKc_block_invok
       v12 = ats_symbolication_log;
       if (!os_log_type_enabled(ats_symbolication_log, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_15;
+        return;
       }
 
-      UUID::uuidString(v25, __p);
-      v13 = v19;
+      UUID::uuidString(__p, v24);
+      v13 = v18;
       v14 = __p[0];
       Path = CSSymbolOwnerGetPath();
       v16 = __p;
@@ -6689,23 +6527,20 @@ void ___ZN13SharedLibrary37prepareForResymbolicationWithDsymPathEPKc_block_invok
       }
 
       *buf = 136315394;
-      v22 = v16;
-      v23 = 2080;
-      v24 = Path;
+      v21 = v16;
+      v22 = 2080;
+      v23 = Path;
       v9 = "Resymbolication: failed to ingest symbol data from dSYM for UUID: %s %s";
       v10 = v12;
       v11 = 22;
     }
 
     _os_log_impl(&dword_240F85000, v10, OS_LOG_TYPE_INFO, v9, buf, v11);
-    if (v20 == 1 && v19 < 0)
+    if (v19 == 1 && v18 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240F9CC04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -6720,24 +6555,22 @@ void sub_240F9CC04(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SharedLibrary::~SharedLibrary(SharedLibrary *this)
 {
-  v2 = *(this + 5);
-  v3 = *(this + 6);
   CSRelease();
-  v4 = *(this + 19);
-  if (v4)
+  v2 = *(this + 19);
+  if (v2)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(this + 104);
-  v5 = *(this + 12);
-  if (v5)
+  v3 = *(this + 12);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
-  v6 = (this + 16);
-  std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v4 = (this + 16);
+  std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](&v4);
 }
 
 void std::vector<Segment>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -6788,33 +6621,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<_CSTypeRef>>(uint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -6822,49 +6655,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 __int128 *SharedCacheSymbolicators::sharedCacheSymbolicatorMap(SharedCacheSymbolicators *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_0, memory_order_acquire) & 1) == 0)
   {
     SharedCacheSymbolicators::sharedCacheSymbolicatorMap();
   }
@@ -6881,27 +6714,17 @@ __int128 *SharedCacheSymbolicators::sharedCacheSymbolicatorMap(SharedCacheSymbol
 
 void *SharedCacheSymbolicators::cachedSharedCacheSymbolicatorByUUID(SharedCacheSymbolicators *this, UUID a2)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[0] = this;
-  v6[1] = a2;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = this;
+  v3[1] = a2;
   SharedCacheSymbolicators::sharedCacheSymbolicatorMap(this);
-  result = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(&xmmword_27E51E320, v6);
+  result = std::__hash_table<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::shared_ptr<SharedLibrary>>>>::find<UUID>(&xmmword_27E51E320, v3);
   if (result)
   {
-    v3 = result[4];
-    result = *v3;
-    v4 = v3[1];
+    return *result[4];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
-}
-
-void SharedCacheSymbolicators::createSharedCacheSymbolicatorByUUID(SharedCacheSymbolicators *this, UUID a2)
-{
-  v2 = *MEMORY[0x277D85DE8];
-  CSSymbolicatorCreateWithSharedCacheUUID();
-  operator new();
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>>>::~__hash_table(uint64_t a1)
@@ -6917,7 +6740,7 @@ uint64_t std::__hash_table<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuar
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>>>::__deallocate_node(uint64_t a1, uint64_t **a2)
+void std::__hash_table<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>>>::__deallocate_node(uint64_t a1, void *a2)
 {
   if (a2)
   {
@@ -6934,10 +6757,10 @@ void std::__hash_table<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_C
   }
 }
 
-uint64_t ___ZZN24SharedCacheSymbolicators26sharedCacheSymbolicatorMapEvENK3__0clEv_block_invoke()
+uint64_t ___ZZN24SharedCacheSymbolicators26sharedCacheSymbolicatorMapEvENK3__0clEv_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSSymbolicatorGetSharedCacheUUID();
-  v1 = result;
+  v4 = result;
   if (result)
   {
     operator new();
@@ -6946,9 +6769,9 @@ uint64_t ___ZZN24SharedCacheSymbolicators26sharedCacheSymbolicatorMapEvENK3__0cl
   return result;
 }
 
-void sub_240F9D3B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240F9D3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7122,15 +6945,13 @@ LABEL_14:
   return result;
 }
 
-uint64_t *ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>::ScopeGuard(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>::ScopeGuard(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = a2;
-  a1[1] = a3;
+  *(a1 + 8) = a3;
   *(a1 + 16) = 0;
   if ((CSIsNull() & 1) == 0)
   {
-    v4 = *a1;
-    v5 = a1[1];
     CSRetain();
     *(a1 + 16) = 1;
   }
@@ -7220,22 +7041,13 @@ uint64_t SharedCacheDescription::slide(SharedCacheDescription *this)
   }
 }
 
-BOOL SharedCacheDescription::operator==(uint64_t a1, __int128 *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  result = *a1 == *a2 && *(a1 + 8) >> 64 == *(a2 + 8) >> 64 && *(a1 + 16) == *(a2 + 2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t SharedCacheMetadata::SharedCacheMetadata(uint64_t a1)
+uint64_t SharedCacheMetadata::SharedCacheMetadata(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *a1 = 0u;
   *(a1 + 16) = 0u;
-  SharedCacheMetadata::populateWithSharedCacheSymbolicator(a1);
+  SharedCacheMetadata::populateWithSharedCacheSymbolicator(a1, a2, a3);
   return a1;
 }
 
@@ -7250,7 +7062,7 @@ void sub_240F9D8CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t SharedCacheMetadata::populateWithSharedCacheSymbolicator(uint64_t a1)
+uint64_t SharedCacheMetadata::populateWithSharedCacheSymbolicator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = *CSSymbolicatorGetSharedCacheUUID();
   *(a1 + 32) = CSSymbolicatorGetArchitecture();
@@ -7261,7 +7073,7 @@ uint64_t SharedCacheMetadata::populateWithSharedCacheSymbolicator(uint64_t a1)
 
 uint64_t SharedCacheMetadata::SharedCacheMetadata(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  SharedCacheMetadata::SharedCacheMetadata(a1);
+  SharedCacheMetadata::SharedCacheMetadata(a1, a2, a3);
   v7 = *a4;
   v6 = a4[1];
   if (v6)
@@ -7281,7 +7093,7 @@ uint64_t SharedCacheMetadata::SharedCacheMetadata(uint64_t a1, uint64_t a2, uint
 }
 
 {
-  SharedCacheMetadata::SharedCacheMetadata(a1);
+  SharedCacheMetadata::SharedCacheMetadata(a1, a2, a3);
   v7 = *a4;
   v6 = a4[1];
   if (v6)
@@ -7314,7 +7126,7 @@ void SharedCacheMetadata::uuidString(SharedCacheMetadata *this@<X0>, uint64_t a2
     goto LABEL_3;
   }
 
-  UUID::uuidString(this, __p);
+  UUID::uuidString(__p, this);
   if (v13)
   {
     StringPool::cacheString(*(this + 6), __p, &v9);
@@ -7375,14 +7187,14 @@ void DyldKdebugHandler::resetInternalLibraryState(DyldKdebugHandler *this)
   std::__hash_table<std::__hash_value_type<int,std::vector<DyldKdebugLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<DyldKdebugLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<DyldKdebugLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<DyldKdebugLibraryDescription>>>>::clear(this + 12544);
 }
 
-void DyldKdebugHandler::handleLibraryCompletion(DyldKdebugHandler *this, DyldKdebugLibraryDescription *a2)
+void DyldKdebugHandler::handleLibraryCompletion(float **this, DyldKdebugLibraryDescription *a2)
 {
   v4 = DyldKdebugLibraryDescription::fsInfo(a2);
-  DyldKdebugFilesystemInfo::path(v4, __p);
+  DyldKdebugFilesystemInfo::path(__p, v4);
   v5 = v10;
   if (v10 == 1)
   {
-    StringPool::cacheString(*(this + 1618), __p, &v6);
+    StringPool::cacheString(this[1618], __p, &v6);
     if (v7 == 1)
     {
       *(a2 + 2) = v6;
@@ -7433,7 +7245,7 @@ void DyldKdebugHandler::consumeTracepoint(DyldKdebugHandler *this, __n128 *a2)
       break;
     case 3u:
 
-      DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned int,520421388u>>(this, a2);
+      DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned int,520421388u>>(this, a2->n128_u64);
       break;
     case 4u:
 
@@ -7485,20 +7297,20 @@ void *DyldKdebugHandler::handleTracepointA<std::integral_constant<unsigned int,5
   v5[0] = *(a2 + 40);
   v5[2] = v5;
   v3 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>((a1 + 12744), v5);
-  return DyldKdebugLibraryDescription::consumeTracepointA((v3 + 3), a2);
+  return DyldKdebugLibraryDescription::consumeTracepointA(v3 + 3, a2);
 }
 
-uint64_t *DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421380u>>(DyldKdebugHandler *a1, uint64_t a2)
+uint64_t DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421380u>>(DyldKdebugHandler *a1, uint64_t a2)
 {
   v8 = *(a2 + 40);
   v7 = *(a2 + 88);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7, &v7);
   v9 = &v8;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 1593, &v8);
   DyldKdebugLibraryDescription::consumeTracepointB((v4 + 3), a2);
   DyldKdebugHandler::handleLibraryCompletion(a1, (v4 + 3));
   v9 = &v7;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1563, &v7);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1563, &v7, &std::piecewise_construct, &v9);
   std::vector<DyldKdebugLibraryDescription>::push_back[abi:ne200100]((v5 + 3), (v4 + 3));
   result = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(a1 + 1593, &v8);
   if (v7 >= 0x1869F)
@@ -7519,7 +7331,7 @@ double DyldKdebugHandler::handleTracepoint32A<std::integral_constant<unsigned in
   return result;
 }
 
-uint64_t DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned int,520421388u>>(uint64_t a1, uint64_t *a2)
+uint64_t DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned int,520421388u>>(uint64_t a1, unint64_t *a2)
 {
   v5[0] = a2[5];
   v5[2] = v5;
@@ -7527,17 +7339,17 @@ uint64_t DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned 
   return DyldKdebugLibraryDescription::consumeTracepoint32B(v3 + 3, a2);
 }
 
-uint64_t *DyldKdebugHandler::handleTracepoint32C<std::integral_constant<unsigned int,520421392u>>(DyldKdebugHandler *a1, uint64_t a2)
+uint64_t DyldKdebugHandler::handleTracepoint32C<std::integral_constant<unsigned int,520421392u>>(DyldKdebugHandler *a1, uint64_t a2)
 {
   v8 = *(a2 + 40);
   v7 = *(a2 + 88);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7, &v7);
   v9 = &v8;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 1593, &v8);
   DyldKdebugLibraryDescription::consumeTracepoint32C((v4 + 3), a2);
   DyldKdebugHandler::handleLibraryCompletion(a1, (v4 + 3));
   v9 = &v7;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1563, &v7);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1563, &v7, &std::piecewise_construct, &v9);
   std::vector<DyldKdebugLibraryDescription>::push_back[abi:ne200100]((v5 + 3), (v4 + 3));
   return std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(a1 + 1593, &v8);
 }
@@ -7550,16 +7362,16 @@ uint64_t DyldKdebugHandler::handleTracepointA<std::integral_constant<unsigned in
   return DyldKdebugSharedCacheDescription::consumeTracepointA((v3 + 3), a2);
 }
 
-uint64_t *DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421420u>>(void *a1, uint64_t a2)
+uint64_t DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421420u>>(void *a1, uint64_t a2)
 {
   v8 = *(a2 + 40);
   v7 = *(a2 + 88);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7, &v7);
   v9 = &v8;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 1603, &v8);
   DyldKdebugSharedCacheDescription::consumeTracepointB((v4 + 3), a2);
   v9 = &v7;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1573, &v7);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1573, &v7, &std::piecewise_construct, &v9);
   std::vector<DyldKdebugSharedCacheDescription>::push_back[abi:ne200100]((v5 + 3), (v4 + 3));
   return std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(a1 + 1603, &v8);
 }
@@ -7581,16 +7393,16 @@ uint64_t DyldKdebugHandler::handleTracepoint32B<std::integral_constant<unsigned 
   return DyldKdebugSharedCacheDescription::consumeTracepoint32B((v3 + 3), a2);
 }
 
-uint64_t *DyldKdebugHandler::handleTracepoint32C<std::integral_constant<unsigned int,520421432u>>(void *a1, uint64_t a2)
+uint64_t DyldKdebugHandler::handleTracepoint32C<std::integral_constant<unsigned int,520421432u>>(void *a1, uint64_t a2)
 {
   v8 = *(a2 + 40);
   v7 = *(a2 + 88);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v7, &v7);
   v9 = &v8;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 1603, &v8);
   DyldKdebugSharedCacheDescription::consumeTracepoint32C((v4 + 3), a2);
   v9 = &v7;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1573, &v7);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1573, &v7, &std::piecewise_construct, &v9);
   std::vector<DyldKdebugSharedCacheDescription>::push_back[abi:ne200100]((v5 + 3), (v4 + 3));
   return std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(a1 + 1603, &v8);
 }
@@ -7604,16 +7416,16 @@ double DyldKdebugHandler::handleTracepointA<std::integral_constant<unsigned int,
   return result;
 }
 
-uint64_t *DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421448u>>(void *a1, __n128 *a2)
+uint64_t DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421448u>>(void *a1, __n128 *a2)
 {
   v26 = a2[2].n128_u64[1];
   v25 = a2[5].n128_i32[2];
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v25);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v25, &v25);
   v27 = &v26;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,StackshotAOTSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotAOTSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotAOTSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotAOTSharedCacheDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(a1 + 1608, &v26);
   DyldKdebugAOTSharedCacheDescription::consumeTracepointB((v4 + 3), a2);
   v27 = &v25;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1578, &v25);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1578, &v25, &std::piecewise_construct, &v27);
   v6 = v5;
   v7 = v5[4];
   v8 = v5[5];
@@ -7692,16 +7504,16 @@ double DyldKdebugHandler::handleTracepointA<std::integral_constant<unsigned int,
   return result;
 }
 
-uint64_t *DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421440u>>(void *a1, uint64_t a2)
+uint64_t DyldKdebugHandler::handleTracepointB<std::integral_constant<unsigned int,520421440u>>(void *a1, uint64_t a2)
 {
   v28 = *(a2 + 40);
   v27 = *(a2 + 88);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v27);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(a1 + 1613, &v27, &v27);
   v29 = &v28;
   v4 = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1 + 1598, &v28);
   DyldKdebugAOTImageDescription::consumeTracepointB(v4 + 3, a2);
   v29 = &v27;
-  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1568, &v27);
+  v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1 + 1568, &v27, &std::piecewise_construct, &v29);
   v6 = v5;
   v7 = v5[4];
   v8 = v5[5];
@@ -7821,10 +7633,10 @@ void sub_240F9EB18(_Unwind_Exception *a1)
   std::__hash_table<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,StackshotSharedCacheDescription>>>::~__hash_table(v4);
   std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(v1 + v7);
   std::__hash_table<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::__unordered_map_hasher<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::hash<UUID>,std::equal_to<UUID>,true>,std::__unordered_map_equal<UUID,std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>,std::equal_to<UUID>,std::hash<UUID>,true>,std::allocator<std::__hash_value_type<UUID,std::unordered_map<unsigned long long,StackshotSharedCacheDescription>>>>::~__hash_table(v3);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 12624);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 1578);
   std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v2);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 12544);
-  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 12504);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 1568);
+  std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::~__hash_table(v1 + 1563);
   _Unwind_Resume(a1);
 }
 
@@ -7874,80 +7686,80 @@ uint64_t DyldKdebugHandler::DyldKdebugHandler(uint64_t a1, void *a2)
   return a1;
 }
 
-uint64_t DyldKdebugHandler::libraryDescriptionsForPid@<X0>(uint64_t this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+uint64_t *DyldKdebugHandler::libraryDescriptionsForPid@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, unsigned int a3@<W1>)
 {
-  v5 = a2;
-  if (a2 >= 0x1869F)
+  v5 = a3;
+  if (a3 >= 0x1869F)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
   }
 
-  if ((*(this + ((a2 >> 3) & 0x1FFFFFF8)) >> a2))
+  if ((*(this + ((a3 >> 3) & 0x1FFFFFF8)) >> a3))
   {
     v6 = &v5;
-    v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((this + 12504), &v5);
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
-    return std::vector<DyldKdebugLibraryDescription>::__init_with_size[abi:ne200100]<DyldKdebugLibraryDescription*,DyldKdebugLibraryDescription*>(a3, v4[3], v4[4], (v4[4] - v4[3]) >> 6);
+    v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1563, &v5, &std::piecewise_construct, &v6);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    return std::vector<DyldKdebugLibraryDescription>::__init_with_size[abi:ne200100]<DyldKdebugLibraryDescription*,DyldKdebugLibraryDescription*>(a1, v4[3], v4[4], (v4[4] - v4[3]) >> 6);
   }
 
   else
   {
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 
   return this;
 }
 
-uint64_t DyldKdebugHandler::sharedCacheDescriptionsForPid@<X0>(DyldKdebugHandler *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *DyldKdebugHandler::sharedCacheDescriptionsForPid@<X0>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X0>, int a3@<W1>)
 {
-  v6 = a2;
+  v6 = a3;
   v7 = &v6;
-  v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1573, &v6);
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  return std::vector<DyldKdebugSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugSharedCacheDescription*,DyldKdebugSharedCacheDescription*>(a3, v4[3], v4[4], 0x6DB6DB6DB6DB6DB7 * ((v4[4] - v4[3]) >> 3));
+  v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1573, &v6, &std::piecewise_construct, &v7);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<DyldKdebugSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugSharedCacheDescription*,DyldKdebugSharedCacheDescription*>(a1, v4[3], v4[4], 0x6DB6DB6DB6DB6DB7 * ((v4[4] - v4[3]) >> 3));
 }
 
-uint64_t DyldKdebugHandler::aotSharedCacheDescriptionsForPid@<X0>(DyldKdebugHandler *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *DyldKdebugHandler::aotSharedCacheDescriptionsForPid@<X0>(uint64_t *__return_ptr a1@<X8>, DyldKdebugHandler *this@<X0>, int a3@<W1>)
 {
-  v6 = a2;
+  v6 = a3;
   v7 = &v6;
-  v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1578, &v6);
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  return std::vector<DyldKdebugAOTSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTSharedCacheDescription*,DyldKdebugAOTSharedCacheDescription*>(a3, v4[3], v4[4], 0xAAAAAAAAAAAAAAABLL * ((v4[4] - v4[3]) >> 4));
+  v4 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 1578, &v6, &std::piecewise_construct, &v7);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<DyldKdebugAOTSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTSharedCacheDescription*,DyldKdebugAOTSharedCacheDescription*>(a1, v4[3], v4[4], 0xAAAAAAAAAAAAAAABLL * ((v4[4] - v4[3]) >> 4));
 }
 
-uint64_t *DyldKdebugHandler::aotImageDescriptionsForPid@<X0>(uint64_t *this@<X0>, int a2@<W1>, void *a3@<X8>)
+uint64_t *DyldKdebugHandler::aotImageDescriptionsForPid@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, int a3@<W1>)
 {
-  v6 = a2;
+  v6 = a3;
   if (this[1571] && (v4 = this, (this = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotLibraryDescription>>>>::find<int>(this + 1568, &v6)) != 0))
   {
     v7 = &v6;
-    v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v4 + 12544), &v6);
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
-    return std::vector<DyldKdebugAOTImageDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTImageDescription*,DyldKdebugAOTImageDescription*>(a3, v5[3], v5[4], 0x6DB6DB6DB6DB6DB7 * ((v5[4] - v5[3]) >> 3));
+    v5 = std::__hash_table<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<StackshotSharedCacheDescription>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v4 + 1568, &v6, &std::piecewise_construct, &v7);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+    return std::vector<DyldKdebugAOTImageDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTImageDescription*,DyldKdebugAOTImageDescription*>(a1, v5[3], v5[4], 0x6DB6DB6DB6DB6DB7 * ((v5[4] - v5[3]) >> 3));
   }
 
   else
   {
-    *a3 = 0;
-    a3[1] = 0;
-    a3[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 
   return this;
 }
 
-uint64_t std::vector<DyldKdebugLibraryDescription>::__init_with_size[abi:ne200100]<DyldKdebugLibraryDescription*,DyldKdebugLibraryDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<DyldKdebugLibraryDescription>::__init_with_size[abi:ne200100]<DyldKdebugLibraryDescription*,DyldKdebugLibraryDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7969,7 +7781,7 @@ void sub_240F9EF64(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<DyldKdebugLibraryDescription>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<DyldKdebugLibraryDescription>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -7989,7 +7801,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<DyldKdebugLibraryDesc
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<DyldKdebugSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugSharedCacheDescription*,DyldKdebugSharedCacheDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<DyldKdebugSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugSharedCacheDescription*,DyldKdebugSharedCacheDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8011,7 +7823,7 @@ void sub_240F9F064(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<DyldKdebugSharedCacheDescription>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<DyldKdebugSharedCacheDescription>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -8031,7 +7843,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<DyldKdebugSharedCache
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<DyldKdebugAOTSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTSharedCacheDescription*,DyldKdebugAOTSharedCacheDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<DyldKdebugAOTSharedCacheDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTSharedCacheDescription*,DyldKdebugAOTSharedCacheDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8053,7 +7865,7 @@ void sub_240F9F18C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<DyldKdebugAOTImageDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTImageDescription*,DyldKdebugAOTImageDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<DyldKdebugAOTImageDescription>::__init_with_size[abi:ne200100]<DyldKdebugAOTImageDescription*,DyldKdebugAOTImageDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8159,7 +7971,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibr
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>();
   }
 
@@ -8293,7 +8104,7 @@ void std::vector<DyldKdebugLibraryDescription>::push_back[abi:ne200100](uint64_t
   *(a1 + 8) = v9;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugLibraryDescription>>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -8336,45 +8147,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugLibr
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -8423,7 +8226,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugShar
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugSharedCacheDescription>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>();
   }
 
@@ -8586,7 +8388,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugAOTI
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,DyldKdebugAOTImageDescription>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>();
   }
 
@@ -8669,15 +8470,15 @@ void DyldKdebugFilesystemInfo::DyldKdebugFilesystemInfo(DyldKdebugFilesystemInfo
   *(this + 1) = a3;
 }
 
-unint64_t DyldKdebugFilesystemInfo::path@<X0>(fsid_t *this@<X0>, _BYTE *a2@<X8>)
+unint64_t DyldKdebugFilesystemInfo::path@<X0>(uint64_t **__return_ptr a1@<X8>, fsid_t *this@<X0>)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = this;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = this;
   if (atomic_load_explicit(&DyldKdebugFilesystemInfo::path(void)::rootFsidOnce, memory_order_acquire) != -1)
   {
-    *__s = &v8;
-    v9 = __s;
-    std::__call_once(&DyldKdebugFilesystemInfo::path(void)::rootFsidOnce, &v9, std::__call_once_proxy[abi:ne200100]<std::tuple<DyldKdebugFilesystemInfo::path(void)::$_0 &&>>);
+    *__s = &v7;
+    v8 = __s;
+    std::__call_once(&DyldKdebugFilesystemInfo::path(void)::rootFsidOnce, &v8, std::__call_once_proxy[abi:ne200100]<std::tuple<DyldKdebugFilesystemInfo::path(void)::$_0 &&>>);
   }
 
   if (!this->val[0] && !this->val[1])
@@ -8689,7 +8490,7 @@ unint64_t DyldKdebugFilesystemInfo::path@<X0>(fsid_t *this@<X0>, _BYTE *a2@<X8>)
   if (result == -1)
   {
     v6 = 0;
-    *a2 = 0;
+    *a1 = 0;
   }
 
   else
@@ -8706,27 +8507,25 @@ unint64_t DyldKdebugFilesystemInfo::path@<X0>(fsid_t *this@<X0>, _BYTE *a2@<X8>)
       operator new();
     }
 
-    a2[23] = result;
+    *(a1 + 23) = result;
     if (result)
     {
-      result = memcpy(a2, __s, result);
+      result = memcpy(a1, __s, result);
     }
 
-    a2[v5] = 0;
+    *(a1 + v5) = 0;
     v6 = 1;
   }
 
-  a2[24] = v6;
-  v7 = *MEMORY[0x277D85DE8];
+  *(a1 + 24) = v6;
   return result;
 }
 
 uint64_t std::__call_once_proxy[abi:ne200100]<std::tuple<DyldKdebugFilesystemInfo::path(void)::$_0 &&>>()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  result = statfs("/", &v2);
-  DyldKdebugFilesystemInfo::path(void)::root_fsid = v2.f_fsid;
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  result = statfs("/", &v1);
+  DyldKdebugFilesystemInfo::path(void)::root_fsid = v1.f_fsid;
   return result;
 }
 
@@ -8762,32 +8561,29 @@ void LibraryDescription::LibraryDescription(LibraryDescription *this, uint64_t a
   *(this + 1) = 0;
 }
 
-uint64_t LibraryDescription::path@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *LibraryDescription::path@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 40);
+  v2 = this[5];
   if (v2)
   {
-    *a2 = *(this + 32);
+    *a1 = *(this + 2);
     LOBYTE(v2) = 1;
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
-  *(a2 + 16) = v2;
+  *(a1 + 16) = v2;
   return this;
 }
 
 BOOL LibraryDescription::operator==(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  v6 = *(a2 + 16);
-  result = v2 == v6 && *(&v2 + 1) == *(&v6 + 1);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *(a2 + 16);
+  return v2 == v5 && *(&v2 + 1) == *(&v5 + 1);
 }
 
 void ats_symbolication_log_init(void)
@@ -8836,38 +8632,38 @@ uint64_t SourceInfo::path@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
   return this;
 }
 
-uint64_t SourceInfo::initializeWithCSSourceInfo(uint64_t a1)
+uint64_t SourceInfo::initializeWithCSSourceInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   *a1 = CSSourceInfoGetRange();
-  *(a1 + 8) = v2;
+  *(a1 + 8) = v4;
   Path = CSSourceInfoGetPath();
   if (Path)
   {
-    v4 = Path;
+    v6 = Path;
   }
 
   else
   {
-    v4 = &unk_240FA3A2E;
+    v6 = &unk_240FA3A2E;
   }
 
-  v5 = strlen(v4);
-  *(a1 + 16) = v4;
-  *(a1 + 24) = v5;
+  v7 = strlen(v6);
+  *(a1 + 16) = v6;
+  *(a1 + 24) = v7;
   Filename = CSSourceInfoGetFilename();
   if (Filename)
   {
-    v7 = Filename;
+    v9 = Filename;
   }
 
   else
   {
-    v7 = &unk_240FA3A2E;
+    v9 = &unk_240FA3A2E;
   }
 
-  v8 = strlen(v7);
-  *(a1 + 32) = v7;
-  *(a1 + 40) = v8;
+  v10 = strlen(v9);
+  *(a1 + 32) = v9;
+  *(a1 + 40) = v10;
   *(a1 + 48) = CSSourceInfoGetLineNumber();
   result = CSSourceInfoGetColumn();
   *(a1 + 52) = result;
@@ -8879,7 +8675,6 @@ uint64_t SourceInfo::debug(SourceInfo *this)
   printf("\t\tSource Info: ");
   if (*(this + 3))
   {
-    v2 = *(this + 2);
     printf("%s");
   }
 
@@ -8891,14 +8686,14 @@ uint64_t SourceInfo::debug(SourceInfo *this)
   return printf(":%d\n", *(this + 12));
 }
 
-_OWORD *SourceInfo::SourceInfo(_OWORD *a1)
+_OWORD *SourceInfo::SourceInfo(_OWORD *a1, uint64_t a2, uint64_t a3)
 {
   a1[1] = 0u;
   a1[2] = 0u;
   *a1 = 0u;
   if ((CSIsNull() & 1) == 0)
   {
-    SourceInfo::initializeWithCSSourceInfo(a1);
+    SourceInfo::initializeWithCSSourceInfo(a1, a2, a3);
   }
 
   return a1;
@@ -8910,7 +8705,7 @@ _OWORD *SourceInfo::SourceInfo(_OWORD *a1)
   *a1 = 0u;
   if ((CSIsNull() & 1) == 0)
   {
-    SourceInfo::initializeWithCSSourceInfo(a1);
+    SourceInfo::initializeWithCSSourceInfo(a1, a2, a3);
   }
 
   return a1;
@@ -8966,13 +8761,12 @@ void SharedCache::SharedCache(uint64_t a1, __int128 *a2)
 
 void SharedCache::SharedCache(uint64_t a1, SharedCache *this, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v5 = a3[1];
+  v4 = a3[1];
   *a1 = *a3;
-  *(a1 + 8) = v5;
-  if (v5)
+  *(a1 + 8) = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 32) = 0u;
@@ -8981,42 +8775,28 @@ void SharedCache::SharedCache(uint64_t a1, SharedCache *this, void *a3)
   *(a1 + 80) = 0u;
   *(a1 + 96) = 0u;
   *(a1 + 112) = 0;
-  v6 = *this;
-  v7 = *(this + 1);
+  v5 = *this;
+  v6 = *(this + 1);
   *(a1 + 152) = *(this + 4);
-  *(a1 + 136) = v7;
-  *(a1 + 120) = v6;
-  v8 = SharedCacheDescription::uuid(this);
-  v10 = v9;
-  *(a1 + 16) = SharedCacheSymbolicators::cachedSharedCacheSymbolicatorByUUID(v8, v9);
-  *(a1 + 24) = v11;
+  *(a1 + 136) = v6;
+  *(a1 + 120) = v5;
+  v7 = SharedCacheDescription::uuid(this);
+  *(a1 + 16) = SharedCacheSymbolicators::cachedSharedCacheSymbolicatorByUUID(v7, v8);
+  *(a1 + 24) = v9;
   if (CSIsNull())
   {
-    SharedCacheSymbolicators::createSharedCacheSymbolicatorByUUID(v8, v10);
+    SharedCacheSymbolicators::createSharedCacheSymbolicatorByUUID();
   }
 
-  v12 = *(a1 + 16);
-  v13 = *(a1 + 24);
   CSRetain();
-  v14 = *(a1 + 16);
-  v15 = *(a1 + 24);
   if ((CSIsNull() & 1) == 0)
   {
-    v16 = *(a1 + 16);
-    v17 = *(a1 + 24);
-    SharedCacheMetadata::populateWithSharedCacheSymbolicator(a1 + 32);
-    v18 = *(a1 + 16);
-    v19 = *(a1 + 24);
-    v21 = *this;
-    v22 = *(this + 1);
-    v23 = *(this + 4);
+    SharedCacheMetadata::populateWithSharedCacheSymbolicator(a1 + 32, *(a1 + 16), *(a1 + 24));
     CSSymbolicatorForeachSymbolOwnerAtTime();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240FA07C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_240FA07C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>::~unique_ptr[abi:ne200100](&a9);
   v11 = v9[12];
@@ -9045,156 +8825,151 @@ uint64_t ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>::release(uint64_t *
 {
   if (*(a1 + 16) == 1)
   {
-    v2 = *a1;
-    v3 = a1[1];
     CSRelease();
   }
 
   result = *a1;
-  v5 = a1[1];
   *a1 = 0;
   a1[1] = 0;
   return result;
 }
 
-void ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke(uint64_t a1)
+void ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v49 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
   BaseAddress = CSSymbolOwnerGetBaseAddress();
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (CFUUIDBytes)
   {
-    v5 = CFUUIDBytes;
-    v6 = SharedCacheDescription::slide((a1 + 40));
-    if (v7)
+    v7 = CFUUIDBytes;
+    v8 = SharedCacheDescription::slide((a1 + 40));
+    if (v9)
     {
-      v8 = v6;
+      v10 = v8;
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
-    LibraryDescription::LibraryDescription(&v45, v8 + BaseAddress, *v5, *(v5 + 8));
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2000000000;
-    v44 = 0;
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 0x40000000;
-    v38 = ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke_2;
-    v39 = &unk_278CC0218;
-    v40 = &v41;
+    LibraryDescription::LibraryDescription(&v46, v10 + BaseAddress, *v7, *(v7 + 8));
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x2000000000;
+    v45 = 0;
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 0x40000000;
+    v39 = ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke_2;
+    v40 = &unk_278CC0218;
+    v41 = &v42;
     CSSymbolOwnerForeachSegment();
-    LibraryDescription::setLength(&v45, v42[3] - BaseAddress);
+    LibraryDescription::setLength(&v46, v43[3] - BaseAddress);
     Path = CSSymbolOwnerGetPath();
-    v10 = Path;
+    v12 = Path;
     if (Path)
     {
-      v11 = *v2;
-      v12 = strlen(Path);
-      if (v12 >= 0x7FFFFFFFFFFFFFF8)
+      v13 = *v4;
+      v14 = strlen(Path);
+      if (v14 >= 0x7FFFFFFFFFFFFFF8)
       {
         std::string::__throw_length_error[abi:ne200100]();
       }
 
-      v13 = v12;
-      if (v12 >= 0x17)
+      v15 = v14;
+      if (v14 >= 0x17)
       {
         operator new();
       }
 
-      v33 = v12;
-      if (v12)
+      v34 = v14;
+      if (v14)
       {
-        memmove(&__p, v10, v12);
+        memmove(&__p, v12, v14);
       }
 
-      *(&__p + v13) = 0;
-      StringPool::cacheString(v11, &__p, &v34);
-      if (v33 < 0)
+      *(&__p + v15) = 0;
+      StringPool::cacheString(v13, &__p, &v35);
+      if (v34 < 0)
       {
         operator delete(__p);
       }
 
-      if (v35 == 1)
+      if (v36 == 1)
       {
-        v47 = v34;
+        v48 = v35;
       }
 
-      v14 = *(v2 + 104);
-      v15 = *(v2 + 112);
-      if (v14 >= v15)
+      v16 = *(v4 + 104);
+      v17 = *(v4 + 112);
+      if (v16 >= v17)
       {
-        v19 = *(v2 + 96);
-        v20 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v19) >> 4);
-        v21 = v20 + 1;
-        if (v20 + 1 > 0x555555555555555)
+        v21 = *(v4 + 96);
+        v22 = 0xAAAAAAAAAAAAAAABLL * ((v16 - v21) >> 4);
+        v23 = v22 + 1;
+        if (v22 + 1 > 0x555555555555555)
         {
           std::vector<_CSBinaryImageInformation>::__throw_length_error[abi:ne200100]();
         }
 
-        v22 = 0xAAAAAAAAAAAAAAABLL * ((v15 - v19) >> 4);
-        if (2 * v22 > v21)
+        v24 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v21) >> 4);
+        if (2 * v24 > v23)
         {
-          v21 = 2 * v22;
+          v23 = 2 * v24;
         }
 
-        if (v22 >= 0x2AAAAAAAAAAAAAALL)
+        if (v24 >= 0x2AAAAAAAAAAAAAALL)
         {
-          v23 = 0x555555555555555;
+          v25 = 0x555555555555555;
         }
 
         else
         {
-          v23 = v21;
+          v25 = v23;
         }
 
-        if (v23)
+        if (v25)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<StackshotLibraryDescription>>(v2 + 96, v23);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<StackshotLibraryDescription>>(v4 + 96, v25);
         }
 
-        v24 = 48 * v20;
-        v25 = v45;
-        v26 = v47;
-        *(v24 + 16) = v46;
-        *(v24 + 32) = v26;
-        *v24 = v25;
-        v18 = 48 * v20 + 48;
-        v27 = *(v2 + 96);
-        v28 = *(v2 + 104) - v27;
-        v29 = v24 - v28;
-        memcpy((v24 - v28), v27, v28);
-        v30 = *(v2 + 96);
-        *(v2 + 96) = v29;
-        *(v2 + 104) = v18;
-        *(v2 + 112) = 0;
-        if (v30)
+        v26 = 48 * v22;
+        v27 = v46;
+        v28 = v48;
+        *(v26 + 16) = v47;
+        *(v26 + 32) = v28;
+        *v26 = v27;
+        v20 = 48 * v22 + 48;
+        v29 = *(v4 + 96);
+        v30 = *(v4 + 104) - v29;
+        v31 = v26 - v30;
+        memcpy((v26 - v30), v29, v30);
+        v32 = *(v4 + 96);
+        *(v4 + 96) = v31;
+        *(v4 + 104) = v20;
+        *(v4 + 112) = 0;
+        if (v32)
         {
-          operator delete(v30);
+          operator delete(v32);
         }
       }
 
       else
       {
-        v16 = v45;
-        v17 = v47;
-        v14[1] = v46;
-        v14[2] = v17;
-        *v14 = v16;
-        v18 = (v14 + 3);
+        v18 = v46;
+        v19 = v48;
+        v16[1] = v47;
+        v16[2] = v19;
+        *v16 = v18;
+        v20 = (v16 + 3);
       }
 
-      *(v2 + 104) = v18;
+      *(v4 + 104) = v20;
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v42, 8);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240FA0C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -9208,17 +8983,17 @@ void sub_240FA0C34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke_2(uint64_t a1)
+uint64_t ___ZN11SharedCacheC2E22SharedCacheDescriptionRKNSt3__110shared_ptrI10StringPoolEE_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = CSRegionGetRange();
-  v3 = *(*(a1 + 32) + 8);
-  v5 = result + v4;
-  if (*(v3 + 24) > (result + v4))
+  v5 = *(*(a1 + 32) + 8);
+  v7 = result + v6;
+  if (*(v5 + 24) > (result + v6))
   {
-    v5 = *(v3 + 24);
+    v7 = *(v5 + 24);
   }
 
-  *(v3 + 24) = v5;
+  *(v5 + 24) = v7;
   return result;
 }
 
@@ -9237,12 +9012,8 @@ uint64_t SharedCache::SharedCache(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a1 + 24) = a3;
   if ((CSIsNull() & 1) == 0)
   {
-    v7 = *(a1 + 16);
-    v8 = *(a1 + 24);
     CSRetain();
-    v9 = *(a1 + 16);
-    v10 = *(a1 + 24);
-    SharedCacheMetadata::populateWithSharedCacheSymbolicator(v6);
+    SharedCacheMetadata::populateWithSharedCacheSymbolicator(v6, *(a1 + 16), *(a1 + 24));
   }
 
   return a1;
@@ -9261,7 +9032,7 @@ void sub_240FA0D3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t SharedCache::SharedCache(uint64_t a1, __n128 *a2)
+__n128 *SharedCache::SharedCache(uint64_t a1, __n128 *a2)
 {
   *(a1 + 112) = 0;
   *(a1 + 80) = 0u;
@@ -9288,17 +9059,17 @@ void sub_240FA0DBC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t SharedCache::operator=(uint64_t a1, __n128 *a2)
+__n128 *SharedCache::operator=(__n128 *a1, __n128 *a2)
 {
   if (a1 != a2)
   {
-    SharedCacheMetadata::operator=(a1 + 32, &a2[2]);
-    std::vector<AOTImage>::__move_assign(a1 + 96, a2 + 6);
-    *(a1 + 16) = a2[1];
+    SharedCacheMetadata::operator=(&a1[2], &a2[2]);
+    std::vector<AOTImage>::__move_assign(&a1[6], a2 + 6);
+    a1[1] = a2[1];
     v4 = *a2;
     a2->n128_u64[0] = 0;
     a2->n128_u64[1] = 0;
-    v5 = *(a1 + 8);
+    v5 = a1->n128_u64[1];
     *a1 = v4;
     if (v5)
     {
@@ -9359,10 +9130,8 @@ __int128 *SharedCache::operator=(__int128 *a1, __int128 *a2)
       std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
-    v7 = *(a2 + 2);
-    v8 = *(a2 + 3);
     *(a1 + 2) = CSRetain();
-    *(a1 + 3) = v9;
+    *(a1 + 3) = v7;
   }
 
   return a1;
@@ -9413,30 +9182,28 @@ uint64_t SharedCacheMetadata::operator=(uint64_t a1, __int128 *a2)
 
 void SharedCache::~SharedCache(SharedCache *this)
 {
-  v2 = *(this + 2);
-  v3 = *(this + 3);
   CSRelease();
-  v4 = *(this + 12);
+  v2 = *(this + 12);
+  if (v2)
+  {
+    *(this + 13) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 11);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  v4 = *(this + 1);
   if (v4)
   {
-    *(this + 13) = v4;
-    operator delete(v4);
-  }
-
-  v5 = *(this + 11);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-
-  v6 = *(this + 1);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 }
 
-void *std::vector<LibraryDescription>::__assign_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<LibraryDescription>::__assign_with_size[abi:ne200100]<LibraryDescription*,LibraryDescription*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -9547,40 +9314,38 @@ double SharedLibraryMetadata::SharedLibraryMetadata(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SharedLibraryMetadata::SharedLibraryMetadata(uint64_t a1, __int128 *a2)
+uint64_t SharedLibraryMetadata::SharedLibraryMetadata(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  v5 = *a2;
+  *a2 = 0uLL;
   *(a1 + 72) = 0;
   *(a1 + 76) = 0;
   *(a1 + 84) = 0;
-  *a1 = v3;
+  *a1 = v5;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0;
   *(a1 + 96) = 0u;
   *(a1 + 112) = 0u;
-  SharedLibraryMetadata::initializeWithCSSymbolOwner(a1);
+  SharedLibraryMetadata::initializeWithCSSymbolOwner(a1, a3, a4);
   return a1;
 }
 
 {
-  v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  v5 = *a2;
+  *a2 = 0uLL;
   *(a1 + 72) = 0;
   *(a1 + 76) = 0;
   *(a1 + 84) = 0;
-  *a1 = v3;
+  *a1 = v5;
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0;
   *(a1 + 96) = 0u;
   *(a1 + 112) = 0u;
-  SharedLibraryMetadata::initializeWithCSSymbolOwner(a1);
+  SharedLibraryMetadata::initializeWithCSSymbolOwner(a1, a3, a4);
   return a1;
 }
 
@@ -9595,7 +9360,7 @@ void sub_240FA12B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-size_t SharedLibraryMetadata::initializeWithCSSymbolOwner(uint64_t a1)
+size_t SharedLibraryMetadata::initializeWithCSSymbolOwner(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   CFUUIDBytes = CSSymbolOwnerGetCFUUIDBytes();
   if (CFUUIDBytes)
@@ -9607,16 +9372,16 @@ size_t SharedLibraryMetadata::initializeWithCSSymbolOwner(uint64_t a1)
   Path = CSSymbolOwnerGetPath();
   if (Path)
   {
-    v4 = Path;
+    v6 = Path;
   }
 
   else
   {
-    v4 = &unk_240FA3A2E;
+    v6 = &unk_240FA3A2E;
   }
 
-  result = strlen(v4);
-  *(a1 + 48) = v4;
+  result = strlen(v6);
+  *(a1 + 48) = v6;
   *(a1 + 56) = result;
   return result;
 }
@@ -9646,8 +9411,7 @@ uint64_t SharedLibraryMetadata::debug(SharedLibraryMetadata *this)
     v3 = 0;
   }
 
-  SharedLibraryMetadata::uuidString(this, &v8);
-  v4 = *(this + 11);
+  SharedLibraryMetadata::uuidString(&v7, this);
   printf("\tPath: ");
   if (v2)
   {
@@ -9660,51 +9424,51 @@ uint64_t SharedLibraryMetadata::debug(SharedLibraryMetadata *this)
   }
 
   printf("\tUUID: ");
-  if (v9 == 1)
+  if (v8 == 1)
   {
-    v5 = v8;
+    v4 = v7;
   }
 
   else
   {
-    v5 = "<null>";
+    v4 = "<null>";
   }
 
-  printf("%s", v5);
+  printf("%s", v4);
   FamilyName = CSArchitectureGetFamilyName();
   return printf("\tArch: %s\n", FamilyName);
 }
 
-uint64_t SharedLibraryMetadata::path@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *SharedLibraryMetadata::path@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 56);
+  v2 = this[7];
   if (v2)
   {
-    *a2 = *(this + 48);
+    *a1 = *(this + 3);
     LOBYTE(v2) = 1;
   }
 
   else
   {
-    *a2 = 0;
+    *a1 = 0;
   }
 
-  *(a2 + 16) = v2;
+  *(a1 + 16) = v2;
   return this;
 }
 
-void SharedLibraryMetadata::uuidString(SharedLibraryMetadata *this@<X0>, uint64_t a2@<X8>)
+void SharedLibraryMetadata::uuidString(uint64_t *__return_ptr a1@<X8>, SharedLibraryMetadata *this@<X0>)
 {
   if (*(this + 5))
   {
-    *a2 = *(this + 2);
+    *a1 = *(this + 2);
     v4 = 1;
 LABEL_13:
-    *(a2 + 16) = v4;
+    *(a1 + 16) = v4;
     return;
   }
 
-  UUID::uuidString((this + 1), __p);
+  UUID::uuidString(__p, (this + 1));
   if (v12)
   {
     StringPool::cacheString(*this, __p, &v8);
@@ -9713,8 +9477,8 @@ LABEL_13:
     {
       v6 = v8;
       *(this + 2) = v8;
-      *a2 = v6;
-      *(a2 + 16) = 1;
+      *a1 = v6;
+      *(a1 + 16) = 1;
     }
 
     v7 = v5 ^ 1;
@@ -9727,14 +9491,14 @@ LABEL_13:
   else
   {
     v7 = 0;
-    *a2 = 0;
-    *(a2 + 16) = 0;
+    *a1 = 0;
+    *(a1 + 16) = 0;
   }
 
   if (v7)
   {
     v4 = 0;
-    *a2 = 0;
+    *a1 = 0;
     goto LABEL_13;
   }
 }
@@ -9803,62 +9567,58 @@ void Process::Process(uint64_t a1, void **a2)
 
 void KernelSymbolicator::kernelSymbolicatorPtr()
 {
-  if (__cxa_guard_acquire(&qword_27E51E2D8))
+  if (__cxa_guard_acquire(byte_27E51E2D8))
   {
     __cxa_atexit(std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>::~unique_ptr[abi:ne200100], &_MergedGlobals, &dword_240F85000);
 
-    __cxa_guard_release(&qword_27E51E2D8);
+    __cxa_guard_release(byte_27E51E2D8);
   }
 }
 
-void SymbolicationSession::sharedLibraryWithCSSymbolOwner(uint64_t *a1)
+void SymbolicationSession::sharedLibraryWithCSSymbolOwner()
 {
-  OUTLINED_FUNCTION_0(a1, *MEMORY[0x277D85DE8]);
-  v4 = 136315138;
-  v5 = v1;
-  _os_log_debug_impl(&dword_240F85000, v2, OS_LOG_TYPE_DEBUG, "Failed to store shared library with UUID %s", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(*MEMORY[0x277D85DE8]);
+  v2 = 136315138;
+  v3 = v0;
+  _os_log_debug_impl(&dword_240F85000, v1, OS_LOG_TYPE_DEBUG, "Failed to store shared library with UUID %s", &v2, 0xCu);
 }
 
-void SymbolicationSession::sharedLibraryWithUUIDAndPath(uint64_t *a1)
+void SymbolicationSession::sharedLibraryWithUUIDAndPath()
 {
-  OUTLINED_FUNCTION_0(a1, *MEMORY[0x277D85DE8]);
-  v5 = 136315394;
+  OUTLINED_FUNCTION_0(*MEMORY[0x277D85DE8]);
+  v3 = 136315394;
+  v4 = v0;
+  v5 = 2080;
   v6 = v1;
-  v7 = 2080;
-  v8 = v2;
-  _os_log_debug_impl(&dword_240F85000, v3, OS_LOG_TYPE_DEBUG, "Failed to store shared library with UUID %s, path %s", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_240F85000, v2, OS_LOG_TYPE_DEBUG, "Failed to store shared library with UUID %s, path %s", &v3, 0x16u);
 }
 
 void SymbolicationSession::collectLiveLibraryDescriptionsForPid(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_240F85000, a2, OS_LOG_TYPE_DEBUG, "Failed to acquire live library info for pid %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_240F85000, a2, OS_LOG_TYPE_DEBUG, "Failed to acquire live library info for pid %d", v2, 8u);
 }
 
 void SymbolicationSession::addNewProcessWithDataProvider<Stackshot>(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_240F85000, a2, OS_LOG_TYPE_ERROR, "Failed to create Process representation for pid %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_240F85000, a2, OS_LOG_TYPE_ERROR, "Failed to create Process representation for pid %d", v2, 8u);
 }
 
 void SharedCacheSymbolicators::sharedCacheSymbolicatorMap()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     *algn_27E51E330 = 0u;
     xmmword_27E51E320 = 0u;
     dword_27E51E340 = 1065353216;
     __cxa_atexit(std::unordered_map<UUID,std::unique_ptr<ScopeGuard<_CSTypeRef,ScopeGuardPolicy<_CSTypeRef>>>>::~unordered_map[abi:ne200100], &xmmword_27E51E320, &dword_240F85000);
 
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 }
 

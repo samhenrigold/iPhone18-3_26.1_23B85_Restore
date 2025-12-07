@@ -3,7 +3,7 @@
 
 @implementation NSIndexSet
 
-uint64_t __60__NSIndexSet_TSUAdditions__tsu_intersectsIndexesInIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__60__NSIndexSet_TSUAdditions__tsu_intersectsIndexesInIndexSet___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) intersectsIndexesInRange:{a2, a3}];
   if (result)
@@ -15,7 +15,7 @@ uint64_t __60__NSIndexSet_TSUAdditions__tsu_intersectsIndexesInIndexSet___block_
   return result;
 }
 
-uint64_t __66__NSIndexSet_TSUAdditions__tsu_indexSetByIntersectingWithIndexes___block_invoke(uint64_t a1, uint64_t a2)
+void *__66__NSIndexSet_TSUAdditions__tsu_indexSetByIntersectingWithIndexes___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)
@@ -28,7 +28,7 @@ uint64_t __66__NSIndexSet_TSUAdditions__tsu_indexSetByIntersectingWithIndexes___
   return result;
 }
 
-uint64_t __59__NSIndexSet_TSUAdditions__tsu_indexSetByExcludingIndexes___block_invoke(uint64_t a1, uint64_t a2)
+void *__59__NSIndexSet_TSUAdditions__tsu_indexSetByExcludingIndexes___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)
@@ -110,7 +110,7 @@ NSUInteger __53__NSIndexSet_TSUAdditions__tsu_trailingRangeInRange___block_invok
   return v6.location;
 }
 
-uint64_t __52__NSIndexSet_TSUAdditions__tsu_localizedDescription__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void *__52__NSIndexSet_TSUAdditions__tsu_localizedDescription__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   if (a3 < 3)
   {
@@ -127,7 +127,7 @@ uint64_t __52__NSIndexSet_TSUAdditions__tsu_localizedDescription__block_invoke(u
 
   else
   {
-    v6 = [SFUBundle() localizedStringForKey:@"TSU_UNSIGNED_INTEGER_RANGE" value:@"%1$lu to %2$lu" table:@"TSUtility"];
+    v6 = [SFUBundle(a1 a2)];
     v7 = *(a1 + 32);
     v8 = [MEMORY[0x277CCACA8] localizedStringWithFormat:v6, a2 + 1, a2 + a3];
     v9 = v7;

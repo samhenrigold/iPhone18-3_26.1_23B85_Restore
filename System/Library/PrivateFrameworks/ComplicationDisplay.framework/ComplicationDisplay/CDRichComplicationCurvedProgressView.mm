@@ -1,5 +1,6 @@
 @interface CDRichComplicationCurvedProgressView
 - (CDRichComplicationCurvedProgressView)initWithFamily:(int64_t)family curveWidth:(double)width padding:(double)padding beginAngle:(double)angle endAngle:(double)endAngle forDevice:(id)device withFilterStyle:(int64_t)style progressFillStyle:(int64_t)self0;
+- (id)colorForView:(id)view accented:(BOOL)accented;
 - (id)filterForView:(id)view style:(int64_t)style;
 - (id)filterForView:(id)view style:(int64_t)style fraction:(double)fraction;
 - (id)filtersForView:(id)view style:(int64_t)style;
@@ -7,6 +8,7 @@
 - (id)overrideBackgroundGradientColorsForGradientColors:(id)colors;
 - (id)overrideBackgroundGradientColorsForGradientColors:(id)colors locations:(id)locations;
 - (void)setBeginAngle:(double)angle;
+- (void)setClockwise:(BOOL)clockwise;
 - (void)setEndAngle:(double)angle;
 - (void)setProgress:(double)progress;
 @end
@@ -25,34 +27,33 @@
   angleCopy = angle;
   endAngleCopy = endAngle;
   v19 = deviceCopy;
-  v30 = v19;
+  v29 = v19;
   styleCopy = style;
   v20 = _Block_copy(aBlock);
   if (fillStyle <= 7 && ((0xFDu >> fillStyle) & 1) != 0)
   {
-    v21 = *off_278DF35E0[fillStyle];
-    v22 = objc_opt_class();
+    v21 = objc_opt_class();
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
   self->_progressFillStyle = fillStyle;
-  v23 = v20[2](v20, v22);
-  v24 = v20[2](v20, v22);
-  v28.receiver = self;
-  v28.super_class = CDRichComplicationCurvedProgressView;
-  v25 = [(CDRichComplicationProgressView *)&v28 initForFamily:family device:v19 backgroundShapeView:v23 foregroundShapeView:v24];
-  v26 = v25;
-  if (v25)
+  v22 = v20[2](v20, v21);
+  v23 = v20[2](v20, v21);
+  v27.receiver = self;
+  v27.super_class = CDRichComplicationCurvedProgressView;
+  v24 = [(CDRichComplicationProgressView *)&v27 initForFamily:family device:v19 backgroundShapeView:v22 foregroundShapeView:v23];
+  v25 = v24;
+  if (v24)
   {
-    objc_storeStrong(v25 + 67, v23);
-    objc_storeStrong(&v26->_foregroundView, v24);
+    objc_storeStrong(v24 + 67, v22);
+    objc_storeStrong(&v25->_foregroundView, v23);
   }
 
-  return v26;
+  return v25;
 }
 
 id __138__CDRichComplicationCurvedProgressView_initWithFamily_curveWidth_padding_beginAngle_endAngle_forDevice_withFilterStyle_progressFillStyle___block_invoke(uint64_t a1, Class a2)
@@ -76,6 +77,16 @@ id __138__CDRichComplicationCurvedProgressView_initWithFamily_curveWidth_padding
   self->_endAngle = angle;
   [(CDRichComplicationCurveView *)self->_backgroundView setEndAngle:?];
   [(CDRichComplicationCurveView *)self->_foregroundView setEndAngle:angle];
+
+  [(CDRichComplicationCurvedProgressView *)self setNeedsLayout];
+}
+
+- (void)setClockwise:(BOOL)clockwise
+{
+  clockwiseCopy = clockwise;
+  self->_clockwise = clockwise;
+  [(CDRichComplicationCurveView *)self->_backgroundView setClockwise:?];
+  [(CDRichComplicationCurveView *)self->_foregroundView setClockwise:clockwiseCopy];
 
   [(CDRichComplicationCurvedProgressView *)self setNeedsLayout];
 }
@@ -163,6 +174,16 @@ id __138__CDRichComplicationCurvedProgressView_initWithFamily_curveWidth_padding
   v7 = [filterProvider filterForView:self style:style];
 
   return v7;
+}
+
+- (id)colorForView:(id)view accented:(BOOL)accented
+{
+  accentedCopy = accented;
+  viewCopy = view;
+  filterProvider = [(CDRichComplicationProgressView *)self filterProvider];
+  v8 = [filterProvider colorForView:viewCopy accented:accentedCopy];
+
+  return v8;
 }
 
 @end

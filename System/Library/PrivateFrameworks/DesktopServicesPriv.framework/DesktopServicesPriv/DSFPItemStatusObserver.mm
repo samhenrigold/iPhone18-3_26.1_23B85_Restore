@@ -362,17 +362,15 @@ LABEL_13:
 
   if (TNode::IsContextOpen(isGathering))
   {
-    TNodeFromFINode(*(selfCopy + 1));
+    v47 = TNodeFromFINode(*(selfCopy + 1));
     *&buf[16] = 0;
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
     *&buf[16] = 21;
     *buf = 0x800000;
-    TNode::RequestInternalTask();
+    TNode::RequestInternalTask(v47, 1000, buf, 0);
   }
 
   std::mutex::unlock((self + 40));
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_invoke_34(uint64_t a1)
@@ -394,7 +392,7 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
 
 - (void)stopObserving
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   std::mutex::lock((self + 40));
   v3 = LogObj(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -411,9 +409,9 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
 
     os_unfair_lock_unlock(v5);
     TFSInfo::dCPath(v7, 1, __p);
-    v21.fString.fRef = &stru_1F5F42870;
+    v20.fString.fRef = &stru_1F5F42870;
     CFRetain(&stru_1F5F42870);
-    if ((v20 & 0x80u) == 0)
+    if ((v19 & 0x80u) == 0)
     {
       v8 = __p;
     }
@@ -423,9 +421,9 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
       v8 = __p[0];
     }
 
-    if ((v20 & 0x80u) == 0)
+    if ((v19 & 0x80u) == 0)
     {
-      v9 = v20;
+      v9 = v19;
     }
 
     else
@@ -433,13 +431,13 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
       v9 = __p[1];
     }
 
-    TString::SetFromUTF8(&v21, v8, v9);
-    v10 = SanitizedPath(&v21);
+    TString::SetFromUTF8(&v20, v8, v9);
+    v10 = SanitizedPath(&v20);
     *buf = 138543362;
-    v23 = v10;
+    v22 = v10;
     _os_log_impl(&dword_1E5674000, v3, OS_LOG_TYPE_DEBUG, "DSFPItemStatusObserver stop for %{public}@", buf, 0xCu);
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v21.fString.fRef);
-    if (v20 < 0)
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v20.fString.fRef);
+    if (v19 < 0)
     {
       operator delete(__p[0]);
     }
@@ -464,7 +462,7 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
       block[2] = __39__DSFPItemStatusObserver_stopObserving__block_invoke;
       block[3] = &__block_descriptor_40_ea8_32c53_ZTSKZ39__DSFPItemStatusObserver_stopObserving_E4__11_e5_v8__0l;
       v15 = *(self + 3);
-      v18 = v15;
+      v17 = v15;
       dispatch_async(workingQueue, block);
 
       [*(self + 3) setDelegate:0];
@@ -473,7 +471,6 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
   }
 
   std::mutex::unlock((self + 40));
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateFPItems:(id)items
@@ -547,11 +544,11 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
     v17 = (v15 & 0xFE) == 0x18 ? v16 : 0;
     if (v17 == 1)
     {
-      TNodeFromFINode(v12->fFINode);
+      v18 = TNodeFromFINode(*v12);
       __p = 0;
       v41 = 0;
       v42 = 0;
-      TNode::RequestInternalTask();
+      TNode::RequestInternalTask(v18, 1000, &__p, 0);
     }
   }
 
@@ -562,46 +559,46 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
     v42 = 0;
     TNode::StPopulating::StPopulating(buf, v12, 0);
     v31 = (self + 8);
-    v18 = *(TNodeFromFINode(v12->fFINode) + 56);
+    v19 = *(TNodeFromFINode(*v12) + 56);
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     obj = itemsCopy;
-    v19 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
-    if (!v19)
+    v20 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+    if (!v20)
     {
       goto LABEL_36;
     }
 
-    v20 = *v37;
+    v21 = *v37;
     while (1)
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v37 != v20)
+        if (*v37 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * i);
-        itemIdentifier = [v22 itemIdentifier];
+        v23 = *(*(&v36 + 1) + 8 * i);
+        itemIdentifier = [v23 itemIdentifier];
         if (operator==(self + 2, itemIdentifier))
         {
-          domainIdentifier = [v22 domainIdentifier];
+          domainIdentifier = [v23 domainIdentifier];
           v34.fString.fRef = &stru_1F5F42870;
           CFRetain(&stru_1F5F42870);
           TString::SetStringRefAsImmutable(&v34, domainIdentifier);
 
           fpItem = [*v31 fpItem];
           domainIdentifier2 = [fpItem domainIdentifier];
-          v27 = operator==(&v34.fString.fRef, domainIdentifier2);
+          v28 = operator==(&v34.fString.fRef, domainIdentifier2);
 
           TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v34.fString.fRef);
-          if (v27)
+          if (v28)
           {
             v34.fString.fRef = *v31;
-            v35 = v22;
+            v35 = v23;
             std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::push_back[abi:ne200100](&__p, &v34);
 
             continue;
@@ -612,17 +609,17 @@ void __61__DSFPItemStatusObserver_startObserving_forParent_withQueue___block_inv
         {
         }
 
-        TChildrenList::FindNodeMatchingFPItem(v18, v22, &v33);
+        TChildrenList::FindNodeMatchingFPItem(v19, v23, &v33);
         if (TNodeFromFINode(v33))
         {
           v34.fString.fRef = v33;
-          v35 = v22;
+          v35 = v23;
           std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::push_back[abi:ne200100](&__p, &v34);
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
-      if (!v19)
+      v20 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+      if (!v20)
       {
 LABEL_36:
 
@@ -634,13 +631,11 @@ LABEL_36:
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection didUpdateObservedItem:(id)item
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v6 = LogObj(4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -656,13 +651,13 @@ LABEL_36:
     }
 
     os_unfair_lock_unlock(v8);
-    TFSInfo::Name(v10, &v18);
+    TFSInfo::Name(v10, &v17);
     if (v9)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    v11 = SanitizedStr(&v18);
+    v11 = SanitizedStr(&v17);
     isGathering = [*(self + 3) isGathering];
     v13 = "no";
     if (isGathering)
@@ -675,7 +670,7 @@ LABEL_36:
     *&buf[12] = 2082;
     *&buf[14] = v13;
     _os_log_impl(&dword_1E5674000, v6, OS_LOG_TYPE_INFO, "didUpdateObservedItem - parent: %{public}@, gathering: %{public}s", buf, 0x16u);
-    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v18.fString.fRef);
+    TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v17.fString.fRef);
   }
 
   if (TNode::IsContextOpen(v14))
@@ -689,16 +684,14 @@ LABEL_36:
       }
     }
 
-    v18.fString.fRef = *(self + 1);
-    v19 = itemCopy;
+    v17.fString.fRef = *(self + 1);
+    v18 = itemCopy;
     memset(buf, 0, sizeof(buf));
-    std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::__init_with_size[abi:ne200100]<std::pair<TNodePtr,FPItem * {__strong}> const*,std::pair<TNodePtr,FPItem * {__strong}> const*>(buf, &v18, buf, 1uLL);
+    std::vector<std::pair<TNodePtr,FPItem * {__strong}>>::__init_with_size[abi:ne200100]<std::pair<TNodePtr,FPItem * {__strong}> const*,std::pair<TNodePtr,FPItem * {__strong}> const*>(buf, &v17, buf, 1uLL);
     TNode::AttachFPItemsMetadata(buf, 1, 1);
-    v17 = buf;
-    std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&v17);
+    v16 = buf;
+    std::vector<std::pair<TNodePtr,TNodePtr>>::__destroy_vector::operator()[abi:ne200100](&v16);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collectionDidFinishGathering:(id)gathering
@@ -748,27 +741,25 @@ LABEL_36:
   {
     v15 = TNodeFromFINode(*(self + 1));
     IsPopulated = TNode::IsPopulated(v15);
-    TNodeFromFINode(*(self + 1));
+    v17 = TNodeFromFINode(*(self + 1));
     if (IsPopulated)
     {
-      v17 = 0x1000000;
+      v18 = 0x1000000;
     }
 
     else
     {
-      v17 = 20971520;
+      v18 = 20971520;
     }
 
     *(&v23 + 2) = 0;
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
     *(&v23 + 2) = 21;
-    *buf = v17;
-    TNode::RequestInternalTask();
+    *buf = v18;
+    TNode::RequestInternalTask(v17, 1000, buf, 0);
   }
 
   std::unique_ptr<AutoSignpostInterval_FPProvider_Gathering>::reset[abi:ne200100](self + 14, 0);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dataForCollectionShouldBeReloaded:(id)reloaded
@@ -816,15 +807,13 @@ LABEL_36:
 
   if (TNode::IsContextOpen(v14))
   {
-    TNodeFromFINode(*(self + 1));
+    v15 = TNodeFromFINode(*(self + 1));
     *(&v20 + 2) = 0;
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
     *(&v20 + 2) = 21;
     *buf = 256;
-    TNode::RequestInternalTask();
+    TNode::RequestInternalTask(v15, 1000, buf, 0);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateNodesFPItemsFromCollection:(const void *)collection
@@ -834,12 +823,12 @@ LABEL_36:
 
   if (TNode::IsContextOpen(v5))
   {
-    TNodeFromFINode(*(self + 1));
-    v6.fData.__impl_.__index = 0;
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v6);
-    v6.fData.__impl_.__index = 21;
-    v6.fData.__impl_.__data.__tail.__tail.__tail.__tail.__head.__value = 256;
-    TNode::RequestInternalTask();
+    v6 = TNodeFromFINode(*(self + 1));
+    v7.fData.__impl_.__index = 0;
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v7);
+    v7.fData.__impl_.__index = 21;
+    v7.fData.__impl_.__data.__tail.__tail.__tail.__tail.__head.__value = 256;
+    TNode::RequestInternalTask(v6, 1000, &v7, 0);
   }
 }
 
@@ -892,15 +881,13 @@ LABEL_36:
   v21 = [itemsCopy count];
   if ((v21 || (v21 = [dsCopy count]) != 0) && TNode::IsContextOpen(v21))
   {
-    TNodeFromFINode(*(self + 1));
+    v22 = TNodeFromFINode(*(self + 1));
     *(&v27 + 2) = 0;
     std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,BOOL,unsigned char,short,int,long long,unsigned int,double,Point,Blob,NSObject * {__strong},TString,TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>,TRef<__CFNumber const*,TRetainReleasePolicy<__CFNumber const*>>,TRef<__CFData const*,TRetainReleasePolicy<__CFData const*>>,TRef<__CFDictionary const*,TRetainReleasePolicy<__CFDictionary const*>>,TRef<__CFURL const*,TRetainReleasePolicy<__CFURL const*>>,TRef<__CFArray const*,TRetainReleasePolicy<__CFArray const*>>,TRef<__CFFileSecurity *,TRetainReleasePolicy<__CFFileSecurity *>>,TRef<TReferenceCounted *,TRetainReleasePolicy<TReferenceCounted *>>,Property,NodeRequestOptions,NodeDSStoreStatus,DSBladeRunnerFlags>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](buf);
     *(&v27 + 2) = 21;
     *buf = 256;
-    TNode::RequestInternalTask();
+    TNode::RequestInternalTask(v22, 1000, buf, 0);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collection:(id)collection didEncounterError:(id)error
@@ -979,15 +966,13 @@ LABEL_36:
 
     if (IsContextOpen)
     {
-      TNodeFromFINode(*(selfCopy + 1));
+      v20 = TNodeFromFINode(*(selfCopy + 1));
       memset(v21, 0, 24);
-      TNode::RequestInternalTask();
+      TNode::RequestInternalTask(v20, 1028, v21, 0);
     }
   }
 
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetError
@@ -1000,9 +985,9 @@ LABEL_17:
   objc_sync_exit(selfCopy);
   if (v3)
   {
-    TNodeFromFINode(*(selfCopy + 1));
-    memset(&v4, 0, sizeof(v4));
-    TNode::RequestInternalTask();
+    v4 = TNodeFromFINode(*(selfCopy + 1));
+    memset(&v5, 0, sizeof(v5));
+    TNode::RequestInternalTask(v4, 1028, &v5, 0);
   }
 }
 

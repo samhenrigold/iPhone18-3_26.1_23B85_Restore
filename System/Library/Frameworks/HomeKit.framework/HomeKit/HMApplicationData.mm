@@ -95,7 +95,7 @@
 
 + (void)validateObject:(uint64_t)object
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   v4 = v2;
@@ -114,21 +114,21 @@
 
   if (v6)
   {
-    v31 = 0u;
-    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v28;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
@@ -136,7 +136,7 @@
           [(HMApplicationData *)v3 validateObject:?];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v9);
@@ -161,41 +161,40 @@
 
     if (v7)
     {
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __36__HMApplicationData_validateObject___block_invoke;
-      v26[3] = &unk_1E7547980;
-      v27 = v12;
-      v28 = v3;
-      [v7 enumerateKeysAndObjectsUsingBlock:v26];
-      v14 = v27;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __36__HMApplicationData_validateObject___block_invoke;
+      v24[3] = &unk_1E7547980;
+      v25 = v12;
+      v26 = v3;
+      [v7 enumerateKeysAndObjectsUsingBlock:v24];
+      v14 = v25;
     }
 
     else
     {
       [objc_opt_class() allowedObjectClasses];
+      v20 = 0u;
+      v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v14 = v25 = 0u;
-      v15 = [v14 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      v14 = v23 = 0u;
+      v15 = [v14 countByEnumeratingWithState:&v20 objects:v31 count:16];
       if (!v15)
       {
         goto LABEL_26;
       }
 
       v16 = v15;
-      v17 = *v23;
+      v17 = *v21;
 LABEL_20:
       v18 = 0;
       while (1)
       {
-        if (*v23 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v22 + 1) + 8 * v18);
         if (objc_opt_isKindOfClass())
         {
           break;
@@ -203,14 +202,14 @@ LABEL_20:
 
         if (v16 == ++v18)
         {
-          v16 = [v14 countByEnumeratingWithState:&v22 objects:v33 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v20 objects:v31 count:16];
           if (!v16)
           {
 LABEL_26:
 
-            [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported data type %@ - allowed %@", objc_opt_class(), v14, v22];
-            v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-            objc_exception_throw(v20);
+            [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported data type %@ - allowed %@", objc_opt_class(), v14, v20];
+            v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+            objc_exception_throw(v19);
           }
 
           goto LABEL_20;
@@ -218,21 +217,18 @@ LABEL_26:
       }
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __36__HMApplicationData_validateObject___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v7 = a2;
   v5 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v6 = *(a1 + 32);
     [MEMORY[0x1E696AEC0] stringWithFormat:@"Unsupported dictionary key type %@, must be NSString", objc_opt_class()];
-    v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-    objc_exception_throw(v7);
+    v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+    objc_exception_throw(v6);
   }
 
   [(HMApplicationData *)*(a1 + 40) validateObject:v5];
@@ -312,20 +308,18 @@ void __36__HMApplicationData_validateObject___block_invoke(uint64_t a1, void *a2
 
 void __41__HMApplicationData_allowedObjectClasses__block_invoke()
 {
-  v5[6] = *MEMORY[0x1E69E9840];
+  v4[6] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:6];
   v2 = [v0 setWithArray:v1];
   v3 = allowedObjectClasses__hmf_once_v1;
   allowedObjectClasses__hmf_once_v1 = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

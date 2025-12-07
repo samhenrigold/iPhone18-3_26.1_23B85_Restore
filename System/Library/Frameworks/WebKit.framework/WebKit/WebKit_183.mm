@@ -624,7 +624,7 @@ LABEL_108:
   v53 = v87;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v87, *a2);
   IPC::VectorArgumentCoder<false,WTF::String,0ul,WTF::CrashOnOverflow,16ul>::encode<IPC::Encoder,WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>(v53, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v52, v88, &v87, 0, &v84, v9);
+  result = IPC::Connection::sendSyncMessage(&v84, v52, v88, &v87, 0, v9);
   if (v85)
   {
     if (v85 == 1)
@@ -1210,7 +1210,7 @@ LABEL_77:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v87, *a2);
   IPC::ArgumentCoder<std::span<float const,18446744073709551615ul>,void>::encode<IPC::Encoder>(v54, **(a2 + 8), *(*(a2 + 8) + 12));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v54, *(a2 + 16));
-  result = IPC::Connection::sendSyncMessage(v53, v88, &v87, 0, &v84, v9);
+  result = IPC::Connection::sendSyncMessage(&v84, v53, v88, &v87, 0, v9);
   if (v85)
   {
     if (v85 == 1)
@@ -1775,7 +1775,7 @@ LABEL_99:
   v48 = v79;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
   IPC::ArgumentCoder<WTF::String,void>::encode<IPC::Encoder>(v48, *(a2 + 8));
-  result = IPC::Connection::sendSyncMessage(v47, v80, &v79, 0, &v82, v9);
+  result = IPC::Connection::sendSyncMessage(&v82, v47, v80, &v79, 0, v9);
   if (v83)
   {
     if (v83 != 1)
@@ -2175,7 +2175,7 @@ LABEL_94:
   v66 = v86;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v86, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v66, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v65, v87, &v86, 0, &v84, v9);
+  result = IPC::Connection::sendSyncMessage(&v84, v65, v87, &v86, 0, v9);
   if (v85)
   {
     if (v85 != 1)
@@ -2797,7 +2797,7 @@ LABEL_96:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v72, *(a2 + 4));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v72, *(a2 + 8));
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v72, *(a2 + 16));
-  result = IPC::Connection::sendSyncMessage(v71, v91[1], v91, 0, &v89, v9);
+  result = IPC::Connection::sendSyncMessage(&v89, v71, v91[1], v91, 0, v9);
   if (v90)
   {
     if (v90 != 1)
@@ -3189,7 +3189,7 @@ LABEL_92:
   v62 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFE9, a3, &v82);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v82, *a2);
-  result = IPC::Connection::sendSyncMessage(v62, v83, &v82, 0, &v80, v9);
+  result = IPC::Connection::sendSyncMessage(&v80, v62, v83, &v82, 0, v9);
   if (v81)
   {
     if (v81 != 1)
@@ -3932,7 +3932,7 @@ LABEL_92:
   v61 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFF6, a3, &v79);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v79, *a2);
-  result = IPC::Connection::sendSyncMessage(v61, v80, &v79, 0, &v77, v9);
+  result = IPC::Connection::sendSyncMessage(&v77, v61, v80, &v79, 0, v9);
   if (!v78)
   {
     v63 = v77;
@@ -4899,7 +4899,7 @@ LABEL_94:
   v65 = v83;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v83, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v65, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v64, v84, &v83, 0, &v81, v9);
+  result = IPC::Connection::sendSyncMessage(&v81, v64, v84, &v83, 0, v9);
   if (v82)
   {
     if (v82 != 1)
@@ -5296,7 +5296,7 @@ LABEL_94:
   v65 = v83;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v83, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v65, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v64, v84, &v83, 0, &v81, v9);
+  result = IPC::Connection::sendSyncMessage(&v81, v64, v84, &v83, 0, v9);
   if (v82)
   {
     if (v82 != 1)
@@ -5693,7 +5693,7 @@ LABEL_94:
   v66 = v84;
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v84, *a2);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v66, a2[1]);
-  result = IPC::Connection::sendSyncMessage(v65, v85, &v84, 0, &v82, v9);
+  result = IPC::Connection::sendSyncMessage(&v82, v65, v85, &v84, 0, v9);
   if (v83)
   {
     if (v83 != 1)
@@ -6080,7 +6080,7 @@ LABEL_92:
   v62 = *(a1 + 8);
   IPC::Connection::createSyncMessageEncoder(0xFD1, a3, &v80);
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v80, *a2);
-  result = IPC::Connection::sendSyncMessage(v62, v81, &v80, 0, &v78, v9);
+  result = IPC::Connection::sendSyncMessage(&v78, v62, v81, &v80, 0, v9);
   if (v79)
   {
     if (v79 != 1)
@@ -9370,7 +9370,7 @@ LABEL_96:
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v72, *(a2 + 4));
   IPC::ArgumentCoder<unsigned int,void>::encode<IPC::Encoder>(v72, *(a2 + 8));
   IPC::ArgumentCoder<unsigned long long,void>::encode<IPC::Encoder>(v72, *(a2 + 16));
-  result = IPC::Connection::sendSyncMessage(v71, v91[1], v91, 0, &v89, v9);
+  result = IPC::Connection::sendSyncMessage(&v89, v71, v91[1], v91, 0, v9);
   if (v90)
   {
     if (v90 != 1)
@@ -9816,18 +9816,18 @@ uint64_t WTF::ThreadSafeRefCounted<WebKit::RemoteImageBufferSetProxyFlushFence,(
   return this;
 }
 
-void WebKit::RemoteRenderingBackendProxy::create(WebKit::RemoteRenderingBackendProxy *this@<X0>, WTF::RunLoop **a2@<X8>)
+void WebKit::RemoteRenderingBackendProxy::create(WebKit::RemoteRenderingBackendProxy *this@<X0>, uint64_t **a3@<X8>)
 {
   v23 = *MEMORY[0x1E69E9840];
-  v5 = WTF::fastMalloc(0x138);
+  v5 = WTF::fastMalloc(v23, 0x138);
   v6 = WTF::RunLoop::mainSingleton(v5);
   v7 = WebKit::RemoteRenderingBackendProxy::RemoteRenderingBackendProxy(v5, v6);
-  *a2 = v5;
+  *a3 = v5;
   v8 = WebCore::logClient(v7);
   v9 = WTF::downcast<WebKit::LogClient,WebCore::LogClient>(*v8);
   if (v9)
   {
-    v10 = *(v5 + 10);
+    v10 = v5[10];
     v11 = *(this + 229);
     v12 = *(this + 6);
 
@@ -9839,7 +9839,7 @@ void WebKit::RemoteRenderingBackendProxy::create(WebKit::RemoteRenderingBackendP
     v13 = qword_1ED6410D0;
     if (os_log_type_enabled(qword_1ED6410D0, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(v5 + 10);
+      v14 = v5[10];
       v15 = *(this + 229);
       v16 = *(this + 6);
       v17 = 134218496;
@@ -9853,28 +9853,28 @@ void WebKit::RemoteRenderingBackendProxy::create(WebKit::RemoteRenderingBackendP
   }
 }
 
-void WebKit::LogClient::REMOTE_RENDERING_BACKEND_PROXY_CREATED_RENDERING_BACKEND(WebKit::LogClient *this, uint64_t a2, uint64_t a3, uint64_t a4)
+void WebKit::LogClient::REMOTE_RENDERING_BACKEND_PROXY_CREATED_RENDERING_BACKEND(os_unfair_lock_s *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   os_unfair_lock_lock(this + 4);
-  v8 = *(this + 1);
+  v8 = *&this[2]._os_unfair_lock_opaque;
   v9[0] = a2;
   v9[1] = a3;
   v9[2] = a4;
-  IPC::StreamClientConnection::send<Messages::LogStream::REMOTE_RENDERING_BACKEND_PROXY_CREATED_RENDERING_BACKEND,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v8, v9, *(this + 3));
+  IPC::StreamClientConnection::send<Messages::LogStream::REMOTE_RENDERING_BACKEND_PROXY_CREATED_RENDERING_BACKEND,WebKit::LogStreamIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>(v8, v9, *&this[6]._os_unfair_lock_opaque);
   os_unfair_lock_unlock(this + 4);
 }
 
-void WebKit::RemoteRenderingBackendProxy::create(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void WebKit::RemoteRenderingBackendProxy::create(uint64_t a1@<X0>, uint64_t *a3@<X8>)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v4 = WTF::fastMalloc(0x138);
-  *a2 = WebKit::RemoteRenderingBackendProxy::RemoteRenderingBackendProxy(v4, a1);
-  v5 = qword_1ED6410D0;
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = WTF::fastMalloc(v10, 0x138);
+  *a3 = WebKit::RemoteRenderingBackendProxy::RemoteRenderingBackendProxy(v5, a1);
+  v6 = qword_1ED6410D0;
   if (os_log_type_enabled(qword_1ED6410D0, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(v4 + 80);
-    v7 = 134217984;
-    v8 = v6;
-    _os_log_impl(&dword_19D52D000, v5, OS_LOG_TYPE_DEFAULT, "[renderingBackend=%llu] Created rendering backend for a worker", &v7, 0xCu);
+    v7 = v5[10];
+    v8 = 134217984;
+    v9 = v7;
+    _os_log_impl(&dword_19D52D000, v6, OS_LOG_TYPE_DEFAULT, "[renderingBackend=%llu] Created rendering backend for a worker", &v8, 0xCu);
   }
 }

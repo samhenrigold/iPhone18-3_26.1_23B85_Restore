@@ -1,6 +1,7 @@
 @interface _INPBPaymentAmountValue
 - (BOOL)isEqual:(id)equal;
 - (_INPBPaymentAmountValue)initWithCoder:(id)coder;
+- (id)amountTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAmountType:(id)type;
@@ -144,19 +145,18 @@ LABEL_12:
   toCopy = to;
   if ([(_INPBPaymentAmountValue *)self hasAmountType])
   {
-    amountType = self->_amountType;
     PBDataWriterWriteInt32Field();
   }
 
   value = [(_INPBPaymentAmountValue *)self value];
 
-  v6 = toCopy;
+  v5 = toCopy;
   if (value)
   {
     value2 = [(_INPBPaymentAmountValue *)self value];
     PBDataWriterWriteSubmessage();
 
-    v6 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -196,6 +196,21 @@ LABEL_12:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)amountTypeAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281E28[string - 1];
   }
 
   return v4;

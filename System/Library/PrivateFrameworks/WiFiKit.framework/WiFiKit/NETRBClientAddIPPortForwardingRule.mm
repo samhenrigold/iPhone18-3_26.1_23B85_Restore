@@ -7,8 +7,7 @@ void ___NETRBClientAddIPPortForwardingRule_block_invoke(uint64_t a1)
 {
   if (__NETRBClientValidateClient(*(a1 + 48)))
   {
-    v5 = *(a1 + 48);
-    NETRBErrorLog();
+    NETRBErrorLog("invalid client %p", *(a1 + 48));
   }
 
   else
@@ -19,15 +18,15 @@ void ___NETRBClientAddIPPortForwardingRule_block_invoke(uint64_t a1)
     PortForwardingRuleDict = netrbMakePortForwardingRuleDict(*(a1 + 76), *(a1 + 72), *(a1 + 77), *(a1 + 56), *(a1 + 74));
     xpc_dictionary_set_value(v2, netrbXPCPortForwardingRule, PortForwardingRuleDict);
     xpc_release(PortForwardingRuleDict);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 0x40000000;
-    v6[2] = ___NETRBClientAddIPPortForwardingRule_block_invoke_2;
-    v6[3] = &unk_279EBECC0;
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = ___NETRBClientAddIPPortForwardingRule_block_invoke_2;
+    v5[3] = &unk_279EBECC0;
     v4 = *(a1 + 48);
-    v6[4] = *(a1 + 32);
-    v6[5] = v4;
-    NETRBInfoLog();
-    *(*(*(a1 + 40) + 8) + 24) = NETRBXPCSetupAndSend(*(a1 + 64), v2, v6);
+    v5[4] = *(a1 + 32);
+    v5[5] = v4;
+    NETRBInfoLog("client %p xpc send -> add port forwarding rule", v4);
+    *(*(*(a1 + 40) + 8) + 24) = NETRBXPCSetupAndSend(*(a1 + 64), v2, v5);
     xpc_release(v2);
   }
 }

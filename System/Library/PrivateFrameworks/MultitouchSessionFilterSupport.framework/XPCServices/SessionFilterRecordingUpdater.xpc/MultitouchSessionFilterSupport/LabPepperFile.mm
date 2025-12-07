@@ -9,49 +9,49 @@
 - (LabPepperFile)initWithLabPepperURL:(id)l
 {
   lCopy = l;
-  v20.receiver = self;
-  v20.super_class = LabPepperFile;
-  v5 = [(LabPepperFile *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = LabPepperFile;
+  v5 = [(LabPepperFile *)&v21 init];
   if (v5)
   {
     v6 = [lCopy copy];
     url = v5->_url;
     v5->_url = v6;
 
-    v8 = MTLoggingContinuousRecordingFilterManager();
+    v9 = MTLoggingContinuousRecordingFilterManager(v8);
     log = v5->_log;
-    v5->_log = v8;
+    v5->_log = v9;
 
-    v19 = 0;
-    v10 = [NSFileHandle fileHandleForReadingFromURL:lCopy error:&v19];
-    v11 = v19;
-    if (v11)
+    v20 = 0;
+    v11 = [NSFileHandle fileHandleForReadingFromURL:lCopy error:&v20];
+    v12 = v20;
+    if (v12)
     {
-      v12 = v11;
-      v13 = 0;
+      v13 = v12;
+      v14 = 0;
 LABEL_14:
 
       goto LABEL_15;
     }
 
-    v14 = [v10 readDataOfLength:2];
-    if ([v14 length] == 2)
+    v15 = [v11 readDataOfLength:2];
+    if ([v15 length] == 2)
     {
-      v5->_lpVersion = *[v14 bytes];
+      v5->_lpVersion = *[v15 bytes];
       v5->_fileOffset = 2;
-      v18 = 0;
-      v15 = [v10 closeAndReturnError:&v18];
-      v12 = v18;
-      if (v15)
+      v19 = 0;
+      v16 = [v11 closeAndReturnError:&v19];
+      v13 = v19;
+      if (v16)
       {
-        v13 = v5;
+        v14 = v5;
 LABEL_13:
 
         goto LABEL_14;
       }
 
-      v16 = [(LabPepperFile *)v5 log];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = [(LabPepperFile *)v5 log];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [LabPepperFile initWithLabPepperURL:];
       }
@@ -59,17 +59,17 @@ LABEL_13:
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = 0;
+    v14 = 0;
     goto LABEL_13;
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_15:
 
-  return v13;
+  return v14;
 }
 
 - (id)nextEntry

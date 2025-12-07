@@ -113,11 +113,11 @@ void __49__HFHomeManagerCreator__createHomeManagerOnQueue__block_invoke(uint64_t
 
 - (BOOL)_shouldCreateHomeManager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (+[HFUtilities isInternalTest](HFUtilities, "isInternalTest") && ![objc_opt_class() allowCreationInTest])
   {
     LOBYTE(areHomesConfigured) = 0;
-    goto LABEL_13;
+    return areHomesConfigured;
   }
 
   creationPolicy = [(HFHomeManagerCreator *)self creationPolicy];
@@ -126,7 +126,7 @@ void __49__HFHomeManagerCreator__createHomeManagerOnQueue__block_invoke(uint64_t
     if (creationPolicy != 2)
     {
       LOBYTE(areHomesConfigured) = 1;
-      goto LABEL_13;
+      return areHomesConfigured;
     }
 
     homeStatus = [(HFHomeManagerCreator *)self homeStatus];
@@ -138,8 +138,8 @@ void __49__HFHomeManagerCreator__createHomeManagerOnQueue__block_invoke(uint64_t
       goto LABEL_10;
     }
 
-    v11 = 67109120;
-    v12 = areHomesConfigured;
+    v10 = 67109120;
+    v11 = areHomesConfigured;
     v7 = "areAnyHomesConfigured: %d";
     goto LABEL_9;
   }
@@ -150,23 +150,21 @@ void __49__HFHomeManagerCreator__createHomeManagerOnQueue__block_invoke(uint64_t
   v6 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 67109120;
-    v12 = areHomesConfigured;
+    v10 = 67109120;
+    v11 = areHomesConfigured;
     v7 = "areAnyAccessoriesConfigured: %d";
 LABEL_9:
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, 8u);
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, v7, &v10, 8u);
   }
 
 LABEL_10:
 
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
   return areHomesConfigured;
 }
 
 - (unint64_t)_homeManagerCreationPolicy
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [(HFHomeManagerCreator *)self hostProcessType]- 100;
   if (v2 > 2)
   {
@@ -181,12 +179,11 @@ LABEL_13:
   v4 = HFLogForCategory(0x27uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HMHomeManager creation policy: %lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "HMHomeManager creation policy: %lu", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

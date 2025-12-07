@@ -87,7 +87,7 @@
             objc_enumerationMutation(v29);
           }
 
-          if ([*(*(&v69 + 1) + 8 * i) isEqualToString:@"nfc"])
+          if (objc_msgSend_isEqualToString_(*(*(&v69 + 1) + 8 * i)))
           {
             v5->_capabilities |= 1uLL;
           }
@@ -131,9 +131,9 @@
             goto LABEL_24;
           }
 
-          v41 = [(__CFString *)v39 isEqualToString:@"setupAssistant"];
+          isEqualToString = objc_msgSend_isEqualToString_(v39);
 
-          if (v41)
+          if (isEqualToString)
           {
 LABEL_22:
             v42 = 1;
@@ -143,14 +143,14 @@ LABEL_23:
           }
 
           v43 = v40;
-          if (v43 == @"watch" || (v44 = v43, v45 = [(__CFString *)v43 isEqualToString:@"watch"], v44, (v45 & 1) != 0))
+          if (v43 == @"watch" || (v44 = v43, v45 = objc_msgSend_isEqualToString_(v43), v44, (v45 & 1) != 0))
           {
             v42 = 2;
             goto LABEL_23;
           }
 
           v46 = v44;
-          if (v46 == @"merchantApp" || (v47 = v46, v48 = [(__CFString *)v46 isEqualToString:@"merchantApp"], v47, v48))
+          if (v46 == @"merchantApp" || (v47 = v46, v48 = objc_msgSend_isEqualToString_(v46), v47, v48))
           {
             v42 = 4;
             goto LABEL_23;
@@ -168,7 +168,7 @@ LABEL_24:
       while (v49);
     }
 
-    if ([(NSString *)v5->_identifier isEqualToString:@"creditDebit"])
+    if (objc_msgSend_isEqualToString_(v5->_identifier))
     {
       v50 = v64;
       if (!v5->_localizedTitle)
@@ -188,7 +188,7 @@ LABEL_24:
     }
 
     v50 = v64;
-    if ([(NSString *)v5->_identifier isEqualToString:@"transit"])
+    if (objc_msgSend_isEqualToString_(v5->_identifier))
     {
       if (!v5->_localizedTitle)
       {
@@ -216,7 +216,7 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    if ([(NSString *)v5->_identifier isEqualToString:@"identity"])
+    if (objc_msgSend_isEqualToString_(v5->_identifier))
     {
       if (!v5->_localizedTitle)
       {
@@ -234,7 +234,7 @@ LABEL_48:
       goto LABEL_45;
     }
 
-    if ([(NSString *)v5->_identifier isEqualToString:@"eMoney"])
+    if (objc_msgSend_isEqualToString_(v5->_identifier))
     {
       if (v5->_localizedTitle)
       {
@@ -246,9 +246,9 @@ LABEL_48:
 
     else
     {
-      if (![(NSString *)v5->_identifier isEqualToString:@"carKey"])
+      if (!objc_msgSend_isEqualToString_(v5->_identifier))
       {
-        if (![(NSString *)v5->_identifier isEqualToString:@"issuerInstallments"]|| v5->_localizedTitle)
+        if (!objc_msgSend_isEqualToString_(v5->_identifier) || v5->_localizedTitle)
         {
           goto LABEL_47;
         }
@@ -288,7 +288,7 @@ LABEL_49:
   }
 
   bridgeCopy = bridge;
-  if ([(NSString *)self->_identifier isEqualToString:@"creditDebit"])
+  if (objc_msgSend_isEqualToString_(self->_identifier, a2, @"creditDebit"))
   {
     v7 = @"PAYMENT_SETUP_CREDIT_DEBIT_SUBTITLE";
 LABEL_5:
@@ -296,7 +296,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if ([(NSString *)self->_identifier isEqualToString:@"transit"])
+  if (objc_msgSend_isEqualToString_(self->_identifier))
   {
     if (bridgeCopy)
     {
@@ -316,20 +316,20 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if ([(NSString *)self->_identifier isEqualToString:@"identity"])
+  if (objc_msgSend_isEqualToString_(self->_identifier))
   {
     v4 = PKLocalizedIdentityString(&cfstr_PaymentSetupId_2.isa, 0);
   }
 
   else
   {
-    if ([(NSString *)self->_identifier isEqualToString:@"eMoney"])
+    if (objc_msgSend_isEqualToString_(self->_identifier))
     {
       v7 = @"PAYMENT_SETUP_EMONEY_SUBTITLE";
       goto LABEL_5;
     }
 
-    if ([(NSString *)self->_identifier isEqualToString:@"carKey"])
+    if (objc_msgSend_isEqualToString_(self->_identifier))
     {
       v7 = @"PAYMENT_SETUP_CARKEY_SUBTITLE";
       goto LABEL_5;
@@ -357,14 +357,14 @@ LABEL_6:
 
 - (BOOL)needsProducts
 {
-  if ([(NSString *)self->_identifier isEqualToString:@"yourCards"]|| [(NSString *)self->_identifier isEqualToString:@"appExtensions"])
+  if (objc_msgSend_isEqualToString_(self->_identifier, a2, @"yourCards") & 1) != 0 || (objc_msgSend_isEqualToString_(self->_identifier))
   {
     return 0;
   }
 
   else
   {
-    return ![(NSString *)self->_identifier isEqualToString:@"creditDebit"];
+    return objc_msgSend_isEqualToString_(self->_identifier) ^ 1;
   }
 }
 

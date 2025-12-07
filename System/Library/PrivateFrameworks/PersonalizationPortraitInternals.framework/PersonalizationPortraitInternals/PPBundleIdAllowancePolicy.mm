@@ -192,7 +192,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
 
 - (id)_readAssetData:(id)data
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = +[PPTrialWrapper sharedInstance];
   v4 = [v3 plistForFactorName:@"allowancePolicy.plist" namespaceName:@"PERSONALIZATION_PORTRAIT_GLOBAL"];
 
@@ -210,7 +210,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if (!v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"notificationBlocklist";
+    v28 = @"notificationBlocklist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Param key not found: %@", buf, 0xCu);
   }
 
@@ -218,7 +218,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"notificationBlocklist";
+    v28 = @"notificationBlocklist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Wrong value type for param key: %@", buf, 0xCu);
   }
 
@@ -226,7 +226,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if (!v7 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"notificationAllowlist";
+    v28 = @"notificationAllowlist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Param key not found: %@", buf, 0xCu);
   }
 
@@ -234,7 +234,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"notificationAllowlist";
+    v28 = @"notificationAllowlist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Wrong value type for param key: %@", buf, 0xCu);
   }
 
@@ -242,7 +242,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if (!v8 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"searchableItemBlocklist";
+    v28 = @"searchableItemBlocklist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Param key not found: %@", buf, 0xCu);
   }
 
@@ -250,7 +250,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"searchableItemBlocklist";
+    v28 = @"searchableItemBlocklist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Wrong value type for param key: %@", buf, 0xCu);
   }
 
@@ -258,7 +258,7 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if (!v9 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"searchableItemAllowlist";
+    v28 = @"searchableItemAllowlist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Param key not found: %@", buf, 0xCu);
   }
 
@@ -266,11 +266,11 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   if ((objc_opt_isKindOfClass() & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v29 = @"searchableItemAllowlist";
+    v28 = @"searchableItemAllowlist";
     _os_log_fault_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Wrong value type for param key: %@", buf, 0xCu);
   }
 
-  v26[0] = @"notificationBlocklist";
+  v25[0] = @"notificationBlocklist";
   v10 = objc_alloc(MEMORY[0x277CBEB98]);
   v11 = MEMORY[0x277CBEBF8];
   if (v6)
@@ -283,9 +283,9 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
     v12 = MEMORY[0x277CBEBF8];
   }
 
-  v13 = [v10 initWithArray:{v12, v26[0]}];
-  v27[0] = v13;
-  v26[1] = @"notificationAllowlist";
+  v13 = [v10 initWithArray:{v12, v25[0]}];
+  v26[0] = v13;
+  v25[1] = @"notificationAllowlist";
   v14 = objc_alloc(MEMORY[0x277CBEB98]);
   if (v7)
   {
@@ -298,8 +298,8 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   }
 
   v16 = [v14 initWithArray:v15];
-  v27[1] = v16;
-  v26[2] = @"searchableItemBlocklist";
+  v26[1] = v16;
+  v25[2] = @"searchableItemBlocklist";
   v17 = objc_alloc(MEMORY[0x277CBEB98]);
   if (v8)
   {
@@ -312,8 +312,8 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   }
 
   v19 = [v17 initWithArray:v18];
-  v27[2] = v19;
-  v26[3] = @"searchableItemAllowlist";
+  v26[2] = v19;
+  v25[3] = @"searchableItemAllowlist";
   v20 = objc_alloc(MEMORY[0x277CBEB98]);
   if (v9)
   {
@@ -326,10 +326,8 @@ void __140__PPBundleIdAllowancePolicy__setGuardedDataWithNotificationBlocklist_n
   }
 
   v22 = [v20 initWithArray:v21];
-  v27[3] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v26[3] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
 
   return v23;
 }

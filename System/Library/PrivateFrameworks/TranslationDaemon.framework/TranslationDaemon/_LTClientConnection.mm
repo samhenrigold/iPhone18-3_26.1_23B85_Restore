@@ -28,40 +28,39 @@
 
 - (void)cleanupOnDisconnect
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_speechSessionID)
   {
-    v3 = _LTOSLogXPC();
+    v3 = _LTOSLogXPC(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Client disconnected, ask to cancel speech session", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_232E53000, v3, OS_LOG_TYPE_INFO, "Client disconnected, ask to cancel speech session", &v10, 2u);
     }
 
     [(_LTTranslationServer *)self->_server cancelSpeechSessionWithID:self->_speechSessionID];
   }
 
   v4 = self->_languageStatusSessionID;
+  v6 = v4;
   if (v4)
   {
-    v5 = _LTOSLogAssetObservation();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = _LTOSLogAssetObservation(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       trustedClientIdentifier = self->_trustedClientIdentifier;
-      v9 = 138543618;
-      v10 = trustedClientIdentifier;
-      v11 = 2114;
-      v12 = v4;
-      _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEFAULT, "Cancelling status updates because disconnecting from client %{public}@; identifier: %{public}@", &v9, 0x16u);
+      v10 = 138543618;
+      v11 = trustedClientIdentifier;
+      v12 = 2114;
+      v13 = v6;
+      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_DEFAULT, "Cancelling status updates because disconnecting from client %{public}@; identifier: %{public}@", &v10, 0x16u);
     }
 
-    [_LTDLanguageAssetService cancelLanguageStatusSession:v4];
+    [_LTDLanguageAssetService cancelLanguageStatusSession:v6];
   }
 
   delegate = [(_LTClientConnection *)self delegate];
   [delegate clientConnectionClosed:self];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (_LTClientConnectionDelegate)delegate
@@ -76,71 +75,71 @@
   trustedCopy = trusted;
   connectionCopy = connection;
   serverCopy = server;
-  v30.receiver = self;
-  v30.super_class = _LTClientConnection;
-  v11 = [(_LTClientConnection *)&v30 init];
+  v33.receiver = self;
+  v33.super_class = _LTClientConnection;
+  v11 = [(_LTClientConnection *)&v33 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_connection, connection);
     objc_storeStrong(&v12->_server, server);
     v12->_trusted = trustedCopy;
-    v13 = _LTOSLogXPC();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+    v15 = _LTOSLogXPC(v13, v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
     if (trustedCopy)
     {
-      if (v14)
+      if (v16)
       {
         [_LTClientConnection initWithConnection:server:trusted:];
       }
 
-      v15 = _LTTranslationServiceXPCInterface();
+      v17 = _LTTranslationServiceXPCInterface();
     }
 
     else
     {
-      if (v14)
+      if (v16)
       {
         [_LTClientConnection initWithConnection:server:trusted:];
       }
 
-      v15 = _LTTextTranslationServiceXPCInterface();
+      v17 = _LTTextTranslationServiceXPCInterface();
     }
 
-    v16 = v15;
-    [connectionCopy setExportedInterface:v15];
+    v18 = v17;
+    [connectionCopy setExportedInterface:v17];
 
     [connectionCopy setExportedObject:v12];
-    v17 = _LTTranslationServiceDelegateXPCInterface();
-    [connectionCopy setRemoteObjectInterface:v17];
+    v19 = _LTTranslationServiceDelegateXPCInterface();
+    [connectionCopy setRemoteObjectInterface:v19];
 
     objc_initWeak(&location, v12);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __57___LTClientConnection_initWithConnection_server_trusted___block_invoke;
-    v27[3] = &unk_2789B53F0;
-    objc_copyWeak(&v28, &location);
-    v18 = MEMORY[0x238398770](v27);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __57___LTClientConnection_initWithConnection_server_trusted___block_invoke_2;
-    v25[3] = &unk_2789B5418;
-    v19 = v18;
-    v26 = v19;
-    [connectionCopy setInterruptionHandler:v25];
-    [connectionCopy setInvalidationHandler:v19];
-    v20 = [connectionCopy valueForEntitlement:@"application-identifier"];
-    v21 = _LTOSLogXPC();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __57___LTClientConnection_initWithConnection_server_trusted___block_invoke;
+    v30[3] = &unk_2789B53F0;
+    objc_copyWeak(&v31, &location);
+    v20 = MEMORY[0x238398770](v30);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __57___LTClientConnection_initWithConnection_server_trusted___block_invoke_2;
+    v28[3] = &unk_2789B5418;
+    v21 = v20;
+    v29 = v21;
+    [connectionCopy setInterruptionHandler:v28];
+    [connectionCopy setInvalidationHandler:v21];
+    v22 = [connectionCopy valueForEntitlement:@"application-identifier"];
+    v24 = _LTOSLogXPC(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      [_LTClientConnection initWithConnection:v20 server:v21 trusted:?];
+      [_LTClientConnection initWithConnection:v22 server:v24 trusted:?];
     }
 
     trustedClientIdentifier = v12->_trustedClientIdentifier;
-    v12->_trustedClientIdentifier = &v20->isa;
+    v12->_trustedClientIdentifier = &v22->isa;
 
-    v23 = v12;
-    objc_destroyWeak(&v28);
+    v26 = v12;
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 
@@ -159,7 +158,7 @@
 
 - (void)translate:(id)translate withContext:(id)context completion:(id)completion
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   translateCopy = translate;
   contextCopy = context;
   completionCopy = completion;
@@ -171,42 +170,40 @@
   }
 
   [(_LTClientConnection *)self logRequestOfType:@"singleParagraph" context:contextCopy];
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = __Block_byref_object_copy__0;
-  v23[4] = __Block_byref_object_dispose__0;
-  v24 = 0;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy__0;
-  v21[4] = __Block_byref_object_dispose__0;
-  v22 = 0;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3032000000;
+  v22[3] = __Block_byref_object_copy__0;
+  v22[4] = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__0;
+  v20[4] = __Block_byref_object_dispose__0;
+  v21 = 0;
   [contextCopy setTrustedClientIdentifier:self->_trustedClientIdentifier];
   server = self->_server;
-  v25[0] = translateCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __56___LTClientConnection_translate_withContext_completion___block_invoke;
-  v20[3] = &unk_2789B5440;
-  v20[4] = v23;
-  v20[5] = v21;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56___LTClientConnection_translate_withContext_completion___block_invoke_2;
-  v16[3] = &unk_2789B5468;
-  v18 = v21;
-  v19 = v23;
+  v24[0] = translateCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __56___LTClientConnection_translate_withContext_completion___block_invoke;
+  v19[3] = &unk_2789B5440;
+  v19[4] = v22;
+  v19[5] = v20;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56___LTClientConnection_translate_withContext_completion___block_invoke_2;
+  v15[3] = &unk_2789B5468;
+  v17 = v20;
+  v18 = v22;
   v14 = completionCopy;
-  v17 = v14;
-  [(_LTTranslationServer *)server translateParagraphs:v13 withContext:contextCopy paragraphResult:v20 completion:v16];
+  v16 = v14;
+  [(_LTTranslationServer *)server translateParagraphs:v13 withContext:contextCopy paragraphResult:v19 completion:v15];
 
-  _Block_object_dispose(v21, 8);
-  _Block_object_dispose(v23, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(v22, 8);
 }
 
 - (void)translateParagraphs:(id)paragraphs withContext:(id)context completion:(id)completion
@@ -308,12 +305,12 @@
 {
   completionCopy = completion;
   textCopy = text;
-  [(_LTClientConnection *)self logRequestOfType:@"text-LID" context:0];
-  v12 = _LTOSLogXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v12 = [(_LTClientConnection *)self logRequestOfType:@"text-LID" context:0];
+  v14 = _LTOSLogXPC(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_INFO, "XPC languages for text call", v13, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_232E53000, v14, OS_LOG_TYPE_INFO, "XPC languages for text call", v15, 2u);
   }
 
   [(_LTTranslationServer *)self->_server languagesForText:textCopy usingModel:model strategy:strategy completion:completionCopy];
@@ -321,7 +318,7 @@
 
 - (void)logRequestOfType:(id)type context:(id)context
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   contextCopy = context;
   v8 = [[_LTAnalyticsEvent alloc] initWithName:@"TranslateRequest"];
@@ -343,11 +340,11 @@
     v12 = clientIdentifier;
   }
 
-  v17[0] = @"processName";
-  v17[1] = @"type";
-  v18[0] = v12;
-  v18[1] = typeCopy;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = @"processName";
+  v16[1] = @"type";
+  v17[0] = v12;
+  v17[1] = typeCopy;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [(_LTAnalyticsEvent *)v8 addFieldsFromDictionary:v13];
 
   [(_LTAnalyticsEvent *)v8 sendLazy];
@@ -363,8 +360,6 @@
 
   v15 = +[_LTPowerLogger sharedInstance];
   [v15 logTranslateRequestEvent:self->_trustedClientIdentifier requestType:typeCopy routeType:route];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetRequestHandler:(id)handler
@@ -398,26 +393,26 @@
   objc_storeStrong(&self->_languageStatusSessionID, observation);
   trusted = self->_trusted;
   v13 = self->_trustedClientIdentifier;
-  v14 = _LTOSLogAssetObservation();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _LTOSLogAssetObservation(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     trustedClientIdentifier = self->_trustedClientIdentifier;
-    v16 = completionCopy;
-    v17 = trusted;
-    v18 = self->_trusted;
-    v19 = v14;
-    v20 = _LTTranslationTaskHintString();
+    v17 = completionCopy;
+    v18 = trusted;
+    v19 = self->_trusted;
+    v20 = v15;
+    v21 = _LTTranslationTaskHintString();
     *buf = 138478595;
     v36 = trustedClientIdentifier;
     v37 = 1024;
-    v38 = v18;
-    trusted = v17;
-    completionCopy = v16;
+    v38 = v19;
+    trusted = v18;
+    completionCopy = v17;
     v39 = 2114;
-    v40 = v20;
+    v40 = v21;
     v41 = 2114;
     v42 = observationCopy;
-    _os_log_impl(&dword_232E53000, v19, OS_LOG_TYPE_DEFAULT, "Starting language observations for client %{private}@; trusted: %{BOOL}i; taskHint: %{public}@; identifier: %{public}@", buf, 0x26u);
+    _os_log_impl(&dword_232E53000, v20, OS_LOG_TYPE_DEFAULT, "Starting language observations for client %{private}@; trusted: %{BOOL}i; taskHint: %{public}@; identifier: %{public}@", buf, 0x26u);
   }
 
   v31[0] = MEMORY[0x277D85DD0];
@@ -435,32 +430,28 @@
   hintCopy2 = hint;
   v27 = v13;
   v28 = observationCopy;
-  v21 = observationCopy;
-  v22 = v13;
-  v23 = completionCopy;
-  v24 = _clientDelegate;
-  [_LTDLanguageAssetService startLanguageStatusSession:v21 taskHint:hint progress:trusted observations:v31 completion:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = observationCopy;
+  v23 = v13;
+  v24 = completionCopy;
+  v25 = _clientDelegate;
+  [_LTDLanguageAssetService startLanguageStatusSession:v22 taskHint:hint progress:trusted observations:v31 completion:v26];
 }
 
 - (void)cancelLanguageStatusChangeObservation:(id)observation
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   observationCopy = observation;
-  [_LTDLanguageAssetService cancelLanguageStatusSession:observationCopy];
-  v5 = _LTOSLogAssetObservation();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = [_LTDLanguageAssetService cancelLanguageStatusSession:observationCopy];
+  v7 = _LTOSLogAssetObservation(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     trustedClientIdentifier = self->_trustedClientIdentifier;
-    v8 = 138543618;
-    v9 = trustedClientIdentifier;
-    v10 = 2114;
-    v11 = observationCopy;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_DEFAULT, "Cancelling language observations for client %{public}@; identifier: %{public}@", &v8, 0x16u);
+    v9 = 138543618;
+    v10 = trustedClientIdentifier;
+    v11 = 2114;
+    v12 = observationCopy;
+    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_DEFAULT, "Cancelling language observations for client %{public}@; identifier: %{public}@", &v9, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startInstallRequest:(id)request
@@ -475,20 +466,20 @@
   v5 = MEMORY[0x277CCAAC8];
   dataCopy = data;
   v7 = _LTLoggingRequestClasses();
-  v12 = 0;
-  v8 = [v5 unarchivedObjectOfClasses:v7 fromData:dataCopy error:&v12];
+  v14 = 0;
+  v8 = [v5 unarchivedObjectOfClasses:v7 fromData:dataCopy error:&v14];
 
-  v9 = v12;
+  v9 = v14;
   if (v9)
   {
-    v10 = _LTOSLogXPC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _LTOSLogXPC(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(_LTClientConnection *)v9 logWithRequestData:v10];
+      [(_LTClientConnection *)v9 logWithRequestData:v12];
     }
 
-    v11 = NSStringFromSelector(a2);
-    _LTSendErrorEvent(v9, v11);
+    v13 = NSStringFromSelector(a2);
+    _LTSendErrorEvent(v9, v13);
   }
 
   else
@@ -515,11 +506,11 @@
 - (void)onDeviceModeEnabled:(id)enabled
 {
   enabledCopy = enabled;
-  v5 = _LTOSLogXPC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogXPC(enabledCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "XPC on-device mode call", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "XPC on-device mode call", v7, 2u);
   }
 
   [(_LTTranslationServer *)self->_server onDeviceModeEnabled:enabledCopy];
@@ -528,11 +519,11 @@
 - (void)onDeviceModeSupported:(id)supported
 {
   supportedCopy = supported;
-  v5 = _LTOSLogXPC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogXPC(supportedCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "XPC on-device support call", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "XPC on-device support call", v7, 2u);
   }
 
   [(_LTTranslationServer *)self->_server onDeviceModeSupported:supportedCopy];
@@ -541,8 +532,8 @@
 - (void)selfLoggingEventWithData:(id)data
 {
   dataCopy = data;
-  v5 = _LTOSLogXPC();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _LTOSLogXPC(dataCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [_LTClientConnection selfLoggingEventWithData:];
   }
@@ -554,8 +545,8 @@
 {
   tier1DataCopy = tier1Data;
   dataCopy = data;
-  v8 = _LTOSLogXPC();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _LTOSLogXPC(dataCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [_LTClientConnection selfLoggingInvocationStartedWithData:invocationStartedTier1Data:];
   }
@@ -568,26 +559,24 @@
 
 - (void)initWithConnection:(__CFString *)a1 server:(NSObject *)a2 trusted:.cold.3(__CFString *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = @"not set";
   if (a1)
   {
     v2 = a1;
   }
 
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Connection application-identifier: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Connection application-identifier: %{public}@", &v3, 0xCu);
 }
 
 - (void)logWithRequestData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize logging request: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Failed to deserialize logging request: %@", &v2, 0xCu);
 }
 
 @end

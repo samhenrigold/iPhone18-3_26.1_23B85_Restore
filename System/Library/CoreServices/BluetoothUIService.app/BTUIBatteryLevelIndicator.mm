@@ -37,13 +37,14 @@
 {
   v3 = [BSUICAPackageView alloc];
   v4 = +[NSBundle mainBundle];
-  v40 = [v3 initWithPackageName:@"batteryLevel" inBundle:v4];
+  v43 = [v3 initWithPackageName:@"batteryLevel" inBundle:v4];
 
-  [(BTUIBatteryLevelIndicator *)self setMicaRootLayer:v40];
-  if (v40)
+  v5 = [(BTUIBatteryLevelIndicator *)self setMicaRootLayer:v43];
+  v7 = v43;
+  if (v43)
   {
-    [v40 setState:@"compact"];
-    [(BTUIBatteryLevelIndicator *)self setMicaRootLayer:v40];
+    [v43 setState:@"compact"];
+    [(BTUIBatteryLevelIndicator *)self setMicaRootLayer:v43];
     micaRootLayer = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     [(BTUIBatteryLevelIndicator *)self addSubview:micaRootLayer];
 
@@ -53,26 +54,26 @@
     micaRootLayer3 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     widthAnchor = [micaRootLayer3 widthAnchor];
     widthAnchor2 = [(BTUIBatteryLevelIndicator *)self widthAnchor];
-    v10 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    [v10 setActive:1];
+    v13 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+    [v13 setActive:1];
 
     micaRootLayer4 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     heightAnchor = [micaRootLayer4 heightAnchor];
     heightAnchor2 = [(BTUIBatteryLevelIndicator *)self heightAnchor];
-    v14 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    [v14 setActive:1];
+    v17 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+    [v17 setActive:1];
 
     micaRootLayer5 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     centerXAnchor = [micaRootLayer5 centerXAnchor];
     centerXAnchor2 = [(BTUIBatteryLevelIndicator *)self centerXAnchor];
-    v18 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    [v18 setActive:1];
+    v21 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    [v21 setActive:1];
 
     micaRootLayer6 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     centerYAnchor = [micaRootLayer6 centerYAnchor];
     centerYAnchor2 = [(BTUIBatteryLevelIndicator *)self centerYAnchor];
-    v22 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    [v22 setActive:1];
+    v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    [v25 setActive:1];
 
     micaRootLayer7 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     [micaRootLayer7 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -80,34 +81,44 @@
     micaRootLayer8 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     widthAnchor3 = [micaRootLayer8 widthAnchor];
     widthAnchor4 = [(BTUIBatteryLevelIndicator *)self widthAnchor];
-    v27 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4];
-    [v27 setActive:1];
+    v30 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4];
+    [v30 setActive:1];
 
     micaRootLayer9 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     heightAnchor3 = [micaRootLayer9 heightAnchor];
     heightAnchor4 = [(BTUIBatteryLevelIndicator *)self heightAnchor];
-    v31 = [heightAnchor3 constraintEqualToAnchor:heightAnchor4];
-    [v31 setActive:1];
+    v34 = [heightAnchor3 constraintEqualToAnchor:heightAnchor4];
+    [v34 setActive:1];
 
     micaRootLayer10 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     centerXAnchor3 = [micaRootLayer10 centerXAnchor];
     centerXAnchor4 = [(BTUIBatteryLevelIndicator *)self centerXAnchor];
-    v35 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    [v35 setActive:1];
+    v38 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+    [v38 setActive:1];
 
     micaRootLayer11 = [(BTUIBatteryLevelIndicator *)self micaRootLayer];
     centerYAnchor3 = [micaRootLayer11 centerYAnchor];
     centerYAnchor4 = [(BTUIBatteryLevelIndicator *)self centerYAnchor];
-    v39 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-    [v39 setActive:1];
+    v42 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    [v42 setActive:1];
+
+LABEL_3:
+    v7 = v43;
+    goto LABEL_7;
   }
 
-  else if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  if (dword_10001EA10 <= 90)
   {
-    sub_10000D654();
+    if (dword_10001EA10 != -1 || (v5 = _LogCategory_Initialize(), v7 = 0, v5))
+    {
+      v5 = sub_10000D654(v5, v7, v6);
+      goto LABEL_3;
+    }
   }
 
-  _objc_release_x1();
+LABEL_7:
+
+  _objc_release_x1(v5, v7);
 }
 
 - (void)layoutSubviews

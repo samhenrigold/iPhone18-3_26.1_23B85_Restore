@@ -1,5 +1,6 @@
 @interface JavaUtilUnsafeArrayList
 - (BOOL)addWithId:(id)id;
+- (id)getWithInt:(int)int;
 - (void)dealloc;
 @end
 
@@ -38,6 +39,23 @@ LABEL_7:
   IOSObjectArray_Set(array, v8, id);
   ++self->super.modCount_;
   return 1;
+}
+
+- (id)getWithInt:(int)int
+{
+  array = self->array_;
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = array->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return (&array->elementType_)[int];
 }
 
 - (void)dealloc

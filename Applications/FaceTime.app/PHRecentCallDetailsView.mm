@@ -750,9 +750,11 @@ LABEL_22:
 
   v6 = [textCopy objectForKeyedSubscript:kCHCallOccurrenceEmergencyImagesCountKey];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    integerValue2 = [v6 integerValue];
+    isKindOfClass = [v6 integerValue];
+    v8 = isKindOfClass;
     if (!integerValue)
     {
       goto LABEL_11;
@@ -761,55 +763,55 @@ LABEL_22:
 
   else
   {
-    integerValue2 = 0;
+    v8 = 0;
     if (!integerValue)
     {
       goto LABEL_11;
     }
   }
 
-  if (!integerValue2)
+  if (!v8)
   {
-    v8 = +[NSBundle mainBundle];
-    v9 = [v8 localizedStringForKey:@"Shared %lu videos" value:&stru_10010E930 table:0];
+    v9 = +[NSBundle mainBundle];
+    v10 = [v9 localizedStringForKey:@"Shared %lu videos" value:&stru_10010E930 table:0];
 LABEL_10:
-    [NSString stringWithFormat:v9, integerValue, v14];
-    v10 = LABEL_14:;
+    [NSString stringWithFormat:v10, integerValue, v15];
+    v11 = LABEL_14:;
 
     goto LABEL_15;
   }
 
 LABEL_11:
-  if (!integerValue && integerValue2)
+  if (!integerValue && v8)
   {
-    v8 = +[NSBundle mainBundle];
-    v9 = [v8 localizedStringForKey:@"Shared %lu photos" value:&stru_10010E930 table:0];
-    [NSString stringWithFormat:v9, integerValue2, v14];
+    v9 = +[NSBundle mainBundle];
+    v10 = [v9 localizedStringForKey:@"Shared %lu photos" value:&stru_10010E930 table:0];
+    [NSString stringWithFormat:v10, v8, v15];
     goto LABEL_14;
   }
 
-  v10 = 0;
-  if (integerValue && integerValue2)
+  v11 = 0;
+  if (integerValue && v8)
   {
-    v8 = +[NSBundle mainBundle];
-    v9 = [v8 localizedStringForKey:@"Shared %lu videos and %lu photos" value:&stru_10010E930 table:0];
-    v14 = integerValue2;
+    v9 = +[NSBundle mainBundle];
+    v10 = [v9 localizedStringForKey:@"Shared %lu videos and %lu photos" value:&stru_10010E930 table:0];
+    v15 = v8;
     goto LABEL_10;
   }
 
 LABEL_15:
-  v11 = sub_100003B9C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100003B9C(isKindOfClass);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v16 = objc_opt_class();
-    v17 = 2112;
-    v18 = v10;
-    v12 = v16;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ stringForEmergencyItemLabelText detailsItemViewEmergencyItemLabelText:%@", buf, 0x16u);
+    v17 = objc_opt_class();
+    v18 = 2112;
+    v19 = v11;
+    v13 = v17;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ stringForEmergencyItemLabelText detailsItemViewEmergencyItemLabelText:%@", buf, 0x16u);
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)presentConversationForUUID:(id)d

@@ -6,22 +6,22 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (+[HFUtilities shouldSuppressAllErrorsForDemo])
   {
     v5 = MEMORY[0x277D2C900];
-    v70 = @"hidden";
-    v71[0] = MEMORY[0x277CBEC38];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v69 = @"hidden";
+    v70[0] = MEMORY[0x277CBEC38];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v7 = [HFItemUpdateOutcome outcomeWithResults:v6];
     v8 = [v5 futureWithResult:v7];
     goto LABEL_38;
   }
 
   v6 = [optionsCopy objectForKeyedSubscript:HFItemUpdateOptionLogger];
-  home = [(HFStatusItem *)self home];
-  hf_remoteAccessState = [home hf_remoteAccessState];
+  v9 = objc_msgSend_home(self);
+  hf_remoteAccessState = [v9 hf_remoteAccessState];
 
   v11 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v11 homeManager];
@@ -49,29 +49,29 @@
 
   else
   {
-    v62 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+    v61 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       *&buf[4] = self;
       *&buf[12] = 1024;
       *&buf[14] = residentProvisioningStatus;
-      _os_log_impl(&dword_20D9BF000, v62, OS_LOG_TYPE_DEFAULT, "%@: residentProvisioningStatus = %d", buf, 0x12u);
+      _os_log_impl(&dword_20D9BF000, v61, OS_LOG_TYPE_DEFAULT, "%@: residentProvisioningStatus = %d", buf, 0x12u);
     }
   }
 
   v16 = MEMORY[0x277CBEB98];
-  home2 = [(HFStatusItem *)self home];
-  residentDevices = [home2 residentDevices];
+  v17 = objc_msgSend_home(self);
+  residentDevices = [v17 residentDevices];
   v19 = [v16 setWithArray:residentDevices];
   v7 = [v19 na_filter:&__block_literal_global_164];
 
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __58__HFResidentDeviceStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v67[3] = &unk_277DF7F00;
-  v67[4] = self;
-  v20 = [v7 na_filter:v67];
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __58__HFResidentDeviceStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v66[3] = &unk_277DF7F00;
+  v66[4] = self;
+  v20 = [v7 na_filter:v66];
   v21 = [v20 na_filter:&__block_literal_global_7_7];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ((residentProvisioningStatus & 1) == 0)
@@ -80,12 +80,12 @@
     {
       if (![v7 count])
       {
-        home3 = [(HFStatusItem *)self home];
-        accessories = [home3 accessories];
+        v42 = objc_msgSend_home(self);
+        accessories = [v42 accessories];
         if ([accessories count])
         {
-          home4 = [(HFStatusItem *)self home];
-          hf_isCurrentLocationHome = [home4 hf_isCurrentLocationHome];
+          v44 = objc_msgSend_home(self);
+          hf_isCurrentLocationHome = [v44 hf_isCurrentLocationHome];
 
           if ((hf_isCurrentLocationHome & 1) == 0)
           {
@@ -150,12 +150,12 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v63 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v62 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = self;
-      v64 = "%@: showing No Remote Access because the status is HMHomeManagerKeyTransferStatusNotAtHome and there are no enabled resident devices on the account";
+      v63 = "%@: showing No Remote Access because the status is HMHomeManagerKeyTransferStatusNotAtHome and there are no enabled resident devices on the account";
       goto LABEL_52;
     }
 
@@ -188,14 +188,14 @@ LABEL_19:
       goto LABEL_29;
     }
 
-    v63 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v62 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = self;
-      v64 = "%@: showing No Remote Access because some resident on the account needs 2FA and there are no other resident devices";
+      v63 = "%@: showing No Remote Access because some resident on the account needs 2FA and there are no other resident devices";
 LABEL_52:
-      _os_log_impl(&dword_20D9BF000, v63, OS_LOG_TYPE_DEFAULT, v64, buf, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v62, OS_LOG_TYPE_DEFAULT, v63, buf, 0xCu);
     }
 
 LABEL_53:
@@ -223,12 +223,12 @@ LABEL_53:
 
   else
   {
-    v65 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+    v64 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = self;
-      _os_log_impl(&dword_20D9BF000, v65, OS_LOG_TYPE_DEFAULT, "%@: showing Home Hub Not Set Up because some resident on the account needs 2FA, but there is some other enabled resident device in the home", buf, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v64, OS_LOG_TYPE_DEFAULT, "%@: showing Home Hub Not Set Up because some resident on the account needs 2FA, but there is some other enabled resident device in the home", buf, 0xCu);
     }
   }
 
@@ -253,8 +253,8 @@ LABEL_30:
 
 LABEL_37:
   v53 = [v20 na_flatMap:&__block_literal_global_43_1];
-  home5 = [(HFStatusItem *)self home];
-  v55 = [v53 setByAddingObject:home5];
+  v54 = objc_msgSend_home(self);
+  v55 = [v53 setByAddingObject:v54];
 
   v56 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
   [dictionary setObject:v56 forKeyedSubscript:@"dependentHomeKitClasses"];
@@ -268,7 +268,6 @@ LABEL_37:
   v8 = [v58 futureWithResult:v59];
 
 LABEL_38:
-  v60 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

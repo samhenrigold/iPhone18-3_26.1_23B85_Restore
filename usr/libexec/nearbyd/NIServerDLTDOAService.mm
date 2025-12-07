@@ -95,9 +95,9 @@
 
 - (id)_initInternal
 {
-  v11.receiver = self;
-  v11.super_class = NIServerDLTDOAService;
-  v2 = [(NIServerDLTDOAService *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = NIServerDLTDOAService;
+  v2 = [(NIServerDLTDOAService *)&v10 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -107,8 +107,7 @@
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 BOOLForKey:@"EnableStateDump"], v6, v7))
     {
-      v8 = v2->_queue;
-      v10 = v2;
+      v9 = v2;
       os_state_add_handler();
     }
   }

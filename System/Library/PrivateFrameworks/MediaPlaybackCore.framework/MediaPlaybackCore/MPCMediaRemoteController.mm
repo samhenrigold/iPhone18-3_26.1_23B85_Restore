@@ -811,7 +811,7 @@ void __93__MPCMediaRemoteController__onQueue_setOptimisticElapsedTimeForContentI
       [v32 doubleValue];
       v34 = v33;
 
-      [v31 duration];
+      objc_msgSend_duration(v31);
       if (v34 < v35)
       {
         v35 = v34;
@@ -840,7 +840,7 @@ LABEL_32:
     v26 = v24 - v25;
     [v20 playbackRate];
     v28 = v22 + v26 * v27;
-    [v20 duration];
+    objc_msgSend_duration(v20);
     if (v28 < v29)
     {
       v29 = v28;
@@ -1444,12 +1444,12 @@ void __55__MPCMediaRemoteController__onQueue_mergeContentItems___block_invoke(ui
   [(MPCMediaRemoteControllerAnimatedArtworkCache *)self->_contentItemAnimatedArtwork updateArtworkID:v35];
 }
 
-id __97__MPCMediaRemoteController__onQueue_mergeContentItems_queueRange_requestRange_requestProperties___block_invoke(uint64_t a1)
+id __97__MPCMediaRemoteController__onQueue_mergeContentItems_queueRange_requestRange_requestProperties___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MRContentItemGetIdentifier();
-  [*(a1 + 32) addObject:v2];
+  v3 = MRContentItemGetIdentifier();
+  [*(a1 + 32) addObject:v3];
 
-  return v2;
+  return v3;
 }
 
 - (id)_onQueue_playbackQueueForRange:(_MSVSignedRange)range
@@ -4026,9 +4026,9 @@ void __53__MPCMediaRemoteController_contentItemForIdentifier___block_invoke(uint
       v24[2] = __53__MPCMediaRemoteController_contentItemForIdentifier___block_invoke_2;
       v24[3] = &unk_1E8238238;
       v24[4] = a1[4];
-      *v23 = *(a1 + 5);
-      v21 = v23[0];
-      v25 = *v23;
+      v23 = *(a1 + 5);
+      v21 = v23;
+      v25 = v23;
       MEMORY[0x1C6954F90](v17, v19, v20, v24);
 
       if (v17)
@@ -4392,19 +4392,19 @@ uint64_t __59__MPCMediaRemoteController_sendCommand_options_completion___block_i
   return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
-uint64_t __59__MPCMediaRemoteController_sendCommand_options_completion___block_invoke_2(uint64_t result)
+id *__59__MPCMediaRemoteController_sendCommand_options_completion___block_invoke_2(id *result)
 {
   v9 = *MEMORY[0x1E69E9840];
-  if (*(*(*(result + 48) + 8) + 40))
+  if (*(*(result[6] + 1) + 40))
   {
     v1 = result;
-    result = [*(result + 32) disarm];
+    result = [result[4] disarm];
     if (result)
     {
       v2 = os_log_create("com.apple.amp.mediaplaybackcore", "MediaRemote");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        v3 = *(*(v1 + 40) + 296);
+        v3 = *(v1[5] + 37);
         v4 = MRMediaRemoteCopyCommandDescription();
         v5 = 138543618;
         v6 = v3;
@@ -4413,7 +4413,7 @@ uint64_t __59__MPCMediaRemoteController_sendCommand_options_completion___block_i
         _os_log_impl(&dword_1C5C61000, v2, OS_LOG_TYPE_ERROR, "MRC %{public}@: Undo optimistic state [timeout] command=%{public}@", &v5, 0x16u);
       }
 
-      return (*(*(*(*(v1 + 48) + 8) + 40) + 16))();
+      return (*(*(*(v1[6] + 1) + 40) + 16))();
     }
   }
 
@@ -4446,7 +4446,7 @@ void __59__MPCMediaRemoteController_sendCommand_options_completion___block_invok
   (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __53__MPCMediaRemoteController_playbackQueueParticipants__block_invoke_3(uint64_t a1)
+void *__53__MPCMediaRemoteController_playbackQueueParticipants__block_invoke_3(uint64_t a1)
 {
   result = [*(*(*(a1 + 40) + 8) + 40) finishWithValue:MEMORY[0x1E695E0F0]];
   v3 = *(a1 + 32);

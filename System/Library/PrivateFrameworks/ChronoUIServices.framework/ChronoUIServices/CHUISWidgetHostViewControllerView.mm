@@ -24,7 +24,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_parentController);
   metrics = [WeakRetained metrics];
 
@@ -33,57 +33,55 @@
   v12 = width == v11 && height == v10;
   if (v12 || (v13 = objc_loadWeakRetained(&self->_parentController), v14 = [v13 metricsDefineSize], v13, (v14 & 1) == 0))
   {
-    v25.receiver = self;
-    v25.super_class = CHUISWidgetHostViewControllerView;
-    [(CHUISWidgetHostViewControllerView *)&v25 setFrame:x, y, width, height];
-    v18 = CHUISLogViewController();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v26.receiver = self;
+    v26.super_class = CHUISWidgetHostViewControllerView;
+    height = [(CHUISWidgetHostViewControllerView *)&v26 setFrame:x, y, width, height];
+    v20 = CHUISLogViewController(height);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = objc_loadWeakRetained(&self->_parentController);
-      _cachedSceneLogDigest = [v19 _cachedSceneLogDigest];
-      v33.width = width;
-      v33.height = height;
-      v21 = NSStringFromCGSize(v33);
+      v21 = objc_loadWeakRetained(&self->_parentController);
+      _cachedSceneLogDigest = [v21 _cachedSceneLogDigest];
+      v34.width = width;
+      v34.height = height;
+      v23 = NSStringFromCGSize(v34);
       *buf = 134218498;
-      v27 = v19;
-      v28 = 2114;
-      v29 = _cachedSceneLogDigest;
-      v30 = 2112;
-      v31 = v21;
-      _os_log_impl(&dword_1D928E000, v18, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Changing frame to %@", buf, 0x20u);
+      v28 = v21;
+      v29 = 2114;
+      v30 = _cachedSceneLogDigest;
+      v31 = 2112;
+      v32 = v23;
+      _os_log_impl(&dword_1D928E000, v20, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Changing frame to %@", buf, 0x20u);
     }
 
-    v22 = objc_loadWeakRetained(&self->_parentController);
-    [v22 setPreferredContentSize:{width, height}];
+    v24 = objc_loadWeakRetained(&self->_parentController);
+    [v24 setPreferredContentSize:{width, height}];
 
-    v15 = objc_loadWeakRetained(&self->_parentController);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __46__CHUISWidgetHostViewControllerView_setFrame___block_invoke;
-    v24[3] = &__block_descriptor_64_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
-    *&v24[4] = x;
-    *&v24[5] = y;
-    *&v24[6] = width;
-    *&v24[7] = height;
-    [v15 modifySceneSettings:v24];
+    v16 = objc_loadWeakRetained(&self->_parentController);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __46__CHUISWidgetHostViewControllerView_setFrame___block_invoke;
+    v25[3] = &__block_descriptor_64_e78___UIApplicationSceneTransitionContext_16__0__CHUISMutableWidgetSceneSettings_8l;
+    *&v25[4] = x;
+    *&v25[5] = y;
+    *&v25[6] = width;
+    *&v25[7] = height;
+    [v16 modifySceneSettings:v25];
   }
 
   else
   {
-    v15 = CHUISLogViewController();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = CHUISLogViewController(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_loadWeakRetained(&self->_parentController);
-      _cachedSceneLogDigest2 = [v16 _cachedSceneLogDigest];
+      v17 = objc_loadWeakRetained(&self->_parentController);
+      _cachedSceneLogDigest2 = [v17 _cachedSceneLogDigest];
       *buf = 134218242;
-      v27 = v16;
-      v28 = 2114;
-      v29 = _cachedSceneLogDigest2;
-      _os_log_impl(&dword_1D928E000, v15, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Eating frame change in view because not configured to change the frame.", buf, 0x16u);
+      v28 = v17;
+      v29 = 2114;
+      v30 = _cachedSceneLogDigest2;
+      _os_log_impl(&dword_1D928E000, v16, OS_LOG_TYPE_DEFAULT, "[%p-%{public}@] Eating frame change in view because not configured to change the frame.", buf, 0x16u);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 id __46__CHUISWidgetHostViewControllerView_setFrame___block_invoke(uint64_t a1, void *a2)

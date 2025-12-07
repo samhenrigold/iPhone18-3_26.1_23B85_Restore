@@ -1,10 +1,10 @@
-uint64_t sub_1A3C3D524()
+uint64_t sub_1A3C3D524(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadeMacSyncedAlbumsFeature.ShelfProvider(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -26,13 +26,13 @@ unint64_t sub_1A3C3D5C8()
   return result;
 }
 
-uint64_t sub_1A3C3D63C()
+uint64_t sub_1A3C3D63C(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadePhotosChallengeFeature.ShelfProvider(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -42,10 +42,10 @@ uint64_t sub_1A3C3D63C()
   return result;
 }
 
-uint64_t sub_1A3C3D700()
+uint64_t sub_1A3C3D700(uint64_t a1)
 {
   result = type metadata accessor for LemonadeShelfBodyStyle(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -114,16 +114,16 @@ unint64_t sub_1A3C3D8D8()
   return result;
 }
 
-void sub_1A3C3D92C()
+void sub_1A3C3D92C(uint64_t a1)
 {
   type metadata accessor for LemonadeShelfBodyStyle(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C397F8(319, &qword_1EB126FA0, MEMORY[0x1E69E6158], MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for PhotosSearchCollectionSectionProvider();
-      if (v2 <= 0x3F)
+      type metadata accessor for PhotosSearchCollectionSectionProvider(319, v2);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -131,7 +131,7 @@ void sub_1A3C3D92C()
   }
 }
 
-uint64_t sub_1A3C3DA2C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C3DA2C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -158,7 +158,7 @@ unint64_t sub_1A3C3DA74()
 
 uint64_t sub_1A3C3DAC8(uint64_t a1)
 {
-  result = sub_1A3C3DB74(&qword_1EB12A158, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+  result = sub_1A3C3DB74(&qword_1EB12A158, type metadata accessor for LemonadeFeatureLibrary.Shelf, &unk_1A536AF40);
   *(a1 + 8) = result;
   return result;
 }
@@ -175,7 +175,7 @@ unint64_t sub_1A3C3DB20()
   return result;
 }
 
-uint64_t sub_1A3C3DB74(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C3DB74(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -200,10 +200,10 @@ unint64_t sub_1A3C3DBBC()
   return result;
 }
 
-uint64_t sub_1A3C3DC28()
+uint64_t sub_1A3C3DC28(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -227,10 +227,11 @@ unint64_t sub_1A3C3DD34()
   return result;
 }
 
-uint64_t LemonadeShelvesLoader.__allocating_init(itemListManagerProvider:gradualDelivery:)(uint64_t a1, uint64_t a2, char a3)
+uint64_t LemonadeShelvesLoader.__allocating_init(itemListManagerProvider:gradualDelivery:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = swift_allocObject();
-  LemonadeShelvesLoader.init(itemListManagerProvider:gradualDelivery:)(a1, a2, a3);
+  LemonadeShelvesLoader.init(itemListManagerProvider:gradualDelivery:)(a1, a2, v3);
   return v6;
 }
 
@@ -294,7 +295,7 @@ unint64_t sub_1A3C3DF60()
   return result;
 }
 
-uint64_t sub_1A3C3DFB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t sub_1A3C3DFB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
   v9 = *(TupleTypeMetadata2 - 8);
@@ -406,13 +407,13 @@ unint64_t sub_1A3C3E2A0()
   return result;
 }
 
-void sub_1A3C3E2F8()
+void sub_1A3C3E2F8(uint64_t a1)
 {
   sub_1A3C4D23C(319, &unk_1EB12B250, MEMORY[0x1E6968FB0]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C4D634(319, &unk_1EB12AC50, &type metadata for PhotosAppShelvesOverride, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -462,7 +463,7 @@ uint64_t sub_1A3C3E4BC(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t type metadata accessor for LemonadeLibraryDefaultsShelvesDataSource()
+uint64_t type metadata accessor for LemonadeLibraryDefaultsShelvesDataSource(uint64_t a1)
 {
   result = qword_1EB15DD80;
   if (!qword_1EB15DD80)
@@ -485,10 +486,10 @@ unint64_t sub_1A3C3E5E0()
   return result;
 }
 
-uint64_t sub_1A3C3E634()
+uint64_t sub_1A3C3E634(uint64_t a1)
 {
   result = sub_1A5246F24();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -525,7 +526,7 @@ unint64_t sub_1A3C3E7C8(uint64_t a1)
   v1 = *(a1 + 16);
   if (v1)
   {
-    sub_1A3C5B340();
+    sub_1A3C5B340(0);
     v3 = sub_1A524E794();
 
     for (i = (a1 + 40); ; i += 2)
@@ -747,7 +748,7 @@ char *sub_1A3C3EDA0(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_1A3C3EEAC()
+uint64_t sub_1A3C3EEAC(uint64_t a1, uint64_t a2)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
@@ -771,7 +772,7 @@ id sub_1A3C3EF40@<X0>(id a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 uint64_t sub_1A3C3EF84@<X0>(_BYTE *a1@<X8>)
 {
   v23 = a1;
-  sub_1A3C4ECF8();
+  sub_1A3C4ECF8(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v25 = type metadata accessor for LemonadeItemsLayoutSpec.Style(0);
@@ -787,7 +788,7 @@ uint64_t sub_1A3C3EF84@<X0>(_BYTE *a1@<X8>)
   v13 = sub_1A3C52D68();
   v15 = v14;
   v17 = v16;
-  v18 = sub_1A3C4ED50();
+  v18 = sub_1A3C4ED50(v13);
   v26 = 1;
   *v6 = xmmword_1A5301350;
   v6[16] = 1;
@@ -830,7 +831,7 @@ unint64_t sub_1A3C3F140()
 
 uint64_t sub_1A3C3F194(uint64_t a1)
 {
-  result = sub_1A3C54394(&qword_1EB129A10, type metadata accessor for LemonadeImportSourcesFeature.ShelfProvider);
+  result = sub_1A3C54394(&qword_1EB129A10, type metadata accessor for LemonadeImportSourcesFeature.ShelfProvider, &unk_1A5352490);
   *(a1 + 8) = result;
   return result;
 }
@@ -847,10 +848,10 @@ uint64_t sub_1A3C3F1F8(char a1)
   else
   {
     KeyPath = swift_getKeyPath();
-    v5 = MEMORY[0x1EEE9AC00](KeyPath);
+    v5.n128_f64[0] = MEMORY[0x1EEE9AC00](KeyPath);
     v6 = v1;
     v7 = v2;
-    (*(*v1 + 328))(v5, sub_1A3C504BC);
+    (*(*v1 + 328))(v5);
   }
 
   return result;
@@ -868,10 +869,10 @@ uint64_t sub_1A3C3F3B0(char a1)
   else
   {
     KeyPath = swift_getKeyPath();
-    v5 = MEMORY[0x1EEE9AC00](KeyPath);
+    v5.n128_f64[0] = MEMORY[0x1EEE9AC00](KeyPath);
     v6 = v1;
     v7 = v2;
-    (*(*v1 + 328))(v5, sub_1A4199300);
+    (*(*v1 + 328))(v5);
   }
 
   return result;
@@ -881,60 +882,60 @@ void sub_1A3C3F4AC()
 {
   v1 = v0;
   v2 = type metadata accessor for LemonadeFeatureLibrary.Shelf(0);
-  v129 = *(v2 - 8);
-  v3 = MEMORY[0x1EEE9AC00](v2);
-  v115[4] = v115 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = MEMORY[0x1EEE9AC00](v3);
-  v131 = v115 - v6;
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v127 = v115 - v8;
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v126 = v115 - v10;
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v123 = v115 - v12;
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v121 = v115 - v14;
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v119 = (v115 - v16);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v118 = (v115 - v18);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v115[0] = v115 - v20;
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v23 = v115 - v22;
-  v24 = MEMORY[0x1EEE9AC00](v21);
-  v115[3] = v115 - v25;
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v115[2] = v115 - v27;
-  v28 = MEMORY[0x1EEE9AC00](v26);
-  v124 = v115 - v29;
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v122 = v115 - v31;
-  v32 = MEMORY[0x1EEE9AC00](v30);
-  v120 = v115 - v33;
-  v34 = MEMORY[0x1EEE9AC00](v32);
-  v115[1] = v115 - v35;
-  v36 = MEMORY[0x1EEE9AC00](v34);
-  v117 = v115 - v37;
-  v38 = MEMORY[0x1EEE9AC00](v36);
-  v116 = (v115 - v39);
-  v40 = MEMORY[0x1EEE9AC00](v38);
-  v42 = v115 - v41;
-  v43 = MEMORY[0x1EEE9AC00](v40);
-  v45 = v115 - v44;
-  v46 = MEMORY[0x1EEE9AC00](v43);
-  v125 = v115 - v47;
-  v48 = MEMORY[0x1EEE9AC00](v46);
-  v133 = v115 - v49;
-  v50 = MEMORY[0x1EEE9AC00](v48);
-  v132 = v115 - v51;
-  v52 = MEMORY[0x1EEE9AC00](v50);
-  v130 = (v115 - v53);
-  v54 = MEMORY[0x1EEE9AC00](v52);
-  v128 = (v115 - v55);
-  v56 = MEMORY[0x1EEE9AC00](v54);
-  v57 = MEMORY[0x1EEE9AC00](v56);
-  v58 = MEMORY[0x1EEE9AC00](v57);
+  *&v129 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v115[4] = v115 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v131 = v115 - v5;
+  MEMORY[0x1EEE9AC00](v6);
+  v127 = v115 - v7;
+  MEMORY[0x1EEE9AC00](v8);
+  v126 = v115 - v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v123 = v115 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v121 = v115 - v13;
+  MEMORY[0x1EEE9AC00](v14);
+  v119 = (v115 - v15);
+  MEMORY[0x1EEE9AC00](v16);
+  v118 = (v115 - v17);
+  MEMORY[0x1EEE9AC00](v18);
+  v115[0] = v115 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = v115 - v21;
+  MEMORY[0x1EEE9AC00](v23);
+  v115[3] = v115 - v24;
+  MEMORY[0x1EEE9AC00](v25);
+  v115[2] = v115 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v124 = v115 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v122 = v115 - v30;
+  MEMORY[0x1EEE9AC00](v31);
+  v120 = v115 - v32;
+  MEMORY[0x1EEE9AC00](v33);
+  v115[1] = v115 - v34;
+  MEMORY[0x1EEE9AC00](v35);
+  v117 = v115 - v36;
+  MEMORY[0x1EEE9AC00](v37);
+  v116 = (v115 - v38);
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = v115 - v40;
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = v115 - v43;
+  MEMORY[0x1EEE9AC00](v45);
+  v125 = v115 - v46;
+  MEMORY[0x1EEE9AC00](v47);
+  v133 = v115 - v48;
+  MEMORY[0x1EEE9AC00](v49);
+  *&v132 = v115 - v50;
+  MEMORY[0x1EEE9AC00](v51);
+  v130 = (v115 - v52);
+  MEMORY[0x1EEE9AC00](v53);
+  v128 = (v115 - v54);
+  MEMORY[0x1EEE9AC00](v55);
+  MEMORY[0x1EEE9AC00](v56);
+  MEMORY[0x1EEE9AC00](v57);
   MEMORY[0x1EEE9AC00](v58);
   v59 = shouldUseNewCollectionsLayout()();
   v134 = v2;
@@ -954,23 +955,23 @@ void sub_1A3C3F4AC()
     v65 = v63;
     sub_1A3C56CF0(v65, &v141);
     v66 = v142;
-    *v45 = v141;
-    *(v45 + 1) = v66;
-    v45[32] = v143;
+    *v44 = v141;
+    *(v44 + 1) = v66;
+    v44[32] = v143;
     swift_storeEnumTagMultiPayload();
     v67 = sub_1A3C52F54(0, 1, 1, MEMORY[0x1E69E7CC0]);
     v69 = v67[2];
     v68 = v67[3];
     if (v69 >= v68 >> 1)
     {
-      v67 = sub_1A3C52F54(v68 > 1, v69 + 1, 1, v67);
+      v67 = sub_1A3C52F54((v68 > 1), v69 + 1, 1, v67);
     }
 
     v67[2] = v69 + 1;
     v133 = *(v129 + 80);
     v70 = (v133 + 32) & ~v133;
-    v71 = v129[9];
-    sub_1A3C53150(v45, v67 + v70 + v71 * v69, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+    v71 = *(v129 + 72);
+    sub_1A3C53150(v44, v67 + v70 + v71 * v69, type metadata accessor for LemonadeFeatureLibrary.Shelf);
     LOBYTE(v135[0]) = 0;
     v72 = v65;
     sub_1A3C56CDC(v72, v135, v147);
@@ -981,20 +982,20 @@ void sub_1A3C3F4AC()
     sub_1A3C41894(&v148, v74, &type metadata for LemonadePeopleShelfProvider, v73, v135);
     v75 = *(&v135[1] + 1);
     v76 = v136;
-    *v42 = *&v135[0];
-    *(v42 + 8) = *(v135 + 8);
-    *(v42 + 3) = v75;
-    *(v42 + 16) = v76;
+    *v41 = *&v135[0];
+    *(v41 + 8) = *(v135 + 8);
+    *(v41 + 3) = v75;
+    *(v41 + 16) = v76;
     swift_storeEnumTagMultiPayload();
     v78 = v67[2];
     v77 = v67[3];
     if (v78 >= v77 >> 1)
     {
-      v67 = sub_1A3C52F54(v77 > 1, v78 + 1, 1, v67);
+      v67 = sub_1A3C52F54((v77 > 1), v78 + 1, 1, v67);
     }
 
     v67[2] = v78 + 1;
-    sub_1A3C53150(v42, v67 + v70 + v78 * v71, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+    sub_1A3C53150(v41, v67 + v70 + v78 * v71, type metadata accessor for LemonadeFeatureLibrary.Shelf);
     v79 = v74;
     sub_1A3C51210(v79, &v144);
     v80 = v145;
@@ -1007,7 +1008,7 @@ void sub_1A3C3F4AC()
     v82 = v67[3];
     if (v83 >= v82 >> 1)
     {
-      v67 = sub_1A3C52F54(v82 > 1, v83 + 1, 1, v67);
+      v67 = sub_1A3C52F54((v82 > 1), v83 + 1, 1, v67);
     }
 
     v67[2] = v83 + 1;
@@ -1019,25 +1020,25 @@ void sub_1A3C3F4AC()
   v133 = v1;
   sub_1A3C56CF0(v63, &v141);
   v85 = v142;
-  *v23 = v141;
-  *(v23 + 1) = v85;
-  v23[32] = v143;
+  *v22 = v141;
+  *(v22 + 1) = v85;
+  v22[32] = v143;
   swift_storeEnumTagMultiPayload();
   v86 = sub_1A3C52F54(0, 1, 1, MEMORY[0x1E69E7CC0]);
   v88 = v86[2];
   v87 = v86[3];
   if (v88 >= v87 >> 1)
   {
-    v86 = sub_1A3C52F54(v87 > 1, v88 + 1, 1, v86);
+    v86 = sub_1A3C52F54((v87 > 1), v88 + 1, 1, v86);
   }
 
   v86[2] = v88 + 1;
   v89 = (*(v129 + 80) + 32) & ~*(v129 + 80);
-  v90 = v129[9];
-  v91 = sub_1A3C53150(v23, v86 + v89 + v90 * v88, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+  v90 = *(v129 + 72);
+  v91 = sub_1A3C53150(v22, v86 + v89 + v90 * v88, type metadata accessor for LemonadeFeatureLibrary.Shelf);
   v92 = (*v133 + 144);
   v130 = *v92;
-  v129 = v92;
+  *&v129 = v92;
   if (v130(v91))
   {
     sub_1A3C41748(v64, 0, 0, v135);
@@ -1055,7 +1056,7 @@ void sub_1A3C3F4AC()
     v96 = v86[3];
     if (v97 >= v96 >> 1)
     {
-      v86 = sub_1A3C52F54(v96 > 1, v97 + 1, 1, v86);
+      v86 = sub_1A3C52F54((v96 > 1), v97 + 1, 1, v86);
     }
 
     v86[2] = v97 + 1;
@@ -1081,7 +1082,7 @@ void sub_1A3C3F4AC()
   v103 = v86[3];
   if (v104 >= v103 >> 1)
   {
-    v86 = sub_1A3C52F54(v103 > 1, v104 + 1, 1, v86);
+    v86 = sub_1A3C52F54((v103 > 1), v104 + 1, 1, v86);
   }
 
   v86[2] = v104 + 1;
@@ -1097,7 +1098,7 @@ void sub_1A3C3F4AC()
   v107 = v86[3];
   if (v108 >= v107 >> 1)
   {
-    v86 = sub_1A3C52F54(v107 > 1, v108 + 1, 1, v86);
+    v86 = sub_1A3C52F54((v107 > 1), v108 + 1, 1, v86);
   }
 
   v86[2] = v108 + 1;
@@ -1108,7 +1109,7 @@ void sub_1A3C3F4AC()
   v125 = v110;
   if (v128(v109))
   {
-    sub_1A3C540A4();
+    sub_1A3C540A4(0);
     v111 = swift_allocObject();
     *(v111 + 16) = xmmword_1A52F8E10;
     v112 = (v111 + v89);
@@ -1125,19 +1126,19 @@ void sub_1A3C3F4AC()
   sub_1A3C559F4();
 }
 
-void sub_1A3C4113C()
+void sub_1A3C4113C(uint64_t a1, uint64_t a2)
 {
-  sub_1A3C56110();
-  v0 = [swift_getObjCClassFromMetadata() sharedInstance];
-  v1 = [v0 memoryCreationCellPositionInMemoryShelf];
+  sub_1A3C56110(0, a2);
+  v2 = [swift_getObjCClassFromMetadata() sharedInstance];
+  v3 = [v2 memoryCreationCellPositionInMemoryShelf];
 
-  v2 = 30.0;
-  if (v1 == 3)
+  v4 = 30.0;
+  if (v3 == 3)
   {
-    v2 = 1.0;
+    v4 = 1.0;
   }
 
-  qword_1EB1EAD98 = *&v2;
+  qword_1EB1EAD98 = *&v4;
 }
 
 unint64_t sub_1A3C411C8()
@@ -1159,32 +1160,32 @@ unint64_t sub_1A3C4121C(uint64_t a1)
   return result;
 }
 
-void sub_1A3C41244()
+void sub_1A3C41244(uint64_t a1)
 {
   if (!qword_1EB12A7B0)
   {
-    sub_1A3C52C70(255, &qword_1EB1265E0);
-    v0 = type metadata accessor for PhotoKitItem();
-    if (!v1)
+    v2 = sub_1A3C52C70(255, &qword_1EB1265E0, 0x1E69788F0);
+    v5 = type metadata accessor for PhotoKitItem(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB12A7B0);
+      atomic_store(v5, &qword_1EB12A7B0);
     }
   }
 }
 
-void sub_1A3C412C4()
+void sub_1A3C412C4(uint64_t a1)
 {
   swift_checkMetadataState();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C50D58(319, &qword_1EB124B08, sub_1A3C413B4);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A3C50D58(319, &qword_1EB1201F0, sub_1A3C3637C);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A5246F24();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -1195,13 +1196,13 @@ void sub_1A3C412C4()
 
 uint64_t sub_1A3C414AC(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
-  v15 = type metadata accessor for LemonadeMemoriesEntryCardPositionManager();
+  v15 = type metadata accessor for LemonadeMemoriesEntryCardPositionManager(0);
   v16 = &protocol witness table for LemonadeMemoriesEntryCardPositionManager;
   *&v14 = a2;
   *(a4 + 16) = 0;
   *(a4 + 24) = 0;
   v8 = OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider____lazy_storage___wrappedProvider;
-  sub_1A3C50BAC();
+  sub_1A3C50BAC(0);
   (*(*(v9 - 8) + 56))(a4 + v8, 1, 1, v9);
   *(a4 + OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider____lazy_storage___prependItemListManager) = 0;
   *(a4 + OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider____lazy_storage___appendItemListManager) = 0;
@@ -1304,7 +1305,7 @@ id sub_1A3C41864@<X0>(id a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_1A3C41894@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X8>)
 {
   a5[2] = a2;
-  v10 = *(type metadata accessor for LemonadePeopleFeature() + 40);
+  v10 = *(type metadata accessor for LemonadePeopleFeature(0, a3, a4, a4) + 40);
   v11 = *(a3 - 8);
   (*(v11 + 16))(a5 + v10, a1, a3);
   v12 = a2;
@@ -1485,7 +1486,7 @@ uint64_t sub_1A3C4208C(uint64_t a1, uint64_t a2, char a3)
   return result;
 }
 
-uint64_t type metadata accessor for SharedAlbumsAvailabilityObserver()
+uint64_t type metadata accessor for SharedAlbumsAvailabilityObserver(uint64_t a1)
 {
   result = qword_1EB17BBE0;
   if (!qword_1EB17BBE0)
@@ -1496,10 +1497,10 @@ uint64_t type metadata accessor for SharedAlbumsAvailabilityObserver()
   return result;
 }
 
-uint64_t sub_1A3C420F0()
+uint64_t sub_1A3C420F0(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -1511,7 +1512,7 @@ uint64_t sub_1A3C420F0()
   return result;
 }
 
-id sub_1A3C421A8()
+id sub_1A3C421A8(uint64_t a1, uint64_t a2)
 {
   result = [objc_opt_self() mapTableWithKeyOptions:5 valueOptions:5];
   qword_1EB17BBF8 = result;
@@ -1841,7 +1842,7 @@ uint64_t LemonadeMemoriesEntryCardPositionManager.__deallocating_deinit()
   v1 = OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesEntryCardPositionManager_logger;
   v2 = sub_1A5246F24();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  __swift_destroy_boxed_opaque_existential_0(v0 + OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesEntryCardPositionManager_timeSlotProvider);
+  __swift_destroy_boxed_opaque_existential_0((v0 + OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesEntryCardPositionManager_timeSlotProvider));
 
   sub_1A3C42ED0(v0 + OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesEntryCardPositionManager__enterBackgroundDate, sub_1A3C41108);
   v3 = OBJC_IVAR____TtC12PhotosUICore40LemonadeMemoriesEntryCardPositionManager___observationRegistrar;
@@ -1857,7 +1858,7 @@ uint64_t LemonadeMemoriesEntryCardTimeSlotProvider.__deallocating_deinit()
   sub_1A3C56088(0, &qword_1EB124A78, MEMORY[0x1E69E6530], off_1E7721240);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = OBJC_IVAR____TtC12PhotosUICore41LemonadeMemoriesEntryCardTimeSlotProvider__validationDate;
-  v4 = sub_1A3DE714C();
+  sub_1A3DE714C(0);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
 
   return swift_deallocClassInstance();
@@ -2007,7 +2008,7 @@ uint64_t objectdestroy_2Tm()
   if (EnumCaseMultiPayload == 1)
   {
     sub_1A3C4208C(*(v3 + 24), *(v3 + 32), *(v3 + 40));
-    sub_1A3C47A98();
+    sub_1A3C47A98(0);
     v6 = *(v5 + 64);
     v7 = sub_1A5242C84();
     (*(*(v7 - 8) + 8))(v3 + v6, v7);
@@ -2045,7 +2046,7 @@ uint64_t objectdestroy_2Tm_1()
 
 uint64_t objectdestroy_2Tm_2()
 {
-  v1 = (type metadata accessor for TungstenHostingView() - 8);
+  v1 = (type metadata accessor for TungstenHostingView(0) - 8);
   v2 = (*(*v1 + 80) + 16) & ~*(*v1 + 80);
 
   v3 = v0 + v2 + v1[7];
@@ -2058,7 +2059,7 @@ uint64_t objectdestroy_2Tm_2()
 
 uint64_t objectdestroy_2Tm_3()
 {
-  v1 = (type metadata accessor for AppleMusicPrivacyTipModifier() - 8);
+  v1 = (type metadata accessor for AppleMusicPrivacyTipModifier(0) - 8);
   v2 = v0 + ((*(*v1 + 80) + 16) & ~*(*v1 + 80));
   sub_1A4153160(0, &qword_1EB121400, &type metadata for GenerativeStoryAppleMusicPrivacyTip, MEMORY[0x1E6981E90]);
   (*(*(v3 - 8) + 8))(v2, v3);
@@ -2096,7 +2097,7 @@ uint64_t objectdestroy_2Tm_4()
   return swift_deallocObject();
 }
 
-uint64_t objectdestroy_2Tm_5()
+uint64_t objectdestroy_2Tm_5(uint64_t a1)
 {
 
   return swift_deallocObject();
@@ -2110,7 +2111,7 @@ uint64_t objectdestroy_2Tm_6()
 
 uint64_t objectdestroy_2Tm_7()
 {
-  v1 = type metadata accessor for LemonadeAccountView();
+  v1 = type metadata accessor for LemonadeAccountView(0);
   v2 = v0 + ((*(*(v1 - 8) + 80) + 16) & ~*(*(v1 - 8) + 80));
 
   v3 = *(v1 + 24);
@@ -2166,7 +2167,7 @@ uint64_t objectdestroy_2Tm_9()
 
 uint64_t objectdestroy_2Tm_10()
 {
-  v1 = *(type metadata accessor for LemonadeSharedLibraryInvitationsCell() - 8);
+  v1 = *(type metadata accessor for LemonadeSharedLibraryInvitationsCell(0) - 8);
   v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
   sub_1A4973574(0, &qword_1EB128A80, sub_1A3D63A58, MEMORY[0x1E697DCB8]);
   if (swift_getEnumCaseMultiPayload() == 1)
@@ -2225,7 +2226,7 @@ unint64_t sub_1A3C43F6C()
   return result;
 }
 
-uint64_t sub_1A3C43FCC(uint64_t a1)
+uint64_t sub_1A3C43FCC(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
@@ -2413,7 +2414,7 @@ unint64_t sub_1A3C444A0()
 
 uint64_t sub_1A3C44500(uint64_t a1)
 {
-  result = sub_1A43DD600(&qword_1EB1297E8, type metadata accessor for LemonadeMacSyncedAlbumsFeature.ShelfProvider);
+  result = sub_1A43DD600(&qword_1EB1297E8, type metadata accessor for LemonadeMacSyncedAlbumsFeature.ShelfProvider, &unk_1A53370A8);
   *(a1 + 8) = result;
   return result;
 }
@@ -2508,9 +2509,8 @@ void sub_1A3C44714(void *a1, uint64_t a2, uint64_t a3)
   _s12PhotosUICore13SpriteBuilderV11buildEither5firstSayAA0C13Configuration_pGAG_tFZ_0();
 }
 
-uint64_t sub_1A3C44864(uint64_t result, uint64_t a2, unint64_t a3, char a4)
+void sub_1A3C44864(uint64_t result, uint64_t a2, unint64_t a3, char a4)
 {
-  v7 = result;
   v8 = *(*v4 + 16);
   v9 = *(*v4 + 24);
   if (v9 > v8 && (a4 & 1) != 0)
@@ -2520,69 +2520,63 @@ uint64_t sub_1A3C44864(uint64_t result, uint64_t a2, unint64_t a3, char a4)
 
   if (a4)
   {
-    sub_1A3D3DEC0();
+    sub_1A3D3DEC0(v8 + 1);
   }
 
   else
   {
     if (v9 > v8)
     {
-      result = sub_1A3D3E114();
+      sub_1A3D3E114();
       goto LABEL_16;
     }
 
-    sub_1A3D3E264();
+    sub_1A3D3E264(v8 + 1);
   }
 
   v10 = *v4;
   sub_1A524EC94();
   sub_1A524C794();
-  result = sub_1A524ECE4();
-  v11 = -1 << *(v10 + 32);
-  a3 = result & ~v11;
+  v11 = sub_1A524ECE4();
+  v12 = -1 << *(v10 + 32);
+  a3 = v11 & ~v12;
   if ((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
   {
-    v12 = ~v11;
+    v13 = ~v12;
     do
     {
-      v13 = (*(v10 + 48) + 16 * a3);
-      if (*v13 == v7 && v13[1] == a2)
+      v14 = (*(v10 + 48) + 16 * a3);
+      v15 = *v14 == result && v14[1] == a2;
+      if (v15 || (sub_1A524EAB4() & 1) != 0)
       {
         goto LABEL_19;
       }
 
-      result = sub_1A524EAB4();
-      if (result)
-      {
-        goto LABEL_19;
-      }
-
-      a3 = (a3 + 1) & v12;
+      a3 = (a3 + 1) & v13;
     }
 
     while (((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) != 0);
   }
 
 LABEL_16:
-  v15 = *v4;
+  v16 = *v4;
   *(*v4 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v16 = (*(v15 + 48) + 16 * a3);
-  *v16 = v7;
-  v16[1] = a2;
-  v17 = *(v15 + 16);
-  v18 = __OFADD__(v17, 1);
-  v19 = v17 + 1;
-  if (!v18)
+  v17 = (*(v16 + 48) + 16 * a3);
+  *v17 = result;
+  v17[1] = a2;
+  v18 = *(v16 + 16);
+  v19 = __OFADD__(v18, 1);
+  v20 = v18 + 1;
+  if (!v19)
   {
-    *(v15 + 16) = v19;
-    return result;
+    *(v16 + 16) = v20;
+    return;
   }
 
   __break(1u);
 LABEL_19:
-  result = sub_1A524EB74();
+  sub_1A524EB74();
   __break(1u);
-  return result;
 }
 
 void PXRegisterPreferencesObserver(void *a1)
@@ -2616,7 +2610,7 @@ void LemonadeSuggestedSearchQueryFetcher.init(searchQueryManager:container:)(voi
   v7 = sub_1A524EA44();
   MEMORY[0x1A5907B60](v7);
 
-  sub_1A3C52B14();
+  sub_1A3C52B14(0);
   swift_allocObject();
   sub_1A5245834();
 }
@@ -2642,7 +2636,7 @@ unint64_t sub_1A3C4510C(void *a1)
     return MEMORY[0x1E69E7CC8];
   }
 
-  sub_1A3FB88E8();
+  sub_1A3FB88E8(0);
   v3 = sub_1A524E794();
   v4 = a1[4];
   v5 = a1[5];
@@ -2706,7 +2700,7 @@ unint64_t sub_1A3C4528C()
   if (!qword_1EB126EF0)
   {
     sub_1A3FB8118(255, &qword_1EB126EF8, type metadata accessor for LemonadeSuggestedSearchCollection);
-    sub_1A3C45350(&qword_1EB129628, type metadata accessor for LemonadeSuggestedSearchCollection);
+    sub_1A3C45350(&qword_1EB129628, type metadata accessor for LemonadeSuggestedSearchCollection, &unk_1A530DD88);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB126EF0);
   }
@@ -2714,7 +2708,7 @@ unint64_t sub_1A3C4528C()
   return result;
 }
 
-uint64_t sub_1A3C45350(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C45350(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2746,11 +2740,11 @@ void sub_1A3C453B0(uint64_t a1)
   v28 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_1A5246E54();
   v8 = *(v7 - 8);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v33 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v24 - v12;
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v7);
+  v33 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v24 - v11;
+  MEMORY[0x1EEE9AC00](v13);
   v15 = &v24 - v14;
   if (qword_1EB17A8F0 != -1)
   {
@@ -2772,7 +2766,7 @@ void sub_1A3C453B0(uint64_t a1)
     MEMORY[0x1A590EEC0](v19, -1, -1);
   }
 
-  (*(v8 + 16))(v13, v15, v7);
+  (*(v8 + 16))(v12, v15, v7);
   sub_1A5246ED4();
   swift_allocObject();
   v21 = sub_1A5246EC4();
@@ -2780,7 +2774,7 @@ void sub_1A3C453B0(uint64_t a1)
   swift_getKeyPath();
   v22 = v35;
   aBlock = v35;
-  sub_1A3C45350(&qword_1EB1295B8, type metadata accessor for LemonadeSuggestedSearchQueryFetcher);
+  sub_1A3C45350(&qword_1EB1295B8, type metadata accessor for LemonadeSuggestedSearchQueryFetcher, &protocol conformance descriptor for LemonadeSuggestedSearchQueryFetcher);
   sub_1A52415D4();
 
   v23 = *(v22 + 104);
@@ -2807,17 +2801,14 @@ uint64_t sub_1A3C45D0C()
   return swift_deallocObject();
 }
 
-uint64_t sub_1A3C45D64()
+void sub_1A3C45D64(uint64_t a1)
 {
-  result = qword_1EB124BB0;
   if (!qword_1EB124BB0)
   {
-    sub_1A3C29944();
+    sub_1A3C29944(255);
     sub_1A3C45DC8();
     sub_1A5245844();
   }
-
-  return result;
 }
 
 unint64_t sub_1A3C45DC8()
@@ -2825,8 +2816,8 @@ unint64_t sub_1A3C45DC8()
   result = qword_1EB128C10;
   if (!qword_1EB128C10)
   {
-    sub_1A3C29944();
-    sub_1A3C45350(&qword_1EB129628, type metadata accessor for LemonadeSuggestedSearchCollection);
+    sub_1A3C29944(255);
+    sub_1A3C45350(&qword_1EB129628, type metadata accessor for LemonadeSuggestedSearchCollection, &unk_1A530DD88);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB128C10);
   }
@@ -2836,30 +2827,30 @@ unint64_t sub_1A3C45DC8()
 
 void *sub_1A3C45E70()
 {
-  v12 = sub_1A524D464();
-  v1 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v3 = v11 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_1A524D464();
+  v1 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v3 = v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = sub_1A524D414();
   MEMORY[0x1EEE9AC00](v4);
   v5 = sub_1A524BF64();
   MEMORY[0x1EEE9AC00](v5 - 8);
   v0[2] = &unk_1F1711770;
-  v6 = sub_1A3C29A58();
-  v11[0] = "istManagerOptions";
-  v11[1] = v6;
+  v7 = sub_1A3C29A58(0, v6);
+  v12[0] = "istManagerOptions";
+  v12[1] = v7;
   sub_1A524BF14();
-  v13 = MEMORY[0x1E69E7CC0];
-  sub_1A3C29D2C(&qword_1EB126AD0, MEMORY[0x1E69E8030]);
-  v7 = MEMORY[0x1E69E8030];
+  v14 = MEMORY[0x1E69E7CC0];
+  sub_1A3C29D2C(&qword_1EB126AD0, MEMORY[0x1E69E8030], MEMORY[0x1E69E8040]);
+  v8 = MEMORY[0x1E69E8030];
   sub_1A3C2A408(0, &qword_1EB126E40, MEMORY[0x1E69E8030], MEMORY[0x1E69E62F8]);
-  sub_1A3C2A9C4(&qword_1EB126E30, &qword_1EB126E40, v7);
+  sub_1A3C2A9C4(&qword_1EB126E30, &qword_1EB126E40, v8);
   sub_1A524E224();
-  (*(v1 + 104))(v3, *MEMORY[0x1E69E8090], v12);
-  v8 = sub_1A524D4B4();
-  v9 = MEMORY[0x1E69E7CC8];
-  v0[3] = v8;
-  v0[4] = v9;
+  (*(v1 + 104))(v3, *MEMORY[0x1E69E8090], v13);
+  v9 = sub_1A524D4B4();
+  v10 = MEMORY[0x1E69E7CC8];
+  v0[3] = v9;
+  v0[4] = v10;
   v0[5] = 0x4014000000000000;
   return v0;
 }
@@ -2980,12 +2971,12 @@ LABEL_3:
 
 void sub_1A3C467C8(void *a1, void *a2, void *a3)
 {
-  objc_allocWithZone(type metadata accessor for LemonadeRootViewController());
+  objc_allocWithZone(type metadata accessor for LemonadeRootViewController(0));
   v6 = a3;
   sub_1A3C46904(a1, a2, a3);
 }
 
-uint64_t type metadata accessor for LemonadeRootViewController()
+uint64_t type metadata accessor for LemonadeRootViewController(uint64_t a1)
 {
   result = qword_1EB181980;
   if (!qword_1EB181980)
@@ -3006,13 +2997,13 @@ void sub_1A3C46904(void *a1, uint64_t a2, void *a3)
   sub_1A3C47744(0, &unk_1EB12A160, type metadata accessor for LemonadeDetailsContext, MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v75 = &v58 - v9;
-  v73 = type metadata accessor for LemonadeNavigationDestination();
+  v73 = type metadata accessor for LemonadeNavigationDestination(0);
   MEMORY[0x1EEE9AC00](v73);
   v74 = &v58 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1A3C47744(0, &qword_1EB1290B0, MEMORY[0x1E69C24E0], v7);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v70 = &v58 - v12;
-  v72 = type metadata accessor for LemonadeDetailsContext();
+  v72 = type metadata accessor for LemonadeDetailsContext(0);
   v71 = *(v72 - 8);
   MEMORY[0x1EEE9AC00](v72);
   v76 = &v58 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3085,7 +3076,7 @@ void sub_1A3C46904(void *a1, uint64_t a2, void *a3)
   v36 = v34;
   v37 = a3;
 
-  sub_1A3C52C70(0, &qword_1EB12B180);
+  sub_1A3C52C70(0, &qword_1EB12B180, 0x1E69E9610);
   v38 = v60;
   (*(v19 + 104))(v21, *MEMORY[0x1E69E7F90], v60);
   v39 = sub_1A524D4C4();
@@ -3104,9 +3095,9 @@ void sub_1A3C46904(void *a1, uint64_t a2, void *a3)
   v43 = v61;
   sub_1A524BF14();
   v78 = MEMORY[0x1E69E7CC0];
-  sub_1A3C3834C(&qword_1EB12B1E0, MEMORY[0x1E69E7F60]);
-  sub_1A3C38394();
-  sub_1A3C3834C(&qword_1EB12B1B0, sub_1A3C38394);
+  sub_1A3C3834C(&qword_1EB12B1E0, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  sub_1A3C38394(0);
+  sub_1A3C3834C(&qword_1EB12B1B0, sub_1A3C38394, MEMORY[0x1E69E6328]);
   v44 = v65;
   sub_1A524E224();
   MEMORY[0x1A5908800](0, v43, v44, v41);
@@ -3125,7 +3116,7 @@ void sub_1A3C46904(void *a1, uint64_t a2, void *a3)
   v50 = [objc_opt_self() currentDevice];
   v51 = [v50 userInterfaceIdiom];
 
-  type metadata accessor for LemonadeRootViewModel();
+  type metadata accessor for LemonadeRootViewModel(0);
   v52 = *(v4 + v49);
   v53 = v42;
   v54 = v46;
@@ -3156,7 +3147,7 @@ void sub_1A3C47744(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t type metadata accessor for LemonadeDetailsContext()
+uint64_t type metadata accessor for LemonadeDetailsContext(uint64_t a1)
 {
   result = qword_1EB186DA0;
   if (!qword_1EB186DA0)
@@ -3167,19 +3158,19 @@ uint64_t type metadata accessor for LemonadeDetailsContext()
   return result;
 }
 
-void sub_1A3C477F4()
+void sub_1A3C477F4(uint64_t a1)
 {
   sub_1A3C362C4(319, &qword_1EB1290B0, MEMORY[0x1E69C24E0]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C362C4(319, &qword_1EB1201F0, sub_1A3C3637C);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A3C362C4(319, &qword_1EB125510, type metadata accessor for LemonadeSegmentedControlModel);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A3C362C4(319, &qword_1EB12A2F0, type metadata accessor for LemonadeToolbarModel);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -3188,21 +3179,21 @@ void sub_1A3C477F4()
   }
 }
 
-void sub_1A3C47924()
+void sub_1A3C47924(uint64_t a1)
 {
   if (!qword_1EB125970)
   {
-    type metadata accessor for LemonadeSocialGroupsShelfProvider();
-    sub_1A3C36C5C(&qword_1EB125368, type metadata accessor for LemonadeSocialGroupsShelfProvider);
-    v0 = type metadata accessor for LemonadePeopleFeature.FeedConfiguration();
-    if (!v1)
+    v2 = type metadata accessor for LemonadeSocialGroupsShelfProvider(255);
+    v3 = sub_1A3C36C5C(&qword_1EB125368, type metadata accessor for LemonadeSocialGroupsShelfProvider, &unk_1A537F178);
+    v5 = type metadata accessor for LemonadePeopleFeature.FeedConfiguration(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB125970);
+      atomic_store(v5, &qword_1EB125970);
     }
   }
 }
 
-uint64_t type metadata accessor for LemonadeSocialGroupsShelfProvider()
+uint64_t type metadata accessor for LemonadeSocialGroupsShelfProvider(uint64_t a1)
 {
   result = qword_1EB161C50;
   if (!qword_1EB161C50)
@@ -3213,26 +3204,26 @@ uint64_t type metadata accessor for LemonadeSocialGroupsShelfProvider()
   return result;
 }
 
-void sub_1A3C47A24()
+void sub_1A3C47A24(uint64_t a1)
 {
   sub_1A3C36B34(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1A3C47A98();
-    if (v1 <= 0x3F)
+    sub_1A3C47A98(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     }
   }
 }
 
-void sub_1A3C47A98()
+void sub_1A3C47A98(uint64_t a1)
 {
   if (!qword_1EB12A130)
   {
     sub_1A5242C84();
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &qword_1EB12A130);
     }
@@ -3291,11 +3282,11 @@ void sub_1A3C47C38(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C47CBC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+void sub_1A3C47CBC(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    v8 = sub_1A3C52C70(255, a3);
+    v8 = sub_1A3C52C70(255, a3, a4);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -3317,10 +3308,10 @@ void sub_1A3C47D24(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t sub_1A3C47D88()
+uint64_t sub_1A3C47D88(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_initClassMetadata2();
   }
@@ -3328,31 +3319,31 @@ uint64_t sub_1A3C47D88()
   return result;
 }
 
-void sub_1A3C47EF0()
+void sub_1A3C47EF0(uint64_t a1)
 {
   sub_1A3C47CBC(319, &qword_1EB129FB0, &qword_1EB126AC0, 0x1E6978650, type metadata accessor for PhotoKitItemListManager);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C3637C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A3C37710(319, &qword_1EB1206F8, type metadata accessor for PXPhotosViewSectionBodyStyle);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A3C47CBC(319, &qword_1EB120730, &qword_1EB126850, &off_1E7721830, MEMORY[0x1E69E6720]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for PXPhotosViewConfigurationAllowedBehaviors(319);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_1A3C47CBC(319, &qword_1EB1207D0, &qword_1EB1207D8, &off_1E77218D0, MEMORY[0x1E69E6720]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_1A3C47CBC(319, &unk_1EB1207E0, &qword_1EB1207F0, off_1E771F5C8, MEMORY[0x1E69E6720]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 sub_1A3C37710(319, &qword_1EB1201F0, sub_1A3C3637C);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   sub_1A5245BA4();
                 }
@@ -3365,46 +3356,43 @@ void sub_1A3C47EF0()
   }
 }
 
-uint64_t sub_1A3C48108()
+void sub_1A3C48108(uint64_t a1)
 {
-  result = qword_1EB128CC0;
   if (!qword_1EB128CC0)
   {
     sub_1A3C47CBC(255, &qword_1EB129FB0, &qword_1EB126AC0, 0x1E6978650, type metadata accessor for PhotoKitItemListManager);
-    type metadata accessor for LemonadeSavedTodayItemListManager();
+    type metadata accessor for LemonadeSavedTodayItemListManager(255);
     sub_1A3C37908();
-    sub_1A3C483F8(&qword_1EB129648, type metadata accessor for LemonadeSavedTodayItemListManager);
+    sub_1A3C483F8(&qword_1EB129648, type metadata accessor for LemonadeSavedTodayItemListManager, &protocol conformance descriptor for PhotoKitItemListManager<A>);
     sub_1A5246004();
   }
-
-  return result;
 }
 
-void sub_1A3C481F4()
+void sub_1A3C481F4(uint64_t a1)
 {
-  sub_1A3C48108();
-  if (v0 <= 0x3F)
+  sub_1A3C48108(319);
+  if (v1 <= 0x3F)
   {
     sub_1A3C3637C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A3C37710(319, &qword_1EB1206F8, type metadata accessor for PXPhotosViewSectionBodyStyle);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A3C47CBC(319, &qword_1EB120730, &qword_1EB126850, &off_1E7721830, MEMORY[0x1E69E6720]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for PXPhotosViewConfigurationAllowedBehaviors(319);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_1A3C47CBC(319, &qword_1EB1207D0, &qword_1EB1207D8, &off_1E77218D0, MEMORY[0x1E69E6720]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               sub_1A3C47CBC(319, &unk_1EB1207E0, &qword_1EB1207F0, off_1E771F5C8, MEMORY[0x1E69E6720]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 sub_1A3C37710(319, &qword_1EB1201F0, sub_1A3C3637C);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   sub_1A5245BA4();
                 }
@@ -3417,7 +3405,7 @@ void sub_1A3C481F4()
   }
 }
 
-uint64_t sub_1A3C483F8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C483F8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3442,32 +3430,32 @@ void sub_1A3C484DC()
   }
 }
 
-void sub_1A3C48558()
+void sub_1A3C48558(uint64_t a1)
 {
   if (!qword_1EB125320)
   {
     type metadata accessor for GenerativeStorySuggestionViewModel(255);
-    v0 = sub_1A524DF24();
-    if (!v1)
+    v1 = sub_1A524DF24();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB125320);
+      atomic_store(v1, &qword_1EB125320);
     }
   }
 }
 
-void sub_1A3C485D0()
+void sub_1A3C485D0(uint64_t a1)
 {
   sub_1A3C487B8(319, &qword_1EB125798, type metadata accessor for GenerativeStorySuggestion, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C487B8(319, &qword_1EB12AFE0, MEMORY[0x1E6969530], MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A5246F24();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A5241614();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_updateClassMetadata2();
         }
@@ -3681,15 +3669,15 @@ void sub_1A3C48CCC(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void,
   }
 }
 
-void sub_1A3C48D1C()
+void sub_1A3C48D1C(uint64_t a1)
 {
   if (!qword_1EB1209D0)
   {
-    sub_1A3C52C70(255, &qword_1EB1209D8);
-    v0 = sub_1A524DF24();
-    if (!v1)
+    sub_1A3C52C70(255, &qword_1EB1209D8, 0x1E6978A98);
+    v1 = sub_1A524DF24();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB1209D0);
+      atomic_store(v1, &qword_1EB1209D0);
     }
   }
 }
@@ -3698,7 +3686,7 @@ void sub_1A3C48D84()
 {
   if (!qword_1EB120AC8)
   {
-    v0 = sub_1A3C52C70(0, &qword_1EB126BF8);
+    v0 = sub_1A3C52C70(0, &qword_1EB126BF8, 0x1E6978898);
     if (!v1)
     {
       atomic_store(v0, &qword_1EB120AC8);
@@ -3706,7 +3694,7 @@ void sub_1A3C48D84()
   }
 }
 
-uint64_t type metadata accessor for LemonadeRootViewModel()
+uint64_t type metadata accessor for LemonadeRootViewModel(uint64_t a1)
 {
   result = qword_1EB187A50;
   if (!qword_1EB187A50)
@@ -3724,7 +3712,7 @@ unint64_t sub_1A3C492F0()
   return result;
 }
 
-uint64_t sub_1A3C49318(void *a1, uint64_t a2)
+void sub_1A3C49318(void *a1, uint64_t a2)
 {
   if ((a2 & 0xC000000000000001) != 0)
   {
@@ -3735,22 +3723,19 @@ uint64_t sub_1A3C49318(void *a1, uint64_t a2)
     {
       type metadata accessor for LemonadeBookmarksManager(0);
       swift_dynamicCast();
-      return v6;
     }
   }
 
   else if (*(a2 + 16))
   {
     sub_1A3C39EA4(a1);
-    if (v5)
+    if (v4)
     {
     }
   }
-
-  return 0;
 }
 
-void sub_1A3C494E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_1A3C494E8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = sub_1A524BEE4();
   MEMORY[0x1EEE9AC00](v5);
@@ -3792,7 +3777,7 @@ unint64_t sub_1A3C49AF4()
   return result;
 }
 
-uint64_t sub_1A3C49B48(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C49B48(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3805,7 +3790,7 @@ uint64_t sub_1A3C49B48(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C49B90(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C49B90(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3818,17 +3803,17 @@ uint64_t sub_1A3C49B90(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_1A3C49BDC()
+void sub_1A3C49BDC(uint64_t a1)
 {
   if (!qword_1EB1263E8)
   {
-    sub_1A3C52C70(255, &qword_1EB126BF0);
+    sub_1A3C52C70(255, &qword_1EB126BF0, 0x1E69789A8);
     type metadata accessor for LemonadeBookmarksManager(255);
-    sub_1A3C3A220(&qword_1EB126BD0, &qword_1EB126BF0);
-    v0 = sub_1A524E7A4();
-    if (!v1)
+    sub_1A3C3A220(&qword_1EB126BD0, &qword_1EB126BF0, 0x1E69789A8, MEMORY[0x1E69E81B8]);
+    v1 = sub_1A524E7A4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB1263E8);
+      atomic_store(v1, &qword_1EB1263E8);
     }
   }
 }
@@ -3852,7 +3837,7 @@ void *sub_1A3C49C9C(void *a1, void *a2, uint64_t a3)
   v13 = a2;
   if ([v12 isMemoryCreationEnabled])
   {
-    type metadata accessor for LemonadeMemoriesCreationAvailabilityManager();
+    type metadata accessor for LemonadeMemoriesCreationAvailabilityManager(0);
     v14 = sub_1A3C3A660(v10);
   }
 
@@ -3942,7 +3927,7 @@ uint64_t sub_1A3C4A5C0()
   return swift_deallocObject();
 }
 
-uint64_t type metadata accessor for LemonadeMemoriesCreationAvailabilityManager()
+uint64_t type metadata accessor for LemonadeMemoriesCreationAvailabilityManager(uint64_t a1)
 {
   result = qword_1EB177670;
   if (!qword_1EB177670)
@@ -3953,27 +3938,27 @@ uint64_t type metadata accessor for LemonadeMemoriesCreationAvailabilityManager(
   return result;
 }
 
-uint64_t sub_1A3C4A69C()
+uint64_t sub_1A3C4A69C(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_opt_self() weakToStrongObjectsMapTable];
-  sub_1A3C4A700();
+  v2 = [objc_opt_self() weakToStrongObjectsMapTable];
+  sub_1A3C4A700(0);
   result = swift_allocObject();
   *(result + 24) = 0;
-  *(result + 16) = v0;
+  *(result + 16) = v2;
   qword_1EB15CE78 = result;
   return result;
 }
 
-void sub_1A3C4A700()
+void sub_1A3C4A700(uint64_t a1)
 {
   if (!qword_1EB1204E0)
   {
-    sub_1A3C52C70(255, &qword_1EB120B00);
+    sub_1A3C52C70(255, &qword_1EB120B00, 0x1E696AD18);
     type metadata accessor for os_unfair_lock_s(255);
-    v0 = sub_1A524E4E4();
-    if (!v1)
+    v1 = sub_1A524E4E4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB1204E0);
+      atomic_store(v1, &qword_1EB1204E0);
     }
   }
 }
@@ -3996,10 +3981,10 @@ uint64_t sub_1A3C4A7E4()
   v2 = sub_1A52453A4();
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ([objc_opt_self() isMemoryCreationEnabled])
   {
-    sub_1A3C52C70(0, &qword_1EB126860);
+    sub_1A3C52C70(0, &qword_1EB126860, off_1E771E0D0);
     v6 = [swift_getObjCClassFromMetadata() sharedInstance];
     v7 = [v6 shouldUseAvailabilityMonitor];
 
@@ -4041,15 +4026,15 @@ uint64_t sub_1A3C4A7E4()
   if (os_log_type_enabled(v11, v12))
   {
     v13 = swift_slowAlloc();
-    v17 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
     *v13 = 136315394;
-    (*(*v1 + 312))(&v16);
-    sub_1A524C714();
-    sub_1A3C2EF94();
+    (*(*v1 + 312))(&v18);
+    v14 = sub_1A524C714();
+    sub_1A3C2EF94(v14, v15, &v19);
   }
 
-  v18 = v8;
-  return sub_1A3C4AD2C(&v18);
+  v20 = v8;
+  return sub_1A3C4AD2C(&v20);
 }
 
 uint64_t sub_1A3C4AB38@<X0>(_BYTE *a1@<X8>)
@@ -4131,24 +4116,24 @@ uint64_t sub_1A3C4AD2C(unsigned __int8 *a1)
   if (*(v1 + OBJC_IVAR____TtC12PhotosUICore43LemonadeMemoriesCreationAvailabilityManager___cardVisibilityState) != v2)
   {
     v5 = swift_getKeyPath();
-    v6 = MEMORY[0x1EEE9AC00](v5);
+    v6.n128_f64[0] = MEMORY[0x1EEE9AC00](v5);
     v7 = v1;
     v8 = v2;
-    (*(*v1 + 704))(v6, sub_1A3C4AE68);
+    (*(*v1 + 704))(v6);
   }
 
   return result;
 }
 
-void sub_1A3C4AEA4()
+void sub_1A3C4AEA4(uint64_t a1)
 {
   if (!qword_1EB125940)
   {
-    sub_1A3C36888();
-    v0 = type metadata accessor for LemonadePeopleFeature();
-    if (!v1)
+    v2 = sub_1A3C36888();
+    v4 = type metadata accessor for LemonadePeopleFeature(a1, &type metadata for LemonadePeopleShelfProvider, v2, v3);
+    if (!v5)
     {
-      atomic_store(v0, &qword_1EB125940);
+      atomic_store(v4, &qword_1EB125940);
     }
   }
 }
@@ -4166,10 +4151,10 @@ uint64_t sub_1A3C4AF00()
   }
 }
 
-uint64_t sub_1A3C4AF58()
+uint64_t sub_1A3C4AF58(uint64_t a1)
 {
   result = type metadata accessor for LemonadeBookmark.CollectionIdentifier(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4178,30 +4163,30 @@ uint64_t sub_1A3C4AF58()
   return result;
 }
 
-void sub_1A3C4AFFC()
+void sub_1A3C4AFFC(uint64_t a1)
 {
   if (!qword_1EB125950)
   {
-    type metadata accessor for LemonadeSocialGroupsShelfProvider();
-    sub_1A3C4B134(&qword_1EB125368, type metadata accessor for LemonadeSocialGroupsShelfProvider);
-    v0 = type metadata accessor for LemonadePeopleFeature();
-    if (!v1)
+    v2 = type metadata accessor for LemonadeSocialGroupsShelfProvider(255);
+    v3 = sub_1A3C4B134(&qword_1EB125368, type metadata accessor for LemonadeSocialGroupsShelfProvider, &unk_1A537F178);
+    v5 = type metadata accessor for LemonadePeopleFeature(a1, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &qword_1EB125950);
+      atomic_store(v5, &qword_1EB125950);
     }
   }
 }
 
-void sub_1A3C4B090()
+void sub_1A3C4B090(uint64_t a1)
 {
   sub_1A5244EB4();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C4B17C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A5241144();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
@@ -4209,7 +4194,7 @@ void sub_1A3C4B090()
   }
 }
 
-uint64_t sub_1A3C4B134(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C4B134(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4234,13 +4219,13 @@ void sub_1A3C4B17C()
   }
 }
 
-uint64_t sub_1A3C4B1E0()
+uint64_t sub_1A3C4B1E0(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadeShelfBodyStyle(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -4250,7 +4235,7 @@ uint64_t sub_1A3C4B1E0()
   return result;
 }
 
-uint64_t type metadata accessor for LemonadeICloudLinksFeature()
+uint64_t type metadata accessor for LemonadeICloudLinksFeature(uint64_t a1)
 {
   result = qword_1EB181DE0;
   if (!qword_1EB181DE0)
@@ -4261,13 +4246,13 @@ uint64_t type metadata accessor for LemonadeICloudLinksFeature()
   return result;
 }
 
-unint64_t sub_1A3C4B2E8()
+uint64_t sub_1A3C4B2E8(uint64_t a1)
 {
-  result = type metadata accessor for LemonadeICloudLinksShelfProvider();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for LemonadeICloudLinksShelfProvider(319);
+  if (v2 <= 0x3F)
   {
-    result = sub_1A3C4B4AC();
-    if (v2 <= 0x3F)
+    result = sub_1A3C4B4AC(319, v2);
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -4289,19 +4274,19 @@ unint64_t sub_1A3C4B384()
   return result;
 }
 
-uint64_t sub_1A3C4B3D8()
+uint64_t sub_1A3C4B3D8(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = sub_1A5243334();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for LemonadeShelfBodyStyle(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = sub_1A5244094();
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
           return 0;
@@ -4313,7 +4298,7 @@ uint64_t sub_1A3C4B3D8()
   return result;
 }
 
-unint64_t sub_1A3C4B4AC()
+unint64_t sub_1A3C4B4AC(uint64_t a1, uint64_t a2)
 {
   result = qword_1EB126BF0;
   if (!qword_1EB126BF0)
@@ -4326,7 +4311,7 @@ unint64_t sub_1A3C4B4AC()
   return result;
 }
 
-uint64_t type metadata accessor for LemonadeSharedWithYouFeature()
+uint64_t type metadata accessor for LemonadeSharedWithYouFeature(uint64_t a1)
 {
   result = qword_1EB17F260;
   if (!qword_1EB17F260)
@@ -4349,10 +4334,10 @@ unint64_t sub_1A3C4B544()
   return result;
 }
 
-uint64_t sub_1A3C4B598()
+uint64_t sub_1A3C4B598(uint64_t a1)
 {
-  result = type metadata accessor for LemonadeSharedWithYouGridShelfProvider();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for LemonadeSharedWithYouGridShelfProvider(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4361,7 +4346,7 @@ uint64_t sub_1A3C4B598()
   return result;
 }
 
-uint64_t sub_1A3C4B614()
+unint64_t sub_1A3C4B614()
 {
   v1 = 1684957547;
   if (*v0 != 1)
@@ -4469,16 +4454,16 @@ LABEL_20:
   return result;
 }
 
-void sub_1A3C4B710()
+void sub_1A3C4B710(uint64_t a1)
 {
   sub_1A3C4B8A8(319, &qword_1EB126BE0, &qword_1EB126BF0, 0x1E69789A8, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A5243334();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for LemonadeShelfBodyStyle(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -4486,24 +4471,24 @@ void sub_1A3C4B710()
   }
 }
 
-void sub_1A3C4B7E8(uint64_t a1, unint64_t *a2, unint64_t *a3)
+void sub_1A3C4B7E8(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (!*a2)
   {
-    sub_1A3C52C70(255, a3);
-    v4 = sub_1A524DF24();
-    if (!v5)
+    sub_1A3C52C70(255, a3, a4);
+    v5 = sub_1A524DF24();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
 
-void sub_1A3C4B840(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+void sub_1A3C4B840(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    v8 = sub_1A3C52C70(255, a3);
+    v8 = sub_1A3C52C70(255, a3, a4);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -4512,11 +4497,11 @@ void sub_1A3C4B840(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint6
   }
 }
 
-void sub_1A3C4B8A8(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+void sub_1A3C4B8A8(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   if (!*a2)
   {
-    v8 = sub_1A3C52C70(255, a3);
+    v8 = sub_1A3C52C70(255, a3, a4);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -4537,10 +4522,10 @@ unint64_t sub_1A3C4B910()
   return result;
 }
 
-uint64_t sub_1A3C4B984()
+uint64_t sub_1A3C4B984(uint64_t a1)
 {
   result = type metadata accessor for LemonadeImportSourcesFeature.ShelfProvider(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4549,10 +4534,10 @@ uint64_t sub_1A3C4B984()
   return result;
 }
 
-uint64_t sub_1A3C4BA00()
+uint64_t sub_1A3C4BA00(uint64_t a1)
 {
   result = type metadata accessor for LemonadeShelfBodyStyle(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4561,7 +4546,7 @@ uint64_t sub_1A3C4BA00()
   return result;
 }
 
-uint64_t type metadata accessor for LemonadeSharedLibrarySuggestionsFeature()
+uint64_t type metadata accessor for LemonadeSharedLibrarySuggestionsFeature(uint64_t a1)
 {
   result = qword_1EB178E70;
   if (!qword_1EB178E70)
@@ -4645,7 +4630,7 @@ LABEL_17:
   return (v8 + 1);
 }
 
-uint64_t sub_1A3C4BB80(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C4BB80(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4658,7 +4643,7 @@ uint64_t sub_1A3C4BB80(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C4BBC8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C4BBC8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4671,21 +4656,21 @@ uint64_t sub_1A3C4BBC8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C4BC10()
+uint64_t sub_1A3C4BC10(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = sub_1A5243334();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for LemonadeShelfBodyStyle(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = sub_1A5244094();
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
-          type metadata accessor for LemonadeSharedLibrarySuggestionsShelfProvider.UnreadVisibilityMonitor();
+          type metadata accessor for LemonadeSharedLibrarySuggestionsShelfProvider.UnreadVisibilityMonitor(result, v5);
           swift_cvw_initStructMetadataWithLayoutString();
           return 0;
         }
@@ -4696,7 +4681,7 @@ uint64_t sub_1A3C4BC10()
   return result;
 }
 
-unint64_t sub_1A3C4BCF0()
+unint64_t sub_1A3C4BCF0(uint64_t a1, uint64_t a2)
 {
   result = qword_1EB1206D0;
   if (!qword_1EB1206D0)
@@ -4745,19 +4730,19 @@ unint64_t sub_1A3C4BE2C()
   return result;
 }
 
-void sub_1A3C4BE80()
+void sub_1A3C4BE80(uint64_t a1)
 {
-  sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v0 <= 0x3F)
+  sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v1 <= 0x3F)
   {
     sub_1A3C3637C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for LemonadeShelfBodyStyle(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A3C4C1B4(319, &qword_1EB125A20, type metadata accessor for PickerConfiguration, MEMORY[0x1E69E6720]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -4766,7 +4751,7 @@ void sub_1A3C4BE80()
   }
 }
 
-void sub_1A3C4BF7C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4BF7C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -4818,7 +4803,7 @@ void sub_1A3C4C098(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C4C0FC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4C0FC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -4909,7 +4894,7 @@ void sub_1A3C4C344(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C4C3A8(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4C3A8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -4984,13 +4969,13 @@ unint64_t sub_1A3C4C5B8()
   return result;
 }
 
-uint64_t sub_1A3C4C60C()
+uint64_t sub_1A3C4C60C(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadeShelfBodyStyle(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -5012,10 +4997,10 @@ unint64_t sub_1A3C4C6D8()
   return result;
 }
 
-uint64_t sub_1A3C4C730()
+uint64_t sub_1A3C4C730(uint64_t a1)
 {
   result = type metadata accessor for LemonadePhototypesFeature.ShelfProvider(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5024,13 +5009,13 @@ uint64_t sub_1A3C4C730()
   return result;
 }
 
-uint64_t sub_1A3C4C7F0()
+uint64_t sub_1A3C4C7F0(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadeSuggestionsFeature.ShelfProvider(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -5052,13 +5037,13 @@ unint64_t sub_1A3C4C894()
   return result;
 }
 
-uint64_t sub_1A3C4C8E8()
+uint64_t sub_1A3C4C8E8(uint64_t a1)
 {
-  result = sub_1A3C52C70(319, &qword_1EB126BF0);
-  if (v1 <= 0x3F)
+  result = sub_1A3C52C70(319, &qword_1EB126BF0, 0x1E69789A8);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for LemonadeShelfBodyStyle(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -5068,10 +5053,10 @@ uint64_t sub_1A3C4C8E8()
   return result;
 }
 
-uint64_t sub_1A3C4C9C4()
+uint64_t sub_1A3C4C9C4(uint64_t a1)
 {
   result = type metadata accessor for LemonadeSearchCollectionResultsShelfProvider(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5092,34 +5077,37 @@ unint64_t sub_1A3C4CA48()
   return result;
 }
 
-uint64_t LemonadeShelvesLoader.init(itemListManagerProvider:gradualDelivery:)(uint64_t a1, uint64_t a2, char a3)
+uint64_t *LemonadeShelvesLoader.init(itemListManagerProvider:gradualDelivery:)(uint64_t a1, uint64_t a2, char a3)
 {
-  *(v3 + 16) = sub_1A524CAB4();
-  *(v3 + 24) = 0;
+  v7 = *v3;
+  v8 = *(*v3 + 80);
+  v3[2] = sub_1A524CAB4();
+  v3[3] = 0;
   *(v3 + 32) = 3;
   *(v3 + 73) = 0;
-  *(v3 + 40) = 0;
-  *(v3 + 48) = 0;
-  *(v3 + 80) = sub_1A524CAB4();
-  *(v3 + 88) = sub_1A524CAB4();
+  v3[5] = 0;
+  v3[6] = 0;
+  v3[10] = sub_1A524CAB4();
+  v3[11] = sub_1A524CAB4();
+  v9 = *(v7 + 88);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = type metadata accessor for LemonadeShelvesLoader.ShelfState();
-  swift_getTupleTypeMetadata2();
-  v9 = sub_1A524CAB4();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v11 = sub_1A3C3DFB4(v9, AssociatedTypeWitness, v8, AssociatedConformanceWitness);
-
-  *(v3 + 96) = v11;
-  v12 = MEMORY[0x1E69E7C98];
+  v12 = type metadata accessor for LemonadeShelvesLoader.ShelfState(255, v8, v9, v11);
   swift_getTupleTypeMetadata2();
   v13 = sub_1A524CAB4();
-  v14 = sub_1A3C3DFB4(v13, AssociatedTypeWitness, v12 + 8, AssociatedConformanceWitness);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v15 = sub_1A3C3DFB4(v13, AssociatedTypeWitness, v12, AssociatedConformanceWitness);
 
-  *(v3 + 104) = v14;
+  v3[12] = v15;
+  v16 = MEMORY[0x1E69E7C98];
+  swift_getTupleTypeMetadata2();
+  v17 = sub_1A524CAB4();
+  v18 = sub_1A3C3DFB4(v17, AssociatedTypeWitness, v16 + 8, AssociatedConformanceWitness);
+
+  v3[13] = v18;
   *(v3 + 112) = 0;
   sub_1A5241604();
-  *(v3 + 56) = a1;
-  *(v3 + 64) = a2;
+  v3[7] = a1;
+  v3[8] = a2;
   *(v3 + 72) = a3;
   return v3;
 }
@@ -5136,10 +5124,10 @@ unint64_t sub_1A3C4CC7C()
   return result;
 }
 
-uint64_t sub_1A3C4CCD0()
+uint64_t sub_1A3C4CCD0(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -5175,7 +5163,7 @@ unint64_t sub_1A3C4CE28()
   return result;
 }
 
-void sub_1A3C4CE7C(uint64_t a1@<X8>)
+uint64_t sub_1A3C4CE7C@<X0>(uint64_t a1@<X8>)
 {
   if (qword_1EB191430 != -1)
   {
@@ -5185,29 +5173,31 @@ void sub_1A3C4CE7C(uint64_t a1@<X8>)
   sub_1A3C4D23C(0, &qword_1EB12AA68, type metadata accessor for PhotosAppTestLaunchConfiguration);
   v3 = __swift_project_value_buffer(v2, qword_1EB191438);
   swift_beginAccess();
-  v4 = type metadata accessor for PhotosAppTestLaunchConfiguration();
-  if ((*(*(v4 - 8) + 48))(v3, 1, v4))
+  v4 = type metadata accessor for PhotosAppTestLaunchConfiguration(0);
+  result = (*(*(v4 - 8) + 48))(v3, 1, v4);
+  if (result)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
-    v8 = -1;
+    v8 = 0;
+    v9 = -1;
   }
 
   else
   {
-    v9 = v3 + *(v4 + 20);
-    v5 = *v9;
-    v6 = *(v9 + 8);
-    v7 = *(v9 + 16);
-    v8 = *(v9 + 24);
-    sub_1A4396980(*v9, v6, v7, v8);
+    v10 = v3 + *(v4 + 20);
+    v6 = *v10;
+    v7 = *(v10 + 8);
+    v8 = *(v10 + 16);
+    v9 = *(v10 + 24);
+    result = sub_1A4396980(*v10, v7, v8, v9);
   }
 
-  *a1 = v5;
-  *(a1 + 8) = v6;
-  *(a1 + 16) = v7;
-  *(a1 + 24) = v8;
+  *a1 = v6;
+  *(a1 + 8) = v7;
+  *(a1 + 16) = v8;
+  *(a1 + 24) = v9;
+  return result;
 }
 
 uint64_t sub_1A3C4CFB4()
@@ -5216,7 +5206,7 @@ uint64_t sub_1A3C4CFB4()
   v1 = v0;
   __swift_allocate_value_buffer(v0, qword_1EB191438);
   v2 = __swift_project_value_buffer(v1, qword_1EB191438);
-  v3 = type metadata accessor for PhotosAppTestLaunchConfiguration();
+  v3 = type metadata accessor for PhotosAppTestLaunchConfiguration(0);
   v4 = *(*(v3 - 8) + 56);
 
   return v4(v2, 1, 1, v3);
@@ -5260,7 +5250,7 @@ void sub_1A3C4D120(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C4D184(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4D184(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -5286,7 +5276,7 @@ void sub_1A3C4D1D8(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C4D23C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4D23C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -5299,7 +5289,7 @@ void sub_1A3C4D23C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C4D290(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4D290(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -5312,7 +5302,7 @@ void sub_1A3C4D290(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C4D2E4(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4D2E4(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -5325,7 +5315,7 @@ void sub_1A3C4D2E4(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C4D338(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C4D338(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -5376,7 +5366,7 @@ unint64_t sub_1A3C4D450()
   return result;
 }
 
-uint64_t type metadata accessor for PhotosAppTestLaunchConfiguration()
+uint64_t type metadata accessor for PhotosAppTestLaunchConfiguration(uint64_t a1)
 {
   result = qword_1EB1947B0;
   if (!qword_1EB1947B0)
@@ -5399,14 +5389,14 @@ unint64_t sub_1A3C4D4F4()
   return result;
 }
 
-void sub_1A3C4D548(uint64_t a1, unint64_t *a2)
+void sub_1A3C4D548(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = sub_1A524EA54();
-    if (!v4)
+    v4 = sub_1A524EA54();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
@@ -5491,7 +5481,7 @@ uint64_t static LemonadeLibraryDefaultsShelvesDataSource.defaultsShelvesDataSour
   }
 
   swift_beginAccess();
-  v3 = sub_1A3C4D90C(a1, qword_1EB1782F8);
+  sub_1A3C4D90C(a1, qword_1EB1782F8);
   if (v3)
   {
     v4 = v3;
@@ -5544,7 +5534,7 @@ unint64_t sub_1A3C4D8E4()
   return result;
 }
 
-uint64_t sub_1A3C4D90C(void *a1, uint64_t a2)
+void sub_1A3C4D90C(void *a1, uint64_t a2)
 {
   if ((a2 & 0xC000000000000001) != 0)
   {
@@ -5553,21 +5543,18 @@ uint64_t sub_1A3C4D90C(void *a1, uint64_t a2)
 
     if (v3)
     {
-      type metadata accessor for LemonadeLibraryDefaultsShelvesDataSource();
+      type metadata accessor for LemonadeLibraryDefaultsShelvesDataSource(0);
       swift_dynamicCast();
-      return v6;
     }
   }
 
   else if (*(a2 + 16))
   {
     sub_1A3C39EA4(a1);
-    if (v5)
+    if (v4)
     {
     }
   }
-
-  return 0;
 }
 
 uint64_t sub_1A3C4D9BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -5654,19 +5641,19 @@ void sub_1A3C4DA74(void *a1)
 {
   v2 = v1;
   v4 = type metadata accessor for LemonadeFeatureLibrary.Shelf(0);
-  v81 = *(v4 - 8);
-  v5 = MEMORY[0x1EEE9AC00](v4 - 8);
-  v76 = &v73 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  v75 = &v73 - v9;
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v73 - v10;
+  v82 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v77 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v7);
+  v76 = &v74 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v74 - v10;
   v12 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_logger;
   v13 = sub_1A3C4E7CC();
   v14 = sub_1A5246F24();
   (*(*(v14 - 8) + 16))(v2 + v12, v13, v14);
-  v78 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesLayoutStyle;
+  v79 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesLayoutStyle;
   *(v2 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesLayoutStyle) = 2;
   *(v2 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_shelvesVersionNumber) = 0;
   *(v2 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_currentHiddenShelves) = 0;
@@ -5686,24 +5673,24 @@ void sub_1A3C4DA74(void *a1)
   *(v2 + 16) = v16;
   v22 = MEMORY[0x1E69E7CC0];
   *(v2 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_availableShelves) = MEMORY[0x1E69E7CC0];
-  v74 = v2;
-  v79 = v18;
+  v75 = v2;
+  v80 = v18;
   v23 = *(**(v2 + v18) + 232);
-  v73 = v16;
+  v74 = v16;
 
   v25 = v23(v24);
-  v26 = v81;
+  v26 = v82;
   v27 = v25;
 
   v28 = *(v27 + 16);
-  v80 = v21;
+  v81 = v21;
   if (v28)
   {
-    v82 = v22;
+    v83 = v22;
     sub_1A3C4ED58(0, v28, 0);
-    v29 = v82;
+    v29 = v83;
     v30 = *(v26 + 80);
-    v77 = v27;
+    v78 = v27;
     v31 = v27 + ((v30 + 32) & ~v30);
     v32 = *(v26 + 72);
     do
@@ -5711,14 +5698,14 @@ void sub_1A3C4DA74(void *a1)
       sub_1A3C531C8(v31, v11);
       sub_1A3C5322C();
       sub_1A3D3F0B8(v11, type metadata accessor for LemonadeFeatureLibrary.Shelf);
-      v33 = v83;
-      v82 = v29;
+      v33 = v84;
+      v83 = v29;
       v35 = *(v29 + 16);
       v34 = *(v29 + 24);
       if (v35 >= v34 >> 1)
       {
         sub_1A3C4ED58((v34 > 1), v35 + 1, 1);
-        v29 = v82;
+        v29 = v83;
       }
 
       *(v29 + 16) = v35 + 1;
@@ -5729,7 +5716,7 @@ void sub_1A3C4DA74(void *a1)
 
     while (v28);
 
-    v21 = v80;
+    v21 = v81;
     v22 = MEMORY[0x1E69E7CC0];
   }
 
@@ -5739,35 +5726,35 @@ void sub_1A3C4DA74(void *a1)
     v29 = MEMORY[0x1E69E7CC0];
   }
 
-  v36 = v74;
-  *(v74 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_pinnedToBottomShelfIDs) = v29;
-  v37 = *(**(v36 + v79) + 216);
+  v36 = v75;
+  *(v75 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_pinnedToBottomShelfIDs) = v29;
+  v37 = *(**(v36 + v80) + 216);
 
   v39 = v37(v38);
 
   v40 = *(v39 + 16);
   if (v40)
   {
-    v82 = v22;
+    v83 = v22;
     sub_1A3C4ED58(0, v40, 0);
-    v41 = v82;
-    v42 = *(v81 + 80);
-    v79 = v39;
+    v41 = v83;
+    v42 = *(v82 + 80);
+    v80 = v39;
     v43 = v39 + ((v42 + 32) & ~v42);
-    v44 = *(v81 + 72);
+    v44 = *(v82 + 72);
     do
     {
       sub_1A3C531C8(v43, v11);
       sub_1A3C5322C();
       sub_1A3D3F0B8(v11, type metadata accessor for LemonadeFeatureLibrary.Shelf);
-      v45 = v83;
-      v82 = v41;
+      v45 = v84;
+      v83 = v41;
       v47 = *(v41 + 16);
       v46 = *(v41 + 24);
       if (v47 >= v46 >> 1)
       {
         sub_1A3C4ED58((v46 > 1), v47 + 1, 1);
-        v41 = v82;
+        v41 = v83;
       }
 
       *(v41 + 16) = v47 + 1;
@@ -5778,7 +5765,7 @@ void sub_1A3C4DA74(void *a1)
 
     while (v40);
 
-    v21 = v80;
+    v21 = v81;
   }
 
   else
@@ -5787,9 +5774,9 @@ void sub_1A3C4DA74(void *a1)
     v41 = MEMORY[0x1E69E7CC0];
   }
 
-  v48 = v73;
-  v49 = v74;
-  *(v74 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_pinnedToTopShelfIDs) = v41;
+  v48 = v74;
+  v49 = v75;
+  *(v75 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_pinnedToTopShelfIDs) = v41;
   v50 = [v48 px_localDefaults];
   v51 = sub_1A524C634();
   v52 = [v50 stringForKey_];
@@ -5805,91 +5792,91 @@ void sub_1A3C4DA74(void *a1)
 
   else
   {
-    LOBYTE(v82) = *(v49 + v78);
+    LOBYTE(v83) = *(v49 + v79);
     v57 = LemonadeShelvesLayoutStyle.rawValue.getter();
   }
 
-  LemonadeShelvesLayoutStyle.init(rawValue:)(*&v57);
-  v58 = v82;
-  if (v82 == 3)
+  LOBYTE(v58) = LemonadeShelvesLayoutStyle.init(rawValue:)(*&v57);
+  v59 = v83;
+  if (v83 == 3)
   {
-    v58 = *(v74 + v78);
+    v59 = *(v75 + v79);
   }
 
-  *(v74 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_layoutStyle) = v58;
-  v59 = *(v21 + 16);
-  v60 = MEMORY[0x1E69E7CC0];
-  if (v59)
+  *(v75 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_layoutStyle) = v59;
+  v60 = *(v21 + 16);
+  v61 = MEMORY[0x1E69E7CC0];
+  if (v60)
   {
-    v82 = MEMORY[0x1E69E7CC0];
-    sub_1A3C4ED58(0, v59, 0);
-    v60 = v82;
-    v61 = v21 + ((*(v81 + 80) + 32) & ~*(v81 + 80));
-    v62 = *(v81 + 72);
+    v83 = MEMORY[0x1E69E7CC0];
+    sub_1A3C4ED58(0, v60, 0);
+    v61 = v83;
+    v62 = v21 + ((*(v82 + 80) + 32) & ~*(v82 + 80));
+    v63 = *(v82 + 72);
     do
     {
-      sub_1A3C531C8(v61, v11);
+      sub_1A3C531C8(v62, v11);
       sub_1A3C5322C();
-      sub_1A3D3F0B8(v11, type metadata accessor for LemonadeFeatureLibrary.Shelf);
-      v63 = v83;
-      v82 = v60;
-      v65 = *(v60 + 16);
-      v64 = *(v60 + 24);
-      if (v65 >= v64 >> 1)
+      v58 = sub_1A3D3F0B8(v11, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+      v64 = v84;
+      v83 = v61;
+      v66 = *(v61 + 16);
+      v65 = *(v61 + 24);
+      if (v66 >= v65 >> 1)
       {
-        sub_1A3C4ED58((v64 > 1), v65 + 1, 1);
-        v60 = v82;
+        v58 = sub_1A3C4ED58((v65 > 1), v66 + 1, 1);
+        v61 = v83;
       }
 
-      *(v60 + 16) = v65 + 1;
-      *(v60 + v65 + 32) = v63;
-      v61 += v62;
-      --v59;
+      *(v61 + 16) = v66 + 1;
+      *(v61 + v66 + 32) = v64;
+      v62 += v63;
+      --v60;
     }
 
-    while (v59);
+    while (v60);
   }
 
-  v66 = v74;
-  *(v74 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesInOrder) = v60;
-  v67 = MEMORY[0x1E69E7CC0];
-  if (*(v60 + 16))
+  v67 = v75;
+  *(v75 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesInOrder) = v61;
+  v68 = MEMORY[0x1E69E7CC0];
+  if (*(v61 + 16))
   {
-    v82 = MEMORY[0x1E69E7CC0];
+    v83 = MEMORY[0x1E69E7CC0];
     _s12PhotosUICore13SpriteBuilderV11buildEither5firstSayAA0C13Configuration_pGAG_tFZ_0();
   }
 
-  *(v66 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesInOrderByIDString) = MEMORY[0x1E69E7CC0];
-  sub_1A3C5447C();
+  *(v67 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_defaultShelvesInOrderByIDString) = MEMORY[0x1E69E7CC0];
+  sub_1A3C5447C(v58);
 
-  sub_1A3C4F0C4(v68);
+  sub_1A3C4F0C4(v69);
 
-  v69 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_currentHiddenShelves;
-  v70 = *(v66 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_currentHiddenShelves);
-  if (!v70)
+  v70 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_currentHiddenShelves;
+  v71 = *(v67 + OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_currentHiddenShelves);
+  if (!v71)
   {
-    v71 = sub_1A3D3C070(5u);
-    if (v71)
+    v72 = sub_1A3D3C070(5u);
+    if (v72)
     {
-      v72 = v71;
+      v73 = v72;
     }
 
     else
     {
-      v72 = v67;
+      v73 = v68;
     }
 
-    v70 = sub_1A3C4467C(v72);
+    v71 = sub_1A3C4467C(v73);
   }
 
-  *(v66 + v69) = v70;
+  *(v67 + v70) = v71;
   _s12PhotosUICore13SpriteBuilderV11buildEither5firstSayAA0C13Configuration_pGAG_tFZ_0();
 }
 
-uint64_t sub_1A3C4E7F0()
+uint64_t sub_1A3C4E7F0(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -5914,9 +5901,9 @@ void *sub_1A3C4E8EC()
 {
   v1 = type metadata accessor for LemonadeFeatureLibrary.Shelf(0);
   v2 = *(v1 - 8);
-  v3 = MEMORY[0x1EEE9AC00](v1);
-  v5 = (&v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v3);
+  MEMORY[0x1EEE9AC00](v1);
+  v4 = (&v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v5);
   v7 = &v18 - v6;
   sub_1A3C3ECD0(*(v0 + 16), (&v18 - v6));
   swift_storeEnumTagMultiPayload();
@@ -5925,30 +5912,30 @@ void *sub_1A3C4E8EC()
   v9 = v8[3];
   if (v10 >= v9 >> 1)
   {
-    v8 = sub_1A3C52F54(v9 > 1, v10 + 1, 1, v8);
+    v8 = sub_1A3C52F54((v9 > 1), v10 + 1, 1, v8);
   }
 
   v8[2] = v10 + 1;
   v11 = (*(v2 + 80) + 32) & ~*(v2 + 80);
   v12 = *(v2 + 72);
   sub_1A3C53150(v7, v8 + v11 + v12 * v10, type metadata accessor for LemonadeFeatureLibrary.Shelf);
-  sub_1A3C52C70(0, &qword_1EB126A10);
+  sub_1A3C52C70(0, &qword_1EB126A10, off_1E771E328);
   v13 = [swift_getObjCClassFromMetadata() sharedInstance];
   v14 = [v13 enablePhototypes];
 
   if (v14)
   {
-    sub_1A486E02C(v5);
+    sub_1A486E02C(v4);
     swift_storeEnumTagMultiPayload();
     v16 = v8[2];
     v15 = v8[3];
     if (v16 >= v15 >> 1)
     {
-      v8 = sub_1A3C52F54(v15 > 1, v16 + 1, 1, v8);
+      v8 = sub_1A3C52F54((v15 > 1), v16 + 1, 1, v8);
     }
 
     v8[2] = v16 + 1;
-    sub_1A3C53150(v5, v8 + v11 + v16 * v12, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+    sub_1A3C53150(v4, v8 + v11 + v16 * v12, type metadata accessor for LemonadeFeatureLibrary.Shelf);
   }
 
   return v8;
@@ -5973,7 +5960,7 @@ uint64_t sub_1A3C4EB20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v14 = sub_1A3C52D68();
   v16 = v15;
   v18 = v17;
-  v19 = sub_1A3C4ED50();
+  v19 = sub_1A3C4ED50(v14);
   v27 = 1;
   *v7 = xmmword_1A535F3E0;
   v7[16] = 1;
@@ -5997,15 +5984,15 @@ uint64_t sub_1A3C4EB20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_1A3C4ECF8()
+void sub_1A3C4ECF8(uint64_t a1)
 {
   if (!qword_1EB1292E0)
   {
     sub_1A5241F84();
-    v0 = sub_1A524DF24();
-    if (!v1)
+    v1 = sub_1A524DF24();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB1292E0);
+      atomic_store(v1, &qword_1EB1292E0);
     }
   }
 }
@@ -6089,7 +6076,7 @@ void sub_1A3C4EF08(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void,
   }
 }
 
-uint64_t get_enum_tag_for_layout_string_12PhotosUICore23LemonadeItemsLayoutSpecV5StyleO16InteritemSpacingO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_12PhotosUICore23LemonadeItemsLayoutSpecV5StyleO16InteritemSpacingO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -6113,7 +6100,7 @@ uint64_t get_enum_tag_for_layout_string_12PhotosUICore17LemonadeRowsStyleO(uint6
   }
 }
 
-uint64_t LemonadeShelvesLayoutStyle.rawValue.getter()
+unint64_t LemonadeShelvesLayoutStyle.rawValue.getter()
 {
   v1 = 0x746361706D6F63;
   if (*v0 != 1)
@@ -6153,19 +6140,19 @@ uint64_t sub_1A3C4F0C4(uint64_t a1)
   v167 = a1;
   v3 = type metadata accessor for LemonadeFeatureLibrary.Shelf(0);
   v169 = *(v3 - 8);
-  v4 = MEMORY[0x1EEE9AC00](v3 - 8);
-  v164 = &v159 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = MEMORY[0x1EEE9AC00](v4);
-  v162 = &v159 - v7;
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v165 = &v159 - v9;
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v163 = &v159 - v11;
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v159 - v13;
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v166 = &v159 - v16;
-  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v164 = &v159 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v162 = &v159 - v6;
+  MEMORY[0x1EEE9AC00](v7);
+  v165 = &v159 - v8;
+  MEMORY[0x1EEE9AC00](v9);
+  v163 = &v159 - v10;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v159 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v166 = &v159 - v15;
+  MEMORY[0x1EEE9AC00](v16);
   v18 = &v159 - v17;
   v161 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_logger;
   v19 = sub_1A5246F04();
@@ -6382,7 +6369,7 @@ LABEL_129:
         v64 = *(v59 + 24);
         if (v65 >= v64 >> 1)
         {
-          sub_1A3C59FF8(v64 > 1, v65 + 1, 1);
+          sub_1A3C59FF8((v64 > 1), v65 + 1, 1);
           v59 = v172;
         }
 
@@ -6412,9 +6399,9 @@ LABEL_47:
     v69 = *(v169 + 72);
     do
     {
-      sub_1A3C531C8(v68, v14);
+      sub_1A3C531C8(v68, v13);
       sub_1A3C5322C();
-      sub_1A3D3F0B8(v14, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+      sub_1A3D3F0B8(v13, type metadata accessor for LemonadeFeatureLibrary.Shelf);
       v70 = v171;
       v172 = v67;
       v72 = *(v67 + 16);
@@ -6530,7 +6517,7 @@ LABEL_47:
         v98 = *(v93 + 24);
         if (v99 >= v98 >> 1)
         {
-          sub_1A3C59FF8(v98 > 1, v99 + 1, 1);
+          sub_1A3C59FF8((v98 > 1), v99 + 1, 1);
           v93 = v172;
         }
 
@@ -6570,9 +6557,9 @@ LABEL_77:
     v103 = *(v169 + 72);
     do
     {
-      sub_1A3C531C8(v102, v14);
+      sub_1A3C531C8(v102, v13);
       sub_1A3C5322C();
-      sub_1A3D3F0B8(v14, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+      sub_1A3D3F0B8(v13, type metadata accessor for LemonadeFeatureLibrary.Shelf);
       v104 = v171;
       v172 = v101;
       v106 = *(v101 + 16);
@@ -6688,7 +6675,7 @@ LABEL_77:
         v132 = *(v128 + 24);
         if (v133 >= v132 >> 1)
         {
-          sub_1A3C59FF8(v132 > 1, v133 + 1, 1);
+          sub_1A3C59FF8((v132 > 1), v133 + 1, 1);
           v128 = v172;
         }
 
@@ -6725,9 +6712,9 @@ LABEL_107:
     v137 = *(v169 + 72);
     do
     {
-      sub_1A3C531C8(v136, v14);
+      sub_1A3C531C8(v136, v13);
       sub_1A3C5322C();
-      sub_1A3D3F0B8(v14, type metadata accessor for LemonadeFeatureLibrary.Shelf);
+      sub_1A3D3F0B8(v13, type metadata accessor for LemonadeFeatureLibrary.Shelf);
       v138 = v171;
       v172 = v135;
       v140 = *(v135 + 16);
@@ -6849,7 +6836,7 @@ void sub_1A3C505D4(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t type metadata accessor for LemonadeMemoriesEntryCardTimeSlotProvider()
+uint64_t type metadata accessor for LemonadeMemoriesEntryCardTimeSlotProvider(uint64_t a1)
 {
   result = qword_1EB15D6F0;
   if (!qword_1EB15D6F0)
@@ -6868,39 +6855,39 @@ void LemonadeMemoriesEntryCardTimeSlotProvider.init()()
   sub_1A52465B4();
 }
 
-void sub_1A3C507D4()
+void sub_1A3C507D4(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_self();
-  v1 = [v0 defaultCenter];
-  v2 = *MEMORY[0x1E69DDAC8];
-  v3 = swift_allocObject();
+  v2 = objc_opt_self();
+  v3 = [v2 defaultCenter];
+  v4 = *MEMORY[0x1E69DDAC8];
+  v5 = swift_allocObject();
   swift_weakInit();
-  v15 = sub_1A485AAFC;
-  v16 = v3;
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 1107296256;
-  v13 = sub_1A3C7C848;
-  v14 = &block_descriptor_289;
-  v4 = _Block_copy(&v11);
+  v17 = sub_1A485AAFC;
+  v18 = v5;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 1107296256;
+  v15 = sub_1A3C7C848;
+  v16 = &block_descriptor_289;
+  v6 = _Block_copy(&v13);
 
-  v5 = [v1 addObserverForName:v2 object:0 queue:0 usingBlock:v4];
-  _Block_release(v4);
+  v7 = [v3 addObserverForName:v4 object:0 queue:0 usingBlock:v6];
+  _Block_release(v6);
   swift_unknownObjectRelease();
 
-  v6 = [v0 defaultCenter];
-  v7 = *MEMORY[0x1E69DDBC0];
-  v8 = swift_allocObject();
+  v8 = [v2 defaultCenter];
+  v9 = *MEMORY[0x1E69DDBC0];
+  v10 = swift_allocObject();
   swift_weakInit();
-  v15 = sub_1A3C7CD4C;
-  v16 = v8;
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 1107296256;
-  v13 = sub_1A3C7C848;
-  v14 = &block_descriptor_12_9;
-  v9 = _Block_copy(&v11);
+  v17 = sub_1A3C7CD4C;
+  v18 = v10;
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 1107296256;
+  v15 = sub_1A3C7C848;
+  v16 = &block_descriptor_12_9;
+  v11 = _Block_copy(&v13);
 
-  v10 = [v6 addObserverForName:v7 object:0 queue:0 usingBlock:v9];
-  _Block_release(v9);
+  v12 = [v8 addObserverForName:v9 object:0 queue:0 usingBlock:v11];
+  _Block_release(v11);
   swift_unknownObjectRelease();
 }
 
@@ -6911,29 +6898,29 @@ uint64_t sub_1A3C50A04()
   return swift_deallocObject();
 }
 
-void sub_1A3C50A7C()
+void sub_1A3C50A7C(uint64_t a1)
 {
   sub_1A3C56A4C(319, &qword_1EB125630, sub_1A3C50BAC, MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A5246F24();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_1A3C50BAC()
+void sub_1A3C50BAC(uint64_t a1)
 {
   if (!qword_1EB129B80)
   {
-    sub_1A3C411C8();
-    sub_1A3C56C94(&qword_1EB12A7D8, sub_1A3C41244);
-    v0 = type metadata accessor for LemonadeConcatenatedUIShelf();
-    if (!v1)
+    v2 = sub_1A3C411C8();
+    v3 = sub_1A3C56C94(&qword_1EB12A7D8, sub_1A3C41244, &protocol conformance descriptor for PhotoKitItem<A>);
+    v4 = type metadata accessor for LemonadeConcatenatedUIShelf(a1, &type metadata for LemonadeMemoriesFeature.ShelfProvider, v2, v3);
+    if (!v5)
     {
-      atomic_store(v0, &qword_1EB129B80);
+      atomic_store(v4, &qword_1EB129B80);
     }
   }
 }
@@ -6954,8 +6941,8 @@ void sub_1A3C50CBC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t
 {
   if (!*a2)
   {
-    v6 = type metadata accessor for PlaceholderUIItem();
-    v7 = sub_1A3C50DD0(&qword_1EB12A400, type metadata accessor for PlaceholderUIItem);
+    v6 = type metadata accessor for PlaceholderUIItem(255, a2);
+    v7 = sub_1A3C50DD0(&qword_1EB12A400, type metadata accessor for PlaceholderUIItem, &unk_1A53686EC);
     v8 = a3(a1, v6, v7);
     if (!v9)
     {
@@ -6964,7 +6951,7 @@ void sub_1A3C50CBC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t
   }
 }
 
-void sub_1A3C50D58(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C50D58(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -6977,7 +6964,7 @@ void sub_1A3C50D58(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-uint64_t sub_1A3C50DD0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C50DD0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6990,7 +6977,7 @@ uint64_t sub_1A3C50DD0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C50E18(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C50E18(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7003,7 +6990,7 @@ uint64_t sub_1A3C50E18(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C50E60(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_1A3C50E60(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -7271,7 +7258,7 @@ uint64_t sub_1A3C512E0@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = LemonadeFeatureIdentifier.rawValue.getter();
   v6 = v5;
-  type metadata accessor for SharedAlbumsAvailabilityObserver();
+  type metadata accessor for SharedAlbumsAvailabilityObserver(0);
   v7 = a1;
   v8 = static SharedAlbumsAvailabilityObserver.observer(for:)(v7);
 
@@ -7291,11 +7278,11 @@ id static SharedAlbumsAvailabilityObserver.observer(for:)(void *a1)
   v2 = sub_1A5240E64();
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
-  v5 = v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v37 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_1A5246F24();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = v33 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_1EB17BBF0 != -1)
   {
     swift_once();
@@ -7313,68 +7300,69 @@ id static SharedAlbumsAvailabilityObserver.observer(for:)(void *a1)
     if (os_log_type_enabled(v13, v14))
     {
       v15 = swift_slowAlloc();
-      v34 = swift_slowAlloc();
-      aBlock[0] = v34;
+      v38 = swift_slowAlloc();
+      aBlock[0] = v38;
       *v15 = 136315138;
       v16 = [v12 photoLibraryURL];
-      v33[1] = v14;
+      v37[1] = v14;
       v17 = v16;
       sub_1A5240DE4();
 
-      sub_1A3C51A84(&qword_1EB12B000, MEMORY[0x1E6968FB0]);
-      sub_1A524EA44();
+      sub_1A3C51A84(&qword_1EB12B000, MEMORY[0x1E6968FB0], MEMORY[0x1E6968FE0]);
+      v18 = sub_1A524EA44();
+      v20 = v19;
       (*(v3 + 8))(v5, v2);
-      sub_1A3C2EF94();
+      sub_1A3C2EF94(v18, v20, aBlock);
     }
 
     (*(v7 + 8))(v9, v6);
-    type metadata accessor for SharedAlbumsAvailabilityObserver();
-    v18 = swift_allocObject();
-    *(v18 + 16) = 0;
-    *(v18 + 32) = 0;
-    *(v18 + 40) = 0;
-    v19 = v12;
+    type metadata accessor for SharedAlbumsAvailabilityObserver(0);
+    v21 = swift_allocObject();
+    *(v21 + 16) = 0;
+    *(v21 + 32) = 0;
+    *(v21 + 40) = 0;
+    v22 = v12;
     sub_1A5241604();
-    *(v18 + 24) = v19;
-    v20 = objc_opt_self();
-    v21 = v19;
-    *(v18 + 48) = [v20 rateLimitingCoalescerWithRate_];
+    *(v21 + 24) = v22;
+    v23 = objc_opt_self();
+    v24 = v22;
+    *(v21 + 48) = [v23 rateLimitingCoalescerWithRate_];
     KeyPath = swift_getKeyPath();
-    (*(*v18 + 312))(KeyPath);
+    (*(*v21 + 312))(KeyPath);
 
-    [*(v18 + 48) registerObserver_];
+    [*(v21 + 48) registerObserver_];
     _s12PhotosUICore32SharedAlbumsAvailabilityObserverC19outputEventSignaled3forySo16PXEventCoalescerC_tF_0();
-    v23 = [objc_opt_self() defaultCenter];
-    v24 = *MEMORY[0x1E69BE8E8];
-    v25 = [objc_opt_self() mainQueue];
-    v26 = swift_allocObject();
+    v26 = [objc_opt_self() defaultCenter];
+    v27 = *MEMORY[0x1E69BE8E8];
+    v28 = [objc_opt_self() mainQueue];
+    v29 = swift_allocObject();
     swift_weakInit();
     aBlock[4] = sub_1A46D5EFC;
-    aBlock[5] = v26;
+    aBlock[5] = v29;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1A3C7C848;
     aBlock[3] = &block_descriptor_256;
-    v27 = _Block_copy(aBlock);
+    v30 = _Block_copy(aBlock);
 
-    v28 = [v23 addObserverForName:v24 object:0 queue:v25 usingBlock:v27];
-    _Block_release(v27);
+    v31 = [v26 addObserverForName:v27 object:0 queue:v28 usingBlock:v30];
+    _Block_release(v30);
 
-    *(v18 + 32) = v28;
+    *(v21 + 32) = v31;
     swift_unknownObjectRelease();
-    type metadata accessor for InternalSettingsObserver();
-    sub_1A3C52C70(0, &qword_1EB126910);
-    v29 = [swift_getObjCClassFromMetadata() sharedInstance];
-    v30 = swift_allocObject();
+    type metadata accessor for InternalSettingsObserver(0, v32);
+    sub_1A3C52C70(0, &qword_1EB126910, off_1E771F6E8);
+    v33 = [swift_getObjCClassFromMetadata() sharedInstance];
+    v34 = swift_allocObject();
     swift_weakInit();
 
-    v31 = sub_1A3C42348(v29, sub_1A46D5FB0, v30);
+    v35 = sub_1A3C42348(v33, sub_1A46D5FB0, v34);
 
-    v32 = *(v18 + 40);
-    *(v18 + 40) = v31;
+    v36 = *(v21 + 40);
+    *(v21 + 40) = v35;
 
-    [qword_1EB17BBF8 setObject:v18 forKey:v21];
-    return v18;
+    [qword_1EB17BBF8 setObject:v21 forKey:v24];
+    return v21;
   }
 
   return result;
@@ -7387,7 +7375,7 @@ uint64_t sub_1A3C51994()
   return swift_deallocObject();
 }
 
-uint64_t sub_1A3C519F4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C519F4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7400,7 +7388,7 @@ uint64_t sub_1A3C519F4(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C51A3C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C51A3C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7413,7 +7401,7 @@ uint64_t sub_1A3C51A3C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1A3C51A84(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C51A84(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7550,7 +7538,7 @@ uint64_t MemoryCreationLemonadeMemoriesShelfProvider.deinit()
 {
   sub_1A3C42548(v0 + OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider____lazy_storage___wrappedProvider, &qword_1EB125630, sub_1A3C50BAC);
 
-  __swift_destroy_boxed_opaque_existential_0(v0 + OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider_positionManager);
+  __swift_destroy_boxed_opaque_existential_0((v0 + OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider_positionManager));
 
   v1 = OBJC_IVAR____TtC12PhotosUICore43MemoryCreationLemonadeMemoriesShelfProvider_logger;
   v2 = sub_1A5246F24();
@@ -7808,7 +7796,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t type metadata accessor for PXLibraryFilterObservableViewMode()
+uint64_t type metadata accessor for PXLibraryFilterObservableViewMode(uint64_t a1)
 {
   result = qword_1EB194AA0;
   if (!qword_1EB194AA0)
@@ -7819,10 +7807,10 @@ uint64_t type metadata accessor for PXLibraryFilterObservableViewMode()
   return result;
 }
 
-uint64_t sub_1A3C528C4()
+uint64_t sub_1A3C528C4(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -7842,10 +7830,10 @@ uint64_t PhotosSearchBarPosition.TabBar.__allocating_init(closeAction:)(uint64_t
   return result;
 }
 
-uint64_t sub_1A3C529D8()
+uint64_t sub_1A3C529D8(uint64_t a1)
 {
   result = sub_1A5241614();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -7853,17 +7841,14 @@ uint64_t sub_1A3C529D8()
   return result;
 }
 
-uint64_t sub_1A3C52B14()
+void sub_1A3C52B14(uint64_t a1)
 {
-  result = qword_1EB124BA8;
   if (!qword_1EB124BA8)
   {
     sub_1A3FB8118(255, &qword_1EB126EF8, type metadata accessor for LemonadeSuggestedSearchCollection);
     sub_1A3C4528C();
     sub_1A5245844();
   }
-
-  return result;
 }
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
@@ -7880,13 +7865,13 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 uint64_t sub_1A3C52BF8()
 {
-  sub_1A3C52C70(0, &qword_1EB12B140);
+  sub_1A3C52C70(0, &qword_1EB12B140, 0x1E69E9BF8);
   result = sub_1A524DEE4();
   qword_1EB17A848 = result;
   return result;
 }
 
-uint64_t sub_1A3C52C70(uint64_t a1, unint64_t *a2)
+uint64_t sub_1A3C52C70(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -7899,12 +7884,12 @@ uint64_t sub_1A3C52C70(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_1A3C52CB8(unint64_t *a1, unint64_t *a2)
+uint64_t sub_1A3C52CB8(unint64_t *a1, unint64_t *a2, void *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_1A3C52C70(255, a2);
+    sub_1A3C52C70(255, a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7912,12 +7897,12 @@ uint64_t sub_1A3C52CB8(unint64_t *a1, unint64_t *a2)
   return result;
 }
 
-void *sub_1A3C52D08()
+void *sub_1A3C52D08(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for PhotosLaunchScheduler();
-  v0 = swift_allocObject();
+  type metadata accessor for PhotosLaunchScheduler(a1, a2);
+  v2 = swift_allocObject();
   result = sub_1A3C45E70();
-  qword_1EB1EB6D0 = v0;
+  qword_1EB1EB6D0 = v2;
   return result;
 }
 
@@ -7952,7 +7937,7 @@ uint64_t sub_1A3C52EC0(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-size_t sub_1A3C52F54(size_t result, int64_t a2, char a3, void *a4)
+void *sub_1A3C52F54(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -8012,7 +7997,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -8060,10 +8045,12 @@ uint64_t sub_1A3C531C8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1A3C5322C()
 {
-  sub_1A3C53294(v1);
-  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
-  sub_1A3C3EEAC();
-  return __swift_destroy_boxed_opaque_existential_0(v1);
+  sub_1A3C53294(v3);
+  v0 = v4;
+  v1 = v5;
+  __swift_project_boxed_opaque_existential_1(v3, v4);
+  sub_1A3C3EEAC(v0, v1);
+  return __swift_destroy_boxed_opaque_existential_0(v3);
 }
 
 __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
@@ -8097,9 +8084,9 @@ __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
       v16 = *v6;
       v17 = *(v6 + 3);
       v18 = *(v6 + 16);
-      sub_1A3C4AEA4();
+      sub_1A3C4AEA4(0);
       a1[3] = v19;
-      a1[4] = sub_1A3C3DB74(&qword_1EB125948, sub_1A3C4AEA4);
+      a1[4] = sub_1A3C3DB74(&qword_1EB125948, sub_1A3C4AEA4, &unk_1A531E528);
       v20 = swift_allocObject();
       *a1 = v20;
       *(v20 + 16) = v16;
@@ -8109,9 +8096,9 @@ __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
       *(v20 + 48) = v18;
       return result;
     case 3u:
-      sub_1A3C4AFFC();
+      sub_1A3C4AFFC(0);
       a1[3] = v21;
-      a1[4] = sub_1A3C3DB74(&qword_1EB143E48, sub_1A3C4AFFC);
+      a1[4] = sub_1A3C3DB74(&qword_1EB143E48, sub_1A3C4AFFC, &unk_1A531E528);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = sub_1A3C4AFFC;
       goto LABEL_24;
@@ -8161,13 +8148,13 @@ __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
       return result;
     case 8u:
       a1[3] = type metadata accessor for LemonadeMapFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB143E40, type metadata accessor for LemonadeMapFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB143E40, type metadata accessor for LemonadeMapFeature, &unk_1A534D558);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeMapFeature;
       goto LABEL_24;
     case 9u:
-      a1[3] = type metadata accessor for LemonadeICloudLinksFeature();
-      a1[4] = sub_1A3C3DB74(&qword_1EB129C70, type metadata accessor for LemonadeICloudLinksFeature);
+      a1[3] = type metadata accessor for LemonadeICloudLinksFeature(0);
+      a1[4] = sub_1A3C3DB74(&qword_1EB129C70, type metadata accessor for LemonadeICloudLinksFeature, &unk_1A535F010);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeICloudLinksFeature;
       goto LABEL_24;
@@ -8185,20 +8172,20 @@ __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
       *(v37 + 32) = result;
       return result;
     case 0xBu:
-      a1[3] = type metadata accessor for LemonadeSharedWithYouFeature();
-      a1[4] = sub_1A3C3DB74(&qword_1EB129990, type metadata accessor for LemonadeSharedWithYouFeature);
+      a1[3] = type metadata accessor for LemonadeSharedWithYouFeature(0);
+      a1[4] = sub_1A3C3DB74(&qword_1EB129990, type metadata accessor for LemonadeSharedWithYouFeature, &unk_1A5362EF0);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeSharedWithYouFeature;
       goto LABEL_24;
     case 0xCu:
       a1[3] = type metadata accessor for LemonadeImportSourcesFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB1299F8, type metadata accessor for LemonadeImportSourcesFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB1299F8, type metadata accessor for LemonadeImportSourcesFeature, &unk_1A53524AC);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeImportSourcesFeature;
       goto LABEL_24;
     case 0xDu:
-      a1[3] = type metadata accessor for LemonadeSharedLibrarySuggestionsFeature();
-      a1[4] = sub_1A3C3DB74(&qword_1EB1294D0, type metadata accessor for LemonadeSharedLibrarySuggestionsFeature);
+      a1[3] = type metadata accessor for LemonadeSharedLibrarySuggestionsFeature(0);
+      a1[4] = sub_1A3C3DB74(&qword_1EB1294D0, type metadata accessor for LemonadeSharedLibrarySuggestionsFeature, &unk_1A533CFF0);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeSharedLibrarySuggestionsFeature;
       goto LABEL_24;
@@ -8211,19 +8198,19 @@ __n128 sub_1A3C53294@<Q0>(uint64_t *a1@<X8>)
       goto LABEL_26;
     case 0xFu:
       a1[3] = type metadata accessor for LemonadeMacSyncedAlbumsFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB1297B8, type metadata accessor for LemonadeMacSyncedAlbumsFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB1297B8, type metadata accessor for LemonadeMacSyncedAlbumsFeature, &unk_1A5337214);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeMacSyncedAlbumsFeature;
       goto LABEL_24;
     case 0x10u:
       a1[3] = type metadata accessor for LemonadePhotosChallengeFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB12AD80, type metadata accessor for LemonadePhotosChallengeFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB12AD80, type metadata accessor for LemonadePhotosChallengeFeature, &unk_1A535F428);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadePhotosChallengeFeature;
       goto LABEL_24;
     case 0x11u:
       a1[3] = type metadata accessor for LemonadePhototypesFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB125700, type metadata accessor for LemonadePhototypesFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB125700, type metadata accessor for LemonadePhototypesFeature, &unk_1A536AD24);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadePhototypesFeature;
       goto LABEL_24;
@@ -8258,13 +8245,13 @@ LABEL_26:
       return result;
     case 0x15u:
       a1[3] = type metadata accessor for LemonadeSuggestionsFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB143E38, type metadata accessor for LemonadeSuggestionsFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB143E38, type metadata accessor for LemonadeSuggestionsFeature, &unk_1A531BEC8);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeSuggestionsFeature;
       goto LABEL_24;
     case 0x16u:
       a1[3] = type metadata accessor for LemonadeSearchCollectionResultsFeature(0);
-      a1[4] = sub_1A3C3DB74(&qword_1EB143E30, type metadata accessor for LemonadeSearchCollectionResultsFeature);
+      a1[4] = sub_1A3C3DB74(&qword_1EB143E30, type metadata accessor for LemonadeSearchCollectionResultsFeature, &unk_1A5308A60);
       boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a1);
       v12 = type metadata accessor for LemonadeSearchCollectionResultsFeature;
 LABEL_24:
@@ -8290,13 +8277,13 @@ LABEL_24:
   return result;
 }
 
-uint64_t sub_1A3C53AEC(uint64_t a1, char a2)
+uint64_t sub_1A3C53AEC(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t sub_1A3C53B5C()
@@ -8334,7 +8321,7 @@ uint64_t sub_1A3C53C9C()
   return swift_deallocObject();
 }
 
-uint64_t sub_1A3C53D20(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C53D20(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8349,7 +8336,7 @@ uint64_t sub_1A3C53D20(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1A3C53D68(uint64_t a1)
 {
-  result = sub_1A3C53D20(&qword_1EB12AD88, type metadata accessor for LemonadePhotosChallengeFeature);
+  result = sub_1A3C53D20(&qword_1EB12AD88, type metadata accessor for LemonadePhotosChallengeFeature, &unk_1A535F444);
   *(a1 + 8) = result;
   return result;
 }
@@ -8367,7 +8354,7 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
 
 uint64_t sub_1A3C53E24(uint64_t a1)
 {
-  result = sub_1A3C53D20(&qword_1EB12ADA8, type metadata accessor for LemonadePhotosChallengeFeature.ShelfProvider);
+  result = sub_1A3C53D20(&qword_1EB12ADA8, type metadata accessor for LemonadePhotosChallengeFeature.ShelfProvider, &unk_1A535F40C);
   *(a1 + 8) = result;
   return result;
 }
@@ -8399,14 +8386,14 @@ void *sub_1A3C53ED8()
   v8 = v7[3];
   if (v9 >= v8 >> 1)
   {
-    v7 = sub_1A3C52F54(v8 > 1, v9 + 1, 1, v7);
+    v7 = sub_1A3C52F54((v8 > 1), v9 + 1, 1, v7);
   }
 
   v7[2] = v9 + 1;
   v10 = (*(v2 + 80) + 32) & ~*(v2 + 80);
   sub_1A3C53150(v4, v7 + v10 + *(v2 + 72) * v9, type metadata accessor for LemonadeFeatureLibrary.Shelf);
   v13 = v7;
-  sub_1A3C540A4();
+  sub_1A3C540A4(0);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1A52F8E10;
   sub_1A3C540FC((v11 + v10));
@@ -8415,15 +8402,15 @@ void *sub_1A3C53ED8()
   return v13;
 }
 
-void sub_1A3C540A4()
+void sub_1A3C540A4(uint64_t a1)
 {
   if (!qword_1EB126268)
   {
     type metadata accessor for LemonadeFeatureLibrary.Shelf(255);
-    v0 = sub_1A524EA54();
-    if (!v1)
+    v1 = sub_1A524EA54();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB126268);
+      atomic_store(v1, &qword_1EB126268);
     }
   }
 }
@@ -8561,7 +8548,7 @@ unint64_t sub_1A3C5436C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1A3C54394(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3C54394(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8576,95 +8563,95 @@ uint64_t sub_1A3C54394(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1A3C543DC(uint64_t a1)
 {
-  result = sub_1A3C54394(&qword_1EB129A00, type metadata accessor for LemonadeImportSourcesFeature);
+  result = sub_1A3C54394(&qword_1EB129A00, type metadata accessor for LemonadeImportSourcesFeature, &unk_1A53524C8);
   *(a1 + 8) = result;
   return result;
 }
 
-void sub_1A3C5447C()
+void sub_1A3C5447C(uint64_t a1)
 {
-  v1 = v0;
-  v2 = sub_1A5246F04();
-  v3 = sub_1A524D264();
-  if (os_log_type_enabled(v2, v3))
+  v2 = v1;
+  v3 = sub_1A5246F04();
+  v4 = sub_1A524D264();
+  if (os_log_type_enabled(v3, v4))
   {
-    v4 = swift_slowAlloc();
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, v3, "in: removeDeprecatedKeyValues", v4, 2u);
-    MEMORY[0x1A590EEC0](v4, -1, -1);
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, v4, "in: removeDeprecatedKeyValues", v5, 2u);
+    MEMORY[0x1A590EEC0](v5, -1, -1);
   }
 
-  v5 = *(v1 + 16);
-  v6 = [v5 px_localDefaults];
-  v7 = sub_1A524C634();
-  v8 = [v6 dictionaryForKey_];
+  v6 = *(v2 + 16);
+  v7 = [v6 px_localDefaults];
+  v8 = sub_1A524C634();
+  v9 = [v7 dictionaryForKey_];
 
-  if (v8)
+  if (v9)
   {
 
-    v9 = sub_1A5246F04();
-    v10 = sub_1A524D264();
-    if (os_log_type_enabled(v9, v10))
+    v10 = sub_1A5246F04();
+    v11 = sub_1A524D264();
+    if (os_log_type_enabled(v10, v11))
     {
-      v11 = swift_slowAlloc();
-      *v11 = 0;
-      _os_log_impl(&dword_1A3C1C000, v9, v10, "Deprecated keys found to be removed", v11, 2u);
-      MEMORY[0x1A590EEC0](v11, -1, -1);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&dword_1A3C1C000, v10, v11, "Deprecated keys found to be removed", v12, 2u);
+      MEMORY[0x1A590EEC0](v12, -1, -1);
     }
 
-    v12 = [v5 px_localDefaults];
-    v13 = sub_1A524C634();
-    [v12 setValue:0 forKey:v13];
+    v13 = [v6 px_localDefaults];
+    v14 = sub_1A524C634();
+    [v13 setValue:0 forKey:v14];
 
-    v14 = [v5 px_localDefaults];
-    v15 = sub_1A524C634();
-    [v14 setValue:0 forKey:v15];
+    v15 = [v6 px_localDefaults];
+    v16 = sub_1A524C634();
+    [v15 setValue:0 forKey:v16];
 
-    v16 = sub_1A5246F04();
-    v17 = sub_1A524D264();
-    if (os_log_type_enabled(v16, v17))
+    v17 = sub_1A5246F04();
+    v18 = sub_1A524D264();
+    if (os_log_type_enabled(v17, v18))
     {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_1A3C1C000, v16, v17, "Set nil for new keys", v18, 2u);
-      MEMORY[0x1A590EEC0](v18, -1, -1);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&dword_1A3C1C000, v17, v18, "Set nil for new keys", v19, 2u);
+      MEMORY[0x1A590EEC0](v19, -1, -1);
     }
 
-    v19 = [v5 px_localDefaults];
-    v20 = sub_1A524C634();
-    [v19 setValue:0 forKey:v20];
+    v20 = [v6 px_localDefaults];
+    v21 = sub_1A524C634();
+    [v20 setValue:0 forKey:v21];
 
-    v21 = [v5 px_localDefaults];
-    v22 = sub_1A524C634();
-    [v21 setValue:0 forKey:v22];
+    v22 = [v6 px_localDefaults];
+    v23 = sub_1A524C634();
+    [v22 setValue:0 forKey:v23];
 
-    v23 = [v5 px_localDefaults];
-    v24 = sub_1A524C634();
-    [v23 setValue:0 forKey:v24];
+    v24 = [v6 px_localDefaults];
+    v25 = sub_1A524C634();
+    [v24 setValue:0 forKey:v25];
 
-    v25 = [v5 px_localDefaults];
-    v26 = sub_1A524C634();
-    [v25 setValue:0 forKey:v26];
+    v26 = [v6 px_localDefaults];
+    v27 = sub_1A524C634();
+    [v26 setValue:0 forKey:v27];
 
-    v27 = [v5 px_localDefaults];
-    v28 = sub_1A524C634();
-    [v27 setValue:0 forKey:v28];
+    v28 = [v6 px_localDefaults];
+    v29 = sub_1A524C634();
+    [v28 setValue:0 forKey:v29];
 
-    v29 = [v5 px_localDefaults];
-    v30 = sub_1A524C634();
-    [v29 setValue:0 forKey:v30];
+    v30 = [v6 px_localDefaults];
+    v31 = sub_1A524C634();
+    [v30 setValue:0 forKey:v31];
 
-    v31 = [v5 px_localDefaults];
-    v32 = sub_1A524C634();
-    [v31 setValue:0 forKey:v32];
+    v32 = [v6 px_localDefaults];
+    v33 = sub_1A524C634();
+    [v32 setValue:0 forKey:v33];
 
-    v33 = [v5 px_localDefaults];
-    v34 = sub_1A524C634();
-    [v33 setValue:0 forKey:v34];
+    v34 = [v6 px_localDefaults];
+    v35 = sub_1A524C634();
+    [v34 setValue:0 forKey:v35];
 
-    v35 = [v5 px_localDefaults];
-    v36 = sub_1A524C634();
-    [v35 setValue:0 forKey:v36];
+    v36 = [v6 px_localDefaults];
+    v37 = sub_1A524C634();
+    [v36 setValue:0 forKey:v37];
   }
 }
 
@@ -8672,19 +8659,19 @@ void sub_1A3C54A2C(uint64_t a1, int a2)
 {
   v5 = type metadata accessor for LemonadeFeatureLibrary.Shelf(0);
   v121 = *(v5 - 8);
-  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
-  v118 = v111 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v10 = v111 - v9;
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v119 = v111 - v12;
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v115 = v111 - v14;
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v120 = v111 - v16;
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v19 = v111 - v18;
-  MEMORY[0x1EEE9AC00](v17);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v118 = v111 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = v111 - v8;
+  MEMORY[0x1EEE9AC00](v10);
+  v119 = v111 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v115 = v111 - v13;
+  MEMORY[0x1EEE9AC00](v14);
+  v120 = v111 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = v111 - v17;
+  MEMORY[0x1EEE9AC00](v19);
   v116 = v111 - v20;
   v21 = OBJC_IVAR____TtC12PhotosUICore40LemonadeLibraryDefaultsShelvesDataSource_logger;
   v113 = v2;
@@ -8771,7 +8758,7 @@ LABEL_17:
 LABEL_21:
   v38 = (*(*a1 + 200))(v37 & 1);
   v39 = (*(*a1 + 240))(v38);
-  v114 = v10;
+  v114 = v9;
   v117 = a1;
   v40 = v113;
   v112 = a2;
@@ -8866,7 +8853,7 @@ LABEL_44:
 
       else
       {
-        sub_1A3C59944(v51, v19);
+        sub_1A3C59944(v51, v18);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         v123 = v49;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -8879,12 +8866,12 @@ LABEL_44:
         v55 = *(v49 + 24);
         if (v56 >= v55 >> 1)
         {
-          sub_1A3C59FF8(v55 > 1, v56 + 1, 1);
+          sub_1A3C59FF8((v55 > 1), v56 + 1, 1);
           v49 = v123;
         }
 
         *(v49 + 16) = v56 + 1;
-        sub_1A3C59944(v19, v49 + v52 + v56 * v53);
+        sub_1A3C59944(v18, v49 + v52 + v56 * v53);
         v51 = v116;
       }
 
@@ -8983,7 +8970,7 @@ LABEL_68:
         v78 = *(v70 + 24);
         if (v79 >= v78 >> 1)
         {
-          sub_1A3C59FF8(v78 > 1, v79 + 1, 1);
+          sub_1A3C59FF8((v78 > 1), v79 + 1, 1);
           v70 = v123;
         }
 
@@ -9099,7 +9086,7 @@ LABEL_92:
       v98 = *(v92 + 24);
       if (v99 >= v98 >> 1)
       {
-        sub_1A3C59FF8(v98 > 1, v99 + 1, 1);
+        sub_1A3C59FF8((v98 > 1), v99 + 1, 1);
         v92 = v123;
       }
 
@@ -9125,7 +9112,7 @@ LABEL_105:
 
 Swift::Bool __swiftcall shouldUseNewCollectionsLayout()()
 {
-  sub_1A3C52C70(0, &unk_1EB120978);
+  sub_1A3C52C70(0, &unk_1EB120978, off_1E771FA50);
   v0 = [swift_getObjCClassFromMetadata() sharedInstance];
   v1 = [v0 useNewMainViewLayout];
 
@@ -9180,7 +9167,7 @@ unint64_t LemonadeFeatureIdentifier.rawValue.getter()
   return result;
 }
 
-uint64_t type metadata accessor for LemonadeMemoriesEntryCardPositionManager()
+uint64_t type metadata accessor for LemonadeMemoriesEntryCardPositionManager(uint64_t a1)
 {
   result = qword_1EB15DC70;
   if (!qword_1EB15DC70)
@@ -9191,16 +9178,16 @@ uint64_t type metadata accessor for LemonadeMemoriesEntryCardPositionManager()
   return result;
 }
 
-void sub_1A3C55C74()
+void sub_1A3C55C74(uint64_t a1)
 {
   sub_1A5246F24();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A3C41108(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A5241614();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -9208,13 +9195,13 @@ void sub_1A3C55C74()
   }
 }
 
-void sub_1A3C55F98()
+void sub_1A3C55F98(uint64_t a1)
 {
   sub_1A3C56088(319, &qword_1EB124A78, MEMORY[0x1E69E6530], off_1E7721240);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1A3DE714C();
-    if (v1 <= 0x3F)
+    sub_1A3DE714C(319);
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
@@ -9233,7 +9220,7 @@ void sub_1A3C56088(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void,
   }
 }
 
-unint64_t sub_1A3C56110()
+unint64_t sub_1A3C56110(uint64_t a1, uint64_t a2)
 {
   result = qword_1EB126860;
   if (!qword_1EB126860)
@@ -9259,7 +9246,7 @@ void sub_1A3C5615C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C561C0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C561C0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9389,7 +9376,7 @@ void sub_1A3C56534(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C56598(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C56598(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9402,7 +9389,7 @@ void sub_1A3C56598(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C565EC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C565EC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9454,7 +9441,7 @@ void sub_1A3C56708(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C5676C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C5676C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9506,7 +9493,7 @@ void sub_1A3C56888(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C568EC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C568EC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9519,7 +9506,7 @@ void sub_1A3C568EC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C56940(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C56940(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9532,7 +9519,7 @@ void sub_1A3C56940(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3C56994(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C56994(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9571,7 +9558,7 @@ void sub_1A3C56A4C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1A3C56AB0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A3C56AB0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {

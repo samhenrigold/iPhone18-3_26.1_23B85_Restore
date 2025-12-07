@@ -1,8 +1,8 @@
 @interface _NUIFlowContainer
 - (CGSize)contentLayoutSizeFittingSize:(CGSize)size forArrangedSubview:(id)subview;
 - (uint64_t)canUseSimpleGrid;
-- (uint64_t)initWithFlowArrangement:(uint64_t)result;
 - (void)dealloc;
+- (void)initWithFlowArrangement:(void *)result;
 - (void)populateGridArrangementCells:(void *)cells;
 - (void)populateGridArrangementDimension:(void *)dimension withCells:(const void *)cells axis:(int64_t)axis;
 @end
@@ -17,16 +17,16 @@
   [(_NUIFlowContainer *)&v3 dealloc];
 }
 
-- (uint64_t)initWithFlowArrangement:(uint64_t)result
+- (void)initWithFlowArrangement:(void *)result
 {
   if (result)
   {
     result = [result init];
     if (result)
     {
-      *(result + 120) = a2;
+      *(result + 15) = a2;
       *(result + 17) = *(a2 + 9);
-      *(result + 8) = result;
+      *(result + 1) = result;
     }
   }
 
@@ -80,111 +80,111 @@
   flowArrangement = self->_flowArrangement;
   if (canUseSimpleGrid)
   {
-    v7 = *(flowArrangement + 2);
-    v8 = *(flowArrangement + 7);
-    v9 = *(flowArrangement + 8);
-    if (v8 == v9)
+    v9 = *(flowArrangement + 2);
+    v10 = *(flowArrangement + 7);
+    v11 = *(flowArrangement + 8);
+    if (v10 == v11)
     {
-      v10 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v10 = 0;
-      v11 = *flowArrangement;
+      v12 = 0;
+      v13 = *flowArrangement;
       do
       {
-        v41 = *v8;
-        *&v40 = v10 % v7;
-        *(&v40 + 1) = 1;
-        v38 = v10 / v7;
-        v39 = 1;
-        v37 = [v11 alignmentForCell:v8 inAxis:0];
-        v12 = [v11 alignmentForCell:v8 inAxis:1];
-        v13 = *(cells + 1);
-        if (v13 >= *(cells + 2))
+        v43 = *v10;
+        *&v42 = v12 % v9;
+        *(&v42 + 1) = 1;
+        v40 = v12 / v9;
+        v41 = 1;
+        v39 = [v13 alignmentForCell:v10 inAxis:0];
+        v14 = [v13 alignmentForCell:v10 inAxis:1];
+        v15 = *(cells + 1);
+        if (v15 >= *(cells + 2))
         {
-          v15 = OUTLINED_FUNCTION_1();
-          v14 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*,_NSRange,objc_object  {objcproto18NUIArrangementItem}*,NUIContainerAlignment,_NSRange>(v15, v16, v17, v18, v19, v20);
+          v17 = OUTLINED_FUNCTION_1();
+          v16 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<objc_object  {objcproto18NUIArrangementItem}*,_NSRange,objc_object  {objcproto18NUIArrangementItem}*,NUIContainerAlignment,_NSRange>(v17, v18, v19, v20, v21, v22);
         }
 
         else
         {
-          _NUIGridArrangementCell::_NUIGridArrangementCell(*(cells + 1), v41, v40, *(&v40 + 1), v38, v39, v37, v12);
-          v14 = v13 + 112;
-          *(cells + 1) = v13 + 112;
+          _NUIGridArrangementCell::_NUIGridArrangementCell(*(cells + 1), v43, v42, *(&v42 + 1), v40, v41, v39, v14);
+          v16 = v15 + 112;
+          *(cells + 1) = v15 + 112;
         }
 
-        *(cells + 1) = v14;
-        ++v10;
-        v8 += 8;
+        *(cells + 1) = v16;
+        ++v12;
+        v10 += 8;
       }
 
-      while (v8 != v9);
+      while (v10 != v11);
     }
 
-    v25 = v10 / v7;
-    v26 = v10 % v7;
-    v27 = (v7 - v10 % v7) % v7;
-    if (v27)
+    v27 = v12 / v9;
+    v28 = v12 % v9;
+    v29 = (v9 - v12 % v9) % v9;
+    if (v29)
     {
-      v28 = +[_NUIFlowArrangementDummyItem sharedDummyItem];
-      v41 = v28;
-      *&v40 = v10 % v7;
-      *(&v40 + 1) = (v7 - v10 % v7) % v7;
-      v38 = v10 / v7;
-      v39 = 1;
-      v37 = 0;
-      v29 = *(cells + 1);
-      if (v29 >= *(cells + 2))
+      v30 = +[_NUIFlowArrangementDummyItem sharedDummyItem];
+      v43 = v30;
+      *&v42 = v12 % v9;
+      *(&v42 + 1) = (v9 - v12 % v9) % v9;
+      v40 = v12 / v9;
+      v41 = 1;
+      v39 = 0;
+      v31 = *(cells + 1);
+      if (v31 >= *(cells + 2))
       {
-        v31 = OUTLINED_FUNCTION_1();
-        v30 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowArrangementDummyItem *,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(v31, v32, v33, v34, v35, v36);
+        v33 = OUTLINED_FUNCTION_1();
+        v32 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowArrangementDummyItem *,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(v33, v34, v35, v36, v37, v38);
       }
 
       else
       {
-        _NUIGridArrangementCell::_NUIGridArrangementCell(*(cells + 1), v28, v26, v27, v25, 1, 0, 0);
-        v30 = v29 + 112;
-        *(cells + 1) = v29 + 112;
+        _NUIGridArrangementCell::_NUIGridArrangementCell(*(cells + 1), v30, v28, v29, v27, 1, 0, 0);
+        v32 = v31 + 112;
+        *(cells + 1) = v31 + 112;
       }
 
-      *(cells + 1) = v30;
+      *(cells + 1) = v32;
     }
   }
 
   else
   {
-    v21 = *(flowArrangement + 10);
-    v22 = *(flowArrangement + 11);
-    if (v21 != v22)
+    v23 = *(flowArrangement + 10);
+    v24 = *(flowArrangement + 11);
+    if (v23 != v24)
     {
-      v23 = 0;
-      v24 = *(cells + 1);
+      v25 = 0;
+      v26 = *(cells + 1);
       do
       {
-        v40 = xmmword_21D0BFB40;
-        v38 = v23;
-        v39 = 1;
-        v41 = 0;
-        v37 = 3;
-        if (v24 >= *(cells + 2))
+        v42 = xmmword_21D0BFB40;
+        v40 = v25;
+        v41 = 1;
+        v43 = 0;
+        v39 = 3;
+        if (v26 >= *(cells + 2))
         {
-          v24 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(cells, v21, &v40, &v38, &v41, &v37);
+          v26 = std::vector<_NUIGridArrangementCell>::__emplace_back_slow_path<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(cells, v23, &v42, &v40, &v43, &v39);
         }
 
         else
         {
-          std::vector<_NUIGridArrangementCell>::__construct_one_at_end[abi:nn200100]<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(cells, v21, &v40, &v38, &v41, &v37);
-          v24 += 112;
+          std::vector<_NUIGridArrangementCell>::__construct_one_at_end[abi:nn200100]<_NUIFlowRowContainer * const&,_NSRange,_NSRange,NUIContainerAlignment,NUIContainerAlignment>(cells, v23, &v42, &v40, &v43, &v39);
+          v26 += 112;
         }
 
-        *(cells + 1) = v24;
+        *(cells + 1) = v26;
+        ++v25;
         ++v23;
-        ++v21;
       }
 
-      while (v21 != v22);
+      while (v23 != v24);
     }
   }
 }
@@ -196,53 +196,53 @@
   {
     if (canUseSimpleGrid)
     {
-      v10 = *(self->_flowArrangement + 2);
-      v30 = 0;
-      if (v10 <= v10 - 1 + (*(cells + 1) - *cells) / 112)
+      v13 = *(self->_flowArrangement + 2);
+      v33 = 0;
+      if (v13 <= v13 - 1 + (*(cells + 1) - *cells) / 112)
       {
         do
         {
-          OUTLINED_FUNCTION_5(canUseSimpleGrid);
+          OUTLINED_FUNCTION_5(canUseSimpleGrid, v12);
           OUTLINED_FUNCTION_2();
         }
 
-        while (v11 < (v10 - 1 + (*(cells + 1) - *cells) / 112) / v10);
+        while (v14 < (v13 - 1 + (*(cells + 1) - *cells) / 112) / v13);
       }
     }
 
     else
     {
-      v30 = 0;
+      v33 = 0;
       flowArrangement = self->_flowArrangement;
-      v28 = flowArrangement[10];
-      v29 = flowArrangement[11];
-      while (v28 != v29)
+      v31 = flowArrangement[10];
+      v32 = flowArrangement[11];
+      while (v31 != v32)
       {
-        OUTLINED_FUNCTION_5(canUseSimpleGrid);
+        OUTLINED_FUNCTION_5(canUseSimpleGrid, v12);
         OUTLINED_FUNCTION_2();
-        v28 += 8;
+        v31 += 8;
       }
     }
 
-    v12 = *(dimension + 1);
-    if (*dimension != v12)
+    v15 = *(dimension + 1);
+    if (*dimension != v15)
     {
       OUTLINED_FUNCTION_0_0();
       do
       {
         OUTLINED_FUNCTION_3();
-        if (v18)
+        if (v21)
         {
-          *v13 = v16;
+          *v16 = v19;
         }
 
-        if (v17)
+        if (v20)
         {
-          v13[7] = v16;
+          v16[7] = v19;
         }
       }
 
-      while (v15 != v14 + 2);
+      while (v18 != v17 + 2);
     }
   }
 
@@ -250,47 +250,47 @@
   {
     if (!canUseSimpleGrid)
     {
-      LODWORD(v30) = 0;
-      std::vector<_NUIGridArrangementDimension>::emplace_back<int,double const&>(dimension, &v30, &NUIContainerViewLengthUseDefault);
+      LODWORD(v33) = 0;
+      std::vector<_NUIGridArrangementDimension>::emplace_back<int,double const&>(dimension, &v33, &NUIContainerViewLengthUseDefault);
       return;
     }
 
-    v19 = *(self->_flowArrangement + 2);
-    v30 = 0;
-    if (v19)
+    v22 = *(self->_flowArrangement + 2);
+    v33 = 0;
+    if (v22)
     {
       do
       {
-        std::vector<_NUIGridArrangementDimension>::emplace_back<unsigned long &,double const&>(dimension, &v30, self->_flowArrangement + 6);
+        std::vector<_NUIGridArrangementDimension>::emplace_back<unsigned long &,double const&>(dimension, &v33, self->_flowArrangement + 6);
         OUTLINED_FUNCTION_2();
       }
 
-      while (v20 < v19);
+      while (v23 < v22);
     }
 
-    v12 = *(dimension + 1);
-    if (*dimension != v12)
+    v15 = *(dimension + 1);
+    if (*dimension != v15)
     {
       OUTLINED_FUNCTION_0_0();
       do
       {
         OUTLINED_FUNCTION_3();
-        if (v26)
+        if (v29)
         {
-          *v21 = v24;
+          *v24 = v27;
         }
 
-        if (v25)
+        if (v28)
         {
-          v21[7] = v24;
+          v24[7] = v27;
         }
       }
 
-      while (v23 != v22 + 2);
+      while (v26 != v25 + 2);
     }
   }
 
-  *(v12 - 56) = 0;
+  *(v15 - 56) = 0;
 }
 
 @end

@@ -32,7 +32,7 @@
 
 - (NSString)dumpString
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   string = [MEMORY[0x29EDBA050] string];
   v4 = [(MantaFTABFile *)self url];
   [string appendFormat:@"Location: %@\n", v4];
@@ -57,38 +57,36 @@
     [string appendFormat:@"\n%@\n", dumpString];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   subfiles = [(MantaFTABFile *)self subfiles];
-  v14 = [subfiles countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v14 = [subfiles countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(subfiles);
         }
 
-        dumpString2 = [*(*(&v22 + 1) + 8 * i) dumpString];
+        dumpString2 = [*(*(&v21 + 1) + 8 * i) dumpString];
         [string appendFormat:@"\n%@\n", dumpString2];
       }
 
-      v15 = [subfiles countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v15 = [subfiles countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v15);
   }
 
   v19 = [MEMORY[0x29EDBA0F8] stringWithString:string];
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return v19;
 }
@@ -201,7 +199,7 @@ LABEL_10:
   if (self->_fileLength > 0x2F)
   {
     filePointer = self->_filePointer;
-    v5 = (filePointer + 32);
+    v5 = filePointer + 32;
     if (*(filePointer + 4) == 0x42415446534F4B52 || *v5 == 0x62617466736F6B72)
     {
       v6 = [MEMORY[0x29EDB8DA0] dataWithBytes:v5 length:8];
@@ -263,7 +261,7 @@ LABEL_10:
           v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
           if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
           {
-            [(MantaFTABFile *)v15 parseFileData];
+            [MantaFTABFile parseFileData];
           }
 
           goto LABEL_26;
@@ -294,7 +292,7 @@ LABEL_10:
       v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        [(MantaFTABFile *)v5 parseFileData];
+        [MantaFTABFile parseFileData];
       }
     }
   }
@@ -315,27 +313,27 @@ LABEL_26:
 
 - (id)subfileWithTag:(id)tag
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   tagCopy = tag;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_subFileArray;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [v9 tag];
         v11 = [v10 isEqual:tagCopy];
 
@@ -346,7 +344,7 @@ LABEL_26:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -357,8 +355,6 @@ LABEL_26:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -376,7 +372,7 @@ LABEL_11:
 
 - (id)description
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   string = [MEMORY[0x29EDBA050] string];
   v4 = string;
   if (self->_url)
@@ -386,7 +382,7 @@ LABEL_11:
 
   else
   {
-    [string appendFormat:@"FTAB:\n", v16];
+    [string appendFormat:@"FTAB:\n", v15];
   }
 
   [v4 appendFormat:@"\tGeneration: 0x%08x\n", self->_generation];
@@ -402,27 +398,27 @@ LABEL_11:
   if ([(NSMutableArray *)self->_subFileArray count])
   {
     [v4 appendFormat:@"\tSubfiles:\n"];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = self->_subFileArray;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if (-v9 != i)
           {
             [v4 appendString:@"\n"];
@@ -432,7 +428,7 @@ LABEL_11:
         }
 
         v9 += v8;
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
@@ -440,8 +436,6 @@ LABEL_11:
   }
 
   v13 = [MEMORY[0x29EDBA0F8] stringWithString:v4];
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
@@ -489,43 +483,41 @@ LABEL_11:
 
 - (void)addSubfiles:(id)subfiles
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   subfilesCopy = subfiles;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [subfilesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [subfilesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(subfilesCopy);
         }
 
-        v9 = [*(*(&v11 + 1) + 8 * v8) tag];
+        v9 = [*(*(&v10 + 1) + 8 * v8) tag];
         [(MantaFTABFile *)self removeSubfileWithTag:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [subfilesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [subfilesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   [(NSMutableArray *)self->_subFileArray addObjectsFromArray:subfilesCopy];
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setManifest:(id)manifest
@@ -616,9 +608,7 @@ LABEL_15:
   fileHandleWriteDestination = self->_fileHandleWriteDestination;
   self->_fileHandleWriteDestination = 0;
 
-  data = [MEMORY[0x29EDB8DF8] data];
-  dataWriteDestination = self->_dataWriteDestination;
-  self->_dataWriteDestination = data;
+  self->_dataWriteDestination = [MEMORY[0x29EDB8DF8] data];
 
   MEMORY[0x2A1C71028]();
 }
@@ -647,12 +637,12 @@ LABEL_15:
 
 - (BOOL)writeToDestination
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
+  v39 = 0;
   v40 = 0;
   v41 = 0;
-  v42 = 0;
-  v37[0] = *&self->_generation;
-  v37[1] = *[(NSData *)self->_bootNonce bytes];
+  v36[0] = *&self->_generation;
+  v36[1] = *[(NSData *)self->_bootNonce bytes];
   v3 = 16 * [(NSMutableArray *)self->_subFileArray count];
   manifest = self->_manifest;
   if (manifest)
@@ -667,11 +657,11 @@ LABEL_15:
     v5 = 0;
   }
 
-  v38 = v5;
-  v39 = dataLength;
-  v41 = *[(NSData *)self->_magic bytes];
-  LODWORD(v42) = [(NSMutableArray *)self->_subFileArray count];
-  if (![(MantaFTABFile *)self writeBytes:v37 length:48])
+  v37 = v5;
+  v38 = dataLength;
+  v40 = *[(NSData *)self->_magic bytes];
+  LODWORD(v41) = [(NSMutableArray *)self->_subFileArray count];
+  if (![(MantaFTABFile *)self writeBytes:v36 length:48])
   {
     v7 = os_log_create("com.apple.accessoryupdater.ftab", "writing");
     if (os_log_type_enabled(&v7->super.super, OS_LOG_TYPE_ERROR))
@@ -682,35 +672,35 @@ LABEL_15:
     goto LABEL_31;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v7 = self->_subFileArray;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = v3 + dataLength + 48;
-    v11 = *v32;
+    v11 = *v31;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v11)
+        if (*v31 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * i);
+        v13 = *(*(&v30 + 1) + 8 * i);
+        v28 = 0;
         v29 = 0;
-        v30 = 0;
         v14 = [v13 tag];
-        LODWORD(v29) = *[v14 UTF8String];
+        LODWORD(v28) = *[v14 UTF8String];
 
-        HIDWORD(v29) = v10;
-        LODWORD(v30) = [v13 dataLength];
-        if (![(MantaFTABFile *)self writeBytes:&v29 length:16])
+        HIDWORD(v28) = v10;
+        LODWORD(v29) = [v13 dataLength];
+        if (![(MantaFTABFile *)self writeBytes:&v28 length:16])
         {
           v22 = os_log_create("com.apple.accessoryupdater.ftab", "writing");
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -726,7 +716,7 @@ LABEL_30:
         v10 += [v13 dataLength];
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v9)
       {
         continue;
@@ -750,26 +740,26 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = self->_subFileArray;
-  v16 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v16 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     while (2)
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v7);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * j);
+        v20 = *(*(&v24 + 1) + 8 * j);
         if (!-[MantaFTABFile writeBytes:length:](self, "writeBytes:length:", [v20 dataPointer], objc_msgSend(v20, "dataLength")))
         {
           v22 = os_log_create("com.apple.accessoryupdater.ftab", "writing");
@@ -782,7 +772,7 @@ LABEL_31:
         }
       }
 
-      v17 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v17 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
       v21 = 1;
       if (v17)
       {
@@ -800,7 +790,6 @@ LABEL_31:
 
 LABEL_32:
 
-  v23 = *MEMORY[0x29EDCA608];
   return v21;
 }
 
@@ -976,68 +965,51 @@ LABEL_32:
 
 - (void)initWithContentsOfURL:.cold.1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4_10();
   OUTLINED_FUNCTION_1_21();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)parseFileData
 {
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_2_12();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_5_8();
+  OUTLINED_FUNCTION_1_21();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 - (void)addSubfileWithTagName:contentsOfURL:.cold.1()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_4_10();
   OUTLINED_FUNCTION_1_21();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)createFileHandleForWritingToURL:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Unable to delete file at %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Unable to delete file at %@", v4, v5, v6, v7);
 }
 
 - (void)createFileHandleForWritingToURL:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Unable to create file at %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Unable to create file at %@", v4, v5, v6, v7);
 }
 
 - (void)writeToDestination
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [self tag];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Failed to write '%@'", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Failed to write '%@'", v4, v5, v6, v7);
 }
 
 - (void)writeToURL:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
   v1 = [a1 absoluteString];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Failed to open file handle for writing to '%@'", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_0_15(&dword_29849C000, v2, v3, "Failed to open file handle for writing to '%@'", v4, v5, v6, v7);
 }
 
 @end

@@ -89,20 +89,20 @@
 
     v7 = v7 + v15;
     canvasView5 = [(CKComposeNavbarCanvasViewController *)self canvasView];
-    leftItemView = [canvasView5 leftItemView];
-    [leftItemView frame];
+    rightItemView2 = objc_msgSend_leftItemView(canvasView5);
+    [rightItemView2 frame];
     Width = CGRectGetWidth(v46);
   }
 
   else
   {
-    leftItemView2 = [canvasView4 leftItemView];
-    [leftItemView2 frame];
+    v24 = objc_msgSend_leftItemView(canvasView4);
+    [v24 frame];
     v20 = v5 + v15 + CGRectGetWidth(v47);
 
     canvasView5 = [(CKComposeNavbarCanvasViewController *)self canvasView];
-    leftItemView = [canvasView5 rightItemView];
-    [leftItemView frame];
+    rightItemView2 = [canvasView5 rightItemView];
+    [rightItemView2 frame];
     Width = v10 + CGRectGetWidth(v48);
   }
 

@@ -44,7 +44,7 @@
 
     if (dword_1001BEB48 <= 60 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController passwordViewController:selectedCredential:]", 60, "Received credential from unknown VC?");
     }
   }
 
@@ -64,7 +64,7 @@ LABEL_11:
   finishCopy = finish;
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController passwordViewControllerDidFinish:]", 30, "Password picker VC finished\n");
   }
 
   [(PasswordPickerMainController *)self dismiss:0];
@@ -75,7 +75,7 @@ LABEL_11:
   pickedCopy = picked;
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController handlePasswordPicked:]", 30, "Password picked\n");
   }
 
   self->_passwordPicked = 1;
@@ -89,22 +89,20 @@ LABEL_11:
 
   else if (dword_1001BEB48 <= 60 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController handlePasswordPicked:]", 60, "### User selected credential, but no helper?");
   }
 }
 
 - (void)dismiss:(int)dismiss completion:(id)completion
 {
-  v4 = *&dismiss;
   completionCopy = completion;
   if (!self->_dismissed)
   {
-    v11 = completionCopy;
+    v10 = completionCopy;
     self->_dismissed = 1;
     if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
     {
-      v10 = v4;
-      LogPrintF();
+      LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController dismiss:completion:]", 30, "Dismiss: %d", dismiss);
     }
 
     if (!self->_passwordPicked)
@@ -114,11 +112,11 @@ LABEL_11:
       [(SFRemoteAutoFillSessionHelper *)helper serverDidPickUsername:0 password:0 error:v8];
     }
 
-    [(PasswordPickerMainController *)self dismissViewControllerAnimated:1 completion:v11, v10];
+    [(PasswordPickerMainController *)self dismissViewControllerAnimated:1 completion:v10];
     _remoteViewControllerProxy = [(PasswordPickerMainController *)self _remoteViewControllerProxy];
     [_remoteViewControllerProxy dismiss];
 
-    completionCopy = v11;
+    completionCopy = v10;
   }
 }
 
@@ -127,14 +125,14 @@ LABEL_11:
   disappearCopy = disappear;
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController viewDidDisappear:]", 30, "Main ViewDidDisappear");
   }
 
   if (!self->_dismissed)
   {
     if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)\n");
     }
 
     [(PasswordPickerMainController *)self dismiss:21];
@@ -172,21 +170,21 @@ LABEL_11:
   appearCopy = appear;
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController viewDidAppear:]", 30, "Main ViewDidAppear");
   }
 
-  v11.receiver = self;
-  v11.super_class = PasswordPickerMainController;
-  [(PasswordPickerMainController *)&v11 viewDidAppear:appearCopy];
-  v5 = objc_alloc_init(off_1001BEBB8());
+  v12.receiver = self;
+  v12.super_class = PasswordPickerMainController;
+  v5 = [(PasswordPickerMainController *)&v12 viewDidAppear:appearCopy];
+  v6 = objc_alloc_init(off_1001BEBB8(v5));
   vcPicker = self->_vcPicker;
-  self->_vcPicker = v5;
+  self->_vcPicker = v6;
 
   [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setDelegate:self];
-  v7 = [NSURL URLWithString:self->_contextURL];
-  if (v7)
+  v8 = [NSURL URLWithString:self->_contextURL];
+  if (v8)
   {
-    [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setWebViewURL:v7];
+    [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setWebViewURL:v8];
   }
 
   if (self->_contextBundleID)
@@ -204,27 +202,27 @@ LABEL_11:
     [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setRemoteUnlocalizedAppName:?];
   }
 
-  v8 = objc_opt_respondsToSelector();
-  if (self->_contextAssociatedDomains && (v8 & 1) != 0)
+  v9 = objc_opt_respondsToSelector();
+  if (self->_contextAssociatedDomains && (v9 & 1) != 0)
   {
     [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setExternallyVerifiedAndApprovedSharedWebCredentialsDomains:?];
   }
 
   [(_SFAppAutoFillPasswordViewController *)self->_vcPicker setAuthenticationGracePeriod:45.0];
-  v9 = self->_vcPicker;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10010BC4C;
-  v10[3] = &unk_1001957D0;
-  v10[4] = self;
-  [(_SFAppAutoFillPasswordViewController *)v9 authenticateToPresentInPopover:1 completion:v10];
+  v10 = self->_vcPicker;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10010BC4C;
+  v11[3] = &unk_1001957D0;
+  v11[4] = self;
+  [(_SFAppAutoFillPasswordViewController *)v10 authenticateToPresentInPopover:1 completion:v11];
 }
 
 - (void)_handleHomeButtonPressed
 {
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController _handleHomeButtonPressed]", 30, "Home button");
   }
 
   [(PasswordPickerMainController *)self dismiss:4];
@@ -277,7 +275,7 @@ LABEL_11:
 
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -328,7 +326,7 @@ LABEL_11:
   [(SFRemoteAutoFillSessionHelper *)self->_helper activateWithCompletion:&stru_100194FC0];
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

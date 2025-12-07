@@ -256,7 +256,7 @@ LABEL_13:
 
   else
   {
-    v7 = PHDefaultLog();
+    v7 = PHDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(CNContact(PhoneKit) *)numberCopy labeledValueForTelephoneNumber:v7];

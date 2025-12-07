@@ -105,13 +105,11 @@
 
 - (id)manifest
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [FCContentManifest alloc];
-  v8[0] = self->_remoteURL;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = self->_remoteURL;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [(FCContentManifest *)v3 initWithAssetURLs:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

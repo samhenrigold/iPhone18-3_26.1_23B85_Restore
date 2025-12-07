@@ -23,7 +23,7 @@ id SFObjectAndOffsetForURLPair(void *a1)
 
 id _SFBuiltInRegulatoryImage(void *a1, void *a2)
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277D759A0] mainScreen];
@@ -49,15 +49,15 @@ id _SFBuiltInRegulatoryImage(void *a1, void *a2)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v65 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
-      v66 = 2112;
-      v67 = v10;
+      v64 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
+      v65 = 2112;
+      v66 = v10;
       _os_log_impl(&dword_2659AD000, v15, OS_LOG_TYPE_DEFAULT, "%{Public}s: Looked up '%{Public}@'", buf, 0x16u);
     }
 
     if (v14)
     {
-      v62 = v3;
+      v61 = v3;
       v16 = [@"RegulatoryInfo-" stringByAppendingFormat:@"%@-%@_dark%@", v3, v4, v8];
       v17 = MEMORY[0x277D755B8];
       v18 = SFRuntimeAbsoluteFilePathForPath(@"/System/Library/ProductDocuments/RegulatoryImages");
@@ -66,30 +66,30 @@ id _SFBuiltInRegulatoryImage(void *a1, void *a2)
 
       if (v20)
       {
-        v60 = v16;
-        v61 = v8;
-        v63 = v4;
-        v58 = [MEMORY[0x277D75C80] currentTraitCollection];
+        v59 = v16;
+        v60 = v8;
+        v62 = v4;
+        v57 = [MEMORY[0x277D75C80] currentTraitCollection];
         v21 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v7];
         v22 = objc_alloc_init(MEMORY[0x277D755C0]);
         v23 = MEMORY[0x277D75C80];
-        v75[0] = v21;
+        v74[0] = v21;
         v24 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-        v75[1] = v24;
-        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];
+        v74[1] = v24;
+        v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
         v26 = [v23 traitCollectionWithTraitsFromCollections:v25];
         [v22 registerImage:v14 withTraitCollection:v26];
 
         v27 = MEMORY[0x277D75C80];
-        v74[0] = v21;
+        v73[0] = v21;
         v28 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-        v74[1] = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
+        v73[1] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
         v30 = [v27 traitCollectionWithTraitsFromCollections:v29];
         [v22 registerImage:v20 withTraitCollection:v30];
 
-        v31 = v58;
-        v32 = [v22 imageWithTraitCollection:v58];
+        v31 = v57;
+        v32 = [v22 imageWithTraitCollection:v57];
         v33 = _SFBuiltInRegulatoryImage_styleSensitiveImage;
         _SFBuiltInRegulatoryImage_styleSensitiveImage = v32;
 
@@ -97,9 +97,9 @@ id _SFBuiltInRegulatoryImage(void *a1, void *a2)
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v65 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
-          v66 = 2112;
-          v67 = v10;
+          v64 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
+          v65 = 2112;
+          v66 = v10;
           _os_log_impl(&dword_2659AD000, v34, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
         }
 
@@ -107,35 +107,35 @@ id _SFBuiltInRegulatoryImage(void *a1, void *a2)
 LABEL_20:
         v54 = v35;
 
-        v3 = v62;
-        v4 = v63;
-        v16 = v60;
-        v8 = v61;
+        v3 = v61;
+        v4 = v62;
+        v16 = v59;
+        v8 = v60;
         goto LABEL_28;
       }
 
-      v3 = v62;
+      v3 = v61;
 LABEL_25:
       v55 = SFLogForCategory(3uLL);
       if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v65 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
-        v66 = 2112;
-        v67 = v10;
+        v64 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
+        v65 = 2112;
+        v66 = v10;
         _os_log_impl(&dword_2659AD000, v55, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to Regulatory Image with name '%{Public}@'.", buf, 0x16u);
       }
 
       goto LABEL_27;
     }
 
-    v63 = v4;
+    v62 = v4;
     v4 = v10;
   }
 
   else
   {
-    v63 = 0;
+    v62 = 0;
   }
 
   v36 = SFLogForCategory(3uLL);
@@ -161,30 +161,30 @@ LABEL_25:
 
     if (v20)
     {
-      v60 = v16;
-      v61 = v8;
-      v62 = v3;
-      v59 = [MEMORY[0x277D75C80] currentTraitCollection];
+      v59 = v16;
+      v60 = v8;
+      v61 = v3;
+      v58 = [MEMORY[0x277D75C80] currentTraitCollection];
       v21 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v7];
       v22 = objc_alloc_init(MEMORY[0x277D755C0]);
       v43 = MEMORY[0x277D75C80];
-      v73[0] = v21;
+      v72[0] = v21;
       v44 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-      v73[1] = v44;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+      v72[1] = v44;
+      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
       v46 = [v43 traitCollectionWithTraitsFromCollections:v45];
       [v22 registerImage:v14 withTraitCollection:v46];
 
       v47 = MEMORY[0x277D75C80];
-      v72[0] = v21;
+      v71[0] = v21;
       v48 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-      v72[1] = v48;
-      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+      v71[1] = v48;
+      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
       v50 = [v47 traitCollectionWithTraitsFromCollections:v49];
       [v22 registerImage:v20 withTraitCollection:v50];
 
-      v31 = v59;
-      v51 = [v22 imageWithTraitCollection:v59];
+      v31 = v58;
+      v51 = [v22 imageWithTraitCollection:v58];
       v52 = _SFBuiltInRegulatoryImage_styleSensitiveImage_389;
       _SFBuiltInRegulatoryImage_styleSensitiveImage_389 = v51;
 
@@ -192,9 +192,9 @@ LABEL_25:
       if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v65 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
-        v66 = 2112;
-        v67 = v10;
+        v64 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
+        v65 = 2112;
+        v66 = v10;
         _os_log_impl(&dword_2659AD000, v53, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
       }
 
@@ -202,7 +202,7 @@ LABEL_25:
       goto LABEL_20;
     }
 
-    v4 = v63;
+    v4 = v62;
     goto LABEL_25;
   }
 
@@ -210,14 +210,14 @@ LABEL_25:
   if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v65 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
-    v66 = 2112;
-    v67 = v3;
-    v68 = 2112;
-    v4 = v63;
-    v69 = v63;
-    v70 = 2112;
-    v71 = v10;
+    v64 = "UIImage *_SFBuiltInRegulatoryImage(NSString *__strong, NSString *__strong)";
+    v65 = 2112;
+    v66 = v3;
+    v67 = 2112;
+    v4 = v62;
+    v68 = v62;
+    v69 = 2112;
+    v70 = v10;
     _os_log_error_impl(&dword_2659AD000, v55, OS_LOG_TYPE_ERROR, "%{Public}s: Failed to resolve to a Built-in Regulatory Image '%{Public}@-%{Public}@' with name '%{Public}@'", buf, 0x2Au);
     v14 = 0;
     v16 = 0;
@@ -227,7 +227,7 @@ LABEL_25:
   {
     v14 = 0;
     v16 = 0;
-    v4 = v63;
+    v4 = v62;
   }
 
 LABEL_27:
@@ -236,68 +236,41 @@ LABEL_27:
   v54 = v14;
 LABEL_28:
 
-  v56 = *MEMORY[0x277D85DE8];
-
   return v54;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-BOOL SFDeviceSupportsFall2019OrLaterELabel()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  result = MGGetBoolAnswer() && !MGIsDeviceOneOfType();
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-BOOL SFDeviceSupportsFall2020OrLaterELabel()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  result = MGGetBoolAnswer() && !MGIsDeviceOneOfType();
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-BOOL SFDeviceSupportsSpring2021OrLaterELabel()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  result = MGGetBoolAnswer() && !MGIsDeviceOneOfType();
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t SFDeviceSupportsShipsWithoutAdapterRoHSELabel()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  if (MGGetBoolAnswer())
+  if (!MGGetBoolAnswer())
   {
-    v0 = [MEMORY[0x277D75418] currentDevice];
-    if ([v0 sf_isiPhone])
-    {
-      v1 = MGIsDeviceOneOfType() ^ 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v1 = 0;
-    }
+  v0 = [MEMORY[0x277D75418] currentDevice];
+  if ([v0 sf_isiPhone])
+  {
+    v1 = MGIsDeviceOneOfType() ^ 1;
   }
 
   else
@@ -305,13 +278,11 @@ uint64_t SFDeviceSupportsShipsWithoutAdapterRoHSELabel()
     v1 = 0;
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 uint64_t SFShouldShowEyesightWarning()
 {
-  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
@@ -325,13 +296,11 @@ uint64_t SFShouldShowEyesightWarning()
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t SFShouldShowMonthOfManufacture()
 {
-  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
@@ -345,169 +314,18 @@ uint64_t SFShouldShowMonthOfManufacture()
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t SFShouldShowAlertMark()
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v148 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
-  if (SFDeviceSupportsFall2019OrLaterELabel())
+  if (SFDeviceSupportsFall2019OrLaterELabel() || (v147 = -1418383976, v146 = xmmword_2659C1E50, v145 = -1213485500, v144 = xmmword_2659C1E78, v143 = -232427879, v142 = xmmword_2659C1A54, v141 = -427474227, v140 = xmmword_2659C1A68, v139 = 1477534141, v138 = xmmword_2659C1A7C, v137 = -61007701, v136 = xmmword_2659C1A90, v135 = -235416490, v134 = xmmword_2659C1AA4, v133 = -1403227947, v132 = xmmword_2659C1DD8, v131 = 729118884, v130 = xmmword_2659C1DEC, v129 = 1046806126, v128 = xmmword_2659C1E00, v127 = -188760945, v126 = xmmword_2659C1E14, v125 = -489993439, v124 = xmmword_2659C1DB0, v123 = 886875686, v122 = xmmword_2659C1DC4, v121 = -1843102369, v120 = xmmword_2659C1AB8, v119 = -820493242, v118 = xmmword_2659C1ACC, v117 = 1532898719, v116 = xmmword_2659C1AE0, v115 = -1157300313, v114 = xmmword_2659C1AF4, v113 = -2132668294, v112 = xmmword_2659C1B08, v111 = 1278131292, v110 = xmmword_2659C1B1C, v109 = -1841712216, v108 = xmmword_2659C1B30, v107 = 659506830, v106 = xmmword_2659C1B44, v105 = 213746202, v104 = xmmword_2659C1B58, v103 = 2030516999, v102 = xmmword_2659C1B6C, v101 = -1276010597, v100 = xmmword_2659C1B80, v99 = -762483149, v98 = xmmword_2659C1B94, v97 = -1926937532, v96 = xmmword_2659C1BA8, v95 = -1902732724, v94 = xmmword_2659C1BBC, v93 = -342357580, v92 = xmmword_2659C1BD0, v91 = 300442574, v90 = xmmword_2659C1BE4, v89 = -1294188889, v88 = xmmword_2659C1BF8, v87 = 401945557, v86 = xmmword_2659C1D60, v85 = 338555555, v84 = xmmword_2659C1C0C, v83 = -679691073, v82 = xmmword_2659C1C20, v81 = 729903963, v80 = xmmword_2659C1C34, v79 = 1908474541, v78 = xmmword_2659C1C48, v77 = -414334491, v76 = xmmword_2659C1C5C, v75 = -1509831889, v74 = xmmword_2659C1C70, v73 = 289690957, v72 = xmmword_2659C1C84, v71 = 586720268, v70 = xmmword_2659C1C98, v69 = -1282800328, v68 = xmmword_2659C1CAC, v67 = 1711910369, v66 = xmmword_2659C1CC0, v65 = 710807826, v64 = xmmword_2659C1CD4, v63 = 470738981, v62 = xmmword_2659C1CE8, v61 = -2085056298, v60 = xmmword_2659C1CFC, v59 = 1860682089, v58 = xmmword_2659C1D10, v57 = -1742178852, v56 = xmmword_2659C1D24, v55 = 2146530832, v54 = xmmword_2659C1D38, v53 = -2114570942, v52 = xmmword_2659C1E28, v50 = &v52, v51 = 0, v48 = &v56, v49 = &v54, v46 = &v60, v47 = &v58, v44 = &v64, v45 = &v62, v42 = &v68, v43 = &v66, v40 = &v72, v41 = &v70, v38 = &v76, v39 = &v74, v36 = &v80, v37 = &v78, v34 = &v84, v35 = &v82, v32 = &v88, v33 = &v86, v30 = &v92, v31 = &v90, v28 = &v96, v29 = &v94, v26 = &v100, v27 = &v98, v24 = &v104, v25 = &v102, v22 = &v108, v23 = &v106, v20 = &v112, v21 = &v110, v18 = &v116, v19 = &v114, v16 = &v120, v17 = &v118, v14 = &v124, v15 = &v122, v12 = &v128, v13 = &v126, v10 = &v132, v11 = &v130, v8 = &v136, v9 = &v134, v6 = &v140, v7 = &v138, v4 = &v144, v5 = &v142, MGIsDeviceOneOfType()))
   {
-    goto LABEL_3;
-  }
-
-  v148 = -1418383976;
-  v147 = xmmword_2659C1E50;
-  v146 = -1213485500;
-  v145 = xmmword_2659C1E78;
-  v144 = -232427879;
-  v143 = xmmword_2659C1A54;
-  v142 = -427474227;
-  v141 = xmmword_2659C1A68;
-  v140 = 1477534141;
-  v139 = xmmword_2659C1A7C;
-  v138 = -61007701;
-  v137 = xmmword_2659C1A90;
-  v136 = -235416490;
-  v135 = xmmword_2659C1AA4;
-  v134 = -1403227947;
-  v133 = xmmword_2659C1DD8;
-  v132 = 729118884;
-  v131 = xmmword_2659C1DEC;
-  v130 = 1046806126;
-  v129 = xmmword_2659C1E00;
-  v128 = -188760945;
-  v127 = xmmword_2659C1E14;
-  v126 = -489993439;
-  v125 = xmmword_2659C1DB0;
-  v124 = 886875686;
-  v123 = xmmword_2659C1DC4;
-  v122 = -1843102369;
-  v121 = xmmword_2659C1AB8;
-  v120 = -820493242;
-  v119 = xmmword_2659C1ACC;
-  v118 = 1532898719;
-  v117 = xmmword_2659C1AE0;
-  v116 = -1157300313;
-  v115 = xmmword_2659C1AF4;
-  v114 = -2132668294;
-  v113 = xmmword_2659C1B08;
-  v112 = 1278131292;
-  v111 = xmmword_2659C1B1C;
-  v110 = -1841712216;
-  v109 = xmmword_2659C1B30;
-  v108 = 659506830;
-  v107 = xmmword_2659C1B44;
-  v106 = 213746202;
-  v105 = xmmword_2659C1B58;
-  v104 = 2030516999;
-  v103 = xmmword_2659C1B6C;
-  v102 = -1276010597;
-  v101 = xmmword_2659C1B80;
-  v100 = -762483149;
-  v99 = xmmword_2659C1B94;
-  v98 = -1926937532;
-  v97 = xmmword_2659C1BA8;
-  v96 = -1902732724;
-  v95 = xmmword_2659C1BBC;
-  v94 = -342357580;
-  v93 = xmmword_2659C1BD0;
-  v92 = 300442574;
-  v91 = xmmword_2659C1BE4;
-  v90 = -1294188889;
-  v89 = xmmword_2659C1BF8;
-  v88 = 401945557;
-  v87 = xmmword_2659C1D60;
-  v86 = 338555555;
-  v85 = xmmword_2659C1C0C;
-  v84 = -679691073;
-  v83 = xmmword_2659C1C20;
-  v82 = 729903963;
-  v81 = xmmword_2659C1C34;
-  v80 = 1908474541;
-  v79 = xmmword_2659C1C48;
-  v78 = -414334491;
-  v77 = xmmword_2659C1C5C;
-  v76 = -1509831889;
-  v75 = xmmword_2659C1C70;
-  v74 = 289690957;
-  v73 = xmmword_2659C1C84;
-  v72 = 586720268;
-  v71 = xmmword_2659C1C98;
-  v70 = -1282800328;
-  v69 = xmmword_2659C1CAC;
-  v68 = 1711910369;
-  v67 = xmmword_2659C1CC0;
-  v66 = 710807826;
-  v65 = xmmword_2659C1CD4;
-  v64 = 470738981;
-  v63 = xmmword_2659C1CE8;
-  v62 = -2085056298;
-  v61 = xmmword_2659C1CFC;
-  v60 = 1860682089;
-  v59 = xmmword_2659C1D10;
-  v58 = -1742178852;
-  v57 = xmmword_2659C1D24;
-  v56 = 2146530832;
-  v55 = xmmword_2659C1D38;
-  v54 = -2114570942;
-  v53 = xmmword_2659C1E28;
-  v51 = &v53;
-  v52 = 0;
-  v49 = &v57;
-  v50 = &v55;
-  v47 = &v61;
-  v48 = &v59;
-  v45 = &v65;
-  v46 = &v63;
-  v43 = &v69;
-  v44 = &v67;
-  v41 = &v73;
-  v42 = &v71;
-  v39 = &v77;
-  v40 = &v75;
-  v37 = &v81;
-  v38 = &v79;
-  v35 = &v85;
-  v36 = &v83;
-  v33 = &v89;
-  v34 = &v87;
-  v31 = &v93;
-  v32 = &v91;
-  v29 = &v97;
-  v30 = &v95;
-  v27 = &v101;
-  v28 = &v99;
-  v25 = &v105;
-  v26 = &v103;
-  v23 = &v109;
-  v24 = &v107;
-  v21 = &v113;
-  v22 = &v111;
-  v19 = &v117;
-  v20 = &v115;
-  v17 = &v121;
-  v18 = &v119;
-  v15 = &v125;
-  v16 = &v123;
-  v13 = &v129;
-  v14 = &v127;
-  v11 = &v133;
-  v12 = &v131;
-  v9 = &v137;
-  v10 = &v135;
-  v7 = &v141;
-  v8 = &v139;
-  v5 = &v145;
-  v6 = &v143;
-  if (MGIsDeviceOneOfType())
-  {
-LABEL_3:
-    v2 = [&unk_28774C8B8 containsObject:{v1, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52}];
+    v2 = [&unk_28774C8B8 containsObject:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51}];
   }
 
   else
@@ -515,64 +333,24 @@ LABEL_3:
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t SFShouldShowIndiaBIS()
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
-  v41 = 317289457;
-  v40 = xmmword_2659C1D4C;
-  v39 = 401945557;
-  v38 = xmmword_2659C1D60;
-  v5 = &v38;
-  v6 = 0;
-  if (MGIsDeviceOneOfType())
+  v40 = 317289457;
+  v39 = xmmword_2659C1D4C;
+  v38 = 401945557;
+  v37 = xmmword_2659C1D60;
+  v4 = &v37;
+  v5 = 0;
+  if (MGIsDeviceOneOfType() & 1) != 0 || (v36 = 1214363620, v35 = xmmword_2659C1D74, v34 = -798153473, v33 = xmmword_2659C1D88, v32 = -776721724, v31 = xmmword_2659C1D9C, v30 = -489993439, v29 = xmmword_2659C1DB0, v28 = 886875686, v27 = xmmword_2659C1DC4, v26 = -1403227947, v25 = xmmword_2659C1DD8, v24 = 729118884, v23 = xmmword_2659C1DEC, v22 = 1046806126, v21 = xmmword_2659C1E00, v20 = -188760945, v19 = xmmword_2659C1E14, v18 = -1418383976, v17 = xmmword_2659C1E50, v16 = -1213485500, v15 = xmmword_2659C1E78, v13 = &v15, v14 = 0, v12 = &v17, v10 = &v21, v11 = &v19, v8 = &v25, v9 = &v23, v6 = &v29, v7 = &v27, v4 = &v33, v5 = &v31, (MGIsDeviceOneOfType()) || MGGetBoolAnswer())
   {
-    goto LABEL_4;
-  }
-
-  v37 = 1214363620;
-  v36 = xmmword_2659C1D74;
-  v35 = -798153473;
-  v34 = xmmword_2659C1D88;
-  v33 = -776721724;
-  v32 = xmmword_2659C1D9C;
-  v31 = -489993439;
-  v30 = xmmword_2659C1DB0;
-  v29 = 886875686;
-  v28 = xmmword_2659C1DC4;
-  v27 = -1403227947;
-  v26 = xmmword_2659C1DD8;
-  v25 = 729118884;
-  v24 = xmmword_2659C1DEC;
-  v23 = 1046806126;
-  v22 = xmmword_2659C1E00;
-  v21 = -188760945;
-  v20 = xmmword_2659C1E14;
-  v19 = -1418383976;
-  v18 = xmmword_2659C1E50;
-  v17 = -1213485500;
-  v16 = xmmword_2659C1E78;
-  v14 = &v16;
-  v15 = 0;
-  v13 = &v18;
-  v11 = &v22;
-  v12 = &v20;
-  v9 = &v26;
-  v10 = &v24;
-  v7 = &v30;
-  v8 = &v28;
-  v5 = &v34;
-  v6 = &v32;
-  if ((MGIsDeviceOneOfType() & 1) != 0 || MGGetBoolAnswer())
-  {
-LABEL_4:
-    v2 = [&unk_28774C8D0 containsObject:{v1, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}];
+    v2 = [&unk_28774C8D0 containsObject:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14}];
   }
 
   else
@@ -580,13 +358,11 @@ LABEL_4:
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t SFShouldShowYearOfManufacture()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
@@ -612,7 +388,6 @@ uint64_t SFShouldShowYearOfManufacture()
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -676,21 +451,21 @@ BOOL SFShouldShowChinaBlueSticker()
 
 uint64_t SFShouldShowRoHSCompliance()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D75418] currentDevice];
   v1 = [v0 sf_regionCode];
 
-  v12 = -350584140;
-  v11 = xmmword_2659C1E3C;
-  v10 = -1418383976;
-  v9 = xmmword_2659C1E50;
-  v8 = 368778837;
-  v7 = xmmword_2659C1E64;
-  v6 = -1213485500;
-  v5 = xmmword_2659C1E78;
+  v11 = -350584140;
+  v10 = xmmword_2659C1E3C;
+  v9 = -1418383976;
+  v8 = xmmword_2659C1E50;
+  v7 = 368778837;
+  v6 = xmmword_2659C1E64;
+  v5 = -1213485500;
+  v4 = xmmword_2659C1E78;
   if ((MGIsDeviceOneOfType() & 1) != 0 || MGGetBoolAnswer())
   {
-    v2 = [&unk_28774C918 containsObject:{v1, &v9, &v7, &v5, 0}];
+    v2 = [&unk_28774C918 containsObject:{v1, &v8, &v6, &v4, 0}];
   }
 
   else
@@ -698,7 +473,6 @@ uint64_t SFShouldShowRoHSCompliance()
     v2 = 0;
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -711,16 +485,16 @@ uint64_t SFShouldShowBuiltInApps()
   return v2;
 }
 
-id SFLicenseFilePath()
+id SFLicenseFilePath(uint64_t a1)
 {
   if (SFLicenseFilePath_onceToken != -1)
   {
     SFLicenseFilePath_cold_1();
   }
 
-  v1 = SFLicenseFilePath___path;
+  v2 = SFLicenseFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SFLicenseFilePath_block_invoke()
@@ -732,7 +506,7 @@ uint64_t __SFLicenseFilePath_block_invoke()
 
 __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [(__CFString *)v1 length];
   v3 = SFLogForCategory(1uLL);
@@ -742,9 +516,9 @@ __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
-      v26 = 2114;
-      v27 = v1;
+      v24 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
+      v25 = 2114;
+      v26 = v1;
       _os_log_impl(&dword_2659AD000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Resolving license file path for bundle name: '%{public}@'", buf, 0x16u);
     }
 
@@ -760,9 +534,9 @@ __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
     {
       v10 = [v8 path];
       *buf = 136446466;
-      v25 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
-      v26 = 2114;
-      v27 = v10;
+      v24 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
+      v25 = 2114;
+      v26 = v10;
       _os_log_impl(&dword_2659AD000, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: License bundle path URL: '%{public}@'", buf, 0x16u);
     }
 
@@ -771,9 +545,9 @@ __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
-      v26 = 2114;
-      v27 = @"html";
+      v24 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
+      v25 = 2114;
+      v26 = @"html";
       _os_log_impl(&dword_2659AD000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Looking for license file with file extension: '%{public}@'", buf, 0x16u);
     }
 
@@ -782,9 +556,9 @@ __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v25 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
-      v26 = 2114;
-      v27 = v13;
+      v24 = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
+      v25 = 2114;
+      v26 = v13;
       _os_log_impl(&dword_2659AD000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: License file resolved to file at path: '%{public}@'", buf, 0x16u);
     }
   }
@@ -799,21 +573,19 @@ __CFString *_SFLicenseFilePathForBundleWithName(void *a1)
     v13 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
-id SFLicenseVersionNumber()
+id SFLicenseVersionNumber(uint64_t a1)
 {
   if (SFLicenseVersionNumber_onceToken != -1)
   {
     SFLicenseVersionNumber_cold_1();
   }
 
-  v1 = SFLicenseVersionNumber___licenseVersion;
+  v2 = SFLicenseVersionNumber___licenseVersion;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SFLicenseVersionNumber_block_invoke()
@@ -825,7 +597,7 @@ uint64_t __SFLicenseVersionNumber_block_invoke()
 
 NSObject *_SFLicenseVersionNumberForBundleWithName(void *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 length];
   v3 = SFLogForCategory(1uLL);
@@ -835,9 +607,9 @@ NSObject *_SFLicenseVersionNumberForBundleWithName(void *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v30 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
-      v31 = 2114;
-      v32 = v1;
+      v29 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
+      v30 = 2114;
+      v31 = v1;
       _os_log_impl(&dword_2659AD000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Resolving license version number for bundle name: '%{public}@'", buf, 0x16u);
     }
 
@@ -861,9 +633,9 @@ NSObject *_SFLicenseVersionNumberForBundleWithName(void *a1)
 
     if (_SFLicenseVersionNumberForBundleWithName_licenseVersionPath)
     {
-      v28 = 0;
-      v14 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:_SFLicenseVersionNumberForBundleWithName_licenseVersionPath encoding:4 error:&v28];
-      v15 = v28;
+      v27 = 0;
+      v14 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:_SFLicenseVersionNumberForBundleWithName_licenseVersionPath encoding:4 error:&v27];
+      v15 = v27;
       if (v15)
       {
         v16 = SFLogForCategory(1uLL);
@@ -889,11 +661,11 @@ NSObject *_SFLicenseVersionNumberForBundleWithName(void *a1)
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v30 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
-      v31 = 2114;
-      v32 = v1;
-      v33 = 2114;
-      v34 = v14;
+      v29 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
+      v30 = 2114;
+      v31 = v1;
+      v32 = 2114;
+      v33 = v14;
       _os_log_impl(&dword_2659AD000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s: License version for '%{public}@' resolved to: '%{public}@' .", buf, 0x20u);
     }
 
@@ -911,21 +683,19 @@ NSObject *_SFLicenseVersionNumberForBundleWithName(void *a1)
     v24 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
-id SFAudioAccessoryLicenseFilePath()
+id SFAudioAccessoryLicenseFilePath(uint64_t a1)
 {
   if (SFAudioAccessoryLicenseFilePath_onceToken != -1)
   {
     SFAudioAccessoryLicenseFilePath_cold_1();
   }
 
-  v1 = SFAudioAccessoryLicenseFilePath___path;
+  v2 = SFAudioAccessoryLicenseFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SFAudioAccessoryLicenseFilePath_block_invoke()
@@ -935,16 +705,16 @@ uint64_t __SFAudioAccessoryLicenseFilePath_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id SFAudioAccessoryLicenseVersionNumber()
+id SFAudioAccessoryLicenseVersionNumber(uint64_t a1)
 {
   if (SFAudioAccessoryLicenseVersionNumber_onceToken != -1)
   {
     SFAudioAccessoryLicenseVersionNumber_cold_1();
   }
 
-  v1 = SFAudioAccessoryLicenseVersionNumber___licenseVersion;
+  v2 = SFAudioAccessoryLicenseVersionNumber___licenseVersion;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SFAudioAccessoryLicenseVersionNumber_block_invoke()
@@ -954,16 +724,16 @@ uint64_t __SFAudioAccessoryLicenseVersionNumber_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id SFWarrantyFilePath()
+id SFWarrantyFilePath(uint64_t a1)
 {
   if (SFWarrantyFilePath_onceToken != -1)
   {
     SFWarrantyFilePath_cold_1();
   }
 
-  v1 = SFWarrantyFilePath___path;
+  v2 = SFWarrantyFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFWarrantyFilePath_block_invoke()
@@ -982,7 +752,7 @@ void __SFWarrantyFilePath_block_invoke()
 
 id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -994,9 +764,9 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-      v77 = 2114;
-      v78 = v5;
+      v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+      v76 = 2114;
+      v77 = v5;
       _os_log_impl(&dword_2659AD000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: Resolving warranty file path for bundle name: '%{public}@'", buf, 0x16u);
     }
 
@@ -1012,9 +782,9 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
     {
       v16 = [v14 path];
       *buf = 136446466;
-      v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-      v77 = 2114;
-      v78 = v16;
+      v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+      v76 = 2114;
+      v77 = v16;
       _os_log_impl(&dword_2659AD000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty bundle path URL: '%{public}@'", buf, 0x16u);
     }
 
@@ -1023,17 +793,17 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446722;
-      v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-      v77 = 2114;
-      v78 = v6;
-      v79 = 2114;
-      v80 = v7;
+      v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+      v76 = 2114;
+      v77 = v6;
+      v78 = 2114;
+      v79 = v7;
       _os_log_impl(&dword_2659AD000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: Current countryCode '%{public}@', languageCode '%{public}@'.", buf, 0x20u);
     }
 
-    v65 = [v17 URLForResource:@"Warranties" withExtension:@"plist"];
-    v64 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:?];
-    v19 = [v64 objectForKeyedSubscript:v6];
+    v64 = [v17 URLForResource:@"Warranties" withExtension:@"plist"];
+    v63 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:?];
+    v19 = [v63 objectForKeyedSubscript:v6];
     v20 = [v19 objectForKeyedSubscript:v7];
     if ([v20 length])
     {
@@ -1042,9 +812,9 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-        v77 = 2114;
-        v78 = v21;
+        v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+        v76 = 2114;
+        v77 = v21;
         _os_log_impl(&dword_2659AD000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved (using currentLocale) to file at path: '%{public}@'", buf, 0x16u);
       }
     }
@@ -1055,60 +825,60 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446722;
-        v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-        v77 = 2114;
-        v78 = v6;
-        v79 = 2114;
-        v80 = v7;
+        v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+        v76 = 2114;
+        v77 = v6;
+        v78 = 2114;
+        v79 = v7;
         _os_log_impl(&dword_2659AD000, v30, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found for '%{public}@-%{public}@' locale in lookup file.", buf, 0x20u);
       }
 
-      v63 = v17;
-      v59 = v14;
-      v60 = v7;
-      v61 = v5;
+      v62 = v17;
+      v58 = v14;
+      v59 = v7;
+      v60 = v5;
 
       [MEMORY[0x277D218D0] preferredLanguagesForRegion:v6];
+      v69 = 0u;
       v70 = 0u;
       v71 = 0u;
-      v72 = 0u;
-      v22 = v73 = 0u;
-      v31 = [v22 countByEnumeratingWithState:&v70 objects:v83 count:16];
-      v62 = v6;
+      v22 = v72 = 0u;
+      v31 = [v22 countByEnumeratingWithState:&v69 objects:v82 count:16];
+      v61 = v6;
       if (v31)
       {
         v32 = v31;
-        v33 = *v71;
+        v33 = *v70;
         while (2)
         {
           v34 = 0;
           v35 = v20;
           do
           {
-            if (*v71 != v33)
+            if (*v70 != v33)
             {
               objc_enumerationMutation(v22);
             }
 
-            v36 = *(*(&v70 + 1) + 8 * v34);
+            v36 = *(*(&v69 + 1) + 8 * v34);
             v37 = [v36 lowercaseString];
             v20 = [v19 objectForKeyedSubscript:v37];
 
             if ([v20 length])
             {
-              v21 = [v63 pathForResource:v20 ofType:0];
+              v21 = [v62 pathForResource:v20 ofType:0];
               v42 = SFLogForCategory(1uLL);
-              v6 = v62;
+              v6 = v61;
               if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136446978;
-                v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-                v77 = 2114;
-                v78 = v62;
-                v79 = 2114;
-                v80 = v36;
-                v81 = 2114;
-                v82 = v21;
+                v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+                v76 = 2114;
+                v77 = v61;
+                v78 = 2114;
+                v79 = v36;
+                v80 = 2114;
+                v81 = v21;
                 _os_log_impl(&dword_2659AD000, v42, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved (using countryCode '%{public}@' and fallback languageCode '%{public}@') to file at path: '%{public}@'", buf, 0x2Au);
               }
 
@@ -1121,8 +891,8 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
           }
 
           while (v32 != v34);
-          v32 = [v22 countByEnumeratingWithState:&v70 objects:v83 count:16];
-          v6 = v62;
+          v32 = [v22 countByEnumeratingWithState:&v69 objects:v82 count:16];
+          v6 = v61;
           if (v32)
           {
             continue;
@@ -1133,13 +903,13 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
       }
 
       v38 = SFLogForCategory(1uLL);
-      v17 = v63;
+      v17 = v62;
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446466;
-        v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-        v77 = 2114;
-        v78 = v6;
+        v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+        v76 = 2114;
+        v77 = v6;
         _os_log_impl(&dword_2659AD000, v38, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found in lookup file for preferred languages of '%{public}@' countryCode.", buf, 0x16u);
       }
 
@@ -1149,16 +919,16 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
       {
         v40 = [v19 objectForKeyedSubscript:@"en"];
 
-        v21 = [v63 pathForResource:v40 ofType:0];
+        v21 = [v62 pathForResource:v40 ofType:0];
         v41 = SFLogForCategory(1uLL);
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446722;
-          v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-          v77 = 2114;
-          v78 = v6;
-          v79 = 2114;
-          v80 = v21;
+          v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+          v76 = 2114;
+          v77 = v6;
+          v78 = 2114;
+          v79 = v21;
           _os_log_impl(&dword_2659AD000, v41, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved (using English fallback with countryCode '%{public}@') to file at path: '%{public}@'", buf, 0x20u);
         }
 
@@ -1167,68 +937,68 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
 
       else
       {
-        v45 = SFLogForCategory(1uLL);
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v44 = SFLogForCategory(1uLL);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-          v77 = 2114;
-          v78 = v6;
-          _os_log_impl(&dword_2659AD000, v45, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found in lookup file for English language of '%{public}@' countryCode.", buf, 0x16u);
+          v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+          v76 = 2114;
+          v77 = v6;
+          _os_log_impl(&dword_2659AD000, v44, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found in lookup file for English language of '%{public}@' countryCode.", buf, 0x16u);
         }
 
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
         v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         v41 = [v19 allKeys];
-        v46 = [v41 countByEnumeratingWithState:&v66 objects:v74 count:16];
-        if (v46)
+        v45 = [v41 countByEnumeratingWithState:&v65 objects:v73 count:16];
+        if (v45)
         {
-          v47 = v46;
-          v48 = *v67;
+          v46 = v45;
+          v47 = *v66;
           while (2)
           {
-            v49 = 0;
-            v50 = v20;
+            v48 = 0;
+            v49 = v20;
             do
             {
-              if (*v67 != v48)
+              if (*v66 != v47)
               {
                 objc_enumerationMutation(v41);
               }
 
-              v51 = *(*(&v66 + 1) + 8 * v49);
-              v20 = [v19 objectForKeyedSubscript:v51];
+              v50 = *(*(&v65 + 1) + 8 * v48);
+              v20 = [v19 objectForKeyedSubscript:v50];
 
               if ([v20 length])
               {
-                v21 = [v63 pathForResource:v20 ofType:0];
-                v56 = SFLogForCategory(1uLL);
-                v6 = v62;
-                if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+                v21 = [v62 pathForResource:v20 ofType:0];
+                v55 = SFLogForCategory(1uLL);
+                v6 = v61;
+                if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446978;
-                  v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-                  v77 = 2114;
-                  v78 = v62;
-                  v79 = 2114;
-                  v80 = v51;
-                  v81 = 2114;
-                  v82 = v21;
-                  _os_log_impl(&dword_2659AD000, v56, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved (using countryCode '%{public}@' and mapping file languageCode '%{public}@') to file at path: '%{public}@'", buf, 0x2Au);
+                  v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+                  v76 = 2114;
+                  v77 = v61;
+                  v78 = 2114;
+                  v79 = v50;
+                  v80 = 2114;
+                  v81 = v21;
+                  _os_log_impl(&dword_2659AD000, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved (using countryCode '%{public}@' and mapping file languageCode '%{public}@') to file at path: '%{public}@'", buf, 0x2Au);
                 }
 
                 goto LABEL_56;
               }
 
-              ++v49;
-              v50 = v20;
+              ++v48;
+              v49 = v20;
             }
 
-            while (v47 != v49);
-            v47 = [v41 countByEnumeratingWithState:&v66 objects:v74 count:16];
-            if (v47)
+            while (v46 != v48);
+            v46 = [v41 countByEnumeratingWithState:&v65 objects:v73 count:16];
+            if (v46)
             {
               continue;
             }
@@ -1237,42 +1007,42 @@ id _SFWarrantyFilePathForBundleWithName(void *a1, void *a2, void *a3)
           }
         }
 
-        v52 = SFLogForCategory(1uLL);
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v51 = SFLogForCategory(1uLL);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-          _os_log_impl(&dword_2659AD000, v52, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found, falling back to default.", buf, 0xCu);
+          v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+          _os_log_impl(&dword_2659AD000, v51, OS_LOG_TYPE_DEFAULT, "%{public}s: No warranty file found, falling back to default.", buf, 0xCu);
         }
 
-        v53 = MEMORY[0x277CBEBC0];
-        v54 = SFRuntimeAbsoluteFilePathForPath(@"/System/Library/ProductDocuments/Notices");
-        v41 = [v53 fileURLWithPath:v54];
+        v52 = MEMORY[0x277CBEBC0];
+        v53 = SFRuntimeAbsoluteFilePathForPath(@"/System/Library/ProductDocuments/Notices");
+        v41 = [v52 fileURLWithPath:v53];
 
-        v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.bundle", @"Warranty"];
-        v56 = [v41 URLByAppendingPathComponent:v55];
+        v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.bundle", @"Warranty"];
+        v55 = [v41 URLByAppendingPathComponent:v54];
 
-        v57 = [MEMORY[0x277CCA8D8] bundleWithURL:v56];
-        v21 = [v57 pathForResource:@"Warranty" ofType:@"html"];
-        v58 = SFLogForCategory(1uLL);
-        v6 = v62;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v56 = [MEMORY[0x277CCA8D8] bundleWithURL:v55];
+        v21 = [v56 pathForResource:@"Warranty" ofType:@"html"];
+        v57 = SFLogForCategory(1uLL);
+        v6 = v61;
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v76 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
-          v77 = 2114;
-          v78 = v21;
-          _os_log_impl(&dword_2659AD000, v58, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved to default file at path: '%{public}@'", buf, 0x16u);
+          v75 = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+          v76 = 2114;
+          v77 = v21;
+          _os_log_impl(&dword_2659AD000, v57, OS_LOG_TYPE_DEFAULT, "%{public}s: Warranty file resolved to default file at path: '%{public}@'", buf, 0x16u);
         }
 
 LABEL_56:
 LABEL_33:
-        v17 = v63;
+        v17 = v62;
       }
 
-      v7 = v60;
-      v5 = v61;
-      v14 = v59;
+      v7 = v59;
+      v5 = v60;
+      v14 = v58;
     }
   }
 
@@ -1286,21 +1056,19 @@ LABEL_33:
     v21 = 0;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-id SFAudioAccessoryWarrantyFilePath()
+id SFAudioAccessoryWarrantyFilePath(uint64_t a1)
 {
   if (SFAudioAccessoryWarrantyFilePath_onceToken != -1)
   {
     SFAudioAccessoryWarrantyFilePath_cold_1();
   }
 
-  v1 = SFAudioAccessoryWarrantyFilePath___path;
+  v2 = SFAudioAccessoryWarrantyFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFAudioAccessoryWarrantyFilePath_block_invoke()
@@ -1319,7 +1087,7 @@ void __SFAudioAccessoryWarrantyFilePath_block_invoke()
 
 id SFBuiltInRegulatoryImageForModelAndVariant(void *a1, void *a2)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277D759A0] mainScreen];
@@ -1353,8 +1121,8 @@ id SFBuiltInRegulatoryImageForModelAndVariant(void *a1, void *a2)
 
     if (v18)
     {
-      v106 = v18;
-      v102 = v3;
+      v105 = v18;
+      v101 = v3;
       v19 = [@"RegulatoryInfo-" stringByAppendingFormat:@"%@_%@_DK_@2x", v3, v12];
       v20 = MEMORY[0x277D755B8];
       v21 = SFRuntimeAbsoluteFilePathForPath(@"/System/Library/ProductDocuments/RegulatoryImages");
@@ -1363,24 +1131,24 @@ id SFBuiltInRegulatoryImageForModelAndVariant(void *a1, void *a2)
 
       if (v23)
       {
-        v100 = v19;
-        v104 = v8;
+        v99 = v19;
+        v103 = v8;
         v24 = [MEMORY[0x277D75C80] currentTraitCollection];
         v25 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v7];
         v26 = objc_alloc_init(MEMORY[0x277D755C0]);
         v27 = MEMORY[0x277D75C80];
-        v118[0] = v25;
+        v117[0] = v25;
         v28 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-        v118[1] = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:2];
+        v117[1] = v28;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
         v30 = [v27 traitCollectionWithTraitsFromCollections:v29];
-        [v26 registerImage:v106 withTraitCollection:v30];
+        [v26 registerImage:v105 withTraitCollection:v30];
 
         v31 = MEMORY[0x277D75C80];
-        v117[0] = v25;
+        v116[0] = v25;
         v32 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-        v117[1] = v32;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
+        v116[1] = v32;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
         v34 = [v31 traitCollectionWithTraitsFromCollections:v33];
         [v26 registerImage:v23 withTraitCollection:v34];
 
@@ -1392,22 +1160,22 @@ id SFBuiltInRegulatoryImageForModelAndVariant(void *a1, void *a2)
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v114 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
-          v115 = 2112;
-          v116 = v14;
+          v113 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+          v114 = 2112;
+          v115 = v14;
           _os_log_impl(&dword_2659AD000, v37, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
         }
 
         v38 = SFBuiltInRegulatoryImageForModelAndVariant_styleSensitiveImage;
-        v3 = v102;
-        v8 = v104;
-        v18 = v106;
+        v3 = v101;
+        v8 = v103;
+        v18 = v105;
         goto LABEL_33;
       }
 
       v39 = v19;
-      v3 = v102;
-      v18 = v106;
+      v3 = v101;
+      v18 = v105;
     }
 
     else
@@ -1443,10 +1211,10 @@ LABEL_17:
     v44 = [v43 stringByAppendingPathComponent:v14];
     v45 = [v42 imageWithContentsOfFile:v44];
 
-    v107 = v45;
+    v106 = v45;
     if (v45)
     {
-      v105 = v40;
+      v104 = v40;
       v46 = [@"RegulatoryInfo-" stringByAppendingFormat:@"%@-%@_dark%@", v3, v4, v40];
 
       v47 = MEMORY[0x277D755B8];
@@ -1456,26 +1224,26 @@ LABEL_17:
 
       if (v50)
       {
-        v100 = v46;
-        v101 = v4;
-        v103 = v3;
+        v99 = v46;
+        v100 = v4;
+        v102 = v3;
         v51 = [MEMORY[0x277D75C80] currentTraitCollection];
         v52 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v7];
         v53 = objc_alloc_init(MEMORY[0x277D755C0]);
         v54 = MEMORY[0x277D75C80];
-        v112[0] = v52;
+        v111[0] = v52;
         v55 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-        v112[1] = v55;
-        v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:2];
+        v111[1] = v55;
+        v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
         v57 = [v54 traitCollectionWithTraitsFromCollections:v56];
-        v18 = v107;
-        [v53 registerImage:v107 withTraitCollection:v57];
+        v18 = v106;
+        [v53 registerImage:v106 withTraitCollection:v57];
 
         v58 = MEMORY[0x277D75C80];
-        v111[0] = v52;
+        v110[0] = v52;
         v59 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-        v111[1] = v59;
-        v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v111 count:2];
+        v110[1] = v59;
+        v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
         v61 = [v58 traitCollectionWithTraitsFromCollections:v60];
         [v53 registerImage:v50 withTraitCollection:v61];
 
@@ -1487,25 +1255,25 @@ LABEL_17:
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v114 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
-          v115 = 2112;
-          v116 = v14;
+          v113 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+          v114 = 2112;
+          v115 = v14;
           _os_log_impl(&dword_2659AD000, v64, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
         }
 
         v38 = SFBuiltInRegulatoryImageForModelAndVariant_styleSensitiveImage_324;
 LABEL_32:
-        v4 = v101;
-        v3 = v103;
-        v8 = v105;
+        v4 = v100;
+        v3 = v102;
+        v8 = v104;
 LABEL_33:
-        v39 = v100;
+        v39 = v99;
         goto LABEL_43;
       }
 
       v39 = v46;
-      v8 = v105;
-      v18 = v107;
+      v8 = v104;
+      v18 = v106;
       goto LABEL_39;
     }
 
@@ -1540,8 +1308,8 @@ LABEL_25:
     goto LABEL_42;
   }
 
-  v105 = v67;
-  v108 = v66;
+  v104 = v67;
+  v107 = v66;
   v71 = [@"RegulatoryInfo-" stringByAppendingFormat:@"%@_dark%@", v3, v67];
 
   v72 = MEMORY[0x277D755B8];
@@ -1551,25 +1319,25 @@ LABEL_25:
 
   if (v75)
   {
-    v100 = v71;
-    v101 = v4;
-    v103 = v3;
+    v99 = v71;
+    v100 = v4;
+    v102 = v3;
     v76 = [MEMORY[0x277D75C80] currentTraitCollection];
     v77 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v7];
     v78 = objc_alloc_init(MEMORY[0x277D755C0]);
     v79 = MEMORY[0x277D75C80];
-    v110[0] = v77;
+    v109[0] = v77;
     v80 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-    v110[1] = v80;
-    v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
+    v109[1] = v80;
+    v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:2];
     v82 = [v79 traitCollectionWithTraitsFromCollections:v81];
     [v78 registerImage:v18 withTraitCollection:v82];
 
     v83 = MEMORY[0x277D75C80];
-    v109[0] = v77;
+    v108[0] = v77;
     v84 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-    v109[1] = v84;
-    v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:2];
+    v108[1] = v84;
+    v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:2];
     v86 = [v83 traitCollectionWithTraitsFromCollections:v85];
     [v78 registerImage:v75 withTraitCollection:v86];
 
@@ -1581,28 +1349,28 @@ LABEL_25:
     if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v114 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
-      v115 = 2112;
-      v116 = v108;
+      v113 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+      v114 = 2112;
+      v115 = v107;
       _os_log_impl(&dword_2659AD000, v89, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
     }
 
     v38 = SFBuiltInRegulatoryImageForModelAndVariant_styleSensitiveImage_331;
-    v14 = v108;
+    v14 = v107;
     goto LABEL_32;
   }
 
   v39 = v71;
-  v8 = v105;
-  v14 = v108;
+  v8 = v104;
+  v14 = v107;
 LABEL_39:
   v90 = SFLogForCategory(1uLL);
   if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v114 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
-    v115 = 2112;
-    v116 = v14;
+    v113 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+    v114 = 2112;
+    v115 = v14;
     _os_log_impl(&dword_2659AD000, v90, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to Regulatory Image with name '%{Public}@'.", buf, 0x16u);
   }
 
@@ -1614,14 +1382,12 @@ LABEL_42:
   v38 = v18;
 LABEL_43:
 
-  v98 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 id SFBuiltInRegulatoryImageForApplePencilModel(void *a1)
 {
-  v51[2] = *MEMORY[0x277D85DE8];
+  v50[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277D759A0] mainScreen];
   [v2 scale];
@@ -1648,8 +1414,8 @@ id SFBuiltInRegulatoryImageForApplePencilModel(void *a1)
     goto LABEL_12;
   }
 
-  v44 = v5;
-  v45 = v8;
+  v43 = v5;
+  v44 = v8;
   v13 = [@"RegulatoryInfo-" stringByAppendingFormat:@"%@-%@_dark", v1, v7];
   v14 = MEMORY[0x277D755B8];
   v15 = SFRuntimeAbsoluteFilePathForPath(@"/System/Library/ProductDocuments/RegulatoryImages");
@@ -1662,18 +1428,18 @@ id SFBuiltInRegulatoryImageForApplePencilModel(void *a1)
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v47 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForApplePencilModel(NSString *__strong _Nonnull)";
-      v48 = 2112;
-      v8 = v45;
-      v49 = v45;
+      v46 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForApplePencilModel(NSString *__strong _Nonnull)";
+      v47 = 2112;
+      v8 = v44;
+      v48 = v44;
       _os_log_impl(&dword_2659AD000, v32, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to Regulatory Image with name '%{Public}@'.", buf, 0x16u);
-      v5 = v44;
+      v5 = v43;
     }
 
     else
     {
-      v5 = v44;
-      v8 = v45;
+      v5 = v43;
+      v8 = v44;
     }
 
 LABEL_12:
@@ -1682,27 +1448,27 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v43 = v6;
-  v42 = [MEMORY[0x277D75C80] currentTraitCollection];
+  v42 = v6;
+  v41 = [MEMORY[0x277D75C80] currentTraitCollection];
   v18 = [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v4];
   v19 = objc_alloc_init(MEMORY[0x277D755C0]);
   v20 = MEMORY[0x277D75C80];
-  v51[0] = v18;
+  v50[0] = v18;
   v21 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-  v51[1] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+  v50[1] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
   v23 = [v20 traitCollectionWithTraitsFromCollections:v22];
   [v19 registerImage:v12 withTraitCollection:v23];
 
   v24 = MEMORY[0x277D75C80];
-  v50[0] = v18;
+  v49[0] = v18;
   v25 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-  v50[1] = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+  v49[1] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
   v27 = [v24 traitCollectionWithTraitsFromCollections:v26];
   [v19 registerImage:v17 withTraitCollection:v27];
 
-  v28 = [v19 imageWithTraitCollection:v42];
+  v28 = [v19 imageWithTraitCollection:v41];
   v29 = SFBuiltInRegulatoryImageForApplePencilModel_styleSensitiveImage;
   SFBuiltInRegulatoryImageForApplePencilModel_styleSensitiveImage = v28;
 
@@ -1710,19 +1476,17 @@ LABEL_12:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v47 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForApplePencilModel(NSString *__strong _Nonnull)";
-    v48 = 2112;
-    v49 = v45;
+    v46 = "UIImage * _Nonnull SFBuiltInRegulatoryImageForApplePencilModel(NSString *__strong _Nonnull)";
+    v47 = 2112;
+    v48 = v44;
     _os_log_impl(&dword_2659AD000, v30, OS_LOG_TYPE_DEFAULT, "%{Public}s: Resolved to style-sensitive Regulatory Image with base name '%{Public}@'.", buf, 0x16u);
   }
 
   v31 = SFBuiltInRegulatoryImageForApplePencilModel_styleSensitiveImage;
-  v5 = v44;
-  v6 = v43;
-  v8 = v45;
+  v5 = v43;
+  v6 = v42;
+  v8 = v44;
 LABEL_13:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -1737,20 +1501,18 @@ id SFRegulatoryImage()
 
 uint64_t SFIsRegulatoryImageFromLockdown()
 {
-  v109 = *MEMORY[0x277D85DE8];
-  v97 = 1;
+  v108 = *MEMORY[0x277D85DE8];
+  v96 = 1;
   v0 = container_system_group_path_for_identifier();
   if (!v0)
   {
     v38 = SFLogForCategory(1uLL);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      SFIsRegulatoryImageFromLockdown_cold_9(&v97);
+      SFIsRegulatoryImageFromLockdown_cold_9();
     }
 
-LABEL_83:
-    v79 = 0;
-    goto LABEL_84;
+    return 0;
   }
 
   v1 = v0;
@@ -1776,9 +1538,9 @@ LABEL_83:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-      v107 = 2112;
-      v108 = v7;
+      v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+      v106 = 2112;
+      v107 = v7;
       _os_log_impl(&dword_2659AD000, v8, OS_LOG_TYPE_DEFAULT, "%{Public}s: Lockdown Regulatory Images at '%@'", buf, 0x16u);
     }
 
@@ -1801,7 +1563,7 @@ LABEL_83:
 
       v12 = MGCopyAnswer();
       v13 = MGCopyAnswer();
-      v91 = [v12 stringByAppendingFormat:@"-%@", v13];
+      v90 = [v12 stringByAppendingFormat:@"-%@", v13];
       v14 = [v12 length];
       v15 = SFLogForCategory(1uLL);
       v16 = v15;
@@ -1815,17 +1577,17 @@ LABEL_83:
         goto LABEL_76;
       }
 
-      v86 = v13;
-      v88 = v10;
-      v89 = v7;
-      v90 = v2;
-      v17 = v91;
+      v85 = v13;
+      v87 = v10;
+      v88 = v7;
+      v89 = v2;
+      v17 = v90;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-        v107 = 2112;
-        v108 = v91;
+        v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+        v106 = 2112;
+        v107 = v90;
         _os_log_impl(&dword_2659AD000, v16, OS_LOG_TYPE_DEFAULT, "%{Public}s: Looking for Lockdown Regulatory Image '%@'", buf, 0x16u);
       }
 
@@ -1833,44 +1595,44 @@ LABEL_83:
       [v18 scale];
       v20 = v19;
 
-      v95 = 0u;
-      v96 = 0u;
-      v93 = 0u;
       v94 = 0u;
-      v87 = v11;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v86 = v11;
       obj = v11;
-      v21 = [obj countByEnumeratingWithState:&v93 objects:v104 count:16];
+      v21 = [obj countByEnumeratingWithState:&v92 objects:v103 count:16];
       if (!v21)
       {
 LABEL_43:
 
-        v7 = v89;
-        v2 = v90;
-        v11 = v87;
-        v13 = v86;
+        v7 = v88;
+        v2 = v89;
+        v11 = v86;
+        v13 = v85;
         goto LABEL_74;
       }
 
       v22 = v21;
-      v23 = *v94;
+      v23 = *v93;
 LABEL_17:
       v24 = 0;
       while (1)
       {
-        if (*v94 != v23)
+        if (*v93 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v93 + 1) + 8 * v24);
+        v25 = *(*(&v92 + 1) + 8 * v24);
         v26 = [v25 objectForKey:@"ImageId"];
         v27 = SFLogForCategory(1uLL);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-          v107 = 2112;
-          v108 = v26;
+          v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+          v106 = 2112;
+          v107 = v26;
           _os_log_impl(&dword_2659AD000, v27, OS_LOG_TYPE_DEFAULT, "%{Public}s: Candidate Lockdown Regulatory Image '%@'", buf, 0x16u);
         }
 
@@ -1902,29 +1664,29 @@ LABEL_17:
                 v64 = v63;
                 if (v35 && v63)
                 {
-                  v84 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v35 scale:0 orientation:v20];
-                  v85 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v64 scale:0 orientation:v20];
-                  v82 = [MEMORY[0x277D75C80] currentTraitCollection];
+                  v83 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v35 scale:0 orientation:v20];
+                  v84 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:v64 scale:0 orientation:v20];
+                  v81 = [MEMORY[0x277D75C80] currentTraitCollection];
                   [MEMORY[0x277D75C80] traitCollectionWithDisplayScale:v20];
                   v65 = image = v64;
                   v66 = objc_alloc_init(MEMORY[0x277D755C0]);
                   v67 = MEMORY[0x277D75C80];
-                  v103[0] = v65;
+                  v102[0] = v65;
                   v68 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:1];
-                  v103[1] = v68;
-                  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
+                  v102[1] = v68;
+                  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
                   v70 = [v67 traitCollectionWithTraitsFromCollections:v69];
-                  [v66 registerImage:v84 withTraitCollection:v70];
+                  [v66 registerImage:v83 withTraitCollection:v70];
 
                   v71 = MEMORY[0x277D75C80];
-                  v102[0] = v65;
+                  v101[0] = v65;
                   v72 = [MEMORY[0x277D75C80] traitCollectionWithUserInterfaceStyle:2];
-                  v102[1] = v72;
-                  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
+                  v101[1] = v72;
+                  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:2];
                   v74 = [v71 traitCollectionWithTraitsFromCollections:v73];
-                  [v66 registerImage:v85 withTraitCollection:v74];
+                  [v66 registerImage:v84 withTraitCollection:v74];
 
-                  v39 = [v66 imageWithTraitCollection:v82];
+                  v39 = [v66 imageWithTraitCollection:v81];
                   CGImageRelease(v35);
                   CGImageRelease(image);
                   CFRelease(v31);
@@ -1932,16 +1694,16 @@ LABEL_17:
                   if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315394;
-                    v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-                    v107 = 2112;
-                    v108 = v26;
+                    v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+                    v106 = 2112;
+                    v107 = v26;
                     _os_log_impl(&dword_2659AD000, v75, OS_LOG_TYPE_DEFAULT, "%{Public}s: Matched style-sensitive Lockdown Regulatory Image '%{Public}@'", buf, 0x16u);
                   }
 
-                  v7 = v89;
-                  v2 = v90;
-                  v10 = v88;
-                  v76 = v84;
+                  v7 = v88;
+                  v2 = v89;
+                  v10 = v87;
+                  v76 = v83;
                 }
 
                 else
@@ -1964,14 +1726,14 @@ LABEL_17:
                   }
 
                   v39 = 0;
-                  v7 = v89;
-                  v2 = v90;
+                  v7 = v88;
+                  v2 = v89;
                 }
 
 LABEL_73:
 
-                v13 = v86;
-                v11 = v87;
+                v13 = v85;
+                v11 = v86;
                 if (v39)
                 {
                   goto LABEL_77;
@@ -1995,7 +1757,7 @@ LABEL_79:
                 goto LABEL_80;
               }
 
-              v17 = v91;
+              v17 = v90;
               if (ImageAtIndex)
               {
                 v39 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:ImageAtIndex scale:0 orientation:v20];
@@ -2005,14 +1767,14 @@ LABEL_79:
                 if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315394;
-                  v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-                  v107 = 2112;
-                  v108 = v26;
+                  v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+                  v106 = 2112;
+                  v107 = v26;
                   _os_log_impl(&dword_2659AD000, v76, OS_LOG_TYPE_DEFAULT, "%{Public}s: Matched Lockdown Regulatory Image '%@'", buf, 0x16u);
                 }
 
-                v7 = v89;
-                v2 = v90;
+                v7 = v88;
+                v2 = v89;
                 goto LABEL_73;
               }
 
@@ -2020,9 +1782,9 @@ LABEL_79:
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-                v107 = 2112;
-                v108 = v26;
+                v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+                v106 = 2112;
+                v107 = v26;
                 _os_log_error_impl(&dword_2659AD000, v36, OS_LOG_TYPE_ERROR, "%{Public}s: Failed decoding Lockdown Regulatory Image '%{Public}@'", buf, 0x16u);
               }
             }
@@ -2033,13 +1795,13 @@ LABEL_79:
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v106 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-                v107 = 2112;
-                v108 = v26;
+                v105 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+                v106 = 2112;
+                v107 = v26;
                 _os_log_error_impl(&dword_2659AD000, v36, OS_LOG_TYPE_ERROR, "%{Public}s: Empty Lockdown Regulatory Image '%{Public}@'", buf, 0x16u);
               }
 
-              v17 = v91;
+              v17 = v90;
             }
 
             CFRelease(v31);
@@ -2049,7 +1811,7 @@ LABEL_79:
           v37 = SFLogForCategory(1uLL);
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            SFIsRegulatoryImageFromLockdown_cold_4(v100, &v101, v37);
+            SFIsRegulatoryImageFromLockdown_cold_4(v99, &v100, v37);
           }
         }
 
@@ -2058,7 +1820,7 @@ LABEL_79:
           v37 = SFLogForCategory(1uLL);
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            SFIsRegulatoryImageFromLockdown_cold_2(v98, &v99, v37);
+            SFIsRegulatoryImageFromLockdown_cold_2(v97, &v98, v37);
           }
         }
 
@@ -2067,7 +1829,7 @@ LABEL_41:
 
         if (v22 == ++v24)
         {
-          v22 = [obj countByEnumeratingWithState:&v93 objects:v104 count:16];
+          v22 = [obj countByEnumeratingWithState:&v92 objects:v103 count:16];
           if (v22)
           {
             goto LABEL_17;
@@ -2106,14 +1868,12 @@ LABEL_80:
 
   if (!v77)
   {
-    goto LABEL_83;
+    return 0;
   }
 
   v78 = +[SFDeviceRegulatoryAttributes currentDeviceAttributes];
   v79 = [v78 isLockdownImageOverridden] ^ 1;
 
-LABEL_84:
-  v80 = *MEMORY[0x277D85DE8];
   return v79;
 }
 
@@ -2148,22 +1908,23 @@ id SFChinaMIITBlueStickerLabelImage()
   v0 = SFChinaMIITBlueStickerNalNumber();
   v1 = [v0 substringToIndex:2];
 
-  LODWORD(v0) = [v1 isEqualToString:@"00"];
-  v2 = MEMORY[0x277D755B8];
-  v3 = SFBundleForSettingsFoundationFramework();
+  v2 = [v1 isEqualToString:@"00"];
+  LODWORD(v0) = v2;
+  v3 = MEMORY[0x277D755B8];
+  v4 = SFBundleForSettingsFoundationFramework(v2);
   if (v0)
   {
-    v4 = @"ChinaGreensticker";
+    v5 = @"ChinaGreensticker";
   }
 
   else
   {
-    v4 = @"ChinaBluesticker";
+    v5 = @"ChinaBluesticker";
   }
 
-  v5 = [v2 imageNamed:v4 inBundle:v3 compatibleWithTraitCollection:0];
+  v6 = [v3 imageNamed:v5 inBundle:v4 compatibleWithTraitCollection:0];
 
-  return v5;
+  return v6;
 }
 
 id SFChinaMIITBlueStickerNalNumber()
@@ -2192,16 +1953,16 @@ id SFIMEINumber(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   return v8;
 }
 
-id SFAcknowledgementsDocumentFilePath()
+id SFAcknowledgementsDocumentFilePath(uint64_t a1)
 {
   if (SFAcknowledgementsDocumentFilePath_onceToken != -1)
   {
     SFAcknowledgementsDocumentFilePath_cold_1();
   }
 
-  v1 = SFAcknowledgementsDocumentFilePath___path;
+  v2 = SFAcknowledgementsDocumentFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFAcknowledgementsDocumentFilePath_block_invoke()
@@ -2219,16 +1980,16 @@ void __SFAcknowledgementsDocumentFilePath_block_invoke()
   SFAcknowledgementsDocumentFilePath___path = v5;
 }
 
-id SFAudioAccessoryAcknowledgementsDocumentFilePath()
+id SFAudioAccessoryAcknowledgementsDocumentFilePath(uint64_t a1)
 {
   if (SFAudioAccessoryAcknowledgementsDocumentFilePath_onceToken != -1)
   {
     SFAudioAccessoryAcknowledgementsDocumentFilePath_cold_1();
   }
 
-  v1 = SFAudioAccessoryAcknowledgementsDocumentFilePath___path;
+  v2 = SFAudioAccessoryAcknowledgementsDocumentFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFAudioAccessoryAcknowledgementsDocumentFilePath_block_invoke()
@@ -2246,16 +2007,16 @@ void __SFAudioAccessoryAcknowledgementsDocumentFilePath_block_invoke()
   SFAudioAccessoryAcknowledgementsDocumentFilePath___path = v5;
 }
 
-id SFRoHSComplianceDocumentFilePath()
+id SFRoHSComplianceDocumentFilePath(uint64_t a1)
 {
   if (SFRoHSComplianceDocumentFilePath_onceToken != -1)
   {
     SFRoHSComplianceDocumentFilePath_cold_1();
   }
 
-  v1 = SFRoHSComplianceDocumentFilePath___path;
+  v2 = SFRoHSComplianceDocumentFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFRoHSComplianceDocumentFilePath_block_invoke()
@@ -2297,16 +2058,16 @@ void __SFRoHSComplianceDocumentFilePath_block_invoke()
   SFRoHSComplianceDocumentFilePath___path = v10;
 }
 
-id SFBuiltInAppsDocumentFilePath()
+id SFBuiltInAppsDocumentFilePath(uint64_t a1)
 {
   if (SFBuiltInAppsDocumentFilePath_onceToken != -1)
   {
     SFBuiltInAppsDocumentFilePath_cold_1();
   }
 
-  v1 = SFBuiltInAppsDocumentFilePath___path;
+  v2 = SFBuiltInAppsDocumentFilePath___path;
 
-  return v1;
+  return v2;
 }
 
 void __SFBuiltInAppsDocumentFilePath_block_invoke()
@@ -2463,33 +2224,33 @@ id _SFRFExposureDocumentLocalizedStringForKey(void *a1)
   return v3;
 }
 
-id SFBlueStickerFont()
+id SFBlueStickerFont(uint64_t a1)
 {
-  v0 = SFBundleForSettingsFoundationFramework();
-  v1 = [v0 pathForResource:@"HYCuSong-CAICT" ofType:@"ttf"];
+  v1 = SFBundleForSettingsFoundationFramework(a1);
+  v2 = [v1 pathForResource:@"HYCuSong-CAICT" ofType:@"ttf"];
 
-  FontDescriptorsFromURL = CTFontManagerCreateFontDescriptorsFromURL([MEMORY[0x277CBEBC0] fileURLWithPath:v1]);
-  v3 = [(__CFArray *)FontDescriptorsFromURL firstObject];
+  FontDescriptorsFromURL = CTFontManagerCreateFontDescriptorsFromURL([MEMORY[0x277CBEBC0] fileURLWithPath:v2]);
+  v4 = [(__CFArray *)FontDescriptorsFromURL firstObject];
 
-  if (v3)
+  if (v4)
   {
-    v4 = MEMORY[0x277D74300];
-    v5 = [(__CFArray *)FontDescriptorsFromURL firstObject];
-    v6 = [v4 fontWithDescriptor:v5 size:14.0];
+    v5 = MEMORY[0x277D74300];
+    v6 = [(__CFArray *)FontDescriptorsFromURL firstObject];
+    v7 = [v5 fontWithDescriptor:v6 size:14.0];
   }
 
   else
   {
-    v7 = SFLogForCategory(1uLL);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SFLogForCategory(1uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      SFBlueStickerFont_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+      SFBlueStickerFont_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
-    v6 = [MEMORY[0x277D74300] fontWithName:@"Charter-Roman" size:14.0];
+    v7 = [MEMORY[0x277D74300] fontWithName:@"Charter-Roman" size:14.0];
   }
 
-  return v6;
+  return v7;
 }
 
 id getSTManagementState()
@@ -2517,16 +2278,16 @@ id getSTManagementState()
   return v2;
 }
 
-void sub_2659BA8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2659BA8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2659BAE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2659BAE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2540,22 +2301,22 @@ uint64_t __SpringBoardPreferenceDomain_block_invoke()
 
 Class __getSTManagementStateClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!ScreenTimeCoreLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __ScreenTimeCoreLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279BB08A0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __ScreenTimeCoreLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279BB08A0;
+    v6 = 0;
     ScreenTimeCoreLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (ScreenTimeCoreLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2563,7 +2324,7 @@ Class __getSTManagementStateClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2578,125 +2339,116 @@ LABEL_4:
   }
 
   getSTManagementStateClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ScreenTimeCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ScreenTimeCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t SFPerformSelector2(const char *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v26 = *MEMORY[0x277D85DE8];
+  if (!a2)
   {
-    v8 = SFLogForCategory(2uLL);
-    v9 = os_signpost_id_make_with_pointer(v8, "SFPerformSelector");
-    v10 = SFLogForCategory(2uLL);
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v11 = v10;
-      if (os_signpost_enabled(v10))
-      {
-        v12 = objc_opt_class();
-        v23 = 138543618;
-        v24 = NSStringFromClass(v12);
-        v25 = 2114;
-        v26 = NSStringFromSelector(a1);
-        _os_signpost_emit_with_name_impl(&dword_2659AD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SFPerformSelector2", "Target: %{public}@, Selector: %{public}@", &v23, 0x16u);
-      }
-    }
+    return 0;
+  }
 
-    v13 = [a2 methodForSelector:a1];
-    v14 = [objc_msgSend(a2 methodSignatureForSelector:{a1), "methodReturnLength"}];
-    if (a4)
+  v8 = SFLogForCategory(2uLL);
+  v9 = os_signpost_id_make_with_pointer(v8, "SFPerformSelector");
+  v10 = SFLogForCategory(2uLL);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v11 = v10;
+    if (os_signpost_enabled(v10))
     {
-      v15 = v13(a2, a1, a3, a4);
+      v12 = objc_opt_class();
+      v22 = 138543618;
+      v23 = NSStringFromClass(v12);
+      v24 = 2114;
+      v25 = NSStringFromSelector(a1);
+      _os_signpost_emit_with_name_impl(&dword_2659AD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SFPerformSelector2", "Target: %{public}@, Selector: %{public}@", &v22, 0x16u);
     }
+  }
 
-    else if (a3)
-    {
-      v15 = (v13)(a2, a1, a3);
-    }
+  v13 = [a2 methodForSelector:a1];
+  v14 = [objc_msgSend(a2 methodSignatureForSelector:{a1), "methodReturnLength"}];
+  if (a4)
+  {
+    v15 = v13(a2, a1, a3, a4);
+  }
 
-    else
-    {
-      v15 = (v13)(a2, a1);
-    }
-
-    v17 = v15;
-    v18 = SFLogForCategory(2uLL);
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v19 = v18;
-      if (os_signpost_enabled(v18))
-      {
-        LOWORD(v23) = 0;
-        _os_signpost_emit_with_name_impl(&dword_2659AD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "SFPerformSelector2", &unk_2659C50D2, &v23, 2u);
-      }
-    }
-
-    v20 = NSStringFromSelector(a1);
-    v21 = objc_opt_class();
-    [SFSettingsAnalytics trackingPerformSelector:v20 targetString:NSStringFromClass(v21)];
-    if (v14)
-    {
-      result = v17;
-    }
-
-    else
-    {
-      result = 0;
-    }
+  else if (a3)
+  {
+    v15 = (v13)(a2, a1, a3);
   }
 
   else
   {
-    result = 0;
+    v15 = (v13)(a2, a1);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  v17 = v15;
+  v18 = SFLogForCategory(2uLL);
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v19 = v18;
+    if (os_signpost_enabled(v18))
+    {
+      LOWORD(v22) = 0;
+      _os_signpost_emit_with_name_impl(&dword_2659AD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "SFPerformSelector2", &unk_2659C50D2, &v22, 2u);
+    }
+  }
+
+  v20 = NSStringFromSelector(a1);
+  v21 = objc_opt_class();
+  [SFSettingsAnalytics trackingPerformSelector:v20 targetString:NSStringFromClass(v21)];
+  if (v14)
+  {
+    return v17;
+  }
+
+  else
+  {
+    return 0;
+  }
 }
 
 id SF_LocalizedStringForCountryOfOriginAssembledIn(void *a1)
 {
   v1 = a1;
-  v2 = SFBundleForSettingsFoundationFramework();
+  v2 = SFBundleForSettingsFoundationFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"CountryOfOriginAssembledIn"];
 
   return v3;
 }
 
-id SFBundleForSettingsFoundationFramework()
+id SFBundleForSettingsFoundationFramework(uint64_t a1)
 {
   if (SFBundleForSettingsFoundationFramework_onceToken != -1)
   {
     SFBundleForSettingsFoundationFramework_cold_1();
   }
 
-  v1 = SFBundleForSettingsFoundationFramework__settingsFoundationFrameworkBundle;
+  v2 = SFBundleForSettingsFoundationFramework__settingsFoundationFrameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 id SF_LocalizedStringForCountryOfOriginMadeIn(void *a1)
 {
   v1 = a1;
-  v2 = SFBundleForSettingsFoundationFramework();
+  v2 = SFBundleForSettingsFoundationFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"CountryOfOriginMadeIn"];
 
   return v3;
@@ -2705,7 +2457,7 @@ id SF_LocalizedStringForCountryOfOriginMadeIn(void *a1)
 id SF_LocalizedStringForSettingsFoundation(void *a1)
 {
   v1 = a1;
-  v2 = SFBundleForSettingsFoundationFramework();
+  v2 = SFBundleForSettingsFoundationFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"SettingsFoundation"];
 
   return v3;
@@ -2760,7 +2512,7 @@ uint64_t __SFLogForCategory_block_invoke()
 
 void SFGreenTeaIMEILog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v9 = a1;
   if (SFGreenTeaLoggerForIMEI_onceToken != -1)
   {
@@ -2777,14 +2529,12 @@ void SFGreenTeaIMEILog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
       v13 = [v12 bundleIdentifier];
       v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v9 arguments:&a9];
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v14;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v14;
       _os_log_impl(&dword_2659AD000, v11, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __SFGreenTeaLoggerForIMEI_block_invoke()
@@ -2872,19 +2622,19 @@ uint64_t __SFLocalizableWAPIStringKeyForKey_block_invoke()
 
 uint64_t SFProcessIDForProcessNamed(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 length])
   {
     v2 = [v1 UTF8String];
     v3 = 0;
-    *v21 = xmmword_2659C1EB0;
-    v22 = 0;
+    *v20 = xmmword_2659C1EB0;
+    v21 = 0;
     size = 0;
     v4 = -5;
     while (1)
     {
-      v5 = sysctl(v21, 3u, 0, &size, 0, 0);
+      v5 = sysctl(v20, 3u, 0, &size, 0, 0);
       if (v5)
       {
         v9 = v5;
@@ -2898,7 +2648,7 @@ uint64_t SFProcessIDForProcessNamed(void *a1)
       }
 
       v7 = v6;
-      v8 = sysctl(v21, 3u, v6, &size, 0, 0);
+      v8 = sysctl(v20, 3u, v6, &size, 0, 0);
       if (!v8)
       {
         goto LABEL_21;
@@ -2971,7 +2721,7 @@ LABEL_28:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v20 = size;
+      v19 = size;
       _os_log_impl(&dword_2659AD000, v12, OS_LOG_TYPE_DEFAULT, "Unable to realloc buffer to %lld size", buf, 0xCu);
     }
 
@@ -2989,11 +2739,10 @@ LABEL_28:
 
 LABEL_29:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-uint64_t SFTerminateProcessNamed(void *a1, uint64_t a2, void *a3)
+uint64_t SFTerminateProcessNamed(void *a1, int a2, void *a3)
 {
   v4 = a3;
   if ((SFProcessIDForProcessNamed(a1) & 0x80000000) != 0)
@@ -3044,15 +2793,7 @@ id SFLocalizedStringFromTableInBundleForLanguage(void *a1, void *a2, void *a3, v
   v11 = [v9 localizations];
   v12 = [MEMORY[0x277CBEA60] arrayWithObject:v10];
   v13 = CFBundleCopyLocalizationsForPreferences(v11, v12);
-  if (![(__CFArray *)v13 count])
-  {
-    goto LABEL_7;
-  }
-
-  v14 = [(__CFArray *)v13 objectAtIndex:0];
-  v15 = [v9 pathForResource:v8 ofType:@"strings" inDirectory:0 forLocalization:v14];
-
-  if (v15)
+  if (-[__CFArray count](v13, "count") && (-[__CFArray objectAtIndex:](v13, "objectAtIndex:", 0), v14 = objc_claimAutoreleasedReturnValue(), [v9 pathForResource:v8 ofType:@"strings" inDirectory:0 forLocalization:v14], v15 = objc_claimAutoreleasedReturnValue(), v14, v15))
   {
     v16 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v15];
     v17 = [v16 objectForKey:v7];
@@ -3060,7 +2801,6 @@ id SFLocalizedStringFromTableInBundleForLanguage(void *a1, void *a2, void *a3, v
 
   else
   {
-LABEL_7:
     v17 = 0;
   }
 
@@ -3075,7 +2815,7 @@ LABEL_9:
 
 __CFString *SFDeveloperSettingsBundlesDirectoryPath()
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = @"/System/Library/PreferenceBundles/";
   v2 = [@"/System/Library/PreferenceBundles/" stringByAppendingPathComponent:@"DeveloperSettings.bundle"];
@@ -3107,20 +2847,19 @@ __CFString *SFDeveloperSettingsBundlesDirectoryPath()
   v8 = SFLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "NSString * _Nullable SFDeveloperSettingsBundlesDirectoryPath(void)";
-    v13 = 2114;
-    v14 = v1;
-    _os_log_impl(&dword_2659AD000, v8, OS_LOG_TYPE_DEFAULT, "%s: Resolved Developer Settings Directory Path '%{public}@'", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "NSString * _Nullable SFDeveloperSettingsBundlesDirectoryPath(void)";
+    v12 = 2114;
+    v13 = v1;
+    _os_log_impl(&dword_2659AD000, v8, OS_LOG_TYPE_DEFAULT, "%s: Resolved Developer Settings Directory Path '%{public}@'", &v10, 0x16u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
 id SFDeveloperSettingsBundlePath()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = SFDeveloperSettingsBundlesDirectoryPath();
   if ([v0 isEqualToString:@"/System/Library/PreferenceBundles/"])
   {
@@ -3141,149 +2880,130 @@ LABEL_6:
   v3 = SFLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "NSString * _Nullable SFDeveloperSettingsBundlePath(void)";
-    v8 = 2114;
-    v9 = v2;
-    _os_log_impl(&dword_2659AD000, v3, OS_LOG_TYPE_DEFAULT, "%s: Resolved Developer Settings Path '%{public}@'", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "NSString * _Nullable SFDeveloperSettingsBundlePath(void)";
+    v7 = 2114;
+    v8 = v2;
+    _os_log_impl(&dword_2659AD000, v3, OS_LOG_TYPE_DEFAULT, "%s: Resolved Developer Settings Path '%{public}@'", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 void _SFBuiltInRegulatoryImage_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_2659AD000, v2, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for '%{Public}@-%{Public}@'.", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_2659AD000, v2, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for '%{Public}@-%{Public}@'.", v3, 0x20u);
 }
 
 void _SFBuiltInRegulatoryImage_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: No Regulatory Image found using variant, using model instead '%{Public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2659AD000, v0, v1, "%{Public}s: No Regulatory Image found using variant, using model instead '%{Public}@'.", v2, v3, v4, v5, v6);
 }
 
 void _SFLicenseFilePathForBundleWithName_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve license file path for an empty bundle name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *_SFLicenseFilePathForBundleWithName(NSString *__strong)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve license file path for an empty bundle name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _SFLicenseVersionNumberForBundleWithName_cold_1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = 136446722;
-  v4 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
-  v5 = 2114;
-  v6 = a1;
-  v7 = 2114;
-  v8 = _SFLicenseVersionNumberForBundleWithName_licenseVersionPath;
-  _os_log_debug_impl(&dword_2659AD000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: License version path for '%{public}@' resolved to: '%{public}@' .", &v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void _SFLicenseVersionNumberForBundleWithName_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = 136446722;
+  v3 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
+  v4 = 2114;
+  v5 = a1;
+  v6 = 2114;
+  v7 = _SFLicenseVersionNumberForBundleWithName_licenseVersionPath;
+  _os_log_debug_impl(&dword_2659AD000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: License version path for '%{public}@' resolved to: '%{public}@' .", &v2, 0x20u);
 }
 
 void _SFLicenseVersionNumberForBundleWithName_cold_3(void *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [a1 path];
-  v5 = 136446722;
-  v6 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
-  v7 = 2114;
-  v8 = @"License_version";
-  v9 = 2114;
-  v10 = v3;
-  _os_log_error_impl(&dword_2659AD000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Cannot resolve '%{public}@' inside bundle '%{public}@'", &v5, 0x20u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136446722;
+  v5 = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
+  v6 = 2114;
+  v7 = @"License_version";
+  v8 = 2114;
+  v9 = v3;
+  _os_log_error_impl(&dword_2659AD000, a2, OS_LOG_TYPE_ERROR, "%{public}s: Cannot resolve '%{public}@' inside bundle '%{public}@'", &v4, 0x20u);
 }
 
 void _SFLicenseVersionNumberForBundleWithName_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve license version number for an empty bundle name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *_SFLicenseVersionNumberForBundleWithName(NSString *__strong)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve license version number for an empty bundle name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void _SFWarrantyFilePathForBundleWithName_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve warranty file path for an empty bundle name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "NSString *_SFWarrantyFilePathForBundleWithName(NSString *__strong, NSString *__strong, NSString *__strong)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot resolve warranty file path for an empty bundle name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFBuiltInRegulatoryImageForModelAndVariant_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315650;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_2659AD000, v1, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for variant '%{Public}@' @%{Public}dx.", v3, 0x1Cu);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2659AD000, v1, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for variant '%{Public}@' @%{Public}dx.", v2, 0x1Cu);
 }
 
 void SFBuiltInRegulatoryImageForModelAndVariant_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_2659AD000, v2, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for variant '%{Public}@' '%{Public}@'.", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_2659AD000, v2, OS_LOG_TYPE_DEBUG, "%{Public}s: Looking up Built-in Regulatory Image for variant '%{Public}@' '%{Public}@'.", v3, 0x20u);
 }
 
 void SFBuiltInRegulatoryImageForModelAndVariant_cold_3()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_2659AD000, v0, OS_LOG_TYPE_DEBUG, "%{Public}s: No Regulatory Image found using variant, using model instead '%{Public}@'.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2659AD000, v0, OS_LOG_TYPE_DEBUG, "%{Public}s: No Regulatory Image found using variant, using model instead '%{Public}@'.", v1, 0x16u);
 }
 
 void SFBuiltInRegulatoryImageForModelAndVariant_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Failed to resolve to a Built-in Regulatory Image", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UIImage * _Nonnull SFBuiltInRegulatoryImageForModelAndVariant(NSString *__strong _Nonnull, NSString *__strong _Nonnull)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Failed to resolve to a Built-in Regulatory Image", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFBuiltInRegulatoryImageForApplePencilModel_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Failed to resolve to a Built-in Regulatory Image For Apple Pencil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UIImage * _Nonnull SFBuiltInRegulatoryImageForApplePencilModel(NSString *__strong _Nonnull)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Failed to resolve to a Built-in Regulatory Image For Apple Pencil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_1(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *__error();
-  v4 = 136315394;
-  v5 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
-  v6 = 1024;
-  v7 = v2;
-  _os_log_error_impl(&dword_2659AD000, a1, OS_LOG_TYPE_ERROR, "%{Public}s: Failed to set permissions on Lockdown Regulatory Images group path, errno %i", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+  v5 = 1024;
+  v6 = v2;
+  _os_log_error_impl(&dword_2659AD000, a1, OS_LOG_TYPE_ERROR, "%{Public}s: Failed to set permissions on Lockdown Regulatory Images group path, errno %i", &v3, 0x12u);
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_2(uint8_t *buf, void *a2, os_log_t log)
@@ -3295,11 +3015,9 @@ void SFIsRegulatoryImageFromLockdown_cold_2(uint8_t *buf, void *a2, os_log_t log
 
 void SFIsRegulatoryImageFromLockdown_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_4(uint8_t *buf, void *a2, os_log_t log)
@@ -3311,53 +3029,52 @@ void SFIsRegulatoryImageFromLockdown_cold_4(uint8_t *buf, void *a2, os_log_t log
 
 void SFIsRegulatoryImageFromLockdown_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Image device model", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Image device model", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Images in container", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: No Lockdown Regulatory Images in container", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFIsRegulatoryImageFromLockdown_cold_8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Cannot process Lockdown Regulatory Images container", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void SFIsRegulatoryImageFromLockdown_cold_9(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "UIImage *_SFGetRegulatoryImageFromLockdown(BOOL *)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: Cannot process Lockdown Regulatory Images container", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFRFExposureDocumentHTMLString_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: kMGQRFExposureSeparationDistance is blank for this device! Please file a bug on Gestalt!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "NSString * _Nonnull SFRFExposureDocumentHTMLString(void)";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: kMGQRFExposureSeparationDistance is blank for this device! Please file a bug on Gestalt!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void SFBlueStickerFont_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot load font error.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "UIFont * _Nonnull SFBlueStickerFont()";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{public}s: Cannot load font error.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+CGRect CGRectIntegral(CGRect rect)
+{
+  MEMORY[0x2821115D0](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v4;
+  result.size.width = v3;
+  result.origin.y = v2;
+  result.origin.x = v1;
+  return result;
 }

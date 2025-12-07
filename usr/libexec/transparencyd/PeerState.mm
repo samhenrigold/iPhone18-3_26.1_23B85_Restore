@@ -18,20 +18,8 @@
   if ([verificationCopy verificationResult] == 1)
   {
     mostRecentSuccess = [(PeerState *)self mostRecentSuccess];
-    if (!mostRecentSuccess)
+    if (!mostRecentSuccess || (v6 = mostRecentSuccess, -[PeerState mostRecentSuccess](self, "mostRecentSuccess"), v7 = objc_claimAutoreleasedReturnValue(), [v7 idsResponseTime], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(verificationCopy, "idsResponseTime"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "compare:", v9), v9, v8, v7, v6, v10 == -1))
     {
-      goto LABEL_4;
-    }
-
-    v6 = mostRecentSuccess;
-    mostRecentSuccess2 = [(PeerState *)self mostRecentSuccess];
-    idsResponseTime = [mostRecentSuccess2 idsResponseTime];
-    idsResponseTime2 = [verificationCopy idsResponseTime];
-    v10 = [idsResponseTime compare:idsResponseTime2];
-
-    if (v10 == -1)
-    {
-LABEL_4:
       [(PeerState *)self setMostRecentSuccess:verificationCopy];
 LABEL_11:
       v11 = 1;
@@ -48,20 +36,8 @@ LABEL_11:
     }
 
     failure = [(PeerState *)self failure];
-    if (!failure)
+    if (!failure || (v13 = failure, -[PeerState failure](self, "failure"), v14 = objc_claimAutoreleasedReturnValue(), [v14 idsResponseTime], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(verificationCopy, "idsResponseTime"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "compare:", v16), v16, v15, v14, v13, v17 == -1))
     {
-      goto LABEL_10;
-    }
-
-    v13 = failure;
-    failure2 = [(PeerState *)self failure];
-    idsResponseTime3 = [failure2 idsResponseTime];
-    idsResponseTime4 = [verificationCopy idsResponseTime];
-    v17 = [idsResponseTime3 compare:idsResponseTime4];
-
-    if (v17 == -1)
-    {
-LABEL_10:
       [(PeerState *)self setFailure:verificationCopy];
       [(PeerState *)self setSeenDate:0];
       goto LABEL_11;
@@ -71,20 +47,8 @@ LABEL_10:
   v11 = 0;
 LABEL_12:
   mostRecentCompleted = [(PeerState *)self mostRecentCompleted];
-  if (!mostRecentCompleted)
+  if (!mostRecentCompleted || (v19 = mostRecentCompleted, -[PeerState mostRecentCompleted](self, "mostRecentCompleted"), v20 = objc_claimAutoreleasedReturnValue(), [v20 idsResponseTime], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(verificationCopy, "idsResponseTime"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "compare:", v22), v22, v21, v20, v19, v23 == -1))
   {
-    goto LABEL_14;
-  }
-
-  v19 = mostRecentCompleted;
-  mostRecentCompleted2 = [(PeerState *)self mostRecentCompleted];
-  idsResponseTime5 = [mostRecentCompleted2 idsResponseTime];
-  idsResponseTime6 = [verificationCopy idsResponseTime];
-  v23 = [idsResponseTime5 compare:idsResponseTime6];
-
-  if (v23 == -1)
-  {
-LABEL_14:
     [(PeerState *)self setMostRecentCompleted:verificationCopy];
     v11 = 1;
   }
@@ -505,49 +469,25 @@ LABEL_38:
   dateCopy = date;
   mostRecentSuccess = [(PeerState *)self mostRecentSuccess];
 
-  if (!mostRecentSuccess)
+  if (mostRecentSuccess && (-[PeerState mostRecentSuccess](self, "mostRecentSuccess"), v6 = objc_claimAutoreleasedReturnValue(), [v6 creationTime], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dateCopy, "timeIntervalSinceDate:", v7), v9 = v8, v7, v6, +[TransparencySettings queryCacheHardTimeout](TransparencySettings, "queryCacheHardTimeout"), v9 < v10))
   {
-    goto LABEL_3;
-  }
-
-  mostRecentSuccess2 = [(PeerState *)self mostRecentSuccess];
-  creationTime = [mostRecentSuccess2 creationTime];
-  [dateCopy timeIntervalSinceDate:creationTime];
-  v9 = v8;
-
-  +[TransparencySettings queryCacheHardTimeout];
-  if (v9 < v10)
-  {
-    mostRecentSuccess3 = [(PeerState *)self mostRecentSuccess];
+    mostRecentSuccess2 = [(PeerState *)self mostRecentSuccess];
   }
 
   else
   {
-LABEL_3:
     mostRecentVerification = [(PeerState *)self mostRecentVerification];
 
-    if (!mostRecentVerification)
+    if (!mostRecentVerification || (-[PeerState mostRecentVerification](self, "mostRecentVerification"), v12 = objc_claimAutoreleasedReturnValue(), [v12 creationTime], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dateCopy, "timeIntervalSinceDate:", v13), v15 = v14, v13, v12, +[TransparencySettings queryCacheHardTimeout](TransparencySettings, "queryCacheHardTimeout"), v15 >= v16))
     {
-      goto LABEL_5;
-    }
-
-    mostRecentVerification2 = [(PeerState *)self mostRecentVerification];
-    creationTime2 = [mostRecentVerification2 creationTime];
-    [dateCopy timeIntervalSinceDate:creationTime2];
-    v15 = v14;
-
-    +[TransparencySettings queryCacheHardTimeout];
-    if (v15 >= v16)
-    {
-LABEL_5:
       v17 = 0;
       goto LABEL_9;
     }
 
-    mostRecentSuccess3 = [(PeerState *)self mostRecentVerification];
+    mostRecentSuccess2 = [(PeerState *)self mostRecentVerification];
   }
 
-  v17 = mostRecentSuccess3;
+  v17 = mostRecentSuccess2;
 LABEL_9:
 
   return v17;

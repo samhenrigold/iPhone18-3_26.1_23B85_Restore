@@ -28,66 +28,70 @@
   completionCopy = completion;
   dataCopy = data;
   [(ServiceRemoteEngagementViewController *)self _dismissPresentedViewController];
-  v20 = 0;
-  v8 = [(ServiceRemoteEngagementViewController *)self _engagementTaskForRequest:dataCopy error:&v20];
+  v19 = 0;
+  v8 = [(ServiceRemoteEngagementViewController *)self _engagementTaskForRequest:dataCopy error:&v19];
 
-  v9 = v20;
+  v9 = v19;
   if (!v9)
   {
     presentEngagement = [v8 presentEngagement];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100022D04;
-    v19[3] = &unk_100051E08;
-    v19[4] = self;
-    [presentEngagement addFinishBlock:v19];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100022D04;
+    v18[3] = &unk_100051E08;
+    v18[4] = self;
+    [presentEngagement addFinishBlock:v18];
 
     completionCopy[2](completionCopy, 0);
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v10 = +[SSLogConfig sharedConfig];
   shouldLog = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
   oSLogObject = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (!v12)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
   v14 = objc_opt_class();
-  v21 = 138543618;
-  v22 = v14;
-  v23 = 2114;
-  v24 = v9;
+  v20 = 138543618;
+  v21 = v14;
+  v22 = 2114;
+  v23 = v9;
   v15 = v14;
-  LODWORD(v18) = 22;
-  v16 = _os_log_send_and_compose_impl();
+  v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Failed to create engagement request: %{public}@", &v20, 22);
 
   if (v16)
   {
-    oSLogObject = [NSString stringWithCString:v16 encoding:4, &v21, v18];
+    oSLogObject = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   (completionCopy)[2](completionCopy, v9);
-LABEL_13:
+LABEL_14:
 }
 
 - (void)_dismissPresentedViewController

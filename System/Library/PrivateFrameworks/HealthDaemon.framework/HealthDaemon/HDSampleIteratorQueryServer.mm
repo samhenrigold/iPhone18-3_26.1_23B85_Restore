@@ -18,7 +18,7 @@
   if (v11)
   {
     queryCursor = [configurationCopy queryCursor];
-    v13 = [queryCursor copy];
+    v13 = objc_msgSend_copy(queryCursor);
     queryCursor = v11->_queryCursor;
     v11->_queryCursor = v13;
 
@@ -30,10 +30,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -62,20 +61,20 @@
 
 - (void)_queue_start
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = HDSampleIteratorQueryServer;
-  [(HDQueryServer *)&v16 _queue_start];
+  v20 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = HDSampleIteratorQueryServer;
+  [(HDQueryServer *)&v15 _queue_start];
   queryCursor = self->_queryCursor;
   limit = self->_limit;
-  v14[4] = self;
-  v15 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __43__HDSampleIteratorQueryServer__queue_start__block_invoke;
-  v14[3] = &unk_2786257A0;
-  v5 = [(HDBatchedQueryServer *)self batchObjectsWithMultitypeQueryCursor:queryCursor includeDeletedObjects:0 limit:limit error:&v15 batchHandler:v14];
-  v6 = v15;
+  v13[4] = self;
+  v14 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __43__HDSampleIteratorQueryServer__queue_start__block_invoke;
+  v13[3] = &unk_2786257A0;
+  v5 = [(HDBatchedQueryServer *)self batchObjectsWithMultitypeQueryCursor:queryCursor includeDeletedObjects:0 limit:limit error:&v14 batchHandler:v13];
+  v6 = v14;
   if (v5 > 2)
   {
     if (v5 == 4)
@@ -123,8 +122,8 @@
     {
       *buf = 138543618;
       selfCopy4 = self;
-      v19 = 2114;
-      v20 = v6;
+      v18 = 2114;
+      v19 = v6;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Encountered error enumerating update results: %{public}@", buf, 0x16u);
     }
 
@@ -154,8 +153,6 @@ LABEL_17:
   [(HDSampleIteratorQueryServer *)self _queue_deliverSamples:self->_queryCursor queryCursor:1 deliverResults:?];
 LABEL_18:
   [(HDQueryServer *)self setDataCount:self->_deliveredResultCount];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HDSampleIteratorQueryServer__queue_start__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)

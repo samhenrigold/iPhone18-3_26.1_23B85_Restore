@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v23[8] = *MEMORY[0x1E69E9840];
-  v22[0] = @"alarmReferenceType";
-  v21 = [MEMORY[0x1E696AD98] numberWithInteger:self->_alarmReferenceType];
-  v23[0] = v21;
-  v22[1] = @"identifier";
+  v22[8] = *MEMORY[0x1E69E9840];
+  v21[0] = @"alarmReferenceType";
+  v20 = [MEMORY[0x1E696AD98] numberWithInteger:self->_alarmReferenceType];
+  v22[0] = v20;
+  v21[1] = @"identifier";
   identifier = self->_identifier;
   null = identifier;
   if (!identifier)
@@ -26,9 +26,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v23[1] = null;
-  v22[2] = @"time";
+  v19 = null;
+  v22[1] = null;
+  v21[2] = @"time";
   time = self->_time;
   null2 = time;
   if (!time)
@@ -36,9 +36,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null2;
-  v23[2] = null2;
-  v22[3] = @"label";
+  v18 = null2;
+  v22[2] = null2;
+  v21[3] = @"label";
   label = self->_label;
   null3 = label;
   if (!label)
@@ -46,11 +46,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null3;
-  v22[4] = @"alarmSearchStatus";
+  v22[3] = null3;
+  v21[4] = @"alarmSearchStatus";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_alarmSearchStatus, null3}];
-  v23[4] = v9;
-  v22[5] = @"includeSleepAlarm";
+  v22[4] = v9;
+  v21[5] = @"includeSleepAlarm";
   includeSleepAlarm = self->_includeSleepAlarm;
   null4 = includeSleepAlarm;
   if (!includeSleepAlarm)
@@ -58,11 +58,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null4;
-  v22[6] = @"period";
+  v22[5] = null4;
+  v21[6] = @"period";
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:self->_period];
-  v23[6] = v12;
-  v22[7] = @"isMeridianInferred";
+  v22[6] = v12;
+  v21[7] = @"isMeridianInferred";
   isMeridianInferred = self->_isMeridianInferred;
   null5 = isMeridianInferred;
   if (!isMeridianInferred)
@@ -70,8 +70,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[7] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:8];
+  v22[7] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:8];
   if (!isMeridianInferred)
   {
   }
@@ -111,7 +111,6 @@ LABEL_17:
 LABEL_23:
 
 LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -3,6 +3,9 @@
 - (EMFetchController)initWithRemoteConnection:(id)connection;
 - (id)diagnosticInformation;
 - (void)performFetchForOTC;
+- (void)performFetchOfType:(int)type;
+- (void)performFetchOfType:(int)type accounts:(id)accounts;
+- (void)performFetchOfType:(int)type mailboxes:(id)mailboxes;
 - (void)setSuppressedContexts:(id)contexts;
 @end
 
@@ -34,6 +37,14 @@
   return v7;
 }
 
+- (void)performFetchOfType:(int)type
+{
+  v3 = *&type;
+  connection = [(EMFetchController *)self connection];
+  remoteObjectProxy = [connection remoteObjectProxy];
+  [remoteObjectProxy performFetchOfType:v3];
+}
+
 - (void)performFetchForOTC
 {
   connection = [(EMFetchController *)self connection];
@@ -41,11 +52,29 @@
   [remoteObjectProxy performFetchForOTC];
 }
 
+- (void)performFetchOfType:(int)type mailboxes:(id)mailboxes
+{
+  v4 = *&type;
+  v8 = [mailboxes ef_map:&__block_literal_global_14];
+  connection = [(EMFetchController *)self connection];
+  remoteObjectProxy = [connection remoteObjectProxy];
+  [remoteObjectProxy performFetchOfType:v4 mailboxObjectIds:v8];
+}
+
 id __50__EMFetchController_performFetchOfType_mailboxes___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 objectID];
 
   return v2;
+}
+
+- (void)performFetchOfType:(int)type accounts:(id)accounts
+{
+  v4 = *&type;
+  v8 = [accounts ef_map:&__block_literal_global_65];
+  connection = [(EMFetchController *)self connection];
+  remoteObjectProxy = [connection remoteObjectProxy];
+  [remoteObjectProxy performFetchOfType:v4 accountIds:v8];
 }
 
 id __49__EMFetchController_performFetchOfType_accounts___block_invoke(uint64_t a1, void *a2)

@@ -59,26 +59,24 @@ void __45__MSNPillDataSourceController_initWithQueue___block_invoke(uint64_t a1)
 
 void __45__MSNPillDataSourceController_initWithQueue___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = MSNLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = MSNLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "com.apple.MediaSafetyNet.connectionrequest";
-    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Handling %s by setting up XPC connection", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "com.apple.MediaSafetyNet.connectionrequest";
+    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Handling %s by setting up XPC connection", &v6, 0xCu);
   }
 
   v3 = *(a1 + 32);
   v4 = [v3 dataSource];
   v5 = [*(a1 + 32) identifiers];
   [v3 registerPillDataSource:v4 forIdentifiers:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerPillDataSource:(id)source forIdentifiers:(id)identifiers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   identifiersCopy = identifiers;
   queue = [(MSNPillDataSourceController *)self queue];
@@ -102,68 +100,61 @@ void __45__MSNPillDataSourceController_initWithQueue___block_invoke_2(uint64_t a
   queue2 = [(MSNPillDataSourceController *)self queue];
   [xpcConnection4 _setQueue:queue2];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __69__MSNPillDataSourceController_registerPillDataSource_forIdentifiers___block_invoke;
-  v26[3] = &unk_2798A3D68;
-  v27 = @"com.apple.mediasafetynet.pill";
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __69__MSNPillDataSourceController_registerPillDataSource_forIdentifiers___block_invoke;
+  v25[3] = &unk_2798A3D68;
+  v26 = @"com.apple.mediasafetynet.pill";
   xpcConnection5 = [(MSNPillDataSourceController *)self xpcConnection];
-  [xpcConnection5 setInterruptionHandler:v26];
+  [xpcConnection5 setInterruptionHandler:v25];
 
-  v25 = @"com.apple.mediasafetynet.pill";
+  v24 = @"com.apple.mediasafetynet.pill";
   v18 = [(MSNPillDataSourceController *)self xpcConnection:MEMORY[0x277D85DD0]];
-  [v18 setInvalidationHandler:&v24];
+  [v18 setInvalidationHandler:&v23];
 
   xpcConnection6 = [(MSNPillDataSourceController *)self xpcConnection];
   [xpcConnection6 resume];
 
   [(MSNPillDataSourceController *)self setDataSource:sourceCopy];
-  [(MSNPillDataSourceController *)self setIdentifiers:identifiersCopy];
-  v20 = MSNLog();
+  v20 = MSNLog([(MSNPillDataSourceController *)self setIdentifiers:identifiersCopy]);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v29 = sourceCopy;
-    v30 = 2112;
-    v31 = identifiersCopy;
+    v28 = sourceCopy;
+    v29 = 2112;
+    v30 = identifiersCopy;
     _os_log_impl(&dword_258731000, v20, OS_LOG_TYPE_INFO, "Registering dataSource: (%@) with identifiers: %@", buf, 0x16u);
   }
 
   xpcConnection7 = [(MSNPillDataSourceController *)self xpcConnection];
   remoteObjectProxy = [xpcConnection7 remoteObjectProxy];
   [remoteObjectProxy registerPillDataSourceForIdentifiers:identifiersCopy];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __69__MSNPillDataSourceController_registerPillDataSource_forIdentifiers___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = MSNLog();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = MSNLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Interrupted (%@): If this happens at connection-time or when setting an exception, a required entitlement is likely missing.", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Interrupted (%@): If this happens at connection-time or when setting an exception, a required entitlement is likely missing.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __69__MSNPillDataSourceController_registerPillDataSource_forIdentifiers___block_invoke_13(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = MSNLog();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = MSNLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Invalidated (%@).", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_258731000, v2, OS_LOG_TYPE_INFO, "Invalidated (%@).", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (MSNPillDataSourceProtocol)dataSource

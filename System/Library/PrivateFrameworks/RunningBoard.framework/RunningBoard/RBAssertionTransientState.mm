@@ -2,7 +2,9 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (unint64_t)maxCPUUsageViolationPolicyForRole:(unsigned __int8)role;
 - (void)addTag:(id)tag;
+- (void)setMaxCPUUsageViolationPolicy:(unint64_t)policy forRole:(unsigned __int8)role;
 - (void)unionState:(id)state;
 @end
 
@@ -50,6 +52,32 @@ void __40__RBAssertionTransientState_description__block_invoke(uint64_t a1, void
 
   v6 = NSStringFromRBSCPUMaximumUsageViolationPolicy();
   [v4 appendFormat:@"%@=%@\n\t", v7, v6];
+}
+
+- (unint64_t)maxCPUUsageViolationPolicyForRole:(unsigned __int8)role
+{
+  cpuUsageViolationPoliciesByRole = self->_cpuUsageViolationPoliciesByRole;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:role];
+  v5 = [(NSMutableDictionary *)cpuUsageViolationPoliciesByRole objectForKeyedSubscript:v4];
+  unsignedIntegerValue = [v5 unsignedIntegerValue];
+
+  return unsignedIntegerValue;
+}
+
+- (void)setMaxCPUUsageViolationPolicy:(unint64_t)policy forRole:(unsigned __int8)role
+{
+  roleCopy = role;
+  if (!self->_cpuUsageViolationPoliciesByRole)
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    cpuUsageViolationPoliciesByRole = self->_cpuUsageViolationPoliciesByRole;
+    self->_cpuUsageViolationPoliciesByRole = dictionary;
+  }
+
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:policy];
+  v9 = self->_cpuUsageViolationPoliciesByRole;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:roleCopy];
+  [(NSMutableDictionary *)v9 setObject:v11 forKeyedSubscript:v10];
 }
 
 - (void)addTag:(id)tag

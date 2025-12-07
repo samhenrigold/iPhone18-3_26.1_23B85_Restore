@@ -3,6 +3,7 @@
 - (BOOL)_connectToService;
 - (POServiceLoginManagerConnection)initWithUid:(unsigned int)uid;
 - (void)_connectToService;
+- (void)attestKey:(int64_t)key pending:(BOOL)pending clientDataHash:(id)hash completion:(id)completion;
 - (void)authenticationMethodWithCompletion:(id)completion;
 - (void)completeRotationKeyForKeyType:(int64_t)type completion:(id)completion;
 - (void)dealloc;
@@ -53,7 +54,7 @@ uint64_t __43__POServiceLoginManagerConnection_xpcQueue__block_invoke()
 
 - (POServiceLoginManagerConnection)initWithUid:(unsigned int)uid
 {
-  v5 = PO_LOG_POServiceLoginManagerConnection();
+  v5 = PO_LOG_POServiceLoginManagerConnection(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(POServiceLoginManagerConnection *)self initWithUid:uid, v5];
@@ -74,20 +75,16 @@ uint64_t __43__POServiceLoginManagerConnection_xpcQueue__block_invoke()
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isDeviceRegisteredWithCompletion:(id)completion
@@ -116,7 +113,7 @@ uint64_t __43__POServiceLoginManagerConnection_xpcQueue__block_invoke()
 void __68__POServiceLoginManagerConnection_isDeviceRegisteredWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -155,7 +152,7 @@ void __68__POServiceLoginManagerConnection_isDeviceRegisteredWithCompletion___bl
 void __66__POServiceLoginManagerConnection_isUserRegisteredWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -194,7 +191,7 @@ void __66__POServiceLoginManagerConnection_isUserRegisteredWithCompletion___bloc
 void __67__POServiceLoginManagerConnection_registrationTokenWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -234,7 +231,7 @@ void __67__POServiceLoginManagerConnection_registrationTokenWithCompletion___blo
 void __67__POServiceLoginManagerConnection_setRegistrationToken_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -273,7 +270,7 @@ void __67__POServiceLoginManagerConnection_setRegistrationToken_completion___blo
 void __70__POServiceLoginManagerConnection_authenticationMethodWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -312,7 +309,7 @@ void __70__POServiceLoginManagerConnection_authenticationMethodWithCompletion___
 void __59__POServiceLoginManagerConnection_ssoTokensWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -352,7 +349,7 @@ void __59__POServiceLoginManagerConnection_ssoTokensWithCompletion___block_invok
 void __59__POServiceLoginManagerConnection_setSsoTokens_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -391,7 +388,7 @@ void __59__POServiceLoginManagerConnection_setSsoTokens_completion___block_invok
 void __68__POServiceLoginManagerConnection_loginConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -431,7 +428,7 @@ void __68__POServiceLoginManagerConnection_loginConfigurationWithCompletion___bl
 void __68__POServiceLoginManagerConnection_setLoginConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -471,7 +468,7 @@ void __68__POServiceLoginManagerConnection_setLoginConfiguration_completion___bl
 void __73__POServiceLoginManagerConnection_setCertificateData_keyType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -510,7 +507,7 @@ void __73__POServiceLoginManagerConnection_setCertificateData_keyType_completion
 void __76__POServiceLoginManagerConnection_secKeyProxyEndpointForKeyType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -549,7 +546,7 @@ void __76__POServiceLoginManagerConnection_secKeyProxyEndpointForKeyType_complet
 void __81__POServiceLoginManagerConnection_secIdentityProxyEndpointForKeyType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -562,10 +559,35 @@ void __81__POServiceLoginManagerConnection_secIdentityProxyEndpointForKeyType_co
   }
 }
 
+- (void)attestKey:(int64_t)key pending:(BOOL)pending clientDataHash:(id)hash completion:(id)completion
+{
+  pendingCopy = pending;
+  hashCopy = hash;
+  completionCopy = completion;
+  if ([(POServiceLoginManagerConnection *)self _connectToService])
+  {
+    xpcConnection = [(POServiceLoginManagerConnection *)self xpcConnection];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __79__POServiceLoginManagerConnection_attestKey_pending_clientDataHash_completion___block_invoke;
+    v16[3] = &unk_279A3A270;
+    v13 = completionCopy;
+    v17 = v13;
+    v14 = [xpcConnection synchronousRemoteObjectProxyWithErrorHandler:v16];
+    [v14 attestKey:key pending:pendingCopy clientDataHash:hashCopy completion:v13];
+  }
+
+  else if (completionCopy)
+  {
+    v15 = [MEMORY[0x277D3D1F0] internalErrorWithMessage:@"Failed to connect to PSSO service"];
+    (*(completionCopy + 2))(completionCopy, 0, v15);
+  }
+}
+
 void __79__POServiceLoginManagerConnection_attestKey_pending_clientDataHash_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -604,7 +626,7 @@ void __79__POServiceLoginManagerConnection_attestKey_pending_clientDataHash_comp
 void __75__POServiceLoginManagerConnection_userNeedsReauthenticationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -643,7 +665,7 @@ void __75__POServiceLoginManagerConnection_userNeedsReauthenticationWithCompleti
 void __80__POServiceLoginManagerConnection_deviceRegistrationsNeedsRepairWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -682,7 +704,7 @@ void __80__POServiceLoginManagerConnection_deviceRegistrationsNeedsRepairWithCom
 void __78__POServiceLoginManagerConnection_userRegistrationsNeedsRepairWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -721,7 +743,7 @@ void __78__POServiceLoginManagerConnection_userRegistrationsNeedsRepairWithCompl
 void __65__POServiceLoginManagerConnection_resetDeviceKeysWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -760,7 +782,7 @@ void __65__POServiceLoginManagerConnection_resetDeviceKeysWithCompletion___block
 void __75__POServiceLoginManagerConnection_resetUserSecureEnclaveKeyWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -799,7 +821,7 @@ void __75__POServiceLoginManagerConnection_resetUserSecureEnclaveKeyWithCompleti
 void __63__POServiceLoginManagerConnection_loginUserNameWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -839,7 +861,7 @@ void __63__POServiceLoginManagerConnection_loginUserNameWithCompletion___block_i
 void __63__POServiceLoginManagerConnection_setLoginUserName_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -878,7 +900,7 @@ void __63__POServiceLoginManagerConnection_setLoginUserName_completion___block_i
 void __72__POServiceLoginManagerConnection_userLoginConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -918,7 +940,7 @@ void __72__POServiceLoginManagerConnection_userLoginConfigurationWithCompletion_
 void __72__POServiceLoginManagerConnection_setUserLoginConfiguration_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -957,7 +979,7 @@ void __72__POServiceLoginManagerConnection_setUserLoginConfiguration_completion_
 void __66__POServiceLoginManagerConnection_rotateKeyForKeyType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -996,7 +1018,7 @@ void __66__POServiceLoginManagerConnection_rotateKeyForKeyType_completion___bloc
 void __76__POServiceLoginManagerConnection_completeRotationKeyForKeyType_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PO_LOG_POServiceLoginManagerConnection();
+  v4 = PO_LOG_POServiceLoginManagerConnection(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__POServiceConnection_getLoginTypeForUser_completion___block_invoke_cold_1();
@@ -1013,7 +1035,7 @@ void __76__POServiceLoginManagerConnection_completeRotationKeyForKeyType_complet
 {
   if (self->_xpcConnection)
   {
-    v3 = PO_LOG_POServiceLoginManagerConnection();
+    v3 = PO_LOG_POServiceLoginManagerConnection(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
@@ -1033,41 +1055,40 @@ void __76__POServiceLoginManagerConnection_completeRotationKeyForKeyType_complet
       [(NSXPCConnection *)self->_xpcConnection _setTargetUserIdentifier:[(POServiceLoginManagerConnection *)self uid]];
     }
 
-    v6 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_2870905A0];
-    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v6];
+    v7 = [MEMORY[0x277D3D1F8] interfaceWithInternalProtocol:&unk_2870905A0];
+    [(NSXPCConnection *)self->_xpcConnection setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __52__POServiceLoginManagerConnection__connectToService__block_invoke;
-    v14[3] = &unk_279A3A298;
-    objc_copyWeak(&v15, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v14];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __52__POServiceLoginManagerConnection__connectToService__block_invoke_95;
-    v12[3] = &unk_279A3A298;
-    objc_copyWeak(&v13, &location);
-    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v12];
-    v7 = self->_xpcConnection;
-    v8 = +[POServiceLoginManagerConnection xpcQueue];
-    [(NSXPCConnection *)v7 _setQueue:v8];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __52__POServiceLoginManagerConnection__connectToService__block_invoke;
+    v15[3] = &unk_279A3A298;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInvalidationHandler:v15];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __52__POServiceLoginManagerConnection__connectToService__block_invoke_95;
+    v13[3] = &unk_279A3A298;
+    objc_copyWeak(&v14, &location);
+    [(NSXPCConnection *)self->_xpcConnection setInterruptionHandler:v13];
+    v8 = self->_xpcConnection;
+    v9 = +[POServiceLoginManagerConnection xpcQueue];
+    [(NSXPCConnection *)v8 _setQueue:v9];
 
-    [(NSXPCConnection *)self->_xpcConnection resume];
-    v9 = PO_LOG_POServiceLoginManagerConnection();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PO_LOG_POServiceLoginManagerConnection([(NSXPCConnection *)self->_xpcConnection resume]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [POServiceLoginManagerConnection _connectToService];
     }
 
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     return 1;
   }
 
-  v11 = PO_LOG_POServiceLoginManagerConnection();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = PO_LOG_POServiceLoginManagerConnection(v6);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [POServiceConnection _connectToService];
   }
@@ -1081,8 +1102,7 @@ void __52__POServiceLoginManagerConnection__connectToService__block_invoke(uint6
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained setXpcConnection:0];
-    v3 = PO_LOG_POServiceLoginManagerConnection();
+    v3 = PO_LOG_POServiceLoginManagerConnection([WeakRetained setXpcConnection:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __52__POServiceLoginManagerConnection__connectToService__block_invoke_cold_1();
@@ -1093,10 +1113,11 @@ void __52__POServiceLoginManagerConnection__connectToService__block_invoke(uint6
 void __52__POServiceLoginManagerConnection__connectToService__block_invoke_95(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = PO_LOG_POServiceLoginManagerConnection();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PO_LOG_POServiceLoginManagerConnection(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __40__POServiceConnection__connectToService__block_invoke_83_cold_1();
     }
@@ -1105,33 +1126,28 @@ void __52__POServiceLoginManagerConnection__connectToService__block_invoke_95(ui
 
 - (void)initWithUid:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[POServiceLoginManagerConnection initWithUid:]";
-  v6 = 1026;
-  v7 = a2;
-  v8 = 2112;
-  v9 = a1;
-  _os_log_debug_impl(&dword_25E831000, log, OS_LOG_TYPE_DEBUG, "%s uid = %{public}d on %@", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[POServiceLoginManagerConnection initWithUid:]";
+  v5 = 1026;
+  v6 = a2;
+  v7 = 2112;
+  v8 = a1;
+  _os_log_debug_impl(&dword_25E831000, log, OS_LOG_TYPE_DEBUG, "%s uid = %{public}d on %@", &v3, 0x1Cu);
 }
 
 - (void)_connectToService
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__POServiceLoginManagerConnection__connectToService__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

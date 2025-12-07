@@ -98,31 +98,31 @@
 
 void __65__PGMeaningDurationCriteria_passesForMomentNode_momentNodeCache___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [a2 location];
   if (v3)
   {
     v4 = [*(a1[4] + 8) fetchLocationOfInterestVisitsAtLocation:v3 inDateInterval:a1[5]];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = *v19;
       do
       {
         v8 = 0;
         do
         {
-          if (*v20 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v19 + 1) + 8 * v8) visitInterval];
+          v9 = [*(*(&v18 + 1) + 8 * v8) visitInterval];
           v10 = [v9 startDate];
           v11 = [v9 endDate];
           v12 = [*(*(a1[6] + 8) + 40) earlierDate:v10];
@@ -139,14 +139,12 @@ void __65__PGMeaningDurationCriteria_passesForMomentNode_momentNodeCache___block
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v6);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

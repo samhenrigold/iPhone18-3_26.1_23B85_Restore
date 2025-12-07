@@ -23,75 +23,73 @@
   return v3;
 }
 
-void __51__GKTurnBasedMatchInternal_secureCodedPropertyKeys__block_invoke()
+void __51__GKTurnBasedMatchInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18[23] = *MEMORY[0x277D85DE8];
-  v17[0] = @"matchID";
-  v18[0] = objc_opt_class();
-  v17[1] = @"status";
-  v18[1] = objc_opt_class();
-  v17[2] = @"creationDate";
-  v18[2] = objc_opt_class();
-  v17[3] = @"currentPlayer";
-  v18[3] = objc_opt_class();
-  v17[4] = @"lastTurnDate";
-  v18[4] = objc_opt_class();
-  v17[5] = @"message";
-  v18[5] = objc_opt_class();
-  v17[6] = @"localizableMessage";
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v19[23] = *MEMORY[0x277D85DE8];
+  v18[0] = @"matchID";
+  v19[0] = objc_opt_class();
+  v18[1] = @"status";
+  v19[1] = objc_opt_class();
+  v18[2] = @"creationDate";
+  v19[2] = objc_opt_class();
+  v18[3] = @"currentPlayer";
+  v19[3] = objc_opt_class();
+  v18[4] = @"lastTurnDate";
+  v19[4] = objc_opt_class();
+  v18[5] = @"message";
+  v19[5] = objc_opt_class();
+  v18[6] = @"localizableMessage";
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
   v4 = objc_opt_class();
-  v5 = [v0 setWithObjects:{v1, v2, v3, v4, objc_opt_class(), 0}];
-  v18[6] = v5;
-  v17[7] = @"reason";
-  v18[7] = objc_opt_class();
-  v17[8] = @"minPlayers";
-  v18[8] = objc_opt_class();
-  v17[9] = @"maxPlayers";
-  v18[9] = objc_opt_class();
-  v17[10] = @"deletionDate";
-  v18[10] = objc_opt_class();
-  v17[11] = @"currentParticipant";
-  v18[11] = objc_opt_class();
-  v17[12] = @"turnNumber";
-  v18[12] = objc_opt_class();
-  v17[13] = @"lastTurnPlayerID";
-  v18[13] = objc_opt_class();
-  v17[14] = @"matchData";
-  v18[14] = objc_opt_class();
-  v17[15] = @"participants";
-  v6 = MEMORY[0x277CBEB98];
-  v7 = objc_opt_class();
-  v8 = objc_opt_class();
-  v9 = [v6 setWithObjects:{v7, v8, objc_opt_class(), 0}];
-  v18[15] = v9;
-  v17[16] = @"matchDataVersion";
-  v18[16] = objc_opt_class();
-  v17[17] = @"bundleID";
-  v18[17] = objc_opt_class();
-  v17[18] = @"bundleVersion";
-  v18[18] = objc_opt_class();
-  v17[19] = @"shortBundleVersion";
-  v18[19] = objc_opt_class();
-  v17[20] = @"platform";
-  v18[20] = objc_opt_class();
-  v17[21] = @"exchanges";
-  v10 = MEMORY[0x277CBEB98];
-  v11 = objc_opt_class();
-  v12 = objc_opt_class();
-  v13 = [v10 setWithObjects:{v11, v12, objc_opt_class(), 0}];
-  v18[21] = v13;
-  v17[22] = @"game";
-  v18[22] = objc_opt_class();
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:23];
+  v5 = objc_opt_class();
+  v6 = objc_opt_class();
+  v7 = [v2 setWithObjects:{v3, v4, v5, v6, objc_opt_class(), 0}];
+  v19[6] = v7;
+  v18[7] = @"reason";
+  v19[7] = objc_opt_class();
+  v18[8] = @"minPlayers";
+  v19[8] = objc_opt_class();
+  v18[9] = @"maxPlayers";
+  v19[9] = objc_opt_class();
+  v18[10] = @"deletionDate";
+  v19[10] = objc_opt_class();
+  v18[11] = @"currentParticipant";
+  v19[11] = objc_opt_class();
+  v18[12] = @"turnNumber";
+  v19[12] = objc_opt_class();
+  v18[13] = @"lastTurnPlayerID";
+  v19[13] = objc_opt_class();
+  v18[14] = @"matchData";
+  v19[14] = objc_opt_class();
+  v18[15] = @"participants";
+  v8 = MEMORY[0x277CBEB98];
+  v9 = objc_opt_class();
+  v10 = objc_opt_class();
+  v11 = [v8 setWithObjects:{v9, v10, objc_opt_class(), 0}];
+  v19[15] = v11;
+  v18[16] = @"matchDataVersion";
+  v19[16] = objc_opt_class();
+  v18[17] = @"bundleID";
+  v19[17] = objc_opt_class();
+  v18[18] = @"bundleVersion";
+  v19[18] = objc_opt_class();
+  v18[19] = @"shortBundleVersion";
+  v19[19] = objc_opt_class();
+  v18[20] = @"platform";
+  v19[20] = objc_opt_class();
+  v18[21] = @"exchanges";
+  v12 = MEMORY[0x277CBEB98];
+  v13 = objc_opt_class();
+  v14 = objc_opt_class();
+  v15 = [v12 setWithObjects:{v13, v14, objc_opt_class(), 0}];
+  v19[21] = v15;
+  v18[22] = @"game";
+  v19[22] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:23];
 
-  v15 = secureCodedPropertyKeys_sSecureCodedKeys_28;
-  secureCodedPropertyKeys_sSecureCodedKeys_28 = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = secureCodedPropertyKeys_sSecureCodedKeys_28;
+  secureCodedPropertyKeys_sSecureCodedKeys_28 = v16;
 }
 
 - (unint64_t)hash
@@ -152,28 +150,28 @@ uint64_t __55__GKTurnBasedMatchInternal_localPlayerParticipantIndex__block_invok
 
 - (int64_t)previousParticipantIndex
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   participants = [(GKTurnBasedMatchInternal *)self participants];
-  v4 = [participants countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [participants countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(participants);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         lastTurnDate = [v9 lastTurnDate];
 
         if (lastTurnDate)
@@ -187,7 +185,7 @@ uint64_t __55__GKTurnBasedMatchInternal_localPlayerParticipantIndex__block_invok
         }
       }
 
-      v5 = [participants countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [participants countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -201,117 +199,113 @@ uint64_t __55__GKTurnBasedMatchInternal_localPlayerParticipantIndex__block_invok
   participants2 = [(GKTurnBasedMatchInternal *)self participants];
   v16 = [participants2 indexOfObject:v6];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (int64_t)activeExchangeCount
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   status = [(GKTurnBasedMatchInternal *)self status];
   v4 = [status isEqualToString:@"Active"];
 
-  if (v4)
+  if (!v4)
   {
-    localPlayerParticipantIndex = [(GKTurnBasedMatchInternal *)self localPlayerParticipantIndex];
-    [(GKTurnBasedMatchInternal *)self exchanges];
-    v34 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    obj = v37 = 0u;
-    v6 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-    if (v6)
+    return 0;
+  }
+
+  localPlayerParticipantIndex = [(GKTurnBasedMatchInternal *)self localPlayerParticipantIndex];
+  [(GKTurnBasedMatchInternal *)self exchanges];
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  obj = v36 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = 0;
+    v9 = *v34;
+    v10 = @"A";
+    do
     {
-      v7 = v6;
-      v8 = 0;
-      v9 = *v35;
-      v10 = @"A";
+      v11 = 0;
+      v27 = v7;
       do
       {
-        v11 = 0;
-        v28 = v7;
-        do
+        if (*v34 != v9)
         {
-          if (*v35 != v9)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v12 = *(*(&v34 + 1) + 8 * v11);
-          statusString = [v12 statusString];
-          v14 = [statusString isEqualToString:v10];
+        v12 = *(*(&v33 + 1) + 8 * v11);
+        statusString = [v12 statusString];
+        v14 = [statusString isEqualToString:v10];
 
-          if (v14)
+        if (v14)
+        {
+          v15 = localPlayerParticipantIndex == 0x7FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v15 = 1;
+        }
+
+        if (!v15)
+        {
+          replies = [v12 replies];
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          v17 = [replies countByEnumeratingWithState:&v29 objects:v37 count:16];
+          if (v17)
           {
-            v15 = localPlayerParticipantIndex == 0x7FFFFFFFFFFFFFFFLL;
+            v18 = v17;
+            v19 = v9;
+            v20 = v8;
+            v21 = v10;
+            v22 = 0;
+            v23 = *v30;
+            do
+            {
+              for (i = 0; i != v18; ++i)
+              {
+                if (*v30 != v23)
+                {
+                  objc_enumerationMutation(replies);
+                }
+
+                v22 |= localPlayerParticipantIndex == [*(*(&v29 + 1) + 8 * i) recipientIndex];
+              }
+
+              v18 = [replies countByEnumeratingWithState:&v29 objects:v37 count:16];
+            }
+
+            while (v18);
+            v25 = (v22 & 1) == 0;
+            v10 = v21;
+            v8 = v20;
+            v9 = v19;
+            v7 = v27;
           }
 
           else
           {
-            v15 = 1;
+            v25 = 1;
           }
 
-          if (!v15)
-          {
-            replies = [v12 replies];
-            v30 = 0u;
-            v31 = 0u;
-            v32 = 0u;
-            v33 = 0u;
-            v17 = [replies countByEnumeratingWithState:&v30 objects:v38 count:16];
-            if (v17)
-            {
-              v18 = v17;
-              v19 = v9;
-              v20 = v8;
-              v21 = v10;
-              v22 = 0;
-              v23 = *v31;
-              do
-              {
-                for (i = 0; i != v18; ++i)
-                {
-                  if (*v31 != v23)
-                  {
-                    objc_enumerationMutation(replies);
-                  }
-
-                  v22 |= localPlayerParticipantIndex == [*(*(&v30 + 1) + 8 * i) recipientIndex];
-                }
-
-                v18 = [replies countByEnumeratingWithState:&v30 objects:v38 count:16];
-              }
-
-              while (v18);
-              v25 = (v22 & 1) == 0;
-              v10 = v21;
-              v8 = v20;
-              v9 = v19;
-              v7 = v28;
-            }
-
-            else
-            {
-              v25 = 1;
-            }
-
-            v8 += v25;
-          }
-
-          ++v11;
+          v8 += v25;
         }
 
-        while (v11 != v7);
-        v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+        ++v11;
       }
 
-      while (v7);
+      while (v11 != v7);
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    else
-    {
-      v8 = 0;
-    }
+    while (v7);
   }
 
   else
@@ -319,7 +313,6 @@ uint64_t __55__GKTurnBasedMatchInternal_localPlayerParticipantIndex__block_invok
     v8 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -486,14 +479,12 @@ LABEL_37:
 
 - (void)state
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   status = [a2 status];
-  v6 = 138412290;
-  v7 = status;
-  _os_log_debug_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatchInternal->state Unexpected match status encountered: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = status;
+  _os_log_debug_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_DEBUG, "GKTurnBasedMatchInternal->state Unexpected match status encountered: %@", &v5, 0xCu);
 }
 
 @end

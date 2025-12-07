@@ -22,8 +22,7 @@
     {
       selfCopy->_options = optionsCopy;
       selfCopy->_service = serviceCopy;
-      v13 = selfCopy;
-      goto LABEL_13;
+      return selfCopy;
     }
   }
 
@@ -47,10 +46,7 @@
   }
 
   MEMORY[0x1E69E5920](selfCopy);
-  v13 = 0;
-LABEL_13:
-  *MEMORY[0x1E69E9840];
-  return v13;
+  return 0;
 }
 
 - (void)dealloc

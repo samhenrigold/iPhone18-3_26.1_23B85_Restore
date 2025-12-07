@@ -194,7 +194,7 @@
 
 - (BOOL)CA_validateValue:(id)value forKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!value)
   {
     goto LABEL_20;
@@ -204,15 +204,15 @@
   {
     if ([key isEqualToString:@"locations"] || objc_msgSend(key, "isEqualToString:", @"interpolations"))
     {
-      objc_opt_class();
+      v13 = objc_opt_class();
 
-      return CAObject_validateArrayOfClass(value);
+      return CAObject_validateArrayOfClass(value, v13);
     }
 
 LABEL_20:
-    v13.receiver = self;
-    v13.super_class = CAGradientLayer;
-    return [(CALayer *)&v13 CA_validateValue:value forKey:key];
+    v14.receiver = self;
+    v14.super_class = CAGradientLayer;
+    return [(CALayer *)&v14 CA_validateValue:value forKey:key];
   }
 
   objc_opt_class();
@@ -221,25 +221,25 @@ LABEL_20:
     return 0;
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v7 = [value countByEnumeratingWithState:&v15 objects:v14 count:16];
+  v17 = 0u;
+  v7 = [value countByEnumeratingWithState:&v16 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v17;
 LABEL_6:
     v10 = 0;
     while (1)
     {
-      if (*v16 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(value);
       }
 
-      v11 = CFGetTypeID(*(*(&v15 + 1) + 8 * v10));
+      v11 = CFGetTypeID(*(*(&v16 + 1) + 8 * v10));
       if (v11 != CGColorGetTypeID())
       {
         return 0;
@@ -247,7 +247,7 @@ LABEL_6:
 
       if (v8 == ++v10)
       {
-        v8 = [value countByEnumeratingWithState:&v15 objects:v14 count:16];
+        v8 = [value countByEnumeratingWithState:&v16 objects:v15 count:16];
         result = 1;
         if (v8)
         {
@@ -556,7 +556,7 @@ LABEL_6:
         v39 = 0u;
         if (self)
         {
-          [(CALayer *)self cornerRadii:v38];
+          objc_msgSend_cornerRadii(self, v38, v39, v40, v41);
         }
 
         CA_CGContextAddUnevenRoundRect(context, &v38, v20, v22, v24, v26);

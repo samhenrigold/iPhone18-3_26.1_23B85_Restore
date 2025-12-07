@@ -116,15 +116,15 @@
       JreThrowClassCastException();
     }
 
-    JreStrongAssign(&JavaLangByte_TYPE_, v2);
-    v3 = [IOSObjectArray newArrayWithLength:256 type:JavaLangByte_class_()];
-    JreStrongAssignAndConsume(&qword_100554A00, v3);
+    v3 = JreStrongAssign(&JavaLangByte_TYPE_, v2);
+    v5 = [IOSObjectArray newArrayWithLength:256 type:JavaLangByte_class_(v3, v4)];
+    JreStrongAssignAndConsume(&qword_100554A00, v5);
     for (i = -128; i != 128; ++i)
     {
-      v5 = qword_100554A00;
-      v6 = [JavaLangByte alloc];
-      v6->value_ = i;
-      IOSObjectArray_SetAndConsume(v5, i + 128, v6);
+      v7 = qword_100554A00;
+      v8 = [JavaLangByte alloc];
+      v8->value_ = i;
+      IOSObjectArray_SetAndConsume(v7, i + 128, v8);
     }
 
     atomic_store(1u, JavaLangByte__initialized);

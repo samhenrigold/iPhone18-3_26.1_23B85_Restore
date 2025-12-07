@@ -22,22 +22,28 @@
 
 - (void)uiConfigurationService:(id)service didUpdateConfigurationIdentifier:(id)identifier
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFUIConfigurationObservable.uiConfigurationService(_:didUpdateConfigurationIdentifier:)();
+  CAFUIConfigurationObservable.uiConfigurationService(_:didUpdateConfigurationIdentifier:)(selfCopy, v6, v8);
 }
 
 - (void)uiConfigurationService:(id)service didUpdateConfigurationOptions:(id)options
 {
   if (options)
   {
-    static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFUIConfigurationObservable.uiConfigurationService(_:didUpdateConfigurationOptions:)();
+  CAFUIConfigurationObservable.uiConfigurationService(_:didUpdateConfigurationOptions:)(selfCopy, v6);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

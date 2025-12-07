@@ -14,8 +14,8 @@
   v16 = v15;
   v18 = v17;
   v19 = TSDBitmapContextCreate();
-  v20 = [TSUImage imageNamed:@"ib_chevron_forward" inBundle:THBundle()];
-  [v20 size];
+  v21 = [TSUImage imageNamed:@"ib_chevron_forward" inBundle:THBundle(v19, v20)];
+  [v21 size];
   CGContextSaveGState(v19);
   if (direction == 4)
   {
@@ -26,52 +26,52 @@
   TSDMultiplySizeScalar();
   TSDRectWithSize();
   TSDCenterRectOverRect();
-  v22 = v21;
-  v24 = v23;
+  v23 = v22;
+  v25 = v24;
   TSDRoundedPointForScale();
-  v26 = v25;
-  v36 = v12;
-  v38 = v18;
-  v28 = v27 + scale;
-  v29 = v16;
-  v30 = v14;
+  v27 = v26;
+  v37 = v12;
+  v39 = v18;
+  v29 = v28 + scale;
+  v30 = v16;
+  v31 = v14;
   if (highlightedCopy)
   {
-    v31 = 0.5;
+    v32 = 0.5;
   }
 
   else
   {
-    v31 = 1.0;
+    v32 = 1.0;
   }
 
-  v32 = [v20 CGImageForContentsScale:{scale, v36, v38}];
-  v40.origin.x = v28;
-  v40.origin.y = v26;
-  v40.size.width = v22;
-  v40.size.height = v24;
-  CGContextClipToMask(v19, v40, v32);
+  v33 = [v21 CGImageForContentsScale:{scale, v37, v39}];
+  v41.origin.x = v29;
+  v41.origin.y = v27;
+  v41.size.width = v23;
+  v41.size.height = v25;
+  CGContextClipToMask(v19, v41, v33);
   CGContextSetBlendMode(v19, kCGBlendModeMultiply);
-  CGContextSetFillColorWithColor(v19, [objc_msgSend(color colorWithAlphaComponent:{v31), "CGColor"}]);
-  v41.origin.x = v28;
-  v41.origin.y = v26;
-  v41.size.width = v22;
-  v41.size.height = v24;
-  CGContextFillRect(v19, v41);
+  CGContextSetFillColorWithColor(v19, [objc_msgSend(color colorWithAlphaComponent:{v32), "CGColor"}]);
+  v42.origin.x = v29;
+  v42.origin.y = v27;
+  v42.size.width = v23;
+  v42.size.height = v25;
+  CGContextFillRect(v19, v42);
   CGContextRestoreGState(v19);
-  CGContextSetStrokeColorWithColor(v19, [objc_msgSend(color colorWithAlphaComponent:{v31 * 0.4), "CGColor"}]);
+  CGContextSetStrokeColorWithColor(v19, [objc_msgSend(color colorWithAlphaComponent:{v32 * 0.4), "CGColor"}]);
   CGContextSetLineWidth(v19, scale);
-  v42.origin.x = v37;
-  v42.size.height = v39;
-  v42.origin.y = v30;
-  v42.size.width = v29;
-  v43 = CGRectInset(v42, scale * 0.5, scale * 0.5);
-  CGContextStrokeEllipseInRect(v19, v43);
+  v43.origin.x = v38;
+  v43.size.height = v40;
+  v43.origin.y = v31;
+  v43.size.width = v30;
+  v44 = CGRectInset(v43, scale * 0.5, scale * 0.5);
+  CGContextStrokeEllipseInRect(v19, v44);
   Image = CGBitmapContextCreateImage(v19);
-  v34 = [TSUImage imageWithCGImage:Image];
+  v35 = [TSUImage imageWithCGImage:Image];
   CGImageRelease(Image);
   CGContextRelease(v19);
-  return v34;
+  return v35;
 }
 
 @end

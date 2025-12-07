@@ -43,40 +43,39 @@
 
 void __49__BYSettingsManagerClient_hasStashedValuesOnDisk__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Unable to retrieve whether or not stashed values exist on disk: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectToDaemon
@@ -98,21 +97,21 @@ void __49__BYSettingsManagerClient_hasStashedValuesOnDisk__block_invoke(uint64_t
   [connection4 resume];
 }
 
-void __43__BYSettingsManagerClient__connectToDaemon__block_invoke()
+void __43__BYSettingsManagerClient__connectToDaemon__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __43__BYSettingsManagerClient__connectToDaemon__block_invoke_cold_1(v0);
+    __43__BYSettingsManagerClient__connectToDaemon__block_invoke_cold_1(v2);
   }
 }
 
-void __43__BYSettingsManagerClient__connectToDaemon__block_invoke_68()
+void __43__BYSettingsManagerClient__connectToDaemon__block_invoke_68(uint64_t a1, uint64_t a2)
 {
-  v0 = _BYLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _BYLoggingFacility(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __43__BYSettingsManagerClient__connectToDaemon__block_invoke_68_cold_1(v0);
+    __43__BYSettingsManagerClient__connectToDaemon__block_invoke_68_cold_1(v2);
   }
 }
 

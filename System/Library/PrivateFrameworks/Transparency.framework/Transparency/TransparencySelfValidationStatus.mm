@@ -32,7 +32,7 @@
 
 - (TransparencySelfValidationStatus)initWithCoder:(id)coder
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntForKey:@"status"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pushToken"];
@@ -40,9 +40,9 @@
   if (v7)
   {
     v8 = MEMORY[0x1E695DFD8];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"loggableDatas"];
@@ -54,26 +54,24 @@
 
     if (isKindOfClass)
     {
-      v25 = 0u;
-      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      loggableDatas2 = [(TransparencySelfValidationStatus *)v7 loggableDatas];
-      v15 = [loggableDatas2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v22 = 0u;
+      v14 = [(TransparencySelfValidationStatus *)v7 loggableDatas:0];
+      v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v24;
+        v17 = *v22;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v24 != v17)
+            if (*v22 != v17)
             {
-              objc_enumerationMutation(loggableDatas2);
+              objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v23 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -82,7 +80,7 @@
             }
           }
 
-          v16 = [loggableDatas2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v16)
           {
             continue;
@@ -92,23 +90,22 @@
         }
       }
 
-      v20 = v7;
+      v19 = v7;
     }
 
     else
     {
 LABEL_14:
-      v20 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v19;
 }
 
 - (TransparencySelfValidationStatus)initWithStatus:(unint64_t)status pushToken:(id)token

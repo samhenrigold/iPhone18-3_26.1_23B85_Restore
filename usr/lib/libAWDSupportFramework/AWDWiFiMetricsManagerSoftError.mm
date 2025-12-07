@@ -287,7 +287,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 4) != 0)
@@ -497,29 +497,29 @@ LABEL_18:
   if ([(NSMutableArray *)self->_chipCountersPerSlices count])
   {
     v12 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_chipCountersPerSlices, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     chipCountersPerSlices = self->_chipCountersPerSlices;
-    v14 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(chipCountersPerSlices);
           }
 
-          [v12 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v12 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v15 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v15 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v15);
@@ -528,17 +528,15 @@ LABEL_18:
     [dictionary setObject:v12 forKey:@"chipCountersPerSlice"];
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x2000) == 0)
@@ -558,7 +556,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  softErrorType = self->_softErrorType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -573,7 +570,6 @@ LABEL_4:
   }
 
 LABEL_42:
-  sample1TimeStamp = self->_sample1TimeStamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -588,7 +584,6 @@ LABEL_5:
   }
 
 LABEL_43:
-  sample2TimeStamp = self->_sample2TimeStamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -603,7 +598,6 @@ LABEL_6:
   }
 
 LABEL_44:
-  sample1Rssi = self->_sample1Rssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -618,7 +612,6 @@ LABEL_7:
   }
 
 LABEL_45:
-  sample2Rssi = self->_sample2Rssi;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -633,7 +626,6 @@ LABEL_8:
   }
 
 LABEL_46:
-  sample1Cca = self->_sample1Cca;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -648,7 +640,6 @@ LABEL_9:
   }
 
 LABEL_47:
-  sample2Cca = self->_sample2Cca;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -663,12 +654,10 @@ LABEL_10:
   }
 
 LABEL_48:
-  sample1Snr = self->_sample1Snr;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_11:
-    sample2Snr = self->_sample2Snr;
     PBDataWriterWriteInt32Field();
   }
 
@@ -678,16 +667,15 @@ LABEL_12:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x4000) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x4000) != 0)
   {
-    inCar = self->_inCar;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
-    if ((v6 & 0x40) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x40) == 0)
     {
 LABEL_16:
-      if ((v6 & 0x10) == 0)
+      if ((v5 & 0x10) == 0)
       {
         goto LABEL_18;
       }
@@ -696,17 +684,15 @@ LABEL_16:
     }
   }
 
-  else if ((v6 & 0x40) == 0)
+  else if ((v5 & 0x40) == 0)
   {
     goto LABEL_16;
   }
 
-  motionState = self->_motionState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_17:
-    channel = self->_channel;
     PBDataWriterWriteUint32Field();
   }
 
@@ -716,17 +702,15 @@ LABEL_18:
     PBDataWriterWriteDataField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    batteryChargeLevel = self->_batteryChargeLevel;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
+    v6 = self->_has;
   }
 
-  if (v8 < 0)
+  if (v6 < 0)
   {
-    lowPowerMode = self->_lowPowerMode;
     PBDataWriterWriteBOOLField();
   }
 
@@ -747,40 +731,36 @@ LABEL_18:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    lastSoftErrorUserFeedbk = self->_lastSoftErrorUserFeedbk;
     PBDataWriterWriteUint32Field();
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   chipCountersPerSlices = self->_chipCountersPerSlices;
-  v13 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v13)
+  v8 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v14 = v13;
-    v15 = *v31;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v15)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(chipCountersPerSlices);
         }
 
-        v17 = *(*(&v30 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v9 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v14);
+    while (v9);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1018,7 +998,7 @@ LABEL_18:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1220,36 +1200,35 @@ LABEL_16:
     *(v6 + 136) |= 0x20u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   chipCountersPerSlices = self->_chipCountersPerSlices;
-  v11 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(chipCountersPerSlices);
         }
 
-        v15 = [*(*(&v18 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
         [v6 addChipCountersPerSlice:v15];
       }
 
-      v12 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [(NSMutableArray *)chipCountersPerSlices countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1413,7 +1392,6 @@ LABEL_16:
       goto LABEL_93;
     }
 
-    v10 = *(equal + 132);
     if (self->_inCar)
     {
       if ((*(equal + 132) & 1) == 0)
@@ -1471,16 +1449,16 @@ LABEL_16:
     has = self->_has;
   }
 
-  v12 = *(equal + 68);
+  v11 = *(equal + 68);
   if ((has & 8) != 0)
   {
-    if ((v12 & 8) == 0 || self->_batteryChargeLevel != *(equal + 12))
+    if ((v11 & 8) == 0 || self->_batteryChargeLevel != *(equal + 12))
     {
       goto LABEL_93;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v11 & 8) != 0)
   {
     goto LABEL_93;
   }
@@ -1492,7 +1470,6 @@ LABEL_16:
       goto LABEL_93;
     }
 
-    v17 = *(equal + 133);
     if (self->_lowPowerMode)
     {
       if ((*(equal + 133) & 1) == 0)
@@ -1542,10 +1519,10 @@ LABEL_16:
     }
   }
 
-  v16 = *(equal + 68);
+  v15 = *(equal + 68);
   if ((*&self->_has & 0x20) != 0)
   {
-    if ((v16 & 0x20) == 0 || self->_lastSoftErrorUserFeedbk != *(equal + 24))
+    if ((v15 & 0x20) == 0 || self->_lastSoftErrorUserFeedbk != *(equal + 24))
     {
       goto LABEL_93;
     }
@@ -1553,7 +1530,7 @@ LABEL_16:
     goto LABEL_100;
   }
 
-  if ((v16 & 0x20) != 0)
+  if ((v15 & 0x20) != 0)
   {
 LABEL_93:
     LOBYTE(v5) = 0;
@@ -1792,7 +1769,7 @@ LABEL_34:
 
 - (void)mergeFrom:(id)from
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v5 = *(from + 68);
   if ((v5 & 4) != 0)
   {
@@ -2039,35 +2016,33 @@ LABEL_18:
     *&self->_has |= 0x20u;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v14 = *(from + 11);
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(AWDWiFiMetricsManagerSoftError *)self addChipCountersPerSlice:*(*(&v20 + 1) + 8 * i)];
+        [(AWDWiFiMetricsManagerSoftError *)self addChipCountersPerSlice:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x29EDCA608];
 }
 
 @end

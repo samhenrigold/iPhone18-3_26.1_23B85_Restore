@@ -47,14 +47,16 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_2457BE774(appear, &selRef_viewDidAppear_, MEMORY[0x277CFF640]);
+  sub_2457BE774(appearCopy, &selRef_viewDidAppear_, MEMORY[0x277CFF640]);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_2457BE774(disappear, &selRef_viewDidDisappear_, MEMORY[0x277CFF648]);
+  sub_2457BE774(disappearCopy, &selRef_viewDidDisappear_, MEMORY[0x277CFF648]);
 }
 
 - (void)confirmButtonClicked
@@ -66,7 +68,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2457C00E4();
+  sub_2457C00E4(selfCopy, v2);
 }
 
 - (_TtC9CoreIDVUI43IdentityProofingFedStatsOptinViewController)initWithNibName:(id)name bundle:(id)bundle

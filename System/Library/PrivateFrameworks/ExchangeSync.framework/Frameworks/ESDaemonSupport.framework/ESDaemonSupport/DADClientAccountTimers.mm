@@ -131,30 +131,30 @@
 
 - (int64_t)clientBehaviorForFolderIds:(id)ids
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   v5 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = idsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         folderIdToLastFolderContentsRequestDate = [(DADClientAccountTimers *)self folderIdToLastFolderContentsRequestDate];
         v14 = [folderIdToLastFolderContentsRequestDate objectForKeyedSubscript:v12];
 
@@ -174,7 +174,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -185,7 +185,6 @@
     v9 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

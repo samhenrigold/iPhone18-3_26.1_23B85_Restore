@@ -160,7 +160,7 @@ LABEL_6:
     {
       v27 = writeCopy;
       v8 = writeCopy;
-      [v8 geometryCoordSpace];
+      objc_msgSend_geometryCoordSpace(v8);
       [toCopy startOAElement:@"custGeom"];
       [toCopy startOAElement:@"avLst"];
       [toCopy endElement];
@@ -860,7 +860,7 @@ LABEL_12:
 
 void __40__OAXGeometry_Private__shapeTypeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __40__OAXGeometry_Private__shapeTypeEnumMap__block_invoke_cold_1();
   }
@@ -872,7 +872,7 @@ void __40__OAXGeometry_Private__shapeTypeEnumMap__block_invoke()
 
 void __42__OAXGeometry_Private__formulaTypeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __42__OAXGeometry_Private__formulaTypeEnumMap__block_invoke_cold_1();
   }
@@ -884,7 +884,7 @@ void __42__OAXGeometry_Private__formulaTypeEnumMap__block_invoke()
 
 void __45__OAXGeometry_Private__formulaKeywordEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __45__OAXGeometry_Private__formulaKeywordEnumMap__block_invoke_cold_1();
   }
@@ -896,7 +896,7 @@ void __45__OAXGeometry_Private__formulaKeywordEnumMap__block_invoke()
 
 void __43__OAXGeometry_Private__pathFillModeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __43__OAXGeometry_Private__pathFillModeEnumMap__block_invoke_cold_1();
   }
@@ -908,45 +908,45 @@ void __43__OAXGeometry_Private__pathFillModeEnumMap__block_invoke()
 
 void __40__OAXGeometry_Private__shapeTypeEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs);
+    __cxa_guard_release(_ZGVZZ40__OAXGeometry_Private__shapeTypeEnumMap_EUb_E20shapeTypeEnumStructs);
   }
 }
 
 void __42__OAXGeometry_Private__formulaTypeEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs);
+    __cxa_guard_release(_ZGVZZ42__OAXGeometry_Private__formulaTypeEnumMap_EUb0_E22formulaTypeEnumStructs);
   }
 }
 
 void __45__OAXGeometry_Private__formulaKeywordEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs);
+    __cxa_guard_release(_ZGVZZ45__OAXGeometry_Private__formulaKeywordEnumMap_EUb1_E25formulaKeywordEnumStructs);
   }
 }
 
 void __43__OAXGeometry_Private__pathFillModeEnumMap__block_invoke_cold_1()
 {
-  v0 = __cxa_guard_acquire(&_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs);
+  v0 = __cxa_guard_acquire(_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs);
   if (v0)
   {
     OUTLINED_FUNCTION_0(v0, v1, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs);
+    __cxa_guard_release(_ZGVZZ43__OAXGeometry_Private__pathFillModeEnumMap_EUb2_E23pathFillModeEnumStructs);
   }
 }
 

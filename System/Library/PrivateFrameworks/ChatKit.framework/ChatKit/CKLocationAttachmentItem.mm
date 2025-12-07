@@ -24,24 +24,25 @@
 {
   height = size.height;
   width = size.width;
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   guidCopy = guid;
   dateCopy = date;
-  v26.receiver = self;
-  v26.super_class = CKLocationAttachmentItem;
-  height = [(CKAttachmentItem *)&v26 initWithFileURL:lCopy size:dCopy transferGUID:guidCopy guid:dateCopy createdDate:0 shareURL:width, height];
+  v28.receiver = self;
+  v28.super_class = CKLocationAttachmentItem;
+  height = [(CKAttachmentItem *)&v28 initWithFileURL:lCopy size:dCopy transferGUID:guidCopy guid:dateCopy createdDate:0 shareURL:width, height];
+  v19 = height;
   if (height)
   {
-    [(CKLocationAttachmentItem *)height setCoordinate:__IMWeakkCLLocationCoordinate2DInvalid()];
-    v18 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy];
-    if (v18)
+    [(CKLocationAttachmentItem *)height setCoordinate:__IMWeakkCLLocationCoordinate2DInvalid(height, v18)];
+    v20 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy];
+    if (v20)
     {
-      v25 = 0;
-      v19 = [MEMORY[0x1E695CE30] contactsWithData:v18 error:&v25];
-      v20 = v25;
-      if (v20)
+      v27 = 0;
+      v21 = [MEMORY[0x1E695CE30] contactsWithData:v20 error:&v27];
+      v22 = v27;
+      if (v22)
       {
         absoluteString = [lCopy absoluteString];
         [absoluteString lastPathComponent];
@@ -49,33 +50,33 @@
 
       else
       {
-        absoluteString = [v19 firstObject];
+        absoluteString = [v21 firstObject];
         [absoluteString givenName];
       }
-      v23 = ;
+      v25 = ;
 
-      [(CKLocationAttachmentItem *)height setLocationTitle:v23];
+      [(CKLocationAttachmentItem *)v19 setLocationTitle:v25];
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v22 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v24 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v28 = lCopy;
-          _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Initializing CKLocationAttachmentItem at URL %@ with nil data", buf, 0xCu);
+          v30 = lCopy;
+          _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Initializing CKLocationAttachmentItem at URL %@ with nil data", buf, 0xCu);
         }
       }
 
-      v18 = height;
-      height = 0;
+      v20 = v19;
+      v19 = 0;
     }
   }
 
-  return height;
+  return v19;
 }
 
 - (void)generatePreviewWithCompletion:(id)completion
@@ -160,18 +161,18 @@ void __58__CKLocationAttachmentItem_generatePreviewWithCompletion___block_invoke
 {
   height = size.height;
   width = size.width;
-  v48 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   if (_generateThumbnailFillToSize___pred_CLLocationCoordinate2DIsValidCoreLocation != -1)
   {
     [CKLocationAttachmentItem _generateThumbnailFillToSize:];
   }
 
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__9;
-  v41 = __Block_byref_object_dispose__9;
-  v42 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__9;
+  v53 = __Block_byref_object_dispose__9;
+  v54 = 0;
   coordinate = [(CKLocationAttachmentItem *)self coordinate];
   v8 = v7;
   v10 = v9;
@@ -191,7 +192,7 @@ void __58__CKLocationAttachmentItem_generatePreviewWithCompletion___block_invoke
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
     {
-      _CKLogExternal();
+      _CKLogExternal(2u, @"%@ has invalid coordinate. Abort preview generation.", v21, v22, v23, v24, v25, v26, self);
     }
 
     goto LABEL_45;
@@ -212,11 +213,11 @@ void __58__CKLocationAttachmentItem_generatePreviewWithCompletion___block_invoke
     {
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "CKLocationAttachmentItem - Map region is invalid, bailing!", buf, 2u);
+          _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "CKLocationAttachmentItem - Map region is invalid, bailing!", buf, 2u);
         }
       }
     }
@@ -229,76 +230,76 @@ void __58__CKLocationAttachmentItem_generatePreviewWithCompletion___block_invoke
       if (v17)
       {
         v18 = [[v17 alloc] initWithCoordinate:0 title:2 representation:{v8, v10}];
-        v43 = v18;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+        v55 = v18;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
         [v12 _setCustomFeatureAnnotations:v19];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v29 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
           selfCopy2 = @"MKMapSnapshotFeatureAnnotation";
-          v46 = 2112;
-          v47 = @"MapKit";
-          _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+          v58 = 2112;
+          v59 = @"MapKit";
+          _os_log_impl(&dword_19020E000, v29, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
         }
       }
 
-      v24 = MEMORY[0x193AF5EC0](@"MKMapSnapshotter", @"MapKit");
-      if (v24)
+      v30 = MEMORY[0x193AF5EC0](@"MKMapSnapshotter", @"MapKit");
+      if (v30)
       {
-        v25 = [[v24 alloc] initWithOptions:v12];
-        v26 = dispatch_group_create();
-        dispatch_group_enter(v26);
-        v27 = +[CKPreviewDispatchCache mapThumbnailQueue];
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_71;
-        v34[3] = &unk_1E72EBCB0;
-        v36 = &v37;
-        v28 = v26;
-        v35 = v28;
-        [v25 startWithQueue:v27 completionHandler:v34];
+        v31 = [[v30 alloc] initWithOptions:v12];
+        v32 = dispatch_group_create();
+        dispatch_group_enter(v32);
+        v33 = +[CKPreviewDispatchCache mapThumbnailQueue];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_71;
+        v46[3] = &unk_1E72EBCB0;
+        v48 = &v49;
+        v34 = v32;
+        v47 = v34;
+        [v31 startWithQueue:v33 completionHandler:v46];
 
-        v29 = dispatch_time(0, 10000000000);
-        if (dispatch_group_wait(v28, v29))
+        v35 = dispatch_time(0, 10000000000);
+        if (dispatch_group_wait(v34, v35))
         {
           if (IMOSLoggingEnabled())
           {
             CKLogCStringForType(2);
-            v30 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v36 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
               selfCopy2 = self;
-              _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "%@ thumbnail generation timed out.", buf, 0xCu);
+              _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_INFO, "%@ thumbnail generation timed out.", buf, 0xCu);
             }
           }
 
           if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
           {
-            _CKLogExternal();
+            _CKLogExternal(2u, @"%@ thumbnail generation timed out.", v37, v38, v39, v40, v41, v42, self);
           }
         }
 
 LABEL_45:
-        v31 = v38[5];
+        v43 = v50[5];
         goto LABEL_52;
       }
 
       if (IMOSLoggingEnabled())
       {
-        v32 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v44 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
           selfCopy2 = @"MKMapSnapshotter";
-          v46 = 2112;
-          v47 = @"MapKit";
-          _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+          v58 = 2112;
+          v59 = @"MapKit";
+          _os_log_impl(&dword_19020E000, v44, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
         }
       }
     }
@@ -306,32 +307,32 @@ LABEL_45:
 
   else if (IMOSLoggingEnabled())
   {
-    v22 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v28 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
       selfCopy2 = @"MKMapSnapshotOptions";
-      v46 = 2112;
-      v47 = @"MapKit";
-      _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
+      v58 = 2112;
+      v59 = @"MapKit";
+      _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Failed weak linking %@ from %@.", buf, 0x16u);
     }
   }
 
-  v31 = 0;
+  v43 = 0;
 LABEL_52:
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v49, 8);
 
-  return v31;
+  return v43;
 }
 
-void *__57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke()
+uint64_t (*__57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DIsValid", @"CoreLocation");
   _generateThumbnailFillToSize___CLLocationCoordinate2DIsValid = result;
   return result;
 }
 
-void *__57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_60()
+uint64_t (*__57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_60())(double, double, double, double)
 {
   result = MEMORY[0x193AF5ED0]("MKCoordinateRegionMakeWithDistance", @"MapKit");
   _generateThumbnailFillToSize___MKCoordinateRegionMakeWithDistance = result;
@@ -364,7 +365,7 @@ void __57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_
 
 - (CLLocationCoordinate2D)coordinate
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (coordinate__pred_CLLocationCoordinate2DIsValidCoreLocation != -1)
   {
     [CKLocationAttachmentItem coordinate];
@@ -376,47 +377,48 @@ void __57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_
   }
 
   p_coordinate = &self->_coordinate;
-  if ((coordinate__CLLocationCoordinate2DIsValid(self->_coordinate.latitude, self->_coordinate.longitude) & 1) == 0)
+  v4 = coordinate__CLLocationCoordinate2DIsValid(self->_coordinate.latitude, self->_coordinate.longitude);
+  if ((v4 & 1) == 0)
   {
-    v4 = __IMWeakkCLLocationCoordinate2DInvalid();
-    v6 = v5;
+    v6 = __IMWeakkCLLocationCoordinate2DInvalid(v4, v5);
+    v8 = v7;
     [(CKLocationAttachmentItem *)self vCardURLProperties];
-    v23 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v7 = v26 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v8)
+    v26 = 0u;
+    v27 = 0u;
+    v9 = v28 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v10 = *v24;
+      v11 = v10;
+      v12 = *v26;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v24 != v10)
+          if (*v26 != v12)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          v12 = [MEMORY[0x1E69A80F8] coordinatesFromString:{*(*(&v23 + 1) + 8 * i), v23}];
-          if ([v12 count] == 2)
+          v14 = [MEMORY[0x1E69A80F8] coordinatesFromString:{*(*(&v25 + 1) + 8 * i), v25}];
+          if ([v14 count] == 2)
           {
-            v13 = coordinate__CLLocationCoordinate2DMake;
-            v14 = [v12 objectAtIndex:0];
-            [v14 doubleValue];
-            v16 = v15;
-            v17 = [v12 objectAtIndex:1];
-            doubleValue = [v17 doubleValue];
-            v4 = v13(doubleValue, v16, v19);
-            v6 = v20;
+            v15 = coordinate__CLLocationCoordinate2DMake;
+            v16 = [v14 objectAtIndex:0];
+            [v16 doubleValue];
+            v18 = v17;
+            v19 = [v14 objectAtIndex:1];
+            doubleValue = [v19 doubleValue];
+            v6 = v15(doubleValue, v18, v21);
+            v8 = v22;
 
             goto LABEL_16;
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
-        if (v9)
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        if (v11)
         {
           continue;
         }
@@ -427,8 +429,8 @@ void __57__CKLocationAttachmentItem__generateThumbnailFillToSize___block_invoke_
 
 LABEL_16:
 
-    p_coordinate->latitude = v4;
-    p_coordinate->longitude = v6;
+    p_coordinate->latitude = v6;
+    p_coordinate->longitude = v8;
   }
 
   latitude = p_coordinate->latitude;
@@ -438,7 +440,7 @@ LABEL_16:
   return result;
 }
 
-void *__38__CKLocationAttachmentItem_coordinate__block_invoke()
+uint64_t (*__38__CKLocationAttachmentItem_coordinate__block_invoke())(double, double)
 {
   result = MEMORY[0x193AF5ED0]("CLLocationCoordinate2DIsValid", @"CoreLocation");
   coordinate__CLLocationCoordinate2DIsValid = result;

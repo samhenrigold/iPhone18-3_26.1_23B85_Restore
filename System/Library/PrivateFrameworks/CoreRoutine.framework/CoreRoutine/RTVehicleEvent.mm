@@ -168,17 +168,16 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [RTVehicleEvent alloc];
-  photo = self->_photo;
-  LOBYTE(v10) = self->_confirmed;
-  v6 = [(RTVehicleEvent *)v4 initWithDate:self->_date location:self->_location vehicleIdentifier:self->_vehicleIdentifier userSetLocation:self->_userSetLocation notes:self->_notes identifier:self->_identifier photo:photo mapItem:self->_mapItem confirmed:v10];
-  *(v6 + 11) = self->_locationFinalized;
-  *(v6 + 9) = self->_usualLocation;
-  *(v6 + 72) = self->_locationQuality;
-  v7 = [(RTLocationOfInterest *)self->_nearbyLocationOfInterest copy];
-  v8 = *(v6 + 80);
-  *(v6 + 80) = v7;
+  LOBYTE(v9) = self->_confirmed;
+  v5 = [(RTVehicleEvent *)v4 initWithDate:self->_date location:self->_location vehicleIdentifier:self->_vehicleIdentifier userSetLocation:self->_userSetLocation notes:self->_notes identifier:self->_identifier photo:self->_photo mapItem:self->_mapItem confirmed:v9];
+  *(v5 + 11) = self->_locationFinalized;
+  *(v5 + 9) = self->_usualLocation;
+  *(v5 + 72) = self->_locationQuality;
+  v6 = [(RTLocationOfInterest *)self->_nearbyLocationOfInterest copy];
+  v7 = *(v5 + 80);
+  *(v5 + 80) = v6;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal

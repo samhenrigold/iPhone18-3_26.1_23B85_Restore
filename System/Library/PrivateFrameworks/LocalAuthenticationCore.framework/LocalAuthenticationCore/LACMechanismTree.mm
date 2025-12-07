@@ -15,12 +15,11 @@
 
 - (NSArray)children
 {
-  v2 = *(self + OBJC_IVAR___LACMechanismTree_children);
   type metadata accessor for LACMechanismTree(self);
 
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (LACMechanismTree)initWithChildren:(id)children isAndNode:(BOOL)node

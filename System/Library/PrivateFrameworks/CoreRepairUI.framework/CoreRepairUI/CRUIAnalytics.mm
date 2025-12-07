@@ -23,18 +23,17 @@
 
 void *__54__CRUIAnalytics_sendAnalyticsForRepairHistoryMismatch__block_invoke()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = handleForCategory(0);
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315394;
-    v4 = "[CRUIAnalytics sendAnalyticsForRepairHistoryMismatch]_block_invoke";
-    v5 = 2112;
-    v6 = &unk_28597F170;
-    _os_log_impl(&dword_247875000, v0, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v3, 0x16u);
+    v2 = 136315394;
+    v3 = "[CRUIAnalytics sendAnalyticsForRepairHistoryMismatch]_block_invoke";
+    v4 = 2112;
+    v5 = &unk_28597F170;
+    _os_log_impl(&dword_247875000, v0, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v2, 0x16u);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return &unk_28597F170;
 }
 
@@ -80,24 +79,22 @@ void __63__CRUIAnalytics_sendAsyncAnalyticsForEventIfNeeded_moduleName___block_i
 
 id __63__CRUIAnalytics_sendAsyncAnalyticsForEventIfNeeded_moduleName___block_invoke_2(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"EventType";
-  v10[1] = @"ModuleType";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"EventType";
+  v9[1] = @"ModuleType";
   v1 = *(a1 + 40);
-  v11[0] = *(a1 + 32);
-  v11[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = *(a1 + 32);
+  v10[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[CRUIAnalytics sendAsyncAnalyticsForEventIfNeeded:moduleName:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CRUIAnalytics sendAsyncAnalyticsForEventIfNeeded:moduleName:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -135,24 +132,22 @@ void __55__CRUIAnalytics_sendAsyncAnalyticsForEvent_moduleName___block_invoke(ui
 
 id __55__CRUIAnalytics_sendAsyncAnalyticsForEvent_moduleName___block_invoke_2(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"EventType";
-  v10[1] = @"ModuleType";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"EventType";
+  v9[1] = @"ModuleType";
   v1 = *(a1 + 40);
-  v11[0] = *(a1 + 32);
-  v11[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = *(a1 + 32);
+  v10[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v3 = handleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[CRUIAnalytics sendAsyncAnalyticsForEvent:moduleName:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CRUIAnalytics sendAsyncAnalyticsForEvent:moduleName:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_247875000, v3, OS_LOG_TYPE_DEFAULT, "[%s] send event: %@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

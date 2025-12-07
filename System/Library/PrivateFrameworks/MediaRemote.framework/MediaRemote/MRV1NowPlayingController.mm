@@ -18,6 +18,7 @@
 - (void)_notifyDelegateOfInvalidation;
 - (void)_notifyDelegateOfNewResponse:(id)response;
 - (void)_notifyDelegateOfPlaybackQueueChange:(id)change;
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change;
 - (void)_notifyDelegateOfPlayerPathChange:(id)change;
 - (void)_notifyDelegateOfSupportedCommandsChange:(id)change;
 - (void)_notifyDelegateOfUpdatedArtwork:(id)artwork;
@@ -73,7 +74,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -83,10 +84,9 @@
   }
 
   [(MRV1NowPlayingController *)self _unregisterForPlayerPathInvalidations];
-  v5.receiver = self;
-  v5.super_class = MRV1NowPlayingController;
-  [(MRV1NowPlayingController *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MRV1NowPlayingController;
+  [(MRV1NowPlayingController *)&v4 dealloc];
 }
 
 - (NSString)description
@@ -125,7 +125,7 @@
 
 void __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ((*(*(a1 + 32) + 11) & 1) == 0)
   {
     v2 = _MRLogForCategory(1uLL);
@@ -133,14 +133,14 @@ void __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke(uint64_t a
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v19 = v3;
+      v18 = v3;
       _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Begin loading updates.", buf, 0xCu);
     }
 
     v4 = *(a1 + 32);
-    v16 = [v4 configuration];
-    v15 = [v16 destination];
-    v14 = [v15 outputDeviceUID];
+    v15 = [v4 configuration];
+    v14 = [v15 destination];
+    v13 = [v14 outputDeviceUID];
     v5 = [*(a1 + 32) configuration];
     v6 = [v5 destination];
     v7 = [v6 playerPath];
@@ -149,15 +149,13 @@ void __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke(uint64_t a
     v10 = [v9 destination];
     v11 = [v10 playerPath];
     v12 = [v11 player];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke_14;
-    v17[3] = &unk_1E769C090;
-    v17[4] = *(a1 + 32);
-    [v4 _loadNowPlayingStateForUID:v14 client:v8 player:v12 completion:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke_14;
+    v16[3] = &unk_1E769C090;
+    v16[4] = *(a1 + 32);
+    [v4 _loadNowPlayingStateForUID:v13 client:v8 player:v12 completion:v16];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke_14(uint64_t a1, void *a2, void *a3)
@@ -188,30 +186,29 @@ void __47__MRV1NowPlayingController_beginLoadingUpdates__block_invoke_14(uint64_
   dispatch_async(queue, block);
 }
 
-uint64_t __45__MRV1NowPlayingController_endLoadingUpdates__block_invoke(uint64_t result)
+void *__45__MRV1NowPlayingController_endLoadingUpdates__block_invoke(void *result)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 11) == 1)
+  v6 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 11) == 1)
   {
     v1 = result;
     v2 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> End loading updates.", &v5, 0xCu);
+      v3 = v1[4];
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> End loading updates.", &v4, 0xCu);
     }
 
-    [*(v1 + 32) _unregisterForEndpointChanges];
-    [*(v1 + 32) _unregisterForPlayerPathInvalidations];
-    [*(v1 + 32) _unregisterNotificationHandlers];
-    [*(v1 + 32) _onQueue_clearState];
-    [*(v1 + 32) setEndpointObserverGroupUID:0];
-    result = [*(v1 + 32) setUpdateLoadingEnabled:0];
+    [v1[4] _unregisterForEndpointChanges];
+    [v1[4] _unregisterForPlayerPathInvalidations];
+    [v1[4] _unregisterNotificationHandlers];
+    [v1[4] _onQueue_clearState];
+    [v1[4] setEndpointObserverGroupUID:0];
+    return [v1[4] setUpdateLoadingEnabled:0];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -306,35 +303,33 @@ uint64_t __60__MRV1NowPlayingController__reloadForPlayerPathInvalidation__block_
 
 void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _onQueue_clearState];
   v2 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Begin resolving endpoint.", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17;
-  v7[3] = &unk_1E76A19C0;
-  v7[4] = v4;
-  v10 = *(a1 + 64);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  [v4 _onQueue_retrieveEndpointForUID:v5 completion:v7];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17;
+  v6[3] = &unk_1E76A19C0;
+  v6[4] = v4;
+  v9 = *(a1 + 64);
+  v7 = *(a1 + 48);
+  v8 = *(a1 + 56);
+  [v4 _onQueue_retrieveEndpointForUID:v5 completion:v6];
 }
 
 void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) _registerForEndpointChangesIfNeeded];
@@ -344,7 +339,7 @@ void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_com
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17_cold_1((a1 + 32));
+      __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -355,22 +350,20 @@ void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_com
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Resolved to Endpoint: %@.", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Resolved to Endpoint: %@.", &v10, 0x16u);
     }
 
     [*(a1 + 32) _loadNowPlayingStateForEndpoint:v5 client:*(a1 + 40) player:*(a1 + 48) completion:*(a1 + 56)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadNowPlayingStateForEndpoint:(id)endpoint client:(id)client player:(id)player completion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   completionCopy = completion;
   playerCopy = player;
@@ -381,28 +374,26 @@ void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_com
     debugName = [endpointCopy debugName];
     *buf = 138412546;
     selfCopy = self;
-    v24 = 2112;
-    v25 = debugName;
+    v23 = 2112;
+    v24 = debugName;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Begin resolving player path for endpoint %@.", buf, 0x16u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke;
-  v19[3] = &unk_1E769C108;
-  v20 = endpointCopy;
-  v21 = completionCopy;
-  v19[4] = self;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke;
+  v18[3] = &unk_1E769C108;
+  v19 = endpointCopy;
+  v20 = completionCopy;
+  v18[4] = self;
   v16 = endpointCopy;
   v17 = completionCopy;
-  [(MRV1NowPlayingController *)self _createPlayerPathForEndpoint:v16 client:clientCopy player:playerCopy completion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(MRV1NowPlayingController *)self _createPlayerPathForEndpoint:v16 client:clientCopy player:playerCopy completion:v18];
 }
 
 void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke(id *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v8 = a1 + 4;
@@ -424,7 +415,7 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
         v23 = _MRLogForCategory(1uLL);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
-          __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_cold_1(a1 + 4);
+          __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_cold_1();
         }
 
         v12 = @"Exhausted all retry attempts. Controller likely will not function properly until the destination device makes a signficant change";
@@ -442,12 +433,12 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
       v18 = *v8;
       v19 = [v17 alloc];
       v20 = [*v8 queue];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_37;
-      v31[3] = &unk_1E769A228;
-      v31[4] = v18;
-      v21 = [v19 initWithIntervals:&unk_1F15775F0 name:@"NowPlayingController.retryTimer" queue:v20 block:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_37;
+      v30[3] = &unk_1E769A228;
+      v30[4] = v18;
+      v21 = [v19 initWithIntervals:&unk_1F15775F0 name:@"NowPlayingController.retryTimer" queue:v20 block:v30];
       v22 = *(*v8 + 11);
       *(*v8 + 11) = v21;
     }
@@ -455,13 +446,13 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     v24 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = *v8;
+      v25 = *v8;
       *buf = 138412802;
-      v33 = v26;
-      v34 = 2112;
-      v35 = v6;
-      v36 = 2112;
-      v37 = v12;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v6;
+      v35 = 2112;
+      v36 = v12;
       _os_log_error_impl(&dword_1A2860000, v24, OS_LOG_TYPE_ERROR, "[MRV1NowPlayingController] <%@> Error creating player path %@. %@", buf, 0x20u);
     }
 
@@ -473,23 +464,21 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     v7[11] = 0;
 
     v13 = a1[4];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44;
-    v27[3] = &unk_1E769AD08;
-    v27[4] = v13;
-    v28 = a1[5];
-    v29 = v5;
-    v30 = a1[6];
-    [v13 _resolvePlayerPath:v29 completion:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44;
+    v26[3] = &unk_1E769AD08;
+    v26[4] = v13;
+    v27 = a1[5];
+    v28 = v5;
+    v29 = a1[6];
+    [v13 _resolvePlayerPath:v28 completion:v26];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_37(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -497,22 +486,20 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       [v1[11] currentInterval];
-      v5 = 138412546;
-      v6 = v1;
-      v7 = 2048;
-      v8 = v3;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Attempting retry after already waiting %lf seconds", &v5, 0x16u);
+      v4 = 138412546;
+      v5 = v1;
+      v6 = 2048;
+      v7 = v3;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Attempting retry after already waiting %lf seconds", &v4, 0x16u);
     }
 
     [v1 _reloadForCompleteInvalidation];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 isResolved])
@@ -534,9 +521,9 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     {
       v14 = *v7;
       *buf = 138412546;
-      v33 = v14;
-      v34 = 2112;
-      v35 = v5;
+      v32 = v14;
+      v33 = 2112;
+      v34 = v5;
       _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Resolved to player path: %@.", buf, 0x16u);
     }
 
@@ -547,21 +534,21 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     {
       v16 = *v7;
       *buf = 138412290;
-      v33 = v16;
+      v32 = v16;
       _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> Begin loading data.", buf, 0xCu);
     }
 
     v17 = *v7;
-    v31 = 0;
-    v18 = [v17 _loadNowPlayingStateForPlayerPath:v5 error:&v31];
-    v19 = v31;
+    v30 = 0;
+    v18 = [v17 _loadNowPlayingStateForPlayerPath:v5 error:&v30];
+    v19 = v30;
     v20 = _MRLogForCategory(1uLL);
     v21 = v20;
     if (v19)
     {
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_2((a1 + 32));
+        __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_2();
       }
     }
 
@@ -569,9 +556,9 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     {
       v28 = *v7;
       *buf = 138412546;
-      v33 = v28;
-      v34 = 2112;
-      v35 = v18;
+      v32 = v28;
+      v33 = 2112;
+      v34 = v18;
       _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> End loading data. Response: %@.", buf, 0x16u);
     }
 
@@ -583,7 +570,7 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
     v22 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_1(a1);
+      __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_1();
     }
 
     [*(a1 + 32) setResponse:0];
@@ -608,8 +595,6 @@ void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_playe
       (*(v27 + 16))(v27, 0, v29);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadNowPlayingStateForPlayerPath:(id)path error:(id *)error
@@ -797,48 +782,42 @@ void __68__MRV1NowPlayingController__loadNowPlayingStateForPlayerPath_error___bl
     [v13 setArtworkWidth:600.0];
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __95__MRV1NowPlayingController__requestPlaybackQueueForPlayerPath_includeArtwork_queue_completion___block_invoke;
-  v15[3] = &unk_1E769C1F8;
-  v15[4] = self;
-  v16 = completionCopy;
   v14 = completionCopy;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v13, pathCopy, queueCopy, v15);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 void __95__MRV1NowPlayingController__requestPlaybackQueueForPlayerPath_includeArtwork_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setRequestingQueue:0];
   v4 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [*(a1 + 32) deferredContentItemsToMerge];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 identifier];
         v12 = [v4 contentItemForIdentifier:v11];
 
         [v12 mergeFrom:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -848,7 +827,6 @@ void __95__MRV1NowPlayingController__requestPlaybackQueueForPlayerPath_includeAr
   [v13 removeAllObjects];
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_requestContentItemArtwork:(id)artwork forPlayerPath:(id)path queue:(id)queue completion:(id)completion
@@ -861,13 +839,9 @@ void __95__MRV1NowPlayingController__requestPlaybackQueueForPlayerPath_includeAr
 
   [(MRPlaybackQueueRequest *)v13 setArtworkHeight:600.0];
   [(MRPlaybackQueueRequest *)v13 setArtworkWidth:600.0];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __86__MRV1NowPlayingController__requestContentItemArtwork_forPlayerPath_queue_completion___block_invoke;
-  v15[3] = &unk_1E769C298;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v14 = completionCopy;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v13, pathCopy, queueCopy, v15);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 - (void)_requestSupportedCommandsForPlayerPath:(id)path queue:(id)queue completion:(id)completion
@@ -927,7 +901,7 @@ void __88__MRV1NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_q
   queue = [(MRV1NowPlayingController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([dCopy isEqualToString:@"proactiveEndpoint"])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
     queue2 = [(MRV1NowPlayingController *)self queue];
     v23[0] = MEMORY[0x1E69E9820];
@@ -995,30 +969,28 @@ void __71__MRV1NowPlayingController__onQueue_retrieveEndpointForUID_completion__
 
 - (void)_createPlayerPathForEndpoint:(id)endpoint client:(id)client player:(id)player completion:(id)completion
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   clientCopy = client;
   playerCopy = player;
   completionCopy = completion;
-  v25 = @"MREndpointConnectionReasonUserInfoKey";
-  v26[0] = @"MRNowPlayingController";
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke;
-  v20[3] = &unk_1E769AF98;
-  v23 = playerCopy;
-  v24 = completionCopy;
-  v20[4] = self;
-  v21 = endpointCopy;
-  v22 = clientCopy;
+  v24 = @"MREndpointConnectionReasonUserInfoKey";
+  v25[0] = @"MRNowPlayingController";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke;
+  v19[3] = &unk_1E769AF98;
+  v22 = playerCopy;
+  v23 = completionCopy;
+  v19[4] = self;
+  v20 = endpointCopy;
+  v21 = clientCopy;
   v15 = playerCopy;
   v16 = clientCopy;
   v17 = endpointCopy;
   v18 = completionCopy;
-  [v17 connectToExternalDeviceWithUserInfo:v14 completion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [v17 connectToExternalDeviceWithUserInfo:v14 completion:v19];
 }
 
 void __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke(id *a1, void *a2)
@@ -1047,17 +1019,16 @@ void __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_c
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 64);
-    v3 = *(*(a1 + 64) + 16);
+    v2 = *(*(a1 + 64) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [MRPlayerPath alloc];
-    v5 = [*(a1 + 40) origin];
-    v6 = [(MRPlayerPath *)v4 initWithOrigin:v5 client:*(a1 + 48) player:*(a1 + 56)];
+    v3 = [MRPlayerPath alloc];
+    v4 = [*(a1 + 40) origin];
+    v5 = [(MRPlayerPath *)v3 initWithOrigin:v4 client:*(a1 + 48) player:*(a1 + 56)];
 
     (*(*(a1 + 64) + 16))();
   }
@@ -1107,6 +1078,19 @@ void __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_c
     helper2 = [(MRV1NowPlayingController *)self helper];
     didLoadResponse = [helper2 didLoadResponse];
     (didLoadResponse)[2](didLoadResponse, responseCopy);
+  }
+}
+
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change
+{
+  v3 = *&change;
+  helper = [(MRV1NowPlayingController *)self helper];
+
+  if (helper)
+  {
+    helper2 = [(MRV1NowPlayingController *)self helper];
+    playbackStateDidChange = [helper2 playbackStateDidChange];
+    playbackStateDidChange[2](playbackStateDidChange, v3);
   }
 }
 
@@ -1278,7 +1262,7 @@ void __82__MRV1NowPlayingController__createPlayerPathForEndpoint_client_player_c
 
 void __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1304,7 +1288,7 @@ void __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___bl
   {
     v9 = *(a1 + 40);
     *buf = 138412290;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> processing PlaybackQueueDidChangeNotification.", buf, 0xCu);
   }
 
@@ -1315,15 +1299,14 @@ void __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___bl
   v12 = [v11 destination];
   v13 = [v12 resolvedPlayerPath];
   v14 = [*(a1 + 40) queue];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_81;
-  v16[3] = &unk_1E769C3B0;
-  v16[4] = *(a1 + 40);
-  [v11 _requestPlaybackQueueForPlayerPath:v13 includeArtwork:1 queue:v14 completion:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_81;
+  v15[3] = &unk_1E769C3B0;
+  v15[4] = *(a1 + 40);
+  [v11 _requestPlaybackQueueForPlayerPath:v13 includeArtwork:1 queue:v14 completion:v15];
 
 LABEL_8:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_81(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1356,7 +1339,7 @@ uint64_t __68__MRV1NowPlayingController__handlePlaybackQueueChangedNotification_
 
 void __80__MRV1NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1389,11 +1372,11 @@ void __80__MRV1NowPlayingController__handlePlaybackQueueContentItemsChangedNotif
     if (v13)
     {
       v14 = *(a1 + 40);
-      v18 = 138412546;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> deferring PlaybackQueueContentItemsChangedNotification for content items %@ because we are requesting a new playback queue.", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> deferring PlaybackQueueContentItemsChangedNotification for content items %@ because we are requesting a new playback queue.", &v17, 0x16u);
     }
 
     v15 = [*(a1 + 40) deferredContentItemsToMerge];
@@ -1405,18 +1388,17 @@ void __80__MRV1NowPlayingController__handlePlaybackQueueContentItemsChangedNotif
     if (v13)
     {
       v16 = *(a1 + 40);
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v10;
-      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> updated content items %@.", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v16;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> updated content items %@.", &v17, 0x16u);
     }
 
     [*(a1 + 40) _notifyDelegateOfUpdatedContentItemsWithContentItems:v10];
   }
 
 LABEL_13:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlaybackQueueContentItemsArtworkChangedNotification:(id)notification
@@ -1435,7 +1417,7 @@ LABEL_13:
 
 void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1465,9 +1447,9 @@ void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
   {
     v12 = *(a1 + 40);
     *buf = 138412546;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v10;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v10;
     _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> processing PlaybackQueueContentItemsArtworkChangedNotification for content items %@.", buf, 0x16u);
   }
 
@@ -1475,20 +1457,19 @@ void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
   v14 = [v13 destination];
   v15 = [v14 resolvedPlayerPath];
   v16 = [*(a1 + 40) queue];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_85;
-  v18[3] = &unk_1E769C3B0;
-  v18[4] = *(a1 + 40);
-  [v13 _requestContentItemArtwork:v10 forPlayerPath:v15 queue:v16 completion:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_85;
+  v17[3] = &unk_1E769C3B0;
+  v17[4] = *(a1 + 40);
+  [v13 _requestContentItemArtwork:v10 forPlayerPath:v15 queue:v16 completion:v17];
 
 LABEL_8:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_85(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1502,19 +1483,17 @@ void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
     {
       v7 = *(a1 + 32);
       v8 = [v5 contentItems];
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> updated artwork for content items %@.", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> updated artwork for content items %@.", &v11, 0x16u);
     }
 
     v9 = *(a1 + 32);
     v10 = [v5 contentItems];
     [v9 _notifyDelegateOfUpdatedArtwork:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlaybackStateChangedNotification:(id)notification
@@ -1533,7 +1512,7 @@ void __87__MRV1NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
 
 void __68__MRV1NowPlayingController__handlePlaybackStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1562,9 +1541,9 @@ void __68__MRV1NowPlayingController__handlePlaybackStateChangedNotification___bl
   {
     v11 = *(a1 + 40);
     *buf = 138412546;
-    v21 = v11;
-    v22 = 2112;
-    v23 = MRMediaRemoteCopyPlaybackStateDescription([v9 intValue]);
+    v20 = v11;
+    v21 = 2112;
+    v22 = MRMediaRemoteCopyPlaybackStateDescription([v9 intValue]);
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> processing PlaybackStateDidChangeNotification with new PlaybackState %@.", buf, 0x16u);
   }
 
@@ -1577,16 +1556,15 @@ void __68__MRV1NowPlayingController__handlePlaybackStateChangedNotification___bl
     v15 = [v14 destination];
     v16 = [v15 resolvedPlayerPath];
     v17 = [*(a1 + 40) queue];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __68__MRV1NowPlayingController__handlePlaybackStateChangedNotification___block_invoke_86;
-    v19[3] = &unk_1E769C3F8;
-    v19[4] = *(a1 + 40);
-    [v14 _requestPlayerLastPlayingDateForPlayerPath:v16 queue:v17 completion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __68__MRV1NowPlayingController__handlePlaybackStateChangedNotification___block_invoke_86;
+    v18[3] = &unk_1E769C3F8;
+    v18[4] = *(a1 + 40);
+    [v14 _requestPlayerLastPlayingDateForPlayerPath:v16 queue:v17 completion:v18];
   }
 
 LABEL_10:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSupportedCommandsChangedNotification:(id)notification
@@ -1605,7 +1583,7 @@ LABEL_10:
 
 void __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1631,7 +1609,7 @@ void __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification_
   {
     v9 = *(a1 + 40);
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> processing SupportedCommandsDidChangeNotification.", buf, 0xCu);
   }
 
@@ -1639,15 +1617,14 @@ void __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification_
   v11 = [v10 destination];
   v12 = [v11 resolvedPlayerPath];
   v13 = [*(a1 + 40) queue];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_87;
-  v15[3] = &unk_1E769C420;
-  v15[4] = *(a1 + 40);
-  [v10 _requestSupportedCommandsForPlayerPath:v12 queue:v13 completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_87;
+  v14[3] = &unk_1E769C420;
+  v14[4] = *(a1 + 40);
+  [v10 _requestSupportedCommandsForPlayerPath:v12 queue:v13 completion:v14];
 
 LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_87(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1666,27 +1643,25 @@ uint64_t __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotificat
 
 - (void)_handleActiveSystemEndpointChangedNotification:(id)notification
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   configuration = [(MRV1NowPlayingController *)self configuration];
   destination = [configuration destination];
   outputDeviceUID = [destination outputDeviceUID];
-  v7 = [outputDeviceUID isEqualToString:@"proactiveEndpoint"];
+  isEqualToString = objc_msgSend_isEqualToString_(outputDeviceUID);
 
-  if (v7)
+  if (isEqualToString)
   {
     v8 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to ASE change.", &v10, 0xCu);
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to ASE change.", &v9, 0xCu);
     }
 
     [(MRV1NowPlayingController *)self _notifyDelegateOfInvalidation];
     [(MRV1NowPlayingController *)self _reloadForCompleteInvalidation];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerForPlayerPathInvalidationsIfNeeded
@@ -1717,7 +1692,7 @@ uint64_t __72__MRV1NowPlayingController__handleSupportedCommandsChangedNotificat
 
 void __71__MRV1NowPlayingController__registerForPlayerPathInvalidationsIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1725,20 +1700,18 @@ void __71__MRV1NowPlayingController__registerForPlayerPathInvalidationsIfNeeded_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v8 = 138412802;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = a2;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to player path invalidation %@ -> %@.", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = a2;
+      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to player path invalidation %@ -> %@.", &v7, 0x20u);
     }
 
     [WeakRetained _notifyDelegateOfInvalidation];
     [WeakRetained _reloadForPlayerPathInvalidation];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterForPlayerPathInvalidations
@@ -1762,9 +1735,9 @@ void __71__MRV1NowPlayingController__registerForPlayerPathInvalidationsIfNeeded_
   {
     destination = [(MRV1NowPlayingController *)self destination];
     outputDeviceUID = [destination outputDeviceUID];
-    v5 = [outputDeviceUID isEqualToString:@"proactiveEndpoint"];
+    isEqualToString = objc_msgSend_isEqualToString_(outputDeviceUID);
 
-    if (v5)
+    if (isEqualToString)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter addObserver:self selector:sel__handleActiveSystemEndpointChangedNotification_ name:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0];
@@ -1809,7 +1782,7 @@ void __71__MRV1NowPlayingController__registerForPlayerPathInvalidationsIfNeeded_
 
 void __63__MRV1NowPlayingController__registerForEndpointChangesIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -1834,13 +1807,13 @@ void __63__MRV1NowPlayingController__registerForEndpointChangesIfNeeded__block_i
         {
           v12 = [WeakRetained destination];
           v13 = [v12 endpoint];
-          v18 = 138412802;
-          v19 = WeakRetained;
-          v20 = 2112;
-          v21 = v13;
-          v22 = 2112;
-          v23 = v4;
-          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to change in endpoint. Current endpoint: %@. New endpoint: %@.", &v18, 0x20u);
+          v17 = 138412802;
+          v18 = WeakRetained;
+          v19 = 2112;
+          v20 = v13;
+          v21 = 2112;
+          v22 = v4;
+          _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRV1NowPlayingController] <%@> reloading due to change in endpoint. Current endpoint: %@. New endpoint: %@.", &v17, 0x20u);
         }
 
         v14 = [v4 outputDevices];
@@ -1853,8 +1826,6 @@ void __63__MRV1NowPlayingController__registerForEndpointChangesIfNeeded__block_i
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unregisterForEndpointChanges
@@ -1862,9 +1833,9 @@ void __63__MRV1NowPlayingController__registerForEndpointChangesIfNeeded__block_i
   configuration = [(MRV1NowPlayingController *)self configuration];
   destination = [configuration destination];
   outputDeviceUID = [destination outputDeviceUID];
-  v6 = [outputDeviceUID isEqualToString:@"proactiveEndpoint"];
+  isEqualToString = objc_msgSend_isEqualToString_(outputDeviceUID);
 
-  if (v6)
+  if (isEqualToString)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter removeObserver:self name:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0];
@@ -1930,49 +1901,27 @@ void __36__MRV1NowPlayingController_response__block_invoke(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void __80__MRV1NowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17_cold_1(uint64_t *a1)
+void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v2, v3, "[MRV1NowPlayingController] %@ Unable to discover endpoint.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1A2860000, v0, OS_LOG_TYPE_FAULT, "Exhausted all retry attempts %@", v1, 0xCu);
 }
 
-void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_cold_1(uint64_t *a1)
+void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_2()
 {
   v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_1A2860000, v2, OS_LOG_TYPE_FAULT, "Exhausted all retry attempts %@", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v2, v3, "[MRV1NowPlayingController] <%@> Player path is not resolved. There may be no now playing application.", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __85__MRV1NowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_44_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_4();
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_1A2860000, v3, OS_LOG_TYPE_ERROR, "[MRV1NowPlayingController] <%@> Error loading data %@.", v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1A2860000, v1, OS_LOG_TYPE_ERROR, "[MRV1NowPlayingController] <%@> Error loading data %@.", v2, 0x16u);
 }
 
 void __88__MRV1NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_queue_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[MRV1NowPlayingController] Failed to retrieve player last playing date with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_1A2860000, a2, a3, "[MRV1NowPlayingController] Failed to retrieve player last playing date with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

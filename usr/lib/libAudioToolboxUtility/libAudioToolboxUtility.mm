@@ -1,6 +1,6 @@
 BOOL CADeprecated::CAMutex::Lock(CADeprecated::CAMutex *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = pthread_self();
   v3 = pthread_equal(v2, atomic_load_explicit(this + 2, memory_order_acquire));
   if (!v3)
@@ -8,32 +8,30 @@ BOOL CADeprecated::CAMutex::Lock(CADeprecated::CAMutex *this)
     v4 = pthread_mutex_lock((this + 24));
     if (v4)
     {
-      v7 = v4;
+      v6 = v4;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315394;
-        v10 = "CAMutex.cpp";
-        v11 = 1024;
-        v12 = 106;
-        _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::Lock: Could not lock the mutex", &v9, 0x12u);
+        v8 = 136315394;
+        v9 = "CAMutex.cpp";
+        v10 = 1024;
+        v11 = 106;
+        _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::Lock: Could not lock the mutex", &v8, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
       *exception = off_1F595E710;
-      exception[2] = v7;
+      exception[2] = v6;
     }
 
     atomic_store(v2, this + 2);
   }
 
-  result = v3 == 0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 0;
 }
 
 void CADeprecated::CAMutex::Unlock(CADeprecated::CAMutex *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = pthread_self();
   if (pthread_equal(v2, atomic_load_explicit(this + 2, memory_order_acquire)))
   {
@@ -44,11 +42,11 @@ void CADeprecated::CAMutex::Unlock(CADeprecated::CAMutex *this)
       v4 = v3;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v7 = 136315394;
-        v8 = "CAMutex.cpp";
-        v9 = 1024;
-        v10 = 152;
-        _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::Unlock: Could not unlock the mutex", &v7, 0x12u);
+        v6 = 136315394;
+        v7 = "CAMutex.cpp";
+        v8 = 1024;
+        v9 = 152;
+        _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::Unlock: Could not unlock the mutex", &v6, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -59,14 +57,12 @@ void CADeprecated::CAMutex::Unlock(CADeprecated::CAMutex *this)
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "CAMutex.cpp";
-    v9 = 1024;
-    v10 = 160;
-    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  CAMutex::Unlock: A thread is attempting to unlock a Mutex it doesn't own", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "CAMutex.cpp";
+    v8 = 1024;
+    v9 = 160;
+    _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  CAMutex::Unlock: A thread is attempting to unlock a Mutex it doesn't own", &v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
@@ -94,7 +90,7 @@ BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a
 
 BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, BOOL *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -106,7 +102,7 @@ BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, B
       LODWORD(this) = CFBooleanGetValue(v4);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return this != 0;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -119,7 +115,7 @@ LABEL_6:
     if (v5 != CFStringGetTypeID())
     {
       LODWORD(this) = 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
     CFStringGetCString(v4, buffer, 64, 0x600u);
@@ -127,30 +123,30 @@ LABEL_6:
     {
       *a2 = 1;
       LODWORD(this) = valuePtr != 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
-    v8 = buffer[0];
+    v7 = buffer[0];
     if (buffer[0])
     {
-      v9 = &buffer[1];
+      v8 = &buffer[1];
       do
       {
-        *(v9 - 1) = __tolower(v8);
-        v10 = *v9++;
-        v8 = v10;
+        *(v8 - 1) = __tolower(v7);
+        v9 = *v8++;
+        v7 = v9;
       }
 
-      while (v10);
+      while (v9);
     }
 
-    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v11 = v14 == 101) : (v11 = 0), v11))
+    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v10 = v13 == 101) : (v10 = 0), v10))
     {
       LODWORD(this) = 0;
       goto LABEL_6;
     }
 
-    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v14))
+    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v13))
     {
       LODWORD(this) = 1;
       *a2 = 1;
@@ -162,10 +158,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = this != 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return this != 0;
 }
 
 void CASerializer::~CASerializer(const void **this)
@@ -413,11 +406,11 @@ LABEL_25:
   std::mutex::unlock(a1);
 }
 
-void sub_1DE1D388C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DE1D388C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CASmartPreferences::Pref>::~__split_buffer(va);
-  std::mutex::unlock(v4);
+  std::mutex::unlock(v7);
   _Unwind_Resume(a1);
 }
 
@@ -444,19 +437,18 @@ uint64_t CASmartPreferences::HavePref(CASmartPreferences *this, CFTypeRef cf1, c
 
 void *std::construct_at[abi:ne200100]<CASmartPreferences::Pref,__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &,CASmartPreferences::Pref*>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v9, a4);
+  v9 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v8, a4);
   *a1 = a2;
   a1[1] = a3;
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a1 + 2), v9);
-  std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v9);
-  v7 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a1 + 2), v8);
+  std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v8);
   return a1;
 }
 
-void sub_1DE1D39BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1D39BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -618,32 +610,33 @@ uint64_t caulk::numeric::exceptional_add<unsigned int>(int a1)
   return result;
 }
 
-void caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(uint64_t a1, unsigned int a2)
+void caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a2;
   std::mutex::lock((a1 + 48));
-  v4 = atomic_load((a1 + 8));
-  v5 = *a1 + 1;
-  *a1 = v5;
-  if (v4)
+  v5 = atomic_load((a1 + 8));
+  v6 = *a1 + 1;
+  *a1 = v6;
+  if (v5)
   {
-    v6 = 16 * v5;
-    v7 = *(v4 + 8);
-    if (v6 / v7 < 0xB)
+    v7 = 16 * v6;
+    v8 = *(v5 + 8);
+    if (v7 / v8 < 0xB)
     {
       goto LABEL_6;
     }
 
-    v8 = 2 * v7;
+    v9 = 2 * v8;
   }
 
   else
   {
-    v8 = 8;
+    v9 = 8;
   }
 
-  v4 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::rehash(a1, v8);
+  v5 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::rehash(a1, v9);
 LABEL_6:
-  if ((caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::table_impl::findSlotForKey(v4, a2) & 1) == 0)
+  if ((caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::table_impl::findSlotForKey(v5, v3) & 1) == 0)
   {
     operator new();
   }
@@ -681,20 +674,20 @@ uint64_t OpaqueObjectMgr::add(atomic_uint *this, BaseOpaqueObject *a2)
     add = atomic_fetch_add(this + 28, 1u);
     if ((add & 0x80000000) != 0)
     {
-      v4 = (add & 0x7FFFFFFF) + 4096;
-      atomic_compare_exchange_strong(this + 28, &add, v4);
-      add = v4;
+      v5 = (add & 0x7FFFFFFF) + 4096;
+      atomic_compare_exchange_strong(this + 28, &add, v5);
+      add = v5;
     }
 
-    v5 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::lookup<(caulk::concurrent::guarded_lookup_hash_table_options)0,void>(this, add);
+    v6 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::lookup<(caulk::concurrent::guarded_lookup_hash_table_options)0,void>(this, add);
   }
 
-  while ((v6 & 1) != 0 && v5);
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(this, add);
+  while ((v7 & 1) != 0 && v6);
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(this, add, a2);
   return add;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::lookup<(caulk::concurrent::guarded_lookup_hash_table_options)0,void>(uint64_t a1, unsigned int a2)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::lookup<(caulk::concurrent::guarded_lookup_hash_table_options)0,void>(uint64_t a1, uint64_t a2)
 {
   v2 = (a1 + 16);
   atomic_fetch_add((a1 + 16), 1u);
@@ -731,7 +724,7 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObj
     v4 = *(result + 8);
   }
 
-  v5 = (v3 + v4 - 3);
+  v5 = v3 + v4 - 3;
   v6 = 0xFFFFFFFFLL;
   v7 = 1;
   v8 = a2 % v2;
@@ -804,7 +797,7 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObj
 
 uint64_t CADeprecated::XMachReceivePort::CreateMachPort(atomic_uint *this, integer_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   CADeprecated::XMachReceivePort::SetMachPort(this, 0);
   name = 0;
   v4 = MEMORY[0x1E69E9A60];
@@ -815,13 +808,13 @@ uint64_t CADeprecated::XMachReceivePort::CreateMachPort(atomic_uint *this, integ
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v26 = "XMachServer.cpp";
-      v27 = 1024;
-      v28 = 149;
-      v29 = 2080;
-      v30 = "ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port)";
-      v31 = 1024;
-      v32 = v19;
+      v25 = "XMachServer.cpp";
+      v26 = 1024;
+      v27 = 149;
+      v28 = 2080;
+      v29 = "ret = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &port)";
+      v30 = 1024;
+      v31 = v19;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_verify_noerr: [%s, %d]", buf, 0x22u);
     }
   }
@@ -846,22 +839,22 @@ uint64_t CADeprecated::XMachReceivePort::CreateMachPort(atomic_uint *this, integ
           v16 = MEMORY[0x1E12BF980](v14, v15, 1, &port_info_out, 1);
           if (!v16)
           {
-            goto LABEL_11;
+            return 0;
           }
 
           v17 = v16;
           if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_11;
+            return 0;
           }
 
           v18 = mach_error_string(v17);
           *buf = 136315650;
-          v26 = "XMachServer.cpp";
-          v27 = 1024;
-          v28 = 169;
-          v29 = 2080;
-          v30 = v18;
+          v25 = "XMachServer.cpp";
+          v26 = 1024;
+          v27 = 169;
+          v28 = 2080;
+          v29 = v18;
           v12 = MEMORY[0x1E69E9C10];
           v13 = "%25s:%-5d couldn't set mach port limits info (%s)";
           goto LABEL_10;
@@ -872,11 +865,11 @@ uint64_t CADeprecated::XMachReceivePort::CreateMachPort(atomic_uint *this, integ
         {
           v11 = mach_error_string(v10);
           *buf = 136315650;
-          v26 = "XMachServer.cpp";
-          v27 = 1024;
-          v28 = 164;
-          v29 = 2080;
-          v30 = v11;
+          v25 = "XMachServer.cpp";
+          v26 = 1024;
+          v27 = 164;
+          v28 = 2080;
+          v29 = v11;
           v12 = MEMORY[0x1E69E9C10];
           v13 = "%25s:%-5d couldn't get mach port limits info (%s)";
 LABEL_10:
@@ -884,30 +877,26 @@ LABEL_10:
         }
       }
 
-LABEL_11:
-      v19 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
     v19 = inserted;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v26 = "XMachServer.cpp";
-      v27 = 1024;
-      v28 = 153;
-      v29 = 2080;
-      v30 = "ret = mach_port_insert_right(mach_task_self(), port, port, MACH_MSG_TYPE_MAKE_SEND)";
-      v31 = 1024;
-      v32 = v19;
+      v25 = "XMachServer.cpp";
+      v26 = 1024;
+      v27 = 153;
+      v28 = 2080;
+      v29 = "ret = mach_port_insert_right(mach_task_self(), port, port, MACH_MSG_TYPE_MAKE_SEND)";
+      v30 = 1024;
+      v31 = v19;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  ca_verify_noerr: [%s, %d]", buf, 0x22u);
     }
 
     mach_port_mod_refs(*v4, name, 1u, -1);
   }
 
-LABEL_12:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -926,20 +915,19 @@ atomic_uint *CADeprecated::XMachReceivePort::SetMachPort(atomic_uint *this, unsi
   return this;
 }
 
-uint64_t CADeprecated::XBasicMIGServer::SetServerDispatchQueue(uint64_t result, dispatch_queue_t *a2)
+void CADeprecated::XBasicMIGServer::SetServerDispatchQueue(uint64_t a1, dispatch_queue_t *a2)
 {
-  if (atomic_load_explicit(*(result + 40), memory_order_acquire))
+  if (atomic_load_explicit(*(a1 + 40), memory_order_acquire))
   {
-    v3 = result;
-    explicit = atomic_load_explicit(*(result + 40), memory_order_acquire);
+    explicit = atomic_load_explicit(*(a1 + 40), memory_order_acquire);
     v5 = dispatch_source_create(MEMORY[0x1E69E96D8], explicit, 0, *a2);
     v6 = v5;
-    handler[6] = v5;
+    v11 = v5;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 1174405120;
     handler[2] = ___ZN12CADeprecated15XBasicMIGServer22SetServerDispatchQueueERKN10applesauce8dispatch2v15queueE_block_invoke;
     handler[3] = &__block_descriptor_tmp_8;
-    handler[4] = v3;
+    handler[4] = a1;
     handler[5] = v5;
     if (v5)
     {
@@ -947,8 +935,8 @@ uint64_t CADeprecated::XBasicMIGServer::SetServerDispatchQueue(uint64_t result, 
     }
 
     dispatch_source_set_event_handler(v6, handler);
-    v7 = *(v3 + 40);
-    v8 = *(v3 + 48);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
     if (v8)
     {
       atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
@@ -966,10 +954,8 @@ uint64_t CADeprecated::XBasicMIGServer::SetServerDispatchQueue(uint64_t result, 
     }
 
     dispatch_source_set_cancel_handler(v6, v9);
-    CADeprecated::XMachPortServicer::SetQueueAndSource();
+    CADeprecated::XMachPortServicer::SetQueueAndSource((a1 + 56), a2, &v11);
   }
-
-  return result;
 }
 
 void sub_1DE1D479C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, dispatch_object_t object)
@@ -1068,85 +1054,83 @@ uint64_t BaseOpaqueObject::checkRTTI(uint64_t a1)
 
 uint64_t mshMIGPerform(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v6 = *(a4 + 4);
   v7 = *(a1 + 20);
   v8 = *(v6 + 8);
   if (*(v6 + 12) <= v7 || v7 < v8)
   {
     MEMORY[0x1EEE9AC00]();
-    v11 = &v32;
+    v11 = &v30;
     v12 = 0;
-    v14 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v13 = v6 + 40 * (v7 - v8);
-    v14 = *(v13 + 40);
-    *(v13 + 64);
-    v15 = MEMORY[0x1EEE9AC00]();
-    v11 = (&previous - v16);
-    if (v15 <= 0x2000)
+    v13 = *(v6 + 40 * (v7 - v8) + 40);
+    v14 = MEMORY[0x1EEE9AC00]();
+    v11 = (&previous - v15);
+    if (v14 <= 0x2000)
     {
       v12 = 0;
     }
 
     else
     {
-      v11 = malloc_type_malloc(v15, 0x19B6FAB4uLL);
+      v11 = malloc_type_malloc(v14, 0x19B6FAB4uLL);
       v10 = *(a1 + 20);
       v12 = 1;
     }
   }
 
-  v17 = *(a1 + 8);
+  v16 = *(a1 + 8);
   v11->msgh_bits = *a1 & 0x1F;
   v11->msgh_size = 36;
-  *&v11->msgh_remote_port = v17;
+  *&v11->msgh_remote_port = v16;
   v11->msgh_id = v10 + 100;
-  if (!v14)
+  if (!v13)
   {
-    v19 = *(a1 + 20);
-    if (v19 == 71)
+    v18 = *(a1 + 20);
+    if (v18 == 71)
     {
-      v25 = *(a4 + 3);
-      if (v25)
+      v24 = *(a4 + 3);
+      if (v24)
       {
-        v25(a1, *(a4 + 1));
+        v24(a1, *(a4 + 1));
       }
     }
 
     else
     {
-      if (v19 != 70)
+      if (v18 != 70)
       {
         *&v11[1].msgh_bits = *MEMORY[0x1E69E99E0];
         v11[1].msgh_remote_port = -303;
         goto LABEL_28;
       }
 
-      v20 = *(a4 + 2);
-      if (v20)
+      v19 = *(a4 + 2);
+      if (v19)
       {
-        v21 = *(a1 + 32);
-        v34 = *(a1 + 32);
+        v20 = *(a1 + 32);
+        v32 = *(a1 + 32);
         if (*(a1 + 28) != *(MEMORY[0x1E69E99E0] + 4))
         {
-          v21 = bswap32(v34);
+          v20 = bswap32(v32);
         }
 
-        v22 = v20(v21, a1, *(a4 + 1));
-        v34 = v22;
-        if (v22)
+        v21 = v19(v20, a1, *(a4 + 1));
+        v32 = v21;
+        if (v21)
         {
           previous = 0;
-          v23 = *a4;
-          v24 = *MEMORY[0x1E69E9A60];
-          mach_port_request_notification(*MEMORY[0x1E69E9A60], v23, 70, v22, v23, 0x15u, &previous);
+          v22 = *a4;
+          v23 = *MEMORY[0x1E69E9A60];
+          mach_port_request_notification(*MEMORY[0x1E69E9A60], v22, 70, v21, v22, 0x15u, &previous);
           if (previous)
           {
-            mach_port_mod_refs(v24, previous, 2u, -1);
+            mach_port_mod_refs(v23, previous, 2u, -1);
           }
         }
 
@@ -1159,7 +1143,7 @@ uint64_t mshMIGPerform(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 
     if ((v12 & 1) == 0)
     {
-      goto LABEL_40;
+      return 0;
     }
 
     goto LABEL_39;
@@ -1170,7 +1154,7 @@ uint64_t mshMIGPerform(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
     *(a1 + 12) = *(a4 + 1);
   }
 
-  v14(a1, v11);
+  v13(a1, v11);
   if ((v11->msgh_bits & 0x80000000) != 0)
   {
     goto LABEL_30;
@@ -1200,22 +1184,22 @@ LABEL_30:
   {
     if ((v11->msgh_bits & 0x1F) == 0x12)
     {
-      v26 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v26 = 17;
+      v25 = 17;
     }
 
-    v27 = mach_msg(v11, v26, v11->msgh_size, 0, 0, 0, 0);
-    if ((v27 - 268435459) >= 2)
+    v26 = mach_msg(v11, v25, v11->msgh_size, 0, 0, 0, 0);
+    if ((v26 - 268435459) >= 2)
     {
-      if (v27)
+      if (v26)
       {
-        v28 = *MEMORY[0x1E69E9848];
-        v29 = getpid();
-        fprintf(v28, "%d: badly generated MIG reply for port %x\n", v29, *a4);
+        v27 = *MEMORY[0x1E69E9848];
+        v28 = getpid();
+        fprintf(v27, "%d: badly generated MIG reply for port %x\n", v28, *a4);
       }
     }
 
@@ -1232,8 +1216,6 @@ LABEL_39:
     free(v11);
   }
 
-LABEL_40:
-  v30 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1246,26 +1228,25 @@ uint64_t MSHMIGDispatchMessage(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t CADeprecated::CAGuard::NotifyAll(CADeprecated::CAGuard *this)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   result = pthread_cond_broadcast((this + 88));
   if (result)
   {
-    v4 = result;
+    v3 = result;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v6 = "CAGuard.cpp";
-      v7 = 1024;
-      v8 = 320;
+      v5 = "CAGuard.cpp";
+      v6 = 1024;
+      v7 = 320;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::NotifyAll: failed", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F595E710;
-    exception[2] = v4;
+    exception[2] = v3;
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1307,7 +1288,7 @@ void CASerializer::PrepareToWrite(const __CFData **this, int a2)
   }
 }
 
-uint64_t BaseOpaqueObject::ResolveOpaqueRef(uint64_t a1, unsigned int a2)
+uint64_t BaseOpaqueObject::ResolveOpaqueRef(uint64_t a1, uint64_t a2)
 {
   result = OpaqueObjectMgr::sInstance;
   if (OpaqueObjectMgr::sInstance)
@@ -1352,7 +1333,7 @@ uint64_t PropertyMarshaller::Deserialize(void *a1, uint64_t a2, uint64_t a3, uin
     return 829646194;
   }
 
-  v12 = (*(*a1 + 16))(a1);
+  v12 = (*(*a1 + 16))(a1, a2);
   v13 = a1[5];
   a1[5] = v12;
   if (v13)
@@ -1444,7 +1425,7 @@ void CADeserializer::~CADeserializer(const void **this)
 
 BOOL CADeprecated::CAGuard::WaitFor(CADeprecated::CAGuard *this, unint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = pthread_self();
   v5 = atomic_load(this + 2);
   if (!pthread_equal(v4, v5))
@@ -1452,9 +1433,9 @@ BOOL CADeprecated::CAGuard::WaitFor(CADeprecated::CAGuard *this, unint64_t a2)
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "CAGuard.cpp";
-      v16 = 1024;
-      v17 = 130;
+      v14 = "CAGuard.cpp";
+      v15 = 1024;
+      v16 = 130;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::WaitFor: A thread has to have locked a guard be for it can wait", buf, 0x12u);
     }
 
@@ -1472,19 +1453,19 @@ LABEL_13:
     v7 = a2;
   }
 
-  v13.tv_sec = v6;
-  v13.tv_nsec = v7;
+  v12.tv_sec = v6;
+  v12.tv_nsec = v7;
   atomic_store(0, this + 2);
-  v8 = pthread_cond_timedwait_relative_np((this + 88), (this + 24), &v13);
+  v8 = pthread_cond_timedwait_relative_np((this + 88), (this + 24), &v12);
   v9 = v8;
   if (v8 && v8 != 60)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "CAGuard.cpp";
-      v16 = 1024;
-      v17 = 169;
+      v14 = "CAGuard.cpp";
+      v15 = 1024;
+      v16 = 169;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::WaitFor: Wait got an error", buf, 0x12u);
     }
 
@@ -1495,9 +1476,7 @@ LABEL_13:
   }
 
   atomic_store(pthread_self(), this + 2);
-  result = v9 == 60;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v9 == 60;
 }
 
 void CABundleLocker::CABundleLocker(CABundleLocker *this)
@@ -1534,8 +1513,7 @@ uint64_t SharableMemoryBlock::InitServer(uint64_t a1, size_t a2, _DWORD *a3)
     if (v15 == -1)
     {
       LogPosixError("shm_open");
-      memory_entry_64 = *__error();
-      goto LABEL_26;
+      return *__error();
     }
 
     ftruncate(v15, a2);
@@ -1549,7 +1527,7 @@ uint64_t SharableMemoryBlock::InitServer(uint64_t a1, size_t a2, _DWORD *a3)
       close(*(a1 + 36));
       *(a1 + 36) = -1;
       shm_unlink(address);
-      goto LABEL_26;
+      return memory_entry_64;
     }
 
     memory_entry_64 = 0;
@@ -1558,7 +1536,7 @@ uint64_t SharableMemoryBlock::InitServer(uint64_t a1, size_t a2, _DWORD *a3)
     v17 = *(a1 + 36);
 LABEL_22:
     a3[4] = v17;
-    goto LABEL_26;
+    return memory_entry_64;
   }
 
   if (v6 == 1)
@@ -1570,7 +1548,7 @@ LABEL_22:
     {
       memory_entry_64 = *__error();
       LogPosixError("mmap");
-      goto LABEL_26;
+      return memory_entry_64;
     }
 
     *(a1 + 8) = 257;
@@ -1598,14 +1576,12 @@ LABEL_22:
     v22 = *(a3 + 2);
     *(a3 + 2) = v21;
     xpc_release(v22);
-LABEL_25:
-    memory_entry_64 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   if (v6)
   {
-    goto LABEL_25;
+    return 0;
   }
 
   v7 = a2 + *MEMORY[0x1E69E9AC8] - 1;
@@ -1636,7 +1612,7 @@ LABEL_13:
     {
       MEMORY[0x1E12BFDB0](*v10, address[0], v9);
       LogMachError("mach_make_memory_entry_64", memory_entry_64);
-      goto LABEL_26;
+      return memory_entry_64;
     }
 
     ++debugSerial;
@@ -1647,8 +1623,6 @@ LABEL_13:
   }
 
   LogMachError("vm_allocate", memory_entry_64);
-LABEL_26:
-  v23 = *MEMORY[0x1E69E9840];
   return memory_entry_64;
 }
 
@@ -1870,7 +1844,7 @@ uint64_t Read(CADeserializer *a1, AudioChannelLayout **a2, unint64_t *a3)
 
 uint64_t SharableMemoryBlock::InitClient(uint64_t a1, _DWORD *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   (*(*a1 + 16))(a1);
   v4 = a2[2];
   if (v4 == 2)
@@ -1888,7 +1862,7 @@ uint64_t SharableMemoryBlock::InitClient(uint64_t a1, _DWORD *a2)
       LogPosixError("mmap");
       close(*(a1 + 36));
       *(a1 + 36) = -1;
-      goto LABEL_18;
+      return v8;
     }
 
     goto LABEL_13;
@@ -1898,35 +1872,32 @@ uint64_t SharableMemoryBlock::InitClient(uint64_t a1, _DWORD *a2)
   {
     if (v4)
     {
-      v8 = 0;
+      return 0;
+    }
+
+    *address = 0;
+    v5 = a2[4];
+    v6 = (*MEMORY[0x1E69E9AC8] + a2[3] - 1) & -*MEMORY[0x1E69E9AC8];
+    *(a1 + 32) = v5;
+    a2[4] = 0;
+    v7 = MEMORY[0x1E69E9A60];
+    v8 = vm_map(*MEMORY[0x1E69E9A60], address, v6, 0xFuLL, 1, v5, 0, 0, 3, 3, 1u);
+    if (v8)
+    {
+      mach_port_deallocate(*v7, *(a1 + 32));
+      *(a1 + 32) = 0;
+      LogMachError("vm_map", v8);
     }
 
     else
     {
-      *address = 0;
-      v5 = a2[4];
-      v6 = (*MEMORY[0x1E69E9AC8] + a2[3] - 1) & -*MEMORY[0x1E69E9AC8];
-      *(a1 + 32) = v5;
-      a2[4] = 0;
-      v7 = MEMORY[0x1E69E9A60];
-      v8 = vm_map(*MEMORY[0x1E69E9A60], address, v6, 0xFuLL, 1, v5, 0, 0, 3, 3, 1u);
-      if (v8)
-      {
-        mach_port_deallocate(*v7, *(a1 + 32));
-        *(a1 + 32) = 0;
-        LogMachError("vm_map", v8);
-      }
-
-      else
-      {
-        *(a1 + 8) = 256;
-        v17 = *address;
-        *(a1 + 16) = v6;
-        *(a1 + 24) = v17;
-      }
+      *(a1 + 8) = 256;
+      v17 = *address;
+      *(a1 + 16) = v6;
+      *(a1 + 24) = v17;
     }
 
-    goto LABEL_18;
+    return v8;
   }
 
   v9 = *(a2 + 2);
@@ -1954,7 +1925,7 @@ uint64_t SharableMemoryBlock::InitClient(uint64_t a1, _DWORD *a2)
 LABEL_13:
     v8 = 0;
     *(a1 + 8) = 256;
-    goto LABEL_18;
+    return v8;
   }
 
   v18 = xpc_null_create();
@@ -1965,15 +1936,12 @@ LABEL_13:
   {
     *address = 136315394;
     *&address[4] = "SharableMemory.cpp";
-    v23 = 1024;
-    v24 = 211;
+    v22 = 1024;
+    v23 = 211;
     _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d xpc_shmem_map failed", address, 0x12u);
   }
 
-  v8 = 0xFFFFFFFFLL;
-LABEL_18:
-  v20 = *MEMORY[0x1E69E9840];
-  return v8;
+  return 0xFFFFFFFFLL;
 }
 
 void sub_1DE1D5DAC(_Unwind_Exception *a1, int a2)
@@ -1986,39 +1954,38 @@ void sub_1DE1D5DAC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t XOSTransactor::beginTransaction(uint64_t this)
+uint64_t XOSTransactor::beginTransaction(uint64_t this, int a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   if (*this == 1)
   {
-    v1 = this;
+    v2 = this;
     if (!*(this + 24))
     {
-      v2 = *(this + 8);
-      v3 = *(this + 16);
-      caulk::platform::process_name(v3);
+      v3 = *(this + 8);
+      v4 = *(this + 16);
+      caulk::platform::process_name(__p, v4);
       if (v7 >= 0)
       {
-        p_p = &__p;
+        v5 = __p;
       }
 
       else
       {
-        p_p = __p;
+        v5 = __p[0];
       }
 
-      snprintf(__str, 0x80uLL, "%s %p (%d:%s)", v2, v1, v3, p_p);
+      snprintf(__str, 0x80uLL, "%s %p (%d:%s)", v3, v2, v4, v5);
       if (v7 < 0)
       {
-        operator delete(__p);
+        operator delete(__p[0]);
       }
 
       this = os_transaction_create();
-      v1[3] = this;
+      v2[3] = this;
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -2175,7 +2142,7 @@ void CADeprecated::XMachServer::AddMachClient(void *a1, uint64_t a2)
 
 void CADeprecated::XMachPortDeathListener::RequestPortDeathNotification(CADeprecated::XMachPortDeathListener *this, mach_port_name_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (CADeprecated::XMachPortDeathListener::GetPortDeathCFPort(this))
   {
     previous = 0;
@@ -2191,13 +2158,13 @@ void CADeprecated::XMachPortDeathListener::RequestPortDeathNotification(CADeprec
       {
         v10 = (*(*this + 24))(this);
         *buf = 136315906;
-        v16 = "XMachServer.cpp";
-        v17 = 1024;
-        v18 = 103;
-        v19 = 2080;
-        v20 = v10;
-        v21 = 1024;
-        v22 = v9;
+        v15 = "XMachServer.cpp";
+        v16 = 1024;
+        v17 = 103;
+        v18 = 2080;
+        v19 = v10;
+        v20 = 1024;
+        v21 = v9;
         _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: XMachServer couldn't request port-death notification (0x%x)", buf, 0x22u);
       }
     }
@@ -2209,13 +2176,13 @@ void CADeprecated::XMachPortDeathListener::RequestPortDeathNotification(CADeprec
       {
         v12 = (*(*this + 24))(this);
         *buf = 136315906;
-        v16 = "XMachServer.cpp";
-        v17 = 1024;
-        v18 = 116;
-        v19 = 2080;
-        v20 = v12;
-        v21 = 1024;
-        v22 = previous;
+        v15 = "XMachServer.cpp";
+        v16 = 1024;
+        v17 = 116;
+        v18 = 2080;
+        v19 = v12;
+        v20 = 1024;
+        v21 = previous;
         _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "%25s:%-5d %s is deallocating notification port (0x%x) because a new notification port has been registered.", buf, 0x22u);
         v11 = previous;
       }
@@ -2223,8 +2190,6 @@ void CADeprecated::XMachPortDeathListener::RequestPortDeathNotification(CADeprec
       mach_port_deallocate(*v4, v11);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 CFMachPortRef CADeprecated::XMachPortDeathListener::GetPortDeathCFPort(CADeprecated::XMachPortDeathListener *this)
@@ -2322,7 +2287,7 @@ uint64_t PropertyMarshaller::Serialize(void *a1, uint64_t a2, uint64_t a3, uint6
     return 829646194;
   }
 
-  v12 = (*(*a1 + 16))(a1);
+  v12 = (*(*a1 + 16))(a1, a2);
   v13 = a1[5];
   a1[5] = v12;
   if (v13)
@@ -2391,7 +2356,7 @@ void CADeprecated::XMachPortSendRight::~XMachPortSendRight(mach_port_name_t *thi
 
 void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(this + 3))
   {
     if (*(this + 9) == 1)
@@ -2399,20 +2364,19 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
       if (*(this + 8))
       {
         v2 = MEMORY[0x1E69E9A60];
-        v3 = *(this + 2);
-        v4 = MEMORY[0x1E12BFDB0](*MEMORY[0x1E69E9A60]);
-        if (v4)
+        v3 = MEMORY[0x1E12BFDB0](*MEMORY[0x1E69E9A60]);
+        if (v3)
         {
-          LogMachError("vm_deallocate", v4);
+          LogMachError("vm_deallocate", v3);
         }
 
-        v5 = *(this + 8);
-        if (v5)
+        v4 = *(this + 8);
+        if (v4)
         {
-          v6 = mach_port_deallocate(*v2, v5);
-          if (v6)
+          v5 = mach_port_deallocate(*v2, v4);
+          if (v5)
           {
-            LogMachError("mach_port_deallocate", v6);
+            LogMachError("mach_port_deallocate", v5);
           }
         }
 
@@ -2436,9 +2400,9 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 
           if (*(this + 8) == 1)
           {
-            v9 = *(this + 10);
-            v10 = getpid();
-            snprintf(__str, 0x40uLL, "AppleABL.%x.%x", v10, v9);
+            v8 = *(this + 10);
+            v9 = getpid();
+            snprintf(__str, 0x40uLL, "AppleABL.%x.%x", v9, v8);
             if (shm_unlink(__str))
             {
               LogPosixError("shm_unlink");
@@ -2451,10 +2415,10 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 
       else
       {
-        v7 = xpc_null_create();
-        v8 = *(this + 6);
-        *(this + 6) = v7;
-        xpc_release(v8);
+        v6 = xpc_null_create();
+        v7 = *(this + 6);
+        *(this + 6) = v6;
+        xpc_release(v7);
         if (munmap(*(this + 3), *(this + 2)))
         {
           LogPosixError("munmap");
@@ -2470,7 +2434,6 @@ void SharableMemoryBlock::Free(SharableMemoryBlock *this)
 
   *(this + 2) = 0;
   *(this + 3) = 0;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D69B0(_Unwind_Exception *a1, int a2)
@@ -2603,19 +2566,19 @@ void BaseOpaqueObject::~BaseOpaqueObject(BaseOpaqueObject *this)
 
 void swix::ipc_endpoint::handle_event(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 8);
   if (*(v4 + 88) == 1)
   {
     v5 = *(v4 + 80);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      swix::connection::xpc_connection(a1, &object);
+      swix::connection::xpc_connection(&object, a1);
       v6 = object;
       v7 = MEMORY[0x1E12BFEC0](*a2);
       std::string::basic_string[abi:ne200100]<0>(__p, v7);
       free(v7);
-      if (v13 >= 0)
+      if (v12 >= 0)
       {
         v8 = __p;
       }
@@ -2630,7 +2593,7 @@ void swix::ipc_endpoint::handle_event(uint64_t a1, void *a2)
       *&buf[12] = 2080;
       *&buf[14] = v8;
       _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, "%p received event %s", buf, 0x16u);
-      if (v13 < 0)
+      if (v12 < 0)
       {
         operator delete(__p[0]);
       }
@@ -2663,7 +2626,6 @@ void swix::ipc_endpoint::handle_event(uint64_t a1, void *a2)
 
   xpc_release(*&buf[8]);
   xpc_release(__p[1]);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D6F20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t a11, uint64_t a12, uint64_t a13, xpc_object_t object, uint64_t a15, xpc_object_t a16)
@@ -2748,16 +2710,16 @@ unsigned int *caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaq
   return result;
 }
 
-void *swix::ipc_interface::ipc_interface(void *result, uint64_t a2)
+swix::ipc_interface *swix::ipc_interface::ipc_interface(swix::ipc_interface *a1, const swix::connection_config *a2)
 {
-  *result = &unk_1F595E1B8;
-  result[1] = 0;
+  *a1 = &unk_1F595E1B8;
+  *(a1 + 1) = 0;
   if (*(a2 + 128) == 1)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DE1D7210(_Unwind_Exception *a1)
@@ -2907,7 +2869,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void swix::make_connection(void *a1, uint64_t a2)
+void swix::make_connection(xpc_object_t *a1, uint64_t a2)
 {
   v4 = MEMORY[0x1E12BFF40](*(a2 + 48));
   v5 = MEMORY[0x1E69E9E68];
@@ -3031,7 +2993,7 @@ LABEL_31:
   xpc_release(v13);
 }
 
-void swix::connection::state::state(swix::connection::state *this, const swix::connection_config *a2, const applesauce::xpc::connection *a3)
+void swix::connection::state::state(swix::connection::state *this, const swix::connection_config *a2, xpc_object_t *a3)
 {
   v6 = *MEMORY[0x1E69E9840];
   *this = 0;
@@ -3082,7 +3044,7 @@ void applesauce::xpc::connection::to_debug_string(applesauce::xpc::connection *t
   free(v3);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3096,23 +3058,23 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void swix::connection::xpc_connection(os_unfair_lock_s **this@<X0>, const swix::connection_config *a2@<X8>)
+void swix::connection::xpc_connection(xpc_object_t *__return_ptr a1@<X8>, swix::connection::state **this@<X0>)
 {
-  swix::connection::state::xpc_connection(this[1], &v12);
+  swix::connection::state::xpc_connection(&v12, this[1]);
   v4 = v12;
   if (MEMORY[0x1E12BFF40](v12) == MEMORY[0x1E69E9E68])
   {
-    *a2 = v4;
+    *a1 = v4;
     v4 = xpc_null_create();
     v12 = v4;
   }
@@ -3121,7 +3083,7 @@ void swix::connection::xpc_connection(os_unfair_lock_s **this@<X0>, const swix::
   {
     v5 = this[1];
     v6 = *(v5 + 89);
-    v7 = *(v5 + 80);
+    v7 = *(v5 + 10);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
     if (v6 != 1)
     {
@@ -3148,7 +3110,7 @@ void swix::connection::xpc_connection(os_unfair_lock_s **this@<X0>, const swix::
     v10 = this;
     buf.__r_.__value_.__r.__words[0] = caulk::function_ref<void ()(applesauce::xpc::connection const&)>::functor_invoker<swix::connection::xpc_connection(void)::$_0>;
     buf.__r_.__value_.__l.__size_ = &v10;
-    swix::connection::state::rebuild_connection(v5, a2);
+    swix::connection::state::rebuild_connection(v5, a1);
   }
 
   xpc_release(v4);
@@ -3176,18 +3138,18 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void swix::connection::state::xpc_connection(os_unfair_lock_s *this@<X0>, swix::detail::connection_impl *a2@<X8>)
+void swix::connection::state::xpc_connection(xpc_object_t *__return_ptr a1@<X8>, os_unfair_lock_s *this@<X0>)
 {
   os_unfair_lock_lock(this + 38);
   v4 = *&this[40]._os_unfair_lock_opaque;
   if (v4)
   {
-    swix::detail::connection_impl::get(a2, *(v4 + 16));
+    swix::detail::connection_impl::get(a1, *(v4 + 16));
   }
 
   else
   {
-    *a2 = xpc_null_create();
+    *a1 = xpc_null_create();
   }
 
   os_unfair_lock_unlock(this + 38);
@@ -3248,9 +3210,9 @@ void swix::connection::state::set_handler(uint64_t a1, _xpc_connection_s *a2, vo
   xpc_connection_set_event_handler(a2, *(a1 + 144));
 }
 
-void swix::connection::description(os_unfair_lock_s **this@<X0>, _BYTE *a2@<X8>)
+void swix::connection::description(os_unfair_lock_s **this@<X0>, void *a2@<X8>)
 {
-  swix::connection::state::xpc_connection(this[1], &v7);
+  swix::connection::state::xpc_connection(&v7, this[1]);
   v3 = v7;
   v4 = MEMORY[0x1E12BFF40](v7);
   v5 = MEMORY[0x1E69E9E68];
@@ -3271,7 +3233,7 @@ void swix::connection::description(os_unfair_lock_s **this@<X0>, _BYTE *a2@<X8>)
 
 void swix::ipc_endpoint::handle_event_or_error(uint64_t a1, void *a2)
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = MEMORY[0x1E69E9E80];
   if (*a2 && MEMORY[0x1E12BFF40](*a2) == v5)
@@ -3286,7 +3248,7 @@ void swix::ipc_endpoint::handle_event_or_error(uint64_t a1, void *a2)
 
   if (MEMORY[0x1E12BFF40](v4) == v5)
   {
-    v8[0] = v4;
+    v7[0] = v4;
     if (v4)
     {
       xpc_retain(v4);
@@ -3296,10 +3258,10 @@ void swix::ipc_endpoint::handle_event_or_error(uint64_t a1, void *a2)
     else
     {
       v6 = xpc_null_create();
-      v8[0] = v6;
+      v7[0] = v6;
     }
 
-    swix::ipc_endpoint::handle_event(a1, v8);
+    swix::ipc_endpoint::handle_event(a1, v7);
     xpc_release(v6);
   }
 
@@ -3309,7 +3271,6 @@ void swix::ipc_endpoint::handle_event_or_error(uint64_t a1, void *a2)
   }
 
   xpc_release(v4);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D83A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, uint64_t a10)
@@ -3397,7 +3358,7 @@ void ___ZN4swix12ipc_endpointC2ERKNS_17connection_configERNS_13ipc_interfaceE_bl
 
 void swix::connection::audit_token(os_unfair_lock_s **this@<X0>, uint64_t a2@<X8>)
 {
-  swix::connection::state::xpc_connection(this[1], &v4);
+  swix::connection::state::xpc_connection(&v4, this[1]);
   v3 = v4;
   if (MEMORY[0x1E12BFF40](v4) == MEMORY[0x1E69E9E68])
   {
@@ -3451,32 +3412,32 @@ LABEL_8:
   return this;
 }
 
-void swix::connection::send_and_await_reply(os_unfair_lock_s **this@<X0>, const swix::encode_message *a2@<X1>, uint64_t a3@<X8>)
+void swix::connection::send_and_await_reply(swix::connection::state **this@<X0>, const swix::encode_message *a2@<X1>, uint64_t a3@<X8>)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  swix::connection::xpc_connection(this, &connection);
-  swix::encode_message::xpc_message(a2, &message);
+  v44 = *MEMORY[0x1E69E9840];
+  swix::connection::xpc_connection(&connection, this);
+  swix::encode_message::xpc_message(&message, a2);
   v6 = this[1];
-  if (v6[22]._os_unfair_lock_opaque)
+  if (*(v6 + 88))
   {
-    v7 = *&v6[20]._os_unfair_lock_opaque;
+    v7 = *(v6 + 10);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     v9 = message;
     if (v8)
     {
       v10 = connection;
       v11 = MEMORY[0x1E12BFEC0](message);
-      std::string::basic_string[abi:ne200100]<0>(&v43, v11);
+      std::string::basic_string[abi:ne200100]<0>(&v42, v11);
       free(v11);
-      v12 = (v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v43 : v43.__r_.__value_.__r.__words[0];
+      v12 = (v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v42 : v42.__r_.__value_.__r.__words[0];
       LODWORD(buf.__r_.__value_.__l.__data_) = 134218242;
       *(buf.__r_.__value_.__r.__words + 4) = v10;
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
       *(&buf.__r_.__value_.__r.__words[1] + 6) = v12;
       _os_log_impl(&dword_1DE1D2000, v7, OS_LOG_TYPE_DEFAULT, "%p send msg %s", &buf, 0x16u);
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v42.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -3487,38 +3448,38 @@ void swix::connection::send_and_await_reply(os_unfair_lock_s **this@<X0>, const 
   }
 
   v13 = xpc_connection_send_message_with_reply_sync(connection, v9);
-  v35 = v13;
+  v34 = v13;
   if (!v13)
   {
     v13 = xpc_null_create();
-    v35 = v13;
+    v34 = v13;
   }
 
   v14 = this[1];
-  if (LOBYTE(v14[22]._os_unfair_lock_opaque) == 1)
+  if (*(v14 + 88) == 1)
   {
-    v15 = *&v14[20]._os_unfair_lock_opaque;
+    v15 = *(v14 + 10);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = connection;
       v17 = MEMORY[0x1E12BFEC0](v13);
-      std::string::basic_string[abi:ne200100]<0>(&v43, v17);
+      std::string::basic_string[abi:ne200100]<0>(&v42, v17);
       free(v17);
-      v18 = (v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v43 : v43.__r_.__value_.__r.__words[0];
+      v18 = (v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v42 : v42.__r_.__value_.__r.__words[0];
       LODWORD(buf.__r_.__value_.__l.__data_) = 134218242;
       *(buf.__r_.__value_.__r.__words + 4) = v16;
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2080;
       *(&buf.__r_.__value_.__r.__words[1] + 6) = v18;
       _os_log_impl(&dword_1DE1D2000, v15, OS_LOG_TYPE_DEFAULT, "%p msg reply %s", &buf, 0x16u);
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v42.__r_.__value_.__l.__data_);
       }
     }
   }
 
-  swix::connection::check_valid_reply(this, &v35);
-  v43.__r_.__value_.__r.__words[0] = v13;
+  swix::connection::check_valid_reply(this, &v34);
+  v42.__r_.__value_.__r.__words[0] = v13;
   if (v13 && MEMORY[0x1E12BFF40](v13) == MEMORY[0x1E69E9E80])
   {
     xpc_retain(v13);
@@ -3528,93 +3489,92 @@ void swix::connection::send_and_await_reply(os_unfair_lock_s **this@<X0>, const 
   else
   {
     v19 = xpc_null_create();
-    v43.__r_.__value_.__r.__words[0] = v19;
+    v42.__r_.__value_.__r.__words[0] = v19;
   }
 
-  swix::decode_message::decode_message(a3, &v43.__r_.__value_.__l.__data_, *&this[1][20]._os_unfair_lock_opaque);
+  swix::decode_message::decode_message(a3, &v42.__r_.__value_.__l.__data_, *(this[1] + 10));
   xpc_release(v19);
   v20 = *a2;
   if (*a3 + *a2)
   {
-    v22 = *(a3 + 24);
-    std::string::basic_string[abi:ne200100]<0>(&v40, "unexpected message ID (");
-    std::to_string(&v39, -v20);
-    if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v23 = &v39;
-    }
-
-    else
-    {
-      v23 = v39.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v39.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v39.__r_.__value_.__l.__size_;
-    }
-
-    v25 = std::string::append(&v40, v23, size);
-    v26 = *&v25->__r_.__value_.__l.__data_;
-    v41.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-    *&v41.__r_.__value_.__l.__data_ = v26;
-    v25->__r_.__value_.__l.__size_ = 0;
-    v25->__r_.__value_.__r.__words[2] = 0;
-    v25->__r_.__value_.__r.__words[0] = 0;
-    v27 = std::string::append(&v41, "/", 1uLL);
-    v28 = *&v27->__r_.__value_.__l.__data_;
-    v42.__r_.__value_.__r.__words[2] = v27->__r_.__value_.__r.__words[2];
-    *&v42.__r_.__value_.__l.__data_ = v28;
-    v27->__r_.__value_.__l.__size_ = 0;
-    v27->__r_.__value_.__r.__words[2] = 0;
-    v27->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v38, *a3);
+    v21 = *(a3 + 24);
+    std::string::basic_string[abi:ne200100]<0>(&v39, "unexpected message ID (");
+    std::to_string(&v38, -v20);
     if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v29 = &v38;
+      v22 = &v38;
     }
 
     else
     {
-      v29 = v38.__r_.__value_.__r.__words[0];
+      v22 = v38.__r_.__value_.__r.__words[0];
     }
 
     if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v30 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v38.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v30 = v38.__r_.__value_.__l.__size_;
+      size = v38.__r_.__value_.__l.__size_;
     }
 
-    v31 = std::string::append(&v42, v29, v30);
-    v32 = *&v31->__r_.__value_.__l.__data_;
-    buf.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-    *&buf.__r_.__value_.__l.__data_ = v32;
-    v31->__r_.__value_.__l.__size_ = 0;
-    v31->__r_.__value_.__r.__words[2] = 0;
-    v31->__r_.__value_.__r.__words[0] = 0;
-    v33 = std::string::append(&buf, ")", 1uLL);
-    v34 = *&v33->__r_.__value_.__l.__data_;
-    v43.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-    *&v43.__r_.__value_.__l.__data_ = v34;
-    v33->__r_.__value_.__l.__size_ = 0;
-    v33->__r_.__value_.__r.__words[2] = 0;
-    v33->__r_.__value_.__r.__words[0] = 0;
-    swix::decode_message::throw_error(v22, -301, &v43);
+    v24 = std::string::append(&v39, v22, size);
+    v25 = *&v24->__r_.__value_.__l.__data_;
+    v40.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+    *&v40.__r_.__value_.__l.__data_ = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
+    v26 = std::string::append(&v40, "/", 1uLL);
+    v27 = *&v26->__r_.__value_.__l.__data_;
+    v41.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+    *&v41.__r_.__value_.__l.__data_ = v27;
+    v26->__r_.__value_.__l.__size_ = 0;
+    v26->__r_.__value_.__r.__words[2] = 0;
+    v26->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v37, *a3);
+    if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v28 = &v37;
+    }
+
+    else
+    {
+      v28 = v37.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v29 = HIBYTE(v37.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v29 = v37.__r_.__value_.__l.__size_;
+    }
+
+    v30 = std::string::append(&v41, v28, v29);
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    buf.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+    *&buf.__r_.__value_.__l.__data_ = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    v32 = std::string::append(&buf, ")", 1uLL);
+    v33 = *&v32->__r_.__value_.__l.__data_;
+    v42.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
+    *&v42.__r_.__value_.__l.__data_ = v33;
+    v32->__r_.__value_.__l.__size_ = 0;
+    v32->__r_.__value_.__r.__words[2] = 0;
+    v32->__r_.__value_.__r.__words[0] = 0;
+    swix::decode_message::throw_error(v21, -301, &v42);
   }
 
   xpc_release(v13);
   xpc_release(message);
   xpc_release(connection);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D8BF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, xpc_object_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -3661,7 +3621,7 @@ void sub_1DE1D8BF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-xpc_object_t swix::encode_message::xpc_message@<X0>(swix::encode_message *this@<X0>, void *a2@<X8>)
+uint64_t *swix::encode_message::xpc_message@<X0>(uint64_t *__return_ptr a1@<X8>, swix::encode_message *this@<X0>)
 {
   if (*(this + 1))
   {
@@ -3669,14 +3629,14 @@ xpc_object_t swix::encode_message::xpc_message@<X0>(swix::encode_message *this@<
   }
 
   v4 = *(this + 1);
-  *a2 = v4;
+  *a1 = v4;
   if (v4)
   {
     return xpc_retain(v4);
   }
 
   result = xpc_null_create();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -3756,15 +3716,15 @@ int *swix::encode_message::encode_message(int *a1, uint64_t a2)
   return a1;
 }
 
-void swix::connection::send(os_unfair_lock_s **this, const swix::encode_message *a2)
+void swix::connection::send(swix::connection::state **this, const swix::encode_message *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  swix::connection::xpc_connection(this, &connection);
-  swix::encode_message::xpc_message(a2, &message);
+  v19 = *MEMORY[0x1E69E9840];
+  swix::connection::xpc_connection(&connection, this);
+  swix::encode_message::xpc_message(&message, a2);
   v4 = this[1];
-  if (v4[22]._os_unfair_lock_opaque)
+  if (*(v4 + 88))
   {
-    v5 = *&v4[20]._os_unfair_lock_opaque;
+    v5 = *(v4 + 10);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     v7 = message;
     if (v6)
@@ -3773,7 +3733,7 @@ void swix::connection::send(os_unfair_lock_s **this, const swix::encode_message 
       v9 = MEMORY[0x1E12BFEC0](message);
       std::string::basic_string[abi:ne200100]<0>(__p, v9);
       free(v9);
-      if (v13 >= 0)
+      if (v12 >= 0)
       {
         v10 = __p;
       }
@@ -3784,11 +3744,11 @@ void swix::connection::send(os_unfair_lock_s **this, const swix::encode_message 
       }
 
       *buf = 134218242;
-      v17 = v8;
-      v18 = 2080;
-      v19 = v10;
+      v16 = v8;
+      v17 = 2080;
+      v18 = v10;
       _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, "%p send msg %s", buf, 0x16u);
-      if (v13 < 0)
+      if (v12 < 0)
       {
         operator delete(__p[0]);
       }
@@ -3803,7 +3763,6 @@ void swix::connection::send(os_unfair_lock_s **this, const swix::encode_message 
   xpc_connection_send_message(connection, v7);
   xpc_release(v7);
   xpc_release(connection);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D9094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t object)
@@ -3815,14 +3774,14 @@ void sub_1DE1D9094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void swix::connection::check_valid_reply(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*a2 == MEMORY[0x1E69E9E18])
   {
     v3 = *(*(a1 + 8) + 80);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 134217984;
-      v7 = a1;
+      v5 = 134217984;
+      v6 = a1;
       v4 = "%p reply: XPC_ERROR_CONNECTION_INTERRUPTED";
       goto LABEL_8;
     }
@@ -3833,15 +3792,13 @@ void swix::connection::check_valid_reply(uint64_t a1, void *a2)
     v3 = *(*(a1 + 8) + 80);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 134217984;
-      v7 = a1;
+      v5 = 134217984;
+      v6 = a1;
       v4 = "%p reply: XPC_ERROR_CONNECTION_INVALID";
 LABEL_8:
-      _os_log_error_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_ERROR, v4, &v6, 0xCu);
+      _os_log_error_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_ERROR, v4, &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void OpaqueObjectMgr::OpaqueObjectMgr(OpaqueObjectMgr *this)
@@ -3952,7 +3909,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueOb
       v24 = (8 * v19);
       v25 = (8 * v19 - 8 * v23);
       *v24 = v4;
-      v16 = v24 + 1;
+      v16 = (v24 + 1);
       memcpy(v25, v17, v18);
       a1[3] = v25;
       a1[4] = v16;
@@ -3966,7 +3923,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueOb
     else
     {
       *v15 = v4;
-      v16 = v15 + 1;
+      v16 = (v15 + 1);
     }
 
     a1[4] = v16;
@@ -3990,7 +3947,7 @@ void sub_1DE1D94A0(void *a1)
 void swix::listener::handle_connection_event(swix::listener *this, xpc_object_t object)
 {
   v2 = object;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (object)
   {
     xpc_retain(object);
@@ -4005,12 +3962,12 @@ void swix::listener::handle_connection_event(swix::listener *this, xpc_object_t 
   v5 = *(*(this + 1) + 80);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    swix::connection::xpc_connection(this, &objecta);
+    swix::connection::xpc_connection(&objecta, this);
     v6 = objecta;
     v7 = MEMORY[0x1E12BFEC0](v4);
     std::string::basic_string[abi:ne200100]<0>(__p, v7);
     free(v7);
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
       v8 = __p;
     }
@@ -4021,11 +3978,11 @@ void swix::listener::handle_connection_event(swix::listener *this, xpc_object_t 
     }
 
     *buf = 134218242;
-    v17 = v6;
-    v18 = 2080;
-    v19 = v8;
+    v16 = v6;
+    v17 = 2080;
+    v18 = v8;
     _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, "%p connection event %s", buf, 0x16u);
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4092,7 +4049,6 @@ LABEL_17:
 
   xpc_release(__p[0]);
   xpc_release(v4);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1D9740(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t a9, uint64_t a10, uint64_t a11, xpc_object_t object)
@@ -4209,29 +4165,28 @@ uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne20010
 
 CADeprecated::CAMutex *CADeprecated::CAMutex::CAMutex(CADeprecated::CAMutex *this, const char *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   *this = &unk_1F595E4C0;
   *(this + 1) = a2;
   *(this + 2) = 0;
   v3 = pthread_mutex_init((this + 24), 0);
   if (v3)
   {
-    v6 = v3;
+    v5 = v3;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315394;
-      v9 = "CAMutex.cpp";
-      v10 = 1024;
-      v11 = 56;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::CAMutex: Could not init the mutex", &v8, 0x12u);
+      v7 = 136315394;
+      v8 = "CAMutex.cpp";
+      v9 = 1024;
+      v10 = 56;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAMutex::CAMutex: Could not init the mutex", &v7, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F595E710;
-    exception[2] = v6;
+    exception[2] = v5;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -4269,7 +4224,7 @@ void *CADeprecated::XMachServer::RemoveMachClient(void *a1, uint64_t a2)
 
 void CADeprecated::XMachPortDeathListener::CancelPortDeathNotification(CADeprecated::XMachPortDeathListener *this, mach_port_name_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   previous = 0;
   v3 = MEMORY[0x1E69E9A60];
   v4 = mach_port_request_notification(*MEMORY[0x1E69E9A60], a2, 72, 1u, 0, 0x15u, &previous);
@@ -4280,13 +4235,13 @@ void CADeprecated::XMachPortDeathListener::CancelPortDeathNotification(CADepreca
     {
       v6 = (*(*this + 24))(this);
       *buf = 136315906;
-      v10 = "XMachServer.cpp";
-      v11 = 1024;
-      v12 = 128;
-      v13 = 2080;
-      v14 = v6;
-      v15 = 1024;
-      v16 = v5;
+      v9 = "XMachServer.cpp";
+      v10 = 1024;
+      v11 = 128;
+      v12 = 2080;
+      v13 = v6;
+      v14 = 1024;
+      v15 = v5;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: XMachServer couldn't cancel port-death notification (0x%x)", buf, 0x22u);
     }
   }
@@ -4295,8 +4250,6 @@ void CADeprecated::XMachPortDeathListener::CancelPortDeathNotification(CADepreca
   {
     mach_port_deallocate(*v3, previous);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t CADeprecated::XMachPortDeathListener::ReadPortDeathMessage(CADeprecated::XMachPortDeathListener *this, mach_port_name_t rcv_name)
@@ -4597,14 +4550,6 @@ void SincKernel::SincKernel(SincKernel *this, int a2, int a3, double a4, double 
   SincKernel::CalculateFilterCoefficients(this);
 }
 
-void SincKernel::CalculateFilterCoefficients(SincKernel *this)
-{
-  v1 = *(this + 4);
-  *(this + 3);
-  *(this + 4);
-  operator new[]();
-}
-
 uint64_t GetKaiser(int a1, double a2)
 {
   {
@@ -4687,7 +4632,7 @@ LABEL_7:
           v17 = *(v15 + 24);
           if (v17 != v18)
           {
-            std::vector<float>::__vallocate[abi:ne200100]((v14 + 16), (v17 - v18) >> 2);
+            std::vector<float>::__vallocate[abi:ne200100](v14 + 2, (v17 - v18) >> 2);
           }
 
           v15 += 40;
@@ -4757,9 +4702,9 @@ LABEL_7:
   return v22;
 }
 
-void sub_1DE1DAB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DE1DAB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<KaiserWindow>::~__split_buffer(va);
   os_unfair_lock_unlock(&GetKaiser(unsigned int,double)::sKaiserWindows);
   _Unwind_Resume(a1);
@@ -4767,7 +4712,7 @@ void sub_1DE1DAB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN4swix6detail15connection_impl6cancelENS_19CancellationContextE_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   xpc_connection_set_event_handler(*(a1 + 40), &__block_literal_global_17);
   xpc_connection_cancel(*(a1 + 40));
@@ -4775,40 +4720,38 @@ void ___ZN4swix6detail15connection_impl6cancelENS_19CancellationContextE_block_i
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
   {
     applesauce::xpc::connection::to_debug_string(__p, *(v2 + 16));
-    if (v7 >= 0)
+    if (v6 >= 0)
     {
-      v5 = __p;
+      v4 = __p;
     }
 
     else
     {
-      v5 = __p[0];
+      v4 = __p[0];
     }
 
     *buf = 136315138;
-    v9 = v5;
+    v8 = v4;
     _os_log_debug_impl(&dword_1DE1D2000, v3, OS_LOG_TYPE_DEBUG, "canceled connection %s", buf, 0xCu);
-    if (v7 < 0)
+    if (v6 < 0)
     {
       operator delete(__p[0]);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 os_log_t *swix::detail::connection_impl::connection_impl(swix::connection_config const&,applesauce::xpc::connection const&)::{lambda(void *)#1}::__invoke(os_log_t *result)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
     v2 = *result;
     if (os_log_type_enabled(*result, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
-      v7 = v1;
-      _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEFAULT, "destructor connimpl %p", &v6, 0xCu);
+      v4 = 134217984;
+      v5 = v1;
+      _os_log_impl(&dword_1DE1D2000, v2, OS_LOG_TYPE_DEFAULT, "destructor connimpl %p", &v4, 0xCu);
     }
 
     xpc_release(v1[2]);
@@ -4819,12 +4762,9 @@ os_log_t *swix::detail::connection_impl::connection_impl(swix::connection_config
       dispatch_release(v3);
     }
 
-    v4 = *MEMORY[0x1E69E9840];
-
     JUMPOUT(0x1E12BF450);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4950,26 +4890,26 @@ void swix::connection::state::~state(swix::connection::state *this)
 
 void swix::connection::state::cancel_connection(uint64_t a1, int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 152));
   v4 = *(a1 + 160);
   *(a1 + 160) = 0;
   os_unfair_lock_unlock((a1 + 152));
   if (v4)
   {
-    swix::detail::connection_impl::get(&v21, *(v4 + 16));
-    v5 = v21;
-    if (MEMORY[0x1E12BFF40](v21) == MEMORY[0x1E69E9E68])
+    swix::detail::connection_impl::get(&v20, *(v4 + 16));
+    v5 = v20;
+    if (MEMORY[0x1E12BFF40](v20) == MEMORY[0x1E69E9E68])
     {
       v6 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
       {
         applesauce::xpc::connection::to_debug_string(block, *(v4 + 16));
-        v14 = SHIBYTE(v17) >= 0 ? block : block[0];
+        v13 = SHIBYTE(v16) >= 0 ? block : block[0];
         *buf = 136315138;
-        *&buf[4] = v14;
+        *&buf[4] = v13;
         _os_log_debug_impl(&dword_1DE1D2000, v6, OS_LOG_TYPE_DEBUG, "canceling connection %s", buf, 0xCu);
-        if (SHIBYTE(v17) < 0)
+        if (SHIBYTE(v16) < 0)
         {
           operator delete(block[0]);
         }
@@ -4977,9 +4917,9 @@ void swix::connection::state::cancel_connection(uint64_t a1, int a2)
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 1174405120;
-      v17 = ___ZN4swix6detail15connection_impl6cancelENS_19CancellationContextE_block_invoke;
-      v18 = &__block_descriptor_tmp_18;
-      v19 = v4;
+      v16 = ___ZN4swix6detail15connection_impl6cancelENS_19CancellationContextE_block_invoke;
+      v17 = &__block_descriptor_tmp_18;
+      v18 = v4;
       object = v5;
       if (v5)
       {
@@ -5032,27 +4972,27 @@ void swix::connection::state::cancel_connection(uint64_t a1, int a2)
           dispatch_release(v7);
         }
 
-        v17(block);
+        v16(block);
       }
 
       v9 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
       {
         applesauce::xpc::connection::to_debug_string(buf, *(v4 + 16));
-        if (v23 >= 0)
+        if (v22 >= 0)
         {
-          v15 = buf;
+          v14 = buf;
         }
 
         else
         {
-          v15 = *buf;
+          v14 = *buf;
         }
 
-        *v24 = 136315138;
-        v25 = v15;
-        _os_log_debug_impl(&dword_1DE1D2000, v9, OS_LOG_TYPE_DEBUG, "proceeding after canceling %s", v24, 0xCu);
-        if (v23 < 0)
+        *v23 = 136315138;
+        v24 = v14;
+        _os_log_debug_impl(&dword_1DE1D2000, v9, OS_LOG_TYPE_DEBUG, "proceeding after canceling %s", v23, 0xCu);
+        if (v22 < 0)
         {
           operator delete(*buf);
         }
@@ -5070,8 +5010,6 @@ void swix::connection::state::cancel_connection(uint64_t a1, int a2)
 
     xpc_release(v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1DB364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, xpc_object_t object)
@@ -5083,48 +5021,48 @@ void sub_1DE1DB364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void swix::ipc_endpoint::handle_error(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 8);
   v5 = *(v4 + 80);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    swix::connection::description(a1, v22);
-    if (v23 >= 0)
+    swix::connection::description(a1, v21);
+    if (v22 >= 0)
     {
-      v12 = v22;
+      v11 = v21;
     }
 
     else
     {
-      v12 = v22[0];
+      v11 = v21[0];
     }
 
-    v13 = MEMORY[0x1E12BFEC0](*a2);
-    std::string::basic_string[abi:ne200100]<0>(__p, v13);
-    free(v13);
-    if (v17 >= 0)
+    v12 = MEMORY[0x1E12BFEC0](*a2);
+    std::string::basic_string[abi:ne200100]<0>(__p, v12);
+    free(v12);
+    if (v16 >= 0)
     {
-      v14 = __p;
+      v13 = __p;
     }
 
     else
     {
-      v14 = *__p;
+      v13 = *__p;
     }
 
     *buf = 136315394;
-    v19 = v12;
-    v20 = 2080;
-    v21 = v14;
+    v18 = v11;
+    v19 = 2080;
+    v20 = v13;
     _os_log_error_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_ERROR, "connection %s : error %s", buf, 0x16u);
-    if (v17 < 0)
+    if (v16 < 0)
     {
       operator delete(*__p);
     }
 
-    if (v23 < 0)
+    if (v22 < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v21[0]);
     }
 
     v4 = *(a1 + 8);
@@ -5134,16 +5072,16 @@ void swix::ipc_endpoint::handle_error(uint64_t a1, void *a2)
   v7 = *(a1 + 48);
   if (!v7)
   {
-    v24 = 0;
+    v23 = 0;
     goto LABEL_9;
   }
 
   if (v7 == a1 + 24)
   {
-    v24 = v22;
-    (*(*v7 + 24))(v7, v22);
-    v8 = v24;
-    if (!v24)
+    v23 = v21;
+    (*(*v7 + 24))(v7, v21);
+    v8 = v23;
+    if (!v23)
     {
       goto LABEL_9;
     }
@@ -5152,7 +5090,7 @@ void swix::ipc_endpoint::handle_error(uint64_t a1, void *a2)
   }
 
   v8 = (*(*v7 + 16))(v7);
-  v24 = v8;
+  v23 = v8;
   if (v8)
   {
 LABEL_8:
@@ -5160,30 +5098,30 @@ LABEL_8:
   }
 
 LABEL_9:
-  std::__function::__value_func<void ()(swix::ipc_endpoint &,applesauce::xpc::object const&)>::~__value_func[abi:ne200100](v22);
+  std::__function::__value_func<void ()(swix::ipc_endpoint &,applesauce::xpc::object const&)>::~__value_func[abi:ne200100](v21);
   if (v6)
   {
     v9 = *(a1 + 8);
     v10 = *(v9 + 80);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      swix::connection::description(a1, v22);
-      if (v23 >= 0)
+      swix::connection::description(a1, v21);
+      if (v22 >= 0)
       {
-        v15 = v22;
+        v14 = v21;
       }
 
       else
       {
-        v15 = v22[0];
+        v14 = v21[0];
       }
 
       *__p = 136315138;
-      *&__p[4] = v15;
+      *&__p[4] = v14;
       _os_log_error_impl(&dword_1DE1D2000, v10, OS_LOG_TYPE_ERROR, "auto-cancelling %s", __p, 0xCu);
-      if (v23 < 0)
+      if (v22 < 0)
       {
-        operator delete(v22[0]);
+        operator delete(v21[0]);
       }
 
       v9 = *(a1 + 8);
@@ -5191,8 +5129,6 @@ LABEL_9:
 
     swix::connection::state::cancel_connection(v9, 0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void PowerMeter::Process(PowerMeter *this, float *a2, int a3, int a4, long double a5)
@@ -5449,43 +5385,42 @@ void PowerMeter::PowerMeter(PowerMeter *this)
 
 uint64_t CADeprecated::CAGuard::Notify(CADeprecated::CAGuard *this)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   result = pthread_cond_signal((this + 88));
   if (result)
   {
-    v4 = result;
+    v3 = result;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v6 = "CAGuard.cpp";
-      v7 = 1024;
-      v8 = 302;
+      v5 = "CAGuard.cpp";
+      v6 = 1024;
+      v7 = 302;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::Notify: failed", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F595E710;
-    exception[2] = v4;
+    exception[2] = v3;
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 pthread_t CADeprecated::CAGuard::Wait(CADeprecated::CAGuard *this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = pthread_self();
   v3 = atomic_load(this + 2);
   if (!pthread_equal(v2, v3))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "CAGuard.cpp";
-      v11 = 1024;
-      v12 = 88;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::Wait: A thread has to have locked a guard before it can wait", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "CAGuard.cpp";
+      v10 = 1024;
+      v11 = 88;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::Wait: A thread has to have locked a guard before it can wait", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -5498,25 +5433,24 @@ LABEL_10:
   v4 = pthread_cond_wait((this + 88), (this + 24));
   if (v4)
   {
-    v8 = v4;
+    v7 = v4;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "CAGuard.cpp";
-      v11 = 1024;
-      v12 = 97;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::Wait: Could not wait for a signal", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "CAGuard.cpp";
+      v10 = 1024;
+      v11 = 97;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::Wait: Could not wait for a signal", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F595E710;
-    exception[2] = v8;
+    exception[2] = v7;
     goto LABEL_10;
   }
 
   result = pthread_self();
   atomic_store(result, this + 2);
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5681,28 +5615,27 @@ void CADeprecated::CAMutex::~CAMutex(CADeprecated::CAMutex *this)
 
 CADeprecated::CAGuard *CADeprecated::CAGuard::CAGuard(CADeprecated::CAGuard *this, const char *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = CADeprecated::CAMutex::CAMutex(this, a2);
   *v3 = &unk_1F595E660;
   v4 = pthread_cond_init((v3 + 88), 0);
   if (v4)
   {
-    v7 = v4;
+    v6 = v4;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "CAGuard.cpp";
-      v11 = 1024;
-      v12 = 66;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::CAGuard: Could not init the cond var", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "CAGuard.cpp";
+      v10 = 1024;
+      v11 = 66;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d  CAGuard::CAGuard: Could not init the cond var", &v8, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     *exception = off_1F595E710;
-    exception[2] = v7;
+    exception[2] = v6;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -5710,7 +5643,6 @@ uint64_t CADeprecated::CABufferList::AllocateBuffers(uint64_t this, unsigned int
 {
   if (*(this + 36) < a2)
   {
-    *(this + 24);
     operator new[]();
   }
 
@@ -5742,7 +5674,7 @@ uint64_t CACFPreferencesGetAppIntegerValue(const __CFString *a1, const __CFStrin
 
 uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -5753,7 +5685,7 @@ uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2,
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -5772,10 +5704,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return valuePtr;
 }
 
 CADeserializer *operator>>(CADeserializer *a1, uint64_t a2)
@@ -5924,30 +5853,28 @@ uint64_t MultiRadixRealFFT::RealInPlaceTransform(MultiRadixRealFFT *this, DSPSpl
 
 uint64_t MultiRadixRealFFT::RealOutOfPlaceInverseTransform(MultiRadixRealFFT *this, const DSPSplitComplex *a2, DSPComplex *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!*this)
   {
     abort();
   }
 
-  v5 = **this;
   MEMORY[0x1EEE9AC00]();
-  v7 = (&v14 - ((v6 + 15) & 0x7FFFFFFF0));
-  __Z.realp = v7;
-  __Z.imagp = (v7 + ((2 * v8) & 0x1FFFFFFFCLL));
-  vDSP_DFT_Execute(*(v9 + 16), *v10, v10[1], v7, __Z.imagp);
+  v6 = (&v12 - ((v5 + 15) & 0x7FFFFFFF0));
+  __Z.realp = v6;
+  __Z.imagp = (v6 + ((2 * v7) & 0x1FFFFFFFCLL));
+  vDSP_DFT_Execute(*(v8 + 16), *v9, v9[1], v6, __Z.imagp);
   if (*this)
   {
-    v11 = **this >> 1;
+    v10 = **this >> 1;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  vDSP_ztoc(&__Z, 1, a3, 2, v11);
-  v12 = *MEMORY[0x1E69E9840];
+  vDSP_ztoc(&__Z, 1, a3, 2, v10);
   return 0;
 }
 
@@ -6044,94 +5971,91 @@ _opaque_pthread_t *CADeprecated::CAPThread::getScheduledPriority(_opaque_pthread
 
 uint64_t CADeprecated::CAPThread::Start(uint64_t this)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (atomic_load((this + 8)))
   {
-    CAVerboseAbort();
+    CAVerboseAbort("CAPThread::Start: can't start because the thread is already running");
   }
 
   if (!atomic_load((this + 8)))
   {
     v3 = this;
-    v4 = pthread_attr_init(&v18);
+    v4 = pthread_attr_init(&v17);
     if (v4)
     {
-      v8 = v4;
+      v7 = v4;
       if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_19;
       }
 
       *buf = 136315394;
-      v15 = "CAPThread.cpp";
-      v16 = 1024;
-      v17 = 255;
-      v9 = MEMORY[0x1E69E9C10];
-      v10 = "%25s:%-5d  CAPThread::Start: Thread attributes could not be created.";
+      v14 = "CAPThread.cpp";
+      v15 = 1024;
+      v16 = 255;
+      v8 = MEMORY[0x1E69E9C10];
+      v9 = "%25s:%-5d  CAPThread::Start: Thread attributes could not be created.";
     }
 
     else
     {
-      v5 = pthread_attr_setdetachstate(&v18, 2);
+      v5 = pthread_attr_setdetachstate(&v17, 2);
       if (v5)
       {
-        v8 = v5;
+        v7 = v5;
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_19;
         }
 
         *buf = 136315394;
-        v15 = "CAPThread.cpp";
-        v16 = 1024;
-        v17 = 258;
-        v9 = MEMORY[0x1E69E9C10];
-        v10 = "%25s:%-5d  CAPThread::Start: A thread could not be created in the detached state.";
+        v14 = "CAPThread.cpp";
+        v15 = 1024;
+        v16 = 258;
+        v8 = MEMORY[0x1E69E9C10];
+        v9 = "%25s:%-5d  CAPThread::Start: A thread could not be created in the detached state.";
       }
 
       else
       {
-        pthread_attr_getschedparam(&v18, &v13);
-        v13.sched_priority = *(v3 + 104);
-        pthread_attr_setschedparam(&v18, &v13);
+        pthread_attr_getschedparam(&v17, &v12);
+        v12.sched_priority = *(v3 + 104);
+        pthread_attr_setschedparam(&v17, &v12);
         if (*(v3 + 122) == 1)
         {
-          pthread_attr_setschedpolicy(&v18, 4);
+          pthread_attr_setschedpolicy(&v17, 4);
         }
 
-        v12 = 0;
-        v6 = pthread_create(&v12, &v18, CADeprecated::CAPThread::Entry, v3);
-        if (!v6 && v12)
+        v11 = 0;
+        v6 = pthread_create(&v11, &v17, CADeprecated::CAPThread::Entry, v3);
+        if (!v6 && v11)
         {
-          atomic_store(v12, (v3 + 8));
-          this = pthread_attr_destroy(&v18);
-          goto LABEL_10;
+          atomic_store(v11, (v3 + 8));
+          return pthread_attr_destroy(&v17);
         }
 
-        v8 = v6;
+        v7 = v6;
         if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
 LABEL_19:
           exception = __cxa_allocate_exception(0x10uLL);
           *exception = off_1F595E710;
-          exception[2] = v8;
+          exception[2] = v7;
         }
 
         *buf = 136315394;
-        v15 = "CAPThread.cpp";
-        v16 = 1024;
-        v17 = 272;
-        v9 = MEMORY[0x1E69E9C10];
-        v10 = "%25s:%-5d  CAPThread::Start: Could not create a thread.";
+        v14 = "CAPThread.cpp";
+        v15 = 1024;
+        v16 = 272;
+        v8 = MEMORY[0x1E69E9C10];
+        v9 = "%25s:%-5d  CAPThread::Start: Could not create a thread.";
       }
     }
 
-    _os_log_impl(&dword_1DE1D2000, v9, OS_LOG_TYPE_ERROR, v10, buf, 0x12u);
+    _os_log_impl(&dword_1DE1D2000, v8, OS_LOG_TYPE_ERROR, v9, buf, 0x12u);
     goto LABEL_19;
   }
 
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
   return this;
 }
 
@@ -6389,7 +6313,7 @@ double CACFPreferencesGetAppFloatValue(const __CFString *a1, const __CFString *a
 
 double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   valuePtr = 0.0;
   *a2 = 0;
   if (this)
@@ -6400,7 +6324,7 @@ double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOO
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -6419,10 +6343,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return valuePtr;
 }
 
 const __CFData **operator<<(const __CFData **a1, CFStringRef *a2)
@@ -6653,7 +6574,7 @@ _WORD *MIDIPacketList_Split(MIDIPacketList *a1, unint64_t a2)
   return result;
 }
 
-const unsigned __int8 *NextMIDIEvent(const MIDIPacket *a1, Byte *a2)
+Byte *NextMIDIEvent(const MIDIPacket *a1, Byte *a2)
 {
   v2 = &a1->data[a1->length];
   if (a1->data <= a2 && v2 > a2)
@@ -6749,41 +6670,39 @@ LABEL_21:
 
 void MIDIPacketList_Dump(__sFILE *a1, const MIDIPacketList *a2, const char *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a1)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     DumpMIDIPacketList(a1, a2, a3);
   }
 
   else
   {
+    v7 = 0;
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
-    v11 = 0;
-    v8 = funopen(&v8, 0, CAMemoryStream::Write, 0, 0);
-    DumpMIDIPacketList(v8, a2, a3);
+    v6 = funopen(&v6, 0, CAMemoryStream::Write, 0, 0);
+    DumpMIDIPacketList(v6, a2, a3);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      fflush(v8);
-      v6 = v9;
-      if (!v9)
+      fflush(v6);
+      v5 = v7;
+      if (!v7)
       {
-        v6 = malloc_type_malloc(1uLL, 0x100004077774924uLL);
-        v9 = v6;
-        v11 = 1;
+        v5 = malloc_type_malloc(1uLL, 0x100004077774924uLL);
+        v7 = v5;
+        v9 = 1;
       }
 
-      *(v6 + v10) = 0;
+      *(v5 + v8) = 0;
       *buf = 136315138;
-      v13 = v9;
+      v11 = v7;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    fclose(v8);
-    free(v9);
-    v7 = *MEMORY[0x1E69E9840];
+    fclose(v6);
+    free(v7);
   }
 }
 
@@ -6796,15 +6715,15 @@ void sub_1DE1DE0B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t DumpMIDIPacketList(__sFILE *a1, const MIDIPacketList *a2, const char *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   fprintf(a1, "%s ", a3);
   *&v6 = 0x2020202020202020;
   *(&v6 + 1) = 0x2020202020202020;
-  v20[3] = v6;
-  v20[4] = v6;
-  v20[1] = v6;
-  v20[2] = v6;
-  v20[0] = v6;
+  v19[3] = v6;
+  v19[4] = v6;
+  v19[1] = v6;
+  v19[2] = v6;
+  v19[0] = v6;
   result = strlen(a3);
   v8 = 79;
   if ((result + 1) < 0x4F)
@@ -6812,13 +6731,13 @@ uint64_t DumpMIDIPacketList(__sFILE *a1, const MIDIPacketList *a2, const char *a
     v8 = result + 1;
   }
 
-  *(v20 + v8) = 0;
+  *(v19 + v8) = 0;
   numPackets = a2->numPackets;
   if (DumpMIDIPacketList(__sFILE *,MIDIPacketList const*,char const*)::baseTime)
   {
     if (!numPackets)
     {
-      goto LABEL_21;
+      return result;
     }
   }
 
@@ -6826,7 +6745,7 @@ uint64_t DumpMIDIPacketList(__sFILE *a1, const MIDIPacketList *a2, const char *a
   {
     if (!numPackets)
     {
-      goto LABEL_21;
+      return result;
     }
 
     DumpMIDIPacketList(__sFILE *,MIDIPacketList const*,char const*)::baseTime = a2->packet[0].timeStamp;
@@ -6862,7 +6781,7 @@ uint64_t DumpMIDIPacketList(__sFILE *a1, const MIDIPacketList *a2, const char *a
     v16 = "";
     if (v10)
     {
-      v16 = v20;
+      v16 = v19;
     }
 
     fprintf(a1, "%s[%2d] %s : ", v16, v10, __str);
@@ -6883,12 +6802,10 @@ uint64_t DumpMIDIPacketList(__sFILE *a1, const MIDIPacketList *a2, const char *a
   }
 
   while (v10 < a2->numPackets);
-LABEL_21:
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-const char *CAMemoryStream::Write(CAMemoryStream *this, void *a2, const char *a3)
+uint64_t CAMemoryStream::Write(CAMemoryStream *this, void *a2, const char *a3)
 {
   v3 = a3;
   if (a3 >= 1)
@@ -6972,7 +6889,7 @@ double CACFNumber::GetFixed64(const __CFNumber **this)
 void CACFNumber::PrintToLog(CACFNumber *this, const __CFNumber *a2)
 {
   LODWORD(v2) = a2;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   Type = CFNumberGetType(this);
   if (v2)
   {
@@ -6986,69 +6903,117 @@ void CACFNumber::PrintToLog(CACFNumber *this, const __CFNumber *a2)
   }
 
   __b[v2] = 0;
-  if (Type <= kCFNumberCharType)
+  if (Type > kCFNumberCharType)
   {
-    if (Type <= kCFNumberSInt64Type)
+    if (Type <= kCFNumberLongLongType)
     {
-      if (Type != kCFNumberSInt8Type)
+      if (Type != kCFNumberShortType)
       {
-        if (Type != kCFNumberSInt16Type)
+        if (Type == kCFNumberLongType)
         {
-          if (Type == kCFNumberSInt64Type)
+          valuePtr = 0.0;
+          CFNumberGetValue(this, kCFNumberLongType, &valuePtr);
+          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
-            valuePtr = 0.0;
-            CFNumberGetValue(this, kCFNumberSInt64Type, &valuePtr);
-            if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 136315906;
-              v11 = "CACFNumber.cpp";
-              v12 = 1024;
-              v13 = 86;
-              v14 = 2080;
-              v15 = __b;
-              v16 = 2048;
-              v17 = valuePtr;
-              v5 = MEMORY[0x1E69E9C10];
-              v6 = "%25s:%-5d  %s%lli";
-LABEL_34:
-              v7 = 38;
-LABEL_38:
-              _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, v7);
-              goto LABEL_39;
-            }
-
-            goto LABEL_39;
+            return;
           }
 
-          goto LABEL_35;
+          *buf = 136315906;
+          v10 = "CACFNumber.cpp";
+          v11 = 1024;
+          v12 = 109;
+          v13 = 2080;
+          v14 = __b;
+          v15 = 2048;
+          v16 = valuePtr;
+          v5 = MEMORY[0x1E69E9C10];
+          v6 = "%25s:%-5d  %s%li";
+          goto LABEL_34;
         }
 
-        goto LABEL_28;
+        if (Type == kCFNumberLongLongType)
+        {
+          valuePtr = 0.0;
+          CFNumberGetValue(this, kCFNumberLongLongType, &valuePtr);
+          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+          {
+            return;
+          }
+
+          *buf = 136315906;
+          v10 = "CACFNumber.cpp";
+          v11 = 1024;
+          v12 = 116;
+          v13 = 2080;
+          v14 = __b;
+          v15 = 2048;
+          v16 = valuePtr;
+          v5 = MEMORY[0x1E69E9C10];
+          v6 = "%25s:%-5d  %s%lli";
+          goto LABEL_34;
+        }
+
+        goto LABEL_35;
       }
 
-LABEL_19:
-      LOBYTE(valuePtr) = 0;
-      CFNumberGetValue(this, Type, &valuePtr);
-      if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_39;
-      }
-
-      *buf = 136315906;
-      v11 = "CACFNumber.cpp";
-      v12 = 1024;
-      v13 = 62;
-      v14 = 2080;
-      v15 = __b;
-      v16 = 1024;
-      LODWORD(v17) = SLOBYTE(valuePtr);
-      v5 = MEMORY[0x1E69E9C10];
-      v6 = "%25s:%-5d  %s%i";
-LABEL_37:
-      v7 = 34;
-      goto LABEL_38;
+      goto LABEL_28;
     }
 
+    if (Type != kCFNumberFloatType)
+    {
+      if (Type != kCFNumberDoubleType)
+      {
+        if (Type == kCFNumberCFIndexType)
+        {
+          valuePtr = 0.0;
+          CFNumberGetValue(this, kCFNumberCFIndexType, &valuePtr);
+          if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+          {
+            return;
+          }
+
+          *buf = 136315906;
+          v10 = "CACFNumber.cpp";
+          v11 = 1024;
+          v12 = 123;
+          v13 = 2080;
+          v14 = __b;
+          v15 = 2048;
+          v16 = valuePtr;
+          v5 = MEMORY[0x1E69E9C10];
+          v6 = "%25s:%-5d  %s%li";
+          goto LABEL_34;
+        }
+
+        goto LABEL_35;
+      }
+
+      goto LABEL_30;
+    }
+
+LABEL_26:
+    LODWORD(valuePtr) = 0;
+    CFNumberGetValue(this, Type, &valuePtr);
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 136315906;
+    v10 = "CACFNumber.cpp";
+    v11 = 1024;
+    v12 = 94;
+    v13 = 2080;
+    v14 = __b;
+    v15 = 2048;
+    v16 = *&valuePtr;
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "%25s:%-5d  %s%f";
+    goto LABEL_34;
+  }
+
+  if (Type > kCFNumberSInt64Type)
+  {
     if (Type != kCFNumberFloat32Type)
     {
       if (Type != kCFNumberFloat64Type)
@@ -7059,170 +7024,125 @@ LABEL_37:
 LABEL_30:
       valuePtr = 0.0;
       CFNumberGetValue(this, Type, &valuePtr);
-      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 136315906;
-        v11 = "CACFNumber.cpp";
-        v12 = 1024;
-        v13 = 102;
-        v14 = 2080;
-        v15 = __b;
-        v16 = 2048;
-        v17 = valuePtr;
-        v5 = MEMORY[0x1E69E9C10];
-        v6 = "%25s:%-5d  %s%f";
-        goto LABEL_34;
+        return;
       }
 
-      goto LABEL_39;
-    }
-
-LABEL_26:
-    LODWORD(valuePtr) = 0;
-    CFNumberGetValue(this, Type, &valuePtr);
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-    {
       *buf = 136315906;
-      v11 = "CACFNumber.cpp";
-      v12 = 1024;
-      v13 = 94;
-      v14 = 2080;
-      v15 = __b;
-      v16 = 2048;
-      v17 = *&valuePtr;
+      v10 = "CACFNumber.cpp";
+      v11 = 1024;
+      v12 = 102;
+      v13 = 2080;
+      v14 = __b;
+      v15 = 2048;
+      v16 = valuePtr;
       v5 = MEMORY[0x1E69E9C10];
       v6 = "%25s:%-5d  %s%f";
       goto LABEL_34;
     }
 
-    goto LABEL_39;
+    goto LABEL_26;
   }
 
-  if (Type > kCFNumberLongLongType)
+  if (Type == kCFNumberSInt8Type)
   {
-    switch(Type)
-    {
-      case kCFNumberFloatType:
-        goto LABEL_26;
-      case kCFNumberDoubleType:
-        goto LABEL_30;
-      case kCFNumberCFIndexType:
-        valuePtr = 0.0;
-        CFNumberGetValue(this, kCFNumberCFIndexType, &valuePtr);
-        if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315906;
-          v11 = "CACFNumber.cpp";
-          v12 = 1024;
-          v13 = 123;
-          v14 = 2080;
-          v15 = __b;
-          v16 = 2048;
-          v17 = valuePtr;
-          v5 = MEMORY[0x1E69E9C10];
-          v6 = "%25s:%-5d  %s%li";
-          goto LABEL_34;
-        }
-
-        goto LABEL_39;
-    }
-
-LABEL_35:
-    LODWORD(valuePtr) = 0;
+LABEL_19:
+    LOBYTE(valuePtr) = 0;
     CFNumberGetValue(this, Type, &valuePtr);
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_39;
+      return;
     }
 
     *buf = 136315906;
-    v11 = "CACFNumber.cpp";
-    v12 = 1024;
-    v13 = 79;
-    v14 = 2080;
-    v15 = __b;
-    v16 = 1024;
-    LODWORD(v17) = LODWORD(valuePtr);
+    v10 = "CACFNumber.cpp";
+    v11 = 1024;
+    v12 = 62;
+    v13 = 2080;
+    v14 = __b;
+    v15 = 1024;
+    LODWORD(v16) = SLOBYTE(valuePtr);
     v5 = MEMORY[0x1E69E9C10];
     v6 = "%25s:%-5d  %s%i";
-    goto LABEL_37;
+LABEL_37:
+    v7 = 34;
+    goto LABEL_38;
   }
 
-  if (Type == kCFNumberShortType)
+  if (Type == kCFNumberSInt16Type)
   {
 LABEL_28:
     LOWORD(valuePtr) = 0;
     CFNumberGetValue(this, Type, &valuePtr);
     if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_39;
+      return;
     }
 
     *buf = 136315906;
-    v11 = "CACFNumber.cpp";
-    v12 = 1024;
-    v13 = 70;
-    v14 = 2080;
-    v15 = __b;
-    v16 = 1024;
-    LODWORD(v17) = SLOWORD(valuePtr);
+    v10 = "CACFNumber.cpp";
+    v11 = 1024;
+    v12 = 70;
+    v13 = 2080;
+    v14 = __b;
+    v15 = 1024;
+    LODWORD(v16) = SLOWORD(valuePtr);
     v5 = MEMORY[0x1E69E9C10];
     v6 = "%25s:%-5d  %s%i";
     goto LABEL_37;
   }
 
-  if (Type == kCFNumberLongType)
+  if (Type != kCFNumberSInt64Type)
   {
-    valuePtr = 0.0;
-    CFNumberGetValue(this, kCFNumberLongType, &valuePtr);
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+LABEL_35:
+    LODWORD(valuePtr) = 0;
+    CFNumberGetValue(this, Type, &valuePtr);
+    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 136315906;
-      v11 = "CACFNumber.cpp";
-      v12 = 1024;
-      v13 = 109;
-      v14 = 2080;
-      v15 = __b;
-      v16 = 2048;
-      v17 = valuePtr;
-      v5 = MEMORY[0x1E69E9C10];
-      v6 = "%25s:%-5d  %s%li";
-      goto LABEL_34;
+      return;
     }
 
-    goto LABEL_39;
-  }
-
-  if (Type != kCFNumberLongLongType)
-  {
-    goto LABEL_35;
+    *buf = 136315906;
+    v10 = "CACFNumber.cpp";
+    v11 = 1024;
+    v12 = 79;
+    v13 = 2080;
+    v14 = __b;
+    v15 = 1024;
+    LODWORD(v16) = LODWORD(valuePtr);
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "%25s:%-5d  %s%i";
+    goto LABEL_37;
   }
 
   valuePtr = 0.0;
-  CFNumberGetValue(this, kCFNumberLongLongType, &valuePtr);
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  CFNumberGetValue(this, kCFNumberSInt64Type, &valuePtr);
+  if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 136315906;
-    v11 = "CACFNumber.cpp";
-    v12 = 1024;
-    v13 = 116;
-    v14 = 2080;
-    v15 = __b;
-    v16 = 2048;
-    v17 = valuePtr;
-    v5 = MEMORY[0x1E69E9C10];
-    v6 = "%25s:%-5d  %s%lli";
-    goto LABEL_34;
+    return;
   }
 
-LABEL_39:
-  v8 = *MEMORY[0x1E69E9840];
+  *buf = 136315906;
+  v10 = "CACFNumber.cpp";
+  v11 = 1024;
+  v12 = 86;
+  v13 = 2080;
+  v14 = __b;
+  v15 = 2048;
+  v16 = valuePtr;
+  v5 = MEMORY[0x1E69E9C10];
+  v6 = "%25s:%-5d  %s%lli";
+LABEL_34:
+  v7 = 38;
+LABEL_38:
+  _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, v7);
 }
 
 void CACFBoolean::PrintToLog(CACFBoolean *this, const __CFBoolean *a2)
 {
   LODWORD(v2) = a2;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   Value = CFBooleanGetValue(this);
   if (v2)
   {
@@ -7239,35 +7159,39 @@ void CACFBoolean::PrintToLog(CACFBoolean *this, const __CFBoolean *a2)
   v4 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
   if (Value)
   {
-    if (v4)
+    if (!v4)
     {
-      v8 = 136315650;
-      v9 = "CACFNumber.cpp";
-      v10 = 1024;
-      v11 = 143;
-      v12 = 2080;
-      v13 = __b;
-      v5 = MEMORY[0x1E69E9C10];
-      v6 = "%25s:%-5d  %strue";
-LABEL_9:
-      _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0x1Cu);
+      return;
     }
+
+    v7 = 136315650;
+    v8 = "CACFNumber.cpp";
+    v9 = 1024;
+    v10 = 143;
+    v11 = 2080;
+    v12 = __b;
+    v5 = MEMORY[0x1E69E9C10];
+    v6 = "%25s:%-5d  %strue";
   }
 
-  else if (v4)
+  else
   {
-    v8 = 136315650;
-    v9 = "CACFNumber.cpp";
-    v10 = 1024;
-    v11 = 147;
-    v12 = 2080;
-    v13 = __b;
+    if (!v4)
+    {
+      return;
+    }
+
+    v7 = 136315650;
+    v8 = "CACFNumber.cpp";
+    v9 = 1024;
+    v10 = 147;
+    v11 = 2080;
+    v12 = __b;
     v5 = MEMORY[0x1E69E9C10];
     v6 = "%25s:%-5d  %sfalse";
-    goto LABEL_9;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_impl(&dword_1DE1D2000, v5, OS_LOG_TYPE_DEFAULT, v6, &v7, 0x1Cu);
 }
 
 void XPC_Service::ConnectionHandler(uint64_t a1, void *a2)
@@ -7340,7 +7264,6 @@ void CADeprecated::CAMutex::Locker::~Locker(CADeprecated::CAMutex::Locker *this)
 {
   if (*(this + 8) == 1)
   {
-    v2 = *this;
     (*(**this + 24))();
   }
 }
@@ -7476,7 +7399,7 @@ void CADeprecated::XMachPortServicer::RunLoopImpl::~RunLoopImpl(CADeprecated::XM
   CFRelease(*(this + 3));
 }
 
-void CADeprecated::XMachPortDeathListener::SetDeathNotificationDispatchQueue(CADeprecated::XMachPortDeathListener *a1, dispatch_queue_t *a2)
+void CADeprecated::XMachPortDeathListener::SetDeathNotificationDispatchQueue(uint64_t *a1, dispatch_queue_t *a2)
 {
   PortDeathCFPort = CADeprecated::XMachPortDeathListener::GetPortDeathCFPort(a1);
   Port = CFMachPortGetPort(PortDeathCFPort);
@@ -7488,7 +7411,7 @@ void CADeprecated::XMachPortDeathListener::SetDeathNotificationDispatchQueue(CAD
   handler[4] = a1;
   v7 = Port;
   dispatch_source_set_event_handler(v8, handler);
-  CADeprecated::XMachPortServicer::SetQueueAndSource();
+  CADeprecated::XMachPortServicer::SetQueueAndSource(a1 + 1, a2, &v8);
 }
 
 void sub_1DE1DF3DC(_Unwind_Exception *exception_object)
@@ -7516,7 +7439,7 @@ mach_port_name_t *CADeprecated::XMachPortSendRight::SetMachPort(mach_port_name_t
 uint64_t CADeprecated::XMachServer::CreateServerPort(CADeprecated::XMachServer *this, const char *a2, kern_return_t *a3, int *a4)
 {
   v5 = a2;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   *special_port = 0;
   v7 = MEMORY[0x1E69E9A60];
   v8 = task_get_special_port(*MEMORY[0x1E69E9A60], 4, special_port);
@@ -7564,15 +7487,15 @@ LABEL_16:
     {
       v12 = mach_error_string(v9);
       *buf = 136316162;
-      v18 = "XMachServer.cpp";
-      v19 = 1024;
-      v20 = 227;
-      v21 = 2080;
-      v22 = this;
-      v23 = 1024;
-      v24 = v9;
-      v25 = 2080;
-      v26 = v12;
+      v17 = "XMachServer.cpp";
+      v18 = 1024;
+      v19 = 227;
+      v20 = 2080;
+      v21 = this;
+      v22 = 1024;
+      v23 = v9;
+      v24 = 2080;
+      v25 = v12;
       _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d bootstrap_check_in(%s) failed: 0x%x; %s", buf, 0x2Cu);
     }
   }
@@ -7597,17 +7520,16 @@ LABEL_3:
   v10 = 0;
 LABEL_17:
   *a3 = v9;
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-void CADeprecated::XMachServer::XMachServer(uint64_t a1, __int128 *a2)
+void CADeprecated::XMachServer::XMachServer(uint64_t a1, __int128 *a2, CADeprecated::XMachServer *a3, const char *a4)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F595DF78;
-  v2 = *a2;
+  v4 = *a2;
   *(a1 + 24) = a2[1];
-  *(a1 + 8) = v2;
+  *(a1 + 8) = v4;
   operator new();
 }
 
@@ -7984,8 +7906,9 @@ void CADeprecated::RealtimeMessenger::RealtimeMessenger(uint64_t a1, dispatch_qu
   *(a1 + 8) = 0;
   v4 = (a1 + 8);
   *(a1 + 16) = 0;
+  v5 = (a1 + 16);
   *(a1 + 24) = 0;
-  v5 = (a1 + 24);
+  v6 = (a1 + 24);
   *a1 = &unk_1F595DFD0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
@@ -7998,13 +7921,13 @@ void CADeprecated::RealtimeMessenger::RealtimeMessenger(uint64_t a1, dispatch_qu
     global_queue = dispatch_get_global_queue(0, 0);
     if (global_queue)
     {
-      v11 = global_queue;
+      v12 = global_queue;
       dispatch_retain(global_queue);
-      v12 = *a2;
-      *a2 = v11;
-      if (v12)
+      v13 = *a2;
+      *a2 = v12;
+      if (v13)
       {
-        dispatch_release(v12);
+        dispatch_release(v13);
       }
     }
 
@@ -8014,26 +7937,26 @@ void CADeprecated::RealtimeMessenger::RealtimeMessenger(uint64_t a1, dispatch_qu
     }
   }
 
-  v6 = dispatch_queue_create("RealtimeMessenger.mServiceQueue", 0);
-  v7 = *v5;
-  *v5 = v6;
-  if (v7)
+  v7 = dispatch_queue_create("RealtimeMessenger.mServiceQueue", 0);
+  v8 = *v6;
+  *v6 = v7;
+  if (v8)
   {
-    dispatch_release(v7);
-    v6 = *v5;
+    dispatch_release(v8);
+    v7 = *v6;
   }
 
-  dispatch_set_target_queue(v6, *a2);
+  dispatch_set_target_queue(v7, *a2);
   explicit = atomic_load_explicit((a1 + 8), memory_order_acquire);
-  v9 = dispatch_source_create(MEMORY[0x1E69E96D8], explicit, 0, *(a1 + 24));
-  v13[4] = a1;
-  v13[5] = v9;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 0x40000000;
-  v13[2] = ___ZN12CADeprecated17RealtimeMessengerC2EN10applesauce8dispatch2v15queueE_block_invoke;
-  v13[3] = &__block_descriptor_tmp_24;
-  dispatch_source_set_event_handler(v9, v13);
-  CADeprecated::XMachPortServicer::SetQueueAndSource();
+  v10 = dispatch_source_create(MEMORY[0x1E69E96D8], explicit, 0, *(a1 + 24));
+  v14[4] = a1;
+  v15 = v10;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 0x40000000;
+  v14[2] = ___ZN12CADeprecated17RealtimeMessengerC2EN10applesauce8dispatch2v15queueE_block_invoke;
+  v14[3] = &__block_descriptor_tmp_24;
+  dispatch_source_set_event_handler(v10, v14);
+  CADeprecated::XMachPortServicer::SetQueueAndSource(v5, v6, &v15);
 }
 
 void sub_1DE1E0248(_Unwind_Exception *a1)
@@ -8063,7 +7986,7 @@ void sub_1DE1E0248(_Unwind_Exception *a1)
 
 void CADeprecated::RealtimeMessenger::ReceivePing(CADeprecated::RealtimeMessenger *this)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   msg.msgh_bits = 0;
   explicit = atomic_load_explicit(this + 2, memory_order_acquire);
   msg.msgh_remote_port = 0;
@@ -8073,7 +7996,6 @@ void CADeprecated::RealtimeMessenger::ReceivePing(CADeprecated::RealtimeMessenge
   mach_msg(&msg, 2, 0, 0x2Cu, atomic_load_explicit(this + 2, memory_order_acquire), 0, 0);
   atomic_store(0, this + 64);
   CADeprecated::RealtimeMessenger::_PerformPendingMessages(this);
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void CADeprecated::RealtimeMessenger::_PerformPendingMessages(CADeprecated::RealtimeMessenger *this)
@@ -8106,16 +8028,16 @@ void sub_1DE1E0434(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void CADeprecated::RealtimeMessenger::PerformAsync(uint64_t a1, _BYTE *__new)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (__new[16] == 1)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      *v5 = 136315650;
-      *&v5[4] = "RealtimeMessenger.cpp";
-      v6 = 0x800000000490400;
-      v7 = __new;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d RealtimeMessenger: trying to enqueue duplicate invocation on message %p", v5, 0x1Cu);
+      *v4 = 136315650;
+      *&v4[4] = "RealtimeMessenger.cpp";
+      v5 = 0x800000000490400;
+      v6 = __new;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%25s:%-5d RealtimeMessenger: trying to enqueue duplicate invocation on message %p", v4, 0x1Cu);
     }
   }
 
@@ -8125,15 +8047,13 @@ void CADeprecated::RealtimeMessenger::PerformAsync(uint64_t a1, _BYTE *__new)
     OSAtomicEnqueue((a1 + 32), __new, *(a1 + 48));
     if ((atomic_exchange((a1 + 64), 1u) & 1) == 0)
     {
-      *v5 = 0x1C00000013;
-      *&v5[8] = atomic_load_explicit((a1 + 8), memory_order_acquire);
-      v7 = 0;
+      *v4 = 0x1C00000013;
+      *&v4[8] = atomic_load_explicit((a1 + 8), memory_order_acquire);
       v6 = 0;
-      mach_msg(v5, 1, 0x1Cu, 0, 0, 0, 0);
+      v5 = 0;
+      mach_msg(v4, 1, 0x1Cu, 0, 0, 0, 0);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE1E0598(_Unwind_Exception *a1, int a2)
@@ -8196,23 +8116,23 @@ double SincKernel::operator=(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-char *PlatformUtilities::ProcessName(PlatformUtilities *this)
+char *PlatformUtilities::ProcessName(PlatformUtilities *this, int a2)
 {
-  caulk::platform::process_name(this);
-  if (v4 >= 0)
+  caulk::platform::process_name(__p, this);
+  if (v5 >= 0)
   {
-    p_p = &__p;
+    v2 = __p;
   }
 
   else
   {
-    p_p = __p;
+    v2 = __p[0];
   }
 
-  strlcpy(PlatformUtilities::ProcessName(int)::namebuf, p_p, 0x20uLL);
-  if (v4 < 0)
+  strlcpy(PlatformUtilities::ProcessName(int)::namebuf, v2, 0x20uLL);
+  if (v5 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
   return PlatformUtilities::ProcessName(int)::namebuf;
@@ -8697,7 +8617,7 @@ LABEL_77:
   return v17;
 }
 
-BOOL MinimalSafetyCheck(const AudioStreamBasicDescription *a1)
+uint64_t MinimalSafetyCheck(const AudioStreamBasicDescription *a1)
 {
   result = 0;
   if (a1->mSampleRate >= 0.0 && a1->mSampleRate < 3000000.0)
@@ -9238,39 +9158,39 @@ void CACFString::GetUnicodeString(CFStringRef theString, __CFString *a2, unsigne
 void CACFString::PrintToLog(const __CFString *this, const __CFString *a2)
 {
   LODWORD(v2) = a2;
-  v45 = *MEMORY[0x1E69E9840];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v44 = *MEMORY[0x1E69E9840];
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  *buffer = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  *buffer = 0u;
+  v13 = 0u;
   memset(__b, 0, sizeof(__b));
   if (CFStringGetCString(this, buffer, 512, 0x600u))
   {
@@ -9288,19 +9208,17 @@ void CACFString::PrintToLog(const __CFString *this, const __CFString *a2)
     *(__b + v2) = 0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315906;
-      v5 = "CACFString.cpp";
-      v6 = 1024;
-      v7 = 81;
-      v8 = 2080;
-      v9 = __b;
-      v10 = 2080;
-      v11 = buffer;
-      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  %s%s", &v4, 0x26u);
+      v3 = 136315906;
+      v4 = "CACFString.cpp";
+      v5 = 1024;
+      v6 = 81;
+      v7 = 2080;
+      v8 = __b;
+      v9 = 2080;
+      v10 = buffer;
+      _os_log_impl(&dword_1DE1D2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  %s%s", &v3, 0x26u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void swix::decode_message::throw_error(NSObject *a1, int a2, std::string *a3)

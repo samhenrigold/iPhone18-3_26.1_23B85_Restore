@@ -10,45 +10,39 @@
 - (REHTTPRequest)initWithConnect:(id)connect request:(_CFHTTPServerRequest *)request
 {
   connectCopy = connect;
-  v28.receiver = self;
-  v28.super_class = REHTTPRequest;
-  v8 = [(REHTTPRequest *)&v28 init];
+  v22.receiver = self;
+  v22.super_class = REHTTPRequest;
+  v8 = [(REHTTPRequest *)&v22 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_connection, connect);
     v9->_request = CFRetain(request);
-    v10 = *MEMORY[0x277CBAC40];
-    v11 = _CFHTTPServerRequestCopyProperty();
+    v10 = _CFHTTPServerRequestCopyProperty();
     url = v9->_url;
-    v9->_url = v11;
+    v9->_url = v10;
 
-    request = v9->_request;
-    v14 = *MEMORY[0x277CBAC30];
-    v15 = _CFHTTPServerRequestCopyProperty();
+    v12 = _CFHTTPServerRequestCopyProperty();
     method = v9->_method;
-    v9->_method = v15;
+    v9->_method = v12;
 
-    v17 = v9->_request;
-    v18 = *MEMORY[0x277CBAC28];
-    v19 = _CFHTTPServerRequestCopyProperty();
-    if (v19 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v14 = _CFHTTPServerRequestCopyProperty();
+    if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v20 = [v19 objectForKey:*MEMORY[0x277CBAC20]];
+      v15 = [v14 objectForKey:*MEMORY[0x277CBAC20]];
     }
 
     else
     {
-      v20 = MEMORY[0x277CBEC10];
+      v15 = MEMORY[0x277CBEC10];
     }
 
     headerFields = v9->_headerFields;
-    v9->_headerFields = v20;
+    v9->_headerFields = v15;
 
-    v22 = v9->_request;
-    v23 = _CFHTTPServerRequestCopyBodyStream();
+    v17 = _CFHTTPServerRequestCopyBodyStream();
     stream = v9->_stream;
-    v9->_stream = v23;
+    v9->_stream = v17;
 
     data = [MEMORY[0x277CBEB28] data];
     bodyData = v9->_bodyData;

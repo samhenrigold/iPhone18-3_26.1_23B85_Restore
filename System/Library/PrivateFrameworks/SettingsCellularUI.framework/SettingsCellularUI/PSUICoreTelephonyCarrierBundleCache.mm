@@ -103,47 +103,46 @@ uint64_t __53__PSUICoreTelephonyCarrierBundleCache_sharedInstance__block_invoke(
 
 - (void)resetDictionariesBySlot
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   subscriptionContexts = [(PSSimStatusCache *)self->_simCache subscriptionContexts];
   os_unfair_lock_lock(&cacheLock);
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(subscriptionContexts, "count")}];
   dictionariesBySlot = self->_dictionariesBySlot;
   self->_dictionariesBySlot = v4;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   subscriptionContexts2 = [(PSSimStatusCache *)self->_simCache subscriptionContexts];
-  v7 = [subscriptionContexts2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [subscriptionContexts2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(subscriptionContexts2);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = self->_dictionariesBySlot;
         v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v14 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v11, "slotID")}];
         [(NSMutableDictionary *)v12 setObject:v13 forKey:v14];
       }
 
-      v8 = [subscriptionContexts2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [subscriptionContexts2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&cacheLock);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createKeysAndDefaultValues
@@ -217,57 +216,55 @@ void __65__PSUICoreTelephonyCarrierBundleCache_createKeysAndDefaultValues__block
 
 - (void)bulkFetchForKeys:(id)keys defaultValues:(id)values
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   valuesCopy = values;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [(PSSimStatusCache *)self->_simCache subscriptionContexts];
-  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       v11 = 0;
       do
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * v11);
+        v12 = *(*(&v18 + 1) + 8 * v11);
         client = self->_client;
         v14 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___block_invoke;
-        v17[3] = &unk_279BAA978;
-        v17[4] = self;
-        v17[5] = v12;
-        v18 = keysCopy;
-        [(CoreTelephonyClient *)client copyCarrierBundleValues:v12 keys:v18 defaultValues:valuesCopy bundleType:v14 withFallbackBundleCheck:1 completion:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___block_invoke;
+        v16[3] = &unk_279BAA978;
+        v16[4] = self;
+        v16[5] = v12;
+        v17 = keysCopy;
+        [(CoreTelephonyClient *)client copyCarrierBundleValues:v12 keys:v17 defaultValues:valuesCopy bundleType:v14 withFallbackBundleCheck:1 completion:v16];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___block_invoke(id *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -276,19 +273,19 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
     v8 = [a1[4] getLogger];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v13 = a1[5];
-      v14 = [v13 uuid];
-      v15 = 136316162;
-      v16 = "[PSUICoreTelephonyCarrierBundleCache bulkFetchForKeys:defaultValues:]_block_invoke";
-      v17 = 2112;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v14;
-      v21 = 2114;
-      v22 = MEMORY[0x277CBEBF8];
-      v23 = 2114;
-      v24 = v7;
-      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s bulk fetch from: %@ with UUID:%{public}@ for keys: %{public}@ failed. Error: %{public}@", &v15, 0x34u);
+      v12 = a1[5];
+      v13 = [v12 uuid];
+      v14 = 136316162;
+      v15 = "[PSUICoreTelephonyCarrierBundleCache bulkFetchForKeys:defaultValues:]_block_invoke";
+      v16 = 2112;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v13;
+      v20 = 2114;
+      v21 = MEMORY[0x277CBEBF8];
+      v22 = 2114;
+      v23 = v7;
+      _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s bulk fetch from: %@ with UUID:%{public}@ for keys: %{public}@ failed. Error: %{public}@", &v14, 0x34u);
     }
   }
 
@@ -313,31 +310,29 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
 
     os_unfair_lock_unlock(&cacheLock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchCarrierBundleValue:(id)value context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   contextCopy = context;
   getLogger = [(PSUICoreTelephonyCarrierBundleCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
-    v21 = 2112;
-    v22 = contextCopy;
-    v23 = 2112;
-    v24 = valueCopy;
+    v19 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
+    v20 = 2112;
+    v21 = contextCopy;
+    v22 = 2112;
+    v23 = valueCopy;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s executing fetch %@ %@", buf, 0x20u);
   }
 
   client = self->_client;
-  v18 = 0;
-  v10 = [(CoreTelephonyClient *)client context:contextCopy getCarrierBundleValue:valueCopy error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(CoreTelephonyClient *)client context:contextCopy getCarrierBundleValue:valueCopy error:&v17];
+  v11 = v17;
   getLogger2 = [(PSUICoreTelephonyCarrierBundleCache *)self getLogger];
   v13 = getLogger2;
   if (v11)
@@ -346,15 +341,15 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
     {
       uuid = [contextCopy uuid];
       *buf = 136316162;
-      v20 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
-      v21 = 2112;
-      v22 = contextCopy;
-      v23 = 2114;
-      v24 = uuid;
-      v25 = 2114;
-      v26 = valueCopy;
-      v27 = 2114;
-      v28 = v11;
+      v19 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
+      v20 = 2112;
+      v21 = contextCopy;
+      v22 = 2114;
+      v23 = uuid;
+      v24 = 2114;
+      v25 = valueCopy;
+      v26 = 2114;
+      v27 = v11;
       _os_log_error_impl(&dword_2658DE000, v13, OS_LOG_TYPE_ERROR, "%s fetch from: %@ with UUID:%{public}@ for key hierarchy: %{public}@ failed. Error: %{public}@", buf, 0x34u);
     }
 
@@ -366,26 +361,24 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
   {
     uuid2 = [contextCopy uuid];
     *buf = 136316162;
-    v20 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
-    v21 = 2112;
-    v22 = contextCopy;
-    v23 = 2114;
-    v24 = uuid2;
-    v25 = 2114;
-    v26 = valueCopy;
-    v27 = 2114;
-    v28 = v10;
+    v19 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleValue:context:]";
+    v20 = 2112;
+    v21 = contextCopy;
+    v22 = 2114;
+    v23 = uuid2;
+    v24 = 2114;
+    v25 = valueCopy;
+    v26 = 2114;
+    v27 = v10;
     _os_log_impl(&dword_2658DE000, v13, OS_LOG_TYPE_DEFAULT, "%s fetch from: %@ with UUID:%{public}@ for key hierarchy: %{public}@ successful. Value:%{public}@", buf, 0x34u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)getCarrierBundleValueForKey:(id)key context:(id)context
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   contextCopy = context;
   os_unfair_lock_lock(&cacheLock);
@@ -393,8 +386,8 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
   v9 = [v8 objectForKey:keyCopy];
   if (!v9)
   {
-    v13[0] = keyCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = keyCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v9 = [(PSUICoreTelephonyCarrierBundleCache *)self fetchCarrierBundleValue:v10 context:contextCopy];
 
     if (v9)
@@ -404,8 +397,6 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
   }
 
   os_unfair_lock_unlock(&cacheLock);
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -484,56 +475,56 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
 
 - (void)fetchCarrierBundleVersion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICoreTelephonyCarrierBundleCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
+    v25 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s executing fetch", buf, 0xCu);
   }
 
   subscriptionContexts = [(PSSimStatusCache *)self->_simCache subscriptionContexts];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = subscriptionContexts;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v22;
+    v10 = *v21;
     *&v8 = 136315650;
-    v19 = v8;
+    v18 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * v11);
+        v12 = *(*(&v20 + 1) + 8 * v11);
         client = self->_client;
-        v20 = 0;
-        v14 = [(CoreTelephonyClient *)client copyCarrierBundleVersion:v12 error:&v20, v19];
-        v15 = v20;
+        v19 = 0;
+        v14 = [(CoreTelephonyClient *)client copyCarrierBundleVersion:v12 error:&v19, v18];
+        v15 = v19;
         getLogger2 = [(PSUICoreTelephonyCarrierBundleCache *)self getLogger];
         v17 = getLogger2;
         if (v15)
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v19;
-            v26 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
-            v27 = 2112;
-            v28 = v12;
-            v29 = 2112;
-            v30 = v15;
+            *buf = v18;
+            v25 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
+            v26 = 2112;
+            v27 = v12;
+            v28 = 2112;
+            v29 = v15;
             _os_log_error_impl(&dword_2658DE000, v17, OS_LOG_TYPE_ERROR, "%s fetch failed: %@, %@", buf, 0x20u);
           }
         }
@@ -542,12 +533,12 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
         {
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v19;
-            v26 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
-            v27 = 2112;
-            v28 = v12;
-            v29 = 2112;
-            v30 = v14;
+            *buf = v18;
+            v25 = "[PSUICoreTelephonyCarrierBundleCache fetchCarrierBundleVersion]";
+            v26 = 2112;
+            v27 = v12;
+            v28 = 2112;
+            v29 = v14;
             _os_log_impl(&dword_2658DE000, v17, OS_LOG_TYPE_DEFAULT, "%s fetched succeeded: %@, %@", buf, 0x20u);
           }
 
@@ -559,7 +550,7 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
       }
 
       while (v9 != v11);
-      v9 = [v6 countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v9);
@@ -568,8 +559,6 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
   os_unfair_lock_lock(&cacheLock);
   [(PSUICoreTelephonyCarrierBundleCache *)self setCarrierBundleVersionDict:v5];
   os_unfair_lock_unlock(&cacheLock);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)carrierBundleVersion:(id)version
@@ -613,60 +602,58 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
 
 - (void)bulkFetchCarrierServicesNamesForServices:(id)services context:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   contextCopy = context;
-  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&cacheLock);
-  v19 = contextCopy;
+  v18 = contextCopy;
   selfCopy = self;
   v8 = -[PSUICoreTelephonyCarrierBundleCache getDictionaryForSlotID:](self, "getDictionaryForSlotID:", [contextCopy slotID]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = servicesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v22 + 1) + 8 * i) objectForKey:@"ServiceName"];
+        v14 = [*(*(&v21 + 1) + 8 * i) objectForKey:@"ServiceName"];
         if (v14)
         {
           v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_SERVICE_NAME", v14];
           v16 = [v8 objectForKey:v15];
           if (!v16)
           {
-            [v21 addObject:v15];
-            [v20 addObject:&stru_287733598];
+            [v20 addObject:v15];
+            [v19 addObject:&stru_287733598];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   os_unfair_lock_unlock(&cacheLock);
-  if ([v21 count])
+  if ([v20 count])
   {
-    [(PSUICoreTelephonyCarrierBundleCache *)selfCopy bulkFetchForKeys:v21 defaultValues:v20];
+    [(PSUICoreTelephonyCarrierBundleCache *)selfCopy bulkFetchForKeys:v20 defaultValues:v19];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)carrierServices:(id)services
@@ -844,22 +831,20 @@ void __70__PSUICoreTelephonyCarrierBundleCache_bulkFetchForKeys_defaultValues___
 
 - (void)carrierBundleChange:(id)change
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   getLogger = [(PSUICoreTelephonyCarrierBundleCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[PSUICoreTelephonyCarrierBundleCache carrierBundleChange:]";
-    v9 = 2112;
-    v10 = changeCopy;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s updating cached values for: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[PSUICoreTelephonyCarrierBundleCache carrierBundleChange:]";
+    v8 = 2112;
+    v9 = changeCopy;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s updating cached values for: %@", &v6, 0x16u);
   }
 
   [(PSUICoreTelephonyCarrierBundleCache *)self _clearCache];
   [(PSUICoreTelephonyCarrierBundleCache *)self bulkFetch];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -6,9 +6,9 @@
 - (int)runLiftingModelWithBuffer:(const void *)buffer with2DReferenceResults:(id)results atTimestamp:(double)timestamp exportDebuggingData:(BOOL)data;
 - (int)runLiftingModelWithData:(id)data atTimestamp:(double)timestamp;
 - (int)runLiftingModelWithData:(id)data imageResolution:(CGSize)resolution deviceOrientation:(int64_t)orientation atTimestamp:(double)timestamp;
+- (uint64_t)getGaussianSmoothedOutput:(uint64_t *)output@<X8>;
 - (void)_adjustBoneLength:(void *)length;
 - (void)dealloc;
-- (void)getGaussianSmoothedOutput:(void *)output@<X8>;
 - (void)saveDataToFilePath:(ABPK3DLiftingSequence *)self with2DInputBuffer:(SEL)buffer withFirstStageOutput:(id)output withSmoothedOutput:(const void *)smoothedOutput withPostprocessedLiftingResults:(float *)results;
 @end
 
@@ -16,8 +16,7 @@
 
 - (ABPK3DLiftingSequence)init
 {
-  [(ABPK3DLiftingSequence *)self _startLoading3DLiftingSequenceMLModelSignpost];
-  v3 = __ABPKLogSharedInstance();
+  v3 = __ABPKLogSharedInstance([(ABPK3DLiftingSequence *)self _startLoading3DLiftingSequenceMLModelSignpost]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(v19) = 0;
@@ -111,19 +110,17 @@ LABEL_15:
 
 - (void)dealloc
 {
-  plan_first_stage = self->_plan_first_stage;
   espresso_plan_destroy();
-  context_first_stage = self->_context_first_stage;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = ABPK3DLiftingSequence;
-  [(ABPK3DLiftingSequence *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = ABPK3DLiftingSequence;
+  [(ABPK3DLiftingSequence *)&v3 dealloc];
 }
 
 - (BOOL)initMLNetwork
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v3 = __ABPKLogSharedInstance();
+  v34 = *MEMORY[0x277D85DE8];
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -152,72 +149,63 @@ LABEL_15:
     {
       v16 = "ANE";
 LABEL_10:
-      v18 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = __ABPKLogSharedInstance(context);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
         *&buf[4] = v16;
-        _os_log_impl(&dword_23EDDC000, v18, OS_LOG_TYPE_DEFAULT, " \t Deploying 3D lifting model on %s ", buf, 0xCu);
+        _os_log_impl(&dword_23EDDC000, v17, OS_LOG_TYPE_DEFAULT, " \t Deploying 3D lifting model on %s ", buf, 0xCu);
       }
 
-      Espresso::get_internal_context(&v41, self->_context_first_stage, v19);
-      context_first_stage = self->_context_first_stage;
+      Espresso::get_internal_context(&v30, self->_context_first_stage, v18);
       self->_plan_first_stage = espresso_create_plan();
-      v21 = [compiledMLModelPath stringByAppendingPathComponent:@"model.espresso.net"];
-      plan_first_stage = self->_plan_first_stage;
-      v23 = v21;
-      [v21 UTF8String];
+      v19 = [compiledMLModelPath stringByAppendingPathComponent:@"model.espresso.net"];
+      v20 = v19;
+      [v19 UTF8String];
       espresso_plan_add_network();
-      v24 = self->_plan_first_stage;
       espresso_plan_build();
-      plan = self->_network_first_stage.plan;
-      v26 = *&self->_network_first_stage.network_index;
-      v27 = [(NSArray *)self->_inputTensorFirstStageNames objectAtIndexedSubscript:0];
-      v28 = v27;
-      [v27 UTF8String];
+      v21 = [(NSArray *)self->_inputTensorFirstStageNames objectAtIndexedSubscript:0];
+      v22 = v21;
+      [v21 UTF8String];
       espresso_network_bind_buffer();
 
-      v29 = self->_network_first_stage.plan;
-      v30 = *&self->_network_first_stage.network_index;
-      v31 = [(NSArray *)self->_outputTensorFirstStageNames objectAtIndexedSubscript:0];
-      v32 = v31;
-      [v31 UTF8String];
+      v23 = [(NSArray *)self->_outputTensorFirstStageNames objectAtIndexedSubscript:0];
+      v24 = v23;
+      [v23 UTF8String];
       espresso_network_bind_buffer();
 
       *buf = 0u;
-      v44 = 0u;
-      v33 = self->_network_first_stage.plan;
-      v34 = *&self->_network_first_stage.network_index;
-      v35 = [(NSArray *)self->_inputTensorFirstStageNames objectAtIndexedSubscript:0];
-      v36 = v35;
-      [v35 UTF8String];
+      v33 = 0u;
+      v25 = [(NSArray *)self->_inputTensorFirstStageNames objectAtIndexedSubscript:0];
+      v26 = v25;
+      [v25 UTF8String];
       espresso_network_query_blob_dimensions();
 
-      if (v42)
+      if (v31)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v31);
       }
 
       goto LABEL_14;
     }
 
-    v17 = espresso_create_context();
-    self->_context_first_stage = v17;
-    if (v17)
+    context = espresso_create_context();
+    self->_context_first_stage = context;
+    if (context)
     {
       v16 = "GPU";
       goto LABEL_10;
     }
 
-    v38 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v28 = __ABPKLogSharedInstance(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_ERROR, " ANE not available. GPU not available. Espresso context creation failed for 3D lifting model. ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v28, OS_LOG_TYPE_ERROR, " ANE not available. GPU not available. Espresso context creation failed for 3D lifting model. ", buf, 2u);
     }
 
 LABEL_18:
-    v37 = 0;
+    v27 = 0;
     goto LABEL_19;
   }
 
@@ -235,11 +223,10 @@ LABEL_18:
   self->_outputBufferDict = outputBuffers;
 
 LABEL_14:
-  v37 = 1;
+  v27 = 1;
 LABEL_19:
 
-  v39 = *MEMORY[0x277D85DE8];
-  return v37;
+  return v27;
 }
 
 - (int)runLiftingModelWithData:(id)data atTimestamp:(double)timestamp
@@ -268,120 +255,118 @@ LABEL_19:
 {
   height = resolution.height;
   width = resolution.width;
-  *&v31._anon_20[8] = *MEMORY[0x277D85DE8];
-  v31.super.isa = *&resolution.width;
-  *v31._anon_8 = resolution.height;
+  *&v32._anon_20[8] = *MEMORY[0x277D85DE8];
+  v32.super.isa = *&resolution.width;
+  *v32._anon_8 = resolution.height;
   dataCopy = data;
-  [(ABPK3DLiftingSequence *)self _startPrepareLiftingSequenceInputSignpostWithTimestamp:timestamp];
-  v12 = __ABPKLogSharedInstance();
+  v12 = __ABPKLogSharedInstance([(ABPK3DLiftingSequence *)self _startPrepareLiftingSequenceInputSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    *&v31._anon_8[8] = 134218240;
-    *&v31._anon_8[12] = width;
-    *&v31._anon_8[20] = 2048;
-    *&v31._anon_8[22] = height;
-    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData resolution: (w,h) = (%f,%f) ", &v31._anon_8[8], 0x16u);
+    *&v32._anon_8[8] = 134218240;
+    *&v32._anon_8[12] = width;
+    *&v32._anon_8[20] = 2048;
+    *&v32._anon_8[22] = height;
+    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData resolution: (w,h) = (%f,%f) ", &v32._anon_8[8], 0x16u);
   }
 
-  v13 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = __ABPKLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     rotation = [dataCopy rotation];
-    *&v31._anon_8[8] = 134217984;
-    *&v31._anon_8[12] = rotation;
-    _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData rotation: %ld ", &v31._anon_8[8], 0xCu);
+    *&v32._anon_8[8] = 134217984;
+    *&v32._anon_8[12] = rotation;
+    _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " runLiftingModelWithData rotation: %ld ", &v32._anon_8[8], 0xCu);
   }
 
-  abpk::GetRawDetectionXYVisbilityWithRawDetection2D(dataCopy, &v31, v15, &v31._anon_8[8]);
-  abpk::Normalize2DCoordinatesSquareCrop(&v31._anon_8[8], &v31, orientation);
+  abpk::GetRawDetectionXYVisbilityWithRawDetection2D(dataCopy, &v32, v16, &v32._anon_8[8]);
+  abpk::Normalize2DCoordinatesSquareCrop(&v32._anon_8[8], &v32, orientation);
   p__3DLiftingInputBuffer = &self->_3DLiftingInputBuffer;
   insertionIndex = self->_3DLiftingInputBuffer._insertionIndex;
   if (!self->_3DLiftingInputBuffer._filled && !insertionIndex)
   {
-    [(ABPK3DLiftingSequence *)self updateInputImageResolution:*&v31.super.isa, *v31._anon_8];
+    [(ABPK3DLiftingSequence *)self updateInputImageResolution:*&v32.super.isa, *v32._anon_8];
     insertionIndex = p__3DLiftingInputBuffer->_insertionIndex;
   }
 
-  v18 = *&v31._anon_8[8];
-  v19 = *v31._anon_20;
-  memset(&v31._anon_8[8], 0, 24);
-  v20 = self + 24 * insertionIndex;
-  v23 = *(v20 + 2);
-  v22 = v20 + 16;
-  v21 = v23;
-  if (v23)
+  v19 = *&v32._anon_8[8];
+  v20 = *v32._anon_20;
+  memset(&v32._anon_8[8], 0, 24);
+  v21 = self + 24 * insertionIndex;
+  v24 = *(v21 + 2);
+  v23 = v21 + 16;
+  v22 = v24;
+  if (v24)
   {
-    v22[1] = v21;
-    v29 = v18;
-    operator delete(v21);
-    v18 = v29;
-    v22[1] = 0;
-    v22[2] = 0;
-    *v22 = 0;
+    v23[1] = v22;
+    v30 = v19;
+    operator delete(v22);
+    v19 = v30;
+    v23[1] = 0;
+    v23[2] = 0;
+    *v23 = 0;
     insertionIndex = p__3DLiftingInputBuffer->_insertionIndex;
   }
 
-  *v22 = v18;
-  v22[2] = v19;
-  v24 = insertionIndex + 1;
-  p__3DLiftingInputBuffer->_insertionIndex = v24;
-  if (v24 == 243)
+  *v23 = v19;
+  v23[2] = v20;
+  v25 = insertionIndex + 1;
+  p__3DLiftingInputBuffer->_insertionIndex = v25;
+  if (v25 == 243)
   {
     p__3DLiftingInputBuffer->_insertionIndex = 0;
     self->_3DLiftingInputBuffer._filled = 1;
   }
 
-  [(ABPK3DLiftingSequence *)self _endPrepareLiftingSequenceInputSignpostWithTimestamp:timestamp, v29];
-  if ([(ABPK3DLiftingSequence *)self runLiftingModelWithBuffer:&self->_3DLiftingInputBuffer with2DReferenceResults:dataCopy atTimestamp:0 exportDebuggingData:timestamp])
+  [(ABPK3DLiftingSequence *)self _endPrepareLiftingSequenceInputSignpostWithTimestamp:timestamp, v30];
+  v26 = [(ABPK3DLiftingSequence *)self runLiftingModelWithBuffer:&self->_3DLiftingInputBuffer with2DReferenceResults:dataCopy atTimestamp:0 exportDebuggingData:timestamp];
+  if (v26)
   {
-    v25 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v27 = __ABPKLogSharedInstance(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      *v30 = 0;
-      _os_log_impl(&dword_23EDDC000, v25, OS_LOG_TYPE_DEBUG, " \t\t Failed to run Lifting ML model ", v30, 2u);
+      *v31 = 0;
+      _os_log_impl(&dword_23EDDC000, v27, OS_LOG_TYPE_DEBUG, " \t\t Failed to run Lifting ML model ", v31, 2u);
     }
 
-    v26 = -6662;
+    v28 = -6662;
   }
 
   else
   {
-    v26 = 0;
+    v28 = 0;
   }
 
-  if (*&v31._anon_8[8])
+  if (*&v32._anon_8[8])
   {
-    *&v31._anon_8[16] = *&v31._anon_8[8];
-    operator delete(*&v31._anon_8[8]);
+    *&v32._anon_8[16] = *&v32._anon_8[8];
+    operator delete(*&v32._anon_8[8]);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v28;
 }
 
 - (int)runLiftingModelWithBuffer:(const void *)buffer with2DReferenceResults:(id)results atTimestamp:(double)timestamp exportDebuggingData:(BOOL)data
 {
   dataCopy = data;
-  v153 = *MEMORY[0x277D85DE8];
+  v151 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  [(ABPK3DLiftingSequence *)self _startRunLiftingSequenceModelSignpostWithTimestamp:timestamp];
-  v10 = __ABPKLogSharedInstance();
+  v10 = __ABPKLogSharedInstance([(ABPK3DLiftingSequence *)self _startRunLiftingSequenceModelSignpostWithTimestamp:timestamp]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
     _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_DEBUG, " ABPK3DLifting: Run Lifting Model With Data Buffer ", buf, 2u);
   }
 
-  memset(&v140, 0, sizeof(v140));
-  std::vector<int>::reserve(&v140, 0x30uLL);
+  memset(&v138, 0, sizeof(v138));
+  std::vector<int>::reserve(&v138, 0x30uLL);
   if (self->_useEspressoV2)
   {
-    v130 = &self->_3DLiftingInputBuffer._storage.__elems_[170];
+    v128 = &self->_3DLiftingInputBuffer._storage.__elems_[170];
     inputBufferDict = self->_inputBufferDict;
     v12 = [(NSArray *)self->_inputTensorFirstStageNames objectAtIndexedSubscript:0];
     v13 = [(NSMutableDictionary *)inputBufferDict objectForKeyedSubscript:v12];
 
-    v128 = v13;
+    v126 = v13;
     bytes = [v13 bytes];
     strideHeight = [v13 strideHeight];
     outputBufferDict = self->_outputBufferDict;
@@ -478,7 +463,7 @@ LABEL_19:
         [(ABPK3DLiftingSequence *)self _startPostProcessFor3DLiftingSequenceModelDataSignpostWithTimestamp:timestamp];
         bytes2 = [v18 bytes];
         strideHeight2 = [v18 strideHeight];
-        end = v140.__end_;
+        end = v138.__end_;
         v43 = 2 * strideHeight2;
         v44 = 48;
         do
@@ -486,19 +471,19 @@ LABEL_19:
           _H0 = *bytes2;
           __asm { FCVT            S9, H0 }
 
-          if (end >= v140.__end_cap_.__value_)
+          if (end >= v138.__end_cap_.__value_)
           {
-            begin = v140.__begin_;
-            v48 = end - v140.__begin_;
-            v49 = end - v140.__begin_;
+            begin = v138.__begin_;
+            v48 = end - v138.__begin_;
+            v49 = end - v138.__begin_;
             v50 = v49 + 1;
             if ((v49 + 1) >> 62)
             {
               std::vector<std::array<float,3ul>>::__throw_length_error[abi:ne200100]();
             }
 
-            v51 = v140.__end_cap_.__value_ - v140.__begin_;
-            if ((v140.__end_cap_.__value_ - v140.__begin_) >> 1 > v50)
+            v51 = v138.__end_cap_.__value_ - v138.__begin_;
+            if ((v138.__end_cap_.__value_ - v138.__begin_) >> 1 > v50)
             {
               v50 = v51 >> 1;
             }
@@ -515,7 +500,7 @@ LABEL_19:
 
             if (v52)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v140, v52);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&v138, v52);
             }
 
             v53 = v49;
@@ -524,10 +509,10 @@ LABEL_19:
             *v54 = _S9;
             end = v54 + 1;
             memcpy(v55, begin, v48);
-            v56 = v140.__begin_;
-            v140.__begin_ = v55;
-            v140.__end_ = end;
-            v140.__end_cap_.__value_ = 0;
+            v56 = v138.__begin_;
+            v138.__begin_ = v55;
+            v138.__end_ = end;
+            v138.__end_cap_.__value_ = 0;
             if (v56)
             {
               operator delete(v56);
@@ -539,7 +524,7 @@ LABEL_19:
             *end++ = _S9;
           }
 
-          v140.__end_ = end;
+          v138.__end_ = end;
           bytes2 = (bytes2 + v43);
           --v44;
         }
@@ -547,108 +532,108 @@ LABEL_19:
         while (v44);
 
 LABEL_57:
-        v74 = *&v140.__begin_;
-        value = v140.__end_cap_.__value_;
-        memset(&v140, 0, sizeof(v140));
+        v73 = *&v138.__begin_;
+        value = v138.__end_cap_.__value_;
+        memset(&v138, 0, sizeof(v138));
         insertionIndex = self->_smoothingFilterRingBuffer._insertionIndex;
-        v77 = self + 24 * insertionIndex;
-        v78 = v77 + 6328;
-        v79 = *(v77 + 791);
-        if (v79)
+        v76 = self + 24 * insertionIndex;
+        v77 = v76 + 6328;
+        v78 = *(v76 + 791);
+        if (v78)
         {
-          *(v77 + 792) = v79;
-          v129 = v74;
-          operator delete(v79);
-          v74 = v129;
-          v78[1] = 0;
-          v78[2] = 0;
-          *v78 = 0;
+          *(v76 + 792) = v78;
+          v127 = v73;
+          operator delete(v78);
+          v73 = v127;
+          v77[1] = 0;
+          v77[2] = 0;
+          *v77 = 0;
           insertionIndex = self->_smoothingFilterRingBuffer._insertionIndex;
         }
 
-        *v78 = v74;
-        v78[2] = value;
-        v80 = insertionIndex + 1;
-        self->_smoothingFilterRingBuffer._insertionIndex = v80;
-        if (v80 == 9)
+        *v77 = v73;
+        v77[2] = value;
+        v79 = insertionIndex + 1;
+        self->_smoothingFilterRingBuffer._insertionIndex = v79;
+        if (v79 == 9)
         {
           self->_smoothingFilterRingBuffer._insertionIndex = 0;
-          LOBYTE(v130[102].__begin_) = 1;
+          LOBYTE(v128[102].__begin_) = 1;
         }
 
-        [(ABPK3DLiftingSequence *)self getGaussianSmoothedOutput:&self->_smoothingFilterRingBuffer];
-        v136[0] = 0;
-        v136[1] = 0;
-        v137 = 0;
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v136, v138[0], v138[1], (v138[1] - v138[0]) >> 4);
-        v81 = v136[0];
-        v82 = v136[1];
-        while (v81 != v82)
+        objc_msgSend_getGaussianSmoothedOutput_(self);
+        v134[0] = 0;
+        v134[1] = 0;
+        v135 = 0;
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v134, v136[0], v136[1], (v136[1] - v136[0]) >> 4);
+        v80 = v134[0];
+        v81 = v134[1];
+        while (v80 != v81)
         {
-          *v81 = -*v81;
-          v81 += 4;
+          *v80 = -*v80;
+          v80 += 4;
         }
 
-        [(ABPK3DLiftingSequence *)self _adjustBoneLength:v136];
-        v83 = v136[0];
-        v84 = v136[1];
-        if (v136[0] != v136[1])
+        [(ABPK3DLiftingSequence *)self _adjustBoneLength:v134];
+        v82 = v134[0];
+        v83 = v134[1];
+        if (v134[0] != v134[1])
         {
-          v85 = *(v136[0] + 7);
-          v86 = vmulq_f32(v85, v85);
-          *&v87 = v86.f32[2] + vaddv_f32(*v86.f32);
-          v88 = vrsqrte_f32(v87);
-          v89 = vmul_f32(v88, vrsqrts_f32(v87, vmul_f32(v88, v88)));
-          v90 = vmulq_n_f32(v85, vmul_f32(v89, vrsqrts_f32(v87, vmul_f32(v89, v89))).f32[0]);
-          v91 = *(v136[0] + 4);
-          v92 = vmulq_f32(v91, v91);
-          *&v93 = v92.f32[2] + vaddv_f32(*v92.f32);
-          *v92.f32 = vrsqrte_f32(v93);
-          *v92.f32 = vmul_f32(*v92.f32, vrsqrts_f32(v93, vmul_f32(*v92.f32, *v92.f32)));
-          v94 = vmulq_n_f32(v91, vmul_f32(*v92.f32, vrsqrts_f32(v93, vmul_f32(*v92.f32, *v92.f32))).f32[0]);
-          v95 = vmulq_f32(v90, v94);
-          v95.f32[0] = v95.f32[2] + vaddv_f32(*v95.f32);
-          v96 = vmlsq_lane_f32(v90, v94, *v95.f32, 0);
-          v97 = vmulq_f32(v96, v96);
-          *&v98 = v97.f32[2] + vaddv_f32(*v97.f32);
-          *v97.f32 = vrsqrte_f32(v98);
-          *v97.f32 = vmul_f32(*v97.f32, vrsqrts_f32(v98, vmul_f32(*v97.f32, *v97.f32)));
-          v99 = vmulq_n_f32(v96, vmul_f32(*v97.f32, vrsqrts_f32(v98, vmul_f32(*v97.f32, *v97.f32))).f32[0]);
-          v100 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v99, v99), v99, 0xCuLL), vnegq_f32(v94)), v99, vextq_s8(vuzp1q_s32(v94, v94), v94, 0xCuLL));
-          v101 = vextq_s8(vuzp1q_s32(v100, v100), v100, 0xCuLL);
-          v102 = vmulq_f32(v100, v100);
-          v86.f32[0] = v102.f32[1] + (v102.f32[2] + v102.f32[0]);
-          *v102.f32 = vrsqrte_f32(v86.u32[0]);
-          *v102.f32 = vmul_f32(*v102.f32, vrsqrts_f32(v86.u32[0], vmul_f32(*v102.f32, *v102.f32)));
-          v103 = vmulq_n_f32(v101, vmul_f32(*v102.f32, vrsqrts_f32(v86.u32[0], vmul_f32(*v102.f32, *v102.f32))).f32[0]);
-          v104 = vzip1q_s32(v94, v99);
-          v104.i32[2] = v103.i32[0];
-          v105 = vzip2q_s32(vzip1q_s32(v94, v103), vdupq_lane_s32(*v99.f32, 1));
-          v106 = vzip2q_s32(v94, v99);
-          v106.i32[2] = v103.i32[2];
+          v84 = *(v134[0] + 7);
+          v85 = vmulq_f32(v84, v84);
+          *&v86 = v85.f32[2] + vaddv_f32(*v85.f32);
+          v87 = vrsqrte_f32(v86);
+          v88 = vmul_f32(v87, vrsqrts_f32(v86, vmul_f32(v87, v87)));
+          v89 = vmulq_n_f32(v84, vmul_f32(v88, vrsqrts_f32(v86, vmul_f32(v88, v88))).f32[0]);
+          v90 = *(v134[0] + 4);
+          v91 = vmulq_f32(v90, v90);
+          *&v92 = v91.f32[2] + vaddv_f32(*v91.f32);
+          *v91.f32 = vrsqrte_f32(v92);
+          *v91.f32 = vmul_f32(*v91.f32, vrsqrts_f32(v92, vmul_f32(*v91.f32, *v91.f32)));
+          v93 = vmulq_n_f32(v90, vmul_f32(*v91.f32, vrsqrts_f32(v92, vmul_f32(*v91.f32, *v91.f32))).f32[0]);
+          v94 = vmulq_f32(v89, v93);
+          v94.f32[0] = v94.f32[2] + vaddv_f32(*v94.f32);
+          v95 = vmlsq_lane_f32(v89, v93, *v94.f32, 0);
+          v96 = vmulq_f32(v95, v95);
+          *&v97 = v96.f32[2] + vaddv_f32(*v96.f32);
+          *v96.f32 = vrsqrte_f32(v97);
+          *v96.f32 = vmul_f32(*v96.f32, vrsqrts_f32(v97, vmul_f32(*v96.f32, *v96.f32)));
+          v98 = vmulq_n_f32(v95, vmul_f32(*v96.f32, vrsqrts_f32(v97, vmul_f32(*v96.f32, *v96.f32))).f32[0]);
+          v99 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v98, v98), v98, 0xCuLL), vnegq_f32(v93)), v98, vextq_s8(vuzp1q_s32(v93, v93), v93, 0xCuLL));
+          v100 = vextq_s8(vuzp1q_s32(v99, v99), v99, 0xCuLL);
+          v101 = vmulq_f32(v99, v99);
+          v85.f32[0] = v101.f32[1] + (v101.f32[2] + v101.f32[0]);
+          *v101.f32 = vrsqrte_f32(v85.u32[0]);
+          *v101.f32 = vmul_f32(*v101.f32, vrsqrts_f32(v85.u32[0], vmul_f32(*v101.f32, *v101.f32)));
+          v102 = vmulq_n_f32(v100, vmul_f32(*v101.f32, vrsqrts_f32(v85.u32[0], vmul_f32(*v101.f32, *v101.f32))).f32[0]);
+          v103 = vzip1q_s32(v93, v98);
+          v103.i32[2] = v102.i32[0];
+          v104 = vzip2q_s32(vzip1q_s32(v93, v102), vdupq_lane_s32(*v98.f32, 1));
+          v105 = vzip2q_s32(v93, v98);
+          v105.i32[2] = v102.i32[2];
           do
           {
-            *v83->f32 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v104, COERCE_FLOAT(*v83->f32)), v105, *v83, 1), v106, *v83->f32, 2);
-            v83 += 2;
+            *v82->f32 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v103, COERCE_FLOAT(*v82->f32)), v104, *v82, 1), v105, *v82->f32, 2);
+            v82 += 2;
           }
 
-          while (v83 != v84);
+          while (v82 != v83);
         }
 
-        v107 = [ABPK3DLiftingResult alloc];
-        *v134 = *v136;
-        v135 = v137;
+        v106 = [ABPK3DLiftingResult alloc];
+        *v132 = *v134;
+        v133 = v135;
+        v134[1] = 0;
+        v135 = 0;
+        v134[0] = 0;
+        *__p = *v136;
+        v131 = v137;
+        v136[0] = 0;
         v136[1] = 0;
         v137 = 0;
-        v136[0] = 0;
-        *__p = *v138;
-        v133 = v139;
-        v138[0] = 0;
-        v138[1] = 0;
-        v139 = 0;
-        v108 = [(ABPK3DLiftingResult *)v107 initWithJoints:v134 rawNetworkOutputs:__p referenceDetectionResult:resultsCopy];
+        v107 = [(ABPK3DLiftingResult *)v106 initWithJoints:v132 rawNetworkOutputs:__p referenceDetectionResult:resultsCopy];
         liftingResult = self->_liftingResult;
-        self->_liftingResult = v108;
+        self->_liftingResult = v107;
 
         if (__p[0])
         {
@@ -656,10 +641,10 @@ LABEL_57:
           operator delete(__p[0]);
         }
 
-        if (v134[0])
+        if (v132[0])
         {
-          v134[1] = v134[0];
-          operator delete(v134[0]);
+          v132[1] = v132[0];
+          operator delete(v132[0]);
         }
 
         [(ABPK3DLiftingSequence *)self _endPostProcessFor3DLiftingSequenceModelDataSignpostWithTimestamp:timestamp];
@@ -668,57 +653,57 @@ LABEL_57:
           frameCount = self->_frameCount;
           if (!frameCount)
           {
-            v111 = objc_alloc_init(MEMORY[0x277CCAA00]);
-            [v111 removeItemAtPath:@"/var/mobile/Documents/debug_lifting/" error:0];
-            [v111 createDirectoryAtPath:@"/var/mobile/Documents/debug_lifting/" withIntermediateDirectories:1 attributes:0 error:0];
+            v110 = objc_alloc_init(MEMORY[0x277CCAA00]);
+            [v110 removeItemAtPath:@"/var/mobile/Documents/debug_lifting/" error:0];
+            [v110 createDirectoryAtPath:@"/var/mobile/Documents/debug_lifting/" withIntermediateDirectories:1 attributes:0 error:0];
 
             frameCount = self->_frameCount;
           }
 
           frameCount = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", frameCount];
-          v113 = [frameCount stringByAppendingString:@".plist"];
-          v114 = [@"current_frame_3D_lifting_debug" stringByAppendingString:v113];
+          v112 = [frameCount stringByAppendingString:@".plist"];
+          v113 = [@"current_frame_3D_lifting_debug" stringByAppendingString:v112];
 
           data = self->_outputTensorFirstStage.data;
-          v116 = data[3];
-          v118 = *data;
-          v117 = data[1];
-          v143 = data[2];
-          v144 = v116;
-          *buf = v118;
-          v142 = v117;
-          v119 = data[7];
-          v121 = data[4];
-          v120 = data[5];
-          v147 = data[6];
-          v148 = v119;
-          v145 = v121;
-          v146 = v120;
-          v122 = data[11];
-          v124 = data[8];
-          v123 = data[9];
-          v151 = data[10];
-          v152 = v122;
-          v149 = v124;
-          v150 = v123;
-          v125 = [@"/var/mobile/Documents/debug_lifting/" stringByAppendingPathComponent:v114];
-          [(ABPK3DLiftingSequence *)self saveDataToFilePath:v125 with2DInputBuffer:buffer withFirstStageOutput:buf withSmoothedOutput:[(ABPK3DLiftingResult *)self->_liftingResult rawNetworkOutputJoints] withPostprocessedLiftingResults:[(ABPK3DLiftingResult *)self->_liftingResult joints]];
+          v115 = data[3];
+          v117 = *data;
+          v116 = data[1];
+          v141 = data[2];
+          v142 = v115;
+          *buf = v117;
+          v140 = v116;
+          v118 = data[7];
+          v120 = data[4];
+          v119 = data[5];
+          v145 = data[6];
+          v146 = v118;
+          v143 = v120;
+          v144 = v119;
+          v121 = data[11];
+          v123 = data[8];
+          v122 = data[9];
+          v149 = data[10];
+          v150 = v121;
+          v147 = v123;
+          v148 = v122;
+          v124 = [@"/var/mobile/Documents/debug_lifting/" stringByAppendingPathComponent:v113];
+          [(ABPK3DLiftingSequence *)self saveDataToFilePath:v124 with2DInputBuffer:buffer withFirstStageOutput:buf withSmoothedOutput:[(ABPK3DLiftingResult *)self->_liftingResult rawNetworkOutputJoints] withPostprocessedLiftingResults:[(ABPK3DLiftingResult *)self->_liftingResult joints]];
         }
 
         ++self->_frameCount;
+        if (v134[0])
+        {
+          v134[1] = v134[0];
+          operator delete(v134[0]);
+        }
+
         if (v136[0])
         {
           v136[1] = v136[0];
           operator delete(v136[0]);
         }
 
-        if (v138[0])
-        {
-          v138[1] = v138[0];
-          operator delete(v138[0]);
-        }
-
-        v71 = 0;
+        v70 = 0;
         goto LABEL_80;
       }
     }
@@ -799,37 +784,35 @@ LABEL_51:
   }
 
   while (v57 != 16);
-  plan_first_stage = self->_plan_first_stage;
   if (!espresso_plan_execute_sync())
   {
     [(ABPK3DLiftingSequence *)self _endRunLiftingSequenceModelSignpostWithTimestamp:timestamp];
     [(ABPK3DLiftingSequence *)self _startPostProcessFor3DLiftingSequenceModelDataSignpostWithTimestamp:timestamp];
-    v130 = &self->_3DLiftingInputBuffer._storage.__elems_[170];
-    v72 = self->_outputTensorFirstStage.data;
-    v73 = 48;
+    v128 = &self->_3DLiftingInputBuffer._storage.__elems_[170];
+    v71 = self->_outputTensorFirstStage.data;
+    v72 = 48;
     do
     {
-      std::vector<float>::push_back[abi:ne200100](&v140.__begin_, v72++);
-      --v73;
+      std::vector<float>::push_back[abi:ne200100](&v138.__begin_, v71++);
+      --v72;
     }
 
-    while (v73);
+    while (v72);
     goto LABEL_57;
   }
 
-  v71 = -6662;
+  v70 = -6662;
 LABEL_80:
-  if (v140.__begin_)
+  if (v138.__begin_)
   {
-    v140.__end_ = v140.__begin_;
-    operator delete(v140.__begin_);
+    v138.__end_ = v138.__begin_;
+    operator delete(v138.__begin_);
   }
 
-  v126 = *MEMORY[0x277D85DE8];
-  return v71;
+  return v70;
 }
 
-- (void)getGaussianSmoothedOutput:(void *)output@<X8>
+- (uint64_t)getGaussianSmoothedOutput:(uint64_t *)output@<X8>
 {
   v6 = *(self + 6304);
   v7 = *(self + 6296);
@@ -877,7 +860,7 @@ LABEL_24:
 
       v17 = *(*(self + 6296) + 4 * v14);
       v18 = *(v15 + 16);
-      v19 = *&v18 + (v17 * *(v16[1] + 4 * v11));
+      v19 = *&v18 + (v17 * *(v16[1] + v11));
       *(v15 + 16) = v19;
       v20 = v25;
       if (v25[28] & 1) != 0 || (v27)
@@ -886,7 +869,7 @@ LABEL_24:
       }
 
       *&v21 = v19;
-      *(&v21 + 1) = *(&v18 + 1) + (v17 * *(v20[1] + 4 * v11 + 4));
+      *(&v21 + 1) = *(&v18 + 1) + (v17 * *(v20[1] + v11 + 1));
       *(v15 + 24) = DWORD2(v18);
       *(v15 + 16) = v21;
       v22 = v25;
@@ -895,7 +878,7 @@ LABEL_24:
         v22 = &v25[3 * v26];
       }
 
-      v23 = *(&v18 + 2) + (v17 * *(v22[1] + 4 * v11 + 8));
+      v23 = *(&v18 + 2) + (v17 * *(v22[1] + v11 + 2));
       *(v15 + 16) = v21;
       *(v15 + 24) = v23;
       v24 = v26 + 1;
@@ -1084,28 +1067,8 @@ LABEL_17:
   v32 = (v55 + 8);
   do
   {
-    if (v31 == 256)
+    if (v31 == 256 || (v33 = objc_alloc_init(*(v9 + 2872)), LODWORD(v34) = *(v32 - 2), [MEMORY[0x277CCABB0] numberWithFloat:v34], v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "setObject:forKeyedSubscript:", v35, @"x"), v35, LODWORD(v36) = *(v32 - 1), objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v36), v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "setObject:forKeyedSubscript:", v37, @"y"), v37, LODWORD(v38) = *v32, objc_msgSend(MEMORY[0x277CCABB0], "numberWithFloat:", v38), v39 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v33, "setObject:forKeyedSubscript:", v39, @"z"), v39, objc_msgSend(v62, "addObject:", v33), v33, v31))
     {
-      goto LABEL_20;
-    }
-
-    v33 = objc_alloc_init(*(v9 + 2872));
-    LODWORD(v34) = *(v32 - 2);
-    v35 = [MEMORY[0x277CCABB0] numberWithFloat:v34];
-    [v33 setObject:v35 forKeyedSubscript:@"x"];
-
-    LODWORD(v36) = *(v32 - 1);
-    v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-    [v33 setObject:v37 forKeyedSubscript:@"y"];
-
-    LODWORD(v38) = *v32;
-    v39 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-    [v33 setObject:v39 forKeyedSubscript:@"z"];
-
-    [v62 addObject:v33];
-    if (v31)
-    {
-LABEL_20:
       v40 = objc_alloc_init(*(v9 + 2872));
       LODWORD(v41) = *(v67 + v31);
       v42 = [MEMORY[0x277CCABB0] numberWithFloat:v41];
@@ -1150,7 +1113,7 @@ LABEL_20:
 
 - (void)_adjustBoneLength:(void *)length
 {
-  v5 = __ABPKLogSharedInstance();
+  v5 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -1219,7 +1182,7 @@ uint64_t __43__ABPK3DLiftingSequence__adjustBoneLength___block_invoke(uint64_t a
   v5 = a2;
   v2 = *(*(a1 + 32) + 8);
   v4 = 0;
-  return std::deque<std::pair<long,long>>::emplace_back<long &,int>(v2 + 48, &v5, &v4);
+  return std::deque<std::pair<long,long>>::emplace_back<long &,int>((v2 + 48), &v5, &v4);
 }
 
 - (id).cxx_construct

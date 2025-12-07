@@ -8,6 +8,7 @@
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)overrideHideSensitiveUI:(BOOL)i;
+- (void)setCurrentSensitiveUIHidden:(BOOL)hidden;
 @end
 
 @implementation HKSPSensitiveUIMonitor
@@ -97,26 +98,25 @@ void __42__HKSPSensitiveUIMonitor__isVendorRelease__block_invoke()
 
 - (void)_handleNotification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v8 = objc_opt_class();
-    v9 = 2048;
+    v7 = objc_opt_class();
+    v8 = 2048;
     selfCopy = self;
-    v4 = v8;
+    v4 = v7;
     _os_log_impl(&dword_269A84000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] sensitiveUIStateChanged", buf, 0x16u);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke;
-  v6[3] = &unk_279C74258;
-  v6[4] = self;
-  [(HKSPSensitiveUIMonitor *)self _withLock:v6];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke;
+  v5[3] = &unk_279C74258;
+  v5[4] = self;
+  [(HKSPSensitiveUIMonitor *)self _withLock:v5];
   [(HKSPObserverSet *)self->_observers enumerateObserversWithBlock:&__block_literal_global_309];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke_2(uint64_t a1, void *a2)
@@ -130,7 +130,7 @@ void __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke_2(uint64_t a
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -140,10 +140,10 @@ void __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke_2(uint64_t a
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2048;
+      v17 = objc_opt_class();
+      v18 = 2048;
       selfCopy = self;
-      v14 = v18;
+      v14 = v17;
       _os_log_impl(&dword_269A84000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] NSUserDefaults key path changed", buf, 0x16u);
     }
 
@@ -152,12 +152,10 @@ void __45__HKSPSensitiveUIMonitor__handleNotification__block_invoke_2(uint64_t a
 
   else
   {
-    v16.receiver = self;
-    v16.super_class = HKSPSensitiveUIMonitor;
-    [(HKSPSensitiveUIMonitor *)&v16 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v15.receiver = self;
+    v15.super_class = HKSPSensitiveUIMonitor;
+    [(HKSPSensitiveUIMonitor *)&v15 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hideSensitiveUI
@@ -228,6 +226,38 @@ uint64_t __50__HKSPSensitiveUIMonitor_overrideHideSensitiveUI___block_invoke(uin
   *(*(result + 32) + 8) = 1;
   *(*(result + 32) + 9) = *(result + 40);
   return result;
+}
+
+- (void)setCurrentSensitiveUIHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = HKSPLogForCategory(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v6;
+    v9 = [v7 numberWithBool:hiddenCopy];
+    *buf = 138543874;
+    v14 = v6;
+    v15 = 2048;
+    selfCopy = self;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] Setting current sensitive UI hidden: %{public}@", buf, 0x20u);
+  }
+
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __54__HKSPSensitiveUIMonitor_setCurrentSensitiveUIHidden___block_invoke;
+  v12[3] = &unk_279C74258;
+  v12[4] = self;
+  [(HKSPSensitiveUIMonitor *)self _withLock:v12];
+  [(NSUserDefaults *)self->_userDefaults setBool:hiddenCopy forKey:@"hideAzulSensitiveUI"];
+  npsManager = self->_npsManager;
+  v11 = [MEMORY[0x277CBEB98] setWithObject:@"hideAzulSensitiveUI"];
+  [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.internal.sleep" keys:v11];
 }
 
 @end

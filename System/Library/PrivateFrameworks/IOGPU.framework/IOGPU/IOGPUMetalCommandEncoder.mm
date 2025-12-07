@@ -13,16 +13,13 @@
 {
   if (*__globalGPUCommPage)
   {
-    [*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
-    [*(&self->super.super.super.isa + *MEMORY[0x1E69742C0]) globalTraceObjectID];
-    [(IOGPUMetalCommandEncoder *)self globalTraceObjectID];
-    [(_MTLCommandEncoder *)self getType];
-    IOGPUDeviceTraceEvent();
+    deviceRef = [*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
+    IOGPUDeviceTraceEvent(deviceRef, 8, 9, [*(&self->super.super.super.isa + *MEMORY[0x1E69742C0]) globalTraceObjectID], -[IOGPUMetalCommandEncoder globalTraceObjectID](self, "globalTraceObjectID"), -[_MTLCommandEncoder getType](self, "getType"), 0);
   }
 
-  v3.receiver = self;
-  v3.super_class = IOGPUMetalCommandEncoder;
-  [(_MTLCommandEncoder *)&v3 endEncoding];
+  v4.receiver = self;
+  v4.super_class = IOGPUMetalCommandEncoder;
+  [(_MTLCommandEncoder *)&v4 endEncoding];
 }
 
 - (unint64_t)globalTraceObjectID
@@ -42,9 +39,7 @@
 {
   if (*__globalGPUCommPage)
   {
-    [*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
-    [(IOGPUMetalCommandEncoder *)self globalTraceObjectID];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent([*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef], 8, 13, -[IOGPUMetalCommandEncoder globalTraceObjectID](self, "globalTraceObjectID"), 0, 0, 0);
   }
 
   v3.receiver = self;
@@ -60,11 +55,7 @@
   v5 = v4;
   if (*__globalGPUCommPage)
   {
-    [*(&v4->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
-    [buffer globalTraceObjectID];
-    [(IOGPUMetalCommandEncoder *)v5 globalTraceObjectID];
-    [(_MTLCommandEncoder *)v5 getType];
-    IOGPUDeviceTraceEvent();
+    IOGPUDeviceTraceEvent([*(&v4->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef], 8, 8, objc_msgSend(buffer, "globalTraceObjectID"), -[IOGPUMetalCommandEncoder globalTraceObjectID](v4, "globalTraceObjectID"), -[_MTLCommandEncoder getType](v4, "getType"), 0);
   }
 
   return v5;
@@ -72,17 +63,15 @@
 
 - (void)setLabel:(id)label
 {
-  v9.receiver = self;
-  v9.super_class = IOGPUMetalCommandEncoder;
-  [(_MTLObjectWithLabel *)&v9 setLabel:?];
+  v8.receiver = self;
+  v8.super_class = IOGPUMetalCommandEncoder;
+  [(_MTLObjectWithLabel *)&v8 setLabel:?];
   if (*__globalGPUCommPage)
   {
     deviceRef = [*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
     globalTraceObjectID = [(IOGPUMetalCommandEncoder *)self globalTraceObjectID];
     v7 = *MEMORY[0x1E69742D8];
-    v8 = *(&self->super.super.super.isa + v7);
-    [label cStringUsingEncoding:1];
-    *(&self->super.super.super.isa + v7) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, globalTraceObjectID, v8);
+    *(&self->super.super.super.isa + v7) = IOGPUDeviceTraceObjectLabel(deviceRef, 8, 0, globalTraceObjectID, *(&self->super.super.super.isa + v7), [label cStringUsingEncoding:1]);
   }
 }
 
@@ -90,15 +79,12 @@
 {
   if (*__globalGPUCommPage)
   {
-    deviceRef = [*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef];
-    globalTraceObjectID = [(IOGPUMetalCommandEncoder *)self globalTraceObjectID];
-    [group cStringUsingEncoding:1];
-    IOGPUDeviceTraceObjectLabel(deviceRef, 8, 12, globalTraceObjectID, 0);
+    IOGPUDeviceTraceObjectLabel([*(&self->super.super.super.isa + *MEMORY[0x1E69742C8]) deviceRef], 8, 12, -[IOGPUMetalCommandEncoder globalTraceObjectID](self, "globalTraceObjectID"), 0, objc_msgSend(group, "cStringUsingEncoding:", 1));
   }
 
-  v7.receiver = self;
-  v7.super_class = IOGPUMetalCommandEncoder;
-  [(_MTLCommandEncoder *)&v7 pushDebugGroup:group];
+  v5.receiver = self;
+  v5.super_class = IOGPUMetalCommandEncoder;
+  [(_MTLCommandEncoder *)&v5 pushDebugGroup:group];
 }
 
 @end

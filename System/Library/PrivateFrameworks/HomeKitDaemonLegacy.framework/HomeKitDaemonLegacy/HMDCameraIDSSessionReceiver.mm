@@ -31,7 +31,7 @@
 
 - (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   endedCopy = ended;
   errorCopy = error;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
@@ -46,31 +46,31 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138544130;
-      v23 = v15;
-      v24 = 2112;
-      v25 = endedCopy;
-      v26 = 1024;
+      v21 = 138544130;
+      v22 = v15;
+      v23 = 2112;
+      v24 = endedCopy;
+      v25 = 1024;
       reasonCopy2 = reason;
-      v28 = 2112;
-      v29 = errorCopy;
+      v27 = 2112;
+      v28 = errorCopy;
       v16 = "%{public}@Session %@ has failed with reason: %u and error: %@";
       v17 = v14;
       v18 = OS_LOG_TYPE_ERROR;
       v19 = 38;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v17, v18, v16, &v22, v19);
+      _os_log_impl(&dword_2531F8000, v17, v18, v16, &v21, v19);
     }
   }
 
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v15 = HMFGetLogIdentifier();
-    v22 = 138543874;
-    v23 = v15;
-    v24 = 2112;
-    v25 = endedCopy;
-    v26 = 1024;
+    v21 = 138543874;
+    v22 = v15;
+    v23 = 2112;
+    v24 = endedCopy;
+    v25 = 1024;
     reasonCopy2 = reason;
     v16 = "%{public}@Session %@ has ended with reason: %u";
     v17 = v14;
@@ -82,13 +82,11 @@ LABEL_6:
   objc_autoreleasePoolPop(v11);
   v20 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1030 underlyingError:errorCopy];
   [(HMDCameraIDSSessionReceiver *)selfCopy _callSessionEndedWithError:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionStarted:(id)started
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -99,11 +97,11 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = startedCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Session %{public}@ has started", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = startedCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Session %{public}@ has started", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -111,12 +109,11 @@ LABEL_6:
   [sessionID markMilestoneFor:@"IDSSessionStartedOnReceiver"];
 
   [(HMDCameraIDSSessionReceiver *)selfCopy _callSessionSetup:0];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account inviteReceivedForSession:(id)session fromID:(id)d withContext:(id)context
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   sessionCopy = session;
@@ -135,11 +132,11 @@ LABEL_6:
     {
       v47 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v82 = v47;
-      v83 = 2112;
-      v84 = sessionCopy;
-      v85 = 2112;
-      v86 = dCopy;
+      v81 = v47;
+      v82 = 2112;
+      v83 = sessionCopy;
+      v84 = 2112;
+      v85 = dCopy;
       v48 = "%{public}@Cannot handle session %@: could not determine device handle for fromID: %@";
       v49 = v46;
       v50 = OS_LOG_TYPE_ERROR;
@@ -165,11 +162,11 @@ LABEL_18:
     {
       v47 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v82 = v47;
-      v83 = 2112;
-      v84 = sessionCopy;
-      v85 = 2112;
-      v86 = v18;
+      v81 = v47;
+      v82 = 2112;
+      v83 = sessionCopy;
+      v84 = 2112;
+      v85 = v18;
       v48 = "%{public}@Cannot handle session %@: sender device handler was unexpected: %@";
       v49 = v46;
       v50 = OS_LOG_TYPE_INFO;
@@ -181,14 +178,14 @@ LABEL_18:
 
   v21 = MEMORY[0x277CCAAC8];
   v22 = getIDSSessionOptionsAllowedClasses();
-  v78 = 0;
-  v23 = [v21 unarchivedObjectOfClasses:v22 fromData:contextCopy error:&v78];
-  v77 = v78;
+  v77 = 0;
+  v23 = [v21 unarchivedObjectOfClasses:v22 fromData:contextCopy error:&v77];
+  v76 = v77;
 
-  v76 = v23;
+  v75 = v23;
   if (v23)
   {
-    v75 = serviceCopy;
+    v74 = serviceCopy;
     v24 = v23;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -203,7 +200,7 @@ LABEL_18:
 
     v26 = v25;
 
-    v74 = v26;
+    v73 = v26;
     v27 = [v26 objectForKeyedSubscript:@"kCameraSessionID"];
     sessionInviterDeviceVerifier2 = [(HMDCameraIDSSessionReceiver *)self sessionInviterDeviceVerifier];
     LOBYTE(v26) = [sessionInviterDeviceVerifier2 canAcceptInvitationForSessionWithIdentifier:v27];
@@ -212,18 +209,18 @@ LABEL_18:
     selfCopy3 = self;
     v31 = HMFGetOSLogHandle();
     v32 = v31;
-    v73 = v27;
+    v72 = v27;
     if (v26)
     {
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v82 = v33;
-        v83 = 2112;
-        v84 = sessionCopy;
-        v85 = 2112;
-        v86 = dCopy;
+        v81 = v33;
+        v82 = 2112;
+        v83 = sessionCopy;
+        v84 = 2112;
+        v85 = dCopy;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Received invitation for session %@ from %@", buf, 0x20u);
       }
 
@@ -244,34 +241,34 @@ LABEL_18:
         if (v39)
         {
           idsSession2 = [(HMDCameraIDSSessionHandler *)selfCopy3 idsSession];
-          v79 = *MEMORY[0x277D18938];
+          v78 = *MEMORY[0x277D18938];
           [v39 UUIDString];
-          v70 = v39;
+          v69 = v39;
           v42 = v41 = hostProcessBundleIdentifier;
-          v80 = v42;
-          v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+          v79 = v42;
+          v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
           [idsSession2 setPreferences:v43];
 
           hostProcessBundleIdentifier = v41;
-          v39 = v70;
+          v39 = v69;
         }
 
         else
         {
           v57 = objc_autoreleasePoolPush();
-          v71 = selfCopy3;
+          v70 = selfCopy3;
           v58 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v59 = v69 = v57;
+            v59 = v68 = v57;
             *buf = 138543618;
-            v82 = v59;
-            v83 = 2112;
-            v84 = hostProcessBundleIdentifier;
+            v81 = v59;
+            v82 = 2112;
+            v83 = hostProcessBundleIdentifier;
             _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Could not find machO UUID for host process bundle identifier: %@", buf, 0x16u);
 
-            v57 = v69;
+            v57 = v68;
           }
 
           objc_autoreleasePoolPop(v57);
@@ -284,17 +281,17 @@ LABEL_18:
       if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v63 = v72 = v60;
+        v63 = v71 = v60;
         [(HMDCameraIDSSessionHandler *)v61 idsSession];
         v65 = v64 = hostProcessBundleIdentifier;
         *buf = 138543618;
-        v82 = v63;
-        v83 = 2112;
-        v84 = v65;
+        v81 = v63;
+        v82 = 2112;
+        v83 = v65;
         _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_INFO, "%{public}@Accepting invitation for session %@", buf, 0x16u);
 
         hostProcessBundleIdentifier = v64;
-        v60 = v72;
+        v60 = v71;
       }
 
       v51 = accountCopy;
@@ -313,11 +310,11 @@ LABEL_18:
       {
         v56 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v82 = v56;
-        v83 = 2112;
-        v84 = sessionCopy;
-        v85 = 2112;
-        v86 = v27;
+        v81 = v56;
+        v82 = 2112;
+        v83 = sessionCopy;
+        v84 = 2112;
+        v85 = v27;
         _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_DEBUG, "%{public}@Cannot handle session %@: camera session ID is not relevant: %@", buf, 0x20u);
       }
 
@@ -326,7 +323,7 @@ LABEL_18:
       objc_autoreleasePoolPop(v29);
     }
 
-    serviceCopy = v75;
+    serviceCopy = v74;
   }
 
   else
@@ -339,11 +336,11 @@ LABEL_18:
     {
       v55 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v82 = v55;
-      v83 = 2112;
-      v84 = sessionCopy;
-      v85 = 2112;
-      v86 = v77;
+      v81 = v55;
+      v82 = 2112;
+      v83 = sessionCopy;
+      v84 = 2112;
+      v85 = v76;
       _os_log_impl(&dword_2531F8000, v54, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle session %@: failed to unarchive request id from context: %@", buf, 0x20u);
     }
 
@@ -352,13 +349,11 @@ LABEL_18:
 
   accountCopy = v51;
 LABEL_34:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callSessionEndedWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -369,11 +364,11 @@ LABEL_34:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didEndSession delegate with error %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -382,13 +377,11 @@ LABEL_34:
   {
     [delegate sessionReceiver:selfCopy didEndSessionWithError:errorCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callSessionSetup:(id)setup
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   workQueue = [(HMDCameraIDSSessionHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -399,11 +392,11 @@ LABEL_34:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = setupCopy;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didSetup delegate with error %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = setupCopy;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Calling didSetup delegate with error %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -412,8 +405,6 @@ LABEL_34:
   {
     [delegate sessionReceiver:selfCopy didSetUpWithError:setupCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)remoteDestination
@@ -512,12 +503,11 @@ LABEL_13:
 
 uint64_t __42__HMDCameraIDSSessionReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_135489;
-  logCategory__hmf_once_v14_135489 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_135489;
+  logCategory__hmf_once_v14_135489 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -7,7 +7,6 @@
 - (FPXDomainContext)domainContext;
 - (id)_fetchClientStateIfNeeded;
 - (id)description;
-- (void)_fetchClientStateIfNeeded;
 - (void)_fetchCurrentIndexingAnchorWithCompletionHandler:(id)handler;
 - (void)_indexOneBatchFromAnchor:(id)anchor toAnchor:(id)toAnchor updatedItems:(id)items deletedItems:(id)deletedItems completionHandler:(id)handler;
 - (void)_indexOneBatchWithCompletionHandler:(id)handler;
@@ -41,12 +40,12 @@
 
 - (id)_fetchClientStateIfNeeded
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = fpfs_adopt_log(self->_log);
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v36 = 0;
+  v35 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained(&self->_domainContext);
   domain = [WeakRetained domain];
@@ -70,11 +69,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v35 = 0;
-  v15 = [currentPersona copyCurrentPersonaContextWithError:&v35];
-  v16 = v35;
-  v17 = v36;
-  v36 = v15;
+  v34 = 0;
+  v15 = [currentPersona copyCurrentPersonaContextWithError:&v34];
+  v16 = v34;
+  v17 = v35;
+  v35 = v15;
 
   if (v16)
   {
@@ -95,13 +94,13 @@ LABEL_13:
     v23 = fp_current_or_default_log();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_loadWeakRetained(&self->_domainContext);
-      domain4 = [v31 domain];
+      v30 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v30 domain];
       personaIdentifier4 = [domain4 personaIdentifier];
       *buf = 138412546;
-      v38 = personaIdentifier4;
-      v39 = 2112;
-      v40 = v22;
+      v37 = personaIdentifier4;
+      v38 = 2112;
+      v39 = v22;
       _os_log_error_impl(&dword_1AAAE1000, v23, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
     }
   }
@@ -117,12 +116,12 @@ LABEL_14:
     v28 = [(FPSpotlightFetchClientStateOperation *)v24 initWithIndexer:self index:index indexName:indexName spotlightDomainIdentifier:spotlightDomainIdentifier reason:@"indexing one batch" supportURL:self->_supportURL];
 
     [(FPOperation *)v28 setCallbackQueue:self->_workloop];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __47__FPSpotlightIndexer__fetchClientStateIfNeeded__block_invoke;
-    v34[3] = &unk_1E793A560;
-    v34[4] = self;
-    [(FPOperation *)v28 setFinishedBlock:v34];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __47__FPSpotlightIndexer__fetchClientStateIfNeeded__block_invoke;
+    v33[3] = &unk_1E793A560;
+    v33[4] = self;
+    [(FPOperation *)v28 setFinishedBlock:v33];
     [(FPSpotlightFetchClientStateOperation *)v28 setQualityOfService:17];
     objc_storeStrong(&self->_fetchStateOperation, v28);
   }
@@ -132,8 +131,7 @@ LABEL_14:
     v28 = 0;
   }
 
-  _FPRestorePersona(&v36);
-  v29 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v35);
 
   return v28;
 }
@@ -312,10 +310,16 @@ void __47__FPSpotlightIndexer__fetchClientStateIfNeeded__block_invoke(uint64_t a
 
 - (void)clearIndexState
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: Forgetting change token", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_workloop);
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [FPSpotlightIndexer clearIndexState];
+  }
+
+  lastIndexState = self->_lastIndexState;
+  self->_lastIndexState = 0;
+  self->_clientState = 1;
 }
 
 - (void)learnNewIndexState:(id)state
@@ -335,13 +339,13 @@ void __47__FPSpotlightIndexer__fetchClientStateIfNeeded__block_invoke(uint64_t a
 
 - (void)_indexOneBatchWithCompletionHandler:(id)handler
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v4 = fpfs_adopt_log(self->_log);
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v68 = 0;
+  v67 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained(&self->_domainContext);
   domain = [WeakRetained domain];
@@ -365,11 +369,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v67 = 0;
-  v16 = [currentPersona copyCurrentPersonaContextWithError:&v67];
-  v17 = v67;
-  v18 = v68;
-  v68 = v16;
+  v66 = 0;
+  v16 = [currentPersona copyCurrentPersonaContextWithError:&v66];
+  v17 = v66;
+  v18 = v67;
+  v67 = v16;
 
   if (v17)
   {
@@ -390,8 +394,8 @@ LABEL_13:
     v24 = fp_current_or_default_log();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v45 = objc_loadWeakRetained(&self->_domainContext);
-      domain4 = [v45 domain];
+      v44 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v44 domain];
       personaIdentifier4 = [domain4 personaIdentifier];
       *buf = 138412546;
       *&buf[4] = personaIdentifier4;
@@ -416,9 +420,9 @@ LABEL_14:
   domainContext = [(FPSpotlightIndexer *)self domainContext];
   vendorInstance = [domainContext vendorInstance];
   v28 = +[NSFileProviderRequest requestFromTheSystem];
-  v66 = 0;
-  v29 = [vendorInstance enumeratorForContainerItemIdentifier:@"NSFileProviderWorkingSetContainerItemIdentifier" request:v28 error:&v66];
-  _fetchClientStateIfNeeded = v66;
+  v65 = 0;
+  v29 = [vendorInstance enumeratorForContainerItemIdentifier:@"NSFileProviderWorkingSetContainerItemIdentifier" request:v28 error:&v65];
+  _fetchClientStateIfNeeded = v65;
   vendorEnumerator = self->_vendorEnumerator;
   self->_vendorEnumerator = v29;
 
@@ -427,16 +431,16 @@ LABEL_14:
 
 LABEL_19:
     _fetchClientStateIfNeeded = [(FPSpotlightIndexer *)self _fetchClientStateIfNeeded];
-    v61[0] = 0;
-    v61[1] = v61;
-    v61[2] = 0x2020000000;
-    v62 = 0;
+    v60[0] = 0;
+    v60[1] = v60;
+    v60[2] = 0x2020000000;
+    v61 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v70 = __Block_byref_object_copy__2;
-    v71 = __Block_byref_object_dispose__2;
-    v72 = 0;
+    v69 = __Block_byref_object_copy__2;
+    v70 = __Block_byref_object_dispose__2;
+    v71 = 0;
     v32 = [[FPSpotlightFetchOneBatchFromWorkingSetOperation alloc] initWithIndexer:self queue:self->_workloop];
     [(FPSpotlightFetchOneBatchFromWorkingSetOperation *)v32 setQualityOfService:17];
     if (self->_fetchStateOperation)
@@ -447,15 +451,15 @@ LABEL_19:
     v33 = [[FPSpotlightIndexOneBatchOperation alloc] initWithIndexer:self isInitialIndexing:0 isOutOfBandIndexing:0 queue:self->_workloop];
     [(FPSpotlightIndexOneBatchOperation *)v33 setIndexReason:1];
     objc_initWeak(&location, self);
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke_84;
-    v55[3] = &unk_1E793A5B0;
-    objc_copyWeak(&v59, &location);
-    v57 = buf;
-    v58 = v61;
-    v56 = handlerCopy;
-    [(FPOperation *)v33 setFinishedBlock:v55];
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke_84;
+    v54[3] = &unk_1E793A5B0;
+    objc_copyWeak(&v58, &location);
+    v56 = buf;
+    v57 = v60;
+    v55 = handlerCopy;
+    [(FPOperation *)v33 setFinishedBlock:v54];
     [(FPSpotlightIndexOneBatchOperation *)v33 setQualityOfService:17];
     if (self->_fetchStateOperation)
     {
@@ -463,22 +467,22 @@ LABEL_19:
     }
 
     objc_initWeak(&from, v32);
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke_3;
-    v49[3] = &unk_1E793A5D8;
-    objc_copyWeak(&v53, &from);
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke_3;
+    v48[3] = &unk_1E793A5D8;
+    objc_copyWeak(&v52, &from);
     v34 = v33;
-    v50 = v34;
-    v51 = v61;
-    v52 = buf;
-    [(FPOperation *)v32 setFinishedBlock:v49];
+    v49 = v34;
+    v50 = v60;
+    v51 = buf;
+    [(FPOperation *)v32 setFinishedBlock:v48];
     if (_fetchClientStateIfNeeded)
     {
       v35 = fp_current_or_default_log();
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
-        [(FPSpotlightIndexer *)_fetchClientStateIfNeeded _indexOneBatchWithCompletionHandler:?];
+        [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
       }
 
       [(NSOperationQueue *)self->_operationQueue addOperation:_fetchClientStateIfNeeded];
@@ -487,7 +491,7 @@ LABEL_19:
     v36 = fp_current_or_default_log();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      [(FPSpotlightIndexer *)v32 _indexOneBatchWithCompletionHandler:?];
+      [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
     }
 
     operationQueue = self->_operationQueue;
@@ -496,49 +500,49 @@ LABEL_19:
     v39 = fp_current_or_default_log();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      [(FPSpotlightIndexer *)v34 _indexOneBatchWithCompletionHandler:?];
+      [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
     }
 
-    [*p_operationQueue addOperation:v34];
-    objc_destroyWeak(&v53);
+    [(NSOperationQueue *)*p_operationQueue addOperation:v34];
+    objc_destroyWeak(&v52);
     objc_destroyWeak(&from);
 
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v58);
     objc_destroyWeak(&location);
 
     _Block_object_dispose(buf, 8);
-    _Block_object_dispose(v61, 8);
+    _Block_object_dispose(v60, 8);
     goto LABEL_32;
   }
 
   if ([_fetchClientStateIfNeeded fp_isFileProviderError:-1000])
   {
-    v41 = fp_current_or_default_log();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v40 = fp_current_or_default_log();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       fp_prettyDescription = [_fetchClientStateIfNeeded fp_prettyDescription];
       *buf = 138412290;
       *&buf[4] = fp_prettyDescription;
-      _os_log_impl(&dword_1AAAE1000, v41, OS_LOG_TYPE_DEFAULT, "[WARNING] can't create vendor enumerator: %@", buf, 0xCu);
+      _os_log_impl(&dword_1AAAE1000, v40, OS_LOG_TYPE_DEFAULT, "[WARNING] can't create vendor enumerator: %@", buf, 0xCu);
     }
 
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke;
-    v63[3] = &unk_1E7939800;
-    v65 = handlerCopy;
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke;
+    v62[3] = &unk_1E7939800;
+    v64 = handlerCopy;
     _fetchClientStateIfNeeded = _fetchClientStateIfNeeded;
-    v64 = _fetchClientStateIfNeeded;
-    [(FPSpotlightIndexer *)self dropIndexWithDropReason:12 completionHandler:v63];
+    v63 = _fetchClientStateIfNeeded;
+    [(FPSpotlightIndexer *)self dropIndexWithDropReason:12 completionHandler:v62];
   }
 
   else
   {
-    v43 = fp_current_or_default_log();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = fp_current_or_default_log();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       fp_prettyDescription2 = [_fetchClientStateIfNeeded fp_prettyDescription];
-      [(FPSpotlightIndexer *)fp_prettyDescription2 _indexOneBatchWithCompletionHandler:buf, v43];
+      [(FPSpotlightIndexer *)fp_prettyDescription2 _indexOneBatchWithCompletionHandler:buf, v42];
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, _fetchClientStateIfNeeded);
@@ -546,8 +550,7 @@ LABEL_19:
 
 LABEL_32:
 
-  _FPRestorePersona(&v68);
-  v40 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v67);
 }
 
 void __58__FPSpotlightIndexer__indexOneBatchWithCompletionHandler___block_invoke_84(uint64_t a1, uint64_t a2, void *a3)
@@ -696,7 +699,7 @@ uint64_t __57__FPSpotlightIndexer_indexOneBatchWithCompletionHandler___block_inv
 
 - (void)_indexOneBatchFromAnchor:(id)anchor toAnchor:(id)toAnchor updatedItems:(id)items deletedItems:(id)deletedItems completionHandler:(id)handler
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   anchorCopy = anchor;
   toAnchorCopy = toAnchor;
   itemsCopy = items;
@@ -706,7 +709,7 @@ uint64_t __57__FPSpotlightIndexer_indexOneBatchWithCompletionHandler___block_inv
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v59 = 0;
+  v58 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained(&self->_domainContext);
   domain = [WeakRetained domain];
@@ -730,11 +733,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v58 = 0;
-  v24 = [currentPersona copyCurrentPersonaContextWithError:&v58];
-  v25 = v58;
-  v26 = v59;
-  v59 = v24;
+  v57 = 0;
+  v24 = [currentPersona copyCurrentPersonaContextWithError:&v57];
+  v25 = v57;
+  v26 = v58;
+  v58 = v24;
 
   if (v25)
   {
@@ -755,13 +758,13 @@ LABEL_13:
     v32 = fp_current_or_default_log();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v42 = objc_loadWeakRetained(&self->_domainContext);
-      domain4 = [v42 domain];
+      v41 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v41 domain];
       personaIdentifier4 = [domain4 personaIdentifier];
       *location = 138412546;
       *&location[4] = personaIdentifier4;
-      v61 = 2112;
-      v62 = v31;
+      v60 = 2112;
+      v61 = v31;
       _os_log_error_impl(&dword_1AAAE1000, v32, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", location, 0x16u);
     }
   }
@@ -779,24 +782,24 @@ LABEL_14:
   dataRepresentation = [(FPSpotlightIndexState *)v35 dataRepresentation];
   [(FPSpotlightIndexOneBatchOperation *)v34 setNextAnchor:dataRepresentation];
 
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke;
-  v56[3] = &unk_1E793A600;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke;
+  v55[3] = &unk_1E793A600;
   v37 = anchorCopy;
-  v57 = v37;
-  [(FPSpotlightIndexOneBatchOperation *)v34 setCanIndexFromCurrentState:v56];
+  v56 = v37;
+  [(FPSpotlightIndexOneBatchOperation *)v34 setCanIndexFromCurrentState:v55];
   objc_initWeak(location, self);
   objc_initWeak(&from, v34);
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke_90;
-  v51[3] = &unk_1E793A628;
-  objc_copyWeak(&v53, location);
-  v38 = v46;
-  v52 = v38;
-  objc_copyWeak(&v54, &from);
-  [(FPOperation *)v34 setFinishedBlock:v51];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke_90;
+  v50[3] = &unk_1E793A628;
+  objc_copyWeak(&v52, location);
+  v38 = v45;
+  v51 = v38;
+  objc_copyWeak(&v53, &from);
+  [(FPOperation *)v34 setFinishedBlock:v50];
   [(FPSpotlightIndexOneBatchOperation *)v34 setQualityOfService:17];
   if (self->_fetchStateOperation)
   {
@@ -808,7 +811,7 @@ LABEL_14:
     v39 = fp_current_or_default_log();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      [(FPSpotlightIndexer *)_fetchClientStateIfNeeded _indexOneBatchWithCompletionHandler:?];
+      [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
     }
 
     [(NSOperationQueue *)self->_operationQueue addOperation:_fetchClientStateIfNeeded];
@@ -817,18 +820,17 @@ LABEL_14:
   v40 = fp_current_or_default_log();
   if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
   {
-    [(FPSpotlightIndexer *)v34 _indexOneBatchWithCompletionHandler:?];
+    [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
   }
 
   [(NSOperationQueue *)self->_operationQueue addOperation:v34];
-  objc_destroyWeak(&v54);
-
   objc_destroyWeak(&v53);
+
+  objc_destroyWeak(&v52);
   objc_destroyWeak(&from);
   objc_destroyWeak(location);
 
-  _FPRestorePersona(&v59);
-  v41 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v58);
 }
 
 uint64_t __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1023,7 +1025,7 @@ uint64_t __99__FPSpotlightIndexer_indexOneBatchFromAnchor_toAnchor_updatedItems_
 
 - (void)_indexOutOfBandUpdatedItems:(id)items deletedItems:(id)deletedItems indexReason:(int64_t)reason completionHandler:(id)handler
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   deletedItemsCopy = deletedItems;
   handlerCopy = handler;
@@ -1031,7 +1033,7 @@ uint64_t __99__FPSpotlightIndexer_indexOneBatchFromAnchor_toAnchor_updatedItems_
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v50 = 0;
+  v49 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained(&self->_domainContext);
   domain = [WeakRetained domain];
@@ -1055,11 +1057,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v49 = 0;
-  v21 = [currentPersona copyCurrentPersonaContextWithError:&v49];
-  v22 = v49;
-  v23 = v50;
-  v50 = v21;
+  v48 = 0;
+  v21 = [currentPersona copyCurrentPersonaContextWithError:&v48];
+  v22 = v48;
+  v23 = v49;
+  v49 = v21;
 
   if (v22)
   {
@@ -1080,13 +1082,13 @@ LABEL_13:
     v29 = fp_current_or_default_log();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v38 = objc_loadWeakRetained(&self->_domainContext);
-      domain4 = [v38 domain];
+      v37 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v37 domain];
       personaIdentifier4 = [domain4 personaIdentifier];
       *buf = 138412546;
-      v52 = personaIdentifier4;
-      v53 = 2112;
-      v54 = v28;
+      v51 = personaIdentifier4;
+      v52 = 2112;
+      v53 = v28;
       _os_log_error_impl(&dword_1AAAE1000, v29, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
     }
   }
@@ -1101,23 +1103,23 @@ LABEL_14:
   [(FPSpotlightIndexOneBatchOperation *)v31 setNextAnchor:0];
   [(FPSpotlightIndexOneBatchOperation *)v31 setIndexReason:reason];
   [(FPSpotlightIndexOneBatchOperation *)v31 setQualityOfService:qos_class_self()];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __93__FPSpotlightIndexer__indexOutOfBandUpdatedItems_deletedItems_indexReason_completionHandler___block_invoke;
-  v45[3] = &unk_1E793A678;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __93__FPSpotlightIndexer__indexOutOfBandUpdatedItems_deletedItems_indexReason_completionHandler___block_invoke;
+  v44[3] = &unk_1E793A678;
   v32 = itemsCopy;
-  v46 = v32;
+  v45 = v32;
   v33 = deletedItemsCopy;
-  v47 = v33;
+  v46 = v33;
   v34 = handlerCopy;
-  v48 = v34;
-  [(FPOperation *)v31 setFinishedBlock:v45];
+  v47 = v34;
+  [(FPOperation *)v31 setFinishedBlock:v44];
   if (_fetchClientStateIfNeeded)
   {
     v35 = fp_current_or_default_log();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      [(FPSpotlightIndexer *)_fetchClientStateIfNeeded _indexOneBatchWithCompletionHandler:?];
+      [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
     }
 
     [(NSOperationQueue *)self->_operationQueue addOperation:_fetchClientStateIfNeeded];
@@ -1126,13 +1128,11 @@ LABEL_14:
   v36 = fp_current_or_default_log();
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    [(FPSpotlightIndexer *)v31 _indexOneBatchWithCompletionHandler:?];
+    [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
   }
 
   [(NSOperationQueue *)self->_operationQueue addOperation:v31];
-  _FPRestorePersona(&v50);
-
-  v37 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v49);
 }
 
 void __93__FPSpotlightIndexer__indexOutOfBandUpdatedItems_deletedItems_indexReason_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1173,13 +1173,13 @@ void __93__FPSpotlightIndexer__indexOutOfBandUpdatedItems_deletedItems_indexReas
 
 - (void)_fetchCurrentIndexingAnchorWithCompletionHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v4 = fpfs_adopt_log(self->_log);
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v40 = 0;
+  v39 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained(&self->_domainContext);
   domain = [WeakRetained domain];
@@ -1203,11 +1203,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v39 = 0;
-  v16 = [currentPersona copyCurrentPersonaContextWithError:&v39];
-  v17 = v39;
-  v18 = v40;
-  v40 = v16;
+  v38 = 0;
+  v16 = [currentPersona copyCurrentPersonaContextWithError:&v38];
+  v17 = v38;
+  v18 = v39;
+  v39 = v16;
 
   if (v17)
   {
@@ -1228,13 +1228,13 @@ LABEL_13:
     v24 = fp_current_or_default_log();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v32 = objc_loadWeakRetained(&self->_domainContext);
-      domain4 = [v32 domain];
+      v31 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v31 domain];
       personaIdentifier4 = [domain4 personaIdentifier];
       *location = 138412546;
       *&location[4] = personaIdentifier4;
-      v42 = 2112;
-      v43 = v23;
+      v41 = 2112;
+      v42 = v23;
       _os_log_error_impl(&dword_1AAAE1000, v24, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", location, 0x16u);
     }
   }
@@ -1243,14 +1243,14 @@ LABEL_14:
   _fetchClientStateIfNeeded = [(FPSpotlightIndexer *)self _fetchClientStateIfNeeded];
   objc_initWeak(location, self);
   v26 = MEMORY[0x1E696AAE0];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __71__FPSpotlightIndexer__fetchCurrentIndexingAnchorWithCompletionHandler___block_invoke;
-  v36[3] = &unk_1E793A6C8;
-  objc_copyWeak(&v38, location);
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __71__FPSpotlightIndexer__fetchCurrentIndexingAnchorWithCompletionHandler___block_invoke;
+  v35[3] = &unk_1E793A6C8;
+  objc_copyWeak(&v37, location);
   v27 = handlerCopy;
-  v37 = v27;
-  v28 = [v26 blockOperationWithBlock:v36];
+  v36 = v27;
+  v28 = [v26 blockOperationWithBlock:v35];
   [v28 setQualityOfService:17];
   [v28 setName:@"ReturnCurrentAnchor"];
   if (self->_fetchStateOperation)
@@ -1263,7 +1263,7 @@ LABEL_14:
     v29 = fp_current_or_default_log();
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      [(FPSpotlightIndexer *)_fetchClientStateIfNeeded _indexOneBatchWithCompletionHandler:?];
+      [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
     }
 
     [(NSOperationQueue *)self->_operationQueue addOperation:_fetchClientStateIfNeeded];
@@ -1272,15 +1272,14 @@ LABEL_14:
   v30 = fp_current_or_default_log();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    [(FPSpotlightIndexer *)v28 _indexOneBatchWithCompletionHandler:?];
+    [FPSpotlightIndexer _indexOneBatchWithCompletionHandler:];
   }
 
   [(NSOperationQueue *)self->_operationQueue addOperation:v28];
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v37);
   objc_destroyWeak(location);
 
-  _FPRestorePersona(&v40);
-  v31 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v39);
 }
 
 void __71__FPSpotlightIndexer__fetchCurrentIndexingAnchorWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1288,13 +1287,13 @@ void __71__FPSpotlightIndexer__fetchCurrentIndexingAnchorWithCompletionHandler__
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v10 = WeakRetained;
+    v9 = WeakRetained;
     v3 = WeakRetained[8];
     if (v3)
     {
       if ([v3 length])
       {
-        v4 = [FPSpotlightIndexState stateWithData:v10[8]];
+        v4 = [FPSpotlightIndexState stateWithData:v9[8]];
         if (v4)
         {
           v5 = v4;
@@ -1303,21 +1302,20 @@ void __71__FPSpotlightIndexer__fetchCurrentIndexingAnchorWithCompletionHandler__
           (*(v6 + 16))(v6, v7, 0);
 
 LABEL_9:
-          WeakRetained = v10;
+          WeakRetained = v9;
           goto LABEL_10;
         }
       }
 
-      v8 = v10[8];
-      v9 = *(*(a1 + 32) + 16);
+      v8 = *(*(a1 + 32) + 16);
     }
 
     else
     {
-      v9 = *(*(a1 + 32) + 16);
+      v8 = *(*(a1 + 32) + 16);
     }
 
-    v9();
+    v8();
     goto LABEL_9;
   }
 
@@ -1364,13 +1362,13 @@ uint64_t __70__FPSpotlightIndexer_fetchCurrentIndexingAnchorWithCompletionHandle
 
 void __27__FPSpotlightIndexer_pause__block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   v2 = fpfs_adopt_log(*(*(a1 + 32) + 160));
   v3 = [MEMORY[0x1E69DF068] sharedManager];
   v4 = [v3 currentPersona];
 
-  v45 = 0;
+  v44 = 0;
   v5 = [v4 userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained((*v1 + 168));
   v7 = [WeakRetained domain];
@@ -1394,11 +1392,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v44 = 0;
-  v14 = [v4 copyCurrentPersonaContextWithError:&v44];
-  v15 = v44;
-  v16 = v45;
-  v45 = v14;
+  v43 = 0;
+  v14 = [v4 copyCurrentPersonaContextWithError:&v43];
+  v15 = v43;
+  v16 = v44;
+  v44 = v14;
 
   if (v15)
   {
@@ -1419,13 +1417,13 @@ LABEL_13:
     v22 = fp_current_or_default_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v39 = objc_loadWeakRetained((*v1 + 168));
-      v40 = [v39 domain];
-      v41 = [v40 personaIdentifier];
+      v38 = objc_loadWeakRetained((*v1 + 168));
+      v39 = [v38 domain];
+      v40 = [v39 personaIdentifier];
       *location = 138412546;
-      *&location[4] = v41;
-      v47 = 2112;
-      v48 = v21;
+      *&location[4] = v40;
+      v46 = 2112;
+      v47 = v21;
       _os_log_error_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", location, 0x16u);
     }
   }
@@ -1451,18 +1449,17 @@ LABEL_14:
 
     objc_initWeak(location, *v1);
     v37 = *(*v1 + 48);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __27__FPSpotlightIndexer_pause__block_invoke_97;
-    v42[3] = &unk_1E7939010;
-    objc_copyWeak(&v43, location);
-    [v37 addBarrierBlock:v42];
-    objc_destroyWeak(&v43);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __27__FPSpotlightIndexer_pause__block_invoke_97;
+    v41[3] = &unk_1E7939010;
+    objc_copyWeak(&v42, location);
+    [v37 addBarrierBlock:v41];
+    objc_destroyWeak(&v42);
     objc_destroyWeak(location);
   }
 
-  _FPRestorePersona(&v45);
-  v38 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v44);
 }
 
 void __27__FPSpotlightIndexer_pause__block_invoke_97(uint64_t a1)
@@ -1490,13 +1487,13 @@ void __27__FPSpotlightIndexer_pause__block_invoke_97(uint64_t a1)
 
 void __28__FPSpotlightIndexer_resume__block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   v2 = fpfs_adopt_log(*(*(a1 + 32) + 160));
   v3 = [MEMORY[0x1E69DF068] sharedManager];
   v4 = [v3 currentPersona];
 
-  v35 = 0;
+  v34 = 0;
   v5 = [v4 userPersonaUniqueString];
   WeakRetained = objc_loadWeakRetained((*v1 + 168));
   v7 = [WeakRetained domain];
@@ -1520,11 +1517,11 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v34 = 0;
-  v14 = [v4 copyCurrentPersonaContextWithError:&v34];
-  v15 = v34;
-  v16 = v35;
-  v35 = v14;
+  v33 = 0;
+  v14 = [v4 copyCurrentPersonaContextWithError:&v33];
+  v15 = v33;
+  v16 = v34;
+  v34 = v14;
 
   if (v15)
   {
@@ -1545,13 +1542,13 @@ LABEL_13:
     v22 = fp_current_or_default_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_loadWeakRetained((*v1 + 168));
-      v32 = [v31 domain];
-      v33 = [v32 personaIdentifier];
+      v30 = objc_loadWeakRetained((*v1 + 168));
+      v31 = [v30 domain];
+      v32 = [v31 personaIdentifier];
       *buf = 138412546;
-      v37 = v33;
-      v38 = 2112;
-      v39 = v21;
+      v36 = v32;
+      v37 = 2112;
+      v38 = v21;
       _os_log_error_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
     }
   }
@@ -1568,16 +1565,91 @@ LABEL_14:
     dispatch_semaphore_signal(*(*v1 + 128));
   }
 
-  _FPRestorePersona(&v35);
-  v30 = *MEMORY[0x1E69E9840];
+  _FPRestorePersona(&v34);
 }
 
 - (void)_invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: invalidating", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v3 = fpfs_adopt_log(self->_log);
+  mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
+  currentPersona = [mEMORY[0x1E69DF068] currentPersona];
+
+  v30 = 0;
+  userPersonaUniqueString = [currentPersona userPersonaUniqueString];
+  WeakRetained = objc_loadWeakRetained(&self->_domainContext);
+  domain = [WeakRetained domain];
+  personaIdentifier = [domain personaIdentifier];
+  v10 = personaIdentifier;
+  if (userPersonaUniqueString == personaIdentifier)
+  {
+
+LABEL_13:
+    v22 = 0;
+    goto LABEL_14;
+  }
+
+  v11 = objc_loadWeakRetained(&self->_domainContext);
+  domain2 = [v11 domain];
+  personaIdentifier2 = [domain2 personaIdentifier];
+  v14 = [userPersonaUniqueString isEqualToString:personaIdentifier2];
+
+  if ((v14 & 1) != 0 || !voucher_process_can_use_arbitrary_personas())
+  {
+    goto LABEL_13;
+  }
+
+  v29 = 0;
+  v15 = [currentPersona copyCurrentPersonaContextWithError:&v29];
+  v16 = v29;
+  v17 = v30;
+  v30 = v15;
+
+  if (v16)
+  {
+    v18 = fp_current_or_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [FPSpotlightIndexer _fetchClientStateIfNeeded];
+    }
+  }
+
+  v19 = objc_loadWeakRetained(&self->_domainContext);
+  domain3 = [v19 domain];
+  personaIdentifier3 = [domain3 personaIdentifier];
+  v22 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier3];
+
+  if (v22)
+  {
+    v23 = fp_current_or_default_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v26 = objc_loadWeakRetained(&self->_domainContext);
+      domain4 = [v26 domain];
+      personaIdentifier4 = [domain4 personaIdentifier];
+      *buf = 138412546;
+      v32 = personaIdentifier4;
+      v33 = 2112;
+      v34 = v22;
+      _os_log_error_impl(&dword_1AAAE1000, v23, OS_LOG_TYPE_ERROR, "[ERROR] Can't adopt persona %@: %@", buf, 0x16u);
+    }
+  }
+
+LABEL_14:
+  dispatch_assert_queue_V2(self->_workloop);
+  v24 = fp_current_or_default_log();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    [FPSpotlightIndexer _invalidate];
+  }
+
+  self->_isCanceled = 1;
+  [(NSOperationQueue *)self->_operationQueue cancelAllOperations];
+  [(NSFileProviderEnumerator *)self->_vendorEnumerator invalidate];
+  vendorEnumerator = self->_vendorEnumerator;
+  self->_vendorEnumerator = 0;
+
+  _FPRestorePersona(&v30);
 }
 
 - (void)invalidate
@@ -1662,7 +1734,6 @@ uint64_t __104__FPSpotlightIndexer_deleteSearchableItemsWithSpotlightDomainIdent
     __104__FPSpotlightIndexer_deleteSearchableItemsWithSpotlightDomainIdentifiers_indexReason_completionHandler___block_invoke_2_cold_2(a1, v5);
   }
 
-  v6 = *(a1 + 32);
   return (*(*(a1 + 64) + 16))();
 }
 
@@ -1901,7 +1972,7 @@ void __34__FPSpotlightIndexer_dumpStateTo___block_invoke_3(uint64_t a1)
 
 + (void)setIndexerProperty:(id)property forKey:(id)key supportURL:(id)l
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   keyCopy = key;
   lCopy = l;
@@ -1932,27 +2003,26 @@ void __34__FPSpotlightIndexer_dumpStateTo___block_invoke_3(uint64_t a1)
     v19 = v18;
 
     [v19 setValue:propertyCopy forKey:keyCopy];
-    v24 = 0;
-    v20 = [v19 writeToURL:v12 error:&v24];
-    v21 = v24;
+    v23 = 0;
+    v20 = [v19 writeToURL:v12 error:&v23];
+    v21 = v23;
     if ((v20 & 1) == 0)
     {
       v22 = fp_current_or_default_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v26 = keyCopy;
-        v27 = 2112;
-        v28 = propertyCopy;
-        v29 = 2112;
-        v30 = v21;
+        v25 = keyCopy;
+        v26 = 2112;
+        v27 = propertyCopy;
+        v28 = 2112;
+        v29 = v21;
         _os_log_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to store indexer value (%@) %@: %@", buf, 0x20u);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (id)indexerPropertyOfClass:(Class)class forKey:(id)key supportURL:(id)l
@@ -1987,22 +2057,6 @@ void __34__FPSpotlightIndexer_dumpStateTo___block_invoke_3(uint64_t a1)
   return WeakRetained;
 }
 
-- (void)learnNewIndexState:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: Learning change token %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_fetchClientStateIfNeeded
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] won't restore persona: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_indexOneBatchWithCompletionHandler:(os_log_t)log .cold.2(void *a1, uint8_t *buf, os_log_t log)
 {
   *buf = 138412290;
@@ -2010,21 +2064,11 @@ void __34__FPSpotlightIndexer_dumpStateTo___block_invoke_3(uint64_t a1)
   _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] can't create vendor enumerator: %@", buf, 0xCu);
 }
 
-- (void)_indexOneBatchWithCompletionHandler:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
+- (void)_indexOneBatchWithCompletionHandler:.cold.3()
 {
-  OUTLINED_FUNCTION_5_1(a2, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v2, v3, "[DEBUG] scheduling %@ on %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_indexOneBatchWithCompletionHandler:(uint64_t)a1 .cold.5(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v3, v4, "[DEBUG] scheduling %@ on %@");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v0, v1, "[DEBUG] scheduling %@ on %@");
 }
 
 void __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_deletedItems_completionHandler___block_invoke_cold_1()
@@ -2057,85 +2101,70 @@ void __100__FPSpotlightIndexer__indexOneBatchFromAnchor_toAnchor_updatedItems_de
 
 void __93__FPSpotlightIndexer__indexOutOfBandUpdatedItems_deletedItems_indexReason_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = [*(a1 + 32) count];
   v7 = [*(a1 + 40) count];
-  v9[0] = 67109634;
-  v9[1] = v6;
-  v10 = 1024;
-  v11 = v7;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] out-of-band indexing of (%u updates, %u deletions, completed with error %@", v9, 0x18u);
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = 67109634;
+  v8[1] = v6;
+  v9 = 1024;
+  v10 = v7;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] out-of-band indexing of (%u updates, %u deletions, completed with error %@", v8, 0x18u);
 }
 
 void __27__FPSpotlightIndexer_pause__block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: pausing", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: pausing", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __27__FPSpotlightIndexer_pause__block_invoke_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: already paused", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: already paused", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __28__FPSpotlightIndexer_resume__block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: resuming", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, a2, a3, "[DEBUG] %@: resuming", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __104__FPSpotlightIndexer_deleteSearchableItemsWithSpotlightDomainIdentifiers_indexReason_completionHandler___block_invoke_2_cold_1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
   v7 = [*a2 fp_prettyDescription];
   [*(a1 + 56) timeIntervalSinceNow];
-  v10 = 138413058;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  v14 = 2112;
-  v15 = v7;
-  v16 = 2048;
-  v17 = -v8;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] [spotlight] %@: failed deleting searchable items with domain identifiers %@: %@ in %.3fs", &v10, 0x2Au);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 138413058;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  v13 = 2112;
+  v14 = v7;
+  v15 = 2048;
+  v16 = -v8;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] [spotlight] %@: failed deleting searchable items with domain identifiers %@: %@ in %.3fs", &v9, 0x2Au);
 }
 
 void __104__FPSpotlightIndexer_deleteSearchableItemsWithSpotlightDomainIdentifiers_indexReason_completionHandler___block_invoke_2_cold_2(uint64_t a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
   [*(a1 + 56) timeIntervalSinceNow];
-  v7 = 138412802;
-  v8 = v3;
-  v9 = 2112;
-  v10 = v4;
-  v11 = 2048;
-  v12 = -v5;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] [spotlight] %@: deleted searchable items with domain identifiers %@ in %.3fs", &v7, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __68__FPSpotlightIndexer_dropIndexInQueue_dropReason_completionHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, v0, v1, "[ERROR] can't drop spotlight index: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412802;
+  v7 = v3;
+  v8 = 2112;
+  v9 = v4;
+  v10 = 2048;
+  v11 = -v5;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] [spotlight] %@: deleted searchable items with domain identifiers %@ in %.3fs", &v6, 0x20u);
 }
 
 + (void)setIndexerProperty:(uint64_t)a1 forKey:(uint64_t)a2 supportURL:.cold.1(uint64_t a1, uint64_t a2)

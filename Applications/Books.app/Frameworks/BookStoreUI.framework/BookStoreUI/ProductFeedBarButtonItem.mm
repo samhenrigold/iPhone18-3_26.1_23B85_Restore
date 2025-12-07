@@ -41,7 +41,7 @@
 
 - (void)restrictionsForExplicitContentAllowedChanged:(BOOL)changed
 {
-  v4 = sub_6620C(&unk_3BDBB0);
+  v4 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = sub_2C5C58();

@@ -6,7 +6,7 @@
 
 - (id)activityTitle
 {
-  v2 = NUBundle();
+  v2 = NUBundle(self);
   v3 = [v2 localizedStringForKey:@"Add to Safari Reading List" value:&stru_286E03B58 table:0];
 
   return v3;

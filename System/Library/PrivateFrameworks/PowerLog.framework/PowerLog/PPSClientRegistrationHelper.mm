@@ -16,8 +16,7 @@
 
   [(NSXPCConnection *)self->_connectionToServer setInterruptionHandler:&__block_literal_global_1];
   [(NSXPCConnection *)self->_connectionToServer setInvalidationHandler:&__block_literal_global_8];
-  [(NSXPCConnection *)self->_connectionToServer resume];
-  v6 = logHandle();
+  v6 = logHandle([(NSXPCConnection *)self->_connectionToServer resume]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;
@@ -29,20 +28,20 @@
   return v7;
 }
 
-void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_6()
+void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_6(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BACB7000, v0, OS_LOG_TYPE_INFO, "Client Permission check completed. Invalidating XPC Connection.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1BACB7000, v1, OS_LOG_TYPE_INFO, "Client Permission check completed. Invalidating XPC Connection.", v2, 2u);
   }
 }
 
 void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_9(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = logHandle();
+  v3 = logHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_9_cold_1(v2, v3);
@@ -51,13 +50,11 @@ void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_9(uint6
 
 void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_9_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_ERROR, "Connection error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_ERROR, "Connection error: %@", &v4, 0xCu);
 }
 
 - (BOOL)permissionsForSubsystem:(id)subsystem category:(id)category
@@ -90,12 +87,12 @@ void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_9_cold_
   return v8 & 1;
 }
 
-void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke()
+void __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke(uint64_t a1)
 {
-  v0 = logHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = logHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_cold_1(v0);
+    __50__PPSClientRegistrationHelper_createXPCConnection__block_invoke_cold_1(v1);
   }
 }
 

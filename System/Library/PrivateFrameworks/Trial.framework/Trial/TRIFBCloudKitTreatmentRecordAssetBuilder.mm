@@ -24,20 +24,16 @@
 - (void)setContainer:(unsigned __int8)container
 {
   containerCopy = container;
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 4, containerCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTreatmentId:(id)id
 {
-  v10 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if (!idCopy)
   {
@@ -52,35 +48,28 @@
     v7 = idCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAssetIndex:(unsigned int)index
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v3 = *&index;
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
-    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 8, index);
+    apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(self->_bldr->var0, 8, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHasCkIndex:(BOOL)index
 {
   indexCopy = index;
-  v7 = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 10, indexCopy);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

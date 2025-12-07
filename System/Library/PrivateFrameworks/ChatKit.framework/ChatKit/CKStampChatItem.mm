@@ -125,7 +125,7 @@ LABEL_8:
     v23 = v28;
   }
 
-  v29 = [CKChatItemLayoutUtilities transcriptVerticalEdgeSpacingForChatItem:self previousChatItem:v14 topSpacing:v23 bottomSpacing:0.0, *v34, *&v34[16], v35];
+  v29 = [CKChatItemLayoutUtilities transcriptVerticalEdgeSpacingForChatItem:self previousChatItem:v14 topSpacing:v23 bottomSpacing:0.0, *v34, *&v34[8], v35];
 
   return v29;
 }

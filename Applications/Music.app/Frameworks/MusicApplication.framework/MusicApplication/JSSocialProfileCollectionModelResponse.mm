@@ -10,14 +10,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_B5A4C;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   responseCopy = response;
   selfCopy = self;
-  sub_EF090(response, v6);
-  sub_17654(v6);
+  sub_EF090(response, v6, v9);
+  sub_17654(v6, v7);
 }
 
 - (_TtC16MusicApplication38JSSocialProfileCollectionModelResponse)initWithRequest:(id)request

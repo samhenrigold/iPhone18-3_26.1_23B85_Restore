@@ -6,18 +6,18 @@
 - (id)networkQualityDate;
 - (id)randomMACAddress;
 - (uint64_t)autoJoinConfigurable;
-- (uint64_t)autoLoginConfigurable;
 - (uint64_t)carPlayNetworkType;
 - (uint64_t)hasDisabledUntilDate;
 - (uint64_t)hasJoined6GHz;
 - (uint64_t)shouldShowInKnownNetworkList;
 - (uint64_t)shouldShowInMyNetworkList;
-- (uint64_t)wifiModeConfigurable;
+- (unint64_t)wifiModeConfigurable;
+- (void)autoLoginConfigurable;
 @end
 
 @implementation CWFNetworkProfile(WiFiKit)
 
-- (uint64_t)wifiModeConfigurable
+- (unint64_t)wifiModeConfigurable
 {
   disable6EMode = [self disable6EMode];
   if (_os_feature_enabled_impl())
@@ -41,26 +41,26 @@
 
 - (uint64_t)hasJoined6GHz
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   bSSList = [self BSSList];
-  v2 = [bSSList countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [bSSList countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
-    v3 = *v10;
+    v3 = *v9;
     while (2)
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(bSSList);
         }
 
-        channel = [*(*(&v9 + 1) + 8 * i) channel];
+        channel = [*(*(&v8 + 1) + 8 * i) channel];
         band = [channel band];
 
         if (band == 3)
@@ -70,7 +70,7 @@
         }
       }
 
-      v2 = [bSSList countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [bSSList countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v2)
       {
         continue;
@@ -82,52 +82,49 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (uint64_t)shouldShowInKnownNetworkList
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v2)
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 4 && v2)
   {
-    v4 = v2;
-    if (os_log_type_enabled(v4, v3))
+    v6 = v2;
+    if (os_log_type_enabled(v6, v4))
     {
       networkName = [self networkName];
-      v8 = 136316162;
-      v9 = "[CWFNetworkProfile(WiFiKit) shouldShowInKnownNetworkList]";
-      v10 = 2112;
-      v11 = networkName;
-      v12 = 1024;
+      v9 = 136316162;
+      v10 = "[CWFNetworkProfile(WiFiKit) shouldShowInKnownNetworkList]";
+      v11 = 2112;
+      v12 = networkName;
+      v13 = 1024;
       shouldShowInMyNetworkList = [self shouldShowInMyNetworkList];
-      v14 = 1024;
+      v15 = 1024;
       isPersonalHotspot = [self isPersonalHotspot];
-      v16 = 1024;
+      v17 = 1024;
       isAppBased = [self isAppBased];
-      _os_log_impl(&dword_273ECD000, v4, v3, "%s: networkName='%@' shouldShowInMyNetworkList=%d isPersonalHotspot=%d isAppBased=%d", &v8, 0x28u);
+      _os_log_impl(&dword_273ECD000, v6, v4, "%s: networkName='%@' shouldShowInMyNetworkList=%d isPersonalHotspot=%d isAppBased=%d", &v9, 0x28u);
     }
   }
 
   if ([self shouldShowInMyNetworkList] && !objc_msgSend(self, "isPersonalHotspot"))
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = [self isAppBased];
+    return [self isAppBased];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (uint64_t)shouldShowInMyNetworkList
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lastJoinedAt = [self lastJoinedAt];
   if (lastJoinedAt)
   {
@@ -152,33 +149,33 @@ LABEL_11:
 
     v10 = WFLogForCategory(0);
     v11 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v10)
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 4 && v10)
     {
-      v12 = v10;
-      if (os_log_type_enabled(v12, v11))
+      v14 = v10;
+      if (os_log_type_enabled(v14, v12))
       {
-        v13 = v7 == 1;
+        v15 = v7 == 1;
         networkName = [self networkName];
-        v18 = 138412802;
-        v19 = networkName;
-        v20 = 1024;
-        v21 = v13;
-        v22 = 1024;
+        v19 = 138412802;
+        v20 = networkName;
+        v21 = 1024;
+        v22 = v15;
+        v23 = 1024;
         isOpen2 = [self isOpen];
-        _os_log_impl(&dword_273ECD000, v12, v11, "%@ did pass last joined checkpoint: %d, is open: %d", &v18, 0x18u);
+        _os_log_impl(&dword_273ECD000, v14, v12, "%@ did pass last joined checkpoint: %d, is open: %d", &v19, 0x18u);
       }
     }
 
-    v15 = v9 ^ 1u;
+    v17 = v9 ^ 1u;
   }
 
   else
   {
-    v15 = 1;
+    v17 = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v17;
 }
 
 - (uint64_t)carPlayNetworkType
@@ -213,7 +210,7 @@ LABEL_11:
   return v2;
 }
 
-- (uint64_t)autoLoginConfigurable
+- (void)autoLoginConfigurable
 {
   result = [self isCaptive];
   if (result)
@@ -225,7 +222,7 @@ LABEL_11:
 
     else
     {
-      return [self isCarPlay] ^ 1;
+      return ([self isCarPlay] ^ 1);
     }
   }
 
@@ -255,8 +252,7 @@ LABEL_11:
 
 - (uint64_t)hasDisabledUntilDate
 {
-  v0 = WiFiNetworkCreateFromCoreWiFiNetworkProfile();
-  v1 = *MEMORY[0x277D29848];
+  v1 = WiFiNetworkCreateFromCoreWiFiNetworkProfile();
 
   return WiFiNetworkGetProperty();
 }

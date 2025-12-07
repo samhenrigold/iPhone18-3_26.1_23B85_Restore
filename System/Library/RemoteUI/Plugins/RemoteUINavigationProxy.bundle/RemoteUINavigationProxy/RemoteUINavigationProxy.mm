@@ -3,13 +3,12 @@ uint64_t sub_10F0(void *a1)
   v2 = swift_allocObject();
   v3 = sub_209C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20AC();
-  v8 = sub_206C();
-  (*(v4 + 8))(v7, v3);
-  if (v8)
+  v7 = sub_206C();
+  (*(v4 + 8))(v6, v3);
+  if (v7)
   {
     *(v2 + 16) = a1;
   }
@@ -26,33 +25,29 @@ uint64_t sub_10F0(void *a1)
 
 uint64_t sub_123C()
 {
-  v1 = *(v0 + 16);
-  v2 = sub_209C();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v0 = sub_209C();
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20AC();
   sub_204C();
-  return (*(v3 + 8))(v6, v2);
+  return (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_1318(uint64_t a1)
 {
-  v3 = *(v1 + 16);
-  v4 = sub_209C();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_209C();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20AC();
   sub_205C();
-  v9 = sub_203C();
-  (*(*(v9 - 8) + 8))(a1, v9);
-  return (*(v5 + 8))(v8, v4);
+  v6 = sub_203C();
+  (*(*(v6 - 8) + 8))(a1, v6);
+  return (*(v3 + 8))(v5, v2);
 }
 
-void (*sub_142C(uint64_t *a1))(uint64_t **a1, char a2)
+void (*sub_142C(uint64_t **a1))(uint64_t **a1, char a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -103,70 +98,64 @@ void (*sub_142C(uint64_t *a1))(uint64_t **a1, char a2)
 void sub_15F4(uint64_t **a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1)[7];
-  v3 = (*a1)[8];
-  v5 = (*a1)[5];
-  v6 = (*a1)[6];
-  v8 = (*a1)[3];
-  v7 = (*a1)[4];
-  v10 = (*a1)[1];
-  v9 = (*a1)[2];
-  v11 = **a1;
+  v3 = (*a1)[7];
+  v4 = (*a1)[5];
+  v5 = (*a1)[6];
+  v6 = (*a1)[3];
+  v8 = (*a1)[1];
+  v7 = (*a1)[2];
+  v9 = **a1;
   if (a2)
   {
-    v12 = (*(v10 + 16))((*a1)[2], v8, v11);
-    v15 = &v14;
-    __chkstk_darwin(v12);
+    v10 = (*(v8 + 16))((*a1)[2], v6, v9);
+    v13 = &v12;
+    __chkstk_darwin(v10);
     sub_20AC();
     sub_205C();
-    v4(&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-    v13 = *(v10 + 8);
-    v13(v9, v11);
-    v13(v8, v11);
+    v3(&v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v4);
+    v11 = *(v8 + 8);
+    v11(v7, v9);
+    v11(v6, v9);
   }
 
   else
   {
-    v15 = &v14;
-    (__chkstk_darwin)();
+    v13 = &v12;
+    __chkstk_darwin(a1);
     sub_20AC();
     sub_205C();
-    v4(&v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v5);
-    (*(v10 + 8))(v8, v11);
+    v3(&v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v4);
+    (*(v8 + 8))(v6, v9);
   }
 
-  free(v8);
-  free(v9);
+  free(v6);
+  free(v7);
   free(v2);
 }
 
 uint64_t sub_1784()
 {
-  v1 = *(v0 + 16);
-  v2 = sub_209C();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v0 = sub_209C();
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20AC();
   sub_208C();
-  return (*(v3 + 8))(v6, v2);
+  return (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_1854()
 {
-  (*(*v0 + 136))(v9);
-  sub_1984(v9, v9[3]);
-  v1 = v0[2];
-  v2 = sub_209C();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v9[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(*v0 + 136))(v7);
+  sub_1984(v7, v7[3]);
+  v1 = sub_209C();
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
+  v4 = &v7[-1] - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20AC();
   sub_207C();
-  (*(v3 + 8))(v6, v2);
-  return sub_19C8(v9);
+  (*(v2 + 8))(v4, v1);
+  return sub_19C8(v7);
 }
 
 void *sub_1984(void *result, uint64_t a2)
@@ -229,34 +218,31 @@ uint64_t *sub_1ABC(uint64_t *result)
 uint64_t sub_1B20(uint64_t a1, uint64_t a2)
 {
   v4 = sub_1D60(&qword_80C0, qword_21E0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v22 - v7;
-  v9 = *(a2 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v6);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_201C();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v9 + 16))(v12, a1, a2);
-  v18 = swift_dynamicCast();
-  v19 = *(v14 + 56);
-  if (v18)
+  v5 = __chkstk_darwin(v4 - 8);
+  v7 = &v19 - v6;
+  v8 = *(a2 - 8);
+  __chkstk_darwin(v5);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_201C();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v8 + 16))(v10, a1, a2);
+  v15 = swift_dynamicCast();
+  v16 = *(v12 + 56);
+  if (v15)
   {
-    v19(v8, 0, 1, v13);
-    (*(v14 + 32))(v17, v8, v13);
-    v20 = sub_200C();
-    (*(v14 + 8))(v17, v13);
-    return v20;
+    v16(v7, 0, 1, v11);
+    (*(v12 + 32))(v14, v7, v11);
+    v17 = sub_200C();
+    (*(v12 + 8))(v14, v11);
+    return v17;
   }
 
   else
   {
-    v19(v8, 1, 1, v13);
-    sub_1DA8(v8);
+    v16(v7, 1, 1, v11);
+    sub_1DA8(v7);
     return 0;
   }
 }
@@ -266,7 +252,6 @@ uint64_t sub_1D60(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -287,7 +272,7 @@ uint64_t sub_1E10()
   return _swift_deallocClassInstance(v0, 24, 7);
 }
 
-void (*sub_1EA4(uint64_t *a1))(void *a1)
+uint64_t (*sub_1EA4(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {

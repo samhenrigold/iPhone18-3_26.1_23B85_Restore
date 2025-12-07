@@ -7,7 +7,7 @@
 
 + (id)getPETMessageWithInteractionsStatistics:(id)statistics predictionContext:(id)context deviceIdentifier:(id)identifier trialIdentifier:(id)trialIdentifier peopleSuggesterDefaults:(id)defaults
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   statisticsCopy = statistics;
   contextCopy = context;
   identifierCopy = identifier;
@@ -26,8 +26,8 @@
   v19 = +[_PSConstants mobilePhotosBundleId];
   LOBYTE(context) = [bundleID isEqualToString:v19];
 
-  v78 = trialIdentifierCopy;
-  v79 = identifierCopy;
+  v77 = trialIdentifierCopy;
+  v78 = identifierCopy;
   if (context)
   {
     v20 = 1;
@@ -72,31 +72,31 @@
   }
 
   [v16 setAppSharedFrom:v20];
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
-  v80 = contextCopy;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v79 = contextCopy;
   attachments = [contextCopy attachments];
-  v28 = [attachments countByEnumeratingWithState:&v88 objects:v93 count:16];
+  v28 = [attachments countByEnumeratingWithState:&v87 objects:v92 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v89;
+    v30 = *v88;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v89 != v30)
+        if (*v88 != v30)
         {
           objc_enumerationMutation(attachments);
         }
 
-        v32 = [*(*(&v88 + 1) + 8 * i) UTI];
+        v32 = [*(*(&v87 + 1) + 8 * i) UTI];
         [v16 addTypeOfContent:{+[_PSPETMessageBuilder contentTypeFromUTI:](_PSPETMessageBuilder, "contentTypeFromUTI:", v32)}];
       }
 
-      v29 = [attachments countByEnumeratingWithState:&v88 objects:v93 count:16];
+      v29 = [attachments countByEnumeratingWithState:&v87 objects:v92 count:16];
     }
 
     while (v29);
@@ -108,27 +108,27 @@
     [v16 setTestKey:v33];
   }
 
-  v77 = defaultsCopy;
+  v76 = defaultsCopy;
   v34 = objc_opt_new();
+  v83 = 0u;
   v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
   obj = [statisticsCopy conversationIds];
-  v83 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
-  if (v83)
+  v82 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
+  if (v82)
   {
-    v82 = *v85;
+    v81 = *v84;
     do
     {
-      for (j = 0; j != v83; ++j)
+      for (j = 0; j != v82; ++j)
       {
-        if (*v85 != v82)
+        if (*v84 != v81)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = *(*(&v84 + 1) + 8 * j);
+        v36 = *(*(&v83 + 1) + 8 * j);
         v37 = objc_opt_new();
         v38 = [statisticsCopy privatizedConversationId:v36];
         [v37 setPrivatizedIdentifier:v38];
@@ -148,7 +148,7 @@
 
         if (v42)
         {
-          v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%du", arc4random(), v77, v78, v79];
+          v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%du", arc4random(), v76, v77, v78];
           [v34 setObject:v41 forKeyedSubscript:v39];
         }
 
@@ -251,10 +251,10 @@
         [v16 addCandidates:v37];
       }
 
-      v83 = [obj countByEnumeratingWithState:&v84 objects:v92 count:16];
+      v82 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
     }
 
-    while (v83);
+    while (v82);
   }
 
   if (![v16 feedbackEventsCount])
@@ -263,8 +263,6 @@
     [v74 setFeedbackType:0];
     [v16 addFeedbackEvents:v74];
   }
-
-  v75 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

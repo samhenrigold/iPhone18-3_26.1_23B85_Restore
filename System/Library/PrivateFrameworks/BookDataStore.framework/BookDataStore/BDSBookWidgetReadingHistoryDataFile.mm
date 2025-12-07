@@ -46,53 +46,52 @@
 
   if (v4)
   {
-    v5 = BDSWidgetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = BDSWidgetLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1E47045A4();
     }
 
 LABEL_4:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
   if (!v3)
   {
-    v5 = BDSWidgetLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BDSWidgetLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "Didn't find widget reading history data file, starting fresh.", buf, 2u);
+      _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "Didn't find widget reading history data file, starting fresh.", buf, 2u);
     }
 
     goto LABEL_4;
   }
 
   v11 = 0;
-  v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v11];
-  v5 = v11;
-  v7 = BDSWidgetLog();
-  v8 = v7;
-  if (v6)
+  v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v11];
+  v6 = v11;
+  v8 = BDSWidgetLog(v6);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "Loaded widget reading history data read from disk: %@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_DEFAULT, "Loaded widget reading history data read from disk: %@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1E470460C();
   }
 
 LABEL_14:
-  v9 = *MEMORY[0x1E69E9840];
 
-  return v6;
+  return v7;
 }
 
 - (void)save:(id)save
@@ -105,45 +104,45 @@ LABEL_14:
 
   encodedData = [v6 encodedData];
   dataFile = [(BDSBookWidgetReadingHistoryDataFile *)self dataFile];
-  v18 = 0;
-  v9 = [dataFile save:encodedData error:&v18];
-  v10 = v18;
+  v20 = 0;
+  v9 = [dataFile save:encodedData error:&v20];
+  v10 = v20;
 
-  v11 = BDSWidgetLog();
-  v12 = v11;
+  v12 = BDSWidgetLog(v11);
+  v13 = v12;
   if (v9)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E45E0000, v12, OS_LOG_TYPE_DEFAULT, "Successfully saved widget reading history data.", buf, 2u);
+      _os_log_impl(&dword_1E45E0000, v13, OS_LOG_TYPE_DEFAULT, "Successfully saved widget reading history data.", buf, 2u);
     }
 
 LABEL_10:
 
-    v15 = v10;
+    v16 = v10;
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     sub_1E4704674();
   }
 
   dataFile2 = [(BDSBookWidgetReadingHistoryDataFile *)self dataFile];
-  v16 = v10;
-  v14 = [dataFile2 remove:&v16];
-  v15 = v16;
+  v18 = v10;
+  v15 = [dataFile2 remove:&v18];
+  v16 = v18;
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v12 = BDSWidgetLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BDSWidgetLog(v17);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1E47046DC();
     }
 
-    v10 = v15;
+    v10 = v16;
     goto LABEL_10;
   }
 

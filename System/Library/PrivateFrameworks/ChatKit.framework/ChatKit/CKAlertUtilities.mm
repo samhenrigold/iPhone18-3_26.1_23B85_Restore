@@ -346,63 +346,64 @@ LABEL_9:
 
 - (void)_displayMissingInformationAlert:(int64_t)alert
 {
-  if (IMGetCachedDomainBoolForKey())
+  v5 = IMGetCachedDomainBoolForKey();
+  if (v5)
   {
     return;
   }
 
-  v5 = MEMORY[0x1E69DC648];
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"MMS_INFORMATION_MISSING_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __52__CKAlertUtilities__displayMissingInformationAlert___block_invoke;
-  v24[3] = &unk_1E72EBFE8;
-  v24[4] = self;
-  v8 = [v5 actionWithTitle:v7 style:1 handler:v24];
+  v6 = MEMORY[0x1E69DC648];
+  v7 = CKFrameworkBundle(v5);
+  v8 = [v7 localizedStringForKey:@"MMS_INFORMATION_MISSING_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __52__CKAlertUtilities__displayMissingInformationAlert___block_invoke;
+  v28[3] = &unk_1E72EBFE8;
+  v28[4] = self;
+  v9 = [v6 actionWithTitle:v8 style:1 handler:v28];
 
-  v9 = MEMORY[0x1E69DC648];
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"MMS_INFORMATION_MISSING_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __52__CKAlertUtilities__displayMissingInformationAlert___block_invoke_2;
-  v23[3] = &unk_1E72F3888;
-  v23[4] = self;
-  v23[5] = alert;
-  v12 = [v9 actionWithTitle:v11 style:0 handler:v23];
+  v10 = MEMORY[0x1E69DC648];
+  v12 = CKFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"MMS_INFORMATION_MISSING_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __52__CKAlertUtilities__displayMissingInformationAlert___block_invoke_2;
+  v27[3] = &unk_1E72F3888;
+  v27[4] = self;
+  v27[5] = alert;
+  v14 = [v10 actionWithTitle:v13 style:0 handler:v27];
 
   if (alert == 2)
   {
-    v15 = @"MMS_EMAIL_MISSING_BODY";
-    v16 = @"MMS_EMAIL_MISSING_TITLE";
+    v18 = @"MMS_EMAIL_MISSING_BODY";
+    v19 = @"MMS_EMAIL_MISSING_TITLE";
     goto LABEL_6;
   }
 
-  v13 = 0;
-  v14 = 0;
+  v16 = 0;
+  v17 = 0;
   if (alert == 1)
   {
-    v15 = @"MMS_PHONE_NUMBER_MISSING_BODY";
-    v16 = @"MMS_PHONE_NUMBER_MISSING_TITLE";
+    v18 = @"MMS_PHONE_NUMBER_MISSING_BODY";
+    v19 = @"MMS_PHONE_NUMBER_MISSING_TITLE";
 LABEL_6:
-    v17 = CKFrameworkBundle();
-    v14 = [v17 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+    v20 = CKFrameworkBundle(v15);
+    v17 = [v20 localizedStringForKey:v19 value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v18 = CKFrameworkBundle();
-    v13 = [v18 localizedStringForKey:v15 value:&stru_1F04268F8 table:@"ChatKit"];
+    v22 = CKFrameworkBundle(v21);
+    v16 = [v22 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v19 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v14 message:v13 preferredStyle:1];
-  [v19 addAction:v8];
-  [v19 addAction:v12];
+  v23 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v17 message:v16 preferredStyle:1];
+  [v23 addAction:v9];
+  [v23 addAction:v14];
   delegate = [(CKAlertUtilities *)self delegate];
-  v21 = objc_opt_respondsToSelector();
+  v25 = objc_opt_respondsToSelector();
 
-  if (v21)
+  if (v25)
   {
     delegate2 = [(CKAlertUtilities *)self delegate];
-    [delegate2 presentCKAlertController:v19];
+    [delegate2 presentCKAlertController:v23];
   }
 }
 
@@ -439,34 +440,34 @@ LABEL_7:
 - (void)_displayFirstTimeRCSAlert
 {
   v3 = MEMORY[0x1E69DC650];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v3 alertControllerWithTitle:v5 message:v7 preferredStyle:1];
 
   v9 = MEMORY[0x1E69DC648];
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_OKAY" value:&stru_1F04268F8 table:@"ChatKit"];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __45__CKAlertUtilities__displayFirstTimeRCSAlert__block_invoke;
-  v19[3] = &unk_1E72EBFE8;
-  v19[4] = self;
-  v12 = [v9 actionWithTitle:v11 style:0 handler:v19];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_OKAY" value:&stru_1F04268F8 table:@"ChatKit"];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __45__CKAlertUtilities__displayFirstTimeRCSAlert__block_invoke;
+  v21[3] = &unk_1E72EBFE8;
+  v21[4] = self;
+  v13 = [v9 actionWithTitle:v12 style:0 handler:v21];
 
-  [v8 addAction:v12];
-  [v8 setPreferredAction:v12];
-  v13 = MEMORY[0x1E69DC648];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v16 = [v13 actionWithTitle:v15 style:1 handler:0];
+  [v8 addAction:v13];
+  v14 = [v8 setPreferredAction:v13];
+  v15 = MEMORY[0x1E69DC648];
+  v16 = CKFrameworkBundle(v14);
+  v17 = [v16 localizedStringForKey:@"FIRST_TIME_RCS_ALERT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v18 = [v15 actionWithTitle:v17 style:1 handler:0];
 
-  [v8 addAction:v16];
+  [v8 addAction:v18];
   delegate = [(CKAlertUtilities *)self delegate];
-  LOBYTE(v13) = objc_opt_respondsToSelector();
+  LOBYTE(v15) = objc_opt_respondsToSelector();
 
-  if (v13)
+  if (v15)
   {
     delegate2 = [(CKAlertUtilities *)self delegate];
     [delegate2 presentCKAlertController:v8];
@@ -567,9 +568,9 @@ LABEL_14:
 - (void)_displayNonPrimarySIMRCSActivationAlertForCarrierName:(id)name
 {
   nameCopy = name;
-  v32 = MEMORY[0x1E69DC650];
+  v35 = MEMORY[0x1E69DC650];
   v3 = MEMORY[0x1E696AEC0];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(nameCopy);
   v5 = [v4 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_TITLE" value:? table:?];
   nameCopy = [v3 stringWithFormat:v5, nameCopy];
 
@@ -589,49 +590,49 @@ LABEL_14:
   v10 = [(__CFString *)v9 stringByAppendingString:nameCopy];
 
   v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_CELLULAR_DATA_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v16 = [v11 stringWithFormat:v13, nameCopy, v15];
+  v13 = CKFrameworkBundle(v12);
+  v14 = [v13 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_CELLULAR_DATA_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v17 = [v11 stringWithFormat:v14, nameCopy, v16];
 
   mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection2 == 1)
   {
-    v19 = @"\u200F";
+    v20 = @"\u200F";
   }
 
   else
   {
-    v19 = @"\u200E";
+    v20 = @"\u200E";
   }
 
-  v20 = [(__CFString *)v19 stringByAppendingString:v16];
+  v21 = [(__CFString *)v20 stringByAppendingString:v17];
 
-  v21 = [v32 alertControllerWithTitle:v10 message:v20 preferredStyle:1];
+  v22 = [v35 alertControllerWithTitle:v10 message:v21 preferredStyle:1];
 
-  v22 = MEMORY[0x1E69DC648];
-  v23 = CKFrameworkBundle();
-  v24 = [v23 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_CELLULAR_DATA_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v25 = [v22 actionWithTitle:v24 style:0 handler:&__block_literal_global_122];
+  v23 = MEMORY[0x1E69DC648];
+  v25 = CKFrameworkBundle(v24);
+  v26 = [v25 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_CELLULAR_DATA_SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v27 = [v23 actionWithTitle:v26 style:0 handler:&__block_literal_global_122];
 
-  [v21 addAction:v25];
-  [v21 setPreferredAction:v25];
-  v26 = MEMORY[0x1E69DC648];
-  v27 = CKFrameworkBundle();
-  v28 = [v27 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_NOT_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
-  v29 = [v26 actionWithTitle:v28 style:1 handler:0];
+  [v22 addAction:v27];
+  v28 = [v22 setPreferredAction:v27];
+  v29 = MEMORY[0x1E69DC648];
+  v30 = CKFrameworkBundle(v28);
+  v31 = [v30 localizedStringForKey:@"RCS_INACTIVE_SIM_ACTIVATION_ERROR_NOT_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
+  v32 = [v29 actionWithTitle:v31 style:1 handler:0];
 
-  [v21 addAction:v29];
+  [v22 addAction:v32];
   delegate = [(CKAlertUtilities *)self delegate];
-  LOBYTE(v28) = objc_opt_respondsToSelector();
+  LOBYTE(v31) = objc_opt_respondsToSelector();
 
-  if (v28)
+  if (v31)
   {
     delegate2 = [(CKAlertUtilities *)self delegate];
-    [delegate2 presentCKAlertController:v21];
+    [delegate2 presentCKAlertController:v22];
   }
 }
 

@@ -73,10 +73,10 @@ LABEL_10:
     v9 = [v8 objectAtIndex:0];
     dialog = [v9 dialog];
     dialogKind = [dialog dialogKind];
-    v12 = [dialogKind isEqualToString:*MEMORY[0x277D69E48]];
+    isEqualToString = objc_msgSend_isEqualToString_(dialogKind);
 
     v13 = 0;
-    if (v12)
+    if (isEqualToString)
     {
       v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D6A678] code:1 userInfo:0];
     }

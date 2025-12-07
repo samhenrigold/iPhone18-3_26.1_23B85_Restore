@@ -23,9 +23,9 @@
 + (id)configurationForMeContact:(BOOL)contact
 {
   contactCopy = contact;
-  v16 = 0;
-  v5 = [CNUIPHPhotoLibrary photoLibraryWithError:&v16];
-  v6 = v16;
+  v17 = 0;
+  v5 = [CNUIPHPhotoLibrary photoLibraryWithError:&v17];
+  v6 = v17;
   if (!v5)
   {
     v7 = +[CNUICoreLogProvider photos_os_log];
@@ -35,30 +35,30 @@
     }
   }
 
-  v8 = objc_alloc(getPHPickerConfigurationClass[0]());
+  v8 = objc_alloc(getPHPickerConfigurationClass());
   wrappedLibrary = [v5 wrappedLibrary];
   v10 = [v8 initWithPhotoLibrary:wrappedLibrary];
 
-  imagesFilter = [getPHPickerFilterClass[0]() imagesFilter];
+  imagesFilter = [(objc_class *)getPHPickerFilterClass() imagesFilter];
   [v10 setFilter:imagesFilter];
 
-  [v10 _setDisabledPrivateCapabilities:8];
-  v12 = get_PHPickerSuggestionGroupClass[0]();
+  v12 = [v10 _setDisabledPrivateCapabilities:8];
+  PHPickerSuggestionGroupClass = get_PHPickerSuggestionGroupClass(v12);
   if (contactCopy)
   {
-    [(objc_class *)v12 deviceOwnerSuggestionGroup];
+    [PHPickerSuggestionGroupClass deviceOwnerSuggestionGroup];
   }
 
   else
   {
-    [(objc_class *)v12 wallpaperLikeSuggestionGroup];
+    [PHPickerSuggestionGroupClass wallpaperLikeSuggestionGroup];
   }
-  v13 = ;
-  [v10 set_suggestionGroup:v13];
+  v14 = ;
+  [v10 set_suggestionGroup:v14];
 
-  v14 = [[self alloc] initWithWrappedConfiguration:v10];
+  v15 = [[self alloc] initWithWrappedConfiguration:v10];
 
-  return v14;
+  return v15;
 }
 
 @end

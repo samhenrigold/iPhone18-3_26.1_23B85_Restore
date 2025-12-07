@@ -23,7 +23,7 @@
 - (void)_startReevaluateTimer:(double)timer
 {
   timerCopy = timer;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (timer < 0.0)
   {
     v5 = objc_autoreleasePoolPush();
@@ -32,9 +32,9 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Invalid time interval", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Invalid time interval", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -53,8 +53,6 @@
 
   reevaluateTimer3 = [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)self reevaluateTimer];
   [reevaluateTimer3 resume];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
@@ -71,36 +69,36 @@
 
 - (id)_getTriggerFireDateBeforeEndTime:(id)time
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   home = [accessory home];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   triggers = [home triggers];
-  v6 = [triggers countByEnumeratingWithState:&v66 objects:v75 count:16];
+  v6 = [triggers countByEnumeratingWithState:&v65 objects:v74 count:16];
   if (v6)
   {
     v7 = v6;
-    v57 = *v67;
-    v56 = triggers;
-    v53 = home;
-    v54 = accessory;
+    v56 = *v66;
+    v55 = triggers;
+    v52 = home;
+    v53 = accessory;
     while (2)
     {
       v8 = 0;
-      v9 = v57;
-      v58 = v7;
+      v9 = v56;
+      v57 = v7;
       do
       {
-        if (*v67 != v9)
+        if (*v66 != v9)
         {
           objc_enumerationMutation(triggers);
         }
 
-        v10 = *(*(&v66 + 1) + 8 * v8);
+        v10 = *(*(&v65 + 1) + 8 * v8);
         if ([v10 isAssociatedWithAccessory:accessory])
         {
           v11 = v10;
@@ -141,12 +139,12 @@
               HMFGetLogIdentifier();
               v21 = v20 = v16;
               *buf = 138543362;
-              v72 = v21;
+              v71 = v21;
               _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Evaluating timer trigger...", buf, 0xCu);
 
               v16 = v20;
-              triggers = v56;
-              v9 = v57;
+              triggers = v55;
+              v9 = v56;
             }
 
             objc_autoreleasePoolPop(v17);
@@ -154,32 +152,32 @@
             v23 = [timeCopy compare:currentFireDate];
 
             v24 = v23 == 1;
-            v7 = v58;
+            v7 = v57;
             if (v24)
             {
-              v47 = objc_autoreleasePoolPush();
-              v48 = selfCopy;
-              v49 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+              v46 = objc_autoreleasePoolPush();
+              v47 = selfCopy;
+              v48 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
               {
-                v50 = HMFGetLogIdentifier();
+                v49 = HMFGetLogIdentifier();
                 [v14 name];
-                v52 = v51 = v16;
+                v51 = v50 = v16;
                 *buf = 138543618;
-                v72 = v50;
-                v73 = 2112;
-                v74 = v52;
-                _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Update could be interrupted by trigger:%@", buf, 0x16u);
+                v71 = v49;
+                v72 = 2112;
+                v73 = v51;
+                _os_log_impl(&dword_229538000, v48, OS_LOG_TYPE_INFO, "%{public}@Update could be interrupted by trigger:%@", buf, 0x16u);
 
-                v16 = v51;
-                triggers = v56;
+                v16 = v50;
+                triggers = v55;
               }
 
-              objc_autoreleasePoolPop(v47);
+              objc_autoreleasePoolPop(v46);
               currentFireDate2 = [v13 currentFireDate];
 LABEL_40:
 
-              home = v53;
+              home = v52;
               goto LABEL_42;
             }
           }
@@ -196,32 +194,32 @@ LABEL_40:
               {
                 v28 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v72 = v28;
+                v71 = v28;
                 _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Evaluating event trigger...", buf, 0xCu);
               }
 
               objc_autoreleasePoolPop(v25);
-              v64 = 0u;
-              v65 = 0u;
-              v62 = 0u;
               v63 = 0u;
-              v55 = v16;
+              v64 = 0u;
+              v61 = 0u;
+              v62 = 0u;
+              v54 = v16;
               timeEvents = [v16 timeEvents];
-              v30 = [timeEvents countByEnumeratingWithState:&v62 objects:v70 count:16];
+              v30 = [timeEvents countByEnumeratingWithState:&v61 objects:v69 count:16];
               if (v30)
               {
                 v31 = v30;
-                v32 = *v63;
+                v32 = *v62;
                 while (2)
                 {
                   for (i = 0; i != v31; ++i)
                   {
-                    if (*v63 != v32)
+                    if (*v62 != v32)
                     {
                       objc_enumerationMutation(timeEvents);
                     }
 
-                    v34 = *(*(&v62 + 1) + 8 * i);
+                    v34 = *(*(&v61 + 1) + 8 * i);
                     _nextTimerDate = [v34 _nextTimerDate];
                     v36 = [timeCopy compare:_nextTimerDate];
 
@@ -235,9 +233,9 @@ LABEL_40:
                         v43 = HMFGetLogIdentifier();
                         name = [v14 name];
                         *buf = 138543618;
-                        v72 = v43;
-                        v73 = 2112;
-                        v74 = name;
+                        v71 = v43;
+                        v72 = 2112;
+                        v73 = name;
                         _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Update could be interrupted by trigger:%@", buf, 0x16u);
                       }
 
@@ -245,14 +243,14 @@ LABEL_40:
                       currentFireDate2 = [v34 _nextTimerDate];
 
                       v14 = 0;
-                      accessory = v54;
-                      v16 = v55;
-                      triggers = v56;
+                      accessory = v53;
+                      v16 = v54;
+                      triggers = v55;
                       goto LABEL_40;
                     }
                   }
 
-                  v31 = [timeEvents countByEnumeratingWithState:&v62 objects:v70 count:16];
+                  v31 = [timeEvents countByEnumeratingWithState:&v61 objects:v69 count:16];
                   if (v31)
                   {
                     continue;
@@ -262,11 +260,11 @@ LABEL_40:
                 }
               }
 
-              accessory = v54;
-              v16 = v55;
-              triggers = v56;
-              v9 = v57;
-              v7 = v58;
+              accessory = v53;
+              v16 = v54;
+              triggers = v55;
+              v9 = v56;
+              v7 = v57;
             }
 
             else
@@ -275,10 +273,10 @@ LABEL_40:
               {
                 v37 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v72 = v37;
+                v71 = v37;
                 _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Unknown trigger type", buf, 0xCu);
 
-                v9 = v57;
+                v9 = v56;
               }
 
               objc_autoreleasePoolPop(v25);
@@ -290,10 +288,10 @@ LABEL_40:
       }
 
       while (v8 != v7);
-      v38 = [triggers countByEnumeratingWithState:&v66 objects:v75 count:16];
+      v38 = [triggers countByEnumeratingWithState:&v65 objects:v74 count:16];
       v7 = v38;
       currentFireDate2 = 0;
-      home = v53;
+      home = v52;
       if (v38)
       {
         continue;
@@ -310,14 +308,12 @@ LABEL_40:
 
 LABEL_42:
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return currentFireDate2;
 }
 
 - (id)_getMaxUpdateApplyEndTime
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   firmwareUpdateProfile = [accessory firmwareUpdateProfile];
 
@@ -342,8 +338,8 @@ LABEL_42:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v14;
+      v17 = 138543362;
+      v18 = v14;
       v15 = "%{public}@Invalid update duration";
       goto LABEL_8;
     }
@@ -357,11 +353,11 @@ LABEL_42:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v14;
+      v17 = 138543362;
+      v18 = v14;
       v15 = "%{public}@Invalid update profile";
 LABEL_8:
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, v15, &v18, 0xCu);
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, v15, &v17, 0xCu);
     }
   }
 
@@ -369,64 +365,63 @@ LABEL_8:
   v10 = 0;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)evaluate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryFirmwareUpdatePolicy *)self accessory];
   bridge = [accessory bridge];
 
-  if (bridge)
+  if (!bridge)
   {
-    goto LABEL_2;
-  }
-
-  _getMaxUpdateApplyEndTime = [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)self _getMaxUpdateApplyEndTime];
-  if (!_getMaxUpdateApplyEndTime)
-  {
-    v19 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    _getMaxUpdateApplyEndTime = [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)self _getMaxUpdateApplyEndTime];
+    if (_getMaxUpdateApplyEndTime)
     {
-      v22 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Invalid max update apply end time, policy status evaluated to NO", &v24, 0xCu);
+      v11 = _getMaxUpdateApplyEndTime;
+      v12 = [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)self _getTriggerFireDateBeforeEndTime:_getMaxUpdateApplyEndTime];
+      if (!v12)
+      {
+
+        goto LABEL_2;
+      }
+
+      v13 = v12;
+      v14 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v16 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        v17 = HMFGetLogIdentifier();
+        v23 = 138543362;
+        v24 = v17;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to NO", &v23, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v14);
+      date = [MEMORY[0x277CBEAA8] date];
+      [v13 timeIntervalSinceDate:date];
+      [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)selfCopy _startReevaluateTimer:?];
     }
 
-    objc_autoreleasePoolPop(v19);
-    goto LABEL_13;
-  }
-
-  v11 = _getMaxUpdateApplyEndTime;
-  v12 = [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)self _getTriggerFireDateBeforeEndTime:_getMaxUpdateApplyEndTime];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    else
     {
-      v17 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to NO", &v24, 0xCu);
+      v19 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v21 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        v22 = HMFGetLogIdentifier();
+        v23 = 138543362;
+        v24 = v22;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Invalid max update apply end time, policy status evaluated to NO", &v23, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v19);
     }
 
-    objc_autoreleasePoolPop(v14);
-    date = [MEMORY[0x277CBEAA8] date];
-    [v13 timeIntervalSinceDate:date];
-    [(HMDAccessoryFirmwareUpdateTimedAutomationPolicy *)selfCopy2 _startReevaluateTimer:?];
-
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
 LABEL_2:
@@ -437,16 +432,13 @@ LABEL_2:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to YES", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Policy status evaluated to YES", &v23, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  result = 1;
-LABEL_14:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -509,10 +501,9 @@ LABEL_14:
 
 void __62__HMDAccessoryFirmwareUpdateTimedAutomationPolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_198778;
-  logCategory__hmf_once_v1_198778 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_198778;
+  logCategory__hmf_once_v1_198778 = v0;
 }
 
 @end

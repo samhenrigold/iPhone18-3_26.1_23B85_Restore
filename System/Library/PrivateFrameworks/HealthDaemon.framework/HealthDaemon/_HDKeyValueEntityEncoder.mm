@@ -10,12 +10,11 @@
 
 - (id)orderedProperties
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"key";
-  v5[1] = @"value";
-  v5[2] = @"mod_date";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"key";
+  v4[1] = @"value";
+  v4[2] = @"mod_date";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

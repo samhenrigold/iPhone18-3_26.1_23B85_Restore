@@ -18,34 +18,34 @@ void __38___WBUDynamicMeCard_performWhenReady___block_invoke(uint64_t a1, void *
 
 void __38___WBUDynamicMeCard_performWhenReady___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 16), *(a1 + 40));
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v6) + 16))(*(*(&v10 + 1) + 8 * v6));
+        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -54,8 +54,6 @@ void __38___WBUDynamicMeCard_performWhenReady___block_invoke_2(uint64_t a1)
   v7 = *(a1 + 32);
   v8 = *(v7 + 8);
   *(v7 + 8) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38___WBUDynamicMeCard_performWhenReady___block_invoke_3(uint64_t a1, char a2)

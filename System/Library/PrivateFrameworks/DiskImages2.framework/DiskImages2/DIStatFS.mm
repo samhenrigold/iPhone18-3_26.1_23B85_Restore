@@ -45,75 +45,86 @@
 
 - (DIStatFS)initWithFileDescriptor:(int)descriptor error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = DIStatFS;
-  v6 = [(DIStatFS *)&v29 init];
+  v40 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = DIStatFS;
+  v6 = [(DIStatFS *)&v32 init];
   if (!v6)
   {
-LABEL_23:
+LABEL_26:
     v21 = v6;
-    goto LABEL_24;
+    goto LABEL_27;
   }
 
-  if (fstatfs(descriptor, &v36) < 0)
+  if (fstatfs(descriptor, &v39) < 0)
   {
     v21 = [DIError nilWithPOSIXCode:*__error() verboseInfo:@"fstatfs failed" error:error];
-LABEL_24:
+LABEL_27:
     v22 = v21;
-    goto LABEL_25;
+    goto LABEL_28;
   }
 
   v7 = MEMORY[0x277CBEBC0];
-  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v36.f_mntonname];
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v39.f_mntonname];
   v9 = [v7 fileURLWithPath:v8 isDirectory:1];
   mountedOnURL = v6->_mountedOnURL;
   v6->_mountedOnURL = v9;
 
-  v6->_blockSize = v36.f_bsize;
-  v11 = [DIHelpers copyDevicePathWithStatfs:&v36];
+  v6->_blockSize = v39.f_bsize;
+  v11 = [DIHelpers copyDevicePathWithStatfs:&v39];
   v12 = v11;
-  if ((v36.f_flags & 0x1000) == 0 || ![v11 hasPrefix:@"/dev/disk"])
+  if ((v39.f_flags & 0x1000) == 0 || ![v11 hasPrefix:@"/dev/disk"])
   {
 LABEL_16:
     v23 = *__error();
-    if (DIForwardLogs())
+    v24 = DIForwardLogs();
+    if (v24)
     {
-      v24 = getDIOSLog();
-      os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      v31 = 41;
-      v32 = 2080;
-      v33 = "[DIStatFS initWithFileDescriptor:error:]";
-      v34 = 2082;
-      f_fstypename = v36.f_fstypename;
-      v25 = _os_log_send_and_compose_impl();
-
-      if (v25)
+      v31 = 0;
+      v26 = getDIOSLog(v24, v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v25);
-        free(v25);
+        v27 = 3;
+      }
+
+      else
+      {
+        v27 = 2;
+      }
+
+      *buf = 68158210;
+      v34 = 41;
+      v35 = 2080;
+      v36 = "[DIStatFS initWithFileDescriptor:error:]";
+      v37 = 2082;
+      f_fstypename = v39.f_fstypename;
+      v28 = _os_log_send_and_compose_impl(v27, &v31, 0, 0, &dword_248DE0000, v26, 0, "%.*s: File system is %{public}s", buf, 28);
+
+      if (v28)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v28);
+        free(v28);
       }
     }
 
     else
     {
-      v26 = getDIOSLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v29 = getDIOSLog(v24, v25);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158210;
-        v31 = 41;
-        v32 = 2080;
-        v33 = "[DIStatFS initWithFileDescriptor:error:]";
-        v34 = 2082;
-        f_fstypename = v36.f_fstypename;
-        _os_log_impl(&dword_248DE0000, v26, OS_LOG_TYPE_DEFAULT, "%.*s: File system is %{public}s", buf, 0x1Cu);
+        v34 = 41;
+        v35 = 2080;
+        v36 = "[DIStatFS initWithFileDescriptor:error:]";
+        v37 = 2082;
+        f_fstypename = v39.f_fstypename;
+        _os_log_impl(&dword_248DE0000, v29, OS_LOG_TYPE_DEFAULT, "%.*s: File system is %{public}s", buf, 0x1Cu);
       }
     }
 
     *__error() = v23;
 
-    goto LABEL_23;
+    goto LABEL_26;
   }
 
   objc_storeStrong(&v6->_mountedFrom, v12);
@@ -148,74 +159,84 @@ LABEL_16:
   }
 
   v22 = 0;
-LABEL_25:
+LABEL_28:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 - (void)logWithHeader:(id)header
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   headerCopy = header;
   v6 = *__error();
-  if (DIForwardLogs())
+  v7 = DIForwardLogs();
+  if (v7)
   {
-    v7 = getDIOSLog();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v30 = 0;
+    v9 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
     mountedOnURL = [(DIStatFS *)self mountedOnURL];
     path = [mountedOnURL path];
     blockSize = [(DIStatFS *)self blockSize];
     mountedFrom = [(DIStatFS *)self mountedFrom];
     if (mountedFrom)
     {
-      v12 = MEMORY[0x277CCACA8];
+      v15 = MEMORY[0x277CCACA8];
       mountedFrom2 = [(DIStatFS *)self mountedFrom];
-      v13 = [v12 stringWithFormat:@"locally mounted from %@", mountedFrom2];
+      v16 = [v15 stringWithFormat:@"locally mounted from %@", mountedFrom2];
     }
 
     else
     {
-      v13 = @"remote mount";
+      v16 = @"remote mount";
     }
 
     supportsBarrier = [(DIStatFS *)self supportsBarrier];
-    v29 = 26;
-    v22 = @"not ";
-    v30 = 2080;
-    v31 = "[DIStatFS logWithHeader:]";
+    v32 = 26;
+    v25 = @"not ";
+    v33 = 2080;
+    v34 = "[DIStatFS logWithHeader:]";
     *buf = 68159235;
-    v32 = 2114;
+    v35 = 2114;
     if (supportsBarrier)
     {
-      v22 = &stru_285C05C28;
+      v25 = &stru_285C05C28;
     }
 
-    v33 = headerCopy;
-    v34 = 2113;
-    v35 = path;
-    v36 = 1024;
-    v37 = blockSize;
-    v38 = 2114;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v22;
-    v23 = _os_log_send_and_compose_impl();
+    v36 = headerCopy;
+    v37 = 2113;
+    v38 = path;
+    v39 = 1024;
+    v40 = blockSize;
+    v41 = 2114;
+    v42 = v16;
+    v43 = 2112;
+    v44 = v25;
+    v26 = _os_log_send_and_compose_impl(v10, &v30, 0, 0, &dword_248DE0000, v9, 0, "%.*s: %{public}@: mounted on %{private}@, %u bytes block size, %{public}@, barriers %@supported", buf, 64);
     if (mountedFrom)
     {
     }
 
-    if (v23)
+    if (v26)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v23);
-      free(v23);
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+      free(v26);
     }
   }
 
   else
   {
-    v14 = getDIOSLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       mountedOnURL2 = [(DIStatFS *)self mountedOnURL];
       path2 = [mountedOnURL2 path];
@@ -223,38 +244,38 @@ LABEL_25:
       mountedFrom3 = [(DIStatFS *)self mountedFrom];
       if (mountedFrom3)
       {
-        v19 = MEMORY[0x277CCACA8];
+        v22 = MEMORY[0x277CCACA8];
         mountedFrom4 = [(DIStatFS *)self mountedFrom];
-        v20 = [v19 stringWithFormat:@"locally mounted from %@", mountedFrom4];
+        v23 = [v22 stringWithFormat:@"locally mounted from %@", mountedFrom4];
       }
 
       else
       {
-        v20 = @"remote mount";
+        v23 = @"remote mount";
       }
 
       supportsBarrier2 = [(DIStatFS *)self supportsBarrier];
-      v29 = 26;
-      v25 = @"not ";
-      v30 = 2080;
-      v31 = "[DIStatFS logWithHeader:]";
+      v32 = 26;
+      v28 = @"not ";
+      v33 = 2080;
+      v34 = "[DIStatFS logWithHeader:]";
       *buf = 68159235;
-      v32 = 2114;
+      v35 = 2114;
       if (supportsBarrier2)
       {
-        v25 = &stru_285C05C28;
+        v28 = &stru_285C05C28;
       }
 
-      v33 = headerCopy;
-      v34 = 2113;
-      v35 = path2;
-      v36 = 1024;
-      v37 = blockSize2;
-      v38 = 2114;
-      v39 = v20;
-      v40 = 2112;
-      v41 = v25;
-      _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEFAULT, "%.*s: %{public}@: mounted on %{private}@, %u bytes block size, %{public}@, barriers %@supported", buf, 0x40u);
+      v36 = headerCopy;
+      v37 = 2113;
+      v38 = path2;
+      v39 = 1024;
+      v40 = blockSize2;
+      v41 = 2114;
+      v42 = v23;
+      v43 = 2112;
+      v44 = v28;
+      _os_log_impl(&dword_248DE0000, v17, OS_LOG_TYPE_DEFAULT, "%.*s: %{public}@: mounted on %{private}@, %u bytes block size, %{public}@, barriers %@supported", buf, 0x40u);
       if (mountedFrom3)
       {
       }
@@ -262,8 +283,6 @@ LABEL_25:
   }
 
   *__error() = v6;
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

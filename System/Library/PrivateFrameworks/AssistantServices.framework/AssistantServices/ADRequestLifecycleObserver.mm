@@ -83,7 +83,7 @@
 
   if ([typeCopy isEqualToString:@"requestlifecycle"])
   {
-    v15 = [messageCopy objectForKey:@"event"];
+    v15 = objc_msgSend_objectForKey_(messageCopy);
     if ([v15 isEqualToString:@"requestWillBegin"])
     {
       [(ADRequestLifecycleObserver *)self requestWillBeginWithInfo:0 fromOrigin:7 client:0];

@@ -20,14 +20,4 @@ void __63___HDMaintenanceWorkCoordinatorProtectedDatabaseOperation_main__block_i
   [(HDMaintenanceOperation *)v6 finish];
 }
 
-uint64_t __63___HDMaintenanceWorkCoordinatorProtectedDatabaseOperation_main__block_invoke_2(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = v2[13];
-  v4 = v2[14];
-  (*(v2[16] + 16))();
-  return 1;
-}
-
 @end

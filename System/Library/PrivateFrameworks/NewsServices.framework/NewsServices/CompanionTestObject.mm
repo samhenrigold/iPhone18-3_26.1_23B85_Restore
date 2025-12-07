@@ -48,7 +48,7 @@
 - (void)updateAndSyncHeadlinesWithReply:(id)reply
 {
   replyCopy = reply;
-  v4 = NNSetupCompanionSyncLog();
+  v4 = NNSetupCompanionSyncLog(replyCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;

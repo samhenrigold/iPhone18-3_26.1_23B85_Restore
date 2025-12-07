@@ -123,100 +123,101 @@
 
 - (id)pointerInteraction:(id)interaction window:(id)window regionForRequest:(id)request defaultRegion:(id)region
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   windowCopy = window;
   requestCopy = request;
+  v10 = requestCopy;
   if (windowCopy)
   {
     screen = [windowCopy screen];
     fixedCoordinateSpace = [screen fixedCoordinateSpace];
 
-    [requestCopy location];
+    [v10 location];
     [windowCopy convertPoint:fixedCoordinateSpace toCoordinateSpace:?];
-    v53 = v13;
-    v54 = v12;
-    v14 = self->_registeredViewsToDelegates;
-    v55 = 0u;
+    v54 = v14;
+    v55 = v13;
+    v15 = self->_registeredViewsToDelegates;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v15 = v14;
-    v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v55 objects:v59 count:16];
-    if (v16)
+    v59 = 0u;
+    v16 = v15;
+    v17 = [(NSMapTable *)v16 countByEnumeratingWithState:&v56 objects:v60 count:16];
+    if (v17)
     {
-      v50 = windowCopy;
-      v17 = *v56;
-      v51 = *(MEMORY[0x277D768C8] + 8);
-      v52 = *MEMORY[0x277D768C8];
-      v18 = *(MEMORY[0x277D768C8] + 16);
-      v19 = *(MEMORY[0x277D768C8] + 24);
-      v20 = &selRef_performKeyboardShortcut;
+      v51 = windowCopy;
+      v18 = *v57;
+      v52 = *(MEMORY[0x277D768C8] + 8);
+      v53 = *MEMORY[0x277D768C8];
+      v19 = *(MEMORY[0x277D768C8] + 16);
+      v20 = *(MEMORY[0x277D768C8] + 24);
+      v21 = &selRef_performKeyboardShortcut;
       while (2)
       {
-        v21 = 0;
-        v22 = v20;
+        v22 = 0;
+        v23 = v21;
         do
         {
-          if (*v56 != v17)
+          if (*v57 != v18)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v23 = *(*(&v55 + 1) + 8 * v21);
-          v24 = [(NSMapTable *)v15 objectForKey:v23];
-          [v23 convertPoint:fixedCoordinateSpace fromCoordinateSpace:{v54, v53}];
-          v26 = v25;
-          v28 = v27;
-          v29 = v19;
-          v30 = v18;
-          v32 = v51;
-          v31 = v52;
+          v24 = *(*(&v56 + 1) + 8 * v22);
+          v25 = [(NSMapTable *)v16 objectForKey:v24];
+          [v24 convertPoint:fixedCoordinateSpace fromCoordinateSpace:{v55, v54}];
+          v27 = v26;
+          v29 = v28;
+          v30 = v20;
+          v31 = v19;
+          v33 = v52;
+          v32 = v53;
           if (objc_opt_respondsToSelector())
           {
-            [v24 pointerInteractionHitTestInsetsForView:v23];
-            v31 = v33;
+            [v25 pointerInteractionHitTestInsetsForView:v24];
             v32 = v34;
-            v30 = v35;
-            v29 = v36;
+            v33 = v35;
+            v31 = v36;
+            v30 = v37;
           }
 
-          [v23 bounds];
-          v63.origin.x = v32 + v37;
-          v63.origin.y = v31 + v38;
-          v39 = v29 + v32;
-          v63.size.width = v40 - v39;
-          v41 = v30 + v31;
-          v63.size.height = v42 - v41;
-          v62.x = v26;
-          v62.y = v28;
-          if (CGRectContainsPoint(v63, v62) && [v24 shouldBeginPointerInteractionRequest:requestCopy atLocation:v23 forView:{v26, v28}])
+          [v24 bounds];
+          v64.origin.x = v33 + v38;
+          v64.origin.y = v32 + v39;
+          v40 = v30 + v33;
+          v64.size.width = v41 - v40;
+          v42 = v31 + v32;
+          v64.size.height = v43 - v42;
+          v63.x = v27;
+          v63.y = v29;
+          if (CGRectContainsPoint(v64, v63) && [v25 shouldBeginPointerInteractionRequest:v10 atLocation:v24 forView:{v27, v29}])
           {
             if (objc_opt_respondsToSelector())
             {
-              v16 = [v24 regionAtLocation:v23 forView:{v26, v28}];
+              v17 = [v25 regionAtLocation:v24 forView:{v27, v29}];
             }
 
             else
             {
-              v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", v23];
-              v44 = MEMORY[0x277D75880];
-              [v23 bounds];
-              v16 = [v44 regionWithRect:v43 identifier:{v32 + v45, v31 + v46, v47 - v39, v48 - v41}];
+              v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%p", v24];
+              v45 = MEMORY[0x277D75880];
+              [v24 bounds];
+              v17 = [v45 regionWithRect:v44 identifier:{v33 + v46, v32 + v47, v48 - v40, v49 - v42}];
             }
 
-            windowCopy = v50;
-            [v16 setReferenceView:v23];
+            windowCopy = v51;
+            [v17 setReferenceView:v24];
 
             goto LABEL_21;
           }
 
-          v21 = v21 + 1;
+          v22 = v22 + 1;
         }
 
-        while (v16 != v21);
-        v16 = [(NSMapTable *)v15 countByEnumeratingWithState:&v55 objects:v59 count:16];
-        v20 = v22;
-        if (v16)
+        while (v17 != v22);
+        v17 = [(NSMapTable *)v16 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v21 = v23;
+        if (v17)
         {
           continue;
         }
@@ -224,7 +225,7 @@
         break;
       }
 
-      windowCopy = v50;
+      windowCopy = v51;
     }
 
 LABEL_21:
@@ -232,16 +233,16 @@ LABEL_21:
 
   else
   {
-    fixedCoordinateSpace = SBLogSystemGesture();
+    fixedCoordinateSpace = SBLogSystemGesture(requestCopy);
     if (os_log_type_enabled(fixedCoordinateSpace, OS_LOG_TYPE_FAULT))
     {
       [SBSystemPointerInteractionManager pointerInteraction:fixedCoordinateSpace window:? regionForRequest:? defaultRegion:?];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)pointerInteraction:(id)interaction window:(id)window styleForRegion:(id)region

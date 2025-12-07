@@ -32,96 +32,94 @@
 
 - (id)description
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@: %p>", objc_opt_class(), self];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v4 = self->_uidsWithFlagMaskSet;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = [(NSMutableDictionary *)self->_uidsWithFlagMaskSet objectForKey:v8];
         v10 = MFDescriptionForMessageFlags([v8 unsignedLongLongValue]);
         [v3 appendFormat:@"\n\t%@ set %@", v10, v9];
       }
 
-      v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v5);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = self->_uidsWithoutFlagMaskSet;
-  v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v12)
   {
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * j);
+        v15 = *(*(&v19 + 1) + 8 * j);
         v16 = [(NSMutableDictionary *)self->_uidsWithoutFlagMaskSet objectForKey:v15];
         v17 = MFDescriptionForMessageFlags([v15 unsignedLongLongValue]);
-        [v3 appendFormat:@"\n\t%@ unset %@", v17, v16, v20];
+        [v3 appendFormat:@"\n\t%@ unset %@", v17, v16, v19];
       }
 
-      v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = [(NSMutableDictionary *)v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (unint64_t)_flagsForUID:(unint64_t)d
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = self->_uidsWithFlagMaskSet;
   v6 = 0;
-  v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_uidsWithFlagMaskSet objectForKey:v10];
         unsignedLongLongValue = [v10 unsignedLongLongValue];
         if ([v11 containsIndex:d])
@@ -135,32 +133,32 @@
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = self->_uidsWithoutFlagMaskSet;
-  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v14)
   {
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * j);
-        v18 = [(NSMutableDictionary *)self->_uidsWithoutFlagMaskSet objectForKey:v17, v22];
+        v17 = *(*(&v21 + 1) + 8 * j);
+        v18 = [(NSMutableDictionary *)self->_uidsWithoutFlagMaskSet objectForKey:v17, v21];
         unsignedLongLongValue2 = [v17 unsignedLongLongValue];
         if ([v18 containsIndex:d])
         {
@@ -173,49 +171,46 @@
         }
       }
 
-      v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v14);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)_indexSetFromUIDs:(id)ds
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   indexSet = [MEMORY[0x1E696AD50] indexSet];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = dsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [indexSet addIndex:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "integerValue", v11)}];
+        [indexSet addIndex:{objc_msgSend(*(*(&v10 + 1) + 8 * i), "integerValue", v10)}];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return indexSet;
 }
@@ -256,19 +251,18 @@
 
 - (id)copyResponseForUID:(unint64_t)d
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MFIMAPResponse);
   [(MFIMAPResponse *)v5 setResponseType:17];
   v6 = [[MFIMAPFetchResult alloc] initWithType:8];
   v7 = [[MFIMAPFetchResult alloc] initWithType:10];
   [(MFIMAPFetchResult *)v6 setUid:d];
   [(MFIMAPFetchResult *)v7 setMessageFlags:[(MFIMAPConnectionFlagSearchResults *)self _flagsForUID:d]];
-  v11[0] = v6;
-  v11[1] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = v6;
+  v10[1] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   [(MFIMAPResponse *)v5 setFetchResults:v8];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

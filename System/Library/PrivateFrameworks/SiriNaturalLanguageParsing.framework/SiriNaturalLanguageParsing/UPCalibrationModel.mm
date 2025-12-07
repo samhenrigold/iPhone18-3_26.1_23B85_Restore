@@ -32,7 +32,7 @@
   uaap::EspressoModule::executePlan(calibrationEspressoModule);
   HIBYTE(v16[2]) = 17;
   strcpy(v16, "app_label_softmax");
-  uaap::EspressoModule::getOutput(calibrationEspressoModule, v16, __p);
+  uaap::EspressoModule::getOutput(__p);
   if ((v15 - v14) <= 4)
   {
     std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
@@ -101,22 +101,22 @@
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v30, *spanLabelsTensor, spanLabelsTensor[1], (spanLabelsTensor[1] - *spanLabelsTensor) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v30, *spanLabelsTensor, *(spanLabelsTensor + 8), (*(spanLabelsTensor + 8) - *spanLabelsTensor) >> 3);
   v33 = 0;
   v34 = 0;
   v35 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, spanLabelsTensor[3], spanLabelsTensor[4], (spanLabelsTensor[4] - spanLabelsTensor[3]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, *(spanLabelsTensor + 24), *(spanLabelsTensor + 32), (*(spanLabelsTensor + 32) - *(spanLabelsTensor + 24)) >> 2);
   embeddingsTensor = [outputCopy embeddingsTensor];
   v24 = 0;
   v25 = 0;
   v26 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v24, *embeddingsTensor, embeddingsTensor[1], (embeddingsTensor[1] - *embeddingsTensor) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v24, *embeddingsTensor, *(embeddingsTensor + 8), (*(embeddingsTensor + 8) - *embeddingsTensor) >> 3);
   __p = 0;
   v28 = 0;
   v29 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, embeddingsTensor[3], embeddingsTensor[4], (embeddingsTensor[4] - embeddingsTensor[3]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(embeddingsTensor + 24), *(embeddingsTensor + 32), (*(embeddingsTensor + 32) - *(embeddingsTensor + 24)) >> 2);
   utterance = [queryCopy utterance];
-  [(UPCalibrationModel *)self forwardWithSpanLabels:&v30 embeddings:&v24 utterance:utterance];
+  objc_msgSend_forwardWithSpanLabels_embeddings_utterance_(self);
   v18 = v17;
 
   if (__p)

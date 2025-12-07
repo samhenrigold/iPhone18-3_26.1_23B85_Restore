@@ -136,43 +136,43 @@ LABEL_22:
 
 - (void)_updatePausedState
 {
-  if (self)
+  if (result)
   {
-    if (*(self + 584))
+    if (*(result + 584))
     {
       v2 = 1;
     }
 
     else
     {
-      v2 = (*(self + 587) & 1) != 0 || *(self + 10768) ? 0 : *(self + 10785);
+      v2 = (*(result + 587) & 1) != 0 || *(result + 10768) ? 0 : *(result + 10785);
     }
 
     v3 = v2 & 1;
-    if (*(self + 585) != v3)
+    if (*(result + 585) != v3)
     {
-      *(self + 585) = v3;
-      [*(self + 408) setPaused:*(self + 585)];
-      [(PKCategoryVisualizationCardView *)self _updateMotionEnabled];
-      if ((*(self + 585) & 1) == 0 && *(self + 568) == 1)
+      *(result + 585) = v3;
+      [*(result + 408) setPaused:*(result + 585)];
+      [(PKCategoryVisualizationCardView *)result _updateMotionEnabled];
+      if ((*(result + 585) & 1) == 0 && *(result + 568) == 1)
       {
-        *(self + 568) = 0;
-        v5 = *(self + 576);
+        *(result + 568) = 0;
+        v5 = *(result + 576);
         if (v5 == 2)
         {
 
-          [(PKCategoryVisualizationCardView *)self _empty];
+          [(PKCategoryVisualizationCardView *)result _empty];
         }
 
         else
         {
           if (v5 == 1)
           {
-            if ((*(self + 10772) & 1) == 0)
+            if ((*(result + 10772) & 1) == 0)
             {
-              *(self + 10772) = 1;
-              *(self + 788) = 869711765;
-              *(self + 792) = 1097859072;
+              *(result + 10772) = 1;
+              *(result + 788) = 869711765;
+              *(result + 792) = 1097859072;
             }
           }
 
@@ -181,7 +181,7 @@ LABEL_22:
             return;
           }
 
-          [(PKCategoryVisualizationCardView *)self _updateCircles];
+          [(PKCategoryVisualizationCardView *)result _updateCircles];
         }
       }
     }
@@ -190,10 +190,10 @@ LABEL_22:
 
 - (double)_updateCircles
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_48;
+    return result;
   }
 
   v3 = result;
@@ -228,10 +228,10 @@ LABEL_22:
   if (!v4)
   {
     v49 = vcvts_n_f32_u32(arc4random(), 0x20uLL) * 6.28318531;
-    v59 = v49;
+    v58 = v49;
     OUTLINED_FUNCTION_3_0();
     v52 = v51 / v50;
-    v58 = v52;
+    v57 = v52;
     if (v50)
     {
       goto LABEL_11;
@@ -244,28 +244,28 @@ LABEL_43:
   }
 
   OUTLINED_FUNCTION_3_0();
+  v57 = 0.0;
   v58 = 0.0;
-  v59 = 0.0;
   if (!v10)
   {
     goto LABEL_43;
   }
 
 LABEL_11:
-  v56[1] = v56;
+  v55[1] = v55;
   v11 = 0;
   v12 = 0;
   v13 = (v3 + v9);
-  v60 = &v55;
+  v59 = &v54;
   v14 = vdup_n_s32(0x2F800000u);
-  v63 = vdupq_n_s64(0x3FB999999999999AuLL);
-  v57 = vdupq_n_s64(0x3FD999999999999AuLL);
+  v62 = vdupq_n_s64(0x3FB999999999999AuLL);
+  v56 = vdupq_n_s64(0x3FD999999999999AuLL);
   __asm { FMOV            V0.2D, #2.0 }
 
-  v62 = _Q0;
+  v61 = _Q0;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v61 = _Q0;
+  v60 = _Q0;
   do
   {
     v21 = *(v13[1].i64[0] + 8 * v12);
@@ -290,8 +290,8 @@ LABEL_11:
 
     if (!v4)
     {
-      v39 = __sincosf_stret(v59 + (v12 * v58));
-      v30 = vcvt_f32_f64(vmulq_f64(vcvtq_f64_f32(v39), v57));
+      v39 = __sincosf_stret(v58 + (v12 * v57));
+      v30 = vcvt_f32_f64(vmulq_f64(vcvtq_f64_f32(v39), v56));
       goto LABEL_34;
     }
 
@@ -300,22 +300,22 @@ LABEL_11:
     {
       v30 = 0;
 LABEL_34:
-      v40 = &v60[28 * v11];
+      v40 = &v59[28 * v11];
       do
       {
-        v64 = *(*&v3[v2 + 3] + 16 * v12);
+        v63 = *(*&v3[v2 + 3] + 16 * v12);
         v41 = v30;
         if (v4)
         {
           v42 = arc4random();
-          v41 = vadd_f32(v30, vcvt_f32_f64(vmulq_f64(vmlaq_f64(v61, v62, vcvtq_f64_f32(vmul_f32(vcvt_f32_u32(__PAIR64__(arc4random(), v42)), v14))), v63)));
+          v41 = vadd_f32(v30, vcvt_f32_f64(vmulq_f64(vmlaq_f64(v60, v61, vcvtq_f64_f32(vmul_f32(vcvt_f32_u32(__PAIR64__(arc4random(), v42)), v14))), v62)));
         }
 
         v43 = (vcvts_n_f32_u32(arc4random(), 0x20uLL) * 0.12) + 0.04;
+        v64 = 0u;
         v65 = 0u;
         v66 = 0u;
         v67 = 0u;
-        v68 = 0u;
         v2 = 74;
         v44 = CFAbsoluteTimeGetCurrent() - v3[74];
         *(v40 - 7) = v41;
@@ -323,13 +323,13 @@ LABEL_34:
         *(v40 - 3) = v43;
         *(v40 - 1) = 0x3F8000003DCCCCCDLL;
         *v40 = v44;
-        v45 = v65;
-        *(v40 + 1) = v64;
-        v46 = v66;
+        v45 = v64;
+        *(v40 + 1) = v63;
+        v46 = v65;
         *(v40 + 5) = v45;
         *(v40 + 9) = v46;
-        v47 = v68;
-        *(v40 + 13) = v67;
+        v47 = v67;
+        *(v40 + 13) = v66;
         *(v40 + 17) = v47;
         ++v11;
         v40 += 28;
@@ -350,7 +350,7 @@ LABEL_34:
       if ((vminvq_u32(vceqq_f32(v31, v28)) & 0x80000000) != 0)
       {
         v32 = *v29[-3].f32;
-        v33 = &v54[112 * v11];
+        v33 = &v53[112 * v11];
         *v33 = v32;
         v34 = *(&v29[-3] + 8);
         *(v33 + 3) = v29[-2].i64[1];
@@ -405,7 +405,7 @@ LABEL_39:
   if (v11)
   {
 LABEL_41:
-    qsort(v54, v11, 0x70uLL, PKCompareCircleDataByCreated);
+    qsort(v53, v11, 0x70uLL, PKCompareCircleDataByCreated);
     v48 = 0;
     v2 = 74;
     goto LABEL_45;
@@ -413,16 +413,14 @@ LABEL_41:
 
   v48 = 1;
 LABEL_45:
-  result = memcpy(&v3[v2 + 38], v54, 112 * v11);
+  result = memcpy(&v3[v2 + 38], v53, 112 * v11);
   *(v3 + 110) = v11;
   if (!v4 && (v48 & 1) == 0)
   {
     *(v3 + 2692) += 210;
-    result = [(PKCategoryVisualizationCardView *)v3 _updatePausedState];
+    return [(PKCategoryVisualizationCardView *)v3 _updatePausedState];
   }
 
-LABEL_48:
-  v53 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -454,22 +452,22 @@ LABEL_48:
 
 - (void)_updateMotionEnabled
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 10784) == 1 && (*(self + 585) & 1) == 0 ? [*(self + 408) effectiveIsPaused] ^ 1 : 0;
-    if (*(self + 586) != v2)
+    v2 = *(result + 10784) == 1 && (*(result + 585) & 1) == 0 ? [*(result + 408) effectiveIsPaused] ^ 1 : 0;
+    if (*(result + 586) != v2)
     {
-      *(self + 586) = v2;
-      if (*(self + 586) == 1)
+      *(result + 586) = v2;
+      if (*(result + 586) == 1)
       {
 
-        [(PKCategoryVisualizationCardView *)self _startMotionUpdates];
+        [(PKCategoryVisualizationCardView *)result _startMotionUpdates];
       }
 
       else
       {
 
-        [(PKCategoryVisualizationCardView *)self _stopMotionUpdates];
+        [(PKCategoryVisualizationCardView *)result _stopMotionUpdates];
       }
     }
   }
@@ -661,7 +659,7 @@ LABEL_23:
 
 - (void)renderWithTextures:(id)textures rendererState:(id)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (!self->_invalidated)
   {
@@ -669,57 +667,55 @@ LABEL_23:
     PKCategoryVisualizationRendererStateDestroy(&self->_state);
     if (stateCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v9 = *&self->_anon_268[24];
-      v24 = *&self->_anon_268[8];
-      v25 = v9;
-      v10 = *&self->_anon_268[56];
-      v26 = *&self->_anon_268[40];
-      v27 = v10;
-      memcpy(v22, stateCopy + 16, sizeof(v22));
-      PKCategoryVisualizationRendererStateCopy(v22, v23);
-      memcpy(&self->_state, v23, 0x27D0uLL);
-      v11 = v25;
-      *&self->_anon_268[8] = v24;
-      *&self->_anon_268[24] = v11;
-      v12 = v27;
-      *&self->_anon_268[40] = v26;
-      *&self->_anon_268[56] = v12;
+      v8 = *&self->_anon_268[24];
+      v23 = *&self->_anon_268[8];
+      v24 = v8;
+      v9 = *&self->_anon_268[56];
+      v25 = *&self->_anon_268[40];
+      v26 = v9;
+      memcpy(v21, stateCopy + 16, sizeof(v21));
+      PKCategoryVisualizationRendererStateCopy(v21, v22);
+      memcpy(&self->_state, v22, 0x27D0uLL);
+      v10 = v24;
+      *&self->_anon_268[8] = v23;
+      *&self->_anon_268[24] = v10;
+      v11 = v26;
+      *&self->_anon_268[40] = v25;
+      *&self->_anon_268[56] = v11;
     }
 
     else
     {
       Current = CFAbsoluteTimeGetCurrent();
-      v14 = [(NSArray *)self->_bucketColors count];
-      v15 = malloc_type_malloc(8 * v14, 0x657EB5BFuLL);
-      bzero(v15, 8 * v14);
-      v16 = malloc_type_malloc(16 * v14, 0x1000040451B5BE8uLL);
+      v13 = [(NSArray *)self->_bucketColors count];
+      v14 = malloc_type_malloc(8 * v13, 0x657EB5BFuLL);
+      bzero(v14, 8 * v13);
+      v15 = malloc_type_malloc(16 * v13, 0x1000040451B5BE8uLL);
       bucketColors = self->_bucketColors;
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __68__PKCategoryVisualizationCardView_renderWithTextures_rendererState___block_invoke;
-      v19[3] = &__block_descriptor_10224_e24_v32__0__UIColor_8Q16_B24l;
-      *&v19[4] = Current;
-      v19[5] = v14;
-      v19[6] = v15;
-      v19[7] = v16;
-      bzero(v20, 0x2798uLL);
-      v18 = vdup_n_s32(0xBBA3D70A);
-      v20[1267] = v18;
-      v21 = 0u;
-      [(NSArray *)bucketColors enumerateObjectsUsingBlock:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __68__PKCategoryVisualizationCardView_renderWithTextures_rendererState___block_invoke;
+      v18[3] = &__block_descriptor_10224_e24_v32__0__UIColor_8Q16_B24l;
+      *&v18[4] = Current;
+      v18[5] = v13;
+      v18[6] = v14;
+      v18[7] = v15;
+      bzero(v19, 0x2798uLL);
+      v17 = vdup_n_s32(0xBBA3D70A);
+      v19[1267] = v17;
+      v20 = 0u;
+      [(NSArray *)bucketColors enumerateObjectsUsingBlock:v18];
       self->_state.startTime = Current;
-      self->_state.bucketCount = v14;
-      self->_state.magnitudeForBucket = v15;
-      *self->_anon_268 = v16;
+      self->_state.bucketCount = v13;
+      self->_state.magnitudeForBucket = v14;
+      *self->_anon_268 = v15;
       bzero(&self->_anon_268[8], 0x2798uLL);
-      *&self->_anon_268[10144] = v18;
+      *&self->_anon_268[10144] = v17;
       *&self->_anon_268[10152] = 0u;
     }
 
     [(PKCategoryVisualizationCardView *)self _createMetalResourcesWithTextures:texturesCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 float32x4_t __68__PKCategoryVisualizationCardView_renderWithTextures_rendererState___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -815,14 +811,14 @@ float32x4_t __68__PKCategoryVisualizationCardView_renderWithTextures_rendererSta
 
 - (void)setMagnitudes:(id)magnitudes withStyle:(int64_t)style
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   magnitudesCopy = magnitudes;
   v7 = magnitudesCopy;
   if (!self->_invalidated)
   {
-    v9 = [magnitudesCopy copy];
+    v8 = [magnitudesCopy copy];
     magnitudes = self->_magnitudes;
-    self->_magnitudes = v9;
+    self->_magnitudes = v8;
 
     bucketCount = self->_state.bucketCount;
     if (bucketCount)
@@ -830,40 +826,40 @@ float32x4_t __68__PKCategoryVisualizationCardView_renderWithTextures_rendererSta
       bzero(self->_state.magnitudeForBucket, 8 * bucketCount);
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v12 = self->_magnitudes;
-    v13 = [(NSSet *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v13)
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v11 = self->_magnitudes;
+    v12 = [(NSSet *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v24;
+      v13 = v12;
+      v14 = *v23;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * i);
-          [v17 magnitude];
-          v19 = fmin(fmax(v18, 0.0), 1.0);
-          bucket = [v17 bucket];
-          v21 = v19 <= 0.0 || bucket < 1;
-          if (!v21 && bucket < self->_state.bucketCount)
+          v16 = *(*(&v22 + 1) + 8 * i);
+          [v16 magnitude];
+          v18 = fmin(fmax(v17, 0.0), 1.0);
+          bucket = [v16 bucket];
+          v20 = v18 <= 0.0 || bucket < 1;
+          if (!v20 && bucket < self->_state.bucketCount)
           {
-            self->_state.magnitudeForBucket[bucket] = fmin(fmax(v19 + self->_state.magnitudeForBucket[bucket], 0.0), 1.0);
+            self->_state.magnitudeForBucket[bucket] = fmin(fmax(v18 + self->_state.magnitudeForBucket[bucket], 0.0), 1.0);
           }
         }
 
-        v14 = [(NSSet *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [(NSSet *)v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v14);
+      while (v13);
     }
 
     self->_needsDraw = 1;
@@ -884,7 +880,7 @@ float32x4_t __68__PKCategoryVisualizationCardView_renderWithTextures_rendererSta
           if ((self->_anon_268[10156] & 1) == 0)
           {
             self->_anon_268[10156] = 1;
-            v22.n128_u64[0] = 0x4170000033D6BF95;
+            v21.n128_u64[0] = 0x4170000033D6BF95;
             *&self->_anon_268[172] = 0x4170000033D6BF95;
           }
         }
@@ -904,8 +900,6 @@ float32x4_t __68__PKCategoryVisualizationCardView_renderWithTextures_rendererSta
   }
 
 LABEL_2:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMotionEnabled:(BOOL)enabled
@@ -1398,7 +1392,7 @@ void __41__PKCategoryVisualizationCardView__empty__block_invoke_2(uint64_t a1)
     texture = [a2 texture];
     width = [texture width];
     height = [texture height];
-    if (*(drawableCopy + 432) != width || *(drawableCopy + 440) != height)
+    if (*(drawableCopy + 432) != __PAIR128__(height, width))
     {
       *(drawableCopy + 432) = width;
       *(drawableCopy + 440) = height;
@@ -1413,7 +1407,7 @@ void __41__PKCategoryVisualizationCardView__empty__block_invoke_2(uint64_t a1)
 
     if (!width || !*(drawableCopy + 440))
     {
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
     v8 = *(drawableCopy + 424);
@@ -1462,7 +1456,7 @@ void __41__PKCategoryVisualizationCardView__empty__block_invoke_2(uint64_t a1)
 
     else
     {
-LABEL_17:
+LABEL_16:
       drawableCopy = 0;
     }
   }
@@ -1470,11 +1464,11 @@ LABEL_17:
   return drawableCopy;
 }
 
-uint64_t __41__PKCategoryVisualizationCardView__empty__block_invoke_cold_1(uint64_t a1, uint64_t a2)
+uint64_t __41__PKCategoryVisualizationCardView__empty__block_invoke_cold_1(uint64_t result, uint64_t a2)
 {
-  *(a1 + 592 + 112 * *(a2 + 40) + 328) = 0x40000000;
-  *(a1 + 587) = 1;
-  return [(PKCategoryVisualizationCardView *)a1 _updatePausedState];
+  *(result + 592 + 112 * *(a2 + 40) + 328) = 0x40000000;
+  *(result + 587) = 1;
+  return [(PKCategoryVisualizationCardView *)result _updatePausedState];
 }
 
 uint64_t __41__PKCategoryVisualizationCardView__empty__block_invoke_2_cold_1(uint64_t a1, __n128 a2)

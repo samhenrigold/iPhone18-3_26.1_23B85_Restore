@@ -7,6 +7,7 @@
 - (BOOL)readFilenameFromBuffer:(const void *)buffer nameLength:(unsigned __int16)length entry:(id)entry dataSize:(unint64_t *)size error:(id *)error;
 - (BOOL)readLocalFileHeaderFilenameAndExtraFieldsData:(id)data forEntry:(id)entry error:(id *)error;
 - (BOOL)readZip64ExtraFieldFromBuffer:(const void *)buffer dataLength:(unsigned __int16)length entry:(id)entry error:(id *)error;
+- (BOOL)tsp_writeZipEntry:(id)entry toURL:(id)l validateCRC:(BOOL)c error:(id *)error;
 - (BOOL)validateCRCAndReturnError:(id *)error;
 - (TSUZipArchive)initWithOptions:(unint64_t)options;
 - (id)debugDescription;
@@ -14,6 +15,7 @@
 - (id)newArchiveReadChannel;
 - (id)normalizeEntryName:(id)name;
 - (id)readChannelForEntry:(id)entry validateCRC:(BOOL)c;
+- (id)streamReadChannelForEntry:(id)entry validateCRC:(BOOL)c;
 - (id)tsp_dataForEntry:(id)entry;
 - (unint64_t)archiveLength;
 - (void)addEntry:(id)entry;
@@ -53,6 +55,55 @@
   }
 
   return v7;
+}
+
+- (BOOL)tsp_writeZipEntry:(id)entry toURL:(id)l validateCRC:(BOOL)c error:(id *)error
+{
+  cCopy = c;
+  entryCopy = entry;
+  lCopy = l;
+  v12 = [(TSUZipArchive *)self streamReadChannelForEntry:entryCopy validateCRC:cCopy];
+  if (!v12)
+  {
+    v13 = 0;
+    v14 = 0;
+    goto LABEL_5;
+  }
+
+  v21 = 0;
+  v13 = [[TSUFileIOChannel alloc] initForStreamWritingURL:lCopy error:&v21];
+  v14 = v21;
+  if (!v13)
+  {
+LABEL_5:
+    v15 = 0;
+    goto LABEL_6;
+  }
+
+  v20 = v14;
+  v15 = +[TSPFileManager copyDataFromReadChannel:decryptionInfo:size:toWriteChannel:encryptionInfo:encodedLength:error:](TSPFileManager, "copyDataFromReadChannel:decryptionInfo:size:toWriteChannel:encryptionInfo:encodedLength:error:", v12, 0, [entryCopy size], v13, 0, 0, &v20);
+  v16 = v20;
+
+  v14 = v16;
+LABEL_6:
+  [v13 close];
+  [v12 close];
+  if (error && !v15)
+  {
+    if (v14)
+    {
+      v17 = v14;
+      *error = v14;
+    }
+
+    else
+    {
+      v18 = [NSError tsp_unknownReadErrorWithUserInfo:0];
+      *error = v18;
+    }
+  }
+
+  return v15;
 }
 
 - (TSUZipArchive)initWithOptions:(unint64_t)options
@@ -1082,6 +1133,48 @@ LABEL_11:
     v11 = [NSString stringWithUTF8String:"[TSUZipArchive readChannelForEntry:validateCRC:]"];
     v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipArchive.m"];
     [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:779 isFatal:0 description:"Entry isn't part of this archive"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (id)streamReadChannelForEntry:(id)entry validateCRC:(BOOL)c
+{
+  cCopy = c;
+  entryCopy = entry;
+  if ([(NSMutableOrderedSet *)self->_entries containsObject:entryCopy])
+  {
+    v7 = [entryCopy isCompressed] ^ 1;
+    v8 = [[TSUZipReadChannel alloc] initWithEntry:entryCopy archive:self validateCRC:cCopy & v7];
+    if ((v7 & 1) == 0)
+    {
+      v9 = [TSUZipInflateReadChannel alloc];
+      [entryCopy size];
+      v10 = -[TSUZipInflateReadChannel initWithReadChannel:uncompressedSize:CRC:validateCRC:](v9, "initWithReadChannel:uncompressedSize:CRC:validateCRC:", v8, [entryCopy size], objc_msgSend(entryCopy, "CRC"), cCopy);
+
+      v8 = v10;
+    }
+  }
+
+  else
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_10015B6B8();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10015B6CC();
+    }
+
+    v11 = [NSString stringWithUTF8String:"[TSUZipArchive streamReadChannelForEntry:validateCRC:]"];
+    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/TSUZipArchive.m"];
+    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:802 isFatal:0 description:"Entry isn't part of this archive"];
 
     +[TSUAssertionHandler logBacktraceThrottled];
     v8 = 0;

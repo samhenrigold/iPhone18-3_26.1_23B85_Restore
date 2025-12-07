@@ -54,15 +54,16 @@
   v6 = (self + OBJC_IVAR____TtC7ChatKit19CKCloudTipViewModel_onCloudTipChanged);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_19022123C(v7);
+  sub_19022123C(v7, v8);
 }
 
 - (void)configureCloudTipManagerWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

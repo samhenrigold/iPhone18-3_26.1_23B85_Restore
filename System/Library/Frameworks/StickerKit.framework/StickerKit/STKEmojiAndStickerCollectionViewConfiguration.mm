@@ -169,9 +169,9 @@
 - (STKEmojiAndStickerCollectionViewConfiguration)initWithBSXPCCoder:(id)coder
 {
   swift_unknownObjectRetain();
-  v4 = sub_19A6D5F44(coder);
+  v5 = sub_19A6D5F44(coder, v4);
   swift_unknownObjectRelease();
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
@@ -194,14 +194,14 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v6 = EmojiAndStickerCollectionViewConfiguration.isEqual(_:)(v8);
+  v7 = EmojiAndStickerCollectionViewConfiguration.isEqual(_:)(v9, v5);
 
-  sub_19A5F2B54(v8, &unk_1EAFCD750);
-  return v6 & 1;
+  sub_19A5F2B54(v9, &unk_1EAFCD750, &unk_19A7B87D0);
+  return v7 & 1;
 }
 
 @end

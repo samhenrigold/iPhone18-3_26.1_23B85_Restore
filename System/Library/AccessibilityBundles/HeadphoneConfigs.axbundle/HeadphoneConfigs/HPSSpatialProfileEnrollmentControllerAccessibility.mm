@@ -9,17 +9,17 @@
 + (void)_accessibilityPerformValidations:(id)validations
 {
   validationsCopy = validations;
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" isKindOfClass:@"UIViewController"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_stepSerialQueue" withType:"NSObject<OS_dispatch_queue>"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_previousStep" withType:"i"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_currentStep" withType:"i"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_infoView" withType:"OBHeaderView"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_enrollView" withType:"HPSSpatialProfileUIPearlEnrollView"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceVariable:@"_continueButton" withType:"OBTrayButton"];
-  [validationsCopy validateClass:@"HPSSpatialProfileEnrollmentController" hasInstanceMethod:@"moveToStep:" withFullSignature:{"v", "i", 0}];
-  [validationsCopy validateClass:@"OBHeaderView" hasInstanceMethod:@"detailLabel" withFullSignature:{"@", 0}];
-  [validationsCopy validateClass:@"OBTemplateHeaderDetailLabel" isKindOfClass:@"UILabel"];
-  [validationsCopy validateClass:@"BKUIPearlEnrollView" hasInstanceVariable:@"_pillContainer" withType:"BKUIPearlPillContainerView"];
+  [validationsCopy validateClass:? isKindOfClass:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
+  [validationsCopy validateClass:"i" hasInstanceMethod:0 withFullSignature:?];
+  [validationsCopy validateClass:0 hasInstanceMethod:? withFullSignature:?];
+  [validationsCopy validateClass:? isKindOfClass:?];
+  [validationsCopy validateClass:? hasInstanceVariable:? withType:?];
 }
 
 - (void)viewWillLayoutSubviews
@@ -29,7 +29,7 @@
   [(HPSSpatialProfileEnrollmentControllerAccessibility *)&v9 viewWillLayoutSubviews];
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
-  v4 = [(HPSSpatialProfileEnrollmentControllerAccessibility *)self safeIntegerForKey:@"_currentStep"];
+  v4 = [(HPSSpatialProfileEnrollmentControllerAccessibility *)self safeIntegerForKey:?];
   presentedViewController = [v3 presentedViewController];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -47,7 +47,7 @@
   v8.receiver = self;
   v8.super_class = HPSSpatialProfileEnrollmentControllerAccessibility;
   [(HPSSpatialProfileEnrollmentControllerAccessibility *)&v8 moveToStep:?];
-  v5 = [(HPSSpatialProfileEnrollmentControllerAccessibility *)self safeValueForKey:@"_stepSerialQueue"];
+  v5 = [(HPSSpatialProfileEnrollmentControllerAccessibility *)self safeValueForKey:?];
   v6[0] = MEMORY[0x29EDCA5F8];
   v6[1] = 3221225472;
   v6[2] = __65__HPSSpatialProfileEnrollmentControllerAccessibility_moveToStep___block_invoke;
@@ -59,7 +59,7 @@
 
 void __65__HPSSpatialProfileEnrollmentControllerAccessibility_moveToStep___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeIntegerForKey:@"_previousStep"];
+  v2 = [*(a1 + 32) safeIntegerForKey:?];
   v3[0] = MEMORY[0x29EDCA5F8];
   v3[1] = 3221225472;
   v3[2] = __65__HPSSpatialProfileEnrollmentControllerAccessibility_moveToStep___block_invoke_2;
@@ -72,11 +72,11 @@ void __65__HPSSpatialProfileEnrollmentControllerAccessibility_moveToStep___block
 
 void __65__HPSSpatialProfileEnrollmentControllerAccessibility_moveToStep___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeValueForKey:@"_infoView"];
-  v3 = [v2 safeValueForKey:@"detailLabel"];
-  v4 = [v3 safeStringForKey:@"text"];
-  v5 = [*(a1 + 32) safeUIViewForKey:@"_enrollView"];
-  v6 = [v5 safeValueForKey:@"pillContainer"];
+  v2 = [*(a1 + 32) safeValueForKey:?];
+  v3 = [v2 safeValueForKey:?];
+  v4 = [v3 safeStringForKey:?];
+  v5 = [*(a1 + 32) safeUIViewForKey:?];
+  v6 = [v5 safeValueForKey:?];
   v13 = MEMORY[0x29EDCA5F8];
   v7 = v6;
   v14 = v7;

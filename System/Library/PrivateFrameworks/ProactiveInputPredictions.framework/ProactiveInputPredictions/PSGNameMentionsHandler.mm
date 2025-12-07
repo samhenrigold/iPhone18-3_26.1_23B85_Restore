@@ -25,18 +25,17 @@
 
 void __40__PSGNameMentionsHandler_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_399;
-  sharedInstance__pasExprOnceResult_399 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_399;
+  sharedInstance__pasExprOnceResult_399 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 - (id)getPredictedItemsForTrigger:(id)trigger recipientNames:(id)names bundleIdentifier:(id)identifier maxItems:(unint64_t)items
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   namesCopy = names;
   identifierCopy = identifier;
@@ -48,39 +47,39 @@ void __40__PSGNameMentionsHandler_sharedInstance__block_invoke(uint64_t a1)
     v13 = v12;
     if (v12)
     {
-      v35 = v11;
-      v36 = triggerAttributes;
-      v38 = triggerCopy;
-      v34 = v12;
+      v34 = v11;
+      v35 = triggerAttributes;
+      v37 = triggerCopy;
+      v33 = v12;
       lowercaseString = [v12 lowercaseString];
       v15 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"self" ascending:1];
-      v49 = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
-      v37 = namesCopy;
+      v48 = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+      v36 = namesCopy;
       v17 = [namesCopy sortedArrayUsingDescriptors:v16];
 
       v18 = objc_opt_new();
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       obj = v17;
-      v19 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v19 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v19)
       {
         v20 = v19;
         v21 = 0;
-        v22 = *v43;
+        v22 = *v42;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v43 != v22)
+            if (*v42 != v22)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v42 + 1) + 8 * i);
+            v24 = *(*(&v41 + 1) + 8 * i);
             if ([v21 length] && objc_msgSend(v24, "hasPrefix:", v21))
             {
               v25 = psg_default_log_handle();
@@ -93,11 +92,11 @@ void __40__PSGNameMentionsHandler_sharedInstance__block_invoke(uint64_t a1)
 
             else if (!-[NSObject length](lowercaseString, "length") || ([v24 lowercaseString], v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "hasPrefix:", lowercaseString), v26, v27))
             {
-              v46[0] = @"name";
-              v46[1] = @"bundleID";
-              v47[0] = v24;
-              v47[1] = @"com.apple.messages.mentions";
-              v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+              v45[0] = @"name";
+              v45[1] = @"bundleID";
+              v46[0] = v24;
+              v46[1] = @"com.apple.messages.mentions";
+              v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
               v29 = [[PSGOperationalPredictedItem alloc] initWithItemIdentifier:@"NameMentions" value:v24 bundleIdentifier:identifierCopy operationData:v28];
               [v18 addObject:v29];
               v30 = v24;
@@ -111,7 +110,7 @@ void __40__PSGNameMentionsHandler_sharedInstance__block_invoke(uint64_t a1)
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v20 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
           v30 = v21;
         }
 
@@ -125,11 +124,11 @@ void __40__PSGNameMentionsHandler_sharedInstance__block_invoke(uint64_t a1)
 
 LABEL_26:
 
-      namesCopy = v37;
-      triggerCopy = v38;
-      v11 = v35;
-      triggerAttributes = v36;
-      v13 = v34;
+      namesCopy = v36;
+      triggerCopy = v37;
+      v11 = v34;
+      triggerAttributes = v35;
+      v13 = v33;
     }
 
     else
@@ -138,7 +137,7 @@ LABEL_26:
       if (os_log_type_enabled(lowercaseString, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v51 = triggerCopy;
+        v50 = triggerCopy;
         _os_log_fault_impl(&dword_260D18000, lowercaseString, OS_LOG_TYPE_FAULT, "[PSGNameMentionsHandler] Name prefix not set in (%@)", buf, 0xCu);
       }
 
@@ -152,21 +151,19 @@ LABEL_26:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v51 = triggerCopy;
+      v50 = triggerCopy;
       _os_log_fault_impl(&dword_260D18000, v13, OS_LOG_TYPE_FAULT, "[PSGNameMentionsHandler] Unexpected trigger (%@) passed into PSGNameMentionsHandler", buf, 0xCu);
     }
 
     v18 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)getNameMentionsTriggerForContext:(id)context recipientNames:(id)names availableApps:(id)apps localeIdentifier:(id)identifier explanationSet:(id)set
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   namesCopy = names;
   appsCopy = apps;
@@ -202,12 +199,12 @@ LABEL_26:
     goto LABEL_35;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v16 = namesCopy;
-  v17 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
   if (!v17)
   {
 
@@ -228,24 +225,24 @@ LABEL_35:
 
   v18 = v17;
   v19 = 0;
-  v20 = *v45;
+  v20 = *v44;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v45 != v20)
+      if (*v44 != v20)
       {
         objc_enumerationMutation(v16);
       }
 
-      v22 = [*(*(&v44 + 1) + 8 * i) length];
+      v22 = [*(*(&v43 + 1) + 8 * i) length];
       if (v19 <= v22)
       {
         v19 = v22;
       }
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v18 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
   }
 
   while (v18);
@@ -299,12 +296,12 @@ LABEL_35:
     v32 = [contextCopy substringWithRange:{v28 - 1, 1}];
     if ([v32 rangeOfCharacterFromSet:getNameMentionsTriggerForContext_recipientNames_availableApps_localeIdentifier_explanationSet__bannedPredictionCharacterSet]!= 0x7FFFFFFFFFFFFFFFLL)
     {
-      v42 = psg_default_log_handle();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v41 = psg_default_log_handle();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v51 = v32;
-        _os_log_debug_impl(&dword_260D18000, v42, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] Prior is %@, so this @ might be part of an email address", buf, 0xCu);
+        v50 = v32;
+        _os_log_debug_impl(&dword_260D18000, v41, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] Prior is %@, so this @ might be part of an email address", buf, 0xCu);
       }
 
       v33 = 0;
@@ -315,15 +312,15 @@ LABEL_35:
   v32 = [contextCopy substringFromIndex:v29 + v31];
   if ([v32 length]> v19)
   {
-    v38 = psg_default_log_handle();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v37 = psg_default_log_handle();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      v39 = [v32 length];
+      v38 = [v32 length];
       *buf = 134218240;
-      v51 = v39;
-      v52 = 2048;
-      v53 = v19;
-      _os_log_debug_impl(&dword_260D18000, v38, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] Prefix length %tu > maxLength %tu", buf, 0x16u);
+      v50 = v38;
+      v51 = 2048;
+      v52 = v19;
+      _os_log_debug_impl(&dword_260D18000, v37, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] Prefix length %tu > maxLength %tu", buf, 0x16u);
     }
 
 LABEL_54:
@@ -333,35 +330,33 @@ LABEL_54:
 
   if ([v32 length])
   {
-    v38 = [v32 substringToIndex:1];
+    v37 = [v32 substringToIndex:1];
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    v41 = [v38 rangeOfCharacterFromSet:whitespaceCharacterSet];
+    v40 = [v37 rangeOfCharacterFromSet:whitespaceCharacterSet];
 
-    if (v41 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v40 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v43 = psg_default_log_handle();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v42 = psg_default_log_handle();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_260D18000, v43, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] First charactrer of prefix is whitespace", buf, 2u);
+        _os_log_debug_impl(&dword_260D18000, v42, OS_LOG_TYPE_DEBUG, "[PSGNameMentionsHandler] First charactrer of prefix is whitespace", buf, 2u);
       }
 
       goto LABEL_54;
     }
   }
 
-  v48[0] = *MEMORY[0x277D23050];
-  v48[1] = @"NamePrefix";
-  v49[0] = @"NameMentions";
-  v49[1] = v32;
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
-  v33 = [[PSGProactiveTrigger alloc] initWithSourceType:5 category:@"nameMentionsTriggerCategory" attributes:v38];
+  v47[0] = *MEMORY[0x277D23050];
+  v47[1] = @"NamePrefix";
+  v48[0] = @"NameMentions";
+  v48[1] = v32;
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v33 = [[PSGProactiveTrigger alloc] initWithSourceType:5 category:@"nameMentionsTriggerCategory" attributes:v37];
 LABEL_55:
 
 LABEL_56:
 LABEL_36:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

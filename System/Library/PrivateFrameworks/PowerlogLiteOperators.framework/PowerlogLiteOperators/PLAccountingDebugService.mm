@@ -1,7 +1,13 @@
 @interface PLAccountingDebugService
 + (void)load;
 + (void)printError:(id)error;
+- (BOOL)verifyAggregateQualificationEnergyWithQualificationID:(int)d withRootNodeID:(int)iD withNodeName:(id)name withQualificationEnergy:(double)energy withDate:(id)date;
+- (BOOL)verifyAggregateRootNodeEnergyWithNodeName:(id)name withRootNodeID:(int)d withEnergy:(double)energy withDate:(id)date;
+- (BOOL)verifyLastDistributionEventWithDistributionID:(int)d withNodeName:(id)name withWeight:(double)weight;
 - (BOOL)verifyLastPowerEventWithRootNodeID:(int)d withPower:(double)power;
+- (BOOL)verifyLastQualificationEventWithQualificationID:(int)d withNodeName:(id)name;
+- (BOOL)verifyTotalCorrectionEnergyWithNodeName:(id)name withTotalCorrectionEnergy:(double)energy withRootNodeID:(int)d;
+- (BOOL)verifyTotalEnergyWithNodeName:(id)name withTotalEnergy:(double)energy withRootNodeID:(int)d withEpsilon:(double)epsilon;
 - (NSArray)testNames;
 - (PLAccountingDebugService)init;
 - (void)blockingClearQueues;
@@ -55,7 +61,7 @@
 
 - (PLAccountingDebugService)init
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isHomePod] & 1) != 0 || !objc_msgSend(MEMORY[0x277D3F180], "BOOLForKey:ifNotSet:", @"PLAccountingDebugService_Debug", 0))
   {
     selfCopy = 0;
@@ -63,33 +69,33 @@
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = PLAccountingDebugService;
-    v3 = [(PLOperator *)&v19 init];
+    v18.receiver = self;
+    v18.super_class = PLAccountingDebugService;
+    v3 = [(PLOperator *)&v18 init];
     v4 = v3;
     if (v3)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       testNames = [(PLAccountingDebugService *)v3 testNames];
-      v6 = [testNames countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v6 = [testNames countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v16;
+        v8 = *v15;
         do
         {
           v9 = 0;
           do
           {
-            if (*v16 != v8)
+            if (*v15 != v8)
             {
               objc_enumerationMutation(testNames);
             }
 
-            v10 = [@"com.apple.powerlogd.accounting." stringByAppendingString:*(*(&v15 + 1) + 8 * v9)];
+            v10 = [@"com.apple.powerlogd.accounting." stringByAppendingString:*(*(&v14 + 1) + 8 * v9)];
             DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
             CFNotificationCenterAddObserver(DarwinNotifyCenter, v4, NotificationCallback_0, v10, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
 
@@ -97,7 +103,7 @@
           }
 
           while (v7 != v9);
-          v7 = [testNames countByEnumeratingWithState:&v15 objects:v20 count:16];
+          v7 = [testNames countByEnumeratingWithState:&v14 objects:v19 count:16];
         }
 
         while (v7);
@@ -108,13 +114,12 @@
     selfCopy = self;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)testDistribution1
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -125,9 +130,9 @@
   v8 = PLLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v26 = 138412290;
-    v27 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -167,17 +172,15 @@
   v24 = PLLogCommon();
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v26 = 138412290;
-    v27 = v19;
-    _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v19;
+    _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testDistribution2
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -188,9 +191,9 @@
   v8 = PLLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 138412290;
-    v26 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -226,17 +229,15 @@
   v23 = PLLogCommon();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 138412290;
-    v26 = v18;
-    _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v18;
+    _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testDistribution3
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -247,9 +248,9 @@
   v8 = PLLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 138412290;
-    v26 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -285,17 +286,15 @@
   v23 = PLLogCommon();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v25 = 138412290;
-    v26 = v18;
-    _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = v18;
+    _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testDistribution4
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -306,9 +305,9 @@
   v8 = PLLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -344,17 +343,15 @@
   v22 = PLLogCommon();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v17;
-    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v17;
+    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testDistribution5
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -365,9 +362,9 @@
   v8 = PLLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v32 = 138412290;
-    v33 = v3;
-    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v31, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -423,17 +420,15 @@
   v30 = PLLogCommon();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    v32 = 138412290;
-    v33 = v25;
-    _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v25;
+    _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", &v31, 0xCu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCorrection1
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -445,7 +440,7 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v62 = v3;
+    v61 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -459,27 +454,27 @@
   v14 = [deviceRootNodeIDs mutableCopy];
 
   [v14 removeObject:&unk_282C11820];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v55 objects:v60 count:16];
-  v50 = v15;
+  v16 = [v15 countByEnumeratingWithState:&v54 objects:v59 count:16];
+  v49 = v15;
   if (v16)
   {
     v17 = v16;
-    v18 = *v56;
+    v18 = *v55;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v56 != v18)
+        if (*v55 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        intValue = [*(*(&v55 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v54 + 1) + 8 * i) intValue];
         v21 = [&unk_282C14550 objectAtIndexedSubscript:intValue];
         intValue2 = [v21 intValue];
 
@@ -492,7 +487,7 @@
             v30 = [monotonicDate dateByAddingTimeInterval:1.0];
             [debugInstance2 createPowerEventIntervalWithRootNodeID:intValue withPower:v26 withStartDate:v30 withEndDate:1.0];
 
-            v15 = v50;
+            v15 = v49;
             break;
           case 2:
             debugInstance3 = [MEMORY[0x277D3F0C0] debugInstance];
@@ -524,7 +519,7 @@
         [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:v27];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v54 objects:v59 count:16];
       if (v17)
       {
         continue;
@@ -544,31 +539,31 @@
   [debugInstance6 createPowerEventForwardWithRootNodeID:10 withPower:v34 withStartDate:2.0];
 
   [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:10 withPower:2.0];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v35 = v15;
-  v36 = [v35 countByEnumeratingWithState:&v51 objects:v59 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v50 objects:v58 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v52;
+    v38 = *v51;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v52 != v38)
+        if (*v51 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        intValue3 = [*(*(&v51 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v50 + 1) + 8 * j) intValue];
         v41 = [&unk_282C14568 objectAtIndexedSubscript:intValue3];
         -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", v41, intValue3, (5.0 / ([v35 count] + 1) + -1.0) / 3600.0);
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v50 objects:v58 count:16];
     }
 
     while (v37);
@@ -588,19 +583,17 @@
   if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v62 = v43;
+    v61 = v43;
     _os_log_debug_impl(&dword_21A4C6000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  v15 = v50;
+  v15 = v49;
 LABEL_27:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCorrection2
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -612,7 +605,7 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v69 = v3;
+    v68 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -626,27 +619,27 @@ LABEL_27:
   v14 = [deviceRootNodeIDs mutableCopy];
 
   [v14 removeObject:&unk_282C11880];
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v62 objects:v67 count:16];
-  v57 = v15;
+  v16 = [v15 countByEnumeratingWithState:&v61 objects:v66 count:16];
+  v56 = v15;
   if (v16)
   {
     v17 = v16;
-    v18 = *v63;
+    v18 = *v62;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v63 != v18)
+        if (*v62 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        intValue = [*(*(&v62 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v61 + 1) + 8 * i) intValue];
         v21 = [&unk_282C14598 objectAtIndexedSubscript:intValue];
         intValue2 = [v21 intValue];
 
@@ -665,7 +658,7 @@ LABEL_27:
             v37 = [monotonicDate dateByAddingTimeInterval:2.0];
             [debugInstance3 createPowerEventIntervalWithRootNodeID:intValue withPower:v28 withStartDate:v37 withEndDate:2.0];
 
-            v15 = v57;
+            v15 = v56;
             break;
           case 2:
             debugInstance4 = [MEMORY[0x277D3F0C0] debugInstance];
@@ -707,7 +700,7 @@ LABEL_27:
         [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:v29];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v62 objects:v67 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v61 objects:v66 count:16];
       if (v17)
       {
         continue;
@@ -724,31 +717,31 @@ LABEL_27:
 
   [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:2 withPower:1.0];
   v41 = [v15 count];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   v42 = v15;
-  v43 = [v42 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v57 objects:v65 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v59;
+    v45 = *v58;
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v59 != v45)
+        if (*v58 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        intValue3 = [*(*(&v58 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v57 + 1) + 8 * j) intValue];
         v48 = [&unk_282C145B0 objectAtIndexedSubscript:intValue3];
         [(PLAccountingDebugService *)self verifyTotalCorrectionEnergyWithNodeName:v48 withTotalCorrectionEnergy:intValue3 withRootNodeID:(5.0 / (v41 + 1) + -1.0) / 3600.0];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v57 objects:v65 count:16];
     }
 
     while (v44);
@@ -768,19 +761,17 @@ LABEL_27:
   if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v69 = v50;
+    v68 = v50;
     _os_log_debug_impl(&dword_21A4C6000, v55, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  v15 = v57;
+  v15 = v56;
 LABEL_27:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCorrection3
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -792,7 +783,7 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v76 = v3;
+    v75 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -811,27 +802,27 @@ LABEL_27:
   v17 = [deviceRootNodeIDs mutableCopy];
 
   [v17 removeObject:&unk_282C11880];
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v18 = v17;
-  v19 = [v18 countByEnumeratingWithState:&v69 objects:v74 count:16];
-  v64 = v18;
+  v19 = [v18 countByEnumeratingWithState:&v68 objects:v73 count:16];
+  v63 = v18;
   if (v19)
   {
     v20 = v19;
-    v21 = *v70;
+    v21 = *v69;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v70 != v21)
+        if (*v69 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        intValue = [*(*(&v69 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v68 + 1) + 8 * i) intValue];
         v24 = [&unk_282C145E0 objectAtIndexedSubscript:intValue];
         intValue2 = [v24 intValue];
 
@@ -850,7 +841,7 @@ LABEL_27:
             v40 = [monotonicDate dateByAddingTimeInterval:2.0];
             [debugInstance4 createPowerEventIntervalWithRootNodeID:intValue withPower:v31 withStartDate:v40 withEndDate:2.0];
 
-            v18 = v64;
+            v18 = v63;
             break;
           case 2:
             debugInstance5 = [MEMORY[0x277D3F0C0] debugInstance];
@@ -892,7 +883,7 @@ LABEL_27:
         [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:v32];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v68 objects:v73 count:16];
       if (v20)
       {
         continue;
@@ -920,31 +911,31 @@ LABEL_27:
 
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:33 withNodeName:@"kernel_task" withWeight:0.5];
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:33 withNodeName:@"App1" withWeight:0.5];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v48 = v18;
-  v49 = [v48 countByEnumeratingWithState:&v65 objects:v73 count:16];
+  v49 = [v48 countByEnumeratingWithState:&v64 objects:v72 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v66;
+    v51 = *v65;
     do
     {
       for (j = 0; j != v50; ++j)
       {
-        if (*v66 != v51)
+        if (*v65 != v51)
         {
           objc_enumerationMutation(v48);
         }
 
-        intValue3 = [*(*(&v65 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v64 + 1) + 8 * j) intValue];
         v54 = [&unk_282C145F8 objectAtIndexedSubscript:intValue3];
         -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", v54, intValue3, (5.0 / ([v48 count] + 2) + -1.0) / 3600.0);
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v65 objects:v73 count:16];
+      v50 = [v48 countByEnumeratingWithState:&v64 objects:v72 count:16];
     }
 
     while (v50);
@@ -967,19 +958,17 @@ LABEL_27:
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v76 = v57;
+    v75 = v57;
     _os_log_debug_impl(&dword_21A4C6000, v62, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  v18 = v64;
+  v18 = v63;
 LABEL_27:
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCorrection4
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -991,7 +980,7 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v68 = v3;
+    v67 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -1004,27 +993,27 @@ LABEL_27:
   deviceRootNodeIDs = [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
   v14 = [deviceRootNodeIDs mutableCopy];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v61 objects:v66 count:16];
-  v56 = v15;
+  v16 = [v15 countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v55 = v15;
   if (v16)
   {
     v17 = v16;
-    v18 = *v62;
+    v18 = *v61;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v62 != v18)
+        if (*v61 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        intValue = [*(*(&v61 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v60 + 1) + 8 * i) intValue];
         v21 = [&unk_282C14628 objectAtIndexedSubscript:intValue];
         intValue2 = [v21 intValue];
 
@@ -1043,7 +1032,7 @@ LABEL_27:
             v37 = [monotonicDate dateByAddingTimeInterval:2.0];
             [debugInstance3 createPowerEventIntervalWithRootNodeID:intValue withPower:v28 withStartDate:v37 withEndDate:1.0];
 
-            v15 = v56;
+            v15 = v55;
             break;
           case 2:
             debugInstance4 = [MEMORY[0x277D3F0C0] debugInstance];
@@ -1085,7 +1074,7 @@ LABEL_27:
         [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:v29];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v61 objects:v66 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v60 objects:v65 count:16];
       if (v17)
       {
         continue;
@@ -1107,31 +1096,31 @@ LABEL_27:
 
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:1 withNodeName:@"App1" withWeight:0.5];
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:1 withNodeName:@"App2" withWeight:0.5];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v42 = v15;
-  v43 = [v42 countByEnumeratingWithState:&v57 objects:v65 count:16];
+  v43 = [v42 countByEnumeratingWithState:&v56 objects:v64 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v58;
+    v45 = *v57;
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v58 != v45)
+        if (*v57 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        intValue3 = [*(*(&v57 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v56 + 1) + 8 * j) intValue];
         v48 = [&unk_282C14640 objectAtIndexedSubscript:intValue3];
         -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", v48, intValue3, (5.0 / [v42 count] + -1.0) / 3600.0);
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v56 objects:v64 count:16];
     }
 
     while (v44);
@@ -1150,19 +1139,17 @@ LABEL_27:
   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v68 = v49;
+    v67 = v49;
     _os_log_debug_impl(&dword_21A4C6000, v54, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
-  v15 = v56;
+  v15 = v55;
 LABEL_27:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testQualification1
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -1174,7 +1161,7 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v78 = v3;
+    v77 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -1183,28 +1170,28 @@ LABEL_27:
   v10 = [allQualificationIDs mutableCopy];
 
   [v10 removeObject:&unk_282C11880];
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v71 objects:v76 count:16];
-  v64 = v11;
+  v12 = [v11 countByEnumeratingWithState:&v70 objects:v75 count:16];
+  v63 = v11;
   selfCopy = self;
   if (v12)
   {
     v13 = v12;
-    v14 = *v72;
+    v14 = *v71;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v72 != v14)
+        if (*v71 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        intValue = [*(*(&v71 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v70 + 1) + 8 * i) intValue];
         v17 = [&unk_282C14658 objectAtIndexedSubscript:intValue];
         intValue2 = [v17 intValue];
 
@@ -1217,7 +1204,7 @@ LABEL_27:
             v25 = [monotonicDate dateByAddingTimeInterval:5.0];
             [debugInstance createQualificationEventIntervalWithQualificationID:intValue withChildNodeNames:&unk_282C146D0 withStartDate:v22 withEndDate:v25];
 
-            v11 = v64;
+            v11 = v63;
           }
 
           else
@@ -1269,7 +1256,7 @@ LABEL_35:
         [(PLAccountingDebugService *)self verifyLastQualificationEventWithQualificationID:intValue withNodeName:@"__GLOBAL__"];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v71 objects:v76 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v70 objects:v75 count:16];
       if (v13)
       {
         continue;
@@ -1285,25 +1272,25 @@ LABEL_35:
   [debugInstance4 addPowerMeasurementEventIntervalWithPower:v27 withStartDate:v28 withEndDate:5.0];
 
   [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v29 = v70 = 0u;
-  v30 = [v29 countByEnumeratingWithState:&v67 objects:v75 count:16];
+  v29 = v69 = 0u;
+  v30 = [v29 countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v68;
+    v32 = *v67;
     while (2)
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v68 != v32)
+        if (*v67 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        intValue3 = [*(*(&v67 + 1) + 8 * j) intValue];
+        intValue3 = [*(*(&v66 + 1) + 8 * j) intValue];
         v35 = [&unk_282C14700 objectAtIndexedSubscript:intValue3];
         intValue4 = [v35 intValue];
 
@@ -1359,7 +1346,7 @@ LABEL_35:
         [(PLAccountingDebugService *)selfCopy verifyLastPowerEventWithRootNodeID:intValue3 withPower:v43];
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v67 objects:v75 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v66 objects:v74 count:16];
       if (v31)
       {
         continue;
@@ -1402,20 +1389,19 @@ LABEL_35:
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v78 = v57;
+    v77 = v57;
     _os_log_debug_impl(&dword_21A4C6000, v62, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
 LABEL_37:
-  v11 = v64;
+  v11 = v63;
 
 LABEL_38:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testQualification2
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -1427,7 +1413,7 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v87 = v3;
+    v86 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -1436,29 +1422,29 @@ LABEL_38:
   v11 = [allQualificationIDs mutableCopy];
 
   [v11 removeObject:&unk_282C11880];
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v80 objects:v85 count:16];
-  v74 = v12;
+  v13 = [v12 countByEnumeratingWithState:&v79 objects:v84 count:16];
+  v73 = v12;
   selfCopy = self;
   if (v13)
   {
     v14 = v13;
-    v15 = *v81;
+    v15 = *v80;
     while (2)
     {
       v16 = 0;
       do
       {
-        if (*v81 != v15)
+        if (*v80 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        intValue = [*(*(&v80 + 1) + 8 * v16) intValue];
+        intValue = [*(*(&v79 + 1) + 8 * v16) intValue];
         v18 = [&unk_282C14748 objectAtIndexedSubscript:intValue];
         intValue2 = [v18 intValue];
 
@@ -1471,7 +1457,7 @@ LABEL_38:
             v26 = [monotonicDate dateByAddingTimeInterval:5.0];
             [debugInstance createQualificationEventIntervalWithQualificationID:intValue withChildNodeNames:&unk_282C147C0 withStartDate:v23 withEndDate:v26];
 
-            v12 = v74;
+            v12 = v73;
           }
 
           else
@@ -1525,7 +1511,7 @@ LABEL_35:
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v80 objects:v85 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v79 objects:v84 count:16];
       if (v14)
       {
         continue;
@@ -1559,27 +1545,27 @@ LABEL_35:
   deviceRootNodeIDs = [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
   v37 = [deviceRootNodeIDs mutableCopy];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v38 = v37;
-  v39 = [v38 countByEnumeratingWithState:&v76 objects:v84 count:16];
+  v39 = [v38 countByEnumeratingWithState:&v75 objects:v83 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v77;
+    v41 = *v76;
     while (2)
     {
       v42 = 0;
       do
       {
-        if (*v77 != v41)
+        if (*v76 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        intValue3 = [*(*(&v76 + 1) + 8 * v42) intValue];
+        intValue3 = [*(*(&v75 + 1) + 8 * v42) intValue];
         v44 = [&unk_282C14838 objectAtIndexedSubscript:intValue3];
         intValue4 = [v44 intValue];
 
@@ -1641,7 +1627,7 @@ LABEL_35:
       }
 
       while (v40 != v42);
-      v40 = [v38 countByEnumeratingWithState:&v76 objects:v84 count:16];
+      v40 = [v38 countByEnumeratingWithState:&v75 objects:v83 count:16];
       if (v40)
       {
         continue;
@@ -1684,20 +1670,19 @@ LABEL_35:
   if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v87 = v67;
+    v86 = v67;
     _os_log_debug_impl(&dword_21A4C6000, v72, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
 LABEL_37:
-  v12 = v74;
+  v12 = v73;
 
 LABEL_38:
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testQualification3
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -1709,7 +1694,7 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v83 = v3;
+    v82 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -1718,29 +1703,29 @@ LABEL_38:
   v11 = [allQualificationIDs mutableCopy];
 
   [v11 removeObject:&unk_282C118B0];
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v76 objects:v81 count:16];
-  v70 = v12;
+  v13 = [v12 countByEnumeratingWithState:&v75 objects:v80 count:16];
+  v69 = v12;
   selfCopy = self;
   if (v13)
   {
     v14 = v13;
-    v15 = *v77;
+    v15 = *v76;
     while (2)
     {
       v16 = 0;
       do
       {
-        if (*v77 != v15)
+        if (*v76 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        intValue = [*(*(&v76 + 1) + 8 * v16) intValue];
+        intValue = [*(*(&v75 + 1) + 8 * v16) intValue];
         v18 = [&unk_282C14880 objectAtIndexedSubscript:intValue];
         intValue2 = [v18 intValue];
 
@@ -1753,7 +1738,7 @@ LABEL_38:
             v26 = [monotonicDate dateByAddingTimeInterval:5.0];
             [debugInstance createQualificationEventIntervalWithQualificationID:intValue withChildNodeNames:&unk_282C148F8 withStartDate:v23 withEndDate:v26];
 
-            v12 = v70;
+            v12 = v69;
           }
 
           else
@@ -1807,7 +1792,7 @@ LABEL_35:
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v76 objects:v81 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v75 objects:v80 count:16];
       if (v14)
       {
         continue;
@@ -1835,27 +1820,27 @@ LABEL_35:
   deviceRootNodeIDs = [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
   v35 = [deviceRootNodeIDs mutableCopy];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v36 = v35;
-  v37 = [v36 countByEnumeratingWithState:&v72 objects:v80 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v71 objects:v79 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v73;
+    v39 = *v72;
     while (2)
     {
       v40 = 0;
       do
       {
-        if (*v73 != v39)
+        if (*v72 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        intValue3 = [*(*(&v72 + 1) + 8 * v40) intValue];
+        intValue3 = [*(*(&v71 + 1) + 8 * v40) intValue];
         v42 = [&unk_282C14958 objectAtIndexedSubscript:intValue3];
         intValue4 = [v42 intValue];
 
@@ -1917,7 +1902,7 @@ LABEL_35:
       }
 
       while (v38 != v40);
-      v38 = [v36 countByEnumeratingWithState:&v72 objects:v80 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v71 objects:v79 count:16];
       if (v38)
       {
         continue;
@@ -1954,20 +1939,19 @@ LABEL_35:
   if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v83 = v63;
+    v82 = v63;
     _os_log_debug_impl(&dword_21A4C6000, v68, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
 LABEL_37:
-  v12 = v70;
+  v12 = v69;
 
 LABEL_38:
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testReloadBefore1
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -1979,7 +1963,7 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v32 = v3;
+    v31 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -1995,7 +1979,7 @@ LABEL_38:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v32 = v10;
+    v31 = v10;
     _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2032,16 +2016,14 @@ LABEL_38:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v32 = v24;
+    v31 = v24;
     _os_log_debug_impl(&dword_21A4C6000, v29, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testReloadAfter1
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2053,14 +2035,14 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v33 = v3;
+    v32 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
+  v10 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
   entryKey = [MEMORY[0x277D3F0E0] entryKey];
-  v12 = [storage entriesForKey:entryKey];
+  v12 = [v10 entriesForKey:entryKey];
 
   firstObject = [v12 firstObject];
   range = [firstObject range];
@@ -2077,7 +2059,7 @@ LABEL_38:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v33 = v16;
+    v32 = v16;
     _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2102,16 +2084,14 @@ LABEL_38:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v33 = v25;
+    v32 = v25;
     _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testReloadBefore2
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2123,7 +2103,7 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v38 = v3;
+    v37 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2139,7 +2119,7 @@ LABEL_38:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v38 = v10;
+    v37 = v10;
     _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2186,16 +2166,14 @@ LABEL_38:
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v38 = v30;
+    v37 = v30;
     _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testReloadAfter2
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2207,21 +2185,21 @@ LABEL_38:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v80 = v3;
+    v79 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
+  v10 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
   entryKey = [MEMORY[0x277D3F0B8] entryKey];
-  v12 = [storage entriesForKey:entryKey];
+  v12 = [v10 entriesForKey:entryKey];
 
-  v66 = v12;
+  v65 = v12;
   firstObject = [v12 firstObject];
   range = [firstObject range];
   startDate = [range startDate];
 
-  v68 = startDate;
+  v67 = startDate;
   v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"now=%@", startDate];
   v16 = MEMORY[0x277D3F178];
   v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2233,7 +2211,7 @@ LABEL_38:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v80 = v15;
+    v79 = v15;
     _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2241,28 +2219,28 @@ LABEL_38:
   v22 = [deviceRootNodeIDs mutableCopy];
 
   [v22 removeObject:&unk_282C11880];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v23 = v22;
-  v24 = [v23 countByEnumeratingWithState:&v73 objects:v78 count:16];
-  v67 = v23;
+  v24 = [v23 countByEnumeratingWithState:&v72 objects:v77 count:16];
+  v66 = v23;
   if (v24)
   {
     v25 = v24;
-    v26 = *v74;
+    v26 = *v73;
     while (2)
     {
       v27 = 0;
       do
       {
-        if (*v74 != v26)
+        if (*v73 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        intValue = [*(*(&v73 + 1) + 8 * v27) intValue];
+        intValue = [*(*(&v72 + 1) + 8 * v27) intValue];
         v29 = [&unk_282C149B8 objectAtIndexedSubscript:intValue];
         intValue2 = [v29 intValue];
 
@@ -2270,55 +2248,55 @@ LABEL_38:
         {
           case 3:
             debugInstance = [MEMORY[0x277D3F0C0] debugInstance];
-            v43 = [v68 dateByAddingTimeInterval:0.0];
-            v44 = [v68 dateByAddingTimeInterval:1.0];
+            v43 = [v67 dateByAddingTimeInterval:0.0];
+            v44 = [v67 dateByAddingTimeInterval:1.0];
             [debugInstance createPowerEventIntervalWithRootNodeID:intValue withPower:v43 withStartDate:v44 withEndDate:1.0];
 
             [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:1.0];
             debugInstance2 = [MEMORY[0x277D3F0C0] debugInstance];
-            v36 = [v68 dateByAddingTimeInterval:1.0];
+            v36 = [v67 dateByAddingTimeInterval:1.0];
             v37 = 2.0;
-            v23 = v67;
-            v45 = [v68 dateByAddingTimeInterval:2.0];
+            v23 = v66;
+            v45 = [v67 dateByAddingTimeInterval:2.0];
             [debugInstance2 createPowerEventIntervalWithRootNodeID:intValue withPower:v36 withStartDate:v45 withEndDate:2.0];
 
             break;
           case 2:
             debugInstance3 = [MEMORY[0x277D3F0C0] debugInstance];
-            v39 = [v68 dateByAddingTimeInterval:0.0];
+            v39 = [v67 dateByAddingTimeInterval:0.0];
             [debugInstance3 createPowerEventBackwardWithRootNodeID:intValue withPower:v39 withEndDate:0.0];
 
             [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:0.0];
             debugInstance4 = [MEMORY[0x277D3F0C0] debugInstance];
-            v41 = [v68 dateByAddingTimeInterval:1.0];
+            v41 = [v67 dateByAddingTimeInterval:1.0];
             [debugInstance4 createPowerEventBackwardWithRootNodeID:intValue withPower:v41 withEndDate:1.0];
 
             [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:1.0];
             debugInstance2 = [MEMORY[0x277D3F0C0] debugInstance];
             v37 = 2.0;
-            v36 = [v68 dateByAddingTimeInterval:2.0];
+            v36 = [v67 dateByAddingTimeInterval:2.0];
             [debugInstance2 createPowerEventBackwardWithRootNodeID:intValue withPower:v36 withEndDate:2.0];
             break;
           case 1:
             debugInstance5 = [MEMORY[0x277D3F0C0] debugInstance];
-            v32 = [v68 dateByAddingTimeInterval:0.0];
+            v32 = [v67 dateByAddingTimeInterval:0.0];
             [debugInstance5 createPowerEventForwardWithRootNodeID:intValue withPower:v32 withStartDate:1.0];
 
             [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:1.0];
             debugInstance6 = [MEMORY[0x277D3F0C0] debugInstance];
-            v34 = [v68 dateByAddingTimeInterval:1.0];
+            v34 = [v67 dateByAddingTimeInterval:1.0];
             [debugInstance6 createPowerEventForwardWithRootNodeID:intValue withPower:v34 withStartDate:2.0];
 
             [(PLAccountingDebugService *)self verifyLastPowerEventWithRootNodeID:intValue withPower:2.0];
             debugInstance2 = [MEMORY[0x277D3F0C0] debugInstance];
-            v36 = [v68 dateByAddingTimeInterval:2.0];
+            v36 = [v67 dateByAddingTimeInterval:2.0];
             v37 = 3.0;
             [debugInstance2 createPowerEventForwardWithRootNodeID:intValue withPower:v36 withStartDate:3.0];
             break;
           default:
             v56 = v23;
             v62 = firstObject;
-            v63 = v66;
+            v63 = v65;
             goto LABEL_29;
         }
 
@@ -2327,7 +2305,7 @@ LABEL_38:
       }
 
       while (v25 != v27);
-      v25 = [v23 countByEnumeratingWithState:&v73 objects:v78 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v72 objects:v77 count:16];
       if (v25)
       {
         continue;
@@ -2337,38 +2315,38 @@ LABEL_38:
     }
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v46 = v23;
-  v47 = [v46 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v47 = [v46 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v70;
+    v49 = *v69;
     do
     {
       v50 = 0;
       do
       {
-        if (*v70 != v49)
+        if (*v69 != v49)
         {
           objc_enumerationMutation(v46);
         }
 
-        intValue3 = [*(*(&v69 + 1) + 8 * v50) intValue];
+        intValue3 = [*(*(&v68 + 1) + 8 * v50) intValue];
         v52 = [&unk_282C149D0 objectAtIndexedSubscript:intValue3];
         -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", v52, intValue3, (5.0 / ([v46 count] + 1) + -1.0) / 3600.0);
 
         v53 = [&unk_282C149E8 objectAtIndexedSubscript:intValue3];
-        -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", v53, intValue3, v68, 5.0 / ([v46 count] + 1) / 3600.0);
+        -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", v53, intValue3, v67, 5.0 / ([v46 count] + 1) / 3600.0);
 
         ++v50;
       }
 
       while (v48 != v50);
-      v48 = [v46 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v48 = [v46 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v48);
@@ -2378,12 +2356,12 @@ LABEL_38:
   -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", v54, 2, (5.0 / ([v46 count] + 1) + -1.0) / 3600.0);
 
   v55 = [&unk_282C14A18 objectAtIndexedSubscript:2];
-  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", v55, 2, v68, 5.0 / ([v46 count] + 1) / 3600.0);
+  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", v55, 2, v67, 5.0 / ([v46 count] + 1) / 3600.0);
 
   -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", @"kernel_task", 2, (5.0 / ([v46 count] + 1) + -1.0) * 0.5 / 3600.0);
-  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", @"kernel_task", 2, v68, ((5.0 / ([v46 count] + 1) + -1.0) * 0.5 + 0.5) / 3600.0);
+  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", @"kernel_task", 2, v67, ((5.0 / ([v46 count] + 1) + -1.0) * 0.5 + 0.5) / 3600.0);
   -[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:](self, "verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:", @"App1", 2, (5.0 / ([v46 count] + 1) + -1.0) * 3.0 * 0.25 / 3600.0);
-  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", @"App1", 2, v68, ((5.0 / ([v46 count] + 1) + -1.0) * 3.0 * 0.25 + 0.5 + 0.25) / 3600.0);
+  -[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:](self, "verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:", @"App1", 2, v67, ((5.0 / ([v46 count] + 1) + -1.0) * 3.0 * 0.25 + 0.5 + 0.25) / 3600.0);
   v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"end"];
   v57 = MEMORY[0x277D3F178];
   v58 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2395,21 +2373,19 @@ LABEL_38:
   if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v80 = v56;
+    v79 = v56;
     _os_log_debug_impl(&dword_21A4C6000, v61, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   v62 = firstObject;
-  v63 = v66;
-  v23 = v67;
+  v63 = v65;
+  v23 = v66;
 LABEL_29:
-
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testChunk
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2421,7 +2397,7 @@ LABEL_29:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v43 = v3;
+    v42 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2434,7 +2410,7 @@ LABEL_29:
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:1 withNodeName:@"App1" withWeight:0.5];
   [(PLAccountingDebugService *)self verifyLastDistributionEventWithDistributionID:1 withNodeName:@"App2" withWeight:0.5];
   debugInstance2 = [MEMORY[0x277D3F0C0] debugInstance];
-  v41 = monotonicDate;
+  v40 = monotonicDate;
   v14 = [monotonicDate dateByAddingTimeInterval:1.0];
   [debugInstance2 createPowerEventForwardWithRootNodeID:10 withPower:v14 withStartDate:5.0];
 
@@ -2455,7 +2431,7 @@ LABEL_29:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v43 = v17;
+      v42 = v17;
       _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -2491,16 +2467,14 @@ LABEL_29:
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v43 = v34;
+    v42 = v34;
     _os_log_debug_impl(&dword_21A4C6000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testPerformance
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2518,9 +2492,9 @@ LABEL_29:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v60 = 0x3032000000;
-  v61 = __Block_byref_object_copy__9;
-  v62 = __Block_byref_object_dispose__9;
+  v59 = 0x3032000000;
+  v60 = __Block_byref_object_copy__9;
+  v61 = __Block_byref_object_dispose__9;
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   v9 = dispatch_group_create();
   v10 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance1"];
@@ -2529,86 +2503,86 @@ LABEL_29:
   block[2] = __43__PLAccountingDebugService_testPerformance__block_invoke;
   block[3] = &unk_27825DC18;
   block[4] = &buf;
-  v36 = xmmword_21AA21CD0;
-  v55 = xmmword_21AA21CD0;
+  v35 = xmmword_21AA21CD0;
+  v54 = xmmword_21AA21CD0;
   dispatch_async(v10, block);
 
   v11 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance1"];
   dispatch_group_async(v9, v11, &__block_literal_global_33);
 
   v12 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance2"];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_649;
-  v52[3] = &unk_27825DC18;
-  v52[4] = &buf;
-  v53 = xmmword_21AA21CE0;
-  dispatch_async(v12, v52);
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_649;
+  v51[3] = &unk_27825DC18;
+  v51[4] = &buf;
+  v52 = xmmword_21AA21CE0;
+  dispatch_async(v12, v51);
 
   v13 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance2"];
   dispatch_group_async(v9, v13, &__block_literal_global_662);
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__9;
-  v50 = __Block_byref_object_dispose__9;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__9;
+  v49 = __Block_byref_object_dispose__9;
   deviceRootNodeIDs = [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
-  v51 = [deviceRootNodeIDs mutableCopy];
+  v50 = [deviceRootNodeIDs mutableCopy];
 
   v15 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance3"];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_669;
-  v43[3] = &unk_27825DC40;
-  v44 = xmmword_21AA21CF0;
-  v45 = 0x4000000000000000;
-  v43[4] = &buf;
-  v43[5] = &v46;
-  dispatch_async(v15, v43);
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_669;
+  v42[3] = &unk_27825DC40;
+  v43 = xmmword_21AA21CF0;
+  v44 = 0x4000000000000000;
+  v42[4] = &buf;
+  v42[5] = &v45;
+  dispatch_async(v15, v42);
 
   v16 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance3"];
   dispatch_group_async(v9, v16, &__block_literal_global_681);
 
   v17 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance4"];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_688;
-  v41[3] = &unk_27825DC18;
-  v41[4] = &buf;
-  v42 = xmmword_21AA21CD0;
-  dispatch_async(v17, v41);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __43__PLAccountingDebugService_testPerformance__block_invoke_688;
+  v40[3] = &unk_27825DC18;
+  v40[4] = &buf;
+  v41 = xmmword_21AA21CD0;
+  dispatch_async(v17, v40);
 
   v18 = [MEMORY[0x277D3F258] workQueueForKey:@"testPerformance4"];
   dispatch_group_async(v9, v18, &__block_literal_global_715);
 
   dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  v19 = [v47[5] count];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v19 = [v46[5] count];
   v38 = 0u;
-  v20 = v47[5];
-  v21 = [v20 countByEnumeratingWithState:&v37 objects:v58 count:16];
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v20 = v46[5];
+  v21 = [v20 countByEnumeratingWithState:&v36 objects:v57 count:16];
   v22 = 20.0 / v19 + -4.0;
   if (v21)
   {
-    v23 = *v38;
+    v23 = *v37;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v38 != v23)
+        if (*v37 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        intValue = [*(*(&v37 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v36 + 1) + 8 * i) intValue];
         v26 = [&unk_282C14AF0 objectAtIndexedSubscript:intValue];
         [(PLAccountingDebugService *)self verifyTotalCorrectionEnergyWithNodeName:v26 withTotalCorrectionEnergy:intValue withRootNodeID:v22 / 3600.0];
       }
 
-      v21 = [v20 countByEnumeratingWithState:&v37 objects:v58 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v36 objects:v57 count:16];
     }
 
     while (v21);
@@ -2633,20 +2607,18 @@ LABEL_29:
   v34 = PLLogCommon();
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    *v56 = 138412290;
-    v57 = v29;
-    _os_log_debug_impl(&dword_21A4C6000, v34, OS_LOG_TYPE_DEBUG, "%@", v56, 0xCu);
+    *v55 = 138412290;
+    v56 = v29;
+    _os_log_debug_impl(&dword_21A4C6000, v34, OS_LOG_TYPE_DEBUG, "%@", v55, 0xCu);
   }
 
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v45, 8);
   _Block_object_dispose(&buf, 8);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin testPerformance1"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2657,9 +2629,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke(uint64_t a1)
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412290;
-    v19 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v17, 0xCu);
   }
 
   for (i = *(a1 + 40); i <= 5.0; i = i + *(a1 + 48))
@@ -2681,17 +2653,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke(uint64_t a1)
   v16 = PLLogCommon();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412290;
-    v19 = v11;
-    _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v11;
+    _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_642()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"join testPerformance1"];
   v1 = MEMORY[0x277D3F178];
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2702,17 +2672,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_642()
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v0;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v0;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_649(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin testPerformance2"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2723,9 +2691,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_649(uint64_t a
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412290;
-    v19 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v17, 0xCu);
   }
 
   for (i = *(a1 + 40); i <= 5.0; i = i + *(a1 + 48))
@@ -2747,17 +2715,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_649(uint64_t a
   v16 = PLLogCommon();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412290;
-    v19 = v11;
-    _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v11;
+    _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_660()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"join testPerformance2"];
   v1 = MEMORY[0x277D3F178];
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2768,17 +2734,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_660()
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v0;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v0;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_669(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = 0x277CCA000uLL;
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin testPerformance3"];
   v4 = 0x277D3F000uLL;
@@ -2792,85 +2756,85 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_669(uint64_t a
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v3;
+    v43 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   v10 = *(a1 + 48);
   if (v10 <= 5.0)
   {
-    v18 = 0x277D3F000uLL;
-    v19 = &unk_282C14A48;
+    v17 = 0x277D3F000uLL;
+    v18 = &unk_282C14A48;
     do
     {
-      v20 = [*(v18 + 192) debugInstance];
-      v21 = *(a1 + 56);
-      v22 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
-      v23 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10 + *(a1 + 64)];
-      [v20 addPowerMeasurementEventIntervalWithPower:v22 withStartDate:v23 withEndDate:v21];
+      v19 = [*(v17 + 192) debugInstance];
+      v20 = *(a1 + 56);
+      v21 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
+      v22 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10 + *(a1 + 64)];
+      [v19 addPowerMeasurementEventIntervalWithPower:v21 withStartDate:v22 withEndDate:v20];
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       obj = *(*(*(a1 + 40) + 8) + 40);
-      v24 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
-      v25 = v18;
-      if (v24)
+      v23 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v24 = v17;
+      if (v23)
       {
-        v26 = v24;
-        v27 = *v39;
+        v25 = v23;
+        v26 = *v38;
         do
         {
-          for (i = 0; i != v26; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v39 != v27)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = [*(*(&v38 + 1) + 8 * i) intValue];
-            v30 = [v19 objectAtIndexedSubscript:v29];
-            v31 = [v30 intValue];
+            v28 = [*(*(&v37 + 1) + 8 * i) intValue];
+            v29 = [v18 objectAtIndexedSubscript:v28];
+            v30 = [v29 intValue];
 
-            switch(v31)
+            switch(v30)
             {
               case 3:
-                v32 = [*(v25 + 192) debugInstance];
-                v33 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
+                v31 = [*(v24 + 192) debugInstance];
+                v32 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
                 [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10 + *(a1 + 64)];
-                v34 = v19;
-                v36 = v35 = v25;
-                [v32 createPowerEventIntervalWithRootNodeID:v29 withPower:v33 withStartDate:v36 withEndDate:1.0];
+                v33 = v18;
+                v35 = v34 = v24;
+                [v31 createPowerEventIntervalWithRootNodeID:v28 withPower:v32 withStartDate:v35 withEndDate:1.0];
 
-                v25 = v35;
-                v19 = v34;
+                v24 = v34;
+                v18 = v33;
                 break;
               case 2:
-                v32 = [*(v25 + 192) debugInstance];
-                v33 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
-                [v32 createPowerEventBackwardWithRootNodeID:v29 withPower:v33 withEndDate:1.0];
+                v31 = [*(v24 + 192) debugInstance];
+                v32 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
+                [v31 createPowerEventBackwardWithRootNodeID:v28 withPower:v32 withEndDate:1.0];
                 break;
               case 1:
-                v32 = [*(v25 + 192) debugInstance];
-                v33 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
-                [v32 createPowerEventForwardWithRootNodeID:v29 withPower:v33 withStartDate:1.0];
+                v31 = [*(v24 + 192) debugInstance];
+                v32 = [*(*(*(a1 + 32) + 8) + 40) dateByAddingTimeInterval:v10];
+                [v31 createPowerEventForwardWithRootNodeID:v28 withPower:v32 withStartDate:1.0];
                 break;
               default:
                 goto LABEL_7;
             }
           }
 
-          v26 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v25 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
-        while (v26);
+        while (v25);
       }
 
       sleep(*(a1 + 64));
       v10 = v10 + *(a1 + 64);
       v2 = 0x277CCA000;
-      v18 = v25;
+      v17 = v24;
       v4 = 0x277D3F000;
     }
 
@@ -2889,17 +2853,16 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_669(uint64_t a
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v44 = v11;
+    v43 = v11;
     _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
 LABEL_7:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_679()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"join testPerformance3"];
   v1 = MEMORY[0x277D3F178];
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -2910,17 +2873,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_679()
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v0;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v0;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_688(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = 0x277CCA000uLL;
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin testPerformance4"];
   v4 = 0x277D3F000uLL;
@@ -2934,7 +2895,7 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_688(uint64_t a
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v40 = v3;
+    v39 = v3;
     _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -2946,30 +2907,30 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_688(uint64_t a
   if (v12 <= 5.0)
   {
     v19 = 0uLL;
-    v33 = v11;
+    v32 = v11;
     do
     {
-      v36 = v19;
-      v37 = v19;
-      v34 = v19;
       v35 = v19;
+      v36 = v19;
+      v33 = v19;
+      v34 = v19;
       v13 = v11;
-      v20 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v20 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v35;
+        v22 = *v34;
         while (2)
         {
           v23 = 0;
           do
           {
-            if (*v35 != v22)
+            if (*v34 != v22)
             {
               objc_enumerationMutation(v13);
             }
 
-            v24 = [*(*(&v34 + 1) + 8 * v23) intValue];
+            v24 = [*(*(&v33 + 1) + 8 * v23) intValue];
             v25 = [&unk_282C14A60 objectAtIndexedSubscript:v24];
             v26 = [v25 intValue];
 
@@ -2988,7 +2949,7 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_688(uint64_t a
                 if (v26 != 4)
                 {
 LABEL_26:
-                  v11 = v33;
+                  v11 = v32;
                   goto LABEL_27;
                 }
 
@@ -3021,7 +2982,7 @@ LABEL_26:
           }
 
           while (v21 != v23);
-          v21 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v21 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v21)
           {
             continue;
@@ -3039,7 +3000,7 @@ LABEL_26:
       v12 = v12 + *(a1 + 48);
       v2 = 0x277CCA000;
       v4 = 0x277D3F000;
-      v11 = v33;
+      v11 = v32;
       v19 = 0uLL;
     }
 
@@ -3057,17 +3018,16 @@ LABEL_26:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v40 = v13;
+    v39 = v13;
     _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
 LABEL_27:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"join testPerformance4"];
   v1 = MEMORY[0x277D3F178];
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3078,17 +3038,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v0;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v0;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "%@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testShortDistributionEventDuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3099,9 +3057,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
 
   v8 = 0.0;
@@ -3137,17 +3095,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v22 = PLLogCommon();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v17;
-    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v17;
+    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testShortQualificationEventDuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3158,9 +3114,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
 
   v8 = 0.0;
@@ -3196,17 +3152,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v22 = PLLogCommon();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v24 = 138412290;
-    v25 = v17;
-    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v17;
+    _os_log_debug_impl(&dword_21A4C6000, v22, OS_LOG_TYPE_DEBUG, "%@", &v23, 0xCu);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testAddRemoveDistributionEventForward
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3217,9 +3171,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v32 = 138412290;
-    v33 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v31, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -3267,17 +3221,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v30 = PLLogCommon();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    v32 = 138412290;
-    v33 = v25;
-    _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = v25;
+    _os_log_debug_impl(&dword_21A4C6000, v30, OS_LOG_TYPE_DEBUG, "%@", &v31, 0xCu);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCorrectionInMemory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3288,9 +3240,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v21 = 138412290;
-    v22 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v20, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -3317,17 +3269,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v19 = PLLogCommon();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v21 = 138412290;
-    v22 = v14;
-    _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = v14;
+    _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", &v20, 0xCu);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testPowerEventIntervalOverlap
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3338,9 +3288,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 138412290;
-    v28 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v26, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -3379,17 +3329,15 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v25 = PLLogCommon();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    v27 = 138412290;
-    v28 = v20;
-    _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = v20;
+    _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", &v26, 0xCu);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)testCurrentDistributionEventForward
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"begin"];
   v3 = MEMORY[0x277D3F178];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3400,9 +3348,9 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v7 = PLLogCommon();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 138412290;
-    v29 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v28, 0xCu);
+    v27 = 138412290;
+    v28 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", &v27, 0xCu);
   }
 
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
@@ -3450,17 +3398,273 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
   v26 = PLLogCommon();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 138412290;
-    v29 = v21;
-    _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", &v28, 0xCu);
+    v27 = 138412290;
+    v28 = v21;
+    _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", &v27, 0xCu);
+  }
+}
+
+- (BOOL)verifyLastDistributionEventWithDistributionID:(int)d withNodeName:(id)name withWeight:(double)weight
+{
+  v6 = *&d;
+  v51[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (v6 < 1 || !nameCopy)
+  {
+    v37 = objc_opt_class();
+    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastDistributionEventWithDistributionID:withNodeName:withWeight:]"];
+    [v37 printError:v38];
+
+    v39 = 2210;
+LABEL_13:
+    NSLog(&cfstr_FailReturnedFr.isa, v39);
+    v34 = 0;
+    goto LABEL_20;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
+  v9 = [&unk_282C14B38 objectAtIndexedSubscript:v6];
+  intValue = [v9 intValue];
+
+  if ((intValue - 1) >= 4)
+  {
+    v39 = 2235;
+    goto LABEL_13;
+  }
+
+  entryKey = [**(&unk_27825DCB0 + (intValue - 1)) entryKey];
+  v12 = objc_alloc(MEMORY[0x277D3F260]);
+  v13 = *MEMORY[0x277D3F410];
+  v14 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+  v15 = [v12 initWithKey:v13 withValue:v14 withComparisonOperation:0];
+
+  mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+  v17 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+  v51[0] = v15;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
+  v49 = entryKey;
+  v19 = [v17 entriesForKey:entryKey withComparisons:v18];
+
+  if (v19)
+  {
+    lastObject = [v19 lastObject];
+    childNodeIDToWeight = [lastObject childNodeIDToWeight];
+    if (childNodeIDToWeight)
+    {
+      v48 = lastObject;
+      v22 = objc_alloc(MEMORY[0x277D3F260]);
+      v23 = [v22 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+      mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+      v25 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+      entryKey2 = [MEMORY[0x277D3F0C8] entryKey];
+      v47 = v23;
+      v50 = v23;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+      v28 = [v25 entriesForKey:entryKey2 withComparisons:v27];
+
+      if (v28 && [v28 count])
+      {
+        firstObject = [v28 firstObject];
+        v30 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(firstObject, "entryID")}];
+        v31 = [childNodeIDToWeight objectForKeyedSubscript:v30];
+
+        [v31 doubleValue];
+        v33 = vabdd_f64(v32, weight);
+        v34 = v33 <= 0.001;
+        if (v33 > 0.001)
+        {
+          v35 = objc_opt_class();
+          v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastDistributionEventWithDistributionID:withNodeName:withWeight:]"];
+          [v35 printError:v36];
+
+          NSLog(&cfstr_FailReturnedFr.isa, 2273);
+        }
+      }
+
+      else
+      {
+        v42 = objc_opt_class();
+        v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastDistributionEventWithDistributionID:withNodeName:withWeight:]"];
+        [v42 printError:v43];
+
+        NSLog(&cfstr_FailReturnedFr.isa, 2265);
+        v34 = 0;
+      }
+
+      lastObject = v48;
+    }
+
+    else
+    {
+      v44 = objc_opt_class();
+      v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastDistributionEventWithDistributionID:withNodeName:withWeight:]"];
+      [v44 printError:v45];
+
+      NSLog(&cfstr_FailReturnedFr.isa, 2254);
+      v34 = 0;
+    }
+  }
+
+  else
+  {
+    v40 = objc_opt_class();
+    v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastDistributionEventWithDistributionID:withNodeName:withWeight:]"];
+    [v40 printError:v41];
+
+    NSLog(&cfstr_FailReturnedFr.isa, 2246);
+    v34 = 0;
+  }
+
+LABEL_20:
+  return v34;
+}
+
+- (BOOL)verifyLastQualificationEventWithQualificationID:(int)d withNodeName:(id)name
+{
+  v4 = *&d;
+  v52[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (v4 <= 0)
+  {
+    v22 = objc_opt_class();
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+    [v22 printError:v23];
+
+    v24 = 2286;
+  }
+
+  else
+  {
+    v7 = [&unk_282C14B50 objectAtIndexedSubscript:v4];
+    intValue = [v7 intValue];
+
+    if ((intValue - 1) < 4)
+    {
+      entryKey = [**(&unk_27825DCD0 + (intValue - 1)) entryKey];
+      v10 = objc_alloc(MEMORY[0x277D3F260]);
+      v11 = *MEMORY[0x277D3F458];
+      v12 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+      v13 = [v10 initWithKey:v11 withValue:v12 withComparisonOperation:0];
+
+      mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+      v15 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+      v52[0] = v13;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
+      v50 = entryKey;
+      v17 = [v15 entriesForKey:entryKey withComparisons:v16];
+
+      if (!v17)
+      {
+        v26 = objc_opt_class();
+        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+        [v26 printError:v27];
+
+        NSLog(&cfstr_FailReturnedFr.isa, 2322);
+        v25 = 0;
+LABEL_23:
+
+        goto LABEL_24;
+      }
+
+      lastObject = [v17 lastObject];
+      childNodeIDs = [lastObject childNodeIDs];
+      v20 = childNodeIDs;
+      if (childNodeIDs)
+      {
+        if (nameCopy || ![childNodeIDs count])
+        {
+          if ([nameCopy isEqualToString:@"__GLOBAL__"])
+          {
+            entryID = 1;
+          }
+
+          else
+          {
+            v49 = lastObject;
+            v31 = objc_alloc(MEMORY[0x277D3F260]);
+            v32 = [v31 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+            mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+            v34 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+            entryKey2 = [MEMORY[0x277D3F0C8] entryKey];
+            v48 = v32;
+            v51 = v32;
+            v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+            v37 = [v34 entriesForKey:entryKey2 withComparisons:v36];
+
+            if (!v37 || ![v37 count])
+            {
+              v46 = objc_opt_class();
+              v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+              [v46 printError:v47];
+
+              NSLog(&cfstr_FailReturnedFr.isa, 2355);
+              v25 = 0;
+              lastObject = v49;
+              goto LABEL_22;
+            }
+
+            firstObject = [v37 firstObject];
+            entryID = [firstObject entryID];
+
+            lastObject = v49;
+          }
+
+          v39 = [MEMORY[0x277CCABB0] numberWithInt:entryID];
+          v40 = [v20 containsObject:v39];
+
+          if (v40)
+          {
+            v25 = 1;
+LABEL_22:
+
+            goto LABEL_23;
+          }
+
+          v43 = objc_opt_class();
+          v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+          [v43 printError:v44];
+
+          v30 = 2364;
+        }
+
+        else
+        {
+          v41 = objc_opt_class();
+          v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+          [v41 printError:v42];
+
+          v30 = 2338;
+        }
+      }
+
+      else
+      {
+        v28 = objc_opt_class();
+        v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyLastQualificationEventWithQualificationID:withNodeName:]"];
+        [v28 printError:v29];
+
+        v30 = 2330;
+      }
+
+      NSLog(&cfstr_FailReturnedFr.isa, v30);
+      v25 = 0;
+      goto LABEL_22;
+    }
+
+    v24 = 2311;
+  }
+
+  NSLog(&cfstr_FailReturnedFr.isa, v24);
+  v25 = 0;
+LABEL_24:
+
+  return v25;
 }
 
 - (BOOL)verifyLastPowerEventWithRootNodeID:(int)d withPower:(double)power
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   [(PLAccountingDebugService *)self blockingClearQueues];
   if (d <= 0)
   {
@@ -3471,8 +3675,7 @@ void __43__PLAccountingDebugService_testPerformance__block_invoke_713()
     v37 = 2377;
 LABEL_11:
     NSLog(&cfstr_FailReturnedFr.isa, v37);
-    v32 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   dCopy = d;
@@ -3492,11 +3695,11 @@ LABEL_11:
   v13 = [v10 initWithKey:v11 withValue:v12 withComparisonOperation:0];
 
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
+  v15 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
   entryKey2 = [MEMORY[0x277D3F0C8] entryKey];
-  v45[0] = v13;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
-  v18 = [storage entriesForKey:entryKey2 withComparisons:v17];
+  v44[0] = v13;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+  v18 = [v15 entriesForKey:entryKey2 withComparisons:v17];
 
   if (v18)
   {
@@ -3507,10 +3710,10 @@ LABEL_11:
     v23 = [v20 initWithKey:v21 withValue:v22 withComparisonOperation:0];
 
     mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
-    storage2 = [mEMORY[0x277D3F2A0]2 storage];
-    v44 = v23;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-    v27 = [storage2 entriesForKey:entryKey withComparisons:v26];
+    v25 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+    v43 = v23;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    v27 = [v25 entriesForKey:entryKey withComparisons:v26];
 
     if (v27 && [v27 count])
     {
@@ -3551,47 +3754,556 @@ LABEL_11:
     v32 = 0;
   }
 
-LABEL_16:
-  v42 = *MEMORY[0x277D85DE8];
   return v32;
+}
+
+- (BOOL)verifyTotalEnergyWithNodeName:(id)name withTotalEnergy:(double)energy withRootNodeID:(int)d withEpsilon:(double)epsilon
+{
+  v7 = *&d;
+  v66[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (nameCopy)
+  {
+    v11 = objc_alloc(MEMORY[0x277D3F260]);
+    v12 = [v11 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+    mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+    v14 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+    entryKey = [MEMORY[0x277D3F0C8] entryKey];
+    v59 = v12;
+    v66[0] = v12;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
+    v17 = [v14 entriesForKey:entryKey withComparisons:v16];
+
+    if (!v17)
+    {
+      v40 = objc_opt_class();
+      v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalEnergyWithNodeName:withTotalEnergy:withRootNodeID:withEpsilon:]"];
+      [v40 printError:v41];
+
+      NSLog(&cfstr_FailReturnedFr.isa, 2454);
+      v39 = 0;
+      v42 = v59;
+LABEL_24:
+
+      goto LABEL_25;
+    }
+
+    firstObject = [v17 firstObject];
+    v19 = objc_alloc(MEMORY[0x277D3F260]);
+    v20 = *MEMORY[0x277D3F370];
+    v58 = firstObject;
+    v21 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(firstObject, "entryID")}];
+    v22 = [v19 initWithKey:v20 withValue:v21 withComparisonOperation:0];
+
+    v23 = objc_alloc(MEMORY[0x277D3F260]);
+    v24 = *MEMORY[0x277D3F398];
+    v25 = v7;
+    v26 = v22;
+    v27 = [MEMORY[0x277CCABB0] numberWithInt:v25];
+    v28 = [v23 initWithKey:v24 withValue:v27 withComparisonOperation:0];
+
+    mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+    v30 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+    entryKey2 = [MEMORY[0x277D3F0B8] entryKey];
+    v65[0] = v22;
+    v65[1] = v28;
+    v57 = v28;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+    v33 = [v30 entriesForKey:entryKey2 withComparisons:v32];
+
+    if (v33)
+    {
+      v34 = [v33 count];
+      if (energy != 0.0 && !v34)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else if (energy != 0.0)
+    {
+LABEL_6:
+      v35 = 2470;
+      v36 = v58;
+      goto LABEL_22;
+    }
+
+    v56 = v26;
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v43 = v33;
+    v44 = [v43 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    if (v44)
+    {
+      v45 = v44;
+      v46 = *v61;
+      v47 = *MEMORY[0x277D3F368];
+      v48 = 0.0;
+      do
+      {
+        for (i = 0; i != v45; ++i)
+        {
+          if (*v61 != v46)
+          {
+            objc_enumerationMutation(v43);
+          }
+
+          v50 = [*(*(&v60 + 1) + 8 * i) objectForKeyedSubscript:v47];
+          [v50 doubleValue];
+          v48 = v48 + v51 / 1000.0;
+        }
+
+        v45 = [v43 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      }
+
+      while (v45);
+    }
+
+    else
+    {
+      v48 = 0.0;
+    }
+
+    if (vabdd_f64(v48, energy) <= epsilon)
+    {
+      v39 = 1;
+      v36 = v58;
+      v42 = v59;
+      v26 = v56;
+      v52 = v57;
+LABEL_23:
+
+      goto LABEL_24;
+    }
+
+    v35 = 2482;
+    v36 = v58;
+    v26 = v56;
+LABEL_22:
+    v52 = v57;
+    v53 = objc_opt_class();
+    v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalEnergyWithNodeName:withTotalEnergy:withRootNodeID:withEpsilon:]"];
+    [v53 printError:v54];
+
+    NSLog(&cfstr_FailReturnedFr.isa, v35);
+    v39 = 0;
+    v42 = v59;
+    goto LABEL_23;
+  }
+
+  v37 = objc_opt_class();
+  v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalEnergyWithNodeName:withTotalEnergy:withRootNodeID:withEpsilon:]"];
+  [v37 printError:v38];
+
+  NSLog(&cfstr_FailReturnedFr.isa, 2443);
+  v39 = 0;
+LABEL_25:
+
+  return v39;
+}
+
+- (BOOL)verifyTotalCorrectionEnergyWithNodeName:(id)name withTotalCorrectionEnergy:(double)energy withRootNodeID:(int)d
+{
+  v5 = *&d;
+  v62[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (nameCopy)
+  {
+    v9 = objc_alloc(MEMORY[0x277D3F260]);
+    v10 = [v9 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+    mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+    v12 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+    entryKey = [MEMORY[0x277D3F0C8] entryKey];
+    v55 = v10;
+    v62[0] = v10;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+    v15 = [v12 entriesForKey:entryKey withComparisons:v14];
+
+    if (!v15)
+    {
+      v43 = objc_opt_class();
+      v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:]"];
+      [v43 printError:v44];
+
+      NSLog(&cfstr_FailReturnedFr.isa, 2506);
+      v41 = 0;
+      v45 = v55;
+LABEL_22:
+
+      goto LABEL_23;
+    }
+
+    firstObject = [v15 firstObject];
+    v17 = objc_alloc(MEMORY[0x277D3F260]);
+    v18 = *MEMORY[0x277D3F370];
+    v54 = firstObject;
+    v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(firstObject, "entryID")}];
+    v20 = [v17 initWithKey:v18 withValue:v19 withComparisonOperation:0];
+
+    v21 = objc_alloc(MEMORY[0x277D3F260]);
+    v22 = *MEMORY[0x277D3F398];
+    v23 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+    v24 = [v21 initWithKey:v22 withValue:v23 withComparisonOperation:0];
+
+    mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+    v26 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+    entryKey2 = [MEMORY[0x277D3F0B8] entryKey];
+    v52 = v24;
+    v53 = v20;
+    v61[0] = v20;
+    v61[1] = v24;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+    v29 = [v26 entriesForKey:entryKey2 withComparisons:v28];
+
+    if (v29 && [v29 count])
+    {
+      v58 = 0u;
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v30 = v29;
+      v31 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      if (v31)
+      {
+        v32 = v31;
+        v33 = *v57;
+        v34 = *MEMORY[0x277D3F348];
+        v35 = 0.0;
+        do
+        {
+          for (i = 0; i != v32; ++i)
+          {
+            if (*v57 != v33)
+            {
+              objc_enumerationMutation(v30);
+            }
+
+            v37 = [*(*(&v56 + 1) + 8 * i) objectForKeyedSubscript:v34];
+            [v37 doubleValue];
+            v35 = v35 + v38 / 1000.0;
+          }
+
+          v32 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        }
+
+        while (v32);
+      }
+
+      else
+      {
+        v35 = 0.0;
+      }
+
+      if (vabdd_f64(v35, energy) <= 0.001)
+      {
+        v41 = 1;
+        v46 = v54;
+        v45 = v55;
+        v48 = v52;
+        v47 = v53;
+LABEL_21:
+
+        goto LABEL_22;
+      }
+
+      v42 = 2532;
+    }
+
+    else
+    {
+      v42 = 2521;
+    }
+
+    v46 = v54;
+    v45 = v55;
+    v48 = v52;
+    v47 = v53;
+    v49 = objc_opt_class();
+    v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:]"];
+    [v49 printError:v50];
+
+    NSLog(&cfstr_FailReturnedFr.isa, v42);
+    v41 = 0;
+    goto LABEL_21;
+  }
+
+  v39 = objc_opt_class();
+  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyTotalCorrectionEnergyWithNodeName:withTotalCorrectionEnergy:withRootNodeID:]"];
+  [v39 printError:v40];
+
+  NSLog(&cfstr_FailReturnedFr.isa, 2495);
+  v41 = 0;
+LABEL_23:
+
+  return v41;
+}
+
+- (BOOL)verifyAggregateRootNodeEnergyWithNodeName:(id)name withRootNodeID:(int)d withEnergy:(double)energy withDate:(id)date
+{
+  v8 = *&d;
+  v56[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  dateCopy = date;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (nameCopy && v8 > 0)
+  {
+    v11 = objc_alloc(MEMORY[0x277D3F260]);
+    v12 = [v11 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+    mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+    v14 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+    entryKey = [MEMORY[0x277D3F0C8] entryKey];
+    v53 = v12;
+    v56[0] = v12;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
+    v17 = [v14 entriesForKey:entryKey withComparisons:v16];
+
+    if (!v17)
+    {
+      v42 = objc_opt_class();
+      v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:]"];
+      [v42 printError:v43];
+
+      NSLog(&cfstr_FailReturnedFr.isa, 2557);
+      v41 = 0;
+LABEL_14:
+
+      goto LABEL_15;
+    }
+
+    firstObject = [v17 firstObject];
+    v19 = objc_alloc(MEMORY[0x277D3F260]);
+    v20 = *MEMORY[0x277D3F328];
+    v51 = firstObject;
+    v21 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(firstObject, "entryID")}];
+    v52 = [v19 initWithKey:v20 withValue:v21 withComparisonOperation:0];
+
+    v22 = objc_alloc(MEMORY[0x277D3F260]);
+    v23 = *MEMORY[0x277D3F330];
+    v24 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+    v25 = [v22 initWithKey:v23 withValue:v24 withComparisonOperation:0];
+
+    [dateCopy timeIntervalSince1970];
+    v27 = floor(v26 / 3600.0) * 3600.0;
+    v28 = objc_alloc(MEMORY[0x277D3F260]);
+    v29 = [MEMORY[0x277CCABB0] numberWithDouble:v27];
+    v30 = [v28 initWithKey:@"timestamp" withValue:v29 withComparisonOperation:0];
+
+    v31 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"timeInterval" withValue:&unk_282C1C438 withComparisonOperation:0];
+    v32 = [MEMORY[0x277D3F128] entryKeyForType:*MEMORY[0x277D3F5B8] andName:*MEMORY[0x277D3F318]];
+    mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+    v34 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+    v55[0] = v52;
+    v55[1] = v25;
+    v50 = v25;
+    v35 = v30;
+    v55[2] = v30;
+    v55[3] = v31;
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:4];
+    v37 = [v34 lastEntryForKey:v32 withComparisons:v36 isSingleton:1];
+
+    if (energy == 0.0 || v37)
+    {
+      v44 = [v37 objectForKeyedSubscript:*MEMORY[0x277D3F320]];
+      [v44 doubleValue];
+      v46 = v45 / 1000.0;
+
+      if (vabdd_f64(v46, energy) <= 0.001)
+      {
+        v41 = 1;
+LABEL_13:
+
+        goto LABEL_14;
+      }
+
+      v38 = 2597;
+    }
+
+    else
+    {
+      v38 = 2589;
+    }
+
+    v47 = objc_opt_class();
+    v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:]"];
+    [v47 printError:v48];
+
+    NSLog(&cfstr_FailReturnedFr.isa, v38);
+    v41 = 0;
+    goto LABEL_13;
+  }
+
+  v39 = objc_opt_class();
+  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateRootNodeEnergyWithNodeName:withRootNodeID:withEnergy:withDate:]"];
+  [v39 printError:v40];
+
+  NSLog(&cfstr_FailReturnedFr.isa, 2546);
+  v41 = 0;
+LABEL_15:
+
+  return v41;
+}
+
+- (BOOL)verifyAggregateQualificationEnergyWithQualificationID:(int)d withRootNodeID:(int)iD withNodeName:(id)name withQualificationEnergy:(double)energy withDate:(id)date
+{
+  v9 = *&iD;
+  v10 = *&d;
+  v67[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  dateCopy = date;
+  [(PLAccountingDebugService *)self blockingClearQueues];
+  if (v10 >= 1 && v9 >= 1 && nameCopy)
+  {
+    v65 = dateCopy;
+    v14 = objc_alloc(MEMORY[0x277D3F260]);
+    v63 = nameCopy;
+    v15 = [v14 initWithKey:*MEMORY[0x277D3F3E0] withValue:nameCopy withComparisonOperation:0];
+    mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
+    v17 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+    entryKey = [MEMORY[0x277D3F0C8] entryKey];
+    v64 = v15;
+    v67[0] = v15;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+    v20 = [v17 entriesForKey:entryKey withComparisons:v19];
+
+    if (!v20)
+    {
+      v50 = objc_opt_class();
+      v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateQualificationEnergyWithQualificationID:withRootNodeID:withNodeName:withQualificationEnergy:withDate:]"];
+      [v50 printError:v51];
+
+      NSLog(&cfstr_FailReturnedFr.isa, 2623);
+      v49 = 0;
+      v46 = v64;
+LABEL_15:
+
+      nameCopy = v63;
+      goto LABEL_16;
+    }
+
+    v61 = v20;
+    firstObject = [v20 firstObject];
+    v22 = objc_alloc(MEMORY[0x277D3F260]);
+    v23 = *MEMORY[0x277D3F300];
+    v62 = firstObject;
+    v24 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(firstObject, "entryID")}];
+    v58 = [v22 initWithKey:v23 withValue:v24 withComparisonOperation:0];
+
+    v25 = objc_alloc(MEMORY[0x277D3F260]);
+    v26 = *MEMORY[0x277D3F310];
+    v27 = [MEMORY[0x277CCABB0] numberWithInt:v9];
+    v28 = [v25 initWithKey:v26 withValue:v27 withComparisonOperation:0];
+
+    v29 = objc_alloc(MEMORY[0x277D3F260]);
+    v30 = *MEMORY[0x277D3F308];
+    v31 = [MEMORY[0x277CCABB0] numberWithInt:v10];
+    v32 = [v29 initWithKey:v30 withValue:v31 withComparisonOperation:0];
+
+    [v65 timeIntervalSince1970];
+    v34 = floor(v33 / 3600.0) * 3600.0;
+    v35 = objc_alloc(MEMORY[0x277D3F260]);
+    v36 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
+    v37 = [v35 initWithKey:@"timestamp" withValue:v36 withComparisonOperation:0];
+
+    v38 = v37;
+    v39 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"timeInterval" withValue:&unk_282C1C438 withComparisonOperation:0];
+    v40 = [MEMORY[0x277D3F128] entryKeyForType:*MEMORY[0x277D3F5B8] andName:*MEMORY[0x277D3F2F0]];
+    mEMORY[0x277D3F2A0]2 = [MEMORY[0x277D3F2A0] sharedCore];
+    v42 = objc_msgSend_storage(mEMORY[0x277D3F2A0]2);
+    v66[0] = v58;
+    v66[1] = v28;
+    v59 = v32;
+    v60 = v28;
+    v66[2] = v32;
+    v66[3] = v37;
+    v66[4] = v39;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:5];
+    v44 = [v42 lastEntryForKey:v40 withComparisons:v43 isSingleton:1];
+
+    if (energy == 0.0 || v44)
+    {
+      v52 = [v44 objectForKeyedSubscript:*MEMORY[0x277D3F2F8]];
+      [v52 doubleValue];
+      v54 = v53 / 1000.0;
+
+      v46 = v64;
+      if (vabdd_f64(v54, energy) <= 0.001)
+      {
+        v49 = 1;
+        v20 = v61;
+LABEL_14:
+
+        dateCopy = v65;
+        goto LABEL_15;
+      }
+
+      v45 = 2667;
+    }
+
+    else
+    {
+      v45 = 2659;
+      v46 = v64;
+    }
+
+    v20 = v61;
+    v55 = objc_opt_class();
+    v56 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateQualificationEnergyWithQualificationID:withRootNodeID:withNodeName:withQualificationEnergy:withDate:]"];
+    [v55 printError:v56];
+
+    NSLog(&cfstr_FailReturnedFr.isa, v45);
+    v49 = 0;
+    goto LABEL_14;
+  }
+
+  v47 = objc_opt_class();
+  v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService verifyAggregateQualificationEnergyWithQualificationID:withRootNodeID:withNodeName:withQualificationEnergy:withDate:]"];
+  [v47 printError:v48];
+
+  NSLog(&cfstr_FailReturnedFr.isa, 2612);
+  v49 = 0;
+LABEL_16:
+
+  return v49;
 }
 
 - (void)blockingLogGasGaugeWithTotalPower:(double)power withStartDate:(id)date withEndDate:(id)endDate
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v10 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"GasGauge"];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__9;
-  v26 = __Block_byref_object_dispose__9;
-  v27 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10 withDate:dateCopy];
-  [v23[5] setObject:endDateCopy forKeyedSubscript:@"timestampEnd"];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__9;
+  v25 = __Block_byref_object_dispose__9;
+  v26 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v10 withDate:dateCopy];
+  [v22[5] setObject:endDateCopy forKeyedSubscript:@"timestampEnd"];
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:power];
-  [v23[5] setObject:v11 forKeyedSubscript:@"TotalPower"];
+  [v22[5] setObject:v11 forKeyedSubscript:@"TotalPower"];
 
   v12 = dispatch_semaphore_create(0);
   v13 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartDate_withEndDate___block_invoke;
-  v19[3] = &unk_27825DC68;
-  v21 = &v22;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartDate_withEndDate___block_invoke;
+  v18[3] = &unk_27825DC68;
+  v20 = &v21;
   v14 = v12;
-  v20 = v14;
-  v15 = [v13 initWithOperator:self forEntryKey:v10 withBlock:v19];
+  v19 = v14;
+  v15 = [v13 initWithOperator:self forEntryKey:v10 withBlock:v18];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v28 = @"entry";
-  v29[0] = v23[5];
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = @"entry";
+  v28[0] = v22[5];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   [defaultCenter postNotificationName:@"PLBatteryAgent.fakeLogEntry" object:0 userInfo:v17];
 
   dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-  _Block_object_dispose(&v22, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartDate_withEndDate___block_invoke(uint64_t a1, void *a2)
@@ -3609,7 +4321,7 @@ void __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartD
 
 - (void)blockingClearQueues
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -3619,59 +4331,59 @@ void __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartD
   dispatch_sync(v3, block);
 
   v4 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_826;
-  v28[3] = &unk_2782591D0;
-  v28[4] = self;
-  dispatch_sync(v4, v28);
-
-  v5 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
-  v27[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_832;
+  v27[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_826;
   v27[3] = &unk_2782591D0;
   v27[4] = self;
-  dispatch_sync(v5, v27);
+  dispatch_sync(v4, v27);
 
-  v6 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
+  v5 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_838;
+  v26[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_832;
   v26[3] = &unk_2782591D0;
   v26[4] = self;
-  dispatch_sync(v6, v26);
+  dispatch_sync(v5, v26);
+
+  v6 = [MEMORY[0x277D3F258] workQueueForClass:objc_opt_class()];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_838;
+  v25[3] = &unk_2782591D0;
+  v25[4] = self;
+  dispatch_sync(v6, v25);
 
   v7 = MEMORY[0x277D3F258];
   v8 = [MEMORY[0x277D3F178] storageQueueNameForClass:objc_opt_class()];
   v9 = [v7 workQueueForKey:v8];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_843;
-  v25[3] = &unk_2782591D0;
-  v25[4] = self;
-  dispatch_sync(v9, v25);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_843;
+  v24[3] = &unk_2782591D0;
+  v24[4] = self;
+  dispatch_sync(v9, v24);
 
   mEMORY[0x277D3F2A0] = [MEMORY[0x277D3F2A0] sharedCore];
-  storage = [mEMORY[0x277D3F2A0] storage];
-  [storage blockingFlushCachesWithReason:@"PLAccountingDebugService"];
+  v11 = objc_msgSend_storage(mEMORY[0x277D3F2A0]);
+  [v11 blockingFlushCachesWithReason:@"PLAccountingDebugService"];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v12 = objc_opt_class();
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_851;
-    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v24 = v12;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_851;
+    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v23 = v12;
     if (qword_2811F7BD0 != -1)
     {
-      dispatch_once(&qword_2811F7BD0, &v20);
+      dispatch_once(&qword_2811F7BD0, &v19);
     }
 
     if (byte_2811F7BA5 == 1)
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"flushes cleared", v20, v21, v22, v23, v24];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"flushes cleared", v19, v20, v21, v22, v23];
       v14 = MEMORY[0x277D3F178];
       v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
       lastPathComponent = [v15 lastPathComponent];
@@ -3682,27 +4394,24 @@ void __88__PLAccountingDebugService_blockingLogGasGaugeWithTotalPower_withStartD
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v31 = v13;
+        v30 = v13;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PLAccountingDebugService_blockingClearQueues__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (qword_2811F7BA8 != -1)
     {
       dispatch_once(&qword_2811F7BA8, block);
@@ -3710,27 +4419,25 @@ void __47__PLAccountingDebugService_blockingClearQueues__block_invoke(uint64_t a
 
     if (_MergedGlobals_99 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingEngine work queue cleared"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2700];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingEngine work queue cleared"];
+      v3 = MEMORY[0x277D3F178];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
+      v5 = [v4 lastPathComponent];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
+      [v3 logMessage:v2 fromFile:v5 fromFunction:v6 fromLineNumber:2700];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v10 = v2;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_99 = result;
@@ -3739,16 +4446,15 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2(uint
 
 void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_826(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_827;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (qword_2811F7BB0 != -1)
     {
       dispatch_once(&qword_2811F7BB0, block);
@@ -3756,27 +4462,25 @@ void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_826(uint64
 
     if (byte_2811F7BA1 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingDistributionManager work queue cleared"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2703];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingDistributionManager work queue cleared"];
+      v3 = MEMORY[0x277D3F178];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
+      v5 = [v4 lastPathComponent];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
+      [v3 logMessage:v2 fromFile:v5 fromFunction:v6 fromLineNumber:2703];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v10 = v2;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_827(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_827(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7BA1 = result;
@@ -3785,16 +4489,15 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_827(
 
 void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_832(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_833;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (qword_2811F7BB8 != -1)
     {
       dispatch_once(&qword_2811F7BB8, block);
@@ -3802,27 +4505,25 @@ void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_832(uint64
 
     if (byte_2811F7BA2 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingCorrectionManager work queue cleared"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2706];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingCorrectionManager work queue cleared"];
+      v3 = MEMORY[0x277D3F178];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
+      v5 = [v4 lastPathComponent];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
+      [v3 logMessage:v2 fromFile:v5 fromFunction:v6 fromLineNumber:2706];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v10 = v2;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_833(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_833(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7BA2 = result;
@@ -3831,16 +4532,15 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_833(
 
 void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_838(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_839;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (qword_2811F7BC0 != -1)
     {
       dispatch_once(&qword_2811F7BC0, block);
@@ -3848,27 +4548,25 @@ void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_838(uint64
 
     if (byte_2811F7BA3 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingQualificationManager work queue cleared"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2709];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingQualificationManager work queue cleared"];
+      v3 = MEMORY[0x277D3F178];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
+      v5 = [v4 lastPathComponent];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
+      [v3 logMessage:v2 fromFile:v5 fromFunction:v6 fromLineNumber:2709];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v10 = v2;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_839(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_839(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7BA3 = result;
@@ -3877,16 +4575,15 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_839(
 
 void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_843(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v1 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_844;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v1;
     if (qword_2811F7BC8 != -1)
     {
       dispatch_once(&qword_2811F7BC8, block);
@@ -3894,34 +4591,32 @@ void __47__PLAccountingDebugService_blockingClearQueues__block_invoke_843(uint64
 
     if (byte_2811F7BA4 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingOperator storage queue cleared"];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:2712];
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"PLAccountingOperator storage queue cleared"];
+      v3 = MEMORY[0x277D3F178];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
+      v5 = [v4 lastPathComponent];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingDebugService blockingClearQueues]_block_invoke"];
+      [v3 logMessage:v2 fromFile:v5 fromFunction:v6 fromLineNumber:2712];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = v4;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v10 = v2;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_844(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_2_844(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7BA4 = result;
   return result;
 }
 
-uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_851(uint64_t a1)
+void *__47__PLAccountingDebugService_blockingClearQueues__block_invoke_851(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7BA5 = result;
@@ -3930,7 +4625,7 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_851(ui
 
 + (void)printError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   error = [MEMORY[0x277CCACA8] stringWithFormat:@"&&&&&&&&&&&&&&&&&&%@&&&&&&&&&&&&&&&&&&", error];
   v4 = MEMORY[0x277D3F178];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAccountingDebugService.m"];
@@ -3942,11 +4637,9 @@ uint64_t __47__PLAccountingDebugService_blockingClearQueues__block_invoke_851(ui
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v11 = error;
+    v10 = error;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

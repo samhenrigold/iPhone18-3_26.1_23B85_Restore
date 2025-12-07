@@ -17,13 +17,13 @@
 
 @implementation CBABModuleiOS
 
-uint64_t __29__CBABModuleiOS_setupAABRear__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__29__CBABModuleiOS_setupAABRear__block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(result + 32) sendNotificationForKey:a2 withValue:a3];
+      return [result[4] sendNotificationForKey:a2 withValue:a3];
     }
   }
 
@@ -137,13 +137,13 @@ uint64_t __29__CBABModuleiOS_setupAABRear__block_invoke(uint64_t result, uint64_
   return 0;
 }
 
-uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(id *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
     if (a3)
     {
-      return [*(result + 32) sendNotificationForKey:a2 withValue:a3];
+      return [result[4] sendNotificationForKey:a2 withValue:a3];
     }
   }
 
@@ -189,13 +189,13 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
 
 - (BOOL)addHIDServiceClient:(__IOHIDServiceClient *)client
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v45 = a2;
+  v44 = a2;
   clientCopy = client;
   if (IOHIDServiceClientConformsTo(client, 0xFF00u, 4u))
   {
-    v43 = [[CBALSNode alloc] initWithALSServiceClient:clientCopy];
+    v42 = [[CBALSNode alloc] initWithALSServiceClient:clientCopy];
     if ([(NSMutableArray *)selfCopy->_alsServiceClients count]|| selfCopy->_AABC)
     {
       if (selfCopy->_AABC)
@@ -210,17 +210,17 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v41 = IORegistryEntryIDMatching([RegistryID unsignedLongLongValue]);
-        if (v41)
+        v40 = IORegistryEntryIDMatching([RegistryID unsignedLongLongValue]);
+        if (v40)
         {
-          MatchingService = IOServiceGetMatchingService(*MEMORY[0x1E696CD60], v41);
+          MatchingService = IOServiceGetMatchingService(*MEMORY[0x1E696CD60], v40);
           if (MatchingService)
           {
             if (!selfCopy->_AABC)
             {
-              v39 = 0;
-              [(CBABModuleiOS *)selfCopy updateCurveStrategy:&v39 withSettingsProvider:selfCopy->_settingsProvider];
-              if (!v39)
+              v38 = 0;
+              [(CBABModuleiOS *)selfCopy updateCurveStrategy:&v38 withSettingsProvider:selfCopy->_settingsProvider];
+              if (!v38)
               {
                 if (selfCopy->super._logHandle)
                 {
@@ -242,38 +242,37 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
                   logHandle = inited;
                 }
 
-                v38 = logHandle;
-                v37 = OS_LOG_TYPE_DEFAULT;
+                v37 = logHandle;
+                v36 = OS_LOG_TYPE_DEFAULT;
                 if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
                 {
-                  log = v38;
-                  type = v37;
-                  __os_log_helper_16_0_0(v36);
-                  _os_log_impl(&dword_1DE8E5000, log, type, "AABC initialisation: failed to get strategy from setting provider, use default update curve strategy.", v36, 2u);
+                  log = v37;
+                  type = v36;
+                  __os_log_helper_16_0_0(v35);
+                  _os_log_impl(&dword_1DE8E5000, log, type, "AABC initialisation: failed to get strategy from setting provider, use default update curve strategy.", v35, 2u);
                 }
 
                 AABC::alloc(*MEMORY[0x1E695E480], v4);
               }
 
-              selfCopy->_AABC = AABC::alloc(*MEMORY[0x1E695E480], v39, v3);
+              selfCopy->_AABC = AABC::alloc(*MEMORY[0x1E695E480], v38, v3);
             }
 
-            settingsProvider = selfCopy->_settingsProvider;
             if (objc_opt_respondsToSelector())
             {
-              v7 = selfCopy->_settingsProvider;
-              v30 = MEMORY[0x1E69E9820];
-              v31 = -1073741824;
-              v32 = 0;
-              v33 = __37__CBABModuleiOS_addHIDServiceClient___block_invoke;
-              v34 = &unk_1E867B480;
-              v35 = selfCopy;
-              [(CBAdaptiveAutoBrightnessSettingsProvider *)v7 registerAutoBrightnessSettingsUpdateHandler:?];
+              settingsProvider = selfCopy->_settingsProvider;
+              v29 = MEMORY[0x1E69E9820];
+              v30 = -1073741824;
+              v31 = 0;
+              v32 = __37__CBABModuleiOS_addHIDServiceClient___block_invoke;
+              v33 = &unk_1E867B480;
+              v34 = selfCopy;
+              [(CBAdaptiveAutoBrightnessSettingsProvider *)settingsProvider registerAutoBrightnessSettingsUpdateHandler:?];
             }
 
             if (!selfCopy->_AABC)
             {
-              AABC::alloc(*MEMORY[0x1E695E480], v6);
+              AABC::alloc(*MEMORY[0x1E695E480], v5);
             }
 
             AABC::open(selfCopy->_AABC, MatchingService, 1, AABCCallback, selfCopy);
@@ -281,24 +280,24 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
             (*(*selfCopy->_AABC + 96))(selfCopy->_AABC, selfCopy->super._queue);
             (*(*selfCopy->_AABC + 80))(selfCopy->_AABC, clientCopy);
             otherServiceClients = selfCopy->_otherServiceClients;
-            v24 = MEMORY[0x1E69E9820];
-            v25 = -1073741824;
-            v26 = 0;
-            v27 = __37__CBABModuleiOS_addHIDServiceClient___block_invoke_37;
-            v28 = &unk_1E867B668;
-            v29 = selfCopy;
+            v23 = MEMORY[0x1E69E9820];
+            v24 = -1073741824;
+            v25 = 0;
+            v26 = __37__CBABModuleiOS_addHIDServiceClient___block_invoke_37;
+            v27 = &unk_1E867B668;
+            v28 = selfCopy;
             [(NSMutableArray *)otherServiceClients enumerateObjectsUsingBlock:?];
-            v23 = [[CBAPEndpoint alloc] initWithServiceName:@"cbroot-service" role:@"DCP"];
+            v22 = [[CBAPEndpoint alloc] initWithServiceName:@"cbroot-service" role:@"DCP"];
             [(CBABModuleiOS *)selfCopy setupAABRear];
-            if (v23)
+            if (v22)
             {
               NSLog(&cfstr_CbapendpointRe.isa);
               if (selfCopy->_AABC)
               {
-                AABC::registerEndpoint(selfCopy->_AABC, v23);
+                AABC::registerEndpoint(selfCopy->_AABC, v22);
               }
 
-              MEMORY[0x1E69E5920](v23);
+              MEMORY[0x1E69E5920](v22);
             }
 
             else
@@ -310,32 +309,32 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
             {
               if (selfCopy->super._logHandle)
               {
-                v15 = selfCopy->super._logHandle;
+                v14 = selfCopy->super._logHandle;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v13 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v14 = init_default_corebrightness_log();
+                  v13 = init_default_corebrightness_log();
                 }
 
-                v15 = v14;
+                v14 = v13;
               }
 
-              oslog = v15;
-              v21 = OS_LOG_TYPE_DEBUG;
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+              oslog = v14;
+              v20 = OS_LOG_TYPE_DEBUG;
+              if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
               {
-                v12 = oslog;
-                v13 = v21;
-                __os_log_helper_16_0_0(v20);
-                _os_log_debug_impl(&dword_1DE8E5000, v12, v13, "ALS service for internal display ready", v20, 2u);
+                v11 = oslog;
+                v12 = v20;
+                __os_log_helper_16_0_0(v19);
+                _os_log_debug_impl(&dword_1DE8E5000, v11, v12, "ALS service for internal display ready", v19, 2u);
               }
 
               [(CBABModuleiOS *)selfCopy sendNotificationForKey:@"ALSServiceReady" withValue:MEMORY[0x1E695E118]];
@@ -351,31 +350,31 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
       [(CBALSTelemetry *)selfCopy->_alsTelemetry start];
     }
 
-    MEMORY[0x1E69E5920](v43);
+    MEMORY[0x1E69E5920](v42);
     if (selfCopy->super._logHandle)
     {
-      v11 = selfCopy->super._logHandle;
+      v10 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v9 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v10 = init_default_corebrightness_log();
+        v9 = init_default_corebrightness_log();
       }
 
-      v11 = v10;
+      v10 = v9;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_66(v47, selfCopy->_alsServiceClients);
-      _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEFAULT, "Als service clients: %{public}@", v47, 0xCu);
+      __os_log_helper_16_2_1_8_66(v46, selfCopy->_alsServiceClients);
+      _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEFAULT, "Als service clients: %{public}@", v46, 0xCu);
     }
   }
 
@@ -389,7 +388,6 @@ uint64_t __48__CBABModuleiOS_initWithDisplayModule_andQueue___block_invoke(uint6
     [(NSMutableArray *)selfCopy->_otherServiceClients addObject:clientCopy];
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -409,19 +407,18 @@ void __37__CBABModuleiOS_addHIDServiceClient___block_invoke(uint64_t a1)
 
 void __37__CBABModuleiOS_addHIDServiceClient___block_invoke_2(uint64_t a1)
 {
-  v10[2] = a1;
-  v10[1] = a1;
+  v9[2] = a1;
+  v9[1] = a1;
   if (*(*(a1 + 32) + 32))
   {
-    v10[0] = 0;
-    [*(a1 + 32) updateCurveStrategy:v10 withSettingsProvider:*(*(a1 + 32) + 80)];
-    if (!v10[0])
+    v9[0] = 0;
+    [*(a1 + 32) updateCurveStrategy:v9 withSettingsProvider:*(*(a1 + 32) + 80)];
+    if (!v9[0])
     {
-      v5 = *(*(a1 + 32) + 32);
       operator new();
     }
 
-    (*(**(*(a1 + 32) + 32) + 24))(*(*(a1 + 32) + 32), v10[0]);
+    (*(**(*(a1 + 32) + 32) + 24))(*(*(a1 + 32) + 32), v9[0]);
   }
 
   else
@@ -446,14 +443,14 @@ void __37__CBABModuleiOS_addHIDServiceClient___block_invoke_2(uint64_t a1)
       v4 = inited;
     }
 
-    v9 = v4;
-    v8 = OS_LOG_TYPE_DEFAULT;
+    v8 = v4;
+    v7 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v1 = v9;
-      v2 = v8;
-      __os_log_helper_16_0_0(v7);
-      _os_log_impl(&dword_1DE8E5000, v1, v2, "[Update curve strategy] failed to update curve strategy. AABC has not been initialized yet.", v7, 2u);
+      v1 = v8;
+      v2 = v7;
+      __os_log_helper_16_0_0(v6);
+      _os_log_impl(&dword_1DE8E5000, v1, v2, "[Update curve strategy] failed to update curve strategy. AABC has not been initialized yet.", v6, 2u);
     }
   }
 }
@@ -558,8 +555,6 @@ void __37__CBABModuleiOS_addHIDServiceClient___block_invoke_2(uint64_t a1)
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleHIDEvent:(__IOHIDEvent *)event from:(__IOHIDServiceClient *)from
@@ -780,7 +775,6 @@ void __37__CBABModuleiOS_addHIDServiceClient___block_invoke_2(uint64_t a1)
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "key=%@ result=%@", v11, 0x16u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 

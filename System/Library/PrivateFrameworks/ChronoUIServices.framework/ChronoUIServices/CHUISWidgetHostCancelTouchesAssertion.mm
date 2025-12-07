@@ -36,33 +36,33 @@
 
 - (void)invalidate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (![(CHUISWidgetHostCancelTouchesAssertion *)self isInvalidated])
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     assertions = [(CHUISWidgetHostCancelTouchesAssertion *)self assertions];
-    v4 = [assertions countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v4 = [assertions countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v4)
     {
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(assertions);
           }
 
-          [*(*(&v8 + 1) + 8 * v6++) invalidate];
+          [*(*(&v7 + 1) + 8 * v6++) invalidate];
         }
 
         while (v4 != v6);
-        v4 = [assertions countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [assertions countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
@@ -70,8 +70,6 @@
 
     [(CHUISWidgetHostCancelTouchesAssertion *)self setInvalidated:1];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

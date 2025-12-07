@@ -56,7 +56,7 @@ LABEL_8:
 
   if (userInterfaceStyle == 1)
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
 
   else

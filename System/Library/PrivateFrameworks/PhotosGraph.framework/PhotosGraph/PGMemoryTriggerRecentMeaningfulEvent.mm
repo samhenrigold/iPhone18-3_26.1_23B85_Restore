@@ -8,23 +8,21 @@
 
 - (id)meaningNodesSupportedForTriggerInGraph:(id)graph
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = [(PGGraphNodeCollection *)PGGraphMeaningNodeCollection nodesInGraph:graphCopy];
-  v10[0] = @"HolidayEvent";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = @"HolidayEvent";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v6 = [PGGraphMeaningNodeCollection meaningNodesWithMeaningLabels:v5 inGraph:graphCopy];
 
   v7 = [v4 collectionBySubtracting:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)resultsTriggeredWithContext:(id)context inGraph:(id)graph progressReporter:(id)reporter
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -33,9 +31,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v37 = 31;
-      v38 = 2080;
-      v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentMeaningfulEvent.m";
+      v36 = 31;
+      v37 = 2080;
+      v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentMeaningfulEvent.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -48,37 +46,37 @@
     timeZone = [contextCopy timeZone];
     v14 = [PGMemoryTrigger dateNodesInGraph:graphCopy startDayOffset:-8 endDayOffset:-1 fromLocalDate:localDate inTimeZone:timeZone];
 
-    v29 = v14;
+    v28 = v14;
     momentNodes = [v14 momentNodes];
-    v27 = [(PGMemoryTriggerRecentMeaningfulEvent *)self meaningNodesSupportedForTriggerInGraph:graphCopy];
-    [v27 momentNodes];
-    v26 = v28 = momentNodes;
+    v26 = [(PGMemoryTriggerRecentMeaningfulEvent *)self meaningNodesSupportedForTriggerInGraph:graphCopy];
+    [v26 momentNodes];
+    v25 = v27 = momentNodes;
     v16 = [momentNodes collectionByIntersecting:?];
     memoryNodes = [v16 memoryNodes];
     v18 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:16 inGraph:graphCopy];
     v19 = [memoryNodes collectionByIntersecting:v18];
     v20 = [PGGraphMemoryNodeCollection memoryNodesOfCategory:17 inGraph:graphCopy];
     v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
-    v30[3] = &unk_278887CD0;
-    v31 = v20;
-    v32 = graphCopy;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
+    v29[3] = &unk_278887CD0;
+    v30 = v20;
+    v31 = graphCopy;
     selfCopy = self;
-    v34 = contextCopy;
+    v33 = contextCopy;
     v22 = v21;
-    v35 = v22;
+    v34 = v22;
     v23 = v20;
-    [v19 enumerateIdentifiersAsCollectionsWithBlock:v30];
+    [v19 enumerateIdentifiersAsCollectionsWithBlock:v29];
     if ([reporterCopy isCancelledWithProgress:1.0])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v37 = 90;
-        v38 = 2080;
-        v39 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentMeaningfulEvent.m";
+        v36 = 90;
+        v37 = 2080;
+        v38 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerRecentMeaningfulEvent.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -90,8 +88,6 @@
       v11 = v22;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -126,12 +122,12 @@ void __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGr
     v15 = [(MAElementCollection *)[PGGraphMemoryNodeCollection alloc] initWithGraph:*(a1 + 40)];
     if ([(MAElementCollection *)v14 count])
     {
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
-      v32[3] = &unk_278887C88;
-      v33 = v14;
-      v16 = [v9 filteredCollectionUsingBlock:v32];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2;
+      v30[3] = &unk_278887C88;
+      v31 = v14;
+      v16 = [v9 filteredCollectionUsingBlock:v30];
 
       v15 = v16;
     }
@@ -157,16 +153,14 @@ void __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGr
   v22 = [v21 endDate];
 
   v23 = [v22 dateByAddingTimeInterval:691200.0];
-  v24 = *(a1 + 48);
-  v25 = objc_opt_class();
-  v26 = [*(a1 + 56) timeZone];
-  v27 = [v25 validityIntervalForLocalStartDate:v22 localEndDate:v23 timeZone:v26];
+  v24 = objc_opt_class();
+  v25 = [*(a1 + 56) timeZone];
+  v26 = [v24 validityIntervalForLocalStartDate:v22 localEndDate:v23 timeZone:v25];
 
-  v28 = [v4 collectionByFormingUnionWith:v9];
-  v29 = *(a1 + 64);
-  v30 = *(a1 + 48);
-  v31 = [objc_opt_class() memoryTriggerResultsForMemoryNodes:v28 withValidityInterval:v27];
-  [v29 addObjectsFromArray:v31];
+  v27 = [v4 collectionByFormingUnionWith:v9];
+  v28 = *(a1 + 64);
+  v29 = [objc_opt_class() memoryTriggerResultsForMemoryNodes:v27 withValidityInterval:v26];
+  [v28 addObjectsFromArray:v29];
 }
 
 uint64_t __93__PGMemoryTriggerRecentMeaningfulEvent_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke_2(uint64_t a1, void *a2)

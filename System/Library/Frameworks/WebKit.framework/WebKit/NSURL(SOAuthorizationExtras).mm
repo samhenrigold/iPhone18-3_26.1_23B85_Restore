@@ -7,14 +7,14 @@
 
 + (uint64_t)_web_canPerformAuthorizationWithURL:()SOAuthorizationExtras
 {
-  v4 = (*MEMORY[0x1E69E22D8])();
+  v4 = (*MEMORY[0x1E69E22D8])(self, a2);
 
   return [v4 canPerformAuthorizationWithURL:a3 responseCode:0];
 }
 
 + (uint64_t)_web_willPerformSOKerberosAuthorizationWithURL:()SOAuthorizationExtras
 {
-  v4 = (*MEMORY[0x1E69E22D8])();
+  v4 = (*MEMORY[0x1E69E22D8])(self, a2);
 
   return [v4 canPerformAuthorizationWithURL:a3 responseCode:401];
 }

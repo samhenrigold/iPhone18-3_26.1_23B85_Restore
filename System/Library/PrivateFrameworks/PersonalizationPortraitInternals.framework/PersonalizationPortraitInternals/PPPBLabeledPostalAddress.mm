@@ -76,21 +76,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_20;
-  }
-
-  label = self->_label;
-  if (label | equalCopy[4])
-  {
-    if (![(NSString *)label isEqual:?])
-    {
-      goto LABEL_20;
-    }
-  }
-
-  if (((street = self->_street, !(street | equalCopy[7])) || [(NSString *)street isEqual:?]) && ((subLocality = self->_subLocality, !(subLocality | equalCopy[9])) || [(NSString *)subLocality isEqual:?]) && ((city = self->_city, !(city | equalCopy[1])) || [(NSString *)city isEqual:?]) && ((subAdministrativeArea = self->_subAdministrativeArea, !(subAdministrativeArea | equalCopy[8])) || [(NSString *)subAdministrativeArea isEqual:?]) && ((state = self->_state, !(state | equalCopy[6])) || [(NSString *)state isEqual:?]) && ((postalCode = self->_postalCode, !(postalCode | equalCopy[5])) || [(NSString *)postalCode isEqual:?]) && ((country = self->_country, !(country | equalCopy[2])) || [(NSString *)country isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((label = self->_label, !(label | equalCopy[4])) || -[NSString isEqual:](label, "isEqual:")) && ((street = self->_street, !(street | equalCopy[7])) || -[NSString isEqual:](street, "isEqual:")) && ((subLocality = self->_subLocality, !(subLocality | equalCopy[9])) || -[NSString isEqual:](subLocality, "isEqual:")) && ((city = self->_city, !(city | equalCopy[1])) || -[NSString isEqual:](city, "isEqual:")) && ((subAdministrativeArea = self->_subAdministrativeArea, !(subAdministrativeArea | equalCopy[8])) || -[NSString isEqual:](subAdministrativeArea, "isEqual:")) && ((state = self->_state, !(state | equalCopy[6])) || -[NSString isEqual:](state, "isEqual:")) && ((postalCode = self->_postalCode, !(postalCode | equalCopy[5])) || -[NSString isEqual:](postalCode, "isEqual:")) && ((country = self->_country, !(country | equalCopy[2])) || -[NSString isEqual:](country, "isEqual:")))
   {
     isoCountryCode = self->_isoCountryCode;
     if (isoCountryCode | equalCopy[3])
@@ -106,7 +92,6 @@
 
   else
   {
-LABEL_20:
     v14 = 0;
   }
 

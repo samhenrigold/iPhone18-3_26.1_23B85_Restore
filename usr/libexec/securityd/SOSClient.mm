@@ -8,23 +8,42 @@
 - (void)accountStatus:(id)status;
 - (void)assertStashedAccountCredential:(id)credential;
 - (void)circleHash:(id)hash;
+- (void)circleJoiningBlob:(id)blob flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics applicant:(id)applicant complete:(id)complete;
 - (void)getWatchdogParameters:(id)parameters;
+- (void)ghostBust:(unsigned int)bust complete:(id)complete;
 - (void)ghostBustInfo:(id)info;
+- (void)ghostBustPeriodic:(unsigned int)periodic complete:(id)complete;
+- (void)ghostBustTriggerTimed:(unsigned int)timed complete:(id)complete;
 - (void)iCloudIdentityStatus:(id)status;
 - (void)iCloudIdentityStatus_internal:(id)status_internal;
 - (void)importInitialSyncCredentials:(id)credentials complete:(id)complete;
+- (void)initialSyncCredentials:(unsigned int)credentials altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics complete:(id)complete;
+- (void)joinCircleWithBlob:(id)blob altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics version:(int)version complete:(id)complete;
+- (void)keyStatusFor:(int)for complete:(id)complete;
 - (void)kvsPerformanceCounters:(id)counters;
+- (void)myPeerInfo:(id)info flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics complete:(id)complete;
 - (void)rateLimitingPerformanceCounters:(id)counters;
 - (void)removeV0Peers:(id)peers;
 - (void)rpcTriggerBackup:(id)backup complete:(id)complete;
 - (void)rpcTriggerRingUpdate:(id)update;
 - (void)rpcTriggerSync:(id)sync complete:(id)complete;
+- (void)setBypass:(BOOL)bypass reply:(id)reply;
 - (void)setWatchdogParmeters:(id)parmeters complete:(id)complete;
+- (void)stashAccountCredential:(id)credential altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics complete:(id)complete;
 - (void)stashedCredentialPublicKey:(id)key;
 - (void)userPublicKey:(id)key;
+- (void)validatedStashedAccountCredential:(id)credential flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics complete:(id)complete;
 @end
 
 @implementation SOSClient
+
+- (void)setBypass:(BOOL)bypass reply:(id)reply
+{
+  bypassCopy = bypass;
+  replyCopy = reply;
+  account = [(SOSClient *)self account];
+  [account setBypass:bypassCopy reply:replyCopy];
+}
 
 - (id)SOSMonitorModeSOSIsActiveDescription
 {
@@ -140,6 +159,14 @@
   }
 }
 
+- (void)keyStatusFor:(int)for complete:(id)complete
+{
+  v4 = *&for;
+  completeCopy = complete;
+  account = [(SOSClient *)self account];
+  [account keyStatusFor:v4 complete:completeCopy];
+}
+
 - (void)accountStatus:(id)status
 {
   statusCopy = status;
@@ -159,6 +186,30 @@
   infoCopy = info;
   account = [(SOSClient *)self account];
   [account ghostBustInfo:infoCopy];
+}
+
+- (void)ghostBustPeriodic:(unsigned int)periodic complete:(id)complete
+{
+  v4 = *&periodic;
+  completeCopy = complete;
+  account = [(SOSClient *)self account];
+  [account ghostBustPeriodic:v4 complete:completeCopy];
+}
+
+- (void)ghostBustTriggerTimed:(unsigned int)timed complete:(id)complete
+{
+  v4 = *&timed;
+  completeCopy = complete;
+  account = [(SOSClient *)self account];
+  [account ghostBustTriggerTimed:v4 complete:completeCopy];
+}
+
+- (void)ghostBust:(unsigned int)bust complete:(id)complete
+{
+  v4 = *&bust;
+  completeCopy = complete;
+  account = [(SOSClient *)self account];
+  [account ghostBust:v4 complete:completeCopy];
 }
 
 - (void)setWatchdogParmeters:(id)parmeters complete:(id)complete
@@ -209,11 +260,91 @@
   }
 }
 
+- (void)initialSyncCredentials:(unsigned int)credentials altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics complete:(id)complete
+{
+  metricsCopy = metrics;
+  v12 = *&credentials;
+  dCopy = d;
+  iDCopy = iD;
+  sessionIDCopy = sessionID;
+  completeCopy = complete;
+  if ([(SOSClient *)self checkEntitlement:@"com.apple.private.security.initial-sync"])
+  {
+    account = [(SOSClient *)self account];
+    [account initialSyncCredentials:v12 altDSID:dCopy flowID:iDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy complete:completeCopy];
+  }
+
+  else
+  {
+    account = [NSError errorWithDomain:kSOSErrorDomain code:7 userInfo:0];
+    completeCopy[2](completeCopy, &__NSArray0__struct, account);
+  }
+}
+
+- (void)joinCircleWithBlob:(id)blob altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics version:(int)version complete:(id)complete
+{
+  v9 = *&version;
+  metricsCopy = metrics;
+  completeCopy = complete;
+  sessionIDCopy = sessionID;
+  iDCopy = iD;
+  dCopy = d;
+  blobCopy = blob;
+  account = [(SOSClient *)self account];
+  [account joinCircleWithBlob:blobCopy altDSID:dCopy flowID:iDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy version:v9 complete:completeCopy];
+}
+
+- (void)circleJoiningBlob:(id)blob flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics applicant:(id)applicant complete:(id)complete
+{
+  metricsCopy = metrics;
+  completeCopy = complete;
+  applicantCopy = applicant;
+  iDCopy = iD;
+  dCopy = d;
+  blobCopy = blob;
+  account = [(SOSClient *)self account];
+  [account circleJoiningBlob:blobCopy flowID:dCopy deviceSessionID:iDCopy canSendMetrics:metricsCopy applicant:applicantCopy complete:completeCopy];
+}
+
 - (void)circleHash:(id)hash
 {
   hashCopy = hash;
   account = [(SOSClient *)self account];
   [account circleHash:hashCopy];
+}
+
+- (void)myPeerInfo:(id)info flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics complete:(id)complete
+{
+  metricsCopy = metrics;
+  completeCopy = complete;
+  iDCopy = iD;
+  dCopy = d;
+  infoCopy = info;
+  account = [(SOSClient *)self account];
+  [account myPeerInfo:infoCopy flowID:dCopy deviceSessionID:iDCopy canSendMetrics:metricsCopy complete:completeCopy];
+}
+
+- (void)stashAccountCredential:(id)credential altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID canSendMetrics:(BOOL)metrics complete:(id)complete
+{
+  metricsCopy = metrics;
+  completeCopy = complete;
+  sessionIDCopy = sessionID;
+  iDCopy = iD;
+  dCopy = d;
+  credentialCopy = credential;
+  account = [(SOSClient *)self account];
+  [account stashAccountCredential:credentialCopy altDSID:dCopy flowID:iDCopy deviceSessionID:sessionIDCopy canSendMetrics:metricsCopy complete:completeCopy];
+}
+
+- (void)validatedStashedAccountCredential:(id)credential flowID:(id)d deviceSessionID:(id)iD canSendMetrics:(BOOL)metrics complete:(id)complete
+{
+  metricsCopy = metrics;
+  completeCopy = complete;
+  iDCopy = iD;
+  dCopy = d;
+  credentialCopy = credential;
+  account = [(SOSClient *)self account];
+  [account validatedStashedAccountCredential:credentialCopy flowID:dCopy deviceSessionID:iDCopy canSendMetrics:metricsCopy complete:completeCopy];
 }
 
 - (void)assertStashedAccountCredential:(id)credential

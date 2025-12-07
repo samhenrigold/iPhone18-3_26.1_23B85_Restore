@@ -1,8 +1,15 @@
 @interface HIDApplePencilDevice
 - (HIDApplePencilDevice)initWithProperties:(id)properties reports:(id)reports loggingIdentifier:(id)identifier;
 - (id)desiredConnectionParameters;
+- (id)newDeviceMgntDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newForceDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newInertialSensorDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newRadioDevice:(id)device keyholeID:(unsigned __int8)d;
+- (id)newUserDevice:(id)device descriptor:(void *)descriptor descriptorLength:(int64_t)length keyholeID:(unsigned __int8)d;
 - (id)newUserDevices:(id)devices;
+- (int)setReportData:(id)data reportID:(unsigned __int8)d reportType:(int)type error:(id *)error;
 - (void)dealloc;
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp;
 - (void)mtWillPowerOn;
 - (void)notifyDidStart;
 - (void)notifyDidStop;
@@ -13,6 +20,54 @@
 @end
 
 @implementation HIDApplePencilDevice
+
+- (id)newUserDevice:(id)device descriptor:(void *)descriptor descriptorLength:(int64_t)length keyholeID:(unsigned __int8)d
+{
+  dCopy = d;
+  deviceCopy = device;
+  v11 = [NSData dataWithBytes:descriptor length:length];
+  v12 = [[HIDKeyholeUserDevice alloc] initWithProperties:deviceCopy hidDescriptor:v11 keyholeID:dCopy delegate:self];
+
+  return v12;
+}
+
+- (id)newDeviceMgntDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  dCopy = d;
+  deviceCopy = device;
+  v7 = objc_alloc_init(NSMutableDictionary);
+  [v7 addEntriesFromDictionary:deviceCopy];
+
+  [v7 setObject:&off_1000C4108 forKeyedSubscript:@"ExtendedData"];
+  v10[0] = 0x1A1000B0AFF0006;
+  *(v10 + 6) = 0xC002B1000B0A01A1;
+  v8 = [(HIDApplePencilDevice *)self newUserDevice:v7 descriptor:v10 descriptorLength:14 keyholeID:dCopy];
+
+  return v8;
+}
+
+- (id)newInertialSensorDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5 = xmmword_100091F4E;
+  v6 = -1073577711;
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:&v5 descriptorLength:20 keyholeID:d];
+}
+
+- (id)newRadioDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5[0] = 0x1A100120AFF0006;
+  *(v5 + 6) = 0xC002B100120A01A1;
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:v5 descriptorLength:14 keyholeID:d];
+}
+
+- (id)newForceDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5[0] = xmmword_100091F70;
+  v5[1] = unk_100091F80;
+  v6[0] = xmmword_100091F90;
+  *(v6 + 10) = *(&xmmword_100091F90 + 10);
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:v5 descriptorLength:58 keyholeID:d];
+}
 
 - (id)newUserDevices:(id)devices
 {
@@ -274,6 +329,77 @@ LABEL_9:
   v4.receiver = self;
   v4.super_class = HIDApplePencilDevice;
   [(HIDBluetoothDevice *)&v4 dealloc];
+}
+
+- (int)setReportData:(id)data reportID:(unsigned __int8)d reportType:(int)type error:(id *)error
+{
+  v7 = *&type;
+  dCopy = d;
+  dataCopy = data;
+  v23.receiver = self;
+  v23.super_class = HIDApplePencilDevice;
+  v11 = [(HIDBluetoothDevice *)&v23 setReportData:dataCopy reportID:dCopy reportType:v7 error:error];
+  bytes = [dataCopy bytes];
+  if (!v11)
+  {
+    v13 = bytes;
+    forceUserDevice = [(HIDApplePencilDevice *)self forceUserDevice];
+    if ([forceUserDevice keyholeID] == dCopy)
+    {
+      v15 = [dataCopy length];
+
+      if (v15 >= 2)
+      {
+        v16 = *v13;
+        if (v16 == 124)
+        {
+          v18 = qword_1000DDBC8;
+          if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+          {
+            *v22 = 0;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[Firefly] Restarting BTSync", v22, 2u);
+          }
+
+          v19 = +[BTLEXpcServer instance];
+          btSyncPeriod = [(HIDApplePencilDevice *)self btSyncPeriod];
+          peripheral = [(HIDBluetoothDevice *)self peripheral];
+          [v19 sendEnableBTSyncMsg:btSyncPeriod forPeer:peripheral];
+        }
+
+        else if (v16 == 64 && v13[1] == 1)
+        {
+          dispatch_semaphore_signal(self->_hostReadySentSemaphore);
+        }
+      }
+    }
+
+    else
+    {
+    }
+  }
+
+  return v11;
+}
+
+- (void)handleInputReportData:(id)data reportID:(unsigned __int8)d timestamp:(unint64_t)timestamp
+{
+  dCopy = d;
+  dataCopy = data;
+  forceInputReportSet = [(HIDApplePencilDevice *)self forceInputReportSet];
+  v10 = [NSNumber numberWithUnsignedChar:dCopy];
+  v11 = [forceInputReportSet member:v10];
+
+  if (v11)
+  {
+    v12 = [dataCopy length];
+    v13 = &v15 - ((v12 + 16) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v13, (v12 + 1));
+    *v13 = dCopy;
+    [dataCopy getBytes:v13 + 1 length:v12];
+    kdebug_trace();
+    forceUserDevice = [(HIDApplePencilDevice *)self forceUserDevice];
+    [forceUserDevice handleInputReport:v13 reportLength:v12 + 1 timestamp:timestamp];
+  }
 }
 
 - (void)sendAnalyticsEvent:(id)event withPayload:(id)payload

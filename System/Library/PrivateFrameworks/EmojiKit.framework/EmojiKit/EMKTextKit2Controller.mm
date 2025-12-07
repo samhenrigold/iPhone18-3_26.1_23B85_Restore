@@ -43,7 +43,7 @@ uint64_t __55___EMKTextKit2Controller__updateEmojiAttributesOfText___block_invok
   return [v7 addAttribute:@"EMKEmojiConversionLanguage" value:v8 range:{a2, a3}];
 }
 
-uint64_t __52___EMKTextKit2Controller_touchHasEmojiSignificance___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, BOOL *a5)
+void *__52___EMKTextKit2Controller_touchHasEmojiSignificance___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, BOOL *a5)
 {
   v7 = *(a1 + 32);
   v9[0] = MEMORY[0x277D85DD0];

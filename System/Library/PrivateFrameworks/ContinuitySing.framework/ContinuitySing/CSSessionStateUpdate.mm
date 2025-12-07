@@ -29,7 +29,7 @@
   v13 = !v12;
   if (v12)
   {
-    v20 = ContinuitySingLog();
+    v20 = ContinuitySingLog(v9);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [(CSSessionStateUpdate *)messageCopy initWithMessage:v20];

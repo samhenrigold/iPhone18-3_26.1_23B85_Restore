@@ -52,10 +52,11 @@ LABEL_4:
 {
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_1();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_2())
+  v1 = OUTLINED_FUNCTION_1();
+  if (WFCurrentLogLevel(v1, v2) && v0 && OUTLINED_FUNCTION_2())
   {
-    OUTLINED_FUNCTION_0(&dword_273FB9000, v1, v2, "Missing completion handler", v3, v4, v5, v6, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_0(&dword_273FB9000, v3, v4, "Missing completion handler", v5, v6, v7, v8, v9);
   }
 }
 
@@ -63,10 +64,11 @@ LABEL_4:
 {
   WFLogForCategory(0);
   objc_claimAutoreleasedReturnValue();
-  OUTLINED_FUNCTION_1();
-  if (WFCurrentLogLevel() && v0 && OUTLINED_FUNCTION_2())
+  v1 = OUTLINED_FUNCTION_1();
+  if (WFCurrentLogLevel(v1, v2) && v0 && OUTLINED_FUNCTION_2())
   {
-    OUTLINED_FUNCTION_0(&dword_273FB9000, v1, v2, "Missing network name", v3, v4, v5, v6, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_0(&dword_273FB9000, v3, v4, "Missing network name", v5, v6, v7, v8, v9);
   }
 }
 

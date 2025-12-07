@@ -51,14 +51,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000297F0();
+  sub_1000297F0(selfCopy);
 }
 
 - (void)presentableDidAppearAsBanner:(id)banner
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100029C84();
+  sub_100029C84(v4);
   swift_unknownObjectRelease();
 }
 

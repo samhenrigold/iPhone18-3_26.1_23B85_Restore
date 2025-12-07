@@ -1,4 +1,5 @@
 @interface _DPPrioPiRapporValueRandomizer
++ (id)randomizerWithEpsilon:(double)epsilon dimensionality:(unint64_t)dimensionality dynamicVectorSize:(BOOL)size piRapporPrime:(unsigned int)prime piRapporAlpha0:(double)alpha0 piRapporAlpha1:(double)alpha1;
 + (id)shouldForwardToV2DelegateWithMetadata:(id)metadata;
 - (_DPPrioPiRapporValueRandomizer)initWithEpsilon:(double)epsilon dimensionality:(unint64_t)dimensionality dynamicVectorSize:(BOOL)size piRapporPrime:(unsigned int)prime piRapporAlpha0:(double)alpha0 piRapporAlpha1:(double)alpha1;
 - (id)createDPPrioRecordFromPrivatizedShares:(id)shares forKey:(id)key withMetadata:(id)metadata withCreationDate:(double)date;
@@ -71,9 +72,16 @@ LABEL_16:
   return v12;
 }
 
++ (id)randomizerWithEpsilon:(double)epsilon dimensionality:(unint64_t)dimensionality dynamicVectorSize:(BOOL)size piRapporPrime:(unsigned int)prime piRapporAlpha0:(double)alpha0 piRapporAlpha1:(double)alpha1
+{
+  v8 = [[self alloc] initWithEpsilon:dimensionality dimensionality:size dynamicVectorSize:*&prime piRapporPrime:epsilon piRapporAlpha0:alpha0 piRapporAlpha1:alpha1];
+
+  return v8;
+}
+
 - (id)randomize:(id)randomize metadata:(id)metadata
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   randomizeCopy = randomize;
   metadataCopy = metadata;
   unsignedIntegerValue = [(_DPPrioPiRapporValueRandomizer *)self p];
@@ -101,12 +109,10 @@ LABEL_16:
 
   else
   {
-    v16[0] = randomizeCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = randomizeCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v13 = [(_DPPrioPiRapporValueRandomizer *)self encodeClassIndices:v12 withDimensionality:unsignedIntegerValue];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -526,7 +532,7 @@ LABEL_24:
 
 - (id)randomizeBitValues:(id)values metadata:(id)metadata forKey:(id)key
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   metadataCopy = metadata;
   keyCopy = key;
@@ -543,33 +549,33 @@ LABEL_24:
 
     else
     {
-      v28 = v12;
+      v27 = v12;
       v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
       [v16 timeIntervalSinceReferenceDate];
       v18 = v17;
 
       v15 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v29 = valuesCopy;
+      v28 = valuesCopy;
       v19 = valuesCopy;
-      v20 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v31;
+        v22 = *v30;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v31 != v22)
+            if (*v30 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = [(_DPPrioPiRapporValueRandomizer *)self randomize:*(*(&v30 + 1) + 8 * i) metadata:metadataCopy];
+            v24 = [(_DPPrioPiRapporValueRandomizer *)self randomize:*(*(&v29 + 1) + 8 * i) metadata:metadataCopy];
             if ([v24 count])
             {
               v25 = [(_DPPrioPiRapporValueRandomizer *)self createDPPrioRecordFromPrivatizedShares:v24 forKey:keyCopy withMetadata:metadataCopy withCreationDate:v18];
@@ -580,14 +586,14 @@ LABEL_24:
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v21);
       }
 
-      v12 = v28;
-      valuesCopy = v29;
+      v12 = v27;
+      valuesCopy = v28;
     }
   }
 
@@ -596,14 +602,12 @@ LABEL_24:
     v15 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)randomizeBitVectors:(id)vectors metadata:(id)metadata forKey:(id)key
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   vectorsCopy = vectors;
   metadataCopy = metadata;
   keyCopy = key;
@@ -619,33 +623,33 @@ LABEL_24:
 
     else
     {
-      v27 = v12;
+      v26 = v12;
       v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.0];
       [v15 timeIntervalSinceReferenceDate];
       v17 = v16;
 
       v14 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v28 = vectorsCopy;
+      v27 = vectorsCopy;
       v18 = vectorsCopy;
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v30;
+        v21 = *v29;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v30 != v21)
+            if (*v29 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [(_DPPrioPiRapporValueRandomizer *)self randomizeVector:*(*(&v29 + 1) + 8 * i) metadata:metadataCopy];
+            v23 = [(_DPPrioPiRapporValueRandomizer *)self randomizeVector:*(*(&v28 + 1) + 8 * i) metadata:metadataCopy];
             if ([v23 count])
             {
               v24 = [(_DPPrioPiRapporValueRandomizer *)self createDPPrioRecordFromPrivatizedShares:v23 forKey:keyCopy withMetadata:metadataCopy withCreationDate:v17];
@@ -656,14 +660,14 @@ LABEL_24:
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
         while (v20);
       }
 
-      v12 = v27;
-      vectorsCopy = v28;
+      v12 = v26;
+      vectorsCopy = v27;
     }
   }
 
@@ -672,45 +676,30 @@ LABEL_24:
     v14 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v14;
-}
-
-- (void)initWithEpsilon:dimensionality:dynamicVectorSize:piRapporPrime:piRapporAlpha0:piRapporAlpha1:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)randomize:metadata:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_error_impl(&dword_22622D000, v1, OS_LOG_TYPE_ERROR, "Input bit position should be less than dimensionality (%lu), instead got %lu.", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_22622D000, v1, OS_LOG_TYPE_ERROR, "Input bit position should be less than dimensionality (%lu), instead got %lu.", v2, 0x16u);
 }
 
 - (void)randomizeVector:(void *)a1 metadata:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 length];
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)randomizeVector:metadata:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)randomizeVector:metadata:.cold.3()
@@ -757,20 +746,16 @@ LABEL_24:
 
 - (void)createDPPrioRecordFromPrivatizedShares:forKey:withMetadata:withCreationDate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)minBatchSize
 {
-  v7 = *MEMORY[0x277D85DE8];
   [self epsilon];
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

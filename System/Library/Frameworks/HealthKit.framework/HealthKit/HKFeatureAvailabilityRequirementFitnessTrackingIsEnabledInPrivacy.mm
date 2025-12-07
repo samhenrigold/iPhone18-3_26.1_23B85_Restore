@@ -11,14 +11,12 @@
 
 - (NSArray)requiredEntitlements
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = +[HKFeatureAvailabilityRequirementEntitlement tccManagerAllServiceReadAccessEntitlement];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = +[HKFeatureAvailabilityRequirementEntitlement userDefaultsNanolifestylePrivacyDomainReadWriteAccessEntitlement];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -85,9 +83,10 @@ void __100__HKFeatureAvailabilityRequirementFitnessTrackingIsEnabledInPrivacy_re
   {
     v6 = *(a1 + 32);
     v5 = (a1 + 32);
-    v10 = 0;
-    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v10];
-    v8 = v10;
+    v14 = 0;
+    v7 = [v6 isSatisfiedWithDataSource:WeakRetained error:&v14];
+    v8 = v14;
+    v10 = v8;
     if (v7)
     {
       [v3 featureAvailabilityRequirement:*v5 didUpdateSatisfaction:{objc_msgSend(v7, "BOOLValue")}];
@@ -95,11 +94,11 @@ void __100__HKFeatureAvailabilityRequirementFitnessTrackingIsEnabledInPrivacy_re
 
     else
     {
-      _HKInitializeLogging();
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(v8, v9);
+      v13 = HKLogInfrastructure(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(v5, v8, v9);
+        __92__HKFeatureAvailabilityRequirementPrerequisiteFeaturesAreOn_registerObserver_forDataSource___block_invoke_cold_1(v5, v10, v13);
       }
     }
   }

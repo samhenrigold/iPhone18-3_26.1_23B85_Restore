@@ -37,11 +37,10 @@
 
 - (id)description
 {
-  transaction = self->_transaction;
-  v4 = os_transaction_copy_description();
-  v5 = [NSString stringWithFormat:@"<%@:%p> %s", objc_opt_class(), self, v4];
-  free(v4);
-  return v5;
+  v3 = os_transaction_copy_description();
+  v4 = [NSString stringWithFormat:@"<%@:%p> %s", objc_opt_class(), self, v3];
+  free(v3);
+  return v4;
 }
 
 @end

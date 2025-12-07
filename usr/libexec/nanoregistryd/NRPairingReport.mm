@@ -14,7 +14,9 @@
 - (void)setPairingReportErrorForRemoteError:(unint64_t)error withReason:(id)reason;
 - (void)setProcessName:(id)name;
 - (void)setSubmitted:(BOOL)submitted;
+- (void)setSubreason:(unsigned int)subreason;
 - (void)setSubreasonWithPairingError:(id)error;
+- (void)submitPairingReportWithPairingAttemptCounter:(unsigned int)counter andSwitchCounter:(unsigned int)switchCounter andPairedDeviceCount:(unsigned int)count andGizmoHardware:(id)hardware andGizmoSerial:(id)serial andBuildType:(id)type screenName:(id)name idsDisconnectCounter:(int64_t)self0 pairingStartTime:(id)self1 andEnclosureMaterial:(unsigned int)self2 shouldLogOnly:(BOOL)self3;
 @end
 
 @implementation NRPairingReport
@@ -265,6 +267,36 @@ LABEL_23:
   [coderCopy encodeInt32:self->_gizmoMaxPairingVersion forKey:@"gizmoMaxPairingVersion"];
   [coderCopy encodeBool:self->_shouldFilePairingReport forKey:@"shouldFilePairingReport"];
   [coderCopy encodeInt64:self->_lossOfIDSConnectivity forKey:@"lossOfIDSConnectivity"];
+}
+
+- (void)setSubreason:(unsigned int)subreason
+{
+  if (!self->_subreason && !self->_reason)
+  {
+    self->_subreason = subreason;
+    self->_reason = sub_100091E30(*&subreason);
+    if (!self->_aggdReportString)
+    {
+      subreason = [NSString stringWithFormat:@"missingAggdReportingError%ld", subreason];
+      aggdReportString = self->_aggdReportString;
+      self->_aggdReportString = subreason;
+    }
+
+    v7 = nr_pairing_reporter_log();
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+    if (v8)
+    {
+      v9 = nr_pairing_reporter_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = [(NRPairingReport *)self description];
+        *buf = 138543362;
+        v12 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Set subreason: %{public}@", buf, 0xCu);
+      }
+    }
+  }
 }
 
 - (void)setSubreasonWithPairingError:(id)error
@@ -746,6 +778,92 @@ LABEL_23:
     }
 
     [(NRPairingReport *)self setSubreason:integerValue];
+  }
+}
+
+- (void)submitPairingReportWithPairingAttemptCounter:(unsigned int)counter andSwitchCounter:(unsigned int)switchCounter andPairedDeviceCount:(unsigned int)count andGizmoHardware:(id)hardware andGizmoSerial:(id)serial andBuildType:(id)type screenName:(id)name idsDisconnectCounter:(int64_t)self0 pairingStartTime:(id)self1 andEnclosureMaterial:(unsigned int)self2 shouldLogOnly:(BOOL)self3
+{
+  v15 = *&count;
+  v16 = *&switchCounter;
+  v17 = *&counter;
+  hardwareCopy = hardware;
+  serialCopy = serial;
+  typeCopy = type;
+  nameCopy = name;
+  timeCopy = time;
+  if (![(NRPairingReport *)self submitted])
+  {
+    [(NRPairingReport *)self setAttemptCounter:v17];
+    [(NRPairingReport *)self setGizmoBuild:typeCopy];
+    [(NRPairingReport *)self setGizmoHardware:hardwareCopy];
+    [(NRPairingReport *)self setFinalScreenName:nameCopy];
+    [(NRPairingReport *)self setSwitchCounter:v16];
+    [(NRPairingReport *)self setPairedDeviceCount:v15];
+    [(NRPairingReport *)self setGizmoSerial:serialCopy];
+    [(NRPairingReport *)self setLossOfIDSConnectivity:disconnectCounter];
+    [(NRPairingReport *)self setGizmoBuildtype:typeCopy];
+    [(NRPairingReport *)self setGizmoEnclosureMaterial:material];
+    if (timeCopy)
+    {
+      v27 = +[NSDate date];
+      [v27 timeIntervalSinceReferenceDate];
+      v29 = v28;
+      [timeCopy timeIntervalSinceReferenceDate];
+      v31 = v29 - v30;
+
+      v32 = v31;
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+
+    [(NRPairingReport *)self setFinalDurationSeconds:v32];
+    v26 = +[NRDataCollector sharedInstance];
+    v33 = [v26 getValueForKey:@"btPairingRetryCount"];
+    -[NRPairingReport setBtPairingRetryCount:](self, "setBtPairingRetryCount:", [v33 intValue]);
+
+    v34 = nr_pairing_reporter_log();
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+
+    if (v35)
+    {
+      v36 = nr_pairing_reporter_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      {
+        v37 = @"S";
+        if (only)
+        {
+          v37 = @"Log only- NOT s";
+        }
+
+        *buf = 138412546;
+        selfCopy2 = v37;
+        v40 = 2114;
+        selfCopy = self;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%@ubmitting pairing report: %{public}@", buf, 0x16u);
+      }
+    }
+
+    [(NRPairingReport *)self setSubmitted:1];
+    goto LABEL_15;
+  }
+
+  v24 = nr_pairing_reporter_log();
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+
+  if (v25)
+  {
+    v26 = nr_pairing_reporter_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy2 = self;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Pairing report already submitted: %{public}@", buf, 0xCu);
+    }
+
+LABEL_15:
   }
 }
 

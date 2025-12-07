@@ -1,4 +1,6 @@
 @interface TSPDatabaseObject
++ (id)databaseObjectWithIdentifier:(int64_t)identifier classType:(int)type dataState:(int64_t)state;
++ (id)databaseObjectWithIdentifier:(int64_t)identifier classType:(int)type fileState:(id)state packageURL:(id)l;
 - (BOOL)hasDataState;
 - (BOOL)hasFileState;
 - (NSString)fileState;
@@ -38,6 +40,26 @@
   }
 
   return result;
+}
+
++ (id)databaseObjectWithIdentifier:(int64_t)identifier classType:(int)type dataState:(int64_t)state
+{
+  v6 = *&type;
+  v8 = [TSPDatabaseObjectWithDataState alloc];
+  v10 = objc_msgSend_initWithIdentifier_classType_dataState_(v8, v9, identifier, v6, state);
+
+  return v10;
+}
+
++ (id)databaseObjectWithIdentifier:(int64_t)identifier classType:(int)type fileState:(id)state packageURL:(id)l
+{
+  v7 = *&type;
+  stateCopy = state;
+  lCopy = l;
+  v11 = [TSPDatabaseObjectWithFileState alloc];
+  v13 = objc_msgSend_initWithIdentifier_classType_fileState_packageURL_(v11, v12, identifier, v7, stateCopy, lCopy);
+
+  return v13;
 }
 
 - (BOOL)hasDataState

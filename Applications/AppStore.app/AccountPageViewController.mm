@@ -9,7 +9,7 @@
 - (_TtC8AppStore25AccountPageViewController)initWithAccountURL:(id)l
 {
   ObjectType = swift_getObjectType();
-  v6 = sub_10002849C(&qword_100982460);
+  v6 = sub_10002849C(&qword_100982460, &unk_1007B5C90);
   __chkstk_darwin(v6 - 8);
   v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);

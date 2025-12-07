@@ -18,9 +18,8 @@
 {
   v6 = sub_8378C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_8377C();
   if (parameters)
   {
@@ -32,17 +31,17 @@
 
   else
   {
-    memset(v16, 0, sizeof(v16));
+    memset(v15, 0, sizeof(v15));
     selfCopy2 = self;
   }
 
-  sub_472F0(v10, v16);
-  v14 = v13;
+  sub_472F0(v9, v15);
+  v13 = v12;
 
-  sub_438CC(v16);
-  (*(v7 + 8))(v10, v6);
+  sub_438CC(v15);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v13;
 }
 
 - (JSARequestEncoder)initWithTokenService:(id)service bag:(id)bag

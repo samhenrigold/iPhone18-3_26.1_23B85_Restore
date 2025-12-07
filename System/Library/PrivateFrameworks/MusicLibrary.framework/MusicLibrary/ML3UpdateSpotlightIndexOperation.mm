@@ -1964,7 +1964,7 @@ void __103__ML3UpdateSpotlightIndexOperation__indexItemsFromLibrarySinceRevision
     }
 
     v19 = *(*(v18 + 8) + 40);
-    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:a2];
+    v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{a2, a4}];
     v17 = v19;
 LABEL_18:
     [v17 addObject:v16];

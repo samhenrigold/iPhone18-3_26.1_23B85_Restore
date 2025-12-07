@@ -24,30 +24,30 @@
 
   if (v9)
   {
-    v15.receiver = self;
-    v15.super_class = AEAnnotationGroupPrintActivityItemProvider;
-    v10 = [(AEAnnotationGroupHTMLActivityItemProvider *)&v15 activityViewController:controllerCopy itemForActivityType:typeCopy];
-    v11 = [[UIMarkupTextPrintFormatter alloc] initWithMarkupText:v10];
+    v16.receiver = self;
+    v16.super_class = AEAnnotationGroupPrintActivityItemProvider;
+    v11 = [(AEAnnotationGroupHTMLActivityItemProvider *)&v16 activityViewController:controllerCopy itemForActivityType:typeCopy];
+    v12 = [[UIMarkupTextPrintFormatter alloc] initWithMarkupText:v11];
   }
 
   else
   {
-    v10 = AESharingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = AESharingLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       *buf = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = typeCopy;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", buf, 0x16u);
+      v18 = v14;
+      v19 = 2112;
+      v20 = typeCopy;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%@ returning nil for activity:%@", buf, 0x16u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)activityViewControllerPlaceholderItem:(id)item

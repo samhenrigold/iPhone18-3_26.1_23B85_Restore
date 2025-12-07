@@ -189,7 +189,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -209,7 +208,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  audioSpeakerPowerMicroWatt = self->_audioSpeakerPowerMicroWatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -224,7 +222,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  audioHeadsetPowerMicroWatt = self->_audioHeadsetPowerMicroWatt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -239,41 +236,37 @@ LABEL_5:
   }
 
 LABEL_17:
-  audioSpeakerDuration = self->_audioSpeakerDuration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    audioHeadsetDuration = self->_audioHeadsetDuration;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_7:
   if (self->_audioVolumeLevelDurations.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_audioVolumeLevelDurations.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_audioVolumeLevelDurations.count);
+    while (v5 < self->_audioVolumeLevelDurations.count);
   }
 
   p_audioVolumeLevelDurationSpeakers = &self->_audioVolumeLevelDurationSpeakers;
   if (p_audioVolumeLevelDurationSpeakers->count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = p_audioVolumeLevelDurationSpeakers->list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v7;
     }
 
-    while (v9 < p_audioVolumeLevelDurationSpeakers->count);
+    while (v7 < p_audioVolumeLevelDurationSpeakers->count);
   }
 }
 
@@ -450,7 +443,6 @@ LABEL_7:
     return 0;
   }
 
-  v5 = *(equal + 80);
   if (*&self->_has)
   {
     if ((*(equal + 80) & 1) == 0 || self->_timestamp != *(equal + 7))

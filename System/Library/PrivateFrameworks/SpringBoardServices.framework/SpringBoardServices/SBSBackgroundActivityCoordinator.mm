@@ -12,7 +12,7 @@
 
 - (void)dealloc
 {
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -25,13 +25,13 @@
   [(SBSBackgroundActivityCoordinator *)&v4 dealloc];
 }
 
-void __43__SBSBackgroundActivityCoordinator_dealloc__block_invoke()
+void __43__SBSBackgroundActivityCoordinator_dealloc__block_invoke(uint64_t a1)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = SBLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19169D000, v0, OS_LOG_TYPE_INFO, "Successfully unregistered from all overrides", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19169D000, v1, OS_LOG_TYPE_INFO, "Successfully unregistered from all overrides", v2, 2u);
   }
 }
 
@@ -40,7 +40,7 @@ void __43__SBSBackgroundActivityCoordinator_dealloc__block_invoke()
   v19 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   identifiersCopy = identifiers;
-  v8 = SBLogCommon();
+  v8 = SBLogCommon(identifiersCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -88,7 +88,7 @@ LABEL_8:
   contextCopy = context;
   blockCopy = block;
   v8 = soft_STBackgroundActivityIdentifiersDescription(self->_backgroundActivityIdentifiers);
-  v9 = SBLogCommon();
+  v9 = SBLogCommon(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = 138412290;
@@ -113,7 +113,7 @@ LABEL_8:
   v12 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
   v5 = soft_STBackgroundActivityIdentifiersDescription(self->_backgroundActivityIdentifiers);
-  v6 = SBLogCommon();
+  v6 = SBLogCommon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = 138412546;

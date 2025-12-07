@@ -107,15 +107,15 @@ LABEL_18:
 
 - (void)writeJSON:(void *)n withFileHandle:
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   nCopy = n;
   if (self)
   {
     v6 = MEMORY[0x1E696ACB0];
     v7 = [a2 copy];
-    v12 = 0;
-    v8 = [v6 dataWithJSONObject:v7 options:0 error:&v12];
-    v9 = v12;
+    v11 = 0;
+    v8 = [v6 dataWithJSONObject:v7 options:0 error:&v11];
+    v9 = v11;
 
     if (v9)
     {
@@ -123,7 +123,7 @@ LABEL_18:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v14 = v9;
+        v13 = v9;
         _os_log_debug_impl(&dword_191750000, v10, OS_LOG_TYPE_DEBUG, "Error serializing json data: %@", buf, 0xCu);
       }
     }
@@ -135,8 +135,6 @@ LABEL_18:
       [nCopy writeData:v10];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

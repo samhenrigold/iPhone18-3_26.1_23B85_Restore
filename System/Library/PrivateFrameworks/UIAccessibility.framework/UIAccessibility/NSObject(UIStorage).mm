@@ -8,6 +8,7 @@
 - (BOOL)_accessibilityUIKitHasNativeFocus;
 - (BOOL)_focusRingManagerShouldDrawFocusRingWhenChildrenFocused;
 - (BOOL)_isAccessibilityExplorerElement;
+- (char)_accessibilityFocusParcelChildrenCount:()UIStorage;
 - (double)_accessibilityScreenPointForSceneReferencePoint:()UIStorage;
 - (double)_accessibilityScreenRectForSceneReferenceRect:()UIStorage;
 - (id)_accessibilityAncestorFocusParcel;
@@ -21,7 +22,6 @@
 - (id)_accessibilityTextRectsForSpeakThisStringRange:()UIStorage;
 - (id)dragDescriptorMatchingDictionary:()UIStorage;
 - (uint64_t)_accessibilityActivateDragWithDescriptorDictionary:()UIStorage forServiceName:;
-- (uint64_t)_accessibilityFocusParcelChildrenCount:()UIStorage;
 - (uint64_t)_accessibilityFocusRingStyle;
 - (uint64_t)_accessibilityGetBlockForAttribute:()UIStorage;
 - (uint64_t)_accessibilityHandleMagicTap;
@@ -2258,7 +2258,7 @@ LABEL_5:
   return v20;
 }
 
-- (uint64_t)_accessibilityFocusParcelChildrenCount:()UIStorage
+- (char)_accessibilityFocusParcelChildrenCount:()UIStorage
 {
   v16 = *MEMORY[0x1E69E9840];
   if ([self _accessibilityCanBecomeNativeFocused])
@@ -2309,10 +2309,10 @@ LABEL_5:
   {
     _accessibilityCanBecomeNativeFocused = [self _accessibilityCanBecomeNativeFocused];
     _accessibilityAncestorFocusParcel = [self _accessibilityAncestorFocusParcel];
-    v15 = MEMORY[0x1E695DEC8];
+    v22 = MEMORY[0x1E695DEC8];
     _accessibilityAXAttributedValue = [self _accessibilityAXAttributedValue];
-    v5 = [v15 axArrayByIgnoringNilElementsWithCount:{1, _accessibilityAXAttributedValue}];
-    v13 = [_accessibilityAncestorFocusParcel _accessibilityTextForSubhierarchyIncludingHeaders:_accessibilityCanBecomeNativeFocused focusableItems:0 exclusions:v5];
+    v5 = [v22 axArrayByIgnoringNilElementsWithCount:{1, _accessibilityAXAttributedValue}];
+    v20 = [_accessibilityAncestorFocusParcel _accessibilityTextForSubhierarchyIncludingHeaders:_accessibilityCanBecomeNativeFocused focusableItems:0 exclusions:v5];
     goto LABEL_9;
   }
 
@@ -2342,18 +2342,18 @@ LABEL_10:
 
     if ([_accessibilityAXAttributedValue axContainsString:v5 options:1])
     {
-      v13 = _accessibilityAXAttributedValue;
+      v20 = _accessibilityAXAttributedValue;
     }
 
     else
     {
-      v13 = __UIAXStringForVariables();
+      v20 = __UIAXStringForVariables(v5, v13, v14, v15, v16, v17, v18, v19, _accessibilityAXAttributedValue);
     }
 
 LABEL_9:
-    v16 = v13;
+    v23 = v20;
 
-    v5 = v16;
+    v5 = v23;
     goto LABEL_10;
   }
 

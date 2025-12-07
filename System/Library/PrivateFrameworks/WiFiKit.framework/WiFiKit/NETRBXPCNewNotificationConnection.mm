@@ -10,7 +10,7 @@ void ____NETRBXPCNewNotificationConnection_block_invoke(uint64_t a1, void *a2)
   if (v5)
   {
     v6 = v5;
-    NETRBInfoLog();
+    NETRBInfoLog("received event on notification connection %s", v5);
     free(v6);
   }
 
@@ -27,9 +27,8 @@ void ____NETRBXPCNewNotificationConnection_block_invoke(uint64_t a1, void *a2)
 
   if (v8 && v4 == MEMORY[0x277D86480])
   {
-    v11 = *(a1 + 32);
-    xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    NETRBInfoLog();
+    string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+    NETRBInfoLog("error %p:%s", v7, string);
     xpc_connection_cancel(*(a1 + 32));
     xpc_release(*(a1 + 32));
     __netrbNotificationConnection = 0;
@@ -56,7 +55,7 @@ void ____NETRBXPCNewNotificationConnection_block_invoke(uint64_t a1, void *a2)
     else
     {
 
-      NETRBErrorLog();
+      NETRBErrorLog("unknown event");
     }
   }
 }

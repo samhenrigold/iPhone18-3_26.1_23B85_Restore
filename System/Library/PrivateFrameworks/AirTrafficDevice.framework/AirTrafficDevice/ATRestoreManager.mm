@@ -584,68 +584,68 @@ void __26__ATRestoreManager_resume__block_invoke(uint64_t a1, char a2)
   dispatch_async(v3, v4);
 }
 
-void __26__ATRestoreManager_resume__block_invoke_2(uint64_t a1)
+void __26__ATRestoreManager_resume__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = _ATLogCategoryRestore();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2 == 1)
+  v35 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 40);
+  v5 = _ATLogCategoryRestore();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4 == 1)
   {
-    if (v4)
+    if (v6)
     {
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 72);
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 72);
       *buf = 138543618;
-      v30 = v5;
-      v31 = 2114;
-      v32 = v6;
-      _os_log_impl(&dword_223819000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Resuming restore _restoreSession %{public}@.", buf, 0x16u);
+      v32 = v7;
+      v33 = 2114;
+      v34 = v8;
+      _os_log_impl(&dword_223819000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Resuming restore _restoreSession %{public}@.", buf, 0x16u);
     }
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 72);
-    if (v8)
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 72);
+    if (v10)
     {
-      v9 = [v8 sessionTasks];
-      v10 = _ATLogCategoryRestore();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = [v10 sessionTasks];
+      v12 = _ATLogCategoryRestore();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
-        v12 = [v9 count];
+        v13 = *(a1 + 32);
+        v14 = [v11 count];
         *buf = 138543618;
-        v30 = v11;
-        v31 = 2048;
-        v32 = v12;
-        _os_log_impl(&dword_223819000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming %lu restore tasks", buf, 0x16u);
+        v32 = v13;
+        v33 = 2048;
+        v34 = v14;
+        _os_log_impl(&dword_223819000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming %lu restore tasks", buf, 0x16u);
       }
 
+      v27 = 0u;
+      v28 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v13 = v9;
-      v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
-      if (v14)
+      v15 = v11;
+      v16 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      if (v16)
       {
-        v15 = v14;
-        v16 = *v24;
+        v17 = v16;
+        v18 = *v26;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v24 != v16)
+            if (*v26 != v18)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v15);
             }
 
-            [*(*(&v23 + 1) + 8 * i) resume];
+            [*(*(&v25 + 1) + 8 * i) resume];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
-        while (v15);
+        while (v17);
       }
     }
 
@@ -655,27 +655,27 @@ void __26__ATRestoreManager_resume__block_invoke_2(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __26__ATRestoreManager_resume__block_invoke_8;
       block[3] = &unk_2784E5938;
-      block[4] = v7;
+      block[4] = v9;
       if (_block_invoke_onceToken != -1)
       {
         dispatch_once(&_block_invoke_onceToken, block);
       }
 
-      v19 = +[ATDeviceSettings sharedInstance];
-      v20 = [v19 hasCompletedDataMigration];
+      v21 = +[ATDeviceSettings sharedInstance];
+      v22 = [v21 hasCompletedDataMigration];
 
-      v21 = _ATLogCategoryRestore();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = _ATLogCategoryRestore();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a1 + 32);
+        v24 = *(a1 + 32);
         *buf = 138543618;
-        v30 = v22;
-        v31 = 1024;
-        LODWORD(v32) = v20;
-        _os_log_impl(&dword_223819000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ hasCompletedDataMigration = %d", buf, 0x12u);
+        v32 = v24;
+        v33 = 1024;
+        LODWORD(v34) = v22;
+        _os_log_impl(&dword_223819000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ hasCompletedDataMigration = %d", buf, 0x12u);
       }
 
-      if (v20)
+      if (v22)
       {
         [*(a1 + 32) _start];
       }
@@ -684,12 +684,12 @@ void __26__ATRestoreManager_resume__block_invoke_2(uint64_t a1)
 
   else
   {
-    if (v4)
+    if (v6)
     {
-      v18 = *(a1 + 32);
+      v20 = *(a1 + 32);
       *buf = 138543362;
-      v30 = v18;
-      _os_log_impl(&dword_223819000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ No active restore session.", buf, 0xCu);
+      v32 = v20;
+      _os_log_impl(&dword_223819000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ No active restore session.", buf, 0xCu);
     }
   }
 }

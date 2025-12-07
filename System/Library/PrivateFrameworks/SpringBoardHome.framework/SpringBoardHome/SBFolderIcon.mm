@@ -63,15 +63,15 @@
 - (void)_updateProgress
 {
   selfCopy = self;
-  v39 = *MEMORY[0x1E69E9840];
-  v30 = 0u;
+  v40 = *MEMORY[0x1E69E9840];
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   folder = [(SBFolderIcon *)self folder];
   leafIcons = [folder leafIcons];
 
-  v5 = [leafIcons countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v5 = [leafIcons countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (!v5)
   {
 
@@ -79,11 +79,11 @@
   }
 
   v6 = v5;
-  v26 = selfCopy;
+  v27 = selfCopy;
   v7 = 0;
-  v27 = 0;
   v28 = 0;
-  v8 = *v31;
+  v29 = 0;
+  v8 = *v32;
   v9 = 0.0;
   do
   {
@@ -91,12 +91,12 @@
     v11 = sel_isFailed;
     do
     {
-      if (*v31 != v8)
+      if (*v32 != v8)
       {
         objc_enumerationMutation(leafIcons);
       }
 
-      v12 = *(*(&v30 + 1) + 8 * v10);
+      v12 = *(*(&v31 + 1) + 8 * v10);
       progressState = [v12 progressState];
       if ([v12 isApplicationIcon])
       {
@@ -104,7 +104,7 @@
         if (objc_opt_respondsToSelector())
         {
           [v12 applicationPlaceholder];
-          v29 = v7;
+          v30 = v7;
           v15 = v6;
           v16 = v8;
           v17 = v11;
@@ -115,24 +115,24 @@
           v11 = v17;
           v8 = v16;
           v6 = v15;
-          v7 = v29;
+          v7 = v30;
 
           if (isFailed)
           {
-            v21 = SBLogCommon();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+            v22 = SBLogCommon(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
               applicationPlaceholder2 = [v12 applicationPlaceholder];
               *buf = 136315394;
-              v35 = "[SBFolderIcon _updateProgress]";
-              v36 = 2114;
-              v37 = applicationPlaceholder2;
-              _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_INFO, "%s: Assumed app with placeholder was installed: %{public}@", buf, 0x16u);
+              v36 = "[SBFolderIcon _updateProgress]";
+              v37 = 2114;
+              v38 = applicationPlaceholder2;
+              _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_INFO, "%s: Assumed app with placeholder was installed: %{public}@", buf, 0x16u);
             }
 
             v9 = v9 + 1.0;
-            v7 = v29 + 1;
-            v27 = 1;
+            v7 = v30 + 1;
+            v28 = 1;
             goto LABEL_17;
           }
         }
@@ -145,17 +145,17 @@
       if (progressState == 2)
       {
         [v12 progressPercent];
-        v9 = v9 + v24;
+        v9 = v9 + v25;
         ++v7;
-        LODWORD(v28) = 1;
+        LODWORD(v29) = 1;
       }
 
       else if (progressState == 1)
       {
         [v12 progressPercent];
-        v9 = v9 + v23;
+        v9 = v9 + v24;
         ++v7;
-        HIDWORD(v28) = 1;
+        HIDWORD(v29) = 1;
       }
 
 LABEL_17:
@@ -163,13 +163,13 @@ LABEL_17:
     }
 
     while (v6 != v10);
-    v6 = [leafIcons countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v6 = [leafIcons countByEnumeratingWithState:&v31 objects:v39 count:16];
   }
 
   while (v6);
 
-  selfCopy = v26;
-  if (((v28 | HIDWORD(v28) & v27) & 1) == 0)
+  selfCopy = v27;
+  if (((v29 | HIDWORD(v29) & v28) & 1) == 0)
   {
 LABEL_24:
     selfCopy->_progressState = 0;
@@ -178,14 +178,14 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v26->_progressState = 2;
-  v25 = v9 / v7;
-  if (v25 > 1.0)
+  v27->_progressState = 2;
+  v26 = v9 / v7;
+  if (v26 > 1.0)
   {
-    v25 = 1.0;
+    v26 = 1.0;
   }
 
-  v26->_progressPercent = v25;
+  v27->_progressPercent = v26;
 LABEL_25:
   [(SBIcon *)selfCopy _notifyAccessoriesDidUpdate];
 }

@@ -43,7 +43,7 @@
   v11 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWConnectionStatistics initWithJSONData:]";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -146,7 +146,7 @@ LABEL_6:
     v17 = __nwlog_obj();
     LODWORD(__dst[0]) = 136446210;
     *(__dst + 4) = "[NWConnectionStatistics initWithTCPReport:length:clientIdentifier:sourceIdentifier:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s [super init] failed", __dst, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -290,7 +290,7 @@ LABEL_8:
     v228 = 0u;
     v227 = 0u;
     v226 = 0u;
-    [v7 report];
+    objc_msgSend_report(v7);
     if (v269[1033])
     {
       v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -303,11 +303,11 @@ LABEL_186:
       }
 
       v10 = MEMORY[0x1E696AD98];
-      [v7 report];
+      objc_msgSend_report(v7);
       v11 = [v10 numberWithBool:v221];
       [v9 setObject:v11 forKeyedSubscript:@"delegated"];
 
-      [v7 report];
+      objc_msgSend_report(v7);
       if ((v220 - 2) > 3)
       {
         v12 = @"NETCORE_STATS_TCP_REPORT_REASON_FALLBACK_SIGNAL";
@@ -338,7 +338,7 @@ LABEL_186:
       if (v111)
       {
         memset(v276, 0, 512);
-        [v7 report];
+        objc_msgSend_report(v7);
         v112 = [v7 _createFallbackReportDictionaryFromStruct:&v276[13] + 8];
         [v9 setObject:v112 forKeyedSubscript:@"cellularFallbackReport"];
 
@@ -392,7 +392,7 @@ LABEL_186:
           }
 
           v206 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          [v7 report];
+          objc_msgSend_report(v7);
           if (v219)
           {
             v207 = 0;
@@ -400,7 +400,7 @@ LABEL_186:
             while (1)
             {
               memset(v274, 0, 512);
-              [v7 report];
+              objc_msgSend_report(v7);
               v209 = [v7 _createStatisticsReportDictionaryFromStruct:v208];
               if (!v209)
               {
@@ -411,7 +411,7 @@ LABEL_186:
               [v206 addObject:v209];
 
               ++v207;
-              [v7 report];
+              objc_msgSend_report(v7);
               v208 += 27;
               if (v207 >= v219)
               {
@@ -1980,14 +1980,14 @@ LABEL_17:
     }
   }
 
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   strlcpy(v6, [dCopy UTF8String], 0x100uLL);
 }
 
 - (NSString)effectiveBundleID
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   v4 = [v3 initWithCString:&v6 encoding:134217984];
 
   return v4;
@@ -2012,14 +2012,14 @@ LABEL_17:
     }
   }
 
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   strlcpy(v6, [dCopy UTF8String], 0x100uLL);
 }
 
 - (NSString)bundleID
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   v4 = [v3 initWithCString:&v6 encoding:134217984];
 
   return v4;
@@ -2029,7 +2029,7 @@ LABEL_17:
 {
   MEMORY[0x1EEE9AC00](self);
   v3 = v2;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = v2 + 6;
   v4 = v2[6];
   if (v4)
@@ -2042,17 +2042,17 @@ LABEL_17:
   v7 = 0;
   v8 = 431;
   v9 = "[NWConnectionStatistics activities]";
-  v31 = v6;
+  v30 = v6;
   while (1)
   {
-    [v3 report];
+    objc_msgSend_report(v3);
     if (uuid_is_null(&type[v8 + 3425]) || v7 >= 0x32)
     {
       break;
     }
 
     v10 = objc_alloc(MEMORY[0x1E696AFB0]);
-    [v3 report];
+    objc_msgSend_report(v3);
     v11 = [v10 initWithUUIDBytes:&type[v8 + 1]];
     if (v11)
     {
@@ -2064,14 +2064,13 @@ LABEL_17:
     networkd_settings_init();
     v12 = gLogObj;
     buf = 136446210;
-    v35 = v9;
-    LODWORD(v29) = 12;
-    p_buf = &buf;
-    v13 = _os_log_send_and_compose_impl();
+    v34 = v9;
+    LODWORD(v28) = 12;
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s Failed to convert UUID from connection report", &buf, v28);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v32 = 0;
-    if (__nwlog_fault(v13, type, &v32))
+    v31 = 0;
+    if (__nwlog_fault(v13, type, &v31))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
@@ -2082,7 +2081,7 @@ LABEL_17:
         if (os_log_type_enabled(v14, type[0]))
         {
           buf = 136446210;
-          v35 = v9;
+          v34 = v9;
           v16 = v14;
           v17 = v15;
           v18 = "%{public}s Failed to convert UUID from connection report";
@@ -2092,7 +2091,7 @@ LABEL_17:
 
       else
       {
-        if (v32 == 1)
+        if (v31 == 1)
         {
           v19 = v9;
           backtrace_string = __nw_create_backtrace_string();
@@ -2106,9 +2105,9 @@ LABEL_17:
             if (v23)
             {
               buf = 136446466;
-              v35 = v19;
-              v36 = 2082;
-              v37 = backtrace_string;
+              v34 = v19;
+              v35 = 2082;
+              v36 = backtrace_string;
               _os_log_impl(&dword_181A37000, v21, v22, "%{public}s Failed to convert UUID from connection report, dumping backtrace:%{public}s", &buf, 0x16u);
             }
 
@@ -2120,13 +2119,13 @@ LABEL_17:
             if (v23)
             {
               buf = 136446210;
-              v35 = v19;
+              v34 = v19;
               _os_log_impl(&dword_181A37000, v21, v22, "%{public}s Failed to convert UUID from connection report, no backtrace", &buf, 0xCu);
             }
           }
 
           v9 = v19;
-          v6 = v31;
+          v6 = v30;
           goto LABEL_25;
         }
 
@@ -2137,7 +2136,7 @@ LABEL_17:
         if (os_log_type_enabled(v14, type[0]))
         {
           buf = 136446210;
-          v35 = v9;
+          v34 = v9;
           v16 = v14;
           v17 = v24;
           v18 = "%{public}s Failed to convert UUID from connection report, backtrace limit exceeded";
@@ -2167,9 +2166,9 @@ LABEL_4:
   {
     v26 = *location;
     buf = 136446466;
-    v35 = v9;
-    v36 = 2112;
-    v37 = v26;
+    v34 = v9;
+    v35 = 2112;
+    v36 = v26;
     _os_log_impl(&dword_181A37000, v25, OS_LOG_TYPE_DEBUG, "%{public}s Created array of UUIDs: %@", &buf, 0x16u);
   }
 
@@ -2182,7 +2181,7 @@ LABEL_31:
 - (NSUUID)parentUUID
 {
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   v4 = [v3 initWithUUIDBytes:&v6];
 
   return v4;
@@ -2191,7 +2190,7 @@ LABEL_31:
 - (NSUUID)connectionUUID
 {
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
-  [(NWConnectionStatistics *)self report];
+  objc_msgSend_report(self);
   v4 = [v3 initWithUUIDBytes:&v6];
 
   return v4;

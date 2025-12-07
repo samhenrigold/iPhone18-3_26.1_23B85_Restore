@@ -9,8 +9,10 @@
 - (int)startStreaming;
 - (int)stopStreaming:(unsigned __int8)streaming;
 - (void)dealloc;
+- (void)doapStateSet:(unsigned __int8)set;
 - (void)notifyDidStart;
 - (void)notifyDidStop;
+- (void)setHighPriorityLink:(BOOL)link burstTime:(id)time;
 - (void)start;
 - (void)stop;
 @end
@@ -257,6 +259,14 @@
   return v8;
 }
 
+- (void)setHighPriorityLink:(BOOL)link burstTime:(id)time
+{
+  linkCopy = link;
+  timeCopy = time;
+  service = [(DoAPDevice *)self service];
+  [service setHighPriorityLink:linkCopy burstTime:timeCopy];
+}
+
 - (id)allocQueue
 {
   v2 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -277,6 +287,44 @@
   {
     return *(&off_1000BE708 + (for - 1));
   }
+}
+
+- (void)doapStateSet:(unsigned __int8)set
+{
+  setCopy = set;
+  if ([(DoAPDevice *)self state]>= 3)
+  {
+    state = [(DoAPDevice *)self state];
+    if (setCopy == 2 && state <= 6)
+    {
+      [(DoAPDevice *)self setHighPriorityLink:0 burstTime:0];
+    }
+  }
+
+  v6 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v6;
+    peripheral = [(DoAPDevice *)self peripheral];
+    identifier = [peripheral identifier];
+    uUIDString = [identifier UUIDString];
+    v11 = [(DoAPDevice *)self doapStateNameFor:[(DoAPDevice *)self state]];
+    state2 = [(DoAPDevice *)self state];
+    v13 = [(DoAPDevice *)self doapStateNameFor:setCopy];
+    v14 = 138478851;
+    v15 = uUIDString;
+    v16 = 2114;
+    v17 = v11;
+    v18 = 1024;
+    v19 = state2;
+    v20 = 2114;
+    v21 = v13;
+    v22 = 1024;
+    v23 = setCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DoAP state change for ID %{private}@: %{public}@ (%d) -> %{public}@ (%d)", &v14, 0x2Cu);
+  }
+
+  [(DoAPDevice *)self setState:setCopy];
 }
 
 @end

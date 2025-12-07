@@ -207,17 +207,17 @@
 
   if (iTunesPassSerialNumber)
   {
-    v5 = SKUIPassKitUIFramework();
-    v6 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v5));
-    v7 = [v6 passWithPassTypeIdentifier:@"pass.com.apple.itunes.storecredit" serialNumber:iTunesPassSerialNumber];
+    v7 = SKUIPassKitUIFramework(v5, v6);
+    v8 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkpasslibrary.isa, v7));
+    v9 = [v8 passWithPassTypeIdentifier:@"pass.com.apple.itunes.storecredit" serialNumber:iTunesPassSerialNumber];
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)_loadPassbookPass

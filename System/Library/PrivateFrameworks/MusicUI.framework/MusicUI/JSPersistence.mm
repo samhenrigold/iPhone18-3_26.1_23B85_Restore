@@ -9,7 +9,7 @@
   keyCopy = key;
   v7 = a4;
   selfCopy = self;
-  v9 = sub_216AE3860();
+  v9 = sub_216AE3860(keyCopy, v7);
 
   return v9;
 }

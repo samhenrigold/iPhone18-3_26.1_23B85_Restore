@@ -30,20 +30,19 @@
 - (NSString)description
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  reason = self->_reason;
   if (self->_isStart)
   {
-    v5 = @"YES";
+    v4 = @"YES";
   }
 
   else
   {
-    v5 = @"NO";
+    v4 = @"NO";
   }
 
-  v6 = [v3 initWithFormat:@"DNDwD event with reason: %ld is start: %@", self->_reason, v5];
+  v5 = [v3 initWithFormat:@"DNDwD event with reason: %ld is start: %@", self->_reason, v4];
 
-  return v6;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
@@ -56,16 +55,14 @@
 
 - (id)jsonDict
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"reason";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"reason";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_reason];
-  v8[1] = @"isStart";
-  v9[0] = v3;
+  v7[1] = @"isStart";
+  v8[0] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_isStart];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

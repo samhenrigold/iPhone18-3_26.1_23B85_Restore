@@ -6,7 +6,7 @@
 
 - (void)deviceDidRotateWithNotification:(id)notification
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C765E10, &unk_20C161460);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v9 - v5;
   if (notification)

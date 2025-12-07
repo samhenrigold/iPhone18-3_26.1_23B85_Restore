@@ -32,20 +32,18 @@
 
 + (id)indexableKeyPathsWithPrefix:(id)prefix
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v11[0] = @"inspectableValue";
-  v11[1] = @"min";
-  v11[2] = @"max";
-  v11[3] = @"inspectableValues";
+  v10[4] = *MEMORY[0x1E69E9840];
+  v10[0] = @"inspectableValue";
+  v10[1] = @"min";
+  v10[2] = @"max";
+  v10[3] = @"inspectableValues";
   v3 = MEMORY[0x1E695DEC8];
   prefixCopy = prefix;
-  v5 = [v3 arrayWithObjects:v11 count:4];
+  v5 = [v3 arrayWithObjects:v10 count:4];
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v7 = [v5 hk_foldRightFrom:v6 with:&__block_literal_global_111];
 
   v8 = [HKConceptIndexUtilities keyPaths:v7 prefix:prefixCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -81,62 +79,58 @@ id __60__HKInspectableValueCollection_indexableKeyPathsWithPrefix___block_invoke
 
 + (id)inspectableValueCollectionSingleWithValue:(id)value
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v5 = [self alloc];
-  v10[0] = valueCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = valueCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   v7 = [v5 _initWithCollectionType:0 collection:v6];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)inspectableValueCollectionRangeWithMin:(id)min max:(id)max
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   maxCopy = max;
   minCopy = min;
   v8 = [self alloc];
-  v13[0] = minCopy;
-  v13[1] = maxCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = minCopy;
+  v12[1] = maxCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
 
   v10 = [v8 _initWithCollectionType:1 collection:v9];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)inspectableValueCollectionRangeWithMin:(id)min
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   minCopy = min;
   v5 = [self alloc];
-  v11[0] = minCopy;
+  v10[0] = minCopy;
   v6 = +[HKInspectableValue inspectableValueWithNull];
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
 
   v8 = [v5 _initWithCollectionType:1 collection:v7];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)inspectableValueCollectionRangeWithMax:(id)max
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   maxCopy = max;
   v5 = [self alloc];
   v6 = +[HKInspectableValue inspectableValueWithNull];
-  v11[0] = v6;
-  v11[1] = maxCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = v6;
+  v10[1] = maxCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
 
   v8 = [v5 _initWithCollectionType:1 collection:v7];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -605,17 +599,17 @@ LABEL_8:
 
 - (HKInspectableValueCollection)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = HKInspectableValueCollection;
-  v5 = [(HKInspectableValueCollection *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = HKInspectableValueCollection;
+  v5 = [(HKInspectableValueCollection *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"CollectionKey"];
     collection = v5->_collection;
@@ -623,9 +617,9 @@ LABEL_8:
 
     v5->_collectionType = [coderCopy decodeIntegerForKey:@"CollectionTypeKey"];
     v11 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"ElementTagsKey"];
     elementTags = v5->_elementTags;
@@ -634,7 +628,6 @@ LABEL_8:
     [(HKInspectableValueCollection *)v5 _assertCollectionType];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

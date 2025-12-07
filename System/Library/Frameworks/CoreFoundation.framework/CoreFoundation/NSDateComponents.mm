@@ -106,33 +106,32 @@
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = *object_getIndexedIvars(self);
   if (v3)
   {
     CFRelease(v3);
   }
 
-  v5.receiver = self;
-  v5.super_class = NSDateComponents;
-  [(NSDateComponents *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NSDateComponents;
+  [(NSDateComponents *)&v4 dealloc];
 }
 
 - (NSCalendar)calendar
 {
   IndexedIvars = object_getIndexedIvars(self);
-  v3 = CFDateComponentsCopyCalendar(*IndexedIvars);
+  v4 = CFDateComponentsCopyCalendar(*IndexedIvars, v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSTimeZone)timeZone
 {
   IndexedIvars = object_getIndexedIvars(self);
-  v3 = CFDateComponentsCopyTimeZone(*IndexedIvars);
+  v4 = CFDateComponentsCopyTimeZone(*IndexedIvars, v3);
 
-  return v3;
+  return v4;
 }
 
 - (NSInteger)era
@@ -227,17 +226,15 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   IndexedIvars = object_getIndexedIvars(self);
   v4 = _CFDateComponentsCopyDescriptionInner(*IndexedIvars);
-  v9.receiver = self;
-  v9.super_class = NSDateComponents;
-  v5 = [&v9 description];
+  v8.receiver = self;
+  v8.super_class = NSDateComponents;
+  v5 = [&v8 description];
   v6 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%@ %@", v5, v4);
   CFRelease(v4);
-  result = v6;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6;
 }
 
 - (id)_initWithCFDateComponents:(__CFDateComponents *)components

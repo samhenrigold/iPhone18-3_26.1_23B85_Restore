@@ -1,85 +1,7 @@
-double sentencepiece::SentencePieceProcessor::SentencePieceProcessor(sentencepiece::SentencePieceProcessor *this)
-{
-  *this = &unk_2877037D0;
-  result = 0.0;
-  *(this + 8) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  return result;
-}
-
-void sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(void **this)
-{
-  *this = &unk_2877037D0;
-  if (*(this + 119) < 0)
-  {
-    operator delete(this[12]);
-  }
-
-  v2 = this[11];
-  this[11] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = this[8];
-  if (v3)
-  {
-    this[9] = v3;
-    operator delete(v3);
-  }
-
-  v4 = this[5];
-  if (v4)
-  {
-    this[6] = v4;
-    operator delete(v4);
-  }
-
-  v5 = this[4];
-  this[4] = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  v6 = this[3];
-  this[3] = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  v7 = this[2];
-  this[2] = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  v8 = this[1];
-  this[1] = 0;
-  if (v8)
-  {
-    (*(*v8 + 8))(v8);
-  }
-}
-
-{
-  sentencepiece::SentencePieceProcessor::~SentencePieceProcessor(this);
-
-  JUMPOUT(0x26675B300);
-}
-
-uint64_t sentencepiece::IsMMappableFile()
+uint64_t sentencepiece::IsMMappableFile(uint64_t a1)
 {
   v4[19] = *MEMORY[0x277D85DE8];
-  std::ifstream::basic_ifstream(v2);
+  std::ifstream::basic_ifstream(v2, a1, 12);
   if ((v3[*(v2[0] - 24) + 16] & 5) == 0)
   {
     std::istream::read();
@@ -90,7 +12,6 @@ uint64_t sentencepiece::IsMMappableFile()
   MEMORY[0x26675B080](v3);
   std::istream::~istream();
   MEMORY[0x26675B290](v4);
-  v0 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -101,23 +22,23 @@ void sub_26564B994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 64;
+  v4 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v3 = *(MEMORY[0x277D82808] + 16);
-  v4 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x277D82858] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x277D82808] + 16);
+  v6 = *(MEMORY[0x277D82808] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x277D82858] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x26675B070](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -136,31 +57,32 @@ void sub_26564BB50(_Unwind_Exception *a1)
 
 uint64_t sentencepiece::SentencePieceProcessor::Load(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!sentencepiece::IsMMappableFile())
+  if (!sentencepiece::IsMMappableFile(a2))
   {
     absl::make_unique<sentencepiece::ModelProto>();
   }
 
-  v6 = *(*a1 + 64);
+  v7 = *(*a1 + 64);
 
-  return v6(a1, a2, a3);
+  return v7(a1, a2, a3);
 }
 
-void sub_26564BC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, sentencepiece::ModelProto *a9, sentencepiece::ModelProto *a10)
+void sub_26564BC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](&a9);
-  std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](&a10);
+  std::unique_ptr<sentencepiece::ModelProto>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sentencepiece::io::LoadModelProto@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *sentencepiece::io::LoadModelProto@<X0>(uint64_t a2@<X1>, sentencepiece::util::Status *a4@<X8>)
 {
-  if (a1)
+  if (a2)
   {
     sentencepiece::filesystem::NewReadableFile();
   }
 
-  return sentencepiece::util::Status::Status(a2, 5, "model file path should not be empty.", 36);
+  return sentencepiece::util::Status::Status(a4, 5, "model file path should not be empty.", 0x24uLL);
 }
 
 void sub_26564C0C0(_Unwind_Exception *exception_object)
@@ -195,18 +117,18 @@ sentencepiece::ModelProto **std::unique_ptr<sentencepiece::ModelProto>::~unique_
 
 void sentencepiece::SentencePieceProcessor::LoadOrDie(uint64_t a1)
 {
-  (*(*a1 + 16))(&v12);
-  if (v12.__r_.__value_.__r.__words[0])
+  (*(*a1 + 16))(&v11);
+  if (v11.__r_.__value_.__r.__words[0])
   {
-    v11 = 1;
+    v10 = 1;
     v1 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "sentencepiece_processor.cc", 26);
     v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, "(", 1);
     v3 = MEMORY[0x26675B160](v2, 239);
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, ") [", 3);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "_status.ok()", 12);
     v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "] ", 2);
-    sentencepiece::util::Status::ToString(&v12, __p);
-    if ((v10 & 0x80u) == 0)
+    sentencepiece::util::Status::ToString(&v11, __p);
+    if ((v9 & 0x80u) == 0)
     {
       v7 = __p;
     }
@@ -216,26 +138,25 @@ void sentencepiece::SentencePieceProcessor::LoadOrDie(uint64_t a1)
       v7 = __p[0];
     }
 
-    if ((v10 & 0x80u) == 0)
+    if ((v9 & 0x80u) == 0)
     {
-      v8 = v10;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v9);
     }
 
     else
     {
-      v8 = __p[1];
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, __p[1]);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v7, v8);
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
 
-    sentencepiece::error::Die::~Die(&v11);
+    sentencepiece::error::Die::~Die(&v10);
   }
 
-  sentencepiece::util::Status::~Status(&v12);
+  sentencepiece::util::Status::~Status(&v11);
 }
 
 void sub_26564C290(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -259,119 +180,109 @@ void sub_26564C35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sentencepiece::SentencePieceProcessor::Load(sentencepiece::logging *a1, uint64_t *a2)
 {
-  v4 = *a2;
-  v5 = *(*a2 + 88);
-  if (!v5)
+  v5 = *a2;
+  v6 = *(*a2 + 88);
+  if (!v6)
   {
-    v5 = &sentencepiece::_NormalizerSpec_default_instance_;
+    v6 = &sentencepiece::_NormalizerSpec_default_instance_;
   }
 
-  if (v5[80] == 1)
+  if (v6[80] == 1)
   {
     if (sentencepiece::logging::GetMinLogLevel(a1) <= 0)
     {
-      LOBYTE(v24.__first_) = 0;
-      v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "sentencepiece_processor.cc", 26);
-      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
-      v8 = MEMORY[0x26675B160](v7, 260);
-      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
-      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "LOG(", 4);
-      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "INFO", 4);
-      v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ") ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Enable Apple addition for backward compatibility", 48);
-      sentencepiece::error::Die::~Die(&v24);
+      LOBYTE(v23.__first_) = 0;
+      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "sentencepiece_processor.cc", 26);
+      v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "(", 1);
+      v9 = MEMORY[0x26675B160](v8, 260);
+      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ") ", 2);
+      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "LOG(", 4);
+      v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "INFO", 4);
+      v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ") ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "Enable Apple addition for backward compatibility", 48);
+      sentencepiece::error::Die::~Die(&v23);
     }
 
-    v4 = *a2;
-    *(v4 + 48) = *(*a2 + 48) | 1;
-    v13 = *(v4 + 80);
-    if (!v13)
+    v5 = *a2;
+    *(v5 + 48) = *(*a2 + 48) | 1;
+    v14 = *(v5 + 80);
+    if (!v14)
     {
-      v14 = *(v4 + 8);
-      if (v14)
+      v15 = *(v5 + 8);
+      if (v15)
       {
-        v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
+        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v13 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::TrainerSpec>(v14);
-      *(v4 + 80) = v13;
-      v4 = *a2;
+      v14 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::TrainerSpec>(v15);
+      *(v5 + 80) = v14;
+      v5 = *a2;
     }
 
-    *(v13 + 40) |= 0x4000u;
-    *(v13 + 245) = 1;
-    *(v4 + 48) |= 2u;
-    v15 = *(v4 + 88);
-    if (!v15)
+    *(v14 + 40) |= 0x4000u;
+    *(v14 + 245) = 1;
+    *(v5 + 48) |= 2u;
+    v16 = *(v5 + 88);
+    if (!v16)
     {
-      v16 = *(v4 + 8);
-      if (v16)
+      v17 = *(v5 + 8);
+      if (v17)
       {
-        v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+        v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v15 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::NormalizerSpec>(v16);
-      *(v4 + 88) = v15;
-      v4 = *a2;
+      v16 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::NormalizerSpec>(v17);
+      *(v5 + 88) = v16;
+      v5 = *a2;
     }
 
-    *(v15 + 48) |= 0x10u;
-    *(v15 + 81) = 1;
+    *(v16 + 48) |= 0x10u;
+    *(v16 + 81) = 1;
   }
 
   *a2 = 0;
-  if (v4)
+  if (v5)
   {
-    v17 = v4 + 16;
+    v18 = v5 + 16;
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  v18 = *(a1 + 4);
-  *(a1 + 4) = v17;
-  if (v18)
+  v19 = *(a1 + 4);
+  *(a1 + 4) = v18;
+  if (v19)
   {
-    (*(*v18 + 8))(v18);
-    v17 = *(a1 + 4);
+    (*(*v19 + 8))(v19);
+    v18 = *(a1 + 4);
   }
 
-  sentencepiece::ModelFactory::Create((v17 - 16), &v24);
-  first = v24.__first_;
-  v24.__first_ = 0;
-  v20 = *(a1 + 1);
+  sentencepiece::ModelFactory::Create((v18 - 16), &v23);
+  first = v23.__first_;
+  v23.__first_ = 0;
+  v21 = *(a1 + 1);
   *(a1 + 1) = first;
-  if (v20)
+  if (v21)
   {
-    (*(*v20 + 8))(v20);
-    v21 = v24.__first_;
-    v24.__first_ = 0;
-    if (v21)
+    (*(*v21 + 8))(v21);
+    v22 = v23.__first_;
+    v23.__first_ = 0;
+    if (v22)
     {
-      (*(v21->__r_.__value_.__r.__words[0] + 8))(v21);
+      (*(v22->__r_.__value_.__r.__words[0] + 8))(v22);
     }
-  }
-
-  if (*(v17 + 72))
-  {
-    v22 = *(v17 + 72);
-  }
-
-  if (*(v17 + 64))
-  {
-    v23 = *(v17 + 64);
   }
 
   absl::make_unique<sentencepiece::normalizer::Normalizer,sentencepiece::NormalizerSpec const&,sentencepiece::TrainerSpec const&>();
 }
 
-void absl::StrCat<char [2],std::string,char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, char *a3@<X2>, void **a4@<X3>, char *a5@<X4>, void **a6@<X5>, std::string *a7@<X8>)
+void absl::StrCat<char [2],std::string,char [2],std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, char *a4@<X2>, void ***a5@<X3>, char *a6@<X4>, void ***a7@<X5>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v12 = strlen(a3);
-  absl::StrCat<std::string,char [2],std::string>(a3, v12, a4, a5, a6, &__p);
+  v12 = strlen(a4);
+  absl::StrCat<std::string,char [2],std::string>(&__p, a4, v12, a5, a6, a7);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -393,7 +304,7 @@ void absl::StrCat<char [2],std::string,char [2],std::string>(void *__src@<X0>, s
   }
 
   v15 = std::string::append(&__dst, p_p, size);
-  *a7 = *v15;
+  *a1 = *v15;
   v15->__r_.__value_.__l.__size_ = 0;
   v15->__r_.__value_.__r.__words[2] = 0;
   v15->__r_.__value_.__r.__words[0] = 0;
@@ -425,7 +336,7 @@ void sub_26564D1D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sentencepiece::SentencePieceProcessor::ParseExtraOptions(sentencepiece::ModelInterface **a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X3>, sentencepiece::util::Status *a5@<X8>)
 {
-  v45[19] = *MEMORY[0x277D85DE8];
+  v43[19] = *MEMORY[0x277D85DE8];
   a4[1] = *a4;
   if (a3)
   {
@@ -434,27 +345,27 @@ void sentencepiece::SentencePieceProcessor::ParseExtraOptions(sentencepiece::Mod
     {
       sentencepiece::util::Status::~Status(a5);
       {
-        v41[3] = xmmword_279B9ADB8;
+        v39[3] = xmmword_279B9ADB8;
         *__p = unk_279B9ADC8;
-        v43 = xmmword_279B9ADD8;
-        v44 = 3;
-        v40 = xmmword_279B9AD78;
-        v41[0] = unk_279B9AD88;
-        v41[1] = xmmword_279B9AD98;
-        v41[2] = *&off_279B9ADA8;
-        std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](&sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, &v40, 5);
+        v41 = xmmword_279B9ADD8;
+        v42 = 3;
+        v38 = xmmword_279B9AD78;
+        v39[0] = unk_279B9AD88;
+        v39[1] = xmmword_279B9AD98;
+        v39[2] = *&off_279B9ADA8;
+        std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](&sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, &v38, 5);
         __cxa_atexit(std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::~map[abi:ne200100], &sentencepiece::SentencePieceProcessor::ParseExtraOptions(std::string_view,std::vector<sentencepiece::SentencePieceProcessor::ExtraOption> *)const::extra_option_map, &dword_26563A000);
       }
 
-      absl::internal::Splitter::Splitter(&v38, a2, a3, ":", 1, 0);
-      v10 = v38;
-      v11 = v39;
-      if (v38 == v39)
+      absl::internal::Splitter::Splitter(&v36, a2, a3, ":", 1, 0);
+      v10 = v36;
+      v11 = v37;
+      if (v36 == v37)
       {
 LABEL_24:
         if (v10)
         {
-          v39 = v10;
+          v37 = v10;
           operator delete(v10);
         }
 
@@ -531,17 +442,17 @@ LABEL_24:
             v28 = (*(*a1 + 63))(a1, v26, v27);
             if ((*(*a1 + 66))(a1, v28))
             {
-              LODWORD(v40) = 13;
-              std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-              MEMORY[0x26675B160](&v40 + 8, 1135);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->bos_piece().data())))", 68);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-              v33 = sentencepiece::ModelInterface::bos_piece(a1[1]);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, v33, v34);
-              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
+              LODWORD(v38) = 13;
+              std::ostringstream::basic_ostringstream[abi:ne200100](&v38 + 1);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "(", 1);
+              MEMORY[0x26675B160](&v38 + 8, 1135);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, ") [", 3);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->bos_piece().data())))", 68);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "] ", 2);
+              v32 = sentencepiece::ModelInterface::bos_piece(a1[1]);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, v32, v33);
+              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v38, a5);
               goto LABEL_35;
             }
 
@@ -555,22 +466,22 @@ LABEL_24:
             v31 = (*(*a1 + 63))(a1, v29, v30);
             if ((*(*a1 + 66))(a1, v31))
             {
-              LODWORD(v40) = 13;
-              std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-              MEMORY[0x26675B160](&v40 + 8, 1140);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->eos_piece().data())))", 68);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-              v35 = sentencepiece::ModelInterface::eos_piece(a1[1]);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, v35, v36);
-              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
+              LODWORD(v38) = 13;
+              std::ostringstream::basic_ostringstream[abi:ne200100](&v38 + 1);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "(", 1);
+              MEMORY[0x26675B160](&v38 + 8, 1140);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, ") [", 3);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "!IsUnknown(PieceToId(absl::string_view(model_->eos_piece().data())))", 68);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "] ", 2);
+              v34 = sentencepiece::ModelInterface::eos_piece(a1[1]);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, v34, v35);
+              sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v38, a5);
 LABEL_35:
-              *(&v40 + 1) = *MEMORY[0x277D82828];
-              *(&v40 + *(*(&v40 + 1) - 24) + 8) = *(MEMORY[0x277D82828] + 24);
-              *&v41[0] = MEMORY[0x277D82878] + 16;
-              if (SBYTE7(v43) < 0)
+              *(&v38 + 1) = *MEMORY[0x277D82828];
+              *(&v38 + *(*(&v38 + 1) - 24) + 8) = *(MEMORY[0x277D82828] + 24);
+              *&v39[0] = MEMORY[0x277D82878] + 16;
+              if (SBYTE7(v41) < 0)
               {
                 operator delete(__p[0]);
               }
@@ -582,50 +493,47 @@ LABEL_35:
           v10 += 2;
           if (v10 == v11)
           {
-            v10 = v38;
+            v10 = v36;
             goto LABEL_24;
           }
         }
 
-        LODWORD(v40) = 13;
-        std::ostringstream::basic_ostringstream[abi:ne200100](&v40 + 1);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "(", 1);
-        MEMORY[0x26675B160](&v40 + 8, 1129);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, ") [", 3);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "it != extra_option_map.end()", 28);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "] ", 2);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, "option ", 8);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, *v10, v10[1]);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40 + 1, " is not available.", 19);
-        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v40, a5);
-        *(&v40 + 1) = *MEMORY[0x277D82828];
-        *(&v40 + *(*(&v40 + 1) - 24) + 8) = *(MEMORY[0x277D82828] + 24);
-        *&v41[0] = MEMORY[0x277D82878] + 16;
-        if (SBYTE7(v43) < 0)
+        LODWORD(v38) = 13;
+        std::ostringstream::basic_ostringstream[abi:ne200100](&v38 + 1);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "(", 1);
+        MEMORY[0x26675B160](&v38 + 8, 1129);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, ") [", 3);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "it != extra_option_map.end()", 28);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "] ", 2);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, "option ", 8);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, *v10, v10[1]);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38 + 1, " is not available.", 19);
+        sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v38, a5);
+        *(&v38 + 1) = *MEMORY[0x277D82828];
+        *(&v38 + *(*(&v38 + 1) - 24) + 8) = *(MEMORY[0x277D82828] + 24);
+        *&v39[0] = MEMORY[0x277D82878] + 16;
+        if (SBYTE7(v41) < 0)
         {
           operator delete(__p[0]);
         }
 
 LABEL_37:
-        *&v41[0] = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(v41 + 1);
+        *&v39[0] = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(v39 + 1);
         std::ostream::~ostream();
-        MEMORY[0x26675B290](v45);
-        if (v38)
+        MEMORY[0x26675B290](v43);
+        if (v36)
         {
-          v39 = v38;
-          operator delete(v38);
+          v37 = v36;
+          operator delete(v36);
         }
       }
     }
-
-    v37 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v32 = *MEMORY[0x277D85DE8];
 
     sentencepiece::util::Status::Status(a5);
   }
@@ -654,9 +562,9 @@ void *sentencepiece::SentencePieceProcessor::status@<X0>(sentencepiece::Sentence
       return result;
     }
 
-    v9 = 13;
+    LODWORD(v9) = 13;
     v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
     MEMORY[0x26675B160](&v10, 320);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
@@ -668,9 +576,9 @@ void *sentencepiece::SentencePieceProcessor::status@<X0>(sentencepiece::Sentence
 
   else
   {
-    v9 = 13;
+    LODWORD(v9) = 13;
     v7 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
     MEMORY[0x26675B160](&v10, 319);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
@@ -694,7 +602,7 @@ void *sentencepiece::SentencePieceProcessor::status@<X0>(sentencepiece::Sentence
   return MEMORY[0x26675B290](&v14);
 }
 
-void sentencepiece::SentencePieceProcessor::SetVocabulary(void *a1@<X0>, uint64_t *a2@<X1>, sentencepiece::util::Status *a3@<X8>)
+void sentencepiece::SentencePieceProcessor::SetVocabulary(void *a1@<X0>, void *a2@<X1>, sentencepiece::util::Status *a3@<X8>)
 {
   (*(*a1 + 88))(a1);
   if (*a3)
@@ -705,75 +613,75 @@ void sentencepiece::SentencePieceProcessor::SetVocabulary(void *a1@<X0>, uint64_
   sentencepiece::util::Status::~Status(a3);
   v6 = a1[4];
   {
-    LODWORD(v23) = 13;
-    v20 = std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(", 1);
-    MEMORY[0x26675B160](&v24, 331);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "SetVocabulary is not supported when mmap-based model is loaded.", 63);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v23, a3);
+    LODWORD(v22) = 13;
+    v19 = std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "(", 1);
+    MEMORY[0x26675B160](&v23, 331);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "SetVocabulary is not supported when mmap-based model is loaded.", 63);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v22, a3);
 LABEL_26:
-    v24 = *MEMORY[0x277D82828];
-    *(&v24 + *(v24 - 3)) = *(MEMORY[0x277D82828] + 24);
-    v25 = MEMORY[0x277D82878] + 16;
-    if (v27 < 0)
+    v23 = *MEMORY[0x277D82828];
+    *(&v23 + *(v23 - 3)) = *(MEMORY[0x277D82828] + 24);
+    v24 = MEMORY[0x277D82878] + 16;
+    if (v26 < 0)
     {
-      operator delete(v26[7].__locale_);
+      operator delete(v25[7].__locale_);
     }
 
-    v25 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v26);
+    v24 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v25);
     std::ostream::~ostream();
-    MEMORY[0x26675B290](&v28);
+    MEMORY[0x26675B290](&v27);
     return;
   }
 
-  v9 = v8;
-  v10 = &sentencepiece::_TrainerSpec_default_instance_;
-  if (v8[10])
+  v8 = v7;
+  v9 = &sentencepiece::_TrainerSpec_default_instance_;
+  if (v7[10])
   {
-    v10 = v8[10];
+    v9 = v7[10];
   }
 
-  if ((v10[68] - 1) >= 2)
+  if ((v9[68] - 1) >= 2)
   {
-    LODWORD(v23) = 13;
-    v21 = std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "(", 1);
-    MEMORY[0x26675B160](&v24, 336);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "type == TrainerSpec::UNIGRAM || type == TrainerSpec::BPE", 56);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, "Vocabulary constraint is only enabled in subword units.", 55);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v23, a3);
+    LODWORD(v22) = 13;
+    v20 = std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "(", 1);
+    MEMORY[0x26675B160](&v23, 336);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "type == TrainerSpec::UNIGRAM || type == TrainerSpec::BPE", 56);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "Vocabulary constraint is only enabled in subword units.", 55);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v22, a3);
     goto LABEL_26;
   }
 
-  std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(&v23, *a2, a2[1]);
-  if (*(v9 + 16) >= 1)
+  std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(&v22, *a2, a2[1]);
+  if (*(v8 + 16) >= 1)
   {
-    v11 = 0;
+    v10 = 0;
     do
     {
-      v12 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>((v9 + 7), v11);
-      v13 = v12;
-      if ((*(v12 + 60) - 2) >= 3)
+      v11 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::ModelProto_SentencePiece>::TypeHandler>((v8 + 7), v10);
+      v12 = v11;
+      if ((*(v11 + 60) - 2) >= 3)
       {
-        v14 = *(v12 + 48) & 0xFFFFFFFFFFFFFFFELL;
-        v15 = *(v14 + 23);
-        if (v15 < 0)
+        v13 = *(v11 + 48) & 0xFFFFFFFFFFFFFFFELL;
+        v14 = *(v13 + 23);
+        if (v14 < 0)
         {
-          v14 = *v14;
-          v15 = *((*(v12 + 48) & 0xFFFFFFFFFFFFFFFELL) + 8);
+          v13 = *v13;
+          v14 = *((*(v11 + 48) & 0xFFFFFFFFFFFFFFFELL) + 8);
         }
 
-        v22[0] = v14;
-        v22[1] = v15;
-        if (&v24 == std::__tree<std::string_view>::find<std::string_view>(&v23, v22) && ((v16 = *(v13 + 48) & 0xFFFFFFFFFFFFFFFELL, v17 = *(v16 + 23), v17 < 0) ? (v18 = *v16, v17 = *(v16 + 8)) : (v18 = (*(v13 + 48) & 0xFFFFFFFFFFFFFFFELL)), v17 != asc_2656C45A0[*v18 >> 4]))
+        v21[0] = v13;
+        v21[1] = v14;
+        if (&v23 == std::__tree<std::string_view>::find<std::string_view>(&v22, v21) && ((v15 = *(v12 + 48) & 0xFFFFFFFFFFFFFFFELL, v16 = *(v15 + 23), v16 < 0) ? (v17 = *v15, v16 = *(v15 + 8)) : (v17 = (*(v12 + 48) & 0xFFFFFFFFFFFFFFFELL)), v16 != asc_2656C45A0[*v17 >> 4]))
         {
           if (!sentencepiece::ModelProto_SentencePiece_Type_IsValid(5))
           {
@@ -781,7 +689,7 @@ LABEL_31:
             __assert_rtn("_internal_set_type", "sentencepiece_model.pb.h", 4686, "::sentencepiece::ModelProto_SentencePiece_Type_IsValid(value)");
           }
 
-          v19 = 5;
+          v18 = 5;
         }
 
         else
@@ -791,65 +699,65 @@ LABEL_31:
             goto LABEL_31;
           }
 
-          v19 = 1;
+          v18 = 1;
         }
 
-        *(v13 + 40) |= 4u;
-        *(v13 + 60) = v19;
+        *(v12 + 40) |= 4u;
+        *(v12 + 60) = v18;
       }
 
-      ++v11;
+      ++v10;
     }
 
-    while (v11 < *(v9 + 16));
+    while (v10 < *(v8 + 16));
   }
 
   sentencepiece::util::Status::Status(a3);
-  std::__tree<std::__value_type<std::string_view,int>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,int>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,int>>>::destroy(&v23, v24);
+  std::__tree<std::__value_type<std::string_view,int>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,int>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,int>>>::destroy(&v22, v23);
 }
 
-void *sentencepiece::SentencePieceProcessor::ResetVocabulary@<X0>(char ***this@<X0>, sentencepiece::util::Status *a2@<X8>)
+void *sentencepiece::SentencePieceProcessor::ResetVocabulary@<X0>(sentencepiece::SentencePieceProcessor *this@<X0>, sentencepiece::util::Status *a2@<X8>)
 {
-  result = ((*this)[11])(this);
+  result = (*(*this + 88))(this);
   if (!*a2)
   {
     sentencepiece::util::Status::~Status(a2);
-    v5 = this[4];
+    v5 = *(this + 4);
     {
-      v8 = *(v7 + 9);
-      if (v8)
+      v7 = *(v6 + 9);
+      if (v7)
       {
-        v9 = (v8 + 8);
+        v8 = (v7 + 8);
       }
 
       else
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v10 = v7[16];
-      if (v10)
+      v9 = v6[16];
+      if (v9)
       {
-        v11 = 8 * v10;
+        v10 = 8 * v9;
         do
         {
-          v12 = *v9;
-          if (*(*v9 + 60) == 5)
+          v11 = *v8;
+          if (*(*v8 + 60) == 5)
           {
             if (!sentencepiece::ModelProto_SentencePiece_Type_IsValid(1))
             {
               sentencepiece::SentencePieceProcessor::ResetVocabulary();
             }
 
-            *(v12 + 40) |= 4u;
-            *(v12 + 60) = 1;
+            *(v11 + 40) |= 4u;
+            *(v11 + 60) = 1;
           }
 
-          ++v9;
-          v11 -= 8;
+          ++v8;
+          v10 -= 8;
         }
 
-        while (v11);
+        while (v10);
       }
 
       return sentencepiece::util::Status::Status(a2);
@@ -857,28 +765,28 @@ void *sentencepiece::SentencePieceProcessor::ResetVocabulary@<X0>(char ***this@<
 
     else
     {
-      v14 = 13;
-      v13 = std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "(", 1);
-      MEMORY[0x26675B160](&v15, 365);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v15, "ResetVocabulary is not supported when mmap-based model is loaded.", 65);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v14, a2);
-      v15 = *MEMORY[0x277D82828];
-      *(&v15 + *(v15 - 24)) = *(MEMORY[0x277D82828] + 24);
-      v16 = MEMORY[0x277D82878] + 16;
-      if (v18 < 0)
+      LODWORD(v13) = 13;
+      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v13);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
+      MEMORY[0x26675B160](&v14, 365);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(model_proto = dynamic_cast<ModelProto *>(model_proto_.get()))", 62);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "ResetVocabulary is not supported when mmap-based model is loaded.", 65);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a2);
+      v14 = *MEMORY[0x277D82828];
+      *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
+      v15 = MEMORY[0x277D82878] + 16;
+      if (v17 < 0)
       {
-        operator delete(v17[7].__locale_);
+        operator delete(v16[7].__locale_);
       }
 
-      v16 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v17);
+      v15 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v16);
       std::ostream::~ostream();
-      return MEMORY[0x26675B290](&v19);
+      return MEMORY[0x26675B290](&v18);
     }
   }
 
@@ -939,15 +847,15 @@ BOOL absl::SimpleAtoi<int>(const char *a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-void sub_26564EEE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26564EEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x277D82818]);
-  MEMORY[0x26675B290](v2 + 128);
+  MEMORY[0x26675B290](v3 + 128);
   _Unwind_Resume(a1);
 }
 
-void *sentencepiece::anonymous namespace::ToPieceArray@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t *sentencepiece::anonymous namespace::ToPieceArray@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   result = std::vector<std::string_view>::vector[abi:ne200100](a2, 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3));
   v4 = *a1;
@@ -1044,9 +952,9 @@ void sentencepiece::SentencePieceProcessor::Encode(uint64_t a1@<X0>, uint64_t a2
 
     else
     {
-      v15 = 13;
+      LODWORD(v15) = 13;
       v14 = std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v15);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "(", 1);
       MEMORY[0x26675B160](&v16, 415);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, ") [", 3);
@@ -1194,9 +1102,9 @@ void sentencepiece::SentencePieceProcessor::Encode(uint64_t a1@<X0>, uint64_t a2
   }
 }
 
-void sub_26564F654(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26564F654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sentencepiece::util::StatusBuilder::~StatusBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1264,9 +1172,9 @@ void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1@<X0>, uint64_t a2
 
     else
     {
-      v9 = 13;
+      LODWORD(v9) = 13;
       v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
       MEMORY[0x26675B160](&v10, 447);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
@@ -1323,9 +1231,9 @@ void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1@<X0>, uint64_t a2
 
     else
     {
-      v9 = 13;
+      LODWORD(v9) = 13;
       v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
       MEMORY[0x26675B160](&v10, 458);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
@@ -1449,7 +1357,7 @@ void sentencepiece::SentencePieceProcessor::NBestEncode(uint64_t a1@<X0>, uint64
             else
             {
               std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(a5, &v27);
-              v25 = (v24 + 3);
+              v25 = v24 + 3;
             }
 
             a5[1] = v25;
@@ -1495,9 +1403,9 @@ void sentencepiece::SentencePieceProcessor::NBestEncode(uint64_t a1@<X0>, uint64
   }
 }
 
-void sub_2656500A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2656500A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sentencepiece::util::StatusBuilder::~StatusBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1625,7 +1533,7 @@ void sentencepiece::SentencePieceProcessor::NBestEncode(uint64_t a1@<X0>, uint64
             else
             {
               std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(a5, &__src);
-              v31 = v30 + 24;
+              v31 = (v30 + 24);
             }
 
             a5[1] = v31;
@@ -1760,9 +1668,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncode(uint64_t a1@<X0>, uint6
 
     else
     {
-      v19 = 13;
+      LODWORD(v19) = 13;
       v18 = std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v19);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "(", 1);
       MEMORY[0x26675B160](&v20, 506);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, ") [", 3);
@@ -1910,9 +1818,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncode(uint64_t a1@<X0>, uint6
   }
 }
 
-void sub_265650C84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_265650C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sentencepiece::util::StatusBuilder::~StatusBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1949,7 +1857,7 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScore(uint64_t a1@<X0
           std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
         }
 
-        a7[1] = &v20->__r_.__value_.__l.__data_;
+        a7[1] = v20;
         std::vector<std::pair<std::vector<std::string>,float>>::reserve(a7, SLODWORD(v39.__locale_));
         if (v40)
         {
@@ -2074,21 +1982,19 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScore(uint64_t a1@<X0
   }
 }
 
-void sub_2656510F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2656510F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sentencepiece::util::StatusBuilder::~StatusBuilder(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::pair<std::vector<std::string>,float>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::pair<std::vector<std::string>,float>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<std::pair<std::string_view,int>>,float>>>(result, a2);
     }
 
@@ -2273,14 +2179,12 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScore(uint64_t a1@<X0
   }
 }
 
-void *std::vector<std::pair<std::vector<int>,float>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::pair<std::vector<int>,float>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::vector<int>,float>>>(result, a2);
     }
 
@@ -2290,7 +2194,7 @@ void *std::vector<std::pair<std::vector<int>,float>>::reserve(void *result, unin
   return result;
 }
 
-void *sentencepiece::SentencePieceProcessor::PopulateSentencePieceText@<X0>(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X4>, uint64_t *a5@<X5>, unsigned __int8 ***a6@<X6>, uint64_t a7@<X7>, sentencepiece::util::Status *a8@<X8>)
+uint64_t *sentencepiece::SentencePieceProcessor::PopulateSentencePieceText@<X0>(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, uint64_t a4@<X4>, uint64_t *a5@<X5>, char ***a6@<X6>, uint64_t a7@<X7>, sentencepiece::util::Status *a8@<X8>)
 {
   v10 = *a6;
   v91 = a6[1];
@@ -2301,7 +2205,7 @@ void *sentencepiece::SentencePieceProcessor::PopulateSentencePieceText@<X0>(void
     v13 = 0;
     while (1)
     {
-      v14 = v10[1];
+      v14 = *(v10 + 8);
       if (!v14)
       {
         LODWORD(__p[0]) = 13;
@@ -2318,7 +2222,7 @@ void *sentencepiece::SentencePieceProcessor::PopulateSentencePieceText@<X0>(void
       }
 
       v15 = *v10;
-      v16 = *(v10 + 4);
+      v16 = *(v10 + 16);
       v93 = ((*a1)[66])(a1, v16);
       if (((*a1)[67])(a1, v16))
       {
@@ -2498,7 +2402,7 @@ LABEL_22:
             *(a7 + 56) = v30 + 1;
             v32 = *&v29[2 * v30 + 2];
 LABEL_24:
-            sentencepiece::ByteToPiece(v27, &__dst);
+            sentencepiece::ByteToPiece(&__dst, v27);
             if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
               p_dst = &__dst;
@@ -2815,7 +2719,7 @@ LABEL_80:
       *(v20 + 72) = v50;
       v23 = v12;
 LABEL_81:
-      v10 += 3;
+      v10 += 24;
       v13 = v93;
       if (v10 == v91)
       {
@@ -2890,7 +2794,7 @@ void sub_26565254C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiece::ModelInterface **a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiece::ModelInterface **a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, sentencepiece::util::Status *a4@<X8>)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -2976,7 +2880,7 @@ void *sentencepiece::SentencePieceProcessor::ApplyExtraOptions@<X0>(sentencepiec
 
     if (v9 != 1)
     {
-      return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 26);
+      return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 0x1AuLL);
     }
 
     v10 = *(a3 + 64);
@@ -3154,7 +3058,7 @@ LABEL_46:
     goto LABEL_63;
   }
 
-  return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 26);
+  return sentencepiece::util::Status::Status(a4, 13, "unknown extra_option type.", 0x1AuLL);
 }
 
 void sentencepiece::SentencePieceProcessor::Encode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, sentencepiece::SentencePieceText *a4@<X3>, sentencepiece::util::Status *a5@<X8>)
@@ -3460,7 +3364,7 @@ void sub_265653688(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, int a4@<W3>, sentencepiece::SentencePieceText *a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncode(void **a1@<X0>, char *a2@<X1>, size_t a3@<X2>, unsigned int a4@<W3>, sentencepiece::SentencePieceText *a5@<X4>, sentencepiece::util::Status *a6@<X8>, float a7@<S0>)
 {
   ((*a1)[11])(a1);
   if (*a6)
@@ -3500,7 +3404,7 @@ LABEL_5:
 
       sentencepiece::util::Status::~Status(a6);
       v16 = (*(*a1[1] + 88))(a1[1]);
-      if (a4 >= 0)
+      if ((a4 & 0x80000000) == 0)
       {
         v17 = v16;
       }
@@ -3533,7 +3437,7 @@ LABEL_5:
           else
           {
             LODWORD(v29) = 0;
-            v19 = std::vector<float>::vector[abi:ne200100](&v39, (v32 - v31) >> 5);
+            v19 = std::vector<float>::vector[abi:ne200100](&v39, (v32 - v31) >> 5, &v29);
             if (v32 != v31)
             {
               v20 = v39;
@@ -4009,113 +3913,113 @@ void sub_265654A1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void sentencepiece::SentencePieceProcessor::Decode(void *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, sentencepiece::util::Status *a4@<X8>)
 {
   v4 = a3;
-  v74[19] = *MEMORY[0x277D85DE8];
-  v62 = a3;
+  v67[19] = *MEMORY[0x277D85DE8];
+  v57 = a3;
   (*(*a1 + 88))(a4);
   if (*a4)
   {
-    goto LABEL_2;
+    return;
   }
 
   sentencepiece::util::Status::~Status(a4);
   if (!v4)
   {
-    LODWORD(__dst) = 13;
-    std::ostringstream::basic_ostringstream[abi:ne200100](&__dst + 1);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "(", 1);
-    MEMORY[0x26675B160](&__dst + 8, 796);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "spt", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst + 1, "output proto is null", 20);
+    LODWORD(__dst.__r_.__value_.__l.__data_) = 13;
+    std::ostringstream::basic_ostringstream[abi:ne200100](&__dst.__r_.__value_.__l.__size_);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "(", 1);
+    MEMORY[0x26675B160](&__dst.__r_.__value_.__r.__words[1], 796);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "spt", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__dst.__r_.__value_.__l.__size_, "output proto is null", 20);
     sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&__dst, a4);
-    *(&__dst + 1) = *MEMORY[0x277D82828];
-    *(&__dst + *(*(&__dst + 1) - 24) + 8) = *(MEMORY[0x277D82828] + 24);
-    v69 = (MEMORY[0x277D82878] + 16);
-    if (v73 < 0)
+    __dst.__r_.__value_.__l.__size_ = *MEMORY[0x277D82828];
+    *(&__dst.__r_.__value_.__r.__words[1] + *(__dst.__r_.__value_.__l.__size_ - 24)) = *(MEMORY[0x277D82828] + 24);
+    __dst.__r_.__value_.__r.__words[2] = MEMORY[0x277D82878] + 16;
+    if (v66 < 0)
     {
       operator delete(__p);
     }
 
-    v69 = (MEMORY[0x277D82868] + 16);
-    std::locale::~locale(&v70);
+    __dst.__r_.__value_.__r.__words[2] = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(&v63);
     std::ostream::~ostream();
-    MEMORY[0x26675B290](v74);
-    goto LABEL_2;
+    MEMORY[0x26675B290](v67);
+    return;
   }
 
   sentencepiece::SentencePieceText::Clear(v4);
-  v9 = a1[4];
-  if (v9 && (*(*v9 + 72))(v9))
+  v8 = a1[4];
+  if (v8 && (*(*v8 + 72))(v8))
   {
-    v10 = (*(*a1[4] + 24))(a1[4]);
+    v9 = (*(*a1[4] + 24))(a1[4]);
   }
 
   else
   {
   }
 
-  v11 = *a2;
-  v12 = a2[1];
-  if (*a2 != v12)
+  v10 = *a2;
+  v11 = a2[1];
+  if (*a2 != v11)
   {
     while (1)
     {
-      v13 = *v11;
-      v14 = v11[1];
-      v15 = v62;
-      v16 = *(v62 + 64);
-      if (!v16)
+      v12 = *v10;
+      v13 = v10[1];
+      v14 = v57;
+      v15 = *(v57 + 64);
+      if (!v15)
       {
         break;
       }
 
-      v17 = *(v62 + 56);
-      v18 = *v16;
-      if (v17 >= *v16)
+      v16 = *(v57 + 56);
+      v17 = *v15;
+      if (v16 >= *v15)
       {
-        if (v18 == *(v62 + 60))
+        if (v17 == *(v57 + 60))
         {
 LABEL_18:
-          google::protobuf::RepeatedPtrField<std::string>::Reserve((v62 + 48), v18 + 1);
-          v16 = *(v62 + 64);
-          v18 = *v16;
+          google::protobuf::RepeatedPtrField<std::string>::Reserve((v57 + 48), v17 + 1);
+          v15 = *(v57 + 64);
+          v17 = *v15;
         }
 
-        *v16 = v18 + 1;
-        v19 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(v15 + 48));
-        v20 = *(v15 + 56);
-        v21 = *(v15 + 64) + 8 * v20;
-        *(v15 + 56) = v20 + 1;
-        *(v21 + 8) = v19;
+        *v15 = v17 + 1;
+        v18 = google::protobuf::Arena::CreateMaybeMessage<sentencepiece::SentencePieceText_SentencePiece>(*(v14 + 48));
+        v19 = *(v14 + 56);
+        v20 = *(v14 + 64) + 8 * v19;
+        *(v14 + 56) = v19 + 1;
+        *(v20 + 8) = v18;
         goto LABEL_20;
       }
 
-      *(v62 + 56) = v17 + 1;
-      v19 = *&v16[2 * v17 + 2];
+      *(v57 + 56) = v16 + 1;
+      v18 = *&v15[2 * v16 + 2];
 LABEL_20:
-      *(v19 + 40) |= 1u;
-      v22 = *(v19 + 8);
-      if (v22)
+      *(v18 + 40) |= 1u;
+      v21 = *(v18 + 8);
+      if (v21)
       {
-        v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+        v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v23 = google::protobuf::internal::ArenaStringPtr::Mutable((v19 + 48), v22);
-      MEMORY[0x26675AFD0](v23, v13, v14);
-      v24 = (*(*a1 + 504))(a1, v13, v14);
-      *(v19 + 40) |= 4u;
-      *(v19 + 64) = v24;
-      v11 += 2;
-      if (v11 == v12)
+      v22 = google::protobuf::internal::ArenaStringPtr::Mutable((v18 + 48), v21);
+      MEMORY[0x26675AFD0](v22, v12, v13);
+      v23 = (*(*a1 + 504))(a1, v12, v13);
+      *(v18 + 40) |= 4u;
+      *(v18 + 64) = v23;
+      v10 += 2;
+      if (v10 == v11)
       {
-        v4 = v62;
+        v4 = v57;
         goto LABEL_24;
       }
     }
 
-    v18 = *(v62 + 60);
+    v17 = *(v57 + 60);
     goto LABEL_18;
   }
 
@@ -4123,257 +4027,243 @@ LABEL_24:
   sentencepiece::SentencePieceProcessor::ApplyExtraOptions(a1, a1 + 8, v4, a4);
   if (*a4)
   {
-    goto LABEL_2;
+    return;
   }
 
   sentencepiece::util::Status::~Status(a4);
   *(v4 + 40) |= 1u;
-  v25 = *(v4 + 8);
-  if (v25)
+  v24 = *(v4 + 8);
+  if (v24)
   {
-    v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+    v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
   }
 
-  v60[1] = &v61;
-  v61 = google::protobuf::internal::ArenaStringPtr::Mutable((v4 + 72), v25);
-  v58 = 0;
-  v59[0] = &v62;
-  v59[1] = v60;
-  v60[0] = &v62;
-  v57[0] = 0;
-  v57[1] = 0;
-  v26 = *(v4 + 56);
-  if (v26 >= 1)
+  v55[1] = &v56;
+  v56 = google::protobuf::internal::ArenaStringPtr::Mutable((v4 + 72), v24);
+  v54[0] = &v57;
+  v54[1] = v55;
+  v55[0] = &v57;
+  memset(&v53, 0, sizeof(v53));
+  v25 = *(v4 + 56);
+  if (v25 >= 1)
   {
+    v26 = 0;
     v27 = 0;
     v28 = 0;
-    v29 = 0;
-    v30 = 1;
+    v29 = 1;
     while (1)
     {
-      v31 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(v4 + 48, v29);
-      if (!(*(*a1 + 552))(a1, *(v31 + 64)))
+      v30 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(v4 + 48, v28);
+      if (!(*(*a1 + 552))(a1, *(v30 + 64)))
       {
         break;
       }
 
-      ++v29;
+      v28 = (v28 + 1);
 LABEL_69:
-      v4 = v62;
-      v26 = *(v62 + 56);
-      if (v29 >= v26)
+      v4 = v57;
+      v25 = *(v57 + 56);
+      if (v28 >= v25)
       {
         goto LABEL_87;
       }
     }
 
-    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v59, v28, v29, a4);
+    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v54, v27, v28, a4);
     if (*a4)
     {
-      goto LABEL_95;
+      goto LABEL_93;
     }
 
     sentencepiece::util::Status::~Status(a4);
-    if (v27)
+    if (v26)
     {
       goto LABEL_36;
     }
 
-    v32 = *(v61 + 23);
-    if (v32 < 0)
+    v31 = *(v56 + 23);
+    if (v31 < 0)
     {
-      v32 = v61[1];
+      v31 = v56[1];
     }
 
-    if (v32)
+    if (v31)
     {
 LABEL_36:
-      v30 = 0;
+      v29 = 0;
     }
 
-    v33 = *(v31 + 48) & 0xFFFFFFFFFFFFFFFELL;
-    v34 = *(v33 + 23);
-    if ((v34 & 0x8000000000000000) != 0)
+    v32 = *(v30 + 48) & 0xFFFFFFFFFFFFFFFELL;
+    v33 = *(v32 + 23);
+    if ((v33 & 0x8000000000000000) != 0)
     {
-      v35 = *v33;
-      v34 = *(v33 + 8);
-    }
-
-    else
-    {
-      v35 = (*(v31 + 48) & 0xFFFFFFFFFFFFFFFELL);
-    }
-
-    v36 = *(v31 + 64);
-    if ((*(*a1 + 536))(a1, v36))
-    {
-      std::string::basic_string[abi:ne200100]<0>(&v54, "");
+      v34 = *v32;
+      v33 = *(v32 + 8);
     }
 
     else
     {
-      if (!(*(*a1 + 528))(a1, v36))
+      v34 = (*(v30 + 48) & 0xFFFFFFFFFFFFFFFELL);
+    }
+
+    v35 = *(v30 + 64);
+    if ((*(*a1 + 536))(a1, v35))
+    {
+      std::string::basic_string[abi:ne200100]<0>(&v51, "");
+    }
+
+    else
+    {
+      if (!(*(*a1 + 528))(a1, v35))
       {
-        if (v30 & 1) != 0 && ((v39 = a1[4]) == 0 || (v40 = (*(*v39 + 152))(v39), ((*(*v40 + 16))(v40)) || (v41 = (*(*a1[4] + 152))(a1[4]), (*(*v41 + 24))(v41))))
+        if (v29 & 1) != 0 && ((v38 = a1[4]) == 0 || (v39 = (*(*v38 + 152))(v38), ((*(*v39 + 16))(v39)) || (v40 = (*(*a1[4] + 152))(a1[4]), (*(*v40 + 24))(v40))))
         {
-          if (v34 >= 3)
+          if (v33 >= 3)
           {
-            v46 = *v35 != 38626 || v35[2] != 129;
-            if (!v46)
+            v45 = *v34 != 38626 || v34[2] != 129;
+            if (!v45)
             {
-              v35 += 3;
-              v34 -= 3;
+              v34 += 3;
+              v33 -= 3;
             }
 
-            v42 = !v46;
+            v41 = !v45;
           }
 
           else
           {
-            v42 = 0;
+            v41 = 0;
           }
 
-          v47 = a1[4];
-          if (v47)
+          v46 = a1[4];
+          if (v46)
           {
-            v48 = (*(*v47 + 152))(v47);
-            if ((*(*v48 + 24))(v48))
+            v47 = (*(*v46 + 152))(v46);
+            if ((*(*v47 + 24))(v47))
             {
-              v42 = 0;
+              v41 = 0;
             }
           }
         }
 
         else
         {
-          v42 = 0;
+          v41 = 0;
         }
 
-        *(&__dst + 1) = 3;
-        v69 = " ";
-        v70.__locale_ = 1;
-        v64 = 0;
-        v65 = 0;
-        v63 = 0;
-        std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(&v63, &__dst, &v71, 1uLL);
-        absl::StrReplaceAll(v35, v34, &v63, &v66);
-        v54 = v66;
-        v55 = v67;
-        v67 = 0;
-        v66 = 0uLL;
-        v56 = v42;
-        if (v63)
+        __dst.__r_.__value_.__l.__size_ = 3;
+        __dst.__r_.__value_.__r.__words[2] = " ";
+        v63.__locale_ = 1;
+        v59 = 0;
+        v60 = 0;
+        v58 = 0;
+        std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(&v58, &__dst, v64, 1uLL);
+        absl::StrReplaceAll(&v61, v34, v33, &v58);
+        v51 = v61;
+        memset(&v61, 0, sizeof(v61));
+        v52 = v41;
+        if (v58)
         {
-          v64 = v63;
-          operator delete(v63);
+          v59 = v58;
+          operator delete(v58);
         }
 
         goto LABEL_60;
       }
 
-      v37 = (*(*a1 + 512))(a1, v36);
-      if (v38 == v34 && !memcmp(v37, v35, v34))
+      v36 = (*(*a1 + 512))(a1, v35);
+      if (v37 == v33 && !memcmp(v36, v34, v33))
       {
-        std::string::basic_string[abi:ne200100]<0>(&v54, v10);
+        std::string::basic_string[abi:ne200100]<0>(&v51, v9);
       }
 
       else
       {
-        if (v34 >= 0x7FFFFFFFFFFFFFF8)
+        if (v33 >= 0x7FFFFFFFFFFFFFF8)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        if (v34 >= 0x17)
+        if (v33 >= 0x17)
         {
           operator new();
         }
 
-        HIBYTE(v69) = v34;
-        if (v34)
+        *(&__dst.__r_.__value_.__s + 23) = v33;
+        if (v33)
         {
-          memmove(&__dst, v35, v34);
+          memmove(&__dst, v34, v33);
         }
 
-        *(&__dst + v34) = 0;
-        v54 = __dst;
-        v55 = v69;
+        __dst.__r_.__value_.__s.__data_[v33] = 0;
+        v51 = __dst;
       }
     }
 
-    v56 = 0;
+    v52 = 0;
 LABEL_60:
-    if (SHIBYTE(v58) < 0)
+    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v57[0]);
+      operator delete(v53.__r_.__value_.__l.__data_);
     }
 
-    v58 = v55;
-    *v57 = v54;
-    v27 = v56;
-    if (SHIBYTE(v55) >= 0)
+    v53 = v51;
+    v26 = v52;
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v43 = v57;
-    }
-
-    else
-    {
-      v43 = v54;
-    }
-
-    if (SHIBYTE(v55) >= 0)
-    {
-      v44 = v55 >> 56;
+      v42 = &v53;
     }
 
     else
     {
-      v44 = *(&v54 + 1);
+      v42 = v51.__r_.__value_.__r.__words[0];
     }
 
-    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(v60, v29++, v43, v44);
-    v28 = v29;
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v51.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v51.__r_.__value_.__l.__size_;
+    }
+
+    sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(v55, v28, v42, size);
+    v28 = (v28 + 1);
+    v27 = v28;
     goto LABEL_69;
   }
 
-  v28 = 0;
+  v27 = 0;
 LABEL_87:
-  sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v59, v28, v26, a4);
+  sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(v54, v27, v25, a4);
   if (!*a4)
   {
     sentencepiece::util::Status::~Status(a4);
-    v49 = a1[3];
-    if (v49)
+    v48 = a1[3];
+    if (v48)
     {
-      if ((*(v61 + 23) & 0x8000000000000000) != 0)
+      (*(*v48 + 40))(&__dst);
+      v49 = v56;
+      if (*(v56 + 23) < 0)
       {
-        v50 = *v61;
-        v51 = v61[1];
+        operator delete(*v56);
       }
 
-      (*(*v49 + 40))(&__dst);
-      v52 = v61;
-      if (*(v61 + 23) < 0)
-      {
-        operator delete(*v61);
-      }
-
-      v53 = __dst;
-      v52[2] = v69;
-      *v52 = v53;
+      v50 = *&__dst.__r_.__value_.__l.__data_;
+      v49[2] = __dst.__r_.__value_.__r.__words[2];
+      *v49 = v50;
     }
 
     sentencepiece::util::Status::Status(a4);
   }
 
-LABEL_95:
-  if (SHIBYTE(v58) < 0)
+LABEL_93:
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57[0]);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
-
-LABEL_2:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2656553C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
@@ -4386,7 +4276,7 @@ void sub_2656553C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, sentencepiece::util::Status *a4@<X8>)
+void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_2::operator()(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, sentencepiece::util::Status *a4@<X8>)
 {
   if (a2 >= a3)
   {
@@ -4396,6 +4286,7 @@ void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view>
 
   else
   {
+    v6 = a2;
     memset(&v38, 0, sizeof(v38));
     v8 = a2;
     do
@@ -4469,7 +4360,7 @@ void sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view>
           break;
         }
 
-        v19 = v17 + a2;
+        v19 = (v17 + v6);
         if (*v31 != 1)
         {
           if (*v31 != 3)
@@ -4498,7 +4389,7 @@ LABEL_41:
         }
       }
 
-      v19 = v17 + a2;
+      v19 = (v17 + v6);
 LABEL_22:
       v20 = HIBYTE(v38.__r_.__value_.__r.__words[2]);
       if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -4559,7 +4450,7 @@ LABEL_22:
           sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(*(a1 + 8), v19, v28, v29);
           ++v25;
           v22 = *v31;
-          ++v19;
+          v19 = (v19 + 1);
         }
 
         while (*v31 > v25);
@@ -4570,7 +4461,7 @@ LABEL_22:
 
     v15 = 0;
 LABEL_48:
-    if (v15 + a2 == a3)
+    if (v15 + v6 == a3)
     {
       sentencepiece::util::Status::Status(v30);
       goto LABEL_54;
@@ -4616,7 +4507,7 @@ void sub_265655968(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(uint64_t a1, int a2, const void *a3, size_t a4)
+std::string *sentencepiece::SentencePieceProcessor::Decode(std::vector<std::string_view> const&,sentencepiece::SentencePieceText *)const::$_1::operator()(uint64_t a1, uint64_t a2, const void *a3, size_t a4)
 {
   v7 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<sentencepiece::SentencePieceText_SentencePiece>::TypeHandler>(**a1 + 48, a2);
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4682,7 +4573,7 @@ void sub_265655B20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1@<X0>, signed int **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1@<X0>, int **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   memset(&v19, 0, sizeof(v19));
   v8 = (*(*a1 + 496))(a1);
@@ -4722,7 +4613,7 @@ void sentencepiece::SentencePieceProcessor::Decode(uint64_t a1@<X0>, signed int 
     ++v10;
   }
 
-  absl::StrCat<int>("Invalid id: ", 0xCuLL, &v18, &__p);
+  absl::StrCat<int>(&__p, "Invalid id: ", 0xCuLL, &v18);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -4766,10 +4657,10 @@ void sub_265655D00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void absl::StrCat<int>(void *__src@<X0>, size_t __len@<X1>, unsigned int *a3@<X2>, std::string *a4@<X8>)
+void absl::StrCat<int>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, unsigned int *a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  absl::StrCat(*a3);
+  absl::StrCat(*a4);
   if ((v10 & 0x80u) == 0)
   {
     v6 = __p;
@@ -4791,7 +4682,7 @@ void absl::StrCat<int>(void *__src@<X0>, size_t __len@<X1>, unsigned int *a3@<X2
   }
 
   v8 = std::string::append(&__dst, v6, v7);
-  *a4 = *v8;
+  *a1 = *v8;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
@@ -5150,220 +5041,176 @@ uint64_t sentencepiece::SentencePieceProcessor::pad_id(sentencepiece::ModelInter
   }
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void ***a3@<X3>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, void ***a2@<X3>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      std::vector<std::string>::clear[abi:ne200100](a3);
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      std::vector<std::string>::clear[abi:ne200100](a2);
+      v7 = *(*a1[1] + 200);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 200);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x26675B160](&v14, 1027);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x277D82828];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-      v15 = MEMORY[0x277D82878] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x26675B160](&v10, 1027);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "pieces", 6);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x277D82828];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+      v11 = MEMORY[0x277D82878] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x26675B290](&v18);
+      return MEMORY[0x26675B290](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X3>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupPredictive@<X0>(void **a1@<X0>, void *a2@<X3>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      a3[1] = *a3;
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      a2[1] = *a2;
+      v7 = *(*a1[1] + 208);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 208);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x26675B160](&v14, 1033);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x277D82828];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-      v15 = MEMORY[0x277D82878] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x26675B160](&v10, 1033);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "ids", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x277D82828];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+      v11 = MEMORY[0x277D82878] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x26675B290](&v18);
+      return MEMORY[0x26675B290](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void ***a3@<X2>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, void ***a2@<X2>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      std::vector<std::string>::clear[abi:ne200100](a3);
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      std::vector<std::string>::clear[abi:ne200100](a2);
+      v7 = *(*a1[1] + 216);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 216);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x26675B160](&v14, 1039);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "pieces", 6);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x277D82828];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-      v15 = MEMORY[0x277D82878] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x26675B160](&v10, 1039);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "pieces", 6);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x277D82828];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+      v11 = MEMORY[0x277D82878] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x26675B290](&v18);
+      return MEMORY[0x26675B290](&v14);
     }
   }
 
   return result;
 }
 
-uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, sentencepiece::util::Status *a4@<X8>)
+uint64_t sentencepiece::SentencePieceProcessor::LookupCommonPrefix@<X0>(void **a1@<X0>, void *a2@<X2>, sentencepiece::util::Status *a3@<X8>)
 {
   result = ((*a1)[11])(a1);
-  if (!*a4)
+  if (!*a3)
   {
-    sentencepiece::util::Status::~Status(a4);
-    if (a3)
+    sentencepiece::util::Status::~Status(a3);
+    if (a2)
     {
-      a3[1] = *a3;
-      if (*(a2 + 23) >= 0)
-      {
-        v10 = *(a2 + 23);
-      }
+      a2[1] = *a2;
+      v7 = *(*a1[1] + 224);
 
-      else
-      {
-        v9 = *a2;
-        v10 = a2[1];
-      }
-
-      v11 = *(*a1[1] + 224);
-
-      return v11();
+      return v7();
     }
 
     else
     {
-      v13 = 13;
-      v12 = std::ostringstream::basic_ostringstream[abi:ne200100](&v14);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "(", 1);
-      MEMORY[0x26675B160](&v14, 1045);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, ") [", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "ids", 3);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "] ", 2);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, "output container is null", 24);
-      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v13, a4);
-      v14 = *MEMORY[0x277D82828];
-      *(&v14 + *(v14 - 24)) = *(MEMORY[0x277D82828] + 24);
-      v15 = MEMORY[0x277D82878] + 16;
-      if (v17 < 0)
+      LODWORD(v9) = 13;
+      v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v9);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+      MEMORY[0x26675B160](&v10, 1045);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "ids", 3);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "output container is null", 24);
+      sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a3);
+      v10 = *MEMORY[0x277D82828];
+      *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+      v11 = MEMORY[0x277D82878] + 16;
+      if (v13 < 0)
       {
-        operator delete(v16[7].__locale_);
+        operator delete(v12[7].__locale_);
       }
 
-      v15 = MEMORY[0x277D82868] + 16;
-      std::locale::~locale(v16);
+      v11 = MEMORY[0x277D82868] + 16;
+      std::locale::~locale(v12);
       std::ostream::~ostream();
-      return MEMORY[0x26675B290](&v18);
+      return MEMORY[0x26675B290](&v14);
     }
   }
 
@@ -5434,9 +5281,9 @@ uint64_t sentencepiece::SentencePieceProcessor::Normalize@<X0>(void **a1@<X0>, u
       return v10();
     }
 
-    v12 = 13;
+    LODWORD(v12) = 13;
     v11 = std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "(", 1);
     MEMORY[0x26675B160](&v13, 1062);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ") [", 3);
@@ -5448,9 +5295,9 @@ uint64_t sentencepiece::SentencePieceProcessor::Normalize@<X0>(void **a1@<X0>, u
 
   else
   {
-    v12 = 13;
+    LODWORD(v12) = 13;
     v9 = std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "(", 1);
     MEMORY[0x26675B160](&v13, 1061);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, ") [", 3);
@@ -5506,24 +5353,24 @@ void sentencepiece::SentencePieceProcessor::model_proto(sentencepiece::SentenceP
 {
   v1 = *(this + 4);
   {
-    v8 = 1;
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "sentencepiece_processor.cc", 26);
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "(", 1);
-    v5 = MEMORY[0x26675B160](v4, 1158);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ") [", 3);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(model_proto = dynamic_cast<const ModelProto *>(model_proto_.get()))", 68);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "] ", 2);
-    sentencepiece::error::Die::~Die(&v8);
+    v7 = 1;
+    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82670], "sentencepiece_processor.cc", 26);
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "(", 1);
+    v4 = MEMORY[0x26675B160](v3, 1158);
+    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ") [", 3);
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "(model_proto = dynamic_cast<const ModelProto *>(model_proto_.get()))", 68);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "] ", 2);
+    sentencepiece::error::Die::~Die(&v7);
     __break(1u);
   }
 }
 
-_BYTE *sentencepiece::SentencePieceProcessor::serialized_model_proto@<X0>(sentencepiece::SentencePieceProcessor *this@<X0>, _BYTE *a2@<X8>)
+void *sentencepiece::SentencePieceProcessor::serialized_model_proto@<X0>(sentencepiece::SentencePieceProcessor *this@<X0>, std::string *a2@<X8>)
 {
   v3 = *(this + 4);
   {
 
-    return google::protobuf::MessageLite::SerializeAsString(v5, a2);
+    return google::protobuf::MessageLite::SerializeAsString(a2, v4);
   }
 
   else
@@ -5807,7 +5654,6 @@ void sentencepiece::SentencePieceProcessor::SerializedString(sentencepiece::Sent
   v4 = *(this + 4);
   if (v4)
   {
-    v5 = **v4;
     {
 
       sentencepiece::SentencePieceProcessor::serialized_model_proto(this, a2);
@@ -5827,79 +5673,79 @@ void sentencepiece::SentencePieceProcessor::SerializedString(sentencepiece::Sent
   }
 }
 
-void *sentencepiece::SentencePieceProcessor::LoadFromMemoryMappedFile@<X0>(const char *a1@<X1>, unint64_t a2@<X2>, sentencepiece::util::Status *a3@<X8>)
+void sentencepiece::SentencePieceProcessor::LoadFromMemoryMappedFile(std::locale::__imp *a2@<X1>, unint64_t a3@<X2>, sentencepiece::util::Status *a4@<X8>)
 {
-  v16 = a1;
-  v17 = a2;
-  if (a2 <= 0x13)
+  v15 = a2;
+  v16 = a3;
+  if (a3 <= 0x13)
   {
-    LODWORD(v10) = 13;
-    v7 = std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+    LODWORD(v9) = 13;
+    v7 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "(", 1);
-    MEMORY[0x26675B160](&v11, 1230);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "(size) >= (sizeof(MMapHeader))", 30);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "] ", 2);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v10, a3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+    MEMORY[0x26675B160](&v10, 1230);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(size) >= (sizeof(MMapHeader))", 30);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a4);
   }
 
-  else if (*a1)
+  else if (*a2)
   {
-    LODWORD(v10) = 13;
-    v6 = std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
+    LODWORD(v9) = 13;
+    v6 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "(", 1);
-    MEMORY[0x26675B160](&v11, 1233);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "header->sentinel == 0", 21);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "This file format is not for mmap-based loading.", 47);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v10, a3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+    MEMORY[0x26675B160](&v10, 1233);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "header->sentinel == 0", 21);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "This file format is not for mmap-based loading.", 47);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a4);
   }
 
   else
   {
-    result = sentencepiece::mmap_util::RemovePrefix(&v16, 0x14uLL, a3);
-    if (*a3)
+    sentencepiece::mmap_util::RemovePrefix(&v15, 0x14uLL, a4);
+    if (*a4)
     {
-      return result;
+      return;
     }
 
-    sentencepiece::util::Status::~Status(a3);
-    if (v17 >= *(a1 + 1))
+    sentencepiece::util::Status::~Status(a4);
+    if (v16 >= *(a2 + 1))
     {
       operator new();
     }
 
-    LODWORD(v10) = 13;
-    v9 = std::ostringstream::basic_ostringstream[abi:ne200100](&v11);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "(", 1);
-    MEMORY[0x26675B160](&v11, 1238);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, ") [", 3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "(blob.size()) >= (header->model_proto_size)", 43);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "] ", 2);
-    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v10, a3);
+    LODWORD(v9) = 13;
+    v8 = std::ostringstream::basic_ostringstream[abi:ne200100](&v10);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "/Library/Caches/com.apple.xbs/Sources/SentencePiece/src/sentencepiece_processor.cc", 82);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(", 1);
+    MEMORY[0x26675B160](&v10, 1238);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, ") [", 3);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "(blob.size()) >= (header->model_proto_size)", 43);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v10, "] ", 2);
+    sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&v9, a4);
   }
 
-  v11 = *MEMORY[0x277D82828];
-  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v12 = MEMORY[0x277D82878] + 16;
-  if (v14 < 0)
+  v10 = *MEMORY[0x277D82828];
+  *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v11 = MEMORY[0x277D82878] + 16;
+  if (v13 < 0)
   {
-    operator delete(v13[7].__locale_);
+    operator delete(v12[7].__locale_);
   }
 
-  v12 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v13);
+  v11 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v12);
   std::ostream::~ostream();
-  return MEMORY[0x26675B290](&v15);
+  MEMORY[0x26675B290](&v14);
 }
 
-void sub_26565915C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26565915C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sentencepiece::util::StatusBuilder::~StatusBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -5930,7 +5776,7 @@ void sub_2656593F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sentencepiece::Mmap<char>::open(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void sentencepiece::Mmap<char>::open(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, sentencepiece::util::Status *a4@<X8>)
 {
   sentencepiece::Mmap<char>::close(a1);
   if (!a3)
@@ -5998,7 +5844,7 @@ void sentencepiece::Mmap<char>::open(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@
     }
 
 LABEL_66:
-    std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v13, &v13[v12], 0x22u, 0x5Cu);
+    std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v13, &v13[v12], 34, 92);
     sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&__p, a4);
     __p.__r_.__value_.__l.__size_ = *MEMORY[0x277D82828];
     *(&__p.__r_.__value_.__r.__words[1] + *(__p.__r_.__value_.__l.__size_ - 24)) = *(MEMORY[0x277D82828] + 24);
@@ -6079,7 +5925,7 @@ LABEL_30:
       size = v32.__pn_.__r_.__value_.__l.__size_;
     }
 
-    std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v18, v18 + size, 0x22u, 0x5Cu);
+    std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v18, v18 + size, 34, 92);
     sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&__p, a4);
     __p.__r_.__value_.__l.__size_ = *MEMORY[0x277D82828];
     *(&__p.__r_.__value_.__r.__words[1] + *(__p.__r_.__value_.__l.__size_ - 24)) = *(MEMORY[0x277D82828] + 24);
@@ -6234,7 +6080,7 @@ LABEL_52:
     v24 = *(a2 + 8);
   }
 
-  std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v25, &v25[v24], 0x22u, 0x5Cu);
+  std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(&__p.__r_.__value_.__l.__size_, v25, &v25[v24], 34, 92);
   sentencepiece::util::StatusBuilder::operator sentencepiece::util::Status(&__p, a4);
   __p.__r_.__value_.__l.__size_ = *MEMORY[0x277D82828];
   *(&__p.__r_.__value_.__r.__words[1] + *(__p.__r_.__value_.__l.__size_ - 24)) = *(MEMORY[0x277D82828] + 24);
@@ -6285,23 +6131,23 @@ void sub_265659F5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sentencepiece::io::SaveModelProto@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *sentencepiece::io::SaveModelProto@<X0>(uint64_t a2@<X1>, sentencepiece::util::Status *a4@<X8>)
 {
-  if (a1)
+  if (a2)
   {
     sentencepiece::filesystem::NewWritableFile();
   }
 
-  return sentencepiece::util::Status::Status(a2, 5, "model file path should not be empty.", 36);
+  return sentencepiece::util::Status::Status(a4, 5, "model file path should not be empty.", 0x24uLL);
 }
 
-void sub_26565A278(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_26565A278(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   v17 = *(v15 - 56);
   *(v15 - 56) = 0;
   if (v17)
   {
-    (*(*v17 + 8))(v17);
+    (*(*v17 + 8))(v17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -6316,9 +6162,9 @@ void sentencepiece::SentencePieceProcessor::EncodeAsPieces(uint64_t a1@<X0>, voi
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A34C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6353,9 +6199,9 @@ void sentencepiece::SentencePieceProcessor::NBestEncodeAsPieces(uint64_t a1@<X0>
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A448(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6369,9 +6215,9 @@ void sentencepiece::SentencePieceProcessor::NBestEncodeAsIds(uint64_t a1@<X0>, v
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A4C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A4C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6385,9 +6231,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAsPieces(uint64_t a1@<X0
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A540(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6422,9 +6268,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsPieces(uint64_
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A63C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A63C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6438,9 +6284,9 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsIds(uint64_t a
   sentencepiece::util::Status::~Status(&v2);
 }
 
-void sub_26565A6B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565A6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::pair<std::vector<std::pair<std::string_view,int>>,float>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6510,7 +6356,7 @@ float sentencepiece::SentencePieceProcessor::CalculateEntropy(uint64_t a1)
   return v1;
 }
 
-void sentencepiece::SentencePieceProcessor::EncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void sentencepiece::SentencePieceProcessor::EncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
   v10 = &unk_287703790;
   v12 = 0;
@@ -6518,7 +6364,7 @@ void sentencepiece::SentencePieceProcessor::EncodeAsSerializedProto(sentencepiec
   v11 = sentencepiece::SentencePieceText::default_instance(a1);
   v8 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v10);
   (*(*a1 + 232))(&v9, a1, a2, a3, v8);
-  google::protobuf::MessageLite::SerializeAsString(v11, a4);
+  google::protobuf::MessageLite::SerializeAsString(a4, v11);
   sentencepiece::util::Status::~Status(&v9);
   v10 = &unk_287703790;
   if (v13)
@@ -6527,7 +6373,7 @@ void sentencepiece::SentencePieceProcessor::EncodeAsSerializedProto(sentencepiec
   }
 }
 
-void sub_26565A98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26565A98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6538,7 +6384,7 @@ void sub_26565A98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>, float a6@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>, float a6@<S0>)
 {
   v14 = &unk_287703790;
   v16 = 0;
@@ -6546,7 +6392,7 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(senten
   v15 = sentencepiece::SentencePieceText::default_instance(a1);
   v12 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v14);
   (*(*a1 + 248))(&v13, a1, a2, a3, a4, v12, a6);
-  google::protobuf::MessageLite::SerializeAsString(v15, a5);
+  google::protobuf::MessageLite::SerializeAsString(a5, v15);
   sentencepiece::util::Status::~Status(&v13);
   v14 = &unk_287703790;
   if (v17)
@@ -6555,7 +6401,7 @@ void sentencepiece::SentencePieceProcessor::SampleEncodeAsSerializedProto(senten
   }
 }
 
-void sub_26565AAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26565AAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6566,7 +6412,7 @@ void sub_26565AAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::NBestEncodeAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _BYTE *a5@<X8>)
+void sentencepiece::SentencePieceProcessor::NBestEncodeAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
   v12[1] = 0;
   v13 = 0;
@@ -6593,7 +6439,7 @@ void sub_26565ABAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, _BYTE *a7@<X8>, float a8@<S0>)
+void sentencepiece::SentencePieceProcessor::SampleEncodeAndScoreAsSerializedProto(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, std::string *a7@<X8>, float a8@<S0>)
 {
   v18[1] = 0;
   v19 = 0;
@@ -6620,7 +6466,7 @@ void sub_26565ACE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v8 = &unk_287703790;
   v10 = 0;
@@ -6628,7 +6474,7 @@ void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(senten
   v9 = sentencepiece::SentencePieceText::default_instance(a1);
   v6 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v8);
   (*(*a1 + 264))(&v7, a1, a2, v6);
-  google::protobuf::MessageLite::SerializeAsString(v9, a3);
+  google::protobuf::MessageLite::SerializeAsString(a3, v9);
   sentencepiece::util::Status::~Status(&v7);
   v8 = &unk_287703790;
   if (v11)
@@ -6644,7 +6490,7 @@ void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(senten
   v9 = sentencepiece::SentencePieceText::default_instance(a1);
   v6 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v8);
   (*(*a1 + 272))(&v7, a1, a2, v6);
-  google::protobuf::MessageLite::SerializeAsString(v9, a3);
+  google::protobuf::MessageLite::SerializeAsString(a3, v9);
   sentencepiece::util::Status::~Status(&v7);
   v8 = &unk_287703790;
   if (v11)
@@ -6653,7 +6499,7 @@ void sentencepiece::SentencePieceProcessor::DecodePiecesAsSerializedProto(senten
   }
 }
 
-void sub_26565ADDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26565ADDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6664,7 +6510,7 @@ void sub_26565ADDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_26565AED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26565AED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6675,7 +6521,7 @@ void sub_26565AED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sentencepiece::SentencePieceProcessor::DecodeIdsAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void sentencepiece::SentencePieceProcessor::DecodeIdsAsSerializedProto(sentencepiece::SentencePieceText *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v8 = &unk_287703790;
   v10 = 0;
@@ -6683,7 +6529,7 @@ void sentencepiece::SentencePieceProcessor::DecodeIdsAsSerializedProto(sentencep
   v9 = sentencepiece::SentencePieceText::default_instance(a1);
   v6 = sentencepiece::ImmutableSentencePieceText::mutable_proto(&v8);
   (*(*a1 + 280))(&v7, a1, a2, v6);
-  google::protobuf::MessageLite::SerializeAsString(v9, a3);
+  google::protobuf::MessageLite::SerializeAsString(a3, v9);
   sentencepiece::util::Status::~Status(&v7);
   v8 = &unk_287703790;
   if (v11)
@@ -6692,7 +6538,7 @@ void sentencepiece::SentencePieceProcessor::DecodeIdsAsSerializedProto(sentencep
   }
 }
 
-void sub_26565AFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26565AFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   sentencepiece::util::Status::~Status(&a10);
   if (a14)
@@ -6887,24 +6733,24 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_26565B6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26565B6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26565B7D4(_Unwind_Exception *exception_object)
@@ -6940,9 +6786,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_26565B8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26565B8B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6995,9 +6841,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_26565BB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26565BB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7152,20 +6998,20 @@ void std::vector<std::string_view>::push_back[abi:ne200100](uint64_t a1, _OWORD 
   *(a1 + 8) = v6;
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7175,17 +7021,17 @@ void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<std::string_view>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::string_view>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::string_view>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::string_view>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26565BEFC(_Unwind_Exception *exception_object)
@@ -7200,7 +7046,7 @@ void sub_26565BEFC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7210,7 +7056,7 @@ void std::vector<std::string_view>::__vallocate[abi:ne200100](uint64_t a1, unint
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -7222,36 +7068,36 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
-void absl::StrReplaceAll(void *__src@<X0>, size_t __len@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void absl::StrReplaceAll(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, uint64_t *a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  v7 = *a3;
-  v6 = a3[1];
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  v7 = *a4;
+  v6 = a4[1];
   while (v7 != v6)
   {
-    if (*(a4 + 23) < 0)
+    if (SHIBYTE(a1->__r_.__value_.__r.__words[2]) < 0)
     {
-      **a4 = 0;
-      *(a4 + 8) = 0;
+      *a1->__r_.__value_.__l.__data_ = 0;
+      a1->__r_.__value_.__l.__size_ = 0;
     }
 
     else
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      a1->__r_.__value_.__s.__data_[0] = 0;
+      *(&a1->__r_.__value_.__s + 23) = 0;
     }
 
     if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -7274,8 +7120,8 @@ void absl::StrReplaceAll(void *__src@<X0>, size_t __len@<X1>, uint64_t *a3@<X2>,
       size = __dst.__r_.__value_.__l.__size_;
     }
 
-    absl::StringReplace(p_dst, size, *v7, *(v7 + 8), *(v7 + 16), *(v7 + 24), 1, a4);
-    std::string::operator=(&__dst, a4);
+    absl::StringReplace(p_dst, size, *v7, *(v7 + 8), *(v7 + 16), *(v7 + 24), 1, a1);
+    std::string::operator=(&__dst, a1);
     v7 += 32;
   }
 
@@ -7376,7 +7222,7 @@ LABEL_14:
   return std::string::append(v23, v22, v24);
 }
 
-uint64_t std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<std::string_view,std::string_view>>::__init_with_size[abi:ne200100]<std::pair<std::string_view,std::string_view> const*,std::pair<std::string_view,std::string_view> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7398,7 +7244,7 @@ void sub_26565C290(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<std::string_view,std::string_view>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<std::string_view,std::string_view>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7432,7 +7278,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7470,7 +7316,7 @@ void std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](v
   }
 }
 
-void std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<std::vector<std::string>,float>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -7527,24 +7373,24 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_26565C628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26565C628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::__vallocate[abi:ne200100](result, a2);
+    std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26565C6AC(_Unwind_Exception *exception_object)
@@ -7559,7 +7405,7 @@ void sub_26565C6AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<sentencepiece::ImmutableSentencePieceText_ImmutableSentencePiece>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7596,20 +7442,20 @@ void std::__shared_ptr_emplace<sentencepiece::SentencePieceText>::~__shared_ptr_
   JUMPOUT(0x26675B300);
 }
 
-void *std::vector<sentencepiece::ImmutableSentencePieceText>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<sentencepiece::ImmutableSentencePieceText>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<sentencepiece::ImmutableSentencePieceText>::__vallocate[abi:ne200100](result, a2);
+    std::vector<sentencepiece::ImmutableSentencePieceText>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<sentencepiece::ImmutableSentencePieceText>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<sentencepiece::ImmutableSentencePieceText>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7668,15 +7514,15 @@ void std::vector<sentencepiece::ImmutableSentencePieceText>::__destroy_vector::o
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 32;
-      v7 = v4 - 32;
-      v8 = v4 - 32;
+      v6 = v4 - 4;
+      v7 = v4 - 4;
+      v8 = v4 - 4;
       do
       {
         v9 = *v8;
-        v8 -= 32;
+        v8 -= 4;
         (*v9)(v7);
-        v6 -= 32;
+        v6 -= 4;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -7708,31 +7554,31 @@ void std::__shared_ptr_emplace<sentencepiece::NBestSentencePieceText>::~__shared
   JUMPOUT(0x26675B300);
 }
 
-void absl::StrCat<std::string,char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X2>, char *a4@<X3>, void **a5@<X4>, std::string *a6@<X8>)
+void absl::StrCat<std::string,char [2],std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, void ***a4@<X2>, char *a5@<X3>, void ***a6@<X4>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v10 = *(a3 + 23);
+  v10 = *(a4 + 23);
   if (v10 >= 0)
   {
-    v11 = a3;
+    v11 = a4;
   }
 
   else
   {
-    v11 = *a3;
+    v11 = *a4;
   }
 
   if (v10 >= 0)
   {
-    v12 = *(a3 + 23);
+    v12 = *(a4 + 23);
   }
 
   else
   {
-    v12 = a3[1];
+    v12 = a4[1];
   }
 
-  absl::StrCat<char [2],std::string>(v11, v12, a4, a5, &__p);
+  absl::StrCat<char [2],std::string>(&__p, v11, v12, a5, a6);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -7754,7 +7600,7 @@ void absl::StrCat<std::string,char [2],std::string>(void *__src@<X0>, size_t __l
   }
 
   v15 = std::string::append(&__dst, p_p, size);
-  *a6 = *v15;
+  *a1 = *v15;
   v15->__r_.__value_.__l.__size_ = 0;
   v15->__r_.__value_.__r.__words[2] = 0;
   v15->__r_.__value_.__r.__words[0] = 0;
@@ -7784,11 +7630,11 @@ void sub_26565CCDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::StrCat<char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, char *a3@<X2>, void **a4@<X3>, std::string *a5@<X8>)
+void absl::StrCat<char [2],std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, char *a4@<X2>, void ***a5@<X3>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v8 = strlen(a3);
-  absl::StrCat<std::string>(a3, v8, a4, &__p);
+  v8 = strlen(a4);
+  absl::StrCat<std::string>(&__p, a4, v8, a5);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -7810,7 +7656,7 @@ void absl::StrCat<char [2],std::string>(void *__src@<X0>, size_t __len@<X1>, cha
   }
 
   v11 = std::string::append(&__dst, p_p, size);
-  *a5 = *v11;
+  *a1 = *v11;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
@@ -7840,28 +7686,28 @@ void sub_26565CDD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void absl::StrCat<std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X2>, std::string *a4@<X8>)
+void absl::StrCat<std::string>(std::string *__return_ptr a1@<X8>, void *__src@<X0>, size_t __len@<X1>, void ***a4@<X2>)
 {
   std::string::basic_string[abi:ne200100](&__dst, __src, __len);
-  v6 = *(a3 + 23);
+  v6 = *(a4 + 23);
   if (v6 >= 0)
   {
-    v7 = a3;
+    v7 = a4;
   }
 
   else
   {
-    v7 = *a3;
+    v7 = *a4;
   }
 
   if (v6 >= 0)
   {
-    v8 = *(a3 + 23);
+    v8 = *(a4 + 23);
   }
 
   else
   {
-    v8 = a3[1];
+    v8 = a4[1];
   }
 
   std::string::basic_string[abi:ne200100](__p, v7, v8);
@@ -7886,7 +7732,7 @@ void absl::StrCat<std::string>(void *__src@<X0>, size_t __len@<X1>, void **a3@<X
   }
 
   v11 = std::string::append(&__dst, v9, v10);
-  *a4 = *v11;
+  *a1 = *v11;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
@@ -7916,19 +7762,19 @@ void sub_26565CEBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t **std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string_view const*>>(uint64_t **a1, _OWORD *a2, _OWORD *a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(a1, v4, v6);
-      v6 += 16;
+      std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -7937,15 +7783,15 @@ void *std::set<std::string_view>::set[abi:ne200100]<std::__wrap_iter<std::string
   return a1;
 }
 
-uint64_t std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::string_view>::__emplace_hint_unique_key_args<std::string_view,std::string_view const&>(uint64_t **a1, void *a2, uint64_t a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *std::__tree<std::string_view>::__find_equal<std::string_view>(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t a5)
@@ -8179,7 +8025,7 @@ void std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string 
   *(a1 + 8) = v3 + 24;
 }
 
-uint64_t std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&>(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -8190,21 +8036,21 @@ uint64_t std::vector<std::vector<std::string>>::__construct_one_at_end[abi:ne200
   return result;
 }
 
-uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string>&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::vector<std::string>&>(char **a1, void *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -8228,16 +8074,16 @@ uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::ve
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(24 * v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((24 * v2), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -8246,14 +8092,14 @@ uint64_t std::vector<std::vector<std::string>>::__emplace_back_slow_path<std::ve
   return v8;
 }
 
-void sub_26565D81C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565D81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8367,7 +8213,7 @@ void std::__split_buffer<std::vector<std::string>>::clear[abi:ne200100](uint64_t
   }
 }
 
-uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -8378,21 +8224,21 @@ uint64_t std::vector<std::vector<int>>::__construct_one_at_end[abi:ne200100]<std
   return result;
 }
 
-uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int>&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -8416,16 +8262,16 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -8434,14 +8280,14 @@ uint64_t std::vector<std::vector<int>>::__emplace_back_slow_path<std::vector<int
   return v8;
 }
 
-void sub_26565DC48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565DC48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8528,7 +8374,7 @@ void std::__split_buffer<std::pair<std::vector<std::string>,float>>::clear[abi:n
   }
 }
 
-float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&,float>(uint64_t a1, uint64_t *a2, float *a3)
+float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<std::string>&,float>(uint64_t a1, void *a2, float *a3)
 {
   v5 = *(a1 + 8);
   *v5 = 0;
@@ -8541,16 +8387,16 @@ float std::vector<std::pair<std::vector<std::string>,float>>::__construct_one_at
   return result;
 }
 
-char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slow_path<std::vector<std::string>&,float>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slow_path<std::vector<std::string>&,float>(char **a1, void *a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -8583,14 +8429,14 @@ char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slo
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v10, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -8599,9 +8445,9 @@ char *std::vector<std::pair<std::vector<std::string>,float>>::__emplace_back_slo
   return v11;
 }
 
-void sub_26565DFD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565DFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<std::string>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8648,29 +8494,29 @@ void std::__split_buffer<std::pair<std::vector<int>,float>>::__destruct_at_end[a
   }
 }
 
-float std::vector<std::pair<std::vector<int>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&,float>(uint64_t a1, uint64_t *a2, float *a3)
+float std::vector<std::pair<std::vector<int>,float>>::__construct_one_at_end[abi:ne200100]<std::vector<int>&,float>(uint64_t a1, uint64_t a2, float *a3)
 {
   v5 = *(a1 + 8);
   *v5 = 0;
   *(v5 + 8) = 0;
   *(v5 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   result = *a3;
   *(v5 + 24) = *a3;
   *(a1 + 8) = v5 + 32;
   return result;
 }
 
-char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<std::vector<int>&,float>(uint64_t a1, uint64_t *a2, _DWORD *a3)
+char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<std::vector<int>&,float>(char **a1, uint64_t a2, _DWORD *a3)
 {
-  v3 = (*(a1 + 8) - *a1) >> 5;
+  v3 = (a1[1] - *a1) >> 5;
   v4 = v3 + 1;
   if ((v3 + 1) >> 59)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a1 + 16) - *a1;
+  v8 = a1[2] - *a1;
   if (v8 >> 4 > v4)
   {
     v4 = v8 >> 4;
@@ -8700,17 +8546,17 @@ char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<s
   *v10 = 0;
   *(v10 + 8) = 0;
   *(v10 + 16) = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v10, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(v10 + 24) = *a3;
   v11 = v19 + 32;
-  v12 = *(a1 + 8) - *a1;
+  v12 = a1[1] - *a1;
   v13 = &v18[-v12];
   memcpy(&v18[-v12], *a1, v12);
   v14 = *a1;
   *a1 = v13;
-  *(a1 + 8) = v11;
-  v15 = *(a1 + 16);
-  *(a1 + 16) = v20;
+  a1[1] = v11;
+  v15 = a1[2];
+  a1[2] = v20;
   v19 = v14;
   v20 = v15;
   v17 = v14;
@@ -8719,24 +8565,24 @@ char *std::vector<std::pair<std::vector<int>,float>>::__emplace_back_slow_path<s
   return v11;
 }
 
-void sub_26565E23C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565E23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<std::vector<int>,float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26565E348(_Unwind_Exception *exception_object)
@@ -8751,13 +8597,13 @@ void sub_26565E348(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::discrete_distribution<int>::param_type::param_type[abi:ne200100]<std::__wrap_iter<float *>>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t *std::discrete_distribution<int>::param_type::param_type[abi:ne200100]<std::__wrap_iter<float *>>(uint64_t *a1, float *a2, float *a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(a1, a2, a3, (a3 - a2) >> 2);
-  std::discrete_distribution<int>::param_type::__init(a1);
+  std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(a1, a2, a3, a3 - a2);
+  std::discrete_distribution<int>::param_type::__init(a1, v4);
   return a1;
 }
 
@@ -8773,75 +8619,75 @@ void sub_26565E3A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::discrete_distribution<int>::param_type::__init(uint64_t a1)
+void std::discrete_distribution<int>::param_type::__init(uint64_t a1, __n128 a2)
 {
-  v1 = *a1;
-  v2 = *(a1 + 8);
-  if (*a1 != v2)
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  if (*a1 != v3)
   {
-    v4 = v2 - v1;
-    if (v4 < 2)
+    v5 = v3 - v2;
+    if (v5 < 2)
     {
-      *(a1 + 8) = v1;
+      *(a1 + 8) = v2;
 
       std::vector<double>::shrink_to_fit(a1);
     }
 
     else
     {
-      v5 = 0.0;
-      v6 = *a1;
+      v6 = 0.0;
+      v7 = *a1;
       do
       {
-        v7 = *v6++;
-        v5 = v5 + v7;
+        v8 = *v7++;
+        v6 = v6 + v8;
       }
 
-      while (v6 != v2);
-      while (v1 < v2)
+      while (v7 != v3);
+      while (v2 < v3)
       {
-        *v1 = *v1 / v5;
-        ++v1;
+        *v2 = *v2 / v6;
+        ++v2;
       }
 
-      std::vector<double>::vector[abi:ne200100](&v16, v4 - 1);
-      v8 = *a1;
-      v9 = *(a1 + 8) - 8;
-      v10 = v16;
-      if (v9 != *a1)
+      std::vector<double>::vector[abi:ne200100](&v17, v5 - 1);
+      v9 = *a1;
+      v10 = *(a1 + 8) - 8;
+      v11 = v17;
+      if (v10 != *a1)
       {
-        v11 = v8 + 1;
-        v12 = *v8;
-        *v16 = *v8;
-        if (v8 + 1 != v9)
+        v12 = v9 + 1;
+        v13 = *v9;
+        *v17 = *v9;
+        if (v9 + 1 != v10)
         {
-          v13 = v10 + 1;
+          v14 = v11 + 1;
           do
           {
-            v14 = *v11++;
-            v12 = v12 + v14;
-            *v13++ = v12;
+            v15 = *v12++;
+            v13 = v13 + v15;
+            *v14++ = v13;
           }
 
-          while (v11 != v9);
+          while (v12 != v10);
         }
       }
 
-      *a1 = v10;
-      v15 = *(a1 + 16);
-      *(a1 + 8) = v17;
-      v16 = v8;
-      *(&v17 + 1) = v15;
-      if (v8)
+      *a1 = v11;
+      v16 = *(a1 + 16);
+      *(a1 + 8) = v18;
+      v17 = v9;
+      *(&v18 + 1) = v16;
+      if (v9)
       {
-        *&v17 = v8;
-        operator delete(v8);
+        *&v18 = v9;
+        operator delete(v9);
       }
     }
   }
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *result, float *a2, float *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8863,7 +8709,7 @@ void sub_26565E528(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8891,7 +8737,7 @@ void std::vector<double>::shrink_to_fit(const void **a1)
     {
       v7 = 8 * (v4 >> 3);
       v8 = a1[1] - v2;
-      v9 = v7 - v8;
+      v9 = (v7 - v8);
       memcpy((v7 - v8), v2, v8);
       v6 = *a1;
       *a1 = v9;
@@ -8907,29 +8753,17 @@ void std::vector<double>::shrink_to_fit(const void **a1)
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_26565E6B0(_Unwind_Exception *exception_object)
@@ -9000,45 +8834,45 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-uint64_t absl::StrCat(absl *this)
+uint64_t *absl::StrCat(absl *this)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v3);
-  MEMORY[0x26675B160](&v3, this);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v4);
+  MEMORY[0x26675B160](&v4, this);
   std::stringbuf::str();
-  v3 = *MEMORY[0x277D82828];
-  *(&v3 + *(v3 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v4 = MEMORY[0x277D82878] + 16;
-  if (v6 < 0)
+  v4 = *MEMORY[0x277D82828];
+  *(&v4 + *(v4 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v5 = MEMORY[0x277D82878] + 16;
+  if (v7 < 0)
   {
-    operator delete(v5[7].__locale_);
+    operator delete(v6[7].__locale_);
   }
 
-  v4 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v5);
+  v5 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v6);
   std::ostream::~ostream();
-  return MEMORY[0x26675B290](&v7);
+  return MEMORY[0x26675B290](&v8);
 }
 
-void sub_26565E96C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26565E96C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x26675B290](v2 + 112);
+  MEMORY[0x26675B290](v3 + 112);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](void *a1, uint64_t a2, uint64_t a3)
+uint64_t **std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>::map[abi:ne200100](uint64_t **a1, uint64_t a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 24 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(a1, v4, a2, a2);
       a2 += 24;
       v6 -= 24;
     }
@@ -9049,15 +8883,15 @@ void *std::map<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOpti
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(void *a1, void *a2, uint64_t a3)
+uint64_t std::__tree<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::__map_value_compare<std::string_view,std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>,std::less<std::string_view>,true>,std::allocator<std::__value_type<std::string_view,sentencepiece::SentencePieceProcessor::ExtraOption>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,sentencepiece::SentencePieceProcessor::ExtraOption> const&>(uint64_t **a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::string_view>::__find_equal<std::string_view>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 void sentencepiece::Mmap<char>::~Mmap(void *a1)
@@ -9145,7 +8979,7 @@ double std::__fs::filesystem::path::filename[abi:ne200100]@<D0>(const std::__fs:
   return result;
 }
 
-void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, _BYTE *a2, _BYTE *a3, unsigned __int8 __c, unsigned __int8 a5)
+void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, _BYTE *a2, _BYTE *a3, std::string::value_type __c, std::string::value_type a5)
 {
   memset(&v15, 0, sizeof(v15));
   std::string::push_back(&v15, __c);
@@ -9175,15 +9009,15 @@ void *std::__quoted_output[abi:ne200100]<char,std::char_traits<char>>(void *a1, 
 
   if ((v15.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v15.__r_.__value_.__r.__words[2]);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, HIBYTE(v15.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    size = v15.__r_.__value_.__l.__size_;
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, v15.__r_.__value_.__l.__size_);
   }
 
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v11, size);
+  v13 = v12;
   if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v15.__r_.__value_.__l.__data_);
@@ -9336,7 +9170,7 @@ void sub_26565EFD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9349,14 +9183,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -9400,14 +9234,14 @@ void sentencepiece::unigram::Lattice::~Lattice(sentencepiece::unigram::Lattice *
   JUMPOUT(0x26675B300);
 }
 
-uint64_t sentencepiece::unigram::Lattice::NewNode(sentencepiece::unigram::Lattice *this)
+unint64_t sentencepiece::unigram::Lattice::NewNode(sentencepiece::unigram::Lattice *this)
 {
   result = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(this + 12);
   *(result + 24) = *(this + 32) + *(this + 34) * *(this + 36) - 1;
   return result;
 }
 
-uint64_t sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(void *a1)
+unint64_t sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(void *a1)
 {
   v2 = a1[5];
   v3 = a1[6];
@@ -9514,9 +9348,9 @@ void sentencepiece::unigram::Lattice::SetSentence(uint64_t a1, unsigned __int8 *
   v10 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate((a1 + 96));
   v11 = *(a1 + 128) + *(a1 + 136) * *(a1 + 144) - 1;
   v15 = v10;
-  v10[6] = v11;
-  v10[7] = -1;
-  v10[4] = 0;
+  *(v10 + 6) = v11;
+  *(v10 + 7) = -1;
+  *(v10 + 4) = 0;
   std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne200100](*(a1 + 72), &v15);
   v12 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate((a1 + 96));
   v13 = *(a1 + 128) + *(a1 + 136) * *(a1 + 144) - 1;
@@ -9625,20 +9459,17 @@ void std::vector<std::vector<sentencepiece::unigram::Lattice::Node *>>::resize(v
   }
 }
 
-void *std::vector<sentencepiece::unigram::Lattice::Node *>::reserve(void *result, unint64_t a2)
+void std::vector<sentencepiece::unigram::Lattice::Node *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long Darts::DoubleArrayImpl<void,void,int,void>::predictiveSearch<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>(char const*,Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type *,unsigned long,unsigned long,int)::State *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long Darts::DoubleArrayImpl<void,void,int,void>::predictiveSearch<Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type>(char const*,Darts::DoubleArrayImpl<void,void,int,void>::result_pair_type *,unsigned long,unsigned long,int)::State *>>(a1, a2);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -9700,7 +9531,7 @@ void std::vector<sentencepiece::unigram::Lattice::Node *>::push_back[abi:ne20010
   *(a1 + 8) = v6;
 }
 
-uint64_t sentencepiece::unigram::Lattice::Insert(sentencepiece::unigram::Lattice *this, int a2, int a3)
+unint64_t sentencepiece::unigram::Lattice::Insert(sentencepiece::unigram::Lattice *this, int a2, int a3)
 {
   v6 = sentencepiece::model::FreeList<sentencepiece::unigram::Lattice::Node>::Allocate(this + 12);
   v7 = *(this + 32) + *(this + 34) * *(this + 36) - 1;
@@ -9864,33 +9695,112 @@ void sub_26565FBB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void sentencepiece::unigram::Lattice::ForwardAlgorithm(sentencepiece::unigram::Lattice *this@<X0>, float a2@<S0>, uint64_t *a3@<X8>)
 {
   v5 = ((*(this + 4) - *(this + 3)) >> 3) - 1;
-  std::vector<float>::vector[abi:ne200100](a3, *(this + 16) + *(this + 17) * *(this + 18));
-  v6 = 0;
-  v25 = *(this + 6);
-  v23 = this;
-  v24 = (v5 & ~(v5 >> 31)) + 1;
+  v6 = *(this + 16) + *(this + 17) * *(this + 18);
+  v27 = 0;
+  std::vector<float>::vector[abi:ne200100](a3, v6, &v27);
+  v7 = 0;
+  v26 = *(this + 6);
+  v24 = this;
+  v25 = (v5 & ~(v5 >> 31)) + 1;
   do
   {
-    v7 = (v25 + 24 * v6);
+    v8 = (v26 + 24 * v7);
+    v9 = *v8;
+    v10 = v8[1];
+    if (*v8 != v10)
+    {
+      v11 = *(v24 + 9) + 24 * v7;
+      v13 = *v11;
+      v12 = *(v11 + 8);
+      v14 = *a3;
+      do
+      {
+        if (v13 != v12)
+        {
+          v15 = *(*v9 + 24);
+          v16 = *v13;
+          v17 = *(v14 + 4 * v15);
+          v18 = v13;
+          do
+          {
+            v19 = *(v14 + 4 * *(*v18 + 24)) + (a2 * *(*v18 + 32));
+            if (*v18 != v16)
+            {
+              if (v19 >= v17)
+              {
+                v20 = v17;
+              }
+
+              else
+              {
+                v20 = *(v14 + 4 * *(*v18 + 24)) + (a2 * *(*v18 + 32));
+              }
+
+              if (v17 >= v19)
+              {
+                v19 = v17;
+              }
+
+              if (v19 <= (v20 + 50.0))
+              {
+                v21 = v19;
+                v22 = exp((v20 - v19));
+                v19 = log(v22 + 1.0) + v21;
+              }
+            }
+
+            *(v14 + 4 * v15) = v19;
+            ++v18;
+            v17 = v19;
+          }
+
+          while (v18 != v12);
+        }
+
+        v9 += 8;
+      }
+
+      while (v9 != v10);
+    }
+
+    ++v7;
+  }
+
+  while (v7 != v25);
+}
+
+void sentencepiece::unigram::Lattice::BackwardAlgorithm(sentencepiece::unigram::Lattice *this@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = ((*(this + 4) - *(this + 3)) >> 3) - 1;
+  v5 = v4 & ~(v4 >> 31);
+  v6 = *(this + 16) + *(this + 17) * *(this + 18);
+  v26 = 0;
+  v23 = a2;
+  std::vector<float>::vector[abi:ne200100](a2, v6, &v26);
+  v24 = this;
+  v25 = *(this + 9);
+  do
+  {
+    v7 = (v25 + 24 * v5);
     v8 = *v7;
     v9 = v7[1];
     if (*v7 != v9)
     {
-      v10 = *(v23 + 9) + 24 * v6;
-      v12 = *v10;
-      v11 = *(v10 + 8);
-      v13 = *a3;
+      v10 = *(v24 + 6) + 24 * v5;
+      v11 = *v10;
+      v12 = *(v10 + 8);
+      v13 = *v23;
       do
       {
-        if (v12 != v11)
+        if (v11 != v12)
         {
           v14 = *(*v8 + 24);
-          v15 = *v12;
+          v15 = *v11;
           v16 = *(v13 + 4 * v14);
-          v17 = v12;
+          v17 = v11;
           do
           {
-            v18 = *(v13 + 4 * *(*v17 + 24)) + (a2 * *(*v17 + 32));
+            v18 = *(*v17 + 32) + *(v13 + 4 * *(*v17 + 24));
             if (*v17 != v15)
             {
               if (v18 >= v16)
@@ -9900,7 +9810,7 @@ void sentencepiece::unigram::Lattice::ForwardAlgorithm(sentencepiece::unigram::L
 
               else
               {
-                v19 = *(v13 + 4 * *(*v17 + 24)) + (a2 * *(*v17 + 32));
+                v19 = *(*v17 + 32) + *(v13 + 4 * *(*v17 + 24));
               }
 
               if (v16 >= v18)
@@ -9921,7 +9831,7 @@ void sentencepiece::unigram::Lattice::ForwardAlgorithm(sentencepiece::unigram::L
             v16 = v18;
           }
 
-          while (v17 != v11);
+          while (v17 != v12);
         }
 
         v8 += 8;
@@ -9929,9 +9839,61 @@ void sentencepiece::unigram::Lattice::ForwardAlgorithm(sentencepiece::unigram::L
 
       while (v8 != v9);
     }
-
-    ++v6;
   }
 
-  while (v6 != v24);
+  while (v5-- > 0);
+}
+
+void sentencepiece::unigram::Lattice::PopulateMarginal(sentencepiece::unigram::Lattice *a1, void *a2, float a3)
+{
+  if (a2)
+  {
+    v7 = *(a1 + 3);
+    v6 = *(a1 + 4);
+    sentencepiece::unigram::Lattice::ForwardAlgorithm(a1, 1.0, v20);
+    sentencepiece::unigram::Lattice::BackwardAlgorithm(a1, __p);
+    v8 = ((v6 - v7) >> 3) - 1;
+    v9 = *(a1 + 6);
+    v10 = v20[0];
+    v11 = *(v20[0] + *(**(v9 + 24 * (v8 & ~(v8 >> 31))) + 24));
+    if (v8 >= 1)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        v13 = (v9 + 24 * i);
+        v14 = *v13;
+        v15 = v13[1];
+        if (*v13 != v15)
+        {
+          v16 = __p[0];
+          do
+          {
+            v17 = *(*v14 + 28);
+            if ((v17 & 0x80000000) == 0)
+            {
+              v18 = *(*a2 + 4 * v17) + a3 * exp((((v10[*(*v14 + 24)] + *(*v14 + 32)) + v16[*(*v14 + 24)]) - v11));
+              *(*a2 + 4 * v17) = v18;
+            }
+
+            v14 += 8;
+          }
+
+          while (v14 != v15);
+        }
+      }
+    }
+
+    if (__p[0])
+    {
+      __p[1] = __p[0];
+      operator delete(__p[0]);
+      v10 = v20[0];
+    }
+
+    if (v10)
+    {
+      v20[1] = v10;
+      operator delete(v10);
+    }
+  }
 }

@@ -56,7 +56,7 @@
 
 - (void)provideBoardItemWithFactory:(_TtC8Freeform19CRLBoardItemFactory *)factory completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

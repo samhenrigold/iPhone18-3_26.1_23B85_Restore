@@ -29,25 +29,24 @@
 - (void)fetchCachedShiftFunctionResponseForLocation:(id)location callbackQueue:(id)queue completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v9 = GeoServicesConfig_LocationShiftFunctionRadius[1];
   queueCopy = queue;
   locationCopy = location;
   GEOConfigGetDouble();
-  v13 = v12;
+  v12 = v11;
   [(_GEOLocationShifterLocalProxy *)self pruneDiskCache];
   persistentCache = [(_GEOLocationShifterLocalProxy *)self persistentCache];
   [locationCopy coordinate];
-  v16 = v15;
-  v18 = v17;
+  v15 = v14;
+  v17 = v16;
 
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100023918;
-  v20[3] = &unk_100082230;
-  v20[4] = self;
-  v21 = handlerCopy;
-  v19 = handlerCopy;
-  [persistentCache findShiftResponseForCoordinate:queueCopy reduceRadius:v20 queue:v16 completion:{v18, v13}];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100023918;
+  v19[3] = &unk_100082230;
+  v19[4] = self;
+  v20 = handlerCopy;
+  v18 = handlerCopy;
+  [persistentCache findShiftResponseForCoordinate:queueCopy reduceRadius:v19 queue:v15 completion:{v17, v12}];
 }
 
 - (void)fetchRawShiftFunctionResponseForRequest:(id)request auditToken:(id)token callbackQueue:(id)queue completionHandler:(id)handler
@@ -61,20 +60,9 @@
     v14 = [[GEOPolyLocationShiftRequest alloc] initWithData:requestCopy];
 
     location = [v14 location];
-    if (!location)
+    if (location && ((v16 = location, [v14 location], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "coordinate"), v19 = v18, v21 = fabs(v20 + 180.0), v17, v16, v21 >= 0.00000001) || fabs(v19 + 180.0) >= 0.00000001))
     {
-      goto LABEL_5;
-    }
-
-    v16 = location;
-    location2 = [v14 location];
-    [location2 coordinate];
-    v19 = v18;
-    v21 = fabs(v20 + 180.0);
-
-    if (v21 >= 0.00000001 || fabs(v19 + 180.0) >= 0.00000001)
-    {
-      location3 = [v14 location];
+      location2 = [v14 location];
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
       v24[2] = sub_100023C80;
@@ -82,12 +70,11 @@
       v22 = &v25;
       v25 = queueCopy;
       v26 = handlerCopy;
-      [(_GEOLocationShifterLocalProxy *)self _shiftLatLng:location3 auditToken:tokenCopy usePersistentCache:1 completionHandler:v24];
+      [(_GEOLocationShifterLocalProxy *)self _shiftLatLng:location2 auditToken:tokenCopy usePersistentCache:1 completionHandler:v24];
     }
 
     else
     {
-LABEL_5:
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100023C14;
@@ -184,34 +171,33 @@ LABEL_5:
   v13 = +[GEOMapService sharedService];
   defaultTraits = [v13 defaultTraits];
 
-  v15 = GeoServicesConfig_LocationShiftFunctionRadius[1];
   GEOConfigGetDouble();
-  v17 = v16;
+  v16 = v15;
   if (cacheCopy)
   {
     [(_GEOLocationShifterLocalProxy *)self pruneDiskCache];
     persistentCache = [(_GEOLocationShifterLocalProxy *)self persistentCache];
     [lngCopy coordinate];
-    v20 = v19;
-    v22 = v21;
+    v19 = v18;
+    v21 = v20;
     queue = self->_queue;
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100024484;
-    v24[3] = &unk_1000821B8;
-    v24[4] = self;
-    v28 = handlerCopy;
-    v25 = lngCopy;
-    v29 = v17;
-    v26 = defaultTraits;
-    v27 = tokenCopy;
-    v30 = 1;
-    [persistentCache findShiftResponseForCoordinate:queue reduceRadius:v24 queue:v20 completion:{v22, v17}];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100024484;
+    v23[3] = &unk_1000821B8;
+    v23[4] = self;
+    v27 = handlerCopy;
+    v24 = lngCopy;
+    v28 = v16;
+    v25 = defaultTraits;
+    v26 = tokenCopy;
+    v29 = 1;
+    [persistentCache findShiftResponseForCoordinate:queue reduceRadius:v23 queue:v19 completion:{v21, v16}];
   }
 
   else
   {
-    [(_GEOLocationShifterLocalProxy *)self _doNetworkRequestForLatLng:lngCopy reduceRadius:defaultTraits traits:tokenCopy auditToken:0 shouldCache:handlerCopy completionHandler:v16];
+    [(_GEOLocationShifterLocalProxy *)self _doNetworkRequestForLatLng:lngCopy reduceRadius:defaultTraits traits:tokenCopy auditToken:0 shouldCache:handlerCopy completionHandler:v15];
   }
 }
 
@@ -250,25 +236,24 @@ LABEL_5:
 
     if ([locationShiftEnabledRegions count])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v8 = locationShiftEnabledRegions;
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
-        v10 = *v15;
+        v10 = *v14;
         while (2)
         {
-          for (i = 0; i != v9; i = i + 1)
+          for (i = 0; i != v9; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            v12 = *(*(&v14 + 1) + 8 * i);
             GEOMapRectForMapRegion();
             if (GEOMapRectIntersectsRect())
             {
@@ -277,7 +262,7 @@ LABEL_5:
             }
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v9)
           {
             continue;

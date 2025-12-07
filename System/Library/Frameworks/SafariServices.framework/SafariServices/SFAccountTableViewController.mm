@@ -6,6 +6,7 @@
 void __80___SFAccountTableViewController__shareSavedAccount_modalPresentationSourceView___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v8 = v6;
   if (a2)
   {
     [*(a1 + 32) _shareSavedAccount:*(a1 + 40) authenticationContext:*(a1 + 48) modalPresentationSourceView:*(a1 + 56)];
@@ -13,15 +14,15 @@ void __80___SFAccountTableViewController__shareSavedAccount_modalPresentationSou
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __80___SFAccountTableViewController__shareSavedAccount_modalPresentationSourceView___block_invoke_cold_1(v7, v6);
+      __80___SFAccountTableViewController__shareSavedAccount_modalPresentationSourceView___block_invoke_cold_1(v9, v8);
     }
 
     *(*(a1 + 32) + 1056) = 0;
-    v8 = [MEMORY[0x1E696AD88] defaultCenter];
-    [v8 postNotificationName:@"_SFShowAccountManagerLockedViewIfNeededNotification" object:0];
+    v10 = [MEMORY[0x1E696AD88] defaultCenter];
+    [v10 postNotificationName:@"_SFShowAccountManagerLockedViewIfNeededNotification" object:0];
   }
 }
 

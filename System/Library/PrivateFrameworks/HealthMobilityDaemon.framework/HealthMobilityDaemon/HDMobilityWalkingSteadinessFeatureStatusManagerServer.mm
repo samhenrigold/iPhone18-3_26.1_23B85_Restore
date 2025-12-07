@@ -15,6 +15,7 @@
 - (void)remote_notificationStatusWithCompletion:(id)completion;
 - (void)remote_onboardingStatusWithCompletion:(id)completion;
 - (void)remote_resetOnboardingWithCompletion:(id)completion;
+- (void)remote_setNotificationsEnabled:(BOOL)enabled withCompletion:(id)completion;
 - (void)remote_startObservingChangesWithCompletion:(id)completion;
 @end
 
@@ -122,16 +123,94 @@
   return v5;
 }
 
+- (void)remote_setNotificationsEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  v33 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v7 = objc_opt_class();
+  client = [(HDStandardTaskServer *)self client];
+  entitlements = [client entitlements];
+  v28 = 0;
+  v10 = [v7 _hasWriteEntitlement:entitlements withError:&v28];
+  v11 = v28;
+
+  if (v10)
+  {
+    [(NSUserDefaults *)self->_mobilitySettingsDefaults setBool:enabledCopy forKey:@"EnableWalkingSteadinessNotifications"];
+    client2 = [(HDStandardTaskServer *)self client];
+    profile = [client2 profile];
+    featureSettingsManager = [profile featureSettingsManager];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v16 = *MEMORY[0x277CCC120];
+    v17 = *MEMORY[0x277CCC110];
+    v27 = v11;
+    v18 = [featureSettingsManager setFeatureSettingsNumber:v15 forKey:v16 featureIdentifier:v17 suppressNotificationsToObserver:0 error:&v27];
+    v19 = v27;
+
+    _HKInitializeLogging();
+    v20 = *MEMORY[0x277CCC2F8];
+    v21 = os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT);
+    if (v18)
+    {
+      if (v21)
+      {
+        *buf = 138543362;
+        selfCopy = self;
+        _os_log_impl(&dword_251962000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notification defaults written", buf, 0xCu);
+      }
+
+      completionCopy[2](completionCopy, 1, 0);
+    }
+
+    else
+    {
+      if (v21)
+      {
+        v25 = v20;
+        v26 = objc_opt_class();
+        *buf = 138543618;
+        selfCopy = v26;
+        v31 = 2114;
+        v32 = v19;
+        _os_log_impl(&dword_251962000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Failed to set feature setting with error: %{public}@", buf, 0x16u);
+      }
+
+      (completionCopy)[2](completionCopy, 0, v19);
+    }
+
+    v11 = v19;
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v22 = *MEMORY[0x277CCC2F8];
+    if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = v22;
+      v24 = objc_opt_class();
+      *buf = 138543618;
+      selfCopy = v24;
+      v31 = 2114;
+      v32 = v11;
+      _os_log_impl(&dword_251962000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unauthorized call to set notifications enabled with error: %{public}@", buf, 0x16u);
+    }
+
+    (completionCopy)[2](completionCopy, 0, v11);
+  }
+}
+
 - (void)remote_resetOnboardingWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = objc_opt_class();
   client = [(HDStandardTaskServer *)self client];
   entitlements = [client entitlements];
-  v21 = 0;
-  v8 = [v5 _hasWriteEntitlement:entitlements withError:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [v5 _hasWriteEntitlement:entitlements withError:&v20];
+  v9 = v20;
 
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC2F8];
@@ -143,19 +222,19 @@
       v12 = v10;
       v13 = objc_opt_class();
       *buf = 138543362;
-      v23 = v13;
+      v22 = v13;
       v14 = v13;
       _os_log_impl(&dword_251962000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Resetting onboarding", buf, 0xCu);
     }
 
     classificationsFeatureAvailabilityExtension = self->_classificationsFeatureAvailabilityExtension;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke;
-    v19[3] = &unk_2796D9528;
-    v19[4] = self;
-    v20 = completionCopy;
-    [(HDFeatureAvailabilityExtension *)classificationsFeatureAvailabilityExtension resetOnboardingWithCompletion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke;
+    v18[3] = &unk_2796D9528;
+    v18[4] = self;
+    v19 = completionCopy;
+    [(HDFeatureAvailabilityExtension *)classificationsFeatureAvailabilityExtension resetOnboardingWithCompletion:v18];
   }
 
   else
@@ -165,14 +244,12 @@
       v16 = v10;
       v17 = objc_opt_class();
       *buf = 138543362;
-      v23 = v17;
+      v22 = v17;
       _os_log_impl(&dword_251962000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unauthorized call to reset onboarding", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -207,7 +284,7 @@ void __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnb
 
 - (void)remote_startObservingChangesWithCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (self->_observing)
   {
@@ -225,16 +302,14 @@ void __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnb
     v5 = *MEMORY[0x277CCC2F8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138543362;
+      v6 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation of changes", &v7, 0xCu);
+      _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting observation of changes", &v6, 0xCu);
     }
 
     [(HKFeatureStatusProviding *)self->_featureStatusProvider registerObserver:self queue:self->_queue];
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getOnboardingStatusWithError:(id *)error
@@ -282,12 +357,12 @@ LABEL_12:
 
 - (id)_determineOnboardingStatusWithFeatureStatus:(id)status
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   statusCopy = status;
-  v28 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277D11A30]];
+  v27 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277D11A30]];
   v5 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CCBE38]];
   v6 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277D11A38]];
-  v26 = v6;
+  v25 = v6;
   if ([v6 isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBF98]])
   {
     v7 = v5;
@@ -399,9 +474,7 @@ LABEL_27:
   v20 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CCBE50]];
   v21 = objc_alloc(MEMORY[0x277D11AD0]);
   areAllRequirementsSatisfied = [v20 areAllRequirementsSatisfied];
-  v23 = [v21 initWithState:v11 unavailableReasons:v10 dateOnboarded:earliestDateOfAnyOnboardingCompletion shouldOnboardingTileBeAdvertised:areAllRequirementsSatisfied isLocaleValidOnLocalDevice:objc_msgSend(v20 isClassificationAvailable:{"isRequirementSatisfiedWithIdentifier:", *MEMORY[0x277CCBF08]), objc_msgSend(v28, "areAllRequirementsSatisfied")}];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = [v21 initWithState:v11 unavailableReasons:v10 dateOnboarded:earliestDateOfAnyOnboardingCompletion shouldOnboardingTileBeAdvertised:areAllRequirementsSatisfied isLocaleValidOnLocalDevice:objc_msgSend(v20 isClassificationAvailable:{"isRequirementSatisfiedWithIdentifier:", *MEMORY[0x277CCBF08]), objc_msgSend(v27, "areAllRequirementsSatisfied")}];
 
   return v23;
 }
@@ -451,7 +524,7 @@ LABEL_12:
 
 - (id)_determineNotificationStatusWithFeatureStatus:(id)status
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
@@ -489,11 +562,11 @@ LABEL_12:
 
   else
   {
-    v42 = v9;
+    v41 = v9;
     selfCopy2 = self;
     unsatisfiedRequirementIdentifiers = [v8 unsatisfiedRequirementIdentifiers];
-    v43 = *MEMORY[0x277CCBF38];
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+    v42 = *MEMORY[0x277CCBF38];
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
     v24 = [unsatisfiedRequirementIdentifiers isEqualToArray:v23];
 
     if (v24)
@@ -508,7 +581,7 @@ LABEL_12:
       }
 
       v7 = [objc_alloc(MEMORY[0x277D11AC8]) initWithState:2 unavailableReasons:0 fitnessTrackingEnabled:v10 healthNotificationsDisabled:v12 ^ 1u];
-      v9 = v42;
+      v9 = v41;
       goto LABEL_46;
     }
 
@@ -537,7 +610,7 @@ LABEL_12:
       v27 = 1;
     }
 
-    v9 = v42;
+    v9 = v41;
     if (([v8 isRequirementSatisfiedWithIdentifier:*MEMORY[0x277CCBEE0]] & 1) == 0)
     {
       _HKInitializeLogging();
@@ -636,7 +709,7 @@ LABEL_12:
       v27 |= 0x20uLL;
     }
 
-    v39 = [v42 isRequirementSatisfiedWithIdentifier:v11];
+    v39 = [v41 isRequirementSatisfiedWithIdentifier:v11];
     v16 = objc_alloc(MEMORY[0x277D11AC8]);
     v17 = v39 ^ 1u;
     v18 = 0;
@@ -648,14 +721,13 @@ LABEL_12:
 LABEL_46:
 
 LABEL_47:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)_stopObservingChangesAndExpectToBeObserving:(BOOL)observing
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_observing)
   {
     [(HKFeatureStatusProviding *)self->_featureStatusProvider unregisterObserver:self];
@@ -664,9 +736,9 @@ LABEL_47:
     v4 = *MEMORY[0x277CCC2F8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
+      v5 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_251962000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation of changes", &v6, 0xCu);
+      _os_log_impl(&dword_251962000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Stopping observation of changes", &v5, 0xCu);
     }
   }
 
@@ -678,8 +750,6 @@ LABEL_47:
       [HDMobilityWalkingSteadinessFeatureStatusManagerServer _stopObservingChangesAndExpectToBeObserving:];
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
@@ -758,49 +828,35 @@ LABEL_47:
   return v11;
 }
 
-- (void)remote_fitnessTrackingEnabledWithCompletion:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_251962000, v0, v1, "[%{public}@] Error when retrieving feature status: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __94__HDMobilityWalkingSteadinessFeatureStatusManagerServer_remote_resetOnboardingWithCompletion___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = a2;
   objc_opt_class();
   OUTLINED_FUNCTION_0_1();
-  v8 = a3;
-  _os_log_error_impl(&dword_251962000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Error resetting onboarding: %{public}@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = a3;
+  _os_log_error_impl(&dword_251962000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error resetting onboarding: %{public}@", v5, 0x16u);
 }
 
 - (void)remote_startObservingChangesWithCompletion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_251962000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to start observation of changes but we already started.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251962000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to start observation of changes but we already started.", v1, 0xCu);
 }
 
 - (void)_getOnboardingStatusWithError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_251962000, v0, OS_LOG_TYPE_FAULT, "[%{public}@] Nil feature status given without error", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_251962000, v0, OS_LOG_TYPE_FAULT, "[%{public}@] Nil feature status given without error", v1, 0xCu);
 }
 
 - (void)_stopObservingChangesAndExpectToBeObserving:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_251962000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to stop observation of changes but we are not observing.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251962000, v0, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to stop observation of changes but we are not observing.", v1, 0xCu);
 }
 
 @end

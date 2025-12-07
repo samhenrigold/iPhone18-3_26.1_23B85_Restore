@@ -11,9 +11,9 @@
     +[NSRegularExpression(SubjectParser) ec_regularExpressionForList];
   }
 
-  v1 = ec_regularExpressionForList_listRegex;
+  v2 = ec_regularExpressionForList_listRegex;
 
-  return v1;
+  return v2;
 }
 
 @end

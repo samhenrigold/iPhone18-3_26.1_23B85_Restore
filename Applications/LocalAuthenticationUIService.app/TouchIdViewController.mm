@@ -10,8 +10,11 @@
 - (void)_setupUI;
 - (void)didReceiveAuthenticationData;
 - (void)dismissChildWithCompletionHandler:(id)handler;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)loadView;
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 @end
 
 @implementation TouchIdViewController
@@ -31,10 +34,51 @@
   [(TouchIdViewController *)self _setupUI];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = TouchIdViewController;
+  [(TransitionViewController *)&v7 viewDidAppear:appear];
+  if (!self->_state)
+  {
+    self->_state = 1;
+    objc_initWeak(&location, self);
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = __39__TouchIdViewController_viewDidAppear___block_invoke;
+    v4[3] = &unk_1000AA370;
+    objc_copyWeak(&v5, &location);
+    dispatch_async(&_dispatch_main_q, v4);
+    objc_destroyWeak(&v5);
+    objc_destroyWeak(&location);
+  }
+}
+
 void __39__TouchIdViewController_viewDidAppear___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _presentUI:0];
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = TouchIdViewController;
+  [(TouchIdViewController *)&v10 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  viewModel = self->_viewModel;
+  options = [(TransitionViewController *)self options];
+  v7 = [(TouchIdViewModel *)viewModel alertTintFromOptions:options];
+  view = [(TouchIdViewController *)self view];
+  window = [view window];
+  [window setTintColor:v7];
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  v5.receiver = self;
+  v5.super_class = TouchIdViewController;
+  [(TouchIdViewController *)&v5 dismissViewControllerAnimated:animated completion:completion];
+  self->_state = 6;
 }
 
 - (void)_setupUI
@@ -305,34 +349,33 @@ void __54__TouchIdViewController__setupAlertControllerActions___block_invoke_19(
 
 id __47__TouchIdViewController__handleBiometryNoMatch__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if (v2[26] == 3)
+  v1 = *(a1 + 32);
+  if (v1[26] == 3)
   {
-    v3 = [NSBundle bundleForClass:objc_opt_class()];
-    v4 = v3;
-    v5 = @"TOUCH_ID_NOT_RECOGNIZED";
+    v2 = [NSBundle bundleForClass:objc_opt_class()];
+    v3 = v2;
+    v4 = @"TOUCH_ID_NOT_RECOGNIZED";
   }
 
   else
   {
-    v6 = [v2 _shouldShowUIForBiometryRequired];
-    v7 = *(a1 + 32);
-    v3 = [NSBundle bundleForClass:objc_opt_class()];
-    v4 = v3;
-    if (v6)
+    v5 = [v1 _shouldShowUIForBiometryRequired];
+    v2 = [NSBundle bundleForClass:objc_opt_class()];
+    v3 = v2;
+    if (v5)
     {
-      v5 = @"TOUCH_ID_REQUIRED";
+      v4 = @"TOUCH_ID_REQUIRED";
     }
 
     else
     {
-      v5 = @"TRY_AGAIN";
+      v4 = @"TRY_AGAIN";
     }
   }
 
-  v8 = [v3 localizedStringForKey:v5 value:&stru_1000ADB50 table:@"MobileUI"];
+  v6 = [v2 localizedStringForKey:v4 value:&stru_1000ADB50 table:@"MobileUI"];
 
-  return v8;
+  return v6;
 }
 
 - (void)_handleBiometryRequiredFailure

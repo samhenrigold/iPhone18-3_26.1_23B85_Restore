@@ -55,7 +55,7 @@
 
 + (void)isOptedInForAnalytics
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   bOOLValue = [_isOptedInNumber BOOLValue];
   v3 = @"NO";
   if (bOOLValue)
@@ -63,10 +63,9 @@
     v3 = @"YES";
   }
 
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_25C6BF000, self, OS_LOG_TYPE_DEBUG, "D&U check result: %@", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_25C6BF000, self, OS_LOG_TYPE_DEBUG, "D&U check result: %@", &v4, 0xCu);
 }
 
 @end

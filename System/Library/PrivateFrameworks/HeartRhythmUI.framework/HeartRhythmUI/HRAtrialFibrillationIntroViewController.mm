@@ -70,10 +70,10 @@
   v18 = objc_alloc_init(MEMORY[0x277D756B8]);
   [(HRAtrialFibrillationIntroViewController *)self setTitleLabel:v18];
 
-  v19 = HRHeartRhythmUIFrameworkBundle();
-  v20 = [v19 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v20 = HRHeartRhythmUIFrameworkBundle(v19);
+  v21 = [v20 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   titleLabel = [(HRAtrialFibrillationIntroViewController *)self titleLabel];
-  [titleLabel setText:v20];
+  [titleLabel setText:v21];
 
   titleLabel2 = [(HRAtrialFibrillationIntroViewController *)self titleLabel];
   [titleLabel2 setTextAlignment:4];
@@ -92,13 +92,13 @@
   titleLabel6 = [(HRAtrialFibrillationIntroViewController *)self titleLabel];
   [contentView4 addSubview:titleLabel6];
 
-  v29 = objc_alloc_init(MEMORY[0x277D756B8]);
-  [(HRAtrialFibrillationIntroViewController *)self setBodyLabel:v29];
+  v30 = objc_alloc_init(MEMORY[0x277D756B8]);
+  [(HRAtrialFibrillationIntroViewController *)self setBodyLabel:v30];
 
-  v30 = HRHeartRhythmUIFrameworkBundle();
-  v31 = [v30 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v32 = HRHeartRhythmUIFrameworkBundle(v31);
+  v33 = [v32 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ONBOARDING_INTRO_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   bodyLabel = [(HRAtrialFibrillationIntroViewController *)self bodyLabel];
-  [bodyLabel setText:v31];
+  [bodyLabel setText:v33];
 
   secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
   bodyLabel2 = [(HRAtrialFibrillationIntroViewController *)self bodyLabel];
@@ -118,8 +118,8 @@
   bodyLabel6 = [(HRAtrialFibrillationIntroViewController *)self bodyLabel];
   [contentView5 addSubview:bodyLabel6];
 
-  v41 = +[HROnboardingInlineExpandedContentView learnMoreAboutAtrialFibrillationExpandedView];
-  [(HRAtrialFibrillationIntroViewController *)self setLearnMoreContentView:v41];
+  v43 = +[HROnboardingInlineExpandedContentView learnMoreAboutAtrialFibrillationExpandedView];
+  [(HRAtrialFibrillationIntroViewController *)self setLearnMoreContentView:v43];
 
   contentView6 = [(HRAtrialFibrillationIntroViewController *)self contentView];
   learnMoreContentView = [(HRAtrialFibrillationIntroViewController *)self learnMoreContentView];

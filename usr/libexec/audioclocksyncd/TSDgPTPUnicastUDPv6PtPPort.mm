@@ -1,6 +1,7 @@
 @interface TSDgPTPUnicastUDPv6PtPPort
 + (id)diagnosticInfoForService:(id)service;
 + (id)iokitMatchingDictionaryForInterfaceName:(id)name andIPv6Address:(char *)address;
+- (TSDgPTPUnicastUDPv6PtPPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationIPv6Address;
 - (id)_sourceAddressString;
@@ -33,6 +34,22 @@
   v10 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   return v10;
+}
+
+- (TSDgPTPUnicastUDPv6PtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = TSDgPTPUnicastUDPv6PtPPort;
+  v4 = [(TSDgPTPFDPtPPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationIPv6Address = [(TSDgPTPUnicastUDPv6PtPPort *)v4 _destinationIPv6Address];
+    destinationIPv6Address = v5->_destinationIPv6Address;
+    v5->_destinationIPv6Address = _destinationIPv6Address;
+  }
+
+  return v5;
 }
 
 - (id)_sourceAddressString

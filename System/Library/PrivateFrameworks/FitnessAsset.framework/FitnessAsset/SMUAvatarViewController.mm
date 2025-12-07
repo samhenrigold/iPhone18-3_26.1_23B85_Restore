@@ -50,14 +50,14 @@ void __52__SMUAvatarViewController_descriptorForRequiredKeys__block_invoke()
 
 - (void)setContact:(id)contact
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (contact)
   {
     contactCopy = contact;
     v4 = MEMORY[0x277CBEA60];
     contactCopy2 = contact;
     v6 = [v4 arrayWithObjects:&contactCopy count:1];
-    [(CNAvatarViewController *)self->_avatarViewController setContacts:v6, contactCopy, v10];
+    [(CNAvatarViewController *)self->_avatarViewController setContacts:v6, contactCopy, v9];
   }
 
   else
@@ -66,8 +66,6 @@ void __52__SMUAvatarViewController_descriptorForRequiredKeys__block_invoke()
     v6 = 0;
     [(CNAvatarViewController *)avatarViewController setContacts:MEMORY[0x277CBEBF8]];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

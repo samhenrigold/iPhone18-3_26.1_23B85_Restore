@@ -30,7 +30,6 @@
 
 uint64_t __35__ADWatchDogManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_2 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -126,8 +125,7 @@ void __49__ADWatchDogManager_createNewWatchdog_withTimer___block_invoke(uint64_t
 
     else
     {
-      v11 = *(a1 + 48);
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@' has passed successfully. Removing watchdog %@.", v11, *(a1 + 32)];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@' has passed successfully. Removing watchdog %@.", *(a1 + 48), *(a1 + 32)];
       _ADLog(@"ToroLogging", v10, 0);
     }
   }
@@ -194,9 +192,7 @@ void __49__ADWatchDogManager_createNewWatchdog_withTimer___block_invoke(uint64_t
 - (void)incrementToken
 {
   intValue = [(NSNumber *)self->_currentToken intValue];
-  v4 = [MEMORY[0x277CCABB0] numberWithInt:(intValue + 1)];
-  currentToken = self->_currentToken;
-  self->_currentToken = v4;
+  self->_currentToken = [MEMORY[0x277CCABB0] numberWithInt:(intValue + 1)];
 
   MEMORY[0x2821F96F8]();
 }

@@ -31,7 +31,7 @@
   v6 = dword_1000AB8DC;
   v50 = HIDWORD(qword_1000AB82C);
   v51 = qword_1000AB8E0;
-  v52 = unk_1000AB8E8;
+  v52 = dword_1000AB8E8;
   v8 = HIDWORD(qword_1000AB8EC);
   v7 = qword_1000AB8F4;
   v9 = HIDWORD(qword_1000AB8F4);
@@ -99,7 +99,7 @@
   sub_10000533C(57, (gasGaugeBatteryTemperature * 0.52 + 16.0 + v50 * 0.45));
   sub_10000533C(58, (gasGaugeBatteryTemperature * 0.37 + 28.0 + v50 * 0.59));
   sub_10000533C(60, (self->_filteredBacklightCurrentLI2 * 0.655 + 274.0 + gasGaugeBatteryTemperature * 0.00135 + v51 * 0.949));
-  v22 = unk_1000AB904;
+  v22 = dword_1000AB904;
   v23 = [(CommonProduct *)self findComponent:19];
   v24 = v22 / 100.0;
   *&v25 = v24;

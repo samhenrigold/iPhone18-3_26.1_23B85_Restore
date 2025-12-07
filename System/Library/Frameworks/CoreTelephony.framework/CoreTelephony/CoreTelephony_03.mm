@@ -1,56 +1,3 @@
-uint64_t _CTServerConnectionSelectPhonebook(void *a1, unsigned int a2, uint64_t a3)
-{
-  if (!a1)
-  {
-    return 0x1600000001;
-  }
-
-  xpc::dict_creator::dict_creator(&object);
-  xpc::dict_creator::operator()<char const*>("kPhoneBookSelect", &object, "kRequest", &v15);
-  xpc_release(object);
-  v6 = v15;
-  object = v15;
-  v15 = xpc_null_create();
-  xpc_release(v15);
-  if (!a3)
-  {
-    v7 = xpc_string_create("");
-    if (v7)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_4;
-  }
-
-  v7 = _CFXPCCreateXPCObjectFromCFObject();
-  if (!v7)
-  {
-LABEL_4:
-    v7 = xpc_null_create();
-  }
-
-LABEL_5:
-  v8 = v7;
-  xpc_dictionary_set_value(v6, "kPhoneBookPassword", v7);
-  v9 = xpc_null_create();
-  xpc_release(v8);
-  xpc_release(v9);
-  v10 = xpc_int64_create(a2);
-  if (!v10)
-  {
-    v10 = xpc_null_create();
-  }
-
-  xpc_dictionary_set_value(v6, "kPhoneBookName", v10);
-  v11 = xpc_null_create();
-  xpc_release(v10);
-  xpc_release(v11);
-  v13 = SendXpcMessage(a1, &object, 0, v12);
-  xpc_release(object);
-  return v13;
-}
-
 uint64_t _CTServerConnectionSavePhonebookEntry(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
@@ -300,7 +247,7 @@ void MMSHeaderContainer::~MMSHeaderContainer(MMSHeaderContainer *this)
     while (v4 < (v2 - v3) >> 3);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::~__hash_table(this + 32);
+  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::~__hash_table(this + 4);
   v7 = *(this + 1);
   if (v7)
   {
@@ -311,7 +258,7 @@ void MMSHeaderContainer::~MMSHeaderContainer(MMSHeaderContainer *this)
 
 void MMSHeaderContainer::addHeader(MMSHeaderContainer *this, MMSHeader *a2, char a3)
 {
-  v15[0] = a2;
+  v15 = a2;
   if (a3)
   {
     goto LABEL_11;
@@ -347,8 +294,8 @@ void MMSHeaderContainer::addHeader(MMSHeaderContainer *this, MMSHeader *a2, char
   if (!v7)
   {
 LABEL_11:
-    std::vector<MMSMimePart *>::push_back[abi:nn200100](this + 8, v15);
-    v5 = v15[0];
+    std::vector<MMSMimePart *>::push_back[abi:nn200100](this + 8, &v15);
+    v5 = v15;
   }
 
   else
@@ -366,15 +313,15 @@ LABEL_11:
 
   v12 = (*(*v5 + 64))(v5);
   std::string::basic_string[abi:nn200100]<0>(__p, v12);
-  v15[2] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 4, __p)[5] = v5;
+  v16 = __p;
+  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 4, __p, &std::piecewise_construct, &v16)[5] = v5;
   if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 }
 
-uint64_t MMSHeaderContainer::createHeader(MMSHeaderContainer *this, const char *a2)
+MMSSimpleHeader *MMSHeaderContainer::createHeader(MMSHeaderContainer *this, const char *a2)
 {
   v3 = (*(*this + 16))(this);
 
@@ -501,7 +448,7 @@ void *MMSHeaderContainer::contentType(MMSHeaderContainer *this)
   return result;
 }
 
-uint64_t MMSHeaderContainer::setContentType(uint64_t a1, void *a2)
+uint64_t MMSHeaderContainer::setContentType(MMSHeaderContainer *a1, uint64_t *a2)
 {
   if (*a2)
   {
@@ -542,8 +489,7 @@ char *MMSHeaderContainer::valueForStringHeader(MMSHeaderContainer *this, char *a
 
 std::string *MMSHeaderContainer::prettyHeaders@<X0>(std::string *this@<X0>, int a2@<W1>, uint64_t a3@<X2>, std::string *a4@<X8>)
 {
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   size = this->__r_.__value_.__l.__size_;
   if (this->__r_.__value_.__r.__words[2] != size)
@@ -598,9 +544,9 @@ std::string *MMSHeaderContainer::prettyHeaders@<X0>(std::string *this@<X0>, int 
   return this;
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -632,48 +578,48 @@ void std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__un
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,MMSHeader *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MMSHeader *>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MMSHeader *>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
+  v4 = a2;
+  v6 = *(a2 + 1);
+  if ((a2[23] & 0x80u) == 0)
   {
-    v5 = *(a2 + 23);
+    v7 = a2[23];
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v16, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v18, a2, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_21;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v11 = v6 % *&v8;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_21:
     operator new();
@@ -681,44 +627,44 @@ LABEL_21:
 
   while (1)
   {
-    v14 = v13[1];
-    if (v14 == v7)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v10 > 1)
+    if (v12 > 1)
     {
-      if (v14 >= *&v8)
+      if (v16 >= *&v10)
       {
-        v14 %= *&v8;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v14 &= *&v8 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v14 != v11)
+    if (v16 != v13)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v13 + 2, v2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](a1, v15 + 2, v4))
   {
     goto LABEL_20;
   }
 
-  return v13;
+  return v15;
 }
 
 uint64_t MMSContentDispositionHeader::parseValue(MMSContentDispositionHeader *this, char *__s)
@@ -913,17 +859,17 @@ void MMSContentDispositionHeader::~MMSContentDispositionHeader(MMSContentDisposi
   JUMPOUT(0x1865E0880);
 }
 
-void sub_182F8E89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182F8E89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 112), 8);
+  _Block_object_dispose((v15 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182F8ED94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_182F8ED94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1510,7 +1456,7 @@ void sub_182F90348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182F90558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_182F90558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   _Block_object_dispose(&a16, 8);
 
@@ -1532,7 +1478,7 @@ void sub_182F907F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182F90A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_182F90A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   _Block_object_dispose(&a16, 8);
 
@@ -1540,16 +1486,16 @@ void sub_182F90A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182F90C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182F90C60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
 
-  _Block_object_dispose((v10 - 96), 8);
+  _Block_object_dispose((v17 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182F90E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182F90E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -1563,14 +1509,14 @@ void sub_182F90F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182F91128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182F91128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_182F91324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_182F91324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   _Block_object_dispose(&a16, 8);
 
@@ -1578,21 +1524,21 @@ void sub_182F91324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182F9156C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182F9156C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_182F91738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182F91738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t MMSMMFlagsHeader::MMSMMFlagsHeader(uint64_t a1, uint64_t a2, char a3, const char *a4)
+void *MMSMMFlagsHeader::MMSMMFlagsHeader(void *a1, uint64_t a2, char a3, const char *a4)
 {
   v7 = MMSBinaryHeader::MMSBinaryHeader(a1, a2);
   *v7 = &unk_1EF013BD0;
@@ -1620,7 +1566,7 @@ uint64_t MMSMMFlagsHeader::MMSMMFlagsHeader(uint64_t a1, uint64_t a2, char a3, c
     operator new();
   }
 
-  v11 = (a1 + 24);
+  v11 = a1 + 3;
   *(a1 + 47) = v9;
   if (v9)
   {
@@ -1815,35 +1761,35 @@ uint64_t _CTServerConnectionGetRegistrationCauseCode(uint64_t a1, int *a2)
   if (a1 && a2)
   {
     xpc::dict_creator::dict_creator(&object);
-    xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", &object, "kRequest", &v11);
+    xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", &object, "kRequest", &v13);
     xpc_release(object);
-    v12 = v11;
-    v11 = xpc_null_create();
-    xpc_release(v11);
-    object = &v12;
-    v9 = "kRegistrationCauseCode";
-    xpc::dict::object_proxy::operator=(&object, &v10);
-    xpc_release(v10);
-    v10 = 0;
-    v11 = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v12, &v11);
+    v14 = v13;
+    v13 = xpc_null_create();
+    xpc_release(v13);
+    object = &v14;
+    v11 = "kRegistrationCauseCode";
+    xpc::dict::object_proxy::operator=(&object, &v12);
+    xpc_release(v12);
+    v12 = 0;
+    v13 = xpc_null_create();
+    v2 = SendXpcMessage(a1, &v14, &v13);
     *a2 = -1;
-    if (MEMORY[0x1865E16C0](v11) == MEMORY[0x1E69E9E80])
+    if (MEMORY[0x1865E16C0](v13) == MEMORY[0x1E69E9E80])
     {
-      object = &v11;
-      v9 = "kRegistrationCauseCode";
-      xpc::dict::object_proxy::operator xpc::object(&object, &v7);
-      *a2 = xpc::dyn_cast_or_default(&v7, 0xFFFFFFFFLL);
-      xpc_release(v7);
-      v5 = CTLogRegistration();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      object = &v13;
+      v11 = "kRegistrationCauseCode";
+      xpc::dict::object_proxy::operator xpc::object(&object, &v9);
+      *a2 = xpc::dyn_cast_or_default(&v9, 0xFFFFFFFFLL);
+      xpc_release(v9);
+      v7 = CTLogRegistration(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        _CTServerConnectionGetRegistrationCauseCode_cold_1(a2, v5);
+        _CTServerConnectionGetRegistrationCauseCode_cold_1(a2, v7);
       }
     }
 
-    xpc_release(v11);
-    xpc_release(v12);
+    xpc_release(v13);
+    xpc_release(v14);
   }
 
   return v2;
@@ -2124,7 +2070,7 @@ uint64_t _CTServerConnectionIsDataAttached(uint64_t a1, _BYTE *a2)
   return v2;
 }
 
-uint64_t _CTServerConnectionCopyCurrentOperatorName(uint64_t a1, uint64_t *a2, const void *a3)
+uint64_t _CTServerConnectionCopyCurrentOperatorName(uint64_t a1, void *a2, const void *a3)
 {
   v3 = 0x1600000001;
   if (a1 && a2 && a3)
@@ -2132,14 +2078,14 @@ uint64_t _CTServerConnectionCopyCurrentOperatorName(uint64_t a1, uint64_t *a2, c
     xpc::dict_creator::dict_creator(&object);
     xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", &object, "kRequest", &xdict);
     xpc_release(object);
-    v21 = xdict;
+    v23 = xdict;
     xdict = xpc_null_create();
     xpc_release(xdict);
-    object = &v21;
-    v18 = "kRegistrationOperatorName";
-    xpc::dict::object_proxy::operator=(&object, &v19);
-    xpc_release(v19);
-    v19 = 0;
+    object = &v23;
+    v20 = "kRegistrationOperatorName";
+    xpc::dict::object_proxy::operator=(&object, &v21);
+    xpc_release(v21);
+    v21 = 0;
     v7 = CFEqual(a3, *MEMORY[0x1E695E4D0]);
     v8 = xpc_int64_create(v7);
     if (!v8)
@@ -2147,44 +2093,44 @@ uint64_t _CTServerConnectionCopyCurrentOperatorName(uint64_t a1, uint64_t *a2, c
       v8 = xpc_null_create();
     }
 
-    xpc_dictionary_set_value(v21, "kRegistrationLocalize", v8);
+    xpc_dictionary_set_value(v23, "kRegistrationLocalize", v8);
     v9 = xpc_null_create();
     xpc_release(v8);
     xpc_release(v9);
     xdict = xpc_null_create();
-    v3 = SendXpcMessage(a1, &v21, &xdict);
+    v3 = SendXpcMessage(a1, &v23, &xdict);
     *a2 = 0;
     if (MEMORY[0x1865E16C0](xdict) == MEMORY[0x1E69E9E80] && xpc_dictionary_get_value(xdict, "kRegistrationOperatorName"))
     {
-      v16 = 0;
+      v18 = 0;
       object = &xdict;
-      v18 = "kRegistrationOperatorName";
-      xpc::dict::object_proxy::operator xpc::object(&object, &v14);
-      xpc::bridge(&cf, &v14, v11);
-      ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&v16, &cf);
+      v20 = "kRegistrationOperatorName";
+      xpc::dict::object_proxy::operator xpc::object(&object, &v16);
+      xpc::bridge(&cf, &v16, v11);
+      ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&v18, &cf);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      xpc_release(v14);
-      v12 = v16;
-      v16 = 0;
+      xpc_release(v16);
+      v12 = v18;
+      v18 = 0;
       *a2 = v12;
-      v13 = CTLogRegistration();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = CTLogRegistration(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        _CTServerConnectionCopyCurrentOperatorName(a2);
+        _CTServerConnectionCopyCurrentOperatorName();
       }
 
-      if (v16)
+      if (v18)
       {
-        CFRelease(v16);
+        CFRelease(v18);
       }
     }
 
     xpc_release(xdict);
-    xpc_release(v21);
+    xpc_release(v23);
   }
 
   return v3;
@@ -2266,95 +2212,95 @@ uint64_t _CTServerConnectionCopyProviderNameUsingCarrierBundle(uint64_t a1, void
   return v2;
 }
 
-uint64_t _CTServerConnectionFetchNetworkList(void *a1)
+uint64_t _CTServerConnectionFetchNetworkList(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0x1600000001;
   }
 
-  v2 = CTLogRegistration();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CTLogRegistration(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_182E9B000, v2, OS_LOG_TYPE_DEFAULT, "Fetching network list", buf, 2u);
+    _os_log_impl(&dword_182E9B000, v3, OS_LOG_TYPE_DEFAULT, "Fetching network list", buf, 2u);
   }
 
   xpc::dict_creator::dict_creator(buf);
-  xpc::dict_creator::operator()<char const*>("kRegistrationFetchNetworkList", buf, "kRequest", &v6);
+  xpc::dict_creator::operator()<char const*>("kRegistrationFetchNetworkList", buf, "kRequest", &v7);
   xpc_release(*buf);
-  *buf = v6;
-  v6 = xpc_null_create();
-  xpc_release(v6);
-  v4 = SendXpcMessage(a1, buf, 0, v3);
+  *buf = v7;
+  v7 = xpc_null_create();
+  xpc_release(v7);
+  v5 = SendXpcMessage(a1, buf, 0, v4);
   xpc_release(*buf);
-  return v4;
+  return v5;
 }
 
 uint64_t _CTServerConnectionCopyNetworkList(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v2 = 0x1600000001;
   if (a1 && a2)
   {
     v5 = xpc::dict_creator::dict_creator(buf);
-    xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", v5, "kRequest", v39);
+    xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", v5, "kRequest", v41);
     xpc_release(*buf);
-    v45 = v39[0];
-    v39[0] = xpc_null_create();
-    xpc_release(v39[0]);
-    *buf = &v45;
+    v47 = v41[0];
+    v41[0] = xpc_null_create();
+    xpc_release(v41[0]);
+    *buf = &v47;
     *&buf[8] = "kRegistrationNetworkList";
     xpc::dict::object_proxy::operator=(buf, &object);
     xpc_release(object);
     object = 0;
     xdict = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v45, &xdict);
+    v2 = SendXpcMessage(a1, &v47, &xdict);
     *a2 = 0;
-    v6 = MEMORY[0x1865E16C0](xdict);
-    v7 = MEMORY[0x1E69E9E80];
-    if (v6 == MEMORY[0x1E69E9E80] && xpc_dictionary_get_value(xdict, "kRegistrationNetworkList"))
+    value = MEMORY[0x1865E16C0](xdict);
+    v8 = MEMORY[0x1E69E9E80];
+    if (value == MEMORY[0x1E69E9E80] && (value = xpc_dictionary_get_value(xdict, "kRegistrationNetworkList")) != 0)
     {
       xarray = 0;
       *buf = &xdict;
       *&buf[8] = "kRegistrationNetworkList";
       xpc::dict::object_proxy::operator xpc::array(buf, &xarray);
-      v16 = MEMORY[0x1865E16C0](xarray);
-      v17 = MEMORY[0x1E69E9E50];
-      if (v16 == MEMORY[0x1E69E9E50])
+      v17 = MEMORY[0x1865E16C0](xarray);
+      v18 = MEMORY[0x1E69E9E50];
+      if (v17 == MEMORY[0x1E69E9E50])
       {
-        v18 = 0;
-        v19 = @"kCTRegistrationNetworkCode";
-        v20 = 1;
+        v19 = 0;
+        v20 = @"kCTRegistrationNetworkCode";
+        v21 = 1;
         do
         {
-          if (xpc_array_get_count(xarray) <= v18)
+          if (xpc_array_get_count(xarray) <= v19)
           {
             break;
           }
 
-          v41 = 0;
+          v43 = 0;
           *buf = &xarray;
-          *&buf[8] = v18;
-          xpc::array::object_proxy::operator xpc::dict(buf, &v41);
-          if (MEMORY[0x1865E16C0](v41) == v7)
+          *&buf[8] = v19;
+          xpc::array::object_proxy::operator xpc::dict(buf, &v43);
+          if (MEMORY[0x1865E16C0](v43) == v8)
           {
-            v39[0] = 0;
-            v39[1] = 0;
-            v40 = 0;
+            v41[0] = 0;
+            v41[1] = 0;
+            v42 = 0;
             memset(buf, 0, 24);
             ctu::cf::assign();
             *__p = *buf;
-            v38 = *&buf[16];
-            v21 = *buf;
+            v40 = *&buf[16];
+            v22 = *buf;
             if (buf[23] >= 0)
             {
-              v21 = __p;
+              v22 = __p;
             }
 
-            v33[0] = &v41;
-            v33[1] = v21;
-            xpc::dict::object_proxy::operator xpc::object(v33, v35);
+            v35[0] = &v43;
+            v35[1] = v22;
+            xpc::dict::object_proxy::operator xpc::object(v35, v37);
             memset(buf, 0, 24);
             xpc::dyn_cast_or_default();
             if ((buf[23] & 0x80000000) != 0)
@@ -2362,29 +2308,29 @@ uint64_t _CTServerConnectionCopyNetworkList(uint64_t a1, void *a2)
               operator delete(*buf);
             }
 
-            xpc_release(v35[0]);
-            v35[0] = 0;
-            if (SHIBYTE(v38) < 0)
+            xpc_release(v37[0]);
+            v37[0] = 0;
+            if (SHIBYTE(v40) < 0)
             {
               operator delete(__p[0]);
             }
 
             __p[0] = 0;
             __p[1] = 0;
-            v38 = 0;
+            v40 = 0;
             memset(buf, 0, 24);
             ctu::cf::assign();
-            *v33 = *buf;
-            v34 = *&buf[16];
-            v35[0] = &v41;
-            v22 = *buf;
+            *v35 = *buf;
+            v36 = *&buf[16];
+            v37[0] = &v43;
+            v23 = *buf;
             if (buf[23] >= 0)
             {
-              v22 = v33;
+              v23 = v35;
             }
 
-            v35[1] = v22;
-            xpc::dict::object_proxy::operator xpc::object(v35, &v36);
+            v37[1] = v23;
+            xpc::dict::object_proxy::operator xpc::object(v37, &v38);
             memset(buf, 0, 24);
             xpc::dyn_cast_or_default();
             if ((buf[23] & 0x80000000) != 0)
@@ -2392,40 +2338,40 @@ uint64_t _CTServerConnectionCopyNetworkList(uint64_t a1, void *a2)
               operator delete(*buf);
             }
 
-            xpc_release(v36);
-            v36 = 0;
-            if (SHIBYTE(v34) < 0)
+            xpc_release(v38);
+            v38 = 0;
+            if (SHIBYTE(v36) < 0)
             {
-              operator delete(v33[0]);
+              operator delete(v35[0]);
             }
 
             memset(buf, 0, 24);
             ctu::cf::assign();
-            *v33 = *buf;
-            v34 = *&buf[16];
-            v23 = *buf;
+            *v35 = *buf;
+            v36 = *&buf[16];
+            v24 = *buf;
             if (buf[23] >= 0)
             {
-              v23 = v33;
+              v24 = v35;
             }
 
-            *buf = &v41;
-            *&buf[8] = v23;
-            xpc::dict::object_proxy::operator xpc::object(buf, v35);
-            v24 = xpc::dyn_cast_or_default(v35, 0);
-            xpc_release(v35[0]);
-            v35[0] = 0;
-            if (SHIBYTE(v34) < 0)
+            *buf = &v43;
+            *&buf[8] = v24;
+            xpc::dict::object_proxy::operator xpc::object(buf, v37);
+            v25 = xpc::dyn_cast_or_default(v37, 0);
+            xpc_release(v37[0]);
+            v37[0] = 0;
+            if (SHIBYTE(v36) < 0)
             {
-              operator delete(v33[0]);
+              operator delete(v35[0]);
             }
 
-            RadioAccessTechnologyToRadioAccessTechnologyString(v24);
-            v25 = CTLogRegistration();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v26 = RadioAccessTechnologyToRadioAccessTechnologyString(v25);
+            v28 = CTLogRegistration(v26, v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = v19;
-              if (MEMORY[0x1865E16C0](xarray) == v17)
+              v29 = v20;
+              if (MEMORY[0x1865E16C0](xarray) == v18)
               {
                 count = xpc_array_get_count(xarray);
               }
@@ -2435,96 +2381,95 @@ uint64_t _CTServerConnectionCopyNetworkList(uint64_t a1, void *a2)
                 count = 0;
               }
 
+              if (v42 >= 0)
+              {
+                v31 = v41;
+              }
+
+              else
+              {
+                v31 = v41[0];
+              }
+
               if (v40 >= 0)
               {
-                v28 = v39;
+                v32 = __p;
               }
 
               else
               {
-                v28 = v39[0];
-              }
-
-              if (v38 >= 0)
-              {
-                v29 = __p;
-              }
-
-              else
-              {
-                v29 = __p[0];
+                v32 = __p[0];
               }
 
               memset(buf, 0, 24);
               ctu::cf::assign();
-              *v33 = *buf;
-              v34 = *&buf[16];
-              v30 = *buf;
+              *v35 = *buf;
+              v36 = *&buf[16];
+              v33 = *buf;
               if (buf[23] >= 0)
               {
-                v30 = v33;
+                v33 = v35;
               }
 
               *buf = 67110146;
-              *&buf[4] = v20 - 1;
+              *&buf[4] = v21 - 1;
               *&buf[8] = 2048;
               *&buf[10] = count;
               *&buf[18] = 2080;
-              *&buf[20] = v28;
-              v47 = 2080;
-              v48 = v29;
+              *&buf[20] = v31;
               v49 = 2080;
-              v50 = v30;
-              _os_log_impl(&dword_182E9B000, v25, OS_LOG_TYPE_DEFAULT, "Network list %d of %zu: %s (%s) (%s)", buf, 0x30u);
-              if (SHIBYTE(v34) < 0)
+              v50 = v32;
+              v51 = 2080;
+              v52 = v33;
+              _os_log_impl(&dword_182E9B000, v28, OS_LOG_TYPE_DEFAULT, "Network list %d of %zu: %s (%s) (%s)", buf, 0x30u);
+              if (SHIBYTE(v36) < 0)
               {
-                operator delete(v33[0]);
+                operator delete(v35[0]);
               }
 
-              v17 = MEMORY[0x1E69E9E50];
-              v19 = v26;
-              v7 = MEMORY[0x1E69E9E80];
-            }
-
-            if (SHIBYTE(v38) < 0)
-            {
-              operator delete(__p[0]);
+              v18 = MEMORY[0x1E69E9E50];
+              v20 = v29;
+              v8 = MEMORY[0x1E69E9E80];
             }
 
             if (SHIBYTE(v40) < 0)
             {
-              operator delete(v39[0]);
+              operator delete(__p[0]);
+            }
+
+            if (SHIBYTE(v42) < 0)
+            {
+              operator delete(v41[0]);
             }
           }
 
-          xpc_release(v41);
-          v18 = v20++;
+          xpc_release(v43);
+          v19 = v21++;
         }
 
-        while (MEMORY[0x1865E16C0](xarray) == v17);
+        while (MEMORY[0x1865E16C0](xarray) == v18);
       }
 
       *buf = 0;
-      v39[0] = _CFXPCCreateCFObjectFromXPCObject();
-      ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(buf, v39);
+      v41[0] = _CFXPCCreateCFObjectFromXPCObject();
+      ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(buf, v41);
       *a2 = *buf;
       xpc_release(xarray);
     }
 
     else
     {
-      v8 = CTLogRegistration();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = CTLogRegistration(value, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        _CTServerConnectionCopyNetworkList_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+        _CTServerConnectionCopyNetworkList_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
       }
     }
 
     xpc_release(xdict);
-    xpc_release(v45);
+    xpc_release(v47);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -2563,9 +2508,9 @@ uint64_t _CTServerConnectionCopyManualNetworkSelection(uint64_t a1, void *a2)
   return v2;
 }
 
-uint64_t _CTServerConnectionSelectNetwork(uint64_t a1, CFDictionaryRef theDict)
+uint64_t _CTServerConnectionSelectNetwork(void *a1, CFDictionaryRef theDict)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = 0x1600000001;
   if (a1)
   {
@@ -2573,31 +2518,30 @@ uint64_t _CTServerConnectionSelectNetwork(uint64_t a1, CFDictionaryRef theDict)
     {
       CFDictionaryGetValue(theDict, @"kCTRegistrationNetworkCode");
       memset(buf, 0, sizeof(buf));
-      v25 = 0;
-      ctu::cf::assign();
-      v23 = 0;
+      v26 = 0;
+      v3 = ctu::cf::assign();
+      v24 = 0;
       *__p = 0u;
-      v3 = CTLogRegistration();
-      v4 = v3;
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = CTLogRegistration(v3, v4);
+      v6 = v5;
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        _CTServerConnectionSelectNetwork_cold_1(v4, v13, v14, v15, v16, v17, v18, v19);
+        _CTServerConnectionSelectNetwork_cold_1(v6, v15, v16, v17, v18, v19, v20, v21);
       }
     }
 
     else
     {
-      v5 = CTLogRegistration();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = CTLogRegistration(a1, 0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        _CTServerConnectionSelectNetwork_cold_2(v5, v6, v7, v8, v9, v10, v11, v12);
+        _CTServerConnectionSelectNetwork_cold_2(v7, v8, v9, v10, v11, v12, v13, v14);
       }
 
-      v2 = 0;
+      return 0;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -2630,7 +2574,7 @@ uint64_t _CTServerConnectionAutomaticallySelectNetwork(void *a1)
   return v6;
 }
 
-uint64_t _CTServerConnectionGetNetworkSelectionMode(uint64_t a1, uint64_t *a2)
+uint64_t _CTServerConnectionGetNetworkSelectionMode(uint64_t a1, __CFString **a2)
 {
   v2 = 0x1600000001;
   if (a1 && a2)
@@ -2638,43 +2582,44 @@ uint64_t _CTServerConnectionGetNetworkSelectionMode(uint64_t a1, uint64_t *a2)
     xpc::dict_creator::dict_creator(&object);
     xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", &object, "kRequest", &xdict);
     xpc_release(object);
-    v13 = xdict;
+    v15 = xdict;
     xdict = xpc_null_create();
     xpc_release(xdict);
-    object = &v13;
-    v10 = "kRegistrationNetworkSelectionMode";
-    xpc::dict::object_proxy::operator=(&object, &v11);
-    xpc_release(v11);
-    v11 = 0;
+    object = &v15;
+    v12 = "kRegistrationNetworkSelectionMode";
+    xpc::dict::object_proxy::operator=(&object, &v13);
+    xpc_release(v13);
+    v13 = 0;
     xdict = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v13, &xdict);
+    v2 = SendXpcMessage(a1, &v15, &xdict);
     *a2 = @"kCTRegistrationNetworkSelectionModeAutomatic";
     if (MEMORY[0x1865E16C0](xdict) == MEMORY[0x1E69E9E80])
     {
       if (xpc_dictionary_get_value(xdict, "kRegistrationNetworkSelectionMode"))
       {
         object = &xdict;
-        v10 = "kRegistrationNetworkSelectionMode";
-        xpc::dict::object_proxy::operator xpc::object(&object, &v8);
-        v5 = xpc::dyn_cast_or_default(&v8, 0);
-        xpc_release(v8);
-        *a2 = networkSelectionModeToNetworkSelectionModeString(v5);
-        v6 = CTLogRegistration();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v12 = "kRegistrationNetworkSelectionMode";
+        xpc::dict::object_proxy::operator xpc::object(&object, &v10);
+        v5 = xpc::dyn_cast_or_default(&v10, 0);
+        xpc_release(v10);
+        v6 = networkSelectionModeToNetworkSelectionModeString(v5);
+        *a2 = v6;
+        v8 = CTLogRegistration(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          _CTServerConnectionGetNetworkSelectionMode_cold_1(a2);
+          _CTServerConnectionGetNetworkSelectionMode_cold_1();
         }
       }
     }
 
     xpc_release(xdict);
-    xpc_release(v13);
+    xpc_release(v15);
   }
 
   return v2;
 }
 
-uint64_t _CTServerConnectionGetNetworkSelectionState(uint64_t a1, uint64_t *a2)
+uint64_t _CTServerConnectionGetNetworkSelectionState(uint64_t a1, __CFString **a2)
 {
   v2 = 0x1600000001;
   if (a1 && a2)
@@ -2682,37 +2627,38 @@ uint64_t _CTServerConnectionGetNetworkSelectionState(uint64_t a1, uint64_t *a2)
     xpc::dict_creator::dict_creator(&object);
     xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", &object, "kRequest", &xdict);
     xpc_release(object);
-    v13 = xdict;
+    v15 = xdict;
     xdict = xpc_null_create();
     xpc_release(xdict);
-    object = &v13;
-    v10 = "kRegistrationNetworkSelectionState";
-    xpc::dict::object_proxy::operator=(&object, &v11);
-    xpc_release(v11);
-    v11 = 0;
+    object = &v15;
+    v12 = "kRegistrationNetworkSelectionState";
+    xpc::dict::object_proxy::operator=(&object, &v13);
+    xpc_release(v13);
+    v13 = 0;
     xdict = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v13, &xdict);
+    v2 = SendXpcMessage(a1, &v15, &xdict);
     *a2 = @"kCTRegistrationNetworkSelectionStateUnknown";
     if (MEMORY[0x1865E16C0](xdict) == MEMORY[0x1E69E9E80])
     {
       if (xpc_dictionary_get_value(xdict, "kRegistrationNetworkSelectionState"))
       {
         object = &xdict;
-        v10 = "kRegistrationNetworkSelectionState";
-        xpc::dict::object_proxy::operator xpc::object(&object, &v8);
-        v5 = xpc::dyn_cast_or_default(&v8, 0);
-        xpc_release(v8);
-        *a2 = networkSelectionStateToNetworkSelectionStateString(v5);
-        v6 = CTLogRegistration();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v12 = "kRegistrationNetworkSelectionState";
+        xpc::dict::object_proxy::operator xpc::object(&object, &v10);
+        v5 = xpc::dyn_cast_or_default(&v10, 0);
+        xpc_release(v10);
+        v6 = networkSelectionStateToNetworkSelectionStateString(v5);
+        *a2 = v6;
+        v8 = CTLogRegistration(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          _CTServerConnectionGetNetworkSelectionState_cold_1(a2);
+          _CTServerConnectionGetNetworkSelectionState_cold_1();
         }
       }
     }
 
     xpc_release(xdict);
-    xpc_release(v13);
+    xpc_release(v15);
   }
 
   return v2;
@@ -2788,7 +2734,7 @@ uint64_t _CTServerConnectionCopyMobileCountryCode(uint64_t a1, void *a2)
   return v2;
 }
 
-uint64_t _CTServerConnectionCopyLastKnownCountryCode(uint64_t a1, uint64_t *a2)
+uint64_t _CTServerConnectionCopyLastKnownCountryCode(uint64_t a1, void *a2)
 {
   v2 = 0x1600000001;
   if (a1 && a2)
@@ -2796,30 +2742,30 @@ uint64_t _CTServerConnectionCopyLastKnownCountryCode(uint64_t a1, uint64_t *a2)
     xpc::dict_creator::dict_creator(object);
     xpc::dict_creator::operator()<char const*>("kRegistrationGetProperty", object, "kRequest", &cf);
     xpc_release(object[0]);
-    v12 = cf;
+    v14 = cf;
     cf = xpc_null_create();
     xpc_release(cf);
-    object[0] = &v12;
+    object[0] = &v14;
     object[1] = "kRegistrationLastMCC";
-    xpc::dict::object_proxy::operator=(object, &v10);
-    xpc_release(v10);
-    v10 = 0;
+    xpc::dict::object_proxy::operator=(object, &v12);
+    xpc_release(v12);
+    v12 = 0;
     object[0] = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v12, object);
+    v2 = SendXpcMessage(a1, &v14, object);
     *a2 = 0;
     if (MEMORY[0x1865E16C0](object[0]) == MEMORY[0x1E69E9E80] && xpc_dictionary_get_value(object[0], "kRegistrationLastMCC"))
     {
       cf = 0;
       xpc_dictionary_get_value(object[0], "kRegistrationLastMCC");
-      v8 = _CFXPCCreateCFObjectFromXPCObject();
-      ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&cf, &v8);
-      v6 = cf;
+      v10 = _CFXPCCreateCFObjectFromXPCObject();
+      v6 = ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&cf, &v10);
+      v7 = cf;
       cf = 0;
-      *a2 = v6;
-      v7 = CTLogRegistration();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      *a2 = v7;
+      v9 = CTLogRegistration(v6, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        _CTServerConnectionCopyLastKnownCountryCode_cold_1(a2);
+        _CTServerConnectionCopyLastKnownCountryCode_cold_1();
       }
 
       if (cf)
@@ -2829,7 +2775,7 @@ uint64_t _CTServerConnectionCopyLastKnownCountryCode(uint64_t a1, uint64_t *a2)
     }
 
     xpc_release(object[0]);
-    xpc_release(v12);
+    xpc_release(v14);
   }
 
   return v2;
@@ -3378,7 +3324,7 @@ uint64_t _CTServerConnectionShouldWarnDisabledLteMayImpactService(uint64_t a1, _
 
 uint64_t _CTServerConnectionFetchTimeFromNetwork(uint64_t a1, unsigned int a2, int *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = 0x1600000001;
   if (a1 && a2 - 1 <= 1 && a3)
   {
@@ -3387,7 +3333,7 @@ uint64_t _CTServerConnectionFetchTimeFromNetwork(uint64_t a1, unsigned int a2, i
     xpc::dict_creator::operator()<char const*>("kFetchTimeFromNetwork", &object, "kRequest", &xdict);
     xpc_release(object);
     v7 = xdict;
-    v16 = xdict;
+    v17 = xdict;
     xdict = xpc_null_create();
     xpc_release(xdict);
     v8 = xpc_int64_create(a2);
@@ -3401,32 +3347,36 @@ uint64_t _CTServerConnectionFetchTimeFromNetwork(uint64_t a1, unsigned int a2, i
     xpc_release(v8);
     xpc_release(v9);
     xdict = xpc_null_create();
-    v3 = SendXpcMessage(a1, &v16, &xdict);
-    if (MEMORY[0x1865E16C0](xdict) == MEMORY[0x1E69E9E80] && xpc_dictionary_get_value(xdict, "kNetworkTimeFetchResult"))
+    v3 = SendXpcMessage(a1, &v17, &xdict);
+    value = MEMORY[0x1865E16C0](xdict);
+    if (value == MEMORY[0x1E69E9E80])
     {
-      object = &xdict;
-      v18 = "kNetworkTimeFetchResult";
-      xpc::dict::object_proxy::operator xpc::object(&object, &v14);
-      *a3 = xpc::dyn_cast_or_default(&v14, 2);
-      xpc_release(v14);
+      value = xpc_dictionary_get_value(xdict, "kNetworkTimeFetchResult");
+      if (value)
+      {
+        object = &xdict;
+        v19 = "kNetworkTimeFetchResult";
+        xpc::dict::object_proxy::operator xpc::object(&object, &v15);
+        *a3 = xpc::dyn_cast_or_default(&v15, 2);
+        xpc_release(v15);
+      }
     }
 
-    v10 = CTLogRegistration();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = CTLogRegistration(value, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *a3;
+      v13 = *a3;
       LODWORD(object) = 67109376;
       HIDWORD(object) = a2;
-      LOWORD(v18) = 1024;
-      *(&v18 + 2) = v11;
-      _os_log_impl(&dword_182E9B000, v10, OS_LOG_TYPE_DEFAULT, "Fetching time from network (%d) result was: %d", &object, 0xEu);
+      LOWORD(v19) = 1024;
+      *(&v19 + 2) = v13;
+      _os_log_impl(&dword_182E9B000, v12, OS_LOG_TYPE_DEFAULT, "Fetching time from network (%d) result was: %d", &object, 0xEu);
     }
 
     xpc_release(xdict);
-    xpc_release(v16);
+    xpc_release(v17);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -4124,55 +4074,55 @@ uint64_t _CTServerConnectionGetUplinkFreq(uint64_t a1, uint64_t *a2, _DWORD *a3)
 
 uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary **a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = 0x1600000001;
   if (a1 && a2)
   {
-    v40 = 0;
+    v47 = 0;
     xpc::dict_creator::dict_creator(&object);
     xpc::dict_creator::operator()<char const*>("kRegistrationCopyInfo", &object, "kRequest", &xdict);
     xpc_release(object);
-    v40 = xdict;
+    v47 = xdict;
     xdict = xpc_null_create();
     xpc_release(xdict);
-    *&object = &v40;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationStatus";
-    xpc::dict::object_proxy::operator=(&object, &v38);
-    xpc_release(v38);
-    v38 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v45);
+    xpc_release(v45);
+    v45 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationDisplayStatus";
-    xpc::dict::object_proxy::operator=(&object, &v37);
-    xpc_release(v37);
-    v37 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v44);
+    xpc_release(v44);
+    v44 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationIsInHomeCountry";
-    xpc::dict::object_proxy::operator=(&object, &v36);
-    xpc_release(v36);
-    v36 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v43);
+    xpc_release(v43);
+    v43 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationIsForcedRegisteredHome";
-    xpc::dict::object_proxy::operator=(&object, &v35);
-    xpc_release(v35);
-    v35 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v42);
+    xpc_release(v42);
+    v42 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationCampOnly";
-    xpc::dict::object_proxy::operator=(&object, &v34);
-    xpc_release(v34);
-    v34 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v41);
+    xpc_release(v41);
+    v41 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationAgentStatus";
-    xpc::dict::object_proxy::operator=(&object, &v33);
-    xpc_release(v33);
-    v33 = 0;
-    *&object = &v40;
+    xpc::dict::object_proxy::operator=(&object, &v40);
+    xpc_release(v40);
+    v40 = 0;
+    *&object = &v47;
     *(&object + 1) = "kRegistrationIMSContext";
-    xpc::dict::object_proxy::operator=(&object, &v32);
-    xpc_release(v32);
-    v32 = 0;
+    xpc::dict::object_proxy::operator=(&object, &v39);
+    xpc_release(v39);
+    v39 = 0;
     xdict = 0;
     xdict = xpc_null_create();
-    v2 = SendXpcMessage(a1, &v40, &xdict);
+    v2 = SendXpcMessage(a1, &v47, &xdict);
     *a2 = 0;
     if (MEMORY[0x1865E16C0](xdict) == MEMORY[0x1E69E9E80])
     {
@@ -4185,16 +4135,16 @@ uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary 
         {
           *&object = &xdict;
           *(&object + 1) = "kRegistrationStatus";
-          xpc::dict::object_proxy::operator xpc::object(&object, &v31);
-          v8 = xpc::dyn_cast_or_default(&v31, 0);
-          xpc_release(v31);
+          xpc::dict::object_proxy::operator xpc::object(&object, &v38);
+          v8 = xpc::dyn_cast_or_default(&v38, 0);
+          xpc_release(v38);
           v9 = registrationStatusToRegistrationStatusString(v8);
-          v10 = CTLogRegistration();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v11 = CTLogRegistration(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(object) = 138412290;
             *(&object + 4) = v9;
-            _os_log_impl(&dword_182E9B000, v10, OS_LOG_TYPE_DEFAULT, "Registration status: %@", &object, 0xCu);
+            _os_log_impl(&dword_182E9B000, v11, OS_LOG_TYPE_DEFAULT, "Registration status: %@", &object, 0xCu);
           }
 
           CFDictionaryAddValue(v7, @"kCTRegistrationStatus", v9);
@@ -4204,117 +4154,117 @@ uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary 
         {
           *&object = &xdict;
           *(&object + 1) = "kRegistrationDisplayStatus";
-          xpc::dict::object_proxy::operator xpc::object(&object, &v31);
-          v11 = xpc::dyn_cast_or_default(&v31, 0);
-          xpc_release(v31);
-          v12 = registrationStatusToRegistrationStatusString(v11);
-          v13 = CTLogRegistration();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          xpc::dict::object_proxy::operator xpc::object(&object, &v38);
+          v12 = xpc::dyn_cast_or_default(&v38, 0);
+          xpc_release(v38);
+          v13 = registrationStatusToRegistrationStatusString(v12);
+          v15 = CTLogRegistration(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(object) = 138412290;
-            *(&object + 4) = v12;
-            _os_log_impl(&dword_182E9B000, v13, OS_LOG_TYPE_DEFAULT, "Registration display status: %@", &object, 0xCu);
+            *(&object + 4) = v13;
+            _os_log_impl(&dword_182E9B000, v15, OS_LOG_TYPE_DEFAULT, "Registration display status: %@", &object, 0xCu);
           }
 
-          CFDictionaryAddValue(v7, @"kCTRegistrationDisplayStatus", v12);
+          CFDictionaryAddValue(v7, @"kCTRegistrationDisplayStatus", v13);
         }
 
         value = xpc_dictionary_get_value(xdict, "kRegistrationIsInHomeCountry");
-        v15 = MEMORY[0x1E695E4D0];
-        v16 = MEMORY[0x1E695E4C0];
+        v17 = MEMORY[0x1E695E4D0];
+        v18 = MEMORY[0x1E695E4C0];
         if (value)
         {
           *&object = &xdict;
           *(&object + 1) = "kRegistrationIsInHomeCountry";
-          xpc::dict::object_proxy::operator xpc::object(&object, &v31);
-          v17 = xpc::dyn_cast_or_default(&v31, 0);
-          xpc_release(v31);
-          if (v17)
+          xpc::dict::object_proxy::operator xpc::object(&object, &v38);
+          v19 = xpc::dyn_cast_or_default(&v38, 0);
+          xpc_release(v38);
+          if (v19)
           {
-            v18 = v15;
+            v22 = v17;
           }
 
           else
           {
-            v18 = v16;
+            v22 = v18;
           }
 
-          v19 = *v18;
-          v20 = CTLogRegistration();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v23 = *v22;
+          v24 = CTLogRegistration(v20, v21);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(object) = 138412290;
-            *(&object + 4) = v19;
-            _os_log_impl(&dword_182E9B000, v20, OS_LOG_TYPE_DEFAULT, "In Home Country: %@", &object, 0xCu);
+            *(&object + 4) = v23;
+            _os_log_impl(&dword_182E9B000, v24, OS_LOG_TYPE_DEFAULT, "In Home Country: %@", &object, 0xCu);
           }
 
-          CFDictionaryAddValue(v7, @"kCTRegistrationInHomeCountry", v19);
+          CFDictionaryAddValue(v7, @"kCTRegistrationInHomeCountry", v23);
         }
 
         if (xpc_dictionary_get_value(xdict, "kRegistrationIsForcedRegisteredHome"))
         {
           *&object = &xdict;
           *(&object + 1) = "kRegistrationIsForcedRegisteredHome";
-          xpc::dict::object_proxy::operator xpc::object(&object, &v31);
-          v21 = xpc::dyn_cast_or_default(&v31, 0);
-          xpc_release(v31);
-          if (v21)
+          xpc::dict::object_proxy::operator xpc::object(&object, &v38);
+          v25 = xpc::dyn_cast_or_default(&v38, 0);
+          xpc_release(v38);
+          if (v25)
           {
-            v22 = v15;
+            v28 = v17;
           }
 
           else
           {
-            v22 = v16;
+            v28 = v18;
           }
 
-          v23 = *v22;
-          v24 = CTLogRegistration();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v29 = *v28;
+          v30 = CTLogRegistration(v26, v27);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(object) = 138412290;
-            *(&object + 4) = v23;
-            _os_log_impl(&dword_182E9B000, v24, OS_LOG_TYPE_DEFAULT, "Forced registered home: %@", &object, 0xCu);
+            *(&object + 4) = v29;
+            _os_log_impl(&dword_182E9B000, v30, OS_LOG_TYPE_DEFAULT, "Forced registered home: %@", &object, 0xCu);
           }
 
-          CFDictionaryAddValue(v7, @"kCTRegistrationIsForcedRegisteredHome", v23);
+          CFDictionaryAddValue(v7, @"kCTRegistrationIsForcedRegisteredHome", v29);
         }
 
         if (xpc_dictionary_get_value(xdict, "kRegistrationCampOnly"))
         {
           *&object = &xdict;
           *(&object + 1) = "kRegistrationCampOnly";
-          xpc::dict::object_proxy::operator xpc::object(&object, &v31);
-          v25 = xpc::dyn_cast_or_default(&v31, 0);
-          xpc_release(v31);
-          if (v25)
+          xpc::dict::object_proxy::operator xpc::object(&object, &v38);
+          v31 = xpc::dyn_cast_or_default(&v38, 0);
+          xpc_release(v38);
+          if (v31)
           {
-            v26 = v15;
+            v34 = v17;
           }
 
           else
           {
-            v26 = v16;
+            v34 = v18;
           }
 
-          v27 = *v26;
-          v28 = CTLogRegistration();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v35 = *v34;
+          v36 = CTLogRegistration(v32, v33);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(object) = 138412290;
-            *(&object + 4) = v27;
-            _os_log_impl(&dword_182E9B000, v28, OS_LOG_TYPE_DEFAULT, "Camp only: %@", &object, 0xCu);
+            *(&object + 4) = v35;
+            _os_log_impl(&dword_182E9B000, v36, OS_LOG_TYPE_DEFAULT, "Camp only: %@", &object, 0xCu);
           }
 
-          CFDictionaryAddValue(v7, @"kCTCampOnly", v27);
+          CFDictionaryAddValue(v7, @"kCTCampOnly", v35);
         }
 
         if (xpc_dictionary_get_value(xdict, "kRegistrationAgentStatus"))
         {
           *&object = 0;
           xpc_dictionary_get_value(xdict, "kRegistrationAgentStatus");
-          v31 = _CFXPCCreateCFObjectFromXPCObject();
-          ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&object, &v31);
+          v38 = _CFXPCCreateCFObjectFromXPCObject();
+          ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&object, &v38);
           CFDictionaryAddValue(v7, @"kCTRegistrationIMSStatus", object);
           if (object)
           {
@@ -4326,8 +4276,8 @@ uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary 
         {
           *&object = 0;
           xpc_dictionary_get_value(xdict, "kRegistrationIMSContext");
-          v31 = _CFXPCCreateCFObjectFromXPCObject();
-          ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&object, &v31);
+          v38 = _CFXPCCreateCFObjectFromXPCObject();
+          ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&object, &v38);
           CFDictionaryAddValue(v7, @"kCTRegistrationIMSContext", object);
           if (object)
           {
@@ -4339,8 +4289,8 @@ uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary 
         {
           *&object = 0;
           xpc_dictionary_get_value(xdict, "kRegistrationIMSTransportType");
-          v31 = _CFXPCCreateCFObjectFromXPCObject();
-          ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&object, &v31);
+          v38 = _CFXPCCreateCFObjectFromXPCObject();
+          ctu::cf::CFSharedRef<__CFString const>::CFSharedRef<void const,void>(&object, &v38);
           CFDictionaryAddValue(v7, @"kCTRegistrationIMSTransportType", object);
           if (object)
           {
@@ -4353,10 +4303,9 @@ uint64_t _CTServerConnectionCopyRegistrationInfo(const void *a1, __CFDictionary 
     }
 
     xpc_release(xdict);
-    xpc_release(v40);
+    xpc_release(v47);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -4429,66 +4378,66 @@ uint64_t _CTServerConnectionSetBandInfo(void *a1, ctu *a2)
   return v2;
 }
 
-uint64_t _CTServerConnectionSetCivicInfoBasedOnCurrentLocation(void *a1, uint64_t a2)
+uint64_t _CTServerConnectionSetCivicInfoBasedOnCurrentLocation(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = 0x1600000001;
+  v5 = 0x1600000001;
   if (a1 && a2)
   {
     xpc::dict_creator::dict_creator(&object);
-    xpc::dict_creator::operator()<char const*>("kSetCivicInfoBasedOnCurrentLocation", &object, "kRequest", &v15);
+    xpc::dict_creator::operator()<char const*>("kSetCivicInfoBasedOnCurrentLocation", &object, "kRequest", &v18);
     xpc_release(object);
-    v4 = v15;
-    object = v15;
-    v15 = xpc_null_create();
-    xpc_release(v15);
-    v5 = _CFXPCCreateXPCObjectFromCFObject();
-    if (!v5)
+    v7 = v18;
+    object = v18;
+    v18 = xpc_null_create();
+    xpc_release(v18);
+    v8 = _CFXPCCreateXPCObjectFromCFObject();
+    if (!v8)
     {
-      v5 = xpc_null_create();
+      v8 = xpc_null_create();
     }
 
-    xpc_dictionary_set_value(v4, "kCountryCodeBasedOnCurrentLocation", v5);
-    v6 = xpc_null_create();
-    xpc_release(v5);
-    xpc_release(v6);
-    v7 = _CFXPCCreateXPCObjectFromCFObject();
-    if (!v7)
-    {
-      v7 = xpc_null_create();
-    }
-
-    xpc_dictionary_set_value(v4, "kStateBasedOnCurrentLocation", v7);
-    v8 = xpc_null_create();
-    xpc_release(v7);
+    xpc_dictionary_set_value(v7, "kCountryCodeBasedOnCurrentLocation", v8);
+    v9 = xpc_null_create();
     xpc_release(v8);
-    v9 = _CFXPCCreateXPCObjectFromCFObject();
-    if (!v9)
-    {
-      v9 = xpc_null_create();
-    }
-
-    xpc_dictionary_set_value(v4, "kCityBasedOnCurrentLocation", v9);
-    v10 = xpc_null_create();
     xpc_release(v9);
-    xpc_release(v10);
-    v11 = _CFXPCCreateXPCObjectFromCFObject();
-    if (!v11)
+    v10 = _CFXPCCreateXPCObjectFromCFObject();
+    if (!v10)
     {
-      v11 = xpc_null_create();
+      v10 = xpc_null_create();
     }
 
-    xpc_dictionary_set_value(v4, "kPostalCodeBasedOnCurrentLocation", v11);
-    v12 = xpc_null_create();
+    xpc_dictionary_set_value(v7, "kStateBasedOnCurrentLocation", v10);
+    v11 = xpc_null_create();
+    xpc_release(v10);
     xpc_release(v11);
+    v12 = _CFXPCCreateXPCObjectFromCFObject();
+    if (!v12)
+    {
+      v12 = xpc_null_create();
+    }
+
+    xpc_dictionary_set_value(v7, "kCityBasedOnCurrentLocation", v12);
+    v13 = xpc_null_create();
     xpc_release(v12);
-    v2 = SendXpcMessage(a1, &object, 0, v13);
+    xpc_release(v13);
+    v14 = _CFXPCCreateXPCObjectFromCFObject();
+    if (!v14)
+    {
+      v14 = xpc_null_create();
+    }
+
+    xpc_dictionary_set_value(v7, "kPostalCodeBasedOnCurrentLocation", v14);
+    v15 = xpc_null_create();
+    xpc_release(v14);
+    xpc_release(v15);
+    v5 = SendXpcMessage(a1, &object, 0, v16);
     xpc_release(object);
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t _CTServerConnectionPhoneServicesGetDeviceList(uint64_t a1, ctu *a2, void *a3)
+unint64_t _CTServerConnectionPhoneServicesGetDeviceList(uint64_t a1, ctu *a2, void *a3)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3)
@@ -4544,7 +4493,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t _CTServerConnectionPhoneServicesGetDeviceInfo(uint64_t a1, ctu *a2, void *a3)
+unint64_t _CTServerConnectionPhoneServicesGetDeviceInfo(uint64_t a1, ctu *a2, void *a3)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3)
@@ -5016,39 +4965,33 @@ NetworkNotification *NetworkNotification::NetworkNotification(NetworkNotificatio
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v6, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v7 = __p;
+    v6 = __p;
   }
 
-  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v8, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v7, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
   }
 
-  v9 = 0;
-  v3 = *MEMORY[0x1E695E480];
+  v8 = 0;
   if (ctu::cf::convert_copy())
   {
-    v4 = v9;
+    v3 = v8;
   }
 
   else
   {
-    v4 = 0;
-  }
-
-  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v8.__r_.__value_.__l.__data_);
+    v3 = 0;
   }
 
   if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
@@ -5056,10 +4999,15 @@ NetworkNotification *NetworkNotification::NetworkNotification(NetworkNotificatio
     operator delete(v7.__r_.__value_.__l.__data_);
   }
 
-  NetworkNotification::NetworkNotification(a1, v4);
-  if (v4)
+  if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
-    CFRelease(v4);
+    operator delete(v6.__r_.__value_.__l.__data_);
+  }
+
+  NetworkNotification::NetworkNotification(a1, v3);
+  if (v3)
+  {
+    CFRelease(v3);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5083,39 +5031,33 @@ NetworkNotification *NetworkNotification::NetworkNotification(NetworkNotificatio
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v6, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v7 = __p;
+    v6 = __p;
   }
 
-  if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v8, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v7, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
   }
 
-  v9 = 0;
-  v3 = *MEMORY[0x1E695E480];
+  v8 = 0;
   if (ctu::cf::convert_copy())
   {
-    v4 = v9;
+    v3 = v8;
   }
 
   else
   {
-    v4 = 0;
-  }
-
-  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v8.__r_.__value_.__l.__data_);
+    v3 = 0;
   }
 
   if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
@@ -5123,10 +5065,15 @@ NetworkNotification *NetworkNotification::NetworkNotification(NetworkNotificatio
     operator delete(v7.__r_.__value_.__l.__data_);
   }
 
-  NetworkNotification::NetworkNotification(a1, v4);
-  if (v4)
+  if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
   {
-    CFRelease(v4);
+    operator delete(v6.__r_.__value_.__l.__data_);
+  }
+
+  NetworkNotification::NetworkNotification(a1, v3);
+  if (v3)
+  {
+    CFRelease(v3);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5404,48 +5351,47 @@ CFSetRef _NotificationNameDictionaryInit(void)
   values[2] = @"GREETINGCHANGED";
   values[3] = @"SERVERCHANGED";
   values[4] = @"UNRECOGNIZED";
-  v7[0] = @"DATA-ACTIVATION";
-  v7[1] = @"DATA-USAGE";
-  v6[0] = @"REG-REQ";
-  v6[1] = @"REG-RESP";
+  v6[0] = @"DATA-ACTIVATION";
+  v6[1] = @"DATA-USAGE";
+  v5[0] = @"REG-REQ";
+  v5[1] = @"REG-RESP";
   v0 = MEMORY[0x1E695E9F8];
   __ValidVMNotificationNames = CFSetCreate(0, values, 5, MEMORY[0x1E695E9F8]);
-  __ValidDPNotificationNames = CFSetCreate(0, v7, 2, v0);
-  __ValidPNRNotificationNames = CFSetCreate(0, v6, 2, v0);
-  v5[0] = @"state";
-  v5[1] = @"name";
-  v5[2] = @"pw";
-  v5[3] = @"server";
-  v5[4] = @"port";
-  v5[5] = @"m";
-  v5[6] = @"cmd";
-  v5[7] = @"_timestamp";
-  v4[0] = @"notification";
-  v4[1] = @"success";
-  v4[2] = @"MSISDN";
-  v4[3] = @"plan";
-  v4[4] = @"used";
-  v4[5] = @"delay";
-  v4[6] = @"last-updated";
-  v4[7] = @"autorenew";
-  v4[8] = @"intl";
-  v4[9] = @"end";
-  v4[10] = @"bucket";
-  v4[11] = @"allowed";
-  v4[12] = @"expiry";
-  v4[13] = @"stacking";
+  __ValidDPNotificationNames = CFSetCreate(0, v6, 2, v0);
+  __ValidPNRNotificationNames = CFSetCreate(0, v5, 2, v0);
+  v4[0] = @"state";
+  v4[1] = @"name";
+  v4[2] = @"pw";
+  v4[3] = @"server";
+  v4[4] = @"port";
+  v4[5] = @"m";
+  v4[6] = @"cmd";
+  v4[7] = @"_timestamp";
   v3[0] = @"notification";
-  v3[1] = @"t";
-  v3[2] = @"n";
-  v3[3] = @"s";
-  v3[4] = @"r";
-  v3[5] = @"u";
-  v3[6] = @"v";
-  __ValidVMNotificationKeys = CFSetCreate(0, v5, 8, v0);
-  __ValidDPNotificationKeys = CFSetCreate(0, v4, 14, v0);
-  result = CFSetCreate(0, v3, 7, v0);
+  v3[1] = @"success";
+  v3[2] = @"MSISDN";
+  v3[3] = @"plan";
+  v3[4] = @"used";
+  v3[5] = @"delay";
+  v3[6] = @"last-updated";
+  v3[7] = @"autorenew";
+  v3[8] = @"intl";
+  v3[9] = @"end";
+  v3[10] = @"bucket";
+  v3[11] = @"allowed";
+  v3[12] = @"expiry";
+  v3[13] = @"stacking";
+  v2[0] = @"notification";
+  v2[1] = @"t";
+  v2[2] = @"n";
+  v2[3] = @"s";
+  v2[4] = @"r";
+  v2[5] = @"u";
+  v2[6] = @"v";
+  __ValidVMNotificationKeys = CFSetCreate(0, v4, 8, v0);
+  __ValidDPNotificationKeys = CFSetCreate(0, v3, 14, v0);
+  result = CFSetCreate(0, v2, 7, v0);
   __ValidPNRNotificationKeys = result;
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5697,22 +5643,23 @@ __CFString *networkSelectionStateToNetworkSelectionStateString(int a1)
   return *v3;
 }
 
-void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFString **a4)
+void convertRatAndPreferred(uint64_t result, int a2, const __CFString **a3, const __CFString **a4)
 {
+  v4 = result;
   *a3 = @"kCTRegistrationRATSelectionUnknown";
   *a4 = @"kCTRegistrationRATSelectionUnknown";
-  if (a1 <= 17)
+  if (result <= 17)
   {
-    if (a1 > 7)
+    if (result > 7)
     {
-      if (a1 > 14)
+      if (result > 14)
       {
-        if (a1 == 15)
+        if (result == 15)
         {
           goto LABEL_5;
         }
 
-        if (a1 == 16)
+        if (result == 16)
         {
           v6 = kCTRegistrationRATSelection6;
           goto LABEL_6;
@@ -5721,13 +5668,13 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
 
       else
       {
-        if (a1 == 8)
+        if (result == 8)
         {
           v6 = kCTRegistrationRATSelection4;
           goto LABEL_6;
         }
 
-        if (a1 == 12)
+        if (result == 12)
         {
           v6 = kCTRegistrationRATSelection5;
           goto LABEL_6;
@@ -5735,9 +5682,9 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
       }
     }
 
-    else if (a1 > 2)
+    else if (result > 2)
     {
-      if (a1 == 3)
+      if (result == 3)
       {
         *a3 = @"kCTRegistrationRATSelectionDual";
         if (a2 == 2)
@@ -5759,7 +5706,7 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
         goto LABEL_7;
       }
 
-      if (a1 == 4)
+      if (result == 4)
       {
         v6 = kCTRegistrationRATSelection3;
         goto LABEL_6;
@@ -5768,13 +5715,13 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
 
     else
     {
-      if (a1 == 1)
+      if (result == 1)
       {
         v6 = kCTRegistrationRATSelection0;
         goto LABEL_6;
       }
 
-      if (a1 == 2)
+      if (result == 2)
       {
         v6 = kCTRegistrationRATSelection1;
         goto LABEL_6;
@@ -5782,31 +5729,31 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
     }
   }
 
-  else if (a1 > 127)
+  else if (result > 127)
   {
-    if (a1 <= 191)
+    if (result <= 191)
     {
-      if (a1 == 128 || a1 == 144)
+      if (result == 128 || result == 144)
       {
         v6 = kCTRegistrationRATSelection10;
         goto LABEL_6;
       }
 
-      if (a1 == 147)
+      if (result == 147)
       {
         goto LABEL_5;
       }
     }
 
-    else if (a1 > 210)
+    else if (result > 210)
     {
-      if (a1 == 211 || a1 == 255)
+      if (result == 211 || result == 255)
       {
         goto LABEL_5;
       }
     }
 
-    else if (a1 == 192 || a1 == 208)
+    else if (result == 192 || result == 208)
     {
       v6 = kCTRegistrationRATSelection11;
       goto LABEL_6;
@@ -5815,10 +5762,10 @@ void convertRatAndPreferred(int a1, int a2, const __CFString **a3, const __CFStr
 
   else
   {
-    v5 = (a1 - 18);
+    v5 = (result - 18);
     if (v5 <= 0x3E)
     {
-      if (((1 << (a1 - 18)) & 0x200200002003) != 0)
+      if (((1 << (result - 18)) & 0x200200002003) != 0)
       {
 LABEL_5:
         v6 = kCTRegistrationRATSelection7;
@@ -5830,7 +5777,7 @@ LABEL_7:
         return;
       }
 
-      if (((1 << (a1 - 18)) & 0x4000400000000000) != 0)
+      if (((1 << (result - 18)) & 0x4000400000000000) != 0)
       {
         v6 = kCTRegistrationRATSelection9;
         goto LABEL_6;
@@ -5846,11 +5793,11 @@ LABEL_7:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    convertRatAndPreferred(a1);
+    convertRatAndPreferred(v4);
   }
 }
 
-uint64_t _CTServerConnectionGetSIMSubscriptionStatus(void *a1, NSObject *a2, uint64_t a3)
+uint64_t _CTServerConnectionGetSIMSubscriptionStatus(uint64_t *a1, NSObject *a2, uint64_t a3)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3)
@@ -5882,7 +5829,7 @@ uint64_t _CTServerConnectionGetSIMSubscriptionStatus(void *a1, NSObject *a2, uin
   return result;
 }
 
-uint64_t _CTServerConnectionProbeSIMConnectivityStatus(void *a1, NSObject *a2, uint64_t a3)
+uint64_t _CTServerConnectionProbeSIMConnectivityStatus(uint64_t *a1, NSObject *a2, uint64_t a3)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3)
@@ -5929,7 +5876,7 @@ const void **ctu::cf::CFSharedRef<__CFError>::operator=<void const,void>(const v
   return a1;
 }
 
-uint64_t _CTServerConnectionCopyRemoteMobileEquipmentInfo(void *a1, ctu *a2, NSObject *a3, uint64_t a4)
+uint64_t _CTServerConnectionCopyRemoteMobileEquipmentInfo(uint64_t *a1, ctu *a2, NSObject *a3, uint64_t a4)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3 && a4)
@@ -5969,7 +5916,7 @@ uint64_t _CTServerConnectionCopyRemoteMobileEquipmentInfo(void *a1, ctu *a2, NSO
   return result;
 }
 
-uint64_t _CTServerConnectionGetNumberOfDeletablePlansInstalled(uint64_t a1, void *a2)
+unint64_t _CTServerConnectionGetNumberOfDeletablePlansInstalled(uint64_t a1, void *a2)
 {
   result = 0x1600000001;
   if (a1 && a2)
@@ -6052,7 +5999,7 @@ uint64_t _CTServerConnectionDebugResetSim(void *a1)
   return v3;
 }
 
-uint64_t _CTServerConnectionStandaloneSetSelectionOverride(void *a1, uint64_t a2, ctu *a3, uint64_t a4, uint64_t a5)
+uint64_t _CTServerConnectionStandaloneSetSelectionOverride(uint64_t *a1, uint64_t a2, ctu *a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -6178,7 +6125,7 @@ uint64_t _CTServerConnectionStandaloneResetSelectionOverride(void *a1)
   return v3;
 }
 
-uint64_t _CTServerConnectionStandaloneDownloadProfile(void *a1, ctu *a2, ctu *a3, uint64_t a4)
+uint64_t _CTServerConnectionStandaloneDownloadProfile(uint64_t *a1, ctu *a2, ctu *a3, uint64_t a4)
 {
   result = 0x1600000001;
   if (a1 && a2 && a3 && a4)
@@ -6436,33 +6383,33 @@ void MMSCharsetHeader::~MMSCharsetHeader(MMSCharsetHeader *this)
   JUMPOUT(0x1865E0880);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,MMSCharset *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,MMSCharset *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,MMSCharset *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,MMSCharset *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6470,44 +6417,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,MMSCharset *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,MMSCharset *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,MMSCharset *>>>::find<unsigned int>(void *a1, unsigned int *a2)
@@ -7292,101 +7239,101 @@ void sub_182FAA888(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_182FAAF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_182FAAF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FAB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_182FAB4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FAB82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_182FAB82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FABB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_182FABB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FABE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_182FABE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_182FAC0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FAC4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_182FAC0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FAC6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182FAC4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a8);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FACA4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182FAC6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 112), 8);
+  _Block_object_dispose((v15 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FACDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182FACA4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 96), 8);
+  _Block_object_dispose((v15 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_182FAD0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_182FACDA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v15 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_182FAD0E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
 
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 96), 8);
+  _Block_object_dispose((v17 - 96), 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_182FAD3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182FAD3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_182FAD8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_182FAD8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -7429,7 +7376,7 @@ void sub_182FAF140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182FAF994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_182FAF994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   v25 = v23;
 
@@ -7439,7 +7386,7 @@ void sub_182FAF994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_182FAFF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_182FAFF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   v25 = v23;
 
@@ -7608,16 +7555,14 @@ void MMSPduEncoder::encodeEncodedString(MMSPduEncoder *this, uint64_t a2, MMSCha
   else
   {
     v8 = a3;
-    v20[0] = 0;
-    v20[1] = 0;
-    v21 = 0;
+    memset(&v20, 0, sizeof(v20));
     v9 = *(this + 8);
     v10 = v9 == a3 || v9 == 0;
-    if (!v10 && MMSPduDecoder::convertStringToTargetCharset(a2, v20, a3, v9))
+    if (!v10 && MMSPduDecoder::convertStringToTargetCharset(a2, &v20, a3, v9))
     {
-      v6 = &v21 + 7;
+      v6 = &v20.__r_.__value_.__r.__words[2] + 7;
       v8 = *(this + 8);
-      v3 = v20;
+      v3 = &v20;
     }
 
     if (v8 == 106)
@@ -7625,12 +7570,13 @@ void MMSPduEncoder::encodeEncodedString(MMSPduEncoder *this, uint64_t a2, MMSCha
       v11 = v3;
       if (*v6 < 0)
       {
-        v11 = *v3;
+        v11 = v3->__r_.__value_.__r.__words[0];
       }
 
       do
       {
-        v12 = *v11++;
+        v12 = v11->__r_.__value_.__s.__data_[0];
+        v11 = (v11 + 1);
         v13 = v12 == 0;
       }
 
@@ -7651,7 +7597,7 @@ void MMSPduEncoder::encodeEncodedString(MMSPduEncoder *this, uint64_t a2, MMSCha
     MMSPduEncoder::encodeWspIntegerValue(__p, v8);
     if (*v6 < 0)
     {
-      v3 = *v3;
+      v3 = v3->__r_.__value_.__r.__words[0];
     }
 
     MMSPduEncoder::encodeWspTextString(__p, v3);
@@ -7692,9 +7638,9 @@ void MMSPduEncoder::encodeEncodedString(MMSPduEncoder *this, uint64_t a2, MMSCha
       operator delete(__p[1]);
     }
 
-    if (SHIBYTE(v21) < 0)
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v20[0]);
+      operator delete(v20.__r_.__value_.__l.__data_);
     }
   }
 }
@@ -7725,43 +7671,55 @@ BOOL MMSPduEncoder::encodeHeaders(MMSPduEncoder *this, const MMSHeaderContainer 
   v5 = MMSHeaderContainer::headerWithName(a2, "X-Mms-Message-Type");
   v6 = MMSHeaderContainer::headerWithName(a2, "X-Mms-Transaction-ID");
   v7 = MMSHeaderContainer::headerWithName(a2, "X-Mms-MMS-Version");
-  if (v5 && (MMSHeader::encode(v5, this) & 1) == 0)
+  if (v5)
   {
-    v12 = sMmsPduLog();
-    result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-    if (!result)
+    v8 = MMSHeader::encode(v5, this);
+    if ((v8 & 1) == 0)
     {
-      return result;
-    }
+      v20 = sMmsPduLog(v8, v9);
+      result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      if (!result)
+      {
+        return result;
+      }
 
-    MMSPduEncoder::encodeHeaders(v12, v13, v14, v15, v16, v17, v18, v19);
-    return 0;
+      MMSPduEncoder::encodeHeaders(v20, v21, v22, v23, v24, v25, v26, v27);
+      return 0;
+    }
   }
 
-  if (v6 && (MMSHeader::encode(v6, this) & 1) == 0)
+  if (v6)
   {
-    v20 = sMmsPduLog();
-    result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
-    if (!result)
+    v10 = MMSHeader::encode(v6, this);
+    if ((v10 & 1) == 0)
     {
-      return result;
-    }
+      v28 = sMmsPduLog(v10, v11);
+      result = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+      if (!result)
+      {
+        return result;
+      }
 
-    MMSPduEncoder::encodeHeaders(v20, v21, v22, v23, v24, v25, v26, v27);
-    return 0;
+      MMSPduEncoder::encodeHeaders(v28, v29, v30, v31, v32, v33, v34, v35);
+      return 0;
+    }
   }
 
-  if (v7 && (MMSHeader::encode(v7, this) & 1) == 0)
+  if (v7)
   {
-    v28 = sMmsPduLog();
-    result = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-    if (!result)
+    v12 = MMSHeader::encode(v7, this);
+    if ((v12 & 1) == 0)
     {
-      return result;
-    }
+      v36 = sMmsPduLog(v12, v13);
+      result = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+      if (!result)
+      {
+        return result;
+      }
 
-    MMSPduEncoder::encodeHeaders(v28, v29, v30, v31, v32, v33, v34, v35);
-    return 0;
+      MMSPduEncoder::encodeHeaders(v36, v37, v38, v39, v40, v41, v42, v43);
+      return 0;
+    }
   }
 
   if (!MMSHeaderContainer::headerCount(a2))
@@ -7769,47 +7727,52 @@ BOOL MMSPduEncoder::encodeHeaders(MMSPduEncoder *this, const MMSHeaderContainer 
     return 1;
   }
 
-  LODWORD(v8) = 0;
+  LODWORD(v14) = 0;
   while (1)
   {
-    v9 = MMSHeaderEncodingMap::encodingForNumber(a2, v8);
-    if (v9 != v4)
+    v15 = MMSHeaderEncodingMap::encodingForNumber(a2, v14);
+    if (v15 != v4)
     {
-      v10 = v9;
-      if (v9 != v5 && v9 != v6 && v9 != v7 && (MMSHeader::encode(v9, this) & 1) == 0)
+      v16 = v15;
+      if (v15 != v5 && v15 != v6 && v15 != v7)
       {
-        break;
+        v17 = MMSHeader::encode(v15, this);
+        if ((v17 & 1) == 0)
+        {
+          break;
+        }
       }
     }
 
-    v8 = (v8 + 1);
-    if (MMSHeaderContainer::headerCount(a2) <= v8)
+    v14 = (v14 + 1);
+    if (MMSHeaderContainer::headerCount(a2) <= v14)
     {
       return 1;
     }
   }
 
-  v36 = sMmsPduLog();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+  v44 = sMmsPduLog(v17, v18);
+  v45 = os_log_type_enabled(v44, OS_LOG_TYPE_ERROR);
+  if (v45)
   {
-    MMSPduEncoder::encodeHeaders(v10, v36);
+    MMSPduEncoder::encodeHeaders(v16, v44);
   }
 
-  v37 = sMmsPduLog();
-  result = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+  v47 = sMmsPduLog(v45, v46);
+  result = os_log_type_enabled(v47, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    MMSPduEncoder::encodeHeaders(v10, v37);
+    MMSPduEncoder::encodeHeaders(v16, v47);
     return 0;
   }
 
   return result;
 }
 
-BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
+BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, std::string **a2)
 {
-  memset(&v26, 0, sizeof(v26));
-  v4 = *(a2 + 9);
+  memset(&v25, 0, sizeof(v25));
+  v4 = a2[9];
   v5 = *(a2 + 24);
   v6 = MMSHeaderContainer::contentType(a2);
   v7 = v6;
@@ -7819,7 +7782,7 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
     if (!strcmp(v8, "text"))
     {
       v14 = MMSParameterContainer::charset((v7 + 1));
-      std::string::__assign_external(&v26, v4, v5);
+      std::string::__assign_external(&v25, v4, v5);
       v15 = *(this + 8);
       if (v15)
       {
@@ -7833,29 +7796,28 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
 
       if (!v16 && v14 != 0)
       {
-        MMSPduDecoder::convertStringToTargetCharsetInPlace(&v26, v14, v15);
-        v18 = *(this + 8);
+        MMSPduDecoder::convertStringToTargetCharsetInPlace(&v25, v14, v15);
         operator new();
       }
 
       v9 = v7;
       if (v15 == 106)
       {
-        v19 = &v26;
-        if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v18 = &v25;
+        if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v19 = v26.__r_.__value_.__r.__words[0];
+          v18 = v25.__r_.__value_.__r.__words[0];
         }
 
         do
         {
-          v21 = v19->__r_.__value_.__s.__data_[0];
-          v19 = (v19 + 1);
-          v20 = v21;
+          v20 = v18->__r_.__value_.__s.__data_[0];
+          v18 = (v18 + 1);
+          v19 = v20;
         }
 
-        while (v21 > 0);
-        if (!v20)
+        while (v20 > 0);
+        if (!v19)
         {
           operator new();
         }
@@ -7865,10 +7827,10 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
       {
         if (v14)
         {
-          v22 = MMSHeaderContainer::headerWithName(0, "Content-Disposition");
-          if (v22)
+          v21 = MMSHeaderContainer::headerWithName(0, "Content-Disposition");
+          if (v21)
           {
-            MMSParameterContainer::setCharset((v22 + 32), v14);
+            MMSParameterContainer::setCharset((v21 + 32), v14);
           }
         }
       }
@@ -7880,27 +7842,27 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
     }
 
     *__p = 0u;
-    v24 = 0u;
+    v23 = 0u;
     LODWORD(__p[0]) = *this;
-    v25 = 0;
+    v24 = 0;
     __p[1] = 0;
-    v24 = 0uLL;
-    LODWORD(v25) = *(this + 8);
+    v23 = 0uLL;
+    LODWORD(v24) = *(this + 8);
     (*(*v9 + 40))(v9, __p);
     MMSPduEncoder::encodeHeaders(__p, a2);
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
-      v10 = HIBYTE(v24);
+      v10 = HIBYTE(v23);
     }
 
     else
     {
-      v10 = v24;
+      v10 = v23;
     }
 
     MMSPduEncoder::encodeWspUintvarInteger(this, v10);
     MMSPduEncoder::encodeWspUintvarInteger(this, v5);
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
       v11 = &__p[1];
     }
@@ -7910,14 +7872,14 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
       v11 = __p[1];
     }
 
-    if (v24 >= 0)
+    if (v23 >= 0)
     {
-      v12 = HIBYTE(v24);
+      v12 = HIBYTE(v23);
     }
 
     else
     {
-      v12 = v24;
+      v12 = v23;
     }
 
     std::string::append((this + 8), v11, v12);
@@ -7926,15 +7888,15 @@ BOOL MMSPduEncoder::_encodeMimePart(MMSPduEncoder *this, const MMSMimePart *a2)
       std::string::append((this + 8), v4, v5);
     }
 
-    if (SHIBYTE(v24) < 0)
+    if (SHIBYTE(v23) < 0)
     {
       operator delete(__p[1]);
     }
   }
 
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
   }
 
   return v7 != 0;

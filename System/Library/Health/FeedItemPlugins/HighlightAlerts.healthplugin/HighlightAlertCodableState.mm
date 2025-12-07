@@ -188,14 +188,12 @@ LABEL_12:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    latestSupportedVersion = self->_latestSupportedVersion;
     PBDataWriterWriteInt64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    minimumSupportedVersion = self->_minimumSupportedVersion;
     PBDataWriterWriteInt64Field();
   }
 
@@ -204,16 +202,15 @@ LABEL_12:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if (v7)
+  v5 = self->_has;
+  if (v5)
   {
-    eventDate = self->_eventDate;
     PBDataWriterWriteDoubleField();
-    v7 = self->_has;
-    if ((v7 & 2) == 0)
+    v5 = self->_has;
+    if ((v5 & 2) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x10) == 0)
+      if ((v5 & 0x10) == 0)
       {
         goto LABEL_10;
       }
@@ -227,13 +224,12 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  expirationDate = self->_expirationDate;
   PBDataWriterWriteDoubleField();
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) == 0)
   {
 LABEL_10:
-    if ((v7 & 0x20) == 0)
+    if ((v5 & 0x20) == 0)
     {
       goto LABEL_12;
     }
@@ -242,12 +238,10 @@ LABEL_10:
   }
 
 LABEL_17:
-  acknowledged = self->_acknowledged;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_11:
-    dismissed = self->_dismissed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -409,7 +403,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 52);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 52) & 4) == 0 || self->_latestSupportedVersion != *(equalCopy + 3))
@@ -480,7 +473,6 @@ LABEL_9:
       goto LABEL_33;
     }
 
-    v10 = *(equalCopy + 48);
     if (self->_acknowledged)
     {
       if ((*(equalCopy + 48) & 1) == 0)
@@ -500,7 +492,7 @@ LABEL_9:
     goto LABEL_33;
   }
 
-  v8 = (*(equalCopy + 52) & 0x20) == 0;
+  v7 = (*(equalCopy + 52) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 52) & 0x20) != 0)
@@ -516,18 +508,18 @@ LABEL_9:
       else if (!*(equalCopy + 49))
       {
 LABEL_41:
-        v8 = 1;
+        v7 = 1;
         goto LABEL_34;
       }
     }
 
 LABEL_33:
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_34:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

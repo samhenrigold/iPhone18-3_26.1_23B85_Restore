@@ -42,7 +42,7 @@
 
 - (BOOL)addNewRolloutWithRecord:(id)record
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (!recordCopy)
   {
@@ -63,16 +63,16 @@
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48;
-    v19[3] = &unk_279DDF9C0;
-    v19[4] = self;
-    v20 = recordCopy;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48;
+    v18[3] = &unk_279DDF9C0;
+    v18[4] = self;
+    v19 = recordCopy;
     p_buf = &buf;
-    [(TRIRolloutDatabase *)self writeTransactionWithFailableBlock:v19];
+    [(TRIRolloutDatabase *)self writeTransactionWithFailableBlock:v18];
     v12 = *(*(&buf + 1) + 24);
 
     _Block_object_dispose(&buf, 8);
@@ -93,7 +93,6 @@
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12 & 1;
 }
 
@@ -107,7 +106,7 @@ id __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke(uint64_t a1, 
 
 uint64_t __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) deployment];
@@ -121,7 +120,7 @@ uint64_t __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48(uint
       v8 = [*(a1 + 40) deployment];
       v9 = [v8 shortDesc];
       *buf = 138543362;
-      v38 = v9;
+      v37 = v9;
       _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEFAULT, "Unable to add new rollout deployment %{public}@: already present in database.", buf, 0xCu);
     }
 
@@ -135,46 +134,46 @@ uint64_t __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48(uint
     sqlite3_set_last_insert_rowid([v11 handle], 0x8000000000000000);
 
     v12 = [v3 db];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_52;
-    v34[3] = &unk_279DDF860;
-    v35 = *(a1 + 40);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_52;
+    v33[3] = &unk_279DDF860;
+    v34 = *(a1 + 40);
     v13 = [*(*(a1 + 32) + 8) generalErrorHandlerWithOutError:0];
-    v14 = [v12 prepAndRunQuery:@" INSERT INTO rolloutsV2(    rolloutId onPrep:deploymentId onRow:rampId onError:{status, activeFactorPackSetId, activeTargetingRuleIndex, targetedFactorPackSetId, targetedTargetingRuleIndex, artifact) VALUES(    :rollout_id, :deployment_id, :ramp_id, :status, :active_fp_set_id, :active_targeting_rule_index, :targeted_fp_set_id, :targeted_targeting_rule_index, :artifact);", v34, 0, v13}];
+    v14 = [v12 prepAndRunQuery:@" INSERT INTO rolloutsV2(    rolloutId onPrep:deploymentId onRow:rampId onError:{status, activeFactorPackSetId, activeTargetingRuleIndex, targetedFactorPackSetId, targetedTargetingRuleIndex, artifact) VALUES(    :rollout_id, :deployment_id, :ramp_id, :status, :active_fp_set_id, :active_targeting_rule_index, :targeted_fp_set_id, :targeted_targeting_rule_index, :artifact);", v33, 0, v13}];
 
-    if ((v14 & 1) != 0 && ([v3 db], v15 = objc_claimAutoreleasedReturnValue(), insert_rowid = sqlite3_last_insert_rowid(objc_msgSend(v15, "handle")), v15, v28 = insert_rowid, insert_rowid != 0x8000000000000000))
+    if ((v14 & 1) != 0 && ([v3 db], v15 = objc_claimAutoreleasedReturnValue(), insert_rowid = sqlite3_last_insert_rowid(objc_msgSend(v15, "handle")), v15, v27 = insert_rowid, insert_rowid != 0x8000000000000000))
     {
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       obj = [*(a1 + 40) namespaces];
-      v17 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v17 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v31;
+        v19 = *v30;
         while (2)
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v31 != v19)
+            if (*v30 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v30 + 1) + 8 * i);
+            v21 = *(*(&v29 + 1) + 8 * i);
             v22 = objc_autoreleasePoolPush();
             v23 = [v3 db];
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_2;
-            v29[3] = &unk_279DE1538;
-            v29[4] = v21;
-            v29[5] = v28;
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_2;
+            v28[3] = &unk_279DE1538;
+            v28[4] = v21;
+            v28[5] = v27;
             v24 = [*(*(a1 + 32) + 8) generalErrorHandlerWithOutError:0];
-            LODWORD(v21) = [v23 prepAndRunQuery:@" INSERT INTO rolloutV2Namespaces(    rolloutsV2_rowid onPrep:name) VALUES(    :rolloutsV2_rowid onRow::name);" onError:{v29, 0, v24}];
+            LODWORD(v21) = [v23 prepAndRunQuery:@" INSERT INTO rolloutV2Namespaces(    rolloutsV2_rowid onPrep:name) VALUES(    :rolloutsV2_rowid onRow::name);" onError:{v28, 0, v24}];
 
             if (!v21)
             {
@@ -188,7 +187,7 @@ uint64_t __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48(uint
             objc_autoreleasePoolPop(v22);
           }
 
-          v18 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v18 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
           if (v18)
           {
             continue;
@@ -211,7 +210,6 @@ uint64_t __46__TRIRolloutDatabase_addNewRolloutWithRecord___block_invoke_48(uint
 LABEL_18:
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -891,15 +889,15 @@ uint64_t __108__TRIRolloutDatabase__enumerateRecordsMatchingWhereClause_bind_pre
 
 void __108__TRIRolloutDatabase__enumerateRecordsMatchingWhereClause_bind_prependingWithClause_usingTransaction_block___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v15 = a2;
+  v14 = a2;
   v6 = objc_autoreleasePoolPush();
-  v7 = [*(a1 + 32) objectForKey:v15];
+  v7 = [*(a1 + 32) objectForKey:v14];
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
     *a4 = 1;
   }
 
-  v8 = [*(a1 + 40) objectForKey:v15];
+  v8 = [*(a1 + 40) objectForKey:v14];
   v9 = v8;
   v10 = MEMORY[0x277CBEBF8];
   if (v8)
@@ -912,9 +910,7 @@ void __108__TRIRolloutDatabase__enumerateRecordsMatchingWhereClause_bind_prepend
   v12 = [v11 copy];
   v13 = [v7 copyWithReplacementNamespaces:v12];
 
-  v14 = *(*(a1 + 56) + 8);
   (*(*(a1 + 48) + 16))();
-
   objc_autoreleasePoolPop(v6);
 }
 
@@ -1214,44 +1210,44 @@ LABEL_3:
 
 uint64_t __116__TRIRolloutDatabase_targetDeployment_toFactorPackSetId_targetingRuleIndex_deallocatedDeployments_usingTransaction___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) rolloutId];
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __116__TRIRolloutDatabase_targetDeployment_toFactorPackSetId_targetingRuleIndex_deallocatedDeployments_usingTransaction___block_invoke_2;
-  v45[3] = &unk_279DE0700;
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __116__TRIRolloutDatabase_targetDeployment_toFactorPackSetId_targetingRuleIndex_deallocatedDeployments_usingTransaction___block_invoke_2;
+  v44[3] = &unk_279DE0700;
   v7 = v4;
-  v46 = v7;
-  LOBYTE(v5) = [v5 enumerateRecordsWithRolloutId:v6 usingTransaction:v3 block:v45];
+  v45 = v7;
+  LOBYTE(v5) = [v5 enumerateRecordsWithRolloutId:v6 usingTransaction:v3 block:v44];
 
   if (v5)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v37 = v7;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v36 = v7;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v41 objects:v51 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v40 objects:v50 count:16];
     if (v9)
     {
       v10 = v9;
-      v38 = 0;
-      v40 = *v42;
+      v37 = 0;
+      v39 = *v41;
       obj = v8;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v42 != v40)
+          if (*v41 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v41 + 1) + 8 * i);
+          v12 = *(*(&v40 + 1) + 8 * i);
           v13 = objc_autoreleasePoolPush();
           v14 = [v12 deployment];
           v15 = [v14 isEqualToDeployment:*(a1 + 40)];
@@ -1285,7 +1281,7 @@ uint64_t __116__TRIRolloutDatabase_targetDeployment_toFactorPackSetId_targetingR
               goto LABEL_25;
             }
 
-            v38 = 1;
+            v37 = 1;
           }
 
           else
@@ -1316,9 +1312,9 @@ LABEL_31:
                 v27 = [v12 deployment];
                 v28 = [v27 shortDesc];
                 *buf = 138543618;
-                v48 = v26;
-                v49 = 2114;
-                v50 = v28;
+                v47 = v26;
+                v48 = 2114;
+                v49 = v28;
                 _os_log_impl(&dword_26F567000, v25, OS_LOG_TYPE_DEFAULT, "Completion of targeting for rollout deployment %{public}@ invalidated targeted rollout deployment: %{public}@", buf, 0x16u);
               }
 
@@ -1341,7 +1337,7 @@ LABEL_32:
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+        v10 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
         if (v10)
         {
           continue;
@@ -1350,7 +1346,7 @@ LABEL_32:
         break;
       }
 
-      if (v38)
+      if (v37)
       {
         *(*(*(a1 + 72) + 8) + 24) = 1;
         v31 = MEMORY[0x277D42670];
@@ -1365,9 +1361,9 @@ LABEL_32:
     v33 = TRILogCategory_Server();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v36 = [*(a1 + 40) shortDesc];
+      v35 = [*(a1 + 40) shortDesc];
       *buf = 138543362;
-      v48 = v36;
+      v47 = v35;
       _os_log_error_impl(&dword_26F567000, v33, OS_LOG_TYPE_ERROR, "TRIRolloutDatabase unable to target rollout deployment %{public}@; not found.", buf, 0xCu);
     }
 
@@ -1375,7 +1371,7 @@ LABEL_32:
 LABEL_30:
     v32 = *v31;
 LABEL_33:
-    v7 = v37;
+    v7 = v36;
   }
 
   else
@@ -1383,7 +1379,6 @@ LABEL_33:
     v32 = *MEMORY[0x277D42678];
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -1488,7 +1483,7 @@ LABEL_4:
 
 uint64_t __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_targetingRuleIndex_deactivatedDeployments_deactivatedFactorPackSetIds_deactivationStateTransitions_usingTransaction___block_invoke(uint64_t a1, void *a2)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   v5 = [*(a1 + 32) recordWithDeployment:*(a1 + 40) usingTransaction:0];
@@ -1496,46 +1491,46 @@ uint64_t __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_target
   v7 = MEMORY[0x277CBEB98];
   v8 = [v5 namespaces];
   v9 = [v7 setWithArray:v8];
-  v67[0] = MEMORY[0x277D85DD0];
-  v67[1] = 3221225472;
-  v67[2] = __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_targetingRuleIndex_deactivatedDeployments_deactivatedFactorPackSetIds_deactivationStateTransitions_usingTransaction___block_invoke_2;
-  v67[3] = &unk_279DE0700;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_targetingRuleIndex_deactivatedDeployments_deactivatedFactorPackSetIds_deactivationStateTransitions_usingTransaction___block_invoke_2;
+  v66[3] = &unk_279DE0700;
   v10 = v4;
-  v68 = v10;
-  LOBYTE(v4) = [v6 enumerateRecordsOverlappingNamespaces:v9 usingTransaction:v3 block:v67];
+  v67 = v10;
+  LOBYTE(v4) = [v6 enumerateRecordsOverlappingNamespaces:v9 usingTransaction:v3 block:v66];
 
   if ((v4 & 1) == 0)
   {
     goto LABEL_45;
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = v10;
-  v62 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
-  if (!v62)
+  v61 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+  if (!v61)
   {
 
     goto LABEL_42;
   }
 
-  v55 = v10;
-  v56 = v5;
-  v59 = 0;
-  v11 = *v64;
-  v57 = *v64;
+  v54 = v10;
+  v55 = v5;
+  v58 = 0;
+  v11 = *v63;
+  v56 = *v63;
   while (2)
   {
-    for (i = 0; i != v62; ++i)
+    for (i = 0; i != v61; ++i)
     {
-      if (*v64 != v11)
+      if (*v63 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v63 + 1) + 8 * i);
+      v13 = *(*(&v62 + 1) + 8 * i);
       v14 = objc_autoreleasePoolPush();
       v15 = [v13 deployment];
       v16 = [v15 isEqualToDeployment:*(a1 + 40)];
@@ -1572,7 +1567,7 @@ uint64_t __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_target
           goto LABEL_47;
         }
 
-        v59 = 1;
+        v58 = 1;
         continue;
       }
 
@@ -1584,7 +1579,7 @@ uint64_t __177__TRIRolloutDatabase_activateDeployment_withFactorPackSetId_target
           v25 = @"roll_st_DE";
           if (v26 == 1 || *(a1 + 64) && (v27 = [v13 status], v25 = @"obsoleted-unknown-previous-state", v27 == 2))
           {
-            [*(a1 + 64) setObject:v25 forKeyedSubscript:{v13, v55, v56}];
+            [*(a1 + 64) setObject:v25 forKeyedSubscript:{v13, v54, v55}];
           }
         }
 
@@ -1599,8 +1594,8 @@ LABEL_40:
           objc_autoreleasePoolPop(v14);
 LABEL_48:
 
-          v10 = v55;
-          v5 = v56;
+          v10 = v54;
+          v5 = v55;
           goto LABEL_49;
         }
       }
@@ -1620,7 +1615,7 @@ LABEL_48:
         }
       }
 
-      v61 = v14;
+      v60 = v14;
       v32 = TRILogCategory_Server();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
@@ -1628,9 +1623,9 @@ LABEL_48:
         v34 = [v13 deployment];
         v35 = [v34 shortDesc];
         *buf = 138543618;
-        v70 = v33;
-        v71 = 2114;
-        v72 = v35;
+        v69 = v33;
+        v70 = 2114;
+        v71 = v35;
         _os_log_impl(&dword_26F567000, v32, OS_LOG_TYPE_DEFAULT, "Activating rollout deployment %{public}@ obsoleted rollout deployment: %{public}@", buf, 0x16u);
       }
 
@@ -1639,12 +1634,12 @@ LABEL_48:
       v38 = [v37 rolloutId];
       if (([v36 isEqualToString:v38]& 1) != 0)
       {
-        v58 = [*(a1 + 40) deploymentId];
+        v57 = [*(a1 + 40) deploymentId];
         v39 = [v13 deployment];
         v40 = [v39 deploymentId];
 
-        v41 = v58 < v40;
-        v11 = v57;
+        v41 = v57 < v40;
+        v11 = v56;
         if (!v41)
         {
           goto LABEL_31;
@@ -1673,7 +1668,7 @@ LABEL_31:
         [*(a1 + 80) setObject:v44 forKeyedSubscript:*(a1 + 40)];
       }
 
-      v14 = v61;
+      v14 = v60;
 LABEL_34:
       v45 = *(a1 + 32);
       v46 = [v13 deployment];
@@ -1697,8 +1692,8 @@ LABEL_47:
       }
     }
 
-    v62 = [obj countByEnumeratingWithState:&v63 objects:v73 count:16];
-    if (v62)
+    v61 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+    if (v61)
     {
       continue;
     }
@@ -1706,9 +1701,9 @@ LABEL_47:
     break;
   }
 
-  v10 = v55;
-  v5 = v56;
-  if (v59)
+  v10 = v54;
+  v5 = v55;
+  if (v58)
   {
     *(*(*(a1 + 88) + 8) + 24) = 1;
     v49 = MEMORY[0x277D42670];
@@ -1719,9 +1714,9 @@ LABEL_42:
   v51 = TRILogCategory_Server();
   if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    v54 = [*(a1 + 40) shortDesc];
+    v53 = [*(a1 + 40) shortDesc];
     *buf = 138543362;
-    v70 = v54;
+    v69 = v53;
     _os_log_error_impl(&dword_26F567000, v51, OS_LOG_TYPE_ERROR, "TRIRolloutDatabase unable to activate rollout deployment %{public}@; not found.", buf, 0xCu);
   }
 
@@ -1731,7 +1726,6 @@ LABEL_46:
   v50 = *v49;
 LABEL_49:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
@@ -1891,50 +1885,50 @@ LABEL_3:
 
 uint64_t __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivatedDeployment_deactivatedFactorPackSetId_deactivatedRampId_deactivationStateTransitions_usingTransaction___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivatedDeployment_deactivatedFactorPackSetId_deactivatedRampId_deactivationStateTransitions_usingTransaction___block_invoke_2;
-  v20[3] = &unk_279DE1D30;
-  v21 = v5;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivatedDeployment_deactivatedFactorPackSetId_deactivatedRampId_deactivationStateTransitions_usingTransaction___block_invoke_2;
+  v19[3] = &unk_279DE1D30;
+  v20 = v5;
   v7 = v4;
-  v22 = v7;
-  v24 = *(a1 + 64);
-  v25 = *(a1 + 80);
-  v23 = *(a1 + 48);
-  *(*(*(a1 + 56) + 8) + 24) = [v6 enumerateRecordsWithRolloutId:v21 usingTransaction:v3 block:v20];
+  v21 = v7;
+  v23 = *(a1 + 64);
+  v24 = *(a1 + 80);
+  v22 = *(a1 + 48);
+  *(*(*(a1 + 56) + 8) + 24) = [v6 enumerateRecordsWithRolloutId:v20 usingTransaction:v3 block:v19];
   v8 = MEMORY[0x277D42678];
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          *(*(*(a1 + 56) + 8) + 24) &= [*(a1 + 32) deactivateDeployment:*(*(&v16 + 1) + 8 * v13++) usingTransaction:{v3, v16}];
+          *(*(*(a1 + 56) + 8) + 24) &= [*(a1 + 32) deactivateDeployment:*(*(&v15 + 1) + 8 * v13++) usingTransaction:{v3, v15}];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v25 count:16];
       }
 
       while (v11);
@@ -1946,14 +1940,12 @@ uint64_t __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivate
     }
   }
 
-  result = *v8;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return *v8;
 }
 
 void __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivatedDeployment_deactivatedFactorPackSetId_deactivatedRampId_deactivationStateTransitions_usingTransaction___block_invoke_2(void *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 activeFactorPackSetId];
   if (v4)
@@ -1975,11 +1967,11 @@ void __170__TRIRolloutDatabase_deactivateDeploymentsWithRolloutId_deactivatedDep
   {
     v7 = a1[4];
     v8 = [v3 deployment];
-    v33 = 138543618;
-    v34 = v7;
-    v35 = 1024;
-    v36 = [v8 deploymentId];
-    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Deactivating rollout deployments matching %{public}@: %d", &v33, 0x12u);
+    v32 = 138543618;
+    v33 = v7;
+    v34 = 1024;
+    v35 = [v8 deploymentId];
+    _os_log_impl(&dword_26F567000, v6, OS_LOG_TYPE_DEFAULT, "Deactivating rollout deployments matching %{public}@: %d", &v32, 0x12u);
   }
 
   v9 = a1[5];
@@ -2016,20 +2008,20 @@ LABEL_9:
 
   else if (!*a1[7])
   {
-    v24 = [v3 deployment];
-    v25 = a1[7];
-    v26 = *v25;
-    *v25 = v24;
+    v23 = [v3 deployment];
+    v24 = a1[7];
+    v25 = *v24;
+    *v24 = v23;
 
-    v27 = [v3 targetedFactorPackSetId];
-    v28 = a1[8];
-    v29 = *v28;
-    *v28 = v27;
+    v26 = [v3 targetedFactorPackSetId];
+    v27 = a1[8];
+    v28 = *v27;
+    *v27 = v26;
 
-    v30 = [v3 rampId];
-    v31 = a1[9];
-    v32 = *v31;
-    *v31 = v30;
+    v29 = [v3 rampId];
+    v30 = a1[9];
+    v31 = *v30;
+    *v30 = v29;
 
     v21 = a1[6];
     if (v21)
@@ -2040,8 +2032,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasRecordReferencingFactorPackSetId:(id)id withReferenceType:(unsigned int)type

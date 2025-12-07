@@ -17,9 +17,9 @@
 
 - (AVCaptureSystemExposureBiasSlider)initWithDevice:(id)device
 {
-  v9.receiver = self;
-  v9.super_class = AVCaptureSystemExposureBiasSlider;
-  initSubclass = [(AVCaptureControl *)&v9 initSubclass];
+  v11.receiver = self;
+  v11.super_class = AVCaptureSystemExposureBiasSlider;
+  initSubclass = [(AVCaptureControl *)&v11 initSubclass];
   if (initSubclass)
   {
     [device minExposureTargetBias];
@@ -27,7 +27,7 @@
     {
       v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, objc_msgSend(device, "localizedName")}];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v7);
       }
@@ -49,9 +49,9 @@
 
 - (AVCaptureSystemExposureBiasSlider)initWithDevice:(id)device action:(id)action
 {
-  v11.receiver = self;
-  v11.super_class = AVCaptureSystemExposureBiasSlider;
-  initSubclass = [(AVCaptureControl *)&v11 initSubclass];
+  v13.receiver = self;
+  v13.super_class = AVCaptureSystemExposureBiasSlider;
+  initSubclass = [(AVCaptureControl *)&v13 initSubclass];
   if (initSubclass)
   {
     [device minExposureTargetBias];
@@ -59,7 +59,7 @@
     {
       v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, objc_msgSend(device, "localizedName")}];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v10, v11))
       {
         objc_exception_throw(v9);
       }
@@ -171,7 +171,7 @@
   os_unfair_lock_unlock(&self->_actionLock);
   if ([path isEqualToString:@"exposureTargetBias"] && self->_device == object)
   {
-    v11 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+    v11 = objc_msgSend_objectForKeyedSubscript_(change);
     if (observing && v11 != 0)
     {
       overlayControl = self->_overlayControl;

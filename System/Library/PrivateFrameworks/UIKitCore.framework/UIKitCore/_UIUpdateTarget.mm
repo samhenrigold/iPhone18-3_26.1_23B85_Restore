@@ -1,9 +1,9 @@
 @interface _UIUpdateTarget
 + (_UIUpdateTarget)targetWithCADisplay:(uint64_t)display;
+- (_BYTE)start;
+- (_BYTE)stop;
 - (_UIUpdateTarget)init;
-- (uint64_t)requestPresentaionForMode:(uint64_t)mode@<X2> earliestReferenceDeadlineTime:(uint64_t)time@<X3> earliestCommitDeadlineTime:(uint64_t *)deadlineTime@<X8>;
-- (uint64_t)start;
-- (uint64_t)stop;
+- (double)requestPresentaionForMode:(int64_t)mode@<X2> earliestReferenceDeadlineTime:(int64_t)time@<X3> earliestCommitDeadlineTime:(uint64_t *)deadlineTime@<X8>;
 - (uint64_t)sync;
 - (uint64_t)syncedRequestedMaxFrameDuration;
 - (void)dealloc;
@@ -88,15 +88,16 @@
 
 - (_UIUpdateTarget)init
 {
-  v5.receiver = self;
-  v5.super_class = _UIUpdateTarget;
-  v2 = [(_UIUpdateTarget *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = _UIUpdateTarget;
+  v2 = [(_UIUpdateTarget *)&v6 init];
   v3 = v2;
   if (v2)
   {
     v2->_displayId = [(CADisplay *)v2->_display.direct displayId];
-    v3->_frameSourceActive = [(CADynamicFrameRateSource *)v3->_frameSource.direct isPaused]^ 1;
-    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck())
+    isPaused = [(CADynamicFrameRateSource *)v3->_frameSource.direct isPaused];
+    v3->_frameSourceActive = isPaused ^ 1;
+    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(isPaused))
     {
       kdebug_trace();
     }
@@ -127,18 +128,18 @@
   return result;
 }
 
-- (uint64_t)start
+- (_BYTE)start
 {
   if (result)
   {
     v1 = result;
-    *(result + 28) = 1;
-    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck())
+    result[28] = 1;
+    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(result))
     {
       kdebug_trace();
     }
 
-    v2 = *(v1 + 16);
+    v2 = *(v1 + 2);
 
     return [v2 setPaused:0];
   }
@@ -146,18 +147,18 @@
   return result;
 }
 
-- (uint64_t)stop
+- (_BYTE)stop
 {
   if (result)
   {
     v1 = result;
-    *(result + 28) = 0;
-    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck())
+    result[28] = 0;
+    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(result))
     {
       kdebug_trace();
     }
 
-    v2 = *(v1 + 16);
+    v2 = *(v1 + 2);
 
     return [v2 setPaused:1];
   }
@@ -196,20 +197,19 @@
   return v3;
 }
 
-- (uint64_t)requestPresentaionForMode:(uint64_t)mode@<X2> earliestReferenceDeadlineTime:(uint64_t)time@<X3> earliestCommitDeadlineTime:(uint64_t *)deadlineTime@<X8>
+- (double)requestPresentaionForMode:(int64_t)mode@<X2> earliestReferenceDeadlineTime:(int64_t)time@<X3> earliestCommitDeadlineTime:(uint64_t *)deadlineTime@<X8>
 {
-  if (result)
+  if (self)
   {
-    v9 = result;
-    v10 = *(result + 32);
+    v10 = *(self + 32);
     UCTimeToSeconds();
-    [*(v9 + 16) commitDeadlineAfterTimestamp:?];
-    result = UCTimeFromSeconds();
-    timeCopy = result;
-    if (!result)
+    [*(self + 16) commitDeadlineAfterTimestamp:?];
+    v11 = UCTimeFromSeconds();
+    timeCopy = v11;
+    if (!v11)
     {
-      result = mach_absolute_time();
-      modeCopy = *(v9 + 40) + result;
+      v11 = mach_absolute_time();
+      modeCopy = *(self + 40) + v11;
       if (modeCopy <= mode)
       {
         modeCopy = mode;
@@ -226,29 +226,26 @@
       }
     }
 
-    v13 = timeCopy - *(v9 + 8 * a2 + 64);
-    v14 = *(v9 + 48 + 8 * a2);
-    v15 = timeCopy - *(v9 + 80);
-    v16 = v14 - *(v9 + 48);
+    v15 = timeCopy - *(self + 8 * a2 + 64);
+    v16 = *(self + 48 + 8 * a2);
+    v17 = timeCopy - *(self + 80);
+    v18 = v16 - *(self + 48);
     *deadlineTime = timeCopy;
-    deadlineTime[1] = v13;
-    deadlineTime[2] = v15;
-    deadlineTime[3] = v14 + timeCopy;
-    deadlineTime[4] = v16;
-    deadlineTime[5] = v13 + v10;
-    if (_UIUpdateCycleDebugTracingCheck)
+    deadlineTime[1] = v15;
+    deadlineTime[2] = v17;
+    deadlineTime[3] = v16 + timeCopy;
+    deadlineTime[4] = v18;
+    deadlineTime[5] = v15 + v10;
+    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(v11))
     {
-      result = _UIUpdateCycleDebugTracingCheck();
-      if (result)
-      {
 
-        return kdebug_trace();
-      }
+      kdebug_trace();
     }
   }
 
   else
   {
+    result = 0.0;
     *(deadlineTime + 1) = 0u;
     *(deadlineTime + 2) = 0u;
     *deadlineTime = 0u;

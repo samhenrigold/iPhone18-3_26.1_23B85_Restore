@@ -1,63 +1,3 @@
-uint64_t AmberBlockDeviceSetBlockState(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
-  if (a3 >= a2)
-  {
-    if ((a3 - a2) < 0 || a3 != a2 && !a4)
-    {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", a7);
-      exception = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x29C25BE90](exception, "memory invalid args");
-      __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
-    }
-
-    return (*(*a1 + 40))(a1);
-  }
-
-  else
-  {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetBlockState", 0x2A8, 0, "invalid block range", a7);
-    return 0xFFFFFFFFLL;
-  }
-}
-
-uint64_t AmberBlockDeviceGetPrefetchSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
-  if (a1)
-  {
-    operator new();
-  }
-
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceGetPrefetchSequence", 0x2BD, 0, "invalid device type", a7);
-  return 0;
-}
-
-uint64_t AmberBlockDeviceSetPrefetchSequence(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
-  if (!a1)
-  {
-    v10 = "invalid device type";
-    v11 = 716;
-LABEL_8:
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetPrefetchSequence", v11, 0, v10, a7);
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!a2)
-  {
-    v10 = "invalid object";
-    v11 = 718;
-    goto LABEL_8;
-  }
-
-  v8 = (*(*a1 + 56))(a1);
-  if (v8 < 0)
-  {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceSetPrefetchSequence", 0x2CF, 0, "parse prefetch sequence", v7);
-  }
-
-  return (v8 >> 31);
-}
-
 uint64_t AmberBlockDeviceRecordPrefetchSequence(amber::BlockDevice *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (a1)
@@ -75,30 +15,30 @@ uint64_t AmberBlockDeviceRecordPrefetchSequence(amber::BlockDevice *a1, uint64_t
 
 uint64_t AmberBlockDeviceCreateEncryptionKey(uint64_t a1, uint64_t a2, unint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v24[0] = &unk_2A1DDFDD8;
-  v24[1] = &unk_2A1DDFE08;
-  memset(&v24[2], 0, 256);
-  v25 = 0;
-  amber::ObjectStorePath::ObjectStorePath(v23);
-  if ((amber::fromAmberObject(v23, a2, v12, v13, v14, v15, v16) & 0x80000000) != 0)
+  v25 = *MEMORY[0x29EDCA608];
+  v23[0] = &unk_2A1DDFDD8;
+  v23[1] = &unk_2A1DDFE08;
+  memset(&v23[2], 0, 256);
+  v24 = 0;
+  amber::ObjectStorePath::ObjectStorePath(v22);
+  if ((amber::fromAmberObject(v22, a2, v12, v13, v14, v15, v16) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCreateEncryptionKey", 0x2EB, 0, "invalid key_path", v17);
   }
 
   else if (a1)
   {
-    if (((*(*a1 + 64))(a1, v23, v24, a6) & 0x80000000) != 0)
+    if (((*(*a1 + 64))(a1, v22, v23, a6) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCreateEncryptionKey", 0x2ED, 0, "createEncryptionKey", v18);
     }
 
     else
     {
-      v19 = LODWORD(v24[2]);
-      if (LODWORD(v24[2]) <= a3)
+      v19 = LODWORD(v23[2]);
+      if (LODWORD(v23[2]) <= a3)
       {
-        memcpy(a4, &v24[2] + 4, LODWORD(v24[2]));
+        memcpy(a4, &v23[2] + 4, LODWORD(v23[2]));
         v20 = 0;
         goto LABEL_12;
       }
@@ -121,44 +61,43 @@ uint64_t AmberBlockDeviceCreateEncryptionKey(uint64_t a1, uint64_t a2, unint64_t
   v20 = 0xFFFFFFFFLL;
 LABEL_12:
   *a5 = v19;
-  amber::ObjectStorePath::~ObjectStorePath(v23);
-  v21 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::~ObjectStorePath(v22);
   return v20;
 }
 
-void sub_29698CEC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29698CEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amber::ObjectStorePath::~ObjectStorePath(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t AmberBlockDeviceGetEncryptionKey(uint64_t a1, uint64_t a2, unint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v24[0] = &unk_2A1DDFDD8;
-  v24[1] = &unk_2A1DDFE08;
-  memset(&v24[2], 0, 256);
-  v25 = 0;
-  amber::ObjectStorePath::ObjectStorePath(v23);
-  if ((amber::fromAmberObject(v23, a2, v12, v13, v14, v15, v16) & 0x80000000) != 0)
+  v25 = *MEMORY[0x29EDCA608];
+  v23[0] = &unk_2A1DDFDD8;
+  v23[1] = &unk_2A1DDFE08;
+  memset(&v23[2], 0, 256);
+  v24 = 0;
+  amber::ObjectStorePath::ObjectStorePath(v22);
+  if ((amber::fromAmberObject(v22, a2, v12, v13, v14, v15, v16) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceGetEncryptionKey", 0x302, 0, "invalid key_path", v17);
   }
 
   else if (a1)
   {
-    if (((*(*a1 + 72))(a1, v23, v24, a6) & 0x80000000) != 0)
+    if (((*(*a1 + 72))(a1, v22, v23, a6) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceGetEncryptionKey", 0x304, 0, "getEncryptionKey", v18);
     }
 
     else
     {
-      v19 = LODWORD(v24[2]);
-      if (LODWORD(v24[2]) <= a3)
+      v19 = LODWORD(v23[2]);
+      if (LODWORD(v23[2]) <= a3)
       {
-        memcpy(a4, &v24[2] + 4, LODWORD(v24[2]));
+        memcpy(a4, &v23[2] + 4, LODWORD(v23[2]));
         v20 = 0;
         goto LABEL_12;
       }
@@ -181,32 +120,31 @@ uint64_t AmberBlockDeviceGetEncryptionKey(uint64_t a1, uint64_t a2, unint64_t a3
   v20 = 0xFFFFFFFFLL;
 LABEL_12:
   *a5 = v19;
-  amber::ObjectStorePath::~ObjectStorePath(v23);
-  v21 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::~ObjectStorePath(v22);
   return v20;
 }
 
-void sub_29698D138(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29698D138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   amber::ObjectStorePath::~ObjectStorePath(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t AmberBlockDeviceListContainers(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v11[110] = *MEMORY[0x29EDCA608];
+  v10[110] = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    memset(v10, 0, sizeof(v10));
-    if (((*(*a1 + 96))(a1, v10, a2) & 0x80000000) == 0)
+    memset(v9, 0, sizeof(v9));
+    if (((*(*a1 + 96))(a1, v9, a2, a4, a5, a6, a7) & 0x80000000) == 0)
     {
       operator new();
     }
 
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceListContainers", 0x315, 0, "list containers", v7);
-    v11[0] = v10;
-    std::vector<amber::CryptoBlobBase<256u>>::__destroy_vector::operator()[abi:ne200100](v11);
+    v10[0] = v9;
+    std::vector<amber::CryptoBlobBase<256u>>::__destroy_vector::operator()[abi:ne200100](v10);
   }
 
   else
@@ -214,25 +152,24 @@ uint64_t AmberBlockDeviceListContainers(uint64_t a1, uint64_t a2, uint64_t a3, u
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceListContainers", 0x313, 0, "invalid device", a7);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_29698D3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_29698D3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12)
 {
   a12 = &a9;
   std::vector<amber::CryptoBlobBase<256u>>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-uint64_t AmberBlockDeviceListContainerSnapshots(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void *AmberBlockDeviceListContainerSnapshots(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v11[35] = *MEMORY[0x29EDCA608];
+  v10[35] = *MEMORY[0x29EDCA608];
   if (a1)
   {
     if (a3 < 0x101)
     {
-      amber::CryptoBlobBase<256u>::CryptoBlobBase(v11, a2, a3, a4, a5, a6, a7);
+      amber::CryptoBlobBase<256u>::CryptoBlobBase(v10, a2, a3, a4, a5, a6, a7);
       operator new();
     }
 
@@ -247,69 +184,16 @@ uint64_t AmberBlockDeviceListContainerSnapshots(uint64_t a1, uint64_t a2, unsign
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceListContainerSnapshots", v8, 0, v7, a7);
-  v9 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t AmberBlockDeviceBeginWriteTransaction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v32 = *MEMORY[0x29EDCA608];
-  if (!a1)
-  {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceBeginWriteTransaction", 0x343, 0, "invalid device", a7);
-    goto LABEL_6;
-  }
-
-  v13 = &unk_2A1DDFDD8;
-  v14 = &unk_2A1DDFE08;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0;
-  if (!a2)
-  {
-LABEL_8:
-    result = (*(*a1 + 80))(a1, &v13, a4, a5);
-    goto LABEL_9;
-  }
-
-  if (a3 < 0x101)
-  {
-    v12[0] = &off_2A1DDFC68;
-    v12[1] = a2;
-    v12[2] = a3;
-    amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(&v14, v12, a3, a4, a5, a6, a7);
-    goto LABEL_8;
-  }
-
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceBeginWriteTransaction", 0x347, 0, "invalid container id", a7);
-LABEL_6:
-  result = 0xFFFFFFFFLL;
-LABEL_9:
-  v11 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t AmberBlockDeviceCommitWriteTransaction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
   v31 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCommitWriteTransaction", 0x354, 0, "invalid device", a7);
-    goto LABEL_6;
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceBeginWriteTransaction", 0x343, 0, "invalid device", a7);
+    return 0xFFFFFFFFLL;
   }
 
   v12 = &unk_2A1DDFDD8;
@@ -331,41 +215,78 @@ uint64_t AmberBlockDeviceCommitWriteTransaction(uint64_t a1, uint64_t a2, uint64
   v28 = 0u;
   v29 = 0u;
   v30 = 0;
-  if (!a2)
+  if (a2)
   {
-LABEL_8:
-    result = (*(*a1 + 88))(a1, &v12, a4);
-    goto LABEL_9;
-  }
+    if (a3 >= 0x101)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceBeginWriteTransaction", 0x347, 0, "invalid container id", a7);
+      return 0xFFFFFFFFLL;
+    }
 
-  if (a3 < 0x101)
-  {
     v11[0] = &off_2A1DDFC68;
     v11[1] = a2;
     v11[2] = a3;
     amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(&v13, v11, a3, a4, a5, a6, a7);
-    goto LABEL_8;
   }
 
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCommitWriteTransaction", 0x358, 0, "invalid container id", a7);
-LABEL_6:
-  result = 0xFFFFFFFFLL;
-LABEL_9:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return (*(*a1 + 80))(a1, &v12, a4, a5, a5, a6, a7);
+}
+
+uint64_t AmberBlockDeviceCommitWriteTransaction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+{
+  v30 = *MEMORY[0x29EDCA608];
+  if (!a1)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCommitWriteTransaction", 0x354, 0, "invalid device", a7);
+    return 0xFFFFFFFFLL;
+  }
+
+  v11 = &unk_2A1DDFDD8;
+  v12 = &unk_2A1DDFE08;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0;
+  if (a2)
+  {
+    if (a3 >= 0x101)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceCommitWriteTransaction", 0x358, 0, "invalid container id", a7);
+      return 0xFFFFFFFFLL;
+    }
+
+    v10[0] = &off_2A1DDFC68;
+    v10[1] = a2;
+    v10[2] = a3;
+    amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(&v12, v10, a3, a4, a5, a6, a7);
+  }
+
+  return (*(*a1 + 88))(a1, &v11, a4, a4, a5, a6, a7);
 }
 
 uint64_t AmberBlockDeviceProcessSnapshot(amber::BlockDevice *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v10[75] = *MEMORY[0x29EDCA608];
+  v9[75] = *MEMORY[0x29EDCA608];
   if (a1)
   {
-    amber::ObjectStorePath::ObjectStorePath(v10);
-    amber::BlockDevice::snapshot(a1, v10);
+    amber::ObjectStorePath::ObjectStorePath(v9);
+    amber::BlockDevice::snapshot(a1, v9);
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceProcessSnapshot", 0x363, 0, "invalid device", a7);
-  v8 = *MEMORY[0x29EDCA608];
   return 0xFFFFFFFFLL;
 }
 
@@ -399,9 +320,9 @@ uint64_t AmberBlockDeviceLoadPrologue(uint64_t a1, uint64_t a2, uint64_t a3, uin
 
 uint64_t AmberBlockDeviceLoadObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17[75] = *MEMORY[0x29EDCA608];
-  amber::ObjectStorePath::ObjectStorePath(v17);
-  if ((amber::fromAmberObject(v17, a2, v8, v9, v10, v11, v12) & 0x80000000) != 0)
+  v16[75] = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::ObjectStorePath(v16);
+  if ((amber::fromAmberObject(v16, a2, v8, v9, v10, v11, v12) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceLoadObject", 0x389, 0, "invalid object store path", v13);
     v14 = 0xFFFFFFFFLL;
@@ -409,19 +330,18 @@ uint64_t AmberBlockDeviceLoadObject(uint64_t a1, uint64_t a2, uint64_t a3, uint6
 
   else
   {
-    v14 = (*(*a1 + 120))(a1, v17, a3, a4);
+    v14 = (*(*a1 + 120))(a1, v16, a3, a4);
   }
 
-  amber::ObjectStorePath::~ObjectStorePath(v17);
-  v15 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::~ObjectStorePath(v16);
   return v14;
 }
 
 uint64_t AmberBlockDeviceStoreObject(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v22 = *MEMORY[0x29EDCA608];
-  amber::ObjectStorePath::ObjectStorePath(v21);
-  if ((amber::fromAmberObject(v21, a2, v10, v11, v12, v13, v14) & 0x80000000) != 0)
+  v21 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::ObjectStorePath(v20);
+  if ((amber::fromAmberObject(v20, a2, v10, v11, v12, v13, v14) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDevice.cpp", "AmberBlockDeviceStoreObject", 0x396, 0, "invalid object store path", v15);
     v16 = 0xFFFFFFFFLL;
@@ -429,9 +349,9 @@ uint64_t AmberBlockDeviceStoreObject(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
   else
   {
-    v20[0] = &off_2A1DDFC68;
-    v20[1] = a3;
-    v20[2] = a4;
+    v19[0] = &off_2A1DDFC68;
+    v19[1] = a3;
+    v19[2] = a4;
     if (a4 < 0 || !a3 && a4)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v15);
@@ -440,29 +360,27 @@ uint64_t AmberBlockDeviceStoreObject(uint64_t a1, uint64_t a2, uint64_t a3, uint
       __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
 
-    v16 = (*(*a1 + 128))(a1, v21, v20, a5);
+    v16 = (*(*a1 + 128))(a1, v20, v19, a5);
   }
 
-  amber::ObjectStorePath::~ObjectStorePath(v21);
-  v17 = *MEMORY[0x29EDCA608];
+  amber::ObjectStorePath::~ObjectStorePath(v20);
   return v16;
 }
 
-void sub_29698DD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_29698DD74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  __cxa_free_exception(v13);
-  amber::ObjectStorePath::~ObjectStorePath(&a13);
+  va_start(va, a12);
+  __cxa_free_exception(v12);
+  amber::ObjectStorePath::~ObjectStorePath(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<amber::ObjectStorePath>::reserve(void *result, unint64_t a2)
+amber::ObjectStorePath **std::vector<amber::ObjectStorePath>::reserve(amber::ObjectStorePath **result, unint64_t a2)
 {
   if (0x2FC962FC962FC963 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x6D3A06D3A06D3BLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<amber::ObjectStorePath>>(result, a2);
     }
 
@@ -472,9 +390,9 @@ void *std::vector<amber::ObjectStorePath>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_29698DEC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29698DEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<amber::ObjectStorePath>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -546,7 +464,7 @@ void amber::BlockDeviceFileEventLogger::~BlockDeviceFileEventLogger(amber::Block
   }
 
   amber::zero(void *,unsigned long)::memset_func(v3, 0, 128);
-  amber::SharedQueue<AmberBlockDeviceEvent_s>::insertFirst(this + 40);
+  amber::SharedQueue<AmberBlockDeviceEvent_s>::insertFirst(this + 40, v3);
 }
 
 {
@@ -574,53 +492,53 @@ void non-virtual thunk toamber::BlockDeviceFileEventLogger::~BlockDeviceFileEven
 
 void amber::BlockDeviceFileEventLogger::run(amber::BlockDeviceFileEventLogger *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v118 = *MEMORY[0x29EDCA608];
-  v108[0] = &unk_2A1DDFD28;
-  v108[2] = 0;
-  v108[3] = 0;
-  v108[1] = off_2A1DDFD48;
-  v108[5] = 0;
-  v108[6] = 0;
-  v108[4] = &off_2A1DDFDA8;
-  v108[7] = &off_2A1DDFC68;
+  v117 = *MEMORY[0x29EDCA608];
+  v107[0] = &unk_2A1DDFD28;
+  v107[2] = 0;
+  v107[3] = 0;
+  v107[1] = off_2A1DDFD48;
+  v107[5] = 0;
+  v107[6] = 0;
+  v107[4] = &off_2A1DDFDA8;
+  v107[7] = &off_2A1DDFC68;
+  v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
-  v111 = 1;
-  v112 = 0;
-  v103[0] = &unk_2A1DDFD28;
-  v103[2] = 0;
-  v103[3] = 0;
-  v103[1] = off_2A1DDFD48;
-  v103[5] = 0;
-  v103[6] = 0;
-  v103[4] = &off_2A1DDFDA8;
-  v103[7] = &off_2A1DDFC68;
+  v110 = 1;
+  v111 = 0;
+  v102[0] = &unk_2A1DDFD28;
+  v102[2] = 0;
+  v102[3] = 0;
+  v102[1] = off_2A1DDFD48;
+  v102[5] = 0;
+  v102[6] = 0;
+  v102[4] = &off_2A1DDFDA8;
+  v102[7] = &off_2A1DDFC68;
+  v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
-  v106 = 1;
-  v107 = 0;
-  if ((amber::Buffer::reserve(v108, *(this + 4) + 128, a3, a4, a5, a6, a7) & 0x80000000) == 0 && (amber::Buffer::reserve(v103, *(this + 4) + 16, v8, v9, v10, v11, v12) & 0x80000000) == 0)
+  v105 = 1;
+  v106 = 0;
+  if ((amber::Buffer::reserve(v107, *(this + 4) + 128, a3, a4, a5, a6, a7) & 0x80000000) == 0 && (amber::Buffer::reserve(v102, *(this + 4) + 16, v8, v9, v10, v11, v12) & 0x80000000) == 0)
   {
     while (1)
     {
-      amber::SharedQueue<AmberBlockDeviceEvent_s>::removeFirst(this + 40, &v116);
-      v19 = v117;
-      if (v117)
+      amber::SharedQueue<AmberBlockDeviceEvent_s>::removeFirst(this + 40, &v115);
+      v19 = v116;
+      if (v116)
       {
-        v100 = &off_2A1DDFDA8;
-        __dst = &v116;
-        v102 = 128;
-        v113 = &off_2A1DDFC68;
-        v114 = &v116;
-        v115 = 128;
-        if ((amber::BufferProtocol<amber::Buffer>::append(v108, &v113, v14, v15, v16, v17, v18) & 0x80000000) != 0)
+        v99 = &off_2A1DDFDA8;
+        __dst = &v115;
+        v101 = 128;
+        v112 = &off_2A1DDFC68;
+        v113 = &v115;
+        v114 = 128;
+        if ((amber::BufferProtocol<amber::Buffer>::append(v107, &v112, v14, v15, v16, v17, v18) & 0x80000000) != 0)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceEventLogger.cpp", "run", 0x90, 0, "event buffer append", v18);
           goto LABEL_30;
         }
       }
 
-      v20 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v108, v13, v14, v15, v16, v17, v18);
+      v20 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v107, v13, v14, v15, v16, v17, v18);
       v27 = *(this + 4);
       if (v27 >= v20)
       {
@@ -639,19 +557,19 @@ void amber::BlockDeviceFileEventLogger::run(amber::BlockDeviceFileEventLogger *t
 
       if (!v19 || v27 <= v20)
       {
-        amber::BufferProtocol<amber::Buffer>::assignZero(v103, 0x10, v22, v23, v24, v25, v26);
+        amber::BufferProtocol<amber::Buffer>::assignZero(v102, 0x10, v22, v23, v24, v25, v26);
         if (!*(this + 4))
         {
           goto LABEL_17;
         }
 
-        amber::Buffer::buf(v103, v29, &v113);
-        amber::MutableMemoryView::operator+(&v113, *(&v105 + 1), v30, &v100);
-        amber::MutableMemoryViewConvertible<amber::Buffer>::first(v108, v28, v31, &v97);
-        v113 = &off_2A1DDFC68;
+        amber::Buffer::buf(&v112, v102, v29);
+        amber::MutableMemoryView::operator+(&v112, *(&v104 + 1), v30, &v99);
+        amber::MutableMemoryViewConvertible<amber::Buffer>::first(v107, v28, v31, &v96);
+        v112 = &off_2A1DDFC68;
+        v113 = v97;
         v114 = v98;
-        v115 = v99;
-        if ((v99 & 0x8000000000000000) != 0 || !v98 && v99)
+        if ((v98 & 0x8000000000000000) != 0 || !v97 && v98)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v32);
           exception = __cxa_allocate_exception(0x10uLL);
@@ -659,76 +577,76 @@ void amber::BlockDeviceFileEventLogger::run(amber::BlockDeviceFileEventLogger *t
           __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        v33 = amber::compressionEncode(&v100, &v113, *(this + 4));
+        v33 = amber::compressionEncode(&v99, &v112, *(this + 4));
         v38 = v33;
         if (v33 >= v28 || v33 < 1)
         {
 LABEL_17:
-          amber::Buffer::buf(v103, v29, &v113);
-          amber::MutableMemoryView::operator+(&v113, *(&v105 + 1), v39, &v100);
-          amber::MutableMemoryViewConvertible<amber::Buffer>::first(v108, v28, v40, &v97);
-          v113 = &off_2A1DDFC68;
+          amber::Buffer::buf(&v112, v102, v29);
+          amber::MutableMemoryView::operator+(&v112, *(&v104 + 1), v39, &v99);
+          amber::MutableMemoryViewConvertible<amber::Buffer>::first(v107, v28, v40, &v96);
+          v112 = &off_2A1DDFC68;
+          v113 = v97;
           v114 = v98;
-          v115 = v99;
-          if ((v99 & 0x8000000000000000) != 0 || !v98 && v99)
+          if ((v98 & 0x8000000000000000) != 0 || !v97 && v98)
           {
             amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v41);
-            v94 = __cxa_allocate_exception(0x10uLL);
-            MEMORY[0x29C25BE90](v94, "memory invalid args");
-            __cxa_throw(v94, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+            v93 = __cxa_allocate_exception(0x10uLL);
+            MEMORY[0x29C25BE90](v93, "memory invalid args");
+            __cxa_throw(v93, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
           }
 
-          if (v99 > v102)
+          if (v98 > v101)
           {
             amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./MemoryOperations.hpp", "copy", 0x20, 0, "memory invalid range", v41);
-            v96 = __cxa_allocate_exception(0x10uLL);
-            MEMORY[0x29C25BE90](v96, "memory invalid range");
-            __cxa_throw(v96, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+            v95 = __cxa_allocate_exception(0x10uLL);
+            MEMORY[0x29C25BE90](v95, "memory invalid range");
+            __cxa_throw(v95, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
           }
 
-          memcpy(__dst, v98, v99);
+          memcpy(__dst, v97, v98);
           v38 = v28;
         }
 
-        if ((amber::Buffer::grow(v103, v38, v34, v35, v36, v37, v29) & 0x80000000) != 0)
+        if ((amber::Buffer::grow(v102, v38, v34, v35, v36, v37, v29) & 0x80000000) != 0)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceEventLogger.cpp", "run", 0xA2, 0, "event buffer compression", v45);
           goto LABEL_30;
         }
 
-        v97 = bswap64(v28);
-        v100 = &off_2A1DDFDA8;
-        __dst = &v97;
-        v102 = 8;
-        v113 = &off_2A1DDFC68;
-        v114 = &v97;
-        v115 = 8;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::store(v103, &v113, 0, v42, v43, v44, v45);
-        v97 = bswap64(v38);
-        v100 = &off_2A1DDFDA8;
-        __dst = &v97;
-        v102 = 8;
-        v113 = &off_2A1DDFC68;
-        v114 = &v97;
-        v115 = 8;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::store(v103, &v113, 8uLL, v46, v47, v48, v49);
+        v96 = bswap64(v28);
+        v99 = &off_2A1DDFDA8;
+        __dst = &v96;
+        v101 = 8;
+        v112 = &off_2A1DDFC68;
+        v113 = &v96;
+        v114 = 8;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::store(v102, &v112, 0, v42, v43, v44, v45);
+        v96 = bswap64(v38);
+        v99 = &off_2A1DDFDA8;
+        __dst = &v96;
+        v101 = 8;
+        v112 = &off_2A1DDFC68;
+        v113 = &v96;
+        v114 = 8;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::store(v102, &v112, 8uLL, v46, v47, v48, v49);
         v50 = *(this + 50);
-        v57 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v103, v51, v52, v53, v54, v55, v56);
-        v64 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v103, v58, v59, v60, v61, v62, v63);
+        v57 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v102, v51, v52, v53, v54, v55, v56);
+        v64 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v102, v58, v59, v60, v61, v62, v63);
         v65 = write(v50, v57, v64);
-        if (v65 != amber::ConstMemoryViewConvertible<amber::Buffer>::size(v103, v66, v67, v68, v69, v70, v71))
+        if (v65 != amber::ConstMemoryViewConvertible<amber::Buffer>::size(v102, v66, v67, v68, v69, v70, v71))
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceEventLogger.cpp", "run", 0xA8, 0, "event buffer write compressed data", v76);
           goto LABEL_30;
         }
 
-        if ((amber::Buffer::consume(v108, v28, v72, v73, v74, v75, v76) & 0x80000000) != 0 || (amber::Buffer::pack(v108, v77, v78, v79, v80, v81, v82) & 0x80000000) != 0)
+        if ((amber::Buffer::consume(v107, v28, v72, v73, v74, v75, v76) & 0x80000000) != 0 || (amber::Buffer::pack(v107, v77, v78, v79, v80, v81, v82) & 0x80000000) != 0)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceEventLogger.cpp", "run", 0xAC, 0, "event buffer update", v82);
           goto LABEL_30;
         }
 
-        amber::Buffer::resize(v103, 0, v83, v84, v85, v86, v82);
+        amber::Buffer::resize(v102, 0, v83, v84, v85, v86, v82);
 LABEL_27:
         if (!v19)
         {
@@ -740,12 +658,11 @@ LABEL_27:
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceEventLogger.cpp", "run", 0x87, 0, "event buffer alloc", v12);
 LABEL_30:
-  amber::Buffer::~Buffer(v103, v21, v22, v23, v24, v25, v26);
-  amber::Buffer::~Buffer(v108, v87, v88, v89, v90, v91, v92);
-  v93 = *MEMORY[0x29EDCA608];
+  amber::Buffer::~Buffer(v102, v21, v22, v23, v24, v25, v26);
+  amber::Buffer::~Buffer(v107, v87, v88, v89, v90, v91, v92);
 }
 
-void sub_29698ECF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_29698ECF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29)
 {
   amber::Buffer::~Buffer(&a16, a2, a3, a4, a5, a6, a7);
   amber::Buffer::~Buffer(&a29, v30, v31, v32, v33, v34, v35);
@@ -831,338 +748,324 @@ uint64_t amber::SharedQueue<AmberBlockDeviceEvent_s>::removeFirst(uint64_t a1, _
 uint64_t amber::BlockDeviceRequest::getAttribute(amber::BlockDeviceRequest *this, amber::BaseObject *a2, unsigned int a3, const amber::MutableMemoryView *a4, unint64_t *a5, uint64_t a6, const char *a7)
 {
   v9 = a2;
-  v37 = *MEMORY[0x29EDCA608];
-  if (amber::BaseObject::attributeEncodingIsValid(a2, a3, a3, a4, a5, a6, a7))
+  v36 = *MEMORY[0x29EDCA608];
+  if (!amber::BaseObject::attributeEncodingIsValid(a2, a3, a3, a4, a5, a6, a7))
   {
-    v30 = 0;
-    result = 0xFFFFFFFFLL;
-    if (v9 <= 705)
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 9, 0, "invalid attribute encoding", v15);
+    return 0xFFFFFFFFLL;
+  }
+
+  v29 = 0;
+  result = 0xFFFFFFFFLL;
+  if (v9 <= 705)
+  {
+    if (v9 <= 702)
     {
-      if (v9 <= 702)
+      if (v9 == 701)
       {
-        if (v9 == 701)
-        {
-          LODWORD(v28) = *(this + 5);
-          v31 = &off_2A1DDFDA8;
-          v32 = &v28;
-          v33 = 4;
-          v34 = &off_2A1DDFC68;
-          v35 = &v28;
-          v36 = 4;
-          *a5 = 4;
-          v26 = *(a4 + 2);
-          if (!v26)
-          {
-            goto LABEL_52;
-          }
-
-          if (v26 > 3)
-          {
-            goto LABEL_55;
-          }
-        }
-
-        else
-        {
-          if (v9 != 702)
-          {
-            goto LABEL_11;
-          }
-
-          LODWORD(v28) = *(this + 6);
-          v31 = &off_2A1DDFDA8;
-          v32 = &v28;
-          v33 = 4;
-          v34 = &off_2A1DDFC68;
-          v35 = &v28;
-          v36 = 4;
-          *a5 = 4;
-          v26 = *(a4 + 2);
-          if (!v26)
-          {
-            goto LABEL_52;
-          }
-
-          if (v26 > 3)
-          {
-            goto LABEL_55;
-          }
-        }
-      }
-
-      else if (v9 == 703)
-      {
-        LODWORD(v28) = *(this + 7);
-        v31 = &off_2A1DDFDA8;
-        v32 = &v28;
-        v33 = 4;
-        v34 = &off_2A1DDFC68;
-        v35 = &v28;
-        v36 = 4;
+        LODWORD(v27) = *(this + 5);
+        v30 = &off_2A1DDFDA8;
+        v31 = &v27;
+        v32 = 4;
+        v33 = &off_2A1DDFC68;
+        v34 = &v27;
+        v35 = 4;
         *a5 = 4;
-        v26 = *(a4 + 2);
-        if (!v26)
+        v25 = *(a4 + 2);
+        if (!v25)
         {
-          goto LABEL_52;
+          return 0;
         }
 
-        if (v26 > 3)
+        if (v25 > 3)
         {
-          goto LABEL_55;
+          return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
         }
       }
 
       else
       {
-        if (v9 != 704)
+        if (v9 != 702)
         {
-          *&v28 = *(this + 5);
-          v31 = &off_2A1DDFDA8;
-          v32 = &v28;
-          v33 = 8;
-          v34 = &off_2A1DDFC68;
-          v35 = &v28;
-          v36 = 8;
-          *a5 = 8;
-          v19 = *(a4 + 2);
-          if (!v19)
-          {
-            goto LABEL_52;
-          }
+          return result;
+        }
 
-          if (v19 > 7)
-          {
-            goto LABEL_55;
-          }
+        LODWORD(v27) = *(this + 6);
+        v30 = &off_2A1DDFDA8;
+        v31 = &v27;
+        v32 = 4;
+        v33 = &off_2A1DDFC68;
+        v34 = &v27;
+        v35 = 4;
+        *a5 = 4;
+        v25 = *(a4 + 2);
+        if (!v25)
+        {
+          return 0;
+        }
+
+        if (v25 > 3)
+        {
+          return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+        }
+      }
+    }
+
+    else if (v9 == 703)
+    {
+      LODWORD(v27) = *(this + 7);
+      v30 = &off_2A1DDFDA8;
+      v31 = &v27;
+      v32 = 4;
+      v33 = &off_2A1DDFC68;
+      v34 = &v27;
+      v35 = 4;
+      *a5 = 4;
+      v25 = *(a4 + 2);
+      if (!v25)
+      {
+        return 0;
+      }
+
+      if (v25 > 3)
+      {
+        return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+      }
+    }
+
+    else
+    {
+      if (v9 != 704)
+      {
+        *&v27 = *(this + 5);
+        v30 = &off_2A1DDFDA8;
+        v31 = &v27;
+        v32 = 8;
+        v33 = &off_2A1DDFC68;
+        v34 = &v27;
+        v35 = 8;
+        *a5 = 8;
+        v18 = *(a4 + 2);
+        if (!v18)
+        {
+          return 0;
+        }
+
+        if (v18 > 7)
+        {
+          return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+        }
 
 LABEL_17:
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 8, v19, v28);
-          goto LABEL_10;
-        }
-
-        LODWORD(v28) = *(this + 8);
-        v31 = &off_2A1DDFDA8;
-        v32 = &v28;
-        v33 = 4;
-        v34 = &off_2A1DDFC68;
-        v35 = &v28;
-        v36 = 4;
-        *a5 = 4;
-        v26 = *(a4 + 2);
-        if (!v26)
-        {
-          goto LABEL_52;
-        }
-
-        if (v26 > 3)
-        {
-          goto LABEL_55;
-        }
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 8, v18, v27);
+        return 0xFFFFFFFFLL;
       }
+
+      LODWORD(v27) = *(this + 8);
+      v30 = &off_2A1DDFDA8;
+      v31 = &v27;
+      v32 = 4;
+      v33 = &off_2A1DDFC68;
+      v34 = &v27;
+      v35 = 4;
+      *a5 = 4;
+      v25 = *(a4 + 2);
+      if (!v25)
+      {
+        return 0;
+      }
+
+      if (v25 > 3)
+      {
+        return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+      }
+    }
 
 LABEL_45:
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 4, v26, v28);
-      goto LABEL_10;
-    }
-
-    if (v9 <= 708)
-    {
-      if (v9 != 706)
-      {
-        if (v9 != 707)
-        {
-          v30 = *(this + 8);
-          v31 = &off_2A1DDFDA8;
-          v32 = &v30;
-          v33 = 8;
-          v34 = &off_2A1DDFC68;
-          v35 = &v30;
-          v36 = 8;
-          *a5 = 8;
-          v17 = *(a4 + 2);
-          if (v17)
-          {
-            if (v17 > 7)
-            {
-              result = amber::copy(a4, &v34, v11, v12, v13, v14, v15);
-              goto LABEL_11;
-            }
-
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 8, v17);
-            goto LABEL_10;
-          }
-
-LABEL_52:
-          result = 0;
-          goto LABEL_11;
-        }
-
-        LODWORD(v28) = *(this + 14);
-        v31 = &off_2A1DDFDA8;
-        v32 = &v28;
-        v33 = 4;
-        v34 = &off_2A1DDFC68;
-        v35 = &v28;
-        v36 = 4;
-        *a5 = 4;
-        v26 = *(a4 + 2);
-        if (!v26)
-        {
-          goto LABEL_52;
-        }
-
-        if (v26 <= 3)
-        {
-          goto LABEL_45;
-        }
-
-LABEL_55:
-        result = amber::copy(a4, &v34, v11, v12, v13, v14, v15);
-        goto LABEL_11;
-      }
-
-      *&v28 = *(this + 6);
-      v31 = &off_2A1DDFDA8;
-      v32 = &v28;
-      v33 = 8;
-      v34 = &off_2A1DDFC68;
-      v35 = &v28;
-      v36 = 8;
-      *a5 = 8;
-      v19 = *(a4 + 2);
-      if (!v19)
-      {
-        goto LABEL_52;
-      }
-
-      if (v19 > 7)
-      {
-        goto LABEL_55;
-      }
-
-      goto LABEL_17;
-    }
-
-    switch(v9)
-    {
-      case 711:
-        v28 = *(this + 72);
-        v31 = &off_2A1DDFDA8;
-        v32 = &v28;
-        v33 = 16;
-        v34 = &off_2A1DDFC68;
-        v35 = &v28;
-        v36 = 16;
-        *a5 = 16;
-        v27 = *(a4 + 2);
-        if (!v27)
-        {
-          goto LABEL_52;
-        }
-
-        if (v27 <= 0xF)
-        {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 16, v27, v28);
-          goto LABEL_10;
-        }
-
-        goto LABEL_55;
-      case 710:
-        if ((amber::toAmberObject(this + 688, &v34, v11, v12, v13, v14, v15) & 0x80000000) != 0)
-        {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 0x2D, 0, "invalid snapshot in request", v24);
-          goto LABEL_10;
-        }
-
-        *&v28 = &off_2A1DDFDA8;
-        *(&v28 + 1) = &v34;
-        v29 = 544;
-        v31 = &off_2A1DDFC68;
-        v32 = &v34;
-        v33 = 544;
-        *a5 = 544;
-        v25 = *(a4 + 2);
-        if (!v25)
-        {
-          goto LABEL_52;
-        }
-
-        if (v25 <= 0x21F)
-        {
-          goto LABEL_24;
-        }
-
-        break;
-      case 709:
-        if ((amber::toAmberObject(this + 88, &v34, v11, v12, v13, v14, v15) & 0x80000000) != 0)
-        {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 0x11, 0, "invalid object path in request", v24);
-          goto LABEL_10;
-        }
-
-        *&v28 = &off_2A1DDFDA8;
-        *(&v28 + 1) = &v34;
-        v29 = 544;
-        v31 = &off_2A1DDFC68;
-        v32 = &v34;
-        v33 = 544;
-        *a5 = 544;
-        v25 = *(a4 + 2);
-        if (!v25)
-        {
-          goto LABEL_52;
-        }
-
-        if (v25 <= 0x21F)
-        {
-LABEL_24:
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v24, 544, v25, v28, v29, v30, v31, v32, v33);
-          goto LABEL_10;
-        }
-
-        break;
-      default:
-        goto LABEL_11;
-    }
-
-    result = amber::copy(a4, &v31, v20, v21, v22, v23, v24);
-    goto LABEL_11;
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 4, v25, v27);
+    return 0xFFFFFFFFLL;
   }
 
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 9, 0, "invalid attribute encoding", v15);
-LABEL_10:
-  result = 0xFFFFFFFFLL;
-LABEL_11:
-  v18 = *MEMORY[0x29EDCA608];
+  if (v9 <= 708)
+  {
+    if (v9 != 706)
+    {
+      if (v9 != 707)
+      {
+        v29 = *(this + 8);
+        v30 = &off_2A1DDFDA8;
+        v31 = &v29;
+        v32 = 8;
+        v33 = &off_2A1DDFC68;
+        v34 = &v29;
+        v35 = 8;
+        *a5 = 8;
+        v17 = *(a4 + 2);
+        if (v17)
+        {
+          if (v17 > 7)
+          {
+            return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+          }
+
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 8, v17);
+          return 0xFFFFFFFFLL;
+        }
+
+        return 0;
+      }
+
+      LODWORD(v27) = *(this + 14);
+      v30 = &off_2A1DDFDA8;
+      v31 = &v27;
+      v32 = 4;
+      v33 = &off_2A1DDFC68;
+      v34 = &v27;
+      v35 = 4;
+      *a5 = 4;
+      v25 = *(a4 + 2);
+      if (!v25)
+      {
+        return 0;
+      }
+
+      if (v25 <= 3)
+      {
+        goto LABEL_45;
+      }
+
+      return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+    }
+
+    *&v27 = *(this + 6);
+    v30 = &off_2A1DDFDA8;
+    v31 = &v27;
+    v32 = 8;
+    v33 = &off_2A1DDFC68;
+    v34 = &v27;
+    v35 = 8;
+    *a5 = 8;
+    v18 = *(a4 + 2);
+    if (!v18)
+    {
+      return 0;
+    }
+
+    if (v18 > 7)
+    {
+      return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+    }
+
+    goto LABEL_17;
+  }
+
+  switch(v9)
+  {
+    case 711:
+      v27 = *(this + 72);
+      v30 = &off_2A1DDFDA8;
+      v31 = &v27;
+      v32 = 16;
+      v33 = &off_2A1DDFC68;
+      v34 = &v27;
+      v35 = 16;
+      *a5 = 16;
+      v26 = *(a4 + 2);
+      if (!v26)
+      {
+        return 0;
+      }
+
+      if (v26 <= 0xF)
+      {
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v15, 16, v26, v27);
+        return 0xFFFFFFFFLL;
+      }
+
+      return amber::copy(a4, &v33, v11, v12, v13, v14, v15);
+    case 710:
+      if ((amber::toAmberObject(this + 688, &v33, v11, v12, v13, v14, v15) & 0x80000000) != 0)
+      {
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 0x2D, 0, "invalid snapshot in request", v23);
+        return 0xFFFFFFFFLL;
+      }
+
+      *&v27 = &off_2A1DDFDA8;
+      *(&v27 + 1) = &v33;
+      v28 = 544;
+      v30 = &off_2A1DDFC68;
+      v31 = &v33;
+      v32 = 544;
+      *a5 = 544;
+      v24 = *(a4 + 2);
+      if (!v24)
+      {
+        return 0;
+      }
+
+      if (v24 <= 0x21F)
+      {
+        goto LABEL_24;
+      }
+
+      return amber::copy(a4, &v30, v19, v20, v21, v22, v23);
+    case 709:
+      if ((amber::toAmberObject(this + 88, &v33, v11, v12, v13, v14, v15) & 0x80000000) != 0)
+      {
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "getAttribute", 0x11, 0, "invalid object path in request", v23);
+        return 0xFFFFFFFFLL;
+      }
+
+      *&v27 = &off_2A1DDFDA8;
+      *(&v27 + 1) = &v33;
+      v28 = 544;
+      v30 = &off_2A1DDFC68;
+      v31 = &v33;
+      v32 = 544;
+      *a5 = 544;
+      v24 = *(a4 + 2);
+      if (!v24)
+      {
+        return 0;
+      }
+
+      if (v24 <= 0x21F)
+      {
+LABEL_24:
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v23, 544, v24, v27, v28, v29, v30, v31, v32);
+        return 0xFFFFFFFFLL;
+      }
+
+      return amber::copy(a4, &v30, v19, v20, v21, v22, v23);
+  }
+
   return result;
 }
 
 uint64_t amber::BlockDeviceRequest::setAttribute(amber::BlockDeviceRequest *this, amber::BaseObject *a2, unsigned int a3, const amber::ConstMemoryView *a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v94 = *MEMORY[0x29EDCA608];
+  v93 = *MEMORY[0x29EDCA608];
   if (!amber::BaseObject::attributeEncodingIsValid(a2, a3, a3, a4, a5, a6, a7))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "setAttribute", 0x3A, 0, "invalid attribute encoding", v15);
-    goto LABEL_29;
+    return 0xFFFFFFFFLL;
   }
 
-  v55 = 0;
   v54 = 0;
+  v53 = 0;
   if (a3 == 2)
   {
-    if ((amber::storeAttribute<unsigned int>(&v54, a4, v11, v12, v13, v14, v15) & 0x80000000) != 0)
+    if ((amber::storeAttribute<unsigned int>(&v53, a4, v11, v12, v13, v14, v15) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "setAttribute", 0x44, 0, "invalid attribute size", v15);
-      goto LABEL_29;
+      return 0xFFFFFFFFLL;
     }
   }
 
-  else if (a3 == 1 && (amber::storeAttribute<unsigned long long>(&v55, a4, v11, v12, v13, v14, v15) & 0x80000000) != 0)
+  else if (a3 == 1 && (amber::storeAttribute<unsigned long long>(&v54, a4, v11, v12, v13, v14, v15) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "setAttribute", 0x40, 0, "invalid attribute size", v15);
-LABEL_29:
-    v16 = 0xFFFFFFFFLL;
-    goto LABEL_30;
+    return 0xFFFFFFFFLL;
   }
 
   if (a2 > 708)
@@ -1177,13 +1080,13 @@ LABEL_29:
         }
 
         v18 = *(a4 + 1);
-        amber::ObjectStorePath::ObjectStorePath(v56);
-        if ((amber::fromAmberObject(v56, v18, v19, v20, v21, v22, v23) & 0x80000000) == 0)
+        amber::ObjectStorePath::ObjectStorePath(v55);
+        if ((amber::fromAmberObject(v55, v18, v19, v20, v21, v22, v23) & 0x80000000) == 0)
         {
-          v16 = amber::BlockDeviceRequest::setObjectStorePath(this, v56, v24, v25, v26, v27, v28);
+          v16 = amber::BlockDeviceRequest::setObjectStorePath(this, v55, v24, v25, v26, v27, v28);
 LABEL_34:
-          amber::ObjectStorePath::~ObjectStorePath(v56);
-          goto LABEL_30;
+          amber::ObjectStorePath::~ObjectStorePath(v55);
+          return v16;
         }
 
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "setAttribute", 0x4B, 0, "invalid AmberObjectStorePath", v28);
@@ -1196,63 +1099,63 @@ LABEL_34:
         }
 
         v29 = *(a4 + 1);
-        amber::ObjectStorePath::ObjectStorePath(v56);
-        if ((amber::fromAmberObject(v56, v29, v30, v31, v32, v33, v34) & 0x80000000) == 0)
+        amber::ObjectStorePath::ObjectStorePath(v55);
+        if ((amber::fromAmberObject(v55, v29, v30, v31, v32, v33, v34) & 0x80000000) == 0)
         {
           v16 = 0;
-          *(this + 180) = v57;
-          v36 = v71;
-          *(this + 916) = v70;
+          *(this + 180) = v56;
+          v36 = v70;
+          *(this + 916) = v69;
           *(this + 932) = v36;
-          v37 = v67;
-          *(this + 852) = v66;
+          v37 = v66;
+          *(this + 852) = v65;
           *(this + 868) = v37;
-          v38 = v69;
-          *(this + 884) = v68;
+          v38 = v68;
+          *(this + 884) = v67;
           *(this + 900) = v38;
-          v39 = v63;
-          *(this + 788) = v62;
+          v39 = v62;
+          *(this + 788) = v61;
           *(this + 804) = v39;
-          v40 = v65;
-          *(this + 820) = v64;
+          v40 = v64;
+          *(this + 820) = v63;
           *(this + 836) = v40;
-          v41 = v59;
-          *(this + 724) = v58;
+          v41 = v58;
+          *(this + 724) = v57;
           *(this + 740) = v41;
-          v42 = v61;
-          *(this + 756) = v60;
+          v42 = v60;
+          *(this + 756) = v59;
           *(this + 772) = v42;
-          v43 = v73;
-          *(this + 948) = v72;
+          v43 = v72;
+          *(this + 948) = v71;
           *(this + 964) = v43;
-          *(this + 250) = v74;
-          v44 = v88;
-          *(this + 1196) = v87;
+          *(this + 250) = v73;
+          v44 = v87;
+          *(this + 1196) = v86;
           *(this + 1212) = v44;
-          v45 = v90;
-          *(this + 1228) = v89;
+          v45 = v89;
+          *(this + 1228) = v88;
           *(this + 1244) = v45;
-          v46 = v84;
-          *(this + 1132) = v83;
+          v46 = v83;
+          *(this + 1132) = v82;
           *(this + 1148) = v46;
-          v47 = v86;
-          *(this + 1164) = v85;
+          v47 = v85;
+          *(this + 1164) = v84;
           *(this + 1180) = v47;
-          v48 = v80;
-          *(this + 1068) = v79;
+          v48 = v79;
+          *(this + 1068) = v78;
           *(this + 1084) = v48;
-          v49 = v82;
-          *(this + 1100) = v81;
+          v49 = v81;
+          *(this + 1100) = v80;
           *(this + 1116) = v49;
-          v50 = v76;
-          *(this + 1004) = v75;
+          v50 = v75;
+          *(this + 1004) = v74;
           *(this + 1020) = v50;
-          v51 = v78;
-          *(this + 1036) = v77;
+          v51 = v77;
+          *(this + 1036) = v76;
           *(this + 1052) = v51;
-          *(this + 316) = v91;
-          *(this + 159) = v92;
-          *(this + 320) = v93;
+          *(this + 316) = v90;
+          *(this + 159) = v91;
+          *(this + 320) = v92;
           goto LABEL_34;
         }
 
@@ -1264,12 +1167,12 @@ LABEL_34:
         {
           v16 = 0;
           *(this + 72) = **(a4 + 1);
-          goto LABEL_30;
+          return v16;
         }
 
 LABEL_28:
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceRequest.cpp", "setAttribute", 0x6C, 0, "invalid request attribute: %u (size: %zu)", v15, a2, v17);
-        goto LABEL_29;
+        return 0xFFFFFFFFLL;
       default:
 LABEL_23:
         v17 = *(a4 + 2);
@@ -1283,15 +1186,15 @@ LABEL_23:
   if (a2 == 705)
   {
     v16 = 0;
-    *(this + 5) = v55;
-    goto LABEL_30;
+    *(this + 5) = v54;
+    return v16;
   }
 
   if (a2 == 706)
   {
     v16 = 0;
-    *(this + 6) = v55;
-    goto LABEL_30;
+    *(this + 6) = v54;
+    return v16;
   }
 
   if (a2 != 707)
@@ -1300,15 +1203,13 @@ LABEL_23:
   }
 
   v16 = 0;
-  *(this + 14) = v54;
-LABEL_30:
-  v52 = *MEMORY[0x29EDCA608];
+  *(this + 14) = v53;
   return v16;
 }
 
-void sub_29698FD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29698FD18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   amber::ObjectStorePath::~ObjectStorePath(va);
   _Unwind_Resume(a1);
 }
@@ -1701,11 +1602,12 @@ uint64_t AmberBlockDeviceRequestDestroy(uint64_t result)
 
 uint64_t amber::copy(amber *this, amber::BlockDevice *a2, amber::BaseObject *a3, amber::BlockDevice *a4, const char *a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, double), int (*a9)(void *, float), unint64_t a10)
 {
-  v86 = *MEMORY[0x29EDCA608];
+  v85 = *MEMORY[0x29EDCA608];
   AttributeUInt64 = amber::BaseObject::getAttributeUInt64(this, 201);
   v18 = amber::BaseObject::getAttributeUInt64(a3, 201);
-  v67 = &unk_2A1DDFDD8;
-  v68 = &unk_2A1DDFE08;
+  v66 = &unk_2A1DDFDD8;
+  v67 = &unk_2A1DDFE08;
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
@@ -1721,49 +1623,48 @@ uint64_t amber::copy(amber *this, amber::BlockDevice *a2, amber::BaseObject *a3,
   v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
-  v85 = 0;
+  v84 = 0;
+  v54 = 0;
   v55 = 0;
   v56 = 0;
-  v57 = 0;
+  v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
-  memset(v54, 0, 30);
-  v58[0] = xmmword_296A14210;
-  memset(&v58[1], 0, 48);
-  v59 = 0;
-  v60 = 1018212795;
+  memset(v53, 0, 30);
+  v57[0] = xmmword_296A14210;
+  memset(&v57[1], 0, 48);
+  v58 = 0;
+  v59 = 1018212795;
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
+  *v63 = 0u;
   *v64 = 0u;
-  *v65 = 0u;
-  v66 = 0;
-  v45 = 0;
+  v65 = 0;
+  v44 = 0;
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v46[0] = xmmword_296A14210;
-  memset(&v46[1], 0, 48);
-  v47 = 0;
-  v48 = 1018212795;
+  v45[0] = xmmword_296A14210;
+  memset(&v45[1], 0, 48);
+  v46 = 0;
+  v47 = 1018212795;
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v19 = amber::realTime(v18);
-  LODWORD(v54[1]) = amber::BaseObject::getAttributeUInt32(this, 204);
+  LODWORD(v53[1]) = amber::BaseObject::getAttributeUInt32(this, 204);
   AttributeUInt32 = amber::BaseObject::getAttributeUInt32(a3, 204);
-  DWORD1(v54[1]) = AttributeUInt32;
-  v22 = v54[1];
-  if (LODWORD(v54[1]) == -1)
+  DWORD1(v53[1]) = AttributeUInt32;
+  v22 = v53[1];
+  if (LODWORD(v53[1]) == -1)
   {
     v22 = 1;
-    LODWORD(v54[1]) = 1;
+    LODWORD(v53[1]) = 1;
   }
 
   if (AttributeUInt32 == -1)
   {
     AttributeUInt32 = 1;
-    DWORD1(v54[1]) = 1;
+    DWORD1(v53[1]) = 1;
     if (!a6)
     {
 LABEL_11:
@@ -1784,173 +1685,172 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  if (AttributeUInt64 < a2 || (v26 = &a5[a2], __CFADD__(a2, a5)) || v26 > AttributeUInt64 || a2 % v22 || v26 != AttributeUInt64 && v26 % v22)
+  if (AttributeUInt64 < a2 || (v25 = &a5[a2], __CFADD__(a2, a5)) || v25 > AttributeUInt64 || a2 % v22 || v25 != AttributeUInt64 && v25 % v22)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x229, 0, "copy: invalid src offset: %llu", v21, a2);
     goto LABEL_12;
   }
 
-  if (v18 < a4 || (v27 = &a5[a4], __CFADD__(a4, a5)) || v27 > v18 || a4 % AttributeUInt32 || v27 != v18 && v27 % AttributeUInt32)
+  if (v18 < a4 || (v26 = &a5[a4], __CFADD__(a4, a5)) || v26 > v18 || a4 % AttributeUInt32 || v26 != v18 && v26 % AttributeUInt32)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x231, 0, "copy: invalid dst offset: %llu", v21, a4);
     goto LABEL_12;
   }
 
-  *&v53 = this;
-  *(&v53 + 1) = a3;
-  *&v54[0] = a2;
-  *(&v54[0] + 1) = a4;
-  DWORD2(v54[1]) = a6;
-  *&v52 = a9;
-  *(&v52 + 1) = &v43;
-  *&v43 = a5;
-  *&v44 = a7;
-  *(&v44 + 1) = a8;
-  BYTE12(v54[1]) = (amber::BaseObject::getAttributeUInt32(a3, 202) & 8) != 0;
-  BYTE13(v54[1]) = (amber::BaseObject::getAttributeUInt32(a3, 202) & 0x20) != 0;
+  *&v52 = this;
+  *(&v52 + 1) = a3;
+  *&v53[0] = a2;
+  *(&v53[0] + 1) = a4;
+  DWORD2(v53[1]) = a6;
+  *&v51 = a9;
+  *(&v51 + 1) = &v42;
+  *&v42 = a5;
+  *&v43 = a7;
+  *(&v43 + 1) = a8;
+  BYTE12(v53[1]) = (amber::BaseObject::getAttributeUInt32(a3, 202) & 8) != 0;
+  BYTE13(v53[1]) = (amber::BaseObject::getAttributeUInt32(a3, 202) & 0x20) != 0;
   if ((amber::BaseObject::getAttributeUInt32(this, 202) & 0x40000) != 0)
   {
-    v32 = amber::BaseObject::getAttributeUInt32(this, 203);
-    if (v32 + 1 < 2 || a2 % v32 || &a5[a2] % v32)
+    v31 = amber::BaseObject::getAttributeUInt32(this, 203);
+    if (v31 + 1 < 2 || a2 % v31 || &a5[a2] % v31)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x24B, 0, "invalid src block size", v33);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x24B, 0, "invalid src block size", v32);
       goto LABEL_12;
     }
 
-    if (v55 && v32 != v55)
+    if (v54 && v31 != v54)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x24D, 0, "block size mismatch in copy", v33);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x24D, 0, "block size mismatch in copy", v32);
       goto LABEL_12;
     }
 
-    v55 = v32;
-    LOBYTE(v56) = 1;
+    v54 = v31;
+    LOBYTE(v55) = 1;
   }
 
   if ((amber::BaseObject::getAttributeUInt32(a3, 202) & 0x40000) != 0)
   {
-    v34 = amber::BaseObject::getAttributeUInt32(a3, 203);
-    if (v34 + 1 < 2 || a4 % v34 || v27 % v34)
+    v33 = amber::BaseObject::getAttributeUInt32(a3, 203);
+    if (v33 + 1 < 2 || a4 % v33 || v26 % v33)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x25A, 0, "invalid dst block size", v28);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x25A, 0, "invalid dst block size", v27);
       goto LABEL_12;
     }
 
-    if (v55 && v34 != v55)
+    if (v54 && v33 != v54)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x25C, 0, "block size mismatch in copy", v28);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x25C, 0, "block size mismatch in copy", v27);
       goto LABEL_12;
     }
 
-    v55 = v34;
-    HIBYTE(v56) = 1;
+    v54 = v33;
+    HIBYTE(v55) = 1;
   }
 
-  else if (!v55)
+  else if (!v54)
   {
-    v29 = DWORD1(v54[1]);
-    if (DWORD1(v54[1]) <= 0x200)
+    v28 = DWORD1(v53[1]);
+    if (DWORD1(v53[1]) <= 0x200)
     {
-      v29 = 512;
+      v28 = 512;
     }
 
-    v55 = v29;
+    v54 = v28;
   }
 
   if (a9 >> 62)
   {
     amber::logMark("Copy", 0);
-    amber::logSize("src IO size", LODWORD(v54[1]), 1u);
+    amber::logSize("src IO size", LODWORD(v53[1]), 1u);
     amber::logSize("src offset", a2, 1u);
-    amber::logSize("dst IO size", DWORD1(v54[1]), 1u);
+    amber::logSize("dst IO size", DWORD1(v53[1]), 1u);
     amber::logSize("dst offset", a4, 1u);
     amber::logSize("copy IO size", a6, 1u);
-    amber::logSize("block size", v55, 1u);
+    amber::logSize("block size", v54, 1u);
     amber::logSize("copy size", a5, 1u);
   }
 
   if (a8 && (a8(a7, 0.0) & 0x80000000) != 0)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x271, 0, "user interrupt", v28);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x271, 0, "user interrupt", v27);
     goto LABEL_12;
   }
 
   if (a5)
   {
-    if (malloc_type_malloc(DWORD2(v54[1]), 0xF93785E2uLL))
+    if (malloc_type_malloc(DWORD2(v53[1]), 0xF93785E2uLL))
     {
       operator new();
     }
 
-    v35 = __error();
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v35, "malloc", v36);
-    v37 = __error();
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x27B, *v37, "malloc", v38);
+    v34 = __error();
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v34, "malloc", v35);
+    v36 = __error();
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x27B, *v36, "malloc", v37);
     goto LABEL_12;
   }
 
-  if (atomic_fetch_add_explicit(&v63 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
+  if (atomic_fetch_add_explicit(&v62 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
   {
     do
     {
-      amber::Sem::acquire(v58);
+      amber::Sem::acquire(v57);
     }
 
-    while (atomic_fetch_add_explicit(&v63 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
+    while (atomic_fetch_add_explicit(&v62 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
   }
 
-  if (atomic_fetch_add_explicit(&v51 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
+  if (atomic_fetch_add_explicit(&v50 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) >= 1)
   {
     do
     {
-      amber::Sem::acquire(v46);
+      amber::Sem::acquire(v45);
     }
 
-    while (atomic_fetch_add_explicit(&v51 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
+    while (atomic_fetch_add_explicit(&v50 + 1, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) > 0);
   }
 
-  v30 = atomic_load(&v57);
-  if (v30 || (v31 = atomic_load(&v45)) != 0)
+  v29 = atomic_load(&v56);
+  if (v29 || (v30 = atomic_load(&v44)) != 0)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x28A, 0, "copy requests reported errors", v28);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x28A, 0, "copy requests reported errors", v27);
     goto LABEL_12;
   }
 
-  v39 = amber::BaseObject::getAttributeUInt32(a3, 202);
-  if ((v39 & 2) != 0)
+  v38 = amber::BaseObject::getAttributeUInt32(a3, 202);
+  if ((v38 & 2) != 0)
   {
     amber::BlockDevice::flush(a3);
   }
 
   if (a8)
   {
-    v39 = a8(a7, 100.0);
-    if ((v39 & 0x80000000) != 0)
+    v38 = a8(a7, 100.0);
+    if ((v38 & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x293, 0, "user interrupt", v40);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "copy", 0x293, 0, "user interrupt", v39);
       goto LABEL_12;
     }
   }
 
   if (a9 >> 62)
   {
-    v41 = amber::realTime(v39);
+    v40 = amber::realTime(v38);
     amber::logSize("bytes copied", 0, 1u);
-    amber::logSize("src read", v64[0], 1u);
-    amber::logSize("dst write", v64[1], 1u);
-    amber::logSize("dst write zeroes", v65[0], 1u);
-    amber::logSize("dst trim", v65[1], 1u);
-    amber::logSize("dst skip", v66, 1u);
-    amber::logSpeed("copy", 0, v41 - v19);
+    amber::logSize("src read", v63[0], 1u);
+    amber::logSize("dst write", v63[1], 1u);
+    amber::logSize("dst write zeroes", v64[0], 1u);
+    amber::logSize("dst trim", v64[1], 1u);
+    amber::logSize("dst skip", v65, 1u);
+    amber::logSpeed("copy", 0, v40 - v19);
   }
 
   v23 = 0;
 LABEL_13:
-  std::condition_variable::~condition_variable(&v48);
-  std::mutex::~mutex((v46 + 8));
-  std::condition_variable::~condition_variable(&v60);
-  std::mutex::~mutex((v58 + 8));
-  v24 = *MEMORY[0x29EDCA608];
+  std::condition_variable::~condition_variable(&v47);
+  std::mutex::~mutex((v45 + 8));
+  std::condition_variable::~condition_variable(&v59);
+  std::mutex::~mutex((v57 + 8));
   return v23;
 }
 
@@ -1973,7 +1873,7 @@ uint64_t AmberBlockDeviceCopy(amber *a1, amber::BlockDevice *a2, amber::BaseObje
 
   else
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "AmberBlockDeviceCopy", 0x2B4, 0, "invalid device type", a7);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "AmberBlockDeviceCopy", 0x2B4, 0, "invalid device type", a7, a8);
     return 0xFFFFFFFFLL;
   }
 }
@@ -1987,30 +1887,30 @@ uint64_t BlockDeviceCopyReadRequestState::processReply(BlockDeviceCopyReadReques
   v12 = *(this + 5);
   v13 = *(a2 + 14);
   v14 = *(this + 16);
-  v174[0] = &unk_2A1DDFD28;
-  v174[2] = 0;
-  v174[3] = 0;
-  v174[1] = off_2A1DDFD48;
-  v174[5] = 0;
-  v174[6] = 0;
-  v174[4] = &off_2A1DDFDA8;
-  v174[7] = &off_2A1DDFC68;
+  v173[0] = &unk_2A1DDFD28;
+  v173[2] = 0;
+  v173[3] = 0;
+  v173[1] = off_2A1DDFD48;
+  v173[5] = 0;
+  v173[6] = 0;
+  v173[4] = &off_2A1DDFDA8;
+  v173[7] = &off_2A1DDFC68;
+  v174 = 0u;
   v175 = 0u;
-  v176 = 0u;
-  v177 = 1;
-  v178 = 0;
-  v169[0] = &unk_2A1DDFD28;
-  v169[2] = 0;
-  v169[3] = 0;
-  v169[1] = off_2A1DDFD48;
-  v169[5] = 0;
-  v169[6] = 0;
-  v169[4] = &off_2A1DDFDA8;
-  v169[7] = &off_2A1DDFC68;
+  v176 = 1;
+  v177 = 0;
+  v168[0] = &unk_2A1DDFD28;
+  v168[2] = 0;
+  v168[3] = 0;
+  v168[1] = off_2A1DDFD48;
+  v168[5] = 0;
+  v168[6] = 0;
+  v168[4] = &off_2A1DDFDA8;
+  v168[7] = &off_2A1DDFC68;
+  v169 = 0u;
   v170 = 0u;
-  v171 = 0u;
-  v172 = 1;
-  v173 = 0;
+  v171 = 1;
+  v172 = 0;
   if (v8 < 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x91, 0, "read request failed", a7);
@@ -2021,9 +1921,9 @@ uint64_t BlockDeviceCopyReadRequestState::processReply(BlockDeviceCopyReadReques
   {
     v15 = *this;
     atomic_fetch_add_explicit(this + 26, v13, memory_order_relaxed);
-    v166 = v13 + v14 - 1;
-    v16 = v166 / v14;
-    if ((amber::Buffer::resize(v174, v16, a3, a4, a5, a6, a7) & 0x80000000) != 0 || (amber::Buffer::resize(v169, v16, v17, v18, v19, v20, v21) & 0x80000000) != 0)
+    v165 = v13 + v14 - 1;
+    v16 = v165 / v14;
+    if ((amber::Buffer::resize(v173, v16, a3, a4, a5, a6, a7) & 0x80000000) != 0 || (amber::Buffer::resize(v168, v16, v17, v18, v19, v20, v21) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x9A, 0, "malloc", v21);
       goto LABEL_14;
@@ -2031,15 +1931,15 @@ uint64_t BlockDeviceCopyReadRequestState::processReply(BlockDeviceCopyReadReques
 
     if (*(this + 68) == 1)
     {
-      v164 = v13;
+      v163 = v13;
       v27 = v15;
       v15 = *(this + 16);
       v28 = *(this + 2);
-      amber::Buffer::buf(v174, v21, v167);
-      amber::MutableMemoryView::view(v167, v176, *(&v176 + 1) - v176, v29, v168);
-      v30 = (*(*v28 + 32))(v28, v10 / v15, v10 / v15 + v16, v168, 0);
+      amber::Buffer::buf(v166, v173, v21);
+      amber::MutableMemoryView::view(v167, v166, v175, *(&v175 + 1) - v175, v29);
+      v30 = (*(*v28 + 32))(v28, v10 / v15, v10 / v15 + v16, v167, 0);
       LOBYTE(v15) = v27;
-      v13 = v164;
+      v13 = v163;
       if (v30 < 0)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x9F, 0, "getBlockState (SRC)", v21);
@@ -2052,9 +1952,9 @@ uint64_t BlockDeviceCopyReadRequestState::processReply(BlockDeviceCopyReadReques
     {
       v32 = *(this + 16);
       v33 = *(this + 3);
-      amber::Buffer::buf(v169, v21, v167);
-      amber::MutableMemoryView::view(v167, v171, *(&v171 + 1) - v171, v34, v168);
-      if (((*(*v33 + 32))(v33, v31 / v32, v31 / v32 + v16, v168, 0) & 0x80000000) != 0)
+      amber::Buffer::buf(v166, v168, v21);
+      amber::MutableMemoryView::view(v167, v166, v170, *(&v170 + 1) - v170, v34);
+      if (((*(*v33 + 32))(v33, v31 / v32, v31 / v32 + v16, v167, 0) & 0x80000000) != 0)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0xA5, 0, "getBlockState (DST)", v21);
         goto LABEL_14;
@@ -2069,122 +1969,121 @@ uint64_t BlockDeviceCopyReadRequestState::processReply(BlockDeviceCopyReadReques
     else if (!*(this + 69))
     {
 LABEL_51:
-      v88 = *(this + 68);
       if ((*(this + 69) & 1) != 0 && (*(this + 68) & 1) != 0 && (v15 & 2) != 0)
       {
-        if (v14 <= v166)
+        if (v14 <= v165)
         {
-          v89 = 0;
+          v88 = 0;
           do
           {
-            v90 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v174, v89, v23, v24, v25, v26, v21);
-            v96 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v89, v91, v92, v93, v94, v95);
-            v97 = v90 & 3;
-            if (v97)
+            v89 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v173, v88, v23, v24, v25, v26, v21);
+            v95 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v88, v90, v91, v92, v93, v94);
+            v96 = v89 & 3;
+            if (v96)
             {
-              v98 = *v96;
-              *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v89, v23, v24, v25, v26, v21) = v98 & 0xFC | v97;
+              v97 = *v95;
+              *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v88, v23, v24, v25, v26, v21) = v97 & 0xFC | v96;
             }
 
-            ++v89;
+            ++v88;
           }
 
-          while (v89 < v16);
+          while (v88 < v16);
         }
       }
 
       else if (*(this + 68))
       {
-        v99 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v169, v22, v23, v24, v25, v26, v21);
-        v106 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v174, v100, v101, v102, v103, v104, v105);
-        memcpy(v99, v106, v16);
+        v98 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v168, v22, v23, v24, v25, v26, v21);
+        v105 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v173, v99, v100, v101, v102, v103, v104);
+        memcpy(v98, v105, v16);
       }
 
       else
       {
-        v107 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v169, v22, v23, v24, v25, v26, v21);
-        memset(v107, 2, v16);
+        v106 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v168, v22, v23, v24, v25, v26, v21);
+        memset(v106, 2, v16);
       }
 
-      if (v14 <= v166)
+      if (v14 <= v165)
       {
-        v108 = 0;
+        v107 = 0;
         do
         {
-          v109 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v108, v23, v24, v25, v26, v21);
-          if ((v109 & 3) == 2)
+          v108 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v107, v23, v24, v25, v26, v21);
+          if ((v108 & 3) == 2)
           {
-            v110 = *(this + 16);
-            v111 = &v9[(v110 * v108)];
-            v112 = &v111[v110];
-            v113 = v9 + v110 * v108;
-            while (v111 < v112 && (v113 & 7) != 0)
+            v109 = *(this + 16);
+            v110 = &v9[(v109 * v107)];
+            v111 = &v110[v109];
+            v112 = v9 + v109 * v107;
+            while (v110 < v111 && (v112 & 7) != 0)
             {
-              v114 = *v111++;
-              ++v113;
+              v113 = *v110++;
+              ++v112;
+              if (v113)
+              {
+                goto LABEL_78;
+              }
+            }
+
+            while ((v110 + 8) <= v111)
+            {
+              v114 = *v110;
+              v110 += 8;
               if (v114)
               {
                 goto LABEL_78;
               }
             }
 
-            while ((v111 + 8) <= v112)
+            while (v110 < v111)
             {
-              v115 = *v111;
-              v111 += 8;
-              if (v115)
+              if (*v110++)
               {
                 goto LABEL_78;
               }
             }
 
-            while (v111 < v112)
-            {
-              if (*v111++)
-              {
-                goto LABEL_78;
-              }
-            }
-
-            *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v108, v23, v24, v25, v26, v21) = v109 & 0xFC | 1;
+            *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v107, v23, v24, v25, v26, v21) = v108 & 0xFC | 1;
           }
 
 LABEL_78:
-          ++v108;
+          ++v107;
         }
 
-        while (v108 < v16);
+        while (v107 < v16);
       }
 
-      if ((*(this + 69) & 1) != 0 && (v117 = *(this + 16), v118 = *(this + 3), amber::Buffer::constBuf(v169, v21, v167), amber::ConstMemoryView::view(v167, v171, *(&v171 + 1) - v171, v119, v168), ((*(*v118 + 40))(v118, v31 / v117, v31 / v117 + v16, v168, 0) & 0x80000000) != 0))
+      if ((*(this + 69) & 1) != 0 && (v116 = *(this + 16), v117 = *(this + 3), amber::Buffer::constBuf(v166, v168, v21), amber::ConstMemoryView::view(v167, v166, v170, *(&v170 + 1) - v170, v118), ((*(*v117 + 40))(v117, v31 / v116, v31 / v116 + v16, v167, 0) & 0x80000000) != 0))
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x141, 0, "setBlockState (DST)", v21);
       }
 
       else
       {
-        v120 = *(this + 13);
-        if (*(this + 14) == v120)
+        v119 = *(this + 13);
+        if (*(this + 14) == v119)
         {
-          v121 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v169, v22, v23, v24, v25, v26, v21);
-          v122 = dstRequestCommand(v121, v16, *(this + 60), *(this + 61));
-          switch(v122)
+          v120 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v168, v22, v23, v24, v25, v26, v21);
+          v121 = dstRequestCommand(v120, v16, *(this + 60), *(this + 61));
+          switch(v121)
           {
             case 2:
-              v123 = 216;
+              v122 = 216;
               goto LABEL_118;
             case 4:
-              v123 = 232;
+              v122 = 232;
               goto LABEL_118;
             case 6:
-              v123 = 224;
+              v122 = 224;
 LABEL_118:
-              atomic_fetch_add_explicit((this + v123), v13, memory_order_relaxed);
+              atomic_fetch_add_explicit((this + v122), v13, memory_order_relaxed);
               goto LABEL_119;
           }
 
           atomic_fetch_add_explicit(this + 30, v13, memory_order_relaxed);
-          if (v122 != -1)
+          if (v121 != -1)
           {
 LABEL_119:
             operator new();
@@ -2193,97 +2092,97 @@ LABEL_119:
           goto LABEL_121;
         }
 
-        v124 = v120 / *(this + 16);
-        if (v124 <= 1)
+        v123 = v119 / *(this + 16);
+        if (v123 <= 1)
         {
-          v125 = 1;
+          v124 = 1;
         }
 
         else
         {
-          v125 = v124;
+          v124 = v123;
         }
 
-        if (v14 > v166)
+        if (v14 > v165)
         {
           goto LABEL_90;
         }
 
-        v140 = 0;
+        v139 = 0;
         while (1)
         {
-          v141 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v169, v22, v23, v24, v25, v26, v21);
-          if (v16 >= v140 + v125)
+          v140 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v168, v22, v23, v24, v25, v26, v21);
+          if (v16 >= v139 + v124)
           {
-            v142 = v140 + v125;
+            v141 = v139 + v124;
           }
 
           else
           {
-            v142 = v16;
+            v141 = v16;
           }
 
-          v149 = dstRequestCommand((v141 + v140), v142 - v140, *(this + 60), *(this + 61));
+          v148 = dstRequestCommand((v140 + v139), v141 - v139, *(this + 60), *(this + 61));
           do
           {
-            v150 = v142;
-            if (v142 >= v16)
+            v149 = v141;
+            if (v141 >= v16)
             {
               break;
             }
 
-            v151 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v169, v143, v144, v145, v146, v147, v148);
-            if (v16 >= v142 + v125)
+            v150 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v168, v142, v143, v144, v145, v146, v147);
+            if (v16 >= v141 + v124)
             {
-              v142 += v125;
+              v141 += v124;
             }
 
             else
             {
-              v142 = v16;
+              v141 = v16;
             }
           }
 
-          while (dstRequestCommand((v151 + v150), v142 - v150, *(this + 60), *(this + 61)) == v149);
-          v152 = *(this + 16) * (v150 - v140);
-          v153 = (this + 224);
-          if (v149 == 6 || (v153 = (this + 232), v149 == 4))
+          while (dstRequestCommand((v150 + v149), v141 - v149, *(this + 60), *(this + 61)) == v148);
+          v151 = *(this + 16) * (v149 - v139);
+          v152 = (this + 224);
+          if (v148 == 6 || (v152 = (this + 232), v148 == 4))
           {
-            atomic_fetch_add_explicit(v153, v152, memory_order_relaxed);
+            atomic_fetch_add_explicit(v152, v151, memory_order_relaxed);
 LABEL_111:
             operator new();
           }
 
-          if (v149 == 2)
+          if (v148 == 2)
           {
             break;
           }
 
           atomic_fetch_add_explicit(this + 30, v13, memory_order_relaxed);
-          if (v149 != -1)
+          if (v148 != -1)
           {
             goto LABEL_111;
           }
 
-          BlockDeviceCopyWriteRequestState::updateProgress(*(this + 1), v152);
-          v140 = v150;
-          if (v150 >= v16)
+          BlockDeviceCopyWriteRequestState::updateProgress(*(this + 1), v151);
+          v139 = v149;
+          if (v149 >= v16)
           {
             goto LABEL_90;
           }
         }
 
-        atomic_fetch_add_explicit(this + 27, v152, memory_order_relaxed);
-        v154 = malloc_type_malloc(v152, 0xF93785E2uLL);
-        if (v154)
+        atomic_fetch_add_explicit(this + 27, v151, memory_order_relaxed);
+        v153 = malloc_type_malloc(v151, 0xF93785E2uLL);
+        if (v153)
         {
-          memcpy(v154, &v9[*(this + 16) * v140], v152);
+          memcpy(v153, &v9[*(this + 16) * v139], v151);
           operator new();
         }
 
-        v161 = __error();
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v161, "malloc", v162);
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x19C, 0, "malloc", v163);
+        v160 = __error();
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/.././Memory/./Malloc.hpp", "malloc", 0x1F, *v160, "malloc", v161);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0x19C, 0, "malloc", v162);
       }
 
 LABEL_14:
@@ -2293,26 +2192,26 @@ LABEL_14:
 
     if (*(this + 68) == 1 && (v15 & 2) != 0)
     {
-      if (v14 > v166)
+      if (v14 > v165)
       {
         goto LABEL_121;
       }
 
-      v165 = v15;
+      v164 = v15;
       v36 = 0;
       v37 = 0;
       v38 = 1;
       do
       {
-        v39 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v174, v36, v23, v24, v25, v26, v21);
+        v39 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v173, v36, v23, v24, v25, v26, v21);
         v38 &= (v39 & 3) == 0;
-        v45 = (*amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v36, v40, v41, v42, v43, v44) & 3) == 2 && (v39 & 3) == 0;
+        v45 = (*amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v36, v40, v41, v42, v43, v44) & 3) == 2 && (v39 & 3) == 0;
         v37 |= v45;
         ++v36;
       }
 
       while (v36 < v16);
-      LOBYTE(v15) = v165;
+      LOBYTE(v15) = v164;
       if (v38)
       {
 LABEL_121:
@@ -2322,25 +2221,25 @@ LABEL_121:
 
       if (v37)
       {
-        amber::Buffer::Buffer(v167);
-        if ((amber::Buffer::reserveEndCapacity(v167, v13, v46, v47, v48, v49, v50) & 0x80000000) != 0 || (v57 = *(this + 3), v58 = amber::BufferProtocol<amber::Buffer>::end(v167, v51, v52, v53, v54, v55, v56), amber::BlockDevice::read(v57, v58, v13, v31) != v13) || (amber::Buffer::grow(v167, v13, v59, v60, v61, v62, v56) & 0x80000000) != 0)
+        amber::Buffer::Buffer(v166);
+        if ((amber::Buffer::reserveEndCapacity(v166, v13, v46, v47, v48, v49, v50) & 0x80000000) != 0 || (v57 = *(this + 3), v58 = amber::BufferProtocol<amber::Buffer>::end(v166, v51, v52, v53, v54, v55, v56), amber::BlockDevice::read(v57, v58, v13, v31, 0) != v13) || (amber::Buffer::grow(v166, v13, v59, v60, v61, v62, v56) & 0x80000000) != 0)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/BlockDevices/BlockDeviceCopy.cpp", "processReply", 0xDF, 0, "read dst data", v56);
-          amber::Buffer::~Buffer(v167, v155, v156, v157, v158, v159, v160);
+          amber::Buffer::~Buffer(v166, v154, v155, v156, v157, v158, v159);
           goto LABEL_14;
         }
 
-        if (v14 <= v166)
+        if (v14 <= v165)
         {
           v68 = 0;
           do
           {
-            v69 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v174, v68, v64, v65, v66, v67, v56);
-            v75 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v68, v70, v71, v72, v73, v74) & 3;
+            v69 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v173, v68, v64, v65, v66, v67, v56);
+            v75 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v68, v70, v71, v72, v73, v74) & 3;
             if ((v69 & 3) == 0 && v75 == 2)
             {
               v77 = *(this + 16);
-              v78 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v167, v63, v64, v65, v66, v67, v56);
+              v78 = amber::MutableMemoryViewConvertible<amber::Buffer>::begin(v166, v63, v64, v65, v66, v67, v56);
               memcpy(&v9[(v77 * v68)], (v78 + (v77 * v68)), *(this + 16));
             }
 
@@ -2350,16 +2249,16 @@ LABEL_121:
           while (v68 < v16);
         }
 
-        amber::Buffer::~Buffer(v167, v63, v64, v65, v66, v67, v56);
+        amber::Buffer::~Buffer(v166, v63, v64, v65, v66, v67, v56);
       }
 
-      if (v14 <= v166)
+      if (v14 <= v165)
       {
         v79 = 0;
         do
         {
-          v80 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v174, v79, v23, v24, v25, v26, v21);
-          v86 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v169, v79, v81, v82, v83, v84, v85) & 3;
+          v80 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v173, v79, v23, v24, v25, v26, v21);
+          v86 = *amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](v168, v79, v81, v82, v83, v84, v85) & 3;
           if ((v80 & 3) == 0 && v86 == 1)
           {
             bzero(&v9[(*(this + 16) * v79)], *(this + 16));
@@ -2382,16 +2281,16 @@ LABEL_91:
   amber::Sem::release((this + 80));
   if (v35)
   {
-    v132 = 0;
-    atomic_compare_exchange_strong(this + 18, &v132, 1u);
+    v131 = 0;
+    atomic_compare_exchange_strong(this + 18, &v131, 1u);
   }
 
-  amber::Buffer::~Buffer(v169, v126, v127, v128, v129, v130, v131);
-  amber::Buffer::~Buffer(v174, v133, v134, v135, v136, v137, v138);
+  amber::Buffer::~Buffer(v168, v125, v126, v127, v128, v129, v130);
+  amber::Buffer::~Buffer(v173, v132, v133, v134, v135, v136, v137);
   return 0;
 }
 
-void sub_296991C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_296991C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
 {
   amber::Buffer::~Buffer(&a30, a2, a3, a4, a5, a6, a7);
   amber::Buffer::~Buffer((v30 - 192), v32, v33, v34, v35, v36, v37);
@@ -2421,7 +2320,7 @@ uint64_t BlockDeviceCopyWriteRequestState::updateProgress(uint64_t this, unint64
 
 uint64_t amber::BufferProtocol<amber::Buffer>::end(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  amber::Buffer::buf(a1, a7, v11);
+  amber::Buffer::buf(v11, a1, a7);
   amber::MutableMemoryView::operator+(v11, *(a1 + 88), v8, v10);
   return v10[1];
 }
@@ -2517,7 +2416,7 @@ uint64_t BlockDeviceCopyWriteRequestState::processReply(atomic_uint *this, amber
 
 uint64_t amber::getDAWToken(_BYTE *a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, const char *a7)
 {
-  v41[1] = *MEMORY[0x29EDCA608];
+  v40[1] = *MEMORY[0x29EDCA608];
   if (*(a5 + 23) < 0)
   {
     **a5 = 0;
@@ -2529,8 +2428,7 @@ uint64_t amber::getDAWToken(_BYTE *a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint
 
 LABEL_18:
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/HTTP/HTTPAuthenticatorAuthServices.mm", "getDAWToken", 0x62, 0, "user flags do not allow running AuthenticationServices", a7);
-    v35 = 0xFFFFFFFFLL;
-    goto LABEL_23;
+    return 0xFFFFFFFFLL;
   }
 
   *a5 = 0;
@@ -2541,12 +2439,12 @@ LABEL_18:
   }
 
 LABEL_3:
-  v10 = [MEMORY[0x29EDB8E70] URLWithString:@"https://sso.corp.apple.com/authenticate"];
+  v10 = [MEMORY[0x29EDB8E70] URLWithString:{@"https://sso.corp.apple.com/authenticate", a4}];
   v11 = objc_alloc_init(AmberDylibAppleConnectSSOAuthenticator);
   v12 = [MEMORY[0x29EDB84D8] authorizationProviderWithIdentityProviderURL:v10];
   if ([v12 canPerformAuthorization])
   {
-    v40 = [v12 createRequest];
+    v39 = [v12 createRequest];
     v14 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
     if (a1 && *a1)
     {
@@ -2570,10 +2468,10 @@ LABEL_3:
     v22 = [MEMORY[0x29EDBA120] queryItemWithName:@"DAWRequest" value:@"1"];
     [v14 addObject:v22];
 
-    [v40 setAuthorizationOptions:v14];
+    [v39 setAuthorizationOptions:v14];
     v23 = objc_alloc(MEMORY[0x29EDB84C8]);
-    v41[0] = v40;
-    v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v41 count:1];
+    v40[0] = v39;
+    v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v40 count:1];
     v25 = [v23 initWithAuthorizationRequests:v24];
 
     [v25 setDelegate:v11];
@@ -2614,8 +2512,6 @@ LABEL_3:
     v35 = 0xFFFFFFFFLL;
   }
 
-LABEL_23:
-  v38 = *MEMORY[0x29EDCA608];
   return v35;
 }
 
@@ -2684,19 +2580,19 @@ void sub_29699279C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<amber::BlockCache::LocationData>::resize(void *a1, unint64_t a2)
+void std::vector<amber::BlockCache::LocationData>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<amber::BlockCache::LocationData>::__append(a1, v4);
+    std::vector<amber::BlockCache::LocationData>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 24 * a2;
+    result[1] = *result + 24 * a2;
   }
 }
 
@@ -2734,7 +2630,7 @@ uint64_t amber::BlockCache::read(amber::BlockCache *this, unint64_t a2, const am
       v9 = (v8 + 24 * v6);
       v10 = *v9;
       v11 = v9[1];
-      v20[0] = v9[2];
+      *&v20 = v9[2];
       v12 = (this + 160);
       if (v10 != -1)
       {
@@ -2749,7 +2645,7 @@ uint64_t amber::BlockCache::read(amber::BlockCache *this, unint64_t a2, const am
       }
 
       *v13 = v10;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__erase_unique<unsigned long long>(this + 12, v20);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__erase_unique<unsigned long long>(this + 12, &v20);
       v14 = v19;
       v15 = *(this + 20);
       v16 = (*(this + 17) + 24 * v6);
@@ -2762,9 +2658,9 @@ uint64_t amber::BlockCache::read(amber::BlockCache *this, unint64_t a2, const am
         *(this + 21) = v6;
       }
 
-      v20[0] = v14;
-      v20[1] = v6;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(this + 12, v20);
+      *&v20 = v14;
+      *(&v20 + 1) = v6;
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(this + 12, &v20, &v20);
       v17 = 1;
     }
   }
@@ -2804,7 +2700,7 @@ uint64_t amber::BlockCache::write(amber::BlockCache *this, unint64_t a2, const a
     v10 = (v9 + 24 * v7);
     v11 = *v10;
     v12 = v10[1];
-    v23[0] = v10[2];
+    *&v23 = v10[2];
     v13 = (this + 160);
     if (v11 != -1)
     {
@@ -2819,7 +2715,7 @@ uint64_t amber::BlockCache::write(amber::BlockCache *this, unint64_t a2, const a
     }
 
     *v8 = v11;
-    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__erase_unique<unsigned long long>(this + 12, v23);
+    std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__erase_unique<unsigned long long>(this + 12, &v23);
   }
 
   else
@@ -2853,9 +2749,9 @@ LABEL_17:
     *(this + 21) = v7;
   }
 
-  v23[0] = v16;
-  v23[1] = v7;
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(this + 12, v23);
+  *&v23 = v16;
+  *(&v23 + 1) = v7;
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(this + 12, &v23, &v23);
   v6 = 1;
 LABEL_18:
   std::mutex::unlock((this + 32));
@@ -2992,33 +2888,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned l
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,unsigned long>>(void *a1, unint64_t *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3026,44 +2922,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::vector<amber::BlockCache::LocationData>::__append(uint64_t a1, unint64_t a2)
@@ -3180,7 +3076,7 @@ LABEL_9:
   return v11;
 }
 
-uint64_t amber::AEBDContainer::createWithPrologue(amber::AEBDContainer *this, const amber::ConstMemoryView *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+unsigned __int8 *amber::AEBDContainer::createWithPrologue(amber::AEBDContainer *this, const amber::ConstMemoryView *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v13 = &off_2A1DDFC68;
   v14 = *(this + 8);
@@ -3298,23 +3194,8 @@ LABEL_16:
   }
 
   v21 = *&v29[8] + 16;
-  if (*&v29[8] >= 0xFFFFFFF0)
+  if (*&v29[8] >= 0xFFFFFFF0 || (v18 = __CFADD__(v21, v14), v22 = v21 + v14, v18) || (v18 = __CFADD__(v22, v16), v23 = v22 + v16, v18) || (v18 = __CFADD__(v23, HIDWORD(v31)), v24 = v23 + HIDWORD(v31), v18) || (v18 = __CFADD__(v24, v35), v25 = v24 + v35, v18) || (v18 = __CFADD__(v25, v20), v26 = v25 + v20, v18))
   {
-    goto LABEL_37;
-  }
-
-  v18 = __CFADD__(v21, v14);
-  v22 = v21 + v14;
-  if (v18)
-  {
-    goto LABEL_37;
-  }
-
-  v18 = __CFADD__(v22, v16);
-  v23 = v22 + v16;
-  if (v18 || (v18 = __CFADD__(v23, HIDWORD(v31)), v24 = v23 + HIDWORD(v31), v18) || (v18 = __CFADD__(v24, v35), v25 = v24 + v35, v18) || (v18 = __CFADD__(v25, v20), v26 = v25 + v20, v18))
-  {
-LABEL_37:
     v7 = "invalid container parameters, prologue size out of range";
     v8 = 414;
     goto LABEL_17;
@@ -3349,69 +3230,69 @@ unint64_t amber::ConstMemoryView::indexOf(amber::ConstMemoryView *this, const am
   return result;
 }
 
-uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::KeyValueBlob>(uint64_t a1, amber::KeyValueBlob *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::KeyValueBlob>(uint64_t *a1, amber::KeyValueBlob *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  if (*(a1 + 16) < a3)
+  if (a1[2] < a3)
   {
     return 0xFFFFFFFFLL;
   }
 
   v19[7] = v7;
   v19[8] = v8;
-  amber::ConstMemoryView::first(a1, a3, a7, v19);
+  amber::ConstMemoryView::first(v19, a1, a3, a7);
   if ((amber::KeyValueBlob::assign(a2, v19, v13, v14, v15, v16, v17) & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
 
   result = 0;
-  v18 = *(a1 + 16) - a3;
-  *(a1 + 8) += a3;
-  *(a1 + 16) = v18;
+  v18 = a1[2] - a3;
+  a1[1] += a3;
+  a1[2] = v18;
   return result;
 }
 
-uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::SecureBuffer>(uint64_t a1, amber::Buffer *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::SecureBuffer>(uint64_t *a1, amber::Buffer *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  if (*(a1 + 16) < a3)
+  if (a1[2] < a3)
   {
     return 0xFFFFFFFFLL;
   }
 
   v19[7] = v7;
   v19[8] = v8;
-  amber::ConstMemoryView::first(a1, a3, a7, v19);
+  amber::ConstMemoryView::first(v19, a1, a3, a7);
   if ((amber::BufferProtocol<amber::Buffer>::assign(a2, v19, v13, v14, v15, v16, v17) & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
 
   result = 0;
-  v18 = *(a1 + 16) - a3;
-  *(a1 + 8) += a3;
-  *(a1 + 16) = v18;
+  v18 = a1[2] - a3;
+  a1[1] += a3;
+  a1[2] = v18;
   return result;
 }
 
-uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  if (*(a1 + 16) < a3)
+  if (a1[2] < a3)
   {
     return 0xFFFFFFFFLL;
   }
 
   v19[7] = v7;
   v19[8] = v8;
-  amber::ConstMemoryView::first(a1, a3, a7, v19);
+  amber::ConstMemoryView::first(v19, a1, a3, a7);
   if ((amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a2 + 8, v19, v13, v14, v15, v16, v17) & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
 
   result = 0;
-  v18 = *(a1 + 16) - a3;
-  *(a1 + 8) += a3;
-  *(a1 + 16) = v18;
+  v18 = a1[2] - a3;
+  a1[1] += a3;
+  a1[2] = v18;
   return result;
 }
 
@@ -3448,22 +3329,23 @@ double amber::SecureBuffer::SecureBuffer(amber::SecureBuffer *this)
   return result;
 }
 
-uint64_t amber::MutableMemoryViewConvertible<amber::Buffer>::view@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, const char *a4@<X6>, void *a5@<X8>)
+uint64_t *amber::MutableMemoryViewConvertible<amber::Buffer>::view@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, const char *a4@<X6>, uint64_t *a5@<X8>)
 {
-  amber::Buffer::buf(a1, a4, v13);
-  amber::MutableMemoryView::view(v13, *(a1 + 80), *(a1 + 88) - *(a1 + 80), v9, v12);
-  return amber::MutableMemoryView::view(v12, a2, a3, v10, a5);
+  amber::Buffer::buf(v13, a1, a4);
+  amber::MutableMemoryView::view(v12, v13, a1[10], a1[11] - a1[10], v9);
+  return amber::MutableMemoryView::view(a5, v12, a2, a3, v10);
 }
 
 uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v144 = *MEMORY[0x29EDCA608];
-  v124 = &off_2A1DDFC68;
-  v125 = this + 304;
-  *&v126 = 16;
-  amber::CryptoBlobBase<256u>::CryptoBlobBase(v143, &v124, a3, a4, a5, a6, a7);
-  v124 = &unk_2A1DDFDD8;
-  v125 = &unk_2A1DDFE08;
+  v143 = *MEMORY[0x29EDCA608];
+  v123 = &off_2A1DDFC68;
+  v124 = this + 304;
+  *&v125 = 16;
+  amber::CryptoBlobBase<256u>::CryptoBlobBase(v142, &v123, a3, a4, a5, a6, a7);
+  v123 = &unk_2A1DDFDD8;
+  v124 = &unk_2A1DDFE08;
+  v125 = 0u;
   v126 = 0u;
   v127 = 0u;
   v128 = 0u;
@@ -3479,10 +3361,10 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
   v138 = 0u;
   v139 = 0u;
   v140 = 0u;
-  v141 = 0u;
-  v142 = 0;
-  v105 = &unk_2A1DDFDD8;
-  v106 = &unk_2A1DDFE08;
+  v141 = 0;
+  v104 = &unk_2A1DDFDD8;
+  v105 = &unk_2A1DDFE08;
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
@@ -3498,10 +3380,10 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
   v119 = 0u;
   v120 = 0u;
   v121 = 0u;
-  v122 = 0u;
-  v123 = 0;
-  v86 = &unk_2A1DDFDD8;
-  v87 = &unk_2A1DDFE08;
+  v122 = 0;
+  v85 = &unk_2A1DDFDD8;
+  v86 = &unk_2A1DDFE08;
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
@@ -3517,8 +3399,7 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
-  v104 = 0;
+  v103 = 0;
   if ((*(this + 4785) & 1) != 0 || (*(this + 4784) & 1) == 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1B1, 0, "invalid container state", v11);
@@ -3546,10 +3427,10 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
       goto LABEL_8;
     }
 
-    v38 = amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v143, this + 320, this + 3352, this + 3912, this + 600);
-    if ((v38 & 0x80000000) != 0)
+    v37 = amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v142, this + 320, this + 3352, this + 3912, this + 600);
+    if ((v37 & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1D8, 0, "derive main key: %d", v43, v38);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1D8, 0, "derive main key: %d", v42, v37);
       goto LABEL_8;
     }
   }
@@ -3564,38 +3445,38 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
 
     if ((amber::AEBDCrypto::RNGBlob(this + 144, this + 880, *(this + 37), v8, v9, v10, v11) & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BA, 0, "gen key", v44);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BA, 0, "gen key", v43);
       goto LABEL_8;
     }
 
     if (*(this + 224) != *(this + 49))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BC, 0, "invalid encryption data size %zu", v44, *(this + 224));
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BC, 0, "invalid encryption data size %zu", v43, *(this + 224));
       goto LABEL_8;
     }
 
     if (*(this + 842))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BD, 0, "symmetric key not empty", v44);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BD, 0, "symmetric key not empty", v43);
       goto LABEL_8;
     }
 
     if (*(this + 982) != *(this + 45))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BE, 0, "invalid signing public key size %zu", v44, *(this + 982));
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BE, 0, "invalid signing public key size %zu", v43, *(this + 982));
       goto LABEL_8;
     }
 
     if (*(this + 912) != *(this + 43))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BF, 0, "invalid recipient public key size %zu", v44, *(this + 912));
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1BF, 0, "invalid recipient public key size %zu", v43, *(this + 912));
       goto LABEL_8;
     }
 
-    v46 = amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v143, this + 320, this + 880, this + 3912, this + 600);
-    if ((v46 & 0x80000000) != 0)
+    v45 = amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v142, this + 320, this + 880, this + 3912, this + 600);
+    if ((v45 & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1C8, 0, "derive main key: %d", v43, v46);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1C8, 0, "derive main key: %d", v42, v45);
       goto LABEL_8;
     }
   }
@@ -3620,40 +3501,40 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
       goto LABEL_8;
     }
 
-    v45 = amber::AEBDCrypto::DeriveMainKeyDHESender(this + 144, this + 4472, v143, this + 320, this + 880, this + 3632, this + 3912, this + 600);
-    if ((v45 & 0x80000000) != 0)
+    v44 = amber::AEBDCrypto::DeriveMainKeyDHESender(this + 144, this + 4472, v142, this + 320, this + 880, this + 3632, this + 3912, this + 600);
+    if ((v44 & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1E9, 0, "derive main key: %d", v43, v45);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1E9, 0, "derive main key: %d", v42, v44);
       goto LABEL_8;
     }
 
     if (*(this + 224) != *(this + 49))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1EC, 0, "invalid encryption credentials", v43);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1EC, 0, "invalid encryption credentials", v42);
       goto LABEL_8;
     }
   }
 
-  v47 = *(this + 308);
-  if (v47 <= 4 && ((1 << v47) & 0x15) != 0 && (amber::AEBDCrypto::DeriveSignatureKeyWithMainKey(this + 144, this + 4192, this + 4472, v40, v41, v42, v43) & 0x80000000) != 0)
+  v46 = *(this + 308);
+  if (v46 <= 4 && ((1 << v46) & 0x15) != 0 && (amber::AEBDCrypto::DeriveSignatureKeyWithMainKey(this + 144, this + 4192, this + 4472, v39, v40, v41, v42) & 0x80000000) != 0)
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1F3, 0, "derive signature key", v43);
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1F3, 0, "derive signature key", v42);
   }
 
   else
   {
-    v48 = *(this + 310);
-    if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2608), (*(this + 39) << v48), v39, v40, v41, v42, v43) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 2712), (*(this + 40) << v48), v49, v50, v51, v52, v53) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 2504), (1 << v48), v54, v55, v56, v57, v53) & 0x80000000) != 0)
+    v47 = *(this + 310);
+    if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2608), (*(this + 39) << v47), v38, v39, v40, v41, v42) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 2712), (*(this + 40) << v47), v48, v49, v50, v51, v52) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 2504), (1 << v47), v53, v54, v55, v56, v52) & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1FA, 0, "alloc cluster data", v53);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockNew", 0x1FA, 0, "alloc cluster data", v52);
     }
 
     else
     {
-      amber::MutableMemoryViewConvertible<amber::Buffer>::first(this + 2504, *(this + 466), v53, &v83);
-      memset(v84, 3, v85);
-      v58 = *(this + 466) * *(this + 444);
-      if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2936), (v58 * *(this + 41)), v59, v60, v61, v62, v63) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3040), (v58 * *(this + 39)), v64, v65, v66, v67, v19) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3144), (v58 * *(this + 40)), v68, v69, v70, v71, v19) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3248), (8 * v58), v72, v73, v74, v75, v19) & 0x80000000) == 0 && (amber::NBitVector<2u>::assignZero(this + 2816, v58 * *(this + 443), v76, v77, v78, v79, v19) & 0x80000000) == 0)
+      amber::MutableMemoryViewConvertible<amber::Buffer>::first(this + 313, *(this + 466), v52, &v82);
+      memset(v83, 3, v84);
+      v57 = *(this + 466) * *(this + 444);
+      if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2936), (v57 * *(this + 41)), v58, v59, v60, v61, v62) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3040), (v57 * *(this + 39)), v63, v64, v65, v66, v19) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3144), (v57 * *(this + 40)), v67, v68, v69, v70, v19) & 0x80000000) == 0 && (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3248), (8 * v57), v71, v72, v73, v74, v19) & 0x80000000) == 0 && (amber::NBitVector<2u>::assignZero(this + 2816, v57 * *(this + 443), v75, v76, v77, v78, v19) & 0x80000000) == 0)
       {
         v20 = 0;
         *(this + 2392) = 256;
@@ -3666,36 +3547,35 @@ uint64_t amber::AEBDContainer::unlockNew(amber::AEBDContainer *this, uint64_t a2
 
 LABEL_8:
   *(this + 1122) = 0;
-  v80 = &off_2A1DDFDA8;
-  v81 = this + 4492;
-  v82 = 256;
-  amber::MutableMemoryView::operator+(&v80, 0, v13, &v83);
-  bzero(v84, v85);
+  v79 = &off_2A1DDFDA8;
+  v80 = this + 4492;
+  v81 = 256;
+  amber::MutableMemoryView::operator+(&v79, 0, v13, &v82);
+  bzero(v83, v84);
   v20 = 0xFFFFFFFFLL;
 LABEL_9:
   amber::Buffer::reset((this + 1160), v14, v15, v16, v17, v18, v19);
   amber::Buffer::reset((this + 1264), v21, v22, v23, v24, v25, v26);
   amber::Buffer::reset((this + 1368), v27, v28, v29, v30, v31, v32);
   *(this + 372) = 0;
-  v80 = &off_2A1DDFDA8;
-  v81 = this + 1492;
-  v82 = 256;
-  amber::MutableMemoryView::operator+(&v80, 0, v33, &v83);
-  bzero(v84, v85);
+  v79 = &off_2A1DDFDA8;
+  v80 = this + 1492;
+  v81 = 256;
+  amber::MutableMemoryView::operator+(&v79, 0, v33, &v82);
+  bzero(v83, v84);
   *(this + 842) = 0;
-  v80 = &off_2A1DDFDA8;
-  v81 = this + 3372;
-  v82 = 256;
-  amber::MutableMemoryView::operator+(&v80, 0, v34, &v83);
-  bzero(v84, v85);
+  v79 = &off_2A1DDFDA8;
+  v80 = this + 3372;
+  v81 = 256;
+  amber::MutableMemoryView::operator+(&v79, 0, v34, &v82);
+  bzero(v83, v84);
   *(this + 912) = 0;
-  v80 = &off_2A1DDFDA8;
-  v81 = this + 3652;
-  v82 = 256;
-  amber::MutableMemoryView::operator+(&v80, 0, v35, &v83);
-  bzero(v84, v85);
+  v79 = &off_2A1DDFDA8;
+  v80 = this + 3652;
+  v81 = 256;
+  amber::MutableMemoryView::operator+(&v79, 0, v35, &v82);
+  bzero(v83, v84);
   amber::zero(void *,unsigned long)::memset_func(this + 4768, 0, 16);
-  v36 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
@@ -3727,16 +3607,16 @@ uint64_t amber::NBitVector<2u>::assignZero(uint64_t a1, unint64_t a2, uint64_t a
 
 uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v245 = *MEMORY[0x29EDCA608];
+  v244 = *MEMORY[0x29EDCA608];
   v8 = this + 304;
-  v225 = &off_2A1DDFC68;
-  v226 = this + 304;
-  *&v227 = 16;
-  amber::CryptoBlobBase<256u>::CryptoBlobBase(v244, &v225, a3, a4, a5, a6, a7);
+  v224 = &off_2A1DDFC68;
+  v225 = this + 304;
+  *&v226 = 16;
+  amber::CryptoBlobBase<256u>::CryptoBlobBase(v243, &v224, a3, a4, a5, a6, a7);
   if ((*(this + 4785) & 1) == 0 && *(this + 4784) != 1)
   {
-    v34 = *(this + 308);
-    if ((v34 - 1) < 2)
+    v33 = *(this + 308);
+    if ((v33 - 1) < 2)
     {
       if (*(this + 842) != *(this + 37) || *(this + 982) != *(this + 45) || *(this + 912) != *(this + 43))
       {
@@ -3744,14 +3624,14 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
         goto LABEL_4;
       }
 
-      if ((amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v244, this + 320, this + 3352, this + 3912, this + 600) & 0x80000000) != 0)
+      if ((amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v243, this + 320, this + 3352, this + 3912, this + 600) & 0x80000000) != 0)
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x23F, 0, "derive main key", v41);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x23F, 0, "derive main key", v40);
         goto LABEL_4;
       }
     }
 
-    else if ((v34 - 3) >= 2)
+    else if ((v33 - 3) >= 2)
     {
       if (*(this + 308))
       {
@@ -3765,37 +3645,38 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
         goto LABEL_4;
       }
 
-      if ((amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v244, this + 320, this + 880, this + 3912, this + 600) & 0x80000000) != 0)
+      if ((amber::AEBDCrypto::DeriveMainKeySymmetric(this + 36, this + 4472, v243, this + 320, this + 880, this + 3912, this + 600) & 0x80000000) != 0)
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x22F, 0, "derive main key", v41);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x22F, 0, "derive main key", v40);
         goto LABEL_4;
       }
     }
 
     else
     {
-      if (*(this + 842) || *(this + 982) != *(this + 45) || *(this + 224) != *(this + 49) || *(this + 912) != *(this + 43) || (v35 = *(this + 597)) == 0)
+      if (*(this + 842) || *(this + 982) != *(this + 45) || *(this + 224) != *(this + 49) || *(this + 912) != *(this + 43) || (v34 = *(this + 597)) == 0)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x249, 0, "invalid encryption credentials", v9);
         goto LABEL_4;
       }
 
-      if ((amber::AEBDCrypto::DeriveMainKeyDHERecipient(this + 36, this + 4472, v244, this + 320, this + 880, this + 3632, *(this + 596), v35, this + 3912, this + 600) & 0x80000000) != 0)
+      if ((amber::AEBDCrypto::DeriveMainKeyDHERecipient(this + 36, this + 4472, v243, this + 320, this + 880, this + 3632, *(this + 596), v34, this + 3912, this + 600) & 0x80000000) != 0)
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x254, 0, "derive main key", v41);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x254, 0, "derive main key", v40);
         goto LABEL_4;
       }
     }
 
-    v42 = *(this + 308);
-    v43 = 1;
-    if (v42 > 4 || ((1 << v42) & 0x15) == 0)
+    v41 = *(this + 308);
+    v42 = 1;
+    if (v41 > 4 || ((1 << v41) & 0x15) == 0)
     {
       goto LABEL_49;
     }
 
-    v225 = &unk_2A1DDFDD8;
-    v226 = &unk_2A1DDFE08;
+    v224 = &unk_2A1DDFDD8;
+    v225 = &unk_2A1DDFE08;
+    v226 = 0u;
     v227 = 0u;
     v228 = 0u;
     v229 = 0u;
@@ -3811,10 +3692,10 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
     v239 = 0u;
     v240 = 0u;
     v241 = 0u;
-    v242 = 0u;
-    v243 = 0;
-    v206 = &unk_2A1DDFDD8;
-    v207 = &unk_2A1DDFE08;
+    v242 = 0;
+    v205 = &unk_2A1DDFDD8;
+    v206 = &unk_2A1DDFE08;
+    v207 = 0u;
     v208 = 0u;
     v209 = 0u;
     v210 = 0u;
@@ -3830,10 +3711,10 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
     v220 = 0u;
     v221 = 0u;
     v222 = 0u;
-    v223 = 0u;
-    v224 = 0;
-    v188[0] = &unk_2A1DDFDD8;
-    v188[1] = &unk_2A1DDFE08;
+    v223 = 0;
+    v187[0] = &unk_2A1DDFDD8;
+    v187[1] = &unk_2A1DDFE08;
+    v188 = 0u;
     v189 = 0u;
     v190 = 0u;
     v191 = 0u;
@@ -3849,37 +3730,36 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
     v201 = 0u;
     v202 = 0u;
     v203 = 0u;
-    v204 = 0u;
-    v205 = 0;
-    v186[0] = &unk_2A1DDFDD8;
-    v186[1] = &unk_2A1DDFE08;
-    memset(&v186[2], 0, 256);
-    v187 = 0;
-    v44 = *(this + 39);
-    v45 = *(this + 40);
-    v46 = *(this + 47);
-    if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 1264, v36, v37, v38, v39, v40, v41) == v45 + v44 + v46 && *(this + 372) == *(this + 46))
+    v204 = 0;
+    v185[0] = &unk_2A1DDFDD8;
+    v185[1] = &unk_2A1DDFE08;
+    memset(&v185[2], 0, 256);
+    v186 = 0;
+    v43 = *(this + 39);
+    v44 = *(this + 40);
+    v45 = *(this + 47);
+    if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 158, v35, v36, v37, v38, v39, v40) == v44 + v43 + v45 && *(this + 372) == *(this + 46))
     {
-      amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 1264, v47, v184);
-      if ((amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v184, &v206, *(this + 39), v48, v49, v50, v51) & 0x80000000) != 0 || (amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v184, v188, *(this + 40), v52, v53, v54, v55) & 0x80000000) != 0 || (amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v184, v186, *(this + 47), v56, v57, v58, v55) & 0x80000000) != 0 || v185)
+      amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 158, v183, v46);
+      if ((amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v183, &v205, *(this + 39), v47, v48, v49, v50) & 0x80000000) != 0 || (amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v183, v187, *(this + 40), v51, v52, v53, v54) & 0x80000000) != 0 || (amber::ConstMemoryView::loadAssignAndUpdate<amber::CryptoBlobBase<256u>>(v183, v185, *(this + 47), v55, v56, v57, v54) & 0x80000000) != 0 || v184)
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x26E, 0, "invalid encrypted signature blob", v55);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x26E, 0, "invalid encrypted signature blob", v54);
       }
 
       else
       {
-        if ((amber::AEBDCrypto::DeriveSignatureAEADKeyWithMainKey(this + 144, &v225, this + 4472, &v206, v59, v60, v55) & 0x80000000) == 0)
+        if ((amber::AEBDCrypto::DeriveSignatureAEADKeyWithMainKey(this + 144, &v224, this + 4472, &v205, v58, v59, v54) & 0x80000000) == 0)
         {
-          v183[0] = &off_2A1DDFDA8;
-          v183[1] = &v186[2] + 4;
-          v183[2] = LODWORD(v186[2]);
-          v182[1] = 0;
-          v182[2] = 0;
-          v182[0] = &off_2A1DDFC68;
-          if ((amber::AEBDCrypto::AEADDecrypt(this + 144, v183, v188, &v225, v182) & 0x80000000) == 0 && (amber::AEBDCrypto::DSVerify(this + 144, v186, this + 3912, this + 1472) & 0x80000000) == 0)
+          v182[0] = &off_2A1DDFDA8;
+          v182[1] = &v185[2] + 4;
+          v182[2] = LODWORD(v185[2]);
+          v181[1] = 0;
+          v181[2] = 0;
+          v181[0] = &off_2A1DDFC68;
+          if ((amber::AEBDCrypto::AEADDecrypt(this + 144, v182, v187, &v224, v181) & 0x80000000) == 0 && (amber::AEBDCrypto::DSVerify(this + 144, v185, this + 3912, this + 1472) & 0x80000000) == 0)
           {
-            v61 = 0;
-            v43 = 1;
+            v60 = 0;
+            v42 = 1;
             goto LABEL_46;
           }
         }
@@ -3890,15 +3770,15 @@ uint64_t amber::AEBDContainer::unlockExisting(amber::AEBDContainer *this, uint64
 
     else
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x266, 0, "invalid encrypted signature blob size", v47);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x266, 0, "invalid encrypted signature blob size", v46);
     }
 
-    v43 = 0;
-    v61 = 4;
+    v42 = 0;
+    v60 = 4;
 LABEL_46:
-    if (v61)
+    if (v60)
     {
-      if (!v43)
+      if (!v42)
       {
         goto LABEL_4;
       }
@@ -3909,9 +3789,10 @@ LABEL_48:
     }
 
 LABEL_49:
-    amber::SecureBuffer::SecureBuffer(v188);
-    v225 = &unk_2A1DDFDD8;
-    v226 = &unk_2A1DDFE08;
+    amber::SecureBuffer::SecureBuffer(v187);
+    v224 = &unk_2A1DDFDD8;
+    v225 = &unk_2A1DDFE08;
+    v226 = 0u;
     v227 = 0u;
     v228 = 0u;
     v229 = 0u;
@@ -3927,10 +3808,10 @@ LABEL_49:
     v239 = 0u;
     v240 = 0u;
     v241 = 0u;
-    v242 = 0u;
-    v243 = 0;
-    v206 = &unk_2A1DDFDD8;
-    v207 = &unk_2A1DDFE08;
+    v242 = 0;
+    v205 = &unk_2A1DDFDD8;
+    v206 = &unk_2A1DDFE08;
+    v207 = 0u;
     v208 = 0u;
     v209 = 0u;
     v210 = 0u;
@@ -3944,84 +3825,83 @@ LABEL_49:
     v218 = 0u;
     v219 = 0u;
     v220 = 0u;
+    v67 = *(this + 310);
     v221 = 0u;
-    v68 = *(this + 310);
     v222 = 0u;
-    v223 = 0u;
-    v69 = *(this + 39) * (1 << v68);
-    v224 = 0;
-    if ((v69 & 0xFFFFFFFF00000000) != 0 || (v70 = __CFADD__(v69, 64), v71 = v69 + 64, v70) || (v72 = *(this + 40) * (1 << v68), (v72 & 0xFFFFFFFF00000000) != 0) || __CFADD__(v72, v71) || amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 1160, v62, v63, v64, v65, v66, v67) != v72 + v71)
+    v68 = *(this + 39) * (1 << v67);
+    v223 = 0;
+    if ((v68 & 0xFFFFFFFF00000000) != 0 || (v69 = __CFADD__(v68, 64), v70 = v68 + 64, v69) || (v71 = *(this + 40) * (1 << v67), (v71 & 0xFFFFFFFF00000000) != 0) || __CFADD__(v71, v70) || amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 145, v61, v62, v63, v64, v65, v66) != v71 + v70)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x285, 0, "invalid encrypted root blob sizes", v67);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x285, 0, "invalid encrypted root blob sizes", v66);
     }
 
     else
     {
-      v78 = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 8, v73, v74, v75, v76, v77, v67);
-      v85 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 1368, v79, v80, v81, v82, v83, v84);
-      if (__CFADD__(v85, v78) || (amber::Buffer::reserve(v188, v85 + v78, v86, v87, v88, v89, v90) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::operator amber::ConstMemoryView(this + 8, v90, v186), (amber::BufferProtocol<amber::Buffer>::append(v188, v186, v91, v92, v93, v94, v95) & 0x80000000) != 0) || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 1368, v90, v184), (amber::BufferProtocol<amber::Buffer>::append(v188, v184, v96, v97, v98, v99, v100) & 0x80000000) != 0))
+      v77 = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 1, v72, v73, v74, v75, v76, v66);
+      v84 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(this + 171, v78, v79, v80, v81, v82, v83);
+      if (__CFADD__(v84, v77) || (amber::Buffer::reserve(v187, v84 + v77, v85, v86, v87, v88, v89) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::operator amber::ConstMemoryView(this + 1, v89, v185), (amber::BufferProtocol<amber::Buffer>::append(v187, v185, v90, v91, v92, v93, v94) & 0x80000000) != 0) || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 171, v183, v89), (amber::BufferProtocol<amber::Buffer>::append(v187, v183, v95, v96, v97, v98, v99) & 0x80000000) != 0))
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x28E, 0, "prepare aux buffer for root decryption", v90);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x28E, 0, "prepare aux buffer for root decryption", v89);
       }
 
-      else if ((amber::AEBDCrypto::DerivePrologueKeyWithMainKey(this + 144, &v225, this + 4472, v101, v102, v103, v90) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveRootAEADKeyWithPrologueKey(this + 144, &v206, &v225, this + 1880, v104, v105, v106) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::zMutableMemoryView(this + 1160, v106, v186), amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v188, v107, v184), (amber::AEBDCrypto::AEADDecrypt(this + 144, v186, this + 2160, &v206, v184) & 0x80000000) != 0))
+      else if ((amber::AEBDCrypto::DerivePrologueKeyWithMainKey(this + 144, &v224, this + 4472, v100, v101, v102, v89) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveRootAEADKeyWithPrologueKey(this + 144, &v205, &v224, this + 1880, v103, v104, v105) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::zMutableMemoryView(this + 145, v105, v185), amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v187, v183, v106), (amber::AEBDCrypto::AEADDecrypt(this + 144, v185, this + 2160, &v205, v183) & 0x80000000) != 0))
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x297, 0, "root decryption", v106);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x297, 0, "root decryption", v105);
       }
 
       else
       {
-        amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 1160, v106, v186);
-        v184[0] = &off_2A1DDFDA8;
-        v184[1] = this + 1752;
-        v185 = 64;
-        amber::ConstMemoryView::first(v186, 0x40uLL, v108, v183);
-        amber::copy(v184, v183, v109, v110, v111, v112, v113);
-        if (!amber::AEBDContainer::rootHeaderIsValid(v8, this + 1752, v114, v115, v116, v117, v118) || ((*(*this + 120))(this) & 0x80000000) != 0)
+        amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 145, v185, v105);
+        v183[0] = &off_2A1DDFDA8;
+        v183[1] = this + 1752;
+        v184 = 64;
+        amber::ConstMemoryView::first(v182, v185, 0x40uLL, v107);
+        amber::copy(v183, v182, v108, v109, v110, v111, v112);
+        if (!amber::AEBDContainer::rootHeaderIsValid(v8, this + 1752, v113, v114, v115, v116, v117) || ((*(*this + 120))(this) & 0x80000000) != 0)
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2A1, 0, "invalid root header", v119);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2A1, 0, "invalid root header", v118);
         }
 
         else
         {
-          amber::ConstMemoryView::operator+=(v186, 0x40uLL, v120, v121, v122, v123, v119);
-          v124 = (*(this + 39) << v68);
-          amber::ConstMemoryView::first(v186, v124, v125, v184);
-          if ((amber::BufferProtocol<amber::Buffer>::assign((this + 2608), v184, v126, v127, v128, v129, v130) & 0x80000000) != 0)
+          amber::ConstMemoryView::operator+=(v185, 0x40uLL, v119, v120, v121, v122, v118);
+          v123 = (*(this + 39) << v67);
+          amber::ConstMemoryView::first(v183, v185, v123, v124);
+          if ((amber::BufferProtocol<amber::Buffer>::assign((this + 2608), v183, v125, v126, v127, v128, v129) & 0x80000000) != 0)
           {
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2A7, 0, "alloc cluster data", v135);
+            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2A7, 0, "alloc cluster data", v134);
           }
 
           else
           {
-            amber::ConstMemoryView::operator+=(v186, v124, v131, v132, v133, v134, v135);
-            amber::ConstMemoryView::first(v186, (*(this + 40) << v68), v136, v184);
-            if ((amber::BufferProtocol<amber::Buffer>::assign((this + 2712), v184, v137, v138, v139, v140, v141) & 0x80000000) != 0)
+            amber::ConstMemoryView::operator+=(v185, v123, v130, v131, v132, v133, v134);
+            amber::ConstMemoryView::first(v183, v185, (*(this + 40) << v67), v135);
+            if ((amber::BufferProtocol<amber::Buffer>::assign((this + 2712), v183, v136, v137, v138, v139, v140) & 0x80000000) != 0)
             {
-              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2AD, 0, "alloc cluster data", v146);
+              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2AD, 0, "alloc cluster data", v145);
             }
 
             else
             {
-              if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2504), (1 << v68), v142, v143, v144, v145, v146) & 0x80000000) == 0)
+              if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2504), (1 << v67), v141, v142, v143, v144, v145) & 0x80000000) == 0)
               {
-                amber::Buffer::~Buffer(v188, v147, v148, v149, v150, v151, v152);
-                v153 = *(this + 466) * *(this + 444);
-                if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2936), (v153 * *(this + 41)), v154, v155, v156, v157, v158) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3040), (v153 * *(this + 39)), v159, v160, v161, v162, v10) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3144), (v153 * *(this + 40)), v163, v164, v165, v166, v10) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3248), (8 * v153), v167, v168, v169, v170, v10) & 0x80000000) != 0 || (amber::NBitVector<2u>::assignZero(this + 2816, v153 * *(this + 443), v171, v172, v173, v174, v10) & 0x80000000) != 0)
+                amber::Buffer::~Buffer(v187, v146, v147, v148, v149, v150, v151);
+                v152 = *(this + 466) * *(this + 444);
+                if ((amber::BufferProtocol<amber::Buffer>::assignZero((this + 2936), (v152 * *(this + 41)), v153, v154, v155, v156, v157) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3040), (v152 * *(this + 39)), v158, v159, v160, v161, v10) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3144), (v152 * *(this + 40)), v162, v163, v164, v165, v10) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::assignZero((this + 3248), (8 * v152), v166, v167, v168, v169, v10) & 0x80000000) != 0 || (amber::NBitVector<2u>::assignZero(this + 2816, v152 * *(this + 443), v170, v171, v172, v173, v10) & 0x80000000) != 0)
                 {
                   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2BB, 0, "alloc segment data", v10);
                   goto LABEL_4;
                 }
 
-                v175 = *(this + 308);
-                if (v175 <= 4 && ((1 << v175) & 0x15) != 0 && (amber::AEBDCrypto::DeriveSignatureKeyWithMainKey(this + 144, this + 4192, this + 4472, v13, v14, v15, v10) & 0x80000000) != 0)
+                v174 = *(this + 308);
+                if (v174 <= 4 && ((1 << v174) & 0x15) != 0 && (amber::AEBDCrypto::DeriveSignatureKeyWithMainKey(this + 144, this + 4192, this + 4472, v13, v14, v15, v10) & 0x80000000) != 0)
                 {
                   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2C0, 0, "derive signature key", v10);
                   goto LABEL_4;
                 }
 
                 *(this + 2392) = 256;
-                if (!v43)
+                if (!v42)
                 {
                   goto LABEL_4;
                 }
@@ -4029,50 +3909,49 @@ LABEL_49:
                 goto LABEL_48;
               }
 
-              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2B1, 0, "alloc cluster data", v152);
+              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x2B1, 0, "alloc cluster data", v151);
             }
           }
         }
       }
     }
 
-    amber::Buffer::~Buffer(v188, v176, v177, v178, v179, v180, v181);
+    amber::Buffer::~Buffer(v187, v175, v176, v177, v178, v179, v180);
     goto LABEL_4;
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "unlockExisting", 0x21E, 0, "invalid container state", v9);
 LABEL_4:
   *(this + 1122) = 0;
-  v206 = &off_2A1DDFDA8;
-  v207 = this + 4492;
-  *&v208 = 256;
-  amber::MutableMemoryView::operator+(&v206, 0, v10, &v225);
-  bzero(v226, v227);
+  v205 = &off_2A1DDFDA8;
+  v206 = this + 4492;
+  *&v207 = 256;
+  amber::MutableMemoryView::operator+(&v205, 0, v10, &v224);
+  bzero(v225, v226);
   v16 = 0xFFFFFFFFLL;
 LABEL_5:
   amber::Buffer::reset((this + 1160), v11, v12, v13, v14, v15, v10);
   amber::Buffer::reset((this + 1264), v17, v18, v19, v20, v21, v22);
   amber::Buffer::reset((this + 1368), v23, v24, v25, v26, v27, v28);
   *(this + 372) = 0;
-  v206 = &off_2A1DDFDA8;
-  v207 = this + 1492;
-  *&v208 = 256;
-  amber::MutableMemoryView::operator+(&v206, 0, v29, &v225);
-  bzero(v226, v227);
+  v205 = &off_2A1DDFDA8;
+  v206 = this + 1492;
+  *&v207 = 256;
+  amber::MutableMemoryView::operator+(&v205, 0, v29, &v224);
+  bzero(v225, v226);
   *(this + 842) = 0;
-  v206 = &off_2A1DDFDA8;
-  v207 = this + 3372;
-  *&v208 = 256;
-  amber::MutableMemoryView::operator+(&v206, 0, v30, &v225);
-  bzero(v226, v227);
+  v205 = &off_2A1DDFDA8;
+  v206 = this + 3372;
+  *&v207 = 256;
+  amber::MutableMemoryView::operator+(&v205, 0, v30, &v224);
+  bzero(v225, v226);
   *(this + 912) = 0;
-  v206 = &off_2A1DDFDA8;
-  v207 = this + 3652;
-  *&v208 = 256;
-  amber::MutableMemoryView::operator+(&v206, 0, v31, &v225);
-  bzero(v226, v227);
+  v205 = &off_2A1DDFDA8;
+  v206 = this + 3652;
+  *&v207 = 256;
+  amber::MutableMemoryView::operator+(&v205, 0, v31, &v224);
+  bzero(v225, v226);
   amber::zero(void *,unsigned long)::memset_func(this + 4768, 0, 16);
-  v32 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -4187,11 +4066,12 @@ uint64_t amber::BufferProtocol<amber::CryptoBlobBase<256u>>::end(uint64_t a1, ui
 
 uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *this, uint64_t a2, const amber::MutableMemoryView *a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v167 = *MEMORY[0x29EDCA608];
+  v166 = *MEMORY[0x29EDCA608];
   if (*(this + 4785))
   {
-    v149[0] = &unk_2A1DDFDD8;
-    v149[1] = &unk_2A1DDFE08;
+    v148[0] = &unk_2A1DDFDD8;
+    v148[1] = &unk_2A1DDFE08;
+    v149 = 0u;
     v150 = 0u;
     v151 = 0u;
     v152 = 0u;
@@ -4207,10 +4087,10 @@ uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *
     v162 = 0u;
     v163 = 0u;
     v164 = 0u;
-    v165 = 0u;
-    v166 = 0;
-    v131[0] = &unk_2A1DDFDD8;
-    v131[1] = &unk_2A1DDFE08;
+    v165 = 0;
+    v130[0] = &unk_2A1DDFDD8;
+    v130[1] = &unk_2A1DDFE08;
+    v131 = 0u;
     v132 = 0u;
     v133 = 0u;
     v134 = 0u;
@@ -4226,10 +4106,10 @@ uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *
     v144 = 0u;
     v145 = 0u;
     v146 = 0u;
-    v147 = 0u;
-    v148 = 0;
-    v113[0] = &unk_2A1DDFDD8;
-    v113[1] = &unk_2A1DDFE08;
+    v147 = 0;
+    v112[0] = &unk_2A1DDFDD8;
+    v112[1] = &unk_2A1DDFE08;
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
     v116 = 0u;
@@ -4245,22 +4125,21 @@ uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *
     v126 = 0u;
     v127 = 0u;
     v128 = 0u;
-    v129 = 0u;
-    v130 = 0;
+    v129 = 0;
+    v108 = 0;
     v109 = 0;
-    v110 = 0;
-    v108 = &off_2A1DDFDA8;
-    v106 = &off_2A1DDFDA8;
-    v107 = 0uLL;
-    v105 = 0uLL;
-    v104 = &off_2A1DDFDA8;
-    v102 = &off_2A1DDFDA8;
-    v103 = 0uLL;
-    v101 = 0uLL;
-    v100 = &off_2A1DDFDA8;
-    v98 = &off_2A1DDFC68;
-    v99 = 0uLL;
-    if (*(this + 466) <= a2 || *(a3 + 2) != *(this + 458) || (amber::AEBDContainer::loadClusterState(this, a2, v131, v113, a5, a6, a7) & 0x80000000) != 0)
+    v107 = &off_2A1DDFDA8;
+    v105 = &off_2A1DDFDA8;
+    v106 = 0uLL;
+    v104 = 0uLL;
+    v103 = &off_2A1DDFDA8;
+    v101 = &off_2A1DDFDA8;
+    v102 = 0uLL;
+    v100 = 0uLL;
+    v99 = &off_2A1DDFDA8;
+    v97 = &off_2A1DDFC68;
+    v98 = 0uLL;
+    if (*(this + 466) <= a2 || *(a3 + 2) != *(this + 458) || (amber::AEBDContainer::loadClusterState(this, a2, v130, v112, a5, a6, a7) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "updateWithEncryptedCluster", 0x33E, 0, "invalid cluster id/size", a7);
     }
@@ -4268,8 +4147,8 @@ uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *
     else
     {
       v10 = *(this + 444);
-      v91 = (*(this + 460) * v10);
-      v11 = (v91 + 8 * v10 + *(this + 41) * v10 + *(this + 39) * v10 + *(this + 40) * v10);
+      v90 = (*(this + 460) * v10);
+      v11 = (v90 + 8 * v10 + *(this + 41) * v10 + *(this + 39) * v10 + *(this + 40) * v10);
       v12 = 1 << *(this + 311);
       v13 = __CFADD__(v11, v12 - 1);
       v14 = (v11 + v12 - 1) & -v12;
@@ -4283,65 +4162,65 @@ uint64_t amber::AEBDContainer::updateWithEncryptedCluster(amber::AEBDContainer *
         v15 = (*(this + 39) * v10);
         v16 = (*(this + 41) * v10);
         v17 = (*(this + 40) * v10);
-        amber::Buffer::buf(this + 2832, a7, &v111);
-        amber::MutableMemoryView::view(&v111, *(this + 364), *(this + 365) - *(this + 364), v18, &v92);
-        amber::MutableMemoryView::view(&v92, (v91 * a2), v91, v19, &v95);
+        amber::Buffer::buf(&v110, this + 354, a7);
+        amber::MutableMemoryView::view(&v91, &v110, *(this + 364), *(this + 365) - *(this + 364), v18);
+        amber::MutableMemoryView::view(&v94, &v91, (v90 * a2), v90, v19);
+        v108 = v95;
         v109 = v96;
-        v110 = v97;
-        v90 = (8 * v10);
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3248, (8 * v10 * a2), v90, v20, &v111);
-        v107 = v112;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 2936, (v16 * a2), v16, v21, &v111);
-        v105 = v112;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3040, (v15 * a2), v15, v22, &v111);
-        v103 = v112;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3144, (v17 * a2), v17, v23, &v111);
-        v101 = v112;
-        if ((amber::AEBDCrypto::DeriveClusterAEADKeyWithMainKey(this + 144, v149, this + 4472, a2, v131, v24, v25) & 0x80000000) != 0)
+        v89 = (8 * v10);
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 406, (8 * v10 * a2), v89, v20, &v110);
+        v106 = v111;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 367, (v16 * a2), v16, v21, &v110);
+        v104 = v111;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 380, (v15 * a2), v15, v22, &v110);
+        v102 = v111;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 393, (v17 * a2), v17, v23, &v110);
+        v100 = v111;
+        if ((amber::AEBDCrypto::DeriveClusterAEADKeyWithMainKey(this + 144, v148, this + 4472, a2, v130, v24, v25) & 0x80000000) != 0)
         {
           goto LABEL_22;
         }
 
-        amber::MutableMemoryView::first(a3, v11, v26, &v111);
-        amber::MutableMemoryView::operator+(a3, v11, v27, &v92);
-        v95 = &off_2A1DDFC68;
+        amber::MutableMemoryView::first(&v110, a3, v11, v26);
+        amber::MutableMemoryView::operator+(a3, v11, v27, &v91);
+        v94 = &off_2A1DDFC68;
+        v95 = v92;
         v96 = v93;
-        v97 = v94;
-        if (v94 < 0 || !v93 && v94)
+        if (v93 < 0 || !v92 && v93)
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v28, v90);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v28, v89);
           exception = __cxa_allocate_exception(0x10uLL);
           MEMORY[0x29C25BE90](exception, "memory invalid args");
           __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        if ((amber::AEBDCrypto::AEADDecrypt(this + 144, &v111, v113, v149, &v95) & 0x80000000) != 0)
+        if ((amber::AEBDCrypto::AEADDecrypt(this + 144, &v110, v112, v148, &v94) & 0x80000000) != 0)
         {
 LABEL_22:
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "updateWithEncryptedCluster", 0x356, 0, "cluster decryption", v26, v90);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "updateWithEncryptedCluster", 0x356, 0, "cluster decryption", v26, v89);
         }
 
         else
         {
-          amber::MutableMemoryView::first(a3, v11, v26, &v95);
-          amber::MutableMemoryView::operator amber::ConstMemoryView(&v95, v29, &v111);
-          v99 = v112;
-          amber::ConstMemoryView::first(&v98, v91, v30, &v111);
-          amber::copy(&v108, &v111, v31, v32, v33, v34, v35);
-          amber::ConstMemoryView::operator+=(&v98, v91, v36, v37, v38, v39, v40);
-          amber::ConstMemoryView::first(&v98, v90, v41, &v111);
-          amber::copy(&v106, &v111, v42, v43, v44, v45, v46);
-          amber::ConstMemoryView::operator+=(&v98, v90, v47, v48, v49, v50, v51);
-          amber::ConstMemoryView::first(&v98, v16, v52, &v111);
-          amber::copy(&v104, &v111, v53, v54, v55, v56, v57);
-          amber::ConstMemoryView::operator+=(&v98, v16, v58, v59, v60, v61, v62);
-          amber::ConstMemoryView::first(&v98, v15, v63, &v111);
-          amber::copy(&v102, &v111, v64, v65, v66, v67, v68);
-          amber::ConstMemoryView::operator+=(&v98, v15, v69, v70, v71, v72, v73);
-          amber::ConstMemoryView::first(&v98, v17, v74, &v111);
-          amber::copy(&v100, &v111, v75, v76, v77, v78, v79);
-          amber::ConstMemoryView::operator+=(&v98, v17, v80, v81, v82, v83, v84);
-          if (!*(&v99 + 1))
+          amber::MutableMemoryView::first(&v94, a3, v11, v26);
+          amber::MutableMemoryView::operator amber::ConstMemoryView(&v94, v29, &v110);
+          v98 = v111;
+          amber::ConstMemoryView::first(&v110, &v97, v90, v30);
+          amber::copy(&v107, &v110, v31, v32, v33, v34, v35);
+          amber::ConstMemoryView::operator+=(&v97, v90, v36, v37, v38, v39, v40);
+          amber::ConstMemoryView::first(&v110, &v97, v89, v41);
+          amber::copy(&v105, &v110, v42, v43, v44, v45, v46);
+          amber::ConstMemoryView::operator+=(&v97, v89, v47, v48, v49, v50, v51);
+          amber::ConstMemoryView::first(&v110, &v97, v16, v52);
+          amber::copy(&v103, &v110, v53, v54, v55, v56, v57);
+          amber::ConstMemoryView::operator+=(&v97, v16, v58, v59, v60, v61, v62);
+          amber::ConstMemoryView::first(&v110, &v97, v15, v63);
+          amber::copy(&v101, &v110, v64, v65, v66, v67, v68);
+          amber::ConstMemoryView::operator+=(&v97, v15, v69, v70, v71, v72, v73);
+          amber::ConstMemoryView::first(&v110, &v97, v17, v74);
+          amber::copy(&v99, &v110, v75, v76, v77, v78, v79);
+          amber::ConstMemoryView::operator+=(&v97, v17, v80, v81, v82, v83, v84);
+          if (!*(&v98 + 1))
           {
             v86 = 0;
             goto LABEL_19;
@@ -4360,14 +4239,11 @@ LABEL_22:
     v86 = 0xFFFFFFFFLL;
 LABEL_19:
     bzero(*(a3 + 1), *(a3 + 2));
-    goto LABEL_20;
+    return v86;
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "updateWithEncryptedCluster", 0x327, 0, "container is not unlocked", a7);
-  v86 = 0xFFFFFFFFLL;
-LABEL_20:
-  v87 = *MEMORY[0x29EDCA608];
-  return v86;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t amber::AEBDContainer::loadClusterState(unsigned int *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
@@ -4380,7 +4256,7 @@ uint64_t amber::AEBDContainer::loadClusterState(unsigned int *a1, unsigned int a
 
   else
   {
-    if ((amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>((a1 + 652), a3, a1[39], a1[39] * a2, a5, a6, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>((a1 + 678), a4, a1[40], a1[40] * a2, v10, v11, a7) & 0x80000000) == 0)
+    if ((amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(a1 + 326, a3, a1[39], a1[39] * a2, a5, a6, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(a1 + 339, a4, a1[40], a1[40] * a2, v10, v11, a7) & 0x80000000) == 0)
     {
       return 0;
     }
@@ -4406,23 +4282,24 @@ uint64_t amber::AEBDContainer::updateWithPadding(amber::AEBDContainer *this, con
 
 uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, amber::Buffer *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v306 = *MEMORY[0x29EDCA608];
+  v305 = *MEMORY[0x29EDCA608];
   if (*(this + 4785))
   {
-    v234[2] = 0;
-    v234[3] = 0;
-    v234[1] = off_2A1DDFD48;
-    v234[5] = 0;
-    v234[6] = 0;
-    v234[4] = &off_2A1DDFDA8;
-    v234[7] = &off_2A1DDFC68;
+    v233[2] = 0;
+    v233[3] = 0;
+    v233[1] = off_2A1DDFD48;
+    v233[5] = 0;
+    v233[6] = 0;
+    v233[4] = &off_2A1DDFDA8;
+    v233[7] = &off_2A1DDFC68;
+    v234 = 0u;
     v235 = 0u;
-    v236 = 0u;
-    v237 = 257;
-    v238 = 0;
-    v234[0] = off_2A1DDFC98;
-    v288[0] = &unk_2A1DDFDD8;
-    v288[1] = &unk_2A1DDFE08;
+    v236 = 257;
+    v237 = 0;
+    v233[0] = off_2A1DDFC98;
+    v287[0] = &unk_2A1DDFDD8;
+    v287[1] = &unk_2A1DDFE08;
+    v288 = 0u;
     v289 = 0u;
     v290 = 0u;
     v291 = 0u;
@@ -4438,10 +4315,10 @@ uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, 
     v301 = 0u;
     v302 = 0u;
     v303 = 0u;
-    v304 = 0u;
-    v305 = 0;
-    v270[0] = &unk_2A1DDFDD8;
-    v270[1] = &unk_2A1DDFE08;
+    v304 = 0;
+    v269[0] = &unk_2A1DDFDD8;
+    v269[1] = &unk_2A1DDFE08;
+    v270 = 0u;
     v271 = 0u;
     v272 = 0u;
     v273 = 0u;
@@ -4457,8 +4334,7 @@ uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, 
     v283 = 0u;
     v284 = 0u;
     v285 = 0u;
-    v286 = 0u;
-    v287 = 0;
+    v286 = 0;
     amber::Buffer::resize(a2, 0, a3, a4, a5, a6, a7);
     if ((amber::Buffer::reserve(a2, *(this + 454), v9, v10, v11, v12, v13) & 0x80000000) != 0)
     {
@@ -4467,21 +4343,21 @@ uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, 
       goto LABEL_25;
     }
 
-    v262 = &off_2A1DDFDA8;
-    v263 = this + 304;
+    v261 = &off_2A1DDFDA8;
+    v262 = this + 304;
     *&__n[0] = 16;
-    v266 = &off_2A1DDFC68;
-    v267 = this + 304;
-    *v268 = 16;
-    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v266, v14, v15, v16, v17, v18) & 0x80000000) != 0)
+    v265 = &off_2A1DDFC68;
+    v266 = this + 304;
+    *v267 = 16;
+    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v265, v14, v15, v16, v17, v18) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x385, 0, "insufficient prologue capacity", v19);
       goto LABEL_25;
     }
 
-    amber::Buffer::constBuf(this + 40, v19, &v266);
-    amber::ConstMemoryView::view(&v266, *(this + 15), *(this + 16) - *(this + 15), v20, &v262);
-    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v262, v21, v22, v23, v24, v25) & 0x80000000) != 0)
+    amber::Buffer::constBuf(&v265, this + 5, v19);
+    amber::ConstMemoryView::view(&v261, &v265, *(this + 15), *(this + 16) - *(this + 15), v20);
+    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v261, v21, v22, v23, v24, v25) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x388, 0, "insufficient prologue capacity", v31);
       goto LABEL_25;
@@ -4501,20 +4377,20 @@ uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, 
     }
 
     v40 = *(this + 224);
-    v266 = &off_2A1DDFC68;
-    v267 = this + 900;
-    *v268 = v40;
-    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v266, v32, v33, v34, v35, v36) & 0x80000000) != 0)
+    v265 = &off_2A1DDFC68;
+    v266 = this + 900;
+    *v267 = v40;
+    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v265, v32, v33, v34, v35, v36) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x394, 0, "insufficient prologue capacity", v45);
       goto LABEL_25;
     }
 
     v46 = *(this + 154);
-    v266 = &off_2A1DDFC68;
-    v267 = this + 620;
-    *v268 = v46;
-    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v266, v41, v42, v43, v44, v45) & 0x80000000) != 0 || (v52 = *(this + 84), v262 = &off_2A1DDFC68, v263 = this + 340, *&__n[0] = v52, (amber::BufferProtocol<amber::Buffer>::append(a2, &v262, v47, v48, v49, v50, v51) & 0x80000000) != 0))
+    v265 = &off_2A1DDFC68;
+    v266 = this + 620;
+    *v267 = v46;
+    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v265, v41, v42, v43, v44, v45) & 0x80000000) != 0 || (v52 = *(this + 84), v261 = &off_2A1DDFC68, v262 = this + 340, *&__n[0] = v52, (amber::BufferProtocol<amber::Buffer>::append(a2, &v261, v47, v48, v49, v50, v51) & 0x80000000) != 0))
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x398, 0, "insufficient prologue capacity", v51);
       goto LABEL_25;
@@ -4535,17 +4411,17 @@ uint64_t amber::AEBDContainer::getEncryptedPrologue(amber::AEBDContainer *this, 
     }
 
     v80 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v74, v75, v76, v77, v78, v79);
-    v262 = &off_2A1DDFDA8;
-    v263 = this + 1752;
+    v261 = &off_2A1DDFDA8;
+    v262 = this + 1752;
     *&__n[0] = 64;
-    amber::MutableMemoryView::operator amber::ConstMemoryView(&v262, v81, &v266);
-    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v266, v82, v83, v84, v85, v86) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 2608, v87, v260), (amber::BufferProtocol<amber::Buffer>::append(a2, v260, v88, v89, v90, v91, v92) & 0x80000000) != 0) || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 2712, v87, &v257), (amber::BufferProtocol<amber::Buffer>::append(a2, &v257, v93, v94, v95, v96, v97) & 0x80000000) != 0))
+    amber::MutableMemoryView::operator amber::ConstMemoryView(&v261, v81, &v265);
+    if ((amber::BufferProtocol<amber::Buffer>::append(a2, &v265, v82, v83, v84, v85, v86) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 326, v259, v87), (amber::BufferProtocol<amber::Buffer>::append(a2, v259, v88, v89, v90, v91, v92) & 0x80000000) != 0) || (amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(this + 339, &v256, v87), (amber::BufferProtocol<amber::Buffer>::append(a2, &v256, v93, v94, v95, v96, v97) & 0x80000000) != 0))
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3A7, 0, "insufficient prologue capacity", v87);
       goto LABEL_25;
     }
 
-    v227 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v98, v99, v100, v101, v102, v87);
+    v226 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v98, v99, v100, v101, v102, v87);
     if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v103, v104, v105, v106, v107, v108) > *(this + 454))
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3AB, 0, "prologue size mismatch", v114);
@@ -4553,50 +4429,50 @@ LABEL_25:
       amber::Buffer::resize(a2, 0, v115, v116, v117, v118, v119);
       v120 = 0xFFFFFFFFLL;
 LABEL_26:
-      amber::Buffer::~Buffer(v234, v123, v115, v116, v117, v118, v119);
-      goto LABEL_27;
+      amber::Buffer::~Buffer(v233, v123, v115, v116, v117, v118, v119);
+      return v120;
     }
 
-    v126 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v109, v110, v111, v112, v113, v114);
-    v139 = *(this + 454) - v126;
-    if (amber::BufferProtocol<amber::Buffer>::endCapacity(a2, v127, v128, v129, v130, v131, v132) < v139 || (v140 = amber::BufferProtocol<amber::Buffer>::end(a2, v133, v134, v135, v136, v137, v138), amber::MutableMemoryView::MutableMemoryView(&v266, v140, v139, v141, v142, v143, v144), (amber::AEBDCrypto::RNGBytes((this + 144), &v266) & 0x80000000) != 0) || (amber::Buffer::grow(a2, v139, v145, v146, v147, v148, v138) & 0x80000000) != 0)
+    v125 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v109, v110, v111, v112, v113, v114);
+    v138 = *(this + 454) - v125;
+    if (amber::BufferProtocol<amber::Buffer>::endCapacity(a2, v126, v127, v128, v129, v130, v131) < v138 || (v139 = amber::BufferProtocol<amber::Buffer>::end(a2, v132, v133, v134, v135, v136, v137), amber::MutableMemoryView::MutableMemoryView(&v265, v139, v138, v140, v141, v142, v143), (amber::AEBDCrypto::RNGBytes((this + 144), &v265) & 0x80000000) != 0) || (amber::Buffer::grow(a2, v138, v144, v145, v146, v147, v137) & 0x80000000) != 0)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3B3, 0, "prologue padding", v138);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3B3, 0, "prologue padding", v137);
       goto LABEL_25;
     }
 
-    if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v149, v150, v151, v152, v153, v138) != *(this + 454))
+    if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(a2, v148, v149, v150, v151, v152, v137) != *(this + 454))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3B6, 0, "padded prologue size mismatch", v159);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3B6, 0, "padded prologue size mismatch", v158);
       goto LABEL_25;
     }
 
-    v160 = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 8, v154, v155, v156, v157, v158, v159);
-    if (__CFADD__(v160, v139) || (amber::Buffer::reserve(v234, v160 + v139, v161, v162, v163, v164, v165) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::operator amber::ConstMemoryView(this + 8, v165, &v266), (amber::BufferProtocol<amber::Buffer>::append(v234, &v266, v166, v167, v168, v169, v170) & 0x80000000) != 0) || (amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v126, v139, v165, v260), amber::MutableMemoryView::operator amber::ConstMemoryView(v260, v171, &v262), (amber::BufferProtocol<amber::Buffer>::append(v234, &v262, v172, v173, v174, v175, v176) & 0x80000000) != 0))
+    v159 = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 1, v153, v154, v155, v156, v157, v158);
+    if (__CFADD__(v159, v138) || (amber::Buffer::reserve(v233, v159 + v138, v160, v161, v162, v163, v164) & 0x80000000) != 0 || (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::operator amber::ConstMemoryView(this + 1, v164, &v265), (amber::BufferProtocol<amber::Buffer>::append(v233, &v265, v165, v166, v167, v168, v169) & 0x80000000) != 0) || (amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v125, v138, v164, v259), amber::MutableMemoryView::operator amber::ConstMemoryView(v259, v170, &v261), (amber::BufferProtocol<amber::Buffer>::append(v233, &v261, v171, v172, v173, v174, v175) & 0x80000000) != 0))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3BD, 0, "prologue aux data", v165);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3BD, 0, "prologue aux data", v164);
       goto LABEL_25;
     }
 
-    if ((amber::AEBDCrypto::RNGSalt(this + 144, this + 1880, v177, v178, v179, v180, v165) & 0x80000000) != 0 || (amber::AEBDCrypto::DerivePrologueKeyWithMainKey(this + 144, v288, this + 4472, v181, v182, v183, v184) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveRootAEADKeyWithPrologueKey(this + 144, v270, v288, this + 1880, v185, v186, v184) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v80, v227 - v80, v184, &v266), amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v234, v187, &v262), (amber::AEBDCrypto::AEADEncrypt(this + 144, &v266, this + 2160, v270, &v262) & 0x80000000) != 0))
+    if ((amber::AEBDCrypto::RNGSalt(this + 144, this + 1880, v176, v177, v178, v179, v164) & 0x80000000) != 0 || (amber::AEBDCrypto::DerivePrologueKeyWithMainKey(this + 144, v287, this + 4472, v180, v181, v182, v183) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveRootAEADKeyWithPrologueKey(this + 144, v269, v287, this + 1880, v184, v185, v183) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v80, v226 - v80, v183, &v265), amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v233, &v261, v186), (amber::AEBDCrypto::AEADEncrypt(this + 144, &v265, this + 2160, v269, &v261) & 0x80000000) != 0))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3C7, 0, "root encryption", v184);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3C7, 0, "root encryption", v183);
       goto LABEL_25;
     }
 
-    v191 = *(this + 474);
-    v266 = &off_2A1DDFC68;
-    v267 = this + 1900;
-    *v268 = v191;
-    if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a2, &v266, v58, v188, v189, v190, v184) & 0x80000000) != 0 || (v195 = *(this + 544), v262 = &off_2A1DDFC68, v263 = this + 2180, *&__n[0] = v195, (amber::MutableMemoryViewConvertible<amber::Buffer>::store(a2, &v262, v69, v192, v193, v194, v119) & 0x80000000) != 0))
+    v190 = *(this + 474);
+    v265 = &off_2A1DDFC68;
+    v266 = this + 1900;
+    *v267 = v190;
+    if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a2, &v265, v58, v187, v188, v189, v183) & 0x80000000) != 0 || (v194 = *(this + 544), v261 = &off_2A1DDFC68, v262 = this + 2180, *&__n[0] = v194, (amber::MutableMemoryViewConvertible<amber::Buffer>::store(a2, &v261, v69, v191, v192, v193, v119) & 0x80000000) != 0))
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3CC, 0, "prologue salt/hmac update", v119);
       goto LABEL_25;
     }
 
     v120 = 0;
-    v196 = *(this + 308);
-    if (v196 > 4 || ((1 << v196) & 0x15) == 0)
+    v195 = *(this + 308);
+    if (v195 > 4 || ((1 << v195) & 0x15) == 0)
     {
       goto LABEL_26;
     }
@@ -4608,25 +4484,26 @@ LABEL_72:
       goto LABEL_26;
     }
 
-    v233 = 0;
-    v266 = &unk_2A1DDFDD8;
-    v267 = &unk_2A1DDFE08;
-    memset(v268, 0, sizeof(v268));
-    v269 = 0;
-    v262 = &unk_2A1DDFDD8;
-    v263 = &unk_2A1DDFE08;
+    v232 = 0;
+    v265 = &unk_2A1DDFDD8;
+    v266 = &unk_2A1DDFE08;
+    memset(v267, 0, sizeof(v267));
+    v268 = 0;
+    v261 = &unk_2A1DDFDD8;
+    v262 = &unk_2A1DDFE08;
     memset(__n, 0, sizeof(__n));
-    v265 = 0;
-    v260[0] = &unk_2A1DDFDD8;
-    v260[1] = &unk_2A1DDFE08;
-    memset(&v260[2], 0, 256);
-    v261 = 0;
-    v257 = &unk_2A1DDFDD8;
-    v258[0] = &unk_2A1DDFE08;
-    memset(&v258[1], 0, 256);
-    v259 = 0;
-    v239[0] = &unk_2A1DDFDD8;
-    v239[1] = &unk_2A1DDFE08;
+    v264 = 0;
+    v259[0] = &unk_2A1DDFDD8;
+    v259[1] = &unk_2A1DDFE08;
+    memset(&v259[2], 0, 256);
+    v260 = 0;
+    v256 = &unk_2A1DDFDD8;
+    v257[0] = &unk_2A1DDFE08;
+    memset(&v257[1], 0, 256);
+    v258 = 0;
+    v238[0] = &unk_2A1DDFDD8;
+    v238[1] = &unk_2A1DDFE08;
+    v239 = 0u;
     v240 = 0u;
     v241 = 0u;
     v242 = 0u;
@@ -4642,48 +4519,47 @@ LABEL_72:
     v252 = 0u;
     v253 = 0u;
     v254 = 0u;
-    v255 = 0u;
-    v256 = 0;
-    amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(a2, v119, &v230);
-    if ((amber::AEBDCrypto::DSDigest(this + 144, &v266, &v230) & 0x80000000) != 0 || ((v228 = *(this + 595), v203 = *(this + 594), v204 = *(this + 308), v205 = v268[0], v206 = *(this + 982), v207 = amber::BufferProtocol<amber::CryptoBlobBase<256u>>::end(v258, v197, v198, v199, v200, v201, v202), v204 >= 5) ? (v208 = 0xFFFFFFFFLL) : (v208 = v204), (v228(v203, v208, &v268[1], v205, this + 3932, v206, 256, v207, &v233) & 0x80000000) != 0 || v233 != *(this + 47) || (amber::CryptoBlobBase<256u>::grow(&v257, v233, v209, v210, v211, v212, v202) & 0x80000000) != 0))
+    v255 = 0;
+    amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(a2, &v229, v119);
+    if ((amber::AEBDCrypto::DSDigest(this + 144, &v265, &v229) & 0x80000000) != 0 || ((v227 = *(this + 595), v202 = *(this + 594), v203 = *(this + 308), v204 = v267[0], v205 = *(this + 982), v206 = amber::BufferProtocol<amber::CryptoBlobBase<256u>>::end(v257, v196, v197, v198, v199, v200, v201), v203 >= 5) ? (v207 = 0xFFFFFFFFLL) : (v207 = v203), (v227(v202, v207, &v267[1], v204, this + 3932, v205, 256, v206, &v232) & 0x80000000) != 0 || v232 != *(this + 47) || (amber::CryptoBlobBase<256u>::grow(&v256, v232, v208, v209, v210, v211, v201) & 0x80000000) != 0))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3E6, 0, "signing failed %zu", v202, v233);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3E6, 0, "signing failed %zu", v201, v232);
     }
 
-    else if ((amber::AEBDCrypto::RNGSalt(this + 144, &v262, v213, v214, v215, v216, v202) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveSignatureAEADKeyWithMainKey(this + 144, v239, this + 4472, &v262, v217, v218, v219) & 0x80000000) != 0 || (v230 = &off_2A1DDFDA8, v231 = &v258[1] + 4, v232 = LODWORD(v258[1]), v229[1] = 0, v229[2] = 0, v229[0] = &off_2A1DDFC68, (amber::AEBDCrypto::AEADEncrypt(this + 144, &v230, v260, v239, v229) & 0x80000000) != 0))
+    else if ((amber::AEBDCrypto::RNGSalt(this + 144, &v261, v212, v213, v214, v215, v201) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveSignatureAEADKeyWithMainKey(this + 144, v238, this + 4472, &v261, v216, v217, v218) & 0x80000000) != 0 || (v229 = &off_2A1DDFDA8, v230 = &v257[1] + 4, v231 = LODWORD(v257[1]), v228[1] = 0, v228[2] = 0, v228[0] = &off_2A1DDFC68, (amber::AEBDCrypto::AEADEncrypt(this + 144, &v229, v259, v238, v228) & 0x80000000) != 0))
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3F0, 0, "signature encryption failed", v219);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3F0, 0, "signature encryption failed", v218);
     }
 
     else
     {
-      amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v37, v38, v219, &v230);
-      v220 = LODWORD(__n[0]);
-      if (v232 >= LODWORD(__n[0]))
+      amber::MutableMemoryViewConvertible<amber::Buffer>::view(a2, v37, v38, v218, &v229);
+      v219 = LODWORD(__n[0]);
+      if (v231 >= LODWORD(__n[0]))
       {
-        memcpy(v231, __n + 4, LODWORD(__n[0]));
-        v221 = &v231[v220];
-        v231 += v220;
-        v232 -= v220;
-        v222 = LODWORD(v260[2]);
-        if (v232 >= LODWORD(v260[2]))
+        memcpy(v230, __n + 4, LODWORD(__n[0]));
+        v220 = &v230[v219];
+        v230 += v219;
+        v231 -= v219;
+        v221 = LODWORD(v259[2]);
+        if (v231 >= LODWORD(v259[2]))
         {
-          memcpy(v221, &v260[2] + 4, LODWORD(v260[2]));
-          v223 = &v231[v222];
-          v231 += v222;
-          v232 -= v222;
-          v224 = LODWORD(v258[1]);
-          if (v232 >= LODWORD(v258[1]))
+          memcpy(v220, &v259[2] + 4, LODWORD(v259[2]));
+          v222 = &v230[v221];
+          v230 += v221;
+          v231 -= v221;
+          v223 = LODWORD(v257[1]);
+          if (v231 >= LODWORD(v257[1]))
           {
-            memcpy(v223, &v258[1] + 4, LODWORD(v258[1]));
-            v226 = v232 - v224;
-            v225 = v232 == v224;
-            v231 += v224;
-            v232 -= v224;
-            if (v225)
+            memcpy(v222, &v257[1] + 4, LODWORD(v257[1]));
+            v225 = v231 - v223;
+            v224 = v231 == v223;
+            v230 += v223;
+            v231 -= v223;
+            if (v224)
             {
 LABEL_71:
-              if (v226)
+              if (v225)
               {
                 goto LABEL_25;
               }
@@ -4697,38 +4573,36 @@ LABEL_71:
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x3F8, 0, "prologue signature update", v119);
     }
 
-    v226 = 1;
+    v225 = 1;
     goto LABEL_71;
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getEncryptedPrologue", 0x36F, 0, "container is not unlocked", a7);
-  v120 = 0xFFFFFFFFLL;
-LABEL_27:
-  v124 = *MEMORY[0x29EDCA608];
-  return v120;
+  return 0xFFFFFFFFLL;
 }
 
-void sub_2969978B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2969978B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a17);
+  va_start(va, a18);
   amber::Buffer::~Buffer(va, a2, a3, a4, a5, a6, a7);
   _Unwind_Resume(a1);
 }
 
 uint64_t amber::BufferProtocol<amber::Buffer>::endCapacity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  amber::Buffer::buf(a1, a7, v11);
+  amber::Buffer::buf(v11, a1, a7);
   amber::MutableMemoryView::operator+(v11, *(a1 + 88), v8, v10);
   return v10[2];
 }
 
 uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64_t a2, amber::Buffer *a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v177 = *MEMORY[0x29EDCA608];
+  v176 = *MEMORY[0x29EDCA608];
   if (*(this + 4785))
   {
-    v159[0] = &unk_2A1DDFDD8;
-    v159[1] = &unk_2A1DDFE08;
+    v158[0] = &unk_2A1DDFDD8;
+    v158[1] = &unk_2A1DDFE08;
+    v159 = 0u;
     v160 = 0u;
     v161 = 0u;
     v162 = 0u;
@@ -4744,10 +4618,10 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
     v172 = 0u;
     v173 = 0u;
     v174 = 0u;
-    v175 = 0u;
-    v176 = 0;
-    v141[0] = &unk_2A1DDFDD8;
-    v141[1] = &unk_2A1DDFE08;
+    v175 = 0;
+    v140[0] = &unk_2A1DDFDD8;
+    v140[1] = &unk_2A1DDFE08;
+    v141 = 0u;
     v142 = 0u;
     v143 = 0u;
     v144 = 0u;
@@ -4763,10 +4637,10 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
     v154 = 0u;
     v155 = 0u;
     v156 = 0u;
-    v157 = 0u;
-    v158 = 0;
-    v123[0] = &unk_2A1DDFDD8;
-    v123[1] = &unk_2A1DDFE08;
+    v157 = 0;
+    v122[0] = &unk_2A1DDFDD8;
+    v122[1] = &unk_2A1DDFE08;
+    v123 = 0u;
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
@@ -4782,18 +4656,17 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
     v136 = 0u;
     v137 = 0u;
     v138 = 0u;
-    v139 = 0u;
-    v140 = 0;
-    v118 = 0uLL;
-    v117 = &off_2A1DDFC68;
-    v115 = &off_2A1DDFDA8;
-    v116 = 0uLL;
-    v114 = 0uLL;
-    v113 = &off_2A1DDFDA8;
-    v111 = &off_2A1DDFDA8;
-    v112 = 0uLL;
-    v110 = 0uLL;
-    v109 = &off_2A1DDFDA8;
+    v139 = 0;
+    v117 = 0uLL;
+    v116 = &off_2A1DDFC68;
+    v114 = &off_2A1DDFDA8;
+    v115 = 0uLL;
+    v113 = 0uLL;
+    v112 = &off_2A1DDFDA8;
+    v110 = &off_2A1DDFDA8;
+    v111 = 0uLL;
+    v109 = 0uLL;
+    v108 = &off_2A1DDFDA8;
     if (*(this + 466) <= a2)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x419, 0, "invalid cluster id", a7);
@@ -4814,12 +4687,12 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
         v18 = *(this + 40);
         v19 = *(this + 41);
         v20 = *(this + 39);
-        amber::Buffer::buf(this + 2832, v15, &v121);
-        amber::MutableMemoryView::view(&v121, *(this + 364), *(this + 365) - *(this + 364), v21, &v105);
-        amber::MutableMemoryView::view(&v105, (v17 * v16 * a2), (v17 * v16), v22, &v107);
-        v119 = &off_2A1DDFC68;
-        v120 = v108;
-        if ((*(&v108 + 1) & 0x8000000000000000) != 0 || !v108 && *(&v108 + 1))
+        amber::Buffer::buf(&v120, this + 354, v15);
+        amber::MutableMemoryView::view(&v104, &v120, *(this + 364), *(this + 365) - *(this + 364), v21);
+        amber::MutableMemoryView::view(&v106, &v104, (v17 * v16 * a2), (v17 * v16), v22);
+        v118 = &off_2A1DDFC68;
+        v119 = v107;
+        if ((*(&v107 + 1) & 0x8000000000000000) != 0 || !v107 && *(&v107 + 1))
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v23);
           exception = __cxa_allocate_exception(0x10uLL);
@@ -4827,15 +4700,15 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
           __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        v118 = v120;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3248, (8 * v16 * a2), (8 * v16), v23, &v121);
-        v116 = v122;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 2936, (v19 * v16 * a2), (v19 * v16), v24, &v121);
-        v114 = v122;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3040, (v20 * v16 * a2), (v20 * v16), v25, &v121);
-        v112 = v122;
-        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3144, (v18 * v16 * a2), (v18 * v16), v26, &v121);
-        v110 = v122;
+        v117 = v119;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 406, (8 * v16 * a2), (8 * v16), v23, &v120);
+        v115 = v121;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 367, (v19 * v16 * a2), (v19 * v16), v24, &v120);
+        v113 = v121;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 380, (v20 * v16 * a2), (v20 * v16), v25, &v120);
+        v111 = v121;
+        amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 393, (v18 * v16 * a2), (v18 * v16), v26, &v120);
+        v109 = v121;
         v32 = *(this + 444);
         v33 = v32 * a2;
         v34 = v32 + v33;
@@ -4882,14 +4755,14 @@ uint64_t amber::AEBDContainer::encryptCluster(amber::AEBDContainer *this, uint64
 
 LABEL_20:
               v40 = v36 - v33;
-              amber::MutableMemoryView::view(&v115, 8 * v40, 8 * v38, v31, &v121);
-              bzero(v122, *(&v122 + 1));
-              amber::MutableMemoryView::view(&v113, v40 * *(this + 41), v38 * *(this + 41), v41, &v121);
-              bzero(v122, *(&v122 + 1));
-              amber::MutableMemoryView::view(&v111, v40 * *(this + 39), v38 * *(this + 39), v42, &v121);
-              bzero(v122, *(&v122 + 1));
-              amber::MutableMemoryView::view(&v109, v40 * *(this + 40), v38 * *(this + 40), v43, &v121);
-              bzero(v122, *(&v122 + 1));
+              amber::MutableMemoryView::view(&v120, &v114, 8 * v40, 8 * v38, v31);
+              bzero(v121, *(&v121 + 1));
+              amber::MutableMemoryView::view(&v120, &v112, v40 * *(this + 41), v38 * *(this + 41), v41);
+              bzero(v121, *(&v121 + 1));
+              amber::MutableMemoryView::view(&v120, &v110, v40 * *(this + 39), v38 * *(this + 39), v42);
+              bzero(v121, *(&v121 + 1));
+              amber::MutableMemoryView::view(&v120, &v108, v40 * *(this + 40), v38 * *(this + 40), v43);
+              bzero(v121, *(&v121 + 1));
             }
 
             v36 = v37;
@@ -4898,14 +4771,29 @@ LABEL_20:
           while (v37 < v35);
         }
 
-        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v117, v27, v28, v29, v30, v31) & 0x80000000) != 0)
+        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v116, v27, v28, v29, v30, v31) & 0x80000000) != 0)
         {
           goto LABEL_43;
         }
 
-        v121 = &off_2A1DDFC68;
-        v122 = v116;
-        if ((*(&v116 + 1) & 0x8000000000000000) != 0 || !v116 && *(&v116 + 1))
+        v120 = &off_2A1DDFC68;
+        v121 = v115;
+        if ((*(&v115 + 1) & 0x8000000000000000) != 0 || !v115 && *(&v115 + 1))
+        {
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48);
+          v100 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x29C25BE90](v100, "memory invalid args");
+          __cxa_throw(v100, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
+        }
+
+        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v120, v44, v45, v46, v47, v48) & 0x80000000) != 0)
+        {
+          goto LABEL_43;
+        }
+
+        v118 = &off_2A1DDFC68;
+        v119 = v113;
+        if ((*(&v113 + 1) & 0x8000000000000000) != 0 || !v113 && *(&v113 + 1))
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48);
           v101 = __cxa_allocate_exception(0x10uLL);
@@ -4913,14 +4801,14 @@ LABEL_20:
           __cxa_throw(v101, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v121, v44, v45, v46, v47, v48) & 0x80000000) != 0)
+        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v118, v49, v50, v51, v52, v48) & 0x80000000) != 0)
         {
           goto LABEL_43;
         }
 
-        v119 = &off_2A1DDFC68;
-        v120 = v114;
-        if ((*(&v114 + 1) & 0x8000000000000000) != 0 || !v114 && *(&v114 + 1))
+        v106 = &off_2A1DDFC68;
+        v107 = v111;
+        if ((*(&v111 + 1) & 0x8000000000000000) != 0 || !v111 && *(&v111 + 1))
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48);
           v102 = __cxa_allocate_exception(0x10uLL);
@@ -4928,74 +4816,58 @@ LABEL_20:
           __cxa_throw(v102, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v119, v49, v50, v51, v52, v48) & 0x80000000) != 0)
+        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v106, v53, v54, v55, v56, v48) & 0x80000000) != 0)
         {
           goto LABEL_43;
         }
 
-        v107 = &off_2A1DDFC68;
-        v108 = v112;
-        if ((*(&v112 + 1) & 0x8000000000000000) != 0 || !v112 && *(&v112 + 1))
+        v104 = &off_2A1DDFC68;
+        v105 = v109;
+        if ((*(&v109 + 1) & 0x8000000000000000) != 0 || !v109 && *(&v109 + 1))
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48, v104, v105, v106, v107, v108);
           v103 = __cxa_allocate_exception(0x10uLL);
           MEMORY[0x29C25BE90](v103, "memory invalid args");
           __cxa_throw(v103, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
         }
 
-        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v107, v53, v54, v55, v56, v48) & 0x80000000) != 0)
-        {
-          goto LABEL_43;
-        }
-
-        v105 = &off_2A1DDFC68;
-        v106 = v110;
-        if ((*(&v110 + 1) & 0x8000000000000000) != 0 || !v110 && *(&v110 + 1))
-        {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v48, v105, v106, v107, v108, v109);
-          v104 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x29C25BE90](v104, "memory invalid args");
-          __cxa_throw(v104, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
-        }
-
-        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v105, v57, v58, v59, v60, v48) & 0x80000000) != 0)
+        if ((amber::BufferProtocol<amber::Buffer>::append(a3, &v104, v57, v58, v59, v60, v48) & 0x80000000) != 0)
         {
 LABEL_43:
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x443, 0, "append segment elements", v48, v105, v106, v107, v108, v109);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x443, 0, "append segment elements", v48, v104, v105, v106, v107, v108);
         }
 
         else if (amber::ConstMemoryViewConvertible<amber::Buffer>::size(a3, v61, v62, v63, v64, v65, v48) <= *(this + 458))
         {
-          v79 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a3, v66, v67, v68, v69, v70, v71);
-          v80 = *(this + 458);
-          amber::Buffer::buf(a3, v81, &v121);
-          amber::MutableMemoryView::operator+(&v121, *(a3 + 11), v82, &v119);
-          v84 = v80 - v79;
-          if (*(&v120 + 1) < v84 || (amber::BufferProtocol<amber::Buffer>::endView(a3, v84, v83, &v121), (amber::AEBDCrypto::RNGBytes((this + 144), &v121) & 0x80000000) != 0) || (amber::Buffer::grow(a3, v84, v85, v86, v87, v88, v83) & 0x80000000) != 0)
+          v78 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(a3, v66, v67, v68, v69, v70, v71);
+          v79 = *(this + 458);
+          amber::Buffer::buf(&v120, a3, v80);
+          amber::MutableMemoryView::operator+(&v120, *(a3 + 11), v81, &v118);
+          v83 = v79 - v78;
+          if (*(&v119 + 1) < v83 || (amber::BufferProtocol<amber::Buffer>::endView(a3, v83, v82, &v120), (amber::AEBDCrypto::RNGBytes((this + 144), &v120) & 0x80000000) != 0) || (amber::Buffer::grow(a3, v83, v84, v85, v86, v87, v82) & 0x80000000) != 0)
           {
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x44E, 0, "cluster padding", v83, v105, v106, v107, v108, v109);
+            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x44E, 0, "cluster padding", v82, v104, v105, v106, v107, v108);
           }
 
-          else if ((amber::AEBDCrypto::RNGSalt(this + 144, v159, v89, v90, v91, v92, v83) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveClusterAEADKeyWithMainKey(this + 144, v123, this + 4472, a2, v159, v93, v94) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::first(a3, v79, v94, &v121), amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a3, v79, v95, &v107), amber::MutableMemoryView::operator amber::ConstMemoryView(&v107, v96, &v119), (amber::AEBDCrypto::AEADEncrypt(this + 144, &v121, v141, v123, &v119) & 0x80000000) != 0))
+          else if ((amber::AEBDCrypto::RNGSalt(this + 144, v158, v88, v89, v90, v91, v82) & 0x80000000) != 0 || (amber::AEBDCrypto::DeriveClusterAEADKeyWithMainKey(this + 144, v122, this + 4472, a2, v158, v92, v93) & 0x80000000) != 0 || (amber::MutableMemoryViewConvertible<amber::Buffer>::first(a3, v78, v93, &v120), amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a3, v78, v94, &v106), amber::MutableMemoryView::operator amber::ConstMemoryView(&v106, v95, &v118), (amber::AEBDCrypto::AEADEncrypt(this + 144, &v120, v140, v122, &v118) & 0x80000000) != 0))
           {
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x457, 0, "cluster encryption", v94, v105, v106, v107, v108, v109);
+            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x457, 0, "cluster encryption", v93, v104, v105, v106, v107, v108);
           }
 
           else
           {
-            if ((amber::AEBDContainer::storeClusterState(this, a2, v159, v141, v97, v98, v94) & 0x80000000) == 0)
+            if ((amber::AEBDContainer::storeClusterState(this, a2, v158, v140, v96, v97, v93) & 0x80000000) == 0)
             {
-              result = 0;
-              goto LABEL_47;
+              return 0;
             }
 
-            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x45A, 0, "storing cluster state", v99, v105, v106, v107, v108, v109);
+            amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x45A, 0, "storing cluster state", v98, v104, v105, v106, v107, v108);
           }
         }
 
         else
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x446, 0, "cluster size mismatch", v71, v105, v106, v107, v108, v109);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x446, 0, "cluster size mismatch", v71, v104, v105, v106, v107, v108);
         }
       }
     }
@@ -5008,15 +4880,12 @@ LABEL_43:
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptCluster", 0x405, 0, "container is not unlocked", a7);
   }
 
-  result = 0xFFFFFFFFLL;
-LABEL_47:
-  v78 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t amber::AEBDContainer::storeClusterState(_DWORD *a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::AEBDContainer::storeClusterState(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  if (a1[466] <= a2)
+  if (*(a1 + 1864) <= a2)
   {
     v17 = "invalid cluster_id";
     v18 = 2095;
@@ -5024,20 +4893,20 @@ uint64_t amber::AEBDContainer::storeClusterState(_DWORD *a1, unsigned int a2, ui
 
   else
   {
-    v8 = a1[39];
+    v8 = *(a1 + 156);
     v9 = *(a3 + 16);
-    if (v9 == v8 && *(a4 + 16) == a1[40])
+    if (v9 == v8 && *(a4 + 16) == *(a1 + 160))
     {
       v20[0] = &off_2A1DDFC68;
       v20[1] = a3 + 20;
       v20[2] = v9;
-      if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 652), v20, v8 * a2, a4, a5, a6, a7) & 0x80000000) == 0)
+      if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 2608), v20, v8 * a2, a4, a5, a6, a7) & 0x80000000) == 0)
       {
         v15 = *(a4 + 16);
         v19[0] = &off_2A1DDFC68;
         v19[1] = a4 + 20;
         v19[2] = v15;
-        if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 678), v19, a1[40] * a2, v12, v13, v14, a7) & 0x80000000) == 0)
+        if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 2712), v19, *(a1 + 160) * a2, v12, v13, v14, a7) & 0x80000000) == 0)
         {
           return 0;
         }
@@ -5060,11 +4929,12 @@ uint64_t amber::AEBDContainer::storeClusterState(_DWORD *a1, unsigned int a2, ui
 
 uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint64_t a2, const amber::ConstMemoryView *a3, amber::Buffer *a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v183 = *MEMORY[0x29EDCA608];
+  v182 = *MEMORY[0x29EDCA608];
   if (*(this + 4785))
   {
-    v165[0] = &unk_2A1DDFDD8;
-    v165[1] = &unk_2A1DDFE08;
+    v164[0] = &unk_2A1DDFDD8;
+    v164[1] = &unk_2A1DDFE08;
+    v165 = 0u;
     v166 = 0u;
     v167 = 0u;
     v168 = 0u;
@@ -5080,10 +4950,10 @@ uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint6
     v178 = 0u;
     v179 = 0u;
     v180 = 0u;
-    v181 = 0u;
-    v182 = 0;
-    v147[0] = &unk_2A1DDFDD8;
-    v147[1] = &unk_2A1DDFE08;
+    v181 = 0;
+    v146[0] = &unk_2A1DDFDD8;
+    v146[1] = &unk_2A1DDFE08;
+    v147 = 0u;
     v148 = 0u;
     v149 = 0u;
     v150 = 0u;
@@ -5099,10 +4969,10 @@ uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint6
     v160 = 0u;
     v161 = 0u;
     v162 = 0u;
-    v163 = 0u;
-    v164 = 0;
-    v129[0] = &unk_2A1DDFDD8;
-    v129[1] = &unk_2A1DDFE08;
+    v163 = 0;
+    v128[0] = &unk_2A1DDFDD8;
+    v128[1] = &unk_2A1DDFE08;
+    v129 = 0u;
     v130 = 0u;
     v131 = 0u;
     v132 = 0u;
@@ -5118,10 +4988,10 @@ uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint6
     v142 = 0u;
     v143 = 0u;
     v144 = 0u;
-    v145 = 0u;
-    v146 = 0;
-    v111[0] = &unk_2A1DDFDD8;
-    v111[1] = &unk_2A1DDFE08;
+    v145 = 0;
+    v110[0] = &unk_2A1DDFDD8;
+    v110[1] = &unk_2A1DDFE08;
+    v111 = 0u;
     v112 = 0u;
     v113 = 0u;
     v114 = 0u;
@@ -5137,21 +5007,20 @@ uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint6
     v124 = 0u;
     v125 = 0u;
     v126 = 0u;
-    v127 = 0u;
-    v128 = 0;
-    v109 = 0;
-    v104[2] = 0;
-    v104[3] = 0;
-    v104[1] = off_2A1DDFD48;
-    v104[5] = 0;
-    v104[6] = 0;
-    v104[4] = &off_2A1DDFDA8;
-    v104[7] = &off_2A1DDFC68;
-    v105 = 0u;
-    v106 = 0u;
-    v107 = 257;
+    v127 = 0;
     v108 = 0;
-    v104[0] = off_2A1DDFC98;
+    v103[2] = 0;
+    v103[3] = 0;
+    v103[1] = off_2A1DDFD48;
+    v103[5] = 0;
+    v103[6] = 0;
+    v103[4] = &off_2A1DDFDA8;
+    v103[7] = &off_2A1DDFC68;
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 257;
+    v107 = 0;
+    v103[0] = off_2A1DDFC98;
     v11 = *(this + 232);
     if (v11 <= a2)
     {
@@ -5194,7 +5063,7 @@ uint64_t amber::AEBDContainer::encryptSegment(amber::AEBDContainer *this, unint6
       {
         v61 = (this + 2440);
         std::mutex::lock((this + 2440));
-        v67 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](this + 2504, 0, v76, v77, v78, v79, v80);
+        v67 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](this + 313, 0, v76, v77, v78, v79, v80);
         goto LABEL_31;
       }
 
@@ -5205,13 +5074,13 @@ LABEL_43:
       goto LABEL_44;
     }
 
-    if ((amber::AEBDCrypto::SegmentDigest(this + 144, v165, a3) & 0x80000000) != 0)
+    if ((amber::AEBDCrypto::SegmentDigest(this + 144, v164, a3) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x487, 0, "computing segment digest", v27);
       goto LABEL_43;
     }
 
-    if ((amber::AEBDContainer::packSegment(this, a2, a3, v104, v25, v26, v27) & 0x80000000) != 0)
+    if ((amber::AEBDContainer::packSegment(this, a2, a3, v103, v25, v26, v27) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x48A, 0, "packing segment", v28);
       goto LABEL_43;
@@ -5220,11 +5089,11 @@ LABEL_43:
     if (*(this + 1780) == 45)
     {
 LABEL_15:
-      amber::Buffer::buf(a4, v28, v110);
-      amber::MutableMemoryView::operator+(v110, *(a4 + 11), v29, v103);
-      amber::Buffer::constBuf(v104, v30, v110);
-      amber::ConstMemoryView::view(v110, v106, *(&v106 + 1) - v106, v31, v101);
-      if (__n > v103[2])
+      amber::Buffer::buf(v109, a4, v28);
+      amber::MutableMemoryView::operator+(v109, *(a4 + 11), v29, v102);
+      amber::Buffer::constBuf(v109, v103, v30);
+      amber::ConstMemoryView::view(v100, v109, v105, *(&v105 + 1) - v105, v31);
+      if (__n > v102[2])
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./MemoryOperations.hpp", "copy", 0x20, 0, "memory invalid range", v32);
         exception = __cxa_allocate_exception(0x10uLL);
@@ -5232,8 +5101,8 @@ LABEL_15:
         __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
       }
 
-      memcpy(v103[1], v101[1], __n);
-      v43 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v104, v33, v34, v35, v36, v37, v38);
+      memcpy(v102[1], v100[1], __n);
+      v43 = amber::ConstMemoryViewConvertible<amber::Buffer>::size(v103, v33, v34, v35, v36, v37, v38);
 LABEL_17:
       if ((amber::Buffer::grow(a4, v43, v39, v40, v41, v42, v28) & 0x80000000) != 0)
       {
@@ -5245,7 +5114,7 @@ LABEL_17:
       {
         v49 = amber::AEBDContainer::paddedSegmentSize(this, v43);
         v50 = v49 - v43;
-        if (v49 > v43 && ((amber::Buffer::reserveEndCapacity(a4, v50, v44, v45, v46, v47, v48) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::endView(a4, v50, v48, v110), (amber::AEBDCrypto::RNGBytes((this + 144), v110) & 0x80000000) != 0) || (amber::Buffer::grow(a4, v50, v51, v52, v53, v54, v48) & 0x80000000) != 0))
+        if (v49 > v43 && ((amber::Buffer::reserveEndCapacity(a4, v50, v44, v45, v46, v47, v48) & 0x80000000) != 0 || (amber::BufferProtocol<amber::Buffer>::endView(a4, v50, v48, v109), (amber::AEBDCrypto::RNGBytes((this + 144), v109) & 0x80000000) != 0) || (amber::Buffer::grow(a4, v50, v51, v52, v53, v54, v48) & 0x80000000) != 0))
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x4A2, 0, "adding random padding", v48);
         }
@@ -5253,26 +5122,26 @@ LABEL_17:
         else
         {
           v55 = *(this + 444);
-          if ((amber::AEBDCrypto::RNGSalt(this + 144, v147, v44, v45, v46, v47, v48) & 0x80000000) != 0 || (v57 = a2 / v55, (amber::AEBDCrypto::DeriveSegmentAEADKeyWithMainKey(this + 144, v111, this + 4472, a2 / v55, (a2 % v55), v147, v56) & 0x80000000) != 0) || (amber::MutableMemoryViewConvertible<amber::Buffer>::first(a4, v43, v56, v110), amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a4, v43, v58, v101), amber::MutableMemoryView::operator amber::ConstMemoryView(v101, v59, v103), (amber::AEBDCrypto::AEADEncrypt(this + 144, v110, v129, v111, v103) & 0x80000000) != 0))
+          if ((amber::AEBDCrypto::RNGSalt(this + 144, v146, v44, v45, v46, v47, v48) & 0x80000000) != 0 || (v57 = a2 / v55, (amber::AEBDCrypto::DeriveSegmentAEADKeyWithMainKey(this + 144, v110, this + 4472, a2 / v55, (a2 % v55), v146, v56) & 0x80000000) != 0) || (amber::MutableMemoryViewConvertible<amber::Buffer>::first(a4, v43, v56, v109), amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a4, v43, v58, v100), amber::MutableMemoryView::operator amber::ConstMemoryView(v100, v59, v102), (amber::AEBDCrypto::AEADEncrypt(this + 144, v109, v128, v110, v102) & 0x80000000) != 0))
           {
             amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x4AF, 0, "segment encryption", v56);
           }
 
           else
           {
-            v109 = __PAIR64__(v49, v43);
-            if ((amber::AEBDContainer::storeSegmentState(this, a2, v165, v147, v129, &v109, v56) & 0x80000000) == 0)
+            v108 = __PAIR64__(v49, v43);
+            if ((amber::AEBDContainer::storeSegmentState(this, a2, v164, v146, v128, &v108, v56) & 0x80000000) == 0)
             {
               v61 = (this + 2440);
               std::mutex::lock((this + 2440));
-              v67 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](this + 2504, v57, v62, v63, v64, v65, v66);
+              v67 = amber::MutableMemoryViewConvertible<amber::Buffer>::operator[](this + 313, v57, v62, v63, v64, v65, v66);
 LABEL_31:
               *v67 |= 2u;
               std::mutex::unlock(v61);
               v14 = 0;
 LABEL_44:
-              amber::Buffer::~Buffer(v104, v81, v82, v83, v84, v85, v86);
-              goto LABEL_45;
+              amber::Buffer::~Buffer(v103, v81, v82, v83, v84, v85, v86);
+              return v14;
             }
 
             amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x4B5, 0, "update segment state", v60);
@@ -5283,8 +5152,8 @@ LABEL_44:
       goto LABEL_43;
     }
 
-    amber::BufferProtocol<amber::Buffer>::zMutableEndView(a4, v28, v110);
-    amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v104, v87, v103);
+    amber::BufferProtocol<amber::Buffer>::zMutableEndView(a4, v28, v109);
+    amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v103, v102, v87);
     v88 = *(this + 1780);
     if (v88 <= 0x64)
     {
@@ -5329,9 +5198,9 @@ LABEL_44:
       {
         v89 = 6;
 LABEL_58:
-        v94 = amber::compressionEncode(v110, v103, v89);
-        v43 = v94;
-        if (!HIDWORD(v94) && v94 && amber::ConstMemoryViewConvertible<amber::Buffer>::size(v104, v95, v96, v97, v98, v99, v28) > v94)
+        v93 = amber::compressionEncode(v109, v102, v89);
+        v43 = v93;
+        if (!HIDWORD(v93) && v93 && amber::ConstMemoryViewConvertible<amber::Buffer>::size(v103, v94, v95, v96, v97, v98, v28) > v93)
         {
           goto LABEL_17;
         }
@@ -5345,10 +5214,7 @@ LABEL_58:
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "encryptSegment", 0x466, 0, "container is not unlocked", a7);
-  v14 = 0xFFFFFFFFLL;
-LABEL_45:
-  v92 = *MEMORY[0x29EDCA608];
-  return v14;
+  return 0xFFFFFFFFLL;
 }
 
 void sub_296998E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
@@ -5368,13 +5234,13 @@ uint64_t amber::AEBDContainer::clearSegmentState(amber::AEBDContainer *this, uni
 
   else
   {
-    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 2936, *(this + 41) * a2, *(this + 41), a7, v16);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 367, *(this + 41) * a2, *(this + 41), a7, v16);
     bzero(v16[1], v16[2]);
-    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3040, *(this + 39) * a2, *(this + 39), v9, v15);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 380, *(this + 39) * a2, *(this + 39), v9, v15);
     bzero(v15[1], v15[2]);
-    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3144, *(this + 40) * a2, *(this + 40), v10, v14);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 393, *(this + 40) * a2, *(this + 40), v10, v14);
     bzero(v14[1], v14[2]);
-    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 3248, 8 * a2, 8, v11, v13);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::view(this + 406, 8 * a2, 8, v11, v13);
     bzero(v13[1], v13[2]);
     return 0;
   }
@@ -5426,7 +5292,7 @@ LABEL_29:
   {
     if (*(this + 353) <= v11)
     {
-      amber::ConstMemoryView::view(a3, v25, *(this + 442), v24, &v48);
+      amber::ConstMemoryView::view(&v48, a3, v25, *(this + 442), v24);
 LABEL_15:
       v35 = v49;
       v36 = &v49[v50];
@@ -5466,8 +5332,8 @@ LABEL_31:
       goto LABEL_25;
     }
 
-    v27 = (amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 2832, (v11 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v20, v21, v22, v23, v24) >> ((2 * v11) & 6)) & 3;
-    amber::ConstMemoryView::view(a3, v25, *(this + 442), v28, &v48);
+    v27 = (amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 354, (v11 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v20, v21, v22, v23, v24) >> ((2 * v11) & 6)) & 3;
+    amber::ConstMemoryView::view(&v48, a3, v25, *(this + 442), v28);
     if (v27 != 2)
     {
       goto LABEL_15;
@@ -5479,7 +5345,7 @@ LABEL_31:
       break;
     }
 
-    amber::Buffer::buf(a4, v24, v52);
+    amber::Buffer::buf(v52, a4, v24);
     amber::MutableMemoryView::operator+(v52, *(a4 + 11), v30, v51);
     if (v51[2] < v29 || (amber::BufferProtocol<amber::Buffer>::append(a4, &v48, v31, v32, v33, v34, v24) & 0x80000000) != 0)
     {
@@ -5594,24 +5460,24 @@ uint64_t amber::AEBDContainer::storeSegmentState(uint64_t a1, unint64_t a2, uint
       v31[0] = &off_2A1DDFC68;
       v31[1] = a3 + 20;
       v31[2] = v9;
-      if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a1 + 2936, v31, v8 * a2, a4, a5, a6, a7) & 0x80000000) == 0)
+      if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 2936), v31, v8 * a2, a4, a5, a6, a7) & 0x80000000) == 0)
       {
         v17 = *(a4 + 16);
         v30[0] = &off_2A1DDFC68;
         v30[1] = a4 + 20;
         v30[2] = v17;
-        if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a1 + 3040, v30, *(a1 + 156) * a2, v14, v15, v16, a7) & 0x80000000) == 0)
+        if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 3040), v30, *(a1 + 156) * a2, v14, v15, v16, a7) & 0x80000000) == 0)
         {
           v21 = *(a5 + 16);
           v29[0] = &off_2A1DDFC68;
           v29[1] = a5 + 20;
           v29[2] = v21;
-          if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a1 + 3144, v29, *(a1 + 160) * a2, v18, v19, v20, a7) & 0x80000000) == 0)
+          if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 3144), v29, *(a1 + 160) * a2, v18, v19, v20, a7) & 0x80000000) == 0)
           {
             v28[0] = &off_2A1DDFC68;
             v28[1] = a6;
             v28[2] = 8;
-            if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store(a1 + 3248, v28, 8 * a2, v22, v23, v24, a7) & 0x80000000) == 0)
+            if ((amber::MutableMemoryViewConvertible<amber::Buffer>::store((a1 + 3248), v28, 8 * a2, v22, v23, v24, a7) & 0x80000000) == 0)
             {
               return 0;
             }
@@ -5636,11 +5502,12 @@ uint64_t amber::AEBDContainer::storeSegmentState(uint64_t a1, unint64_t a2, uint
 
 uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint64_t a2, const amber::MutableMemoryView *a3, amber::Buffer *a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v181 = *MEMORY[0x29EDCA608];
+  v180 = *MEMORY[0x29EDCA608];
   if (*(this + 4785))
   {
-    v163[0] = &unk_2A1DDFDD8;
-    v163[1] = &unk_2A1DDFE08;
+    v162[0] = &unk_2A1DDFDD8;
+    v162[1] = &unk_2A1DDFE08;
+    v163 = 0u;
     v164 = 0u;
     v165 = 0u;
     v166 = 0u;
@@ -5656,10 +5523,10 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
     v176 = 0u;
     v177 = 0u;
     v178 = 0u;
-    v179 = 0u;
-    v180 = 0;
-    v145[0] = &unk_2A1DDFDD8;
-    v145[1] = &unk_2A1DDFE08;
+    v179 = 0;
+    v144[0] = &unk_2A1DDFDD8;
+    v144[1] = &unk_2A1DDFE08;
+    v145 = 0u;
     v146 = 0u;
     v147 = 0u;
     v148 = 0u;
@@ -5675,10 +5542,10 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
     v158 = 0u;
     v159 = 0u;
     v160 = 0u;
-    v161 = 0u;
-    v162 = 0;
-    v127[0] = &unk_2A1DDFDD8;
-    v127[1] = &unk_2A1DDFE08;
+    v161 = 0;
+    v126[0] = &unk_2A1DDFDD8;
+    v126[1] = &unk_2A1DDFE08;
+    v127 = 0u;
     v128 = 0u;
     v129 = 0u;
     v130 = 0u;
@@ -5694,10 +5561,10 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
     v140 = 0u;
     v141 = 0u;
     v142 = 0u;
-    v143 = 0u;
-    v144 = 0;
-    v109[0] = &unk_2A1DDFDD8;
-    v109[1] = &unk_2A1DDFE08;
+    v143 = 0;
+    v108[0] = &unk_2A1DDFDD8;
+    v108[1] = &unk_2A1DDFE08;
+    v109 = 0u;
     v110 = 0u;
     v111 = 0u;
     v112 = 0u;
@@ -5713,10 +5580,10 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
     v122 = 0u;
     v123 = 0u;
     v124 = 0u;
-    v125 = 0u;
-    v126 = 0;
-    v91[0] = &unk_2A1DDFDD8;
-    v91[1] = &unk_2A1DDFE08;
+    v125 = 0;
+    v90[0] = &unk_2A1DDFDD8;
+    v90[1] = &unk_2A1DDFE08;
+    v91 = 0u;
     v92 = 0u;
     v93 = 0u;
     v94 = 0u;
@@ -5732,28 +5599,27 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
     v104 = 0u;
     v105 = 0u;
     v106 = 0u;
-    v107 = 0u;
-    v108 = 0;
-    v85[2] = 0;
-    v85[3] = 0;
-    v85[1] = off_2A1DDFD48;
-    v85[5] = 0;
-    v85[6] = 0;
-    v85[4] = &off_2A1DDFDA8;
-    v85[7] = &off_2A1DDFC68;
+    v107 = 0;
+    v84[2] = 0;
+    v84[3] = 0;
+    v84[1] = off_2A1DDFD48;
+    v84[5] = 0;
+    v84[6] = 0;
+    v84[4] = &off_2A1DDFDA8;
+    v84[7] = &off_2A1DDFC68;
+    v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v88 = 257;
-    v89 = 0;
-    v85[0] = off_2A1DDFC98;
-    if (*(this + 232) <= a2 || (amber::AEBDContainer::loadSegmentState(this, a2, v163, v127, v109, v90, a7) & 0x80000000) != 0)
+    v87 = 257;
+    v88 = 0;
+    v84[0] = off_2A1DDFC98;
+    if (*(this + 232) <= a2 || (amber::AEBDContainer::loadSegmentState(this, a2, v162, v126, v108, v89, a7) & 0x80000000) != 0)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4D9, 0, "invalid segment index", a7);
       goto LABEL_11;
     }
 
-    v15 = v90[0];
-    v16 = v90[1];
+    v15 = v89[0];
+    v16 = v89[1];
     v17 = amber::AEBDContainer::packedSegmentSize(this, a2, v11, v12, v13, v14, a7);
     v19 = v17;
     v20 = *(this + 232);
@@ -5789,35 +5655,35 @@ uint64_t amber::AEBDContainer::decryptSegment(amber::AEBDContainer *this, unint6
       goto LABEL_11;
     }
 
-    if ((amber::AEBDCrypto::DeriveSegmentAEADKeyWithMainKey(this + 144, v91, this + 4472, a2 / *(this + 444), a2 % *(this + 444), v127, v18) & 0x80000000) != 0)
+    if ((amber::AEBDCrypto::DeriveSegmentAEADKeyWithMainKey(this + 144, v90, this + 4472, a2 / *(this + 444), a2 % *(this + 444), v126, v18) & 0x80000000) != 0)
     {
       goto LABEL_34;
     }
 
-    amber::MutableMemoryView::first(a3, v15, v37, v84);
-    amber::MutableMemoryView::operator+(a3, v15, v38, &v80);
-    v83[0] = &off_2A1DDFC68;
-    v83[1] = v81;
-    v83[2] = v82;
-    if (v82 < 0 || !v81 && v82)
+    amber::MutableMemoryView::first(v83, a3, v15, v36);
+    amber::MutableMemoryView::operator+(a3, v15, v37, &v79);
+    v82[0] = &off_2A1DDFC68;
+    v82[1] = v80;
+    v82[2] = v81;
+    if (v81 < 0 || !v80 && v81)
     {
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v39);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././Memory/./ConstMemoryView.hpp", "ConstMemoryView", 0x17, 0, "memory invalid args", v38);
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x29C25BE90](exception, "memory invalid args");
       __cxa_throw(exception, MEMORY[0x29EDC9470], MEMORY[0x29EDC9358]);
     }
 
-    if ((amber::AEBDCrypto::AEADDecrypt(this + 144, v84, v109, v91, v83) & 0x80000000) != 0)
+    if ((amber::AEBDCrypto::AEADDecrypt(this + 144, v83, v108, v90, v82) & 0x80000000) != 0)
     {
 LABEL_34:
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4EF, 0, "segment decryption", v37);
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4EF, 0, "segment decryption", v36);
       goto LABEL_11;
     }
 
-    if ((amber::Buffer::reserveEndCapacity(v85, *(this + 459), v40, v41, v42, v43, v37) & 0x80000000) != 0)
+    if ((amber::Buffer::reserveEndCapacity(v84, *(this + 459), v39, v40, v41, v42, v36) & 0x80000000) != 0)
     {
-      v49 = __error();
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4F2, *v49, "malloc", v50);
+      v48 = __error();
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4F2, *v48, "malloc", v49);
       goto LABEL_11;
     }
 
@@ -5825,93 +5691,93 @@ LABEL_34:
     {
       if (v15 != v19)
       {
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x500, 0, "non compressed segment size mismatch", v44);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x500, 0, "non compressed segment size mismatch", v43);
         goto LABEL_11;
       }
 
-      amber::MutableMemoryView::first(a3, v15, v44, v83);
-      amber::MutableMemoryView::operator amber::ConstMemoryView(v83, v51, v84);
-      if ((amber::BufferProtocol<amber::Buffer>::assign(v85, v84, v52, v53, v54, v55, v56) & 0x80000000) != 0)
+      amber::MutableMemoryView::first(v82, a3, v15, v43);
+      amber::MutableMemoryView::operator amber::ConstMemoryView(v82, v50, v83);
+      if ((amber::BufferProtocol<amber::Buffer>::assign(v84, v83, v51, v52, v53, v54, v55) & 0x80000000) != 0)
       {
-        v58 = __error();
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x501, *v58, "malloc", v59);
+        v57 = __error();
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x501, *v57, "malloc", v58);
         goto LABEL_11;
       }
 
       goto LABEL_54;
     }
 
-    amber::BufferProtocol<amber::Buffer>::zMutableEndView(v85, v44, v84);
-    amber::MutableMemoryView::first(a3, v15, v45, &v80);
-    amber::MutableMemoryView::operator amber::ConstMemoryView(&v80, v46, v83);
-    v47 = *(this + 1780);
-    if (v47 <= 0x64)
+    amber::BufferProtocol<amber::Buffer>::zMutableEndView(v84, v43, v83);
+    amber::MutableMemoryView::first(&v79, a3, v15, v44);
+    amber::MutableMemoryView::operator amber::ConstMemoryView(&v79, v45, v82);
+    v46 = *(this + 1780);
+    if (v46 <= 0x64)
     {
-      switch(v47)
+      switch(v46)
       {
         case '-':
-          v48 = 0;
+          v47 = 0;
           goto LABEL_52;
         case '4':
-          v48 = 5;
+          v47 = 5;
           goto LABEL_52;
         case 'b':
-          v48 = 4;
+          v47 = 4;
           goto LABEL_52;
       }
     }
 
     else if (*(this + 1780) > 0x77u)
     {
-      if (v47 == 122)
+      if (v46 == 122)
       {
-        v48 = 2;
+        v47 = 2;
         goto LABEL_52;
       }
 
-      if (v47 == 120)
+      if (v46 == 120)
       {
-        v48 = 1;
+        v47 = 1;
         goto LABEL_52;
       }
     }
 
     else
     {
-      if (v47 == 101)
+      if (v46 == 101)
       {
-        v48 = 3;
+        v47 = 3;
         goto LABEL_52;
       }
 
-      if (v47 == 102)
+      if (v46 == 102)
       {
-        v48 = 6;
+        v47 = 6;
 LABEL_52:
-        v60 = amber::compressionDecode(v84, v83, v48);
-        if (v60 != v19 || (amber::Buffer::grow(v85, v60, v61, v62, v63, v64, v57) & 0x80000000) != 0)
+        v59 = amber::compressionDecode(v83, v82, v47);
+        if (v59 != v19 || (amber::Buffer::grow(v84, v59, v60, v61, v62, v63, v56) & 0x80000000) != 0)
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4FB, 0, "segment decompression failed", v57);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4FB, 0, "segment decompression failed", v56);
           goto LABEL_11;
         }
 
 LABEL_54:
-        amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v85, v57, v84);
-        if ((amber::AEBDContainer::unpackSegment(this, a2, v84, a4, v65, v66, v67) & 0x80000000) != 0 || amber::ConstMemoryViewConvertible<amber::Buffer>::size(a4, v68, v69, v70, v71, v72, v73) != v21)
+        amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(v84, v83, v56);
+        if ((amber::AEBDContainer::unpackSegment(this, a2, v83, a4, v64, v65, v66) & 0x80000000) != 0 || amber::ConstMemoryViewConvertible<amber::Buffer>::size(a4, v67, v68, v69, v70, v71, v72) != v21)
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x507, 0, "packing segment", v73);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x507, 0, "packing segment", v72);
         }
 
         else
         {
-          amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(a4, v73, v84);
-          if ((amber::AEBDCrypto::SegmentDigest(this + 144, v145, v84) & 0x80000000) == 0 && amber::CryptoBlobBase<256u>::equals(v163, v145, v74, v75, v76, v77, v78))
+          amber::ConstMemoryViewConvertible<amber::Buffer>::operator amber::ConstMemoryView(a4, v83, v72);
+          if ((amber::AEBDCrypto::SegmentDigest(this + 144, v144, v83) & 0x80000000) == 0 && amber::CryptoBlobBase<256u>::equals(v162, v144, v73, v74, v75, v76, v77))
           {
             v23 = 0;
             goto LABEL_12;
           }
 
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x50C, 0, "invalid segment digest", v78);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x50C, 0, "invalid segment digest", v77);
         }
 
 LABEL_11:
@@ -5919,25 +5785,22 @@ LABEL_11:
         v23 = 0xFFFFFFFFLL;
 LABEL_12:
         bzero(*(a3 + 1), *(a3 + 2));
-        amber::Buffer::~Buffer(v85, v29, v30, v31, v32, v33, v34);
-        goto LABEL_13;
+        amber::Buffer::~Buffer(v84, v29, v30, v31, v32, v33, v34);
+        return v23;
       }
     }
 
-    v48 = 0xFFFFFFFFLL;
+    v47 = 0xFFFFFFFFLL;
     goto LABEL_52;
   }
 
   amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "decryptSegment", 0x4C7, 0, "container is not unlocked", a7);
-  v23 = 0xFFFFFFFFLL;
-LABEL_13:
-  v35 = *MEMORY[0x29EDCA608];
-  return v23;
+  return 0xFFFFFFFFLL;
 }
 
-void sub_296999E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_296999E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a17);
+  va_start(va, a18);
   amber::Buffer::~Buffer(va, a2, a3, a4, a5, a6, a7);
   _Unwind_Resume(a1);
 }
@@ -5952,12 +5815,12 @@ uint64_t amber::AEBDContainer::loadSegmentState(uint64_t a1, unint64_t a2, uint6
 
   else
   {
-    if ((amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(a1 + 2936, a3, *(a1 + 164), *(a1 + 164) * a2, a5, a6, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(a1 + 3040, a4, *(a1 + 156), *(a1 + 156) * a2, v12, v13, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(a1 + 3144, a5, *(a1 + 160), *(a1 + 160) * a2, v14, v15, a7) & 0x80000000) == 0)
+    if ((amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>((a1 + 2936), a3, *(a1 + 164), *(a1 + 164) * a2, a5, a6, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>((a1 + 3040), a4, *(a1 + 156), *(a1 + 156) * a2, v12, v13, a7) & 0x80000000) == 0 && (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>((a1 + 3144), a5, *(a1 + 160), *(a1 + 160) * a2, v14, v15, a7) & 0x80000000) == 0)
     {
       v22[0] = &off_2A1DDFDA8;
       v22[1] = a6;
       v22[2] = 8;
-      if ((amber::ConstMemoryViewConvertible<amber::Buffer>::load(a1 + 3248, v22, 8 * a2, v16, v17, v18, a7) & 0x80000000) == 0)
+      if ((amber::ConstMemoryViewConvertible<amber::Buffer>::load((a1 + 3248), v22, 8 * a2, v16, v17, v18, a7) & 0x80000000) == 0)
       {
         return 0;
       }
@@ -6030,10 +5893,10 @@ LABEL_31:
   {
     v25 = 2 * v11 + 2;
     v26 = v11;
-    while (*(this + 353) <= v26 || ((amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 2832, (v26 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v20, v21, v22, v23, a7) >> ((2 * v26) & 6)) & 3) != 2)
+    while (*(this + 353) <= v26 || ((amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 354, (v26 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v20, v21, v22, v23, a7) >> ((2 * v26) & 6)) & 3) != 2)
     {
       v31 = *(this + 442);
-      amber::Buffer::buf(a4, a7, v51);
+      amber::Buffer::buf(v51, a4, a7);
       amber::MutableMemoryView::operator+(v51, *(a4 + 11), v32, v49);
       if (v50 < v31 || (amber::BufferProtocol<amber::Buffer>::appendValue(a4, 0, *(this + 442), v33, v34, v35, a7) & 0x80000000) != 0)
       {
@@ -6056,7 +5919,7 @@ LABEL_31:
     {
       while (*(this + 353) > v26 + v36)
       {
-        if (((amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 2832, v25 >> 3, v27, v28, v29, v30, a7) >> (v25 & 6)) & 3) == 2)
+        if (((amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 354, v25 >> 3, v27, v28, v29, v30, a7) >> (v25 & 6)) & 3) == 2)
         {
           v11 = ++v36 + v26;
           v25 += 2;
@@ -6072,10 +5935,10 @@ LABEL_31:
     }
 
     v37 = v36 * *(this + 442);
-    amber::Buffer::buf(a4, a7, v51);
+    amber::Buffer::buf(v51, a4, a7);
     amber::MutableMemoryView::operator+(v51, *(a4 + 11), v38, v49);
     v39 = v37 > v50 || v37 + v24 > v14;
-    if (v39 || (amber::ConstMemoryView::view(a3, v24, v37, a7, v51), (amber::BufferProtocol<amber::Buffer>::append(a4, v51, v40, v41, v42, v43, v44) & 0x80000000) != 0))
+    if (v39 || (amber::ConstMemoryView::view(v51, a3, v24, v37, a7), (amber::BufferProtocol<amber::Buffer>::append(a4, v51, v40, v41, v42, v43, v44) & 0x80000000) != 0))
     {
       v46 = "invalid packed size";
       v47 = 2030;
@@ -6193,9 +6056,10 @@ uint64_t amber::AEBDContainer::prologueObjectStorePath(amber::AEBDContainer *thi
 
 uint64_t amber::AEBDContainer::clusterObjectStorePath(amber::AEBDContainer *this, uint64_t a2, amber::ObjectStorePath *a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v53 = *MEMORY[0x29EDCA608];
-  v35[0] = &unk_2A1DDFDD8;
-  v35[1] = &unk_2A1DDFE08;
+  v52 = *MEMORY[0x29EDCA608];
+  v34[0] = &unk_2A1DDFDD8;
+  v34[1] = &unk_2A1DDFE08;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
@@ -6211,57 +6075,71 @@ uint64_t amber::AEBDContainer::clusterObjectStorePath(amber::AEBDContainer *this
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v52 = 0;
-  if (*(this + 466) <= a2 || (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(this + 2712, v35, *(this + 40), (*(this + 40) * a2), a5, a6, a7) & 0x80000000) != 0)
+  v51 = 0;
+  if (*(this + 466) <= a2 || (amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(this + 339, v34, *(this + 40), (*(this + 40) * a2), a5, a6, a7) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "clusterObjectStorePath", 0x550, 0, "loading cluster HMAC", a7);
-    goto LABEL_10;
   }
 
-  v14 = *(this + 84);
-  v34[0] = &off_2A1DDFC68;
-  v34[1] = this + 340;
-  v34[2] = v14;
-  amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a3 + 24, v34, v10, v11, v12, v13, a7);
-  if ((amber::AEBDCrypto::DeriveClusterStorageKeyWithMainKey(this + 144, a3 + 296, this + 4472, a2, v35, v15, v16) & 0x80000000) != 0)
+  else
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "clusterObjectStorePath", 0x55A, 0, "derive storage key", v17);
-    goto LABEL_10;
+    v14 = *(this + 84);
+    v33[0] = &off_2A1DDFC68;
+    v33[1] = this + 340;
+    v33[2] = v14;
+    amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a3 + 24, v33, v10, v11, v12, v13, a7);
+    if ((amber::AEBDCrypto::DeriveClusterStorageKeyWithMainKey(this + 144, a3 + 296, this + 4472, a2, v34, v15, v16) & 0x80000000) != 0)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "clusterObjectStorePath", 0x55A, 0, "derive storage key", v17);
+    }
+
+    else
+    {
+      *(a3 + 144) = 2;
+      v18 = *(this + 458);
+      *(a3 + 148) = v18;
+      v19 = *(this + 444) * a2;
+      if (is_mul_ok(v19, *(this + 459)))
+      {
+        v20 = v19 * *(this + 459);
+        v21 = *(this + 454);
+        v22 = __CFADD__(v20, v21);
+        v23 = v20 + v21;
+        if (!v22)
+        {
+          v24 = v18 * a2;
+          v22 = __CFADD__(v24, v23);
+          v25 = v24 + v23;
+          if (!v22)
+          {
+            result = 0;
+            *(a3 + 73) = v25;
+            return result;
+          }
+        }
+      }
+
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "clusterObjectStorePath", 0x567, 0, "invalid offset", v17);
+    }
   }
 
-  *(a3 + 144) = 2;
-  v18 = *(this + 458);
-  *(a3 + 148) = v18;
-  v19 = *(this + 444) * a2;
-  if (!is_mul_ok(v19, *(this + 459)) || (v20 = v19 * *(this + 459), v21 = *(this + 454), v22 = __CFADD__(v20, v21), v23 = v20 + v21, v22) || (v24 = v18 * a2, v22 = __CFADD__(v24, v23), v25 = v24 + v23, v22))
-  {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "clusterObjectStorePath", 0x567, 0, "invalid offset", v17);
-LABEL_10:
-    amber::ObjectStorePath::clear(a3, v26, v27, v28, v29, v30, v31);
-    result = 0xFFFFFFFFLL;
-    goto LABEL_11;
-  }
-
-  result = 0;
-  *(a3 + 73) = v25;
-LABEL_11:
-  v32 = *MEMORY[0x29EDCA608];
-  return result;
+  amber::ObjectStorePath::clear(a3, v26, v27, v28, v29, v30, v31);
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::loadAndAssign<amber::CryptoBlobBase<256u>>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  amber::Buffer::constBuf(a1, a7, v17);
-  amber::ConstMemoryView::view(v17, *(a1 + 80), *(a1 + 88) - *(a1 + 80), v11, v16);
+  amber::Buffer::constBuf(v17, a1, a7);
+  amber::ConstMemoryView::view(v16, v17, a1[10], a1[11] - a1[10], v11);
   return amber::ConstMemoryView::loadAndAssign<amber::CryptoBlobBase<256u>>(v16, a2, a3, a4, v12, v13, v14);
 }
 
 uint64_t amber::AEBDContainer::segmentObjectStorePath(amber::AEBDContainer *this, unint64_t a2, amber::ObjectStorePath *a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v94 = *MEMORY[0x29EDCA608];
-  v76[0] = &unk_2A1DDFDD8;
-  v76[1] = &unk_2A1DDFE08;
+  v93 = *MEMORY[0x29EDCA608];
+  v75[0] = &unk_2A1DDFDD8;
+  v75[1] = &unk_2A1DDFE08;
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
@@ -6277,10 +6155,10 @@ uint64_t amber::AEBDContainer::segmentObjectStorePath(amber::AEBDContainer *this
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
-  v93 = 0;
-  v58[0] = &unk_2A1DDFDD8;
-  v58[1] = &unk_2A1DDFE08;
+  v92 = 0;
+  v57[0] = &unk_2A1DDFDD8;
+  v57[1] = &unk_2A1DDFE08;
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
@@ -6296,10 +6174,10 @@ uint64_t amber::AEBDContainer::segmentObjectStorePath(amber::AEBDContainer *this
   v71 = 0u;
   v72 = 0u;
   v73 = 0u;
-  v74 = 0u;
-  v75 = 0;
-  v40[0] = &unk_2A1DDFDD8;
-  v40[1] = &unk_2A1DDFE08;
+  v74 = 0;
+  v39[0] = &unk_2A1DDFDD8;
+  v39[1] = &unk_2A1DDFE08;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
@@ -6315,70 +6193,70 @@ uint64_t amber::AEBDContainer::segmentObjectStorePath(amber::AEBDContainer *this
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v57 = 0;
-  if ((amber::AEBDContainer::loadSegmentState(this, a2, v76, v58, v40, v38, a7) & 0x80000000) != 0)
+  v56 = 0;
+  if ((amber::AEBDContainer::loadSegmentState(this, a2, v75, v57, v39, v37, a7) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "segmentObjectStorePath", 0x57D, 0, "invalid segment_id", v14);
-    goto LABEL_11;
   }
 
-  v15 = *(this + 444);
-  v16 = *(this + 84);
-  v37[0] = &off_2A1DDFC68;
-  v37[1] = this + 340;
-  v37[2] = v16;
-  amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a3 + 24, v37, v10, v11, v12, v13, v14);
-  if ((amber::AEBDCrypto::DeriveSegmentStorageKeyWithMainKey(this + 144, a3 + 296, this + 4472, a2 / v15, (a2 % v15), v40, v17) & 0x80000000) != 0)
+  else
   {
-    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "segmentObjectStorePath", 0x58B, 0, "derive storage key", v18);
-    goto LABEL_13;
-  }
+    v15 = *(this + 444);
+    v16 = *(this + 84);
+    v36[0] = &off_2A1DDFC68;
+    v36[1] = this + 340;
+    v36[2] = v16;
+    amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a3 + 24, v36, v10, v11, v12, v13, v14);
+    if ((amber::AEBDCrypto::DeriveSegmentStorageKeyWithMainKey(this + 144, a3 + 296, this + 4472, a2 / v15, (a2 % v15), v39, v17) & 0x80000000) != 0)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "segmentObjectStorePath", 0x58B, 0, "derive storage key", v18);
+      return 0xFFFFFFFFLL;
+    }
 
-  *(a3 + 144) = 3;
-  v19 = (*(*this + 112))(this, a2);
-  v21 = v39;
-  if (!v19)
-  {
-    v21 = 0;
-  }
+    *(a3 + 144) = 3;
+    v19 = (*(*this + 112))(this, a2);
+    v21 = v38;
+    if (!v19)
+    {
+      v21 = 0;
+    }
 
-  *(a3 + 148) = v21;
-  if (!is_mul_ok(a2, *(this + 459)))
-  {
-    goto LABEL_9;
-  }
+    *(a3 + 148) = v21;
+    if (is_mul_ok(a2, *(this + 459)))
+    {
+      v22 = *(this + 458);
+      v23 = a2 * *(this + 459);
+      v24 = *(this + 454) + v22;
+      v25 = __CFADD__(v23, v24);
+      v26 = v23 + v24;
+      if (!v25)
+      {
+        v27 = (a2 / v15) * v22;
+        v25 = __CFADD__(v27, v26);
+        v28 = v27 + v26;
+        if (!v25)
+        {
+          result = 0;
+          *(a3 + 73) = v28;
+          return result;
+        }
+      }
+    }
 
-  v22 = *(this + 458);
-  v23 = a2 * *(this + 459);
-  v24 = *(this + 454) + v22;
-  v25 = __CFADD__(v23, v24);
-  v26 = v23 + v24;
-  if (v25 || (v27 = (a2 / v15) * v22, v25 = __CFADD__(v27, v26), v28 = v27 + v26, v25))
-  {
-LABEL_9:
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "segmentObjectStorePath", 0x59B, 0, "invalid offset", v20);
-LABEL_11:
-    amber::ObjectStorePath::clear(a3, v29, v30, v31, v32, v33, v34);
-LABEL_13:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_14;
   }
 
-  result = 0;
-  *(a3 + 73) = v28;
-LABEL_14:
-  v35 = *MEMORY[0x29EDCA608];
-  return result;
+  amber::ObjectStorePath::clear(a3, v29, v30, v31, v32, v33, v34);
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t amber::AEBDContainer::getAttribute(amber::AEBDContainer *this, amber::BaseObject *a2, unsigned int a3, const amber::MutableMemoryView *a4, unint64_t *a5, uint64_t a6, const char *a7)
 {
-  v59 = *MEMORY[0x29EDCA608];
+  v58 = *MEMORY[0x29EDCA608];
   if (!amber::BaseObject::attributeEncodingIsValid(a2, a3, a3, a4, a5, a6, a7))
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5B1, 0, "invalid attribute encoding: %u", v12, a2);
-    goto LABEL_8;
+    return 0xFFFFFFFFLL;
   }
 
   if ((*(*this + 128))(this, a2))
@@ -6403,12 +6281,12 @@ uint64_t amber::AEBDContainer::getAttribute(amber::AEBDContainer *this, amber::B
         v19 = *(this + 309);
         goto LABEL_56;
       case 103:
-        v38 = *(this + 310);
+        v37 = *(this + 310);
         goto LABEL_42;
       case 104:
-        v38 = *(this + 311);
+        v37 = *(this + 311);
 LABEL_42:
-        v19 = 1 << v38;
+        v19 = 1 << v37;
         goto LABEL_49;
       case 105:
         v18 = *(this + 219);
@@ -6432,19 +6310,19 @@ LABEL_42:
         v19 = *(this + 444);
         goto LABEL_56;
       case 112:
-        v45 = *(this + 1780);
-        if (v45 <= 0x64)
+        v44 = *(this + 1780);
+        if (v44 <= 0x64)
         {
-          if (v45 != 45)
+          if (v44 != 45)
           {
-            if (v45 == 52)
+            if (v44 == 52)
             {
               v18 = -1;
               v19 = 5;
               goto LABEL_56;
             }
 
-            if (v45 == 98)
+            if (v44 == 98)
             {
               v18 = -1;
               v19 = 4;
@@ -6458,60 +6336,58 @@ LABEL_55:
 LABEL_56:
             if (a3 == 2)
             {
-              LODWORD(v51[0]) = v19;
-              v53 = &off_2A1DDFDA8;
-              v54 = v51;
-              v55 = 4;
-              v56 = &off_2A1DDFC68;
-              v57 = v51;
-              v58 = 4;
+              LODWORD(v50[0]) = v19;
+              v52 = &off_2A1DDFDA8;
+              v53 = v50;
+              v54 = 4;
+              v55 = &off_2A1DDFC68;
+              v56 = v50;
+              v57 = 4;
               *a5 = 4;
-              v47 = *(a4 + 2);
-              if (!v47)
+              v46 = *(a4 + 2);
+              if (!v46)
               {
-                goto LABEL_64;
+                return 0;
               }
 
-              if (v47 > 3)
+              if (v46 > 3)
               {
                 v20 = 0;
                 **(a4 + 1) = v19;
-                goto LABEL_9;
+                return v20;
               }
 
-              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, 4, v47);
+              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, 4, v46);
             }
 
             else if (a3 == 1)
             {
-              v51[0] = v18;
-              v53 = &off_2A1DDFDA8;
-              v54 = v51;
-              v55 = 8;
-              v56 = &off_2A1DDFC68;
-              v57 = v51;
-              v58 = 8;
+              v50[0] = v18;
+              v52 = &off_2A1DDFDA8;
+              v53 = v50;
+              v54 = 8;
+              v55 = &off_2A1DDFC68;
+              v56 = v50;
+              v57 = 8;
               *a5 = 8;
-              v46 = *(a4 + 2);
-              if (v46)
+              v45 = *(a4 + 2);
+              if (v45)
               {
-                if (v46 > 7)
+                if (v45 > 7)
                 {
                   v20 = 0;
                   **(a4 + 1) = v18;
-                  goto LABEL_9;
+                  return v20;
                 }
 
-                amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, 8, v46);
-                break;
+                amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, 8, v45);
+                return 0xFFFFFFFFLL;
               }
 
-LABEL_64:
-              v20 = 0;
-              goto LABEL_9;
+              return 0;
             }
 
-            break;
+            return 0xFFFFFFFFLL;
           }
 
           v19 = 0;
@@ -6521,14 +6397,14 @@ LABEL_64:
         {
           if (*(this + 1780) <= 0x77u)
           {
-            if (v45 == 101)
+            if (v44 == 101)
             {
               v18 = -1;
               v19 = 3;
               goto LABEL_56;
             }
 
-            if (v45 == 102)
+            if (v44 == 102)
             {
               v18 = -1;
               v19 = 6;
@@ -6538,14 +6414,14 @@ LABEL_64:
             goto LABEL_81;
           }
 
-          if (v45 == 122)
+          if (v44 == 122)
           {
             v18 = -1;
             v19 = 2;
             goto LABEL_56;
           }
 
-          if (v45 != 120)
+          if (v44 != 120)
           {
             goto LABEL_81;
           }
@@ -6595,73 +6471,73 @@ LABEL_49:
         v19 = *(this + 459);
         goto LABEL_56;
       case 123:
-        v23 = *(this + 84);
-        v56 = &off_2A1DDFC68;
-        v57 = this + 340;
-        v58 = v23;
-        *a5 = v23;
-        v24 = *(a4 + 2);
-        if (!v24)
+        v22 = *(this + 84);
+        v55 = &off_2A1DDFC68;
+        v56 = this + 340;
+        v57 = v22;
+        *a5 = v22;
+        v23 = *(a4 + 2);
+        if (!v23)
         {
-          goto LABEL_64;
+          return 0;
         }
 
-        if (v24 < v23)
+        if (v23 < v22)
         {
           goto LABEL_13;
         }
 
-        goto LABEL_77;
+        return amber::copy(a4, &v55, v13, v14, v15, v16, v17);
       case 125:
-        v39 = amber::ObjectStorePath::ObjectStorePath(&v56);
-        if (((*(*this + 80))(this, &v56, v39) & 0x80000000) != 0 || (amber::toAmberObject(&v56, &v53, v40, v41, v42, v43, v44) & 0x80000000) != 0)
+        v38 = amber::ObjectStorePath::ObjectStorePath(&v55);
+        if (((*(*this + 80))(this, &v55, v38) & 0x80000000) != 0 || (amber::toAmberObject(&v55, &v52, v39, v40, v41, v42, v43) & 0x80000000) != 0)
         {
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5D8, 0, "can't get storage attributes", v44);
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5D8, 0, "can't get storage attributes", v43);
           goto LABEL_71;
         }
 
-        v48 = &off_2A1DDFDA8;
-        v49 = &v53;
-        v50 = 544;
-        amber::MutableMemoryView::operator amber::ConstMemoryView(&v48, v44, v51);
-        v36 = v52;
-        *a5 = v52;
-        v37 = *(a4 + 2);
-        if (!v37)
+        v47 = &off_2A1DDFDA8;
+        v48 = &v52;
+        v49 = 544;
+        amber::MutableMemoryView::operator amber::ConstMemoryView(&v47, v43, v50);
+        v35 = v51;
+        *a5 = v51;
+        v36 = *(a4 + 2);
+        if (!v36)
         {
           goto LABEL_78;
         }
 
-        if (v37 < v36)
+        if (v36 < v35)
         {
           goto LABEL_24;
         }
 
         goto LABEL_86;
       case 126:
-        v25 = amber::ObjectStorePath::ObjectStorePath(&v56);
-        if (((*(*this + 72))(this, &v56, v25) & 0x80000000) == 0 && (amber::toAmberObject(&v56, &v53, v26, v27, v28, v29, v30) & 0x80000000) == 0)
+        v24 = amber::ObjectStorePath::ObjectStorePath(&v55);
+        if (((*(*this + 72))(this, &v55, v24) & 0x80000000) == 0 && (amber::toAmberObject(&v55, &v52, v25, v26, v27, v28, v29) & 0x80000000) == 0)
         {
-          v48 = &off_2A1DDFDA8;
-          v49 = &v53;
-          v50 = 544;
-          amber::MutableMemoryView::operator amber::ConstMemoryView(&v48, v30, v51);
-          v36 = v52;
-          *a5 = v52;
-          v37 = *(a4 + 2);
-          if (v37)
+          v47 = &off_2A1DDFDA8;
+          v48 = &v52;
+          v49 = 544;
+          amber::MutableMemoryView::operator amber::ConstMemoryView(&v47, v29, v50);
+          v35 = v51;
+          *a5 = v51;
+          v36 = *(a4 + 2);
+          if (v36)
           {
-            if (v37 < v36)
+            if (v36 < v35)
             {
 LABEL_24:
-              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v35, v36, v37);
+              amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v34, v35, v36);
 LABEL_71:
               v20 = 0xFFFFFFFFLL;
               goto LABEL_72;
             }
 
 LABEL_86:
-            v20 = amber::copy(a4, v51, v31, v32, v33, v34, v35);
+            v20 = amber::copy(a4, v50, v30, v31, v32, v33, v34);
           }
 
           else
@@ -6671,45 +6547,39 @@ LABEL_78:
           }
 
 LABEL_72:
-          amber::ObjectStorePath::~ObjectStorePath(&v56);
-          goto LABEL_9;
+          amber::ObjectStorePath::~ObjectStorePath(&v55);
+          return v20;
         }
 
-        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5E2, 0, "can't get storage attributes", v30);
+        amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5E2, 0, "can't get storage attributes", v29);
         goto LABEL_71;
       case 129:
-        v23 = *(this + 1052);
-        v56 = &off_2A1DDFC68;
-        v57 = this + 4212;
-        v58 = v23;
-        *a5 = v23;
-        v24 = *(a4 + 2);
-        if (!v24)
+        v22 = *(this + 1052);
+        v55 = &off_2A1DDFC68;
+        v56 = this + 4212;
+        v57 = v22;
+        *a5 = v22;
+        v23 = *(a4 + 2);
+        if (!v23)
         {
-          goto LABEL_64;
+          return 0;
         }
 
-        if (v24 < v23)
+        if (v23 < v22)
         {
 LABEL_13:
-          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, v23, v24);
-          break;
+          amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././BaseObject.hpp", "loadAttribute", 0x13, 0, "insufficient capacity, expected: %zu, actual: %zu", v17, v22, v23);
+          return 0xFFFFFFFFLL;
         }
 
-LABEL_77:
-        v20 = amber::copy(a4, &v56, v13, v14, v15, v16, v17);
-        goto LABEL_9;
+        return amber::copy(a4, &v55, v13, v14, v15, v16, v17);
       default:
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/AEBDContainer.cpp", "getAttribute", 0x5E9, 0, "invalid attribute: %u", v17, a2);
-        break;
+        return 0xFFFFFFFFLL;
     }
   }
 
-LABEL_8:
-  v20 = 0xFFFFFFFFLL;
-LABEL_9:
-  v21 = *MEMORY[0x29EDCA608];
-  return v20;
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t amber::AEBDContainer::setAttribute(amber::AEBDContainer *this, amber::BaseObject *a2, unsigned int a3, const amber::ConstMemoryView *a4, uint64_t a5, uint64_t a6, const char *a7)
@@ -7028,7 +6898,7 @@ LABEL_6:
     }
 
     v59 = 0u;
-    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, v14 & 0x1FFFFFFFFFFFFFFCLL, a7, &v53);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), v14 & 0x1FFFFFFFFFFFFFFCLL, a7, &v53);
     v56 = &off_2A1DDFC68;
     __dst = v54;
     __n = v55;
@@ -7055,7 +6925,7 @@ LABEL_6:
     v53 = &off_2A1DDFDA8;
     v54 = &v59;
     v55 = 16;
-    amber::MutableMemoryView::view(&v53, v13, v15, v16, &v56);
+    amber::MutableMemoryView::view(&v56, &v53, v13, v15, v16);
     v20 = __n;
     if (__n <= *(&v61 + 1))
     {
@@ -7064,7 +6934,7 @@ LABEL_6:
       *(&v61 + 1) -= v20;
     }
 
-    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, v14 & 0x1FFFFFFFFFFFFFFCLL, v19, &v56);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), v14 & 0x1FFFFFFFFFFFFFFCLL, v19, &v56);
     if (__n <= 3)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", a7);
@@ -7117,7 +6987,7 @@ LABEL_6:
       }
 
       v52 = *v61;
-      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v56);
+      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v56);
       if (__n <= 3)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", a7);
@@ -7165,7 +7035,7 @@ LABEL_38:
       }
     }
 
-    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v53);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v53);
     v56 = &off_2A1DDFC68;
     __dst = v54;
     __n = v55;
@@ -7192,7 +7062,7 @@ LABEL_38:
     v53 = &off_2A1DDFDA8;
     v54 = &v59;
     v55 = 16;
-    amber::MutableMemoryView::first(&v53, a3 - v12, v32, &v56);
+    amber::MutableMemoryView::first(&v56, &v53, a3 - v12, v32);
     v36 = __n;
     if (__n <= *(&v61 + 1))
     {
@@ -7201,7 +7071,7 @@ LABEL_38:
       *(&v61 + 1) -= v36;
     }
 
-    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v35, &v56);
+    amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v12 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v35, &v56);
     if (__n <= 3)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", v37);
@@ -7263,7 +7133,7 @@ uint64_t amber::NBitVector<2u>::setValues(uint64_t a1, unint64_t a2, unint64_t a
       }
 
       v60 = 0u;
-      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, v11 & 0x1FFFFFFFFFFFFFFCLL, a7, &v54);
+      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), v11 & 0x1FFFFFFFFFFFFFFCLL, a7, &v54);
       v57 = &off_2A1DDFC68;
       __dst = v55;
       v59 = v56;
@@ -7306,7 +7176,7 @@ uint64_t amber::NBitVector<2u>::setValues(uint64_t a1, unint64_t a2, unint64_t a
       }
 
       memcpy(__dst, &__src, v12);
-      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, v11 & 0x1FFFFFFFFFFFFFFCLL, v17, &v57);
+      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), v11 & 0x1FFFFFFFFFFFFFFCLL, v17, &v57);
       if (v59 <= 3)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", a7);
@@ -7350,7 +7220,7 @@ uint64_t amber::NBitVector<2u>::setValues(uint64_t a1, unint64_t a2, unint64_t a
           break;
         }
 
-        amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v57);
+        amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v57);
         if (v59 <= 3)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", a7);
@@ -7387,7 +7257,7 @@ uint64_t amber::NBitVector<2u>::setValues(uint64_t a1, unint64_t a2, unint64_t a
         }
       }
 
-      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v54);
+      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v54);
       v57 = &off_2A1DDFC68;
       __dst = v55;
       v59 = v56;
@@ -7429,7 +7299,7 @@ uint64_t amber::NBitVector<2u>::setValues(uint64_t a1, unint64_t a2, unint64_t a
       }
 
       memcpy(&v49, &__src, a3 - v9);
-      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v32, &v57);
+      amber::MutableMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, v32, &v57);
       if (v59 <= 3)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "store16", 0x71, 0, "memory invalid range", v33);
@@ -7503,7 +7373,7 @@ LABEL_6:
     }
 
     v40 = 0u;
-    amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v37);
+    amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v37);
     if (v39 <= 3)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", v17);
@@ -7519,7 +7389,7 @@ LABEL_6:
     v31 = &off_2A1DDFDA8;
     v32 = &v40;
     v33 = 16;
-    amber::MutableMemoryView::view(&v31, v15, v16, v17, &v34);
+    amber::MutableMemoryView::view(&v34, &v31, v15, v16, v17);
     v20 = v36;
     v37 = &off_2A1DDFC68;
     v38 = v35;
@@ -7546,7 +7416,7 @@ LABEL_6:
   {
     while (1)
     {
-      amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v13 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v37);
+      amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v13 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v37);
       if (v39 <= 3)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", a7);
@@ -7596,7 +7466,7 @@ LABEL_34:
     v31 = &off_2A1DDFDA8;
     v32 = &v40;
     v33 = 16;
-    amber::MutableMemoryView::first(&v31, a3 - v13, a7, &v34);
+    amber::MutableMemoryView::first(&v34, &v31, a3 - v13, a7);
     v37 = &off_2A1DDFC68;
     v38 = v35;
     v39 = v36;
@@ -7617,20 +7487,7 @@ LABEL_34:
   return 0;
 }
 
-uint64_t amber::AEBDContainer::segmentHasData(amber::AEBDContainer *this, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
-  if (*(this + 232) <= a2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return amber::NBitVector<2u>::hasAnyMatching(this + 2816, *(this + 443) * a2, *(this + 443) * a2 + *(this + 443), 2u, a5, a6, a7);
-  }
-}
-
-uint64_t amber::NBitVector<2u>::hasAnyMatching(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, const char *a7)
+BOOL amber::NBitVector<2u>::hasAnyMatching(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (a2 > a3 || *(a1 + 8) < a3)
   {
@@ -7648,7 +7505,7 @@ uint64_t amber::NBitVector<2u>::hasAnyMatching(uint64_t a1, unint64_t a2, unint6
       goto LABEL_8;
     }
 
-    amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v26);
+    amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v26);
     if (v28 <= 3)
     {
       amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", a7);
@@ -7687,7 +7544,7 @@ LABEL_8:
           break;
         }
 
-        amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v26);
+        amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v26);
         if (v28 <= 3)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", a7);
@@ -7712,19 +7569,6 @@ LABEL_8:
   return v15;
 }
 
-uint64_t amber::AEBDContainer::segmentHasPassThrough(amber::AEBDContainer *this, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
-{
-  if (*(this + 232) <= a2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return amber::NBitVector<2u>::hasAnyMatching(this + 2816, *(this + 443) * a2, *(this + 443) * a2 + *(this + 443), 0, a5, a6, a7);
-  }
-}
-
 uint64_t amber::NBitVector<2u>::countMatching(uint64_t a1, unint64_t a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   if (a2 > a3 || *(a1 + 8) < a3)
@@ -7740,7 +7584,7 @@ uint64_t amber::NBitVector<2u>::countMatching(uint64_t a1, unint64_t a2, unint64
     v10 = a2 & 0xF;
     if ((a2 & 0xF) != 0)
     {
-      amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v33);
+      amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (a2 >> 2) & 0x1FFFFFFFFFFFFFFCLL, a7, &v33);
       if (v35 <= 3)
       {
         amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", a7);
@@ -7784,7 +7628,7 @@ uint64_t amber::NBitVector<2u>::countMatching(uint64_t a1, unint64_t a2, unint64
       do
       {
         v32 = v14;
-        amber::ConstMemoryViewConvertible<amber::Buffer>::operator+(a1 + 16, (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v33);
+        amber::ConstMemoryViewConvertible<amber::Buffer>::operator+((a1 + 16), (v9 >> 2) & 0x1FFFFFFFFFFFFFFFLL, a7, &v33);
         if (v35 <= 3)
         {
           amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/AEBD/.././NBitVector.hpp", "load16", 0x69, 0, "memory invalid range", a7);
@@ -7839,13 +7683,13 @@ uint64_t amber::AEBDContainer::clusterIsModified(amber::AEBDContainer *this, uns
 
   else
   {
-    return (amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 2504, a2, a3, a4, a5, a6, a7) >> 1) & 1;
+    return (amber::ConstMemoryViewConvertible<amber::Buffer>::operator[](this + 313, a2, a3, a4, a5, a6, a7) >> 1) & 1;
   }
 }
 
 uint64_t amber::AEBDContainer::updateComputedValues(amber::AEBDContainer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  if (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 8, a2, a3, a4, a5, a6, a7) >> 32)
+  if (amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 1, a2, a3, a4, a5, a6, a7) >> 32)
   {
     v14 = "invalid auth data";
     v15 = 1794;
@@ -7853,7 +7697,7 @@ uint64_t amber::AEBDContainer::updateComputedValues(amber::AEBDContainer *this, 
 
   else
   {
-    *(this + 78) = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 8, v8, v9, v10, v11, v12, v13);
+    *(this + 78) = amber::ConstMemoryViewConvertible<amber::KeyValueBlob>::size(this + 1, v8, v9, v10, v11, v12, v13);
     v49 = &off_2A1DDFDA8;
     v50 = this + 304;
     v51 = 16;
@@ -7902,17 +7746,8 @@ uint64_t amber::AEBDContainer::updateComputedValues(amber::AEBDContainer *this, 
             v31 = *(this + 39);
             v32 = __CFADD__(v31, 8);
             v33 = v31 + 8;
-            if (v32)
+            if (v32 || (v34 = *(this + 40), v32 = __CFADD__(v33, v34), v35 = v33 + v34, v32) || (v36 = *(this + 41), v32 = __CFADD__(v35, v36), v37 = v35 + v36, v32) || (v32 = __CFADD__(v37, v30), v38 = v37 + v30, v32) || (v39 = v26 * v38, *(this + 458) = v39, (v39 & 0xFFFFFFFF00000000) != 0))
             {
-              goto LABEL_16;
-            }
-
-            v34 = *(this + 40);
-            v32 = __CFADD__(v33, v34);
-            v35 = v33 + v34;
-            if (v32 || (v36 = *(this + 41), v32 = __CFADD__(v35, v36), v37 = v35 + v36, v32) || (v32 = __CFADD__(v37, v30), v38 = v37 + v30, v32) || (v39 = v26 * v38, *(this + 458) = v39, (v39 & 0xFFFFFFFF00000000) != 0))
-            {
-LABEL_16:
               v14 = "cluster header size overflow";
               v15 = 1823;
             }
@@ -8080,10 +7915,10 @@ LABEL_6:
   return v2 & 1;
 }
 
-uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::load(uint64_t a1, const amber::MutableMemoryView *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::load(uint64_t *a1, const amber::MutableMemoryView *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  amber::Buffer::constBuf(a1, a7, v17);
-  amber::ConstMemoryView::view(v17, *(a1 + 80), *(a1 + 88) - *(a1 + 80), v10, v16);
+  amber::Buffer::constBuf(v17, a1, a7);
+  amber::ConstMemoryView::view(v16, v17, a1[10], a1[11] - a1[10], v10);
   return amber::ConstMemoryView::load(v16, a2, a3, v11, v12, v13, v14);
 }
 
@@ -8186,15 +8021,15 @@ void amber::AEBDContainer::~AEBDContainer(amber::AEBDContainer *this, uint64_t a
   *(this + 3420) = 0u;
   *(this + 3372) = 0u;
   *(this + 3388) = 0u;
-  amber::Buffer::~Buffer((this + 3248), a2, a3, a4, a5, a6, a7);
-  amber::Buffer::~Buffer((this + 3144), v8, v9, v10, v11, v12, v13);
-  amber::Buffer::~Buffer((this + 3040), v14, v15, v16, v17, v18, v19);
-  amber::Buffer::~Buffer((this + 2936), v20, v21, v22, v23, v24, v25);
+  amber::Buffer::~Buffer(this + 406, a2, a3, a4, a5, a6, a7);
+  amber::Buffer::~Buffer(this + 393, v8, v9, v10, v11, v12, v13);
+  amber::Buffer::~Buffer(this + 380, v14, v15, v16, v17, v18, v19);
+  amber::Buffer::~Buffer(this + 367, v20, v21, v22, v23, v24, v25);
   *(this + 352) = &unk_2A1DE1AA8;
-  amber::Buffer::~Buffer((this + 2832), v26, v27, v28, v29, v30, v31);
-  amber::Buffer::~Buffer((this + 2712), v32, v33, v34, v35, v36, v37);
-  amber::Buffer::~Buffer((this + 2608), v38, v39, v40, v41, v42, v43);
-  amber::Buffer::~Buffer((this + 2504), v44, v45, v46, v47, v48, v49);
+  amber::Buffer::~Buffer(this + 354, v26, v27, v28, v29, v30, v31);
+  amber::Buffer::~Buffer(this + 339, v32, v33, v34, v35, v36, v37);
+  amber::Buffer::~Buffer(this + 326, v38, v39, v40, v41, v42, v43);
+  amber::Buffer::~Buffer(this + 313, v44, v45, v46, v47, v48, v49);
   std::mutex::~mutex((this + 2440));
   *(this + 270) = &unk_2A1DDFDD8;
   *(this + 271) = &unk_2A1DDFE08;
@@ -8250,9 +8085,9 @@ void amber::AEBDContainer::~AEBDContainer(amber::AEBDContainer *this, uint64_t a
   *(this + 1540) = 0u;
   *(this + 1492) = 0u;
   *(this + 1508) = 0u;
-  amber::Buffer::~Buffer((this + 1368), v50, v51, v52, v53, v54, v55);
-  amber::Buffer::~Buffer((this + 1264), v56, v57, v58, v59, v60, v61);
-  amber::Buffer::~Buffer((this + 1160), v62, v63, v64, v65, v66, v67);
+  amber::Buffer::~Buffer(this + 171, v50, v51, v52, v53, v54, v55);
+  amber::Buffer::~Buffer(this + 158, v56, v57, v58, v59, v60, v61);
+  amber::Buffer::~Buffer(this + 145, v62, v63, v64, v65, v66, v67);
   *(this + 110) = &unk_2A1DDFDD8;
   *(this + 111) = &unk_2A1DDFE08;
   *(this + 900) = 0u;
@@ -8308,7 +8143,7 @@ void amber::AEBDContainer::~AEBDContainer(amber::AEBDContainer *this, uint64_t a
   *(this + 340) = 0u;
   *(this + 356) = 0u;
   *this = &unk_2A1DE29B8;
-  amber::KeyValueBlob::~KeyValueBlob((this + 8), v68, v69, v70, v71, v72, v73);
+  amber::KeyValueBlob::~KeyValueBlob(this + 1, v68, v69, v70, v71, v72, v73);
 }
 
 amber::AEBDContainer *amber::AEBDContainer::AEBDContainer(amber::AEBDContainer *this)
@@ -8634,10 +8469,10 @@ amber::AEBDContainer *amber::AEBDContainer::AEBDContainer(amber::AEBDContainer *
   return this;
 }
 
-void *amber::NBitVector<2u>::~NBitVector(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::NBitVector<2u>::~NBitVector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   *a1 = &unk_2A1DE1AA8;
-  amber::Buffer::~Buffer((a1 + 2), a2, a3, a4, a5, a6, a7);
+  amber::Buffer::~Buffer((a1 + 16), a2, a3, a4, a5, a6, a7);
   return a1;
 }
 
@@ -8661,10 +8496,10 @@ double amber::NBitVector<2u>::NBitVector(uint64_t a1)
   return result;
 }
 
-void amber::NBitVector<2u>::~NBitVector(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+void amber::NBitVector<2u>::~NBitVector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   *a1 = &unk_2A1DE1AA8;
-  amber::Buffer::~Buffer((a1 + 2), a2, a3, a4, a5, a6, a7);
+  amber::Buffer::~Buffer((a1 + 16), a2, a3, a4, a5, a6, a7);
 
   JUMPOUT(0x29C25C000);
 }
@@ -8685,7 +8520,7 @@ void *amber::MutableMemoryView::MutableMemoryView(void *this, void *a2, uint64_t
   return this;
 }
 
-uint64_t amber::ConstMemoryView::loadAndAssign<amber::CryptoBlobBase<256u>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::ConstMemoryView::loadAndAssign<amber::CryptoBlobBase<256u>>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v7 = a4 + a3;
   if (__CFADD__(a4, a3))
@@ -8713,19 +8548,19 @@ uint64_t amber::ConstMemoryView::loadAndAssign<amber::CryptoBlobBase<256u>>(uint
 
   v18[0] = v8;
   v18[1] = v7;
-  if (v7 > *(a1 + 16))
+  if (v7 > a1[2])
   {
     return 0xFFFFFFFFLL;
   }
 
-  amber::ConstMemoryView::view(a1, v18, a7, v17);
+  amber::ConstMemoryView::view(v17, a1, v18, a7);
   return amber::BufferProtocol<amber::CryptoBlobBase<256u>>::assign(a2 + 8, v17, v11, v12, v13, v14, v15);
 }
 
-uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::operator+@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, const char *a3@<X6>, void *a4@<X8>)
+uint64_t amber::ConstMemoryViewConvertible<amber::Buffer>::operator+@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, const char *a3@<X6>, void *a4@<X8>)
 {
-  amber::Buffer::constBuf(a1, a3, v11);
-  amber::ConstMemoryView::view(v11, *(a1 + 80), *(a1 + 88) - *(a1 + 80), v7, v10);
+  amber::Buffer::constBuf(v11, a1, a3);
+  amber::ConstMemoryView::view(v10, v11, a1[10], a1[11] - a1[10], v7);
   return amber::ConstMemoryView::operator+(v10, a2, v8, a4);
 }
 
@@ -8813,7 +8648,7 @@ void sub_29699F79C(_Unwind_Exception *exception_object)
 
 std::string *amber::KnoxURL::update(std::string *this)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   if (SHIBYTE(this[6].__r_.__value_.__r.__words[2]) < 0)
   {
     *this[6].__r_.__value_.__l.__data_ = 0;
@@ -8960,7 +8795,7 @@ std::string *amber::KnoxURL::update(std::string *this)
     v19 = SHIBYTE(this[5].__r_.__value_.__r.__words[2]);
     if (v19 >= 0)
     {
-      data = &this[5];
+      data = this + 5;
     }
 
     else
@@ -8978,10 +8813,9 @@ std::string *amber::KnoxURL::update(std::string *this)
       v21 = this[5].__r_.__value_.__l.__size_;
     }
 
-    result = std::string::append(this + 6, data, v21);
+    return std::string::append(this + 6, data, v21);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -9142,7 +8976,7 @@ LABEL_36:
           amber::JSONInputStream::unread(a2, &v40, v21, v22, v23, v24, v13);
           if ((v25 & 0x80000000) == 0)
           {
-            amber::JSONInputStream::captureDict();
+            amber::JSONInputStream::captureDict(a2, this + 4);
           }
 
           v36 = "parsing fields";
@@ -9409,35 +9243,38 @@ LABEL_37:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t amber::KnoxContext::fileCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+uint64_t amber::KnoxContext::fileCreate(amber::KnoxContext *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, const char *a7)
 {
-  v85 = *MEMORY[0x29EDCA608];
-  v62[0] = &unk_2A1DDFD28;
-  v62[3] = 0;
-  v62[1] = off_2A1DDFD48;
-  v62[2] = 0;
-  v62[6] = 0;
-  v62[4] = &off_2A1DDFDA8;
-  v62[5] = 0;
-  v62[7] = &off_2A1DDFC68;
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 1;
-  v66 = 0;
-  v57[0] = &unk_2A1DDFD28;
-  v57[2] = 0;
-  v57[3] = 0;
-  v57[1] = off_2A1DDFD48;
-  v57[5] = 0;
-  v57[6] = 0;
-  v57[4] = &off_2A1DDFDA8;
-  v57[7] = &off_2A1DDFC68;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 1;
-  v61 = 0;
-  v67[35] = &unk_2A1DDFDD8;
-  v67[36] = &unk_2A1DDFE08;
+  v82 = *MEMORY[0x29EDCA608];
+  v59[0] = &unk_2A1DDFD28;
+  v59[3] = 0;
+  v59[1] = off_2A1DDFD48;
+  v59[2] = 0;
+  v59[6] = 0;
+  v59[4] = &off_2A1DDFDA8;
+  v59[5] = 0;
+  v59[7] = &off_2A1DDFC68;
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 1;
+  v63 = 0;
+  v54[0] = &unk_2A1DDFD28;
+  v54[2] = 0;
+  v54[3] = 0;
+  v54[1] = off_2A1DDFD48;
+  v54[5] = 0;
+  v54[6] = 0;
+  v54[4] = &off_2A1DDFDA8;
+  v54[7] = &off_2A1DDFC68;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 1;
+  v58 = 0;
+  v64[35] = &unk_2A1DDFDD8;
+  v64[36] = &unk_2A1DDFE08;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
@@ -9451,78 +9288,68 @@ uint64_t amber::KnoxContext::fileCreate(uint64_t a1, uint64_t a2, uint64_t a3, u
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v84 = 0;
-  memset(v56, 0, sizeof(v56));
-  v51[2] = 0;
-  v51[3] = 0;
-  v51[1] = off_2A1DDFD48;
-  v51[5] = 0;
-  v51[6] = 0;
-  v51[4] = &off_2A1DDFDA8;
-  v51[7] = &off_2A1DDFC68;
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 257;
-  v55 = 0;
-  v50[5] = 0;
-  v51[0] = off_2A1DDFC98;
-  v50[3] = &off_2A1DDFC68;
-  v50[4] = 0;
-  memset(v50, 0, 24);
-  v47 = 0;
-  v48 = 0;
-  v49 = 0;
-  if (*(a2 + 215) < 0)
-  {
-    v9 = *(a2 + 192);
-    v10 = *(a2 + 200) == 0;
-  }
-
-  memset(&v46, 0, sizeof(v46));
-  __p = 0;
+  v81 = 0;
+  memset(v53, 0, sizeof(v53));
+  v48[2] = 0;
+  v48[3] = 0;
+  v48[1] = off_2A1DDFD48;
+  v48[5] = 0;
+  v48[6] = 0;
+  v48[4] = &off_2A1DDFDA8;
+  v48[7] = &off_2A1DDFC68;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 257;
+  v52 = 0;
+  v47[5] = 0;
+  v48[0] = off_2A1DDFC98;
+  v47[3] = &off_2A1DDFC68;
+  v47[4] = 0;
+  memset(v47, 0, 24);
   v44 = 0;
   v45 = 0;
-  *(a3 + 16);
+  v46 = 0;
+  memset(&v43, 0, sizeof(v43));
+  __p = 0;
+  v41 = 0;
+  v42 = 0;
   *(a6 + 16) = 0;
-  v42[0] = &off_2A1DDFDA8;
-  v42[1] = a6 + 20;
-  v42[2] = 256;
-  amber::MutableMemoryView::operator+(v42, 0, a7, v67);
-  bzero(v67[1], v67[2]);
-  v12 = *(a2 + 119);
-  if ((v12 & 0x80u) != 0)
+  v39[0] = &off_2A1DDFDA8;
+  v39[1] = a6 + 20;
+  v39[2] = 256;
+  amber::MutableMemoryView::operator+(v39, 0, a7, v64);
+  bzero(v64[1], v64[2]);
+  v10 = *(a2 + 119);
+  if ((v10 & 0x80u) != 0)
   {
-    v12 = *(a2 + 104);
+    v10 = *(a2 + 104);
   }
 
-  if (v12)
+  if (v10)
   {
-    v13 = *(a2 + 167);
-    if ((v13 & 0x80u) != 0)
+    v11 = *(a2 + 167);
+    if ((v11 & 0x80u) != 0)
     {
-      v13 = *(a2 + 152);
+      v11 = *(a2 + 152);
     }
 
-    if (v13 >= 0x10)
+    if (v11 >= 0x10)
     {
-      v14 = *(a2 + 191);
-      if ((v14 & 0x80u) != 0)
+      v12 = *(a2 + 191);
+      if ((v12 & 0x80u) != 0)
       {
-        v14 = *(a2 + 176);
+        v12 = *(a2 + 176);
       }
 
-      if (v14)
+      if (v12)
       {
-        v15 = *(a2 + 39);
-        if ((v15 & 0x80u) != 0)
+        v13 = *(a2 + 39);
+        if ((v13 & 0x80u) != 0)
         {
-          v15 = *(a2 + 24);
+          v13 = *(a2 + 24);
         }
 
-        if (v15 && *(a2 + 40) != *(a2 + 48) && *(a2 + 64) != *(a2 + 72))
+        if (v13 && *(a2 + 40) != *(a2 + 48) && *(a2 + 64) != *(a2 + 72))
         {
           amber::KnoxPointer::clear(a5);
           amber::KnoxUploadAttributes::operator=(a5 + 8, a2 + 8);
@@ -9530,41 +9357,40 @@ uint64_t amber::KnoxContext::fileCreate(uint64_t a1, uint64_t a2, uint64_t a3, u
           std::string::operator=((a5 + 120), (a2 + 120));
           std::string::operator=((a5 + 152), (a2 + 144));
           *(a5 + 224) = *(a3 + 16);
-          amber::Buffer::resize(v57, 0, v16, v17, v18, v19, v20);
-          amber::JSONOutputStream::JSONOutputStream(v67, v57);
+          amber::Buffer::resize(v54, 0, v14, v15, v16, v17, v18);
+          amber::JSONOutputStream::JSONOutputStream(v64, v54, 0);
         }
       }
     }
   }
 
-  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileCreate", 0xC0, 0, "incomplete file creation attributes", v11);
-  if (SHIBYTE(v45) < 0)
+  amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileCreate", 0xC0, 0, "incomplete file creation attributes", v9);
+  if (SHIBYTE(v42) < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v49) < 0)
+  if (SHIBYTE(v46) < 0)
   {
-    operator delete(v47);
+    operator delete(v44);
   }
 
-  v67[0] = v50;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v67);
-  amber::Buffer::~Buffer(v51, v21, v22, v23, v24, v25, v26);
-  v67[0] = v56;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v67);
-  amber::Buffer::~Buffer(v57, v27, v28, v29, v30, v31, v32);
-  amber::Buffer::~Buffer(v62, v33, v34, v35, v36, v37, v38);
-  v39 = *MEMORY[0x29EDCA608];
+  v64[0] = v47;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v64);
+  amber::Buffer::~Buffer(v48, v19, v20, v21, v22, v23, v24);
+  v64[0] = v53;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v64);
+  amber::Buffer::~Buffer(v54, v25, v26, v27, v28, v29, v30);
+  amber::Buffer::~Buffer(v59, v31, v32, v33, v34, v35, v36);
   return 0xFFFFFFFFLL;
 }
 
-void sub_2969A2A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_2969A2A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, char *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char *a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a39 < 0)
   {
@@ -9583,11 +9409,11 @@ void sub_2969A2A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   a46 = &a52;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a46);
-  amber::Buffer::~Buffer(&a58, v73, v74, v75, v76, v77, v78);
-  a58 = &a71;
+  amber::Buffer::~Buffer(&a58, v67, v68, v69, v70, v71, v72);
+  a58 = &a65;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a58);
-  amber::Buffer::~Buffer(&a72, v79, v80, v81, v82, v83, v84);
-  amber::Buffer::~Buffer(&STACK[0x228], v85, v86, v87, v88, v89, v90);
+  amber::Buffer::~Buffer(&a66, v73, v74, v75, v76, v77, v78);
+  amber::Buffer::~Buffer(&STACK[0x228], v79, v80, v81, v82, v83, v84);
   _Unwind_Resume(a1);
 }
 
@@ -9612,13 +9438,13 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::push_back[ab
 uint64_t amber::JSONOutputStream::appendArray<std::string>(const void **a1, const char *a2, uint64_t **a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
 {
   v15 = amber::JSONOutputStream::beginArray(a1, a2, a3, a4, a5, a6, a7) >> 31;
-  for (i = *a3; i != a3[1]; i += 3)
+  for (i = *a3; i != a3[1]; i += 24)
   {
     v17 = *(i + 23);
     if (v17 < 0)
     {
       v18 = *i;
-      v17 = i[1];
+      v17 = *(i + 8);
     }
 
     else
@@ -9645,16 +9471,17 @@ uint64_t amber::JSONOutputStream::appendArray<std::string>(const void **a1, cons
   }
 }
 
-uint64_t amber::KnoxContext::fileDownload(amber::KnoxContext *this, const char *a2, amber::Buffer *a3, int a4)
+uint64_t amber::KnoxContext::fileDownload(amber::KnoxContext *this, const char *a2, void **a3, int a4)
 {
   v4 = a4;
-  v60 = *MEMORY[0x29EDCA608];
+  v59 = *MEMORY[0x29EDCA608];
   __p[0] = 0;
   __p[1] = 0;
-  v39 = 0;
-  v41 = 0;
-  v42[0] = &unk_2A1DDFDD8;
-  v42[1] = &unk_2A1DDFE08;
+  v38 = 0;
+  v40 = 0;
+  v41[0] = &unk_2A1DDFDD8;
+  v41[1] = &unk_2A1DDFE08;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
@@ -9670,24 +9497,23 @@ uint64_t amber::KnoxContext::fileDownload(amber::KnoxContext *this, const char *
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0;
-  v34[0] = &unk_2A1DDFD28;
-  v34[2] = 0;
-  v34[3] = 0;
-  v34[1] = off_2A1DDFD48;
-  v34[5] = 0;
-  v34[6] = 0;
-  v34[4] = &off_2A1DDFDA8;
-  v34[7] = &off_2A1DDFC68;
+  v58 = 0;
+  v33[0] = &unk_2A1DDFD28;
+  v33[2] = 0;
+  v33[3] = 0;
+  v33[1] = off_2A1DDFD48;
+  v33[5] = 0;
+  v33[6] = 0;
+  v33[4] = &off_2A1DDFDA8;
+  v33[7] = &off_2A1DDFC68;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v37 = 1;
-  v38 = 0;
-  v31[0] = v31;
-  v31[1] = v31;
-  v31[2] = 0;
-  v32 = 0;
+  v36 = 1;
+  v37 = 0;
+  v30[0] = v30;
+  v30[1] = v30;
+  v30[2] = 0;
+  v31 = 0;
   if (a4)
   {
     v7 = a3;
@@ -9695,63 +9521,44 @@ uint64_t amber::KnoxContext::fileDownload(amber::KnoxContext *this, const char *
 
   else
   {
-    v7 = v34;
+    v7 = v33;
   }
 
-  v33 = -1;
-  if ((amber::KnoxContext::fileDecryptionComponents(this, a2, __p, &v39, v42) & 0x80000000) != 0)
+  v32 = -1;
+  if ((amber::KnoxContext::fileDecryptionComponents(this, a2, __p, &v38, v41) & 0x80000000) != 0)
   {
     amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileDownload", 0x217, 0, "Knox decryption components", v12);
   }
 
+  else if ((amber::Buffer::reserve(v33, v38, v8, v9, v10, v11, v12) & 0x80000000) != 0 || (v40 >= 0 ? (v14 = __p) : (v14 = __p[0]), v29[0] = v29, v29[1] = v29, v29[2] = 0, v28[1] = 0, v28[2] = 0, v28[0] = &off_2A1DDFC68, v15 = amber::HTTPContext::httpPerformBase(this, 1, v14, v29, v28, v7, v30, &amber::HTTPContext::FullRange, 1u), std::__list_imp<std::string>::clear(v29), v15 < 0))
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileDownload", 0x21D, 0, "Knox GET %d", v13, v32);
+  }
+
   else
   {
-    if ((amber::Buffer::reserve(v34, v39, v8, v9, v10, v11, v12) & 0x80000000) != 0)
+    if ((v4 & 1) != 0 || (amber::aeaDecrypt(v41, v33, a3, v16, v17, v18, v13) & 0x80000000) == 0)
     {
-      goto LABEL_13;
+      v20 = 0;
+      goto LABEL_16;
     }
 
-    v14 = v41 >= 0 ? __p : __p[0];
-    v30[0] = v30;
-    v30[1] = v30;
-    v30[2] = 0;
-    v29[1] = 0;
-    v29[2] = 0;
-    v29[0] = &off_2A1DDFC68;
-    v15 = amber::HTTPContext::httpPerformBase(this, 1, v14, v30, v29, v7, v31, &amber::HTTPContext::FullRange, 1u);
-    std::__list_imp<std::string>::clear(v30);
-    if (v15 < 0)
-    {
-LABEL_13:
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileDownload", 0x21D, 0, "Knox GET %d", v13, v33);
-    }
-
-    else
-    {
-      if ((v4 & 1) != 0 || (amber::aeaDecrypt(v42, v34, a3, v16, v17, v18, v13) & 0x80000000) == 0)
-      {
-        v20 = 0;
-        goto LABEL_16;
-      }
-
-      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileDownload", 0x224, 0, "AEA decrypt", v19);
-    }
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "fileDownload", 0x224, 0, "AEA decrypt", v19);
   }
 
   v20 = 0xFFFFFFFFLL;
 LABEL_16:
-  std::__list_imp<std::string>::clear(v31);
-  amber::Buffer::~Buffer(v34, v21, v22, v23, v24, v25, v26);
-  if (SHIBYTE(v41) < 0)
+  std::__list_imp<std::string>::clear(v30);
+  amber::Buffer::~Buffer(v33, v21, v22, v23, v24, v25, v26);
+  if (SHIBYTE(v40) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v27 = *MEMORY[0x29EDCA608];
   return v20;
 }
 
-void sub_2969A3028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
+void sub_2969A3028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, int a36, __int16 a37, char a38, char a39)
 {
   std::__list_imp<std::string>::clear(&a16);
   amber::Buffer::~Buffer(&a20, v40, v41, v42, v43, v44, v45);
@@ -9763,7 +9570,7 @@ void sub_2969A3028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t amber::KnoxContext::fileDecryptionComponents(amber::KnoxContext *a1, const std::string::value_type *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t amber::KnoxContext::fileDecryptionComponents(amber::KnoxContext *a1, const std::string::value_type *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
   v23[0] = &unk_2A1DDFD28;
   v23[2] = 0;
@@ -9794,7 +9601,7 @@ uint64_t amber::KnoxContext::fileDecryptionComponents(amber::KnoxContext *a1, co
   v21[1] = 0;
   v21[2] = 0;
   v21[0] = &off_2A1DDFC68;
-  if ((amber::KnoxContext::knoxPerform(a1, 3u, v10, v21, v23) & 0x80000000) == 0)
+  if ((amber::KnoxContext::knoxPerform(a1, 3, v10, v21, v23) & 0x80000000) == 0)
   {
     amber::KnoxContext::parseDecryptionComponents(v23, a3, a4, a5, v11, v12, v13);
   }
@@ -9809,7 +9616,7 @@ uint64_t amber::KnoxContext::fileDecryptionComponents(amber::KnoxContext *a1, co
   return 0xFFFFFFFFLL;
 }
 
-void sub_2969A3270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
+void sub_2969A3270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19)
 {
   if (a18 < 0)
   {
@@ -9857,4 +9664,230 @@ LABEL_7:
   amber::JSONInputStream::~JSONInputStream(v11);
   amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(v12);
   return v9;
+}
+
+void sub_2969A33CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  amber::JSONInputStream::~JSONInputStream(&a10);
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t AmberKnoxFileCreationAttributesSerializeJSON(uint64_t a1, amber::Stream *a2)
+{
+  v20[0] = &unk_2A1DE1AD8;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v20[1] = &unk_2A1DE1008;
+  v25 = 0;
+  v26 = -1;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  memset(v33, 0, sizeof(v33));
+  if ((amber::fromAmberObject(v20, a1) & 0x80000000) != 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxFileCreationAttributesSerializeJSON", 0x250, 0, "invalid object", v6);
+    v17 = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    amber::JSONOutputStream::JSONOutputStream(v19, a2, 1, v3, v4, v5, v6);
+    if ((amber::KnoxFileCreationAttributes::jsonSerialize(v20, v19, 0, v7, v8, v9, v10) & 0x80000000) != 0)
+    {
+      amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxFileCreationAttributesSerializeJSON", 0x254, 0, "JSON serializate AmberKnoxFileCreationAttributes", v16);
+      v17 = 0xFFFFFFFFLL;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    amber::JSONOutputStream::~JSONOutputStream(v19, v11, v12, v13, v14, v15, v16);
+  }
+
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(v20);
+  return v17;
+}
+
+void sub_2969A3538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const char *a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  amber::JSONOutputStream::~JSONOutputStream(va, a2, a3, a4, a5, a6, a7);
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes((v8 - 240));
+  _Unwind_Resume(a1);
+}
+
+uint64_t AmberKnoxContextFileCreate(amber::KnoxContext *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, unint64_t a6, const char *a7)
+{
+  v81 = *MEMORY[0x29EDCA608];
+  v48[0] = &unk_2A1DE1AD8;
+  v48[1] = &unk_2A1DE1008;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0;
+  v54 = -1;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  memset(v61, 0, sizeof(v61));
+  amber::ProxyBuffer::ProxyBuffer(&v45, a3, a4, a4, a5, a6, a7);
+  v29[0] = &unk_2A1DE0CE8;
+  v29[1] = &unk_2A1DE1008;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0;
+  v35 = -1;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v63[0] = &unk_2A1DDFDD8;
+  v63[1] = &unk_2A1DDFE08;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v80 = 0;
+  if ((amber::fromAmberObject(v48, a2) & 0x80000000) != 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxContextFileCreate", 0x267, 0, "invalid AmberKnoxFileCreationAttributes", v11);
+LABEL_8:
+    v20 = 0xFFFFFFFFLL;
+    goto LABEL_9;
+  }
+
+  amber::Buffer::constBuf(v62, &v45, v11);
+  amber::ConstMemoryView::view(v28, v62, v46, v47 - v46, v12);
+  if ((amber::KnoxContext::fileCreate(a1, v48, v28, HIWORD(a6) & 1, v29, v63, v13) & 0x80000000) != 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxContextFileCreate", 0x268, 0, "file creation failed", v18);
+    goto LABEL_8;
+  }
+
+  if ((amber::toAmberObject(v29, a5, v14, v15, v16, v17, v18) & 0x80000000) != 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxContextFileCreate", 0x269, 0, "invalid KnoxPointer", v19);
+    goto LABEL_8;
+  }
+
+  v20 = 0;
+LABEL_9:
+  amber::KnoxPointer::~KnoxPointer(v29);
+  amber::Buffer::~Buffer(&v45, v21, v22, v23, v24, v25, v26);
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(v48);
+  return v20;
+}
+
+void sub_2969A386C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
+{
+  va_start(va, a55);
+  amber::KnoxPointer::~KnoxPointer(&a13);
+  amber::Buffer::~Buffer(&a43, v56, v57, v58, v59, v60, v61);
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t AmberKnoxContextFileDownload(amber::KnoxContext *a1, const char *a2, amber::Buffer *this, unint64_t a4, uint64_t a5, uint64_t a6, const char *a7)
+{
+  v10 = HIWORD(a4) & 1;
+  amber::Buffer::resize(this, 0, this, a4, a5, a6, a7);
+  v12 = amber::KnoxContext::fileDownload(a1, a2, this, v10);
+  if ((v12 & 0x80000000) != 0)
+  {
+    amber::log(2, "/Library/Caches/com.apple.xbs/Sources/Amber/Amber/Source/Knox/KnoxFile.cpp", "AmberKnoxContextFileDownload", 0x27A, 0, "file download failed", v11);
+  }
+
+  return v12;
+}
+
+void amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(void **this)
+{
+  amber::KnoxFileCreationAttributes::~KnoxFileCreationAttributes(this);
+
+  JUMPOUT(0x29C25C000);
+}
+
+{
+  *this = &unk_2A1DE1AD8;
+  if (*(this + 215) < 0)
+  {
+    operator delete(this[24]);
+  }
+
+  if (*(this + 191) < 0)
+  {
+    operator delete(this[21]);
+  }
+
+  if (*(this + 167) < 0)
+  {
+    operator delete(this[18]);
+  }
+
+  if (*(this + 143) < 0)
+  {
+    operator delete(this[15]);
+  }
+
+  if (*(this + 119) < 0)
+  {
+    operator delete(this[12]);
+  }
+
+  this[1] = &unk_2A1DE1008;
+  v2 = this[8];
+  if (v2)
+  {
+    this[9] = v2;
+    operator delete(v2);
+  }
+
+  v3 = this[5];
+  if (v3)
+  {
+    this[6] = v3;
+    operator delete(v3);
+  }
+
+  if (*(this + 39) < 0)
+  {
+    operator delete(this[2]);
+  }
+
+  amber::JSONCodable::~JSONCodable((this + 1));
+
+  amber::JSONCodable::~JSONCodable(this);
 }

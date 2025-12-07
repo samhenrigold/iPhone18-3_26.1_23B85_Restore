@@ -516,23 +516,23 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v24 = toCopy;
+  v8 = toCopy;
   if (self->_blendingABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   has = self->_has;
@@ -546,44 +546,40 @@ LABEL_30:
     goto LABEL_9;
   }
 
-  pipelineEnabled = self->_pipelineEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v24;
+  toCopy = v8;
   *&has = self->_has;
   if ((*&has & 0x4000) != 0)
   {
 LABEL_9:
-    hasTrainedModel = self->_hasTrainedModel;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
+    toCopy = v8;
     *&has = self->_has;
   }
 
 LABEL_10:
   if ((*&has & 0x2000) != 0)
   {
-    hasDefaultHyperParams = self->_hasDefaultHyperParams;
     PBDataWriterWriteBOOLField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if (self->_modelType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
-  v8 = self->_has;
-  if (v8)
+  v6 = self->_has;
+  if (v6)
   {
-    avgNumberOfModelWeights = self->_avgNumberOfModelWeights;
     PBDataWriterWriteUint32Field();
-    toCopy = v24;
-    v8 = self->_has;
-    if ((v8 & 2) == 0)
+    toCopy = v8;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_16:
-      if ((v8 & 0x80) == 0)
+      if ((v6 & 0x80) == 0)
       {
         goto LABEL_18;
       }
@@ -592,40 +588,37 @@ LABEL_16:
     }
   }
 
-  else if ((v8 & 2) == 0)
+  else if ((v6 & 2) == 0)
   {
     goto LABEL_16;
   }
 
-  avgNumberOfNonZeroModelWeights = self->_avgNumberOfNonZeroModelWeights;
   PBDataWriterWriteUint32Field();
-  toCopy = v24;
+  toCopy = v8;
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_17:
-    numberOfCandidateModels = self->_numberOfCandidateModels;
     PBDataWriterWriteUint32Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 
 LABEL_18:
   if (self->_logisticRegressionRegularizationStrategy)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
-  v10 = self->_has;
-  if ((v10 & 0x10) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x10) != 0)
   {
-    logisticRegressionRegularizationRate = self->_logisticRegressionRegularizationRate;
     PBDataWriterWriteFloatField();
-    toCopy = v24;
-    v10 = self->_has;
-    if ((v10 & 8) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 8) == 0)
     {
 LABEL_22:
-      if ((v10 & 4) == 0)
+      if ((v7 & 4) == 0)
       {
         goto LABEL_23;
       }
@@ -634,19 +627,18 @@ LABEL_22:
     }
   }
 
-  else if ((v10 & 8) == 0)
+  else if ((v7 & 8) == 0)
   {
     goto LABEL_22;
   }
 
-  logisticRegressionRegularizationL1Ratio = self->_logisticRegressionRegularizationL1Ratio;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 4) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 4) == 0)
   {
 LABEL_23:
-    if ((v10 & 0x20) == 0)
+    if ((v7 & 0x20) == 0)
     {
       goto LABEL_24;
     }
@@ -655,14 +647,13 @@ LABEL_23:
   }
 
 LABEL_42:
-  learningRate = self->_learningRate;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 0x20) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x20) == 0)
   {
 LABEL_24:
-    if ((v10 & 0x100) == 0)
+    if ((v7 & 0x100) == 0)
     {
       goto LABEL_25;
     }
@@ -671,14 +662,13 @@ LABEL_24:
   }
 
 LABEL_43:
-  minIterations = self->_minIterations;
   PBDataWriterWriteUint32Field();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 0x100) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x100) == 0)
   {
 LABEL_25:
-    if ((v10 & 0x800) == 0)
+    if ((v7 & 0x800) == 0)
     {
       goto LABEL_26;
     }
@@ -687,14 +677,13 @@ LABEL_25:
   }
 
 LABEL_44:
-  stoppingThreshold = self->_stoppingThreshold;
   PBDataWriterWriteFloatField();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 0x800) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x800) == 0)
   {
 LABEL_26:
-    if ((v10 & 0x1000) == 0)
+    if ((v7 & 0x1000) == 0)
     {
       goto LABEL_27;
     }
@@ -703,14 +692,13 @@ LABEL_26:
   }
 
 LABEL_45:
-  trainDataNumberOfPositiveSamples = self->_trainDataNumberOfPositiveSamples;
   PBDataWriterWriteUint32Field();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 0x1000) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x1000) == 0)
   {
 LABEL_27:
-    if ((v10 & 0x400) == 0)
+    if ((v7 & 0x400) == 0)
     {
       goto LABEL_28;
     }
@@ -719,14 +707,13 @@ LABEL_27:
   }
 
 LABEL_46:
-  trainDataNumberOfSamples = self->_trainDataNumberOfSamples;
   PBDataWriterWriteUint32Field();
-  toCopy = v24;
-  v10 = self->_has;
-  if ((v10 & 0x400) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 0x400) == 0)
   {
 LABEL_28:
-    if ((v10 & 0x200) == 0)
+    if ((v7 & 0x200) == 0)
     {
       goto LABEL_30;
     }
@@ -735,29 +722,26 @@ LABEL_28:
   }
 
 LABEL_47:
-  trainDataNumberOfDaysWithPositiveSamples = self->_trainDataNumberOfDaysWithPositiveSamples;
   PBDataWriterWriteUint32Field();
-  toCopy = v24;
+  toCopy = v8;
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_29:
-    trainDataNumberOfCandidates = self->_trainDataNumberOfCandidates;
     PBDataWriterWriteUint32Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 
 LABEL_30:
   if (self->_executableType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v24;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x40) != 0)
   {
-    modelAgeInDays = self->_modelAgeInDays;
     PBDataWriterWriteUint32Field();
-    toCopy = v24;
+    toCopy = v8;
   }
 }
 
@@ -1250,7 +1234,6 @@ LABEL_20:
   }
 
   has = self->_has;
-  v9 = *(equalCopy + 58);
   if ((*&has & 0x80000000) != 0)
   {
     if ((*(equalCopy + 58) & 0x8000) == 0)
@@ -1258,7 +1241,6 @@ LABEL_20:
       goto LABEL_106;
     }
 
-    v12 = *(equalCopy + 114);
     if (self->_pipelineEnabled)
     {
       if ((*(equalCopy + 114) & 1) == 0)
@@ -1285,7 +1267,6 @@ LABEL_20:
       goto LABEL_106;
     }
 
-    v13 = *(equalCopy + 113);
     if (self->_hasTrainedModel)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -1312,7 +1293,6 @@ LABEL_20:
       goto LABEL_106;
     }
 
-    v14 = *(equalCopy + 112);
     if (self->_hasDefaultHyperParams)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -1343,42 +1323,42 @@ LABEL_20:
     *&has = self->_has;
   }
 
-  v11 = *(equalCopy + 58);
+  v10 = *(equalCopy + 58);
   if (*&has)
   {
-    if ((v11 & 1) == 0 || self->_avgNumberOfModelWeights != *(equalCopy + 4))
+    if ((v10 & 1) == 0 || self->_avgNumberOfModelWeights != *(equalCopy + 4))
     {
       goto LABEL_106;
     }
   }
 
-  else if (v11)
+  else if (v10)
   {
     goto LABEL_106;
   }
 
   if ((*&has & 2) != 0)
   {
-    if ((v11 & 2) == 0 || self->_avgNumberOfNonZeroModelWeights != *(equalCopy + 5))
+    if ((v10 & 2) == 0 || self->_avgNumberOfNonZeroModelWeights != *(equalCopy + 5))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v11 & 2) != 0)
+  else if ((v10 & 2) != 0)
   {
     goto LABEL_106;
   }
 
   if ((*&has & 0x80) != 0)
   {
-    if ((v11 & 0x80) == 0 || self->_numberOfCandidateModels != *(equalCopy + 22))
+    if ((v10 & 0x80) == 0 || self->_numberOfCandidateModels != *(equalCopy + 22))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v11 & 0x80) != 0)
+  else if ((v10 & 0x80) != 0)
   {
     goto LABEL_106;
   }
@@ -1394,55 +1374,55 @@ LABEL_20:
     *&has = self->_has;
   }
 
-  v16 = *(equalCopy + 58);
+  v12 = *(equalCopy + 58);
   if ((*&has & 0x10) != 0)
   {
-    if ((v16 & 0x10) == 0 || self->_logisticRegressionRegularizationRate != *(equalCopy + 14))
+    if ((v12 & 0x10) == 0 || self->_logisticRegressionRegularizationRate != *(equalCopy + 14))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v16 & 0x10) != 0)
+  else if ((v12 & 0x10) != 0)
   {
     goto LABEL_106;
   }
 
   if ((*&has & 8) != 0)
   {
-    if ((v16 & 8) == 0 || self->_logisticRegressionRegularizationL1Ratio != *(equalCopy + 13))
+    if ((v12 & 8) == 0 || self->_logisticRegressionRegularizationL1Ratio != *(equalCopy + 13))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v16 & 8) != 0)
+  else if ((v12 & 8) != 0)
   {
     goto LABEL_106;
   }
 
   if ((*&has & 4) != 0)
   {
-    if ((v16 & 4) == 0 || self->_learningRate != *(equalCopy + 12))
+    if ((v12 & 4) == 0 || self->_learningRate != *(equalCopy + 12))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v16 & 4) != 0)
+  else if ((v12 & 4) != 0)
   {
     goto LABEL_106;
   }
 
   if ((*&has & 0x20) != 0)
   {
-    if ((v16 & 0x20) == 0 || self->_minIterations != *(equalCopy + 18))
+    if ((v12 & 0x20) == 0 || self->_minIterations != *(equalCopy + 18))
     {
       goto LABEL_106;
     }
   }
 
-  else if ((v16 & 0x20) != 0)
+  else if ((v12 & 0x20) != 0)
   {
     goto LABEL_106;
   }
@@ -1522,30 +1502,30 @@ LABEL_20:
     }
 
 LABEL_106:
-    v19 = 0;
+    v15 = 0;
     goto LABEL_107;
   }
 
 LABEL_101:
-  v18 = *(equalCopy + 58);
+  v14 = *(equalCopy + 58);
   if ((*&has & 0x40) != 0)
   {
-    if ((v18 & 0x40) == 0 || self->_modelAgeInDays != *(equalCopy + 19))
+    if ((v14 & 0x40) == 0 || self->_modelAgeInDays != *(equalCopy + 19))
     {
       goto LABEL_106;
     }
 
-    v19 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v19 = (v18 & 0x40) == 0;
+    v15 = (v14 & 0x40) == 0;
   }
 
 LABEL_107:
 
-  return v19;
+  return v15;
 }
 
 - (unint64_t)hash

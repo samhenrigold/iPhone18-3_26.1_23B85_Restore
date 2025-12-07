@@ -147,7 +147,6 @@ LABEL_13:
 
   if (subKeyPath)
   {
-    subKeyPath = self->_subKeyPath;
     PBDataWriterWriteStringField();
   }
 }

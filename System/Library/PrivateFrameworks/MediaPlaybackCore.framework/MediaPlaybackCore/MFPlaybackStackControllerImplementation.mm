@@ -63,7 +63,7 @@
 
 - (MFPlaybackStackControllerDelegate)delegate
 {
-  v2 = sub_1C5DCB178();
+  v2 = sub_1C5DCB178(self, a2);
 
   return v2;
 }
@@ -72,7 +72,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C5DCB214();
+  sub_1C5DCB214(delegate);
 }
 
 - (BOOL)mediaServicesAvailable
@@ -144,10 +144,9 @@
 - (float)targetRate
 {
   selfCopy = self;
-  sub_1C5DCBDFC();
-  v4 = v3;
+  v3 = sub_1C5DCBDFC();
 
-  return v4;
+  return v3;
 }
 
 - (NSNumber)targetTime
@@ -163,7 +162,7 @@
   selfCopy = self;
   sub_1C5DCBF40();
 
-  sub_1C5D2AA10(0, qword_1ED7DF160);
+  sub_1C5D2AA10(0, qword_1ED7DF160, &protocolRef_MFQueuePlayerItem);
   v3 = sub_1C6016AF0();
 
   return v3;
@@ -195,27 +194,34 @@
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_1C5CD4510;
+  }
+
+  else
+  {
+    v6 = 0;
   }
 
   selfCopy = self;
   sub_1C5DCC190();
-  sub_1C5C74C18(v5);
+  sub_1C5C74C18(v5, v6);
 }
 
 - (void)resetWithReason:(id)reason
 {
   reasonCopy = reason;
   selfCopy = self;
-  sub_1C5DCC340();
+  sub_1C5DCC340(reasonCopy);
 }
 
 - (void)prepareToPlayWithIdentifier:(id)identifier isRequestingImmediatePlayback:(BOOL)playback
 {
+  playbackCopy = playback;
   identifierCopy = identifier;
   selfCopy = self;
-  sub_1C5DCC480();
+  sub_1C5DCC480(identifierCopy, playbackCopy);
 }
 
 - (void)setQueueWithInitialItem:(id)item andPlay:(BOOL)play identifier:(id)identifier completion:(id)completion
@@ -260,10 +266,11 @@
 
 - (void)didEndMigrationWith:(id)with error:(id)error
 {
-  sub_1C6016940();
+  v6 = sub_1C6016940();
+  v8 = v7;
   selfCopy = self;
   errorCopy = error;
-  sub_1C5DCD90C();
+  sub_1C5DCD90C(v6, v8, error);
 }
 
 - (AVPlayerViewController)videoViewController

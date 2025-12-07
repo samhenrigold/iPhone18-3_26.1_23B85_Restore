@@ -50,7 +50,7 @@ void __64___UIViewServiceSessionManager_configureConnection_withContext___block_
   [v1 queuedConnectionInvalidated:WeakRetained];
 }
 
-uint64_t __71___UIViewServiceSessionManager__startOrStopSystemsForBackgroundRunning__block_invoke(uint64_t a1)
+void *__71___UIViewServiceSessionManager__startOrStopSystemsForBackgroundRunning__block_invoke(uint64_t a1)
 {
   BSSetMainThreadPriorityFixedForUI();
   if ([*(a1 + 32) _hasActiveSessions])

@@ -251,23 +251,23 @@
   objc_sync_exit(selfCopy);
   if (observersCopy)
   {
-    v9 = sub_10002C368();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_10002C368(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = [(MNUserOptions *)selfCopy->_userOptions description];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "NavigationSettingsMonitorDidUpdateSettings fired with %@", &v12, 0xCu);
+      v11 = [(MNUserOptions *)selfCopy->_userOptions description];
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "NavigationSettingsMonitorDidUpdateSettings fired with %@", &v13, 0xCu);
     }
 
-    v11 = +[NSNotificationCenter defaultCenter];
-    [v11 postNotificationName:@"NavigationSettingsMonitorDidUpdateSettings" object:selfCopy];
+    v12 = +[NSNotificationCenter defaultCenter];
+    [v12 postNotificationName:@"NavigationSettingsMonitorDidUpdateSettings" object:selfCopy];
   }
 }
 
 - (void)_localeMetricDidChange:(id)change
 {
-  v4 = sub_10002C368();
+  v4 = sub_10002C368(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;

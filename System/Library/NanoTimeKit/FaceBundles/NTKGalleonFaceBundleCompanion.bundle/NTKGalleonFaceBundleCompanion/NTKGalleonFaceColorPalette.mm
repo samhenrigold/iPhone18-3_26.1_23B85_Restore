@@ -111,8 +111,9 @@
   if (self->_compassMode != mode)
   {
     self->_compassMode = mode;
+    identifier = self->_identifier;
     self->_identifier = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, identifier);
   }
 }
 
@@ -121,8 +122,9 @@
   if (self->_nightMode != mode)
   {
     self->_nightMode = mode;
+    identifier = self->_identifier;
     self->_identifier = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, identifier);
   }
 }
 
@@ -131,8 +133,9 @@
   if (self->_editMode != mode)
   {
     self->_editMode = mode;
+    identifier = self->_identifier;
     self->_identifier = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, identifier);
   }
 }
 
@@ -141,8 +144,9 @@
   if (self->_lowPowerMode != mode)
   {
     self->_lowPowerMode = mode;
+    identifier = self->_identifier;
     self->_identifier = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, identifier);
   }
 }
 

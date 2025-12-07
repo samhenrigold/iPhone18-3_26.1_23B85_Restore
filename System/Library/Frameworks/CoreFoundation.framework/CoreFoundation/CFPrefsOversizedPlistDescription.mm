@@ -40,8 +40,8 @@ void __79___CFPrefsOversizedPlistDescription__descriptionOfDictionary_withKeyRed
           v17 = v11 - 2;
           if (v17)
           {
-            v20 = CFStringGetCharacterAtIndex(a2, v12);
-            v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%C{%ld}%C", v16, v17, v20);
+            v19 = CFStringGetCharacterAtIndex(a2, v12);
+            v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"%C{%ld}%C", v16, v17, v19);
           }
 
           else
@@ -71,8 +71,6 @@ void __79___CFPrefsOversizedPlistDescription__descriptionOfDictionary_withKeyRed
 
     CFRelease(cfa[0]);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __79___CFPrefsOversizedPlistDescription__descriptionOfDictionary_withKeyRedaction___block_invoke_2(uint64_t a1, const __CFString *a2)

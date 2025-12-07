@@ -98,9 +98,9 @@ LABEL_10:
 - (void)_deleteZoneWithCurrentUserID:(id)d
 {
   dCopy = d;
-  v36 = 0;
-  v5 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v36];
-  v6 = v36;
+  v38 = 0;
+  v5 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v38];
+  v6 = v38;
   if (v5)
   {
     if (![(CPLEngineScope *)self->_scope scopeType])
@@ -162,58 +162,59 @@ LABEL_35:
     if ([v17 supportsZoneDelete])
     {
       v18 = [CKModifyRecordZonesOperation alloc];
-      v42 = zoneID;
-      v19 = [NSArray arrayWithObjects:&v42 count:1];
-      shareRecordIDToDelete = [v18 initWithRecordZonesToSave:0 recordZoneIDsToDelete:v19];
+      v44 = zoneID;
+      v19 = [NSArray arrayWithObjects:&v44 count:1];
+      v20 = [v18 initWithRecordZonesToSave:0 recordZoneIDsToDelete:v19];
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v21 = sub_100003700();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_100003700(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v38 = zoneID;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Deleting zone %@", buf, 0xCu);
+          v40 = zoneID;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Deleting zone %@", buf, 0xCu);
         }
       }
 
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_1000488E8;
-      v35[3] = &unk_100274370;
-      v35[4] = self;
-      [shareRecordIDToDelete setModifyRecordZonesCompletionBlock:v35];
+      v37[0] = _NSConcreteStackBlock;
+      v37[1] = 3221225472;
+      v37[2] = sub_1000488E8;
+      v37[3] = &unk_100274370;
+      v37[4] = self;
+      [v20 setModifyRecordZonesCompletionBlock:v37];
       cloudKitScope = [v17 cloudKitScope];
-      [(CPLCloudKitTransportTask *)self launchOperation:shareRecordIDToDelete type:CPLCloudKitOperationTypeForScope(cloudKitScope) withContext:0];
+      [(CPLCloudKitTransportTask *)self launchOperation:v20 type:CPLCloudKitOperationTypeForScope(cloudKitScope) withContext:0];
     }
 
     else
     {
       shareRecordIDToDelete = [v17 shareRecordIDToDelete];
+      v20 = shareRecordIDToDelete;
       if (shareRecordIDToDelete)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v24 = sub_100003700();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v26 = sub_100003700(shareRecordIDToDelete);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v38 = shareRecordIDToDelete;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Deleting share record %{public}@", buf, 0xCu);
+            v40 = v20;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Deleting share record %{public}@", buf, 0xCu);
           }
         }
 
-        v25 = [CKModifyRecordsOperation alloc];
-        v41 = shareRecordIDToDelete;
-        v26 = [NSArray arrayWithObjects:&v41 count:1];
-        cloudKitScope = [v25 initWithRecordsToSave:0 recordIDsToDelete:v26];
+        v27 = [CKModifyRecordsOperation alloc];
+        v43 = v20;
+        v28 = [NSArray arrayWithObjects:&v43 count:1];
+        cloudKitScope = [v27 initWithRecordsToSave:0 recordIDsToDelete:v28];
 
-        v34[0] = _NSConcreteStackBlock;
-        v34[1] = 3221225472;
-        v34[2] = sub_100048A44;
-        v34[3] = &unk_100274370;
-        v34[4] = self;
-        [cloudKitScope setModifyRecordsCompletionBlock:v34];
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_100048A44;
+        v36[3] = &unk_100274370;
+        v36[4] = self;
+        [cloudKitScope setModifyRecordsCompletionBlock:v36];
         cloudKitScope2 = [v17 cloudKitScope];
         [(CPLCloudKitTransportTask *)self launchOperation:cloudKitScope type:CPLCloudKitOperationTypeForScope(cloudKitScope2) withContext:0];
       }
@@ -222,18 +223,18 @@ LABEL_35:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v28 = sub_100003700();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v30 = sub_100003700(0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             cloudKitScope3 = [v17 cloudKitScope];
             zoneID2 = [cloudKitScope3 zoneID];
             cpl_zoneName = [zoneID2 cpl_zoneName];
-            v29 = [CPLScopeChange descriptionForScopeType:[(CPLEngineScope *)self->_scope scopeType]];
+            v31 = [CPLScopeChange descriptionForScopeType:[(CPLEngineScope *)self->_scope scopeType]];
             *buf = 138543618;
-            v38 = cpl_zoneName;
-            v39 = 2112;
-            v40 = v29;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Trying to delete %{public}@ that does not provide ways to do so (scope type: %@)", buf, 0x16u);
+            v40 = cpl_zoneName;
+            v41 = 2112;
+            v42 = v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Trying to delete %{public}@ that does not provide ways to do so (scope type: %@)", buf, 0x16u);
           }
         }
 
@@ -243,9 +244,9 @@ LABEL_35:
           goto LABEL_33;
         }
 
-        v30 = self->_completionHandler;
+        v32 = self->_completionHandler;
         cloudKitScope = +[CPLErrors notImplementedError];
-        v30[2](v30, cloudKitScope);
+        v32[2](v32, cloudKitScope);
       }
     }
 

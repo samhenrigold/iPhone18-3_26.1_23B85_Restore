@@ -22,9 +22,11 @@
 
 uint64_t __56__CNDonatedMeCardPersistenceHelper_propertyGroupItemLog__block_invoke()
 {
-  propertyGroupItemLog_cn_once_object_4 = os_log_create("com.apple.contacts", "contacts-ui");
+  v0 = os_log_create("com.apple.contacts", "contacts-ui");
+  v1 = propertyGroupItemLog_cn_once_object_4;
+  propertyGroupItemLog_cn_once_object_4 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)defaultKeysForValuesToPersist

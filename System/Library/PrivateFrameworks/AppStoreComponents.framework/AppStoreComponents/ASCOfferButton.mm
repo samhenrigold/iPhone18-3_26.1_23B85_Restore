@@ -1,10 +1,10 @@
 @interface ASCOfferButton
 + (id)indeterminateProgressImageFittingSize:(void *)size forTheme:;
-+ (id)progressImageWithPercent:(void *)percent fittingSize:(void *)size forTheme:(char)theme cancellable:;
++ (id)progressImageWithPercent:(void *)percent fittingSize:(char)size forTheme:(double)theme cancellable:;
 + (id)progressStateImageFittingSize:(id)size forTheme:(id)theme startPercent:(double)percent endPercent:(double)endPercent useFullImageSize:(BOOL)imageSize;
 + (id)progressTransitionImageFittingSize:(void *)size forTheme:;
 + (id)smallTitleFontForText:(id)text compatibleWithTraitCollection:(id)collection;
-+ (id)subtitleFontFittingSize:forTheme:compatibleWithTraitCollection:;
++ (id)subtitleFontFittingSize:(uint64_t)size forTheme:compatibleWithTraitCollection:;
 + (id)textBackgroundImageFittingSize:(void *)size forTheme:;
 + (id)titleFontForText:(void *)text fittingSize:(void *)size representingMetadata:(void *)metadata compatibleWithTraitCollection:;
 - (ASCOfferButton)initWithCoder:(id)coder;
@@ -85,7 +85,7 @@
   {
     if ([metadata isProgress])
     {
-      v11 = @"AX_OFFER_BUTTON_LABEL_LOADING";
+      v9 = @"AX_OFFER_BUTTON_LABEL_LOADING";
     }
 
     else
@@ -109,7 +109,7 @@
           [v5 addObject:subtitleLabelIfLoaded2];
         }
 
-        v9 = ASCAXLabelForElements(v5);
+        v8 = ASCAXLabelForElements(v5);
         goto LABEL_16;
       }
 
@@ -122,7 +122,7 @@ LABEL_2:
 
       if ([metadata isDeeplink])
       {
-        v11 = @"AX_OFFER_BUTTON_LABEL_DEEPLINK";
+        v9 = @"AX_OFFER_BUTTON_LABEL_DEEPLINK";
       }
 
       else
@@ -132,11 +132,11 @@ LABEL_2:
           ASCUnknownEnumCase(@"ASCOfferMetadata", metadata);
         }
 
-        v11 = @"AX_OFFER_BUTTON_LABEL_VIEW_IN_APP_STORE";
+        v9 = @"AX_OFFER_BUTTON_LABEL_VIEW_IN_APP_STORE";
       }
     }
 
-    v4 = ASCLocalizedString(v11, v10);
+    v4 = ASCLocalizedString(v9);
     goto LABEL_18;
   }
 
@@ -146,9 +146,9 @@ LABEL_2:
 
   if (v7)
   {
-    v9 = ASCLocalizedString(@"AX_OFFER_BUTTON_LABEL_REDOWNLOAD", v8);
+    v8 = ASCLocalizedString(@"AX_OFFER_BUTTON_LABEL_REDOWNLOAD");
 LABEL_16:
-    v4 = v9;
+    v4 = v8;
     goto LABEL_17;
   }
 
@@ -165,7 +165,7 @@ LABEL_18:
   metadata = [(ASCOfferButton *)self metadata];
   if ([metadata isProgress])
   {
-    v3 = ASCLocalizedPlatformString(@"AX_OFFER_BUTTON_HINT_CANCEL");
+    v3 = ASCLocalizedPlatformString();
   }
 
   else
@@ -310,7 +310,7 @@ LABEL_7:
   return v14;
 }
 
-+ (id)subtitleFontFittingSize:forTheme:compatibleWithTraitCollection:
++ (id)subtitleFontFittingSize:(uint64_t)size forTheme:compatibleWithTraitCollection:
 {
   objc_opt_self();
   if (subtitleFontFittingSize_forTheme_compatibleWithTraitCollection__onceToken != -1)
@@ -318,9 +318,9 @@ LABEL_7:
     +[ASCOfferButton subtitleFontFittingSize:forTheme:compatibleWithTraitCollection:];
   }
 
-  v0 = subtitleFontFittingSize_forTheme_compatibleWithTraitCollection__subtitleFont;
+  v1 = subtitleFontFittingSize_forTheme_compatibleWithTraitCollection__subtitleFont;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __81__ASCOfferButton_subtitleFontFittingSize_forTheme_compatibleWithTraitCollection___block_invoke()
@@ -506,12 +506,12 @@ void __98__ASCOfferButton_progressStateImageFittingSize_forTheme_startPercent_en
   return v6;
 }
 
-+ (id)progressImageWithPercent:(void *)percent fittingSize:(void *)size forTheme:(char)theme cancellable:
++ (id)progressImageWithPercent:(void *)percent fittingSize:(char)size forTheme:(double)theme cancellable:
 {
-  sizeCopy = size;
   percentCopy = percent;
+  v9 = a2;
   objc_opt_self();
-  [__ASCLayoutProxy offerProgressDiameterForSize:percentCopy];
+  [__ASCLayoutProxy offerProgressDiameterForSize:v9];
   v11 = v10;
 
   v12 = [[ASCImageRenderer alloc] initWithSize:v11, v11];
@@ -519,10 +519,10 @@ void __98__ASCOfferButton_progressStateImageFittingSize_forTheme_startPercent_en
   v16[1] = 3221225472;
   v16[2] = __76__ASCOfferButton_progressImageWithPercent_fittingSize_forTheme_cancellable___block_invoke;
   v16[3] = &unk_2781CC948;
-  v17 = sizeCopy;
-  selfCopy = self;
+  v17 = percentCopy;
   themeCopy = theme;
-  v13 = sizeCopy;
+  sizeCopy = size;
+  v13 = percentCopy;
   v14 = [(ASCImageRenderer *)v12 imageWithActions:v16];
 
   return v14;
@@ -798,7 +798,7 @@ LABEL_10:
     v7 = [(ASCOfferButton *)self size];
     theme = [(ASCOfferButton *)self theme];
     traitCollection = [(ASCOfferButton *)self traitCollection];
-    v10 = +[ASCOfferButton subtitleFontFittingSize:forTheme:compatibleWithTraitCollection:];
+    v10 = [ASCOfferButton subtitleFontFittingSize:? forTheme:? compatibleWithTraitCollection:?];
     [v5 setFont:v10];
 
     font = [v5 font];
@@ -880,7 +880,7 @@ LABEL_10:
       v26 = v25;
       v22 = [(ASCOfferButton *)self size];
       theme3 = [(ASCOfferButton *)self theme];
-      [(ASCOfferButton *)v26 progressImageWithPercent:v22 fittingSize:theme3 forTheme:[(ASCOfferMetadata *)imageView6 cancellable] cancellable:?];
+      [ASCOfferButton progressImageWithPercent:v22 fittingSize:theme3 forTheme:[(ASCOfferMetadata *)imageView6 cancellable] cancellable:v26];
     }
     secondaryLabelColor = ;
     imageView5 = [(ASCOfferButton *)self imageView];
@@ -1720,7 +1720,7 @@ uint64_t __54__ASCOfferButton_transitionToMetadata_withCompletion___block_invoke
       v10 = v9;
       v7 = [(ASCOfferButton *)self size];
       theme = [(ASCOfferButton *)self theme];
-      [(ASCOfferButton *)v10 progressImageWithPercent:v7 fittingSize:theme forTheme:cancellable cancellable:?];
+      [ASCOfferButton progressImageWithPercent:v7 fittingSize:theme forTheme:cancellable cancellable:v10];
     }
     v11 = ;
     imageView = [(ASCOfferButton *)self imageView];

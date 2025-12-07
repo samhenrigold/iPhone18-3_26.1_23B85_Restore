@@ -60,20 +60,19 @@ LABEL_6:
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
   v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EFC11D0, &qword_24AF3A970);
-  v16 = *(*(v15 - 8) + 64);
   MEMORY[0x28223BE20](v15 - 8);
-  v18 = &v27 - v17;
+  v17 = &v26 - v16;
   if (l)
   {
     sub_24AF3512C();
-    v19 = sub_24AF3513C();
-    (*(*(v19 - 8) + 56))(v18, 0, 1, v19);
+    v18 = sub_24AF3513C();
+    (*(*(v18 - 8) + 56))(v17, 0, 1, v18);
   }
 
   else
   {
-    v20 = sub_24AF3513C();
-    (*(*(v20 - 8) + 56))(v18, 1, 1, v20);
+    v19 = sub_24AF3513C();
+    (*(*(v19 - 8) + 56))(v17, 1, 1, v19);
   }
 
   if (metadata)
@@ -83,22 +82,22 @@ LABEL_6:
 
   if (d)
   {
-    v21 = sub_24AF353AC();
-    d = v22;
+    v20 = sub_24AF353AC();
+    d = v21;
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   serviceCopy = service;
   accountCopy = account;
   contextCopy = context;
   selfCopy = self;
-  sub_24AF2B978(serviceCopy, accountCopy, v18, metadata, v21, d, contextCopy);
+  sub_24AF2B978(serviceCopy, accountCopy, v17, metadata, v20, d, contextCopy);
 
-  sub_24AEE2E10(v18, &unk_27EFC11D0, &qword_24AF3A970);
+  sub_24AEE2E10(v17, &unk_27EFC11D0, &qword_24AF3A970);
 }
 
 - (void)service:(id)service account:(id)account incomingMessage:(id)message fromID:(id)d context:(id)context

@@ -1,5 +1,6 @@
 @interface PPInternalFeedback
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
++ (id)fromBaseFeedback:(id)feedback storeType:(unsigned __int8)type;
 - (BOOL)isEqual:(id)equal;
 - (PPInternalFeedback)initWithFeedbackItems:(id)items timestamp:(id)timestamp clientIdentifier:(id)identifier clientBundleId:(id)id mappingId:(id)mappingId;
 - (PPInternalFeedback)initWithFeedbackItems:(id)items timestamp:(id)timestamp clientIdentifier:(id)identifier clientBundleId:(id)id mappingId:(id)mappingId storeType:(unsigned __int8)type build:(id)build;
@@ -89,30 +90,30 @@ LABEL_15:
 
 - (id)serialize
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   selfCopy = self;
   feedbackItems = [(PPBaseFeedback *)self feedbackItems];
-  v6 = [feedbackItems countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [feedbackItems countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(feedbackItems);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = objc_opt_new();
         itemString = [v10 itemString];
         [v11 setItemString:itemString];
@@ -121,7 +122,7 @@ LABEL_15:
         [v4 addObject:v11];
       }
 
-      v7 = [feedbackItems countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [feedbackItems countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -146,8 +147,6 @@ LABEL_15:
   [v3 setBuild:build];
 
   data = [v3 data];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -189,45 +188,69 @@ LABEL_15:
   return v21;
 }
 
++ (id)fromBaseFeedback:(id)feedback storeType:(unsigned __int8)type
+{
+  typeCopy = type;
+  feedbackCopy = feedback;
+  v6 = [PPInternalFeedback alloc];
+  feedbackItems = [feedbackCopy feedbackItems];
+  timestamp = [feedbackCopy timestamp];
+  clientIdentifier = [feedbackCopy clientIdentifier];
+  clientBundleId = [feedbackCopy clientBundleId];
+  mappingId = [feedbackCopy mappingId];
+
+  osBuild = [MEMORY[0x277D3A578] osBuild];
+  v13 = osBuild;
+  v14 = @"unknown-build";
+  if (osBuild)
+  {
+    v14 = osBuild;
+  }
+
+  v15 = [(PPInternalFeedback *)v6 initWithFeedbackItems:feedbackItems timestamp:timestamp clientIdentifier:clientIdentifier clientBundleId:clientBundleId mappingId:mappingId storeType:typeCopy build:v14];
+
+  return v15;
+}
+
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (version == 1)
   {
-    v28 = dataCopy;
+    v27 = dataCopy;
     v6 = [[PPStorableFeedback alloc] initWithData:dataCopy];
     v7 = objc_alloc(MEMORY[0x277CBEAA8]);
     [(PPStorableFeedback *)v6 secondsFrom1970];
-    v27 = [v7 initWithTimeIntervalSince1970:?];
+    v26 = [v7 initWithTimeIntervalSince1970:?];
     v8 = objc_opt_new();
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     feedbackItems = [(PPStorableFeedback *)v6 feedbackItems];
-    v10 = [feedbackItems countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v10 = [feedbackItems countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(feedbackItems);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
+          v14 = *(*(&v28 + 1) + 8 * i);
           v15 = objc_alloc(MEMORY[0x277D3A3C0]);
           itemString = [v14 itemString];
           v17 = [v15 initWithItemString:itemString itemFeedbackType:{objc_msgSend(v14, "feedbackType")}];
           [v8 addObject:v17];
         }
 
-        v11 = [feedbackItems countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v11 = [feedbackItems countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v11);
@@ -239,17 +262,15 @@ LABEL_15:
     mappingId = [(PPStorableFeedback *)v6 mappingId];
     storeType = [(PPStorableFeedback *)v6 storeType];
     build = [(PPStorableFeedback *)v6 build];
-    v24 = [(PPInternalFeedback *)v18 initWithFeedbackItems:v8 timestamp:v27 clientIdentifier:clientIdentifier clientBundleId:clientBundleIdentifier mappingId:mappingId storeType:storeType build:build];
+    v24 = [(PPInternalFeedback *)v18 initWithFeedbackItems:v8 timestamp:v26 clientIdentifier:clientIdentifier clientBundleId:clientBundleIdentifier mappingId:mappingId storeType:storeType build:build];
 
-    dataCopy = v28;
+    dataCopy = v27;
   }
 
   else
   {
     v24 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

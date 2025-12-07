@@ -184,41 +184,41 @@
 
 - (UIEdgeInsets)safeAreaInsets
 {
-  [(BCLayoutConfigurationEnvironment *)self safeAreaInsetsAdjustingForNotch:1];
-  v7 = v3;
+  v3 = [(BCLayoutConfigurationEnvironment *)self safeAreaInsetsAdjustingForNotch:1];
   v8 = v4;
   v9 = v5;
   v10 = v6;
-  if (*&qword_346198 != v4 || *&qword_346190 != v3 || *&qword_3461A8 != v6 || *&qword_3461A0 != v5)
+  v11 = v7;
+  if (*&qword_346198 != v5 || *&qword_346190 != v4 || *&qword_3461A8 != v7 || *&qword_3461A0 != v6)
   {
-    qword_346190 = *&v3;
-    qword_346198 = *&v4;
-    qword_3461A0 = *&v5;
-    qword_3461A8 = *&v6;
-    v14 = BKSemanticLayoutInternalLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    qword_346190 = *&v4;
+    qword_346198 = *&v5;
+    qword_3461A0 = *&v6;
+    qword_3461A8 = *&v7;
+    v15 = BKSemanticLayoutInternalLog(v3);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24.top = v7;
-      v24.left = v8;
-      v24.bottom = v9;
-      v24.right = v10;
-      v15 = NSStringFromUIEdgeInsets(v24);
-      v20 = 134218242;
+      v25.top = v8;
+      v25.left = v9;
+      v25.bottom = v10;
+      v25.right = v11;
+      v16 = NSStringFromUIEdgeInsets(v25);
+      v21 = 134218242;
       selfCopy = self;
-      v22 = 2112;
-      v23 = v15;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Environment %p safe insets %@", &v20, 0x16u);
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Environment %p safe insets %@", &v21, 0x16u);
     }
   }
 
-  v16 = v7;
   v17 = v8;
   v18 = v9;
   v19 = v10;
-  result.right = v19;
-  result.bottom = v18;
-  result.left = v17;
-  result.top = v16;
+  v20 = v11;
+  result.right = v20;
+  result.bottom = v19;
+  result.left = v18;
+  result.top = v17;
   return result;
 }
 

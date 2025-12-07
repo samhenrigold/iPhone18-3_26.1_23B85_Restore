@@ -32,7 +32,7 @@
 
 - (id)executeRequest:(id)request completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
@@ -40,66 +40,64 @@
   [timeProvider timestamp];
   v11 = v10;
 
-  v12 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = CNALoggingContextTriage(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier = [requestCopy triageIdentifier];
     searchString = [requestCopy searchString];
     *buf = 138543618;
-    v31 = triageIdentifier;
-    v32 = 2048;
-    v33 = [searchString length];
-    _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Will search (%lu letters)", buf, 0x16u);
+    v34 = triageIdentifier;
+    v35 = 2048;
+    v36 = [searchString length];
+    _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Will search (%lu letters)", buf, 0x16u);
   }
 
-  v15 = CNALoggingContextTriage();
-  v16 = os_signpost_id_generate(v15);
+  v17 = CNALoggingContextTriage(v16);
+  v18 = os_signpost_id_generate(v17);
 
-  v17 = CNALoggingContextPerformance();
-  v18 = v17;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v20 = CNALoggingContextPerformance(v19);
+  v21 = v20;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "Searching Directory Servers", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "Searching Directory Servers", "", buf, 2u);
   }
 
-  v19 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v23 = CNALoggingContextDebug(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v31 = requestCopy;
-    _os_log_impl(&dword_2155FE000, v19, OS_LOG_TYPE_DEFAULT, "Executing request %p against directory servers", buf, 0xCu);
+    v34 = requestCopy;
+    _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_DEFAULT, "Executing request %p against directory servers", buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __72__CNAutocompleteDirectoryServerSearch_executeRequest_completionHandler___block_invoke;
-  v25[3] = &unk_2781C4608;
-  v27 = handlerCopy;
-  v28 = v16;
-  v29 = v11;
-  v26 = requestCopy;
-  v20 = handlerCopy;
-  v21 = requestCopy;
-  v22 = [(CNAutocompleteDirectoryServerSearch *)self fetchContactsForFetchRequest:v21 completionHandler:v25];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __72__CNAutocompleteDirectoryServerSearch_executeRequest_completionHandler___block_invoke;
+  v28[3] = &unk_2781C4608;
+  v30 = handlerCopy;
+  v31 = v18;
+  v32 = v11;
+  v29 = requestCopy;
+  v24 = handlerCopy;
+  v25 = requestCopy;
+  v26 = [(CNAutocompleteDirectoryServerSearch *)self fetchContactsForFetchRequest:v25 completionHandler:v28];
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v26;
 }
 
 void __72__CNAutocompleteDirectoryServerSearch_executeRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = CNALoggingContextPerformance();
+  v7 = CNALoggingContextPerformance(v6);
   v8 = v7;
   v9 = *(a1 + 48);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    LOWORD(v27) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v8, OS_SIGNPOST_INTERVAL_END, v9, "Searching Directory Servers", "", &v27, 2u);
+    LOWORD(v28) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v8, OS_SIGNPOST_INTERVAL_END, v9, "Searching Directory Servers", "", &v28, 2u);
   }
 
   v10 = [MEMORY[0x277CFBE10] currentEnvironment];
@@ -108,73 +106,72 @@ void __72__CNAutocompleteDirectoryServerSearch_executeRequest_completionHandler_
   v13 = v12;
 
   v14 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v13 - *(a1 + 56)];
-  v15 = CNALoggingContextPerformance();
+  v15 = CNALoggingContextPerformance(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-    v27 = 138412546;
-    v28 = v16;
-    v29 = 2114;
-    v30 = v14;
-    _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_INFO, "Time to fetch %@ contacts on directory servers: %{public}@", &v27, 0x16u);
+    v28 = 138412546;
+    v29 = v16;
+    v30 = 2114;
+    v31 = v14;
+    _os_log_impl(&dword_2155FE000, v15, OS_LOG_TYPE_INFO, "Time to fetch %@ contacts on directory servers: %{public}@", &v28, 0x16u);
   }
 
-  v17 = CNALoggingContextTriage();
-  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  v18 = CNALoggingContextTriage(v17);
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v18)
+    if (v19)
     {
-      v19 = [*(a1 + 32) triageIdentifier];
-      v27 = 138543874;
-      v28 = v19;
-      v29 = 2114;
-      v30 = v14;
-      v31 = 2114;
-      v32 = v6;
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Search failed (%{public}@): %{public}@", &v27, 0x20u);
+      v20 = [*(a1 + 32) triageIdentifier];
+      v28 = 138543874;
+      v29 = v20;
+      v30 = 2114;
+      v31 = v14;
+      v32 = 2114;
+      v33 = v6;
+      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Search failed (%{public}@): %{public}@", &v28, 0x20u);
     }
   }
 
   else
   {
-    if (v18)
+    if (v19)
     {
-      v20 = [*(a1 + 32) triageIdentifier];
-      v21 = [v5 count];
+      v21 = [*(a1 + 32) triageIdentifier];
       v22 = [v5 count];
-      v23 = "results";
-      v27 = 138544130;
-      v29 = 2048;
-      v28 = v20;
-      if (v22 == 1)
+      v23 = [v5 count];
+      v24 = "results";
+      v28 = 138544130;
+      v30 = 2048;
+      v29 = v21;
+      if (v23 == 1)
       {
-        v23 = "result";
+        v24 = "result";
       }
 
-      v30 = v21;
-      v31 = 2080;
-      v32 = v23;
-      v33 = 2114;
-      v34 = v14;
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Search complete (%lu %s, %{public}@)", &v27, 0x2Au);
+      v31 = v22;
+      v32 = 2080;
+      v33 = v24;
+      v34 = 2114;
+      v35 = v14;
+      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Directory Servers: Search complete (%lu %s, %{public}@)", &v28, 0x2Au);
     }
 
-    v17 = CNALoggingContextDebug();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = CNALoggingContextDebug(v25);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-      v25 = [v5 _cn_take:200];
-      v27 = 138412546;
-      v28 = v24;
-      v29 = 2112;
-      v30 = v25;
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Directory Server results (first 200 out of %@): %@", &v27, 0x16u);
+      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
+      v27 = [v5 _cn_take:200];
+      v28 = 138412546;
+      v29 = v26;
+      v30 = 2112;
+      v31 = v27;
+      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "Directory Server results (first 200 out of %@): %@", &v28, 0x16u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchContactsForFetchRequest:(id)request completionHandler:(id)handler

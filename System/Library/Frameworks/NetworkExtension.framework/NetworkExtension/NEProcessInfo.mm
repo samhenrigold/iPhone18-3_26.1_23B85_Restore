@@ -16,44 +16,38 @@
 
 + (id)copyUUIDsForPID:(int)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (proc_pidpath(d, buffer, 0x400u) < 0)
   {
-    v5 = 0;
+    return 0;
   }
 
-  else
-  {
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buffer];
-    v5 = [NEProcessInfo copyUUIDsForExecutable:v4];
-  }
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buffer];
+  v5 = [NEProcessInfo copyUUIDsForExecutable:v4];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (BOOL)is64bitCapable
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  v7 = 4;
-  if (sysctlbyname("hw.cpu64bit_capable", &v8, &v7, 0, 0))
+  v10 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v6 = 4;
+  if (sysctlbyname("hw.cpu64bit_capable", &v7, &v6, 0, 0))
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = __error();
-      v6 = strerror(*v5);
+      v4 = __error();
+      v5 = strerror(*v4);
       *buf = 136315138;
-      v10 = v6;
+      v9 = v5;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Failed to get 64 bit capability: %s", buf, 0xCu);
     }
   }
 
-  result = v8 != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 != 0;
 }
 
 + (id)copyNEHelperUUIDs
@@ -155,7 +149,7 @@ uint64_t __28__NEProcessInfo_initGlobals__block_invoke()
 
 void __40__NEProcessInfo_copyUUIDsForExecutable___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [g_executableUUIDMapping objectForKeyedSubscript:v2];
 
@@ -169,13 +163,13 @@ void __40__NEProcessInfo_copyUUIDsForExecutable___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v7 = [g_executableUUIDMapping objectForKeyedSubscript:v2];
-      v11 = 136315650;
-      v12 = "+[NEProcessInfo copyUUIDsForExecutable:]_block_invoke";
-      v13 = 2112;
-      v14 = v2;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%s: cached %@ UUID %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "+[NEProcessInfo copyUUIDsForExecutable:]_block_invoke";
+      v12 = 2112;
+      v13 = v2;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%s: cached %@ UUID %@", &v10, 0x20u);
     }
   }
 
@@ -194,29 +188,25 @@ void __40__NEProcessInfo_copyUUIDsForExecutable___block_invoke(uint64_t a1)
       v9 = ne_log_obj();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315394;
-        v12 = "+[NEProcessInfo copyUUIDsForExecutable:]_block_invoke";
-        v13 = 2112;
-        v14 = v2;
-        _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%s: failed to get UUIDs for %@", &v11, 0x16u);
+        v10 = 136315394;
+        v11 = "+[NEProcessInfo copyUUIDsForExecutable:]_block_invoke";
+        v12 = 2112;
+        v13 = v2;
+        _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%s: failed to get UUIDs for %@", &v10, 0x16u);
       }
 
       v6 = 0;
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)copyUUIDsFromExecutable:(uint64_t)executable
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   if (!a2)
   {
-LABEL_10:
-    v7 = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   v3 = open(a2, 0);
@@ -225,35 +215,35 @@ LABEL_10:
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v28 = __error();
-      v29 = strerror(*v28);
+      v27 = __error();
+      v28 = strerror(*v27);
       host_info_out[0] = 136315650;
       *&host_info_out[1] = "+[NEProcessInfo copyUUIDsFromExecutable:]";
       LOWORD(host_info_out[3]) = 2080;
       *(&host_info_out[3] + 2) = a2;
       HIWORD(host_info_out[5]) = 2080;
-      *&host_info_out[6] = v29;
+      *&host_info_out[6] = v28;
       _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "%s: cannot open %s: %s", host_info_out, 0x20u);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v4 = v3;
-  v42 = 0;
-  if (read(v3, &v42, 4uLL) != 4)
+  v41 = 0;
+  if (read(v3, &v41, 4uLL) != 4)
   {
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v30 = __error();
-      v31 = strerror(*v30);
+      v29 = __error();
+      v30 = strerror(*v29);
       host_info_out[0] = 136315650;
       *&host_info_out[1] = "+[NEProcessInfo copyUUIDsFromExecutable:]";
       LOWORD(host_info_out[3]) = 2080;
       *(&host_info_out[3] + 2) = a2;
       HIWORD(host_info_out[5]) = 2080;
-      *&host_info_out[6] = v31;
+      *&host_info_out[6] = v30;
       _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%s: cannot read magic for %s: %s", host_info_out, 0x20u);
     }
 
@@ -261,14 +251,14 @@ LABEL_10:
   }
 
   lseek(v4, 0, 0);
-  if ((v42 + 17958194) < 2)
+  if ((v41 + 17958194) < 2)
   {
     v5 = [NEProcessInfo copyUUIDForSingleArch:v4];
     v6 = v5;
     if (v5)
     {
-      v47 = v5;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
+      v46 = v5;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v46 count:1];
     }
 
     else
@@ -288,13 +278,13 @@ LABEL_10:
   }
 
   v7 = 0;
-  if (v42 != -1095041334)
+  if (v41 != -1095041334)
   {
     goto LABEL_23;
   }
 
   v10 = objc_opt_self();
-  v53 = 0u;
+  v52 = 0u;
   memset(host_info_out, 0, sizeof(host_info_out));
   host_info_outCnt = 12;
   v11 = MEMORY[0x1BFAFA980](v10);
@@ -304,7 +294,7 @@ LABEL_10:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+      v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
       v13 = "%s: cannot get host_info";
 LABEL_43:
       _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
@@ -314,14 +304,14 @@ LABEL_43:
     goto LABEL_46;
   }
 
-  v45 = 0;
-  if (read(v4, &v45, 8uLL) != 8)
+  v44 = 0;
+  if (read(v4, &v44, 8uLL) != 8)
   {
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+      v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
       v13 = "%s: failed to read file";
       goto LABEL_43;
     }
@@ -333,19 +323,19 @@ LABEL_14:
     goto LABEL_23;
   }
 
-  v18 = HIDWORD(v45);
-  v19 = bswap32(HIDWORD(v45));
-  v20 = ne_log_obj();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v17 = HIDWORD(v44);
+  v18 = bswap32(HIDWORD(v44));
+  v19 = ne_log_obj();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-    v50 = 1024;
-    LODWORD(v51[0]) = v19;
-    _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "%s: number of arch detected: %d", buf, 0x12u);
+    v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+    v49 = 1024;
+    LODWORD(v50[0]) = v18;
+    _os_log_debug_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEBUG, "%s: number of arch detected: %d", buf, 0x12u);
   }
 
-  if (!v18)
+  if (!v17)
   {
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -357,136 +347,136 @@ LABEL_14:
     goto LABEL_46;
   }
 
-  if (v19 >= 0x20)
+  if (v18 >= 0x20)
   {
-    v21 = 32;
+    v20 = 32;
   }
 
   else
   {
-    v21 = v19;
+    v20 = v18;
   }
 
-  v22 = malloc_type_malloc(4 * (v21 + 4 * v21), 0x1000040A86A77D5uLL);
-  if (!v22)
+  v21 = malloc_type_malloc(4 * (v20 + 4 * v20), 0x1000040A86A77D5uLL);
+  if (!v21)
   {
     goto LABEL_14;
   }
 
-  v23 = v22;
-  v24 = v22;
-  v25 = v21;
+  v22 = v21;
+  v23 = v21;
+  v24 = v20;
   do
   {
-    v43 = 0uLL;
-    v44 = 0;
-    if (read(v4, &v43, 0x14uLL) != 20)
+    v42 = 0uLL;
+    v43 = 0;
+    if (read(v4, &v42, 0x14uLL) != 20)
     {
-      v32 = ne_log_obj();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = ne_log_obj();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-        _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%s: failed to read arch info", buf, 0xCu);
+        v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+        _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%s: failed to read arch info", buf, 0xCu);
       }
 
       v7 = 0;
       goto LABEL_74;
     }
 
-    LODWORD(v43) = bswap32(v43);
-    v26 = ne_log_obj();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    LODWORD(v42) = bswap32(v42);
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-      v50 = 1024;
-      LODWORD(v51[0]) = v43;
-      WORD2(v51[0]) = 1024;
-      *(v51 + 6) = v43;
-      _os_log_debug_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEBUG, "%s: cpu type %X (%d)", buf, 0x18u);
+      v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+      v49 = 1024;
+      LODWORD(v50[0]) = v42;
+      WORD2(v50[0]) = 1024;
+      *(v50 + 6) = v42;
+      _os_log_debug_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEBUG, "%s: cpu type %X (%d)", buf, 0x18u);
     }
 
-    DWORD2(v43) = bswap32(DWORD2(v43));
-    v27 = v43;
-    v24[4] = v44;
-    *v24 = v27;
-    v24 += 5;
-    --v25;
+    DWORD2(v42) = bswap32(DWORD2(v42));
+    v26 = v42;
+    v23[4] = v43;
+    *v23 = v26;
+    v23 += 5;
+    --v24;
   }
 
-  while (v25);
+  while (v24);
   v7 = 0;
-  v33 = v23 + 2;
+  v32 = v22 + 2;
   do
   {
-    v34 = *v33;
-    if (!*v33)
+    v33 = *v32;
+    if (!*v32)
     {
-      v37 = ne_log_obj();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = ne_log_obj();
+      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_73;
       }
 
       *buf = 136315138;
-      v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-      v38 = "%s: invalid offset";
-      v39 = v37;
-      v40 = 12;
+      v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+      v37 = "%s: invalid offset";
+      v38 = v36;
+      v39 = 12;
 LABEL_65:
-      _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, v38, buf, v40);
+      _os_log_error_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_ERROR, v37, buf, v39);
       goto LABEL_73;
     }
 
-    v35 = *(v33 - 2);
-    if (lseek(v4, *v33, 0) == -1)
+    v34 = *(v32 - 2);
+    if (lseek(v4, *v32, 0) == -1)
     {
-      v37 = ne_log_obj();
-      if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = ne_log_obj();
+      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_73;
       }
 
       *buf = 136315394;
-      v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-      v50 = 1024;
-      LODWORD(v51[0]) = v34;
-      v38 = "%s: failed to seek to offset %u";
-      v39 = v37;
-      v40 = 18;
+      v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+      v49 = 1024;
+      LODWORD(v50[0]) = v33;
+      v37 = "%s: failed to seek to offset %u";
+      v38 = v36;
+      v39 = 18;
       goto LABEL_65;
     }
 
-    v36 = [NEProcessInfo copyUUIDForSingleArch:v4];
-    if (!v36)
+    v35 = [NEProcessInfo copyUUIDForSingleArch:v4];
+    if (!v35)
     {
-      v41 = ne_log_obj();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = ne_log_obj();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-        v50 = 1024;
-        LODWORD(v51[0]) = v34;
-        _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "%s: failed to get uuid for offset %u", buf, 0x12u);
+        v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+        v49 = 1024;
+        LODWORD(v50[0]) = v33;
+        _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%s: failed to get uuid for offset %u", buf, 0x12u);
       }
 
-      v37 = 0;
+      v36 = 0;
       goto LABEL_72;
     }
 
-    v37 = v36;
+    v36 = v35;
     if (!v7)
     {
       v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if (!v7)
       {
-        v41 = ne_log_obj();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v40 = ne_log_obj();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-          _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, "%s: failed allocate UUID array", buf, 0xCu);
+          v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+          _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%s: failed allocate UUID array", buf, 0xCu);
         }
 
         v7 = 0;
@@ -496,36 +486,36 @@ LABEL_72:
       }
     }
 
-    if (v35 == host_info_out[3])
+    if (v34 == host_info_out[3])
     {
-      [v7 insertObject:v37 atIndex:0];
+      [v7 insertObject:v36 atIndex:0];
     }
 
     else
     {
-      [v7 addObject:v37];
+      [v7 addObject:v36];
     }
 
-    v33 += 5;
+    v32 += 5;
 
-    --v21;
+    --v20;
   }
 
-  while (v21);
-  v37 = ne_log_obj();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  while (v20);
+  v36 = ne_log_obj();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v49 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
-    v50 = 2112;
-    v51[0] = v7;
-    _os_log_debug_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_DEBUG, "%s: uuids %@", buf, 0x16u);
+    v48 = "+[NEProcessInfo copyUUIDsForFatBinary:]";
+    v49 = 2112;
+    v50[0] = v7;
+    _os_log_debug_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_DEBUG, "%s: uuids %@", buf, 0x16u);
   }
 
 LABEL_73:
 
 LABEL_74:
-  free(v23);
+  free(v22);
 LABEL_23:
   close(v4);
   v15 = ne_log_obj();
@@ -538,69 +528,64 @@ LABEL_23:
     _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "%s: UUIDs %@", host_info_out, 0x16u);
   }
 
-LABEL_26:
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (uint64_t)copyUUIDForSingleArch:(uint64_t)arch
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v10[0] = 0;
-  v10[1] = 0;
-  v12 = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   v11 = 0;
-  if (read(a2, v10, 0x1CuLL) == 28)
+  v10 = 0;
+  if (read(a2, v9, 0x1CuLL) == 28)
   {
-    if (LODWORD(v10[0]) == -17958193)
+    if (LODWORD(v9[0]) == -17958193)
     {
       lseek(a2, 4, 1);
     }
 
-    if (v11)
+    if (v10)
     {
-      for (i = 0; i < v11; ++i)
+      for (i = 0; i < v10; ++i)
       {
-        v9 = 0;
-        if (read(a2, &v9, 8uLL) != 8)
+        v8 = 0;
+        if (read(a2, &v8, 8uLL) != 8)
         {
           break;
         }
 
-        if (v9 == 27)
+        if (v8 == 27)
         {
-          v17 = 0;
-          v18[0] = 0;
-          v18[1] = 0;
-          v7 = read(a2, v18, 0x10uLL);
+          v16 = 0;
+          v17[0] = 0;
+          v17[1] = 0;
+          v6 = read(a2, v17, 0x10uLL);
           v4 = 0;
-          if (v7 == 16)
+          if (v6 == 16)
           {
-            v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v18];
-            v8 = ne_log_obj();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+            v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v17];
+            v7 = ne_log_obj();
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v14 = "+[NEProcessInfo copyUUIDForSingleArch:]";
-              v15 = 2112;
-              v16 = v4;
-              _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%s: got UUID %@", buf, 0x16u);
+              v13 = "+[NEProcessInfo copyUUIDForSingleArch:]";
+              v14 = 2112;
+              v15 = v4;
+              _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "%s: got UUID %@", buf, 0x16u);
             }
           }
 
-          goto LABEL_10;
+          return v4;
         }
 
-        lseek(a2, HIDWORD(v9) - 8, 1);
+        lseek(a2, HIDWORD(v8) - 8, 1);
       }
     }
   }
 
-  v4 = 0;
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
-  return v4;
+  return 0;
 }
 
 + (id)copyUUIDsForExecutableWithoutCache:(id)cache
@@ -640,7 +625,7 @@ LABEL_10:
 
 void __52__NEProcessInfo_copyUUIDsForExecutableWithoutCache___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = +[NEProcessInfo copyUUIDsFromExecutable:](NEProcessInfo, [v2 UTF8String]);
   if (v3)
@@ -654,15 +639,13 @@ void __52__NEProcessInfo_copyUUIDsForExecutableWithoutCache___block_invoke(uint6
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "+[NEProcessInfo copyUUIDsForExecutableWithoutCache:]_block_invoke";
-      v8 = 2112;
-      v9 = v2;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%s: failed to get UUIDs for %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "+[NEProcessInfo copyUUIDsForExecutableWithoutCache:]_block_invoke";
+      v7 = 2112;
+      v8 = v2;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%s: failed to get UUIDs for %@", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)copyUUIDsForBundleID:(id)d uid:(unsigned int)uid

@@ -131,9 +131,9 @@ LABEL_20:
       goto LABEL_44;
     }
 
-    v29 = [v26 isEqualToString:v27];
+    isEqualToString = objc_msgSend_isEqualToString_(v26);
 
-    if ((v29 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
 LABEL_44:
       v56 = PKLogFacilityTypeGetObject(0xFuLL);

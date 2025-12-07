@@ -1175,7 +1175,7 @@ LABEL_6:
     if ([propertyCopy isEqualToString:*MEMORY[0x1E6991D40]])
     {
       v18 = MEMORY[0x1E696AD98];
-      [assetCopy duration];
+      objc_msgSend_duration(assetCopy);
 LABEL_26:
       localIdentifier = [v18 numberWithDouble:?];
       goto LABEL_6;

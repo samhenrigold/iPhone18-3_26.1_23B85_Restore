@@ -25,8 +25,7 @@
   {
     v4 = +[PKStatisticsManager sharedStatisticsManager];
     toolIdentifier = [(PKPaletteAttributeViewController *)self toolIdentifier];
-    [(PKPaletteAttributeViewController *)self didExperienceUserInteraction];
-    [PKStatisticsManager recordToolAttributePopoverAppearedForTool:v4 hadInteraction:toolIdentifier];
+    [(PKStatisticsManager *)v4 recordToolAttributePopoverAppearedForTool:toolIdentifier hadInteraction:[(PKPaletteAttributeViewController *)self didExperienceUserInteraction]];
 
     [(PKPaletteAttributeViewController *)self setDidSendDismissStatistics:1];
   }

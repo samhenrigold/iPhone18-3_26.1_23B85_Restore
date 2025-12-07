@@ -7,37 +7,37 @@
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = entriesCopy;
-  v7 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v12 = HDPredicateForRecordID([v11 recordID]);
           database = [profileCopy database];
-          v31 = 0;
-          v14 = [(HDHealthEntity *)HDCachedSecureCKRecordEntity deleteEntitiesWithPredicate:v12 healthDatabase:database error:&v31];
-          v15 = v31;
+          v30 = 0;
+          v14 = [(HDHealthEntity *)HDCachedSecureCKRecordEntity deleteEntitiesWithPredicate:v12 healthDatabase:database error:&v30];
+          v15 = v30;
 
           if (!v14)
           {
@@ -48,9 +48,9 @@
               v26 = v16;
               v27 = objc_opt_class();
               *buf = 138543618;
-              v37 = v27;
-              v38 = 2114;
-              v39 = v15;
+              v36 = v27;
+              v37 = 2114;
+              v38 = v15;
               v28 = v27;
               _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "Failed to apply %{public}@: %{public}@", buf, 0x16u);
             }
@@ -79,16 +79,16 @@
             v23 = v22;
             v24 = objc_opt_class();
             *buf = 138543618;
-            v37 = v22;
-            v38 = 2114;
-            v39 = v24;
+            v36 = v22;
+            v37 = 2114;
+            v38 = v24;
             v25 = v24;
             _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Attempt to apply entry of class %{public}@ via class %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v8 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (v8)
       {
         continue;
@@ -99,8 +99,6 @@
   }
 
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCachedSecureDeleteCKRecordJournalEntry)initWithCoder:(id)coder

@@ -53,31 +53,26 @@
 
 - (void)main
 {
-  v9 = *MEMORY[0x1E69E9840];
   allKeys = [*(self + 304) allKeys];
   v2 = [allKeys fp_shortDescriptionExpandingAtMost:4];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __45__FPFetchRegularItemThumbnailsOperation_main__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (!a2 || a3)
   {
-    v7 = *(a1 + 32);
+    v5 = *(a1 + 32);
 
-    [v7 completedWithResult:0 error:a3];
+    [v5 completedWithResult:0 error:a3];
   }
 
   else
   {
     v4 = [a2 remoteObjectProxy];
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 304);
-    [v4 startOperation:*(v5 + 312) toFetchThumbnailsWithDictionary:*(v5 + 320) size:? completionHandler:?];
+    [v4 startOperation:*(*(a1 + 32) + 312) toFetchThumbnailsWithDictionary:*(*(a1 + 32) + 320) size:? completionHandler:?];
   }
 }
 

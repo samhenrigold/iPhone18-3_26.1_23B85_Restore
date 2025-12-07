@@ -9,21 +9,21 @@
 
 - (id)attributionSetByRewritingSetWithLoggedCounts:(id)counts forExfiltratingActionUUID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   countsCopy = counts;
   dCopy = d;
   if (dCopy)
   {
     attributions = [countsCopy attributions];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __107__WFSmartPromptsExfiltrationLogger_attributionSetByRewritingSetWithLoggedCounts_forExfiltratingActionUUID___block_invoke;
-    v17 = &unk_1E8380698;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __107__WFSmartPromptsExfiltrationLogger_attributionSetByRewritingSetWithLoggedCounts_forExfiltratingActionUUID___block_invoke;
+    v16 = &unk_1E8380698;
     selfCopy = self;
-    v19 = dCopy;
-    v9 = [attributions if_map:&v14];
+    v18 = dCopy;
+    v9 = [attributions if_map:&v13];
 
-    v10 = [MEMORY[0x1E6996D38] attributionSetWithAttributions:v9 shouldReduceAttributions:{0, v14, v15, v16, v17, selfCopy}];
+    v10 = [MEMORY[0x1E6996D38] attributionSetWithAttributions:v9 shouldReduceAttributions:{0, v13, v14, v15, v16, selfCopy}];
   }
 
   else
@@ -32,14 +32,12 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[WFSmartPromptsExfiltrationLogger attributionSetByRewritingSetWithLoggedCounts:forExfiltratingActionUUID:]";
+      v20 = "[WFSmartPromptsExfiltrationLogger attributionSetByRewritingSetWithLoggedCounts:forExfiltratingActionUUID:]";
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s attributionSetByRewritingSetWithLoggedCounts was called by a WFAction with nil UUID!", buf, 0xCu);
     }
 
     v10 = countsCopy;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -59,7 +57,7 @@ id __107__WFSmartPromptsExfiltrationLogger_attributionSetByRewritingSetWithLogge
 
 - (unint64_t)countItemsExfiltratedSoFarByActionWithUUID:(id)d contentOrigin:(id)origin
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   originCopy = origin;
   store = [(WFSmartPromptsExfiltrationLogger *)self store];
@@ -73,26 +71,26 @@ id __107__WFSmartPromptsExfiltrationLogger_attributionSetByRewritingSetWithLogge
   {
     if (v13)
     {
-      v20 = 136315650;
-      v21 = "[WFSmartPromptsExfiltrationLogger countItemsExfiltratedSoFarByActionWithUUID:contentOrigin:]";
-      v22 = 2112;
-      v23 = dCopy;
-      v24 = 2112;
-      v25 = v10;
+      v19 = 136315650;
+      v20 = "[WFSmartPromptsExfiltrationLogger countItemsExfiltratedSoFarByActionWithUUID:contentOrigin:]";
+      v21 = 2112;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v10;
       v14 = "%s Reporting to the runner that action %@ has so far exfiltrated items: %@";
       v15 = v12;
       v16 = 32;
 LABEL_6:
-      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEBUG, v14, &v20, v16);
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEBUG, v14, &v19, v16);
     }
   }
 
   else if (v13)
   {
-    v20 = 136315394;
-    v21 = "[WFSmartPromptsExfiltrationLogger countItemsExfiltratedSoFarByActionWithUUID:contentOrigin:]";
-    v22 = 2112;
-    v23 = dCopy;
+    v19 = 136315394;
+    v20 = "[WFSmartPromptsExfiltrationLogger countItemsExfiltratedSoFarByActionWithUUID:contentOrigin:]";
+    v21 = 2112;
+    v22 = dCopy;
     v14 = "%s Reporting to the runner that action %@ has no exfiltrated items so far";
     v15 = v12;
     v16 = 22;
@@ -100,13 +98,12 @@ LABEL_6:
   }
 
   v17 = [v10 count];
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)logExfiltratedItems:(id)items actionUUID:(id)d contentOrigin:(id)origin
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dCopy = d;
   originCopy = origin;
@@ -177,11 +174,11 @@ LABEL_4:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v24 = "[WFSmartPromptsExfiltrationLogger logExfiltratedItems:actionUUID:contentOrigin:]";
-      v25 = 2112;
-      v26 = dCopy;
-      v27 = 2112;
-      v28 = itemsCopy;
+      v23 = "[WFSmartPromptsExfiltrationLogger logExfiltratedItems:actionUUID:contentOrigin:]";
+      v24 = 2112;
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = itemsCopy;
       _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_DEBUG, "%s Action %@ has so far exfiltrated items: %@", buf, 0x20u);
     }
   }
@@ -192,14 +189,12 @@ LABEL_4:
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v24 = "[WFSmartPromptsExfiltrationLogger logExfiltratedItems:actionUUID:contentOrigin:]";
-      v25 = 2112;
-      v26 = dCopy;
+      v23 = "[WFSmartPromptsExfiltrationLogger logExfiltratedItems:actionUUID:contentOrigin:]";
+      v24 = 2112;
+      v25 = dCopy;
       _os_log_impl(&dword_1CA256000, dictionary, OS_LOG_TYPE_DEBUG, "%s Action %@ provided no exfiltratedItemsIdentifiers to log", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (WFSmartPromptsExfiltrationLogger)init

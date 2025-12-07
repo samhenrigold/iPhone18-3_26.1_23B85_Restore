@@ -573,23 +573,24 @@ uint64_t __97__ASCredentialProviderExtensionContext_prepareInterfaceForPasskeyRe
   possibleCopy = possible;
   _principalObject = [(ASCredentialProviderExtensionContext *)self _principalObject];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __99__ASCredentialProviderExtensionContext_performPasskeyRegistrationWithoutUserInteractionIfPossible___block_invoke;
-    v7[3] = &unk_1E7AF76A8;
-    v8 = _principalObject;
-    v9 = possibleCopy;
-    dispatch_async(MEMORY[0x1E69E96A0], v7);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __99__ASCredentialProviderExtensionContext_performPasskeyRegistrationWithoutUserInteractionIfPossible___block_invoke;
+    v9[3] = &unk_1E7AF76A8;
+    v10 = _principalObject;
+    v11 = possibleCopy;
+    dispatch_async(MEMORY[0x1E69E96A0], v9);
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization(isKindOfClass, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [ASCredentialProviderExtensionContext performPasskeyRegistrationWithoutUserInteractionIfPossible:v6];
+      [(ASCredentialProviderExtensionContext *)v8 performPasskeyRegistrationWithoutUserInteractionIfPossible:_principalObject];
     }
   }
 }
@@ -674,17 +675,15 @@ uint64_t __97__ASCredentialProviderExtensionContext_prepareInterfaceForPasskeyRe
   }
 }
 
-- (void)performPasskeyRegistrationWithoutUserInteractionIfPossible:(void *)a1 .cold.1(void *a1)
+- (void)performPasskeyRegistrationWithoutUserInteractionIfPossible:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B1C8D000, v1, OS_LOG_TYPE_ERROR, "Found principal object of unexpected class %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = v4;
+  _os_log_error_impl(&dword_1B1C8D000, v2, OS_LOG_TYPE_ERROR, "Found principal object of unexpected class %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -248,110 +248,120 @@
 
 - (NSString)state
 {
+  v52 = 0;
   v3 = objc_opt_class();
-  v30 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v52, "%@\n", v4);
+  v5 = v52;
 
-  NSAppendPrintF();
-  v5 = v4;
+  v51 = v5;
+  NSAppendPrintF(&v51, "-------------\n");
+  v6 = v51;
 
+  v50 = v6;
   if ([(WCDSystemMonitor *)self initialSetUpComplete])
   {
-    v6 = "YES";
+    v7 = "YES";
   }
 
   else
   {
-    v6 = "NO";
+    v7 = "NO";
   }
 
-  v31 = v6;
-  NSAppendPrintF();
-  v7 = v5;
+  NSAppendPrintF(&v50, "Initial Set Up Complete: %s\n", v7);
+  v8 = v50;
 
+  v49 = v8;
   deviceInformation = [(WCDSystemMonitor *)self deviceInformation];
-  NSAppendPrintF();
-  v8 = v7;
+  NSAppendPrintF(&v49, "Device Information: %@\n", deviceInformation);
+  v10 = v49;
 
+  v48 = v10;
   if ([(WCDSystemMonitor *)self isPaired])
   {
-    v9 = "YES";
+    v11 = "YES";
   }
 
   else
   {
-    v9 = "NO";
+    v11 = "NO";
   }
 
-  [(WCDSystemMonitor *)self pairingID];
-  v40 = v33 = v9;
-  NSAppendPrintF();
-  v10 = v8;
+  pairingID = [(WCDSystemMonitor *)self pairingID];
+  NSAppendPrintF(&v48, "Is Paired: %s, Pairing ID: %s\n", v11, pairingID);
+  v13 = v48;
 
-  v34 = [(WCDSystemMonitor *)self pairedDeviceInformation:v33];
-  NSAppendPrintF();
-  v11 = v10;
+  v47 = v13;
+  pairedDeviceInformation = [(WCDSystemMonitor *)self pairedDeviceInformation];
+  NSAppendPrintF(&v47, "Paired Device Information: %@\n", pairedDeviceInformation);
+  v15 = v47;
 
+  v46 = v15;
   if ([(WCDSystemMonitor *)self activeDeviceConnected])
   {
-    v12 = "YES";
+    v16 = "YES";
   }
 
   else
   {
-    v12 = "NO";
+    v16 = "NO";
   }
 
-  v35 = v12;
-  NSAppendPrintF();
-  v13 = v11;
+  NSAppendPrintF(&v46, "Active Device Connected: %s\n", v16);
+  v17 = v46;
 
+  v45 = v17;
   if ([(WCDSystemMonitor *)self remoteFirstUnlocked])
   {
-    v14 = "YES";
+    v18 = "YES";
   }
 
   else
   {
-    v14 = "NO";
+    v18 = "NO";
   }
 
-  v36 = v14;
-  NSAppendPrintF();
-  v15 = v13;
+  NSAppendPrintF(&v45, "Remote First Unlocked: %s\n", v18);
+  v19 = v45;
 
+  v44 = v19;
   operationQueue = [(WCDSystemMonitor *)self operationQueue];
   operationQueue2 = [(WCDSystemMonitor *)self operationQueue];
   operations = [operationQueue2 operations];
-  v41 = WCCompactStringFromCollection();
-  NSAppendPrintF();
-  v19 = v15;
+  v23 = WCCompactStringFromCollection();
+  NSAppendPrintF(&v44, "Operation Queue: %@, Operations: %@\n", operationQueue, v23);
+  v24 = v44;
 
-  v37 = [(WCDSystemMonitor *)self observers:operationQueue];
-  NSAppendPrintF();
-  v20 = v19;
+  v43 = v24;
+  observers = [(WCDSystemMonitor *)self observers];
+  NSAppendPrintF(&v43, "Observers: %@\n", observers);
+  v26 = v43;
 
+  v42 = v26;
   monitor = [(WCDSystemMonitor *)self monitor];
   monitoredBundleIDs = [(WCDSystemMonitor *)self monitoredBundleIDs];
-  v42 = WCCompactStringFromCollection();
-  NSAppendPrintF();
-  v23 = v20;
+  v29 = WCCompactStringFromCollection();
+  NSAppendPrintF(&v42, "Monitor: %@, Monitored Bundle IDs: %@\n", monitor, v29);
+  v30 = v42;
 
-  v24 = [(WCDSystemMonitor *)self applicationWorkspace:monitor];
-  v38 = [v24 debugDescription];
-  NSAppendPrintF();
-  v25 = v23;
+  v41 = v30;
+  applicationWorkspace = [(WCDSystemMonitor *)self applicationWorkspace];
+  v32 = [applicationWorkspace debugDescription];
+  NSAppendPrintF(&v41, "Application Workspace: %@\n", v32);
+  v33 = v41;
 
+  v40 = v33;
   iOSApplicationsContainingActiveComplications = [(WCDSystemMonitor *)self iOSApplicationsContainingActiveComplications];
-  NSAppendPrintF();
-  v27 = v25;
+  NSAppendPrintF(&v40, "iOS Applications Containing Active Complications: %@\n", iOSApplicationsContainingActiveComplications);
+  v35 = v40;
 
-  duetComplications = self->_duetComplications;
-  NSAppendPrintF();
-  v28 = v27;
+  v39 = v35;
+  NSAppendPrintF(&v39, "Duet Complications: %@\n", self->_duetComplications);
+  v36 = v39;
+  v37 = v39;
 
-  return v27;
+  return v36;
 }
 
 - (NSString)deviceInformation
@@ -467,66 +477,66 @@
   handler[1] = 3221225472;
   handler[2] = sub_10001EE60;
   handler[3] = &unk_100048A70;
-  objc_copyWeak(&v19, location);
+  objc_copyWeak(&v20, location);
   notify_register_dispatch(uTF8String, &out_token, &_dispatch_main_q, handler);
 
   uTF8String2 = [SPActiveComplicationsDarwinNotificaton UTF8String];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10001EEA0;
-  v16[3] = &unk_100048A70;
-  objc_copyWeak(&v17, location);
-  notify_register_dispatch(uTF8String2, &out_token, &_dispatch_main_q, v16);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10001EEA0;
+  v17[3] = &unk_100048A70;
+  objc_copyWeak(&v18, location);
+  notify_register_dispatch(uTF8String2, &out_token, &_dispatch_main_q, v17);
 
   uTF8String3 = [CLKActiveComplicationsFromActiveWatchChangedNotification UTF8String];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_10001EEE0;
-  v14[3] = &unk_100048A70;
-  objc_copyWeak(&v15, location);
-  notify_register_dispatch(uTF8String3, &out_token, &_dispatch_main_q, v14);
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10001EEE0;
+  v15[3] = &unk_100048A70;
+  objc_copyWeak(&v16, location);
+  notify_register_dispatch(uTF8String3, &out_token, &_dispatch_main_q, v15);
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v8 = qword_100054CE8;
-  v26 = qword_100054CE8;
+  v27 = qword_100054CE8;
   if (!qword_100054CE8)
   {
     location[1] = _NSConcreteStackBlock;
     location[2] = 3221225472;
     location[3] = sub_100022144;
     location[4] = &unk_100049370;
-    v22 = &v23;
+    v23 = &v24;
     v9 = sub_100022194();
     v10 = dlsym(v9, "kComplicationPushLimitsResetNotification");
-    *(v22[1] + 24) = v10;
-    qword_100054CE8 = *(v22[1] + 24);
-    v8 = v24[3];
+    *(v23[1] + 24) = v10;
+    qword_100054CE8 = *(v23[1] + 24);
+    v8 = v25[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   if (v8)
   {
     v11 = *v8;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10001EF20;
-    v12[3] = &unk_100048A70;
-    objc_copyWeak(&v13, location);
-    notify_register_dispatch(v11, &out_token, &_dispatch_main_q, v12);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10001EF20;
+    v13[3] = &unk_100048A70;
+    objc_copyWeak(&v14, location);
+    notify_register_dispatch(v11, &out_token, &_dispatch_main_q, v13);
 
-    objc_destroyWeak(&v13);
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(location);
   }
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v12 = dlerror();
+    abort_report_np("%s", v12);
     __break(1u);
   }
 }
@@ -1062,47 +1072,42 @@ LABEL_17:
     v11 = [(WCDSystemMonitor *)selfCopy applicationStateStringForState:unsignedIntegerValue];
     *buf = 136315394;
     uTF8String = [v11 UTF8String];
-    v27 = 2114;
-    v28 = v4;
+    v25 = 2114;
+    v26 = v4;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s for bundleID: %{public}@", buf, 0x16u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = allObjects;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
-    v14 = *v21;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * v15);
+        v16 = *(*(&v18 + 1) + 8 * v15);
         if (unsignedIntegerValue == 1)
         {
-          v18 = *(*(&v20 + 1) + 8 * v15);
           if (objc_opt_respondsToSelector())
           {
             [v16 systemObserverAppDidTerminateForBundleID:v4];
           }
         }
 
-        else if (unsignedIntegerValue == 2)
+        else if (unsignedIntegerValue == 2 && (objc_opt_respondsToSelector() & 1) != 0)
         {
-          v17 = *(*(&v20 + 1) + 8 * v15);
-          if (objc_opt_respondsToSelector())
-          {
-            [v16 systemObserverAppDidSuspendForBundleID:v4];
-          }
+          [v16 systemObserverAppDidSuspendForBundleID:v4];
         }
 
         if (objc_opt_respondsToSelector())
@@ -1114,7 +1119,7 @@ LABEL_17:
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);

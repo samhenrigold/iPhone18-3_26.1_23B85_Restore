@@ -65,8 +65,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100183948(appear);
+  sub_100183948(appearCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

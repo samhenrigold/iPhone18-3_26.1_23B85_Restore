@@ -3,8 +3,6 @@
 - (CGSize)referenceDimensions;
 - (HRTFSerializableCaptureData)initWithCoder:(id)coder;
 - (HRTFSerializableCaptureData)initWithColorPixelBuffer:(__n128)buffer depthPixelBuffer:(__n128)pixelBuffer colorIntrinsics:(__n128)intrinsics depthIntrinsics:(__n128)depthIntrinsics distortionLookupTable:(__n128)table referenceDimensions:(CGFloat)dimensions distortionCenter:(CGFloat)center timestamp:(uint64_t)self0;
-- (__n128)colorIntrinsics;
-- (__n128)depthIntrinsics;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -12,43 +10,43 @@
 
 - (HRTFSerializableCaptureData)initWithColorPixelBuffer:(__n128)buffer depthPixelBuffer:(__n128)pixelBuffer colorIntrinsics:(__n128)intrinsics depthIntrinsics:(__n128)depthIntrinsics distortionLookupTable:(__n128)table referenceDimensions:(CGFloat)dimensions distortionCenter:(CGFloat)center timestamp:(uint64_t)self0
 {
-  v25 = a13;
-  v42.receiver = self;
-  v42.super_class = HRTFSerializableCaptureData;
-  v26 = [(HRTFSerializableCaptureData *)&v42 init];
-  if (v26)
+  v22 = a13;
+  v39.receiver = self;
+  v39.super_class = HRTFSerializableCaptureData;
+  v23 = [(HRTFSerializableCaptureData *)&v39 init];
+  if (v23)
   {
-    v27 = [[_SerializableCVPixelBuffer alloc] initWithCVPixelBufferRef:a11];
-    serializableColorPixelBuffer = v26->_serializableColorPixelBuffer;
-    v26->_serializableColorPixelBuffer = v27;
+    v24 = [[_SerializableCVPixelBuffer alloc] initWithCVPixelBufferRef:a11];
+    serializableColorPixelBuffer = v23->_serializableColorPixelBuffer;
+    v23->_serializableColorPixelBuffer = v24;
 
-    v29 = [[_SerializableCVPixelBuffer alloc] initWithCVPixelBufferRef:a12];
-    serializableDepthPixelBuffer = v26->_serializableDepthPixelBuffer;
-    v26->_serializableDepthPixelBuffer = v29;
+    v26 = [[_SerializableCVPixelBuffer alloc] initWithCVPixelBufferRef:a12];
+    serializableDepthPixelBuffer = v23->_serializableDepthPixelBuffer;
+    v23->_serializableDepthPixelBuffer = v26;
 
-    v31 = CVPixelBufferGetIOSurface(a11);
-    colorSurface = v26->_colorSurface;
-    v26->_colorSurface = v31;
+    v28 = CVPixelBufferGetIOSurface(a11);
+    colorSurface = v23->_colorSurface;
+    v23->_colorSurface = v28;
 
-    v33 = CVPixelBufferGetIOSurface(a12);
-    depthSurface = v26->_depthSurface;
-    v26->_depthSurface = v33;
+    v30 = CVPixelBufferGetIOSurface(a12);
+    depthSurface = v23->_depthSurface;
+    v23->_depthSurface = v30;
 
-    *v26->_anon_20 = a2;
-    *&v26->_anon_20[16] = buffer;
-    *&v26->_anon_20[32] = pixelBuffer;
-    *v26->_anon_50 = intrinsics;
-    *&v26->_anon_50[16] = depthIntrinsics;
-    *&v26->_anon_50[32] = table;
-    objc_storeStrong(&v26->_distortionLookupTable, a13);
-    v26->_referenceDimensions.width = dimensions;
-    v26->_referenceDimensions.height = center;
-    v26->_distortionCenter.x = a14;
-    v26->_distortionCenter.y = a15;
-    v26->_timestamp = a16;
+    *v23->_anon_20 = a2;
+    *&v23->_anon_20[16] = buffer;
+    *&v23->_anon_20[32] = pixelBuffer;
+    *v23->_anon_50 = intrinsics;
+    *&v23->_anon_50[16] = depthIntrinsics;
+    *&v23->_anon_50[32] = table;
+    objc_storeStrong(&v23->_distortionLookupTable, a13);
+    v23->_referenceDimensions.width = dimensions;
+    v23->_referenceDimensions.height = center;
+    v23->_distortionCenter.x = a14;
+    v23->_distortionCenter.y = a15;
+    v23->_timestamp = a16;
   }
 
-  return v26;
+  return v23;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -161,22 +159,6 @@
   }
 
   return selfCopy;
-}
-
-- (__n128)colorIntrinsics
-{
-  result = *(self + 32);
-  v2 = *(self + 48);
-  v3 = *(self + 64);
-  return result;
-}
-
-- (__n128)depthIntrinsics
-{
-  result = *(self + 80);
-  v2 = *(self + 96);
-  v3 = *(self + 112);
-  return result;
 }
 
 - (CGSize)referenceDimensions

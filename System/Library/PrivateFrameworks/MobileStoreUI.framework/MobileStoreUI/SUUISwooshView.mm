@@ -164,10 +164,10 @@
   v7 = whiteColor;
 
   [(SUUISwooshView *)self setBackgroundColor:v7];
-  primaryTextColor = [schemeCopy primaryTextColor];
-  if (primaryTextColor)
+  v8 = objc_msgSend_primaryTextColor(schemeCopy);
+  if (v8)
   {
-    [(SUUISwooshView *)self setSeeAllColor:primaryTextColor forControlState:0];
+    [(SUUISwooshView *)self setSeeAllColor:v8 forControlState:0];
   }
 
   else
@@ -191,7 +191,7 @@
   secondaryTextColor = [schemeCopy secondaryTextColor];
   if (!secondaryTextColor)
   {
-    secondaryTextColor = [schemeCopy primaryTextColor];
+    secondaryTextColor = objc_msgSend_primaryTextColor(schemeCopy);
     if (!secondaryTextColor)
     {
       secondaryTextColor = [MEMORY[0x277D75348] blackColor];
@@ -226,7 +226,7 @@
 {
   titleCopy = title;
   seeAllTitle = [(SUUISwooshView *)self seeAllTitle];
-  if (seeAllTitle != titleCopy && ([seeAllTitle isEqualToString:titleCopy] & 1) == 0)
+  if (seeAllTitle != titleCopy && (objc_msgSend_isEqualToString_(seeAllTitle) & 1) == 0)
   {
     seeAllControl = [(SUUISwooshView *)self seeAllControl];
     [seeAllControl setTitle:titleCopy forState:0];
@@ -263,7 +263,7 @@
   if ([(SUUISwooshView *)self showsChevronForTitle])
   {
     text = [(SUUILinkButton *)self->_titleButton titleForState:0];
-    if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+    if (text != titleCopy && (objc_msgSend_isEqualToString_(text, titleCopy, titleCopy) & 1) == 0)
     {
       if (titleCopy)
       {
@@ -287,7 +287,7 @@ LABEL_14:
   else
   {
     text = [(UILabel *)self->_titleLabel text];
-    if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+    if (text != titleCopy && (objc_msgSend_isEqualToString_(text, titleCopy, titleCopy) & 1) == 0)
     {
       titleLabel = self->_titleLabel;
       if (titleCopy)

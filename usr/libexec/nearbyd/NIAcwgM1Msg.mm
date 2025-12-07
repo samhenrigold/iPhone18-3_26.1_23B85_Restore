@@ -2,6 +2,8 @@
 - (AcwgM1MsgStruct)toStruct;
 - (NIAcwgM1Msg)initWithCoder:(id)coder;
 - (NIAcwgM1Msg)initWithSupportedUwbConfigIds:(id)ids supportedPulseShapeCombos:(id)combos channelBitmask:(unsigned __int8)bitmask uwbSessionId:(unsigned int)id;
+- (NIAcwgM1Msg)initWithSupportedUwbConfigIds:(id)ids supportedPulseShapeCombos:(id)combos channelBitmask:(unsigned __int8)bitmask uwbSessionId:(unsigned int)id finalData2Bitmask:(unsigned __int8)data2Bitmask;
+- (NIAcwgM1Msg)initWithSupportedUwbConfigIds:(id)ids supportedPulseShapeCombos:(id)combos channelBitmask:(unsigned __int8)bitmask uwbSessionId:(unsigned int)id finalData2Bitmask:(unsigned __int8)data2Bitmask selectedProtocolVersion:(unsigned __int16)version;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -28,6 +30,28 @@
   }
 
   return v14;
+}
+
+- (NIAcwgM1Msg)initWithSupportedUwbConfigIds:(id)ids supportedPulseShapeCombos:(id)combos channelBitmask:(unsigned __int8)bitmask uwbSessionId:(unsigned int)id finalData2Bitmask:(unsigned __int8)data2Bitmask
+{
+  result = [(NIAcwgM1Msg *)self initWithSupportedUwbConfigIds:ids supportedPulseShapeCombos:combos channelBitmask:bitmask uwbSessionId:*&id];
+  if (result)
+  {
+    result->_finalData2Bitmask = data2Bitmask;
+  }
+
+  return result;
+}
+
+- (NIAcwgM1Msg)initWithSupportedUwbConfigIds:(id)ids supportedPulseShapeCombos:(id)combos channelBitmask:(unsigned __int8)bitmask uwbSessionId:(unsigned int)id finalData2Bitmask:(unsigned __int8)data2Bitmask selectedProtocolVersion:(unsigned __int16)version
+{
+  result = [(NIAcwgM1Msg *)self initWithSupportedUwbConfigIds:ids supportedPulseShapeCombos:combos channelBitmask:bitmask uwbSessionId:*&id finalData2Bitmask:data2Bitmask];
+  if (result)
+  {
+    result->_selectedProtocolVersion = version;
+  }
+
+  return result;
 }
 
 - (id)description

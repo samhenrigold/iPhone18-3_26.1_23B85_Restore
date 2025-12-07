@@ -72,7 +72,7 @@
 
 - (void)handleURLResponse:(id)response data:(id)data error:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dataCopy = data;
   errorCopy = error;
@@ -91,9 +91,9 @@
     v16 = statusCode;
     if (dataCopy)
     {
-      v27 = 0;
-      v17 = [(_ICQMegaBackupNetworkRequest *)self _dictionaryFromData:dataCopy response:v12 error:&v27];
-      v18 = v27;
+      v26 = 0;
+      v17 = [(_ICQMegaBackupNetworkRequest *)self _dictionaryFromData:dataCopy response:v12 error:&v26];
+      v18 = v26;
     }
 
     else
@@ -107,13 +107,13 @@
     {
       v21 = [dataCopy length];
       *buf = 138413058;
-      v29 = absoluteString;
-      v30 = 2050;
-      v31 = v16;
-      v32 = 2050;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v17;
+      v28 = absoluteString;
+      v29 = 2050;
+      v30 = v16;
+      v31 = 2050;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v17;
       _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "Received response %@ Status Code: %{public}lu (%{public}lu bytes): %@", buf, 0x2Au);
     }
 
@@ -122,9 +122,9 @@
     {
       allHeaderFields = [v12 allHeaderFields];
       *buf = 138412546;
-      v29 = absoluteString;
-      v30 = 2114;
-      v31 = allHeaderFields;
+      v28 = absoluteString;
+      v29 = 2114;
+      v30 = allHeaderFields;
       _os_log_impl(&dword_275572000, v22, OS_LOG_TYPE_DEFAULT, "Response %@ headers: %{public}@", buf, 0x16u);
     }
 
@@ -165,7 +165,7 @@ LABEL_23:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = errorCopy;
+      v28 = errorCopy;
       _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "Received error for request: %{public}@", buf, 0xCu);
     }
 
@@ -179,13 +179,11 @@ LABEL_23:
 
 LABEL_25:
   [(_ICQMegaBackupNetworkRequest *)self _completeWithError:v18];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dictionaryFromData:(id)data response:(id)response error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   responseCopy = response;
   if (![dataCopy length])
@@ -195,9 +193,9 @@ LABEL_25:
   }
 
   mIMEType = [responseCopy MIMEType];
-  v26 = 0;
-  v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v26];
-  v11 = v26;
+  v25 = 0;
+  v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v25];
+  v11 = v25;
   if (!v10)
   {
     if ([mIMEType isEqualToString:@"application/json"])
@@ -212,9 +210,9 @@ LABEL_25:
       if (error)
       {
         v14 = MEMORY[0x277CCA9B8];
-        v31 = *MEMORY[0x277CCA7E8];
-        v32[0] = v11;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x277CCA7E8];
+        v31[0] = v11;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
         *error = [v14 errorWithDomain:@"_ICQMegaBackupErrorDomain" code:2 userInfo:v15];
       }
 
@@ -258,7 +256,7 @@ LABEL_27:
         }
 
         *buf = 138543362;
-        v28 = mIMEType;
+        v27 = mIMEType;
         v17 = "Unexpected response format with Content-Type %{public}@";
         v18 = v16;
         v19 = 12;
@@ -270,9 +268,9 @@ LABEL_24:
       v21 = [responseCopy URL];
       v23 = [dataCopy length];
       *buf = 138412546;
-      v28 = v21;
-      v29 = 2050;
-      v30 = v23;
+      v27 = v21;
+      v28 = 2050;
+      v29 = v23;
       _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "Received large text response from %@ (%{public}lu bytes)", buf, 0x16u);
     }
 
@@ -284,9 +282,9 @@ LABEL_24:
       {
         v22 = [responseCopy URL];
         *buf = 138412546;
-        v28 = v22;
-        v29 = 2114;
-        v30 = v20;
+        v27 = v22;
+        v28 = 2114;
+        v29 = v20;
         _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "Received text response from %@: %{public}@", buf, 0x16u);
       }
     }
@@ -314,21 +312,20 @@ LABEL_24:
 LABEL_29:
 
 LABEL_30:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)errorForUnsuccessfulResponse:(id)response body:(id)body
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   statusCode = [response statusCode];
   v5 = _ICQGetLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134349056;
-    v11 = statusCode;
-    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Received status code response: %{public}ld", &v10, 0xCu);
+    v9 = 134349056;
+    v10 = statusCode;
+    _os_log_impl(&dword_275572000, v5, OS_LOG_TYPE_DEFAULT, "Received status code response: %{public}ld", &v9, 0xCu);
   }
 
   if (statusCode == 429)
@@ -342,21 +339,20 @@ LABEL_30:
   }
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"_ICQMegaBackupErrorDomain" code:v6 userInfo:0];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)_createURLRequestWithError:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   bodyJSON = [(_ICQMegaBackupNetworkRequest *)self bodyJSON];
   if ([MEMORY[0x277CCAAA0] isValidJSONObject:bodyJSON])
   {
-    v17 = 0;
-    v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:bodyJSON options:0 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:bodyJSON options:0 error:&v16];
+    v8 = v16;
 
     objc_autoreleasePoolPop(v5);
     if (v7)
@@ -385,8 +381,8 @@ LABEL_30:
   v13 = _ICQGetLogSystem();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Invalid request body", v16, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Invalid request body", v15, 2u);
   }
 
   if (!error)
@@ -397,9 +393,9 @@ LABEL_30:
 
   if (v8)
   {
-    v18 = *MEMORY[0x277CCA7E8];
-    v19[0] = v8;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA7E8];
+    v18[0] = v8;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   }
 
   else
@@ -412,7 +408,6 @@ LABEL_30:
 LABEL_13:
 
 LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -431,7 +426,7 @@ LABEL_14:
 
 - (id)_errorForURLRequestError:(id)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   v5 = [domain isEqualToString:*MEMORY[0x277CCA738]];
@@ -443,33 +438,33 @@ LABEL_14:
     v8 = *MEMORY[0x277CCA068];
     if (code == -1002)
     {
-      v24[0] = *MEMORY[0x277CCA7E8];
-      v24[1] = v8;
-      v25[0] = errorCopy;
-      v25[1] = @"Bad URL";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v23[0] = *MEMORY[0x277CCA7E8];
+      v23[1] = v8;
+      v24[0] = errorCopy;
+      v24[1] = @"Bad URL";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
       v10 = v7;
       v11 = 1;
     }
 
     else if (code == -1001)
     {
-      v26[0] = *MEMORY[0x277CCA7E8];
-      v26[1] = v8;
-      v27[0] = errorCopy;
-      v27[1] = @"Timed out";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+      v25[0] = *MEMORY[0x277CCA7E8];
+      v25[1] = v8;
+      v26[0] = errorCopy;
+      v26[1] = @"Timed out";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
       v10 = v7;
       v11 = 4;
     }
 
     else
     {
-      v22[0] = *MEMORY[0x277CCA7E8];
-      v22[1] = v8;
-      v23[0] = errorCopy;
-      v23[1] = @"Network failure";
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v21[0] = *MEMORY[0x277CCA7E8];
+      v21[1] = v8;
+      v22[0] = errorCopy;
+      v22[1] = @"Network failure";
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
       v10 = v7;
       v11 = 5;
     }
@@ -478,16 +473,16 @@ LABEL_14:
   else
   {
     v12 = objc_alloc(MEMORY[0x277CBEB38]);
-    v20 = *MEMORY[0x277CCA068];
-    v21 = @"Unknown URL request errro";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA068];
+    v20 = @"Unknown URL request errro";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v9 = [v12 initWithDictionary:v13];
 
     if (errorCopy)
     {
-      v18 = *MEMORY[0x277CCA7E8];
-      v19 = errorCopy;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v17 = *MEMORY[0x277CCA7E8];
+      v18 = errorCopy;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
       [v9 addEntriesFromDictionary:v14];
     }
 
@@ -497,23 +492,21 @@ LABEL_14:
 
   v15 = [v10 errorWithDomain:@"_ICQMegaBackupErrorDomain" code:v11 userInfo:v9];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (void)_performURLRequest:(id)request
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   URLSession = self->_URLSession;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51___ICQMegaBackupNetworkRequest__performURLRequest___block_invoke;
-  v13[3] = &unk_27A651838;
-  v13[4] = self;
-  v6 = [(NSURLSession *)URLSession dataTaskWithRequest:requestCopy completionHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51___ICQMegaBackupNetworkRequest__performURLRequest___block_invoke;
+  v12[3] = &unk_27A651838;
+  v12[4] = self;
+  v6 = [(NSURLSession *)URLSession dataTaskWithRequest:requestCopy completionHandler:v12];
   URLSessionTask = self->_URLSessionTask;
   self->_URLSessionTask = v6;
 
@@ -524,16 +517,15 @@ LABEL_14:
     hTTPBody = [requestCopy HTTPBody];
     v11 = [hTTPBody length];
     *buf = 138412802;
-    v15 = requestCopy;
-    v16 = 2112;
-    v17 = allHTTPHeaderFields;
-    v18 = 2050;
-    v19 = v11;
+    v14 = requestCopy;
+    v15 = 2112;
+    v16 = allHTTPHeaderFields;
+    v17 = 2050;
+    v18 = v11;
     _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "Sending request %@ %@ (%{public}lu body bytes)", buf, 0x20u);
   }
 
   [(NSURLSessionTask *)self->_URLSessionTask resume];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_completeWithError:(id)error

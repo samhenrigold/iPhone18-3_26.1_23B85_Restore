@@ -695,7 +695,6 @@ uint64_t __33__AKFeatureManager_sharedManager__block_invoke()
   }
 
   objc_storeStrong(&v104, 0);
-  *MEMORY[0x1E69E9840];
   return v105;
 }
 

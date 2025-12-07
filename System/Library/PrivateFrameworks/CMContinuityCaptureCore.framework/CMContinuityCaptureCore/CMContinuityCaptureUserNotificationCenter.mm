@@ -24,7 +24,7 @@ void __59__CMContinuityCaptureUserNotificationCenter_sharedInstance__block_invok
   v0 = [CMContinuityCaptureiOSNotificationCenter alloc];
   v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v1 = dispatch_queue_create("com.apple.continuitycapture.usernotification", v4);
-  v2 = [(CMContinuityCaptureiOSNotificationCenter *)v0 initWithQueue:v1];
+  v2 = [(CMContinuityCaptureiOSNotificationCenter *)v0 initWithQueue:?];
   v3 = _notificationCenter;
   _notificationCenter = v2;
 }
@@ -46,7 +46,7 @@ void __59__CMContinuityCaptureUserNotificationCenter_sharedInstance__block_invok
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [v3 stringWithFormat:@"%@: [%p]", v5, self];
+  v6 = [v3 stringWithFormat:v5, self];
 
   return v6;
 }

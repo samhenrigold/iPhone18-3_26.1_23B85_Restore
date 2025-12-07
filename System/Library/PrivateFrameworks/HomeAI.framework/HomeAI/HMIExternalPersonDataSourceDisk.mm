@@ -25,58 +25,49 @@
 
 void __56__HMIExternalPersonDataSourceDisk_addPerson_completion___block_invoke(uint64_t a1)
 {
-  v23[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) sourceURL];
   v3 = [*(a1 + 40) UUID];
   v4 = [v3 UUIDString];
-  v5 = [v2 URLByAppendingPathComponent:v4];
+  v5 = [v2 URLByAppendingPathComponent:?];
 
   v6 = [MEMORY[0x277CCAA00] defaultManager];
   v7 = [v5 path];
-  v21 = 0;
-  v8 = [v6 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v21];
-  v9 = v21;
+  v8 = [v6 createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+  v9 = 0;
 
   if (v8)
   {
-    v23[0] = @"0.1";
-    v22[0] = @"version";
-    v22[1] = @"UUID";
     v10 = [*(a1 + 40) UUID];
-    v11 = [v10 UUIDString];
-    v23[1] = v11;
-    v22[2] = @"displayName";
-    v12 = [*(a1 + 40) name];
-    v23[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v19 = [v10 UUIDString];
+    v20 = [*(a1 + 40) name];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v14 = [v5 URLByAppendingPathComponent:@"person.json"];
-    v20 = v9;
-    LOBYTE(v12) = [HMIFaceUtilities serializeJSONObject:v13 url:v14 error:&v20];
-    v15 = v20;
+    v12 = [v5 URLByAppendingPathComponent:?];
+    v13 = [HMIFaceUtilities serializeJSONObject:"serializeJSONObject:url:error:" url:? error:?];
+    v14 = v9;
 
-    if (v12)
+    if (v13)
     {
       (*(*(a1 + 48) + 16))();
     }
 
     else
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error saving metadata to disk for person:%@", *(a1 + 40)];
-      v18 = *(a1 + 48);
-      v19 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v17 underlyingError:v15];
-      (*(v18 + 16))(v18, v19);
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:*(a1 + 40)];
+      v17 = *(a1 + 48);
+      v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+      (*(v17 + 16))(v17, v18);
     }
 
-    v9 = v15;
+    v9 = v14;
   }
 
   else
   {
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error creating directory for person:%@", *(a1 + 40)];
-    v16 = *(a1 + 48);
-    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v13 underlyingError:v9];
-    (*(v16 + 16))(v16, v14);
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:*(a1 + 40)];
+    v15 = *(a1 + 48);
+    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+    (*(v15 + 16))(v15, v12);
   }
 }
 
@@ -99,99 +90,84 @@ void __56__HMIExternalPersonDataSourceDisk_addPerson_completion___block_invoke(u
 
 void __65__HMIExternalPersonDataSourceDisk_addPersonFaceCrops_completion___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
   obj = *(a1 + 32);
-  v31 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v31)
+  v29 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v29)
   {
-    v32 = *v38;
+    v30 = MEMORY[0];
 LABEL_3:
     v1 = 0;
     while (1)
     {
-      if (*v38 != v32)
+      if (MEMORY[0] != v30)
       {
         objc_enumerationMutation(obj);
       }
 
-      v2 = *(*(&v37 + 1) + 8 * v1);
+      v2 = *(8 * v1);
       v3 = [*(a1 + 40) sourceURL];
       v4 = [v2 personUUID];
       v5 = [v4 UUIDString];
-      v6 = [v3 URLByAppendingPathComponent:v5];
+      v6 = [v3 URLByAppendingPathComponent:?];
 
       v7 = [v2 UUID];
       v8 = [v7 UUIDString];
-      v9 = [v6 URLByAppendingPathComponent:v8];
+      v9 = [v6 URLByAppendingPathComponent:?];
 
       v10 = [MEMORY[0x277CCAA00] defaultManager];
       v11 = [v9 path];
-      v36 = 0;
-      v12 = [v10 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v36];
-      v13 = v36;
+      v12 = [v10 createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+      v13 = 0;
 
       if ((v12 & 1) == 0)
       {
         break;
       }
 
-      v34 = v6;
-      v42[0] = @"0.1";
-      v41[0] = @"version";
-      v41[1] = @"UUID";
+      v32 = v6;
       v14 = [v2 UUID];
-      v15 = [v14 UUIDString];
-      v42[1] = v15;
-      v41[2] = @"faceBoundingBox";
+      v33 = [v14 UUIDString];
       [v2 faceBoundingBox];
-      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v45);
-      v42[2] = DictionaryRepresentation;
-      v41[3] = @"dateCreated";
-      v17 = [v2 dateCreated];
-      v18 = HMIJSONFormattedStringForDate(v17);
-      v42[3] = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
+      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v36);
+      v15 = [v2 dateCreated];
+      v35 = HMIJSONFormattedStringForDate(v15);
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-      v20 = [v9 URLByAppendingPathComponent:@"facecrop.json"];
-      v35 = v13;
-      LOBYTE(DictionaryRepresentation) = [HMIFaceUtilities serializeJSONObject:v19 url:v20 error:&v35];
-      v21 = v35;
+      v17 = [v9 URLByAppendingPathComponent:?];
+      v18 = [HMIFaceUtilities serializeJSONObject:"serializeJSONObject:url:error:" url:? error:?];
+      v19 = v13;
 
-      if ((DictionaryRepresentation & 1) == 0)
+      if ((v18 & 1) == 0)
       {
-        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error saving metadata to disk for person face crop:%@", v2];
-        v27 = *(a1 + 48);
-        v28 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v26 underlyingError:v21];
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:v2];
+        v25 = *(a1 + 48);
+        v26 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
         goto LABEL_15;
       }
 
-      v22 = [v2 dataRepresentation];
-      v23 = [v9 URLByAppendingPathComponent:@"facecrop.jpeg"];
-      v24 = [v22 writeToURL:v23 atomically:0];
+      v20 = [v2 dataRepresentation];
+      v21 = [v9 URLByAppendingPathComponent:?];
+      v22 = [v20 writeToURL:? atomically:?];
 
-      if ((v24 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
-        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error saving face crop image to disk for person face crop:%@", v2];
-        v27 = *(a1 + 48);
-        v28 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v26];
+        v24 = [MEMORY[0x277CCACA8] stringWithFormat:v2];
+        v25 = *(a1 + 48);
+        v26 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
 LABEL_15:
-        v29 = v28;
-        (*(v27 + 16))(v27, v28);
+        v27 = v26;
+        (*(v25 + 16))(v25, v26);
 
-        v6 = v34;
+        v6 = v32;
 LABEL_16:
 
         return;
       }
 
-      if (v31 == ++v1)
+      if (v29 == ++v1)
       {
-        v31 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
-        if (v31)
+        v29 = [obj countByEnumeratingWithState:? objects:? count:?];
+        if (v29)
         {
           goto LABEL_3;
         }
@@ -200,11 +176,11 @@ LABEL_16:
       }
     }
 
-    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error creating directory for person face crop:%@", v2];
-    v25 = *(a1 + 48);
-    v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1031 description:v19 underlyingError:v13];
-    (*(v25 + 16))(v25, v20);
-    v21 = v13;
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:v2];
+    v23 = *(a1 + 48);
+    v17 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+    (*(v23 + 16))(v23, v17);
+    v19 = v13;
     goto LABEL_16;
   }
 
@@ -217,7 +193,7 @@ LABEL_11:
 {
   v4 = MEMORY[0x277CCA9B8];
   completionCopy = completion;
-  v6 = [v4 hmfErrorWithCode:5];
+  v6 = [v4 hmfErrorWithCode:?];
   (*(completion + 2))(completionCopy, 0, v6);
 }
 

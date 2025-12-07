@@ -3,6 +3,7 @@
 - (NSString)_associatedAppBundleID;
 - (id)_createSpecifiers;
 - (id)_eligibleAppsSpecifiers;
+- (id)_listItemSpecifierForBundleID:(id)d appAuthorized:(BOOL)authorized;
 - (id)specifiers;
 - (void)_setupAppConfigurationCoordinatorIfNecessary;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
@@ -108,6 +109,62 @@
   v8 = v5;
 
   return v5;
+}
+
+- (id)_listItemSpecifierForBundleID:(id)d appAuthorized:(BOOL)authorized
+{
+  authorizedCopy = authorized;
+  dCopy = d;
+  if (dCopy)
+  {
+    v7 = [CameraSettingsUtilities displayNameForBundleID:dCopy];
+  }
+
+  else
+  {
+    [NSBundle bundleForClass:NSClassFromString(@"CameraSettingsController")];
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = sub_941C;
+    v26 = sub_942C;
+    v27 = 0;
+    v15 = _NSConcreteStackBlock;
+    v16 = 3221225472;
+    v17 = sub_9434;
+    v18 = &unk_2CA98;
+    v8 = v21 = &v22;
+    v19 = v8;
+    v20 = @"CAMERA_BUTTON_APP_LIST_NO_ACTION";
+    [&off_320E0 enumerateObjectsUsingBlock:&v15];
+    v7 = v23[5];
+
+    _Block_object_dispose(&v22, 8);
+  }
+
+  v9 = [PSSpecifier preferenceSpecifierNamed:v7 target:self set:0 get:0 detail:0 cell:3 edit:0, v15, v16, v17, v18];
+  v10 = v9;
+  if (dCopy)
+  {
+    [v9 setIdentifier:dCopy];
+    [v10 setProperty:dCopy forKey:PSLazyIconAppID];
+    [v10 setProperty:&__kCFBooleanTrue forKey:PSLazyIconLoading];
+    v11 = [NSNumber numberWithBool:authorizedCopy];
+    v12 = &PSEnabledKey;
+  }
+
+  else
+  {
+    v13 = [NSBundle bundleForClass:objc_opt_class()];
+    v11 = [UIImage imageNamed:@"no-action-icon" inBundle:v13];
+
+    [v10 setIdentifier:@"CAMNoActionSpecifierID"];
+    v12 = &PSIconImageKey;
+  }
+
+  [v10 setProperty:v11 forKey:*v12];
+
+  return v10;
 }
 
 - (void)_setupAppConfigurationCoordinatorIfNecessary

@@ -18,28 +18,26 @@
 
 - (void)migrateVoiceShortcutsToShortcutsInDatabase:(id)database
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   v4 = VCOSTransactionWithName(@"WFDaemonDatabaseProvider.migrateVoiceShortcutsToShortcutsInDatabase");
   v5 = [objc_alloc(MEMORY[0x277D7C080]) initWithDatabase:databaseCopy];
 
-  v10 = 0;
-  v6 = [v5 migrateWithError:&v10];
-  v7 = v10;
+  v9 = 0;
+  v6 = [v5 migrateWithError:&v9];
+  v7 = v9;
   if ((v6 & 1) == 0)
   {
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[VCDaemonDatabaseProvider migrateVoiceShortcutsToShortcutsInDatabase:]";
-      v13 = 2114;
-      v14 = v7;
+      v11 = "[VCDaemonDatabaseProvider migrateVoiceShortcutsToShortcutsInDatabase:]";
+      v12 = 2114;
+      v13 = v7;
       _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_ERROR, "%s Failed to migrate shortcuts from CoreData: %{public}@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)databaseWithError:(id *)error
@@ -81,13 +79,13 @@
 
 void __46__VCDaemonDatabaseProvider_databaseWithError___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[1];
   if (v3)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), v3);
-    goto LABEL_12;
+    return;
   }
 
   if (([v2 isShortcutsAppInstalled] & 1) == 0)
@@ -96,7 +94,7 @@ void __46__VCDaemonDatabaseProvider_databaseWithError___block_invoke(uint64_t a1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
+      v22 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s Not initializing the database because Shortcuts app is not installed, returning nil", buf, 0xCu);
     }
 
@@ -111,7 +109,7 @@ void __46__VCDaemonDatabaseProvider_databaseWithError___block_invoke(uint64_t a1
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v23 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
+      v22 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
     }
 
     v5 = MEMORY[0x277CCA9B8];
@@ -123,42 +121,39 @@ LABEL_11:
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
 
-    goto LABEL_12;
+    return;
   }
 
-  v13 = objc_alloc(MEMORY[0x277D7C2F0]);
-  v14 = *(*(a1 + 48) + 8);
-  obj = *(v14 + 40);
-  v15 = [v13 initWithPersistenceMode:0 error:&obj];
-  objc_storeStrong((v14 + 40), obj);
-  v16 = *(*(a1 + 40) + 8);
-  v17 = *(v16 + 40);
-  *(v16 + 40) = v15;
+  v12 = objc_alloc(MEMORY[0x277D7C2F0]);
+  v13 = *(*(a1 + 48) + 8);
+  obj = *(v13 + 40);
+  v14 = [v12 initWithPersistenceMode:0 error:&obj];
+  objc_storeStrong((v13 + 40), obj);
+  v15 = *(*(a1 + 40) + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = v14;
 
-  v18 = *(*(*(a1 + 40) + 8) + 40);
-  if (v18)
+  v17 = *(*(*(a1 + 40) + 8) + 40);
+  if (v17)
   {
-    objc_storeStrong((*(a1 + 32) + 8), v18);
+    objc_storeStrong((*(a1 + 32) + 8), v17);
     [MEMORY[0x277D7C2F0] setDefaultDatabase:*(*(a1 + 32) + 8)];
     [*(a1 + 32) migrateVoiceShortcutsToShortcutsInDatabase:*(*(a1 + 32) + 8)];
   }
 
   else
   {
-    v19 = getWFGeneralLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = getWFGeneralLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(*(*(a1 + 48) + 8) + 40);
+      v19 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 136315394;
-      v23 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
-      v24 = 2114;
-      v25 = v20;
-      _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s Failed to initialize database: %{public}@", buf, 0x16u);
+      v22 = "[VCDaemonDatabaseProvider databaseWithError:]_block_invoke";
+      v23 = 2114;
+      v24 = v19;
+      _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_ERROR, "%s Failed to initialize database: %{public}@", buf, 0x16u);
     }
   }
-
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (VCDaemonDatabaseProvider)init

@@ -1110,20 +1110,7 @@ LABEL_28:
           v74 = v107;
         }
 
-        if (*(v126 + 24) != 1)
-        {
-          goto LABEL_87;
-        }
-
-        verifiableClinicalRecord2 = [v97 verifiableClinicalRecord];
-        v153 = verifiableClinicalRecord2;
-        v93 = [NSArray arrayWithObjects:&v153 count:1];
-        gateway2 = [accountCopy gateway];
-        externalID2 = [gateway2 externalID];
-        v96 = [HDVerifiableClinicalRecordEntity insertRecords:v93 gatewayExternalID:externalID2 profile:profileCopy error:errorCopy];
-
-        v74 = v107;
-        if ((v96 & 1) == 0)
+        if (*(v126 + 24) == 1 && ([v97 verifiableClinicalRecord], v92 = objc_claimAutoreleasedReturnValue(), v153 = v92, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v153, 1), v93 = objc_claimAutoreleasedReturnValue(), objc_msgSend(accountCopy, "gateway"), v94 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v94, "externalID"), v95 = objc_claimAutoreleasedReturnValue(), v96 = +[HDVerifiableClinicalRecordEntity insertRecords:gatewayExternalID:profile:error:](HDVerifiableClinicalRecordEntity, "insertRecords:gatewayExternalID:profile:error:", v93, v95, profileCopy, errorCopy), v95, v94, v93, v92, v74 = v107, (v96 & 1) == 0))
         {
 LABEL_89:
           v47 = 0;
@@ -1131,7 +1118,6 @@ LABEL_89:
 
         else
         {
-LABEL_87:
           v47 = 1;
         }
 

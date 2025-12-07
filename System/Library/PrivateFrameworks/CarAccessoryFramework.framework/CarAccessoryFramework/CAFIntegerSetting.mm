@@ -29,7 +29,9 @@
 - (NSString)userVisibleValue;
 - (id)name;
 - (int)value;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setValue:(int)value;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -136,6 +138,13 @@
   int32Value = [valueCharacteristic int32Value];
 
   return int32Value;
+}
+
+- (void)setValue:(int)value
+{
+  v3 = *&value;
+  valueCharacteristic = [(CAFIntegerSetting *)self valueCharacteristic];
+  [valueCharacteristic setInt32Value:v3];
 }
 
 - (CAFInt32Range)valueRange
@@ -396,6 +405,162 @@
   v3 = stepperBarHiddenCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000010"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    valueCharacteristic = [(CAFIntegerSetting *)self valueCharacteristic];
+    uniqueIdentifier2 = [valueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers integerSettingService:self didUpdateValue:{-[CAFIntegerSetting value](self, "value")}];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000017"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleValueCharacteristic = [(CAFIntegerSetting *)self userVisibleValueCharacteristic];
+    uniqueIdentifier4 = [userVisibleValueCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleValue = [(CAFIntegerSetting *)self userVisibleValue];
+      [observers integerSettingService:self didUpdateUserVisibleValue:userVisibleValue];
+LABEL_24:
+
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFIntegerSetting *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleValue = [(CAFIntegerSetting *)self userVisibleDescription];
+      [observers integerSettingService:self didUpdateUserVisibleDescription:userVisibleValue];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFIntegerSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier8 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleValue = [(CAFIntegerSetting *)self userVisibleDetailedDescription];
+      [observers integerSettingService:self didUpdateUserVisibleDetailedDescription:userVisibleValue];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000036000026"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    maximumSymbolNameCharacteristic = [(CAFIntegerSetting *)self maximumSymbolNameCharacteristic];
+    uniqueIdentifier10 = [maximumSymbolNameCharacteristic uniqueIdentifier];
+    v33 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v33)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleValue = [(CAFIntegerSetting *)self maximumSymbolName];
+      [observers integerSettingService:self didUpdateMaximumSymbolName:userVisibleValue];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000036000025"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    minimumSymbolNameCharacteristic = [(CAFIntegerSetting *)self minimumSymbolNameCharacteristic];
+    uniqueIdentifier12 = [minimumSymbolNameCharacteristic uniqueIdentifier];
+    v38 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v38)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleValue = [(CAFIntegerSetting *)self minimumSymbolName];
+      [observers integerSettingService:self didUpdateMinimumSymbolName:userVisibleValue];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if ([observers isEqual:@"0x0000000036000027"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    stepperBarHiddenCharacteristic = [(CAFIntegerSetting *)self stepperBarHiddenCharacteristic];
+    uniqueIdentifier14 = [stepperBarHiddenCharacteristic uniqueIdentifier];
+    v42 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (!v42)
+    {
+      goto LABEL_26;
+    }
+
+    observers = [(CAFService *)self observers];
+    [observers integerSettingService:self didUpdateStepperBarHidden:{-[CAFIntegerSetting stepperBarHidden](self, "stepperBarHidden")}];
+  }
+
+LABEL_25:
+
+LABEL_26:
+  v43.receiver = self;
+  v43.super_class = CAFIntegerSetting;
+  [(CAFAutomakerSetting *)&v43 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForInt32Value

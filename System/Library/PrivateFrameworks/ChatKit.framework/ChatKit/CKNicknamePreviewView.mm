@@ -115,7 +115,7 @@
     v33 = COERCE_DOUBLE([traitCollection2 userInterfaceStyle]);
 
     traitCollection3 = [(CKNicknamePreviewView *)v6 traitCollection];
-    v35 = COERCE_DOUBLE(CKBackgroundLevelForTraitCollection(traitCollection3));
+    v35 = CKBackgroundLevelForTraitCollection(traitCollection3);
 
     *&buf.m11 = 256;
     buf.m12 = NAN;
@@ -123,7 +123,7 @@
     LOBYTE(buf.m14) = -1;
     memset(&buf.m14 + 1, 0, 79);
     buf.m42 = v33;
-    buf.m43 = v35;
+    *&buf.m43 = v35;
     buf.m44 = COERCE_DOUBLE(257);
     [(CKColoredBalloonView *)v26 setBalloonDescriptor:&buf];
     balloonText = [(CKNicknamePreviewView *)v6 balloonText];
@@ -140,7 +140,7 @@
 - (id)balloonText
 {
   v3 = objc_alloc(MEMORY[0x1E696AD40]);
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(v3);
   v5 = [v4 localizedStringForKey:@"WHATS_NEW_NAME_AND_PHOTO_SHARING_HI_ITS_ME" value:&stru_1F04268F8 table:@"ChatKit"];
   v6 = [v3 initWithString:v5];
 

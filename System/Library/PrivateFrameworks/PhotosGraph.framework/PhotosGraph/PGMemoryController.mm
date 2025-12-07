@@ -73,13 +73,13 @@
 
 - (id)assetCollectionWithAssetLocalIdentifiers:(id)identifiers
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   photoLibrary = [(PGMemoryController *)self photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
-  v13[0] = *MEMORY[0x277CD9AA8];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = *MEMORY[0x277CD9AA8];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [librarySpecificFetchOptions setFetchPropertySets:v7];
 
   v8 = +[PGCurationManager defaultAssetSortDescriptors];
@@ -89,8 +89,6 @@
   v9 = [MEMORY[0x277CD97A8] fetchAssetsWithLocalIdentifiers:identifiersCopy options:librarySpecificFetchOptions];
 
   v10 = [MEMORY[0x277CD97B8] transientAssetCollectionWithAssetFetchResult:v9 title:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

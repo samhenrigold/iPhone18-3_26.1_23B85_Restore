@@ -5,7 +5,7 @@
 - (CHAchievementsRecentAndRelevantDataSource)initWithDataProvider:(id)provider collectionView:(id)view localizationProvider:(id)localizationProvider badgeImageFactory:(id)factory;
 - (UIEdgeInsets)collectionView:(id)view layout:(id)layout insetForSectionAtIndex:(int64_t)index;
 - (double)cellWidth;
-- (double)collectionView:layout:minimumInteritemSpacingForSectionAtIndex:;
+- (double)collectionView:(uint64_t)view layout:(uint64_t)layout minimumInteritemSpacingForSectionAtIndex:;
 - (double)maxCellHeight;
 - (double)preferredCollectionViewHeight;
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path;
@@ -20,7 +20,7 @@
 
 @implementation CHAchievementsRecentAndRelevantDataSource
 
-- (double)collectionView:layout:minimumInteritemSpacingForSectionAtIndex:
+- (double)collectionView:(uint64_t)view layout:(uint64_t)layout minimumInteritemSpacingForSectionAtIndex:
 {
   if (qword_1008F9948 != -1)
   {

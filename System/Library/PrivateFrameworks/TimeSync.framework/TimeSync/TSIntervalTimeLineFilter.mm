@@ -1,5 +1,6 @@
 @interface TSIntervalTimeLineFilter
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)rateRatio;
+- (TSIntervalTimeLineFilter)initWithExpectedDomainAInterval:(unint64_t)interval expectedDomainBInterval:(unint64_t)bInterval filterSize:(unsigned __int8)size;
 - (unint64_t)domainAIntervalFromDomainBInterval:(unint64_t)interval;
 - (unint64_t)domainATimeFromDomainBTime:(unint64_t)time;
 - (unint64_t)domainBIntervalFromDomainAInterval:(unint64_t)interval;
@@ -14,6 +15,37 @@
 
 @implementation TSIntervalTimeLineFilter
 
+- (TSIntervalTimeLineFilter)initWithExpectedDomainAInterval:(unint64_t)interval expectedDomainBInterval:(unint64_t)bInterval filterSize:(unsigned __int8)size
+{
+  v14.receiver = self;
+  v14.super_class = TSIntervalTimeLineFilter;
+  v5 = [(TSIntervalTimeLineFilter *)&v14 init];
+  v6 = v5;
+  if (v5)
+  {
+    v5->_validIndex = -1;
+    v7 = [TSIntervalFilter initWithExpectedInterval:"initWithExpectedInterval:multiIntervalCount:filterSize:" multiIntervalCount:? filterSize:?];
+    aIntervalFilter = v6->_aIntervalFilter;
+    v6->_aIntervalFilter = v7;
+
+    v9 = [TSIntervalFilter initWithExpectedInterval:"initWithExpectedInterval:multiIntervalCount:filterSize:" multiIntervalCount:? filterSize:?];
+    bIntervalFilter = v6->_bIntervalFilter;
+    v6->_bIntervalFilter = v9;
+
+    v11 = dispatch_queue_create("com.apple.TimeSync.TSIntervalTimeLineFilter", 0);
+    syncQueue = v6->_syncQueue;
+    v6->_syncQueue = v11;
+
+    if (!v6->_aIntervalFilter || !v6->_bIntervalFilter || !v6->_syncQueue)
+    {
+
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
 - (void)addTimestamps:(id)timestamps
 {
   syncQueue = self->_syncQueue;
@@ -26,12 +58,12 @@
   dispatch_sync(syncQueue, block);
 }
 
-uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
+void *__42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = (*(v2 + 272) + 1) & 7;
-  *(v2 + 8 + 8 * v3) = [*(v2 + 280) addTimestamp:a1[5] entry:v2 + 136 + 8 * v3];
-  result = [*(a1[4] + 288) addTimestamp:a1[6] entry:a1[4] + 200 + 8 * v3];
+  *(v2 + 8 + 8 * v3) = [*(v2 + 280) addTimestamp:? entry:?];
+  result = [*(a1[4] + 288) addTimestamp:? entry:?];
   *(a1[4] + 72 + 8 * v3) = result;
   *(a1[4] + 272) = v3;
   return result;
@@ -39,22 +71,21 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)rateRatio
 {
-  validIndex = self->_validIndex;
-  if (validIndex > 7)
+  if (self->_validIndex > 7uLL)
   {
-    v5 = -1;
     v4 = -1;
+    v3 = -1;
   }
 
   else
   {
-    v4 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-    v5 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+    v3 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+    v4 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
   }
 
-  v6 = v4;
-  result.var1 = v5;
-  result.var0 = v6;
+  v5 = v3;
+  result.var1 = v4;
+  result.var0 = v5;
   return result;
 }
 
@@ -83,8 +114,8 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
 
     if (ratio)
     {
-      ratio->var0 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-      ratio->var1 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+      ratio->var0 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+      ratio->var1 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
     }
   }
 }
@@ -97,8 +128,8 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
     return -1;
   }
 
-  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
   v8 = self->_BAnchor[validIndex];
   v9 = self->_AAnchor[validIndex];
 
@@ -107,16 +138,15 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
 
 - (unint64_t)domainAIntervalFromDomainBInterval:(unint64_t)interval
 {
-  validIndex = self->_validIndex;
-  if (validIndex > 7)
+  if (self->_validIndex > 7)
   {
     return -1;
   }
 
-  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+  v5 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+  v6 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
 
-  return TSIntervalXtoIntervalY(interval, v7, v6);
+  return TSIntervalXtoIntervalY(interval, v6, v5);
 }
 
 - (unint64_t)domainBTimeFromDomainATime:(unint64_t)time
@@ -127,8 +157,8 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
     return -1;
   }
 
-  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
   v8 = self->_AAnchor[validIndex];
   v9 = self->_BAnchor[validIndex];
 
@@ -137,16 +167,15 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
 
 - (unint64_t)domainBIntervalFromDomainAInterval:(unint64_t)interval
 {
-  validIndex = self->_validIndex;
-  if (validIndex > 7)
+  if (self->_validIndex > 7)
   {
     return -1;
   }
 
-  v6 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:self->_AEntries[validIndex]];
-  v7 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:self->_BEntries[validIndex]];
+  v5 = [(TSIntervalFilter *)self->_aIntervalFilter multiIntervalTimeForEntry:?];
+  v6 = [(TSIntervalFilter *)self->_bIntervalFilter multiIntervalTimeForEntry:?];
 
-  return TSIntervalXtoIntervalY(interval, v6, v7);
+  return TSIntervalXtoIntervalY(interval, v5, v6);
 }
 
 - (void)resetFilter
@@ -160,7 +189,7 @@ uint64_t __42__TSIntervalTimeLineFilter_addTimestamps___block_invoke(void *a1)
   dispatch_sync(syncQueue, block);
 }
 
-uint64_t __39__TSIntervalTimeLineFilter_resetFilter__block_invoke(uint64_t a1)
+void *__39__TSIntervalTimeLineFilter_resetFilter__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 280) resetFilter];
   v2 = *(*(a1 + 32) + 288);
@@ -181,13 +210,12 @@ uint64_t __39__TSIntervalTimeLineFilter_resetFilter__block_invoke(uint64_t a1)
   dispatch_sync(syncQueue, block);
 }
 
-uint64_t __94__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterval_expectedDomainBInterval___block_invoke(void *a1)
+void *__94__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterval_expectedDomainBInterval___block_invoke(void *a1)
 {
-  [*(a1[4] + 280) resetFilterWithNewExpectedInterval:a1[5]];
+  [*(a1[4] + 280) resetFilterWithNewExpectedInterval:?];
   v2 = *(a1[4] + 288);
-  v3 = a1[6];
 
-  return [v2 resetFilterWithNewExpectedInterval:v3];
+  return [v2 resetFilterWithNewExpectedInterval:?];
 }
 
 - (void)resetFilterWithNewExpectedDomainAInterval:(unint64_t)interval expectedDomainBInterval:(unint64_t)bInterval multiIntervalCount:(unsigned int)count
@@ -204,14 +232,12 @@ uint64_t __94__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterva
   dispatch_sync(syncQueue, v6);
 }
 
-uint64_t __113__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterval_expectedDomainBInterval_multiIntervalCount___block_invoke(uint64_t a1)
+void *__113__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterval_expectedDomainBInterval_multiIntervalCount___block_invoke(uint64_t a1)
 {
-  [*(*(a1 + 32) + 280) resetFilterWithNewExpectedInterval:*(a1 + 40) multiIntervalCount:*(a1 + 56)];
+  [*(*(a1 + 32) + 280) resetFilterWithNewExpectedInterval:? multiIntervalCount:?];
   v2 = *(*(a1 + 32) + 288);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
 
-  return [v2 resetFilterWithNewExpectedInterval:v3 multiIntervalCount:v4];
+  return [v2 resetFilterWithNewExpectedInterval:? multiIntervalCount:?];
 }
 
 - (void)changeToNewFilterSize:(unsigned __int8)size
@@ -226,13 +252,12 @@ uint64_t __113__TSIntervalTimeLineFilter_resetFilterWithNewExpectedDomainAInterv
   dispatch_sync(syncQueue, v4);
 }
 
-uint64_t __50__TSIntervalTimeLineFilter_changeToNewFilterSize___block_invoke(uint64_t a1)
+void *__50__TSIntervalTimeLineFilter_changeToNewFilterSize___block_invoke(uint64_t a1)
 {
-  [*(*(a1 + 32) + 280) changeToNewFilterSize:*(a1 + 40)];
+  [*(*(a1 + 32) + 280) changeToNewFilterSize:?];
   v2 = *(*(a1 + 32) + 288);
-  v3 = *(a1 + 40);
 
-  return [v2 changeToNewFilterSize:v3];
+  return [v2 changeToNewFilterSize:?];
 }
 
 @end

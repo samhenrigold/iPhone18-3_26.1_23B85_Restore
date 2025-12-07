@@ -24,7 +24,7 @@
 
 void __45__FeatureFlagsManager_isModernizationEnabled__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (AAInternalLogSystem_onceToken != -1)
   {
     __45__FeatureFlagsManager_isModernizationEnabled__block_invoke_cold_1();
@@ -34,16 +34,14 @@ void __45__FeatureFlagsManager_isModernizationEnabled__block_invoke(uint64_t a1)
   if (os_log_type_enabled(AAInternalLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 136315650;
-    v6 = "FeatureFlagsManager.m";
-    v7 = 1024;
-    v8 = 23;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App Attest Modernization feature flag enabled { enabled=%d }.", &v5, 0x18u);
+    v4 = 136315650;
+    v5 = "FeatureFlagsManager.m";
+    v6 = 1024;
+    v7 = 23;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App Attest Modernization feature flag enabled { enabled=%d }.", &v4, 0x18u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isMacEnabled
@@ -64,7 +62,7 @@ void __45__FeatureFlagsManager_isModernizationEnabled__block_invoke(uint64_t a1)
 
 void __35__FeatureFlagsManager_isMacEnabled__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (AAInternalLogSystem_onceToken != -1)
   {
     __45__FeatureFlagsManager_isModernizationEnabled__block_invoke_cold_1();
@@ -74,16 +72,14 @@ void __35__FeatureFlagsManager_isMacEnabled__block_invoke(uint64_t a1)
   if (os_log_type_enabled(AAInternalLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 136315650;
-    v6 = "FeatureFlagsManager.m";
-    v7 = 1024;
-    v8 = 35;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Mac feature flag enabled { enabled=%d }.", &v5, 0x18u);
+    v4 = 136315650;
+    v5 = "FeatureFlagsManager.m";
+    v6 = 1024;
+    v7 = 35;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Mac feature flag enabled { enabled=%d }.", &v4, 0x18u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isExtensionAttestationEnabled
@@ -104,7 +100,7 @@ void __35__FeatureFlagsManager_isMacEnabled__block_invoke(uint64_t a1)
 
 void __52__FeatureFlagsManager_isExtensionAttestationEnabled__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (AAInternalLogSystem_onceToken != -1)
   {
     __45__FeatureFlagsManager_isModernizationEnabled__block_invoke_cold_1();
@@ -114,16 +110,14 @@ void __52__FeatureFlagsManager_isExtensionAttestationEnabled__block_invoke(uint6
   if (os_log_type_enabled(AAInternalLogSystem_log, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 136315650;
-    v6 = "FeatureFlagsManager.m";
-    v7 = 1024;
-    v8 = 47;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App Attest Extension Support feature flag enabled { enabled=%d }.", &v5, 0x18u);
+    v4 = 136315650;
+    v5 = "FeatureFlagsManager.m";
+    v6 = 1024;
+    v7 = 47;
+    v8 = 1024;
+    v9 = v3;
+    _os_log_impl(&dword_226177000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App Attest Extension Support feature flag enabled { enabled=%d }.", &v4, 0x18u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

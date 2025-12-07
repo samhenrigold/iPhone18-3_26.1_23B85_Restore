@@ -25,42 +25,42 @@
 + (void)addActiveExtractionService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_100000DA8();
+  v5 = sub_100000DA8(serviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     sessionID = [serviceCopy sessionID];
-    v12 = 136446722;
-    v13 = "+[STExtractionService addActiveExtractionService:]";
-    v14 = 2112;
-    v15 = sessionID;
-    v16 = 2112;
-    v17 = serviceCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v12, 0x20u);
+    v13 = 136446722;
+    v14 = "+[STExtractionService addActiveExtractionService:]";
+    v15 = 2112;
+    v16 = sessionID;
+    v17 = 2112;
+    v18 = serviceCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: [%@] %@", &v13, 0x20u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    [qword_10000D030 addObject:serviceCopy];
+    v8 = [qword_10000D030 addObject:serviceCopy];
   }
 
   else
   {
-    v8 = [NSMutableSet setWithObject:serviceCopy];
-    v9 = qword_10000D030;
-    qword_10000D030 = v8;
+    v9 = [NSMutableSet setWithObject:serviceCopy];
+    v10 = qword_10000D030;
+    qword_10000D030 = v9;
   }
 
-  v10 = sub_100000DA8();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100000DA8(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [qword_10000D030 count];
-    v12 = 136446466;
-    v13 = "+[STExtractionService addActiveExtractionService:]";
-    v14 = 2048;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services", &v12, 0x16u);
+    v12 = [qword_10000D030 count];
+    v13 = 136446466;
+    v14 = "+[STExtractionService addActiveExtractionService:]";
+    v15 = 2048;
+    v16 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu services", &v13, 0x16u);
   }
 
   objc_sync_exit(selfCopy);
@@ -69,7 +69,7 @@
 + (void)removeExtractionService:(id)service
 {
   serviceCopy = service;
-  v5 = sub_100000DA8();
+  v5 = sub_100000DA8(serviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     sessionID = [serviceCopy sessionID];
@@ -86,8 +86,7 @@
   objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    [qword_10000D030 removeObject:serviceCopy];
-    v8 = sub_100000DA8();
+    v8 = sub_100000DA8([qword_10000D030 removeObject:serviceCopy]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [qword_10000D030 count];
@@ -106,17 +105,17 @@
 {
   processTerminated = 1;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (qword_10000D030)
   {
-    v3 = sub_100000DA8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100000DA8(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136446466;
-      v5 = "+[STExtractionService setProcessTerminated]";
-      v6 = 2048;
-      v7 = [qword_10000D030 count];
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: suspending %lu extractions", &v4, 0x16u);
+      v5 = 136446466;
+      v6 = "+[STExtractionService setProcessTerminated]";
+      v7 = 2048;
+      v8 = [qword_10000D030 count];
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: suspending %lu extractions", &v5, 0x16u);
     }
 
     [qword_10000D030 enumerateObjectsUsingBlock:&stru_1000083D0];
@@ -152,7 +151,7 @@
       {
         objc_storeWeak(v8 + 3, connectionCopy);
         v8[16] = 1;
-        [connectionCopy auditToken];
+        objc_msgSend_auditToken(connectionCopy);
         *(v8 + 4) = v16;
         *(v8 + 5) = v17;
       }
@@ -247,7 +246,7 @@
 
     else
     {
-      sub_100003B70();
+      sub_100003B70(v4);
     }
   }
 }

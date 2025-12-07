@@ -9,6 +9,9 @@
 - (void)_showForgotPasswordAlert;
 - (void)_showRegistrationFailureWithError:(id)error;
 - (void)_showRequestPasswordAlert;
+- (void)doHandoffWithStatus:(int)status appleID:(id)d authID:(id)iD authToken:(id)token;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegSecureAccountWebViewController
@@ -29,9 +32,102 @@
   return v8;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegSecureAccountWebViewController;
+  [(CNFRegAccountWebViewController *)&v4 viewDidAppear:appear];
+  [(CNFRegSecureAccountWebViewController *)self _setupAccountHandlers];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CNFRegSecureAccountWebViewController;
+  [(CNFRegAccountWebViewController *)&v5 viewWillDisappear:disappear];
+  regController = [(CNFRegServerWebViewController *)self regController];
+  [regController removeAllHandlers];
+}
+
+- (void)doHandoffWithStatus:(int)status appleID:(id)d authID:(id)iD authToken:(id)token
+{
+  v8 = *&status;
+  v21 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  iDCopy = iD;
+  tokenCopy = token;
+  if ([(CNFRegServerWebViewController *)self _shouldLog])
+  {
+    v13 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      v20 = v8;
+      _os_log_impl(&dword_243BE5000, v13, OS_LOG_TYPE_DEFAULT, "Got handoff with status : %d", buf, 8u);
+    }
+
+    if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+    {
+      v18 = v8;
+      IMLogString();
+    }
+  }
+
+  if (v8 == 5000)
+  {
+    triedGettingNewCredentials = self->_triedGettingNewCredentials;
+    _shouldLog = [(CNFRegServerWebViewController *)self _shouldLog];
+    if (triedGettingNewCredentials)
+    {
+      if (_shouldLog)
+      {
+        v16 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_243BE5000, v16, OS_LOG_TYPE_DEFAULT, "Account was unauthenticated, and a previous attempt has been made to acquire auth credentials. Bailing.", buf, 2u);
+        }
+
+        if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+        {
+          IMLogString();
+        }
+      }
+
+      [(CNFRegAccountWebViewController *)self _showURLDidNotLoadAlert];
+    }
+
+    else
+    {
+      if (_shouldLog)
+      {
+        v17 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_243BE5000, v17, OS_LOG_TYPE_DEFAULT, "Account was unauthenticated. Obtaining new auth credentials", buf, 2u);
+        }
+
+        if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+        {
+          IMLogString();
+        }
+      }
+
+      self->_triedGettingNewCredentials = 1;
+      [(CNFRegSecureAccountWebViewController *)self _showRequestPasswordAlert];
+    }
+  }
+
+  else
+  {
+    [(CNFRegAccountWebViewController *)self completeHandoffWithStatus:v8 appleID:dCopy authID:iDCopy authToken:tokenCopy];
+  }
+}
+
 - (void)_showRegistrationFailureWithError:(id)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -43,22 +139,22 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v41 = v5;
-        v42 = 2048;
-        v43 = code;
+        v40 = v5;
+        v41 = 2048;
+        v42 = code;
         _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Received sign in error : %@ (%ld)", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
       {
-        v34 = v5;
-        v35 = code;
+        v33 = v5;
+        v34 = code;
         IMLogString();
       }
     }
   }
 
-  v8 = [(CNFRegServerWebViewController *)self regController:v34];
+  v8 = [(CNFRegServerWebViewController *)self regController:v33];
   v9 = [v8 shouldShowAlertForError:v5];
 
   if (v9)
@@ -108,12 +204,12 @@
     }
 
     v27 = [MEMORY[0x277D75110] alertControllerWithTitle:v13 message:v18 preferredStyle:1];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke;
-    v39[3] = &unk_278DE8328;
-    v39[4] = self;
-    v28 = [MEMORY[0x277D750F8] actionWithTitle:v24 style:0 handler:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke;
+    v38[3] = &unk_278DE8328;
+    v38[4] = self;
+    v28 = [MEMORY[0x277D750F8] actionWithTitle:v24 style:0 handler:v38];
     [v27 addAction:v28];
 
     userInfo3 = [v5 userInfo];
@@ -122,20 +218,18 @@
     if (v30)
     {
       v31 = MEMORY[0x277D750F8];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke_2;
-      v36[3] = &unk_278DE8420;
-      v37 = v5;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke_2;
+      v35[3] = &unk_278DE8420;
+      v36 = v5;
       selfCopy = self;
-      v32 = [v31 actionWithTitle:v30 style:0 handler:v36];
+      v32 = [v31 actionWithTitle:v30 style:0 handler:v35];
       [v27 addAction:v32];
     }
 
     [(CNFRegSecureAccountWebViewController *)self presentViewController:v27 animated:1 completion:0];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke(uint64_t a1)
@@ -154,7 +248,7 @@ uint64_t __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWith
 
 void __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithError___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) userInfo];
   v5 = [v4 objectForKey:@"cnf-customActionURLString"];
@@ -170,13 +264,13 @@ void __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithErro
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v12 = v6;
+          v11 = v6;
           _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Launching URL : %@", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
         {
-          v10 = v6;
+          v9 = v6;
           IMLogString();
         }
       }
@@ -185,8 +279,6 @@ void __74__CNFRegSecureAccountWebViewController__showRegistrationFailureWithErro
       [v8 openURL:v6];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showBadPasswordAlert

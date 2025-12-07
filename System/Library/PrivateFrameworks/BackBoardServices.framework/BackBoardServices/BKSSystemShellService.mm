@@ -11,6 +11,7 @@
 - (void)setCalloutQueue:(id)queue;
 - (void)setCollectiveWatchdogPingBlock:(id)block;
 - (void)setIdleSleepInterval:(double)interval;
+- (void)setIndependentWatchdogEnabled:(BOOL)enabled;
 - (void)setWaitForDataMigration:(BOOL)migration;
 - (void)start;
 @end
@@ -48,6 +49,23 @@
   return 0;
 }
 
+- (void)setIndependentWatchdogEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = BKLogSystemShell();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = enabledCopy;
+    _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "setIndependentWatchdogEnabled: %{BOOL}u", v8, 8u);
+  }
+
+  _server = [(BKSSystemShellService *)&self->super.isa _server];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  [_server setWatchdogMonitoringEnabled:?];
+}
+
 - (id)_server
 {
   if (self)
@@ -61,51 +79,50 @@
 
 - (void)restartWithOptions:(unint64_t)options
 {
-  v12 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  v11 = *MEMORY[0x1E69E9840];
   v5 = BKLogSystemShell();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = BKSRestartActionOptionsDescription(options);
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "restartWithOptions: %{public}@", &v10, 0xCu);
+    v6 = BKSRestartActionOptionsDescription(optionsCopy);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "restartWithOptions: %{public}@", &v9, 0xCu);
   }
 
   _server = [(BKSSystemShellService *)&self->super.isa _server];
-  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:options];
-  [_server restartWithOptions:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  [_server restartWithOptions:?];
 }
 
 - (void)didFinishLaunching
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = atomic_load(&self->_checkInStatus);
   if (v4 <= 0)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"you need to invoke -start first"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v16 = 138544642;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2048;
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v15 = 138544642;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2048;
       selfCopy2 = self;
-      v22 = 2114;
-      v23 = @"BKSSystemShellService.m";
-      v24 = 1024;
-      v25 = 141;
-      v26 = 2114;
-      v27 = v8;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v16, 0x3Au);
+      v21 = 2114;
+      v22 = @"BKSSystemShellService.m";
+      v23 = 1024;
+      v24 = 141;
+      v25 = 2114;
+      v26 = v7;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v15, 0x3Au);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186397B58);
@@ -114,28 +131,28 @@
   v5 = atomic_load(&self->_checkInStatus);
   if (v5 >= 3)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"you already invoked -didFinishLaunching"];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = NSStringFromSelector(a2);
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = 138544642;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v15;
-      v20 = 2048;
+      v12 = NSStringFromSelector(a2);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = 138544642;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v14;
+      v19 = 2048;
       selfCopy2 = self;
-      v22 = 2114;
-      v23 = @"BKSSystemShellService.m";
-      v24 = 1024;
-      v25 = 142;
-      v26 = 2114;
-      v27 = v12;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v16, 0x3Au);
+      v21 = 2114;
+      v22 = @"BKSSystemShellService.m";
+      v23 = 1024;
+      v24 = 142;
+      v25 = 2114;
+      v26 = v11;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v15, 0x3Au);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186397C44);
@@ -145,44 +162,43 @@
   v6 = BKLogSystemShell();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_DEFAULT, "didFinishLaunching", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_DEFAULT, "didFinishLaunching", &v15, 2u);
   }
 
   [(BKSSystemShellService *)self _tellServerWeFinishedLaunching];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setCheckInStatus:(uint64_t)status
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (status)
   {
     v4 = atomic_load((status + 48));
     if (v4 > a2)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot go backwards"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(sel__setCheckInStatus_);
-        v11 = objc_opt_class();
-        v12 = NSStringFromClass(v11);
-        v13 = 138544642;
-        v14 = v10;
-        v15 = 2114;
-        v16 = v12;
-        v17 = 2048;
+        v9 = NSStringFromSelector(sel__setCheckInStatus_);
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v12 = 138544642;
+        v13 = v9;
+        v14 = 2114;
+        v15 = v11;
+        v16 = 2048;
         statusCopy = status;
-        v19 = 2114;
-        v20 = @"BKSSystemShellService.m";
-        v21 = 1024;
-        v22 = 227;
-        v23 = 2114;
-        v24 = v9;
-        _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+        v18 = 2114;
+        v19 = @"BKSSystemShellService.m";
+        v20 = 1024;
+        v21 = 227;
+        v22 = 2114;
+        v23 = v8;
+        _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
       }
 
-      [v9 UTF8String];
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186397E20);
@@ -196,14 +212,12 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = NSStringFromBKSSystemShellCheckInStatus(a2);
-        v13 = 138543362;
-        v14 = v7;
-        _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_DEFAULT, "checkin %{public}@", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v7;
+        _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_DEFAULT, "checkin %{public}@", &v12, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tellServerWeFinishedLaunching
@@ -217,31 +231,31 @@
 
 - (void)start
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (atomic_load(&self->_checkInStatus))
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"you already invoked -start"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = 138544642;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v10;
-      v15 = 2048;
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = 138544642;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v9;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BKSSystemShellService.m";
-      v19 = 1024;
-      v20 = 133;
-      v21 = 2114;
-      v22 = v7;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v11, 0x3Au);
+      v16 = 2114;
+      v17 = @"BKSSystemShellService.m";
+      v18 = 1024;
+      v19 = 133;
+      v20 = 2114;
+      v21 = v6;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186398060);
@@ -249,14 +263,13 @@
 
   [(BKSSystemShellService *)self _setCheckInStatus:?];
   waitForDataMigration = self->_waitForDataMigration;
-  v5 = *MEMORY[0x1E69E9840];
 
   [(BKSSystemShellService *)self _checkInWithServerForReason:waitForDataMigration waitForDataMigration:?];
 }
 
 - (void)_checkInWithServerForReason:(int)reason waitForDataMigration:
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
@@ -264,36 +277,36 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v30 = v5;
-      v31 = 1024;
-      LODWORD(v32) = reason;
+      v33 = v5;
+      v34 = 1024;
+      LODWORD(v35) = reason;
       _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_DEFAULT, "checkIn(%{public}@): (waits for migration:%{BOOL}u)", buf, 0x12u);
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigration___block_invoke;
-    v25[3] = &unk_1E6F471E8;
-    v26 = v5;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigration___block_invoke;
+    v24[3] = &unk_1E6F471E8;
+    v25 = v5;
     selfCopy = self;
-    v7 = MEMORY[0x186605BB0](v25);
+    v7 = MEMORY[0x186605BB0](v24);
     v8 = v7;
     if (reason)
     {
       v9 = v7;
-      v10 = [MEMORY[0x1E698F498] endpointForMachName:@"com.apple.backboard.system-app-server" service:@"DataMigrationCheckIn" instance:0];
+      v10 = [MEMORY[0x1E698F498] endpointForMachName:? service:? instance:?];
       if (v10)
       {
-        v11 = [MEMORY[0x1E698F490] connectionWithEndpoint:v10];
+        v11 = [MEMORY[0x1E698F490] connectionWithEndpoint:?];
         if (v11)
         {
           v12 = v11;
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke;
-          v28[3] = &unk_1E6F47220;
-          v28[4] = self;
-          [v11 configureConnection:v28];
+          v27 = MEMORY[0x1E69E9820];
+          v28 = 3221225472;
+          v29 = __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke;
+          v30 = &unk_1E6F47220;
+          selfCopy2 = self;
+          [v11 configureConnection:?];
           v13 = BKLogSystemShell();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
@@ -307,7 +320,7 @@
           {
             remoteTarget = [v12 remoteTarget];
             *buf = 138543362;
-            v30 = remoteTarget;
+            v33 = remoteTarget;
             _os_log_debug_impl(&dword_186345000, v14, OS_LOG_TYPE_DEBUG, "_checkInWaitingForDataMigration: server remote target %{public}@", buf, 0xCu);
           }
 
@@ -315,35 +328,35 @@
 
           if (!remoteTarget2)
           {
-            v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we must have a remote target"];
+            v20 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v22 = NSStringFromSelector(sel__checkInWaitingForDataMigration_);
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v21 = NSStringFromSelector(sel__checkInWaitingForDataMigration_);
+              v22 = objc_opt_class();
+              v23 = NSStringFromClass(v22);
               *buf = 138544642;
-              v30 = v22;
-              v31 = 2114;
-              v32 = v24;
-              v33 = 2048;
-              selfCopy2 = self;
-              v35 = 2114;
-              v36 = @"BKSSystemShellService.m";
-              v37 = 1024;
-              v38 = 286;
-              v39 = 2114;
-              v40 = v21;
+              v33 = v21;
+              v34 = 2114;
+              v35 = v23;
+              v36 = 2048;
+              selfCopy3 = self;
+              v38 = 2114;
+              v39 = @"BKSSystemShellService.m";
+              v40 = 1024;
+              v41 = 286;
+              v42 = 2114;
+              v43 = v20;
               _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            [v21 UTF8String];
+            [v20 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x1863984F0);
           }
 
           remoteTarget3 = [v12 remoteTarget];
-          [remoteTarget3 checkInAfterDataMigrationUsingCompletionBlock:v9];
+          [remoteTarget3 checkInAfterDataMigrationUsingCompletionBlock:?];
 
           [v12 invalidate];
         }
@@ -375,16 +388,14 @@
     else
     {
       remoteTarget4 = [*(self + 8) remoteTarget];
-      [remoteTarget4 checkInBypassingDataMigrationUsingCompletionBlock:v8];
+      [remoteTarget4 checkInBypassingDataMigrationUsingCompletionBlock:?];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigration___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = BKLogSystemShell();
   v5 = v4;
@@ -392,12 +403,12 @@ void __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigratio
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = 138543618;
-      v11 = v9;
-      v12 = 2114;
-      v13 = v3;
-      _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "checkIn(%{public}@): exiting due to XPC error: %{public}@", &v10, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "checkIn(%{public}@): exiting due to XPC error: %{public}@", &v9, 0x16u);
     }
 
     if (*(a1 + 40))
@@ -411,9 +422,9 @@ void __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigratio
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "checkIn(%{public}@): complete", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_impl(&dword_186345000, v5, OS_LOG_TYPE_DEFAULT, "checkIn(%{public}@): complete", &v9, 0xCu);
     }
 
     v7 = atomic_load((*(a1 + 40) + 48));
@@ -422,33 +433,31 @@ void __74__BKSSystemShellService__checkInWithServerForReason_waitForDataMigratio
       [(BKSSystemShellService *)*(a1 + 40) _setCheckInStatus:?];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = BKLogSystemShell();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v2 = a2;
+  v3 = BKLogSystemShell();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v9 = 0;
-    _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "_checkInWaitingForDataMigration: configured client service", v9, 2u);
+    *v8 = 0;
+    _os_log_debug_impl(&dword_186345000, v3, OS_LOG_TYPE_DEBUG, "_checkInWaitingForDataMigration: configured client service", v8, 2u);
   }
 
-  v5 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF5794D0];
-  v6 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF579530];
-  v7 = [MEMORY[0x1E698F470] interfaceWithIdentifier:@"DataMigrationCheckIn"];
-  [v7 setServer:v6];
-  [v7 setClient:v5];
-  [v3 setInterface:v7];
-  [v3 setInterfaceTarget:*(a1 + 32)];
-  [v3 setTargetQueue:*(*(a1 + 32) + 16)];
-  v8 = [MEMORY[0x1E698F500] userInitiated];
-  [v3 setServiceQuality:v8];
+  v4 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v5 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v6 = [MEMORY[0x1E698F470] interfaceWithIdentifier:?];
+  [v6 setServer:?];
+  [v6 setClient:?];
+  [v2 setInterface:?];
+  [v2 setInterfaceTarget:?];
+  [v2 setTargetQueue:?];
+  v7 = [MEMORY[0x1E698F500] userInitiated];
+  [v2 setServiceQuality:?];
 
-  [v3 setInterruptionHandler:&__block_literal_global_97];
-  [v3 setInvalidationHandler:&__block_literal_global_100];
+  [v2 setInterruptionHandler:?];
+  [v2 setInvalidationHandler:?];
 }
 
 void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_98()
@@ -473,43 +482,41 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
 
 - (void)setCollectiveWatchdogPingBlock:(id)block
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (self->_configurationFinished)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot modify config after init"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = @"BKSSystemShellService.m";
-      v22 = 1024;
-      v23 = 125;
-      v24 = 2114;
-      v25 = v9;
+      v19 = 2114;
+      v20 = @"BKSSystemShellService.m";
+      v21 = 1024;
+      v22 = 125;
+      v23 = 2114;
+      v24 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863989FCLL);
   }
 
-  v13 = blockCopy;
+  v12 = blockCopy;
   v6 = [blockCopy copy];
   watchdogPingBlock = self->_watchdogPingBlock;
   self->_watchdogPingBlock = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)collectiveWatchdogPingBlock
@@ -521,104 +528,102 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
 
 - (void)setWaitForDataMigration:(BOOL)migration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_configurationFinished)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot modify config after init"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = 138544642;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v9;
-      v14 = 2048;
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = 138544642;
+      v10 = v6;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BKSSystemShellService.m";
-      v18 = 1024;
-      v19 = 116;
-      v20 = 2114;
-      v21 = v6;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+      v15 = 2114;
+      v16 = @"BKSSystemShellService.m";
+      v17 = 1024;
+      v18 = 116;
+      v19 = 2114;
+      v20 = v5;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186398B84);
   }
 
   self->_waitForDataMigration = migration;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIdleSleepInterval:(double)interval
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (self->_configurationFinished)
   {
-    interval = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot modify config after init", interval];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = NSStringFromSelector(a2);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = 138544642;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v9;
-      v14 = 2048;
+      v6 = NSStringFromSelector(a2);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = 138544642;
+      v10 = v6;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BKSSystemShellService.m";
-      v18 = 1024;
-      v19 = 107;
-      v20 = 2114;
-      v21 = interval;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+      v15 = 2114;
+      v16 = @"BKSSystemShellService.m";
+      v17 = 1024;
+      v18 = 107;
+      v19 = 2114;
+      v20 = v5;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
     }
 
-    [interval UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186398CE8);
   }
 
   self->_idleSleepInterval = interval;
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCalloutQueue:(id)queue
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_configurationFinished)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot modify config after init"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = 138544642;
-      v13 = v9;
-      v14 = 2114;
-      v15 = v11;
-      v16 = 2048;
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = 138544642;
+      v12 = v8;
+      v13 = 2114;
+      v14 = v10;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"BKSSystemShellService.m";
-      v20 = 1024;
-      v21 = 98;
-      v22 = 2114;
-      v23 = v8;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
+      v17 = 2114;
+      v18 = @"BKSSystemShellService.m";
+      v19 = 1024;
+      v20 = 98;
+      v21 = 2114;
+      v22 = v7;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v11, 0x3Au);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186398E64);
@@ -626,18 +631,17 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
 
   calloutQueue = self->_calloutQueue;
   self->_calloutQueue = queueCopy;
-  v7 = *MEMORY[0x1E69E9840];
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](queueCopy, calloutQueue);
 }
 
 - (BKSSystemShellService)initWithConfigurator:(id)configurator
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   configuratorCopy = configurator;
-  v37.receiver = self;
-  v37.super_class = BKSSystemShellService;
-  v5 = [(BKSSystemShellService *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = BKSSystemShellService;
+  v5 = [(BKSSystemShellService *)&v36 init];
   v6 = v5;
   if (v5)
   {
@@ -665,37 +669,37 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     bs_jobLabel = [processInfo bs_jobLabel];
 
-    v16 = [MEMORY[0x1E698F498] endpointForMachName:@"com.apple.backboard.system-app-server" service:@"Shell" instance:0];
+    v16 = [MEMORY[0x1E698F498] endpointForMachName:? service:? instance:?];
     if (v16)
     {
       v17 = MEMORY[0x1E698F490];
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v54 = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke;
-      v55 = &unk_1E6F47278;
-      v56 = bundleIdentifier;
-      v57 = bundlePath;
+      v57 = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke;
+      v58 = &unk_1E6F47278;
+      v59 = bundleIdentifier;
+      v60 = bundlePath;
       v18 = bs_jobLabel;
-      v60 = idleSleepInterval;
-      v58 = v18;
-      v59 = v6;
-      v19 = [v17 connectionWithEndpoint:v16 clientContextBuilder:&buf];
+      v63 = idleSleepInterval;
+      v61 = v18;
+      v62 = v6;
+      v19 = [v17 connectionWithEndpoint:? clientContextBuilder:?];
       if (v19)
       {
         objc_storeStrong(&v6->_connection, v19);
         objc_initWeak(&location, v6);
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_110;
-        v38[3] = &unk_1E6F472A0;
-        v38[4] = v6;
-        objc_copyWeak(&v39, &location);
-        [v19 configureConnection:v38];
+        v37 = MEMORY[0x1E69E9820];
+        v38 = 3221225472;
+        v39 = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_110;
+        v40 = &unk_1E6F472A0;
+        v41 = v6;
+        objc_copyWeak(&v42, &location);
+        [v19 configureConnection:?];
         v20 = BKLogSystemShell();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          *v41 = 0;
-          _os_log_debug_impl(&dword_186345000, v20, OS_LOG_TYPE_DEBUG, "activating connection to server", v41, 2u);
+          *v44 = 0;
+          _os_log_debug_impl(&dword_186345000, v20, OS_LOG_TYPE_DEBUG, "activating connection to server", v44, 2u);
         }
 
         [v19 activate];
@@ -703,10 +707,10 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           remoteTarget = [v19 remoteTarget];
-          *v41 = 138543362;
-          v42 = remoteTarget;
-          v36 = remoteTarget;
-          _os_log_debug_impl(&dword_186345000, v21, OS_LOG_TYPE_DEBUG, "server remote target %{public}@", v41, 0xCu);
+          *v44 = 138543362;
+          v45 = remoteTarget;
+          v35 = remoteTarget;
+          _os_log_debug_impl(&dword_186345000, v21, OS_LOG_TYPE_DEBUG, "server remote target %{public}@", v44, 0xCu);
         }
 
         remoteTarget2 = [v19 remoteTarget];
@@ -714,38 +718,38 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
 
         if (v23)
         {
-          v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we must have a remote target"];
+          v28 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+          v29 = MEMORY[0x1E69E9C10];
           v30 = MEMORY[0x1E69E9C10];
-          v31 = MEMORY[0x1E69E9C10];
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            v32 = NSStringFromSelector(sel__activateServerConnectionWithIdleSleepInterval_);
-            v33 = objc_opt_class();
-            v34 = NSStringFromClass(v33);
-            *v41 = 138544642;
-            v42 = v32;
-            v43 = 2114;
-            v44 = v34;
-            v45 = 2048;
-            v46 = v6;
-            v47 = 2114;
-            v48 = @"BKSSystemShellService.m";
-            v49 = 1024;
-            v50 = 361;
-            v51 = 2114;
-            v52 = v29;
-            _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v41, 0x3Au);
+            v31 = NSStringFromSelector(sel__activateServerConnectionWithIdleSleepInterval_);
+            v32 = objc_opt_class();
+            v33 = NSStringFromClass(v32);
+            *v44 = 138544642;
+            v45 = v31;
+            v46 = 2114;
+            v47 = v33;
+            v48 = 2048;
+            v49 = v6;
+            v50 = 2114;
+            v51 = @"BKSSystemShellService.m";
+            v52 = 1024;
+            v53 = 361;
+            v54 = 2114;
+            v55 = v28;
+            _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v44, 0x3Au);
           }
 
-          v35 = v29;
-          [v29 UTF8String];
+          v34 = v28;
+          [v28 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x1863993F8);
         }
 
         BKSDisplayServicesStart();
-        objc_destroyWeak(&v39);
+        objc_destroyWeak(&v42);
         objc_destroyWeak(&location);
       }
 
@@ -754,12 +758,12 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
         v25 = BKLogSystemShell();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          *v41 = 0;
-          _os_log_error_impl(&dword_186345000, v25, OS_LOG_TYPE_ERROR, "cannot get connection for service", v41, 2u);
+          *v44 = 0;
+          _os_log_error_impl(&dword_186345000, v25, OS_LOG_TYPE_ERROR, "cannot get connection for service", v44, 2u);
         }
       }
 
-      v24 = v56;
+      v24 = v59;
     }
 
     else
@@ -773,19 +777,17 @@ void __57__BKSSystemShellService__checkInWaitingForDataMigration___block_invoke_
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  [v4 encodeObject:v3 forKey:@"bundleID"];
-  [v4 encodeObject:*(a1 + 40) forKey:@"bundlePath"];
-  [v4 encodeObject:*(a1 + 48) forKey:@"jobLabel"];
-  [v4 encodeDouble:@"idleInterval" forKey:*(a1 + 64)];
-  [v4 encodeInt64:*(*(a1 + 56) + 40) == 0 forKey:@"watchdogType"];
+  v2 = a2;
+  [v2 encodeObject:? forKey:?];
+  [v2 encodeObject:? forKey:?];
+  [v2 encodeObject:? forKey:?];
+  [v2 encodeDouble:? forKey:?];
+  [v2 encodeInt64:? forKey:?];
 }
 
 void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_110(uint64_t a1, void *a2)
@@ -798,30 +800,30 @@ void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval_
     _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "configured client service", buf, 2u);
   }
 
-  v5 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF574108];
-  v6 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF579590];
-  v7 = [MEMORY[0x1E698F470] interfaceWithIdentifier:@"Shell"];
-  [v7 setServer:v6];
-  [v7 setClient:v5];
-  [v3 setInterface:v7];
-  [v3 setInterfaceTarget:*(a1 + 32)];
-  [v3 setTargetQueue:*(*(a1 + 32) + 16)];
+  v5 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v6 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v7 = [MEMORY[0x1E698F470] interfaceWithIdentifier:?];
+  [v7 setServer:?];
+  [v7 setClient:?];
+  [v3 setInterface:?];
+  [v3 setInterfaceTarget:?];
+  [v3 setTargetQueue:?];
   v8 = [MEMORY[0x1E698F500] userInitiated];
-  [v3 setServiceQuality:v8];
+  [v3 setServiceQuality:?];
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_120;
-  v9[3] = &unk_1E6F47930;
-  objc_copyWeak(&v10, (a1 + 40));
-  [v3 setInterruptionHandler:v9];
-  [v3 setInvalidationHandler:&__block_literal_global_123];
-  objc_destroyWeak(&v10);
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_120;
+  v12 = &unk_1E6F47930;
+  objc_copyWeak(&v13, (a1 + 40));
+  [v3 setInterruptionHandler:?];
+  [v3 setInvalidationHandler:?];
+  objc_destroyWeak(&v13);
 }
 
 void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_120(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = BKLogSystemShell();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -838,13 +840,13 @@ void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval_
     [v3 activate];
     v8 = MEMORY[0x1E696AEC0];
     v9 = NSStringFromBKSSystemShellCheckInStatus(v7);
-    v10 = [v8 stringWithFormat:@"reconnect[%@]", v9];
+    v10 = [v8 stringWithFormat:v9];
 
     v11 = BKLogSystemShell();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v17 = v10;
+      v16 = v10;
       _os_log_impl(&dword_186345000, v11, OS_LOG_TYPE_DEFAULT, "_%{public}@", buf, 0xCu);
     }
 
@@ -875,8 +877,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __72__BKSSystemShellService__activateServerConnectionWithIdleSleepInterval___block_invoke_121(uint64_t a1, void *a2)

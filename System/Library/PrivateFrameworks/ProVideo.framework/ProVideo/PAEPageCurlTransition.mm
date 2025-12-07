@@ -157,7 +157,7 @@ LABEL_10:
   {
     if (bCopy)
     {
-      [bCopy heliumRef];
+      objc_msgSend_heliumRef(bCopy);
     }
 
     else

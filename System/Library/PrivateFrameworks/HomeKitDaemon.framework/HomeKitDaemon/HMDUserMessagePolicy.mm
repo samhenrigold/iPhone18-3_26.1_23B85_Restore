@@ -1,4 +1,6 @@
 @interface HMDUserMessagePolicy
++ (HMDUserMessagePolicy)userMessagePolicyWithHome:(id)home userPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access useProofOfLocality:(BOOL)locality;
++ (HMDUserMessagePolicy)userMessagePolicyWithUserPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access;
 - (BOOL)isEqual:(id)equal;
 - (HMDHome)home;
 - (HMDUserMessagePolicy)init;
@@ -22,6 +24,26 @@
   v5 = [(HMDUserMessagePolicy *)HMDMutableUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:[(HMDUserMessagePolicy *)self userPrivilege] remoteAccessRequired:[(HMDUserMessagePolicy *)self requiresRemoteAccess] requiresCameraStreamingAccess:[(HMDUserMessagePolicy *)self requiresCameraStreamingAccess] useProofOfLocality:[(HMDUserMessagePolicy *)self useProofOfLocality]];
 
   return v5;
+}
+
++ (HMDUserMessagePolicy)userMessagePolicyWithUserPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access
+{
+  v5 = [[self alloc] __initWithHome:0 homeUUID:0 userPrivilege:privilege remoteAccessRequired:required requiresCameraStreamingAccess:access useProofOfLocality:0];
+
+  return v5;
+}
+
++ (HMDUserMessagePolicy)userMessagePolicyWithHome:(id)home userPrivilege:(unint64_t)privilege remoteAccessRequired:(BOOL)required requiresCameraStreamingAccess:(BOOL)access useProofOfLocality:(BOOL)locality
+{
+  localityCopy = locality;
+  accessCopy = access;
+  requiredCopy = required;
+  homeCopy = home;
+  v13 = [self alloc];
+  uuid = [homeCopy uuid];
+  v15 = [v13 __initWithHome:homeCopy homeUUID:uuid userPrivilege:privilege remoteAccessRequired:requiredCopy requiresCameraStreamingAccess:accessCopy useProofOfLocality:localityCopy];
+
+  return v15;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -49,22 +71,7 @@
 
     v8 = v7;
 
-    if (!v8)
-    {
-      goto LABEL_10;
-    }
-
-    WeakRetained = objc_loadWeakRetained(&self->_home);
-    home = [(HMDUserMessagePolicy *)v8 home];
-    v11 = HMFEqualObjects();
-
-    if (!v11)
-    {
-      goto LABEL_10;
-    }
-
-    userPrivilege = self->_userPrivilege;
-    if (userPrivilege == [(HMDUserMessagePolicy *)v8 userPrivilege]&& (requiresRemoteAccess = self->_requiresRemoteAccess, requiresRemoteAccess == [(HMDUserMessagePolicy *)v8 requiresRemoteAccess]))
+    if (v8 && (WeakRetained = objc_loadWeakRetained(&self->_home), [(HMDUserMessagePolicy *)v8 home], v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, WeakRetained, v11) && (userPrivilege = self->_userPrivilege, userPrivilege == [(HMDUserMessagePolicy *)v8 userPrivilege]) && (requiresRemoteAccess = self->_requiresRemoteAccess, requiresRemoteAccess == [(HMDUserMessagePolicy *)v8 requiresRemoteAccess]))
     {
       useProofOfLocality = self->_useProofOfLocality;
       v15 = useProofOfLocality == [(HMDUserMessagePolicy *)v8 useProofOfLocality];
@@ -72,7 +79,6 @@
 
     else
     {
-LABEL_10:
       v15 = 0;
     }
   }

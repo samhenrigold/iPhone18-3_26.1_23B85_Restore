@@ -11,7 +11,7 @@ void __audioEngineCarPlay_CopyMessageAtSequenceNumber_block_invoke(uint64_t a1)
     MessageAtSequenceNumber = APMessageRingGetMessageAtSequenceNumber(*(v2 + 88), *(a1 + 56), 0, (*(*(a1 + 32) + 8) + 24));
     if (*(*(*(a1 + 32) + 8) + 24))
     {
-      __audioEngineCarPlay_CopyMessageAtSequenceNumber_block_invoke_cold_1();
+      __audioEngineCarPlay_CopyMessageAtSequenceNumber_block_invoke_cold_1(*(*(*(a1 + 32) + 8) + 24));
     }
 
     else

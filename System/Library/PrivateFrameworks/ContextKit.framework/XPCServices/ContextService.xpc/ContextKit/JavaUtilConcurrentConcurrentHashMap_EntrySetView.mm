@@ -12,11 +12,11 @@
 
 - (BOOL)containsWithId:(id)id
 {
-  LODWORD(getKey) = [JavaUtilMap_Entry_class_() isInstance:id];
+  getKey = [JavaUtilMap_Entry_class_(self a2)];
   if (getKey)
   {
-    v6 = JavaUtilMap_Entry_class_();
-    if (id && ([v6 isInstance:id] & 1) == 0)
+    v7 = JavaUtilMap_Entry_class_(getKey, v6);
+    if (id && ([v7 isInstance:id] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -24,14 +24,14 @@
     getKey = [id getKey];
     if (getKey)
     {
-      v7 = getKey;
+      v8 = getKey;
       Weak = objc_loadWeak(&self->super.map_);
       if (!Weak)
       {
         goto LABEL_15;
       }
 
-      getKey = [Weak getWithId:v7];
+      getKey = [Weak getWithId:v8];
       if (!getKey)
       {
         return getKey;
@@ -43,11 +43,11 @@ LABEL_15:
         JreThrowNullPointerException();
       }
 
-      v9 = getKey;
+      v10 = getKey;
       getKey = [id getValue];
       if (getKey)
       {
-        if (getKey == v9)
+        if (getKey == v10)
         {
           LOBYTE(getKey) = 1;
         }
@@ -55,7 +55,7 @@ LABEL_15:
         else
         {
 
-          LOBYTE(getKey) = [getKey isEqual:v9];
+          LOBYTE(getKey) = [getKey isEqual:v10];
         }
       }
     }
@@ -66,12 +66,13 @@ LABEL_15:
 
 - (BOOL)removeWithId:(id)id
 {
-  if (![JavaUtilMap_Entry_class_() isInstance:id])
+  v5 = [JavaUtilMap_Entry_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaUtilMap_Entry_class_();
+  v7 = JavaUtilMap_Entry_class_(v5, v6);
   if (!id)
   {
     if ([0 getKey])
@@ -83,7 +84,7 @@ LABEL_13:
     return 0;
   }
 
-  if (([v5 isInstance:id] & 1) == 0)
+  if (([v7 isInstance:id] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -94,21 +95,21 @@ LABEL_13:
     return 0;
   }
 
-  v7 = getKey;
+  v9 = getKey;
   getValue = [id getValue];
   if (!getValue)
   {
     return 0;
   }
 
-  v9 = getValue;
+  v11 = getValue;
   Weak = objc_loadWeak(&self->super.map_);
   if (!Weak)
   {
     goto LABEL_13;
   }
 
-  return [Weak removeWithId:v7 withId:v9];
+  return [Weak removeWithId:v9 withId:v11];
 }
 
 - (id)iterator
@@ -223,11 +224,11 @@ LABEL_13:
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [JavaUtilSet_class_() isInstance:equal];
+  v5 = [JavaUtilSet_class_(self a2)];
   if (v5)
   {
-    v6 = JavaUtilSet_class_();
-    if (equal && ([v6 isInstance:equal] & 1) == 0)
+    v7 = JavaUtilSet_class_(v5, v6);
+    if (equal && ([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -239,7 +240,7 @@ LABEL_13:
 
     else
     {
-      v5 = sub_1001B6428(self, equal);
+      LODWORD(v5) = sub_1001B6428(self, equal);
       if (v5)
       {
         if (!equal)

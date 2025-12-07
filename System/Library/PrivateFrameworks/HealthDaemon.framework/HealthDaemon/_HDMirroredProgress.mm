@@ -43,35 +43,35 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock(&self->_lock);
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = +[_HDMirroredProgress _KVOKeyPaths];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [(NSProgress *)self->_originalProgress removeObserver:self forKeyPath:*(*(&v10 + 1) + 8 * v7++) context:_HDProgressMirrorObserverContext];
+          [(NSProgress *)self->_originalProgress removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) context:_HDProgressMirrorObserverContext];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -80,27 +80,24 @@
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v9.receiver = self;
-  v9.super_class = _HDMirroredProgress;
-  [(_HDMirroredProgress *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = _HDMirroredProgress;
+  [(_HDMirroredProgress *)&v8 dealloc];
 }
 
 + (id)_KVOKeyPaths
 {
   v6[3] = *MEMORY[0x277D85DE8];
   objc_opt_self();
-  v0 = NSStringFromSelector(sel_fractionCompleted);
-  v6[0] = v0;
-  v1 = NSStringFromSelector(sel_isIndeterminate);
-  v6[1] = v1;
-  v2 = NSStringFromSelector(sel_isCancelled);
-  v6[2] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v1 = NSStringFromSelector(sel_fractionCompleted);
+  v6[0] = v1;
+  v2 = NSStringFromSelector(sel_isIndeterminate);
+  v6[1] = v2;
+  v3 = NSStringFromSelector(sel_isCancelled);
+  v6[2] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
 
-  v4 = *MEMORY[0x277D85DE8];
-
-  return v3;
+  return v4;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

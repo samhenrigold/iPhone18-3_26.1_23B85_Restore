@@ -26,9 +26,9 @@
 - (TPRenderingExporter)initWithDocumentRoot:(id)root
 {
   rootCopy = root;
-  v34.receiver = self;
-  v34.super_class = TPRenderingExporter;
-  v5 = [(TSARenderingExporter *)&v34 initWithDocumentRoot:rootCopy];
+  v46.receiver = self;
+  v46.super_class = TPRenderingExporter;
+  v5 = [(TSARenderingExporter *)&v46 initWithDocumentRoot:rootCopy];
   v6 = v5;
   if (v5)
   {
@@ -36,20 +36,20 @@
     v5->_startPageIndex = 0;
     v5->_lastPageIndex = -1;
     v7 = [TPPdfHyperlinkController alloc];
-    v13 = objc_msgSend_initWithDocumentRoot_(v7, v8, v9, v10, v11, v12, rootCopy);
+    v16 = objc_msgSend_initWithDocumentRoot_(v7, v8, v12, v13, v14, v15, rootCopy, v9, v10, v11);
     hyperlinkController = v6->_hyperlinkController;
-    v6->_hyperlinkController = v13;
+    v6->_hyperlinkController = v16;
 
     v6->_includeComments = 0;
     v6->_includeBackgrounds = 1;
     v6->_includePencilAnnotations = 0;
-    v20 = objc_msgSend_paginatedPageControllerForDelegate_(TPPaginatedPageController, v15, v16, v17, v18, v19, rootCopy);
+    v26 = objc_msgSend_paginatedPageControllerForDelegate_(TPPaginatedPageController, v18, v22, v23, v24, v25, rootCopy, v19, v20, v21);
     pageController = v6->_pageController;
-    v6->_pageController = v20;
+    v6->_pageController = v26;
 
     v6->_tornDown = 0;
-    v27 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v22, v23, v24, v25, v26);
-    objc_msgSend_postNotificationName_object_(v27, v28, v29, v30, v31, v32, *MEMORY[0x277D81028], *(&v6->super.super.isa + *MEMORY[0x277D7FFD8]));
+    v37 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v28, v33, v34, v35, v36, v29, v30, v31, v32);
+    objc_msgSend_postNotificationName_object_(v37, v38, v41, v42, v43, v44, *MEMORY[0x277D81028], *(&v6->super.super.isa + *MEMORY[0x277D7FFD8]), v39, v40);
   }
 
   return v6;
@@ -60,61 +60,61 @@
   outputPageList = self->_outputPageList;
   if (!outputPageList)
   {
-    v8 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3, v4, v5);
-    v9 = self->_outputPageList;
-    self->_outputPageList = v8;
+    v12 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v6, v7, v8, v9, v2, v3, v4, v5);
+    v13 = self->_outputPageList;
+    self->_outputPageList = v12;
 
-    v15 = objc_msgSend_pageController(self, v10, v11, v12, v13, v14);
-    if (objc_msgSend_lastPageIndexForLayout(self, v16, v17, v18, v19, v20) == -1)
+    v23 = objc_msgSend_pageController(self, v14, v19, v20, v21, v22, v15, v16, v17, v18);
+    if (objc_msgSend_lastPageIndexForLayout(self, v24, v29, v30, v31, v32, v25, v26, v27, v28) == -1)
     {
-      PageIndex = objc_msgSend_lastPageIndex(self, v21, v22, v23, v24, v25);
+      PageIndex = objc_msgSend_lastPageIndex(self, v33, v38, v39, v40, v41, v34, v35, v36, v37);
     }
 
     else
     {
-      PageIndex = objc_msgSend_lastPageIndexForLayout(self, v21, v22, v23, v24, v25);
+      PageIndex = objc_msgSend_lastPageIndexForLayout(self, v33, v38, v39, v40, v41, v34, v35, v36, v37);
     }
 
-    v85[0] = MEMORY[0x277D85DD0];
-    v28.n128_u64[0] = 3221225472;
-    v85[1] = 3221225472;
-    v85[2] = sub_275FF4D3C;
-    v85[3] = &unk_27A6A8AB0;
-    v85[4] = v15;
-    v85[5] = PageIndex;
-    objc_msgSend_performBlockWithImager_(self, v27, v28, v29, v30, v31, v85);
-    isPaginationComplete = objc_msgSend_isPaginationComplete(v15, v32, v33, v34, v35, v36);
-    objc_msgSend_setDidLimitPageLayout_(self, v38, v39, v40, v41, v42, isPaginationComplete ^ 1u);
-    LaidOutDocumentPageIndex = objc_msgSend_lastLaidOutDocumentPageIndex(v15, v43, v44, v45, v46, v47);
-    v54 = objc_msgSend_lastPageIndex(self, v49, v50, v51, v52, v53);
-    if (LaidOutDocumentPageIndex >= v54)
+    v136[0] = MEMORY[0x277D85DD0];
+    v47.n128_u64[0] = 3221225472;
+    v136[1] = 3221225472;
+    v136[2] = sub_275FF4D3C;
+    v136[3] = &unk_27A6A8AB0;
+    v136[4] = v23;
+    v136[5] = PageIndex;
+    objc_msgSend_performBlockWithImager_(self, v43, v47, v48, v49, v50, v136, v44, v45, v46);
+    isPaginationComplete = objc_msgSend_isPaginationComplete(v23, v51, v56, v57, v58, v59, v52, v53, v54, v55);
+    objc_msgSend_setDidLimitPageLayout_(self, v61, v65, v66, v67, v68, isPaginationComplete ^ 1u, v62, v63, v64);
+    LaidOutDocumentPageIndex = objc_msgSend_lastLaidOutDocumentPageIndex(v23, v69, v74, v75, v76, v77, v70, v71, v72, v73);
+    v88 = objc_msgSend_lastPageIndex(self, v79, v84, v85, v86, v87, v80, v81, v82, v83);
+    if (LaidOutDocumentPageIndex >= v88)
     {
-      v60 = v54;
+      v98 = v88;
     }
 
     else
     {
-      v60 = LaidOutDocumentPageIndex;
+      v98 = LaidOutDocumentPageIndex;
     }
 
-    started = objc_msgSend_startPageIndex(self, v55, v56, v57, v58, v59);
-    if (started <= v60)
+    started = objc_msgSend_startPageIndex(self, v89, v94, v95, v96, v97, v90, v91, v92, v93);
+    if (started <= v98)
     {
-      v67 = started;
+      v109 = started;
       do
       {
-        if ((objc_msgSend_includeComments(self, v62, v63, v64, v65, v66) & 1) == 0)
+        if ((objc_msgSend_includeComments(self, v100, v105, v106, v107, v108, v101, v102, v103, v104) & 1) == 0)
         {
-          v68 = objc_alloc_init(TPRenderingExporterPageEntry);
-          objc_msgSend_setDocumentPageIndex_(v68, v69, v70, v71, v72, v73, v67);
-          objc_msgSend_setCommentOverflowPageIndex_(v68, v74, v75, v76, v77, v78, 0);
-          objc_msgSend_addObject_(self->_outputPageList, v79, v80, v81, v82, v83, v68);
+          v110 = objc_alloc_init(TPRenderingExporterPageEntry);
+          objc_msgSend_setDocumentPageIndex_(v110, v111, v115, v116, v117, v118, v109, v112, v113, v114);
+          objc_msgSend_setCommentOverflowPageIndex_(v110, v119, v123, v124, v125, v126, 0, v120, v121, v122);
+          objc_msgSend_addObject_(self->_outputPageList, v127, v131, v132, v133, v134, v110, v128, v129, v130);
         }
 
-        ++v67;
+        ++v109;
       }
 
-      while (v67 <= v60);
+      while (v109 <= v98);
     }
 
     outputPageList = self->_outputPageList;
@@ -125,16 +125,16 @@
 
 - (void)invalidateOutputPageList
 {
-  objc_msgSend_setOutputPageList_(self, a2, v2, v3, v4, v5, 0);
+  objc_msgSend_setOutputPageList_(self, a2, v5, v6, v7, v8, 0, v2, v3, v4);
 
-  objc_msgSend_setInternalPageCount_(self, v7, v8, v9, v10, v11, 0);
+  objc_msgSend_setInternalPageCount_(self, v10, v14, v15, v16, v17, 0, v11, v12, v13);
 }
 
 - (void)setIncludeComments:(BOOL)comments
 {
   if (self->_includeComments != comments)
   {
-    objc_msgSend_invalidateOutputPageList(self, a2, v3, v4, v5, v6);
+    objc_msgSend_invalidateOutputPageList(self, a2, v6, v7, v8, v9, comments, v3, v4, v5);
     self->_includeComments = comments;
   }
 }
@@ -143,41 +143,41 @@
 {
   if (self->_includeBackgrounds != backgrounds)
   {
-    objc_msgSend_invalidateOutputPageList(self, a2, v3, v4, v5, v6);
+    objc_msgSend_invalidateOutputPageList(self, a2, v6, v7, v8, v9, backgrounds, v3, v4, v5);
     self->_includeBackgrounds = backgrounds;
-    v19 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v9, v10, v11, v12, v13);
-    objc_msgSend_postNotificationName_object_(v19, v14, v15, v16, v17, v18, *MEMORY[0x277D81028], *(&self->super.super.isa + *MEMORY[0x277D7FFD8]));
+    v28 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v12, v17, v18, v19, v20, v13, v14, v15, v16);
+    objc_msgSend_postNotificationName_object_(v28, v21, v24, v25, v26, v27, *MEMORY[0x277D81028], *(&self->super.super.isa + *MEMORY[0x277D7FFD8]), v22, v23);
   }
 }
 
 - (void)setupPencilAnnotationsAndHyperlinks
 {
-  v6[0] = MEMORY[0x277D85DD0];
-  v2.n128_u64[0] = 3221225472;
-  v6[1] = 3221225472;
-  v6[2] = sub_275FF4FB8;
-  v6[3] = &unk_27A6A8B00;
-  v6[4] = self;
-  objc_msgSend_performBlockWithImager_(self, a2, v2, v3, v4, v5, v6);
+  v9[0] = MEMORY[0x277D85DD0];
+  v5.n128_u64[0] = 3221225472;
+  v9[1] = 3221225472;
+  v9[2] = sub_275FF4FB8;
+  v9[3] = &unk_27A6A8B00;
+  v9[4] = self;
+  objc_msgSend_performBlockWithImager_(self, a2, v5, v6, v7, v8, v9, v2, v3, v4);
 }
 
 - (void)setup
 {
-  v13.receiver = self;
-  v13.super_class = TPRenderingExporter;
-  [(TSARenderingExporter *)&v13 setup];
-  objc_msgSend_setupPencilAnnotationsAndHyperlinks(self, v3, v4, v5, v6, v7);
-  objc_msgSend_setPageIndex_(self, v8, v9, v10, v11, v12, 0x7FFFFFFFFFFFFFFFLL);
+  v20.receiver = self;
+  v20.super_class = TPRenderingExporter;
+  [(TSARenderingExporter *)&v20 setup];
+  objc_msgSend_setupPencilAnnotationsAndHyperlinks(self, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  objc_msgSend_setPageIndex_(self, v12, v16, v17, v18, v19, 0x7FFFFFFFFFFFFFFFLL, v13, v14, v15);
 }
 
 - (void)teardown
 {
-  objc_msgSend_setHyperlinkController_(self, a2, v2, v3, v4, v5, 0);
-  objc_msgSend_setPageIndex_(self, v7, v8, v9, v10, v11, 0x7FFFFFFFFFFFFFFFLL);
+  objc_msgSend_setHyperlinkController_(self, a2, v5, v6, v7, v8, 0, v2, v3, v4);
+  objc_msgSend_setPageIndex_(self, v10, v14, v15, v16, v17, 0x7FFFFFFFFFFFFFFFLL, v11, v12, v13);
   self->_tornDown = 1;
-  v12.receiver = self;
-  v12.super_class = TPRenderingExporter;
-  [(TSARenderingExporter *)&v12 teardown];
+  v18.receiver = self;
+  v18.super_class = TPRenderingExporter;
+  [(TSARenderingExporter *)&v18 teardown];
 }
 
 - (BOOL)drawCurrentPageInContext:(CGContext *)context viewScale:(double)scale unscaledClipRect:(CGRect)rect createPage:(BOOL)page
@@ -200,16 +200,16 @@
   CGContextSaveGState(context);
   CGContextScaleCTM(context, scale, scale);
   CGContextSaveGState(context);
-  v26[0] = MEMORY[0x277D85DD0];
+  v29[0] = MEMORY[0x277D85DD0];
   v18.n128_u64[0] = 3221225472;
-  v26[1] = 3221225472;
-  v26[2] = sub_275FF5320;
-  v26[3] = &unk_27A6A8B00;
-  v26[4] = self;
-  objc_msgSend_performBlockWithImager_(self, v19, v18, v20, v21, v22, v26);
-  v25.receiver = self;
-  v25.super_class = TPRenderingExporter;
-  height = [(TSARenderingExporter *)&v25 drawCurrentPageInContext:context viewScale:0 unscaledClipRect:1.0 createPage:x, y, width, height];
+  v29[1] = 3221225472;
+  v29[2] = sub_275FF5320;
+  v29[3] = &unk_27A6A8B00;
+  v29[4] = self;
+  objc_msgSend_performBlockWithImager_(self, v19, v18, v23, v24, v25, v29, v20, v21, v22);
+  v28.receiver = self;
+  v28.super_class = TPRenderingExporter;
+  height = [(TSARenderingExporter *)&v28 drawCurrentPageInContext:context viewScale:0 unscaledClipRect:1.0 createPage:x, y, width, height];
   CGContextRestoreGState(context);
   CGContextRestoreGState(context);
   if (pageCopy)
@@ -222,72 +222,72 @@
 
 - (void)p_addHyperLinksInContext:(CGContext *)context forCanvas:(id)canvas
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   canvasCopy = canvas;
   objc_opt_class();
-  v8 = TSUDynamicCast();
-  if (v8)
+  v12 = TSUDynamicCast();
+  if (v12)
   {
-    v13 = objc_msgSend_hyperlinkController(self, v7, v9, v10, v11, v12);
-    objc_msgSend_unscaledClipRect(self, v14, v15, v16, v17, v18);
-    objc_msgSend_setCanvasRect_(v13, v19, v20, v21, v22, v23);
+    v17 = objc_msgSend_hyperlinkController(self, v7, v13, v14, v15, v16, v8, v9, v10, v11);
+    objc_msgSend_unscaledClipRect(self, v18, v23, v24, v25, v26, v19, v20, v21, v22);
+    objc_msgSend_setCanvasRect_(v17, v27, v32, v33, v34, v35, v28, v29, v30, v31);
 
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    v28 = objc_msgSend_allReps(canvasCopy, v24, 0, v25, v26, v27, 0);
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, v30, v31, v32, v33, &v68, v72, 16);
-    if (v34)
+    v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
+    v44 = objc_msgSend_allReps(canvasCopy, v36, 0, v41, v42, v43, v37, v38, v39, v40, 0);
+    v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v45, v47, v48, v49, v50, &v103, v107, 16, v46);
+    if (v51)
     {
-      v40 = v34;
-      v41 = *v69;
+      v61 = v51;
+      v62 = *v104;
       do
       {
-        v42 = 0;
+        v63 = 0;
         do
         {
-          if (*v69 != v41)
+          if (*v104 != v62)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v44);
           }
 
-          v43 = *(*(&v68 + 1) + 8 * v42);
-          v44 = objc_msgSend_hyperlinkController(self, v35, v36, v37, v38, v39);
-          objc_msgSend_addHyperlinksForRep_(v44, v45, v46, v47, v48, v49, v43);
+          v64 = *(*(&v103 + 1) + 8 * v63);
+          v65 = objc_msgSend_hyperlinkController(self, v52, v57, v58, v59, v60, v53, v54, v55, v56);
+          objc_msgSend_addHyperlinksForRep_(v65, v66, v70, v71, v72, v73, v64, v67, v68, v69);
 
-          ++v42;
+          ++v63;
         }
 
-        while (v40 != v42);
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v35, v36, v37, v38, v39, &v68, v72, 16);
+        while (v61 != v63);
+        v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v52, v57, v58, v59, v60, &v103, v107, 16, v56);
       }
 
-      while (v40);
+      while (v61);
     }
 
-    objc_msgSend_pageSize(v8, v50, v51, v52, v53, v54);
-    v56 = v55.n128_u64[0];
-    v58 = v57.n128_u64[0];
-    v62 = objc_msgSend_hyperlinkController(self, v59, v55, v57, v60, v61);
-    v63.n128_u64[0] = 0;
-    v64.n128_u64[0] = 0;
-    v65.n128_u64[0] = v56;
-    v66.n128_u64[0] = v58;
-    objc_msgSend_commitHyperlinksToPDF_targetRect_(v62, v67, v63, v64, v65, v66, context);
+    objc_msgSend_pageSize(v12, v74, v79, v80, v81, v82, v75, v76, v77, v78);
+    v84 = v83.n128_u64[0];
+    v86 = v85.n128_u64[0];
+    v94 = objc_msgSend_hyperlinkController(self, v87, v83, v85, v92, v93, v88, v89, v90, v91);
+    v95.n128_u64[0] = 0;
+    v96.n128_u64[0] = 0;
+    v97.n128_u64[0] = v84;
+    v98.n128_u64[0] = v86;
+    objc_msgSend_commitHyperlinksToPDF_targetRect_(v94, v99, v95, v96, v97, v98, context, v100, v101, v102);
   }
 }
 
 - (TPPaginatedPageController)pageController
 {
-  if (objc_msgSend_tornDown(self, a2, v2, v3, v4, v5))
+  if (objc_msgSend_tornDown(self, a2, v6, v7, v8, v9, v2, v3, v4, v5))
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v8, v9, v10, v11, "[TPRenderingExporter pageController]");
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPRenderingExporter.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v20, v21, v22, v23, v24, v13, v19, 522, 0, "Misuse of pageController after teardown");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v15, v16, v17, v18, "[TPRenderingExporter pageController]", v12, v13, v14);
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPRenderingExporter.m", v22, v23, v24);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v30, v31, v32, v33, v34, v20, v29, 522, 0, "Misuse of pageController after teardown");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v40, v41, v42, v43, v36, v37, v38, v39);
   }
 
   pageController = self->_pageController;
@@ -297,234 +297,234 @@
 
 - (void)setOptions:(id)options
 {
-  v34.receiver = self;
-  v34.super_class = TPRenderingExporter;
+  v50.receiver = self;
+  v50.super_class = TPRenderingExporter;
   optionsCopy = options;
-  [(TSARenderingExporter *)&v34 setOptions:optionsCopy];
-  v10 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v5, v6, v7, v8, v9, @"kTPExportFromPage", v34.receiver, v34.super_class);
-  v16 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v11, v12, v13, v14, v15, @"kTPExportToPage");
+  [(TSARenderingExporter *)&v50 setOptions:optionsCopy];
+  v13 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v5, v9, v10, v11, v12, @"kTPExportFromPage", v6, v7, v8, v50.receiver, v50.super_class);
+  v22 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v14, v18, v19, v20, v21, @"kTPExportToPage", v15, v16, v17);
 
-  if (v10)
+  if (v13)
   {
-    v22 = objc_msgSend_unsignedIntValue(v10, v17, v18, v19, v20, v21);
-    if (v22)
+    v32 = objc_msgSend_unsignedIntValue(v13, v23, v28, v29, v30, v31, v24, v25, v26, v27);
+    if (v32)
     {
-      objc_msgSend_setStartPageIndex_(self, v23, v24, v25, v26, v27, v22 - 1);
+      objc_msgSend_setStartPageIndex_(self, v33, v37, v38, v39, v40, v32 - 1, v34, v35, v36);
     }
 
     else
     {
-      objc_msgSend_setStartPageIndex_(self, v23, v24, v25, v26, v27, 1);
+      objc_msgSend_setStartPageIndex_(self, v33, v37, v38, v39, v40, 1, v34, v35, v36);
     }
   }
 
-  if (v16)
+  if (v22)
   {
-    v28 = objc_msgSend_unsignedIntValue(v16, v17, v18, v19, v20, v21);
-    if (v28)
+    v41 = objc_msgSend_unsignedIntValue(v22, v23, v28, v29, v30, v31, v24, v25, v26, v27);
+    if (v41)
     {
-      objc_msgSend_setLastPageIndex_(self, v29, v30, v31, v32, v33, v28 - 1);
+      objc_msgSend_setLastPageIndex_(self, v42, v46, v47, v48, v49, v41 - 1, v43, v44, v45);
     }
 
     else
     {
-      objc_msgSend_setLastPageIndex_(self, v29, v30, v31, v32, v33, 1);
+      objc_msgSend_setLastPageIndex_(self, v42, v46, v47, v48, v49, 1, v43, v44, v45);
     }
   }
 }
 
 - (CGRect)boundsRect
 {
-  v6 = objc_msgSend_documentRoot(self, a2, v2, v3, v4, v5);
-  objc_msgSend_pageSize(v6, v7, v8, v9, v10, v11);
-  v13 = v12;
-  v15 = v14;
+  v10 = objc_msgSend_documentRoot(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  objc_msgSend_pageSize(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v21 = v20;
+  v23 = v22;
 
-  v16 = 0.0;
-  v17 = 0.0;
-  v18 = v13;
-  v19 = v15;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v24 = 0.0;
+  v25 = 0.0;
+  v26 = v21;
+  v27 = v23;
+  result.size.height = v27;
+  result.size.width = v26;
+  result.origin.y = v25;
+  result.origin.x = v24;
   return result;
 }
 
 - (CGRect)unscaledClipRect
 {
-  if (objc_msgSend_pageIndex(self, a2, v2, v3, v4, v5) == 0x7FFFFFFFFFFFFFFFLL)
+  if (objc_msgSend_pageIndex(self, a2, v6, v7, v8, v9, v2, v3, v4, v5) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v12 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v12 = objc_msgSend_pageIndex(self, v7, v8, v9, v10, v11);
+    v20 = objc_msgSend_pageIndex(self, v11, v16, v17, v18, v19, v12, v13, v14, v15);
   }
 
-  v13 = objc_msgSend_outputPageList(self, v7, v8, v9, v10, v11);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(v13, v14, v15, v16, v17, v18, v12);
+  v21 = objc_msgSend_outputPageList(self, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v30 = objc_msgSend_objectAtIndexedSubscript_(v21, v22, v26, v27, v28, v29, v20, v23, v24, v25);
 
-  v25 = objc_msgSend_pageController(self, v20, v21, v22, v23, v24);
-  v31 = objc_msgSend_documentPageIndex(v19, v26, v27, v28, v29, v30);
-  objc_msgSend_pageRectForPageIndex_allowAfterPaginationPoint_(v25, v32, v33, v34, v35, v36, v31, 0);
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
-  v44 = v43;
+  v40 = objc_msgSend_pageController(self, v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  v50 = objc_msgSend_documentPageIndex(v30, v41, v46, v47, v48, v49, v42, v43, v44, v45);
+  objc_msgSend_pageRectForPageIndex_allowAfterPaginationPoint_(v40, v51, v54, v55, v56, v57, v50, 0, v52, v53);
+  v59 = v58;
+  v61 = v60;
+  v63 = v62;
+  v65 = v64;
 
-  v45 = v38;
-  v46 = v40;
-  v47 = v42;
-  v48 = v44;
-  result.size.height = v48;
-  result.size.width = v47;
-  result.origin.y = v46;
-  result.origin.x = v45;
+  v66 = v59;
+  v67 = v61;
+  v68 = v63;
+  v69 = v65;
+  result.size.height = v69;
+  result.size.width = v68;
+  result.origin.y = v67;
+  result.origin.x = v66;
   return result;
 }
 
 - (id)currentInfos
 {
-  v66[1] = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_outputPageList(self, a2, v2, v3, v4, v5);
-  v13 = objc_msgSend_pageIndex(self, v8, v9, v10, v11, v12);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(v7, v14, v15, v16, v17, v18, v13);
+  v105[1] = *MEMORY[0x277D85DE8];
+  v11 = objc_msgSend_outputPageList(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v21 = objc_msgSend_pageIndex(self, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30 = objc_msgSend_objectAtIndexedSubscript_(v11, v22, v26, v27, v28, v29, v21, v23, v24, v25);
 
-  if (v19)
+  if (v30)
   {
-    if (objc_msgSend_isDocumentPage(v19, v20, v21, v22, v23, v24) && objc_msgSend_documentPageIndex(v19, v25, v26, v27, v28, v29) != 0x7FFFFFFFFFFFFFFFLL)
+    if (objc_msgSend_isDocumentPage(v30, v31, v36, v37, v38, v39, v32, v33, v34, v35) && objc_msgSend_documentPageIndex(v30, v40, v45, v46, v47, v48, v41, v42, v43, v44) != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v36 = objc_msgSend_pageController(self, v30, v31, v32, v33, v34);
-      v42 = objc_msgSend_documentPageIndex(v19, v37, v38, v39, v40, v41);
-      objc_msgSend_paginateThroughPageIndex_(v36, v43, v44, v45, v46, v47, v42 + 1);
-      v53 = objc_msgSend_documentPageIndex(v19, v48, v49, v50, v51, v52);
-      v59 = objc_msgSend_pageInfoForPageIndex_(v36, v54, v55, v56, v57, v58, v53);
-      v66[0] = v59;
-      v35 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v60, v61, v62, v63, v64, v66, 1);
+      v59 = objc_msgSend_pageController(self, v49, v54, v55, v56, v57, v50, v51, v52, v53);
+      v69 = objc_msgSend_documentPageIndex(v30, v60, v65, v66, v67, v68, v61, v62, v63, v64);
+      objc_msgSend_paginateThroughPageIndex_(v59, v70, v74, v75, v76, v77, v69 + 1, v71, v72, v73);
+      v87 = objc_msgSend_documentPageIndex(v30, v78, v83, v84, v85, v86, v79, v80, v81, v82);
+      v96 = objc_msgSend_pageInfoForPageIndex_(v59, v88, v92, v93, v94, v95, v87, v89, v90, v91);
+      v105[0] = v96;
+      v58 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v97, v100, v101, v102, v103, v105, 1, v98, v99);
     }
 
     else
     {
-      v35 = MEMORY[0x277CBEBF8];
+      v58 = MEMORY[0x277CBEBF8];
     }
   }
 
   else
   {
-    v35 = 0;
+    v58 = 0;
   }
 
-  return v35;
+  return v58;
 }
 
 - (BOOL)preparePage:(unint64_t)page
 {
-  v9 = objc_msgSend_pageController(self, a2, v3, v4, v5, v6);
-  v15 = objc_msgSend_outputPageList(self, v10, v11, v12, v13, v14);
-  v16 = page - 1;
-  v22 = objc_msgSend_objectAtIndexedSubscript_(v15, v17, v18, v19, v20, v21, page - 1);
+  v12 = objc_msgSend_pageController(self, a2, v6, v7, v8, v9, page, v3, v4, v5);
+  v22 = objc_msgSend_outputPageList(self, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+  v23 = page - 1;
+  v32 = objc_msgSend_objectAtIndexedSubscript_(v22, v24, v28, v29, v30, v31, page - 1, v25, v26, v27);
 
-  if (objc_msgSend_isDocumentPage(v22, v23, v24, v25, v26, v27) && objc_msgSend_bodyRangeForPageIndex_forcePagination_(v9, v28, v29, v30, v31, v32, v16, 1) == 0x7FFFFFFFFFFFFFFFLL)
+  if (objc_msgSend_isDocumentPage(v32, v33, v38, v39, v40, v41, v34, v35, v36, v37) && objc_msgSend_bodyRangeForPageIndex_forcePagination_(v12, v42, v46, v47, v48, v49, v23, 1, v44, v45) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v33 = 0;
+    v50 = 0;
   }
 
   else
   {
-    objc_msgSend_setPageIndex_(self, v28, v29, v30, v31, v32, v16);
-    v33 = 1;
+    objc_msgSend_setPageIndex_(self, v42, v46, v47, v48, v49, v23, v43, v44, v45);
+    v50 = 1;
   }
 
-  return v33;
+  return v50;
 }
 
 - (BOOL)incrementPage
 {
-  if (objc_msgSend_pageIndex(self, a2, v2, v3, v4, v5) == 0x7FFFFFFFFFFFFFFFLL)
+  if (objc_msgSend_pageIndex(self, a2, v6, v7, v8, v9, v2, v3, v4, v5) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    objc_msgSend_setPageIndex_(self, v7, v8, v9, v10, v11, 0);
+    objc_msgSend_setPageIndex_(self, v11, v16, v17, v18, v19, 0, v13, v14, v15);
   }
 
   else
   {
-    v17 = objc_msgSend_pageIndex(self, v7, v8, v9, v10, v11) + 1;
-    objc_msgSend_setPageIndex_(self, v18, v19, v20, v21, v22, v17);
+    v29 = objc_msgSend_pageIndex(self, v11, v16, v17, v18, v19, v12, v13, v14, v15) + 1;
+    objc_msgSend_setPageIndex_(self, v30, v34, v35, v36, v37, v29, v31, v32, v33);
   }
 
-  v23 = objc_msgSend_pageIndex(self, v12, v13, v14, v15, v16);
-  v29 = objc_msgSend_outputPageList(self, v24, v25, v26, v27, v28);
-  v35 = objc_msgSend_count(v29, v30, v31, v32, v33, v34);
+  v38 = objc_msgSend_pageIndex(self, v20, v25, v26, v27, v28, v21, v22, v23, v24);
+  v48 = objc_msgSend_outputPageList(self, v39, v44, v45, v46, v47, v40, v41, v42, v43);
+  v58 = objc_msgSend_count(v48, v49, v54, v55, v56, v57, v50, v51, v52, v53);
 
-  if (v23 >= v35)
+  if (v38 >= v58)
   {
     return 0;
   }
 
-  v41 = objc_msgSend_pageController(self, v36, v37, v38, v39, v40);
-  v47 = objc_msgSend_outputPageList(self, v42, v43, v44, v45, v46);
-  v53 = objc_msgSend_pageIndex(self, v48, v49, v50, v51, v52);
-  v59 = objc_msgSend_objectAtIndexedSubscript_(v47, v54, v55, v56, v57, v58, v53);
+  v68 = objc_msgSend_pageController(self, v59, v64, v65, v66, v67, v60, v61, v62, v63);
+  v78 = objc_msgSend_outputPageList(self, v69, v74, v75, v76, v77, v70, v71, v72, v73);
+  v88 = objc_msgSend_pageIndex(self, v79, v84, v85, v86, v87, v80, v81, v82, v83);
+  v97 = objc_msgSend_objectAtIndexedSubscript_(v78, v89, v93, v94, v95, v96, v88, v90, v91, v92);
 
-  objc_msgSend_isDocumentPage(v59, v60, v61, v62, v63, v64);
-  v70 = objc_msgSend_documentPageIndex(v59, v65, v66, v67, v68, v69);
-  v76 = objc_msgSend_bodyRangeForPageIndex_forcePagination_(v41, v71, v72, v73, v74, v75, v70, 1) != 0x7FFFFFFFFFFFFFFFLL;
+  objc_msgSend_isDocumentPage(v97, v98, v103, v104, v105, v106, v99, v100, v101, v102);
+  v116 = objc_msgSend_documentPageIndex(v97, v107, v112, v113, v114, v115, v108, v109, v110, v111);
+  v124 = objc_msgSend_bodyRangeForPageIndex_forcePagination_(v68, v117, v120, v121, v122, v123, v116, 1, v118, v119) != 0x7FFFFFFFFFFFFFFFLL;
 
-  return v76;
+  return v124;
 }
 
 - (double)totalProgess
 {
-  v6 = objc_msgSend_documentRoot(self, a2, v2, v3, v4, v5);
-  v12 = objc_msgSend_bodyStorage(v6, v7, v8, v9, v10, v11);
-  v18 = objc_msgSend_length(v12, v13, v14, v15, v16, v17);
+  v10 = objc_msgSend_documentRoot(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v20 = objc_msgSend_bodyStorage(v10, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+  v30 = objc_msgSend_length(v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
 
-  if (v18 <= 1)
+  if (v30 <= 1)
   {
     return 1;
   }
 
   else
   {
-    return v18;
+    return v30;
   }
 }
 
 - (double)progressForCurrentPage
 {
-  v7 = objc_msgSend_outputPageList(self, a2, v2, v3, v4, v5);
-  v13 = objc_msgSend_pageIndex(self, v8, v9, v10, v11, v12);
-  v19 = objc_msgSend_objectAtIndexedSubscript_(v7, v14, v15, v16, v17, v18, v13);
+  v11 = objc_msgSend_outputPageList(self, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v21 = objc_msgSend_pageIndex(self, v12, v17, v18, v19, v20, v13, v14, v15, v16);
+  v30 = objc_msgSend_objectAtIndexedSubscript_(v11, v22, v26, v27, v28, v29, v21, v23, v24, v25);
 
-  v25 = objc_msgSend_pageController(self, v20, v21, v22, v23, v24);
-  v31 = objc_msgSend_documentPageIndex(v19, v26, v27, v28, v29, v30);
-  objc_msgSend_bodyRangeForPageIndex_forcePagination_(v25, v32, v33, v34, v35, v36, v31, 1);
-  if (v37 <= 1)
+  v40 = objc_msgSend_pageController(self, v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  v50 = objc_msgSend_documentPageIndex(v30, v41, v46, v47, v48, v49, v42, v43, v44, v45);
+  objc_msgSend_bodyRangeForPageIndex_forcePagination_(v40, v51, v54, v55, v56, v57, v50, 1, v52, v53);
+  if (v58 <= 1)
   {
-    v38 = 1;
+    v59 = 1;
   }
 
   else
   {
-    v38 = v37;
+    v59 = v58;
   }
 
-  v39 = v38;
+  v60 = v59;
 
-  return v39;
+  return v60;
 }
 
 - (unint64_t)pageCount
 {
-  if (!objc_msgSend_internalPageCount(self, a2, v2, v3, v4, v5))
+  if (!objc_msgSend_internalPageCount(self, a2, v6, v7, v8, v9, v2, v3, v4, v5))
   {
-    v12 = objc_msgSend_outputPageList(self, v7, v8, v9, v10, v11);
-    v18 = objc_msgSend_count(v12, v13, v14, v15, v16, v17);
-    objc_msgSend_setInternalPageCount_(self, v19, v20, v21, v22, v23, v18);
+    v20 = objc_msgSend_outputPageList(self, v11, v16, v17, v18, v19, v12, v13, v14, v15);
+    v30 = objc_msgSend_count(v20, v21, v26, v27, v28, v29, v22, v23, v24, v25);
+    objc_msgSend_setInternalPageCount_(self, v31, v35, v36, v37, v38, v30, v32, v33, v34);
   }
 
-  return objc_msgSend_internalPageCount(self, v7, v8, v9, v10, v11);
+  return objc_msgSend_internalPageCount(self, v11, v16, v17, v18, v19, v12, v13, v14, v15);
 }
 
 @end

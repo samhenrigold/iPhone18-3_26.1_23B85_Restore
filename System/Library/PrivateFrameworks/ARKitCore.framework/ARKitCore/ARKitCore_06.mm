@@ -1,3 +1,42 @@
+uint64_t ARDeviceSupportsMulticamWithTripleRGBStreaming(uint64_t a1, uint64_t a2)
+{
+  if (ARDeviceSupportsMulticamWithTripleRGBStreaming_onceToken != -1)
+  {
+    ARDeviceSupportsMulticamWithTripleRGBStreaming_cold_1();
+  }
+
+  return ARDeviceSupportsMulticamWithTripleRGBStreaming_supportsMulticamWithTripleRGBStreaming;
+}
+
+void __ARDeviceSupportsMulticamWithTripleRGBStreaming_block_invoke()
+{
+  v9[3] = *MEMORY[0x1E69E9840];
+  v0 = [ARVideoFormat alloc];
+  v1 = *MEMORY[0x1E6986950];
+  v2 = *MEMORY[0x1E695F060];
+  v3 = *(MEMORY[0x1E695F060] + 8);
+  v4 = [(ARVideoFormat *)v0 initWithImageResolution:1 captureDevicePosition:*MEMORY[0x1E6986950] captureDeviceType:*MEMORY[0x1E695F060], v3];
+  v9[0] = v4;
+  v5 = [ARVideoFormat alloc];
+  v6 = [(ARVideoFormat *)v5 initWithImageResolution:1 captureDevicePosition:*MEMORY[0x1E6986948] captureDeviceType:v2, v3, v4];
+  v9[1] = v6;
+  v7 = [[ARVideoFormat alloc] initWithImageResolution:2 captureDevicePosition:v1 captureDeviceType:v2, v3];
+  v9[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
+
+  ARDeviceSupportsMulticamWithTripleRGBStreaming_supportsMulticamWithTripleRGBStreaming = ARDeviceSupportsMulticamSessionWithVideoFormats(v8);
+}
+
+uint64_t ARDeviceSupportsUltraWideCamera(uint64_t a1, uint64_t a2)
+{
+  if (ARDeviceSupportsUltraWideCamera_onceToken != -1)
+  {
+    ARDeviceSupportsUltraWideCamera_cold_1();
+  }
+
+  return ARDeviceSupportsUltraWideCamera_ultraWideAvailable;
+}
+
 void __ARDeviceSupportsUltraWideCamera_block_invoke()
 {
   v1 = MGCopyAnswer();
@@ -10,7 +49,7 @@ void __ARDeviceSupportsUltraWideCamera_block_invoke()
   ARDeviceSupportsUltraWideCamera_ultraWideAvailable = v0;
 }
 
-uint64_t ARUserDefaultsMulticamModeEnabled()
+uint64_t ARUserDefaultsMulticamModeEnabled(uint64_t a1, uint64_t a2)
 {
   if (ARUserDefaultsMulticamModeEnabled_onceToken != -1)
   {
@@ -27,7 +66,7 @@ BOOL __ARUserDefaultsMulticamModeEnabled_block_invoke()
   return result;
 }
 
-uint64_t ARBackWidePhotoQualityPrioritizationOverride()
+uint64_t ARBackWidePhotoQualityPrioritizationOverride(uint64_t a1, uint64_t a2)
 {
   if (ARBackWidePhotoQualityPrioritizationOverride_onceToken != -1)
   {
@@ -67,7 +106,7 @@ __CFString *ARCreateOBJStringForMeshAnchors(void *a1, void *a2, float a3)
     }
 
     v10 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v11 = _ARLogGeneral_52();
+    v11 = _ARLogGeneral_52(v6);
     v12 = v11;
     if (v10 == 1)
     {
@@ -131,48 +170,48 @@ LABEL_15:
 
 void ARWriteOBJForMeshAnchorsToStream(void *a1, void *a2, void *a3, float a4)
 {
-  v207 = *MEMORY[0x1E69E9840];
+  v211 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
-  v9 = _ARLogGeneral_52();
+  v9 = _ARLogGeneral_52(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    *v205 = [v7 count];
+    *v209 = [v7 count];
     _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Writing an OBJ file for %lu mesh anchors to a stream.", buf, 0xCu);
   }
 
   v10 = [MEMORY[0x1E696AD60] string];
-  v193 = 0u;
-  v194 = 0u;
-  v195 = 0u;
-  v196 = 0u;
+  v197 = 0u;
+  v198 = 0u;
+  v199 = 0u;
+  v200 = 0u;
   v11 = v7;
-  v176 = [v11 countByEnumeratingWithState:&v193 objects:v206 count:16];
-  if (!v176)
+  v180 = [v11 countByEnumeratingWithState:&v197 objects:v210 count:16];
+  if (!v180)
   {
 
     goto LABEL_62;
   }
 
-  v172 = v10;
-  v174 = a3;
-  v175 = v8;
+  v176 = v10;
+  v178 = a3;
+  v179 = v8;
   v12 = 0;
   v13 = 0;
-  v180 = v11;
-  v181 = *v194;
+  v184 = v11;
+  v185 = *v198;
 LABEL_5:
   v14 = 0;
   while (1)
   {
-    v185 = v12;
-    if (*v194 != v181)
+    v189 = v12;
+    if (*v198 != v185)
     {
       objc_enumerationMutation(v11);
     }
 
-    v15 = [*(*(&v193 + 1) + 8 * v14) geometry];
+    v15 = [*(*(&v197 + 1) + 8 * v14) geometry];
     v16 = [v15 vertices];
     v17 = [v16 count];
 
@@ -189,32 +228,32 @@ LABEL_5:
       break;
     }
 
-    v24 = [v15 faces];
-    v25 = [v24 buffer];
-    v26 = [v25 contents];
+    v25 = [v15 faces];
+    v26 = [v25 buffer];
+    v27 = [v26 contents];
 
-    v27 = [v15 faces];
-    v28 = [v27 count];
+    v28 = [v15 faces];
+    v29 = [v28 count];
 
-    if (v28 >= 1)
+    if (v29 >= 1)
     {
-      v29 = 0;
+      v30 = 0;
       while (1)
       {
-        v30 = *(v26 + 4 * v29);
-        v31 = [v15 vertices];
-        v32 = [v31 count];
+        v31 = *(v27 + 4 * v30);
+        v32 = [v15 vertices];
+        v33 = [v32 count];
 
-        if (v32 <= v30)
+        if (v33 <= v31)
         {
           break;
         }
 
-        ++v29;
-        v33 = [v15 faces];
-        v34 = 3 * [v33 count];
+        ++v30;
+        v35 = [v15 faces];
+        v36 = 3 * [v35 count];
 
-        if (v34 <= v29)
+        if (v36 <= v30)
         {
           goto LABEL_13;
         }
@@ -225,63 +264,63 @@ LABEL_5:
         __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
       }
 
-      v8 = v175;
-      v11 = v180;
-      v126 = ARShouldUseLogTypeError_internalOSVersion_57;
-      v127 = _ARLogGeneral_52();
-      v128 = v127;
-      if (v126 == 1)
+      v8 = v179;
+      v11 = v184;
+      v130 = ARShouldUseLogTypeError_internalOSVersion_57;
+      v131 = _ARLogGeneral_52(v34);
+      v132 = v131;
+      if (v130 == 1)
       {
-        if (!os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+        if (!os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_70;
         }
 
-        v129 = *(v26 + 4 * v29);
-        v130 = [v15 vertices];
-        v131 = [v130 count];
+        v133 = *(v27 + 4 * v30);
+        v134 = [v15 vertices];
+        v135 = [v134 count];
         *buf = 67109376;
-        *v205 = v129;
-        *&v205[4] = 2048;
-        *&v205[6] = v131;
-        v132 = "Face index %d is out of range [0, %ld].";
-        v133 = v128;
-        v134 = OS_LOG_TYPE_ERROR;
+        *v209 = v133;
+        *&v209[4] = 2048;
+        *&v209[6] = v135;
+        v136 = "Face index %d is out of range [0, %ld].";
+        v137 = v132;
+        v138 = OS_LOG_TYPE_ERROR;
       }
 
       else
       {
-        if (!os_log_type_enabled(v127, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v131, OS_LOG_TYPE_INFO))
         {
           goto LABEL_70;
         }
 
-        v141 = *(v26 + 4 * v29);
-        v130 = [v15 vertices];
-        v142 = [v130 count];
+        v145 = *(v27 + 4 * v30);
+        v134 = [v15 vertices];
+        v146 = [v134 count];
         *buf = 67109376;
-        *v205 = v141;
-        *&v205[4] = 2048;
-        *&v205[6] = v142;
-        v132 = "Error: Face index %d is out of range [0, %ld].";
-        v133 = v128;
-        v134 = OS_LOG_TYPE_INFO;
+        *v209 = v145;
+        *&v209[4] = 2048;
+        *&v209[6] = v146;
+        v136 = "Error: Face index %d is out of range [0, %ld].";
+        v137 = v132;
+        v138 = OS_LOG_TYPE_INFO;
       }
 
-      _os_log_impl(&dword_1C241C000, v133, v134, v132, buf, 0x12u);
+      _os_log_impl(&dword_1C241C000, v137, v138, v136, buf, 0x12u);
 
 LABEL_70:
-      v10 = v172;
-      v143 = v174;
-      if (v174)
+      v10 = v176;
+      v147 = v178;
+      if (v178)
       {
-        v144 = MEMORY[0x1E696ABC0];
-        v145 = *MEMORY[0x1E696A250];
-        v200 = *MEMORY[0x1E696A578];
-        v201 = @"A face index is out of range.";
-        v146 = MEMORY[0x1E695DF20];
-        v147 = &v201;
-        v148 = &v200;
+        v148 = MEMORY[0x1E696ABC0];
+        v149 = *MEMORY[0x1E696A250];
+        v204 = *MEMORY[0x1E696A578];
+        v205 = @"A face index is out of range.";
+        v150 = MEMORY[0x1E695DF20];
+        v151 = &v205;
+        v152 = &v204;
         goto LABEL_72;
       }
 
@@ -290,295 +329,295 @@ LABEL_70:
 
 LABEL_13:
     v13 += v17;
-    v12 = v19 + v185;
+    v12 = v19 + v189;
 
     ++v14;
-    v11 = v180;
-    if (v14 == v176)
+    v11 = v184;
+    if (v14 == v180)
     {
-      v176 = [v180 countByEnumeratingWithState:&v193 objects:v206 count:16];
-      if (!v176)
+      v180 = [v184 countByEnumeratingWithState:&v197 objects:v210 count:16];
+      if (!v180)
       {
 
-        a3 = v174;
-        v8 = v175;
-        v10 = v172;
+        a3 = v178;
+        v8 = v179;
+        v10 = v176;
         if (v13)
         {
-          [v172 appendString:@"#\n"];
-          v170 = MEMORY[0x1E696AEC0];
-          v182 = [MEMORY[0x1E696AAE8] mainBundle];
-          v177 = [v182 infoDictionary];
-          v186 = v12;
-          v35 = [v177 objectForKeyedSubscript:@"CFBundleVersion"];
-          v36 = ARKitBundle();
-          v37 = [v36 infoDictionary];
-          v38 = [v37 objectForKeyedSubscript:@"CFBundleVersion"];
-          v39 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleCV3D"];
+          [v176 appendString:@"#\n"];
+          v174 = MEMORY[0x1E696AEC0];
+          v186 = [MEMORY[0x1E696AAE8] mainBundle];
+          v181 = [v186 infoDictionary];
+          v190 = v12;
+          v38 = [v181 objectForKeyedSubscript:@"CFBundleVersion"];
+          v39 = ARKitBundle(v38);
           v40 = [v39 infoDictionary];
           v41 = [v40 objectForKeyedSubscript:@"CFBundleVersion"];
-          v42 = [v170 stringWithFormat:@"# ARKit mesh exported from ARExamples %@, ARKit %@, AppleCV3D %@\n", v35, v38, v41];
-          [v172 appendString:v42];
+          v42 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.AppleCV3D"];
+          v43 = [v42 infoDictionary];
+          v44 = [v43 objectForKeyedSubscript:@"CFBundleVersion"];
+          v45 = [v174 stringWithFormat:@"# ARKit mesh exported from ARExamples %@, ARKit %@, AppleCV3D %@\n", v38, v41, v44];
+          [v176 appendString:v45];
 
-          v10 = v172;
-          [v172 appendString:@"#\n"];
-          v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Vertex count: %d\n", v13];
-          [v172 appendString:v43];
+          v10 = v176;
+          [v176 appendString:@"#\n"];
+          v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Vertex count: %d\n", v13];
+          [v176 appendString:v46];
 
-          v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Face count: %d\n", v186];
-          [v172 appendString:v44];
+          v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"# Face count: %d\n", v190];
+          [v176 appendString:v47];
 
-          [v172 appendString:@"#\n"];
-          [v172 appendString:@"# Real world scale is 1 unit = 1 m\n"];
-          [v172 appendString:@"# Each vertex is followed by four RGBA color values in range [0.0 - 1.0] (not in spec)\n"];
-          v191 = 0u;
-          v192 = 0u;
-          v189 = 0u;
-          v190 = 0u;
-          obj = v180;
-          v167 = [obj countByEnumeratingWithState:&v189 objects:v197 count:16];
-          if (!v167)
+          [v176 appendString:@"#\n"];
+          [v176 appendString:@"# Real world scale is 1 unit = 1 m\n"];
+          [v176 appendString:@"# Each vertex is followed by four RGBA color values in range [0.0 - 1.0] (not in spec)\n"];
+          v195 = 0u;
+          v196 = 0u;
+          v193 = 0u;
+          v194 = 0u;
+          obj = v184;
+          v171 = [obj countByEnumeratingWithState:&v193 objects:v201 count:16];
+          if (!v171)
           {
-            v124 = v174;
+            v128 = v178;
 LABEL_92:
 
             [v10 appendString:@"\n"];
             [v10 appendString:@"# EOF\n"];
-            v8 = v175;
-            ARAppendStringToStream(v10, v175, v124);
+            v8 = v179;
+            ARAppendStringToStream(v10, v179, v128);
 LABEL_93:
-            v11 = v180;
+            v11 = v184;
             goto LABEL_79;
           }
 
-          v45 = 1;
-          v166 = *v190;
-          v46 = a4;
-          v47 = 0x1E696A000uLL;
+          v48 = 1;
+          v170 = *v194;
+          v49 = a4;
+          v50 = 0x1E696A000uLL;
           while (2)
           {
-            v48 = 0;
-            v49 = v10;
+            v51 = 0;
+            v52 = v10;
 LABEL_19:
-            if (*v190 != v166)
+            if (*v194 != v170)
             {
               objc_enumerationMutation(obj);
             }
 
-            v169 = v48;
-            v50 = *(*(&v189 + 1) + 8 * v48);
-            v51 = [v50 geometry];
-            [v49 appendString:@"\n"];
-            v52 = *(v47 + 3776);
-            v173 = v50;
-            v53 = [v50 identifier];
-            v54 = [v53 UUIDString];
-            v55 = [v52 stringWithFormat:@"o mesh_anchor_%@\n", v54];
-            [v49 appendString:v55];
+            v173 = v51;
+            v53 = *(*(&v193 + 1) + 8 * v51);
+            v54 = [v53 geometry];
+            [v52 appendString:@"\n"];
+            v55 = *(v50 + 3776);
+            v177 = v53;
+            v56 = [v53 identifier];
+            v57 = [v56 UUIDString];
+            v58 = [v55 stringWithFormat:@"o mesh_anchor_%@\n", v57];
+            [v52 appendString:v58];
 
-            [v49 appendString:@"\n"];
-            v56 = [v51 colors];
-            v57 = [v56 count];
+            [v52 appendString:@"\n"];
+            v59 = [v54 colors];
+            v60 = [v59 count];
 
-            v58 = [v51 classification];
-            v59 = [v58 count];
+            v61 = [v54 classification];
+            v62 = [v61 count];
 
-            v60 = [v51 faces];
-            v61 = [v60 buffer];
-            v62 = [v61 contents];
+            v63 = [v54 faces];
+            v64 = [v63 buffer];
+            v65 = [v64 contents];
 
-            v168 = v62;
-            if (v57)
+            v172 = v65;
+            if (v60)
             {
-              v63 = [v51 colors];
-              v64 = [v63 buffer];
-              v65 = [v64 contents];
+              v66 = [v54 colors];
+              v67 = [v66 buffer];
+              v68 = [v67 contents];
 
               goto LABEL_23;
             }
 
-            if (v59)
+            if (v62)
             {
-              v187 = v45;
-              v68 = [v51 vertices];
-              v65 = malloc_type_malloc(12 * [v68 count], 0x100004052888210uLL);
+              v191 = v48;
+              v71 = [v54 vertices];
+              v68 = malloc_type_malloc(12 * [v71 count], 0x100004052888210uLL);
 
-              v69 = [v51 classification];
-              v70 = [v69 buffer];
-              v71 = [v70 contents];
+              v72 = [v54 classification];
+              v73 = [v72 buffer];
+              v74 = [v73 contents];
 
-              v72 = 0;
+              v76 = 0;
               do
               {
-                v73 = v59;
+                v77 = v62;
                 for (i = 0; i != 12; i += 4)
                 {
-                  v75 = *(v62 + i);
-                  v76 = ARCV3DColorComponentsForARKitSemantics(*(v71 + v72));
-                  *&v65[3 * v75] = v76.n128_u64[0];
-                  v65[3 * v75 + 2] = v76.n128_f32[2];
+                  v79 = *(v65 + i);
+                  v80 = ARCV3DColorComponentsForARKitSemantics(*(v74 + v76), v75);
+                  *&v68[3 * v79] = v80.n128_u64[0];
+                  v68[3 * v79 + 2] = v80.n128_f32[2];
                 }
 
-                ++v72;
-                v62 += 12;
-                v59 = v73;
+                ++v76;
+                v65 += 12;
+                v62 = v77;
               }
 
-              while (v72 != v73);
-              v171 = 1;
-              v47 = 0x1E696A000uLL;
-              v45 = v187;
+              while (v76 != v77);
+              v175 = 1;
+              v50 = 0x1E696A000uLL;
+              v48 = v191;
             }
 
             else
             {
-              v65 = 0;
+              v68 = 0;
 LABEL_23:
-              if (v59)
+              if (v62)
               {
-                v66 = v57 == 0;
+                v69 = v60 == 0;
               }
 
               else
               {
-                v66 = 0;
+                v69 = 0;
               }
 
-              v67 = v66;
-              v171 = v67;
+              v70 = v69;
+              v175 = v70;
             }
 
-            v77 = [v51 vertices];
-            v78 = [v77 buffer];
-            v79 = [v78 contents];
+            v81 = [v54 vertices];
+            v82 = [v81 buffer];
+            v83 = [v82 contents];
 
-            v80 = [v51 vertices];
-            v81 = [v80 count];
+            v84 = [v54 vertices];
+            v85 = [v84 count];
 
-            if (v81 >= 1)
+            if (v85 >= 1)
             {
-              v82 = 0;
-              v83 = (v79 + 4);
-              v84 = v65 + 2;
+              v86 = 0;
+              v87 = (v83 + 4);
+              v88 = v68 + 2;
               do
               {
-                v178 = *(v83 - 1);
-                v183 = *v83;
-                v188 = v83[1];
-                [v173 transform];
-                if (v65)
+                v182 = *(v87 - 1);
+                v187 = *v87;
+                v192 = v87[1];
+                objc_msgSend_transform(v177);
+                if (v68)
                 {
-                  v89 = *(v84 - 1);
-                  v90 = *v84;
+                  v93 = *(v88 - 1);
+                  v94 = *v88;
                 }
 
                 else
                 {
-                  v89 = 0x3F0000003F000000;
-                  v90 = 0.5;
+                  v93 = 0x3F0000003F000000;
+                  v94 = 0.5;
                 }
 
-                v91 = vaddq_f32(v88, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v85, v178), v86, v183), v87, v188));
-                v92 = [*(v47 + 3776) stringWithFormat:@"v %.06f %.06f %.06f %.03f %.03f %.03f %.03f\n", v91.f32[0], v91.f32[1], v91.f32[2], *&v89, *(&v89 + 1), v90, *&v46];
-                [v49 appendString:v92];
+                v95 = vaddq_f32(v92, vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v89, v182), v90, v187), v91, v192));
+                v96 = [*(v50 + 3776) stringWithFormat:@"v %.06f %.06f %.06f %.03f %.03f %.03f %.03f\n", v95.f32[0], v95.f32[1], v95.f32[2], *&v93, *(&v93 + 1), v94, *&v49];
+                [v52 appendString:v96];
 
-                ++v82;
-                v93 = [v51 vertices];
-                v94 = [v93 count];
+                ++v86;
+                v97 = [v54 vertices];
+                v98 = [v97 count];
 
-                v83 += 3;
-                v84 += 3;
+                v87 += 3;
+                v88 += 3;
               }
 
-              while (v94 > v82);
+              while (v98 > v86);
             }
 
-            if (v171)
+            if (v175)
             {
-              free(v65);
+              free(v68);
             }
 
-            [v49 appendString:@"\n"];
-            v95 = [v51 normals];
-            v96 = [v95 buffer];
-            v97 = [v96 contents];
+            [v52 appendString:@"\n"];
+            v99 = [v54 normals];
+            v100 = [v99 buffer];
+            v101 = [v100 contents];
 
-            v98 = [v51 normals];
-            v99 = [v98 count];
+            v102 = [v54 normals];
+            v103 = [v102 count];
 
-            if (v99 >= 1)
+            if (v103 >= 1)
             {
-              v100 = 0;
-              v101 = (v97 + 8);
+              v104 = 0;
+              v105 = (v101 + 8);
               do
               {
-                v179 = *(v101 - 2);
-                v184 = *(v101 - 1);
-                v102 = *v101;
-                v101 += 3;
-                [v173 transform];
-                v107 = vmlaq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v103, v179), v104, v184), v105, v102), 0, v106);
-                v108 = [*(v47 + 3776) stringWithFormat:@"vn %f %f %f\n", v107.f32[0], v107.f32[1], v107.f32[2]];
-                [v49 appendString:v108];
+                v183 = *(v105 - 2);
+                v188 = *(v105 - 1);
+                v106 = *v105;
+                v105 += 3;
+                objc_msgSend_transform(v177);
+                v111 = vmlaq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v107, v183), v108, v188), v109, v106), 0, v110);
+                v112 = [*(v50 + 3776) stringWithFormat:@"vn %f %f %f\n", v111.f32[0], v111.f32[1], v111.f32[2]];
+                [v52 appendString:v112];
 
-                ++v100;
-                v109 = [v51 normals];
-                v110 = [v109 count];
+                ++v104;
+                v113 = [v54 normals];
+                v114 = [v113 count];
               }
 
-              while (v110 > v100);
+              while (v114 > v104);
             }
 
-            [v49 appendString:@"\n"];
-            v111 = [v51 faces];
-            v112 = [v111 count];
+            [v52 appendString:@"\n"];
+            v115 = [v54 faces];
+            v116 = [v115 count];
 
-            if (v112 >= 1)
+            if (v116 >= 1)
             {
-              v113 = v47;
-              v114 = 0;
-              v115 = (v168 + 8);
+              v117 = v50;
+              v118 = 0;
+              v119 = (v172 + 8);
               do
               {
-                v116 = (*(v115 - 2) + v45);
-                v117 = (*(v115 - 1) + v45);
-                v118 = *v115;
-                v115 += 3;
-                v119 = [*(v113 + 3776) stringWithFormat:@"f %d//%d %d//%d %d//%d\n", v116, v116, v117, v117, (v118 + v45), (v118 + v45)];
-                [v49 appendString:v119];
+                v120 = (*(v119 - 2) + v48);
+                v121 = (*(v119 - 1) + v48);
+                v122 = *v119;
+                v119 += 3;
+                v123 = [*(v117 + 3776) stringWithFormat:@"f %d//%d %d//%d %d//%d\n", v120, v120, v121, v121, (v122 + v48), (v122 + v48)];
+                [v52 appendString:v123];
 
-                ++v114;
-                v120 = [v51 faces];
-                v121 = [v120 count];
+                ++v118;
+                v124 = [v54 faces];
+                v125 = [v124 count];
               }
 
-              while (v121 > v114);
+              while (v125 > v118);
             }
 
-            v122 = [v51 vertices];
-            v123 = [v122 count];
+            v126 = [v54 vertices];
+            v127 = [v126 count];
 
-            v124 = v174;
-            ARAppendStringToStream(v49, v175, v174);
-            if (*v174)
+            v128 = v178;
+            ARAppendStringToStream(v52, v179, v178);
+            if (*v178)
             {
 
-              v10 = v49;
-              v8 = v175;
+              v10 = v52;
+              v8 = v179;
               goto LABEL_93;
             }
 
-            v45 += v123;
+            v48 += v127;
             v10 = [MEMORY[0x1E696AD60] string];
 
-            v48 = v169 + 1;
-            v49 = v10;
-            v47 = 0x1E696A000;
-            if (v169 + 1 == v167)
+            v51 = v173 + 1;
+            v52 = v10;
+            v50 = 0x1E696A000;
+            if (v173 + 1 == v171)
             {
-              v125 = [obj countByEnumeratingWithState:&v189 objects:v197 count:16];
-              v167 = v125;
-              if (!v125)
+              v129 = [obj countByEnumeratingWithState:&v193 objects:v201 count:16];
+              v171 = v129;
+              if (!v129)
               {
                 goto LABEL_92;
               }
@@ -596,39 +635,39 @@ LABEL_62:
           __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
         }
 
-        v135 = ARShouldUseLogTypeError_internalOSVersion_57;
-        v136 = _ARLogGeneral_52();
-        v137 = v136;
-        if (v135 == 1)
+        v139 = ARShouldUseLogTypeError_internalOSVersion_57;
+        v140 = _ARLogGeneral_52(v37);
+        v141 = v140;
+        if (v139 == 1)
         {
-          if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v138 = "No mesh to save.";
-            v139 = v137;
-            v140 = OS_LOG_TYPE_ERROR;
+            v142 = "No mesh to save.";
+            v143 = v141;
+            v144 = OS_LOG_TYPE_ERROR;
             goto LABEL_76;
           }
         }
 
-        else if (os_log_type_enabled(v136, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v140, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          v138 = "Error: No mesh to save.";
-          v139 = v137;
-          v140 = OS_LOG_TYPE_INFO;
+          v142 = "Error: No mesh to save.";
+          v143 = v141;
+          v144 = OS_LOG_TYPE_INFO;
 LABEL_76:
-          _os_log_impl(&dword_1C241C000, v139, v140, v138, buf, 2u);
+          _os_log_impl(&dword_1C241C000, v143, v144, v142, buf, 2u);
         }
 
         if (a3)
         {
-          v150 = MEMORY[0x1E696ABC0];
-          v151 = *MEMORY[0x1E696A250];
-          v198 = *MEMORY[0x1E696A578];
-          v199 = @"There is no mesh to save.";
-          v152 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v199 forKeys:&v198 count:1];
-          *a3 = [v150 errorWithDomain:v151 code:-1 userInfo:v152];
+          v154 = MEMORY[0x1E696ABC0];
+          v155 = *MEMORY[0x1E696A250];
+          v202 = *MEMORY[0x1E696A578];
+          v203 = @"There is no mesh to save.";
+          v156 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v203 forKeys:&v202 count:1];
+          *a3 = [v154 errorWithDomain:v155 code:-1 userInfo:v156];
         }
 
         goto LABEL_79;
@@ -638,65 +677,65 @@ LABEL_76:
     }
   }
 
-  v143 = v174;
+  v147 = v178;
   if (ARShouldUseLogTypeError_onceToken_57 != -1)
   {
     __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
   }
 
-  v8 = v175;
-  v10 = v172;
-  v153 = ARShouldUseLogTypeError_internalOSVersion_57;
-  v154 = _ARLogGeneral_52();
-  v155 = v154;
-  if (v153 == 1)
+  v8 = v179;
+  v10 = v176;
+  v157 = ARShouldUseLogTypeError_internalOSVersion_57;
+  v158 = _ARLogGeneral_52(v24);
+  v159 = v158;
+  if (v157 == 1)
   {
-    if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
     {
-      v156 = [v15 vertices];
-      v157 = [v156 count];
-      v158 = [v15 normals];
-      v159 = [v158 count];
+      v160 = [v15 vertices];
+      v161 = [v160 count];
+      v162 = [v15 normals];
+      v163 = [v162 count];
       *buf = 134218240;
-      *v205 = v157;
-      *&v205[8] = 2048;
-      *&v205[10] = v159;
-      v160 = "Vertex count %ld does not match normal count %ld.";
-      v161 = v155;
-      v162 = OS_LOG_TYPE_ERROR;
+      *v209 = v161;
+      *&v209[8] = 2048;
+      *&v209[10] = v163;
+      v164 = "Vertex count %ld does not match normal count %ld.";
+      v165 = v159;
+      v166 = OS_LOG_TYPE_ERROR;
       goto LABEL_87;
     }
   }
 
-  else if (os_log_type_enabled(v154, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v158, OS_LOG_TYPE_INFO))
   {
-    v156 = [v15 vertices];
-    v163 = [v156 count];
-    v158 = [v15 normals];
-    v164 = [v158 count];
+    v160 = [v15 vertices];
+    v167 = [v160 count];
+    v162 = [v15 normals];
+    v168 = [v162 count];
     *buf = 134218240;
-    *v205 = v163;
-    *&v205[8] = 2048;
-    *&v205[10] = v164;
-    v160 = "Error: Vertex count %ld does not match normal count %ld.";
-    v161 = v155;
-    v162 = OS_LOG_TYPE_INFO;
+    *v209 = v167;
+    *&v209[8] = 2048;
+    *&v209[10] = v168;
+    v164 = "Error: Vertex count %ld does not match normal count %ld.";
+    v165 = v159;
+    v166 = OS_LOG_TYPE_INFO;
 LABEL_87:
-    _os_log_impl(&dword_1C241C000, v161, v162, v160, buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v165, v166, v164, buf, 0x16u);
   }
 
-  if (v174)
+  if (v178)
   {
-    v144 = MEMORY[0x1E696ABC0];
-    v145 = *MEMORY[0x1E696A250];
-    v202 = *MEMORY[0x1E696A578];
-    v203 = @"An anchor geometrie's vertex count does not match normal count.";
-    v146 = MEMORY[0x1E695DF20];
-    v147 = &v203;
-    v148 = &v202;
+    v148 = MEMORY[0x1E696ABC0];
+    v149 = *MEMORY[0x1E696A250];
+    v206 = *MEMORY[0x1E696A578];
+    v207 = @"An anchor geometrie's vertex count does not match normal count.";
+    v150 = MEMORY[0x1E695DF20];
+    v151 = &v207;
+    v152 = &v206;
 LABEL_72:
-    v149 = [v146 dictionaryWithObjects:v147 forKeys:v148 count:1];
-    *v143 = [v144 errorWithDomain:v145 code:-1 userInfo:v149];
+    v153 = [v150 dictionaryWithObjects:v151 forKeys:v152 count:1];
+    *v147 = [v148 errorWithDomain:v149 code:-1 userInfo:v153];
   }
 
 LABEL_73:
@@ -706,7 +745,7 @@ LABEL_79:
 
 void ARAppendStringToStream(void *a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [a1 dataUsingEncoding:4];
   v7 = [v6 length];
@@ -724,40 +763,40 @@ void ARAppendStringToStream(void *a1, void *a2, void *a3)
       ARVersionStringForIdentifier_cold_2();
     }
 
-    v9 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v10 = _ARLogGeneral_52();
-    v11 = v10;
-    if (v9 == 1)
+    v10 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v11 = _ARLogGeneral_52(v9);
+    v12 = v11;
+    if (v10 == 1)
     {
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_13;
       }
 
-      v12 = [v5 streamError];
+      v13 = [v5 streamError];
       *buf = 138412290;
-      v22 = v12;
-      v13 = "Writing a string to the output stream failed with error: %@";
-      v14 = v11;
-      v15 = OS_LOG_TYPE_ERROR;
+      v23 = v13;
+      v14 = "Writing a string to the output stream failed with error: %@";
+      v15 = v12;
+      v16 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         goto LABEL_13;
       }
 
-      v12 = [v5 streamError];
+      v13 = [v5 streamError];
       *buf = 138412290;
-      v22 = v12;
-      v13 = "Error: Writing a string to the output stream failed with error: %@";
-      v14 = v11;
-      v15 = OS_LOG_TYPE_INFO;
+      v23 = v13;
+      v14 = "Error: Writing a string to the output stream failed with error: %@";
+      v15 = v12;
+      v16 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 0xCu);
+    _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0xCu);
 
 LABEL_13:
     if (a3)
@@ -770,36 +809,36 @@ LABEL_13:
 
   if (a3)
   {
-    v16 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A250];
-    v19 = *MEMORY[0x1E696A578];
-    v20 = @"Writing a string to an output stream failed with an unknown error.";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    *a3 = [v16 errorWithDomain:v17 code:-1 userInfo:v18];
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = *MEMORY[0x1E696A250];
+    v20 = *MEMORY[0x1E696A578];
+    v21 = @"Writing a string to an output stream failed with an unknown error.";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    *a3 = [v17 errorWithDomain:v18 code:-1 userInfo:v19];
   }
 
 LABEL_15:
 }
 
-id ARKitBundle()
+id ARKitBundle(uint64_t a1)
 {
   if (ARKitBundle_onceToken != -1)
   {
     ARKitBundle_cold_1();
   }
 
-  v1 = ARKitBundle_arkitBundle;
+  v2 = ARKitBundle_arkitBundle;
 
-  return v1;
+  return v2;
 }
 
-double ARFixedIntrinsicsForBackUltraWideCamera640x480()
+double ARFixedIntrinsicsForBackUltraWideCamera640x480(uint64_t a1, uint64_t a2)
 {
-  v0 = MGGetProductType();
+  v2 = MGGetProductType();
   result = *&_PromotedConst_323;
-  if (v0 <= 2722529671)
+  if (v2 <= 2722529671)
   {
-    if (v0 != 1371389549 && v0 != 2080700391)
+    if (v2 != 1371389549 && v2 != 2080700391)
     {
       return result;
     }
@@ -807,12 +846,12 @@ double ARFixedIntrinsicsForBackUltraWideCamera640x480()
     return *"KFyC";
   }
 
-  if (v0 == 2722529672)
+  if (v2 == 2722529672)
   {
     return *"KFyC";
   }
 
-  if (v0 == 3863625342 || v0 == 3599094683)
+  if (v2 == 3863625342 || v2 == 3599094683)
   {
     return *&_PromotedConst_322;
   }
@@ -820,15 +859,15 @@ double ARFixedIntrinsicsForBackUltraWideCamera640x480()
   return result;
 }
 
-double ARRadialDistortionForUltraWideCamera()
+double ARRadialDistortionForUltraWideCamera(uint64_t a1, uint64_t a2)
 {
-  v0 = MGGetProductType();
-  if (v0 <= 2722529671)
+  v2 = MGGetProductType();
+  if (v2 <= 2722529671)
   {
-    if (v0 != 1371389549)
+    if (v2 != 1371389549)
     {
       result = -0.00199588993;
-      if (v0 != 2080700391)
+      if (v2 != 2080700391)
       {
         return result;
       }
@@ -837,13 +876,13 @@ double ARRadialDistortionForUltraWideCamera()
     return -0.000000502777423;
   }
 
-  if (v0 == 2722529672)
+  if (v2 == 2722529672)
   {
     return -0.000000502777423;
   }
 
   result = -0.00199588993;
-  if (v0 == 3863625342 || v0 == 3599094683)
+  if (v2 == 3863625342 || v2 == 3599094683)
   {
     return -0.00382197322;
   }
@@ -851,7 +890,7 @@ double ARRadialDistortionForUltraWideCamera()
   return result;
 }
 
-double ARWideToUltrawideExtrinsicsForOldRecordings()
+double ARWideToUltrawideExtrinsicsForOldRecordings(uint64_t a1, uint64_t a2)
 {
   if (ARWideToUltrawideExtrinsicsForOldRecordings_onceToken != -1)
   {
@@ -861,51 +900,51 @@ double ARWideToUltrawideExtrinsicsForOldRecordings()
   return *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_0;
 }
 
-void __ARWideToUltrawideExtrinsicsForOldRecordings_block_invoke()
+void __ARWideToUltrawideExtrinsicsForOldRecordings_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MGGetProductType();
-  v1.columns[0] = *MEMORY[0x1E69E9B18];
-  v1.columns[1] = *(MEMORY[0x1E69E9B18] + 16);
-  v1.columns[2] = *(MEMORY[0x1E69E9B18] + 32);
-  v2 = *(MEMORY[0x1E69E9B18] + 48);
-  if (v0 <= 2103978417)
+  v2 = MGGetProductType();
+  v3.columns[0] = *MEMORY[0x1E69E9B18];
+  v3.columns[1] = *(MEMORY[0x1E69E9B18] + 16);
+  v3.columns[2] = *(MEMORY[0x1E69E9B18] + 32);
+  v4 = *(MEMORY[0x1E69E9B18] + 48);
+  if (v2 <= 2103978417)
   {
-    if (v0 == 1293446025)
+    if (v2 == 1293446025)
     {
 LABEL_13:
-      v3 = xmmword_1C25F4360;
-      v2 = xmmword_1C25F4370;
+      v5 = xmmword_1C25F4360;
+      v4 = xmmword_1C25F4370;
       goto LABEL_15;
     }
 
-    if (v0 == 1371389549)
+    if (v2 == 1371389549)
     {
 LABEL_14:
-      v3 = xmmword_1C25F4300;
-      v2 = xmmword_1C25F4310;
+      v5 = xmmword_1C25F4300;
+      v4 = xmmword_1C25F4310;
       goto LABEL_15;
     }
 
-    v3 = *(MEMORY[0x1E69E9B18] + 48);
-    if (v0 == 2080700391)
+    v5 = *(MEMORY[0x1E69E9B18] + 48);
+    if (v2 == 2080700391)
     {
-      v3 = xmmword_1C25F4320;
-      v2 = xmmword_1C25F4330;
+      v5 = xmmword_1C25F4320;
+      v4 = xmmword_1C25F4330;
 LABEL_15:
-      v1.columns[2] = xmmword_1C25C9070;
-      v1.columns[1] = xmmword_1C25C9080;
-      v1.columns[0] = xmmword_1C25C9060;
+      v3.columns[2] = xmmword_1C25C9070;
+      v3.columns[1] = xmmword_1C25C9080;
+      v3.columns[0] = xmmword_1C25C9060;
     }
   }
 
   else
   {
-    if (v0 <= 3599094682)
+    if (v2 <= 3599094682)
     {
-      if (v0 != 2103978418)
+      if (v2 != 2103978418)
       {
-        v3 = *(MEMORY[0x1E69E9B18] + 48);
-        if (v0 != 2722529672)
+        v5 = *(MEMORY[0x1E69E9B18] + 48);
+        if (v2 != 2722529672)
         {
           goto LABEL_16;
         }
@@ -916,50 +955,47 @@ LABEL_15:
       goto LABEL_13;
     }
 
-    if (v0 == 3599094683 || (v3 = *(MEMORY[0x1E69E9B18] + 48), v0 == 3863625342))
+    if (v2 == 3599094683 || (v5 = *(MEMORY[0x1E69E9B18] + 48), v2 == 3863625342))
     {
-      v3 = xmmword_1C25F4340;
-      v2 = xmmword_1C25F4350;
+      v5 = xmmword_1C25F4340;
+      v4 = xmmword_1C25F4350;
       goto LABEL_15;
     }
   }
 
 LABEL_16:
-  v14 = v1.columns[0];
-  v15 = v1.columns[1];
-  v4 = vdupq_n_s32(0x447A0000u);
-  v1.columns[3] = vmulq_f32(v2, v4);
-  v1.columns[3].i32[3] = v2.i32[3];
-  v5 = vmulq_f32(v3, v4);
-  v5.i32[3] = v3.i32[3];
-  v16 = v1.columns[2];
-  v17 = v5;
-  v23 = __invert_f4(v1);
-  v6 = 0;
-  v18[0] = v14;
-  v18[1] = v15;
-  v18[2] = v16;
-  v18[3] = v17;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v17 = v3.columns[0];
+  v18 = v3.columns[1];
+  v6 = vdupq_n_s32(0x447A0000u);
+  v3.columns[3] = vmulq_f32(v4, v6);
+  v3.columns[3].i32[3] = v4.i32[3];
+  v7 = vmulq_f32(v5, v6);
+  v7.i32[3] = v5.i32[3];
+  v19 = v3.columns[2];
+  v20 = v7;
+  v23 = __invert_f4(v3);
+  v8 = 0;
+  v21[0] = v17;
+  v21[1] = v18;
+  v21[2] = v19;
+  v21[3] = v20;
+  memset(v22, 0, sizeof(v22));
   do
   {
-    *(&v19 + v6 * 16) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23.columns[0], COERCE_FLOAT(v18[v6])), v23.columns[1], *&v18[v6], 1), v23.columns[2], v18[v6], 2), v23.columns[3], v18[v6], 3);
-    ++v6;
+    v22[v8] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v23.columns[0], COERCE_FLOAT(v21[v8])), v23.columns[1], *&v21[v8], 1), v23.columns[2], v21[v8], 2), v23.columns[3], v21[v8], 3);
+    ++v8;
   }
 
-  while (v6 != 4);
-  v7 = ARMatrix4x3FromMatrix4x4(v19, v20, v21, v22);
-  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_0) = v7.n128_u32[2];
-  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_0 = v7.n128_u64[0];
-  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_1) = v8;
-  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_1 = v9;
-  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_2) = v10;
-  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_2 = v11;
-  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_3) = v12;
-  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_3 = v13;
+  while (v8 != 4);
+  ARMatrix4x3FromMatrix4x4();
+  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_0) = v9;
+  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_0 = v10;
+  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_1) = v11;
+  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_1 = v12;
+  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_2) = v13;
+  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_2 = v14;
+  DWORD2(ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_3) = v15;
+  *&ARWideToUltrawideExtrinsicsForOldRecordings_wideToUltrawideExtrinsics_3 = v16;
 }
 
 const __SCNetworkReachability *ARDeviceHasInternetConnectivity()
@@ -1043,7 +1079,7 @@ double ARGetSystemBootTime()
   }
 
   v2 = ARShouldUseLogTypeError_internalOSVersion_57;
-  v3 = _ARLogGeneral_52();
+  v3 = _ARLogGeneral_52(v0);
   v4 = v3;
   if (v2 == 1)
   {
@@ -1088,7 +1124,7 @@ void __ARGetSystemBootTime_block_invoke()
     }
 
     v2 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v3 = _ARLogGeneral_52();
+    v3 = _ARLogGeneral_52(v0);
     v4 = v3;
     if (v2 == 1)
     {
@@ -1216,16 +1252,16 @@ id AREnumerateClasses(const void *a1, void *a2, objc_class *a3)
   return v7;
 }
 
-id ARLibraryDirectory()
+id ARLibraryDirectory(uint64_t a1)
 {
   if (ARLibraryDirectory_onceToken != -1)
   {
     ARLibraryDirectory_cold_1();
   }
 
-  v1 = ARLibraryDirectory_arkitLibraryDirectory;
+  v2 = ARLibraryDirectory_arkitLibraryDirectory;
 
-  return v1;
+  return v2;
 }
 
 void __ARLibraryDirectory_block_invoke()
@@ -1239,16 +1275,16 @@ void __ARLibraryDirectory_block_invoke()
   ARLibraryDirectory_arkitLibraryDirectory = v2;
 }
 
-id ARCacheDirectory()
+id ARCacheDirectory(uint64_t a1)
 {
   if (ARCacheDirectory_onceToken != -1)
   {
     ARCacheDirectory_cold_1();
   }
 
-  v1 = ARCacheDirectory_arkitCacheDirectory;
+  v2 = ARCacheDirectory_arkitCacheDirectory;
 
-  return v1;
+  return v2;
 }
 
 void __ARCacheDirectory_block_invoke()
@@ -1314,16 +1350,16 @@ id _ARSystemLibraryPath()
   return v1;
 }
 
-id ARKitUIBundle()
+id ARKitUIBundle(uint64_t a1)
 {
   if (ARKitUIBundle_onceToken != -1)
   {
     ARKitUIBundle_cold_1();
   }
 
-  v1 = ARKitUIBundle_arkitUIBundle;
+  v2 = ARKitUIBundle_arkitUIBundle;
 
-  return v1;
+  return v2;
 }
 
 void __ARKitUIBundle_block_invoke()
@@ -1343,16 +1379,16 @@ void __ARKitUIBundle_block_invoke()
   }
 }
 
-id ARKitCoreBundle()
+id ARKitCoreBundle(uint64_t a1)
 {
   if (ARKitCoreBundle_onceToken != -1)
   {
     ARKitCoreBundle_cold_1();
   }
 
-  v1 = ARKitCoreBundle_arkitCoreBundle;
+  v2 = ARKitCoreBundle_arkitCoreBundle;
 
-  return v1;
+  return v2;
 }
 
 void __ARKitCoreBundle_block_invoke()
@@ -1372,16 +1408,16 @@ void __ARKitCoreBundle_block_invoke()
   }
 }
 
-id ARKitDaemonBundle()
+id ARKitDaemonBundle(uint64_t a1)
 {
   if (ARKitDaemonBundle_onceToken != -1)
   {
     ARKitDaemonBundle_cold_1();
   }
 
-  v1 = ARKitDaemonBundle_arkitDaemonBundle;
+  v2 = ARKitDaemonBundle_arkitDaemonBundle;
 
-  return v1;
+  return v2;
 }
 
 void __ARKitDaemonBundle_block_invoke()
@@ -1467,16 +1503,16 @@ BOOL ARSubclassOverridesInstanceSelector(void *a1, void *a2, uint64_t a3)
   return !v7 && v5 != v6;
 }
 
-id ARApprovedDecoderClasses()
+id ARApprovedDecoderClasses(uint64_t a1)
 {
   if (ARApprovedDecoderClasses_onceToken != -1)
   {
     ARApprovedDecoderClasses_cold_1();
   }
 
-  v1 = ARApprovedDecoderClasses_set;
+  v2 = ARApprovedDecoderClasses_set;
 
-  return v1;
+  return v2;
 }
 
 void __ARApprovedDecoderClasses_block_invoke()
@@ -1498,16 +1534,16 @@ void __ARApprovedDecoderClasses_block_invoke()
   ARApprovedDecoderClasses_set = v2;
 }
 
-id ARCrashReporterKey()
+id ARCrashReporterKey(uint64_t a1)
 {
   if (ARCrashReporterKey_onceToken != -1)
   {
     ARCrashReporterKey_cold_1();
   }
 
-  v1 = ARCrashReporterKey_crashReporterKey;
+  v2 = ARCrashReporterKey_crashReporterKey;
 
-  return v1;
+  return v2;
 }
 
 void __ARCrashReporterKey_block_invoke()
@@ -1525,7 +1561,7 @@ void __ARCrashReporterKey_block_invoke()
   }
 }
 
-uint64_t AROSAllowsInternalSecurityPolicies()
+uint64_t AROSAllowsInternalSecurityPolicies(uint64_t a1, uint64_t a2)
 {
   if (AROSAllowsInternalSecurityPolicies_onceToken != -1)
   {
@@ -1542,7 +1578,7 @@ uint64_t __AROSAllowsInternalSecurityPolicies_block_invoke()
   return result;
 }
 
-uint64_t AROSHasInternalUI()
+uint64_t AROSHasInternalUI(uint64_t a1, uint64_t a2)
 {
   if (AROSHasInternalUI_onceToken != -1)
   {
@@ -1643,7 +1679,7 @@ void ARAuditTokenForCurrentProcess(uint64_t a1@<X8>)
     }
 
     v4 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v5 = _ARLogGeneral_52();
+    v5 = _ARLogGeneral_52(v2);
     v6 = v5;
     if (v4 == 1)
     {
@@ -1689,18 +1725,19 @@ uint64_t ARPreCheckEntitlementBoolValueInClientProcess(void *a1)
 
 id ARPreCheckEntitlementValueInClientProcess(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = SecTaskCreateFromSelf(0);
   if (!v2)
   {
-    v4 = 0;
+    v5 = 0;
     goto LABEL_14;
   }
 
   v3 = v2;
   error = 0;
   v4 = SecTaskCopyValueForEntitlement(v2, v1, &error);
+  v5 = v4;
   if (error)
   {
     if (ARShouldUseLogTypeError_onceToken_57 != -1)
@@ -1708,36 +1745,36 @@ id ARPreCheckEntitlementValueInClientProcess(void *a1)
       __ARDisplayCenterTransformForCaptureDevicePosition_block_invoke_cold_1();
     }
 
-    v5 = ARShouldUseLogTypeError_internalOSVersion_57;
-    v6 = _ARLogGeneral_52();
-    v7 = v6;
-    if (v5 == 1)
+    v6 = ARShouldUseLogTypeError_internalOSVersion_57;
+    v7 = _ARLogGeneral_52(v4);
+    v8 = v7;
+    if (v6 == 1)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v8 = CFErrorCopyDescription(error);
+        v9 = CFErrorCopyDescription(error);
         *buf = 138412546;
-        v15 = v1;
-        v16 = 2112;
-        v17 = v8;
-        v9 = "Error retrieving entitlement %@: %@";
-        v10 = v7;
-        v11 = OS_LOG_TYPE_ERROR;
+        v16 = v1;
+        v17 = 2112;
+        v18 = v9;
+        v10 = "Error retrieving entitlement %@: %@";
+        v11 = v8;
+        v12 = OS_LOG_TYPE_ERROR;
 LABEL_11:
-        _os_log_impl(&dword_1C241C000, v10, v11, v9, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v11, v12, v10, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = CFErrorCopyDescription(error);
+      v9 = CFErrorCopyDescription(error);
       *buf = 138412546;
-      v15 = v1;
-      v16 = 2112;
-      v17 = v8;
-      v9 = "Error: Error retrieving entitlement %@: %@";
-      v10 = v7;
-      v11 = OS_LOG_TYPE_INFO;
+      v16 = v1;
+      v17 = 2112;
+      v18 = v9;
+      v10 = "Error: Error retrieving entitlement %@: %@";
+      v11 = v8;
+      v12 = OS_LOG_TYPE_INFO;
       goto LABEL_11;
     }
 
@@ -1747,7 +1784,7 @@ LABEL_11:
   CFRelease(v3);
 LABEL_14:
 
-  return v4;
+  return v5;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_58()
@@ -1757,7 +1794,7 @@ uint64_t __ARShouldUseLogTypeError_block_invoke_58()
   return result;
 }
 
-void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsigned int *a3, _DWORD *a4, unsigned int *a5, _DWORD *a6, uint64_t a7)
+void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5, _DWORD *a6, uint64_t a7)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v48);
   v11 = a1[1];
@@ -1786,7 +1823,7 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
                 operator new[]();
               }
 
-              thirdparty::quadprogpp::Matrix<double>::Matrix();
+              thirdparty::quadprogpp::Matrix<double>::Matrix(&v47, v11, v11);
             }
 
             v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v48, "The vector ci0 is incompatible (incorrect dimension ", 52);
@@ -1795,8 +1832,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
             v42 = MEMORY[0x1C691A6A0](v41, v44);
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, ")", 1);
             exception = __cxa_allocate_exception(0x10uLL);
-            std::ostringstream::str[abi:ne200100](&v48, v47);
-            MEMORY[0x1C691A500](exception, v47);
+            std::ostringstream::str[abi:ne200100](&v48, &v47);
+            MEMORY[0x1C691A500](exception, &v47);
             __cxa_throw(exception, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
           }
 
@@ -1806,8 +1843,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
           v37 = MEMORY[0x1C691A6A0](v36, v11);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, ")", 1);
           v38 = __cxa_allocate_exception(0x10uLL);
-          std::ostringstream::str[abi:ne200100](&v48, v47);
-          MEMORY[0x1C691A500](v38, v47);
+          std::ostringstream::str[abi:ne200100](&v48, &v47);
+          MEMORY[0x1C691A500](v38, &v47);
           __cxa_throw(v38, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
         }
 
@@ -1817,8 +1854,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
         v32 = MEMORY[0x1C691A6A0](v31, v12);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ")", 1);
         v33 = __cxa_allocate_exception(0x10uLL);
-        std::ostringstream::str[abi:ne200100](&v48, v47);
-        MEMORY[0x1C691A500](v33, v47);
+        std::ostringstream::str[abi:ne200100](&v48, &v47);
+        MEMORY[0x1C691A500](v33, &v47);
         __cxa_throw(v33, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
       }
 
@@ -1828,8 +1865,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
       v27 = MEMORY[0x1C691A6A0](v26, v11);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, ")", 1);
       v28 = __cxa_allocate_exception(0x10uLL);
-      std::ostringstream::str[abi:ne200100](&v48, v47);
-      MEMORY[0x1C691A500](v28, v47);
+      std::ostringstream::str[abi:ne200100](&v48, &v47);
+      MEMORY[0x1C691A500](v28, &v47);
       __cxa_throw(v28, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
     }
 
@@ -1839,8 +1876,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
     v22 = MEMORY[0x1C691A6B0](v21, a1[1]);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ")", 1);
     v23 = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](&v48, v47);
-    MEMORY[0x1C691A500](v23, v47);
+    std::ostringstream::str[abi:ne200100](&v48, &v47);
+    MEMORY[0x1C691A500](v23, &v47);
     __cxa_throw(v23, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
   }
 
@@ -1850,8 +1887,8 @@ void thirdparty::quadprogpp::solve_quadprog(unsigned int *a1, uint64_t a2, unsig
   v17 = MEMORY[0x1C691A6B0](v16, a1[1]);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ")", 1);
   v18 = __cxa_allocate_exception(0x10uLL);
-  std::ostringstream::str[abi:ne200100](&v48, v47);
-  MEMORY[0x1C691A500](v18, v47);
+  std::ostringstream::str[abi:ne200100](&v48, &v47);
+  MEMORY[0x1C691A500](v18, &v47);
   __cxa_throw(v18, MEMORY[0x1E69E53F8], MEMORY[0x1E69E5260]);
 }
 
@@ -1904,7 +1941,7 @@ void sub_1C25ADE50(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v5[0] = std::stringbuf::view[abi:ne200100](a1 + 8);
   v5[1] = v3;
@@ -2127,7 +2164,7 @@ BOOL thirdparty::quadprogpp::add_constraint(uint64_t a1, uint64_t a2, int *a3, i
   return v33 > v35;
 }
 
-uint64_t thirdparty::quadprogpp::delete_constraint(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int *a7, int a8)
+uint64_t thirdparty::quadprogpp::delete_constraint(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, int a6, int *a7, int a8)
 {
   LODWORD(v8) = *a7;
   if (*a7 <= a6)
@@ -2541,7 +2578,7 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
   }
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<std::string_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -2555,13 +2592,13 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
@@ -2572,7 +2609,7 @@ uint64_t *thirdparty::quadprogpp::seq@<X0>(uint64_t *this@<X0>, unsigned int a2@
   *a3 = a3 + 1;
   for (i = this; i <= a2; ++i)
   {
-    this = std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &i);
+    this = std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a3, &i, &i);
   }
 
   return this;
@@ -2584,44 +2621,44 @@ uint64_t *thirdparty::quadprogpp::singleton@<X0>(thirdparty::quadprogpp *this@<X
   a2[2] = 0;
   a2[1] = 0;
   *a2 = a2 + 1;
-  return std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, &v3);
+  return std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, &v3, &v3);
 }
 
-uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int const&>(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -2809,7 +2846,7 @@ void arkit::ExponentialSmoother<float>::step()
 
 void ARCreatePlaneAnchorFromCV3DPlane()
 {
-  if (__cxa_guard_acquire(&qword_1EBF41CE8))
+  if (__cxa_guard_acquire(byte_1EBF41CE8))
   {
     v0 = OUTLINED_FUNCTION_0(&_MergedGlobals_1);
     __cxa_guard_release(v0);

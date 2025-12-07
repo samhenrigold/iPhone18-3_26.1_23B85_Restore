@@ -133,7 +133,7 @@
       v8 = v7;
       if (v7)
       {
-        [v7 affineTransform];
+        objc_msgSend_affineTransform(v7);
       }
 
       else
@@ -215,66 +215,66 @@ LABEL_14:
   v24 = v23;
   [objc_msgSend(v7 objectForKey:{@"height", "floatValue"}];
   [(CALayer *)v5 setBounds:0.0, 0.0, v24, v25];
-  v26 = [v7 objectForKey:@"sublayerTransform"];
+  [v7 objectForKey:@"sublayerTransform"];
   if (self)
   {
-    [(KPFGingerEffect *)self p_transformFromArray:v26];
+    objc_msgSend_p_transformFromArray_(self);
   }
 
   else
   {
-    v81 = 0u;
-    v82 = 0u;
     v79 = 0u;
     v80 = 0u;
     v77 = 0u;
     v78 = 0u;
     v75 = 0u;
     v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
   }
 
-  v71 = v79;
-  v72 = v80;
-  v73 = v81;
-  v74 = v82;
-  v67 = v75;
-  v68 = v76;
   v69 = v77;
   v70 = v78;
-  [(CALayer *)v5 setSublayerTransform:&v67];
-  v27 = [v7 objectForKey:@"affineTransform"];
+  v71 = v79;
+  v72 = v80;
+  v65 = v73;
+  v66 = v74;
+  v67 = v75;
+  v68 = v76;
+  [(CALayer *)v5 setSublayerTransform:&v65];
+  [v7 objectForKey:@"affineTransform"];
   if (self)
   {
-    [(KPFGingerEffect *)self p_affineTransformFromArray:v27];
+    objc_msgSend_p_affineTransformFromArray_(self);
   }
 
   else
   {
-    v68 = 0u;
-    v69 = 0u;
+    v66 = 0u;
     v67 = 0u;
+    v65 = 0u;
   }
 
-  [(CALayer *)v5 setAffineTransform:&v67];
+  [(CALayer *)v5 setAffineTransform:&v65];
   -[KPFGingerEffect p_rectFromDictionary:](self, "p_rectFromDictionary:", [v7 objectForKey:@"contentsRect"]);
   [(CALayer *)v5 setContentsRect:?];
   [objc_msgSend(v7 objectForKey:{@"opacity", "floatValue"}];
   [(CALayer *)v5 setOpacity:?];
-  v28 = [v7 objectForKey:@"backgroundColor"];
-  if (v28)
+  v26 = [v7 objectForKey:@"backgroundColor"];
+  if (v26)
   {
-    [(CALayer *)v5 setBackgroundColor:[(KPFGingerEffect *)self p_colorFromArray:v28]];
+    [(CALayer *)v5 setBackgroundColor:[(KPFGingerEffect *)self p_colorFromArray:v26]];
   }
 
-  v29 = [v7 objectForKey:@"opacityMultiplier"];
-  if (v29)
+  v27 = [v7 objectForKey:@"opacityMultiplier"];
+  if (v27)
   {
-    v30 = v29;
+    v28 = v27;
     [(CALayer *)v5 opacity];
-    v32 = v31;
-    [v30 floatValue];
-    *&v34 = v32 * v33;
-    [(CALayer *)v5 setOpacity:v34];
+    v30 = v29;
+    [v28 floatValue];
+    *&v32 = v30 * v31;
+    [(CALayer *)v5 setOpacity:v32];
   }
 
   mKPFSession = self->mKPFSession;
@@ -290,9 +290,9 @@ LABEL_14:
     [(CALayer *)v5 setName:v9];
   }
 
-  v36 = [dict objectForKey:@"animations"];
-  v37 = self->mKPFSession;
-  if (v37)
+  v34 = [dict objectForKey:@"animations"];
+  v35 = self->mKPFSession;
+  if (v35)
   {
     if (!self->mMovie)
     {
@@ -300,79 +300,79 @@ LABEL_14:
       {
         if (v6)
         {
-          if ([(KPFSession *)v37 movieNameForTextureName:v6])
+          if ([(KPFSession *)v35 movieNameForTextureName:v6])
           {
             if ([(NSString *)[(KPFGingerEffect *)self name] isEqualToString:@"renderMovie"])
             {
               if (![(NSString *)[(KPFGingerEffect *)self type] isEqualToString:@"buildOut"])
               {
                 [(KPFGingerSlide *)[self->mKPFSession currentSlide] newMovieForTextureName:v6 movieDict:self->mMovieDict withObjectID:[(KPFGingerEffect *)self objectID]];
-                v43 = [(KPFGingerSlide *)[self->mKPFSession currentSlide] movieForObjectID:[(KPFGingerEffect *)self objectID]];
-                if (v43)
+                v41 = [(KPFGingerSlide *)[self->mKPFSession currentSlide] movieForObjectID:[(KPFGingerEffect *)self objectID]];
+                if (v41)
                 {
-                  playerLayer = [v43 playerLayer];
+                  playerLayer = [v41 playerLayer];
                   [self->mKPFSession textureSizeForName:v6];
-                  [playerLayer setBounds:{0.0, 0.0, v45, v46}];
+                  [playerLayer setBounds:{0.0, 0.0, v43, v44}];
                   [(CALayer *)v5 anchorPoint];
                   [playerLayer setAnchorPoint:?];
                   [(CALayer *)v5 position];
                   [playerLayer setPosition:?];
                   if (v5)
                   {
-                    [(CALayer *)v5 sublayerTransform];
+                    objc_msgSend_sublayerTransform(v5);
                   }
 
                   else
                   {
-                    v65 = 0u;
-                    v66 = 0u;
                     v63 = 0u;
                     v64 = 0u;
                     v61 = 0u;
                     v62 = 0u;
                     v59 = 0u;
                     v60 = 0u;
+                    v57 = 0u;
+                    v58 = 0u;
                   }
 
-                  v71 = v63;
-                  v72 = v64;
-                  v73 = v65;
-                  v74 = v66;
-                  v67 = v59;
-                  v68 = v60;
                   v69 = v61;
                   v70 = v62;
-                  [playerLayer setSublayerTransform:&v67];
+                  v71 = v63;
+                  v72 = v64;
+                  v65 = v57;
+                  v66 = v58;
+                  v67 = v59;
+                  v68 = v60;
+                  [playerLayer setSublayerTransform:&v65];
                   [(CALayer *)v5 opacity];
                   [playerLayer setOpacity:?];
                   [(CALayer *)v5 zPosition];
                   [playerLayer setZPosition:?];
                   if (v5)
                   {
-                    [(CALayer *)v5 transform];
+                    objc_msgSend_transform(v5);
                   }
 
                   else
                   {
-                    v57 = 0u;
-                    v58 = 0u;
                     v55 = 0u;
                     v56 = 0u;
                     v53 = 0u;
                     v54 = 0u;
                     v51 = 0u;
                     v52 = 0u;
+                    v49 = 0u;
+                    v50 = 0u;
                   }
 
-                  v71 = v55;
-                  v72 = v56;
-                  v73 = v57;
-                  v74 = v58;
-                  v67 = v51;
-                  v68 = v52;
                   v69 = v53;
                   v70 = v54;
-                  [playerLayer setTransform:&v67];
+                  v71 = v55;
+                  v72 = v56;
+                  v65 = v49;
+                  v66 = v50;
+                  v67 = v51;
+                  v68 = v52;
+                  [playerLayer setTransform:&v65];
                   [playerLayer setValue:v5 forKey:@"textureLayer"];
                   [(CALayer *)v5 setValue:playerLayer forKey:@"movieLayer"];
                   [(CALayer *)v5 setHidden:0];
@@ -385,40 +385,40 @@ LABEL_14:
     }
   }
 
-  if ([v36 count])
+  if ([v34 count])
   {
-    [(TSURetainedPointerKeyDictionary *)self->mAnimationDict setObject:v36 forUncopiedKey:v5];
+    [(TSURetainedPointerKeyDictionary *)self->mAnimationDict setObject:v34 forUncopiedKey:v5];
     self->_layer = v5;
     self->_textureToBeAnimated = v6;
   }
 
   if ([v8 count])
   {
-    v49 = 0u;
-    v50 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v38 = [v8 countByEnumeratingWithState:&v47 objects:v83 count:16];
-    if (v38)
+    v45 = 0u;
+    v46 = 0u;
+    v36 = [v8 countByEnumeratingWithState:&v45 objects:v81 count:16];
+    if (v36)
     {
-      v39 = v38;
-      v40 = *v48;
+      v37 = v36;
+      v38 = *v46;
       do
       {
-        for (i = 0; i != v39; i = i + 1)
+        for (i = 0; i != v37; i = i + 1)
         {
-          if (*v48 != v40)
+          if (*v46 != v38)
           {
             objc_enumerationMutation(v8);
           }
 
-          [(CALayer *)v5 addSublayer:[(KPFGingerEffect *)self p_newLayerFromDict:*(*(&v47 + 1) + 8 * i)]];
+          [(CALayer *)v5 addSublayer:[(KPFGingerEffect *)self p_newLayerFromDict:*(*(&v45 + 1) + 8 * i)]];
         }
 
-        v39 = [v8 countByEnumeratingWithState:&v47 objects:v83 count:16];
+        v37 = [v8 countByEnumeratingWithState:&v45 objects:v81 count:16];
       }
 
-      while (v39);
+      while (v37);
     }
   }
 
@@ -1431,21 +1431,21 @@ LABEL_37:
 
   if ([action isEqualToString:@"transform"])
   {
-    memset(&v41, 0, sizeof(v41));
-    v28 = [dictionary objectForKey:@"transform"];
+    memset(&v40, 0, sizeof(v40));
+    [dictionary objectForKey:@"transform"];
     if (self)
     {
-      [(KPFGingerEffect *)self p_transformFromArray:v28];
+      objc_msgSend_p_transformFromArray_(self);
     }
 
     else
     {
-      memset(&v41, 0, sizeof(v41));
+      memset(&v40, 0, sizeof(v40));
     }
 
     if (layer)
     {
-      [layer transform];
+      objc_msgSend_transform(layer);
     }
 
     else
@@ -1453,20 +1453,20 @@ LABEL_37:
       memset(&b, 0, sizeof(b));
     }
 
-    v38 = v41;
-    CATransform3DConcat(&v40, &v38, &b);
-    v41 = v40;
-    return [NSValue valueWithCATransform3D:&v40];
+    v37 = v40;
+    CATransform3DConcat(&v39, &v37, &b);
+    v40 = v39;
+    return [NSValue valueWithCATransform3D:&v39];
   }
 
   if ([action isEqualToString:@"contents"])
   {
     if (self->mKPFSession)
     {
-      v29 = [dictionary objectForKey:@"texture"];
+      v28 = [dictionary objectForKey:@"texture"];
       mKPFSession = self->mKPFSession;
 
-      return [mKPFSession CGImageForTextureName:v29];
+      return [mKPFSession CGImageForTextureName:v28];
     }
 
     return 0;
@@ -1478,14 +1478,14 @@ LABEL_37:
   }
 
   [objc_msgSend(dictionary objectForKey:{@"pointX", "floatValue"}];
-  v32 = v31;
+  v31 = v30;
   [objc_msgSend(dictionary objectForKey:{@"pointY", "floatValue"}];
-  v34 = v33;
+  v33 = v32;
   [objc_msgSend(dictionary objectForKey:{@"width", "floatValue"}];
-  v36 = v35;
+  v35 = v34;
   [objc_msgSend(dictionary objectForKey:{@"height", "floatValue"}];
 
-  return [NSValue valueWithCGRect:v32, v34, v36, v37];
+  return [NSValue valueWithCGRect:v31, v33, v35, v36];
 }
 
 - (id)p_timingFunctionFromString:(id)string forActionDictionary:(id)dictionary

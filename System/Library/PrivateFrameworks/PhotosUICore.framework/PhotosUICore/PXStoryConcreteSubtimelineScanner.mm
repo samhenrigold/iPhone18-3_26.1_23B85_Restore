@@ -114,7 +114,7 @@
 {
   timeCopy = time;
   v81 = a2;
-  v164[1] = *MEMORY[0x1E69E9840];
+  v158[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v82 = objc_autoreleasePoolPush();
   optionsCopy = options;
@@ -123,12 +123,12 @@
     v65 = PLStoryGetLog();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
-      *v155 = *&timeCopy->var0;
-      *&v155[16] = timeCopy->var3;
-      v66 = PXStoryTimeDescription(v155);
-      *v155 = 138412290;
-      *&v155[4] = v66;
-      _os_log_impl(&dword_1A3C1C000, v65, OS_LOG_TYPE_DEFAULT, "enumerate possible next subtimelines after %@", v155, 0xCu);
+      *v149 = *&timeCopy->var0;
+      *&v149[16] = timeCopy->var3;
+      v66 = PXStoryTimeDescription(v149);
+      *v149 = 138412290;
+      *&v149[4] = v66;
+      _os_log_impl(&dword_1A3C1C000, v65, OS_LOG_TYPE_DEFAULT, "enumerate possible next subtimelines after %@", v149, 0xCu);
     }
 
     if ([(PXStoryConcreteSubtimelineScanner *)self isAtEnd])
@@ -136,8 +136,8 @@
       v67 = PLStoryGetLog();
       if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
-        *v155 = 0;
-        _os_log_impl(&dword_1A3C1C000, v67, OS_LOG_TYPE_DEFAULT, "at end", v155, 2u);
+        *v149 = 0;
+        _os_log_impl(&dword_1A3C1C000, v67, OS_LOG_TYPE_DEFAULT, "at end", v149, 2u);
       }
 
       goto LABEL_81;
@@ -152,7 +152,7 @@
   v146 = 0u;
   v147 = 0u;
   v145 = 0u;
-  [(PXStoryConcreteSubtimelineScanner *)self scanState];
+  objc_msgSend_scanState(self);
   timelineStyle = [(PXStoryConcreteSubtimelineScanner *)self timelineStyle];
   v7 = [(PXStoryConcreteSubtimelineScanner *)self _nextDisplayAssetsInfoWithMaximumCount:3];
   v8 = v7;
@@ -167,23 +167,23 @@
       assetContentInfos = [v8 assetContentInfos];
       v14 = v8;
       v15 = [timelineStyle clipCompositionForKeyAsset:v9 contentInfo:assetContentInfos finalPlaybackStyle:{*objc_msgSend(v8, "oneUpPlaybackStyles")}];
-      v163 = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v163 count:1];
+      v157 = v15;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v157 count:1];
 
       goto LABEL_9;
     }
 
     v9 = +[PXStoryClipCompositionFactory oneUpComposition];
-    v164[0] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v164 count:1];
+    v158[0] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v158 count:1];
   }
 
   else
   {
     v9 = [v7 displayAssetsWithCount:{objc_msgSend(v7, "count")}];
-    *v155 = *&timeCopy->var0;
-    *&v155[16] = timeCopy->var3;
-    v10 = [timelineStyle allowedClipCompositionsWithStartTime:v155 nextDisplayAssets:v9];
+    *v149 = *&timeCopy->var0;
+    *&v149[16] = timeCopy->var3;
+    v10 = [timelineStyle allowedClipCompositionsWithStartTime:v149 nextDisplayAssets:v9];
   }
 
   v16 = v10;
@@ -204,7 +204,7 @@ LABEL_9:
   v141 = 0u;
   v142 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v141 objects:v162 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v141 objects:v156 count:16];
   if (v18)
   {
     v19 = 0;
@@ -225,7 +225,7 @@ LABEL_9:
         }
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v141 objects:v162 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v141 objects:v156 count:16];
     }
 
     while (v18);
@@ -251,9 +251,9 @@ LABEL_25:
     v68 = PLStoryGetLog();
     if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
     {
-      *v155 = 67109120;
-      *&v155[4] = firstDisplayAssetIsSameAsKey;
-      _os_log_impl(&dword_1A3C1C000, v68, OS_LOG_TYPE_DEFAULT, "shouldSkipOneUp: %i", v155, 8u);
+      *v149 = 67109120;
+      *&v149[4] = firstDisplayAssetIsSameAsKey;
+      _os_log_impl(&dword_1A3C1C000, v68, OS_LOG_TYPE_DEFAULT, "shouldSkipOneUp: %i", v149, 8u);
     }
   }
 
@@ -265,13 +265,13 @@ LABEL_25:
     v139[3] = &unk_1E773C680;
     v140 = blockCopy;
     v139[4] = self;
-    *v155 = *&timeCopy->var0;
-    *&v155[16] = timeCopy->var3;
-    v25 = [(PXStoryConcreteSubtimelineScanner *)self _scanMultipartPanoramaSubtimelineAfterTime:v155 nextDisplayAssetsInfo:v8 resultHandler:v139];
-    *v155 = v145;
-    *&v155[16] = v146;
-    v156 = v147;
-    [(PXStoryConcreteSubtimelineScanner *)self setScanState:v155];
+    *v149 = *&timeCopy->var0;
+    *&v149[16] = timeCopy->var3;
+    v25 = [(PXStoryConcreteSubtimelineScanner *)self _scanMultipartPanoramaSubtimelineAfterTime:v149 nextDisplayAssetsInfo:v8 resultHandler:v139];
+    *v149 = v145;
+    *&v149[16] = v146;
+    v150 = v147;
+    [(PXStoryConcreteSubtimelineScanner *)self setScanState:v149];
     if (v25)
     {
       if (optionsCopy)
@@ -279,8 +279,8 @@ LABEL_25:
         v70 = PLStoryGetLog();
         if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
         {
-          *v155 = 0;
-          _os_log_impl(&dword_1A3C1C000, v70, OS_LOG_TYPE_DEFAULT, "did scan multipart pano", v155, 2u);
+          *v149 = 0;
+          _os_log_impl(&dword_1A3C1C000, v70, OS_LOG_TYPE_DEFAULT, "did scan multipart pano", v149, 2u);
         }
       }
 
@@ -293,9 +293,9 @@ LABEL_25:
     v69 = PLStoryGetLog();
     if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
-      *v155 = 138412290;
-      *&v155[4] = v17;
-      _os_log_impl(&dword_1A3C1C000, v69, OS_LOG_TYPE_DEFAULT, "allowedClipCompositions: %@", v155, 0xCu);
+      *v149 = 138412290;
+      *&v149[4] = v17;
+      _os_log_impl(&dword_1A3C1C000, v69, OS_LOG_TYPE_DEFAULT, "allowedClipCompositions: %@", v149, 0xCu);
     }
   }
 
@@ -304,7 +304,7 @@ LABEL_25:
   v135 = 0u;
   v136 = 0u;
   v87 = v17;
-  v92 = [v87 countByEnumeratingWithState:&v135 objects:v161 count:16];
+  v92 = [v87 countByEnumeratingWithState:&v135 objects:v155 count:16];
   if (v92)
   {
     v74 = v96;
@@ -342,17 +342,17 @@ LABEL_34:
           v62 = PLStoryGetLog();
           if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
-            *v155 = v72;
-            *&v155[4] = isAtEnd;
-            _os_log_impl(&dword_1A3C1C000, v62, OS_LOG_TYPE_DEFAULT, "did skip one up, is at end %i", v155, 8u);
+            *v149 = v72;
+            *&v149[4] = isAtEnd;
+            _os_log_impl(&dword_1A3C1C000, v62, OS_LOG_TYPE_DEFAULT, "did skip one up, is at end %i", v149, 8u);
           }
         }
 
         if (isAtEnd)
         {
           emptySubtimeline = self->_emptySubtimeline;
-          [(PXStoryConcreteSubtimelineScanner *)self scanState];
-          (*(blockCopy + 2))(blockCopy, emptySubtimeline, v155, v132 + 3);
+          objc_msgSend_scanState(self);
+          (*(blockCopy + 2))(blockCopy, emptySubtimeline, v149, v132 + 3);
         }
 
         else
@@ -363,9 +363,9 @@ LABEL_34:
           v128[1] = &unk_1E773C6A8;
           v129 = blockCopy;
           v130 = &v131;
-          *v155 = *&timeCopy->var0;
-          *&v155[16] = timeCopy->var3;
-          [(PXStoryConcreteSubtimelineScanner *)self enumeratePossibleNextSubtimelinesAfterTime:v155 loggingOptions:optionsCopy usingBlock:v127];
+          *v149 = *&timeCopy->var0;
+          *&v149[16] = timeCopy->var3;
+          [(PXStoryConcreteSubtimelineScanner *)self enumeratePossibleNextSubtimelinesAfterTime:v149 loggingOptions:optionsCopy usingBlock:v127];
         }
       }
 
@@ -402,11 +402,11 @@ LABEL_34:
             v63 = PLStoryGetLog();
             if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
             {
-              *v155 = v71;
-              *&v155[4] = v35;
-              *&v155[8] = 2112;
-              *&v155[10] = v28;
-              _os_log_impl(&dword_1A3C1C000, v63, OS_LOG_TYPE_DEFAULT, "is composition allowed %i %@", v155, 0x12u);
+              *v149 = v71;
+              *&v149[4] = v35;
+              *&v149[8] = 2112;
+              *&v149[10] = v28;
+              _os_log_impl(&dword_1A3C1C000, v63, OS_LOG_TYPE_DEFAULT, "is composition allowed %i %@", v149, 0x12u);
             }
           }
 
@@ -433,7 +433,7 @@ LABEL_34:
             v125 = 0u;
             if (timelineStyle)
             {
-              oneUpPlaybackStyles = [timelineStyle transitionInfoForSegmentWithClipComposition:v28 displayAssets:v43];
+              oneUpPlaybackStyles = objc_msgSend_transitionInfoForSegmentWithClipComposition_displayAssets_(timelineStyle);
             }
 
             v75 = &v71;
@@ -483,17 +483,17 @@ LABEL_34:
             v121 = &v120;
             v122 = 0x2020000000;
             v123 = 0;
-            v160 = 0u;
-            v159 = 0u;
-            v158 = 0u;
-            v157 = 0u;
-            v156 = 0u;
-            memset(v155, 0, sizeof(v155));
+            v154 = 0u;
+            v153 = 0u;
+            v152 = 0u;
+            v151 = 0u;
+            v150 = 0u;
+            memset(v149, 0, sizeof(v149));
             if (v47)
             {
-              v148 = *&timeCopy->var0;
-              *&v149 = timeCopy->var3;
-              [v47 durationInfoForSegmentWithDisplayAssets:v43 startTime:&v148];
+              v148[0] = *&timeCopy->var0;
+              *&v148[1] = timeCopy->var3;
+              objc_msgSend_durationInfoForSegmentWithDisplayAssets_startTime_(v47);
             }
 
             v95[0] = MEMORY[0x1E69E9820];
@@ -506,17 +506,17 @@ LABEL_34:
             v58 = v43;
             v59 = timeCopy;
             v118 = *&timeCopy->var0;
-            v109 = v157;
-            v110 = v158;
-            v111 = v159;
-            v112 = v160;
-            v106 = *v155;
+            v109 = v151;
+            v110 = v152;
+            v111 = v153;
+            v112 = v154;
+            v106 = *v149;
             v60 = v79;
             v104 = assetContentInfos2;
             v105 = v79;
             var3 = timeCopy->var3;
-            v107 = *&v155[16];
-            v108 = v156;
+            v107 = *&v149[16];
+            v108 = v150;
             v113 = v77;
             v99 = v58;
             selfCopy = self;
@@ -529,14 +529,14 @@ LABEL_34:
             v103 = &v120;
             v93 = *&v59->var0;
             v94 = v59->var3;
-            v152 = v158;
-            v153 = v159;
-            v154 = v160;
-            v148 = *v155;
-            v149 = *&v155[16];
-            v150 = v156;
-            v151 = v157;
-            [v76 enumerateAllowedSeparatorEffectParametersForSegmentWithClipComposition:v28 displayAssets:v58 finalPlaybackStyles:v60 startTime:&v93 durationInfo:&v148 buffer:v78 usingBlock:v95];
+            v148[4] = v152;
+            v148[5] = v153;
+            v148[6] = v154;
+            v148[0] = *v149;
+            v148[1] = *&v149[16];
+            v148[2] = v150;
+            v148[3] = v151;
+            [v76 enumerateAllowedSeparatorEffectParametersForSegmentWithClipComposition:v28 displayAssets:v58 finalPlaybackStyles:v60 startTime:&v93 durationInfo:v148 buffer:v78 usingBlock:v95];
             if ((v121[3] & 1) == 0)
             {
               PXAssertGetLog();
@@ -547,10 +547,10 @@ LABEL_34:
         }
       }
 
-      *v155 = v145;
-      *&v155[16] = v146;
-      v156 = v147;
-      [(PXStoryConcreteSubtimelineScanner *)self setScanState:v155];
+      *v149 = v145;
+      *&v149[16] = v146;
+      v150 = v147;
+      [(PXStoryConcreteSubtimelineScanner *)self setScanState:v149];
       v61 = *(v132 + 24);
       _Block_object_dispose(&v131, 8);
       if (v61)
@@ -560,7 +560,7 @@ LABEL_34:
 
       if (++v27 == v92)
       {
-        v64 = [v87 countByEnumeratingWithState:&v135 objects:v161 count:16];
+        v64 = [v87 countByEnumeratingWithState:&v135 objects:v155 count:16];
         v92 = v64;
         if (v64)
         {
@@ -585,7 +585,7 @@ void __106__PXStoryConcreteSubtimelineScanner_enumeratePossibleNextSubtimelinesA
   v5 = *(a1 + 40);
   if (v4)
   {
-    [v4 scanState];
+    objc_msgSend_scanState(v4);
   }
 
   else
@@ -730,7 +730,7 @@ void __106__PXStoryConcreteSubtimelineScanner_enumeratePossibleNextSubtimelinesA
   v5 = a1[5];
   if (v4)
   {
-    [v4 scanState];
+    objc_msgSend_scanState(v4);
   }
 
   else
@@ -839,7 +839,7 @@ void __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invok
   }
 }
 
-uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, _BYTE *a8)
+void *__59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, _BYTE *a8)
 {
   if (a2 >= 1)
   {
@@ -850,21 +850,21 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
       if (a5[1] == 1)
       {
         v14 = *(a6 + 8 * v13);
-        if (v14 != *(*(*(v12 + 56) + 8) + 24))
+        if (v14 != *(*(*(v12 + 7) + 8) + 24))
         {
-          v15 = *(v12 + 32);
-          v16 = *(v12 + 40);
-          v18 = *(v12 + 64);
-          v17 = *(v12 + 72);
+          v15 = *(v12 + 4);
+          v16 = *(v12 + 5);
+          v18 = *(v12 + 8);
+          v17 = *(v12 + 9);
           v20[0] = MEMORY[0x1E69E9820];
           v20[1] = 3221225472;
           v20[2] = __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invoke_3;
           v20[3] = &unk_1E773C5E8;
           v20[4] = v16;
           v20[5] = v18;
-          v20[6] = *(v12 + 80);
+          v20[6] = *(v12 + 10);
           result = [v15 enumerateTextResourcesForTitles:v17 displayAssetResourceAtIndex:v14 usingBlock:v20];
-          if (*(*(*(v12 + 64) + 8) + 24) > 0)
+          if (*(*(*(v12 + 8) + 8) + 24) > 0)
           {
             break;
           }
@@ -879,44 +879,43 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
       }
     }
 
-    result = [*(v12 + 48) modifyOptionsForClipWithIdentifier:*a5 hintIndex:v13 + a7 usingBlock:&__block_literal_global_48_135690];
-    *(*(*(v12 + 56) + 8) + 24) = v14;
+    result = [*(v12 + 6) modifyOptionsForClipWithIdentifier:*a5 hintIndex:v13 + a7 usingBlock:&__block_literal_global_48_135690];
+    *(*(*(v12 + 7) + 8) + 24) = v14;
     *a8 = 1;
   }
 
   return result;
 }
 
-uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invoke_3(uint64_t result, uint64_t a2)
+void __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
-  v3 = *(*(*(result + 40) + 8) + 24);
+  v2 = *(a1 + 32);
+  v3 = *(*(*(a1 + 40) + 8) + 24);
   if (v3 >= *(v2 + 568))
   {
     PXAssertGetLog();
   }
 
   *(*(v2 + 576) + 8 * v3) = a2;
-  ++*(*(*(result + 40) + 8) + 24);
-  return result;
+  ++*(*(*(a1 + 40) + 8) + 24);
 }
 
 - (BOOL)scanBestSubtimelineFollowingTimeline:(id)timeline loggingOptions:(unint64_t)options resultHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   timelineCopy = timeline;
   handlerCopy = handler;
   [(PXStoryMutableConcreteTimeline *)self->_precedingSubtimeline removeAllClipsAndSegments];
   numberOfSegments = [timelineCopy numberOfSegments];
   if (options)
   {
-    v25 = PLStoryGetLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v24 = PLStoryGetLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *range = 134217984;
       *&range[4] = numberOfSegments;
-      _os_log_impl(&dword_1A3C1C000, v25, OS_LOG_TYPE_DEFAULT, "scan best subtimeline following timeline with %ti segments", range, 0xCu);
+      _os_log_impl(&dword_1A3C1C000, v24, OS_LOG_TYPE_DEFAULT, "scan best subtimeline following timeline with %ti segments", range, 0xCu);
     }
   }
 
@@ -928,12 +927,12 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
       v11 = numberOfSegments;
     }
 
-    v12 = [timelineCopy identifierForSegmentAtIndex:v11 - 2];
-    memset(&v42, 0, sizeof(v42));
+    [timelineCopy identifierForSegmentAtIndex:v11 - 2];
+    memset(&v41, 0, sizeof(v41));
     if (timelineCopy)
     {
-      [timelineCopy timeRangeForSegmentWithIdentifier:v12];
-      [timelineCopy timeRange];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(timelineCopy);
+      objc_msgSend_timeRange(timelineCopy);
     }
 
     else
@@ -942,52 +941,52 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
     }
 
     *range = rhs;
-    CMTimeRangeGetEnd(&v38, range);
-    *&rhs.start.value = *&v42.start.value;
-    rhs.start.epoch = v42.start.epoch;
-    *range = v38;
-    CMTimeSubtract(&v35, range, &rhs.start);
-    v42.duration = v35;
+    CMTimeRangeGetEnd(&v37, range);
+    *&rhs.start.value = *&v41.start.value;
+    rhs.start.epoch = v41.start.epoch;
+    *range = v37;
+    CMTimeSubtract(&v34, range, &rhs.start);
+    v41.duration = v34;
     precedingSubtimeline = self->_precedingSubtimeline;
-    *range = *&v42.start.value;
-    *&range[16] = v42.start.epoch;
+    *range = *&v41.start.value;
+    *&range[16] = v41.start.epoch;
     [(PXStoryMutableConcreteTimeline *)precedingSubtimeline setStartTime:range];
-    v14 = self->_precedingSubtimeline;
-    *range = v42;
-    [(PXStoryMutableConcreteTimeline *)v14 appendTimeRange:range fromTimeline:timelineCopy];
+    v13 = self->_precedingSubtimeline;
+    *range = v41;
+    [(PXStoryMutableConcreteTimeline *)v13 appendTimeRange:range fromTimeline:timelineCopy];
   }
 
   if (options)
   {
-    v26 = PLStoryGetLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v25 = PLStoryGetLog();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       diagnosticDescription = [(PXStoryBaseTimeline *)self->_precedingSubtimeline diagnosticDescription];
       *range = 138412290;
       *&range[4] = diagnosticDescription;
-      _os_log_impl(&dword_1A3C1C000, v26, OS_LOG_TYPE_DEFAULT, "preceding subtimeline: %@", range, 0xCu);
+      _os_log_impl(&dword_1A3C1C000, v25, OS_LOG_TYPE_DEFAULT, "preceding subtimeline: %@", range, 0xCu);
     }
   }
 
   [(PXStoryMutableConcreteTimeline *)self->_bestSubtimeline removeAllClipsAndSegments];
   timelineScorer = [(PXStoryConcreteSubtimelineScanner *)self timelineScorer];
-  v35.value = 0;
-  *&v35.timescale = &v35;
-  v35.epoch = 0x2020000000;
-  v36 = 0xFFEFFFFFFFFFFFFFLL;
+  v34.value = 0;
+  *&v34.timescale = &v34;
+  v34.epoch = 0x2020000000;
+  v35 = 0xFFEFFFFFFFFFFFFFLL;
   *range = 0;
   *&range[8] = range;
   *&range[16] = 0x5010000000;
   *&range[40] = 0u;
-  v40 = 0u;
-  v41 = 0;
+  v39 = 0u;
+  v40 = 0;
   *&range[24] = &unk_1A561E057;
   *&range[32] = 0x7FFFFFFFFFFFFFFFLL;
-  memset(&v38, 0, sizeof(v38));
-  v16 = self->_precedingSubtimeline;
-  if (v16)
+  memset(&v37, 0, sizeof(v37));
+  v15 = self->_precedingSubtimeline;
+  if (v15)
   {
-    [(PXStoryConcreteTimeline *)v16 timeRange];
+    objc_msgSend_timeRange(v15);
   }
 
   else
@@ -995,28 +994,28 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
     memset(&rhs, 0, sizeof(rhs));
   }
 
-  v42 = rhs;
-  CMTimeRangeGetEnd(&v38, &v42);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __103__PXStoryConcreteSubtimelineScanner_scanBestSubtimelineFollowingTimeline_loggingOptions_resultHandler___block_invoke;
-  v30[3] = &unk_1E773C5C0;
+  v41 = rhs;
+  CMTimeRangeGetEnd(&v37, &v41);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __103__PXStoryConcreteSubtimelineScanner_scanBestSubtimelineFollowingTimeline_loggingOptions_resultHandler___block_invoke;
+  v29[3] = &unk_1E773C5C0;
   optionsCopy = options;
-  v30[4] = self;
-  v17 = timelineScorer;
-  v31 = v17;
-  v32 = &v35;
-  v33 = range;
-  v42.start = v38;
-  [(PXStoryConcreteSubtimelineScanner *)self enumeratePossibleNextSubtimelinesAfterTime:&v42 loggingOptions:options usingBlock:v30];
+  v29[4] = self;
+  v16 = timelineScorer;
+  v30 = v16;
+  v31 = &v34;
+  v32 = range;
+  v41.start = v37;
+  [(PXStoryConcreteSubtimelineScanner *)self enumeratePossibleNextSubtimelinesAfterTime:&v41 loggingOptions:options usingBlock:v29];
   if (*(*&range[8] + 32) != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v29 = *(*&range[8] + 48);
-    v21 = *(*&range[8] + 64);
-    *&v42.start.value = *(*&range[8] + 32);
-    *&v42.start.epoch = v29;
-    *&v42.duration.timescale = v21;
-    [(PXStoryConcreteSubtimelineScanner *)self setScanState:&v42, v42.start.value, *&v42.start.timescale, v29, v21];
+    v28 = *(*&range[8] + 48);
+    v20 = *(*&range[8] + 64);
+    *&v41.start.value = *(*&range[8] + 32);
+    *&v41.start.epoch = v28;
+    *&v41.duration.timescale = v20;
+    [(PXStoryConcreteSubtimelineScanner *)self setScanState:&v41, v41.start.value, *&v41.start.timescale, v28, v20];
     goto LABEL_19;
   }
 
@@ -1025,11 +1024,11 @@ uint64_t __59__PXStoryConcreteSubtimelineScanner__addTitles_toTimeline___block_i
 
   if (allowsIncompleteTimelines)
   {
-    v20 = PLStoryGetLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = PLStoryGetLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v42.start.value) = 0;
-      _os_log_impl(&dword_1A3C1C000, v20, OS_LOG_TYPE_DEFAULT, "skipping trailing clips because the timeline style allows incomplete timelines", &v42, 2u);
+      LOWORD(v41.start.value) = 0;
+      _os_log_impl(&dword_1A3C1C000, v19, OS_LOG_TYPE_DEFAULT, "skipping trailing clips because the timeline style allows incomplete timelines", &v41, 2u);
     }
 
     self->_nextResourceIndex = self->_numberOfResources;
@@ -1038,7 +1037,7 @@ LABEL_19:
     -[PXStoryConcreteSubtimelineScanner _addTitles:toTimeline:](self, "_addTitles:toTimeline:", [spec allowedInlineTitles], self->_bestSubtimeline);
 
     handlerCopy[2](handlerCopy, self->_bestSubtimeline);
-    v23 = 1;
+    v22 = 1;
     if ((options & 1) == 0)
     {
       goto LABEL_22;
@@ -1047,26 +1046,26 @@ LABEL_19:
     goto LABEL_29;
   }
 
-  v23 = 0;
+  v22 = 0;
   if ((options & 1) == 0)
   {
     goto LABEL_22;
   }
 
 LABEL_29:
-  v28 = PLStoryGetLog();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v27 = PLStoryGetLog();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v42.start.value) = 67109120;
-    HIDWORD(v42.start.value) = v23;
-    _os_log_impl(&dword_1A3C1C000, v28, OS_LOG_TYPE_DEFAULT, "scanned: %i", &v42, 8u);
+    LODWORD(v41.start.value) = 67109120;
+    HIDWORD(v41.start.value) = v22;
+    _os_log_impl(&dword_1A3C1C000, v27, OS_LOG_TYPE_DEFAULT, "scanned: %i", &v41, 8u);
   }
 
 LABEL_22:
   _Block_object_dispose(range, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 
-  return v23;
+  return v22;
 }
 
 void __103__PXStoryConcreteSubtimelineScanner_scanBestSubtimelineFollowingTimeline_loggingOptions_resultHandler___block_invoke(uint64_t a1, void *a2, __int128 *a3)
@@ -1100,7 +1099,7 @@ void __103__PXStoryConcreteSubtimelineScanner_scanBestSubtimelineFollowingTimeli
   v6 = *(*(a1 + 32) + 112);
   if (v6)
   {
-    [v6 timeRange];
+    objc_msgSend_timeRange(v6);
   }
 
   else
@@ -1224,7 +1223,7 @@ void __103__PXStoryConcreteSubtimelineScanner_scanBestSubtimelineFollowingTimeli
   PXSizeGetAspectRatioWithDefault();
 }
 
-void __121__PXStoryConcreteSubtimelineScanner__scanMultipartPanoramaSubtimelineAfterTime_axis_nextDisplayAssetsInfo_resultHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __121__PXStoryConcreteSubtimelineScanner__scanMultipartPanoramaSubtimelineAfterTime_axis_nextDisplayAssetsInfo_resultHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, _OWORD *a6, _OWORD *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
 {
   *a2 = 1;
   *a3 = *(*(a1 + 32) + 56);
@@ -1300,38 +1299,38 @@ uint64_t __116__PXStoryConcreteSubtimelineScanner__scanMultipartPanoramaSubtimel
   if (numberOfAssets <= numberOfRemainingResources)
   {
     effectParametersCopy = effectParameters;
-    v45 = numberOfRemainingResources;
+    v44 = numberOfRemainingResources;
     numberOfClips = [compositionCopy numberOfClips];
     time1 = durationInfo->var1;
     *time2 = PXStoryTimeZero;
     *&time2[16] = 0;
     v23 = CMTimeCompare(&time1, time2);
-    v97 = 0;
+    v96 = 0;
+    v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
-    PXStorySegmentClipCompositionInfoFromComposition(compositionCopy, &v95);
+    PXStorySegmentClipCompositionInfoFromComposition(compositionCopy, &v94);
     time1.value = 0;
     *&time1.timescale = &time1;
     time1.epoch = 0x9810000000;
-    v86 = &unk_1A561E057;
-    v94 = 0;
-    v91 = xmmword_1A5383A58;
-    v92 = xmmword_1A5383A68;
-    v93 = xmmword_1A5383A78;
-    v87 = PXStoryKenBurnsAnimationInfoNone;
-    v88 = unk_1A5383A28;
-    v89 = xmmword_1A5383A38;
-    v90 = xmmword_1A5383A48;
-    v84[0] = 0;
-    v84[1] = v84;
-    v84[2] = 0x2020000000;
-    v84[3] = 0;
+    v85 = &unk_1A561E057;
+    v93 = 0;
+    v90 = xmmword_1A5383A58;
+    v91 = xmmword_1A5383A68;
+    v92 = xmmword_1A5383A78;
+    v86 = PXStoryKenBurnsAnimationInfoNone;
+    v87 = unk_1A5383A28;
+    v88 = xmmword_1A5383A38;
+    v89 = xmmword_1A5383A48;
+    v83[0] = 0;
+    v83[1] = v83;
+    v83[2] = 0x2020000000;
+    v83[3] = 0;
     [(PXStoryMutableConcreteTimeline *)self->_subtimelineWithClipComposition removeAllClipsAndSegments];
     v24 = +[PXStorySettings sharedInstance];
     v25 = v24;
-    v49 = v24;
-    v46 = numberOfAssets;
-    v47 = handlerCopy;
+    v48 = v24;
+    v45 = numberOfAssets;
+    v46 = handlerCopy;
     if (v23 >= 1 && [v24 smartGradientEnabled] && (!objc_msgSend(compositionCopy, "clipFramesExtendToBounds") || objc_msgSend(v25, "allowAspectModeToggle")))
     {
       v26 = numberOfClips;
@@ -1347,56 +1346,56 @@ uint64_t __116__PXStoryConcreteSubtimelineScanner__scanMultipartPanoramaSubtimel
     }
 
     subtimelineWithClipComposition = self->_subtimelineWithClipComposition;
-    v62[0] = MEMORY[0x1E69E9820];
-    v62[1] = 3221225472;
-    v62[2] = __223__PXStoryConcreteSubtimelineScanner__scanSubtimelineWithClipComposition_displayAssets_assetContentInfos_playbackStyles_separatorEffectParameters_kenBurnsEffectParameters_transitionInfo_startTime_durationInfo_resultHandler___block_invoke;
-    v62[3] = &unk_1E773C528;
-    v62[4] = self;
-    v67 = v26;
-    v63 = assetsCopy;
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __223__PXStoryConcreteSubtimelineScanner__scanSubtimelineWithClipComposition_displayAssets_assetContentInfos_playbackStyles_separatorEffectParameters_kenBurnsEffectParameters_transitionInfo_startTime_durationInfo_resultHandler___block_invoke;
+    v61[3] = &unk_1E773C528;
+    v61[4] = self;
+    v66 = v26;
+    v62 = assetsCopy;
     v30 = compositionCopy;
     v31 = *&durationInfo->var1.var1;
-    v72 = *&durationInfo->var2.var0;
+    v71 = *&durationInfo->var2.var0;
     v32 = *&durationInfo->var2.var0;
-    v73 = *&durationInfo->var2.var3;
+    v72 = *&durationInfo->var2.var3;
     v33 = *&durationInfo->var2.var3;
-    v74 = *&durationInfo->var3.var0.var1;
+    v73 = *&durationInfo->var3.var0.var1;
     v34 = *&durationInfo->var3.var0.var1;
-    v75 = *&durationInfo->var3.var1;
+    v74 = *&durationInfo->var3.var1;
     v35 = *&durationInfo->var0.var3;
-    v69 = *&durationInfo->var0.var0;
+    v68 = *&durationInfo->var0.var0;
     v36 = *&durationInfo->var0.var0;
     v37 = *&durationInfo->var0.var3;
-    v70 = v35;
-    v71 = *&durationInfo->var1.var1;
+    v69 = v35;
+    v70 = *&durationInfo->var1.var1;
     v38 = *&info->var0;
-    v81 = *&info->var2.var1;
-    v80 = v38;
-    v56 = v33;
-    v57 = v34;
-    v58 = *&durationInfo->var3.var1;
+    v80 = *&info->var2.var1;
+    v79 = v38;
+    v55 = v33;
+    v56 = v34;
+    v57 = *&durationInfo->var3.var1;
     *time2 = v36;
     *&time2[16] = v37;
-    v76 = effectParametersCopy;
-    v77 = a2;
+    v75 = effectParametersCopy;
+    v76 = a2;
     infosCopy = infos;
     stylesCopy = styles;
-    v52 = v28;
-    v83 = v28;
+    v51 = v28;
+    v82 = v28;
     v39 = v30;
-    v64 = v30;
+    v63 = v30;
     p_time1 = &time1;
-    v68 = parametersCopy2;
-    v66 = v84;
-    v82 = *&info->var3;
-    v54 = v31;
-    v55 = v32;
+    v67 = parametersCopy2;
+    v65 = v83;
+    v81 = *&info->var3;
+    v53 = v31;
+    v54 = v32;
+    v58 = v94;
     v59 = v95;
-    v60 = v96;
-    *&v61 = v97;
-    v40 = [(PXStoryMutableConcreteTimeline *)subtimelineWithClipComposition appendSegmentWithDurationInfo:time2 clipCount:v26 compositionInfo:&v59 configuration:v62];
-    numberOfAssets = v46;
-    handlerCopy = v47;
+    *&v60 = v96;
+    [(PXStoryMutableConcreteTimeline *)subtimelineWithClipComposition appendSegmentWithDurationInfo:time2 clipCount:v26 compositionInfo:&v58 configuration:v61];
+    numberOfAssets = v45;
+    handlerCopy = v46;
     if ([v39 numberOfClips] < 2)
     {
       allowsNUpBackground = 0;
@@ -1404,46 +1403,46 @@ uint64_t __116__PXStoryConcreteSubtimelineScanner__scanMultipartPanoramaSubtimel
 
     else
     {
-      allowsNUpBackground = [v49 allowsNUpBackground];
+      allowsNUpBackground = [v48 allowsNUpBackground];
     }
 
-    if ((allowsNUpBackground | v52))
+    if ((allowsNUpBackground | v51))
     {
-      v60 = 0u;
-      v61 = 0u;
       v59 = 0u;
-      v42 = self->_subtimelineWithClipComposition;
-      if (v42)
+      v60 = 0u;
+      v58 = 0u;
+      v41 = self->_subtimelineWithClipComposition;
+      if (v41)
       {
-        [(PXStoryConcreteTimeline *)v42 timeRangeForSegmentWithIdentifier:v40];
-        v42 = self->_subtimelineWithClipComposition;
+        objc_msgSend_timeRangeForSegmentWithIdentifier_(v41);
+        v41 = self->_subtimelineWithClipComposition;
       }
 
-      [(PXStoryConcreteTimeline *)v42 size];
+      [(PXStoryConcreteTimeline *)v41 size];
       PXRectWithOriginAndSize();
     }
 
-    self->_nextResourceIndex += v46;
-    v47[2](v47, self->_subtimelineWithClipComposition);
+    self->_nextResourceIndex += v45;
+    v46[2](v46, self->_subtimelineWithClipComposition);
 
-    _Block_object_dispose(v84, 8);
+    _Block_object_dispose(v83, 8);
     _Block_object_dispose(&time1, 8);
-    numberOfRemainingResources = v45;
+    numberOfRemainingResources = v44;
   }
 
-  v43 = numberOfAssets <= numberOfRemainingResources;
+  v42 = numberOfAssets <= numberOfRemainingResources;
 
-  return v43;
+  return v42;
 }
 
-void __223__PXStoryConcreteSubtimelineScanner__scanSubtimelineWithClipComposition_displayAssets_assetContentInfos_playbackStyles_separatorEffectParameters_kenBurnsEffectParameters_transitionInfo_startTime_durationInfo_resultHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __223__PXStoryConcreteSubtimelineScanner__scanSubtimelineWithClipComposition_displayAssets_assetContentInfos_playbackStyles_separatorEffectParameters_kenBurnsEffectParameters_transitionInfo_startTime_durationInfo_resultHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _OWORD *a6, uint64_t a7, uint64_t a8, __int128 *a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v6 = [*(a1 + 32) spec];
-  if (*(a1 + 72) == 1 && (v7 = *(a1 + 40)) != 0)
+  v14 = [*(a1 + 32) spec];
+  if (*(a1 + 72) == 1 && (v15 = *(a1 + 40)) != 0)
   {
-    v8 = [v7 objectAtIndexedSubscript:0];
-    [v8 aspectRatio];
-    *(*(a1 + 32) + 32) = v9;
+    v16 = [v15 objectAtIndexedSubscript:0];
+    [v16 aspectRatio];
+    *(*(a1 + 32) + 32) = v17;
   }
 
   else
@@ -1452,8 +1451,8 @@ void __223__PXStoryConcreteSubtimelineScanner__scanSubtimelineWithClipCompositio
   }
 
   [*(a1 + 48) getClipFrames:a4 forContext:*(a1 + 32) + 8];
-  [v6 safeAreaInsets];
-  [v6 viewportSize];
+  [v14 safeAreaInsets];
+  [v14 viewportSize];
   PXRectWithOriginAndSize();
 }
 
@@ -1563,7 +1562,7 @@ void __94__PXStoryConcreteSubtimelineScanner__scanFastestSubtimelineWithNextDisp
   return result;
 }
 
-uint64_t __46__PXStoryConcreteSubtimelineScanner_scanState__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__46__PXStoryConcreteSubtimelineScanner_scanState__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 seed];
   *(*(*(a1 + 32) + 8) + 8 * a3 + 40) = result;
@@ -1588,7 +1587,7 @@ uint64_t __46__PXStoryConcreteSubtimelineScanner_scanState__block_invoke(uint64_
   v5 = self->_defaultHorizontalMultipartPanoramaParameters;
   if (v5)
   {
-    [(PXStoryMultipartPanoramaParameters *)v5 normalizedKenBurnsEffectParameters];
+    objc_msgSend_normalizedKenBurnsEffectParameters(v5);
     PXStoryRectIsNull();
   }
 
@@ -1599,7 +1598,7 @@ uint64_t __46__PXStoryConcreteSubtimelineScanner_scanState__block_invoke(uint64_
   v8 = self->_defaultVerticalMultipartPanoramaParameters;
   if (v8)
   {
-    [(PXStoryMultipartPanoramaParameters *)v8 normalizedKenBurnsEffectParameters];
+    objc_msgSend_normalizedKenBurnsEffectParameters(v8);
     PXStoryRectIsNull();
   }
 
@@ -1649,7 +1648,7 @@ uint64_t __46__PXStoryConcreteSubtimelineScanner_scanState__block_invoke(uint64_
       v5->_timelineScorer = v21;
     }
 
-    v5->_productionOptions = [configurationCopy options];
+    v5->_productionOptions = objc_msgSend_options(configurationCopy);
     [spec viewportSize];
     v23 = v22;
     v25 = v24;

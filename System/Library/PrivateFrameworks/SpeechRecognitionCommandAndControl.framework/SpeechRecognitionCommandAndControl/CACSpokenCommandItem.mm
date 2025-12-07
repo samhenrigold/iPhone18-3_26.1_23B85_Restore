@@ -94,7 +94,7 @@
 
 - (BOOL)isVisible
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = [CACSpokenCommandManager commandPropertiesForIdentifier:self->super._identifier];
   v4 = [v3 objectForKey:@"VisibilityEvaluation"];
   objc_opt_class();
@@ -109,59 +109,59 @@
   }
   v5 = ;
   v6 = [v3 objectForKey:@"ContextEvaluation"];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __33__CACSpokenCommandItem_isVisible__block_invoke;
-  v28[3] = &unk_279CEC668;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __33__CACSpokenCommandItem_isVisible__block_invoke;
+  v29[3] = &unk_279CEC668;
   v7 = v5;
-  v29 = v7;
-  [v6 enumerateKeysAndObjectsUsingBlock:v28];
-  v26 = 0u;
+  v30 = v7;
+  [v6 enumerateKeysAndObjectsUsingBlock:v29];
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   allKeys = [v7 allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v9)
   {
     v10 = v9;
     selfCopy = self;
-    v22 = v6;
-    v20 = 8;
-    v23 = v4;
-    v11 = *v25;
+    v23 = v6;
+    v21 = 8;
+    v24 = v4;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
-        v14 = [v7 objectForKey:{v13, v20, selfCopy}];
+        v13 = *(*(&v25 + 1) + 8 * i);
+        v14 = [v7 objectForKey:{v13, v21, selfCopy}];
         v15 = [CACSpokenCommandManager doesEvaluatorKey:v13 matchValue:v14];
 
         if (!v15)
         {
-          v17 = CACLogAccessibility();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v18 = CACLogAccessibility(v16);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            v18 = *(&selfCopy->super.super.isa + v20);
+            v19 = *(&selfCopy->super.super.isa + v21);
             *buf = 138412546;
-            v31 = v18;
-            v32 = 2112;
-            v33 = v13;
-            _os_log_impl(&dword_26B354000, v17, OS_LOG_TYPE_INFO, "Hiding command %@ for failing evaluator %@", buf, 0x16u);
+            v32 = v19;
+            v33 = 2112;
+            v34 = v13;
+            _os_log_impl(&dword_26B354000, v18, OS_LOG_TYPE_INFO, "Hiding command %@ for failing evaluator %@", buf, 0x16u);
           }
 
-          v16 = 0;
+          v17 = 0;
           goto LABEL_16;
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v25 objects:v35 count:16];
       if (v10)
       {
         continue;
@@ -170,18 +170,18 @@
       break;
     }
 
-    v16 = 1;
+    v17 = 1;
 LABEL_16:
-    v6 = v22;
-    v4 = v23;
+    v6 = v23;
+    v4 = v24;
   }
 
   else
   {
-    v16 = 1;
+    v17 = 1;
   }
 
-  return v16;
+  return v17;
 }
 
 void __33__CACSpokenCommandItem_isVisible__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -418,13 +418,14 @@ LABEL_19:
   self->_isEdited = 1;
   if (gestureCopy)
   {
-    v8 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gestureCopy requiringSecureCoding:1 error:&v8];
-    v6 = v8;
+    v9 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:gestureCopy requiringSecureCoding:1 error:&v9];
+    v6 = v9;
+    v7 = v6;
     if (!v5)
     {
-      v7 = CACLogPreferences();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = CACLogPreferences(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [CACSpokenCommandItem setCustomGesture:];
       }
@@ -444,13 +445,14 @@ LABEL_19:
   v2 = [(NSMutableDictionary *)self->_customDictionary valueForKey:@"CustomGesture"];
   if (v2)
   {
-    v7 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v7];
-    v4 = v7;
+    v8 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v8];
+    v4 = v8;
+    v5 = v4;
     if (!v3)
     {
-      v5 = CACLogPreferences();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = CACLogPreferences(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [CACSpokenCommandItem customGesture];
       }
@@ -471,13 +473,14 @@ LABEL_19:
   self->_isEdited = 1;
   if (flowCopy)
   {
-    v8 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:flowCopy requiringSecureCoding:1 error:&v8];
-    v6 = v8;
+    v9 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:flowCopy requiringSecureCoding:1 error:&v9];
+    v6 = v9;
+    v7 = v6;
     if (!v5)
     {
-      v7 = CACLogPreferences();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = CACLogPreferences(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [CACSpokenCommandItem setCustomUserActionFlow:];
       }
@@ -497,13 +500,14 @@ LABEL_19:
   v2 = [(NSMutableDictionary *)self->_customDictionary valueForKey:@"CustomUserActionFlow"];
   if (v2)
   {
-    v7 = 0;
-    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v7];
-    v4 = v7;
+    v8 = 0;
+    v3 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v8];
+    v4 = v8;
+    v5 = v4;
     if (!v3)
     {
-      v5 = CACLogPreferences();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = CACLogPreferences(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [CACSpokenCommandItem customUserActionFlow];
       }
@@ -647,10 +651,11 @@ LABEL_19:
 - (void)_reloadFromProperties:(id)properties
 {
   propertiesCopy = properties;
+  v5 = propertiesCopy;
   if (self->super._identifier)
   {
-    v5 = +[CACPreferences sharedPreferences];
-    v6 = v5;
+    v6 = +[CACPreferences sharedPreferences];
+    v7 = v6;
     locale = self->_locale;
     if (locale)
     {
@@ -659,50 +664,51 @@ LABEL_19:
 
     else
     {
-      bestLocaleIdentifier = [v5 bestLocaleIdentifier];
+      bestLocaleIdentifier = [v6 bestLocaleIdentifier];
     }
 
-    v9 = bestLocaleIdentifier;
-    v10 = [(NSString *)self->super._identifier length];
-    if (propertiesCopy || !v10 || ([v6 propertiesForCommandIdentifier:self->super._identifier localeIdentifier:v9], (propertiesCopy = objc_claimAutoreleasedReturnValue()) != 0))
+    v10 = bestLocaleIdentifier;
+    v11 = [(NSString *)self->super._identifier length];
+    if (v5 || !v11 || ([v7 propertiesForCommandIdentifier:self->super._identifier localeIdentifier:v10], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v11 = [propertiesCopy objectForKey:@"Enabled"];
-      -[CACSpokenCommandItem setIsEnabled:](self, "setIsEnabled:", [v11 BOOLValue]);
+      v12 = [v5 objectForKey:@"Enabled"];
+      -[CACSpokenCommandItem setIsEnabled:](self, "setIsEnabled:", [v12 BOOLValue]);
 
-      v12 = [propertiesCopy objectForKey:@"ConfirmationRequired"];
-      -[CACSpokenCommandItem setIsConfirmationRequired:](self, "setIsConfirmationRequired:", [v12 BOOLValue]);
+      v13 = [v5 objectForKey:@"ConfirmationRequired"];
+      -[CACSpokenCommandItem setIsConfirmationRequired:](self, "setIsConfirmationRequired:", [v13 BOOLValue]);
 
       if (self->super._isCustom)
       {
-        v13 = [propertiesCopy objectForKey:@"CustomCommands"];
-        if (v13)
+        v14 = [v5 objectForKey:@"CustomCommands"];
+        if (v14)
         {
-          v14 = [(NSMutableDictionary *)self->_customDictionary objectForKey:@"CustomCommands"];
-          v15 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v14];
-          [v15 addEntriesFromDictionary:v13];
-          [(NSMutableDictionary *)self->_customDictionary setObject:v15 forKey:@"CustomCommands"];
+          v15 = [(NSMutableDictionary *)self->_customDictionary objectForKey:@"CustomCommands"];
+          v16 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v15];
+          [v16 addEntriesFromDictionary:v14];
+          [(NSMutableDictionary *)self->_customDictionary setObject:v16 forKey:@"CustomCommands"];
         }
 
-        v31 = v13;
+        v34 = v14;
         [(CACSpokenCommandGroup *)self setCommandsArray:0];
         [(CACSpokenCommandItem *)self setDisplayString:0];
         [(CACSpokenCommandItem *)self setUntranslatedDisplayString:0];
-        v16 = [propertiesCopy objectForKey:@"CustomScope"];
-        [(CACSpokenCommandItem *)self setCustomScope:v16];
+        v17 = [v5 objectForKey:@"CustomScope"];
+        [(CACSpokenCommandItem *)self setCustomScope:v17];
 
-        v17 = [propertiesCopy objectForKey:@"CustomType"];
-        [(CACSpokenCommandItem *)self setCustomType:v17];
+        v18 = [v5 objectForKey:@"CustomType"];
+        [(CACSpokenCommandItem *)self setCustomType:v18];
 
-        v18 = [propertiesCopy objectForKey:@"CustomGesture"];
-        if (v18)
+        v19 = [v5 objectForKey:@"CustomGesture"];
+        if (v19)
         {
-          v33 = 0;
-          v19 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v18 error:&v33];
-          v20 = v33;
-          if (!v19)
+          v36 = 0;
+          v20 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v19 error:&v36];
+          v21 = v36;
+          v22 = v21;
+          if (!v20)
           {
-            v21 = CACLogPreferences();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v23 = CACLogPreferences(v21);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               [CACSpokenCommandItem customGesture];
             }
@@ -711,23 +717,24 @@ LABEL_19:
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        [(CACSpokenCommandItem *)self setCustomGesture:v19];
-        v23 = [propertiesCopy objectForKey:@"CustomTextToInsert"];
-        [(CACSpokenCommandItem *)self setCustomTextToInsert:v23];
+        [(CACSpokenCommandItem *)self setCustomGesture:v20];
+        v25 = [v5 objectForKey:@"CustomTextToInsert"];
+        [(CACSpokenCommandItem *)self setCustomTextToInsert:v25];
 
-        v24 = [propertiesCopy valueForKey:@"CustomUserActionFlow"];
-        if (v24)
+        v26 = [v5 valueForKey:@"CustomUserActionFlow"];
+        if (v26)
         {
-          v32 = 0;
-          v25 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v24 error:&v32];
-          v26 = v32;
-          if (!v25)
+          v35 = 0;
+          v27 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v26 error:&v35];
+          v28 = v35;
+          v29 = v28;
+          if (!v27)
           {
-            v27 = CACLogPreferences();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+            v30 = CACLogPreferences(v28);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               [CACSpokenCommandItem customUserActionFlow];
             }
@@ -736,23 +743,23 @@ LABEL_19:
 
         else
         {
-          v25 = 0;
+          v27 = 0;
         }
 
-        [(CACSpokenCommandItem *)self setCustomUserActionFlow:v25];
-        v28 = [propertiesCopy objectForKey:@"CustomAppName"];
-        [(CACSpokenCommandItem *)self setCustomAppName:v28];
+        [(CACSpokenCommandItem *)self setCustomUserActionFlow:v27];
+        v31 = [v5 objectForKey:@"CustomAppName"];
+        [(CACSpokenCommandItem *)self setCustomAppName:v31];
 
-        v29 = [propertiesCopy objectForKey:@"CustomPasteBoard"];
-        [(CACSpokenCommandItem *)self setCustomPasteBoard:v29];
+        v32 = [v5 objectForKey:@"CustomPasteBoard"];
+        [(CACSpokenCommandItem *)self setCustomPasteBoard:v32];
 
-        v30 = [propertiesCopy objectForKey:@"CustomShortcutsWorkflow"];
-        [(CACSpokenCommandItem *)self setCustomShortcutsWorkflowIdentifier:v30];
+        v33 = [v5 objectForKey:@"CustomShortcutsWorkflow"];
+        [(CACSpokenCommandItem *)self setCustomShortcutsWorkflowIdentifier:v33];
       }
 
       else
       {
-        [(CACSpokenCommandItem *)self _updateBuiltInCommandsWithLocale:v9];
+        [(CACSpokenCommandItem *)self _updateBuiltInCommandsWithLocale:v10];
       }
 
       self->_isEdited = 0;
@@ -760,22 +767,22 @@ LABEL_19:
 
     else
     {
-      v22 = CACLogGeneral();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = CACLogGeneral(0);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(CACSpokenCommandItem *)&self->super._identifier _reloadFromProperties:v22];
+        [(CACSpokenCommandItem *)&self->super._identifier _reloadFromProperties:v24];
       }
 
-      propertiesCopy = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v6 = CACLogGeneral();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CACLogGeneral(propertiesCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CACSpokenCommandItem _reloadFromProperties:v6];
+      [CACSpokenCommandItem _reloadFromProperties:v7];
     }
   }
 }

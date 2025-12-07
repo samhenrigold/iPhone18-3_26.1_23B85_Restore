@@ -133,7 +133,7 @@
 
 - (_LTAssetProgress)initWithCoder:(id)coder
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(_LTAssetProgress *)self init];
   v6 = v5;
@@ -150,38 +150,38 @@
     componentFilter = v6->_componentFilter;
     v6->_componentFilter = v9;
 
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v12 = [MEMORY[0x277CBEB98] setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"components"];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(*(&v24 + 1) + 8 * i);
           components = v6->_components;
           identifier = [v19 identifier];
           [(NSMutableDictionary *)components setObject:v19 forKeyedSubscript:identifier];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v16);
@@ -190,7 +190,6 @@
     v22 = v6;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -233,7 +232,7 @@
 
 - (void)_fastReadTotal:(int64_t *)total completed:(int64_t *)completed
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if ([(NSMutableDictionary *)self->_components count])
   {
@@ -242,42 +241,42 @@
     {
       v8 = MEMORY[0x277CBEB98];
       v9 = [(NSString *)componentFilter componentsSeparatedByString:@"|"];
-      v23 = [v8 setWithArray:v9];
+      v22 = [v8 setWithArray:v9];
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     totalCopy = total;
     completedCopy = completed;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     allValues = [(NSMutableDictionary *)self->_components allValues];
-    v11 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v11 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
       v14 = 0;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
+          v17 = *(*(&v25 + 1) + 8 * i);
           if (self->_componentFilter)
           {
-            identifierPrefix = [*(*(&v26 + 1) + 8 * i) identifierPrefix];
-            v19 = [v23 containsObject:identifierPrefix];
+            identifierPrefix = [*(*(&v25 + 1) + 8 * i) identifierPrefix];
+            v19 = [v22 containsObject:identifierPrefix];
 
             if (!v19)
             {
@@ -285,14 +284,14 @@
             }
           }
 
+          v23 = 0;
           v24 = 0;
-          v25 = 0;
-          [v17 _fastReadTotal:&v25 completed:&v24];
-          v14 += v25;
-          v13 += v24;
+          [v17 _fastReadTotal:&v24 completed:&v23];
+          v14 += v24;
+          v13 += v23;
         }
 
-        v12 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v12 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v12);
@@ -315,12 +314,11 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOfflineState:(int64_t)state
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if ([(NSMutableDictionary *)self->_components count])
   {
@@ -329,33 +327,33 @@
 
   else
   {
-    v21[0] = self;
-    allValues = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = self;
+    allValues = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   }
 
   v6 = allValues;
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v12);
+        v13 = *(*(&v15 + 1) + 8 * v12);
         switch(state)
         {
           case 0:
@@ -364,10 +362,10 @@
           case 2:
             v9 = 1.0;
 LABEL_16:
-            [v13 updatePercentComplete:{v9, v16}];
+            [v13 updatePercentComplete:{v9, v15}];
             break;
           case 1:
-            offlineState = [*(*(&v16 + 1) + 8 * v12) offlineState];
+            offlineState = [*(*(&v15 + 1) + 8 * v12) offlineState];
             v9 = 0.01;
             if (!offlineState)
             {
@@ -381,13 +379,11 @@ LABEL_16:
       }
 
       while (v10 != v12);
-      v10 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:{16, v9}];
+      v10 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:{16, v9}];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setGreaterThanOrEqualToOfflineState:(int64_t)state
@@ -440,11 +436,11 @@ LABEL_16:
 - (BOOL)addComponent:(id)component
 {
   componentCopy = component;
-  v5 = componentCopy;
+  v6 = componentCopy;
   if (!componentCopy)
   {
-    v11 = _LTOSLogAssets();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _LTOSLogAssets(0, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [_LTAssetProgress addComponent:];
     }
@@ -454,14 +450,14 @@ LABEL_16:
 
   if (self == componentCopy)
   {
-    v12 = _LTOSLogAssets();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = _LTOSLogAssets(componentCopy, v5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [_LTAssetProgress addComponent:];
     }
 
 LABEL_10:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_11;
   }
 
@@ -469,21 +465,21 @@ LABEL_10:
   components = self->_components;
   if (!components)
   {
-    v7 = objc_opt_new();
-    v8 = self->_components;
-    self->_components = v7;
+    v8 = objc_opt_new();
+    v9 = self->_components;
+    self->_components = v8;
 
     components = self->_components;
   }
 
-  identifier = [(_LTAssetProgress *)v5 identifier];
-  [(NSMutableDictionary *)components setObject:v5 forKeyedSubscript:identifier];
+  identifier = [(_LTAssetProgress *)v6 identifier];
+  [(NSMutableDictionary *)components setObject:v6 forKeyedSubscript:identifier];
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = 1;
+  v11 = 1;
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)removeComponent:(id)component
@@ -501,8 +497,8 @@ LABEL_11:
 
   else
   {
-    v7 = _LTOSLogAssets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = _LTOSLogAssets(0, v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [_LTAssetProgress removeComponent:];
     }
@@ -513,10 +509,11 @@ LABEL_11:
 
 - (BOOL)updateTotalUnitCount:(int64_t)count completedUnitCount:(int64_t)unitCount
 {
-  if ([(_LTAssetProgress *)self hasComponents])
+  hasComponents = [(_LTAssetProgress *)self hasComponents];
+  if (hasComponents)
   {
-    v7 = _LTOSLogAssets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = _LTOSLogAssets(hasComponents, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [_LTAssetProgress updateTotalUnitCount:completedUnitCount:];
     }
@@ -526,8 +523,8 @@ LABEL_11:
 
   if (count <= 0)
   {
-    v9 = _LTOSLogAssets();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _LTOSLogAssets(hasComponents, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_LTAssetProgress updateTotalUnitCount:completedUnitCount:];
     }
@@ -537,8 +534,8 @@ LABEL_11:
 
   if (unitCount > count)
   {
-    v8 = _LTOSLogAssets();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _LTOSLogAssets(hasComponents, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [_LTAssetProgress updateTotalUnitCount:completedUnitCount:];
     }
@@ -548,7 +545,7 @@ LABEL_11:
 
   os_unfair_lock_lock(&self->_lock);
   totalUnitCount = self->_totalUnitCount;
-  v10 = totalUnitCount != count;
+  v12 = totalUnitCount != count;
   if (totalUnitCount != count)
   {
     self->_totalUnitCount = count;
@@ -557,19 +554,20 @@ LABEL_11:
   if (self->_completedUnitCount != unitCount)
   {
     self->_completedUnitCount = unitCount;
-    v10 = 1;
+    v12 = 1;
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  return v10;
+  return v12;
 }
 
 - (BOOL)updatePercentComplete:(double)complete
 {
-  if ([(_LTAssetProgress *)self hasComponents])
+  hasComponents = [(_LTAssetProgress *)self hasComponents];
+  if (hasComponents)
   {
-    v5 = _LTOSLogAssets();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v7 = _LTOSLogAssets(hasComponents, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [_LTAssetProgress updatePercentComplete:];
     }
@@ -579,10 +577,10 @@ LABEL_11:
 
   if (complete < 0.0 || complete > 1.0)
   {
-    v7 = _LTOSLogAssets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _LTOSLogAssets(hasComponents, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_LTAssetProgress *)v7 updatePercentComplete:complete];
+      [(_LTAssetProgress *)v9 updatePercentComplete:complete];
     }
 
     return 0;
@@ -591,21 +589,21 @@ LABEL_11:
   totalUnitCount = [(_LTAssetProgress *)self totalUnitCount];
   if (complete <= 0.0)
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v10 = totalUnitCount * complete;
-    if (v10 < 1.0)
+    v12 = totalUnitCount * complete;
+    if (v12 < 1.0)
     {
-      v10 = 1.0;
+      v12 = 1.0;
     }
 
-    v11 = v10;
+    v13 = v12;
   }
 
-  return [(_LTAssetProgress *)self updateTotalUnitCount:totalUnitCount completedUnitCount:v11];
+  return [(_LTAssetProgress *)self updateTotalUnitCount:totalUnitCount completedUnitCount:v13];
 }
 
 - (double)fractionCompleted
@@ -678,41 +676,40 @@ LABEL_11:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "initWithIdentifier:totalUnitCount:completedUnitCount:", self->_identifier, self->_totalUnitCount, self->_completedUnitCount}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSMutableDictionary *)self->_components allValues];
-  v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [v5 addComponent:*(*(&v13 + 1) + 8 * v10++)];
+        [v5 addComponent:*(*(&v12 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -752,71 +749,28 @@ LABEL_11:
   return v9;
 }
 
-- (void)addComponent:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AAF5000, v0, v1, "Progress instance cannot set itself as a component %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addComponent:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AAF5000, v0, v1, "Progress instance cannot set nil components %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeComponent:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AAF5000, v0, v1, "Progress instance cannot remove nil components %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)updateTotalUnitCount:completedUnitCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_error_impl(&dword_23AAF5000, v1, OS_LOG_TYPE_ERROR, "Completed count outside of range 0...%zd: %zd", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_23AAF5000, v1, OS_LOG_TYPE_ERROR, "Completed count outside of range 0...%zd: %zd", v2, 0x16u);
 }
 
 - (void)updateTotalUnitCount:completedUnitCount:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Total count cannot be 0: %zd", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateTotalUnitCount:completedUnitCount:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AAF5000, v0, v1, "Progress instance with components cannot have total unit count updated directly %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AAF5000, v0, OS_LOG_TYPE_ERROR, "Total count cannot be 0: %zd", v1, 0xCu);
 }
 
 - (void)updatePercentComplete:(os_log_t)log .cold.1(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Percent completion outside of range 0.0...1.0: %f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updatePercentComplete:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23AAF5000, v0, v1, "Progress instance with components cannot have percent completion updated directly %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_error_impl(&dword_23AAF5000, log, OS_LOG_TYPE_ERROR, "Percent completion outside of range 0.0...1.0: %f", &v2, 0xCu);
 }
 
 @end

@@ -71,7 +71,7 @@
   accessory2Copy = accessory2;
   channelsCopy = channels;
   completionCopy = completion;
-  v15 = sub_100003FA4();
+  v15 = sub_100003FA4(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -113,7 +113,7 @@
 {
   accessory2Copy = accessory2;
   completionCopy = completion;
-  v10 = sub_100003FA4();
+  v10 = sub_100003FA4(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -165,7 +165,7 @@
 
 - (void)setTimeoutForDuration:(double)duration
 {
-  v5 = sub_100003FA4();
+  v5 = sub_100003FA4(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = +[NSThread currentThread];
@@ -189,7 +189,7 @@
 
 - (void)_stopSoundTimerFired:(id)fired
 {
-  v4 = sub_100003FA4();
+  v4 = sub_100003FA4(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -202,7 +202,7 @@
 
 - (void)invalidateStopSoundTimer
 {
-  v3 = sub_100003FA4();
+  v3 = sub_100003FA4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

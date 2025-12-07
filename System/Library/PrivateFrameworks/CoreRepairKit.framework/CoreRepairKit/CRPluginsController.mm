@@ -7,7 +7,7 @@
 
 - (BOOL)isApplicationInstalledWithMaxRetries:(int)retries bundleName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = nameCopy;
   if (nameCopy && [nameCopy length])
@@ -29,7 +29,7 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_24785F000, v9, OS_LOG_TYPE_DEFAULT, "application is not installed Sleeping retry:%d", buf, 8u);
       }
 
@@ -78,7 +78,6 @@ LABEL_19:
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -108,11 +107,10 @@ LABEL_19:
 
 - (void)isApplicationInstalledWithMaxRetries:(int)a1 bundleName:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "Unable to find Application after:%d retries", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "Unable to find Application after:%d retries", v2, 8u);
 }
 
 @end

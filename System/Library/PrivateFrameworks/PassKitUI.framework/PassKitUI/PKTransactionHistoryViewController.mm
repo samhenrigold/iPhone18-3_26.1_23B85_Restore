@@ -1861,24 +1861,25 @@ LABEL_4:
 
 - (void)_handleMessageButtonTapped
 {
-  if (PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (v3)
   {
-    v10 = PKUIStoreDemoGatewayViewController();
-    [(PKTransactionHistoryViewController *)self presentViewController:v10 animated:1 completion:0];
+    v13 = PKUIStoreDemoGatewayViewController(v3, v4, v5);
+    [(PKTransactionHistoryViewController *)self presentViewController:v13 animated:1 completion:0];
   }
 
   else
   {
     _dataSource = [(PKTransactionHistoryViewController *)self _dataSource];
     historyType = self->_historyType;
-    v5 = historyType > 4;
-    v6 = (1 << historyType) & 0x16;
-    if (v5 || v6 == 0)
+    v8 = historyType > 4;
+    v9 = (1 << historyType) & 0x16;
+    if (v8 || v9 == 0)
     {
       goto LABEL_11;
     }
 
-    v10 = _dataSource;
+    v13 = _dataSource;
     merchant = [_dataSource merchant];
     businessChatURL = [merchant businessChatURL];
 
@@ -1888,16 +1889,17 @@ LABEL_4:
     }
   }
 
-  _dataSource = v10;
+  _dataSource = v13;
 LABEL_11:
 }
 
 - (void)_handlePhoneButtonTapped
 {
-  if (!PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (!v3)
   {
     _dataSource = [(PKTransactionHistoryViewController *)self _dataSource];
-    v4 = _dataSource;
+    v7 = _dataSource;
     historyType = self->_historyType;
     if (historyType - 1 < 2)
     {
@@ -1914,7 +1916,7 @@ LABEL_11:
       if (value)
       {
         stringValue = [value stringValue];
-        v17 = PKTelephoneURLFromPhoneNumber();
+        v20 = PKTelephoneURLFromPhoneNumber();
 
         PKOpenURL();
       }
@@ -1930,11 +1932,11 @@ LABEL_8:
 
       if (phoneNumber)
       {
-        merchant2 = [v4 merchant];
+        merchant2 = [v7 merchant];
         useDisplayNameIgnoringBrand = [merchant2 useDisplayNameIgnoringBrand];
 
-        merchant3 = [v4 merchant];
-        v11 = merchant3;
+        merchant3 = [v7 merchant];
+        v14 = merchant3;
         if (useDisplayNameIgnoringBrand)
         {
           [merchant3 displayNameIgnoringBrand];
@@ -1944,23 +1946,23 @@ LABEL_8:
         {
           [merchant3 displayName];
         }
-        v18 = ;
+        v21 = ;
 
-        v19 = [MEMORY[0x1E69DC650] alertControllerWithTitle:phoneNumber message:v18 preferredStyle:0];
-        popoverPresentationController = [v19 popoverPresentationController];
+        v22 = [MEMORY[0x1E69DC650] alertControllerWithTitle:phoneNumber message:v21 preferredStyle:0];
+        popoverPresentationController = [v22 popoverPresentationController];
         [popoverPresentationController setSourceItem:self->_phoneButton];
 
-        v21 = PKLocalizedString(&cfstr_Call.isa);
-        v22 = MEMORY[0x1E69DC648];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __62__PKTransactionHistoryViewController__handlePhoneButtonTapped__block_invoke;
-        v25[3] = &unk_1E80112E8;
-        v26 = phoneNumber;
-        v23 = [v22 actionWithTitle:v21 style:0 handler:v25];
-        [v19 addAction:v23];
-        [v19 setPreferredAction:v23];
-        [(PKTransactionHistoryViewController *)self presentViewController:v19 animated:1 completion:0];
+        v24 = PKLocalizedString(&cfstr_Call.isa);
+        v25 = MEMORY[0x1E69DC648];
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = __62__PKTransactionHistoryViewController__handlePhoneButtonTapped__block_invoke;
+        v28[3] = &unk_1E80112E8;
+        v29 = phoneNumber;
+        v26 = [v25 actionWithTitle:v24 style:0 handler:v28];
+        [v22 addAction:v26];
+        [v22 setPreferredAction:v26];
+        [(PKTransactionHistoryViewController *)self presentViewController:v22 animated:1 completion:0];
       }
     }
 
@@ -1969,13 +1971,13 @@ LABEL_17:
     return;
   }
 
-  v24 = PKUIStoreDemoGatewayViewController();
-  [(PKTransactionHistoryViewController *)self presentViewController:v24 animated:1 completion:0];
+  v27 = PKUIStoreDemoGatewayViewController(v3, v4, v5);
+  [(PKTransactionHistoryViewController *)self presentViewController:v27 animated:1 completion:0];
 }
 
-void __62__PKTransactionHistoryViewController__handlePhoneButtonTapped__block_invoke()
+void __62__PKTransactionHistoryViewController__handlePhoneButtonTapped__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = PKTelephoneURLFromPhoneNumber();
+  v2 = PKTelephoneURLFromPhoneNumber();
   PKOpenURL();
 }
 

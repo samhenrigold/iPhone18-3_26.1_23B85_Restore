@@ -24,7 +24,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v7 = objc_autoreleasePoolPush();
@@ -130,7 +130,7 @@ LABEL_16:
   v20 = appProtectionGuard;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -139,13 +139,13 @@ LABEL_16:
   }
 
   v29 = *MEMORY[0x277CCFE40];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke;
-  v50[3] = &unk_27972B728;
-  v50[4] = selfCopy;
-  v51 = v13;
-  [(HMDAppProtectionGuard *)v20 initiateAuthenticationForApplicationWithBundleIdentifier:v29 onBehalfOfProcessWithAuditToken:buf completion:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke;
+  v49[3] = &unk_27972B728;
+  v49[4] = selfCopy;
+  v50 = v13;
+  [(HMDAppProtectionGuard *)v20 initiateAuthenticationForApplicationWithBundleIdentifier:v29 onBehalfOfProcessWithAuditToken:buf completion:v49];
 
 LABEL_22:
   [v13 setDelegate:selfCopy];
@@ -184,20 +184,20 @@ LABEL_22:
   os_unfair_lock_unlock(&selfCopy->_lock);
   objc_initWeak(&location, selfCopy);
   objc_initWeak(&from, v13);
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_120;
-  v45[3] = &unk_27972EC28;
-  objc_copyWeak(&v46, &location);
-  objc_copyWeak(&v47, &from);
-  [connectionCopy setInterruptionHandler:v45];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_121;
-  v42[3] = &unk_27972EC28;
-  objc_copyWeak(&v43, &location);
-  objc_copyWeak(&v44, &from);
-  [connectionCopy setInvalidationHandler:v42];
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_120;
+  v44[3] = &unk_27972EC28;
+  objc_copyWeak(&v45, &location);
+  objc_copyWeak(&v46, &from);
+  [connectionCopy setInterruptionHandler:v44];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_121;
+  v41[3] = &unk_27972EC28;
+  objc_copyWeak(&v42, &location);
+  objc_copyWeak(&v43, &from);
+  [connectionCopy setInvalidationHandler:v41];
   v35 = objc_autoreleasePoolPush();
   v36 = selfCopy;
   v37 = HMFGetOSLogHandle();
@@ -213,23 +213,22 @@ LABEL_22:
 
   objc_autoreleasePoolPop(v35);
   [connectionCopy resume];
-  objc_destroyWeak(&v44);
   objc_destroyWeak(&v43);
-  objc_destroyWeak(&v47);
+  objc_destroyWeak(&v42);
   objc_destroyWeak(&v46);
+  objc_destroyWeak(&v45);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 
   v26 = 1;
 LABEL_29:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -241,16 +240,16 @@ void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v18 = 138543618;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v11;
+      v17 = 138543618;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
       v12 = "%{public}@Successfully initiated authentication for app protection for connection: %@";
       v13 = v9;
       v14 = OS_LOG_TYPE_DEBUG;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v18, v15);
+      _os_log_impl(&dword_2531F8000, v13, v14, v12, &v17, v15);
     }
   }
 
@@ -258,12 +257,12 @@ LABEL_6:
   {
     v10 = HMFGetLogIdentifier();
     v16 = *(a1 + 40);
-    v18 = 138543874;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v5;
+    v17 = 138543874;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v5;
     v12 = "%{public}@Failed to initiate authentication for app protection for connection %@: %@";
     v13 = v9;
     v14 = OS_LOG_TYPE_ERROR;
@@ -272,12 +271,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v6);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_120(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = objc_autoreleasePoolPush();
@@ -286,20 +284,19 @@ void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Daemon received interruption for %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Daemon received interruption for %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_121(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = objc_autoreleasePoolPush();
@@ -309,9 +306,9 @@ void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v3;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v3;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Daemon received invalidation for %@", buf, 0x16u);
   }
 
@@ -323,13 +320,13 @@ void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
     [v8 removeObject:v3];
 
     v9 = *(v5 + 7);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_122;
-    v16[3] = &unk_279728488;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_122;
+    v15[3] = &unk_279728488;
     v10 = v3;
-    v17 = v10;
-    v11 = [v9 na_any:v16];
+    v16 = v10;
+    v11 = [v9 na_any:v15];
 
     os_unfair_lock_unlock(v5 + 4);
     [v10 invalidate];
@@ -341,8 +338,6 @@ void __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
       [v14 removeProcess:v13];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_invoke_122(uint64_t a1, void *a2)
@@ -357,66 +352,62 @@ BOOL __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
 
 - (void)connectionDidInvalidate:(id)invalidate
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
   queue = [(HMDXPCMessageTransport *)self queue];
   dispatch_assert_queue_V2(queue);
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v9 = @"connection";
-  v10[0] = invalidateCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"connection";
+  v9[0] = invalidateCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"HMDXPCClientConnectionDidInvalidateNotification" object:self userInfo:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidDeactivate:(id)deactivate
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   queue = [(HMDXPCMessageTransport *)self queue];
   dispatch_assert_queue_V2(queue);
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v9 = @"connection";
-  v10[0] = deactivateCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"connection";
+  v9[0] = deactivateCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"HMDXPCClientConnectionDidDeactivateNotification" object:self userInfo:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidActivate:(id)activate
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   queue = [(HMDXPCMessageTransport *)self queue];
   dispatch_assert_queue_V2(queue);
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v9 = @"connection";
-  v10[0] = activateCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"connection";
+  v9[0] = activateCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"HMDXPCClientConnectionDidActivateNotification" object:self userInfo:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionDidStart:(id)start
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   startCopy = start;
   queue = [(HMDXPCMessageTransport *)self queue];
   dispatch_assert_queue_V2(queue);
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v9 = @"connection";
-  v10[0] = startCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"connection";
+  v9[0] = startCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [defaultCenter postNotificationName:@"HMDXPCClientConnectionDidStartNotification" object:self userInfo:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageTransport:(id)transport didReceiveMessage:(id)message
@@ -439,7 +430,7 @@ BOOL __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
 
 - (void)handleProcessStateDidChangeNotification:(id)notification
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   queue = [(HMDXPCMessageTransport *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -460,26 +451,26 @@ BOOL __61__HMDXPCMessageTransport_listener_shouldAcceptNewConnection___block_inv
 
   v9 = v8;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   connections = [(HMDXPCMessageTransport *)self connections];
-  v11 = [connections countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [connections countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
 LABEL_6:
     v14 = 0;
     while (1)
     {
-      if (*v19 != v13)
+      if (*v18 != v13)
       {
         objc_enumerationMutation(connections);
       }
 
-      v15 = *(*(&v18 + 1) + 8 * v14);
+      v15 = *(*(&v17 + 1) + 8 * v14);
       processInfo = [v15 processInfo];
 
       if (processInfo != v9)
@@ -490,7 +481,7 @@ LABEL_6:
       [v15 handleProcessStateDidChange];
       if (v12 == ++v14)
       {
-        v12 = [connections countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [connections countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v12)
         {
           goto LABEL_6;
@@ -500,40 +491,38 @@ LABEL_6:
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   v8 = MEMORY[0x277CBEB18];
   connections = [(HMDXPCMessageTransport *)self connections];
   v10 = [v8 arrayWithCapacity:{objc_msgSend(connections, "count")}];
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   connections2 = [(HMDXPCMessageTransport *)self connections];
-  v12 = [connections2 countByEnumeratingWithState:&v67 objects:v87 count:16];
+  v12 = [connections2 countByEnumeratingWithState:&v66 objects:v86 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v68;
+    v15 = *v67;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v68 != v15)
+        if (*v67 != v15)
         {
           objc_enumerationMutation(connections2);
         }
 
-        v17 = *(*(&v67 + 1) + 8 * i);
+        v17 = *(*(&v66 + 1) + 8 * i);
         if ([v17 sendMessage:messageCopy error:0])
         {
           ++v14;
@@ -546,7 +535,7 @@ LABEL_6:
         }
       }
 
-      v13 = [connections2 countByEnumeratingWithState:&v67 objects:v87 count:16];
+      v13 = [connections2 countByEnumeratingWithState:&v66 objects:v86 count:16];
     }
 
     while (v13);
@@ -556,10 +545,10 @@ LABEL_6:
       v19 = objc_autoreleasePoolPush();
       selfCopy = self;
       v21 = HMFGetOSLogHandle();
-      v66 = handlerCopy;
+      v65 = handlerCopy;
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v64 = HMFGetLogIdentifier();
+        v63 = HMFGetLogIdentifier();
         name = [messageCopy name];
         *buf = 0;
         *&buf[8] = 0;
@@ -576,7 +565,7 @@ LABEL_6:
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v75 = *buf;
+        v74 = *buf;
         *buf = 0;
         *&buf[8] = 0;
         destination = [messageCopy destination];
@@ -594,32 +583,32 @@ LABEL_6:
           *buf = *MEMORY[0x277D0F960];
         }
 
-        v74 = *buf;
+        v73 = *buf;
         connections3 = [(HMDXPCMessageTransport *)selfCopy connections];
         v44 = [connections3 count];
         sendPolicy = [messageCopy sendPolicy];
         *buf = 138545410;
-        *&buf[4] = v64;
+        *&buf[4] = v63;
         *&buf[12] = 2114;
         *&buf[14] = name;
-        v77 = 1042;
-        *v78 = 16;
-        *&v78[4] = 2098;
-        *&v78[6] = &v75;
-        *&v78[14] = 1040;
-        *&v78[16] = 16;
-        v79 = 2096;
-        v80 = &v74;
-        v81 = 2050;
-        v82 = v14;
-        v83 = 2050;
-        v84 = v44;
-        v85 = 2114;
-        v86 = sendPolicy;
+        v76 = 1042;
+        *v77 = 16;
+        *&v77[4] = 2098;
+        *&v77[6] = &v74;
+        *&v77[14] = 1040;
+        *&v77[16] = 16;
+        v78 = 2096;
+        v79 = &v73;
+        v80 = 2050;
+        v81 = v14;
+        v82 = 2050;
+        v83 = v44;
+        v84 = 2114;
+        v85 = sendPolicy;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Sent message %{public}@(%{public,uuid_t}.16P) with target %{uuid_t}.16P to %{public}lu/%{public}lu clients with message send policy %{public}@", buf, 0x54u);
 
-        handlerCopy = v66;
-        v19 = v62;
+        handlerCopy = v65;
+        v19 = v61;
       }
 
       objc_autoreleasePoolPop(v19);
@@ -633,39 +622,39 @@ LABEL_6:
         messagePayload = [messageCopy messagePayload];
         v52 = MEMORY[0x277CBEB98];
         v53 = *MEMORY[0x277CD1FD8];
-        v73[0] = @"kAuthorizationDataKey";
-        v73[1] = v53;
+        v72[0] = @"kAuthorizationDataKey";
+        v72[1] = v53;
         v54 = *MEMORY[0x277CD2620];
-        v73[2] = *MEMORY[0x277CD1FC8];
-        v73[3] = v54;
+        v72[2] = *MEMORY[0x277CD1FC8];
+        v72[3] = v54;
         v55 = *MEMORY[0x277CD2758];
-        v73[4] = *MEMORY[0x277CD2040];
-        v73[5] = v55;
+        v72[4] = *MEMORY[0x277CD2040];
+        v72[5] = v55;
         v56 = *MEMORY[0x277CD23D0];
-        v73[6] = *MEMORY[0x277CD27B0];
-        v73[7] = v56;
-        v73[8] = *MEMORY[0x277CD0D30];
-        v73[9] = @"kAccessoryInfoSerialNumberKey";
-        v73[10] = @"kUserIDKey";
-        v73[11] = @"kUserIDsKey";
-        v73[12] = @"kUserDisplayNameKey";
-        v73[13] = @"kUserNamesKey";
-        [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:14];
-        v57 = v65 = v46;
+        v72[6] = *MEMORY[0x277CD27B0];
+        v72[7] = v56;
+        v72[8] = *MEMORY[0x277CD0D30];
+        v72[9] = @"kAccessoryInfoSerialNumberKey";
+        v72[10] = @"kUserIDKey";
+        v72[11] = @"kUserIDsKey";
+        v72[12] = @"kUserDisplayNameKey";
+        v72[13] = @"kUserNamesKey";
+        [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:14];
+        v57 = v64 = v46;
         v58 = [v52 setWithArray:v57];
         v59 = [messagePayload secureDescriptionWithBlacklistKeys:v58];
         *buf = 138544130;
         *&buf[4] = v49;
         *&buf[12] = 2114;
         *&buf[14] = shortDescription2;
-        v77 = 2114;
-        *v78 = v59;
-        *&v78[8] = 2114;
-        *&v78[10] = v10;
+        v76 = 2114;
+        *v77 = v59;
+        *&v77[8] = 2114;
+        *&v77[10] = v10;
         _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_DEBUG, "%{public}@Sent message %{public}@ with payload: %{public}@ (skipped ineligible clients: %{public}@)", buf, 0x2Au);
 
-        handlerCopy = v66;
-        v46 = v65;
+        handlerCopy = v65;
+        v46 = v64;
       }
 
       objc_autoreleasePoolPop(v46);
@@ -706,7 +695,7 @@ LABEL_6:
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v72 = *buf;
+    v71 = *buf;
     *buf = 0;
     *&buf[8] = 0;
     destination3 = [messageCopy destination];
@@ -724,22 +713,22 @@ LABEL_6:
       *buf = *MEMORY[0x277D0F960];
     }
 
-    v71 = *buf;
+    v70 = *buf;
     sendPolicy2 = [messageCopy sendPolicy];
     *buf = 138544898;
     *&buf[4] = v27;
     *&buf[12] = 2114;
     *&buf[14] = name2;
-    v77 = 1042;
-    *v78 = 16;
-    *&v78[4] = 2098;
-    *&v78[6] = &v72;
-    *&v78[14] = 1040;
-    *&v78[16] = 16;
-    v79 = 2096;
-    v80 = &v71;
-    v81 = 2114;
-    v82 = sendPolicy2;
+    v76 = 1042;
+    *v77 = 16;
+    *&v77[4] = 2098;
+    *&v77[6] = &v71;
+    *&v77[14] = 1040;
+    *&v77[16] = 16;
+    v78 = 2096;
+    v79 = &v70;
+    v80 = 2114;
+    v81 = sendPolicy2;
     _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Not sending message %{public}@(%{public,uuid_t}.16P) with target %{uuid_t}.16P because no clients are eligible for send policy: %{public}@", buf, 0x40u);
   }
 
@@ -753,20 +742,17 @@ LABEL_6:
   }
 
 LABEL_36:
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)stateDump
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   connections = [(HMDXPCMessageTransport *)self connections];
   v3 = [connections na_map:&__block_literal_global_97_68163];
 
-  v7 = @"Connections";
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = @"Connections";
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -794,16 +780,16 @@ LABEL_36:
 
 - (void)stop
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping XPC message transport", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping XPC message transport", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -818,21 +804,20 @@ LABEL_36:
   }
 
   [(HMDXPCListener *)listener stop];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Starting XPC message transport", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Starting XPC message transport", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -871,8 +856,6 @@ LABEL_36:
 
   serverStartNotification = [(HMXPCMessageTransportConfiguration *)configuration serverStartNotification];
   notify_post([serverStartNotification UTF8String]);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (OS_dispatch_queue)queue
@@ -945,15 +928,15 @@ LABEL_10:
   {
 LABEL_11:
     v26 = _HMFPreconditionFailure();
-    return __91__HMDXPCMessageTransport_initWithConfiguration_listener_processMonitor_appProtectionGuard___block_invoke(v26);
+    return __91__HMDXPCMessageTransport_initWithConfiguration_listener_processMonitor_appProtectionGuard___block_invoke(v26, v27, v28);
   }
 
-  v27.receiver = self;
-  v27.super_class = HMDXPCMessageTransport;
-  v15 = [(HMDXPCMessageTransport *)&v27 init];
+  v29.receiver = self;
+  v29.super_class = HMDXPCMessageTransport;
+  v15 = [(HMDXPCMessageTransport *)&v29 init];
   if (v15)
   {
-    v16 = [configurationCopy copy];
+    v16 = objc_msgSend_copy(configurationCopy);
     configuration = v15->_configuration;
     v15->_configuration = v16;
 
@@ -1002,12 +985,11 @@ HMDXPCClientConnection *__91__HMDXPCMessageTransport_initWithConfiguration_liste
 
 uint64_t __37__HMDXPCMessageTransport_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_68205;
-  logCategory__hmf_once_v10_68205 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_68205;
+  logCategory__hmf_once_v10_68205 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (HMDXPCMessageTransport)accessorySetupTransport

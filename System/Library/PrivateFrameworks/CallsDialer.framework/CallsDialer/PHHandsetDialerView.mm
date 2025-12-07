@@ -1,6 +1,7 @@
 @interface PHHandsetDialerView
 - (BOOL)dialerIsNumericOnly;
 - (CGSize)intrinsicContentSize;
+- (PHHandsetDialerView)initWithFrame:(CGRect)frame appType:(int64_t)type enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search enableDualSimMenu:(BOOL)menu;
 - (double)_keypadToCallButtonYSpacing;
 - (double)_remoteViewControllerDialerOffset;
 - (double)_yOffsetForAddContactButton;
@@ -11,6 +12,7 @@
 - (id)deleteButtonXImageView;
 - (id)newCallButton;
 - (id)newDeleteButton;
+- (id)newLCDView:(int64_t)view enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search;
 - (id)newNumberPadView;
 - (id)numberPadButtonsForCharacters:(id)characters;
 - (void)constraintAddContactButtonForIPad;
@@ -21,10 +23,127 @@
 - (void)layoutSubviews;
 - (void)setDeleteButtonAlpha:(double)alpha;
 - (void)setEnableDualSimMenu:(BOOL)menu;
+- (void)setIsHostedInRemoteViewController:(BOOL)controller;
 - (void)updateContraintsForStatusBar;
 @end
 
 @implementation PHHandsetDialerView
+
+- (PHHandsetDialerView)initWithFrame:(CGRect)frame appType:(int64_t)type enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search enableDualSimMenu:(BOOL)menu
+{
+  menuCopy = menu;
+  searchCopy = search;
+  dialerCopy = dialer;
+  mainScreen = [MEMORY[0x277D759A0] mainScreen];
+  [mainScreen bounds];
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+
+  v54.receiver = self;
+  v54.super_class = PHHandsetDialerView;
+  v21 = [(PHHandsetDialerView *)&v54 initWithFrame:v14, v16, v18, v20];
+  v22 = v21;
+  if (v21)
+  {
+    [(PHHandsetDialerView *)v21 setAppType:type];
+    v23 = objc_alloc_init(MEMORY[0x277D6EED8]);
+    [(PHHandsetDialerView *)v22 setFeatureFlags:v23];
+
+    [(PHHandsetDialerView *)v22 setEnableSmartDialer:dialerCopy];
+    [(PHHandsetDialerView *)v22 setEnableDualSimMenu:menuCopy];
+    dynamicBackgroundColor = [MEMORY[0x277D75348] dynamicBackgroundColor];
+    [(PHHandsetDialerView *)v22 setBackgroundColor:dynamicBackgroundColor];
+
+    [(PHHandsetDialerView *)v22 setOpaque:0];
+    v25 = [(PHHandsetDialerView *)v22 newLCDView:type enableSmartDialer:dialerCopy enableSmartDialerExpandedSearch:searchCopy];
+    [(PHAbstractDialerView *)v22 setLcdView:v25];
+
+    lcdView = [(PHAbstractDialerView *)v22 lcdView];
+    [lcdView setDelegate:v22];
+
+    newNumberPadView = [(PHHandsetDialerView *)v22 newNumberPadView];
+    [(PHAbstractDialerView *)v22 setPhonePadView:newNumberPadView];
+
+    newCallButton = [(PHHandsetDialerView *)v22 newCallButton];
+    [(PHAbstractDialerView *)v22 setCallButton:newCallButton];
+
+    newDeleteButton = [(PHHandsetDialerView *)v22 newDeleteButton];
+    [(PHAbstractDialerView *)v22 setDeleteButton:newDeleteButton];
+
+    deleteButton = [(PHAbstractDialerView *)v22 deleteButton];
+    [deleteButton setAlpha:0.0];
+
+    phonePadView = [(PHAbstractDialerView *)v22 phonePadView];
+    [(PHHandsetDialerView *)v22 addSubview:phonePadView];
+
+    lcdView2 = [(PHAbstractDialerView *)v22 lcdView];
+    [(PHHandsetDialerView *)v22 addSubview:lcdView2];
+
+    callButton = [(PHAbstractDialerView *)v22 callButton];
+    [(PHHandsetDialerView *)v22 addSubview:callButton];
+
+    deleteButton2 = [(PHAbstractDialerView *)v22 deleteButton];
+    [(PHHandsetDialerView *)v22 addSubview:deleteButton2];
+
+    if (type == 1)
+    {
+      if (dialerCopy)
+      {
+        addContactButton = [(PHAbstractDialerView *)v22 addContactButton];
+        [(PHHandsetDialerView *)v22 addSubview:addContactButton];
+      }
+
+      currentDevice = [MEMORY[0x277D75418] currentDevice];
+      userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+
+      if (userInterfaceIdiom == 5)
+      {
+        pillView = [(PHHandsetDialerView *)v22 pillView];
+        [(PHHandsetDialerView *)v22 addSubview:pillView];
+      }
+    }
+
+    [(PHHandsetDialerView *)v22 createDeleteButtonX];
+    phonePadViewTopShouldConstrainToLCDView = [(PHHandsetDialerView *)v22 phonePadViewTopShouldConstrainToLCDView];
+    v40 = MEMORY[0x277CCAAD0];
+    phonePadView2 = [(PHAbstractDialerView *)v22 phonePadView];
+    if (phonePadViewTopShouldConstrainToLCDView)
+    {
+      lcdView3 = [(PHAbstractDialerView *)v22 lcdView];
+      [(PHHandsetDialerView *)v22 _yOffsetForKeypadView];
+      v44 = [v40 constraintWithItem:phonePadView2 attribute:3 relatedBy:0 toItem:lcdView3 attribute:4 multiplier:1.0 constant:v43];
+      [(PHHandsetDialerView *)v22 setPhonePadViewTopConstraint:v44];
+    }
+
+    else
+    {
+      [(PHHandsetDialerView *)v22 _yOffsetForKeypadView];
+      lcdView3 = [v40 constraintWithItem:phonePadView2 attribute:3 relatedBy:0 toItem:v22 attribute:3 multiplier:1.0 constant:v45];
+      [(PHHandsetDialerView *)v22 setPhonePadViewTopConstraint:lcdView3];
+    }
+
+    phonePadViewTopConstraint = [(PHHandsetDialerView *)v22 phonePadViewTopConstraint];
+    [(PHHandsetDialerView *)v22 addConstraint:phonePadViewTopConstraint];
+
+    v47 = MEMORY[0x277CCAAD0];
+    callButton2 = [(PHAbstractDialerView *)v22 callButton];
+    phonePadView3 = [(PHAbstractDialerView *)v22 phonePadView];
+    [(PHHandsetDialerView *)v22 _keypadToCallButtonYSpacing];
+    v51 = [v47 constraintWithItem:callButton2 attribute:3 relatedBy:0 toItem:phonePadView3 attribute:4 multiplier:1.0 constant:v50];
+    [(PHHandsetDialerView *)v22 setCallButtonKeypadOffsetConstraint:v51];
+
+    callButtonKeypadOffsetConstraint = [(PHHandsetDialerView *)v22 callButtonKeypadOffsetConstraint];
+    [(PHHandsetDialerView *)v22 addConstraint:callButtonKeypadOffsetConstraint];
+
+    [(PHHandsetDialerView *)v22 updateContraintsForStatusBar];
+    [(PHHandsetDialerView *)v22 createConstraints];
+    [(PHHandsetDialerView *)v22 setEnableDualSimMenu:menuCopy];
+  }
+
+  return v22;
+}
 
 - (void)setEnableDualSimMenu:(BOOL)menu
 {
@@ -213,52 +332,48 @@
 
 - (void)constraintAddContactButtonForNonIPad
 {
-  v21[3] = *MEMORY[0x277D85DE8];
-  v14 = MEMORY[0x277CCAAD0];
+  v20[3] = *MEMORY[0x277D85DE8];
+  v13 = MEMORY[0x277CCAAD0];
   addContactButton = [(PHAbstractDialerView *)self addContactButton];
   topAnchor = [addContactButton topAnchor];
   headerLayoutGuide = [(PHHandsetDialerView *)self headerLayoutGuide];
   topAnchor2 = [headerLayoutGuide topAnchor];
-  v16 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v21[0] = v16;
+  v15 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v20[0] = v15;
   addContactButton2 = [(PHAbstractDialerView *)self addContactButton];
   bottomAnchor = [addContactButton2 bottomAnchor];
   headerLayoutGuide2 = [(PHHandsetDialerView *)self headerLayoutGuide];
   bottomAnchor2 = [headerLayoutGuide2 bottomAnchor];
   v6 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v21[1] = v6;
+  v20[1] = v6;
   addContactButton3 = [(PHAbstractDialerView *)self addContactButton];
   trailingAnchor = [addContactButton3 trailingAnchor];
   layoutMarginsGuide = [(PHHandsetDialerView *)self layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v21[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
-  [v14 activateConstraints:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  [v13 activateConstraints:v12];
 }
 
 - (void)constraintDualSimPicker
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v14 = MEMORY[0x277CCAAD0];
+  v15[2] = *MEMORY[0x277D85DE8];
+  v13 = MEMORY[0x277CCAAD0];
   pillView = [(PHHandsetDialerView *)self pillView];
   leadingAnchor = [pillView leadingAnchor];
   layoutMarginsGuide = [(PHHandsetDialerView *)self layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
   v6 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v16[0] = v6;
+  v15[0] = v6;
   pillView2 = [(PHHandsetDialerView *)self pillView];
   centerYAnchor = [pillView2 centerYAnchor];
   headerLayoutGuide = [(PHHandsetDialerView *)self headerLayoutGuide];
   centerYAnchor2 = [headerLayoutGuide centerYAnchor];
   v11 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v16[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  [v14 activateConstraints:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  [v13 activateConstraints:v12];
 }
 
 - (BOOL)dialerIsNumericOnly
@@ -298,6 +413,41 @@ void __42__PHHandsetDialerView_dialerIsNumericOnly__block_invoke()
 
   phonePadView = [(PHAbstractDialerView *)self phonePadView];
   [phonePadView invalidateIntrinsicContentSize];
+}
+
+- (void)setIsHostedInRemoteViewController:(BOOL)controller
+{
+  controllerCopy = controller;
+  v6.receiver = self;
+  v6.super_class = PHHandsetDialerView;
+  [(PHAbstractDialerView *)&v6 setIsHostedInRemoteViewController:?];
+  lcdView = [(PHAbstractDialerView *)self lcdView];
+  [lcdView setIsHostedInRemoteViewController:controllerCopy];
+
+  [(PHHandsetDialerView *)self updateContraintsForStatusBar];
+}
+
+- (id)newLCDView:(int64_t)view enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search
+{
+  searchCopy = search;
+  dialerCopy = dialer;
+  v9 = [PHHandsetDialerLCDView alloc];
+  [(PHHandsetDialerView *)self bounds];
+  v10 = [(PHHandsetDialerLCDView *)v9 initWithFrame:0 forDialerType:view appType:dialerCopy enableSmartDialer:searchCopy enableSmartDialerExpandedSearch:0.0, 0.0];
+  [(PHHandsetDialerLCDView *)v10 setTranslatesAutoresizingMaskIntoConstraints:0];
+  addContactButton = [(PHHandsetDialerLCDView *)v10 addContactButton];
+  [(PHAbstractDialerView *)self setAddContactButton:addContactButton];
+
+  pillView = [(PHHandsetDialerLCDView *)v10 pillView];
+  [(PHHandsetDialerView *)self setPillView:pillView];
+
+  searchButton = [(PHHandsetDialerLCDView *)v10 searchButton];
+  [(PHAbstractDialerView *)self setSearchButton:searchButton];
+
+  headerLayoutGuide = [(PHHandsetDialerLCDView *)v10 headerLayoutGuide];
+  [(PHHandsetDialerView *)self setHeaderLayoutGuide:headerLayoutGuide];
+
+  return v10;
 }
 
 - (id)numberPadButtonsForCharacters:(id)characters

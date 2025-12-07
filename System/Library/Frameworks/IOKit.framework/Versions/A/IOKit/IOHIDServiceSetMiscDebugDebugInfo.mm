@@ -6,39 +6,37 @@
 void ___IOHIDServiceSetMiscDebugDebugInfo_block_invoke(uint64_t a1, uint64_t a2)
 {
   UUID = IOHIDEventSystemConnectionGetUUID(a2);
-  v4 = *(a1 + 32);
   if (UUID)
   {
-    v5 = UUID;
+    v4 = UUID;
   }
 
   else
   {
-    v5 = @"unknown";
+    v4 = @"unknown";
   }
 
-  v6 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  CFArrayAppendValue(v6, v5);
+  CFArrayAppendValue(v5, v4);
 }
 
 void ___IOHIDServiceSetMiscDebugDebugInfo_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   UUID = IOHIDEventSystemConnectionGetUUID(a2);
-  v4 = *(a1 + 32);
   if (UUID)
   {
-    v5 = UUID;
+    v4 = UUID;
   }
 
   else
   {
-    v5 = @"unknown";
+    v4 = @"unknown";
   }
 
-  v6 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  CFArrayAppendValue(v6, v5);
+  CFArrayAppendValue(v5, v4);
 }
 
 @end

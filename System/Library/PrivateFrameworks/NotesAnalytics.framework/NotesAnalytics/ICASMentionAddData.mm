@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"isExistingMention";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"isExistingMention";
   isExistingMention = [(ICASMentionAddData *)self isExistingMention];
   if (isExistingMention)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = isExistingMention2;
-  v12[1] = @"mentionAddApproach";
-  v13[0] = isExistingMention2;
+  v11[1] = @"mentionAddApproach";
+  v12[0] = isExistingMention2;
   mentionAddApproach = [(ICASMentionAddData *)self mentionAddApproach];
   if (mentionAddApproach)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = mentionAddApproach2;
-  v13[1] = mentionAddApproach2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = mentionAddApproach2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

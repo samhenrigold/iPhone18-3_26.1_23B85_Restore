@@ -294,11 +294,11 @@
   return v10;
 }
 
-uint64_t __42__PXStoryViewLayout_preferredFocusLayouts__block_invoke(uint64_t result, uint64_t a2)
+id *__42__PXStoryViewLayout_preferredFocusLayouts__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -632,7 +632,7 @@ LABEL_29:
     v56 = 0u;
     if (timeline)
     {
-      [timeline timeRange];
+      objc_msgSend_timeRange(timeline);
     }
 
     else
@@ -765,11 +765,11 @@ void __64__PXStoryViewLayout_photosViewController_didPickAssetReference___block_
     if (regionOfInterest)
     {
       gridContentController = [(PXStoryViewLayout *)self gridContentController];
-      layout = [gridContentController layout];
+      v10 = objc_msgSend_layout(gridContentController);
       assetReference = [transitionCopy assetReference];
-      regionOfInterest = [layout regionOfInterestForAssetReference:assetReference];
+      regionOfInterest = [v10 regionOfInterestForAssetReference:assetReference];
 
-      [(PXStoryViewLayout *)self presentedGridTransform];
+      objc_msgSend_presentedGridTransform(self);
       memset(&t1, 0, sizeof(t1));
       v12 = *(off_1E7722030 + 1);
       *&t2.a = *off_1E7722030;
@@ -835,7 +835,7 @@ LABEL_6:
     v29 = 0u;
     if (timeline)
     {
-      [timeline timeRangeForSegmentWithIdentifier:currentSegmentIdentifier];
+      objc_msgSend_timeRangeForSegmentWithIdentifier_(timeline);
     }
 
     [timeline frameForSegmentWithIdentifier:currentSegmentIdentifier];
@@ -910,8 +910,8 @@ LABEL_9:
   if ([(PXStoryViewLayout *)self inGridViewMode])
   {
     gridContentController = [(PXStoryViewLayout *)self gridContentController];
-    layout = [gridContentController layout];
-    [layout contentSize];
+    v4 = objc_msgSend_layout(gridContentController);
+    [v4 contentSize];
     v6 = v5;
     v8 = v7;
   }
@@ -1202,13 +1202,13 @@ LABEL_5:
       gridViewModeTransition = [(PXStoryViewLayout *)self gridViewModeTransition];
       regionOfInterest = [gridViewModeTransition regionOfInterest];
       gridContentController = [(PXStoryViewLayout *)self gridContentController];
-      layout = [gridContentController layout];
+      v11 = objc_msgSend_layout(gridContentController);
 
       if (gridViewModeTransition && regionOfInterest)
       {
-        if (layout)
+        if (v11)
         {
-          rootLayout = [layout rootLayout];
+          rootLayout = [v11 rootLayout];
           coordinateSpace = [rootLayout coordinateSpace];
           [regionOfInterest rectInCoordinateSpace:coordinateSpace];
           [(PXStoryViewLayout *)self convertRect:rootLayout fromLayout:?];
@@ -1222,7 +1222,7 @@ LABEL_5:
       v16 = v20;
       v17 = v21;
       [(PXGAbsoluteCompositeLayout *)self setSpriteTransform:&v14 forSublayoutAtIndex:v4];
-      [layout setAlpha:1.0];
+      [v11 setAlpha:1.0];
       v14 = v18;
       v15 = v19;
       v16 = v20;
@@ -1364,13 +1364,13 @@ LABEL_5:
     viewLayoutSpec = [viewModel viewLayoutSpec];
 
     gridContentController2 = [(PXStoryViewLayout *)self gridContentController];
-    layout = [gridContentController2 layout];
+    v6 = objc_msgSend_layout(gridContentController2);
 
     [viewLayoutSpec predictedBrowseChromeTextHeight];
     v8 = v7;
     [viewLayoutSpec distanceFromBottomChromeTextToGrid];
-    [layout setStatusBarHeight:v8 + v9];
-    [layout setWantsHeaderInSafeArea:1];
+    [v6 setStatusBarHeight:v8 + v9];
+    [v6 setWantsHeaderInSafeArea:1];
   }
 }
 
@@ -1456,20 +1456,20 @@ LABEL_5:
       {
 LABEL_28:
         gridContentController = [(PXStoryViewLayout *)self gridContentController];
-        layout = [gridContentController layout];
+        v51 = objc_msgSend_layout(gridContentController);
 
         if ([v3 swipeDownBehavior])
         {
           [viewModel swipeDownDismissalPreviewFraction];
-          [layout setAlpha:1.0 - v52];
+          [v51 setAlpha:1.0 - v52];
         }
 
         v53 = [(PXStoryViewLayout *)self sublayoutAtIndex:[(PXStoryViewLayout *)self gridLayoutIndex] loadIfNeeded:0];
 
-        if (v53 != layout)
+        if (v53 != v51)
         {
           [(PXStoryViewLayout *)self removeSublayoutAtIndex:[(PXStoryViewLayout *)self gridLayoutIndex]];
-          [(PXGAbsoluteCompositeLayout *)self insertSublayout:layout atIndex:[(PXStoryViewLayout *)self gridLayoutIndex]];
+          [(PXGAbsoluteCompositeLayout *)self insertSublayout:v51 atIndex:[(PXStoryViewLayout *)self gridLayoutIndex]];
         }
 
         if ([(PXStoryViewLayout *)self shouldScrollGridToPlaybackPosition])
@@ -2132,9 +2132,9 @@ LABEL_41:
   sublayoutCopy = sublayout;
   [(PXStoryViewLayout *)&v9 didUpdateSublayout:sublayoutCopy];
   v5 = [(PXStoryViewLayout *)self gridContentController:v9.receiver];
-  layout = [v5 layout];
+  v6 = objc_msgSend_layout(v5);
 
-  if (layout == sublayoutCopy)
+  if (v6 == sublayoutCopy)
   {
     if ([(PXStoryViewLayout *)self inGridViewMode])
     {
@@ -2338,7 +2338,7 @@ LABEL_41:
   mainConfiguration = [modelCopy mainConfiguration];
   isPresentedForAirPlay = [mainConfiguration isPresentedForAirPlay];
   isExportPreview = [mainConfiguration isExportPreview];
-  options = [mainConfiguration options];
+  v17 = objc_msgSend_options(mainConfiguration);
   v18 = [[PXStoryViewLegibilityOverlayLayout alloc] initWithViewModel:v7->_viewModel];
   v19 = [(PXStoryViewLayout *)v7 addSublayout:v18];
 
@@ -2350,7 +2350,7 @@ LABEL_41:
     goto LABEL_11;
   }
 
-  if ([v8 wantsScrubber] && isExportPreview != 1 && (options & 0x400) == 0)
+  if ([v8 wantsScrubber] && isExportPreview != 1 && (v17 & 0x400) == 0)
   {
     v22 = [[PXStoryScrubberLayout alloc] initWithViewModel:v7->_viewModel];
     scrubberLayout = v7->_scrubberLayout;
@@ -2363,7 +2363,7 @@ LABEL_41:
   {
     v41 = 0x7FFFFFFFFFFFFFFFLL;
     v21 = 0x7FFFFFFFFFFFFFFFLL;
-    if ((options & 0x400) != 0)
+    if ((v17 & 0x400) != 0)
     {
       goto LABEL_10;
     }

@@ -24,7 +24,7 @@
 
 - (void)_registerActivity
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
+  v3 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -45,21 +45,23 @@ void __60__WBSPasswordBreachPeriodicLookupActivity__registerActivity__block_invo
   v3 = a2;
   if (xpc_activity_get_state(v3))
   {
-    if (xpc_activity_should_defer(v3))
+    should_defer = xpc_activity_should_defer(v3);
+    if (should_defer)
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(should_defer, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Run, but criteria are no longer satisfied. Defering.", v13, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Run, but criteria are no longer satisfied. Defering.", v17, 2u);
       }
 
-      if (!xpc_activity_set_state(v3, 3))
+      v7 = xpc_activity_set_state(v3, 3);
+      if (!v7)
       {
-        v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v7, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          __60__WBSPasswordBreachPeriodicLookupActivity__registerActivity__block_invoke_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
+          __60__WBSPasswordBreachPeriodicLookupActivity__registerActivity__block_invoke_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
         }
       }
     }
@@ -74,50 +76,53 @@ void __60__WBSPasswordBreachPeriodicLookupActivity__registerActivity__block_invo
 - (void)_activityDidTransitionToRunState:(id)state
 {
   stateCopy = state;
-  v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(stateCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Run.", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Run.", buf, 2u);
   }
 
-  v6 = os_transaction_create();
-  if (!xpc_activity_set_state(stateCopy, 4))
+  v7 = os_transaction_create();
+  v8 = xpc_activity_set_state(stateCopy, 4);
+  if (!v8)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordBreachPeriodicLookupActivity *)v7 _activityDidTransitionToRunState:v8, v9, v10, v11, v12, v13, v14];
+      [(WBSPasswordBreachPeriodicLookupActivity *)v10 _activityDidTransitionToRunState:v11, v12, v13, v14, v15, v16, v17];
     }
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __76__WBSPasswordBreachPeriodicLookupActivity__activityDidTransitionToRunState___block_invoke;
-  v17[3] = &unk_1E7FB6E30;
-  v18 = stateCopy;
-  v19 = v6;
-  v15 = v6;
-  v16 = stateCopy;
-  [(WBSPasswordBreachPeriodicLookupActivity *)self _runActivityWithCompletionHandler:v17];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __76__WBSPasswordBreachPeriodicLookupActivity__activityDidTransitionToRunState___block_invoke;
+  v20[3] = &unk_1E7FB6E30;
+  v21 = stateCopy;
+  v22 = v7;
+  v18 = v7;
+  v19 = stateCopy;
+  [(WBSPasswordBreachPeriodicLookupActivity *)self _runActivityWithCompletionHandler:v20];
 }
 
 void __76__WBSPasswordBreachPeriodicLookupActivity__activityDidTransitionToRunState___block_invoke(uint64_t a1)
 {
-  if (!xpc_activity_set_state(*(a1 + 32), 5))
+  v1 = xpc_activity_set_state(*(a1 + 32), 5);
+  if (!v1)
   {
-    v1 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v1, v2);
+    v1 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    if (v1)
     {
-      __76__WBSPasswordBreachPeriodicLookupActivity__activityDidTransitionToRunState___block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
+      __76__WBSPasswordBreachPeriodicLookupActivity__activityDidTransitionToRunState___block_invoke_cold_1(v3, v2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v1, v2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Done.", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Lookup activity transitioned to state Done.", v11, 2u);
   }
 }
 

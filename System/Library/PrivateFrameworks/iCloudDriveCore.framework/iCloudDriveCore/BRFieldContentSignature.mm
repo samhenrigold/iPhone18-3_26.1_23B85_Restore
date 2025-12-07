@@ -355,7 +355,7 @@ LABEL_16:
 
 - (BOOL)isEquivalentToSignature:(id)signature
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   if (!areSignaturesEquivalent(self, signatureCopy))
   {
@@ -408,16 +408,16 @@ LABEL_10:
   }
 
   contentSignature = brc_bread_crumbs();
-  v18 = brc_default_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v17 = brc_default_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
   {
-    v19 = 138412802;
+    v18 = 138412802;
     selfCopy = self;
-    v21 = 2112;
-    v22 = signatureCopy;
-    v23 = 2112;
-    v24 = contentSignature;
-    _os_log_fault_impl(&dword_223E7A000, v18, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Signatures are equivalent but content is different %@ vs %@%@", &v19, 0x20u);
+    v20 = 2112;
+    v21 = signatureCopy;
+    v22 = 2112;
+    v23 = contentSignature;
+    _os_log_fault_impl(&dword_223E7A000, v17, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Signatures are equivalent but content is different %@ vs %@%@", &v18, 0x20u);
   }
 
 LABEL_5:
@@ -425,7 +425,6 @@ LABEL_8:
   v12 = 0;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -595,7 +594,7 @@ LABEL_11:
     [BRFieldContentSignature writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteStringField();
   if (self->_contentSignature)
   {
@@ -607,12 +606,11 @@ LABEL_11:
     PBDataWriterWriteStringField();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (*&self->_has)
   {
-    size = self->_size;
     PBDataWriterWriteInt64Field();
-    v5 = v7;
+    v5 = v6;
   }
 }
 

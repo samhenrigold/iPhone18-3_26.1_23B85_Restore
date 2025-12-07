@@ -207,7 +207,7 @@ void __75__MPCMediaLibraryPlaybackAssetCacheProvider__increaseDailyAssetDownload
     v8 = *(a1 + 32);
     if (v8 == v5)
     {
-      atomic_store(v7, &__MPCDailyAssetDownloadSizeInKB);
+      atomic_store(v7, __MPCDailyAssetDownloadSizeInKB);
     }
 
     else

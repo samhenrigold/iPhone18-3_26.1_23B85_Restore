@@ -20,13 +20,13 @@
 
 - (ADSearchSession)initWithAppID:(id)d appVersion:(id)version appsRank:(int)rank storeFront:(id)front
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   dCopy = d;
   versionCopy = version;
   frontCopy = front;
-  v109.receiver = self;
-  v109.super_class = ADSearchSession;
-  v18 = [(ADSearchSession *)&v109 init];
+  v108.receiver = self;
+  v108.super_class = ADSearchSession;
+  v18 = [(ADSearchSession *)&v108 init];
   if (v18)
   {
     v19 = objc_msgSend_date(MEMORY[0x277CBEAA8], v14, v15, v16, v17);
@@ -77,12 +77,12 @@
     objc_initWeak(&location, v18);
     v80 = objc_msgSend_defaultCenter(MEMORY[0x277CCA9A0], v76, v77, v78, v79);
     v85 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v81, v82, v83, v84);
-    v106[0] = MEMORY[0x277D85DD0];
-    v106[1] = 3221225472;
-    v106[2] = sub_264E4C5B4;
-    v106[3] = &unk_279B88A30;
-    objc_copyWeak(&v107, &location);
-    v87 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v80, v86, @"kADIDManager_ChangedNotification", *MEMORY[0x277CE95A8], v85, v106);
+    v105[0] = MEMORY[0x277D85DD0];
+    v105[1] = 3221225472;
+    v105[2] = sub_264E4C5B4;
+    v105[3] = &unk_279B88A30;
+    objc_copyWeak(&v106, &location);
+    v87 = objc_msgSend_addObserverForName_object_queue_usingBlock_(v80, v86, @"kADIDManager_ChangedNotification", *MEMORY[0x277CE95A8], v85, v105);
     notificationObserver = v18->_notificationObserver;
     v18->_notificationObserver = v87;
 
@@ -95,7 +95,7 @@
     block[1] = 3221225472;
     block[2] = sub_264E4C6F8;
     block[3] = &unk_279B889E0;
-    v105 = v18;
+    v104 = v18;
     dispatch_async(v91, block);
     v92 = APLogForCategory();
     if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
@@ -103,17 +103,16 @@
       v97 = objc_msgSend_date(MEMORY[0x277CBEAA8], v93, v94, v95, v96);
       objc_msgSend_timeIntervalSinceDate_(v97, v98, v19, v99, v100);
       *buf = 138412546;
-      v111 = dCopy;
-      v112 = 2048;
-      v113 = v101;
+      v110 = dCopy;
+      v111 = 2048;
+      v112 = v101;
       _os_log_impl(&dword_264E42000, v92, OS_LOG_TYPE_DEFAULT, "TORO: ADSearchSession initWithAppID:%@ initTime: %0.3lf", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v107);
+    objc_destroyWeak(&v106);
     objc_destroyWeak(&location);
   }
 
-  v102 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -233,7 +232,7 @@
 
 - (id)rotatingIdentifiersProperties
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CE9698]);
   v8 = objc_msgSend_idProvider(self, v4, v5, v6, v7);
   v12 = objc_msgSend_getIdentifiersWithType_(v8, v9, 0, v10, v11);
@@ -277,34 +276,34 @@
 
     if (objc_msgSend_count(v79, v80, v81, v82, v83))
     {
-      v181 = v21;
-      v182 = v12;
-      v183 = v3;
+      v180 = v21;
+      v181 = v12;
+      v182 = v3;
       v88 = objc_msgSend_array(MEMORY[0x277CBEB18], v84, v85, v86, v87);
+      v186 = 0u;
       v187 = 0u;
       v188 = 0u;
       v189 = 0u;
-      v190 = 0u;
-      v180 = v79;
+      v179 = v79;
       obj = v79;
-      v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v89, &v187, v193, 16);
+      v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v89, &v186, v192, 16);
       if (v90)
       {
         v91 = v90;
-        v92 = *v188;
-        v184 = *MEMORY[0x277CE95C8];
+        v92 = *v187;
+        v183 = *MEMORY[0x277CE95C8];
         do
         {
           v93 = 0;
-          v185 = v91;
+          v184 = v91;
           do
           {
-            if (*v188 != v92)
+            if (*v187 != v92)
             {
               objc_enumerationMutation(obj);
             }
 
-            v94 = *(*(&v187 + 1) + 8 * v93);
+            v94 = *(*(&v186 + 1) + 8 * v93);
             v95 = objc_alloc_init(MEMORY[0x277CE9640]);
             v100 = objc_msgSend_value(v94, v96, v97, v98, v99);
             v104 = objc_msgSend_dataUsingEncoding_(v100, v101, 4, v102, v103);
@@ -318,7 +317,7 @@
               v122 = v92;
               v123 = v88;
               v124 = objc_alloc(MEMORY[0x277CBEBD0]);
-              v128 = objc_msgSend_initWithSuiteName_(v124, v125, v184, v126, v127);
+              v128 = objc_msgSend_initWithSuiteName_(v124, v125, v183, v126, v127);
               v132 = objc_msgSend_integerForKey_(v128, v129, @"bucketIDOverride", v130, v131);
               if (v132 >= 1)
               {
@@ -327,7 +326,7 @@
                 if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 134217984;
-                  v192 = v133;
+                  v191 = v133;
                   _os_log_impl(&dword_264E42000, v134, OS_LOG_TYPE_DEFAULT, "Overriding BucketID to %ld due to internal settings.", buf, 0xCu);
                 }
 
@@ -336,10 +335,10 @@
 
               v88 = v123;
               v92 = v122;
-              v91 = v185;
+              v91 = v184;
             }
 
-            v138 = objc_msgSend_valueForKey_(v106, v119, @"generation", v120, v121, v180);
+            v138 = objc_msgSend_valueForKey_(v106, v119, @"generation", v120, v121, v179);
             v143 = objc_msgSend_intValue(v138, v139, v140, v141, v142);
             objc_msgSend_setGeneration_(v95, v144, v143, v145, v146);
             v150 = objc_msgSend_objectForKey_(v106, v147, @"bucketNamespace", v148, v149);
@@ -350,18 +349,18 @@
           }
 
           while (v91 != v93);
-          v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v157, &v187, v193, 16);
+          v91 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v157, &v186, v192, 16);
         }
 
         while (v91);
       }
 
-      v3 = v183;
-      objc_msgSend_setExperimentBuckets_(v183, v158, v88, v159, v160);
+      v3 = v182;
+      objc_msgSend_setExperimentBuckets_(v182, v158, v88, v159, v160);
 
-      v21 = v181;
-      v12 = v182;
-      v79 = v180;
+      v21 = v180;
+      v12 = v181;
+      v79 = v179;
     }
 
     else
@@ -376,8 +375,6 @@
 
     v40 = v3;
   }
-
-  v178 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -668,108 +665,100 @@ LABEL_15:
 
 - (void)searchObjectForCriteria:(id)criteria withCompletionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   criteriaCopy = criteria;
   v8 = APLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[ADSearchSession searchObjectForCriteria:withCompletionHandler:]";
+    v22 = "[ADSearchSession searchObjectForCriteria:withCompletionHandler:]";
     _os_log_impl(&dword_264E42000, v8, OS_LOG_TYPE_DEFAULT, "API Call to %s received.", buf, 0xCu);
   }
 
   Current = CFAbsoluteTimeGetCurrent();
   v14 = objc_msgSend_languageLocale(criteriaCopy, v10, v11, v12, v13);
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = sub_264E4D948;
-  v19[3] = &unk_279B88A58;
-  v21 = Current;
-  v19[4] = self;
-  v20 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_264E4D948;
+  v18[3] = &unk_279B88A58;
+  v20 = Current;
+  v18[4] = self;
+  v19 = handlerCopy;
   v15 = handlerCopy;
-  objc_msgSend_requestSponsoredSearchDataRoutingInfoAndRequestIDForLocality_withCompletionHandler_(self, v16, v14, v19, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
+  objc_msgSend_requestSponsoredSearchDataRoutingInfoAndRequestIDForLocality_withCompletionHandler_(self, v16, v14, v18, v17);
 }
 
 - (void)requestSponsoredSearchURL:(id)l
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = APLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[ADSearchSession requestSponsoredSearchURL:]";
+    v17 = "[ADSearchSession requestSponsoredSearchURL:]";
     _os_log_impl(&dword_264E42000, v4, OS_LOG_TYPE_DEFAULT, "API Call to %s received.", buf, 0xCu);
   }
 
   v9 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v5, v6, v7, v8);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_264E4DF48;
-  v15[3] = &unk_279B88A80;
-  v16 = lCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_264E4DF48;
+  v14[3] = &unk_279B88A80;
+  v15 = lCopy;
   v10 = lCopy;
-  objc_msgSend_addOperationWithBlock_(v9, v11, v15, v12, v13);
-
-  v14 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addOperationWithBlock_(v9, v11, v14, v12, v13);
 }
 
 - (void)requestUserTargetingIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = APLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[ADSearchSession requestUserTargetingIdentifier:]";
+    v18 = "[ADSearchSession requestUserTargetingIdentifier:]";
     _os_log_impl(&dword_264E42000, v5, OS_LOG_TYPE_DEFAULT, "API Call to %s received.", buf, 0xCu);
   }
 
   v10 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v6, v7, v8, v9);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_264E4E150;
-  v16[3] = &unk_279B88AA8;
-  v16[4] = self;
-  v17 = identifierCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_264E4E150;
+  v15[3] = &unk_279B88AA8;
+  v15[4] = self;
+  v16 = identifierCopy;
   v11 = identifierCopy;
-  objc_msgSend_addOperationWithBlock_(v10, v12, v16, v13, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addOperationWithBlock_(v10, v12, v15, v13, v14);
 }
 
 - (void)requestSponsoredSearchDataRoutingInfoAndRequestIDForLocality:(id)locality withCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   localityCopy = locality;
   handlerCopy = handler;
   v8 = APLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "[ADSearchSession requestSponsoredSearchDataRoutingInfoAndRequestIDForLocality:withCompletionHandler:]";
+    v23 = "[ADSearchSession requestSponsoredSearchDataRoutingInfoAndRequestIDForLocality:withCompletionHandler:]";
     _os_log_impl(&dword_264E42000, v8, OS_LOG_TYPE_DEFAULT, "API Call to %s received.", buf, 0xCu);
   }
 
   v13 = objc_msgSend_workQueue(MEMORY[0x277CE96B8], v9, v10, v11, v12);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = sub_264E4E464;
-  v20[3] = &unk_279B88990;
-  v20[4] = self;
-  v21 = localityCopy;
-  v22 = handlerCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_264E4E464;
+  v19[3] = &unk_279B88990;
+  v19[4] = self;
+  v20 = localityCopy;
+  v21 = handlerCopy;
   v14 = handlerCopy;
   v15 = localityCopy;
-  objc_msgSend_addOperationWithBlock_(v13, v16, v20, v17, v18);
-
-  v19 = *MEMORY[0x277D85DE8];
+  objc_msgSend_addOperationWithBlock_(v13, v16, v19, v17, v18);
 }
 
 - (id)sponsoredSearchRequestForLanguageLocale:(id)locale

@@ -408,201 +408,201 @@ uint64_t __28__TVRUIChannelButton_expand__block_invoke(uint64_t a1)
   [v26 removeAllAnimations];
 
   v27 = *(a1 + 32);
-  v28 = [v27 isExpanded];
+  [v27 isExpanded];
   if (v27)
   {
-    [v27 _transformForLeftWingExpanded:v28];
+    objc_msgSend__transformForLeftWingExpanded_(v27);
   }
 
   else
   {
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
-    v134 = 0u;
     v131 = 0u;
     v132 = 0u;
     v129 = 0u;
     v130 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v125 = 0u;
+    v126 = 0u;
   }
 
-  v29 = [*(a1 + 32) topButton];
-  v30 = [v29 leftWing];
-  v125 = v133;
-  v126 = v134;
-  v127 = v135;
-  v128 = v136;
+  v28 = [*(a1 + 32) topButton];
+  v29 = [v28 leftWing];
   v121 = v129;
   v122 = v130;
   v123 = v131;
   v124 = v132;
-  [v30 setTransform:&v121];
+  v117 = v125;
+  v118 = v126;
+  v119 = v127;
+  v120 = v128;
+  [v29 setTransform:&v117];
 
-  v31 = *(a1 + 32);
-  v32 = [v31 isExpanded];
-  if (v31)
+  v30 = *(a1 + 32);
+  [v30 isExpanded];
+  if (v30)
   {
-    [v31 _transformForRightWingExpanded:v32];
+    objc_msgSend__transformForRightWingExpanded_(v30);
   }
 
   else
   {
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
-    v118 = 0u;
     v115 = 0u;
     v116 = 0u;
     v113 = 0u;
     v114 = 0u;
-  }
-
-  v33 = [*(a1 + 32) topButton];
-  v34 = [v33 rightWing];
-  v125 = v117;
-  v126 = v118;
-  v127 = v119;
-  v128 = v120;
-  v121 = v113;
-  v122 = v114;
-  v123 = v115;
-  v124 = v116;
-  [v34 setTransform:&v121];
-
-  v35 = [*(a1 + 32) topButton];
-  v36 = [v35 leftWing];
-  [v36 removeAllAnimations];
-
-  v37 = [*(a1 + 32) topButton];
-  v38 = [v37 rightWing];
-  [v38 removeAllAnimations];
-
-  v39 = *(a1 + 72);
-  v40 = *(a1 + 80);
-  v41 = [*(a1 + 32) bottomButton];
-  v42 = [v41 layer];
-  [v42 setBounds:{0.0, 0.0, v39, v40}];
-
-  v43 = CGRectGetMidX(*(a1 + 40));
-  v44 = *(a1 + 104);
-  v45 = [*(a1 + 32) bottomButton];
-  v46 = [v45 layer];
-  [v46 setPosition:{v43, v44}];
-
-  v47 = [*(a1 + 32) bottomButton];
-  v48 = [v47 layer];
-  [v48 removeAllAnimations];
-
-  v49 = *(a1 + 32);
-  v50 = [v49 isExpanded];
-  if (v49)
-  {
-    [v49 _transformForLeftWingExpanded:v50];
-  }
-
-  else
-  {
     v111 = 0u;
     v112 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
-    v105 = 0u;
-    v106 = 0u;
   }
 
-  v51 = [*(a1 + 32) bottomButton];
-  v52 = [v51 leftWing];
-  v125 = v109;
-  v126 = v110;
-  v127 = v111;
-  v128 = v112;
-  v121 = v105;
-  v122 = v106;
-  v123 = v107;
-  v124 = v108;
-  [v52 setTransform:&v121];
+  v31 = [*(a1 + 32) topButton];
+  v32 = [v31 rightWing];
+  v121 = v113;
+  v122 = v114;
+  v123 = v115;
+  v124 = v116;
+  v117 = v109;
+  v118 = v110;
+  v119 = v111;
+  v120 = v112;
+  [v32 setTransform:&v117];
 
-  v53 = *(a1 + 32);
-  v54 = [v53 isExpanded];
-  if (v53)
+  v33 = [*(a1 + 32) topButton];
+  v34 = [v33 leftWing];
+  [v34 removeAllAnimations];
+
+  v35 = [*(a1 + 32) topButton];
+  v36 = [v35 rightWing];
+  [v36 removeAllAnimations];
+
+  v37 = *(a1 + 72);
+  v38 = *(a1 + 80);
+  v39 = [*(a1 + 32) bottomButton];
+  v40 = [v39 layer];
+  [v40 setBounds:{0.0, 0.0, v37, v38}];
+
+  v41 = CGRectGetMidX(*(a1 + 40));
+  v42 = *(a1 + 104);
+  v43 = [*(a1 + 32) bottomButton];
+  v44 = [v43 layer];
+  [v44 setPosition:{v41, v42}];
+
+  v45 = [*(a1 + 32) bottomButton];
+  v46 = [v45 layer];
+  [v46 removeAllAnimations];
+
+  v47 = *(a1 + 32);
+  [v47 isExpanded];
+  if (v47)
   {
-    [v53 _transformForRightWingExpanded:v54];
+    objc_msgSend__transformForLeftWingExpanded_(v47);
   }
 
   else
   {
-    v101 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+  }
+
+  v48 = [*(a1 + 32) bottomButton];
+  v49 = [v48 leftWing];
+  v121 = v105;
+  v122 = v106;
+  v123 = v107;
+  v124 = v108;
+  v117 = v101;
+  v118 = v102;
+  v119 = v103;
+  v120 = v104;
+  [v49 setTransform:&v117];
+
+  v50 = *(a1 + 32);
+  [v50 isExpanded];
+  if (v50)
+  {
+    objc_msgSend__transformForRightWingExpanded_(v50);
+  }
+
+  else
+  {
     v97 = 0u;
     v99 = 0u;
     v93 = 0u;
     v95 = 0u;
     v89 = 0u;
     v91 = 0u;
+    v85 = 0u;
+    v87 = 0u;
   }
+
+  v51 = [*(a1 + 32) bottomButton];
+  v52 = [v51 rightWing];
+  v121 = v94;
+  v122 = v96;
+  v123 = v98;
+  v124 = v100;
+  v117 = v86;
+  v118 = v88;
+  v119 = v90;
+  v120 = v92;
+  [v52 setTransform:&v117];
+
+  v53 = [*(a1 + 32) bottomButton];
+  v54 = [v53 leftWing];
+  [v54 removeAllAnimations];
 
   v55 = [*(a1 + 32) bottomButton];
   v56 = [v55 rightWing];
-  v125 = v98;
-  v126 = v100;
-  v127 = v102;
-  v128 = v104;
-  v121 = v90;
-  v122 = v92;
-  v123 = v94;
-  v124 = v96;
-  [v56 setTransform:&v121];
+  [v56 removeAllAnimations];
 
-  v57 = [*(a1 + 32) bottomButton];
-  v58 = [v57 leftWing];
-  [v58 removeAllAnimations];
+  v57 = [*(a1 + 32) topButton];
+  v58 = [v57 contentLayer];
+  [v58 position];
+  v60 = v59;
+  v61 = *(a1 + 112);
+  v62 = [*(a1 + 32) bottomButton];
+  v63 = [v62 contentLayer];
+  [v63 setPosition:{v60, v61}];
 
-  v59 = [*(a1 + 32) bottomButton];
-  v60 = [v59 rightWing];
-  [v60 removeAllAnimations];
+  v64 = [*(a1 + 32) bottomButton];
+  v65 = [v64 contentLayer];
+  [v65 removeAllAnimations];
 
-  v61 = [*(a1 + 32) topButton];
-  v62 = [v61 contentLayer];
-  [v62 position];
-  v64 = v63;
-  v65 = *(a1 + 112);
-  v66 = [*(a1 + 32) bottomButton];
-  v67 = [v66 contentLayer];
-  [v67 setPosition:{v64, v65}];
+  v66 = [*(a1 + 32) contentView];
+  v67 = [v66 layer];
+  [v67 position];
+  v69 = v68;
+  v71 = v70;
 
-  v68 = [*(a1 + 32) bottomButton];
-  v69 = [v68 contentLayer];
-  [v69 removeAllAnimations];
+  v72 = *(a1 + 40);
+  v73 = *(a1 + 48);
+  v74 = *(a1 + 56);
+  v75 = *(a1 + 64);
+  v76 = [*(a1 + 32) contentView];
+  v77 = [v76 layer];
+  [v77 setFrame:{v72, v73, v74, v75}];
 
-  v70 = [*(a1 + 32) contentView];
-  v71 = [v70 layer];
-  [v71 position];
-  v73 = v72;
-  v75 = v74;
+  v78 = [*(a1 + 32) contentView];
+  v79 = [v78 layer];
+  [v79 setPosition:{v69, v71}];
 
-  v76 = *(a1 + 40);
-  v77 = *(a1 + 48);
-  v78 = *(a1 + 56);
-  v79 = *(a1 + 64);
   v80 = [*(a1 + 32) contentView];
   v81 = [v80 layer];
-  [v81 setFrame:{v76, v77, v78, v79}];
+  [v81 removeAllAnimations];
 
-  v82 = [*(a1 + 32) contentView];
-  v83 = [v82 layer];
-  [v83 setPosition:{v73, v75}];
+  v82 = [*(a1 + 32) topButton];
+  [v82 setEnabled:1];
 
-  v84 = [*(a1 + 32) contentView];
-  v85 = [v84 layer];
-  [v85 removeAllAnimations];
-
-  v86 = [*(a1 + 32) topButton];
-  [v86 setEnabled:1];
-
-  v87 = [*(a1 + 32) bottomButton];
-  [v87 setEnabled:1];
+  v83 = [*(a1 + 32) bottomButton];
+  [v83 setEnabled:1];
 
   return [*(a1 + 32) setIsAnimating:0];
 }
@@ -874,201 +874,201 @@ uint64_t __30__TVRUIChannelButton_collapse__block_invoke(uint64_t a1)
   [v26 removeAllAnimations];
 
   v27 = *(a1 + 32);
-  v28 = [v27 isExpanded];
+  [v27 isExpanded];
   if (v27)
   {
-    [v27 _transformForLeftWingExpanded:v28];
+    objc_msgSend__transformForLeftWingExpanded_(v27);
   }
 
   else
   {
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
-    v134 = 0u;
     v131 = 0u;
     v132 = 0u;
     v129 = 0u;
     v130 = 0u;
+    v127 = 0u;
+    v128 = 0u;
+    v125 = 0u;
+    v126 = 0u;
   }
 
-  v29 = [*(a1 + 32) topButton];
-  v30 = [v29 leftWing];
-  v125 = v133;
-  v126 = v134;
-  v127 = v135;
-  v128 = v136;
+  v28 = [*(a1 + 32) topButton];
+  v29 = [v28 leftWing];
   v121 = v129;
   v122 = v130;
   v123 = v131;
   v124 = v132;
-  [v30 setTransform:&v121];
+  v117 = v125;
+  v118 = v126;
+  v119 = v127;
+  v120 = v128;
+  [v29 setTransform:&v117];
 
-  v31 = *(a1 + 32);
-  v32 = [v31 isExpanded];
-  if (v31)
+  v30 = *(a1 + 32);
+  [v30 isExpanded];
+  if (v30)
   {
-    [v31 _transformForRightWingExpanded:v32];
+    objc_msgSend__transformForRightWingExpanded_(v30);
   }
 
   else
   {
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
-    v118 = 0u;
     v115 = 0u;
     v116 = 0u;
     v113 = 0u;
     v114 = 0u;
-  }
-
-  v33 = [*(a1 + 32) topButton];
-  v34 = [v33 rightWing];
-  v125 = v117;
-  v126 = v118;
-  v127 = v119;
-  v128 = v120;
-  v121 = v113;
-  v122 = v114;
-  v123 = v115;
-  v124 = v116;
-  [v34 setTransform:&v121];
-
-  v35 = [*(a1 + 32) topButton];
-  v36 = [v35 leftWing];
-  [v36 removeAllAnimations];
-
-  v37 = [*(a1 + 32) topButton];
-  v38 = [v37 rightWing];
-  [v38 removeAllAnimations];
-
-  v39 = *(a1 + 72);
-  v40 = *(a1 + 80);
-  v41 = [*(a1 + 32) bottomButton];
-  v42 = [v41 layer];
-  [v42 setBounds:{0.0, 0.0, v39, v40}];
-
-  v43 = CGRectGetMidX(*(a1 + 40));
-  v44 = *(a1 + 104);
-  v45 = [*(a1 + 32) bottomButton];
-  v46 = [v45 layer];
-  [v46 setPosition:{v43, v44}];
-
-  v47 = [*(a1 + 32) bottomButton];
-  v48 = [v47 layer];
-  [v48 removeAllAnimations];
-
-  v49 = *(a1 + 32);
-  v50 = [v49 isExpanded];
-  if (v49)
-  {
-    [v49 _transformForLeftWingExpanded:v50];
-  }
-
-  else
-  {
     v111 = 0u;
     v112 = 0u;
     v109 = 0u;
     v110 = 0u;
-    v107 = 0u;
-    v108 = 0u;
-    v105 = 0u;
-    v106 = 0u;
   }
 
-  v51 = [*(a1 + 32) bottomButton];
-  v52 = [v51 leftWing];
-  v125 = v109;
-  v126 = v110;
-  v127 = v111;
-  v128 = v112;
-  v121 = v105;
-  v122 = v106;
-  v123 = v107;
-  v124 = v108;
-  [v52 setTransform:&v121];
+  v31 = [*(a1 + 32) topButton];
+  v32 = [v31 rightWing];
+  v121 = v113;
+  v122 = v114;
+  v123 = v115;
+  v124 = v116;
+  v117 = v109;
+  v118 = v110;
+  v119 = v111;
+  v120 = v112;
+  [v32 setTransform:&v117];
 
-  v53 = *(a1 + 32);
-  v54 = [v53 isExpanded];
-  if (v53)
+  v33 = [*(a1 + 32) topButton];
+  v34 = [v33 leftWing];
+  [v34 removeAllAnimations];
+
+  v35 = [*(a1 + 32) topButton];
+  v36 = [v35 rightWing];
+  [v36 removeAllAnimations];
+
+  v37 = *(a1 + 72);
+  v38 = *(a1 + 80);
+  v39 = [*(a1 + 32) bottomButton];
+  v40 = [v39 layer];
+  [v40 setBounds:{0.0, 0.0, v37, v38}];
+
+  v41 = CGRectGetMidX(*(a1 + 40));
+  v42 = *(a1 + 104);
+  v43 = [*(a1 + 32) bottomButton];
+  v44 = [v43 layer];
+  [v44 setPosition:{v41, v42}];
+
+  v45 = [*(a1 + 32) bottomButton];
+  v46 = [v45 layer];
+  [v46 removeAllAnimations];
+
+  v47 = *(a1 + 32);
+  [v47 isExpanded];
+  if (v47)
   {
-    [v53 _transformForRightWingExpanded:v54];
+    objc_msgSend__transformForLeftWingExpanded_(v47);
   }
 
   else
   {
-    v101 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
+  }
+
+  v48 = [*(a1 + 32) bottomButton];
+  v49 = [v48 leftWing];
+  v121 = v105;
+  v122 = v106;
+  v123 = v107;
+  v124 = v108;
+  v117 = v101;
+  v118 = v102;
+  v119 = v103;
+  v120 = v104;
+  [v49 setTransform:&v117];
+
+  v50 = *(a1 + 32);
+  [v50 isExpanded];
+  if (v50)
+  {
+    objc_msgSend__transformForRightWingExpanded_(v50);
+  }
+
+  else
+  {
     v97 = 0u;
     v99 = 0u;
     v93 = 0u;
     v95 = 0u;
     v89 = 0u;
     v91 = 0u;
+    v85 = 0u;
+    v87 = 0u;
   }
+
+  v51 = [*(a1 + 32) bottomButton];
+  v52 = [v51 rightWing];
+  v121 = v94;
+  v122 = v96;
+  v123 = v98;
+  v124 = v100;
+  v117 = v86;
+  v118 = v88;
+  v119 = v90;
+  v120 = v92;
+  [v52 setTransform:&v117];
+
+  v53 = [*(a1 + 32) bottomButton];
+  v54 = [v53 leftWing];
+  [v54 removeAllAnimations];
 
   v55 = [*(a1 + 32) bottomButton];
   v56 = [v55 rightWing];
-  v125 = v98;
-  v126 = v100;
-  v127 = v102;
-  v128 = v104;
-  v121 = v90;
-  v122 = v92;
-  v123 = v94;
-  v124 = v96;
-  [v56 setTransform:&v121];
+  [v56 removeAllAnimations];
 
-  v57 = [*(a1 + 32) bottomButton];
-  v58 = [v57 leftWing];
-  [v58 removeAllAnimations];
+  v57 = [*(a1 + 32) topButton];
+  v58 = [v57 contentLayer];
+  [v58 position];
+  v60 = v59;
+  v61 = *(a1 + 96);
+  v62 = [*(a1 + 32) bottomButton];
+  v63 = [v62 contentLayer];
+  [v63 setPosition:{v60, v61}];
 
-  v59 = [*(a1 + 32) bottomButton];
-  v60 = [v59 rightWing];
-  [v60 removeAllAnimations];
+  v64 = [*(a1 + 32) bottomButton];
+  v65 = [v64 contentLayer];
+  [v65 removeAllAnimations];
 
-  v61 = [*(a1 + 32) topButton];
-  v62 = [v61 contentLayer];
-  [v62 position];
-  v64 = v63;
-  v65 = *(a1 + 96);
-  v66 = [*(a1 + 32) bottomButton];
-  v67 = [v66 contentLayer];
-  [v67 setPosition:{v64, v65}];
+  v66 = [*(a1 + 32) contentView];
+  v67 = [v66 layer];
+  [v67 position];
+  v69 = v68;
+  v71 = v70;
 
-  v68 = [*(a1 + 32) bottomButton];
-  v69 = [v68 contentLayer];
-  [v69 removeAllAnimations];
+  v72 = *(a1 + 40);
+  v73 = *(a1 + 48);
+  v74 = *(a1 + 56);
+  v75 = *(a1 + 64);
+  v76 = [*(a1 + 32) contentView];
+  v77 = [v76 layer];
+  [v77 setFrame:{v72, v73, v74, v75}];
 
-  v70 = [*(a1 + 32) contentView];
-  v71 = [v70 layer];
-  [v71 position];
-  v73 = v72;
-  v75 = v74;
+  v78 = [*(a1 + 32) contentView];
+  v79 = [v78 layer];
+  [v79 setPosition:{v69, v71}];
 
-  v76 = *(a1 + 40);
-  v77 = *(a1 + 48);
-  v78 = *(a1 + 56);
-  v79 = *(a1 + 64);
   v80 = [*(a1 + 32) contentView];
   v81 = [v80 layer];
-  [v81 setFrame:{v76, v77, v78, v79}];
+  [v81 removeAllAnimations];
 
-  v82 = [*(a1 + 32) contentView];
-  v83 = [v82 layer];
-  [v83 setPosition:{v73, v75}];
+  v82 = [*(a1 + 32) topButton];
+  [v82 setEnabled:0];
 
-  v84 = [*(a1 + 32) contentView];
-  v85 = [v84 layer];
-  [v85 removeAllAnimations];
-
-  v86 = [*(a1 + 32) topButton];
-  [v86 setEnabled:0];
-
-  v87 = [*(a1 + 32) bottomButton];
-  [v87 setEnabled:0];
+  v83 = [*(a1 + 32) bottomButton];
+  [v83 setEnabled:0];
 
   return [*(a1 + 32) setIsAnimating:0];
 }
@@ -1076,7 +1076,7 @@ uint64_t __30__TVRUIChannelButton_collapse__block_invoke(uint64_t a1)
 - (void)_darkenSystemColorsChanged:(id)changed
 {
   v9 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;

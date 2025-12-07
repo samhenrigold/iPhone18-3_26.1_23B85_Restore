@@ -201,14 +201,14 @@
 - (BOOL)_activeAlertDestinationsInRequestDestinations:(id)destinations
 {
   destinationsCopy = destinations;
-  if ([destinationsCopy containsObject:*MEMORY[0x277D77FC8]])
+  if (objc_msgSend_containsObject_(destinationsCopy))
   {
     v4 = 1;
   }
 
   else
   {
-    v4 = [destinationsCopy containsObject:*MEMORY[0x277D77FD0]];
+    v4 = objc_msgSend_containsObject_(destinationsCopy);
   }
 
   return v4;
@@ -299,7 +299,7 @@
   if ([(SBNCAlertingController *)self _shouldRealert])
   {
     realertTimers = [(SBNCAlertingController *)self realertTimers];
-    if ([realertTimers containsObject:firedCopy])
+    if (objc_msgSend_containsObject_(realertTimers))
     {
       activeRequestWithRealerts = [(SBNCAlertingController *)self activeRequestWithRealerts];
 

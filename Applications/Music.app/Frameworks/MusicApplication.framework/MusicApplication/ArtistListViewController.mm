@@ -56,13 +56,13 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  sub_125D28();
+  sub_125D28(v10);
 
   (*(v8 + 8))(v10, v7);
 }

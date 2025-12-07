@@ -21,7 +21,7 @@
   if (!v10)
   {
 LABEL_12:
-    v23 = v10;
+    v24 = v10;
     goto LABEL_16;
   }
 
@@ -49,35 +49,34 @@ LABEL_12:
     if ([(SHSpectralPeakFeaturesExtractor *)v10 signatureType]== 4)
     {
       sigX2 = [(SHSpectralPeakFeaturesExtractor *)v10 sigX];
-      *&v20 = seconds;
-      [sigX2 setRollingBufferSeconds:error error:v20];
+      *&v21 = seconds;
+      [sigX2 setRollingBufferSeconds:error error:v21];
     }
 
-    v21 = v14;
-    v22 = v21;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v22 = v14;
+    v23 = v22;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_230F52000, v22, OS_SIGNPOST_INTERVAL_END, v12, "SHSpectralPeakFeaturesExtractor_Init", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_230F52000, v23, OS_SIGNPOST_INTERVAL_END, v12, "SHSpectralPeakFeaturesExtractor_Init", "", buf, 2u);
     }
 
     goto LABEL_12;
   }
 
-  v24 = sh_log_object();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = sh_log_object(v19);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v25 = *error;
+    v26 = *error;
     *buf = 138412290;
-    v30 = v25;
-    _os_log_impl(&dword_230F52000, v24, OS_LOG_TYPE_ERROR, "Spectral peaks feature extractor failed to initialize with error: %@", buf, 0xCu);
+    v30 = v26;
+    _os_log_impl(&dword_230F52000, v25, OS_LOG_TYPE_ERROR, "Spectral peaks feature extractor failed to initialize with error: %@", buf, 0xCu);
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_16:
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
 }
 
 - (void)dealloc
@@ -91,25 +90,25 @@ LABEL_16:
     v10 = 0;
     [(SHSigX *)v4 resetWithError:&v10];
     v5 = v10;
+    v6 = v5;
     if (v5)
     {
-      v6 = sh_log_object();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sh_log_object(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v12 = v5;
-        _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Error resetting SigX %@", buf, 0xCu);
+        v12 = v6;
+        _os_log_impl(&dword_230F52000, v7, OS_LOG_TYPE_ERROR, "Error resetting SigX %@", buf, 0xCu);
       }
     }
 
-    v7 = self->_sigX;
+    v8 = self->_sigX;
     self->_sigX = 0;
   }
 
   v9.receiver = self;
   v9.super_class = SHSpectralPeakFeaturesExtractor;
   [(SHSpectralPeakFeaturesExtractor *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -121,19 +120,18 @@ LABEL_16:
     v7 = 0;
     v3 = [(SHSigX *)sigX resetWithError:&v7];
     v4 = v7;
+    v5 = v4;
     if (!v3)
     {
-      v5 = sh_log_object();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sh_log_object(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v9 = v4;
-        _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_ERROR, "Error resetting SigX %@", buf, 0xCu);
+        v9 = v5;
+        _os_log_impl(&dword_230F52000, v6, OS_LOG_TYPE_ERROR, "Error resetting SigX %@", buf, 0xCu);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableSpectralOutput
@@ -152,7 +150,7 @@ LABEL_16:
 
 - (BOOL)flowBuffer:(id)buffer error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   format = [bufferCopy format];
   [format sampleRate];
@@ -165,18 +163,18 @@ LABEL_16:
     goto LABEL_6;
   }
 
-  v12 = sh_log_object();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = sh_log_object(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     [(SHSpectralPeakFeaturesExtractor *)self sampleRate];
-    v14 = v13;
+    v15 = v14;
     format2 = [bufferCopy format];
     [format2 sampleRate];
     *buf = 134218240;
-    v34 = v14;
-    v35 = 2048;
-    v36 = v16;
-    _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_INFO, "Sample rate for spectral peaks extractor changed from %.1f to %.1f", buf, 0x16u);
+    v35 = v15;
+    v36 = 2048;
+    v37 = v17;
+    _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_INFO, "Sample rate for spectral peaks extractor changed from %.1f to %.1f", buf, 0x16u);
   }
 
   [(SHSpectralPeakFeaturesExtractor *)self reset];
@@ -185,53 +183,52 @@ LABEL_16:
 
   format3 = [bufferCopy format];
   [format3 sampleRate];
-  self->_sampleRate = v19;
+  self->_sampleRate = v20;
 
-  v20 = [SHSigX alloc];
+  v21 = [SHSigX alloc];
   signatureType = [(SHSpectralPeakFeaturesExtractor *)self signatureType];
   [(SHSpectralPeakFeaturesExtractor *)self sampleRate];
-  v32 = 0;
-  v23 = [(SHSigX *)v20 initWithSignatureType:signatureType sampleRate:v22 error:&v32];
-  sigX2 = v32;
-  v25 = self->_sigX;
-  self->_sigX = v23;
+  v33 = 0;
+  v24 = [(SHSigX *)v21 initWithSignatureType:signatureType sampleRate:v23 error:&v33];
+  sigX2 = v33;
+  v26 = self->_sigX;
+  self->_sigX = v24;
 
   sigX = [(SHSpectralPeakFeaturesExtractor *)self sigX];
-  LODWORD(v23) = sigX == 0;
+  LODWORD(v24) = sigX == 0;
 
-  if (!v23)
+  if (!v24)
   {
 
 LABEL_6:
     sigX2 = [(SHSpectralPeakFeaturesExtractor *)self sigX];
-    v27 = [sigX2 flowBuffer:bufferCopy error:error];
+    v29 = [sigX2 flowBuffer:bufferCopy error:error];
     goto LABEL_7;
   }
 
-  v30 = sh_log_object();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v31 = sh_log_object(v28);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v34 = sigX2;
-    _os_log_impl(&dword_230F52000, v30, OS_LOG_TYPE_ERROR, "Spectral peaks feature extractor failed to initialize with error: %@", buf, 0xCu);
+    v35 = sigX2;
+    _os_log_impl(&dword_230F52000, v31, OS_LOG_TYPE_ERROR, "Spectral peaks feature extractor failed to initialize with error: %@", buf, 0xCu);
   }
 
   if (error)
   {
-    v31 = sigX2;
-    v27 = 0;
+    v32 = sigX2;
+    v29 = 0;
     *error = sigX2;
   }
 
   else
   {
-    v27 = 0;
+    v29 = 0;
   }
 
 LABEL_7:
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v27;
+  return v29;
 }
 
 - (BOOL)setRollingBufferSeconds:(float)seconds error:(id *)error

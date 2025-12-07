@@ -126,7 +126,7 @@
   v67 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   containerCopy = container;
-  v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(containerCopy, "count")}];
+  v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(containerCopy)];
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
@@ -203,7 +203,7 @@ LABEL_26:
 
   context = objc_autoreleasePoolPush();
   v16 = objc_alloc(MEMORY[0x1E695DF90]);
-  v17 = [v16 initWithCapacity:{objc_msgSend(v50[5], "count")}];
+  v17 = [v16 initWithCapacity:objc_msgSend_count(v50[5])];
   v39 = 0u;
   v40 = 0u;
   v37 = 0u;
@@ -298,7 +298,7 @@ void __97__PLDuplicateDetectorExactPixel__postProcessFetchMetadataWithPhotoLibra
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
 
-  v14 = [v8 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count")}];
+  v14 = [v8 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40))];
   if (v14)
   {
     v15 = PLDuplicateDetectionGetLog();
@@ -355,7 +355,7 @@ void __97__PLDuplicateDetectorExactPixel__postProcessFetchMetadataWithPhotoLibra
     v31 = *(v30 + 40);
     *(v30 + 40) = v29;
 
-    v32 = [v26 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count")}];
+    v32 = [v26 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40))];
     if (v32)
     {
       v33 = PLDuplicateDetectionGetLog();
@@ -645,8 +645,8 @@ BOOL __93__PLDuplicateDetectorExactPixel__postProcessDuplicateWithPhotoLibrary_r
 {
   v27[2] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSArray count](self->_sourceAssetOIDs, "count")}];
-  v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSArray count](self->_sourceAssetOIDs, "count")}];
+  v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(self->_sourceAssetOIDs)];
+  v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(self->_sourceAssetOIDs)];
   if (hashes | alternativeHashes)
   {
     v11 = MEMORY[0x1E695D5E0];
@@ -703,7 +703,7 @@ void __93__PLDuplicateDetectorExactPixel__fetchLimitedSelectionHashes_alternativ
   v7 = [v5 executeFetchRequest:v6 error:&v19];
   v8 = v19;
 
-  v9 = [v4 stopRecordingDescriptionWithFetchCount:{objc_msgSend(v7, "count")}];
+  v9 = [v4 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(v7)];
   if (v9)
   {
     v10 = PLDuplicateDetectionGetLog();
@@ -811,7 +811,7 @@ void __93__PLDuplicateDetectorExactPixel__fetchLimitedSelectionHashes_alternativ
 {
   v15[2] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  if ([(NSArray *)self->_sourceAssetOIDs count])
+  if (objc_msgSend_count(self->_sourceAssetOIDs))
   {
     v13 = 0;
     v14 = 0;
@@ -1009,7 +1009,7 @@ void __95__PLDuplicateDetectorExactPixel__generateDuplicateContainerFromProcesse
     while (v7);
   }
 
-  if ([*(*(*(a1 + 64) + 8) + 40) count] >= 2)
+  if (objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40)) >= 2)
   {
     v10 = [PLDuplicateGroup alloc];
     v11 = [*(*(*(a1 + 64) + 8) + 40) copy];
@@ -1053,7 +1053,7 @@ void __95__PLDuplicateDetectorExactPixel__generateDuplicateContainerFromProcesse
   v8 = v7;
   v9 = v6;
   [resultsCopy enumerateObjectsUsingBlock:v19];
-  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v9)];
   v14 = MEMORY[0x1E69E9820];
   v15 = 3221225472;
   v16 = __72__PLDuplicateDetectorExactPixel__generateDuplicateContainerFromResults___block_invoke_2;
@@ -1086,7 +1086,7 @@ void __72__PLDuplicateDetectorExactPixel__generateDuplicateContainerFromResults_
 {
   v6 = a2;
   v5 = a3;
-  if ([v5 count] >= 2)
+  if (objc_msgSend_count(v5) >= 2)
   {
     [*(a1 + 32) setObject:v5 forKeyedSubscript:v6];
   }
@@ -1124,7 +1124,7 @@ void __72__PLDuplicateDetectorExactPixel__generateDuplicateContainerFromResults_
     v9 = v25[5];
     v25[5] = 0;
 
-    if (![v8 count])
+    if (!objc_msgSend_count(v8))
     {
       v10 = PLDuplicateDetectionGetLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
@@ -1226,7 +1226,7 @@ void __72__PLDuplicateDetectorExactPixel_detectDuplicatesWithPhotoLibrary_error_
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  v11 = [v5 stopRecordingDescriptionWithFetchCount:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count")}];
+  v11 = [v5 stopRecordingDescriptionWithFetchCount:objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40))];
   if (v11)
   {
     v12 = PLDuplicateDetectionGetLog();

@@ -34,10 +34,7 @@ void __65__NSDate_CalendarAdditions__dateAtHour_minute_second_inTimeZone___block
 
 uint64_t __65__NSDate_CalendarAdditions__dateWithoutTimeComponentsInTimeZone___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a1 + 32) dateRemovingTimeComponentsInCalendar:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) dateRemovingTimeComponentsInCalendar:a2];
 
   return MEMORY[0x1EEE66BB8]();
 }

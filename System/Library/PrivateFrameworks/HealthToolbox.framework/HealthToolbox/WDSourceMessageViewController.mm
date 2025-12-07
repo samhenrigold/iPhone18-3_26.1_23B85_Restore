@@ -48,9 +48,9 @@
 
 - (void)viewDidLoad
 {
-  v34.receiver = self;
-  v34.super_class = WDSourceMessageViewController;
-  [(WDSourceMessageViewController *)&v34 viewDidLoad];
+  v33.receiver = self;
+  v33.super_class = WDSourceMessageViewController;
+  [(WDSourceMessageViewController *)&v33 viewDidLoad];
   view = [(WDSourceMessageViewController *)self view];
   [view addSubview:self->_messageLabel];
 
@@ -73,7 +73,7 @@
   v16 = self->_messageLabel;
   view7 = [(WDSourceMessageViewController *)self view];
   [view7 bounds];
-  v18 = [v15 constraintWithItem:v16 attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:CGRectGetWidth(v35) + -60.0];
+  v18 = [v15 constraintWithItem:v16 attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:CGRectGetWidth(v34) + -60.0];
   [view6 addConstraint:v18];
 
   style = self->_style;
@@ -95,14 +95,14 @@
       goto LABEL_9;
     }
 
-    v28 = WDBundle();
-    v29 = [v28 localizedStringForKey:@"SOURCES_WATCH_UNPAIRED" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
+    v27 = WDBundle();
+    v28 = [v27 localizedStringForKey:@"SOURCES_WATCH_UNPAIRED" value:&stru_28641D9B8 table:@"WellnessDashboard-Localizable"];
 
-    v30 = self->_messageLabel;
-    v31 = MEMORY[0x277CCACA8];
+    v29 = self->_messageLabel;
+    v30 = MEMORY[0x277CCACA8];
     name = [(HKSource *)self->_source name];
-    v33 = [v31 localizedStringWithFormat:v29, name];
-    [(UILabel *)v30 setText:v33];
+    v32 = [v30 localizedStringWithFormat:v28, name];
+    [(UILabel *)v29 setText:v32];
   }
 
   else
@@ -126,9 +126,8 @@ LABEL_9:
     }
 
     v25 = self->_messageLabel;
-    source = self->_source;
-    v27 = HKHealthRecordsAPILocalizedStringWithSource();
-    [(UILabel *)v25 setText:v27];
+    v26 = HKHealthRecordsAPILocalizedStringWithSource();
+    [(UILabel *)v25 setText:v26];
   }
 }
 

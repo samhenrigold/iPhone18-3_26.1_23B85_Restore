@@ -1,37 +1,7 @@
 void SRPhotoplethysmogramOpticalSample.noiseTerms.getter(uint64_t a1@<X8>)
 {
   v3 = [v1 whiteNoise];
-  if (!v3)
-  {
-    goto LABEL_6;
-  }
-
-  v4 = v3;
-  [v3 doubleValue];
-  v6 = v5;
-
-  v7 = [v1 pinkNoise];
-  if (!v7)
-  {
-    goto LABEL_6;
-  }
-
-  v8 = v7;
-  [v7 doubleValue];
-  v10 = v9;
-
-  v11 = [v1 backgroundNoise];
-  if (!v11)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = v11;
-  [v11 doubleValue];
-  v14 = v13;
-
-  v15 = [v1 backgroundNoiseOffset];
-  if (v15)
+  if (v3 && (v4 = v3, [v3 doubleValue], v6 = v5, v4, (v7 = objc_msgSend(v1, sel_pinkNoise)) != 0) && (v8 = v7, objc_msgSend(v7, sel_doubleValue), v10 = v9, v8, (v11 = objc_msgSend(v1, sel_backgroundNoise)) != 0) && (v12 = v11, objc_msgSend(v11, sel_doubleValue), v14 = v13, v12, (v15 = objc_msgSend(v1, sel_backgroundNoiseOffset)) != 0))
   {
     v16 = v15;
     [v15 doubleValue];
@@ -46,7 +16,6 @@ void SRPhotoplethysmogramOpticalSample.noiseTerms.getter(uint64_t a1@<X8>)
 
   else
   {
-LABEL_6:
     *a1 = 0u;
     *(a1 + 16) = 0u;
     *(a1 + 32) = 1;
@@ -131,7 +100,7 @@ id SRWristTemperatureSession.temperatures.getter@<X0>(void *a1@<X8>)
 
 uint64_t sub_1C914FF88(uint64_t a1)
 {
-  sub_1C915008C(a1, &v2);
+  sub_1C915008C(a1, &v3);
   sub_1C91500E8();
   return swift_dynamicCast();
 }
@@ -154,7 +123,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -227,17 +195,18 @@ void sub_1C9154F3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C9155988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_1C9155988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  objc_destroyWeak((v51 + 56));
-  objc_destroyWeak((v52 + 64));
-  objc_destroyWeak((v53 - 128));
+  va_start(va, a50);
+  objc_destroyWeak((v50 + 56));
+  objc_destroyWeak((v51 + 64));
+  objc_destroyWeak((v52 - 128));
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v53 - 240), 8);
-  _Block_object_dispose((v53 - 208), 8);
-  _Block_object_dispose((v53 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v52 - 240), 8);
+  _Block_object_dispose((v52 - 208), 8);
+  _Block_object_dispose((v52 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -265,64 +234,60 @@ uint64_t getUIDeviceClass()
   return v0;
 }
 
-void sub_1C915852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C915852C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getUIDeviceClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!qword_1EE02AAE0)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __UIKitLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E8330468;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __UIKitLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E8330468;
+    v8 = 0;
     qword_1EE02AAE0 = _sl_dlopen();
   }
 
   if (!qword_1EE02AAE0)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"SRDevice.m" lineNumber:17 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"SRDevice.m" lineNumber:17 description:{@"%s", v6[0]}];
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("UIDevice");
   *(*(*(a1 + 32) + 8) + 40) = result;
   if (!*(*(*(a1 + 32) + 8) + 40))
   {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v6 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"Class getUIDeviceClass(void)_block_invoke") description:{@"SRDevice.m", 18, @"Unable to find class %s", "UIDevice"}];
+    v5 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v5 handleFailureInFunction:objc_msgSend(MEMORY[0x1E696AEC0] file:"stringWithUTF8String:" lineNumber:"Class getUIDeviceClass(void)_block_invoke") description:{@"SRDevice.m", 18, @"Unable to find class %s", "UIDevice"}];
 LABEL_10:
     __break(1u);
   }
 
   qword_1EE02AAD8 = *(*(*(a1 + 32) + 8) + 40);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1EE02AAE0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -337,13 +302,13 @@ void sub_1C9158A38(_Unwind_Exception *a1)
 
 void SRRegisterForDarwinNotification(void *a1, int *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = SRLogDaemonNotification;
   if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138543362;
-    v13 = a1;
-    _os_log_debug_impl(&dword_1C914D000, v6, OS_LOG_TYPE_DEBUG, "Registering for darwin notification on %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = a1;
+    _os_log_debug_impl(&dword_1C914D000, v6, OS_LOG_TYPE_DEBUG, "Registering for darwin notification on %{public}@", &v11, 0xCu);
   }
 
   *a2 = -1;
@@ -355,31 +320,29 @@ void SRRegisterForDarwinNotification(void *a1, int *a2, void *a3)
     if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_ERROR))
     {
       v10 = *a2;
-      v12 = 138543874;
-      v13 = a1;
-      v14 = 1026;
-      v15 = v8;
-      v16 = 1026;
-      v17 = v10;
-      _os_log_error_impl(&dword_1C914D000, v9, OS_LOG_TYPE_ERROR, "Failed to register for darwin notification %{public}@, status %{public}d, registration token %{public}d", &v12, 0x18u);
+      v11 = 138543874;
+      v12 = a1;
+      v13 = 1026;
+      v14 = v8;
+      v15 = 1026;
+      v16 = v10;
+      _os_log_error_impl(&dword_1C914D000, v9, OS_LOG_TYPE_ERROR, "Failed to register for darwin notification %{public}@, status %{public}d, registration token %{public}d", &v11, 0x18u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void SRUnregisterForNotification(uint64_t a1, int *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *a2;
   if (*a2 != -1)
   {
     v5 = SRLogDaemonNotification;
     if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138543362;
-      v10 = a1;
-      _os_log_debug_impl(&dword_1C914D000, v5, OS_LOG_TYPE_DEBUG, "Unregistering for darwin notification on %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = a1;
+      _os_log_debug_impl(&dword_1C914D000, v5, OS_LOG_TYPE_DEBUG, "Unregistering for darwin notification on %{public}@", &v8, 0xCu);
       v2 = *a2;
     }
 
@@ -388,19 +351,17 @@ void SRUnregisterForNotification(uint64_t a1, int *a2)
       v6 = SRLogDaemonNotification;
       if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_ERROR))
       {
-        v8 = *a2;
-        v9 = 138543618;
-        v10 = a1;
-        v11 = 1026;
-        v12 = v8;
-        _os_log_error_impl(&dword_1C914D000, v6, OS_LOG_TYPE_ERROR, "Failed to cancel notification %{public}@. status %{public}d", &v9, 0x12u);
+        v7 = *a2;
+        v8 = 138543618;
+        v9 = a1;
+        v10 = 1026;
+        v11 = v7;
+        _os_log_error_impl(&dword_1C914D000, v6, OS_LOG_TYPE_ERROR, "Failed to cancel notification %{public}@. status %{public}d", &v8, 0x12u);
       }
     }
 
     *a2 = -1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C915AB0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location)
@@ -433,11 +394,11 @@ void sub_1C91645FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C91649CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C91649CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  objc_destroyWeak((v15 + 56));
-  objc_destroyWeak((v16 - 96));
+  va_start(va, a22);
+  objc_destroyWeak((v22 + 56));
+  objc_destroyWeak((v23 - 96));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -456,7 +417,7 @@ void sub_1C9164FE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __legacyExtendedReasonBehavior_block_invoke()
+uint64_t __legacyExtendedReasonBehavior_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = dyld_program_sdk_at_least();
   _MergedGlobals_3 = result ^ 1;
@@ -643,7 +604,7 @@ void SRSetRequiredOnboardingCompleted()
 
 BOOL SRIsRequiredOnboardingCompleted()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (_MergedGlobals_5 != -1)
   {
     dispatch_once(&_MergedGlobals_5, &__block_literal_global_6);
@@ -652,8 +613,8 @@ BOOL SRIsRequiredOnboardingCompleted()
   v0 = qword_1EE02AB28;
   if (os_log_type_enabled(qword_1EE02AB28, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v5[0]) = 0;
-    _os_log_error_impl(&dword_1C914D000, v0, OS_LOG_TYPE_ERROR, "SRIsRequiredOnboardingCompleted() should no longer be called.", v5, 2u);
+    LOWORD(v4[0]) = 0;
+    _os_log_error_impl(&dword_1C914D000, v0, OS_LOG_TYPE_ERROR, "SRIsRequiredOnboardingCompleted() should no longer be called.", v4, 2u);
   }
 
   v1 = [+[SRAuthorizationClient sharedInstance](SRAuthorizationClient firstRunOnboardingCompleted];
@@ -665,12 +626,11 @@ BOOL SRIsRequiredOnboardingCompleted()
   v2 = qword_1EE02AB28;
   if (os_log_type_enabled(qword_1EE02AB28, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67240192;
-    v5[1] = v1;
-    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "SRIsRequiredOnboardingCompleted() returning %{public, BOOL}d", v5, 8u);
+    v4[0] = 67240192;
+    v4[1] = v1;
+    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "SRIsRequiredOnboardingCompleted() returning %{public, BOOL}d", v4, 8u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -691,7 +651,7 @@ void SRSetDataCollectionEnabled()
 
 BOOL SRIsDataCollectionEnabled()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (_MergedGlobals_5 != -1)
   {
     dispatch_once(&_MergedGlobals_5, &__block_literal_global_6);
@@ -700,8 +660,8 @@ BOOL SRIsDataCollectionEnabled()
   v0 = qword_1EE02AB28;
   if (os_log_type_enabled(qword_1EE02AB28, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v5[0]) = 0;
-    _os_log_error_impl(&dword_1C914D000, v0, OS_LOG_TYPE_ERROR, "SRIsDataCollectionEnabled() should no longer be called.", v5, 2u);
+    LOWORD(v4[0]) = 0;
+    _os_log_error_impl(&dword_1C914D000, v0, OS_LOG_TYPE_ERROR, "SRIsDataCollectionEnabled() should no longer be called.", v4, 2u);
   }
 
   v1 = [+[SRAuthorizationClient sharedInstance](SRAuthorizationClient dataCollectionEnabled];
@@ -713,12 +673,11 @@ BOOL SRIsDataCollectionEnabled()
   v2 = qword_1EE02AB28;
   if (os_log_type_enabled(qword_1EE02AB28, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67240192;
-    v5[1] = v1;
-    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "SRIsDataCollectionEnabled() returning %{public, BOOL}d", v5, 8u);
+    v4[0] = 67240192;
+    v4[1] = v1;
+    _os_log_impl(&dword_1C914D000, v2, OS_LOG_TYPE_DEFAULT, "SRIsDataCollectionEnabled() returning %{public, BOOL}d", v4, 8u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -884,9 +843,9 @@ uint64_t getSRRemoteAuthorizationPromptViewControllerClass()
   return v0;
 }
 
-void sub_1C9172B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C9172B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -915,9 +874,9 @@ uint64_t getSRAuthorizationPromptPresentationControllerClass()
   return v0;
 }
 
-void sub_1C9172BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C9172BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -987,33 +946,32 @@ uint64_t SRRequestAuthorizationForServicesWithBundle(void *a1, uint64_t a2, uint
   return SRRequestAuthorizationForServices(v7, a2, v9);
 }
 
-uint64_t verifyPlist(void *a1, uint64_t a2)
+void *verifyPlist(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6 = 0;
-  result = [a1 _sr_validateRequiredFieldsForSensors:a2 error:&v6];
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = 0;
+  result = [a1 _sr_validateRequiredFieldsForSensors:a2 error:&v5];
   if ((result & 1) == 0)
   {
-    v4 = [v6 description];
+    v3 = [v5 description];
     if (qword_1EE02AB48 != -1)
     {
       dispatch_once(&qword_1EE02AB48, &__block_literal_global_8);
     }
 
-    v5 = _MergedGlobals_7;
+    v4 = _MergedGlobals_7;
     if (os_log_type_enabled(_MergedGlobals_7, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v8 = v4;
-      _os_log_fault_impl(&dword_1C914D000, v5, OS_LOG_TYPE_FAULT, "%{public}@", buf, 0xCu);
+      v7 = v3;
+      _os_log_fault_impl(&dword_1C914D000, v4, OS_LOG_TYPE_FAULT, "%{public}@", buf, 0xCu);
     }
 
-    [v4 UTF8String];
+    [v3 UTF8String];
     _os_crash();
     __break(1u);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1088,7 +1046,7 @@ uint64_t __SRShowAppsAndStudiesUsingSensorKit_block_invoke(uint64_t a1, uint64_t
 
 uint64_t __SRShowAppsAndStudiesUsingSensorKit_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (qword_1EE02AB48 != -1)
@@ -1099,17 +1057,15 @@ uint64_t __SRShowAppsAndStudiesUsingSensorKit_block_invoke_2(uint64_t a1, uint64
     v4 = _MergedGlobals_7;
     if (os_log_type_enabled(_MergedGlobals_7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = a2;
-      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting apps and studies view because %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = a2;
+      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting apps and studies view because %{public}@", &v6, 0xCu);
     }
 
     [MEMORY[0x1E696ABC0] errorWithDomain:SRErrorDomain code:8194 userInfo:0];
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t SRShowStudyAuthorization(uint64_t a1, uint64_t a2)
@@ -1164,7 +1120,7 @@ uint64_t __SRShowStudyAuthorization_block_invoke(uint64_t a1, uint64_t a2)
 
 uint64_t __SRShowStudyAuthorization_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (qword_1EE02AB48 != -1)
@@ -1175,17 +1131,15 @@ uint64_t __SRShowStudyAuthorization_block_invoke_2(uint64_t a1, uint64_t a2)
     v4 = _MergedGlobals_7;
     if (os_log_type_enabled(_MergedGlobals_7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = a2;
-      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting app's authorization view because %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = a2;
+      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting app's authorization view because %{public}@", &v6, 0xCu);
     }
 
     [MEMORY[0x1E696ABC0] errorWithDomain:SRErrorDomain code:8194 userInfo:0];
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t SRShowResearchData(uint64_t a1)
@@ -1238,7 +1192,7 @@ uint64_t __SRShowResearchData_block_invoke(uint64_t a1, uint64_t a2)
 
 uint64_t __SRShowResearchData_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (qword_1EE02AB48 != -1)
@@ -1249,17 +1203,15 @@ uint64_t __SRShowResearchData_block_invoke_2(uint64_t a1, uint64_t a2)
     v4 = _MergedGlobals_7;
     if (os_log_type_enabled(_MergedGlobals_7, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = a2;
-      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting Research Data view because %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = a2;
+      _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Error presenting Research Data view because %{public}@", &v6, 0xCu);
     }
 
     [MEMORY[0x1E696ABC0] errorWithDomain:SRErrorDomain code:8194 userInfo:0];
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t SRRequestFirstRunOnBoarding(uint64_t a1)
@@ -1417,46 +1369,41 @@ Class __getSRRemoteAuthorizationPromptViewControllerClass_block_invoke(uint64_t 
 
 void SensorKitUILibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!SensorKitUILibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __SensorKitUILibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E8330AD0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __SensorKitUILibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E8330AD0;
+    v5 = 0;
     SensorKitUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!SensorKitUILibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SensorKitUILibrary(void)"];
-    v0 = [v2 handleFailureInFunction:v3 file:@"SRAuthorizationPrompt.m" lineNumber:22 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SensorKitUILibrary(void)"];
+    v0 = [v1 handleFailureInFunction:v2 file:@"SRAuthorizationPrompt.m" lineNumber:22 description:{@"%s", v3[0]}];
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __SensorKitUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SensorKitUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1525,23 +1472,20 @@ uint64_t __SRAbsoluteTimeFromContinuousTime_block_invoke()
   return result;
 }
 
-uint64_t SRAbsoluteTimeGetOffsets(uint64_t result, void *a2)
+void SRAbsoluteTimeGetOffsets(double *a1, void *a2)
 {
-  if (result)
+  if (a1)
   {
-    v3 = result;
     v4 = *&_rtcStart;
-    result = TMConvertTicksToSeconds();
-    *v3 = v4 - v5;
+    TMConvertTicksToSeconds();
+    *a1 = v4 - v5;
   }
 
   if (a2)
   {
-    result = mach_get_times();
+    mach_get_times();
     *a2 = 0;
   }
-
-  return result;
 }
 
 SRAbsoluteTime SRAbsoluteTimeFromCFAbsoluteTime(CFAbsoluteTime cf)
@@ -1551,7 +1495,7 @@ SRAbsoluteTime SRAbsoluteTimeFromCFAbsoluteTime(CFAbsoluteTime cf)
   return cf - (v2 - SRAbsoluteTimeFromContinuousTime(0));
 }
 
-BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, double a3, uint64_t a4, double *a5)
+BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, uint64_t a3, double *a4, double a5)
 {
   mach_get_times();
   v9 = 1.0;
@@ -1566,7 +1510,7 @@ BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, d
   }
 
   TMConvertTicksToSeconds();
-  v12 = v11 + a3;
+  v12 = v11 + a5;
   TMConvertTicksToSeconds();
   v14 = v12 + v10 * v13;
   TMConvertTicksToSeconds();
@@ -1586,16 +1530,16 @@ BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, d
   if (v23 > 0.0)
   {
     _remoteRTCOffset = *&v22;
-    if (a5)
+    if (a4)
     {
-      *a5 = v22;
+      *a4 = v22;
     }
   }
 
   return v23 > 0.0;
 }
 
-double SRAbsoluteTimeRoundedDownToNearestInterval(SRAbsoluteTime a1, double a2)
+SRAbsoluteTime SRAbsoluteTimeRoundedDownToNearestInterval(SRAbsoluteTime a1, double a2)
 {
   if (a2 == 0.0)
   {
@@ -1649,7 +1593,7 @@ uint64_t __cullOldSessions_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t __SRAuthorizationStatusForBundleIdentifierWithConnection_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (qword_1EE02AB80 != -1)
   {
     dispatch_once(&qword_1EE02AB80, &__block_literal_global_11);
@@ -1658,14 +1602,12 @@ uint64_t __SRAuthorizationStatusForBundleIdentifierWithConnection_block_invoke(u
   v4 = _MergedGlobals_9;
   if (os_log_type_enabled(_MergedGlobals_9, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t SRAuthorizationStatusForBundleIdentifier(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1696,7 +1638,7 @@ void __SRAuthorizationStatusForBundleIdentifier_block_invoke(uint64_t a1)
 
 uint64_t __SRAuthorizationResetWithConnection_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (qword_1EE02AB80 != -1)
   {
     dispatch_once(&qword_1EE02AB80, &__block_literal_global_11);
@@ -1705,14 +1647,12 @@ uint64_t __SRAuthorizationResetWithConnection_block_invoke(uint64_t a1, uint64_t
   v4 = _MergedGlobals_9;
   if (os_log_type_enabled(_MergedGlobals_9, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 uint64_t SRAuthorizationResetWithCompletionHandler(void *a1, uint64_t a2)
@@ -1770,7 +1710,7 @@ uint64_t SRAuthorizationFetchSnapshot(uint64_t a1)
 
 void __SRAuthorizationFetchSnapshot_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (qword_1EE02AB80 != -1)
   {
     dispatch_once(&qword_1EE02AB80, &__block_literal_global_11);
@@ -1779,15 +1719,13 @@ void __SRAuthorizationFetchSnapshot_block_invoke(uint64_t a1, uint64_t a2)
   v4 = _MergedGlobals_9;
   if (os_log_type_enabled(_MergedGlobals_9, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __SRAuthorizationFetchSnapshot_block_invoke_13(uint64_t a1)
@@ -1825,7 +1763,7 @@ uint64_t SRAuthorizationSnapshot(uint64_t a1)
 
 void __SRAuthorizationSnapshot_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (qword_1EE02AB80 != -1)
   {
     dispatch_once(&qword_1EE02AB80, &__block_literal_global_11);
@@ -1834,15 +1772,13 @@ void __SRAuthorizationSnapshot_block_invoke(uint64_t a1, uint64_t a2)
   v4 = _MergedGlobals_9;
   if (os_log_type_enabled(_MergedGlobals_9, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Couldn't connect to com.apple.SensorKitAppHelper because %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
   [*(a1 + 32) invalidate];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __SRAuthorizationSnapshot_block_invoke_14(uint64_t a1)
@@ -1875,23 +1811,23 @@ void sub_1C917D838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C917DED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C917DED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C917E89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C917E89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C917E9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C917E9BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2156,15 +2092,16 @@ void sub_1C9184310(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t __legacyAuthorizationStatusBehavior_block_invoke()
+uint64_t __legacyAuthorizationStatusBehavior_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = dyld_program_sdk_at_least();
   _MergedGlobals_11 = result ^ 1;
   return result;
 }
 
-uint64_t writeMetadataBytesForFrameStore(SRFramesStoreOffsetEnumerator *a1, const void *a2, size_t a3, SRError **a4, double a5)
+uint64_t writeMetadataBytesForFrameStore(SRFramesStoreOffsetEnumerator *a1, const void *a2, size_t a3, SRError **a4, __n128 a5)
 {
+  v6 = a5.n128_f64[0];
   if (a1)
   {
     v10 = *&a1[2].super.isa;
@@ -2208,7 +2145,7 @@ uint64_t writeMetadataBytesForFrameStore(SRFramesStoreOffsetEnumerator *a1, cons
       }
     }
 
-    v17 = [(SRFrameStore *)a1 writeFrameForBytes:a2 length:a3 timestamp:a4 error:a5];
+    v17 = [(SRFrameStore *)a1 writeFrameForBytes:a2 length:a3 timestamp:a4 error:v6];
     v19 = a1[1].super.isa;
     if (v19 && (v20 = *(v19 + 2)) != 0)
     {
@@ -2247,9 +2184,10 @@ uint64_t writeMetadataBytesForFrameStore(SRFramesStoreOffsetEnumerator *a1, cons
   return v17;
 }
 
-uint64_t fetchMetadataFromFrameStore(SRFramesStoreOffsetEnumerator *a1, uint64_t *a2, uint64_t *a3, double a4)
+uint64_t fetchMetadataFromFrameStore(SRFramesStoreOffsetEnumerator *a1, uint64_t *a2, uint64_t *a3, __n128 a4)
 {
-  result = findClosestMetadataObjectInFrameStore(a1, a4);
+  v6 = a4.n128_f64[0];
+  result = findClosestMetadataObjectInFrameStore(a1, a4.n128_f64[0]);
   v9 = 0;
   *a2 = result;
   if (!a1 || !result)
@@ -2268,7 +2206,7 @@ LABEL_12:
   }
 
   *a3 = v10;
-  if (*v10 != -1.0 && *v10 <= a4)
+  if (*v10 != -1.0 && *v10 <= v6)
   {
     *a2 = v10;
     v12 = v10 + *(v10 + 16) + 20;
@@ -2291,88 +2229,82 @@ LABEL_12:
 
 double *findClosestMetadataObjectInFrameStore(SRFramesStoreOffsetEnumerator *a1, double a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = [(SRFrameStore *)a1 enumerateFromOffset:?];
-  v5 = [(SRFramesStoreOffsetEnumerator *)v4 countByEnumeratingWithState:&v17 objects:v29 count:16];
-  if (v5)
+  v5 = [(SRFramesStoreOffsetEnumerator *)v4 countByEnumeratingWithState:&v16 objects:v28 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = 0;
-    v8 = *v18;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = 0;
+  v8 = *v17;
 LABEL_3:
-    v9 = 0;
-    v10 = v7;
-    while (1)
+  v9 = 0;
+  v10 = v7;
+  while (1)
+  {
+    if (*v17 != v8)
     {
-      if (*v18 != v8)
+      objc_enumerationMutation(v4);
+    }
+
+    v7 = *(*(&v16 + 1) + 8 * v9);
+    v11 = SRLogDatastore;
+    if (os_log_type_enabled(SRLogDatastore, OS_LOG_TYPE_DEBUG))
+    {
+      if (a1)
       {
-        objc_enumerationMutation(v4);
+        offset = a1[1]._offset;
       }
 
-      v7 = *(*(&v17 + 1) + 8 * v9);
-      v11 = SRLogDatastore;
-      if (os_log_type_enabled(SRLogDatastore, OS_LOG_TYPE_DEBUG))
+      else
       {
-        if (a1)
-        {
-          offset = a1[1]._offset;
-        }
-
-        else
-        {
-          offset = 0;
-        }
-
-        v13 = *v7;
-        *buf = 138413058;
-        v22 = offset;
-        v23 = 2048;
-        v24 = v13;
-        v25 = 2048;
-        v26 = a2;
-        v27 = 2048;
-        v28 = v10;
-        _os_log_debug_impl(&dword_1C914D000, v11, OS_LOG_TYPE_DEBUG, "metadata segment: %@, metadata frame time: %f, sample time: %f, current metadata object: %p", buf, 0x2Au);
+        offset = 0;
       }
 
-      if (*v7 > a2)
-      {
-        break;
-      }
+      v13 = *v7;
+      *buf = 138413058;
+      v21 = offset;
+      v22 = 2048;
+      v23 = v13;
+      v24 = 2048;
+      v25 = a2;
+      v26 = 2048;
+      v27 = v10;
+      _os_log_debug_impl(&dword_1C914D000, v11, OS_LOG_TYPE_DEBUG, "metadata segment: %@, metadata frame time: %f, sample time: %f, current metadata object: %p", buf, 0x2Au);
+    }
 
-      ++v9;
+    if (*v7 > a2)
+    {
+      return v10;
+    }
+
+    ++v9;
+    v10 = v7;
+    if (v6 == v9)
+    {
+      v14 = [(SRFramesStoreOffsetEnumerator *)v4 countByEnumeratingWithState:&v16 objects:v28 count:16, *v7];
+      v6 = v14;
       v10 = v7;
-      if (v6 == v9)
+      if (v14)
       {
-        v14 = [(SRFramesStoreOffsetEnumerator *)v4 countByEnumeratingWithState:&v17 objects:v29 count:16, *v7];
-        v6 = v14;
-        v10 = v7;
-        if (v14)
-        {
-          goto LABEL_3;
-        }
-
-        break;
+        goto LABEL_3;
       }
+
+      return v10;
     }
   }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-  return v10;
 }
 
 void SRMakeSegmentHeader(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *(a1 + 40) = 0u;
   *a1 = 1195725633;
   *(a1 + 4) = a2;
@@ -2390,11 +2322,11 @@ void SRMakeSegmentHeader(uint64_t a1, uint64_t a2, void *a3, int a4)
       v8 = SRLogFrameStore;
       if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_ERROR))
       {
-        v12 = 134349312;
-        v13 = v7;
-        v14 = 2050;
-        v15 = 32;
-        _os_log_error_impl(&dword_1C914D000, v8, OS_LOG_TYPE_ERROR, "Segment name is too large to store in the segment header. Truncating the segment name of %{public}zu to %{public}lu", &v12, 0x16u);
+        v11 = 134349312;
+        v12 = v7;
+        v13 = 2050;
+        v14 = 32;
+        _os_log_error_impl(&dword_1C914D000, v8, OS_LOG_TYPE_ERROR, "Segment name is too large to store in the segment header. Truncating the segment name of %{public}zu to %{public}lu", &v11, 0x16u);
       }
     }
 
@@ -2408,44 +2340,41 @@ void SRMakeSegmentHeader(uint64_t a1, uint64_t a2, void *a3, int a4)
     v10 = SRLogFrameStore;
     if (os_log_type_enabled(SRLogFrameStore, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1C914D000, v10, OS_LOG_TYPE_INFO, "No segment name provided for the segment header", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1C914D000, v10, OS_LOG_TYPE_INFO, "No segment name provided for the segment header", &v11, 2u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t memoryMappingsForPermission(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   switch(a1)
   {
     case 2:
       v5 = [[SRMemoryMapping alloc] initWithSize:2 protection:1 advice:56 offset:?];
-      v14 = v5;
+      v13 = v5;
       v6 = MEMORY[0x1E695DEC8];
-      v7 = &v14;
+      v7 = &v13;
       goto LABEL_7;
     case 1:
       v10 = [[SRMemoryMapping alloc] initWithSize:2 protection:1 advice:0 offset:?];
       v5 = [[SRMemoryMapping alloc] initWithSize:2 protection:2 advice:*(a2 + 4) + 56 offset:?];
-      v13[0] = v10;
-      v13[1] = v5;
-      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+      v12[0] = v10;
+      v12[1] = v5;
+      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
 
 LABEL_8:
-      break;
+      return v4;
     case 0:
       v5 = [[SRMemoryMapping alloc] initWithSize:1 protection:1 advice:56 offset:?];
-      v15[0] = v5;
+      v14[0] = v5;
       v6 = MEMORY[0x1E695DEC8];
-      v7 = v15;
+      v7 = v14;
 LABEL_7:
       v4 = [v6 arrayWithObjects:v7 count:1];
       goto LABEL_8;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v4;
 }

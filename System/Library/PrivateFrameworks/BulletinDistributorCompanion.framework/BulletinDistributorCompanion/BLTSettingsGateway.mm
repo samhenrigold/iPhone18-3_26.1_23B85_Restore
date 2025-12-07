@@ -59,24 +59,25 @@ void __36__BLTSettingsGateway_initWithQueue___block_invoke(uint64_t a1, int toke
     if (state64 == 1)
     {
       WeakRetained = objc_loadWeakRetained((a1 + 48));
+      v5 = WeakRetained;
       if (WeakRetained)
       {
-        v5 = blt_general_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+        v6 = blt_general_log(WeakRetained);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
-          *v9 = 0;
-          _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_INFO, "Re-creating settings gateway", v9, 2u);
+          *v10 = 0;
+          _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_INFO, "Re-creating settings gateway", v10, 2u);
         }
 
-        [WeakRetained[2] lock];
-        [WeakRetained[1] invalidate];
-        v6 = [objc_alloc(MEMORY[0x277CF3580]) initWithQueue:*(a1 + 32)];
-        v7 = WeakRetained[1];
-        WeakRetained[1] = v6;
+        [v5[2] lock];
+        [v5[1] invalidate];
+        v7 = [objc_alloc(MEMORY[0x277CF3580]) initWithQueue:*(a1 + 32)];
+        v8 = v5[1];
+        v5[1] = v7;
 
-        [WeakRetained[2] unlock];
-        v8 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v8 postNotificationName:@"BLTSettingsGatewayReconnected" object:WeakRetained];
+        [v5[2] unlock];
+        v9 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v9 postNotificationName:@"BLTSettingsGatewayReconnected" object:v5];
       }
     }
   }

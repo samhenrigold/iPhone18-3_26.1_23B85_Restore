@@ -25,7 +25,7 @@
 - (void)_drawingDidUpdate:(uint64_t)update;
 - (void)convertTextToHandwriting:(id)handwriting bounds:(CGRect)bounds inkColor:(id)color inputScale:(double)scale suggestedHeight:(double)height suggestedDrawing:(id)drawing progress:(id)progress completion:(id)self0 shouldCancel:(id)self1;
 - (void)dealloc;
-- (void)fetchIndexableContentWithCompletion:(uint64_t)completion;
+- (void)fetchIndexableContentWithCompletion:(uint64_t)result;
 - (void)fetchTranscriptionForStrokes:(void *)strokes withCompletion:;
 - (void)recognitionSessionManager:(id)manager foundDataDetectorItems:(id)items;
 - (void)recognitionSessionManager:(id)manager foundHashtagItems:(id)items;
@@ -712,11 +712,11 @@ LABEL_8:
   return result;
 }
 
-- (void)fetchIndexableContentWithCompletion:(uint64_t)completion
+- (void)fetchIndexableContentWithCompletion:(uint64_t)result
 {
-  if (completion)
+  if (result)
   {
-    [(PKRecognitionSessionManager *)*(completion + 48) fetchIndexableContentWithCompletion:a2];
+    [(PKRecognitionSessionManager *)*(result + 48) fetchIndexableContentWithCompletion:a2];
   }
 }
 
@@ -1132,128 +1132,128 @@ void __92__PKRecognitionController_straightenStrokes_drawing_completionBlockWith
 
 + (void)generateStrokeDataFromApplyingTransformations:(void *)transformations@<X3> strokeGroups:(void *)groups@<X4> drawing:(void *)drawing@<X8> originalStrokes:
 {
-  v57 = *MEMORY[0x1E69E9840];
-  selfCopy = self;
-  v8 = a2;
+  v58 = *MEMORY[0x1E69E9840];
+  v41 = a2;
+  v9 = a3;
   transformationsCopy = transformations;
   groupsCopy = groups;
   objc_opt_self();
+  v46 = objc_opt_new();
   v45 = objc_opt_new();
-  v44 = objc_opt_new();
-  if ([v8 count])
+  if ([v9 count])
   {
-    v10 = 0;
-    v38 = transformationsCopy;
-    v39 = v8;
+    v11 = 0;
+    v39 = transformationsCopy;
+    v40 = v9;
     do
     {
-      v11 = [v8 objectAtIndexedSubscript:{v10, groupsCopy}];
-      v41 = v10;
-      v12 = [selfCopy objectAtIndexedSubscript:v10];
+      v12 = [v9 objectAtIndexedSubscript:{v11, groupsCopy}];
+      v42 = v11;
+      v13 = [v41 objectAtIndexedSubscript:v11];
       array = [MEMORY[0x1E695DF70] array];
       orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
       v54 = 0u;
-      obj = v11;
-      v14 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-      if (v14)
+      v55 = 0u;
+      obj = v12;
+      v15 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v52;
+        v16 = v15;
+        v17 = *v53;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v52 != v16)
+            if (*v53 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v51 + 1) + 8 * i);
-            strokeUUID = [v18 strokeUUID];
-            v20 = [transformationsCopy _visibleStrokeForIdentifier:strokeUUID];
+            v19 = *(*(&v52 + 1) + 8 * i);
+            strokeUUID = [v19 strokeUUID];
+            v21 = [transformationsCopy _visibleStrokeForIdentifier:strokeUUID];
 
-            if (v20)
+            if (v21)
             {
-              strokeUUID2 = [v18 strokeUUID];
-              v22 = [orderedSet containsObject:strokeUUID2];
+              strokeUUID2 = [v19 strokeUUID];
+              v23 = [orderedSet containsObject:strokeUUID2];
 
-              if ((v22 & 1) == 0)
+              if ((v23 & 1) == 0)
               {
-                strokeUUID3 = [v18 strokeUUID];
+                strokeUUID3 = [v19 strokeUUID];
                 [orderedSet addObject:strokeUUID3];
 
-                [array addObject:v20];
+                [array addObject:v21];
               }
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+          v16 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
-      v49 = 0u;
       v50 = 0u;
-      v47 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v24 = array;
-      v25 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
-      if (v25)
+      v49 = 0u;
+      v25 = array;
+      v26 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      if (v26)
       {
-        v26 = v25;
-        v27 = *v48;
+        v27 = v26;
+        v28 = *v49;
         do
         {
-          for (j = 0; j != v26; ++j)
+          for (j = 0; j != v27; ++j)
           {
-            if (*v48 != v27)
+            if (*v49 != v28)
             {
-              objc_enumerationMutation(v24);
+              objc_enumerationMutation(v25);
             }
 
-            v29 = *(*(&v47 + 1) + 8 * j);
-            path = [v29 path];
-            if (v29)
+            v30 = *(*(&v48 + 1) + 8 * j);
+            path = [v30 path];
+            if (v30)
             {
-              [v29 transform];
+              objc_msgSend_transform(v30);
             }
 
             else
             {
-              memset(v46, 0, sizeof(v46));
+              memset(v47, 0, sizeof(v47));
             }
 
-            v31 = [path copyTransformed:v12 inCoordinateSpace:v46];
-            _strokeUUID = [v29 _strokeUUID];
-            [v45 setObject:v31 forKeyedSubscript:_strokeUUID];
+            v32 = [path copyTransformed:v13 inCoordinateSpace:v47];
+            _strokeUUID = [v30 _strokeUUID];
+            [v46 setObject:v32 forKeyedSubscript:_strokeUUID];
 
-            _strokeMask = [v29 _strokeMask];
-            v34 = [_strokeMask maskTransformedBy:v12];
-            _strokeUUID2 = [v29 _strokeUUID];
-            [v44 setObject:v34 forKeyedSubscript:_strokeUUID2];
+            _strokeMask = [v30 _strokeMask];
+            v35 = [_strokeMask maskTransformedBy:v13];
+            _strokeUUID2 = [v30 _strokeUUID];
+            [v45 setObject:v35 forKeyedSubscript:_strokeUUID2];
           }
 
-          v26 = [v24 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v48 objects:v56 count:16];
         }
 
-        while (v26);
+        while (v27);
       }
 
-      v10 = v41 + 1;
-      v8 = v39;
-      transformationsCopy = v38;
+      v11 = v42 + 1;
+      v9 = v40;
+      transformationsCopy = v39;
     }
 
-    while ([v39 count] > (v41 + 1));
+    while ([v40 count] > (v42 + 1));
   }
 
   *drawing = groupsCopy;
-  drawing[1] = v45;
-  drawing[2] = v44;
+  drawing[1] = v46;
+  drawing[2] = v45;
 }
 
 + (id)changeStrokesUsingTransformations:(id)transformations strokeGroups:(id)groups drawing:(id)drawing originalStrokes:(id)strokes

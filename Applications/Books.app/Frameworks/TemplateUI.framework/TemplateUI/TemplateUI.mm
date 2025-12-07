@@ -9,11 +9,11 @@ TUI::ElementInstantiating::BuilderCache *TUI::ElementInstantiating::BuilderCache
   *(this + 20) = 1065353216;
   v5 = &OBJC_PROTOCOL___TUIBoxBuilding;
   v6 = &v5;
-  sub_3800(v2, &v5)[3] = 0;
+  sub_3800(v2, &v5, &std::piecewise_construct, &v6)[3] = 0;
 
   v4 = &OBJC_PROTOCOL___TUIAnimationBuilding;
   v6 = &v4;
-  sub_3800(v2, &v4)[3] = 1;
+  sub_3800(v2, &v4, &std::piecewise_construct, &v6)[3] = 1;
 
   *this = 0;
   return this;
@@ -39,9 +39,9 @@ void TUI::ElementInstantiating::BuilderCache::~BuilderCache(TUI::ElementInstanti
 
 uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromClass(os_unfair_lock_s *this, objc_class *a2)
 {
-  v7[0] = a2;
+  v7 = a2;
   os_unfair_lock_lock(this);
-  v3 = sub_3D34(&this[12]._os_unfair_lock_opaque, v7);
+  v3 = sub_3D34(&this[12]._os_unfair_lock_opaque, &v7);
   if (v3)
   {
     v4 = v3[3];
@@ -55,7 +55,7 @@ uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromClass(os_u
       v4 = 0;
       do
       {
-        if ([v7[0] conformsToProtocol:v5[2]])
+        if ([v7 conformsToProtocol:v5[2]])
         {
           v4 |= 1 << *(v5 + 6);
         }
@@ -71,15 +71,15 @@ uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromClass(os_u
       v4 = 0;
     }
 
-    v7[2] = v7;
-    sub_3DEC(&this[12]._os_unfair_lock_opaque, v7)[3] = v4;
+    v8 = &v7;
+    sub_3DEC(&this[12]._os_unfair_lock_opaque, &v7, &std::piecewise_construct, &v8)[3] = v4;
   }
 
   os_unfair_lock_unlock(this);
   return v4;
 }
 
-uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromArray(uint64_t a1, void *a2)
+uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromArray(os_unfair_lock_s *a1, void *a2)
 {
   v3 = a2;
   os_unfair_lock_lock(a1);
@@ -104,7 +104,7 @@ uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromArray(uint
         }
 
         v15 = *(*(&v11 + 1) + 8 * v8);
-        v9 = sub_3D34((a1 + 8), &v15);
+        v9 = sub_3D34(&a1[2]._os_unfair_lock_opaque, &v15);
         if (v9)
         {
           v5 |= 1 << *(v9 + 6);
@@ -126,20 +126,20 @@ uint64_t TUI::ElementInstantiating::BuilderCache::computeProtocolsFromArray(uint
 
 void TUI::ElementInstantiating::BuilderCache::registerBuilderProtocol(os_unfair_lock_s *this, Protocol *a2)
 {
-  v6[0] = a2;
+  v6 = a2;
   os_unfair_lock_lock(this);
-  if (!sub_3D34(&this[2]._os_unfair_lock_opaque, v6))
+  if (!sub_3D34(&this[2]._os_unfair_lock_opaque, &v6))
   {
     v3 = *&this[8]._os_unfair_lock_opaque;
-    v6[2] = v6;
-    sub_3DEC(&this[2]._os_unfair_lock_opaque, v6)[3] = v3;
+    v7 = &v6;
+    sub_3DEC(&this[2]._os_unfair_lock_opaque, &v6, &std::piecewise_construct, &v7)[3] = v3;
     v4 = *&this[16]._os_unfair_lock_opaque;
     if (v4)
     {
       v5 = 1 << v3;
       do
       {
-        if ([v4[2] conformsToProtocol:v6[0]])
+        if ([v4[2] conformsToProtocol:v6])
         {
           v4[3] = (v4[3] | v5);
         }
@@ -154,11 +154,11 @@ void TUI::ElementInstantiating::BuilderCache::registerBuilderProtocol(os_unfair_
   os_unfair_lock_unlock(this);
 }
 
-void TUI::ElementInstantiating::BuilderCache::updateProtocolsWithBuilderProtocol(uint64_t a1, void *a2, void *a3)
+void TUI::ElementInstantiating::BuilderCache::updateProtocolsWithBuilderProtocol(os_unfair_lock_s *a1, void *a2, void *a3)
 {
   v6 = a3;
   os_unfair_lock_lock(a1);
-  v5 = sub_3D34((a1 + 8), &v6);
+  v5 = sub_3D34(&a1[2]._os_unfair_lock_opaque, &v6);
   if (v5)
   {
     *a2 |= 1 << *(v5 + 6);
@@ -976,33 +976,33 @@ void sub_37BC(uint64_t a1, id *a2)
   }
 }
 
-void *sub_3800(void *a1, unint64_t *a2)
+void *sub_3800(float *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1010,49 +1010,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_3A4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_3A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_3A60(va);
   _Unwind_Resume(a1);
 }
@@ -1079,7 +1079,7 @@ void sub_3AAC()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void sub_3AE0(uint64_t a1, size_t __n)
+void sub_3AE0(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1095,7 +1095,7 @@ void sub_3AE0(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1103,7 +1103,7 @@ void sub_3AE0(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1127,7 +1127,7 @@ void sub_3AE0(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_3BD0(a1, prime);
+      sub_3BD0(result, prime);
     }
   }
 }
@@ -1181,77 +1181,69 @@ void *sub_3D34(void *a1, unint64_t *a2)
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *sub_3DEC(void *a1, unint64_t *a2)
+void *sub_3DEC(void *a1, unint64_t *a2, uint64_t a3, id **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1259,49 +1251,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_403C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_403C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_3A60(va);
   _Unwind_Resume(a1);
 }
@@ -1363,18 +1355,18 @@ void sub_5018(uint64_t a1, unsigned int a2)
   }
 }
 
-void sub_5BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_5BA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   sub_66E0(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_5D6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_5D6C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TUIBinaryPackage;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1388,7 +1380,7 @@ void sub_6064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_60D8(_BYTE *a1, char *__s)
+void *sub_60D8(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1402,13 +1394,13 @@ _BYTE *sub_60D8(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1422,9 +1414,9 @@ void sub_6294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_66E0(uint64_t a1)
+void **sub_66E0(void **a1)
 {
-  sub_671C(a1, *(a1 + 16));
+  sub_671C(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1756,9 +1748,9 @@ void sub_72E4(uint64_t a1)
   _Block_object_dispose(&v11, 8);
 }
 
-void sub_73F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_73F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1847,9 +1839,9 @@ void sub_7780(id a1)
   qword_2E5F80 = v4;
 }
 
-void sub_7C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_7C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1921,7 +1913,7 @@ void sub_7DFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
   _Unwind_Resume(a1);
 }
 
-void *sub_7E5C(void *result, unint64_t a2)
+uint64_t *sub_7E5C(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -1936,9 +1928,9 @@ void *sub_7E5C(void *result, unint64_t a2)
   return result;
 }
 
-void sub_7F24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7F24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_117BC(va);
   _Unwind_Resume(a1);
 }
@@ -1958,12 +1950,12 @@ void TUI::Instruction::Evaluation::~Evaluation(TUI::Instruction::Evaluation *thi
   sub_1158C(&v2);
 }
 
-void TUI::Instruction::Evaluation::evaluate(double *__return_ptr a1@<X8>, TUI::Instruction::Evaluation *this@<X0>, TUI::Instruction::Decoder *a3@<X1>)
+void TUI::Instruction::Evaluation::evaluate(TUI::Instruction::Evaluation *this@<X0>, TUI::Instruction::Decoder *a2@<X1>, uint64_t a3@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0.0;
-  *(this + 2) = TUI::Instruction::Decoder::offsetKind(a3);
-  v6 = TUI::Instruction::Decoder::offsetIndex(a3);
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(this + 2) = TUI::Instruction::Decoder::offsetKind(a2);
+  v6 = TUI::Instruction::Decoder::offsetIndex(a2);
   *(this + 3) = v6;
   v7 = *(this + 2);
   v8 = 1029;
@@ -2005,9 +1997,9 @@ LABEL_4:
     v26 = v37 == *(this + 6);
     v38 = 12;
 LABEL_40:
-    *a1 = v38;
-    a1[1] = 0.0;
-    *(a1 + 2) = v26;
+    *a3 = v38;
+    *(a3 + 8) = 0;
+    *(a3 + 16) = v26;
     return;
   }
 
@@ -2019,13 +2011,13 @@ LABEL_40:
       {
         v17 = *(this + 2);
         v18 = TUI::Instruction::Decoder::symbolNameFromU24(v6);
-        TUI::Evaluation::Context::lookupConstant(v17, v18, &v42);
-        *a1 = v42;
+        TUI::Evaluation::Context::lookupConstant(&v42, v17, v18);
+        *a3 = v42;
         v19 = v43;
         v21 = v43;
         v20 = v44;
-        *(a1 + 1) = v19;
-        *(a1 + 2) = v20;
+        *(a3 + 8) = v19;
+        *(a3 + 16) = v20;
 
         return;
       }
@@ -2063,8 +2055,8 @@ LABEL_40:
 LABEL_31:
         v29 = 9;
 LABEL_33:
-        *a1 = v29;
-        *(a1 + 1) = v25;
+        *a3 = v29;
+        *(a3 + 8) = v25;
         return;
       }
     }
@@ -2084,9 +2076,9 @@ LABEL_30:
         v22 = *(*(*this + 24) + 4 * v6);
       }
 
-      *a1 = 1;
-      a1[1] = 0.0;
-      a1[2] = v22;
+      *a3 = 1;
+      *(a3 + 8) = 0;
+      *(a3 + 16) = v22;
       return;
     }
 
@@ -2133,9 +2125,9 @@ LABEL_30:
       *(this + 4) = v16 - 24;
     }
 
-    *a1 = v14;
-    *(a1 + 1) = v15;
-    *(a1 + 2) = v13;
+    *a3 = v14;
+    *(a3 + 8) = v15;
+    *(a3 + 16) = v13;
     v40 = *(this + 3);
     v39 = *(this + 4);
     v41 = 0xAAAAAAAAAAAAAAABLL * ((v39 - v40) >> 3);
@@ -2156,19 +2148,19 @@ LABEL_30:
 
 void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 {
-  TUI::Instruction::Decoder::Decoder(&v623, *this, *(this + 3));
+  TUI::Instruction::Decoder::Decoder(v620, *this, *(this + 3));
   v2 = (this + 16);
-  v3 = v625;
-  v4 = v626;
-  if (v625 >= v626)
+  v3 = v622;
+  v4 = v623;
+  if (v622 >= v623)
   {
     goto LABEL_836;
   }
 
-  v606 = *(*(this + 2) + 560);
+  v603 = *(*(this + 2) + 560);
   while (2)
   {
-    v5 = *(v624 + 2 * v3);
+    v5 = *(v621 + 2 * v3);
     if (v5 >= 0x64u)
     {
       v6 = 0;
@@ -2176,11 +2168,11 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
     else
     {
-      v6 = *(v624 + 2 * v3);
+      v6 = *(v621 + 2 * v3);
     }
 
     v7 = v3 + 1;
-    v625 = v3 + 1;
+    v622 = v3 + 1;
     switch(v6)
     {
       case 1:
@@ -2198,19 +2190,19 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
         else
         {
-          v128 = *(v624 + 2 * v7);
+          v128 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
-        v361 = 0.0;
+        v622 = v3 + 2;
+        v359 = 0.0;
         if (*(*this + 32) > v128)
         {
-          v361 = *(*(*this + 24) + 4 * v128);
+          v359 = *(*(*this + 24) + 4 * v128);
         }
 
         LODWORD(t1.a) = 1;
         t1.b = 0.0;
-        t1.c = v361;
+        t1.c = v359;
         sub_EB08(this + 3, &t1);
         goto LABEL_826;
       case 4:
@@ -2239,18 +2231,18 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
         else
         {
-          v155 = *(v624 + 2 * v7);
+          v155 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         if (*(*this + 48) <= v155)
         {
-          v362 = 0.0;
+          v360 = 0.0;
         }
 
         else
         {
-          *&v362 = *(*(*this + 40) + 4 * v155);
+          *&v360 = *(*(*this + 40) + 4 * v155);
         }
 
         goto LABEL_410;
@@ -2268,10 +2260,10 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
         else
         {
-          v120 = *(v624 + 2 * v7);
+          v120 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         LODWORD(t1.a) = 6;
         t1.b = 0.0;
         LOWORD(t1.c) = v120;
@@ -2285,22 +2277,22 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
         else
         {
-          v163 = *(v624 + 2 * v7);
+          v163 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
-        v368 = *this;
-        if (*(*this + 64) > v163 && (v369 = *(v368 + 56)) != 0)
+        v622 = v3 + 2;
+        v366 = *this;
+        if (*(*this + 64) > v163 && (v367 = *(v366 + 56)) != 0)
         {
-          v370 = [NSString stringWithUTF8String:v369 + *(*(v368 + 72) + 4 * v163)];
+          v368 = [NSString stringWithUTF8String:v367 + *(*(v366 + 72) + 4 * v163)];
         }
 
         else
         {
-          v370 = 0;
+          v368 = 0;
         }
 
-        v89 = v370;
+        v89 = v368;
         LODWORD(t1.a) = 9;
         *&t1.b = v89;
         sub_EB08(this + 3, &t1);
@@ -2325,23 +2317,22 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
         else
         {
-          v164 = *(v624 + 2 * v7);
+          v164 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v371 = 4294901760;
+          v369 = 4294901760;
         }
 
         else
         {
-          v371 = *(v624 + 2 * (v3 + 2)) << 16;
+          v369 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v372 = v164 | v371;
-        v597 = v164 | v597 & 0xFFFFFFFF00000000 | v371;
-        TUI::Evaluation::Context::lookupConstant(*v2, v372, &t1);
+        v622 = v3 + 3;
+        v594 = v164 | v594 & 0xFFFFFFFF00000000 | v369;
+        TUI::Evaluation::Context::lookupConstant(&t1, *v2, v594);
         sub_EB08(this + 3, &t1);
         goto LABEL_826;
       case 15:
@@ -2355,8 +2346,8 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
         v8 = *(this + 4);
         if (v8 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2368,22 +2359,22 @@ void TUI::Instruction::Evaluation::run(TUI::Instruction::Evaluation *this)
 
           *(this + 4) = v9 - 24;
           v10 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v9 - 24 != v10)
           {
-            LODWORD(v615.a) = *(v9 - 48);
-            *&v615.b = *(v9 - 40);
-            v615.c = *(v9 - 32);
+            LODWORD(v612.a) = *(v9 - 48);
+            *&v612.b = *(v9 - 40);
+            v612.c = *(v9 - 32);
             v11 = *(this + 4);
 
             *(this + 4) = v11 - 24;
           }
         }
 
-        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v615, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 1, *v2))
+        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v612, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 1, *v2))
         {
-          v12 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
+          v12 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
           v13 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
           v14 = v12 >= v13;
           v15 = v12 == v13;
@@ -2427,9 +2418,9 @@ LABEL_691:
           goto LABEL_824;
         }
 
-        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v615, 12, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 12, *v2))
+        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v612, 12, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 12, *v2))
         {
-          v19 = TUI::Evaluation::ResolvedValue::BOOLValue(&v615, *v2);
+          v19 = TUI::Evaluation::ResolvedValue::BOOLValue(&v612, *v2);
           v20 = TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2);
           if (v5 == 19)
           {
@@ -2446,12 +2437,12 @@ LABEL_691:
 
         else
         {
-          if (!TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v615, 6, *v2) || !TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 6, *v2))
+          if (!TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v612, 6, *v2) || !TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 6, *v2))
           {
             goto LABEL_690;
           }
 
-          v21 = TUI::Evaluation::ResolvedValue::symbolValue(&v615, *v2);
+          v21 = TUI::Evaluation::ResolvedValue::symbolValue(&v612, *v2);
           v22 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
           if (v5 == 19)
           {
@@ -2478,21 +2469,21 @@ LABEL_690:
 
         else
         {
-          v103 = *(v624 + 2 * v7);
+          v103 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v350 = 4294901760;
+          v349 = 4294901760;
         }
 
         else
         {
-          v350 = *(v624 + 2 * (v3 + 2)) << 16;
+          v349 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        isDefined = TUI::Evaluation::Context::isDefined(*v2, v350 | v103);
+        v622 = v3 + 3;
+        isDefined = TUI::Evaluation::Context::isDefined(*v2, v349 | v103);
         LODWORD(t1.a) = 12;
         t1.b = 0.0;
         LOBYTE(t1.c) = isDefined;
@@ -2513,10 +2504,10 @@ LABEL_690:
         }
 
         v207 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        LODWORD(v615.a) = 1;
-        v615.b = 0.0;
-        v615.c = ceil(v207);
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 1;
+        v612.b = 0.0;
+        v612.c = ceil(v207);
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 23:
         LODWORD(t1.a) = 0;
@@ -2533,10 +2524,10 @@ LABEL_690:
         }
 
         v127 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        LODWORD(v615.a) = 1;
-        v615.b = 0.0;
-        v615.c = floor(v127);
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 1;
+        v612.b = 0.0;
+        v612.c = floor(v127);
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 24:
         LODWORD(t1.a) = 0;
@@ -2553,10 +2544,10 @@ LABEL_690:
         }
 
         v131 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        LODWORD(v615.a) = 1;
-        v615.b = 0.0;
-        v615.c = round(v131);
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 1;
+        v612.b = 0.0;
+        v612.c = round(v131);
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 25:
         LODWORD(t1.a) = 0;
@@ -2564,8 +2555,8 @@ LABEL_690:
         v104 = *(this + 4);
         if (v104 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2577,24 +2568,24 @@ LABEL_690:
 
           *(this + 4) = v105 - 24;
           v106 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v105 - 24 != v106)
           {
-            LODWORD(v615.a) = *(v105 - 48);
-            *&v615.b = *(v105 - 40);
-            v615.c = *(v105 - 32);
+            LODWORD(v612.a) = *(v105 - 48);
+            *&v612.b = *(v105 - 40);
+            v612.c = *(v105 - 32);
             v107 = *(this + 4);
 
             *(this + 4) = v107 - 24;
           }
         }
 
-        v426 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v427 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v423 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v424 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
         LODWORD(t2.a) = 1;
         t2.b = 0.0;
-        t2.c = v426 + v427;
+        t2.c = v423 + v424;
         sub_EB08(this + 3, &t2);
 
         TUI::Instruction::Evaluation::fixFloatIfNeeded(this);
@@ -2605,8 +2596,8 @@ LABEL_690:
         v108 = *(this + 4);
         if (v108 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2618,102 +2609,102 @@ LABEL_690:
 
           *(this + 4) = v109 - 24;
           v110 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v109 - 24 != v110)
           {
-            LODWORD(v615.a) = *(v109 - 48);
-            *&v615.b = *(v109 - 40);
-            v615.c = *(v109 - 32);
+            LODWORD(v612.a) = *(v109 - 48);
+            *&v612.b = *(v109 - 40);
+            v612.c = *(v109 - 32);
             v111 = *(this + 4);
 
             *(this + 4) = v111 - 24;
           }
         }
 
-        v428 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v429 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v425 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v426 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
         LODWORD(t2.a) = 1;
         t2.b = 0.0;
-        t2.c = v428 - v429;
+        t2.c = v425 - v426;
         sub_EB08(this + 3, &t2);
 
         TUI::Instruction::Evaluation::fixFloatIfNeeded(this);
         goto LABEL_825;
       case 27:
-        LODWORD(v620) = 0;
-        v621 = 0;
+        LODWORD(v617) = 0;
+        v618 = 0;
         v191 = *(this + 4);
         if (v191 == *(this + 3))
         {
-          LODWORD(v617) = 0;
-          v618 = 0;
+          LODWORD(v614) = 0;
+          v615 = 0;
         }
 
         else
         {
-          LODWORD(v620) = *(v191 - 24);
-          v621 = *(v191 - 16);
-          v622 = *(v191 - 8);
+          LODWORD(v617) = *(v191 - 24);
+          v618 = *(v191 - 16);
+          v619 = *(v191 - 8);
           v192 = *(this + 4);
 
           *(this + 4) = v192 - 24;
           v193 = *(this + 3);
-          LODWORD(v617) = 0;
-          v618 = 0;
+          LODWORD(v614) = 0;
+          v615 = 0;
           if (v192 - 24 != v193)
           {
-            LODWORD(v617) = *(v192 - 48);
-            v618 = *(v192 - 40);
-            v619 = *(v192 - 32);
+            LODWORD(v614) = *(v192 - 48);
+            v615 = *(v192 - 40);
+            v616 = *(v192 - 32);
             v194 = *(this + 4);
 
             *(this + 4) = v194 - 24;
           }
         }
 
-        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v620, 1, *v2))
+        if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v614, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 1, *v2))
         {
-          v452 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
-          v453 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
+          v449 = TUI::Evaluation::ResolvedValue::floatValue(&v614, *v2);
+          v450 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
           LODWORD(t1.a) = 1;
           t1.b = 0.0;
-          t1.c = v452 * v453;
+          t1.c = v449 * v450;
           sub_EB08(this + 3, &t1);
           b = t1.b;
         }
 
         else
         {
-          if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v620, 13, *v2))
+          if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v614, 1, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 13, *v2))
           {
-            v455 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
-            CGAffineTransformMakeScale(&t1, v455, v455);
-            TUI::Evaluation::ResolvedValue::transformValue(&v620, *v2, &t2);
-            CGAffineTransformConcat(&v615, &t1, &t2);
-            LODWORD(v616[0]) = 13;
-            *(&v616[0] + 1) = 0;
-            t1 = v615;
-            *(&v616[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
-            sub_EB08(this + 3, v616);
+            v452 = TUI::Evaluation::ResolvedValue::floatValue(&v614, *v2);
+            CGAffineTransformMakeScale(&t1, v452, v452);
+            TUI::Evaluation::ResolvedValue::transformValue(&t2, &v617, *v2);
+            CGAffineTransformConcat(&v612, &t1, &t2);
+            LODWORD(v613[0]) = 13;
+            *(&v613[0] + 1) = 0;
+            t1 = v612;
+            *(&v613[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
+            sub_EB08(this + 3, v613);
           }
 
-          else if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 13, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v620, 1, *v2))
+          else if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v614, 13, *v2) && TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 1, *v2))
           {
-            v456 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-            TUI::Evaluation::ResolvedValue::transformValue(&v617, *v2, &t1);
-            CGAffineTransformMakeScale(&t2, v456, v456);
-            CGAffineTransformConcat(&v615, &t1, &t2);
-            LODWORD(v616[0]) = 13;
-            *(&v616[0] + 1) = 0;
-            t1 = v615;
-            *(&v616[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
-            sub_EB08(this + 3, v616);
+            v453 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+            TUI::Evaluation::ResolvedValue::transformValue(&t1, &v614, *v2);
+            CGAffineTransformMakeScale(&t2, v453, v453);
+            CGAffineTransformConcat(&v612, &t1, &t2);
+            LODWORD(v613[0]) = 13;
+            *(&v613[0] + 1) = 0;
+            t1 = v612;
+            *(&v613[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
+            sub_EB08(this + 3, v613);
           }
 
           else
           {
-            if (!TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 13, *v2) || !TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v620, 13, *v2))
+            if (!TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v614, 13, *v2) || !TUI::Evaluation::ResolvedValue::isConvertibleToKind(&v617, 13, *v2))
             {
               LODWORD(t1.a) = 0;
               t1.b = 0.0;
@@ -2723,21 +2714,21 @@ LABEL_690:
 LABEL_677:
               TUI::Instruction::Evaluation::fixFloatIfNeeded(this);
 
-              v460 = *&v621;
+              v457 = *&v618;
               goto LABEL_827;
             }
 
-            TUI::Evaluation::ResolvedValue::transformValue(&v617, *v2, &t1);
-            TUI::Evaluation::ResolvedValue::transformValue(&v620, *v2, &t2);
-            CGAffineTransformConcat(&v615, &t1, &t2);
-            LODWORD(v616[0]) = 13;
-            *(&v616[0] + 1) = 0;
-            t1 = v615;
-            *(&v616[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
-            sub_EB08(this + 3, v616);
+            TUI::Evaluation::ResolvedValue::transformValue(&t1, &v614, *v2);
+            TUI::Evaluation::ResolvedValue::transformValue(&t2, &v617, *v2);
+            CGAffineTransformConcat(&v612, &t1, &t2);
+            LODWORD(v613[0]) = 13;
+            *(&v613[0] + 1) = 0;
+            t1 = v612;
+            *(&v613[0] + 1) = [NSValue valueWithCGAffineTransform:&t1];
+            sub_EB08(this + 3, v613);
           }
 
-          b = *(v616 + 1);
+          b = *(v613 + 1);
         }
 
         goto LABEL_677;
@@ -2747,8 +2738,8 @@ LABEL_677:
         v173 = *(this + 4);
         if (v173 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2760,21 +2751,21 @@ LABEL_677:
 
           *(this + 4) = v174 - 24;
           v175 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v174 - 24 != v175)
           {
-            LODWORD(v615.a) = *(v174 - 48);
-            *&v615.b = *(v174 - 40);
-            v615.c = *(v174 - 32);
+            LODWORD(v612.a) = *(v174 - 48);
+            *&v612.b = *(v174 - 40);
+            v612.c = *(v174 - 32);
             v176 = *(this + 4);
 
             *(this + 4) = v176 - 24;
           }
         }
 
-        v434 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        if (v434 == 0.0)
+        v431 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        if (v431 == 0.0)
         {
           LODWORD(t2.a) = 1;
           t2.b = 0.0;
@@ -2786,10 +2777,10 @@ LABEL_677:
 
         else
         {
-          v435 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
+          v432 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
           LODWORD(t2.a) = 1;
           t2.b = 0.0;
-          t2.c = v435 / v434;
+          t2.c = v432 / v431;
           sub_EB08(this + 3, &t2);
         }
 
@@ -2801,8 +2792,8 @@ LABEL_677:
         v225 = *(this + 4);
         if (v225 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2814,34 +2805,34 @@ LABEL_677:
 
           *(this + 4) = v226 - 24;
           v227 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v226 - 24 != v227)
           {
-            LODWORD(v615.a) = *(v226 - 48);
-            *&v615.b = *(v226 - 40);
-            v615.c = *(v226 - 32);
+            LODWORD(v612.a) = *(v226 - 48);
+            *&v612.b = *(v226 - 40);
+            v612.c = *(v226 - 32);
             v228 = *(this + 4);
 
             *(this + 4) = v228 - 24;
           }
         }
 
-        v464 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v465 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        if (v465)
+        v461 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v462 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        if (v462)
         {
-          v466 = (v464 % v465);
+          v463 = (v461 % v462);
         }
 
         else
         {
-          v466 = 0.0;
+          v463 = 0.0;
         }
 
         LODWORD(t2.a) = 1;
         t2.b = 0.0;
-        t2.c = v466;
+        t2.c = v463;
         sub_EB08(this + 3, &t2);
         goto LABEL_824;
       case 30:
@@ -2850,8 +2841,8 @@ LABEL_677:
         v97 = *(this + 4);
         if (v97 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2863,24 +2854,24 @@ LABEL_677:
 
           *(this + 4) = v98 - 24;
           v99 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v98 - 24 != v99)
           {
-            LODWORD(v615.a) = *(v98 - 48);
-            *&v615.b = *(v98 - 40);
-            v615.c = *(v98 - 32);
+            LODWORD(v612.a) = *(v98 - 48);
+            *&v612.b = *(v98 - 40);
+            v612.c = *(v98 - 32);
             v100 = *(this + 4);
 
             *(this + 4) = v100 - 24;
           }
         }
 
-        v424 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v425 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v421 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v422 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
         LODWORD(t2.a) = 1;
         t2.b = 0.0;
-        t2.c = fmin(v424, v425);
+        t2.c = fmin(v421, v422);
         sub_EB08(this + 3, &t2);
 
         TUI::Instruction::Evaluation::fixFloatIfNeeded(this);
@@ -2891,8 +2882,8 @@ LABEL_677:
         v187 = *(this + 4);
         if (v187 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2904,24 +2895,24 @@ LABEL_677:
 
           *(this + 4) = v188 - 24;
           v189 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v188 - 24 != v189)
           {
-            LODWORD(v615.a) = *(v188 - 48);
-            *&v615.b = *(v188 - 40);
-            v615.c = *(v188 - 32);
+            LODWORD(v612.a) = *(v188 - 48);
+            *&v612.b = *(v188 - 40);
+            v612.c = *(v188 - 32);
             v190 = *(this + 4);
 
             *(this + 4) = v190 - 24;
           }
         }
 
-        v450 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v451 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v447 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v448 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
         LODWORD(t2.a) = 1;
         t2.b = 0.0;
-        t2.c = fmax(v450, v451);
+        t2.c = fmax(v447, v448);
         sub_EB08(this + 3, &t2);
 
         TUI::Instruction::Evaluation::fixFloatIfNeeded(this);
@@ -2941,10 +2932,10 @@ LABEL_677:
         }
 
         v219 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        LODWORD(v615.a) = 1;
-        v615.b = 0.0;
-        v615.c = -v219;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 1;
+        v612.b = 0.0;
+        v612.c = -v219;
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 33:
         LODWORD(t1.a) = 0;
@@ -2961,10 +2952,10 @@ LABEL_677:
         }
 
         v123 = TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2);
-        LODWORD(v615.a) = 12;
-        v615.b = 0.0;
-        LOBYTE(v615.c) = v123 ^ 1;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 12;
+        v612.b = 0.0;
+        LOBYTE(v612.c) = v123 ^ 1;
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 34:
         LODWORD(t1.a) = 0;
@@ -2972,8 +2963,8 @@ LABEL_677:
         v90 = *(this + 4);
         if (v90 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -2985,21 +2976,21 @@ LABEL_677:
 
           *(this + 4) = v91 - 24;
           v92 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v91 - 24 != v92)
           {
-            LODWORD(v615.a) = *(v91 - 48);
-            *&v615.b = *(v91 - 40);
-            v615.c = *(v91 - 32);
+            LODWORD(v612.a) = *(v91 - 48);
+            *&v612.b = *(v91 - 40);
+            v612.c = *(v91 - 32);
             v93 = *(this + 4);
 
             *(this + 4) = v93 - 24;
           }
         }
 
-        v423 = TUI::Evaluation::ResolvedValue::BOOLValue(&v615, *v2);
-        if (v423)
+        v420 = TUI::Evaluation::ResolvedValue::BOOLValue(&v612, *v2);
+        if (v420)
         {
           goto LABEL_514;
         }
@@ -3011,8 +3002,8 @@ LABEL_677:
         v220 = *(this + 4);
         if (v220 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -3024,34 +3015,34 @@ LABEL_677:
 
           *(this + 4) = v221 - 24;
           v222 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v221 - 24 != v222)
           {
-            LODWORD(v615.a) = *(v221 - 48);
-            *&v615.b = *(v221 - 40);
-            v615.c = *(v221 - 32);
+            LODWORD(v612.a) = *(v221 - 48);
+            *&v612.b = *(v221 - 40);
+            v612.c = *(v221 - 32);
             v223 = *(this + 4);
 
             *(this + 4) = v223 - 24;
           }
         }
 
-        if (TUI::Evaluation::ResolvedValue::BOOLValue(&v615, *v2))
+        if (TUI::Evaluation::ResolvedValue::BOOLValue(&v612, *v2))
         {
-          LOBYTE(v423) = 1;
+          LOBYTE(v420) = 1;
         }
 
         else
         {
 LABEL_514:
-          LOBYTE(v423) = TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2);
+          LOBYTE(v420) = TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2);
         }
 
 LABEL_515:
         LODWORD(t2.a) = 12;
         t2.b = 0.0;
-        LOBYTE(t2.c) = v423;
+        LOBYTE(t2.c) = v420;
         sub_EB08(this + 3, &t2);
         goto LABEL_824;
       case 36:
@@ -3066,23 +3057,23 @@ LABEL_515:
           v118 = *(this + 4);
 
           *(this + 4) = v118 - 24;
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         if (v7 >= v4)
         {
-          v119 = 0xFFFF;
+          v119 = 0xFFFFLL;
         }
 
         else
         {
-          v119 = *(v624 + 2 * v7);
+          v119 = *(v621 + 2 * v7);
         }
 
-        v625 = v7 + 1;
-        TUI::Evaluation::ResolvedValue::resolveProperty(&t1, *v2, v119, &v615);
-        sub_EB08(this + 3, &v615);
+        v622 = v7 + 1;
+        TUI::Evaluation::ResolvedValue::resolveProperty(&v612, &t1, *v2, v119);
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 37:
         LODWORD(t1.a) = 0;
@@ -3096,8 +3087,8 @@ LABEL_515:
           v250 = *(this + 4);
 
           *(this + 4) = v250 - 24;
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         if (v7 >= v4)
@@ -3107,12 +3098,12 @@ LABEL_515:
 
         else
         {
-          v251 = *(v624 + 2 * v7);
+          v251 = *(v621 + 2 * v7);
         }
 
-        v625 = v7 + 1;
-        TUI::Evaluation::ResolvedValue::testProperty(&t1, *v2, v251, &v615);
-        sub_EB08(this + 3, &v615);
+        v622 = v7 + 1;
+        TUI::Evaluation::ResolvedValue::testProperty(&v612, &t1, *v2, v251);
+        sub_EB08(this + 3, &v612);
         goto LABEL_825;
       case 38:
         LODWORD(t1.a) = 0;
@@ -3126,8 +3117,8 @@ LABEL_515:
           v95 = *(this + 4);
 
           *(this + 4) = v95 - 24;
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         if (v7 >= v4)
@@ -3137,17 +3128,17 @@ LABEL_515:
 
         else
         {
-          v96 = *(v624 + 2 * v7) << 16;
+          v96 = *(v621 + 2 * v7) << 16;
         }
 
         if (v7 + 1 >= v4)
         {
-          v349 = 0xFFFFLL;
+          v348 = 0xFFFFLL;
         }
 
         else
         {
-          v349 = *(v624 + 2 * (v7 + 1));
+          v348 = *(v621 + 2 * (v7 + 1));
         }
 
         goto LABEL_508;
@@ -3164,8 +3155,8 @@ LABEL_515:
           v71 = *(v70 - 24);
           v72 = *(v70 - 16);
           t1.c = *(v70 - 8);
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         LODWORD(t1.a) = v71;
@@ -3177,21 +3168,21 @@ LABEL_515:
 
         else
         {
-          v96 = *(v624 + 2 * v7) << 16;
+          v96 = *(v621 + 2 * v7) << 16;
         }
 
         if (v7 + 1 >= v4)
         {
-          v349 = 0xFFFFLL;
+          v348 = 0xFFFFLL;
         }
 
         else
         {
-          v349 = *(v624 + 2 * (v7 + 1));
+          v348 = *(v621 + 2 * (v7 + 1));
         }
 
 LABEL_508:
-        v625 = v7 + 2;
+        v622 = v7 + 2;
         if (!TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2))
         {
           goto LABEL_826;
@@ -3210,8 +3201,8 @@ LABEL_508:
           v102 = *(this + 4);
 
           *(this + 4) = v102 - 24;
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         if (v7 >= v4)
@@ -3221,17 +3212,17 @@ LABEL_508:
 
         else
         {
-          v96 = *(v624 + 2 * v7) << 16;
+          v96 = *(v621 + 2 * v7) << 16;
         }
 
         if (v7 + 1 >= v4)
         {
-          v349 = 0xFFFFLL;
+          v348 = 0xFFFFLL;
         }
 
         else
         {
-          v349 = *(v624 + 2 * (v7 + 1));
+          v348 = *(v621 + 2 * (v7 + 1));
         }
 
         goto LABEL_529;
@@ -3248,8 +3239,8 @@ LABEL_508:
           v115 = *(v114 - 24);
           v116 = *(v114 - 16);
           t1.c = *(v114 - 8);
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         LODWORD(t1.a) = v115;
@@ -3261,25 +3252,25 @@ LABEL_508:
 
         else
         {
-          v96 = *(v624 + 2 * v7) << 16;
+          v96 = *(v621 + 2 * v7) << 16;
         }
 
         if (v7 + 1 >= v4)
         {
-          v349 = 0xFFFFLL;
+          v348 = 0xFFFFLL;
         }
 
         else
         {
-          v349 = *(v624 + 2 * (v7 + 1));
+          v348 = *(v621 + 2 * (v7 + 1));
         }
 
 LABEL_529:
-        v625 = v7 + 2;
+        v622 = v7 + 2;
         if ((TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2) & 1) == 0)
         {
 LABEL_530:
-          v625 = v349 | v96;
+          v622 = v348 | v96;
         }
 
         goto LABEL_826;
@@ -3289,8 +3280,8 @@ LABEL_530:
         v245 = *(this + 4);
         if (v245 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -3302,45 +3293,45 @@ LABEL_530:
 
           *(this + 4) = v246 - 24;
           v247 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v246 - 24 != v247)
           {
-            LODWORD(v615.a) = *(v246 - 48);
-            *&v615.b = *(v246 - 40);
-            v615.c = *(v246 - 32);
+            LODWORD(v612.a) = *(v246 - 48);
+            *&v612.b = *(v246 - 40);
+            v612.c = *(v246 - 32);
             v248 = *(this + 4);
 
             *(this + 4) = v248 - 24;
           }
         }
 
-        v474 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v475 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v471 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v472 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
         LODWORD(t2.a) = 3;
         t2.b = 0.0;
-        *&t2.b = [NSValue valueWithCGSize:v474, v475];
+        *&t2.b = [NSValue valueWithCGSize:v471, v472];
         sub_EB08(this + 3, &t2);
         goto LABEL_824;
       case 43:
-        LODWORD(v615.a) = 0;
-        v615.b = 0.0;
+        LODWORD(v612.a) = 0;
+        v612.b = 0.0;
         v73 = *(this + 4);
         if (v73 == *(this + 3))
         {
           LODWORD(t2.a) = 0;
           t2.b = 0.0;
-          LODWORD(v620) = 0;
-          v621 = 0;
           LODWORD(v617) = 0;
           v618 = 0;
+          LODWORD(v614) = 0;
+          v615 = 0;
         }
 
         else
         {
-          LODWORD(v615.a) = *(v73 - 24);
-          *&v615.b = *(v73 - 16);
-          v615.c = *(v73 - 8);
+          LODWORD(v612.a) = *(v73 - 24);
+          *&v612.b = *(v73 - 16);
+          v612.c = *(v73 - 8);
           v74 = *(this + 4);
 
           v75 = v74 - 24;
@@ -3360,20 +3351,6 @@ LABEL_530:
             v76 = *(this + 3);
           }
 
-          LODWORD(v620) = 0;
-          v621 = 0;
-          if (v75 != v76)
-          {
-            LODWORD(v620) = *(v75 - 24);
-            v621 = *(v75 - 16);
-            v622 = *(v75 - 8);
-            v78 = *(this + 4);
-
-            v75 = v78 - 24;
-            *(this + 4) = v75;
-            v76 = *(this + 3);
-          }
-
           LODWORD(v617) = 0;
           v618 = 0;
           if (v75 != v76)
@@ -3381,24 +3358,38 @@ LABEL_530:
             LODWORD(v617) = *(v75 - 24);
             v618 = *(v75 - 16);
             v619 = *(v75 - 8);
+            v78 = *(this + 4);
+
+            v75 = v78 - 24;
+            *(this + 4) = v75;
+            v76 = *(this + 3);
+          }
+
+          LODWORD(v614) = 0;
+          v615 = 0;
+          if (v75 != v76)
+          {
+            LODWORD(v614) = *(v75 - 24);
+            v615 = *(v75 - 16);
+            v616 = *(v75 - 8);
             v79 = *(this + 4);
 
             *(this + 4) = v79 - 24;
           }
         }
 
-        v419 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v617, *v2);
-        v420 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v620, *v2);
-        v421 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&t2, *v2);
-        v422 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v615, *v2);
-        t1.a = v419;
-        t1.b = v420;
-        t1.c = v421;
-        t1.d = v422;
-        LODWORD(v616[0]) = 4;
-        *(&v616[0] + 1) = 0;
-        *(&v616[0] + 1) = [[NSData alloc] initWithBytes:&t1 length:32];
-        sub_EB08(this + 3, v616);
+        v416 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v614, *v2);
+        v417 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v617, *v2);
+        v418 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&t2, *v2);
+        v419 = TUI::Evaluation::ResolvedValue::floatOrDefaultValue(&v612, *v2);
+        t1.a = v416;
+        t1.b = v417;
+        t1.c = v418;
+        t1.d = v419;
+        LODWORD(v613[0]) = 4;
+        *(&v613[0] + 1) = 0;
+        *(&v613[0] + 1) = [[NSData alloc] initWithBytes:&t1 length:32];
+        sub_EB08(this + 3, v613);
 
         goto LABEL_570;
       case 44:
@@ -3407,12 +3398,12 @@ LABEL_530:
         v237 = *(this + 4);
         if (v237 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           LODWORD(t2.a) = 0;
           t2.b = 0.0;
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
         }
 
         else
@@ -3425,13 +3416,13 @@ LABEL_530:
           v239 = v238 - 24;
           *(this + 4) = v238 - 24;
           v240 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v238 - 24 != v240)
           {
-            LODWORD(v615.a) = *(v238 - 48);
-            *&v615.b = *(v238 - 40);
-            v615.c = *(v238 - 32);
+            LODWORD(v612.a) = *(v238 - 48);
+            *&v612.b = *(v238 - 40);
+            v612.c = *(v238 - 32);
             v241 = *(this + 4);
 
             v239 = v241 - 24;
@@ -3453,26 +3444,26 @@ LABEL_530:
             v240 = *(this + 3);
           }
 
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
           if (v239 != v240)
           {
-            LODWORD(v620) = *(v239 - 24);
-            v621 = *(v239 - 16);
-            v622 = *(v239 - 8);
+            LODWORD(v617) = *(v239 - 24);
+            v618 = *(v239 - 16);
+            v619 = *(v239 - 8);
             v243 = *(this + 4);
 
             *(this + 4) = v243 - 24;
           }
         }
 
-        v470 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-        v471 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
-        v472 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        v473 = [UIColor colorWithRed:v470 green:v471 blue:v472 alpha:TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)];
-        LODWORD(v617) = 11;
-        v618 = v473;
-        sub_EB08(this + 3, &v617);
+        v467 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+        v468 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+        v469 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        v470 = [UIColor colorWithRed:v467 green:v468 blue:v469 alpha:TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)];
+        LODWORD(v614) = 11;
+        v615 = v470;
+        sub_EB08(this + 3, &v614);
 
         goto LABEL_823;
       case 45:
@@ -3502,9 +3493,9 @@ LABEL_530:
           v154 = 0;
         }
 
-        LODWORD(v615.a) = v154;
-        *&v615.b = v152;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = v154;
+        *&v612.b = v152;
+        sub_EB08(this + 3, &v612);
         goto LABEL_634;
       case 46:
         LODWORD(t1.a) = 0;
@@ -3512,12 +3503,12 @@ LABEL_530:
         v259 = *(this + 4);
         if (v259 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           LODWORD(t2.a) = 0;
           t2.b = 0.0;
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
         }
 
         else
@@ -3530,13 +3521,13 @@ LABEL_530:
           v261 = v260 - 24;
           *(this + 4) = v260 - 24;
           v262 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v260 - 24 != v262)
           {
-            LODWORD(v615.a) = *(v260 - 48);
-            *&v615.b = *(v260 - 40);
-            v615.c = *(v260 - 32);
+            LODWORD(v612.a) = *(v260 - 48);
+            *&v612.b = *(v260 - 40);
+            v612.c = *(v260 - 32);
             v263 = *(this + 4);
 
             v261 = v263 - 24;
@@ -3558,22 +3549,22 @@ LABEL_530:
             v262 = *(this + 3);
           }
 
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
           if (v261 != v262)
           {
-            LODWORD(v620) = *(v261 - 24);
-            v621 = *(v261 - 16);
-            v622 = *(v261 - 8);
+            LODWORD(v617) = *(v261 - 24);
+            v618 = *(v261 - 16);
+            v619 = *(v261 - 8);
             v265 = *(this + 4);
 
             *(this + 4) = v265 - 24;
             v266 = HIWORD(TUILengthNull);
-            if (v620 == 6)
+            if (v617 == 6)
             {
-              v267 = TUI::Evaluation::ResolvedValue::symbolValue(&v620, *v2);
-              v268 = *(v606 + 40);
-              v269 = (*(v606 + 48) - v268) >> 1;
+              v267 = TUI::Evaluation::ResolvedValue::symbolValue(&v617, *v2);
+              v268 = *(v603 + 40);
+              v269 = (*(v603 + 48) - v268) >> 1;
               if (v269 < 0x22)
               {
                 v270 = 0xFFFF;
@@ -3584,99 +3575,118 @@ LABEL_530:
                 v270 = v268[33];
               }
 
-              v545 = HIWORD(TUILengthNull) & 0xFFF8;
+              v542 = HIWORD(TUILengthNull) & 0xFFF8;
               if (v267 == v270)
               {
-                v485 = v545 | 4;
+                v482 = v542 | 4;
               }
 
               else
               {
                 if (v269 < 0x23)
                 {
-                  v546 = 0xFFFF;
+                  v543 = 0xFFFF;
                 }
 
                 else
                 {
-                  v546 = v268[34];
+                  v543 = v268[34];
                 }
 
-                if (v267 == v546)
+                if (v267 == v543)
                 {
-                  v485 = v545 | 5;
+                  v482 = v542 | 5;
                 }
 
                 else
                 {
                   if (v269 < 0x70)
                   {
-                    v549 = 0xFFFF;
+                    v546 = 0xFFFF;
                   }
 
                   else
                   {
-                    v549 = v268[111];
+                    v546 = v268[111];
                   }
 
-                  if (v267 == v549)
+                  if (v267 == v546)
                   {
-                    v485 = v545 | 6;
+                    v482 = v542 | 6;
                   }
 
                   else
                   {
                     if (v269 < 0x21)
                     {
-                      v551 = 0xFFFF;
+                      v548 = 0xFFFF;
                     }
 
                     else
                     {
-                      v551 = v268[32];
+                      v548 = v268[32];
                     }
 
-                    if (v267 == v551)
+                    if (v267 == v548)
                     {
-                      v485 = v545 | 3;
+                      v482 = v542 | 3;
                     }
 
                     else
                     {
-                      v568 = *v2;
-                      v569 = TUI::Symbol::Tab::string(*(*v2 + 70), v267);
-                      v570 = [NSString stringWithFormat:@"invalid symbol for length: %@", v569];
-                      TUI::Evaluation::Context::reportError(v568, 1016, v570);
-                      v485 = v545 | 2;
+                      v565 = *v2;
+                      v566 = TUI::Symbol::Tab::string(*(*v2 + 70), v267);
+                      v567 = [NSString stringWithFormat:@"invalid symbol for length: %@", v566];
+                      TUI::Evaluation::Context::reportError(v565, 1016, v567);
+                      v482 = v542 | 2;
                     }
                   }
                 }
               }
 
-              v484 = NAN;
+              v481 = NAN;
               goto LABEL_804;
             }
 
 LABEL_602:
-            v484 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-            v485 = v266 | 7;
-            if (v484 <= -3.40282347e38)
+            v481 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+            v482 = v266 | 7;
+            if (v481 <= -3.40282347e38)
             {
-              v486 = 4286578687;
+              v483 = 4286578687;
               goto LABEL_805;
             }
 
-            if (v484 >= 3.40282347e38)
+            if (v481 >= 3.40282347e38)
             {
-              v486 = 2139095039;
+              v483 = 2139095039;
               goto LABEL_805;
             }
 
 LABEL_804:
-            *&v571 = v484;
-            v486 = v571;
+            *&v568 = v481;
+            v483 = v568;
 LABEL_805:
-            v572 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+            v569 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+            if (v569 <= -3.40282347e38)
+            {
+              *&v571 = -3.4028e38;
+            }
+
+            else
+            {
+              if (v569 < 3.40282347e38)
+              {
+                v570 = v569;
+                goto LABEL_811;
+              }
+
+              *&v571 = 3.4028e38;
+            }
+
+            v570 = *&v571;
+LABEL_811:
+            v572 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
             if (v572 <= -3.40282347e38)
             {
               *&v574 = -3.4028e38;
@@ -3687,64 +3697,45 @@ LABEL_805:
               if (v572 < 3.40282347e38)
               {
                 v573 = v572;
-                goto LABEL_811;
+                goto LABEL_817;
               }
 
               *&v574 = 3.4028e38;
             }
 
             v573 = *&v574;
-LABEL_811:
-            v575 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-            if (v575 <= -3.40282347e38)
-            {
-              *&v577 = -3.4028e38;
-            }
-
-            else
-            {
-              if (v575 < 3.40282347e38)
-              {
-                v576 = v575;
-                goto LABEL_817;
-              }
-
-              *&v577 = 3.4028e38;
-            }
-
-            v576 = *&v577;
 LABEL_817:
-            v578 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-            if (v578 <= -32768.0)
+            v575 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+            if (v575 <= -32768.0)
             {
-              LOWORD(v579) = 0x8000;
+              LOWORD(v576) = 0x8000;
             }
 
-            else if (v578 >= 32767.0)
+            else if (v575 >= 32767.0)
             {
-              LOWORD(v579) = 0x7FFF;
+              LOWORD(v576) = 0x7FFF;
             }
 
             else
             {
-              v579 = v578;
+              v576 = v575;
             }
 
-            *&v616[0] = v486 | (LODWORD(v573) << 32);
-            WORD6(v616[0]) = v579;
-            HIWORD(v616[0]) = v485 & 0xFFE7 | 8;
-            *(v616 + 2) = v576;
-            LODWORD(v617) = 5;
-            v618 = 0;
-            v618 = [[NSData alloc] initWithBytes:v616 length:16];
-            sub_EB08(this + 3, &v617);
+            *&v613[0] = v483 | (LODWORD(v570) << 32);
+            WORD6(v613[0]) = v576;
+            HIWORD(v613[0]) = v482 & 0xFFE7 | 8;
+            *(v613 + 2) = v573;
+            LODWORD(v614) = 5;
+            v615 = 0;
+            v615 = [[NSData alloc] initWithBytes:v613 length:16];
+            sub_EB08(this + 3, &v614);
 
 LABEL_823:
 LABEL_824:
 
 LABEL_825:
 LABEL_826:
-            v460 = t1.b;
+            v457 = t1.b;
 LABEL_827:
 
             goto LABEL_828;
@@ -3774,8 +3765,8 @@ LABEL_827:
           if (LODWORD(t1.a) == 6)
           {
             v232 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-            v233 = *(v606 + 40);
-            v234 = (*(v606 + 48) - v233) >> 1;
+            v233 = *(v603 + 40);
+            v234 = (*(v603 + 48) - v233) >> 1;
             if (v234 < 0x22)
             {
               v235 = 0xFFFF;
@@ -3786,101 +3777,101 @@ LABEL_827:
               v235 = v233[33];
             }
 
-            v537 = HIWORD(TUILengthNull) & 0xFFF8;
+            v534 = HIWORD(TUILengthNull) & 0xFFF8;
             if (v232 == v235)
             {
-              v467 = v537 | 4;
+              v464 = v534 | 4;
             }
 
             else
             {
               if (v234 < 0x23)
               {
-                v538 = 0xFFFF;
+                v535 = 0xFFFF;
               }
 
               else
               {
-                v538 = v233[34];
+                v535 = v233[34];
               }
 
-              if (v232 == v538)
+              if (v232 == v535)
               {
-                v467 = v537 | 5;
+                v464 = v534 | 5;
               }
 
               else
               {
                 if (v234 < 0x70)
                 {
-                  v548 = 0xFFFF;
+                  v545 = 0xFFFF;
                 }
 
                 else
                 {
-                  v548 = v233[111];
+                  v545 = v233[111];
                 }
 
-                if (v232 == v548)
+                if (v232 == v545)
                 {
-                  v467 = v537 | 6;
+                  v464 = v534 | 6;
                 }
 
                 else
                 {
                   if (v234 < 0x21)
                   {
-                    v550 = 0xFFFF;
+                    v547 = 0xFFFF;
                   }
 
                   else
                   {
-                    v550 = v233[32];
+                    v547 = v233[32];
                   }
 
-                  if (v232 == v550)
+                  if (v232 == v547)
                   {
-                    v467 = v537 | 3;
+                    v464 = v534 | 3;
                   }
 
                   else
                   {
-                    v565 = *v2;
-                    v566 = TUI::Symbol::Tab::string(*(*v2 + 70), v232);
-                    v567 = [NSString stringWithFormat:@"invalid symbol for length: %@", v566];
-                    TUI::Evaluation::Context::reportError(v565, 1016, v567);
-                    v467 = v537 | 2;
+                    v562 = *v2;
+                    v563 = TUI::Symbol::Tab::string(*(*v2 + 70), v232);
+                    v564 = [NSString stringWithFormat:@"invalid symbol for length: %@", v563];
+                    TUI::Evaluation::Context::reportError(v562, 1016, v564);
+                    v464 = v534 | 2;
                   }
                 }
               }
             }
 
-            v469 = 0x7FC000007FC00000;
+            v466 = 0x7FC000007FC00000;
 LABEL_798:
-            *&t2.a = v469;
-            *&t2.b = ((v467 & 0xFFFFFFE7 | (16 * ((~v467 & 7) == 0))) << 48) | 0x7FC00000;
-            LODWORD(v615.a) = 5;
-            v615.b = 0.0;
-            *&v615.b = [[NSData alloc] initWithBytes:&t2 length:16];
-            sub_EB08(this + 3, &v615);
+            *&t2.a = v466;
+            *&t2.b = ((v464 & 0xFFFFFFE7 | (16 * ((~v464 & 7) == 0))) << 48) | 0x7FC00000;
+            LODWORD(v612.a) = 5;
+            v612.b = 0.0;
+            *&v612.b = [[NSData alloc] initWithBytes:&t2 length:16];
+            sub_EB08(this + 3, &v612);
             goto LABEL_825;
           }
         }
 
-        v467 = v231 | 7;
-        *&v468 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-        v469 = v468 | 0x7FC0000000000000;
+        v464 = v231 | 7;
+        *&v465 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+        v466 = v465 | 0x7FC0000000000000;
         goto LABEL_798;
       case 48:
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         v208 = *&CGAffineTransformIdentity.c;
         *&t1.a = *&CGAffineTransformIdentity.a;
         *&t1.c = v208;
         *&t1.tx = *&CGAffineTransformIdentity.tx;
-        LODWORD(v615.a) = 13;
-        v615.b = 0.0;
-        *&v615.b = [NSValue valueWithCGAffineTransform:&t1];
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 13;
+        v612.b = 0.0;
+        *&v612.b = [NSValue valueWithCGAffineTransform:&t1];
+        sub_EB08(this + 3, &v612);
         goto LABEL_571;
       case 49:
         LODWORD(t2.a) = 0;
@@ -3888,8 +3879,8 @@ LABEL_798:
         v275 = *(this + 4);
         if (v275 == *(this + 3))
         {
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
         }
 
         else
@@ -3901,39 +3892,39 @@ LABEL_798:
 
           *(this + 4) = v276 - 24;
           v277 = *(this + 3);
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
           if (v276 - 24 != v277)
           {
-            LODWORD(v620) = *(v276 - 48);
-            v621 = *(v276 - 40);
-            v622 = *(v276 - 32);
+            LODWORD(v617) = *(v276 - 48);
+            v618 = *(v276 - 40);
+            v619 = *(v276 - 32);
             v278 = *(this + 4);
 
             *(this + 4) = v278 - 24;
           }
         }
 
-        v489 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-        v490 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
-        if (v489 == 0.0)
+        v486 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+        v487 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+        if (v486 == 0.0)
         {
-          v489 = 1.0;
+          v486 = 1.0;
           TUI::Evaluation::Context::reportError(*v2, 1027, 0);
         }
 
-        if (v490 == 0.0)
+        if (v487 == 0.0)
         {
-          v490 = 1.0;
+          v487 = 1.0;
           TUI::Evaluation::Context::reportError(*v2, 1027, 0);
         }
 
-        CGAffineTransformMakeScale(&v615, v489, v490);
-        LODWORD(v617) = 13;
-        v618 = 0;
-        t1 = v615;
-        v618 = [NSValue valueWithCGAffineTransform:&t1];
-        sub_EB08(this + 3, &v617);
+        CGAffineTransformMakeScale(&v612, v486, v487);
+        LODWORD(v614) = 13;
+        v615 = 0;
+        t1 = v612;
+        v615 = [NSValue valueWithCGAffineTransform:&t1];
+        sub_EB08(this + 3, &v614);
         goto LABEL_614;
       case 50:
         LODWORD(t2.a) = 0;
@@ -3950,12 +3941,12 @@ LABEL_798:
         }
 
         v148 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
-        CGAffineTransformMakeRotation(&v615, v148 * 3.14159265 / 180.0);
-        LODWORD(v620) = 13;
-        v621 = 0;
-        t1 = v615;
-        v621 = [NSValue valueWithCGAffineTransform:&t1];
-        sub_EB08(this + 3, &v620);
+        CGAffineTransformMakeRotation(&v612, v148 * 3.14159265 / 180.0);
+        LODWORD(v617) = 13;
+        v618 = 0;
+        t1 = v612;
+        v618 = [NSValue valueWithCGAffineTransform:&t1];
+        sub_EB08(this + 3, &v617);
         goto LABEL_615;
       case 51:
         LODWORD(t2.a) = 0;
@@ -3963,8 +3954,8 @@ LABEL_798:
         v271 = *(this + 4);
         if (v271 == *(this + 3))
         {
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
         }
 
         else
@@ -3976,49 +3967,49 @@ LABEL_798:
 
           *(this + 4) = v272 - 24;
           v273 = *(this + 3);
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
           if (v272 - 24 != v273)
           {
-            LODWORD(v620) = *(v272 - 48);
-            v621 = *(v272 - 40);
-            v622 = *(v272 - 32);
+            LODWORD(v617) = *(v272 - 48);
+            v618 = *(v272 - 40);
+            v619 = *(v272 - 32);
             v274 = *(this + 4);
 
             *(this + 4) = v274 - 24;
           }
         }
 
-        v487 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-        v488 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
-        CGAffineTransformMakeTranslation(&v615, v487, v488);
-        LODWORD(v617) = 13;
-        v618 = 0;
-        t1 = v615;
-        v618 = [NSValue valueWithCGAffineTransform:&t1];
-        sub_EB08(this + 3, &v617);
+        v484 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+        v485 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+        CGAffineTransformMakeTranslation(&v612, v484, v485);
+        LODWORD(v614) = 13;
+        v615 = 0;
+        t1 = v612;
+        v615 = [NSValue valueWithCGAffineTransform:&t1];
+        sub_EB08(this + 3, &v614);
 LABEL_614:
 
 LABEL_615:
-        v460 = t2.b;
+        v457 = t2.b;
         goto LABEL_827;
       case 52:
-        LODWORD(v615.a) = 0;
-        v615.b = 0.0;
+        LODWORD(v612.a) = 0;
+        v612.b = 0.0;
         v195 = *(this + 4);
         if (v195 == *(this + 3))
         {
           LODWORD(t2.a) = 0;
           t2.b = 0.0;
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
         }
 
         else
         {
-          LODWORD(v615.a) = *(v195 - 24);
-          *&v615.b = *(v195 - 16);
-          v615.c = *(v195 - 8);
+          LODWORD(v612.a) = *(v195 - 24);
+          *&v612.b = *(v195 - 16);
+          v612.c = *(v195 - 8);
           v196 = *(this + 4);
 
           v197 = v196 - 24;
@@ -4038,31 +4029,31 @@ LABEL_615:
             v198 = *(this + 3);
           }
 
-          LODWORD(v620) = 0;
-          v621 = 0;
+          LODWORD(v617) = 0;
+          v618 = 0;
           if (v197 != v198)
           {
-            LODWORD(v620) = *(v197 - 24);
-            v621 = *(v197 - 16);
-            v622 = *(v197 - 8);
+            LODWORD(v617) = *(v197 - 24);
+            v618 = *(v197 - 16);
+            v619 = *(v197 - 8);
             v200 = *(this + 4);
 
             *(this + 4) = v200 - 24;
           }
         }
 
-        v616[0] = unk_24CEC8;
-        v457 = TUI::Evaluation::ResolvedValue::floatValue(&v620, *v2);
-        v458 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
-        v459 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-        t1.a = v457;
-        t1.b = v458;
-        t1.c = v459;
-        *&t1.d = v616[0];
-        LODWORD(v617) = 14;
-        v618 = 0;
-        v618 = [[NSData alloc] initWithBytes:&t1 length:40];
-        sub_EB08(this + 3, &v617);
+        v613[0] = unk_24CEC8;
+        v454 = TUI::Evaluation::ResolvedValue::floatValue(&v617, *v2);
+        v455 = TUI::Evaluation::ResolvedValue::floatValue(&t2, *v2);
+        v456 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+        t1.a = v454;
+        t1.b = v455;
+        t1.c = v456;
+        *&t1.d = v613[0];
+        LODWORD(v614) = 14;
+        v615 = 0;
+        v615 = [[NSData alloc] initWithBytes:&t1 length:40];
+        sub_EB08(this + 3, &v614);
 LABEL_570:
 
         goto LABEL_571;
@@ -4078,8 +4069,8 @@ LABEL_570:
           v253 = *(this + 4);
 
           *(this + 4) = v253 - 24;
-          v7 = v625;
-          v4 = v626;
+          v7 = v622;
+          v4 = v623;
         }
 
         if (v7 >= v4)
@@ -4089,14 +4080,14 @@ LABEL_570:
 
         else
         {
-          v254 = *(v624 + 2 * v7);
+          v254 = *(v621 + 2 * v7);
         }
 
-        v625 = v7 + 1;
+        v622 = v7 + 1;
         v152 = [TUIGuideSpec columnWithIndex:TUI::Evaluation::ResolvedValue::integerValue(&t1 edge:*v2), v254];
-        LODWORD(v615.a) = 10;
-        *&v615.b = v152;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 10;
+        *&v612.b = v152;
+        sub_EB08(this + 3, &v612);
         goto LABEL_634;
       case 54:
         if (v7 >= v4)
@@ -4106,10 +4097,10 @@ LABEL_570:
 
         else
         {
-          v236 = *(v624 + 2 * v7);
+          v236 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         v89 = [TUIGuideSpec gridWithEdge:v236];
         LODWORD(t1.a) = 10;
         *&t1.b = v89;
@@ -4123,10 +4114,10 @@ LABEL_570:
 
         else
         {
-          v224 = *(v624 + 2 * v7);
+          v224 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         v89 = [TUIGuideSpec contentWithEdge:v224];
         LODWORD(t1.a) = 10;
         *&t1.b = v89;
@@ -4140,10 +4131,10 @@ LABEL_570:
 
         else
         {
-          v124 = *(v624 + 2 * v7);
+          v124 = *(v621 + 2 * v7);
         }
 
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         v89 = [TUIGuideSpec named:v124];
         LODWORD(t1.a) = 10;
         *&t1.b = v89;
@@ -4175,10 +4166,10 @@ LABEL_570:
         }
 
         v152 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
-        LODWORD(v615.a) = 12;
-        v615.b = 0.0;
-        LOBYTE(v615.c) = v152 != 0;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 12;
+        v612.b = 0.0;
+        LOBYTE(v612.c) = v152 != 0;
+        sub_EB08(this + 3, &v612);
 LABEL_634:
 
         goto LABEL_635;
@@ -4211,10 +4202,10 @@ LABEL_634:
           }
         }
 
-        LODWORD(v615.a) = 1;
-        v615.b = 0.0;
-        v615.c = v204;
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 1;
+        v612.b = 0.0;
+        v612.c = v204;
+        sub_EB08(this + 3, &v612);
         goto LABEL_734;
       case 61:
         LODWORD(t1.a) = 0;
@@ -4222,8 +4213,8 @@ LABEL_634:
         v213 = *(this + 4);
         if (v213 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -4235,65 +4226,65 @@ LABEL_634:
 
           *(this + 4) = v214 - 24;
           v215 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v214 - 24 != v215)
           {
-            LODWORD(v615.a) = *(v214 - 48);
-            *&v615.b = *(v214 - 40);
-            v615.c = *(v214 - 32);
+            LODWORD(v612.a) = *(v214 - 48);
+            *&v612.b = *(v214 - 40);
+            v612.c = *(v214 - 32);
             v216 = *(this + 4);
 
             *(this + 4) = v216 - 24;
           }
         }
 
-        v461 = TUI::Evaluation::ResolvedValue::objectValue(&v615, *v2);
-        if ([(__CFString *)v461 conformsToProtocol:&OBJC_PROTOCOL___TUIIndexedSubscripting])
+        v458 = TUI::Evaluation::ResolvedValue::objectValue(&v612, *v2);
+        if ([(__CFString *)v458 conformsToProtocol:&OBJC_PROTOCOL___TUIIndexedSubscripting])
         {
           if (TUI::Evaluation::ResolvedValue::isConvertibleToKind(&t1, 1, *v2))
           {
-            v462 = [(__CFString *)v461 tui_objectAtIndex:TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)];
+            v459 = [(__CFString *)v458 tui_objectAtIndex:TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)];
             goto LABEL_743;
           }
 
           TUI::Evaluation::Context::reportError(*v2, 1000, 0);
         }
 
-        else if ([(__CFString *)v461 conformsToProtocol:&OBJC_PROTOCOL___TUIKeyedSubscripting])
+        else if ([(__CFString *)v458 conformsToProtocol:&OBJC_PROTOCOL___TUIKeyedSubscripting])
         {
-          v463 = *v2;
+          v460 = *v2;
           if (LODWORD(t1.a) == 1)
           {
-            [NSNumber numberWithInteger:TUI::Evaluation::ResolvedValue::floatValue(&t1, v463)];
+            [NSNumber numberWithInteger:TUI::Evaluation::ResolvedValue::floatValue(&t1, v460)];
           }
 
           else
           {
-            TUI::Evaluation::ResolvedValue::objectValue(&t1, v463);
+            TUI::Evaluation::ResolvedValue::objectValue(&t1, v460);
           }
-          v540 = ;
-          if (v540)
+          v537 = ;
+          if (v537)
           {
-            v462 = [(__CFString *)v461 tui_objectForKey:v540];
+            v459 = [(__CFString *)v458 tui_objectForKey:v537];
           }
 
           else
           {
-            v462 = 0;
+            v459 = 0;
           }
 
 LABEL_743:
-          v547 = v462;
+          v544 = v459;
           LODWORD(t2.a) = 16;
-          *&t2.b = v547;
+          *&t2.b = v544;
           sub_EB08(this + 3, &t2);
 
 LABEL_744:
           goto LABEL_825;
         }
 
-        v462 = 0;
+        v459 = 0;
         goto LABEL_743;
       case 62:
         LODWORD(t1.a) = 0;
@@ -4301,8 +4292,8 @@ LABEL_744:
         v156 = *(this + 4);
         if (v156 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           LODWORD(t2.a) = 0;
           t2.b = 0.0;
         }
@@ -4317,13 +4308,13 @@ LABEL_744:
           v158 = v157 - 24;
           *(this + 4) = v157 - 24;
           v159 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v157 - 24 != v159)
           {
-            LODWORD(v615.a) = *(v157 - 48);
-            *&v615.b = *(v157 - 40);
-            v615.c = *(v157 - 32);
+            LODWORD(v612.a) = *(v157 - 48);
+            *&v612.b = *(v157 - 40);
+            v612.c = *(v157 - 32);
             v160 = *(this + 4);
 
             v158 = v160 - 24;
@@ -4344,22 +4335,22 @@ LABEL_744:
           }
         }
 
-        v430 = TUI::Evaluation::ResolvedValue::objectValue(&t2, *v2);
-        if ([v430 conformsToProtocol:&OBJC_PROTOCOL___TUIIndexedSubscripting])
+        v427 = TUI::Evaluation::ResolvedValue::objectValue(&t2, *v2);
+        if ([v427 conformsToProtocol:&OBJC_PROTOCOL___TUIIndexedSubscripting])
         {
-          v431 = TUI::Evaluation::ResolvedValue::floatValue(&v615, *v2);
-          v432 = [v430 tui_subarrayWithStart:v431 end:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+          v428 = TUI::Evaluation::ResolvedValue::floatValue(&v612, *v2);
+          v429 = [v427 tui_subarrayWithStart:v428 end:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
         }
 
         else
         {
-          v432 = 0;
+          v429 = 0;
         }
 
-        v433 = v432;
-        LODWORD(v620) = 16;
-        v621 = v433;
-        sub_EB08(this + 3, &v620);
+        v430 = v429;
+        LODWORD(v617) = 16;
+        v618 = v430;
+        sub_EB08(this + 3, &v617);
 
         goto LABEL_824;
       case 63:
@@ -4370,7 +4361,7 @@ LABEL_744:
 
         else
         {
-          v50 = *(v624 + 2 * v7);
+          v50 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4380,12 +4371,12 @@ LABEL_744:
 
         else
         {
-          v330 = *(v624 + 2 * (v3 + 2)) << 16;
+          v330 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v598 = v50 | v598 & 0xFFFFFFFF00000000 | v330;
-        v89 = TUI::Evaluation::Context::objectForBinding(*v2, v50 | v330);
+        v622 = v3 + 3;
+        v595 = v50 | v595 & 0xFFFFFFFF00000000 | v330;
+        v89 = TUI::Evaluation::Context::objectForBinding(*v2, v595);
         LODWORD(t1.a) = 16;
         *&t1.b = v89;
         sub_EB08(this + 3, &t1);
@@ -4398,7 +4389,7 @@ LABEL_744:
 
         else
         {
-          v48 = *(v624 + 2 * v7);
+          v48 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4408,42 +4399,42 @@ LABEL_744:
 
         else
         {
-          v320 = *(v624 + 2 * (v3 + 2)) << 16;
+          v320 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
+        v622 = v3 + 3;
         v321 = v320 | v48;
-        v599 = v320 | v48 | v599 & 0xFFFFFFFF00000000;
+        v596 = v320 | v48 | v596 & 0xFFFFFFFF00000000;
         v322 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v320 | v48);
         if (v322)
         {
           if (*(v322 + 16) != 0x7FFFFFFFFFFFFFFFLL)
           {
             *(v322 + 40) |= 1u;
-            v498 = *(v322 + 8);
+            v495 = *(v322 + 8);
 LABEL_679:
             LODWORD(t1.a) = 12;
             t1.b = 0.0;
-            LOBYTE(t1.c) = v498 & 1;
+            LOBYTE(t1.c) = v495 & 1;
             sub_EB08(this + 3, &t1);
             goto LABEL_826;
           }
 
           v323 = *v2;
-          v589 = v321 | v589 & 0xFFFFFFFF00000000;
-          v324 = TUI::Symbol::Tab::string(*(*v2 + 70), v589);
+          v586 = v321 | v586 & 0xFFFFFFFF00000000;
+          v324 = TUI::Symbol::Tab::string(*(*v2 + 70), v586);
           TUI::Evaluation::Context::reportError(v323, 1035, v324);
         }
 
         else
         {
-          v497 = *v2;
-          v590 = v321 | v590 & 0xFFFFFFFF00000000;
-          v324 = TUI::Symbol::Tab::string(*(*v2 + 70), v590);
-          TUI::Evaluation::Context::reportError(v497, 1010, v324);
+          v494 = *v2;
+          v587 = v321 | v587 & 0xFFFFFFFF00000000;
+          v324 = TUI::Symbol::Tab::string(*(*v2 + 70), v587);
+          TUI::Evaluation::Context::reportError(v494, 1010, v324);
         }
 
-        v498 = 0;
+        v495 = 0;
         goto LABEL_679;
       case 65:
         if (v7 >= v4)
@@ -4453,52 +4444,52 @@ LABEL_679:
 
         else
         {
-          v244 = *(v624 + 2 * v7);
+          v244 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v373 = 4294901760;
+          v370 = 4294901760;
         }
 
         else
         {
-          v373 = *(v624 + 2 * (v3 + 2)) << 16;
+          v370 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v374 = v373 | v244;
-        v600 = v373 | v244 | v600 & 0xFFFFFFFF00000000;
-        v375 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v373 | v244);
-        if (v375)
+        v622 = v3 + 3;
+        v371 = v370 | v244;
+        v597 = v370 | v244 | v597 & 0xFFFFFFFF00000000;
+        v372 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v370 | v244);
+        if (v372)
         {
-          if (*(v375 + 16) != 0x7FFFFFFFFFFFFFFFLL)
+          if (*(v372 + 16) != 0x7FFFFFFFFFFFFFFFLL)
           {
-            *(v375 + 40) |= 2u;
-            v503 = (*(v375 + 8) >> 1) & 1;
+            *(v372 + 40) |= 2u;
+            v500 = (*(v372 + 8) >> 1) & 1;
 LABEL_682:
             LODWORD(t1.a) = 12;
             t1.b = 0.0;
-            LOBYTE(t1.c) = v503;
+            LOBYTE(t1.c) = v500;
             sub_EB08(this + 3, &t1);
             goto LABEL_826;
           }
 
-          v376 = *v2;
-          v587 = v374 | v587 & 0xFFFFFFFF00000000;
-          v377 = TUI::Symbol::Tab::string(*(*v2 + 70), v587);
-          TUI::Evaluation::Context::reportError(v376, 1035, v377);
+          v373 = *v2;
+          v584 = v371 | v584 & 0xFFFFFFFF00000000;
+          v374 = TUI::Symbol::Tab::string(*(*v2 + 70), v584);
+          TUI::Evaluation::Context::reportError(v373, 1035, v374);
         }
 
         else
         {
-          v502 = *v2;
-          v591 = v374 | v591 & 0xFFFFFFFF00000000;
-          v377 = TUI::Symbol::Tab::string(*(*v2 + 70), v591);
-          TUI::Evaluation::Context::reportError(v502, 1010, v377);
+          v499 = *v2;
+          v588 = v371 | v588 & 0xFFFFFFFF00000000;
+          v374 = TUI::Symbol::Tab::string(*(*v2 + 70), v588);
+          TUI::Evaluation::Context::reportError(v499, 1010, v374);
         }
 
-        LOBYTE(v503) = 0;
+        LOBYTE(v500) = 0;
         goto LABEL_682;
       case 66:
         if (v7 >= v4)
@@ -4508,52 +4499,52 @@ LABEL_682:
 
         else
         {
-          v162 = *(v624 + 2 * v7);
+          v162 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v363 = 4294901760;
+          v361 = 4294901760;
         }
 
         else
         {
-          v363 = *(v624 + 2 * (v3 + 2)) << 16;
+          v361 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v364 = v363 | v162;
-        v601 = v363 | v162 | v601 & 0xFFFFFFFF00000000;
-        v365 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v363 | v162);
-        if (v365)
+        v622 = v3 + 3;
+        v362 = v361 | v162;
+        v598 = v361 | v162 | v598 & 0xFFFFFFFF00000000;
+        v363 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v361 | v162);
+        if (v363)
         {
-          v362 = *(v365 + 16);
-          if (v362 != NAN)
+          v360 = *(v363 + 16);
+          if (v360 != NAN)
           {
-            *(v365 + 40) |= 4u;
+            *(v363 + 40) |= 4u;
 LABEL_410:
             LODWORD(t1.a) = 2;
             t1.b = 0.0;
-            t1.c = v362;
+            t1.c = v360;
             sub_EB08(this + 3, &t1);
             goto LABEL_826;
           }
 
-          v366 = *v2;
-          v588 = v364 | v588 & 0xFFFFFFFF00000000;
-          v367 = TUI::Symbol::Tab::string(*(*v2 + 70), v588);
-          TUI::Evaluation::Context::reportError(v366, 1035, v367);
+          v364 = *v2;
+          v585 = v362 | v585 & 0xFFFFFFFF00000000;
+          v365 = TUI::Symbol::Tab::string(*(*v2 + 70), v585);
+          TUI::Evaluation::Context::reportError(v364, 1035, v365);
         }
 
         else
         {
-          v501 = *v2;
-          v592 = v364 | v592 & 0xFFFFFFFF00000000;
-          v367 = TUI::Symbol::Tab::string(*(*v2 + 70), v592);
-          TUI::Evaluation::Context::reportError(v501, 1010, v367);
+          v498 = *v2;
+          v589 = v362 | v589 & 0xFFFFFFFF00000000;
+          v365 = TUI::Symbol::Tab::string(*(*v2 + 70), v589);
+          TUI::Evaluation::Context::reportError(v498, 1010, v365);
         }
 
-        v362 = NAN;
+        v360 = NAN;
         goto LABEL_410;
       case 67:
         if (v7 >= v4)
@@ -4563,7 +4554,7 @@ LABEL_410:
 
         else
         {
-          v69 = *(v624 + 2 * v7);
+          v69 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4573,12 +4564,12 @@ LABEL_410:
 
         else
         {
-          v336 = *(v624 + 2 * (v3 + 2)) << 16;
+          v336 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
+        v622 = v3 + 3;
         v337 = v336 | v69;
-        v602 = v336 | v69 | v602 & 0xFFFFFFFF00000000;
+        v599 = v336 | v69 | v599 & 0xFFFFFFFF00000000;
         v338 = TUI::Evaluation::Context::enumeratorStateForBinding(*v2, v336 | v69);
         if (v338)
         {
@@ -4589,18 +4580,18 @@ LABEL_410:
             goto LABEL_704;
           }
 
-          v533 = *v2;
-          v584 = v337 | v584 & 0xFFFFFFFF00000000;
-          v500 = TUI::Symbol::Tab::string(*(*v2 + 70), v584);
-          TUI::Evaluation::Context::reportError(v533, 1036, v500);
+          v530 = *v2;
+          v581 = v337 | v581 & 0xFFFFFFFF00000000;
+          v497 = TUI::Symbol::Tab::string(*(*v2 + 70), v581);
+          TUI::Evaluation::Context::reportError(v530, 1036, v497);
         }
 
         else
         {
-          v499 = *v2;
-          v593 = v337 | v593 & 0xFFFFFFFF00000000;
-          v500 = TUI::Symbol::Tab::string(*(*v2 + 70), v593);
-          TUI::Evaluation::Context::reportError(v499, 1010, v500);
+          v496 = *v2;
+          v590 = v337 | v590 & 0xFFFFFFFF00000000;
+          v497 = TUI::Symbol::Tab::string(*(*v2 + 70), v590);
+          TUI::Evaluation::Context::reportError(v496, 1010, v497);
         }
 
         v340 = 0;
@@ -4620,7 +4611,7 @@ LABEL_705:
 
         else
         {
-          v80 = *(v624 + 2 * v7);
+          v80 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4630,38 +4621,37 @@ LABEL_705:
 
         else
         {
-          v341 = *(v624 + 2 * (v3 + 2)) << 16;
+          v341 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v342 = v80 | v594 & 0xFFFFFFFF00000000 | v341;
-        v343 = (v80 | v341);
-        v344 = TUI::Evaluation::Context::lookupNamedElement(*v2, v343);
-        v346 = v345;
-        if (v345 == -1)
+        v622 = v3 + 3;
+        v342 = (v80 | v591 & 0xFFFFFFFF00000000 | v341);
+        v343 = TUI::Evaluation::Context::lookupNamedElement(*v2, v342);
+        v345 = v344;
+        if (v344 == -1)
         {
-          v348 = 0;
           v347 = 0;
+          v346 = 0;
         }
 
         else
         {
-          v347 = [[_TUIElementWithClosure alloc] initWithRef:v344 context:v345, *v2];
-          v348 = 15;
-          v586 = v347;
+          v346 = [[_TUIElementWithClosure alloc] initWithRef:v343 context:v344, *v2];
+          v347 = 15;
+          v583 = v346;
         }
 
-        LODWORD(t1.a) = v348;
-        *&t1.b = v347;
+        LODWORD(t1.a) = v347;
+        *&t1.b = v346;
         sub_EB08(this + 3, &t1);
-        v594 = v342;
+        v591 = v342;
 
-        if (v346 == -1)
+        if (v345 == -1)
         {
           goto LABEL_828;
         }
 
-        v460 = *&v586;
+        v457 = *&v583;
         goto LABEL_827;
       case 69:
         if (v7 >= v4)
@@ -4671,33 +4661,32 @@ LABEL_705:
 
         else
         {
-          v112 = *(v624 + 2 * v7);
+          v112 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v352 = 4294901760;
+          v351 = 4294901760;
         }
 
         else
         {
-          v352 = *(v624 + 2 * (v3 + 2)) << 16;
+          v351 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v353 = (v112 | v352);
-        v603 = v112 | v603 & 0xFFFFFFFF00000000 | v352;
-        TUI::Evaluation::Context::lookupNamedElement(*v2, v353);
+        v622 = v3 + 3;
+        v600 = v112 | v600 & 0xFFFFFFFF00000000 | v351;
+        TUI::Evaluation::Context::lookupNamedElement(*v2, v600);
         LODWORD(t1.a) = 12;
         t1.b = 0.0;
-        LOBYTE(t1.c) = v354 != -1;
+        LOBYTE(t1.c) = v352 != -1;
         sub_EB08(this + 3, &t1);
         goto LABEL_826;
       case 70:
-        v625 = v3 + 3;
+        v622 = v3 + 3;
         goto LABEL_828;
       case 71:
-        v625 = v3 + 2;
+        v622 = v3 + 2;
         TUI::Evaluation::Context::beginScope(*v2);
         goto LABEL_828;
       case 72:
@@ -4711,23 +4700,23 @@ LABEL_705:
 
         else
         {
-          v306 = *(v624 + 2 * v7);
+          v306 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v382 = 4294901760;
+          v379 = 4294901760;
         }
 
         else
         {
-          v382 = *(v624 + 2 * (v3 + 2)) << 16;
+          v379 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
-        v596 = v306 | v596 & 0xFFFFFFFF00000000 | v382;
-        v383 = TUI::Evaluation::Context::lookupFunction(*v2, v306 | v382);
-        if (v384 == -1)
+        v622 = v3 + 3;
+        v593 = v306 | v593 & 0xFFFFFFFF00000000 | v379;
+        v380 = TUI::Evaluation::Context::lookupFunction(*v2, v306 | v379);
+        if (v381 == -1)
         {
           TUI::Evaluation::Context::reportError(*v2, 1008, 0);
           LODWORD(t1.a) = 0;
@@ -4736,37 +4725,37 @@ LABEL_705:
           goto LABEL_826;
         }
 
-        v385 = (*(*v383 + 40))(v383, v384);
+        v382 = (*(*v380 + 40))(v380, v381);
         TUI::Evaluation::Context::pushClosure(*v2);
-        if (!TUIDefinitionNotNil(v385))
+        if (!TUIDefinitionNotNil(v382))
         {
           goto LABEL_720;
         }
 
-        v386 = *(*v2 + 72);
-        if (*(v386 + 184) <= v385)
+        v383 = *(*v2 + 72);
+        if (*(v383 + 184) <= v382)
         {
-          v387 = 0;
+          v384 = 0;
         }
 
         else
         {
-          v387 = *(v386 + 176) + 12 * v385;
-          if (v387)
+          v384 = *(v383 + 176) + 12 * v382;
+          if (v384)
           {
-            v388 = *(v387 + 8);
-            v387 = *(v387 + 6) << 32;
+            v385 = *(v384 + 8);
+            v384 = *(v384 + 6) << 32;
             goto LABEL_719;
           }
         }
 
-        v388 = 0xFFFFFFFFLL;
+        v385 = 0xFFFFFFFFLL;
 LABEL_719:
-        TUI::Evaluation::Context::evaluateParams(*v2, v388 | v387);
+        TUI::Evaluation::Context::evaluateParams(*v2, v385 | v384);
 LABEL_720:
-        if (TUIValueNotNil(SHIDWORD(v385)))
+        if (TUIValueNotNil(SHIDWORD(v382)))
         {
-          TUI::Instruction::Evaluation::evaluate(&t1, this, HIDWORD(v385));
+          TUI::Instruction::Evaluation::evaluate(this, HIDWORD(v382), &t1);
           sub_EB08(this + 3, &t1);
         }
 
@@ -4789,7 +4778,7 @@ LABEL_720:
 
         else
         {
-          v49 = *(v624 + 2 * v7);
+          v49 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4799,11 +4788,11 @@ LABEL_720:
 
         else
         {
-          v325 = *(v624 + 2 * (v3 + 2)) << 16;
+          v325 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v326 = v605;
-        v625 = v3 + 3;
+        v326 = v602;
+        v622 = v3 + 3;
         LODWORD(t1.a) = 0;
         t1.b = 0.0;
         v327 = *(this + 4);
@@ -4814,12 +4803,12 @@ LABEL_720:
           t1.c = *(v327 - 8);
           v328 = *(this + 4);
 
-          v326 = v605;
+          v326 = v602;
           *(this + 4) = v328 - 24;
         }
 
         v329 = (v49 | v325);
-        v605 = v49 | v326 & 0xFFFFFFFF00000000 | v325;
+        v602 = v49 | v326 & 0xFFFFFFFF00000000 | v325;
         TUI::Evaluation::Context::pushConstant(*v2, v329, &t1);
         goto LABEL_826;
       case 75:
@@ -4830,7 +4819,7 @@ LABEL_720:
 
         else
         {
-          v60 = *(v624 + 2 * v7);
+          v60 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4840,10 +4829,10 @@ LABEL_720:
 
         else
         {
-          v331 = *(v624 + 2 * (v3 + 2)) << 16;
+          v331 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
+        v622 = v3 + 3;
         LODWORD(t1.a) = 0;
         t1.b = 0.0;
         v332 = *(this + 4);
@@ -4860,7 +4849,7 @@ LABEL_720:
         v334 = *v2;
         v152 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
         v335 = (v60 | v331);
-        v595 = v60 | v595 & 0xFFFFFFFF00000000 | v331;
+        v592 = v60 | v592 & 0xFFFFFFFF00000000 | v331;
         TUI::Evaluation::Context::pushBinding(v334, v335, v152);
 LABEL_635:
 
@@ -4873,7 +4862,7 @@ LABEL_635:
 
         else
         {
-          v47 = *(v624 + 2 * v7);
+          v47 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
@@ -4883,10 +4872,10 @@ LABEL_635:
 
         else
         {
-          v312 = *(v624 + 2 * (v3 + 2)) << 16;
+          v312 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
-        v625 = v3 + 3;
+        v622 = v3 + 3;
         LODWORD(t1.a) = 0;
         t1.b = 0.0;
         v313 = *(this + 4);
@@ -4909,35 +4898,35 @@ LABEL_635:
         {
           v318 = TUIClosureNil;
           v319 = [v203 parsedElement];
-          *&v615.a = v319;
-          LODWORD(v615.b) = TUIElementNodeNil;
-          v585 = v585 & 0xFFFFFFFF00000000 | v316;
-          TUI::Evaluation::Context::pushNamedElement(v317, v316, v318, &v615);
+          *&v612.a = v319;
+          LODWORD(v612.b) = TUIElementNodeNil;
+          v582 = v582 & 0xFFFFFFFF00000000 | v316;
+          TUI::Evaluation::Context::pushNamedElement(v317, v316, v318, &v612);
         }
 
         else
         {
           if (v203)
           {
-            [v203 closureAndCapture];
+            objc_msgSend_closureAndCapture(v203);
           }
 
           else
           {
-            v609[0] = 0;
-            v609[1] = 0;
-            v610 = 0;
+            v606[0] = 0;
+            v606[1] = 0;
+            v607 = 0;
           }
 
-          v539 = [v203 node];
-          v615.a = 0.0;
-          LODWORD(v615.b) = v539;
-          v583 = v583 & 0xFFFFFFFF00000000 | v316;
-          TUI::Evaluation::Context::pushNamedElement(v317, v316, v609, &v615);
+          v536 = [v203 node];
+          v612.a = 0.0;
+          LODWORD(v612.b) = v536;
+          v580 = v580 & 0xFFFFFFFF00000000 | v316;
+          TUI::Evaluation::Context::pushNamedElement(v317, v316, v606, &v612);
 
-          if (v610)
+          if (v607)
           {
-            sub_11420(v610);
+            sub_11420(v607);
           }
         }
 
@@ -4953,12 +4942,12 @@ LABEL_635:
         *&t1.a = *&CGAffineTransformIdentity.a;
         *&t1.c = v305;
         *&t1.tx = *&CGAffineTransformIdentity.tx;
-        LODWORD(v615.a) = 13;
-        v615.b = 0.0;
-        *&v615.b = [NSValue valueWithCGAffineTransform:&t1];
-        sub_EB08(this + 3, &v615);
+        LODWORD(v612.a) = 13;
+        v612.b = 0.0;
+        *&v612.b = [NSValue valueWithCGAffineTransform:&t1];
+        sub_EB08(this + 3, &v612);
 LABEL_571:
-        v460 = v615.b;
+        v457 = v612.b;
         goto LABEL_827;
       case 79:
         if (v7 >= v4)
@@ -4968,50 +4957,50 @@ LABEL_571:
 
         else
         {
-          v292 = *(v624 + 2 * v7);
+          v292 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v378 = 4294901760;
+          v375 = 4294901760;
         }
 
         else
         {
-          v378 = *(v624 + 2 * (v3 + 2)) << 16;
+          v375 = *(v621 + 2 * (v3 + 2)) << 16;
         }
 
         if (v3 + 3 >= v4)
         {
-          v379 = 0xFFFF;
+          v376 = 0xFFFFLL;
         }
 
         else
         {
-          v379 = *(v624 + 2 * (v3 + 3));
+          v376 = *(v621 + 2 * (v3 + 3));
         }
 
-        v625 = v3 + 4;
-        v604 = v292 | v604 & 0xFFFFFFFF00000000 | v378;
-        v380 = TUI::Evaluation::Context::objectForBinding(*v2, v292 | v378);
-        LODWORD(v615.a) = 16;
-        *&v615.b = v380;
-        TUI::Evaluation::ResolvedValue::resolveProperty(&v615, *v2, v379, &t1);
+        v622 = v3 + 4;
+        v601 = v292 | v601 & 0xFFFFFFFF00000000 | v375;
+        v377 = TUI::Evaluation::Context::objectForBinding(*v2, v601);
+        LODWORD(v612.a) = 16;
+        *&v612.b = v377;
+        TUI::Evaluation::ResolvedValue::resolveProperty(&t1, &v612, *v2, v376);
         sub_EB08(this + 3, &t1);
 
-        v381 = v615.b;
+        v378 = v612.b;
         goto LABEL_664;
       case 80:
         v279 = objc_opt_new();
-        if (v625 >= v626)
+        if (v622 >= v623)
         {
-          ++v625;
+          ++v622;
           v280 = 0xFFFFLL;
         }
 
         else
         {
-          v280 = *(v624 + 2 * v625++);
+          v280 = *(v621 + 2 * v622++);
           if (!v280)
           {
             v281 = 0;
@@ -5019,165 +5008,165 @@ LABEL_571:
           }
         }
 
-        v389 = 0;
+        v386 = 0;
         do
         {
-          if (v625 >= v626)
+          if (v622 >= v623)
           {
-            v390 = 0xFFFF;
+            v387 = 0xFFFF;
           }
 
           else
           {
-            v390 = *(v624 + 2 * v625);
+            v387 = *(v621 + 2 * v622);
           }
 
-          ++v625;
+          ++v622;
           LODWORD(t1.a) = 0;
           t1.b = 0.0;
-          v391 = *(this + 4);
-          if (v391 != *(this + 3))
+          v388 = *(this + 4);
+          if (v388 != *(this + 3))
           {
-            LODWORD(t1.a) = *(v391 - 24);
-            *&t1.b = *(v391 - 16);
-            t1.c = *(v391 - 8);
-            v392 = *(this + 4);
+            LODWORD(t1.a) = *(v388 - 24);
+            *&t1.b = *(v388 - 16);
+            t1.c = *(v388 - 8);
+            v389 = *(this + 4);
 
-            *(this + 4) = v392 - 24;
+            *(this + 4) = v389 - 24;
           }
 
           v281 = TUI::Evaluation::ResolvedValue::colorValue(&t1, *v2);
 
           if (v281)
           {
-            v393 = objc_opt_new();
-            if ((v390 & 7) != 0)
+            v390 = objc_opt_new();
+            if ((v387 & 7) != 0)
             {
-              if ((v390 & 7) != 1)
+              if ((v387 & 7) != 1)
               {
                 goto LABEL_474;
               }
 
-              v394 = 1;
+              v391 = 1;
             }
 
             else
             {
-              v394 = v390 & 7;
+              v391 = v387 & 7;
             }
 
-            v395 = [UITraitCollection traitCollectionWithUserInterfaceLevel:v394];
-            [v393 addObject:v395];
+            v392 = [UITraitCollection traitCollectionWithUserInterfaceLevel:v391];
+            [v390 addObject:v392];
 
 LABEL_474:
-            v396 = (v390 >> 3) & 3;
-            if (v396)
+            v393 = (v387 >> 3) & 3;
+            if (v393)
             {
-              if (v396 != 1)
+              if (v393 != 1)
               {
                 goto LABEL_478;
               }
 
-              v396 = 1;
+              v393 = 1;
             }
 
-            v397 = [UITraitCollection traitCollectionWithDisplayGamut:v396];
-            [v393 addObject:v397];
+            v394 = [UITraitCollection traitCollectionWithDisplayGamut:v393];
+            [v390 addObject:v394];
 
 LABEL_478:
-            v398 = (v390 >> 5) & 3;
-            if (v398)
+            v395 = (v387 >> 5) & 3;
+            if (v395)
             {
-              if (v398 != 1)
+              if (v395 != 1)
               {
                 goto LABEL_482;
               }
 
-              v398 = 1;
+              v395 = 1;
             }
 
-            v399 = [UITraitCollection traitCollectionWithAccessibilityContrast:v398];
-            [v393 addObject:v399];
+            v396 = [UITraitCollection traitCollectionWithAccessibilityContrast:v395];
+            [v390 addObject:v396];
 
 LABEL_482:
-            v400 = (v390 >> 7) & 7;
-            if (v400)
+            v397 = (v387 >> 7) & 7;
+            if (v397)
             {
-              if (v400 != 1)
+              if (v397 != 1)
               {
 LABEL_487:
-                v607[0] = _NSConcreteStackBlock;
-                v607[1] = 3221225472;
-                v607[2] = sub_EB74;
-                v607[3] = &unk_25DD30;
-                v403 = v393;
-                v608 = v403;
-                v404 = [UITraitCollection traitCollectionWithTraits:v607];
-                [v279 setObject:v281 forKeyedSubscript:v404];
+                v604[0] = _NSConcreteStackBlock;
+                v604[1] = 3221225472;
+                v604[2] = sub_EB74;
+                v604[3] = &unk_25DD30;
+                v400 = v390;
+                v605 = v400;
+                v401 = [UITraitCollection traitCollectionWithTraits:v604];
+                [v279 setObject:v281 forKeyedSubscript:v401];
 
                 goto LABEL_488;
               }
 
-              v401 = 2;
+              v398 = 2;
             }
 
             else
             {
-              v401 = 1;
+              v398 = 1;
             }
 
-            v402 = [UITraitCollection traitCollectionWithUserInterfaceStyle:v401];
-            [v393 addObject:v402];
+            v399 = [UITraitCollection traitCollectionWithUserInterfaceStyle:v398];
+            [v390 addObject:v399];
 
             goto LABEL_487;
           }
 
 LABEL_488:
-          v389 = v281;
+          v386 = v281;
           --v280;
         }
 
         while (v280);
 LABEL_489:
-        v405 = [UITraitCollection traitCollectionWithUserInterfaceStyle:0];
-        v406 = [v279 objectForKeyedSubscript:v405];
+        v402 = [UITraitCollection traitCollectionWithUserInterfaceStyle:0];
+        v403 = [v279 objectForKeyedSubscript:v402];
 
-        if (!v406)
+        if (!v403)
         {
-          v407 = v281;
+          v404 = v281;
           if (!v281)
           {
-            v582 = +[UIColor redColor];
-            v407 = v582;
+            v579 = +[UIColor redColor];
+            v404 = v579;
           }
 
-          [v279 setObject:v407 forKeyedSubscript:v405];
+          [v279 setObject:v404 forKeyedSubscript:v402];
           if (!v281)
           {
           }
         }
 
-        v408 = [UIColor _dynamicColorWithColorsByTraitCollection:v279];
-        v409 = v408;
-        if (v408)
+        v405 = [UIColor _dynamicColorWithColorsByTraitCollection:v279];
+        v406 = v405;
+        if (v405)
         {
-          v410 = v408;
-          v411 = 11;
+          v407 = v405;
+          v408 = 11;
         }
 
         else
         {
-          v411 = 0;
+          v408 = 0;
         }
 
-        LODWORD(t1.a) = v411;
-        *&t1.b = v409;
+        LODWORD(t1.a) = v408;
+        *&t1.b = v406;
         sub_EB08(this + 3, &t1);
 
 LABEL_828:
-        v3 = v625;
-        v4 = v626;
-        if (v625 < v626)
+        v3 = v622;
+        v4 = v623;
+        if (v622 < v623)
         {
           continue;
         }
@@ -5188,7 +5177,7 @@ LABEL_836:
           TUI::Evaluation::Context::reportError(*v2, 1029, 0);
         }
 
-        TUI::Instruction::Decoder::~Decoder(&v623);
+        TUI::Instruction::Decoder::~Decoder(v620);
         return;
       case 81:
         LODWORD(t1.a) = 0;
@@ -5231,13 +5220,13 @@ LABEL_836:
           v68 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v509 = v68;
+        v506 = v68;
 
-        v510 = [v509 fontSpecWithFamily:v63];
+        v507 = [v506 fontSpecWithFamily:v63];
 
-        v511 = v510;
+        v508 = v507;
         LODWORD(t1.a) = 17;
-        *&t1.b = v511;
+        *&t1.b = v508;
         sub_EB08(this + 3, &t1);
         goto LABEL_671;
       case 82:
@@ -5282,13 +5271,13 @@ LABEL_836:
           v88 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v523 = v88;
+        v520 = v88;
 
-        v524 = [v523 fontSpecWithDesign:v63];
+        v521 = [v520 fontSpecWithDesign:v63];
 
-        v511 = v524;
+        v508 = v521;
         LODWORD(t1.a) = 17;
-        *&t1.b = v511;
+        *&t1.b = v508;
         sub_EB08(this + 3, &t1);
         goto LABEL_671;
       case 83:
@@ -5332,13 +5321,13 @@ LABEL_836:
           v304 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v514 = v304;
+        v511 = v304;
 
-        v515 = [v514 fontSpecWithPointSize:v299];
+        v512 = [v511 fontSpecWithPointSize:v299];
 
-        v380 = v515;
+        v377 = v512;
         LODWORD(t1.a) = 17;
-        *&t1.b = v380;
+        *&t1.b = v377;
         sub_EB08(this + 3, &t1);
         goto LABEL_663;
       case 84:
@@ -5383,13 +5372,13 @@ LABEL_836:
           v172 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v525 = v172;
+        v522 = v172;
 
-        v526 = [v525 fontSpecWithTextStyle:v63];
+        v523 = [v522 fontSpecWithTextStyle:v63];
 
-        v511 = v526;
+        v508 = v523;
         LODWORD(t1.a) = 17;
-        *&t1.b = v511;
+        *&t1.b = v508;
         sub_EB08(this + 3, &t1);
         goto LABEL_671;
       case 85:
@@ -5433,13 +5422,13 @@ LABEL_836:
           v145 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v512 = v145;
+        v509 = v145;
 
-        v513 = [v512 fontSpecWithMaxPointSize:v140];
+        v510 = [v509 fontSpecWithMaxPointSize:v140];
 
-        v380 = v513;
+        v377 = v510;
         LODWORD(t1.a) = 17;
-        *&t1.b = v380;
+        *&t1.b = v377;
         sub_EB08(this + 3, &t1);
         goto LABEL_663;
       case 86:
@@ -5484,13 +5473,13 @@ LABEL_836:
           v289 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v527 = v289;
+        v524 = v289;
 
-        v528 = [v527 fontSpecWithMaxContentSize:v63];
+        v525 = [v524 fontSpecWithMaxContentSize:v63];
 
-        v511 = v528;
+        v508 = v525;
         LODWORD(t1.a) = 17;
-        *&t1.b = v511;
+        *&t1.b = v508;
         sub_EB08(this + 3, &t1);
 LABEL_671:
 
@@ -5530,53 +5519,53 @@ LABEL_671:
 
             if (v184 == v186)
             {
-              v444 = NAN;
+              v441 = NAN;
 LABEL_547:
-              LODWORD(v615.a) = 0;
-              v615.b = 0.0;
-              v445 = *(this + 4);
-              if (v445 != *(this + 3))
+              LODWORD(v612.a) = 0;
+              v612.b = 0.0;
+              v442 = *(this + 4);
+              if (v442 != *(this + 3))
               {
-                LODWORD(v615.a) = *(v445 - 24);
-                *&v615.b = *(v445 - 16);
-                v615.c = *(v445 - 8);
-                v446 = *(this + 4);
+                LODWORD(v612.a) = *(v442 - 24);
+                *&v612.b = *(v442 - 16);
+                v612.c = *(v442 - 8);
+                v443 = *(this + 4);
 
-                *(this + 4) = v446 - 24;
+                *(this + 4) = v443 - 24;
               }
 
-              v447 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v615, *v2);
-              v448 = v447;
-              if (v447)
+              v444 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v612, *v2);
+              v445 = v444;
+              if (v444)
               {
-                v449 = v447;
+                v446 = v444;
               }
 
               else
               {
-                v449 = +[TUIFontSpec defaultFontSpec];
+                v446 = +[TUIFontSpec defaultFontSpec];
               }
 
-              v516 = v449;
+              v513 = v446;
 
-              v517 = [v516 fontSpecWithLeading:v444];
+              v514 = [v513 fontSpecWithLeading:v441];
 
-              v518 = v517;
-              LODWORD(v615.a) = 17;
-              *&v615.b = v518;
-              sub_EB08(this + 3, &v615);
+              v515 = v514;
+              LODWORD(v612.a) = 17;
+              *&v612.b = v515;
+              sub_EB08(this + 3, &v612);
 
               goto LABEL_826;
             }
 
             if (LODWORD(t1.a) == 6)
             {
-              v534 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, v183);
+              v531 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, v183);
               v183 = *v2;
-              v535 = *(*(*v2 + 70) + 40);
-              v536 = (*(*(*v2 + 70) + 48) - v535) < 0xCF ? 0xFFFF : *(v535 + 206);
-              v444 = 0.0;
-              if (v534 == v536)
+              v532 = *(*(*v2 + 70) + 40);
+              v533 = (*(*(*v2 + 70) + 48) - v532) < 0xCF ? 0xFFFF : *(v532 + 206);
+              v441 = 0.0;
+              if (v531 == v533)
               {
                 goto LABEL_547;
               }
@@ -5584,7 +5573,7 @@ LABEL_547:
           }
         }
 
-        v444 = TUI::Evaluation::ResolvedValue::floatValue(&t1, v183);
+        v441 = TUI::Evaluation::ResolvedValue::floatValue(&t1, v183);
         goto LABEL_547;
       case 88:
         LODWORD(t1.a) = 0;
@@ -5628,13 +5617,13 @@ LABEL_547:
           v35 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v519 = v35;
+        v516 = v35;
 
-        v520 = [v519 fontSpecWithWeight:v30];
+        v517 = [v516 fontSpecWithWeight:v30];
 
-        v380 = v520;
+        v377 = v517;
         LODWORD(t1.a) = 17;
-        *&t1.b = v380;
+        *&t1.b = v377;
         sub_EB08(this + 3, &t1);
         goto LABEL_663;
       case 89:
@@ -5679,16 +5668,16 @@ LABEL_547:
           v59 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v521 = v59;
+        v518 = v59;
 
-        v522 = [v521 fontSpecWithCaps:v54];
+        v519 = [v518 fontSpecWithCaps:v54];
 
-        v380 = v522;
+        v377 = v519;
         LODWORD(t1.a) = 17;
-        *&t1.b = v380;
+        *&t1.b = v377;
         sub_EB08(this + 3, &t1);
 LABEL_663:
-        v381 = t1.b;
+        v378 = t1.b;
 LABEL_664:
 
         goto LABEL_828;
@@ -5698,8 +5687,8 @@ LABEL_664:
         v293 = *(this + 4);
         if (v293 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -5711,50 +5700,50 @@ LABEL_664:
 
           *(this + 4) = v294 - 24;
           v295 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v294 - 24 != v295)
           {
-            LODWORD(v615.a) = *(v294 - 48);
-            *&v615.b = *(v294 - 40);
-            v615.c = *(v294 - 32);
+            LODWORD(v612.a) = *(v294 - 48);
+            *&v612.b = *(v294 - 40);
+            v612.c = *(v294 - 32);
             v296 = *(this + 4);
 
             *(this + 4) = v296 - 24;
           }
         }
 
-        v491 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v615, *v2);
-        v492 = v491;
-        if (v491)
+        v488 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v612, *v2);
+        v489 = v488;
+        if (v488)
         {
-          v493 = v491;
+          v490 = v488;
         }
 
         else
         {
-          v493 = +[TUIFontSpec defaultFontSpec];
+          v490 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v504 = v493;
+        v501 = v490;
 
-        v505 = *v2;
-        if (LODWORD(t1.a) == 6 && ((v506 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, v505), v505 = *v2, v507 = *(*(*v2 + 70) + 40), (*(*(*v2 + 70) + 48) - v507) < 0x9F) ? (v508 = 0xFFFF) : (v508 = *(v507 + 158)), v506 == v508))
+        v502 = *v2;
+        if (LODWORD(t1.a) == 6 && ((v503 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, v502), v502 = *v2, v504 = *(*(*v2 + 70) + 40), (*(*(*v2 + 70) + 48) - v504) < 0x9F) ? (v505 = 0xFFFF) : (v505 = *(v504 + 158)), v503 == v505))
         {
-          v531 = NAN;
+          v528 = NAN;
         }
 
         else
         {
-          v531 = TUI::Evaluation::ResolvedValue::floatValue(&t1, v505);
+          v528 = TUI::Evaluation::ResolvedValue::floatValue(&t1, v502);
         }
 
-        v532 = [v504 fontSpecWithTracking:v531];
+        v529 = [v501 fontSpecWithTracking:v528];
 
-        v203 = v532;
-        LODWORD(v615.a) = 17;
-        *&v615.b = v203;
-        sub_EB08(this + 3, &v615);
+        v203 = v529;
+        LODWORD(v612.a) = 17;
+        *&v612.b = v203;
+        sub_EB08(this + 3, &v612);
         goto LABEL_734;
       case 91:
         LODWORD(t1.a) = 0;
@@ -5762,8 +5751,8 @@ LABEL_664:
         v23 = *(this + 4);
         if (v23 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -5775,85 +5764,85 @@ LABEL_664:
 
           *(this + 4) = v24 - 24;
           v25 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v24 - 24 != v25)
           {
-            LODWORD(v615.a) = *(v24 - 48);
-            *&v615.b = *(v24 - 40);
-            v615.c = *(v24 - 32);
+            LODWORD(v612.a) = *(v24 - 48);
+            *&v612.b = *(v24 - 40);
+            v612.c = *(v24 - 32);
             v26 = *(this + 4);
 
             *(this + 4) = v26 - 24;
           }
         }
 
-        v416 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v615, *v2);
-        v417 = v416;
-        if (v416)
+        v413 = TUI::Evaluation::ResolvedValue::fontSpecValue(&v612, *v2);
+        v414 = v413;
+        if (v413)
         {
-          v418 = v416;
+          v415 = v413;
         }
 
         else
         {
-          v418 = +[TUIFontSpec defaultFontSpec];
+          v415 = +[TUIFontSpec defaultFontSpec];
         }
 
-        v494 = v418;
+        v491 = v415;
 
-        if (v625 >= v626)
+        if (v622 >= v623)
         {
-          ++v625;
+          ++v622;
           goto LABEL_733;
         }
 
-        v495 = *(v624 + 2 * v625++);
-        if (v495 > 1)
+        v492 = *(v621 + 2 * v622++);
+        if (v492 > 1)
         {
-          if (v495 == 2)
+          if (v492 == 2)
           {
-            v542 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-            v543 = TUI::Instruction::Evaluation::contentSizeFromSymbol(this, v542);
-            v544 = [v494 fontSpecWithMinContentSize:v543];
+            v539 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
+            v540 = TUI::Instruction::Evaluation::contentSizeFromSymbol(this, v539);
+            v541 = [v491 fontSpecWithMinContentSize:v540];
 
-            v494 = v544;
+            v491 = v541;
 LABEL_733:
-            v203 = v494;
-            LODWORD(v615.a) = 17;
-            *&v615.b = v203;
-            sub_EB08(this + 3, &v615);
+            v203 = v491;
+            LODWORD(v612.a) = 17;
+            *&v612.b = v203;
+            sub_EB08(this + 3, &v612);
 LABEL_734:
 
 LABEL_735:
             goto LABEL_826;
           }
 
-          if (v495 != 3)
+          if (v492 != 3)
           {
             goto LABEL_733;
           }
 
-          v496 = [v494 fontSpecWithMonospacedDigits:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
+          v493 = [v491 fontSpecWithMonospacedDigits:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
         }
 
         else
         {
-          if (v495)
+          if (v492)
           {
-            [v494 fontSpecWithMinPointSize:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+            [v491 fontSpecWithMinPointSize:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
           }
 
           else
           {
-            [v494 fontSpecWithAdditionalLeading:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+            [v491 fontSpecWithAdditionalLeading:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
           }
-          v496 = ;
+          v493 = ;
         }
 
-        v541 = v496;
+        v538 = v493;
 
-        v494 = v541;
+        v491 = v538;
         goto LABEL_733;
       case 92:
         LODWORD(t1.a) = 0;
@@ -5861,8 +5850,8 @@ LABEL_735:
         v177 = *(this + 4);
         if (v177 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -5874,215 +5863,215 @@ LABEL_735:
 
           *(this + 4) = v178 - 24;
           v179 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v178 - 24 != v179)
           {
-            LODWORD(v615.a) = *(v178 - 48);
-            *&v615.b = *(v178 - 40);
-            v615.c = *(v178 - 32);
+            LODWORD(v612.a) = *(v178 - 48);
+            *&v612.b = *(v178 - 40);
+            v612.c = *(v178 - 32);
             v180 = *(this + 4);
 
             *(this + 4) = v180 - 24;
           }
         }
 
-        v436 = TUI::Evaluation::ResolvedValue::objectValue(&v615, *v2);
-        v437 = v436;
-        if (v625 >= v626)
+        v433 = TUI::Evaluation::ResolvedValue::objectValue(&v612, *v2);
+        v434 = v433;
+        if (v622 >= v623)
         {
-          ++v625;
+          ++v622;
 LABEL_544:
-          v443 = v436;
+          v440 = v433;
           LODWORD(t2.a) = 16;
-          *&t2.b = v443;
+          *&t2.b = v440;
           sub_EB08(this + 3, &t2);
         }
 
         else
         {
-          v438 = *(v624 + 2 * v625++);
-          switch(v438)
+          v435 = *(v621 + 2 * v622++);
+          switch(v435)
           {
             case 0:
-              v439 = sub_103F0(v436, *v2);
-              v440 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-              v441 = [v439 pointerStyleWithEffect:{TUI::Instruction::Evaluation::pointerEffectFromSymbol(this, v440)}];
+              v436 = sub_103F0(v433, *v2);
+              v437 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
+              v438 = [v436 pointerStyleWithEffect:{TUI::Instruction::Evaluation::pointerEffectFromSymbol(this, v437)}];
 
-              v442 = v441;
+              v439 = v438;
               LODWORD(t2.a) = 16;
-              *&t2.b = v442;
+              *&t2.b = v439;
               sub_EB08(this + 3, &t2);
 
               goto LABEL_791;
             case 1:
-              v442 = sub_103F0(v436, *v2);
-              v552 = [v442 pointerStyleWithPrefersShadow:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
+              v439 = sub_103F0(v433, *v2);
+              v549 = [v439 pointerStyleWithPrefersShadow:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 2:
-              v442 = sub_103F0(v436, *v2);
-              v552 = [v442 pointerStyleWithPrefersScale:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
+              v439 = sub_103F0(v433, *v2);
+              v549 = [v439 pointerStyleWithPrefersScale:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 3:
-              v442 = sub_103F0(v436, *v2);
-              v559 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-              v552 = [v442 pointerStyleWithPreferredTintMode:{TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(this, v559)}];
+              v439 = sub_103F0(v433, *v2);
+              v556 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
+              v549 = [v439 pointerStyleWithPreferredTintMode:{TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(this, v556)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 4:
-              v442 = sub_103F0(v436, *v2);
-              v553 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
-              v554 = sub_10A84(v553, *v2);
+              v439 = sub_103F0(v433, *v2);
+              v550 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
+              v551 = sub_10A84(v550, *v2);
 
-              v555 = [v442 pointerStyleWithCursor:v554];
+              v552 = [v439 pointerStyleWithCursor:v551];
               LODWORD(t2.a) = 16;
-              *&t2.b = v555;
+              *&t2.b = v552;
               sub_EB08(this + 3, &t2);
               goto LABEL_781;
             case 5:
-              v442 = sub_10A84(v436, *v2);
-              v560 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-              v552 = [v442 pointerCursorWithShape:{TUI::Instruction::Evaluation::pointerShapeFromSymbol(this, v560)}];
+              v439 = sub_10A84(v433, *v2);
+              v557 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
+              v549 = [v439 pointerCursorWithShape:{TUI::Instruction::Evaluation::pointerShapeFromSymbol(this, v557)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 6:
-              v442 = sub_10A84(v436, *v2);
-              v552 = [v442 pointerCursorWithInsets:{TUI::Evaluation::ResolvedValue::insetsValue(&t1, *v2)}];
+              v439 = sub_10A84(v433, *v2);
+              v549 = [v439 pointerCursorWithInsets:{TUI::Evaluation::ResolvedValue::insetsValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 7:
-              v442 = sub_10A84(v436, *v2);
-              v552 = [v442 pointerCursorWithCornerRadius:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = sub_10A84(v433, *v2);
+              v549 = [v439 pointerCursorWithCornerRadius:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 8:
-              v442 = sub_10A84(v436, *v2);
-              v552 = [v442 pointerCursorWithScale:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = sub_10A84(v433, *v2);
+              v549 = [v439 pointerCursorWithScale:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 9:
-              v556 = sub_10E94(v436, *v2);
-              v557 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
-              if (v556)
+              v553 = sub_10E94(v433, *v2);
+              v554 = TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2);
+              if (v553)
               {
-                v558 = [v556 snapByAddingValue:v557];
+                v555 = [v553 snapByAddingValue:v554];
               }
 
               else
               {
-                v558 = [[TUISnap alloc] initWithValue:v557];
+                v555 = [[TUISnap alloc] initWithValue:v554];
               }
 
-              v580 = v558;
+              v577 = v555;
               LODWORD(t2.a) = 16;
-              *&t2.b = v580;
+              *&t2.b = v577;
               sub_EB08(this + 3, &t2);
 
               break;
             case 10:
-              v442 = sub_10E94(v436, *v2);
-              v562 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
-              v563 = TUIProtocolCast(&OBJC_PROTOCOL___NSCopying, v562);
+              v439 = sub_10E94(v433, *v2);
+              v559 = TUI::Evaluation::ResolvedValue::objectValue(&t1, *v2);
+              v560 = TUIProtocolCast(&OBJC_PROTOCOL___NSCopying, v559);
 
-              if (v563)
+              if (v560)
               {
-                v564 = [v442 snapWithIdentifier:v563];
+                v561 = [v439 snapWithIdentifier:v560];
                 LODWORD(t2.a) = 16;
-                *&t2.b = v564;
+                *&t2.b = v561;
                 sub_EB08(this + 3, &t2);
               }
 
               else
               {
-                v581 = v442;
+                v578 = v439;
                 LODWORD(t2.a) = 16;
-                *&t2.b = v581;
+                *&t2.b = v578;
                 sub_EB08(this + 3, &t2);
               }
 
               goto LABEL_791;
             case 11:
-              v442 = sub_10E94(v436, *v2);
-              v552 = [v442 snapWithStep:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = sub_10E94(v433, *v2);
+              v549 = [v439 snapWithStep:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 12:
-              v442 = sub_10E94(v436, *v2);
-              v552 = [v442 snapWithMax:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = sub_10E94(v433, *v2);
+              v549 = [v439 snapWithMax:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 13:
-              v442 = sub_10FAC(v436, *v2);
-              v561 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
-              v552 = [v442 focusStyleWithEffect:{TUI::Instruction::Evaluation::focusEffectFromSymbol(this, v561)}];
+              v439 = sub_10FAC(v433, *v2);
+              v558 = TUI::Evaluation::ResolvedValue::symbolValue(&t1, *v2);
+              v549 = [v439 focusStyleWithEffect:{TUI::Instruction::Evaluation::focusEffectFromSymbol(this, v558)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 14:
-              v442 = sub_10FAC(v436, *v2);
-              v552 = [v442 focusStyleWithInsets:{TUI::Evaluation::ResolvedValue::insetsValue(&t1, *v2)}];
+              v439 = sub_10FAC(v433, *v2);
+              v549 = [v439 focusStyleWithInsets:{TUI::Evaluation::ResolvedValue::insetsValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 15:
-              v442 = sub_10FAC(v436, *v2);
-              v554 = TUI::Evaluation::ResolvedValue::colorValue(&t1, *v2);
-              v555 = [v442 focusStyleWithColor:v554];
-              LODWORD(t2.a) = 16;
-              *&t2.b = v555;
-              sub_EB08(this + 3, &t2);
-              goto LABEL_781;
-            case 16:
-              v442 = sub_10FAC(v436, *v2);
-              v552 = [v442 focusStyleWithCornerRadius:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = sub_10FAC(v433, *v2);
+              v551 = TUI::Evaluation::ResolvedValue::colorValue(&t1, *v2);
+              v552 = [v439 focusStyleWithColor:v551];
               LODWORD(t2.a) = 16;
               *&t2.b = v552;
               sub_EB08(this + 3, &t2);
+              goto LABEL_781;
+            case 16:
+              v439 = sub_10FAC(v433, *v2);
+              v549 = [v439 focusStyleWithCornerRadius:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              LODWORD(t2.a) = 16;
+              *&t2.b = v549;
+              sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 17:
-              v442 = sub_10FAC(v436, *v2);
-              v554 = TUI::Evaluation::ResolvedValue::stringValue(&t1, *v2);
-              v555 = [v442 focusStyleWithGroupIdentifier:v554];
+              v439 = sub_10FAC(v433, *v2);
+              v551 = TUI::Evaluation::ResolvedValue::stringValue(&t1, *v2);
+              v552 = [v439 focusStyleWithGroupIdentifier:v551];
               LODWORD(t2.a) = 16;
-              *&t2.b = v555;
+              *&t2.b = v552;
               sub_EB08(this + 3, &t2);
 LABEL_781:
 
               goto LABEL_791;
             case 18:
-              v442 = sub_10FAC(v436, *v2);
-              v552 = [v442 focusStyleWithContinuousCurve:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
+              v439 = sub_10FAC(v433, *v2);
+              v549 = [v439 focusStyleWithContinuousCurve:{TUI::Evaluation::ResolvedValue::BOOLValue(&t1, *v2)}];
               LODWORD(t2.a) = 16;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
               goto LABEL_790;
             case 19:
-              v442 = TUI::Evaluation::ResolvedValue::colorValue(&v615, *v2);
-              v552 = [v442 colorWithAlphaComponent:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
+              v439 = TUI::Evaluation::ResolvedValue::colorValue(&v612, *v2);
+              v549 = [v439 colorWithAlphaComponent:{TUI::Evaluation::ResolvedValue::floatValue(&t1, *v2)}];
               LODWORD(t2.a) = 11;
-              *&t2.b = v552;
+              *&t2.b = v549;
               sub_EB08(this + 3, &t2);
 LABEL_790:
 
@@ -6102,61 +6091,61 @@ LABEL_791:
 
         else
         {
-          v113 = *(v624 + 2 * v7);
+          v113 = *(v621 + 2 * v7);
         }
 
         if (v3 + 2 >= v4)
         {
-          v355 = 0xFFFF00000000;
+          v353 = 0xFFFF00000000;
         }
 
         else
         {
-          v355 = *(v624 + 2 * (v3 + 2)) << 32;
+          v353 = *(v621 + 2 * (v3 + 2)) << 32;
         }
 
         if (v3 + 3 >= v4)
         {
-          v356 = -65536;
+          v354 = -65536;
         }
 
         else
         {
-          v356 = *(v624 + 2 * (v3 + 3)) << 16;
+          v354 = *(v621 + 2 * (v3 + 3)) << 16;
         }
 
         if (v3 + 4 >= v4)
         {
-          v357 = 0xFFFF;
+          v355 = 0xFFFF;
         }
 
         else
         {
-          v357 = *(v624 + 2 * (v3 + 4));
+          v355 = *(v621 + 2 * (v3 + 4));
         }
 
-        v625 = v3 + 5;
-        v358 = TUIClosureNil;
-        if (TUI::Instruction::Decoder::offsetKind(v357 | v356) == 18)
+        v622 = v3 + 5;
+        v356 = TUIClosureNil;
+        if (TUI::Instruction::Decoder::offsetKind(v355 | v354) == 18)
         {
-          v358 = TUI::Instruction::Decoder::offsetIndex((v357 | v356));
+          v356 = TUI::Instruction::Decoder::offsetIndex((v355 | v354));
         }
 
-        v63 = [[_TUIStyleReferenceElement alloc] initWithStyleReference:v355 | v113];
-        TUI::Evaluation::Context::captureClosure(*v2, v358);
-        v359 = [_TUIElementWithClosure alloc];
+        v63 = [[_TUIStyleReferenceElement alloc] initWithStyleReference:v353 | v113];
+        TUI::Evaluation::Context::captureClosure(*v2, v356);
+        v357 = [_TUIElementWithClosure alloc];
         a_low = LODWORD(t1.a);
-        v612 = t1.b;
+        v609 = t1.b;
         c = t1.c;
         if (*&t1.c)
         {
           atomic_fetch_add_explicit((*&t1.c + 8), 1uLL, memory_order_relaxed);
         }
 
-        v360 = [(_TUIElementWithClosure *)v359 initWithParsedElement:v63 closureAndCapture:&a_low];
-        LODWORD(v615.a) = 15;
-        *&v615.b = v360;
-        sub_EB08(this + 3, &v615);
+        v358 = [(_TUIElementWithClosure *)v357 initWithParsedElement:v63 closureAndCapture:&a_low];
+        LODWORD(v612.a) = 15;
+        *&v612.b = v358;
+        sub_EB08(this + 3, &v612);
 
         if (c != 0.0)
         {
@@ -6269,11 +6258,11 @@ LABEL_791:
           t1.b = 0.0;
           sub_EB08(this + 3, &t1);
 
-          v529 = *v2;
-          v530 = objc_opt_class();
-          v211 = NSStringFromClass(v530);
+          v526 = *v2;
+          v527 = objc_opt_class();
+          v211 = NSStringFromClass(v527);
           v212 = [NSString stringWithFormat:@"class: %@ not copyable", v211];
-          TUI::Evaluation::Context::reportError(v529, 1000, v212);
+          TUI::Evaluation::Context::reportError(v526, 1000, v212);
         }
 
         else
@@ -6326,16 +6315,16 @@ LABEL_791:
 
         else
         {
-          v412 = *v2;
-          v413 = objc_opt_class();
-          v137 = NSStringFromClass(v413);
-          v414 = [NSString stringWithFormat:@"array.class: %@", v137];
-          TUI::Evaluation::Context::reportError(v412, 1000, v414);
+          v409 = *v2;
+          v410 = objc_opt_class();
+          v137 = NSStringFromClass(v410);
+          v411 = [NSString stringWithFormat:@"array.class: %@", v137];
+          TUI::Evaluation::Context::reportError(v409, 1000, v411);
         }
 
-        v415 = v136;
+        v412 = v136;
         LODWORD(t1.a) = 16;
-        *&t1.b = v415;
+        *&t1.b = v412;
         sub_EB08(this + 3, &t1);
 
 LABEL_687:
@@ -6346,8 +6335,8 @@ LABEL_687:
         v255 = *(this + 4);
         if (v255 == *(this + 3))
         {
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
         }
 
         else
@@ -6359,20 +6348,34 @@ LABEL_687:
 
           *(this + 4) = v256 - 24;
           v257 = *(this + 3);
-          LODWORD(v615.a) = 0;
-          v615.b = 0.0;
+          LODWORD(v612.a) = 0;
+          v612.b = 0.0;
           if (v256 - 24 != v257)
           {
-            LODWORD(v615.a) = *(v256 - 48);
-            *&v615.b = *(v256 - 40);
-            v615.c = *(v256 - 32);
+            LODWORD(v612.a) = *(v256 - 48);
+            *&v612.b = *(v256 - 40);
+            v612.c = *(v256 - 32);
             v258 = *(this + 4);
 
             *(this + 4) = v258 - 24;
           }
         }
 
-        v476 = TUI::Evaluation::ResolvedValue::stringValue(&v615, *v2);
+        v473 = TUI::Evaluation::ResolvedValue::stringValue(&v612, *v2);
+        v474 = v473;
+        if (v473)
+        {
+          v475 = v473;
+        }
+
+        else
+        {
+          v475 = &stru_264550;
+        }
+
+        v458 = v475;
+
+        v476 = TUI::Evaluation::ResolvedValue::stringValue(&t1, *v2);
         v477 = v476;
         if (v476)
         {
@@ -6384,33 +6387,19 @@ LABEL_687:
           v478 = &stru_264550;
         }
 
-        v461 = v478;
+        v479 = v478;
 
-        v479 = TUI::Evaluation::ResolvedValue::stringValue(&t1, *v2);
-        v480 = v479;
-        if (v479)
-        {
-          v481 = v479;
-        }
-
-        else
-        {
-          v481 = &stru_264550;
-        }
-
-        v482 = v481;
-
-        v483 = [(__CFString *)v461 stringByAppendingString:v482];
+        v480 = [(__CFString *)v458 stringByAppendingString:v479];
         LODWORD(t2.a) = 9;
-        *&t2.b = v483;
+        *&t2.b = v480;
         sub_EB08(this + 3, &t2);
 
         goto LABEL_744;
       default:
         TUI::Evaluation::Context::reportError(*v2, 1029, 0);
 LABEL_835:
-        v3 = v625;
-        v4 = v626;
+        v3 = v622;
+        v4 = v623;
         goto LABEL_836;
     }
   }
@@ -6541,25 +6530,25 @@ NSString *TUI::Instruction::Evaluation::systemDesignFromSymbol(TUI::Instruction:
     sub_60D8(__p, "default");
     v23 = v3;
     sub_60D8(v24, "serif");
-    v25 = UIFontDescriptorSystemDesignSerif;
-    sub_60D8(v26, "rounded");
-    v27 = UIFontDescriptorSystemDesignRounded;
-    sub_60D8(v28, "monospaced");
-    v29 = UIFontDescriptorSystemDesignMonospaced;
-    sub_60D8(v30, "compact");
-    v31 = UIFontSystemFontDesignCompact;
-    sub_60D8(v32, "condensed");
-    v33 = UIFontSystemFontDesignCondensed;
+    v24[3] = UIFontDescriptorSystemDesignSerif;
+    sub_60D8(v25, "rounded");
+    v25[3] = UIFontDescriptorSystemDesignRounded;
+    sub_60D8(v26, "monospaced");
+    v26[3] = UIFontDescriptorSystemDesignMonospaced;
+    sub_60D8(v27, "compact");
+    v27[3] = UIFontSystemFontDesignCompact;
+    sub_60D8(v28, "condensed");
+    v29 = UIFontSystemFontDesignCondensed;
     v17 = 0;
     v18 = 0;
     v16 = 0;
-    sub_119C0(&v16, __p, &v34, 6uLL);
-    for (i = 0; i != -192; i -= 32)
+    sub_119C0(&v16, __p, &v30, 6uLL);
+    for (i = 0; i != -24; i -= 4)
     {
 
-      if (v32[i + 23] < 0)
+      if (SHIBYTE(v28[i + 2]) < 0)
       {
-        operator delete(*&v32[i]);
+        operator delete(v28[i]);
       }
     }
 
@@ -6577,7 +6566,7 @@ NSString *TUI::Instruction::Evaluation::systemDesignFromSymbol(TUI::Instruction:
         {
           v9 = v23;
           v20 = &v15;
-          v10 = sub_11CD4(this + 16, &v15);
+          v10 = sub_11CD4(this + 16, &v15, &std::piecewise_construct, &v20);
           objc_storeStrong(v10 + 3, v9);
         }
 
@@ -6622,71 +6611,71 @@ NSString *TUI::Instruction::Evaluation::textStyleFromSymbol(TUI::Instruction::Ev
     sub_60D8(__p, "headline");
     v31 = UIFontTextStyleHeadline;
     sub_60D8(v32, "body");
-    v33 = v3;
-    sub_60D8(v34, "title0");
-    v35 = UIFontTextStyleTitle0;
-    sub_60D8(v36, "title1");
-    v37 = UIFontTextStyleTitle1;
-    sub_60D8(v38, "title2");
-    v39 = UIFontTextStyleTitle2;
-    sub_60D8(v40, "title3");
-    v41 = UIFontTextStyleTitle3;
-    sub_60D8(v42, "title4");
-    v43 = UIFontTextStyleTitle4;
-    sub_60D8(v44, "title5");
-    v45 = UIFontTextStyleTitle5;
-    sub_60D8(v46, "callout");
-    v47 = UIFontTextStyleCallout;
-    sub_60D8(v48, "caption1");
-    v49 = UIFontTextStyleCaption1;
-    sub_60D8(v50, "caption2");
-    v51 = UIFontTextStyleCaption2;
-    sub_60D8(v52, "footnote");
-    v53 = UIFontTextStyleFootnote;
-    sub_60D8(v54, "footnote1");
-    v55 = UIFontTextStyleFootnote1;
-    sub_60D8(v56, "footnote2");
-    v57 = UIFontTextStyleFootnote2;
-    sub_60D8(v58, "largetitle");
-    v59 = UIFontTextStyleLargeTitle;
-    sub_60D8(v60, "subheadline");
-    v61 = UIFontTextStyleSubheadline;
-    sub_60D8(v62, "subtitle");
-    v63 = UIFontTextStyleSubtitle;
-    sub_60D8(v64, "subtitle1");
-    v65 = UIFontTextStyleSubtitle1;
-    sub_60D8(v66, "subtitle2");
-    v67 = UIFontTextStyleSubtitle2;
-    sub_60D8(v68, "subtitle3");
-    v69 = UIFontTextStyleSubtitle3;
-    sub_60D8(v70, "section1");
-    v71 = UIFontTextStyleSection1;
-    sub_60D8(v72, "section2");
-    v73 = UIFontTextStyleSection2;
-    sub_60D8(v74, "section3");
-    v75 = UIFontTextStyleSection3;
+    v32[3] = v3;
+    sub_60D8(v33, "title0");
+    v33[3] = UIFontTextStyleTitle0;
+    sub_60D8(v34, "title1");
+    v34[3] = UIFontTextStyleTitle1;
+    sub_60D8(v35, "title2");
+    v35[3] = UIFontTextStyleTitle2;
+    sub_60D8(v36, "title3");
+    v36[3] = UIFontTextStyleTitle3;
+    sub_60D8(v37, "title4");
+    v37[3] = UIFontTextStyleTitle4;
+    sub_60D8(v38, "title5");
+    v38[3] = UIFontTextStyleTitle5;
+    sub_60D8(v39, "callout");
+    v39[3] = UIFontTextStyleCallout;
+    sub_60D8(v40, "caption1");
+    v40[3] = UIFontTextStyleCaption1;
+    sub_60D8(v41, "caption2");
+    v41[3] = UIFontTextStyleCaption2;
+    sub_60D8(v42, "footnote");
+    v42[3] = UIFontTextStyleFootnote;
+    sub_60D8(v43, "footnote1");
+    v43[3] = UIFontTextStyleFootnote1;
+    sub_60D8(v44, "footnote2");
+    v44[3] = UIFontTextStyleFootnote2;
+    sub_60D8(v45, "largetitle");
+    v45[3] = UIFontTextStyleLargeTitle;
+    sub_60D8(v46, "subheadline");
+    v46[3] = UIFontTextStyleSubheadline;
+    sub_60D8(v47, "subtitle");
+    v47[3] = UIFontTextStyleSubtitle;
+    sub_60D8(v48, "subtitle1");
+    v48[3] = UIFontTextStyleSubtitle1;
+    sub_60D8(v49, "subtitle2");
+    v49[3] = UIFontTextStyleSubtitle2;
+    sub_60D8(v50, "subtitle3");
+    v50[3] = UIFontTextStyleSubtitle3;
+    sub_60D8(v51, "section1");
+    v51[3] = UIFontTextStyleSection1;
+    sub_60D8(v52, "section2");
+    v52[3] = UIFontTextStyleSection2;
+    sub_60D8(v53, "section3");
+    v53[3] = UIFontTextStyleSection3;
     v4 = kCTUIFontTextStyleShortHeadline;
-    sub_60D8(v76, "headline-short");
-    v77 = v4;
+    sub_60D8(v54, "headline-short");
+    v54[3] = v4;
     v5 = kCTUIFontTextStyleShortBody;
-    sub_60D8(v78, "body-short");
-    v79 = v5;
+    sub_60D8(v55, "body-short");
+    v55[3] = v5;
     v6 = kCTUIFontTextStyleShortSubhead;
-    sub_60D8(v80, "subhead-short");
-    v81 = v6;
+    sub_60D8(v56, "subhead-short");
+    v56[3] = v6;
     v7 = kCTUIFontTextStyleShortFootnote;
-    sub_60D8(v82, "footnote-short");
-    v83 = v7;
+    sub_60D8(v57, "footnote-short");
+    v57[3] = v7;
     v8 = kCTUIFontTextStyleShortCaption1;
-    sub_60D8(v84, "caption1-short");
-    v85 = v8;
+    sub_60D8(v58, "caption1-short");
+    v58[3] = v8;
     v9 = kCTUIFontTextStyleTallBody;
-    sub_60D8(v86, "body-tall");
-    v87 = v9;
+    sub_60D8(v59, "body-tall");
+    v59[3] = v9;
     v26[0] = 0;
     v26[1] = 0;
     v25 = 0;
-    sub_119C0(&v25, __p, &v88, 0x1DuLL);
+    sub_119C0(&v25, __p, &v60, 0x1DuLL);
     v10 = 464;
     do
     {
@@ -6714,7 +6703,7 @@ NSString *TUI::Instruction::Evaluation::textStyleFromSymbol(TUI::Instruction::Ev
         {
           v15 = v31;
           v28 = &v24;
-          v16 = sub_11CD4(this + 6, &v24);
+          v16 = sub_11CD4(this + 6, &v24, &std::piecewise_construct, &v28);
           objc_storeStrong(v16 + 3, v15);
         }
 
@@ -6780,31 +6769,31 @@ NSString *TUI::Instruction::Evaluation::contentSizeFromSymbol(TUI::Instruction::
     sub_60D8(__p, "x-small");
     v25 = UIContentSizeCategoryExtraSmall;
     sub_60D8(v26, "small");
-    v27 = UIContentSizeCategorySmall;
-    sub_60D8(v28, "medium");
-    v29 = UIContentSizeCategoryMedium;
-    sub_60D8(v30, "large");
-    v31 = UIContentSizeCategoryLarge;
-    sub_60D8(v32, "x-large");
-    v33 = UIContentSizeCategoryExtraLarge;
-    sub_60D8(v34, "xx-large");
-    v35 = UIContentSizeCategoryExtraExtraLarge;
-    sub_60D8(v36, "xxx-large");
-    v37 = UIContentSizeCategoryExtraExtraExtraLarge;
-    sub_60D8(v38, "ax-medium");
-    v39 = UIContentSizeCategoryAccessibilityMedium;
-    sub_60D8(v40, "ax-large");
-    v41 = UIContentSizeCategoryAccessibilityLarge;
-    sub_60D8(v42, "ax-x-large");
-    v43 = UIContentSizeCategoryAccessibilityExtraLarge;
-    sub_60D8(v44, "ax-xx-large");
-    v45 = UIContentSizeCategoryAccessibilityExtraExtraLarge;
-    sub_60D8(v46, "ax-xxx-large");
-    v47 = UIContentSizeCategoryAccessibilityExtraExtraExtraLarge;
+    v26[3] = UIContentSizeCategorySmall;
+    sub_60D8(v27, "medium");
+    v27[3] = UIContentSizeCategoryMedium;
+    sub_60D8(v28, "large");
+    v28[3] = UIContentSizeCategoryLarge;
+    sub_60D8(v29, "x-large");
+    v29[3] = UIContentSizeCategoryExtraLarge;
+    sub_60D8(v30, "xx-large");
+    v30[3] = UIContentSizeCategoryExtraExtraLarge;
+    sub_60D8(v31, "xxx-large");
+    v31[3] = UIContentSizeCategoryExtraExtraExtraLarge;
+    sub_60D8(v32, "ax-medium");
+    v32[3] = UIContentSizeCategoryAccessibilityMedium;
+    sub_60D8(v33, "ax-large");
+    v33[3] = UIContentSizeCategoryAccessibilityLarge;
+    sub_60D8(v34, "ax-x-large");
+    v34[3] = UIContentSizeCategoryAccessibilityExtraLarge;
+    sub_60D8(v35, "ax-xx-large");
+    v35[3] = UIContentSizeCategoryAccessibilityExtraExtraLarge;
+    sub_60D8(v36, "ax-xxx-large");
+    v36[3] = UIContentSizeCategoryAccessibilityExtraExtraExtraLarge;
     v20[0] = 0;
     v20[1] = 0;
     v19 = 0;
-    sub_119C0(&v19, __p, &v48, 0xCuLL);
+    sub_119C0(&v19, __p, &v37, 0xCuLL);
     v4 = 192;
     do
     {
@@ -6832,7 +6821,7 @@ NSString *TUI::Instruction::Evaluation::contentSizeFromSymbol(TUI::Instruction::
         {
           v9 = v25;
           v22 = &v18;
-          v10 = sub_11CD4(this + 11, &v18);
+          v10 = sub_11CD4(this + 11, &v18, &std::piecewise_construct, &v22);
           objc_storeStrong(v10 + 3, v9);
         }
 
@@ -6898,25 +6887,25 @@ double TUI::Instruction::Evaluation::fontWeightFromSymbol(TUI::Instruction::Eval
     sub_60D8(__p, "ultralight");
     v22 = UIFontWeightUltraLight;
     sub_60D8(v23, "thin");
-    v24 = UIFontWeightThin;
-    sub_60D8(v25, "light");
-    v26 = UIFontWeightLight;
-    sub_60D8(v27, "regular");
-    v28 = UIFontWeightRegular;
-    sub_60D8(v29, "medium");
-    v30 = UIFontWeightMedium;
-    sub_60D8(v31, "semibold");
-    v32 = UIFontWeightSemibold;
-    sub_60D8(v33, "bold");
-    v34 = UIFontWeightBold;
-    sub_60D8(v35, "heavy");
-    v36 = UIFontWeightHeavy;
-    sub_60D8(v37, "black");
-    v38 = UIFontWeightBlack;
+    *&v23[3] = UIFontWeightThin;
+    sub_60D8(v24, "light");
+    *&v24[3] = UIFontWeightLight;
+    sub_60D8(v25, "regular");
+    *&v25[3] = UIFontWeightRegular;
+    sub_60D8(v26, "medium");
+    *&v26[3] = UIFontWeightMedium;
+    sub_60D8(v27, "semibold");
+    *&v27[3] = UIFontWeightSemibold;
+    sub_60D8(v28, "bold");
+    *&v28[3] = UIFontWeightBold;
+    sub_60D8(v29, "heavy");
+    *&v29[3] = UIFontWeightHeavy;
+    sub_60D8(v30, "black");
+    *&v30[3] = UIFontWeightBlack;
     v17[0] = 0;
     v17[1] = 0;
     v16 = 0;
-    sub_12040(&v16, __p, &v39, 9uLL);
+    sub_12040(&v16, __p, &v31, 9uLL);
     v4 = 144;
     do
     {
@@ -6938,24 +6927,24 @@ double TUI::Instruction::Evaluation::fontWeightFromSymbol(TUI::Instruction::Eval
       {
         if (*(v5 + 23) < 0)
         {
-          sub_114E8(__p, *v5, *(v5 + 1));
+          sub_114E8(__p, *v5, *(v5 + 8));
         }
 
         else
         {
           v8 = *v5;
-          v21 = *(v5 + 2);
+          v21 = *(v5 + 16);
           *__p = v8;
         }
 
-        v22 = *(v5 + 3);
+        v22 = *(v5 + 24);
         v9 = TUI::Symbol::Tab::lookup(v7, __p);
         v15 = v9;
         if (v9 != 0xFFFF)
         {
           v10 = *&v22;
           v19 = &v15;
-          sub_1233C(this + 21, &v15)[3] = v10;
+          sub_1233C(this + 21, &v15, &std::piecewise_construct, &v19)[3] = v10;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -6963,7 +6952,7 @@ double TUI::Instruction::Evaluation::fontWeightFromSymbol(TUI::Instruction::Eval
           operator delete(__p[0]);
         }
 
-        v5 += 2;
+        v5 += 32;
       }
 
       while (v5 != v6);
@@ -6986,7 +6975,7 @@ double TUI::Instruction::Evaluation::fontWeightFromSymbol(TUI::Instruction::Eval
   return v3;
 }
 
-uint64_t *TUI::Instruction::Evaluation::fontCapsFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
+uint64_t **TUI::Instruction::Evaluation::fontCapsFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
 {
   v18 = a2;
   if (!*(this + 29))
@@ -6994,24 +6983,24 @@ uint64_t *TUI::Instruction::Evaluation::fontCapsFromSymbol(TUI::Instruction::Eva
     sub_60D8(__p, "default");
     v22 = 0;
     sub_60D8(v23, "all");
-    v24 = 2;
-    sub_60D8(v25, "titled");
-    v26 = 4;
-    sub_60D8(v27, "capitalized");
-    v28 = 4;
-    sub_60D8(v29, "lowercased");
-    v30 = 5;
-    sub_60D8(v31, "smallcaps");
-    v32 = 3;
+    v23[3] = 2;
+    sub_60D8(v24, "titled");
+    v24[3] = 4;
+    sub_60D8(v25, "capitalized");
+    v25[3] = 4;
+    sub_60D8(v26, "lowercased");
+    v26[3] = 5;
+    sub_60D8(v27, "smallcaps");
+    v27[3] = 3;
     v16 = 0;
     v17 = 0;
     v15 = 0;
-    sub_12578(&v15, __p, &v33, 6uLL);
-    for (i = 0; i != -192; i -= 32)
+    sub_12578(&v15, __p, &v28, 6uLL);
+    for (i = 0; i != -24; i -= 4)
     {
-      if (v31[i + 23] < 0)
+      if (SHIBYTE(v27[i + 2]) < 0)
       {
-        operator delete(*&v31[i]);
+        operator delete(v27[i]);
       }
     }
 
@@ -7024,24 +7013,24 @@ uint64_t *TUI::Instruction::Evaluation::fontCapsFromSymbol(TUI::Instruction::Eva
       {
         if (*(v4 + 23) < 0)
         {
-          sub_114E8(__p, *v4, *(v4 + 1));
+          sub_114E8(__p, *v4, *(v4 + 8));
         }
 
         else
         {
           v7 = *v4;
-          v21 = *(v4 + 2);
+          v21 = *(v4 + 16);
           *__p = v7;
         }
 
-        v22 = *(v4 + 3);
+        v22 = *(v4 + 24);
         v8 = TUI::Symbol::Tab::lookup(v6, __p);
         v14 = v8;
         if (v8 != 0xFFFF)
         {
           v9 = v22;
           v19 = &v14;
-          sub_1233C(this + 26, &v14)[3] = v9;
+          sub_1233C(this + 26, &v14, &std::piecewise_construct, &v19)[3] = v9;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -7049,7 +7038,7 @@ uint64_t *TUI::Instruction::Evaluation::fontCapsFromSymbol(TUI::Instruction::Eva
           operator delete(__p[0]);
         }
 
-        v4 += 2;
+        v4 += 32;
       }
 
       while (v4 != v5);
@@ -7098,7 +7087,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t *TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
+uint64_t **TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
 {
   v18 = a2;
   if (!*(this + 34))
@@ -7106,20 +7095,20 @@ uint64_t *TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction
     sub_60D8(__p, "automatic");
     v22 = 0;
     sub_60D8(v23, "lift");
-    v24 = 2;
-    sub_60D8(v25, "highlight");
-    v26 = 1;
-    sub_60D8(v27, "hover");
-    v28 = 3;
+    v23[3] = 2;
+    sub_60D8(v24, "highlight");
+    v24[3] = 1;
+    sub_60D8(v25, "hover");
+    v25[3] = 3;
     v16 = 0;
     v17 = 0;
     v15 = 0;
-    sub_12704(&v15, __p, &v29, 4uLL);
-    for (i = 0; i != -128; i -= 32)
+    sub_12704(&v15, __p, &v26, 4uLL);
+    for (i = 0; i != -16; i -= 4)
     {
-      if (v27[i + 23] < 0)
+      if (SHIBYTE(v25[i + 2]) < 0)
       {
-        operator delete(*&v27[i]);
+        operator delete(v25[i]);
       }
     }
 
@@ -7132,24 +7121,24 @@ uint64_t *TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction
       {
         if (*(v4 + 23) < 0)
         {
-          sub_114E8(__p, *v4, *(v4 + 1));
+          sub_114E8(__p, *v4, *(v4 + 8));
         }
 
         else
         {
           v7 = *v4;
-          v21 = *(v4 + 2);
+          v21 = *(v4 + 16);
           *__p = v7;
         }
 
-        v22 = *(v4 + 3);
+        v22 = *(v4 + 24);
         v8 = TUI::Symbol::Tab::lookup(v6, __p);
         v14 = v8;
         if (v8 != 0xFFFF)
         {
           v9 = v22;
           v19 = &v14;
-          sub_1233C(this + 31, &v14)[3] = v9;
+          sub_1233C(this + 31, &v14, &std::piecewise_construct, &v19)[3] = v9;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -7157,7 +7146,7 @@ uint64_t *TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction
           operator delete(__p[0]);
         }
 
-        v4 += 2;
+        v4 += 32;
       }
 
       while (v4 != v5);
@@ -7180,7 +7169,7 @@ uint64_t *TUI::Instruction::Evaluation::pointerEffectFromSymbol(TUI::Instruction
   return 0;
 }
 
-uint64_t *TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
+uint64_t **TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
 {
   v18 = a2;
   if (!*(this + 44))
@@ -7188,16 +7177,16 @@ uint64_t *TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(TUI::Instr
     sub_60D8(__p, "overlay");
     v22 = 1;
     sub_60D8(v23, "none");
-    v24 = 0;
+    v23[3] = 0;
     v16 = 0;
     v17 = 0;
     v15 = 0;
-    sub_12A1C(&v15, __p, &v25, 2uLL);
-    for (i = 0; i != -64; i -= 32)
+    sub_12A1C(&v15, __p, &v24, 2uLL);
+    for (i = 0; i != -8; i -= 4)
     {
-      if (v23[i + 23] < 0)
+      if (SHIBYTE(v23[i + 2]) < 0)
       {
-        operator delete(*&v23[i]);
+        operator delete(v23[i]);
       }
     }
 
@@ -7210,24 +7199,24 @@ uint64_t *TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(TUI::Instr
       {
         if (*(v4 + 23) < 0)
         {
-          sub_114E8(__p, *v4, *(v4 + 1));
+          sub_114E8(__p, *v4, *(v4 + 8));
         }
 
         else
         {
           v7 = *v4;
-          v21 = *(v4 + 2);
+          v21 = *(v4 + 16);
           *__p = v7;
         }
 
-        v22 = *(v4 + 3);
+        v22 = *(v4 + 24);
         v8 = TUI::Symbol::Tab::lookup(v6, __p);
         v14 = v8;
         if (v8 != 0xFFFF)
         {
           v9 = v22;
           v19 = &v14;
-          sub_1233C(this + 41, &v14)[3] = v9;
+          sub_1233C(this + 41, &v14, &std::piecewise_construct, &v19)[3] = v9;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -7235,7 +7224,7 @@ uint64_t *TUI::Instruction::Evaluation::hoverEffectTintModeFromSymbol(TUI::Instr
           operator delete(__p[0]);
         }
 
-        v4 += 2;
+        v4 += 32;
       }
 
       while (v4 != v5);
@@ -7284,7 +7273,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t *TUI::Instruction::Evaluation::pointerShapeFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
+uint64_t **TUI::Instruction::Evaluation::pointerShapeFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
 {
   v18 = a2;
   if (!*(this + 39))
@@ -7292,20 +7281,20 @@ uint64_t *TUI::Instruction::Evaluation::pointerShapeFromSymbol(TUI::Instruction:
     sub_60D8(__p, "default");
     v22 = 0;
     sub_60D8(v23, "rounded");
-    v24 = 1;
-    sub_60D8(v25, "circle");
-    v26 = 2;
-    sub_60D8(v27, "link");
-    v28 = 3;
+    v23[3] = 1;
+    sub_60D8(v24, "circle");
+    v24[3] = 2;
+    sub_60D8(v25, "link");
+    v25[3] = 3;
     v16 = 0;
     v17 = 0;
     v15 = 0;
-    sub_12890(&v15, __p, &v29, 4uLL);
-    for (i = 0; i != -128; i -= 32)
+    sub_12890(&v15, __p, &v26, 4uLL);
+    for (i = 0; i != -16; i -= 4)
     {
-      if (v27[i + 23] < 0)
+      if (SHIBYTE(v25[i + 2]) < 0)
       {
-        operator delete(*&v27[i]);
+        operator delete(v25[i]);
       }
     }
 
@@ -7318,24 +7307,24 @@ uint64_t *TUI::Instruction::Evaluation::pointerShapeFromSymbol(TUI::Instruction:
       {
         if (*(v4 + 23) < 0)
         {
-          sub_114E8(__p, *v4, *(v4 + 1));
+          sub_114E8(__p, *v4, *(v4 + 8));
         }
 
         else
         {
           v7 = *v4;
-          v21 = *(v4 + 2);
+          v21 = *(v4 + 16);
           *__p = v7;
         }
 
-        v22 = *(v4 + 3);
+        v22 = *(v4 + 24);
         v8 = TUI::Symbol::Tab::lookup(v6, __p);
         v14 = v8;
         if (v8 != 0xFFFF)
         {
           v9 = v22;
           v19 = &v14;
-          sub_1233C(this + 36, &v14)[3] = v9;
+          sub_1233C(this + 36, &v14, &std::piecewise_construct, &v19)[3] = v9;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -7343,7 +7332,7 @@ uint64_t *TUI::Instruction::Evaluation::pointerShapeFromSymbol(TUI::Instruction:
           operator delete(__p[0]);
         }
 
-        v4 += 2;
+        v4 += 32;
       }
 
       while (v4 != v5);
@@ -7414,7 +7403,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t *TUI::Instruction::Evaluation::focusEffectFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
+uint64_t **TUI::Instruction::Evaluation::focusEffectFromSymbol(TUI::Instruction::Evaluation *this, unsigned __int16 a2)
 {
   v18 = a2;
   if (!*(this + 49))
@@ -7422,22 +7411,22 @@ uint64_t *TUI::Instruction::Evaluation::focusEffectFromSymbol(TUI::Instruction::
     sub_60D8(__p, "none");
     v22 = 0;
     sub_60D8(v23, "default");
-    v24 = 1;
-    sub_60D8(v25, "inside");
-    v26 = 2;
-    sub_60D8(v27, "outside");
-    v28 = 3;
-    sub_60D8(v29, "background");
-    v30 = 4;
+    v23[3] = 1;
+    sub_60D8(v24, "inside");
+    v24[3] = 2;
+    sub_60D8(v25, "outside");
+    v25[3] = 3;
+    sub_60D8(v26, "background");
+    v26[3] = 4;
     v16 = 0;
     v17 = 0;
     v15 = 0;
-    sub_12BA8(&v15, __p, &v31, 5uLL);
-    for (i = 0; i != -160; i -= 32)
+    sub_12BA8(&v15, __p, &v27, 5uLL);
+    for (i = 0; i != -20; i -= 4)
     {
-      if (v29[i + 23] < 0)
+      if (SHIBYTE(v26[i + 2]) < 0)
       {
-        operator delete(*&v29[i]);
+        operator delete(v26[i]);
       }
     }
 
@@ -7450,24 +7439,24 @@ uint64_t *TUI::Instruction::Evaluation::focusEffectFromSymbol(TUI::Instruction::
       {
         if (*(v4 + 23) < 0)
         {
-          sub_114E8(__p, *v4, *(v4 + 1));
+          sub_114E8(__p, *v4, *(v4 + 8));
         }
 
         else
         {
           v7 = *v4;
-          v21 = *(v4 + 2);
+          v21 = *(v4 + 16);
           *__p = v7;
         }
 
-        v22 = *(v4 + 3);
+        v22 = *(v4 + 24);
         v8 = TUI::Symbol::Tab::lookup(v6, __p);
         v14 = v8;
         if (v8 != 0xFFFF)
         {
           v9 = v22;
           v19 = &v14;
-          sub_1233C(this + 46, &v14)[3] = v9;
+          sub_1233C(this + 46, &v14, &std::piecewise_construct, &v19)[3] = v9;
         }
 
         if (SHIBYTE(v21) < 0)
@@ -7475,7 +7464,7 @@ uint64_t *TUI::Instruction::Evaluation::focusEffectFromSymbol(TUI::Instruction::
           operator delete(__p[0]);
         }
 
-        v4 += 2;
+        v4 += 32;
       }
 
       while (v4 != v5);
@@ -7518,7 +7507,7 @@ void sub_11420(std::__shared_weak_count *a1)
   }
 }
 
-void *sub_1148C(void *__dst, __int128 *a2)
+_OWORD *sub_1148C(_OWORD *__dst, __int128 *a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -7528,11 +7517,11 @@ void *sub_1148C(void *__dst, __int128 *a2)
   else
   {
     v4 = *a2;
-    __dst[2] = *(a2 + 2);
+    *(__dst + 2) = *(a2 + 2);
     *__dst = v4;
   }
 
-  __dst[3] = *(a2 + 3);
+  *(__dst + 3) = *(a2 + 3);
   return __dst;
 }
 
@@ -7762,14 +7751,14 @@ uint64_t sub_11884(uint64_t *a1, uint64_t a2)
   return v13;
 }
 
-void sub_119AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_119AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_117BC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_119C0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_119C0(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7779,14 +7768,14 @@ uint64_t sub_119C0(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_11A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_11A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_11C4C(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_11A48(uint64_t a1, unint64_t a2)
+void sub_11A48(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7806,7 +7795,7 @@ void sub_11A84(uint64_t a1, unint64_t a2)
   sub_3AAC();
 }
 
-void *sub_11ACC(uint64_t a1, __int128 *a2, __int128 *a3, void *__dst)
+_OWORD *sub_11ACC(uint64_t a1, __int128 *a2, __int128 *a3, _OWORD *__dst)
 {
   v4 = __dst;
   v10 = __dst;
@@ -7822,8 +7811,8 @@ void *sub_11ACC(uint64_t a1, __int128 *a2, __int128 *a3, void *__dst)
     {
       sub_1148C(v4, v6);
       v6 += 2;
-      v4 = v11 + 32;
-      v11 += 32;
+      v4 = v11 + 2;
+      v11 += 2;
     }
 
     while (v6 != a3);
@@ -7844,15 +7833,15 @@ uint64_t sub_11B70(uint64_t a1)
   return a1;
 }
 
-void sub_11BA8(uint64_t *a1)
+void sub_11BA8(uint64_t *result)
 {
-  v2 = a1[1];
-  v1 = a1[2];
+  v2 = result[1];
+  v1 = result[2];
   v3 = *v1;
   v4 = *v2;
   if (*v1 != *v2)
   {
-    v5 = *a1;
+    v5 = *result;
     do
     {
       v3 -= 32;
@@ -7899,33 +7888,33 @@ void sub_11C4C(void ***a1)
   }
 }
 
-uint64_t **sub_11CD4(void *a1, unsigned __int16 *a2)
+uint64_t **sub_11CD4(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7933,49 +7922,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_11F28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_11F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_11F3C(va);
   _Unwind_Resume(a1);
 }
@@ -7996,7 +7985,7 @@ uint64_t sub_11F3C(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_11F88(void *a1, unsigned __int16 *a2)
+uint64_t ***sub_11F88(void *a1, unsigned __int16 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -8063,7 +8052,7 @@ uint64_t **sub_11F88(void *a1, unsigned __int16 *a2)
   return result;
 }
 
-uint64_t sub_12040(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12040(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8073,14 +8062,14 @@ uint64_t sub_12040(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_120A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_120A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_12298(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_120C8(uint64_t a1, unint64_t a2)
+void sub_120C8(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -8196,33 +8185,33 @@ void sub_122EC(void ***a1)
   a1[1] = v2;
 }
 
-uint64_t **sub_1233C(void *a1, unsigned __int16 *a2)
+uint64_t **sub_1233C(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8230,47 +8219,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t sub_12578(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12578(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8339,7 +8328,7 @@ uint64_t sub_126CC(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_12704(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12704(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8408,7 +8397,7 @@ uint64_t sub_12858(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_12890(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12890(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8477,7 +8466,7 @@ uint64_t sub_129E4(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_12A1C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12A1C(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8546,7 +8535,7 @@ uint64_t sub_12B70(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_12BA8(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_12BA8(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8657,22 +8646,22 @@ void sub_131F0(uint64_t a1)
 void sub_14604(id a1, _TUITransaction *a2, unint64_t a3, BOOL *a4)
 {
   v5 = a2;
-  v6 = TUITransactionLog();
+  v6 = TUITransactionLog(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1993AC(v5, a3, v6);
   }
 
-  v7 = TUITransactionLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = TUITransactionLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_199424(v5, a3, v7);
+    sub_199424(v5, a3, v8);
   }
 }
 
-void sub_15484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_15484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8763,19 +8752,19 @@ void sub_15DA0(uint64_t a1)
   }
 }
 
-id sub_15EC0(uint64_t a1)
+id sub_15EC0(uint64_t a1, uint64_t a2)
 {
-  v2 = TUITransactionLog();
-  v3 = v2;
-  v4 = *(a1 + 40);
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
+  v3 = TUITransactionLog(a1);
+  v4 = v3;
+  v5 = *(a1 + 40);
+  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v3, OS_SIGNPOST_EVENT, v4, "TUITransaction.applyUpdates completion on main", "", v7, 2u);
+    *v9 = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v4, OS_SIGNPOST_EVENT, v5, "TUITransaction.applyUpdates completion on main", "", v9, 2u);
   }
 
-  v5 = TUITransactionLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = TUITransactionLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_1995B8();
   }
@@ -8783,10 +8772,10 @@ id sub_15EC0(uint64_t a1)
   return [*(a1 + 32) _invokeCompletions];
 }
 
-id sub_16154(uint64_t a1)
+id sub_16154(uint64_t a1, uint64_t a2)
 {
-  v2 = TUITransactionLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = TUITransactionLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_199694();
   }
@@ -8796,10 +8785,10 @@ id sub_16154(uint64_t a1)
 
 void sub_16A30(id a1)
 {
-  if (_TUIDeviceHasInternalInstall())
+  if (_TUIDeviceHasInternalInstall(a1, v1))
   {
-    v1 = +[NSUserDefaults standardUserDefaults];
-    byte_2E5FA0 = [v1 BOOLForKey:@"TUIUserDefaultCaptureTransactionCallstack"];
+    v2 = +[NSUserDefaults standardUserDefaults];
+    byte_2E5FA0 = [v2 BOOLForKey:@"TUIUserDefaultCaptureTransactionCallstack"];
   }
 
   else
@@ -8808,10 +8797,11 @@ void sub_16A30(id a1)
   }
 }
 
-void sub_16AC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_16AC0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_16AF4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)

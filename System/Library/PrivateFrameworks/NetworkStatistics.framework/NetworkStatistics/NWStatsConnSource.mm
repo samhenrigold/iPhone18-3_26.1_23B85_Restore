@@ -2,6 +2,7 @@
 - (BOOL)processExtendedDetails:(nstat_msg_src_extended_item_hdr *)details length:(int64_t)length;
 - (BOOL)updateWithDetails:(nstat_msg_src_details_convenient *)details length:(int64_t)length monitor:(id)monitor;
 - (NWStatsConnSource)initWithDetails:(nstat_msg_src_details_convenient *)details length:(int64_t)length monitor:(id)monitor;
+- (id)createSnapshot:(int)snapshot firstOccurrence:(BOOL)occurrence;
 - (id)description;
 - (void)deriveAttribution:(id)attribution;
 - (void)populateConnProperties:(id)properties fromDomainInfo:(nstat_domain_info *)info;
@@ -96,7 +97,7 @@
 - (BOOL)processExtendedDetails:(nstat_msg_src_extended_item_hdr *)details length:(int64_t)length
 {
   selfCopy = self;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   LOBYTE(self) = 1;
   if (length >= 8)
   {
@@ -132,7 +133,7 @@
           LODWORD(self) = [(NWStatsSource *)selfCopy handleDomainInfo:&detailsCopy[1]];
           if (!self)
           {
-            break;
+            return self;
           }
 
           v10 = objc_alloc_init(NWStatsConnProperties);
@@ -155,15 +156,15 @@
         else
         {
           v14 = [MEMORY[0x277CBEA90] dataWithBytes:&detailsCopy[1] length:var1];
-          v15 = NStatGetLog();
+          v15 = NStatGetLog(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109634;
-            v22 = var0;
-            v23 = 2048;
-            v24 = var1;
-            v25 = 2112;
-            v26 = v14;
+            v21 = var0;
+            v22 = 2048;
+            v23 = var1;
+            v24 = 2112;
+            v25 = v14;
             _os_log_impl(&dword_25BA3A000, v15, OS_LOG_TYPE_ERROR, "NWStatsConn Unexpected extended item type: %d, length: %zd contents %@", buf, 0x1Cu);
           }
 
@@ -171,7 +172,7 @@
           if (!v17)
           {
             LOBYTE(self) = 0;
-            break;
+            return self;
           }
         }
 
@@ -181,13 +182,12 @@
         if (v7 - v18 <= 7)
         {
           LOBYTE(self) = 1;
-          break;
+          return self;
         }
       }
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -335,6 +335,62 @@
   }
 
   return v10;
+}
+
+- (id)createSnapshot:(int)snapshot firstOccurrence:(BOOL)occurrence
+{
+  occurrenceCopy = occurrence;
+  v5 = *&snapshot;
+  v7 = [NWStatsConnSnapshot alloc];
+  [(NWStatsSource *)self creationTimestamp];
+  v9 = [(NWStatsConnSnapshot *)v7 initWithConnDetails:&self->_nstatConnDetails startTime:[(NWStatsSource *)self flowFlags] flowFlags:v8];
+  [(NWStatsSource *)self setFlowFlags:[(NWStatsSource *)self flowFlags]& 0xFFC00FFFLL];
+  [(NWStatsSource *)self saveOldValues:&self->_nstatConnDetails.detailed_counts];
+  [(NWStatsSnapshot *)v9 setSnapshotReason:v5];
+  [(NWStatsSnapshot *)v9 setFirstOccurrence:occurrenceCopy];
+  attributedEntity = [(NWStatsSource *)self attributedEntity];
+  attributionReason = [(NWStatsSource *)self attributionReason];
+  delegateName = [(NWStatsSource *)self delegateName];
+  delegateAttributionReason = [(NWStatsSource *)self delegateAttributionReason];
+  attributedExtension = [(NWStatsSource *)self attributedExtension];
+  [(NWStatsSnapshot *)v9 setAttribution:attributedEntity derivation:attributionReason delegateName:delegateName delegateDerivation:delegateAttributionReason extensionName:attributedExtension];
+
+  domainName = [(NWStatsSource *)self domainName];
+  domainOwner = [(NWStatsSource *)self domainOwner];
+  domainTrackerContext = [(NWStatsSource *)self domainTrackerContext];
+  domainAttributedBundleId = [(NWStatsSource *)self domainAttributedBundleId];
+  isTracker = [(NWStatsSource *)self isTracker];
+  attributedEntity2 = [(NWStatsSource *)self attributedEntity];
+  isNonAppInitiated = [(NWStatsSource *)self bundleNameImpliesNonAppInitiated:attributedEntity2]|| [(NWStatsSource *)self isNonAppInitiated];
+  LOBYTE(v30) = [(NWStatsSource *)self isSilent];
+  [(NWStatsSnapshot *)v9 setDomainName:domainName owner:domainOwner context:domainTrackerContext attributedBundleId:domainAttributedBundleId isTracker:isTracker isNonAppInitiated:isNonAppInitiated isSilent:v30];
+
+  [(NWStatsSnapshot *)v9 setAppStateIsForeground:[(NWStatsSource *)self updateAppStateIsForeground] screenStateOn:[(NWStatsSource *)self updateScreenStateOn] startAppStateIsForeground:[(NWStatsSource *)self startAppStateIsForeground] startScreenStateOn:[(NWStatsSource *)self startScreenStateOn]];
+  if (self->_lookupResults)
+  {
+    v22 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_lookupResults];
+    [(NWStatsSnapshot *)v9 setLookupResults:v22];
+  }
+
+  extensions = [(NWStatsSource *)self extensions];
+
+  if (extensions)
+  {
+    v24 = objc_alloc(MEMORY[0x277CBEAC0]);
+    extensions2 = [(NWStatsSource *)self extensions];
+    v26 = [v24 initWithDictionary:extensions2];
+    [(NWStatsSnapshot *)v9 setExtensions:v26];
+  }
+
+  [(NWStatsConnSnapshot *)v9 setCurrentProperties:self->_currentProperties];
+  [(NWStatsConnSnapshot *)v9 setAncestralProperties:self->_ancestralProperties];
+  currentProperties = self->_currentProperties;
+  self->_currentProperties = 0;
+
+  ancestralProperties = self->_ancestralProperties;
+  self->_ancestralProperties = 0;
+
+  return v9;
 }
 
 @end

@@ -88,9 +88,9 @@ id sub_100001BBC(uint64_t a1)
   return [v2 invalidate];
 }
 
-void sub_1000038DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000038DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -359,7 +359,7 @@ void sub_10000412C(id a1, int a2)
   objc_sync_exit(v2);
 }
 
-uint64_t SUBIsRunningInStandaloneGizmoMode()
+uint64_t SUBIsRunningInStandaloneGizmoMode(uint64_t a1, uint64_t a2)
 {
   if (qword_100033908 != -1)
   {
@@ -384,16 +384,16 @@ void sub_10000428C(id a1)
   byte_100033900 = v1;
 }
 
-id copySUBSimulationFileName()
+id copySUBSimulationFileName(uint64_t a1)
 {
   if (qword_100033918 != -1)
   {
     sub_100019A00();
   }
 
-  v1 = qword_100033910;
+  v2 = qword_100033910;
 
-  return v1;
+  return v2;
 }
 
 void sub_100004324(id a1)
@@ -471,7 +471,7 @@ void enableNotification(const char *a1)
   xpc_set_event();
 }
 
-uint64_t sub_10000455C()
+CFIndex sub_10000455C()
 {
   result = MGGetBoolAnswer();
   if (result)
@@ -500,7 +500,7 @@ uint64_t sub_10000455C()
   return result;
 }
 
-void SUBLoggingInit()
+void SUBLoggingInit(uint64_t result, uint64_t a2)
 {
   if (qword_100033920 != -1)
   {
@@ -793,171 +793,171 @@ void sub_100005244(uint64_t a1, void *a2)
 void start()
 {
   v0 = objc_autoreleasePoolPush();
-  SUBLoggingInit();
-  v1 = softwareupdatebridge_log;
+  SUBLoggingInit(v0, v1);
+  v2 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "Subridged starting up. Setting up tmp dir", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Subridged starting up. Setting up tmp dir", buf, 2u);
   }
 
-  v2 = _set_user_dir_suffix();
-  v3 = softwareupdatebridge_log;
-  v4 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = _set_user_dir_suffix();
+  v4 = softwareupdatebridge_log;
+  v5 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = v3;
-      v6 = NSTemporaryDirectory();
+      v6 = v4;
+      v7 = NSTemporaryDirectory();
       *buf = 138412290;
-      v66 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "tmp directory for subridged set to %@", buf, 0xCu);
+      v67 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "tmp directory for subridged set to %@", buf, 0xCu);
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Failed to set up tmp directory for subridged", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Failed to set up tmp directory for subridged", buf, 2u);
   }
 
   sub_10000455C();
-  v7 = objc_alloc_init(SUBMessageEndpoint);
-  v8 = qword_100033948;
-  qword_100033948 = v7;
+  v8 = objc_alloc_init(SUBMessageEndpoint);
+  v9 = qword_100033948;
+  qword_100033948 = v8;
 
-  v9 = objc_alloc_init(SUBBridgeServer);
-  v10 = qword_100033950;
-  qword_100033950 = v9;
+  v10 = objc_alloc_init(SUBBridgeServer);
+  v11 = qword_100033950;
+  qword_100033950 = v10;
 
   [qword_100033950 setEndpoint:qword_100033948];
-  v11 = [[SUBTaskSerializer alloc] initWithQueueLabel:"com.apple.subridge.MessageSerializer.Incoming"];
-  v12 = qword_100033958;
-  qword_100033958 = v11;
+  v12 = [[SUBTaskSerializer alloc] initWithQueueLabel:"com.apple.subridge.MessageSerializer.Incoming"];
+  v13 = qword_100033958;
+  qword_100033958 = v12;
 
-  v13 = objc_alloc_init(SUBDocumentationFetcher);
-  v14 = qword_100033940;
-  qword_100033940 = v13;
+  v14 = objc_alloc_init(SUBDocumentationFetcher);
+  v15 = qword_100033940;
+  qword_100033940 = v14;
 
-  v15 = qword_100033948;
-  v16 = [NSString stringWithUTF8String:SUBMessageTypeFetchDocumentation[0]];
-  [v15 setHandler:&stru_10002CAD0 forMessagesOfType:v16];
+  v16 = qword_100033948;
+  v17 = [NSString stringWithUTF8String:SUBMessageTypeFetchDocumentation[0]];
+  [v16 setHandler:&stru_10002CAD0 forMessagesOfType:v17];
 
-  v17 = qword_100033948;
-  v18 = [NSString stringWithUTF8String:SUBMessageTypeDownloadProgress[0]];
-  [v17 setHandler:&stru_10002CB18 forMessagesOfType:v18];
+  v18 = qword_100033948;
+  v19 = [NSString stringWithUTF8String:SUBMessageTypeDownloadProgress[0]];
+  [v18 setHandler:&stru_10002CB18 forMessagesOfType:v19];
 
-  v19 = qword_100033948;
-  v20 = [NSString stringWithUTF8String:SUBMessageTypeInstallationCanProceed[0]];
-  v21 = [NSString stringWithUTF8String:SUBMessageTypeInstallationWillProceed[0], v20];
-  v64[1] = v21;
-  v22 = [NSArray arrayWithObjects:v64 count:2];
-  [v19 setHandler:&stru_10002CB88 forMessagesOfTypes:v22];
+  v20 = qword_100033948;
+  v21 = [NSString stringWithUTF8String:SUBMessageTypeInstallationCanProceed[0]];
+  v22 = [NSString stringWithUTF8String:SUBMessageTypeInstallationWillProceed[0], v21];
+  v65[1] = v22;
+  v23 = [NSArray arrayWithObjects:v65 count:2];
+  [v20 setHandler:&stru_10002CB88 forMessagesOfTypes:v23];
 
-  v23 = qword_100033948;
-  v24 = [NSString stringWithUTF8String:SUBMessageTypeShowDownloadAndPrepareError[0]];
-  [v23 setHandler:&stru_10002CBA8 forMessagesOfType:v24];
+  v24 = qword_100033948;
+  v25 = [NSString stringWithUTF8String:SUBMessageTypeShowDownloadAndPrepareError[0]];
+  [v24 setHandler:&stru_10002CBA8 forMessagesOfType:v25];
 
-  v25 = qword_100033948;
-  v26 = [NSString stringWithUTF8String:SUBMessageTypeScanResult[0]];
-  [v25 setHandler:&stru_10002CBF0 forMessagesOfType:v26];
+  v26 = qword_100033948;
+  v27 = [NSString stringWithUTF8String:SUBMessageTypeScanResult[0]];
+  [v26 setHandler:&stru_10002CBF0 forMessagesOfType:v27];
 
-  v27 = qword_100033948;
-  v28 = [NSString stringWithUTF8String:SUBMessageTypeInstallResult[0]];
-  [v27 setHandler:&stru_10002CC10 forMessagesOfType:v28];
+  v28 = qword_100033948;
+  v29 = [NSString stringWithUTF8String:SUBMessageTypeInstallResult[0]];
+  [v28 setHandler:&stru_10002CC10 forMessagesOfType:v29];
 
-  v29 = qword_100033948;
-  v30 = [NSString stringWithUTF8String:SUBMessageTypeShowInstallError[0]];
-  [v29 setHandler:&stru_10002CC30 forMessagesOfType:v30];
+  v30 = qword_100033948;
+  v31 = [NSString stringWithUTF8String:SUBMessageTypeShowInstallError[0]];
+  [v30 setHandler:&stru_10002CC30 forMessagesOfType:v31];
 
-  v31 = qword_100033948;
-  v32 = [NSString stringWithUTF8String:SUBMessageTypeRetrieveSsoToken[0]];
-  [v31 setHandler:&stru_10002CC50 forMessagesOfType:v32];
+  v32 = qword_100033948;
+  v33 = [NSString stringWithUTF8String:SUBMessageTypeRetrieveSsoToken[0]];
+  [v32 setHandler:&stru_10002CC50 forMessagesOfType:v33];
 
-  v33 = qword_100033948;
-  v34 = [NSString stringWithUTF8String:SUBMessageTypeBadgeBridgeApp[0]];
-  [v33 setHandler:&stru_10002CC98 forMessagesOfType:v34];
+  v34 = qword_100033948;
+  v35 = [NSString stringWithUTF8String:SUBMessageTypeBadgeBridgeApp[0]];
+  [v34 setHandler:&stru_10002CC98 forMessagesOfType:v35];
 
-  v35 = qword_100033948;
-  v36 = [NSString stringWithUTF8String:SUBMessageTypeShowUpdateAvailable[0]];
-  [v35 setHandler:&stru_10002CCD8 forMessagesOfType:v36];
+  v36 = qword_100033948;
+  v37 = [NSString stringWithUTF8String:SUBMessageTypeShowUpdateAvailable[0]];
+  [v36 setHandler:&stru_10002CCD8 forMessagesOfType:v37];
 
-  v37 = qword_100033948;
-  v38 = [NSString stringWithUTF8String:SUBMessageTypeCreateStashBag[0]];
-  [v37 setHandler:&stru_10002CD18 forMessagesOfType:v38];
+  v38 = qword_100033948;
+  v39 = [NSString stringWithUTF8String:SUBMessageTypeCreateStashBag[0]];
+  [v38 setHandler:&stru_10002CD18 forMessagesOfType:v39];
 
-  v39 = qword_100033948;
-  v40 = [NSString stringWithUTF8String:SUBMessageTypePerformMigration[0]];
-  [v39 setHandler:&stru_10002CDB0 forMessagesOfType:v40];
+  v40 = qword_100033948;
+  v41 = [NSString stringWithUTF8String:SUBMessageTypePerformMigration[0]];
+  [v40 setHandler:&stru_10002CDB0 forMessagesOfType:v41];
 
-  v41 = qword_100033948;
-  v42 = [NSString stringWithUTF8String:SUBMessageTypeUserDidAcceptTermsAndConditionsChanged[0]];
-  [v41 setHandler:&stru_10002CDD0 forMessagesOfType:v42];
+  v42 = qword_100033948;
+  v43 = [NSString stringWithUTF8String:SUBMessageTypeUserDidAcceptTermsAndConditionsChanged[0]];
+  [v42 setHandler:&stru_10002CDD0 forMessagesOfType:v43];
 
-  v43 = qword_100033948;
-  v44 = [NSString stringWithUTF8String:SUBMessageTypeUserInstallRequestTypeChanged[0]];
-  [v43 setHandler:&stru_10002CDF0 forMessagesOfType:v44];
+  v44 = qword_100033948;
+  v45 = [NSString stringWithUTF8String:SUBMessageTypeUserInstallRequestTypeChanged[0]];
+  [v44 setHandler:&stru_10002CDF0 forMessagesOfType:v45];
 
-  v45 = qword_100033948;
-  v46 = [NSString stringWithUTF8String:SUBMessageTypeGetCompanionLockState[0]];
-  [v45 setHandler:&stru_10002CE10 forMessagesOfType:v46];
+  v46 = qword_100033948;
+  v47 = [NSString stringWithUTF8String:SUBMessageTypeGetCompanionLockState[0]];
+  [v46 setHandler:&stru_10002CE10 forMessagesOfType:v47];
 
-  v47 = qword_100033948;
-  v48 = [NSString stringWithUTF8String:SUBMessageTypeUnlockCompanion[0]];
-  [v47 setHandler:&stru_10002CE30 forMessagesOfType:v48];
+  v48 = qword_100033948;
+  v49 = [NSString stringWithUTF8String:SUBMessageTypeUnlockCompanion[0]];
+  [v48 setHandler:&stru_10002CE30 forMessagesOfType:v49];
 
-  v49 = qword_100033948;
-  v50 = [NSString stringWithUTF8String:SUBMessageTypePresentingAlertOnGizmo[0]];
-  [v49 setHandler:&stru_10002CE70 forMessagesOfType:v50];
+  v50 = qword_100033948;
+  v51 = [NSString stringWithUTF8String:SUBMessageTypePresentingAlertOnGizmo[0]];
+  [v50 setHandler:&stru_10002CE70 forMessagesOfType:v51];
 
-  v51 = qword_100033948;
-  v52 = [NSString stringWithUTF8String:SUBMessageTypeGizmoOSVersionDidChange[0]];
-  [v51 setHandler:&stru_10002CE90 forMessagesOfType:v52];
+  v52 = qword_100033948;
+  v53 = [NSString stringWithUTF8String:SUBMessageTypeGizmoOSVersionDidChange[0]];
+  [v52 setHandler:&stru_10002CE90 forMessagesOfType:v53];
 
-  v53 = qword_100033948;
-  v54 = [NSString stringWithUTF8String:SUBMessageTypeShowDuetConditions[0]];
-  [v53 setHandler:&stru_10002CEB0 forMessagesOfType:v54];
+  v54 = qword_100033948;
+  v55 = [NSString stringWithUTF8String:SUBMessageTypeShowDuetConditions[0]];
+  [v54 setHandler:&stru_10002CEB0 forMessagesOfType:v55];
 
   [qword_100033948 resume];
-  v55 = softwareupdatebridge_log;
+  v56 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "resumed IDS endpoint", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "resumed IDS endpoint", buf, 2u);
   }
 
   mach_service = xpc_connection_create_mach_service(off_100033680, 0, 1uLL);
-  v57 = qword_100033960;
+  v58 = qword_100033960;
   qword_100033960 = mach_service;
 
   if (!qword_100033960)
   {
-    v58 = softwareupdatebridge_log;
+    v59 = softwareupdatebridge_log;
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Failed to create mach service listener connection", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Failed to create mach service listener connection", buf, 2u);
     }
 
     abort();
   }
 
-  v59 = qword_100033948;
-  v60 = [NSString stringWithUTF8String:SUBMessageTypeDisplayTerms[0]];
-  [v59 setHandler:&stru_10002CED0 forMessagesOfType:v60];
+  v60 = qword_100033948;
+  v61 = [NSString stringWithUTF8String:SUBMessageTypeDisplayTerms[0]];
+  [v60 setHandler:&stru_10002CED0 forMessagesOfType:v61];
 
-  v61 = qword_100033948;
-  v62 = [NSString stringWithUTF8String:SUBMessageTypeDisplayTermsCloud[0]];
-  [v61 setHandler:&stru_10002CF30 forMessagesOfType:v62];
+  v62 = qword_100033948;
+  v63 = [NSString stringWithUTF8String:SUBMessageTypeDisplayTermsCloud[0]];
+  [v62 setHandler:&stru_10002CF30 forMessagesOfType:v63];
 
   xpc_connection_set_event_handler(qword_100033960, &stru_10002CFD0);
   xpc_connection_activate(qword_100033960);
-  v63 = softwareupdatebridge_log;
+  v64 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "activated XPC peer connection listener", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "activated XPC peer connection listener", buf, 2u);
   }
 
   xpc_set_event_stream_handler("com.apple.notifyd.matching", 0, &stru_10002D0E0);
@@ -1285,8 +1285,9 @@ LABEL_6:
 LABEL_10:
 }
 
-void sub_100006904(int a1)
+void sub_100006904(uint64_t a1)
 {
+  v1 = a1;
   memcpy(__dst, "com.apple.Bridge", sizeof(__dst));
   SBSSpringBoardServerPort();
   v2 = SBSetApplicationBadgeNumber();
@@ -1332,7 +1333,7 @@ void sub_100006904(int a1)
     v12 = v11;
     if (v11)
     {
-      [v11 setBool:a1 > 0 forKey:@"kBadgedForSoftwareUpdateKey"];
+      [v11 setBool:v1 > 0 forKey:@"kBadgedForSoftwareUpdateKey"];
       v13 = [v12 synchronize];
     }
 
@@ -1598,7 +1599,7 @@ void sub_100007678(uint64_t a1, char a2, void *a3)
     v8 = MKBGetDeviceLockState();
     if ([*(a1 + 40) userInstallRequestType] != 3 || !v8 || v8 == 3)
     {
-      disableNotification();
+      disableNotification("com.apple.mobile.keybagd.lock_status");
       v9 = *(a1 + 48);
       v10 = [*(a1 + 40) manifest];
       v31[0] = _NSConcreteStackBlock;
@@ -2186,7 +2187,7 @@ void sub_100009428(id a1, OS_xpc_object *a2)
   if (type == &_xpc_type_connection)
   {
     v7 = v2;
-    v8 = sub_10000B6F4();
+    v8 = sub_10000B6F4(v7);
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
     v11[2] = sub_100009620;
@@ -2467,21 +2468,21 @@ void sub_100009DA4(uint64_t a1, void *a2)
   sub_100005FC0(v4, v6);
 }
 
-uint64_t sub_100009E68(uint64_t a1, void *a2)
+uint64_t sub_100009E68(void *a1, void *a2)
 {
-  v3 = sub_10000B8C8(a2, *(a1 + 32));
-  [qword_100033950 sendClient:*(a1 + 40) message:*(a1 + 32)];
-  v4 = *(*(a1 + 48) + 16);
+  v3 = sub_10000B8C8(a2, a1[4]);
+  [qword_100033950 sendClient:a1[5] message:a1[4]];
+  v4 = *(a1[6] + 16);
 
   return v4();
 }
 
-id sub_100009ECC(uint64_t a1)
+id sub_100009ECC(void *a1)
 {
-  v2 = sub_10000B8C8(*(a1 + 32), *(a1 + 40));
+  v2 = sub_10000B8C8(a1[4], a1[5]);
   v3 = qword_100033950;
-  v5 = *(a1 + 40);
-  v4 = *(a1 + 48);
+  v5 = a1[5];
+  v4 = a1[6];
 
   return [v3 sendClient:v4 message:v5];
 }
@@ -2536,7 +2537,7 @@ void sub_10000A0C4(uint64_t a1)
 
     else
     {
-      disableNotification();
+      disableNotification("com.apple.mobile.keybagd.lock_status");
     }
   }
 }
@@ -2561,7 +2562,7 @@ LABEL_6:
 
   else
   {
-    disableNotification();
+    disableNotification("com.apple.mobile.keybagd.lock_status");
     v7 = softwareupdatebridge_log;
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
@@ -2921,75 +2922,75 @@ id sub_10000B55C(void *a1, const char *a2, void *a3)
   return data;
 }
 
-BOOL sub_10000B6F4()
+BOOL sub_10000B6F4(uint64_t a1)
 {
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   xpc_connection_get_audit_token();
   memset(&token, 0, sizeof(token));
-  v0 = SecTaskCreateWithAuditToken(kCFAllocatorDefault, &token);
-  if (v0)
+  v1 = SecTaskCreateWithAuditToken(kCFAllocatorDefault, &token);
+  if (v1)
   {
-    v1 = v0;
+    v2 = v1;
     error = 0;
-    v2 = SecTaskCopyValueForEntitlement(v0, @"com.apple.private.allow-subridge", &error);
-    v3 = error;
-    if (v2)
+    v3 = SecTaskCopyValueForEntitlement(v1, @"com.apple.private.allow-subridge", &error);
+    v4 = error;
+    if (v3)
     {
-      v4 = v2;
-      v5 = CFGetTypeID(v2);
-      if (v5 == CFBooleanGetTypeID())
+      v5 = v3;
+      v6 = CFGetTypeID(v3);
+      if (v6 == CFBooleanGetTypeID())
       {
-        v6 = CFBooleanGetValue(v4) != 0;
+        v7 = CFBooleanGetValue(v5) != 0;
       }
 
       else
       {
-        v12 = softwareupdatebridge_log;
-        v6 = 0;
+        v13 = softwareupdatebridge_log;
+        v7 = 0;
         if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(token.val[0]) = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "entitlement has wrong type", &token, 2u);
-          v6 = 0;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "entitlement has wrong type", &token, 2u);
+          v7 = 0;
         }
       }
 
-      CFRelease(v1);
+      CFRelease(v2);
       goto LABEL_16;
     }
 
-    v7 = softwareupdatebridge_log;
-    v8 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
-    if (v3)
+    v8 = softwareupdatebridge_log;
+    v9 = os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT);
+    if (v4)
     {
-      if (v8)
+      if (v9)
       {
         token.val[0] = 138543362;
-        *&token.val[1] = v3;
-        v9 = "unable to look up client entitlement: %{public}@";
-        v10 = v7;
-        v11 = 12;
+        *&token.val[1] = v4;
+        v10 = "unable to look up client entitlement: %{public}@";
+        v11 = v8;
+        v12 = 12;
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, &token, v11);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &token, v12);
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
       LOWORD(token.val[0]) = 0;
-      v9 = "client is not entitled";
-      v10 = v7;
-      v11 = 2;
+      v10 = "client is not entitled";
+      v11 = v8;
+      v12 = 2;
       goto LABEL_14;
     }
 
-    v6 = 0;
-    v4 = v1;
+    v7 = 0;
+    v5 = v2;
 LABEL_16:
-    CFRelease(v4);
+    CFRelease(v5);
 
-    return v6;
+    return v7;
   }
 
   return 0;
@@ -3249,9 +3250,9 @@ void sub_10000C5A0(void *a1)
   objc_end_catch();
 }
 
-void sub_10000C848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3525,23 +3526,21 @@ void sub_10000E830(uint64_t a1)
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      *v13 = 138543362;
-      *&v13[4] = v7;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Failed to determine if paired unlock is supported: %{public}@", v13, 0xCu);
+      *v11 = 138543362;
+      *&v11[4] = v7;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Failed to determine if paired unlock is supported: %{public}@", v11, 0xCu);
     }
 
     v8 = *(a1 + 40);
-    v9 = SUBError(@"SUBError", 17, *(a1 + 32), @"Could not determine if paired unlock is supported", v3, v4, v5, v6, *v13);
+    v9 = SUBError(@"SUBError", 17, *(a1 + 32), @"Could not determine if paired unlock is supported", v3, v4, v5, v6, *v11);
     (*(v8 + 16))(v8, 0, v9);
   }
 
   else
   {
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v12 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
 
-    v12();
+    v10();
   }
 }
 
@@ -4143,17 +4142,7 @@ id sub_100013B30(void *a1, void *a2, uint64_t a3)
   v5 = a1;
   v6 = a2;
   v7 = [v5 objectForKey:v6];
-  if (!v7)
-  {
-    goto LABEL_3;
-  }
-
-  v8 = v7;
-  v9 = [v5 objectForKey:v6];
-  v10 = +[NSNull null];
-  v11 = [v9 isEqual:v10];
-
-  if ((v11 & 1) == 0)
+  if (v7 && (v8 = v7, [v5 objectForKey:v6], v9 = objc_claimAutoreleasedReturnValue(), +[NSNull null](NSNull, "null"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
     v13 = [NSKeyedUnarchiver alloc];
     v14 = [v5 objectForKey:v6];
@@ -4170,7 +4159,6 @@ id sub_100013B30(void *a1, void *a2, uint64_t a3)
 
   else
   {
-LABEL_3:
     v12 = 0;
   }
 
@@ -4315,9 +4303,9 @@ void sub_10001496C(uint64_t a1)
   *(v10 + 40) = 0;
 }
 
-void sub_100014B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100014B08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4331,21 +4319,20 @@ void sub_100014B20(uint64_t a1)
   *(v2 + 40) = 0;
 }
 
-void sub_100014E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100014E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100014E68(void *a1)
+void sub_100014E68(uint64_t a1)
 {
-  v2 = *(*(a1[5] + 8) + 40);
-  (*(a1[4] + 16))();
-  [*(*(a1[6] + 8) + 40) invalidate];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 32) + 16))();
+  [*(*(*(a1 + 48) + 8) + 40) invalidate];
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_100015090(uint64_t a1)
@@ -4400,14 +4387,13 @@ void sub_10001521C(void *a1, void *a2, void *a3)
   *(v8 + 40) = 0;
 }
 
-void sub_1000154C0(void *a1)
+void sub_1000154C0(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  [*(*(a1[6] + 8) + 40) invalidate];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 40) + 16))();
+  [*(*(*(a1 + 48) + 8) + 40) invalidate];
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_100015894(uint64_t a1)
@@ -4452,9 +4438,9 @@ void sub_100015894(uint64_t a1)
   *(v11 + 40) = 0;
 }
 
-void sub_100015A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100015A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4468,14 +4454,13 @@ void sub_100015A58(uint64_t a1)
   *(v2 + 40) = 0;
 }
 
-void sub_100015CF0(void *a1)
+void sub_100015CF0(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  [*(*(a1[6] + 8) + 40) invalidate];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 40) + 16))();
+  [*(*(*(a1 + 48) + 8) + 40) invalidate];
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_100015F58(uint64_t a1)
@@ -4531,14 +4516,13 @@ void sub_1000160F0(void *a1, void *a2, void *a3)
   *(v8 + 40) = 0;
 }
 
-void sub_1000163C8(void *a1)
+void sub_1000163C8(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[5] + 16))();
-  [*(*(a1[6] + 8) + 40) invalidate];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  (*(*(a1 + 40) + 16))();
+  [*(*(*(a1 + 48) + 8) + 40) invalidate];
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void sub_1000165E8(uint64_t a1)
@@ -4611,11 +4595,12 @@ void sub_10001703C(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   *a4 = 0;
 }
 
-void sub_100017BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_100017BB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose((v35 - 224), 8);
-  _Block_object_dispose((v35 - 176), 8);
-  _Block_object_dispose(&a35, 8);
+  va_start(va, a34);
+  _Block_object_dispose((v34 - 224), 8);
+  _Block_object_dispose((v34 - 176), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4730,9 +4715,9 @@ void sub_1000182F0(uint64_t a1)
   *(v2 + 40) = 0;
 }
 
-void sub_100018AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100018AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4764,50 +4749,48 @@ void sub_1000192BC(void *a1)
 {
   if (a1[4])
   {
-    v2 = a1[8];
-    v3 = *(a1[8] + 16);
+    v2 = *(a1[8] + 16);
   }
 
   else
   {
-    v4 = a1[5];
-    v5 = [NSString stringWithUTF8String:SUBMessageErrorKey[0]];
-    v6 = [v4 objectForKeyedSubscript:v5];
+    v3 = a1[5];
+    v4 = [NSString stringWithUTF8String:SUBMessageErrorKey[0]];
+    v5 = [v3 objectForKeyedSubscript:v4];
 
-    if (v6)
+    if (v5)
     {
-      v7 = objc_opt_class();
-      v8 = a1[5];
-      v9 = [NSString stringWithUTF8String:SUBMessageErrorKey[0]];
-      v10 = [v8 objectForKeyedSubscript:v9];
-      v11 = [NSKeyedUnarchiver unarchivedObjectOfClass:v7 fromData:v10 error:0];
+      v6 = objc_opt_class();
+      v7 = a1[5];
+      v8 = [NSString stringWithUTF8String:SUBMessageErrorKey[0]];
+      v9 = [v7 objectForKeyedSubscript:v8];
+      v10 = [NSKeyedUnarchiver unarchivedObjectOfClass:v6 fromData:v9 error:0];
 
       (*(a1[8] + 16))();
       goto LABEL_6;
     }
 
-    v14 = softwareupdatebridge_log;
+    v13 = softwareupdatebridge_log;
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = a1[6];
-      v16 = a1[7];
-      v18 = 138543618;
+      v14 = a1[6];
+      v15 = a1[7];
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2114;
       v19 = v15;
-      v20 = 2114;
-      v21 = v16;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Received message reply (%{public}@) to message with identifier: %{public}@", &v18, 0x16u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received message reply (%{public}@) to message with identifier: %{public}@", &v16, 0x16u);
     }
 
-    v17 = a1[5];
-    v3 = *(a1[8] + 16);
+    v2 = *(a1[8] + 16);
   }
 
-  v3();
+  v2();
 LABEL_6:
   [*(*(a1[9] + 8) + 40) invalidate];
-  v12 = *(a1[9] + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = 0;
+  v11 = *(a1[9] + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = 0;
 }
 
 void sub_1000194A4(uint64_t a1)

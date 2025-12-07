@@ -82,41 +82,13 @@
     [v11 setConstantValue:&v14 + 1 type:53 withName:@"kUseStageLightProxyCube"];
     [v11 setConstantValue:&v14 type:53 withName:@"kUseStageLightCube"];
     sub_1DED422A0(&v6->_renderingStageLightKernel_bothCubes, contextCopy, @"renderStageLight", v11);
-    if (!v6->_renderingStageLightKernel_bothCubes)
-    {
-      goto LABEL_7;
-    }
-
-    v14 = 256;
-    [v11 setConstantValue:&v14 + 1 type:53 withName:@"kUseStageLightProxyCube"];
-    [v11 setConstantValue:&v14 type:53 withName:@"kUseStageLightCube"];
-    sub_1DED422A0(&v6->_renderingStageLightKernel_proxyCube, contextCopy, @"renderStageLight", v11);
-    if (!v6->_renderingStageLightKernel_proxyCube)
-    {
-      goto LABEL_7;
-    }
-
-    v14 = 1;
-    [v11 setConstantValue:&v14 + 1 type:53 withName:@"kUseStageLightProxyCube"];
-    [v11 setConstantValue:&v14 type:53 withName:@"kUseStageLightCube"];
-    sub_1DED422A0(&v6->_renderingStageLightKernel_cube, contextCopy, @"renderStageLight", v11);
-    if (!v6->_renderingStageLightKernel_cube)
-    {
-      goto LABEL_7;
-    }
-
-    v14 = 0;
-    [v11 setConstantValue:&v14 + 1 type:53 withName:@"kUseStageLightProxyCube"];
-    [v11 setConstantValue:&v14 type:53 withName:@"kUseStageLightCube"];
-    sub_1DED422A0(&v6->_renderingStageLightKernel_noCube, contextCopy, @"renderStageLight", v11);
-    if (v6->_renderingStageLightKernel_noCube)
+    if (v6->_renderingStageLightKernel_bothCubes && (v14 = 256, [v11 setConstantValue:&v14 + 1 type:53 withName:@"kUseStageLightProxyCube"], objc_msgSend(v11, "setConstantValue:type:withName:", &v14, 53, @"kUseStageLightCube"), sub_1DED422A0(&v6->_renderingStageLightKernel_proxyCube, contextCopy, @"renderStageLight", v11), v6->_renderingStageLightKernel_proxyCube) && (v14 = 1, objc_msgSend(v11, "setConstantValue:type:withName:", &v14 + 1, 53, @"kUseStageLightProxyCube"), objc_msgSend(v11, "setConstantValue:type:withName:", &v14, 53, @"kUseStageLightCube"), sub_1DED422A0(&v6->_renderingStageLightKernel_cube, contextCopy, @"renderStageLight", v11), v6->_renderingStageLightKernel_cube) && (v14 = 0, objc_msgSend(v11, "setConstantValue:type:withName:", &v14 + 1, 53, @"kUseStageLightProxyCube"), objc_msgSend(v11, "setConstantValue:type:withName:", &v14, 53, @"kUseStageLightCube"), sub_1DED422A0(&v6->_renderingStageLightKernel_noCube, contextCopy, @"renderStageLight", v11), v6->_renderingStageLightKernel_noCube))
     {
       v12 = v6;
     }
 
     else
     {
-LABEL_7:
       v12 = 0;
     }
   }

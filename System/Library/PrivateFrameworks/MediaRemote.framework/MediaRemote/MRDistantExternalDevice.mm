@@ -129,24 +129,23 @@ void __48__MRDistantExternalDevice_externalOutputContext__block_invoke(uint64_t 
 {
   if (self)
   {
-    v4 = 0;
-    v5 = &v4;
-    v6 = 0x3032000000;
-    v7 = __Block_byref_object_copy__5;
-    v8 = __Block_byref_object_dispose__5;
-    v9 = 0;
-    v1 = *(self + 64);
+    v3 = 0;
+    v4 = &v3;
+    v5 = 0x3032000000;
+    v6 = __Block_byref_object_copy__5;
+    v7 = __Block_byref_object_dispose__5;
+    v8 = 0;
     msv_dispatch_sync_on_queue();
-    v2 = v5[5];
-    _Block_object_dispose(&v4, 8);
+    v1 = v4[5];
+    _Block_object_dispose(&v3, 8);
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  return v2;
+  return v1;
 }
 
 + (id)_notificationSerialQueue
@@ -273,71 +272,67 @@ void __39__MRDistantExternalDevice_customOrigin__block_invoke(uint64_t a1)
 
 + (id)clientInterface
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F15889A8];
   v3 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_hostedExternalDeviceDeviceInfoDidChange_ argumentIndex:0 ofReply:0];
 
   v6 = MEMORY[0x1E695DFD8];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-  v8 = [v6 setWithArray:{v7, v12[0]}];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v8 = [v6 setWithArray:{v7, v11[0]}];
   [v2 setClasses:v8 forSelector:sel_discoveryOutputDevicesChanged_forConfiguration_ argumentIndex:0 ofReply:0];
 
   v9 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
   [v2 setClasses:v9 forSelector:sel_discoveryOutputDevicesChanged_forConfiguration_ argumentIndex:1 ofReply:0];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 void __37__MRDistantExternalDevice_deviceInfo__block_invoke_2_223(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v5 = 134217984;
-    v6 = v3;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %p failed to fetch deviceInfo", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = v3;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %p failed to fetch deviceInfo", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)serviceInterface
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F15C3FF0];
   v3 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_getPersonalOutputDevices_ argumentIndex:0 ofReply:1];
 
   v6 = MEMORY[0x1E695DFD8];
-  v27 = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v26 = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
   v8 = [v6 setWithArray:v7];
   [v2 setClasses:v8 forSelector:sel_getExternalOutputContextWithCompletion_ argumentIndex:0 ofReply:1];
 
   v9 = MEMORY[0x1E695DFD8];
-  v26 = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v25 = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   v11 = [v9 setWithArray:v10];
   [v2 setClasses:v11 forSelector:sel_getDeviceInfoWithCompletion_ argumentIndex:0 ofReply:1];
 
   v12 = MEMORY[0x1E695DFD8];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
   v14 = [v12 setWithArray:v13];
   [v2 setClasses:v14 forSelector:sel_setSubscribedPlayerPaths_ argumentIndex:0 ofReply:0];
 
@@ -364,8 +359,6 @@ void __37__MRDistantExternalDevice_deviceInfo__block_invoke_2_223(uint64_t a1)
 
   v22 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
   [v2 setClasses:v22 forSelector:sel_createHostedEndpointWithOutputDeviceUIDs_details_completion_ argumentIndex:1 ofReply:0];
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -490,7 +483,7 @@ void __37__MRDistantExternalDevice_deviceInfo__block_invoke_222(uint64_t a1, voi
 
 - (void)setHostedExternalDeviceConnection:(id)connection
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   objc_initWeak(&location, self);
   if (self->_hostedExternalDeviceConnection)
@@ -504,12 +497,12 @@ void __37__MRDistantExternalDevice_deviceInfo__block_invoke_222(uint64_t a1, voi
     hostedExternalDeviceConnection = self->_hostedExternalDeviceConnection;
     *buf = 138544130;
     selfCopy2 = self;
-    v29 = 2114;
-    v30 = @"HostedExternalDeviceConnection";
-    v31 = 2112;
-    v32 = hostedExternalDeviceConnection;
-    v33 = 2112;
-    v34 = connectionCopy;
+    v28 = 2114;
+    v29 = @"HostedExternalDeviceConnection";
+    v30 = 2112;
+    v31 = hostedExternalDeviceConnection;
+    v32 = 2112;
+    v33 = connectionCopy;
     v8 = "Set: %{public}@ setting %{public}@ from <%@> to <%@>";
     v9 = v6;
     v10 = 42;
@@ -525,10 +518,10 @@ void __37__MRDistantExternalDevice_deviceInfo__block_invoke_222(uint64_t a1, voi
 
     *buf = 138543874;
     selfCopy2 = self;
-    v29 = 2114;
-    v30 = @"HostedExternalDeviceConnection";
-    v31 = 2112;
-    v32 = connectionCopy;
+    v28 = 2114;
+    v29 = @"HostedExternalDeviceConnection";
+    v30 = 2112;
+    v31 = connectionCopy;
     v8 = "Set: %{public}@ setting %{public}@ to <%@>";
     v9 = v6;
     v10 = 32;
@@ -539,18 +532,18 @@ LABEL_7:
 
   if (connectionCopy)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_invoke;
-    v24[3] = &unk_1E769B178;
-    objc_copyWeak(&v25, &location);
-    v11 = MEMORY[0x1A58E3570](v24);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_invoke_2;
-    v22[3] = &unk_1E769B178;
-    objc_copyWeak(&v23, &location);
-    v12 = MEMORY[0x1A58E3570](v22);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_invoke;
+    v23[3] = &unk_1E769B178;
+    objc_copyWeak(&v24, &location);
+    v11 = MEMORY[0x1A58E3570](v23);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_invoke_2;
+    v21[3] = &unk_1E769B178;
+    objc_copyWeak(&v22, &location);
+    v12 = MEMORY[0x1A58E3570](v21);
     objc_storeStrong(&self->_hostedExternalDeviceConnection, connection);
     serviceInterface = [objc_opt_class() serviceInterface];
     [(NSXPCConnection *)self->_hostedExternalDeviceConnection setRemoteObjectInterface:serviceInterface];
@@ -583,8 +576,8 @@ LABEL_7:
       [(MRDistantExternalDevice *)self setSubscribedPlayerPaths:?];
     }
 
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
   }
 
   else
@@ -595,8 +588,6 @@ LABEL_7:
   }
 
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_invoke(uint64_t a1)
@@ -670,84 +661,83 @@ void __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_inv
 uint64_t __43__MRDistantExternalDevice_debugDescription__block_invoke(uint64_t a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AD60]);
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 256);
-  v7 = [*(a1 + 40) debugName];
-  v8 = [v2 initWithFormat:@"<%@:%p {\n hostedExternalDeviceConnection = %@\n endpoint = %@\n", v4, v5, v6, v7];
-  v9 = *(*(a1 + 48) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v3 = objc_opt_class();
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 256);
+  v6 = [*(a1 + 40) debugName];
+  v7 = [v2 initWithFormat:@"<%@:%p {\n hostedExternalDeviceConnection = %@\n endpoint = %@\n", v3, v4, v5, v6];
+  v8 = *(*(a1 + 48) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
   os_unfair_lock_lock((*(a1 + 32) + 72));
-  v11 = *(*(*(a1 + 48) + 8) + 40);
-  v12 = MRExternalDeviceConnectionStateCopyDescription(*(*(a1 + 32) + 176));
-  [v11 appendFormat:@" %@", v12];
+  v10 = *(*(*(a1 + 48) + 8) + 40);
+  v11 = MRExternalDeviceConnectionStateCopyDescription(*(*(a1 + 32) + 176));
+  [v10 appendFormat:@" %@", v11];
 
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 168);
-  if (v14)
+  v12 = *(a1 + 32);
+  v13 = *(v12 + 168);
+  if (v13)
   {
-    v15 = *(*(*(a1 + 48) + 8) + 40);
-    [v14 timeIntervalSinceNow];
-    [v15 appendFormat:@"(%@ %f seconds ago)\n", v14, -v16];
-    v13 = *(a1 + 32);
+    v14 = *(*(*(a1 + 48) + 8) + 40);
+    [v13 timeIntervalSinceNow];
+    [v14 appendFormat:@"(%@ %f seconds ago)\n", v13, -v15];
+    v12 = *(a1 + 32);
   }
 
-  os_unfair_lock_unlock((v13 + 72));
-  v17 = *(a1 + 32);
-  if (*(v17 + 192) == 1)
+  os_unfair_lock_unlock((v12 + 72));
+  v16 = *(a1 + 32);
+  if (*(v16 + 192) == 1)
   {
-    v18 = *(*(*(a1 + 48) + 8) + 40);
-    v19 = *(v17 + 96);
-    [v19 timeIntervalSinceNow];
-    [v18 appendFormat:@" attemptedToConnect=YES (%@ %lf seconds ago)\n", v19, -v20];
-    v17 = *(a1 + 32);
+    v17 = *(*(*(a1 + 48) + 8) + 40);
+    v18 = *(v16 + 96);
+    [v18 timeIntervalSinceNow];
+    [v17 appendFormat:@" attemptedToConnect=YES (%@ %lf seconds ago)\n", v18, -v19];
+    v16 = *(a1 + 32);
   }
 
-  if (*(v17 + 112) == 1)
+  if (*(v16 + 112) == 1)
   {
     [*(*(*(a1 + 48) + 8) + 40) appendString:@" attemptedToConnectWhileInvalid=YES\n"];
-    v17 = *(a1 + 32);
+    v16 = *(a1 + 32);
   }
 
-  v21 = *(v17 + 104);
+  v20 = *(v16 + 104);
+  if (v20)
+  {
+    [*(*(*(a1 + 48) + 8) + 40) appendFormat:@" customOrigin=%@\n", v20];
+    v16 = *(a1 + 32);
+  }
+
+  v21 = *(v16 + 128);
   if (v21)
   {
-    [*(*(*(a1 + 48) + 8) + 40) appendFormat:@" customOrigin=%@\n", v21];
-    v17 = *(a1 + 32);
+    v22 = *(*(*(a1 + 48) + 8) + 40);
+    v23 = [v21 description];
+    v24 = [v23 mr_formattedDebugDescription];
+    [v22 appendFormat:@" externalOutputContext=%@\n", v24];
+
+    v16 = *(a1 + 32);
   }
 
-  v22 = *(v17 + 128);
-  if (v22)
+  if ([*(v16 + 144) count])
   {
-    v23 = *(*(*(a1 + 48) + 8) + 40);
-    v24 = [v22 description];
-    v25 = [v24 mr_formattedDebugDescription];
-    [v23 appendFormat:@" externalOutputContext=%@\n", v25];
-
-    v17 = *(a1 + 32);
+    v25 = *(*(*(a1 + 48) + 8) + 40);
+    v26 = [*(*(a1 + 32) + 144) mr_formattedDebugDescription];
+    [v25 appendFormat:@"  pendingCompletions = %@", v26];
   }
 
-  if ([*(v17 + 144) count])
+  v27 = *(*(a1 + 32) + 128);
+  if (v27)
   {
-    v26 = *(*(*(a1 + 48) + 8) + 40);
-    v27 = [*(*(a1 + 32) + 144) mr_formattedDebugDescription];
-    [v26 appendFormat:@"  pendingCompletions = %@", v27];
+    v28 = *(*(*(a1 + 48) + 8) + 40);
+    v29 = [v27 mr_formattedDebugDescription];
+    [v28 appendFormat:@" externalOutputContext debug=%@\n", v29];
   }
 
-  v28 = *(*(a1 + 32) + 128);
-  if (v28)
-  {
-    v29 = *(*(*(a1 + 48) + 8) + 40);
-    v30 = [v28 mr_formattedDebugDescription];
-    [v29 appendFormat:@" externalOutputContext debug=%@\n", v30];
-  }
+  v30 = *(*(*(a1 + 48) + 8) + 40);
 
-  v31 = *(*(*(a1 + 48) + 8) + 40);
-
-  return [v31 appendString:@"}>"];
+  return [v30 appendString:@"}>"];
 }
 
 - (void)setDistantEndpoint:(id)endpoint
@@ -921,31 +911,29 @@ void __52__MRDistantExternalDevice_setSubscribedPlayerPaths___block_invoke_2(uin
     objc_storeStrong(&self->_externalOutputContext, context);
     if (self->_externalOutputContext)
     {
-      v8 = MRLogCategoryDiscoveryOversize();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = MRLogCategoryDiscoveryOversize(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = MSVDeviceOSIsInternalInstall();
-        v10 = self->_externalOutputContext;
-        if (v9)
+        v10 = MSVDeviceOSIsInternalInstall();
+        v11 = self->_externalOutputContext;
+        if (v10)
         {
-          [(MROutputContextDataSource *)v10 debugDescription];
+          [(MROutputContextDataSource *)v11 debugDescription];
         }
 
         else
         {
-          [(MROutputContextDataSource *)v10 description];
+          [(MROutputContextDataSource *)v11 description];
         }
-        v11 = ;
+        v12 = ;
         v13 = 138543618;
         selfCopy = self;
         v15 = 2114;
-        v16 = v11;
-        _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRDistantExternalDevice] Distant external device %{public}@ initialized externalOutputContext: %{public}@", &v13, 0x16u);
+        v16 = v12;
+        _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRDistantExternalDevice] Distant external device %{public}@ initialized externalOutputContext: %{public}@", &v13, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __48__MRDistantExternalDevice_externalOutputContext__block_invoke_2(uint64_t a1, void *a2)
@@ -968,20 +956,18 @@ void __48__MRDistantExternalDevice_externalOutputContext__block_invoke_2(uint64_
 
 void __48__MRDistantExternalDevice_externalOutputContext__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch externalOutputContext: %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch externalOutputContext: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)groupSessionToken
@@ -1082,20 +1068,18 @@ void __37__MRDistantExternalDevice_deviceInfo__block_invoke_2(uint64_t a1, void 
 
 void __37__MRDistantExternalDevice_deviceInfo__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch deviceInfo: %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch deviceInfo: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)supportedMessages
@@ -1127,20 +1111,18 @@ void __39__MRDistantExternalDevice_customOrigin__block_invoke_2(uint64_t a1, voi
 
 void __39__MRDistantExternalDevice_customOrigin__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch custom origin data: %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch custom origin data: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __39__MRDistantExternalDevice_customOrigin__block_invoke_226(uint64_t a1, void *a2, void *a3)
@@ -1172,29 +1154,27 @@ void __39__MRDistantExternalDevice_customOrigin__block_invoke_226(uint64_t a1, v
 
 void __39__MRDistantExternalDevice_customOrigin__block_invoke_2_228(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 134218242;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %p failed to fetch custom origin data: %{public}@", &v6, 0x16u);
+    v5 = 134218242;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %p failed to fetch custom origin data: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectWithOptions:(unsigned int)options userInfo:(id)info completion:(id)completion
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v8 = MEMORY[0x1E695DF00];
   infoCopy = info;
-  v49 = [v8 now];
+  v48 = [v8 now];
   v10 = [infoCopy mutableCopy];
 
   if (v10)
@@ -1254,7 +1234,7 @@ LABEL_12:
   v20 = objc_alloc(MEMORY[0x1E696AEC0]);
   v21 = objc_opt_class();
   uniqueIdentifier = [distantEndpoint uniqueIdentifier];
-  v52 = distantEndpoint;
+  v51 = distantEndpoint;
   designatedGroupLeader = [distantEndpoint designatedGroupLeader];
   name = [designatedGroupLeader name];
   v25 = [v20 initWithFormat:@"%@:%p<%@(%@)>", v21, self, uniqueIdentifier, name];
@@ -1279,7 +1259,7 @@ LABEL_12:
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v66 = v29;
+    v65 = v29;
     _os_log_impl(&dword_1A2860000, v30, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -1290,22 +1270,22 @@ LABEL_12:
   v35 = dispatch_queue_attr_make_with_qos_class(v34, v31, 0);
   v36 = dispatch_queue_create(uTF8String, v35);
 
-  v58[0] = MEMORY[0x1E69E9820];
-  v58[1] = 3221225472;
-  v58[2] = __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke;
-  v58[3] = &unk_1E769BC80;
-  v64 = v31;
-  v59 = v17;
-  v60 = v25;
-  v62 = v36;
-  v63 = completionCopy;
-  v61 = v49;
-  v48 = v36;
-  v51 = completionCopy;
-  v37 = v49;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke;
+  v57[3] = &unk_1E769BC80;
+  v63 = v31;
+  v58 = v17;
+  v59 = v25;
+  v61 = v36;
+  v62 = completionCopy;
+  v60 = v48;
+  v47 = v36;
+  v50 = completionCopy;
+  v37 = v48;
   v38 = v25;
   v39 = v17;
-  v40 = MEMORY[0x1A58E3570](v58);
+  v40 = MEMORY[0x1A58E3570](v57);
   v41 = objc_alloc_init(MRExternalDeviceConnectionDetails);
   [(MRExternalDeviceConnectionDetails *)v41 setStartDate:v37];
   [(MRExternalDeviceConnectionDetails *)v41 setRequestID:v39];
@@ -1315,25 +1295,23 @@ LABEL_12:
   [(MRExternalDeviceConnectionDetails *)v41 setCompletion:v42];
 
   serialQueue = self->_serialQueue;
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke_2;
-  v54[3] = &unk_1E769BCA8;
-  v54[4] = self;
-  v55 = v41;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke_2;
+  v53[3] = &unk_1E769BCA8;
+  v53[4] = self;
+  v54 = v41;
   optionsCopy = options;
-  v56 = v12;
+  v55 = v12;
   v44 = v12;
   v45 = v41;
-  v46 = MRCreateDonatedQosBlock(v54);
+  v46 = MRCreateDonatedQosBlock(v53);
   dispatch_async(serialQueue, v46);
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"qos: %u->%u", *(a1 + 72), qos_class_self()];
   v5 = _MRLogForCategory(0xAuLL);
@@ -1341,11 +1319,11 @@ void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___bloc
   {
     v6 = *(a1 + 32);
     *buf = 138543874;
-    v31 = @"DistantExternalDevice.connectWithOptions";
-    v32 = 2114;
-    v33 = v6;
-    v34 = 2112;
-    v35 = v4;
+    v30 = @"DistantExternalDevice.connectWithOptions";
+    v31 = 2114;
+    v32 = v6;
+    v33 = 2112;
+    v34 = v4;
     _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
   }
 
@@ -1367,13 +1345,13 @@ void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___bloc
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 48)];
       *buf = 138544130;
-      v31 = @"DistantExternalDevice.connectWithOptions";
-      v32 = 2114;
-      v33 = v16;
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2048;
-      v37 = v18;
+      v30 = @"DistantExternalDevice.connectWithOptions";
+      v31 = 2114;
+      v32 = v16;
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2048;
+      v36 = v18;
       v19 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v20 = v9;
       v21 = 42;
@@ -1390,11 +1368,11 @@ void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___bloc
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 48)];
       *buf = 138543874;
-      v31 = @"DistantExternalDevice.connectWithOptions";
-      v32 = 2114;
-      v33 = v22;
-      v34 = 2048;
-      v35 = v23;
+      v30 = @"DistantExternalDevice.connectWithOptions";
+      v31 = 2114;
+      v32 = v22;
+      v33 = 2048;
+      v34 = v23;
       v19 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v20 = v9;
       v21 = 32;
@@ -1417,15 +1395,15 @@ void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___bloc
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138544386;
-    v31 = @"DistantExternalDevice.connectWithOptions";
-    v32 = 2114;
-    v33 = v11;
-    v34 = 2114;
-    v35 = v3;
-    v36 = 2114;
-    v37 = v12;
-    v38 = 2048;
-    v39 = v14;
+    v30 = @"DistantExternalDevice.connectWithOptions";
+    v31 = 2114;
+    v32 = v11;
+    v33 = 2114;
+    v34 = v3;
+    v35 = 2114;
+    v36 = v12;
+    v37 = 2048;
+    v38 = v14;
     _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_15:
 
@@ -1447,12 +1425,10 @@ LABEL_16:
     block[1] = 3221225472;
     block[2] = __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke_261;
     block[3] = &unk_1E769AB28;
-    v29 = v24;
-    v28 = v3;
+    v28 = v24;
+    v27 = v3;
     dispatch_async(v25, block);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke_2(uint64_t a1)
@@ -1531,27 +1507,25 @@ void __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_u
 
 - (void)disconnect:(id)disconnect
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   disconnectCopy = disconnect;
-  v5 = MRLogCategoryConnections();
+  v5 = MRLogCategoryConnections(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v12 = disconnectCopy;
+    v11 = disconnectCopy;
     _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Client called disconnect on shared connection with error %@", buf, 0xCu);
   }
 
   workerQueue = self->_workerQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __38__MRDistantExternalDevice_disconnect___block_invoke;
-  v9[3] = &unk_1E769A4A0;
-  v9[4] = self;
-  v10 = disconnectCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __38__MRDistantExternalDevice_disconnect___block_invoke;
+  v8[3] = &unk_1E769A4A0;
+  v8[4] = self;
+  v9 = disconnectCopy;
   v7 = disconnectCopy;
-  dispatch_async(workerQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(workerQueue, v8);
 }
 
 - (void)setConnectionStateCallback:(id)callback withQueue:(id)queue
@@ -1581,21 +1555,19 @@ uint64_t __64__MRDistantExternalDevice_setConnectionStateCallback_withQueue___bl
 
     if (v3)
     {
-      v4 = MRLogCategoryConnections();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = MRLogCategoryConnections(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 32);
+        v6 = *(a1 + 32);
         v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device ConnectionStateCallback for %@", &v8, 0xCu);
+        v9 = v6;
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device ConnectionStateCallback for %@", &v8, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) setConnectionStateCallback:*(a1 + 48)];
-  result = [*(a1 + 32) setConnectionStateCallbackQueue:*(a1 + 40)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setConnectionStateCallbackQueue:*(a1 + 40)];
 }
 
 - (void)setCustomDataCallback:(id)callback withQueue:(id)queue
@@ -1642,21 +1614,19 @@ uint64_t __55__MRDistantExternalDevice_setVolumeCallback_withQueue___block_invok
 
     if (v3)
     {
-      v4 = MRLogCategoryConnections();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = MRLogCategoryConnections(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 32);
+        v6 = *(a1 + 32);
         v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device VolumeCallback for %@", &v8, 0xCu);
+        v9 = v6;
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device VolumeCallback for %@", &v8, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) setVolumeCallback:*(a1 + 48)];
-  result = [*(a1 + 32) setVolumeCallbackQueue:*(a1 + 40)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setVolumeCallbackQueue:*(a1 + 40)];
 }
 
 - (void)setDiscoveryMode:(unsigned int)mode forConfiguration:(id)configuration
@@ -1811,7 +1781,7 @@ void __82__MRDistantExternalDevice_outputDeviceVolumeControlCapabilities_queue_c
 
 - (void)setOutputDeviceVolume:(float)volume outputDeviceUID:(id)d details:(id)details queue:(id)queue completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   queueCopy = queue;
@@ -1821,7 +1791,7 @@ void __82__MRDistantExternalDevice_outputDeviceVolumeControlCapabilities_queue_c
   v17 = objc_alloc(MEMORY[0x1E696AEC0]);
   v18 = objc_opt_class();
   uniqueIdentifier = [distantEndpoint uniqueIdentifier];
-  v39 = distantEndpoint;
+  v38 = distantEndpoint;
   designatedGroupLeader = [distantEndpoint designatedGroupLeader];
   name = [designatedGroupLeader name];
   v22 = [v17 initWithFormat:@"%@:%p<%@(%@)>", v18, self, uniqueIdentifier, name];
@@ -1839,27 +1809,27 @@ void __82__MRDistantExternalDevice_outputDeviceVolumeControlCapabilities_queue_c
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v25;
+    v53 = v25;
     _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
-  v45[3] = &unk_1E769BDC0;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
+  v44[3] = &unk_1E769BDC0;
   volumeCopy = volume;
-  v46 = v22;
-  v47 = @"DistantExternalDevice.setOutputDeviceVolume";
+  v45 = v22;
+  v46 = @"DistantExternalDevice.setOutputDeviceVolume";
   v27 = detailsCopy;
-  v48 = v27;
-  v49 = v15;
-  v50 = queueCopy;
-  v51 = completionCopy;
+  v47 = v27;
+  v48 = v15;
+  v49 = queueCopy;
+  v50 = completionCopy;
   v28 = completionCopy;
   v29 = queueCopy;
   v30 = v15;
   v31 = v22;
-  v32 = MEMORY[0x1A58E3570](v45);
+  v32 = MEMORY[0x1A58E3570](v44);
   workerQueue = self->_workerQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -1867,20 +1837,18 @@ void __82__MRDistantExternalDevice_outputDeviceVolumeControlCapabilities_queue_c
   block[3] = &unk_1E769BDE8;
   volumeCopy2 = volume;
   block[4] = self;
-  v41 = dCopy;
-  v42 = v27;
-  v43 = v32;
+  v40 = dCopy;
+  v41 = v27;
+  v42 = v32;
   v34 = v27;
   v35 = dCopy;
   v36 = v32;
   dispatch_async(workerQueue, block);
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -1905,13 +1873,13 @@ void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details
         v11 = [MEMORY[0x1E695DF00] date];
         [v11 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v43 = v24;
-        v44 = 2114;
-        v45 = v9;
-        v46 = 2114;
-        v47 = v25;
-        v48 = 2048;
-        v49 = v26;
+        v42 = v24;
+        v43 = 2114;
+        v44 = v9;
+        v45 = 2114;
+        v46 = v25;
+        v47 = 2048;
+        v48 = v26;
         v27 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v28 = v6;
         v29 = 42;
@@ -1929,11 +1897,11 @@ void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details
         v11 = [MEMORY[0x1E695DF00] date];
         [v11 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v43 = v33;
-        v44 = 2114;
-        v45 = v9;
-        v46 = 2048;
-        v47 = v34;
+        v42 = v33;
+        v43 = 2114;
+        v44 = v9;
+        v45 = 2048;
+        v46 = v34;
         v27 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v28 = v6;
         v29 = 32;
@@ -1958,15 +1926,15 @@ void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details
       v19 = [MEMORY[0x1E695DF00] date];
       [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v43 = v16;
-      v44 = 2114;
-      v45 = v9;
-      v46 = 2112;
-      v47 = v11;
-      v48 = 2114;
-      v49 = v18;
-      v50 = 2048;
-      v51 = v20;
+      v42 = v16;
+      v43 = 2114;
+      v44 = v9;
+      v45 = 2112;
+      v46 = v11;
+      v47 = 2114;
+      v48 = v18;
+      v49 = 2048;
+      v50 = v20;
       v21 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v22 = v6;
       v23 = 52;
@@ -1986,13 +1954,13 @@ void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details
       v19 = [MEMORY[0x1E695DF00] date];
       [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v43 = v30;
-      v44 = 2114;
-      v45 = v9;
-      v46 = 2112;
-      v47 = v11;
-      v48 = 2048;
-      v49 = v32;
+      v42 = v30;
+      v43 = 2114;
+      v44 = v9;
+      v45 = 2112;
+      v46 = v11;
+      v47 = 2048;
+      v48 = v32;
       v21 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v22 = v6;
       v23 = 42;
@@ -2016,15 +1984,15 @@ void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v43 = v8;
-      v44 = 2114;
-      v45 = v9;
-      v46 = 2114;
-      v47 = v3;
-      v48 = 2114;
-      v49 = v10;
-      v50 = 2048;
-      v51 = v12;
+      v42 = v8;
+      v43 = 2114;
+      v44 = v9;
+      v45 = 2114;
+      v46 = v3;
+      v47 = 2114;
+      v48 = v10;
+      v49 = 2048;
+      v50 = v12;
       _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
     }
@@ -2037,18 +2005,16 @@ LABEL_20:
 
 LABEL_21:
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_286;
-  v39[3] = &unk_1E769AB28;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_286;
+  v38[3] = &unk_1E769AB28;
   v35 = *(a1 + 64);
   v36 = *(a1 + 72);
-  v40 = v3;
-  v41 = v36;
+  v39 = v3;
+  v40 = v36;
   v37 = v3;
-  dispatch_async(v35, v39);
-
-  v38 = *MEMORY[0x1E69E9840];
+  dispatch_async(v35, v38);
 }
 
 - (void)outputDeviceVolume:(id)volume queue:(id)queue completion:(id)completion
@@ -2102,7 +2068,7 @@ void __63__MRDistantExternalDevice_outputDeviceVolume_queue_completion___block_i
 
 - (void)adjustOutputDeviceVolume:(int64_t)volume outputDeviceUID:(id)d details:(id)details queue:(id)queue completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   queueCopy = queue;
@@ -2112,7 +2078,7 @@ void __63__MRDistantExternalDevice_outputDeviceVolume_queue_completion___block_i
   v16 = objc_alloc(MEMORY[0x1E696AEC0]);
   v17 = objc_opt_class();
   uniqueIdentifier = [distantEndpoint uniqueIdentifier];
-  v39 = distantEndpoint;
+  v38 = distantEndpoint;
   designatedGroupLeader = [distantEndpoint designatedGroupLeader];
   name = [designatedGroupLeader name];
   v21 = [v16 initWithFormat:@"%@:%p<%@(%@)>", v17, self, uniqueIdentifier, name];
@@ -2130,48 +2096,46 @@ void __63__MRDistantExternalDevice_outputDeviceVolume_queue_completion___block_i
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v24;
+    v53 = v24;
     _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
-  v45[3] = &unk_1E769BE38;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
+  v44[3] = &unk_1E769BE38;
   volumeCopy = volume;
-  v46 = v21;
-  v47 = @"DistantExternalDevice.adjustOutputDeviceVolume";
+  v45 = v21;
+  v46 = @"DistantExternalDevice.adjustOutputDeviceVolume";
   v26 = detailsCopy;
-  v48 = v26;
-  v49 = v14;
-  v50 = queueCopy;
-  v51 = completionCopy;
+  v47 = v26;
+  v48 = v14;
+  v49 = queueCopy;
+  v50 = completionCopy;
   v27 = completionCopy;
   v28 = queueCopy;
   v29 = v14;
   v30 = v21;
-  v31 = MEMORY[0x1A58E3570](v45);
+  v31 = MEMORY[0x1A58E3570](v44);
   workerQueue = self->_workerQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_2;
   block[3] = &unk_1E769BE60;
-  v43 = v31;
+  v42 = v31;
   volumeCopy2 = volume;
   block[4] = self;
-  v41 = dCopy;
-  v42 = v26;
+  v40 = dCopy;
+  v41 = v26;
   v33 = v26;
   v34 = dCopy;
   v35 = v31;
   dispatch_async(workerQueue, block);
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -2195,13 +2159,13 @@ void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_deta
         v10 = [MEMORY[0x1E695DF00] date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v42 = v24;
-        v43 = 2114;
-        v44 = v8;
-        v45 = 2114;
-        v46 = v25;
-        v47 = 2048;
-        v48 = v26;
+        v41 = v24;
+        v42 = 2114;
+        v43 = v8;
+        v44 = 2114;
+        v45 = v25;
+        v46 = 2048;
+        v47 = v26;
         v27 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v28 = v5;
         v29 = 42;
@@ -2219,11 +2183,11 @@ void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_deta
         v10 = [MEMORY[0x1E695DF00] date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v42 = v32;
-        v43 = 2114;
-        v44 = v8;
-        v45 = 2048;
-        v46 = v33;
+        v41 = v32;
+        v42 = 2114;
+        v43 = v8;
+        v44 = 2048;
+        v45 = v33;
         v27 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v28 = v5;
         v29 = 32;
@@ -2247,15 +2211,15 @@ void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_deta
       v19 = [MEMORY[0x1E695DF00] date];
       [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v42 = v15;
-      v43 = 2114;
-      v44 = v16;
-      v45 = 2112;
-      v46 = v17;
-      v47 = 2114;
-      v48 = v18;
-      v49 = 2048;
-      v50 = v20;
+      v41 = v15;
+      v42 = 2114;
+      v43 = v16;
+      v44 = 2112;
+      v45 = v17;
+      v46 = 2114;
+      v47 = v18;
+      v48 = 2048;
+      v49 = v20;
       v21 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v22 = v5;
       v23 = 52;
@@ -2274,13 +2238,13 @@ void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_deta
       v19 = [MEMORY[0x1E695DF00] date];
       [v19 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v42 = v30;
-      v43 = 2114;
-      v44 = v16;
-      v45 = 2112;
-      v46 = v17;
-      v47 = 2048;
-      v48 = v31;
+      v41 = v30;
+      v42 = 2114;
+      v43 = v16;
+      v44 = 2112;
+      v45 = v17;
+      v46 = 2048;
+      v47 = v31;
       v21 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v22 = v5;
       v23 = 42;
@@ -2304,15 +2268,15 @@ void __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_deta
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v42 = v7;
-      v43 = 2114;
-      v44 = v8;
-      v45 = 2114;
-      v46 = v3;
-      v47 = 2114;
-      v48 = v9;
-      v49 = 2048;
-      v50 = v11;
+      v41 = v7;
+      v42 = 2114;
+      v43 = v8;
+      v44 = 2114;
+      v45 = v3;
+      v46 = 2114;
+      v47 = v9;
+      v48 = 2048;
+      v49 = v11;
       _os_log_error_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
     }
@@ -2325,23 +2289,21 @@ LABEL_20:
 
 LABEL_21:
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_291;
-  v38[3] = &unk_1E769AB28;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __93__MRDistantExternalDevice_adjustOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_291;
+  v37[3] = &unk_1E769AB28;
   v34 = *(a1 + 64);
   v35 = *(a1 + 72);
-  v39 = v3;
-  v40 = v35;
+  v38 = v3;
+  v39 = v35;
   v36 = v3;
-  dispatch_async(v34, v38);
-
-  v37 = *MEMORY[0x1E69E9840];
+  dispatch_async(v34, v37);
 }
 
 - (void)muteOutputDeviceVolume:(BOOL)volume outputDeviceUID:(id)d details:(id)details queue:(id)queue completion:(id)completion
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dCopy = d;
   detailsCopy = details;
   queueCopy = queue;
@@ -2351,7 +2313,7 @@ LABEL_21:
   v16 = objc_alloc(MEMORY[0x1E696AEC0]);
   v17 = objc_opt_class();
   uniqueIdentifier = [distantEndpoint uniqueIdentifier];
-  v39 = distantEndpoint;
+  v38 = distantEndpoint;
   designatedGroupLeader = [distantEndpoint designatedGroupLeader];
   name = [designatedGroupLeader name];
   v21 = [v16 initWithFormat:@"%@:%p<%@(%@)>", v17, self, uniqueIdentifier, name];
@@ -2369,27 +2331,27 @@ LABEL_21:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = v24;
+    v53 = v24;
     _os_log_impl(&dword_1A2860000, v25, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
-  v45[3] = &unk_1E769BE88;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke;
+  v44[3] = &unk_1E769BE88;
   volumeCopy = volume;
-  v46 = v21;
-  v47 = @"DistantExternalDevice.muteOutputDeviceVolume";
+  v45 = v21;
+  v46 = @"DistantExternalDevice.muteOutputDeviceVolume";
   v26 = detailsCopy;
-  v48 = v26;
-  v49 = v14;
-  v50 = queueCopy;
-  v51 = completionCopy;
+  v47 = v26;
+  v48 = v14;
+  v49 = queueCopy;
+  v50 = completionCopy;
   v27 = completionCopy;
   v28 = queueCopy;
   v29 = v14;
   v30 = v21;
-  v31 = MEMORY[0x1A58E3570](v45);
+  v31 = MEMORY[0x1A58E3570](v44);
   workerQueue = self->_workerQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -2397,20 +2359,18 @@ LABEL_21:
   block[3] = &unk_1E769BEB0;
   volumeCopy2 = volume;
   block[4] = self;
-  v41 = dCopy;
-  v42 = v26;
-  v43 = v31;
+  v40 = dCopy;
+  v41 = v26;
+  v42 = v31;
   v33 = v26;
   v34 = dCopy;
   v35 = v31;
   dispatch_async(workerQueue, block);
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -2434,13 +2394,13 @@ void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_detail
         v10 = [MEMORY[0x1E695DF00] date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v40 = v22;
-        v41 = 2114;
-        v42 = v8;
-        v43 = 2114;
-        v44 = v23;
-        v45 = 2048;
-        v46 = v24;
+        v39 = v22;
+        v40 = 2114;
+        v41 = v8;
+        v42 = 2114;
+        v43 = v23;
+        v44 = 2048;
+        v45 = v24;
         v25 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v26 = v5;
         v27 = 42;
@@ -2458,11 +2418,11 @@ void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_detail
         v10 = [MEMORY[0x1E695DF00] date];
         [v10 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v40 = v30;
-        v41 = 2114;
-        v42 = v8;
-        v43 = 2048;
-        v44 = v31;
+        v39 = v30;
+        v40 = 2114;
+        v41 = v8;
+        v42 = 2048;
+        v43 = v31;
         v25 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v26 = v5;
         v27 = 32;
@@ -2486,15 +2446,15 @@ void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_detail
       v17 = [MEMORY[0x1E695DF00] date];
       [v17 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v40 = v15;
-      v41 = 2114;
-      v42 = v8;
-      v43 = 2112;
-      v44 = v10;
-      v45 = 2114;
-      v46 = v16;
-      v47 = 2048;
-      v48 = v18;
+      v39 = v15;
+      v40 = 2114;
+      v41 = v8;
+      v42 = 2112;
+      v43 = v10;
+      v44 = 2114;
+      v45 = v16;
+      v46 = 2048;
+      v47 = v18;
       v19 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v20 = v5;
       v21 = 52;
@@ -2513,13 +2473,13 @@ void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_detail
       v17 = [MEMORY[0x1E695DF00] date];
       [v17 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v40 = v28;
-      v41 = 2114;
-      v42 = v8;
-      v43 = 2112;
-      v44 = v10;
-      v45 = 2048;
-      v46 = v29;
+      v39 = v28;
+      v40 = 2114;
+      v41 = v8;
+      v42 = 2112;
+      v43 = v10;
+      v44 = 2048;
+      v45 = v29;
       v19 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v20 = v5;
       v21 = 42;
@@ -2543,15 +2503,15 @@ void __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_detail
       v10 = [MEMORY[0x1E695DF00] date];
       [v10 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v40 = v7;
-      v41 = 2114;
-      v42 = v8;
-      v43 = 2114;
-      v44 = v3;
-      v45 = 2114;
-      v46 = v9;
-      v47 = 2048;
-      v48 = v11;
+      v39 = v7;
+      v40 = 2114;
+      v41 = v8;
+      v42 = 2114;
+      v43 = v3;
+      v44 = 2114;
+      v45 = v9;
+      v46 = 2048;
+      v47 = v11;
       _os_log_error_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
     }
@@ -2564,18 +2524,16 @@ LABEL_20:
 
 LABEL_21:
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_295;
-  v36[3] = &unk_1E769AB28;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __91__MRDistantExternalDevice_muteOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_295;
+  v35[3] = &unk_1E769AB28;
   v32 = *(a1 + 64);
   v33 = *(a1 + 72);
-  v37 = v3;
-  v38 = v33;
+  v36 = v3;
+  v37 = v33;
   v34 = v3;
-  dispatch_async(v32, v36);
-
-  v35 = *MEMORY[0x1E69E9840];
+  dispatch_async(v32, v35);
 }
 
 - (void)setListeningMode:(id)mode outputDeviceUID:(id)d queue:(id)queue completion:(id)completion
@@ -2852,20 +2810,18 @@ void __48__MRDistantExternalDevice_personalOutputDevices__block_invoke(uint64_t 
 
 void __48__MRDistantExternalDevice_personalOutputDevices__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch personalOutputDevices: %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Distant external device %{public}@ failed to fetch personalOutputDevices: %{public}@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromParentGroup:(id)group queue:(id)queue completion:(id)completion
@@ -2921,31 +2877,29 @@ void __82__MRDistantExternalDevice_hostedExternalDeviceConnectionStateDidChange_
 
 void __67__MRDistantExternalDevice_hostedExternalDeviceDeviceInfoDidChange___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v12 = v3;
-    v13 = 2114;
-    v14 = v4;
+    v11 = v3;
+    v12 = 2114;
+    v13 = v4;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %{public}@ deviceInfo did change to %{public}@", buf, 0x16u);
   }
 
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
   v7 = *(v6 + 64);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __67__MRDistantExternalDevice_hostedExternalDeviceDeviceInfoDidChange___block_invoke_298;
-  v9[3] = &unk_1E769A4A0;
-  v9[4] = v6;
-  v10 = v5;
-  dispatch_async(v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __67__MRDistantExternalDevice_hostedExternalDeviceDeviceInfoDidChange___block_invoke_298;
+  v8[3] = &unk_1E769A4A0;
+  v8[4] = v6;
+  v9 = v5;
+  dispatch_async(v7, v8);
 }
 
 - (void)hostedExternalDeviceDidReceiveCustomData:(id)data withName:(id)name
@@ -2967,19 +2921,19 @@ void __67__MRDistantExternalDevice_hostedExternalDeviceDeviceInfoDidChange___blo
 
 void __77__MRDistantExternalDevice_hostedExternalDeviceDidReceiveCustomData_withName___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) length];
     v5 = *(a1 + 48);
     *buf = 138543874;
-    v13 = v3;
-    v14 = 2048;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
+    v12 = v3;
+    v13 = 2048;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %{public}@ did receive %llu bytes of custom data for name %{public}@", buf, 0x20u);
   }
 
@@ -2990,11 +2944,9 @@ void __77__MRDistantExternalDevice_hostedExternalDeviceDidReceiveCustomData_with
   block[2] = __77__MRDistantExternalDevice_hostedExternalDeviceDidReceiveCustomData_withName___block_invoke_299;
   block[3] = &unk_1E769BA00;
   block[4] = v6;
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v10 = *(a1 + 40);
   dispatch_async(v7, block);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __77__MRDistantExternalDevice_hostedExternalDeviceDidReceiveCustomData_withName___block_invoke_299(id *a1)
@@ -3044,16 +2996,16 @@ void __77__MRDistantExternalDevice_hostedExternalDeviceDidReceiveCustomData_with
 
 void __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 134218242;
-    v14 = v3;
-    v15 = 2114;
-    v16 = v4;
+    v13 = v3;
+    v14 = 2114;
+    v15 = v4;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p endpoint did change to %{public}@", buf, 0x16u);
   }
 
@@ -3064,30 +3016,26 @@ void __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block
   [*(a1 + 32) setDistantEndpoint:v7];
 
   v8 = +[MRDistantExternalDevice _notificationSerialQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block_invoke_300;
-  v11[3] = &unk_1E769A4A0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block_invoke_300;
+  v10[3] = &unk_1E769A4A0;
   v9 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = v9;
-  dispatch_async(v8, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[4] = *(a1 + 32);
+  v11 = v9;
+  dispatch_async(v8, v10);
 }
 
 void __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block_invoke_300(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v7 = @"kMRExternalDeviceEndpointUserInfoKeyEndpoint";
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"kMRExternalDeviceEndpointUserInfoKeyEndpoint";
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:@"kMRExternalDeviceEndpointDidChangeNotification" object:v4 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostedExternalDeviceVolumeCapabilitiesDidChange:(unsigned int)change forOutputDevice:(id)device
@@ -3107,8 +3055,8 @@ void __65__MRDistantExternalDevice_hostedExternalDeviceEndpointDidChange___block
 
 void __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChange_forOutputDevice___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
@@ -3119,13 +3067,13 @@ void __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChan
     v8 = *(a1 + 40);
 
     *buf = 134218754;
-    v16 = v3;
-    v17 = 2114;
-    v18 = v4;
-    v19 = 2114;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v8;
+    v15 = v3;
+    v16 = 2114;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v8;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p volume capabilities did change to %{public}@ for endpoint %{public}@ for output device %{public}@", buf, 0x2Au);
   }
 
@@ -3136,11 +3084,9 @@ void __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChan
   block[2] = __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChange_forOutputDevice___block_invoke_302;
   block[3] = &unk_1E769BCF8;
   block[4] = v9;
-  v14 = *(a1 + 48);
-  v13 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  v12 = *(a1 + 40);
   dispatch_async(v10, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChange_forOutputDevice___block_invoke_302(uint64_t a1)
@@ -3168,8 +3114,8 @@ void __91__MRDistantExternalDevice_hostedExternalDeviceVolumeCapabilitiesDidChan
 
 void __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutputDevice___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
@@ -3177,13 +3123,13 @@ void __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutput
     v5 = [v3 distantEndpoint];
     v6 = *(a1 + 40);
     *buf = 134218754;
-    v15 = v3;
-    v16 = 2048;
-    v17 = v4;
-    v18 = 2114;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v6;
+    v14 = v3;
+    v15 = 2048;
+    v16 = v4;
+    v17 = 2114;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p volume did change to %f for endpoint %{public}@ for output device  %{public}@", buf, 0x2Au);
   }
 
@@ -3195,11 +3141,9 @@ void __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutput
   block[2] = __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutputDevice___block_invoke_303;
   block[3] = &unk_1E769BCF8;
   block[4] = v8;
-  v13 = *(a1 + 48);
-  v12 = v7;
+  v12 = *(a1 + 48);
+  v11 = v7;
   dispatch_async(v9, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutputDevice___block_invoke_303(uint64_t a1)
@@ -3270,8 +3214,8 @@ void __79__MRDistantExternalDevice_hostedExternalDeviceVolumeDidChange_forOutput
 
 void __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutputDevice___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
@@ -3279,13 +3223,13 @@ void __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutpu
     v5 = [v3 distantEndpoint];
     v6 = *(a1 + 40);
     *buf = 134218754;
-    v14 = v3;
-    v15 = 1024;
-    v16 = v4;
-    v17 = 2114;
-    v18 = v5;
-    v19 = 2114;
-    v20 = v6;
+    v13 = v3;
+    v14 = 1024;
+    v15 = v4;
+    v16 = 2114;
+    v17 = v5;
+    v18 = 2114;
+    v19 = v6;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p volume isMuted did change to %{BOOL}u for endpoint %{public}@ for output device %{public}@", buf, 0x26u);
   }
 
@@ -3296,11 +3240,9 @@ void __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutpu
   block[2] = __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutputDevice___block_invoke_304;
   block[3] = &unk_1E769BFC8;
   block[4] = v7;
-  v12 = *(a1 + 48);
-  v11 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v10 = *(a1 + 40);
   dispatch_async(v8, block);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutputDevice___block_invoke_304(uint64_t a1)
@@ -3327,45 +3269,41 @@ void __80__MRDistantExternalDevice_hostedExternalDeviceIsMutedDidChange_forOutpu
 
 void __66__MRDistantExternalDevice_hostedExternalDeviceDidAddOutputDevice___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [v3 distantEndpoint];
     *buf = 134218498;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p did add outputDevice %{public}@ for endpoint %{public}@", buf, 0x20u);
   }
 
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = *(v7 + 64);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __66__MRDistantExternalDevice_hostedExternalDeviceDidAddOutputDevice___block_invoke_305;
-  v10[3] = &unk_1E769A4A0;
-  v10[4] = v7;
-  v11 = v6;
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __66__MRDistantExternalDevice_hostedExternalDeviceDidAddOutputDevice___block_invoke_305;
+  v9[3] = &unk_1E769A4A0;
+  v9[4] = v7;
+  v10 = v6;
+  dispatch_async(v8, v9);
 }
 
 void __66__MRDistantExternalDevice_hostedExternalDeviceDidAddOutputDevice___block_invoke_305(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 128);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   [v1 updateOutputDevices:v2];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostedExternalDeviceDidChangeOutputDevice:(id)device
@@ -3384,45 +3322,41 @@ void __66__MRDistantExternalDevice_hostedExternalDeviceDidAddOutputDevice___bloc
 
 void __69__MRDistantExternalDevice_hostedExternalDeviceDidChangeOutputDevice___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [v3 distantEndpoint];
     *buf = 134218498;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p did change outputDevice %{public}@ for endpoint %{public}@", buf, 0x20u);
   }
 
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = *(v7 + 64);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __69__MRDistantExternalDevice_hostedExternalDeviceDidChangeOutputDevice___block_invoke_306;
-  v10[3] = &unk_1E769A4A0;
-  v10[4] = v7;
-  v11 = v6;
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __69__MRDistantExternalDevice_hostedExternalDeviceDidChangeOutputDevice___block_invoke_306;
+  v9[3] = &unk_1E769A4A0;
+  v9[4] = v7;
+  v10 = v6;
+  dispatch_async(v8, v9);
 }
 
 void __69__MRDistantExternalDevice_hostedExternalDeviceDidChangeOutputDevice___block_invoke_306(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 128);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   [v1 updateOutputDevices:v2];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostedExternalDeviceDidRemoveOutputDevice:(id)device
@@ -3441,68 +3375,63 @@ void __69__MRDistantExternalDevice_hostedExternalDeviceDidChangeOutputDevice___b
 
 void __69__MRDistantExternalDevice_hostedExternalDeviceDidRemoveOutputDevice___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = MRLogCategoryConnections();
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = MRLogCategoryConnections(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) uid];
     v5 = [*(a1 + 32) distantEndpoint];
     *buf = 134218498;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
-    v16 = 2114;
-    v17 = v5;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p did remove outputDevice %{public}@ for endpoint %{public}@", buf, 0x20u);
   }
 
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = *(v7 + 64);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __69__MRDistantExternalDevice_hostedExternalDeviceDidRemoveOutputDevice___block_invoke_307;
-  v10[3] = &unk_1E769A4A0;
-  v10[4] = v7;
-  v11 = v6;
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __69__MRDistantExternalDevice_hostedExternalDeviceDidRemoveOutputDevice___block_invoke_307;
+  v9[3] = &unk_1E769A4A0;
+  v9[4] = v7;
+  v10 = v6;
+  dispatch_async(v8, v9);
 }
 
 void __69__MRDistantExternalDevice_hostedExternalDeviceDidRemoveOutputDevice___block_invoke_307(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 128);
   v2 = [*(a1 + 40) uid];
-  v5[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+  v4[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   [v1 removeOutputDevices:v3];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoveryOutputDevicesChanged:(id)changed forConfiguration:(id)configuration
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   changedCopy = changed;
-  v8 = MRLogCategoryConnections();
+  v8 = MRLogCategoryConnections(changedCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     distantEndpoint = [(MRDistantExternalDevice *)self distantEndpoint];
-    v11 = 134218498;
+    v10 = 134218498;
     selfCopy = self;
-    v13 = 2114;
-    v14 = configurationCopy;
-    v15 = 2114;
-    v16 = distantEndpoint;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p discoveryOutputDevicesChanged for configuration %{public}@ for endpoint %{public}@", &v11, 0x20u);
+    v12 = 2114;
+    v13 = configurationCopy;
+    v14 = 2114;
+    v15 = distantEndpoint;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEBUG, "[MRDistantExternalDevice] Hosted external device connection for distant device %p discoveryOutputDevicesChanged for configuration %{public}@ for endpoint %{public}@", &v10, 0x20u);
   }
 
   [(MRExternalDevice *)self notifyDiscoveryOutputDevicesChanged:changedCopy forConfiguration:configurationCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __51__MRDistantExternalDevice__notificationSerialQueue__block_invoke()
@@ -3517,37 +3446,36 @@ void __51__MRDistantExternalDevice__notificationSerialQueue__block_invoke()
 {
   if (error)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3032000000;
-    v15 = __Block_byref_object_copy__5;
-    v16 = __Block_byref_object_dispose__5;
-    v17 = 0;
-    v6 = 0;
-    v7 = &v6;
-    v8 = 0x3032000000;
-    v9 = __Block_byref_object_copy__5;
-    v3 = *(error + 64);
-    v10 = __Block_byref_object_dispose__5;
     v11 = 0;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__5;
+    v15 = __Block_byref_object_dispose__5;
+    v16 = 0;
+    v5 = 0;
+    v6 = &v5;
+    v7 = 0x3032000000;
+    v8 = __Block_byref_object_copy__5;
+    v9 = __Block_byref_object_dispose__5;
+    v10 = 0;
     msv_dispatch_sync_on_queue();
     if (a2)
     {
-      *a2 = v13[5];
+      *a2 = v12[5];
     }
 
-    v4 = v7[5];
-    _Block_object_dispose(&v6, 8);
+    v3 = v6[5];
+    _Block_object_dispose(&v5, 8);
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 void __68__MRDistantExternalDevice__hostedExternalDeviceConnectionWithError___block_invoke(uint64_t a1)
@@ -3579,7 +3507,7 @@ void __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_in
 {
   v3 = a2;
   v4 = [v3 domain];
-  if (![v4 isEqualToString:*MEMORY[0x1E696A250]])
+  if (!objc_msgSend_isEqualToString_(v4))
   {
 LABEL_5:
 
@@ -3593,7 +3521,7 @@ LABEL_5:
     v4 = _MRLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(a1);
+      __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1();
     }
 
     goto LABEL_5;
@@ -3607,7 +3535,7 @@ void __67__MRDistantExternalDevice__synchronousObjectProxyWithErrorHandler___blo
 {
   v3 = a2;
   v4 = [v3 domain];
-  if (![v4 isEqualToString:*MEMORY[0x1E696A250]])
+  if (!objc_msgSend_isEqualToString_(v4))
   {
 LABEL_5:
 
@@ -3621,7 +3549,7 @@ LABEL_5:
     v4 = _MRLogForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(a1);
+      __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1();
     }
 
     goto LABEL_5;
@@ -3729,7 +3657,7 @@ void __67__MRDistantExternalDevice__updateHostedDeviceDesiredNotifications___blo
 
 - (void)_onSerialQueue_callAllPendingCompletionsWithError:(uint64_t)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (error)
   {
@@ -3744,35 +3672,35 @@ void __67__MRDistantExternalDevice__updateHostedDeviceDesiredNotifications___blo
         firstObject = [v4 firstObject];
         requestID = [firstObject requestID];
         *buf = 138543874;
-        v36 = @"DistantExternalDevice.connectWithOptions";
-        v37 = 2114;
-        v38 = requestID;
-        v39 = 2112;
-        v40 = v5;
+        v35 = @"DistantExternalDevice.connectWithOptions";
+        v36 = 2114;
+        v37 = requestID;
+        v38 = 2112;
+        v39 = v5;
         OUTLINED_FUNCTION_15_0(&dword_1A2860000, v6, v9, "Update: %{public}@<%{public}@> %@", buf);
       }
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = v4;
-    v10 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v10 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v32;
+      v12 = *v31;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v31 + 1) + 8 * i);
+          v14 = *(*(&v30 + 1) + 8 * i);
           v15 = qos_class_self();
           v16 = [v14 qos];
           if (v3 || v16 == v15)
@@ -3790,13 +3718,13 @@ void __67__MRDistantExternalDevice__updateHostedDeviceDesiredNotifications___blo
               startDate = [v14 startDate];
               [date timeIntervalSinceDate:startDate];
               *buf = 138544130;
-              v36 = @"DistantExternalDevice.connectWithOptions";
-              v37 = 2114;
-              v38 = requestID2;
-              v39 = 2114;
-              v40 = v3;
-              v41 = 2048;
-              v42 = v24;
+              v35 = @"DistantExternalDevice.connectWithOptions";
+              v36 = 2114;
+              v37 = requestID2;
+              v38 = 2114;
+              v39 = v3;
+              v40 = 2048;
+              v41 = v24;
               _os_log_error_impl(&dword_1A2860000, v20, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", buf, 0x2Au);
 
               goto LABEL_21;
@@ -3811,11 +3739,11 @@ void __67__MRDistantExternalDevice__updateHostedDeviceDesiredNotifications___blo
             {
               requestID3 = [v14 requestID];
               *buf = 138543874;
-              v36 = @"DistantExternalDevice.connectWithOptions";
-              v37 = 2114;
-              v38 = requestID3;
-              v39 = 2112;
-              v40 = v17;
+              v35 = @"DistantExternalDevice.connectWithOptions";
+              v36 = 2114;
+              v37 = requestID3;
+              v38 = 2112;
+              v39 = v17;
               _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "Update: %{public}@<%{public}@> %@", buf, 0x20u);
             }
           }
@@ -3831,11 +3759,11 @@ void __67__MRDistantExternalDevice__updateHostedDeviceDesiredNotifications___blo
           startDate2 = [v14 startDate];
           [date2 timeIntervalSinceDate:startDate2];
           *buf = 138543874;
-          v36 = @"DistantExternalDevice.connectWithOptions";
-          v37 = 2114;
-          v38 = requestID2;
-          v39 = 2048;
-          v40 = v27;
+          v35 = @"DistantExternalDevice.connectWithOptions";
+          v36 = 2114;
+          v37 = requestID2;
+          v38 = 2048;
+          v39 = v27;
           _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
 
 LABEL_21:
@@ -3845,14 +3773,12 @@ LABEL_22:
           (completion)[2](completion, v3);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v11 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v11);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)deviceNotifications
@@ -3877,46 +3803,6 @@ LABEL_22:
   v2 = v6[3];
   _Block_object_dispose(&v5, 8);
   return v2;
-}
-
-void __59__MRDistantExternalDevice_setWantsNowPlayingNotifications___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 88) & 0xFFFFFFFFFFFFFFFELL;
-  v3 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_3(a1, v1);
-}
-
-void __55__MRDistantExternalDevice_setWantsVolumeNotifications___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 88) & 0xFFFFFFFFFFFFFFFDLL;
-  v3 = -*(a1 + 40) & 2;
-  OUTLINED_FUNCTION_1_3(a1, v1);
-}
-
-void __61__MRDistantExternalDevice_setWantsOutputDeviceNotifications___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 88) & 0xFFFFFFFFFFFFFFFBLL;
-  v3 = -*(a1 + 40) & 4;
-  OUTLINED_FUNCTION_1_3(a1, v1);
-}
-
-void __63__MRDistantExternalDevice_setWantsEndpointChangeNotifications___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 88) & 0xFFFFFFFFFFFFFFF7;
-  v3 = -*(a1 + 40) & 8;
-  OUTLINED_FUNCTION_1_3(a1, v1);
-}
-
-void __63__MRDistantExternalDevice_setWantsSystemEndpointNotifications___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = *(v1 + 88) & 0xFFFFFFFFFFFFFFEFLL;
-  v3 = -*(a1 + 40) & 0x10;
-  OUTLINED_FUNCTION_1_3(a1, v1);
 }
 
 - (void)setConnectionState:(uint64_t)state
@@ -4019,9 +3905,10 @@ void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___bloc
       [self setDeviceInfo:0];
     }
 
-    if ([self connectionState] != a2)
+    connectionState = [self connectionState];
+    if (connectionState != a2)
     {
-      v9 = MRLogCategoryConnections();
+      v9 = MRLogCategoryConnections(connectionState);
       v10 = v9;
       if (changeCopy)
       {
@@ -4103,13 +3990,11 @@ LABEL_15:
       dispatch_async(v25, v26);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onSerialQueue_prepareToConnectWithOptions:(void *)options userInfo:(void *)info connectionAttemptDetails:(void *)details connectionHandler:
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   infoCopy = info;
   detailsCopy = details;
@@ -4120,22 +4005,22 @@ LABEL_15:
     requestID = [infoCopy requestID];
     reason = [infoCopy reason];
     v15 = [v12 initWithFormat:@"%@<%@:%@>", @"DistantExternalDevice.connectWithOptions", requestID, reason];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke;
-    v45[3] = &unk_1E769AD80;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke;
+    v44[3] = &unk_1E769AD80;
     v16 = detailsCopy;
-    v46 = v16;
-    v17 = [(MRBlockGuard *)v11 initWithTimeout:v15 reason:v45 handler:30.0];
+    v45 = v16;
+    v17 = [(MRBlockGuard *)v11 initWithTimeout:v15 reason:v44 handler:30.0];
 
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_2;
-    v42[3] = &unk_1E769BCD0;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_2;
+    v41[3] = &unk_1E769BCD0;
     v18 = v17;
-    v43 = v18;
-    v44 = v16;
-    v19 = MEMORY[0x1A58E3570](v42);
+    v42 = v18;
+    v43 = v16;
+    v19 = MEMORY[0x1A58E3570](v41);
     if ([self connectionState] == 2)
     {
       v20 = _MRLogForCategory(0xAuLL);
@@ -4143,8 +4028,8 @@ LABEL_15:
       {
         requestID2 = [infoCopy requestID];
         OUTLINED_FUNCTION_4_2(requestID2, 5.8383e-34);
-        v48 = @"Already Connected";
-        OUTLINED_FUNCTION_15_0(&dword_1A2860000, v20, v22, "Update: %{public}@<%{public}@> %@", v47);
+        v47 = @"Already Connected";
+        OUTLINED_FUNCTION_15_0(&dword_1A2860000, v20, v22, "Update: %{public}@<%{public}@> %@", v46);
       }
 
       v19[2](v19, 0);
@@ -4162,53 +4047,51 @@ LABEL_15:
           {
             requestID3 = [infoCopy requestID];
             OUTLINED_FUNCTION_4_2(requestID3, 5.8383e-34);
-            v48 = v23;
-            OUTLINED_FUNCTION_15_0(&dword_1A2860000, v24, v26, "Update: %{public}@<%{public}@> %@", v47);
+            v47 = v23;
+            OUTLINED_FUNCTION_15_0(&dword_1A2860000, v24, v26, "Update: %{public}@<%{public}@> %@", v46);
           }
 
           [(MSVBlockGuard *)v18 disarm];
           goto LABEL_12;
         }
 
-        v28 = _MRLogForCategory(0xAuLL);
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v27 = _MRLogForCategory(0xAuLL);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           requestID4 = [infoCopy requestID];
           OUTLINED_FUNCTION_4_2(requestID4, 5.8383e-34);
-          v48 = @"AuthUpgrade required";
-          OUTLINED_FUNCTION_15_0(&dword_1A2860000, v28, v30, "Update: %{public}@<%{public}@> %@", v47);
+          v47 = @"AuthUpgrade required";
+          OUTLINED_FUNCTION_15_0(&dword_1A2860000, v27, v29, "Update: %{public}@<%{public}@> %@", v46);
         }
       }
 
       *(self + 192) = 1;
       startDate = [infoCopy startDate];
-      v32 = *(self + 96);
+      v31 = *(self + 96);
       *(self + 96) = startDate;
 
       *(self + 136) = a2;
       [(MRDistantExternalDevice *)self _onSerialQueue_handleConnectionStateDidChange:0 withError:?];
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_277;
-      v40[3] = &unk_1E769BCD0;
-      v40[4] = self;
-      v33 = v19;
-      v41 = v33;
-      v34 = [(MRDistantExternalDevice *)self _remoteObjectProxyWithErrorHandler:v40];
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_2_278;
-      v37[3] = &unk_1E769BCD0;
-      v38 = v34;
-      v39 = v33;
-      v35 = v34;
-      [v35 connectWithOptions:a2 userInfo:optionsCopy completion:v37];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_277;
+      v39[3] = &unk_1E769BCD0;
+      v39[4] = self;
+      v32 = v19;
+      v40 = v32;
+      v33 = [(MRDistantExternalDevice *)self _remoteObjectProxyWithErrorHandler:v39];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_2_278;
+      v36[3] = &unk_1E769BCD0;
+      v37 = v33;
+      v38 = v32;
+      v34 = v33;
+      [v34 connectWithOptions:a2 userInfo:optionsCopy completion:v36];
     }
 
 LABEL_12:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __122__MRDistantExternalDevice__onSerialQueue_prepareToConnectWithOptions_userInfo_connectionAttemptDetails_connectionHandler___block_invoke_277(uint64_t a1, void *a2)
@@ -4283,29 +4166,28 @@ void __59__MRDistantExternalDevice_setCustomDataCallback_withQueue___block_invok
 
     if (v3)
     {
-      v4 = MRLogCategoryConnections();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = MRLogCategoryConnections(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 32);
+        v6 = *(a1 + 32);
         v9 = 138412290;
-        v10 = v5;
-        _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device CustomDataCallback for %@", &v9, 0xCu);
+        v10 = v6;
+        _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "[MRDistantExternalDevice] Overwriting distant external device CustomDataCallback for %@", &v9, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) setCustomDataCallback:*(a1 + 48)];
   [*(a1 + 32) setCustomDataCallbackQueue:*(a1 + 40)];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 80) & 0xFFFFFFFFFFFFFFFELL;
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 80) & 0xFFFFFFFFFFFFFFFELL;
   if (*(a1 + 48))
   {
-    ++v7;
+    ++v8;
   }
 
-  *(v6 + 80) = v7;
+  *(v7 + 80) = v8;
   [(MRDistantExternalDevice *)*(a1 + 32) _updateHostedDeviceDesiredCallbacks:?];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __61__MRDistantExternalDevice_setDiscoveryMode_forConfiguration___block_invoke(uint64_t a1)
@@ -4316,26 +4198,24 @@ void __61__MRDistantExternalDevice_setDiscoveryMode_forConfiguration___block_inv
   [v3 setDiscoveryMode:*(v1 + 48) forConfiguration:*(v1 + 40)];
 }
 
-void __75__MRDistantExternalDevice_requestGroupSessionWithDetails_queue_completion___block_invoke_3(void *a1)
+void __75__MRDistantExternalDevice_requestGroupSessionWithDetails_queue_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[4];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_2();
-  v4 = *(v3 + 48);
-  v5 = OUTLINED_FUNCTION_10_0();
-  v7 = [(MRDistantExternalDevice *)v5 _remoteObjectProxyWithErrorHandler:v6];
-  [v7 requestGroupSessionWithDetails:a1[5] completion:a1[6]];
+  v3 = *(v2 + 48);
+  v4 = OUTLINED_FUNCTION_10_0();
+  v6 = [(MRDistantExternalDevice *)v4 _remoteObjectProxyWithErrorHandler:v5];
+  [v6 requestGroupSessionWithDetails:*(a1 + 40) completion:*(a1 + 48)];
 }
 
-void __83__MRDistantExternalDevice_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke_3(void *a1)
+void __83__MRDistantExternalDevice_requestMicrophoneConnectionWithDetails_queue_completion___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[4];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_2();
-  v4 = *(v3 + 48);
-  v5 = OUTLINED_FUNCTION_10_0();
-  v7 = [(MRDistantExternalDevice *)v5 _remoteObjectProxyWithErrorHandler:v6];
-  [v7 requestMicrophoneConnectionWithDetails:a1[5] completion:a1[6]];
+  v3 = *(v2 + 48);
+  v4 = OUTLINED_FUNCTION_10_0();
+  v6 = [(MRDistantExternalDevice *)v4 _remoteObjectProxyWithErrorHandler:v5];
+  [v6 requestMicrophoneConnectionWithDetails:*(a1 + 40) completion:*(a1 + 48)];
 }
 
 void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_2(uint64_t a1)
@@ -4383,13 +4263,12 @@ void __79__MRDistantExternalDevice_modifyTopologyWithRequest_withReplyQueue_comp
 
 void __93__MRDistantExternalDevice_createHostedEndpointWithOutputDeviceUIDs_details_queue_completion___block_invoke_3(void *a1)
 {
-  v2 = a1[4];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3_2();
-  v4 = *(v3 + 56);
-  v5 = OUTLINED_FUNCTION_10_0();
-  v7 = [(MRDistantExternalDevice *)v5 _remoteObjectProxyWithErrorHandler:v6];
-  [v7 createHostedEndpointWithOutputDeviceUIDs:a1[5] details:a1[6] completion:a1[7]];
+  v3 = *(v2 + 56);
+  v4 = OUTLINED_FUNCTION_10_0();
+  v6 = [(MRDistantExternalDevice *)v4 _remoteObjectProxyWithErrorHandler:v5];
+  [v6 createHostedEndpointWithOutputDeviceUIDs:a1[5] details:a1[6] completion:a1[7]];
 }
 
 - (void)sendCustomData:(id)data withName:(id)name
@@ -4436,48 +4315,44 @@ void __61__MRDistantExternalDevice_setHostedExternalDeviceConnection___block_inv
 
 - (void)connectWithOptions:userInfo:completion:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 138412546;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 138412546;
   OUTLINED_FUNCTION_11();
-  v4 = v0;
-  _os_log_fault_impl(&dword_1A2860000, v1, OS_LOG_TYPE_FAULT, "No reason provided for %@<%@>", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_fault_impl(&dword_1A2860000, v1, OS_LOG_TYPE_FAULT, "No reason provided for %@<%@>", v2, 0x16u);
 }
 
 void __66__MRDistantExternalDevice_connectWithOptions_userInfo_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 32);
-  v3 = [MEMORY[0x1E695DF00] date];
-  [v3 timeIntervalSinceDate:*(v0 + 48)];
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v3 = *(v2 + 32);
+  v4 = [MEMORY[0x1E695DF00] date];
+  [v4 timeIntervalSinceDate:*(v1 + 48)];
+  *v12 = 138544130;
+  *&v12[4] = @"DistantExternalDevice.connectWithOptions";
+  *&v12[12] = 2114;
+  *&v12[14] = v3;
+  *&v12[22] = 2114;
+  LOWORD(v13) = 2048;
+  *(&v13 + 2) = v5;
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v6, v7, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], v0, v13, WORD4(v13));
 }
 
 void __90__MRDistantExternalDevice_setOutputDeviceVolume_outputDeviceUID_details_queue_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(v1 + 40);
-  v3 = [*(v1 + 48) requestID];
-  v4 = [MEMORY[0x1E695DF00] date];
-  [v4 timeIntervalSinceDate:*(v0 + 56)];
+  v2 = [*(v1 + 48) requestID];
+  v3 = [MEMORY[0x1E695DF00] date];
+  [v3 timeIntervalSinceDate:*(v0 + 56)];
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_1(&dword_1A2860000, v5, v6, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1A2860000, v4, v5, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", v6, v7, v8, v9);
 }
 
-void __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1(uint64_t a1)
+void __62__MRDistantExternalDevice__remoteObjectProxyWithErrorHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v5 = 138412546;
+  v2 = 138412546;
   OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_14(&dword_1A2860000, v2, v3, "%@ %@ in distantExternalDevice", v5);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_14(&dword_1A2860000, v0, v1, "%@ %@ in distantExternalDevice", v2);
 }
 
 @end

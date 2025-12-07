@@ -31,20 +31,20 @@
 - (id)initForOperation:(id)operation
 {
   operationCopy = operation;
-  v12.receiver = self;
-  v12.super_class = DMDPowerAssertion;
-  v6 = [(DMDPowerAssertion *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = DMDPowerAssertion;
+  v6 = [(DMDPowerAssertion *)&v13 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_operation, operation);
-    v8 = _assertionQueue();
+    v9 = _assertionQueue(v8);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100066A08;
     block[3] = &unk_1000CE5A0;
-    v11 = v7;
-    dispatch_sync(v8, block);
+    v12 = v7;
+    dispatch_sync(v9, block);
   }
 
   return v7;
@@ -54,7 +54,7 @@
 {
   if (!self->_isParked)
   {
-    v3 = _assertionQueue();
+    v3 = _assertionQueue(self);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100066ABC;
@@ -70,7 +70,7 @@
 
 - (void)park
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100066B50;
@@ -81,7 +81,7 @@
 
 - (void)unpark
 {
-  v3 = _assertionQueue();
+  v3 = _assertionQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100066C54;

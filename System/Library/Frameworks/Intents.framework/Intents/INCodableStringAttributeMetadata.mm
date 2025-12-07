@@ -189,35 +189,35 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v39[7] = *MEMORY[0x1E69E9840];
-  v37.receiver = self;
-  v37.super_class = INCodableStringAttributeMetadata;
+  v38[7] = *MEMORY[0x1E69E9840];
+  v36.receiver = self;
+  v36.super_class = INCodableStringAttributeMetadata;
   localizerCopy = localizer;
-  v32 = [(INCodableAttributeMetadata *)&v37 dictionaryRepresentationWithLocalizer:localizerCopy];
+  v31 = [(INCodableAttributeMetadata *)&v36 dictionaryRepresentationWithLocalizer:localizerCopy];
   __INCodableDescriptionMultilineKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionMultilineKey];
-  v38[0] = __INCodableDescriptionMultilineKey;
+  v37[0] = __INCodableDescriptionMultilineKey;
   null = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableStringAttributeMetadata isMultiline](self, "isMultiline")}];
-  v35 = null;
+  v34 = null;
   if (!null)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = null;
-  v39[0] = null;
+  v26 = null;
+  v38[0] = null;
   __INCodableDescriptionDisableAutocorrectKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionDisableAutocorrectKey];
-  v38[1] = __INCodableDescriptionDisableAutocorrectKey;
+  v37[1] = __INCodableDescriptionDisableAutocorrectKey;
   null2 = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableStringAttributeMetadata disableAutocorrect](self, "disableAutocorrect")}];
-  v33 = null2;
+  v32 = null2;
   if (!null2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = null2;
-  v39[1] = null2;
+  v25 = null2;
+  v38[1] = null2;
   __INCodableDescriptionDisableSmartDashesKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionDisableSmartDashesKey];
-  v38[2] = __INCodableDescriptionDisableSmartDashesKey;
+  v37[2] = __INCodableDescriptionDisableSmartDashesKey;
   null3 = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableStringAttributeMetadata disableSmartDashes](self, "disableSmartDashes")}];
   v8 = null3;
   if (!null3)
@@ -225,11 +225,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = v8;
-  v25 = null3;
-  v39[2] = null3;
+  v29 = v8;
+  v24 = null3;
+  v38[2] = null3;
   __INCodableDescriptionDisableSmartQuotesKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionDisableSmartQuotesKey];
-  v38[3] = __INCodableDescriptionDisableSmartQuotesKey;
+  v37[3] = __INCodableDescriptionDisableSmartQuotesKey;
   null4 = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableStringAttributeMetadata disableSmartQuotes](self, "disableSmartQuotes")}];
   v10 = null4;
   if (!null4)
@@ -237,10 +237,10 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null4;
-  v39[3] = null4;
+  v23 = null4;
+  v38[3] = null4;
   __INCodableDescriptionDefaultValueKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionDefaultValueKey];
-  v38[4] = __INCodableDescriptionDefaultValueKey;
+  v37[4] = __INCodableDescriptionDefaultValueKey;
   v11 = [(INCodableStringAttributeMetadata *)self localizedDefaultValueWithLocalizer:localizerCopy];
 
   null5 = v11;
@@ -249,9 +249,9 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[4] = null5;
+  v38[4] = null5;
   __INCodableDescriptionDefaultValueIDKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionDefaultValueIDKey];
-  v38[5] = __INCodableDescriptionDefaultValueIDKey;
+  v37[5] = __INCodableDescriptionDefaultValueIDKey;
   defaultValueID = [(INCodableStringAttributeMetadata *)self defaultValueID];
   null6 = defaultValueID;
   if (!defaultValueID)
@@ -259,9 +259,9 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[5] = null6;
+  v38[5] = null6;
   __INCodableDescriptionCapitalizationKey = [(INCodableStringAttributeMetadata *)self __INCodableDescriptionCapitalizationKey];
-  v38[6] = __INCodableDescriptionCapitalizationKey;
+  v37[6] = __INCodableDescriptionCapitalizationKey;
   capitalization = [(INCodableStringAttributeMetadata *)self capitalization];
   if ((capitalization - 1) > 2)
   {
@@ -273,9 +273,9 @@
     v18 = off_1E72811E8[capitalization - 1];
   }
 
-  v39[6] = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:7];
-  v20 = [v32 if_dictionaryByAddingEntriesFromDictionary:v19];
+  v38[6] = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:7];
+  v20 = [v31 if_dictionaryByAddingEntriesFromDictionary:v19];
 
   if (!defaultValueID)
   {
@@ -289,21 +289,19 @@
   {
   }
 
-  if (!v30)
+  if (!v29)
   {
   }
 
-  if (!v33)
+  if (!v32)
   {
   }
 
-  if (!v35)
+  if (!v34)
   {
   }
 
   if_dictionaryWithNonEmptyValues = [v20 if_dictionaryWithNonEmptyValues];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

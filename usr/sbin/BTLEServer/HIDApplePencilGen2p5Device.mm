@@ -1,4 +1,5 @@
 @interface HIDApplePencilGen2p5Device
+- (id)newFwUpgradeDevice:(id)device keyholeID:(unsigned __int8)d;
 - (id)newUserDevices:(id)devices;
 @end
 
@@ -57,6 +58,14 @@ LABEL_11:
 
 LABEL_6:
   return allValues;
+}
+
+- (id)newFwUpgradeDevice:(id)device keyholeID:(unsigned __int8)d
+{
+  v5 = xmmword_100092000;
+  *v6 = unk_100092010;
+  *&v6[15] = -1073573632;
+  return [(HIDApplePencilDevice *)self newUserDevice:device descriptor:&v5 descriptorLength:35 keyholeID:d];
 }
 
 @end

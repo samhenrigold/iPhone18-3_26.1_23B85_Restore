@@ -185,7 +185,7 @@ uint64_t __37__PIColorWashFilter_colorWashKernels__block_invoke()
     }
 
     v18 = hueChromaFixedColorWashKernel;
-    [v4 extent];
+    objc_msgSend_extent(v4);
     v23 = v22;
     v25 = v24;
     v27 = v26;
@@ -240,7 +240,7 @@ uint64_t __37__PIColorWashFilter_colorWashKernels__block_invoke()
 LABEL_29:
     imageByUnpremultiplyingAlpha2 = [v4 imageByUnpremultiplyingAlpha];
 
-    [imageByUnpremultiplyingAlpha2 extent];
+    objc_msgSend_extent(imageByUnpremultiplyingAlpha2);
     v42 = v41;
     v44 = v43;
     v46 = v45;

@@ -250,8 +250,8 @@ LABEL_11:
   layoutMonitor = self->_layoutMonitor;
   if (!layoutMonitor)
   {
-    configuration = [(MapsScreenLayoutMonitor *)self configuration];
-    v5 = [FBSDisplayLayoutMonitor monitorWithConfiguration:configuration];
+    v4 = objc_msgSend_configuration(self, a2);
+    v5 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v4];
     v6 = self->_layoutMonitor;
     self->_layoutMonitor = v5;
 

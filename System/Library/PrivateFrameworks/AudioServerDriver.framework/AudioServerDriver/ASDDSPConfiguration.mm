@@ -6,37 +6,37 @@
 
 - (ASDDSPConfiguration)initWithArray:(id)array resourcePath:(id)path
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   pathCopy = path;
-  v33.receiver = self;
-  v33.super_class = ASDDSPConfiguration;
-  v8 = [(ASDDSPConfiguration *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = ASDDSPConfiguration;
+  v8 = [(ASDDSPConfiguration *)&v32 init];
   if (v8)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v28 = arrayCopy;
+    v27 = arrayCopy;
     v10 = arrayCopy;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * v14);
+          v15 = *(*(&v28 + 1) + 8 * v14);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -62,7 +62,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v12)
         {
           continue;
@@ -74,10 +74,9 @@
 
     objc_storeStrong(&v8->_dspItems, array);
 LABEL_16:
-    arrayCopy = v28;
+    arrayCopy = v27;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

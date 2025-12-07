@@ -127,7 +127,7 @@ id SiriSharedUISystemAssistantExperienceContainerView.init(coder:)(void *a1)
   return v16;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -135,7 +135,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 double SiriSharedUISystemAssistantExperienceContainerView.textFieldHeight.getter()
@@ -145,12 +145,11 @@ double SiriSharedUISystemAssistantExperienceContainerView.textFieldHeight.getter
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.textFieldHeight.setter(double a1)
+void SiriSharedUISystemAssistantExperienceContainerView.textFieldHeight.setter(double a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_textFieldHeight;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 double SiriSharedUISystemAssistantExperienceContainerView.userUtteranceViewHeight.getter()
@@ -160,12 +159,11 @@ double SiriSharedUISystemAssistantExperienceContainerView.userUtteranceViewHeigh
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.userUtteranceViewHeight.setter(double a1)
+void SiriSharedUISystemAssistantExperienceContainerView.userUtteranceViewHeight.setter(double a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_userUtteranceViewHeight;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.isExternalKeyboardPresented.getter()
@@ -175,12 +173,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.isExternalKeyboardPr
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.isExternalKeyboardPresented.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.isExternalKeyboardPresented.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isExternalKeyboardPresented;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.shouldPreserveResultSpace.getter()
@@ -190,12 +187,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.shouldPreserveResult
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.shouldPreserveResultSpace.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.shouldPreserveResultSpace.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_shouldPreserveResultSpace;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.createDefaultMaterialBackgroundView()(UIView *__return_ptr retstr)
@@ -228,7 +224,7 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.hasContentAt(point:)
 uint64_t sub_21E4B4AE8()
 {
   v1 = [*(v0 + 48) suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v2 = sub_21E4DD088();
 
   v3 = v2 & 0xFFFFFFFFFFFFFF8;
@@ -354,24 +350,24 @@ LABEL_23:
   return MEMORY[0x2822009F8](sub_21E4B4DBC, v21, 0);
 }
 
-uint64_t sub_21E4B4DBC()
+uint64_t sub_21E4B4DBC(uint64_t a1)
 {
-  v2 = *(v0 + 64);
-  v1 = *(v0 + 72);
-  v3 = *(v0 + 56);
-  v5 = *(v0 + 32);
-  v4 = *(v0 + 40);
+  v3 = *(v1 + 64);
+  v2 = *(v1 + 72);
+  v4 = *(v1 + 56);
+  v6 = *(v1 + 32);
+  v5 = *(v1 + 40);
   sub_21E4DB618();
-  *(v0 + 136) = sub_21E4A9950(v1, v5, v4) & 1;
+  *(v1 + 136) = sub_21E4A9950(v2, v6, v5, 0.05) & 1;
 
-  v6 = *(v2 + 8);
-  *(v0 + 112) = v6;
-  *(v0 + 120) = (v2 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v6(v1, v3);
-  v7 = *(v0 + 88);
-  v8 = *(v0 + 96);
+  v7 = *(v3 + 8);
+  *(v1 + 112) = v7;
+  *(v1 + 120) = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v7(v2, v4);
+  v8 = *(v1 + 88);
+  v9 = *(v1 + 96);
 
-  return MEMORY[0x2822009F8](sub_21E4B4E8C, v7, v8);
+  return MEMORY[0x2822009F8](sub_21E4B4E8C, v8, v9);
 }
 
 uint64_t sub_21E4B4E8C()
@@ -393,21 +389,21 @@ uint64_t sub_21E4B4E8C()
   }
 }
 
-uint64_t sub_21E4B4F5C()
+uint64_t sub_21E4B4F5C(uint64_t a1)
 {
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 72);
-  v3 = *(v0 + 56);
-  v5 = *(v0 + 32);
-  v4 = *(v0 + 40);
+  v2 = *(v1 + 112);
+  v3 = *(v1 + 72);
+  v4 = *(v1 + 56);
+  v6 = *(v1 + 32);
+  v5 = *(v1 + 40);
   sub_21E4DB618();
-  *(v0 + 137) = sub_21E4A9950(v2, v5, v4) & 1;
+  *(v1 + 137) = sub_21E4A9950(v3, v6, v5, 0.05) & 1;
 
-  v1(v2, v3);
-  v6 = *(v0 + 88);
-  v7 = *(v0 + 96);
+  v2(v3, v4);
+  v7 = *(v1 + 88);
+  v8 = *(v1 + 96);
 
-  return MEMORY[0x2822009F8](sub_21E4B5020, v6, v7);
+  return MEMORY[0x2822009F8](sub_21E4B5020, v7, v8);
 }
 
 uint64_t sub_21E4B5020()
@@ -505,7 +501,7 @@ Swift::Bool __swiftcall SiriSharedUISystemAssistantExperienceContainerView.isDis
   else
   {
     v3 = [v0 loadingViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v4 = sub_21E4DD088();
 
     if (v4 >> 62)
@@ -537,7 +533,7 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.presentedResponseEle
   }
 
   v3 = [v0 loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v4 = sub_21E4DD088();
 
   if (v4 >> 62)
@@ -637,9 +633,9 @@ void sub_21E4B5BE0(char *a1)
   [*&a1[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] removeFromSuperview];
   [*&a1[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] removeFromSuperview];
   v4 = [v1 originalViewSizeDict];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   sub_21E4DCE98();
 
   sub_21E4CFCB0(a1);
@@ -652,7 +648,7 @@ void sub_21E4B5BE0(char *a1)
   {
     v7 = v6;
     v8 = [v2 backgroundColorAsyncDict];
-    sub_21E43F008(0, &qword_280C140A0);
+    sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
     sub_21E4D1674();
     sub_21E4DCE98();
 
@@ -669,7 +665,7 @@ char *sub_21E4B5E04(void *a1)
   v4 = objc_allocWithZone(MEMORY[0x277D75D18]);
   v5 = a1;
   v6 = [v4 init];
-  v7 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView());
+  v7 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView(0));
   v8 = sub_21E4D3568(a1, v6, 0, 0, 0, 28.0);
   sub_21E4D84DC();
   v9 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
@@ -682,7 +678,7 @@ char *sub_21E4B5E04(void *a1)
   v16 = v15;
   v17 = [v2 originalViewSizeDict];
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   v18 = sub_21E4DCE98();
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -697,33 +693,33 @@ char *sub_21E4B5E04(void *a1)
 
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setSuggestions(_:animatedBlur:)(Swift::OpaquePointer _, Swift::Bool animatedBlur)
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   v3 = sub_21E4DD078();
   [v2 setSuggestions_];
 }
 
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setSuggestions(_:)(Swift::OpaquePointer a1)
 {
-  v192 = type metadata accessor for SiriSharedUISuggestionsHostingView(0);
-  v2 = MEMORY[0x28223BE20](v192);
-  v193 = &v166 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v179 = type metadata accessor for SiriSharedUISuggestionsHostingView(0);
+  v2 = MEMORY[0x28223BE20](v179);
+  v180 = &v153 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v2);
-  v5 = &v166 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5260);
+  v5 = &v153 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5260, &qword_21E4E7D20);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v166 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5268);
+  v8 = &v153 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5268, &unk_21E4E6560);
   MEMORY[0x28223BE20](v9 - 8);
-  v11 = &v166 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5270);
+  v11 = &v153 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5270, &unk_21E4E7D10);
   MEMORY[0x28223BE20](v12 - 8);
-  v14 = (&v166 - v13);
+  v14 = (&v153 - v13);
   v15 = sub_21E4DB698();
   v16 = *(v15 - 8);
   v17 = MEMORY[0x28223BE20](v15);
-  v19 = &v166 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = &v153 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v17);
-  v21 = &v166 - v20;
+  v21 = &v153 - v20;
   v22 = (a1._rawValue >> 62);
   rawValue = a1._rawValue;
   if (a1._rawValue >> 62)
@@ -734,10 +730,10 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setSu
   v23 = *((a1._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_3:
   v24 = 0.0;
-  v180 = v23;
+  v167 = v23;
   if (v23 >= 3)
   {
-    v191 = v22;
+    v178 = v22;
     sub_21E4DB688();
     (*(v16 + 16))(v19, v21, v15);
     v25 = sub_21E4DBAD8();
@@ -746,7 +742,7 @@ LABEL_3:
     (*(*(v26 - 8) + 56))(v11, 1, 1, v26);
     v27 = sub_21E4DCBD8();
     (*(*(v27 - 8) + 56))(v8, 1, 1, v27);
-    type metadata accessor for SiriSharedUISuggestion();
+    type metadata accessor for SiriSharedUISuggestion(0);
     v28 = swift_allocObject();
     v29 = (v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_exposureCallback);
     *v29 = 0;
@@ -761,10 +757,10 @@ LABEL_3:
     v28[5] = 0xE100000000000000;
     (*(v16 + 32))(v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_suggestionId, v19, v15);
     *(v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_type) = 0;
-    sub_21E42D214(v14, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_suggestionData, &qword_27CEC5270);
+    sub_21E42D214(v14, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_suggestionData, &qword_27CEC5270, &unk_21E4E7D10);
     *(v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_suggestionRequestType) = 0;
-    sub_21E42D214(v11, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_autoCompleteData, &qword_27CEC5268);
-    sub_21E42D214(v8, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_toolInvocationData, &qword_27CEC5260);
+    sub_21E42D214(v11, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_autoCompleteData, &qword_27CEC5268, &unk_21E4E6560);
+    sub_21E42D214(v8, v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_toolInvocationData, &qword_27CEC5260, &qword_21E4E7D20);
     v31 = (v28 + OBJC_IVAR____TtC12SiriSharedUI22SiriSharedUISuggestion_tappedCallback);
     *v31 = CGPointMake;
     v31[1] = 0;
@@ -798,10 +794,10 @@ LABEL_3:
     *v38 = CGPointMake;
     v38[1] = 0;
     *&v33[OBJC_IVAR___SiriSharedUIAssistantSuggestionView_index] = 0;
-    v194.receiver = v33;
-    v194.super_class = v32;
+    v181.receiver = v33;
+    v181.super_class = v32;
 
-    v14 = objc_msgSendSuper2(&v194, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+    v14 = objc_msgSendSuper2(&v181, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
     v39 = *(v14 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestionsModel);
     v40 = swift_allocObject();
     swift_unknownObjectWeakInit();
@@ -809,9 +805,9 @@ LABEL_3:
     swift_unknownObjectWeakInit();
     swift_unknownObjectWeakInit();
     KeyPath = swift_getKeyPath();
-    v43 = v192;
-    *(v5 + *(v192 + 32)) = KeyPath;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4E00);
+    v43 = v179;
+    *(v5 + *(v179 + 32)) = KeyPath;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4E00, &unk_21E4E5990);
     swift_storeEnumTagMultiPayload();
     v44 = swift_getKeyPath();
     *v5 = v39;
@@ -825,17 +821,17 @@ LABEL_3:
     *v45 = v44;
     *(v45 + 8) = 0;
     v46 = v5 + *(v43 + 40);
-    v203 = 0;
+    v190 = 0;
     v16 = v14;
 
     sub_21E4DC9F8();
-    MEMORY[0x223D5BFD0](v204);
+    MEMORY[0x223D5BFD0](v191);
 
-    v47 = v196;
+    v47 = v183;
     *v46 = aBlock;
     *(v46 + 8) = v47;
-    sub_21E48B3D4(v5, v193);
-    v48 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC62D8));
+    sub_21E48B3D4(v5, v180);
+    v48 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC62D8, &qword_21E4E8DA0));
     v49 = sub_21E4DBFB8();
     v50 = *(v16 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_hostingView);
     *(v16 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_hostingView) = v49;
@@ -858,85 +854,86 @@ LABEL_3:
     sub_21E48798C(v28);
 
     sub_21E48B448(v5);
-    v53 = v190;
-    [v190 bounds];
-    v54 = CGRectGetWidth(v206) + -20.0;
+    v53 = v177;
+    [v177 bounds];
+    CGRectGetWidth(v193);
     [v53 bounds];
-    Height = CGRectGetHeight(v207);
+    CGRectGetHeight(v194);
+    CGPointMake();
     [v51 sizeThatFits_];
-    v24 = v56;
+    v24 = v54;
 
-    v22 = v191;
+    v22 = v178;
   }
 
-  v205 = MEMORY[0x277D84F90];
-  v57 = [v190 suggestionsViews];
-  v58 = type metadata accessor for SiriSharedUIDropletContainerView();
+  v192 = MEMORY[0x277D84F90];
+  v55 = [v177 suggestionsViews];
+  v56 = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v21 = sub_21E4DD088();
 
   v5 = rawValue;
   if (v22)
   {
-    v60 = sub_21E4DD488();
+    v58 = sub_21E4DD488();
   }
 
   else
   {
-    v60 = *((rawValue & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v58 = *((rawValue & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v15 = v180;
-  v189 = v21 >> 62;
-  v168 = v21;
-  if (v60)
+  v15 = v167;
+  v176 = v21 >> 62;
+  v155 = v21;
+  if (v58)
   {
-    v179 = v58;
+    v166 = v56;
     v19 = 0;
-    LODWORD(v181) = 0;
-    v185 = 0;
-    LODWORD(v191) = 0;
+    LODWORD(v168) = 0;
+    v172 = 0;
+    LODWORD(v178) = 0;
     v8 = 0;
-    v167 = 0;
-    v177 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView;
-    v188 = v5 & 0xC000000000000001;
-    v187 = v5 & 0xFFFFFFFFFFFFFF8;
-    v61 = v21 & 0xFFFFFFFFFFFFFF8;
-    v192 = v21 & 0xFFFFFFFFFFFFFF8;
+    v154 = 0;
+    v164 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView;
+    v175 = v5 & 0xC000000000000001;
+    v174 = v5 & 0xFFFFFFFFFFFFFF8;
+    v59 = v21 & 0xFFFFFFFFFFFFFF8;
+    v179 = v21 & 0xFFFFFFFFFFFFFF8;
     if (v21 < 0)
     {
-      v61 = v21;
+      v59 = v21;
     }
 
-    v166 = v61;
-    v176 = v21 & 0xC000000000000001;
-    v174 = v21 + 32;
-    v173 = 0x800000021E4F1670;
-    v171 = "setSuggestions(_:)";
-    v172 = "setSuggestions(_:)" & 0x2F00000000000000;
-    v169 = MEMORY[0x277D84F90];
-    v11 = v190;
-    v175 = &v190[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
-    *&v59 = 136315138;
-    v170 = v59;
-    v186 = v60;
+    v153 = v59;
+    v163 = v21 & 0xC000000000000001;
+    v161 = v21 + 32;
+    v160 = 0x800000021E4F1670;
+    v158 = "setSuggestions(_:)";
+    v159 = "setSuggestions(_:)" & 0x2F00000000000000;
+    v156 = MEMORY[0x277D84F90];
+    v11 = v177;
+    v162 = &v177[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
+    *&v57 = 136315138;
+    v157 = v57;
+    v173 = v58;
     while (1)
     {
-      if (v188)
+      if (v175)
       {
-        v63 = MEMORY[0x223D5B080](v19, v5);
+        v61 = MEMORY[0x223D5B080](v19, v5);
       }
 
       else
       {
-        if (v19 >= *(v187 + 16))
+        if (v19 >= *(v174 + 16))
         {
           goto LABEL_107;
         }
 
-        v63 = *(v5 + 8 * v19 + 32);
+        v61 = *(v5 + 8 * v19 + 32);
       }
 
-      v22 = v63;
+      v22 = v61;
       if (__OFADD__(v19, 1))
       {
         __break(1u);
@@ -953,139 +950,140 @@ LABEL_111:
         goto LABEL_3;
       }
 
-      if (v189)
+      if (v176)
       {
-        v64 = sub_21E4DD488();
+        v62 = sub_21E4DD488();
       }
 
       else
       {
-        v64 = *(v192 + 16);
+        v62 = *(v179 + 16);
       }
 
-      v193 = v19 + 1;
-      if (v8 == v64)
+      v180 = v19 + 1;
+      if (v8 == v62)
       {
-        v183 = v8;
-        v184 = v19;
-        v65 = [v11 traitCollection];
-        [v65 userInterfaceStyle];
+        v170 = v8;
+        v171 = v19;
+        v63 = [v11 traitCollection];
+        [v63 userInterfaceStyle];
 
-        v66 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
-        v67 = sub_21E4523C4(0);
+        v64 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
+        v65 = sub_21E4523C4(0);
         [v11 bounds];
-        v68 = CGRectGetWidth(v208) + -20.0;
+        CGRectGetWidth(v195);
         [v11 bounds];
-        v69 = CGRectGetHeight(v209);
+        CGRectGetHeight(v196);
+        CGPointMake();
         [v22 sizeThatFits_];
-        v71 = v70;
-        v73 = v72;
+        v67 = v66;
+        v69 = v68;
         [v11 defaultLoadingPillSize];
-        if (v74 >= v73)
+        if (v70 >= v69)
         {
           [v11 defaultLoadingPillSize];
-          v73 = v75;
+          v69 = v71;
         }
 
         [v11 defaultLoadingPillSize];
-        if (v76 * 0.5 <= 28.0)
+        if (v72 * 0.5 <= 28.0)
         {
-          v77 = v76 * 0.5;
+          v73 = v72 * 0.5;
         }
 
         else
         {
-          v77 = 28.0;
+          v73 = 28.0;
         }
 
-        v78 = *v175;
-        v79 = objc_allocWithZone(v179);
-        v182 = v22;
-        v14 = v67;
-        v21 = sub_21E4D3568(v22, v14, 1, (v78 & 1) == 0, 0, v77);
-        v80 = [v190 originalViewSizeDict];
+        v74 = *v162;
+        v75 = objc_allocWithZone(v166);
+        v169 = v22;
+        v14 = v65;
+        v21 = sub_21E4D3568(v22, v14, 1, (v74 & 1) == 0, 0, v73);
+        v76 = [v177 originalViewSizeDict];
         type metadata accessor for CGSize(0);
-        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
-        v81 = sub_21E4DCE98();
+        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
+        v77 = sub_21E4DCE98();
 
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        aBlock = v81;
-        sub_21E44449C(v21, isUniquelyReferenced_nonNull_native, v71, v73);
+        aBlock = v77;
+        sub_21E44449C(v21, isUniquelyReferenced_nonNull_native, v67, v69);
 
-        v11 = v190;
-        v83 = sub_21E4DCE88();
+        v11 = v177;
+        v79 = sub_21E4DCE88();
 
         [v11 setOriginalViewSizeDict_];
 
-        v84 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
+        v80 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
         [*(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView) setAlpha_];
-        v85 = *&v11[v177];
-        v86 = *(v21 + v84);
-        v87 = [v11 snippetsDropletView];
-        [v85 insertSubview:v86 belowSubview:v87];
+        v81 = *&v11[v164];
+        v82 = *(v21 + v80);
+        v83 = [v11 snippetsDropletView];
+        [v81 insertSubview:v82 belowSubview:v83];
 
-        v88 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView;
-        v89 = *(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView);
+        v84 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView;
+        v85 = *(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView);
 
-        v90 = [v11 snippetsDropletView];
-        [v85 insertSubview:v89 belowSubview:v90];
+        v86 = [v11 snippetsDropletView];
+        [v81 insertSubview:v85 belowSubview:v86];
 
-        v91 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
+        v87 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
         swift_beginAccess();
-        *(v21 + v91) = 0;
+        *(v21 + v87) = 0;
 
-        v92 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
+        v88 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
         swift_beginAccess();
-        *(v21 + v92) = 0;
-        v93 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
+        *(v21 + v88) = 0;
+        v89 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
         swift_beginAccess();
-        *(v21 + v93) = 1;
-        v94 = [v21 layer];
-        [v94 setMasksToBounds_];
+        *(v21 + v89) = 1;
+        v90 = [v21 layer];
+        [v90 setMasksToBounds_];
 
         v22 = &selRef_setResultViewFromLoading_;
         [v21 _setContinuousCornerRadius_];
-        v95 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
+        v91 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
         [*(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView) _setContinuousCornerRadius_];
-        v96 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_hostingView;
+        v92 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_hostingView;
         swift_beginAccess();
-        [*(v21 + v96) _setContinuousCornerRadius_];
-        [*(v21 + v88) _setContinuousCornerRadius_];
+        [*(v21 + v92) _setContinuousCornerRadius_];
+        [*(v21 + v84) _setContinuousCornerRadius_];
         [*(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightRimEffectView) _setContinuousCornerRadius_];
         [*(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightInnerEffectView) _setContinuousCornerRadius_];
-        [*(v21 + v84) _setContinuousCornerRadius_];
+        [*(v21 + v80) _setContinuousCornerRadius_];
         [v21 setAlpha_];
-        [*(v21 + v95) setAlpha_];
+        [*(v21 + v91) setAlpha_];
         sub_21E4D82D4();
-        v15 = v180;
-        if (v180 < 3)
+        v15 = v167;
+        if (v167 < 3)
         {
-          v97 = v191;
-          v19 = v184;
+          v93 = v178;
+          v19 = v171;
           goto LABEL_65;
         }
 
-        v102 = *(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView);
-        v19 = v184;
-        if (v102)
+        v98 = *(v21 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView);
+        v19 = v171;
+        if (v98)
         {
-          v8 = v183;
-          if (v191)
+          v8 = v170;
+          if (v178)
           {
-            if (v184 != 2)
+            if (v171 != 2)
             {
-              v103 = 1;
+              v99 = 1;
 LABEL_76:
-              LODWORD(v191) = v103;
-              v120 = [v11 snippetsDropletView];
-              [v120 addSubview_];
+              LODWORD(v178) = v99;
+              v114 = [v11 snippetsDropletView];
+              [v114 addSubview_];
 
               v21 = v21;
-              v121 = [v11 suggestionsViews];
+              v115 = [v11 suggestionsViews];
               v16 = v11;
-              v122 = sub_21E4DD088();
+              v116 = sub_21E4DD088();
 
-              aBlock = v122;
+              aBlock = v116;
               MEMORY[0x223D5AD10]();
               if (*((aBlock & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
               {
@@ -1093,7 +1091,7 @@ LABEL_76:
               }
 
               sub_21E4DD0D8();
-              v123 = sub_21E4DD078();
+              v117 = sub_21E4DD078();
 
               [v11 setSuggestionsViews_];
 
@@ -1104,28 +1102,29 @@ LABEL_76:
             goto LABEL_68;
           }
 
-          v124 = v102;
+          v118 = v98;
           [v11 bounds];
-          v125 = CGRectGetWidth(v212) + -20.0;
+          CGRectGetWidth(v199);
           [v11 bounds];
-          v126 = CGRectGetHeight(v213);
-          [v124 sizeThatFits_];
-          v128 = v127;
+          CGRectGetHeight(v200);
+          CGPointMake();
+          [v118 sizeThatFits_];
+          v120 = v119;
 
-          v97 = v24 < v128;
-          v185 = v24 < v128;
-          LODWORD(v181) = v185;
+          v93 = v24 < v120;
+          v172 = v24 < v120;
+          LODWORD(v168) = v172;
         }
 
         else
         {
-          v97 = v191;
+          v93 = v178;
 LABEL_65:
-          v8 = v183;
+          v8 = v170;
         }
 
-        v103 = v19 != 2 && v97;
-        if (v19 != 2 || !v97)
+        v99 = v19 != 2 && v93;
+        if (v19 != 2 || !v93)
         {
           goto LABEL_76;
         }
@@ -1136,44 +1135,44 @@ LABEL_68:
           swift_once();
         }
 
-        v114 = sub_21E4DBCC8();
-        v14 = __swift_project_value_buffer(v114, qword_280C14558);
+        v108 = sub_21E4DBCC8();
+        v14 = __swift_project_value_buffer(v108, qword_280C14558);
         v22 = sub_21E4DD1F8();
         aBlock = 0xD000000000000012;
-        v196 = v173;
-        v115 = sub_21E45C20C(0);
-        if (v116)
+        v183 = v160;
+        v109 = sub_21E45C20C(0);
+        if (v110)
         {
-          v201 = 32;
-          v202 = 0xE100000000000000;
-          MEMORY[0x223D5ACB0](v115);
+          v188 = 32;
+          v189 = 0xE100000000000000;
+          MEMORY[0x223D5ACB0](v109);
 
-          MEMORY[0x223D5ACB0](v201, v202);
+          MEMORY[0x223D5ACB0](v188, v189);
         }
 
-        if (v172 != 0x2000000000000000)
+        if (v159 != 0x2000000000000000)
         {
-          v201 = 32;
-          v202 = 0xE100000000000000;
-          MEMORY[0x223D5ACB0](0xD000000000000051, v171 | 0x8000000000000000);
-          MEMORY[0x223D5ACB0](v201, v202);
+          v188 = 32;
+          v189 = 0xE100000000000000;
+          MEMORY[0x223D5ACB0](0xD000000000000051, v158 | 0x8000000000000000);
+          MEMORY[0x223D5ACB0](v188, v189);
         }
 
         v16 = aBlock;
-        v117 = v196;
-        v118 = sub_21E4DBCB8();
-        if (os_log_type_enabled(v118, v22))
+        v111 = v183;
+        v112 = sub_21E4DBCB8();
+        if (os_log_type_enabled(v112, v22))
         {
           v14 = swift_slowAlloc();
-          v119 = swift_slowAlloc();
-          v201 = v119;
-          *v14 = v170;
-          v16 = sub_21E426648(v16, v117, &v201);
+          v113 = swift_slowAlloc();
+          v188 = v113;
+          *v14 = v157;
+          v16 = sub_21E426648(v16, v111, &v188);
 
           *(v14 + 1) = v16;
-          _os_log_impl(&dword_21E3EB000, v118, v22, "%s", v14, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0Tm(v119);
-          MEMORY[0x223D5BF10](v119, -1, -1);
+          _os_log_impl(&dword_21E3EB000, v112, v22, "%s", v14, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0Tm(v113);
+          MEMORY[0x223D5BF10](v113, -1, -1);
           MEMORY[0x223D5BF10](v14, -1, -1);
         }
 
@@ -1182,14 +1181,14 @@ LABEL_68:
         }
 
         v5 = rawValue;
-        LODWORD(v191) = 1;
-        v15 = v180;
+        LODWORD(v178) = 1;
+        v15 = v167;
         goto LABEL_17;
       }
 
-      if (v176)
+      if (v163)
       {
-        v98 = MEMORY[0x223D5B080](v8, v168);
+        v94 = MEMORY[0x223D5B080](v8, v155);
       }
 
       else
@@ -1199,30 +1198,30 @@ LABEL_68:
           goto LABEL_108;
         }
 
-        if (v8 >= *(v192 + 16))
+        if (v8 >= *(v179 + 16))
         {
           goto LABEL_110;
         }
 
-        v98 = *(v174 + 8 * v8);
+        v94 = *(v161 + 8 * v8);
       }
 
-      v14 = v98;
+      v14 = v94;
       if (__OFADD__(v8++, 1))
       {
         goto LABEL_109;
       }
 
       v16 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView;
-      v100 = *(v98 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView);
-      v184 = v98;
-      if (v100)
+      v96 = *(v94 + OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView);
+      v171 = v94;
+      if (v96)
       {
         type metadata accessor for SiriSharedUIAssistantSuggestionView();
         v21 = swift_dynamicCastClass();
         if (v21)
         {
-          v101 = v100;
+          v97 = v96;
         }
       }
 
@@ -1235,14 +1234,14 @@ LABEL_68:
       v14 = swift_dynamicCastClass();
       if (v14)
       {
-        v104 = v22;
+        v100 = v22;
         if (v21)
         {
-          v105 = *(v21 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestion);
-          v106 = *(v14 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestion);
-          if (*(v105 + 32) != *(v106 + 32) || *(v105 + 40) != *(v106 + 40))
+          v101 = *(v21 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestion);
+          v102 = *(v14 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestion);
+          if (*(v101 + 32) != *(v102 + 32) || *(v101 + 40) != *(v102 + 40))
           {
-            v183 = v104;
+            v170 = v100;
             if ((sub_21E4DD518() & 1) == 0)
             {
               break;
@@ -1253,115 +1252,116 @@ LABEL_68:
 
       if (v15 < 3)
       {
-        v108 = v181;
+        v104 = v168;
         goto LABEL_60;
       }
 
-      v108 = v181;
-      if (!v100)
+      v104 = v168;
+      if (!v96)
       {
         goto LABEL_60;
       }
 
-      if ((v185 & 1) == 0)
+      if ((v172 & 1) == 0)
       {
-        v109 = v100;
+        v105 = v96;
         v16 = &selRef_setResultViewFromLoading_;
         [v11 bounds];
-        v110 = CGRectGetWidth(v210) + -20.0;
+        CGRectGetWidth(v197);
         [v11 bounds];
-        v111 = CGRectGetHeight(v211);
-        [v109 sizeThatFits_];
-        v113 = v112;
+        CGRectGetHeight(v198);
+        CGPointMake();
+        [v105 sizeThatFits_];
+        v107 = v106;
 
-        v108 = v24 < v113;
-        v185 = v108;
-        LODWORD(v191) = v108;
+        v104 = v24 < v107;
+        v172 = v104;
+        LODWORD(v178) = v104;
 LABEL_60:
-        v62 = v186;
-        LODWORD(v181) = v108;
+        v60 = v173;
+        LODWORD(v168) = v104;
         if (v19 != 2)
         {
 
           goto LABEL_18;
         }
 
-        if ((v185 & 1) == 0)
+        if ((v172 & 1) == 0)
         {
 
-          LODWORD(v191) = 0;
-          v185 = 0;
+          LODWORD(v178) = 0;
+          v172 = 0;
           goto LABEL_18;
         }
 
 LABEL_62:
-        v16 = v184;
-        sub_21E4B7F88(v184, v11);
+        v16 = v171;
+        sub_21E4B7F88(v171, v11);
 
-        LODWORD(v191) = 1;
-        v185 = 1;
+        LODWORD(v178) = 1;
+        v172 = 1;
         goto LABEL_18;
       }
 
       if (v19 == 2)
       {
-        v62 = v186;
+        v60 = v173;
         goto LABEL_62;
       }
 
-      LODWORD(v191) = 1;
-      v185 = 1;
+      LODWORD(v178) = 1;
+      v172 = 1;
 LABEL_17:
-      v62 = v186;
+      v60 = v173;
 LABEL_18:
       ++v19;
-      if (v193 == v62)
+      if (v180 == v60)
       {
         goto LABEL_103;
       }
     }
 
-    if (v100)
+    if (v96)
     {
-      v129 = v100;
-      MEMORY[0x223D5AD10](v129);
-      if (*((v205 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v205 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      v121 = v96;
+      MEMORY[0x223D5AD10](v121);
+      if (*((v192 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v192 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         sub_21E4DD0A8();
       }
 
       sub_21E4DD0D8();
 
-      v169 = v205;
+      v156 = v192;
     }
 
     [v11 bounds];
-    v130 = CGRectGetWidth(v214) + -20.0;
+    CGRectGetWidth(v201);
     [v11 bounds];
-    v131 = CGRectGetHeight(v215);
-    v132 = CGPointMake(v130, v131);
-    v133 = v183;
-    [v183 sizeThatFits_];
-    v134 = v14;
-    v135 = v133;
-    [v133 frame];
-    [v134 setFrame_];
+    CGRectGetHeight(v202);
+    CGPointMake();
+    v122 = v170;
+    [v170 sizeThatFits_];
+    v123 = v14;
+    v124 = v122;
+    [v122 frame];
+    [v123 setFrame_];
 
-    v136 = *(v134 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_hostingView);
-    if (!v136)
+    v125 = *(v123 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_hostingView);
+    if (!v125)
     {
       goto LABEL_125;
     }
 
-    v137 = v136;
-    [v135 frame];
-    [v137 setFrame_];
+    v126 = v125;
+    [v124 frame];
+    [v126 setFrame_];
 
-    v14 = *(v134 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestionsModel);
+    v14 = *(v123 + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestionsModel);
     swift_getKeyPath();
-    v182 = v134;
+    v169 = v123;
     aBlock = v14;
-    sub_21E4D156C(&qword_27CEC4A30, type metadata accessor for SiriSharedUISuggestionsViewModel);
+    sub_21E4D156C(&qword_27CEC4A30, type metadata accessor for SiriSharedUISuggestionsViewModel, &unk_21E4E5200);
 
     sub_21E4DB718();
 
@@ -1372,77 +1372,78 @@ LABEL_18:
     *(v14 + 33) = 0;
     aBlock = v14;
     swift_getKeyPath();
-    v22 = v182;
+    v22 = v169;
     sub_21E4DB728();
 
     [v22 layoutIfNeeded];
-    v138 = v184;
-    sub_21E4D42F4(v183);
-    v15 = v180;
-    if (v180 >= 3)
+    v127 = v171;
+    sub_21E4D42F4(v170);
+    v15 = v167;
+    if (v167 >= 3)
     {
-      v141 = *&v138[v16];
-      v139 = v181;
-      v140 = v191;
-      if (v141)
+      v130 = *&v127[v16];
+      v128 = v168;
+      v129 = v178;
+      if (v130)
       {
-        if (v181)
+        if (v168)
         {
           if (v19 == 2)
           {
 LABEL_96:
-            sub_21E4B7F88(v138, v11);
+            sub_21E4B7F88(v127, v11);
 
-            LODWORD(v191) = 1;
-            v185 = 1;
-            LODWORD(v181) = 1;
+            LODWORD(v178) = 1;
+            v172 = 1;
+            LODWORD(v168) = 1;
 LABEL_98:
             v5 = rawValue;
             goto LABEL_17;
           }
 
-          v142 = 1;
-          v185 = 1;
+          v131 = 1;
+          v172 = 1;
           v16 = 1;
 LABEL_97:
-          LODWORD(v191) = v142;
+          LODWORD(v178) = v131;
           v14 = sub_21E4DCB38();
-          v181 = &v166;
+          v168 = &v153;
           MEMORY[0x28223BE20](v14);
-          *(&v166 - 2) = v21;
-          v149 = v167;
+          *(&v153 - 2) = v21;
+          v136 = v154;
           sub_21E4DBF78();
-          v167 = v149;
+          v154 = v136;
 
-          LODWORD(v181) = v16;
+          LODWORD(v168) = v16;
           goto LABEL_98;
         }
 
-        v143 = v141;
+        v132 = v130;
         [v11 bounds];
-        v144 = CGRectGetWidth(v216) + -20.0;
+        CGRectGetWidth(v203);
         [v11 bounds];
-        v145 = CGRectGetHeight(v217);
-        [v143 sizeThatFits_];
-        v147 = v146;
+        CGRectGetHeight(v204);
+        CGPointMake();
+        [v132 sizeThatFits_];
+        v134 = v133;
 
-        v140 = v24 < v147;
-        v185 = v140;
-        v139 = v140;
+        v129 = v24 < v134;
+        v172 = v129;
+        v128 = v129;
       }
     }
 
     else
     {
-      v139 = v181;
-      v140 = v191;
+      v128 = v168;
+      v129 = v178;
     }
 
-    v148 = v19 != 2;
-    v142 = v148 && v140;
-    v185 &= v148;
-    v16 = v148 & v139;
-    if (v19 == 2 && (v139 & 1) != 0)
+    v135 = v19 != 2;
+    v131 = v135 && v129;
+    v172 &= v135;
+    v16 = v135 & v128;
+    if (v19 == 2 && (v128 & 1) != 0)
     {
       goto LABEL_96;
     }
@@ -1451,17 +1452,17 @@ LABEL_97:
   }
 
   v8 = 0;
-  v169 = MEMORY[0x277D84F90];
-  v11 = v190;
+  v156 = MEMORY[0x277D84F90];
+  v11 = v177;
 LABEL_103:
   [v11 setNeedsLayout];
   [v11 layoutIfNeeded];
-  if (v189)
+  if (v176)
   {
-    v150 = v168;
-    v151 = sub_21E4DD488();
-    v152 = v8 < v151;
-    if (v8 == v151)
+    v137 = v155;
+    v138 = sub_21E4DD488();
+    v139 = v8 < v138;
+    if (v8 == v138)
     {
       goto LABEL_105;
     }
@@ -1469,79 +1470,79 @@ LABEL_103:
 
   else
   {
-    v150 = v168;
-    v151 = *((v168 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    v152 = v8 < v151;
-    if (v8 == v151)
+    v137 = v155;
+    v138 = *((v155 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v139 = v8 < v138;
+    if (v8 == v138)
     {
 LABEL_105:
 
-      v153 = [objc_opt_self() behaviorWithDampingRatio:1.0 response:0.51302];
-      v154 = objc_opt_self();
-      v155 = swift_allocObject();
-      *(v155 + 16) = v11;
-      *(v155 + 24) = 0x4024000000000000;
-      v199 = sub_21E4D15B4;
-      v200 = v155;
+      v140 = [objc_opt_self() behaviorWithDampingRatio:1.0 response:0.51302];
+      v141 = objc_opt_self();
+      v142 = swift_allocObject();
+      *(v142 + 16) = v11;
+      *(v142 + 24) = 0x4024000000000000;
+      v186 = sub_21E4D15B4;
+      v187 = v142;
       aBlock = MEMORY[0x277D85DD0];
-      v196 = 1107296256;
-      v197 = sub_21E46C644;
-      v198 = &block_descriptor_14;
-      v156 = _Block_copy(&aBlock);
-      v157 = v153;
-      v158 = v11;
+      v183 = 1107296256;
+      v184 = sub_21E46C644;
+      v185 = &block_descriptor_14;
+      v143 = _Block_copy(&aBlock);
+      v144 = v140;
+      v145 = v11;
 
-      v159 = swift_allocObject();
-      v160 = v169;
-      *(v159 + 16) = v158;
-      *(v159 + 24) = v160;
-      v199 = sub_21E4D15D8;
-      v200 = v159;
+      v146 = swift_allocObject();
+      v147 = v156;
+      *(v146 + 16) = v145;
+      *(v146 + 24) = v147;
+      v186 = sub_21E4D15D8;
+      v187 = v146;
       aBlock = MEMORY[0x277D85DD0];
-      v196 = 1107296256;
-      v197 = sub_21E4B8F48;
-      v198 = &block_descriptor_6;
-      v161 = _Block_copy(&aBlock);
-      v162 = v158;
+      v183 = 1107296256;
+      v184 = sub_21E4B8F48;
+      v185 = &block_descriptor_6;
+      v148 = _Block_copy(&aBlock);
+      v149 = v145;
 
-      [v154 _animateUsingSpringBehavior_tracking_animations_completion_];
-      _Block_release(v161);
-      _Block_release(v156);
+      [v141 _animateUsingSpringBehavior_tracking_animations_completion_];
+      _Block_release(v148);
+      _Block_release(v143);
 
       return;
     }
   }
 
-  if (v152)
+  if (v139)
   {
-    if ((v150 & 0xC000000000000001) != 0)
+    if ((v137 & 0xC000000000000001) != 0)
     {
       goto LABEL_122;
     }
 
     if ((v8 & 0x8000000000000000) == 0)
     {
-      v163 = *((v150 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v8 < v163 && v151 - 1 < v163)
+      v150 = *((v137 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v8 < v150 && v138 - 1 < v150)
       {
         goto LABEL_122;
       }
 
       __break(1u);
 LABEL_120:
-      for (i = MEMORY[0x223D5B080](v8, v150); ; i = *(v150 + 8 * v8 + 32))
+      for (i = MEMORY[0x223D5B080](v8, v137); ; i = *(v137 + 8 * v8 + 32))
       {
-        v165 = i;
+        v152 = i;
         ++v8;
         sub_21E4B7F88(i, v11);
 
-        if (v151 == v8)
+        if (v138 == v8)
         {
           break;
         }
 
 LABEL_122:
-        if ((v150 & 0xC000000000000001) != 0)
+        if ((v137 & 0xC000000000000001) != 0)
         {
           goto LABEL_120;
         }
@@ -1563,7 +1564,7 @@ LABEL_126:
   __break(1u);
 }
 
-uint64_t sub_21E4B7F88(void *a1, void *a2)
+void sub_21E4B7F88(void *a1, void *a2)
 {
   if (qword_280C14550 != -1)
   {
@@ -1573,13 +1574,13 @@ uint64_t sub_21E4B7F88(void *a1, void *a2)
   v4 = sub_21E4DBCC8();
   __swift_project_value_buffer(v4, qword_280C14558);
   v5 = sub_21E4DD1F8();
-  v28 = 0xD000000000000027;
-  v29 = 0x800000021E4F3330;
+  v27 = 0xD000000000000027;
+  v28 = 0x800000021E4F3330;
   v6 = sub_21E45C20C(0);
   if (v7)
   {
-    v26 = 32;
-    v27 = 0xE100000000000000;
+    v25 = 32;
+    v26 = 0xE100000000000000;
     MEMORY[0x223D5ACB0](v6);
 
     MEMORY[0x223D5ACB0](32, 0xE100000000000000);
@@ -1587,22 +1588,22 @@ uint64_t sub_21E4B7F88(void *a1, void *a2)
 
   if (("setSuggestions(_:)" & 0x2F00000000000000) != 0x2000000000000000)
   {
-    v26 = 32;
-    v27 = 0xE100000000000000;
+    v25 = 32;
+    v26 = 0xE100000000000000;
     MEMORY[0x223D5ACB0](0xD000000000000051, 0x800000021E4F1690);
     MEMORY[0x223D5ACB0](32, 0xE100000000000000);
   }
 
-  v9 = v28;
-  v8 = v29;
+  v9 = v27;
+  v8 = v28;
   v10 = sub_21E4DBCB8();
   if (os_log_type_enabled(v10, v5))
   {
     v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v26 = v12;
+    v25 = v12;
     *v11 = 136315138;
-    v13 = sub_21E426648(v9, v8, &v26);
+    v13 = sub_21E426648(v9, v8, &v25);
 
     *(v11 + 4) = v13;
     _os_log_impl(&dword_21E3EB000, v10, v5, "%s", v11, 0xCu);
@@ -1616,13 +1617,13 @@ uint64_t sub_21E4B7F88(void *a1, void *a2)
   }
 
   v14 = [a2 dismissedAnimationSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v15 = sub_21E4DD088();
 
-  v28 = v15;
+  v27 = v15;
   v16 = a1;
   MEMORY[0x223D5AD10]();
-  if (*((v28 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v28 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  if (*((v27 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v27 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
     sub_21E4DD0A8();
   }
@@ -1643,13 +1644,13 @@ uint64_t sub_21E4B7F88(void *a1, void *a2)
     v22 = [a2 suggestionsViews];
     v23 = sub_21E4DD088();
 
-    v28 = v23;
+    v27 = v23;
     v24 = sub_21E4DD078();
 
     [a2 setSuggestionsViews_];
   }
 
-  return sub_21E4D80E4();
+  sub_21E4D80E4();
 }
 
 unint64_t sub_21E4B8328(uint64_t a1, unint64_t a2)
@@ -1693,7 +1694,7 @@ LABEL_16:
     }
 
     v7 = v6;
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v8 = sub_21E4DD2F8();
 
     if (v8)
@@ -1708,7 +1709,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_21E4B8418(unint64_t a1)
+unint64_t sub_21E4B8418(unint64_t a1)
 {
   v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
@@ -1737,86 +1738,85 @@ uint64_t sub_21E4B8418(unint64_t a1)
   return result;
 }
 
-id sub_21E4B84A8(void *a1, double a2)
+id sub_21E4B84A8(void *a1)
 {
-  v3 = a1;
-  v4 = [a1 suggestionsViews];
-  isUniquelyReferenced_nonNull_native = type metadata accessor for SiriSharedUIDropletContainerView();
-  v6 = sub_21E4DD088();
+  v1 = a1;
+  v2 = [a1 suggestionsViews];
+  isUniquelyReferenced_nonNull_native = type metadata accessor for SiriSharedUIDropletContainerView(0);
+  v4 = sub_21E4DD088();
 
-  if (v6 >> 62)
+  if (v4 >> 62)
   {
     goto LABEL_29;
   }
 
-  v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  for (i = v3; v7; i = v3)
+  v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  for (i = v1; v5; i = v1)
   {
-    v8 = 0;
-    v57 = v6 & 0xC000000000000001;
-    v53 = v6 & 0xFFFFFFFFFFFFFF8;
-    v9 = a2 + a2;
-    a2 = 0.513;
-    v54 = v7;
-    v55 = v6;
+    v6 = 0;
+    v53 = v4 & 0xC000000000000001;
+    v49 = v4 & 0xFFFFFFFFFFFFFF8;
+    v50 = v5;
+    v51 = v4;
     while (1)
     {
-      if (v57)
+      if (v53)
       {
-        v14 = MEMORY[0x223D5B080](v8, v6);
+        v11 = MEMORY[0x223D5B080](v6, v4);
       }
 
       else
       {
-        if (v8 >= *(v53 + 16))
+        if (v6 >= *(v49 + 16))
         {
           goto LABEL_27;
         }
 
-        v14 = *(v6 + 8 * v8 + 32);
+        v11 = *(v4 + 8 * v6 + 32);
       }
 
-      v13 = v14;
-      v15 = v8 + 1;
-      if (__OFADD__(v8, 1))
+      v10 = v11;
+      v12 = v6 + 1;
+      if (__OFADD__(v6, 1))
       {
         break;
       }
 
-      v16 = *&v14[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView];
-      if (v16)
+      v13 = *&v11[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView];
+      if (v13)
       {
-        v17 = v16;
-        [v3 bounds];
-        v18 = CGRectGetWidth(v59) - v9;
-        [v3 bounds];
-        Height = CGRectGetHeight(v60);
-        v20 = CGPointMake(v18, Height);
-        v22 = v21;
-        v58 = v13;
-        v23 = v13;
-        [v17 sizeThatFits_];
-        v25 = v24;
-        v27 = v26;
-        v28 = [v3 originalViewSizeDict];
+        v14 = v13;
+        [v1 bounds];
+        CGRectGetWidth(v55);
+        [v1 bounds];
+        CGRectGetHeight(v56);
+        CGPointMake();
+        v16 = v15;
+        v18 = v17;
+        v54 = v10;
+        v19 = v10;
+        [v14 sizeThatFits_];
+        v21 = v20;
+        v23 = v22;
+        v24 = [v1 originalViewSizeDict];
         type metadata accessor for CGSize(0);
-        v3 = v29;
-        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
-        v30 = isUniquelyReferenced_nonNull_native;
-        v6 = sub_21E4DCE98();
+        v1 = v25;
+        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
+        v26 = isUniquelyReferenced_nonNull_native;
+        v4 = sub_21E4DCE98();
 
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v32 = sub_21E4B16E4(v23);
-        v33 = *(v6 + 16);
-        v34 = (v31 & 1) == 0;
-        v35 = v33 + v34;
-        if (__OFADD__(v33, v34))
+        v28 = sub_21E4B16E4(v19);
+        v29 = *(v4 + 16);
+        v30 = (v27 & 1) == 0;
+        v31 = v29 + v30;
+        if (__OFADD__(v29, v30))
         {
           goto LABEL_26;
         }
 
-        v36 = v31;
-        if (*(v6 + 24) >= v35)
+        v32 = v27;
+        if (*(v4 + 24) >= v31)
         {
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
@@ -1826,56 +1826,56 @@ id sub_21E4B84A8(void *a1, double a2)
 
         else
         {
-          sub_21E475E40(v35, isUniquelyReferenced_nonNull_native);
-          v37 = sub_21E4B16E4(v23);
-          if ((v36 & 1) != (v38 & 1))
+          sub_21E475E40(v31, isUniquelyReferenced_nonNull_native);
+          v33 = sub_21E4B16E4(v19);
+          if ((v32 & 1) != (v34 & 1))
           {
             goto LABEL_41;
           }
 
-          v32 = v37;
+          v28 = v33;
         }
 
-        isUniquelyReferenced_nonNull_native = v30;
-        if (v36)
+        isUniquelyReferenced_nonNull_native = v26;
+        if (v32)
         {
-          v39 = (*(v6 + 56) + 16 * v32);
-          *v39 = v25;
-          v39[1] = v27;
+          v35 = (*(v4 + 56) + 16 * v28);
+          *v35 = v21;
+          v35[1] = v23;
         }
 
         else
         {
-          *(v6 + 8 * (v32 >> 6) + 64) |= 1 << v32;
-          *(*(v6 + 48) + 8 * v32) = v23;
-          v40 = (*(v6 + 56) + 16 * v32);
-          *v40 = v25;
-          v40[1] = v27;
-          v41 = *(v6 + 16);
-          v42 = __OFADD__(v41, 1);
-          v43 = v41 + 1;
-          if (v42)
+          *(v4 + 8 * (v28 >> 6) + 64) |= 1 << v28;
+          *(*(v4 + 48) + 8 * v28) = v19;
+          v36 = (*(v4 + 56) + 16 * v28);
+          *v36 = v21;
+          v36[1] = v23;
+          v37 = *(v4 + 16);
+          v38 = __OFADD__(v37, 1);
+          v39 = v37 + 1;
+          if (v38)
           {
             goto LABEL_28;
           }
 
-          *(v6 + 16) = v43;
+          *(v4 + 16) = v39;
         }
 
-        v44 = sub_21E4DCE88();
+        v40 = sub_21E4DCE88();
 
-        v3 = i;
+        v1 = i;
         [i setOriginalViewSizeDict_];
 
         type metadata accessor for SiriSharedUIAssistantSuggestionView();
         if (swift_dynamicCastClass())
         {
-          v10 = v17;
-          v11 = sub_21E4DCB38();
-          MEMORY[0x28223BE20](v11);
+          v7 = v14;
+          v8 = sub_21E4DCB38();
+          MEMORY[0x28223BE20](v8);
           sub_21E4DBF78();
 
-          v12 = v10;
+          v9 = v7;
 
           sub_21E421A48();
 
@@ -1886,16 +1886,16 @@ id sub_21E4B84A8(void *a1, double a2)
         {
         }
 
-        v7 = v54;
-        v6 = v55;
-        v13 = v58;
+        v5 = v50;
+        v4 = v51;
+        v10 = v54;
       }
 
-      [v13 setAlpha_];
-      [*&v13[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
+      [v10 setAlpha_];
+      [*&v10[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
 
-      ++v8;
-      if (v15 == v7)
+      ++v6;
+      if (v12 == v5)
       {
         goto LABEL_30;
       }
@@ -1909,18 +1909,18 @@ LABEL_27:
 LABEL_28:
     __break(1u);
 LABEL_29:
-    v7 = sub_21E4DD488();
+    v5 = sub_21E4DD488();
   }
 
 LABEL_30:
 
-  v45 = [v3 dismissedAnimationSuggestionsViews];
-  v46 = sub_21E4DD088();
+  v41 = [v1 dismissedAnimationSuggestionsViews];
+  v42 = sub_21E4DD088();
 
-  if (!(v46 >> 62))
+  if (!(v42 >> 62))
   {
-    v47 = *((v46 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v47)
+    v43 = *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v43)
     {
       goto LABEL_32;
     }
@@ -1931,44 +1931,44 @@ LABEL_39:
     return [i layoutIfNeeded];
   }
 
-  v47 = sub_21E4DD488();
-  if (!v47)
+  v43 = sub_21E4DD488();
+  if (!v43)
   {
     goto LABEL_39;
   }
 
 LABEL_32:
-  if (v47 >= 1)
+  if (v43 >= 1)
   {
-    v48 = 0;
+    v44 = 0;
     do
     {
-      if ((v46 & 0xC000000000000001) != 0)
+      if ((v42 & 0xC000000000000001) != 0)
       {
-        v49 = MEMORY[0x223D5B080](v48, v46);
+        v45 = MEMORY[0x223D5B080](v44, v42);
       }
 
       else
       {
-        v49 = *(v46 + 8 * v48 + 32);
+        v45 = *(v42 + 8 * v44 + 32);
       }
 
-      v50 = v49;
-      ++v48;
-      [v49 setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView] setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView] setAlpha_];
-      v51 = *&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView];
-      [v51 setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightRimEffectView] setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightInnerEffectView] setAlpha_];
-      [v51 setAlpha_];
-      [*&v50[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] setAlpha_];
+      v46 = v45;
+      ++v44;
+      [v45 setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView] setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView] setAlpha_];
+      v47 = *&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView];
+      [v47 setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightRimEffectView] setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightInnerEffectView] setAlpha_];
+      [v47 setAlpha_];
+      [*&v46[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] setAlpha_];
       sub_21E4DD298();
     }
 
-    while (v47 != v48);
+    while (v43 != v44);
     goto LABEL_39;
   }
 
@@ -1982,7 +1982,7 @@ LABEL_41:
 void sub_21E4B8B28(int a1, int a2, id a3, unint64_t a4)
 {
   v6 = [a3 dismissedAnimationSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v7 = sub_21E4DD088();
 
   v8 = v7;
@@ -2030,7 +2030,7 @@ LABEL_5:
     [*&v12[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] removeFromSuperview];
     v13 = [a3 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v14 = sub_21E4DCE98();
 
     v15 = sub_21E4B16E4(v12);
@@ -2054,7 +2054,7 @@ LABEL_5:
     {
       v20 = v19;
       v21 = [a3 backgroundColorAsyncDict];
-      sub_21E43F008(0, &qword_280C140A0);
+      sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
       sub_21E4D1674();
       v22 = sub_21E4DCE98();
 
@@ -2142,16 +2142,18 @@ LABEL_33:
   }
 }
 
-uint64_t sub_21E4B8F48(uint64_t a1, uint64_t a2, uint64_t a3)
+double sub_21E4B8F48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 + 32);
 
   v5(a2, a3);
+
+  return result;
 }
 
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.removeSuggestions()()
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   v1 = sub_21E4DD078();
   [v0 setSuggestions_];
 }
@@ -2212,7 +2214,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.remov
     }
 
     v12 = [v1 continuerSuggestionsViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v13 = sub_21E4DD088();
 
     v14 = [objc_opt_self() behaviorWithDampingRatio:1.0 response:0.2];
@@ -2361,9 +2363,9 @@ void sub_21E4B970C(int a1, int a2, unint64_t a3, id a4)
     [*&v10[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] removeFromSuperview];
     [*&v10[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] removeFromSuperview];
     v11 = [a4 originalViewSizeDict];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v12 = sub_21E4DCE98();
 
     v13 = sub_21E4B16E4(v10);
@@ -2387,7 +2389,7 @@ void sub_21E4B970C(int a1, int a2, unint64_t a3, id a4)
     {
       v18 = v17;
       v19 = [a4 backgroundColorAsyncDict];
-      sub_21E43F008(0, &qword_280C140A0);
+      sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
       sub_21E4D1674();
       v20 = sub_21E4DCE98();
 
@@ -2424,7 +2426,7 @@ LABEL_20:
   }
 
   [a4 setSnippetSuggestionPageantView_];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v30 = sub_21E4DD078();
   [a4 setContinuerSuggestionsViews_];
 }
@@ -2445,77 +2447,78 @@ void sub_21E4B9B14(void *a1, uint64_t a2, uint64_t a3, char a4)
   v13 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
   v14 = sub_21E4523C4(0);
   [v5 bounds];
-  Width = CGRectGetWidth(v44);
+  CGRectGetWidth(v42);
   [v5 bounds];
-  Height = CGRectGetHeight(v45);
+  CGRectGetHeight(v43);
   if (a4)
   {
+    CGPointMake();
     [a1 sizeThatFits_];
+    v16 = v15;
     v18 = v17;
-    v20 = v19;
   }
 
   else
   {
-    v18 = *&a2;
-    v20 = *&a3;
+    v16 = *&a2;
+    v18 = *&a3;
   }
 
   [v5 defaultLoadingPillSize];
-  if (v21 >= v20)
+  if (v19 >= v18)
   {
     [v5 defaultLoadingPillSize];
-    v20 = v22;
+    v18 = v20;
   }
 
   [v5 defaultLoadingPillSize];
-  if (v23 * 0.5 <= 28.0)
+  if (v21 * 0.5 <= 28.0)
   {
-    v24 = v23 * 0.5;
+    v22 = v21 * 0.5;
   }
 
   else
   {
-    v24 = 28.0;
+    v22 = 28.0;
   }
 
-  v25 = v5[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
-  v26 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView());
-  v27 = v14;
-  v28 = a1;
-  v29 = sub_21E4D3568(a1, v27, 1, (v25 & 1) == 0, 0, v24);
-  v30 = [v5 originalViewSizeDict];
+  v23 = v5[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
+  v24 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView(0));
+  v25 = v14;
+  v26 = a1;
+  v27 = sub_21E4D3568(a1, v25, 1, (v23 & 1) == 0, 0, v22);
+  v28 = [v5 originalViewSizeDict];
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   sub_21E4DCE98();
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  sub_21E44449C(v29, isUniquelyReferenced_nonNull_native, v18, v20);
+  sub_21E44449C(v27, isUniquelyReferenced_nonNull_native, v16, v18);
 
-  v32 = sub_21E4DCE88();
+  v30 = sub_21E4DCE88();
 
   [v5 setOriginalViewSizeDict_];
 
-  v33 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
-  [*&v29[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
-  v34 = *&v5[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
-  v35 = *&v29[v33];
+  v31 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
+  [*&v27[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
+  v32 = *&v5[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
+  v33 = *&v27[v31];
+  v34 = [v5 snippetsDropletView];
+  [v32 insertSubview:v33 belowSubview:v34];
+
+  v35 = *&v27[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
   v36 = [v5 snippetsDropletView];
-  [v34 insertSubview:v35 belowSubview:v36];
+  [v32 insertSubview:v35 belowSubview:v36];
 
-  v37 = *&v29[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
-  v38 = [v5 snippetsDropletView];
-  [v34 insertSubview:v37 belowSubview:v38];
+  v37 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
+  v38 = *&v27[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView];
+  v40 = v27;
+  [v40 addSubview_];
+  [v40 sendSubviewToBack_];
 
-  v39 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
-  v40 = *&v29[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView];
-  v42 = v29;
-  [v42 addSubview_];
-  [v42 sendSubviewToBack_];
-
-  [*&v29[v39] setAlpha_];
-  v41 = [v5 snippetsDropletView];
-  [v41 addSubview_];
+  [*&v27[v37] setAlpha_];
+  v39 = [v5 snippetsDropletView];
+  [v39 addSubview_];
 
   [v5 setVoiceLoadingView_];
   [v5 setNeedsLayout];
@@ -2553,13 +2556,13 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
   }
 
   v14 = v3[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
-  v15 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView());
+  v15 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView(0));
   v16 = v9;
   v17 = collapseLoading;
   v18 = sub_21E4D3568(collapseLoading, v16, 1, (v14 & 1) == 0, 0, v13);
   v19 = [v3 originalViewSizeDict];
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   sub_21E4DCE98();
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -2625,7 +2628,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setBo
 {
   v2 = v1;
   v4 = [v1 bottomFloatingButtonView];
-  if (!v4 || (v5 = *&v4[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView], v6 = v4, v7 = v5, v6, !v5) || (sub_21E43F008(0, &qword_280C140A0), v8 = a1, v9 = sub_21E4DD2F8(), v8, v7, (v9 & 1) == 0))
+  if (!v4 || (v5 = *&v4[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView], v6 = v4, v7 = v5, v6, !v5) || (sub_21E43F008(0, &qword_280C140A0, 0x277D75D18), v8 = a1, v9 = sub_21E4DD2F8(), v8, v7, (v9 & 1) == 0))
   {
     v10 = [v2 traitCollection];
     [v10 userInterfaceStyle];
@@ -2633,110 +2636,111 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setBo
     v11 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
     v12 = sub_21E4523C4(0);
     [v2 bounds];
-    Width = CGRectGetWidth(v58);
+    CGRectGetWidth(v56);
     [v2 bounds];
-    Height = CGRectGetHeight(v59);
-    [(UIView *)a1 sizeThatFits:CGPointMake(Width, Height)];
+    CGRectGetHeight(v57);
+    CGPointMake();
+    [(UIView *)a1 sizeThatFits:?];
+    v14 = v13;
     v16 = v15;
-    v18 = v17;
     [v2 defaultLoadingPillSize];
-    if (v19 >= v18)
+    if (v17 >= v16)
     {
       [v2 defaultLoadingPillSize];
-      v18 = v20;
+      v16 = v18;
     }
 
     [v2 defaultLoadingPillSize];
-    if (v21 * 0.5 <= 28.0)
+    if (v19 * 0.5 <= 28.0)
     {
-      v22 = v21 * 0.5;
+      v20 = v19 * 0.5;
     }
 
     else
     {
-      v22 = 28.0;
+      v20 = 28.0;
     }
 
-    v23 = v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
-    v24 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView());
-    v25 = a1;
-    v26 = v12;
-    v27 = sub_21E4D3568(a1, v26, 1, (v23 & 1) == 0, 0, v22);
-    v28 = [v2 originalViewSizeDict];
+    v21 = v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
+    v22 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView(0));
+    v23 = a1;
+    v24 = v12;
+    v25 = sub_21E4D3568(a1, v24, 1, (v21 & 1) == 0, 0, v20);
+    v26 = [v2 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     sub_21E4DCE98();
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    sub_21E44449C(v27, isUniquelyReferenced_nonNull_native, v16, v18);
+    sub_21E44449C(v25, isUniquelyReferenced_nonNull_native, v14, v16);
 
-    v30 = sub_21E4DCE88();
+    v28 = sub_21E4DCE88();
 
     [v2 setOriginalViewSizeDict_];
 
-    v31 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
-    [*&v27[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
-    v32 = *&v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
-    v57 = v31;
-    v33 = *&v27[v31];
+    v29 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
+    [*&v25[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
+    v30 = *&v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
+    v55 = v29;
+    v31 = *&v25[v29];
+    v32 = [v2 snippetsDropletView];
+    [v30 insertSubview:v31 belowSubview:v32];
+
+    v33 = *&v25[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
     v34 = [v2 snippetsDropletView];
-    [v32 insertSubview:v33 belowSubview:v34];
+    [v30 insertSubview:v33 belowSubview:v34];
 
-    v35 = *&v27[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
-    v36 = [v2 snippetsDropletView];
-    [v32 insertSubview:v35 belowSubview:v36];
-
-    v37 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
+    v35 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
     swift_beginAccess();
-    *&v27[v37] = 0;
+    *&v25[v35] = 0;
 
-    v38 = [(UIView *)v25 layer];
-    [(CALayer *)v38 setDisableUpdateMask:2];
+    v36 = [(UIView *)v23 layer];
+    [(CALayer *)v36 setDisableUpdateMask:2];
 
-    v39 = v27;
-    v40 = [v39 layer];
+    v37 = v25;
+    v38 = [v37 layer];
+    [v38 setDisableUpdateMask_];
+
+    v39 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
+    v40 = [*&v37[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] layer];
     [v40 setDisableUpdateMask_];
 
-    v41 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
-    v42 = [*&v39[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] layer];
-    [v42 setDisableUpdateMask_];
+    v41 = [*&v25[v29] layer];
+    [v41 setDisableUpdateMask_];
 
-    v43 = [*&v27[v31] layer];
-    [v43 setDisableUpdateMask_];
-
-    v44 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
+    v42 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
     swift_beginAccess();
-    v39[v44] = 0;
-    v45 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
+    v37[v42] = 0;
+    v43 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
     swift_beginAccess();
-    v39[v45] = 1;
+    v37[v43] = 1;
     [v2 addSubview_];
     [v2 addSubview_];
     [v2 setBottomFloatingButtonView_];
-    v46 = sub_21E4DCF68();
-    v47 = [objc_opt_self() animationWithKeyPath_];
+    v44 = sub_21E4DCF68();
+    v45 = [objc_opt_self() animationWithKeyPath_];
 
-    v48 = sub_21E4DD1D8();
-    [v47 setFromValue_];
+    v46 = sub_21E4DD1D8();
+    [v45 setFromValue_];
 
-    v49 = sub_21E4DD1D8();
-    [v47 setToValue_];
+    v47 = sub_21E4DD1D8();
+    [v45 setToValue_];
 
-    [v47 setDuration_];
-    v50 = [v39 layer];
+    [v45 setDuration_];
+    v48 = [v37 layer];
 
-    v51 = v47;
-    v52 = [v51 keyPath];
-    [v50 addAnimation:v51 forKey:v52];
+    v49 = v45;
+    v50 = [v49 keyPath];
+    [v48 addAnimation:v49 forKey:v50];
 
-    v53 = [*&v39[v41] layer];
-    v54 = [v51 keyPath];
-    [v53 addAnimation:v51 forKey:v54];
+    v51 = [*&v37[v39] layer];
+    v52 = [v49 keyPath];
+    [v51 addAnimation:v49 forKey:v52];
 
-    v55 = [*&v27[v31] layer];
-    v56 = [v51 keyPath];
+    v53 = [*&v25[v29] layer];
+    v54 = [v49 keyPath];
 
-    [v55 addAnimation:v51 forKey:v56];
+    [v53 addAnimation:v49 forKey:v54];
     sub_21E4D652C();
   }
 
@@ -2803,7 +2807,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setRe
   }
 
   v8 = [v3 resultView];
-  if (v8 && (v9 = *&v8[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView], v10 = v8, v11 = v9, v10, v9) && (sub_21E43F008(0, &qword_280C140A0), v12 = resultView, v13 = sub_21E4DD2F8(), v12, v11, (v13 & 1) != 0))
+  if (v8 && (v9 = *&v8[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView], v10 = v8, v11 = v9, v10, v9) && (sub_21E43F008(0, &qword_280C140A0, 0x277D75D18), v12 = resultView, v13 = sub_21E4DD2F8(), v12, v11, (v13 & 1) != 0))
   {
     v14 = [v4 resultView];
     if (!v14)
@@ -2813,9 +2817,9 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setRe
 
     v15 = v14;
     v16 = [v4 originalViewSizeDict];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     sub_21E4DCE98();
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -2840,113 +2844,113 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setRe
     v21 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
     v22 = sub_21E4523C4(0);
     [v4 bounds];
-    v23 = CGRectGetWidth(v71);
+    CGRectGetWidth(v67);
     [v4 bounds];
-    v24 = CGRectGetHeight(v72);
-    v25 = CGPointMake(v23, v24);
-    v27 = v26;
+    CGRectGetHeight(v68);
+    CGPointMake();
+    v24 = v23;
+    v26 = v25;
     objc_opt_self();
-    v28 = swift_dynamicCastObjCClass();
-    if (v28)
+    v27 = swift_dynamicCastObjCClass();
+    if (v27)
     {
-      v29 = v28;
-      v30 = resultView;
-      [v29 maxSnippetWidth];
-      v32 = v31;
+      v28 = v27;
+      v29 = resultView;
+      [v28 maxSnippetWidth];
       [v4 bounds];
-      v33 = CGRectGetHeight(v73);
+      CGRectGetHeight(v69);
 
-      v34 = CGPointMake(v32, v33);
+      CGPointMake();
     }
 
     else
     {
-      v34 = v25;
-      v35 = v27;
+      v30 = v24;
+      v31 = v26;
     }
 
-    [(UIView *)resultView sizeThatFits:v34, v35];
-    v37 = v36;
-    v39 = v38;
+    [(UIView *)resultView sizeThatFits:v30, v31];
+    v33 = v32;
+    v35 = v34;
     [v4 defaultLoadingPillSize];
-    if (v40 >= v39)
+    if (v36 >= v35)
     {
       [v4 defaultLoadingPillSize];
-      v39 = v41;
+      v35 = v37;
     }
 
     [v4 defaultLoadingPillSize];
-    if (v42 * 0.5 <= 28.0)
+    if (v38 * 0.5 <= 28.0)
     {
-      v43 = v42 * 0.5;
+      v39 = v38 * 0.5;
     }
 
     else
     {
-      v43 = 28.0;
+      v39 = 28.0;
     }
 
-    v44 = v4[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
-    v45 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView());
-    v46 = resultView;
-    v47 = v22;
-    v48 = sub_21E4D3568(resultView, v47, 1, (v44 & 1) == 0, 0, v43);
-    v49 = [v4 originalViewSizeDict];
+    v40 = v4[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient];
+    v41 = objc_allocWithZone(type metadata accessor for SiriSharedUIDropletContainerView(0));
+    v42 = resultView;
+    v43 = v22;
+    v44 = sub_21E4D3568(resultView, v43, 1, (v40 & 1) == 0, 0, v39);
+    v45 = [v4 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     sub_21E4DCE98();
 
-    v50 = swift_isUniquelyReferenced_nonNull_native();
-    sub_21E44449C(v48, v50, v37, v39);
+    v46 = swift_isUniquelyReferenced_nonNull_native();
+    sub_21E44449C(v44, v46, v33, v35);
 
-    v51 = sub_21E4DCE88();
+    v47 = sub_21E4DCE88();
 
     [v4 setOriginalViewSizeDict_];
 
-    v52 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
-    [*&v48[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
-    v53 = *&v4[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
-    v54 = *&v48[v52];
-    v55 = [v4 snippetsDropletView];
-    [v53 insertSubview:v54 belowSubview:v55];
+    v48 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
+    [*&v44[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
+    v49 = *&v4[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
+    v50 = *&v44[v48];
+    v51 = [v4 snippetsDropletView];
+    [v49 insertSubview:v50 belowSubview:v51];
 
-    v56 = *&v48[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
-    v57 = [v4 snippetsDropletView];
-    [v53 insertSubview:v56 belowSubview:v57];
+    v52 = *&v44[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
+    v53 = [v4 snippetsDropletView];
+    [v49 insertSubview:v52 belowSubview:v53];
 
-    v58 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
-    v59 = *&v48[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView];
-    v15 = v48;
+    v54 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
+    v55 = *&v44[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView];
+    v15 = v44;
     [v15 addSubview_];
     [v15 sendSubviewToBack_];
 
-    v60 = [v4 snippetBackgroundView];
-    if (v60)
+    v56 = [v4 snippetBackgroundView];
+    if (v56)
     {
-      v61 = *&v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView];
-      *&v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] = v60;
-      v62 = v60;
-      sub_21E4D8CE4(v61);
+      v57 = *&v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView];
+      *&v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_snippetBackgroundView] = v56;
+      v58 = v56;
+      sub_21E4D8CE4(v57);
 
       [v4 setSnippetBackgroundView_];
     }
 
-    v63 = [v4 snippetsDropletView];
-    [v63 addSubview_];
+    v59 = [v4 snippetsDropletView];
+    [v59 addSubview_];
 
-    [*&v48[v58] setAlpha_];
-    v64 = [v4 previousResultView];
-    if (v64)
+    [*&v44[v54] setAlpha_];
+    v60 = [v4 previousResultView];
+    if (v60)
     {
-      v65 = v64;
-      [v64 frame];
+      v61 = v60;
+      [v60 frame];
       [v15 setFrame_];
       [v4 previousResultSize];
-      v67 = v66;
+      v63 = v62;
 
-      v68 = &v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_previousSnippetHeight];
-      *v68 = v67;
-      v68[8] = 0;
+      v64 = &v15[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_previousSnippetHeight];
+      *v64 = v63;
+      v64[8] = 0;
     }
 
     [v4 setResultView_];
@@ -2960,7 +2964,7 @@ LABEL_22:
   [v4 layoutIfNeeded];
   if (([v4 isFirstSnippet] & 1) == 0)
   {
-    LODWORD(v69) = 1053609165;
+    LODWORD(v65) = 1053609165;
 
     [v4 preFollowupPulseWithDuration_];
   }
@@ -2984,9 +2988,9 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.updat
     {
       v8 = v21;
       v9 = [v1 originalViewSizeDict];
-      type metadata accessor for SiriSharedUIDropletContainerView();
+      type metadata accessor for SiriSharedUIDropletContainerView(0);
       type metadata accessor for CGSize(0);
-      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
       sub_21E4DCE98();
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -3033,7 +3037,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.updat
   height = withCandidateSize.height;
   width = withCandidateSize.width;
   v5 = [v1 loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v6 = sub_21E4DD088();
 
   if (v6 >> 62)
@@ -3090,7 +3094,7 @@ LABEL_3:
   v18 = v8;
   v15 = [v2 originalViewSizeDict];
   type metadata accessor for CGSize(0);
-  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
   sub_21E4DCE98();
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -3110,7 +3114,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setTr
   height = resultSize.height;
   width = resultSize.width;
   v5 = [v1 loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v6 = sub_21E4DD088();
 
   if (v6 >> 62)
@@ -3260,7 +3264,7 @@ LABEL_6:
   [v1 layoutIfNeeded];
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.delegate.setter()
+uint64_t SiriSharedUISystemAssistantExperienceContainerView.delegate.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
@@ -3274,12 +3278,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.inputType.getter()
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.inputType.setter(uint64_t a1)
+void SiriSharedUISystemAssistantExperienceContainerView.inputType.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_inputType;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.showsSensitiveUI.getter()
@@ -3289,12 +3292,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.showsSensitiveUI.get
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.showsSensitiveUI.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.showsSensitiveUI.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_showsSensitiveUI;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 double SiriSharedUISystemAssistantExperienceContainerView.bottomContentInset.getter()
@@ -3304,12 +3306,11 @@ double SiriSharedUISystemAssistantExperienceContainerView.bottomContentInset.get
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.bottomContentInset.setter(double a1)
+void SiriSharedUISystemAssistantExperienceContainerView.bottomContentInset.setter(double a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_bottomContentInset;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.isFirstSnippet.getter()
@@ -3319,12 +3320,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.isFirstSnippet.gette
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.isFirstSnippet.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.isFirstSnippet.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isFirstSnippet;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.isInVoiceLatency.getter()
@@ -3334,12 +3334,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.isInVoiceLatency.get
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.isInVoiceLatency.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.isInVoiceLatency.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInVoiceLatency;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t SiriSharedUISystemAssistantExperienceContainerView.resultEligibleForLightEffects.getter()
@@ -3349,12 +3348,11 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.resultEligibleForLig
   return *(v0 + v1);
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.resultEligibleForLightEffects.setter(char a1)
+void SiriSharedUISystemAssistantExperienceContainerView.resultEligibleForLightEffects.setter(char a1)
 {
   v3 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_resultEligibleForLightEffects;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 Swift::Bool __swiftcall SiriSharedUISystemAssistantExperienceContainerView.loadingToResultRequiresMerge()()
@@ -3371,7 +3369,7 @@ Swift::Bool __swiftcall SiriSharedUISystemAssistantExperienceContainerView.loadi
 Swift::Bool __swiftcall SiriSharedUISystemAssistantExperienceContainerView.hasLoadingViews()()
 {
   v1 = [v0 loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v2 = sub_21E4DD088();
 
   if (v2 >> 62)
@@ -3432,7 +3430,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.clean
   while (1)
   {
     v13 = [v2 v12[477]];
-    v68 = type metadata accessor for SiriSharedUIDropletContainerView();
+    v68 = type metadata accessor for SiriSharedUIDropletContainerView(0);
     v14 = sub_21E4DD088();
 
     v65 = v9;
@@ -3487,7 +3485,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.clean
         v22 = v2;
         v23 = [v2 originalViewSizeDict];
         type metadata accessor for CGSize(0);
-        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
         v24 = sub_21E4DCE98();
 
         v25 = sub_21E4B16E4(v19);
@@ -3517,7 +3515,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.clean
         {
           v31 = v30;
           v32 = [v22 backgroundColorAsyncDict];
-          sub_21E43F008(0, &qword_280C140A0);
+          sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
           sub_21E4D1674();
           v33 = sub_21E4DCE98();
 
@@ -3711,7 +3709,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.clean
 Swift::Bool __swiftcall SiriSharedUISystemAssistantExperienceContainerView.shouldExecuteContinuerAction(index:)(Swift::Int index)
 {
   v3 = [v1 continuerSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v4 = sub_21E4DD088();
 
   if ((v4 & 0xC000000000000001) != 0)
@@ -3745,7 +3743,7 @@ LABEL_5:
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.prepareForPillMergeContinuerWith(index:)(Swift::Int index)
 {
   v3 = [v1 continuerSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v4 = sub_21E4DD088();
 
   if ((v4 & 0xC000000000000001) != 0)
@@ -3979,7 +3977,7 @@ LABEL_19:
 LABEL_23:
           v8 = &unk_278355000;
           v18 = [v2 suggestionsViews];
-          v19 = type metadata accessor for SiriSharedUIDropletContainerView();
+          v19 = type metadata accessor for SiriSharedUIDropletContainerView(0);
           v20 = sub_21E4DD088();
 
           if (!(v20 >> 62))
@@ -4070,7 +4068,7 @@ LABEL_22:
       v48 = 0u;
     }
 
-    sub_21E424BC0(&v47, &unk_27CEC5DF0);
+    sub_21E424BC0(&v47, &unk_27CEC5DF0, &unk_21E4E9540);
     goto LABEL_19;
   }
 
@@ -4088,7 +4086,7 @@ LABEL_22:
     v47 = 0u;
     v48 = 0u;
 LABEL_41:
-    sub_21E424BC0(&v47, &unk_27CEC5DF0);
+    sub_21E424BC0(&v47, &unk_27CEC5DF0, &unk_21E4E9540);
     goto LABEL_42;
   }
 
@@ -4125,7 +4123,7 @@ LABEL_42:
 LABEL_43:
   v4 = &unk_278355000;
   v31 = [v2 suggestionsViews];
-  v19 = type metadata accessor for SiriSharedUIDropletContainerView();
+  v19 = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v32 = sub_21E4DD088();
 
   if (!(v32 >> 62))
@@ -4240,7 +4238,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
     if (([v0 suggestionsExpanded] & 1) == 0)
     {
       v3 = [v0 suggestionsViews];
-      type metadata accessor for SiriSharedUIDropletContainerView();
+      type metadata accessor for SiriSharedUIDropletContainerView(0);
       v4 = sub_21E4DD088();
 
       if (v4 >> 62)
@@ -4269,7 +4267,7 @@ LABEL_5:
 LABEL_23:
         v10 = &unk_278355000;
         v21 = [v1 suggestionsViews];
-        v2 = type metadata accessor for SiriSharedUIDropletContainerView();
+        v2 = type metadata accessor for SiriSharedUIDropletContainerView(0);
         v22 = sub_21E4DD088();
 
         if (v22 >> 62)
@@ -4361,7 +4359,7 @@ LABEL_32:
 
             v43 = [v1 originalViewSizeDict];
             type metadata accessor for CGSize(0);
-            sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+            sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
             v44 = sub_21E4DCE98();
 
             if (!*(v44 + 16) || (v45 = sub_21E4B16E4(v42), (v46 & 1) == 0))
@@ -4585,7 +4583,7 @@ LABEL_79:
       }
 
       v6 = [v1 v2[476]];
-      type metadata accessor for SiriSharedUIDropletContainerView();
+      type metadata accessor for SiriSharedUIDropletContainerView(0);
       v7 = sub_21E4DD088();
 
       if (!(v7 >> 62))
@@ -4630,7 +4628,7 @@ LABEL_12:
 
             v15 = [v1 originalViewSizeDict];
             type metadata accessor for CGSize(0);
-            sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+            sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
             v16 = sub_21E4DCE98();
 
             if (*(v16 + 16) && (v17 = sub_21E4B16E4(v14), (v18 & 1) != 0))
@@ -4673,7 +4671,7 @@ void sub_21E4BF8E0(uint64_t a1, unint64_t a2, double *a3, double *a4, double a5,
     [a1 bounds];
     v10 = v26;
     v27 = [a1 suggestionsViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v8 = sub_21E4DD088();
 
     if ((v8 & 0xC000000000000001) != 0)
@@ -4715,7 +4713,7 @@ LABEL_37:
   }
 
   a3 = [a1 suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v9 = sub_21E4DD088();
 
   if ((v9 & 0xC000000000000001) != 0)
@@ -4754,7 +4752,7 @@ LABEL_14:
     swift_beginAccess();
     *v21 = a8 + *v21;
     a4 = [a1 suggestionsViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v36 = sub_21E4DD088();
 
     if ((v36 & 0xC000000000000001) != 0)
@@ -4824,19 +4822,19 @@ LABEL_22:
   }
 }
 
-void *sub_21E4BFD70(void *a1, void *a2, void *a3, int a4, uint64_t a5, double a6)
+void sub_21E4BFD70(void *a1, void *a2, void *a3, int a4, uint64_t a5, double a6)
 {
   v7 = v6;
-  v42 = a5;
-  v41 = a4;
+  v41 = a5;
+  v40 = a4;
   v12 = sub_21E4DCBF8();
-  v44 = *(v12 - 8);
+  v43 = *(v12 - 8);
   MEMORY[0x28223BE20](v12);
-  v14 = &v40[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v43 = sub_21E4DCC18();
-  v15 = *(v43 - 8);
-  MEMORY[0x28223BE20](v43);
-  v17 = &v40[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v14 = &v39[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v42 = sub_21E4DCC18();
+  v15 = *(v42 - 8);
+  MEMORY[0x28223BE20](v42);
+  v17 = &v39[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
   [a2 frame];
   [a1 convertRect:v7 toCoordinateSpace:?];
   v19 = v18;
@@ -4847,69 +4845,66 @@ void *sub_21E4BFD70(void *a1, void *a2, void *a3, int a4, uint64_t a5, double a6
   [v7 horizontalContentInset];
   v28 = v27;
   [a3 frame];
-  MinY = CGRectGetMinY(v46);
+  MinY = CGRectGetMinY(v45);
   [v7 textFieldHeight];
   *(v26 + 16) = v28;
   *(v26 + 24) = MinY;
   *(v26 + 32) = a6;
   *(v26 + 40) = v30;
-  result = *MEMORY[0x277D76620];
   if (*MEMORY[0x277D76620])
   {
-    if (UIInterfaceOrientationIsLandscape([result activeInterfaceOrientation]) && !SiriSharedUIDeviceIsPad())
+    if (UIInterfaceOrientationIsLandscape([*MEMORY[0x277D76620] activeInterfaceOrientation]) && !SiriSharedUIDeviceIsPad())
     {
       [a3 frame];
-      MinX = CGRectGetMinX(v47);
+      MinX = CGRectGetMinX(v46);
       [a3 frame];
-      v33 = CGRectGetMinY(v48);
+      v32 = CGRectGetMinY(v47);
       [v7 textFieldHeight];
       *(v26 + 16) = MinX;
-      *(v26 + 24) = v33;
+      *(v26 + 24) = v32;
       *(v26 + 32) = a6;
-      *(v26 + 40) = v34;
+      *(v26 + 40) = v33;
     }
 
-    sub_21E43F008(0, &qword_280C14150);
-    v35 = sub_21E4DD278();
-    v36 = swift_allocObject();
-    *(v36 + 16) = a2;
-    *(v36 + 24) = v7;
-    *(v36 + 32) = v19;
-    *(v36 + 40) = v21;
-    *(v36 + 48) = v23;
-    *(v36 + 56) = v25;
-    *(v36 + 64) = v41 & 1;
-    *(v36 + 72) = v42;
-    *(v36 + 80) = v26;
+    sub_21E43F008(0, &qword_280C14150, 0x277D85C78);
+    v34 = sub_21E4DD278();
+    v35 = swift_allocObject();
+    *(v35 + 16) = a2;
+    *(v35 + 24) = v7;
+    *(v35 + 32) = v19;
+    *(v35 + 40) = v21;
+    *(v35 + 48) = v23;
+    *(v35 + 56) = v25;
+    *(v35 + 64) = v40 & 1;
+    *(v35 + 72) = v41;
+    *(v35 + 80) = v26;
     aBlock[4] = sub_21E4D21F4;
-    aBlock[5] = v36;
+    aBlock[5] = v35;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_21E46C644;
     aBlock[3] = &block_descriptor_202;
-    v37 = _Block_copy(aBlock);
-    v38 = a2;
-    v39 = v7;
+    v36 = _Block_copy(aBlock);
+    v37 = a2;
+    v38 = v7;
 
     sub_21E4DCC08();
     aBlock[0] = MEMORY[0x277D84F90];
-    sub_21E4D156C(&qword_280C14250, MEMORY[0x277D85198]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC6660);
+    sub_21E4D156C(&qword_280C14250, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC6660, &unk_21E4E92A0);
     sub_21E42E3E8();
     sub_21E4DD358();
-    MEMORY[0x223D5AF30](0, v17, v14, v37);
-    _Block_release(v37);
+    MEMORY[0x223D5AF30](0, v17, v14, v36);
+    _Block_release(v36);
 
-    (*(v44 + 8))(v14, v12);
-    (*(v15 + 8))(v17, v43);
+    (*(v43 + 8))(v14, v12);
+    (*(v15 + 8))(v17, v42);
   }
 
   else
   {
     __break(1u);
   }
-
-  return result;
 }
 
 void sub_21E4C0198(void *a1, void *a2, char a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9)
@@ -4960,7 +4955,7 @@ void SiriSharedUISystemAssistantExperienceContainerView.transitionToSuggestionsC
   if ([v5 suggestionsExpanded])
   {
     v7 = [v5 suggestionsViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v8 = sub_21E4DD088();
 
     if (v8 >> 62)
@@ -4980,7 +4975,7 @@ LABEL_4:
   [v5 setSuggestionsExpanded_];
   [v5 setIndexOfSelectedSuggestion_];
   a1 = [v5 suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v10 = sub_21E4DD088();
 
   if (v10 >> 62)
@@ -5039,7 +5034,7 @@ LABEL_50:
 
       v17 = [v5 v13[491]];
       type metadata accessor for CGSize(0);
-      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
       v18 = sub_21E4DCE98();
 
       if (*(v18 + 16) && (v19 = sub_21E4B16E4(v16), (v20 & 1) != 0))
@@ -5229,7 +5224,7 @@ void sub_21E4C0CC0(void *a1, unint64_t a2, double a3)
   v7 = a1;
   v8 = &unk_278355000;
   v9 = [a1 suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v10 = sub_21E4DD088();
 
   if ((v10 & 0xC000000000000001) != 0)
@@ -5583,7 +5578,7 @@ void sub_21E4C1514(int a1, id a2, uint64_t a3, void (*a4)(void))
   v6 = a2;
   v7 = [a2 indexOfSelectedSuggestion];
   v8 = [v6 suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v9 = sub_21E4DD088();
 
   if (v9 >> 62)
@@ -5654,7 +5649,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
 {
   v2 = v1;
   v4 = [v1 suggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v5 = sub_21E4DD088();
 
   if ((v5 & 0xC000000000000001) != 0)
@@ -5723,7 +5718,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
     [*&v3[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
     v7 = v3;
     v4 = [v1 loadingViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v5 = sub_21E4DD088();
 
     MEMORY[0x223D5AD10]();
@@ -5751,7 +5746,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.start
   }
 
   v1 = [v0 loadingViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v2 = sub_21E4DD088();
 
   if (v2 >> 62)
@@ -5801,7 +5796,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
   {
     v6 = v2;
     v3 = [v0 loadingViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v4 = sub_21E4DD088();
 
     MEMORY[0x223D5AD10]();
@@ -5825,7 +5820,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
   }
 }
 
-uint64_t SiriSharedUISystemAssistantExperienceContainerView.transition(toRemovedResponseElements:)(char a1)
+void *SiriSharedUISystemAssistantExperienceContainerView.transition(toRemovedResponseElements:)(char a1)
 {
   v3 = sub_21E4DB698();
   v4 = *(v3 - 8);
@@ -5834,7 +5829,7 @@ uint64_t SiriSharedUISystemAssistantExperienceContainerView.transition(toRemoved
   MEMORY[0x28223BE20](v5);
   v9 = &v30 - v8;
   v10 = [v1 loadingViews];
-  v11 = type metadata accessor for SiriSharedUIDropletContainerView();
+  v11 = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v12 = sub_21E4DD088();
 
   if (!(v12 >> 62))
@@ -5883,7 +5878,7 @@ LABEL_26:
         v26 = v20[3];
         if (v27 >= v26 >> 1)
         {
-          v20 = sub_21E44397C(v26 > 1, v27 + 1, 1, v20);
+          v20 = sub_21E44397C((v26 > 1), v27 + 1, 1, v20);
         }
 
         v20[2] = v27 + 1;
@@ -5977,7 +5972,7 @@ LABEL_15:
     v21 = v20[3];
     if (v22 >= v21 >> 1)
     {
-      v20 = sub_21E44397C(v21 > 1, v22 + 1, 1, v20);
+      v20 = sub_21E44397C((v21 > 1), v22 + 1, 1, v20);
     }
 
     v20[2] = v22 + 1;
@@ -6071,7 +6066,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.trans
     [*&v2[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] setAlpha_];
     v7 = v3;
     v4 = [v1 loadingViews];
-    type metadata accessor for SiriSharedUIDropletContainerView();
+    type metadata accessor for SiriSharedUIDropletContainerView(0);
     v5 = sub_21E4DD088();
 
     MEMORY[0x223D5AD10]();
@@ -6533,7 +6528,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.updat
   {
     v9 = smartDialogView;
     v10 = [v4 backgroundColorAsyncDict];
-    sub_21E43F008(0, &qword_280C140A0);
+    sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
     sub_21E4D1674();
     v11 = sub_21E4DCE98();
 
@@ -6638,7 +6633,7 @@ LABEL_16:
   sub_21E4DD3A8();
   MEMORY[0x223D5ACB0](0xD00000000000003DLL, 0x800000021E4F19A0);
   v53 = [v4 resultView];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6990);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6990, &qword_21E4E9690);
   v31 = sub_21E4DCFA8();
   MEMORY[0x223D5ACB0](v31);
 
@@ -6657,7 +6652,7 @@ LABEL_16:
   }
 
   v53 = v33;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5D10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5D10, qword_21E4E6B40);
   v36 = sub_21E4DCFA8();
   MEMORY[0x223D5ACB0](v36);
 
@@ -6756,19 +6751,21 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.searc
   sub_21E4CF000();
 }
 
-id sub_21E4C45DC()
+id sub_21E4C45DC(uint64_t a1, uint64_t a2, void *a3)
 {
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
 
-  v0 = sub_21E4DD078();
+  v3 = sub_21E4DD078();
 
-  return v0;
+  return v3;
 }
 
-uint64_t sub_21E4C4648(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+double sub_21E4C4648(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   *(a1 + *a4) = sub_21E4DD088();
+
+  return result;
 }
 
 void sub_21E4C4880(uint64_t a1)
@@ -6911,7 +6908,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.safeA
 
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.layoutSubviews()()
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC4968, &qword_21E4E5240);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = v376 - v6;
   v390.receiver = v0;
@@ -6922,7 +6919,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.layou
   [v0 bringSubviewToFront_];
 
   v10 = [v0 dismissedAnimationSuggestionsViews];
-  v385 = type metadata accessor for SiriSharedUIDropletContainerView();
+  v385 = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v11 = sub_21E4DD088();
 
   if (v11 >> 62)
@@ -7072,7 +7069,7 @@ LABEL_25:
 
       v36 = [v11 originalViewSizeDict];
       type metadata accessor for CGSize(0);
-      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+      sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
       v37 = sub_21E4DCE98();
 
       if (*(v37 + 16) && (v38 = sub_21E4B16E4(v35), (v39 & 1) != 0))
@@ -7402,7 +7399,7 @@ LABEL_186:
                   v238 = v237;
                   v30 = [v11 originalViewSizeDict];
                   type metadata accessor for CGSize(0);
-                  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+                  sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
                   v239 = sub_21E4DCE98();
 
                   if (*(v239 + 16) && (v240 = sub_21E4B16E4(v238), (v241 & 1) != 0))
@@ -7595,7 +7592,7 @@ LABEL_176:
         {
           v146 = [v11 originalViewSizeDict];
           type metadata accessor for CGSize(0);
-          sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+          sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
           v147 = sub_21E4DCE98();
 
           if (*(v147 + 16))
@@ -7753,7 +7750,7 @@ LABEL_157:
 
         v158 = [v11 originalViewSizeDict];
         type metadata accessor for CGSize(0);
-        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+        sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
         v159 = sub_21E4DCE98();
 
         if (!*(v159 + 16))
@@ -7841,7 +7838,7 @@ LABEL_156:
 
     v49 = [v11 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v50 = sub_21E4DCE98();
 
     if (*(v50 + 16))
@@ -8366,7 +8363,7 @@ LABEL_242:
     v314 = v313;
     v315 = [v11 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v316 = sub_21E4DCE98();
 
     if (*(v316 + 16) && (v317 = sub_21E4B16E4(v314), (v318 & 1) != 0))
@@ -8404,7 +8401,7 @@ LABEL_242:
     v334 = v333;
     v335 = [v11 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v336 = sub_21E4DCE98();
 
     if (*(v336 + 16) && (v337 = sub_21E4B16E4(v334), (v338 & 1) != 0))
@@ -8453,7 +8450,7 @@ LABEL_242:
     v358 = v357;
     v359 = [v11 originalViewSizeDict];
     type metadata accessor for CGSize(0);
-    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
+    sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
     v360 = sub_21E4DCE98();
 
     if (*(v360 + 16) && (v361 = sub_21E4B16E4(v358), (v362 & 1) != 0))
@@ -8672,7 +8669,7 @@ void sub_21E4C8908()
   }
 
   v5 = [v1 backgroundColorAsyncDict];
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   sub_21E4D1674();
   v6 = sub_21E4DCE98();
 
@@ -8777,7 +8774,7 @@ void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.hitTest(_:wi
   v4 = [(UIView_optional *)&v8 hitTest:with.value.super.isa withEvent:_.x, _.y];
   if (v4)
   {
-    sub_21E43F008(0, &qword_280C140A0);
+    sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
     v5 = v4;
     v6 = v3;
     v7 = sub_21E4DD2F8();
@@ -8794,26 +8791,26 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
   v4 = sub_21E4DCBF8();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v132 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v121 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = sub_21E4DCC18();
   v9 = *(v8 - 1);
   MEMORY[0x28223BE20](v8);
-  v11 = &v132 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v121 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = sub_21E4DCC38();
   v13 = MEMORY[0x28223BE20](v12);
   v14 = MEMORY[0x28223BE20](v13);
-  v149 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient;
+  v138 = OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient;
   if (v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_isInAmbient])
   {
     return;
   }
 
-  v133 = v17;
-  v134 = &v132 - v15;
-  v135 = v16;
-  v140 = v5;
-  v141 = v4;
-  v142 = v14;
+  v122 = v17;
+  v123 = &v121 - v15;
+  v124 = v16;
+  v129 = v5;
+  v130 = v4;
+  v131 = v14;
   v18 = [v2 snippetSuggestionPageantView];
   if (v18)
   {
@@ -8821,7 +8818,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
     [v18 removeFromSuperview];
   }
 
-  v20 = type metadata accessor for SiriSharedUIDropletContainerView();
+  v20 = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v21 = sub_21E4DD078();
   [v2 setContinuerSuggestionsViews_];
 
@@ -8831,16 +8828,16 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
     goto LABEL_58;
   }
 
-  for (a1._rawValue = *((a1._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10); ; a1._rawValue = v131)
+  for (a1._rawValue = *((a1._rawValue & 0xFFFFFFFFFFFFFF8) + 0x10); ; a1._rawValue = v120)
   {
-    v151 = v20;
-    v136 = v11;
-    v137 = v9;
-    v138 = v7;
-    v139 = v8;
+    v140 = v20;
+    v125 = v11;
+    v126 = v9;
+    v127 = v7;
+    v128 = v8;
     v23 = MEMORY[0x277D84F90];
-    v153 = rawValue;
-    v152 = a1._rawValue;
+    v142 = rawValue;
+    v141 = a1._rawValue;
     if (!a1._rawValue)
     {
       break;
@@ -8875,33 +8872,34 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
       }
 
       [v2 bounds];
-      v27 = CGRectGetWidth(v162) + -40.0;
+      CGRectGetWidth(v151);
       [v2 bounds];
-      Height = CGRectGetHeight(v163);
+      CGRectGetHeight(v152);
+      CGPointMake();
       [v8 sizeThatFits_];
-      v30 = v29;
+      v28 = v27;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
         v23 = sub_21E443D78(0, *(v23 + 2) + 1, 1, v23);
       }
 
-      v32 = *(v23 + 2);
-      v31 = *(v23 + 3);
-      v7 = (v32 + 1);
-      if (v32 >= v31 >> 1)
+      v30 = *(v23 + 2);
+      v29 = *(v23 + 3);
+      v7 = (v30 + 1);
+      if (v30 >= v29 >> 1)
       {
-        v23 = sub_21E443D78((v31 > 1), v32 + 1, 1, v23);
+        v23 = sub_21E443D78((v29 > 1), v30 + 1, 1, v23);
       }
 
       *(v23 + 2) = v7;
-      *&v23[8 * v32 + 32] = v30;
+      *&v23[8 * v30 + 32] = v28;
       [v8 frame];
       [v8 setFrame_];
 
       ++v24;
-      a1._rawValue = v152;
-      rawValue = v153;
-      if (v26 == v152)
+      a1._rawValue = v141;
+      rawValue = v142;
+      if (v26 == v141)
       {
         goto LABEL_19;
       }
@@ -8911,20 +8909,20 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.setCo
 LABEL_57:
     __break(1u);
 LABEL_58:
-    v131 = sub_21E4DD488();
+    v120 = sub_21E4DD488();
     rawValue = a1._rawValue;
   }
 
 LABEL_19:
-  v33 = rawValue;
-  v34 = [v2 resultView];
-  if (v34)
+  v31 = rawValue;
+  v32 = [v2 resultView];
+  if (v32)
   {
     if (a1._rawValue)
     {
-      v132 = v34;
-      v148 = objc_opt_self();
-      v147 = objc_opt_self();
+      v121 = v32;
+      v137 = objc_opt_self();
+      v136 = objc_opt_self();
       if (a1._rawValue < 1)
       {
         __break(1u);
@@ -8932,138 +8930,139 @@ LABEL_19:
 
       else
       {
-        v35 = 0;
-        v145 = *&v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
-        v36 = v33;
-        v144 = v33 & 0xC000000000000001;
-        v37 = &unk_278355000;
-        v143 = *MEMORY[0x277CDA7B0];
-        v146 = v23;
+        v33 = 0;
+        v134 = *&v2[OBJC_IVAR___SiriSharedUISystemAssistantExperienceContainerView_blurrableView];
+        v34 = v31;
+        v133 = v31 & 0xC000000000000001;
+        v35 = &unk_278355000;
+        v132 = *MEMORY[0x277CDA7B0];
+        v135 = v23;
         do
         {
-          v150 = v35;
-          if (v144)
+          v139 = v33;
+          if (v133)
           {
-            v39 = MEMORY[0x223D5B080](v35, v36);
+            v37 = MEMORY[0x223D5B080](v33, v34);
           }
 
           else
           {
-            v39 = v36[v35 + 4];
+            v37 = v34[v33 + 4];
           }
 
-          v40 = v39;
-          v41 = [v2 traitCollection];
-          [v41 userInterfaceStyle];
+          v38 = v37;
+          v39 = [v2 traitCollection];
+          [v39 userInterfaceStyle];
 
-          v42 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
-          v43 = sub_21E4523C4(0);
+          v40 = objc_allocWithZone(type metadata accessor for SiriSharedUIStandardViewDropletMaterial());
+          v41 = sub_21E4523C4(0);
           [v2 bounds];
-          v44 = CGRectGetWidth(v164) + -60.0;
+          CGRectGetWidth(v153);
           [v2 bounds];
-          v45 = CGRectGetHeight(v165);
-          [v40 sizeThatFits_];
-          v47 = v46;
-          v49 = v48;
-          [v2 v37[490]];
-          if (v50 >= v49)
+          CGRectGetHeight(v154);
+          CGPointMake();
+          [v38 sizeThatFits_];
+          v43 = v42;
+          v45 = v44;
+          [v2 v35[490]];
+          if (v46 >= v45)
           {
-            [v2 v37[490]];
-            v49 = v51;
+            [v2 v35[490]];
+            v45 = v47;
           }
 
-          [v2 v37[490]];
-          if (v52 * 0.5 <= 28.0)
+          [v2 v35[490]];
+          if (v48 * 0.5 <= 28.0)
           {
-            v53 = v52 * 0.5;
+            v49 = v48 * 0.5;
           }
 
           else
           {
-            v53 = 28.0;
+            v49 = 28.0;
           }
 
-          v54 = v2[v149];
-          v55 = objc_allocWithZone(v151);
-          v56 = v43;
-          v154 = v40;
-          v57 = sub_21E4D3568(v40, v56, 1, (v54 & 1) == 0, 0, v53);
-          v58 = [v2 originalViewSizeDict];
+          v50 = v2[v138];
+          v51 = objc_allocWithZone(v140);
+          v52 = v41;
+          v143 = v38;
+          v53 = sub_21E4D3568(v38, v52, 1, (v50 & 1) == 0, 0, v49);
+          v54 = [v2 originalViewSizeDict];
           type metadata accessor for CGSize(0);
-          sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView);
-          v59 = sub_21E4DCE98();
+          sub_21E4D156C(&qword_280C158D8, type metadata accessor for SiriSharedUIDropletContainerView, MEMORY[0x277D85378]);
+          v55 = sub_21E4DCE98();
 
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          aBlock = v59;
-          sub_21E44449C(v57, isUniquelyReferenced_nonNull_native, v47, v49);
+          aBlock = v55;
+          sub_21E44449C(v53, isUniquelyReferenced_nonNull_native, v43, v45);
 
-          v61 = sub_21E4DCE88();
+          v57 = sub_21E4DCE88();
 
           [v2 setOriginalViewSizeDict_];
 
-          v62 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
-          [*&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
-          v63 = *&v57[v62];
+          v58 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView;
+          [*&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentLightEffectView] setAlpha_];
+          v59 = *&v53[v58];
+          v60 = [v2 snippetsDropletView];
+          v61 = v134;
+          [v134 insertSubview:v59 belowSubview:v60];
+
+          v62 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView;
+          v63 = *&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
+
           v64 = [v2 snippetsDropletView];
-          v65 = v145;
-          [v145 insertSubview:v63 belowSubview:v64];
+          [v61 insertSubview:v63 belowSubview:v64];
 
-          v66 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView;
-          v67 = *&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shimmerEffectView];
-
-          v68 = [v2 snippetsDropletView];
-          [v65 insertSubview:v67 belowSubview:v68];
-
-          v69 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
+          v65 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundInset;
           swift_beginAccess();
-          *&v57[v69] = 0;
+          *&v53[v65] = 0;
 
-          v70 = sub_21E4DCF68();
-          v71 = [v148 animationWithKeyPath_];
+          v66 = sub_21E4DCF68();
+          v67 = [v137 animationWithKeyPath_];
 
-          v72 = v71;
-          [v72 setDuration_];
-          v73 = [v147 functionWithName_];
-          [v72 setTimingFunction_];
+          v68 = v67;
+          [v68 setDuration_];
+          v69 = [v136 functionWithName_];
+          [v68 setTimingFunction_];
 
-          v74 = sub_21E4DD1D8();
-          [v72 setFromValue_];
+          v70 = sub_21E4DD1D8();
+          [v68 setFromValue_];
 
-          v75 = sub_21E4DD1D8();
-          [v72 setToValue_];
+          v71 = sub_21E4DD1D8();
+          [v68 setToValue_];
 
-          v76 = [v154 layer];
-          v77 = sub_21E4DCF68();
-          [v76 addAnimation:v72 forKey:v77];
+          v72 = [v143 layer];
+          v73 = sub_21E4DCF68();
+          [v72 addAnimation:v68 forKey:v73];
 
-          v78 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
+          v74 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_shouldBlurUponTransition;
           swift_beginAccess();
-          v57[v78] = 0;
-          v79 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
+          v53[v74] = 0;
+          v75 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_containerViewPosition;
           swift_beginAccess();
-          v57[v79] = 1;
-          v80 = [v57 layer];
-          [v80 setMasksToBounds_];
+          v53[v75] = 1;
+          v76 = [v53 layer];
+          [v76 setMasksToBounds_];
 
-          [v57 _setContinuousCornerRadius_];
-          v81 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
-          [*&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] _setContinuousCornerRadius_];
-          v82 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_hostingView;
+          [v53 _setContinuousCornerRadius_];
+          v77 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView;
+          [*&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_backgroundView] _setContinuousCornerRadius_];
+          v78 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_hostingView;
           swift_beginAccess();
-          [*&v57[v82] _setContinuousCornerRadius_];
-          [*&v57[v66] _setContinuousCornerRadius_];
-          [*&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightRimEffectView] _setContinuousCornerRadius_];
-          [*&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightInnerEffectView] _setContinuousCornerRadius_];
-          [*&v57[v62] _setContinuousCornerRadius_];
-          [v57 setAlpha_];
-          [*&v57[v81] setAlpha_];
-          v83 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView;
-          [*&v57[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView] setAlpha_];
-          v84 = v57;
-          v85 = [v2 continuerSuggestionsViews];
-          v86 = sub_21E4DD088();
+          [*&v53[v78] _setContinuousCornerRadius_];
+          [*&v53[v62] _setContinuousCornerRadius_];
+          [*&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightRimEffectView] _setContinuousCornerRadius_];
+          [*&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_latencyLightInnerEffectView] _setContinuousCornerRadius_];
+          [*&v53[v58] _setContinuousCornerRadius_];
+          [v53 setAlpha_];
+          [*&v53[v77] setAlpha_];
+          v79 = OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView;
+          [*&v53[OBJC_IVAR____TtC12SiriSharedUI32SiriSharedUIDropletContainerView_contentView] setAlpha_];
+          v80 = v53;
+          v81 = [v2 continuerSuggestionsViews];
+          v82 = sub_21E4DD088();
 
-          aBlock = v86;
+          aBlock = v82;
           MEMORY[0x223D5AD10]();
           if (*((aBlock & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
@@ -9071,20 +9070,20 @@ LABEL_19:
           }
 
           sub_21E4DD0D8();
-          v87 = sub_21E4DD078();
+          v83 = sub_21E4DD078();
 
           [v2 setContinuerSuggestionsViews_];
 
-          v88 = *&v57[v83];
-          if (v88)
+          v84 = *&v53[v79];
+          if (v84)
           {
             type metadata accessor for SiriSharedUIAssistantSuggestionView();
-            v89 = swift_dynamicCastClass();
-            v38 = v150;
-            v37 = &unk_278355000;
-            if (v89)
+            v85 = swift_dynamicCastClass();
+            v36 = v139;
+            v35 = &unk_278355000;
+            if (v85)
             {
-              v90 = v88;
+              v86 = v84;
 
               sub_21E421A48();
             }
@@ -9097,42 +9096,40 @@ LABEL_19:
           else
           {
 
-            v38 = v150;
-            v37 = &unk_278355000;
+            v36 = v139;
+            v35 = &unk_278355000;
           }
 
-          v35 = v38 + 1;
-          v36 = v153;
+          v33 = v36 + 1;
+          v34 = v142;
         }
 
-        while (v152 != v35);
+        while (v141 != v33);
         [v2 frame];
-        v92 = [objc_allocWithZone(type metadata accessor for SiriSharedUIScrollablePageantView()) initWithFrame_];
-        v93 = [v2 continuerSuggestionsViews];
-        v94 = sub_21E4DD088();
+        v88 = [objc_allocWithZone(type metadata accessor for SiriSharedUIScrollablePageantView()) initWithFrame_];
+        v89 = [v2 continuerSuggestionsViews];
+        v90 = sub_21E4DD088();
 
-        sub_21E48179C(v94);
+        sub_21E48179C(v90);
 
-        v95 = v92;
-        v96 = v132;
-        [v132 center];
-        v98 = v97;
-        [v96 center];
-        v100 = v99;
-        [v96 frame];
-        v102 = v100 + v101 * 0.5;
-        [v95 frame];
-        v103 = CGRectGetHeight(v166);
-        [v95 setCenter_];
-        v104 = [v2 snippetsDropletView];
-        [v104 addSubview_];
+        v91 = v88;
+        v92 = v121;
+        [v121 center];
+        [v92 center];
+        [v92 frame];
+        [v91 frame];
+        CGRectGetHeight(v155);
+        CGPointMake();
+        [v91 setCenter_];
+        v93 = [v2 snippetsDropletView];
+        [v93 addSubview_];
 
-        v105 = [v2 snippetsDropletView];
-        [v105 sendSubviewToBack_];
+        v94 = [v2 snippetsDropletView];
+        [v94 sendSubviewToBack_];
 
         [v2 setSnippetSuggestionPageantView_];
-        v106 = 0.0;
-        if (SiriSharedUIDeviceIsPad() || (v2[v149] & 1) != 0)
+        v95 = 0.0;
+        if (SiriSharedUIDeviceIsPad() || (v2[v138] & 1) != 0)
         {
           goto LABEL_51;
         }
@@ -9149,87 +9146,87 @@ LABEL_19:
             [v2 safeAreaInsets];
           }
 
-          v106 = v107;
+          v95 = v96;
 LABEL_51:
-          v108 = [v2 fluidDismissalManager];
-          sub_21E45EB1C(v106);
-          v110 = v109;
+          v97 = [v2 fluidDismissalManager];
+          sub_21E45EB1C(v95);
+          v99 = v98;
 
-          [v95 frame];
-          v112 = v111;
+          [v91 frame];
+          v101 = v100;
 
-          v113 = sub_21E4DD078();
+          v102 = sub_21E4DD078();
 
-          [v2 setExposureStateIfInViewWithAvailableMaxWidth:v113 suggestionWidths:v112 suggestionsInset:20.0];
+          [v2 setExposureStateIfInViewWithAvailableMaxWidth:v102 suggestionWidths:v101 suggestionsInset:20.0];
 
           if (SiriSharedUIReducedMotionEnabled())
           {
-            v114 = 0.0;
+            v103 = 0.0;
           }
 
           else
           {
-            v114 = 0.7;
+            v103 = 0.7;
           }
 
-          v115 = [objc_opt_self() behaviorWithDampingRatio:0.65 response:v114];
-          v116 = objc_opt_self();
-          v117 = swift_allocObject();
-          v117[2] = v95;
-          v117[3] = v2;
-          v117[4] = v96;
-          v117[5] = v110;
-          v159 = sub_21E4D2090;
-          v160 = v117;
+          v104 = [objc_opt_self() behaviorWithDampingRatio:0.65 response:v103];
+          v105 = objc_opt_self();
+          v106 = swift_allocObject();
+          v106[2] = v91;
+          v106[3] = v2;
+          v106[4] = v92;
+          v106[5] = v99;
+          v148 = sub_21E4D2090;
+          v149 = v106;
           aBlock = MEMORY[0x277D85DD0];
-          v156 = 1107296256;
-          v157 = sub_21E46C644;
-          v158 = &block_descriptor_130;
-          v118 = _Block_copy(&aBlock);
-          v119 = v95;
-          v120 = v115;
-          v121 = v2;
-          v154 = v96;
+          v145 = 1107296256;
+          v146 = sub_21E46C644;
+          v147 = &block_descriptor_130;
+          v107 = _Block_copy(&aBlock);
+          v108 = v91;
+          v109 = v104;
+          v110 = v2;
+          v143 = v92;
 
-          [v116 _animateUsingSpringBehavior_tracking_animations_completion_];
-          _Block_release(v118);
+          [v105 _animateUsingSpringBehavior_tracking_animations_completion_];
+          _Block_release(v107);
 
           SiriSharedUIReducedMotionEnabled();
-          sub_21E43F008(0, &qword_280C14150);
-          v152 = sub_21E4DD278();
-          v122 = v133;
+          sub_21E43F008(0, &qword_280C14150, 0x277D85C78);
+          v141 = sub_21E4DD278();
+          v111 = v122;
           sub_21E4DCC28();
-          v123 = v134;
+          v112 = v123;
           sub_21E4DCC88();
-          v153 = *(v135 + 8);
-          (v153)(v122, v142);
-          v124 = swift_allocObject();
-          *(v124 + 16) = v119;
-          v159 = sub_21E4D20A0;
-          v160 = v124;
+          v142 = *(v124 + 8);
+          (v142)(v111, v131);
+          v113 = swift_allocObject();
+          *(v113 + 16) = v108;
+          v148 = sub_21E4D20A0;
+          v149 = v113;
           aBlock = MEMORY[0x277D85DD0];
-          v156 = 1107296256;
-          v157 = sub_21E46C644;
-          v158 = &block_descriptor_136;
-          v125 = _Block_copy(&aBlock);
-          v126 = v119;
+          v145 = 1107296256;
+          v146 = sub_21E46C644;
+          v147 = &block_descriptor_136;
+          v114 = _Block_copy(&aBlock);
+          v115 = v108;
 
-          v127 = v136;
+          v116 = v125;
           sub_21E4DCC08();
           aBlock = MEMORY[0x277D84F90];
-          sub_21E4D156C(&qword_280C14250, MEMORY[0x277D85198]);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC6660);
+          sub_21E4D156C(&qword_280C14250, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEC6660, &unk_21E4E92A0);
           sub_21E42E3E8();
-          v128 = v138;
-          v129 = v141;
+          v117 = v127;
+          v118 = v130;
           sub_21E4DD358();
-          v130 = v152;
-          MEMORY[0x223D5AF00](v123, v127, v128, v125);
-          _Block_release(v125);
+          v119 = v141;
+          MEMORY[0x223D5AF00](v112, v116, v117, v114);
+          _Block_release(v114);
 
-          (*(v140 + 8))(v128, v129);
-          (*(v137 + 8))(v127, v139);
-          (v153)(v123, v142);
+          (*(v129 + 8))(v117, v118);
+          (*(v126 + 8))(v116, v128);
+          (v142)(v112, v131);
           return;
         }
       }
@@ -9254,18 +9251,20 @@ id sub_21E4CA238(void *a1, double a2, uint64_t a3, void *a4)
   return [a1 setFrame_];
 }
 
-uint64_t sub_21E4CA308(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
+double sub_21E4CA308(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
 {
-  sub_21E43F008(0, &qword_280C140A0);
+  sub_21E43F008(0, &qword_280C140A0, 0x277D75D18);
   v6 = sub_21E4DD088();
   v7 = a1;
   a4(v6);
+
+  return result;
 }
 
-uint64_t sub_21E4CA38C(uint64_t a1, double a2, double a3)
+void sub_21E4CA38C(uint64_t a1, double a2, double a3)
 {
   v7 = [v3 continuerSuggestionsViews];
-  type metadata accessor for SiriSharedUIDropletContainerView();
+  type metadata accessor for SiriSharedUIDropletContainerView(0);
   v8 = sub_21E4DD088();
 
   if (!(v8 >> 62))
@@ -9277,6 +9276,8 @@ uint64_t sub_21E4CA38C(uint64_t a1, double a2, double a3)
     }
 
 LABEL_18:
+
+    return;
   }
 
 LABEL_23:
@@ -9322,8 +9323,7 @@ LABEL_22:
       if (v15)
       {
         type metadata accessor for SiriSharedUIAssistantSuggestionView();
-        result = swift_dynamicCastClass();
-        if (result)
+        if (swift_dynamicCastClass())
         {
           break;
         }
@@ -9341,18 +9341,18 @@ LABEL_22:
       break;
     }
 
-    v17 = *(a1 + 32 + 8 * v10);
-    if (v11 + v17 > a2)
+    v16 = *(a1 + 32 + 8 * v10);
+    if (v11 + v16 > a2)
     {
 
       goto LABEL_18;
     }
 
-    v18 = v15;
+    v17 = v15;
 
     sub_21E421E18();
 
-    v11 = v11 + v17 + a3;
+    v11 = v11 + v16 + a3;
     ++v10;
     if (v14 == v9)
     {
@@ -9361,7 +9361,6 @@ LABEL_22:
   }
 
   __break(1u);
-  return result;
 }
 
 Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.suggestionsMitose()()
@@ -9393,7 +9392,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.sugge
   v8 = objc_opt_self();
   v9 = [v8 animationWithKeyPath_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6280);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6280, &unk_21E4E57F0);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_21E4E6FA0;
   v11 = MEMORY[0x277D83B88];
@@ -9407,10 +9406,10 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.sugge
 
   [v9 setValues_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC57D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC57D0, &qword_21E4E6F40);
   v13 = swift_allocObject();
   *(v13 + 16) = xmmword_21E4E95E0;
-  sub_21E43F008(0, &qword_280C14070);
+  sub_21E43F008(0, &qword_280C14070, 0x277CCABB0);
   *(v13 + 32) = sub_21E4DD2C8();
   *(v13 + 40) = sub_21E4DD2C8();
   *(v13 + 48) = sub_21E4DD2C8();
@@ -9438,7 +9437,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.sugge
 
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_21E4E6FA0;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5390);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC5390, &qword_21E4E6960);
   *(v25 + 32) = &unk_282F808A0;
   *(v25 + 56) = v26;
   *(v25 + 64) = &unk_282F808E0;
@@ -9492,7 +9491,7 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.reduc
   v6 = sub_21E4DCF68();
   v7 = [objc_opt_self() animationWithKeyPath_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6280);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC6280, &unk_21E4E57F0);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_21E4E6FB0;
   v9 = MEMORY[0x277D839F8];
@@ -9514,10 +9513,10 @@ Swift::Void __swiftcall SiriSharedUISystemAssistantExperienceContainerView.reduc
 
   [v7 setValues_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC57D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEC57D0, &qword_21E4E6F40);
   v12 = swift_allocObject();
   *(v12 + 16) = xmmword_21E4E8900;
-  sub_21E43F008(0, &qword_280C14070);
+  sub_21E43F008(0, &qword_280C14070, 0x277CCABB0);
   *(v12 + 32) = sub_21E4DD2C8();
   *(v12 + 40) = sub_21E4DD2C8();
   *(v12 + 48) = sub_21E4DD2C8();
@@ -9705,73 +9704,70 @@ id sub_21E4CB524(uint64_t a1)
   return result;
 }
 
-uint64_t sub_21E4CB680(uint64_t a1)
+void sub_21E4CB680(uint64_t a1)
 {
   v2 = sub_21E4DBD48();
   v3 = *(v2 - 8);
-  result = MEMORY[0x28223BE20](v2);
-  v6 = &v16[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(a1 + OBJC_IVAR____TtC12SiriSharedUI33SiriSharedUIScrollablePageantView_suggestionContainers);
-  if (v7 >> 62)
+  MEMORY[0x28223BE20](v2);
+  v5 = &v15[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *(a1 + OBJC_IVAR____TtC12SiriSharedUI33SiriSharedUIScrollablePageantView_suggestionContainers);
+  if (v6 >> 62)
   {
-    result = sub_21E4DD488();
-    v8 = result;
-    if (!result)
+    v7 = sub_21E4DD488();
+    if (!v7)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v8)
+    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v7)
     {
-      return result;
+      return;
     }
   }
 
-  if (v8 < 1)
+  if (v7 < 1)
   {
     __break(1u);
   }
 
   else
   {
-    v9 = (v3 + 16);
+    v8 = (v3 + 16);
 
-    v10 = 0;
-    v11 = MEMORY[0x277D74E20];
+    v9 = 0;
+    v10 = MEMORY[0x277D74E20];
     do
     {
-      if ((v7 & 0xC000000000000001) != 0)
+      if ((v6 & 0xC000000000000001) != 0)
       {
-        v12 = MEMORY[0x223D5B080](v10, v7);
+        v11 = MEMORY[0x223D5B080](v9, v6);
       }
 
       else
       {
-        v12 = *(v7 + 8 * v10 + 32);
+        v11 = *(v6 + 8 * v9 + 32);
       }
 
-      v13 = v12;
+      v12 = v11;
       if (qword_280C140A8 != -1)
       {
         swift_once();
       }
 
-      ++v10;
-      v14 = __swift_project_value_buffer(v2, qword_280C168B0);
-      (*v9)(v6, v14, v2);
-      v16[3] = sub_21E4DBD58();
-      v16[4] = v11;
-      __swift_allocate_boxed_opaque_existential_1(v16);
+      ++v9;
+      v13 = __swift_project_value_buffer(v2, qword_280C168B0);
+      (*v8)(v5, v13, v2);
+      v15[3] = sub_21E4DBD58();
+      v15[4] = v10;
+      __swift_allocate_boxed_opaque_existential_1(v15);
       sub_21E4DBD68();
       sub_21E4DD298();
     }
 
-    while (v8 != v10);
+    while (v7 != v9);
   }
-
-  return result;
 }

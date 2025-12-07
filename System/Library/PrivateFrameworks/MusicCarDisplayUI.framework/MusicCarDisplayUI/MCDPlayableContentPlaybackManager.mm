@@ -558,36 +558,36 @@ LABEL_12:
     response2 = [requestController2 response];
     pause = [response2 pause];
 
-    v24 = MCDGeneralLogging();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+    v25 = MCDGeneralLogging(v24);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
     if (stop && !pause)
     {
-      if (v25)
+      if (v26)
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v24, OS_LOG_TYPE_DEFAULT, "Sending stop command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v25, OS_LOG_TYPE_DEFAULT, "Sending stop command", v56, 2u);
       }
 
-      v26 = stop;
+      v27 = stop;
       goto LABEL_45;
     }
 
     if (pause)
     {
-      if (v25)
+      if (v26)
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v24, OS_LOG_TYPE_DEFAULT, "Sending pause command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v25, OS_LOG_TYPE_DEFAULT, "Sending pause command", v56, 2u);
       }
 
-      v26 = pause;
+      v27 = pause;
       goto LABEL_45;
     }
 
-    if (v25)
+    if (v26)
     {
-      *v52 = 0;
-      _os_log_impl(&dword_25AD8E000, v24, OS_LOG_TYPE_DEFAULT, "Sending play command", v52, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_25AD8E000, v25, OS_LOG_TYPE_DEFAULT, "Sending play command", v56, 2u);
     }
 
     requestController3 = [(_MCDNowPlayingContentManager *)self requestController];
@@ -622,11 +622,11 @@ LABEL_57:
 
       if ((v11 & 1) == 0)
       {
-        v12 = MCDGeneralLogging();
+        v12 = MCDGeneralLogging(isSeeking);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          *v52 = 0;
-          _os_log_impl(&dword_25AD8E000, v12, OS_LOG_TYPE_DEFAULT, "Sending reverse seek command", v52, 2u);
+          *v56 = 0;
+          _os_log_impl(&dword_25AD8E000, v12, OS_LOG_TYPE_DEFAULT, "Sending reverse seek command", v56, 2u);
         }
 
         v13 = seekCommand;
@@ -634,7 +634,7 @@ LABEL_57:
 LABEL_39:
         endSeek = [v13 beginSeekWithDirection:v14];
         selfCopy2 = self;
-        v30 = 1;
+        v31 = 1;
         goto LABEL_40;
       }
 
@@ -644,51 +644,51 @@ LABEL_39:
     if (isSeeking)
     {
       endSeek = [seekCommand endSeek];
-      v28 = MCDGeneralLogging();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = MCDGeneralLogging(endSeek);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v28, OS_LOG_TYPE_DEFAULT, "Sending end reverse seek command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v29, OS_LOG_TYPE_DEFAULT, "Sending end reverse seek command", v56, 2u);
       }
 
 LABEL_35:
       selfCopy2 = self;
-      v30 = 0;
+      v31 = 0;
 LABEL_40:
-      [(MCDPlayableContentPlaybackManager *)selfCopy2 setSeeking:v30];
+      [(MCDPlayableContentPlaybackManager *)selfCopy2 setSeeking:v31];
       goto LABEL_60;
     }
 
     [(MCDPlayableContentPlaybackManager *)self _jumpBackwardInterval];
-    v37 = v36;
+    v39 = v38;
     requestController4 = [(_MCDNowPlayingContentManager *)self requestController];
     response4 = [requestController4 response];
     tracklist = [response4 tracklist];
     changeItemCommand = [tracklist changeItemCommand];
     stop = [changeItemCommand previousItem];
 
-    if (v37 != 0.0)
+    if (v39 != 0.0)
     {
-      v42 = MCDGeneralLogging();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v45 = MCDGeneralLogging(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v42, OS_LOG_TYPE_DEFAULT, "Sending skip backwards command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v45, OS_LOG_TYPE_DEFAULT, "Sending skip backwards command", v56, 2u);
       }
 
       pause = [(_MCDNowPlayingContentManager *)self nowPlayingItem];
       requestController3 = [pause seekCommand];
-      endSeek = [requestController3 jumpByInterval:v37];
+      endSeek = [requestController3 jumpByInterval:v39];
       goto LABEL_57;
     }
 
     if (stop)
     {
-      v46 = MCDGeneralLogging();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v49 = MCDGeneralLogging(v44);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v46, OS_LOG_TYPE_DEFAULT, "Sending previous item command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v49, OS_LOG_TYPE_DEFAULT, "Sending previous item command", v56, 2u);
       }
 
       endSeek = stop;
@@ -714,11 +714,11 @@ LABEL_71:
       }
     }
 
-    v51 = MCDGeneralLogging();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v55 = MCDGeneralLogging(v52);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
-      *v52 = 0;
-      _os_log_impl(&dword_25AD8E000, v51, OS_LOG_TYPE_DEFAULT, "Opening action sheet for like/dislike command", v52, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_25AD8E000, v55, OS_LOG_TYPE_DEFAULT, "Opening action sheet for like/dislike command", v56, 2u);
     }
 
     [(MCDPlayableContentPlaybackManager *)self _handleHamburgerActionSheet];
@@ -730,44 +730,44 @@ LABEL_71:
   {
     if (isSeeking2)
     {
-      v27 = MCDGeneralLogging();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = MCDGeneralLogging(isSeeking2);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v27, OS_LOG_TYPE_DEFAULT, "Sending end forward seek command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v28, OS_LOG_TYPE_DEFAULT, "Sending end forward seek command", v56, 2u);
       }
 
       endSeek = [seekCommand endSeek];
       goto LABEL_35;
     }
 
-    [(MCDPlayableContentPlaybackManager *)self _jumpForwardInterval];
-    v33 = v32;
-    v34 = MCDGeneralLogging();
-    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
-    if (v33 != 0.0)
+    _jumpForwardInterval = [(MCDPlayableContentPlaybackManager *)self _jumpForwardInterval];
+    v35 = v34;
+    v36 = MCDGeneralLogging(_jumpForwardInterval);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+    if (v35 != 0.0)
     {
-      if (v35)
+      if (v37)
       {
-        *v52 = 0;
-        _os_log_impl(&dword_25AD8E000, v34, OS_LOG_TYPE_DEFAULT, "Sending skip forward command", v52, 2u);
+        *v56 = 0;
+        _os_log_impl(&dword_25AD8E000, v36, OS_LOG_TYPE_DEFAULT, "Sending skip forward command", v56, 2u);
       }
 
       stop = [(_MCDNowPlayingContentManager *)self nowPlayingItem];
       pause = [stop seekCommand];
-      v26 = [pause jumpByInterval:v33];
+      v27 = [pause jumpByInterval:v35];
 LABEL_45:
-      endSeek = v26;
+      endSeek = v27;
 LABEL_58:
 
 LABEL_59:
       goto LABEL_60;
     }
 
-    if (v35)
+    if (v37)
     {
-      *v52 = 0;
-      _os_log_impl(&dword_25AD8E000, v34, OS_LOG_TYPE_DEFAULT, "Sending forward item command", v52, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_25AD8E000, v36, OS_LOG_TYPE_DEFAULT, "Sending forward item command", v56, 2u);
     }
 
     stop = [(_MCDNowPlayingContentManager *)self requestController];
@@ -790,11 +790,11 @@ LABEL_59:
 
   if ((v16 & 1) == 0)
   {
-    v31 = MCDGeneralLogging();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = MCDGeneralLogging(isSeeking2);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      *v52 = 0;
-      _os_log_impl(&dword_25AD8E000, v31, OS_LOG_TYPE_DEFAULT, "Sending forward seek command", v52, 2u);
+      *v56 = 0;
+      _os_log_impl(&dword_25AD8E000, v32, OS_LOG_TYPE_DEFAULT, "Sending forward seek command", v56, 2u);
     }
 
     v13 = seekCommand;
@@ -810,17 +810,17 @@ LABEL_60:
 
 - (void)_handleHamburgerActionSheet
 {
-  v20 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:0 preferredStyle:0];
-  [v20 setOverrideUserInterfaceStyle:2];
+  v22 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:0 preferredStyle:0];
+  [v22 setOverrideUserInterfaceStyle:2];
   nowPlayingItem = [(_MCDNowPlayingContentManager *)self nowPlayingItem];
   likeCommand = [nowPlayingItem likeCommand];
 
   if (likeCommand)
   {
-    v5 = MCDCarDisplayBundle();
-    v6 = [v5 localizedStringForKey:@"LIKE_TRACK_DEFAULT_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v7 = [(MCDPlayableContentPlaybackManager *)self _alertActionForFeedbackCommand:likeCommand fallbackTitle:v6];
-    [v20 addAction:v7];
+    v6 = MCDCarDisplayBundle(v5);
+    v7 = [v6 localizedStringForKey:@"LIKE_TRACK_DEFAULT_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v8 = [(MCDPlayableContentPlaybackManager *)self _alertActionForFeedbackCommand:likeCommand fallbackTitle:v7];
+    [v22 addAction:v8];
   }
 
   nowPlayingItem2 = [(_MCDNowPlayingContentManager *)self nowPlayingItem];
@@ -828,24 +828,24 @@ LABEL_60:
 
   if (dislikeCommand)
   {
-    v10 = MCDCarDisplayBundle();
-    v11 = [v10 localizedStringForKey:@"DISLIKE_TRACK_DEFAULT_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-    v12 = [(MCDPlayableContentPlaybackManager *)self _alertActionForFeedbackCommand:dislikeCommand fallbackTitle:v11];
-    [v20 addAction:v12];
+    v12 = MCDCarDisplayBundle(v11);
+    v13 = [v12 localizedStringForKey:@"DISLIKE_TRACK_DEFAULT_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+    v14 = [(MCDPlayableContentPlaybackManager *)self _alertActionForFeedbackCommand:dislikeCommand fallbackTitle:v13];
+    [v22 addAction:v14];
   }
 
-  v13 = MEMORY[0x277D750F8];
-  v14 = MCDCarDisplayBundle();
-  v15 = [v14 localizedStringForKey:@"CANCEL" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-  v16 = [v13 actionWithTitle:v15 style:1 handler:0];
-  [v20 addAction:v16];
+  v15 = MEMORY[0x277D750F8];
+  v16 = MCDCarDisplayBundle(v11);
+  v17 = [v16 localizedStringForKey:@"CANCEL" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+  v18 = [v15 actionWithTitle:v17 style:1 handler:0];
+  [v22 addAction:v18];
 
   delegate = [(_MCDNowPlayingContentManager *)self delegate];
-  LOBYTE(v14) = objc_opt_respondsToSelector();
+  LOBYTE(v16) = objc_opt_respondsToSelector();
 
-  if (v14)
+  if (v16)
   {
-    [(_MCDNowPlayingContentManager *)self setAlertController:v20];
+    [(_MCDNowPlayingContentManager *)self setAlertController:v22];
     delegate2 = [(_MCDNowPlayingContentManager *)self delegate];
     alertController = [(_MCDNowPlayingContentManager *)self alertController];
     [delegate2 contentManager:self presentViewController:alertController];

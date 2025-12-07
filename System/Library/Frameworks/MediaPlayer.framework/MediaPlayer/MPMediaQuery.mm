@@ -1512,7 +1512,7 @@ uint64_t __29__MPMediaQuery__countOfItems__block_invoke(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t __25__MPMediaQuery__hasItems__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__25__MPMediaQuery__hasItems__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;

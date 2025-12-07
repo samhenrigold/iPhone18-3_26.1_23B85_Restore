@@ -639,7 +639,7 @@ LABEL_12:
   return error;
 }
 
-uint64_t __38__ICMedia_writeDataFromFileURL_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+uint64_t __38__ICMedia_writeDataFromFileURL_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v45[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -1229,7 +1229,7 @@ LABEL_8:
   return error;
 }
 
-uint64_t __27__ICMedia_writeData_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+uint64_t __27__ICMedia_writeData_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = [*(a1 + 32) mediaArchiveURL];
@@ -1328,7 +1328,7 @@ void __27__ICMedia_writeData_error___block_invoke_37(uint64_t a1)
   return error;
 }
 
-uint64_t __42__ICMedia_writeDataFromFileWrapper_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+uint64_t __42__ICMedia_writeDataFromFileWrapper_error___block_invoke(uint64_t a1, void *a2, uint64_t *a3)
 {
   v53[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -2832,12 +2832,33 @@ void __38__ICMedia_CloudKit__isInICloudAccount__block_invoke(uint64_t a1)
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
+void __38__ICMedia_writeDataFromFileURL_error___block_invoke_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_214D51000, a2, a3, "Error writing media file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)writeDataFromAsset:(void *)a1 accountID:isArchivedDirectory:error:.cold.3(void *a1)
 {
   v1 = [a1 ic_loggingDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+}
+
+void __27__ICMedia_writeData_error___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_214D51000, a2, a3, "Error writing data for media: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __42__ICMedia_writeDataFromFileWrapper_error___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_214D51000, a2, a3, "Could not write media file wrapper to URL: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __42__ICMedia_writeDataFromFileWrapper_error___block_invoke_cold_2()

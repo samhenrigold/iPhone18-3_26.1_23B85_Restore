@@ -9,7 +9,7 @@
 
 - (SKIOMedia)initWithDevName:(id)name
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = *MEMORY[0x277CD2898];
   lastPathComponent = [nameCopy lastPathComponent];
@@ -18,9 +18,9 @@
 
   if (MatchingService)
   {
-    v13.receiver = self;
-    v13.super_class = SKIOMedia;
-    self = [(SKIOObject *)&v13 initWithIOObject:MatchingService];
+    v12.receiver = self;
+    v12.super_class = SKIOMedia;
+    self = [(SKIOObject *)&v12 initWithIOObject:MatchingService];
     selfCopy = self;
   }
 
@@ -30,20 +30,19 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = nameCopy;
+      v14 = nameCopy;
       _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "Failed to find IO media entry for %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (SKIOMedia)initWithDADisk:(id)disk
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   v5 = diskCopy;
   if (!diskCopy)
@@ -60,20 +59,19 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_DEFAULT, "Failed to get IO media object for DA disk %@", buf, 0xCu);
     }
 
     goto LABEL_7;
   }
 
-  v11.receiver = self;
-  v11.super_class = SKIOMedia;
-  self = [(SKIOObject *)&v11 initWithIOObject:v6];
+  v10.receiver = self;
+  v10.super_class = SKIOMedia;
+  self = [(SKIOObject *)&v10 initWithIOObject:v6];
   selfCopy = self;
 LABEL_8:
 
-  v9 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

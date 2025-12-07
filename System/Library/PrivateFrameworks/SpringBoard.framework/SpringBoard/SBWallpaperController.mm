@@ -1208,8 +1208,8 @@ LABEL_21:
   v44 = defaultTimeFont;
   if (v31)
   {
-    renderingConfiguration = [v31 renderingConfiguration];
-    [coverSheetViewController setDepthEffectDisabled:{objc_msgSend(renderingConfiguration, "isDepthEffectDisabled")}];
+    v33 = objc_msgSend_renderingConfiguration(v31);
+    [coverSheetViewController setDepthEffectDisabled:{objc_msgSend(v33, "isDepthEffectDisabled")}];
 
     v34 = objc_alloc(MEMORY[0x277D02C70]);
     quickActionsConfiguration = [v31 quickActionsConfiguration];
@@ -3369,7 +3369,7 @@ void __64__SBWallpaperController_availableActivitiesDidChangeForManager___block_
   reachabilityCopy = reachability;
   v4 = +[SBReachabilityManager sharedInstance];
   ignoredWindows = [v4 ignoredWindows];
-  v6 = [ignoredWindows containsObject:reachabilityCopy];
+  v6 = objc_msgSend_containsObject_(ignoredWindows);
 
   return v6;
 }

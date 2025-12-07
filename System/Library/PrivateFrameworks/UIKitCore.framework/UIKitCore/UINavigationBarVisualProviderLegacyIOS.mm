@@ -72,8 +72,8 @@ void __71___UINavigationBarVisualProviderLegacyIOS__effectiveBackIndicatorImage_
 {
   v2 = [UIImage kitImageNamed:@"UINavigationBarBackIndicatorDefault"];
   v0 = [v2 imageFlippedForRightToLeftLayoutDirection];
-  v1 = _MergedGlobals_29_0;
-  _MergedGlobals_29_0 = v0;
+  v1 = _MergedGlobals_29_0[0];
+  _MergedGlobals_29_0[0] = v0;
 }
 
 void __85___UINavigationBarVisualProviderLegacyIOS__effectiveBackIndicatorTransitionMaskImage__block_invoke()

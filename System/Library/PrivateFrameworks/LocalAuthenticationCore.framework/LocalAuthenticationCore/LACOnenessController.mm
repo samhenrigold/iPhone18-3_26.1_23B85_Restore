@@ -11,10 +11,9 @@
 
 - (LACUserInterfacePresenting)uiPresenter
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___LACOnenessController_uiPresenter);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACOnenessController)initWithAuthenticator:(id)authenticator clientInfoProvider:(id)provider environmentProvider:(id)environmentProvider sessionMonitor:(id)monitor uiPresenter:(id)presenter replyQueue:(id)queue
@@ -71,7 +70,7 @@
 {
   errorCopy = error;
   selfCopy = self;
-  v6 = LACOnenessController.mapError(_:)();
+  v6 = LACOnenessController.mapError(_:)(errorCopy);
 
   v7 = _convertErrorToNSError(_:)();
 

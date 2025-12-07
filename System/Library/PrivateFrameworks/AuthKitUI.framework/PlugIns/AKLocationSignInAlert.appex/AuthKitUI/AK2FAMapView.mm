@@ -101,47 +101,45 @@
 - (void)startLoadingImage
 {
   selfCopy = self;
-  v26[1] = a2;
+  v24[1] = a2;
   [(UIActivityIndicatorView *)self->_spinner startAnimating];
-  v26[0] = objc_alloc_init(MKMapSnapshotOptions);
-  width = selfCopy->_size.width;
-  height = selfCopy->_size.height;
+  v24[0] = objc_alloc_init(MKMapSnapshotOptions);
   sub_1000059A4();
-  *&v25 = v4;
-  *(&v25 + 1) = v5;
-  v24 = v25;
-  [v26[0] setSize:{v4, v5}];
-  [v26[0] setMapType:?];
+  *&v23 = v2;
+  *(&v23 + 1) = v3;
+  v22 = v23;
+  [v24[0] setSize:{v2, v3}];
+  [v24[0] setMapType:?];
   coordinate = selfCopy->_coordinate;
-  *&v23 = 0x3FD999999999999ALL;
-  *(&v23 + 1) = 0x3FD999999999999ALL;
-  v20 = coordinate;
-  v21 = v23;
-  [v26[0] setRegion:{coordinate, 0.4, 0.4}];
+  *&v21 = 0x3FD999999999999ALL;
+  *(&v21 + 1) = 0x3FD999999999999ALL;
+  v18 = coordinate;
+  v19 = v21;
+  [v24[0] setRegion:{coordinate, 0.4, 0.4}];
   view = [(AK2FAMapView *)selfCopy view];
   traitCollection = [view traitCollection];
-  [v26[0] setTraitCollection:?];
+  [v24[0] setTraitCollection:?];
 
-  v6 = [MKMapSnapshotter alloc];
-  v19 = [v6 initWithOptions:v26[0]];
+  v4 = [MKMapSnapshotter alloc];
+  v17 = [v4 initWithOptions:v24[0]];
   objc_initWeak(&location, selfCopy);
   queue = dispatch_get_global_queue(25, 0);
-  v10 = _NSConcreteStackBlock;
-  v11 = -1073741824;
-  v12 = 0;
-  v13 = sub_1000059D8;
-  v14 = &unk_10000C3F0;
-  v15 = v19;
-  objc_copyWeak(&v17, &location);
-  v16 = selfCopy;
-  dispatch_async(queue, &v10);
+  v8 = _NSConcreteStackBlock;
+  v9 = -1073741824;
+  v10 = 0;
+  v11 = sub_1000059D8;
+  v12 = &unk_10000C3F0;
+  v13 = v17;
+  objc_copyWeak(&v15, &location);
+  v14 = selfCopy;
+  dispatch_async(queue, &v8);
 
-  objc_storeStrong(&v16, 0);
-  objc_destroyWeak(&v17);
-  objc_storeStrong(&v15, 0);
+  objc_storeStrong(&v14, 0);
+  objc_destroyWeak(&v15);
+  objc_storeStrong(&v13, 0);
   objc_destroyWeak(&location);
-  objc_storeStrong(&v19, 0);
-  objc_storeStrong(v26, 0);
+  objc_storeStrong(&v17, 0);
+  objc_storeStrong(v24, 0);
 }
 
 - (void)_setImageForSnapshot:(id)snapshot

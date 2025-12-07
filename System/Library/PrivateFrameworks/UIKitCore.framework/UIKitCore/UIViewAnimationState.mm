@@ -113,48 +113,48 @@
 
 + (void)popAnimationState
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   if (__currentViewAnimationState)
   {
-    v1 = v0;
-    v9 = __currentViewAnimationState;
-    [v9 pop];
+    v2 = v1;
+    v10 = __currentViewAnimationState;
+    [v10 pop];
     if (*(__currentViewAnimationState + 16))
     {
-      v2 = *(__currentViewAnimationState + 16);
+      v3 = *(__currentViewAnimationState + 16);
     }
 
     else
     {
-      v2 = &stru_1EFB14550;
+      v3 = &stru_1EFB14550;
     }
 
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v2, @"name", *(v9 + 4), @"delegate", 0}];
-    v4 = +[NSNotificationCenter uikitInternalCenter];
-    [v4 postNotificationName:@"UIViewAnimationDidCommitInternalNotification" object:v1 userInfo:v3];
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v3, @"name", *(v10 + 4), @"delegate", 0}];
+    v5 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
+    [v5 postNotificationName:@"UIViewAnimationDidCommitInternalNotification" object:v2 userInfo:v4];
 
-    v5 = *(__currentViewAnimationState + 16);
+    v6 = *(__currentViewAnimationState + 16);
     objc_storeStrong(&__currentViewAnimationState, *(__currentViewAnimationState + 8));
-    if (!*(v9 + 42) && (*(v9 + 173) & 1) == 0)
+    if (!*(v10 + 42) && (*(v10 + 173) & 1) == 0)
     {
-      [v9 sendDelegateAnimationDidStop:0 finished:1];
-      v6 = *(v9 + 4);
-      *(v9 + 4) = 0;
+      [v10 sendDelegateAnimationDidStop:0 finished:1];
+      v7 = *(v10 + 4);
+      *(v10 + 4) = 0;
     }
 
-    v7 = __currentViewAnimationState;
+    v8 = __currentViewAnimationState;
     if (!__currentViewAnimationState && qword_1EA994710)
     {
-      if (__animate == 1 && ([v5 isEqualToString:@"UITextSelectionView"] & 1) == 0 && (byte_1EA9946CA & 1) == 0)
+      if (__animate == 1 && (objc_msgSend_isEqualToString_(v6) & 1) == 0 && (byte_1EA9946CA & 1) == 0)
       {
-        v8 = qword_1EA994710;
+        v9 = qword_1EA994710;
         qword_1EA994710 = 0;
       }
 
-      v7 = __currentViewAnimationState;
+      v8 = __currentViewAnimationState;
     }
 
-    if (!v7)
+    if (!v8)
     {
       [qword_1EA994738 removeAllObjects];
     }
@@ -319,14 +319,14 @@ LABEL_20:
     {
       v2 = _UIInternalPreferenceUsesDefault(&dword_1ED48B820, @"InProcessAnimationsFlushUpdates", _UIInternalPreferenceUpdateBool);
       result = 0;
-      if ((v2 & 1) == 0)
+      if (!v2)
       {
         if (byte_1ED48B824)
         {
           result = [v1 isInProcess];
           if (result)
           {
-            if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B828, @"SystemAppInProcessAnimationsFlushUpdates", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48B82C)
+            if (_UIInternalPreferenceUsesDefault(&dword_1ED48B828, @"SystemAppInProcessAnimationsFlushUpdates", _UIInternalPreferenceUpdateBool) || !byte_1ED48B82C)
             {
               return [UIApp isFrontBoard] ^ 1;
             }
@@ -705,10 +705,10 @@ LABEL_52:
   v3 = [(UIViewAnimationState *)self _canonicalTrackedLayerAnimationInLayer:&v10];
   v4 = v10;
   beginTimeMode = [v3 beginTimeMode];
-  v6 = [beginTimeMode isEqualToString:*MEMORY[0x1E6979588]];
+  isEqualToString = objc_msgSend_isEqualToString_(beginTimeMode);
 
   v7 = -1.0;
-  if (v6)
+  if (isEqualToString)
   {
     [v3 duration];
     [(UIViewAnimationState *)self _unpacedFractionCompleteForAnimation:v3 inLayer:v4 duration:?];
@@ -744,36 +744,36 @@ LABEL_52:
 
 + (void)_flushUpdates
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objc_opt_self();
-  v5 = 0u;
   v6 = 0u;
   v7 = 0u;
   v8 = 0u;
-  v0 = [UIWindow allWindowsIncludingInternalWindows:1 onlyVisibleWindows:1, 0];
-  v1 = [v0 countByEnumeratingWithState:&v5 objects:v9 count:16];
-  if (v1)
+  v9 = 0u;
+  v1 = [UIWindow allWindowsIncludingInternalWindows:1 onlyVisibleWindows:1, 0];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v2 = v1;
-    v3 = *v6;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v4 = 0;
+      v5 = 0;
       do
       {
-        if (*v6 != v3)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v0);
+          objc_enumerationMutation(v1);
         }
 
-        [*(*(&v5 + 1) + 8 * v4++) layoutBelowIfNeeded];
+        [*(*(&v6 + 1) + 8 * v5++) layoutBelowIfNeeded];
       }
 
-      while (v2 != v4);
-      v2 = [v0 countByEnumeratingWithState:&v5 objects:v9 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v2);
+    while (v3);
   }
 }
 
@@ -871,9 +871,9 @@ LABEL_52:
     v8 = v21;
     if (__animate == 1)
     {
-      v20 = [v21 isEqualToString:@"UITextSelectionView"];
+      isEqualToString = objc_msgSend_isEqualToString_(v21, v21, @"UITextSelectionView");
       v8 = v21;
-      if ((v20 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         [self _prepareForViewAnimationAfterPush];
         v8 = v21;
@@ -978,7 +978,7 @@ LABEL_52:
   animationCopy = animation;
   layerCopy = layer;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"contents"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -1244,7 +1244,7 @@ LABEL_33:
             {
               v24 = v23;
               keyPath = [v24 keyPath];
-              if ([keyPath isEqualToString:keyCopy])
+              if (objc_msgSend_isEqualToString_(keyPath))
               {
                 if (![v24 isAdditive])
                 {
@@ -1423,7 +1423,7 @@ void __92__UIViewAnimationState__transformIntoAdditiveAnimationAndNoteOriginal_i
   layerCopy = layer;
   keyCopy = key;
   viewCopy = view;
-  if ([keyCopy isEqualToString:@"cornerRadius"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     [layerCopy cornerRadius];
   }
@@ -1548,10 +1548,10 @@ LABEL_16:
     if ([layerCopy hasBeenCommitted])
     {
       beginTimeMode = [animationCopy beginTimeMode];
-      v12 = [beginTimeMode isEqualToString:*MEMORY[0x1E6979588]];
+      isEqualToString = objc_msgSend_isEqualToString_(beginTimeMode);
 
       v10 = 0.0;
-      if (v12)
+      if (isEqualToString)
       {
         if (duration == 0.0)
         {
@@ -1601,9 +1601,9 @@ LABEL_16:
       if ([v3 hasBeenCommitted])
       {
         beginTimeMode = [v2 beginTimeMode];
-        v7 = [beginTimeMode isEqualToString:*MEMORY[0x1E6979588]];
+        isEqualToString = objc_msgSend_isEqualToString_(beginTimeMode);
 
-        if (v7)
+        if (isEqualToString)
         {
           [v4 convertTime:0 fromLayer:CACurrentMediaTime()];
           v9 = v8;
@@ -2672,7 +2672,7 @@ LABEL_20:
   }
 
   v30 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{v29, @"name", self->_delegate, @"delegate", 0}];
-  v31 = +[NSNotificationCenter uikitInternalCenter];
+  v31 = +[(NSNotificationCenter *)MEMORY[0x1E696AD88]];
   [v31 postNotificationName:@"UIViewAnimationDidStopInternalNotification" object:self userInfo:v30];
 }
 
@@ -2954,7 +2954,7 @@ LABEL_20:
               if (isKindOfClass)
               {
                 keyPath = [v18 keyPath];
-                if ([keyPath isEqualToString:pathCopy])
+                if (objc_msgSend_isEqualToString_(keyPath))
                 {
 
 LABEL_22:
@@ -2984,12 +2984,12 @@ LABEL_26:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v21 = [pathCopy isEqualToString:@"transition"];
-                v22 = v21;
+                isEqualToString = objc_msgSend_isEqualToString_(pathCopy);
+                v22 = isEqualToString;
                 if ((isKindOfClass & 1) == 0)
                 {
                   keyPath = v6;
-                  if (!v21)
+                  if (!isEqualToString)
                   {
                     continue;
                   }
@@ -3204,9 +3204,9 @@ LABEL_10:
           }
 
           beginTimeMode = [v23 beginTimeMode];
-          v37 = [beginTimeMode isEqualToString:*MEMORY[0x1E6979588]];
+          isEqualToString = objc_msgSend_isEqualToString_(beginTimeMode);
 
-          if (v37)
+          if (isEqualToString)
           {
             [layerCopy convertTime:0 fromLayer:CACurrentMediaTime()];
             v39 = v38;

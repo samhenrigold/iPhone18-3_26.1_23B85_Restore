@@ -11,62 +11,62 @@
 
 - (IMMessage)message
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_message(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  message = [_item message];
 
-  return v6;
+  return message;
 }
 
 - (BOOL)isFromMe
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_isFromMe(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  isFromMe = [_item isFromMe];
 
-  return v6;
+  return isFromMe;
 }
 
 - (BOOL)failed
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_errorCode(v3, v4, v5) != 0;
+  _item = [(IMChatItem *)self _item];
+  v3 = [_item errorCode] != 0;
 
-  return v6;
+  return v3;
 }
 
 - (NSDate)time
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_time(v3, v4, v5);
+  _item = [(IMChatItem *)self _item];
+  time = [_item time];
 
-  return v6;
+  return time;
 }
 
 - (IMHandle)sender
 {
-  v3 = objc_msgSend_message(self, a2, v2);
-  v6 = objc_msgSend_sender(v3, v4, v5);
+  message = [(IMMessageChatItem *)self message];
+  sender = [message sender];
 
-  return v6;
+  return sender;
 }
 
 - (BOOL)canReply
 {
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_service(v3, v4, v5);
-  v8 = objc_msgSend_serviceWithInternalName_(IMServiceImpl, v7, v6);
+  _item = [(IMChatItem *)self _item];
+  service = [_item service];
+  v4 = [IMServiceImpl serviceWithInternalName:service];
 
-  v9 = MEMORY[0x1E69A7990];
-  if (objc_msgSend_supportsCapability_(v8, v10, *MEMORY[0x1E69A7990]))
+  v5 = MEMORY[0x1E69A7990];
+  if ([v4 supportsCapability:*MEMORY[0x1E69A7990]])
   {
-    v12 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v12 = objc_msgSend_supportsReplicationCapability_(v8, v11, *v9);
+    v6 = [v4 supportsReplicationCapability:*v5];
   }
 
-  return v12;
+  return v6;
 }
 
 @end

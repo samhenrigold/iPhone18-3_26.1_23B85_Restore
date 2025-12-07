@@ -36,12 +36,11 @@
 
 - (void)dealloc
 {
-  netrbClient = self->_netrbClient;
   _NETRBClientDestroy();
   CFRelease(self->_scDynamicStore);
-  v4.receiver = self;
-  v4.super_class = DMDPersonalHotspotManager;
-  [(DMDPersonalHotspotManager *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = DMDPersonalHotspotManager;
+  [(DMDPersonalHotspotManager *)&v3 dealloc];
 }
 
 - (BOOL)enabled

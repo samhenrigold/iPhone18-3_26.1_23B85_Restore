@@ -105,14 +105,12 @@
   if ((change - 3) <= 1 && disparity != 0.0)
   {
     v10 = PULocalizedString(@"PHOTOEDIT_CINEMATIC_FOCUS_STATE_FIXED_DISTANCE_FMT");
-    v13 = 1.0 / disparity;
-    v12 = v9;
-    v11 = PUStringWithValidatedFormat();
+    v17 = PUStringWithValidatedFormat(v10, @"%@ %f", v11, v12, v13, v14, v15, v16, v9);
 
-    v9 = v11;
+    v9 = v17;
   }
 
-  [badgeCopy _setText:{v9, v12, *&v13}];
+  [badgeCopy _setText:v9];
 }
 
 - (void)_setState:(int64_t)state forView:(id)view animated:(BOOL)animated
@@ -286,7 +284,7 @@
 
     if (hasTrimmedVideo)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       v12 = *a4;
       CMTimeAdd(retstr, &v12, &rhs);
     }

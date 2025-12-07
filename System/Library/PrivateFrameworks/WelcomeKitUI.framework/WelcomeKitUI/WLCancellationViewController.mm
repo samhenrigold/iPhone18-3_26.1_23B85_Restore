@@ -2,6 +2,8 @@
 - (WLCancellationViewController)initWithWelcomeController:(id)controller;
 - (void)_continue;
 - (void)_retry;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WLCancellationViewController
@@ -47,6 +49,22 @@
   }
 
   return v12;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLCancellationViewController;
+  [(WLCancellationViewController *)&v4 viewWillAppear:appear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WLCancellationViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidDisappear:disappear];
+  [(OBTrayButton *)self->_retryButton hidesBusyIndicator];
 }
 
 - (void)_continue

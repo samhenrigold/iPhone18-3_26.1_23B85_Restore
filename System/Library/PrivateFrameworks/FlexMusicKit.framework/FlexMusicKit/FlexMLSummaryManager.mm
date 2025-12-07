@@ -9,79 +9,78 @@
 
 - (FlexMLSummaryManager)initWithSummaryMapping:(id)mapping bundlePath:(id)path metadataPath:(id)metadataPath targetTimeScale:(int)scale
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   pathCopy = path;
   metadataPathCopy = metadataPath;
-  v72.receiver = self;
-  v72.super_class = FlexMLSummaryManager;
-  v13 = [(FlexMLSummaryManager *)&v72 init];
+  v71.receiver = self;
+  v71.super_class = FlexMLSummaryManager;
+  v13 = [(FlexMLSummaryManager *)&v71 init];
   v18 = v13;
   if (v13)
   {
-    v60 = metadataPathCopy;
-    v61 = v13;
+    v59 = metadataPathCopy;
+    v60 = v13;
     metadataPathCopy2 = metadataPath;
-    v63 = pathCopy;
+    v62 = pathCopy;
     v13->_targetTimeScale = scale;
     v19 = objc_msgSend_array(MEMORY[0x277CBEB18], v14, v15, v16, v17);
     v24 = objc_msgSend_array(MEMORY[0x277CBEB18], v20, v21, v22, v23);
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v64 = mappingCopy;
+    v63 = mappingCopy;
     obj = mappingCopy;
-    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v68, v73, 16);
+    v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v25, &v67, v72, 16);
     if (v26)
     {
       v30 = v26;
-      v31 = *v69;
+      v31 = *v68;
       do
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v69 != v31)
+          if (*v68 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = *(*(&v68 + 1) + 8 * i);
+          v33 = *(*(&v67 + 1) + 8 * i);
           v34 = objc_msgSend_objectAtIndex_(v33, v27, 0, v28, v29);
           v38 = objc_msgSend_objectAtIndex_(v33, v35, 1, v36, v37);
-          memset(&v67, 0, sizeof(v67));
+          memset(&v66, 0, sizeof(v66));
           objc_msgSend_doubleValue(v34, v39, v40, v41, v42);
-          CMTimeMakeWithSeconds(&v67, v43, scale);
-          v66 = v67;
-          v47 = objc_msgSend_valueWithCMTime_(MEMORY[0x277CCAE60], v44, &v66, v45, v46);
+          CMTimeMakeWithSeconds(&v66, v43, scale);
+          v65 = v66;
+          v47 = objc_msgSend_valueWithCMTime_(MEMORY[0x277CCAE60], v44, &v65, v45, v46);
           objc_msgSend_addObject_(v19, v48, v38, v49, v50);
           objc_msgSend_addObject_(v24, v51, v47, v52, v53);
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v68, v73, 16);
+        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, &v67, v72, 16);
       }
 
       while (v30);
     }
 
-    v18 = v61;
-    allFileNames = v61->_allFileNames;
-    v61->_allFileNames = v19;
+    v18 = v60;
+    allFileNames = v60->_allFileNames;
+    v60->_allFileNames = v19;
     v55 = v19;
 
-    allDurations = v61->_allDurations;
-    v61->_allDurations = v24;
+    allDurations = v60->_allDurations;
+    v60->_allDurations = v24;
     v57 = v24;
 
-    objc_storeStrong(&v61->_rootPath, path);
-    objc_storeStrong(&v61->_metadataPath, metadataPathCopy2);
+    objc_storeStrong(&v60->_rootPath, path);
+    objc_storeStrong(&v60->_metadataPath, metadataPathCopy2);
 
-    pathCopy = v63;
-    mappingCopy = v64;
-    metadataPathCopy = v60;
+    pathCopy = v62;
+    mappingCopy = v63;
+    metadataPathCopy = v59;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -222,7 +221,7 @@
 
 - (id)_summaryForDuration:(id *)duration
 {
-  v319 = *MEMORY[0x277D85DE8];
+  v318 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_allDurations(self, a2, duration, v3, v4);
   v10 = objc_msgSend_count(v5, v6, v7, v8, v9);
 
@@ -235,14 +234,14 @@
       v17 = objc_msgSend_allDurations(selfCopy3, v11, v12, v13, v14);
       v21 = objc_msgSend_objectAtIndex_(v17, v18, v15 + 1, v19, v20);
 
-      memset(&v296, 0, 24);
+      memset(&v295, 0, 24);
       if (v21)
       {
         objc_msgSend_CMTimeValue(v21, v22, v23, v24, v25);
       }
 
-      *&time1.start.value = *&v296.start.value;
-      time1.start.epoch = v296.start.epoch;
+      *&time1.start.value = *&v295.start.value;
+      time1.start.epoch = v295.start.epoch;
       time2 = *duration;
       if (!CMTimeCompare(&time1.start, &time2))
       {
@@ -251,8 +250,8 @@
         goto LABEL_12;
       }
 
-      *&time1.start.value = *&v296.start.value;
-      time1.start.epoch = v296.start.epoch;
+      *&time1.start.value = *&v295.start.value;
+      time1.start.epoch = v295.start.epoch;
       time2 = *duration;
       v26 = CMTimeCompare(&time1.start, &time2);
 
@@ -296,7 +295,7 @@ LABEL_13:
   v57 = objc_msgSend_dictionaryWithContentsOfFile_(MEMORY[0x277CBEB38], v54, v53, v55, v56);
   v58 = [FlexMLSummary alloc];
   v63 = objc_msgSend_targetTimeScale(selfCopy3, v59, v60, v61, v62);
-  v278 = v57;
+  v277 = v57;
   v66 = objc_msgSend_initWithDictionary_targetTimeScale_(v58, v64, v57, v63, v65);
   v67 = MEMORY[0x277CBEB38];
   v72 = objc_msgSend_metadataPath(selfCopy3, v68, v69, v70, v71);
@@ -305,45 +304,45 @@ LABEL_13:
   v84 = objc_msgSend_objectForKeyedSubscript_(v76, v77, @"songBeats", v78, v79);
   if (v84)
   {
-    v273 = v76;
-    v274 = v53;
-    v276 = v40;
-    v277 = v66;
-    v275 = v49;
-    v284 = objc_msgSend_array(MEMORY[0x277CBEB18], v80, v81, v82, v83);
-    v289 = objc_msgSend_array(MEMORY[0x277CBEB18], v85, v86, v87, v88);
+    v272 = v76;
+    v273 = v53;
+    v275 = v40;
+    v276 = v66;
+    v274 = v49;
+    v283 = objc_msgSend_array(MEMORY[0x277CBEB18], v80, v81, v82, v83);
+    v288 = objc_msgSend_array(MEMORY[0x277CBEB18], v85, v86, v87, v88);
+    v308 = 0u;
     v309 = 0u;
     v310 = 0u;
     v311 = 0u;
-    v312 = 0u;
-    v272 = v84;
+    v271 = v84;
     obj = v84;
-    v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v89, &v309, v318, 16);
+    v90 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v89, &v308, v317, 16);
     if (v90)
     {
       v94 = v90;
-      v95 = *v310;
+      v95 = *v309;
       do
       {
         for (i = 0; i != v94; ++i)
         {
-          if (*v310 != v95)
+          if (*v309 != v95)
           {
             objc_enumerationMutation(obj);
           }
 
-          v97 = *(*(&v309 + 1) + 8 * i);
-          v98 = objc_msgSend_objectForKeyedSubscript_(v97, v91, @"time", v92, v93, v272);
-          memset(&v296, 0, 24);
+          v97 = *(*(&v308 + 1) + 8 * i);
+          v98 = objc_msgSend_objectForKeyedSubscript_(v97, v91, @"time", v92, v93, v271);
+          memset(&v295, 0, 24);
           objc_msgSend_doubleValue(v98, v99, v100, v101, v102);
           v104 = v103;
           v109 = objc_msgSend_targetTimeScale(self, v105, v106, v107, v108);
-          CMTimeMakeWithSeconds(&v296.start, v104, v109);
-          *&time1.start.value = *&v296.start.value;
-          time1.start.epoch = v296.start.epoch;
+          CMTimeMakeWithSeconds(&v295.start, v104, v109);
+          *&time1.start.value = *&v295.start.value;
+          time1.start.epoch = v295.start.epoch;
           Seconds = CMTimeGetSeconds(&time1.start);
           v115 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v111, v112, v113, v114);
-          objc_msgSend_addObject_(v284, v116, v115, v117, v118);
+          objc_msgSend_addObject_(v283, v116, v115, v117, v118);
 
           v122 = objc_msgSend_objectForKey_(v97, v119, @"bar", v120, v121);
           if (v122)
@@ -355,21 +354,21 @@ LABEL_13:
             if (v132)
             {
               v137 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v133, v134, v135, v136, Seconds);
-              objc_msgSend_addObject_(v289, v138, v137, v139, v140);
+              objc_msgSend_addObject_(v288, v138, v137, v139, v140);
             }
           }
         }
 
-        v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v91, &v309, v318, 16);
+        v94 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v91, &v308, v317, 16);
       }
 
       while (v94);
     }
 
-    objc_msgSend_sortUsingSelector_(v284, v141, sel_compare_, v142, v143);
-    objc_msgSend_sortUsingSelector_(v289, v144, sel_compare_, v145, v146);
+    objc_msgSend_sortUsingSelector_(v283, v141, sel_compare_, v142, v143);
+    objc_msgSend_sortUsingSelector_(v288, v144, sel_compare_, v145, v146);
     obja = objc_msgSend_orderedSet(MEMORY[0x277CBEB40], v147, v148, v149, v150);
-    v285 = objc_msgSend_orderedSet(MEMORY[0x277CBEB40], v151, v152, v153, v154);
+    v284 = objc_msgSend_orderedSet(MEMORY[0x277CBEB40], v151, v152, v153, v154);
     v155 = MEMORY[0x277CC0898];
     value = *MEMORY[0x277CC0898];
     timescale = *(MEMORY[0x277CC0898] + 8);
@@ -377,30 +376,30 @@ LABEL_13:
     v160 = objc_msgSend_targetTimeScale(self, v156, v157, v158, v159);
     CMTimeMake(&time2, 1, v160);
     v165 = objc_msgSend_segments(v66, v161, v162, v163, v164);
+    v304 = 0u;
     v305 = 0u;
     v306 = 0u;
     v307 = 0u;
-    v308 = 0u;
-    v279 = objc_msgSend_segments(v66, v166, v167, v168, v169);
-    v282 = objc_msgSend_countByEnumeratingWithState_objects_count_(v279, v170, &v305, v315, 16);
-    if (v282)
+    v278 = objc_msgSend_segments(v66, v166, v167, v168, v169);
+    v281 = objc_msgSend_countByEnumeratingWithState_objects_count_(v278, v170, &v304, v314, 16);
+    if (v281)
     {
       flags = *(v155 + 12);
       epoch = *(v155 + 16);
-      v280 = *v306;
-      v281 = v165;
+      v279 = *v305;
+      v280 = v165;
       do
       {
         v177 = 0;
         do
         {
-          if (*v306 != v280)
+          if (*v305 != v279)
           {
-            objc_enumerationMutation(v279);
+            objc_enumerationMutation(v278);
           }
 
-          v178 = *(*(&v305 + 1) + 8 * v177);
-          v179 = objc_msgSend_lastObject(v165, v171, v172, v173, v174, v272);
+          v178 = *(*(&v304 + 1) + 8 * v177);
+          v179 = objc_msgSend_lastObject(v165, v171, v172, v173, v174, v271);
 
           if (v178 == v179)
           {
@@ -413,29 +412,29 @@ LABEL_13:
             v187 = objc_msgSend_objectAtIndexedSubscript_(v165, v184, v183 + 1, v185, v186);
           }
 
-          v283 = v177;
-          v303 = 0u;
-          v304 = 0u;
-          v301 = 0u;
+          v282 = v177;
           v302 = 0u;
-          v188 = v284;
-          v190 = objc_msgSend_countByEnumeratingWithState_objects_count_(v188, v189, &v301, v314, 16);
+          v303 = 0u;
+          v300 = 0u;
+          v301 = 0u;
+          v188 = v283;
+          v190 = objc_msgSend_countByEnumeratingWithState_objects_count_(v188, v189, &v300, v313, 16);
           if (v190)
           {
             v195 = v190;
-            v196 = *v302;
+            v196 = *v301;
             do
             {
               for (j = 0; j != v195; ++j)
               {
-                if (*v302 != v196)
+                if (*v301 != v196)
                 {
                   objc_enumerationMutation(v188);
                 }
 
-                v198 = *(*(&v301 + 1) + 8 * j);
-                v299 = 0uLL;
-                v300 = 0;
+                v198 = *(*(&v300 + 1) + 8 * j);
+                v298 = 0uLL;
+                v299 = 0;
                 if (v178)
                 {
                   objc_msgSend_trackTime(v178, v191, v192, v193, v194);
@@ -446,9 +445,9 @@ LABEL_13:
                     objc_msgSend_summaryTime(v187, v203, v204, v205, v206);
                     objc_msgSend_summaryTime(v178, v207, v208, v209, v210);
 LABEL_42:
-                    CMTimeSubtract(&v296.start, &time1.start, &rhs);
+                    CMTimeSubtract(&v295.start, &time1.start, &rhs);
                     v211 = 0;
-                    start = v296.start;
+                    start = v295.start;
                     goto LABEL_44;
                   }
                 }
@@ -466,17 +465,17 @@ LABEL_42:
 
                 v211 = 1;
 LABEL_44:
-                memset(&v296, 0, sizeof(v296));
-                *&time1.start.value = v299;
-                time1.start.epoch = v300;
+                memset(&v295, 0, sizeof(v295));
+                *&time1.start.value = v298;
+                time1.start.epoch = v299;
                 rhs = start;
-                CMTimeRangeMake(&v296, &time1.start, &rhs);
+                CMTimeRangeMake(&v295, &time1.start, &rhs);
                 memset(&rhs, 0, sizeof(rhs));
                 objc_msgSend_doubleValue(v198, v212, v213, v214, v215);
                 v217 = v216;
                 v222 = objc_msgSend_targetTimeScale(self, v218, v219, v220, v221);
                 CMTimeMakeWithSeconds(&rhs, v217, v222);
-                time1 = v296;
+                time1 = v295;
                 time = rhs;
                 if (!CMTimeRangeContainsTime(&time1, &time))
                 {
@@ -484,7 +483,7 @@ LABEL_44:
                   time1.start = rhs;
                   lhs = time2;
                   CMTimeAdd(&time, &time1.start, &lhs);
-                  time1 = v296;
+                  time1 = v295;
                   lhs = time;
                   if (!CMTimeRangeContainsTime(&time1, &lhs))
                   {
@@ -510,94 +509,109 @@ LABEL_44:
                 CMTimeSubtract(&time1.start, &time, &lhs);
                 memset(&time, 0, sizeof(time));
                 lhs = rhs;
-                v292 = time1.start;
-                CMTimeSubtract(&time, &lhs, &v292);
-                if ((flags & 1) == 0)
+                v291 = time1.start;
+                CMTimeSubtract(&time, &lhs, &v291);
+                if (flags)
                 {
-                  goto LABEL_70;
-                }
-
-                v292.value = value;
-                v292.timescale = timescale;
-                v292.flags = flags;
-                v292.epoch = epoch;
-                v291 = time2;
-                CMTimeSubtract(&lhs, &v292, &v291);
-                v292 = time;
-                if (CMTimeCompare(&v292, &lhs))
-                {
-                  v292.value = value;
-                  v292.timescale = timescale;
-                  v292.flags = flags;
-                  v292.epoch = epoch;
-                  v291 = time2;
-                  CMTimeAdd(&lhs, &v292, &v291);
-                  v292 = time;
-                  if (CMTimeCompare(&v292, &lhs))
+                  v291.value = value;
+                  v291.timescale = timescale;
+                  v291.flags = flags;
+                  v291.epoch = epoch;
+                  v290 = time2;
+                  CMTimeSubtract(&lhs, &v291, &v290);
+                  v291 = time;
+                  if (!CMTimeCompare(&v291, &lhs))
                   {
-LABEL_70:
-                    if (!v211 || (v292 = *duration, v291 = time2, CMTimeSubtract(&lhs, &v292, &v291), v292 = time, CMTimeCompare(&v292, &lhs)) && (lhs = time, v292 = *duration, CMTimeCompare(&lhs, &v292)))
-                    {
-                      lhs = time;
-                      v227 = CMTimeGetSeconds(&lhs);
-                      v232 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v228, v229, v230, v231);
-                      objc_msgSend_addObject_(obja, v233, v232, v234, v235);
+                    continue;
+                  }
 
-                      if (objc_msgSend_containsObject_(v289, v236, v198, v237, v238))
-                      {
-                        v239 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v191, v192, v193, v194, v227);
-                        objc_msgSend_addObject_(v285, v240, v239, v241, v242);
-                      }
-
-                      value = time.value;
-                      flags = time.flags;
-                      timescale = time.timescale;
-                      epoch = time.epoch;
-                    }
+                  v291.value = value;
+                  v291.timescale = timescale;
+                  v291.flags = flags;
+                  v291.epoch = epoch;
+                  v290 = time2;
+                  CMTimeAdd(&lhs, &v291, &v290);
+                  v291 = time;
+                  if (!CMTimeCompare(&v291, &lhs))
+                  {
+                    continue;
                   }
                 }
+
+                if (v211)
+                {
+                  v291 = *duration;
+                  v290 = time2;
+                  CMTimeSubtract(&lhs, &v291, &v290);
+                  v291 = time;
+                  if (!CMTimeCompare(&v291, &lhs))
+                  {
+                    continue;
+                  }
+
+                  lhs = time;
+                  v291 = *duration;
+                  if (!CMTimeCompare(&lhs, &v291))
+                  {
+                    continue;
+                  }
+                }
+
+                lhs = time;
+                v227 = CMTimeGetSeconds(&lhs);
+                v232 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v228, v229, v230, v231);
+                objc_msgSend_addObject_(obja, v233, v232, v234, v235);
+
+                if (objc_msgSend_containsObject_(v288, v236, v198, v237, v238))
+                {
+                  v239 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v191, v192, v193, v194, v227);
+                  objc_msgSend_addObject_(v284, v240, v239, v241, v242);
+                }
+
+                value = time.value;
+                flags = time.flags;
+                timescale = time.timescale;
+                epoch = time.epoch;
               }
 
-              v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(v188, v191, &v301, v314, 16);
+              v195 = objc_msgSend_countByEnumeratingWithState_objects_count_(v188, v191, &v300, v313, 16);
             }
 
             while (v195);
           }
 
-          v177 = v283 + 1;
-          v165 = v281;
+          v177 = v282 + 1;
+          v165 = v280;
         }
 
-        while (v283 + 1 != v282);
-        v282 = objc_msgSend_countByEnumeratingWithState_objects_count_(v279, v171, &v305, v315, 16);
+        while (v282 + 1 != v281);
+        v281 = objc_msgSend_countByEnumeratingWithState_objects_count_(v278, v171, &v304, v314, 16);
       }
 
-      while (v282);
+      while (v281);
     }
 
     v247 = objc_msgSend_array(obja, v243, v244, v245, v246);
-    v252 = objc_msgSend_array(v285, v248, v249, v250, v251);
-    v253 = v278;
-    v257 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEB38], v254, v278, v255, v256);
+    v252 = objc_msgSend_array(v284, v248, v249, v250, v251);
+    v253 = v277;
+    v257 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x277CBEB38], v254, v277, v255, v256);
     objc_msgSend_setObject_forKey_(v257, v258, v247, @"beatTimes", v259);
     objc_msgSend_setObject_forKey_(v257, v260, v252, @"barTimes", v261);
     v262 = [FlexMLSummary alloc];
     v267 = objc_msgSend_targetTimeScale(self, v263, v264, v265, v266);
     v66 = objc_msgSend_initWithDictionary_targetTimeScale_(v262, v268, v257, v267, v269);
 
-    v49 = v275;
-    v40 = v276;
-    v76 = v273;
-    v53 = v274;
-    v84 = v272;
+    v49 = v274;
+    v40 = v275;
+    v76 = v272;
+    v53 = v273;
+    v84 = v271;
   }
 
   else
   {
-    v253 = v278;
+    v253 = v277;
   }
-
-  v270 = *MEMORY[0x277D85DE8];
 
   return v66;
 }

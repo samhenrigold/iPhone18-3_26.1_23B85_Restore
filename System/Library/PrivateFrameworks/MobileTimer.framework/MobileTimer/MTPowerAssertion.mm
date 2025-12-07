@@ -47,11 +47,9 @@
 
 - (void)releaseAssertion
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 16);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_ERROR, "%{public}@ Releasing power assert for %{public}@. when assertion already released.", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B1F9F000, v0, OS_LOG_TYPE_ERROR, "%{public}@ Releasing power assert for %{public}@. when assertion already released.", v1, 0x16u);
 }
 
 @end

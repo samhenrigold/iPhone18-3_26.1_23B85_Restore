@@ -49,8 +49,8 @@ void __59__EKUITableViewCellWithPrimaryAndSecondaryFonts_initialize__block_invok
 - (id)primaryTextLabelFont
 {
   v3 = objc_opt_class();
-  contentView = [(EKUITableViewCellWithPrimaryAndSecondaryFonts *)self contentView];
-  [contentView frame];
+  v4 = objc_msgSend_contentView(self);
+  [v4 frame];
   v6 = [v3 primaryTextLabelFontForWidth:v5];
 
   return v6;

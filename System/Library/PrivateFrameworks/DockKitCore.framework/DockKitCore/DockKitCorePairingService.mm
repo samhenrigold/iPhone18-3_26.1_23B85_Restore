@@ -10,14 +10,14 @@
 {
   swift_unknownObjectWeakAssign();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DockKitCorePairingService();
+  v4.super_class = type metadata accessor for DockKitCorePairingService(0);
   selfCopy = self;
   [(DockKitCorePairingService *)&v4 dealloc];
 }
 
 - (void)setSetupPayloadWithUri:(NSURL *)uri completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

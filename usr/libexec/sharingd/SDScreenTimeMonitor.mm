@@ -239,24 +239,25 @@ LABEL_22:
   if (applicationExtension)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       containingAppBundleIdentifier = [activityCopy containingAppBundleIdentifier];
     }
 
     else
     {
-      v15 = share_sheet_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v16 = share_sheet_log(isKindOfClass);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         sub_100141724(activityCopy);
       }
 
       _plugIn = [applicationExtension _plugIn];
       identifier = [_plugIn identifier];
-      v18 = [LSPlugInKitProxy pluginKitProxyForIdentifier:identifier];
+      v19 = [LSPlugInKitProxy pluginKitProxyForIdentifier:identifier];
 
-      containingBundle = [v18 containingBundle];
+      containingBundle = [v19 containingBundle];
       containingAppBundleIdentifier = [containingBundle bundleIdentifier];
     }
   }

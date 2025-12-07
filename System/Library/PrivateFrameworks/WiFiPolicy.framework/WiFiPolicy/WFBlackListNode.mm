@@ -149,34 +149,34 @@ LABEL_15:
 
 - (BOOL)hasBlacklistedState:(unint64_t)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   blacklistedStatesCurrent = [(WFBlackListNode *)self blacklistedStatesCurrent];
-  v5 = [blacklistedStatesCurrent countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [blacklistedStatesCurrent countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(blacklistedStatesCurrent);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) blacklistedState] == state)
+        if ([*(*(&v11 + 1) + 8 * i) blacklistedState] == state)
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [blacklistedStatesCurrent countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [blacklistedStatesCurrent countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -189,7 +189,6 @@ LABEL_15:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -232,7 +231,7 @@ LABEL_11:
 - (void)addBlacklistedState:(unint64_t)state reason:(unint64_t)reason reasonData:(int64_t)data
 {
   reasonCopy = reason;
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v8 = [(WFBlackListNode *)self _copyCreateBlacklistedState:state reason:reason reasonData:data];
   if (!v8)
   {
@@ -252,57 +251,57 @@ LABEL_11:
 
   if (v14)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     blacklistedStatesCurrent2 = [(WFBlackListNode *)self blacklistedStatesCurrent];
-    v16 = [blacklistedStatesCurrent2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [blacklistedStatesCurrent2 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v31 = reasonCopy;
-      v32 = bssid;
+      v30 = reasonCopy;
+      v31 = bssid;
       v18 = ssid;
       v19 = 0;
-      v20 = *v34;
+      v20 = *v33;
       while (2)
       {
         v21 = 0;
         v22 = v19;
         do
         {
-          if (*v34 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(blacklistedStatesCurrent2);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * v21);
+          v19 = *(*(&v32 + 1) + 8 * v21);
 
           blacklistedState = [v19 blacklistedState];
           if (blacklistedState == [v8 blacklistedState])
           {
 
             ssid = v18;
-            bssid = v32;
+            bssid = v31;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
-              v29 = [WFBlacklistEngine stringRepresentationWithState:state];
-              v30 = [WFBlacklistEngine stringRepresentationWithReason:v31];
+              v28 = [WFBlacklistEngine stringRepresentationWithState:state];
+              v29 = [WFBlacklistEngine stringRepresentationWithReason:v30];
               *buf = 141559554;
               *&buf[4] = 1752392040;
-              v39 = 2112;
-              v40 = v18;
-              v41 = 2160;
-              v42 = 1752392040;
-              v43 = 2112;
-              v44 = v32;
-              v45 = 2112;
-              v46 = v29;
-              v47 = 2112;
-              v48 = v30;
-              v49 = 2048;
-              v50 = v31;
+              v38 = 2112;
+              v39 = v18;
+              v40 = 2160;
+              v41 = 1752392040;
+              v42 = 2112;
+              v43 = v31;
+              v44 = 2112;
+              v45 = v28;
+              v46 = 2112;
+              v47 = v29;
+              v48 = 2048;
+              v49 = v30;
               _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "'%{mask.hash}@[%{mask.hash}@]' was already %@. Would have blacklisted again due to %@(%lu)", buf, 0x48u);
             }
 
@@ -314,7 +313,7 @@ LABEL_11:
         }
 
         while (v17 != v21);
-        v17 = [blacklistedStatesCurrent2 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [blacklistedStatesCurrent2 countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v17)
         {
           continue;
@@ -324,8 +323,8 @@ LABEL_11:
       }
 
       ssid = v18;
-      reasonCopy = v31;
-      bssid = v32;
+      reasonCopy = v30;
+      bssid = v31;
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -337,18 +336,18 @@ LABEL_11:
     v25 = [WFBlacklistEngine stringRepresentationWithReason:reasonCopy];
     *buf = 141559554;
     *&buf[4] = 1752392040;
-    v39 = 2112;
-    v40 = ssid;
-    v41 = 2160;
-    v42 = 1752392040;
-    v43 = 2112;
-    v44 = bssid;
-    v45 = 2112;
-    v46 = v24;
-    v47 = 2112;
-    v48 = v25;
-    v49 = 2048;
-    v50 = reasonCopy;
+    v38 = 2112;
+    v39 = ssid;
+    v40 = 2160;
+    v41 = 1752392040;
+    v42 = 2112;
+    v43 = bssid;
+    v44 = 2112;
+    v45 = v24;
+    v46 = 2112;
+    v47 = v25;
+    v48 = 2048;
+    v49 = reasonCopy;
     v26 = MEMORY[0x277D86220];
   }
 
@@ -363,18 +362,18 @@ LABEL_11:
     v25 = [WFBlacklistEngine stringRepresentationWithReason:reasonCopy];
     *buf = 141559554;
     *&buf[4] = 1752392040;
-    v39 = 2112;
-    v40 = ssid;
-    v41 = 2160;
-    v42 = 1752392040;
-    v43 = 2112;
-    v44 = bssid;
-    v45 = 2112;
-    v46 = v24;
-    v47 = 2112;
-    v48 = v25;
-    v49 = 2048;
-    v50 = reasonCopy;
+    v38 = 2112;
+    v39 = ssid;
+    v40 = 2160;
+    v41 = 1752392040;
+    v42 = 2112;
+    v43 = bssid;
+    v44 = 2112;
+    v45 = v24;
+    v46 = 2112;
+    v47 = v25;
+    v48 = 2048;
+    v49 = reasonCopy;
     v26 = MEMORY[0x277D86220];
   }
 
@@ -388,12 +387,11 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBlacklistedStateHistory:(id)history state:(unint64_t)state reason:(unint64_t)reason reasonData:(int64_t)data
 {
-  buf[3] = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v11 = historyCopy;
   if (historyCopy)
@@ -407,7 +405,7 @@ LABEL_20:
     if (!v12)
     {
       [WFBlackListNode addBlacklistedStateHistory:state:reason:reasonData:];
-      v12 = buf[0];
+      v12 = *buf;
       goto LABEL_9;
     }
   }
@@ -432,8 +430,8 @@ LABEL_20:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(reason, "UTF8String")];
-    LODWORD(buf[0]) = 136446210;
-    *(buf + 4) = [v22 UTF8String];
+    *buf = 136446210;
+    *&buf[4] = [v22 UTF8String];
     _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}s", buf, 0xCu);
   }
 
@@ -441,7 +439,6 @@ LABEL_20:
   [blacklistedStatesHistory3 addObject:v12];
 
 LABEL_9:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkPruned
@@ -449,20 +446,17 @@ LABEL_9:
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s _blacklistMetrics nil", "-[WFBlackListNode networkPruned]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    uTF8String = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, uTF8String, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBlacklistedStateMetric:(id)metric unblacklisting:(BOOL)unblacklisting unblacklistingReason:(unint64_t)reason
 {
   unblacklistingCopy = unblacklisting;
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   if (!metricCopy)
   {
@@ -502,11 +496,11 @@ LABEL_30:
         {
           v15 = 0;
           *&v14 = 136316930;
-          v47 = v14;
-          v48 = metricCopy;
+          v46 = v14;
+          v47 = metricCopy;
           do
           {
-            v16 = [(NSMutableArray *)self->_blacklistMetrics objectAtIndex:v15, v47];
+            v16 = [(NSMutableArray *)self->_blacklistMetrics objectAtIndex:v15, v46];
             v17 = [v16 objectForKeyedSubscript:@"state"];
             unsignedIntegerValue = [v17 unsignedIntegerValue];
             blacklistedState = [metricCopy blacklistedState];
@@ -524,22 +518,22 @@ LABEL_16:
                   v32 = [v16 objectForKeyedSubscript:@"bssid"];
                   *buf = 136317186;
                   *&buf[4] = "[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]";
-                  v52 = 2160;
-                  v53 = 1752392040;
-                  v54 = 2112;
-                  v55 = v31;
-                  v56 = 2160;
-                  v57 = 1752392040;
-                  v58 = 2112;
-                  v59 = v32;
-                  v60 = 2160;
-                  v61 = 1752392040;
-                  v62 = 2112;
-                  v63 = ssid;
-                  v64 = 2160;
-                  v65 = 1752392040;
-                  v66 = 2112;
-                  v67 = bssid;
+                  v51 = 2160;
+                  v52 = 1752392040;
+                  v53 = 2112;
+                  v54 = v31;
+                  v55 = 2160;
+                  v56 = 1752392040;
+                  v57 = 2112;
+                  v58 = v32;
+                  v59 = 2160;
+                  v60 = 1752392040;
+                  v61 = 2112;
+                  v62 = ssid;
+                  v63 = 2160;
+                  v64 = 1752392040;
+                  v65 = 2112;
+                  v66 = bssid;
                   _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s metric ssid:%{mask.hash}@ bssid:%{mask.hash}@ doesnt match with node ssid:%{mask.hash}@ bssid:%{mask.hash}@", buf, 0x5Cu);
                 }
 
@@ -576,27 +570,27 @@ LABEL_16:
                 v33 = [v16 objectForKeyedSubscript:@"blocklistedDuration"];
                 v34 = [v16 objectForKeyedSubscript:@"unblocklistingReason"];
                 v35 = [v16 objectForKeyedSubscript:@"prunedCount"];
-                *buf = v47;
+                *buf = v46;
                 *&buf[4] = "[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]";
-                v52 = 2160;
-                v53 = 1752392040;
-                v54 = 2112;
-                v55 = ssid;
-                v56 = 2160;
-                v57 = 1752392040;
-                v58 = 2112;
-                v59 = bssid;
-                v60 = 2112;
-                v61 = v33;
-                v62 = 2112;
-                v63 = v34;
-                v64 = 2112;
-                v65 = v35;
+                v51 = 2160;
+                v52 = 1752392040;
+                v53 = 2112;
+                v54 = ssid;
+                v55 = 2160;
+                v56 = 1752392040;
+                v57 = 2112;
+                v58 = bssid;
+                v59 = 2112;
+                v60 = v33;
+                v61 = 2112;
+                v62 = v34;
+                v63 = 2112;
+                v64 = v35;
                 _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s Finish capturing metric for %{mask.hash}@[%{mask.hash}@] - {duration:%@ unblacklistReason:%@ prunedCount:%@}", buf, 0x52u);
               }
 
               [indexSet addIndex:v15];
-              metricCopy = v48;
+              metricCopy = v47;
             }
 
 LABEL_18:
@@ -663,8 +657,6 @@ LABEL_18:
   }
 
 LABEL_27:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblacklistingReason___block_invoke(uint64_t a1, void *a2)
@@ -679,14 +671,11 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s Alloc failed: historyList", "-[WFBlackListNode initWithBlacklistNetwork:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBlacklistNetwork:.cold.2()
@@ -694,14 +683,11 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s Alloc failed: statesList", "-[WFBlackListNode initWithBlacklistNetwork:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBlacklistNetwork:.cold.3()
@@ -709,14 +695,11 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s Alloc failed: triggersList", "-[WFBlackListNode initWithBlacklistNetwork:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBlacklistNetwork:.cold.4()
@@ -724,14 +707,11 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s network nil", "-[WFBlackListNode initWithBlacklistNetwork:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithBlacklistNetwork:.cold.5()
@@ -739,110 +719,93 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s self nil", "-[WFBlackListNode initWithBlacklistNetwork:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBlacklistTrigger:reasonData:bssid:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s ev alloc failed", "-[WFBlackListNode addBlacklistTrigger:reasonData:bssid:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_copyCreateBlacklistedState:reason:reasonData:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s stateNode alloc failed", "-[WFBlackListNode _copyCreateBlacklistedState:reason:reasonData:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBlacklistedState:reason:reasonData:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s Failed to add state", "-[WFBlackListNode addBlacklistedState:reason:reasonData:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBlacklistedStateHistory:state:reason:reasonData:.cold.1()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s Failed to add state to history", "-[WFBlackListNode addBlacklistedStateHistory:state:reason:reasonData:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBlacklistedStateMetric:(uint64_t)a1 unblacklisting:(uint64_t)a2 unblacklistingReason:(void *)a3 .cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = [a3 objectForKeyedSubscript:@"oui"];
   v7 = [a3 objectForKeyedSubscript:@"blocklistedReason"];
   v8 = [a3 objectForKeyedSubscript:@"blocklistedSubreason"];
-  v14[0] = 136316930;
+  v13[0] = 136316930;
   OUTLINED_FUNCTION_4_2();
-  v15 = a1;
-  v16 = v9;
-  v17 = v10;
-  v18 = v11;
-  v19 = a2;
-  v20 = v11;
-  v21 = v6;
-  v22 = v11;
-  v23 = v7;
-  v24 = v11;
-  v25 = v12;
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s Begin capturing metric for %{mask.hash}@[%{mask.hash}@] - {oui:%@ blacklistedReason:%@ blacklistedSubreason:%@}", v14, 0x52u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = a1;
+  v15 = v9;
+  v16 = v10;
+  v17 = v11;
+  v18 = a2;
+  v19 = v11;
+  v20 = v6;
+  v21 = v11;
+  v22 = v7;
+  v23 = v11;
+  v24 = v12;
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s Begin capturing metric for %{mask.hash}@[%{mask.hash}@] - {oui:%@ blacklistedReason:%@ blacklistedSubreason:%@}", v13, 0x52u);
 }
 
 - (void)processBlacklistedStateMetric:unblacklisting:unblacklistingReason:.cold.2()
@@ -850,14 +813,11 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s ssid nil", "-[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBlacklistedStateMetric:unblacklisting:unblacklistingReason:.cold.3()
@@ -865,50 +825,41 @@ void __85__WFBlackListNode_processBlacklistedStateMetric_unblacklisting_unblackl
   v1 = [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s bssid nil", "-[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_11() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
+    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_11(), "UTF8String")];
     [v2 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v8, v9);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBlacklistedStateMetric:unblacklisting:unblacklistingReason:.cold.4()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s _blacklistMetrics alloc failed", "-[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processBlacklistedStateMetric:unblacklisting:unblacklistingReason:.cold.5()
 {
-  v1 = *MEMORY[0x277D85DE8];
   [OUTLINED_FUNCTION_0_2() stringWithFormat:@"%s node nil", "-[WFBlackListNode processBlacklistedStateMetric:unblacklisting:unblacklistingReason:]"];
   objc_claimAutoreleasedReturnValue();
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = [OUTLINED_FUNCTION_10() UTF8String];
-    v2 = [v0 stringWithFormat:@"[WiFiPolicy] %s"];
-    [v2 UTF8String];
+    v1 = [v0 stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(OUTLINED_FUNCTION_10(), "UTF8String")];
+    [v1 UTF8String];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
 
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

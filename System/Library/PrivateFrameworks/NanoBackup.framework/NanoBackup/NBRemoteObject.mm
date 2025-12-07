@@ -2,14 +2,18 @@
 - (NBRemoteObject)initWithServiceName:(id)name andDelegate:(id)delegate andClientQueue:(id)queue;
 - (id)delegate;
 - (void)_messageResponseTimeout:(id)timeout;
+- (void)_queueSendMessage:(id)message orPath:(id)path type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)self0 didSend:(id)self1 andResponse:(id)self2;
 - (void)_sendMessage:(id)message type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)self0 andResponse:(id)self1;
 - (void)_storeProtobufAction:(SEL)action messageType:(unsigned __int16)type messageSendType:(int64_t)sendType;
 - (void)handleIncomingMessage:(id)message;
 - (void)invalidate;
 - (void)sendFileRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)self0;
+- (void)sendResponse:(id)response type:(unsigned __int16)type withRequest:(id)request withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block;
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type;
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type;
 @end
 
 @implementation NBRemoteObject
@@ -320,6 +324,26 @@ LABEL_33:
   [(NSMutableDictionary *)self->_idsRequestMessageTypeToSelector setObject:v10 forKeyedSubscript:v9];
 }
 
+- (void)setProtobufAction:(SEL)action forIncomingRequestsOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  [(NBRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:0];
+  service = [(NBRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingRequestsOfType:typeCopy];
+}
+
+- (void)setProtobufAction:(SEL)action forIncomingResponsesOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  if (action)
+  {
+    [(NBRemoteObject *)self _storeProtobufAction:action messageType:type messageSendType:1];
+  }
+
+  service = [(NBRemoteObject *)self service];
+  [service setProtobufAction:"handleIncomingMessage:" forIncomingResponsesOfType:typeCopy];
+}
+
 - (void)sendFileRequest:(id)request type:(unsigned __int16)type withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send andResponse:(id)self0
 {
   requestCopy = request;
@@ -351,6 +375,23 @@ LABEL_33:
   v29 = timeoutCopy;
   v30 = requestCopy;
   dispatch_async(idsQueue, block);
+}
+
+- (void)sendResponse:(id)response type:(unsigned __int16)type withRequest:(id)request withTimeout:(id)timeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)send
+{
+  typeCopy = type;
+  sendCopy = send;
+  forCopy = for;
+  descriptionCopy = description;
+  timeoutCopy = timeout;
+  requestCopy = request;
+  responseCopy = response;
+  v22 = [NSUUID alloc];
+  context = [requestCopy context];
+
+  outgoingResponseIdentifier = [context outgoingResponseIdentifier];
+  v24 = [v22 initWithUUIDString:outgoingResponseIdentifier];
+  [(NBRemoteObject *)self _sendMessage:responseCopy type:typeCopy requestUUID:v24 withTimeout:timeoutCopy withResponseTimeout:0 withDescription:descriptionCopy onlyOneFor:forCopy didSend:sendCopy andResponse:0];
 }
 
 - (void)_sendMessage:(id)message type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)for didSend:(id)self0 andResponse:(id)self1
@@ -402,6 +443,247 @@ LABEL_33:
   selfCopy = self;
   v6 = timeoutCopy;
   dispatch_async(idsQueue, v7);
+}
+
+- (void)_queueSendMessage:(id)message orPath:(id)path type:(unsigned __int16)type requestUUID:(id)d withTimeout:(id)timeout withResponseTimeout:(id)responseTimeout withDescription:(id)description onlyOneFor:(id)self0 didSend:(id)self1 andResponse:(id)self2
+{
+  typeCopy = type;
+  messageCopy = message;
+  pathCopy = path;
+  dCopy = d;
+  timeoutCopy = timeout;
+  responseTimeoutCopy = responseTimeout;
+  descriptionCopy = description;
+  sendCopy = send;
+  responseCopy = response;
+  v22 = "request";
+  if (dCopy)
+  {
+    v22 = "response";
+  }
+
+  v70 = v22;
+  dispatch_assert_queue_V2(self->_idsQueue);
+  v23 = +[NSMutableDictionary dictionary];
+  v24 = v23;
+  if (timeoutCopy)
+  {
+    [v23 setObject:timeoutCopy forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+    [timeoutCopy doubleValue];
+    if (v25 + -10.0 < 0.00000011920929)
+    {
+      [v24 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionFireAndForgetKey];
+      v66 = 1;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v26 = [NSNumber numberWithDouble:IDSMaxMessageTimeout];
+    [v24 setObject:v26 forKeyedSubscript:IDSSendMessageOptionTimeoutKey];
+  }
+
+  v66 = 0;
+LABEL_8:
+  selfCopy2 = self;
+  if (dCopy)
+  {
+    uUIDString = [dCopy UUIDString];
+    [v24 setObject:uUIDString forKeyedSubscript:IDSSendMessageOptionPeerResponseIdentifierKey];
+  }
+
+  v73 = timeoutCopy;
+  v72 = v24;
+  v69 = dCopy;
+  v67 = descriptionCopy;
+  if (messageCopy)
+  {
+    v29 = dCopy != 0;
+    v30 = [IDSProtobuf alloc];
+    data = [messageCopy data];
+    v32 = [v30 initWithProtobufData:data type:typeCopy isResponse:v29];
+
+    nb_defaultPairedDeviceIDIncludingTinkerDevices = [(IDSService *)self->_service nb_defaultPairedDeviceIDIncludingTinkerDevices];
+    if (nb_defaultPairedDeviceIDIncludingTinkerDevices)
+    {
+      service = [(NBRemoteObject *)self service];
+      v35 = [NSSet setWithObject:nb_defaultPairedDeviceIDIncludingTinkerDevices];
+      v83 = 0;
+      v84 = 0;
+      v36 = [service sendProtobuf:v32 toDestinations:v35 priority:200 options:v24 identifier:&v84 error:&v83];
+      service2 = v32;
+      v38 = v84;
+      v39 = v83;
+    }
+
+    else
+    {
+      service2 = v32;
+      v39 = [NSError errorWithDomain:@"NBErrorDomain" code:3 userInfo:0];
+      v44 = nb_daemon_log;
+      if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "No default paired device. Unable to send message", buf, 2u);
+      }
+
+      v36 = 0;
+      v38 = 0;
+    }
+  }
+
+  else
+  {
+    service2 = [(NBRemoteObject *)self service];
+    nb_defaultPairedDeviceIDIncludingTinkerDevices = [NSURL fileURLWithPath:pathCopy];
+    v95 = @"MessageType";
+    v40 = [NSNumber numberWithInt:typeCopy];
+    v96 = v40;
+    v41 = [NSDictionary dictionaryWithObjects:&v96 forKeys:&v95 count:1];
+    nb_defaultPairedDeviceIDIncludingTinkerDevices2 = [(IDSService *)self->_service nb_defaultPairedDeviceIDIncludingTinkerDevices];
+    v43 = [NSSet setWithObject:nb_defaultPairedDeviceIDIncludingTinkerDevices2];
+    v82 = 0;
+    v81 = 0;
+    v36 = [service2 sendResourceAtURL:nb_defaultPairedDeviceIDIncludingTinkerDevices metadata:v41 toDestinations:v43 priority:200 options:v72 identifier:&v82 error:&v81];
+    v38 = v82;
+    v39 = v81;
+
+    selfCopy2 = self;
+    messageCopy = 0;
+  }
+
+  if (!v36 || v39)
+  {
+    if (v39)
+    {
+      v54 = 1;
+    }
+
+    else
+    {
+      v54 = v36;
+    }
+
+    v45 = v73;
+    v46 = responseTimeoutCopy;
+    if ((v54 & 1) == 0)
+    {
+      v39 = [NSError errorWithDomain:@"com.apple.nanobackup.remoteobject" code:1 userInfo:0];
+    }
+
+    v55 = objc_opt_class();
+    v56 = NSStringFromClass(v55);
+    v51 = [NSString stringWithFormat:@"Error sending %s %@ - %@", v70, v56, v39];
+
+    v57 = nb_daemon_log;
+    if (os_log_type_enabled(nb_daemon_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v86 = v51;
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    }
+
+    v48 = v67;
+    if (sendCopy)
+    {
+      clientQueue = self->_clientQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100012D20;
+      block[3] = &unk_10002CF00;
+      v80 = sendCopy;
+      v79 = v39;
+      dispatch_async(clientQueue, block);
+    }
+
+    if (!responseCopy)
+    {
+      goto LABEL_36;
+    }
+
+    v59 = self->_clientQueue;
+    v76[0] = _NSConcreteStackBlock;
+    v76[1] = 3221225472;
+    v76[2] = sub_100012D34;
+    v76[3] = &unk_10002CED8;
+    v77 = responseCopy;
+    dispatch_async(v59, v76);
+    v53 = v77;
+LABEL_35:
+
+LABEL_36:
+    goto LABEL_38;
+  }
+
+  v45 = v73;
+  v46 = responseTimeoutCopy;
+  if (sendCopy)
+  {
+    v47 = objc_retainBlock(sendCopy);
+    [(NSMutableDictionary *)selfCopy2->_idsSendIDToCompletionHandler setObject:v47 forKeyedSubscript:v38];
+  }
+
+  v48 = v67;
+  if (responseCopy)
+  {
+    v49 = objc_retainBlock(responseCopy);
+    [(NSMutableDictionary *)selfCopy2->_idsSendIDToResponseHandler setObject:v49 forKeyedSubscript:v38];
+
+    if (responseTimeoutCopy)
+    {
+      v50 = [NSString stringWithFormat:@"com.apple.%s.%@", v70, v38];
+      v51 = [v50 stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+
+      v52 = [PCPersistentTimer alloc];
+      [responseTimeoutCopy doubleValue];
+      v53 = [v52 initWithTimeInterval:v51 serviceIdentifier:selfCopy2 target:"_messageResponseTimeout:" selector:v38 userInfo:?];
+      [v53 setMinimumEarlyFireProportion:1.0];
+      [v53 scheduleInQueue:selfCopy2->_idsQueue];
+      [(NSMutableDictionary *)selfCopy2->_idsSendIDToTimer setObject:v53 forKeyedSubscript:v38];
+      v39 = 0;
+      goto LABEL_35;
+    }
+  }
+
+  v39 = 0;
+LABEL_38:
+  v60 = nb_daemon_log;
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+  {
+    v61 = v48;
+    if (!v48)
+    {
+      v62 = objc_opt_class();
+      v61 = NSStringFromClass(v62);
+    }
+
+    data2 = [messageCopy data];
+    v64 = [data2 length];
+    *buf = 136316162;
+    v65 = &unk_100029E6A;
+    v86 = v70;
+    v87 = 2114;
+    if (v66)
+    {
+      v65 = "fireAndForget is ON";
+    }
+
+    v88 = v61;
+    v89 = 2048;
+    v90 = v64;
+    v91 = 2114;
+    v92 = v38;
+    v93 = 2080;
+    v94 = v65;
+    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Sent IDS %s %{public}@ bytes=%ld got identifier: %{public}@ %s", buf, 0x34u);
+
+    if (!v48)
+    {
+    }
+
+    v45 = v73;
+  }
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error

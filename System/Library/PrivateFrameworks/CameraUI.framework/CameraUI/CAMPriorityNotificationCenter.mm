@@ -30,9 +30,11 @@
 
 uint64_t __46__CAMPriorityNotificationCenter_defaultCenter__block_invoke()
 {
-  defaultCenter_defaultCenter = objc_alloc_init(CAMPriorityNotificationCenter);
+  v0 = objc_alloc_init(CAMPriorityNotificationCenter);
+  v1 = defaultCenter_defaultCenter;
+  defaultCenter_defaultCenter = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CAMPriorityNotificationCenter)init

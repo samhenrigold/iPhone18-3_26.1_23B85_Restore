@@ -71,6 +71,7 @@
 - (void)setCalendarHomePushKey:(id)key;
 - (void)setCalendarHomeSyncToken:(id)token;
 - (void)setCalendarHomeURL:(id)l;
+- (void)setCalendarsAreDirty:(BOOL)dirty;
 - (void)setCanCreateCalendars:(BOOL)calendars;
 - (void)setDefaultAllDayAlarms:(id)alarms;
 - (void)setDefaultCalendarURL:(id)l;
@@ -108,13 +109,13 @@
 
 - (MobileCalDAVPrincipal)initWithConfiguration:(id)configuration principalUID:(id)d account:(id)account
 {
-  v164 = *MEMORY[0x277D85DE8];
+  v163 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   dCopy = d;
   accountCopy = account;
-  v158.receiver = self;
-  v158.super_class = MobileCalDAVPrincipal;
-  v12 = [(MobileCalDAVPrincipal *)&v158 init];
+  v157.receiver = self;
+  v157.super_class = MobileCalDAVPrincipal;
+  v12 = [(MobileCalDAVPrincipal *)&v157 init];
 
   if (v12)
   {
@@ -145,9 +146,9 @@
         {
           v20 = v12->_uid;
           *buf = 138543618;
-          v161 = v20;
-          v162 = 2114;
-          v163 = dCopy;
+          v160 = v20;
+          v161 = 2114;
+          v162 = dCopy;
           _os_log_impl(&dword_2484B2000, v18, v19, "Principal configuration UID (%{public}@) doesn't match provided UID (%{public}@). Using the provided UID.", buf, 0x16u);
         }
 
@@ -170,33 +171,33 @@
 
     if (v24)
     {
-      v148 = accountCopy;
+      v147 = accountCopy;
       v25 = dCopy;
       v26 = objc_opt_new();
+      v153 = 0u;
       v154 = 0u;
       v155 = 0u;
       v156 = 0u;
-      v157 = 0u;
       v27 = [configurationCopy objectForKeyedSubscript:v23];
-      v28 = [v27 countByEnumeratingWithState:&v154 objects:v159 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v153 objects:v158 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v155;
+        v30 = *v154;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v155 != v30)
+            if (*v154 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = [MEMORY[0x277CF6FF8] unpackCalDAVUserAdress:{*(*(&v154 + 1) + 8 * i), v148}];
+            v32 = [MEMORY[0x277CF6FF8] unpackCalDAVUserAdress:{*(*(&v153 + 1) + 8 * i), v147}];
             [v26 addObject:v32];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v154 objects:v159 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v153 objects:v158 count:16];
         }
 
         while (v29);
@@ -204,7 +205,7 @@
 
       objc_storeStrong(&v12->_preferredCalendarUserAddresses, v26);
       dCopy = v25;
-      accountCopy = v148;
+      accountCopy = v147;
     }
 
     v33 = objc_opt_new();
@@ -217,12 +218,12 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v149 = MEMORY[0x277D85DD0];
-        v150 = 3221225472;
-        v151 = __68__MobileCalDAVPrincipal_initWithConfiguration_principalUID_account___block_invoke;
-        v152 = &unk_278F176F8;
-        v153 = v12;
-        [v35 enumerateKeysAndObjectsUsingBlock:&v149];
+        v148 = MEMORY[0x277D85DD0];
+        v149 = 3221225472;
+        v150 = __68__MobileCalDAVPrincipal_initWithConfiguration_principalUID_account___block_invoke;
+        v151 = &unk_278F176F8;
+        v152 = v12;
+        [v35 enumerateKeysAndObjectsUsingBlock:&v148];
       }
     }
 
@@ -494,7 +495,6 @@
 
   v145 = v12;
 
-  v146 = *MEMORY[0x277D85DE8];
   return v145;
 }
 
@@ -853,38 +853,36 @@ void __54__MobileCalDAVPrincipal__userAddressSet_isEqualToSet___block_invoke_2(u
 
 - (id)calendarUserAddresses
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   preferredCalendarUserAddresses = [(MobileCalDAVPrincipal *)self preferredCalendarUserAddresses];
-  v5 = [preferredCalendarUserAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [preferredCalendarUserAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(preferredCalendarUserAddresses);
         }
 
-        address = [*(*(&v12 + 1) + 8 * i) address];
+        address = [*(*(&v11 + 1) + 8 * i) address];
         [v3 addObject:address];
       }
 
-      v6 = [preferredCalendarUserAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [preferredCalendarUserAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1704,9 +1702,7 @@ LABEL_6:
     self->_defaultTimedAlarms = v10;
 
     DefaultAllDayAlarmOffsetNSInteger = CalStoreGetDefaultAllDayAlarmOffsetNSInteger();
-    v13 = [objc_opt_class() alarmICSStringFromOffset:DefaultAllDayAlarmOffsetNSInteger];
-    v14 = self->_defaultAllDayAlarms;
-    self->_defaultAllDayAlarms = v13;
+    self->_defaultAllDayAlarms = [objc_opt_class() alarmICSStringFromOffset:DefaultAllDayAlarmOffsetNSInteger];
   }
 
   MEMORY[0x2821F96F8]();
@@ -1714,7 +1710,7 @@ LABEL_6:
 
 - (void)prepareCalendarsForSyncWithCompletionBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   account = [(MobileCalDAVPrincipal *)self account];
   [account reloadCalendars];
@@ -1732,45 +1728,45 @@ LABEL_6:
 
   calendars = [(MobileCalDAVPrincipal *)self calendars];
   v9 = objc_opt_new();
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v10 = calendars;
-  v11 = [v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v48;
+    v13 = *v47;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v48 != v13)
+        if (*v47 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v47 + 1) + 8 * i);
+        v15 = *(*(&v46 + 1) + 8 * i);
         guid = [v15 guid];
         [v9 setObject:v15 forKeyedSubscript:guid];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v12);
   }
 
-  v45 = 0;
-  v46 = 0;
   v44 = 0;
+  v45 = 0;
+  v43 = 0;
   refreshContext = [(MobileCalDAVPrincipal *)self refreshContext];
   changeTracker = [refreshContext changeTracker];
-  v19 = [MobileCalDAVCalendar gatherCalendarChangesInPrincipal:self calendars:v9 adds:&v46 modifies:&v45 deletes:&v44 changeTracker:changeTracker];
-  v20 = v46;
-  v21 = v45;
-  v22 = v44;
+  v19 = [MobileCalDAVCalendar gatherCalendarChangesInPrincipal:self calendars:v9 adds:&v45 modifies:&v44 deletes:&v43 changeTracker:changeTracker];
+  v20 = v45;
+  v21 = v44;
+  v22 = v43;
 
   [(MobileCalDAVPrincipal *)self updateAddedOrModifiedSubscribedCalendars:v20];
   [(MobileCalDAVPrincipal *)self updateAddedOrModifiedSubscribedCalendars:v21];
@@ -1785,12 +1781,12 @@ LABEL_6:
       Count = CFArrayGetCount(calendarChangesToClear2);
       v26 = CFArrayGetCount(v19);
       Mutable = CFArrayCreateMutable(0, v26 + Count, 0);
-      v54.length = CFArrayGetCount(calendarChangesToClear2);
+      v53.length = CFArrayGetCount(calendarChangesToClear2);
+      v53.location = 0;
+      CFArrayAppendArray(Mutable, calendarChangesToClear2, v53);
+      v54.length = CFArrayGetCount(v19);
       v54.location = 0;
-      CFArrayAppendArray(Mutable, calendarChangesToClear2, v54);
-      v55.length = CFArrayGetCount(v19);
-      v55.location = 0;
-      CFArrayAppendArray(Mutable, v19, v55);
+      CFArrayAppendArray(Mutable, v19, v54);
       [(MobileCalDAVPrincipal *)self setCalendarChangesToClear:Mutable];
     }
   }
@@ -1802,26 +1798,26 @@ LABEL_6:
 
   [(MobileCalDAVPrincipal *)self setAddedCalendars:v20, v20];
   [(MobileCalDAVPrincipal *)self setModifiedCalendars:v21];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v28 = v22;
-  v29 = [v28 countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v39 objects:v50 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v41;
+    v31 = *v40;
     do
     {
       for (j = 0; j != v30; ++j)
       {
-        if (*v41 != v31)
+        if (*v40 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v40 + 1) + 8 * j);
+        v33 = *(*(&v39 + 1) + 8 * j);
         calendarHomeURL = [(MobileCalDAVPrincipal *)self calendarHomeURL];
         v35 = [v33 da_absoluteURLForChildLeastInfoRepresentationRelativeToParentURL:calendarHomeURL];
 
@@ -1832,40 +1828,39 @@ LABEL_6:
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v40 objects:v51 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v30);
   }
 
   blockCopy[2](blockCopy, self);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAddedOrModifiedSubscribedCalendars:(id)calendars
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   calendarsCopy = calendars;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [calendarsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [calendarsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(calendarsCopy);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1876,13 +1871,11 @@ LABEL_6:
       }
 
       while (v5 != v7);
-      v5 = [calendarsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [calendarsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearCalendarChanges
@@ -1917,7 +1910,7 @@ LABEL_6:
 
 - (id)calendarOfType:(int)type atURL:(id)l withOptions:(id)options
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   lCopy = l;
   optionsCopy = options;
   if (!lCopy)
@@ -1942,9 +1935,9 @@ LABEL_11:
         v13 = *(MEMORY[0x277D03988] + 4);
         if (os_log_type_enabled(v12, v13))
         {
-          v19[0] = 67109120;
-          v19[1] = type;
-          _os_log_impl(&dword_2484B2000, v12, v13, "Asked to create a calendar of a type we don't know about: %d", v19, 8u);
+          v18[0] = 67109120;
+          v18[1] = type;
+          _os_log_impl(&dword_2484B2000, v12, v13, "Asked to create a calendar of a type we don't know about: %d", v18, 8u);
         }
 
         v11 = 0;
@@ -1992,8 +1985,6 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2069,9 +2060,45 @@ LABEL_21:
   }
 }
 
+- (void)setCalendarsAreDirty:(BOOL)dirty
+{
+  dirtyCopy = dirty;
+  v14 = *MEMORY[0x277D85DE8];
+  self->_calendarsAreDirty = dirty;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  calendars = [(MobileCalDAVPrincipal *)self calendars];
+  v5 = [calendars countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(calendars);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8++) setIsDirty:dirtyCopy];
+      }
+
+      while (v6 != v8);
+      v6 = [calendars countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+}
+
 - (BOOL)calendarsAreDirty
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_calendarsAreDirty)
   {
     LOBYTE(v2) = 1;
@@ -2079,32 +2106,32 @@ LABEL_21:
 
   else
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
+    v7 = 0u;
+    v8 = 0u;
     calendars = [(MobileCalDAVPrincipal *)self calendars];
-    v2 = [calendars countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v2 = [calendars countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v2)
     {
-      v4 = *v9;
+      v4 = *v8;
       while (2)
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v9 != v4)
+          if (*v8 != v4)
           {
             objc_enumerationMutation(calendars);
           }
 
-          if ([*(*(&v8 + 1) + 8 * i) isDirty])
+          if ([*(*(&v7 + 1) + 8 * i) isDirty])
           {
             LOBYTE(v2) = 1;
             goto LABEL_13;
           }
         }
 
-        v2 = [calendars countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v2 = [calendars countByEnumeratingWithState:&v7 objects:v11 count:16];
         if (v2)
         {
           continue;
@@ -2117,27 +2144,25 @@ LABEL_21:
 LABEL_13:
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)setIsDirty:(BOOL)dirty
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (dirty)
   {
     v5 = DALoggingwithCategory();
     v6 = *(MEMORY[0x277D03988] + 7);
     if (os_log_type_enabled(v5, v6))
     {
-      v8 = 138412290;
+      v7 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_2484B2000, v5, v6, "Marking principal as dirty: %@", &v8, 0xCu);
+      _os_log_impl(&dword_2484B2000, v5, v6, "Marking principal as dirty: %@", &v7, 0xCu);
     }
   }
 
   self->_isDirty = dirty;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)APSTopic
@@ -2233,7 +2258,7 @@ LABEL_7:
 
 - (NSString)preferredCalendarEmailAddress
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_preferredCalendarEmailAddress)
   {
     preferredCalendarUserAddress = [(MobileCalDAVPrincipal *)self preferredCalendarUserAddress];
@@ -2252,26 +2277,26 @@ LABEL_14:
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       calendarUserAddresses = [(MobileCalDAVPrincipal *)self calendarUserAddresses];
-      v8 = [calendarUserAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [calendarUserAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(calendarUserAddresses);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
+            v12 = *(*(&v19 + 1) + 8 * i);
             scheme2 = [v12 scheme];
             v14 = [scheme2 hasPrefix:@"mailto"];
 
@@ -2282,7 +2307,7 @@ LABEL_14:
             }
           }
 
-          v9 = [calendarUserAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v9 = [calendarUserAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v9)
           {
             continue;
@@ -2295,14 +2320,13 @@ LABEL_14:
   }
 
   v17 = self->_preferredCalendarEmailAddress;
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (NSString)preferredCalendarPhoneNumber
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_preferredCalendarPhoneNumber)
   {
     preferredCalendarUserAddress = [(MobileCalDAVPrincipal *)self preferredCalendarUserAddress];
@@ -2321,26 +2345,26 @@ LABEL_14:
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       calendarUserAddresses = [(MobileCalDAVPrincipal *)self calendarUserAddresses];
-      v8 = [calendarUserAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [calendarUserAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(calendarUserAddresses);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
+            v12 = *(*(&v19 + 1) + 8 * i);
             scheme2 = [v12 scheme];
             v14 = [scheme2 hasPrefix:@"tel"];
 
@@ -2351,7 +2375,7 @@ LABEL_14:
             }
           }
 
-          v9 = [calendarUserAddresses countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v9 = [calendarUserAddresses countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v9)
           {
             continue;
@@ -2364,34 +2388,33 @@ LABEL_14:
   }
 
   v17 = self->_preferredCalendarPhoneNumber;
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (BOOL)hasCalendarUserAddress:(id)address
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   addressCopy = address;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   calendarUserAddresses = [(MobileCalDAVPrincipal *)self calendarUserAddresses];
-  v6 = [calendarUserAddresses countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [calendarUserAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v18;
+    v7 = *v17;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(calendarUserAddresses);
         }
 
-        absoluteString = [*(*(&v17 + 1) + 8 * i) absoluteString];
+        absoluteString = [*(*(&v16 + 1) + 8 * i) absoluteString];
         da_removeSlashIfNeeded = [absoluteString da_removeSlashIfNeeded];
         lowercaseString = [da_removeSlashIfNeeded lowercaseString];
 
@@ -2407,7 +2430,7 @@ LABEL_14:
         }
       }
 
-      v6 = [calendarUserAddresses countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [calendarUserAddresses countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -2419,35 +2442,34 @@ LABEL_14:
 
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)calendarUserAddressIsEquivalentToURL:(id)l
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (lCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     calendarUserAddresses = [(MobileCalDAVPrincipal *)self calendarUserAddresses];
-    v6 = [calendarUserAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [calendarUserAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(calendarUserAddresses);
           }
 
-          absoluteString = [*(*(&v13 + 1) + 8 * i) absoluteString];
+          absoluteString = [*(*(&v12 + 1) + 8 * i) absoluteString];
           v10 = [MobileCalDAVPrincipal compareAddressURL:lCopy localString:absoluteString];
 
           if (v10)
@@ -2457,7 +2479,7 @@ LABEL_11:
           }
         }
 
-        v6 = [calendarUserAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [calendarUserAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -2475,7 +2497,6 @@ LABEL_12:
     LOBYTE(v6) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -244,12 +244,9 @@
 
   else
   {
-    sub_1002E6730(buf);
+    sub_1002E6730();
 
-    v21 = 457;
-    v22 = "[CSMartyDetectionService triggered:]";
-    v20 = "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 457, "[CSMartyDetectionService triggered:]");
     __break(1u);
   }
 
@@ -262,8 +259,8 @@ LABEL_9:
     v10 = *([triggeredCopy c_struct] + 94);
     *buf = 67109376;
     *&buf[4] = v9;
-    v24 = 1024;
-    v25 = v10;
+    v21 = 1024;
+    v22 = v10;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "marty path value %d type %d", buf, 0xEu);
   }
 
@@ -436,10 +433,10 @@ LABEL_9:
   {
     *buf = 67240704;
     numberCopy = number;
-    v57 = 2050;
-    *v58 = epoch;
-    *&v58[8] = 2050;
-    v59 = v5;
+    v56 = 2050;
+    *v57 = epoch;
+    *&v57[8] = 2050;
+    v58 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "close epoch %{public}d aop timestamp %{public}llu, %{public}llu", buf, 0x1Cu);
   }
 
@@ -451,39 +448,38 @@ LABEL_9:
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v8 + 160))(&v49);
-  sub_1002D6B24(&v49, &v51);
-  if (v50)
+  (*(*v8 + 160))(&v48);
+  sub_1002D6B24(&v48, &v50);
+  if (v49)
   {
-    sub_100009A48(v50);
+    sub_100009A48(v49);
   }
 
-  v10 = v51;
-  v11 = v51[5];
+  v10 = v50;
+  v11 = *(v50 + 40);
   if (v11)
   {
     *(self->_details.__ptr_ + 2) = v11;
   }
 
-  if (*(v10 + 14) >= 1)
+  if (*(v10 + 56) >= 1)
   {
     *(self->_details.__ptr_ + 40) = 1;
   }
 
   v12 = [(CSMartyDetectionService *)self getForceDecision:@"MartyForceEarlyCrashDetectorDecision"];
-  v13 = v51;
-  v14 = *(v51 + 64);
+  v13 = v50;
   if (v12)
   {
-    if ((v51[8] & 1) == 0)
+    if ((*(v50 + 64) & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
-  else if ((v51[8] & 1) == 0)
+  else if ((*(v50 + 64) & 1) == 0)
   {
-    if ((*(v51 + 65) & 1) == 0)
+    if ((*(v50 + 65) & 1) == 0)
     {
       goto LABEL_29;
     }
@@ -493,20 +489,41 @@ LABEL_9:
 
   *(self->_details.__ptr_ + 12) |= 1u;
 LABEL_18:
-  v15 = self->_details.__ptr_;
+  v14 = self->_details.__ptr_;
   if (*(v13 + 65) == 1)
   {
-    *(v15 + 12) |= 2u;
+    *(v14 + 12) |= 2u;
   }
 
-  v16 = 48;
-  if (*(v15 + 8))
+  v15 = 48;
+  if (*(v14 + 8))
   {
-    v16 = 44;
+    v15 = 44;
   }
 
-  ++*(self->_sessionInfoStats.__ptr_ + v16);
-  if ((*(v15 + 41) & 1) == 0)
+  ++*(self->_sessionInfoStats.__ptr_ + v15);
+  if ((*(v14 + 41) & 1) == 0)
+  {
+    if (qword_100456828 != -1)
+    {
+      sub_1002E6708();
+    }
+
+    v16 = qword_100456830;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "requesting companion upload for early crash", buf, 2u);
+    }
+
+    [(CSMartyDetectionService *)self requestCompanionUpload:3];
+    v14 = self->_details.__ptr_;
+    v13 = v50;
+  }
+
+  *(v14 + 41) = 1;
+LABEL_29:
+  if (*(v13 + 49) == 1 && (*(self->_details.__ptr_ + 52) & 1) == 0)
   {
     if (qword_100456828 != -1)
     {
@@ -517,80 +534,59 @@ LABEL_18:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "requesting companion upload for early crash", buf, 2u);
-    }
-
-    [(CSMartyDetectionService *)self requestCompanionUpload:3];
-    v15 = self->_details.__ptr_;
-    v13 = v51;
-  }
-
-  *(v15 + 41) = 1;
-LABEL_29:
-  if (*(v13 + 49) == 1 && (*(self->_details.__ptr_ + 52) & 1) == 0)
-  {
-    if (qword_100456828 != -1)
-    {
-      sub_1002E6708();
-    }
-
-    v18 = qword_100456830;
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "lending companion punch thru", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "lending companion punch thru", buf, 2u);
     }
 
     *(self->_details.__ptr_ + 52) = 1;
-    v19 = sub_1000197C8();
-    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v19 type:402];
+    v18 = sub_1000197C8();
+    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v18 type:402];
   }
 
-  if ([(CSMartyDetectionService *)self getForceDecision:@"MartyForceAlphaCrashDetectorDecision"]|| *(v51 + 14))
+  if ([(CSMartyDetectionService *)self getForceDecision:@"MartyForceAlphaCrashDetectorDecision"]|| *(v50 + 56))
   {
-    v20 = self->_details.__ptr_;
-    v21 = 40;
-    if (*(v20 + 8))
+    v19 = self->_details.__ptr_;
+    v20 = 40;
+    if (*(v19 + 8))
     {
-      v21 = 36;
+      v20 = 36;
     }
 
-    ++*(self->_sessionInfoStats.__ptr_ + v21);
-    if ((*(v20 + 40) & 1) == 0)
+    ++*(self->_sessionInfoStats.__ptr_ + v20);
+    if ((*(v19 + 40) & 1) == 0)
     {
       if (qword_100456828 != -1)
       {
         sub_1002E6708();
       }
 
-      v22 = qword_100456830;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v21 = qword_100456830;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "requesting companion upload for alpha crash", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "requesting companion upload for alpha crash", buf, 2u);
       }
 
       [(CSMartyDetectionService *)self requestCompanionUpload:1];
-      v20 = self->_details.__ptr_;
+      v19 = self->_details.__ptr_;
     }
 
-    *(v20 + 40) = 1;
+    *(v19 + 40) = 1;
   }
 
-  if ([(CSMartyDetectionService *)self getForceDecision:@"MartyForceSevereCrashDetectorDecision"]|| *(v51 + 48) == 1)
+  if ([(CSMartyDetectionService *)self getForceDecision:@"MartyForceSevereCrashDetectorDecision"]|| *(v50 + 48) == 1)
   {
     if (qword_100456828 != -1)
     {
       sub_1002E6708();
     }
 
-    v23 = qword_100456830;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v22 = qword_100456830;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v24 = *(self->_details.__ptr_ + 42);
+      v23 = *(self->_details.__ptr_ + 42);
       *buf = 67109120;
-      numberCopy = v24;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "_details->severeCrashDetected %d", buf, 8u);
+      numberCopy = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "_details->severeCrashDetected %d", buf, 8u);
     }
 
     if ((*(self->_details.__ptr_ + 42) & 1) == 0)
@@ -600,28 +596,28 @@ LABEL_29:
         sub_1002E6708();
       }
 
-      v25 = qword_100456830;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v24 = qword_100456830;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "escalating UI", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "escalating UI", buf, 2u);
       }
 
       [(CSMartyDetectionService *)self escalateUI];
-      v26 = v51;
-      v27 = self->_details.__ptr_;
-      *(v27 + 4) = v51[4];
-      *(v27 + 42) = 1;
-      *(v27 + 43) = *(v26 + 52);
-      v28 = self->_sessionInfoStats.__ptr_;
-      if (*(v27 + 8) == 1)
+      v25 = v50;
+      v26 = self->_details.__ptr_;
+      *(v26 + 4) = *(v50 + 32);
+      *(v26 + 42) = 1;
+      *(v26 + 43) = *(v25 + 52);
+      v27 = self->_sessionInfoStats.__ptr_;
+      if (*(v26 + 8) == 1)
       {
-        *(v28 + 22) = 1;
+        *(v27 + 22) = 1;
       }
 
       else
       {
-        *(v28 + 23) = 1;
+        *(v27 + 23) = 1;
       }
 
       if (qword_100456828 != -1)
@@ -629,11 +625,11 @@ LABEL_29:
         sub_1002E6708();
       }
 
-      v29 = qword_100456830;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v28 = qword_100456830;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "requesting companion upload for severe crash", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "requesting companion upload for severe crash", buf, 2u);
       }
 
       [(CSMartyDetectionService *)self requestCompanionUpload:2];
@@ -645,82 +641,82 @@ LABEL_29:
     sub_1002E6708();
   }
 
-  v30 = qword_100456830;
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  v29 = qword_100456830;
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    v31 = *(v51 + 49);
-    v32 = *(self->_details.__ptr_ + 52);
-    v33 = *(v51 + 50);
-    v34 = *(v51 + 48);
-    v35 = *(v51 + 52);
+    v30 = *(v50 + 49);
+    v31 = *(self->_details.__ptr_ + 52);
+    v32 = *(v50 + 50);
+    v33 = *(v50 + 48);
+    v34 = *(v50 + 52);
     *buf = 67110144;
-    numberCopy = v31;
-    v57 = 1024;
-    *v58 = v32;
-    *&v58[4] = 1024;
-    *&v58[6] = v33;
-    LOWORD(v59) = 1024;
-    *(&v59 + 2) = v34;
-    HIWORD(v59) = 1024;
-    v60 = v35;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "punch thru early %d lend %d decided %d severe %d cand %d", buf, 0x20u);
+    numberCopy = v30;
+    v56 = 1024;
+    *v57 = v31;
+    *&v57[4] = 1024;
+    *&v57[6] = v32;
+    LOWORD(v58) = 1024;
+    *(&v58 + 2) = v33;
+    HIWORD(v58) = 1024;
+    v59 = v34;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "punch thru early %d lend %d decided %d severe %d cand %d", buf, 0x20u);
   }
 
-  if (*(v51 + 50) == 1 && (v51[6] & 1) == 0)
+  if (*(v50 + 50) == 1 && (*(v50 + 48) & 1) == 0)
   {
-    v36 = *(v51 + 52);
+    v35 = *(v50 + 52);
   }
 
   else
   {
-    v36 = 1;
+    v35 = 1;
   }
 
-  v37 = self->_details.__ptr_;
-  if (*(v37 + 52) == 1 && ((v36 | *(v37 + 53)) & 1) == 0)
+  v36 = self->_details.__ptr_;
+  if (*(v36 + 52) == 1 && ((v35 | *(v36 + 53)) & 1) == 0)
   {
     if (qword_100456828 != -1)
     {
       sub_1002E6708();
     }
 
-    v38 = qword_100456830;
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v37 = qword_100456830;
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "retracting companion punch thru", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "retracting companion punch thru", buf, 2u);
     }
 
     *(self->_details.__ptr_ + 53) = 1;
-    v39 = sub_100019A7C();
-    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v39 type:403];
+    v38 = sub_100019A7C();
+    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v38 type:403];
 
-    v37 = self->_details.__ptr_;
+    v36 = self->_details.__ptr_;
   }
 
   mslRecording = self->_mslRecording;
-  v53[0] = @"crashTimestamp";
-  v41 = [NSNumber numberWithDouble:*(v37 + 2)];
-  v54[0] = v41;
-  v53[1] = @"severeCrashDetectorDecision";
-  v42 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 42)];
-  v54[1] = v42;
-  v53[2] = @"severeCrashTimestamp";
-  v43 = [NSNumber numberWithDouble:*(self->_details.__ptr_ + 4)];
-  v54[2] = v43;
-  v53[3] = @"alphaDetectorDecision";
-  v44 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 40)];
-  v54[3] = v44;
-  v53[4] = @"escalationCandidateSuppressed";
-  v45 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 43)];
-  v54[4] = v45;
-  v46 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:5];
-  [(CSMSLDataRecording *)mslRecording updateMetadata:v46];
+  v52[0] = @"crashTimestamp";
+  v40 = [NSNumber numberWithDouble:*(v36 + 2)];
+  v53[0] = v40;
+  v52[1] = @"severeCrashDetectorDecision";
+  v41 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 42)];
+  v53[1] = v41;
+  v52[2] = @"severeCrashTimestamp";
+  v42 = [NSNumber numberWithDouble:*(self->_details.__ptr_ + 4)];
+  v53[2] = v42;
+  v52[3] = @"alphaDetectorDecision";
+  v43 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 40)];
+  v53[3] = v43;
+  v52[4] = @"escalationCandidateSuppressed";
+  v44 = [NSNumber numberWithBool:*(self->_details.__ptr_ + 43)];
+  v53[4] = v44;
+  v45 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:5];
+  [(CSMSLDataRecording *)mslRecording updateMetadata:v45];
 
   [(CSMartyDetectionService *)self sendRemoteSampleToCompanion:v5 epochTs:epoch epochNumber:number];
-  if (v52)
+  if (v51)
   {
-    sub_100009A48(v52);
+    sub_100009A48(v51);
   }
 
   if (v9)
@@ -871,7 +867,7 @@ LABEL_29:
   ptr = self->fFlowControl.__ptr_;
   if (!ptr)
   {
-    sub_1002E6844();
+    sub_1002E6844(self, a2);
   }
 
   v3 = *(ptr + 56);
@@ -888,7 +884,7 @@ LABEL_29:
     sub_100009A48(v8);
   }
 
-  v5 = *(v9 + 37);
+  v5 = *(v9 + 148);
   if (v10)
   {
     sub_100009A48(v10);
@@ -923,22 +919,22 @@ LABEL_29:
 
   shouldUploadRecording = [(CSMartyDetectionService *)self shouldUploadRecording];
   mslRecording = self->_mslRecording;
-  v80[0] = @"algsEndTimestamp";
+  v85[0] = @"algsEndTimestamp";
   v8 = [NSNumber numberWithUnsignedLongLong:session];
-  v81[0] = v8;
-  v80[1] = @"curationAlgBitmap";
+  v86[0] = v8;
+  v85[1] = @"curationAlgBitmap";
   v9 = [NSNumber numberWithUnsignedChar:*(self->_details.__ptr_ + 9)];
-  v81[1] = v9;
-  v80[2] = @"samplingBitmap";
+  v86[1] = v9;
+  v85[2] = @"samplingBitmap";
   v10 = [NSNumber numberWithUnsignedChar:shouldUploadRecording];
-  v81[2] = v10;
-  v80[3] = @"shouldUploadIndependentlyOfSOS";
+  v86[2] = v10;
+  v85[3] = @"shouldUploadIndependentlyOfSOS";
   v11 = [NSNumber numberWithBool:shouldUploadRecording != 0];
-  v81[3] = v11;
-  v80[4] = @"deescalationPath";
+  v86[3] = v11;
+  v85[4] = @"deescalationPath";
   v12 = [NSNumber numberWithInt:[(CSMartyDetectionService *)self getDeescalationPath]];
-  v81[4] = v12;
-  v13 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:5];
+  v86[4] = v12;
+  v13 = [NSDictionary dictionaryWithObjects:v86 forKeys:v85 count:5];
   [(CSMSLDataRecording *)mslRecording updateMetadata:v13];
 
   if (shouldUploadRecording && self->_mslRecording && self->_companionUUID.__ptr_)
@@ -994,29 +990,8 @@ LABEL_29:
   }
 
   ttrManagedMsl = [(CSMSLDataRecording *)self->_mslRecording ttrManagedMsl];
-  v24 = ttrManagedMsl;
+  v25 = ttrManagedMsl;
   if (((MartyPunchThruToken > 0) & v22) == 1)
-  {
-    if (qword_100456828 != -1)
-    {
-      sub_1002E6708();
-    }
-
-    v25 = qword_100456830;
-    if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "escalation, using punchthru token", buf, 2u);
-    }
-
-    getMartyPunchThruToken(1);
-LABEL_47:
-    v29 = 0;
-    v30 = 1;
-    goto LABEL_48;
-  }
-
-  if (((MartyEarlyCrashToken > 0) & v20) == 1)
   {
     if (qword_100456828 != -1)
     {
@@ -1027,7 +1002,28 @@ LABEL_47:
     if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "acquiring early crash token", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "escalation, using punchthru token", buf, 2u);
+    }
+
+    getMartyPunchThruToken(1);
+LABEL_47:
+    v30 = 0;
+    v31 = 1;
+    goto LABEL_48;
+  }
+
+  if (((MartyEarlyCrashToken > 0) & v20) == 1)
+  {
+    if (qword_100456828 != -1)
+    {
+      sub_1002E6708();
+    }
+
+    v27 = qword_100456830;
+    if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "acquiring early crash token", buf, 2u);
     }
 
     getMartyEarlyCrashToken(1);
@@ -1041,11 +1037,11 @@ LABEL_47:
       sub_1002E6708();
     }
 
-    v27 = qword_100456830;
+    v28 = qword_100456830;
     if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "acquiring alpha crash token", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "acquiring alpha crash token", buf, 2u);
     }
 
     getMartyAlphaCrashToken(1);
@@ -1059,11 +1055,11 @@ LABEL_47:
       sub_1002E6708();
     }
 
-    v28 = qword_100456830;
+    v29 = qword_100456830;
     if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "acquiring trigger token", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "acquiring trigger token", buf, 2u);
     }
 
     getMartyToken(1);
@@ -1072,34 +1068,34 @@ LABEL_47:
 
   if (ttrManagedMsl)
   {
+    v31 = 0;
     v30 = 0;
-    v29 = 0;
   }
 
   else
   {
-    v67 = sub_1002DCCF8();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+    v72 = sub_1002DCCF8(ttrManagedMsl, v24);
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "non-ttr collection stopping early", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "non-ttr collection stopping early", buf, 2u);
     }
 
-    v30 = 0;
-    v29 = 1;
+    v31 = 0;
+    v30 = 1;
   }
 
 LABEL_48:
-  v31 = self->_mslRecording;
-  v78 = @"martyTokenAllocated";
-  v32 = [NSNumber numberWithBool:v30];
-  v79 = v32;
-  v33 = [NSDictionary dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-  [(CSMSLDataRecording *)v31 updateMetadata:v33];
+  v32 = self->_mslRecording;
+  v83 = @"martyTokenAllocated";
+  v33 = [NSNumber numberWithBool:v31];
+  v84 = v33;
+  v34 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+  [(CSMSLDataRecording *)v32 updateMetadata:v34];
 
-  if (!v24)
+  if (!v25)
   {
-    if (!v29)
+    if (!v30)
     {
       goto LABEL_67;
     }
@@ -1111,30 +1107,31 @@ LABEL_48:
   {
     if ((v21 | v20))
     {
-      if ([(CSMartyDetectionService *)self shouldKeepCrashTTR])
+      shouldKeepCrashTTR = [(CSMartyDetectionService *)self shouldKeepCrashTTR];
+      if (shouldKeepCrashTTR)
       {
-        v34 = self->_details.__ptr_;
+        v35 = self->_details.__ptr_;
         if (v20)
         {
-          v35 = 3;
+          v36 = 3;
         }
 
         else
         {
-          v35 = 2;
+          v36 = 2;
         }
 
         goto LABEL_51;
       }
 
-      v64 = sub_1002DCCF8();
-      v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG);
-      if (v30)
+      v69 = sub_1002DCCF8(shouldKeepCrashTTR, v42);
+      v70 = os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG);
+      if (v31)
       {
-        if (v65)
+        if (v70)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "[TTR] _mslRecording.shouldDeleteTTR = YES", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "[TTR] _mslRecording.shouldDeleteTTR = YES", buf, 2u);
         }
 
 LABEL_88:
@@ -1143,58 +1140,59 @@ LABEL_88:
         goto LABEL_52;
       }
 
-      if (v65)
+      if (v70)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "[TTR] alpha/early ttr not selected, stopping early", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "[TTR] alpha/early ttr not selected, stopping early", buf, 2u);
       }
     }
 
     else
     {
-      if ([(CSMartyDetectionService *)self shouldKeepTriggerTTR])
+      shouldKeepTriggerTTR = [(CSMartyDetectionService *)self shouldKeepTriggerTTR];
+      if (shouldKeepTriggerTTR)
       {
-        v34 = self->_details.__ptr_;
-        v35 = 1;
+        v35 = self->_details.__ptr_;
+        v36 = 1;
         goto LABEL_51;
       }
 
-      v64 = sub_1002DCCF8();
-      v66 = os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG);
-      if (v30)
+      v69 = sub_1002DCCF8(shouldKeepTriggerTTR, v68);
+      v71 = os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG);
+      if (v31)
       {
-        if (v66)
+        if (v71)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "[TTR] _mslRecording.shouldDeleteTTR = YES", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "[TTR] _mslRecording.shouldDeleteTTR = YES", buf, 2u);
         }
 
         goto LABEL_88;
       }
 
-      if (v66)
+      if (v71)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "[TTR] trigger ttr not selected, stopping early", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "[TTR] trigger ttr not selected, stopping early", buf, 2u);
       }
     }
 
-    LOBYTE(v29) = 1;
+    LOBYTE(v30) = 1;
     goto LABEL_52;
   }
 
-  v34 = self->_details.__ptr_;
-  v35 = 4;
+  v35 = self->_details.__ptr_;
+  v36 = 4;
 LABEL_51:
-  *(v34 + 7) = v35;
+  *(v35 + 7) = v36;
 LABEL_52:
-  v36 = +[CSPermissions sharedInstance];
-  isAuthorizedToCollectData = [v36 isAuthorizedToCollectData];
+  v37 = +[CSPermissions sharedInstance];
+  isAuthorizedToCollectData = [v37 isAuthorizedToCollectData];
 
-  if (v29 & 1 | ((isAuthorizedToCollectData & 1) == 0) || ((v30 ^ 1) & 1) != 0)
+  if (v30 & 1 | ((isAuthorizedToCollectData & 1) == 0) || ((v31 ^ 1) & 1) != 0)
   {
     [(CSMSLDataRecording *)self->_mslRecording setShouldUpload:0];
-    if ((v29 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
       goto LABEL_67;
     }
@@ -1205,11 +1203,11 @@ LABEL_62:
       sub_1002E6708();
     }
 
-    v40 = qword_100456830;
+    v43 = qword_100456830;
     if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "forcefully stopping aop collection", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "forcefully stopping aop collection", buf, 2u);
     }
 
     CSAOPSvc::forceStopCollection(self->_aop);
@@ -1217,68 +1215,68 @@ LABEL_62:
   }
 
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
-  v39 = [CSAnomalyEventService generateMslUrl:uUIDString andSessionType:2 ttrManagedMsl:0];
-  [(CSMSLDataRecording *)self->_mslRecording setUrlToCopyToOnStop:v39];
+  v40 = [CSAnomalyEventService generateMslUrl:uUIDString andSessionType:2 ttrManagedMsl:0];
+  [(CSMSLDataRecording *)self->_mslRecording setUrlToCopyToOnStop:v40];
 
 LABEL_67:
-  v41 = self->_companionDeviceInfo.__ptr_;
-  if (v41)
+  v44 = self->_companionDeviceInfo.__ptr_;
+  if (v44)
   {
     *(self->_sessionInfoStats.__ptr_ + 24) = 1;
-    v42 = self->_mslRecording;
-    v77[0] = &__kCFBooleanTrue;
-    v76[0] = @"companionConnected";
-    v76[1] = @"companionDeviceModel";
-    v43 = (v41 + 8);
-    if (*(v41 + 31) < 0)
+    v45 = self->_mslRecording;
+    v82[0] = &__kCFBooleanTrue;
+    v81[0] = @"companionConnected";
+    v81[1] = @"companionDeviceModel";
+    v46 = (v44 + 8);
+    if (*(v44 + 31) < 0)
     {
-      v43 = *v43;
+      v46 = *v46;
     }
 
-    v44 = [NSString stringWithUTF8String:v43];
-    v77[1] = v44;
-    v76[2] = @"companionKappaDeviceType";
-    v68 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 8)];
-    v77[2] = v68;
-    v76[3] = @"companionMartyDeviceType";
-    v45 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 9)];
-    v77[3] = v45;
-    v76[4] = @"companionKappaTokenCount";
-    v46 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 10)];
-    v77[4] = v46;
-    v76[5] = @"companionMartyTokenCount";
-    v47 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 11)];
-    v77[5] = v47;
-    v76[6] = @"companionKappaArmedSeconds";
-    v48 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 12)];
-    v77[6] = v48;
-    v76[7] = @"companionMartyArmedSeconds";
-    v49 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 13)];
-    v77[7] = v49;
-    v76[8] = @"companionEnableMode";
-    v50 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 14)];
-    v77[8] = v50;
-    v51 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:9];
-    [(CSMSLDataRecording *)v42 updateMetadata:v51];
+    v47 = [NSString stringWithUTF8String:v46];
+    v82[1] = v47;
+    v81[2] = @"companionKappaDeviceType";
+    v73 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 8)];
+    v82[2] = v73;
+    v81[3] = @"companionMartyDeviceType";
+    v48 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 9)];
+    v82[3] = v48;
+    v81[4] = @"companionKappaTokenCount";
+    v49 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 10)];
+    v82[4] = v49;
+    v81[5] = @"companionMartyTokenCount";
+    v50 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 11)];
+    v82[5] = v50;
+    v81[6] = @"companionKappaArmedSeconds";
+    v51 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 12)];
+    v82[6] = v51;
+    v81[7] = @"companionMartyArmedSeconds";
+    v52 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 13)];
+    v82[7] = v52;
+    v81[8] = @"companionEnableMode";
+    v53 = [NSNumber numberWithInt:*(self->_companionDeviceInfo.__ptr_ + 14)];
+    v82[8] = v53;
+    v54 = [NSDictionary dictionaryWithObjects:v82 forKeys:v81 count:9];
+    [(CSMSLDataRecording *)v45 updateMetadata:v54];
   }
 
-  v52 = self->_companionUUID.__ptr_;
-  if (v52)
+  v55 = self->_companionUUID.__ptr_;
+  if (v55)
   {
-    v53 = self->_mslRecording;
-    v72[0] = @"companionUUID";
-    if (*(v52 + 23) < 0)
+    v56 = self->_mslRecording;
+    v77[0] = @"companionUUID";
+    if (*(v55 + 23) < 0)
     {
-      v52 = *v52;
+      v55 = *v55;
     }
 
-    uUIDString3 = [NSString stringWithUTF8String:v52];
-    v72[1] = @"collectionUUID";
-    v73[0] = uUIDString3;
+    uUIDString3 = [NSString stringWithUTF8String:v55];
+    v77[1] = @"collectionUUID";
+    v78[0] = uUIDString3;
     uUIDString2 = [(NSUUID *)self->_uuid UUIDString];
-    v73[1] = uUIDString2;
-    v56 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:2];
-    [(CSMSLDataRecording *)v53 updateMetadata:v56];
+    v78[1] = uUIDString2;
+    v59 = [NSDictionary dictionaryWithObjects:v78 forKeys:v77 count:2];
+    [(CSMSLDataRecording *)v56 updateMetadata:v59];
   }
 
   else
@@ -1288,19 +1286,19 @@ LABEL_67:
       sub_1002E6708();
     }
 
-    v57 = qword_100456830;
+    v60 = qword_100456830;
     if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEBUG, "no companion marty collection", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEBUG, "no companion marty collection", buf, 2u);
     }
 
-    v58 = self->_mslRecording;
-    v74 = @"collectionUUID";
+    v61 = self->_mslRecording;
+    v79 = @"collectionUUID";
     uUIDString3 = [(NSUUID *)self->_uuid UUIDString];
-    v75 = uUIDString3;
-    uUIDString2 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-    [(CSMSLDataRecording *)v58 updateMetadata:uUIDString2];
+    v80 = uUIDString3;
+    uUIDString2 = [NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    [(CSMSLDataRecording *)v61 updateMetadata:uUIDString2];
   }
 
   companionTriggerTime = self->_companionTriggerTime;
@@ -1309,11 +1307,11 @@ LABEL_67:
     companionTriggerTime = [NSNumber numberWithDouble:*self->_details.__ptr_ - companionTriggerTime];
     stringValue = [companionTriggerTime stringValue];
 
-    v62 = self->_mslRecording;
-    v70 = @"deltaTrigger";
-    v71 = stringValue;
-    v63 = [NSDictionary dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-    [(CSMSLDataRecording *)v62 updateMetadata:v63];
+    v65 = self->_mslRecording;
+    v75 = @"deltaTrigger";
+    v76 = stringValue;
+    v66 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    [(CSMSLDataRecording *)v65 updateMetadata:v66];
   }
 }
 
@@ -1333,26 +1331,26 @@ LABEL_67:
 
   CSAOPSvc::suppressTriggers(self->_aop, 1);
   CSAOPSvc::stopDetection(self->_aop);
-  [(CSMartyDetectionService *)self stopSession:stop];
+  v6 = [(CSMartyDetectionService *)self stopSession:stop];
   if (!self->fFlowControl.__ptr_)
   {
-    sub_1002E6970();
+    sub_1002E6970(v6, v7);
   }
 
-  v6 = objc_initWeak(buf, self);
+  v8 = objc_initWeak(buf, self);
   newTimer = [(CLSilo *)self->_silo newTimer];
   sosTimer = self->_sosTimer;
   self->_sosTimer = newTimer;
 
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1002DFBD8;
-  v10[3] = &unk_100431708;
-  v10[4] = self;
-  [(CLTimer *)self->_sosTimer setHandler:v10];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1002DFBD8;
+  v12[3] = &unk_100431708;
+  v12[4] = self;
+  [(CLTimer *)self->_sosTimer setHandler:v12];
   [(CLTimer *)self->_sosTimer setNextFireDelay:0.0 interval:1.79769313e308];
-  v9 = +[CSPower sharedInstance];
-  [v9 powerlogActivity:7 event:0 isActive:CFAbsoluteTimeGetCurrent()];
+  v11 = +[CSPower sharedInstance];
+  [v11 powerlogActivity:7 event:0 isActive:CFAbsoluteTimeGetCurrent()];
 
   objc_destroyWeak(buf);
 }
@@ -1417,12 +1415,9 @@ LABEL_67:
         goto LABEL_20;
       }
 
-      sub_1002E6A9C(buf);
+      sub_1002E6A9C();
 
-      v25 = 959;
-      v26 = "[CSMartyDetectionService decideToShowTTR]";
-      v24 = "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm";
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 959, "[CSMartyDetectionService decideToShowTTR]");
       __break(1u);
     }
 
@@ -1430,7 +1425,7 @@ LABEL_67:
     Current = CFAbsoluteTimeGetCurrent();
     v11 = @"MartyLastTTREarlyCrashTimestamp";
 LABEL_19:
-    [(CSPersistentConfiguration *)persist setDouble:v11 forKey:Current, v24, v25, v26];
+    [(CSPersistentConfiguration *)persist setDouble:v11 forKey:Current];
 LABEL_20:
     [(CSMSLDataRecording *)self->_mslRecording writeMetadataToDisk:v7];
     martyTTR = self->_martyTTR;
@@ -1446,9 +1441,9 @@ LABEL_31:
 
     uUIDString3 = [(NSUUID *)uuid UUIDString];
     ttrManagedMsl = [(CSMSLDataRecording *)self->_mslRecording ttrManagedMsl];
-    v27 = 0;
-    [(CSMartyTap2Radar *)martyTTR enqueueTTRWithTriggerUUID:uUIDString3 ttrManagedFiles:ttrManagedMsl error:&v27];
-    uUIDString2 = v27;
+    v26 = 0;
+    [(CSMartyTap2Radar *)martyTTR enqueueTTRWithTriggerUUID:uUIDString3 ttrManagedFiles:ttrManagedMsl error:&v26];
+    uUIDString2 = v26;
 
     if (uUIDString2)
     {
@@ -1457,8 +1452,8 @@ LABEL_31:
         sub_1002E6708();
       }
 
-      v17 = qword_100456830;
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v19 = qword_100456830;
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_30;
       }
@@ -1466,35 +1461,35 @@ LABEL_31:
       ttrManagedMsl2 = [(CSMSLDataRecording *)self->_mslRecording ttrManagedMsl];
       *buf = 138412546;
       *&buf[4] = uUIDString2;
-      v29 = 1024;
-      v30 = ttrManagedMsl2;
-      v19 = "[TTR] Error enqueuing TTR: %@, ttrManaged,%d";
-      v20 = v17;
-      v21 = OS_LOG_TYPE_DEBUG;
+      v28 = 1024;
+      v29 = ttrManagedMsl2;
+      v21 = "[TTR] Error enqueuing TTR: %@, ttrManaged,%d";
+      v22 = v19;
+      v23 = OS_LOG_TYPE_DEBUG;
     }
 
     else
     {
-      v17 = sub_1002DCCF8();
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = sub_1002DCCF8(v17, v18);
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
 LABEL_30:
 
         goto LABEL_31;
       }
 
-      v22 = self->_uuid;
+      v24 = self->_uuid;
       ttrManagedMsl3 = [(CSMSLDataRecording *)self->_mslRecording ttrManagedMsl];
       *buf = 138412546;
-      *&buf[4] = v22;
-      v29 = 1024;
-      v30 = ttrManagedMsl3;
-      v19 = "[TTR] Enqueued TTR with UUID %@, ttrManaged,%d";
-      v20 = v17;
-      v21 = OS_LOG_TYPE_INFO;
+      *&buf[4] = v24;
+      v28 = 1024;
+      v29 = ttrManagedMsl3;
+      v21 = "[TTR] Enqueued TTR with UUID %@, ttrManaged,%d";
+      v22 = v19;
+      v23 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&_mh_execute_header, v20, v21, v19, buf, 0x12u);
+    _os_log_impl(&_mh_execute_header, v22, v23, v21, buf, 0x12u);
     goto LABEL_30;
   }
 
@@ -1526,9 +1521,9 @@ LABEL_30:
 
   else
   {
-    sub_1002E6BB0(buf);
+    sub_1002E6BB0();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 986, "[CSMartyDetectionService setRecording:withUUID:]");
     __break(1u);
   }
 
@@ -1617,14 +1612,14 @@ LABEL_3:
     v7 = *([v4 c_struct] + 2);
     v8 = *([v4 c_struct] + 3);
     v9 = *([v4 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v6;
-    v58 = 2048;
-    *v59 = v7;
-    *&v59[8] = 2048;
-    *v60 = v8;
-    *&v60[8] = 2048;
-    v61 = v9;
+    v61 = 134218752;
+    v62 = v6;
+    v63 = 2048;
+    *v64 = v7;
+    *&v64[8] = 2048;
+    *v65 = v8;
+    *&v65[8] = 2048;
+    v66 = v9;
     v10 = "accel800 %llu x %.7f y %.7f z %.7f\n";
     goto LABEL_16;
   }
@@ -1648,14 +1643,14 @@ LABEL_3:
     v13 = *([v11 c_struct] + 2);
     v14 = *([v11 c_struct] + 3);
     v15 = *([v11 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v12;
-    v58 = 2048;
-    *v59 = v13;
-    *&v59[8] = 2048;
-    *v60 = v14;
-    *&v60[8] = 2048;
-    v61 = v15;
+    v61 = 134218752;
+    v62 = v12;
+    v63 = 2048;
+    *v64 = v13;
+    *&v64[8] = 2048;
+    *v65 = v14;
+    *&v65[8] = 2048;
+    v66 = v15;
     v10 = "hgaccel %llu x %.7f y %.7f z %.7f\n";
     goto LABEL_16;
   }
@@ -1679,20 +1674,20 @@ LABEL_3:
     v18 = *([v16 c_struct] + 2);
     v19 = *([v16 c_struct] + 3);
     v20 = *([v16 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v17;
-    v58 = 2048;
-    *v59 = v18;
-    *&v59[8] = 2048;
-    *v60 = v19;
-    *&v60[8] = 2048;
-    v61 = v20;
+    v61 = 134218752;
+    v62 = v17;
+    v63 = 2048;
+    *v64 = v18;
+    *&v64[8] = 2048;
+    *v65 = v19;
+    *&v65[8] = 2048;
+    v66 = v20;
     v10 = "accel %llu x %.7f y %.7f z %.7f\n";
 LABEL_16:
     v21 = v5;
     v22 = 42;
 LABEL_17:
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, v10, &v56, v22);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, v10, &v61, v22);
     goto LABEL_18;
   }
 
@@ -1712,8 +1707,8 @@ LABEL_17:
     }
 
     v24 = *([v23 c_struct] + 1);
-    v56 = 134217984;
-    v57 = v24;
+    v61 = 134217984;
+    v62 = v24;
     v10 = "trigger %llu\n";
     v21 = v5;
     v22 = 12;
@@ -1743,22 +1738,22 @@ LABEL_17:
     v31 = *([v25 c_struct] + 4);
     v32 = *([v25 c_struct] + 5);
     v33 = *([v25 c_struct] + 6);
-    v56 = 134219776;
-    v57 = v26;
-    v58 = 2048;
-    *v59 = v27;
-    *&v59[8] = 2048;
-    *v60 = v28;
-    *&v60[8] = 2048;
-    v61 = v29;
-    v62 = 2048;
-    v63 = v30;
-    v64 = 2048;
-    v65 = v31;
-    v66 = 2048;
-    v67 = v32;
-    v68 = 2048;
-    v69 = v33;
+    v61 = 134219776;
+    v62 = v26;
+    v63 = 2048;
+    *v64 = v27;
+    *&v64[8] = 2048;
+    *v65 = v28;
+    *&v65[8] = 2048;
+    v66 = v29;
+    v67 = 2048;
+    v68 = v30;
+    v69 = 2048;
+    v70 = v31;
+    v71 = 2048;
+    v72 = v32;
+    v73 = 2048;
+    v74 = v33;
     v10 = "dm6 %llu %.7f %.7f %.7f %.7f %.7f %.7f %.7f\n";
     v21 = v5;
     v22 = 82;
@@ -1769,30 +1764,30 @@ LABEL_17:
   if (objc_opt_isKindOfClass())
   {
     v34 = sampleCopy;
-    v5 = sub_1002DCCF8();
+    v5 = sub_1002DCCF8(v34, v35);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v35 = *([v34 c_struct] + 5);
-    v36 = *([v34 c_struct] + 8);
-    v37 = *[v34 c_struct];
-    v38 = *([v34 c_struct] + 1);
-    v39 = *([v34 c_struct] + 2);
-    v40 = *([v34 c_struct] + 3);
-    v56 = 134219264;
-    v57 = v35;
-    v58 = 2048;
-    *v59 = v36;
-    *&v59[8] = 2048;
-    *v60 = v37;
-    *&v60[8] = 2048;
-    v61 = v38;
-    v62 = 2048;
-    v63 = v39;
-    v64 = 2048;
-    v65 = v40;
+    v36 = *([v34 c_struct] + 5);
+    v37 = *([v34 c_struct] + 8);
+    v38 = *[v34 c_struct];
+    v39 = *([v34 c_struct] + 1);
+    v40 = *([v34 c_struct] + 2);
+    v41 = *([v34 c_struct] + 3);
+    v61 = 134219264;
+    v62 = v36;
+    v63 = 2048;
+    *v64 = v37;
+    *&v64[8] = 2048;
+    *v65 = v38;
+    *&v65[8] = 2048;
+    v66 = v39;
+    v67 = 2048;
+    v68 = v40;
+    v69 = 2048;
+    v70 = v41;
     v10 = "gps %llu %f %.7f %.7f %.7f %.7f\n";
     v21 = v5;
     v22 = 62;
@@ -1802,28 +1797,28 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v41 = sampleCopy;
-    v5 = sub_1002DCCF8();
+    v42 = sampleCopy;
+    v5 = sub_1002DCCF8(v42, v43);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v42 = *[v41 c_struct];
-    v43 = *([v41 c_struct] + 2);
-    v44 = *([v41 c_struct] + 3);
-    v45 = *([v41 c_struct] + 4);
-    v46 = *([v41 c_struct] + 20);
-    v56 = 134219008;
-    v57 = v42;
-    v58 = 1024;
-    *v59 = v43;
-    *&v59[4] = 1024;
-    *&v59[6] = v44;
-    *v60 = 2048;
-    *&v60[2] = v45;
-    LOWORD(v61) = 1024;
-    *(&v61 + 2) = v46;
+    v44 = *[v42 c_struct];
+    v45 = *([v42 c_struct] + 2);
+    v46 = *([v42 c_struct] + 3);
+    v47 = *([v42 c_struct] + 4);
+    v48 = *([v42 c_struct] + 20);
+    v61 = 134219008;
+    v62 = v44;
+    v63 = 1024;
+    *v64 = v45;
+    *&v64[4] = 1024;
+    *&v64[6] = v46;
+    *v65 = 2048;
+    *&v65[2] = v47;
+    LOWORD(v66) = 1024;
+    *(&v66 + 2) = v48;
     v10 = "steps %llu %d %d %.7f %d\n";
     v21 = v5;
     v22 = 40;
@@ -1833,19 +1828,19 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v47 = sampleCopy;
-    v5 = sub_1002DCCF8();
+    v49 = sampleCopy;
+    v5 = sub_1002DCCF8(v49, v50);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v48 = *[v47 c_struct];
-    v49 = *([v47 c_struct] + 2);
-    v56 = 134218240;
-    v57 = v48;
-    v58 = 2048;
-    *v59 = v49;
+    v51 = *[v49 c_struct];
+    v52 = *([v49 c_struct] + 2);
+    v61 = 134218240;
+    v62 = v51;
+    v63 = 2048;
+    *v64 = v52;
     v10 = "SPL %llu %f\n";
     goto LABEL_45;
   }
@@ -1853,19 +1848,19 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v50 = sampleCopy;
-    v5 = sub_1002DCCF8();
+    v53 = sampleCopy;
+    v5 = sub_1002DCCF8(v53, v54);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v51 = *[v50 c_struct];
-    v52 = *([v50 c_struct] + 2);
-    v56 = 134218240;
-    v57 = v51;
-    v58 = 2048;
-    *v59 = v52;
+    v55 = *[v53 c_struct];
+    v56 = *([v53 c_struct] + 2);
+    v61 = 134218240;
+    v62 = v55;
+    v63 = 2048;
+    *v64 = v56;
     v10 = "pressure %llu %f\n";
     goto LABEL_45;
   }
@@ -1876,16 +1871,16 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  v53 = sampleCopy;
-  v5 = sub_1002DCCF8();
+  v57 = sampleCopy;
+  v5 = sub_1002DCCF8(v57, v58);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v54 = *[v53 c_struct];
-    v55 = *([v53 c_struct] + 1);
-    v56 = 134218240;
-    v57 = v54;
-    v58 = 2048;
-    *v59 = v55;
+    v59 = *[v57 c_struct];
+    v60 = *([v57 c_struct] + 1);
+    v61 = 134218240;
+    v62 = v59;
+    v63 = 2048;
+    *v64 = v60;
     v10 = "roads %llu %f\n";
 LABEL_45:
     v21 = v5;
@@ -1909,9 +1904,9 @@ LABEL_19:
 
   else
   {
-    sub_1002E6CC4(&v6);
+    sub_1002E6CC4();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1140, "[CSMartyDetectionService feedAccel800:]");
     __break(1u);
   }
 }
@@ -1927,9 +1922,9 @@ LABEL_19:
 
   else
   {
-    sub_1002E6DD8(&v6);
+    sub_1002E6DD8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1148, "[CSMartyDetectionService feedHgAccel:]");
     __break(1u);
   }
 }
@@ -1939,7 +1934,7 @@ LABEL_19:
   accelCopy = accel;
   if (!accelCopy)
   {
-    sub_1002E6EEC();
+    sub_1002E6EEC(0, v4);
   }
 }
 
@@ -1954,9 +1949,9 @@ LABEL_19:
 
   else
   {
-    sub_1002E7018(&v6);
+    sub_1002E7018();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1166, "[CSMartyDetectionService feedDeviceMotion:]");
     __break(1u);
   }
 }
@@ -1967,9 +1962,9 @@ LABEL_19:
   v5 = sCopy;
   if (!sCopy)
   {
-    sub_1002E712C(buf);
+    sub_1002E712C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1175, "[CSMartyDetectionService feedGPS:]");
     __break(1u);
 LABEL_9:
     sub_1002E66F4();
@@ -2017,9 +2012,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E7240(&v6);
+    sub_1002E7240();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1190, "[CSMartyDetectionService feedSteps:]");
     __break(1u);
   }
 }
@@ -2035,9 +2030,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E7354(&v6);
+    sub_1002E7354();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1199, "[CSMartyDetectionService feedKappaTrigger:]");
     __break(1u);
   }
 }
@@ -2047,7 +2042,7 @@ LABEL_7:
   magCopy = mag;
   if (!magCopy)
   {
-    sub_1002E7468();
+    sub_1002E7468(0, v4);
   }
 }
 
@@ -2062,9 +2057,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E7594(&v6);
+    sub_1002E7594();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1215, "[CSMartyDetectionService feedPressure:]");
     __break(1u);
   }
 }
@@ -2080,9 +2075,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E76A8(&v6);
+    sub_1002E76A8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1224, "[CSMartyDetectionService feedSoundPressureLevel:]");
     __break(1u);
   }
 }
@@ -2098,9 +2093,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E77BC(&v6);
+    sub_1002E77BC();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1233, "[CSMartyDetectionService feedTrustedAudioResult:]");
     __break(1u);
   }
 }
@@ -2116,9 +2111,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E78E4(&v6);
+    sub_1002E78E4();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1241, "[CSMartyDetectionService feedRoads:]");
     __break(1u);
   }
 }
@@ -2134,9 +2129,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E79F8(&v6);
+    sub_1002E79F8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1249, "[CSMartyDetectionService feedHertzSample:]");
     __break(1u);
   }
 }
@@ -2152,9 +2147,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E7B0C(&v6);
+    sub_1002E7B0C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1257, "[CSMartyDetectionService feedCompanionStatus:]");
     __break(1u);
   }
 }
@@ -2170,9 +2165,9 @@ LABEL_7:
 
   else
   {
-    sub_1002E7C20(&v6);
+    sub_1002E7C20();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1265, "[CSMartyDetectionService feedRemoteSample:]");
     __break(1u);
   }
 }
@@ -2185,18 +2180,18 @@ LABEL_7:
     ptr = self->fFlowControl.__ptr_;
     if (!ptr)
     {
-      sub_1002E7D34(buf);
+      sub_1002E7D34();
 
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1274, "[CSMartyDetectionService feedSortedSamples:]");
       __break(1u);
 LABEL_49:
       sub_1002E6708();
 LABEL_45:
-      v11 = qword_100456830;
+      v13 = qword_100456830;
       if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "stop consuming samples", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "stop consuming samples", buf, 2u);
       }
 
       break;
@@ -2349,9 +2344,10 @@ LABEL_39:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v8 = sub_1002DCCF8();
+      v8 = sub_1002DCCF8(isKindOfClass, v12);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
@@ -2564,7 +2560,7 @@ LABEL_40:
 {
   if (!self->fFlowControl.__ptr_)
   {
-    sub_1002E7E48();
+    sub_1002E7E48(self, a2);
 LABEL_24:
     sub_1002E66F4();
     goto LABEL_10;
@@ -2648,7 +2644,7 @@ LABEL_10:
 LABEL_19:
     v10 = v8;
 LABEL_20:
-    if ([(CSMartyDetectionService *)selfCopy coinflip:v10, *v18])
+    if ([(CSMartyDetectionService *)selfCopy coinflip:v10, *v18, *&v18[8]])
     {
       return 1;
     }
@@ -2706,7 +2702,7 @@ LABEL_11:
 
   v8 = v6;
 LABEL_13:
-  if ([(CSMartyDetectionService *)self coinflip:v8, *v12])
+  if ([(CSMartyDetectionService *)self coinflip:v8, *v12, *&v12[8]])
   {
     return 2;
   }
@@ -2719,9 +2715,9 @@ LABEL_13:
 
 - (void)requestDeviceInfo
 {
-  v4 = rand();
-  v3 = MartyCompanion::serializeDeviceInfoRequest(&v4);
-  [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v3 type:303];
+  v5 = rand();
+  v4 = MartyCompanion::serializeDeviceInfoRequest(&v5, v3);
+  [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v4 type:303];
 }
 
 - (void)requestCompanionUpload:(int)upload
@@ -2736,8 +2732,8 @@ LABEL_13:
 
     sub_10029F5A0(&__p, ptr);
     uploadCopy = upload;
-    v6 = MartyCompanion::serializeRequestUpload(&__p);
-    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v6 type:304];
+    v7 = MartyCompanion::serializeRequestUpload(&__p, v6);
+    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v7 type:304];
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2830,7 +2826,7 @@ LABEL_13:
 
 - (void)receiveCompanionTrigger:(id)trigger
 {
-  MartyCompanion::deserializeTrigger(trigger, a2);
+  MartyCompanion::deserializeTrigger(trigger, a2, v7);
   v4 = v7[0];
   v7[0] = 0;
   ptr = self->_companionTrigger.__ptr_;
@@ -2858,9 +2854,9 @@ LABEL_13:
   triggerCopy = trigger;
   if (!triggerCopy)
   {
-    sub_1002E7F6C(&Current);
+    sub_1002E7F6C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1623, "[CSMartyDetectionService sendCompanionTrigger:]");
     __break(1u);
   }
 
@@ -2897,7 +2893,7 @@ LABEL_13:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "setting companion device info", buf, 2u);
   }
 
-  MartyCompanion::deserializeDeviceInfo(infoCopy, v5);
+  MartyCompanion::deserializeDeviceInfo(infoCopy);
 }
 
 - (void)onCompanionMessage:(int)message data:(id)data receivedTimestamp:(double)timestamp

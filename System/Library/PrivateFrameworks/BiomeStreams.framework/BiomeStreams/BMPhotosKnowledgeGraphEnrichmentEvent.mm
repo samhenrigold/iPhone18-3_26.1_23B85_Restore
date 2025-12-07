@@ -370,35 +370,35 @@ BMPhotosKnowledgeGraphEnrichmentLocation *__55__BMPhotosKnowledgeGraphEnrichment
 
 - (BOOL)isCompleteWithContext:(id)context error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v7 = self->_topics;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v31;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v32 != v10)
+      if (*v31 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      if (![*(*(&v31 + 1) + 8 * v11) isCompleteWithContext:contextCopy error:error])
+      if (![*(*(&v30 + 1) + 8 * v11) isCompleteWithContext:contextCopy error:error])
       {
         goto LABEL_27;
       }
 
       if (v9 == ++v11)
       {
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -409,33 +409,33 @@ LABEL_3:
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v7 = self->_entities;
-  v12 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  v12 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
 LABEL_11:
     v15 = 0;
     while (1)
     {
-      if (*v28 != v14)
+      if (*v27 != v14)
       {
         objc_enumerationMutation(v7);
       }
 
-      if (![*(*(&v27 + 1) + 8 * v15) isCompleteWithContext:contextCopy error:error])
+      if (![*(*(&v26 + 1) + 8 * v15) isCompleteWithContext:contextCopy error:error])
       {
         goto LABEL_27;
       }
 
       if (v13 == ++v15)
       {
-        v13 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v13 = [(NSArray *)v7 countByEnumeratingWithState:&v26 objects:v35 count:16];
         if (v13)
         {
           goto LABEL_11;
@@ -446,33 +446,33 @@ LABEL_11:
     }
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v7 = self->_locations;
-  v16 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+  v16 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v24;
+    v18 = *v23;
 LABEL_19:
     v19 = 0;
     while (1)
     {
-      if (*v24 != v18)
+      if (*v23 != v18)
       {
         objc_enumerationMutation(v7);
       }
 
-      if (![*(*(&v23 + 1) + 8 * v19) isCompleteWithContext:contextCopy error:{error, v23}])
+      if (![*(*(&v22 + 1) + 8 * v19) isCompleteWithContext:contextCopy error:{error, v22}])
       {
         break;
       }
 
       if (v17 == ++v19)
       {
-        v17 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v35 count:16];
+        v17 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v34 count:16];
         if (v17)
         {
           goto LABEL_19;
@@ -506,7 +506,6 @@ LABEL_25:
   v20 = 1;
 LABEL_29:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

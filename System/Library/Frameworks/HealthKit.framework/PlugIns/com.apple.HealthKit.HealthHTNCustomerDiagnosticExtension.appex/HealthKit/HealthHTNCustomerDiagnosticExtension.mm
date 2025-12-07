@@ -5,6 +5,7 @@
 - (id)_attachmentsWithFileURLs:(id)ls;
 - (id)_heartDataWithQuantityType:(id)type healthStore:(id)store startDate:(id)date endDate:(id)endDate predicates:(id)predicates;
 - (id)_lastAnalysisMeasurementsRerunAnalysisWithHealthStore:(id)store;
+- (id)_samplesWithQuantityType:(id)type dateInterval:(id)interval healthStore:(id)store predicates:(id)predicates ascending:(BOOL)ascending error:(id *)error;
 - (id)_sleepDataWithHealthStore:(id)store endDate:(id)date;
 - (id)_writeJSON:(id)n logDirectoryURL:(id)l fileName:(id)name;
 - (id)attachmentsForParameters:(id)parameters;
@@ -247,18 +248,18 @@
   v46 = +[NSCalendar hk_gregorianCalendar];
   v48 = [v50 hk_dayIndexWithCalendar:v46];
   v47 = [dateCopy hk_dayIndexWithCalendar:v46];
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = sub_100002064;
-  v80 = sub_100002074;
-  v81 = 0;
+  v79 = 0;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = sub_100002064;
+  v83 = sub_100002074;
+  v84 = 0;
   v73 = 0;
-  v74[0] = &v73;
-  v74[1] = 0x3032000000;
-  v74[2] = sub_100002064;
-  v74[3] = sub_100002074;
-  v75 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = sub_100002064;
+  v77 = sub_100002074;
+  v78 = 0;
   v5 = dispatch_semaphore_create(0);
   v6 = [HKSleepDaySummaryQuery alloc];
   v69[0] = _NSConcreteStackBlock;
@@ -266,7 +267,7 @@
   v69[2] = sub_10000207C;
   v69[3] = &unk_1000082D8;
   v71 = &v73;
-  v72 = &v76;
+  v72 = &v79;
   dsema = v5;
   v70 = dsema;
   v7 = [v6 initWithMorningIndexRange:v48 ascending:v47 limit:1 options:0 resultsHandler:{3, v69}];
@@ -275,7 +276,7 @@
   v8 = dispatch_time(0, 10000000000);
   dispatch_semaphore_wait(dsema, v8);
   v56 = [NSMutableArray arrayWithArray:&__NSArray0__struct];
-  if (v77[5])
+  if (v80[5])
   {
     _HKInitializeLogging();
     v9 = HKLogDefault;
@@ -284,9 +285,9 @@
       v10 = v9;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v11 = [v77[5] count];
+        v11 = [v80[5] count];
         *buf = 67109120;
-        v90 = v11;
+        v93 = v11;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "[HealthHTNCustomerDiagnostics] daySummaries count: %d", buf, 8u);
       }
     }
@@ -295,8 +296,8 @@
     v68 = 0u;
     v65 = 0u;
     v66 = 0u;
-    obj = v77[5];
-    v39 = [obj countByEnumeratingWithState:&v65 objects:v88 count:16];
+    obj = v80[5];
+    v39 = [obj countByEnumeratingWithState:&v65 objects:v91 count:16];
     if (v39)
     {
       v40 = *v66;
@@ -315,7 +316,7 @@
           v63 = 0u;
           v64 = 0u;
           periods = [v12 periods];
-          v53 = [periods countByEnumeratingWithState:&v61 objects:v87 count:16];
+          v53 = [periods countByEnumeratingWithState:&v61 objects:v90 count:16];
           if (v53)
           {
             v52 = *v62;
@@ -334,7 +335,7 @@
                 v59 = 0u;
                 v60 = 0u;
                 segments = [v13 segments];
-                v15 = [segments countByEnumeratingWithState:&v57 objects:v86 count:16];
+                v15 = [segments countByEnumeratingWithState:&v57 objects:v89 count:16];
                 if (v15)
                 {
                   v16 = *v58;
@@ -351,49 +352,49 @@
                       v18 = *(*(&v57 + 1) + 8 * k);
                       if (v18)
                       {
-                        v84[0] = @"startDate";
+                        v87[0] = @"startDate";
                         dateInterval = [v18 dateInterval];
                         startDate = [dateInterval startDate];
                         v21 = [startDate description];
-                        v85[0] = v21;
-                        v84[1] = @"endDate";
+                        v88[0] = v21;
+                        v87[1] = @"endDate";
                         dateInterval2 = [v18 dateInterval];
                         endDate = [dateInterval2 endDate];
                         v24 = [endDate description];
-                        v85[1] = v24;
-                        v25 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:2];
+                        v88[1] = v24;
+                        v25 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:2];
                         [v56 addObject:v25];
                       }
                     }
 
                     segments = v55;
-                    v15 = [v55 countByEnumeratingWithState:&v57 objects:v86 count:16];
+                    v15 = [v55 countByEnumeratingWithState:&v57 objects:v89 count:16];
                   }
 
                   while (v15);
                 }
               }
 
-              v53 = [periods countByEnumeratingWithState:&v61 objects:v87 count:16];
+              v53 = [periods countByEnumeratingWithState:&v61 objects:v90 count:16];
             }
 
             while (v53);
           }
         }
 
-        v39 = [obj countByEnumeratingWithState:&v65 objects:v88 count:16];
+        v39 = [obj countByEnumeratingWithState:&v65 objects:v91 count:16];
       }
 
       while (v39);
     }
   }
 
-  else if (*(v74[0] + 40))
+  else if (v74[5])
   {
     _HKInitializeLogging();
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      sub_1000034B8(v74);
+      sub_1000034B8();
     }
   }
 
@@ -417,33 +418,33 @@
     {
       v29 = [v56 count];
       *buf = 67109120;
-      v90 = v29;
+      v93 = v29;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "[HealthHTNCustomerDiagnostics] Asleep segments count: %d", buf, 8u);
     }
   }
 
-  v83[0] = v56;
-  v82[0] = @"asleepSegments";
-  v82[1] = @"startDayIndex";
+  v86[0] = v56;
+  v85[0] = @"asleepSegments";
+  v85[1] = @"startDayIndex";
   v30 = [NSNumber numberWithInteger:v48, v39];
-  v83[1] = v30;
-  v82[2] = @"endDayIndex";
+  v86[1] = v30;
+  v85[2] = @"endDayIndex";
   v31 = [NSNumber numberWithInteger:v47];
-  v83[2] = v31;
-  v82[3] = @"startDate";
+  v86[2] = v31;
+  v85[3] = @"startDate";
   v32 = [v50 description];
-  v83[3] = v32;
-  v82[4] = @"endDate";
+  v86[3] = v32;
+  v85[4] = @"endDate";
   v33 = [dateCopy description];
-  v83[4] = v33;
-  v82[5] = @"count";
+  v86[4] = v33;
+  v85[5] = @"count";
   v34 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v56 count]);
-  v83[5] = v34;
-  v82[6] = @"error";
-  v35 = *(v74[0] + 40);
+  v86[5] = v34;
+  v85[6] = @"error";
+  v35 = v74[5];
   if (v35)
   {
-    v36 = [*(v74[0] + 40) description];
+    v36 = [v74[5] description];
   }
 
   else
@@ -451,14 +452,14 @@
     v36 = @"nil";
   }
 
-  v83[6] = v36;
-  v37 = [NSDictionary dictionaryWithObjects:v83 forKeys:v82 count:7];
+  v86[6] = v36;
+  v37 = [NSDictionary dictionaryWithObjects:v86 forKeys:v85 count:7];
   if (v35)
   {
   }
 
   _Block_object_dispose(&v73, 8);
-  _Block_object_dispose(&v76, 8);
+  _Block_object_dispose(&v79, 8);
 
   return v37;
 }
@@ -703,6 +704,92 @@ LABEL_25:
   }
 
   return v22;
+}
+
+- (id)_samplesWithQuantityType:(id)type dateInterval:(id)interval healthStore:(id)store predicates:(id)predicates ascending:(BOOL)ascending error:(id *)error
+{
+  ascendingCopy = ascending;
+  typeCopy = type;
+  intervalCopy = interval;
+  storeCopy = store;
+  predicatesCopy = predicates;
+  v13 = [NSSortDescriptor sortDescriptorWithKey:HKSampleSortIdentifierEndDate ascending:ascendingCopy];
+  v14 = [HKQuery predicateForSamplesWithinDateInterval:intervalCopy options:0];
+  v52 = v14;
+  v15 = [NSArray arrayWithObjects:&v52 count:1];
+  v16 = v15;
+  if (predicatesCopy)
+  {
+    v17 = [v15 arrayByAddingObjectsFromArray:predicatesCopy];
+
+    v16 = v17;
+  }
+
+  v18 = [NSCompoundPredicate andPredicateWithSubpredicates:v16];
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = sub_100002064;
+  v49 = sub_100002074;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = sub_100002064;
+  v43 = sub_100002074;
+  v44 = 0;
+  v19 = dispatch_semaphore_create(0);
+  v20 = [HKSampleQuery alloc];
+  v51 = v13;
+  v21 = [NSArray arrayWithObjects:&v51 count:1];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_1000031A0;
+  v35[3] = &unk_100008380;
+  v37 = &v39;
+  v38 = &v45;
+  v22 = v19;
+  v36 = v22;
+  v23 = [v20 initWithSampleType:typeCopy predicate:v18 limit:0 sortDescriptors:v21 resultsHandler:v35];
+
+  [storeCopy executeQuery:v23];
+  v24 = dispatch_time(0, 10000000000);
+  dispatch_semaphore_wait(v22, v24);
+  v25 = v46[5];
+  if (v25)
+  {
+    v26 = v25;
+  }
+
+  else if (v40[5])
+  {
+    _HKInitializeLogging();
+    if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000035A8();
+    }
+
+    v27 = v40[5];
+    v28 = v27;
+    if (v27)
+    {
+      if (error)
+      {
+        v29 = v27;
+        *error = v28;
+      }
+
+      else
+      {
+        _HKLogDroppedError();
+      }
+    }
+  }
+
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
+
+  return v25;
 }
 
 - (HAHypertensivePatternAnalysis)_analyzeMeasurements:(id)measurements withDateInterval:(id)interval

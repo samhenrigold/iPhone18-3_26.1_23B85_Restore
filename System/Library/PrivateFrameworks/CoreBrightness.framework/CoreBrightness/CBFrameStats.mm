@@ -48,79 +48,73 @@
   queueCopy = queue;
   providerCopy = provider;
   displayCopy = display;
-  if (queue && providerCopy && displayCopy)
+  if (!queue || !providerCopy || !displayCopy)
   {
-    v14.receiver = selfCopy;
-    v14.super_class = CBFrameStats;
-    selfCopy = [(CBFrameStats *)&v14 init];
-    if (selfCopy)
+    return 0;
+  }
+
+  v14.receiver = selfCopy;
+  v14.super_class = CBFrameStats;
+  selfCopy = [(CBFrameStats *)&v14 init];
+  if (selfCopy)
+  {
+    v5 = os_log_create("com.apple.CoreBrightness.FrameStats", "default");
+    *(selfCopy + 16) = v5;
+    *(selfCopy + 1) = queueCopy;
+    dispatch_retain(*(selfCopy + 1));
+    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    *(selfCopy + 17) = v6;
+    v7 = MEMORY[0x1E69E5928](providerCopy);
+    *(selfCopy + 2) = v7;
+    for (i = 0; i < [objc_msgSend(displayCopy "averagePixelConstraints")]; ++i)
     {
-      v5 = os_log_create("com.apple.CoreBrightness.FrameStats", "default");
-      *(selfCopy + 16) = v5;
-      *(selfCopy + 1) = queueCopy;
-      dispatch_retain(*(selfCopy + 1));
-      v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      *(selfCopy + 17) = v6;
-      v7 = MEMORY[0x1E69E5928](providerCopy);
-      *(selfCopy + 2) = v7;
-      for (i = 0; i < [objc_msgSend(displayCopy "averagePixelConstraints")]; ++i)
+      std::vector<float>::push_back[abi:de200100](selfCopy + 3, ([objc_msgSend(displayCopy "averagePixelConstraints")] + 4 * i));
+      std::vector<float>::push_back[abi:de200100](selfCopy + 6, ([objc_msgSend(displayCopy "averagePixelConstraints")] + 4 * i));
+      if (*(selfCopy + 16))
       {
-        std::vector<float>::push_back[abi:de200100](selfCopy + 3, ([objc_msgSend(displayCopy "averagePixelConstraints")] + 4 * i));
-        std::vector<float>::push_back[abi:de200100](selfCopy + 6, ([objc_msgSend(displayCopy "averagePixelConstraints")] + 4 * i));
-        if (*(selfCopy + 16))
+        v12 = *(selfCopy + 16);
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v12 = *(selfCopy + 16);
+          inited = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            inited = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            inited = init_default_corebrightness_log();
-          }
-
-          v12 = inited;
+          inited = init_default_corebrightness_log();
         }
 
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-        {
-          *&v10 = *std::vector<float>::back[abi:de200100](selfCopy + 3);
-          v8 = std::vector<float>::back[abi:de200100](selfCopy + 6);
-          __os_log_helper_16_0_4_4_0_8_0_4_0_8_0(v21, i, v10, i, COERCE__INT64(*v8));
-          _os_log_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEFAULT, "FrameStats RTPLC | FrameDelayedNits[%d]=%f FrameDelayedAPCE[%d]=%f", v21, 0x22u);
-        }
+        v12 = inited;
       }
 
-      *(selfCopy + 112) = 0;
-      *(selfCopy + 30) = 0;
-      *(selfCopy + 29) = 0;
-      *(selfCopy + 22) = 0;
-      *(selfCopy + 40) = 0;
-      *(selfCopy + 18) = 0;
-      *(selfCopy + 20) = 0.5;
-      *(selfCopy + 21) = 2.0;
-      *(selfCopy + 22) = mach_time_now_in_seconds();
-      *(selfCopy + 26) = 1060320051;
-      *(selfCopy + 27) = 10.0;
-      *(selfCopy + 31) = -1.0;
-      *(selfCopy + 148) = 0;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *&v10 = *std::vector<float>::back[abi:de200100](selfCopy + 3);
+        v8 = std::vector<float>::back[abi:de200100](selfCopy + 6);
+        __os_log_helper_16_0_4_4_0_8_0_4_0_8_0(v21, i, v10, i, COERCE__INT64(*v8));
+        _os_log_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEFAULT, "FrameStats RTPLC | FrameDelayedNits[%d]=%f FrameDelayedAPCE[%d]=%f", v21, 0x22u);
+      }
     }
 
-    v20 = selfCopy;
+    *(selfCopy + 112) = 0;
+    *(selfCopy + 30) = 0;
+    *(selfCopy + 29) = 0;
+    *(selfCopy + 22) = 0;
+    *(selfCopy + 40) = 0;
+    *(selfCopy + 18) = 0;
+    *(selfCopy + 20) = 0.5;
+    *(selfCopy + 21) = 2.0;
+    *(selfCopy + 22) = mach_time_now_in_seconds();
+    *(selfCopy + 26) = 1060320051;
+    *(selfCopy + 27) = 10.0;
+    *(selfCopy + 31) = -1.0;
+    *(selfCopy + 148) = 0;
   }
 
-  else
-  {
-    v20 = 0;
-  }
-
-  *MEMORY[0x1E69E9840];
-  return v20;
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -399,7 +393,6 @@ float __32__CBFrameStats_startMonitoring___block_invoke(uint64_t a1)
 
   self->_rtplcCapApplied.previous = info->var3;
   self->_previousFramePresentationTime = v16;
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)getPeakAPCECap

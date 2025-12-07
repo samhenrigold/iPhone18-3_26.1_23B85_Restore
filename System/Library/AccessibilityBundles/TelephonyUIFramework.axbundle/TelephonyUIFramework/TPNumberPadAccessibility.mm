@@ -17,7 +17,7 @@
 
 - (id)_accessibilityScannerGroupElements
 {
-  v16[2] = *MEMORY[0x29EDCA608];
+  v15[2] = *MEMORY[0x29EDCA608];
   v3 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:4];
   v4 = [(TPNumberPadAccessibility *)self safeValueForKey:@"_buttons"];
   if ([v4 count] == 12)
@@ -26,12 +26,12 @@
     do
     {
       v5 += 3;
-      v15[0] = @"GroupElements";
+      v14[0] = @"GroupElements";
       v6 = [v4 subarrayWithRange:{v5, 3}];
-      v15[1] = @"GroupTraits";
-      v16[0] = v6;
-      v16[1] = &unk_2A23460F8;
-      v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+      v14[1] = @"GroupTraits";
+      v15[0] = v6;
+      v15[1] = &unk_2A23460F8;
+      v7 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
       [v3 addObject:v7];
     }
@@ -61,8 +61,6 @@
       [v3 replaceObjectAtIndex:objc_msgSend(v3 withObject:{"count") - 1, v10}];
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v3;
 }

@@ -23,8 +23,8 @@
 - (id)fetchAllTransactionsWithError:(id *)error;
 - (id)mostRecentTransactionCreationDateWithError:(id *)error;
 - (id)transactionWithUUID:(id)d requireUncommitted:(BOOL)uncommitted error:(id *)error;
-- (uint64_t)_notifyObserversOfTransactionChange;
 - (uint64_t)performDatabaseTransactionForWriting:(void *)writing entity:(void *)entity error:(void *)error block:;
+- (void)_notifyObserversOfTransactionChange;
 @end
 
 @implementation HDSharedSummaryManager
@@ -174,7 +174,7 @@ LABEL_22:
 
 - (id)_createTransactionWithUUID:(void *)d sourceDeviceIdentifier:(void *)identifier metadata:(void *)metadata error:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = a2;
   dCopy = d;
   identifierCopy = identifier;
@@ -195,18 +195,18 @@ LABEL_22:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v24 = __Block_byref_object_copy__34;
-    v25 = __Block_byref_object_dispose__34;
-    v26 = 0;
+    v23 = __Block_byref_object_copy__34;
+    v24 = __Block_byref_object_dispose__34;
+    v25 = 0;
     v14 = objc_opt_class();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __91__HDSharedSummaryManager__createTransactionWithUUID_sourceDeviceIdentifier_metadata_error___block_invoke;
-    v19[3] = &unk_278614288;
-    v22 = buf;
-    v20 = v9;
-    v21 = dCopy;
-    [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v14 entity:metadata error:v19 block:?];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __91__HDSharedSummaryManager__createTransactionWithUUID_sourceDeviceIdentifier_metadata_error___block_invoke;
+    v18[3] = &unk_278614288;
+    v21 = buf;
+    v19 = v9;
+    v20 = dCopy;
+    [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v14 entity:metadata error:v18 block:?];
     v15 = *(*&buf[8] + 40);
     if (identifierCopy && v15)
     {
@@ -228,8 +228,6 @@ LABEL_10:
 
   v16 = 0;
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -275,9 +273,9 @@ uint64_t __71__HDSharedSummaryManager_transactionWithUUID_requireUncommitted_err
 {
   v5 = a2;
   v6 = *(a1 + 32);
-  v24 = 0;
-  v7 = [HDSharedSummaryTransactionEntity transactionEntityWithUUID:v6 databaseTransaction:v5 error:&v24];
-  v8 = v24;
+  v23 = 0;
+  v7 = [HDSharedSummaryTransactionEntity transactionEntityWithUUID:v6 databaseTransaction:v5 error:&v23];
+  v8 = v23;
   v9 = *(*(a1 + 48) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v7;
@@ -287,18 +285,17 @@ uint64_t __71__HDSharedSummaryManager_transactionWithUUID_requireUncommitted_err
   {
     if (*(a1 + 64) == 1)
     {
-      v23 = v8;
-      v12 = [v11 committedInDatabaseTransaction:v5 error:&v23];
-      v13 = v23;
+      v22 = v8;
+      v12 = [v11 committedInDatabaseTransaction:v5 error:&v22];
+      v13 = v22;
 
       if (v12)
       {
         v14 = MEMORY[0x277CCA9B8];
-        v15 = *(a1 + 40);
-        v16 = objc_opt_class();
-        v17 = *(a1 + 56);
-        v18 = [*(a1 + 32) UUIDString];
-        v8 = [v14 hk_error:126 class:v16 selector:v17 format:{@"Transaction with UUID %@ already committed", v18}];
+        v15 = objc_opt_class();
+        v16 = *(a1 + 56);
+        v17 = [*(a1 + 32) UUIDString];
+        v8 = [v14 hk_error:126 class:v15 selector:v16 format:{@"Transaction with UUID %@ already committed", v17}];
       }
 
       else
@@ -307,8 +304,8 @@ uint64_t __71__HDSharedSummaryManager_transactionWithUUID_requireUncommitted_err
       }
     }
 
-    v19 = v8;
-    if (v19)
+    v18 = v8;
+    if (v18)
     {
       if (a3)
       {
@@ -319,12 +316,12 @@ uint64_t __71__HDSharedSummaryManager_transactionWithUUID_requireUncommitted_err
     }
 
 LABEL_12:
-    v20 = 1;
+    v19 = 1;
     goto LABEL_13;
   }
 
-  v19 = v8;
-  if (!v19)
+  v18 = v8;
+  if (!v18)
   {
     goto LABEL_12;
   }
@@ -332,18 +329,18 @@ LABEL_12:
   if (a3)
   {
 LABEL_11:
-    v21 = v19;
-    v20 = 0;
-    *a3 = v19;
+    v20 = v18;
+    v19 = 0;
+    *a3 = v18;
     goto LABEL_13;
   }
 
 LABEL_7:
   _HKLogDroppedError();
-  v20 = 0;
+  v19 = 0;
 LABEL_13:
 
-  return v20;
+  return v19;
 }
 
 - (BOOL)addSharedSummaries:(id)summaries transactionEntity:(id)entity error:(id *)error
@@ -368,35 +365,35 @@ LABEL_13:
 uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   LODWORD(v4) = a1;
-  v72[1] = *MEMORY[0x277D85DE8];
-  v57 = a2;
+  v71[1] = *MEMORY[0x277D85DE8];
+  v56 = a2;
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   obj = *(a1 + 32);
-  v55 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
-  if (v55)
+  v54 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+  if (v54)
   {
-    v54 = *v61;
-    v51 = a3;
+    v53 = *v60;
+    v50 = a3;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v61 != v54)
+        if (*v60 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v58 = v5;
-        v6 = *(*(&v60 + 1) + 8 * v5);
+        v57 = v5;
+        v6 = *(*(&v59 + 1) + 8 * v5);
         v7 = *(a1 + 40);
         v8 = *(a1 + 48);
         v9 = v6;
         v10 = v8;
-        v11 = v57;
+        v11 = v56;
         if (v7)
         {
           v12 = [v9 UUID];
@@ -404,53 +401,53 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
           v14 = [v9 name];
           v15 = [v9 version];
           v16 = [v9 compatibilityVersion];
-          v59 = v10;
+          v58 = v10;
           v17 = [v10 persistentID];
           v18 = [v9 summaryData];
-          v69 = 0;
-          v19 = [HDSharedSummaryEntity insertOrReplaceWithUUID:v12 package:v13 name:v14 version:v15 compatibilityVersion:v16 transactionID:v17 summaryData:v18 databaseTransaction:v11 error:&v69];
-          v20 = v69;
+          v68 = 0;
+          v19 = [HDSharedSummaryEntity insertOrReplaceWithUUID:v12 package:v13 name:v14 version:v15 compatibilityVersion:v16 transactionID:v17 summaryData:v18 databaseTransaction:v11 error:&v68];
+          v20 = v68;
 
           if (v19)
           {
             v21 = [v19 persistentID];
             v22 = [v9 authorizationIdentifiers];
-            v68 = v20;
-            v23 = [HDSharedSummaryAuthorizationIdentifierEntity insertWithSummaryID:v21 authorizationIdentifiers:v22 databaseTransaction:v11 error:&v68];
-            v24 = v68;
+            v67 = v20;
+            v23 = [HDSharedSummaryAuthorizationIdentifierEntity insertWithSummaryID:v21 authorizationIdentifiers:v22 databaseTransaction:v11 error:&v67];
+            v24 = v67;
 
             if (v23)
             {
               v25 = [v19 persistentID];
               v26 = [v9 objectTypes];
-              v67 = v24;
-              v27 = [HDSharedSummaryObjectTypeEntity insertWithSummaryID:v25 objectTypes:v26 databaseTransaction:v11 error:&v67];
-              v28 = v67;
+              v66 = v24;
+              v27 = [HDSharedSummaryObjectTypeEntity insertWithSummaryID:v25 objectTypes:v26 databaseTransaction:v11 error:&v66];
+              v28 = v66;
 
-              v10 = v59;
+              v10 = v58;
               if (v27)
               {
-                v52 = v27;
-                v29 = [v59 persistentID];
+                v51 = v27;
+                v29 = [v58 persistentID];
                 [v9 package];
                 v31 = v30 = v11;
                 v32 = [v9 name];
-                v72[0] = v32;
-                v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
-                v66 = v28;
-                v64[0] = MEMORY[0x277D85DD0];
-                v64[1] = 3221225472;
-                v64[2] = __88__HDSharedSummaryManager__addSharedSummary_transactionEntity_databaseTransaction_error___block_invoke;
-                v64[3] = &unk_278618688;
-                v65 = v30;
-                LOBYTE(v29) = [HDSharedSummaryEntity enumerateEntitiesWithReuseTransactionID:v29 package:v31 names:v33 databaseTransaction:v65 error:&v66 enumerationHandler:v64];
-                v7 = v66;
+                v71[0] = v32;
+                v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+                v65 = v28;
+                v63[0] = MEMORY[0x277D85DD0];
+                v63[1] = 3221225472;
+                v63[2] = __88__HDSharedSummaryManager__addSharedSummary_transactionEntity_databaseTransaction_error___block_invoke;
+                v63[3] = &unk_278618688;
+                v64 = v30;
+                LOBYTE(v29) = [HDSharedSummaryEntity enumerateEntitiesWithReuseTransactionID:v29 package:v31 names:v33 databaseTransaction:v64 error:&v65 enumerationHandler:v63];
+                v7 = v65;
 
                 if (v29)
                 {
                   v4 = 0;
-                  v10 = v59;
-                  v27 = v52;
+                  v10 = v58;
+                  v27 = v51;
                   v11 = v30;
                   v34 = 1;
                 }
@@ -465,12 +462,12 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
                     v42 = v41;
                   }
 
-                  v10 = v59;
-                  v27 = v52;
+                  v10 = v58;
+                  v27 = v51;
                   v11 = v30;
                 }
 
-                v70 = v34;
+                v69 = v34;
               }
 
               else
@@ -482,7 +479,7 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
                   v40 = v39;
                 }
 
-                v70 = v4 == 0;
+                v69 = v4 == 0;
                 v7 = v4;
               }
             }
@@ -491,13 +488,13 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
             {
               v37 = v24;
               v4 = v37;
-              v10 = v59;
+              v10 = v58;
               if (v37)
               {
                 v38 = v37;
               }
 
-              v70 = v4 == 0;
+              v69 = v4 == 0;
               v7 = v4;
             }
           }
@@ -511,12 +508,12 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
               v36 = v35;
             }
 
-            v70 = v4 == 0;
+            v69 = v4 == 0;
             v7 = v4;
-            v10 = v59;
+            v10 = v58;
           }
 
-          LOBYTE(v7) = v70;
+          LOBYTE(v7) = v69;
         }
 
         else
@@ -532,10 +529,10 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
           LODWORD(v4) = v46 == 0;
           if (v46)
           {
-            if (v51)
+            if (v50)
             {
               v48 = v46;
-              *v51 = v47;
+              *v50 = v47;
             }
 
             else
@@ -548,12 +545,12 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
           goto LABEL_39;
         }
 
-        v5 = v58 + 1;
+        v5 = v57 + 1;
       }
 
-      while (v55 != v58 + 1);
-      v44 = [obj countByEnumeratingWithState:&v60 objects:v71 count:16];
-      v55 = v44;
+      while (v54 != v57 + 1);
+      v44 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
+      v54 = v44;
       if (v44)
       {
         continue;
@@ -566,7 +563,6 @@ uint64_t __69__HDSharedSummaryManager_addSharedSummaries_transactionEntity_error
   v45 = 1;
 LABEL_39:
 
-  v49 = *MEMORY[0x277D85DE8];
   return (v4 | v45) & 1;
 }
 
@@ -617,14 +613,14 @@ BOOL __62__HDSharedSummaryManager_addMetadata_transactionEntity_error___block_in
 
 uint64_t __80__HDSharedSummaryManager_reuseSharedSummariesWithUUIDs_transactionEntity_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v6)
   {
     v8 = 0;
@@ -633,23 +629,23 @@ uint64_t __80__HDSharedSummaryManager_reuseSharedSummariesWithUUIDs_transactionE
   }
 
   v7 = v6;
-  v20 = a3;
+  v19 = a3;
   v8 = 0;
-  v9 = *v25;
+  v9 = *v24;
   while (2)
   {
     a3 = 0;
     do
     {
-      if (*v25 != v9)
+      if (*v24 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v24 + 1) + 8 * a3);
-      v23 = v8;
-      v11 = [HDSharedSummaryEntity entityWithUUID:v10 databaseTransaction:v5 error:&v23, v20];
-      v12 = v23;
+      v10 = *(*(&v23 + 1) + 8 * a3);
+      v22 = v8;
+      v11 = [HDSharedSummaryEntity entityWithUUID:v10 databaseTransaction:v5 error:&v22, v19];
+      v12 = v22;
 
       if (!v11)
       {
@@ -658,11 +654,11 @@ LABEL_14:
         v8 = v16;
         if (v16)
         {
-          if (v20)
+          if (v19)
           {
             v17 = v16;
             LODWORD(a3) = 0;
-            *v20 = v8;
+            *v19 = v8;
           }
 
           else
@@ -682,9 +678,9 @@ LABEL_14:
       }
 
       v13 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 40), "persistentID")}];
-      v22 = v12;
-      v14 = [v11 setReuseTransactionID:v13 databaseTransaction:v5 error:&v22];
-      v8 = v22;
+      v21 = v12;
+      v14 = [v11 setReuseTransactionID:v13 databaseTransaction:v5 error:&v21];
+      v8 = v21;
 
       if ((v14 & 1) == 0)
       {
@@ -696,7 +692,7 @@ LABEL_14:
     }
 
     while (v7 != a3);
-    v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     v15 = 1;
     if (v7)
     {
@@ -708,7 +704,6 @@ LABEL_14:
 
 LABEL_20:
 
-  v18 = *MEMORY[0x277D85DE8];
   return (v15 | a3) & 1;
 }
 
@@ -736,26 +731,26 @@ LABEL_20:
 BOOL __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transactionEntity_error___block_invoke(id *a1, void *a2, void *a3)
 {
   v5 = a2;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
   v27 = 0;
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transactionEntity_error___block_invoke_2;
-  v21 = &unk_2786184A8;
-  v22 = a1[4];
-  v23 = a1[5];
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v26 = 0;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transactionEntity_error___block_invoke_2;
+  v20 = &unk_2786184A8;
+  v21 = a1[4];
+  v22 = a1[5];
   v6 = v5;
-  v24 = v6;
-  v26 = &v28;
-  v25 = a1[6];
-  v7 = [HDSharedSummaryTransactionEntity enumerateTransactionsWithDatabaseTransaction:v6 includeNonCommitted:0 error:&v27 enumerationHandler:&v18];
-  v8 = v27;
+  v23 = v6;
+  v25 = &v27;
+  v24 = a1[6];
+  v7 = [HDSharedSummaryTransactionEntity enumerateTransactionsWithDatabaseTransaction:v6 includeNonCommitted:0 error:&v26 enumerationHandler:&v17];
+  v8 = v26;
   if (v7)
   {
-    v9 = v29[3];
+    v9 = v28[3];
     v10 = a1[5];
     if (v9)
     {
@@ -764,15 +759,14 @@ BOOL __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transact
         goto LABEL_10;
       }
 
-      v11 = [MEMORY[0x277CCA9B8] hk_error:118 format:{@"Some summaries not found in package %@ with names %@", a1[4], a1[5], v18, v19, v20, v21, v22, v23, v24}];
+      v11 = [MEMORY[0x277CCA9B8] hk_error:118 format:{@"Some summaries not found in package %@ with names %@", a1[4], a1[5], v17, v18, v19, v20, v21, v22, v23}];
     }
 
     else
     {
-      v12 = a1[4];
       if (v10)
       {
-        [MEMORY[0x277CCA9B8] hk_error:118 format:{@"No summaries for reuse were found in package %@ with names %@", a1[4], v10, v18, v19, v20, v21, v22, v23, v24}];
+        [MEMORY[0x277CCA9B8] hk_error:118 format:{@"No summaries for reuse were found in package %@ with names %@", a1[4], v10, v17, v18, v19, v20, v21, v22, v23}];
       }
 
       else
@@ -782,20 +776,20 @@ BOOL __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transact
       v11 = ;
     }
 
-    v13 = v11;
+    v12 = v11;
 
-    v8 = v13;
+    v8 = v12;
   }
 
 LABEL_10:
-  v14 = v8;
-  v15 = v14;
-  if (v14)
+  v13 = v8;
+  v14 = v13;
+  if (v13)
   {
     if (a3)
     {
-      v16 = v14;
-      *a3 = v15;
+      v15 = v13;
+      *a3 = v14;
     }
 
     else
@@ -804,8 +798,8 @@ LABEL_10:
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-  return v15 == 0;
+  _Block_object_dispose(&v27, 8);
+  return v14 == 0;
 }
 
 BOOL __88__HDSharedSummaryManager_reuseSharedSummariesWithPackage_names_transactionEntity_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -913,40 +907,40 @@ LABEL_12:
 
 uint64_t __75__HDSharedSummaryManager_removeSummariesWithUUIDs_transactionEntity_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v33 = [v5 databaseForEntityClass:objc_opt_class()];
+  v31 = [v5 databaseForEntityClass:objc_opt_class()];
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v37 = a1;
+  v35 = a1;
   obj = *(a1 + 32);
-  v36 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-  if (!v36)
+  v34 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (!v34)
   {
     v6 = 0;
     v18 = 1;
     goto LABEL_43;
   }
 
-  v32 = a3;
+  v30 = a3;
   v6 = 0;
-  v7 = *v44;
-  v35 = v5;
+  v7 = *v42;
+  v33 = v5;
   while (2)
   {
-    for (i = 0; i != v36; ++i)
+    for (i = 0; i != v34; ++i)
     {
-      if (*v44 != v7)
+      if (*v42 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v43 + 1) + 8 * i);
-      v42 = v6;
-      v10 = [HDSharedSummaryEntity entityWithUUID:v9 databaseTransaction:v5 error:&v42];
-      v11 = v42;
+      v9 = *(*(&v41 + 1) + 8 * i);
+      v40 = v6;
+      v10 = [HDSharedSummaryEntity entityWithUUID:v9 databaseTransaction:v5 error:&v40];
+      v11 = v40;
 
       if (!v10)
       {
@@ -955,10 +949,10 @@ uint64_t __75__HDSharedSummaryManager_removeSummariesWithUUIDs_transactionEntity
         LODWORD(a3) = v19 == 0;
         if (v19)
         {
-          if (v32)
+          if (v30)
           {
             v20 = v19;
-            *v32 = v10;
+            *v30 = v10;
           }
 
           else
@@ -971,9 +965,9 @@ uint64_t __75__HDSharedSummaryManager_removeSummariesWithUUIDs_transactionEntity
         goto LABEL_42;
       }
 
-      v41 = v11;
-      v12 = [v10 transactionIDInDatabaseTransaction:v5 error:&v41];
-      a3 = v41;
+      v39 = v11;
+      v12 = [v10 transactionIDInDatabaseTransaction:v5 error:&v39];
+      a3 = v39;
 
       if (!v12)
       {
@@ -981,12 +975,12 @@ uint64_t __75__HDSharedSummaryManager_removeSummariesWithUUIDs_transactionEntity
         goto LABEL_25;
       }
 
-      v13 = [*(v37 + 40) persistentID];
+      v13 = [*(v35 + 40) persistentID];
       if (v13 == [v12 unsignedLongLongValue])
       {
-        v40 = a3;
-        v14 = [v10 deleteFromDatabase:v33 error:&v40];
-        v6 = v40;
+        v38 = a3;
+        v14 = [v10 deleteFromDatabase:v31 error:&v38];
+        v6 = v38;
 
         if ((v14 & 1) == 0)
         {
@@ -995,11 +989,11 @@ LABEL_25:
           v15 = v21;
           if (v21)
           {
-            if (v32)
+            if (v30)
             {
               v22 = v21;
               LODWORD(a3) = 0;
-              *v32 = v15;
+              *v30 = v15;
             }
 
             else
@@ -1019,21 +1013,21 @@ LABEL_25:
 
       else
       {
-        v39 = a3;
-        v15 = [v10 reuseTransactionIDInDatabaseTransaction:v5 error:&v39];
-        v16 = v39;
+        v37 = a3;
+        v15 = [v10 reuseTransactionIDInDatabaseTransaction:v5 error:&v37];
+        v16 = v37;
 
-        if (!v15 || (v17 = [*(v37 + 40) persistentID], v17 != objc_msgSend(v15, "unsignedLongLongValue")))
+        if (!v15 || (v17 = [*(v35 + 40) persistentID], v17 != objc_msgSend(v15, "unsignedLongLongValue")))
         {
           if (v16)
           {
             v6 = v16;
 LABEL_33:
-            if (v32)
+            if (v30)
             {
-              v29 = v6;
+              v28 = v6;
               LODWORD(a3) = 0;
-              *v32 = v6;
+              *v30 = v6;
             }
 
             else
@@ -1045,7 +1039,7 @@ LABEL_33:
 LABEL_36:
 
 LABEL_39:
-            v5 = v35;
+            v5 = v33;
 LABEL_42:
 
             v18 = 0;
@@ -1053,13 +1047,12 @@ LABEL_42:
           }
 
           v23 = MEMORY[0x277CCA9B8];
-          v24 = *(v37 + 48);
-          v25 = objc_opt_class();
-          v26 = *(v37 + 56);
-          v27 = [v9 UUIDString];
-          v28 = [v23 hk_error:126 class:v25 selector:v26 format:{@"Summary %@ not in transaction", v27}];
+          v24 = objc_opt_class();
+          v25 = *(v35 + 56);
+          v26 = [v9 UUIDString];
+          v27 = [v23 hk_error:126 class:v24 selector:v25 format:{@"Summary %@ not in transaction", v26}];
 
-          v6 = v28;
+          v6 = v27;
           if (v6)
           {
             goto LABEL_33;
@@ -1070,9 +1063,9 @@ LABEL_29:
           goto LABEL_39;
         }
 
-        v38 = v16;
-        LODWORD(a3) = [v10 setReuseTransactionID:0 databaseTransaction:v35 error:&v38];
-        v6 = v38;
+        v36 = v16;
+        LODWORD(a3) = [v10 setReuseTransactionID:0 databaseTransaction:v33 error:&v36];
+        v6 = v36;
 
         if ((a3 & 1) == 0)
         {
@@ -1086,13 +1079,13 @@ LABEL_29:
           goto LABEL_36;
         }
 
-        v5 = v35;
+        v5 = v33;
       }
     }
 
     v18 = 1;
-    v36 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
-    if (v36)
+    v34 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+    if (v34)
     {
       continue;
     }
@@ -1102,7 +1095,6 @@ LABEL_29:
 
 LABEL_43:
 
-  v30 = *MEMORY[0x277D85DE8];
   return (v18 | a3) & 1;
 }
 
@@ -1238,7 +1230,7 @@ LABEL_19:
 
 - (id)commitTransactionEntity:(id)entity error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   _HKInitializeLogging();
   v7 = HKLogSharing();
@@ -1252,38 +1244,38 @@ LABEL_19:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__34;
-  v39 = __Block_byref_object_dispose__34;
-  v40 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__34;
+  v38 = __Block_byref_object_dispose__34;
+  v39 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   v9 = objc_opt_class();
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __56__HDSharedSummaryManager_commitTransactionEntity_error___block_invoke;
-  v23 = &unk_2786184F8;
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __56__HDSharedSummaryManager_commitTransactionEntity_error___block_invoke;
+  v22 = &unk_2786184F8;
   v10 = entityCopy;
-  v24 = v10;
+  v23 = v10;
   selfCopy = self;
-  v26 = &v28;
+  v25 = &v27;
   p_buf = &buf;
-  if ([(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v9 entity:error error:&v20 block:?])
+  if ([(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v9 entity:error error:&v19 block:?])
   {
     _HKInitializeLogging();
     v11 = HKLogSharing();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = objc_opt_class();
-      v13 = v29[3];
-      *v32 = 138543618;
-      v33 = v12;
-      v34 = 2048;
-      v35 = v13;
+      v13 = v28[3];
+      *v31 = 138543618;
+      v32 = v12;
+      v33 = 2048;
+      v34 = v13;
       v14 = v12;
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Successfully committing transaction with %ld summaries", v32, 0x16u);
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Successfully committing transaction with %ld summaries", v31, 0x16u);
     }
   }
 
@@ -1304,11 +1296,11 @@ LABEL_19:
         localizedDescription = @"<lost>";
       }
 
-      *v32 = 138543618;
-      v33 = v15;
-      v34 = 2114;
-      v35 = localizedDescription;
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Failed to commit transaction - %{public}@", v32, 0x16u);
+      *v31 = 138543618;
+      v32 = v15;
+      v33 = 2114;
+      v34 = localizedDescription;
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Failed to commit transaction - %{public}@", v31, 0x16u);
       if (error)
       {
       }
@@ -1316,10 +1308,8 @@ LABEL_19:
   }
 
   v17 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
   _Block_object_dispose(&buf, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1556,11 +1546,11 @@ LABEL_27:
   return v29;
 }
 
-- (uint64_t)_notifyObserversOfTransactionChange
+- (void)_notifyObserversOfTransactionChange
 {
   if (result)
   {
-    v1 = *(result + 24);
+    v1 = result[3];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __61__HDSharedSummaryManager__notifyObserversOfTransactionChange__block_invoke;
@@ -1574,29 +1564,28 @@ LABEL_27:
 
 - (BOOL)discardTransactionEntity:(id)entity error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   _HKInitializeLogging();
   v7 = HKLogSharing();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v8 = v18;
+    v17 = objc_opt_class();
+    v8 = v17;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Discarding transaction", buf, 0xCu);
   }
 
   v9 = objc_opt_class();
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__HDSharedSummaryManager_discardTransactionEntity_error___block_invoke;
-  v14[3] = &unk_278613218;
-  v15 = entityCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__HDSharedSummaryManager_discardTransactionEntity_error___block_invoke;
+  v13[3] = &unk_278613218;
+  v14 = entityCopy;
   selfCopy = self;
   v10 = entityCopy;
-  v11 = [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v9 entity:error error:v14 block:?];
+  v11 = [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v9 entity:error error:v13 block:?];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1646,7 +1635,7 @@ BOOL __57__HDSharedSummaryManager_discardTransactionEntity_error___block_invoke(
   v10 = v6;
   if ([(HDSharedSummaryManager *)self enumerateCommittedTransactionsWithError:error handler:v9])
   {
-    v7 = [v6 copy];
+    v7 = objc_msgSend_copy(v6);
   }
 
   else
@@ -1690,12 +1679,12 @@ BOOL __74__HDSharedSummaryManager_enumerateCommittedTransactionsWithError_handle
   return v8;
 }
 
-uint64_t __74__HDSharedSummaryManager_enumerateCommittedTransactionsWithError_handler___block_invoke_2(uint64_t a1, void *a2, void *a3)
+uint64_t __74__HDSharedSummaryManager_enumerateCommittedTransactionsWithError_handler___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v4 = [(HDSharedSummaryManager *)*(a1 + 32) _transactionForEntity:a2 databaseTransaction:*(a1 + 40) error:a3];
+  v4 = [(HDSharedSummaryManager *)a1[4] _transactionForEntity:a2 databaseTransaction:a1[5] error:a3];
   if (v4)
   {
-    (*(*(a1 + 48) + 16))();
+    (*(a1[6] + 16))();
   }
 
   return 1;
@@ -2291,17 +2280,17 @@ LABEL_18:
   return error;
 }
 
-uint64_t __84__HDSharedSummaryManager_addOrReuseReceivedSharedSummaries_transactionEntity_error___block_invoke(uint64_t a1, void *a2, void *a3)
+uint64_t __84__HDSharedSummaryManager_addOrReuseReceivedSharedSummaries_transactionEntity_error___block_invoke(id *a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = a2;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  v33 = a1;
-  v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v32 = a1;
+  v5 = a1[4];
+  v6 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (!v6)
   {
     v19 = 1;
@@ -2309,36 +2298,36 @@ uint64_t __84__HDSharedSummaryManager_addOrReuseReceivedSharedSummaries_transact
   }
 
   v7 = v6;
-  v8 = *v38;
-  v31 = v5;
-  v32 = v4;
+  v8 = *v37;
+  v30 = v5;
+  v31 = v4;
   while (2)
   {
     a1 = 0;
     do
     {
-      if (*v38 != v8)
+      if (*v37 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v9 = *(*(&v37 + 1) + 8 * a1);
+      v9 = *(*(&v36 + 1) + 8 * a1);
       v10 = [v9 UUID];
-      v36 = 0;
-      v11 = [HDSharedSummaryEntity entityWithUUID:v10 databaseTransaction:v4 error:&v36];
-      v12 = v36;
+      v35 = 0;
+      v11 = [HDSharedSummaryEntity entityWithUUID:v10 databaseTransaction:v4 error:&v35];
+      v12 = v35;
 
       if (!v11)
       {
-        if ([v12 hk_isObjectNotFoundError])
+        if (objc_msgSend_hk_isObjectNotFoundError(v12))
         {
-          v15 = *(v33 + 40);
-          v41 = v9;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-          v17 = *(v33 + 48);
-          v35 = 0;
-          LODWORD(v15) = [v15 addSharedSummaries:v16 transactionEntity:v17 error:&v35];
-          v18 = v35;
+          v15 = v32[5];
+          v40 = v9;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+          v17 = v32[6];
+          v34 = 0;
+          LODWORD(v15) = [v15 addSharedSummaries:v16 transactionEntity:v17 error:&v34];
+          v18 = v34;
 
           if (!v15)
           {
@@ -2368,13 +2357,13 @@ uint64_t __84__HDSharedSummaryManager_addOrReuseReceivedSharedSummaries_transact
               LODWORD(a1) = 1;
             }
 
-            v5 = v31;
-            v4 = v32;
+            v5 = v30;
+            v4 = v31;
             goto LABEL_37;
           }
 
-          v4 = v32;
-          v5 = v31;
+          v4 = v31;
+          v5 = v30;
           goto LABEL_13;
         }
 
@@ -2412,10 +2401,10 @@ LABEL_22:
         goto LABEL_22;
       }
 
-      v13 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(v33 + 48), "persistentID")}];
-      v34 = 0;
-      v14 = [v11 setReuseTransactionID:v13 databaseTransaction:v4 error:&v34];
-      v12 = v34;
+      v13 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v32[6], "persistentID")}];
+      v33 = 0;
+      v14 = [v11 setReuseTransactionID:v13 databaseTransaction:v4 error:&v33];
+      v12 = v33;
 
       if ((v14 & 1) == 0)
       {
@@ -2452,11 +2441,11 @@ LABEL_37:
 
 LABEL_13:
 
-      ++a1;
+      a1 = (a1 + 1);
     }
 
     while (v7 != a1);
-    v7 = [v5 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v36 objects:v41 count:16];
     v19 = 1;
     if (v7)
     {
@@ -2468,7 +2457,6 @@ LABEL_13:
 
 LABEL_39:
 
-  v28 = *MEMORY[0x277D85DE8];
   return (v19 | a1) & 1;
 }
 
@@ -2512,21 +2500,19 @@ BOOL __91__HDSharedSummaryManager__createTransactionWithUUID_sourceDeviceIdentif
 
 - (BOOL)deleteAllTransactionsWithError:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = HKLogSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = objc_opt_class();
-    v6 = v11;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Deleting all transactions", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = objc_opt_class();
+    v6 = v10;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Deleting all transactions", &v9, 0xCu);
   }
 
   v7 = objc_opt_class();
-  result = [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v7 entity:error error:&__block_literal_global_38 block:?];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v7 entity:error error:&__block_literal_global_38 block:?];
 }
 
 uint64_t __57__HDSharedSummaryManager_deleteAllTransactionsWithError___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2591,7 +2577,7 @@ LABEL_12:
 
 - (BOOL)deleteTransactions:(id)transactions error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   transactionsCopy = transactions;
   _HKInitializeLogging();
   v7 = HKLogSharing();
@@ -2600,55 +2586,54 @@ LABEL_12:
     v8 = objc_opt_class();
     v9 = v8;
     *buf = 138543618;
-    v19 = v8;
-    v20 = 2048;
-    v21 = [transactionsCopy count];
+    v18 = v8;
+    v19 = 2048;
+    v20 = [transactionsCopy count];
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Deleting %ld transactions", buf, 0x16u);
   }
 
   v10 = objc_opt_class();
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __51__HDSharedSummaryManager_deleteTransactions_error___block_invoke;
-  v15[3] = &unk_278613218;
-  v16 = transactionsCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __51__HDSharedSummaryManager_deleteTransactions_error___block_invoke;
+  v14[3] = &unk_278613218;
+  v15 = transactionsCopy;
   selfCopy = self;
   v11 = transactionsCopy;
-  v12 = [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v10 entity:error error:v15 block:?];
+  v12 = [(HDSharedSummaryManager *)self performDatabaseTransactionForWriting:v10 entity:error error:v14 block:?];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t __51__HDSharedSummaryManager_deleteTransactions_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v18 = a1;
+  v17 = a1;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v21 + 1) + 8 * v10) UUID];
-        v20 = 0;
-        v12 = [HDSharedSummaryTransactionEntity transactionEntityWithUUID:v11 databaseTransaction:v5 error:&v20];
-        v13 = v20;
+        v11 = [*(*(&v20 + 1) + 8 * v10) UUID];
+        v19 = 0;
+        v12 = [HDSharedSummaryTransactionEntity transactionEntityWithUUID:v11 databaseTransaction:v5 error:&v19];
+        v13 = v19;
 
         if (v12)
         {
@@ -2681,7 +2666,7 @@ LABEL_16:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v8)
       {
         continue;
@@ -2691,16 +2676,15 @@ LABEL_16:
     }
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __51__HDSharedSummaryManager_deleteTransactions_error___block_invoke_2;
-  v19[3] = &unk_278613968;
-  v19[4] = *(v18 + 40);
-  [v5 onCommit:v19 orRollback:0];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __51__HDSharedSummaryManager_deleteTransactions_error___block_invoke_2;
+  v18[3] = &unk_278613968;
+  v18[4] = *(v17 + 40);
+  [v5 onCommit:v18 orRollback:0];
   v14 = 1;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

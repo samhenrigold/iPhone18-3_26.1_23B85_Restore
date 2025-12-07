@@ -40,7 +40,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_249EB8428();
+  sub_249EB8428(selfCopy);
 }
 
 - (_TtC9DropletUI17DropletEffectView)initWithFrame:(CGRect)frame

@@ -95,7 +95,7 @@ void __27__PSDisplay_builtinDisplay__block_invoke()
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
@@ -103,18 +103,16 @@ void __27__PSDisplay_builtinDisplay__block_invoke()
     v5 = objc_opt_class();
     if (v5 == objc_opt_class() && self->_builtin == equalCopy->_builtin)
     {
-      hardwareIdentifier = self->_hardwareIdentifier;
-      v7 = equalCopy->_hardwareIdentifier;
-      v8 = BSEqualStrings();
+      v6 = BSEqualStrings();
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)description

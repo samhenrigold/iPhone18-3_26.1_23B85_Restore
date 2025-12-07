@@ -25,7 +25,7 @@
 
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error
 {
-  v37[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   bagCopy = bag;
   v7 = bagCopy;
   if (self->_searchString)
@@ -33,10 +33,10 @@
     v8 = MusicURLPathStorefrontWithURLBag(bagCopy);
     if (v8)
     {
-      v35.receiver = self;
-      v35.super_class = NMAPISearchRequest;
-      v34 = v7;
-      v9 = [(NMAPIRequest *)&v35 urlComponentsWithStoreURLBag:v7 error:error];
+      v34.receiver = self;
+      v34.super_class = NMAPISearchRequest;
+      v33 = v7;
+      v9 = [(NMAPIRequest *)&v34 urlComponentsWithStoreURLBag:v7 error:error];
       if (self->_resultsPerSection)
       {
         v10 = MEMORY[0x277CCAD18];
@@ -50,31 +50,31 @@
       }
 
       v16 = MEMORY[0x277CCACA8];
-      v37[0] = @"/v1/catalog";
-      v37[1] = v8;
-      v37[2] = @"search";
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+      v36[0] = @"/v1/catalog";
+      v36[1] = v8;
+      v36[2] = @"search";
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
       v18 = [v16 pathWithComponents:v17];
       [v9 setPath:v18];
 
       queryItems2 = [v9 queryItems];
       v20 = [MEMORY[0x277CCAD18] queryItemWithName:@"term" value:self->_searchString];
-      v36[0] = v20;
+      v35[0] = v20;
       v21 = MEMORY[0x277CCAD18];
       v22 = v8;
       v23 = [&unk_286C7E438 componentsJoinedByString:{@", "}];
       v24 = [v21 queryItemWithName:@"types" value:v23];
-      v36[1] = v24;
+      v35[1] = v24;
       v25 = MEMORY[0x277CCAD18];
       v26 = [&unk_286C7E450 componentsJoinedByString:{@", "}];
       v27 = [v25 queryItemWithName:@"with" value:v26];
-      v36[2] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+      v35[2] = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
       v29 = [queryItems2 arrayByAddingObjectsFromArray:v28];
       [v9 setQueryItems:v29];
 
       v8 = v22;
-      v7 = v34;
+      v7 = v33;
     }
 
     else
@@ -117,8 +117,6 @@
       v9 = 0;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

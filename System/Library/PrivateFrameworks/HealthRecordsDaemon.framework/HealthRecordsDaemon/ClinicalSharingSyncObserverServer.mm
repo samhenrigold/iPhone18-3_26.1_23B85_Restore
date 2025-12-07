@@ -56,7 +56,6 @@
 
 - (void)connectionInvalidated
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC19HealthRecordsDaemon33ClinicalSharingSyncObserverServer_lock);
   sub_251B40DE8(0, &qword_2813E1D00, type metadata accessor for os_unfair_lock_s, MEMORY[0x277D83D58]);
   sub_251B3F1EC();
   selfCopy = self;

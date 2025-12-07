@@ -137,7 +137,7 @@
 
 - (void)setTitle:(id)title
 {
-  if (![(NSString *)self->_title isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_title, a2) & 1) == 0)
   {
     v5 = [title copy];
     title = self->_title;
@@ -341,9 +341,9 @@
     if (v5)
     {
       fileURL2 = [document fileURL];
-      v7 = [fileURL2 isEqual:v5];
+      isEqual = objc_msgSend_isEqual_(fileURL2);
 
-      if ((v7 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         v8 = self[16];
         self[16] = 0;
@@ -493,9 +493,9 @@ LABEL_3:
   }
 
   activeDocumentCreationIntent = [browser activeDocumentCreationIntent];
-  v23 = [activeDocumentCreationIntent isEqualToString:@"UIDocumentCreationIntentDefault"];
+  isEqualToString = objc_msgSend_isEqualToString_(activeDocumentCreationIntent);
 
-  if ((v23 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v24 = *(__UILogGetCategoryCachedImpl("UIDocument", &qword_1ED4A22F0) + 8);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -819,9 +819,9 @@ LABEL_15:
     }
 
     fileURL = [document fileURL];
-    v26 = [fileURL isEqual:*(self + 128)];
+    isEqual = objc_msgSend_isEqual_(fileURL);
 
-    if (v26)
+    if (isEqual)
     {
       v27 = v24 | 4;
     }

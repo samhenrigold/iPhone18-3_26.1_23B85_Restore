@@ -81,80 +81,80 @@ id __61__HFAbstractControlStatusItem__buildServiceItemsForServices___block_invok
 
 - (id)_buildControlItemsForServices:(id)services
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   v5 = [(HFAbstractControlStatusItem *)self _buildServiceItemsForServices:servicesCopy];
   if ([v5 count])
   {
-    v29 = servicesCopy;
+    v28 = servicesCopy;
     v6 = [(HFAbstractControlStatusItem *)self _aggregatedValueSourceWithServiceItems:v5];
     anyObject = [v5 anyObject];
-    v53 = HFItemUpdateOptionDisableOptionalData;
-    v54[0] = MEMORY[0x277CBEC38];
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
-    v31 = v33 = anyObject;
-    v27 = [anyObject createControlItemsWithOptions:?];
-    v8 = [v27 na_filter:&__block_literal_global_24];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke_2;
-    v49[3] = &unk_277DF4A58;
-    v36 = v6;
-    v50 = v36;
-    v9 = [v8 na_map:v49];
-    v39 = [v9 mutableCopy];
+    v52 = HFItemUpdateOptionDisableOptionalData;
+    v53[0] = MEMORY[0x277CBEC38];
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v30 = v32 = anyObject;
+    v26 = [anyObject createControlItemsWithOptions:?];
+    v8 = [v26 na_filter:&__block_literal_global_24];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke_2;
+    v48[3] = &unk_277DF4A58;
+    v35 = v6;
+    v49 = v35;
+    v9 = [v8 na_map:v48];
+    v38 = [v9 mutableCopy];
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v28 = v5;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v27 = v5;
     obj = v5;
-    v34 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+    if (v33)
     {
-      v32 = *v46;
+      v31 = *v45;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v46 != v32)
+          if (*v45 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v45 + 1) + 8 * i);
-          if (v11 != v33)
+          v11 = *(*(&v44 + 1) + 8 * i);
+          if (v11 != v32)
           {
-            v35 = i;
-            v37 = [MEMORY[0x277CBEB58] set];
+            v34 = i;
+            v36 = [MEMORY[0x277CBEB58] set];
+            v40 = 0u;
             v41 = 0u;
             v42 = 0u;
             v43 = 0u;
-            v44 = 0u;
-            v38 = [v11 createControlItemsWithOptions:v31];
-            v12 = [v38 countByEnumeratingWithState:&v41 objects:v51 count:16];
+            v37 = [v11 createControlItemsWithOptions:v30];
+            v12 = [v37 countByEnumeratingWithState:&v40 objects:v50 count:16];
             if (v12)
             {
               v13 = v12;
-              v14 = *v42;
+              v14 = *v41;
               do
               {
                 for (j = 0; j != v13; ++j)
                 {
-                  if (*v42 != v14)
+                  if (*v41 != v14)
                   {
-                    objc_enumerationMutation(v38);
+                    objc_enumerationMutation(v37);
                   }
 
-                  v16 = *(*(&v41 + 1) + 8 * j);
-                  v40[0] = MEMORY[0x277D85DD0];
-                  v40[1] = 3221225472;
-                  v40[2] = __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke_3;
-                  v40[3] = &unk_277DF4A80;
-                  v40[4] = self;
-                  v40[5] = v16;
-                  v17 = [v39 na_firstObjectPassingTest:v40];
+                  v16 = *(*(&v40 + 1) + 8 * j);
+                  v39[0] = MEMORY[0x277D85DD0];
+                  v39[1] = 3221225472;
+                  v39[2] = __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke_3;
+                  v39[3] = &unk_277DF4A80;
+                  v39[4] = self;
+                  v39[5] = v16;
+                  v17 = [v38 na_firstObjectPassingTest:v39];
                   if (v17)
                   {
                     characteristicOptions = [v16 characteristicOptions];
@@ -165,7 +165,7 @@ id __61__HFAbstractControlStatusItem__buildServiceItemsForServices___block_invok
                     {
                       if ([objc_opt_class() _isControlItem:v17 identicalToControlItem:v16])
                       {
-                        [v37 addObject:v17];
+                        [v36 addObject:v17];
                       }
 
                       else
@@ -176,43 +176,41 @@ id __61__HFAbstractControlStatusItem__buildServiceItemsForServices___block_invok
 
                         if ([v17 canCopyWithCharacteristicOptions:v23])
                         {
-                          v24 = [v17 copyWithCharacteristicOptions:v23 valueSource:v36];
-                          [v37 addObject:v24];
+                          v24 = [v17 copyWithCharacteristicOptions:v23 valueSource:v35];
+                          [v36 addObject:v24];
                         }
                       }
                     }
                   }
                 }
 
-                v13 = [v38 countByEnumeratingWithState:&v41 objects:v51 count:16];
+                v13 = [v37 countByEnumeratingWithState:&v40 objects:v50 count:16];
               }
 
               while (v13);
             }
 
-            v39 = v37;
-            i = v35;
+            v38 = v36;
+            i = v34;
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v33 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
-    v5 = v28;
-    servicesCopy = v29;
+    v5 = v27;
+    servicesCopy = v28;
   }
 
   else
   {
-    v39 = [MEMORY[0x277CBEB98] set];
+    v38 = [MEMORY[0x277CBEB98] set];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 BOOL __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke(uint64_t a1, void *a2)
@@ -233,11 +231,10 @@ id __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invok
 
 uint64_t __61__HFAbstractControlStatusItem__buildControlItemsForServices___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _isControlItem:v4 similarToControlItem:*(a1 + 40)];
+  v3 = a2;
+  v4 = [objc_opt_class() _isControlItem:v3 similarToControlItem:*(a1 + 40)];
 
-  return v5;
+  return v4;
 }
 
 + (BOOL)_isControlItem:(id)item similarToControlItem:(id)controlItem
@@ -282,7 +279,7 @@ uint64_t __61__HFAbstractControlStatusItem__buildControlItemsForServices___block
 
 - (id)_primaryServiceDescriptorForServices:(id)services
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [services na_map:&__block_literal_global_12_0];
   anyObject = [v4 anyObject];
   if ([v4 count] != 1)
@@ -290,19 +287,17 @@ uint64_t __61__HFAbstractControlStatusItem__buildControlItemsForServices___block
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138413058;
+      v8 = 138413058;
       selfCopy = self;
-      v11 = 2048;
-      v12 = [v4 count];
-      v13 = 2112;
-      v14 = v4;
-      v15 = 2112;
-      v16 = anyObject;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@ Invalid number of service descriptors (expected 1, found %lu): %@. Defaulting to %@.", &v9, 0x2Au);
+      v10 = 2048;
+      v11 = [v4 count];
+      v12 = 2112;
+      v13 = v4;
+      v14 = 2112;
+      v15 = anyObject;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%@ Invalid number of service descriptors (expected 1, found %lu): %@. Defaulting to %@.", &v8, 0x2Au);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }
@@ -337,9 +332,9 @@ id __68__HFAbstractControlStatusItem__primaryServiceDescriptorForServices___bloc
 id __70__HFAbstractControlStatusItem__aggregatedValueSourceWithServiceItems___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
   v4 = [v3 hf_childServices];
-  v5 = [v2 service];
+  v5 = objc_msgSend_service(v2);
 
   v6 = [v4 setByAddingObject:v5];
 

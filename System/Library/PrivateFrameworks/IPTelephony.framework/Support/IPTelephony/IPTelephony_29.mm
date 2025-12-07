@@ -1,13 +1,14 @@
-void sub_1E4E44FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1E4E44FDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
-  std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+  va_start(va, a44);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   ImsResult::~ImsResult(&a15);
   if (a10)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  ImsResult::~ImsResult(&a45);
+  ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
@@ -60,23 +61,23 @@ LABEL_12:
   }
 }
 
-void BambiCall::initializeMediaForMTSession(BambiCall *this@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void BambiCall::initializeMediaForMTSession(uint64_t *__return_ptr a1@<X8>, BambiCall *this@<X0>, uint64_t *a3@<X1>)
 {
   v6 = *(this + 24);
   if (v6 && SDPSession::hasStream(v6))
   {
-    *(a3 + 24) = 0u;
-    *(a3 + 40) = 0u;
-    *(a3 + 56) = 0u;
-    *(a3 + 72) = 0u;
-    *a3 = &unk_1F5EBDEF8;
-    *(a3 + 8) = &_bambiDomain;
-    *(a3 + 16) = 0;
+    *(a1 + 3) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 9) = 0u;
+    *a1 = &unk_1F5EBDEF8;
+    a1[1] = &_bambiDomain;
+    *(a1 + 4) = 0;
     return;
   }
 
-  v7 = *a2;
-  if (*a2)
+  v7 = *a3;
+  if (*a3)
   {
     for (i = *(v7 + 448); i != *(v7 + 456); i += 200)
     {
@@ -87,7 +88,7 @@ void BambiCall::initializeMediaForMTSession(BambiCall *this@<X0>, uint64_t *a2@<
           if ((*(this + 785) & 1) == 0)
           {
             BambiCall::textSessionDetected(this);
-            v7 = *a2;
+            v7 = *a3;
           }
 
           *(this + 392) = 256;
@@ -104,7 +105,7 @@ void BambiCall::initializeMediaForMTSession(BambiCall *this@<X0>, uint64_t *a2@<
   v17 = 0u;
   v18 = 0u;
   v16 = 0u;
-  v9 = a2[1];
+  v9 = a3[1];
   v15[0] = v7;
   v15[1] = v9;
   if (v9)
@@ -132,7 +133,7 @@ void BambiCall::initializeMediaForMTSession(BambiCall *this@<X0>, uint64_t *a2@<
     v13 = &SipResultDomain::_domain;
     if (*(&v16 + 1) == &SipResultDomain::_domain)
     {
-      ImsResult::ImsResult(a3, &v16);
+      ImsResult::ImsResult(a1, &v16);
       goto LABEL_22;
     }
 
@@ -145,13 +146,13 @@ void BambiCall::initializeMediaForMTSession(BambiCall *this@<X0>, uint64_t *a2@<
     v13 = &_bambiDomain;
   }
 
-  *(a3 + 24) = 0u;
-  *(a3 + 40) = 0u;
-  *(a3 + 56) = 0u;
-  *(a3 + 72) = 0u;
-  *a3 = &unk_1F5EBDEF8;
-  *(a3 + 8) = v13;
-  *(a3 + 16) = v14;
+  *(a1 + 3) = 0u;
+  *(a1 + 5) = 0u;
+  *(a1 + 7) = 0u;
+  *(a1 + 9) = 0u;
+  *a1 = &unk_1F5EBDEF8;
+  a1[1] = v13;
+  *(a1 + 4) = v14;
 LABEL_22:
   ImsResult::~ImsResult(&v16);
 }
@@ -168,7 +169,7 @@ void sub_1E4E454C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void BambiCall::handleRttInSDP(BambiCall *this, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   while (a2 != a3)
   {
     if (*(a2 + 12) == 4)
@@ -202,49 +203,39 @@ LABEL_6:
         v6 = 0;
       }
 
-      v8 = SipStack::prefs(v5);
-      v9 = ImsPrefs::RTTNegotiationTimerSeconds(v8);
+      v7 = SipStack::prefs(v5);
+      v8 = ImsPrefs::RTTNegotiationTimerSeconds(v7);
       if (v6)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
 
-      if (v9)
+      if (v8)
       {
-        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v14, this + 19);
-        v10 = v15;
-        if (v15)
+        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v11, this + 19);
+        v9 = v12;
+        if (v12)
         {
-          p_shared_weak_owners = &v15->__shared_weak_owners_;
-          atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+          p_shared_weak_owners = &v12->__shared_weak_owners_;
+          atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v9);
           atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
           atomic_fetch_add_explicit(p_shared_weak_owners, 1uLL, memory_order_relaxed);
         }
 
-        v16 = 0;
+        v13 = 0;
         operator new();
       }
 
-      v12 = *MEMORY[0x1E69E9840];
-
       BambiCall::textSessionDeactivated(this);
-      return;
     }
-
-LABEL_28:
-    v13 = *MEMORY[0x1E69E9840];
-    return;
   }
 
-  if (!a2 || (*(this + 784) & 1) != 0 || !*(a2 + 16))
+  else if (a2 && (*(this + 784) & 1) == 0 && *(a2 + 16))
   {
-    goto LABEL_28;
+
+    BambiCall::textSessionDetected(this);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-
-  BambiCall::textSessionDetected(this);
 }
 
 void sub_1E4E45768(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -259,7 +250,7 @@ void sub_1E4E45768(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::handleSdpAnswerInFork(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void BambiCall::handleSdpAnswerInFork(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = *(a1 + 192);
   v9 = *(a1 + 400);
@@ -559,7 +550,7 @@ LABEL_76:
           while (1)
           {
             v61 = v59[5];
-            BambiCall::localSdp(a1, &v134);
+            BambiCall::localSdp(&v134, a1);
             v62 = *(v61 + 64);
             v63 = *(v134 + 448);
             if (*(v63 + 12) != v62)
@@ -731,7 +722,7 @@ LABEL_76:
           while (1)
           {
             v42 = v40[5];
-            BambiCall::localSdp(a1, &v134);
+            BambiCall::localSdp(&v134, a1);
             v43 = *(v42 + 64);
             v44 = *(v134 + 448);
             if (*(v44 + 12) != v43)
@@ -880,7 +871,7 @@ LABEL_111:
                 block = *(v77 + 4432);
               }
 
-              v81 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v76 + 280, &block.__r_.__value_.__l.__data_);
+              v81 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v76 + 280, &block);
               v82 = v76 + 288 != v81 && *(v81 + 56) == 2;
               if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
               {
@@ -1490,7 +1481,7 @@ void sub_1E4E47594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void BambiCall::initializeMobileOriginated(BambiCall *this@<X0>, const SipUri *a2@<X1>, uint64_t a3@<X8>)
+void BambiCall::initializeMobileOriginated(BambiCall *this@<X0>, const SipUri *a2@<X1>, uint64_t a4@<X8>)
 {
   v7 = *(this + 48);
   if (!v7 || (v8 = std::__shared_weak_count::lock(v7)) == 0)
@@ -1526,7 +1517,7 @@ LABEL_20:
     v21[1] = &_bambiDomain;
     v22 = 0x40000000;
     v19 = ImsResult::operator<<<char [28]>(v21, "unable to create SipSession");
-    ImsResult::ImsResult(a3, v19);
+    ImsResult::ImsResult(a4, v19);
     ImsResult::~ImsResult(v21);
     goto LABEL_21;
   }
@@ -1545,7 +1536,7 @@ LABEL_20:
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SipDialogManager::initializeSession(v13, &v27);
+  SipDialogManager::initializeSession(v13, a2, &v27);
   if (v14)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
@@ -1577,13 +1568,13 @@ LABEL_20:
 
   *(this + 1529) = 1;
   *(this + 492) = 1;
-  *(a3 + 24) = 0u;
-  *(a3 + 40) = 0u;
-  *(a3 + 56) = 0u;
-  *(a3 + 72) = 0u;
-  *a3 = &unk_1F5EBDEF8;
-  *(a3 + 8) = &_bambiDomain;
-  *(a3 + 16) = 0;
+  *(a4 + 24) = 0u;
+  *(a4 + 40) = 0u;
+  *(a4 + 56) = 0u;
+  *(a4 + 72) = 0u;
+  *a4 = &unk_1F5EBDEF8;
+  *(a4 + 8) = &_bambiDomain;
+  *(a4 + 16) = 0;
 LABEL_21:
   if (v28)
   {
@@ -1746,7 +1737,7 @@ void sub_1E4E47B4C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3)
+void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, SDPModel ***a3)
 {
   v6 = *(a2 + 384);
   if (v6)
@@ -1764,29 +1755,29 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     v7 = 0;
   }
 
-  memset(&v64, 0, sizeof(v64));
+  memset(&v63, 0, sizeof(v63));
   v8 = SipStack::prefs(v6);
-  ImsPrefs::OriginUsername(v8, &v64);
+  ImsPrefs::OriginUsername(v8, &v63);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
-  if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v64.__r_.__value_.__l.__size_;
+    size = v63.__r_.__value_.__l.__size_;
   }
 
   if (!size)
   {
-    v63 = 0;
-    memset(v62, 0, sizeof(v62));
-    *v61 = 0u;
-    SipUri::SipUri(v61);
+    v62 = 0;
+    memset(v61, 0, sizeof(v61));
+    *v60 = 0u;
+    SipUri::SipUri(v60);
     if (*(a2 + 705) == 1)
     {
-      SipUri::makeAnonymous(v61);
+      SipUri::makeAnonymous(v60);
     }
 
     else
@@ -1801,7 +1792,7 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
       }
 
       v14 = SipUserAgent::publicUri(v12);
-      SipUri::operator=(v61, v14);
+      SipUri::operator=(v60, v14);
       if (v13)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -1811,37 +1802,37 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     }
 
     std::string::basic_string[abi:ne200100]<0>(__str, &str_31_1);
-    std::string::operator=((&v62[11] + 8), __str);
+    std::string::operator=((&v61[11] + 8), __str);
     if ((__str[23] & 0x80000000) != 0)
     {
       operator delete(*__str);
     }
 
-    SipUri::asString(v61, __str);
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    SipUri::asString(v60, 2, __str);
+    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v63.__r_.__value_.__l.__data_);
     }
 
-    v64 = *__str;
-    SipUri::~SipUri(v61);
+    v63 = *__str;
+    SipUri::~SipUri(v60);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__str, " ");
-  std::string::basic_string[abi:ne200100]<0>(&v65, &str_31_1);
-  ims::substituteVar(&v64, __str, &v65, v61);
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v64, &str_31_1);
+  ims::substituteVar(&v63, __str, &v64, v60);
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v64.__r_.__value_.__l.__data_);
+    operator delete(v63.__r_.__value_.__l.__data_);
   }
 
-  *&v64.__r_.__value_.__l.__data_ = *v61;
-  v64.__r_.__value_.__r.__words[2] = *&v62[0];
-  BYTE7(v62[0]) = 0;
-  LOBYTE(v61[0]) = 0;
-  if (v67 < 0)
+  *&v63.__r_.__value_.__l.__data_ = *v60;
+  v63.__r_.__value_.__r.__words[2] = *&v61[0];
+  BYTE7(v61[0]) = 0;
+  LOBYTE(v60[0]) = 0;
+  if (v66 < 0)
   {
-    operator delete(v65);
+    operator delete(v64);
   }
 
   if ((__str[23] & 0x80000000) != 0)
@@ -1849,8 +1840,8 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     operator delete(*__str);
   }
 
-  v60 = 0;
-  v59 = 0u;
+  v59 = 0;
+  v58 = 0u;
   memset(__str, 0, sizeof(__str));
   v15 = *(a2 + 384);
   if (v15)
@@ -1868,15 +1859,15 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     v16 = 0;
   }
 
-  SipStack::mediaAddress(v15, __str);
+  SipStack::mediaAddress(__str, v15);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
+  v55 = 0;
   v56 = 0;
-  v57 = 0;
-  SipHost::address(__str, &v56);
+  SipHost::address(&v55, __str);
   v17 = std::__shared_weak_count::lock(*(a2 + 384));
   v18 = *(a2 + 376);
   v19 = *(v18 + 248);
@@ -1895,12 +1886,11 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
   std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   if (HIDWORD(PreferredMedia) != 3)
   {
-    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v55, (a2 + 152));
-    *(a2 + 785);
+    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v54, (a2 + 152));
     v24 = *(a2 + 384);
-    if (v24 && std::__shared_weak_count::lock(v24))
+    if (v24)
     {
-      v25 = *(a2 + 376);
+      std::__shared_weak_count::lock(v24);
     }
 
     operator new();
@@ -1920,17 +1910,17 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
-  v26 = *(a2 + 192);
-  if (!v26)
+  v25 = *(a2 + 192);
+  if (!v25)
   {
-    v32 = *(a2 + 8);
-    v31 = a2 + 8;
-    v33 = (*(v32 + 56))(v31);
-    (*(*v31 + 16))(v31, v33);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "Unable to create SDP session", 28);
-    *(v33 + 17) = 0;
-    (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v33 + 17) = 0;
+    v31 = *(a2 + 8);
+    v30 = a2 + 8;
+    v32 = (*(v31 + 56))(v30);
+    (*(*v30 + 16))(v30, v32);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "Unable to create SDP session", 28);
+    *(v32 + 17) = 0;
+    (*(*v32 + 64))(v32, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v32 + 17) = 0;
     *(a1 + 24) = 0u;
     *(a1 + 40) = 0u;
     *(a1 + 56) = 0u;
@@ -1938,70 +1928,70 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
     *a1 = &unk_1F5EBDEF8;
     *(a1 + 8) = &SipResultDomain::_domain;
     *(a1 + 16) = 500;
-    goto LABEL_101;
+    goto LABEL_100;
   }
 
   if (*(a2 + 1856) == 1)
   {
     BambiCall::setTextMediaSessionMode(a2, *(a2 + 1852));
-    v26 = *(a2 + 192);
+    v25 = *(a2 + 192);
   }
 
   if (*a3)
   {
-    v27 = a3[1];
-    v53 = *a3;
-    v54 = v27;
-    if (v27)
+    v26 = a3[1];
+    v52 = *a3;
+    v53 = v26;
+    if (v26)
     {
-      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
-    v28 = SDPSession::handleOfferAnswer(v26, &v53, &v51, 0);
-    if (v52)
+    v27 = SDPSession::handleOfferAnswer(v25, &v52, &v50, 0);
+    if (v51)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v52);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v51);
     }
 
-    if (v54)
+    if (v53)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v54);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v53);
     }
 
-    if (v28 != 2)
+    if (v27 != 2)
     {
-      v29 = *(a2 + 384);
-      if (v29)
+      v28 = *(a2 + 384);
+      if (v28)
       {
-        if (std::__shared_weak_count::lock(v29))
+        if (std::__shared_weak_count::lock(v28))
         {
-          v30 = *(a2 + 376);
+          v29 = *(a2 + 376);
         }
 
         else
         {
-          v30 = 0;
+          v29 = 0;
         }
       }
 
       else
       {
-        v30 = 0;
+        v29 = 0;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v65, "CodecNotSupported");
-      SipStack::callTerminationReason(v30);
+      std::string::basic_string[abi:ne200100]<0>(&v64, "CodecNotSupported");
+      SipStack::callTerminationReason(v29);
     }
   }
 
   else
   {
-    SDPSession::initializeOffer(v26);
+    SDPSession::initializeOffer(v25);
   }
 
-  v34 = *(a2 + 192);
+  v33 = *(a2 + 192);
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
@@ -2009,157 +1999,157 @@ void BambiCall::initializeMediaForSession(uint64_t a1, uint64_t a2, uint64_t *a3
   *a1 = &unk_1F5EBDEF8;
   *(a1 + 8) = &_bambiDomain;
   *(a1 + 16) = 0;
-  v35 = *(v34 + 1904);
-  v50 = (v34 + 1912);
-  if (v35 != (v34 + 1912))
+  v34 = *(v33 + 1904);
+  v49 = (v33 + 1912);
+  if (v34 != (v33 + 1912))
   {
-    v36 = a2 + 8;
+    v35 = a2 + 8;
     while (1)
     {
-      v37 = v35[5];
-      v38 = *(v37 + 40);
-      if (v38)
+      v36 = v34[5];
+      v37 = *(v36 + 40);
+      if (v37)
       {
-        v39 = *(v37 + 32);
-        atomic_fetch_add_explicit(&v38->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        v40 = std::__shared_weak_count::lock(v38);
-        if (!v40)
+        v38 = *(v36 + 32);
+        atomic_fetch_add_explicit(&v37->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        v39 = std::__shared_weak_count::lock(v37);
+        if (!v39)
         {
-          v39 = 0;
+          v38 = 0;
         }
 
-        std::__shared_weak_count::__release_weak(v38);
+        std::__shared_weak_count::__release_weak(v37);
       }
 
       else
       {
+        v38 = 0;
         v39 = 0;
-        v40 = 0;
       }
 
-      v41 = (*(*v36 + 64))(a2 + 8);
-      (*(*v36 + 16))(a2 + 8, v41);
-      if (*(v37 + 64) == 4 && (*(v39 + 785) & 1) == 0)
+      v40 = (*(*v35 + 64))(a2 + 8);
+      (*(*v35 + 16))(a2 + 8, v40);
+      if (*(v36 + 64) == 4 && (*(v38 + 785) & 1) == 0)
       {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "Skip creating text session for ", 31);
-        *(v41 + 17) = 0;
-        (*(*v41 + 32))(v41, &v65);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), " because RTT is disabled", 24);
-        *(v41 + 17) = 0;
-        (*(*v41 + 64))(v41, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v41 + 17) = 0;
-        if (v67 < 0)
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v40 + 8), "Skip creating text session for ", 31);
+        *(v40 + 17) = 0;
+        (*(*v40 + 32))(v40, &v64);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v40 + 8), " because RTT is disabled", 24);
+        *(v40 + 17) = 0;
+        (*(*v40 + 64))(v40, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v40 + 17) = 0;
+        if (v66 < 0)
         {
-          operator delete(v65);
+          operator delete(v64);
         }
 
-        memset(v62 + 8, 0, 64);
-        v61[0] = &unk_1F5EBDEF8;
-        v61[1] = &_bambiDomain;
-        LODWORD(v62[0]) = 0;
-        if (v40)
-        {
-LABEL_83:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v40);
-        }
-      }
-
-      else
-      {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), "creating media session for ", 27);
-        *(v41 + 17) = 0;
-        (*(*v41 + 32))(v41, &v65);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v41 + 8), " stream on ", 11);
-        *(v41 + 17) = 0;
-        if (v67 < 0)
-        {
-          operator delete(v65);
-        }
-
-        v42 = *(v41 + 8);
+        memset(v61 + 8, 0, 64);
+        v60[0] = &unk_1F5EBDEF8;
+        v60[1] = &_bambiDomain;
+        LODWORD(v61[0]) = 0;
         if (v39)
         {
-          MEMORY[0x1E6923310](v42, v39);
+LABEL_82:
+          std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+        }
+      }
+
+      else
+      {
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v40 + 8), "creating media session for ", 27);
+        *(v40 + 17) = 0;
+        (*(*v40 + 32))(v40, &v64);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v40 + 8), " stream on ", 11);
+        *(v40 + 17) = 0;
+        if (v66 < 0)
+        {
+          operator delete(v64);
+        }
+
+        v41 = *(v40 + 8);
+        if (v38)
+        {
+          MEMORY[0x1E6923310](v41, v38);
         }
 
         else
         {
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "Unknown Call", 12);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "Unknown Call", 12);
         }
 
-        *(v41 + 17) = 0;
-        (*(*v41 + 64))(v41, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v41 + 17) = 0;
-        IPTelephonyManager::getBambiClient(&v65);
-        v43 = v65;
-        v44 = *(a2 + 484);
-        v45 = *(a2 + 200);
-        v68 = *(a2 + 192);
-        v69 = v45;
-        if (v45)
+        *(v40 + 17) = 0;
+        (*(*v40 + 64))(v40, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v40 + 17) = 0;
+        IPTelephonyManager::getBambiClient(&v64);
+        v42 = v64;
+        v43 = *(a2 + 484);
+        v44 = *(a2 + 200);
+        v67 = *(a2 + 192);
+        v68 = v44;
+        if (v44)
         {
-          atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        BambiClient::createMediaSessionForStream(v43, v37, v44, &v68, v61);
-        if (v69)
+        BambiClient::createMediaSessionForStream(v42, v36, v43, &v67, v60);
+        if (v68)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v69);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v68);
         }
 
-        if (v66)
+        if (v65)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v66);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v65);
         }
 
-        if (v40)
+        if (v39)
         {
-          goto LABEL_83;
+          goto LABEL_82;
         }
       }
 
-      ImsResult::operator=(a1, v61);
-      ImsResult::~ImsResult(v61);
-      memset(v62 + 8, 0, 64);
-      v61[0] = &unk_1F5EBDEF8;
-      v61[1] = &_bambiDomain;
-      LODWORD(v62[0]) = 0;
+      ImsResult::operator=(a1, v60);
+      ImsResult::~ImsResult(v60);
+      memset(v61 + 8, 0, 64);
+      v60[0] = &unk_1F5EBDEF8;
+      v60[1] = &_bambiDomain;
+      LODWORD(v61[0]) = 0;
       if (*(a1 + 8) != &_bambiDomain)
       {
-        ImsResult::~ImsResult(v61);
+        ImsResult::~ImsResult(v60);
         break;
       }
 
-      v46 = *(a1 + 16);
-      ImsResult::~ImsResult(v61);
-      if (!v46)
+      v45 = *(a1 + 16);
+      ImsResult::~ImsResult(v60);
+      if (!v45)
       {
-        v47 = v35[1];
-        if (v47)
+        v46 = v34[1];
+        if (v46)
         {
           do
           {
-            v48 = v47;
-            v47 = *v47;
+            v47 = v46;
+            v46 = *v46;
           }
 
-          while (v47);
+          while (v46);
         }
 
         else
         {
           do
           {
-            v48 = v35[2];
-            v49 = *v48 == v35;
-            v35 = v48;
+            v47 = v34[2];
+            v48 = *v47 == v34;
+            v34 = v47;
           }
 
-          while (!v49);
+          while (!v48);
         }
 
-        v35 = v48;
-        if (v48 != v50)
+        v34 = v47;
+        if (v47 != v49)
         {
           continue;
         }
@@ -2169,16 +2159,16 @@ LABEL_83:
     }
   }
 
-LABEL_101:
-  if (v57)
+LABEL_100:
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
   SipHost::~SipHost(__str);
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v64.__r_.__value_.__l.__data_);
+    operator delete(v63.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2193,8 +2183,9 @@ void sub_1E4E48670(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void BambiCall::setTextMediaSessionMode(uint64_t a1, int a2)
+void BambiCall::setTextMediaSessionMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(a1 + 384);
   if (!v4)
   {
@@ -2236,7 +2227,7 @@ LABEL_10:
     (*(*v11 + 32))(v11, a1 + 504);
     (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v11 + 17) = 0;
-    *(a1 + 1852) = a2;
+    *(a1 + 1852) = v2;
     *(a1 + 1856) = 1;
     goto LABEL_37;
   }
@@ -2252,7 +2243,7 @@ LABEL_11:
     v12 = 0;
   }
 
-  if (v12 == a2)
+  if (v12 == v2)
   {
     goto LABEL_37;
   }
@@ -2260,7 +2251,7 @@ LABEL_11:
   v13 = a1 + 8;
   v14 = (*(*(a1 + 8) + 64))(a1 + 8);
   (*(*(a1 + 8) + 16))(a1 + 8, v14);
-  if (a2 == 2)
+  if (v2 == 2)
   {
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "setTextMediaSessionMode to RTT for call ", 40);
     *(v14 + 17) = 0;
@@ -2283,7 +2274,7 @@ LABEL_11:
   *v15 = 0;
   *(a1 + 785) = v16;
   *(a1 + 784) = 0;
-  SDPSession::setTextMediaSessionMode(*(a1 + 192), a2);
+  SDPSession::setTextMediaSessionMode(*(a1 + 192), v2);
   v17 = *(a1 + 192);
   v18 = *(v17 + 239);
   if (!v18)
@@ -2305,7 +2296,7 @@ LABEL_11:
   while (v18);
   if (v19 != (v17 + 1912) && v19[8] <= 4 && (v20 = *(v19 + 5)) != 0)
   {
-    if (!*(v20 + 6))
+    if (!*(v20 + 48))
     {
       v38 = 0;
       memset(v37, 0, sizeof(v37));
@@ -2325,13 +2316,13 @@ LABEL_11:
         v25 = 0;
       }
 
-      SipStack::mediaAddress(v24, v37);
+      SipStack::mediaAddress(v37, v24);
       if (v25)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v25);
       }
 
-      SipHost::address(v37, &v35);
+      SipHost::address(&v35, v37);
       IPTelephonyManager::getBambiClient(&v32);
       v26 = v32;
       v27 = *(a1 + 484);
@@ -2366,7 +2357,7 @@ LABEL_11:
 
     if (*(a1 + 785) != 1)
     {
-      if (!a2)
+      if (!v2)
       {
         SDPSession::setRttPortInSDP(v17, 0);
       }
@@ -2378,7 +2369,7 @@ LABEL_11:
     (*(*v13 + 16))(a1 + 8, v21);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Found existing text media session ID ", 37);
     *(v21 + 17) = 0;
-    MEMORY[0x1E69233B0](*(v21 + 8), *(v20 + 6));
+    MEMORY[0x1E69233B0](*(v21 + 8), *(v20 + 48));
     *(v21 + 17) = 0;
     (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   }
@@ -2624,27 +2615,25 @@ void *SipMessage::header<SipMinSEHeader>(uint64_t a1)
   {
     return 0;
   }
-
-  v3 = **v2;
 }
 
 void BambiCall::processCallEvent(BambiCall *this, BambiCallEvent *a2)
 {
-  v266 = *MEMORY[0x1E69E9840];
+  v261 = *MEMORY[0x1E69E9840];
   v4 = *(this + 23);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    (*(*(this + 18) + 16))(&v224);
-    v5 = SHIBYTE(v225[1]);
-    v6 = v224;
+    (*(*(this + 18) + 16))(&v219);
+    v5 = SHIBYTE(v220[1]);
+    v6 = v219;
     (*(*a2 + 40))(__p, a2);
-    v7 = &v224;
+    v7 = &v219;
     if (v5 < 0)
     {
       v7 = v6;
     }
 
-    if (v243 >= 0)
+    if (v238 >= 0)
     {
       v8 = __p;
     }
@@ -2661,23 +2650,23 @@ void BambiCall::processCallEvent(BambiCall *this, BambiCallEvent *a2)
     HIWORD(buf[0].__r_.__value_.__r.__words[2]) = 2080;
     buf[1].__r_.__value_.__r.__words[0] = v8;
     _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "%{private, mask.hash}sprocessing call event %s", buf, 0x20u);
-    if (v243 < 0)
+    if (v238 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v225[1]) < 0)
+    if (SHIBYTE(v220[1]) < 0)
     {
-      operator delete(v224);
+      operator delete(v219);
     }
   }
 
-  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v216, this + 19);
-  v10 = v216;
-  v9 = v217;
-  if (v217)
+  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v211, this + 19);
+  v10 = v211;
+  v9 = v212;
+  if (v212)
   {
-    atomic_fetch_add_explicit(&v217->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v212->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
   v11 = *(a2 + 3);
@@ -2686,7 +2675,7 @@ void BambiCall::processCallEvent(BambiCall *this, BambiCallEvent *a2)
   if (v11)
   {
     std::__shared_weak_count::__release_weak(v11);
-    v9 = v217;
+    v9 = v212;
   }
 
   if (v9)
@@ -2698,43 +2687,42 @@ void BambiCall::processCallEvent(BambiCall *this, BambiCallEvent *a2)
   v13 = v12 != 14;
   if (v12 == 14)
   {
-    v14 = **a2;
-    if (v15)
+    if (v14)
     {
-      v16 = v15[147];
-      lpsrc = v15;
-      if ((v15[145] & 1) == 0)
+      v15 = v14[147];
+      lpsrc = v14;
+      if ((v14[145] & 1) == 0)
       {
-        v17 = *(this + 48);
-        if (v17)
+        v16 = *(this + 48);
+        if (v16)
         {
-          v18 = std::__shared_weak_count::lock(v17);
-          if (v18)
+          v17 = std::__shared_weak_count::lock(v16);
+          if (v17)
           {
-            v19 = *(this + 47);
-            if (!v19)
+            v18 = *(this + 47);
+            if (!v18)
             {
               goto LABEL_27;
             }
 
-            v20 = *(lpsrc + 8);
-            if (v20 != 23)
+            v19 = *(lpsrc + 8);
+            if (v19 != 23)
             {
-              if (v20 == 24)
+              if (v19 == 24)
               {
                 if (*(this + 1529) == 1)
                 {
-                  v21 = v19[361];
+                  v20 = v18[361];
                 }
 
                 else
                 {
-                  v21 = v19[362];
+                  v20 = v18[362];
                 }
 
 LABEL_33:
-                std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-                if ((v21 & 1) == 0)
+                std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+                if ((v20 & 1) == 0)
                 {
                   goto LABEL_35;
                 }
@@ -2742,203 +2730,203 @@ LABEL_33:
                 goto LABEL_34;
               }
 
-              if (v20 == 29)
+              if (v19 == 29)
               {
-                v21 = v19[1242];
+                v20 = v18[1242];
                 goto LABEL_33;
               }
 
 LABEL_27:
-              std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v17);
               goto LABEL_35;
             }
 
-            v22 = v19[360];
-            std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-            if (v22 == 1)
+            v21 = v18[360];
+            std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+            if (v21 == 1)
             {
 LABEL_34:
-              lpsrc[144] = 1;
+              *(lpsrc + 144) = 1;
             }
           }
         }
       }
 
 LABEL_35:
-      v23 = *(this + 48);
-      if (v23)
+      v22 = *(this + 48);
+      if (v22)
       {
-        v24 = std::__shared_weak_count::lock(v23);
-        if (v24)
+        v23 = std::__shared_weak_count::lock(v22);
+        if (v23)
         {
-          v25 = *(this + 47);
+          v24 = *(this + 47);
           goto LABEL_40;
         }
       }
 
       else
       {
-        v24 = 0;
+        v23 = 0;
       }
 
-      v25 = 0;
+      v24 = 0;
 LABEL_40:
-      v27 = *(lpsrc + 5);
-      v26 = *(lpsrc + 6);
-      v210 = v24;
-      v211 = v25;
-      if (v26)
+      v26 = *(lpsrc + 5);
+      v25 = *(lpsrc + 6);
+      v205 = v23;
+      v206 = v24;
+      if (v25)
       {
-        atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
-        if (!v27)
+        atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+        if (!v26)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v25);
           goto LABEL_62;
         }
 
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-        if (!v25)
+        std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+        if (!v24)
         {
           goto LABEL_62;
         }
 
-        v27 = *(lpsrc + 5);
-        v28 = *(lpsrc + 6);
-        if (v28)
+        v26 = *(lpsrc + 5);
+        v27 = *(lpsrc + 6);
+        if (v27)
         {
-          atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-          v29 = *(v27 + 128);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+          atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+          v28 = *(v26 + 128);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v27);
           goto LABEL_48;
         }
       }
 
-      else if (!v27 || !v25)
+      else if (!v26 || !v24)
       {
         goto LABEL_62;
       }
 
-      v29 = *(v27 + 128);
+      v28 = *(v26 + 128);
 LABEL_48:
       std::string::basic_string[abi:ne200100]<0>(buf, "INVITE");
-      v30 = SipResponseCodeMap::containsResponseCodeForMethod(v25 + 1352, &buf[0].__r_.__value_.__l.__data_, v29, 0);
-      v31 = v30;
+      v29 = SipResponseCodeMap::containsResponseCodeForMethod(v24 + 1352, buf, v28, 0);
+      v30 = v29;
       if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(buf[0].__r_.__value_.__l.__data_);
-        if (v31)
+        if (v30)
         {
 LABEL_50:
-          if ((lpsrc[146] & 1) != 0 && !*(this + 69) && ims::AccessNetwork::isNR((v25 + 3432)) && (*(v25 + 3496) & 1) == 0)
+          if ((*(lpsrc + 146) & 1) != 0 && !*(this + 69) && ims::AccessNetwork::isNR((v24 + 3432)) && (*(v24 + 3496) & 1) == 0)
           {
             std::string::basic_string[abi:ne200100]<0>(buf, "INVITE");
-            v32 = SipResponseCodeMap::containsResponseCodeForMethod(v25 + 1384, &buf[0].__r_.__value_.__l.__data_, v29, 0);
+            v31 = SipResponseCodeMap::containsResponseCodeForMethod(v24 + 1384, buf, v28, 0);
             if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(buf[0].__r_.__value_.__l.__data_);
             }
 
-            if (v32)
+            if (v31)
             {
-              v33 = (*(*(this + 1) + 64))(this + 8);
-              (*(*(this + 1) + 16))(this + 8, v33);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "disallowing redial because of RedialNRSANonEmBlockedResponses", 61);
-              *(v33 + 17) = 0;
-              (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v32 = (*(*(this + 1) + 64))(this + 8);
+              (*(*(this + 1) + 16))(this + 8, v32);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "disallowing redial because of RedialNRSANonEmBlockedResponses", 61);
+              *(v32 + 17) = 0;
+              (*(*v32 + 64))(v32, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_61:
-              *(v33 + 17) = 0;
-              lpsrc[146] = 0;
+              *(v32 + 17) = 0;
+              *(lpsrc + 146) = 0;
             }
           }
 
 LABEL_62:
-          v34 = *(lpsrc + 2);
-          if (v34 != 15)
+          v33 = *(lpsrc + 2);
+          if (v33 != 15)
           {
-            v42 = 1;
-            v209 = v16;
-            v43 = lpsrc;
+            v40 = 1;
+            v204 = v15;
+            v41 = lpsrc;
 LABEL_114:
-            if (v34 == 14 && BambiCall::isWPSCall(this))
+            if (v33 == 14 && BambiCall::isWPSCall(this))
             {
-              v55 = this + 8;
-              v56 = (*(*(this + 1) + 64))(this + 8);
-              (*(*(this + 1) + 16))(this + 8, v56);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v56 + 8), "Ending WPS call", 15);
-              *(v56 + 17) = 0;
-              (*(*v56 + 64))(v56, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v56 + 17) = 0;
-              if (v43[144] == 1)
+              v53 = this + 8;
+              v54 = (*(*(this + 1) + 64))(this + 8);
+              (*(*(this + 1) + 16))(this + 8, v54);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v54 + 8), "Ending WPS call", 15);
+              *(v54 + 17) = 0;
+              (*(*v54 + 64))(v54, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v54 + 17) = 0;
+              if (*(v41 + 144) == 1)
               {
-                v57 = *(this + 51);
-                if (v57)
+                v55 = *(this + 51);
+                if (v55)
                 {
-                  v58 = *(v57 + 768);
-                  if (v58)
+                  v56 = *(v55 + 768);
+                  if (v56)
                   {
-                    if ((*(*v58 + 48))(v58) == 14)
+                    if ((*(*v56 + 48))(v56) == 14)
                     {
-                      v59 = (*(*v55 + 64))(this + 8);
-                      (*(*v55 + 16))(this + 8, v59);
-                      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v59 + 8), "WPS Call requiring CSFB ended in cleanup state - defer sending event until timer expires", 88);
-                      *(v59 + 17) = 0;
-                      (*(*v59 + 64))(v59, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                      *(v59 + 17) = 0;
+                      v57 = (*(*v53 + 64))(this + 8);
+                      (*(*v53 + 16))(this + 8, v57);
+                      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v57 + 8), "WPS Call requiring CSFB ended in cleanup state - defer sending event until timer expires", 88);
+                      *(v57 + 17) = 0;
+                      (*(*v57 + 64))(v57, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                      *(v57 + 17) = 0;
                     }
                   }
                 }
 
 LABEL_207:
-                if (v210)
+                if (v205)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v210);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v205);
                 }
 
                 goto LABEL_209;
               }
 
-              v60 = (*(*v55 + 64))(this + 8);
-              (*(*v55 + 16))(this + 8, v60);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v60 + 8), "WPS call ended normally, not performing CSFB", 44);
-              *(v60 + 17) = 0;
-              (*(*v60 + 64))(v60, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v60 + 17) = 0;
+              v58 = (*(*v53 + 64))(this + 8);
+              (*(*v53 + 16))(this + 8, v58);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v58 + 8), "WPS call ended normally, not performing CSFB", 44);
+              *(v58 + 17) = 0;
+              (*(*v58 + 64))(v58, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v58 + 17) = 0;
               SipSession::exitWPSCleanup(*(this + 51));
             }
 
-            v208 = v42;
-            v61 = *(this + 54);
-            if (v61)
+            v203 = v40;
+            v59 = *(this + 54);
+            if (v59)
             {
-              v62 = std::__shared_weak_count::lock(v61);
-              v63 = v211;
-              if (v62)
+              v60 = std::__shared_weak_count::lock(v59);
+              v61 = v206;
+              if (v60)
               {
-                v64 = *(this + 53);
+                v62 = *(this + 53);
               }
 
               else
               {
-                v64 = 0;
+                v62 = 0;
               }
             }
 
             else
             {
-              v64 = 0;
               v62 = 0;
-              v63 = v211;
+              v60 = 0;
+              v61 = v206;
             }
 
             if ((*(this + 1529) & 1) != 0 || *(this + 1530) == 1)
             {
-              if (v64)
+              if (v62)
               {
-                (*(*v64 + 16))(v64, v43);
+                (*(*v62 + 16))(v62, v41);
               }
 
               IPTelephonyManager::getBambiClient(buf);
-              BambiClient::handleCallTerminationEvent(buf[0].__r_.__value_.__l.__data_, v43);
+              BambiClient::handleCallTerminationEvent(buf[0].__r_.__value_.__l.__data_, v41);
               if (buf[0].__r_.__value_.__l.__size_)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](buf[0].__r_.__value_.__l.__size_);
@@ -2947,147 +2935,147 @@ LABEL_207:
               goto LABEL_158;
             }
 
-            if (*(v43 + 8) < 10)
+            if (*(v41 + 8) < 10)
             {
-              if (!v64)
+              if (!v62)
               {
                 goto LABEL_158;
               }
 
-              v68 = (*v64 + 16);
+              v66 = (*v62 + 16);
             }
 
             else
             {
-              if (v63)
+              if (v61)
               {
-                IPTelephonyManager::getBambiClient(&v224);
-                v65 = v224;
-                v66 = *(v43 + 8);
-                if (v66 <= 37)
+                IPTelephonyManager::getBambiClient(&v219);
+                v63 = v219;
+                v64 = *(v41 + 8);
+                if (v64 <= 37)
                 {
-                  v67 = reasonStrings + 24 * v66;
+                  v65 = reasonStrings + 24 * v64;
                 }
 
                 else
                 {
-                  v67 = reasonStrings + 240;
+                  v65 = reasonStrings + 240;
                 }
 
-                if (*(v63 + 4455) < 0)
+                if (*(v61 + 4455) < 0)
                 {
-                  std::string::__init_copy_ctor_external(buf, *(v63 + 554), *(v63 + 555));
+                  std::string::__init_copy_ctor_external(buf, *(v61 + 554), *(v61 + 555));
                 }
 
                 else
                 {
-                  buf[0] = *(v63 + 4432);
+                  buf[0] = *(v61 + 4432);
                 }
 
-                BambiClient::requestStateDump(v65, v67, buf);
+                BambiClient::requestStateDump(v63, v65, buf);
                 if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(buf[0].__r_.__value_.__l.__data_);
                 }
 
-                if (*(&v224 + 1))
+                if (*(&v219 + 1))
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v224 + 1));
+                  std::__shared_weak_count::__release_shared[abi:ne200100](*(&v219 + 1));
                 }
               }
 
-              if (!v64)
+              if (!v62)
               {
 LABEL_158:
                 std::string::basic_string[abi:ne200100]<0>(__p, "processSessionTerminationCallEvent");
-                v76 = *(this + 24);
-                if (v76)
+                v74 = *(this + 24);
+                if (v74)
                 {
-                  v77 = 0uLL;
-                  *&v224 = &unk_1F5EBDEF8;
-                  *(&v224 + 1) = &_bambiDomain;
-                  memset(v225, 0, 72);
-                  v78 = *(v76 + 1904);
-                  v79 = (v76 + 1912);
-                  if (v78 != (v76 + 1912))
+                  v75 = 0uLL;
+                  *&v219 = &unk_1F5EBDEF8;
+                  *(&v219 + 1) = &_bambiDomain;
+                  memset(v220, 0, 72);
+                  v76 = *(v74 + 1904);
+                  v77 = (v74 + 1912);
+                  if (v76 != (v74 + 1912))
                   {
-                    v80 = this + 8;
+                    v78 = this + 8;
                     while (1)
                     {
-                      v81 = v78[5];
-                      if (v81 && v81[6])
+                      v79 = v76[5];
+                      if (v79 && v79[6])
                       {
-                        v82 = v13;
-                        v83 = (*(*v80 + 64))(this + 8);
-                        (*(*v80 + 16))(this + 8, v83);
-                        (*(*v83 + 32))(v83, __p);
-                        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v83 + 8), ": terminating media session ", 28);
-                        *(v83 + 17) = 0;
-                        MEMORY[0x1E69233B0](*(v83 + 8), v81[6]);
-                        *(v83 + 17) = 0;
-                        (*(*v83 + 64))(v83, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                        *(v83 + 17) = 0;
-                        RTPManager::terminateSessionWithId(*(this + 49), v81[6]);
-                        IPTelephonyManager::getBambiClient(&v222);
-                        BambiClient::setMediaSessionIdForStream(v222, v81, 0);
-                        v13 = v82;
-                        if (v223)
+                        v80 = v13;
+                        v81 = (*(*v78 + 64))(this + 8);
+                        (*(*v78 + 16))(this + 8, v81);
+                        (*(*v81 + 32))(v81, __p);
+                        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v81 + 8), ": terminating media session ", 28);
+                        *(v81 + 17) = 0;
+                        MEMORY[0x1E69233B0](*(v81 + 8), v79[6]);
+                        *(v81 + 17) = 0;
+                        (*(*v81 + 64))(v81, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                        *(v81 + 17) = 0;
+                        RTPManager::terminateSessionWithId(*(this + 49), v79[6]);
+                        IPTelephonyManager::getBambiClient(&v217);
+                        BambiClient::setMediaSessionIdForStream(v217, v79, 0);
+                        v13 = v80;
+                        if (v218)
                         {
-                          std::__shared_weak_count::__release_shared[abi:ne200100](v223);
+                          std::__shared_weak_count::__release_shared[abi:ne200100](v218);
                         }
 
-                        v77 = 0uLL;
+                        v75 = 0uLL;
                       }
 
-                      *&buf[1].__r_.__value_.__l.__data_ = v77;
-                      *&buf[1].__r_.__value_.__r.__words[2] = v77;
-                      *&buf[2].__r_.__value_.__r.__words[1] = v77;
-                      *&buf[3].__r_.__value_.__l.__data_ = v77;
+                      *&buf[1].__r_.__value_.__l.__data_ = v75;
+                      *&buf[1].__r_.__value_.__r.__words[2] = v75;
+                      *&buf[2].__r_.__value_.__r.__words[1] = v75;
+                      *&buf[3].__r_.__value_.__l.__data_ = v75;
                       buf[0].__r_.__value_.__r.__words[0] = &unk_1F5EBDEF8;
                       buf[0].__r_.__value_.__l.__size_ = &_bambiDomain;
                       LODWORD(buf[0].__r_.__value_.__r.__words[2]) = 0;
-                      ImsResult::operator=(&v224, buf);
+                      ImsResult::operator=(&v219, buf);
                       ImsResult::~ImsResult(buf);
                       memset(&buf[1], 0, 64);
                       buf[0].__r_.__value_.__r.__words[0] = &unk_1F5EBDEF8;
                       buf[0].__r_.__value_.__l.__size_ = &_bambiDomain;
                       LODWORD(buf[0].__r_.__value_.__r.__words[2]) = 0;
-                      if (*(&v224 + 1) != &_bambiDomain)
+                      if (*(&v219 + 1) != &_bambiDomain)
                       {
                         break;
                       }
 
-                      v84 = v225[0];
+                      v82 = v220[0];
                       ImsResult::~ImsResult(buf);
-                      v77 = 0uLL;
-                      if (!v84)
+                      v75 = 0uLL;
+                      if (!v82)
                       {
-                        v85 = v78[1];
-                        if (v85)
+                        v83 = v76[1];
+                        if (v83)
                         {
                           do
                           {
-                            v86 = v85;
-                            v85 = *v85;
+                            v84 = v83;
+                            v83 = *v83;
                           }
 
-                          while (v85);
+                          while (v83);
                         }
 
                         else
                         {
                           do
                           {
-                            v86 = v78[2];
-                            v87 = *v86 == v78;
-                            v78 = v86;
+                            v84 = v76[2];
+                            v85 = *v84 == v76;
+                            v76 = v84;
                           }
 
-                          while (!v87);
+                          while (!v85);
                         }
 
-                        v78 = v86;
-                        if (v86 != v79)
+                        v76 = v84;
+                        if (v84 != v77)
                         {
                           continue;
                         }
@@ -3100,237 +3088,236 @@ LABEL_158:
                   }
 
 LABEL_176:
-                  ImsResult::~ImsResult(&v224);
-                  v63 = v211;
-                  v43 = lpsrc;
+                  ImsResult::~ImsResult(&v219);
+                  v61 = v206;
+                  v41 = lpsrc;
                 }
 
-                if (v243 < 0)
+                if (v238 < 0)
                 {
                   operator delete(__p[0]);
-                  if (!v63)
+                  if (!v61)
                   {
                     goto LABEL_205;
                   }
                 }
 
-                else if (!v63)
+                else if (!v61)
                 {
 LABEL_205:
-                  if (v62)
+                  if (v60)
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v62);
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v60);
                   }
 
                   goto LABEL_207;
                 }
 
-                v88 = SipStack::prefs(v63);
-                if (ImsPrefs::NoFallbackVoiceService(v88) && v209)
+                v86 = SipStack::prefs(v61);
+                if (ImsPrefs::NoFallbackVoiceService(v86) && v204)
                 {
-                  v89 = *(v63 + 31);
-                  v90 = *(v63 + 32);
+                  v87 = *(v61 + 31);
+                  v88 = *(v61 + 32);
+                  if (v88)
+                  {
+                    atomic_fetch_add_explicit((v88 + 8), 1uLL, memory_order_relaxed);
+                  }
+
+                  v89 = *(v87 + 336);
+                  v90 = *(v87 + 344);
                   if (v90)
                   {
                     atomic_fetch_add_explicit((v90 + 8), 1uLL, memory_order_relaxed);
                   }
 
-                  v91 = *(v89 + 336);
-                  v92 = *(v89 + 344);
-                  if (v92)
-                  {
-                    atomic_fetch_add_explicit((v92 + 8), 1uLL, memory_order_relaxed);
-                  }
-
-                  SipRegistrationClient::dropRegistrationWhenCallsEnd(v91, 0x15u);
+                  SipRegistrationClient::dropRegistrationWhenCallsEnd(v89, 0x15u, 1);
                 }
 
-                if (v43[147] == 1)
+                if (*(v41 + 147) == 1)
                 {
-                  v93 = *(v63 + 31);
-                  v94 = *(v63 + 32);
+                  v91 = *(v61 + 31);
+                  v92 = *(v61 + 32);
+                  if (v92)
+                  {
+                    atomic_fetch_add_explicit(&v92->__shared_owners_, 1uLL, memory_order_relaxed);
+                  }
+
+                  v93 = *(v91 + 336);
+                  v94 = *(v91 + 344);
                   if (v94)
                   {
                     atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
                   }
 
-                  v95 = *(v93 + 336);
-                  v96 = *(v93 + 344);
-                  if (v96)
-                  {
-                    atomic_fetch_add_explicit(&v96->__shared_owners_, 1uLL, memory_order_relaxed);
-                  }
-
-                  (*(*v95 + 176))(v95, 18, 0, 0);
-                  if (v96)
-                  {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](v96);
-                  }
-
+                  (*(*v93 + 176))(v93, 18, 0, 0);
                   if (v94)
                   {
                     std::__shared_weak_count::__release_shared[abi:ne200100](v94);
                   }
 
-                  SipTransportLayer::removeConnections(*(v63 + 35), 0, 1, 1);
-                  IPTelephonyManager::getBambiClient(&v224);
-                  v97 = v224;
-                  if (*(v63 + 4455) < 0)
+                  if (v92)
                   {
-                    std::string::__init_copy_ctor_external(buf, *(v63 + 554), *(v63 + 555));
+                    std::__shared_weak_count::__release_shared[abi:ne200100](v92);
+                  }
+
+                  SipTransportLayer::removeConnections(*(v61 + 35), 0, 1, 1);
+                  IPTelephonyManager::getBambiClient(&v219);
+                  v95 = v219;
+                  if (*(v61 + 4455) < 0)
+                  {
+                    std::string::__init_copy_ctor_external(buf, *(v61 + 554), *(v61 + 555));
                   }
 
                   else
                   {
-                    buf[0] = *(v63 + 4432);
+                    buf[0] = *(v61 + 4432);
                   }
 
-                  BambiClient::requestNetworkReset(v97, buf);
+                  BambiClient::requestNetworkReset(v95, buf);
                   if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(buf[0].__r_.__value_.__l.__data_);
                   }
 
-                  if (*(&v224 + 1))
+                  if (*(&v219 + 1))
                   {
-                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v224 + 1));
+                    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v219 + 1));
                   }
                 }
 
-                else if ((v208 & 1) == 0)
+                else if ((v203 & 1) == 0)
                 {
-                  SipStack::handleFallbackRequested(v63);
+                  SipStack::handleFallbackRequested(v61);
                 }
 
                 goto LABEL_205;
               }
 
-              v68 = (*v64 + 280);
+              v66 = (*v62 + 280);
             }
 
-            (*v68)(v64, v43);
+            (*v66)(v62, v41);
             goto LABEL_158;
           }
 
-          v35 = **lpsrc;
-          if (!v36)
+          if (!v34)
           {
             goto LABEL_112;
           }
 
-          v37 = v36;
-          v39 = *(v36 + 5);
-          v38 = *(v36 + 6);
-          if (v38)
+          v35 = v34;
+          v37 = *(v34 + 5);
+          v36 = *(v34 + 6);
+          if (v36)
           {
-            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
-            std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-            if (!v39)
+            atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+            if (!v37)
             {
               goto LABEL_95;
             }
 
-            v39 = *(v37 + 5);
-            v40 = *(v37 + 6);
-            v207 = v13;
-            if (v40)
+            v37 = *(v35 + 5);
+            v38 = *(v35 + 6);
+            v202 = v13;
+            if (v38)
             {
-              v41 = 0;
-              atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
+              v39 = 0;
+              atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
               goto LABEL_72;
             }
           }
 
           else
           {
-            if (!v39)
+            if (!v37)
             {
               goto LABEL_95;
             }
 
-            v207 = v13;
-            v40 = 0;
+            v202 = v13;
+            v38 = 0;
           }
 
-          v41 = 1;
+          v39 = 1;
 LABEL_72:
-          if (!v211)
+          if (!v206)
           {
             goto LABEL_93;
           }
 
-          v44 = *(v211 + 31);
-          v45 = *(v211 + 32);
-          if (v45)
+          v42 = *(v206 + 31);
+          v43 = *(v206 + 32);
+          if (v43)
           {
-            atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v47 = *(v44 + 336);
-          v46 = *(v44 + 344);
-          if (v46)
+          v45 = *(v42 + 336);
+          v44 = *(v42 + 344);
+          if (v44)
           {
-            atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v220 = v39;
-          v221 = v40;
-          if ((v41 & 1) == 0)
+          v215 = v37;
+          v216 = v38;
+          if ((v39 & 1) == 0)
           {
-            atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          if (v37[87] < 0)
+          if (v35[87] < 0)
           {
-            std::string::__init_copy_ctor_external(buf, *(v37 + 8), *(v37 + 9));
+            std::string::__init_copy_ctor_external(buf, *(v35 + 8), *(v35 + 9));
           }
 
           else
           {
-            buf[0] = *(v37 + 64);
+            buf[0] = *(v35 + 64);
           }
 
-          v48 = SipRegistrationClient::disableIfInWrongCountry(v47, &v220, buf);
+          v46 = SipRegistrationClient::disableIfInWrongCountry(v45, &v215, buf);
           if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf[0].__r_.__value_.__l.__data_);
           }
 
-          if (v221)
+          if (v216)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v221);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v216);
           }
 
-          if (v46)
+          if (v44)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v44);
           }
 
-          if (v45)
+          if (v43)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v45);
-            if ((v48 & 1) == 0)
+            std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+            if ((v46 & 1) == 0)
             {
 LABEL_93:
-              v13 = v207;
-              if ((v41 & 1) == 0)
+              v13 = v202;
+              if ((v39 & 1) == 0)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v38);
               }
 
 LABEL_95:
-              v49 = *(v37 + 8);
-              v209 = v49 == 17;
-              if ((v49 == 17 || v37[144] == 1) && ((*(this + 1529) & 1) != 0 || *(this + 1530) == 1))
+              v47 = *(v35 + 8);
+              v204 = v47 == 17;
+              if ((v47 == 17 || v35[144] == 1) && ((*(this + 1529) & 1) != 0 || *(this + 1530) == 1))
               {
                 IPTelephonyManager::getBambiClient(buf);
-                v50 = buf[0].__r_.__value_.__r.__words[0];
-                std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v218, this + 19);
-                v43 = lpsrc;
-                v51 = BambiClient::callCountExcludingCall(v50, &v218);
-                if (v219)
+                v48 = buf[0].__r_.__value_.__r.__words[0];
+                std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v213, this + 19);
+                v41 = lpsrc;
+                v49 = BambiClient::callCountExcludingCall(v48, &v213);
+                if (v214)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v219);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v214);
                 }
 
                 if (buf[0].__r_.__value_.__l.__size_)
@@ -3338,567 +3325,565 @@ LABEL_95:
                   std::__shared_weak_count::__release_shared[abi:ne200100](buf[0].__r_.__value_.__l.__size_);
                 }
 
-                if (v51)
+                if (v49)
                 {
-                  v52 = (*(*(this + 1) + 64))(this + 8);
-                  (*(*(this + 1) + 16))(this + 8, v52);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), "not terminating registration due to ", 36);
-                  *(v52 + 17) = 0;
-                  v53 = *(v37 + 8);
-                  if (v53 <= 37)
+                  v50 = (*(*(this + 1) + 64))(this + 8);
+                  (*(*(this + 1) + 16))(this + 8, v50);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), "not terminating registration due to ", 36);
+                  *(v50 + 17) = 0;
+                  v51 = *(v35 + 8);
+                  if (v51 <= 37)
                   {
-                    v54 = (reasonStrings + 24 * v53);
+                    v52 = (reasonStrings + 24 * v51);
                   }
 
                   else
                   {
-                    v54 = (reasonStrings + 240);
+                    v52 = (reasonStrings + 240);
                   }
 
-                  LoggableString::LoggableString(buf, v54);
-                  (*(*v52 + 40))(v52, buf);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), " since we have another ongoing call", 35);
-                  *(v52 + 17) = 0;
-                  (*(*v52 + 64))(v52, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                  LoggableString::LoggableString(buf, v52);
+                  (*(*v50 + 40))(v50, buf);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), " since we have another ongoing call", 35);
+                  *(v50 + 17) = 0;
+                  (*(*v50 + 64))(v50, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_108:
-                  *(v52 + 17) = 0;
+                  *(v50 + 17) = 0;
 LABEL_109:
                   if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(buf[0].__r_.__value_.__l.__data_);
                   }
 
-                  v42 = 1;
+                  v40 = 1;
                   goto LABEL_113;
                 }
 
-                if (!v211)
+                if (!v206)
                 {
                   goto LABEL_408;
                 }
 
-                v69 = *(v211 + 31);
-                v70 = *(v211 + 32);
-                if (v70)
+                v67 = *(v206 + 31);
+                v68 = *(v206 + 32);
+                if (v68)
                 {
-                  atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
-                  v71 = *(SipUserAgent::config(v69) + 456);
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v70);
-                  if (v71)
+                  atomic_fetch_add_explicit(&v68->__shared_owners_, 1uLL, memory_order_relaxed);
+                  v69 = *(SipUserAgent::config(v67) + 456);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v68);
+                  if (v69)
                   {
 LABEL_145:
-                    if (v49 == 17 && ims::AccessNetwork::isNR((v211 + 3432)))
+                    if (v47 == 17 && ims::AccessNetwork::isNR((v206 + 3432)))
                     {
-                      v43 = lpsrc;
-                      v72 = (*(*(this + 1) + 64))(this + 8);
-                      (*(*(this + 1) + 16))(this + 8, v72);
-                      v73 = ImsOutStream::operator<<(v72, "triggering registration termination for EPSFB due to ");
-                      v74 = *(v37 + 8);
-                      if (v74 <= 37)
+                      v41 = lpsrc;
+                      v70 = (*(*(this + 1) + 64))(this + 8);
+                      (*(*(this + 1) + 16))(this + 8, v70);
+                      v71 = ImsOutStream::operator<<(v70, "triggering registration termination for EPSFB due to ");
+                      v72 = *(v35 + 8);
+                      if (v72 <= 37)
                       {
-                        v75 = (reasonStrings + 24 * v74);
+                        v73 = (reasonStrings + 24 * v72);
                       }
 
                       else
                       {
-                        v75 = (reasonStrings + 240);
+                        v73 = (reasonStrings + 240);
                       }
 
 LABEL_411:
-                      LoggableString::LoggableString(buf, v75);
-                      (*(*v73 + 40))(v73, buf);
-                      (*(*v73 + 64))(v73, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                      *(v73 + 17) = 0;
+                      LoggableString::LoggableString(buf, v73);
+                      (*(*v71 + 40))(v71, buf);
+                      (*(*v71 + 64))(v71, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                      *(v71 + 17) = 0;
                       if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(buf[0].__r_.__value_.__l.__data_);
                       }
 
-                      v209 = 0;
-                      v42 = 0;
+                      v204 = 0;
+                      v40 = 0;
                       goto LABEL_113;
                     }
 
-                    v43 = lpsrc;
-                    if (*(v211 + 1240) == 1)
+                    v41 = lpsrc;
+                    if (*(v206 + 1240) == 1)
                     {
-                      v185 = (*(*(this + 1) + 64))(this + 8);
-                      (*(*(this + 1) + 16))(this + 8, v185);
-                      v186 = ImsOutStream::operator<<(v185, "not terminating registration due to ");
-                      v187 = *(v37 + 8);
-                      if (v187 <= 37)
+                      v180 = (*(*(this + 1) + 64))(this + 8);
+                      (*(*(this + 1) + 16))(this + 8, v180);
+                      v181 = ImsOutStream::operator<<(v180, "not terminating registration due to ");
+                      v182 = *(v35 + 8);
+                      if (v182 <= 37)
                       {
-                        v188 = (reasonStrings + 24 * v187);
+                        v183 = (reasonStrings + 24 * v182);
                       }
 
                       else
                       {
-                        v188 = (reasonStrings + 240);
+                        v183 = (reasonStrings + 240);
                       }
 
-                      LoggableString::LoggableString(buf, v188);
-                      (*(*v186 + 40))(v186, buf);
-                      v189 = ImsOutStream::operator<<(v186, " since CSFB is disabled");
-                      (*(*v189 + 64))(v189, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                      LoggableString::LoggableString(buf, v183);
+                      (*(*v181 + 40))(v181, buf);
+                      v184 = ImsOutStream::operator<<(v181, " since CSFB is disabled");
+                      (*(*v184 + 64))(v184, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_418:
-                      v189[17] = 0;
+                      v184[17] = 0;
                       goto LABEL_109;
                     }
 
-                    v190 = *(v211 + 31);
-                    v191 = *(v211 + 32);
-                    if (v191)
+                    v185 = *(v206 + 31);
+                    v186 = *(v206 + 32);
+                    if (v186)
                     {
-                      atomic_fetch_add_explicit(&v191->__shared_owners_, 1uLL, memory_order_relaxed);
-                      v192 = *(SipUserAgent::config(v190) + 1120);
-                      std::__shared_weak_count::__release_shared[abi:ne200100](v191);
-                      if (v192)
+                      atomic_fetch_add_explicit(&v186->__shared_owners_, 1uLL, memory_order_relaxed);
+                      v187 = *(SipUserAgent::config(v185) + 1120);
+                      std::__shared_weak_count::__release_shared[abi:ne200100](v186);
+                      if (v187)
                       {
                         goto LABEL_396;
                       }
                     }
 
-                    else if (*(SipUserAgent::config(v190) + 1120))
+                    else if (*(SipUserAgent::config(v185) + 1120))
                     {
 LABEL_396:
-                      v43 = lpsrc;
+                      v41 = lpsrc;
                       if (*(this + 69))
                       {
-                        v193 = SipStack::prefs(v211);
-                        if (ImsPrefs::EmergencyAnonymousAutomaticRedial(v193))
+                        v188 = SipStack::prefs(v206);
+                        if (ImsPrefs::EmergencyAnonymousAutomaticRedial(v188))
                         {
-                          v194 = (*(*(this + 1) + 64))(this + 8);
-                          (*(*(this + 1) + 16))(this + 8, v194);
-                          v195 = ImsOutStream::operator<<(v194, "not terminating registration due to ");
-                          v196 = *(v37 + 8);
-                          if (v196 <= 37)
+                          v189 = (*(*(this + 1) + 64))(this + 8);
+                          (*(*(this + 1) + 16))(this + 8, v189);
+                          v190 = ImsOutStream::operator<<(v189, "not terminating registration due to ");
+                          v191 = *(v35 + 8);
+                          if (v191 <= 37)
                           {
-                            v197 = (reasonStrings + 24 * v196);
+                            v192 = (reasonStrings + 24 * v191);
                           }
 
                           else
                           {
-                            v197 = (reasonStrings + 240);
+                            v192 = (reasonStrings + 240);
                           }
 
-                          LoggableString::LoggableString(buf, v197);
-                          (*(*v195 + 40))(v195, buf);
-                          v189 = ImsOutStream::operator<<(v195, " since automatic emergency redial is enabled");
-                          (*(*v189 + 64))(v189, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                          LoggableString::LoggableString(buf, v192);
+                          (*(*v190 + 40))(v190, buf);
+                          v184 = ImsOutStream::operator<<(v190, " since automatic emergency redial is enabled");
+                          (*(*v184 + 64))(v184, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                           goto LABEL_418;
                         }
                       }
 
-                      if ((*(v211 + 3980) & 1) == 0)
+                      if ((*(v206 + 3980) & 1) == 0)
                       {
-                        v203 = (*(*(this + 1) + 64))(this + 8);
-                        (*(*(this + 1) + 16))(this + 8, v203);
-                        v204 = ImsOutStream::operator<<(v203, "not terminating registration due to ");
-                        v205 = *(v37 + 8);
-                        if (v205 <= 37)
+                        v198 = (*(*(this + 1) + 64))(this + 8);
+                        (*(*(this + 1) + 16))(this + 8, v198);
+                        v199 = ImsOutStream::operator<<(v198, "not terminating registration due to ");
+                        v200 = *(v35 + 8);
+                        if (v200 <= 37)
                         {
-                          v206 = (reasonStrings + 24 * v205);
+                          v201 = (reasonStrings + 24 * v200);
                         }
 
                         else
                         {
-                          v206 = (reasonStrings + 240);
+                          v201 = (reasonStrings + 240);
                         }
 
-                        LoggableString::LoggableString(buf, v206);
-                        (*(*v204 + 40))(v204, buf);
-                        v189 = ImsOutStream::operator<<(v204, " since no legacy RAT types are available");
-                        (*(*v189 + 64))(v189, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                        LoggableString::LoggableString(buf, v201);
+                        (*(*v199 + 40))(v199, buf);
+                        v184 = ImsOutStream::operator<<(v199, " since no legacy RAT types are available");
+                        (*(*v184 + 64))(v184, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                         goto LABEL_418;
                       }
 
 LABEL_408:
-                      v73 = (*(*(this + 1) + 64))(this + 8);
-                      (*(*(this + 1) + 16))(this + 8, v73);
-                      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v73 + 8), "triggering registration termination due to ", 43);
-                      *(v73 + 17) = 0;
-                      v202 = *(v37 + 8);
-                      if (v202 <= 37)
+                      v71 = (*(*(this + 1) + 64))(this + 8);
+                      (*(*(this + 1) + 16))(this + 8, v71);
+                      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v71 + 8), "triggering registration termination due to ", 43);
+                      *(v71 + 17) = 0;
+                      v197 = *(v35 + 8);
+                      if (v197 <= 37)
                       {
-                        v75 = (reasonStrings + 24 * v202);
+                        v73 = (reasonStrings + 24 * v197);
                       }
 
                       else
                       {
-                        v75 = (reasonStrings + 240);
+                        v73 = (reasonStrings + 240);
                       }
 
                       goto LABEL_411;
                     }
 
-                    v43 = lpsrc;
-                    v198 = (*(*(this + 1) + 64))(this + 8);
-                    (*(*(this + 1) + 16))(this + 8, v198);
-                    v199 = ImsOutStream::operator<<(v198, "not terminating registration due to ");
-                    v200 = *(v37 + 8);
-                    if (v200 <= 37)
+                    v41 = lpsrc;
+                    v193 = (*(*(this + 1) + 64))(this + 8);
+                    (*(*(this + 1) + 16))(this + 8, v193);
+                    v194 = ImsOutStream::operator<<(v193, "not terminating registration due to ");
+                    v195 = *(v35 + 8);
+                    if (v195 <= 37)
                     {
-                      v201 = (reasonStrings + 24 * v200);
+                      v196 = (reasonStrings + 24 * v195);
                     }
 
                     else
                     {
-                      v201 = (reasonStrings + 240);
+                      v196 = (reasonStrings + 240);
                     }
 
-                    LoggableString::LoggableString(buf, v201);
-                    (*(*v199 + 40))(v199, buf);
-                    v189 = ImsOutStream::operator<<(v199, " since our prefs say not to");
-                    (*(*v189 + 64))(v189, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                    LoggableString::LoggableString(buf, v196);
+                    (*(*v194 + 40))(v194, buf);
+                    v184 = ImsOutStream::operator<<(v194, " since our prefs say not to");
+                    (*(*v184 + 64))(v184, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                     goto LABEL_418;
                   }
                 }
 
-                else if (*(SipUserAgent::config(v69) + 456))
+                else if (*(SipUserAgent::config(v67) + 456))
                 {
                   goto LABEL_145;
                 }
 
-                v43 = lpsrc;
-                v52 = (*(*(this + 1) + 64))(this + 8);
-                (*(*(this + 1) + 16))(this + 8, v52);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), "not terminating registration due to ", 36);
-                *(v52 + 17) = 0;
-                v183 = *(v37 + 8);
-                if (v183 <= 37)
+                v41 = lpsrc;
+                v50 = (*(*(this + 1) + 64))(this + 8);
+                (*(*(this + 1) + 16))(this + 8, v50);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), "not terminating registration due to ", 36);
+                *(v50 + 17) = 0;
+                v178 = *(v35 + 8);
+                if (v178 <= 37)
                 {
-                  v184 = (reasonStrings + 24 * v183);
+                  v179 = (reasonStrings + 24 * v178);
                 }
 
                 else
                 {
-                  v184 = (reasonStrings + 240);
+                  v179 = (reasonStrings + 240);
                 }
 
-                LoggableString::LoggableString(buf, v184);
-                (*(*v52 + 40))(v52, buf);
-                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v52 + 8), " since this is a secondary device", 33);
-                *(v52 + 17) = 0;
-                (*(*v52 + 64))(v52, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                LoggableString::LoggableString(buf, v179);
+                (*(*v50 + 40))(v50, buf);
+                std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v50 + 8), " since this is a secondary device", 33);
+                *(v50 + 17) = 0;
+                (*(*v50 + 64))(v50, std::endl[abi:ne200100]<char,std::char_traits<char>>);
                 goto LABEL_108;
               }
 
 LABEL_112:
-              v42 = 1;
-              v209 = v16;
-              v43 = lpsrc;
+              v40 = 1;
+              v204 = v15;
+              v41 = lpsrc;
 LABEL_113:
-              v34 = *(v43 + 2);
+              v33 = *(v41 + 2);
               goto LABEL_114;
             }
           }
 
-          else if (!v48)
+          else if (!v46)
           {
             goto LABEL_93;
           }
 
-          lpsrc[144] = 0;
-          SipTransportLayer::removeConnections(*(v211 + 35), 0, 1, 1);
+          *(lpsrc + 144) = 0;
+          SipTransportLayer::removeConnections(*(v206 + 35), 0, 1, 1);
           goto LABEL_93;
         }
       }
 
-      else if (v30)
+      else if (v29)
       {
         goto LABEL_50;
       }
 
-      v33 = (*(*(this + 1) + 64))(this + 8);
-      (*(*(this + 1) + 16))(this + 8, v33);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "disallowing redial because response code not in silentRedialAllowedResponses", 76);
-      *(v33 + 17) = 0;
-      (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      v32 = (*(*(this + 1) + 64))(this + 8);
+      (*(*(this + 1) + 16))(this + 8, v32);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v32 + 8), "disallowing redial because response code not in silentRedialAllowedResponses", 76);
+      *(v32 + 17) = 0;
+      (*(*v32 + 64))(v32, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       goto LABEL_61;
     }
   }
 
 LABEL_209:
-  if ((*(this + 1529) & 1) != 0 || (*(this + 1530) & 1) != 0 || (v98 = *(a2 + 2), v98 == 2) || v98 == 23)
+  if ((*(this + 1529) & 1) != 0 || (*(this + 1530) & 1) != 0 || (v96 = *(a2 + 2), v96 == 2) || v96 == 23)
   {
-    v99 = *(this + 48);
-    if (v99)
+    v97 = *(this + 48);
+    if (v97)
     {
-      v100 = std::__shared_weak_count::lock(v99);
-      if (v100)
+      v98 = std::__shared_weak_count::lock(v97);
+      if (v98)
       {
-        v101 = *(this + 47);
-        if (v101)
+        v99 = *(this + 47);
+        if (v99)
         {
           SipStack::handleCallEvent(*(this + 47), a2);
-          v102 = 1;
+          v100 = 1;
         }
 
         else
         {
-          v102 = 0;
+          v100 = 0;
         }
       }
 
       else
       {
-        v102 = 0;
-        v101 = 0;
+        v100 = 0;
+        v99 = 0;
       }
     }
 
     else
     {
-      v102 = 0;
-      v101 = 0;
       v100 = 0;
+      v99 = 0;
+      v98 = 0;
     }
 
-    v103 = *(a2 + 2);
-    if (v103 > 7)
+    v101 = *(a2 + 2);
+    if (v101 > 7)
     {
-      if (v103 > 21)
+      if (v101 > 21)
       {
-        if (v103 == 22)
+        if (v101 == 22)
         {
           if (!*(this + 51))
           {
             goto LABEL_369;
           }
 
-          v117 = **a2;
-          if (!v118)
+          if (!v114)
           {
             goto LABEL_369;
           }
 
-          v119 = v118;
-          v120 = v118[4];
-          v121 = v119[5];
-          if (v121)
+          v115 = v114;
+          v116 = v114[4];
+          v117 = v115[5];
+          if (v117)
           {
-            atomic_fetch_add_explicit(&v121->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v117->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v122 = SipMessage::header<SipMinSEHeader>(v120);
-          if (v121)
+          v118 = SipMessage::header<SipMinSEHeader>(v116);
+          if (v117)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v121);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v117);
           }
 
-          v124 = this + 8;
-          v123 = *(this + 1);
-          if (!v122)
+          v120 = this + 8;
+          v119 = *(this + 1);
+          if (!v118)
           {
-            v107 = (*(v123 + 56))(this + 8);
-            (*(*v124 + 16))(this + 8, v107);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v107 + 8), "no Min-SE header in Interval Too Small response", 47);
-            *(v107 + 17) = 0;
-            (*(*v107 + 64))(v107, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            v104 = (*(v119 + 56))(this + 8);
+            (*(*v120 + 16))(this + 8, v104);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v104 + 8), "no Min-SE header in Interval Too Small response", 47);
+            *(v104 + 17) = 0;
+            (*(*v104 + 64))(v104, std::endl[abi:ne200100]<char,std::char_traits<char>>);
             goto LABEL_363;
           }
 
-          v125 = (*(v123 + 64))(this + 8);
-          (*(*v124 + 16))(this + 8, v125);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v125 + 8), "received 422 response for initial invite.  Starting over in new dialog with Min-SE = ", 85);
-          *(v125 + 17) = 0;
-          MEMORY[0x1E6923350](*(v125 + 8), v122[26]);
-          *(v125 + 17) = 0;
-          (*(*v125 + 64))(v125, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v125 + 17) = 0;
-          v240 = 0u;
-          v241 = 0u;
-          v238 = 0u;
-          v239 = 0u;
-          v236 = 0u;
-          v237 = 0u;
-          v234 = 0u;
+          v121 = (*(v119 + 64))(this + 8);
+          (*(*v120 + 16))(this + 8, v121);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v121 + 8), "received 422 response for initial invite.  Starting over in new dialog with Min-SE = ", 85);
+          *(v121 + 17) = 0;
+          MEMORY[0x1E6923350](*(v121 + 8), v118[26]);
+          *(v121 + 17) = 0;
+          (*(*v121 + 64))(v121, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v121 + 17) = 0;
           v235 = 0u;
-          v232 = 0u;
+          v236 = 0u;
           v233 = 0u;
-          v230 = 0u;
+          v234 = 0u;
           v231 = 0u;
-          v228 = 0u;
+          v232 = 0u;
           v229 = 0u;
-          v226 = 0u;
+          v230 = 0u;
           v227 = 0u;
+          v228 = 0u;
+          v225 = 0u;
+          v226 = 0u;
+          v223 = 0u;
           v224 = 0u;
-          memset(v225, 0, sizeof(v225));
-          BambiCallOptions::BambiCallOptions(&v224, (*(this + 51) + 840));
-          v265 = 0;
-          v263 = 0u;
-          v264 = 0u;
-          v261 = 0u;
-          v262 = 0u;
-          v259 = 0u;
-          v260 = 0u;
-          v257 = 0u;
+          v221 = 0u;
+          v222 = 0u;
+          v219 = 0u;
+          memset(v220, 0, sizeof(v220));
+          BambiCallOptions::BambiCallOptions(&v219, (*(this + 51) + 840));
+          v260 = 0;
           v258 = 0u;
-          v255 = 0u;
+          v259 = 0u;
           v256 = 0u;
-          v253 = 0u;
+          v257 = 0u;
           v254 = 0u;
-          v251 = 0u;
+          v255 = 0u;
           v252 = 0u;
-          v249 = 0u;
+          v253 = 0u;
           v250 = 0u;
-          v247 = 0u;
+          v251 = 0u;
           v248 = 0u;
+          v249 = 0u;
           v246 = 0u;
+          v247 = 0u;
+          v244 = 0u;
+          v245 = 0u;
+          v242 = 0u;
+          v243 = 0u;
+          v241 = 0u;
           memset(buf, 0, sizeof(buf));
           SipUri::SipUri(buf, (this + 1080));
-          v225[5] = v122[26];
+          v220[5] = v118[26];
           BambiCall::initializeMobileOriginated(this, buf, __p);
           ImsResult::~ImsResult(__p);
-          if (BYTE2(v225[8]))
+          if (BYTE2(v220[8]))
           {
-            v126 = "InitialInvite";
+            v122 = "InitialInvite";
           }
 
           else
           {
-            v126 = "EmptyInvite";
+            v122 = "EmptyInvite";
           }
 
-          SipSession::sendInvite(*(this + 51), v126, &v222);
-          ImsResult::~ImsResult(&v222);
+          SipSession::sendInvite(*(this + 51), v122, &v217);
+          ImsResult::~ImsResult(&v217);
           *(this + 492) = 0;
           SipUri::~SipUri(buf);
-          v127 = &v224;
+          v123 = &v219;
           goto LABEL_368;
         }
 
-        if (v103 != 23)
+        if (v101 != 23)
         {
-          if (v103 == 32)
+          if (v101 == 32)
           {
             if (!*(this + 51))
             {
               goto LABEL_369;
             }
 
-            v104 = **a2;
-            if (!v105)
+            if (!v102)
             {
               goto LABEL_369;
             }
 
-            v106 = *(this + 461) + 1;
-            *(this + 461) = v106;
-            if (v106 >= 4)
+            v103 = *(this + 461) + 1;
+            *(this + 461) = v103;
+            if (v103 >= 4)
             {
-              v107 = (*(*(this + 1) + 56))(this + 8);
-              (*(*(this + 1) + 16))(this + 8, v107);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v107 + 8), "too many subsequent redirection requests.", 41);
-              *(v107 + 17) = 0;
-              (*(*v107 + 64))(v107, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v104 = (*(*(this + 1) + 56))(this + 8);
+              (*(*(this + 1) + 16))(this + 8, v104);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v104 + 8), "too many subsequent redirection requests.", 41);
+              *(v104 + 17) = 0;
+              (*(*v104 + 64))(v104, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_363:
-              *(v107 + 17) = 0;
+              *(v104 + 17) = 0;
 LABEL_369:
               LOBYTE(v13) = 0;
               goto LABEL_370;
             }
 
-            v153 = v105;
-            v154 = time(0);
-            v155 = v153[110];
-            v157 = this + 8;
-            v156 = *(this + 1);
-            if (v155 && v155 < v154)
+            v149 = v102;
+            v150 = time(0);
+            v151 = v149[110];
+            v153 = this + 8;
+            v152 = *(this + 1);
+            if (v151 && v151 < v150)
             {
-              v107 = (*(v156 + 56))(this + 8);
-              (*(*v157 + 16))(this + 8, v107);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v107 + 8), "received session moved response to initial invite with expired contact.", 71);
-              *(v107 + 17) = 0;
-              (*(*v107 + 64))(v107, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              v104 = (*(v152 + 56))(this + 8);
+              (*(*v153 + 16))(this + 8, v104);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v104 + 8), "received session moved response to initial invite with expired contact.", 71);
+              *(v104 + 17) = 0;
+              (*(*v104 + 64))(v104, std::endl[abi:ne200100]<char,std::char_traits<char>>);
               goto LABEL_363;
             }
 
-            v169 = (*(v156 + 64))(this + 8);
-            (*(*v157 + 16))(this + 8, v169);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v169 + 8), "received session moved response for initial invite.  Redialing to new URI ", 74);
-            *(v169 + 17) = 0;
-            v171 = *(v153 + 4);
-            v170 = (v153 + 8);
-            (*(v171 + 40))(v170, v169);
-            (*(*v169 + 64))(v169, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v169 + 17) = 0;
-            v260 = 0u;
-            v261 = 0u;
-            v258 = 0u;
-            v259 = 0u;
-            v256 = 0u;
-            v257 = 0u;
-            v254 = 0u;
+            v165 = (*(v152 + 64))(this + 8);
+            (*(*v153 + 16))(this + 8, v165);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v165 + 8), "received session moved response for initial invite.  Redialing to new URI ", 74);
+            *(v165 + 17) = 0;
+            v167 = *(v149 + 4);
+            v166 = (v149 + 8);
+            (*(v167 + 40))(v166, v165);
+            (*(*v165 + 64))(v165, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v165 + 17) = 0;
             v255 = 0u;
-            v252 = 0u;
+            v256 = 0u;
             v253 = 0u;
-            v250 = 0u;
+            v254 = 0u;
             v251 = 0u;
-            v248 = 0u;
+            v252 = 0u;
             v249 = 0u;
-            v246 = 0u;
+            v250 = 0u;
             v247 = 0u;
+            v248 = 0u;
+            v245 = 0u;
+            v246 = 0u;
+            v243 = 0u;
+            v244 = 0u;
+            v241 = 0u;
+            v242 = 0u;
             memset(buf, 0, sizeof(buf));
             BambiCallOptions::BambiCallOptions(buf, (*(this + 51) + 840));
-            BambiCall::initializeMobileOriginated(this, v170, &v224);
-            ImsResult::~ImsResult(&v224);
+            BambiCall::initializeMobileOriginated(this, v166, &v219);
+            ImsResult::~ImsResult(&v219);
             if (buf[2].__r_.__value_.__s.__data_[2])
             {
-              v172 = "InitialInvite";
+              v168 = "InitialInvite";
             }
 
             else
             {
-              v172 = "EmptyInvite";
+              v168 = "EmptyInvite";
             }
 
-            SipSession::sendInvite(*(this + 51), v172, __p);
+            SipSession::sendInvite(*(this + 51), v168, __p);
             ImsResult::~ImsResult(__p);
             *(this + 492) = 0;
-            v127 = buf;
+            v123 = buf;
 LABEL_368:
-            BambiCallOptions::~BambiCallOptions(&v127->__r_.__value_.__l.__data_);
+            BambiCallOptions::~BambiCallOptions(&v123->__r_.__value_.__l.__data_);
             goto LABEL_369;
           }
 
 LABEL_370:
-          v173 = *(this + 54);
-          if (v173)
+          v169 = *(this + 54);
+          if (v169)
           {
-            v174 = std::__shared_weak_count::lock(v173);
-            if (v174)
+            v170 = std::__shared_weak_count::lock(v169);
+            if (v170)
             {
-              v175 = v174;
-              v176 = *(this + 53);
-              v177 = v13 ^ 1;
-              if (!v176)
+              v171 = v170;
+              v172 = *(this + 53);
+              v173 = v13 ^ 1;
+              if (!v172)
               {
-                v177 = 1;
+                v173 = 1;
               }
 
-              if ((v177 & 1) == 0)
+              if ((v173 & 1) == 0)
               {
-                v178 = *(this + 51);
-                if (v178 && !(*(*v178 + 264))(v178))
+                v174 = *(this + 51);
+                if (v174 && !(*(*v174 + 264))(v174))
                 {
-                  (*(*v176 + 16))(v176, a2);
+                  (*(*v172 + 16))(v172, a2);
                 }
 
                 else
                 {
-                  v180 = *(this + 1);
-                  v179 = this + 8;
-                  v181 = (*(v180 + 64))(v179);
-                  (*(*v179 + 16))(v179, v181);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v181 + 8), "call ended while processing ", 28);
-                  *(v181 + 17) = 0;
+                  v176 = *(this + 1);
+                  v175 = this + 8;
+                  v177 = (*(v176 + 64))(v175);
+                  (*(*v175 + 16))(v175, v177);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v177 + 8), "call ended while processing ", 28);
+                  *(v177 + 17) = 0;
                   (*(*a2 + 24))(buf, a2);
-                  (*(*v181 + 40))(v181, buf);
-                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v181 + 8), " event", 6);
-                  *(v181 + 17) = 0;
-                  (*(*v181 + 64))(v181, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-                  *(v181 + 17) = 0;
+                  (*(*v177 + 40))(v177, buf);
+                  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v177 + 8), " event", 6);
+                  *(v177 + 17) = 0;
+                  (*(*v177 + 64))(v177, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+                  *(v177 + 17) = 0;
                   if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(buf[0].__r_.__value_.__l.__data_);
@@ -3906,18 +3891,18 @@ LABEL_370:
                 }
               }
 
-              std::__shared_weak_count::__release_shared[abi:ne200100](v175);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v171);
             }
           }
 
-          if (v100)
+          if (v98)
           {
 LABEL_382:
-            std::__shared_weak_count::__release_shared[abi:ne200100](v100);
-            goto LABEL_383;
+            std::__shared_weak_count::__release_shared[abi:ne200100](v98);
+            return;
           }
 
-          goto LABEL_383;
+          return;
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "PreconditionsSatisfied");
@@ -3931,7 +3916,7 @@ LABEL_296:
         goto LABEL_370;
       }
 
-      if (v103 == 8)
+      if (v101 == 8)
       {
         if (!*(this + 216))
         {
@@ -3950,37 +3935,37 @@ LABEL_296:
         goto LABEL_296;
       }
 
-      if (v103 != 9)
+      if (v101 != 9)
       {
         goto LABEL_370;
       }
 
-      v108 = (*(*(this + 1) + 64))(this + 8);
-      (*(*(this + 1) + 16))(this + 8, v108);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v108 + 8), "confirmed session with ", 23);
-      *(v108 + 17) = 0;
-      (*(*(this + 135) + 40))(this + 1080, v108);
-      (*(*v108 + 64))(v108, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v108 + 17) = 0;
-      if (v102)
+      v105 = (*(*(this + 1) + 64))(this + 8);
+      (*(*(this + 1) + 16))(this + 8, v105);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v105 + 8), "confirmed session with ", 23);
+      *(v105 + 17) = 0;
+      (*(*(this + 135) + 40))(this + 1080, v105);
+      (*(*v105 + 64))(v105, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v105 + 17) = 0;
+      if (v100)
       {
-        v110 = *(v101 + 280);
-        v109 = *(v101 + 288);
-        if (v109)
+        v107 = *(v99 + 280);
+        v106 = *(v99 + 288);
+        if (v106)
         {
-          atomic_fetch_add_explicit(&v109->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v106->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         std::string::basic_string[abi:ne200100]<0>(buf, "successful call");
-        SipTransportLayer::resetTransportErrors(v110, buf);
+        SipTransportLayer::resetTransportErrors(v107, buf);
         if (SHIBYTE(buf[0].__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(buf[0].__r_.__value_.__l.__data_);
         }
 
-        if (v109)
+        if (v106)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v109);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v106);
         }
       }
 
@@ -3988,127 +3973,127 @@ LABEL_296:
       *&buf[0].__r_.__value_.__l.__data_ = 0uLL;
       gettimeofday(buf, 0);
       *(this + 222) = 1000 * buf[0].__r_.__value_.__r.__words[0] + SLODWORD(buf[0].__r_.__value_.__r.__words[1]) / 1000 + 2208988800000;
-      v111 = *(this + 24);
-      if (v111)
+      v108 = *(this + 24);
+      if (v108)
       {
-        SDPSession::enableRTCPBandwidthSpecifiers(v111);
+        SDPSession::enableRTCPBandwidthSpecifiers(v108);
       }
 
-      if (!v102 || *(v101 + 2809) != 1)
+      if (!v100 || *(v99 + 2809) != 1)
       {
         std::string::basic_string[abi:ne200100]<0>(buf, "SessionConfirmed");
         BambiCall::activateAllMediaSessionIfAppropriate(this, buf);
         goto LABEL_296;
       }
 
-      v215[0] = MEMORY[0x1E69E9820];
-      v215[1] = 0x40000000;
-      v215[2] = ___ZN9BambiCall16processCallEventEP14BambiCallEvent_block_invoke;
-      v215[3] = &__block_descriptor_tmp_56;
-      v215[4] = this;
-      v224 = 0uLL;
-      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v224, this + 19);
-      v112 = *(this + 21);
+      v210[0] = MEMORY[0x1E69E9820];
+      v210[1] = 0x40000000;
+      v210[2] = ___ZN9BambiCall16processCallEventEP14BambiCallEvent_block_invoke;
+      v210[3] = &__block_descriptor_tmp_56;
+      v210[4] = this;
+      v219 = 0uLL;
+      std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v219, this + 19);
+      v109 = *(this + 21);
       buf[0].__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
       buf[0].__r_.__value_.__l.__size_ = 1174405120;
       buf[0].__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableI9BambiCallE15execute_wrappedEU13block_pointerFvvE_block_invoke;
       buf[1].__r_.__value_.__r.__words[0] = &unk_1F5ED3A80;
-      *&buf[1].__r_.__value_.__r.__words[2] = v224;
-      if (*(&v224 + 1))
+      *&buf[1].__r_.__value_.__r.__words[2] = v219;
+      if (*(&v219 + 1))
       {
-        atomic_fetch_add_explicit((*(&v224 + 1) + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((*(&v219 + 1) + 8), 1uLL, memory_order_relaxed);
       }
 
-      buf[1].__r_.__value_.__l.__size_ = v215;
-      dispatch_async(v112, buf);
+      buf[1].__r_.__value_.__l.__size_ = v210;
+      dispatch_async(v109, buf);
       if (buf[2].__r_.__value_.__r.__words[0])
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](buf[2].__r_.__value_.__l.__data_);
       }
 
-      v113 = *(&v224 + 1);
-      if (!*(&v224 + 1))
+      v110 = *(&v219 + 1);
+      if (!*(&v219 + 1))
       {
         goto LABEL_370;
       }
 
 LABEL_317:
-      std::__shared_weak_count::__release_shared[abi:ne200100](v113);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v110);
       goto LABEL_370;
     }
 
-    if (v103 <= 3)
+    if (v101 <= 3)
     {
-      if (v103 == 2)
+      if (v101 == 2)
       {
         *(this + 1530) = 1;
         *&buf[0].__r_.__value_.__l.__data_ = 0uLL;
         gettimeofday(buf, 0);
         *(this + 218) = 1000 * buf[0].__r_.__value_.__r.__words[0] + SLODWORD(buf[0].__r_.__value_.__r.__words[1]) / 1000 + 2208988800000;
         std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(buf, this + 19);
-        v114 = *&buf[0].__r_.__value_.__l.__data_;
+        v111 = *&buf[0].__r_.__value_.__l.__data_;
         if (buf[0].__r_.__value_.__l.__size_)
         {
           atomic_fetch_add_explicit((buf[0].__r_.__value_.__l.__size_ + 16), 1uLL, memory_order_relaxed);
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v114 + 1));
-          atomic_fetch_add_explicit((*(&v114 + 1) + 16), 1uLL, memory_order_relaxed);
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v111 + 1));
+          atomic_fetch_add_explicit((*(&v111 + 1) + 16), 1uLL, memory_order_relaxed);
         }
 
-        if (v102 && *(v101 + 2812))
+        if (v100 && *(v99 + 2812))
         {
-          if (*(&v114 + 1))
+          if (*(&v111 + 1))
           {
-            atomic_fetch_add_explicit((*(&v114 + 1) + 16), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((*(&v111 + 1) + 16), 1uLL, memory_order_relaxed);
           }
 
-          v244 = 0;
+          v239 = 0;
           operator new();
         }
 
-        v132 = (*(*(this + 1) + 64))(this + 8);
-        (*(*(this + 1) + 16))(this + 8, v132);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v132 + 8), "no auto-ring timer set", 22);
-        *(v132 + 17) = 0;
-        (*(*v132 + 64))(v132, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        *(v132 + 17) = 0;
+        v128 = (*(*(this + 1) + 64))(this + 8);
+        (*(*(this + 1) + 16))(this + 8, v128);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v128 + 8), "no auto-ring timer set", 22);
+        *(v128 + 17) = 0;
+        (*(*v128 + 64))(v128, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        *(v128 + 17) = 0;
         if (*(this + 1841) == 1)
         {
-          v133 = dispatch_time(0, 500);
+          v129 = dispatch_time(0, 500);
           ims::getQueue(buf);
-          v134 = buf[0].__r_.__value_.__r.__words[0];
+          v130 = buf[0].__r_.__value_.__r.__words[0];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 1174405120;
           block[2] = ___ZN9BambiCall16processCallEventEP14BambiCallEvent_block_invoke_2;
           block[3] = &__block_descriptor_tmp_59_1;
           block[4] = this;
-          v214 = v114;
-          if (*(&v114 + 1))
+          v209 = v111;
+          if (*(&v111 + 1))
           {
-            atomic_fetch_add_explicit((*(&v114 + 1) + 16), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((*(&v111 + 1) + 16), 1uLL, memory_order_relaxed);
           }
 
-          dispatch_after(v133, v134, block);
-          if (v134)
+          dispatch_after(v129, v130, block);
+          if (v130)
           {
-            dispatch_release(v134);
+            dispatch_release(v130);
           }
 
-          if (*(&v214 + 1))
+          if (*(&v209 + 1))
           {
-            std::__shared_weak_count::__release_weak(*(&v214 + 1));
+            std::__shared_weak_count::__release_weak(*(&v209 + 1));
           }
         }
 
-        if (*(&v114 + 1))
+        if (*(&v111 + 1))
         {
-          std::__shared_weak_count::__release_weak(*(&v114 + 1));
-          std::__shared_weak_count::__release_weak(*(&v114 + 1));
+          std::__shared_weak_count::__release_weak(*(&v111 + 1));
+          std::__shared_weak_count::__release_weak(*(&v111 + 1));
         }
 
         goto LABEL_370;
       }
 
-      if (v103 != 3 || *(*(this + 51) + 1500) != 2)
+      if (v101 != 3 || *(*(this + 51) + 1500) != 2)
       {
         goto LABEL_370;
       }
@@ -4118,71 +4103,71 @@ LABEL_317:
       goto LABEL_296;
     }
 
-    if (v103 != 4)
+    if (v101 != 4)
     {
-      if (v103 != 7)
+      if (v101 != 7)
       {
         goto LABEL_370;
       }
 
       if (*(*(this + 51) + 1500) != 2)
       {
-        v135 = *(this + 48);
-        if (v135)
+        v131 = *(this + 48);
+        if (v131)
         {
-          v135 = std::__shared_weak_count::lock(v135);
-          v136 = v135;
-          if (v135)
+          v131 = std::__shared_weak_count::lock(v131);
+          v132 = v131;
+          if (v131)
           {
-            v135 = *(this + 47);
+            v131 = *(this + 47);
           }
         }
 
         else
         {
-          v136 = 0;
+          v132 = 0;
         }
 
-        v158 = SipStack::prefs(v135);
-        v159 = ImsPrefs::StopLocalRingbackToneOn181(v158);
-        if (v136)
+        v154 = SipStack::prefs(v131);
+        v155 = ImsPrefs::StopLocalRingbackToneOn181(v154);
+        if (v132)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v136);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v132);
         }
 
-        v160 = this + 8;
-        v161 = *(*(this + 1) + 64);
-        if (v159)
+        v156 = this + 8;
+        v157 = *(*(this + 1) + 64);
+        if (v155)
         {
-          v162 = v161(this + 8);
-          (*(*v160 + 16))(this + 8, v162);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v162 + 8), "Received a 181, stopping local ringback tone", 44);
-          *(v162 + 17) = 0;
-          (*(*v162 + 64))(v162, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v162 + 17) = 0;
-          v163 = *(this + 24);
-          v164 = *(v163 + 1912);
-          if (v164)
+          v158 = v157(this + 8);
+          (*(*v156 + 16))(this + 8, v158);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v158 + 8), "Received a 181, stopping local ringback tone", 44);
+          *(v158 + 17) = 0;
+          (*(*v158 + 64))(v158, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v158 + 17) = 0;
+          v159 = *(this + 24);
+          v160 = *(v159 + 1912);
+          if (v160)
           {
-            v165 = v163 + 1912;
-            v166 = v163 + 1912;
+            v161 = v159 + 1912;
+            v162 = v159 + 1912;
             do
             {
-              if (*(v164 + 32) >= 2)
+              if (*(v160 + 32) >= 2)
               {
-                v166 = v164;
+                v162 = v160;
               }
 
-              v164 = *(v164 + 8 * (*(v164 + 32) < 2));
+              v160 = *(v160 + 8 * (*(v160 + 32) < 2));
             }
 
-            while (v164);
-            if (v166 != v165 && *(v166 + 32) <= 2)
+            while (v160);
+            if (v162 != v161 && *(v162 + 32) <= 2)
             {
-              v167 = *(v166 + 40);
-              if (v167)
+              v163 = *(v162 + 40);
+              if (v163)
               {
-                (*(**(this + 49) + 48))(*(this + 49), *(v167 + 48));
+                (*(**(this + 49) + 48))(*(this + 49), *(v163 + 48));
               }
             }
           }
@@ -4190,12 +4175,12 @@ LABEL_317:
 
         else
         {
-          v168 = v161(this + 8);
-          (*(*v160 + 16))(this + 8, v168);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v168 + 8), "Received a 181, not stopping local ringback tone", 48);
-          *(v168 + 17) = 0;
-          (*(*v168 + 64))(v168, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v168 + 17) = 0;
+          v164 = v157(this + 8);
+          (*(*v156 + 16))(this + 8, v164);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v164 + 8), "Received a 181, not stopping local ringback tone", 48);
+          *(v164 + 17) = 0;
+          (*(*v164 + 64))(v164, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v164 + 17) = 0;
         }
 
         goto LABEL_370;
@@ -4220,28 +4205,28 @@ LABEL_317:
       *(this + 217) = 1000 * buf[0].__r_.__value_.__r.__words[0] + SLODWORD(buf[0].__r_.__value_.__r.__words[1]) / 1000 + 2208988800000;
     }
 
-    v115 = *(this + 48);
-    if (v115)
+    v112 = *(this + 48);
+    if (v112)
     {
-      v115 = std::__shared_weak_count::lock(v115);
-      v116 = v115;
-      if (v115)
+      v112 = std::__shared_weak_count::lock(v112);
+      v113 = v112;
+      if (v112)
       {
-        v115 = *(this + 47);
+        v112 = *(this + 47);
       }
     }
 
     else
     {
-      v116 = 0;
+      v113 = 0;
     }
 
-    v137 = SipStack::prefs(v115);
-    if (ImsPrefs::EnableRingbackAudioForTextCalls(v137))
+    v133 = SipStack::prefs(v112);
+    if (ImsPrefs::EnableRingbackAudioForTextCalls(v133))
     {
-      if (v116)
+      if (v113)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v116);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v113);
       }
     }
 
@@ -4249,22 +4234,22 @@ LABEL_317:
     {
       if (*(this + 784))
       {
-        if (!v116)
+        if (!v113)
         {
           goto LABEL_370;
         }
 
-        v113 = v116;
+        v110 = v113;
         goto LABEL_317;
       }
 
-      v138 = *(this + 785);
-      if (v116)
+      v134 = *(this + 785);
+      if (v113)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v116);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v113);
       }
 
-      if (v138)
+      if (v134)
       {
         goto LABEL_370;
       }
@@ -4274,11 +4259,11 @@ LABEL_317:
     {
       if (*(this + 122) != 4)
       {
-        v139 = (*(*(this + 1) + 64))(this + 8);
-        (*(*(this + 1) + 16))(this + 8, v139);
-        v140 = ImsOutStream::operator<<(v139, "early media is enforced. Activating session for network ringback tone.");
-        (*(*v140 + 64))(v140, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-        v140[17] = 0;
+        v135 = (*(*(this + 1) + 64))(this + 8);
+        (*(*(this + 1) + 16))(this + 8, v135);
+        v136 = ImsOutStream::operator<<(v135, "early media is enforced. Activating session for network ringback tone.");
+        (*(*v136 + 64))(v136, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+        v136[17] = 0;
       }
 
       std::string::basic_string[abi:ne200100]<0>(buf, "Ringing");
@@ -4293,43 +4278,43 @@ LABEL_317:
         goto LABEL_370;
       }
 
-      v141 = (*(*(this + 1) + 64))(this + 8);
-      (*(*(this + 1) + 16))(this + 8, v141);
-      v142 = ImsOutStream::operator<<(v141, "early media is enforced. Activating session and starting local ringback tone.");
-      (*(*v142 + 64))(v142, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      v142[17] = 0;
-      v143 = *(this + 24);
-      v144 = *(v143 + 1912);
-      if (!v144)
+      v137 = (*(*(this + 1) + 64))(this + 8);
+      (*(*(this + 1) + 16))(this + 8, v137);
+      v138 = ImsOutStream::operator<<(v137, "early media is enforced. Activating session and starting local ringback tone.");
+      (*(*v138 + 64))(v138, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      v138[17] = 0;
+      v139 = *(this + 24);
+      v140 = *(v139 + 1912);
+      if (!v140)
       {
         goto LABEL_370;
       }
 
-      v145 = v143 + 1912;
-      v146 = v143 + 1912;
+      v141 = v139 + 1912;
+      v142 = v139 + 1912;
       do
       {
-        if (*(v144 + 32) >= 2)
+        if (*(v140 + 32) >= 2)
         {
-          v146 = v144;
+          v142 = v140;
         }
 
-        v144 = *(v144 + 8 * (*(v144 + 32) < 2));
+        v140 = *(v140 + 8 * (*(v140 + 32) < 2));
       }
 
-      while (v144);
-      if (v146 == v145)
+      while (v140);
+      if (v142 == v141)
       {
         goto LABEL_370;
       }
 
-      if (*(v146 + 32) > 2)
+      if (*(v142 + 32) > 2)
       {
         goto LABEL_370;
       }
 
-      v147 = *(v146 + 40);
-      if (!v147)
+      v143 = *(v142 + 40);
+      if (!v143)
       {
         goto LABEL_370;
       }
@@ -4337,64 +4322,64 @@ LABEL_317:
 
     else
     {
-      v148 = (*(*(this + 1) + 64))(this + 8);
-      (*(*(this + 1) + 16))(this + 8, v148);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v148 + 8), "early media is not enforced. Starting local ringback tone.", 58);
-      *(v148 + 17) = 0;
-      (*(*v148 + 64))(v148, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-      *(v148 + 17) = 0;
-      v149 = *(this + 24);
-      v150 = *(v149 + 1912);
-      if (!v150)
+      v144 = (*(*(this + 1) + 64))(this + 8);
+      (*(*(this + 1) + 16))(this + 8, v144);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v144 + 8), "early media is not enforced. Starting local ringback tone.", 58);
+      *(v144 + 17) = 0;
+      (*(*v144 + 64))(v144, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+      *(v144 + 17) = 0;
+      v145 = *(this + 24);
+      v146 = *(v145 + 1912);
+      if (!v146)
       {
         goto LABEL_370;
       }
 
-      v151 = v149 + 1912;
-      v152 = v149 + 1912;
+      v147 = v145 + 1912;
+      v148 = v145 + 1912;
       do
       {
-        if (*(v150 + 32) >= 2)
+        if (*(v146 + 32) >= 2)
         {
-          v152 = v150;
+          v148 = v146;
         }
 
-        v150 = *(v150 + 8 * (*(v150 + 32) < 2));
+        v146 = *(v146 + 8 * (*(v146 + 32) < 2));
       }
 
-      while (v150);
-      if (v152 == v151)
+      while (v146);
+      if (v148 == v147)
       {
         goto LABEL_370;
       }
 
-      if (*(v152 + 32) > 2)
+      if (*(v148 + 32) > 2)
       {
         goto LABEL_370;
       }
 
-      v147 = *(v152 + 40);
-      if (!v147)
+      v143 = *(v148 + 40);
+      if (!v143)
       {
         goto LABEL_370;
       }
     }
 
-    (*(**(this + 49) + 40))(*(this + 49), *(v147 + 48));
+    (*(**(this + 49) + 40))(*(this + 49), *(v143 + 48));
     goto LABEL_370;
   }
 
-  v128 = (*(*(this + 1) + 64))(this + 8);
-  (*(*(this + 1) + 16))(this + 8, v128);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v128 + 8), "suppressing call event ", 23);
-  *(v128 + 17) = 0;
-  (*(*a2 + 16))(a2, v128);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v128 + 8), " for hidden call ", 17);
-  *(v128 + 17) = 0;
+  v124 = (*(*(this + 1) + 64))(this + 8);
+  (*(*(this + 1) + 16))(this + 8, v124);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v124 + 8), "suppressing call event ", 23);
+  *(v124 + 17) = 0;
+  (*(*a2 + 16))(a2, v124);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v124 + 8), " for hidden call ", 17);
+  *(v124 + 17) = 0;
   ObfuscatedString::ObfuscatedString(buf, this + 21);
-  (*(*v128 + 56))(v128, buf);
-  (*(*v128 + 64))(v128, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v128 + 17) = 0;
+  (*(*v124 + 56))(v124, buf);
+  (*(*v124 + 64))(v124, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v124 + 17) = 0;
   if (SHIBYTE(buf[1].__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(buf[1].__r_.__value_.__l.__data_);
@@ -4405,25 +4390,22 @@ LABEL_317:
     operator delete(buf[0].__r_.__value_.__l.__data_);
   }
 
-  v129 = *(this + 54);
-  if (v129)
+  v125 = *(this + 54);
+  if (v125)
   {
-    v130 = std::__shared_weak_count::lock(v129);
-    if (v130)
+    v126 = std::__shared_weak_count::lock(v125);
+    if (v126)
     {
-      v100 = v130;
-      v131 = *(this + 53);
-      if (v131)
+      v98 = v126;
+      v127 = *(this + 53);
+      if (v127)
       {
-        (*(*v131 + 288))(v131, a2);
+        (*(*v127 + 288))(v127, a2);
       }
 
       goto LABEL_382;
     }
   }
-
-LABEL_383:
-  v182 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E4E4C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13)
@@ -4616,7 +4598,7 @@ void BambiCall::internalStart(BambiCall *this@<X0>, uint64_t a2@<X8>)
             atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          ImsRandomStringGenerator::randomString((v8 + 688), 24, &v21);
+          ImsRandomStringGenerator::randomString(&v21, (v8 + 688), 24);
           std::string::operator=(v6 + 63, &v21);
           if (SBYTE7(v22) < 0)
           {
@@ -4718,7 +4700,7 @@ void BambiCall::detachSipSession(BambiCall *this)
   }
 }
 
-void BambiCall::lendSipSession(BambiCall *this@<X0>, void *a2@<X8>)
+void BambiCall::lendSipSession(uint64_t *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
   v4 = (this + 8);
   v5 = (*(*(this + 1) + 64))(this + 8);
@@ -4728,8 +4710,8 @@ void BambiCall::lendSipSession(BambiCall *this@<X0>, void *a2@<X8>)
   (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v5 + 17) = 0;
   v6 = v4[51];
-  *a2 = v4[50];
-  a2[1] = v6;
+  *a1 = v4[50];
+  a1[1] = v6;
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -4762,117 +4744,115 @@ uint64_t BambiCall::shouldFakeLocalQOS(BambiCall *this)
       v5 = *(this + 47);
       if (v5)
       {
-        isWifi = ims::AccessNetwork::isWifi((v5 + 3432));
-        if (isWifi)
+        if (ims::AccessNetwork::isWifi((v5 + 3432)))
         {
-          IPTelephonyManager::getBambiClient(&v24, isWifi);
-          isWifi = v25;
-          v7 = *(v24 + 298);
-          if (v25)
+          IPTelephonyManager::getBambiClient(&v23);
+          v6 = *(v23 + 298);
+          if (v24)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v24);
           }
 
-          if (v7)
+          if (v6)
           {
-            v9 = *(this + 1);
-            v8 = this + 8;
-            v10 = (*(v9 + 64))(v8);
-            (*(*v8 + 16))(v8, v10);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "faking QoS indication for WiFi call", 35);
-            *(v10 + 17) = 0;
-            (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-            *(v10 + 17) = 0;
+            v8 = *(this + 1);
+            v7 = this + 8;
+            v9 = (*(v8 + 64))(v7);
+            (*(*v7 + 16))(v7, v9);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "faking QoS indication for WiFi call", 35);
+            *(v9 + 17) = 0;
+            (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+            *(v9 + 17) = 0;
 LABEL_32:
-            v11 = 1;
+            v10 = 1;
             goto LABEL_25;
           }
         }
 
         if ((*(v5 + 2772) & 1) == 0)
         {
+          v28 = 0;
           v29 = 0;
           v30 = 0;
-          v31 = 0;
-          IPTelephonyManager::getBambiClient(&v24, isWifi);
-          for (i = *(v24 + 46); i; i = *i)
+          IPTelephonyManager::getBambiClient(&v23);
+          for (i = *(v23 + 46); i; i = *i)
           {
-            std::vector<std::shared_ptr<LazuliHeader>>::push_back[abi:ne200100](&v29, i + 1);
+            std::vector<std::shared_ptr<LazuliHeader>>::push_back[abi:ne200100](&v28, i + 1);
           }
 
-          if (v25)
+          if (v24)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v24);
           }
 
-          v14 = v29;
-          v13 = v30;
+          v13 = v28;
+          v12 = v29;
           while (1)
           {
-            if (v14 == v13)
+            if (v13 == v12)
             {
-              v18 = *(this + 1);
-              v17 = this + 8;
-              v19 = (*(v18 + 64))(v17);
-              (*(*v17 + 16))(v17, v19);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v19 + 8), "no existing calls with QoS established", 38);
-              *(v19 + 17) = 0;
-              (*(*v19 + 64))(v19, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-              *(v19 + 17) = 0;
-              v24 = &v29;
-              std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](&v24);
+              v17 = *(this + 1);
+              v16 = this + 8;
+              v18 = (*(v17 + 64))(v16);
+              (*(*v16 + 16))(v16, v18);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v18 + 8), "no existing calls with QoS established", 38);
+              *(v18 + 17) = 0;
+              (*(*v18 + 64))(v18, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+              *(v18 + 17) = 0;
+              v23 = &v28;
+              std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](&v23);
               goto LABEL_24;
             }
 
-            std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v24, this + 19);
-            v15 = *v14;
-            v16 = v24;
-            if (v25)
+            std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v23, this + 19);
+            v14 = *v13;
+            v15 = v23;
+            if (v24)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v24);
             }
 
-            if (v15 != v16 && (*v14)[17].__r_.__value_.__r.__words[0] && (*v14)[20].__r_.__value_.__s.__data_[15] == 1)
+            if (v14 != v15 && (*v13)[17].__r_.__value_.__r.__words[0] && (*v13)[20].__r_.__value_.__s.__data_[15] == 1)
             {
               break;
             }
 
-            v14 += 2;
+            v13 += 2;
           }
 
-          v22 = *(this + 1);
-          v21 = this + 8;
-          v23 = (*(v22 + 64))(v21);
-          (*(*v21 + 16))(v21, v23);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), "QoS already established for call ", 33);
-          *(v23 + 17) = 0;
-          ObfuscatedString::ObfuscatedString(&v24, *v14 + 21);
-          (*(*v23 + 56))(v23, &v24);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v23 + 8), ". Faking QoS indication.", 24);
-          *(v23 + 17) = 0;
-          (*(*v23 + 64))(v23, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-          *(v23 + 17) = 0;
-          if (v28 < 0)
+          v21 = *(this + 1);
+          v20 = this + 8;
+          v22 = (*(v21 + 64))(v20);
+          (*(*v20 + 16))(v20, v22);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "QoS already established for call ", 33);
+          *(v22 + 17) = 0;
+          ObfuscatedString::ObfuscatedString(&v23, *v13 + 21);
+          (*(*v22 + 56))(v22, &v23);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), ". Faking QoS indication.", 24);
+          *(v22 + 17) = 0;
+          (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+          *(v22 + 17) = 0;
+          if (v27 < 0)
           {
             operator delete(__p);
           }
 
-          if (v26 < 0)
+          if (v25 < 0)
           {
-            operator delete(v24);
+            operator delete(v23);
           }
 
-          v24 = &v29;
-          std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](&v24);
+          v23 = &v28;
+          std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](&v23);
           goto LABEL_32;
         }
       }
 
 LABEL_24:
-      v11 = 0;
+      v10 = 0;
 LABEL_25:
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      return v11;
+      return v10;
     }
   }
 
@@ -4887,26 +4867,26 @@ void sub_1E4E4D51C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-double BambiCall::ring@<D0>(int8x8_t *this@<X0>, uint64_t a2@<X8>)
+double BambiCall::ring@<D0>(uint64_t *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
-  SipTimerContainer::cancelTimer(this + 26, "AutoRingTimer");
-  v4 = this[51];
+  SipTimerContainer::cancelTimer((this + 208), "AutoRingTimer");
+  v4 = *(this + 51);
   if (v4)
   {
 
-    SipSession::sendRingingNotification(v4, a2);
+    SipSession::sendRingingNotification(v4, a1);
   }
 
   else
   {
     result = 0.0;
-    *(a2 + 24) = 0u;
-    *(a2 + 40) = 0u;
-    *(a2 + 56) = 0u;
-    *(a2 + 72) = 0u;
-    *a2 = &unk_1F5EBDEF8;
-    *(a2 + 8) = &_bambiDomain;
-    *(a2 + 16) = 1073741826;
+    *(a1 + 3) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 7) = 0u;
+    *(a1 + 9) = 0u;
+    *a1 = &unk_1F5EBDEF8;
+    a1[1] = &_bambiDomain;
+    *(a1 + 4) = 1073741826;
   }
 
   return result;
@@ -5041,9 +5021,9 @@ void BambiCall::endWithReason(BambiCall *a1@<X0>, uint64_t a2@<X8>)
   }
 }
 
-void sub_1E4E4D948(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E4D948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   BambiCallTerminationReason::~BambiCallTerminationReason(va);
   _Unwind_Resume(a1);
 }
@@ -5073,7 +5053,7 @@ void BambiCall::endWithReason(BambiCall *this@<X0>, const BambiCallTerminationRe
     return;
   }
 
-  SipTimerContainer::cancelTimer(this + 26, "MediaTimeoutDeferTimer");
+  SipTimerContainer::cancelTimer((this + 208), "MediaTimeoutDeferTimer");
   v8 = a2 + 8;
   v9 = *(a2 + 31);
   if (v9 < 0)
@@ -5138,36 +5118,36 @@ void sub_1E4E4DBC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void BambiCall::terminationReason(uint64_t a1@<X0>, BambiCallTerminationReason *a2@<X8>)
+void BambiCall::terminationReason(uint64_t a1@<X0>, BambiCallTerminationReason *a3@<X8>)
 {
-  v4 = *(a1 + 384);
-  if (v4)
+  v5 = *(a1 + 384);
+  if (v5)
   {
-    v4 = std::__shared_weak_count::lock(v4);
-    if (v4)
+    v5 = std::__shared_weak_count::lock(v5);
+    if (v5)
     {
-      v5 = *(a1 + 376);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-      if (v5)
+      v6 = *(a1 + 376);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      if (v6)
       {
-        v6 = *(a1 + 384);
-        if (v6)
+        v7 = *(a1 + 384);
+        if (v7)
         {
-          v6 = std::__shared_weak_count::lock(v6);
-          if (v6)
+          v7 = std::__shared_weak_count::lock(v7);
+          if (v7)
           {
-            v6 = *(a1 + 376);
+            v7 = *(a1 + 376);
           }
         }
 
-        SipStack::callTerminationReason(v6);
+        SipStack::callTerminationReason(v7);
       }
     }
   }
 
-  v7 = BambiCallTerminationReasons::defaultReason(v4);
+  v8 = BambiCallTerminationReasons::defaultReason(v5);
 
-  BambiCallTerminationReason::BambiCallTerminationReason(a2, v7);
+  BambiCallTerminationReason::BambiCallTerminationReason(a3, v8);
 }
 
 void sub_1E4E4DCD4(_Unwind_Exception *exception_object)
@@ -5180,13 +5160,13 @@ void sub_1E4E4DCD4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::silentHangUp(uint64_t a1@<X0>, int a2@<W1>, ImsResult *a3@<X8>)
+void BambiCall::silentHangUp(uint64_t a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
 {
   v5 = *(a1 + 408);
   if (v5)
   {
 
-    SipSession::silentHangUp(v5, a2, a3);
+    SipSession::silentHangUp(a3, v5, a2);
   }
 
   else
@@ -5205,16 +5185,16 @@ void BambiCall::silentHangUp(uint64_t a1@<X0>, int a2@<W1>, ImsResult *a3@<X8>)
   }
 }
 
-void sub_1E4E4DDB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E4DDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
 void BambiCall::suspendWithMediaError(uint64_t a1@<X0>, const std::string *a2@<X1>, uint64_t a3@<X8>)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 1727) & 0x8000000000000000) != 0)
   {
     if (*(a1 + 1712))
@@ -5238,11 +5218,11 @@ void BambiCall::suspendWithMediaError(uint64_t a1@<X0>, const std::string *a2@<X
   *(v10 + 17) = 0;
   std::string::operator=((a1 + 1704), a2);
 LABEL_3:
-  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v14, (a1 + 152));
-  v6 = v15;
-  if (v15)
+  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v13, (a1 + 152));
+  v6 = v14;
+  if (v14)
   {
-    atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
@@ -5277,7 +5257,7 @@ LABEL_3:
       atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v16 = 0;
+    v15 = 0;
     operator new();
   }
 
@@ -5293,18 +5273,16 @@ LABEL_3:
     std::__shared_weak_count::__release_weak(v6);
     std::__shared_weak_count::__release_weak(v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E4E4E064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E4E4E064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(std::string &)>::~__value_func[abi:ne200100](va);
-  if (v4)
+  if (v7)
   {
-    std::__shared_weak_count::__release_weak(v4);
-    std::__shared_weak_count::__release_weak(v4);
+    std::__shared_weak_count::__release_weak(v7);
+    std::__shared_weak_count::__release_weak(v7);
   }
 
   _Unwind_Resume(a1);
@@ -5396,32 +5374,31 @@ void __Block_byref_object_dispose__1(uint64_t a1)
 
 void ___ZN9BambiCall21deferredEndWithReasonERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = (v2 + 8);
-  v4 = (*(*(v2 + 1) + 64))(v2 + 1);
-  (*(*v3 + 16))(v3, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "BambiCall::deferredEndWithReason", 32);
-  *(v4 + 17) = 0;
-  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v4 + 17) = 0;
-  if (*(v2 + 51))
+  v1 = *(a1 + 40);
+  v2 = (v1 + 8);
+  v3 = (*(*(v1 + 1) + 64))(v1 + 1);
+  (*(*v2 + 16))(v2, v3);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "BambiCall::deferredEndWithReason", 32);
+  *(v3 + 17) = 0;
+  (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v3 + 17) = 0;
+  if (*(v1 + 51))
   {
-    v5 = *(*(a1 + 32) + 8) + 40;
-    BambiCall::endWithReason(v2, v8);
-    ImsResult::~ImsResult(v8);
+    BambiCall::endWithReason(v1, v6);
+    ImsResult::~ImsResult(v6);
   }
 
   else
   {
-    v6 = (*(*(v2 + 1) + 64))(v3);
-    (*(*(v2 + 1) + 16))(v3, v6);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "No valid SIP session, invalidating call...", 42);
-    *(v6 + 17) = 0;
-    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v6 + 17) = 0;
-    v7 = *(*v2 + 48);
+    v4 = (*(*(v1 + 1) + 64))(v2);
+    (*(*(v1 + 1) + 16))(v2, v4);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "No valid SIP session, invalidating call...", 42);
+    *(v4 + 17) = 0;
+    (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v4 + 17) = 0;
+    v5 = *(*v1 + 48);
 
-    v7(v2);
+    v5(v1);
   }
 }
 
@@ -5588,7 +5565,7 @@ ImsOutStream *BambiCall::printCallInfo(BambiCall *this, ImsOutStream *a2, int a3
         if (a3 && *(v14 + 48))
         {
           *&v27.__r_.__value_.__l.__data_ = 0uLL;
-          BambiCall::localSdp(this, &v27);
+          BambiCall::localSdp(&v27, this);
           if (v27.__r_.__value_.__r.__words[0])
           {
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "  SDP:", 6);
@@ -5687,10 +5664,10 @@ void sub_1E4E4EB3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BambiCall::checkForActivate(BambiCall *this, unsigned int a2, int a3)
+uint64_t BambiCall::checkForActivate(BambiCall *this, uint64_t a2, int a3)
 {
   v5 = *(this + 24);
-  if (!v5 || (SDPSession::hasStream(v5) & 1) == 0)
+  if (!v5 || (v6 = a2, (SDPSession::hasStream(v5) & 1) == 0))
   {
     if (!a3)
     {
@@ -5699,7 +5676,7 @@ uint64_t BambiCall::checkForActivate(BambiCall *this, unsigned int a2, int a3)
 
     v15 = *(this + 1);
     v14 = this + 8;
-    v16 = (*(v15 + 56))(v14);
+    v16 = (*(v15 + 56))(v14, a2);
     (*(*v14 + 16))(v14, v16);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "checkForActivate: no media session for call ", 44);
     *(v16 + 17) = 0;
@@ -5745,7 +5722,7 @@ LABEL_15:
       (*(*v10 + 56))(v10, v39);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " is not confirmed, so call can't be made ", 41);
       *(v10 + 17) = 0;
-      if (a2)
+      if (v6)
       {
         v11 = "active";
       }
@@ -5756,7 +5733,7 @@ LABEL_15:
       }
 
       v12 = *(v10 + 8);
-      if (a2)
+      if (v6)
       {
         v13 = 6;
       }
@@ -5786,7 +5763,7 @@ LABEL_15:
       (*(*v10 + 56))(v10, v39);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " is terminated, so call can't be made ", 38);
       *(v10 + 17) = 0;
-      if (a2)
+      if (v6)
       {
         v11 = "active";
       }
@@ -5797,7 +5774,7 @@ LABEL_15:
       }
 
       v12 = *(v10 + 8);
-      if (a2)
+      if (v6)
       {
         v13 = 6;
       }
@@ -5842,7 +5819,7 @@ LABEL_18:
       ObfuscatedString::ObfuscatedString(v39, (v21 + 496));
       (*(*v24 + 56))(v24, v39);
       v25 = ImsOutStream::operator<<(v24, " is terminating, so call can't be made ");
-      if (a2)
+      if (v6)
       {
         v26 = "active";
       }
@@ -5861,8 +5838,8 @@ LABEL_18:
     return 0;
   }
 
-  result = ((*(this + 120) & 0xFFFFFFFE) != 2) ^ a2;
-  if (((((*(this + 120) & 0xFFFFFFFE) != 2) ^ a2) & 1) == 0 && a3)
+  result = ((*(this + 120) & 0xFFFFFFFE) != 2) ^ v6;
+  if (((((*(this + 120) & 0xFFFFFFFE) != 2) ^ v6) & 1) == 0 && a3)
   {
     v30 = *(this + 1);
     v29 = (this + 8);
@@ -5898,7 +5875,7 @@ LABEL_18:
     *v39 = *v35;
     (*(*v32 + 32))(v32, v39);
     v36 = ImsOutStream::operator<<(v33, ", so call can't be made ");
-    if (a2)
+    if (v6)
     {
       v37 = "active";
     }
@@ -5985,7 +5962,7 @@ void sub_1E4E4F44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void BambiCall::performLocalResume(BambiCall *this)
 {
-  if (BambiCall::checkForActivate(this, 1u, 1))
+  if (BambiCall::checkForActivate(this, 1, 1))
   {
     v2 = *(this + 48);
     if (v2)
@@ -6246,7 +6223,7 @@ void BambiCall::performLocalResumeFromHandler(BambiCall *this)
   v2 = *(this + 51);
   if (!v2 || !SipSession::confirmed(v2) || (v3 = *(this + 51)) != 0 && (SipSession::terminating(v3) || (v4 = *(this + 51)) != 0 && ((*(*v4 + 264))(v4) & 1) != 0) || (SDPSession::hasStream(*(this + 24)) & 1) != 0)
   {
-    if (BambiCall::checkForActivate(this, 1u, 1))
+    if (BambiCall::checkForActivate(this, 1, 1))
     {
       if (*(this + 51) && *(this + 120) == 3)
       {
@@ -6320,9 +6297,9 @@ void BambiCall::performLocalResumeFromHandler(BambiCall *this)
   }
 }
 
-void sub_1E4E4FDC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E4FDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
@@ -6685,37 +6662,37 @@ void sub_1E4E50578(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double BambiCall::refer@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+double BambiCall::refer@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a6@<X8>)
 {
-  v7 = *(a1 + 408);
-  if (!v7)
+  v8 = *(a1 + 408);
+  if (!v8)
   {
     goto LABEL_15;
   }
 
-  v9 = *(*a2 + 408);
-  if (!v9)
+  v10 = *(*a2 + 408);
+  if (!v10)
   {
     goto LABEL_15;
   }
 
-  v13 = *(v9 + 240);
-  v12 = *(v9 + 248);
-  if (v12)
+  v14 = *(v10 + 240);
+  v13 = *(v10 + 248);
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-    if (v13)
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    if (v14)
     {
-      v7 = *(a1 + 408);
-      v14 = *(*a2 + 408);
-      v16 = *(v14 + 240);
-      v15 = *(v14 + 248);
-      v21 = v16;
-      v22 = v15;
-      if (v15)
+      v8 = *(a1 + 408);
+      v15 = *(*a2 + 408);
+      v17 = *(v15 + 240);
+      v16 = *(v15 + 248);
+      v22 = v17;
+      v23 = v16;
+      if (v16)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       goto LABEL_9;
@@ -6723,41 +6700,41 @@ double BambiCall::refer@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2
 
 LABEL_15:
     result = 0.0;
-    *(a5 + 24) = 0u;
-    *(a5 + 40) = 0u;
-    *(a5 + 56) = 0u;
-    *(a5 + 72) = 0u;
-    *a5 = &unk_1F5EBDEF8;
-    *(a5 + 8) = &_bambiDomain;
-    *(a5 + 16) = 1073741826;
+    *(a6 + 24) = 0u;
+    *(a6 + 40) = 0u;
+    *(a6 + 56) = 0u;
+    *(a6 + 72) = 0u;
+    *a6 = &unk_1F5EBDEF8;
+    *(a6 + 8) = &_bambiDomain;
+    *(a6 + 16) = 1073741826;
     return result;
   }
 
-  if (!v13)
+  if (!v14)
   {
     goto LABEL_15;
   }
 
-  v21 = v13;
-  v22 = 0;
+  v22 = v14;
+  v23 = 0;
 LABEL_9:
-  v17 = a4[1];
-  v19 = *a4;
-  v20 = v17;
-  if (v17)
+  v18 = a4[1];
+  v20 = *a4;
+  v21 = v18;
+  if (v18)
   {
-    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SipSession::refer(v7, &v21, a3, &v19, a5);
-  if (v20)
+  SipSession::refer(v8, &v22, a3, &v20, a6);
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v22)
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
   return result;
@@ -6901,9 +6878,9 @@ void BambiCall::notifyMergedCallInitialized(BambiCall *this)
   }
 }
 
-void sub_1E4E50984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E4E50984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   BambiCallConferenceEvent::~BambiCallConferenceEvent(va);
   _Unwind_Resume(a1);
 }
@@ -6934,7 +6911,7 @@ LABEL_39:
     goto LABEL_38;
   }
 
-  SipSession::clientInviteTransaction(*(this + 51), &v66);
+  SipSession::clientInviteTransaction(&v66, *(this + 51));
   if (v66)
   {
     v3 = 0;
@@ -6994,7 +6971,7 @@ LABEL_38:
     }
   }
 
-  BambiCall::localSdp(this, &v66);
+  BambiCall::localSdp(&v66, this);
   v14 = v66;
   if (*(&v66 + 1))
   {
@@ -7271,19 +7248,18 @@ void sub_1E4E51144(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t BambiCall::localSdp@<X0>(BambiCall *this@<X0>, void *a2@<X8>)
+uint64_t *BambiCall::localSdp@<X0>(uint64_t *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
-  v4 = *(this + 24);
-  result = SDPSession::hasStream(v4);
+  v3 = *(this + 24);
+  result = SDPSession::hasStream(v3);
   if (result)
   {
-    v6 = *(this + 120) & 0xFFFFFFFE;
 
-    SDPSession::localSdp(v4);
+    SDPSession::localSdp(v3);
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   return result;
 }
 
@@ -7455,7 +7431,7 @@ uint64_t BambiCall::applyMediaSettingsUsingForkIfRequired(BambiCall *a1, BambiCa
     atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SipOfferAnswer::local(v8, &v48);
+  SipOfferAnswer::local(&v48, v8);
   v11 = *v48;
   v10 = v48[1];
   if (v10)
@@ -7480,7 +7456,7 @@ uint64_t BambiCall::applyMediaSettingsUsingForkIfRequired(BambiCall *a1, BambiCa
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SipOfferAnswer::remote(v12, &v48);
+  SipOfferAnswer::remote(&v48, v12);
   v15 = *v48;
   v14 = v48[1];
   if (v14)
@@ -7586,7 +7562,7 @@ uint64_t BambiCall::applyMediaSettingsUsingForkIfRequired(BambiCall *a1, BambiCa
   if (!*(a2 + 6))
   {
     v34 = *(a1 + 1);
-    v33 = (a1 + 8);
+    v33 = a1 + 8;
     v35 = (*(v34 + 48))(v33);
     (*(*v33 + 16))(v33, v35);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), "applyMediaSettingsUsingForkIfRequired: media session not valid", 62);
@@ -7599,7 +7575,7 @@ uint64_t BambiCall::applyMediaSettingsUsingForkIfRequired(BambiCall *a1, BambiCa
   if (!v11)
   {
     v38 = *(a1 + 1);
-    v37 = (a1 + 8);
+    v37 = a1 + 8;
     v39 = (*(v38 + 56))(v37);
     (*(*v37 + 16))(v37, v39);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v39 + 8), "applyMediaSettingsUsingForkIfRequired: no local SDP", 51);
@@ -7610,11 +7586,11 @@ uint64_t BambiCall::applyMediaSettingsUsingForkIfRequired(BambiCall *a1, BambiCa
   }
 
   v42 = a2;
-  v28 = (a1 + 8);
+  v28 = a1 + 8;
   v27 = *(a1 + 1);
   if (!v15)
   {
-    v40 = (*(v27 + 56))(a1 + 1);
+    v40 = (*(v27 + 56))(a1 + 8);
     (*(*v28 + 16))(v28, v40);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v40 + 8), "applyMediaSettingsUsingForkIfRequired: no remote SDP", 52);
     *(v40 + 17) = 0;
@@ -7631,8 +7607,8 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  v29 = (*(v27 + 64))(a1 + 1);
-  (*(*v28 + 16))(a1 + 1, v29);
+  v29 = (*(v27 + 64))(a1 + 8);
+  (*(*v28 + 16))(a1 + 8, v29);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v29 + 8), "applyMediaSettingsUsingForkIfRequired: updating sdp for session", 63);
   *(v29 + 17) = 0;
   (*(*v29 + 64))(v29, std::endl[abi:ne200100]<char,std::char_traits<char>>);
@@ -7652,7 +7628,7 @@ LABEL_62:
     atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (SDPSession::handleOfferAnswer(v30, &v46, &v44, *(v11 + 176)) == 2)
+  if (SDPSession::handleOfferAnswer(v30, &v46, &v44, v11[22]) == 2)
   {
     v31 = 1;
   }
@@ -7760,7 +7736,7 @@ LABEL_10:
   goto LABEL_11;
 }
 
-void SipOfferAnswer::local(SipOfferAnswer *this@<X0>, void *a2@<X8>)
+void SipOfferAnswer::local(uint64_t *__return_ptr a1@<X8>, SipOfferAnswer *this@<X0>)
 {
   v2 = *(this + 27);
   v4 = *(v2 + 16);
@@ -7772,8 +7748,8 @@ void SipOfferAnswer::local(SipOfferAnswer *this@<X0>, void *a2@<X8>)
 
   v6 = *(v4 + 8);
   v5 = *(v4 + 16);
-  *a2 = v6;
-  a2[1] = v5;
+  *a1 = v6;
+  a1[1] = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -7785,7 +7761,7 @@ void SipOfferAnswer::local(SipOfferAnswer *this@<X0>, void *a2@<X8>)
   }
 }
 
-void SipOfferAnswer::remote(SipOfferAnswer *this@<X0>, void *a2@<X8>)
+void SipOfferAnswer::remote(uint64_t *__return_ptr a1@<X8>, SipOfferAnswer *this@<X0>)
 {
   v2 = *(this + 27);
   v4 = *(v2 + 16);
@@ -7797,8 +7773,8 @@ void SipOfferAnswer::remote(SipOfferAnswer *this@<X0>, void *a2@<X8>)
 
   v6 = *(v4 + 24);
   v5 = *(v4 + 32);
-  *a2 = v6;
-  a2[1] = v5;
+  *a1 = v6;
+  a1[1] = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
@@ -8012,8 +7988,8 @@ LABEL_19:
       }
     }
 
-    v21 = (*(*(a1 + 1) + 64))(a1 + 1);
-    (*(*(a1 + 1) + 16))(a1 + 1, v21);
+    v21 = (*(*(a1 + 1) + 64))(a1 + 8);
+    (*(*(a1 + 1) + 16))(a1 + 8, v21);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "handleActiveForkChanged", 23);
     *(v21 + 17) = 0;
     (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
@@ -8029,7 +8005,7 @@ LABEL_19:
   ImsResult::~ImsResult(&v24);
 }
 
-void sub_1E4E5226C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::__shared_weak_count *a29)
+void sub_1E4E5226C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::__shared_weak_count *a29)
 {
   __p = &unk_1F5EC4090;
   if (a29)
@@ -8269,14 +8245,14 @@ void sub_1E4E527C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void BambiCall::loggableName(BambiCall *this)
+void BambiCall::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E4E529B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_1E4E529B4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
   if (a14 < 0)
   {
@@ -8287,7 +8263,7 @@ void sub_1E4E529B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (a19)
     {
-      (*(*a19 + 8))(a19);
+      (*(*a19 + 8))(a19, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -8381,23 +8357,21 @@ uint64_t BambiCall::handleInitializationFailure(BambiCall *this)
   return v5(this);
 }
 
-void BambiCall::createLocalSdpForFork(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void BambiCall::createLocalSdpForFork(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = a1;
-  v4 = *(a1 + 192);
-  LODWORD(v3) = *(v3 + 480) & 0xFFFFFFFE;
-  v5 = a2[1];
-  v6 = *a2;
-  v7 = v5;
-  if (v5)
+  v3 = *(a1 + 192);
+  v4 = a2[1];
+  v5 = *a2;
+  v6 = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SDPSession::createLocalSdpForFork(v4, &v6, a3);
-  if (v7)
+  SDPSession::createLocalSdpForFork(v3, &v5, a3);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 }
 
@@ -8411,7 +8385,7 @@ void sub_1E4E52E1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::setDirectionForSdpBasedOnHoldState(void *a1, void **a2)
+void BambiCall::setDirectionForSdpBasedOnHoldState(void *a1, void *a2)
 {
   v4 = a1[48];
   if (v4)
@@ -8612,7 +8586,7 @@ void BambiCall::address(BambiCall *this)
 
   v7 = 0;
   memset(v6, 0, sizeof(v6));
-  SipStack::mediaAddress(v2, v6);
+  SipStack::mediaAddress(v6, v2);
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
@@ -8620,7 +8594,7 @@ void BambiCall::address(BambiCall *this)
 
   v4 = 0;
   v5 = 0;
-  SipHost::address(v6, &v4);
+  SipHost::address(&v4, v6);
   (*(*v4 + 32))(v4);
   if (v5)
   {
@@ -8630,12 +8604,12 @@ void BambiCall::address(BambiCall *this)
   SipHost::~SipHost(v6);
 }
 
-void sub_1E4E532CC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_1E4E532CC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   SipHost::~SipHost(va);
@@ -8665,7 +8639,7 @@ uint64_t BambiCall::setQualityOfServiceRevoked(BambiCall *this, uint64_t a2)
 LABEL_12:
     v11 = *(this + 1);
     v10 = this + 8;
-    v12 = (*(v11 + 56))(v10);
+    v12 = (*(v11 + 56))(v10, a2);
     (*(*v10 + 16))(v10, v12);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), "setQualityOfServiceRevoked: no SIP session", 42);
     *(v12 + 17) = 0;
@@ -8689,7 +8663,7 @@ LABEL_6:
     *(v3 + 1544) = -1;
     *(v3 + 1576) = 0;
     *(v3 + 1560) = *(v3 + 1552);
-    SipSessionInterface::stack(v3, &__p);
+    SipSessionInterface::stack(&__p, v3);
     v7 = SipStack::prefs(__p);
     v8 = ImsPrefs::EndCallOnAudioBearerRevoked(v7);
     if (v41)
@@ -8820,7 +8794,7 @@ LABEL_56:
             goto LABEL_50;
           }
 
-          SipSessionInterface::stack(*(this + 51), &__p);
+          SipSessionInterface::stack(&__p, *(this + 51));
           v34 = SipStack::prefs(__p);
           v35 = ImsPrefs::EndCallOnAudioBearerRevoked(v34);
           if (v41)
@@ -8914,11 +8888,11 @@ void sub_1E4E539A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t BambiCall::setQualityOfServiceEstablished(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
+uint64_t BambiCall::setQualityOfServiceEstablished(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t *a4)
 {
   __p = 0;
-  v40 = 0;
-  v41 = 0;
+  v38 = 0;
+  v39 = 0;
   v8 = *(a1 + 408);
   if (!v8)
   {
@@ -8936,8 +8910,8 @@ uint64_t BambiCall::setQualityOfServiceEstablished(uint64_t a1, uint64_t a2, int
     }
 
 LABEL_33:
-    v38[0] = &__p;
-    std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](v38);
+    v36[0] = &__p;
+    std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](v36);
     goto LABEL_34;
   }
 
@@ -8968,8 +8942,8 @@ LABEL_9:
   }
 
   v14 = __p;
-  v15 = v40;
-  if (__p == v40)
+  v15 = v38;
+  if (__p == v38)
   {
     goto LABEL_33;
   }
@@ -9050,8 +9024,8 @@ LABEL_28:
     }
   }
 
-  v38[0] = &__p;
-  std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](v38);
+  v36[0] = &__p;
+  std::vector<std::shared_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](v36);
   if (v4)
   {
     return 0;
@@ -9098,23 +9072,21 @@ LABEL_34:
         *(v28 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v28 + 8), " ports: ", 8);
         *(v28 + 17) = 0;
-        std::string::basic_string[abi:ne200100]<0>(v38, ", ");
-        v31 = *a4;
-        v32 = a4[1];
+        std::string::basic_string[abi:ne200100]<0>(v36, ", ");
         ims::join<std::__wrap_iter<unsigned short const*>>();
       }
     }
   }
 
-  v34 = *(a1 + 8);
-  v33 = a1 + 8;
-  v35 = (*(v34 + 64))(v33);
-  (*(*v33 + 16))(v33, v35);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v35 + 8), "it's not time for QoS", 21);
-  *(v35 + 17) = 0;
-  (*(*v35 + 64))(v35, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  v32 = *(a1 + 8);
+  v31 = a1 + 8;
+  v33 = (*(v32 + 64))(v31);
+  (*(*v31 + 16))(v31, v33);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v33 + 8), "it's not time for QoS", 21);
+  *(v33 + 17) = 0;
+  (*(*v33 + 64))(v33, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   result = 0;
-  *(v35 + 17) = 0;
+  *(v33 + 17) = 0;
   return result;
 }
 
@@ -9128,7 +9100,7 @@ void sub_1E4E53FA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::clientConfig(BambiCall *this@<X0>, uint64_t a2@<X8>)
+void BambiCall::clientConfig(uint64_t *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
   v4 = *(this + 48);
   if (v4 && (v5 = std::__shared_weak_count::lock(v4)) != 0)
@@ -9138,31 +9110,31 @@ void BambiCall::clientConfig(BambiCall *this@<X0>, uint64_t a2@<X8>)
     if (v7)
     {
       v8 = *(v7 + 200);
-      *(a2 + 8) = *(v7 + 208);
-      *a2 = v8;
+      *(a1 + 2) = *(v7 + 208);
+      *a1 = v8;
       if (*(v7 + 239) < 0)
       {
-        std::string::__init_copy_ctor_external((a2 + 16), *(v7 + 216), *(v7 + 224));
+        std::string::__init_copy_ctor_external((a1 + 2), *(v7 + 216), *(v7 + 224));
       }
 
       else
       {
         v9 = *(v7 + 216);
-        *(a2 + 32) = *(v7 + 232);
-        *(a2 + 16) = v9;
+        a1[4] = *(v7 + 232);
+        *(a1 + 1) = v9;
       }
 
-      *(a2 + 40) = *(v7 + 240);
+      *(a1 + 40) = *(v7 + 240);
     }
 
     else
     {
-      *a2 = 0;
-      *(a2 + 8) = 0;
-      *(a2 + 24) = 0;
-      *(a2 + 32) = 0;
-      *(a2 + 16) = 0;
-      *(a2 + 40) = 0;
+      *a1 = 0;
+      *(a1 + 2) = 0;
+      a1[3] = 0;
+      a1[4] = 0;
+      a1[2] = 0;
+      *(a1 + 40) = 0;
     }
 
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
@@ -9170,22 +9142,22 @@ void BambiCall::clientConfig(BambiCall *this@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 24) = 0;
-    *(a2 + 32) = 0;
-    *(a2 + 16) = 0;
-    *(a2 + 40) = 0;
+    *a1 = 0;
+    *(a1 + 2) = 0;
+    a1[3] = 0;
+    a1[4] = 0;
+    a1[2] = 0;
+    *(a1 + 40) = 0;
   }
 }
 
-void BambiCall::remoteDisplayNumber(BambiCall *this@<X0>, uint64_t a2@<X8>)
+void BambiCall::remoteDisplayNumber(std::__shared_weak_count **this@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   std::string::basic_string[abi:ne200100]<0>(a2, &str_31_1);
-  if (SipUri::isValidUri((this + 1080)))
+  if (SipUri::isValidUri((this + 135)))
   {
     if (BambiCall::senderIsPrivate(this))
     {
@@ -9207,17 +9179,17 @@ void BambiCall::remoteDisplayNumber(BambiCall *this@<X0>, uint64_t a2@<X8>)
     else
     {
       memset(&__p, 0, sizeof(__p));
-      isTelUri = SipUri::isTelUri((this + 1080));
-      v6 = 1208;
+      isTelUri = SipUri::isTelUri((this + 135));
+      v6 = 151;
       if (isTelUri)
       {
-        v6 = 1256;
+        v6 = 157;
       }
 
-      v7 = this + v6;
-      if (v7[23] < 0)
+      v7 = &this[v6];
+      if (*(v7 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *v7, *(v7 + 1));
+        std::string::__init_copy_ctor_external(&__p, *v7, v7[1]);
       }
 
       else
@@ -9237,14 +9209,14 @@ void BambiCall::remoteDisplayNumber(BambiCall *this@<X0>, uint64_t a2@<X8>)
     }
   }
 
-  v8 = *(this + 48);
+  v8 = this[48];
   if (v8)
   {
     v9 = std::__shared_weak_count::lock(v8);
     if (v9)
     {
       v10 = v9;
-      v11 = *(this + 47);
+      v11 = this[47];
       if (v11)
       {
         SipStack::massageIncomingDisplayNumber(v11, a2);
@@ -9270,12 +9242,12 @@ void sub_1E4E54220(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void BambiCall::remoteDisplayName(BambiCall *this@<X0>, std::string *a2@<X8>)
+void BambiCall::remoteDisplayName(std::string *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
   if (BambiCall::senderIsPrivate(this))
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a2, &str_31_1);
+    std::string::basic_string[abi:ne200100]<0>(a1, &str_31_1);
   }
 
   else if (*(this + 1511) < 0)
@@ -9283,28 +9255,28 @@ void BambiCall::remoteDisplayName(BambiCall *this@<X0>, std::string *a2@<X8>)
     v4 = *(this + 186);
     v5 = *(this + 187);
 
-    std::string::__init_copy_ctor_external(a2, v4, v5);
+    std::string::__init_copy_ctor_external(a1, v4, v5);
   }
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 93);
-    a2->__r_.__value_.__r.__words[2] = *(this + 188);
+    *&a1->__r_.__value_.__l.__data_ = *(this + 93);
+    a1->__r_.__value_.__r.__words[2] = *(this + 188);
   }
 }
 
-void BambiCall::remoteDisplayCountryCode(BambiCall *this@<X0>, std::string *a2@<X8>)
+void BambiCall::remoteDisplayCountryCode(std::string *__return_ptr a1@<X8>, BambiCall *this@<X0>)
 {
   if ((BambiCall::senderIsPrivate(this) & 1) != 0 || !SipUri::isValidUri((this + 1080)))
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a2, &str_31_1);
+    std::string::basic_string[abi:ne200100]<0>(a1, &str_31_1);
   }
 
   else
   {
 
-    SipUri::countryCodeFromPhoneContext((this + 1080), a2);
+    SipUri::countryCodeFromPhoneContext((this + 1080), a1);
   }
 }
 
@@ -9352,9 +9324,9 @@ void BambiCall::sendEmergencyLocationUpdate(uint64_t a1@<X0>, const ims::Locatio
   }
 }
 
-void sub_1E4E5448C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E5448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ims::LocationInfo::~LocationInfo(va);
   _Unwind_Resume(a1);
 }
@@ -9403,14 +9375,14 @@ void BambiCall::sendEmergencyLocationPublish(uint64_t a1@<X0>, const ims::Locati
   }
 }
 
-void sub_1E4E545C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E545C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ims::LocationInfo::~LocationInfo(va);
   _Unwind_Resume(a1);
 }
 
-void BambiCall::sendReinvite(ImsResult *a1, uint64_t a2, uint64_t a3)
+void BambiCall::sendReinvite(ImsResult *a1, SipSessionInterface *a2, std::string *a3)
 {
   if (a2)
   {
@@ -9433,14 +9405,14 @@ void BambiCall::sendReinvite(ImsResult *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1E4E546A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4E546A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
-void BambiCall::handleSRVCCFailure(RTPManager **this@<X0>, int a2@<W1>, ImsResult *a3@<X8>)
+void BambiCall::handleSRVCCFailure(ImsResult *__return_ptr a1@<X8>, RTPManager **this@<X0>, int a3@<W1>)
 {
   if (this[51])
   {
@@ -9450,14 +9422,14 @@ void BambiCall::handleSRVCCFailure(RTPManager **this@<X0>, int a2@<W1>, ImsResul
     {
       v7 = this[51];
 
-      BambiCall::sendReinvite(a3, v7, "SRVCCFailureInvite");
+      BambiCall::sendReinvite(a1, v7, "SRVCCFailureInvite");
     }
 
     else
     {
       *v18 = 0u;
       memset(v19, 0, 48);
-      if (a2)
+      if (a3)
       {
         v8 = "handover cancelled";
       }
@@ -9487,10 +9459,10 @@ void BambiCall::handleSRVCCFailure(RTPManager **this@<X0>, int a2@<W1>, ImsResul
       }
 
       v12 = &unk_1F5EBEF50;
-      std::map<std::string,std::string>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(v13, *&v19[1], &v19[1] + 1);
+      std::map<std::string,std::string>::map[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>>(v13, *&v19[1], &v19[1] + 8);
       v15 = 1;
       v14 = BYTE8(v19[2]);
-      SipSession::sendUpdateWithLocalSdpInAllForks(v9, "UpdateTypeSRVCCFailure", &v11, a3);
+      SipSession::sendUpdateWithLocalSdpInAllForks(v9, "UpdateTypeSRVCCFailure", &v11, a1);
       v12 = &unk_1F5EBEF50;
       std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v13, v13[1]);
       if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
@@ -9515,7 +9487,7 @@ void BambiCall::handleSRVCCFailure(RTPManager **this@<X0>, int a2@<W1>, ImsResul
     v18[1] = &_bambiDomain;
     LODWORD(v19[0]) = 1073741826;
     v10 = ImsResult::operator<<<char [15]>(v18, "No SIP session");
-    ImsResult::ImsResult(a3, v10);
+    ImsResult::ImsResult(a1, v10);
     ImsResult::~ImsResult(v18);
   }
 }
@@ -9682,7 +9654,7 @@ LABEL_17:
         v41 = *(v39 + 4);
         if (v40 == *"INVITE" && v41 == *"TE")
         {
-          BambiCall::sendReinvite(__p, *(this + 51), &SipSession::kInviteTypeAccessNetworkRefresh);
+          BambiCall::sendReinvite(__p, *(this + 51), SipSession::kInviteTypeAccessNetworkRefresh);
           ImsResult::operator=(&v51, __p);
           ImsResult::~ImsResult(__p);
 LABEL_41:
@@ -9715,7 +9687,7 @@ LABEL_44:
 
         v43 = *(this + 51);
         SipReason::SipReason(v47, v48);
-        SipSession::sendUpdateWithLocalSdpInAllForks(v43, &SipSession::kUpdateTypeAccessNetworkRefresh, v47, __p);
+        SipSession::sendUpdateWithLocalSdpInAllForks(v43, SipSession::kUpdateTypeAccessNetworkRefresh, v47, __p);
         ImsResult::operator=(&v51, __p);
         ImsResult::~ImsResult(__p);
         SipReason::~SipReason(v47);
@@ -9762,4 +9734,16 @@ LABEL_44:
   ImsResult::~ImsResult(&v51);
 LABEL_45:
   std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+}
+
+void sub_1E4E553A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+{
+  ImsResult::~ImsResult(&__p);
+  ImsResult::~ImsResult((v31 - 152));
+  if (v30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  }
+
+  _Unwind_Resume(a1);
 }

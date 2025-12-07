@@ -17,10 +17,10 @@
 
 - (NPKCompanionViewServiceConnectionServerService)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = NPKCompanionViewServiceConnectionServerService;
-  v2 = [(NPKCompanionViewServiceConnectionServerService *)&v12 init];
+  v18 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = NPKCompanionViewServiceConnectionServerService;
+  v2 = [(NPKCompanionViewServiceConnectionServerService *)&v13 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -34,24 +34,23 @@
     v7 = v5;
 
     [(NSXPCListener *)v7 resume];
-    v8 = pk_Payment_log();
-    LODWORD(xpcListener) = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_Payment_log(v8);
+    LODWORD(xpcListener) = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
     if (xpcListener)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v14 = v2;
-        v15 = 2112;
-        v16 = @"com.apple.NanoPassbook.NPKCompanionViewService.connection.server";
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: New view service connection listener created:%@ with serviceName:%@", buf, 0x16u);
+        v15 = v2;
+        v16 = 2112;
+        v17 = @"com.apple.NanoPassbook.NPKCompanionViewService.connection.server";
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: New view service connection listener created:%@ with serviceName:%@", buf, 0x16u);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -77,45 +76,45 @@ void __57__NPKCompanionViewServiceConnectionServerService_dealloc__block_invoke(
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   xpcListener = self->_xpcListener;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(connectionCopy);
   v10 = v9;
   if (xpcListener == listenerCopy)
   {
-    v12 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v13 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_Payment_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = connectionCopy;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested new connection:%@", &v19, 0xCu);
+        v22 = 138412290;
+        v23 = connectionCopy;
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Requested new connection:%@", &v22, 0xCu);
       }
     }
 
-    v11 = [(NSXPCListener *)connectionCopy valueForEntitlement:@"com.apple.NanoPassbook.NPKCompanionViewService.client"];
-    if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v11 BOOLValue]& 1) != 0)
+    v12 = [(NSXPCListener *)connectionCopy valueForEntitlement:@"com.apple.NanoPassbook.NPKCompanionViewService.client"];
+    if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v16 = [v12 BOOLValue], (v16 & 1) != 0))
     {
       [(NPKCompanionViewServiceConnectionServerService *)self _addConnection:connectionCopy];
       LOBYTE(self) = 1;
       goto LABEL_14;
     }
 
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    v18 = pk_Payment_log(v16);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
-    if (v17)
+    if (v19)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: NPKCompanionViewService: Client doesn't have required entitlement to establish the connection", &v19, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_ERROR, "Error: NPKCompanionViewService: Client doesn't have required entitlement to establish the connection", &v22, 2u);
       }
     }
 
@@ -130,12 +129,12 @@ LABEL_14:
 
   if (self)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = listenerCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: NPKCompanionViewService: Unknown requested connection from listener:%@", &v19, 0xCu);
+      v22 = 138412290;
+      v23 = listenerCopy;
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: NPKCompanionViewService: Unknown requested connection from listener:%@", &v22, 0xCu);
     }
 
     goto LABEL_5;
@@ -143,7 +142,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -266,21 +264,20 @@ void __115__NPKCompanionViewServiceConnectionServerService_handleCompanionItemSe
   v18 = v9;
   [connectionCopy setInterruptionHandler:&v14];
   [(NPKCompanionViewServiceConnectionServerService *)self _addServer:v9, v14, v15, v16, v17];
-  [connectionCopy resume];
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log([connectionCopy resume]);
   LODWORD(v7) = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       processIdentifier = [connectionCopy processIdentifier];
       *buf = 138412546;
       v28 = connectionCopy;
       v29 = 1024;
       v30 = processIdentifier;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Added new connection:{%@, PID:%d}", buf, 0x12u);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: Added new connection:{%@, PID:%d}", buf, 0x12u);
     }
   }
 
@@ -291,8 +288,6 @@ void __115__NPKCompanionViewServiceConnectionServerService_handleCompanionItemSe
   objc_destroyWeak(&v23);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block_invoke(uint64_t a1)
@@ -300,14 +295,13 @@ void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block
   v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
-  [v3 _removeServer:*(a1 + 32)];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log([v3 _removeServer:*(a1 + 32)]);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412802;
       v9 = v3;
@@ -315,11 +309,9 @@ void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block
       v11 = WeakRetained;
       v12 = 1024;
       v13 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: %@ Connection invalidated:{%@, PID:%d}", &v8, 0x1Cu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: %@ Connection invalidated:{%@, PID:%d}", &v8, 0x1Cu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block_invoke_7(uint64_t a1)
@@ -327,14 +319,13 @@ void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block
   v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained((a1 + 48));
-  [v3 _removeServer:*(a1 + 32)];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log([v3 _removeServer:*(a1 + 32)]);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412802;
       v9 = v3;
@@ -342,11 +333,9 @@ void __65__NPKCompanionViewServiceConnectionServerService__addConnection___block
       v11 = WeakRetained;
       v12 = 1024;
       v13 = [WeakRetained processIdentifier];
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: %@ Connection interrupted:{%@, PID:%d}", &v8, 0x1Cu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKCompanionViewService: %@ Connection interrupted:{%@, PID:%d}", &v8, 0x1Cu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeServer:(id)server

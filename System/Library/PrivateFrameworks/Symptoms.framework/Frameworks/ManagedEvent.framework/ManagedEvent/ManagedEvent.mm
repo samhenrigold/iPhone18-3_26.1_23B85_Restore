@@ -170,7 +170,7 @@ void managed_event_fetch_completion(xpc_object_t object, uint64_t a2, char *a3, 
   if (a5)
   {
     v10 = a5;
-    a5[2](a5, a2, v9);
+    (a5)[2](a5, a2, v9);
   }
 
   else
@@ -180,7 +180,7 @@ void managed_event_fetch_completion(xpc_object_t object, uint64_t a2, char *a3, 
       goto LABEL_9;
     }
 
-    a6[2](a6, a2, a4, v9);
+    (a6)[2](a6, a2, a4, v9);
     v10 = a6;
   }
 
@@ -302,33 +302,31 @@ dispatch_queue_t __managed_event_get_queue_block_invoke()
 
 void __managed_event_get_connection_block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x26D69F8A0](a2) != MEMORY[0x277D86480] || !managed_event_get_connection_connection)
   {
-    goto LABEL_2;
+    return;
   }
 
   if (a2 == MEMORY[0x277D863F0])
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_2;
+      return;
     }
 
-    LOWORD(v10) = 0;
-    v7 = MEMORY[0x277D86220];
-    v8 = "managed_event_get_connection received XPC_ERROR_CONNECTION_INTERRUPTED";
-LABEL_18:
-    v9 = 2;
-    goto LABEL_19;
+    LOWORD(v9) = 0;
+    v6 = MEMORY[0x277D86220];
+    v7 = "managed_event_get_connection received XPC_ERROR_CONNECTION_INTERRUPTED";
+    goto LABEL_18;
   }
 
   if (a2 == MEMORY[0x277D863F8])
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_26C37E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "managed_event_get_connection received XPC_ERROR_CONNECTION_INVALID", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_26C37E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "managed_event_get_connection received XPC_ERROR_CONNECTION_INVALID", &v9, 2u);
     }
 
     xpc_connection_cancel(managed_event_get_connection_connection);
@@ -339,36 +337,35 @@ LABEL_18:
     }
 
     managed_event_get_connection_connection = 0;
-    goto LABEL_2;
+    return;
   }
 
-  v4 = MEMORY[0x277D86420];
-  v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  if (a2 == v4)
+  v3 = MEMORY[0x277D86420];
+  v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+  if (a2 == v3)
   {
-    if (!v5)
+    if (!v4)
     {
-      goto LABEL_2;
+      return;
     }
 
-    LOWORD(v10) = 0;
-    v7 = MEMORY[0x277D86220];
-    v8 = "managed_event_get_connection received XPC_ERROR_TERMINATION_IMMINENT";
-    goto LABEL_18;
+    LOWORD(v9) = 0;
+    v6 = MEMORY[0x277D86220];
+    v7 = "managed_event_get_connection received XPC_ERROR_TERMINATION_IMMINENT";
+LABEL_18:
+    v8 = 2;
+    goto LABEL_19;
   }
 
-  if (v5)
+  if (v4)
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    v10 = 136315138;
-    v11 = string;
-    v7 = MEMORY[0x277D86220];
-    v8 = "managed_event_get_connection received unknown %s";
-    v9 = 12;
+    v9 = 136315138;
+    v10 = string;
+    v6 = MEMORY[0x277D86220];
+    v7 = "managed_event_get_connection received unknown %s";
+    v8 = 12;
 LABEL_19:
-    _os_log_impl(&dword_26C37E000, v7, OS_LOG_TYPE_ERROR, v8, &v10, v9);
+    _os_log_impl(&dword_26C37E000, v6, OS_LOG_TYPE_ERROR, v7, &v9, v8);
   }
-
-LABEL_2:
-  v3 = *MEMORY[0x277D85DE8];
 }

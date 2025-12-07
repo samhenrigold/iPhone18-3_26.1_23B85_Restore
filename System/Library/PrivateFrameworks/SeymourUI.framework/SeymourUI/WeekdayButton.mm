@@ -45,13 +45,14 @@
     v4 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC9SeymourUI13WeekdayButton_onTap);
     if (v4)
     {
-      v5 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI13WeekdayButton_item);
+      v5 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI13WeekdayButton_onTap);
+      v6 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC9SeymourUI13WeekdayButton_item);
       selfCopy = self;
-      v7 = v3;
-      sub_20B584050(v4);
-      v4(v7, v5);
+      v8 = v3;
+      sub_20B584050(v4, v5);
+      v4(v8, v6);
 
-      sub_20B583ECC(v4);
+      sub_20B583ECC(v4, v5);
     }
   }
 }

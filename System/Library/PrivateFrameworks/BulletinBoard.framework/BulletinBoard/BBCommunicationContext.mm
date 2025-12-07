@@ -6,7 +6,6 @@
 - (BBCommunicationContext)initWithCoder:(id)coder;
 - (BOOL)isEqual:(id)equal;
 - (id)_initWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier associatedObjectUri:(id)uri displayName:(id)name sender:(id)sender recipients:(id)recipients contentURL:(id)l imageName:(id)self0 systemImage:(BOOL)self1 mentionsCurrentUser:(BOOL)self2 notifyRecipientAnyway:(BOOL)self3 replyToCurrentUser:(BOOL)self4 recipientCount:(unint64_t)self5 capabilities:(int64_t)self6 businessCorrespondence:(BOOL)self7;
-- (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -113,74 +112,66 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  identifier = self->_identifier;
   identifier = [v5 identifier];
-  LODWORD(identifier) = BSEqualStrings();
+  v8 = BSEqualStrings();
 
-  if (!identifier)
+  if (!v8)
   {
     goto LABEL_20;
   }
 
-  bundleIdentifier = self->_bundleIdentifier;
   bundleIdentifier = [v6 bundleIdentifier];
-  LODWORD(bundleIdentifier) = BSEqualStrings();
+  v10 = BSEqualStrings();
 
-  if (!bundleIdentifier)
+  if (!v10)
   {
     goto LABEL_20;
   }
 
-  associatedObjectUri = self->_associatedObjectUri;
   associatedObjectUri = [v6 associatedObjectUri];
-  LODWORD(associatedObjectUri) = BSEqualStrings();
+  v12 = BSEqualStrings();
 
-  if (!associatedObjectUri)
+  if (!v12)
   {
     goto LABEL_20;
   }
 
-  displayName = self->_displayName;
   displayName = [v6 displayName];
-  LODWORD(displayName) = BSEqualStrings();
+  v14 = BSEqualStrings();
 
-  if (!displayName)
+  if (!v14)
   {
     goto LABEL_20;
   }
 
-  sender = self->_sender;
   sender = [v6 sender];
-  LODWORD(sender) = BSEqualObjects();
+  v16 = BSEqualObjects();
 
-  if (!sender)
+  if (!v16)
   {
     goto LABEL_20;
   }
 
-  recipients = self->_recipients;
   recipients = [v6 recipients];
-  LODWORD(recipients) = BSEqualArrays();
+  v18 = BSEqualArrays();
 
-  if (!recipients)
+  if (!v18)
   {
     goto LABEL_20;
   }
 
-  contentURL = self->_contentURL;
   contentURL = [v6 contentURL];
-  LODWORD(contentURL) = BSEqualObjects();
+  v20 = BSEqualObjects();
 
-  if (!contentURL)
+  if (!v20)
   {
     goto LABEL_20;
   }
 
-  imageName = self->_imageName;
   imageName = [v6 imageName];
-  LODWORD(imageName) = BSEqualStrings();
+  v22 = BSEqualStrings();
 
-  if (!imageName)
+  if (!v22)
   {
     goto LABEL_20;
   }
@@ -238,14 +229,6 @@ LABEL_21:
   v8 = v7 ^ [(BBContact *)self->_sender hash];
   v9 = v6 ^ v8 ^ [(NSURL *)self->_contentURL hash];
   return v9 ^ [(NSString *)self->_imageName hash]^ self->_systemImage ^ self->_mentionsCurrentUser ^ self->_notifyRecipientAnyway ^ self->_replyToCurrentUser ^ self->_recipientCount ^ self->_capabilities ^ self->_businessCorrespondence;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  bundleIdentifier = self->_bundleIdentifier;
-  return [v3 stringWithFormat:@"<%@: %p; identifier: %@, bundleIdentifier: %@, associatedObjectUri: %@, displayName: %@, sender: %@, recipients: %@, contentURL: %@, imageName: %@, systemImage: %d, mentionsCurrentUser: %d, notifyRecipientAnyway: %d, replyToCurrentUser: %d, recipientCount: %lu>, capabilities: %lu, businessCorrespondence: %d", v4, self, self->_identifier, bundleIdentifier, self->_associatedObjectUri, self->_displayName, self->_sender, self->_recipients, self->_contentURL, self->_imageName, self->_systemImage, self->_mentionsCurrentUser, self->_notifyRecipientAnyway, self->_replyToCurrentUser, self->_recipientCount, self->_capabilities, self->_businessCorrespondence];
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

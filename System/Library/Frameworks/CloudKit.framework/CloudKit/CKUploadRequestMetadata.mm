@@ -4,6 +4,7 @@
 - (CKRoughlyEquivalentProperties)equivalencyProperties;
 - (CKUploadRequestMetadata)initWithCoder:(id)coder;
 - (CKUploadRequestMetadata)initWithRepairZoneRecordID:(id)d databaseScope:(int64_t)scope recordID:(id)iD recordType:(id)type fieldName:(id)name;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -12,14 +13,12 @@
 
 + (void)initialize
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 2);
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 2);
   sub_1886CEE50(self, v3, v5, 0, 1);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CKUploadRequestMetadata)initWithRepairZoneRecordID:(id)d databaseScope:(int64_t)scope recordID:(id)iD recordType:(id)type fieldName:(id)name
@@ -169,7 +168,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v44 = 1;
+    isEqual = 1;
   }
 
   else
@@ -179,54 +178,53 @@
     {
       v7 = equalCopy;
       v10 = objc_msgSend_databaseScope(self, v8, v9);
-      if (v10 != objc_msgSend_databaseScope(v7, v11, v12))
-      {
-        goto LABEL_10;
-      }
-
-      v15 = objc_msgSend_recordID(self, v13, v14);
-      v18 = objc_msgSend_recordID(v7, v16, v17);
-      isEqual = objc_msgSend_isEqual_(v15, v19, v18);
-
-      if (!isEqual)
-      {
-        goto LABEL_10;
-      }
-
-      v23 = objc_msgSend_recordType(self, v21, v22);
-      v26 = objc_msgSend_recordType(v7, v24, v25);
-      v28 = objc_msgSend_isEqual_(v23, v27, v26);
-
-      if (!v28)
-      {
-        goto LABEL_10;
-      }
-
-      v31 = objc_msgSend_fieldName(self, v29, v30);
-      v34 = objc_msgSend_fieldName(v7, v32, v33);
-      v36 = objc_msgSend_isEqual_(v31, v35, v34);
-
-      if (v36)
+      if (v10 == objc_msgSend_databaseScope(v7, v11, v12) && (objc_msgSend_recordID(self, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_recordID(v7, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend_isEqual_(v15, v19, v18), v18, v15, v20) && (objc_msgSend_recordType(self, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend_recordType(v7, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend_isEqual_(v23, v27, v26), v26, v23, v28) && (objc_msgSend_fieldName(self, v29, v30), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fieldName(v7, v32, v33), v34 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend_isEqual_(v31, v35, v34), v34, v31, v36))
       {
         v39 = objc_msgSend_repairZoneRecordID(self, v37, v38);
         v42 = objc_msgSend_repairZoneRecordID(v7, v40, v41);
-        v44 = objc_msgSend_isEqual_(v39, v43, v42);
+        isEqual = objc_msgSend_isEqual_(v39, v43, v42);
       }
 
       else
       {
-LABEL_10:
-        v44 = 0;
+        isEqual = 0;
       }
     }
 
     else
     {
-      v44 = 0;
+      isEqual = 0;
     }
   }
 
-  return v44;
+  return isEqual;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  privateCopy = private;
+  v7 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, public, private, expand);
+  v10 = objc_msgSend_repairZoneRecordID(self, v8, v9);
+  v13 = objc_msgSend_recordName(v10, v11, v12);
+  objc_msgSend_CKAddPropertySafelyForKey_value_(v7, v14, @"requestRecordName", v13);
+
+  if (privateCopy)
+  {
+    v17 = objc_msgSend_databaseScope(self, v15, v16);
+    v18 = CKDatabaseScopeString(v17);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v7, v19, @"databaseScope", v18);
+
+    v22 = objc_msgSend_recordID(self, v20, v21);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v7, v23, @"recordID", v22);
+
+    v26 = objc_msgSend_recordType(self, v24, v25);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v7, v27, @"recordType", v26);
+
+    v30 = objc_msgSend_fieldName(self, v28, v29);
+    objc_msgSend_CKAddPropertySafelyForKey_value_(v7, v31, @"fieldName", v30);
+  }
+
+  return v7;
 }
 
 @end

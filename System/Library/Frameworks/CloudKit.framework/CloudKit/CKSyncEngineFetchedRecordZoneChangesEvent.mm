@@ -13,17 +13,8 @@
   v43 = 0;
   v11 = _CKCheckArgument("modifications", modificationsCopy, 0, 0, 0, &v43);
   v12 = v43;
-  if ((v11 & 1) == 0)
+  if ((v11 & 1) == 0 || (v12, v42 = 0, v13 = _CKCheckArgument("deletions", deletionsCopy, 0, 0, 0, &v42), v12 = v42, (v13 & 1) == 0) || (v12, v41 = 0, v14 = _CKCheckArgument("zoneAttributesModifications", attributesModificationsCopy, 0, 0, 0, &v41), v12 = v41, (v14 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v42 = 0;
-  v13 = _CKCheckArgument("deletions", deletionsCopy, 0, 0, 0, &v42);
-  v12 = v42;
-  if ((v13 & 1) == 0 || (v12, v41 = 0, v14 = _CKCheckArgument("zoneAttributesModifications", attributesModificationsCopy, 0, 0, 0, &v41), v12 = v41, (v14 & 1) == 0))
-  {
-LABEL_7:
     v29 = v12;
     v30 = [CKException alloc];
     v33 = objc_msgSend_code(v29, v31, v32);

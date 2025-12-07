@@ -181,7 +181,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [[PVVideoCompositionInstruction allocWithZone:?]];
-  [(PVVideoCompositionInstruction *)self timeRange];
+  objc_msgSend_timeRange(self);
   v7[0] = v7[3];
   v7[1] = v7[4];
   v7[2] = v7[5];

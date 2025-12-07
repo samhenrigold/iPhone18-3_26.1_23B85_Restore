@@ -14,7 +14,7 @@
   v8 = [(TSPortInterface *)&v13 init];
   if (v8)
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.timesync.TSPortInterface.0x%016llx.%hu.notifications", identifier, objc_msgSend(portCopy, "portNumber")];
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:identifier, objc_msgSend(portCopy, "portNumber")];
     v10 = dispatch_queue_create([v9 UTF8String], 0);
     notificationsQueue = v8->_notificationsQueue;
     v8->_notificationsQueue = v10;
@@ -54,14 +54,14 @@ void __54__TSPortInterface_setMACLookupTimeoutCallback_refcon___block_invoke(uin
       if (!v6)
       {
         [v4 addClient:?];
-        [v5 registerAsyncCallbackError:0];
+        [v5 registerAsyncCallbackError:?];
       }
     }
 
     else if (v6)
     {
-      [v4 deregisterAsyncCallbackError:0];
-      [v5 removeClient:*(a1 + 32)];
+      [v4 deregisterAsyncCallbackError:?];
+      [v5 removeClient:?];
     }
   }
 
@@ -71,36 +71,34 @@ void __54__TSPortInterface_setMACLookupTimeoutCallback_refcon___block_invoke(uin
 
 - (void)didTimeoutOnMACLookupForPort:(id)port
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   portCopy = port;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v5 = [(TSPortInterface *)self description];
     *buf = 136315650;
     uTF8String = [v5 UTF8String];
-    v13 = 1024;
+    v12 = 1024;
     portNumber = [portCopy portNumber];
-    v15 = 2048;
+    v14 = 2048;
     clockIdentifier = [portCopy clockIdentifier];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s didTimeoutOnMACLookupForPort:%hu (0x%016llx)\n", buf, 0x1Cu);
   }
 
   notificationsQueue = self->_notificationsQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__TSPortInterface_didTimeoutOnMACLookupForPort___block_invoke;
-  v9[3] = &unk_279DBD738;
-  v9[4] = self;
-  v10 = portCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__TSPortInterface_didTimeoutOnMACLookupForPort___block_invoke;
+  v8[3] = &unk_279DBD738;
+  v8[4] = self;
+  v9 = portCopy;
   v7 = portCopy;
-  dispatch_async(notificationsQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(notificationsQueue, v8);
 }
 
 void __48__TSPortInterface_didTimeoutOnMACLookupForPort___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 16))
   {
     v2 = objc_autoreleasePoolPush();
@@ -113,17 +111,17 @@ void __48__TSPortInterface_didTimeoutOnMACLookupForPort___block_invoke(uint64_t 
       v7 = *(v5 + 24);
       v8 = [*(a1 + 40) portNumber];
       v9 = [*(a1 + 40) clockIdentifier];
-      v18 = 136316162;
-      v19 = v4;
-      v20 = 2048;
-      v21 = v6;
-      v22 = 2048;
-      v23 = v7;
-      v24 = 1024;
-      v25 = v8;
-      v26 = 2048;
-      v27 = v9;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s calling MAC lookup timeout callback function %p refcon %p port %hu (0x%016llx)\n", &v18, 0x30u);
+      v17 = 136316162;
+      v18 = v4;
+      v19 = 2048;
+      v20 = v6;
+      v21 = 2048;
+      v22 = v7;
+      v23 = 1024;
+      v24 = v8;
+      v25 = 2048;
+      v26 = v9;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s calling MAC lookup timeout callback function %p refcon %p port %hu (0x%016llx)\n", &v17, 0x30u);
     }
 
     (*(*(a1 + 32) + 16))(*(a1 + 32), *(*(a1 + 32) + 24));
@@ -136,23 +134,21 @@ void __48__TSPortInterface_didTimeoutOnMACLookupForPort___block_invoke(uint64_t 
       v14 = *(v12 + 24);
       v15 = [*(a1 + 40) portNumber];
       v16 = [*(a1 + 40) clockIdentifier];
-      v18 = 136316162;
-      v19 = v11;
-      v20 = 2048;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v14;
-      v24 = 1024;
-      v25 = v15;
-      v26 = 2048;
-      v27 = v16;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished MAC lookup timeout callback function %p refcon %p port %hu (0x%016llx)\n", &v18, 0x30u);
+      v17 = 136316162;
+      v18 = v11;
+      v19 = 2048;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v14;
+      v23 = 1024;
+      v24 = v15;
+      v25 = 2048;
+      v26 = v16;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s finished MAC lookup timeout callback function %p refcon %p port %hu (0x%016llx)\n", &v17, 0x30u);
     }
 
     objc_autoreleasePoolPop(v2);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

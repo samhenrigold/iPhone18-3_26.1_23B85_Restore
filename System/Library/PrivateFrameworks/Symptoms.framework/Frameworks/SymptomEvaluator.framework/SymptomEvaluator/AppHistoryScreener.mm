@@ -1,7 +1,9 @@
 @interface AppHistoryScreener
 + (id)_sharedInstance;
 + (id)description;
++ (id)fetchEpisodeFor:(id)for inbound:(BOOL)inbound;
 - (AppHistoryScreener)init;
+- (id)_fetchEpisodeFor:(id)for inbound:(BOOL)inbound;
 - (void)_makeLabelWith:(id)with inbound:(BOOL)inbound fullLabel:(id *)label exportLabel:(id *)exportLabel;
 @end
 
@@ -53,6 +55,16 @@ void __37__AppHistoryScreener__sharedInstance__block_invoke(uint64_t a1)
   return v2;
 }
 
++ (id)fetchEpisodeFor:(id)for inbound:(BOOL)inbound
+{
+  inboundCopy = inbound;
+  forCopy = for;
+  v6 = +[AppHistoryScreener _sharedInstance];
+  v7 = [v6 _fetchEpisodeFor:forCopy inbound:inboundCopy];
+
+  return v7;
+}
+
 + (id)description
 {
   v2 = +[AppHistoryScreener _sharedInstance];
@@ -96,6 +108,60 @@ void __37__AppHistoryScreener__sharedInstance__block_invoke(uint64_t a1)
 
   v14 = withCopy;
   *exportLabel = withCopy;
+}
+
+- (id)_fetchEpisodeFor:(id)for inbound:(BOOL)inbound
+{
+  inboundCopy = inbound;
+  v21 = *MEMORY[0x277D85DE8];
+  forCopy = for;
+  v17 = 0;
+  v18 = 0;
+  [(AppHistoryScreener *)self _makeLabelWith:forCopy inbound:inboundCopy fullLabel:&v18 exportLabel:&v17];
+  v7 = v18;
+  v8 = v17;
+  v9 = [(NSMapTable *)self->episodes objectForKey:v7];
+  if (!v9)
+  {
+    if (allEpisodesWitholdAdvice == 1)
+    {
+      v12 = [AppHistoryScreenerEpisodeFixed alloc];
+      v13 = v7;
+      v14 = 0;
+    }
+
+    else
+    {
+      if (![FlowAnalyticsEngine appBundleIdentifierIsWebBrowser:forCopy])
+      {
+        v15 = [[AppHistoryScreenerEpisode alloc] initWithLabel:v7 exportLabel:v8];
+        goto LABEL_9;
+      }
+
+      v12 = [AppHistoryScreenerEpisodeFixed alloc];
+      v13 = v7;
+      v14 = 1;
+    }
+
+    v15 = [(AppHistoryScreenerEpisodeFixed *)v12 initWithLabel:v13 toValue:v14];
+LABEL_9:
+    v10 = v15;
+    [(NSMapTable *)self->episodes setObject:v15 forKey:v7];
+    goto LABEL_10;
+  }
+
+  v10 = v9;
+  v11 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    v20 = v7;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "App episode found for label: %@", buf, 0xCu);
+  }
+
+LABEL_10:
+
+  return v10;
 }
 
 @end

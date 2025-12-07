@@ -266,7 +266,7 @@ LABEL_17:
       [(CALayer *)self setBounds:v20, v22, v24, v26];
     }
 
-    [(CALayer *)self affineTransform];
+    objc_msgSend_affineTransform(self);
     v29 = *&transform->c;
     *&v31.a = *&transform->a;
     *&v31.c = v29;
@@ -403,7 +403,7 @@ LABEL_17:
   [v11 setBeginTime:delay];
   [v11 settlingDuration];
   v13 = v12;
-  [v9 duration];
+  objc_msgSend_duration(v9);
   if (v13 >= v14)
   {
     v14 = v13;
@@ -592,7 +592,7 @@ LABEL_17:
 
         if (v15)
         {
-          [(CALayer *)v15 transform];
+          objc_msgSend_transform(v15);
         }
 
         else
@@ -798,7 +798,7 @@ LABEL_21:
     CGContextConcatCTM(v67, &v88);
     if (lastObject2)
     {
-      [(CALayer *)lastObject2 transform];
+      objc_msgSend_transform(lastObject2);
     }
 
     else
@@ -829,7 +829,7 @@ LABEL_21:
       *&v88.m11 = *&transform.a;
       *&v88.m13 = *&transform.c;
       *&v88.m21 = *&transform.tx;
-      [(CALayer *)selfCopy affineTransform];
+      objc_msgSend_affineTransform(selfCopy);
       *&t2.a = *&v88.m11;
       *&t2.c = *&v88.m13;
       *&t2.tx = *&v88.m21;

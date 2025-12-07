@@ -102,7 +102,7 @@
 + (id)sequenceWithActions:(id)actions
 {
   v34[1] = *MEMORY[0x277D85DE8];
-  if (actions && [actions count])
+  if (actions && (self = [actions count]) != 0)
   {
     objc_opt_class();
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(actions, "count")}];
@@ -189,7 +189,7 @@
 
   else
   {
-    v21 = scn_default_log();
+    v21 = scn_default_log(self, a2);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [SCNActionSequence sequenceWithActions:v21];

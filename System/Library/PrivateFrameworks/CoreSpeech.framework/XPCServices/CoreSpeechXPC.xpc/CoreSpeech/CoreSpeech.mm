@@ -143,13 +143,13 @@ void sub_100003F50(uint64_t a1, void *a2, void *a3)
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v25 = v7;
-      v26 = [v6 localizedDescription];
+      v23 = v7;
+      v24 = [v6 localizedDescription];
       *buf = 136315394;
-      v40 = "[CoreSpeechXPC voiceTriggerJarvisLanguageList:jarvisSelectedLanguage:completion:]_block_invoke";
-      v41 = 2114;
-      v42 = v26;
-      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%s VoiceTriggerAsset is not available : %{public}@", buf, 0x16u);
+      v38 = "[CoreSpeechXPC voiceTriggerJarvisLanguageList:jarvisSelectedLanguage:completion:]_block_invoke";
+      v39 = 2114;
+      v40 = v24;
+      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%s VoiceTriggerAsset is not available : %{public}@", buf, 0x16u);
     }
   }
 
@@ -160,7 +160,7 @@ void sub_100003F50(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v40 = "[CoreSpeechXPC voiceTriggerJarvisLanguageList:jarvisSelectedLanguage:completion:]_block_invoke";
+      v38 = "[CoreSpeechXPC voiceTriggerJarvisLanguageList:jarvisSelectedLanguage:completion:]_block_invoke";
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s Jarvis locale map is nil, fallback to embedded locale map", buf, 0xCu);
     }
 
@@ -169,44 +169,43 @@ void sub_100003F50(uint64_t a1, void *a2, void *a3)
 
   if ([*(a1 + 40) isEqualToString:*(a1 + 48)])
   {
-    v10 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
   }
 
   else
   {
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v11 = *(a1 + 56);
-    v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
-    if (v12)
+    v31 = 0u;
+    v32 = 0u;
+    v10 = *(a1 + 56);
+    v11 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v34;
+      v12 = v11;
+      v13 = *v32;
       while (2)
       {
-        v15 = 0;
+        v14 = 0;
         do
         {
-          if (*v34 != v14)
+          if (*v32 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          if ([*(*(&v33 + 1) + 8 * v15) isEqualToString:*(a1 + 40)])
+          if ([*(*(&v31 + 1) + 8 * v14) isEqualToString:*(a1 + 40)])
           {
             (*(*(a1 + 64) + 16))();
             goto LABEL_33;
           }
 
-          v15 = v15 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
-        if (v13)
+        while (v12 != v14);
+        v12 = [v10 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        if (v12)
         {
           continue;
         }
@@ -215,52 +214,51 @@ void sub_100003F50(uint64_t a1, void *a2, void *a3)
       }
     }
 
-    v11 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(a1 + 40) fromLocaleMap:v8];
-    v16 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(a1 + 48) fromLocaleMap:v8];
-    if ([v16 isEqualToString:v11])
+    v10 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(a1 + 40) fromLocaleMap:v8];
+    v15 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(a1 + 48) fromLocaleMap:v8];
+    if ([v15 isEqualToString:v10])
     {
-      v17 = *(a1 + 48);
       (*(*(a1 + 64) + 16))();
     }
 
     else
     {
-      v27 = v16;
-      v28 = v6;
-      v31 = 0u;
-      v32 = 0u;
+      v25 = v15;
+      v26 = v6;
       v29 = 0u;
       v30 = 0u;
-      v18 = *(a1 + 56);
-      v19 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (v19)
+      v27 = 0u;
+      v28 = 0u;
+      v16 = *(a1 + 56);
+      v17 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (v17)
       {
-        v20 = v19;
-        v21 = *v30;
+        v18 = v17;
+        v19 = *v28;
         while (2)
         {
-          v22 = 0;
+          v20 = 0;
           do
           {
-            if (*v30 != v21)
+            if (*v28 != v19)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v16);
             }
 
-            v23 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(*(&v29 + 1) + 8 * v22) fromLocaleMap:{v8, v27, v28, v29}];
-            if ([v23 isEqualToString:v11])
+            v21 = [*(a1 + 32) getAccessoryFallbackFamilyLocal:*(*(&v27 + 1) + 8 * v20) fromLocaleMap:{v8, v25, v26, v27}];
+            if ([v21 isEqualToString:v10])
             {
               (*(*(a1 + 64) + 16))();
 
               goto LABEL_31;
             }
 
-            v22 = v22 + 1;
+            v20 = v20 + 1;
           }
 
-          while (v20 != v22);
-          v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
-          if (v20)
+          while (v18 != v20);
+          v18 = [v16 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          if (v18)
           {
             continue;
           }
@@ -269,13 +267,13 @@ void sub_100003F50(uint64_t a1, void *a2, void *a3)
         }
       }
 
-      v24 = *(a1 + 64);
-      v18 = [NSError errorWithDomain:CSErrorDomain code:404 userInfo:0];
-      (*(v24 + 16))(v24, 0, v18);
+      v22 = *(a1 + 64);
+      v16 = [NSError errorWithDomain:CSErrorDomain code:404 userInfo:0];
+      (*(v22 + 16))(v22, 0, v16);
 LABEL_31:
 
-      v16 = v27;
-      v6 = v28;
+      v15 = v25;
+      v6 = v26;
     }
 
 LABEL_33:
@@ -1250,9 +1248,9 @@ void sub_10000A868(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10000AA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000AA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1266,10 +1264,7 @@ uint64_t sub_10000AA44(uint64_t result, uint64_t a2)
 
 uint64_t sub_10000AA5C(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _installedAssetOfType:*(a1 + 56) withLanguage:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _installedAssetOfType:*(a1 + 56) withLanguage:*(a1 + 40)];
 
   return _objc_release_x1();
 }

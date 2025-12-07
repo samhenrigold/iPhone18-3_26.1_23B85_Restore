@@ -28,23 +28,21 @@
 
 + (id)sortDescriptorsForProcessing
 {
-  v12[7] = *MEMORY[0x277D85DE8];
+  v11[7] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.mediaAnalysisProperties.activityScore" ascending:0];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.mediaAnalysisProperties.settlingEffectScore" ascending:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.mediaAnalysisProperties.autoplaySuggestionScore" ascending:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.mediaAnalysisProperties.wallpaperScore" ascending:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.favorite" ascending:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.creationDate" ascending:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"asset.uuid" ascending:1];
-  v12[6] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[6] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:7];
 
   return v9;
 }

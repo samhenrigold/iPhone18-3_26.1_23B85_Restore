@@ -39,7 +39,6 @@
 - (id)ic_uniqueWordsWithMinLength:()IC;
 - (id)ic_withHashtagPrefix;
 - (id)ic_withoutHashtagPrefix;
-- (uint64_t)ic_containsHashtagPrefix;
 - (uint64_t)ic_countOfCharactersInSet:()IC;
 - (uint64_t)ic_endsWithDelimeter:()IC;
 - (uint64_t)ic_isLastCharacterANewline;
@@ -49,14 +48,15 @@
 - (uint64_t)ic_numberOfLines;
 - (uint64_t)ic_paragraphRangeForRange:()IC contentEnd:;
 - (uint64_t)ic_range:()IC onlyContainsCharacterSet:;
-- (uint64_t)ic_rangeEncapsulatesWord:()IC;
 - (uint64_t)ic_sentenceRangeForRange:()IC;
 - (uint64_t)ic_startsWithDelimeter:()IC;
 - (uint64_t)ic_substringFromIndex:()IC;
 - (uint64_t)ic_substringWithRange:()IC;
 - (uint64_t)ic_whitespaceAndNewlineCoalescedString;
+- (void)ic_containsHashtagPrefix;
 - (void)ic_enumerateContentLineRangesInRange:()IC usingBlock:;
 - (void)ic_enumerateParagraphsInRange:()IC usingBlock:;
+- (void)ic_rangeEncapsulatesWord:()IC;
 @end
 
 @implementation NSString(IC)
@@ -482,13 +482,13 @@
   return v3;
 }
 
-- (uint64_t)ic_containsHashtagPrefix
+- (void)ic_containsHashtagPrefix
 {
   result = [self length];
   if (result)
   {
     v3 = [self characterAtIndex:0];
-    return v3 == 35 || v3 == 65283;
+    return (v3 == 35 || v3 == 65283);
   }
 
   return result;
@@ -1216,7 +1216,7 @@ LABEL_14:
   return v8;
 }
 
-- (uint64_t)ic_rangeEncapsulatesWord:()IC
+- (void)ic_rangeEncapsulatesWord:()IC
 {
   result = [self ic_startsWithDelimeter:?];
   if (result)

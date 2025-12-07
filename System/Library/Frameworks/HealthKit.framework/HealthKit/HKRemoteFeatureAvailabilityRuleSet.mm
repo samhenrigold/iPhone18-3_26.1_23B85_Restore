@@ -65,20 +65,20 @@
           v16 = [valueCopy objectForKeyedSubscript:v13];
           if ([HKRemoteFeatureAvailabilityBaseRule ruleClassForRawValue:v16])
           {
-            v17 = [objc_alloc(objc_opt_class()) initWithRawValue:v16 dataSource:sourceCopy];
+            v18 = [objc_alloc(objc_opt_class()) initWithRawValue:v16 dataSource:sourceCopy];
             conditions = [(HKRemoteFeatureAvailabilityRuleSet *)self conditions];
-            [conditions setObject:v17 forKeyedSubscript:v13];
+            [conditions setObject:v18 forKeyedSubscript:v13];
           }
 
           else
           {
-            _HKInitializeLogging();
-            v19 = HKLogDefault;
+            _HKInitializeLogging(0, v17);
+            v20 = HKLogDefault;
             if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
             {
               *buf = v21;
               v27 = v16;
-              _os_log_impl(&dword_19197B000, v19, OS_LOG_TYPE_INFO, "Unknown HKRemoteFeatureAvailabilityRule for raw payload: %{public}@", buf, 0xCu);
+              _os_log_impl(&dword_19197B000, v20, OS_LOG_TYPE_INFO, "Unknown HKRemoteFeatureAvailabilityRule for raw payload: %{public}@", buf, 0xCu);
             }
           }
         }
@@ -92,34 +92,32 @@
 
     while (v10);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)evaluateAll
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [(HKRemoteFeatureAvailabilityRuleSet *)self conditions];
-  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = MEMORY[0x1E696AD98];
         conditions = [(HKRemoteFeatureAvailabilityRuleSet *)self conditions];
         v11 = [conditions objectForKeyedSubscript:v8];
@@ -127,13 +125,11 @@
         [v3 setObject:v12 forKeyedSubscript:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

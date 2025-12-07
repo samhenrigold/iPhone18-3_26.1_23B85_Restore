@@ -3,7 +3,7 @@
 
 @implementation PFRoutines
 
-uint64_t __46___PFRoutines_attributeClassesForSecureCoding__block_invoke()
+void *__46___PFRoutines_attributeClassesForSecureCoding__block_invoke()
 {
   v15 = objc_alloc(MEMORY[0x1E695DFD8]);
   v14 = objc_opt_class();
@@ -25,7 +25,7 @@ uint64_t __46___PFRoutines_attributeClassesForSecureCoding__block_invoke()
   return result;
 }
 
-uint64_t __42___PFRoutines_plistClassesForSecureCoding__block_invoke()
+void *__42___PFRoutines_plistClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -132,7 +132,7 @@ LABEL_21:
   }
 }
 
-uint64_t __61___PFRoutines_xpcStoreArchiverObjectIDClassesForSecureCoding__block_invoke()
+void *__61___PFRoutines_xpcStoreArchiverObjectIDClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -141,7 +141,7 @@ uint64_t __61___PFRoutines_xpcStoreArchiverObjectIDClassesForSecureCoding__block
   return result;
 }
 
-uint64_t __56___PFRoutines_historyChangesArrayClassesForSecureCoding__block_invoke()
+void *__56___PFRoutines_historyChangesArrayClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -151,7 +151,7 @@ uint64_t __56___PFRoutines_historyChangesArrayClassesForSecureCoding__block_invo
   return result;
 }
 
-uint64_t __56___PFRoutines_historyQueryGenDataClassesForSecureCoding__block_invoke()
+void *__56___PFRoutines_historyQueryGenDataClassesForSecureCoding__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();

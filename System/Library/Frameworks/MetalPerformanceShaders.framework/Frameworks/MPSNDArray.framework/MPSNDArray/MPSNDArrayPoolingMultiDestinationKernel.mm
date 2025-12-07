@@ -1,7 +1,9 @@
 @interface MPSNDArrayPoolingMultiDestinationKernel
 - (BOOL)supportsGradientForSourceIndex:(unint64_t)index;
 - (MPSNDArrayPoolingMultiDestinationKernel)initWithCoder:(id)coder device:(id)device;
+- (MPSNDArrayPoolingMultiDestinationKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode;
 - (MPSNDArrayPoolingMultiDestinationKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode computeGradient:(BOOL)gradient;
+- (MPSNDArrayPoolingMultiDestinationKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode returnIndicesMode:(int)indicesMode;
 - (MPSNDArrayPoolingOffsets_s)poolingOffsets;
 - (MPSNDArrayPoolingSizes_s)poolingDilationRates;
 - (MPSNDArrayPoolingSizes_s)poolingKernelSizes;
@@ -76,6 +78,25 @@
   result->_poolingStrides.sizes[3] = 1;
   result->_poolingDilationRates.sizes[3] = 1;
   return result;
+}
+
+- (MPSNDArrayPoolingMultiDestinationKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode
+{
+  v6 = *&sizes->sizes[2];
+  v8[0] = *sizes->sizes;
+  v8[1] = v6;
+  [(MPSNDArrayPoolingMultiDestinationKernel *)self initWithDevice:device kernelSizes:v8 poolingMode:*&mode computeGradient:0];
+  return self;
+}
+
+- (MPSNDArrayPoolingMultiDestinationKernel)initWithDevice:(id)device kernelSizes:(MPSNDArrayPoolingSizes_s *)sizes poolingMode:(int)mode returnIndicesMode:(int)indicesMode
+{
+  v8 = *&sizes->sizes[2];
+  v10[0] = *sizes->sizes;
+  v10[1] = v8;
+  [(MPSNDArrayPoolingMultiDestinationKernel *)self initWithDevice:device kernelSizes:v10 poolingMode:*&mode];
+  self->_poolingReturnIndicesMode = indicesMode;
+  return self;
 }
 
 - (MPSNDArrayPoolingMultiDestinationKernel)initWithCoder:(id)coder device:(id)device

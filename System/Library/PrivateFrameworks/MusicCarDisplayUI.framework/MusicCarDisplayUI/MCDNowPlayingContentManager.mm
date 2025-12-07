@@ -60,7 +60,7 @@ void __69___MCDNowPlayingContentManager_controller_defersResponseReplacement___b
     v10 = [*(a1 + 40) lastReceivedResponse];
     [*(a1 + 40) setShouldShowPlayState:{objc_msgSend(v10, "state") == 2}];
 
-    v84 = v8;
+    v85 = v8;
     v11 = [v8 tracklist];
     v12 = [v11 playingItem];
     v13 = [v12 contentItemIdentifier];
@@ -79,11 +79,11 @@ void __69___MCDNowPlayingContentManager_controller_defersResponseReplacement___b
       block[1] = 3221225472;
       block[2] = __69___MCDNowPlayingContentManager_controller_defersResponseReplacement___block_invoke_2;
       block[3] = &unk_2799241A0;
-      objc_copyWeak(v87, location);
-      v87[1] = v18;
+      objc_copyWeak(v88, location);
+      v88[1] = v18;
       dispatch_async(v19, block);
 
-      objc_destroyWeak(v87);
+      objc_destroyWeak(v88);
       objc_destroyWeak(location);
     }
 
@@ -128,8 +128,8 @@ void __69___MCDNowPlayingContentManager_controller_defersResponseReplacement___b
       v41 = v40;
       if (v40)
       {
-        [v40 duration];
-        v42 = v85;
+        objc_msgSend_duration(v40);
+        v42 = v86;
       }
 
       else
@@ -190,56 +190,56 @@ LABEL_25:
 
         if (v65)
         {
-          v66 = [*(a1 + 40) delegate];
-          v67 = *(a1 + 40);
-          v68 = [v67 currentPlayingSong];
-          v69 = [*(a1 + 40) lastReceivedResponse];
-          [v66 contentManager:v67 itemDidChange:v68 response:v69];
+          v67 = [*(a1 + 40) delegate];
+          v68 = *(a1 + 40);
+          v69 = [v68 currentPlayingSong];
+          v70 = [*(a1 + 40) lastReceivedResponse];
+          [v67 contentManager:v68 itemDidChange:v69 response:v70];
         }
 
-        v70 = MCDGeneralLogging();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v71 = MCDGeneralLogging(v66);
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_25AD8E000, v70, OS_LOG_TYPE_DEFAULT, "Playing content has changed, posting notification", location, 2u);
+          _os_log_impl(&dword_25AD8E000, v71, OS_LOG_TYPE_DEFAULT, "Playing content has changed, posting notification", location, 2u);
         }
 
-        v71 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v71 postNotificationName:@"MCDContentItemsChangedNotification" object:0];
+        v72 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v72 postNotificationName:@"MCDContentItemsChangedNotification" object:0];
       }
 
-      v72 = [*(a1 + 40) lastReceivedResponse];
-      v73 = [v72 state];
+      v73 = [*(a1 + 40) lastReceivedResponse];
+      v74 = [v73 state];
 
-      if (v73 != [*(a1 + 40) playerState])
+      if (v74 != [*(a1 + 40) playerState])
       {
-        *(*(a1 + 40) + 160) = v73;
-        v74 = [MEMORY[0x277CCAB98] defaultCenter];
-        [v74 postNotificationName:@"MCDPlaybackStateChangedNotification" object:0];
+        *(*(a1 + 40) + 160) = v74;
+        v75 = [MEMORY[0x277CCAB98] defaultCenter];
+        [v75 postNotificationName:@"MCDPlaybackStateChangedNotification" object:0];
       }
 
-      v75 = *(a1 + 40);
-      v76 = [*(a1 + 32) response];
-      [v75 _processResponse:v76 error:0];
+      v76 = *(a1 + 40);
+      v77 = [*(a1 + 32) response];
+      [v76 _processResponse:v77 error:0];
 
-      v77 = [*(a1 + 40) delegate];
-      LOBYTE(v76) = objc_opt_respondsToSelector();
+      v78 = [*(a1 + 40) delegate];
+      LOBYTE(v77) = objc_opt_respondsToSelector();
 
-      if (v76)
+      if (v77)
       {
-        v78 = [*(a1 + 40) delegate];
-        v79 = *(a1 + 40);
-        v80 = [*(a1 + 32) response];
-        [v78 contentManager:v79 processResponse:v80 error:0];
+        v79 = [*(a1 + 40) delegate];
+        v80 = *(a1 + 40);
+        v81 = [*(a1 + 32) response];
+        [v79 contentManager:v80 processResponse:v81 error:0];
       }
 
-      v81 = [*(a1 + 40) delegate];
-      v82 = objc_opt_respondsToSelector();
+      v82 = [*(a1 + 40) delegate];
+      v83 = objc_opt_respondsToSelector();
 
-      if (v82)
+      if (v83)
       {
-        v83 = [*(a1 + 40) delegate];
-        [v83 contentManagerReloadData:*(a1 + 40)];
+        v84 = [*(a1 + 40) delegate];
+        [v84 contentManagerReloadData:*(a1 + 40)];
       }
 
       goto LABEL_41;
@@ -322,7 +322,7 @@ void __69___MCDNowPlayingContentManager_controller_defersResponseReplacement___b
 void __69___MCDNowPlayingContentManager_processArtworkForCurrentlyPlayingSong__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = MCDGeneralLogging();
+  v2 = MCDGeneralLogging(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __69___MCDNowPlayingContentManager_processArtworkForCurrentlyPlayingSong__block_invoke_cold_1(WeakRetained, v2);
@@ -372,13 +372,11 @@ void __69___MCDNowPlayingContentManager_processArtworkForCurrentlyPlayingSong__b
 
 void __69___MCDNowPlayingContentManager_processArtworkForCurrentlyPlayingSong__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 artworkCatalog];
-  v5 = 134217984;
-  v6 = v3;
-  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Timeout while waiting for artworkCatalog=%p", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = v3;
+  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Timeout while waiting for artworkCatalog=%p", &v4, 0xCu);
 }
 
 @end

@@ -20,7 +20,7 @@
 
 void __47__OAXFontReference_readFromNode_fontReference___block_invoke()
 {
-  if ((atomic_load_explicit(&_MergedGlobals_52, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_52, memory_order_acquire) & 1) == 0)
   {
     __47__OAXFontReference_readFromNode_fontReference___block_invoke_cold_1();
   }
@@ -54,7 +54,7 @@ void __47__OAXFontReference_readFromNode_fontReference___block_invoke()
 
 void __47__OAXFontReference_readFromNode_fontReference___block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_52))
+  if (__cxa_guard_acquire(_MergedGlobals_52))
   {
     qword_27FC3EC38 = "major";
     dword_27FC3EC40 = 1;
@@ -64,7 +64,7 @@ void __47__OAXFontReference_readFromNode_fontReference___block_invoke_cold_1()
     qword_27FC3EC58 = "none";
     unk_27FC3EC60 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&_MergedGlobals_52);
+    __cxa_guard_release(_MergedGlobals_52);
   }
 }
 

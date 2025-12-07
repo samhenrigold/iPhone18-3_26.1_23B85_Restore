@@ -19,9 +19,11 @@
 
 uint64_t __30__IFDeviceInfo_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(IFDeviceInfo);
+  v0 = objc_alloc_init(IFDeviceInfo);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (IFDeviceInfo)init

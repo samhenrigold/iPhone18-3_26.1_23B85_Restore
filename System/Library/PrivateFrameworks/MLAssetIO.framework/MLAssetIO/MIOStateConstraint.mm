@@ -100,30 +100,30 @@
 
 - (unint64_t)hash
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   bufferShape = [(MIOStateConstraint *)self bufferShape];
-  v4 = [bufferShape countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [bufferShape countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v10;
     v6 = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(bufferShape);
         }
 
-        v6 ^= [*(*(&v11 + 1) + 8 * i) hash];
+        v6 ^= [*(*(&v9 + 1) + 8 * i) hash];
       }
 
-      v4 = [bufferShape countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [bufferShape countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -134,9 +134,7 @@
     v6 = 1;
   }
 
-  dataType = [(MIOStateConstraint *)self dataType];
-  v9 = *MEMORY[0x1E69E9840];
-  return dataType ^ v6;
+  return [(MIOStateConstraint *)self dataType]^ v6;
 }
 
 - (int64_t)dataType

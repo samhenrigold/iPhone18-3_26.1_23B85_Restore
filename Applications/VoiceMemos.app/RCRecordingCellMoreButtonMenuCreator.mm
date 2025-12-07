@@ -34,14 +34,14 @@
 
 - (_TtC10VoiceMemos36RCRecordingCellMoreButtonMenuCreator)initWithRecordingUUID:(id)d actionDelegate:(id)delegate source:(id)source
 {
-  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = v7;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
   swift_unknownObjectRetain();
   sourceCopy = source;
-  v10 = sub_1001204C4(v6, v8);
+  v11 = sub_1001204C4(v7, v9, delegate, source);
   swift_unknownObjectRelease();
 
-  return v10;
+  return v11;
 }
 
 - (id)createMenuWithDisplayShowTranscriptAction:(BOOL)action displayCopyTranscriptAction:(BOOL)transcriptAction hasMultipleTracks:(BOOL)tracks isSpatialRecording:(BOOL)recording

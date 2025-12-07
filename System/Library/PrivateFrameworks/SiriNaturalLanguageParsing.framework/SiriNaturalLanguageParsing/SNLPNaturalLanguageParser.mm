@@ -9,27 +9,27 @@
 
 - (id)inferenceResponseForRequest:(id)request error:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
-  requestCopy = request;
-  v6 = SNLPOSLoggerForCategory(7);
-  v7 = os_signpost_id_generate(v6);
+  v13 = *MEMORY[0x277D85DE8];
+  request;
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
 
-  v8 = SNLPOSLoggerForCategory(7);
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v7 = SNLPOSLoggerForCategory(7);
+  v8 = v7;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_22284A000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SNLPNaturalLanguageParser inferenceResponseForRequest", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SNLPNaturalLanguageParser inferenceResponseForRequest", "", buf, 2u);
   }
 
-  v10 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEFAULT, "BEGIN SNLPNaturalLanguageParser inferenceResponseForRequest", buf, 2u);
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN SNLPNaturalLanguageParser inferenceResponseForRequest", buf, 2u);
   }
 
-  [MEMORY[0x277D5DF00] convertNLv4ParserRequestToCpp:requestCopy];
+  objc_msgSend_convertNLv4ParserRequestToCpp_(MEMORY[0x277D5DF00]);
   ptr = self->_cppOrchestrator.__ptr_;
   *buf = 0;
   nlv4_inference_orchestrator::orchestration::NLv4InferenceOrchestrator::pbhandle(ptr);
@@ -53,7 +53,7 @@
 
 + (id)parserFromAssetDirectory:(id)directory metadata:(id)metadata error:(id *)error
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   metadataCopy = metadata;
   v9 = SNLPOSLoggerForCategory(1);
@@ -66,8 +66,8 @@
   if (directoryCopy)
   {
     v10 = directoryCopy;
-    v21[0] = [directoryCopy fileSystemRepresentation];
-    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&buf, v21);
+    v20[0] = [directoryCopy fileSystemRepresentation];
+    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&buf, v20);
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(buf.__r_.__value_.__l.__data_);
@@ -75,7 +75,7 @@
 
     v11 = directoryCopy;
     buf.__r_.__value_.__r.__words[0] = [directoryCopy fileSystemRepresentation];
-    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v22, &buf);
+    std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&v21, &buf);
     if (metadataCopy)
     {
       v12 = SNLPOSLoggerForCategory(1);
@@ -85,7 +85,7 @@
         _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "Attempt to convert metadata", &buf, 2u);
       }
 
-      snlp::common::espresso_inference::e5ml::selflogging::convertMetadata(metadataCopy, v21);
+      snlp::common::espresso_inference::e5ml::selflogging::convertMetadata(metadataCopy, v20);
       v13 = SNLPOSLoggerForCategory(1);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
@@ -105,15 +105,13 @@
   {
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CCA470];
-    v24[0] = *MEMORY[0x277CCA450];
-    v24[1] = v17;
-    v25[0] = v14;
-    v25[1] = v14;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23[0] = *MEMORY[0x277CCA450];
+    v23[1] = v17;
+    v24[0] = v14;
+    v24[1] = v14;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
     *error = [v16 errorWithDomain:@"SNLPNaturalLanguageParserErrorDomain" code:2 userInfo:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return 0;
 }

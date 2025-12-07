@@ -49,18 +49,18 @@ LABEL_7:
 {
   stringCopy = string;
   locale = [(OITSUDateFormatter_NSFormatter *)self locale];
-  v15 = 0;
-  v10 = TSUCreateDateFromStringWithPreferredFormat(stringCopy, locale, 0, &v15, 0);
+  v17 = 0;
+  v10 = TSUCreateDateFromStringWithPreferredFormat(stringCopy, locale, 0, &v17, 0);
 
-  v11 = v15;
+  v11 = v17;
   if (v11)
   {
-    [(OITSUDateFormatter_NSFormatter *)self setPreferredFormat:v11];
+    v12 = [(OITSUDateFormatter_NSFormatter *)self setPreferredFormat:v11];
   }
 
   if (v10)
   {
-    v12 = v10;
+    v14 = v10;
     *value = v10;
   }
 
@@ -69,8 +69,8 @@ LABEL_7:
     *value = 0;
     if (description)
     {
-      v13 = SFUBundle();
-      *description = [v13 localizedStringForKey:@"The date is invalid." value:&stru_286EE1130 table:@"TSUtility"];
+      v15 = SFUBundle(v12, v13);
+      *description = [v15 localizedStringForKey:@"The date is invalid." value:&stru_286EE1130 table:@"TSUtility"];
     }
   }
 

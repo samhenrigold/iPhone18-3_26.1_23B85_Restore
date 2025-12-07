@@ -132,14 +132,13 @@
         v9 = off_100188568[authorizationStatus];
       }
 
-      sub_10000459C(v13, v9);
-      sub_100125F9C(v13, buf, v8, v5);
+      sub_10000459C(v12, v9);
+      sub_100125F9C(v12, buf, v8, v5);
     }
 
-    v10 = self->accuracy_;
-    (*(self->locationDelegate_->var0 + 4))(&v12);
-    v11 = v12;
-    v12 = 0;
+    (*(self->locationDelegate_->var0 + 4))(&v11);
+    v10 = v11;
+    v11 = 0;
   }
 }
 

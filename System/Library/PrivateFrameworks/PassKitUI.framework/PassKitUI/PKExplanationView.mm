@@ -95,9 +95,9 @@
 - (PKExplanationView)initWithContext:(int64_t)context delegate:(id)delegate
 {
   delegateCopy = delegate;
-  v17.receiver = self;
-  v17.super_class = PKExplanationView;
-  v7 = [(PKExplanationView *)&v17 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v18.receiver = self;
+  v18.super_class = PKExplanationView;
+  v7 = [(PKExplanationView *)&v18 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   v8 = v7;
   if (v7)
   {
@@ -122,9 +122,9 @@
     titleTextColor = v8->_titleTextColor;
     v8->_titleTextColor = v12;
 
-    v14 = PKOBKBodyTextColor();
+    v15 = PKOBKBodyTextColor(v14);
     bodyTextColor = v8->_bodyTextColor;
-    v8->_bodyTextColor = v14;
+    v8->_bodyTextColor = v15;
 
     [(PKExplanationView *)v8 _createSubviews];
   }
@@ -144,9 +144,9 @@
 
 - (void)layoutSubviews
 {
-  v146.receiver = self;
-  v146.super_class = PKExplanationView;
-  [(PKExplanationView *)&v146 layoutSubviews];
+  v171.receiver = self;
+  v171.super_class = PKExplanationView;
+  [(PKExplanationView *)&v171 layoutSubviews];
   v3 = PKUIGetMinScreenWidthType();
   if ([(UIScrollView *)self->_scrollView isDragging])
   {
@@ -183,17 +183,17 @@
 
   [(PKExplanationView *)self safeAreaInsets];
   v17 = v16;
-  v127 = v18;
+  v152 = v18;
   [(UIScrollView *)self->_scrollView frame];
-  v154.origin.x = v19;
-  v154.origin.y = v20;
-  v154.size.width = v21;
-  v154.size.height = v22;
-  v147.origin.x = x;
-  v147.origin.y = y;
-  v147.size.width = width;
-  v147.size.height = height;
-  if (!CGRectEqualToRect(v147, v154))
+  v181.origin.x = v19;
+  v181.origin.y = v20;
+  v181.size.width = v21;
+  v181.size.height = v22;
+  v172.origin.x = x;
+  v172.origin.y = y;
+  v172.size.width = width;
+  v172.size.height = height;
+  if (!CGRectEqualToRect(v172, v181))
   {
     [(UIScrollView *)self->_scrollView setFrame:x, y, width, height];
   }
@@ -204,38 +204,51 @@
   }
 
   [(PKExplanationView *)self _resolvedHorizontalMargin];
+  v24 = width + v23 * -2.0;
   if (PKIsPad())
   {
-    PKPaymentSetupContextIsSetupAssistant();
+    IsSetupAssistant = PKPaymentSetupContextIsSetupAssistant();
+    v25.n128_f64[0] = fmin(v24, 536.0);
+    if (IsSetupAssistant)
+    {
+      v24 = v25.n128_f64[0];
+    }
   }
 
   if (width >= 768.0)
   {
     readableContentGuide = [(PKExplanationView *)self readableContentGuide];
     [readableContentGuide layoutFrame];
+    v24 = fmin(v24, v34);
   }
 
-  v131 = x;
+  v25.n128_f64[0] = fmax(v24, 0.0);
+  v26.n128_f64[0] = height - self->_topMargin;
+  v156 = x;
   rect = y;
-  PKSizeAlignedInRect();
-  v129 = v25;
-  v130 = v24;
-  v128 = v26;
-  v28 = v27;
-  v142 = 0;
-  v143 = &v142;
-  v144 = 0x2020000000;
-  v145 = 0;
+  v27.n128_f64[0] = x;
+  v28.n128_f64[0] = y;
+  v29.n128_f64[0] = width;
+  v30.n128_f64[0] = height;
+  PKSizeAlignedInRect(0x200000001, v25, v26, v27, v28, v29, v30, v31);
+  v154 = v36;
+  v155 = v35;
+  v153 = v37;
+  v39 = v38;
+  v167 = 0;
+  v168 = &v167;
+  v169 = 0x2020000000;
+  v170 = 0;
   superview = [(UIImageView *)self->_imageView superview];
 
   if (superview)
   {
-    v30 = self->_imageView;
-    [(UIImageView *)v30 frame];
+    v41 = self->_imageView;
+    [(UIImageView *)v41 frame];
     UIRectCenteredXInRect();
-    v37 = v34;
-    v38 = v35;
-    v39 = v36;
+    v48 = v45;
+    v49 = v46;
+    v50 = v47;
     if (self->_imageIgnoresTopSafeArea)
     {
       topMargin = -v17;
@@ -246,12 +259,12 @@
       topMargin = self->_topMargin;
     }
 
-    [(UIImageView *)v30 setFrame:v34, topMargin, v35, v36];
-    v148.origin.x = v37;
-    v148.origin.y = topMargin;
-    v148.size.width = v38;
-    v148.size.height = v39;
-    v143[3] = CGRectGetMaxY(v148);
+    [(UIImageView *)v41 setFrame:v45, topMargin, v46, v47];
+    v173.origin.x = v48;
+    v173.origin.y = topMargin;
+    v173.size.width = v49;
+    v173.size.height = v50;
+    v168[3] = CGRectGetMaxY(v173);
   }
 
   else
@@ -262,81 +275,91 @@
     {
       if (self->_imageIgnoresTopSafeArea)
       {
-        v33 = -v17;
+        v44 = -v17;
       }
 
       else
       {
-        v33 = self->_topMargin;
+        v44 = self->_topMargin;
       }
 
-      v149.origin.x = __35__PKExplanationView_layoutSubviews__block_invoke(x, v33, width, height, v32, self->_heroView, self->_heroViewSizeThatFitsOverride, self->_heroViewContentMode, self->_heroViewPrefersSizeTransform);
-      v143[3] = CGRectGetMaxY(v149);
+      v174.origin.x = __35__PKExplanationView_layoutSubviews__block_invoke(x, v44, width, height, v43, self->_heroView, self->_heroViewSizeThatFitsOverride, self->_heroViewContentMode, self->_heroViewPrefersSizeTransform);
+      v168[3] = CGRectGetMaxY(v174);
     }
   }
 
   _shouldReverseLayoutDirection = [(PKExplanationView *)self _shouldReverseLayoutDirection];
-  v42 = MEMORY[0x1E695F060];
+  v53 = MEMORY[0x1E695F060];
   if (!self->_hideTitleText)
   {
     if ([(PKExplanationView *)self _showTitleLogoImageView])
     {
-      v43 = self->_logoImageView;
-      image = [(UIImageView *)v43 image];
+      v54 = self->_logoImageView;
+      image = [(UIImageView *)v54 image];
       [image size];
-      v46 = v45;
+      v57 = v56;
 
-      [(UIImageView *)v43 frame];
-      v47 = v42[1];
-      v48 = self->_logoImageViewTargetSize.width == *v42;
-      if (self->_logoImageViewTargetSize.height != v47)
+      [(UIImageView *)v54 frame];
+      v59 = v58;
+      v61 = v60;
+      v62 = v53[1];
+      v63 = self->_logoImageViewTargetSize.width == *v53;
+      if (self->_logoImageViewTargetSize.height != v62)
       {
-        v48 = 0;
+        v63 = 0;
       }
 
       if (v3)
       {
-        v48 = 0;
+        v63 = 0;
       }
 
-      v49 = 20.0;
-      v50 = v46 > 20.0;
-      if (!v48 || !v50)
+      v64 = 20.0;
+      v65 = v57 > 20.0;
+      if (!v63 || !v65)
       {
-        v49 = self->_logoImageViewTargetSize.height;
+        v64 = self->_logoImageViewTargetSize.height;
       }
 
-      v51 = 1.79769313e308;
-      if (!v48 || !v50)
+      v66 = 1.79769313e308;
+      if (!v63 || !v65)
       {
-        v51 = self->_logoImageViewTargetSize.width;
+        v66 = self->_logoImageViewTargetSize.width;
       }
 
-      if (v51 != *v42 || v49 != v47)
+      if (v66 != *v53 || v64 != v62)
       {
         PKSizeAspectFit();
+        v59 = v67;
+        v61 = v68;
       }
 
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      v55 = v54;
-      [(UIImageView *)v43 setFrame:?];
-      v56 = v55 + self->_topLogoPadding;
+      v71 = PKContentAlignmentMake();
+      v72.n128_u64[0] = v59;
+      v73.n128_u64[0] = v61;
+      v75.n128_f64[0] = v154;
+      v74.n128_f64[0] = v155;
+      v76.n128_u64[0] = v153;
+      v77.n128_f64[0] = v39;
+      PKSizeAlignedInRect(v71, v72, v73, v74, v76, v77, v75, v78);
+      v80 = v79;
+      [(UIImageView *)v54 setFrame:?];
+      v81 = v80 + self->_topLogoPadding;
       p_topLogoBottomPadding = &self->_topLogoBottomPadding;
     }
 
     else
     {
-      v43 = self->_titleLabel;
-      v52 = fmax(width - v28, 0.0) * 0.5;
-      [(UIImageView *)v43 setContentInsets:0.0, v52, 0.0, v52];
-      [(UIImageView *)v43 sizeThatFits:width, 1.79769313e308];
-      v56 = v53;
+      v54 = self->_titleLabel;
+      v69 = fmax(width - v39, 0.0) * 0.5;
+      [(UIImageView *)v54 setContentInsets:0.0, v69, 0.0, v69];
+      [(UIImageView *)v54 sizeThatFits:width, 1.79769313e308];
+      v81 = v70;
       p_topLogoBottomPadding = &self->_topLogoPadding;
-      [(UIImageView *)v43 setFrame:v131, v143[3] + self->_topLogoPadding, width, v53];
+      [(UIImageView *)v54 setFrame:v156, v168[3] + self->_topLogoPadding, width, v70];
     }
 
-    v143[3] = v56 + *p_topLogoBottomPadding + v143[3];
+    v168[3] = v81 + *p_topLogoBottomPadding + v168[3];
   }
 
   superview3 = [(UIImageView *)self->_bodyImageView superview];
@@ -345,198 +368,198 @@
   {
     [(UIImageView *)self->_bodyImageView frame];
     UIRectCenteredXInRect();
-    v62 = v59;
-    v63 = v143[3] + 44.0;
+    v87 = v84;
+    v88 = v168[3] + 44.0;
     if (self->_bodyImage)
     {
-      if (v61 >= self->_maxImageHeight)
+      if (v86 >= self->_maxImageHeight)
       {
         maxImageHeight = self->_maxImageHeight;
       }
 
       else
       {
-        maxImageHeight = v61;
+        maxImageHeight = v86;
       }
 
-      if (v60 >= width)
+      if (v85 >= width)
       {
-        v65 = width;
+        v90 = width;
       }
 
       else
       {
-        v65 = v60;
+        v90 = v85;
       }
     }
 
     else
     {
       maxImageHeight = 0.0;
-      v65 = 0.0;
+      v90 = 0.0;
     }
 
-    [(UIImageView *)self->_bodyImageView setFrame:v59, v63, v65, maxImageHeight];
-    v150.origin.x = v62;
-    v150.origin.y = v63;
-    v150.size.width = v65;
-    v150.size.height = maxImageHeight;
-    v143[3] = CGRectGetMaxY(v150);
-    v66 = 36.0;
+    [(UIImageView *)self->_bodyImageView setFrame:v84, v88, v90, maxImageHeight];
+    v175.origin.x = v87;
+    v175.origin.y = v88;
+    v175.size.width = v90;
+    v175.size.height = maxImageHeight;
+    v168[3] = CGRectGetMaxY(v175);
+    v91 = 36.0;
   }
 
   else if (_UISolariumFeatureFlagEnabled())
   {
-    v66 = 0.0;
+    v91 = 0.0;
   }
 
   else
   {
-    v66 = 8.0;
+    v91 = 8.0;
   }
 
   if (_os_feature_enabled_impl() && (_UISolariumFeatureFlagEnabled() & 1) != 0)
   {
-    v66 = 0.0;
+    v91 = 0.0;
   }
 
-  v67 = self->_bodyTextView;
-  [(UITextView *)v67 frame];
-  [(UITextView *)v67 sizeThatFits:v28, 1.79769313e308];
+  v92 = self->_bodyTextView;
+  [(UITextView *)v92 frame];
+  [(UITextView *)v92 sizeThatFits:v39, 1.79769313e308];
   UIRectCenteredXInRect();
-  v69 = v68;
-  v71 = v70;
-  v73 = v72;
-  if (v66 + v143[3] == 0.0)
+  v94 = v93;
+  v96 = v95;
+  v98 = v97;
+  if (v91 + v168[3] == 0.0)
   {
-    v74 = 20.0;
+    v99 = 20.0;
   }
 
   else
   {
-    v74 = v66 + v143[3];
+    v99 = v91 + v168[3];
   }
 
-  [(UITextView *)v67 setFrame:v68, v74];
-  v151.origin.x = v69;
-  v151.origin.y = v74;
-  v151.size.width = v71;
-  v151.size.height = v73;
-  MaxY = CGRectGetMaxY(v151);
-  v143[3] = MaxY;
+  [(UITextView *)v92 setFrame:v93, v99];
+  v176.origin.x = v94;
+  v176.origin.y = v99;
+  v176.size.width = v96;
+  v176.size.height = v98;
+  MaxY = CGRectGetMaxY(v176);
+  v168[3] = MaxY;
   if (self->_attributedSecondaryBodyText)
   {
     [(UITextView *)self->_secondaryBodyTextView frame];
-    [(UITextView *)self->_secondaryBodyTextView sizeThatFits:v28, 1.79769313e308];
+    [(UITextView *)self->_secondaryBodyTextView sizeThatFits:v39, 1.79769313e308];
     UIRectCenteredXInRect();
-    v77 = v76;
-    v79 = v78;
-    v81 = v80;
-    v82 = v143[3] + 8.0;
-    [(UITextView *)self->_secondaryBodyTextView setFrame:v76, v82];
-    v152.origin.x = v77;
-    v152.origin.y = v82;
-    v152.size.width = v79;
-    v152.size.height = v81;
-    MaxY = CGRectGetMaxY(v152);
-    v143[3] = MaxY;
+    v102 = v101;
+    v104 = v103;
+    v106 = v105;
+    v107 = v168[3] + 8.0;
+    [(UITextView *)self->_secondaryBodyTextView setFrame:v101, v107];
+    v177.origin.x = v102;
+    v177.origin.y = v107;
+    v177.size.width = v104;
+    v177.size.height = v106;
+    MaxY = CGRectGetMaxY(v177);
+    v168[3] = MaxY;
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __35__PKExplanationView_layoutSubviews__block_invoke_2;
   aBlock[3] = &unk_1E801B658;
-  *&aBlock[6] = v130;
-  aBlock[7] = v128;
-  *&aBlock[8] = v28;
-  *&aBlock[9] = v129;
-  v141 = _shouldReverseLayoutDirection;
-  *&aBlock[10] = v131;
+  *&aBlock[6] = v155;
+  aBlock[7] = v153;
+  *&aBlock[8] = v39;
+  *&aBlock[9] = v154;
+  v166 = _shouldReverseLayoutDirection;
+  *&aBlock[10] = v156;
   *&aBlock[11] = rect;
   *&aBlock[12] = width;
   *&aBlock[13] = height;
   aBlock[4] = self;
-  aBlock[5] = &v142;
-  v83 = _Block_copy(aBlock);
-  v133[0] = MEMORY[0x1E69E9820];
-  v133[1] = 3221225472;
-  v133[2] = __35__PKExplanationView_layoutSubviews__block_invoke_3;
-  v133[3] = &unk_1E801B680;
-  v136 = v130;
-  v137 = v128;
-  v138 = v28;
-  v139 = v129;
-  v133[4] = self;
-  v134 = &__block_literal_global_134;
-  v135 = &v142;
-  v84 = _Block_copy(v133);
-  v85 = v84;
-  v125 = v83;
+  aBlock[5] = &v167;
+  v108 = _Block_copy(aBlock);
+  v158[0] = MEMORY[0x1E69E9820];
+  v158[1] = 3221225472;
+  v158[2] = __35__PKExplanationView_layoutSubviews__block_invoke_3;
+  v158[3] = &unk_1E801B680;
+  v161 = v155;
+  v162 = v153;
+  v163 = v39;
+  v164 = v154;
+  v158[4] = self;
+  v159 = &__block_literal_global_134;
+  v160 = &v167;
+  v109 = _Block_copy(v158);
+  v110 = v109;
+  v150 = v108;
   if (self->_reverseBodyViewAndBodyButtonOrder)
   {
-    v84[2](v84);
-    v86 = v83;
+    v109[2](v109);
+    v111 = v108;
   }
 
   else
   {
-    v83[2](v83);
-    v86 = v85;
+    v108[2](v108);
+    v111 = v110;
   }
 
-  (v86[2])();
-  v87 = width;
+  (v111[2])();
+  v112 = width;
   if (width >= 768.0)
   {
     readableContentGuide2 = [(PKExplanationView *)self readableContentGuide];
     [readableContentGuide2 layoutFrame];
-    v87 = v89;
+    v112 = v114;
   }
 
   view = [(OBPrivacyLinkController *)self->_privacyLink view];
-  v91 = view;
+  v116 = view;
   if (view && self->_showPrivacyView)
   {
-    v93 = self->_cachedPrivacyViewSize.width;
-    v92 = self->_cachedPrivacyViewSize.height;
-    if (v93 == *v42 && v92 == v42[1])
+    v118 = self->_cachedPrivacyViewSize.width;
+    v117 = self->_cachedPrivacyViewSize.height;
+    if (v118 == *v53 && v117 == v53[1])
     {
-      [view setFrame:{0.0, 0.0, v28, 0.0}];
-      [v91 setNeedsLayout];
-      [v91 layoutIfNeeded];
-      LODWORD(v94) = 1148846080;
-      LODWORD(v95) = 1112014848;
-      [v91 systemLayoutSizeFittingSize:v28 withHorizontalFittingPriority:v129 verticalFittingPriority:{v94, v95}];
-      v93 = v96;
-      v92 = v97;
-      self->_cachedPrivacyViewSize.width = v96;
-      self->_cachedPrivacyViewSize.height = v97;
+      [view setFrame:{0.0, 0.0, v39, 0.0}];
+      [v116 setNeedsLayout];
+      [v116 layoutIfNeeded];
+      LODWORD(v119) = 1148846080;
+      LODWORD(v120) = 1112014848;
+      [v116 systemLayoutSizeFittingSize:v39 withHorizontalFittingPriority:v154 verticalFittingPriority:{v119, v120}];
+      v118 = v121;
+      v117 = v122;
+      self->_cachedPrivacyViewSize.width = v121;
+      self->_cachedPrivacyViewSize.height = v122;
     }
   }
 
   else
   {
-    v93 = *v42;
-    v92 = v42[1];
+    v118 = *v53;
+    v117 = v53[1];
   }
 
   if (self->_showPrivacyView)
   {
-    [(PKPaymentSetupDockView *)self->_dockView sizeThatFitsWithoutPrivacyLink:v87, 1.79769313e308];
-    v99 = 0.0;
+    [(PKPaymentSetupDockView *)self->_dockView sizeThatFitsWithoutPrivacyLink:v112, 1.79769313e308];
+    v124 = 0.0;
     if (self->_blurringView)
     {
-      v99 = v127;
+      v124 = v152;
     }
 
-    if (height - (v92 + 11.0 + v98 + v99) >= MaxY)
+    if (height - (v117 + 11.0 + v123 + v124) >= MaxY)
     {
-      superview4 = [v91 superview];
+      superview4 = [v116 superview];
       dockView = self->_dockView;
 
       if (superview4 != dockView)
       {
-        [v91 removeFromSuperview];
+        [v116 removeFromSuperview];
       }
 
       privacyLink = [(PKPaymentSetupDockView *)self->_dockView privacyLink];
@@ -547,7 +570,7 @@
         [(PKPaymentSetupDockView *)self->_dockView setPrivacyLink:self->_privacyLink];
       }
 
-      v103 = v143[3];
+      v128 = v168[3];
     }
 
     else
@@ -559,66 +582,73 @@
         [(PKPaymentSetupDockView *)self->_dockView setPrivacyLink:0];
       }
 
-      superview5 = [v91 superview];
+      superview5 = [v116 superview];
 
       if (!superview5)
       {
-        [(UIScrollView *)self->_scrollView addSubview:v91];
+        [(UIScrollView *)self->_scrollView addSubview:v116];
       }
 
-      v102 = v143[3] + 16.0;
-      [v91 setFrame:{v130, v102, v93, v92}];
-      v153.origin.x = v130;
-      v153.origin.y = v102;
-      v153.size.width = v93;
-      v153.size.height = v92;
-      v103 = CGRectGetMaxY(v153);
+      v127 = v168[3] + 16.0;
+      [v116 setFrame:{v155, v127, v118, v117}];
+      v178.origin.x = v155;
+      v178.origin.y = v127;
+      v178.size.width = v118;
+      v178.size.height = v117;
+      v128 = CGRectGetMaxY(v178);
     }
   }
 
   else
   {
-    v103 = v143[3];
+    v128 = v168[3];
   }
 
-  [(PKPaymentSetupDockView *)self->_dockView sizeThatFits:v87, 1.79769313e308];
-  v109 = v108;
-  v110 = v131;
-  v111 = rect;
-  v112 = width;
-  v113 = height;
+  [(PKPaymentSetupDockView *)self->_dockView sizeThatFits:v112, 1.79769313e308];
+  v135 = v134;
   if (self->_blurringView)
   {
-    [(_PKVisibilityBackdropView *)self->_blurringView setFrame:0.0, CGRectGetMaxY(*&v110) - (v127 + v109), width, v127 + v109];
+    v136 = v133;
+    v179.origin.x = v156;
+    v179.origin.y = rect;
+    v179.size.width = width;
+    v179.size.height = height;
+    [(_PKVisibilityBackdropView *)self->_blurringView setFrame:0.0, CGRectGetMaxY(v179) - (v152 + v135), width, v152 + v135];
     [(_PKVisibilityBackdropView *)self->_blurringView layoutIfNeeded];
-    PKFloatRoundToPixel();
+    v137.n128_u64[0] = 0.5;
+    v138.n128_f64[0] = (width - v136) * 0.5;
+    PKFloatRoundToPixel(v138, v137);
     [(PKPaymentSetupDockView *)self->_dockView setFrame:?];
   }
 
   else
   {
-    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(*&v110) - v109, width, v109];
+    v180.origin.x = v156;
+    v180.origin.y = rect;
+    v180.size.width = width;
+    v180.size.height = height;
+    [(PKPaymentSetupDockView *)self->_dockView setFrame:0.0, CGRectGetMaxY(v180) - v135, width, v135];
   }
 
-  [(UIScrollView *)self->_scrollView setContentSize:width, v103];
+  [(UIScrollView *)self->_scrollView setContentSize:width, v128];
   [(UIScrollView *)self->_scrollView contentInset];
-  v115 = v114;
-  v117 = v116;
-  v119 = v118;
+  v140 = v139;
+  v142 = v141;
+  v144 = v143;
   [(UIScrollView *)self->_scrollView setContentInset:?];
-  [(UIScrollView *)self->_scrollView setScrollIndicatorInsets:v115, v117, v109, v119];
+  [(UIScrollView *)self->_scrollView setScrollIndicatorInsets:v140, v142, v135, v144];
   topBackgroundView = self->_topBackgroundView;
   if (topBackgroundView)
   {
     [(UIScrollView *)self->_scrollView contentOffset];
-    v121 = 0.0;
-    if (self->_topMargin >= v122)
+    v146 = 0.0;
+    if (self->_topMargin >= v147)
     {
       [(UIScrollView *)self->_scrollView contentOffset];
-      v121 = self->_topMargin - v123;
+      v146 = self->_topMargin - v148;
     }
 
-    [(UIView *)topBackgroundView setFrame:v131, rect, width, v121];
+    [(UIView *)topBackgroundView setFrame:v156, rect, width, v146];
   }
 
   [(PKExplanationView *)self _calculateBlur];
@@ -628,26 +658,26 @@
     [WeakRetained explanationViewDidUpdateLayout:self];
   }
 
-  _Block_object_dispose(&v142, 8);
+  _Block_object_dispose(&v167, 8);
 }
 
 double __35__PKExplanationView_layoutSubviews__block_invoke(double a1, double a2, double a3, double a4, uint64_t a5, void *a6, void *a7, uint64_t a8, int a9)
 {
-  v14 = a6;
-  v15 = a7;
-  v16 = v15;
-  if (v15)
+  v16 = a6;
+  v17 = a7;
+  v18 = v17;
+  if (v17)
   {
-    (*(v15 + 2))(v15, v14, a3, a4);
+    (*(v17 + 2))(v17, v16, a3, a4);
   }
 
   else
   {
-    [v14 sizeThatFits:{a3, a4}];
+    [v16 sizeThatFits:{a3, a4}];
   }
 
-  v19 = v17;
-  v20 = v18;
+  v21 = v19;
+  v22 = v20;
   if (a8 > 2)
   {
     if (a8 == 3)
@@ -663,8 +693,8 @@ double __35__PKExplanationView_layoutSubviews__block_invoke(double a1, double a2
     }
 
 LABEL_11:
-    v23 = v18;
-    v24 = v17;
+    v25 = v20;
+    v26 = v19;
     goto LABEL_15;
   }
 
@@ -681,66 +711,72 @@ LABEL_11:
 
   PKSizeAspectFill();
 LABEL_14:
-  v24 = v21;
-  v23 = v22;
+  v26 = v23;
+  v25 = v24;
 LABEL_15:
   if (a9)
   {
-    v25 = v20;
+    v27 = v22;
   }
 
   else
   {
-    v25 = v23;
+    v27 = v25;
   }
 
   if (a9)
   {
-    v26 = v19;
+    v28 = v21;
   }
 
   else
   {
-    v26 = v24;
+    v28 = v26;
   }
 
-  [v14 setBounds:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v26, v25}];
+  [v16 setBounds:{*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v28, v27}];
   if (a9)
   {
-    memset(&v45, 0, sizeof(v45));
-    CATransform3DMakeScale(&v45, v24 / v19, v23 / v20, 1.0);
-    v44 = v45;
-    v27 = &v44;
+    memset(&v54, 0, sizeof(v54));
+    CATransform3DMakeScale(&v54, v26 / v21, v25 / v22, 1.0);
+    v53 = v54;
+    v29 = &v53;
   }
 
   else
   {
-    v28 = *(MEMORY[0x1E69792E8] + 80);
-    *&v45.m31 = *(MEMORY[0x1E69792E8] + 64);
-    *&v45.m33 = v28;
-    v29 = *(MEMORY[0x1E69792E8] + 112);
-    *&v45.m41 = *(MEMORY[0x1E69792E8] + 96);
-    *&v45.m43 = v29;
-    v30 = *(MEMORY[0x1E69792E8] + 16);
-    *&v45.m11 = *MEMORY[0x1E69792E8];
-    *&v45.m13 = v30;
-    v31 = *(MEMORY[0x1E69792E8] + 48);
-    *&v45.m21 = *(MEMORY[0x1E69792E8] + 32);
-    *&v45.m23 = v31;
-    v27 = &v45;
+    v30 = *(MEMORY[0x1E69792E8] + 80);
+    *&v54.m31 = *(MEMORY[0x1E69792E8] + 64);
+    *&v54.m33 = v30;
+    v31 = *(MEMORY[0x1E69792E8] + 112);
+    *&v54.m41 = *(MEMORY[0x1E69792E8] + 96);
+    *&v54.m43 = v31;
+    v32 = *(MEMORY[0x1E69792E8] + 16);
+    *&v54.m11 = *MEMORY[0x1E69792E8];
+    *&v54.m13 = v32;
+    v33 = *(MEMORY[0x1E69792E8] + 48);
+    *&v54.m21 = *(MEMORY[0x1E69792E8] + 32);
+    *&v54.m23 = v33;
+    v29 = &v54;
   }
 
-  [v14 setTransform3D:{v27, *&v44.m11, *&v44.m13, *&v44.m21, *&v44.m23, *&v44.m31, *&v44.m33, *&v44.m41, *&v44.m43, *&v45.m11, *&v45.m12, *&v45.m13, *&v45.m14, *&v45.m21, *&v45.m22, *&v45.m23, *&v45.m24, *&v45.m31, *&v45.m32, *&v45.m33, *&v45.m34, *&v45.m41, *&v45.m42, *&v45.m43, *&v45.m44}];
-  PKSizeAlignedInRect();
-  v33 = v32;
-  v35 = v34;
-  v37 = v36;
-  v39 = v38;
-  v40 = [v14 layer];
-  [v40 anchorPoint];
-  [v14 setCenter:{v33 + v41 * v37, v35 + v42 * v39}];
+  [v16 setTransform3D:{v29, *&v53.m11, *&v53.m13, *&v53.m21, *&v53.m23, *&v53.m31, *&v53.m33, *&v53.m41, *&v53.m43, *&v54.m11, *&v54.m12, *&v54.m13, *&v54.m14, *&v54.m21, *&v54.m22, *&v54.m23, *&v54.m24, *&v54.m31, *&v54.m32, *&v54.m33, *&v54.m34, *&v54.m41, *&v54.m42, *&v54.m43, *&v54.m44}];
+  v34.n128_f64[0] = v26;
+  v35.n128_f64[0] = v25;
+  v36.n128_f64[0] = a1;
+  v37.n128_f64[0] = a2;
+  v38.n128_f64[0] = a3;
+  v39.n128_f64[0] = a4;
+  PKSizeAlignedInRect(1, v34, v35, v36, v37, v38, v39, v40);
+  v42 = v41;
+  v44 = v43;
+  v46 = v45;
+  v48 = v47;
+  v49 = [v16 layer];
+  [v49 anchorPoint];
+  [v16 setCenter:{v42 + v50 * v46, v44 + v51 * v48}];
 
-  return v33;
+  return v42;
 }
 
 void __35__PKExplanationView_layoutSubviews__block_invoke_2(uint64_t a1)
@@ -749,10 +785,18 @@ void __35__PKExplanationView_layoutSubviews__block_invoke_2(uint64_t a1)
   if (v2)
   {
     [v2 sizeThatFits:{*(a1 + 64), 1.79769313e308}];
+    v4 = v3;
+    v6 = fmin(*(a1 + 64), v5);
     if (_os_feature_enabled_impl() && _UISolariumFeatureFlagEnabled())
     {
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v7 = PKContentAlignmentMake();
+      v8.n128_u64[0] = *(a1 + 48);
+      v9.n128_u64[0] = *(a1 + 56);
+      v10.n128_u64[0] = *(a1 + 64);
+      v11.n128_u64[0] = *(a1 + 72);
+      v12.n128_f64[0] = v6;
+      v13.n128_u64[0] = v4;
+      PKSizeAlignedInRect(v7, v12, v13, v8, v9, v10, v11, v14);
     }
 
     else
@@ -760,18 +804,18 @@ void __35__PKExplanationView_layoutSubviews__block_invoke_2(uint64_t a1)
       UIRectCenteredXInRect();
     }
 
-    v6 = v3;
-    v7 = v4;
-    v8 = v5;
-    v9 = *(*(*(a1 + 40) + 8) + 24);
+    v18 = v15;
+    v19 = v16;
+    v20 = v17;
+    v21 = *(*(*(a1 + 40) + 8) + 24);
     PKSetupViewConstantsBodyButtonPadding();
-    v11 = v9 + v10;
-    [*(*(a1 + 32) + 552) pkui_setBoundsAndPositionFromFrame:{v6, v11, v7, v8}];
-    v12.origin.x = v6;
-    v12.origin.y = v11;
-    v12.size.width = v7;
-    v12.size.height = v8;
-    *(*(*(a1 + 40) + 8) + 24) = CGRectGetMaxY(v12);
+    v23 = v21 + v22;
+    [*(*(a1 + 32) + 552) pkui_setBoundsAndPositionFromFrame:{v18, v23, v19, v20}];
+    v24.origin.x = v18;
+    v24.origin.y = v23;
+    v24.size.width = v19;
+    v24.size.height = v20;
+    *(*(*(a1 + 40) + 8) + 24) = CGRectGetMaxY(v24);
   }
 }
 
@@ -1224,10 +1268,10 @@ void __35__PKExplanationView_layoutSubviews__block_invoke_3(uint64_t a1)
         v9 = self->_attributedBodyText;
       }
 
-      [(UITextView *)bodyTextView setAttributedText:v9];
-      v13 = self->_bodyTextView;
-      v14 = PKOBKHeaderSubtitleFont();
-      [(UITextView *)v13 setFont:v14];
+      v13 = [(UITextView *)bodyTextView setAttributedText:v9];
+      v14 = self->_bodyTextView;
+      v15 = PKOBKHeaderSubtitleFont(v13);
+      [(UITextView *)v14 setFont:v15];
 
       [(UITextView *)self->_bodyTextView setTextAlignment:self->_bodyTextAlignment];
     }
@@ -1235,7 +1279,7 @@ void __35__PKExplanationView_layoutSubviews__block_invoke_3(uint64_t a1)
     else
     {
       [(UITextView *)bodyTextView removeFromSuperview];
-      v15 = self->_bodyTextView;
+      v16 = self->_bodyTextView;
       self->_bodyTextView = 0;
     }
 
@@ -1536,7 +1580,7 @@ LABEL_14:
 
     else
     {
-      v4 = PKOBKHeaderTitleFont();
+      v4 = PKOBKHeaderTitleFont(self);
     }
 
     v6 = v4;
@@ -1753,7 +1797,7 @@ LABEL_10:
 
 - (id)_createBodyTextView
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69DD168] pkui_plainInteractiveTextViewWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   [v3 setDataDetectorTypes:self->_bodyDataDetectorTypes];
   [v3 setDelegate:self];
@@ -1772,7 +1816,7 @@ LABEL_10:
   textContainer = [v3 textContainer];
   [textContainer setLineFragmentPadding:0.0];
 
-  v13 = *MEMORY[0x1E69DB650];
+  v14 = *MEMORY[0x1E69DB650];
   if (PKPaymentSetupContextIsBridge())
   {
     BPSBridgeTintColor();
@@ -1783,12 +1827,12 @@ LABEL_10:
     [MEMORY[0x1E69DC888] systemBlueColor];
   }
   v9 = ;
-  v14[0] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v15[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [v3 setLinkTextAttributes:v10];
 
-  v11 = PKOBKBodyFont();
-  [v3 setFont:v11];
+  v12 = PKOBKBodyFont(v11);
+  [v3 setFont:v12];
 
   [v3 setTextAlignment:self->_bodyTextAlignment];
   [v3 setAccessibilityIdentifier:*MEMORY[0x1E69B9CC8]];

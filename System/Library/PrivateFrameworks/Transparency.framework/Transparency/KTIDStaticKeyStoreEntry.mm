@@ -93,33 +93,33 @@
 
 - (void)setMappings:(id)mappings
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   mappingsCopy = mappings;
   v5 = MEMORY[0x1E695DFA8];
   handles = [(KTIDStaticKeyStoreEntry *)self handles];
   allKeys = [handles allKeys];
   v8 = [v5 setWithArray:allKeys];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v9 = mappingsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v30 + 1) + 8 * i);
+        v14 = *(*(&v29 + 1) + 8 * i);
         [v8 removeObject:v14];
         handles2 = [(KTIDStaticKeyStoreEntry *)self handles];
         v16 = [handles2 objectForKeyedSubscript:v14];
@@ -134,43 +134,41 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v11);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v18 = v8;
-  v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v26 + 1) + 8 * j);
+        v23 = *(*(&v25 + 1) + 8 * j);
         handles4 = [(KTIDStaticKeyStoreEntry *)self handles];
         [handles4 setObject:0 forKeyedSubscript:v23];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v20);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

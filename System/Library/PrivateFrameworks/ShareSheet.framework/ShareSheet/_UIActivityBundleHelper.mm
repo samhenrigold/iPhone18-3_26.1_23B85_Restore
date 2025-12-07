@@ -124,26 +124,26 @@
   v22 = [MEMORY[0x1E69A8A30] imageDescriptorNamed:v13];
 
   [v22 setTemplateVariant:v9];
-  [v22 setDrawBorder:v10];
+  v23 = [v22 setDrawBorder:v10];
   if (category == 1)
   {
-    v23 = [(objc_class *)getSFUIActivityImageProviderClass() tintImageDescriptor:v22 withUserInterfaceStyle:style forGraphicIcon:0];
+    v24 = [getSFUIActivityImageProviderClass(v23) tintImageDescriptor:v22 withUserInterfaceStyle:style forGraphicIcon:0];
 
-    v22 = v23;
+    v22 = v24;
   }
 
-  v24 = [v16 imageForDescriptor:v17];
-  if (!v24)
+  v25 = [v16 imageForDescriptor:v17];
+  if (!v25)
   {
-    v24 = [v16 imageForImageDescriptor:v22];
+    v25 = [v16 imageForImageDescriptor:v22];
   }
 
-  v25 = MEMORY[0x1E69DCAB8];
-  cGImage = [v24 CGImage];
-  [v24 scale];
-  v27 = [v25 imageWithCGImage:cGImage scale:0 orientation:?];
+  v26 = MEMORY[0x1E69DCAB8];
+  cGImage = [v25 CGImage];
+  [v25 scale];
+  v28 = [v26 imageWithCGImage:cGImage scale:0 orientation:?];
 
-  return v27;
+  return v28;
 }
 
 + (void)activityBundleHelperForExtension:(void *)a1 .cold.1(void *a1, NSObject *a2)

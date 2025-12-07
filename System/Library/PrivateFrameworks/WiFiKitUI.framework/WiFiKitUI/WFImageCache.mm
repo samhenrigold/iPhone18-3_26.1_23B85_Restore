@@ -69,7 +69,7 @@ id __41__WFImageCache_imageNamed_variableValue___block_invoke(uint64_t a1, void 
 
 - (id)imageNamed:(id)named
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   if (namedCopy)
   {
@@ -82,17 +82,17 @@ id __41__WFImageCache_imageNamed_variableValue___block_invoke(uint64_t a1, void 
     v6 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.framework.WiFiKitUI"];
     if (!v6)
     {
-      v27 = WFLogForCategory(0);
+      v26 = WFLogForCategory(0);
       v32 = OSLogForWFLogLevel(1uLL);
-      if (!WFCurrentLogLevel() || !v27 || !os_log_type_enabled(v27, v32))
+      if (!WFCurrentLogLevel(v32, v33) || !v26 || !os_log_type_enabled(v26, v32))
       {
         goto LABEL_32;
       }
 
-      v33 = 138412290;
-      v34 = @"com.apple.framework.WiFiKitUI";
+      v34 = 138412290;
+      v35 = @"com.apple.framework.WiFiKitUI";
       v29 = "Unable to get bundle for %@";
-      v30 = v27;
+      v30 = v26;
       v31 = v32;
       goto LABEL_31;
     }
@@ -108,13 +108,13 @@ id __41__WFImageCache_imageNamed_variableValue___block_invoke(uint64_t a1, void 
       [MEMORY[0x277D74310] defaultFontDescriptorWithTextStyle:*MEMORY[0x277D76918]];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_0_2();
-      v11 = [v10 fontDescriptorWithSymbolicTraits:?];
+      v10 = [v9 fontDescriptorWithSymbolicTraits:?];
 
-      v12 = OUTLINED_FUNCTION_1_1();
-      v14 = [v13 fontWithDescriptor:v12 size:?];
-      v15 = [MEMORY[0x277D755D0] configurationWithFont:v14 scale:2];
-      v16 = MEMORY[0x277D755B8];
-      v17 = @"checkmark";
+      v11 = OUTLINED_FUNCTION_1_1();
+      v13 = [v12 fontWithDescriptor:v11 size:?];
+      v14 = [MEMORY[0x277D755D0] configurationWithFont:v13 scale:2];
+      v15 = MEMORY[0x277D755B8];
+      v16 = @"checkmark";
     }
 
     else if ([(__CFString *)namedCopy isEqualToString:@"Lock"])
@@ -122,13 +122,13 @@ id __41__WFImageCache_imageNamed_variableValue___block_invoke(uint64_t a1, void 
       [MEMORY[0x277D74310] defaultFontDescriptorWithTextStyle:*MEMORY[0x277D76918]];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_0_2();
-      v11 = [v18 fontDescriptorWithSymbolicTraits:?];
+      v10 = [v17 fontDescriptorWithSymbolicTraits:?];
 
-      v19 = OUTLINED_FUNCTION_1_1();
-      v14 = [v20 fontWithDescriptor:v19 size:?];
-      v15 = [MEMORY[0x277D755D0] configurationWithFont:v14 scale:1];
-      v16 = MEMORY[0x277D755B8];
-      v17 = @"lock.fill";
+      v18 = OUTLINED_FUNCTION_1_1();
+      v13 = [v19 fontWithDescriptor:v18 size:?];
+      v14 = [MEMORY[0x277D755D0] configurationWithFont:v13 scale:1];
+      v15 = MEMORY[0x277D755B8];
+      v16 = @"lock.fill";
     }
 
     else if ([(__CFString *)namedCopy isEqualToString:@"Personal_Hotspot"])
@@ -136,13 +136,13 @@ id __41__WFImageCache_imageNamed_variableValue___block_invoke(uint64_t a1, void 
       [MEMORY[0x277D74310] defaultFontDescriptorWithTextStyle:*MEMORY[0x277D76918]];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_0_2();
-      v11 = [v21 fontDescriptorWithSymbolicTraits:?];
+      v10 = [v20 fontDescriptorWithSymbolicTraits:?];
 
-      v22 = OUTLINED_FUNCTION_1_1();
-      v14 = [v23 fontWithDescriptor:v22 size:?];
-      v15 = [MEMORY[0x277D755D0] configurationWithFont:v14 scale:1];
-      v16 = MEMORY[0x277D755B8];
-      v17 = @"personalhotspot";
+      v21 = OUTLINED_FUNCTION_1_1();
+      v13 = [v22 fontWithDescriptor:v21 size:?];
+      v14 = [MEMORY[0x277D755D0] configurationWithFont:v13 scale:1];
+      v15 = MEMORY[0x277D755B8];
+      v16 = @"personalhotspot";
     }
 
     else
@@ -167,16 +167,16 @@ LABEL_8:
       [MEMORY[0x277D74310] defaultFontDescriptorWithTextStyle:*MEMORY[0x277D76918]];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_0_2();
-      v11 = [v24 fontDescriptorWithSymbolicTraits:?];
+      v10 = [v23 fontDescriptorWithSymbolicTraits:?];
 
-      v25 = OUTLINED_FUNCTION_1_1();
-      v14 = [v26 fontWithDescriptor:v25 size:?];
-      v15 = [MEMORY[0x277D755D0] configurationWithFont:v14 scale:1];
-      v16 = MEMORY[0x277D755B8];
-      v17 = @"wifi.exclamationmark";
+      v24 = OUTLINED_FUNCTION_1_1();
+      v13 = [v25 fontWithDescriptor:v24 size:?];
+      v14 = [MEMORY[0x277D755D0] configurationWithFont:v13 scale:1];
+      v15 = MEMORY[0x277D755B8];
+      v16 = @"wifi.exclamationmark";
     }
 
-    v5 = [v16 systemImageNamed:v17 withConfiguration:v15];
+    v5 = [v15 systemImageNamed:v16 withConfiguration:v14];
 
     if (v5)
     {
@@ -184,20 +184,20 @@ LABEL_8:
     }
 
 LABEL_21:
-    v27 = WFLogForCategory(0);
-    v28 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v27 || !os_log_type_enabled(v27, v28))
+    v26 = WFLogForCategory(0);
+    v27 = OSLogForWFLogLevel(1uLL);
+    if (!WFCurrentLogLevel(v27, v28) || !v26 || !os_log_type_enabled(v26, v27))
     {
       goto LABEL_32;
     }
 
-    v33 = 138412290;
-    v34 = namedCopy;
+    v34 = 138412290;
+    v35 = namedCopy;
     v29 = "Unable to get image named %@";
-    v30 = v27;
-    v31 = v28;
+    v30 = v26;
+    v31 = v27;
 LABEL_31:
-    _os_log_impl(&dword_273FB9000, v30, v31, v29, &v33, 0xCu);
+    _os_log_impl(&dword_273FB9000, v30, v31, v29, &v34, 0xCu);
 LABEL_32:
 
     v5 = 0;
@@ -207,14 +207,12 @@ LABEL_32:
   v5 = 0;
 LABEL_9:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)imageNamed:(id)named variableValue:(double)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   if (namedCopy)
   {
@@ -247,11 +245,12 @@ LABEL_9:
 
     v17 = WFLogForCategory(0);
     v18 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v17 && os_log_type_enabled(v17, v18))
+    v19 = v18;
+    if (WFCurrentLogLevel(v18, v20) && v17 && os_log_type_enabled(v17, v19))
     {
       *buf = 138412290;
-      v22 = v7;
-      _os_log_impl(&dword_273FB9000, v17, v18, "Unable to get image named %@", buf, 0xCu);
+      v23 = v7;
+      _os_log_impl(&dword_273FB9000, v17, v19, "Unable to get image named %@", buf, 0xCu);
     }
   }
 
@@ -262,8 +261,6 @@ LABEL_9:
 
   v9 = 0;
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

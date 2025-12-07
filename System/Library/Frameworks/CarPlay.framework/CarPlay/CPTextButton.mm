@@ -117,11 +117,11 @@
   v9 = *MEMORY[0x277D85DE8];
   handler = [(CPTextButton *)self handler];
 
-  v4 = CarPlayFrameworkGeneralLogging();
-  handler2 = v4;
+  v5 = CarPlayFrameworkGeneralLogging(v4);
+  handler2 = v5;
   if (handler)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = 138412290;
       selfCopy = self;
@@ -132,12 +132,10 @@
     (*(handler2 + 16))(handler2, self);
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(CPMapButton *)self handlePrimaryAction];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CPControlDelegate)delegate

@@ -17,13 +17,13 @@
 {
   deviceCopy = device;
   nameCopy = name;
-  v39.receiver = self;
-  v39.super_class = Slot;
-  v10 = [(Slot *)&v39 init];
+  v41.receiver = self;
+  v41.super_class = Slot;
+  v10 = [(Slot *)&v41 init];
   if (!v10)
   {
 LABEL_23:
-    v37 = v10;
+    v39 = v10;
     goto LABEL_27;
   }
 
@@ -121,18 +121,19 @@ LABEL_11:
   v10->_slotNumber = number;
   v10->_cardPresent = 0;
   objc_storeStrong(&v10->_slotName, name);
-  v33 = sub_10000D560();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v34 = sub_10000D560(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
     sub_100016E2C(&v10->_engine);
   }
 
-  v34 = [(TKSmartCardSlotEngine *)v10->_engine setupWithName:nameCopy delegate:v10];
-  v35 = sub_10000D560();
+  v35 = [(TKSmartCardSlotEngine *)v10->_engine setupWithName:nameCopy delegate:v10];
   v36 = v35;
-  if (v34)
+  v37 = sub_10000D560(v35);
+  v38 = v37;
+  if (v36)
   {
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       sub_100016F74();
     }
@@ -140,15 +141,15 @@ LABEL_11:
     goto LABEL_23;
   }
 
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
   {
-    sub_100016EF8(number, v36);
+    sub_100016EF8(number, v38);
   }
 
-  v37 = 0;
+  v39 = 0;
 LABEL_27:
 
-  return v37;
+  return v39;
 }
 
 - (void)dealloc
@@ -176,7 +177,7 @@ LABEL_27:
   if (self->_cardPresent != notify)
   {
     *p_cardPresent = notify;
-    v5 = sub_10000D560();
+    v5 = sub_10000D560(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_10001707C(self, p_cardPresent, v5);
@@ -188,7 +189,7 @@ LABEL_27:
 
 - (BOOL)engine:(id)engine powerDownWithEject:(BOOL)eject
 {
-  v4 = sub_10000D560();
+  v4 = sub_10000D560(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     sub_10001710C();
@@ -199,7 +200,7 @@ LABEL_27:
 
 - (unint64_t)engine:(id)engine setProtocol:(unint64_t)protocol
 {
-  v4 = sub_10000D560();
+  v4 = sub_10000D560(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     sub_10001710C();
@@ -210,7 +211,7 @@ LABEL_27:
 
 - (id)engine:(id)engine transmit:(id)transmit
 {
-  v4 = sub_10000D560();
+  v4 = sub_10000D560(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     sub_10001710C();
@@ -221,7 +222,7 @@ LABEL_27:
 
 - (id)engineResetCard:(id)card
 {
-  v3 = sub_10000D560();
+  v3 = sub_10000D560(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     sub_10001710C();
@@ -232,7 +233,7 @@ LABEL_27:
 
 - (BOOL)engineSimulateCardReinsertion:(id)reinsertion
 {
-  v3 = sub_10000D560();
+  v3 = sub_10000D560(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     sub_100017140();

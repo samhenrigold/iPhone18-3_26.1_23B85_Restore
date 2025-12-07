@@ -467,32 +467,32 @@ void __57__GKLeaderboard_loadScoresForGame_withCompletionHandler___block_invoke_
 
 void __53__GKLeaderboard_loadCategoriesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a4;
   v7 = [v5 count];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:v7];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:v7];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * i);
+        v15 = *(*(&v23 + 1) + 8 * i);
         v16 = [v15 identifier];
         if (v16)
         {
@@ -510,7 +510,7 @@ void __53__GKLeaderboard_loadCategoriesWithCompletionHandler___block_invoke(uint
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v12);
@@ -521,8 +521,6 @@ void __53__GKLeaderboard_loadCategoriesWithCompletionHandler___block_invoke(uint
   {
     (*(v21 + 16))(v21, v8, v9, v6);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadLeaderboardsWithCompletionHandler:(void *)completionHandler
@@ -787,29 +785,29 @@ void __88__GKLeaderboard_loadLeaderboardWithIdentifier_forGame_withPlayer_withCo
 
 void __88__GKLeaderboard_loadLeaderboardWithIdentifier_forGame_withPlayer_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v12 groupIdentifier];
         if ([v13 isEqualToString:*(a1 + 32)])
         {
@@ -831,7 +829,7 @@ LABEL_12:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -845,8 +843,6 @@ LABEL_13:
 
   [*(a1 + 40) setError:v6];
   (*(*(a1 + 48) + 16))();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __88__GKLeaderboard_loadLeaderboardWithIdentifier_forGame_withPlayer_withCompletionHandler___block_invoke_3(uint64_t a1)
@@ -1263,7 +1259,7 @@ void __77__GKLeaderboard_submitScore_context_player_leaderboardIDs_completionHan
 
 - (void)submitScore:(NSInteger)score context:(NSUInteger)context player:(GKPlayer *)player completionHandler:(void *)completionHandler
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v10 = player;
   v11 = completionHandler;
   if ([(GKLeaderboard *)self type])
@@ -1271,38 +1267,36 @@ void __77__GKLeaderboard_submitScore_context_player_leaderboardIDs_completionHan
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d %s", "GKLeaderboard.m", 553, "-[GKLeaderboard submitScore:context:player:completionHandler:]"];
     v13 = [GKDispatchGroup dispatchGroupWithName:v12];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __62__GKLeaderboard_submitScore_context_player_completionHandler___block_invoke;
-    v20[3] = &unk_2785DE5D8;
-    v23 = score;
-    v24 = context;
-    v20[4] = self;
-    v21 = v10;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __62__GKLeaderboard_submitScore_context_player_completionHandler___block_invoke;
+    v19[3] = &unk_2785DE5D8;
+    v22 = score;
+    v23 = context;
+    v19[4] = self;
+    v20 = v10;
     baseLeaderboardID = v13;
-    v22 = baseLeaderboardID;
-    [baseLeaderboardID perform:v20];
+    v21 = baseLeaderboardID;
+    [baseLeaderboardID perform:v19];
     if (v11)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __62__GKLeaderboard_submitScore_context_player_completionHandler___block_invoke_3;
-      v17[3] = &unk_2785DDC10;
-      v19 = v11;
-      v18 = baseLeaderboardID;
-      [v18 notifyOnMainQueueWithBlock:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __62__GKLeaderboard_submitScore_context_player_completionHandler___block_invoke_3;
+      v16[3] = &unk_2785DDC10;
+      v18 = v11;
+      v17 = baseLeaderboardID;
+      [v17 notifyOnMainQueueWithBlock:v16];
     }
   }
 
   else
   {
     baseLeaderboardID = [(GKLeaderboard *)self baseLeaderboardID];
-    v25[0] = baseLeaderboardID;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = baseLeaderboardID;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     [GKLeaderboard submitScore:score context:context player:v10 leaderboardIDs:v15 completionHandler:v11];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __62__GKLeaderboard_submitScore_context_player_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1387,7 +1381,7 @@ void __62__GKLeaderboard_submitScore_context_player_completionHandler___block_in
 
 void __75__GKLeaderboard_leaderboardEntriesHandlerForGroup_gameBundleID_proxy_done___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   if (a5)
@@ -1412,27 +1406,27 @@ void __75__GKLeaderboard_leaderboardEntriesHandlerForGroup_gameBundleID_proxy_do
       [v12 addObject:v16];
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v32 = v10;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v31 = v10;
     v17 = v10;
-    v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v34;
+      v20 = *v33;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v34 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v33 + 1) + 8 * i);
+          v22 = *(*(&v32 + 1) + 8 * i);
           v23 = [v22 player];
           v24 = [v23 playerID];
 
@@ -1444,7 +1438,7 @@ void __75__GKLeaderboard_leaderboardEntriesHandlerForGroup_gameBundleID_proxy_do
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v19);
@@ -1471,10 +1465,8 @@ void __75__GKLeaderboard_leaderboardEntriesHandlerForGroup_gameBundleID_proxy_do
     [*(a1 + 32) setObject:v30 forKeyedSubscript:@"entries"];
     (*(*(a1 + 40) + 16))();
 
-    v10 = v32;
+    v10 = v31;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 GKLeaderboardEntry *__75__GKLeaderboard_leaderboardEntriesHandlerForGroup_gameBundleID_proxy_done___block_invoke_2(uint64_t a1, void *a2)
@@ -1803,7 +1795,7 @@ void __60__GKLeaderboard_loadSummaryWithTimeScope_completionHandler___block_invo
 
 + (void)loadHighlightsWithPlayerScope:(int64_t)scope timeScope:(int64_t)timeScope game:(id)game handler:(id)handler
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   gameCopy = game;
   handlerCopy = handler;
   v11 = +[GKLocalPlayer localPlayer];
@@ -1813,8 +1805,8 @@ void __60__GKLeaderboard_loadSummaryWithTimeScope_completionHandler___block_invo
   if (defaultLeaderboardIdentifier)
   {
     defaultLeaderboardIdentifier2 = [v12 defaultLeaderboardIdentifier];
-    v24[0] = defaultLeaderboardIdentifier2;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = defaultLeaderboardIdentifier2;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   }
 
   else
@@ -1822,19 +1814,17 @@ void __60__GKLeaderboard_loadSummaryWithTimeScope_completionHandler___block_invo
     v15 = 0;
   }
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke;
-  v19[3] = &unk_2785DE758;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke;
+  v18[3] = &unk_2785DE758;
   scopeCopy = scope;
   timeScopeCopy = timeScope;
-  v20 = gameCopy;
-  v21 = handlerCopy;
+  v19 = gameCopy;
+  v20 = handlerCopy;
   v16 = handlerCopy;
   v17 = gameCopy;
-  [GKLeaderboard loadLeaderboardsWithIDs:v15 game:v17 completionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [GKLeaderboard loadLeaderboardsWithIDs:v15 game:v17 completionHandler:v18];
 }
 
 void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke(uint64_t a1, void *a2)
@@ -1874,7 +1864,7 @@ void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___
   }
 }
 
-void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke_2(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
+void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
   v8 = a2;
   v9 = a3;
@@ -1882,28 +1872,27 @@ void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___
   v11 = v10;
   if (!v9 || v10)
   {
-    v14 = a1[4];
-    (*(a1[5] + 16))();
+    (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    if (a1[6] == 1)
+    if (*(a1 + 48) == 1)
     {
-      v27[0] = 0;
-      v27[1] = v27;
-      v27[2] = 0x2020000000;
-      v27[3] = 1;
-      v21 = MEMORY[0x277D85DD0];
-      v22 = 3221225472;
-      v23 = __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke_3;
-      v24 = &unk_2785DE708;
-      v26 = v27;
-      v25 = v8;
-      v12 = [v9 _gkFilterWithBlock:&v21];
+      v24[0] = 0;
+      v24[1] = v24;
+      v24[2] = 0x2020000000;
+      v24[3] = 1;
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___block_invoke_3;
+      v21 = &unk_2785DE708;
+      v23 = v24;
+      v22 = v8;
+      v12 = [v9 _gkFilterWithBlock:&v18];
 
       [v12 count];
-      _Block_object_dispose(v27, 8);
+      _Block_object_dispose(v24, 8);
       v9 = v12;
     }
 
@@ -1917,37 +1906,35 @@ void __70__GKLeaderboard_loadHighlightsWithPlayerScope_timeScope_game_handler___
       v13 = 0;
     }
 
-    if ([v8 rank] >= 1 && (v15 = objc_msgSend(v8, "rank"), v15 <= objc_msgSend(v9, "count")))
+    if ([v8 rank] >= 1 && (v14 = objc_msgSend(v8, "rank"), v14 <= objc_msgSend(v9, "count")))
     {
       if ([v8 rank] < 2)
+      {
+        v15 = 0;
+      }
+
+      else
+      {
+        v15 = [v9 objectAtIndexedSubscript:{objc_msgSend(v8, "rank") - 2}];
+      }
+
+      v16 = [v8 rank];
+      if (v16 >= [v9 count])
       {
         v17 = 0;
       }
 
       else
       {
-        v17 = [v9 objectAtIndexedSubscript:{objc_msgSend(v8, "rank") - 2}];
+        v17 = [v9 objectAtIndexedSubscript:{objc_msgSend(v8, "rank")}];
       }
 
-      v18 = [v8 rank];
-      if (v18 >= [v9 count])
-      {
-        v19 = 0;
-      }
-
-      else
-      {
-        v19 = [v9 objectAtIndexedSubscript:{objc_msgSend(v8, "rank")}];
-      }
-
-      v20 = a1[4];
-      (*(a1[5] + 16))();
+      (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v16 = a1[4];
-      (*(a1[5] + 16))();
+      (*(*(a1 + 40) + 16))();
     }
   }
 }

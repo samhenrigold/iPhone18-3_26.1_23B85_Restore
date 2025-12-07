@@ -178,10 +178,10 @@
 
 - (id)runAction
 {
-  v82 = *MEMORY[0x1E69E9840];
-  v74.receiver = self;
-  v74.super_class = AMSUIWebNetworkAction;
-  runAction = [(AMSUIWebAction *)&v74 runAction];
+  v81 = *MEMORY[0x1E69E9840];
+  v73.receiver = self;
+  v73.super_class = AMSUIWebNetworkAction;
+  runAction = [(AMSUIWebAction *)&v73 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -200,7 +200,7 @@
     *&buf[12] = 2114;
     *&buf[14] = v7;
     *&buf[22] = 2114;
-    v80 = v9;
+    v79 = v9;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running network action for URL: %{public}@", buf, 0x20u);
   }
 
@@ -239,46 +239,46 @@
     [v14 setHTTPMethod:v19];
 
     headers = [(AMSUIWebNetworkAction *)self headers];
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke;
-    v72[3] = &unk_1E7F25730;
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke;
+    v71[3] = &unk_1E7F25730;
     v21 = v14;
-    v73 = v21;
-    [headers enumerateKeysAndObjectsUsingBlock:v72];
+    v72 = v21;
+    [headers enumerateKeysAndObjectsUsingBlock:v71];
 
     context = [(AMSUIWebAction *)self context];
     additionalHeaders = [context additionalHeaders];
-    v70[0] = MEMORY[0x1E69E9820];
-    v70[1] = 3221225472;
-    v70[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_2;
-    v70[3] = &unk_1E7F25A18;
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 3221225472;
+    v69[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_2;
+    v69[3] = &unk_1E7F25A18;
     v24 = v21;
-    v71 = v24;
-    [additionalHeaders enumerateKeysAndObjectsUsingBlock:v70];
+    v70 = v24;
+    [additionalHeaders enumerateKeysAndObjectsUsingBlock:v69];
 
     if ([(AMSUIWebNetworkAction *)self includeAuthKitTokens])
     {
       [v24 ak_addClientInfoHeader];
       [v24 ak_addPRKRequestHeader];
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2050000000;
+      v74 = 0;
+      v75 = &v74;
+      v76 = 0x2050000000;
       v25 = getAKAppleIDServerResourceLoadDelegateClass_softClass;
-      v78 = getAKAppleIDServerResourceLoadDelegateClass_softClass;
+      v77 = getAKAppleIDServerResourceLoadDelegateClass_softClass;
       if (!getAKAppleIDServerResourceLoadDelegateClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAKAppleIDServerResourceLoadDelegateClass_block_invoke;
-        v80 = &unk_1E7F241B0;
-        v81 = &v75;
+        v79 = &unk_1E7F241B0;
+        v80 = &v74;
         __getAKAppleIDServerResourceLoadDelegateClass_block_invoke(buf);
-        v25 = v76[3];
+        v25 = v75[3];
       }
 
       v26 = v25;
-      _Block_object_dispose(&v75, 8);
+      _Block_object_dispose(&v74, 8);
       v27 = objc_alloc_init(v25);
       [v27 setShouldSendSigningHeaders:1];
       [v27 signRequest:v24];
@@ -294,23 +294,23 @@
       v33 = [accountStore ams_iCloudAccountForAccount:account2];
 
       accountStore2 = [v33 accountStore];
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2020000000;
+      v74 = 0;
+      v75 = &v74;
+      v76 = 0x2020000000;
       v35 = getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_ptr;
-      v78 = getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_ptr;
+      v77 = getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_ptr;
       if (!getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_ptr)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_block_invoke;
-        v80 = &unk_1E7F241B0;
-        v81 = &v75;
+        v79 = &unk_1E7F241B0;
+        v80 = &v74;
         __getAppleIDAuthenticationAppleIDSettingsTokenIdentifierSymbolLoc_block_invoke(buf);
-        v35 = v76[3];
+        v35 = v75[3];
       }
 
-      _Block_object_dispose(&v75, 8);
+      _Block_object_dispose(&v74, 8);
       if (!v35)
       {
         [AIDAMutableServiceContext(AppleMediaServicesUI) _ams_installCDPUIWithCDPUIController:flowControllerDelegate:];
@@ -318,10 +318,10 @@
       }
 
       v36 = *v35;
-      v69 = 0;
+      v68 = 0;
       v37 = v36;
-      v38 = [accountStore2 ams_fetchGrandSlamTokenForAccount:v33 withIdentifier:v37 error:&v69];
-      v39 = v69;
+      v38 = [accountStore2 ams_fetchGrandSlamTokenForAccount:v33 withIdentifier:v37 error:&v68];
+      v39 = v68;
 
       if (v39 || !v38)
       {
@@ -341,7 +341,7 @@
           *&buf[12] = 2114;
           *&buf[14] = v45;
           *&buf[22] = 2114;
-          v80 = v39;
+          v79 = v39;
           _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to fetch GS token. %{public}@", buf, 0x20u);
         }
       }
@@ -381,33 +381,31 @@
     if (signatureData)
     {
       v59 = [signatureData dataUsingEncoding:4];
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_56;
-      v67[3] = &unk_1E7F25780;
-      v67[4] = self;
-      v68 = v59;
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_56;
+      v66[3] = &unk_1E7F25780;
+      v66[4] = self;
+      v67 = v59;
       v60 = v59;
-      v61 = [v56 thenWithBlock:v67];
+      v61 = [v56 thenWithBlock:v66];
 
       v56 = v61;
     }
 
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_2_69;
-    v66[3] = &unk_1E7F26840;
-    v66[4] = self;
-    v62 = [v56 thenWithBlock:v66];
     v65[0] = MEMORY[0x1E69E9820];
     v65[1] = 3221225472;
-    v65[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_3_72;
-    v65[3] = &unk_1E7F24918;
+    v65[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_2_69;
+    v65[3] = &unk_1E7F26840;
     v65[4] = self;
-    v41 = [v62 thenWithBlock:v65];
+    v62 = [v56 thenWithBlock:v65];
+    v64[0] = MEMORY[0x1E69E9820];
+    v64[1] = 3221225472;
+    v64[2] = __34__AMSUIWebNetworkAction_runAction__block_invoke_3_72;
+    v64[3] = &unk_1E7F24918;
+    v64[4] = self;
+    v41 = [v62 thenWithBlock:v64];
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 
   return v41;
 }
@@ -469,7 +467,7 @@ void __34__AMSUIWebNetworkAction_runAction__block_invoke_2_63(uint64_t a1, void 
 
 void __34__AMSUIWebNetworkAction_runAction__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -480,20 +478,17 @@ void __34__AMSUIWebNetworkAction_runAction__block_invoke_3(uint64_t a1, void *a2
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = [*(a1 + 32) context];
-    v9 = [v8 logKey];
-    v11 = 138543874;
-    v12 = v7;
+    v6 = objc_opt_class();
+    v7 = [*(a1 + 32) context];
+    v8 = [v7 logKey];
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
     v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to sign a request: %{public}@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to sign a request: %{public}@", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 id __34__AMSUIWebNetworkAction_runAction__block_invoke_2_69(uint64_t a1, void *a2)

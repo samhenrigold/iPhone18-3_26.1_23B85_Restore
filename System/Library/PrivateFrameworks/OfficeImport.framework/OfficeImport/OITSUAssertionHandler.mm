@@ -30,7 +30,7 @@
   return v6;
 }
 
-void __68__OITSUAssertionHandler_p_performBlockIgnoringAssertions_onlyFatal___block_invoke(uint64_t a1, void *a2, char a3)
+void __68__OITSUAssertionHandler_p_performBlockIgnoringAssertions_onlyFatal___block_invoke(_BYTE *result, void *a2, char a3)
 {
   if (TSUDefaultCat_init_token == -1)
   {
@@ -51,14 +51,14 @@ LABEL_3:
     }
   }
 
-  if (*(a1 + 40))
+  if (result[40])
   {
     return;
   }
 
   v6 = [a2 copy];
 LABEL_7:
-  *(*(*(a1 + 32) + 8) + 40) = v6;
+  *(*(*(result + 4) + 8) + 40) = v6;
 }
 
 os_log_t __68__OITSUAssertionHandler_p_performBlockIgnoringAssertions_onlyFatal___block_invoke_2()

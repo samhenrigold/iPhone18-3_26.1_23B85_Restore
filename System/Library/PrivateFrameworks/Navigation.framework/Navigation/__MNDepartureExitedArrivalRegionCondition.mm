@@ -7,7 +7,7 @@
 
 - (double)scoreForLocation:(id)location
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   WeakRetained = objc_loadWeakRetained(&self->_updater);
 
@@ -22,12 +22,12 @@
     [(NSMutableArray *)self->_regionDepartureHistory removeObjectAtIndex:0];
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v6 = self->_arrivalRegions;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (!v7)
   {
 
@@ -39,17 +39,17 @@ LABEL_21:
   v8 = v7;
   selfCopy = self;
   v9 = 0;
-  v10 = *v40;
+  v10 = *v39;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v40 != v10)
+      if (*v39 != v10)
       {
         objc_enumerationMutation(v6);
       }
 
-      v12 = *(*(&v39 + 1) + 8 * i);
+      v12 = *(*(&v38 + 1) + 8 * i);
       if ([v12 arrivalRegionAction] == 5 || objc_msgSend(v12, "arrivalRegionAction") == 2)
       {
         roadMatch = [locationCopy roadMatch];
@@ -80,7 +80,7 @@ LABEL_21:
       }
     }
 
-    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v38 objects:v42 count:16];
   }
 
   while (v8);
@@ -122,7 +122,6 @@ LABEL_22:
   v29 = v33 / v30;
 LABEL_30:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

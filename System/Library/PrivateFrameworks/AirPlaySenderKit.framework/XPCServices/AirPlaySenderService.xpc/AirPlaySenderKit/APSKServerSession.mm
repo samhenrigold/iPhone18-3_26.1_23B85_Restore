@@ -26,7 +26,7 @@
     v2->_lock = FigSimpleMutexCreate();
     if (dword_100014248 <= 50 && (dword_100014248 != -1 || _LogCategory_Initialize()))
     {
-      sub_10000830C();
+      sub_10000830C(v2);
     }
   }
 
@@ -36,30 +36,29 @@
 - (void)dealloc
 {
   [(APSKServerSession *)self stop];
-  lock = self->_lock;
   FigSimpleMutexDestroy();
   self->_lock = 0;
   if (dword_100014248 <= 50 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000834C();
+    sub_10000834C(self);
   }
 
-  v4.receiver = self;
-  v4.super_class = APSKServerSession;
-  [(APSKServerSession *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = APSKServerSession;
+  [(APSKServerSession *)&v3 dealloc];
 }
 
 - (void)stop
 {
   if (dword_100014248 <= 50 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000838C();
+    sub_10000838C(self);
   }
 
   if (self->_senderNotifObserver)
   {
-    v3 = +[NSNotificationCenter defaultCenter];
-    [v3 removeObserver:self->_senderNotifObserver];
+    v4 = +[NSNotificationCenter defaultCenter];
+    [v4 removeObserver:self->_senderNotifObserver];
 
     senderNotifObserver = self->_senderNotifObserver;
     self->_senderNotifObserver = 0;
@@ -68,22 +67,19 @@
   sender = self->_sender;
   if (sender)
   {
-    sub_100005724(sender);
-    v6 = self->_sender;
-    if (v6)
+    sub_100005724(sender, a2, v2);
+    v7 = self->_sender;
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
       self->_sender = 0;
     }
   }
 
-  lock = self->_lock;
   FigSimpleMutexLock();
   connection = self->_connection;
   self->_connection = 0;
   self->_objectID = 0;
-
-  v9 = self->_lock;
 
   FigSimpleMutexUnlock();
 }
@@ -91,7 +87,7 @@
 - (int)startWithXPCParams:(id)params
 {
   paramsCopy = params;
-  v40 = 0;
+  v40[0] = 0;
   uint64 = xpc_dictionary_get_uint64(paramsCopy, off_1000142D0);
   string = xpc_dictionary_get_string(paramsCopy, off_1000142E0);
   v39 = 0;
@@ -129,6 +125,7 @@
   objc_copyWeak(&v29, &location);
   v25 = objc_retainBlock(v28);
   v12 = FigXPCMessageCopyCFObject();
+  v14 = v12;
   if (v12)
   {
     goto LABEL_36;
@@ -136,42 +133,40 @@
 
   if (!v39 || !uint64)
   {
-    v12 = -6705;
+    v14 = 4294960591;
     APSLogErrorAt();
     goto LABEL_40;
   }
 
   if (self->_sender)
   {
-    v12 = -6709;
+    v14 = 4294960587;
     APSLogErrorAt();
     goto LABEL_40;
   }
 
-  sender = sub_100003BF4();
+  sender = sub_100003BF4(v12, v13);
   self->_sender = sender;
   if (!sender)
   {
-    v12 = -6762;
+    v14 = 4294960534;
     APSLogErrorAt();
     goto LABEL_40;
   }
 
   if (dword_100014248 <= 50)
   {
-    if (dword_100014248 != -1 || (v14 = _LogCategory_Initialize(), sender = self->_sender, v14))
+    if (dword_100014248 != -1 || (v16 = _LogCategory_Initialize(), sender = self->_sender, v16))
     {
-      selfCopy = self;
-      v24 = sender;
-      LogPrintF();
+      LogPrintF(&dword_100014248, "[APSKServerSession startWithXPCParams:]", 33554482, "[%{ptr}] remote session: using media sender %{ptr}", self, sender);
       sender = self->_sender;
     }
   }
 
   if (string)
   {
-    v12 = sub_100004564(sender, [NSString stringWithUTF8String:string]);
-    if (v12)
+    v14 = sub_100004564(sender, [NSString stringWithUTF8String:string]);
+    if (v14)
     {
 LABEL_36:
       APSLogErrorAt();
@@ -181,14 +176,14 @@ LABEL_36:
     sender = self->_sender;
   }
 
-  v12 = sub_100003DB4(sender, v9);
-  if (v12)
+  v14 = sub_100003DB4(sender, v9);
+  if (v14)
   {
     goto LABEL_36;
   }
 
-  v12 = sub_100003ECC(self->_sender, v11);
-  if (v12)
+  v14 = sub_100003ECC(self->_sender, v11);
+  if (v14)
   {
     goto LABEL_36;
   }
@@ -202,40 +197,43 @@ LABEL_36:
   data = xpc_dictionary_get_data(paramsCopy, off_100014308, &length);
   if (!data || length != 40)
   {
-    v12 = -6705;
+    v14 = 4294960591;
     APSLogErrorAt();
     goto LABEL_40;
   }
 
-  v16 = self->_sender;
-  v17 = xpc_dictionary_get_BOOL(paramsCopy, off_100014300);
-  v12 = sub_1000043DC(v16, data, v17);
-  if (!v12)
+  v18 = self->_sender;
+  v19 = xpc_dictionary_get_BOOL(paramsCopy, off_100014300);
+  v14 = sub_1000043DC(v18, data, v19);
+  if (!v14)
   {
 LABEL_19:
     if ((uint64 & 1) == 0)
     {
 LABEL_26:
       sub_100004714(self->_sender, v39, v7, uint64, v8, v10);
-      v12 = 0;
+      LODWORD(v14) = 0;
       goto LABEL_27;
     }
 
-    v12 = FigXPCMessageCopyCFDictionary();
-    if (!v12)
+    v14 = FigXPCMessageCopyCFDictionary();
+    if (!v14)
     {
-      v12 = sub_100004254(self->_sender, v40);
-      if (!v12)
+      v14 = sub_100004254(self->_sender, v40[0]);
+      if (!v14)
       {
-        v12 = sub_100003FE4(self->_sender, v26);
-        if (!v12 && (!xpc_dictionary_get_BOOL(paramsCopy, off_1000142F0) || (v12 = sub_100004100(self->_sender)) == 0))
+        v14 = sub_100003FE4(self->_sender, v26);
+        if (!v14)
         {
-          v18 = [NSNotificationCenter defaultCenter:selfCopy];
-          v19 = [v18 addObserverForName:@"APMediaSender_VideoStreamFailed" object:self->_sender queue:0 usingBlock:v25];
-          senderNotifObserver = self->_senderNotifObserver;
-          self->_senderNotifObserver = v19;
+          if (!xpc_dictionary_get_BOOL(paramsCopy, off_1000142F0) || (v14 = sub_100004100(self->_sender), !v14))
+          {
+            v20 = +[NSNotificationCenter defaultCenter];
+            v21 = [v20 addObserverForName:@"APMediaSender_VideoStreamFailed" object:self->_sender queue:0 usingBlock:v25];
+            senderNotifObserver = self->_senderNotifObserver;
+            self->_senderNotifObserver = v21;
 
-          goto LABEL_26;
+            goto LABEL_26;
+          }
         }
       }
     }
@@ -245,13 +243,13 @@ LABEL_26:
 LABEL_40:
   if (dword_100014248 <= 90 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100014248, "[APSKServerSession startWithXPCParams:]", 33554522, "[%{ptr}] remote session start failed, error: %#m", self, v14);
   }
 
-  v22 = self->_sender;
-  if (v22)
+  v24 = self->_sender;
+  if (v24)
   {
-    CFRelease(v22);
+    CFRelease(v24);
     self->_sender = 0;
   }
 
@@ -261,9 +259,9 @@ LABEL_27:
     CFRelease(v39);
   }
 
-  if (v40)
+  if (v40[0])
   {
-    CFRelease(v40);
+    CFRelease(v40[0]);
   }
 
   objc_destroyWeak(&v29);
@@ -275,7 +273,7 @@ LABEL_27:
   objc_destroyWeak(&v37);
   objc_destroyWeak(&location);
 
-  return v12;
+  return v14;
 }
 
 - (int)setAuthStringFromXPCParams:(id)params
@@ -295,9 +293,10 @@ LABEL_27:
     }
 
     v7 = sub_100004564(sender, v6);
+    v8 = v7;
     if (v7)
     {
-      sub_1000083CC();
+      sub_1000083CC(v7);
     }
   }
 
@@ -307,14 +306,14 @@ LABEL_27:
     return -6709;
   }
 
-  return v7;
+  return v8;
 }
 
 - (int)sendFrameFromXPCParams:(id)params
 {
   paramsCopy = params;
   v5 = paramsCopy;
-  v11 = 0;
+  v12 = 0;
   cf = 0;
   if (self->_sender)
   {
@@ -322,19 +321,20 @@ LABEL_27:
     v7 = v6;
     if (v6)
     {
-      v8 = sub_100007744(v6, &cf, &v11);
+      v8 = sub_100007744(v6, &cf, &v12);
       if (v8)
       {
-        v9 = v8;
-        sub_1000083F4();
+        v10 = v8;
+        sub_1000083F4(v8);
       }
 
       else
       {
-        v9 = sub_1000058AC(self->_sender, cf, v11);
+        v9 = sub_1000058AC(self->_sender, cf, v12);
+        v10 = v9;
         if (v9)
         {
-          sub_10000841C();
+          sub_10000841C(v9);
         }
       }
     }
@@ -342,7 +342,7 @@ LABEL_27:
     else
     {
       sub_100008444();
-      v9 = -6705;
+      v10 = -6705;
     }
   }
 
@@ -350,7 +350,7 @@ LABEL_27:
   {
     sub_100008458();
     v7 = 0;
-    v9 = -6709;
+    v10 = -6709;
   }
 
   if (cf)
@@ -358,7 +358,7 @@ LABEL_27:
     CFRelease(cf);
   }
 
-  return v9;
+  return v10;
 }
 
 - (int)sendAudioDataFromXPCParams:(id)params
@@ -406,7 +406,7 @@ LABEL_8:
   v14 = v11;
   if (v11)
   {
-    sub_10000846C();
+    sub_10000846C(v11);
     if (!v7)
     {
       goto LABEL_11;
@@ -429,126 +429,119 @@ LABEL_11:
 - (void)setObjectID:(unint64_t)d andConnection:(id)connection
 {
   connectionCopy = connection;
-  lock = self->_lock;
   FigSimpleMutexLock();
   connection = self->_connection;
   self->_connection = connectionCopy;
   self->_objectID = d;
-  v10 = connectionCopy;
+  v8 = connectionCopy;
 
-  v9 = self->_lock;
   FigSimpleMutexUnlock();
 }
 
 - (void)handleAuthRequired:(int)required
 {
-  lock = self->_lock;
   FigSimpleMutexLock();
   if (self->_objectID && self->_connection)
   {
-    v6 = FigXPCCreateBasicMessage();
-    v7 = 0;
-    v8 = v7;
-    if (v6)
+    v5 = FigXPCCreateBasicMessage();
+    v6 = 0;
+    v7 = v6;
+    if (v5)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      xpc_dictionary_set_uint64(v7, off_100014338, required);
-      xpc_connection_send_message(self->_connection, v8);
+      xpc_dictionary_set_uint64(v6, off_100014338, required);
+      xpc_connection_send_message(self->_connection, v7);
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = self->_lock;
   FigSimpleMutexUnlock();
   FigXPCRelease();
 }
 
 - (void)handleStartCompletion:(int)completion
 {
+  v3 = *&completion;
   if (completion)
   {
     if (dword_100014248 <= 90 && (dword_100014248 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_8;
+      LogPrintF(&dword_100014248, "[APSKServerSession handleStartCompletion:]", 33554522, "[%{ptr}] server session start failed, error: %#m", self, v3);
     }
   }
 
   else if (dword_100014248 <= 50 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
     sub_100003950();
-LABEL_8:
-    LogPrintF();
+    LogPrintF(v5, v6, v7, v8, self);
   }
 
-  lock = self->_lock;
   FigSimpleMutexLock();
   if (self->_objectID && self->_connection)
   {
-    v6 = FigXPCCreateBasicMessage();
-    v7 = 0;
-    v8 = v7;
-    if (v6)
+    v9 = FigXPCCreateBasicMessage();
+    v10 = 0;
+    v11 = v10;
+    if (v9)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      xpc_dictionary_set_uint64(v7, off_100014330, completion);
-      xpc_connection_send_message(self->_connection, v8);
+      xpc_dictionary_set_uint64(v10, off_100014330, v3);
+      xpc_connection_send_message(self->_connection, v11);
     }
   }
 
   else
   {
-    v8 = 0;
+    v11 = 0;
   }
 
-  v9 = self->_lock;
   FigSimpleMutexUnlock();
   FigXPCRelease();
 }
 
 - (void)handleFailure:(int)failure
 {
+  v3 = *&failure;
   if (dword_100014248 <= 100 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100014248, "[APSKServerSession handleFailure:]", 33554532, "[%{ptr}] server session failed, error: %#m", self, v3);
   }
 
-  lock = self->_lock;
   FigSimpleMutexLock();
   if (self->_objectID && self->_connection)
   {
-    v6 = FigXPCCreateBasicMessage();
-    v7 = 0;
-    v8 = v7;
-    if (v6)
+    v5 = FigXPCCreateBasicMessage();
+    v6 = 0;
+    v7 = v6;
+    if (v5)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      xpc_dictionary_set_uint64(v7, off_100014330, failure);
-      xpc_connection_send_message(self->_connection, v8);
+      xpc_dictionary_set_uint64(v6, off_100014330, v3);
+      xpc_connection_send_message(self->_connection, v7);
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = self->_lock;
   FigSimpleMutexUnlock();
   FigXPCRelease();
 }
@@ -558,72 +551,69 @@ LABEL_8:
   if (dword_100014248 <= 50 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
     sub_100003950();
-    LogPrintF();
+    LogPrintF(v9, v10, v11, v12, self);
   }
 
-  lock = self->_lock;
   FigSimpleMutexLock();
   if (self->_objectID && self->_connection)
   {
-    v10 = FigXPCCreateBasicMessage();
-    v11 = 0;
-    v12 = v11;
-    if (v10)
+    v13 = FigXPCCreateBasicMessage();
+    v14 = 0;
+    v15 = v14;
+    if (v13)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      xpc_dictionary_set_uint64(v11, off_100014340, width);
-      xpc_dictionary_set_uint64(v12, off_100014348, height);
-      xpc_dictionary_set_uint64(v12, off_100014350, rate);
-      xpc_connection_send_message(self->_connection, v12);
+      xpc_dictionary_set_uint64(v14, off_100014340, width);
+      xpc_dictionary_set_uint64(v15, off_100014348, height);
+      xpc_dictionary_set_uint64(v15, off_100014350, rate);
+      xpc_connection_send_message(self->_connection, v15);
     }
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  v13 = self->_lock;
   FigSimpleMutexUnlock();
   FigXPCRelease();
 }
 
 - (void)handleVideoStreamErrorNotification:(int)notification
 {
+  v3 = *&notification;
   if (dword_100014248 <= 90 && (dword_100014248 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_100014248, "[APSKServerSession handleVideoStreamErrorNotification:]", 33554522, "[%{ptr}] server session got video stream failure notification, error: %#m", self, v3);
   }
 
-  lock = self->_lock;
   FigSimpleMutexLock();
   if (self->_objectID && self->_connection)
   {
-    v6 = FigXPCCreateBasicMessage();
-    v7 = 0;
-    v8 = v7;
-    if (v6)
+    v5 = FigXPCCreateBasicMessage();
+    v6 = 0;
+    v7 = v6;
+    if (v5)
     {
       APSLogErrorAt();
     }
 
     else
     {
-      xpc_dictionary_set_uint64(v7, off_100014330, notification);
-      xpc_connection_send_message(self->_connection, v8);
+      xpc_dictionary_set_uint64(v6, off_100014330, v3);
+      xpc_connection_send_message(self->_connection, v7);
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = self->_lock;
   FigSimpleMutexUnlock();
   FigXPCRelease();
 }

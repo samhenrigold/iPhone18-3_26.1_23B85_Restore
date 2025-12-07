@@ -120,12 +120,12 @@ id C3D::RenderGraph::graphDescription(C3D::RenderGraph *this)
           }
 
           [v50 addObject:v53];
-          v8 = v52 + 1;
+          v8 = (v52 + 1);
           v2 = 0x277CBE000;
           v4 = v49;
         }
 
-        while (v52 + 1 != v51);
+        while (v8 != v51);
       }
 
       v4 = *(v4 + 24);
@@ -137,287 +137,305 @@ id C3D::RenderGraph::graphDescription(C3D::RenderGraph *this)
   return v45;
 }
 
-void C3D::RenderGraph::logFrame(C3D::RenderGraph *this)
+void C3D::RenderGraph::logFrame(C3D::RenderGraph *this, uint64_t a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
-  v2 = scn_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v114 = *MEMORY[0x277D85DE8];
+  v3 = scn_default_log(this, a2);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+  if (v4)
   {
-    LOWORD(v86[0]) = 0;
-    _os_log_impl(&dword_21BEF7000, v2, OS_LOG_TYPE_INFO, "Info: ###########################################################################################################", v86, 2u);
+    LOWORD(v109[0]) = 0;
+    _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_INFO, "Info: ###########################################################################################################", v109, 2u);
   }
 
-  v3 = scn_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v6 = scn_default_log(v4, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+  if (v7)
   {
-    LOWORD(v86[0]) = 0;
-    _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_INFO, "Info: ################################################ NEW FRAME ################################################", v86, 2u);
+    LOWORD(v109[0]) = 0;
+    _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_INFO, "Info: ################################################ NEW FRAME ################################################", v109, 2u);
   }
 
-  v4 = scn_default_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v9 = scn_default_log(v7, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  if (v10)
   {
-    LOWORD(v86[0]) = 0;
-    _os_log_impl(&dword_21BEF7000, v4, OS_LOG_TYPE_INFO, "Info: ###########################################################################################################\n", v86, 2u);
+    LOWORD(v109[0]) = 0;
+    _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_INFO, "Info: ###########################################################################################################\n", v109, 2u);
   }
 
-  v6 = *(this + 12);
-  if (v6)
+  v13 = *(this + 12);
+  if (v13)
   {
-    v7 = 0;
-    *&v5 = 67109120;
-    v78 = v5;
-    *&v5 = 136315138;
-    v79 = v5;
-    *&v5 = 136315394;
-    v83 = v5;
+    v14 = 0;
+    *&v12 = 67109120;
+    v101 = v12;
+    *&v12 = 136315138;
+    v102 = v12;
+    *&v12 = 136315394;
+    v106 = v12;
     do
     {
-      v81 = *(v6 + 8);
-      v8 = scn_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v104 = *(v13 + 8);
+      v15 = scn_default_log(v10, v11);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+      if (v16)
       {
-        v86[0] = v78;
-        v86[1] = v7;
-        _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_INFO, "Info: ######################################## STAGE %d ########################################", v86, 8u);
+        v109[0] = v101;
+        v109[1] = v14;
+        _os_log_impl(&dword_21BEF7000, v15, OS_LOG_TYPE_INFO, "Info: ######################################## STAGE %d ########################################", v109, 8u);
       }
 
-      v77 = v7;
-      if (v81)
+      v100 = v14;
+      if (v104)
       {
-        v9 = 0;
-        v80 = v6;
+        v17 = 0;
+        v103 = v13;
         do
         {
-          v82 = v9;
-          v10 = C3D::Array<unsigned short,0u,C3D::ScratchAllocator>::operator[](v6, v9);
-          v11 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(this + 3), *v10);
-          v12 = *v11;
-          v13 = scn_default_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          v105 = v17;
+          v18 = C3D::Array<unsigned short,0u,C3D::ScratchAllocator>::operator[](v13, v17);
+          v19 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(this + 3), *v18);
+          v20 = *v19;
+          v22 = scn_default_log(v19, v21);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+          if (v23)
           {
-            LOWORD(v86[0]) = 0;
-            _os_log_impl(&dword_21BEF7000, v13, OS_LOG_TYPE_INFO, "Info: ", v86, 2u);
+            LOWORD(v109[0]) = 0;
+            _os_log_impl(&dword_21BEF7000, v22, OS_LOG_TYPE_INFO, "Info: ", v109, 2u);
           }
 
-          v14 = scn_default_log();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v25 = scn_default_log(v23, v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
-            v15 = (**v12)(v12);
-            v86[0] = v79;
-            *&v86[1] = v15;
-            _os_log_impl(&dword_21BEF7000, v14, OS_LOG_TYPE_INFO, "Info: |---------------------------  %s ---------------------------", v86, 0xCu);
+            v26 = (**v20)(v20);
+            v109[0] = v102;
+            *&v109[1] = v26;
+            _os_log_impl(&dword_21BEF7000, v25, OS_LOG_TYPE_INFO, "Info: |---------------------------  %s ---------------------------", v109, 0xCu);
           }
 
-          v16 = C3D::Pass::descriptor(v12);
-          v17 = C3D::PassDescriptor::inputCount(v16);
-          v85 = v12;
-          if (v17)
+          v27 = C3D::Pass::descriptor(v20);
+          v28 = C3D::PassDescriptor::inputCount(v27);
+          v108 = v20;
+          if (v28)
           {
-            v18 = v17;
-            v19 = scn_default_log();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            v30 = v28;
+            v31 = scn_default_log(v28, v29);
+            v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
+            if (v32)
             {
-              v86[0] = v78;
-              v86[1] = v18;
-              _os_log_impl(&dword_21BEF7000, v19, OS_LOG_TYPE_INFO, "Info: |---- %d INPUTS ---- \n", v86, 8u);
+              v109[0] = v101;
+              v109[1] = v30;
+              _os_log_impl(&dword_21BEF7000, v31, OS_LOG_TYPE_INFO, "Info: |---- %d INPUTS ---- \n", v109, 8u);
             }
 
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v30; ++i)
             {
-              if (*(v11 + 16))
+              if (*(v19 + 16))
               {
-                v21 = 0;
-                v22 = 0;
-                while (*(C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 8, v21) + 2) != i)
+                v35 = 0;
+                v36 = 0;
+                while (1)
                 {
-                  v21 = ++v22;
-                  if (*(v11 + 16) <= v22)
+                  v32 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 8, v35);
+                  if (*(v32 + 2) == i)
+                  {
+                    break;
+                  }
+
+                  v35 = ++v36;
+                  if (*(v19 + 16) <= v36)
                   {
                     goto LABEL_27;
                   }
                 }
 
-                v23 = *(this + 3);
-                v24 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 8, v21);
-                v25 = **C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v23, *v24 & 0x7FFF);
-                v26 = (*v25)();
-                v27 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 8, v21);
-                v28 = *(this + 3);
-                v29 = *(v27 + 3);
-                v30 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 8, v21);
-                v31 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v28, *v30 & 0x7FFF);
-                v32 = C3D::Pass::descriptor(*v31);
-                v33 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 8, v21);
-                v34 = C3D::PassDescriptor::outputAtIndex(v32, *(v33 + 3));
-                snprintf(v86, 0x200uLL, "linked to : %s slot %d (%s)", v26, v29, *(v34 + 8));
+                v37 = *(this + 3);
+                v38 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 8, v35);
+                v39 = **C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v37, *v38 & 0x7FFF);
+                v40 = (*v39)();
+                v41 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 8, v35);
+                v42 = *(this + 3);
+                v43 = *(v41 + 3);
+                v44 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 8, v35);
+                v45 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v42, *v44 & 0x7FFF);
+                v46 = C3D::Pass::descriptor(*v45);
+                v47 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 8, v35);
+                v48 = C3D::PassDescriptor::outputAtIndex(v46, *(v47 + 3));
+                v32 = snprintf(v109, 0x200uLL, "linked to : %s slot %d (%s)", v40, v43, *(v48 + 8));
               }
 
 LABEL_27:
-              v35 = scn_default_log();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+              v49 = scn_default_log(v32, v33);
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
               {
-                v12 = v85;
-                v36 = C3D::Pass::descriptor(v85);
-                v37 = *(C3D::PassDescriptor::inputAtIndex(v36, i) + 8);
-                *buf = v83;
-                v88 = v37;
-                v89 = 2080;
-                v90 = v86;
-                _os_log_impl(&dword_21BEF7000, v35, OS_LOG_TYPE_INFO, "Info: |-> %s(%s)", buf, 0x16u);
+                v20 = v108;
+                v50 = C3D::Pass::descriptor(v108);
+                v51 = *(C3D::PassDescriptor::inputAtIndex(v50, i) + 8);
+                *buf = v106;
+                v111 = v51;
+                v112 = 2080;
+                v113 = v109;
+                _os_log_impl(&dword_21BEF7000, v49, OS_LOG_TYPE_INFO, "Info: |-> %s(%s)", buf, 0x16u);
               }
 
               else
               {
-                v12 = v85;
+                v20 = v108;
               }
 
-              v38 = C3D::Pass::descriptor(v12);
-              v39 = C3D::PassDescriptor::inputAtIndex(v38, i);
-              C3D::RenderGraph::logPassIODescriptor(v39, v39, "  ");
+              v52 = C3D::Pass::descriptor(v20);
+              v53 = C3D::PassDescriptor::inputAtIndex(v52, i);
+              C3D::RenderGraph::logPassIODescriptor(v53, v53, "  ");
             }
 
-            v40 = scn_default_log();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+            v54 = scn_default_log(v32, v33);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v86[0]) = 0;
-              _os_log_impl(&dword_21BEF7000, v40, OS_LOG_TYPE_INFO, "Info: |", v86, 2u);
+              LOWORD(v109[0]) = 0;
+              _os_log_impl(&dword_21BEF7000, v54, OS_LOG_TYPE_INFO, "Info: |", v109, 2u);
             }
           }
 
-          v41 = C3D::Pass::descriptor(v12);
-          v84 = C3D::PassDescriptor::outputCount(v41);
-          if (v84)
+          v55 = C3D::Pass::descriptor(v20);
+          v56 = C3D::PassDescriptor::outputCount(v55);
+          v107 = v56;
+          if (v56)
           {
-            v42 = scn_default_log();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v58 = scn_default_log(v56, v57);
+            v59 = os_log_type_enabled(v58, OS_LOG_TYPE_INFO);
+            if (v59)
             {
-              v86[0] = v78;
-              v86[1] = v84;
-              _os_log_impl(&dword_21BEF7000, v42, OS_LOG_TYPE_INFO, "Info: |---- %d OUTPUTS ---- \n", v86, 8u);
+              v109[0] = v101;
+              v109[1] = v107;
+              _os_log_impl(&dword_21BEF7000, v58, OS_LOG_TYPE_INFO, "Info: |---- %d OUTPUTS ---- \n", v109, 8u);
             }
 
-            v43 = 0;
+            v61 = 0;
             do
             {
-              strcpy(v86, "linked to : ");
-              if (*(v11 + 40))
+              strcpy(v109, "linked to : ");
+              if (*(v19 + 40))
               {
-                v44 = 0;
-                v45 = 0;
+                v62 = 0;
+                v63 = 0;
                 do
                 {
-                  if (*(C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 32, v44) + 2) == v43)
+                  v59 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 32, v62);
+                  if (*(v59 + 2) == v61)
                   {
-                    v46 = *(this + 3);
-                    v47 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 32, v44);
-                    v48 = **C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v46, *v47 & 0x7FFF);
-                    v49 = (*v48)();
-                    v50 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 32, v44);
-                    v51 = *(this + 3);
-                    v52 = *(v50 + 3);
-                    v53 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 32, v44);
-                    v54 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v51, *v53 & 0x7FFF);
-                    v55 = C3D::Pass::descriptor(*v54);
-                    v56 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v11 + 32, v44);
-                    v57 = C3D::PassDescriptor::inputAtIndex(v55, *(v56 + 3));
-                    snprintf(v86, 0x800uLL, "%s %s slot %d (%s)", v86, v49, v52, *(v57 + 8));
+                    v64 = *(this + 3);
+                    v65 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 32, v62);
+                    v66 = **C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v64, *v65 & 0x7FFF);
+                    v67 = (*v66)();
+                    v68 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 32, v62);
+                    v69 = *(this + 3);
+                    v70 = *(v68 + 3);
+                    v71 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 32, v62);
+                    v72 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v69, *v71 & 0x7FFF);
+                    v73 = C3D::Pass::descriptor(*v72);
+                    v74 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v19 + 32, v62);
+                    v75 = C3D::PassDescriptor::inputAtIndex(v73, *(v74 + 3));
+                    v59 = snprintf(v109, 0x800uLL, "%s %s slot %d (%s)", v109, v67, v70, *(v75 + 8));
                   }
 
-                  v44 = ++v45;
+                  v62 = ++v63;
                 }
 
-                while (*(v11 + 40) > v45);
+                while (*(v19 + 40) > v63);
               }
 
-              v58 = scn_default_log();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+              v76 = scn_default_log(v59, v60);
+              if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
               {
-                v12 = v85;
-                v59 = C3D::Pass::descriptor(v85);
-                v60 = *(C3D::PassDescriptor::outputAtIndex(v59, v43) + 8);
-                *buf = v83;
-                v88 = v60;
-                v89 = 2080;
-                v90 = v86;
-                _os_log_impl(&dword_21BEF7000, v58, OS_LOG_TYPE_INFO, "Info: |-> %s(%s)", buf, 0x16u);
+                v20 = v108;
+                v77 = C3D::Pass::descriptor(v108);
+                v78 = *(C3D::PassDescriptor::outputAtIndex(v77, v61) + 8);
+                *buf = v106;
+                v111 = v78;
+                v112 = 2080;
+                v113 = v109;
+                _os_log_impl(&dword_21BEF7000, v76, OS_LOG_TYPE_INFO, "Info: |-> %s(%s)", buf, 0x16u);
               }
 
               else
               {
-                v12 = v85;
+                v20 = v108;
               }
 
-              v61 = C3D::Pass::descriptor(v12);
-              v62 = C3D::PassDescriptor::outputAtIndex(v61, v43);
-              C3D::RenderGraph::logPassIODescriptor(v62, v62, "  ");
-              ++v43;
+              v79 = C3D::Pass::descriptor(v20);
+              v80 = C3D::PassDescriptor::outputAtIndex(v79, v61);
+              C3D::RenderGraph::logPassIODescriptor(v80, v80, "  ");
+              ++v61;
             }
 
-            while (v43 != v84);
+            while (v61 != v107);
           }
 
-          v63 = (**v12)(v12);
-          v64 = strlen(v63);
-          v65 = v64;
-          MEMORY[0x28223BE20](v64);
-          v67 = &v76[-v66];
-          if (v68)
+          v81 = (**v20)(v20);
+          v82 = strlen(v81);
+          v83 = v82;
+          MEMORY[0x28223BE20](v82);
+          v87 = &v99[-v86];
+          if (v88)
           {
-            memset(&v76[-v66], 45, v65);
+            v84 = memset(&v99[-v86], 45, v83);
           }
 
-          v67[v65] = 0;
-          v69 = scn_default_log();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+          v87[v83] = 0;
+          v89 = scn_default_log(v84, v85);
+          v90 = os_log_type_enabled(v89, OS_LOG_TYPE_INFO);
+          if (v90)
           {
-            v86[0] = v79;
-            *&v86[1] = v67;
-            _os_log_impl(&dword_21BEF7000, v69, OS_LOG_TYPE_INFO, "Info: |----------------------------%s----------------------------", v86, 0xCu);
+            v109[0] = v102;
+            *&v109[1] = v87;
+            _os_log_impl(&dword_21BEF7000, v89, OS_LOG_TYPE_INFO, "Info: |----------------------------%s----------------------------", v109, 0xCu);
           }
 
-          v70 = scn_default_log();
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+          v92 = scn_default_log(v90, v91);
+          v16 = os_log_type_enabled(v92, OS_LOG_TYPE_INFO);
+          if (v16)
           {
-            LOWORD(v86[0]) = 0;
-            _os_log_impl(&dword_21BEF7000, v70, OS_LOG_TYPE_INFO, "Info: ", v86, 2u);
+            LOWORD(v109[0]) = 0;
+            _os_log_impl(&dword_21BEF7000, v92, OS_LOG_TYPE_INFO, "Info: ", v109, 2u);
           }
 
-          v9 = v82 + 1;
-          v6 = v80;
+          v17 = (v105 + 1);
+          v13 = v103;
         }
 
-        while (v82 + 1 != v81);
+        while (v17 != v104);
       }
 
-      v6 = *(v6 + 24);
-      v71 = scn_default_log();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+      v13 = *(v13 + 24);
+      v93 = scn_default_log(v16, v17);
+      v94 = os_log_type_enabled(v93, OS_LOG_TYPE_INFO);
+      if (v94)
       {
-        LOWORD(v86[0]) = 0;
-        _os_log_impl(&dword_21BEF7000, v71, OS_LOG_TYPE_INFO, "Info: ", v86, 2u);
+        LOWORD(v109[0]) = 0;
+        _os_log_impl(&dword_21BEF7000, v93, OS_LOG_TYPE_INFO, "Info: ", v109, 2u);
       }
 
-      v72 = scn_default_log();
-      v73 = os_log_type_enabled(v72, OS_LOG_TYPE_INFO);
-      v74 = v77;
-      if (v73)
+      v96 = scn_default_log(v94, v95);
+      v10 = os_log_type_enabled(v96, OS_LOG_TYPE_INFO);
+      v97 = v100;
+      if (v10)
       {
-        LOWORD(v86[0]) = 0;
-        _os_log_impl(&dword_21BEF7000, v72, OS_LOG_TYPE_INFO, "Info: ", v86, 2u);
+        LOWORD(v109[0]) = 0;
+        _os_log_impl(&dword_21BEF7000, v96, OS_LOG_TYPE_INFO, "Info: ", v109, 2u);
       }
 
-      v7 = v74 + 1;
+      v14 = v97 + 1;
     }
 
-    while (v6);
+    while (v13);
   }
 
-  v75 = scn_default_log();
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+  v98 = scn_default_log(v10, v11);
+  if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v86[0]) = 0;
-    _os_log_impl(&dword_21BEF7000, v75, OS_LOG_TYPE_INFO, "Info: \n\n\n", v86, 2u);
+    LOWORD(v109[0]) = 0;
+    _os_log_impl(&dword_21BEF7000, v98, OS_LOG_TYPE_INFO, "Info: \n\n\n", v109, 2u);
   }
 }
 
@@ -677,7 +695,7 @@ uint64_t C3D::RenderGraph::addPass(C3D::RenderGraph *this, C3D::Pass *a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(this, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3D::RenderGraph::addPass(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -741,7 +759,7 @@ uint64_t C3D::RenderGraph::outputTextureUsageForPass(C3D::RenderGraph *this, con
   }
 }
 
-uint64_t C3D::RenderGraph::computeResourceUsageForOutputDescriptor(uint64_t this, const C3D::Pass **a2, C3D::PassIODescriptor *a3, uint64_t a4, int a5)
+C3D::RenderGraph *C3D::RenderGraph::computeResourceUsageForOutputDescriptor(C3D::RenderGraph *this, const C3D::Pass **a2, C3D::PassIODescriptor *a3, uint64_t a4, int a5)
 {
   if (a5)
   {
@@ -769,55 +787,55 @@ uint64_t C3D::RenderGraph::computeResourceUsageForOutputDescriptor(uint64_t this
   v11 = C3D::Pass::descriptor(v10);
   if (C3D::PassDescriptor::outputCount(v11))
   {
-    v12 = 0;
-    LOBYTE(v13) = 0;
+    v13 = 0;
+    LOBYTE(v14) = 0;
     do
     {
-      v14 = C3D::Pass::descriptor(*v8);
-      if (C3D::PassDescriptor::outputAtIndex(v14, v12) == a3)
+      v15 = C3D::Pass::descriptor(*v8);
+      if (C3D::PassDescriptor::outputAtIndex(v15, v13) == a3)
       {
         break;
       }
 
-      LOBYTE(v13) = v13 + 1;
-      v15 = C3D::Pass::descriptor(*v8);
-      v12 = v13;
+      LOBYTE(v14) = v14 + 1;
+      v16 = C3D::Pass::descriptor(*v8);
+      v13 = v14;
     }
 
-    while (C3D::PassDescriptor::outputCount(v15) > v13);
+    while (C3D::PassDescriptor::outputCount(v16) > v14);
   }
 
   else
   {
-    LOBYTE(v13) = 0;
+    LOBYTE(v14) = 0;
   }
 
-  StackAllocator = C3DEngineContextGetStackAllocator(v9[1]);
+  StackAllocator = C3DEngineContextGetStackAllocator(v9[1], v12);
   v7 = 0;
 LABEL_14:
-  v17 = C3D::Pass::descriptor(*v8);
-  v18 = C3D::PassDescriptor::outputAtIndex(v17, v13);
-  v19 = C3D::RenderGraph::outputTextureUsageForPass(v9, *v8, v18);
-  this = C3D::RenderGraph::GraphNode::successorsAtIndex(v8, v13, StackAllocator, &v26);
-  v7 |= v19;
-  if (v27)
+  v18 = C3D::Pass::descriptor(*v8);
+  v19 = C3D::PassDescriptor::outputAtIndex(v18, v14);
+  v20 = C3D::RenderGraph::outputTextureUsageForPass(v9, *v8, v19);
+  this = C3D::RenderGraph::GraphNode::successorsAtIndex(v8, v14, StackAllocator, &v27);
+  v7 |= v20;
+  if (v28)
   {
-    v20 = v28;
-    v21 = &v28[v27];
+    v21 = v29;
+    v22 = &v29[v28];
     do
     {
       while (1)
       {
-        v13 = HIBYTE(*v20);
-        v8 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v9[3], *v20 & 0x7FFF);
-        v22 = C3D::Pass::descriptor(*v8);
-        this = C3D::PassDescriptor::inputAtIndex(v22, v13);
-        if ((*(this + 66) & 0x80) == 0)
+        v14 = HIBYTE(*v21);
+        v8 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](v9[3], *v21 & 0x7FFF);
+        v23 = C3D::Pass::descriptor(*v8);
+        this = C3D::PassDescriptor::inputAtIndex(v23, v14);
+        if ((*(this + 33) & 0x80) == 0)
         {
           break;
         }
 
-        if (++v20 == v21)
+        if (++v21 == v22)
         {
           goto LABEL_14;
         }
@@ -825,22 +843,22 @@ LABEL_14:
 
       if (v9[21])
       {
-        v23 = 7;
+        v24 = 7;
       }
 
       else
       {
-        v24 = *v8;
-        v25 = *(this + 26);
-        this = C3D::Pass::descriptor(v24);
-        v23 = v25 | ((*this - 1) < 4);
+        v25 = *v8;
+        v26 = *(this + 26);
+        this = C3D::Pass::descriptor(v25);
+        v24 = v26 | ((*this - 1) < 4);
       }
 
-      v7 |= v23;
-      ++v20;
+      v7 |= v24;
+      ++v21;
     }
 
-    while (v20 != v21);
+    while (v21 != v22);
   }
 
   *(a3 + 26) = v7;
@@ -855,35 +873,37 @@ LABEL_10:
 
 uint64_t C3D::RenderGraph::createResource(C3D::RenderGraph *this, C3D::PassIODescriptor *a2, C3D::PassIODescriptor *a3, char a4, int a5, int a6)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 1));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 1), a2);
   v13 = [(SCNMTLRenderContext *)RenderContext frameConstantBufferPool];
   v14 = [(SCNMTLRenderContext *)RenderContext frameTexturePool];
   C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::emplace_back(*(this + 18));
-  v15 = C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(*(this + 18));
-  v16 = *a2;
-  *(v15 + 32) = v16;
+  v16 = C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(*(this + 18), v15);
+  v18 = v16;
+  v19 = *a2;
+  *(v16 + 32) = v19;
   if (a6)
   {
-    v17 = [(SCNMTLRenderContext *)RenderContext device];
-    if (SCNMTLDeviceSupportsMemorylessStorage(v17))
+    v20 = [(SCNMTLRenderContext *)RenderContext device];
+    v16 = SCNMTLDeviceSupportsMemorylessStorage(v20);
+    if (v16)
     {
       *(a2 + 25) = 3;
     }
 
-    v16 = *a2;
+    v19 = *a2;
   }
 
-  if (v16 == 2)
+  if (v19 == 2)
   {
-    SCNMTLBufferPool::allocate(v13, *(a2 + 2), &v109);
-    *v15 = v109;
-    *(v15 + 16) = v110;
-    if (!*(v15 + 8))
+    v21 = SCNMTLBufferPool::allocate(&v119, v13, *(a2 + 2));
+    *v18 = v119;
+    *(v18 + 16) = v120;
+    if (!*(v18 + 8))
     {
-      v18 = scn_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v23 = scn_default_log(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        C3D::RenderGraph::createResource(v18, v19, v20, v21, v22, v23, v24, v25);
+        C3D::RenderGraph::createResource(v23, v24, v25, v26, v27, v28, v29, v30);
       }
     }
 
@@ -893,16 +913,16 @@ uint64_t C3D::RenderGraph::createResource(C3D::RenderGraph *this, C3D::PassIODes
   if ((a4 & 1) == 0 && (a5 & 1) == 0)
   {
     *(a2 + 8) = 0;
-    v109 = *(a2 + 1);
-    LODWORD(v110) = 0;
-    v26 = SCNMTLTexturePool::allocate(v14, &v109, 0, 0);
-    *v15 = v26;
-    if (!v26)
+    v119 = *(a2 + 1);
+    LODWORD(v120) = 0;
+    v31 = SCNMTLTexturePool::allocate(v14, &v119, 0, 0);
+    *v18 = v31;
+    if (!v31)
     {
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v33 = scn_default_log(0, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
-        C3D::RenderGraph::createResource(v27, v28, v29, v30, v31, v32, v33, v34);
+        C3D::RenderGraph::createResource(v33, v34, v35, v36, v37, v38, v39, v40);
       }
     }
 
@@ -913,15 +933,15 @@ uint64_t C3D::RenderGraph::createResource(C3D::RenderGraph *this, C3D::PassIODes
   {
     if (*(a2 + 64) != 1)
     {
-      v45 = scn_default_log();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+      v51 = scn_default_log(v16, v17);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
       {
-        C3D::RenderGraph::createResource(v45, v46, v47, v48, v49, v50, v51, v52);
+        C3D::RenderGraph::createResource(v51, v52, v53, v54, v55, v56, v57, v58);
       }
     }
 
-    *v15 = 0;
-    v44 = *(v15 + 34) | 2;
+    *v18 = 0;
+    v50 = *(v18 + 34) | 2;
     goto LABEL_27;
   }
 
@@ -933,140 +953,142 @@ uint64_t C3D::RenderGraph::createResource(C3D::RenderGraph *this, C3D::PassIODes
     }
 
     *(a2 + 8) = 0;
-    v109 = *(a2 + 1);
-    LODWORD(v110) = 0;
-    v35 = SCNMTLTexturePool::allocate(v14, &v109, 0, 0);
-    *v15 = v35;
-    if (!v35)
+    v119 = *(a2 + 1);
+    LODWORD(v120) = 0;
+    v41 = SCNMTLTexturePool::allocate(v14, &v119, 0, 0);
+    *v18 = v41;
+    if (!v41)
     {
-      v36 = scn_default_log();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v43 = scn_default_log(0, v42);
+      v41 = os_log_type_enabled(v43, OS_LOG_TYPE_FAULT);
+      if (v41)
       {
-        C3D::RenderGraph::createResource(v36, v37, v38, v39, v40, v41, v42, v43);
+        C3D::RenderGraph::createResource(v43, v42, v44, v45, v46, v47, v48, v49);
       }
     }
 
     if (*(a2 + 64) == 1)
     {
-      *(v15 + 24) = 0;
-      v44 = *(v15 + 34) | 4;
+      *(v18 + 24) = 0;
+      v50 = *(v18 + 34) | 4;
 LABEL_27:
-      *(v15 + 34) = v44;
+      *(v18 + 34) = v50;
       goto LABEL_28;
     }
 
     if (*(a3 + 31) >= 2u)
     {
-      v93 = scn_default_log();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
-      {
-        C3D::RenderGraph::createResource(v93, v94, v95, v96, v97, v98, v99, v100);
-      }
-    }
-
-    if (SCNMTLTextureTypeIsMultisampled(*(a3 + 24)))
-    {
-      v101 = scn_default_log();
+      v101 = scn_default_log(v41, v42);
       if (os_log_type_enabled(v101, OS_LOG_TYPE_FAULT))
       {
         C3D::RenderGraph::createResource(v101, v102, v103, v104, v105, v106, v107, v108);
       }
     }
 
+    IsMultisampled = SCNMTLTextureTypeIsMultisampled(*(a3 + 24));
+    if (IsMultisampled)
+    {
+      v111 = scn_default_log(IsMultisampled, v110);
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_FAULT))
+      {
+        C3D::RenderGraph::createResource(v111, v112, v113, v114, v115, v116, v117, v118);
+      }
+    }
+
     *(a3 + 8) = 1;
-    v109 = *(a3 + 1);
-    LODWORD(v110) = *(a3 + 8);
-    *(v15 + 24) = SCNMTLTexturePool::allocate(v14, &v109, 0, 0);
+    v119 = *(a3 + 1);
+    LODWORD(v120) = *(a3 + 8);
+    *(v18 + 24) = SCNMTLTexturePool::allocate(v14, &v119, 0, 0);
   }
 
   else
   {
     *(a2 + 8) = 0;
-    v109 = *(a2 + 1);
-    LODWORD(v110) = 0;
-    v75 = SCNMTLTexturePool::allocate(v14, &v109, 0, 0);
-    *v15 = v75;
-    if (!v75)
+    v119 = *(a2 + 1);
+    LODWORD(v120) = 0;
+    v81 = SCNMTLTexturePool::allocate(v14, &v119, 0, 0);
+    *v18 = v81;
+    if (!v81)
     {
-      v76 = scn_default_log();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+      v83 = scn_default_log(0, v82);
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
       {
-        C3D::RenderGraph::createResource(v76, v77, v78, v79, v80, v81, v82, v83);
+        C3D::RenderGraph::createResource(v83, v84, v85, v86, v87, v88, v89, v90);
       }
     }
 
     *(a3 + 8) = 1;
-    v109 = *(a3 + 1);
-    LODWORD(v110) = 1;
-    v84 = SCNMTLTexturePool::allocate(v14, &v109, 0, 0);
-    *(v15 + 24) = v84;
-    if (!v84)
+    v119 = *(a3 + 1);
+    LODWORD(v120) = 1;
+    v91 = SCNMTLTexturePool::allocate(v14, &v119, 0, 0);
+    *(v18 + 24) = v91;
+    if (!v91)
     {
-      v85 = scn_default_log();
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
+      v93 = scn_default_log(0, v92);
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
       {
-        C3D::RenderGraph::createResource(v85, v86, v87, v88, v89, v90, v91, v92);
+        C3D::RenderGraph::createResource(v93, v94, v95, v96, v97, v98, v99, v100);
       }
     }
   }
 
 LABEL_28:
-  v53 = *(a2 + 33);
-  if ((v53 & 0x10) == 0)
+  v59 = *(a2 + 33);
+  if ((v59 & 0x10) == 0)
   {
     goto LABEL_51;
   }
 
-  v54 = *(this + 17);
-  v55 = *(a2 + 1);
-  v56 = strlen(v55);
-  v57 = 0xC6A4A7935BD1E995 * v56;
-  if (v56 >= 8)
+  v60 = *(this + 17);
+  v61 = *(a2 + 1);
+  v62 = strlen(v61);
+  v63 = 0xC6A4A7935BD1E995 * v62;
+  if (v62 >= 8)
   {
-    v58 = v56 >> 3;
-    v59 = &v55[8 * v58];
-    v60 = 8 * v58;
+    v64 = v62 >> 3;
+    v65 = &v61[8 * v64];
+    v66 = 8 * v64;
     do
     {
-      v61 = *v55;
-      v55 += 8;
-      v57 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v61) ^ ((0xC6A4A7935BD1E995 * v61) >> 47))) ^ v57);
-      v60 -= 8;
+      v67 = *v61;
+      v61 += 8;
+      v63 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v67) ^ ((0xC6A4A7935BD1E995 * v67) >> 47))) ^ v63);
+      v66 -= 8;
     }
 
-    while (v60);
-    v55 = v59;
+    while (v66);
+    v61 = v65;
   }
 
-  v62 = v56 & 7;
-  if (v62 > 3)
+  v68 = v62 & 7;
+  if (v68 > 3)
   {
-    if ((v56 & 7) > 5)
+    if ((v62 & 7) > 5)
     {
-      if (v62 != 6)
+      if (v68 != 6)
       {
-        v57 ^= *(v55 + 6) << 48;
+        v63 ^= *(v61 + 6) << 48;
       }
 
-      v57 ^= *(v55 + 5) << 40;
+      v63 ^= *(v61 + 5) << 40;
     }
 
-    else if (v62 == 4)
+    else if (v68 == 4)
     {
       goto LABEL_46;
     }
 
-    v57 ^= *(v55 + 4) << 32;
+    v63 ^= *(v61 + 4) << 32;
 LABEL_46:
-    v57 ^= *(v55 + 3) << 24;
+    v63 ^= *(v61 + 3) << 24;
 LABEL_47:
-    v57 ^= *(v55 + 2) << 16;
+    v63 ^= *(v61 + 2) << 16;
     goto LABEL_48;
   }
 
-  if ((v56 & 7) <= 1)
+  if ((v62 & 7) <= 1)
   {
-    if ((v56 & 7) == 0)
+    if ((v62 & 7) == 0)
     {
       goto LABEL_50;
     }
@@ -1074,50 +1096,50 @@ LABEL_47:
     goto LABEL_49;
   }
 
-  if (v62 != 2)
+  if (v68 != 2)
   {
     goto LABEL_47;
   }
 
 LABEL_48:
-  v57 ^= *(v55 + 1) << 8;
+  v63 ^= *(v61 + 1) << 8;
 LABEL_49:
-  v57 = 0xC6A4A7935BD1E995 * (v57 ^ *v55);
+  v63 = 0xC6A4A7935BD1E995 * (v63 ^ *v61);
 LABEL_50:
-  v63 = (0xC6A4A7935BD1E995 * (v57 ^ (v57 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v57 ^ (v57 >> 47))) >> 47);
-  *&v109 = C3D::RefCountedResource::textureOrFinal(v15, RenderContext);
-  C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::insert(v54, v63, &v109);
-  v53 = *(a2 + 33);
+  v69 = (0xC6A4A7935BD1E995 * (v63 ^ (v63 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v63 ^ (v63 >> 47))) >> 47);
+  *&v119 = C3D::RefCountedResource::textureOrFinal(v18, RenderContext);
+  C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::insert(v60, v69, &v119);
+  v59 = *(a2 + 33);
 LABEL_51:
-  if ((v53 & 0x20) != 0)
+  if ((v59 & 0x20) != 0)
   {
-    v64 = *(this + 17);
-    v65 = *(a2 + 1);
-    v66 = strlen(v65);
-    v67 = 0xC6A4A7935BD1E995 * v66;
-    if (v66 >= 8)
+    v70 = *(this + 17);
+    v71 = *(a2 + 1);
+    v72 = strlen(v71);
+    v73 = 0xC6A4A7935BD1E995 * v72;
+    if (v72 >= 8)
     {
-      v68 = v66 >> 3;
-      v69 = &v65[8 * v68];
-      v70 = 8 * v68;
+      v74 = v72 >> 3;
+      v75 = &v71[8 * v74];
+      v76 = 8 * v74;
       do
       {
-        v71 = *v65;
-        v65 += 8;
-        v67 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v71) ^ ((0xC6A4A7935BD1E995 * v71) >> 47))) ^ v67);
-        v70 -= 8;
+        v77 = *v71;
+        v71 += 8;
+        v73 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v77) ^ ((0xC6A4A7935BD1E995 * v77) >> 47))) ^ v73);
+        v76 -= 8;
       }
 
-      while (v70);
-      v65 = v69;
+      while (v76);
+      v71 = v75;
     }
 
-    v72 = v66 & 7;
-    if (v72 <= 3)
+    v78 = v72 & 7;
+    if (v78 <= 3)
     {
-      if ((v66 & 7) <= 1)
+      if ((v72 & 7) <= 1)
       {
-        if ((v66 & 7) == 0)
+        if ((v72 & 7) == 0)
         {
           goto LABEL_73;
         }
@@ -1125,46 +1147,46 @@ LABEL_51:
         goto LABEL_72;
       }
 
-      if (v72 == 2)
+      if (v78 == 2)
       {
 LABEL_71:
-        v67 ^= *(v65 + 1) << 8;
+        v73 ^= *(v71 + 1) << 8;
 LABEL_72:
-        v67 = 0xC6A4A7935BD1E995 * (v67 ^ *v65);
+        v73 = 0xC6A4A7935BD1E995 * (v73 ^ *v71);
 LABEL_73:
-        v73 = (0xC6A4A7935BD1E995 * (v67 ^ (v67 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v67 ^ (v67 >> 47))) >> 47);
-        *&v109 = C3D::RefCountedResource::resolveTextureOrFinal(v15, RenderContext);
-        C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::insert(v64, v73, &v109);
-        return v15;
+        v79 = (0xC6A4A7935BD1E995 * (v73 ^ (v73 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v73 ^ (v73 >> 47))) >> 47);
+        *&v119 = C3D::RefCountedResource::resolveTextureOrFinal(v18, RenderContext);
+        C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::insert(v70, v79, &v119);
+        return v18;
       }
 
 LABEL_70:
-      v67 ^= *(v65 + 2) << 16;
+      v73 ^= *(v71 + 2) << 16;
       goto LABEL_71;
     }
 
-    if ((v66 & 7) > 5)
+    if ((v72 & 7) > 5)
     {
-      if (v72 != 6)
+      if (v78 != 6)
       {
-        v67 ^= *(v65 + 6) << 48;
+        v73 ^= *(v71 + 6) << 48;
       }
 
-      v67 ^= *(v65 + 5) << 40;
+      v73 ^= *(v71 + 5) << 40;
     }
 
-    else if (v72 == 4)
+    else if (v78 == 4)
     {
       goto LABEL_69;
     }
 
-    v67 ^= *(v65 + 4) << 32;
+    v73 ^= *(v71 + 4) << 32;
 LABEL_69:
-    v67 ^= *(v65 + 3) << 24;
+    v73 ^= *(v71 + 3) << 24;
     goto LABEL_70;
   }
 
-  return v15;
+  return v18;
 }
 
 uint64_t C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::emplace_back(uint64_t a1)
@@ -1188,14 +1210,14 @@ uint64_t C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::emplace_b
   return result;
 }
 
-uint64_t C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(uint64_t a1)
+uint64_t C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 8))
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -1464,87 +1486,90 @@ _DWORD *C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::push_back<C
 
 uint64_t C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if (a2 != a1)
   {
     if (!*a1)
     {
-      v4 = scn_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v4 = scn_default_log(a1, a2);
+      a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
+      if (a1)
       {
-        C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v4, v5, v6, v7, v8, v9, v10, v11);
+        C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v4, a2, v5, v6, v7, v8, v9, v10);
       }
     }
 
-    v12 = *(a2 + 12);
-    *(a1 + 8) = *(a2 + 8);
-    *(a1 + 12) = v12;
-    if (*(a1 + 16) != a1 + 24)
+    v11 = *(a2 + 12);
+    *(v2 + 8) = *(a2 + 8);
+    *(v2 + 12) = v11;
+    if (*(v2 + 16) != v2 + 24)
     {
-      *(a1 + 16) = a1 + 24;
+      *(v2 + 16) = v2 + 24;
     }
 
-    v13 = *(a2 + 16);
-    if (v13 == a2 + 24)
+    v12 = *(a2 + 16);
+    if (v12 == a2 + 24)
     {
-      if (v12)
+      if (v11)
       {
-        v14 = scn_default_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+        v13 = scn_default_log(a1, a2);
+        a1 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+        if (a1)
         {
-          C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v14, v15, v16, v17, v18, v19, v20, v21);
+          C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v13, a2, v14, v15, v16, v17, v18, v19);
         }
       }
 
       if (*(a2 + 12))
       {
-        v22 = scn_default_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v20 = scn_default_log(a1, a2);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
         {
-          C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v22, v23, v24, v25, v26, v27, v28, v29);
+          C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator=(v20, v21, v22, v23, v24, v25, v26, v27);
         }
       }
 
-      memcpy((a1 + 24), (a2 + 24), 4 * *(a2 + 8));
+      memcpy((v2 + 24), (a2 + 24), 4 * *(a2 + 8));
     }
 
     else
     {
-      *(a1 + 16) = v13;
+      *(v2 + 16) = v12;
     }
 
     *(a2 + 8) = 0;
     *(a2 + 16) = a2 + 24;
   }
 
-  return a1;
+  return v2;
 }
 
-uint64_t C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::back(uint64_t a1)
+uint64_t C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::back(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 8))
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3D::Array<C3D::RefCountedResource,0u,C3D::ScratchAllocator>::back(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 16) + 8 * *(a1 + 8) - 8;
 }
 
-void C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(uint64_t a1)
+void C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(uint64_t result, uint64_t a2)
 {
-  if (!*(a1 + 8))
+  if (!*(result + 8))
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(result, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  --*(a1 + 8);
+  --*(result + 8);
 }
 
 _DWORD *C3D::Array<C3D::Pass *,0u,C3D::ScratchAllocator>::push_back<C3D::Pass *&>(_DWORD *result, void *a2)
@@ -1615,9 +1640,9 @@ _DWORD *C3D::Array<unsigned char,16u,C3D::StackAllocator>::push_back<unsigned ch
   return result;
 }
 
-void C3D::RenderGraph::freeConsumedResources(uint64_t a1, uint64_t a2, uint64_t a3)
+void C3D::RenderGraph::freeConsumedResources(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  *&v28[5] = *MEMORY[0x277D85DE8];
+  *&v29[5] = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 16);
   if (v3)
   {
@@ -1626,7 +1651,7 @@ void C3D::RenderGraph::freeConsumedResources(uint64_t a1, uint64_t a2, uint64_t 
     do
     {
       v8 = *v6;
-      v9 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), *v6 & 0x7FFF);
+      v9 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(result + 24), *v6 & 0x7FFF);
       v10 = HIBYTE(v8);
       v11 = C3D::PassDescriptor::outputAtIndex((*v9 + 32), v10);
       if ((*(v11 + 66) & 0x100) == 0)
@@ -1636,67 +1661,68 @@ void C3D::RenderGraph::freeConsumedResources(uint64_t a1, uint64_t a2, uint64_t 
         v14 = C3D::PassResource::outputAtIndex(v13, v10);
         if (v14)
         {
-          v15 = v14;
+          v16 = v14;
           if ((*(v14 + 34) & 1) == 0)
           {
-            v16 = *(v14 + 33) - 1;
-            *(v14 + 33) = v16;
-            if (v16 < 0)
+            v17 = *(v14 + 33) - 1;
+            *(v14 + 33) = v17;
+            if (v17 < 0)
             {
-              v17 = scn_default_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+              v18 = scn_default_log(v14, v15);
+              v14 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
+              if (v14)
               {
-                C3D::RenderGraph::allocateResources(v27, v28, v17);
+                C3D::RenderGraph::allocateResources(v28, v29, v18);
               }
 
-              v16 = *(v15 + 33);
+              v17 = *(v16 + 33);
             }
 
-            if (!v16)
+            if (!v17)
             {
-              v18 = *v12;
-              if (v18 == 2)
+              v19 = *v12;
+              if (v19 == 2)
               {
-                if (!*(v15 + 8))
+                if (!*(v16 + 8))
                 {
-                  v22 = scn_default_log();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+                  v23 = scn_default_log(v14, v15);
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
                   {
-                    C3D::RenderGraph::allocateResources(v23, &v24, v22);
+                    C3D::RenderGraph::allocateResources(v24, &v25, v23);
                   }
                 }
 
-                *v15 = 0;
-                *(v15 + 8) = 0;
-                *(v15 + 16) = 0;
+                *v16 = 0;
+                *(v16 + 8) = 0;
+                *(v16 + 16) = 0;
               }
 
-              else if (v18 == 1)
+              else if (v19 == 1)
               {
-                v19 = *(v15 + 34);
-                if ((v19 & 1) == 0)
+                v20 = *(v16 + 34);
+                if ((v20 & 1) == 0)
                 {
-                  if ((*(v15 + 34) & 2) == 0)
+                  if ((*(v16 + 34) & 2) == 0)
                   {
-                    if (!*v15)
+                    if (!*v16)
                     {
-                      v20 = scn_default_log();
-                      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+                      v21 = scn_default_log(v14, v15);
+                      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
                       {
-                        C3D::RenderGraph::allocateResources(v25, &v26, v20);
+                        C3D::RenderGraph::allocateResources(v26, &v27, v21);
                       }
                     }
 
-                    SCNMTLTexturePool::free(a3, *v15);
-                    v19 = *(v15 + 34);
+                    SCNMTLTexturePool::free(a3, *v16);
+                    v20 = *(v16 + 34);
                   }
 
-                  if ((v19 & 4) == 0)
+                  if ((v20 & 4) == 0)
                   {
-                    v21 = *(v15 + 24);
-                    if (v21)
+                    v22 = *(v16 + 24);
+                    if (v22)
                     {
-                      SCNMTLTexturePool::free(a3, v21);
+                      SCNMTLTexturePool::free(a3, v22);
                     }
                   }
                 }
@@ -1714,14 +1740,14 @@ void C3D::RenderGraph::freeConsumedResources(uint64_t a1, uint64_t a2, uint64_t 
   }
 }
 
-uint64_t C3D::RenderGraph::lastNodeUsingResourceAtIndex(uint64_t result, _BYTE *a2, unsigned int a3, unsigned int a4, C3D::Pass ***a5, uint64_t *a6, BOOL *a7, BOOL *a8)
+uint64_t C3D::RenderGraph::lastNodeUsingResourceAtIndex(uint64_t result, _BYTE *a2, uint64_t a3, uint64_t a4, C3D::Pass ***a5, uint64_t *a6, BOOL *a7, BOOL *a8)
 {
   if (*a2 == 1)
   {
     v29 = v8;
     v30 = v9;
     v14 = result;
-    StackAllocator = C3DEngineContextGetStackAllocator(*(result + 8));
+    StackAllocator = C3DEngineContextGetStackAllocator(*(result + 8), a2);
     v16 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(v14 + 24), a3);
     if (C3D::PassDescriptor::outputCount((*v16 + 32)) <= a4)
     {
@@ -1779,13 +1805,13 @@ uint64_t C3D::RenderGraph::lastNodeUsingResourceAtIndex(uint64_t result, _BYTE *
   return result;
 }
 
-uint64_t C3D::RenderGraph::propagateReadWriteResources(uint64_t a1, C3D::Pass **a2, unsigned int a3, unsigned __int8 a4, C3D::RefCountedResource *a5)
+uint64_t C3D::RenderGraph::propagateReadWriteResources(uint64_t a1, C3D::Pass **a2, uint64_t a3, unsigned __int8 a4, C3D::RefCountedResource *a5)
 {
   v9 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), a3);
-  result = C3DEngineContextGetStackAllocator(*(a1 + 8));
+  result = C3DEngineContextGetStackAllocator(*(a1 + 8), v10);
   if (v9 != a2)
   {
-    v11 = result;
+    v12 = result;
     do
     {
       result = C3D::PassDescriptor::inputAtIndex((*v9 + 32), a4);
@@ -1794,13 +1820,13 @@ uint64_t C3D::RenderGraph::propagateReadWriteResources(uint64_t a1, C3D::Pass **
         break;
       }
 
-      v12 = C3D::Pass::resource(*v9);
-      C3D::PassResource::setInputAtIndex(v12, a5, a4);
+      v13 = C3D::Pass::resource(*v9);
+      C3D::PassResource::setInputAtIndex(v13, a5, a4);
       ++*(a5 + 33);
-      C3D::RenderGraph::GraphNode::successorsAtIndex(v9, a4, v11, v14);
-      a4 = *(C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v14, 0) + 3);
-      v13 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v14, 0);
-      result = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), *v13 & 0x7FFF);
+      C3D::RenderGraph::GraphNode::successorsAtIndex(v9, a4, v12, v15);
+      a4 = *(C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v15, 0) + 3);
+      v14 = C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::operator[](v15, 0);
+      result = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), *v14 & 0x7FFF);
       v9 = result;
     }
 
@@ -1810,24 +1836,24 @@ uint64_t C3D::RenderGraph::propagateReadWriteResources(uint64_t a1, C3D::Pass **
   return result;
 }
 
-double C3D::RenderGraph::clearDrawable(C3D::RenderGraph *this)
+double C3D::RenderGraph::clearDrawable(C3D::RenderGraph *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 1));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 1), a2);
   if ([(SCNMTLRenderContext *)RenderContext layerTarget])
   {
     C3D::SetupDefaultRenderPassDescriptor(*(this + 1), *(this + 19), 1);
-    v4 = [(SCNMTLRenderContext *)RenderContext currentCommandBuffer];
-    v5 = [(SCNMTLRenderContext *)RenderContext frameConstantBufferPool];
-    v6 = *(this + 19);
-    bzero(&v7, 0xD70uLL);
-    LODWORD(v7.var14[0].var1) = 1;
-    LOBYTE(v7.var14[1].var0) = 1;
-    v7.var24[0] = v4;
-    v7.var24[1] = [v4 renderCommandEncoderWithDescriptor:v6];
-    v7.var25[0] = v5;
-    [v7.var24[1] setLabel:@"Clear drawable"];
-    memset(&v7.var1, 0, 32);
-    return SCNMTLRenderCommandEncoder::endEncoding(&v7);
+    v5 = [(SCNMTLRenderContext *)RenderContext currentCommandBuffer];
+    v6 = [(SCNMTLRenderContext *)RenderContext frameConstantBufferPool];
+    v7 = *(this + 19);
+    bzero(&v9, 0xD70uLL);
+    LODWORD(v9.var14[0].var1) = 1;
+    LOBYTE(v9.var14[1].var0) = 1;
+    v9.var24[0] = v5;
+    v9.var24[1] = [v5 renderCommandEncoderWithDescriptor:v7];
+    v9.var25[0] = v6;
+    [v9.var24[1] setLabel:@"Clear drawable"];
+    memset(&v9.var1, 0, 32);
+    return SCNMTLRenderCommandEncoder::endEncoding(&v9, v8);
   }
 
   return result;
@@ -1836,38 +1862,38 @@ double C3D::RenderGraph::clearDrawable(C3D::RenderGraph *this)
 void C3D::RenderGraph::spriteKitTransitionBegin(C3D::RenderGraph *this, MTLRenderPassDescriptor *a2)
 {
   C3D::SetupDefaultRenderPassDescriptor(*(this + 1), *(this + 19), a2);
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 1));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 1), v3);
   [(SCNMTLRenderContext *)RenderContext currentCommandBuffer];
   [(SCNMTLRenderContext *)RenderContext frameConstantBufferPool];
   operator new();
 }
 
-void C3D::RenderGraph::spriteKitTransitionEnd(C3D::RenderGraph *this)
+void C3D::RenderGraph::spriteKitTransitionEnd(C3D::RenderGraph *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 1));
-  v2 = [(SCNMTLRenderContext *)RenderContext renderEncoder];
-  if (v2)
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 1), a2);
+  v3 = [(SCNMTLRenderContext *)RenderContext renderEncoder];
+  if (v3)
   {
-    SCNMTLRenderCommandEncoder::endEncoding(v2);
+    SCNMTLRenderCommandEncoder::endEncoding(v3, v4);
     [(SCNMTLRenderContext *)RenderContext endRenderPass];
 
     JUMPOUT(0x21CF07610);
   }
 
-  v3 = scn_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v5 = scn_default_log(0, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    C3D::RenderGraph::spriteKitTransitionEnd(v3, v4, v5, v6, v7, v8, v9, v10);
+    C3D::RenderGraph::spriteKitTransitionEnd(v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
-  SCNMTLRenderCommandEncoder::endEncoding(0);
+  SCNMTLRenderCommandEncoder::endEncoding(0, v6);
   [(SCNMTLRenderContext *)RenderContext endRenderPass];
 }
 
-void C3D::RenderGraph::logDependencyInputMismatch(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+void C3D::RenderGraph::logDependencyInputMismatch(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v75 = *MEMORY[0x277D85DE8];
-  StackAllocator = C3DEngineContextGetStackAllocator(*(a1 + 8));
+  v77 = *MEMORY[0x277D85DE8];
+  StackAllocator = C3DEngineContextGetStackAllocator(*(a1 + 8), a2);
   if (a4 == 255 && a5 != 255)
   {
     v10 = C3D::PassDescriptor::outputAtIndex((*a3 + 32), a5);
@@ -1881,8 +1907,8 @@ void C3D::RenderGraph::logDependencyInputMismatch(uint64_t a1, uint64_t a2, uint
       {
         if ((~*v12 & 0xFF0000) != 0)
         {
-          v64 = BYTE2(*v12);
-          C3D::Array<unsigned char,16u,C3D::StackAllocator>::push_back<unsigned char>(buf, &v64);
+          v66 = BYTE2(*v12);
+          C3D::Array<unsigned char,16u,C3D::StackAllocator>::push_back<unsigned char>(buf, &v66);
         }
 
         ++v12;
@@ -1897,8 +1923,8 @@ void C3D::RenderGraph::logDependencyInputMismatch(uint64_t a1, uint64_t a2, uint
     {
       v14 = *(C3D::PassDescriptor::inputAtIndex((*a2 + 32), a4) + 64);
       v15 = *(v10 + 64);
-      v16 = (*&__n_6[2] + HIDWORD(v66));
-      v17 = memchr(*&__n_6[2], a4, HIDWORD(v66));
+      v16 = (*&__n_6[2] + HIDWORD(v68));
+      v17 = memchr(*&__n_6[2], a4, HIDWORD(v68));
       if (v17)
       {
         v18 = v17 == v16;
@@ -1936,8 +1962,8 @@ LABEL_22:
       {
         if ((~*v24 & 0xFF0000) != 0)
         {
-          v64 = BYTE2(*v24);
-          C3D::Array<unsigned char,16u,C3D::StackAllocator>::push_back<unsigned char>(buf, &v64);
+          v66 = BYTE2(*v24);
+          C3D::Array<unsigned char,16u,C3D::StackAllocator>::push_back<unsigned char>(buf, &v66);
         }
 
         ++v24;
@@ -1952,8 +1978,8 @@ LABEL_22:
     {
       v26 = *(C3D::PassDescriptor::outputAtIndex((*a3 + 32), a5) + 64);
       v27 = *(v22 + 64);
-      v28 = (*&__n_6[2] + HIDWORD(v66));
-      v29 = memchr(*&__n_6[2], a5, HIDWORD(v66));
+      v28 = (*&__n_6[2] + HIDWORD(v68));
+      v29 = memchr(*&__n_6[2], a5, HIDWORD(v68));
       if (v29)
       {
         v30 = v29 == v28;
@@ -1982,140 +2008,151 @@ LABEL_43:
     v33 = C3D::PassDescriptor::inputAtIndex((*a2 + 32), v21);
     v34 = a5;
     v35 = C3D::PassDescriptor::outputAtIndex((*a3 + 32), a5);
-    if (!C3D::PassIODescriptor::isCompatible(v35, v33))
+    isCompatible = C3D::PassIODescriptor::isCompatible(v35, v33);
+    if ((isCompatible & 1) == 0)
     {
       if ((C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
       {
         C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-        v36 = scn_default_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v38 = scn_default_log(isCompatible, v37);
+        isCompatible = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+        if (isCompatible)
         {
-          v60 = (***a3)();
-          if (*(v35 + 1))
+          v62 = (***a3)();
+          if (v35[1])
           {
-            v61 = *(v35 + 1);
+            v63 = v35[1];
           }
 
           else
           {
-            v61 = "";
-          }
-
-          v62 = (***a2)();
-          v63 = *(v33 + 1);
-          if (!v63)
-          {
             v63 = "";
           }
 
+          v64 = (***a2)();
+          v65 = v33[1];
+          if (!v65)
+          {
+            v65 = "";
+          }
+
           *buf = 136316418;
-          v66 = v60;
+          v68 = v62;
           __n_4 = 1024;
           *__n_6 = v34;
           *&__n_6[4] = 2080;
-          *&__n_6[6] = v61;
-          v69 = 2080;
-          v70 = v62;
-          v71 = 1024;
-          v72 = v21;
-          v73 = 2080;
-          v74 = v63;
-          _os_log_error_impl(&dword_21BEF7000, v36, OS_LOG_TYPE_ERROR, "Error: Dependency issue between source %s[%d]:%s and destination %s[%d]:%s", buf, 0x36u);
+          *&__n_6[6] = v63;
+          v71 = 2080;
+          v72 = v64;
+          v73 = 1024;
+          v74 = v21;
+          v75 = 2080;
+          v76 = v65;
+          _os_log_error_impl(&dword_21BEF7000, v38, OS_LOG_TYPE_ERROR, "Error: Dependency issue between source %s[%d]:%s and destination %s[%d]:%s", buf, 0x36u);
         }
       }
 
-      v37 = *v33;
-      if (v37 != *v35 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+      v39 = *v33;
+      if (v39 != *v35 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
       {
         C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-        v38 = scn_default_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v40 = scn_default_log(isCompatible, v37);
+        isCompatible = os_log_type_enabled(v40, OS_LOG_TYPE_ERROR);
+        if (isCompatible)
         {
           C3D::RenderGraph::logDependencyInputMismatch();
         }
 
-        v37 = *v33;
+        v39 = *v33;
       }
 
-      if (v37 == 1)
+      if (v39 == 1)
       {
-        v39 = *(v35 + 8);
-        v40 = *(v33 + 8);
-        if (v39 != v40 && (v40 + v39) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        v41 = *(v35 + 8);
+        v42 = *(v33 + 8);
+        if (v41 != v42 && (v42 + v41) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v41 = scn_default_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v43 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        v42 = *(v35 + 9);
-        v43 = *(v33 + 9);
-        if (v42 != v43 && (v43 + v42) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        v44 = *(v35 + 9);
+        v45 = *(v33 + 9);
+        if (v44 != v45 && (v45 + v44) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v44 = scn_default_log();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v46 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        v45 = *(v35 + 10);
-        v46 = *(v33 + 10);
-        if (v45 != v46 && (v46 + v45) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        v47 = *(v35 + 10);
+        v48 = *(v33 + 10);
+        if (v47 != v48 && (v48 + v47) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v47 = scn_default_log();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v49 = scn_default_log(isCompatible, v37);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        v48 = v35[24];
-        v49 = v33[24];
-        if (SCNMTLTextureTypeIsMultisampled(v48))
+        v50 = *(v35 + 24);
+        v51 = *(v33 + 24);
+        isCompatible = SCNMTLTextureTypeIsMultisampled(v50);
+        if (isCompatible)
         {
-          v50 = SCNMTLTextureTypeNonMultisampledEquivalent(v48);
-          if (v50 != SCNMTLTextureTypeNonMultisampledEquivalent(v49) && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+          v52 = SCNMTLTextureTypeNonMultisampledEquivalent(v50);
+          isCompatible = SCNMTLTextureTypeNonMultisampledEquivalent(v51);
+          if (v52 != isCompatible && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
           {
             C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-            v51 = scn_default_log();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+            v53 = scn_default_log(isCompatible, v37);
+            isCompatible = os_log_type_enabled(v53, OS_LOG_TYPE_ERROR);
+            if (isCompatible)
             {
               C3D::RenderGraph::logDependencyInputMismatch();
             }
           }
         }
 
-        else if (v48 != v49 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        else if (v50 != v51 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v52 = scn_default_log();
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+          v54 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v54, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        if (v35[25] != v33[25] && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        if (*(v35 + 25) != *(v33 + 25) && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v53 = scn_default_log();
-          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+          v55 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v55, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        if (v35[27] != v33[27] && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        if (*(v35 + 27) != *(v33 + 27) && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v54 = scn_default_log();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+          v56 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v56, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
@@ -2124,31 +2161,33 @@ LABEL_43:
         if (*(v35 + 14) != *(v33 + 14) && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v55 = scn_default_log();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          v57 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
 
-        v56 = v35[30];
-        v57 = v33[30];
-        if (v56 != v57 && (v57 + v56) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
+        v58 = *(v35 + 30);
+        v59 = *(v33 + 30);
+        if (v58 != v59 && (v59 + v58) >= 2 && (C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done & 1) == 0)
         {
           C3D::RenderGraph::logDependencyInputMismatch(C3D::RenderGraph::GraphNode const&,C3D::RenderGraph::GraphNode const&,unsigned char,unsigned char)::done = 1;
-          v58 = scn_default_log();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v60 = scn_default_log(isCompatible, v37);
+          isCompatible = os_log_type_enabled(v60, OS_LOG_TYPE_ERROR);
+          if (isCompatible)
           {
             C3D::RenderGraph::logDependencyInputMismatch();
           }
         }
       }
 
-      if (*v33 == 2 && *(v35 + 2) != *(v33 + 2) && (_ZZN3C3D11RenderGraph26logDependencyInputMismatchERKNS0_9GraphNodeES3_hhE4done__10_ & 1) == 0)
+      if (*v33 == 2 && v35[2] != v33[2] && (_ZZN3C3D11RenderGraph26logDependencyInputMismatchERKNS0_9GraphNodeES3_hhE4done__10_ & 1) == 0)
       {
         _ZZN3C3D11RenderGraph26logDependencyInputMismatchERKNS0_9GraphNodeES3_hhE4done__10_ = 1;
-        v59 = scn_default_log();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v61 = scn_default_log(isCompatible, v37);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           C3D::RenderGraph::logDependencyInputMismatch();
         }
@@ -2197,24 +2236,24 @@ C3D::Pass *C3D::RenderGraph::search(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  StackAllocator = C3DEngineContextGetStackAllocator(*(a1 + 8));
-  C3DStackAllocatorPushFrame(StackAllocator);
+  StackAllocator = C3DEngineContextGetStackAllocator(*(a1 + 8), a2);
+  C3DStackAllocatorPushFrame(StackAllocator, v6);
   if (*(a2 + 40))
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  C3D::RenderGraph::clearAllDirtyBits(a1, v6);
-  C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(&v39, StackAllocator);
-  v7 = *(a2 + 32);
-  if (v7)
+  C3D::RenderGraph::clearAllDirtyBits(a1, v7);
+  C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(&v42, StackAllocator);
+  v8 = *(a2 + 32);
+  if (v8)
   {
-    PrimitiveCount = C3DMeshElementGetPrimitiveCount(v7);
+    PrimitiveCount = C3DMeshElementGetPrimitiveCount(v8);
   }
 
   else
@@ -2222,71 +2261,71 @@ C3D::Pass *C3D::RenderGraph::search(uint64_t a1, uint64_t a2)
     PrimitiveCount = 0;
   }
 
-  v38 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), PrimitiveCount);
-  C3D::Array<char const*,0u,C3D::StackAllocator>::push_back<char const*&>(&v39, &v38);
-  if (!v40)
+  v41 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), PrimitiveCount);
+  C3D::Array<char const*,0u,C3D::StackAllocator>::push_back<char const*&>(&v42, &v41);
+  if (!v43)
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_61;
   }
 
-  v37 = StackAllocator;
+  v40 = StackAllocator;
   while (1)
   {
-    v10 = *C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::back(&v39);
-    C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(&v39);
-    if (*(a2 + 44) == 1 && *v10 == *(a2 + 32))
+    v12 = *C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::back(&v42, v11);
+    C3D::Array<C3D::RenderGraph::GraphNode *,0u,C3D::StackAllocator>::pop_back(&v42, v13);
+    if (*(a2 + 44) == 1 && *v12 == *(a2 + 32))
     {
       goto LABEL_49;
     }
 
     if (*a2)
     {
-      if ((***v10)())
+      if ((***v12)())
       {
-        v11 = (***v10)();
-        v12 = strcmp(v11, *a2) != 0;
+        v14 = (***v12)();
+        v15 = strcmp(v14, *a2) != 0;
       }
 
       else
       {
-        v12 = 1;
+        v15 = 1;
       }
     }
 
     else
     {
-      v12 = 0;
+      v15 = 0;
     }
 
-    v13 = *(a2 + 24) == 0;
-    v14 = *(a2 + 8);
-    v15 = v14 == 0;
-    if (*(a2 + 24) || v14)
+    v16 = *(a2 + 24) == 0;
+    v17 = *(a2 + 8);
+    v18 = v17 == 0;
+    if (*(a2 + 24) || v17)
     {
-      v16 = C3D::Pass::descriptor(*v10);
-      if (!C3D::PassDescriptor::inputCount(v16))
+      v19 = C3D::Pass::descriptor(*v12);
+      if (!C3D::PassDescriptor::inputCount(v19))
       {
         goto LABEL_32;
       }
 
-      v17 = 0;
+      v20 = 0;
       while (1)
       {
-        v18 = C3D::Pass::descriptor(*v10);
-        v19 = C3D::PassDescriptor::inputAtIndex(v18, v17);
-        v13 |= *(v19 + 64) == *(a2 + 24);
-        if (v15)
+        v21 = C3D::Pass::descriptor(*v12);
+        v22 = C3D::PassDescriptor::inputAtIndex(v21, v20);
+        v16 |= *(v22 + 64) == *(a2 + 24);
+        if (v18)
         {
           break;
         }
 
-        v20 = *(v19 + 8);
-        if (v20)
+        v23 = *(v22 + 8);
+        if (v23)
         {
-          v15 = strcmp(v20, *(a2 + 8)) == 0;
+          v18 = strcmp(v23, *(a2 + 8)) == 0;
 LABEL_28:
-          if (v15 & v13)
+          if (v18 & v16)
           {
             goto LABEL_21;
           }
@@ -2294,52 +2333,52 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        v15 = 0;
+        v18 = 0;
 LABEL_29:
-        ++v17;
-        v21 = C3D::Pass::descriptor(*v10);
-        if (v17 >= C3D::PassDescriptor::inputCount(v21))
+        ++v20;
+        v24 = C3D::Pass::descriptor(*v12);
+        if (v20 >= C3D::PassDescriptor::inputCount(v24))
         {
           goto LABEL_32;
         }
       }
 
-      v15 = 1;
+      v18 = 1;
       goto LABEL_28;
     }
 
 LABEL_21:
-    v15 = 1;
-    LOBYTE(v13) = 1;
+    v18 = 1;
+    LOBYTE(v16) = 1;
 LABEL_32:
-    v22 = *(a2 + 25) == 0;
-    v23 = *(a2 + 16);
-    v24 = v23 == 0;
-    if (*(a2 + 25) || v23)
+    v25 = *(a2 + 25) == 0;
+    v26 = *(a2 + 16);
+    v27 = v26 == 0;
+    if (*(a2 + 25) || v26)
     {
-      v25 = C3D::Pass::descriptor(*v10);
-      if (!C3D::PassDescriptor::outputCount(v25))
+      v28 = C3D::Pass::descriptor(*v12);
+      if (!C3D::PassDescriptor::outputCount(v28))
       {
         goto LABEL_45;
       }
 
-      v26 = 0;
+      v29 = 0;
       while (1)
       {
-        v27 = C3D::Pass::descriptor(*v10);
-        v28 = C3D::PassDescriptor::outputAtIndex(v27, v26);
-        v22 |= *(v28 + 64) == *(a2 + 25);
-        if (v24)
+        v30 = C3D::Pass::descriptor(*v12);
+        v31 = C3D::PassDescriptor::outputAtIndex(v30, v29);
+        v25 |= *(v31 + 64) == *(a2 + 25);
+        if (v27)
         {
           break;
         }
 
-        v29 = *(v28 + 8);
-        if (v29)
+        v32 = *(v31 + 8);
+        if (v32)
         {
-          v24 = strcmp(v29, *(a2 + 16)) == 0;
+          v27 = strcmp(v32, *(a2 + 16)) == 0;
 LABEL_41:
-          if (v24 & v22)
+          if (v27 & v25)
           {
             goto LABEL_34;
           }
@@ -2347,242 +2386,249 @@ LABEL_41:
           goto LABEL_42;
         }
 
-        v24 = 0;
+        v27 = 0;
 LABEL_42:
-        ++v26;
-        v30 = C3D::Pass::descriptor(*v10);
-        if (v26 >= C3D::PassDescriptor::outputCount(v30))
+        ++v29;
+        v33 = C3D::Pass::descriptor(*v12);
+        if (v29 >= C3D::PassDescriptor::outputCount(v33))
         {
           goto LABEL_45;
         }
       }
 
-      v24 = 1;
+      v27 = 1;
       goto LABEL_41;
     }
 
 LABEL_34:
-    LOBYTE(v22) = 1;
-    v24 = 1;
+    LOBYTE(v25) = 1;
+    v27 = 1;
 LABEL_45:
-    if (!v12 && (v13 & 1) != 0 && (v22 & 1) != 0 && v15 && v24)
+    if (!v15 && (v16 & 1) != 0 && (v25 & 1) != 0 && v18 && v27)
     {
       break;
     }
 
 LABEL_49:
-    v31 = 1;
+    v34 = 1;
     if (!*(a2 + 40))
     {
-      v31 = 4;
+      v34 = 4;
     }
 
-    v32 = &v10[v31];
-    v33 = LODWORD(v10[v31 + 1]);
-    if (v33)
+    v35 = &v12[v34];
+    v36 = LODWORD(v12[v34 + 1]);
+    if (v36)
     {
-      v34 = v32[2];
-      v35 = 4 * v33;
+      v37 = v35[2];
+      v38 = 4 * v36;
       do
       {
-        if ((*v34 & 0x8000) == 0)
+        if ((*v37 & 0x8000) == 0)
         {
-          v38 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), *v34 & 0x7FFF);
-          C3D::Array<char const*,0u,C3D::StackAllocator>::push_back<char const*&>(&v39, &v38);
-          *v34 |= 0x8000u;
+          v41 = C3D::Array<C3D::RenderGraph::GraphNode,0u,C3D::ScratchAllocator>::operator[](*(a1 + 24), *v37 & 0x7FFF);
+          C3D::Array<char const*,0u,C3D::StackAllocator>::push_back<char const*&>(&v42, &v41);
+          *v37 |= 0x8000u;
         }
 
-        v34 = (v34 + 4);
-        v35 -= 4;
+        v37 = (v37 + 4);
+        v38 -= 4;
       }
 
-      while (v35);
+      while (v38);
     }
 
-    if (!v40)
+    if (!v43)
     {
-      v9 = 0;
+      v10 = 0;
       goto LABEL_60;
     }
   }
 
-  v9 = *v10;
+  v10 = *v12;
 LABEL_60:
-  StackAllocator = v37;
+  StackAllocator = v40;
 LABEL_61:
-  C3DStackAllocatorPopFrame(StackAllocator);
-  return v9;
+  C3DStackAllocatorPopFrame(StackAllocator, v11);
+  return v10;
 }
 
 void C3D::RenderGraph::logPassIODescriptor(C3D::RenderGraph *this, C3D::PassIODescriptor *a2, const char *a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   if (v5 == 2)
   {
-    v24 = scn_default_log();
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v31 = scn_default_log(this, a2);
+    v26 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
+    if (!v26)
     {
       goto LABEL_14;
     }
 
-    v25 = *(a2 + 2);
-    v37 = 136315650;
-    v38 = a3;
-    v39 = 2080;
-    v40 = a3;
-    v41 = 2048;
-    *&v42 = v25;
-    v21 = "Info: |%s%slength : %lu";
-    v22 = v24;
-    v23 = 32;
+    v32 = *(a2 + 2);
+    v48 = 136315650;
+    v49 = a3;
+    v50 = 2080;
+    v51 = a3;
+    v52 = 2048;
+    *&v53 = v32;
+    v28 = "Info: |%s%slength : %lu";
+    v29 = v31;
+    v30 = 32;
     goto LABEL_13;
   }
 
   if (v5 != 1)
   {
-    v26 = scn_default_log();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v33 = scn_default_log(this, a2);
+    v26 = os_log_type_enabled(v33, OS_LOG_TYPE_INFO);
+    if (!v26)
     {
       goto LABEL_14;
     }
 
-    v37 = 136315138;
-    v38 = a3;
-    v21 = "Info: |%stype : INVALID";
-    v22 = v26;
-    v23 = 12;
+    v48 = 136315138;
+    v49 = a3;
+    v28 = "Info: |%stype : INVALID";
+    v29 = v33;
+    v30 = 12;
     goto LABEL_13;
   }
 
   v6 = -[__CFString cStringUsingEncoding:](SCNMTLTextureTypeToString(*(a2 + 24)), "cStringUsingEncoding:", [MEMORY[0x277CCACA8] defaultCStringEncoding]);
   v7 = -[__CFString cStringUsingEncoding:](SCNMTLPixelFormatToString(*(a2 + 14)), "cStringUsingEncoding:", [MEMORY[0x277CCACA8] defaultCStringEncoding]);
-  v8 = scn_default_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = scn_default_log(v7, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+  if (v10)
   {
-    v37 = 136315394;
-    v38 = a3;
-    v39 = 2080;
-    v40 = a3;
-    _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_INFO, "Info: |%s%s|width|height|depth|        pixelFormat      |arrayLength|storageMode|usage|cpuCacheMo|mipmapCount|sampleCount|usedForRes|         textureType      |", &v37, 0x16u);
+    v48 = 136315394;
+    v49 = a3;
+    v50 = 2080;
+    v51 = a3;
+    _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_INFO, "Info: |%s%s|width|height|depth|        pixelFormat      |arrayLength|storageMode|usage|cpuCacheMo|mipmapCount|sampleCount|usedForRes|         textureType      |", &v48, 0x16u);
   }
 
-  v9 = scn_default_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v12 = scn_default_log(v10, v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  if (v13)
   {
-    v10 = *(a2 + 8);
-    v11 = *(a2 + 9);
-    v12 = *(a2 + 10);
-    v13 = *(a2 + 11);
-    v14 = *(a2 + 25);
-    v15 = *(a2 + 26);
-    v16 = *(a2 + 27);
-    v17 = *(a2 + 30);
-    v18 = *(a2 + 31);
-    v19 = *(a2 + 8);
-    v37 = 136318466;
-    v38 = a3;
-    v39 = 2080;
-    v40 = a3;
-    v41 = 1024;
-    LODWORD(v42) = v10;
-    WORD2(v42) = 1024;
-    *(&v42 + 6) = v11;
-    WORD5(v42) = 1024;
-    HIDWORD(v42) = v12;
-    *v43 = 2080;
-    *&v43[2] = v7;
-    LOWORD(v44) = 1024;
-    *(&v44 + 2) = v13;
-    HIWORD(v44) = 1024;
-    *v45 = v14;
-    *&v45[4] = 1024;
-    *&v45[6] = v15;
-    v46 = 1024;
-    v47 = v16;
-    v48 = 1024;
-    v49 = v17;
-    v50 = 1024;
-    v51 = v18;
+    v15 = *(a2 + 8);
+    v16 = *(a2 + 9);
+    v17 = *(a2 + 10);
+    v18 = *(a2 + 11);
+    v19 = *(a2 + 25);
+    v20 = *(a2 + 26);
+    v21 = *(a2 + 27);
+    v22 = *(a2 + 30);
+    v23 = *(a2 + 31);
+    v24 = *(a2 + 8);
+    v48 = 136318466;
+    v49 = a3;
+    v50 = 2080;
+    v51 = a3;
     v52 = 1024;
-    v53 = v19;
-    v54 = 2080;
-    *v55 = v6;
-    _os_log_impl(&dword_21BEF7000, v9, OS_LOG_TYPE_INFO, "Info: |%s%s|%5d|%6d|%5d|%25s|%11d|%11d|%5d|%10d|%11d|%11d|%10d|%26s|", &v37, 0x66u);
+    LODWORD(v53) = v15;
+    WORD2(v53) = 1024;
+    *(&v53 + 6) = v16;
+    WORD5(v53) = 1024;
+    HIDWORD(v53) = v17;
+    *v54 = 2080;
+    *&v54[2] = v7;
+    LOWORD(v55) = 1024;
+    *(&v55 + 2) = v18;
+    HIWORD(v55) = 1024;
+    *v56 = v19;
+    *&v56[4] = 1024;
+    *&v56[6] = v20;
+    v57 = 1024;
+    v58 = v21;
+    v59 = 1024;
+    v60 = v22;
+    v61 = 1024;
+    v62 = v23;
+    v63 = 1024;
+    v64 = v24;
+    v65 = 2080;
+    *v66 = v6;
+    _os_log_impl(&dword_21BEF7000, v12, OS_LOG_TYPE_INFO, "Info: |%s%s|%5d|%6d|%5d|%25s|%11d|%11d|%5d|%10d|%11d|%11d|%10d|%26s|", &v48, 0x66u);
   }
 
-  v20 = scn_default_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v25 = scn_default_log(v13, v14);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
+  if (v26)
   {
-    LOWORD(v37) = 0;
-    v21 = "Info: |";
-    v22 = v20;
-    v23 = 2;
+    LOWORD(v48) = 0;
+    v28 = "Info: |";
+    v29 = v25;
+    v30 = 2;
 LABEL_13:
-    _os_log_impl(&dword_21BEF7000, v22, OS_LOG_TYPE_INFO, v21, &v37, v23);
+    _os_log_impl(&dword_21BEF7000, v29, OS_LOG_TYPE_INFO, v28, &v48, v30);
   }
 
 LABEL_14:
-  v27 = scn_default_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v34 = scn_default_log(v26, v27);
+  v35 = os_log_type_enabled(v34, OS_LOG_TYPE_INFO);
+  if (v35)
   {
-    v37 = 136315394;
-    v38 = a3;
-    v39 = 2080;
-    v40 = a3;
-    _os_log_impl(&dword_21BEF7000, v27, OS_LOG_TYPE_INFO, "Info: |%s%s|type|clearColor R|   G|   B|   A|attachmentType|loadMode|dispatchToOutput|usedInternally|registerTexture|registerResolveT|specificClearCol|readWrite|persistent|", &v37, 0x16u);
+    v48 = 136315394;
+    v49 = a3;
+    v50 = 2080;
+    v51 = a3;
+    _os_log_impl(&dword_21BEF7000, v34, OS_LOG_TYPE_INFO, "Info: |%s%s|type|clearColor R|   G|   B|   A|attachmentType|loadMode|dispatchToOutput|usedInternally|registerTexture|registerResolveT|specificClearCol|readWrite|persistent|", &v48, 0x16u);
   }
 
-  v28 = scn_default_log();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+  v37 = scn_default_log(v35, v36);
+  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_INFO);
+  if (v38)
   {
-    v29 = *a2;
-    v30 = *(a2 + 12);
-    v31 = *(a2 + 13);
-    v32 = *(a2 + 14);
-    v33 = *(a2 + 15);
-    v34 = *(a2 + 64);
-    v35 = *(a2 + 33);
-    v37 = 136318978;
-    v38 = a3;
-    v39 = 2080;
-    v40 = a3;
-    v41 = 1024;
-    LODWORD(v42) = v29;
-    WORD2(v42) = 2048;
-    *(&v42 + 6) = v30;
-    HIWORD(v42) = 2048;
-    *v43 = v31;
-    *&v43[8] = 2048;
-    v44 = v32;
-    *v45 = 2048;
-    *&v45[2] = v33;
-    v46 = 1024;
-    v47 = v34;
-    v48 = 1024;
-    v49 = v35 & 3;
-    v50 = 1024;
-    v51 = (v35 >> 2) & 1;
+    v40 = *a2;
+    v41 = *(a2 + 12);
+    v42 = *(a2 + 13);
+    v43 = *(a2 + 14);
+    v44 = *(a2 + 15);
+    v45 = *(a2 + 64);
+    v46 = *(a2 + 33);
+    v48 = 136318978;
+    v49 = a3;
+    v50 = 2080;
+    v51 = a3;
     v52 = 1024;
-    v53 = (v35 >> 3) & 1;
-    v54 = 1024;
-    *v55 = (v35 >> 4) & 1;
-    *&v55[4] = 1024;
-    *&v55[6] = (v35 >> 5) & 1;
-    v56 = 1024;
-    v57 = (v35 >> 6) & 1;
-    v58 = 1024;
-    v59 = (v35 >> 7) & 1;
-    v60 = 1024;
-    v61 = (v35 >> 8) & 1;
-    _os_log_impl(&dword_21BEF7000, v28, OS_LOG_TYPE_INFO, "Info: |%s%s|%4hhu|%12.1f|%4.1f|%4.1f|%4.1f|%14hhu|%8hhu|%16d|%14d|%15d|%16d|%16d|%9d|%10d|", &v37, 0x7Au);
+    LODWORD(v53) = v40;
+    WORD2(v53) = 2048;
+    *(&v53 + 6) = v41;
+    HIWORD(v53) = 2048;
+    *v54 = v42;
+    *&v54[8] = 2048;
+    v55 = v43;
+    *v56 = 2048;
+    *&v56[2] = v44;
+    v57 = 1024;
+    v58 = v45;
+    v59 = 1024;
+    v60 = v46 & 3;
+    v61 = 1024;
+    v62 = (v46 >> 2) & 1;
+    v63 = 1024;
+    v64 = (v46 >> 3) & 1;
+    v65 = 1024;
+    *v66 = (v46 >> 4) & 1;
+    *&v66[4] = 1024;
+    *&v66[6] = (v46 >> 5) & 1;
+    v67 = 1024;
+    v68 = (v46 >> 6) & 1;
+    v69 = 1024;
+    v70 = (v46 >> 7) & 1;
+    v71 = 1024;
+    v72 = (v46 >> 8) & 1;
+    _os_log_impl(&dword_21BEF7000, v37, OS_LOG_TYPE_INFO, "Info: |%s%s|%4hhu|%12.1f|%4.1f|%4.1f|%4.1f|%14hhu|%8hhu|%16d|%14d|%15d|%16d|%16d|%9d|%10d|", &v48, 0x7Au);
   }
 
-  v36 = scn_default_log();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+  v47 = scn_default_log(v38, v39);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v37) = 0;
-    _os_log_impl(&dword_21BEF7000, v36, OS_LOG_TYPE_INFO, "Info: |", &v37, 2u);
+    LOWORD(v48) = 0;
+    _os_log_impl(&dword_21BEF7000, v47, OS_LOG_TYPE_INFO, "Info: |", &v48, 2u);
   }
 }
 
@@ -2598,11 +2644,11 @@ C3D::RenderGraph *C3DRenderGraphDelete(C3D::RenderGraph *result)
   return result;
 }
 
-void C3DRenderGraphCompile(C3D::RenderGraph *this)
+void C3DRenderGraphCompile(C3D::RenderGraph *result, uint64_t a2)
 {
-  if (*(this + 211) == 1)
+  if (*(result + 211) == 1)
   {
-    C3D::RenderGraph::allocateResources(this);
+    C3D::RenderGraph::allocateResources(result, a2);
   }
 }
 
@@ -2632,7 +2678,7 @@ void *C3D::Array<C3D::RenderGraph::PortsPair,16u,C3D::StackAllocator>::Array(voi
   a1[2] = a1 + 3;
   if (!a2)
   {
-    v3 = scn_default_log();
+    v3 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -2703,7 +2749,7 @@ void C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::_gr
       }
 
       ++v3;
-      v2 += 8;
+      ++v2;
       --v6;
     }
 
@@ -2711,26 +2757,26 @@ void C3D::Hash<objc_object  {objcproto10MTLTexture}*,C3D::ScratchAllocator>::_gr
   }
 }
 
-C3D::ScratchAllocator *C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::Array(C3D::ScratchAllocator *a1, void *a2, int a3)
+uint64_t C3D::Array<C3D::RenderGraph::Link,0u,C3D::ScratchAllocator>::Array(uint64_t a1, void *a2, int a3)
 {
   v6 = C3D::ScratchAllocator::ScratchAllocator(a1, a2);
   *(v6 + 1) = 0;
   *(v6 + 2) = v6 + 24;
   if (!a2)
   {
-    v7 = scn_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = scn_default_log(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(v7, v8, v9, v10, v11, v12, v13, v14);
+      C3D::Array<C3D::Pass *,0u,C3D::StackAllocator>::Array(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  v15 = *(a1 + 2);
-  v16 = *(a1 + 3) + a3;
-  Aligned = C3DScratchAllocatorAllocateAligned(*a1, (4 * v16), 4, 0);
-  memcpy(Aligned, v15, 4 * *(a1 + 2));
-  *(a1 + 2) = Aligned;
-  *(a1 + 3) = v16;
+  v16 = *(a1 + 16);
+  v17 = *(a1 + 12) + a3;
+  Aligned = C3DScratchAllocatorAllocateAligned(*a1, (4 * v17), 4, 0);
+  memcpy(Aligned, v16, 4 * *(a1 + 8));
+  *(a1 + 16) = Aligned;
+  *(a1 + 12) = v17;
   return a1;
 }
 
@@ -2760,23 +2806,23 @@ void C3D::Array<C3D::Pass *,0u,C3D::ScratchAllocator>::resize(uint64_t a1, unsig
   }
 }
 
-void C3D::Hash<C3D::Pass *,C3D::StackAllocator>::_allocate(uint64_t a1, int a2)
+void C3D::Hash<C3D::Pass *,C3D::StackAllocator>::_allocate(void *a1, int a2)
 {
   if ((a2 & (a2 - 1)) != 0)
   {
     C3D::Hash<C3D::FinalPass::RenderTarget,C3D::StackAllocator>::_allocate();
   }
 
-  *(a1 + 32) = 0;
-  *(a1 + 36) = a2;
+  *(a1 + 8) = 0;
+  *(a1 + 9) = a2;
   v3 = a2 + 15;
   v4 = 2 * (a2 + 15);
-  *(a1 + 24) = C3DStackAllocatorAllocateAligned(*a1, v4, 4, 0);
+  a1[3] = C3DStackAllocatorAllocateAligned(*a1, v4, 4, 0);
   v5 = 8 * v3;
-  *(a1 + 8) = C3DStackAllocatorAllocateAligned(*a1, v5, 8, 0);
-  *(a1 + 16) = C3DStackAllocatorAllocateAligned(*a1, v5, 8, 0);
-  memset(*(a1 + 8), 255, v5);
-  v6 = *(a1 + 24);
+  a1[1] = C3DStackAllocatorAllocateAligned(*a1, v5, 8, 0);
+  a1[2] = C3DStackAllocatorAllocateAligned(*a1, v5, 8, 0);
+  memset(a1[1], 255, v5);
+  v6 = a1[3];
 
   bzero(v6, v4);
 }
@@ -2962,7 +3008,7 @@ void C3D::Hash<C3D::Pass *,C3D::StackAllocator>::_grow(uint64_t a1)
       }
 
       ++v3;
-      v2 += 8;
+      ++v2;
       --v6;
     }
 
@@ -2970,7 +3016,7 @@ void C3D::Hash<C3D::Pass *,C3D::StackAllocator>::_grow(uint64_t a1)
   }
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *,false>(unint64_t result, unsigned __int8 *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *,false>(uint64_t result, unsigned __int8 *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -2978,7 +3024,7 @@ LABEL_2:
   while (1)
   {
     v7 = v8;
-    v9 = (a2 - v8) >> 1;
+    v9 = &a2[-v8] >> 1;
     if (v9 <= 2)
     {
       if (v9 < 2)
@@ -3011,23 +3057,23 @@ LABEL_111:
 
     if (v9 == 4)
     {
-      v67 = v8[2];
+      v67 = *(v8 + 2);
       v68 = *v8;
-      v69 = v8[4];
+      v69 = *(v8 + 4);
       if (v67 >= v68)
       {
         if (v69 < v67)
         {
-          v114 = *(v8 + 2);
-          LOWORD(v69) = *(v8 + 1);
-          *(v8 + 1) = v114;
-          *(v8 + 2) = v69;
+          v114 = *(v8 + 4);
+          LOWORD(v69) = *(v8 + 2);
+          *(v8 + 2) = v114;
+          *(v8 + 4) = v69;
           v69 = v69;
           if (v68 > v114)
           {
             v115 = *v8;
             *v8 = v114;
-            *(v8 + 1) = v115;
+            *(v8 + 2) = v115;
           }
         }
       }
@@ -3038,37 +3084,37 @@ LABEL_111:
         v71 = *v8;
         if (v69 < v67)
         {
-          *v8 = *(v8 + 2);
+          *v8 = *(v8 + 4);
           goto LABEL_191;
         }
 
-        *v8 = *(v8 + 1);
-        *(v8 + 1) = v70;
+        *v8 = *(v8 + 2);
+        *(v8 + 2) = v70;
         if (v69 < v71)
         {
-          *(v8 + 1) = *(v8 + 2);
+          *(v8 + 2) = *(v8 + 4);
 LABEL_191:
-          *(v8 + 2) = v70;
+          *(v8 + 4) = v70;
           v69 = v71;
         }
       }
 
       if (*(a2 - 2) < v69)
       {
-        v121 = *(v8 + 2);
-        *(v8 + 2) = *(a2 - 1);
+        v121 = *(v8 + 4);
+        *(v8 + 4) = *(a2 - 1);
         *(a2 - 1) = v121;
-        if (v8[4] < v8[2])
+        if (*(v8 + 4) < *(v8 + 2))
         {
-          v122 = *(v8 + 1);
-          v123 = *(v8 + 2);
-          *(v8 + 1) = v123;
-          *(v8 + 2) = v122;
+          v122 = *(v8 + 2);
+          v123 = *(v8 + 4);
+          *(v8 + 2) = v123;
+          *(v8 + 4) = v122;
           if (*v8 > v123)
           {
             v124 = *v8;
             *v8 = v123;
-            *(v8 + 1) = v124;
+            *(v8 + 2) = v124;
           }
         }
       }
@@ -3079,13 +3125,13 @@ LABEL_191:
     if (v9 == 5)
     {
 
-      return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *,0>(v8, v8 + 1, v8 + 2, v8 + 3, a2 - 1);
+      return std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *,0>(v8, (v8 + 2), (v8 + 4), (v8 + 6), a2 - 1);
     }
 
 LABEL_10:
     if (v9 <= 23)
     {
-      v72 = v8 + 2;
+      v72 = (v8 + 2);
       v74 = v8 == a2 || v72 == a2;
       if (a4)
       {
@@ -3104,17 +3150,17 @@ LABEL_10:
               v80 = v75;
               while (1)
               {
-                *&v8[v80 + 2] = *&v8[v80];
+                *(v8 + v80 + 2) = *(v8 + v80);
                 if (!v80)
                 {
                   break;
                 }
 
-                v81 = v8[v80 - 2];
+                v81 = *(v8 + v80 - 2);
                 v80 -= 2;
                 if (v81 <= v79)
                 {
-                  v82 = &v8[v80 + 2];
+                  v82 = (v8 + v80 + 2);
                   goto LABEL_130;
                 }
               }
@@ -3175,7 +3221,7 @@ LABEL_130:
           if (v83 >= v84)
           {
             v86 = (2 * v84) | 1;
-            v87 = &v8[2 * v86];
+            v87 = (v8 + 2 * v86);
             if (2 * v85 + 2 >= v9)
             {
               v88 = *v87;
@@ -3198,7 +3244,7 @@ LABEL_130:
               }
             }
 
-            v91 = &v8[2 * v85];
+            v91 = (v8 + 2 * v85);
             if (v88 >= *v91)
             {
               v92 = *v91;
@@ -3213,7 +3259,7 @@ LABEL_130:
                 }
 
                 v94 = (2 * v86) | 1;
-                v87 = &v8[2 * v94];
+                v87 = (v8 + 2 * v94);
                 v86 = 2 * v86 + 2;
                 if (v86 >= v9)
                 {
@@ -3259,8 +3305,8 @@ LABEL_130:
           v99 = v8;
           do
           {
-            v100 = &v99[2 * v97];
-            v101 = v100 + 2;
+            v100 = &v99[v97];
+            v101 = (v100 + 1);
             v102 = (2 * v97) | 1;
             v97 = 2 * v97 + 2;
             if (v97 >= v9)
@@ -3270,8 +3316,8 @@ LABEL_130:
 
             else
             {
-              v104 = v100[4];
-              v103 = v100 + 4;
+              v104 = *(v100 + 4);
+              v103 = (v100 + 2);
               if (*(v103 - 2) >= v104)
               {
                 v97 = v102;
@@ -3298,13 +3344,13 @@ LABEL_130:
           {
             *v101 = *a2;
             *a2 = v98;
-            v105 = (v101 - v8 + 2) >> 1;
+            v105 = &v101[-v8 + 2] >> 1;
             v106 = v105 < 2;
             v107 = v105 - 2;
             if (!v106)
             {
               v108 = v107 >> 1;
-              v109 = &v8[2 * v108];
+              v109 = (v8 + 2 * v108);
               if (*v109 < *v101)
               {
                 v110 = *v101;
@@ -3319,7 +3365,7 @@ LABEL_130:
                   }
 
                   v108 = (v108 - 1) >> 1;
-                  v109 = &v8[2 * v108];
+                  v109 = (v8 + 2 * v108);
                 }
 
                 while (*v109 < v110);
@@ -3337,7 +3383,7 @@ LABEL_130:
       return result;
     }
 
-    v10 = &v8[2 * (v9 >> 1)];
+    v10 = (v8 + 2 * (v9 >> 1));
     v11 = v10;
     v12 = *(a2 - 2);
     if (v9 >= 0x81)
@@ -3381,17 +3427,17 @@ LABEL_27:
       v21 = v10 - 2;
       v22 = *(v10 - 2);
       v23 = *(a2 - 4);
-      if (v22 >= v8[2])
+      if (v22 >= *(v8 + 2))
       {
         if (v23 < v22)
         {
           v25 = *v21;
           *v21 = *(a2 - 2);
           *(a2 - 2) = v25;
-          if (*v21 < v8[2])
+          if (*v21 < *(v8 + 2))
           {
-            v26 = *(v8 + 1);
-            *(v8 + 1) = *v21;
+            v26 = *(v8 + 2);
+            *(v8 + 2) = *v21;
             *v21 = v26;
           }
         }
@@ -3399,14 +3445,14 @@ LABEL_27:
 
       else
       {
-        v24 = *(v8 + 1);
+        v24 = *(v8 + 2);
         if (v23 < v22)
         {
-          *(v8 + 1) = *(a2 - 2);
+          *(v8 + 2) = *(a2 - 2);
           goto LABEL_39;
         }
 
-        *(v8 + 1) = *v21;
+        *(v8 + 2) = *v21;
         *v21 = v24;
         if (*(a2 - 4) < v24)
         {
@@ -3420,17 +3466,17 @@ LABEL_39:
       v27 = v10 + 2;
       v28 = v29;
       v30 = *(a2 - 6);
-      if (v29 >= v8[4])
+      if (v29 >= *(v8 + 4))
       {
         if (v30 < v28)
         {
           v32 = *v27;
           *v27 = *(a2 - 3);
           *(a2 - 3) = v32;
-          if (*v27 < v8[4])
+          if (*v27 < *(v8 + 4))
           {
-            v33 = *(v8 + 2);
-            *(v8 + 2) = *v27;
+            v33 = *(v8 + 4);
+            *(v8 + 4) = *v27;
             *v27 = v33;
           }
         }
@@ -3438,14 +3484,14 @@ LABEL_39:
 
       else
       {
-        v31 = *(v8 + 2);
+        v31 = *(v8 + 4);
         if (v30 < v28)
         {
-          *(v8 + 2) = *(a2 - 3);
+          *(v8 + 4) = *(a2 - 3);
           goto LABEL_48;
         }
 
-        *(v8 + 2) = *v27;
+        *(v8 + 4) = *v27;
         *v27 = v31;
         if (*(a2 - 6) < v31)
         {
@@ -3555,12 +3601,12 @@ LABEL_62:
       v42 = 0;
       do
       {
-        v43 = v8[v42 + 2];
+        v43 = *(v8 + v42 + 2);
         v42 += 2;
       }
 
       while (v43 < v41);
-      v44 = &v8[v42];
+      v44 = v8 + v42;
       v45 = a2;
       if (v42 == 2)
       {
@@ -3592,12 +3638,12 @@ LABEL_62:
 
       if (v44 >= v45)
       {
-        v53 = v44 - 2;
+        v53 = (v44 - 2);
       }
 
       else
       {
-        v48 = &v8[v42];
+        v48 = v8 + v42;
         v49 = v45;
         do
         {
@@ -3606,7 +3652,7 @@ LABEL_62:
           *v49 = v50;
           do
           {
-            v51 = v48[2];
+            v51 = *(v48 + 2);
             v48 += 2;
           }
 
@@ -3621,7 +3667,7 @@ LABEL_62:
         }
 
         while (v48 < v49);
-        v53 = v48 - 2;
+        v53 = (v48 - 2);
       }
 
       if (v53 != v8)
@@ -3636,7 +3682,7 @@ LABEL_62:
       }
 
       v54 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *>(v8, v53);
-      v8 = v53 + 2;
+      v8 = (v53 + 2);
       result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *>(v53 + 2, a2);
       if (result)
       {
@@ -3654,7 +3700,7 @@ LABEL_62:
 LABEL_83:
         result = std::__introsort<std::_ClassicAlgPolicy,C3D::RenderGraph::validate(void)::$_0 &,C3D::RenderGraph::PortsPair *,false>(v7, v53, a3, a4 & 1);
         a4 = 0;
-        v8 = v53 + 2;
+        v8 = (v53 + 2);
       }
     }
 
@@ -3688,7 +3734,7 @@ LABEL_83:
       {
         do
         {
-          v56 = v8[2];
+          v56 = *(v8 + 2);
           v8 += 2;
         }
 
@@ -3715,7 +3761,7 @@ LABEL_83:
         *v58 = v60;
         do
         {
-          v61 = v8[2];
+          v61 = *(v8 + 2);
           v8 += 2;
         }
 
@@ -3729,8 +3775,8 @@ LABEL_83:
         while (v62 > v55);
       }
 
-      v63 = v8 - 2;
-      if (v8 - 2 != v7)
+      v63 = (v8 - 2);
+      if ((v8 - 2) != v7)
       {
         *v7 = *v63;
       }
@@ -3740,16 +3786,16 @@ LABEL_83:
     }
   }
 
-  v65 = v8[2];
+  v65 = *(v8 + 2);
   v66 = *(a2 - 2);
   if (v65 >= *v8)
   {
     if (v66 < v65)
     {
-      v112 = *(v8 + 1);
-      *(v8 + 1) = *(a2 - 1);
+      v112 = *(v8 + 2);
+      *(v8 + 2) = *(a2 - 1);
       *(a2 - 1) = v112;
-      if (v8[2] < *v8)
+      if (*(v8 + 2) < *v8)
       {
         HIDWORD(v113) = *v8;
         LODWORD(v113) = *v8;
@@ -3766,11 +3812,11 @@ LABEL_83:
       goto LABEL_110;
     }
 
-    *v8 = *(v8 + 1);
-    *(v8 + 1) = v64;
+    *v8 = *(v8 + 2);
+    *(v8 + 2) = v64;
     if (*(a2 - 2) < v64)
     {
-      *(v8 + 1) = *(a2 - 1);
+      *(v8 + 2) = *(a2 - 1);
       goto LABEL_111;
     }
   }
@@ -4140,7 +4186,7 @@ void C3D::Array<C3D::RenderGraph::Link,16u,C3D::StackAllocator>::resize(uint64_t
   }
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,C3D::RenderGraph::resolvePartialDependencies(void)::$_0 &,C3D::RenderGraph::Link *,false>(unint64_t result, int *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,C3D::RenderGraph::resolvePartialDependencies(void)::$_0 &,C3D::RenderGraph::Link *,false>(uint64_t result, int *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -4840,7 +4886,7 @@ LABEL_81:
 
       if (v47 >= (*(a2 - 1) & 0x7FFFu))
       {
-        v62 = v8 + 1;
+        v62 = (v8 + 1);
         do
         {
           v8 = v62;
@@ -4849,7 +4895,7 @@ LABEL_81:
             break;
           }
 
-          ++v62;
+          v62 += 4;
         }
 
         while (v47 >= (*v8 & 0x7FFFu));
@@ -5499,7 +5545,7 @@ void C3D::Hash<C3D::Pass *,C3D::ScratchAllocator>::_grow(uint64_t a1)
       }
 
       ++v3;
-      v2 += 8;
+      ++v2;
       --v6;
     }
 
@@ -5507,10 +5553,11 @@ void C3D::Hash<C3D::Pass *,C3D::ScratchAllocator>::_grow(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_5_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -5562,26 +5609,24 @@ void C3D::GaussianBlurPass::setup(C3D::GaussianBlurPass *this)
   C3D::Pass::setOutputCount(this, 1u);
 }
 
-uint64_t C3D::GaussianBlurPass::compile(C3D::GaussianBlurPass *this)
+void C3D::GaussianBlurPass::compile(C3D::GaussianBlurPass *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
-  v3 = [(SCNMTLRenderContext *)RenderContext resourceManager];
-  [-[SCNMTLResourceManager libraryManager](v3) frameworkLibrary];
-  v4 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ (*(this + 249) << 24) ^ (*(this + 248) << 16) ^ (*(this + 247) << 8) ^ *(this + 246) ^ 0x1A929E4D6F47A654);
-  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) >> 47));
-  *(this + 32) = result;
-  if (!result)
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
+  v4 = [(SCNMTLRenderContext *)RenderContext resourceManager];
+  [-[SCNMTLResourceManager libraryManager](v4) frameworkLibrary];
+  v5 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ (*(this + 249) << 24) ^ (*(this + 248) << 16) ^ (*(this + 247) << 8) ^ *(this + 246) ^ 0x1A929E4D6F47A654);
+  v6 = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) >> 47));
+  *(this + 32) = v6;
+  if (!v6)
   {
     operator new();
   }
-
-  return result;
 }
 
 uint64_t C3D::GaussianBlurPass::execute(uint64_t a1, uint64_t a2)
 {
   v4 = *a2;
-  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16));
+  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 16), a2);
   v6 = [(SCNMTLRenderContext *)RenderContext frameConstantBufferPool];
   v7 = C3D::Pass::inputTextureAtIndex(a1, 0);
   v8 = v7;
@@ -5593,93 +5638,93 @@ uint64_t C3D::GaussianBlurPass::execute(uint64_t a1, uint64_t a2)
   SCNMTLRenderCommandEncoder::setFragmentTexture(v4, v8, 0);
   if (*(a1 + 246) || *(a1 + 248))
   {
-    v9 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 256) + 136);
-    if (*(v4 + 3248) != v9)
+    v10 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 256) + 136, v9);
+    if (*(v4 + 3248) != v10)
     {
-      *(v4 + 3248) = v9;
-      [*(v4 + 3392) setFragmentSamplerState:v9 atIndex:0];
+      *(v4 + 3248) = v10;
+      [*(v4 + 3392) setFragmentSamplerState:v10 atIndex:0];
     }
   }
 
-  v35 = [v8 width];
-  v10 = [v8 height];
-  v11.f32[0] = v35;
-  v11.f32[1] = v10;
-  v12 = *(a1 + 240);
-  v13 = *(a1 + 244);
+  v38 = [v8 width];
+  v11 = [v8 height];
+  v12.f32[0] = v38;
+  v12.f32[1] = v11;
+  v13 = *(a1 + 240);
+  v14 = *(a1 + 244);
   __asm { FMOV            V0.2S, #1.0 }
 
-  v36 = vdiv_f32(_D0, vmaxnm_f32(v11, _D0));
-  *&v19 = C3DComputeGaussianProbability(0.0, v12);
-  v20 = 0;
+  v39 = vdiv_f32(_D0, vmaxnm_f32(v12, _D0));
+  *&v20 = C3DComputeGaussianProbability(0.0, v13);
   v21 = 0;
-  *&v22 = 0;
-  *(&v22 + 1) = v19;
-  v41[0] = v22;
-  v23.i32[1] = v36.i32[1];
-  v23.i32[0] = 0;
-  v24 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(v13), 0x1FuLL)), v36.u32[0], v23);
-  v25 = 1;
+  v22 = 0;
+  *&v23 = 0;
+  *(&v23 + 1) = v20;
+  v44[0] = v23;
+  v24.i32[1] = v39.i32[1];
+  v24.i32[0] = 0;
+  v25 = vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(v14), 0x1FuLL)), v39.u32[0], v24);
+  v26 = 1;
   while (1)
   {
-    v37 = v19;
-    v26 = (v25 + 1);
-    v27 = C3DComputeGaussianProbability(v25, v12);
-    v28 = C3DComputeGaussianProbability(v26, v12);
-    v30 = v27 + v28;
-    if ((v27 + v28) <= 0.002)
+    v40 = v20;
+    v27 = (v26 + 1);
+    v28 = C3DComputeGaussianProbability(v26, v13);
+    v29 = C3DComputeGaussianProbability(v27, v13);
+    v31 = v28 + v29;
+    if ((v28 + v29) <= 0.002)
     {
       break;
     }
 
-    *&v29 = vmul_n_f32(v24, ((v28 * v26) + (v25 * v27)) / v30);
-    *(&v29 + 2) = v27 + v28;
-    ++v21;
-    v19 = v37;
-    *&v19 = *&v37 + (v30 * 2.0);
-    v41[++v20] = v29;
-    v25 += 2;
-    if (v21 == 15)
+    *&v30 = vmul_n_f32(v25, ((v29 * v27) + (v26 * v28)) / v31);
+    *(&v30 + 2) = v28 + v29;
+    ++v22;
+    v20 = v40;
+    *&v20 = *&v40 + (v31 * 2.0);
+    v44[++v21] = v30;
+    v26 += 2;
+    if (v22 == 15)
     {
       goto LABEL_14;
     }
   }
 
-  if (v21 < 0xF)
+  if (v22 < 0xF)
   {
-    bzero(&v41[v20 + 1], 240 - v20 * 16);
+    bzero(&v44[v21 + 1], 240 - v21 * 16);
   }
 
-  LODWORD(v19) = v37;
+  LODWORD(v20) = v40;
 LABEL_14:
-  v31 = (v21 + 1);
-  v32 = 8;
+  v32 = (v22 + 1);
+  v33 = 8;
   do
   {
-    *(v41 + v32) = *(v41 + v32) / *&v19;
-    v32 += 16;
-    --v31;
+    *(v44 + v33) = *(v44 + v33) / *&v20;
+    v33 += 16;
+    --v32;
   }
 
-  while (v31);
-  if (v21 >= 0xE)
+  while (v32);
+  if (v22 >= 0xE)
   {
-    LODWORD(v21) = 14;
+    LODWORD(v22) = 14;
   }
 
-  v38 = 0;
-  v39 = 0;
-  v40 = 0;
-  SCNMTLBufferPool::allocateAndCopy(v6, v41, 0x100uLL, &v38);
-  v33 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 256) + 8 * v21 + 16) :"state" detail:? :?NSRetainFct];
-  if (*(v4 + 3376) != v33)
+  v41 = 0;
+  v42 = 0;
+  v43 = 0;
+  SCNMTLBufferPool::allocateAndCopy(&v41, v6, v44, 0x100uLL);
+  v35 = [C3D::SmartPtr<SCNMTLRenderPipeline * C3D:C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 256) + 8 * v22 + 16 :v34) detail:"state" :?NSRetainFct];
+  if (*(v4 + 3376) != v35)
   {
-    *(v4 + 3376) = v33;
-    [*(v4 + 3392) setRenderPipelineState:v33];
+    *(v4 + 3376) = v35;
+    [*(v4 + 3392) setRenderPipelineState:v35];
   }
 
-  SCNMTLRenderCommandEncoder::setFragmentBuffer(v4, v39, v40, 0);
-  return SCNMTLRenderCommandEncoder::drawFullScreenTriangle(v4);
+  SCNMTLRenderCommandEncoder::setFragmentBuffer(v4, v42, v43, 0);
+  return SCNMTLRenderCommandEncoder::drawFullScreenTriangle(v4, v36);
 }
 
 void C3D::GaussianBlurPass::Resource::~Resource(C3D::GaussianBlurPass::Resource *this)
@@ -5730,10 +5775,10 @@ void C3D::ComputePass::ComputePass(C3D::ComputePass *this, C3D::RenderGraph *a2,
   *(v3 + 32) = 3;
 }
 
-void C3DScratchAllocator::ClearToCapacity(C3DScratchAllocator *this, unint64_t a2)
+void C3DScratchAllocator::ClearToCapacity(vm_address_t *this, unint64_t a2)
 {
-  *(this + 2) = 0;
-  v4 = *(this + 3);
+  this[2] = 0;
+  v4 = this[3];
   v5 = MEMORY[0x277D85F48];
   if (v4)
   {
@@ -5748,9 +5793,9 @@ void C3DScratchAllocator::ClearToCapacity(C3DScratchAllocator *this, unint64_t a
     while (v6);
   }
 
-  *(this + 3) = 0;
-  *(this + 4) = this;
-  if (*(this + 1) < a2)
+  this[3] = 0;
+  this[4] = this;
+  if (this[1] < a2)
   {
     MEMORY[0x21CF08CF0](*v5, *this);
 
@@ -5769,13 +5814,13 @@ void C3DScratchAllocator::Reset(C3DScratchAllocator *this)
   C3DScratchAllocator::ClearToCapacity(this, v1);
 }
 
-C3DScratchAllocator *C3DScratchAllocatorDelete(C3DScratchAllocator *result)
+vm_address_t *C3DScratchAllocatorDelete(vm_address_t *result)
 {
   if (result)
   {
     v1 = result;
     C3DScratchAllocator::ClearToCapacity(result, 0);
-    MEMORY[0x21CF08CF0](*MEMORY[0x277D85F48], *v1, *(v1 + 1));
+    MEMORY[0x21CF08CF0](*MEMORY[0x277D85F48], *v1, v1[1]);
 
     JUMPOUT(0x21CF07610);
   }
@@ -5783,47 +5828,47 @@ C3DScratchAllocator *C3DScratchAllocatorDelete(C3DScratchAllocator *result)
   return result;
 }
 
-uint64_t C3DApplyBlendStatesToRenderPipelineDescriptor(uint64_t a1, void *a2)
+uint64_t C3DApplyBlendStatesToRenderPipelineDescriptor(_BOOL8 a1, void *a2)
 {
   Desc = C3DBlendStatesGetDesc(a1, 0);
   v4 = HIDWORD(Desc);
   v5 = [objc_msgSend(a2 "colorAttachments")];
   [v5 setBlendingEnabled:{(objc_msgSend(v5, "pixelFormat") != 0) & Desc}];
-  [v5 setSourceRGBBlendFactor:C3DBlendFactorToMTLBlendFactor(BYTE2(Desc))];
-  [v5 setDestinationRGBBlendFactor:C3DBlendFactorToMTLBlendFactor(BYTE3(Desc))];
-  [v5 setRgbBlendOperation:C3DBlendOpToMTLBlendOperation(BYTE4(Desc))];
-  v6 = HIBYTE(Desc);
-  v7 = Desc >> 40;
-  v8 = (Desc & 0x100) == 0;
+  [v5 setSourceRGBBlendFactor:{C3DBlendFactorToMTLBlendFactor(BYTE2(Desc), v6)}];
+  [v5 setDestinationRGBBlendFactor:{C3DBlendFactorToMTLBlendFactor(BYTE3(Desc), v7)}];
+  [v5 setRgbBlendOperation:{C3DBlendOpToMTLBlendOperation(BYTE4(Desc), v8)}];
+  v10 = HIBYTE(Desc);
+  v11 = Desc >> 40;
+  v12 = (Desc & 0x100) == 0;
   if ((Desc & 0x100) != 0)
   {
-    v9 = BYTE6(Desc);
+    v13 = BYTE6(Desc);
   }
 
   else
   {
-    LOBYTE(v7) = BYTE2(Desc);
-    v9 = BYTE3(Desc);
+    LOBYTE(v11) = BYTE2(Desc);
+    v13 = BYTE3(Desc);
   }
 
-  if (v8)
+  if (v12)
   {
-    v10 = v4;
+    v14 = v4;
   }
 
   else
   {
-    v10 = v6;
+    v14 = v10;
   }
 
-  [v5 setSourceAlphaBlendFactor:C3DBlendFactorToMTLBlendFactor(v7)];
-  [v5 setDestinationAlphaBlendFactor:C3DBlendFactorToMTLBlendFactor(v9)];
-  v11 = C3DBlendOpToMTLBlendOperation(v10);
+  [v5 setSourceAlphaBlendFactor:{C3DBlendFactorToMTLBlendFactor(v11, v9)}];
+  [v5 setDestinationAlphaBlendFactor:{C3DBlendFactorToMTLBlendFactor(v13, v15)}];
+  v17 = C3DBlendOpToMTLBlendOperation(v14, v16);
 
-  return [v5 setAlphaBlendOperation:v11];
+  return [v5 setAlphaBlendOperation:v17];
 }
 
-uint64_t SCNResourceRegistrySetup(uint64_t *a1, int a2)
+void *SCNResourceRegistrySetup(void *a1, int a2)
 {
   if (a2)
   {
@@ -5859,43 +5904,43 @@ void __removeMatchingProgram(const void *value, void *a2, void *a3)
   }
 }
 
-uint64_t _fillVertexDescriptor(void *a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t _fillVertexDescriptor(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a3 > 3)
   {
     switch(a3)
     {
       case 4:
-        v8 = 2;
+        v11 = 2;
         goto LABEL_20;
       case 5:
-        v8 = 4;
+        v11 = 4;
         goto LABEL_20;
       case 6:
-        v8 = 5;
+        v11 = 5;
         goto LABEL_20;
     }
 
 LABEL_13:
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v12 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       _fillVertexDescriptor();
     }
 
-    v8 = 14;
+    v11 = 14;
     goto LABEL_20;
   }
 
   if (a3 < 2)
   {
-    v8 = a3;
+    v11 = a3;
     goto LABEL_20;
   }
 
   if (a3 == 2)
   {
-    v8 = 3;
+    v11 = 3;
     goto LABEL_20;
   }
 
@@ -5906,61 +5951,75 @@ LABEL_13:
 
   if (a4 == -1)
   {
-    v8 = 6;
+    v11 = 6;
     goto LABEL_20;
   }
 
-  v8 = a4 + 6;
+  v11 = a4 + 6;
   if ((a4 + 6) == 14)
   {
     goto LABEL_13;
   }
 
 LABEL_20:
-  Accessor = C3DMeshSourceGetAccessor(a2);
+  Accessor = C3DMeshSourceGetAccessor(a2, a2, a3, a4, a5, a6, a7, a8);
   ComponentsValueType = C3DSourceAccessorGetComponentsValueType(Accessor);
   ComponentsCountPerValue = C3DSourceAccessorGetComponentsCountPerValue(Accessor);
   CompoundType = C3DBaseTypeGetCompoundType(ComponentsValueType, ComponentsCountPerValue);
   MTLVertexFormat = C3DMeshSourceGetMTLVertexFormat(a2);
   if (!MTLVertexFormat)
   {
-    MTLVertexFormat = SCNMTLVertexFormatFromC3DBaseType(CompoundType);
+    MTLVertexFormat = SCNMTLVertexFormatFromC3DBaseType(CompoundType, v17);
   }
 
   [objc_msgSend(objc_msgSend(a1 "attributes")];
   if (![objc_msgSend(objc_msgSend(a1 "attributes")])
   {
-    v15 = scn_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v20 = scn_default_log(0, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      _fillVertexDescriptor(CompoundType, v15);
+      _fillVertexDescriptor(CompoundType, v20);
     }
   }
 
   [objc_msgSend(objc_msgSend(a1 "attributes")];
   [objc_msgSend(objc_msgSend(a1 "attributes")];
   [objc_msgSend(objc_msgSend(a1 "layouts")];
-  InstancingDivisor = C3DMeshSourceGetInstancingDivisor(a2);
+  InstancingDivisor = C3DMeshSourceGetInstancingDivisor(a2, v21);
   if (!InstancingDivisor)
   {
     return [objc_msgSend(objc_msgSend(a1 "layouts")];
   }
 
-  v17 = InstancingDivisor;
+  v23 = InstancingDivisor;
   [objc_msgSend(objc_msgSend(a1 "layouts")];
   return [objc_msgSend(objc_msgSend(a1 "layouts")];
 }
 
-void sub_21BF7F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21BF7F2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a9);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21BF7F9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21BF7F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21BF7F9EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21BF80D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5971,11 +6030,12 @@ uint64_t OUTLINED_FUNCTION_2_6(void *a1, const char *a2)
   return [a1 initWithKeyOptions:258 valueOptions:0 capacity:100];
 }
 
-uint64_t OUTLINED_FUNCTION_9_1@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t OUTLINED_FUNCTION_9_1@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
+  va_start(va, a4);
   a4 = a1;
 
-  return [v5 dispatchThreadgroups:&a5 threadsPerThreadgroup:&a2];
+  return [v4 dispatchThreadgroups:va threadsPerThreadgroup:&a2];
 }
 
 uint64_t OUTLINED_FUNCTION_10_1(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -5984,7 +6044,7 @@ uint64_t OUTLINED_FUNCTION_10_1(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   return [a4 threadExecutionWidth];
 }
 
-uint64_t (*C3DKeyFrameInterpolatorForType(int a1, int a2, int a3, signed int a4, char a5))()
+uint64_t (*C3DKeyFrameInterpolatorForType(int a1, int a2, int a3, unsigned int a4, char a5))()
 {
   v5 = _C3DKeyFrameBoolInterpolator;
   switch(a1)
@@ -7269,61 +7329,62 @@ LABEL_19:
     return 1;
   }
 
-  if (C3DCFTypeIsDictionary())
+  IsDictionary = C3DCFTypeIsDictionary(cf);
+  if (IsDictionary)
   {
     Value = CFDictionaryGetValue(cf, @"c0");
     if (Value)
     {
-      v8 = Value;
-      v9 = CFGetTypeID(Value);
-      if (v9 == CFNumberGetTypeID())
+      v10 = Value;
+      v11 = CFGetTypeID(Value);
+      if (v11 == CFNumberGetTypeID())
       {
         valuePtr = 0.0;
-        CFNumberGetValue(v8, kCFNumberCGFloatType, &valuePtr);
-        v10 = valuePtr;
-        *(a1 + 24) = v10;
+        CFNumberGetValue(v10, kCFNumberCGFloatType, &valuePtr);
+        v12 = valuePtr;
+        *(a1 + 24) = v12;
       }
     }
 
-    v11 = CFDictionaryGetValue(cf, @"c1");
-    if (v11)
+    v13 = CFDictionaryGetValue(cf, @"c1");
+    if (v13)
     {
-      v12 = v11;
-      v13 = CFGetTypeID(v11);
-      if (v13 == CFNumberGetTypeID())
+      v14 = v13;
+      v15 = CFGetTypeID(v13);
+      if (v15 == CFNumberGetTypeID())
       {
         valuePtr = 0.0;
-        CFNumberGetValue(v12, kCFNumberCGFloatType, &valuePtr);
-        v14 = valuePtr;
-        *(a1 + 28) = v14;
+        CFNumberGetValue(v14, kCFNumberCGFloatType, &valuePtr);
+        v16 = valuePtr;
+        *(a1 + 28) = v16;
       }
     }
 
-    v15 = CFDictionaryGetValue(cf, @"c2");
-    if (v15)
+    v17 = CFDictionaryGetValue(cf, @"c2");
+    if (v17)
     {
-      v16 = v15;
-      v17 = CFGetTypeID(v15);
-      if (v17 == CFNumberGetTypeID())
+      v18 = v17;
+      v19 = CFGetTypeID(v17);
+      if (v19 == CFNumberGetTypeID())
       {
         valuePtr = 0.0;
-        CFNumberGetValue(v16, kCFNumberCGFloatType, &valuePtr);
-        v18 = valuePtr;
-        *(a1 + 32) = v18;
+        CFNumberGetValue(v18, kCFNumberCGFloatType, &valuePtr);
+        v20 = valuePtr;
+        *(a1 + 32) = v20;
       }
     }
 
-    v19 = CFDictionaryGetValue(cf, @"c3");
-    if (v19)
+    v21 = CFDictionaryGetValue(cf, @"c3");
+    if (v21)
     {
-      v20 = v19;
-      v21 = CFGetTypeID(v19);
-      if (v21 == CFNumberGetTypeID())
+      v22 = v21;
+      v23 = CFGetTypeID(v21);
+      if (v23 == CFNumberGetTypeID())
       {
         valuePtr = 0.0;
-        CFNumberGetValue(v20, kCFNumberCGFloatType, &valuePtr);
-        v22 = valuePtr;
-        *(a1 + 36) = v22;
+        CFNumberGetValue(v22, kCFNumberCGFloatType, &valuePtr);
+        v24 = valuePtr;
+        *(a1 + 36) = v24;
       }
     }
 
@@ -7331,25 +7392,25 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v23 = scn_default_log();
-  result = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+  v25 = scn_default_log(IsDictionary, v8);
+  result = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    _C3DTimingFunctionInitWithPropertyList_cold_1(v23);
+    _C3DTimingFunctionInitWithPropertyList_cold_1(v25);
     return 0;
   }
 
   return result;
 }
 
-__CFString *_C3DTimingFunctionCopyPropertyList(uint64_t (**cf)())
+__CFString *_C3DTimingFunctionCopyPropertyList(void (**cf)(), uint64_t a2)
 {
   if (!cf)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      _C3DTimingFunctionCopyPropertyList_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      _C3DTimingFunctionCopyPropertyList_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -7358,24 +7419,24 @@ __CFString *_C3DTimingFunctionCopyPropertyList(uint64_t (**cf)())
     return @"linear";
   }
 
-  v10 = CFGetAllocator(cf);
-  Mutable = CFDictionaryCreateMutable(v10, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v11 = CFGetAllocator(cf);
+  Mutable = CFDictionaryCreateMutable(v11, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   valuePtr = *(cf + 6);
-  v12 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"c0", v12);
-  CFRelease(v12);
-  valuePtr = *(cf + 7);
   v13 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"c1", v13);
+  CFDictionaryAddValue(Mutable, @"c0", v13);
   CFRelease(v13);
-  valuePtr = *(cf + 8);
+  valuePtr = *(cf + 7);
   v14 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"c2", v14);
+  CFDictionaryAddValue(Mutable, @"c1", v14);
   CFRelease(v14);
-  valuePtr = *(cf + 9);
+  valuePtr = *(cf + 8);
   v15 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
-  CFDictionaryAddValue(Mutable, @"c3", v15);
+  CFDictionaryAddValue(Mutable, @"c2", v15);
   CFRelease(v15);
+  valuePtr = *(cf + 9);
+  v16 = CFNumberCreate(0, kCFNumberCGFloatType, &valuePtr);
+  CFDictionaryAddValue(Mutable, @"c3", v16);
+  CFRelease(v16);
   return Mutable;
 }
 
@@ -7489,32 +7550,32 @@ uint64_t C3DTimingFunctionCreateWithPropertyList(const void *a1)
   return Instance;
 }
 
-uint64_t C3DTimingFunctionGetControlPoints(uint64_t a1)
+uint64_t C3DTimingFunctionGetControlPoints(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DTimingFunctionGetControlPoints_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DTimingFunctionGetControlPoints_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return a1 + 24;
 }
 
-uint64_t C3DTimingFunctionSolve(uint64_t a1, double a2, float a3)
+uint64_t C3DTimingFunctionSolve(uint64_t a1, uint64_t a2, double a3, float a4)
 {
   if (!a1)
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      C3DTimingFunctionGetControlPoints_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      C3DTimingFunctionGetControlPoints_cold_1(v7, a2, v8, v9, v10, v11, v12, v13);
     }
   }
 
-  return (*(a1 + 16))(a1, a2, a3);
+  return (*(a1 + 16))(a1, a2, a3, a4);
 }
 
 CFStringRef _C3DTimingFunctionCFCopyFormatDescription(const void *a1)
@@ -7543,13 +7604,13 @@ uint64_t C3D::SSRDownSampleColorDepthPass::setup(C3D::SSRDownSampleColorDepthPas
   C3D::Pass::setInputCount(this, 3u);
   C3D::Pass::setOutputCount(this, 2u);
   *(C3D::PassDescriptor::inputAtIndex((this + 32), 0) + 8) = "COLOR";
-  *(C3D::PassDescriptor::inputAtIndex((this + 32), 1u) + 64) = 2;
-  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2u) + 64) = 2;
-  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2u) + 8) = "BackDepth";
+  *(C3D::PassDescriptor::inputAtIndex((this + 32), 1) + 64) = 2;
+  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2) + 64) = 2;
+  *(C3D::PassDescriptor::inputAtIndex((this + 32), 2) + 8) = "BackDepth";
   v2 = C3D::PassDescriptor::outputAtIndex((this + 32), 0);
   *(v2 + 16) = **(this + 15);
   *(v2 + 18) = *(*(this + 15) + 2);
-  C3D::Pass::parentColorDesc(this, v7);
+  C3D::Pass::parentColorDesc(&v7, this);
   if (v8 == 81)
   {
     v3 = 80;
@@ -7557,14 +7618,14 @@ uint64_t C3D::SSRDownSampleColorDepthPass::setup(C3D::SSRDownSampleColorDepthPas
 
   else
   {
-    C3D::Pass::parentColorDesc(this, v5);
+    C3D::Pass::parentColorDesc(&v5, this);
     v3 = v6;
   }
 
   *(v2 + 28) = v3;
   *(v2 + 8) = "ColorDownSampled";
   *(v2 + 26) = 3;
-  result = C3D::PassDescriptor::outputAtIndex((this + 32), 1u);
+  result = C3D::PassDescriptor::outputAtIndex((this + 32), 1);
   *(result + 16) = **(this + 15);
   *(result + 18) = *(*(this + 15) + 2);
   *(result + 28) = 65;
@@ -7573,27 +7634,25 @@ uint64_t C3D::SSRDownSampleColorDepthPass::setup(C3D::SSRDownSampleColorDepthPas
   return result;
 }
 
-uint64_t C3D::SSRDownSampleColorDepthPass::compile(C3D::SSRDownSampleColorDepthPass *this)
+void C3D::SSRDownSampleColorDepthPass::compile(C3D::SSRDownSampleColorDepthPass *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
   [(SCNMTLRenderContext *)RenderContext resourceManager];
-  v3 = [(SCNMTLRenderContext *)RenderContext reverseZ];
-  v7 = v3;
-  v4 = v3 | (2 * *(*(this + 15) + 4));
-  v5 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v4) ^ ((0xC6A4A7935BD1E995 * v4) >> 47))));
-  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) >> 47));
-  *(this + 14) = result;
-  if (!result)
+  v4 = [(SCNMTLRenderContext *)RenderContext reverseZ];
+  v8 = v4;
+  v5 = v4 | (2 * *(*(this + 15) + 4));
+  v6 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v5) ^ ((0xC6A4A7935BD1E995 * v5) >> 47))));
+  v7 = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v6 ^ (v6 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v6 ^ (v6 >> 47))) >> 47));
+  *(this + 14) = v7;
+  if (!v7)
   {
     operator new();
   }
-
-  return result;
 }
 
-uint64_t C3D::SSRDownSampleColorDepthPass::execute(uint64_t *a1, SCNMTLComputeCommandEncoder **a2)
+uint64_t C3D::SSRDownSampleColorDepthPass::execute(C3D::Pass *a1, SCNMTLComputeCommandEncoder **a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(a1[2]);
+  RenderContext = C3DEngineContextGetRenderContext(*(a1 + 2), a2);
   v5 = *a2;
   v6 = C3D::Pass::inputTextureAtIndex(a1, 0);
   if (v5->_textures[0] != v6)
@@ -7602,14 +7661,14 @@ uint64_t C3D::SSRDownSampleColorDepthPass::execute(uint64_t *a1, SCNMTLComputeCo
     v5->_texturesToBind[0] |= 1uLL;
   }
 
-  v7 = C3D::Pass::inputTextureAtIndex(a1, 1u);
+  v7 = C3D::Pass::inputTextureAtIndex(a1, 1);
   if (v5->_textures[1] != v7)
   {
     v5->_textures[1] = v7;
     v5->_texturesToBind[0] |= 2uLL;
   }
 
-  v8 = C3D::Pass::inputTextureAtIndex(a1, 2u);
+  v8 = C3D::Pass::inputTextureAtIndex(a1, 2);
   if (v5->_textures[2] != v8)
   {
     v5->_textures[2] = v8;
@@ -7623,38 +7682,38 @@ uint64_t C3D::SSRDownSampleColorDepthPass::execute(uint64_t *a1, SCNMTLComputeCo
     v5->_texturesToBind[0] |= 8uLL;
   }
 
-  v10 = C3D::Pass::outputTextureAtIndex(a1, 1u);
+  v10 = C3D::Pass::outputTextureAtIndex(a1, 1);
   if (v5->_textures[4] != v10)
   {
     v5->_textures[4] = v10;
     v5->_texturesToBind[0] |= 0x10uLL;
   }
 
-  v24 = *(a1[15] + 8);
+  v25 = *(*(a1 + 15) + 8);
   v11 = [(SCNMTLRenderContext *)RenderContext reverseZ];
-  v12.f32[0] = vmuls_lane_f32(v24.f32[0], v24, 1);
-  v13 = v24.f32[0] - v24.f32[1];
+  v12.f32[0] = vmuls_lane_f32(v25.f32[0], v25, 1);
+  v13 = v25.f32[0] - v25.f32[1];
   if (v11)
   {
-    v13 = v24.f32[1] - v24.f32[0];
-    v14 = v24.f32[1];
+    v13 = v25.f32[1] - v25.f32[0];
+    v14 = v25.f32[1];
   }
 
   else
   {
-    v14 = v24.f32[0];
+    v14 = v25.f32[0];
   }
 
   __asm { FMOV            V3.2S, #1.0 }
 
   _D3.f32[0] = v13;
   v12.f32[1] = v14;
-  v25 = vdiv_f32(_D3, v12);
-  SCNMTLComputeCommandEncoder::setBytes(v5, &v25, 8uLL, 0);
+  v26 = vdiv_f32(_D3, v12);
+  SCNMTLComputeCommandEncoder::setBytes(v5, &v26, 8uLL, 0);
   v20 = C3D::Pass::outputTextureAtIndex(a1, 0);
-  v21 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(a1[14] + 16);
-  v22 = [(SCNMTLOpenSubdivComputeEvaluator *)v21 computeEvaluator];
-  return SCNMTLComputeCommandEncoder::dispatchOnTexture2D(v5, v20, v22);
+  v22 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(*(a1 + 14) + 16, v21);
+  v23 = [(SCNMTLOpenSubdivComputeEvaluator *)v22 computeEvaluator];
+  return SCNMTLComputeCommandEncoder::dispatchOnTexture2D(v5, v20, v23);
 }
 
 void C3D::SSRDownSampleColorDepthPassResource::~SSRDownSampleColorDepthPassResource(C3D::SSRDownSampleColorDepthPassResource *this)
@@ -7776,7 +7835,7 @@ void _freeStorage(uint64_t a1)
   }
 }
 
-uint64_t C3DFXTechniqueGetTypeID()
+uint64_t C3DFXTechniqueGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (C3DFXTechniqueGetTypeID_onceToken != -1)
   {
@@ -7798,7 +7857,7 @@ uint64_t C3DFXTechniqueCreateWithDescription(const void *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueCreateWithDescription_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -7813,7 +7872,7 @@ uint64_t C3DFXTechniqueCreateWithDescription(const void *a1, uint64_t a2)
   Instance = C3DTypeCreateInstance_(C3DFXTechniqueGetTypeID_typeID, 144);
   C3DFXTechniqueSetDescription(Instance, a1);
   C3DFXTechniqueSetOwner(Instance, a2);
-  C3DFXTechniqueCompile(Instance);
+  C3DFXTechniqueCompile(Instance, v13);
   *(Instance + 92) = -1;
   return Instance;
 }
@@ -7822,7 +7881,7 @@ CFTypeRef C3DFXTechniqueSetDescription(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueSetDescription_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -7854,83 +7913,84 @@ CFTypeRef C3DFXTechniqueSetDescription(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-void C3DFXTechniqueSetOwner(uint64_t a1, uint64_t a2)
+void C3DFXTechniqueSetOwner(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueSetDescription_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 112) = a2;
+  *(result + 112) = a2;
 }
 
-uint64_t C3DFXTechniqueCompile(uint64_t a1)
+uint64_t C3DFXTechniqueCompile(uint64_t a1, uint64_t a2)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   if (*(a1 + 88))
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueCompile_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueCompile_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
   *(a1 + 88) |= 1u;
-  cf = C3DFXTechniqueGetOwner(a1);
-  Description = C3DFXTechniqueGetDescription(a1);
+  cf = C3DFXTechniqueGetOwner(a1, a2);
+  Description = C3DFXTechniqueGetDescription(a1, v10);
   *(a1 + 144) = [Description valueForKey:@"bundle"];
   *(a1 + 152) = [Description valueForKey:@"metalLibraryName"];
   obj = [Description valueForKey:@"sequence"];
-  v97 = [Description valueForKey:@"passes"];
+  v107 = [Description valueForKey:@"passes"];
   size = [obj count];
-  v98 = Description;
-  v11 = [Description valueForKey:@"symbols"];
+  v108 = Description;
+  v12 = [Description valueForKey:@"symbols"];
   if (!*(a1 + 96))
   {
     *(a1 + 96) = malloc_type_calloc(0x18uLL, 1uLL, 0x1030040D5FA72FAuLL);
     *(a1 + 88) |= 0x10u;
   }
 
-  v12 = [v11 count];
-  *(*(a1 + 96) + 16) = CFDictionaryCreateMutable(0, v12, MEMORY[0x277CBF138], 0);
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
-  v105 = 0u;
-  v13 = [v11 countByEnumeratingWithState:&v104 objects:v111 count:16];
-  if (v13)
+  v13 = [v12 count];
+  *(*(a1 + 96) + 16) = CFDictionaryCreateMutable(0, v13, MEMORY[0x277CBF138], 0);
+  v116 = 0u;
+  v117 = 0u;
+  v114 = 0u;
+  v115 = 0u;
+  v14 = [v12 countByEnumeratingWithState:&v114 objects:v121 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v105;
+    v15 = v14;
+    v16 = *v115;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v105 != v15)
+        if (*v115 != v16)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v104 + 1) + 8 * i);
-        v18 = [v11 valueForKey:v17];
+        v18 = *(*(&v114 + 1) + 8 * i);
+        v19 = [v12 valueForKey:v18];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          if (![v18 valueForKey:@"semantic"])
+          if (![v19 valueForKey:@"semantic"])
           {
-            v19 = [v18 valueForKey:@"type"];
-            if (([(__CFString *)v19 isEqualToString:@"color"]& 1) == 0 && ([(__CFString *)v19 isEqualToString:@"depth"]& 1) == 0)
+            v22 = [v19 valueForKey:@"type"];
+            if ((objc_msgSend_isEqualToString_(v22) & 1) == 0 && (objc_msgSend_isEqualToString_(v22) & 1) == 0)
             {
-              v20 = C3DBaseTypeArraySizeFromString(v19);
-              v21 = C3DBaseTypeFromMetalOrGLSLString(v19);
-              if (v21)
+              v23 = C3DBaseTypeArraySizeFromString(v22);
+              v24 = C3DBaseTypeFromMetalOrGLSLString(v22);
+              if (v24)
               {
-                C3DFXTechniqueDeclareSymbol(a1, v17, v21, v20);
+                C3DFXTechniqueDeclareSymbol(a1, v18, v24, v23);
               }
             }
           }
@@ -7938,30 +7998,31 @@ uint64_t C3DFXTechniqueCompile(uint64_t a1)
 
         else
         {
-          v22 = scn_default_log();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v25 = scn_default_log(isKindOfClass, v21);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v110 = v17;
-            _os_log_error_impl(&dword_21BEF7000, v22, OS_LOG_TYPE_ERROR, "Error: invalue description for input named %@ - expect a dictionary", buf, 0xCu);
+            v120 = v18;
+            _os_log_error_impl(&dword_21BEF7000, v25, OS_LOG_TYPE_ERROR, "Error: invalue description for input named %@ - expect a dictionary", buf, 0xCu);
           }
         }
       }
 
-      v14 = [v11 countByEnumeratingWithState:&v104 objects:v111 count:16];
+      v15 = [v12 countByEnumeratingWithState:&v114 objects:v121 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
   if (!size)
   {
-    if ([v97 count])
+    v30 = [v107 count];
+    if (v30)
     {
-      v25 = scn_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v32 = scn_default_log(v30, v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        C3DFXTechniqueCompile_cold_2(v98, v25, v26, v27, v28, v29, v30, v31);
+        C3DFXTechniqueCompile_cold_2(v108, v32, v33, v34, v35, v36, v37, v38);
       }
     }
 
@@ -7972,16 +8033,16 @@ uint64_t C3DFXTechniqueCompile(uint64_t a1)
   *(a1 + 64) = size;
   if (cfa)
   {
-    v23 = CFGetTypeID(cfa);
-    if (v23 == C3DSceneGetTypeID())
+    v26 = CFGetTypeID(cfa);
+    if (v26 == C3DSceneGetTypeID(v26, v27))
     {
-      RootNode = C3DSceneGetRootNode(cfa);
+      RootNode = C3DSceneGetRootNode(cfa, v28);
     }
 
     else
     {
-      v32 = CFGetTypeID(cfa);
-      if (v32 == C3DNodeGetTypeID())
+      v39 = CFGetTypeID(cfa);
+      if (v39 == C3DNodeGetTypeID(v39, v40))
       {
         RootNode = cfa;
       }
@@ -7998,288 +8059,289 @@ uint64_t C3DFXTechniqueCompile(uint64_t a1)
     RootNode = 0;
   }
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v33 = [obj countByEnumeratingWithState:&v100 objects:v108 count:16];
-  if (v33)
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v41 = [obj countByEnumeratingWithState:&v110 objects:v118 count:16];
+  if (v41)
   {
-    v34 = v33;
-    v35 = 0;
-    v36 = *v101;
+    v43 = v41;
+    v44 = 0;
+    v45 = *v111;
     do
     {
-      for (j = 0; j != v34; ++j)
+      for (j = 0; j != v43; ++j)
       {
-        if (*v101 != v36)
+        if (*v111 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v38 = *(*(&v100 + 1) + 8 * j);
-        v39 = C3DFXPassCreate();
-        C3DFXPassSetName(v39, v38);
-        v40 = [v97 valueForKey:v38];
-        C3DFXPassSetupWithPropertyList(v39, v40, v98);
-        if (!C3DFXPassGetProgram(v39))
+        v47 = *(*(&v110 + 1) + 8 * j);
+        v48 = C3DFXPassCreate();
+        C3DFXPassSetName(v48, v47);
+        v49 = [v107 valueForKey:v47];
+        C3DFXPassSetupWithPropertyList(v48, v49, v108);
+        if (!C3DFXPassGetProgram(v48, v50))
         {
-          C3DFXPassSetProgramName(v39, [v40 objectForKey:@"program"]);
-          v41 = [v40 objectForKey:@"metalLibraryFile"];
-          if (v41)
+          C3DFXPassSetProgramName(v48, [v49 objectForKey:@"program"]);
+          v52 = [v49 objectForKey:@"metalLibraryFile"];
+          if (v52)
           {
-            C3DFXPassSetMetalLibraryName(v39, v41);
+            C3DFXPassSetMetalLibraryName(v48, v52);
           }
 
-          C3DFXPassSetMetalVertexShaderFunction(v39, [v40 objectForKey:@"metalVertexShader"]);
-          C3DFXPassSetMetalFragmentShaderFunction(v39, [v40 objectForKey:@"metalFragmentShader"]);
-          v42 = [v40 objectForKey:@"clientProgram"];
-          if (v42)
+          C3DFXPassSetMetalVertexShaderFunction(v48, [v49 objectForKey:@"metalVertexShader"]);
+          C3DFXPassSetMetalFragmentShaderFunction(v48, [v49 objectForKey:@"metalFragmentShader"]);
+          v53 = [v49 objectForKey:@"clientProgram"];
+          if (v53)
           {
-            v43 = [v42 BOOLValue];
+            v54 = [v53 BOOLValue];
           }
 
           else
           {
-            v43 = 1;
+            v54 = 1;
           }
 
-          C3DFXPassSetClientProgram(v39, v43);
+          C3DFXPassSetClientProgram(v48, v54);
         }
 
-        v44 = *(v39 + 24);
-        if (v44 == 6 || v44 == 3)
+        v55 = *(v48 + 24);
+        if (v55 == 6 || v55 == 3)
         {
-          v45 = *(v39 + 96);
-          if (v45)
+          v56 = *(v48 + 96);
+          if (v56)
           {
-            Technique = C3DMaterialGetTechnique(v45);
+            Technique = C3DMaterialGetTechnique(v56, v51);
             if (Technique)
             {
-              v47 = Technique;
+              v58 = Technique;
               PassAtIndex = C3DFXTechniqueGetPassAtIndex(Technique, 0);
               if (PassAtIndex)
               {
-                C3DFXPassAddInputsWithDescription(PassAtIndex, [v40 valueForKey:@"inputs"], v47);
+                C3DFXPassAddInputsWithDescription(PassAtIndex, [v49 valueForKey:@"inputs"], v58);
               }
             }
           }
         }
 
-        C3DFXPassAddInputsWithDescription(v39, [v40 valueForKey:@"inputs"], a1);
-        v49 = [-[__CFDictionary valueForKey:](v98 valueForKey:{@"owners", "objectAtIndex:", v35}];
-        NodeReference = _loadNodeReference(@"pointOfView", v40, a1, v49, RootNode, (v39 + 504));
+        C3DFXPassAddInputsWithDescription(v48, [v49 valueForKey:@"inputs"], a1);
+        v60 = [-[__CFDictionary valueForKey:](v108 valueForKey:{@"owners", "objectAtIndex:", v44}];
+        NodeReference = _loadNodeReference(@"pointOfView", v49, a1, v60, RootNode, (v48 + 504));
         if (NodeReference)
         {
-          C3DFXPassSetPointOfView(v39, NodeReference);
+          C3DFXPassSetPointOfView(v48, NodeReference);
         }
 
-        v51 = _loadNodeReference(@"mirrorNode", v40, a1, v49, RootNode, (v39 + 496));
-        if (v51)
+        v62 = _loadNodeReference(@"mirrorNode", v49, a1, v60, RootNode, (v48 + 496));
+        if (v62)
         {
-          C3DFXPassSetMirrorNode(v39, v51);
+          C3DFXPassSetMirrorNode(v48, v62);
         }
 
-        v52 = _loadNodeReference(@"node", v40, a1, v49, RootNode, (v39 + 488));
-        if (v52)
+        v63 = _loadNodeReference(@"node", v49, a1, v60, RootNode, (v48 + 488));
+        if (v63)
         {
-          C3DFXPassSetRootNode(v39, v52);
+          C3DFXPassSetRootNode(v48, v63);
         }
 
-        C3DFXPassAddOutputsWithDescription(v39, [v40 valueForKey:@"outputs"], a1);
-        C3DFXTechniqueAppendPass(a1, v39);
-        CFRelease(v39);
-        ++v35;
+        C3DFXPassAddOutputsWithDescription(v48, [v49 valueForKey:@"outputs"], a1);
+        C3DFXTechniqueAppendPass(a1, v48);
+        CFRelease(v48);
+        ++v44;
       }
 
-      v34 = [obj countByEnumeratingWithState:&v100 objects:v108 count:16];
+      v43 = [obj countByEnumeratingWithState:&v110 objects:v118 count:16];
     }
 
-    while (v34);
+    while (v43);
   }
 
-  PassCount = C3DFXTechniqueGetPassCount(a1);
+  PassCount = C3DFXTechniqueGetPassCount(a1, v42);
   Mutable = CFSetCreateMutable(0, 0, MEMORY[0x277CBF158]);
-  v55 = Mutable;
+  v66 = Mutable;
   if (PassCount < 1)
   {
     CFRelease(Mutable);
-    v88 = *(a1 + 88);
+    v97 = *(a1 + 88);
     goto LABEL_130;
   }
 
-  v56 = 0;
-  v99 = 0;
-  v57 = 0;
+  v67 = 0;
+  v109 = 0;
+  v68 = 0;
   do
   {
-    v58 = C3DFXTechniqueGetPassAtIndex(a1, v56);
-    v59 = v58;
-    if ((v57 & 1) == 0 && (v99 & 1) == 0)
+    IsConsumed = C3DFXTechniqueGetPassAtIndex(a1, v67);
+    v71 = IsConsumed;
+    if ((v68 & 1) == 0 && (v109 & 1) == 0)
     {
-      v60 = *(v58 + 520);
-      if (v60 < 1)
+      v72 = *(IsConsumed + 520);
+      if (v72 < 1)
       {
         goto LABEL_67;
       }
 
-      v57 = 0;
-      v61 = *(v58 + 512);
+      v68 = 0;
+      v73 = *(IsConsumed + 512);
       do
       {
-        v62 = *v61++;
-        v57 |= *(v62 + 80);
-        --v60;
+        v74 = *v73++;
+        v68 |= *(v74 + 80);
+        --v72;
       }
 
-      while (v60);
+      while (v72);
     }
 
-    if (v57)
+    if (v68)
     {
-      v57 = 1;
+      v68 = 1;
       goto LABEL_68;
     }
 
 LABEL_67:
-    v57 = 0;
-    v99 |= *(v58 + 186) >> 7;
+    v68 = 0;
+    v109 |= *(IsConsumed + 186) >> 7;
 LABEL_68:
-    if (*(v58 + 440))
+    if (*(IsConsumed + 440))
     {
-      v63 = 0;
+      v75 = 0;
       do
       {
         buf[0] = 0;
-        v64 = *(v59 + 432) + (v63 << 6);
-        v65 = *(v64 + 8);
-        v66 = *(v64 + 20);
-        if (v65)
+        v76 = *(v71 + 432) + (v75 << 6);
+        v77 = *(v76 + 8);
+        v78 = *(v76 + 20);
+        if (v77)
         {
-          if (v66 > 0x7FFFFFFD)
+          if (v78 > 0x7FFFFFFD)
           {
-            if (v66 == 0x7FFFFFFF)
+            if (v78 == 0x7FFFFFFF)
             {
-              v67 = 0x7FFFFFFF;
+              v79 = 0x7FFFFFFF;
             }
 
             else
             {
-              v67 = 2147483646;
+              v79 = 2147483646;
             }
           }
 
           else
           {
-            v67 = _computeInputCountForOutputNamed(a1, v65, v56, buf, 0);
+            v79 = _computeInputCountForOutputNamed(a1, v77, v67, buf, 0);
           }
 
-          if ((C3DMetalIsUsed() & 1) == 0 && !*(*(v59 + 432) + (v63 << 6) + 16) && v67 >= 2)
+          if ((C3DMetalIsUsed() & 1) == 0 && !*(*(v71 + 432) + (v75 << 6) + 16) && v79 >= 2)
           {
-            *(v59 + 176) = 1;
+            *(v71 + 176) = 1;
             buf[0] = 0;
           }
 
-          if (!CFSetContainsValue(v55, v65))
+          IsConsumed = CFSetContainsValue(v66, v77);
+          if (!IsConsumed)
           {
-            CFSetAddValue(v55, v65);
-            *(*(v59 + 432) + (v63 << 6) + 20) = v67;
+            CFSetAddValue(v66, v77);
+            *(*(v71 + 432) + (v75 << 6) + 20) = v79;
           }
 
           if (buf[0] == 1)
           {
-            *(v59 + 184) |= 0x10u;
+            *(v71 + 184) |= 0x10u;
           }
 
-          if (v67 >= 2)
+          if (v79 >= 2)
           {
-            *(v59 + 184) |= 0x400000u;
+            *(v71 + 184) |= 0x400000u;
           }
         }
 
         else
         {
-          *(v64 + 20) = v66 + 1;
-          v68 = v56 + 1;
-          if (v56 + 1 < PassCount)
+          *(v76 + 20) = v78 + 1;
+          v80 = v67 + 1;
+          if (v67 + 1 < PassCount)
           {
             do
             {
-              v69 = C3DFXTechniqueGetPassAtIndex(a1, v68);
-              v70 = *(v69 + 520);
-              if (v70 >= 1)
+              IsConsumed = C3DFXTechniqueGetPassAtIndex(a1, v80);
+              v81 = *(IsConsumed + 520);
+              if (v81 >= 1)
               {
-                v71 = *(v69 + 512);
+                v82 = *(IsConsumed + 512);
                 do
                 {
-                  if ((*(*v71 + 80) & 3) != 0)
+                  if ((*(*v82 + 80) & 3) != 0)
                   {
-                    ++*(*(v59 + 432) + (v63 << 6) + 20);
+                    ++*(*(v71 + 432) + (v75 << 6) + 20);
                   }
 
-                  v71 += 8;
-                  --v70;
+                  v82 += 8;
+                  --v81;
                 }
 
-                while (v70);
+                while (v81);
               }
 
-              v72 = *(v69 + 440);
-              if (v72)
+              v83 = *(IsConsumed + 440);
+              if (v83)
               {
-                v73 = (*(v69 + 432) + 8);
-                LOBYTE(v74) = 1;
+                v84 = (*(IsConsumed + 432) + 8);
+                LOBYTE(v85) = 1;
                 do
                 {
-                  v75 = *v73;
-                  v73 += 8;
-                  v74 = (v75 != 0) & v74;
-                  --v72;
+                  v86 = *v84;
+                  v84 += 8;
+                  v85 = (v86 != 0) & v85;
+                  --v83;
                 }
 
-                while (v72);
+                while (v83);
               }
 
               else
               {
-                v74 = 1;
+                v85 = 1;
               }
 
-              ++v68;
+              ++v80;
             }
 
-            while (v68 < PassCount && v74);
+            while (v80 < PassCount && v85);
           }
         }
 
-        ++v63;
+        ++v75;
       }
 
-      while (v63 < *(v59 + 440));
+      while (v75 < *(v71 + 440));
     }
 
-    v77 = *(v59 + 184);
-    if ((v77 & 0x800010) == 0x800000)
+    v88 = *(v71 + 184);
+    if ((v88 & 0x800010) == 0x800000)
     {
       buf[0] = 0;
-      _computeInputCountForOutputNamed(a1, @"COLOR", v56, buf, 1);
-      v77 = *(v59 + 184) & 0xFFFFFFEF | (16 * (buf[0] & 1));
-      *(v59 + 184) = v77;
+      IsConsumed = _computeInputCountForOutputNamed(a1, @"COLOR", v67, buf, 1);
+      v88 = *(v71 + 184) & 0xFFFFFFEF | (16 * (buf[0] & 1));
+      *(v71 + 184) = v88;
     }
 
-    if ((v77 & 0x400000) == 0)
+    if ((v88 & 0x400000) == 0)
     {
-      if ((v77 & 0x800000) == 0)
+      if ((v88 & 0x800000) == 0)
       {
         goto LABEL_116;
       }
 
-      v78 = C3DFXTechniqueGetPassCount(a1);
-      v79 = v56 + 1;
-      if (v56 + 1 >= v78)
+      IsConsumed = C3DFXTechniqueGetPassCount(a1, v70);
+      v89 = v67 + 1;
+      if (v67 + 1 >= IsConsumed)
       {
-        v77 = *(v59 + 184);
-        if ((v77 & 0x1000000) == 0)
+        v88 = *(v71 + 184);
+        if ((v88 & 0x1000000) == 0)
         {
           goto LABEL_121;
         }
@@ -8287,68 +8349,68 @@ LABEL_68:
 
       else
       {
-        v80 = v78;
-        v81 = 1;
+        v90 = IsConsumed;
+        v91 = 1;
         while (1)
         {
-          v82 = C3DFXTechniqueGetPassAtIndex(a1, v79);
-          v83 = *(v82 + 520);
-          if (v83 >= 1)
+          IsConsumed = C3DFXTechniqueGetPassAtIndex(a1, v89);
+          v92 = *(IsConsumed + 520);
+          if (v92 >= 1)
           {
             break;
           }
 
 LABEL_114:
-          v81 = ++v79 < v80;
-          if (v79 == v80)
+          v91 = ++v89 < v90;
+          if (v89 == v90)
           {
             goto LABEL_115;
           }
         }
 
-        v84 = *(v82 + 512);
-        while ((*(*v84 + 80) & 1) == 0)
+        v93 = *(IsConsumed + 512);
+        while ((*(*v93 + 80) & 1) == 0)
         {
-          v84 += 8;
-          if (!--v83)
+          v93 += 8;
+          if (!--v92)
           {
             goto LABEL_114;
           }
         }
 
 LABEL_115:
-        v77 = *(v59 + 184);
-        if (v81)
+        v88 = *(v71 + 184);
+        if (v91)
         {
 LABEL_120:
-          *(v59 + 184) = v77 | 0x400000;
+          *(v71 + 184) = v88 | 0x400000;
           goto LABEL_125;
         }
 
 LABEL_116:
-        if ((v77 & 0x1000000) == 0)
+        if ((v88 & 0x1000000) == 0)
         {
 LABEL_121:
-          if ((v77 & 0x1A00000) == 0x200000)
+          if ((v88 & 0x1A00000) == 0x200000)
           {
-            v86 = scn_default_log();
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+            v94 = scn_default_log(IsConsumed, v70);
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
             {
-              Name = C3DFXPassGetName(v59);
+              Name = C3DFXPassGetName(v71, v95);
               *buf = 138412290;
-              v110 = Name;
-              _os_log_impl(&dword_21BEF7000, v86, OS_LOG_TYPE_INFO, "Info: pass named %@ appears to be useless - skipping", buf, 0xCu);
+              v120 = Name;
+              _os_log_impl(&dword_21BEF7000, v94, OS_LOG_TYPE_INFO, "Info: pass named %@ appears to be useless - skipping", buf, 0xCu);
             }
 
-            C3DFXPassSetEnabled(v59, 0);
+            C3DFXPassSetEnabled(v71, 0);
           }
 
           goto LABEL_125;
         }
       }
 
-      IsConsumed = _depthIsConsumed(a1, v56);
-      v77 = *(v59 + 184);
+      IsConsumed = _depthIsConsumed(a1, v67);
+      v88 = *(v71 + 184);
       if (IsConsumed)
       {
         goto LABEL_120;
@@ -8358,52 +8420,52 @@ LABEL_121:
     }
 
 LABEL_125:
-    ++v56;
+    ++v67;
   }
 
-  while (v56 != PassCount);
-  CFRelease(v55);
-  v88 = *(a1 + 88);
-  if (v99)
+  while (v67 != PassCount);
+  CFRelease(v66);
+  v97 = *(a1 + 88);
+  if (v109)
   {
-    v88 |= 8u;
+    v97 |= 8u;
   }
 
 LABEL_130:
-  *(a1 + 88) = v88 | 4;
+  *(a1 + 88) = v97 | 4;
   if (size >= 1)
   {
-    v89 = C3DFXTechniqueGetPassAtIndex(a1, size - 1);
-    if (v89)
+    v98 = C3DFXTechniqueGetPassAtIndex(a1, size - 1);
+    if (v98)
     {
-      if (*(v89 + 185))
+      if (*(v98 + 185))
       {
-        if (C3DFXPassGetProgramIsOpaque(v89))
+        if (C3DFXPassGetProgramIsOpaque(v98, v99))
         {
-          v91 = 4;
+          v101 = 4;
         }
 
         else
         {
-          v91 = 0;
+          v101 = 0;
         }
 
-        v90 = *(a1 + 88) & 0xFB | v91;
+        v100 = *(a1 + 88) & 0xFB | v101;
       }
 
       else
       {
-        v90 = *(a1 + 88) & 0xFB;
+        v100 = *(a1 + 88) & 0xFB;
       }
 
-      *(a1 + 88) = v90;
+      *(a1 + 88) = v100;
     }
   }
 
   return 1;
 }
 
-uint64_t C3DFXTechniqueCreateWithCapacity(size_t a1)
+uint64_t C3DFXTechniqueCreateWithCapacity(size_t a1, uint64_t a2)
 {
   if (C3DFXTechniqueGetTypeID_onceToken != -1)
   {
@@ -8413,37 +8475,38 @@ uint64_t C3DFXTechniqueCreateWithCapacity(size_t a1)
   Instance = C3DTypeCreateInstance_(C3DFXTechniqueGetTypeID_typeID, 144);
   if (a1)
   {
-    v3 = malloc_type_calloc(8uLL, a1, 0xEF50A478uLL);
+    v4 = malloc_type_calloc(8uLL, a1, 0xEF50A478uLL);
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  *(Instance + 80) = v3;
+  *(Instance + 80) = v4;
   *(Instance + 64) = a1;
   *(Instance + 92) = -1;
   return Instance;
 }
 
-uint64_t C3DFXTechniqueGetNullTechnique()
+uint64_t C3DFXTechniqueGetNullTechnique(uint64_t a1, uint64_t a2)
 {
   result = C3DFXTechniqueGetNullTechnique_nullT;
   if (!C3DFXTechniqueGetNullTechnique_nullT)
   {
-    result = C3DFXTechniqueCreateWithCapacity(0);
+    result = C3DFXTechniqueCreateWithCapacity(0, a2);
     C3DFXTechniqueGetNullTechnique_nullT = result;
   }
 
   return result;
 }
 
-void C3DFXTechniqueAppendPass(void *a1, CFTypeRef cf)
+void C3DFXTechniqueAppendPass(_BOOL8 appended, CFTypeRef cf)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = appended;
+  if (!appended && (v4 = scn_default_log(0, cf), appended = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DFXTechniqueAppendPass_cold_1(v4, cf, v5, v6, v7, v8, v9, v10);
     if (cf)
     {
       goto LABEL_6;
@@ -8455,41 +8518,42 @@ void C3DFXTechniqueAppendPass(void *a1, CFTypeRef cf)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(appended, cf);
+  appended = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
+  if (appended)
   {
-    C3DFXTechniqueAppendPass_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DFXTechniqueAppendPass_cold_2(v11, cf, v12, v13, v14, v15, v16, v17);
   }
 
 LABEL_6:
-  if (a1[9] >= a1[8])
+  if (v3[9] >= v3[8])
   {
-    v23 = scn_default_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = scn_default_log(appended, cf);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      C3DFXTechniqueAppendPass_cold_3(v23);
+      C3DFXTechniqueAppendPass_cold_3(v21);
     }
   }
 
   else
   {
-    v20 = CFRetain(cf);
-    v22 = a1[9];
-    v21 = a1[10];
-    a1[9] = v22 + 1;
-    *(v21 + 8 * v22) = v20;
-    *(cf + 5) = a1;
+    v18 = CFRetain(cf);
+    v20 = v3[9];
+    v19 = v3[10];
+    v3[9] = v20 + 1;
+    *(v19 + 8 * v20) = v18;
+    *(cf + 5) = v3;
   }
 }
 
-uint64_t C3DFXTechniqueGetPassCount(uint64_t a1)
+uint64_t C3DFXTechniqueGetPassCount(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueAppendPass_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -8529,62 +8593,65 @@ LABEL_6:
   return *(*(a1 + 80) + 8 * v5);
 }
 
-uint64_t C3DFXTechniqueGetOwner(uint64_t a1)
+uint64_t C3DFXTechniqueGetOwner(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueSetDescription_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueSetDescription_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 112);
 }
 
-uint64_t C3DFXTechniqueGetPassAtIndex(uint64_t a1, uint64_t a2)
+uint64_t C3DFXTechniqueGetPassAtIndex(_BOOL8 appended, uint64_t a2)
 {
-  if (!a1)
+  v3 = appended;
+  if (!appended)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v4 = scn_default_log(0, a2);
+    appended = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
+    if (appended)
     {
-      C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DFXTechniqueAppendPass_cold_1(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (*(a1 + 72) <= a2)
+  if (*(v3 + 72) <= a2)
   {
-    v12 = scn_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = scn_default_log(appended, a2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueGetPassAtIndex_cold_2((a1 + 72), a2, v12);
+      C3DFXTechniqueGetPassAtIndex_cold_2((v3 + 72), a2, v11);
     }
   }
 
-  return *(*(a1 + 80) + 8 * a2);
+  return *(*(v3 + 80) + 8 * a2);
 }
 
-uint64_t C3DFXTechniqueGetDescription(uint64_t a1)
+uint64_t C3DFXTechniqueGetDescription(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueAppendPass_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 104);
 }
 
-void C3DFXTechniqueDeclareSymbol(uint64_t a1, void *key, int a3, unsigned int a4)
+void C3DFXTechniqueDeclareSymbol(_BOOL8 appended, void *key, uint64_t a3, unsigned int a4)
 {
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  v7 = appended;
+  if (!appended && (v8 = scn_default_log(0, key), appended = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    C3DFXTechniqueAppendPass_cold_1(v8, key, v9, v10, v11, v12, v13, v14);
     if (key)
     {
       goto LABEL_6;
@@ -8596,54 +8663,55 @@ void C3DFXTechniqueDeclareSymbol(uint64_t a1, void *key, int a3, unsigned int a4
     goto LABEL_6;
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(appended, key);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueDeclareSymbol_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    C3DFXTechniqueDeclareSymbol_cold_2(v15, key, v16, v17, v18, v19, v20, v21);
   }
 
 LABEL_6:
-  v24 = *(a1 + 96);
-  if (!v24)
+  v22 = *(v7 + 96);
+  if (!v22)
   {
     goto LABEL_11;
   }
 
-  if (*v24)
+  if (*v22)
   {
-    v25 = scn_default_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v23 = scn_default_log(v22, key);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueDeclareSymbol_cold_3(v25, v26, v27, v28, v29, v30, v31, v32);
+      C3DFXTechniqueDeclareSymbol_cold_3(v23, v24, v25, v26, v27, v28, v29, v30);
     }
 
-    v24 = *(a1 + 96);
-    if (!v24)
+    v22 = *(v7 + 96);
+    if (!v22)
     {
 LABEL_11:
-      v24 = malloc_type_calloc(0x18uLL, 1uLL, 0x1030040D5FA72FAuLL);
-      *(a1 + 96) = v24;
-      *(a1 + 88) |= 0x10u;
+      v22 = malloc_type_calloc(0x18uLL, 1uLL, 0x1030040D5FA72FAuLL);
+      *(v7 + 96) = v22;
+      *(v7 + 88) |= 0x10u;
     }
   }
 
-  Mutable = v24[2];
+  Mutable = v22[2];
   if (!Mutable)
   {
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], 0);
-    *(*(a1 + 96) + 16) = Mutable;
+    *(*(v7 + 96) + 16) = Mutable;
   }
 
-  if (CFDictionaryGetValue(Mutable, key))
+  Value = CFDictionaryGetValue(Mutable, key);
+  if (Value)
   {
-    v34 = scn_default_log();
+    v34 = scn_default_log(Value, v33);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueDeclareSymbol_cold_4(key, v34);
     }
   }
 
-  v35 = *(a1 + 96);
+  v35 = *(v7 + 96);
   if (a3 == 5)
   {
     v37 = *v35;
@@ -8659,18 +8727,19 @@ LABEL_11:
 
   v39 = a4;
   v40 = (((v36 + v38) << 16) | (a4 << 8) | a3 & 0x3F);
-  v41 = v38 + C3DSizeOfBaseType(a3) * v39;
-  v42 = *(a1 + 96);
+  v41 = v38 + C3DSizeOfBaseType(a3, v33) * v39;
+  v42 = *(v7 + 96);
   v43 = *(v42 + 16);
   *(v42 + 8) += v41;
   CFDictionarySetValue(v43, key, v40);
 }
 
-void C3DFXTechniqueSetValueForSymbolWithCount(uint64_t a1, void *a2, const void *a3, int a4)
+void C3DFXTechniqueSetValueForSymbolWithCount(_BOOL8 appended, void *a2, const void *a3, int a4)
 {
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  v7 = appended;
+  if (!appended && (v8 = scn_default_log(0, a2), appended = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    C3DFXTechniqueAppendPass_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
     if (a2)
     {
       goto LABEL_6;
@@ -8682,40 +8751,40 @@ void C3DFXTechniqueSetValueForSymbolWithCount(uint64_t a1, void *a2, const void 
     goto LABEL_6;
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(appended, a2);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
-  if (!*(a1 + 96))
+  if (!*(v7 + 96))
   {
-    *(a1 + 96) = malloc_type_calloc(0x18uLL, 1uLL, 0x1030040D5FA72FAuLL);
-    *(a1 + 88) |= 0x10u;
+    *(v7 + 96) = malloc_type_calloc(0x18uLL, 1uLL, 0x1030040D5FA72FAuLL);
+    *(v7 + 88) |= 0x10u;
   }
 
-  __CheckParametersStorage(a1);
-  Value = CFDictionaryGetValue(*(*(a1 + 96) + 16), a2);
+  __CheckParametersStorage(v7);
+  Value = CFDictionaryGetValue(*(*(v7 + 96) + 16), a2);
   if (Value)
   {
     v25 = WORD1(Value);
     if ((Value & 0x3F) == 5)
     {
-      if (a4 != 1 && (v26 = scn_default_log(), os_log_type_enabled(v26, OS_LOG_TYPE_FAULT)))
+      if (a4 != 1 && (v26 = scn_default_log(Value, v24), os_log_type_enabled(v26, OS_LOG_TYPE_FAULT)))
       {
         C3DFXTechniqueSetValueForSymbolWithCount_cold_3(v26, v27, v28, v29, v30, v31, v32, v33);
         if (a3)
         {
 LABEL_13:
           v34 = CFGetTypeID(a3);
-          if (v34 == C3DImageGetTypeID())
+          if (v34 == C3DImageGetTypeID(v34, v35))
           {
-            ValueForSymbol = C3DFXTechniqueGetValueForSymbol(a1, a2, 0);
+            ValueForSymbol = C3DFXTechniqueGetValueForSymbol(v7, a2, 0);
             if (!ValueForSymbol)
             {
-              ValueForSymbol = C3DFXSamplerCreate();
-              C3DFXTechniqueSetValueForSymbolWithCount(a1, a2, ValueForSymbol, 1);
+              ValueForSymbol = C3DFXSamplerCreate(0);
+              C3DFXTechniqueSetValueForSymbolWithCount(v7, a2, ValueForSymbol, 1);
               CFRelease(ValueForSymbol);
             }
 
@@ -8724,18 +8793,18 @@ LABEL_13:
 
           else
           {
-            v45 = *(a1 + 96);
-            v46 = *v45;
-            v47 = *(*v45 + v25);
-            if (v47 != a3)
+            v46 = *(v7 + 96);
+            v47 = *v46;
+            v48 = *(*v46 + v25);
+            if (v48 != a3)
             {
-              if (v47)
+              if (v48)
               {
-                CFRelease(v47);
-                *(v46 + v25) = 0;
+                CFRelease(v48);
+                *(v47 + v25) = 0;
               }
 
-              *(v46 + v25) = CFRetain(a3);
+              *(v47 + v25) = CFRetain(a3);
             }
           }
 
@@ -8748,13 +8817,13 @@ LABEL_13:
         goto LABEL_13;
       }
 
-      v48 = *(a1 + 96);
-      v49 = *v48;
-      v50 = *(*v48 + v25);
-      if (v50)
+      v49 = *(v7 + 96);
+      v50 = *v49;
+      v51 = *(*v49 + v25);
+      if (v51)
       {
-        CFRelease(v50);
-        *(v49 + v25) = 0;
+        CFRelease(v51);
+        *(v50 + v25) = 0;
       }
     }
 
@@ -8762,25 +8831,25 @@ LABEL_13:
     {
       if (BYTE1(Value) >= a4)
       {
-        v43 = a4;
+        v44 = a4;
       }
 
       else
       {
-        v43 = BYTE1(Value);
+        v44 = BYTE1(Value);
       }
 
-      v44 = C3DSizeOfBaseType(Value & 0x3F);
-      memcpy((**(a1 + 96) + v25), a3, v44 * v43);
+      v45 = C3DSizeOfBaseType(Value & 0x3F, v24);
+      memcpy((**(v7 + 96) + v25), a3, v45 * v44);
     }
   }
 
   else
   {
-    v36 = scn_default_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = scn_default_log(0, v24);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      C3DFXTechniqueSetValueForSymbolWithCount_cold_4(a2, v36, v37, v38, v39, v40, v41, v42);
+      C3DFXTechniqueSetValueForSymbolWithCount_cold_4(a2, v37, v38, v39, v40, v41, v42, v43);
     }
   }
 }
@@ -8802,11 +8871,12 @@ void *__CheckParametersStorage(void *result)
   return result;
 }
 
-uint64_t C3DFXTechniqueGetValueForSymbol(uint64_t a1, void *a2, _WORD *a3)
+uint64_t C3DFXTechniqueGetValueForSymbol(_BOOL8 appended, void *a2, _WORD *a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = appended;
+  if (!appended && (v6 = scn_default_log(0, a2), appended = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DFXTechniqueAppendPass_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -8818,30 +8888,30 @@ uint64_t C3DFXTechniqueGetValueForSymbol(uint64_t a1, void *a2, _WORD *a3)
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(appended, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  __CheckParametersStorage(a1);
-  v25 = 0;
-  ValueOffsetForSymbol = C3DFXTechniqueGetValueOffsetForSymbol(a1, a2, &v25, 0);
+  __CheckParametersStorage(v5);
+  v24 = 0;
+  ValueOffsetForSymbol = C3DFXTechniqueGetValueOffsetForSymbol(v5, a2, &v24, 0);
   if (ValueOffsetForSymbol == -1)
   {
     return 0;
   }
 
-  v23 = ValueOffsetForSymbol;
+  v22 = ValueOffsetForSymbol;
   if (a3)
   {
-    *a3 = v25;
+    *a3 = v24;
   }
 
-  __CheckParametersStorage(a1);
-  result = **(a1 + 96) + v23;
-  if (v25 == 5)
+  __CheckParametersStorage(v5);
+  result = **(v5 + 96) + v22;
+  if (v24 == 5)
   {
     return *result;
   }
@@ -8849,11 +8919,12 @@ LABEL_6:
   return result;
 }
 
-uint64_t C3DFXTechniqueGetValueOffsetForSymbol(uint64_t a1, void *key, _WORD *a3, BOOL *a4)
+uint64_t C3DFXTechniqueGetValueOffsetForSymbol(uint64_t appended, void *key, _WORD *a3, BOOL *a4)
 {
-  if (!a1 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  v7 = appended;
+  if (!appended && (v8 = scn_default_log(0, key), appended = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT), appended))
   {
-    C3DFXTechniqueAppendPass_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    C3DFXTechniqueAppendPass_cold_1(v8, key, v9, v10, v11, v12, v13, v14);
     if (key)
     {
       goto LABEL_6;
@@ -8865,35 +8936,36 @@ uint64_t C3DFXTechniqueGetValueOffsetForSymbol(uint64_t a1, void *key, _WORD *a3
     goto LABEL_6;
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(appended, key);
+  appended = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
+  if (appended)
   {
-    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v15, key, v16, v17, v18, v19, v20, v21);
   }
 
 LABEL_6:
-  v24 = *(a1 + 96);
-  if (v24 && (v25 = *(v24 + 16)) != 0 && (Value = CFDictionaryGetValue(v25, key), Value & 0xFFFFFFFF0000FFFFLL | (WORD1(Value) << 16)))
+  v22 = *(v7 + 96);
+  if (v22 && (appended = *(v22 + 16)) != 0 && (appended = CFDictionaryGetValue(appended, key), appended & 0xFFFFFFFF0000FFFFLL | (WORD1(appended) << 16)))
   {
-    v27 = Value;
-    result = WORD1(Value);
+    v23 = appended;
+    result = WORD1(appended);
     if (a3)
     {
-      *a3 = v27 & 0x3F;
+      *a3 = v23 & 0x3F;
     }
 
     if (a4)
     {
-      *a4 = (v27 & 0x40) != 0;
+      *a4 = (v23 & 0x40) != 0;
     }
   }
 
   else
   {
-    v29 = scn_default_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v25 = scn_default_log(appended, key);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      C3DFXTechniqueGetValueOffsetForSymbol_cold_3(key, v29, v30, v31, v32, v33, v34, v35);
+      C3DFXTechniqueGetValueOffsetForSymbol_cold_3(key, v25, v26, v27, v28, v29, v30, v31);
     }
 
     return -1;
@@ -8902,11 +8974,12 @@ LABEL_6:
   return result;
 }
 
-uint64_t C3DFXTechniqueGetValueAnimatableAddressForSymbol(uint64_t a1, void *a2, _WORD *a3)
+uint64_t C3DFXTechniqueGetValueAnimatableAddressForSymbol(_BOOL8 appended, void *a2, _WORD *a3)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = appended;
+  if (!appended && (v6 = scn_default_log(0, a2), appended = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DFXTechniqueAppendPass_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -8918,271 +8991,282 @@ uint64_t C3DFXTechniqueGetValueAnimatableAddressForSymbol(uint64_t a1, void *a2,
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(appended, a2);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DFXTechniqueSetValueForSymbolWithCount_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
 LABEL_6:
-  __CheckParametersStorage(a1);
-  v25 = 0;
-  ValueOffsetForSymbol = C3DFXTechniqueGetValueOffsetForSymbol(a1, a2, &v25, 0);
+  __CheckParametersStorage(v5);
+  v24 = 0;
+  ValueOffsetForSymbol = C3DFXTechniqueGetValueOffsetForSymbol(v5, a2, &v24, 0);
   if (ValueOffsetForSymbol == -1)
   {
     return 0;
   }
 
-  v23 = ValueOffsetForSymbol;
+  v22 = ValueOffsetForSymbol;
   if (a3)
   {
-    *a3 = v25;
+    *a3 = v24;
   }
 
-  __CheckParametersStorage(a1);
-  return **(a1 + 96) + v23;
+  __CheckParametersStorage(v5);
+  return **(v5 + 96) + v22;
 }
 
 CFTypeRef C3DFXTechniqueCreateBySequencingTechniques(void *a1, uint64_t a2)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v49 = [MEMORY[0x277CBEB18] array];
-  v48 = [MEMORY[0x277CBEB38] dictionary];
+  v79 = *MEMORY[0x277D85DE8];
+  v52 = [MEMORY[0x277CBEB18] array];
+  v51 = [MEMORY[0x277CBEB38] dictionary];
   v3 = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CBEB38] dictionary];
   v5 = [MEMORY[0x277CBEB18] array];
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obj = a1;
-  v6 = [a1 countByEnumeratingWithState:&v61 objects:v75 count:16];
+  v6 = [a1 countByEnumeratingWithState:&v64 objects:v78 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v62;
+    v8 = v6;
+    v9 = 0;
+    v10 = *v65;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v62 != v9)
+        if (*v65 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v61 + 1) + 8 * i);
-        if (*(v11 + 136))
+        v12 = *(*(&v64 + 1) + 8 * i);
+        if (*(v12 + 136))
         {
-          v8 = *(v11 + 136);
+          v9 = *(v12 + 136);
         }
 
-        Description = C3DFXTechniqueGetDescription(*(*(&v61 + 1) + 8 * i));
-        v13 = [Description valueForKey:@"sequence"];
-        [v49 addObjectsFromArray:v13];
-        [v48 addEntriesFromDictionary:{objc_msgSend(Description, "valueForKey:", @"passes"}];
+        Description = C3DFXTechniqueGetDescription(*(*(&v64 + 1) + 8 * i), v7);
+        v14 = [Description valueForKey:@"sequence"];
+        [v52 addObjectsFromArray:v14];
+        [v51 addEntriesFromDictionary:{objc_msgSend(Description, "valueForKey:", @"passes"}];
         [v3 addEntriesFromDictionary:{objc_msgSend(Description, "valueForKey:", @"targets"}];
         [v4 addEntriesFromDictionary:{objc_msgSend(Description, "valueForKey:", @"symbols"}];
-        Owner = C3DFXTechniqueGetOwner(v11);
+        Owner = C3DFXTechniqueGetOwner(v12, v15);
         if (!Owner)
         {
           Owner = [MEMORY[0x277CBEB68] null];
         }
 
-        for (j = [v13 count]; j; --j)
+        for (j = [v14 count]; j; --j)
         {
           [v5 addObject:Owner];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
+      v8 = [obj countByEnumeratingWithState:&v64 objects:v78 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v73[0] = @"sequence";
-  v73[1] = @"passes";
-  v74[1] = v48;
-  v74[2] = v3;
-  v73[2] = @"targets";
-  v73[3] = @"symbols";
-  v73[4] = @"owners";
-  v74[0] = v49;
-  v74[3] = v4;
-  v74[4] = v5;
-  v16 = C3DFXTechniqueCreateWithDescription([MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:5], a2);
-  v17 = v16[17];
-  if (v17 != v8)
+  v76[0] = @"sequence";
+  v76[1] = @"passes";
+  v77[1] = v51;
+  v77[2] = v3;
+  v76[2] = @"targets";
+  v76[3] = @"symbols";
+  v76[4] = @"owners";
+  v77[0] = v52;
+  v77[3] = v4;
+  v77[4] = v5;
+  v18 = C3DFXTechniqueCreateWithDescription([MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:5], a2);
+  v19 = v18[17];
+  if (v19 != v9)
   {
-    if (v17)
+    if (v19)
     {
-      CFRelease(v17);
-      v16[17] = 0;
+      CFRelease(v19);
+      v18[17] = 0;
     }
 
-    if (v8)
+    if (v9)
     {
-      v18 = CFRetain(v8);
+      v20 = CFRetain(v9);
     }
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
-    v16[17] = v18;
+    v18[17] = v20;
   }
 
-  v59 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v19 = [obj countByEnumeratingWithState:&v57 objects:v72 count:16];
-  if (v19)
+  v61 = 0u;
+  v21 = [obj countByEnumeratingWithState:&v60 objects:v75 count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = 0;
-    v50 = *v58;
+    v23 = v21;
+    v24 = 0;
+    v53 = *v61;
     do
     {
-      for (k = 0; k != v20; ++k)
+      v25 = 0;
+      do
       {
-        if (*v58 != v50)
+        if (*v61 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v57 + 1) + 8 * k);
-        if (v23[9] >= 1)
+        v26 = *(*(&v60 + 1) + 8 * v25);
+        if (v26[9] >= 1)
         {
-          v24 = 0;
+          v27 = 0;
           do
           {
-            v25 = *(v23[10] + 8 * v24);
-            v26 = *(v16[10] + 8 * v21);
-            v27 = *(v25 + 520);
-            if (v27 != *(v26 + 520))
+            v28 = *(v26[10] + 8 * v27);
+            v29 = *(v18[10] + 8 * v24);
+            v30 = *(v28 + 520);
+            if (v30 != *(v29 + 520))
             {
-              v28 = scn_default_log();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+              v31 = scn_default_log(v21, v22);
+              v21 = os_log_type_enabled(v31, OS_LOG_TYPE_FAULT);
+              if (v21)
               {
-                C3DFXTechniqueCreateBySequencingTechniques_cold_1(v70, &v71, v28);
+                C3DFXTechniqueCreateBySequencingTechniques_cold_1(v73, &v74, v31);
               }
 
-              v27 = *(v25 + 520);
+              v30 = *(v28 + 520);
             }
 
-            if (v27 >= 1)
+            if (v30 >= 1)
             {
-              for (m = 0; m < v27; ++m)
+              for (k = 0; k < v30; ++k)
               {
-                v30 = *(*(v25 + 512) + 8 * m);
-                if (*(v30 + 16) == 3)
+                v33 = *(*(v28 + 512) + 8 * k);
+                if (*(v33 + 16) == 3)
                 {
-                  v31 = *(v30 + 96);
-                  if (v31)
+                  v22 = *(v33 + 96);
+                  if (v22)
                   {
-                    C3DFXPassInputSetBindingBlock(*(*(v26 + 512) + 8 * m), v31);
-                    v27 = *(v25 + 520);
+                    v21 = C3DFXPassInputSetBindingBlock(*(*(v29 + 512) + 8 * k), v22);
+                    v30 = *(v28 + 520);
                   }
                 }
               }
             }
 
-            if (*(v26 + 544))
+            if (*(v29 + 544))
             {
-              v32 = scn_default_log();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+              v34 = scn_default_log(v21, v22);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
               {
-                C3DFXTechniqueCreateBySequencingTechniques_cold_2(v68, &v69, v32);
+                C3DFXTechniqueCreateBySequencingTechniques_cold_2(v71, &v72, v34);
               }
             }
 
-            C3DFXPassSetInitializeBlock(v26, *(v25 + 544));
-            if (*(v26 + 552))
+            v35 = C3DFXPassSetInitializeBlock(v29, *(v28 + 544));
+            if (*(v29 + 552))
             {
-              v33 = scn_default_log();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+              v37 = scn_default_log(v35, v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
               {
-                C3DFXTechniqueCreateBySequencingTechniques_cold_3(v66, &v67, v33);
+                C3DFXTechniqueCreateBySequencingTechniques_cold_3(v69, &v70, v37);
               }
             }
 
-            C3DFXPassSetExecuteBlock(v26, *(v25 + 552));
-            *(v26 + 216) = *(v25 + 216);
-            v34 = *(v25 + 232);
-            v35 = *(v25 + 248);
-            v36 = *(v25 + 264);
-            *(v26 + 280) = *(v25 + 280);
-            *(v26 + 264) = v36;
-            *(v26 + 248) = v35;
-            *(v26 + 232) = v34;
-            v37 = *(v25 + 392);
-            v38 = *(v25 + 408);
-            *(v26 + 424) = *(v25 + 424);
-            *(v26 + 392) = v37;
-            *(v26 + 408) = v38;
-            *(v26 + 200) = *(v25 + 200);
+            v21 = C3DFXPassSetExecuteBlock(v29, *(v28 + 552));
+            *(v29 + 216) = *(v28 + 216);
+            v38 = *(v28 + 232);
+            v39 = *(v28 + 248);
+            v40 = *(v28 + 264);
+            *(v29 + 280) = *(v28 + 280);
+            *(v29 + 264) = v40;
+            *(v29 + 248) = v39;
+            *(v29 + 232) = v38;
+            v41 = *(v28 + 392);
+            v42 = *(v28 + 408);
+            *(v29 + 424) = *(v28 + 424);
+            *(v29 + 392) = v41;
+            *(v29 + 408) = v42;
+            *(v29 + 200) = *(v28 + 200);
+            ++v27;
             ++v24;
-            ++v21;
           }
 
-          while (v24 < v23[9]);
+          while (v27 < v26[9]);
         }
 
-        v55 = 0u;
+        v58 = 0u;
+        v59 = 0u;
         v56 = 0u;
-        v53 = 0u;
-        v54 = 0u;
-        v39 = *(v23[12] + 16);
-        v40 = [v39 countByEnumeratingWithState:&v53 objects:v65 count:16];
-        if (v40)
+        v57 = 0u;
+        v43 = *(v26[12] + 16);
+        v21 = [v43 countByEnumeratingWithState:&v56 objects:v68 count:16];
+        if (v21)
         {
-          v41 = v40;
-          v42 = *v54;
+          v44 = v21;
+          v45 = *v57;
           do
           {
-            for (n = 0; n != v41; ++n)
+            v46 = 0;
+            do
             {
-              if (*v54 != v42)
+              if (*v57 != v45)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v43);
               }
 
-              v44 = *(*(&v53 + 1) + 8 * n);
-              v52 = 0;
-              ValueForSymbol = C3DFXTechniqueGetValueForSymbol(v23, v44, &v52);
+              v47 = *(*(&v56 + 1) + 8 * v46);
+              v55 = 0;
+              ValueForSymbol = C3DFXTechniqueGetValueForSymbol(v26, v47, &v55);
               if (ValueForSymbol)
               {
-                C3DFXTechniqueSetValueForSymbolWithCount(v16, v44, ValueForSymbol, 1);
+                C3DFXTechniqueSetValueForSymbolWithCount(v18, v47, ValueForSymbol, 1);
               }
+
+              ++v46;
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v53 objects:v65 count:16];
+            while (v44 != v46);
+            v21 = [v43 countByEnumeratingWithState:&v56 objects:v68 count:16];
+            v44 = v21;
           }
 
-          while (v41);
+          while (v21);
         }
+
+        ++v25;
       }
 
-      v20 = [obj countByEnumeratingWithState:&v57 objects:v72 count:16];
+      while (v25 != v23);
+      v21 = [obj countByEnumeratingWithState:&v60 objects:v75 count:16];
+      v23 = v21;
     }
 
-    while (v20);
+    while (v21);
   }
 
-  return CFRetain(v16);
+  return CFRetain(v18);
 }
 
 BOOL _depthIsConsumed(uint64_t a1, uint64_t a2)
 {
-  PassCount = C3DFXTechniqueGetPassCount(a1);
+  PassCount = C3DFXTechniqueGetPassCount(a1, a2);
   v5 = a2 + 1;
   if (v5 >= PassCount)
   {
@@ -9224,7 +9308,7 @@ LABEL_7:
   return v7;
 }
 
-uint64_t _loadNodeReference(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, const void **a6)
+uint64_t _loadNodeReference(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BOOL8 a5, const void **a6)
 {
   v10 = [a2 objectForKey:a1];
   if (!v10)
@@ -9233,12 +9317,12 @@ uint64_t _loadNodeReference(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uin
   }
 
   v11 = v10;
-  if ([v10 isEqualToString:@"self"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     if (!a4)
     {
 
-      return C3DFXTechniqueGetOwner(a3);
+      return C3DFXTechniqueGetOwner(a3, v12);
     }
 
     return a4;
@@ -9246,12 +9330,12 @@ uint64_t _loadNodeReference(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uin
 
   if (!a5)
   {
-    v13 = *a6;
+    v14 = *a6;
     if (*a6 != v11)
     {
-      if (v13)
+      if (v14)
       {
-        CFRelease(v13);
+        CFRelease(v14);
         *a6 = 0;
       }
 
@@ -9268,7 +9352,7 @@ uint64_t _loadNodeReference(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uin
 
 uint64_t _computeInputCountForOutputNamed(uint64_t a1, const void *a2, uint64_t a3, _BYTE *a4, int a5)
 {
-  PassCount = C3DFXTechniqueGetPassCount(a1);
+  PassCount = C3DFXTechniqueGetPassCount(a1, a2);
   v10 = a3 + 1;
   if (a3 + 1 >= PassCount)
   {
@@ -9351,46 +9435,47 @@ LABEL_19:
   return v14;
 }
 
-uint64_t C3DFXTechniqueIsBeingRendered(uint64_t a1)
+uint64_t C3DFXTechniqueIsBeingRendered(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueAppendPass_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 88) >> 1) & 1;
 }
 
-uint64_t C3DFXTechniqueIsOpaque(uint64_t a1)
+uint64_t C3DFXTechniqueIsOpaque(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueAppendPass_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 88) >> 2) & 1;
 }
 
-void C3DFXTechniqueSetIsOpaque(uint64_t a1, int a2)
+void C3DFXTechniqueSetIsOpaque(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 4;
   }
@@ -9400,14 +9485,15 @@ void C3DFXTechniqueSetIsOpaque(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 88) = *(a1 + 88) & 0xFB | v12;
+  *(result + 88) = *(result + 88) & 0xFB | v12;
 }
 
-void C3DFXTechniqueAddSubTechnique(uint64_t a1, void *value)
+void C3DFXTechniqueAddSubTechnique(_BOOL8 appended, void *value)
 {
-  if (!a1 && (v4 = scn_default_log(), os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
+  v3 = appended;
+  if (!appended && (v4 = scn_default_log(0, value), appended = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT)))
   {
-    C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+    C3DFXTechniqueAppendPass_cold_1(v4, value, v5, v6, v7, v8, v9, v10);
     if (value)
     {
       goto LABEL_6;
@@ -9419,87 +9505,87 @@ void C3DFXTechniqueAddSubTechnique(uint64_t a1, void *value)
     goto LABEL_6;
   }
 
-  v12 = scn_default_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v11 = scn_default_log(appended, value);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueAddSubTechnique_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
+    C3DFXTechniqueAddSubTechnique_cold_2(v11, v12, v13, v14, v15, v16, v17, v18);
   }
 
 LABEL_6:
-  Mutable = *(a1 + 120);
+  Mutable = *(v3 + 120);
   if (!Mutable)
   {
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-    *(a1 + 120) = Mutable;
+    *(v3 + 120) = Mutable;
   }
 
-  value[16] = a1;
+  value[16] = v3;
   CFArrayAppendValue(Mutable, value);
 }
 
-uint64_t C3DFXTechniqueGetParentTechnique(uint64_t a1)
+uint64_t C3DFXTechniqueGetParentTechnique(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXTechniqueAppendPass_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 128);
 }
 
-void C3DFXTechniqueAddSymbolWithBindingBlock(uint64_t a1, const void *a2, void *a3)
+void C3DFXTechniqueAddSymbolWithBindingBlock(uint64_t result, const void *a2, void *a3)
 {
-  if (!a1)
+  if (!result)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      C3DFXTechniqueAppendPass_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      C3DFXTechniqueAppendPass_cold_1(v6, a2, v7, v8, v9, v10, v11, v12);
     }
   }
 
-  if (*(a1 + 72) >= 1)
+  if (*(result + 72) >= 1)
   {
-    v14 = 0;
+    v13 = 0;
     do
     {
-      v15 = *(*(a1 + 80) + 8 * v14);
-      if (*(v15 + 520) >= 1)
+      v14 = *(*(result + 80) + 8 * v13);
+      if (*(v14 + 520) >= 1)
       {
-        v16 = 0;
+        v15 = 0;
         do
         {
-          v17 = *(*(v15 + 512) + 8 * v16);
-          SymbolName = C3DFXPassInputGetSymbolName(v17);
+          v16 = *(*(v14 + 512) + 8 * v15);
+          SymbolName = C3DFXPassInputGetSymbolName(v16, a2);
           if (CFEqual(a2, SymbolName))
           {
-            C3DFXPassInputSetBindingBlock(v17, a3);
+            C3DFXPassInputSetBindingBlock(v16, a3);
           }
 
-          ++v16;
+          ++v15;
         }
 
-        while (v16 < *(v15 + 520));
+        while (v15 < *(v14 + 520));
       }
 
-      Material = C3DFXPassGetMaterial(v15);
+      Material = C3DFXPassGetMaterial(v14, a2);
       if (Material)
       {
-        Technique = C3DMaterialGetTechnique(Material);
+        Technique = C3DMaterialGetTechnique(Material, a2);
         if (Technique)
         {
           C3DFXTechniqueAddSymbolWithBindingBlock(Technique, a2, a3);
         }
       }
 
-      ++v14;
+      ++v13;
     }
 
-    while (v14 < *(a1 + 72));
+    while (v13 < *(result + 72));
   }
 }
 
@@ -9526,19 +9612,19 @@ uint64_t C3DFXTechniqueCreateDefault(int a1, int a2)
   return v5;
 }
 
-uint64_t C3DFXTechniqueEnsureThatPassesShouldExecute(uint64_t a1)
+uint64_t C3DFXTechniqueEnsureThatPassesShouldExecute(uint64_t a1, uint64_t a2)
 {
-  result = C3DFXTechniqueGetPassCount(a1);
+  result = C3DFXTechniqueGetPassCount(a1, a2);
   if (result >= 1)
   {
-    v3 = result;
-    for (i = 0; i != v3; ++i)
+    v4 = result;
+    for (i = 0; i != v4; ++i)
     {
       result = C3DFXTechniqueGetPassAtIndex(a1, i);
-      v5 = *(result + 232);
-      if (v5)
+      v6 = *(result + 232);
+      if (v6)
       {
-        result = v5();
+        result = v6();
       }
     }
   }
@@ -9546,19 +9632,20 @@ uint64_t C3DFXTechniqueEnsureThatPassesShouldExecute(uint64_t a1)
   return result;
 }
 
-BOOL C3DFXTechniqueMarkAsUsed(uint64_t a1, int a2)
+BOOL C3DFXTechniqueMarkAsUsed(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  result = *(a1 + 92) != a2;
-  *(a1 + 92) = a2;
+  result = *(a1 + 92) != v2;
+  *(a1 + 92) = v2;
   return result;
 }
 
@@ -9568,7 +9655,7 @@ uint64_t C3DFXTechniqueGetSingleProgram(uint64_t result)
   {
     PassAtIndex = C3DFXTechniqueGetPassAtIndex(result, 0);
 
-    return C3DFXPassGetProgram(PassAtIndex);
+    return C3DFXPassGetProgram(PassAtIndex, v2);
   }
 
   return result;
@@ -9576,9 +9663,9 @@ uint64_t C3DFXTechniqueGetSingleProgram(uint64_t result)
 
 void *C3DFXTechniqueSetParentTechnique(uint64_t a1, uint64_t a2)
 {
-  Owner = C3DFXTechniqueGetOwner(a2);
+  Owner = C3DFXTechniqueGetOwner(a2, a2);
   C3DFXTechniqueSetOwner(a1, Owner);
-  C3DFXTechniqueCompile(a1);
+  C3DFXTechniqueCompile(a1, v5);
   _freeStorage(a1);
   result = *(a2 + 96);
   if (!result)
@@ -9593,106 +9680,21 @@ void *C3DFXTechniqueSetParentTechnique(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void C3DFXTechniqueSetLibrary(uint64_t a1, void *a2)
+void C3DFXTechniqueSetLibrary(uint64_t result, void *a2)
 {
-  if (!a1)
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXTechniqueAppendPass_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  v12 = *(a1 + 136);
+  v12 = *(result + 136);
   if (v12 != a2)
   {
 
-    *(a1 + 136) = a2;
+    *(result + 136) = a2;
   }
-}
-
-void _releaseCFTypeParameters(uint64_t a1, int a2, uint64_t a3)
-{
-  if ((a2 & 0x3F) == 5)
-  {
-    v3 = *(a3 + HIWORD(a2));
-    if (v3)
-    {
-      CFRelease(v3);
-    }
-  }
-}
-
-CFStringRef _C3DFXTechniqueCFCopyFormatDescription(const void *a1)
-{
-  v1 = CFGetAllocator(a1);
-
-  return CFStringCreateWithFormat(v1, 0, @"<C3DFXTechnique>");
-}
-
-CFStringRef _C3DFXTechniqueCFCopyDebugDescription(const void *a1)
-{
-  v1 = CFGetAllocator(a1);
-
-  return CFStringCreateWithFormat(v1, 0, @"<C3DFXTechnique>");
-}
-
-__CFArray *_C3DFXTechniqueCopyInstanceVariables(uint64_t a1)
-{
-  Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-  if (*(a1 + 72) >= 1)
-  {
-    v3 = 0;
-    v4 = 0;
-    do
-    {
-      v5 = CFStringCreateWithFormat(0, 0, @"pass %d", v4);
-      v6 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v16 = 2;
-      valuePtr = 5;
-      v15 = *(a1 + 80) + v3;
-      v7 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-      v8 = CFNumberCreate(0, kCFNumberSInt32Type, &v16);
-      v9 = CFNumberCreate(0, kCFNumberLongType, &v15);
-      CFDictionarySetValue(v6, @"name", v5);
-      CFDictionarySetValue(v6, @"type", v7);
-      CFDictionarySetValue(v6, @"address", v9);
-      CFDictionarySetValue(v6, @"semantic", v8);
-      CFArrayAppendValue(Mutable, v6);
-      CFRelease(v8);
-      CFRelease(v6);
-      CFRelease(v9);
-      CFRelease(v7);
-      CFRelease(v5);
-      ++v4;
-      v3 += 8;
-    }
-
-    while (v4 < *(a1 + 72));
-  }
-
-  v10 = CFDictionaryCreateMutable(0, 4, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  v16 = 2;
-  valuePtr = 5;
-  v15 = a1 + 104;
-  v11 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v12 = CFNumberCreate(0, kCFNumberSInt32Type, &v16);
-  v13 = CFNumberCreate(0, kCFNumberLongType, &v15);
-  CFDictionarySetValue(v10, @"name", @"plist");
-  CFDictionarySetValue(v10, @"type", v11);
-  CFDictionarySetValue(v10, @"address", v13);
-  CFDictionarySetValue(v10, @"semantic", v12);
-  CFArrayAppendValue(Mutable, v10);
-  CFRelease(v12);
-  CFRelease(v10);
-  CFRelease(v13);
-  CFRelease(v11);
-  return Mutable;
-}
-
-void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
 }

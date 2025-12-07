@@ -10,7 +10,7 @@
 - (void)didMoveToWindow
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SessionsView();
+  v3.super_class = type metadata accessor for SessionsView(self, a2);
   v2 = v3.receiver;
   [(SessionsView *)&v3 didMoveToWindow];
   sub_1A2244CDC();
@@ -19,7 +19,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SessionsView();
+  v4.super_class = type metadata accessor for SessionsView(self, a2);
   v2 = v4.receiver;
   layoutSubviews = [(SessionsView *)&v4 layoutSubviews];
   (*((*MEMORY[0x1E69E7D40] & **&v2[OBJC_IVAR____TtC13MediaControls12SessionsView_routePickerSessionsView]) + 0x1C8))(layoutSubviews);

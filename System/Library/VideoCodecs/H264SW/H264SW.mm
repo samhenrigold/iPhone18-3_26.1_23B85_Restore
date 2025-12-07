@@ -650,7 +650,7 @@ uint64_t sub_2772831DC(uint64_t result, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_277283608(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277283608(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -670,7 +670,7 @@ uint64_t sub_277283608(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277283688(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277283688(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -690,7 +690,7 @@ uint64_t sub_277283688(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277283708(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277283708(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -710,7 +710,7 @@ uint64_t sub_277283708(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277283788(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277283788(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -730,7 +730,7 @@ uint64_t sub_277283788(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-int16x4_t sub_277283908(int a1, uint64_t a2, int16x4_t *a3)
+int16x4_t sub_277283908(unsigned int a1, uint64_t a2, int16x4_t *a3)
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
@@ -751,7 +751,7 @@ int16x4_t sub_277283908(int a1, uint64_t a2, int16x4_t *a3)
   return result;
 }
 
-int16x4_t sub_277283A1C(int a1, uint64_t a2, int16x4_t *a3)
+int16x4_t sub_277283A1C(unsigned int a1, uint64_t a2, int16x4_t *a3)
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
@@ -772,7 +772,7 @@ int16x4_t sub_277283A1C(int a1, uint64_t a2, int16x4_t *a3)
   return result;
 }
 
-int16x4_t sub_277283B30(int a1, uint64_t a2, int16x4_t *a3)
+int16x4_t sub_277283B30(unsigned int a1, uint64_t a2, int16x4_t *a3)
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
@@ -793,7 +793,7 @@ int16x4_t sub_277283B30(int a1, uint64_t a2, int16x4_t *a3)
   return result;
 }
 
-int16x4_t sub_277283C44(int a1, uint64_t a2, int16x4_t *a3)
+int16x4_t sub_277283C44(unsigned int a1, uint64_t a2, int16x4_t *a3)
 {
   v11 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
@@ -914,7 +914,7 @@ int16x4_t sub_2772840A0(uint8x8_t **a1, uint64_t a2, int16x4_t *a3)
   return sub_2772B2A64(v7, 16, v8, v9, v10, v11, v6, a3 + 1);
 }
 
-uint64_t sub_277284118(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277284118(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -934,7 +934,7 @@ uint64_t sub_277284118(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277284198(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277284198(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -954,7 +954,7 @@ uint64_t sub_277284198(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277284218(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277284218(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -974,7 +974,7 @@ uint64_t sub_277284218(int a1, uint64_t a2, _WORD *a3)
   return result;
 }
 
-uint64_t sub_277284298(int a1, uint64_t a2, _WORD *a3)
+uint64_t sub_277284298(unsigned int a1, uint64_t a2, _WORD *a3)
 {
   v4 = *(a2 + 56);
   v5 = *(a2 + 16);
@@ -3093,7 +3093,7 @@ uint64_t sub_277285534(uint64_t a1, int *a2, unsigned int a3, void *a4, unsigned
   return result;
 }
 
-uint64_t sub_277286338(uint64_t a1, _DWORD *a2, uint64_t a3, uint8x16_t *a4, unsigned int a5)
+unint64_t sub_277286338(uint64_t a1, _DWORD *a2, uint64_t a3, uint8x16_t *a4, unsigned int a5)
 {
   v5 = *(a1 + 40);
   v6 = (a3 >> 4) & 1;
@@ -5394,8 +5394,9 @@ LABEL_352:
   return result;
 }
 
-uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, unsigned int a5, int a6, int a7, uint64_t a8, _DWORD *a9, int a10)
+uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, void *a4, unsigned int a5, int a6, uint64_t a7, uint64_t a8, _DWORD *a9, int a10)
 {
+  v11 = a7;
   v70 = *MEMORY[0x277D85DE8];
   v14 = *(result + 40);
   v15 = a2[2];
@@ -5440,7 +5441,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v39 != 16);
             if (a6)
             {
-              result = sub_27728EE88(8, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(8, &v67, a4, v11, a8, a9, a10);
             }
 
             else
@@ -5449,7 +5450,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             }
 
             ++v24;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v38++ == v64;
           }
 
@@ -5472,7 +5473,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v41 != 16);
             if (a6)
             {
-              result = sub_27728EE88(8, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(8, &v67, a4, v11, a8, a9, a10);
             }
 
             else
@@ -5481,7 +5482,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             }
 
             ++v22;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v40++ == v63;
           }
 
@@ -5507,7 +5508,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v49 != 16);
             if (a6)
             {
-              result = sub_27728EE88(4, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(4, &v67, a4, v11, a8, a9, a10);
             }
 
             else
@@ -5516,7 +5517,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             }
 
             ++v24;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v48++ == v64;
           }
 
@@ -5539,7 +5540,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v51 != 16);
             if (a6)
             {
-              result = sub_27728EE88(4, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(4, &v67, a4, v11, a8, a9, a10);
             }
 
             else
@@ -5548,7 +5549,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             }
 
             ++v22;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v50++ == v63;
           }
 
@@ -5575,7 +5576,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           while (v26 != 16);
           if (a6)
           {
-            result = sub_27728EE88(16, &v67, a4, a7, a8, a9, a10);
+            result = sub_27728EE88(16, &v67, a4, v11, a8, a9, a10);
           }
 
           else
@@ -5584,7 +5585,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           }
 
           ++v24;
-          a4 += a5;
+          a4 = (a4 + a5);
           v27 = v25++ == v64;
         }
 
@@ -5607,7 +5608,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           while (v29 != 16);
           if (a6)
           {
-            result = sub_27728EE88(16, &v67, a4, a7, a8, a9, a10);
+            result = sub_27728EE88(16, &v67, a4, v11, a8, a9, a10);
           }
 
           else
@@ -5616,7 +5617,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           }
 
           ++v22;
-          a4 += a5;
+          a4 = (a4 + a5);
           v27 = v28++ == v63;
         }
 
@@ -5627,6 +5628,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
   else
   {
+    v61 = a7;
     v30 = (v21 + 1024 + v14);
     v31 = (v21 + 1024 + 16 * v19);
     if (v18 < 8)
@@ -5660,7 +5662,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v43 != 16);
             if (a6)
             {
-              result = sub_27728EE88(8, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(8, &v67, a4, v61, a8, a9, a10);
             }
 
             else
@@ -5670,7 +5672,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
             ++v24;
             ++v31;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v42++ == v64;
           }
 
@@ -5704,7 +5706,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v46 != 16);
             if (a6)
             {
-              result = sub_27728EE88(8, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(8, &v67, a4, v61, a8, a9, a10);
             }
 
             else
@@ -5714,7 +5716,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
             ++v22;
             ++v30;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v45++ == v63;
           }
 
@@ -5751,7 +5753,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v53 != 16);
             if (a6)
             {
-              result = sub_27728EE88(4, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(4, &v67, a4, v61, a8, a9, a10);
             }
 
             else
@@ -5761,7 +5763,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
             ++v24;
             ++v31;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v52++ == v64;
           }
 
@@ -5795,7 +5797,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
             while (v56 != 16);
             if (a6)
             {
-              result = sub_27728EE88(4, &v67, a4, a7, a8, a9, a10);
+              result = sub_27728EE88(4, &v67, a4, v61, a8, a9, a10);
             }
 
             else
@@ -5805,7 +5807,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
             ++v22;
             ++v30;
-            a4 += a5;
+            a4 = (a4 + a5);
             v27 = v55++ == v63;
           }
 
@@ -5843,7 +5845,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           while (v33 != 16);
           if (a6)
           {
-            result = sub_27728EE88(16, &v67, a4, a7, a8, a9, a10);
+            result = sub_27728EE88(16, &v67, a4, v61, a8, a9, a10);
           }
 
           else
@@ -5853,7 +5855,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
           ++v24;
           ++v31;
-          a4 += a5;
+          a4 = (a4 + a5);
           v27 = v32++ == v64;
         }
 
@@ -5887,7 +5889,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
           while (v36 != 16);
           if (a6)
           {
-            result = sub_27728EE88(16, &v67, a4, a7, a8, a9, a10);
+            result = sub_27728EE88(16, &v67, a4, v61, a8, a9, a10);
           }
 
           else
@@ -5897,7 +5899,7 @@ uint64_t sub_277288BA0(uint64_t result, int *a2, unsigned int a3, _BYTE *a4, uns
 
           ++v22;
           ++v30;
-          a4 += a5;
+          a4 = (a4 + a5);
           v27 = v35++ == v63;
         }
 
@@ -9298,7 +9300,7 @@ LABEL_122:
   return result;
 }
 
-uint64_t sub_27728D91C(uint64_t a1, _DWORD *a2, int a3, int a4, int8x8_t *a5, unsigned int a6, int a7, int a8, double a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15, uint64_t a16, _DWORD *a17, int a18, int a19)
+uint64_t sub_27728D91C(uint64_t a1, _DWORD *a2, int a3, int a4, int8x8_t *a5, unsigned int a6, int a7, int a8, double a9, double a10, double a11, double a12, double a13, double a14, int32x4_t a15, uint64_t a16, _DWORD *a17, int a18, unsigned int a19)
 {
   v309 = *MEMORY[0x277D85DE8];
   if (*(a16 + 31))

@@ -42,80 +42,76 @@
 
 + (id)propertyBuilders
 {
-  v43[10] = *MEMORY[0x1E69E9840];
+  v42[10] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6996D90];
-  v42 = WFLocalizedContentPropertyNameMarker(@"Artist");
-  v41 = [v2 block:&__block_literal_global_5420 name:v42 class:objc_opt_class()];
-  v43[0] = v41;
+  v41 = WFLocalizedContentPropertyNameMarker(@"Artist");
+  v40 = [v2 block:&__block_literal_global_5420 name:v41 class:objc_opt_class()];
+  v42[0] = v40;
   v3 = MEMORY[0x1E6996D90];
-  v40 = WFLocalizedContentPropertyNameMarker(@"Price");
-  v39 = [v3 keyPath:@"object.price" name:v40 class:objc_opt_class()];
-  v43[1] = v39;
+  v39 = WFLocalizedContentPropertyNameMarker(@"Price");
+  v38 = [v3 keyPath:@"object.price" name:v39 class:objc_opt_class()];
+  v42[1] = v38;
   v4 = MEMORY[0x1E6996D90];
-  v38 = WFLocalizedContentPropertyNameMarker(@"Currency Code");
-  v37 = [v4 keyPath:@"object.currencyCode" name:v38 class:objc_opt_class()];
-  v43[2] = v37;
+  v37 = WFLocalizedContentPropertyNameMarker(@"Currency Code");
+  v36 = [v4 keyPath:@"object.currencyCode" name:v37 class:objc_opt_class()];
+  v42[2] = v36;
   v5 = MEMORY[0x1E6996D90];
-  v36 = WFLocalizedContentPropertyNameMarker(@"Formatted Price");
-  v35 = [v5 keyPath:@"object.formattedPrice" name:v36 class:objc_opt_class()];
-  v43[3] = v35;
+  v35 = WFLocalizedContentPropertyNameMarker(@"Formatted Price");
+  v34 = [v5 keyPath:@"object.formattedPrice" name:v35 class:objc_opt_class()];
+  v42[3] = v34;
   v6 = MEMORY[0x1E6996D90];
-  v34 = WFLocalizedContentPropertyNameMarker(@"Release Date");
-  v33 = [v6 keyPath:@"object.releaseDate" name:v34 class:objc_opt_class()];
-  v43[4] = v33;
+  v33 = WFLocalizedContentPropertyNameMarker(@"Release Date");
+  v32 = [v6 keyPath:@"object.releaseDate" name:v33 class:objc_opt_class()];
+  v42[4] = v32;
   v7 = MEMORY[0x1E6996D90];
-  v32 = WFLocalizedContentPropertyNameMarker(@"Genre");
-  v31 = [v7 keyPath:@"mediaTrackObject.genre" name:v32 class:objc_opt_class()];
-  v43[5] = v31;
+  v31 = WFLocalizedContentPropertyNameMarker(@"Genre");
+  v30 = [v7 keyPath:@"mediaTrackObject.genre" name:v31 class:objc_opt_class()];
+  v42[5] = v30;
   v8 = MEMORY[0x1E6996D90];
-  v30 = WFLocalizedContentPropertyNameMarker(@"Duration");
-  v29 = [v8 keyPath:@"mediaTrackObject.duration" name:v30 class:objc_opt_class()];
-  v43[6] = v29;
+  v29 = WFLocalizedContentPropertyNameMarker(@"Duration");
+  v28 = [v8 keyPath:@"mediaTrackObject.duration" name:v29 class:objc_opt_class()];
+  v42[6] = v28;
   v9 = MEMORY[0x1E6996D90];
-  v27 = WFLocalizedContentPropertyNameMarker(@"Streamable");
-  v28 = [MEMORY[0x1E696AD98] numberWithBool:1];
-  v26 = [v9 keyPath:@"mediaTrackObject.streamable" name:v27 class:objc_opt_class()];
-  v25 = WFLocalizedContentPropertyNameMarker(@"Is Streamable");
-  v10 = [v26 displayName:v25];
+  v26 = WFLocalizedContentPropertyNameMarker(@"Streamable");
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:1];
+  v25 = [v9 keyPath:@"mediaTrackObject.streamable" name:v26 class:objc_opt_class()];
+  v24 = WFLocalizedContentPropertyNameMarker(@"Is Streamable");
+  v10 = [v25 displayName:v24];
   v11 = WFLocalizedContentPropertyNameMarker(@"Is Not Streamable");
   v12 = [v10 negativeName:v11];
-  v43[7] = v12;
+  v42[7] = v12;
   v13 = MEMORY[0x1E6996D90];
   v14 = WFLocalizedContentPropertyNameMarker(@"Is Explicit");
   v15 = [MEMORY[0x1E696AD98] numberWithBool:1];
   v16 = [v13 keyPath:@"mediaTrackObject.explicit" name:v14 class:objc_opt_class()];
   v17 = WFLocalizedContentPropertyNameMarker(@"Is Not Explicit");
   v18 = [v16 negativeName:v17];
-  v43[8] = v18;
+  v42[8] = v18;
   v19 = MEMORY[0x1E6996D90];
   v20 = WFLocalizedContentPropertyNameMarker(@"Description");
   v21 = [v19 keyPath:@"object.descriptionText" name:v20 class:objc_opt_class()];
-  v43[9] = v21;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:10];
+  v42[9] = v21;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:10];
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v23;
 }
 
 void __46__WFiTunesProductContentItem_propertyBuilders__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a4;
   v6 = [a2 object];
   v7 = objc_opt_new();
   v8 = [v6 artistID];
-  v14[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __46__WFiTunesProductContentItem_propertyBuilders__block_invoke_2;
-  v12[3] = &unk_1E837F588;
-  v13 = v5;
+  v13[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __46__WFiTunesProductContentItem_propertyBuilders__block_invoke_2;
+  v11[3] = &unk_1E837F588;
+  v12 = v5;
   v10 = v5;
-  [v7 lookupMediaWithIdentifiers:v9 countryCode:0 completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v7 lookupMediaWithIdentifiers:v9 countryCode:0 completion:v11];
 }
 
 void __46__WFiTunesProductContentItem_propertyBuilders__block_invoke_2(uint64_t a1, void *a2)

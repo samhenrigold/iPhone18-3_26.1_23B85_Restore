@@ -7,18 +7,17 @@ void sub_20DC(uint64_t a1, int *a2, int a3)
   {
     if (v8)
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = [v11 subscriptionURL];
-      v30 = 138412802;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v13;
-      v34 = 2048;
-      v35 = a2;
-      _os_log_impl(&dword_0, v6, v7, "%@ (%@) got my lock for dataclasses 0x%lx", &v30, 0x20u);
+      v9 = objc_opt_class();
+      v10 = *(a1 + 32);
+      v11 = v9;
+      v12 = [v10 subscriptionURL];
+      v28 = 138412802;
+      v29 = v9;
+      v30 = 2112;
+      v31 = v12;
+      v32 = 2048;
+      v33 = a2;
+      _os_log_impl(&dword_0, v6, v7, "%@ (%@) got my lock for dataclasses 0x%lx", &v28, 0x20u);
     }
 
     [*(a1 + 32) setWaitingForGateKeeper:0];
@@ -31,76 +30,75 @@ void sub_20DC(uint64_t a1, int *a2, int a3)
         return;
       }
 
-      v14 = DALoggingwithCategory();
-      v15 = _CPLog_to_os_log_type[4];
-      if (os_log_type_enabled(v14, v15))
+      v13 = DALoggingwithCategory();
+      v14 = _CPLog_to_os_log_type[4];
+      if (os_log_type_enabled(v13, v14))
       {
-        v16 = *(a1 + 32);
-        v30 = 138412290;
-        v31 = v16;
-        _os_log_impl(&dword_0, v14, v15, "%@ Aborting processing subcal data because this task is already finished", &v30, 0xCu);
+        v15 = *(a1 + 32);
+        v28 = 138412290;
+        v29 = v15;
+        _os_log_impl(&dword_0, v13, v14, "%@ Aborting processing subcal data because this task is already finished", &v28, 0xCu);
       }
 
-      v17 = [NSError errorWithDomain:DAErrorDomain code:-1 userInfo:0];
+      v16 = [NSError errorWithDomain:DAErrorDomain code:-1 userInfo:0];
     }
 
     else
     {
-      v25 = DALoggingwithCategory();
-      v26 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v25, v26))
+      v23 = DALoggingwithCategory();
+      v24 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v23, v24))
       {
-        v30 = 134217984;
-        v31 = a2;
-        _os_log_impl(&dword_0, v25, v26, "Got lock for %ld something other than events?!", &v30, 0xCu);
+        v28 = 134217984;
+        v29 = a2;
+        _os_log_impl(&dword_0, v23, v24, "Got lock for %ld something other than events?!", &v28, 0xCu);
       }
 
-      v17 = 0;
-      v15 = _CPLog_to_os_log_type[4];
+      v16 = 0;
+      v14 = _CPLog_to_os_log_type[4];
     }
 
-    v27 = DALoggingwithCategory();
-    if (os_log_type_enabled(v27, v15))
+    v25 = DALoggingwithCategory();
+    if (os_log_type_enabled(v25, v14))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_0, v27, v15, "Relinquishing locks now", &v30, 2u);
+      LOWORD(v28) = 0;
+      _os_log_impl(&dword_0, v25, v14, "Relinquishing locks now", &v28, 2u);
     }
 
     [*(a1 + 32) setHoldingGateKeeperLock:0];
-    v28 = +[DABabysitter sharedBabysitter];
-    [v28 unregisterAccount:*(a1 + 32) forOperationWithName:@"SubCalRefresh"];
+    v26 = +[DABabysitter sharedBabysitter];
+    [v26 unregisterAccount:*(a1 + 32) forOperationWithName:@"SubCalRefresh"];
 
-    v29 = +[DALocalDBGateKeeper sharedGateKeeper];
-    [v29 relinquishLocksForWaiter:*(a1 + 32) dataclasses:a2 moreComing:0];
+    v27 = +[DALocalDBGateKeeper sharedGateKeeper];
+    [v27 relinquishLocksForWaiter:*(a1 + 32) dataclasses:a2 moreComing:0];
 
-    if (!v17)
+    if (!v16)
     {
-      v17 = [NSError errorWithDomain:DAErrorDomain code:10 userInfo:0];
+      v16 = [NSError errorWithDomain:DAErrorDomain code:10 userInfo:0];
     }
 
-    [*(a1 + 32) finishWithError:v17];
+    [*(a1 + 32) finishWithError:v16];
   }
 
   else
   {
     if (v8)
     {
-      v18 = *(a1 + 32);
-      v30 = 138412546;
-      v31 = objc_opt_class();
-      v32 = 2048;
-      v33 = a2;
-      v19 = v31;
-      _os_log_impl(&dword_0, v6, v7, "%@ aborted locks for dataclasses 0x%lx", &v30, 0x16u);
+      v28 = 138412546;
+      v29 = objc_opt_class();
+      v30 = 2048;
+      v31 = a2;
+      v17 = v29;
+      _os_log_impl(&dword_0, v6, v7, "%@ aborted locks for dataclasses 0x%lx", &v28, 0x16u);
     }
 
     [*(a1 + 32) setWaitingForGateKeeper:0];
-    v20 = *(a1 + 32);
-    v21 = kSubCalRefreshTaskErrorDomain;
-    v22 = NSStringFromSubCalRefreshTaskError();
-    v23 = [NSDictionary dictionaryWithObject:v22 forKey:@"Error Code"];
-    v24 = [NSError errorWithDomain:v21 code:2 userInfo:v23];
-    [v20 finishWithError:v24];
+    v18 = *(a1 + 32);
+    v19 = kSubCalRefreshTaskErrorDomain;
+    v20 = NSStringFromSubCalRefreshTaskError();
+    v21 = [NSDictionary dictionaryWithObject:v20 forKey:@"Error Code"];
+    v22 = [NSError errorWithDomain:v19 code:2 userInfo:v21];
+    [v18 finishWithError:v22];
   }
 }
 
@@ -178,9 +176,9 @@ void sub_3300(uint64_t a1)
   }
 }
 
-void sub_487C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_487C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -341,9 +339,9 @@ void sub_9A80(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void sub_A93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_A93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

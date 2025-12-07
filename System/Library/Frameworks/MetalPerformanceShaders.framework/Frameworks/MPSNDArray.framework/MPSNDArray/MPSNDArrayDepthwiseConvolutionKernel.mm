@@ -13,12 +13,9 @@
 
 - (id)debugDescription
 {
-  v3 = MEMORY[0x277CCACA8];
-  v7.receiver = self;
-  v7.super_class = MPSNDArrayDepthwiseConvolutionKernel;
-  v4 = [(MPSKernel *)&v7 debugDescription];
-  v5 = self->_convDilationRates.sizes[2];
-  return [v3 stringWithFormat:@"%@\n\tstride       =(%2lu, %2lu, %2lu)\n\toffset       =(%2d, %2d, %2d )\n\tdilationRate =(%2lu, %2lu, %2lu )\n\tchannelAxis = %d\n", v4, self->_convStrides.sizes[0], self->_convStrides.sizes[1], self->_convStrides.sizes[2], self->_windowOffsets.offsets[0], self->_windowOffsets.offsets[1], self->_windowOffsets.offsets[2], self->_convDilationRates.sizes[0], self->_convDilationRates.sizes[1], v5, self->_channelAxis];
+  v3.receiver = self;
+  v3.super_class = MPSNDArrayDepthwiseConvolutionKernel;
+  return [MEMORY[0x277CCACA8] stringWithFormat:@"%@\n\tstride       =(%2lu, %2lu, %2lu)\n\toffset       =(%2d, %2d, %2d )\n\tdilationRate =(%2lu, %2lu, %2lu )\n\tchannelAxis = %d\n", -[MPSKernel debugDescription](&v3, sel_debugDescription), self->_convStrides.sizes[0], self->_convStrides.sizes[1], self->_convStrides.sizes[2], self->_windowOffsets.offsets[0], self->_windowOffsets.offsets[1], self->_windowOffsets.offsets[2], self->_convDilationRates.sizes[0], self->_convDilationRates.sizes[1], self->_convDilationRates.sizes[2], self->_channelAxis];
 }
 
 - (MPSNDArrayDepthwiseConvolutionKernel)initWithDevice:(id)device kernelType:(int)type

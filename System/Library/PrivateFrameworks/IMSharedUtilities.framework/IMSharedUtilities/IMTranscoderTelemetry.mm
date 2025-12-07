@@ -20,7 +20,7 @@
   v5.receiver = self;
   v5.super_class = IMTranscoderTelemetry;
   v2 = [(IMTranscoderTelemetry *)&v5 init];
-  v3 = _iMessageTelemetryLogHandle();
+  v3 = _iMessageTelemetryLogHandle(v2);
   v2->_signpostId = os_signpost_id_generate(v3);
   return v2;
 }
@@ -76,7 +76,7 @@
 - (void)_emitSignpostPreviewGenerationRange:(int64_t)range begin:(BOOL)begin
 {
   beginCopy = begin;
-  v7 = _iMessageTelemetryLogHandle();
+  v7 = _iMessageTelemetryLogHandle(self);
   v8 = v7;
   if (beginCopy)
   {
@@ -174,7 +174,7 @@ LABEL_25:
 - (void)_emitSignpostTranscodeRange:(int64_t)range begin:(BOOL)begin
 {
   beginCopy = begin;
-  v7 = _iMessageTelemetryLogHandle();
+  v7 = _iMessageTelemetryLogHandle(self);
   v8 = v7;
   if (beginCopy)
   {
@@ -271,7 +271,7 @@ LABEL_25:
 
 - (void)emitSignpostNoTranscodeFromUTI:(id)i
 {
-  v5 = _iMessageTelemetryLogHandle();
+  v5 = _iMessageTelemetryLogHandle(self);
   v6 = [(IMTranscoderTelemetry *)self _telemetryImageTypeForUTI:i];
   if (v6 <= 1)
   {
@@ -353,7 +353,7 @@ LABEL_22:
 
 - (void)emitSignpostTranscodeStepForDestinationUTI:(id)i
 {
-  v5 = _iMessageTelemetryLogHandle();
+  v5 = _iMessageTelemetryLogHandle(self);
   v6 = [(IMTranscoderTelemetry *)self _telemetryImageTypeForUTI:i];
   if (v6 <= 1)
   {
@@ -435,7 +435,7 @@ LABEL_22:
 
 - (void)emitSignpostTranscodeFinalForDestinationUTI:(id)i
 {
-  v5 = _iMessageTelemetryLogHandle();
+  v5 = _iMessageTelemetryLogHandle(self);
   v6 = [(IMTranscoderTelemetry *)self _telemetryImageTypeForUTI:i];
   if (v6 <= 1)
   {
@@ -517,7 +517,7 @@ LABEL_22:
 
 - (void)emitSignpostTranscodeSkipSourceUTI:(id)i
 {
-  v5 = _iMessageTelemetryLogHandle();
+  v5 = _iMessageTelemetryLogHandle(self);
   v6 = [(IMTranscoderTelemetry *)self _telemetryImageTypeForUTI:i];
   if (v6 <= 1)
   {

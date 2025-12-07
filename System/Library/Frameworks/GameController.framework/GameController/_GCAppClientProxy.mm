@@ -55,9 +55,9 @@
 {
   connectionCopy = connection;
   serverCopy = server;
-  v22.receiver = self;
-  v22.super_class = _GCAppClientProxy;
-  v9 = [(_GCAppClientProxy *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = _GCAppClientProxy;
+  v9 = [(_GCAppClientProxy *)&v24 init];
   v10 = v9;
   if (v9)
   {
@@ -72,7 +72,7 @@
     aBlock[2] = __48___GCAppClientProxy__initWithConnection_server___block_invoke;
     aBlock[3] = &unk_1E8418C28;
     v13 = v10;
-    v21 = v13;
+    v23 = v13;
     v14 = _Block_copy(aBlock);
     v15 = [(_GCIPCIncomingConnection *)v10->_connection addInvalidationHandler:v14];
     connectionInvalidationRegistration = v13->_connectionInvalidationRegistration;
@@ -82,9 +82,9 @@
     connectionInterruptedRegistration = v13->_connectionInterruptedRegistration;
     v13->_connectionInterruptedRegistration = v17;
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v19, v20))
     {
-      [_GCAppClientProxy _initWithConnection:server:];
+      [_GCAppClientProxy _initWithConnection:v13 server:?];
     }
   }
 
@@ -106,159 +106,160 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
-  v43 = changeCopy;
-  v44 = objectCopy;
-  v42 = pathCopy;
+  v45 = changeCopy;
+  v46 = objectCopy;
+  v44 = pathCopy;
   if (self->_server == objectCopy && [pathCopy isEqualToString:@"activeControllerDevices"])
   {
     v13 = [changeCopy objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
     selfCopy = self;
     v15 = v13;
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v15, v16))
     {
-      [_GCAppClientProxy observeValueForKeyPath:ofObject:change:context:];
+      [_GCAppClientProxy observeValueForKeyPath:selfCopy ofObject:? change:? context:?];
     }
 
-    v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v17 = selfCopy;
-    objc_sync_enter(v17);
-    publishedControllerDescriptions = v17->_publishedControllerDescriptions;
+    v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v18 = selfCopy;
+    objc_sync_enter(v18);
+    publishedControllerDescriptions = v18->_publishedControllerDescriptions;
     if (publishedControllerDescriptions)
     {
-      v55 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v56 = 0u;
-      v54 = 0u;
-      v53 = 0u;
-      v19 = [(NSMapTable *)publishedControllerDescriptions copy];
-      v20 = [v19 countByEnumeratingWithState:&v53 objects:v58 count:16];
-      if (v20)
+      v55 = 0u;
+      v20 = [(NSMapTable *)publishedControllerDescriptions copy];
+      v21 = [v20 countByEnumeratingWithState:&v55 objects:v60 count:16];
+      if (v21)
       {
-        v21 = *v54;
+        v22 = *v56;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v54 != v21)
+            if (*v56 != v22)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v23 = *(*(&v53 + 1) + 8 * i);
-            v24 = [v15 member:v23];
-            v25 = v24 == 0;
+            v24 = *(*(&v55 + 1) + 8 * i);
+            v25 = [v15 member:v24];
+            v26 = v25 == 0;
 
-            if (v25)
+            if (v26)
             {
-              v26 = [(NSMapTable *)v17->_publishedControllerDescriptions objectForKey:v23];
-              if (!v26)
+              v27 = [(NSMapTable *)v18->_publishedControllerDescriptions objectForKey:v24];
+              if (!v27)
               {
                 currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-                v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void setActiveDevices(_GCAppClientProxy *__strong, NSSet<id<_GCDeviceControllerProviding>> *__strong)"}];
-                [currentHandler handleFailureInFunction:v28 file:@"GCAppClientProxy.m" lineNumber:469 description:{@"Bug in %s", "setActiveDevices"}];
+                v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void setActiveDevices(_GCAppClientProxy *__strong, NSSet<id<_GCDeviceControllerProviding>> *__strong)"}];
+                [currentHandler handleFailureInFunction:v29 file:@"GCAppClientProxy.m" lineNumber:469 description:{@"Bug in %s", "setActiveDevices"}];
               }
 
-              identifier = [v26 identifier];
-              [v45 addObject:identifier];
+              identifier = [v27 identifier];
+              [v47 addObject:identifier];
 
-              [(NSMapTable *)v17->_publishedControllerDescriptions removeObjectForKey:v23];
+              [(NSMapTable *)v18->_publishedControllerDescriptions removeObjectForKey:v24];
             }
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v55 objects:v60 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
+      v53 = 0u;
+      v54 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v29 = v15;
-      v30 = [v29 countByEnumeratingWithState:&v49 objects:v57 count:16];
-      if (v30)
+      v30 = v15;
+      v31 = [v30 countByEnumeratingWithState:&v51 objects:v59 count:16];
+      if (v31)
       {
-        v31 = *v50;
+        v32 = *v52;
         do
         {
-          for (j = 0; j != v30; ++j)
+          for (j = 0; j != v31; ++j)
           {
-            if (*v50 != v31)
+            if (*v52 != v32)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v30);
             }
 
-            v33 = *(*(&v49 + 1) + 8 * j);
-            v34 = [v33 makeControllerForClient:v17];
-            if (v34)
+            v34 = *(*(&v51 + 1) + 8 * j);
+            v35 = [v34 makeControllerForClient:v18];
+            if (v35)
             {
-              [v16 addObject:v34];
-              [(NSMapTable *)v17->_publishedControllerDescriptions setObject:v34 forKey:v33];
+              [v17 addObject:v35];
+              [(NSMapTable *)v18->_publishedControllerDescriptions setObject:v35 forKey:v34];
             }
           }
 
-          v30 = [v29 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v51 objects:v59 count:16];
         }
 
-        while (v30);
+        while (v31);
       }
 
-      objc_sync_exit(v17);
-      if (![v45 count] && !objc_msgSend(v16, "count"))
+      objc_sync_exit(v18);
+      if (![v47 count] && !objc_msgSend(v17, "count"))
       {
         goto LABEL_38;
       }
 
-      v35 = v17->_controllerServiceClient;
-      if (v35)
+      v36 = v18->_controllerServiceClient;
+      v38 = v36;
+      if (v36)
       {
-        v36 = v17->_controllerServiceClientPendingUpdates + 1;
-        v17->_controllerServiceClientPendingUpdates = v36;
-        if (v36 <= 0x14)
+        v39 = v18->_controllerServiceClientPendingUpdates + 1;
+        v18->_controllerServiceClientPendingUpdates = v39;
+        if (v39 <= 0x14)
         {
-          v37 = v36 == 20;
-          isInternalBuild = gc_isInternalBuild();
-          if (v37)
+          v40 = v39 == 20;
+          isInternalBuild = gc_isInternalBuild(v36, v37);
+          if (v40)
           {
             if (isInternalBuild)
             {
-              [_GCAppClientProxy observeValueForKeyPath:v17 ofObject:? change:? context:?];
+              [_GCAppClientProxy observeValueForKeyPath:v18 ofObject:? change:? context:?];
             }
 
-            [(GCControllerServiceRemoteClientInterface *)v35 refreshControllers];
+            [(_GCAppClientProxy *)v38 refreshControllers];
           }
 
           else
           {
             if (isInternalBuild)
             {
-              [_GCAppClientProxy observeValueForKeyPath:v17 ofObject:? change:? context:?];
+              [_GCAppClientProxy observeValueForKeyPath:v18 ofObject:? change:? context:?];
             }
 
-            if ([v45 count])
+            if ([v47 count])
             {
-              [(GCControllerServiceRemoteClientInterface *)v35 unpublishControllersWithIdentifiers:v45];
+              [(_GCAppClientProxy *)v38 unpublishControllersWithIdentifiers:v47];
             }
 
-            if ([v16 count])
+            if ([v17 count])
             {
-              [(GCControllerServiceRemoteClientInterface *)v35 publishControllers:v16];
+              [(_GCAppClientProxy *)v38 publishControllers:v17];
             }
 
-            if (v17->_controllerServiceClientPendingUpdates == 10)
+            if (v18->_controllerServiceClientPendingUpdates == 10)
             {
-              connection = v17->_connection;
-              v47[0] = MEMORY[0x1E69E9820];
-              v47[1] = 3221225472;
-              v47[2] = __setActiveDevices_block_invoke;
-              v47[3] = &unk_1E8418C28;
-              v48 = v17;
-              [(_GCIPCIncomingConnection *)connection scheduleSendBarrierBlock:v47];
+              connection = v18->_connection;
+              v49[0] = MEMORY[0x1E69E9820];
+              v49[1] = 3221225472;
+              v49[2] = __setActiveDevices_block_invoke;
+              v49[3] = &unk_1E8418C28;
+              v50 = v18;
+              [(_GCIPCIncomingConnection *)connection scheduleSendBarrierBlock:v49];
             }
           }
         }
@@ -267,20 +268,18 @@
 
     else
     {
-      objc_sync_exit(v17);
-      v35 = v17;
+      objc_sync_exit(v18);
+      v38 = v18;
     }
 
 LABEL_38:
     goto LABEL_35;
   }
 
-  v46.receiver = self;
-  v46.super_class = _GCAppClientProxy;
-  [(_GCAppClientProxy *)&v46 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+  v48.receiver = self;
+  v48.super_class = _GCAppClientProxy;
+  [(_GCAppClientProxy *)&v48 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
 LABEL_35:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -358,16 +357,13 @@ LABEL_35:
 
 - (void)_invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(self);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pingWithReply:(id)reply
@@ -736,31 +732,32 @@ LABEL_35:
 - (BOOL)readBooleanValueWithName:(id)name
 {
   nameCopy = name;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(nameCopy, v4))
   {
-    [_GCAppClientProxy(SettingsXPCProxyService) readBooleanValueWithName:];
+    [_GCAppClientProxy(SettingsXPCProxyService) readBooleanValueWithName:nameCopy];
   }
 
-  v4 = *MEMORY[0x1E695E8B8];
-  v5 = +[_GCAppClientProxy settingsSuiteName];
-  v6 = CFPreferencesCopyValue(nameCopy, v5, v4, *MEMORY[0x1E695E8B0]);
-  v7 = v6;
-  if (v6 && ((v8 = CFGetTypeID(v6), v8 == CFBooleanGetTypeID()) || v8 == CFNumberGetTypeID()))
+  v5 = *MEMORY[0x1E695E8B8];
+  v6 = +[_GCAppClientProxy settingsSuiteName];
+  TypeID = CFPreferencesCopyValue(nameCopy, v6, v5, *MEMORY[0x1E695E8B0]);
+  v9 = TypeID;
+  if (TypeID && ((v10 = CFGetTypeID(TypeID), v10 == CFBooleanGetTypeID()) || (TypeID = CFNumberGetTypeID(), v10 == TypeID)))
   {
-    bOOLValue = [v7 BOOLValue];
+    TypeID = [v9 BOOLValue];
+    v11 = TypeID;
   }
 
   else
   {
-    bOOLValue = 0;
+    v11 = 0;
   }
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(TypeID, v8))
   {
-    [_GCAppClientProxy(SettingsXPCProxyService) readBooleanValueWithName:];
+    [_GCAppClientProxy(SettingsXPCProxyService) readBooleanValueWithName:nameCopy];
   }
 
-  return bOOLValue;
+  return v11;
 }
 
 - (void)checkEmulatedControllerEnabledWithReply:(id)reply
@@ -791,30 +788,30 @@ LABEL_35:
 {
   lCopy = l;
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(replyCopy, v7))
   {
-    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) onVideoRecordingStopWithURL:reply:];
+    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) onVideoRecordingStopWithURL:lCopy reply:?];
   }
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2050000000;
-  v7 = getRPScreenRecorderClass_softClass;
-  v14 = getRPScreenRecorderClass_softClass;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v8 = getRPScreenRecorderClass_softClass;
+  v15 = getRPScreenRecorderClass_softClass;
   if (!getRPScreenRecorderClass_softClass)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __getRPScreenRecorderClass_block_invoke;
-    v10[3] = &unk_1E841A650;
-    v10[4] = &v11;
-    __getRPScreenRecorderClass_block_invoke(v10);
-    v7 = v12[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getRPScreenRecorderClass_block_invoke;
+    v11[3] = &unk_1E841A650;
+    v11[4] = &v12;
+    __getRPScreenRecorderClass_block_invoke(v11);
+    v8 = v13[3];
   }
 
-  v8 = v7;
-  _Block_object_dispose(&v11, 8);
-  sharedRecorder = [v7 sharedRecorder];
+  v9 = v8;
+  _Block_object_dispose(&v12, 8);
+  sharedRecorder = [v8 sharedRecorder];
   [sharedRecorder saveClipToCameraRoll:lCopy handler:replyCopy];
 }
 
@@ -828,64 +825,62 @@ LABEL_35:
   uUIDString = [uUID UUIDString];
   v12 = [v7 stringWithFormat:@"%@_%@.mp4", forCopy, uUIDString];
 
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(v13, v14))
   {
-    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:withReply:];
+    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:v12 withReply:?];
   }
 
-  v13 = NSTemporaryDirectory();
-  stringByExpandingTildeInPath = [v13 stringByExpandingTildeInPath];
+  v15 = NSTemporaryDirectory();
+  stringByExpandingTildeInPath = [v15 stringByExpandingTildeInPath];
 
-  v15 = stringByExpandingTildeInPath;
+  v17 = stringByExpandingTildeInPath;
   lastPathComponent = [v12 lastPathComponent];
   if (![lastPathComponent length] || (objc_msgSend(lastPathComponent, "isEqualToString:", @".") & 1) != 0 || (objc_msgSend(lastPathComponent, "isEqualToString:", @"..") & 1) != 0)
   {
-    v17 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v26 = [v15 stringByAppendingPathComponent:lastPathComponent];
-    v17 = [MEMORY[0x1E695DFF8] fileURLWithPath:v26 isDirectory:0];
+    v29 = [v17 stringByAppendingPathComponent:lastPathComponent];
+    v19 = [MEMORY[0x1E695DFF8] fileURLWithPath:v29 isDirectory:0];
   }
 
-  isInternalBuild = gc_isInternalBuild();
-  if (v17)
+  isInternalBuild = gc_isInternalBuild(v20, v21);
+  if (v19)
   {
     if (isInternalBuild)
     {
-      [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:withReply:];
+      [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:v19 withReply:?];
     }
 
-    [(_GCControllerManagerServer *)self->_server setLastGeneratedName:v12 directoryHandle:0 url:v17];
-    v19 = v15;
-    v20 = v19;
-    if (v19)
+    [(_GCControllerManagerServer *)self->_server setLastGeneratedName:v12 directoryHandle:0 url:v19];
+    v23 = v17;
+    v24 = v23;
+    if (v23)
     {
-      v21 = *MEMORY[0x1E69E9BB0];
-      [v19 fileSystemRepresentation];
-      v22 = *MEMORY[0x1E69E9BE0];
-      v23 = sandbox_extension_issue_file();
-      v24 = gc_isInternalBuild();
-      if (v23)
+      [v23 fileSystemRepresentation];
+      v25 = sandbox_extension_issue_file();
+      v27 = gc_isInternalBuild(v25, v26);
+      if (v25)
       {
-        if (v24)
+        if (v27)
         {
-          [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:withReply:];
+          [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:v24 withReply:?];
         }
 
-        v25 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
-        free(v23);
+        v28 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
+        free(v25);
         goto LABEL_22;
       }
 
-      if (v24)
+      if (v27)
       {
-        [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:withReply:];
+        [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:v24 withReply:?];
       }
     }
 
-    v25 = 0;
+    v28 = 0;
 LABEL_22:
 
     goto LABEL_23;
@@ -893,109 +888,96 @@ LABEL_22:
 
   if (isInternalBuild)
   {
-    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:withReply:];
+    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) generateURLFor:v12 withReply:?];
   }
 
-  v25 = 0;
+  v28 = 0;
 LABEL_23:
-  replyCopy[2](replyCopy, v17, v25);
+  replyCopy[2](replyCopy, v19, v28);
 }
 
 - (void)takeScreenshotWithReply:(id)reply
 {
   replyCopy = reply;
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(replyCopy, v4);
+  if (isInternalBuild)
   {
-    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) takeScreenshotWithReply:];
+    [_GCAppClientProxy(GCPhotoVideoXPCProxyService) takeScreenshotWithReply:?];
   }
 
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2050000000;
-  v4 = getSSUIServiceClass_softClass;
-  v13 = getSSUIServiceClass_softClass;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2050000000;
+  v6 = getSSUIServiceClass_softClass;
+  v15 = getSSUIServiceClass_softClass;
   if (!getSSUIServiceClass_softClass)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __getSSUIServiceClass_block_invoke;
-    v9[3] = &unk_1E841A650;
-    v9[4] = &v10;
-    __getSSUIServiceClass_block_invoke(v9);
-    v4 = v11[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __getSSUIServiceClass_block_invoke;
+    v11[3] = &unk_1E841A650;
+    v11[4] = &v12;
+    __getSSUIServiceClass_block_invoke(v11);
+    v6 = v13[3];
   }
 
-  v5 = v4;
-  _Block_object_dispose(&v10, 8);
-  v6 = objc_alloc_init(v4);
-  v7 = NSSelectorFromString(&cfstr_Showscreenshot.isa);
+  v7 = v6;
+  _Block_object_dispose(&v12, 8);
+  v8 = objc_alloc_init(v6);
+  v9 = NSSelectorFromString(&cfstr_Showscreenshot.isa);
   if (objc_opt_respondsToSelector())
   {
-    ([v6 methodForSelector:v7])(v6, v7);
+    ([v8 methodForSelector:v9])(v8, v9);
     replyCopy[2](replyCopy, 0);
   }
 
   else
   {
-    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.GameController.gamecontrollerd.screenshot" code:3328 userInfo:0];
-    (replyCopy)[2](replyCopy, v8);
+    v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.GameController.gamecontrollerd.screenshot" code:3328 userInfo:0];
+    (replyCopy)[2](replyCopy, v10);
   }
 }
 
-- (void)_initWithConnection:server:.cold.1()
+- (void)_initWithConnection:(uint64_t)a1 server:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.1()
+- (void)observeValueForKeyPath:(uint64_t)a1 ofObject:change:context:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_1_0();
     _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(uint64_t)a1 ofObject:change:context:.cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
-    v5 = *(a1 + 24);
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0x20u);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x20u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observeValueForKeyPath:(uint64_t)a1 ofObject:change:context:.cold.3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
-    v9 = *(a1 + 24);
     OUTLINED_FUNCTION_1_0();
-    _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0xCu);
+    _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

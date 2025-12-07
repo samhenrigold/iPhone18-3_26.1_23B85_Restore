@@ -110,7 +110,7 @@ void __22__ISIconManager__init__block_invoke_12(uint64_t a1, void *a2)
 
   else
   {
-    v6 = _ISDefaultLog();
+    v6 = _ISDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;
@@ -122,7 +122,7 @@ void __22__ISIconManager__init__block_invoke_12(uint64_t a1, void *a2)
 void __22__ISIconManager__init__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _ISDefaultLog();
+  v4 = _ISDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __22__ISIconManager__init__block_invoke_cold_1(v3, v4);
@@ -180,8 +180,7 @@ void __36__ISIconManager_findOrRegisterIcon___block_invoke(uint64_t a1)
   if (!v8)
   {
     objc_storeStrong(v7, *(a1 + 40));
-    [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
-    v9 = _ISDefaultLog();
+    v9 = _ISDefaultLog([*(*(a1 + 32) + 24) addObject:*(a1 + 40)]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __36__ISIconManager_findOrRegisterIcon___block_invoke_cold_1(v3, v9);
@@ -209,21 +208,19 @@ void __36__ISIconManager_findOrRegisterIcon___block_invoke(uint64_t a1)
 
 void __22__ISIconManager__init__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to get the icon cache path with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to get the icon cache path with error: %@", &v2, 0xCu);
 }
 
 void __36__ISIconManager_findOrRegisterIcon___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*a1 + 8) + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Registered %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Registered %@", &v3, 0xCu);
 }
 
 @end

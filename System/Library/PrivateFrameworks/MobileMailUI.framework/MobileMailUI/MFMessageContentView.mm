@@ -60,6 +60,12 @@
 - (void)_adjustHeaderOffsetForZoom;
 - (void)_alertMailDropDownloadIsTooLargeForCell:(BOOL)cell;
 - (void)_beginObservingContentHeight;
+- (void)_clearAllBannersAnimated:(BOOL)animated;
+- (void)_clearBlockedSenderBannerAnimated:(BOOL)animated;
+- (void)_clearHasMoreContentBannerAnimated:(BOOL)animated;
+- (void)_clearLoadFailedProxyContentBannerAnimated:(BOOL)animated;
+- (void)_clearLoadRemoteImagesBannerAnimated:(BOOL)animated;
+- (void)_clearNotAuthenticatedBannerAnimated:(BOOL)animated;
 - (void)_clearTimeSensitiveBanner;
 - (void)_commonInit;
 - (void)_configureTrustEvaluationsForSignersInSecurityInformation:(id)information;
@@ -157,6 +163,7 @@
 - (void)setFrame:(CGRect)frame;
 - (void)setHasVisibleContent:(BOOL)content;
 - (void)setInitialScale:(double)scale;
+- (void)setLoadingIndicatorVisible:(BOOL)visible animated:(BOOL)animated;
 - (void)setMessageBlockingReason:(int64_t)reason;
 - (void)setPreviousContentSnapshot:(id)snapshot;
 - (void)setShowMessageFooter:(BOOL)footer;
@@ -450,7 +457,7 @@ void __35__MFMessageContentView_signpostLog__block_invoke(uint64_t a1)
 
 void __35__MFMessageContentView__commonInit__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = MFLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -461,34 +468,30 @@ void __35__MFMessageContentView__commonInit__block_invoke_2(uint64_t a1, void *a
       v4 = v2;
     }
 
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "#Warning [MCVLog] %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "#Warning [MCVLog] %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__MFMessageContentView__commonInit__block_invoke_126(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = MFLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = [v2 objectForKeyedSubscript:@"name"];
-    v6 = [v2 objectForKeyedSubscript:@"message"];
-    v7 = [v2 objectForKeyedSubscript:@"stack"];
-    v8 = 138543874;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_error_impl(&dword_2149C9000, v3, OS_LOG_TYPE_ERROR, "[MCVError] Unhandled JS Exception: %{public}@ %@ - callstack: %{public}@", &v8, 0x20u);
+    v4 = [v2 objectForKeyedSubscript:@"name"];
+    v5 = [v2 objectForKeyedSubscript:@"message"];
+    v6 = [v2 objectForKeyedSubscript:@"stack"];
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_error_impl(&dword_2149C9000, v3, OS_LOG_TYPE_ERROR, "[MCVError] Unhandled JS Exception: %{public}@ %@ - callstack: %{public}@", &v7, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __35__MFMessageContentView__commonInit__block_invoke_148(uint64_t a1, void *a2)
@@ -853,14 +856,14 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
 
 - (void)setContentRequest:(id)request
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (self->_contentRequest != requestCopy)
   {
     state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
     state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
-    v38 = _os_activity_create(&dword_2149C9000, "message content view loading", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v38, &state);
+    v37 = _os_activity_create(&dword_2149C9000, "message content view loading", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v37, &state);
     [(EFManualCancelationToken *)self->_loadingCancelable cancel];
     loadingCancelable = self->_loadingCancelable;
     self->_loadingCancelable = 0;
@@ -873,7 +876,7 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
     delegate = [(MFMessageContentView *)self delegate];
     if (objc_opt_respondsToSelector())
     {
-      v9 = [delegate contentItemHandlingDelegateForMessageContentView:{self, v38}];
+      v9 = [delegate contentItemHandlingDelegateForMessageContentView:{self, v37}];
       v10 = [MessageContentItemsHelper alloc];
       webView = [(MFMessageContentView *)self webView];
       v12 = [(MessageContentItemsHelper *)v10 initWithWebView:webView contentItemHandler:v9];
@@ -904,13 +907,13 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
         v22 = NSStringFromClass(v21);
         ef_publicDescription = [message ef_publicDescription];
         *buf = 138544130;
-        v48 = v22;
-        v49 = 2048;
+        v47 = v22;
+        v48 = 2048;
         selfCopy2 = self;
-        v51 = 2114;
-        v52 = requestCopy;
-        v53 = 2114;
-        v54 = ef_publicDescription;
+        v50 = 2114;
+        v51 = requestCopy;
+        v52 = 2114;
+        v53 = ef_publicDescription;
         _os_log_impl(&dword_2149C9000, v20, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: set message content request: %{public}@ for message: %{public}@", buf, 0x2Au);
       }
 
@@ -924,14 +927,14 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
       }
 
       globalAsyncScheduler = [MEMORY[0x277D071B8] globalAsyncScheduler];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __42__MFMessageContentView_setContentRequest___block_invoke;
-      v44[3] = &unk_278181710;
-      v44[4] = self;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __42__MFMessageContentView_setContentRequest___block_invoke;
+      v43[3] = &unk_278181710;
+      v43[4] = self;
       v27 = message;
-      v45 = v27;
-      v28 = [globalAsyncScheduler afterDelay:v44 performBlock:3.0];
+      v44 = v27;
+      v28 = [globalAsyncScheduler afterDelay:v43 performBlock:3.0];
       [(MFMessageContentView *)self setLoadingSpinnerTailspinToken:v28];
 
       v29 = [(MFMessageContentView *)self _updatedHeaderViewModelForMessage:v27 replyToList:0];
@@ -940,17 +943,17 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
       mainThreadScheduler = [MEMORY[0x277D071B8] mainThreadScheduler];
       v31 = self->_loadingCancelable;
       contentRequest = self->_contentRequest;
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __42__MFMessageContentView_setContentRequest___block_invoke_237;
-      v41[3] = &unk_278181D70;
-      objc_copyWeak(&v43, buf);
-      v42 = v27;
-      v33 = [(MessageContentRepresentationRequest *)contentRequest onScheduler:mainThreadScheduler addLoadObserver:v41];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __42__MFMessageContentView_setContentRequest___block_invoke_237;
+      v40[3] = &unk_278181D70;
+      objc_copyWeak(&v42, buf);
+      v41 = v27;
+      v33 = [(MessageContentRepresentationRequest *)contentRequest onScheduler:mainThreadScheduler addLoadObserver:v40];
       [(EFManualCancelationToken *)v31 addCancelable:v33];
 
       [(MessageContentRepresentationRequest *)self->_contentRequest start];
-      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
 
       objc_destroyWeak(buf);
     }
@@ -964,8 +967,8 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
         v35 = objc_opt_class();
         v36 = NSStringFromClass(v35);
         *buf = 138543618;
-        v48 = v36;
-        v49 = 2048;
+        v47 = v36;
+        v48 = 2048;
         selfCopy2 = self;
         _os_log_impl(&dword_2149C9000, v34, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: set nil content request, removing loading indicator", buf, 0x16u);
       }
@@ -975,40 +978,35 @@ void __70__MFMessageContentView__updatedHeaderViewModelForMessage_replyToList___
 
     os_activity_scope_leave(&state);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MFMessageContentView_setContentRequest___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Loading spinner displayed for %fl seconds", 0x4008000000000000];
   EFSaveTailspin();
   v3 = +[MFMessageContentView log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v7 = *(a1 + 32);
-    v8 = [*(a1 + 40) ef_publicDescription];
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = *(a1 + 32);
+    v7 = [*(a1 + 40) ef_publicDescription];
     *buf = 138544130;
+    v9 = v5;
+    v10 = 2048;
     v11 = v6;
-    v12 = 2048;
-    v13 = v7;
+    v12 = 2114;
+    v13 = v2;
     v14 = 2114;
-    v15 = v2;
-    v16 = 2114;
-    v17 = v8;
+    v15 = v7;
     _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ for message: %{public}@", buf, 0x2Au);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1038,13 +1036,13 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
         v17 = objc_opt_class();
         v18 = NSStringFromClass(v17);
         v19 = [*(a1 + 32) ef_publicDescription];
-        v22 = 138543874;
-        v23 = v18;
-        v24 = 2048;
-        v25 = WeakRetained;
-        v26 = 2114;
-        v27 = v19;
-        _os_log_impl(&dword_2149C9000, v16, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Updating header for message with replyToList: %{public}@", &v22, 0x20u);
+        v21 = 138543874;
+        v22 = v18;
+        v23 = 2048;
+        v24 = WeakRetained;
+        v25 = 2114;
+        v26 = v19;
+        _os_log_impl(&dword_2149C9000, v16, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Updating header for message with replyToList: %{public}@", &v21, 0x20u);
       }
 
       [WeakRetained[53] displayMessageUsingViewModel:v15];
@@ -1064,7 +1062,6 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
   }
 
   [WeakRetained contentRequestDidReceiveContentRepresentation:v5 error:v6];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mailboxForBanner:(id)banner
@@ -1089,7 +1086,7 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
 
 - (void)setPreviousContentSnapshot:(id)snapshot
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   v6 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1097,15 +1094,15 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
     previousContentSnapshot = self->_previousContentSnapshot;
-    v33 = 138544130;
-    v34 = v8;
-    v35 = 2048;
+    v32 = 138544130;
+    v33 = v8;
+    v34 = 2048;
     selfCopy3 = self;
-    v37 = 2048;
-    v38 = snapshotCopy;
-    v39 = 2048;
-    v40 = previousContentSnapshot;
-    _os_log_impl(&dword_2149C9000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: setPreviousContentSnapshot:%p (was %p)", &v33, 0x2Au);
+    v36 = 2048;
+    v37 = snapshotCopy;
+    v38 = 2048;
+    v39 = previousContentSnapshot;
+    _os_log_impl(&dword_2149C9000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: setPreviousContentSnapshot:%p (was %p)", &v32, 0x2Au);
   }
 
   v10 = self->_previousContentSnapshot;
@@ -1146,13 +1143,13 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
         v24 = objc_opt_class();
         v25 = NSStringFromClass(v24);
         v26 = self->_previousContentSnapshotWrapperView;
-        v33 = 138543874;
-        v34 = v25;
-        v35 = 2048;
+        v32 = 138543874;
+        v33 = v25;
+        v34 = 2048;
         selfCopy3 = self;
-        v37 = 2048;
-        v38 = v26;
-        _os_log_impl(&dword_2149C9000, v23, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: adding previousContentSnapshotWrapperView: %p", &v33, 0x20u);
+        v36 = 2048;
+        v37 = v26;
+        _os_log_impl(&dword_2149C9000, v23, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: adding previousContentSnapshotWrapperView: %p", &v32, 0x20u);
       }
 
       scrollView = [(MFMessageContentView *)self scrollView];
@@ -1167,20 +1164,18 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237(uint64_t a1
         v29 = objc_opt_class();
         v30 = NSStringFromClass(v29);
         v31 = self->_previousContentSnapshotWrapperView;
-        v33 = 138543874;
-        v34 = v30;
-        v35 = 2048;
+        v32 = 138543874;
+        v33 = v30;
+        v34 = 2048;
         selfCopy3 = self;
-        v37 = 2048;
-        v38 = v31;
-        _os_log_impl(&dword_2149C9000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: removing previousContentSnapshotWrapperView: %p", &v33, 0x20u);
+        v36 = 2048;
+        v37 = v31;
+        _os_log_impl(&dword_2149C9000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: removing previousContentSnapshotWrapperView: %p", &v32, 0x20u);
       }
 
       [(UIView *)self->_previousContentSnapshotWrapperView removeFromSuperview];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sourceIsManaged
@@ -1203,7 +1198,7 @@ uint64_t __39__MFMessageContentView_sourceIsManaged__block_invoke(uint64_t a1, v
 
 - (EMContentRepresentation)contentRepresentationIfAvailable
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   contentRequest = [(MFMessageContentView *)self contentRequest];
   resultIfAvailable = [contentRequest resultIfAvailable];
 
@@ -1212,20 +1207,18 @@ uint64_t __39__MFMessageContentView_sourceIsManaged__block_invoke(uint64_t a1, v
     v5 = EMLogCategoryMessageLoading();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
       contentRequest2 = [(MFMessageContentView *)self contentRequest];
-      v11 = 138543874;
-      v12 = v9;
-      v13 = 2048;
+      v10 = 138543874;
+      v11 = v8;
+      v12 = 2048;
       selfCopy = self;
-      v15 = 2114;
-      v16 = contentRequest2;
-      _os_log_error_impl(&dword_2149C9000, v5, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: contentRepresentation requested before it finished loading: %{public}@", &v11, 0x20u);
+      v14 = 2114;
+      v15 = contentRequest2;
+      _os_log_error_impl(&dword_2149C9000, v5, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: contentRepresentation requested before it finished loading: %{public}@", &v10, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return resultIfAvailable;
 }
@@ -1240,7 +1233,7 @@ uint64_t __39__MFMessageContentView_sourceIsManaged__block_invoke(uint64_t a1, v
 
 - (void)sceneMovedToForeground
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_backgroundWebProcessCrashCount)
   {
     [(NSMutableSet *)self->_inFlightURLs removeAllObjects];
@@ -1251,25 +1244,23 @@ uint64_t __39__MFMessageContentView_sourceIsManaged__block_invoke(uint64_t a1, v
       v5 = NSStringFromClass(v4);
       backgroundWebProcessCrashCount = self->_backgroundWebProcessCrashCount;
       *buf = 138543874;
-      v11 = v5;
-      v12 = 2048;
+      v10 = v5;
+      v11 = 2048;
       selfCopy = self;
-      v14 = 2048;
-      v15 = backgroundWebProcessCrashCount;
+      v13 = 2048;
+      v14 = backgroundWebProcessCrashCount;
       _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Reloading web view (background crash count: %ld)", buf, 0x20u);
     }
 
     self->_backgroundWebProcessCrashCount = 0;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __46__MFMessageContentView_sceneMovedToForeground__block_invoke;
-    v9[3] = &unk_2781816C0;
-    v9[4] = self;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __46__MFMessageContentView_sceneMovedToForeground__block_invoke;
+    v8[3] = &unk_2781816C0;
+    v8[4] = self;
     mainThreadScheduler = [MEMORY[0x277D071B8] mainThreadScheduler];
-    [mainThreadScheduler performBlock:v9];
+    [mainThreadScheduler performBlock:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__MFMessageContentView_sceneMovedToForeground__block_invoke(uint64_t a1)
@@ -1316,20 +1307,19 @@ void __46__MFMessageContentView_sceneMovedToForeground__block_invoke(uint64_t a1
 
 id __56__MFMessageContentView__setupWebProcessLocalizedStrings__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:v3 value:&stru_2826D1AD8 table:@"Main"];
+  v2 = a2;
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:v2 value:&stru_2826D1AD8 table:@"Main"];
 
-  return v6;
+  return v4;
 }
 
 - (void)layoutSubviews
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = MFMessageContentView;
-  [(MFMessageContentView *)&v20 layoutSubviews];
+  v26 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = MFMessageContentView;
+  [(MFMessageContentView *)&v19 layoutSubviews];
   if ([(MFMessageContentView *)self showMessageFooter])
   {
     [(MFMessageContentView *)self _layoutFooterView];
@@ -1348,11 +1338,11 @@ id __56__MFMessageContentView__setupWebProcessLocalizedStrings__block_invoke(uin
       v7 = NSStringFromClass(v6);
       loadingView2 = [(MFMessageContentView *)self loadingView];
       *buf = 138543874;
-      v22 = v7;
-      v23 = 2048;
+      v21 = v7;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2048;
-      v26 = loadingView2;
+      v24 = 2048;
+      v25 = loadingView2;
       _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: bringing loading view to front: %p", buf, 0x20u);
     }
 
@@ -1378,11 +1368,11 @@ id __56__MFMessageContentView__setupWebProcessLocalizedStrings__block_invoke(uin
       v16 = NSStringFromClass(v15);
       previousContentSnapshotWrapperView = self->_previousContentSnapshotWrapperView;
       *buf = 138543874;
-      v22 = v16;
-      v23 = 2048;
+      v21 = v16;
+      v22 = 2048;
       selfCopy2 = self;
-      v25 = 2048;
-      v26 = previousContentSnapshotWrapperView;
+      v24 = 2048;
+      v25 = previousContentSnapshotWrapperView;
       _os_log_impl(&dword_2149C9000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: bringing previous content snapshot wrapper view to front: %p", buf, 0x20u);
     }
 
@@ -1391,7 +1381,6 @@ id __56__MFMessageContentView__setupWebProcessLocalizedStrings__block_invoke(uin
   }
 
   [(UIView *)self mf_activateDebugModeIfEnabled];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_layoutFooterView
@@ -1710,16 +1699,16 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
 
 - (void)_updateMinimumFontSize
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   v4 = *MEMORY[0x277D76800];
-  v19[0] = *MEMORY[0x277D76808];
-  v19[1] = v4;
+  v18[0] = *MEMORY[0x277D76808];
+  v18[1] = v4;
   v5 = *MEMORY[0x277D767F0];
-  v19[2] = *MEMORY[0x277D767F8];
-  v19[3] = v5;
-  v19[4] = *MEMORY[0x277D767E8];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
+  v18[2] = *MEMORY[0x277D767F8];
+  v18[3] = v5;
+  v18[4] = *MEMORY[0x277D767E8];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
   v7 = [v3 setWithArray:v6];
 
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -1744,8 +1733,6 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
     [preferences setMinimumFontSize:v11];
     [(MFMessageContentView *)self _reloadUserStyleSheets];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutMarginsDidChange
@@ -1793,7 +1780,7 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
 
 - (void)_updateWebViewPaddingConstants
 {
-  v65[4] = *MEMORY[0x277D85DE8];
+  v63[4] = *MEMORY[0x277D85DE8];
   [(MFMessageContentView *)self _viewportWidth];
   v5 = v4;
   quickReplyAnimationContext = [(MFMessageContentView *)self quickReplyAnimationContext];
@@ -1829,105 +1816,103 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
   v19 = v7 + v13 + -7.0;
 
   v20 = MEMORY[0x277D768C8];
-  v21 = *(MEMORY[0x277D768C8] + 24);
   if (hasGenerousMargins)
   {
-    v22 = v11 + -7.0;
+    v21 = v11 + -7.0;
   }
 
   else
   {
-    v22 = *(MEMORY[0x277D768C8] + 8);
+    v21 = *(MEMORY[0x277D768C8] + 8);
   }
 
   if (hasGenerousMargins)
   {
-    v23 = v19;
+    v22 = v19;
   }
 
   else
   {
-    v23 = *(MEMORY[0x277D768C8] + 24);
+    v22 = *(MEMORY[0x277D768C8] + 24);
   }
 
   if (hasGenerousMargins)
   {
-    v24 = v5 - (v11 + -7.0 + v19);
+    v23 = v5 - (v11 + -7.0 + v19);
   }
 
   else
   {
-    v24 = v5;
+    v23 = v5;
   }
 
-  v50 = v24;
+  v48 = v23;
   webView = [(MFMessageContentView *)self webView];
-  [webView _setObscuredInsets:{*v20, v22, v20[2], v23}];
+  [webView _setObscuredInsets:{*v20, v21, v20[2], v22}];
 
   webView2 = [(MFMessageContentView *)self webView];
-  [webView2 _overrideLayoutParametersWithMinimumLayoutSize:v50 maximumUnobscuredSizeOverride:{1.0, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
+  [webView2 _overrideLayoutParametersWithMinimumLayoutSize:v48 maximumUnobscuredSizeOverride:{1.0, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
 
   webView3 = [(MFMessageContentView *)self webView];
   scrollView = [webView3 scrollView];
   [scrollView contentInset];
-  v30 = v29;
-  v32 = v31;
+  v29 = v28;
+  v31 = v30;
 
   webView4 = [(MFMessageContentView *)self webView];
   scrollView2 = [webView4 scrollView];
-  [scrollView2 setContentInset:{v30, v22, v32, v23}];
+  [scrollView2 setContentInset:{v29, v21, v31, v22}];
 
   UIEdgeInsetsSubtract();
+  v34 = MFFloatToCSSPixelString();
+  v63[0] = v34;
   v35 = MFFloatToCSSPixelString();
-  v65[0] = v35;
+  v63[1] = v35;
   v36 = MFFloatToCSSPixelString();
-  v65[1] = v36;
+  v63[2] = v36;
   v37 = MFFloatToCSSPixelString();
-  v65[2] = v37;
-  v38 = MFFloatToCSSPixelString();
-  v65[3] = v38;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:4];
+  v63[3] = v37;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
 
-  v40 = [v39 componentsJoinedByString:@" "];
-  v41 = +[MFMessageContentView log];
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v39 = [v38 componentsJoinedByString:@" "];
+  v40 = +[MFMessageContentView log];
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = objc_opt_class();
-    v43 = NSStringFromClass(v42);
-    v44 = NSStringFromSelector(a2);
+    v41 = objc_opt_class();
+    v42 = NSStringFromClass(v41);
+    v43 = NSStringFromSelector(a2);
     webView5 = [(MFMessageContentView *)self webView];
     *buf = 138544642;
-    v54 = v43;
-    v55 = 2048;
+    v52 = v42;
+    v53 = 2048;
     selfCopy = self;
-    v57 = 2114;
-    v58 = v44;
-    v59 = 2048;
-    v60 = webView5;
-    v61 = 2114;
-    v62 = v40;
-    v63 = 2048;
-    v64 = v50;
-    _os_log_impl(&dword_2149C9000, v41, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ webView = %p padding:%{public}@ viewport-width:%f", buf, 0x3Eu);
+    v55 = 2114;
+    v56 = v43;
+    v57 = 2048;
+    v58 = webView5;
+    v59 = 2114;
+    v60 = v39;
+    v61 = 2048;
+    v62 = v48;
+    _os_log_impl(&dword_2149C9000, v40, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ webView = %p padding:%{public}@ viewport-width:%f", buf, 0x3Eu);
   }
 
   webViewConstants = [(MFMessageContentView *)self webViewConstants];
-  v51[0] = @"padding";
-  v51[1] = @"viewport-width";
-  v52[0] = v40;
-  v47 = [MEMORY[0x277CCABB0] numberWithDouble:v50];
-  v52[1] = v47;
-  v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
-  [webViewConstants setValuesForKeysWithDictionary:v48];
+  v49[0] = @"padding";
+  v49[1] = @"viewport-width";
+  v50[0] = v39;
+  v46 = [MEMORY[0x277CCABB0] numberWithDouble:v48];
+  v50[1] = v46;
+  v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+  [webViewConstants setValuesForKeysWithDictionary:v47];
 
   self->_paddingConstantsNeedUpdate = 0;
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_styleSheetWithPadding:(UIEdgeInsets)padding useWideLayout:(BOOL)layout
 {
   layoutCopy = layout;
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v6 = CSSString(layoutCopy);
   [dictionary setObject:v6 forKeyedSubscript:@"padding-left"];
@@ -1941,12 +1926,10 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
   v9 = MFFloatToCSSPixelString();
   [dictionary setObject:v9 forKeyedSubscript:@"padding-bottom"];
 
-  v14 = @"BODY";
-  v15[0] = dictionary;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"BODY";
+  v14[0] = dictionary;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = MFCSSStringFromDictionary();
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1992,6 +1975,17 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
   v5 = MEMORY[0x277CBEBF8];
 
   [(MFMessageContentView *)self setAttachments:v5];
+}
+
+- (void)_clearAllBannersAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  [(MFMessageContentView *)self _clearLoadRemoteImagesBannerAnimated:?];
+  [(MFMessageContentView *)self _clearHasMoreContentBannerAnimated:animatedCopy];
+  [(MFMessageContentView *)self _clearBlockedSenderBannerAnimated:animatedCopy];
+  [(MFMessageContentView *)self _clearLoadFailedProxyContentBannerAnimated:animatedCopy];
+  delegate = [(MFMessageContentView *)self delegate];
+  [delegate messageContentView:self clearSuggestionsBannerAnimated:animatedCopy];
 }
 
 - (void)_addLoadingSubview:(id)subview
@@ -2047,22 +2041,21 @@ void __33__MFMessageContentView_setFrame___block_invoke(uint64_t a1)
 
 void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();
     v4 = NSStringFromClass(v3);
-    v6 = 138543618;
-    v7 = v4;
-    v8 = 2048;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_2149C9000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: showing delayed progress indicator", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v4;
+    v7 = 2048;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_2149C9000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: showing delayed progress indicator", &v5, 0x16u);
   }
 
   [WeakRetained setLoadingIndicatorVisible:1];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isLoadingIndicatorVisible
@@ -2071,6 +2064,91 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
   isLoadingIndicatorVisible = [loadingView isLoadingIndicatorVisible];
 
   return isLoadingIndicatorVisible;
+}
+
+- (void)setLoadingIndicatorVisible:(BOOL)visible animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  visibleCopy = visible;
+  v32 = *MEMORY[0x277D85DE8];
+  loadingIndicatorCancelable = [(MFMessageContentView *)self loadingIndicatorCancelable];
+  [loadingIndicatorCancelable cancel];
+
+  loadingView = [(MFMessageContentView *)self loadingView];
+  v9 = EMLogCategoryMessageLoading();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = NSStringFromBOOL();
+    [loadingView isLoadingIndicatorVisible];
+    v13 = NSStringFromBOOL();
+    *buf = 138544386;
+    v23 = v11;
+    v24 = 2048;
+    selfCopy = self;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2048;
+    v29 = loadingView;
+    v30 = 2112;
+    v31 = v13;
+    _os_log_impl(&dword_2149C9000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: loadingIndicatorVisible=%@ (view: %p wasVisible %@)", buf, 0x34u);
+  }
+
+  [loadingView setAlpha:1.0];
+  if (visibleCopy)
+  {
+    v14 = 0;
+    v15 = 0;
+    [(MFMessageContentView *)self _addLoadingSubview:loadingView];
+  }
+
+  else
+  {
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __60__MFMessageContentView_setLoadingIndicatorVisible_animated___block_invoke;
+    aBlock[3] = &unk_2781816C0;
+    v16 = loadingView;
+    v21 = v16;
+    v14 = _Block_copy(aBlock);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__MFMessageContentView_setLoadingIndicatorVisible_animated___block_invoke_2;
+    v18[3] = &unk_278181DE0;
+    v18[4] = self;
+    v19 = v16;
+    v15 = _Block_copy(v18);
+  }
+
+  [loadingView setLoadingIndicatorVisible:visibleCopy animated:animatedCopy];
+  if ((*&self->_flags & 0x200) != 0)
+  {
+    delegate = [(MFMessageContentView *)self delegate];
+    [delegate messageContentView:self loadingIndicatorDidChangeVisibility:{-[MFMessageContentView isLoadingIndicatorVisible](self, "isLoadingIndicatorVisible")}];
+  }
+
+  if (v14 | v15)
+  {
+    if (animatedCopy)
+    {
+      [MEMORY[0x277D75D18] animateWithDuration:v14 animations:v15 completion:*MEMORY[0x277CD68D0]];
+    }
+
+    else
+    {
+      if (v14)
+      {
+        (*(v14 + 16))(v14);
+      }
+
+      if (v15)
+      {
+        (*(v15 + 16))(v15, 1);
+      }
+    }
+  }
 }
 
 - (void)reload
@@ -2089,7 +2167,7 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
 
 - (void)contentRequestDidReceiveContentRepresentation:(id)representation error:(id)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   errorCopy = error;
   v8 = _os_activity_create(&dword_2149C9000, "[MFMessageContentView contentRequestDidReceiveContentRepresentation:error:]", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
@@ -2112,7 +2190,7 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
         message = [contentRequest message];
         ef_publicDescription = [message ef_publicDescription];
         *buf = 138543362;
-        v34 = ef_publicDescription;
+        v31 = ef_publicDescription;
         _os_log_impl(&dword_2149C9000, v10, OS_LOG_TYPE_DEFAULT, "Add hasMoreContent banner for message: %{public}@", buf, 0xCu);
       }
 
@@ -2143,27 +2221,25 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
       }
 
       [(MFMailDropBannerView *)mailDropBanner setMetaData:mailDropBannerMetadata];
-      allMailDropsDownloaded = [(MessageContentItemsHelper *)self->_relatedItemsHelper allMailDropsDownloaded];
-      v20 = self->_mailDropBanner;
-      if (allMailDropsDownloaded)
+      if ([(MessageContentItemsHelper *)self->_relatedItemsHelper allMailDropsDownloaded])
       {
-        v21 = 3;
+        v19 = 3;
       }
 
       else
       {
-        v21 = 1;
+        v19 = 1;
       }
 
-      [(MFMailDropBannerView *)self->_mailDropBanner setBannerState:v21];
-      v22 = self->_mailDropBanner;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __76__MFMessageContentView_contentRequestDidReceiveContentRepresentation_error___block_invoke;
-      v30[3] = &unk_278181E08;
-      v23 = v22;
-      v31 = v23;
-      [(MessageContentItemsHelper *)self->_relatedItemsHelper setMaildropProgressHandler:v30];
+      [(MFMailDropBannerView *)self->_mailDropBanner setBannerState:v19];
+      v20 = self->_mailDropBanner;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __76__MFMessageContentView_contentRequestDidReceiveContentRepresentation_error___block_invoke;
+      v27[3] = &unk_278181E08;
+      v21 = v20;
+      v28 = v21;
+      [(MessageContentItemsHelper *)self->_relatedItemsHelper setMaildropProgressHandler:v27];
       [(MFMessageHeaderView *)self->_headerView addHeaderBlock:self->_mailDropBanner animated:0];
     }
   }
@@ -2174,19 +2250,19 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
     v14 = EMLogCategoryMessageLoading();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       contentRequest2 = [(MFMessageContentView *)self contentRequest];
       message2 = [contentRequest2 message];
       ef_publicDescription2 = [errorCopy ef_publicDescription];
       *buf = 138544130;
-      v34 = v26;
-      v35 = 2048;
+      v31 = v23;
+      v32 = 2048;
       selfCopy = self;
-      v37 = 2112;
-      v38 = message2;
-      v39 = 2114;
-      v40 = ef_publicDescription2;
+      v34 = 2112;
+      v35 = message2;
+      v36 = 2114;
+      v37 = ef_publicDescription2;
       _os_log_error_impl(&dword_2149C9000, v14, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Error loading content represenation for message %@ : %{public}@", buf, 0x2Au);
     }
 
@@ -2195,16 +2271,15 @@ void __54__MFMessageContentView__showDelayedProgressUIIfNeeded__block_invoke(uin
   }
 
   os_activity_scope_leave(&state);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __76__MFMessageContentView_contentRequestDidReceiveContentRepresentation_error___block_invoke(uint64_t result, uint64_t a2, double a3)
+id *__76__MFMessageContentView_contentRequestDidReceiveContentRepresentation_error___block_invoke(id *result, uint64_t a2, double a3)
 {
   v3 = result;
   if (a2 == 3)
   {
-    [*(result + 32) setBannerState:2];
-    v7 = *(v3 + 32);
+    [result[4] setBannerState:2];
+    v7 = v3[4];
 
     return [v7 setDownloadProgress:a3];
   }
@@ -2213,7 +2288,7 @@ uint64_t __76__MFMessageContentView_contentRequestDidReceiveContentRepresentatio
   {
     if (a2 == 2)
     {
-      v4 = *(result + 32);
+      v4 = result[4];
       v5 = 1;
     }
 
@@ -2224,17 +2299,17 @@ uint64_t __76__MFMessageContentView_contentRequestDidReceiveContentRepresentatio
         return result;
       }
 
-      v4 = *(result + 32);
+      v4 = result[4];
       v5 = 3;
     }
 
-    return [v4 setBannerState:v5];
+    return [v4 setBannerState:{v5, a3}];
   }
 }
 
 - (void)_requestWebViewLoadWithRepresentation:(id)representation
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -2245,13 +2320,13 @@ uint64_t __76__MFMessageContentView_contentRequestDidReceiveContentRepresentatio
     itemID = [contentMessage itemID];
     ef_publicDescription = [representationCopy ef_publicDescription];
     *buf = 138544130;
-    v54 = v7;
-    v55 = 2048;
+    v53 = v7;
+    v54 = 2048;
     selfCopy = self;
-    v57 = 2114;
-    v58 = itemID;
-    v59 = 2114;
-    v60 = ef_publicDescription;
+    v56 = 2114;
+    v57 = itemID;
+    v58 = 2114;
+    v59 = ef_publicDescription;
     _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Request webView load for message-id: %{public}@, representation: %{public}@", buf, 0x2Au);
   }
 
@@ -2423,13 +2498,11 @@ LABEL_29:
 
   [(MFMessageContentView *)self _performQuickReplyMoveMessageBodyAnimationIfNeeded];
 LABEL_36:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setRemoteContentToLoadWithoutProxy
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_allRemoteURLs)
   {
     allKeys = [(NSMutableDictionary *)self->_failedProxyURLs allKeys];
@@ -2443,21 +2516,19 @@ LABEL_36:
         v7 = [allKeys ef_map:&__block_literal_global_1655];
         v8 = [v7 componentsJoinedByString:{@", "}];
 
-        v11 = 138543874;
-        v12 = v6;
-        v13 = 2048;
+        v10 = 138543874;
+        v11 = v6;
+        v12 = 2048;
         selfCopy = self;
-        v15 = 2114;
-        v16 = v8;
-        _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: URLs to load without proxy: %{public}@", &v11, 0x20u);
+        v14 = 2114;
+        v15 = v8;
+        _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: URLs to load without proxy: %{public}@", &v10, 0x20u);
       }
     }
 
     webViewConstants = [(MFMessageContentView *)self webViewConstants];
     [webViewConstants setObject:allKeys forKeyedSubscript:@"remoteContentToLoadWithoutProxy"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_triggerWebViewLoad
@@ -2490,7 +2561,7 @@ LABEL_36:
 
 - (void)generateSnapshotImageWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   headerView = [(MFMessageContentView *)self headerView];
   v4 = objc_alloc(MEMORY[0x277D75A48]);
@@ -2498,9 +2569,9 @@ LABEL_36:
   v5 = [v4 initWithFrame:?];
   [v5 captureSnapshotOfView:headerView withSnapshotType:0];
   [v5 bounds];
-  v36.width = v6;
-  v36.height = v7;
-  UIGraphicsBeginImageContextWithOptions(v36, 1, 0.0);
+  v35.width = v6;
+  v35.height = v7;
+  UIGraphicsBeginImageContextWithOptions(v35, 1, 0.0);
   layer = [v5 layer];
   [layer renderInContext:UIGraphicsGetCurrentContext()];
 
@@ -2517,34 +2588,32 @@ LABEL_36:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v34 = itemID;
+    v33 = itemID;
     _os_log_impl(&dword_2149C9000, v16, OS_LOG_TYPE_DEFAULT, "Waiting for a WebKit presentation update for message - itemID=%{public}@", buf, 0xCu);
   }
 
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke;
-  v25[3] = &unk_278181E80;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke;
+  v24[3] = &unk_278181E80;
   v17 = webView;
-  v26 = v17;
+  v25 = v17;
   v18 = mainScreen;
-  v27 = v18;
+  v26 = v18;
   v19 = itemID;
-  v28 = v19;
+  v27 = v19;
   selfCopy = self;
-  v32 = v13;
+  v31 = v13;
   v20 = v9;
-  v30 = v20;
+  v29 = v20;
   v21 = completionCopy;
-  v31 = v21;
-  [v17 _doAfterNextPresentationUpdate:v25];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v30 = v21;
+  [v17 _doAfterNextPresentationUpdate:v24];
 }
 
 void __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) bounds];
   v3 = v2;
   v5 = v4;
@@ -2561,7 +2630,7 @@ void __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invo
   {
     v12 = *(a1 + 48);
     *buf = 138543362;
-    v24 = v12;
+    v23 = v12;
     _os_log_impl(&dword_2149C9000, v11, OS_LOG_TYPE_DEFAULT, "ask webkit to take a snapshot - itemID=%{public}@", buf, 0xCu);
   }
 
@@ -2569,17 +2638,15 @@ void __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invo
   [*(a1 + 56) bounds];
   v14 = *(a1 + 80);
   v16 = v14 * v15;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke_341;
-  v18[3] = &unk_278181E58;
-  v22 = v14;
-  v19 = *(a1 + 64);
-  v20 = *(a1 + 32);
-  v21 = *(a1 + 72);
-  [v13 _snapshotRect:v18 intoImageOfWidth:v3 completionHandler:{v5, v7, v9, v16}];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke_341;
+  v17[3] = &unk_278181E58;
+  v21 = v14;
+  v18 = *(a1 + 64);
+  v19 = *(a1 + 32);
+  v20 = *(a1 + 72);
+  [v13 _snapshotRect:v17 intoImageOfWidth:v3 completionHandler:{v5, v7, v9, v16}];
 }
 
 void __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_invoke_341(uint64_t a1, uint64_t a2)
@@ -2641,26 +2708,26 @@ uint64_t __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_
 
 - (void)_foundImageCIDAttachments:(id)attachments
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = attachments;
-  v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = [v7 objectForKeyedSubscript:@"elementID"];
         v9 = [v7 objectForKeyedSubscript:@"contentID"];
         [(MessageContentItemsHelper *)self->_relatedItemsHelper associateElementID:v8 withContentID:v9];
@@ -2671,13 +2738,11 @@ uint64_t __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_
         [(MFMessageContentView *)self _updateFileWrapperForAttachment:v12 contentID:v9];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_displayDismissibleAttachmentErrorWithTitle:(id)title message:(id)message
@@ -2699,17 +2764,16 @@ uint64_t __60__MFMessageContentView_generateSnapshotImageWithCompletion___block_
 
 void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_message___block_invoke(void *a1)
 {
-  v9 = [MEMORY[0x277D75110] alertControllerWithTitle:a1[4] message:a1[5] preferredStyle:1];
+  v8 = [MEMORY[0x277D75110] alertControllerWithTitle:a1[4] message:a1[5] preferredStyle:1];
   v2 = MEMORY[0x277D750F8];
-  v3 = a1[6];
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"OK" value:&stru_2826D1AD8 table:@"Main"];
-  v6 = [v2 actionWithTitle:v5 style:0 handler:0];
-  [v9 addAction:v6];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"OK" value:&stru_2826D1AD8 table:@"Main"];
+  v5 = [v2 actionWithTitle:v4 style:0 handler:0];
+  [v8 addAction:v5];
 
   WeakRetained = objc_loadWeakRetained((a1[6] + 680));
-  v8 = [WeakRetained presentingViewControllerForMessageContentView:a1[6]];
-  [v8 presentViewController:v9 animated:1 completion:0];
+  v7 = [WeakRetained presentingViewControllerForMessageContentView:a1[6]];
+  [v7 presentViewController:v8 animated:1 completion:0];
 }
 
 - (void)_alertMailDropDownloadIsTooLargeForCell:(BOOL)cell
@@ -2900,34 +2964,33 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
 
 - (void)webProcessDidFailLoadingResourceWithURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = MEMORY[0x277D07198];
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = MEMORY[0x277D07198];
     absoluteString = [lCopy absoluteString];
-    v11 = [v9 fullyRedactedStringForString:absoluteString];
+    v10 = [v8 fullyRedactedStringForString:absoluteString];
     contentRequest = [(MFMessageContentView *)self contentRequest];
     contentRequest2 = [(MFMessageContentView *)self contentRequest];
     message = [contentRequest2 message];
-    v15 = 138544386;
-    v16 = v8;
-    v17 = 2048;
+    v14 = 138544386;
+    v15 = v7;
+    v16 = 2048;
     selfCopy = self;
-    v19 = 2114;
-    v20 = v11;
-    v21 = 2114;
-    v22 = contentRequest;
-    v23 = 2114;
-    v24 = message;
-    _os_log_error_impl(&dword_2149C9000, v5, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Web process did fail to load resource URL: %{public}@ for content request: %{public}@, message: %{public}@", &v15, 0x34u);
+    v18 = 2114;
+    v19 = v10;
+    v20 = 2114;
+    v21 = contentRequest;
+    v22 = 2114;
+    v23 = message;
+    _os_log_error_impl(&dword_2149C9000, v5, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Web process did fail to load resource URL: %{public}@ for content request: %{public}@, message: %{public}@", &v14, 0x34u);
   }
 
   [(MessageContentItemsHelper *)self->_relatedItemsHelper noteDidFailLoadingResourceWithURL:lCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webProcessDidFinishDocumentLoadForURL:(id)l andRequestedRemoteURLs:(id)ls
@@ -2973,7 +3036,7 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
 
 - (void)webProcessDidFinishLoadForURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2984,15 +3047,15 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
     contentRequest2 = [(MFMessageContentView *)self contentRequest];
     message = [contentRequest2 message];
     ef_publicDescription2 = [message ef_publicDescription];
-    v17 = 138544130;
-    v18 = v6;
-    v19 = 2048;
+    v16 = 138544130;
+    v17 = v6;
+    v18 = 2048;
     selfCopy = self;
-    v21 = 2114;
-    v22 = ef_publicDescription;
-    v23 = 2114;
-    v24 = ef_publicDescription2;
-    _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Web process did finish load for content request: %{public}@ message: %{public}@", &v17, 0x2Au);
+    v20 = 2114;
+    v21 = ef_publicDescription;
+    v22 = 2114;
+    v23 = ef_publicDescription2;
+    _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Web process did finish load for content request: %{public}@ message: %{public}@", &v16, 0x2Au);
   }
 
   webView = [(MFMessageContentView *)self webView];
@@ -3001,13 +3064,11 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
   globalAsyncScheduler = [MEMORY[0x277D071B8] globalAsyncScheduler];
   v15 = [(MFMessageContentView *)self ef_onScheduler:globalAsyncScheduler];
   [v15 _processDataDetectionMetricsFromResults:_dataDetectionResults];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webProcessDidBlockLoadingResourceWithURL:(id)l
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(MFMessageContentView *)self setBlockedContentTypes:[(MFMessageContentView *)self blockedContentTypes]| 1];
   v4 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -3019,43 +3080,41 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
     contentRequest2 = [(MFMessageContentView *)self contentRequest];
     message = [contentRequest2 message];
     ef_publicDescription2 = [message ef_publicDescription];
-    v13 = 138544130;
-    v14 = v6;
-    v15 = 2048;
+    v12 = 138544130;
+    v13 = v6;
+    v14 = 2048;
     selfCopy = self;
-    v17 = 2114;
-    v18 = ef_publicDescription;
-    v19 = 2114;
-    v20 = ef_publicDescription2;
-    _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Web process did block loading resource for content request: %{public}@ message: %{public}@", &v13, 0x2Au);
+    v16 = 2114;
+    v17 = ef_publicDescription;
+    v18 = 2114;
+    v19 = ef_publicDescription2;
+    _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p> Web process did block loading resource for content request: %{public}@ message: %{public}@", &v12, 0x2Au);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)webProcessFailedToLoadResourceWithProxyForURL:(id)l failureReason:(int64_t)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     contentRequest = [(MFMessageContentView *)self contentRequest];
     ef_publicDescription = [contentRequest ef_publicDescription];
     contentRequest2 = [(MFMessageContentView *)self contentRequest];
     message = [contentRequest2 message];
     ef_publicDescription2 = [message ef_publicDescription];
-    v19 = 138544130;
-    v20 = v13;
-    v21 = 2048;
+    v18 = 138544130;
+    v19 = v12;
+    v20 = 2048;
     selfCopy = self;
-    v23 = 2114;
-    v24 = ef_publicDescription;
-    v25 = 2114;
-    v26 = ef_publicDescription2;
-    _os_log_error_impl(&dword_2149C9000, v7, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Web process did fail to load content request: %{public}@ message: %{public}@", &v19, 0x2Au);
+    v22 = 2114;
+    v23 = ef_publicDescription;
+    v24 = 2114;
+    v25 = ef_publicDescription2;
+    _os_log_error_impl(&dword_2149C9000, v7, OS_LOG_TYPE_ERROR, "<%{public}@: %p> Web process did fail to load content request: %{public}@ message: %{public}@", &v18, 0x2Au);
   }
 
   absoluteString = [lCopy absoluteString];
@@ -3067,30 +3126,28 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
   }
 
   [(MFMessageContentView *)self _showLoadFailedProxyContentBannerIfNeeded];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showLoadFailedProxyContentBannerIfNeeded
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(MFMessageContentView *)self showsBanners]&& self->_allRemoteURLs && [(NSMutableDictionary *)self->_failedProxyURLs count]&& !self->_loadFailedProxyContentBanner)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 2;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 2;
     failedProxyURLs = self->_failedProxyURLs;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __65__MFMessageContentView__showLoadFailedProxyContentBannerIfNeeded__block_invoke;
-    v16[3] = &unk_278181ED0;
-    v16[4] = &v17;
-    [(NSMutableDictionary *)failedProxyURLs enumerateKeysAndObjectsUsingBlock:v16];
-    if (v18[3] != 2 || ([MEMORY[0x277CBEBD0] em_userDefaults], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "BOOLForKey:", *MEMORY[0x277D06CC0]), v4, (v5 & 1) == 0))
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __65__MFMessageContentView__showLoadFailedProxyContentBannerIfNeeded__block_invoke;
+    v15[3] = &unk_278181ED0;
+    v15[4] = &v16;
+    [(NSMutableDictionary *)failedProxyURLs enumerateKeysAndObjectsUsingBlock:v15];
+    if (v17[3] != 2 || ([MEMORY[0x277CBEBD0] em_userDefaults], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "BOOLForKey:", *MEMORY[0x277D06CC0]), v4, (v5 & 1) == 0))
     {
       v6 = [MFLoadFailedProxyContentBannerView alloc];
-      v7 = [(MFLoadFailedProxyContentBannerView *)v6 initWithFrame:v18[3] failureReason:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+      v7 = [(MFLoadFailedProxyContentBannerView *)v6 initWithFrame:v17[3] failureReason:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
       loadFailedProxyContentBanner = self->_loadFailedProxyContentBanner;
       self->_loadFailedProxyContentBanner = v7;
 
@@ -3106,19 +3163,17 @@ void __76__MFMessageContentView__displayDismissibleAttachmentErrorWithTitle_mess
         v14 = [v13 componentsJoinedByString:{@", "}];
 
         *buf = 138543874;
-        v22 = v11;
-        v23 = 2048;
+        v21 = v11;
+        v22 = 2048;
         selfCopy = self;
-        v25 = 2114;
-        v26 = v14;
+        v24 = 2114;
+        v25 = v14;
         _os_log_impl(&dword_2149C9000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: Displaying failed proxy load banner due to: %{public}@", buf, 0x20u);
       }
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__MFMessageContentView__showLoadFailedProxyContentBannerIfNeeded__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -3278,22 +3333,20 @@ void __82__MFMessageContentView__configureTrustEvaluationsForSignersInSecurityIn
 
 BOOL __64__MFMessageContentView__processDataDetectionMetricsFromResults___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  [v3 coreResult];
-  if (DDResultGetCategory() == 4 && ([v3 coreResult], DDResultHasProperties()))
+  v2 = a2;
+  [v2 coreResult];
+  if (DDResultGetCategory() == 4 && ([v2 coreResult], DDResultHasProperties()))
   {
-    [v3 coreResult];
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = DDResultIsPastDate() == 0;
+    [v2 coreResult];
+    v3 = DDResultIsPastDate() == 0;
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (int64_t)_webView:(id)view decidePolicyForFocusedElement:(id)element
@@ -3330,7 +3383,7 @@ void __57__MFMessageContentView__urlSchemesToOpenWithoutPrompting__block_invoke(
 
 - (void)webView:(id)view decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v79[1] = *MEMORY[0x277D85DE8];
+  v78[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   actionCopy = action;
   handlerCopy = handler;
@@ -3366,16 +3419,16 @@ void __57__MFMessageContentView__urlSchemesToOpenWithoutPrompting__block_invoke(
     if (fragment)
     {
       webView = [(MFMessageContentView *)self webView];
-      v79[0] = fragment;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:1];
+      v78[0] = fragment;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:1];
       v26 = [webView mcv_dictionaryFromJavaScriptMethod:@"rectForAnchor" arguments:v25];
 
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __80__MFMessageContentView_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-      v72[3] = &unk_278181F20;
-      v72[4] = self;
-      [v26 addSuccessBlock:v72];
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __80__MFMessageContentView_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+      v71[3] = &unk_278181F20;
+      v71[4] = self;
+      [v26 addSuccessBlock:v71];
     }
 
     else if ([actionCopy navigationType] == -1 || objc_msgSend(actionCopy, "navigationType") == 3)
@@ -3417,11 +3470,11 @@ LABEL_22:
     if (isMainFrame && [v11 isFaceTimeMultiwayURL])
     {
       handlerCopy[2](handlerCopy, 0);
-      v34 = [objc_alloc(MEMORY[0x277D6EEF0]) initWithURL:v11];
-      mEMORY[0x277D04328] = v34;
-      if (v34)
+      v33 = [objc_alloc(MEMORY[0x277D6EEF0]) initWithURL:v11];
+      mEMORY[0x277D04328] = v33;
+      if (v33)
       {
-        [v34 setWantsStagingArea:1];
+        [v33 setWantsStagingArea:1];
         mEMORY[0x277D6EDF8] = [MEMORY[0x277D6EDF8] sharedInstance];
         [mEMORY[0x277D6EDF8] launchAppForJoinRequest:mEMORY[0x277D04328]];
       }
@@ -3429,14 +3482,14 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v36 = handlerCopy[2];
+    v35 = handlerCopy[2];
     if (self->_showingError)
     {
-      v36(handlerCopy, 1);
+      v35(handlerCopy, 1);
       goto LABEL_17;
     }
 
-    v36(handlerCopy, 0);
+    v35(handlerCopy, 0);
     delegate = [(MFMessageContentView *)self delegate];
     contentRepresentationIfAvailable2 = [(MFMessageContentView *)self contentRepresentationIfAvailable];
 
@@ -3450,15 +3503,15 @@ LABEL_22:
     if ([lowercaseString isEqualToString:@"file"])
     {
       path3 = [v11 path];
-      v42 = [path3 containsString:@"Library/Mail"];
+      v41 = [path3 containsString:@"Library/Mail"];
 
-      if (v42)
+      if (v41)
       {
-        v43 = EMLogCategoryMessageLoading();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+        v42 = EMLogCategoryMessageLoading();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
         {
-          v44 = objc_opt_class();
-          NSStringFromClass(v44);
+          v43 = objc_opt_class();
+          NSStringFromClass(v43);
           objc_claimAutoreleasedReturnValue();
           [MFMessageContentView webView:decidePolicyForNavigationAction:decisionHandler:];
         }
@@ -3466,11 +3519,11 @@ LABEL_22:
 
       else
       {
-        v43 = EMLogCategoryMessageLoading();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v42 = EMLogCategoryMessageLoading();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          v61 = objc_opt_class();
-          NSStringFromClass(v61);
+          v60 = objc_opt_class();
+          NSStringFromClass(v60);
           objc_claimAutoreleasedReturnValue();
           [MFMessageContentView webView:decidePolicyForNavigationAction:decisionHandler:];
         }
@@ -3484,11 +3537,11 @@ LABEL_53:
 
     if ([lowercaseString isEqualToString:@"prefs"])
     {
-      v43 = EMLogCategoryMessageLoading();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      v42 = EMLogCategoryMessageLoading();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v45 = objc_opt_class();
-        NSStringFromClass(v45);
+        v44 = objc_opt_class();
+        NSStringFromClass(v44);
         objc_claimAutoreleasedReturnValue();
         [MFMessageContentView webView:decidePolicyForNavigationAction:decisionHandler:];
       }
@@ -3497,22 +3550,22 @@ LABEL_53:
     }
 
     targetFrame2 = [actionCopy targetFrame];
-    v47 = (targetFrame2 == 0) | isMainFrame;
+    v46 = (targetFrame2 == 0) | isMainFrame;
 
-    if ((v47 & 1) == 0)
+    if ((v46 & 1) == 0)
     {
-      v62 = EMLogCategoryMessageLoading();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = EMLogCategoryMessageLoading();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        v65 = objc_opt_class();
-        v66 = NSStringFromClass(v65);
+        v64 = objc_opt_class();
+        v65 = NSStringFromClass(v64);
         *buf = 138543874;
-        v74 = v66;
-        v75 = 2048;
+        v73 = v65;
+        v74 = 2048;
         selfCopy = self;
-        v77 = 2112;
-        v78 = v11;
-        _os_log_error_impl(&dword_2149C9000, v62, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Blocking navigation action for request whose target frame is not the main frame (iframe, probably): %@", buf, 0x20u);
+        v76 = 2112;
+        v77 = v11;
+        _os_log_error_impl(&dword_2149C9000, v61, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Blocking navigation action for request whose target frame is not the main frame (iframe, probably): %@", buf, 0x20u);
       }
 
       goto LABEL_53;
@@ -3523,56 +3576,56 @@ LABEL_53:
       contentRequest2 = [(MFMessageContentView *)self contentRequest];
       resultIfAvailable = [contentRequest2 resultIfAvailable];
       requestedHeaders = [resultIfAvailable requestedHeaders];
-      v51 = [requestedHeaders headersForKey:*MEMORY[0x277D06FA8]];
+      v50 = [requestedHeaders headersForKey:*MEMORY[0x277D06FA8]];
 
-      v52 = [MEMORY[0x277CCACE0] componentsWithURL:v11 resolvingAgainstBaseURL:1];
-      if ([v51 count])
+      v51 = [MEMORY[0x277CCACE0] componentsWithURL:v11 resolvingAgainstBaseURL:1];
+      if ([v50 count])
       {
-        v68 = v52;
-        v69 = v51;
-        firstObject = [v51 firstObject];
-        v70 = [MEMORY[0x277D070E0] tagValueListFromString:firstObject error:0];
-        v53 = objc_alloc(MEMORY[0x277CBEB18]);
-        queryItems = [v52 queryItems];
-        v55 = [v53 initWithArray:queryItems copyItems:1];
+        v67 = v51;
+        v68 = v50;
+        firstObject = [v50 firstObject];
+        v69 = [MEMORY[0x277D070E0] tagValueListFromString:firstObject error:0];
+        v52 = objc_alloc(MEMORY[0x277CBEB18]);
+        queryItems = [v51 queryItems];
+        v54 = [v52 initWithArray:queryItems copyItems:1];
 
-        v56 = objc_alloc(MEMORY[0x277CCAD18]);
+        v55 = objc_alloc(MEMORY[0x277CCAD18]);
         em_mailToFromQueryItemKey = [MEMORY[0x277CBEBC0] em_mailToFromQueryItemKey];
-        v58 = [v70 objectForKeyedSubscript:*MEMORY[0x277D06BD0]];
-        v59 = [v56 initWithName:em_mailToFromQueryItemKey value:v58];
+        v57 = [v69 objectForKeyedSubscript:*MEMORY[0x277D06BD0]];
+        v58 = [v55 initWithName:em_mailToFromQueryItemKey value:v57];
 
-        v52 = v68;
-        [v55 addObject:v59];
-        [v68 setQueryItems:v55];
+        v51 = v67;
+        [v54 addObject:v58];
+        [v67 setQueryItems:v54];
 
-        v51 = v69;
+        v50 = v68;
       }
 
-      v60 = [v52 URL];
+      v59 = [v51 URL];
 
-      v11 = v60;
+      v11 = v59;
       goto LABEL_53;
     }
 
-    v63 = +[MFMessageContentView _urlSchemesToOpenWithoutPrompting];
-    if ([v63 containsObject:lowercaseString])
+    v62 = +[MFMessageContentView _urlSchemesToOpenWithoutPrompting];
+    if ([v62 containsObject:lowercaseString])
     {
     }
 
     else
     {
-      v64 = [(MFMessageContentView *)self _getAppDisplayName:v11];
+      v63 = [(MFMessageContentView *)self _getAppDisplayName:v11];
 
-      if (v64)
+      if (v63)
       {
-        [(MFMessageContentView *)self _showAlertWithApplicationName:v64 requestURL:v11];
+        [(MFMessageContentView *)self _showAlertWithApplicationName:v63 requestURL:v11];
 LABEL_52:
 
         goto LABEL_53;
       }
     }
 
-    v64 = 0;
+    v63 = 0;
     [delegate messageContentView:self openPossibleStoreURL:v11];
     goto LABEL_52;
   }
@@ -3580,8 +3633,6 @@ LABEL_52:
   handlerCopy[2](handlerCopy, 0);
   [(NSMutableSet *)self->_inFlightURLs removeObject:v11];
 LABEL_17:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __80__MFMessageContentView_webView_decidePolicyForNavigationAction_decisionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3683,7 +3734,7 @@ void __65__MFMessageContentView__showAlertWithApplicationName_requestURL___block
 - (void)_webView:(id)view renderingProgressDidChange:(unint64_t)change
 {
   changeCopy = change;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if ((changeCopy & 0x40) != 0)
   {
@@ -3714,12 +3765,12 @@ void __65__MFMessageContentView__showAlertWithApplicationName_requestURL___block
       scrollView5 = [viewCopy scrollView];
       [scrollView5 setContentOffset:{v14, -v17}];
 
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke;
-      v36[3] = &unk_2781816C0;
-      v36[4] = self;
-      [MEMORY[0x277D75D18] animateWithDuration:v36 animations:0.2];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke;
+      v35[3] = &unk_2781816C0;
+      v35[4] = self;
+      [MEMORY[0x277D75D18] animateWithDuration:v35 animations:0.2];
     }
 
     v19 = EMLogCategoryMessageLoading();
@@ -3728,8 +3779,8 @@ void __65__MFMessageContentView__showAlertWithApplicationName_requestURL___block
       v20 = objc_opt_class();
       v21 = NSStringFromClass(v20);
       *buf = 138543618;
-      v38 = v21;
-      v39 = 2048;
+      v37 = v21;
+      v38 = 2048;
       selfCopy2 = self;
       _os_log_impl(&dword_2149C9000, v19, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: rendering progress did first paint, removing loading indicator", buf, 0x16u);
     }
@@ -3756,23 +3807,23 @@ void __65__MFMessageContentView__showAlertWithApplicationName_requestURL___block
         v29 = objc_opt_class();
         v30 = NSStringFromClass(v29);
         *buf = 138543618;
-        v38 = v30;
-        v39 = 2048;
+        v37 = v30;
+        v38 = 2048;
         selfCopy2 = self;
         _os_log_impl(&dword_2149C9000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: removing previous content snapshot", buf, 0x16u);
       }
 
-      v34[4] = self;
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke_514;
-      v35[3] = &unk_2781816C0;
-      v35[4] = self;
+      v33[4] = self;
       v34[0] = MEMORY[0x277D85DD0];
       v34[1] = 3221225472;
-      v34[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke_2;
-      v34[3] = &unk_278181F70;
-      [MEMORY[0x277D75D18] animateWithDuration:v35 animations:v34 completion:0.100000001];
+      v34[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke_514;
+      v34[3] = &unk_2781816C0;
+      v34[4] = self;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke_2;
+      v33[3] = &unk_278181F70;
+      [MEMORY[0x277D75D18] animateWithDuration:v34 animations:v33 completion:0.100000001];
     }
 
     contentRepresentationIfAvailable = [(MFMessageContentView *)self contentRepresentationIfAvailable];
@@ -3781,8 +3832,6 @@ void __65__MFMessageContentView__showAlertWithApplicationName_requestURL___block
     [(MFMessageContentView *)self _logRequestFinishWithSuccess:v32];
     [(MFMessageContentView *)self setHasVisibleContent:1];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invoke(uint64_t a1)
@@ -3810,58 +3859,54 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
 
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     ef_publicDescription = [errorCopy ef_publicDescription];
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2048;
+    v11 = 138543874;
+    v12 = v9;
+    v13 = 2048;
     selfCopy = self;
-    v16 = 2114;
-    v17 = ef_publicDescription;
-    _os_log_error_impl(&dword_2149C9000, v7, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Message Content View did fail navigation: %{public}@", &v12, 0x20u);
+    v15 = 2114;
+    v16 = ef_publicDescription;
+    _os_log_error_impl(&dword_2149C9000, v7, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: Message Content View did fail navigation: %{public}@", &v11, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_webViewWebProcessDidBecomeUnresponsive:(id)unresponsive
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   unresponsiveCopy = unresponsive;
   v6 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = NSStringFromSelector(a2);
-    v12 = 138544386;
-    v13 = v10;
-    v14 = 2048;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = NSStringFromSelector(a2);
+    v11 = 138544386;
+    v12 = v9;
+    v13 = 2048;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2112;
-    v19 = unresponsiveCopy;
-    v20 = 1024;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2112;
+    v18 = unresponsiveCopy;
+    v19 = 1024;
     _webProcessIdentifier = [unresponsiveCopy _webProcessIdentifier];
-    _os_log_error_impl(&dword_2149C9000, v6, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ %@ (pid: %d)", &v12, 0x30u);
+    _os_log_error_impl(&dword_2149C9000, v6, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ %@ (pid: %d)", &v11, 0x30u);
   }
 
   webView = [(MFMessageContentView *)self webView];
   [webView _killWebContentProcess];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_webView:(id)view webContentProcessDidTerminateWithReason:(int64_t)reason
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   if ([(MFMessageContentView *)self _lastCrashDateExceedsThreshhold])
   {
@@ -3874,15 +3919,15 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
       webProcessCrashCount = self->_webProcessCrashCount;
       backgroundWebProcessCrashCount = self->_backgroundWebProcessCrashCount;
       *buf = 138544386;
-      v43 = v10;
-      v44 = 2048;
+      v42 = v10;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = v11;
-      v48 = 2048;
-      v49 = webProcessCrashCount;
-      v50 = 2048;
-      *v51 = backgroundWebProcessCrashCount;
+      v45 = 2114;
+      v46 = v11;
+      v47 = 2048;
+      v48 = webProcessCrashCount;
+      v49 = 2048;
+      *v50 = backgroundWebProcessCrashCount;
       _os_log_impl(&dword_2149C9000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ resetting crash count: %ld and background crash count: %ld to 0 due to exceeded time threshold", buf, 0x34u);
     }
 
@@ -3907,25 +3952,25 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
     v18 = EMLogCategoryMessageLoading();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      v27 = NSStringFromSelector(a2);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = NSStringFromSelector(a2);
       _webProcessIdentifier = [viewCopy _webProcessIdentifier];
-      v29 = self->_backgroundWebProcessCrashCount;
+      v28 = self->_backgroundWebProcessCrashCount;
       *buf = 138544898;
-      v43 = v26;
-      v44 = 2048;
+      v42 = v25;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = v27;
-      v48 = 2112;
-      v49 = viewCopy;
-      v50 = 1024;
-      *v51 = _webProcessIdentifier;
-      *&v51[4] = 2048;
-      *&v51[6] = reason;
-      v52 = 2048;
-      v53 = v29;
+      v45 = 2114;
+      v46 = v26;
+      v47 = 2112;
+      v48 = viewCopy;
+      v49 = 1024;
+      *v50 = _webProcessIdentifier;
+      *&v50[4] = 2048;
+      *&v50[6] = reason;
+      v51 = 2048;
+      v52 = v28;
       _os_log_error_impl(&dword_2149C9000, v18, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ %@ (pid: %d; reason: %ld; background crash count: %ld)", buf, 0x44u);
     }
   }
@@ -3937,30 +3982,30 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
     v19 = EMLogCategoryMessageLoading();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v30 = objc_opt_class();
-      v35 = NSStringFromClass(v30);
-      v34 = NSStringFromSelector(a2);
+      v29 = objc_opt_class();
+      v34 = NSStringFromClass(v29);
+      v33 = NSStringFromSelector(a2);
       _webProcessIdentifier2 = [viewCopy _webProcessIdentifier];
-      v32 = self->_webProcessCrashCount;
+      v31 = self->_webProcessCrashCount;
       lastCrashDate = self->_lastCrashDate;
       *buf = 138545410;
-      v43 = v35;
-      v44 = 2048;
+      v42 = v34;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = v34;
-      v48 = 2112;
-      v49 = viewCopy;
-      v50 = 1024;
-      *v51 = _webProcessIdentifier2;
-      *&v51[4] = 2048;
-      *&v51[6] = reason;
-      v52 = 2048;
-      v53 = v32;
-      v54 = 2048;
-      v55 = activationState;
-      v56 = 2114;
-      v57 = lastCrashDate;
+      v45 = 2114;
+      v46 = v33;
+      v47 = 2112;
+      v48 = viewCopy;
+      v49 = 1024;
+      *v50 = _webProcessIdentifier2;
+      *&v50[4] = 2048;
+      *&v50[6] = reason;
+      v51 = 2048;
+      v52 = v31;
+      v53 = 2048;
+      v54 = activationState;
+      v55 = 2114;
+      v56 = lastCrashDate;
       _os_log_error_impl(&dword_2149C9000, v19, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ %@ (pid: %d; reason: %ld; crash count: %ld; activation state: %ld lastCrashDate:%{public}@)", buf, 0x58u);
     }
 
@@ -3972,16 +4017,16 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
         webView = [(MFMessageContentView *)self webView];
         v22 = [webView URL];
 
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason___block_invoke_2;
-        v36[3] = &unk_2781819D0;
-        v36[4] = self;
-        v39 = a2;
-        v37 = viewCopy;
-        v38 = v22;
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason___block_invoke_2;
+        v35[3] = &unk_2781819D0;
+        v35[4] = self;
+        v38 = a2;
+        v36 = viewCopy;
+        v37 = v22;
         v23 = v22;
-        dispatch_async(MEMORY[0x277D85CD0], v36);
+        dispatch_async(MEMORY[0x277D85CD0], v35);
       }
     }
 
@@ -3997,8 +4042,6 @@ void __60__MFMessageContentView__webView_renderingProgressDidChange___block_invo
   }
 
   v14[2](v14);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason___block_invoke(uint64_t a1)
@@ -4024,38 +4067,34 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 
 void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = EMLogCategoryMessageLoading();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = *(a1 + 32);
-    v15 = NSStringFromSelector(*(a1 + 56));
-    v16 = *(a1 + 40);
+    v12 = NSStringFromSelector(*(a1 + 56));
+    v13 = *(a1 + 40);
     *buf = 138544130;
-    v18 = v13;
-    v19 = 2048;
-    v20 = v14;
-    v21 = 2114;
-    v22 = v15;
-    v23 = 2112;
-    v24 = v16;
+    v15 = v10;
+    v16 = 2048;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v13;
     _os_log_error_impl(&dword_2149C9000, v2, OS_LOG_TYPE_ERROR, "<%{public}@: %p>: %{public}@ setting error message to web view %@", buf, 0x2Au);
   }
 
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"MESSAGE_CAUSED_PROBLEM_REPEATEDLY" value:&stru_2826D1AD8 table:@"Main"];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v3 localizedStringForKey:@"MESSAGE_CAUSED_PROBLEM_REPEATEDLY" value:&stru_2826D1AD8 table:@"Main"];
 
-  v6 = [*(a1 + 32) webView];
-  v7 = MEMORY[0x277CCACA8];
-  v8 = [v5 mf_stringByEscapingHTMLCodes];
-  v9 = [v7 localizedStringWithFormat:@"<html dir=auto><body><i><font color=#888>%@</font></i></body></html>", v8];
-  [v6 _loadAlternateHTMLString:v9 baseURL:0 forUnreachableURL:*(a1 + 48)];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v5 = [*(a1 + 32) webView];
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [v4 mf_stringByEscapingHTMLCodes];
+  v8 = [v6 localizedStringWithFormat:@"<html dir=auto><body><i><font color=#888>%@</font></i></body></html>", v7];
+  [v5 _loadAlternateHTMLString:v8 baseURL:0 forUnreachableURL:*(a1 + 48)];
 }
 
 - (void)_webView:(id)view dataInteraction:(id)interaction sessionWillBegin:(id)begin
@@ -4070,7 +4109,7 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 
 - (id)_webView:(id)view adjustedDataInteractionItemProvidersForItemProvider:(id)provider representingObjects:(id)objects additionalData:(id)data
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   v9 = [data objectForKey:*MEMORY[0x277CD6840]];
   if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -4080,8 +4119,8 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
     v11 = [(MessageContentItemsHelper *)self->_relatedItemsHelper contentItemForElementID:v10];
     if ([(MessageContentItemsHelper *)self->_relatedItemsHelper displayStateForContentItem:v11]== 1)
     {
-      v16[0] = providerCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+      v15[0] = providerCopy;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     }
 
     else
@@ -4092,11 +4131,9 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 
   else
   {
-    v15 = providerCopy;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+    v14 = providerCopy;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -4272,7 +4309,7 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 
 - (BOOL)_allAttachmentsArePhotosOrVideos
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contentItems = [(MessageContentItemsHelper *)self->_relatedItemsHelper contentItems];
   if ([contentItems count] < 2)
   {
@@ -4281,27 +4318,27 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v3 = contentItems;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
-      v5 = *v14;
+      v5 = *v13;
       v6 = *MEMORY[0x277CE1E00];
       v7 = *MEMORY[0x277CE1DB0];
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v14 != v5)
+          if (*v13 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          type = [*(*(&v13 + 1) + 8 * i) type];
+          type = [*(*(&v12 + 1) + 8 * i) type];
           if (([type conformsToType:v6] & 1) == 0 && (objc_msgSend(type, "conformsToType:", v7) & 1) == 0)
           {
 
@@ -4310,7 +4347,7 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v4)
         {
           continue;
@@ -4324,7 +4361,6 @@ void __73__MFMessageContentView__webView_webContentProcessDidTerminateWithReason
 LABEL_14:
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -4355,39 +4391,37 @@ LABEL_14:
 
 id __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke(uint64_t a1)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_2;
-  v17[3] = &unk_278181FE8;
-  v17[4] = *(a1 + 32);
-  v2 = [MEMORY[0x277D753F0] elementWithUncachedProvider:v17];
-  v18[0] = v2;
+  v17[3] = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_2;
+  v16[3] = &unk_278181FE8;
+  v16[4] = *(a1 + 32);
+  v2 = [MEMORY[0x277D753F0] elementWithUncachedProvider:v16];
+  v17[0] = v2;
   v3 = MEMORY[0x277D750C8];
   v4 = _EFLocalizedString();
   v5 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD67B0]];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_7;
-  v16[3] = &unk_2781814E0;
-  v16[4] = *(a1 + 32);
-  v6 = [v3 actionWithTitle:v4 image:v5 identifier:@"com.apple.documentmanager.downloads" handler:v16];
-  v18[1] = v6;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_7;
+  v15[3] = &unk_2781814E0;
+  v15[4] = *(a1 + 32);
+  v6 = [v3 actionWithTitle:v4 image:v5 identifier:@"com.apple.documentmanager.downloads" handler:v15];
+  v17[1] = v6;
   v7 = MEMORY[0x277D750C8];
   v8 = _EFLocalizedString();
   v9 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6828]];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_8;
-  v15[3] = &unk_2781814E0;
-  v15[4] = *(a1 + 32);
-  v10 = [v7 actionWithTitle:v8 image:v9 identifier:@"com.apple.documentmanager.browse" handler:v15];
-  v18[2] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_8;
+  v14[3] = &unk_2781814E0;
+  v14[4] = *(a1 + 32);
+  v10 = [v7 actionWithTitle:v8 image:v9 identifier:@"com.apple.documentmanager.browse" handler:v14];
+  v17[2] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   v12 = [MEMORY[0x277D75710] menuWithChildren:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -4456,15 +4490,14 @@ uint64_t __78__MFMessageContentView_contextMenuInteraction_configurationForMenuA
   v3 = MEMORY[0x277D750C8];
   v4 = _EFLocalizedString();
   v5 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD67A8]];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_5;
-  v9[3] = &unk_2781814E0;
-  v9[4] = a1[5];
-  v6 = [v3 actionWithTitle:v4 image:v5 identifier:@"com.apple.documentmanager.cats" handler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLocation___block_invoke_5;
+  v8[3] = &unk_2781814E0;
+  v8[4] = a1[5];
+  v6 = [v3 actionWithTitle:v4 image:v5 identifier:@"com.apple.documentmanager.cats" handler:v8];
   [v2 addObject:v6];
 
-  v7 = a1[4];
   return (*(a1[6] + 16))();
 }
 
@@ -4566,19 +4599,17 @@ void __78__MFMessageContentView_contextMenuInteraction_configurationForMenuAtLoc
 
 void __49__MFMessageContentView__saveContentItemToPicker___block_invoke(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_alloc(MEMORY[0x277D75458]);
   v6 = [v3 contentURL];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v8 = [v5 initForExportingURLs:v7 asCopy:1];
 
   [v8 _setIsContentManaged:{objc_msgSend(WeakRetained, "sourceIsManaged")}];
   [WeakRetained presentViewController:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_contextMenuConfigurationForAttachment:(id)attachment
@@ -4665,43 +4696,40 @@ void __49__MFMessageContentView__saveContentItemToPicker___block_invoke(uint64_t
 
 id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 2)
   {
     v2 = MEMORY[0x277D750C8];
-    v3 = *(a1 + 32);
-    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v5 = [v4 localizedStringForKey:@"DOWNLOAD" value:&stru_2826D1AD8 table:@"Main"];
-    v6 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6818]];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_2;
-    v18 = &unk_278181508;
-    v7 = *(a1 + 40);
-    v19 = *(a1 + 32);
-    v20 = v7;
-    v8 = [v2 actionWithTitle:v5 image:v6 identifier:0 handler:&v15];
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v4 = [v3 localizedStringForKey:@"DOWNLOAD" value:&stru_2826D1AD8 table:@"Main"];
+    v5 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6818]];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_2;
+    v16 = &unk_278181508;
+    v6 = *(a1 + 40);
+    v17 = *(a1 + 32);
+    v18 = v6;
+    v7 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:&v13];
 
-    v9 = MEMORY[0x277D75710];
-    v10 = [*(a1 + 40) displayName];
-    v21[0] = v8;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    v12 = [v9 menuWithTitle:v10 children:v11];
+    v8 = MEMORY[0x277D75710];
+    v9 = [*(a1 + 40) displayName];
+    v19[0] = v7;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v11 = [v8 menuWithTitle:v9 children:v10];
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v11;
 }
 
 id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_3(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) exchangeEventUID])
   {
     v2 = objc_alloc_init(MEMORY[0x277CC5A40]);
@@ -4712,28 +4740,28 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
   else if ((*(a1 + 64) & 1) != 0 || [*(a1 + 32) exchangeEventUID])
   {
     v5 = [*(a1 + 40) preferredMIMEType];
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2050000000;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2050000000;
     v6 = getQLItemClass_softClass;
-    v17 = getQLItemClass_softClass;
+    v16 = getQLItemClass_softClass;
     if (!getQLItemClass_softClass)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __getQLItemClass_block_invoke;
-      v13[3] = &unk_2781822A8;
-      v13[4] = &v14;
-      __getQLItemClass_block_invoke(v13);
-      v6 = v15[3];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __getQLItemClass_block_invoke;
+      v12[3] = &unk_2781822A8;
+      v12[4] = &v13;
+      __getQLItemClass_block_invoke(v12);
+      v6 = v14[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v14, 8);
+    _Block_object_dispose(&v13, 8);
     v8 = [[v6 alloc] initWithURL:*(a1 + 48) MIMEType:v5];
     v9 = objc_alloc(getQLPreviewControllerClass());
-    v18[0] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v4 = [v9 initWithPreviewItems:v10];
 
     [v4 setIsContentManaged:{objc_msgSend(*(a1 + 56), "sourceIsManaged")}];
@@ -4744,45 +4772,43 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
     v4 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v59 = [MEMORY[0x277CBEB18] array];
+  v57 = [MEMORY[0x277CBEB18] array];
   if ([*(a1 + 32) exchangeEventUID])
   {
     v4 = 0;
     goto LABEL_18;
   }
 
-  v57 = v3;
+  v55 = v3;
   v5 = [*(a1 + 40) contentRequest];
   v6 = [v5 message];
 
-  v58 = v6;
+  v56 = v6;
   v7 = [*(a1 + 40) dataSource];
-  v56 = [v7 messageSourceMailboxObjectIDForMessageContentView:*(a1 + 40)];
+  v54 = [v7 messageSourceMailboxObjectIDForMessageContentView:*(a1 + 40)];
 
   v8 = [*(a1 + 40) contactStore];
-  v55 = [v6 senderDisplayNameUsingContactStore:v8];
+  v53 = [v6 senderDisplayNameUsingContactStore:v8];
 
   v9 = [v6 shouldShowReplyAll];
   if (*(a1 + 88) == 1)
   {
     v10 = *(a1 + 48);
-    v11 = [v58 objectID];
-    v12 = [v58 subject];
+    v11 = [v56 objectID];
+    v12 = [v56 subject];
     v13 = [v12 subjectString];
     v14 = [*(a1 + 40) webView];
     v15 = *(a1 + 56);
     v16 = [v15 assetViewerManager];
-    LOBYTE(v53) = 0;
-    v17 = [MessageAttachmentActionGenerator quicklookActionForURL:v10 messageObjectID:v11 mailboxObjectID:v56 subject:v13 senderDisplayName:v55 shouldShowReplyAll:v9 originView:*MEMORY[0x277CBF3A0] attachmentRect:*(MEMORY[0x277CBF3A0] + 8) useFullScreenPresentation:*(MEMORY[0x277CBF3A0] + 16) contentRepresentationHandlingDelegate:*(MEMORY[0x277CBF3A0] + 24) assetViewerManager:v14, v53, v15, v16];
-    [v59 addObject:v17];
+    LOBYTE(v51) = 0;
+    v17 = [MessageAttachmentActionGenerator quicklookActionForURL:v10 messageObjectID:v11 mailboxObjectID:v54 subject:v13 senderDisplayName:v53 shouldShowReplyAll:v9 originView:*MEMORY[0x277CBF3A0] attachmentRect:*(MEMORY[0x277CBF3A0] + 8) useFullScreenPresentation:*(MEMORY[0x277CBF3A0] + 16) contentRepresentationHandlingDelegate:*(MEMORY[0x277CBF3A0] + 24) assetViewerManager:v14, v51, v15, v16];
+    [v57 addObject:v17];
   }
 
   v18 = [*(a1 + 64) identifier];
@@ -4791,15 +4817,15 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
   if (v19)
   {
     v20 = *(a1 + 48);
-    v21 = [v58 objectID];
-    v22 = [v58 subject];
+    v21 = [v56 objectID];
+    v22 = [v56 subject];
     v23 = [v22 subjectString];
     v24 = [*(a1 + 40) webView];
     v25 = *(a1 + 56);
     v26 = [v25 assetViewerManager];
-    LOBYTE(v53) = 0;
-    v27 = [MessageAttachmentActionGenerator markupDocumentActionForURL:v20 messageObjectID:v21 mailboxObjectID:v56 subject:v23 senderDisplayName:v55 shouldShowReplyAll:v9 originView:v24 useFullScreenPresentation:v53 contentRepresentationHandlingDelegate:v25 assetViewerManager:v26];
-    [v59 ef_addOptionalObject:v27];
+    LOBYTE(v51) = 0;
+    v27 = [MessageAttachmentActionGenerator markupDocumentActionForURL:v20 messageObjectID:v21 mailboxObjectID:v54 subject:v23 senderDisplayName:v53 shouldShowReplyAll:v9 originView:v24 useFullScreenPresentation:v51 contentRepresentationHandlingDelegate:v25 assetViewerManager:v26];
+    [v57 ef_addOptionalObject:v27];
   }
 
   if ([*(a1 + 40) mayShareToUnmanaged])
@@ -4807,7 +4833,7 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
     if ([*(a1 + 64) conformsToType:*MEMORY[0x277CE1E00]])
     {
       v28 = [MessageAttachmentActionGenerator saveVideoActionForFutureRepresentation:*(a1 + 72)];
-      [v59 addObject:v28];
+      [v57 addObject:v28];
     }
 
     else
@@ -4818,7 +4844,7 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
       }
 
       v28 = [MessageAttachmentActionGenerator saveImageActionForFutureRepresentation:*(a1 + 72)];
-      [v59 addObject:v28];
+      [v57 addObject:v28];
     }
 
 LABEL_13:
@@ -4826,70 +4852,68 @@ LABEL_13:
     {
       v29 = [*(a1 + 56) localizedTitleForSaveAllAttachmentsAction];
       v30 = [*(*(a1 + 40) + 416) contentItems];
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_5;
-      v70[3] = &unk_278182088;
-      v70[4] = *(a1 + 40);
-      v31 = [v30 ef_map:v70];
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v68[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_5;
+      v68[3] = &unk_278182088;
+      v68[4] = *(a1 + 40);
+      v31 = [v30 ef_map:v68];
       v32 = [MessageAttachmentActionGenerator saveAllAttachmentsActionWithTitle:v29 futureRepresentations:v31];
-      [v59 addObject:v32];
+      [v57 addObject:v32];
     }
   }
 
   v33 = MEMORY[0x277D750C8];
-  v34 = *(a1 + 40);
-  v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v36 = [v35 localizedStringForKey:@"SAVE_TO_FILES" value:&stru_2826D1AD8 table:@"Main"];
-  v37 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6828]];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_6;
-  v66[3] = &unk_2781820B0;
-  v38 = *(a1 + 48);
-  v39 = *(a1 + 40);
-  v67 = v38;
-  v68 = v39;
-  v69 = *(a1 + 80);
-  v40 = [v33 actionWithTitle:v36 image:v37 identifier:0 handler:v66];
-  [v59 addObject:v40];
+  v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v35 = [v34 localizedStringForKey:@"SAVE_TO_FILES" value:&stru_2826D1AD8 table:@"Main"];
+  v36 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6828]];
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_6;
+  v64[3] = &unk_2781820B0;
+  v37 = *(a1 + 48);
+  v38 = *(a1 + 40);
+  v65 = v37;
+  v66 = v38;
+  v67 = *(a1 + 80);
+  v39 = [v33 actionWithTitle:v35 image:v36 identifier:0 handler:v64];
+  [v57 addObject:v39];
 
-  v41 = MEMORY[0x277D750C8];
-  v42 = *(a1 + 40);
-  v43 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v44 = [v43 localizedStringForKey:@"SHARE" value:&stru_2826D1AD8 table:@"Main"];
-  v45 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6830]];
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_7;
-  v63[3] = &unk_2781820B0;
-  v54 = *(a1 + 32);
-  v46 = v54.i64[0];
-  v64 = vextq_s8(v54, v54, 8uLL);
-  v65 = *(a1 + 80);
-  v47 = [v41 actionWithTitle:v44 image:v45 identifier:0 handler:v63];
-  [v59 addObject:v47];
+  v40 = MEMORY[0x277D750C8];
+  v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v42 = [v41 localizedStringForKey:@"SHARE" value:&stru_2826D1AD8 table:@"Main"];
+  v43 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6830]];
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_7;
+  v61[3] = &unk_2781820B0;
+  v52 = *(a1 + 32);
+  v44 = v52.i64[0];
+  v62 = vextq_s8(v52, v52, 8uLL);
+  v63 = *(a1 + 80);
+  v45 = [v40 actionWithTitle:v42 image:v43 identifier:0 handler:v61];
+  [v57 addObject:v45];
 
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_8;
   aBlock[3] = &unk_2781820F8;
-  v61 = v57;
-  v48 = v59;
-  v62 = v48;
-  v49 = _Block_copy(aBlock);
+  v59 = v55;
+  v46 = v57;
+  v60 = v46;
+  v47 = _Block_copy(aBlock);
   if ([*(a1 + 40) mayShareToUnmanaged])
   {
-    v49[2](v49, 2);
+    v47[2](v47, 2);
   }
 
-  v49[2](v49, 12);
-  v49[2](v49, 13);
-  v50 = MEMORY[0x277D75710];
-  v51 = [*(a1 + 32) displayName];
-  v4 = [v50 menuWithTitle:v51 children:v48];
+  v47[2](v47, 12);
+  v47[2](v47, 13);
+  v48 = MEMORY[0x277D75710];
+  v49 = [*(a1 + 32) displayName];
+  v4 = [v48 menuWithTitle:v49 children:v46];
 
-  v3 = v57;
+  v3 = v55;
 LABEL_18:
 
   return v4;
@@ -4904,10 +4928,10 @@ id __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_inv
 
 void __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_6(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D75458]);
-  v11[0] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v4 = [v2 initForExportingURLs:v3 asCopy:1];
 
   [v4 _setIsContentManaged:{objc_msgSend(*(a1 + 40), "sourceIsManaged")}];
@@ -4919,8 +4943,6 @@ void __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_i
   v5[66] = v8;
   v5[67] = v9;
   [*(a1 + 40) presentViewController:v4];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __63__MFMessageContentView__contextMenuConfigurationForAttachment___block_invoke_7(uint64_t a1)
@@ -5029,8 +5051,6 @@ void __77__MFMessageContentView_webView_contextMenuForElement_willCommitWithAnim
 {
   v2 = *(*(a1 + 32) + 416);
   v3 = [*(a1 + 40) ID];
-  v4 = *(a1 + 32);
-  v5 = v3;
   [v2 attachmentWasTappedWithElementID:*(a1 + 48) rect:*(a1 + 56) view:{*(a1 + 64), *(a1 + 72)}];
 }
 
@@ -5185,7 +5205,7 @@ void __77__MFMessageContentView_webView_contextMenuForElement_willCommitWithAnim
 
 void __52__MFMessageContentView__beginObservingContentHeight__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
@@ -5218,17 +5238,17 @@ void __52__MFMessageContentView__beginObservingContentHeight__block_invoke(uint6
         v16 = objc_opt_class();
         v17 = NSStringFromClass(v16);
         v18 = NSStringFromSelector(*(a1 + 40));
-        v25 = 138544386;
-        v26 = v17;
-        v27 = 2048;
-        v28 = WeakRetained;
-        v29 = 2114;
-        v30 = v18;
-        v31 = 2048;
-        v32 = v11;
-        v33 = 2048;
-        v34 = v14;
-        _os_log_impl(&dword_2149C9000, v15, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ oldOffset:%f newOffset:%f", &v25, 0x34u);
+        v24 = 138544386;
+        v25 = v17;
+        v26 = 2048;
+        v27 = WeakRetained;
+        v28 = 2114;
+        v29 = v18;
+        v30 = 2048;
+        v31 = v11;
+        v32 = 2048;
+        v33 = v14;
+        _os_log_impl(&dword_2149C9000, v15, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ oldOffset:%f newOffset:%f", &v24, 0x34u);
       }
     }
 
@@ -5239,8 +5259,6 @@ void __52__MFMessageContentView__beginObservingContentHeight__block_invoke(uint6
     v23 = [v22 scrollView];
     [v23 setContentOffset:{v21, v14}];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDelegateScrollViewSizeChanged:(CGSize)changed
@@ -5345,7 +5363,7 @@ void __55__MFMessageContentView_didTapHasMoreContentBannerView___block_invoke(ui
 
 void __55__MFMessageContentView_didTapHasMoreContentBannerView___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32) == 0;
   v3 = +[MFMessageContentView log];
   v4 = v3;
@@ -5355,9 +5373,9 @@ void __55__MFMessageContentView_didTapHasMoreContentBannerView___block_invoke_2(
     {
       v7 = [*(a1 + 40) contentRepresentation];
       v8 = [v7 ef_publicDescription];
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "Finished requesting additional content for content representation: %{public}@", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v8;
+      _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "Finished requesting additional content for content representation: %{public}@", &v13, 0xCu);
     }
 
     v9 = *(a1 + 40);
@@ -5369,22 +5387,27 @@ void __55__MFMessageContentView_didTapHasMoreContentBannerView___block_invoke_2(
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 40) contentRepresentation];
-      v12 = [v11 ef_publicDescription];
-      v13 = [*(a1 + 32) ef_publicDescription];
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2114;
-      v17 = v13;
-      _os_log_error_impl(&dword_2149C9000, v4, OS_LOG_TYPE_ERROR, "Failed to request additional content for content representation: %{public}@ due to error: %{public}@", &v14, 0x16u);
+      v10 = [*(a1 + 40) contentRepresentation];
+      v11 = [v10 ef_publicDescription];
+      v12 = [*(a1 + 32) ef_publicDescription];
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v12;
+      _os_log_error_impl(&dword_2149C9000, v4, OS_LOG_TYPE_ERROR, "Failed to request additional content for content representation: %{public}@ due to error: %{public}@", &v13, 0x16u);
     }
 
     v5 = *(a1 + 40);
     v6 = [v5 contentRepresentation];
     [v5 _updateHasMoreContentBannerWithRemainingBytes:objc_msgSend(v6 error:{"remainingByteCount"), *(a1 + 32)}];
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_clearHasMoreContentBannerAnimated:(BOOL)animated
+{
+  [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_loadHasMoreContentBanner animated:animated];
+  loadHasMoreContentBanner = self->_loadHasMoreContentBanner;
+  self->_loadHasMoreContentBanner = 0;
 }
 
 - (BOOL)_isDisplayedInGroupedSenderMessageList
@@ -5440,6 +5463,13 @@ void __55__MFMessageContentView_didTapHasMoreContentBannerView___block_invoke_2(
   [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_hideMyEmailBanner animated:1];
   hideMyEmailBanner = self->_hideMyEmailBanner;
   self->_hideMyEmailBanner = 0;
+}
+
+- (void)_clearLoadRemoteImagesBannerAnimated:(BOOL)animated
+{
+  [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_loadImagesHeaderBlock animated:animated];
+  loadImagesHeaderBlock = self->_loadImagesHeaderBlock;
+  self->_loadImagesHeaderBlock = 0;
 }
 
 - (void)presentViewController:(id)controller
@@ -5517,6 +5547,13 @@ LABEL_7:
   delegate = [(MFMessageContentView *)self delegate];
   v4 = [delegate presentingViewControllerForMessageContentView:self];
   [v4 dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)_clearLoadFailedProxyContentBannerAnimated:(BOOL)animated
+{
+  [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_loadFailedProxyContentBanner animated:animated];
+  loadFailedProxyContentBanner = self->_loadFailedProxyContentBanner;
+  self->_loadFailedProxyContentBanner = 0;
 }
 
 - (void)loadFailedProxyContentBannerDidTriggerLoad:(id)load
@@ -5721,32 +5758,28 @@ LABEL_6:
     top = p_originalZoomInsets->top;
     webView = [(MFMessageContentView *)self webView];
     [webView _obscuredInsets];
-    v17 = p_originalZoomInsets->top;
-    v18 = self->_originalZoomInsets.left;
-    bottom = self->_originalZoomInsets.bottom;
-    right = self->_originalZoomInsets.right;
     UIEdgeInsetsAdd();
     [zoomingCopy setContentInset:?];
-    v21 = v11 - left;
-    v22 = v14 + top;
+    v17 = v11 - left;
+    v18 = v14 + top;
 
-    v23 = *(MEMORY[0x277D768C8] + 16);
+    v19 = *(MEMORY[0x277D768C8] + 16);
     *&p_originalZoomInsets->top = *MEMORY[0x277D768C8];
-    *&self->_originalZoomInsets.bottom = v23;
+    *&self->_originalZoomInsets.bottom = v19;
     v8 = zoomingCopy;
   }
 
   else
   {
-    v21 = *MEMORY[0x277CBF348];
-    v22 = *(MEMORY[0x277CBF348] + 8);
+    v17 = *MEMORY[0x277CBF348];
+    v18 = *(MEMORY[0x277CBF348] + 8);
   }
 
   self->_suppressContentSizeNotifications = 0;
   if ((*&self->_flags & 0x40) != 0)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained messageContentView:self didEndZoomingMessageWithOffset:{v21, v22}];
+    [WeakRetained messageContentView:self didEndZoomingMessageWithOffset:{v17, v18}];
 
     v8 = zoomingCopy;
   }
@@ -5769,7 +5802,7 @@ LABEL_6:
 
 - (void)setContentPaddingFollowsLayoutMargins:(BOOL)margins
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_contentPaddingFollowsLayoutMargins != margins)
   {
     self->_contentPaddingFollowsLayoutMargins = margins;
@@ -5782,22 +5815,20 @@ LABEL_6:
         v7 = NSStringFromClass(v6);
         v8 = NSStringFromSelector(a2);
         webView = [(MFMessageContentView *)self webView];
-        v11 = 138544130;
-        v12 = v7;
-        v13 = 2048;
+        v10 = 138544130;
+        v11 = v7;
+        v12 = 2048;
         selfCopy = self;
-        v15 = 2114;
-        v16 = v8;
-        v17 = 2048;
-        v18 = webView;
-        _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ webView = %p", &v11, 0x2Au);
+        v14 = 2114;
+        v15 = v8;
+        v16 = 2048;
+        v17 = webView;
+        _os_log_impl(&dword_2149C9000, v5, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: %{public}@ webView = %p", &v10, 0x2Au);
       }
 
       [(MFMessageContentView *)self _setNeedsPaddingConstantsUpdate];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scrollViewDidZoom:(id)zoom
@@ -5832,12 +5863,12 @@ LABEL_6:
 
 - (void)_logRequestFinishWithSuccess:(BOOL)success
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (success)
   {
     contentRepresentationIfAvailable = [(MFMessageContentView *)self contentRepresentationIfAvailable];
     transportType = [contentRepresentationIfAvailable transportType];
-    v25 = 0;
+    v24 = 0;
     code = 0;
 LABEL_5:
 
@@ -5850,14 +5881,14 @@ LABEL_5:
     v8 = contentRepresentationError;
     code = [contentRepresentationError code];
     contentRepresentationIfAvailable = [v8 userInfo];
-    v25 = v8;
+    v24 = v8;
     v9 = [contentRepresentationIfAvailable objectForKeyedSubscript:*MEMORY[0x277D06B90]];
     transportType = [v9 integerValue];
 
     goto LABEL_5;
   }
 
-  v25 = [MEMORY[0x277CCA9B8] em_internalErrorWithReason:@"Rendering progress failed without error"];
+  v24 = [MEMORY[0x277CCA9B8] em_internalErrorWithReason:@"Rendering progress failed without error"];
   transportType = 0;
   code = -1;
 LABEL_6:
@@ -5885,13 +5916,13 @@ LABEL_6:
     webView = [(MFMessageContentView *)self webView];
     itemID = [(MessageContentRepresentationRequest *)self->_contentRequest itemID];
     *buf = 134349826;
-    v27 = webView;
-    v28 = 2114;
-    v29 = itemID;
-    v30 = 2050;
-    v31 = v16 | (transportType << 8);
-    v32 = 2050;
-    v33 = code;
+    v26 = webView;
+    v27 = 2114;
+    v28 = itemID;
+    v29 = 2050;
+    v30 = v16 | (transportType << 8);
+    v31 = 2050;
+    v32 = code;
     _os_signpost_emit_with_name_impl(&dword_2149C9000, v17, OS_SIGNPOST_INTERVAL_END, signpostID, "MFMessageContentView", "WebView=%{signpost.description:attribute,public}p itemID=%{signpost.description:attribute,public}@ AccountType=%{public, signpost.telemetry:number1}lu Status=%{public, signpost.telemetry:number2}ld enableTelemetry=YES ", buf, 0x2Au);
   }
 
@@ -5899,15 +5930,13 @@ LABEL_6:
   message2 = [(MessageContentRepresentationRequest *)self->_contentRequest message];
   [v21 setObject:message2 forKeyedSubscript:@"MFMessageContentViewDidFinishFirstPaintMessageKey"];
 
-  if (v25)
+  if (v24)
   {
-    [v21 setObject:v25 forKeyedSubscript:@"MFMessageContentViewDidFinishFirstPaintErrorKey"];
+    [v21 setObject:v24 forKeyedSubscript:@"MFMessageContentViewDidFinishFirstPaintErrorKey"];
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:MFMessageContentViewDidFinishFirstPaint object:self userInfo:v21];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForReuse
@@ -5948,6 +5977,13 @@ LABEL_6:
 
     [(MFMessageContentView *)self _clearBlockedSenderBannerAnimated:1];
   }
+}
+
+- (void)_clearBlockedSenderBannerAnimated:(BOOL)animated
+{
+  [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_blockedSenderBanner animated:animated];
+  blockedSenderBanner = self->_blockedSenderBanner;
+  self->_blockedSenderBanner = 0;
 }
 
 - (void)didTapBlockedSenderBannerView:(id)view
@@ -6005,9 +6041,16 @@ LABEL_6:
   }
 }
 
+- (void)_clearNotAuthenticatedBannerAnimated:(BOOL)animated
+{
+  [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_notAuthenticatedBanner animated:animated];
+  notAuthenticatedBanner = self->_notAuthenticatedBanner;
+  self->_notAuthenticatedBanner = 0;
+}
+
 - (void)didDismissNotAuthenticatedBannerView:(id)view
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   [(MFMessageContentView *)self _clearNotAuthenticatedBannerAnimated:1];
   contentRequest = [(MFMessageContentView *)self contentRequest];
   message = [contentRequest message];
@@ -6024,17 +6067,16 @@ LABEL_6:
   }
 
   v10 = objc_alloc(MEMORY[0x277D06EC8]);
-  v15[0] = message;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = message;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v12 = [v10 initWithMessageListItems:v11 origin:3 actor:2];
 
   [repository performMessageChangeAction:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addTimeSensitiveBannerIfNeeded
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contentRequest = [(MFMessageContentView *)self contentRequest];
   message = [contentRequest message];
 
@@ -6047,11 +6089,11 @@ LABEL_6:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       ef_publicDescription = [message ef_publicDescription];
-      v23 = 134218242;
+      v22 = 134218242;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = ef_publicDescription;
-      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "%p: Show time sensitive banner for message: %{public}@", &v23, 0x16u);
+      v24 = 2114;
+      v25 = ef_publicDescription;
+      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "%p: Show time sensitive banner for message: %{public}@", &v22, 0x16u);
     }
 
     if (self->_timeSensitiveBanner)
@@ -6060,11 +6102,11 @@ LABEL_6:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         ef_publicDescription2 = [message ef_publicDescription];
-        v23 = 134218242;
+        v22 = 134218242;
         selfCopy2 = self;
-        v25 = 2114;
-        v26 = ef_publicDescription2;
-        _os_log_impl(&dword_2149C9000, v9, OS_LOG_TYPE_DEFAULT, "%p: Update time sensitive banner for message: %{public}@", &v23, 0x16u);
+        v24 = 2114;
+        v25 = ef_publicDescription2;
+        _os_log_impl(&dword_2149C9000, v9, OS_LOG_TYPE_DEFAULT, "%p: Update time sensitive banner for message: %{public}@", &v22, 0x16u);
       }
 
       timeSensitiveBanner = self->_timeSensitiveBanner;
@@ -6095,13 +6137,11 @@ LABEL_6:
   {
     [(MFMessageContentView *)self _clearTimeSensitiveBanner];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearTimeSensitiveBanner
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_timeSensitiveBanner)
   {
     v3 = +[MFMessageContentView log];
@@ -6110,19 +6150,17 @@ LABEL_6:
       contentRequest = [(MFMessageContentView *)self contentRequest];
       message = [contentRequest message];
       ef_publicDescription = [message ef_publicDescription];
-      v9 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v11 = 2114;
-      v12 = ef_publicDescription;
-      _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "%p: Clear time sensitive banner for message: %{public}@", &v9, 0x16u);
+      v10 = 2114;
+      v11 = ef_publicDescription;
+      _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "%p: Clear time sensitive banner for message: %{public}@", &v8, 0x16u);
     }
 
     [(MFMessageHeaderView *)self->_headerView removeHeaderBlock:self->_timeSensitiveBanner animated:1];
     timeSensitiveBanner = self->_timeSensitiveBanner;
     self->_timeSensitiveBanner = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldShowTimeSensitiveDescriptionForCategory:(unint64_t)category
@@ -6179,7 +6217,7 @@ LABEL_9:
 
 - (void)didBeginTextSearch
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v3 = 1;
@@ -6217,23 +6255,21 @@ LABEL_5:
       isTextSearchActive = 0;
     }
 
-    v12 = 134218752;
+    v11 = 134218752;
     selfCopy = self;
-    v14 = 2048;
-    v15 = webView2;
-    v16 = 1024;
-    v17 = v3;
-    v18 = 1024;
-    v19 = isTextSearchActive;
-    _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "didBeginTextSearch: self = %p, webView = %p, searchWasActive = %{BOOL}d, searchIsActive = %{BOOL}d", &v12, 0x22u);
+    v13 = 2048;
+    v14 = webView2;
+    v15 = 1024;
+    v16 = v3;
+    v17 = 1024;
+    v18 = isTextSearchActive;
+    _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "didBeginTextSearch: self = %p, webView = %p, searchWasActive = %{BOOL}d, searchIsActive = %{BOOL}d", &v11, 0x22u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEndTextSearch
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self && self->_isTextSearchActive)
   {
     self->_isTextSearchActive = 0;
@@ -6272,18 +6308,16 @@ LABEL_5:
       isTextSearchActive = 0;
     }
 
-    v13 = 134218752;
+    v12 = 134218752;
     selfCopy = self;
-    v15 = 2048;
-    v16 = webView3;
-    v17 = 1024;
-    v18 = v7;
-    v19 = 1024;
-    v20 = isTextSearchActive;
-    _os_log_impl(&dword_2149C9000, v8, OS_LOG_TYPE_DEFAULT, "didEndTextSearch: self = %p, webView = %p, searchWasActive = %{BOOL}d, searchIsActive = %{BOOL}d", &v13, 0x22u);
+    v14 = 2048;
+    v15 = webView3;
+    v16 = 1024;
+    v17 = v7;
+    v18 = 1024;
+    v19 = isTextSearchActive;
+    _os_log_impl(&dword_2149C9000, v8, OS_LOG_TYPE_DEFAULT, "didEndTextSearch: self = %p, webView = %p, searchWasActive = %{BOOL}d, searchIsActive = %{BOOL}d", &v12, 0x22u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearAllDecoratedFoundText
@@ -6294,7 +6328,7 @@ LABEL_5:
 
 - (void)showSearchResultsAtRange:(id)range usingStyle:(int64_t)style
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   webView = [(MFMessageContentView *)self webView];
   v8 = +[MFMessageContentView log];
@@ -6302,21 +6336,20 @@ LABEL_5:
   {
     contentRequest = [(MFMessageContentView *)self contentRequest];
     itemID = [contentRequest itemID];
-    v12 = 136316162;
-    v13 = "[MFMessageContentView showSearchResultsAtRange:usingStyle:]";
-    v14 = 2112;
-    v15 = webView;
-    v16 = 2112;
-    v17 = rangeCopy;
-    v18 = 2112;
-    v19 = itemID;
-    v20 = 2048;
+    v11 = 136316162;
+    v12 = "[MFMessageContentView showSearchResultsAtRange:usingStyle:]";
+    v13 = 2112;
+    v14 = webView;
+    v15 = 2112;
+    v16 = rangeCopy;
+    v17 = 2112;
+    v18 = itemID;
+    v19 = 2048;
     styleCopy = style;
-    _os_log_impl(&dword_2149C9000, v8, OS_LOG_TYPE_DEFAULT, "%s: webview %@ returned rect for range: %@, item: %@, style: %lu", &v12, 0x34u);
+    _os_log_impl(&dword_2149C9000, v8, OS_LOG_TYPE_DEFAULT, "%s: webview %@ returned rect for range: %@, item: %@, style: %lu", &v11, 0x34u);
   }
 
   [webView decorateFoundTextRange:rangeCopy inDocument:0 usingStyle:style];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestRectForFoundTextRange:(id)range completionHandler:(id)handler
@@ -6344,7 +6377,7 @@ uint64_t __71__MFMessageContentView_requestRectForFoundTextRange_completionHandl
 
 - (void)prepareForQuickReplyAnimationWithContext:(id)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (_os_feature_enabled_impl() && ((*(*MEMORY[0x277D07118] + 16))() & 1) == 0)
   {
@@ -6371,22 +6404,20 @@ uint64_t __71__MFMessageContentView_requestRectForFoundTextRange_completionHandl
     {
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
-      v15 = 138543618;
-      v16 = v13;
-      v17 = 2048;
+      v14 = 138543618;
+      v15 = v13;
+      v16 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_2149C9000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: [Quick Reply][Send Animation] Did apply quick-reply snapshots", &v15, 0x16u);
+      _os_log_impl(&dword_2149C9000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: [Quick Reply][Send Animation] Did apply quick-reply snapshots", &v14, 0x16u);
     }
 
     [(MFMessageContentView *)self _updateWebViewPaddingConstants];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performQuickReplyMoveMessageBodyAnimationIfNeeded
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if (_os_feature_enabled_impl())
   {
     quickReplyAnimationContext = [(MFMessageContentView *)self quickReplyAnimationContext];
@@ -6399,8 +6430,8 @@ uint64_t __71__MFMessageContentView_requestRectForFoundTextRange_completionHandl
         v5 = objc_opt_class();
         v6 = NSStringFromClass(v5);
         *buf = 138543618;
-        v63 = v6;
-        v64 = 2048;
+        v62 = v6;
+        v63 = 2048;
         selfCopy = self;
         _os_log_impl(&dword_2149C9000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: [Quick Reply][Send Animation] Will perform quick-reply move-message-body animation", buf, 0x16u);
       }
@@ -6419,78 +6450,76 @@ uint64_t __71__MFMessageContentView_requestRectForFoundTextRange_completionHandl
       v14 = v13;
       quickReplyAnimationContext5 = [(MFMessageContentView *)self quickReplyAnimationContext];
       [quickReplyAnimationContext5 cornerRadius];
-      v49 = v16;
+      v48 = v16;
 
       [compositionSnapshot frame];
-      v47 = v18;
-      v48 = v17;
+      v46 = v18;
+      v47 = v17;
       v20 = v19;
       v22 = v21;
       [buttonsSnapshot frame];
-      v45 = v24;
-      v46 = v23;
-      v44 = v25;
+      v44 = v24;
+      v45 = v23;
+      v43 = v25;
       v27 = v26;
       [backgroundSnapshot frame];
-      v43 = v28;
+      v42 = v28;
       v30 = v29;
       v32 = v31;
       [(MFMessageContentView *)self frame];
       v34 = v33;
       moveMessageBodyPropertyAnimator = [(MFMessageContentView *)self moveMessageBodyPropertyAnimator];
       objc_initWeak(buf, self);
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke;
-      v57[3] = &unk_2781821E8;
-      objc_copyWeak(v61, buf);
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke;
+      v56[3] = &unk_2781821E8;
+      objc_copyWeak(v60, buf);
       v36 = buttonsSnapshot;
-      v58 = v36;
-      v61[1] = v14;
+      v57 = v36;
+      v60[1] = v14;
       v37 = compositionSnapshot;
-      v59 = v37;
-      v61[2] = v20;
-      *&v61[3] = *&v14 + -15.0 + v22;
-      v61[4] = v48;
-      v61[5] = v47;
-      v61[6] = v46;
-      *&v61[7] = *&v14 + -15.0 + v27;
-      v61[8] = v45;
-      v61[9] = v44;
+      v58 = v37;
+      v60[2] = v20;
+      *&v60[3] = *&v14 + -15.0 + v22;
+      v60[4] = v47;
+      v60[5] = v46;
+      v60[6] = v45;
+      *&v60[7] = *&v14 + -15.0 + v27;
+      v60[8] = v44;
+      v60[9] = v43;
       v38 = backgroundSnapshot;
-      v60 = v38;
-      v61[10] = v43;
-      v61[11] = v30;
-      v61[12] = v32;
-      v61[13] = v34;
-      v61[14] = v49;
-      [moveMessageBodyPropertyAnimator addAnimations:v57];
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke_2;
-      v54[3] = &unk_278181710;
+      v59 = v38;
+      v60[10] = v42;
+      v60[11] = v30;
+      v60[12] = v32;
+      v60[13] = v34;
+      v60[14] = v48;
+      [moveMessageBodyPropertyAnimator addAnimations:v56];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke_2;
+      v53[3] = &unk_278181710;
       v39 = headerView;
-      v55 = v39;
+      v54 = v39;
       v40 = v38;
-      v56 = v40;
-      [moveMessageBodyPropertyAnimator addAnimations:v54 delayFactor:0.5];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke_3;
-      v51[3] = &unk_278182210;
-      objc_copyWeak(&v53, buf);
+      v55 = v40;
+      [moveMessageBodyPropertyAnimator addAnimations:v53 delayFactor:0.5];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke_3;
+      v50[3] = &unk_278182210;
+      objc_copyWeak(&v52, buf);
       v41 = v40;
-      v52 = v41;
-      [moveMessageBodyPropertyAnimator addCompletion:v51];
+      v51 = v41;
+      [moveMessageBodyPropertyAnimator addCompletion:v50];
       [moveMessageBodyPropertyAnimator startAnimation];
 
-      objc_destroyWeak(&v53);
-      objc_destroyWeak(v61);
+      objc_destroyWeak(&v52);
+      objc_destroyWeak(v60);
       objc_destroyWeak(buf);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeeded__block_invoke(uint64_t a1)
@@ -6537,7 +6566,7 @@ void __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeed
 
 - (void)_performQuickReplySnapshotFadeOutAnimationIfNecessary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   quickReplyAnimationContext = [(MFMessageContentView *)self quickReplyAnimationContext];
   v4 = _os_feature_enabled_impl();
   if (quickReplyAnimationContext)
@@ -6558,8 +6587,8 @@ void __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeed
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v32 = v8;
-      v33 = 2048;
+      v31 = v8;
+      v32 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_2149C9000, v6, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p>: [Quick Reply] Will perform quick-reply snapshot-fade-out animation", buf, 0x16u);
     }
@@ -6570,27 +6599,27 @@ void __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeed
     moveMessageBodyPropertyAnimator = [(MFMessageContentView *)self moveMessageBodyPropertyAnimator];
     v13 = objc_alloc(MEMORY[0x277D75D40]);
     v14 = *MEMORY[0x277CD68E0];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke;
-    v28[3] = &unk_278181710;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke;
+    v27[3] = &unk_278181710;
     v15 = compositionSnapshot;
-    v29 = v15;
+    v28 = v15;
     v16 = webView;
-    v30 = v16;
-    v17 = [v13 initWithDuration:0 curve:v28 animations:v14];
+    v29 = v16;
+    v17 = [v13 initWithDuration:0 curve:v27 animations:v14];
     objc_initWeak(buf, self);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke_2;
-    v23[3] = &unk_278182238;
-    objc_copyWeak(&v27, buf);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke_2;
+    v22[3] = &unk_278182238;
+    objc_copyWeak(&v26, buf);
     v18 = v15;
-    v24 = v18;
+    v23 = v18;
     v19 = buttonsSnapshot;
-    v25 = v19;
-    v26 = quickReplyAnimationContext;
-    [v17 addCompletion:v23];
+    v24 = v19;
+    v25 = quickReplyAnimationContext;
+    [v17 addCompletion:v22];
     if ([(MFMessageContentView *)self hasCompletedMoveMessageBodyAnimation])
     {
       [v17 startAnimation];
@@ -6598,19 +6627,17 @@ void __74__MFMessageContentView__performQuickReplyMoveMessageBodyAnimationIfNeed
 
     else
     {
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke_3;
-      v21[3] = &unk_278182260;
-      v22 = v17;
-      [moveMessageBodyPropertyAnimator addCompletion:v21];
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke_3;
+      v20[3] = &unk_278182260;
+      v21 = v17;
+      [moveMessageBodyPropertyAnimator addCompletion:v20];
     }
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__MFMessageContentView__performQuickReplySnapshotFadeOutAnimationIfNecessary__block_invoke(uint64_t a1)
@@ -6735,11 +6762,10 @@ void __42__MFMessageContentView_setContentRequest___block_invoke_237_cold_1()
 
 - (void)_attachmentPreviewsFromData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2149C9000, a2, OS_LOG_TYPE_ERROR, "Failed to decode attachment previews: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2149C9000, a2, OS_LOG_TYPE_ERROR, "Failed to decode attachment previews: %@", &v2, 0xCu);
 }
 
 @end

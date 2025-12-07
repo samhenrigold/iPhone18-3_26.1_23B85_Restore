@@ -27,38 +27,40 @@
 
 - (void)setNetwork:(id)network
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v6 = [networkCopy isEqual:self->_network];
   v7 = WFLogForCategory(0);
   if (v6)
   {
     v8 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v7)
+    v9 = v8;
+    if (WFCurrentLogLevel(v8, v10) >= 4 && v7)
     {
-      v9 = v7;
-      if (os_log_type_enabled(v9, v8))
+      v11 = v7;
+      if (os_log_type_enabled(v11, v9))
       {
         networkName = [networkCopy networkName];
-        v16 = 136315394;
-        v17 = "[WFHealthManager setNetwork:]";
-        v18 = 2112;
-        v19 = networkName;
-        _os_log_impl(&dword_273ECD000, v9, v8, "%s-No change to network, current network: %@", &v16, 0x16u);
+        v19 = 136315394;
+        v20 = "[WFHealthManager setNetwork:]";
+        v21 = 2112;
+        v22 = networkName;
+        _os_log_impl(&dword_273ECD000, v11, v9, "%s-No change to network, current network: %@", &v19, 0x16u);
       }
     }
   }
 
   else
   {
-    v11 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v11))
+    v13 = OSLogForWFLogLevel(3uLL);
+    v14 = v13;
+    if (WFCurrentLogLevel(v13, v15) >= 3 && v7 && os_log_type_enabled(v7, v14))
     {
-      v16 = 136315394;
-      v17 = "[WFHealthManager setNetwork:]";
-      v18 = 2112;
-      v19 = networkCopy;
-      _os_log_impl(&dword_273ECD000, v7, v11, "%s- %@", &v16, 0x16u);
+      v19 = 136315394;
+      v20 = "[WFHealthManager setNetwork:]";
+      v21 = 2112;
+      v22 = networkCopy;
+      _os_log_impl(&dword_273ECD000, v7, v14, "%s- %@", &v19, 0x16u);
     }
 
     [(WFHealthManager *)self setFailNoInternetDiagnosticsTests:0];
@@ -78,13 +80,11 @@
 
     [(WFHealthManager *)self _updateCurrentNetworkIssues];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runNoInternetDiagnosticsAfter:(int64_t)after
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   noInternetTestQueue = [(WFHealthManager *)self noInternetTestQueue];
   operationCount = [noInternetTestQueue operationCount];
 
@@ -92,35 +92,34 @@
   {
     v7 = WFLogForCategory(0);
     v8 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+    v9 = v8;
+    if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
     {
       *buf = 136315394;
-      v19 = "[WFHealthManager runNoInternetDiagnosticsAfter:]";
-      v20 = 2048;
+      v20 = "[WFHealthManager runNoInternetDiagnosticsAfter:]";
+      v21 = 2048;
       afterCopy = after;
-      _os_log_impl(&dword_273ECD000, v7, v8, "%s: queuing no internet test after %lusecs", buf, 0x16u);
+      _os_log_impl(&dword_273ECD000, v7, v9, "%s: queuing no internet test after %lusecs", buf, 0x16u);
     }
 
     [(WFHealthManager *)self forceUpdateNetworkIssues];
-    v9 = objc_alloc_init(MEMORY[0x277CCA8C8]);
+    v11 = objc_alloc_init(MEMORY[0x277CCA8C8]);
     objc_initWeak(buf, self);
-    objc_initWeak(&location, v9);
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke;
-    v14 = &unk_279EBDDB0;
-    v16[1] = after;
-    objc_copyWeak(&v15, &location);
-    objc_copyWeak(v16, buf);
-    [v9 addExecutionBlock:&v11];
-    [(NSOperationQueue *)self->_noInternetTestQueue addOperation:v9, v11, v12, v13, v14];
-    objc_destroyWeak(v16);
-    objc_destroyWeak(&v15);
+    objc_initWeak(&location, v11);
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke;
+    v15 = &unk_279EBDDB0;
+    v17[1] = after;
+    objc_copyWeak(&v16, &location);
+    objc_copyWeak(v17, buf);
+    [v11 addExecutionBlock:&v12];
+    [(NSOperationQueue *)self->_noInternetTestQueue addOperation:v11, v12, v13, v14, v15];
+    objc_destroyWeak(v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke(uint64_t a1)
@@ -133,17 +132,18 @@ void __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke(uint64_t
   {
     v4 = WFLogForCategory(0);
     v5 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v4 && os_log_type_enabled(v4, v5))
+    v6 = v5;
+    if (WFCurrentLogLevel(v5, v7) >= 4 && v4 && os_log_type_enabled(v4, v6))
     {
       *buf = 0;
-      _os_log_impl(&dword_273ECD000, v4, v5, "no internet test cancelled", buf, 2u);
+      _os_log_impl(&dword_273ECD000, v4, v6, "no internet test cancelled", buf, 2u);
     }
   }
 
   else
   {
-    v6 = objc_loadWeakRetained((a1 + 40));
-    [v6 runNoInternetDiagnostics];
+    v8 = objc_loadWeakRetained((a1 + 40));
+    [v8 runNoInternetDiagnostics];
   }
 }
 
@@ -174,25 +174,26 @@ void __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke(uint64_t
       {
         objc_initWeak(location, self);
         diagnosticsManager = [(WFHealthManager *)self diagnosticsManager];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __43__WFHealthManager_runNoInternetDiagnostics__block_invoke_21;
-        v16[3] = &unk_279EBDDD8;
-        objc_copyWeak(&v17, location);
-        [diagnosticsManager runNoInternetDiagnosticsFor:ssid withUpdate:&__block_literal_global_4 result:v16];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __43__WFHealthManager_runNoInternetDiagnostics__block_invoke_21;
+        v20[3] = &unk_279EBDDD8;
+        objc_copyWeak(&v21, location);
+        [diagnosticsManager runNoInternetDiagnosticsFor:ssid withUpdate:&__block_literal_global_4 result:v20];
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v21);
         objc_destroyWeak(location);
       }
 
       else
       {
-        v14 = WFLogForCategory(0);
-        v15 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v14 && os_log_type_enabled(v14, v15))
+        v16 = WFLogForCategory(0);
+        v17 = OSLogForWFLogLevel(1uLL);
+        v18 = v17;
+        if (WFCurrentLogLevel(v17, v19) && v16 && os_log_type_enabled(v16, v18))
         {
           LOWORD(location[0]) = 0;
-          _os_log_impl(&dword_273ECD000, v14, v15, "Not running no internet test because ssid is nil!", location, 2u);
+          _os_log_impl(&dword_273ECD000, v16, v18, "Not running no internet test because ssid is nil!", location, 2u);
         }
 
         [(WFHealthManager *)self forceUpdateNetworkIssues];
@@ -204,10 +205,11 @@ void __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke(uint64_t
   {
     v12 = WFLogForCategory(0);
     v13 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v12 && os_log_type_enabled(v12, v13))
+    v14 = v13;
+    if (WFCurrentLogLevel(v13, v15) && v12 && os_log_type_enabled(v12, v14))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_273ECD000, v12, v13, "Not ready for velocity test, updating other health issues.", location, 2u);
+      _os_log_impl(&dword_273ECD000, v12, v14, "Not ready for velocity test, updating other health issues.", location, 2u);
     }
 
     [(WFHealthManager *)self forceUpdateNetworkIssues];
@@ -216,18 +218,17 @@ void __49__WFHealthManager_runNoInternetDiagnosticsAfter___block_invoke(uint64_t
 
 void __43__WFHealthManager_runNoInternetDiagnostics__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_273ECD000, v3, v4, "Diagnostics event received: %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = v2;
+    _os_log_impl(&dword_273ECD000, v3, v5, "Diagnostics event received: %@", &v7, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __43__WFHealthManager_runNoInternetDiagnostics__block_invoke_21(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -238,16 +239,17 @@ void __43__WFHealthManager_runNoInternetDiagnostics__block_invoke_21(uint64_t a1
   v9 = WeakRetained;
   if (!v7)
   {
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() < 3 || !v16 || !os_log_type_enabled(v16, v17))
+    v18 = WFLogForCategory(0);
+    v19 = OSLogForWFLogLevel(3uLL);
+    v20 = v19;
+    if (WFCurrentLogLevel(v19, v21) < 3 || !v18 || !os_log_type_enabled(v18, v20))
     {
       goto LABEL_20;
     }
 
-    v22 = 0;
-    v18 = "Not connected to a network, canceling following tests...";
-    v19 = &v22;
+    v28 = 0;
+    v22 = "Not connected to a network, canceling following tests...";
+    v23 = &v28;
     goto LABEL_19;
   }
 
@@ -257,18 +259,19 @@ void __43__WFHealthManager_runNoInternetDiagnostics__block_invoke_21(uint64_t a1
 
   if ((v12 & 1) == 0)
   {
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(1uLL);
-    if (!WFCurrentLogLevel() || !v16 || !os_log_type_enabled(v16, v17))
+    v18 = WFLogForCategory(0);
+    v24 = OSLogForWFLogLevel(1uLL);
+    v20 = v24;
+    if (!WFCurrentLogLevel(v24, v25) || !v18 || !os_log_type_enabled(v18, v20))
     {
       goto LABEL_20;
     }
 
     *buf = 0;
-    v18 = "Network has changed before no internet test result comes back! Discarding test results...";
-    v19 = buf;
+    v22 = "Network has changed before no internet test result comes back! Discarding test results...";
+    v23 = buf;
 LABEL_19:
-    _os_log_impl(&dword_273ECD000, v16, v17, v18, v19, 2u);
+    _os_log_impl(&dword_273ECD000, v18, v20, v22, v23, 2u);
 LABEL_20:
 
     goto LABEL_21;
@@ -279,17 +282,18 @@ LABEL_20:
     [v9 setFailNoInternetDiagnosticsTests:1];
     v13 = WFLogForCategory(0);
     v14 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v13 && os_log_type_enabled(v13, v14))
+    v15 = v14;
+    if (WFCurrentLogLevel(v14, v16) >= 3 && v13 && os_log_type_enabled(v13, v15))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_273ECD000, v13, v14, "Velocity no internet failed, reschedule another one after 10 second!", v20, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_273ECD000, v13, v15, "Velocity no internet failed, reschedule another one after 10 second!", v26, 2u);
     }
 
     [v9 runNoInternetDiagnosticsAfter:10];
     [v9 setCompletedVelocityTestTimes:{objc_msgSend(v9, "completedVelocityTestTimes") + 1}];
     [v9 setShouldFileNewMetrics:1];
-    v15 = [v6 failedTests];
-    [v9 setFailedTestsIDs:v15];
+    v17 = [v6 failedTests];
+    [v9 setFailedTestsIDs:v17];
   }
 
   [v9 _updateCurrentNetworkIssues];
@@ -312,7 +316,7 @@ void __46__WFHealthManager__updateCurrentNetworkIssues__block_invoke(uint64_t a1
 
 - (BOOL)currentNetworkHasNoInternetConnection
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (![(WFHealthManager *)self failNoInternetDiagnosticsTests])
   {
     interface = [(WFHealthManager *)self interface];
@@ -327,21 +331,22 @@ void __46__WFHealthManager__updateCurrentNetworkIssues__block_invoke(uint64_t a1
       hasNoGatewayIP = [interface2 hasNoGatewayIP];
     }
 
-    v14 = WFLogForCategory(0);
-    v15 = OSLogForWFLogLevel(4uLL);
-    if (WFCurrentLogLevel() >= 4 && v14 && os_log_type_enabled(v14, v15))
+    v16 = WFLogForCategory(0);
+    v17 = OSLogForWFLogLevel(4uLL);
+    v18 = v17;
+    if (WFCurrentLogLevel(v17, v19) >= 4 && v16 && os_log_type_enabled(v16, v18))
     {
-      v16 = "yes";
+      v20 = "yes";
       if (hasNoGatewayIP)
       {
-        v16 = "no";
+        v20 = "no";
       }
 
-      v37 = 136315394;
-      v38 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
-      v39 = 2080;
-      v40 = v16;
-      _os_log_impl(&dword_273ECD000, v14, v15, "%s using ipv4 state internet connection -> %s", &v37, 0x16u);
+      v44 = 136315394;
+      v45 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
+      v46 = 2080;
+      v47 = v20;
+      _os_log_impl(&dword_273ECD000, v16, v18, "%s using ipv4 state internet connection -> %s", &v44, 0x16u);
     }
 
     if ((hasNoGatewayIP & 1) == 0)
@@ -352,7 +357,7 @@ void __46__WFHealthManager__updateCurrentNetworkIssues__block_invoke(uint64_t a1
       if (carPlayNetworkType != 2)
       {
         LOBYTE(hasNoGatewayIP) = 0;
-        goto LABEL_38;
+        return hasNoGatewayIP;
       }
     }
 
@@ -362,47 +367,48 @@ void __46__WFHealthManager__updateCurrentNetworkIssues__block_invoke(uint64_t a1
     status = [path status];
     if (status == 2)
     {
-      v25 = +[WFMetricsManager sharedManager];
+      v31 = +[WFMetricsManager sharedManager];
       completedVelocityTestTimes = [(WFHealthManager *)self completedVelocityTestTimes];
       network2 = [(WFHealthManager *)self network];
       networkName = [network2 networkName];
       LOBYTE(hasNoGatewayIP) = 1;
-      v29 = [WFHealthUIEvent noInternetEventWithTestTimes:completedVelocityTestTimes didPassTest:1 failedVelocityTests:MEMORY[0x277CBEBF8] ssid:networkName];
-      [v25 processEvent:v29];
+      v35 = [WFHealthUIEvent noInternetEventWithTestTimes:completedVelocityTestTimes didPassTest:1 failedVelocityTests:MEMORY[0x277CBEBF8] ssid:networkName];
+      [v31 processEvent:v35];
 
-      v23 = WFLogForCategory(0);
-      v30 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v23 || !os_log_type_enabled(v23, v30))
+      v27 = WFLogForCategory(0);
+      v36 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v36, v37) < 3 || !v27 || !os_log_type_enabled(v27, v36))
       {
         goto LABEL_37;
       }
 
-      v37 = 136315650;
-      v38 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
-      v39 = 2048;
-      v40 = 2;
-      v41 = 2112;
-      v42 = path;
-      v31 = "%s NWPathEvalutaor state unsatisfied - %lu (path: %@)";
-      v32 = v23;
-      v33 = v30;
+      v44 = 136315650;
+      v45 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
+      v46 = 2048;
+      v47 = 2;
+      v48 = 2112;
+      v49 = path;
+      v38 = "%s NWPathEvalutaor state unsatisfied - %lu (path: %@)";
+      v39 = v27;
+      v40 = v36;
     }
 
     else
     {
-      v22 = status;
+      v26 = status;
       if (status == 1)
       {
-        v23 = WFLogForCategory(0);
-        v24 = OSLogForWFLogLevel(3uLL);
+        v27 = WFLogForCategory(0);
+        v28 = OSLogForWFLogLevel(3uLL);
+        v29 = v28;
         LOBYTE(hasNoGatewayIP) = 0;
-        if (WFCurrentLogLevel() >= 3 && v23)
+        if (WFCurrentLogLevel(v28, v30) >= 3 && v27)
         {
-          if (os_log_type_enabled(v23, v24))
+          if (os_log_type_enabled(v27, v29))
           {
-            v37 = 136315138;
-            v38 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
-            _os_log_impl(&dword_273ECD000, v23, v24, "%s falling back to NWPathEvaluator for internet connection -> YES", &v37, 0xCu);
+            v44 = 136315138;
+            v45 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
+            _os_log_impl(&dword_273ECD000, v27, v29, "%s falling back to NWPathEvaluator for internet connection -> YES", &v44, 0xCu);
           }
 
           LOBYTE(hasNoGatewayIP) = 0;
@@ -411,59 +417,58 @@ void __46__WFHealthManager__updateCurrentNetworkIssues__block_invoke(uint64_t a1
         goto LABEL_37;
       }
 
-      v23 = WFLogForCategory(0);
-      v34 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() < 3 || !v23 || !os_log_type_enabled(v23, v34))
+      v27 = WFLogForCategory(0);
+      v41 = OSLogForWFLogLevel(3uLL);
+      if (WFCurrentLogLevel(v41, v42) < 3 || !v27 || !os_log_type_enabled(v27, v41))
       {
 LABEL_37:
 
-        goto LABEL_38;
+        return hasNoGatewayIP;
       }
 
-      v37 = 136315650;
-      v38 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
-      v39 = 2048;
-      v40 = v22;
-      v41 = 2112;
-      v42 = path;
-      v31 = "%s NWPathEvalutaor state invalid - %lu (path: %@)";
-      v32 = v23;
-      v33 = v34;
+      v44 = 136315650;
+      v45 = "[WFHealthManager currentNetworkHasNoInternetConnection]";
+      v46 = 2048;
+      v47 = v26;
+      v48 = 2112;
+      v49 = path;
+      v38 = "%s NWPathEvalutaor state invalid - %lu (path: %@)";
+      v39 = v27;
+      v40 = v41;
     }
 
-    _os_log_impl(&dword_273ECD000, v32, v33, v31, &v37, 0x20u);
+    _os_log_impl(&dword_273ECD000, v39, v40, v38, &v44, 0x20u);
     goto LABEL_37;
   }
 
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
   {
-    LOWORD(v37) = 0;
-    _os_log_impl(&dword_273ECD000, v3, v4, "No internet warning generated becuase Velocity tests failed", &v37, 2u);
+    LOWORD(v44) = 0;
+    _os_log_impl(&dword_273ECD000, v3, v5, "No internet warning generated becuase Velocity tests failed", &v44, 2u);
   }
 
   if ([(WFHealthManager *)self shouldFileNewMetrics])
   {
-    v5 = +[WFMetricsManager sharedManager];
+    v7 = +[WFMetricsManager sharedManager];
     completedVelocityTestTimes2 = [(WFHealthManager *)self completedVelocityTestTimes];
     failedTestsIDs = [(WFHealthManager *)self failedTestsIDs];
     network3 = [(WFHealthManager *)self network];
     networkName2 = [network3 networkName];
-    v10 = [WFHealthUIEvent noInternetEventWithTestTimes:completedVelocityTestTimes2 didPassTest:0 failedVelocityTests:failedTestsIDs ssid:networkName2];
-    [v5 processEvent:v10];
+    v12 = [WFHealthUIEvent noInternetEventWithTestTimes:completedVelocityTestTimes2 didPassTest:0 failedVelocityTests:failedTestsIDs ssid:networkName2];
+    [v7 processEvent:v12];
   }
 
   [(WFHealthManager *)self setShouldFileNewMetrics:0];
   LOBYTE(hasNoGatewayIP) = 1;
-LABEL_38:
-  v35 = *MEMORY[0x277D85DE8];
   return hasNoGatewayIP;
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (context == &kWFHealthManagerContext)
   {
@@ -476,16 +481,17 @@ LABEL_38:
       {
         v14 = WFLogForCategory(0);
         v15 = OSLogForWFLogLevel(3uLL);
-        if (WFCurrentLogLevel() >= 3 && v14)
+        v16 = v15;
+        if (WFCurrentLogLevel(v15, v17) >= 3 && v14)
         {
-          v16 = v14;
-          if (os_log_type_enabled(v16, v15))
+          v18 = v14;
+          if (os_log_type_enabled(v18, v16))
           {
             *buf = 134218240;
             status2 = [v11 status];
-            v22 = 2048;
+            v23 = 2048;
             status3 = [v12 status];
-            _os_log_impl(&dword_273ECD000, v16, v15, "Network Evaluator Path Changed: oldValue.status %ld, newValue.status %ld", buf, 0x16u);
+            _os_log_impl(&dword_273ECD000, v18, v16, "Network Evaluator Path Changed: oldValue.status %ld, newValue.status %ld", buf, 0x16u);
           }
         }
 
@@ -501,12 +507,10 @@ LABEL_38:
 
   else
   {
-    v19.receiver = self;
-    v19.super_class = WFHealthManager;
-    [(WFHealthManager *)&v19 observeValueForKeyPath:path ofObject:object change:changeCopy context:context];
+    v20.receiver = self;
+    v20.super_class = WFHealthManager;
+    [(WFHealthManager *)&v20 observeValueForKeyPath:path ofObject:object change:changeCopy context:context];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (WFHealthManager)initWithInterface:(id)interface
@@ -588,7 +592,7 @@ LABEL_7:
 
 - (void)_updateCurrentNetworkIssues
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   interface = [(WFHealthManager *)self interface];
   currentNetwork = [interface currentNetwork];
   matchingKnownNetworkProfile = [currentNetwork matchingKnownNetworkProfile];
@@ -702,106 +706,89 @@ LABEL_18:
   network5 = [(WFHealthManager *)self network];
   isHidden = [network5 isHidden];
 
-  if (isHidden)
+  if ((isHidden & 1) != 0 || (-[WFHealthManager interface](self, "interface"), v23 = objc_claimAutoreleasedReturnValue(), [v23 currentNetwork], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "matchingKnownNetworkProfile"), v25 = objc_claimAutoreleasedReturnValue(), v25, v24, v23, v25) && (-[WFHealthManager interface](self, "interface"), interface3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interface3, "currentNetwork"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "matchingKnownNetworkProfile"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "hiddenState"), v27, v26, interface3, v28 == 1))
   {
-    goto LABEL_29;
+LABEL_29:
+    [MEMORY[0x277D7B9C0] issueWithType:8];
+    objc_claimAutoreleasedReturnValue();
+    v29 = [OUTLINED_FUNCTION_0_5() containsObject:?];
+
+    if (v29)
+    {
+      [MEMORY[0x277D7B9C0] issueWithType:64];
+      objc_claimAutoreleasedReturnValue();
+      [OUTLINED_FUNCTION_0_5() addObject:?];
+
+      v30 = MEMORY[0x277D7B9C0];
+      v31 = 8;
+    }
+
+    else
+    {
+      [MEMORY[0x277D7B9C0] issueWithType:2];
+      objc_claimAutoreleasedReturnValue();
+      v32 = [OUTLINED_FUNCTION_0_5() containsObject:?];
+
+      if (v32)
+      {
+        [MEMORY[0x277D7B9C0] issueWithType:256];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_0_5() addObject:?];
+
+        v30 = MEMORY[0x277D7B9C0];
+        v31 = 2;
+      }
+
+      else
+      {
+        [MEMORY[0x277D7B9C0] issueWithType:4];
+        objc_claimAutoreleasedReturnValue();
+        v33 = [OUTLINED_FUNCTION_0_5() containsObject:?];
+
+        if (v33)
+        {
+          [MEMORY[0x277D7B9C0] issueWithType:128];
+          objc_claimAutoreleasedReturnValue();
+          [OUTLINED_FUNCTION_0_5() addObject:?];
+
+          v30 = MEMORY[0x277D7B9C0];
+          v31 = 4;
+        }
+
+        else
+        {
+          [MEMORY[0x277D7B9C0] issueWithType:2048];
+          objc_claimAutoreleasedReturnValue();
+          v34 = [OUTLINED_FUNCTION_0_5() containsObject:?];
+
+          if (!v34)
+          {
+            [MEMORY[0x277D7B9C0] issueWithType:0x4000];
+            objc_claimAutoreleasedReturnValue();
+            [OUTLINED_FUNCTION_0_5() addObject:?];
+            goto LABEL_38;
+          }
+
+          [MEMORY[0x277D7B9C0] issueWithType:4096];
+          objc_claimAutoreleasedReturnValue();
+          [OUTLINED_FUNCTION_0_5() addObject:?];
+
+          v30 = MEMORY[0x277D7B9C0];
+          v31 = 2048;
+        }
+      }
+    }
+
+    [v30 issueWithType:v31];
+    objc_claimAutoreleasedReturnValue();
+    [OUTLINED_FUNCTION_0_5() removeObject:?];
+LABEL_38:
   }
 
   interface4 = [(WFHealthManager *)self interface];
   currentNetwork3 = [interface4 currentNetwork];
   matchingKnownNetworkProfile3 = [currentNetwork3 matchingKnownNetworkProfile];
-
-  if (matchingKnownNetworkProfile3)
-  {
-    interface3 = [(WFHealthManager *)self interface];
-    currentNetwork4 = [interface3 currentNetwork];
-    matchingKnownNetworkProfile4 = [currentNetwork4 matchingKnownNetworkProfile];
-    hiddenState = [matchingKnownNetworkProfile4 hiddenState];
-
-    if (hiddenState == 1)
-    {
-LABEL_29:
-      [MEMORY[0x277D7B9C0] issueWithType:8];
-      objc_claimAutoreleasedReturnValue();
-      v29 = [OUTLINED_FUNCTION_0_5() containsObject:?];
-
-      if (v29)
-      {
-        [MEMORY[0x277D7B9C0] issueWithType:64];
-        objc_claimAutoreleasedReturnValue();
-        [OUTLINED_FUNCTION_0_5() addObject:?];
-
-        v30 = MEMORY[0x277D7B9C0];
-        v31 = 8;
-      }
-
-      else
-      {
-        [MEMORY[0x277D7B9C0] issueWithType:2];
-        objc_claimAutoreleasedReturnValue();
-        v32 = [OUTLINED_FUNCTION_0_5() containsObject:?];
-
-        if (v32)
-        {
-          [MEMORY[0x277D7B9C0] issueWithType:256];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_0_5() addObject:?];
-
-          v30 = MEMORY[0x277D7B9C0];
-          v31 = 2;
-        }
-
-        else
-        {
-          [MEMORY[0x277D7B9C0] issueWithType:4];
-          objc_claimAutoreleasedReturnValue();
-          v33 = [OUTLINED_FUNCTION_0_5() containsObject:?];
-
-          if (v33)
-          {
-            [MEMORY[0x277D7B9C0] issueWithType:128];
-            objc_claimAutoreleasedReturnValue();
-            [OUTLINED_FUNCTION_0_5() addObject:?];
-
-            v30 = MEMORY[0x277D7B9C0];
-            v31 = 4;
-          }
-
-          else
-          {
-            [MEMORY[0x277D7B9C0] issueWithType:2048];
-            objc_claimAutoreleasedReturnValue();
-            v34 = [OUTLINED_FUNCTION_0_5() containsObject:?];
-
-            if (!v34)
-            {
-              [MEMORY[0x277D7B9C0] issueWithType:0x4000];
-              objc_claimAutoreleasedReturnValue();
-              [OUTLINED_FUNCTION_0_5() addObject:?];
-              goto LABEL_38;
-            }
-
-            [MEMORY[0x277D7B9C0] issueWithType:4096];
-            objc_claimAutoreleasedReturnValue();
-            [OUTLINED_FUNCTION_0_5() addObject:?];
-
-            v30 = MEMORY[0x277D7B9C0];
-            v31 = 2048;
-          }
-        }
-      }
-
-      [v30 issueWithType:v31];
-      objc_claimAutoreleasedReturnValue();
-      [OUTLINED_FUNCTION_0_5() removeObject:?];
-LABEL_38:
-    }
-  }
-
-  interface5 = [(WFHealthManager *)self interface];
-  currentNetwork5 = [interface5 currentNetwork];
-  matchingKnownNetworkProfile5 = [currentNetwork5 matchingKnownNetworkProfile];
-  deploymentIssues = [matchingKnownNetworkProfile5 deploymentIssues];
+  deploymentIssues = [matchingKnownNetworkProfile3 deploymentIssues];
 
   if (deploymentIssues)
   {
@@ -837,23 +824,24 @@ LABEL_49:
   {
     v41 = WFLogForCategory(0);
     v42 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v41 && os_log_type_enabled(v41, v42))
+    v43 = v42;
+    if (WFCurrentLogLevel(v42, v44) >= 3 && v41 && os_log_type_enabled(v41, v43))
     {
       *buf = 136315394;
-      v48 = "[WFHealthManager _updateCurrentNetworkIssues]";
-      v49 = 2112;
-      v50 = v9;
-      _os_log_impl(&dword_273ECD000, v41, v42, "%s- change to health issues %@", buf, 0x16u);
+      v49 = "[WFHealthManager _updateCurrentNetworkIssues]";
+      v50 = 2112;
+      v51 = v9;
+      _os_log_impl(&dword_273ECD000, v41, v43, "%s- change to health issues %@", buf, 0x16u);
     }
 
-    v43 = [v9 count];
-    if (v43)
+    v45 = [v9 count];
+    if (v45)
     {
-      v43 = v9;
+      v45 = v9;
     }
 
-    v44 = self->_currentNetworkIssues;
-    self->_currentNetworkIssues = v43;
+    v46 = self->_currentNetworkIssues;
+    self->_currentNetworkIssues = v45;
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -864,8 +852,6 @@ LABEL_49:
   }
 
 LABEL_57:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 @end

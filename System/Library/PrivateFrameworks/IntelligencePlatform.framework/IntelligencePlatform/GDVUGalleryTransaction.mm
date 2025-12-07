@@ -20,13 +20,12 @@
 {
   v5 = sub_1ABF21F04();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1ABF21EE4();
   selfCopy = self;
   GDVUGalleryTransaction.remove(withAsset:)();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 
   return 1;
 }
@@ -35,13 +34,12 @@
 {
   v9 = sub_1ABF21F04();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1ABF21EE4();
   selfCopy = self;
-  GDVUGalleryTransaction.tag(_:with:type:)(tag, v13, type);
-  (*(v10 + 8))(v13, v9);
+  GDVUGalleryTransaction.tag(_:with:type:)(tag, v12, type);
+  (*(v10 + 8))(v12, v9);
 
   return 1;
 }

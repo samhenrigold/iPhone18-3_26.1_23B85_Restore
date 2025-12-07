@@ -158,7 +158,7 @@ void __52__UIKeyboardEmojiDraggableView_newLiftContainerView__block_invoke(uint6
 - (void)setText:(id)text
 {
   textCopy = text;
-  if (([(NSString *)self->_text isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_text) & 1) == 0)
   {
     objc_storeStrong(&self->_text, text);
     if (textCopy)
@@ -187,7 +187,7 @@ void __52__UIKeyboardEmojiDraggableView_newLiftContainerView__block_invoke(uint6
 - (void)setAttributedText:(id)text
 {
   textCopy = text;
-  if (([(NSAttributedString *)self->_attributedText isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_attributedText) & 1) == 0)
   {
     objc_storeStrong(&self->_attributedText, text);
     string = [textCopy string];

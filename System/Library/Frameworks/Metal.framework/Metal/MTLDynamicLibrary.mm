@@ -3,7 +3,7 @@
 
 @implementation MTLDynamicLibrary
 
-uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v13 = a2;
   v8 = [[MTLArchitecture alloc] initWithCPUType:a2 cpuSubtype:HIDWORD(a2)];
@@ -29,11 +29,11 @@ uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_i
   return 1;
 }
 
-uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 + a2 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + a2;
+    return ([*(a1 + 32) bytes] + a2);
   }
 
   else
@@ -42,7 +42,7 @@ uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_i
   }
 }
 
-uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a3 + 96))
   {
@@ -53,18 +53,18 @@ uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_i
   if (result)
   {
     v9 = a5 + a4 + *(*(*(a1 + 48) + 8) + 24);
-    return v9 <= [*(a1 + 32) length];
+    return (v9 <= [*(a1 + 32) length]);
   }
 
   return result;
 }
 
-uint64_t __59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__59___MTLDynamicLibrary_dynamicLibraryTypeAtURL_device_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(*(a1 + 40) + 8) + 24) + a2;
   if (v4 + a3 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + v4;
+    return ([*(a1 + 32) bytes] + v4);
   }
 
   else

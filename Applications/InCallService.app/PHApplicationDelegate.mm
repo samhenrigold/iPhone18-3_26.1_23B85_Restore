@@ -29,7 +29,7 @@
 {
   applicationCopy = application;
   optionsCopy = options;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(optionsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
@@ -48,23 +48,23 @@
   applicationCopy = application;
   lCopy = l;
   optionsCopy = options;
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(optionsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412802;
-    v14 = applicationCopy;
-    v15 = 2112;
-    v16 = lCopy;
-    v17 = 2112;
-    v18 = optionsCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@, %@ %@", &v13, 0x20u);
+    v14 = 138412802;
+    v15 = applicationCopy;
+    v16 = 2112;
+    v17 = lCopy;
+    v18 = 2112;
+    v19 = optionsCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@, %@ %@", &v14, 0x20u);
   }
 
-  v11 = sub_100004F84();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004F84(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring unknown URL format.", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring unknown URL format.", &v14, 2u);
   }
 
   return 0;

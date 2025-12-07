@@ -133,13 +133,11 @@
 
 + (id)layerHierarchyWithError:(id *)error
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69796C0];
-  v9[0] = MEMORY[0x1E695E118];
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69796C0];
+  v8[0] = MEMORY[0x1E695E118];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [BELayerHierarchy layerHierarchyWithOptions:v4 error:error];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

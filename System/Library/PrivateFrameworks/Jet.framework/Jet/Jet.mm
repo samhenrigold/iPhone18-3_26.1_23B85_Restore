@@ -1,4 +1,4 @@
-BOOL xglCompileShader(GLuint *a1, uint64_t type, GLchar *a3, uint64_t a4)
+BOOL xglCompileShader(GLuint *a1, uint64_t type, GLchar *a3, uint64_t *a4)
 {
   string[2] = *MEMORY[0x277D85DE8];
   if (a3)
@@ -34,11 +34,10 @@ BOOL xglCompileShader(GLuint *a1, uint64_t type, GLchar *a3, uint64_t a4)
 
   else
   {
-    jet_log(&cfstr_ShaderSourceIs.isa, type);
-    v9 = 0;
+    jet_log(&cfstr_ShaderSourceIs.isa, type, 0, a4);
+    return 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -220,7 +219,7 @@ void xglPrintBoolean(const char *a1, GLenum pname)
 
 void xglPrintVertexAttribInteger(const char *a1, GLuint index, GLenum pname)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   glGetVertexAttribiv(index, pname, params);
   if (pname != 34342)
   {
@@ -244,14 +243,12 @@ void xglPrintVertexAttribInteger(const char *a1, GLuint index, GLenum pname)
       jet_log(&cfstr_SD.isa, a1, params[0]);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void xglPrintVertexAttrib(uint64_t a1)
 {
   v1 = a1;
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   jet_log(&cfstr_Xglprintvertex.isa, a1);
   glGetVertexAttribiv(v1, 0x889Fu, params);
   jet_log(&cfstr_SD.isa, "\t GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING: ", params[0]);
@@ -265,7 +262,6 @@ void xglPrintVertexAttrib(uint64_t a1)
   glGetVertexAttribiv(v1, 0x886Au, params);
   jet_log(&cfstr_SD.isa, "\t GL_VERTEX_ATTRIB_ARRAY_NORMALIZED: ", params[0]);
   jet_log(&stru_286782AD0.isa);
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void xglPrintState(void)
@@ -480,9 +476,9 @@ void jet_context::submit_commands(jet_context *a1, void *a2)
   }
 }
 
-void jet_context::execute_command_buffer(jet_context *this, jet_command_buffer *a2)
+void jet_context::execute_command_buffer(void **this, jet_command_buffer *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(a2 + 2) - *(a2 + 1);
@@ -506,16 +502,16 @@ void jet_context::execute_command_buffer(jet_context *this, jet_command_buffer *
         switch(*(v8 + v7 - 104))
         {
           case 1:
-            (*(*this + 200))(this, *(v8 + v7));
+            ((*this)[25])(this, *(v8 + v7));
             break;
           case 2:
-            (*(*this + 192))(this, *(v8 + v7));
+            ((*this)[24])(this, *(v8 + v7));
             break;
           case 3:
-            (*(*this + 232))(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24));
+            ((*this)[29])(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24));
             break;
           case 4:
-            (*(*this + 240))(this, *(v8 + v7 + 16), *(v8 + v7), *(v8 + v7 + 20), *(v8 + v7 + 24));
+            ((*this)[30])(this, *(v8 + v7 + 16), *(v8 + v7), *(v8 + v7 + 20), *(v8 + v7 + 24));
             break;
           case 5:
             jet_context::set_vertex_buffer(this, v8 + v7 - 96, *(v8 + v7));
@@ -533,21 +529,21 @@ void jet_context::execute_command_buffer(jet_context *this, jet_command_buffer *
             jet_context::set_fragment_constant(this, v8 + v7 - 96, *(v8 + v7));
             break;
           case 0xA:
-            (*(*this + 216))(this, *(v8 + v7 + 16));
+            ((*this)[27])(this, *(v8 + v7 + 16));
             break;
           case 0xB:
-            (*(*this + 208))(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24), *(v8 + v7 + 28));
+            ((*this)[26])(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24), *(v8 + v7 + 28));
             break;
           case 0xC:
-            (*(*this + 224))(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24), *(v8 + v7 + 28));
+            ((*this)[28])(this, *(v8 + v7 + 16), *(v8 + v7 + 20), *(v8 + v7 + 24), *(v8 + v7 + 28));
             break;
           case 0xD:
             std::function<void ()(jet_context *)>::operator()(v8 + v7 - 72, this);
             break;
           case 0xE:
-            (**this)(&v18, this, *(v8 + v7));
-            v9 = v19;
-            if (v19)
+            (**this)(&v17, this, *(v8 + v7));
+            v9 = v18;
+            if (v18)
             {
               goto LABEL_44;
             }
@@ -608,12 +604,12 @@ void jet_context::execute_command_buffer(jet_context *this, jet_command_buffer *
             jet_context::change_render_mode(this, v12 & 1, *v10, (v12 >> 1) & 1, *(v10 + 16), (v12 & 4) != 0, *(v10 + 20), (v12 & 8) != 0, *(v10 + 24), (v12 & 0x10) != 0, *(v10 + 28), (v12 & 0x20) != 0, v11 & 1, (v11 & 2) != 0, (v11 & 4) != 0, (v11 & 8) != 0);
             break;
           case 0x20:
-            (*(*this + 184))(this, *(v8 + v7));
+            ((*this)[23])(this, *(v8 + v7));
             break;
           case 0x21:
-            (*(*this + 168))(&v16, this, *(v8 + v7), *(v8 + v7 + 16));
-            v9 = v17;
-            if (v17)
+            ((*this)[21])(&v15, this, *(v8 + v7), *(v8 + v7 + 16));
+            v9 = v16;
+            if (v16)
             {
               goto LABEL_44;
             }
@@ -644,9 +640,9 @@ void jet_context::execute_command_buffer(jet_context *this, jet_command_buffer *
             jet_context::set_fragment_constant_value(this, *(v8 + v7 + 16));
             break;
           case 0x2A:
-            (*(*this + 160))(&v14, this, *(v8 + v7), *(v8 + v7 + 8), *(v8 + v7 + 16));
-            v9 = v15;
-            if (v15)
+            ((*this)[20])(&v13, this, *(v8 + v7), *(v8 + v7 + 8), *(v8 + v7 + 16));
+            v9 = v14;
+            if (v14)
             {
 LABEL_44:
               std::__shared_weak_count::__release_shared[abi:ne200100](v9);
@@ -654,9 +650,9 @@ LABEL_44:
 
             break;
           case 0x2B:
-            std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, v8 + v7 - 40);
-            (*(*this + 344))(this, v20);
-            std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
+            std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v19, v8 + v7 - 40);
+            ((*this)[43])(this, v19);
+            std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
             break;
           default:
             break;
@@ -669,13 +665,11 @@ LABEL_44:
       while (v6);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25561A25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_25561A25C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -749,7 +743,7 @@ double jet_context::submit_command_buffer_impl@<D0>(jet_context *this@<X0>, jet_
 
 uint64_t jet_context::set_vertex_buffer(void **a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1[1] + 16))(a1[1]);
+  result = (*(*a1[1] + 16))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     v6 = (*a1)[32];
@@ -780,7 +774,7 @@ uint64_t jet_context::set_vertex_texture(void **a1, uint64_t a2, uint64_t a3)
 
 uint64_t jet_context::set_vertex_constant(void **a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1[1] + 24))(a1[1]);
+  result = (*(*a1[1] + 24))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     v6 = (*a1)[33];
@@ -811,7 +805,7 @@ uint64_t jet_context::set_fragment_texture(void **a1, uint64_t a2, uint64_t a3)
 
 uint64_t jet_context::set_fragment_constant(void **a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1[1] + 48))(a1[1]);
+  result = (*(*a1[1] + 48))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     v6 = (*a1)[37];
@@ -959,7 +953,7 @@ uint64_t jet_context::set_vertex_constant_value(void **a1, __n128 a2, __n128 a3,
 uint64_t jet_context::set_vertex_constant_value(void **a1, uint64_t a2, int a3)
 {
   v5 = a3;
-  result = (*(*a1[1] + 24))(a1[1]);
+  result = (*(*a1[1] + 24))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     return ((*a1)[34])(a1, 5, 1, 1, &v5, result);
@@ -1093,7 +1087,7 @@ uint64_t jet_context::set_fragment_constant_value(void **a1, __n128 a2, __n128 a
 uint64_t jet_context::set_fragment_constant_value(void **a1, uint64_t a2, int a3)
 {
   v5 = a3;
-  result = (*(*a1[1] + 48))(a1[1]);
+  result = (*(*a1[1] + 48))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     return ((*a1)[38])(a1, 5, 1, 1, &v5, result);
@@ -1104,7 +1098,7 @@ uint64_t jet_context::set_fragment_constant_value(void **a1, uint64_t a2, int a3
 
 uint64_t jet_context::set_vertex_sampler(void **a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1[1] + 40))(a1[1]);
+  result = (*(*a1[1] + 40))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     v6 = (*a1)[36];
@@ -1117,7 +1111,7 @@ uint64_t jet_context::set_vertex_sampler(void **a1, uint64_t a2, uint64_t a3)
 
 uint64_t jet_context::set_fragment_sampler(void **a1, uint64_t a2, uint64_t a3)
 {
-  result = (*(*a1[1] + 64))(a1[1]);
+  result = (*(*a1[1] + 64))(a1[1], a2);
   if ((result & 0x80000000) == 0)
   {
     v6 = (*a1)[40];
@@ -1320,7 +1314,7 @@ uint64_t jet_context::lookup_render_mode(uint64_t a1, uint64_t a2, uint64_t a3, 
   {
     v23 = (*(*a1 + 88))(a1, a2, a3, a4, a5, a6, a7, a8, a9);
     v19 = &v23;
-    std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__emplace_unique_key_args<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>&,jet_render_mode *&>(a2 + 8, v22);
+    std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__emplace_unique_key_args<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>&,jet_render_mode *&>(a2 + 8, v22, v22, &v23);
   }
 
   else
@@ -1336,9 +1330,9 @@ void *jet_context::add_fenced_buffer(jet_context *this, jet_buffer *a2)
   v5 = a2;
   *(a2 + 8) = 1;
   v2 = this + 56;
-  std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__emplace_unique_key_args<jet_buffer *,jet_buffer * const&>(this + 7, &v5);
+  std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__emplace_unique_key_args<jet_buffer *,jet_buffer * const&>(this + 14, &v5, &v5);
   v4 = v2;
-  return std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__emplace_unique_key_args<std::unordered_set<jet_buffer *> *,std::unordered_set<jet_buffer *> *>(v5 + 7, &v4);
+  return std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__emplace_unique_key_args<std::unordered_set<jet_buffer *> *,std::unordered_set<jet_buffer *> *>(v5 + 7, &v4, &v4);
 }
 
 void *jet_context::clear_fenced_buffers(uint64_t a1, uint64_t *a2)
@@ -1384,21 +1378,19 @@ void jet_command_buffer::jet_command_buffer(jet_command_buffer *this, unint64_t 
   std::vector<jet_render_op>::reserve(this + 1, a2);
 }
 
-void sub_25561C0A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25561C0A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<jet_render_op>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<jet_render_op>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<jet_render_op>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 6) < a2)
   {
     if (a2 < 0x155555555555556)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<jet_render_op>>(result, a2);
     }
 
@@ -1408,9 +1400,9 @@ void *std::vector<jet_render_op>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_25561C184(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25561C184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<jet_render_op>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1619,15 +1611,15 @@ void std::vector<jet_render_op>::__destroy_vector::operator()[abi:ne200100](void
     v5 = **a1;
     if (v4 != v2)
     {
-      v6 = v4 - 192;
-      v7 = v4 - 192;
-      v8 = v4 - 192;
+      v6 = v4 - 24;
+      v7 = v4 - 24;
+      v8 = v4 - 24;
       do
       {
         v9 = *v8;
-        v8 -= 192;
+        v8 -= 24;
         (*v9)(v7);
-        v6 -= 192;
+        v6 -= 24;
         v10 = v7 == v2;
         v7 = v8;
       }
@@ -1693,7 +1685,7 @@ uint64_t std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<je
   return a1;
 }
 
-uint64_t *std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__erase_unique<std::unordered_set<jet_buffer *> *>(void *a1, void *a2)
+uint64_t std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__erase_unique<std::unordered_set<jet_buffer *> *>(void *a1, void *a2)
 {
   result = std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::find<std::unordered_set<jet_buffer *> *>(a1, a2);
   if (result)
@@ -1738,45 +1730,37 @@ void *std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unorde
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -2048,15 +2032,15 @@ BOOL std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<jet_blend_mode,
   return a2[5] < a3[5];
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__emplace_unique_key_args<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>&,jet_render_mode *&>(uint64_t a1, _DWORD *a2)
+uint64_t std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__emplace_unique_key_args<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>&,jet_render_mode *&>(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t *a4)
 {
-  v2 = *std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__find_equal<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__find_equal<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t *std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__find_equal<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>(uint64_t a1, void *a2, _DWORD *a3)
@@ -2105,7 +2089,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::__map_value_compare<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>,std::less<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>>,true>,std::allocator<std::__value_type<std::tuple<jet_blend_mode,jet_texture_format,jet_texture_format,jet_texture_format,unsigned int,unsigned int>,jet_render_mode *>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2131,12 +2115,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2150,22 +2134,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2199,13 +2183,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2247,35 +2231,35 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-void *std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__emplace_unique_key_args<jet_buffer *,jet_buffer * const&>(void *a1, void *a2)
+void *std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__emplace_unique_key_args<jet_buffer *,jet_buffer * const&>(float *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2283,47 +2267,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2339,7 +2323,7 @@ void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_bu
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2347,7 +2331,7 @@ void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_bu
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2371,7 +2355,7 @@ void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_bu
     {
 LABEL_6:
 
-      std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2398,35 +2382,35 @@ void std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_bu
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__emplace_unique_key_args<std::unordered_set<jet_buffer *> *,std::unordered_set<jet_buffer *> *>(void *a1, void *a2)
+void *std::__hash_table<std::unordered_set<jet_buffer *> *,std::hash<std::unordered_set<jet_buffer *> *>,std::equal_to<std::unordered_set<jet_buffer *> *>,std::allocator<std::unordered_set<jet_buffer *> *>>::__emplace_unique_key_args<std::unordered_set<jet_buffer *> *,std::unordered_set<jet_buffer *> *>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2434,44 +2418,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void *std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::clear(void *result)
@@ -2622,9 +2606,9 @@ uint64_t jet_context_OpenGL::get_max_texture_size(uint64_t a1, int a2)
   return v3;
 }
 
-void sub_25561DC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25561DC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
@@ -2662,18 +2646,8 @@ LABEL_9:
   v7 = *(this + 40);
   *(this + 40) = v7 + 1;
   v10 = &v9;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 112, &v9) + 8) = v7;
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 112, &v9, &std::piecewise_construct, &v10) + 8) = v7;
   return v7;
-}
-
-void jet_context_OpenGL::create_constant(uint64_t a1, int a2)
-{
-  if ((a2 - 1) <= 7)
-  {
-    v2 = dword_25562ED90[a2 - 1];
-  }
-
-  operator new();
 }
 
 void jet_context_OpenGL::create_texture(uint64_t a1, unsigned int a2, int a3, GLsizei a4, GLsizei a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -2746,22 +2720,21 @@ void jet_context_OpenGL::create_texture(uint64_t a1, unsigned int a2, int a3, GL
   jet_context_OpenGL::create_texture();
 }
 
-void sub_25561E1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25561E1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x259C3ACA0](v3, 0x1081C4088E5EABBLL);
+  va_start(va, a5);
+  MEMORY[0x259C3ACA0](v5, 0x1081C4088E5EABBLL, a3);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
 
-unsigned int *jet_context_OpenGL::get_OpenGL_Tetxure(int a1, char **lpsrc)
+unsigned int *jet_context_OpenGL::get_OpenGL_Tetxure(int a1, void *lpsrc)
 {
   if (!lpsrc)
   {
     return 0;
   }
 
-  v2 = **lpsrc;
   if (result)
   {
     return result[4];
@@ -2770,14 +2743,13 @@ unsigned int *jet_context_OpenGL::get_OpenGL_Tetxure(int a1, char **lpsrc)
   return result;
 }
 
-unsigned int *jet_context_OpenGL::get_OpenGL_Renderbuffer(int a1, char **lpsrc)
+unsigned int *jet_context_OpenGL::get_OpenGL_Renderbuffer(int a1, void *lpsrc)
 {
   if (!lpsrc)
   {
     return 0;
   }
 
-  v2 = **lpsrc;
   if (result)
   {
     return result[5];
@@ -2915,10 +2887,10 @@ LABEL_33:
   goto LABEL_20;
 }
 
-void sub_25561E7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25561E7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  MEMORY[0x259C3ACA0](v5, 0x1081C4088E5EABBLL);
+  va_start(va, a9);
+  MEMORY[0x259C3ACA0](v9, 0x1081C4088E5EABBLL, a3, a4, a5);
 
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
@@ -2936,7 +2908,7 @@ uint64_t jet_context_OpenGL::create_function(uint64_t a1, uint64_t a2, uint64_t 
   return v14;
 }
 
-uint64_t jet_context_OpenGL::create_function_from_source(uint64_t a1, GLchar *a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t jet_context_OpenGL::create_function_from_source(uint64_t a1, GLchar *a2, uint64_t a3, int a4, uint64_t *a5)
 {
   v6 = *(a1 + 104);
   if (v6)
@@ -2964,24 +2936,22 @@ uint64_t jet_context_OpenGL::create_function_from_source(uint64_t a1, GLchar *a2
   return 0;
 }
 
-void sub_25561EB60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25561EB60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
 
-void jet_context_OpenGL::create_program(uint64_t a1, char **a2, char **a3)
+void jet_context_OpenGL::create_program(uint64_t a1, const void *a2, const void *a3)
 {
-  glContextUse::glContextUse(&v8, *(a1 + 104));
-  v5 = **a2;
-  v6 = **a3;
+  glContextUse::glContextUse(&v5, *(a1 + 104));
   operator new();
 }
 
 void sub_25561ECB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  MEMORY[0x259C3ACA0](v9, 0x10A1C40FE1D3F04);
+  MEMORY[0x259C3ACA0](v9, 0x10A1C40FE1D3F04, a3, a4, a5, a6, a7, a8);
   glContextUse::~glContextUse(&a9);
   _Unwind_Resume(a1);
 }
@@ -2994,67 +2964,66 @@ void jet_context_OpenGL::begin_render_pass(jet_context_OpenGL *this, jet_framebu
   }
 
   *(this + 2) = lpsrc;
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
-    v6 = v5[66];
-    if ((v6 & 0x80000000) == 0)
+    v5 = v4[66];
+    if ((v5 & 0x80000000) == 0)
     {
-      if (*(this + 46) != v6)
+      if (*(this + 46) != v5)
       {
-        (*(*this + 176))(&v31, this);
-        if (v32)
+        (*(*this + 176))(&v30, this);
+        if (v31)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         }
 
-        glBindFramebuffer(0x8D40u, v6);
-        *(this + 46) = v6;
+        glBindFramebuffer(0x8D40u, v5);
+        *(this + 46) = v5;
       }
 
       if (*(lpsrc + 12) == 1)
       {
         glClearColor(COERCE_GLFLOAT(*(lpsrc + 2)), COERCE_GLFLOAT(HIDWORD(*(lpsrc + 4))), COERCE_GLFLOAT(*(lpsrc + 5)), COERCE_GLFLOAT(HIDWORD(*(lpsrc + 2))));
-        v7 = 0x4000;
+        v6 = 0x4000;
       }
 
       else
       {
-        v7 = 0;
+        v6 = 0;
       }
 
       if (*(lpsrc + 55) == 1)
       {
-        v17 = v7 | 0x100;
+        v16 = v6 | 0x100;
       }
 
       else
       {
-        v17 = v7;
+        v16 = v6;
       }
 
-      if (v17)
+      if (v16)
       {
         flag[0] = 1;
-        if (v17 >= 0x4000)
+        if (v16 >= 0x4000)
         {
           glGetBooleanv(0xC23u, &params);
           glColorMask(1u, 1u, 1u, 1u);
         }
 
-        if ((v17 & 0x100) != 0)
+        if ((v16 & 0x100) != 0)
         {
           glGetBooleanv(0xB72u, flag);
           glDepthMask(1u);
         }
 
-        glClear(v17);
-        if (v17 >= 0x4000)
+        glClear(v16);
+        if (v16 >= 0x4000)
         {
           glColorMask(params, green, blue, alpha);
         }
 
-        if ((v17 & 0x100) != 0)
+        if ((v16 & 0x100) != 0)
         {
           glDepthMask(flag[0]);
         }
@@ -3064,75 +3033,75 @@ void jet_context_OpenGL::begin_render_pass(jet_context_OpenGL *this, jet_framebu
     }
   }
 
-  v8 = *(lpsrc + 2);
-  v9 = *(lpsrc + 29);
-  v10 = *(lpsrc + 26);
-  if (v8 && ((*(*v8 + 96))(*(lpsrc + 2)) & 1) == 0)
+  v7 = *(lpsrc + 2);
+  v8 = *(lpsrc + 29);
+  v9 = *(lpsrc + 26);
+  if (v7 && ((*(*v7 + 96))(*(lpsrc + 2)) & 1) == 0)
   {
     jet_context_OpenGL::begin_render_pass();
   }
 
-  if (v10 && ((*(*v10 + 104))(v10) & 1) == 0)
+  if (v9 && ((*(*v9 + 104))(v9) & 1) == 0)
   {
     jet_context_OpenGL::begin_render_pass();
   }
 
-  if (v9)
+  if (v8)
   {
-    if (((*(*v9 + 112))(v9) & 1) == 0)
+    if (((*(*v8 + 112))(v8) & 1) == 0)
     {
       jet_context_OpenGL::begin_render_pass();
     }
   }
 
-  else if (!(v8 | v10))
+  else if (!(v7 | v9))
   {
-    v11 = 0;
-    v12 = 1;
+    v10 = 0;
+    v11 = 1;
     goto LABEL_20;
   }
 
-  v12 = 0;
-  v11 = *(this + 45);
+  v11 = 0;
+  v10 = *(this + 45);
 LABEL_20:
-  if (*(this + 46) != v11)
+  if (*(this + 46) != v10)
   {
-    glBindFramebuffer(0x8D40u, v11);
-    *(this + 46) = v11;
+    glBindFramebuffer(0x8D40u, v10);
+    *(this + 46) = v10;
   }
 
-  if (v8)
+  if (v7)
   {
-    *(this + 6) = (*(*v8 + 32))(v8);
-    v13 = *(v8 + 16);
-    v14 = *(v8 + 20);
-    v15 = (*(*v8 + 24))(v8);
-    if (v13)
+    *(this + 6) = (*(*v7 + 32))(v7);
+    v12 = *(v7 + 16);
+    v13 = *(v7 + 20);
+    v14 = (*(*v7 + 24))(v7);
+    if (v12)
     {
-      if (v15 == 2)
+      if (v14 == 2)
       {
-        v16 = 34067;
+        v15 = 34067;
       }
 
       else
       {
-        v16 = 3553;
+        v15 = 3553;
       }
 
-      glBindTexture(v16, v13);
-      glFramebufferTexture2D(0x8D40u, 0x8CE0u, v16, v13, 0);
+      glBindTexture(v15, v12);
+      glFramebufferTexture2D(0x8D40u, 0x8CE0u, v15, v12, 0);
     }
 
-    else if (v14)
+    else if (v13)
     {
-      glBindRenderbuffer(0x8D41u, v14);
-      glFramebufferRenderbuffer(0x8D40u, 0x8CE0u, 0x8D41u, v14);
+      glBindRenderbuffer(0x8D41u, v13);
+      glFramebufferRenderbuffer(0x8D40u, 0x8CE0u, 0x8D41u, v13);
     }
 
-    v18 = (**v8)(v8);
-    v19 = (*(*v8 + 8))(v8);
-    glViewport(0, 0, v18, v19);
-    glScissor(0, 0, v18, v19);
+    v17 = (**v7)(v7);
+    v18 = (*(*v7 + 8))(v7);
+    glViewport(0, 0, v17, v18);
+    glScissor(0, 0, v17, v18);
   }
 
   else
@@ -3140,11 +3109,11 @@ LABEL_20:
     *(this + 6) = 3;
   }
 
-  if (*(lpsrc + 12) == 1 && ((v12 & 1) != 0 || *(lpsrc + 2)))
+  if (*(lpsrc + 12) == 1 && ((v11 & 1) != 0 || *(lpsrc + 2)))
   {
     glClearColor(COERCE_GLFLOAT(*(lpsrc + 2)), COERCE_GLFLOAT(HIDWORD(*(lpsrc + 4))), COERCE_GLFLOAT(*(lpsrc + 5)), COERCE_GLFLOAT(HIDWORD(*(lpsrc + 2))));
-    v20 = 0x4000;
-    if (!v11)
+    v19 = 0x4000;
+    if (!v10)
     {
       goto LABEL_54;
     }
@@ -3152,65 +3121,65 @@ LABEL_20:
 
   else
   {
-    v20 = 0;
-    if (!v11)
+    v19 = 0;
+    if (!v10)
     {
       goto LABEL_54;
     }
   }
 
-  if (v9)
-  {
-    LODWORD(v9) = v9[5];
-  }
-
-  glBindRenderbuffer(0x8D41u, v9);
-  glFramebufferRenderbuffer(0x8D40u, 0x8D20u, 0x8D41u, v9);
-LABEL_54:
-  if (*(lpsrc + 61) == 1 && ((v12 & 1) != 0 || *(lpsrc + 29)))
-  {
-    glClearStencil(*(lpsrc + 240));
-    v20 |= 0x400u;
-  }
-
-  if (v11)
-  {
-    if (v10)
-    {
-      LODWORD(v10) = *(v10 + 20);
-    }
-
-    glBindRenderbuffer(0x8D41u, v10);
-    glFramebufferRenderbuffer(0x8D40u, 0x8D00u, 0x8D41u, v10);
-  }
-
-  if (*(lpsrc + 55) == 1 && ((v12 & 1) != 0 || *(lpsrc + 26)))
-  {
-    v20 |= 0x100u;
-  }
-
   if (v8)
   {
-    v21 = (**v8)(v8);
-    v22 = (*(*v8 + 8))(v8);
-    (*(*this + 208))(this, 0, 0, v21, v22);
-    v23 = (**v8)(v8);
-    v24 = (*(*v8 + 8))(v8);
-    (*(*this + 224))(this, 0, 0, v23, v24);
+    LODWORD(v8) = v8[5];
   }
 
-  if (v20)
+  glBindRenderbuffer(0x8D41u, v8);
+  glFramebufferRenderbuffer(0x8D40u, 0x8D20u, 0x8D41u, v8);
+LABEL_54:
+  if (*(lpsrc + 61) == 1 && ((v11 & 1) != 0 || *(lpsrc + 29)))
   {
-    v26 = 1;
+    glClearStencil(*(lpsrc + 240));
+    v19 |= 0x400u;
+  }
+
+  if (v10)
+  {
+    if (v9)
+    {
+      LODWORD(v9) = *(v9 + 20);
+    }
+
+    glBindRenderbuffer(0x8D41u, v9);
+    glFramebufferRenderbuffer(0x8D40u, 0x8D00u, 0x8D41u, v9);
+  }
+
+  if (*(lpsrc + 55) == 1 && ((v11 & 1) != 0 || *(lpsrc + 26)))
+  {
+    v19 |= 0x100u;
+  }
+
+  if (v7)
+  {
+    v20 = (**v7)(v7);
+    v21 = (*(*v7 + 8))(v7);
+    (*(*this + 208))(this, 0, 0, v20, v21);
+    v22 = (**v7)(v7);
+    v23 = (*(*v7 + 8))(v7);
+    (*(*this + 224))(this, 0, 0, v22, v23);
+  }
+
+  if (v19)
+  {
+    v25 = 1;
     *flag = -1;
-    if ((v20 & 0x4000) != 0)
+    if ((v19 & 0x4000) != 0)
     {
       glGetBooleanv(0xC23u, &params);
       glColorMask(1u, 1u, 1u, 1u);
-      if ((v20 & 0x100) == 0)
+      if ((v19 & 0x100) == 0)
       {
 LABEL_71:
-        if ((v20 & 0x400) == 0)
+        if ((v19 & 0x400) == 0)
         {
           goto LABEL_73;
         }
@@ -3219,24 +3188,24 @@ LABEL_71:
       }
     }
 
-    else if ((v20 & 0x100) == 0)
+    else if ((v19 & 0x100) == 0)
     {
       goto LABEL_71;
     }
 
-    glGetBooleanv(0xB72u, &v26);
+    glGetBooleanv(0xB72u, &v25);
     glDepthMask(1u);
-    if ((v20 & 0x400) == 0)
+    if ((v19 & 0x400) == 0)
     {
 LABEL_73:
-      glClear(v20);
-      if ((v20 & 0x4000) != 0)
+      glClear(v19);
+      if ((v19 & 0x4000) != 0)
       {
         glColorMask(params, green, blue, alpha);
-        if ((v20 & 0x100) == 0)
+        if ((v19 & 0x100) == 0)
         {
 LABEL_75:
-          if ((v20 & 0x400) == 0)
+          if ((v19 & 0x400) == 0)
           {
             return;
           }
@@ -3245,13 +3214,13 @@ LABEL_75:
         }
       }
 
-      else if ((v20 & 0x100) == 0)
+      else if ((v19 & 0x100) == 0)
       {
         goto LABEL_75;
       }
 
-      glDepthMask(v26);
-      if ((v20 & 0x400) == 0)
+      glDepthMask(v25);
+      if ((v19 & 0x400) == 0)
       {
         return;
       }
@@ -3761,16 +3730,15 @@ void jet_context_OpenGL::set_vertex_constant(uint64_t a1, int a2, int a3, int a4
   v18 = a3;
   v19 = a4;
   v20 = a4 * a3 * v12;
-  MEMORY[0x28223BE20]();
-  v21 = &v15 - ((v13 + 15) & 0x1FFFFFFF0);
-  memcpy(v21, a5, v13);
+  MEMORY[0x28223BE20](v13);
+  v21 = &v15 - ((v14 + 15) & 0x1FFFFFFF0);
+  memcpy(v21, a5, v14);
   (*(*a1 + 264))(a1, &v16, a6);
   v21 = 0;
   jet_constant_OpenGL::~jet_constant_OpenGL(&v16);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void jet_context_OpenGL::set_vertex_texture(jet_context_OpenGL *this, jet_texture *a2, unsigned int a3)
+void jet_context_OpenGL::set_vertex_texture(jet_context_OpenGL *this, GLuint *a2, unsigned int a3)
 {
   if ((a3 & 0x80000000) != 0)
   {
@@ -3779,7 +3747,7 @@ void jet_context_OpenGL::set_vertex_texture(jet_context_OpenGL *this, jet_textur
 
   if (a2)
   {
-    v6 = *(a2 + 4);
+    v6 = a2[4];
   }
 
   else
@@ -3837,7 +3805,7 @@ LABEL_16:
   glUniform1i(a3, v7);
 }
 
-void jet_context_OpenGL::set_vertex_sampler(jet_context_OpenGL *this, jet_sampler *a2, unsigned int a3)
+void jet_context_OpenGL::set_vertex_sampler(jet_context_OpenGL *this, GLint *a2, unsigned int a3)
 {
   if ((a3 & 0x80000000) != 0)
   {
@@ -3846,14 +3814,14 @@ void jet_context_OpenGL::set_vertex_sampler(jet_context_OpenGL *this, jet_sample
 
   v6 = jet_context_OpenGL::indexForTetxure(this, a3);
   v7 = &v6;
-  std::__tree<std::__value_type<unsigned int,jet_sampler *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,jet_sampler *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,jet_sampler *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 136, &v6)[5] = a2;
+  std::__tree<std::__value_type<unsigned int,jet_sampler *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,jet_sampler *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,jet_sampler *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 136, &v6, &std::piecewise_construct, &v7)[5] = a2;
   glActiveTexture(v6 + 33984);
   if (a2)
   {
-    glTexParameteri(0xDE1u, 0x2802u, *(a2 + 7));
-    glTexParameteri(0xDE1u, 0x2803u, *(a2 + 8));
-    glTexParameteri(0xDE1u, 0x2801u, *(a2 + 9));
-    v5 = *(a2 + 10);
+    glTexParameteri(0xDE1u, 0x2802u, a2[7]);
+    glTexParameteri(0xDE1u, 0x2803u, a2[8]);
+    glTexParameteri(0xDE1u, 0x2801u, a2[9]);
+    v5 = a2[10];
   }
 
   else
@@ -3955,7 +3923,7 @@ void jet_context_OpenGL::submit_command_buffer(EAGLContext **this@<X0>, jet_comm
 
 uint64_t jet_context_OpenGL::present@<X0>(jet_context_OpenGL *this@<X0>, jet_texture *a2@<X1>, double a3@<D0>, void *a4@<X8>)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   (*(*this + 328))(a4, a3);
   v6 = *(a2 + 5);
   if (!v6)
@@ -3967,7 +3935,7 @@ uint64_t jet_context_OpenGL::present@<X0>(jet_context_OpenGL *this@<X0>, jet_tex
   v7 = *(this + 2);
   if (!v7)
   {
-    goto LABEL_19;
+    return [*(this + 13) presentRenderbuffer:{36161, v13[0]}];
   }
 
   v8 = *(v7 + 208);
@@ -3986,7 +3954,7 @@ uint64_t jet_context_OpenGL::present@<X0>(jet_context_OpenGL *this@<X0>, jet_tex
         v10 = 6145;
       }
 
-      LODWORD(v14[0]) = v10;
+      LODWORD(v13[0]) = v10;
       LODWORD(v8) = 1;
       goto LABEL_11;
     }
@@ -4008,7 +3976,7 @@ LABEL_11:
       v11 = 6146;
     }
 
-    *(v14 + v8) = v11;
+    *(v13 + v8) = v11;
     goto LABEL_18;
   }
 
@@ -4018,10 +3986,7 @@ LABEL_18:
     glDiscardFramebufferEXT();
   }
 
-LABEL_19:
-  result = [*(this + 13) presentRenderbuffer:{36161, v14[0]}];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(this + 13) presentRenderbuffer:{36161, v13[0]}];
 }
 
 void sub_2556207CC(_Unwind_Exception *exception_object)
@@ -4295,7 +4260,7 @@ void *jet_buffer_OpenGL::get_data(jet_buffer_OpenGL *this)
   return result;
 }
 
-void jet_buffer_OpenGL::commit_data(jet_buffer_OpenGL *this, unsigned int a2, int a3)
+void jet_buffer_OpenGL::commit_data(jet_buffer_OpenGL *this, unsigned int a2, unsigned int a3)
 {
   v6 = (*(*this + 16))(this);
   v7 = *(this + 27);
@@ -4451,10 +4416,13 @@ uint64_t jet_buffer_OpenGL::set_value(uint64_t a1, __n128 a2)
   return (*(*a1 + 8))(a1, &v3, 16, 0);
 }
 
-void jet_buffer_pool_OpenGL::jet_buffer_pool_OpenGL(jet_buffer_pool *a1, void *a2, int a3, int a4, int a5)
+void jet_buffer_pool_OpenGL::jet_buffer_pool_OpenGL(jet_buffer_pool *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
+  v7 = a3;
   v9 = a2;
-  jet_buffer_pool::jet_buffer_pool(a1, a3, a4, a5);
+  jet_buffer_pool::jet_buffer_pool(a1, v7, v6, v5);
   *a1 = &unk_286781AD0;
   *(a1 + 8) = v9;
   jet_buffer_pool::initialize_first_buffer(a1);
@@ -4736,16 +4704,19 @@ LABEL_53:
   glContextUse::~glContextUse(v20);
 }
 
-void sub_2556221B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2556221B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
 
-void jet_texture_OpenGL::replace_region(EAGLContext **this, const void *a2, unsigned int a3, unsigned int a4, GLint a5, GLint a6, unsigned int a7, GLsizei a8, GLsizei height, unsigned int a10, GLint param, unsigned int a12)
+void jet_texture_OpenGL::replace_region(EAGLContext **this, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, GLsizei a8, GLsizei height, unsigned int a10, GLint param, unsigned int a12)
 {
-  if (((*this)[5]._private)(this))
+  v13 = a6;
+  v14 = a5;
+  v15 = a4;
+  if (((*this)[5]._private)(this, a2, a3, a4, a5, a6, a7))
   {
     jet_texture_OpenGL::replace_region();
   }
@@ -4785,12 +4756,12 @@ void jet_texture_OpenGL::replace_region(EAGLContext **this, const void *a2, unsi
     goto LABEL_33;
   }
 
-  if (a4 >= 6)
+  if (v15 >= 6)
   {
     __assert_rtn("replace_region", "jet_types_OpenGL.h", 431, "slice_index <= 5");
   }
 
-  v19 = a4 + 34069;
+  v19 = v15 + 34069;
   v20 = *(this + 6);
   if (v20 <= 6)
   {
@@ -4863,7 +4834,7 @@ LABEL_33:
     v22 = 5121;
   }
 
-  glTexSubImage2D(v19, 0, a5, a6, a8, height, v21, v22, a2);
+  glTexSubImage2D(v19, 0, v14, v13, a8, height, v21, v22, a2);
   if (param)
   {
     glPixelStorei(0xCF2u, 0);
@@ -4872,9 +4843,9 @@ LABEL_33:
   glContextUse::~glContextUse(v23);
 }
 
-void sub_2556223F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2556223F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
@@ -4952,9 +4923,9 @@ void jet_texture_OpenGL::copy_data(jet_texture_OpenGL *this, void *a2, GLint a3,
   glContextUse::~glContextUse(v15);
 }
 
-void sub_25562256C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25562256C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   glContextUse::~glContextUse(va);
   _Unwind_Resume(a1);
 }
@@ -5235,48 +5206,44 @@ void jet_depth_stencil_mode_OpenGL::~jet_depth_stencil_mode_OpenGL(jet_depth_ste
   jet_depth_stencil_mode::~jet_depth_stencil_mode(this);
 }
 
-BOOL jet_fence_OpenGL::is_finished(jet_fence_OpenGL *this)
+uint64_t jet_fence_OpenGL::is_finished(jet_fence_OpenGL *this)
 {
   if (!*(this + 2))
   {
     return 1;
   }
 
-  glContextUse::glContextUse(v7, *(this + 1));
-  v2 = *(this + 2);
-  v3 = (glClientWaitSyncAPPLE() - 37146) & 0xFFFFFFFD;
-  v4 = v3 == 0;
-  if (!v3)
+  glContextUse::glContextUse(v5, *(this + 1));
+  v2 = (glClientWaitSyncAPPLE() - 37146) & 0xFFFFFFFD;
+  v3 = v2 == 0;
+  if (!v2)
   {
-    v5 = *(this + 2);
     glDeleteSyncAPPLE();
     *(this + 2) = 0;
   }
 
-  glContextUse::~glContextUse(v7);
-  return v4;
+  glContextUse::~glContextUse(v5);
+  return v3;
 }
 
-BOOL jet_fence_OpenGL::wait(jet_fence_OpenGL *this)
+uint64_t jet_fence_OpenGL::wait(jet_fence_OpenGL *this)
 {
   if (!*(this + 2))
   {
     return 1;
   }
 
-  glContextUse::glContextUse(v7, *(this + 1));
-  v2 = *(this + 2);
-  v3 = (glClientWaitSyncAPPLE() - 37146) & 0xFFFFFFFD;
-  v4 = v3 == 0;
-  if (!v3)
+  glContextUse::glContextUse(v5, *(this + 1));
+  v2 = (glClientWaitSyncAPPLE() - 37146) & 0xFFFFFFFD;
+  v3 = v2 == 0;
+  if (!v2)
   {
-    v5 = *(this + 2);
     glDeleteSyncAPPLE();
     *(this + 2) = 0;
   }
 
-  glContextUse::~glContextUse(v7);
-  return v4;
+  glContextUse::~glContextUse(v5);
+  return v3;
 }
 
 void jet_fence_OpenGL::~jet_fence_OpenGL(jet_fence_OpenGL *this)
@@ -5291,11 +5258,10 @@ void jet_fence_OpenGL::~jet_fence_OpenGL(jet_fence_OpenGL *this)
   v2 = *(this + 1);
   if (v2 && *(this + 2))
   {
-    glContextUse::glContextUse(v4, v2);
-    v3 = *(this + 2);
+    glContextUse::glContextUse(v3, v2);
     glDeleteSyncAPPLE();
     *(this + 2) = 0;
-    glContextUse::~glContextUse(v4);
+    glContextUse::~glContextUse(v3);
     v2 = *(this + 1);
   }
 
@@ -5355,82 +5321,82 @@ void std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_c
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,jet_sampler *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,jet_sampler *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,jet_sampler *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,jet_sampler *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,jet_sampler *>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,jet_sampler *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -5597,7 +5563,7 @@ void sub_255623AC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t jet_context_Metal::create_texture(uint64_t a1, unsigned int a2, int a3, unsigned int a4, unsigned int a5, int a6, int a7, int a8, char a9, uint64_t a10)
+uint64_t jet_context_Metal::create_texture(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unsigned int a5, int a6, int a7, int a8, char a9, uint64_t a10)
 {
   if (a6 != 1)
   {
@@ -5716,11 +5682,11 @@ void sub_255623F94(_Unwind_Exception *a1)
 
 void jet_context_Metal::override_Metal_render_state(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v14 = a2;
+  v16 = a2;
   v7 = a3;
-  if (v14)
+  if (v16)
   {
-    v8 = v14;
+    v8 = v16;
     v9 = *(a1 + 120);
     *(a1 + 120) = v8;
   }
@@ -5732,20 +5698,20 @@ void jet_context_Metal::override_Metal_render_state(uint64_t a1, void *a2, void 
     *(a1 + 120) = v10;
 
     v12 = *(a1 + 120);
-    v9 = jet_getClientLabel();
+    v9 = jet_getClientLabel(v13, v14);
     [v12 setLabel:v9];
   }
 
   jet_context_Metal::ensureCommandBuffer(a1, 1);
-  v13 = *(a1 + 136);
+  v15 = *(a1 + 136);
   *(a1 + 136) = v7;
 
   *(a1 + 16) = a4;
 }
 
-uint64_t jet_context_Metal::ensureCommandBuffer(uint64_t this, int a2)
+void *jet_context_Metal::ensureCommandBuffer(void *this, int a2)
 {
-  if (*(this + 128))
+  if (*(this + 16))
   {
     v3 = a2 == 0;
   }
@@ -5758,11 +5724,11 @@ uint64_t jet_context_Metal::ensureCommandBuffer(uint64_t this, int a2)
   if (!v3)
   {
     v4 = this;
-    v5 = [*(this + 120) commandBuffer];
-    v6 = *(v4 + 128);
-    *(v4 + 128) = v5;
+    v5 = [*(this + 15) commandBuffer];
+    v6 = v4[16];
+    v4[16] = v5;
 
-    v7 = *(v4 + 128);
+    v7 = v4[16];
 
     return [v7 setLabel:@"SpriteKit Render"];
   }
@@ -5770,42 +5736,40 @@ uint64_t jet_context_Metal::ensureCommandBuffer(uint64_t this, int a2)
   return this;
 }
 
-id *jet_context_Metal::get_Metal_Texture(jet_context_Metal *this, char **lpsrc)
+id *jet_context_Metal::get_Metal_Texture(jet_context_Metal *this, jet_texture *lpsrc)
 {
   if (lpsrc)
   {
-    v3 = **lpsrc;
-    if (v4)
+    if (v3)
     {
-      v4 = v4[1];
+      v3 = v3[1];
     }
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
-id *jet_context_Metal::get_Metal_Drawable(jet_context_Metal *this, char **lpsrc)
+id *jet_context_Metal::get_Metal_Drawable(jet_context_Metal *this, jet_texture *lpsrc)
 {
   if (lpsrc)
   {
-    v3 = **lpsrc;
-    if (v4)
+    if (v3)
     {
-      v4 = v4[3];
+      v3 = v3[3];
     }
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 void jet_context_Metal::create_texture_from_Metal_Drawable(uint64_t a1, void *a2)
@@ -6009,9 +5973,9 @@ uint64_t jet_context_Metal::create_function(uint64_t a1, uint64_t a2, uint64_t a
   return 0;
 }
 
-uint64_t jet_context_Metal::create_function_from_source(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t jet_context_Metal::create_function_from_source(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
-  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
+  v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{a2, a4}];
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
   v10 = *(a1 + 104);
   v15 = 0;
@@ -6045,7 +6009,7 @@ void sub_2556249C4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6059,13 +6023,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -6409,99 +6373,95 @@ LABEL_31:
 
 void jet_render_mode_Metal::set_Metal_Reflection(id *this, MTLRenderPipelineReflection *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong(this + 6, a2);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v5 = [this[6] vertexArguments];
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v6)
   {
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = [v9 index];
         v11 = [v9 name];
         v12 = v11;
         std::string::basic_string[abi:ne200100]<0>(__p, [v11 UTF8String]);
-        v32 = __p;
-        *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 7, __p) + 10) = v10;
-        if (v27 < 0)
+        v31 = __p;
+        *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 7, __p, &std::piecewise_construct, &v31) + 10) = v10;
+        if (v26 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v6);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v13 = [this[6] fragmentArguments];
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v21 objects:v32 count:16];
   if (v14)
   {
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v22 + 1) + 8 * j);
+        v17 = *(*(&v21 + 1) + 8 * j);
         v18 = [v17 index];
         v19 = [v17 name];
         v20 = v19;
         std::string::basic_string[abi:ne200100]<0>(__p, [v19 UTF8String]);
-        v32 = __p;
-        *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 12, __p) + 10) = v18;
-        if (v27 < 0)
+        v31 = __p;
+        *(std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 12, __p, &std::piecewise_construct, &v31) + 10) = v18;
+        if (v26 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v21 objects:v32 count:16];
     }
 
     while (v14);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t jet_context_Metal::set_scheduled_handler(uint64_t a1, uint64_t a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 128);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3321888768;
-  v5[2] = ___ZN17jet_context_Metal21set_scheduled_handlerENSt3__18functionIFvvEEE_block_invoke;
-  v5[3] = &__block_descriptor_64_ea8_32c27_ZTSNSt3__18functionIFvvEEE_e28_v16__0___MTLCommandBuffer__8l;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v6, a2);
-  [v2 addScheduledHandler:v5];
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3321888768;
+  v4[2] = ___ZN17jet_context_Metal21set_scheduled_handlerENSt3__18functionIFvvEEE_block_invoke;
+  v4[3] = &__block_descriptor_64_ea8_32c27_ZTSNSt3__18functionIFvvEEE_e28_v16__0___MTLCommandBuffer__8l;
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a2);
+  [v2 addScheduledHandler:v4];
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
 }
 
 void ___ZN17jet_context_Metal21set_scheduled_handlerENSt3__18functionIFvvEEE_block_invoke(uint64_t a1, void *a2)
@@ -6516,56 +6476,55 @@ void ___ZN17jet_context_Metal21set_scheduled_handlerENSt3__18functionIFvvEEE_blo
   (*(*v3 + 48))(v3);
 }
 
-void jet_context_Metal::begin_render_pass(jet_context_Metal *this, char **a2)
+void jet_context_Metal::begin_render_pass(jet_context_Metal *this, jet_framebuffer *a2)
 {
   (*(*this + 352))(this);
   if (a2)
   {
     *(this + 2) = a2;
-    v4 = **a2;
-    if (v5 && (v6 = v5, (v7 = v5[32]) != 0))
+    if (v4 && (v5 = v4, (v6 = v4[32]) != 0))
     {
-      v8 = v7;
-      if (v8 != *(this + 17))
+      v7 = v6;
+      if (v7 != *(this + 17))
       {
-        (*(*this + 176))(&v73, this);
-        if (v74)
+        (*(*this + 176))(&v72, this);
+        if (v73)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v73);
         }
 
-        objc_storeStrong(this + 17, v7);
+        objc_storeStrong(this + 17, v6);
         jet_context_Metal::ensureCommandBuffer(this, 1);
       }
 
       *(this + 1) = 0;
-      objc_storeStrong(this + 18, v6[33]);
-      v9 = *(this + 18);
-      if (v9)
+      objc_storeStrong(this + 18, v5[33]);
+      v8 = *(this + 18);
+      if (v8)
       {
-        v10 = [v9 colorAttachments];
-        v11 = [v10 objectAtIndexedSubscript:0];
-        v12 = [v11 texture];
+        v9 = [v8 colorAttachments];
+        v10 = [v9 objectAtIndexedSubscript:0];
+        v11 = [v10 texture];
 
-        if (v12)
+        if (v11)
         {
-          *(this + 6) = getJetTextureFormatFromMetalPixelFormat([v12 pixelFormat]);
-          v13 = [v12 sampleCount];
+          *(this + 6) = getJetTextureFormatFromMetalPixelFormat([v11 pixelFormat]);
+          v12 = [v11 sampleCount];
         }
 
         else
         {
           *(this + 6) = 0;
-          v13 = 1;
+          v12 = 1;
         }
 
-        *(this + 9) = v13;
-        v62 = [*(this + 18) depthAttachment];
-        v63 = [v62 texture];
+        *(this + 9) = v12;
+        v61 = [*(this + 18) depthAttachment];
+        v62 = [v61 texture];
 
-        if (v63)
+        if (v62)
         {
-          JetTextureFormatFromMetalPixelFormat = getJetTextureFormatFromMetalPixelFormat([v63 pixelFormat]);
+          JetTextureFormatFromMetalPixelFormat = getJetTextureFormatFromMetalPixelFormat([v62 pixelFormat]);
         }
 
         else
@@ -6574,20 +6533,20 @@ void jet_context_Metal::begin_render_pass(jet_context_Metal *this, char **a2)
         }
 
         *(this + 7) = JetTextureFormatFromMetalPixelFormat;
-        v65 = [*(this + 18) stencilAttachment];
-        v66 = [v65 texture];
+        v64 = [*(this + 18) stencilAttachment];
+        v65 = [v64 texture];
 
-        if (v66)
+        if (v65)
         {
-          v67 = getJetTextureFormatFromMetalPixelFormat([v66 pixelFormat]);
+          v66 = getJetTextureFormatFromMetalPixelFormat([v65 pixelFormat]);
         }
 
         else
         {
-          v67 = 0;
+          v66 = 0;
         }
 
-        *(this + 8) = v67;
+        *(this + 8) = v66;
       }
 
       [*(this + 17) setCullMode:0];
@@ -6595,32 +6554,43 @@ void jet_context_Metal::begin_render_pass(jet_context_Metal *this, char **a2)
 
     else
     {
-      v14 = *(this + 17);
-      if (v14)
+      v13 = *(this + 17);
+      if (v13)
       {
-        [v14 endEncoding];
-        v15 = *(this + 17);
+        [v13 endEncoding];
+        v14 = *(this + 17);
         *(this + 17) = 0;
       }
 
-      v16 = a2[2];
-      v17 = a2[26];
-      v18 = a2[29];
-      if (v16 && ((*(*v16 + 12))(a2[2]) & 1) == 0)
+      v15 = *(a2 + 2);
+      v16 = *(a2 + 26);
+      v17 = *(a2 + 29);
+      if (v15 && ((*(*v15 + 12))(*(a2 + 2)) & 1) == 0)
       {
         jet_context_Metal::begin_render_pass();
       }
 
-      if (v17 && ((*(*v17 + 13))(v17) & 1) == 0)
+      if (v16 && ((*(*v16 + 13))(v16) & 1) == 0)
       {
         jet_context_Metal::begin_render_pass();
       }
 
-      if (v18 && ((*(*v18 + 14))(v18) & 1) == 0)
+      if (v17 && ((*(*v17 + 14))(v17) & 1) == 0)
       {
         jet_context_Metal::begin_render_pass();
       }
 
+      if (v15)
+      {
+        v18 = (*(*v15 + 4))(v15);
+      }
+
+      else
+      {
+        v18 = 3;
+      }
+
+      *(this + 6) = v18;
       if (v16)
       {
         v19 = (*(*v16 + 4))(v16);
@@ -6628,10 +6598,10 @@ void jet_context_Metal::begin_render_pass(jet_context_Metal *this, char **a2)
 
       else
       {
-        v19 = 3;
+        v19 = 0;
       }
 
-      *(this + 6) = v19;
+      *(this + 7) = v19;
       if (v17)
       {
         v20 = (*(*v17 + 4))(v17);
@@ -6642,149 +6612,138 @@ void jet_context_Metal::begin_render_pass(jet_context_Metal *this, char **a2)
         v20 = 0;
       }
 
-      *(this + 7) = v20;
-      if (v18)
+      *(this + 8) = v20;
+      v71 = getMetalTexture(v15);
+      if (v71)
       {
-        v21 = (*(*v18 + 4))(v18);
+        *(this + 9) = [v71 sampleCount];
+      }
+
+      if (v16 && (*(*v16 + 4))(v16) == 11)
+      {
+        v21 = v16[1];
       }
 
       else
       {
-        v21 = 0;
+        v21 = getMetalTexture(v16);
       }
 
-      *(this + 8) = v21;
-      v72 = getMetalTexture(v16);
-      if (v72)
-      {
-        *(this + 9) = [v72 sampleCount];
-      }
-
+      v22 = v21;
       if (v17 && (*(*v17 + 4))(v17) == 11)
       {
-        v22 = v17[1];
+        v23 = v17[2];
       }
 
       else
       {
-        v22 = getMetalTexture(v17);
+        v23 = getMetalTexture(v16);
       }
 
-      v23 = v22;
-      if (v18 && (*(*v18 + 4))(v18) == 11)
+      v24 = v23;
+      v25 = *(a2 + 60);
+      v26 = *(a2 + 54);
+      v27 = [MEMORY[0x277CD6F50] renderPassDescriptor];
+      v28 = [v27 colorAttachments];
+      v29 = [v28 objectAtIndexedSubscript:0];
+      [v29 setTexture:v71];
+
+      v30 = [v27 colorAttachments];
+      v31 = [v30 objectAtIndexedSubscript:0];
+      [v31 setClearColor:{v67, v68, v69, v70}];
+
+      v32 = *(a2 + 12);
+      if (v32 == 1)
       {
-        v24 = v18[2];
+        v33 = 2;
       }
 
       else
       {
-        v24 = getMetalTexture(v17);
+        v33 = v32 == 0;
       }
 
-      v25 = v24;
-      v26 = *(a2 + 60);
-      v27 = *(a2 + 54);
-      v28 = [MEMORY[0x277CD6F50] renderPassDescriptor];
-      v29 = [v28 colorAttachments];
-      v30 = [v29 objectAtIndexedSubscript:0];
-      [v30 setTexture:v72];
+      v34 = [v27 colorAttachments];
+      v35 = [v34 objectAtIndexedSubscript:0];
+      [v35 setLoadAction:v33];
 
-      v31 = [v28 colorAttachments];
-      v32 = [v31 objectAtIndexedSubscript:0];
-      [v32 setClearColor:{v68, v69, v70, v71}];
+      v36 = *(a2 + 13) != 1;
+      v37 = [v27 colorAttachments];
+      v38 = [v37 objectAtIndexedSubscript:0];
+      [v38 setStoreAction:v36];
 
-      v33 = *(a2 + 12);
-      if (v33 == 1)
+      v39 = [v27 stencilAttachment];
+      [v39 setTexture:v24];
+
+      v40 = [v27 stencilAttachment];
+      [v40 setClearStencil:v25];
+
+      v41 = *(a2 + 61);
+      v42 = [v27 stencilAttachment];
+      v43 = v42;
+      if (v41 == 1)
       {
-        v34 = 2;
+        v44 = 2;
       }
 
       else
       {
-        v34 = v33 == 0;
+        v44 = v41 == 0;
       }
 
-      v35 = [v28 colorAttachments];
-      v36 = [v35 objectAtIndexedSubscript:0];
-      [v36 setLoadAction:v34];
+      [v42 setLoadAction:v44];
 
-      v37 = *(a2 + 13) != 1;
-      v38 = [v28 colorAttachments];
-      v39 = [v38 objectAtIndexedSubscript:0];
-      [v39 setStoreAction:v37];
+      v45 = *(a2 + 62);
+      v46 = [v27 stencilAttachment];
+      [v46 setStoreAction:v45 != 1];
 
-      v40 = [v28 stencilAttachment];
-      [v40 setTexture:v25];
+      v47 = [v27 depthAttachment];
+      [v47 setTexture:v22];
 
-      v41 = [v28 stencilAttachment];
-      [v41 setClearStencil:v26];
+      v48 = [v27 depthAttachment];
+      [v48 setClearDepth:v26];
 
-      v42 = *(a2 + 61);
-      v43 = [v28 stencilAttachment];
-      v44 = v43;
-      if (v42 == 1)
+      v49 = *(a2 + 55);
+      v50 = [v27 depthAttachment];
+      v51 = v50;
+      if (v49 == 1)
       {
-        v45 = 2;
+        v52 = 2;
       }
 
       else
       {
-        v45 = v42 == 0;
+        v52 = v49 == 0;
       }
 
-      [v43 setLoadAction:v45];
+      [v50 setLoadAction:v52];
 
-      v46 = *(a2 + 62);
-      v47 = [v28 stencilAttachment];
-      [v47 setStoreAction:v46 != 1];
-
-      v48 = [v28 depthAttachment];
-      [v48 setTexture:v23];
-
-      v49 = [v28 depthAttachment];
-      [v49 setClearDepth:v27];
-
-      v50 = *(a2 + 55);
-      v51 = [v28 depthAttachment];
-      v52 = v51;
-      if (v50 == 1)
-      {
-        v53 = 2;
-      }
-
-      else
-      {
-        v53 = v50 == 0;
-      }
-
-      [v51 setLoadAction:v53];
-
-      v54 = *(a2 + 56);
-      v55 = [v28 depthAttachment];
-      [v55 setStoreAction:v54 != 1];
+      v53 = *(a2 + 56);
+      v54 = [v27 depthAttachment];
+      [v54 setStoreAction:v53 != 1];
 
       jet_context_Metal::ensureCommandQueue(this);
       jet_context_Metal::ensureCommandBuffer(this, 0);
-      v56 = [*(this + 16) renderCommandEncoderWithDescriptor:v28];
-      v57 = *(this + 17);
-      *(this + 17) = v56;
+      v55 = [*(this + 16) renderCommandEncoderWithDescriptor:v27];
+      v56 = *(this + 17);
+      *(this + 17) = v55;
 
       [*(this + 17) setLabel:@"SpriteKit Render"];
-      objc_storeStrong(this + 18, v28);
-      if (v16)
+      objc_storeStrong(this + 18, v27);
+      if (v15)
       {
-        v58 = (**v16)(v16);
-        v59 = (*(*v16 + 1))(v16);
-        (*(*this + 208))(this, 0, 0, v58, v59);
-        v60 = (**v16)(v16);
-        v61 = (*(*v16 + 1))(v16);
-        (*(*this + 224))(this, 0, 0, v60, v61);
+        v57 = (**v15)(v15);
+        v58 = (*(*v15 + 1))(v15);
+        (*(*this + 208))(this, 0, 0, v57, v58);
+        v59 = (**v15)(v15);
+        v60 = (*(*v15 + 1))(v15);
+        (*(*this + 224))(this, 0, 0, v59, v60);
       }
     }
   }
 }
 
-jet_texture *getMetalTexture(id *a1)
+id *getMetalTexture(id *a1)
 {
   if (a1)
   {
@@ -6805,12 +6764,13 @@ void jet_context_Metal::ensureCommandQueue(jet_context_Metal *this)
   }
 }
 
-void jet_context_Metal::create_stencil_mode(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
+void jet_context_Metal::create_stencil_mode(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
+  v12 = a2;
   v13 = objc_opt_new();
   [v13 setReadMask:a6];
   [v13 setWriteMask:a7];
-  [v13 setStencilCompareFunction:getMetalCompareFunction(a2)];
+  [v13 setStencilCompareFunction:getMetalCompareFunction(v12)];
   if (a3 > 4)
   {
     v14 = 0;
@@ -6997,11 +6957,21 @@ void jet_context_Metal::set_vertex_buffer(jet_context_Metal *this, jet_buffer *a
   [v6 setVertexBuffer:? offset:? atIndex:?];
 }
 
-jet_buffer *getMetalBuffer(id *a1)
+id *getMetalBuffer(id *a1)
 {
   if (a1)
   {
     a1 = a1[12];
+    v1 = vars8;
+  }
+
+  return a1;
+}
+
+{
+  if (a1)
+  {
+    a1 = a1[3];
     v1 = vars8;
   }
 
@@ -7018,17 +6988,6 @@ void jet_context_Metal::set_vertex_constant(jet_context_Metal *this, id *a2, int
   v3 = *(this + 17);
   v4 = getMetalBuffer(a2);
   [v3 setVertexBuffer:? offset:? atIndex:?];
-}
-
-jet_constant *getMetalBuffer(id *a1)
-{
-  if (a1)
-  {
-    a1 = a1[3];
-    v1 = vars8;
-  }
-
-  return a1;
 }
 
 uint64_t jet_context_Metal::set_vertex_constant(uint64_t a1, int a2, int a3, int a4, uint64_t a5, unsigned int a6)
@@ -7087,7 +7046,7 @@ void jet_context_Metal::set_vertex_sampler(jet_context_Metal *this, id *a2, int 
   [v3 setVertexSamplerState:? atIndex:?];
 }
 
-jet_sampler *getMetalSampler(id *a1)
+id *getMetalSampler(id *a1)
 {
   if (a1)
   {
@@ -7166,7 +7125,7 @@ uint64_t jet_context_Metal::set_fragment_constant(uint64_t a1, int a2, int a3, i
   return [v7 setFragmentBytes:a5 length:(v6 * a3) atIndex:a6];
 }
 
-uint64_t jet_context_Metal::draw(uint64_t result, unsigned int a2, unsigned int a3, unsigned int a4)
+id *jet_context_Metal::draw(id *result, unsigned int a2, unsigned int a3, unsigned int a4)
 {
   if (a4)
   {
@@ -7180,7 +7139,7 @@ uint64_t jet_context_Metal::draw(uint64_t result, unsigned int a2, unsigned int 
       v4 = a2;
     }
 
-    return [*(result + 136) drawPrimitives:v4 vertexStart:a3 vertexCount:a4];
+    return [result[17] drawPrimitives:v4 vertexStart:a3 vertexCount:a4];
   }
 
   return result;
@@ -7240,34 +7199,34 @@ void jet_context_Metal::present(jet_context_Metal *this, id *a2, double a3)
   a2[2] = 0;
 }
 
-uint64_t jet_context_Metal::commit@<X0>(jet_context_Metal *this@<X0>, void *a2@<X8>)
+void *jet_context_Metal::commit@<X0>(jet_context_Metal *this@<X0>, void *a2@<X8>)
 {
   v4 = *(this + 2);
   {
-    v10 = *(this + 17);
+    v9 = *(this + 17);
     goto LABEL_7;
   }
 
-  v8 = jet_context_Metal::getNativeCommandQueue(this);
-  v9 = *(this + 15);
-  *(this + 15) = v8;
+  v7 = jet_context_Metal::getNativeCommandQueue(this);
+  v8 = *(this + 15);
+  *(this + 15) = v7;
 
-  v10 = *(this + 17);
-  if (v7[32] != v10)
+  v9 = *(this + 17);
+  if (v6[32] != v9)
   {
 LABEL_7:
-    [v10 endEncoding];
+    [v9 endEncoding];
   }
 
   *a2 = 0;
   a2[1] = 0;
   if (*(this + 17))
   {
-    (*(*this + 328))(v14, this);
-    v11 = v14[1];
-    *a2 = v14[0];
-    a2[1] = v11;
-    v12 = *(this + 17);
+    (*(*this + 328))(v13, this);
+    v10 = v13[1];
+    *a2 = v13[0];
+    a2[1] = v10;
+    v11 = *(this + 17);
     *(this + 17) = 0;
 
     [*(this + 16) commit];
@@ -7297,8 +7256,8 @@ id jet_context_Metal::getNativeCommandQueue(jet_context_Metal *this)
     *(this + 14) = v3;
 
     v5 = *(this + 14);
-    v6 = jet_getClientLabel();
-    [v5 setLabel:v6];
+    v8 = jet_getClientLabel(v6, v7);
+    [v5 setLabel:v8];
 
     v2 = *(this + 14);
   }
@@ -7360,16 +7319,16 @@ id jet_context_Metal::ensureCIContext(jet_context_Metal *this)
   return v2;
 }
 
-void jet_context_Metal::render_CIImage_to_texture(uint64_t a1, void *a2, id *a3, __n128 a4)
+void jet_context_Metal::render_CIImage_to_texture(void *a1, void *a2, id *a3, __n128 a4)
 {
   v6 = a2;
-  v7 = *(a1 + 136);
+  v7 = a1[17];
   if (v7)
   {
-    (*(*a1 + 176))(&v30, a1);
-    if (v31)
+    (*(*a1 + 176))(&v29, a1);
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
   }
 
@@ -7378,11 +7337,11 @@ void jet_context_Metal::render_CIImage_to_texture(uint64_t a1, void *a2, id *a3,
   v10 = a4.n128_u32[1];
   v11 = a4.n128_u32[2];
   v12 = a4.n128_u32[3];
-  v32.origin.x = a4.n128_u32[0];
-  v32.origin.y = a4.n128_u32[1];
-  v32.size.width = a4.n128_u32[2];
-  v32.size.height = a4.n128_u32[3];
-  if (CGRectIsEmpty(v32))
+  v31.origin.x = a4.n128_u32[0];
+  v31.origin.y = a4.n128_u32[1];
+  v31.size.width = a4.n128_u32[2];
+  v31.size.height = a4.n128_u32[3];
+  if (CGRectIsEmpty(v31))
   {
     [v6 extent];
     v9 = v13;
@@ -7393,13 +7352,12 @@ void jet_context_Metal::render_CIImage_to_texture(uint64_t a1, void *a2, id *a3,
 
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
   v18 = getMetalTexture(a3);
-  [v8 render:v6 toMTLTexture:v18 commandBuffer:*(a1 + 128) bounds:DeviceRGB colorSpace:{v9, v10, v11, v12}];
+  [v8 render:v6 toMTLTexture:v18 commandBuffer:a1[16] bounds:DeviceRGB colorSpace:{v9, v10, v11, v12}];
 
   CGColorSpaceRelease(DeviceRGB);
-  v19 = *(a1 + 16);
+  v19 = a1[2];
   if (v19)
   {
-    v20 = **v19;
     if (!v7)
     {
       goto LABEL_14;
@@ -7408,32 +7366,32 @@ void jet_context_Metal::render_CIImage_to_texture(uint64_t a1, void *a2, id *a3,
 
   else
   {
-    v21 = 0;
+    v20 = 0;
     if (!v7)
     {
       goto LABEL_14;
     }
   }
 
-  if (!v21)
+  if (!v20)
   {
-    if (*(a1 + 144))
+    if (a1[18])
     {
       jet_context_Metal::ensureCommandBuffer(a1, 0);
-      v22 = [*(a1 + 128) renderCommandEncoderWithDescriptor:*(a1 + 144)];
-      v23 = *(a1 + 136);
-      *(a1 + 136) = v22;
+      v21 = [a1[16] renderCommandEncoderWithDescriptor:a1[18]];
+      v22 = a1[17];
+      a1[17] = v21;
 
-      [*(a1 + 136) setLabel:@"SpriteKit Render"];
-      v24 = *(*(a1 + 16) + 16);
-      if (v24)
+      [a1[17] setLabel:@"SpriteKit Render"];
+      v23 = *(a1[2] + 16);
+      if (v23)
       {
-        v25 = (**v24)(v24);
-        v26 = (*(*v24 + 8))(v24);
-        (*(*a1 + 208))(a1, 0, 0, v25, v26);
-        v27 = (**v24)(v24);
-        v28 = (*(*v24 + 8))(v24);
-        (*(*a1 + 224))(a1, 0, 0, v27, v28);
+        v24 = (**v23)(v23);
+        v25 = (*(*v23 + 8))(v23);
+        (*(*a1 + 208))(a1, 0, 0, v24, v25);
+        v26 = (**v23)(v23);
+        v27 = (*(*v23 + 8))(v23);
+        (*(*a1 + 224))(a1, 0, 0, v26, v27);
       }
     }
   }
@@ -7608,10 +7566,13 @@ uint64_t jet_buffer_Metal::set_value(uint64_t a1, __n128 a2)
   return (*(*a1 + 8))(a1, &v3, 16, 0);
 }
 
-void jet_buffer_pool_Metal::jet_buffer_pool_Metal(jet_buffer_pool *a1, void *a2, int a3, int a4, int a5)
+void jet_buffer_pool_Metal::jet_buffer_pool_Metal(jet_buffer_pool *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
+  v7 = a3;
   v9 = a2;
-  jet_buffer_pool::jet_buffer_pool(a1, a3, a4, a5);
+  jet_buffer_pool::jet_buffer_pool(a1, v7, v6, v5);
   *a1 = &unk_2867821F0;
   *(a1 + 8) = v9;
   jet_buffer_pool::initialize_first_buffer(a1);
@@ -7748,7 +7709,7 @@ uint64_t jet_texture_Metal::set_data(jet_texture_Metal *this, const void *a2, ui
   return (*(*this + 64))(this, a2, a3, a4, 0, 0, 0, v10, v11 | 0x100000000, a5);
 }
 
-uint64_t jet_texture_Metal::replace_region(jet_texture_Metal *this, const void *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11, unsigned int a12)
+void *jet_texture_Metal::replace_region(jet_texture_Metal *this, const void *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, unsigned int a9, unsigned int a10, unsigned int a11, unsigned int a12)
 {
   result = (*(*this + 88))(this);
   if (result)
@@ -7809,14 +7770,14 @@ uint64_t jet_texture_Metal::generate_mip_map(jet_texture_Metal *this)
   v3 = [*(this + 1) device];
   v4 = [v3 newCommandQueue];
 
-  v5 = jet_getClientLabel();
-  [v4 setLabel:v5];
+  v7 = jet_getClientLabel(v5, v6);
+  [v4 setLabel:v7];
 
-  v6 = [v4 commandBuffer];
-  v7 = [v6 blitCommandEncoder];
-  [v7 generateMipmapsForTexture:*(this + 1)];
-  [v7 endEncoding];
-  [v6 commit];
+  v8 = [v4 commandBuffer];
+  v9 = [v8 blitCommandEncoder];
+  [v9 generateMipmapsForTexture:*(this + 1)];
+  [v9 endEncoding];
+  [v8 commit];
 
   return 1;
 }
@@ -7947,13 +7908,13 @@ void jet_render_mode_Metal::~jet_render_mode_Metal(jet_render_mode_Metal *this)
   v2 = *(this + 5);
   *(this + 5) = 0;
 
-  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(this + 96);
-  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(this + 56);
+  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(this + 12);
+  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(this + 7);
 
   jet_render_mode::~jet_render_mode(this);
 }
 
-uint64_t jet_render_mode_Metal::get_vertex_buffer_index(uint64_t a1, const void **a2)
+uint64_t jet_render_mode_Metal::get_vertex_buffer_index(uint64_t a1, uint64_t *a2)
 {
   v2 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>((a1 + 56), a2);
   if (v2)
@@ -7967,7 +7928,7 @@ uint64_t jet_render_mode_Metal::get_vertex_buffer_index(uint64_t a1, const void 
   }
 }
 
-uint64_t jet_render_mode_Metal::get_vertex_texture_index(uint64_t a1, const void **a2)
+uint64_t jet_render_mode_Metal::get_vertex_texture_index(uint64_t a1, uint64_t *a2)
 {
   v2 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>((a1 + 56), a2);
   if (v2)
@@ -8045,7 +8006,7 @@ void sub_255629A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t jet_render_mode_Metal::get_fragment_texture_index(uint64_t a1, const void **a2)
+uint64_t jet_render_mode_Metal::get_fragment_texture_index(uint64_t a1, uint64_t *a2)
 {
   v2 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>((a1 + 96), a2);
   if (v2)
@@ -8123,7 +8084,7 @@ void sub_255629BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t jet_render_mode_Metal::get_fragment_buffer_index(uint64_t a1, const void **a2)
+uint64_t jet_render_mode_Metal::get_fragment_buffer_index(uint64_t a1, uint64_t *a2)
 {
   v2 = std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>((a1 + 96), a2);
   if (v2)
@@ -8137,9 +8098,9 @@ uint64_t jet_render_mode_Metal::get_fragment_buffer_index(uint64_t a1, const voi
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -8171,7 +8132,7 @@ void std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -8240,9 +8201,9 @@ const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__un
   return i;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -8439,7 +8400,7 @@ BOOL std::equal_to<std::string>::operator()[abi:ne200100](uint64_t a1, const voi
   return memcmp(v7, v8, v3) == 0;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8451,11 +8412,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void jet_render_mode_Metal::jet_render_mode_Metal(jet_render_mode_Metal *this, const jet_render_mode_Metal *a2)
@@ -8473,7 +8434,7 @@ void jet_render_mode_Metal::jet_render_mode_Metal(jet_render_mode_Metal *this, c
 
 void sub_25562A4D0(_Unwind_Exception *a1)
 {
-  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table((v1 + 7));
+  std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::~__hash_table(v1 + 7);
 
   jet_render_mode::~jet_render_mode(v1);
   _Unwind_Resume(a1);
@@ -8487,41 +8448,41 @@ uint64_t std::unordered_map<std::string,int>::unordered_map(uint64_t a1, uint64_
   std::__hash_table<jet_buffer *,std::hash<jet_buffer *>,std::equal_to<jet_buffer *>,std::allocator<jet_buffer *>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,int> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__construct_node_hash<std::pair<std::string const,int> const&>();
@@ -8529,44 +8490,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_25562A7B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **__p, uint64_t a11)
@@ -8604,35 +8565,35 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,int>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,int>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,int>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -8640,44 +8601,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void jet_stencil_mode_Metal::~jet_stencil_mode_Metal(jet_stencil_mode_Metal *this)
@@ -8810,7 +8771,7 @@ void jet_depth_stencil_mode::jet_depth_stencil_mode(jet_depth_stencil_mode *this
   *this = &unk_286782630;
 }
 
-uint64_t jet_isMetalSupported(void)
+uint64_t jet_isMetalSupported(uint64_t a1, uint64_t a2)
 {
   if (jet_isMetalSupported(void)::onceToken != -1)
   {
@@ -8829,22 +8790,18 @@ void ___Z20jet_isMetalSupportedv_block_invoke()
   }
 }
 
-void jet_createSharedContext(unsigned int (***a1)(jet_context *))
+void jet_createSharedContext(jet_context *a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = (*a1)[17](a1);
-    v3 = *a1;
-    if (v2 == 1)
+    if ((*(*a1 + 136))(a1) == 1)
     {
-      v4 = *v3;
       operator new();
     }
 
-    if (!v3[17](a1))
+    if (!(*(*a1 + 136))(a1))
     {
-      v5 = **a1;
-      (*(v6 + 360))();
+      (*(v3 + 360))();
       objc_claimAutoreleasedReturnValue();
       operator new();
     }
@@ -8852,7 +8809,7 @@ void jet_createSharedContext(unsigned int (***a1)(jet_context *))
     jet_createSharedContext();
   }
 
-  jet_createContext();
+  jet_createContext(0, a2);
 }
 
 void sub_25562B248(_Unwind_Exception *a1)
@@ -8863,7 +8820,7 @@ void sub_25562B248(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void jet_createContext(void)
+void jet_createContext(uint64_t a1, uint64_t a2)
 {
   if (jet_isMetalSupported(void)::onceToken != -1)
   {
@@ -8878,7 +8835,7 @@ void jet_createContext(void)
   operator new();
 }
 
-void jet_ensureClientLabel(void)
+void jet_ensureClientLabel(uint64_t result, uint64_t a2)
 {
   if (jet_ensureClientLabel(void)::onceToken != -1)
   {
@@ -8904,16 +8861,16 @@ void jet_setClientLabel(NSString *a1)
   _clientLabel = v1;
 }
 
-id jet_getClientLabel(void)
+id jet_getClientLabel(uint64_t a1, uint64_t a2)
 {
   if (jet_ensureClientLabel(void)::onceToken != -1)
   {
     jet_ensureClientLabel();
   }
 
-  v1 = _clientLabel;
+  v3 = _clientLabel;
 
-  return v1;
+  return v3;
 }
 
 id jet_get_debug_options(void)
@@ -9096,7 +9053,7 @@ uint64_t jet_buffer_pool::resize(uint64_t this, uint64_t a2)
   return this;
 }
 
-uint64_t jet_buffer_pool::next_buffer(jet_buffer_pool *this, int a2)
+jet_buffer *jet_buffer_pool::next_buffer(jet_buffer_pool *this, int a2)
 {
   v4 = *(*(this + 6) + 8);
   *(this + 6) = v4;
@@ -9112,7 +9069,6 @@ uint64_t jet_buffer_pool::next_buffer(jet_buffer_pool *this, int a2)
     if (*(this + 5) < *(this + 14))
     {
       (*(*this + 24))(this);
-      v6 = *(this + 6);
       operator new();
     }
 
@@ -9130,7 +9086,7 @@ uint64_t jet_buffer_pool::next_buffer(jet_buffer_pool *this, int a2)
   return v5;
 }
 
-uint64_t jet_buffer_pool::set_max_buffer_count(uint64_t this, unsigned int a2)
+uint64_t jet_buffer_pool::set_max_buffer_count(uint64_t this, uint64_t a2)
 {
   if (*(this + 56) > a2)
   {
@@ -9626,4 +9582,16 @@ uint64_t jet_convert_pixel_data_bgra_8888_to_rgba_8888(uint64_t result, char *a2
   }
 
   return result;
+}
+
+void jet_buffer::jet_buffer(jet_buffer *this)
+{
+  *this = &unk_286782800;
+  *(this + 8) = 0;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 2) = 0;
+  *(this + 22) = 1065353216;
 }

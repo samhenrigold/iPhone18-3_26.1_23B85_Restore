@@ -131,7 +131,7 @@
     memset(&v16, 0, sizeof(v16));
     if (self)
     {
-      [(TSDCalligraphyStroke *)self transformInContext:context];
+      objc_msgSend_transformInContext_(self);
     }
 
     transform = v16;
@@ -171,7 +171,7 @@
   memset(&v25, 0, sizeof(v25));
   if (self)
   {
-    [(TSDCalligraphyStroke *)self transformInContext:context];
+    objc_msgSend_transformInContext_(self);
   }
 
   v23 = v25;

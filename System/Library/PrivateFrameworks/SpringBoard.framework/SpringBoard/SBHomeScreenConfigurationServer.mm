@@ -1,11 +1,11 @@
 @interface SBHomeScreenConfigurationServer
 - (SBHomeScreenConfigurationServer)init;
+- (id)activate;
 - (id)configurationSessionConnection;
 - (id)delegate;
 - (id)makeErrorWithCode:(void *)code;
 - (id)setConfigurationSessionConnection:(id *)result;
 - (id)setDelegate:(id *)result;
-- (uint64_t)activate;
 - (uint64_t)authenticator;
 - (uint64_t)connections;
 - (uint64_t)listener;
@@ -103,7 +103,7 @@ void __39__SBHomeScreenConfigurationServer_init__block_invoke(uint64_t a1, void 
   connectionCopy = connection;
   contextCopy = context;
   remoteProcess = [connectionCopy remoteProcess];
-  auditToken = [remoteProcess auditToken];
+  v12 = objc_msgSend_auditToken(remoteProcess);
 
   if (self)
   {
@@ -120,7 +120,7 @@ void __39__SBHomeScreenConfigurationServer_init__block_invoke(uint64_t a1, void 
   }
 
   v15 = authenticator;
-  v16 = [(FBServiceClientAuthenticator *)v15 authenticateAuditToken:auditToken];
+  v16 = [(FBServiceClientAuthenticator *)v15 authenticateAuditToken:v12];
 
   if (v16)
   {
@@ -357,11 +357,11 @@ LABEL_13:
   }
 }
 
-- (uint64_t)activate
+- (id)activate
 {
   if (result)
   {
-    return [*(result + 16) activate];
+    return [result[2] activate];
   }
 
   return result;

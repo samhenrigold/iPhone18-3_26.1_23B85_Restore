@@ -676,38 +676,38 @@ LABEL_21:
   [v6 appendBytes:&poisoned length:8];
   if (signingCopy)
   {
-    v41 = v5;
-    v45 = v6;
+    v39 = v5;
+    v43 = v6;
     v12 = +[NSMutableDictionary dictionary];
+    v49 = 0u;
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v42 = signingCopy;
+    v40 = signingCopy;
     allKeys = [signingCopy allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v14 = [allKeys countByEnumeratingWithState:&v49 objects:v58 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v52;
+      v16 = *v50;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v52 != v16)
+          if (*v50 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = *(*(&v51 + 1) + 8 * i);
+          v18 = *(*(&v49 + 1) + 8 * i);
           if (([v18 isEqualToString:@"sender"] & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"receiver") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"receiverPublicEncryptionKey") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"curve") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"epoch") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"poisoned") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"signature") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"version") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"parentkeyref") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"wrappedkey") & 1) == 0 && (objc_msgSend(v18, "hasPrefix:", @"server_") & 1) == 0)
           {
-            v43 = [v42 objectForKeyedSubscript:v18];
-            [v12 setObject:v43 forKeyedSubscript:v18];
+            v41 = [v40 objectForKeyedSubscript:v18];
+            [v12 setObject:v41 forKeyedSubscript:v18];
           }
         }
 
-        v15 = [allKeys countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v49 objects:v58 count:16];
       }
 
       while (v15);
@@ -716,43 +716,41 @@ LABEL_21:
     allKeys2 = [v12 allKeys];
     v20 = [allKeys2 sortedArrayUsingSelector:"compare:"];
 
-    v49 = 0u;
-    v50 = 0u;
     v47 = 0u;
     v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v47 objects:v59 count:16];
-    v6 = v45;
+    v22 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v6 = v43;
     if (v22)
     {
       v23 = v22;
       v24 = &_sSo13os_log_type_ta0A0E7defaultABvgZ_ptr;
-      v25 = *v48;
+      v25 = *v46;
       v26 = &_sSo13os_log_type_ta0A0E7defaultABvgZ_ptr;
       do
       {
         v27 = 0;
-        v44 = v23;
+        v42 = v23;
         do
         {
-          if (*v48 != v25)
+          if (*v46 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          v28 = [v12 objectForKeyedSubscript:*(*(&v47 + 1) + 8 * v27)];
-          v29 = v24[130];
+          v28 = [v12 objectForKeyedSubscript:*(*(&v45 + 1) + 8 * v27)];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v30 = [v28 dataUsingEncoding:4];
-            [v6 appendData:v30];
+            v29 = [v28 dataUsingEncoding:4];
+            [v6 appendData:v29];
 LABEL_28:
 
             goto LABEL_31;
           }
 
-          v31 = v26[187];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -764,24 +762,24 @@ LABEL_28:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v30 = objc_alloc_init(NSISO8601DateFormatter);
-              v32 = [v30 stringForObjectValue:v28];
-              [v32 dataUsingEncoding:4];
-              v33 = v25;
-              v34 = v24;
-              v35 = v21;
-              v36 = v12;
-              v38 = v37 = v26;
-              [v45 appendData:v38];
+              v29 = objc_alloc_init(NSISO8601DateFormatter);
+              v30 = [v29 stringForObjectValue:v28];
+              [v30 dataUsingEncoding:4];
+              v31 = v25;
+              v32 = v24;
+              v33 = v21;
+              v34 = v12;
+              v36 = v35 = v26;
+              [v43 appendData:v36];
 
-              v26 = v37;
-              v12 = v36;
-              v21 = v35;
-              v24 = v34;
-              v25 = v33;
-              v23 = v44;
+              v26 = v35;
+              v12 = v34;
+              v21 = v33;
+              v24 = v32;
+              v25 = v31;
+              v23 = v42;
 
-              v6 = v45;
+              v6 = v43;
               goto LABEL_28;
             }
 
@@ -799,15 +797,15 @@ LABEL_31:
         }
 
         while (v23 != v27);
-        v39 = [v21 countByEnumeratingWithState:&v47 objects:v59 count:16];
-        v23 = v39;
+        v37 = [v21 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v23 = v37;
       }
 
-      while (v39);
+      while (v37);
     }
 
-    v5 = v41;
-    signingCopy = v42;
+    v5 = v39;
+    signingCopy = v40;
   }
 
   objc_autoreleasePoolPop(v5);

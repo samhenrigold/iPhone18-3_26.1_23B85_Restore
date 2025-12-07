@@ -68,7 +68,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([(WFLowPowerModeTrigger *)self onEnable]&& [(WFLowPowerModeTrigger *)self onDisable])
   {
     v3 = @"Low Power Mode turned on or off";
@@ -89,26 +89,25 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFLowPowerModeTrigger localizedPastTenseDescription]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFLowPowerModeTrigger localizedPastTenseDescription]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([(WFLowPowerModeTrigger *)self onEnable]&& [(WFLowPowerModeTrigger *)self onDisable])
   {
     v3 = @"When Low Power Mode is turned on or off";
@@ -129,19 +128,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFLowPowerModeTrigger localizedDescriptionWithConfigurationSummary]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFLowPowerModeTrigger localizedDescriptionWithConfigurationSummary]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -174,30 +172,26 @@ LABEL_9:
 
 + (id)yellowBatteryHierarchicalColors
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69E09E0] colorWithRed:1.0 green:0.792156875 blue:0.0 alpha:1.0];
-  v7[0] = v2;
+  v6[0] = v2;
   batteryOutlineColor = [MEMORY[0x1E69E09E0] batteryOutlineColor];
-  v7[1] = batteryOutlineColor;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = batteryOutlineColor;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)offIcon
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69E0B58];
   v3 = [MEMORY[0x1E69E09E0] colorWithSystemColor:1];
-  v9[0] = v3;
+  v8[0] = v3;
   batteryOutlineColor = [MEMORY[0x1E69E09E0] batteryOutlineColor];
-  v9[1] = batteryOutlineColor;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = batteryOutlineColor;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 triggerConfigurationSymbolNamed:@"battery.25" hierarchicalColors:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -22,15 +22,15 @@
 - (TSTHiddenStatesOwner)initWithBaseTable:(id)table
 {
   tableCopy = table;
-  v13.receiver = self;
-  v13.super_class = TSTHiddenStatesOwner;
-  v5 = [(TSTHiddenStatesOwner *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = TSTHiddenStatesOwner;
+  v5 = [(TSTHiddenStatesOwner *)&v12 init];
   v6 = v5;
   if (v5)
   {
     objc_storeWeak(&v5->_tableModel, tableCopy);
-    v6->_baseTableUID._lower = objc_msgSend_tableUID(tableCopy, v7, v8, v9, v10);
-    v6->_baseTableUID._upper = v11;
+    v6->_baseTableUID._lower = objc_msgSend_tableUID(tableCopy, v7, v8, v9);
+    v6->_baseTableUID._upper = v10;
   }
 
   return v6;
@@ -46,110 +46,110 @@
 
 - (id)hiddenStates
 {
-  v29 = *MEMORY[0x277D85DE8];
-  if (objc_msgSend_count(self->_hiddenStatesByRowExtentUuid, a2, v2, v3, v4) == -1)
+  v24 = *MEMORY[0x277D85DE8];
+  if (objc_msgSend_count(self->_hiddenStatesByRowExtentUuid, a2, v2, v3) == -1)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTHiddenStatesOwner hiddenStates]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHiddenStatesOwner.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 56, 0, "We should only have one hiddenStates per table, at the moment");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTHiddenStatesOwner hiddenStates]", v6);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHiddenStatesOwner.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 56, 0, "We should only have one hiddenStates per table, at the moment");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  memset(v27, 0, sizeof(v27));
-  v20 = self->_hiddenStatesByRowExtentUuid;
-  if (objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, v27, v28, 16))
+  memset(v22, 0, sizeof(v22));
+  v16 = self->_hiddenStatesByRowExtentUuid;
+  if (objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, v22, v23, 16))
   {
-    v25 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v22, **(&v27[0] + 1), v23, v24, *&v27[0]);
+    v20 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v18, **(&v22[0] + 1), v19, *&v22[0]);
   }
 
   else
   {
-    v25 = 0;
+    v20 = 0;
   }
 
-  return v25;
+  return v20;
 }
 
 - (id)description
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   v5 = TSKUIDStruct::description(&self->_baseTableUID);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"%@<%p>(on table %@)", v7, v8, v4, self, v5);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"%@<%p>(on table %@)", v7, v4, self, v5);
 
-  if (objc_msgSend_count(self->_hiddenStatesByRowExtentUuid, v10, v11, v12, v13) || objc_msgSend_count(self->_hiddenStatesByColumnExtentUuid, v14, v15, v16, v17))
+  if (objc_msgSend_count(self->_hiddenStatesByRowExtentUuid, v9, v10, v11) || objc_msgSend_count(self->_hiddenStatesByColumnExtentUuid, v12, v13, v14))
   {
-    objc_msgSend_appendFormat_(v9, v14, @"\n Hidden States:\n", v16, v17);
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v18 = self->_hiddenStatesByRowExtentUuid;
-    v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v31, v35, 16);
-    if (v23)
+    objc_msgSend_appendFormat_(v8, v12, @"\n Hidden States:\n", v14);
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v15 = self->_hiddenStatesByRowExtentUuid;
+    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v26, v30, 16);
+    if (v19)
     {
-      v24 = *v32;
+      v20 = *v27;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v32 != v24)
+          if (*v27 != v20)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v15);
           }
 
-          v26 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v20, *(*(&v31 + 1) + 8 * i), v21, v22);
-          objc_msgSend_appendFormat_(v9, v27, @"  - %@\n", v28, v29, v26);
+          v22 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v17, *(*(&v26 + 1) + 8 * i), v18);
+          objc_msgSend_appendFormat_(v8, v23, @"  - %@\n", v24, v22);
         }
 
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v31, v35, 16);
+        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v26, v30, 16);
       }
 
-      while (v23);
+      while (v19);
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (int)registerWithCalcEngine:(id)engine baseOwnerUID:(const TSKUIDStruct *)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   objc_storeWeak(&self->_calcEngine, engine);
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v5 = self->_hiddenStatesByRowExtentUuid;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v23, 16);
-  if (v10)
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v17, v21, 16);
+  if (v9)
   {
-    v11 = *v20;
+    v10 = *v18;
     do
     {
-      v12 = 0;
+      v11 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v7, *(*(&v19 + 1) + 8 * v12), v8, v9, v19);
+        v12 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v7, *(*(&v17 + 1) + 8 * v11), v8, v17);
         WeakRetained = objc_loadWeakRetained(&self->_tableModel);
-        objc_msgSend_setTableModel_(v13, v15, WeakRetained, v16, v17);
+        objc_msgSend_setTableModel_(v12, v14, WeakRetained, v15);
 
-        ++v12;
+        ++v11;
       }
 
-      while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v19, v23, 16);
+      while (v9 != v11);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v17, v21, 16);
     }
 
-    while (v10);
+    while (v9);
   }
 
   return 0;
@@ -169,46 +169,46 @@
   {
     if (!self->_hiddenStatesByRowExtentUuid)
     {
-      v11 = objc_opt_new();
+      v10 = objc_opt_new();
       hiddenStatesByRowExtentUuid = self->_hiddenStatesByRowExtentUuid;
-      self->_hiddenStatesByRowExtentUuid = v11;
+      self->_hiddenStatesByRowExtentUuid = v10;
     }
 
     if (!self->_hiddenStatesByColumnExtentUuid)
     {
-      v13 = objc_opt_new();
+      v12 = objc_opt_new();
       hiddenStatesByColumnExtentUuid = self->_hiddenStatesByColumnExtentUuid;
-      self->_hiddenStatesByColumnExtentUuid = v13;
+      self->_hiddenStatesByColumnExtentUuid = v12;
     }
 
-    v15 = self->_hiddenStatesByRowExtentUuid;
-    v16 = objc_msgSend_rowHiddenStateExtent(statesCopy, v6, v7, v8, v9);
-    v58._lower = objc_msgSend_hiddenStateExtentUid(v16, v17, v18, v19, v20);
-    v58._upper = v21;
-    v22 = TSKUIDStruct::description(&v58);
-    objc_msgSend_setObject_forKey_(v15, v23, statesCopy, v22, v24);
+    v14 = self->_hiddenStatesByRowExtentUuid;
+    v15 = objc_msgSend_rowHiddenStateExtent(statesCopy, v6, v7, v8);
+    v48._lower = objc_msgSend_hiddenStateExtentUid(v15, v16, v17, v18);
+    v48._upper = v19;
+    v20 = TSKUIDStruct::description(&v48);
+    objc_msgSend_setObject_forKey_(v14, v21, statesCopy, v20);
 
-    v25 = self->_hiddenStatesByColumnExtentUuid;
-    v30 = objc_msgSend_columnHiddenStateExtent(statesCopy, v26, v27, v28, v29);
-    v58._lower = objc_msgSend_hiddenStateExtentUid(v30, v31, v32, v33, v34);
-    v58._upper = v35;
-    v36 = TSKUIDStruct::description(&v58);
-    objc_msgSend_setObject_forKey_(v25, v37, statesCopy, v36, v38);
+    v22 = self->_hiddenStatesByColumnExtentUuid;
+    v26 = objc_msgSend_columnHiddenStateExtent(statesCopy, v23, v24, v25);
+    v48._lower = objc_msgSend_hiddenStateExtentUid(v26, v27, v28, v29);
+    v48._upper = v30;
+    v31 = TSKUIDStruct::description(&v48);
+    objc_msgSend_setObject_forKey_(v22, v32, statesCopy, v31);
 
     WeakRetained = objc_loadWeakRetained(&self->_calcEngine);
     if (WeakRetained)
     {
-      v40 = objc_loadWeakRetained(&self->_calcEngine);
-      v43 = objc_msgSend_registerWithCalcEngine_baseOwnerUID_(statesCopy, v41, v40, d, v42);
+      v34 = objc_loadWeakRetained(&self->_calcEngine);
+      v36 = objc_msgSend_registerWithCalcEngine_baseOwnerUID_(statesCopy, v35, v34, d);
 
-      if (v43)
+      if (v36)
       {
-        v47 = MEMORY[0x277D81150];
-        v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "[TSTHiddenStatesOwner registerHiddenStates:baseOwnerUID:]", v45, v46);
-        v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHiddenStatesOwner.mm", v50, v51);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v53, v48, v52, 115, 0, "HiddenStates couldn't register with calc-engine");
+        v39 = MEMORY[0x277D81150];
+        v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSTHiddenStatesOwner registerHiddenStates:baseOwnerUID:]", v38);
+        v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTHiddenStatesOwner.mm", v42);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v44, v40, v43, 115, 0, "HiddenStates couldn't register with calc-engine");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47);
       }
     }
   }
@@ -217,236 +217,236 @@
 - (id)hiddenStatesByExtentUid:(const TSKUIDStruct *)uid
 {
   v4 = TSKUIDStruct::description(uid);
-  v8 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v5, v4, v6, v7);
-  v12 = v8;
-  if (v8)
+  v7 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v5, v4, v6);
+  v10 = v7;
+  if (v7)
   {
-    v13 = v8;
+    v11 = v7;
   }
 
   else
   {
-    v13 = objc_msgSend_objectForKey_(self->_hiddenStatesByColumnExtentUuid, v9, v4, v10, v11);
+    v11 = objc_msgSend_objectForKey_(self->_hiddenStatesByColumnExtentUuid, v8, v4, v9);
   }
 
-  v14 = v13;
+  v12 = v11;
 
-  return v14;
+  return v12;
 }
 
 - (void)unregisterHiddenStates:(id)states
 {
   statesCopy = states;
-  v9 = statesCopy;
+  v8 = statesCopy;
   if (statesCopy)
   {
     hiddenStatesByRowExtentUuid = self->_hiddenStatesByRowExtentUuid;
-    v11 = objc_msgSend_rowHiddenStateExtent(statesCopy, v5, v6, v7, v8);
-    v36._lower = objc_msgSend_hiddenStateExtentUid(v11, v12, v13, v14, v15);
-    v36._upper = v16;
-    v17 = TSKUIDStruct::description(&v36);
-    objc_msgSend_removeObjectForKey_(hiddenStatesByRowExtentUuid, v18, v17, v19, v20);
+    v10 = objc_msgSend_rowHiddenStateExtent(statesCopy, v5, v6, v7);
+    v30._lower = objc_msgSend_hiddenStateExtentUid(v10, v11, v12, v13);
+    v30._upper = v14;
+    v15 = TSKUIDStruct::description(&v30);
+    objc_msgSend_removeObjectForKey_(hiddenStatesByRowExtentUuid, v16, v15, v17);
 
     hiddenStatesByColumnExtentUuid = self->_hiddenStatesByColumnExtentUuid;
-    v26 = objc_msgSend_columnHiddenStateExtent(v9, v22, v23, v24, v25);
-    v36._lower = objc_msgSend_hiddenStateExtentUid(v26, v27, v28, v29, v30);
-    v36._upper = v31;
-    v32 = TSKUIDStruct::description(&v36);
-    objc_msgSend_removeObjectForKey_(hiddenStatesByColumnExtentUuid, v33, v32, v34, v35);
+    v22 = objc_msgSend_columnHiddenStateExtent(v8, v19, v20, v21);
+    v30._lower = objc_msgSend_hiddenStateExtentUid(v22, v23, v24, v25);
+    v30._upper = v26;
+    v27 = TSKUIDStruct::description(&v30);
+    objc_msgSend_removeObjectForKey_(hiddenStatesByColumnExtentUuid, v28, v27, v29);
   }
 }
 
 - (void)willChangeExtentUids:(id)uids
 {
   uidsCopy = uids;
-  v9 = objc_msgSend_tableModel(self, v5, v6, v7, v8);
-  objc_msgSend_willModify(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_tableModel(self, v5, v6, v7);
+  objc_msgSend_willModify(v8, v9, v10, v11);
 
   hiddenStatesByRowExtentUuid = self->_hiddenStatesByRowExtentUuid;
-  v19 = objc_msgSend_rowHiddenStateExtent(uidsCopy, v15, v16, v17, v18);
-  v44._lower = objc_msgSend_hiddenStateExtentUid(v19, v20, v21, v22, v23);
-  v44._upper = v24;
-  v25 = TSKUIDStruct::description(&v44);
-  objc_msgSend_removeObjectForKey_(hiddenStatesByRowExtentUuid, v26, v25, v27, v28);
+  v16 = objc_msgSend_rowHiddenStateExtent(uidsCopy, v13, v14, v15);
+  v36._lower = objc_msgSend_hiddenStateExtentUid(v16, v17, v18, v19);
+  v36._upper = v20;
+  v21 = TSKUIDStruct::description(&v36);
+  objc_msgSend_removeObjectForKey_(hiddenStatesByRowExtentUuid, v22, v21, v23);
 
   hiddenStatesByColumnExtentUuid = self->_hiddenStatesByColumnExtentUuid;
-  v34 = objc_msgSend_columnHiddenStateExtent(uidsCopy, v30, v31, v32, v33);
-  v44._lower = objc_msgSend_hiddenStateExtentUid(v34, v35, v36, v37, v38);
-  v44._upper = v39;
-  v40 = TSKUIDStruct::description(&v44);
-  objc_msgSend_removeObjectForKey_(hiddenStatesByColumnExtentUuid, v41, v40, v42, v43);
+  v28 = objc_msgSend_columnHiddenStateExtent(uidsCopy, v25, v26, v27);
+  v36._lower = objc_msgSend_hiddenStateExtentUid(v28, v29, v30, v31);
+  v36._upper = v32;
+  v33 = TSKUIDStruct::description(&v36);
+  objc_msgSend_removeObjectForKey_(hiddenStatesByColumnExtentUuid, v34, v33, v35);
 }
 
 - (void)didChangeExtentUids:(id)uids
 {
   uidsCopy = uids;
   hiddenStatesByRowExtentUuid = self->_hiddenStatesByRowExtentUuid;
-  v10 = objc_msgSend_rowHiddenStateExtent(uidsCopy, v6, v7, v8, v9);
-  v33._lower = objc_msgSend_hiddenStateExtentUid(v10, v11, v12, v13, v14);
-  v33._upper = v15;
-  v16 = TSKUIDStruct::description(&v33);
-  objc_msgSend_setObject_forKey_(hiddenStatesByRowExtentUuid, v17, uidsCopy, v16, v18);
+  v9 = objc_msgSend_rowHiddenStateExtent(uidsCopy, v6, v7, v8);
+  v27._lower = objc_msgSend_hiddenStateExtentUid(v9, v10, v11, v12);
+  v27._upper = v13;
+  v14 = TSKUIDStruct::description(&v27);
+  objc_msgSend_setObject_forKey_(hiddenStatesByRowExtentUuid, v15, uidsCopy, v14);
 
   hiddenStatesByColumnExtentUuid = self->_hiddenStatesByColumnExtentUuid;
-  v24 = objc_msgSend_columnHiddenStateExtent(uidsCopy, v20, v21, v22, v23);
-  v33._lower = objc_msgSend_hiddenStateExtentUid(v24, v25, v26, v27, v28);
-  v33._upper = v29;
-  v30 = TSKUIDStruct::description(&v33);
-  objc_msgSend_setObject_forKey_(hiddenStatesByColumnExtentUuid, v31, uidsCopy, v30, v32);
+  v20 = objc_msgSend_columnHiddenStateExtent(uidsCopy, v17, v18, v19);
+  v27._lower = objc_msgSend_hiddenStateExtentUid(v20, v21, v22, v23);
+  v27._upper = v24;
+  v25 = TSKUIDStruct::description(&v27);
+  objc_msgSend_setObject_forKey_(hiddenStatesByColumnExtentUuid, v26, uidsCopy, v25);
 }
 
 - (TSTHiddenStatesOwner)initWithArchive:(const void *)archive unarchiver:(id)unarchiver forBaseTable:(id)table
 {
   unarchiverCopy = unarchiver;
-  v12 = objc_msgSend_initWithBaseTable_(self, v9, table, v10, v11);
-  if (v12)
+  v11 = objc_msgSend_initWithBaseTable_(self, v9, table, v10);
+  if (v11)
   {
-    v13 = *(archive + 8);
-    if (v13 >= 1)
+    v12 = *(archive + 8);
+    if (v12 >= 1)
     {
-      v14 = 8;
+      v13 = 8;
       do
       {
-        v15 = [TSTHiddenStates alloc];
-        v17 = objc_msgSend_initWithArchive_unarchiver_forHiddenStatesOwner_(v15, v16, *(*(archive + 5) + v14), unarchiverCopy, v12);
-        objc_msgSend_registerHiddenStates_baseOwnerUID_(v12, v18, v17, &v12->_baseTableUID, v19);
+        v14 = [TSTHiddenStates alloc];
+        v16 = objc_msgSend_initWithArchive_unarchiver_forHiddenStatesOwner_(v14, v15, *(*(archive + 5) + v13), unarchiverCopy, v11);
+        objc_msgSend_registerHiddenStates_baseOwnerUID_(v11, v17, v16, &v11->_baseTableUID);
 
-        v14 += 8;
-        --v13;
+        v13 += 8;
+        --v12;
       }
 
-      while (v13);
+      while (v12);
     }
   }
 
-  return v12;
+  return v11;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v44 = 0;
-  v45 = 0;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v39 = 0;
+  v40 = 0;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   obj = self->_hiddenStatesByRowExtentUuid;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v40, v46, 16);
-  if (v11)
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v35, v41, 16);
+  if (v10)
   {
+    v11 = 0;
     v12 = 0;
-    v13 = 0;
-    v14 = *v41;
+    v13 = *v36;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v41 != v14)
+        if (*v36 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v8, *(*(&v40 + 1) + 8 * i), v9, v10);
-        v19 = *(archive + 5);
-        if (!v19)
+        v16 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v8, *(*(&v35 + 1) + 8 * i), v9);
+        v17 = *(archive + 5);
+        if (!v17)
         {
           goto LABEL_11;
         }
 
-        v20 = *(archive + 8);
-        v21 = *v19;
-        if (v20 < *v19)
+        v18 = *(archive + 8);
+        v19 = *v17;
+        if (v18 < *v17)
         {
-          *(archive + 8) = v20 + 1;
-          objc_msgSend_encodeToArchive_archiver_(v18, v16, *&v19[2 * v20 + 2], archiverCopy, v17);
+          *(archive + 8) = v18 + 1;
+          objc_msgSend_encodeToArchive_archiver_(v16, v15, *&v17[2 * v18 + 2], archiverCopy);
           goto LABEL_13;
         }
 
-        if (v21 == *(archive + 9))
+        if (v19 == *(archive + 9))
         {
 LABEL_11:
           google::protobuf::internal::RepeatedPtrFieldBase::Reserve((archive + 24));
-          v19 = *(archive + 5);
-          v21 = *v19;
+          v17 = *(archive + 5);
+          v19 = *v17;
         }
 
-        *v19 = v21 + 1;
-        v26 = google::protobuf::Arena::CreateMaybeMessage<TST::HiddenStatesArchive>(*(archive + 3));
-        v27 = *(archive + 8);
-        v28 = *(archive + 5) + 8 * v27;
-        *(archive + 8) = v27 + 1;
-        *(v28 + 8) = v26;
-        objc_msgSend_encodeToArchive_archiver_(v18, v29, v26, archiverCopy, v30);
+        *v17 = v19 + 1;
+        v23 = google::protobuf::Arena::CreateMaybeMessage<TST::HiddenStatesArchive>(*(archive + 3));
+        v24 = *(archive + 8);
+        v25 = *(archive + 5) + 8 * v24;
+        *(archive + 8) = v24 + 1;
+        *(v25 + 8) = v23;
+        objc_msgSend_encodeToArchive_archiver_(v16, v26, v23, archiverCopy);
 LABEL_13:
-        if (!(v13 | v12))
+        if (!(v12 | v11))
         {
-          v31 = objc_msgSend_rowHiddenStateExtent(v18, v22, v23, v24, v25);
-          v13 = objc_msgSend_hiddenStateExtentUid(v31, v32, v33, v34, v35);
-          v12 = v36;
-          v44 = v13;
-          v45 = v36;
+          v27 = objc_msgSend_rowHiddenStateExtent(v16, v20, v21, v22);
+          v12 = objc_msgSend_hiddenStateExtentUid(v27, v28, v29, v30);
+          v11 = v31;
+          v39 = v12;
+          v40 = v31;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v40, v46, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v35, v41, 16);
     }
 
-    while (v11);
+    while (v10);
   }
 
   *(archive + 4) |= 1u;
-  v37 = *(archive + 6);
-  if (!v37)
+  v32 = *(archive + 6);
+  if (!v32)
   {
-    v38 = *(archive + 1);
-    if (v38)
+    v33 = *(archive + 1);
+    if (v33)
     {
-      v38 = *(v38 & 0xFFFFFFFFFFFFFFFELL);
+      v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v37 = MEMORY[0x223DA0360](v38);
-    *(archive + 6) = v37;
+    v32 = MEMORY[0x223DA0360](v33);
+    *(archive + 6) = v32;
   }
 
-  TSP::UUIDData::saveToMessage(&v44, v37);
+  TSP::UUIDData::saveToMessage(&v39, v32);
 }
 
 - (void)remapTableUIDsInFormulasWithMap:(const void *)map calcEngine:(id)engine
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v7 = self->_hiddenStatesByRowExtentUuid;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v18, v22, 16);
-  if (v12)
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v16, v20, 16);
+  if (v11)
   {
-    v13 = *v19;
+    v12 = *v17;
     do
     {
-      v14 = 0;
+      v13 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v9, *(*(&v18 + 1) + 8 * v14), v10, v11, v18);
-        objc_msgSend_remapTableUIDsInFormulasWithMap_calcEngine_(v15, v16, map, engineCopy, v17);
+        v14 = objc_msgSend_objectForKey_(self->_hiddenStatesByRowExtentUuid, v9, *(*(&v16 + 1) + 8 * v13), v10, v16);
+        objc_msgSend_remapTableUIDsInFormulasWithMap_calcEngine_(v14, v15, map, engineCopy);
 
-        ++v14;
+        ++v13;
       }
 
-      while (v12 != v14);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v18, v22, 16);
+      while (v11 != v13);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v16, v20, 16);
     }
 
-    while (v12);
+    while (v11);
   }
 }
 

@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10004C364();
+  sub_10004C364(selfCopy, v2);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -72,33 +72,31 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10004C65C(viewCopy);
-  v14 = v13;
+  sub_10004C65C(viewCopy, v9);
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10004CEC0(v10);
+  sub_10004CEC0(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
@@ -125,7 +123,7 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant25FBAFilterPickerController_filterManager) = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FBAFilterPickerController();
+  v5.super_class = type metadata accessor for FBAFilterPickerController(self, a2);
   return [(FBAFilterPickerController *)&v5 initWithStyle:style];
 }
 
@@ -146,18 +144,18 @@
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for FBAFilterPickerController();
-  v9 = [(FBAFilterPickerController *)&v11 initWithNibName:v7 bundle:bundle];
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for FBAFilterPickerController(bundleCopy2, v9);
+  v10 = [(FBAFilterPickerController *)&v12 initWithNibName:v7 bundle:bundle];
 
-  return v9;
+  return v10;
 }
 
 - (_TtC18Feedback_Assistant25FBAFilterPickerController)initWithCoder:(id)coder
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18Feedback_Assistant25FBAFilterPickerController_filterManager) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FBAFilterPickerController();
+  v7.super_class = type metadata accessor for FBAFilterPickerController(self, a2);
   coderCopy = coder;
   v5 = [(FBAFilterPickerController *)&v7 initWithCoder:coderCopy];
 

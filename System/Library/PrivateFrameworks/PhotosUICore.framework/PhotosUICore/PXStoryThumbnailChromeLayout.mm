@@ -290,13 +290,9 @@ LABEL_13:
 
 - (id)viewUserDataForSpriteAtIndex:(unsigned int)index inLayout:(id)layout
 {
-  v4 = *&index;
   layoutCopy = layout;
   [(PXStoryThumbnailChromeLayout *)self referenceSize];
-  [(PXStoryThumbnailChromeLayout *)self geometryForSpriteAtIndex:v4];
-  v9 = 0u;
-  v10 = 0u;
-  v8 = 0u;
+  objc_msgSend_geometryForSpriteAtIndex_(self);
   [(PXStoryThumbnailChromeLayout *)self scaleFromTopRightCorner];
   PXPointSubtract();
 }
@@ -447,210 +443,209 @@ LABEL_5:
   PXRectWithOriginAndSize();
 }
 
-_DWORD *__46__PXStoryThumbnailChromeLayout__updateContent__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __46__PXStoryThumbnailChromeLayout__updateContent__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *(a1 + 32);
-  if (result[256] != -1)
+  v8 = *(a1 + 32);
+  v9 = v8[256];
+  if (v9 != -1)
   {
-    v9 = *(a1 + 48);
-    v10 = [result _buttonConfigurationForSpriteIndex:?];
-    v11 = (*(v9 + 16))(v9, v10);
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
+    v10 = *(a1 + 48);
+    v11 = [v8 _buttonConfigurationForSpriteIndex:{v9, a4}];
+    v12 = (*(v10 + 16))(v10, v11);
+    v14 = v13;
+    v16 = v15;
+    v18 = v17;
 
-    v18 = (a3 + 32 * *(*(a1 + 32) + 1024));
-    v87.origin.x = v11;
-    v87.origin.y = v13;
-    v87.size.width = v15;
-    v87.size.height = v17;
-    MidX = CGRectGetMidX(v87);
-    v88.origin.x = v11;
-    v88.origin.y = v13;
-    v88.size.width = v15;
-    v88.size.height = v17;
-    MidY = CGRectGetMidY(v88);
-    v89.origin.x = v11;
-    v89.origin.y = v13;
-    v89.size.width = v15;
-    v89.size.height = v17;
-    Width = CGRectGetWidth(v89);
-    v90.origin.x = v11;
-    v90.origin.y = v13;
-    v90.size.width = v15;
-    v90.size.height = v17;
-    Height = CGRectGetHeight(v90);
-    v22.f64[0] = Width;
-    v22.f64[1] = Height;
-    *v18 = MidX;
-    *&v18[1] = MidY;
-    v18[2] = 0xC059000000000000;
-    v18[3] = vcvt_f32_f64(v22);
+    v19 = (a3 + 32 * *(*(a1 + 32) + 1024));
+    v88.origin.x = v12;
+    v88.origin.y = v14;
+    v88.size.width = v16;
+    v88.size.height = v18;
+    MidX = CGRectGetMidX(v88);
+    v89.origin.x = v12;
+    v89.origin.y = v14;
+    v89.size.width = v16;
+    v89.size.height = v18;
+    MidY = CGRectGetMidY(v89);
+    v90.origin.x = v12;
+    v90.origin.y = v14;
+    v90.size.width = v16;
+    v90.size.height = v18;
+    Width = CGRectGetWidth(v90);
+    v91.origin.x = v12;
+    v91.origin.y = v14;
+    v91.size.width = v16;
+    v91.size.height = v18;
+    Height = CGRectGetHeight(v91);
+    v23.f64[0] = Width;
+    v23.f64[1] = Height;
+    *v19 = MidX;
+    *&v19[1] = MidY;
+    v19[2] = 0xC059000000000000;
+    v19[3] = vcvt_f32_f64(v23);
     *(a5 + 40 * *(*(a1 + 32) + 1024) + 32) = *(*(a1 + 32) + 1040);
-    result = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
-  if (result[257] != -1)
+  if (v8[257] != -1)
   {
-    v23 = *(a1 + 48);
-    v24 = [result _buttonConfigurationForSpriteIndex:?];
-    v25 = (*(v23 + 16))(v23, v24);
-    v27 = v26;
-    v29 = v28;
-    v31 = v30;
+    v24 = *(a1 + 48);
+    v25 = [v8 _buttonConfigurationForSpriteIndex:?];
+    v26 = (*(v24 + 16))(v24, v25);
+    v28 = v27;
+    v30 = v29;
+    v32 = v31;
 
-    v32 = (a3 + 32 * *(*(a1 + 32) + 1028));
-    v91.origin.x = v25;
-    v91.origin.y = v27;
-    v91.size.width = v29;
-    v91.size.height = v31;
-    v33 = CGRectGetMidX(v91);
-    v92.origin.x = v25;
-    v92.origin.y = v27;
-    v92.size.width = v29;
-    v92.size.height = v31;
-    v34 = CGRectGetMidY(v92);
-    v93.origin.x = v25;
-    v93.origin.y = v27;
-    v93.size.width = v29;
-    v93.size.height = v31;
-    v85 = CGRectGetWidth(v93);
-    v94.origin.x = v25;
-    v94.origin.y = v27;
-    v94.size.width = v29;
-    v94.size.height = v31;
-    v35 = CGRectGetHeight(v94);
-    v36.f64[0] = v85;
-    v36.f64[1] = v35;
-    *v32 = v33;
-    *&v32[1] = v34;
-    v32[2] = 0xC059000000000000;
-    v32[3] = vcvt_f32_f64(v36);
+    v33 = (a3 + 32 * *(*(a1 + 32) + 1028));
+    v92.origin.x = v26;
+    v92.origin.y = v28;
+    v92.size.width = v30;
+    v92.size.height = v32;
+    v34 = CGRectGetMidX(v92);
+    v93.origin.x = v26;
+    v93.origin.y = v28;
+    v93.size.width = v30;
+    v93.size.height = v32;
+    v35 = CGRectGetMidY(v93);
+    v94.origin.x = v26;
+    v94.origin.y = v28;
+    v94.size.width = v30;
+    v94.size.height = v32;
+    v86 = CGRectGetWidth(v94);
+    v95.origin.x = v26;
+    v95.origin.y = v28;
+    v95.size.width = v30;
+    v95.size.height = v32;
+    v36 = CGRectGetHeight(v95);
+    v37.f64[0] = v86;
+    v37.f64[1] = v36;
+    *v33 = v34;
+    *&v33[1] = v35;
+    v33[2] = 0xC059000000000000;
+    v33[3] = vcvt_f32_f64(v37);
     *(a5 + 40 * *(*(a1 + 32) + 1028) + 32) = *(*(a1 + 32) + 1040);
-    result = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
-  if (result[258] != -1)
+  if (v8[258] != -1)
   {
-    v37 = [result rootLayout];
-    v38 = [v37 coordinateSpace];
+    v38 = [v8 rootLayout];
+    v39 = [v38 coordinateSpace];
 
-    v39 = [*(a1 + 32) model];
-    v40 = [v39 presentedTitleFrame];
-    [v40 rectInCoordinateSpace:v38];
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
-    v48 = v47;
+    v40 = [*(a1 + 32) model];
+    v41 = [v40 presentedTitleFrame];
+    [v41 rectInCoordinateSpace:v39];
+    v43 = v42;
+    v45 = v44;
+    v47 = v46;
+    v49 = v48;
 
-    v49 = [*(a1 + 32) model];
-    v50 = [v49 presentedSubtitleFrame];
-    [v50 rectInCoordinateSpace:v38];
-    v52 = v51;
-    v54 = v53;
-    v56 = v55;
-    v58 = v57;
+    v50 = [*(a1 + 32) model];
+    v51 = [v50 presentedSubtitleFrame];
+    [v51 rectInCoordinateSpace:v39];
+    v53 = v52;
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
 
-    v95.origin.x = v42;
-    v95.origin.y = v44;
-    v95.size.width = v46;
-    v95.size.height = v48;
-    v102.origin.x = v52;
-    v102.origin.y = v54;
-    v102.size.width = v56;
-    v102.size.height = v58;
-    v96 = CGRectUnion(v95, v102);
-    x = v96.origin.x;
-    y = v96.origin.y;
-    v61 = v96.size.width;
-    v62 = v96.size.height;
+    v96.origin.x = v43;
+    v96.origin.y = v45;
+    v96.size.width = v47;
+    v96.size.height = v49;
+    v103.origin.x = v53;
+    v103.origin.y = v55;
+    v103.size.width = v57;
+    v103.size.height = v59;
+    v97 = CGRectUnion(v96, v103);
+    x = v97.origin.x;
+    y = v97.origin.y;
+    v62 = v97.size.width;
+    v63 = v97.size.height;
     MinX = *MEMORY[0x1E695F058];
-    v64 = *(MEMORY[0x1E695F058] + 8);
-    v65 = *(MEMORY[0x1E695F058] + 16);
-    v66 = *(MEMORY[0x1E695F058] + 24);
-    v103.origin.x = *MEMORY[0x1E695F058];
-    v103.origin.y = v64;
-    v103.size.width = v65;
-    v103.size.height = v66;
-    if (!CGRectEqualToRect(v96, v103))
+    v65 = *(MEMORY[0x1E695F058] + 8);
+    v66 = *(MEMORY[0x1E695F058] + 16);
+    v67 = *(MEMORY[0x1E695F058] + 24);
+    v104.origin.x = *MEMORY[0x1E695F058];
+    v104.origin.y = v65;
+    v104.size.width = v66;
+    v104.size.height = v67;
+    if (!CGRectEqualToRect(v97, v104))
     {
-      v67 = [*(a1 + 32) _buttonConfigurationForSpriteIndex:*(*(a1 + 32) + 1032)];
-      [PXStoryChromeButton sizeWithConfiguration:v67];
-      v65 = v68;
+      v68 = [*(a1 + 32) _buttonConfigurationForSpriteIndex:*(*(a1 + 32) + 1032)];
+      [PXStoryChromeButton sizeWithConfiguration:v68];
       v66 = v69;
+      v67 = v70;
 
-      v70 = [*(a1 + 32) model];
-      v71 = [v70 titleAlignment];
+      v71 = [*(a1 + 32) model];
+      v72 = [v71 titleAlignment];
 
-      v72 = x;
-      v73 = y;
-      v74 = v61;
+      v73 = x;
+      v74 = y;
       v75 = v62;
-      if (v71 == 2)
+      v76 = v63;
+      if (v72 == 2)
       {
-        MinX = CGRectGetMaxX(*&v72) - v65;
+        MinX = CGRectGetMaxX(*&v73) - v66;
       }
 
-      else if (v71)
+      else if (v72)
       {
-        MinX = CGRectGetMidX(*&v72) + v65 * -0.5;
+        MinX = CGRectGetMidX(*&v73) + v66 * -0.5;
       }
 
       else
       {
-        MinX = CGRectGetMinX(*&v72);
+        MinX = CGRectGetMinX(*&v73);
       }
 
-      v97.origin.x = x;
-      v97.origin.y = y;
-      v97.size.width = v61;
-      v97.size.height = v62;
-      MaxY = CGRectGetMaxY(v97);
+      v98.origin.x = x;
+      v98.origin.y = y;
+      v98.size.width = v62;
+      v98.size.height = v63;
+      MaxY = CGRectGetMaxY(v98);
       [*(a1 + 40) thumbnailPlayButtonPadding];
-      v64 = MaxY + v77;
+      v65 = MaxY + v78;
     }
 
-    v78 = (a3 + 32 * *(*(a1 + 32) + 1032));
-    v98.origin.x = MinX;
-    v98.origin.y = v64;
-    v98.size.width = v65;
-    v98.size.height = v66;
-    v79 = CGRectGetMidX(v98);
+    v79 = (a3 + 32 * *(*(a1 + 32) + 1032));
     v99.origin.x = MinX;
-    v99.origin.y = v64;
-    v99.size.width = v65;
-    v99.size.height = v66;
-    v80 = CGRectGetMidY(v99);
+    v99.origin.y = v65;
+    v99.size.width = v66;
+    v99.size.height = v67;
+    v80 = CGRectGetMidX(v99);
     v100.origin.x = MinX;
-    v100.origin.y = v64;
-    v100.size.width = v65;
-    v100.size.height = v66;
-    v86 = CGRectGetWidth(v100);
+    v100.origin.y = v65;
+    v100.size.width = v66;
+    v100.size.height = v67;
+    v81 = CGRectGetMidY(v100);
     v101.origin.x = MinX;
-    v101.origin.y = v64;
-    v101.size.width = v65;
-    v101.size.height = v66;
-    v81 = CGRectGetHeight(v101);
-    v82.f64[0] = v86;
-    v82.f64[1] = v81;
-    *v78 = v79;
-    *&v78[1] = v80;
-    v78[2] = 0xC059000000000000;
-    v78[3] = vcvt_f32_f64(v82);
+    v101.origin.y = v65;
+    v101.size.width = v66;
+    v101.size.height = v67;
+    v87 = CGRectGetWidth(v101);
+    v102.origin.x = MinX;
+    v102.origin.y = v65;
+    v102.size.width = v66;
+    v102.size.height = v67;
+    v82 = CGRectGetHeight(v102);
+    v83.f64[0] = v87;
+    v83.f64[1] = v82;
+    *v79 = v80;
+    *&v79[1] = v81;
+    v79[2] = 0xC059000000000000;
+    v79[3] = vcvt_f32_f64(v83);
     *(a5 + 40 * *(*(a1 + 32) + 1032) + 32) = *(*(a1 + 32) + 1040);
 
-    result = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
-  if (result[259] != -1)
+  if (v8[259] != -1)
   {
-    v83 = [result _buttonConfigurationForSpriteIndex:result[258]];
-    [PXStoryChromeButton sizeWithConfiguration:v83];
+    v84 = [v8 _buttonConfigurationForSpriteIndex:v8[258]];
+    [PXStoryChromeButton sizeWithConfiguration:v84];
 
     PXRectWithOriginAndSize();
   }
-
-  return result;
 }
 
 - (void)_invalidateContent

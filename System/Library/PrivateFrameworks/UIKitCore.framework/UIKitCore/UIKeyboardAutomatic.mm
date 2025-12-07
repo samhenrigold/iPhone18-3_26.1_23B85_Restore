@@ -208,7 +208,7 @@ LABEL_4:
       v13 = 0u;
       v14 = 0u;
       v12 = 0u;
-      [(UIKeyboardAutomatic *)self geometryForHeightDelta:change];
+      objc_msgSend_geometryForHeightDelta_(self, change);
       v9 = +[UIPeripheralHost sharedInstance];
       v10[4] = v16;
       v10[5] = v17;
@@ -242,7 +242,7 @@ LABEL_4:
     v14 = 0u;
     v15 = 0u;
     v13 = 0u;
-    [(UIKeyboardAutomatic *)self geometryForHeightDelta:done];
+    objc_msgSend_geometryForHeightDelta_(self, done);
     self->super.m_respondingToImplGeometryChange = 0;
     if (!notification)
     {

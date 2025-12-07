@@ -4,6 +4,7 @@
 - (BOOL)launchInferior:(id)inferior finalEnvironment:(id *)environment error:(id *)error;
 - (BOOL)launchUIServer:(id)server error:(id *)error;
 - (DYEmbeddedDaemon)initWithTransport:(id)transport terminationHandler:(id)handler;
+- (id)captureAPISupportForAPI:(unsigned int)i;
 - (id)getApplications;
 - (id)processApplication:(id)application;
 - (int)launchInferiorWithIdentifer:(id)identifer environment:(id)environment arguments:(id)arguments error:(id *)error;
@@ -50,6 +51,28 @@
   return v9;
 }
 
+- (id)captureAPISupportForAPI:(unsigned int)i
+{
+  if (!i)
+  {
+    v3 = off_10000C440;
+    goto LABEL_5;
+  }
+
+  if (i == 1)
+  {
+    v3 = &off_10000C448;
+LABEL_5:
+    v4 = [objc_alloc(*v3) initWithAPI:*&i];
+    goto LABEL_7;
+  }
+
+  v4 = 0;
+LABEL_7:
+
+  return v4;
+}
+
 - (BOOL)createInferiorTransportAndSetEnvironment:(id)environment uniqueIdentifier:(id)identifier error:(id *)error
 {
   environmentCopy = environment;
@@ -77,11 +100,11 @@
 - (void)cacheInferiorAppIdentifier
 {
   v3 = [RBSProcessIdentifier identifierWithPid:[(DYEmbeddedDaemon *)self inferiorPid]];
-  v7 = [RBSProcessHandle handleForIdentifier:v3 error:0];
+  v8 = [RBSProcessHandle handleForIdentifier:v3 error:0];
 
-  if (v7)
+  if (v8)
   {
-    bundle = [v7 bundle];
+    bundle = [v8 bundle];
     identifier = [bundle identifier];
     guestAppIdentifier = self->_guestAppIdentifier;
     self->_guestAppIdentifier = identifier;
@@ -89,8 +112,8 @@
 
   else
   {
-    [(DYEmbeddedDaemon *)self inferiorPid];
-    DYLog();
+    inferiorPid = [(DYEmbeddedDaemon *)self inferiorPid];
+    DYLog(kDYLoggingLevelError, "failed to get display identifier for process %d", inferiorPid);
   }
 }
 
@@ -217,7 +240,7 @@ LABEL_16:
 
         else
         {
-          DYLog();
+          DYLog(kDYLoggingLevelError, "launchGuestAppWithPath: failed to send posix_spawn message");
           [(DYEmbeddedDaemon *)self terminate:1];
           intValue = 0;
         }
@@ -225,7 +248,7 @@ LABEL_16:
 
       else
       {
-        DYLog();
+        DYLog(kDYLoggingLevelError, "launchGuestAppWithPath: failed to serialize launch parameters");
         [(DYEmbeddedDaemon *)self terminate:1];
         intValue = 0;
         v28 = connect;
@@ -234,7 +257,7 @@ LABEL_16:
 
     else
     {
-      DYLog();
+      DYLog(kDYLoggingLevelError, "launchGuestAppWithPath: failed to connect to helper");
       [(DYEmbeddedDaemon *)self terminate:1];
       intValue = 0;
       v28 = connect;
@@ -247,9 +270,9 @@ LABEL_16:
     v36 = [error description];
     v37 = v36;
     uTF8String = [v36 UTF8String];
-    DYLog();
+    DYLog(kDYLoggingLevelError, "launchGuestAppWithPath: failed to create transport source: %s", uTF8String);
 
-    [(DYEmbeddedDaemon *)self terminate:1, uTF8String];
+    [(DYEmbeddedDaemon *)self terminate:1];
     intValue = 0;
   }
 
@@ -308,15 +331,15 @@ LABEL_25:
   dispatch_semaphore_wait(v17, v18);
   if (*(v35 + 6) == -1)
   {
-    v22 = [identiferCopy description];
-    v23 = v22;
-    uTF8String = [v22 UTF8String];
-    DYLog();
+    v24 = [identiferCopy description];
+    v25 = v24;
+    uTF8String = [v24 UTF8String];
+    DYLog(kDYLoggingLevelError, "failed to get pid for '%s'", uTF8String);
 
     if (error)
     {
-      v24 = [NSDictionary dictionaryWithObject:@"Timed-out waiting for the application to launch." forKey:NSLocalizedDescriptionKey, uTF8String];
-      *error = [DYError errorWithDomain:DYErrorDomain code:5 userInfo:v24];
+      v27 = [NSDictionary dictionaryWithObject:@"Timed-out waiting for the application to launch." forKey:NSLocalizedDescriptionKey];
+      *error = [DYError errorWithDomain:DYErrorDomain code:5 userInfo:v27];
     }
 
     goto LABEL_12;
@@ -328,27 +351,27 @@ LABEL_25:
     v19 = task_for_pid(mach_task_self_, *(v35 + 6), &v30);
     if (v19)
     {
-      v26 = *(v35 + 6);
-      v28 = mach_error_string(v19);
-      DYLog();
+      v20 = *(v35 + 6);
+      v21 = mach_error_string(v19);
+      DYLog(kDYLoggingLevelError, "failed to get task port for process %d: %s", v20, v21);
       kill(*(v35 + 6), 9);
       if (error)
       {
-        v20 = [NSDictionary dictionaryWithObject:@"Failed to get the application's task port." forKey:NSLocalizedDescriptionKey, v26, v28];
-        *error = [DYError errorWithDomain:DYErrorDomain code:29 userInfo:v20];
+        v22 = [NSDictionary dictionaryWithObject:@"Failed to get the application's task port." forKey:NSLocalizedDescriptionKey];
+        *error = [DYError errorWithDomain:DYErrorDomain code:29 userInfo:v22];
       }
 
 LABEL_12:
-      v21 = 0;
+      v23 = 0;
       goto LABEL_13;
     }
   }
 
-  v21 = *(v35 + 6);
+  v23 = *(v35 + 6);
 LABEL_13:
 
   _Block_object_dispose(&v34, 8);
-  return v21;
+  return v23;
 }
 
 - (BOOL)launchUIServer:(id)server error:(id *)error
@@ -402,9 +425,9 @@ LABEL_13:
       error = [(DYTransport *)self->_helperTransport error];
       v19 = [error description];
       uTF8String = [v19 UTF8String];
-      DYLog();
+      DYLog(kDYLoggingLevelError, "failed to create helper transport source: %s", uTF8String);
 
-      [(DYEmbeddedDaemon *)self terminate:1, uTF8String];
+      [(DYEmbeddedDaemon *)self terminate:1];
     }
 
     v29[0] = _NSConcreteStackBlock;
@@ -420,12 +443,12 @@ LABEL_13:
     v24[1] = 3221225472;
     v24[2] = sub_100002EFC;
     v24[3] = &unk_10000C700;
-    v21 = connect;
-    v25 = v21;
+    v22 = connect;
+    v25 = v22;
     selfCopy = self;
     v27 = v8;
     v28 = serverCopy;
-    [v21 notifyOnQueue:&_dispatch_main_q handler:v24];
+    [v22 notifyOnQueue:&_dispatch_main_q handler:v24];
   }
 
   return v13;
@@ -768,7 +791,7 @@ LABEL_40:
           block[2] = sub_100004934;
           block[3] = &unk_10000C770;
           block[4] = self;
-          v52 = messageCopy;
+          v51 = messageCopy;
           dispatch_async(symbolicatorQueue, block);
         }
 
@@ -808,8 +831,8 @@ LABEL_40:
         intValue = [objectPayload intValue];
         if (intValue != [(DYEmbeddedDaemon *)self inferiorPid]&& [(DYEmbeddedDaemon *)self inferiorPid]> 0 || !intValue)
         {
-          DYLog();
-          [(DYEmbeddedDaemon *)self terminate:1, intValue];
+          DYLog(kDYLoggingLevelError, "invalid pid specified in register inferior message: %d", intValue);
+          [(DYEmbeddedDaemon *)self terminate:1];
         }
 
         if (intValue == [(DYEmbeddedDaemon *)self inferiorPid])
@@ -822,20 +845,19 @@ LABEL_40:
 
         else
         {
-          v53[0] = 0;
-          v33 = task_for_pid(mach_task_self_, intValue, v53);
+          v52[0] = 0;
+          v33 = task_for_pid(mach_task_self_, intValue, v52);
           if (v33)
           {
-            v47 = intValue;
-            v48 = mach_error_string(v33);
-            DYLog();
+            v34 = mach_error_string(v33);
+            DYLog(kDYLoggingLevelError, "failed to get task port for process %d: %s", intValue, v34);
           }
 
-          [(DYEmbeddedDaemon *)self setInferiorPid:intValue, v47, v48];
+          [(DYEmbeddedDaemon *)self setInferiorPid:intValue];
           [(DYEmbeddedDaemon *)self observeInferior];
-          v34 = objc_alloc_init(DYGPUStatsReport);
+          v35 = objc_alloc_init(DYGPUStatsReport);
           statsReport = self->_statsReport;
-          self->_statsReport = v34;
+          self->_statsReport = v35;
 
           [(DYGPUStatsReport *)self->_statsReport setup];
           [(DYGPUStatsReport *)self->_statsReport startCollectingStats];
@@ -922,39 +944,39 @@ LABEL_40:
       v7 = [objectPayload URLForResource:@"version" withExtension:@"plist"];
       if (v7)
       {
-        v49 = [[NSDictionary alloc] initWithContentsOfURL:v7];
+        v48 = [[NSDictionary alloc] initWithContentsOfURL:v7];
       }
 
       else
       {
-        v49 = 0;
+        v48 = 0;
       }
 
       DYGetGLInterposeDylibPath();
-      v36 = DYMachOGetDylibCompatibilityVersion();
-      if (v36)
+      v37 = DYMachOGetDylibCompatibilityVersion();
+      if (v37)
       {
-        v37 = v36;
+        v38 = v37;
       }
 
       else
       {
-        v37 = 1572864;
+        v38 = 1572864;
       }
 
       DYGetMTLInterposeDylibPath();
-      v38 = DYMachOGetDylibCompatibilityVersion();
-      v39 = DYCheckGLDispatchTableSize();
-      v40 = [NSNumber numberWithUnsignedInt:v38];
-      v41 = [NSNumber numberWithUnsignedInt:v37];
-      v42 = [NSNumber numberWithBool:v39];
+      v39 = DYMachOGetDylibCompatibilityVersion();
+      v40 = DYCheckGLDispatchTableSize();
+      v41 = [NSNumber numberWithUnsignedInt:v39];
+      v42 = [NSNumber numberWithUnsignedInt:v38];
+      v43 = [NSNumber numberWithBool:v40];
       infoDictionary = [objectPayload infoDictionary];
-      v44 = [NSMutableDictionary dictionaryWithObjectsAndKeys:v40, @"interpose_version_metal", v41, @"interpose_version", v42, @"gl-dispatch-table-size-matches", infoDictionary, @"info", v49, @"version", 0];
+      v45 = [NSMutableDictionary dictionaryWithObjectsAndKeys:v41, @"interpose_version_metal", v42, @"interpose_version", v43, @"gl-dispatch-table-size-matches", infoDictionary, @"info", v48, @"version", 0];
 
-      plist_filter(v44);
-      v45 = [DYTransportMessage messageWithKind:1290 plistPayload:v44];
+      plist_filter(v45);
+      v46 = [DYTransportMessage messageWithKind:1290 plistPayload:v45];
       transport4 = [(DYEmbeddedDaemon *)self transport];
-      [transport4 send:v45 inReplyTo:messageCopy error:0];
+      [transport4 send:v46 inReplyTo:messageCopy error:0];
 
       goto LABEL_55;
     }
@@ -994,9 +1016,9 @@ LABEL_56:
   if (kind != 1288)
   {
 LABEL_33:
-    v50.receiver = self;
-    v50.super_class = DYEmbeddedDaemon;
-    [(DYEmbeddedDaemon *)&v50 handleMessage:messageCopy];
+    v49.receiver = self;
+    v49.super_class = DYEmbeddedDaemon;
+    [(DYEmbeddedDaemon *)&v49 handleMessage:messageCopy];
   }
 
 LABEL_57:
@@ -1004,7 +1026,7 @@ LABEL_57:
 
 - (void)terminate:(int)terminate
 {
-  DYLog();
+  DYLog(kDYLoggingLevelMessage, "terminating daemon %p", self);
   inferiorPid = [(DYEmbeddedDaemon *)self inferiorPid];
   [(DYEmbeddedDaemon *)self setInferiorPid:0];
   statsReport = self->_statsReport;
@@ -1035,9 +1057,9 @@ LABEL_57:
   transport2 = [(DYEmbeddedDaemon *)self transport];
   [transport2 invalidate];
 
-  v10.receiver = self;
-  v10.super_class = DYEmbeddedDaemon;
-  [(DYEmbeddedDaemon *)&v10 invalidate];
+  v9.receiver = self;
+  v9.super_class = DYEmbeddedDaemon;
+  [(DYEmbeddedDaemon *)&v9 invalidate];
   (*(self->_terminationHandler + 2))();
 }
 

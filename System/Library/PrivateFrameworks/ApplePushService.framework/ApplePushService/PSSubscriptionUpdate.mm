@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)subscriptionsStatusAsString:(int)string;
 - (int)subscriptionsStatus;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -23,6 +24,21 @@
   {
     return 0;
   }
+}
+
+- (id)subscriptionsStatusAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"RESEND_SUBSCRIPTIONS";
+  }
+
+  return v4;
 }
 
 - (id)description
@@ -61,7 +77,6 @@
 {
   if (*&self->_has)
   {
-    subscriptionsStatus = self->_subscriptionsStatus;
     PBDataWriterWriteInt32Field();
   }
 }

@@ -94,21 +94,21 @@ uint64_t __32__MCLImageView_setImageDelayed___block_invoke(uint64_t a1)
   objc_storeStrong(v14, 0);
 }
 
-uint64_t __41__MCLImageView_backgroundDecompressImage__block_invoke(uint64_t result)
+void *__41__MCLImageView_backgroundDecompressImage__block_invoke(void *result)
 {
   v2 = result;
   v5 = result;
   v4 = result;
-  if (*(result + 32) == *(*(result + 40) + 512))
+  if (result[4] == *(result[5] + 512))
   {
-    objc_storeStrong((*(result + 40) + 512), 0);
-    [*(v2 + 40) willChangeValueForKey:?];
-    v1 = *(v2 + 32);
-    v3.receiver = *(v2 + 40);
+    objc_storeStrong((result[5] + 512), 0);
+    [v2[5] willChangeValueForKey:?];
+    v1 = v2[4];
+    v3.receiver = v2[5];
     v3.super_class = MCLImageView;
     objc_msgSendSuper2(&v3, sel_setImage_, v1);
-    [*(v2 + 40) didChangeValueForKey:@"image"];
-    return [*(v2 + 40) setNeedsLayout];
+    [v2[5] didChangeValueForKey:@"image"];
+    return [v2[5] setNeedsLayout];
   }
 
   return result;

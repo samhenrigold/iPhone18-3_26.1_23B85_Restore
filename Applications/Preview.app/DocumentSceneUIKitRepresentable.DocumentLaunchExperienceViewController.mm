@@ -36,7 +36,7 @@
   v4.super_class = type metadata accessor for DocumentSceneUIKitRepresentable.DocumentLaunchExperienceViewController();
   selfCopy = self;
   [(DocumentSceneUIKitRepresentable.DocumentLaunchExperienceViewController *)&v4 viewDidLoad];
-  sub_1000822E8(*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtCV7Preview31DocumentSceneUIKitRepresentable38DocumentLaunchExperienceViewController_documentViewController), 1, 0);
+  sub_1000822E8(*(&selfCopy->super.super.super.super.isa + OBJC_IVAR____TtCV7Preview31DocumentSceneUIKitRepresentable38DocumentLaunchExperienceViewController_documentViewController), 1, 0, 0);
 }
 
 - (_TtCV7Preview31DocumentSceneUIKitRepresentable38DocumentLaunchExperienceViewController)init

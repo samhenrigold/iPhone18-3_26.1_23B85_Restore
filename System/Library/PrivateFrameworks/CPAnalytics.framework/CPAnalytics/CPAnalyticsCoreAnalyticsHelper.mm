@@ -26,7 +26,7 @@
 
 void __59__CPAnalyticsCoreAnalyticsHelper_buildCACompatiblePayload___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 40) isValidCoreAnalyticsValueType:v6])
@@ -40,15 +40,13 @@ void __59__CPAnalyticsCoreAnalyticsHelper_buildCACompatiblePayload___block_invok
     v8 = CPAnalyticsLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&dword_24260A000, v8, OS_LOG_TYPE_INFO, "[CPAnalyticsCoreAnalyticsHelper] Dropping payload with unsupported value class:%{public}@, key:%{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v5;
+      _os_log_impl(&dword_24260A000, v8, OS_LOG_TYPE_INFO, "[CPAnalyticsCoreAnalyticsHelper] Dropping payload with unsupported value class:%{public}@, key:%{public}@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isValidCoreAnalyticsValueType:(id)type

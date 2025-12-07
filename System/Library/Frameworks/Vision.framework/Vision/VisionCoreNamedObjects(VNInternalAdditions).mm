@@ -1,11 +1,11 @@
 @interface VisionCoreNamedObjects(VNInternalAdditions)
 - (uint64_t)VNEnumerateFloatValuesAtIndexes:()VNInternalAdditions asTensor:usingBlock:error:;
-- (uint64_t)VNGetConfidenceValue:()VNInternalAdditions asTensor:error:;
+- (void)VNGetConfidenceValue:()VNInternalAdditions asTensor:error:;
 @end
 
 @implementation VisionCoreNamedObjects(VNInternalAdditions)
 
-- (uint64_t)VNGetConfidenceValue:()VNInternalAdditions asTensor:error:
+- (void)VNGetConfidenceValue:()VNInternalAdditions asTensor:error:
 {
   v8 = a4;
   shape = [v8 shape];

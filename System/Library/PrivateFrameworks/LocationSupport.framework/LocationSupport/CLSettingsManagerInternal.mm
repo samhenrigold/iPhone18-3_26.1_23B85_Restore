@@ -13,9 +13,10 @@
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index
 {
   v5 = index + 1;
-  if (index + 1 < [blocked count])
+  if (index + 1 < objc_msgSend_count(blocked, a2, blocked))
   {
-    [objc_msgSend(blocked objectAtIndexedSubscript:{v5), "becameFatallyBlocked:index:", blocked, v5}];
+    v7 = objc_msgSend_objectAtIndexedSubscript_(blocked, v6, v5);
+    objc_msgSend_becameFatallyBlocked_index_(v7, v8, blocked, v5);
   }
 }
 
@@ -31,112 +32,110 @@
 
 - (void)beginService
 {
-  -[CLSettingsManagerInternal setClients:](self, "setClients:", [MEMORY[0x1E695DFA8] set]);
+  v4 = objc_msgSend_set(MEMORY[0x1E695DFA8], a2, v2);
+  objc_msgSend_setClients_(self, v5, v4);
 
-  [(CLSettingsManagerInternal *)self setSettingsDictionary:0];
+  objc_msgSend_setSettingsDictionary_(self, v6, 0);
 }
 
 - (void)endService
 {
-  [(CLSettingsManagerInternal *)self setSettingsDictionary:0];
+  objc_msgSend_setSettingsDictionary_(self, a2, 0);
 
-  [(CLSettingsManagerInternal *)self setClients:0];
+  objc_msgSend_setClients_(self, v3, 0);
 }
 
 - (id)syncgetSettingsAndRegisterForUpdates:(id)updates
 {
-  [(NSMutableSet *)self->_clients addObject:updates];
-  v4 = MEMORY[0x1E695DF20];
+  objc_msgSend_addObject_(self->_clients, a2, updates);
+  v5 = MEMORY[0x1E695DF20];
   settingsDictionary = self->_settingsDictionary;
 
-  return [v4 dictionaryWithDictionary:settingsDictionary];
+  return objc_msgSend_dictionaryWithDictionary_(v5, v4, settingsDictionary);
 }
 
 - (void)updateClientsWithDictionary:(id)dictionary
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     __assert_rtn("[CLSettingsManagerInternal updateClientsWithDictionary:]", "CLSettingsManagerInternal.m", 52, "![dictionary isKindOfClass:[NSMutableDictionary class]]");
   }
 
-  v13 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
+  v13 = 0u;
   clients = self->_clients;
-  v6 = [(NSMutableSet *)clients countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, v5, &v12, v16, 16);
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v12;
+    v9 = v7;
+    v10 = *v13;
     do
     {
-      v9 = 0;
+      v11 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(clients);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didUpdateSettings:dictionary];
+        objc_msgSend_didUpdateSettings_(*(*(&v12 + 1) + 8 * v11++), v8, dictionary);
       }
 
-      while (v7 != v9);
-      v7 = [(NSMutableSet *)clients countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v9 != v11);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, v8, &v12, v16, 16);
     }
 
-    while (v7);
+    while (v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)syncgetSetValue:(id)value forKey:(id)key withoutNotifying:(id)notifying
 {
-  v21 = *MEMORY[0x1E69E9840];
-  [(NSMutableDictionary *)self->_settingsDictionary setValue:value forKey:key];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:self->_settingsDictionary];
-  v16 = 0u;
-  v17 = 0u;
+  v23 = *MEMORY[0x1E69E9840];
+  objc_msgSend_setValue_forKey_(self->_settingsDictionary, a2, value, key);
+  v8 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF20], v7, self->_settingsDictionary);
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   clients = self->_clients;
-  v9 = [(NSMutableSet *)clients countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, v10, &v18, v22, 16);
+  if (v11)
   {
-    v10 = v9;
-    v11 = *v17;
+    v13 = v11;
+    v14 = *v19;
     do
     {
-      v12 = 0;
+      v15 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(clients);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * v12);
-        if (v13 != notifying)
+        v16 = *(*(&v18 + 1) + 8 * v15);
+        if (v16 != notifying)
         {
-          [v13 didUpdateSettings:v7];
+          objc_msgSend_didUpdateSettings_(v16, v12, v8);
         }
 
-        ++v12;
+        ++v15;
       }
 
-      while (v10 != v12);
-      v10 = [(NSMutableSet *)clients countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v13 != v15);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(clients, v12, &v18, v22, 16);
     }
 
-    while (v10);
+    while (v13);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 @end

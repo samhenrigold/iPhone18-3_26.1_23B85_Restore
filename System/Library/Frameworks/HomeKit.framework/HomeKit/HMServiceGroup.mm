@@ -127,7 +127,7 @@
 
 void __37__HMServiceGroup_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -135,20 +135,19 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke(uint64_t a1, void *a
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed service via service group merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed service via service group merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HMServiceGroup_mergeFromNewObject___block_invoke_54(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) home];
   v5 = [v3 accessory];
@@ -169,11 +168,11 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_54(uint64_t a1, void
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v14 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v14;
-        v26 = 2112;
-        v27 = v3;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Added service via service group merge: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v14;
+        v25 = 2112;
+        v26 = v3;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Added service via service group merge: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -186,13 +185,13 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_54(uint64_t a1, void
       {
         v21 = HMFGetLogIdentifier();
         v22 = [v3 instanceID];
-        v24 = 138543874;
-        v25 = v21;
-        v26 = 2112;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v7;
-        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to find service with instance ID : %@ on accessory : %@", &v24, 0x20u);
+        v23 = 138543874;
+        v24 = v21;
+        v25 = 2112;
+        v26 = v22;
+        v27 = 2112;
+        v28 = v7;
+        _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to find service with instance ID : %@ on accessory : %@", &v23, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -209,17 +208,15 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_54(uint64_t a1, void
       v18 = HMFGetLogIdentifier();
       v19 = [v3 accessory];
       v20 = [v19 uuid];
-      v24 = 138543618;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v20;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the accessory with UUID : %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v20;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to find the accessory with UUID : %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HMServiceGroup_mergeFromNewObject___block_invoke_55(uint64_t a1, void *a2)
@@ -281,7 +278,7 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_63(uint64_t a1)
 
 uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_2_64(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -289,17 +286,15 @@ uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_2_64(uint64_t a1
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) name];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateNameForServiceGroup : %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateNameForServiceGroup : %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) home:*(a1 + 48) didUpdateNameForServiceGroup:*(a1 + 32)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) home:*(a1 + 48) didUpdateNameForServiceGroup:*(a1 + 32)];
 }
 
 void __37__HMServiceGroup_mergeFromNewObject___block_invoke_2_59(id *a1)
@@ -323,7 +318,7 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_2_59(id *a1)
 
 uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3_60(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -331,17 +326,15 @@ uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3_60(uint64_t a1
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didAddService with service: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didAddService with service: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) home:*(a1 + 56) didAddService:*(a1 + 40) toServiceGroup:*(a1 + 32)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) home:*(a1 + 56) didAddService:*(a1 + 40) toServiceGroup:*(a1 + 32)];
 }
 
 void __37__HMServiceGroup_mergeFromNewObject___block_invoke_2(id *a1)
@@ -365,7 +358,7 @@ void __37__HMServiceGroup_mergeFromNewObject___block_invoke_2(id *a1)
 
 uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -373,17 +366,15 @@ uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didRemoveService with service: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didRemoveService with service: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) home:*(a1 + 56) didRemoveService:*(a1 + 40) fromServiceGroup:*(a1 + 32)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) home:*(a1 + 56) didRemoveService:*(a1 + 40) fromServiceGroup:*(a1 + 32)];
 }
 
 - (id)logIdentifier
@@ -420,28 +411,28 @@ uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3(uint64_t a1)
 
 - (void)updateApplicationData:(id)data completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup updateApplicationData:completionHandler:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup updateApplicationData:completionHandler:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v18;
-      v23 = 2112;
-      v24 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v21 = v17;
+      v22 = 2112;
+      v23 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v7 = handlerCopy;
@@ -459,14 +450,12 @@ uint64_t __37__HMServiceGroup_mergeFromNewObject___block_invoke_3(uint64_t a1)
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     [delegateCaller callCompletion:v7 error:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addOrRemove:(BOOL)remove service:(id)service completionHandler:(id)handler
 {
   removeCopy = remove;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   handlerCopy = handler;
   context = [(HMServiceGroup *)self context];
@@ -492,7 +481,7 @@ LABEL_21:
       if (accessory && home)
       {
         uuid = [delegateCaller uuid];
-        v41 = v15;
+        v40 = v15;
         uuid2 = [v15 uuid];
         v18 = [uuid isEqual:uuid2];
 
@@ -514,33 +503,33 @@ LABEL_21:
             {
               uuid3 = [accessory uuid];
               instanceID = [serviceCopy instanceID];
-              v34 = @"kRemoveServiceRequestKey";
+              v33 = @"kRemoveServiceRequestKey";
               if (removeCopy)
               {
-                v34 = @"kAddServiceRequestKey";
+                v33 = @"kAddServiceRequestKey";
               }
 
-              v40 = v34;
+              v39 = v33;
               uuid4 = [(HMServiceGroup *)self uuid];
-              v49[0] = @"kAccessoryUUID";
+              v48[0] = @"kAccessoryUUID";
               uUIDString = [uuid3 UUIDString];
-              v49[1] = @"kServiceInstanceID";
-              v50[0] = uUIDString;
-              v50[1] = instanceID;
-              v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
-              v42[0] = MEMORY[0x1E69E9820];
-              v42[1] = 3221225472;
-              v42[2] = __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke;
-              v42[3] = &unk_1E7549020;
-              v43 = v11;
+              v48[1] = @"kServiceInstanceID";
+              v49[0] = uUIDString;
+              v49[1] = instanceID;
+              v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+              v41[0] = MEMORY[0x1E69E9820];
+              v41[1] = 3221225472;
+              v41[2] = __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke;
+              v41[3] = &unk_1E7549020;
+              v42 = v11;
               selfCopy = self;
-              v45 = uuid3;
-              v46 = instanceID;
-              v47 = handlerCopy;
-              v48 = removeCopy;
-              v35 = instanceID;
-              v36 = uuid3;
-              [(_HMContext *)v43 sendMessage:v40 target:uuid4 payload:v37 responseHandler:v42];
+              v44 = uuid3;
+              v45 = instanceID;
+              v46 = handlerCopy;
+              v47 = removeCopy;
+              v34 = instanceID;
+              v35 = uuid3;
+              [(_HMContext *)v42 sendMessage:v39 target:uuid4 payload:v36 responseHandler:v41];
 
               goto LABEL_19;
             }
@@ -562,7 +551,7 @@ LABEL_21:
         [delegateCaller2 callCompletion:handlerCopy error:v30];
 
 LABEL_19:
-        v15 = v41;
+        v15 = v40;
         goto LABEL_20;
       }
 
@@ -590,9 +579,9 @@ LABEL_20:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v52 = v27;
-    v53 = 2080;
-    v54 = "[HMServiceGroup _addOrRemove:service:completionHandler:]";
+    v51 = v27;
+    v52 = 2080;
+    v53 = "[HMServiceGroup _addOrRemove:service:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -603,8 +592,6 @@ LABEL_20:
     (*(handlerCopy + 2))(handlerCopy, delegateCaller);
 LABEL_22:
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -645,29 +632,29 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
 
 - (void)removeService:(HMService *)service completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = service;
   v7 = completion;
   context = [(HMServiceGroup *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup removeService:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup removeService:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -679,8 +666,8 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     block[2] = __50__HMServiceGroup_removeService_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -693,9 +680,9 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMServiceGroup removeService:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMServiceGroup removeService:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -703,35 +690,33 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addService:(HMService *)service completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = service;
   v7 = completion;
   context = [(HMServiceGroup *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup addService:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup addService:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -743,8 +728,8 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     block[2] = __47__HMServiceGroup_addService_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -757,9 +742,9 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMServiceGroup addService:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMServiceGroup addService:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -767,13 +752,11 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateName:(id)name completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   context = [(HMServiceGroup *)self context];
@@ -794,29 +777,29 @@ void __57__HMServiceGroup__addOrRemove_service_completionHandler___block_invoke(
         if (!home)
         {
           delegateCaller = [v9 delegateCaller];
-          v29 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
-          [delegateCaller callCompletion:handlerCopy error:v29];
+          v28 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
+          [delegateCaller callCompletion:handlerCopy error:v28];
 
           goto LABEL_16;
         }
 
         name = [(HMServiceGroup *)self name];
-        v28 = [name isEqualToString:nameCopy];
+        v27 = [name isEqualToString:nameCopy];
 
-        if (!v28)
+        if (!v27)
         {
           uuid = [(HMServiceGroup *)self uuid];
-          v36 = @"kServiceGroupName";
-          v37 = nameCopy;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __48__HMServiceGroup__updateName_completionHandler___block_invoke;
-          v32[3] = &unk_1E754E480;
-          v33 = v9;
+          v35 = @"kServiceGroupName";
+          v36 = nameCopy;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __48__HMServiceGroup__updateName_completionHandler___block_invoke;
+          v31[3] = &unk_1E754E480;
+          v32 = v9;
           selfCopy = self;
-          v35 = handlerCopy;
-          [(_HMContext *)v33 sendMessage:uuid target:v31 payload:v32 responseHandler:?];
+          v34 = handlerCopy;
+          [(_HMContext *)v32 sendMessage:uuid target:v30 payload:v31 responseHandler:?];
 
           goto LABEL_17;
         }
@@ -839,7 +822,7 @@ LABEL_16:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v14;
+        v38 = v14;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@New name is longer than the pre-defined max length", buf, 0xCu);
       }
 
@@ -870,9 +853,9 @@ LABEL_16:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v21;
-    v40 = 2080;
-    v41 = "[HMServiceGroup _updateName:completionHandler:]";
+    v38 = v21;
+    v39 = 2080;
+    v40 = "[HMServiceGroup _updateName:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -883,8 +866,6 @@ LABEL_16:
     (*(handlerCopy + 2))(handlerCopy, home);
 LABEL_17:
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -914,29 +895,29 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
 
 - (void)updateName:(NSString *)name completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = name;
   v7 = completion;
   context = [(HMServiceGroup *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup updateName:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMServiceGroup updateName:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -948,8 +929,8 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
     block[2] = __47__HMServiceGroup_updateName_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -962,9 +943,9 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMServiceGroup updateName:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMServiceGroup updateName:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -972,58 +953,56 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeServices:(id)services
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   array = [MEMORY[0x1E695DF70] array];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = servicesCopy;
-  v30 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+  if (v29)
   {
-    v29 = *v53;
+    v28 = *v52;
     do
     {
       v4 = 0;
       do
       {
-        if (*v53 != v29)
+        if (*v52 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v4;
-        v5 = *(*(&v52 + 1) + 8 * v4);
+        v31 = v4;
+        v5 = *(*(&v51 + 1) + 8 * v4);
+        v47 = 0u;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
         services = [(HMServiceGroup *)self services];
-        v6 = [services countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v6 = [services countByEnumeratingWithState:&v47 objects:v56 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v49;
+          v8 = *v48;
           do
           {
             v9 = 0;
-            v34 = v7;
+            v33 = v7;
             do
             {
-              if (*v49 != v8)
+              if (*v48 != v8)
               {
                 objc_enumerationMutation(services);
               }
 
-              v10 = *(*(&v48 + 1) + 8 * v9);
+              v10 = *(*(&v47 + 1) + 8 * v9);
               accessory = [v10 accessory];
               uuid = [accessory uuid];
               accessory2 = [v5 accessory];
@@ -1033,12 +1012,12 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
                 instanceID = [v10 instanceID];
                 [v5 instanceID];
                 v17 = v16 = v8;
-                v37 = [instanceID isEqualToNumber:v17];
+                v36 = [instanceID isEqualToNumber:v17];
 
                 v8 = v16;
-                v7 = v34;
+                v7 = v33;
 
-                if (v37)
+                if (v36)
                 {
                   [array addObject:v10];
                 }
@@ -1052,20 +1031,20 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
             }
 
             while (v7 != v9);
-            v7 = [services countByEnumeratingWithState:&v48 objects:v57 count:16];
+            v7 = [services countByEnumeratingWithState:&v47 objects:v56 count:16];
           }
 
           while (v7);
         }
 
-        v4 = v32 + 1;
+        v4 = v31 + 1;
       }
 
-      while (v32 + 1 != v30);
-      v30 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      while (v31 + 1 != v29);
+      v29 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   currentServices = [(HMServiceGroup *)self currentServices];
@@ -1073,49 +1052,47 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
 
   home = [(HMServiceGroup *)self home];
   delegate = [home delegate];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v38 = array;
-  v20 = [v38 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v37 = array;
+  v20 = [v37 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v45;
+    v22 = *v44;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v45 != v22)
+        if (*v44 != v22)
         {
-          objc_enumerationMutation(v38);
+          objc_enumerationMutation(v37);
         }
 
-        v24 = *(*(&v44 + 1) + 8 * i);
+        v24 = *(*(&v43 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           context = [(HMServiceGroup *)self context];
           delegateCaller = [context delegateCaller];
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __34__HMServiceGroup__removeServices___block_invoke;
-          v39[3] = &unk_1E754DE30;
-          v40 = delegate;
-          v41 = home;
-          v42 = v24;
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __34__HMServiceGroup__removeServices___block_invoke;
+          v38[3] = &unk_1E754DE30;
+          v39 = delegate;
+          v40 = home;
+          v41 = v24;
           selfCopy = self;
-          [delegateCaller invokeBlock:v39];
+          [delegateCaller invokeBlock:v38];
         }
       }
 
-      v21 = [v38 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v21 = [v37 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assistantIdentifier
@@ -1212,7 +1189,7 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
 
 - (void)__configureWithContext:(id)context home:(id)home
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   homeCopy = home;
   v8 = objc_autoreleasePoolPush();
@@ -1221,11 +1198,11 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = contextCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = contextCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -1234,13 +1211,11 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
   {
     [(HMServiceGroup *)selfCopy setContext:contextCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unconfigure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1251,9 +1226,9 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring serviceGroup", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring serviceGroup", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1268,15 +1243,13 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (HMServiceGroup)initWithName:(id)name uuid:(id)uuid
@@ -1322,12 +1295,11 @@ void __48__HMServiceGroup__updateName_completionHandler___block_invoke(uint64_t 
 
 uint64_t __29__HMServiceGroup_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_26631;
-  logCategory__hmf_once_v21_26631 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_26631;
+  logCategory__hmf_once_v21_26631 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

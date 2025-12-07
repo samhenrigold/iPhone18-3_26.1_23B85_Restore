@@ -26,12 +26,11 @@ uint64_t start()
 uint64_t sub_100001DF8(uint64_t a1)
 {
   v1 = kManagedAssetLogSubsystem;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = os_log_create(v1, [v4 UTF8String]);
-  v6 = off_100127B70;
-  off_100127B70 = v5;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = os_log_create(v1, [v3 UTF8String]);
+  v5 = off_100127B70;
+  off_100127B70 = v4;
 
   qword_100129370 = objc_alloc_init(MANotificationEngine);
 
@@ -42,7 +41,7 @@ void sub_1000020D0(void *a1)
 {
   if (os_log_type_enabled(off_100127B70, OS_LOG_TYPE_DEBUG))
   {
-    sub_1000041CC(a1);
+    sub_1000041CC();
   }
 
   v2 = [NSKeyedArchiver archivedDataWithRootObject:a1[4] requiringSecureCoding:1 error:0];
@@ -61,7 +60,7 @@ void sub_1000022A4(void *a1)
 {
   if (os_log_type_enabled(off_100127B70, OS_LOG_TYPE_DEBUG))
   {
-    sub_100004254(a1);
+    sub_100004254();
   }
 
   v2 = *(a1[4] + 8);
@@ -369,7 +368,7 @@ void sub_100003284(uint64_t a1)
       v4 = *(*(a1 + 32) + 80);
       if (v3)
       {
-        [v3 auditToken];
+        objc_msgSend_auditToken(v3);
       }
 
       else
@@ -678,21 +677,6 @@ void sub_1000040A8(id a1)
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.vpg.managedassets.notify.iCloudSyncUp", 0, 0, 1u);
 }
 
-void sub_1000041CC(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 48);
-  sub_1000041C0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_100004254(uint64_t a1)
-{
-  v6 = *(a1 + 48);
-  sub_1000041C0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_100004550(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -729,18 +713,17 @@ void sub_100004760(uint64_t a1, void *a2)
 
 void sub_1000049C8(uint64_t a1)
 {
-  v2 = objc_alloc_init(MAPolicyEngine);
-  v3 = qword_100129380;
-  qword_100129380 = v2;
+  v1 = objc_alloc_init(MAPolicyEngine);
+  v2 = qword_100129380;
+  qword_100129380 = v1;
 
-  v4 = kManagedAssetLogSubsystem;
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v10 = NSStringFromClass(v6);
-  v7 = v10;
-  v8 = os_log_create(v4, [v10 UTF8String]);
-  v9 = off_100127BD8;
-  off_100127BD8 = v8;
+  v3 = kManagedAssetLogSubsystem;
+  v4 = objc_opt_class();
+  v8 = NSStringFromClass(v4);
+  v5 = v8;
+  v6 = os_log_create(v3, [v8 UTF8String]);
+  v7 = off_100127BD8;
+  off_100127BD8 = v6;
 }
 
 void sub_100005D18(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -876,7 +859,7 @@ BOOL MADataEqual(void *a1, void *a2)
   return v6;
 }
 
-id MAExpandKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+id MAExpandKey(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = [[NSMutableData alloc] initWithLength:a3];
   if (!v5)
@@ -885,7 +868,7 @@ id MAExpandKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
     if (os_log_type_enabled(off_100127BE0, OS_LOG_TYPE_ERROR))
     {
 LABEL_6:
-      sub_100006BF8(a4);
+      sub_100006BF8();
     }
 
 LABEL_7:
@@ -912,7 +895,7 @@ LABEL_9:
   return v6;
 }
 
-id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
+id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v5 = a3;
   if (v5)
@@ -921,7 +904,6 @@ id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
     if (v6)
     {
       v7 = ccsha256_di();
-      v8 = (((*(v7 + 8) + ((*(v7 + 8) + *(v7 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
       __chkstk_darwin(v7);
       cchmac_init();
       [v5 length];
@@ -929,9 +911,8 @@ id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
       cchmac_update();
       [v6 mutableBytes];
       cchmac_final();
-      v9 = (*(v7 + 8) + *(v7 + 16) + 19) & 0xFFFFFFFFFFFFFFF8;
       cc_clear();
-      v10 = v6;
+      v8 = v6;
     }
 
     else
@@ -939,7 +920,7 @@ id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
       *a4 = createManagedAssetError();
       if (os_log_type_enabled(off_100127BE0, OS_LOG_TYPE_ERROR))
       {
-        sub_100006C68(a4);
+        sub_100006C68();
       }
     }
   }
@@ -958,7 +939,7 @@ id MACalculateAssetIdAuthToken(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
   return v6;
 }
 
-id MACalculateSHA256Hash(void *a1, uint64_t *a2)
+id MACalculateSHA256Hash(void *a1, void *a2)
 {
   v3 = a1;
   if (v3)
@@ -975,7 +956,7 @@ id MACalculateSHA256Hash(void *a1, uint64_t *a2)
       *a2 = createManagedAssetError();
       if (os_log_type_enabled(off_100127BE0, OS_LOG_TYPE_ERROR))
       {
-        sub_100006D18(a2);
+        sub_100006D18();
       }
     }
   }
@@ -1024,35 +1005,28 @@ id MACalculateSHA256HashForFile(void *a1, void *a2)
   return v7;
 }
 
-uint64_t *sub_100006BE0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void sub_100006BF8()
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void sub_100006BF8(uint64_t *a1)
-{
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_100006BD4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100006C68(uint64_t *a1)
+void sub_100006C68()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_100006BD4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100006D18(uint64_t *a1)
+void sub_100006D18()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_100006BD4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 id sub_100009414(uint64_t a1, uint64_t a2)
@@ -1094,7 +1068,7 @@ void sub_1000099BC(uint64_t a1, void *a2)
   v10 = 0;
   if ([*(a1 + 40) fileExistsAtPath:v5 isDirectory:&v10] && v10 == 1)
   {
-    v6 = off_100127CA8[0]();
+    v6 = off_100127CA8();
     v7 = [NSURL fileURLWithPath:v5];
     v8 = [(objc_class *)v6 pathInfoWithURL:v7];
 
@@ -1137,7 +1111,7 @@ Class sub_10000A080()
 
   result = objc_getClass("SAPathInfo");
   qword_1001293A0 = result;
-  off_100127CA8[0] = sub_10000A0D4;
+  off_100127CA8 = sub_10000A0D4;
   return result;
 }
 
@@ -1154,10 +1128,11 @@ Class sub_10000A10C()
   return result;
 }
 
-void sub_10000A178(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A178(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000A358(char a1, NSObject *a2)
@@ -1215,38 +1190,28 @@ id getClientBundleString(_OWORD *a1)
 double sub_10000A868(uint64_t a1)
 {
   v2 = kManagedAssetLogSubsystem;
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = os_log_create(v2, [v5 UTF8String]);
-  v7 = off_100127CB8;
-  off_100127CB8 = v6;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = os_log_create(v2, [v4 UTF8String]);
+  v6 = off_100127CB8;
+  off_100127CB8 = v5;
 
-  v8 = +[NSMutableDictionary dictionary];
-  v9 = qword_1001293C0;
-  qword_1001293C0 = v8;
+  v7 = +[NSMutableDictionary dictionary];
+  v8 = qword_1001293C0;
+  qword_1001293C0 = v7;
 
-  v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v11 = dispatch_queue_create("com.apple.managedassetsd.calogger.clientbundleaccess", v10);
-  v12 = qword_1001293D0;
-  qword_1001293D0 = v11;
+  v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v10 = dispatch_queue_create("com.apple.managedassetsd.calogger.clientbundleaccess", v9);
+  v11 = qword_1001293D0;
+  qword_1001293D0 = v10;
 
   info = 0;
   mach_timebase_info(&info);
-  LODWORD(v13) = info.numer;
-  result = v13 / (1000 * info.denom);
+  LODWORD(v12) = info.numer;
+  result = v12 / (1000 * info.denom);
   qword_100127CC0 = *&result;
   byte_100127CC8 = *(a1 + 40);
   return result;
-}
-
-uint64_t sub_10000AA68(uint64_t a1)
-{
-  v4 = *(a1 + 56);
-  v5 = *(a1 + 72);
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AnalyticsSendEventLazy();
 }
 
 id sub_10000AAF4(uint64_t a1)
@@ -1363,58 +1328,42 @@ uint64_t MAAssetKeyStateIMStoreInit()
   return _objc_release_x1();
 }
 
-uint64_t sub_10000DEE4@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void sub_10000DFCC()
 {
-  *(v3 - 8) = a3;
-  v4 = *(result + 24);
-  v5 = *a2;
-  return result;
-}
-
-void sub_10000DF5C(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  sub_10000DED0();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to createStore for %@ error: %@");
-}
-
-void sub_10000DFCC(uint64_t a1, uint64_t *a2)
-{
-  sub_10000DEE4(a1, a2, __stack_chk_guard);
+  sub_10000DEE4(__stack_chk_guard);
   sub_10000DEB8();
-  sub_100005D18(&_mh_execute_header, v2, v3, "%@ doesn't exist and failed to create, error: %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "%@ doesn't exist and failed to create, error: %@");
 }
 
-void sub_10000E034(uint64_t a1, uint64_t *a2)
+void sub_10000E194()
 {
-  v2 = *a2;
-  sub_10000A16C();
-  sub_100005D18(&_mh_execute_header, v3, v4, "failed to update record for cloud upload assetId: %@, error: %@");
-}
-
-void sub_10000E194(uint64_t a1, uint64_t *a2)
-{
-  sub_10000DEE4(a1, a2, __stack_chk_guard);
+  sub_10000DEE4(__stack_chk_guard);
   sub_10000DEB8();
-  sub_100005D18(&_mh_execute_header, v2, v3, "error query data in %@ error=%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "error query data in %@ error=%@");
 }
 
-void sub_10000E1FC(uint64_t a1)
+void sub_10000E2D4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 24);
-  sub_10000DED0();
-  sub_100005D18(&_mh_execute_header, v2, v3, "%@ doesn't exist and failed to create, error: %@");
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000A178(&_mh_execute_header, a2, a3, "error query data in assetKeyStateStore error=%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000E344(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000A178(&_mh_execute_header, a2, a3, "error delete all data in assetKeyStateStore error=%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t sub_10000E690(uint64_t a1)
 {
   v1 = kManagedAssetLogSubsystem;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = os_log_create(v1, [v4 UTF8String]);
-  v6 = off_100127CD8;
-  off_100127CD8 = v5;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = os_log_create(v1, [v3 UTF8String]);
+  v5 = off_100127CD8;
+  off_100127CD8 = v4;
 
   qword_1001293E0 = objc_alloc_init(MAStorage);
 
@@ -1429,7 +1378,7 @@ void sub_10000EF04(uint64_t a1, void *a2)
   {
     if (os_log_type_enabled(off_100127CD8, OS_LOG_TYPE_ERROR))
     {
-      sub_100018284(a1);
+      sub_100018284();
     }
   }
 
@@ -1442,10 +1391,11 @@ void sub_10000EF04(uint64_t a1, void *a2)
   }
 }
 
-void sub_100018110(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100018110(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 const char *sub_10001815C()
@@ -1455,9 +1405,8 @@ const char *sub_10001815C()
   return sqlite3_errmsg(v2);
 }
 
-id sub_100018174(uint64_t *a1, void *a2)
+id sub_100018174(uint64_t a1, void *a2)
 {
-  v3 = *a1;
 
   return a2;
 }
@@ -1476,41 +1425,34 @@ void sub_100018214()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100018284(uint64_t a1)
+void sub_1000182F0()
 {
-  v1 = *(a1 + 32);
-  sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v2, v3, "Fail to register space attribute framework with root path: %@", v4, v5, v6, v7, v8);
-}
-
-void sub_1000182F0(uint64_t *a1)
-{
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_1000180DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10001836C(uint64_t *a1)
+void sub_10001836C()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_1000180DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100018428(uint64_t *a1)
+void sub_100018428()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_100018110(&_mh_execute_header, v1, v2, "Create/load local database from %@.", v3, v4, v5, v6, v7);
+  sub_100018110(&_mh_execute_header, v0, v1, "Create/load local database from %@.", v2, v3, v4, v5);
 }
 
-void sub_1000184F8(uint64_t *a1)
+void sub_1000184F8()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to drop mProfiles, create mProfileInfo, alter columns for mAssets, enable WAL journal mode: '%s'", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to drop mProfiles, create mProfileInfo, alter columns for mAssets, enable WAL journal mode: '%s'", v2, v3, v4, v5);
 }
 
 void sub_100018560(void *a1, void *a2)
@@ -1522,14 +1464,14 @@ void sub_100018560(void *a1, void *a2)
   _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "execute SQL syntax: '%s'", v6, 0xCu);
 }
 
-void sub_100018600(uint64_t *a1)
+void sub_100018600()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to create sqlite database: '%s'", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to create sqlite database: '%s'", v2, v3, v4, v5);
 }
 
-void sub_100018668(uint64_t *a1, void *a2)
+void sub_100018668(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1546,7 +1488,7 @@ void sub_1000186EC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100018728(uint64_t *a1, void *a2)
+void sub_100018728(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1556,7 +1498,7 @@ void sub_100018728(uint64_t *a1, void *a2)
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void sub_1000187AC(uint64_t *a1, void *a2)
+void sub_1000187AC(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1566,16 +1508,14 @@ void sub_1000187AC(uint64_t *a1, void *a2)
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void sub_100018898(uint64_t a1, uint64_t *a2, void *a3)
+void sub_100018898(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 16);
-  v5 = *a2;
-  v6 = a3;
-  v7 = sub_100018104();
-  sqlite3_errmsg(v7);
+  v4 = a3;
+  v5 = sub_100018104();
+  sqlite3_errmsg(v5);
   sub_10001818C();
   sub_1000180CC();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_100018930()
@@ -1585,12 +1525,11 @@ void sub_100018930()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1000189A0(uint64_t a1, uint64_t *a2)
+void sub_1000189A0()
 {
-  v2 = *a2;
   sub_10000A16C();
   sub_1000180DC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100018A88()
@@ -1606,7 +1545,7 @@ void sub_100018A88()
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_100018B28(uint64_t *a1, void *a2)
+void sub_100018B28(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1619,10 +1558,10 @@ void sub_100018B28(uint64_t *a1, void *a2)
 void sub_100018C14(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = *__error();
+  __error();
   sub_100018138();
   sub_1000180BC();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
 }
 
 void sub_100018CB0()
@@ -1663,7 +1602,7 @@ void sub_100018F54()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000190C8(uint64_t *a1, void *a2)
+void sub_1000190C8(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1680,21 +1619,20 @@ void sub_10001914C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000191C8(uint64_t a1, uint64_t *a2)
+void sub_1000191C8()
 {
-  v2 = *a2;
   sub_10000A16C();
   sub_1000180DC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1000192B0(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
-  v4 = *__error();
+  __error();
   sub_100018138();
   sub_1000180BC();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
 }
 
 void sub_10001934C()
@@ -1717,32 +1655,32 @@ void sub_1000193BC()
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_1000194C4(uint64_t *a1)
+void sub_1000194C4()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Fail to execute delete all asstes sql statement: '%s'", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Fail to execute delete all asstes sql statement: '%s'", v2, v3, v4, v5);
 }
 
-void sub_10001952C(uint64_t *a1)
+void sub_10001952C()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to retrieve all assets file store at: %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to retrieve all assets file store at: %@", v2, v3, v4, v5);
 }
 
-void sub_100019594(uint64_t *a1)
+void sub_100019594()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to remove local asset directory %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to remove local asset directory %@", v2, v3, v4, v5);
 }
 
-void sub_1000195FC(uint64_t *a1)
+void sub_1000195FC()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to recreate local asset directory %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to recreate local asset directory %@", v2, v3, v4, v5);
 }
 
 void sub_100019664(void *a1)
@@ -1761,11 +1699,11 @@ void sub_1000196FC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100019738(uint64_t *a1)
+void sub_100019738()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Fail to delete asset file, error: %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Fail to delete asset file, error: %@", v2, v3, v4, v5);
 }
 
 void sub_1000197A0()
@@ -1803,11 +1741,11 @@ void sub_100019994()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100019A6C(uint64_t *a1)
+void sub_100019A6C()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "Failed to get lastSwitchOutTime for most recent persisted guest, error = %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "Failed to get lastSwitchOutTime for most recent persisted guest, error = %@", v2, v3, v4, v5);
 }
 
 void sub_100019AD4()
@@ -1824,7 +1762,7 @@ void sub_100019B10()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100019BB4(uint64_t *a1, void *a2)
+void sub_100019BB4(uint64_t a1, void *a2)
 {
   sub_100018174(a1, a2);
   v3 = sub_100018104();
@@ -1851,16 +1789,15 @@ void sub_100019D44()
 uint64_t sub_100019E54(uint64_t a1)
 {
   v1 = kManagedAssetLogSubsystem;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = os_log_create(v1, [v4 UTF8String]);
-  v6 = off_100127CE0;
-  off_100127CE0 = v5;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = os_log_create(v1, [v3 UTF8String]);
+  v5 = off_100127CE0;
+  off_100127CE0 = v4;
 
-  v7 = [[NSSet alloc] initWithArray:&off_10011E488];
-  v8 = qword_1001293F8;
-  qword_1001293F8 = v7;
+  v6 = [[NSSet alloc] initWithArray:&off_10011E488];
+  v7 = qword_1001293F8;
+  qword_1001293F8 = v6;
 
   qword_1001293F0 = objc_alloc_init(MAFileStoreManager);
 
@@ -1954,18 +1891,18 @@ void sub_10001C85C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_10001C87C(uint64_t a1, uint64_t *a2)
+void sub_10001C87C()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Failed to list directory %@ for file asset, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Failed to list directory %@ for file asset, error:%@");
 }
 
-void sub_10001C8E4(uint64_t a1, uint64_t *a2)
+void sub_10001C8E4()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to read FileOptionsKey in attributes for %@, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to read FileOptionsKey in attributes for %@, error:%@");
 }
 
 void sub_10001C94C(uint64_t a1, NSObject *a2)
@@ -1975,25 +1912,25 @@ void sub_10001C94C(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "prepare atomic update for %@", &v2, 0xCu);
 }
 
-void sub_10001CA2C(uint64_t a1, uint64_t *a2)
+void sub_10001CA2C()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "invalid session.id specified to commit update to %@, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "invalid session.id specified to commit update to %@, error:%@");
 }
 
-void sub_10001CA94(uint64_t a1, uint64_t *a2)
+void sub_10001CA94()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to unlink: %@, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to unlink: %@, error:%@");
 }
 
-void sub_10001CB64(uint64_t a1, uint64_t *a2)
+void sub_10001CB64()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to commit: %@, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to commit: %@, error:%@");
 }
 
 void sub_10001CC34(uint64_t a1, NSObject *a2)
@@ -2003,18 +1940,18 @@ void sub_10001CC34(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "committed update for %@", &v2, 0xCu);
 }
 
-void sub_10001CCAC(uint64_t a1, uint64_t *a2)
+void sub_10001CCAC()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "listing: %@ error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "listing: %@ error:%@");
 }
 
-void sub_10001CD7C(uint64_t a1, uint64_t *a2)
+void sub_10001CD7C()
 {
-  sub_10001C850(a2, __stack_chk_guard);
+  sub_10001C850(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Failed to create directory %@ for fetched asset, error: %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Failed to create directory %@ for fetched asset, error: %@");
 }
 
 void sub_10001CDE4(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -2087,16 +2024,16 @@ void MAKVStoreInit()
   }
 }
 
-void sub_10001E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2116,7 +2053,7 @@ uint64_t sub_10001E304(uint64_t a1, sqlite3_stmt *a2)
   {
     v4 = [NSString stringWithUTF8String:v3];
     v5 = *(*(*(a1 + 32) + 8) + 40);
-    v6 = [v4 lowercaseString];
+    v6 = objc_msgSend_lowercaseString(v4);
     [v5 addObject:v6];
 
     [*(*(*(a1 + 40) + 8) + 40) addObject:v4];
@@ -2125,9 +2062,9 @@ uint64_t sub_10001E304(uint64_t a1, sqlite3_stmt *a2)
   return 1;
 }
 
-void sub_10001E62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001E62C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2139,7 +2076,7 @@ uint64_t sub_10001E64C(uint64_t a1, sqlite3_stmt *a2)
   {
     v4 = *(*(*(a1 + 32) + 8) + 40);
     v5 = [NSString stringWithUTF8String:v3];
-    v6 = [v5 lowercaseString];
+    v6 = objc_msgSend_lowercaseString(v5);
     [v4 addObject:v6];
   }
 
@@ -2295,11 +2232,11 @@ LABEL_12:
   return v5;
 }
 
-void sub_100022C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100022C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2430,42 +2367,36 @@ LABEL_13:
   return v8;
 }
 
-uint64_t sub_100025860@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_10002586C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 16);
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-void sub_10002586C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000258F4()
 {
-
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
-}
-
-void sub_1000258F4(uint64_t *a1)
-{
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "sqliteDb:%@ doesn't exist", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "sqliteDb:%@ doesn't exist", v2, v3, v4, v5);
 }
 
-void sub_10002595C(uint64_t *a1)
+void sub_10002595C()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_10002582C();
   sub_1000180DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000259D0(uint64_t *a1)
+void sub_1000259D0()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
   sub_10002582C();
   sub_1000180DC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100025A44()
@@ -2484,21 +2415,20 @@ void sub_100025AB8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100025B2C(uint64_t a1)
+void sub_100025B2C()
 {
-  sub_100025860(a1, __stack_chk_guard);
+  sub_100025860(__stack_chk_guard);
   sub_10000DED0();
   sub_10002581C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100025BA0(uint64_t a1)
+void sub_100025BA0()
 {
-  sub_100025860(a1, __stack_chk_guard);
-  v2 = *(*v1 + 40);
+  sub_100025860(__stack_chk_guard);
   sub_10000DED0();
   sub_10002581C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100025C1C()
@@ -2508,63 +2438,61 @@ void sub_100025C1C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100025D68(uint64_t a1)
+void sub_100025D68()
 {
-  sub_100025860(a1, __stack_chk_guard);
+  sub_100025860(__stack_chk_guard);
   sub_10000DED0();
   sub_10002581C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100025DE8(uint64_t a1)
+void sub_100025DE8()
 {
-  sub_100025860(a1, __stack_chk_guard);
+  sub_100025860(__stack_chk_guard);
   sub_100006BEC();
-  v3 = 1024;
-  v4 = 0;
-  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "db: %@ added meta table rc=%d", v2, 0x12u);
+  v2 = 1024;
+  v3 = 0;
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "db: %@ added meta table rc=%d", v1, 0x12u);
 }
 
 void sub_100025E68(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 16);
   v2 = *(a1 + 24);
-  v4 = a2;
+  v3 = a2;
   sqlite3_errmsg(v2);
   sub_10002583C();
-  sub_10002586C(&_mh_execute_header, v5, v6, "db: %@ failed to sqlite3_finalize stmt, errorCode:%d error:%s", v7, v8, v9, v10, v11);
+  sub_10002586C(&_mh_execute_header, v4, v5, "db: %@ failed to sqlite3_finalize stmt, errorCode:%d error:%s", v6, v7, v8, v9);
 }
 
 void sub_100025EFC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 16);
   v2 = *(a1 + 24);
-  v4 = a2;
+  v3 = a2;
   sqlite3_errmsg(v2);
   sub_10002583C();
-  sub_10002586C(&_mh_execute_header, v5, v6, "db: %@ failed to sqlite3_finalize errorCode:%d error:%s", v7, v8, v9, v10, v11);
+  sub_10002586C(&_mh_execute_header, v4, v5, "db: %@ failed to sqlite3_finalize errorCode:%d error:%s", v6, v7, v8, v9);
 }
 
-void sub_100026020(uint64_t a1)
+void sub_100026020()
 {
-  sub_100025860(a1, __stack_chk_guard);
+  sub_100025860(__stack_chk_guard);
   sub_10000DED0();
   sub_10002581C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100026094(uint64_t *a1)
+void sub_100026094()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "failed to query cache store entry size, error: %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "failed to query cache store entry size, error: %@", v2, v3, v4, v5);
 }
 
-void sub_1000260FC(uint64_t *a1)
+void sub_1000260FC()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "invalid DB query result : %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "invalid DB query result : %@", v2, v3, v4, v5);
 }
 
 void MAKVStoreCoreRxInit()
@@ -3092,16 +3020,16 @@ __CFString *MACoreRxDataSharingQueryOutputDescription(void *a1)
   return v2;
 }
 
-id MASDGetCoreRxDispatchQueue()
+id MASDGetCoreRxDispatchQueue(uint64_t a1)
 {
   if (qword_100129420 != -1)
   {
     sub_100028CA8();
   }
 
-  v1 = qword_100129418;
+  v2 = qword_100129418;
 
-  return v1;
+  return v2;
 }
 
 void sub_100027684(id a1)
@@ -3112,7 +3040,7 @@ void sub_100027684(id a1)
   qword_100129418 = v1;
 }
 
-uint64_t sub_100027B7C(void *a1, uint64_t a2, void *a3, uint64_t *a4)
+uint64_t sub_100027B7C(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   v7 = a1;
   v18 = @"id";
@@ -3129,7 +3057,7 @@ uint64_t sub_100027B7C(void *a1, uint64_t a2, void *a3, uint64_t *a4)
     v15 = off_100127CF0;
     if (os_log_type_enabled(off_100127CF0, OS_LOG_TYPE_ERROR))
     {
-      sub_100028D34(v15, v7, a4);
+      sub_100028D34(v15, v7);
     }
 
     goto LABEL_7;
@@ -3159,43 +3087,34 @@ void sub_100028AA8(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100028CBC(uint64_t a1, uint64_t *a2)
+void sub_100028D34(void *a1, void *a2)
 {
-  v2 = *a2;
-  sub_10000A16C();
-  sub_100005D18(&_mh_execute_header, v3, v4, "Failed to init/load the store: %@, error: %@");
-}
-
-void sub_100028D34(void *a1, void *a2, uint64_t *a3)
-{
-  v5 = a1;
-  v6 = [a2 name];
-  v12 = [a2 group];
-  v13 = *a3;
+  v3 = a1;
+  v4 = [a2 name];
+  v10 = [a2 group];
   sub_1000180BC();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void sub_100028EDC(uint64_t a1, void *a2)
+void sub_100028EDC(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
+  v3 = a2;
   objc_opt_class();
   sub_100028C90();
   sub_1000180BC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 uint64_t sub_1000293C4(uint64_t a1)
 {
   MAKVStoreInit();
   MAKVStoreCoreRxInit();
-  v2 = kManagedAssetLogSubsystem;
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = os_log_create(v2, [v5 UTF8String]);
-  v7 = off_100127CF8;
-  off_100127CF8 = v6;
+  v1 = kManagedAssetLogSubsystem;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = os_log_create(v1, [v3 UTF8String]);
+  v5 = off_100127CF8;
+  off_100127CF8 = v4;
 
   qword_100129430 = objc_alloc_init(MAKVStoreManager);
 
@@ -3364,21 +3283,8 @@ id MAKVStoreRemoveColumnInPutRecords(void *a1, void *a2, void *a3)
   v5 = a1;
   v6 = a2;
   v7 = [v5 count];
-  if (v7 <= 1)
+  if (v7 <= 1 || (v8 = v7, [v5 objectAtIndexedSubscript:0], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, objc_msgSend(v5, "objectAtIndexedSubscript:", 0), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "indexOfObject:", v6), v11, v12 == 0x7FFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_3;
-  }
-
-  v8 = v7;
-  v9 = [v5 objectAtIndexedSubscript:0];
-  v10 = [v9 count];
-
-  v11 = [v5 objectAtIndexedSubscript:0];
-  v12 = [v11 indexOfObject:v6];
-
-  if (v12 == 0x7FFFFFFFFFFFFFFFLL)
-  {
-LABEL_3:
     v13 = v5;
   }
 
@@ -3426,13 +3332,14 @@ LABEL_9:
   return v13;
 }
 
-void sub_10002A7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_10002A7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a45, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v49 - 240), 8);
-  _Block_object_dispose((v49 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v48 - 240), 8);
+  _Block_object_dispose((v48 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3470,9 +3377,9 @@ LABEL_4:
         v25 = *(a1 + 56);
         v26 = *(a1 + 64);
         v27 = *(*(a1 + 96) + 8);
-        v54 = *(v27 + 40);
-        v28 = [v21 openCoreRXUserStoreAndCheckUpgrade:v22 profile:v23 attributes:v25 groupDB:v24 storeIdentifier:v26 error:&v54];
-        objc_storeStrong((v27 + 40), v54);
+        v53 = *(v27 + 40);
+        v28 = [v21 openCoreRXUserStoreAndCheckUpgrade:v22 profile:v23 attributes:v25 groupDB:v24 storeIdentifier:v26 error:&v53];
+        objc_storeStrong((v27 + 40), v53);
         v29 = *(*(a1 + 112) + 8);
         v30 = *(v29 + 40);
         *(v29 + 40) = v28;
@@ -3493,9 +3400,9 @@ LABEL_4:
         v36 = *(a1 + 56);
         v37 = *(a1 + 64);
         v38 = *(*(a1 + 96) + 8);
-        v53 = *(v38 + 40);
-        v39 = [v32 openCoreRXDataSharingStoreAndCheckUpgrade:v33 profile:v34 attributes:v36 groupDB:v35 storeIdentifier:v37 error:&v53];
-        objc_storeStrong((v38 + 40), v53);
+        v52 = *(v38 + 40);
+        v39 = [v32 openCoreRXDataSharingStoreAndCheckUpgrade:v33 profile:v34 attributes:v36 groupDB:v35 storeIdentifier:v37 error:&v52];
+        objc_storeStrong((v38 + 40), v52);
         v40 = *(*(a1 + 112) + 8);
         v41 = *(v40 + 40);
         *(v40 + 40) = v39;
@@ -3511,23 +3418,8 @@ LABEL_4:
     v43 = *(*(*v6 + 8) + 40);
     if (v43)
     {
-      if (*(a1 + 133) != 1)
+      if (*(a1 + 133) != 1 || (v44 = *(*(a1 + 96) + 8), v51 = *(v44 + 40), sub_10002AB24(v43, &v51), v45 = objc_claimAutoreleasedReturnValue(), objc_storeStrong((v44 + 40), v51), v46 = *(*(a1 + 120) + 8), v47 = *(v46 + 40), *(v46 + 40) = v45, v47, (v43 = *(*(*(a1 + 112) + 8) + 40)) != 0))
       {
-        goto LABEL_14;
-      }
-
-      v44 = *(*(a1 + 96) + 8);
-      v52 = *(v44 + 40);
-      v45 = sub_10002AB24(v43, &v52);
-      objc_storeStrong((v44 + 40), v52);
-      v46 = *(*(a1 + 120) + 8);
-      v47 = *(v46 + 40);
-      *(v46 + 40) = v45;
-
-      v43 = *(*(*(a1 + 112) + 8) + 40);
-      if (v43)
-      {
-LABEL_14:
         if (*(a1 + 134) == 1)
         {
           v48 = [v43 copy];
@@ -3570,7 +3462,6 @@ LABEL_16:
 
   if (!*(*(*v6 + 8) + 40))
   {
-    v51 = *(a1 + 48);
     v48 = createManagedAssetError();
     goto LABEL_16;
   }
@@ -3647,11 +3538,12 @@ LABEL_14:
   return v16;
 }
 
-void sub_10002AF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10002AF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3690,9 +3582,7 @@ void sub_10002AFBC(uint64_t a1)
       [*(*(a1 + 32) + 48) setObject:*(a1 + 48) forKeyedSubscript:*(a1 + 40)];
       v13 = *(a1 + 48);
       v14 = *(*(a1 + 56) + 8);
-      v15 = v13;
-      v16 = *(v14 + 40);
-      *(v14 + 40) = v15;
+      *(v14 + 40) = v13;
     }
 
     else
@@ -3858,20 +3748,6 @@ void sub_10002EAF0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10002EB60(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_10000A16C();
-  sub_100005D18(&_mh_execute_header, v3, v4, "Error while trying to fetch store %@, error:=%@");
-}
-
-void sub_10002EBD8(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_10000A16C();
-  sub_100005D18(&_mh_execute_header, v3, v4, "Error while trying to query data in store %@, error:=%@");
-}
-
 void sub_10002ECC4()
 {
   sub_10000A16C();
@@ -3888,14 +3764,13 @@ void sub_10002ED34(uint64_t a1)
   sub_100005D18(&_mh_execute_header, v1, v2, "fail to cleanup local kv store for record: %@, error: %@", v3, DWORD2(v3), *&v4[2]);
 }
 
-void sub_10002EDAC(uint64_t *a1)
+void sub_10002EDAC()
 {
-  v1 = *a1;
-  v5 = 138412546;
-  v6 = kMARXDataSharingStore;
+  v3 = 138412546;
+  v4 = kMARXDataSharingStore;
   sub_10002E778();
-  v7 = v2;
-  sub_10002E784(&_mh_execute_header, v3, v4, "Error while trying to query data in store %@, error:=%@", &v5);
+  v5 = v0;
+  sub_10002E784(&_mh_execute_header, v1, v2, "Error while trying to query data in store %@, error:=%@", &v3);
 }
 
 void sub_10002EE34(void *a1, uint64_t a2, uint64_t a3, NSObject *a4)
@@ -3907,14 +3782,13 @@ void sub_10002EE34(void *a1, uint64_t a2, uint64_t a3, NSObject *a4)
   sub_10002E784(&_mh_execute_header, a4, a3, "Cloud Sync for store: %@, failed to put new data %@", a3);
 }
 
-void sub_10002EE94(uint64_t *a1)
+void sub_10002EE94()
 {
-  v1 = *a1;
-  v5 = 138412546;
-  v6 = kMARXDataSharingStore;
+  v3 = 138412546;
+  v4 = kMARXDataSharingStore;
   sub_10002E778();
-  v7 = v2;
-  sub_10002E784(&_mh_execute_header, v3, v4, "New record does not have rxuuid for store %@ error:=%@", &v5);
+  v5 = v0;
+  sub_10002E784(&_mh_execute_header, v1, v2, "New record does not have rxuuid for store %@ error:=%@", &v3);
 }
 
 void sub_10002EF1C(uint64_t a1, void *a2, uint64_t a3)
@@ -3972,10 +3846,11 @@ int64_t sub_100030FA4(id a1, id a2, id a3)
   return v5 - v6;
 }
 
-void sub_100032760(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100032760(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000327B4()
@@ -3999,74 +3874,67 @@ void sub_10003288C()
   sub_100005D18(&_mh_execute_header, v0, v1, "error deleting to-be-reclaim cache entry: %@, error: %@");
 }
 
-void sub_100032B0C(uint64_t *a1)
+void sub_100032B0C()
 {
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "the cache store doesn't exist and failed to create, error: %@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "the cache store doesn't exist and failed to create, error: %@", v2, v3, v4, v5);
 }
 
-void sub_100032B74(uint64_t a1)
+void sub_100032C5C()
 {
-  v1 = *(a1 + 64);
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to add record to cache store, assetId=%@, error: %@");
+}
+
+void sub_100032CC4()
+{
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to update record size in cache store, assetId=%@, error: %@");
+}
+
+void sub_100032D2C()
+{
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to query cache store, assetId=%@, error: %@");
+}
+
+void sub_100032D94()
+{
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to query valid record in cache store, assetId=%@, error: %@");
+}
+
+void sub_100032E64()
+{
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to update cache store, assetId=%@, error: %@");
+}
+
+void sub_100032ECC()
+{
+  sub_10001C850(__stack_chk_guard);
+  sub_10001C838();
+  sub_100005D18(&_mh_execute_header, v0, v1, "failed to query record in cache store, assetId=%@, error: %@");
+}
+
+void sub_100032F9C()
+{
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "cacheSizeLimitCheck, size: %lu", v3, 0xCu);
+  sub_10000A178(&_mh_execute_header, v0, v1, "error query data in assetCache error=%@", v2, v3, v4, v5);
 }
 
-void sub_100032C5C(uint64_t a1, uint64_t *a2)
+void sub_100033004()
 {
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to add record to cache store, assetId=%@, error: %@");
-}
-
-void sub_100032CC4(uint64_t a1, uint64_t *a2)
-{
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to update record size in cache store, assetId=%@, error: %@");
-}
-
-void sub_100032D2C(uint64_t a1, uint64_t *a2)
-{
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to query cache store, assetId=%@, error: %@");
-}
-
-void sub_100032D94(uint64_t a1, uint64_t *a2)
-{
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to query valid record in cache store, assetId=%@, error: %@");
-}
-
-void sub_100032E64(uint64_t a1, uint64_t *a2)
-{
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to update cache store, assetId=%@, error: %@");
-}
-
-void sub_100032ECC(uint64_t a1, uint64_t *a2)
-{
-  sub_10001C850(a2, __stack_chk_guard);
-  sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "failed to query record in cache store, assetId=%@, error: %@");
-}
-
-void sub_100032F9C(uint64_t *a1)
-{
-  sub_100006BE0(a1, __stack_chk_guard);
+  sub_100006BE0(__stack_chk_guard);
   sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "error query data in assetCache error=%@", v3, v4, v5, v6, v7);
-}
-
-void sub_100033004(uint64_t *a1)
-{
-  sub_100006BE0(a1, __stack_chk_guard);
-  sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v1, v2, "error delete all data in assetCache error=%@", v3, v4, v5, v6, v7);
+  sub_10000A178(&_mh_execute_header, v0, v1, "error delete all data in assetCache error=%@", v2, v3, v4, v5);
 }
 
 id MASDConvertAssetTypeToString(uint64_t a1)
@@ -4227,42 +4095,26 @@ uint64_t MAVerifySerializedAssetBlob(void *a1, void *a2)
   v4 = [v3 length];
   if (!v3)
   {
-    goto LABEL_16;
+    goto LABEL_11;
   }
 
   v5 = v4;
   if (v4 <= 0xF)
   {
-    goto LABEL_16;
+    goto LABEL_11;
   }
 
   v6 = [v3 bytes];
-  if (*v6 != 2)
+  if (*v6 != 2 || v6[2] != 2 || (*(v6 + 1) + 1) >= 4)
   {
-    v14 = *v6;
-LABEL_16:
-    createManagedAssetError();
-    *a2 = v12 = 0;
-    goto LABEL_17;
+    goto LABEL_11;
   }
 
-  if (*(v6 + 2) != 2)
-  {
-    v15 = *(v6 + 2);
-    goto LABEL_16;
-  }
-
-  if ((*(v6 + 1) + 1) >= 4)
-  {
-    v16 = *(v6 + 1);
-    goto LABEL_16;
-  }
-
-  v7 = *(v6 + 3);
+  v7 = v6[3];
   v8 = 8 * v7 + 16;
-  if (*(v6 + 3))
+  if (v6[3])
   {
-    v9 = (v6 + 20);
+    v9 = (v6 + 10);
     do
     {
       v10 = v8 + *(v9 - 1);
@@ -4275,13 +4127,17 @@ LABEL_16:
     while (v7);
   }
 
-  if (v5 != v8)
+  if (v5 == v8)
   {
-    goto LABEL_16;
+    v12 = 1;
   }
 
-  v12 = 1;
-LABEL_17:
+  else
+  {
+LABEL_11:
+    createManagedAssetError();
+    *a2 = v12 = 0;
+  }
 
   return v12;
 }
@@ -4466,7 +4322,7 @@ id MAOpenFileWithSandboxToken(void *a1, void *a2, void *a3)
   [a1 cStringUsingEncoding:4];
   if (sandbox_extension_consume() == -1)
   {
-    v10 = *__error();
+    __error();
   }
 
   else
@@ -4531,7 +4387,7 @@ uint64_t MAReadMetaDataAndAssetData(void **a1, uint64_t a2, void *a3, int a4, un
     }
 
 LABEL_11:
-    v16 = *__error();
+    __error();
     goto LABEL_12;
   }
 
@@ -4610,7 +4466,7 @@ ssize_t MAWriteDataUsingFileDescriptor(ssize_t result, int __fd, unint64_t a3, s
       if (result < 0)
       {
 LABEL_17:
-        v10 = *__error();
+        __error();
         goto LABEL_18;
       }
 
@@ -4656,11 +4512,11 @@ void MASetMAServerProfileInit()
   off_100127DC8 = v3;
 }
 
-void sub_100034C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100034C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4700,7 +4556,7 @@ void sub_100034C74(uint64_t a1)
     {
       if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
       {
-        sub_100039984((a1 + 40), a1 + 72);
+        sub_100039984();
       }
 
       goto LABEL_16;
@@ -4734,7 +4590,7 @@ void sub_100034C74(uint64_t a1)
   {
     if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000399F8((a1 + 40), a1 + 72);
+      sub_1000399F8();
     }
   }
 
@@ -4793,7 +4649,7 @@ LABEL_16:
   v36 = *(a1 + 48);
   if (v36)
   {
-    [v36 auditToken];
+    objc_msgSend_auditToken(v36);
   }
 
   else
@@ -4804,9 +4660,9 @@ LABEL_16:
   [CALogger logWithCoreAnalytics:"[MAServer(Profile) SwitchProfile:completion:]_block_invoke" client:buf startTS:*(a1 + 80) error:*(*(*(a1 + 72) + 8) + 40)];
 }
 
-void sub_100035304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100035304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4893,9 +4749,9 @@ void sub_10003531C(uint64_t a1)
   }
 }
 
-void sub_100035820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100035820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4982,9 +4838,9 @@ void sub_100035838(uint64_t a1)
   }
 }
 
-void sub_100036008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100036008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5036,7 +4892,7 @@ id sub_100036024(uint64_t a1)
   v16 = *(a1 + 48);
   if (v16)
   {
-    [v16 auditToken];
+    objc_msgSend_auditToken(v16);
   }
 
   else
@@ -5048,9 +4904,9 @@ id sub_100036024(uint64_t a1)
   return [CALogger logWithCoreAnalytics:"[MAServer(Profile) DeleteProfile:completion:]_block_invoke" client:buf startTS:*(a1 + 72) error:*(*(*(a1 + 64) + 8) + 40)];
 }
 
-void sub_1000364A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000364A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5084,7 +4940,7 @@ void sub_1000364C4(uint64_t a1)
   v7 = *(a1 + 40);
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -5095,21 +4951,22 @@ void sub_1000364C4(uint64_t a1)
   [CALogger logWithCoreAnalytics:"[MAServer(Profile) DeleteAllNonDefaultProfilesWithCompletion:]_block_invoke" client:v8 startTS:*(a1 + 64) error:*(*(*(a1 + 56) + 8) + 40)];
 }
 
-void sub_100036E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100036E38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 208), 8);
-  _Block_object_dispose((v37 - 176), 8);
-  _Block_object_dispose((v37 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 208), 8);
+  _Block_object_dispose((v36 - 176), 8);
+  _Block_object_dispose((v36 - 128), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100036E84(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v2 = a1 + 32;
   v3 = [*(a1 + 32) isEqualToString:kMASDDefaultLocalUser];
-  v4 = v2[1];
+  v4 = *(v2 + 8);
   if (v3)
   {
     v5 = *(v4 + 80);
@@ -5230,7 +5087,7 @@ LABEL_52:
           {
             if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
             {
-              sub_100039F8C(v18, a1 + 72);
+              sub_100039F8C();
             }
 
             v9 = v96;
@@ -5243,7 +5100,7 @@ LABEL_52:
             v24 = *(a1 + 56);
             if (v24)
             {
-              [v24 auditToken];
+              objc_msgSend_auditToken(v24);
               v23 = *(a1 + 72);
             }
 
@@ -5291,7 +5148,7 @@ LABEL_52:
               v80 = v95;
               if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
               {
-                sub_100039FF4(v34, a1 + 72);
+                sub_100039FF4();
               }
 
 LABEL_60:
@@ -5467,7 +5324,7 @@ LABEL_60:
 
   if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
   {
-    sub_100039E18(v2, a1 + 72);
+    sub_100039E18();
   }
 
   v9 = 0;
@@ -5495,7 +5352,7 @@ LABEL_61:
   v93 = *(a1 + 56);
   if (v93)
   {
-    [v93 auditToken];
+    objc_msgSend_auditToken(v93);
   }
 
   else
@@ -5519,7 +5376,7 @@ void sub_1000380E0(uint64_t a1)
 {
   if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003A278(a1);
+    sub_10003A278();
   }
 
   v2 = *(a1 + 112) + 1;
@@ -5571,7 +5428,7 @@ void sub_1000380E0(uint64_t a1)
       {
         if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
         {
-          sub_10003A320(v11, a1 + 80);
+          sub_10003A320();
         }
 
         v22 = *(a1 + 72);
@@ -5594,7 +5451,7 @@ void sub_1000380E0(uint64_t a1)
     {
       if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
       {
-        sub_10003A388(v11, a1 + 80);
+        sub_10003A388();
       }
 
       v27 = *(a1 + 72);
@@ -5661,7 +5518,7 @@ LABEL_24:
       {
         if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
         {
-          sub_10003A3F0(a1 + 80);
+          sub_10003A3F0();
         }
 
         v47 = 0;
@@ -5691,7 +5548,7 @@ LABEL_48:
         v48 = v78;
         if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
         {
-          sub_10003A4CC(v10, a1 + 80);
+          sub_10003A4CC();
         }
 
         v47 = v77;
@@ -5800,7 +5657,7 @@ LABEL_49:
     v76 = *(a1 + 56);
     if (v76)
     {
-      [v76 auditToken];
+      objc_msgSend_auditToken(v76);
     }
 
     else
@@ -5935,7 +5792,7 @@ void sub_100038AF4(uint64_t a1, void *a2, void *a3, _BYTE *a4)
             v24 = v19;
             if (os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
             {
-              sub_10003A63C(v19, a1 + 72);
+              sub_10003A63C();
             }
 
             *v44 = 1;
@@ -5960,10 +5817,10 @@ void sub_100038AF4(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
 void sub_1000390DC(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127DC8, OS_LOG_TYPE_ERROR))
   {
-    sub_10003A6A4(a1);
+    sub_10003A6A4();
   }
 }
 
@@ -5974,18 +5831,11 @@ id sub_100039140(uint64_t a1, uint64_t a2)
   return [v2 deleteTempAssetFile:a2 error:&v4];
 }
 
-void sub_1000397F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000397F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
-}
-
-uint64_t *sub_100039818@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  *(v3 - 8) = a3;
-  v4 = *result;
-  v5 = *(*(*a2 + 8) + 40);
-  return result;
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_10003983C()
@@ -6002,18 +5852,18 @@ void sub_100039914()
   sub_100005D18(&_mh_execute_header, v0, v1, "Fail to create a new profile (UUID: %{public}@), error = %{public}@");
 }
 
-void sub_100039984(uint64_t *a1, uint64_t a2)
+void sub_100039984()
 {
-  sub_100039818(a1, a2, __stack_chk_guard);
+  sub_100039818(__stack_chk_guard);
   sub_100006BEC();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to get profile (UUID: %{public}@), error = %{public}@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to get profile (UUID: %{public}@), error = %{public}@");
 }
 
-void sub_1000399F8(uint64_t *a1, uint64_t a2)
+void sub_1000399F8()
 {
-  sub_100039818(a1, a2, __stack_chk_guard);
+  sub_100039818(__stack_chk_guard);
   sub_100006BEC();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to update profile last switch ts (UUID: %{public}@), error = %{public}@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to update profile last switch ts (UUID: %{public}@), error = %{public}@");
 }
 
 void sub_100039A6C()
@@ -6031,7 +5881,7 @@ void sub_100039AA8()
   objc_claimAutoreleasedReturnValue();
   sub_1000397E4();
   sub_10000A16C();
-  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to mark profile (UUID: %{public}@) as persist guest, error = %{public}@", v6, v7, v8, v9, v10);
+  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to mark profile (UUID: %{public}@) as persist guest, error = %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100039B4C()
@@ -6049,7 +5899,7 @@ void sub_100039B88()
   objc_claimAutoreleasedReturnValue();
   sub_1000397E4();
   sub_10000A16C();
-  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to mark profile (UUID: %{public}@) as a guest, error = %{public}@", v6, v7, v8, v9, v10);
+  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to mark profile (UUID: %{public}@) as a guest, error = %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100039C94()
@@ -6059,11 +5909,18 @@ void sub_100039C94()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100039E18(uint64_t *a1, uint64_t a2)
+void sub_100039D38(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  sub_100039818(a1, a2, __stack_chk_guard);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MAServer(Profile) SerializeAllAssets:option:completion:]";
+  sub_10000A178(&_mh_execute_header, a1, a3, "Fail to perofm '%s' when device is Locked.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100039E18()
+{
+  sub_100039818(__stack_chk_guard);
   sub_100006BEC();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to get profile %@, error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to get profile %@, error = %@");
 }
 
 void sub_100039E8C()
@@ -6074,21 +5931,21 @@ void sub_100039E8C()
   objc_claimAutoreleasedReturnValue();
   sub_1000397E4();
   sub_10001C838();
-  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to query all assets belonging to profile %@, error = %@", v6, v7, v8, v9, v10);
+  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to query all assets belonging to profile %@, error = %@", v6, v7, v8, v9);
 }
 
-void sub_100039F8C(uint64_t a1, uint64_t a2)
+void sub_100039F8C()
 {
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to get asset for asset handle:%@, error:%@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to get asset for asset handle:%@, error:%@");
 }
 
-void sub_100039FF4(uint64_t a1, uint64_t a2)
+void sub_100039FF4()
 {
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to retieve attribute for asset path %@, error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to retieve attribute for asset path %@, error = %@");
 }
 
 void sub_10003A05C()
@@ -6099,7 +5956,7 @@ void sub_10003A05C()
   objc_claimAutoreleasedReturnValue();
   sub_1000397E4();
   sub_10001C838();
-  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to retieve file size for asset handle %@, error = %@", v6, v7, v8, v9, v10);
+  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to retieve file size for asset handle %@, error = %@", v6, v7, v8, v9);
 }
 
 void sub_10003A0F4()
@@ -6109,11 +5966,11 @@ void sub_10003A0F4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10003A278(uint64_t a1)
+void sub_10003A200(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(a1 + 32);
-  sub_100006BEC();
-  sub_100018110(&_mh_execute_header, v2, v3, "serializedAssets = %@", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MAServer(Profile) ImportSerializedV2Assets:option:profileType:axData:completion:]";
+  sub_10000A178(&_mh_execute_header, a1, a3, "Fail to perofm '%s' when device is Locked.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10003A2E4()
@@ -6123,32 +5980,25 @@ void sub_10003A2E4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10003A320(uint64_t a1, uint64_t a2)
+void sub_10003A320()
 {
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to create a new profile (UUID: %@), error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to create a new profile (UUID: %@), error = %@");
 }
 
-void sub_10003A388(uint64_t a1, uint64_t a2)
+void sub_10003A388()
 {
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to retrieve profile (UUID: %@), error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to retrieve profile (UUID: %@), error = %@");
 }
 
-void sub_10003A3F0(uint64_t a1)
+void sub_10003A4CC()
 {
-  v1 = *(*(*a1 + 8) + 40);
-  sub_100006BEC();
-  sub_10000A178(&_mh_execute_header, v2, v3, "Fail to query asset handles from existing profile, error = %@", v4, v5, v6, v7, v8);
-}
-
-void sub_10003A4CC(uint64_t a1, uint64_t a2)
-{
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to delete existing assets from profile %@, error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to delete existing assets from profile %@, error = %@");
 }
 
 void sub_10003A534()
@@ -6159,7 +6009,7 @@ void sub_10003A534()
   objc_claimAutoreleasedReturnValue();
   sub_1000397E4();
   sub_10001C838();
-  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to overwrite Accessbility Preference for profile %@, error = %@", v6, v7, v8, v9, v10);
+  sub_1000397F8(&_mh_execute_header, v4, v5, "Fail to overwrite Accessbility Preference for profile %@, error = %@", v6, v7, v8, v9);
 }
 
 void sub_10003A5CC()
@@ -6169,19 +6019,18 @@ void sub_10003A5CC()
   sub_100005D18(&_mh_execute_header, v0, v1, "Fail to de-dupe asset %@, error = %@");
 }
 
-void sub_10003A63C(uint64_t a1, uint64_t a2)
+void sub_10003A63C()
 {
-  sub_1000397D0(a2, __stack_chk_guard);
+  sub_1000397D0(__stack_chk_guard);
   sub_10001C838();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Fail to save asset %@, error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Fail to save asset %@, error = %@");
 }
 
-void sub_10003A6A4(uint64_t a1)
+void sub_10003A6A4()
 {
-  v1 = *(a1 + 32);
   sub_100006BEC();
   sub_100039830();
-  sub_100005D18(&_mh_execute_header, v2, v3, "Failed to save asset %@ to iCloud, error = %@");
+  sub_100005D18(&_mh_execute_header, v0, v1, "Failed to save asset %@ to iCloud, error = %@");
 }
 
 void MASetMAServerCoreRxInit()
@@ -6199,30 +6048,29 @@ void MASetMAServerCoreRxInit()
 void sub_10003AFFC(uint64_t a1)
 {
   v2 = +[NSMutableArray array];
-  v4 = (a1 + 40);
   v3 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v58 = 0;
-  v59 = 0;
-  v8 = [v5 queryExistingUserLensRecord:v3 attributes:v6 clientConn:v7 records:v2 storeOut:&v59 error:&v58];
-  v9 = v59;
-  v10 = v58;
-  if ((v8 & 1) == 0)
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v56 = 0;
+  v57 = 0;
+  v7 = [v4 queryExistingUserLensRecord:v3 attributes:v5 clientConn:v6 records:v2 storeOut:&v57 error:&v56];
+  v8 = v57;
+  v9 = v56;
+  if ((v7 & 1) == 0)
   {
-    v15 = off_100127DD0;
+    v14 = off_100127DD0;
     if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
     {
-      v47 = *(a1 + 64);
-      v48 = *(a1 + 40);
+      v46 = *(a1 + 64);
+      v47 = *(a1 + 40);
       *buf = 138412802;
+      v59 = v46;
+      v60 = 2112;
       v61 = v47;
       v62 = 2112;
-      v63 = v48;
-      v64 = 2112;
-      v65 = v10;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "failed to query/create kvstore for lens %@ recordUUID %@ error: %@", buf, 0x20u);
+      v63 = v9;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "failed to query/create kvstore for lens %@ recordUUID %@ error: %@", buf, 0x20u);
     }
 
     goto LABEL_9;
@@ -6230,15 +6078,14 @@ void sub_10003AFFC(uint64_t a1)
 
   if ([v2 count] != 1)
   {
-    if (*v4)
+    if (*(a1 + 40))
     {
-      v53 = *v4;
-      v17 = createManagedAssetError();
+      v16 = createManagedAssetError();
 
-      v18 = off_100127DD0;
+      v17 = off_100127DD0;
       if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
       {
-        sub_10003B61C((a1 + 40), v18, v19, v20, v21, v22, v23, v24);
+        sub_10003B61C((a1 + 40), v17, v18, v19, v20, v21, v22, v23);
       }
     }
 
@@ -6249,93 +6096,93 @@ void sub_10003AFFC(uint64_t a1)
         goto LABEL_3;
       }
 
-      v17 = createManagedAssetError();
+      v16 = createManagedAssetError();
 
-      v25 = off_100127DD0;
+      v24 = off_100127DD0;
       if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
       {
-        sub_10003B68C((a1 + 64), v25, v26, v27, v28, v29, v30, v31);
+        sub_10003B68C((a1 + 64), v24, v25, v26, v27, v28, v29, v30);
       }
     }
 
-    v16 = 0;
-    v10 = v17;
+    v15 = 0;
+    v9 = v16;
     goto LABEL_25;
   }
 
 LABEL_3:
-  v11 = *(a1 + 48);
-  if (!v11)
+  v10 = *(a1 + 48);
+  if (!v10)
   {
 LABEL_9:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_25;
   }
 
-  v12 = kMAKVStoreOptionsKey;
-  v13 = [v11 objectForKeyedSubscript:kMAKVStoreOptionsKey];
-  if (!v13)
+  v11 = kMAKVStoreOptionsKey;
+  v12 = [v10 objectForKeyedSubscript:kMAKVStoreOptionsKey];
+  if (!v12)
   {
-    v14 = 1;
+    v13 = 1;
     goto LABEL_18;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = ([v13 unsignedIntValue] & 2) == 0;
+    v13 = ([v12 unsignedIntValue] & 2) == 0;
 LABEL_18:
-    v32 = v10;
+    v31 = v9;
     goto LABEL_20;
   }
 
-  v52 = v13;
-  v32 = createManagedAssetError();
-  v33 = v32;
-  v14 = 1;
+  v51 = v12;
+  v31 = createManagedAssetError();
+  v32 = v31;
+  v13 = 1;
 LABEL_20:
 
-  v34 = v32;
-  if (v34)
+  v33 = v31;
+  if (v33)
   {
-    v35 = off_100127DD0;
+    v34 = off_100127DD0;
     if (os_log_type_enabled(off_100127DD0, OS_LOG_TYPE_ERROR))
     {
-      v49 = *(a1 + 48);
-      v50 = v35;
-      v51 = [v49 objectForKeyedSubscript:v12];
+      v48 = *(a1 + 48);
+      v49 = v34;
+      v50 = [v48 objectForKeyedSubscript:v11];
       *buf = 138412546;
-      v61 = v51;
-      v62 = 2112;
-      v63 = v34;
-      _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "invalid kvstore options in attributes: %@ error: %@", buf, 0x16u);
+      v59 = v50;
+      v60 = 2112;
+      v61 = v33;
+      _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "invalid kvstore options in attributes: %@ error: %@", buf, 0x16u);
     }
 
-    v16 = 0;
-    v10 = v34;
+    v15 = 0;
+    v9 = v33;
   }
 
   else
   {
-    v36 = *(*(a1 + 32) + 40);
-    v37 = *(a1 + 64);
-    v38 = *(a1 + 72);
-    v39 = *(a1 + 88);
-    v40 = *(a1 + 96);
-    v41 = *(a1 + 104);
-    v42 = *(a1 + 112);
-    v43 = *(a1 + 128);
-    v44 = *(a1 + 120);
-    v45 = *(a1 + 130);
-    v46 = *(a1 + 48);
-    v56 = 0;
-    v57 = 0;
-    LOBYTE(v55) = v14;
-    LOWORD(v54) = v45;
-    LOWORD(v52) = v43;
-    [v36 fetchCoreRxLensData:v37 accPayload:v38 rxIdL:v39 rxIdR:v40 axisL:v41 axisR:v42 calRequiredL:v52 calRequiredR:v44 version:v54 leftLensOnly:v46 rightLensOnly:v2 attributes:v55 records:v9 cloudSync:&v57 store:&v56 recordUUIDOut:? error:?];
-    v16 = v57;
-    v10 = v56;
+    v35 = *(*(a1 + 32) + 40);
+    v36 = *(a1 + 64);
+    v37 = *(a1 + 72);
+    v38 = *(a1 + 88);
+    v39 = *(a1 + 96);
+    v40 = *(a1 + 104);
+    v41 = *(a1 + 112);
+    v42 = *(a1 + 128);
+    v43 = *(a1 + 120);
+    v44 = *(a1 + 130);
+    v45 = *(a1 + 48);
+    v54 = 0;
+    v55 = 0;
+    LOBYTE(v53) = v13;
+    LOWORD(v52) = v44;
+    LOWORD(v51) = v42;
+    [v35 fetchCoreRxLensData:v36 accPayload:v37 rxIdL:v38 rxIdR:v39 axisL:v40 axisR:v41 calRequiredL:v51 calRequiredR:v43 version:v52 leftLensOnly:v45 rightLensOnly:v2 attributes:v53 records:v8 cloudSync:&v55 store:&v54 recordUUIDOut:? error:?];
+    v15 = v55;
+    v9 = v54;
   }
 
 LABEL_25:
@@ -6354,6 +6201,27 @@ void sub_10003B404(void *a1, void *a2, uint64_t a3)
   v12 = 2112;
   v13 = a3;
   _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "error query data in nominal lens data store %@ group: %@ error=%@", &v8, 0x20u);
+}
+
+void sub_10003B4E0(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000A178(&_mh_execute_header, a2, a3, "Invalid attributes dataType, expecting NSDisctionary: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B61C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000A178(&_mh_execute_header, a2, a3, "recordUUID %@ doesn't exist", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10003B68C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000A178(&_mh_execute_header, a2, a3, "invalid name %@ ", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 id sub_10003C1FC(uint64_t a1)
@@ -6389,10 +6257,7 @@ uint64_t sub_10003C300(uint64_t result, uint64_t a2)
 
 uint64_t sub_10003C318(uint64_t a1)
 {
-  v2 = [*(a1 + 32) cloudSyncManager];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) cloudSyncManager];
 
   return _objc_release_x1();
 }
@@ -6469,8 +6334,9 @@ void sub_10003C8CC(uint64_t a1)
   }
 }
 
-void sub_10003CCB8(uint64_t a1, int a2)
+void sub_10003CCB8(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = MKBDeviceUnlockedSinceBoot();
   v5 = off_100127E38;
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
@@ -6481,7 +6347,7 @@ void sub_10003CCB8(uint64_t a1, int a2)
 
   if (v4 == 1)
   {
-    notify_cancel(a2);
+    notify_cancel(v2);
     [*(a1 + 32) deviceFirstUnlockSinceBoot];
   }
 }
@@ -6490,7 +6356,7 @@ id sub_10003CE20(uint64_t a1)
 {
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
   {
-    sub_10004F5B0(a1);
+    sub_10004F5B0();
   }
 
   return [*(a1 + 32) convertA06AssetsToClassA:*(*(a1 + 32) + 144)];
@@ -6539,14 +6405,14 @@ void sub_10003DB94(void *a1, uint64_t a2)
   }
 }
 
-void sub_10003DE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10003DE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6633,7 +6499,7 @@ void sub_10003EA54(uint64_t a1)
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   else
@@ -6660,7 +6526,7 @@ void sub_10003EB3C(uint64_t a1)
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   else
@@ -6671,11 +6537,12 @@ void sub_10003EB3C(uint64_t a1)
   sub_10000AE58(CALogger, v5);
 }
 
-void sub_10003F898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_10003F898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6830,10 +6697,10 @@ LABEL_22:
 
 void sub_10003FF54(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_10004FF7C(a1);
+    sub_10004FF7C();
   }
 }
 
@@ -6930,7 +6797,7 @@ void sub_100040688(uint64_t a1)
 
         if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000502D8(v3);
+          sub_1000502D8();
         }
       }
 
@@ -6987,7 +6854,7 @@ LABEL_15:
 
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_1000501CC((v3 + 3));
+    sub_1000501CC();
   }
 
   v12 = 0;
@@ -7019,7 +6886,7 @@ LABEL_19:
   v47 = *(a1 + 48);
   if (v47)
   {
-    [v47 auditToken];
+    objc_msgSend_auditToken(v47);
   }
 
   else
@@ -7043,7 +6910,7 @@ void sub_100040C8C(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_100041338(void *a1, uint64_t *a2)
+uint64_t sub_100041338(void *a1, void *a2)
 {
   v14 = 0u;
   v15 = 0u;
@@ -7076,7 +6943,7 @@ LABEL_3:
           if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
           {
 LABEL_16:
-            sub_100050418(a2);
+            sub_100050418();
           }
 
 LABEL_17:
@@ -7138,7 +7005,7 @@ void sub_100041574(uint64_t a1)
   {
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_1000501CC((v3 + 3));
+      sub_1000501CC();
     }
 
     v11 = 0;
@@ -7204,7 +7071,7 @@ void sub_100041574(uint64_t a1)
 
           if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
           {
-            sub_1000502D8(v3);
+            sub_1000502D8();
           }
         }
 
@@ -7335,7 +7202,7 @@ LABEL_5:
   v18 = *(a1 + 48);
   if (v18)
   {
-    [v18 auditToken];
+    objc_msgSend_auditToken(v18);
   }
 
   else
@@ -7365,7 +7232,7 @@ void sub_100041D90(uint64_t a1, void *a2)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   if (*(*(*(a1 + 40) + 8) + 40) && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100050488(a1);
+    sub_100050488();
   }
 }
 
@@ -7392,7 +7259,7 @@ id sub_10004238C(void *a1)
   v8 = a1[6];
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   else
@@ -7406,14 +7273,14 @@ id sub_10004238C(void *a1)
 void sub_1000424A4(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:kManagedAssetsSyncKey];
-  v104 = 0;
   v103 = 0;
-  [*(a1 + 40) parseSyncOptions:objc_msgSend(v2 localOnly:"intValue") cloudOnly:&v104 localAndCloud:{&v103, &v104 + 1}];
+  v102 = 0;
+  [*(a1 + 40) parseSyncOptions:objc_msgSend(v2 localOnly:"intValue") cloudOnly:&v103 localAndCloud:{&v102, &v103 + 1}];
   v3 = off_100127E38;
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_INFO))
   {
     v4 = "no";
-    if (HIBYTE(v104))
+    if (HIBYTE(v103))
     {
       v5 = "yes";
     }
@@ -7423,7 +7290,7 @@ void sub_1000424A4(uint64_t a1)
       v5 = "no";
     }
 
-    if (v104)
+    if (v103)
     {
       v6 = "yes";
     }
@@ -7434,7 +7301,7 @@ void sub_1000424A4(uint64_t a1)
     }
 
     *buf = 136315650;
-    if (v103)
+    if (v102)
     {
       v4 = "yes";
     }
@@ -7450,12 +7317,12 @@ void sub_1000424A4(uint64_t a1)
   v7 = *(a1 + 32);
   v8 = *(*(a1 + 40) + 72);
   v9 = kManagedAssetsRXUUIDKey;
-  v110[0] = kManagedAssetsRXUUIDKey;
+  v109[0] = kManagedAssetsRXUUIDKey;
   v10 = [v7 objectForKeyedSubscript:kManagedAssetsRXUUIDKey];
-  v110[1] = kManagedAssetsAssetStateKey;
-  v111[0] = v10;
-  v111[1] = &off_10011E000;
-  v11 = [NSDictionary dictionaryWithObjects:v111 forKeys:v110 count:2];
+  v109[1] = kManagedAssetsAssetStateKey;
+  v110[0] = v10;
+  v110[1] = &off_10011E000;
+  v11 = [NSDictionary dictionaryWithObjects:v110 forKeys:v109 count:2];
   v12 = [*(a1 + 40) profile];
   v13 = [v12 profileName];
   v14 = *(*(a1 + 72) + 8);
@@ -7466,7 +7333,6 @@ void sub_1000424A4(uint64_t a1)
   v17 = *(v16 + 40);
   *(v16 + 40) = v15;
 
-  v84 = a1 + 72;
   if (*(*(*(a1 + 72) + 8) + 40))
   {
     v18 = &selRef_queryInUseStatusWithAuditToken_completion_;
@@ -7493,19 +7359,19 @@ void sub_1000424A4(uint64_t a1)
 
   else
   {
-    v100 = 0u;
-    v101 = 0u;
-    v98 = 0u;
     v99 = 0u;
-    v85 = *(*(*(a1 + 64) + 8) + 40);
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v84 = *(*(*(a1 + 64) + 8) + 40);
     v18 = &selRef_queryInUseStatusWithAuditToken_completion_;
-    v89 = [v85 countByEnumeratingWithState:&v98 objects:v109 count:16];
+    v88 = [v84 countByEnumeratingWithState:&v97 objects:v108 count:16];
     v20 = 0;
     v24 = 0;
-    if (v89)
+    if (v88)
     {
-      v90 = 0;
-      v88 = *v99;
+      v89 = 0;
+      v87 = *v98;
       *&v23 = 138412290;
       v82 = v23;
       v83 = v2;
@@ -7516,35 +7382,35 @@ void sub_1000424A4(uint64_t a1)
         {
           v26 = v24;
           v27 = v20;
-          if (*v99 != v88)
+          if (*v98 != v87)
           {
-            objc_enumerationMutation(v85);
+            objc_enumerationMutation(v84);
           }
 
-          v28 = *(*(&v98 + 1) + 8 * v25);
+          v28 = *(*(&v97 + 1) + 8 * v25);
           v29 = *(a1 + 40);
           v30 = *(v29 + 72);
           v31 = *(v29 + 16);
           v32 = *(*(a1 + 72) + 8);
-          v96 = *(v32 + 40);
-          v97 = v24;
-          v33 = [v30 getAsset:v28 profile:v31 option:0 assetPathOut:&v97 bypassProfileCheck:0 error:{&v96, v82}];
-          v24 = v97;
+          v95 = *(v32 + 40);
+          v96 = v24;
+          v33 = [v30 getAsset:v28 profile:v31 option:0 assetPathOut:&v96 bypassProfileCheck:0 error:{&v95, v82}];
+          v24 = v96;
 
-          objc_storeStrong((v32 + 40), v96);
+          objc_storeStrong((v32 + 40), v95);
           if (*(*(*(a1 + 72) + 8) + 40))
           {
             v2 = v83;
             if (os_log_type_enabled(v18[455], OS_LOG_TYPE_ERROR))
             {
-              sub_1000501CC(v84);
+              sub_1000501CC();
             }
 
             v18 = &selRef_queryInUseStatusWithAuditToken_completion_;
             goto LABEL_49;
           }
 
-          if ((v103 & 1) == 0)
+          if ((v102 & 1) == 0)
           {
             v34 = [v33 assetMetadata];
             v35 = +[MAUtilityHelper determinePClassWith:profileType:deviceState:](MAUtilityHelper, "determinePClassWith:profileType:deviceState:", [v34 type], objc_msgSend(*(*(a1 + 40) + 16), "profileType"), *(*(a1 + 40) + 8));
@@ -7565,12 +7431,12 @@ void sub_1000424A4(uint64_t a1)
             v37 = *(a1 + 40);
             v38 = *(*(*(a1 + 80) + 8) + 40);
             v39 = *(*(a1 + 72) + 8);
-            v95 = *(v39 + 40);
-            v40 = [v37 canTouchAsset:v35 clientBundle:v38 error:&v95];
-            objc_storeStrong((v39 + 40), v95);
+            v94 = *(v39 + 40);
+            v40 = [v37 canTouchAsset:v35 clientBundle:v38 error:&v94];
+            objc_storeStrong((v39 + 40), v94);
             if (!v40)
             {
-              v90 = v35;
+              v89 = v35;
               v2 = v83;
 LABEL_49:
 
@@ -7578,16 +7444,16 @@ LABEL_49:
               goto LABEL_50;
             }
 
-            v86 = v27;
-            v87 = v24;
+            v85 = v27;
+            v86 = v24;
             v41 = *(*(a1 + 40) + 72);
             v42 = [v33 assetHandle];
-            v108 = v42;
-            v43 = [NSArray arrayWithObjects:&v108 count:1];
+            v107 = v42;
+            v43 = [NSArray arrayWithObjects:&v107 count:1];
             v44 = *(*(a1 + 72) + 8);
-            v94 = *(v44 + 40);
-            LODWORD(v41) = [v41 deleteAssets:v43 error:&v94];
-            objc_storeStrong((v44 + 40), v94);
+            v93 = *(v44 + 40);
+            LODWORD(v41) = [v41 deleteAssets:v43 error:&v93];
+            objc_storeStrong((v44 + 40), v93);
 
             if (v41)
             {
@@ -7616,31 +7482,31 @@ LABEL_49:
               v50 = *(*(a1 + 40) + 56);
               v51 = [v33 assetMetadata];
               v52 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v51 type]);
-              v106 = v52;
+              v105 = v52;
               v53 = [v33 assetHandle];
-              v105 = v53;
-              v54 = [NSArray arrayWithObjects:&v105 count:1];
-              v107 = v54;
-              v55 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+              v104 = v53;
+              v54 = [NSArray arrayWithObjects:&v104 count:1];
+              v106 = v54;
+              v55 = [NSDictionary dictionaryWithObjects:&v106 forKeys:&v105 count:1];
               [v50 notifyAssetChangeWith:8 handles:v55];
 
-              v90 = v35;
+              v89 = v35;
               v18 = &selRef_queryInUseStatusWithAuditToken_completion_;
             }
 
             else
             {
-              v90 = v35;
+              v89 = v35;
             }
 
-            v27 = v86;
-            v24 = v87;
+            v27 = v85;
+            v24 = v86;
           }
 
           v56 = [v33 assetMetadata];
           v20 = [v56 ckrecordIdentifier];
 
-          if ((v104 & 1) == 0)
+          if ((v103 & 1) == 0)
           {
             if (v20)
             {
@@ -7667,13 +7533,13 @@ LABEL_49:
                 v65 = [v64 type];
                 v66 = [v33 assetOwner];
                 v67 = [v66 profileType];
-                v91[0] = _NSConcreteStackBlock;
-                v91[1] = 3221225472;
-                v91[2] = sub_100042EBC;
-                v91[3] = &unk_100116830;
-                v93 = *(a1 + 72);
-                v92 = v33;
-                [v63 deleteAssetInCloudWithRecordName:v20 assetType:v65 profileType:v67 completionHandler:v91];
+                v90[0] = _NSConcreteStackBlock;
+                v90[1] = 3221225472;
+                v90[2] = sub_100042EBC;
+                v90[3] = &unk_100116830;
+                v92 = *(a1 + 72);
+                v91 = v33;
+                [v63 deleteAssetInCloudWithRecordName:v20 assetType:v65 profileType:v67 completionHandler:v90];
 
                 v18 = &selRef_queryInUseStatusWithAuditToken_completion_;
                 v24 = v59;
@@ -7684,10 +7550,10 @@ LABEL_49:
           v25 = v25 + 1;
         }
 
-        while (v89 != v25);
-        v71 = [v85 countByEnumeratingWithState:&v98 objects:v109 count:16];
+        while (v88 != v25);
+        v71 = [v84 countByEnumeratingWithState:&v97 objects:v108 count:16];
         v2 = v83;
-        v89 = v71;
+        v88 = v71;
       }
 
       while (v71);
@@ -7695,13 +7561,13 @@ LABEL_49:
 
     else
     {
-      v90 = 0;
+      v89 = 0;
     }
 
 LABEL_50:
     v21 = v24;
 
-    v22 = v90;
+    v22 = v89;
   }
 
   v72 = v18[455];
@@ -7719,13 +7585,13 @@ LABEL_50:
   v75 = *(a1 + 56);
   if (v75)
   {
-    (*(v75 + 16))(v75, *(*(*v84 + 8) + 40));
+    (*(v75 + 16))(v75, *(*(*(a1 + 72) + 8) + 40));
   }
 
   v76 = *(a1 + 48);
   if (v76)
   {
-    [v76 auditToken];
+    objc_msgSend_auditToken(v76);
   }
 
   else
@@ -7742,8 +7608,15 @@ void sub_100042EBC(uint64_t a1, void *a2)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   if (*(*(*(a1 + 40) + 8) + 40) && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100050488(a1);
+    sub_100050488();
   }
+}
+
+void sub_1000434F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_10004352C(uint64_t a1)
@@ -7759,7 +7632,7 @@ id sub_10004352C(uint64_t a1)
     objc_storeStrong((v4 + 40), obj);
     if ((v5 & 1) == 0 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_10005064C((a1 + 40));
+      sub_10005064C();
     }
 
     [*(*(a1 + 32) + 40) deleteAllStores];
@@ -7830,7 +7703,7 @@ id sub_10004352C(uint64_t a1)
   v21 = *(a1 + 48);
   if (v21)
   {
-    [v21 auditToken];
+    objc_msgSend_auditToken(v21);
   }
 
   else
@@ -7960,7 +7833,7 @@ void sub_100043D6C(void *a1)
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_10005079C(v2);
+      sub_10005079C();
     }
   }
 
@@ -7977,7 +7850,7 @@ void sub_100043D6C(void *a1)
   }
 }
 
-uint64_t sub_100044EB8(void *a1, uint64_t *a2)
+uint64_t sub_100044EB8(void *a1, void *a2)
 {
   v14 = 0u;
   v15 = 0u;
@@ -8027,7 +7900,7 @@ LABEL_3:
           }
 
 LABEL_21:
-          sub_100050418(a2);
+          sub_100050418();
           goto LABEL_22;
         }
       }
@@ -8069,11 +7942,12 @@ LABEL_23:
   return v10;
 }
 
-void sub_1000460D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
+void sub_1000460D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
 {
+  va_start(va, a55);
   _Block_object_dispose(&a44, 8);
   _Block_object_dispose(&a50, 8);
-  _Block_object_dispose(&a56, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8081,7 +7955,7 @@ void sub_100046138(uint64_t a1)
 {
   if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
   {
-    sub_100050BC4(a1);
+    sub_100050BC4();
   }
 
   v109 = 0;
@@ -8372,7 +8246,7 @@ LABEL_45:
   v91 = *(a1 + 48);
   if (v91)
   {
-    [v91 auditToken];
+    objc_msgSend_auditToken(v91);
   }
 
   else
@@ -8385,10 +8259,10 @@ LABEL_45:
 
 void sub_100046AF8(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100050CE8(a1);
+    sub_100050CE8();
   }
 }
 
@@ -8514,7 +8388,7 @@ LABEL_13:
 
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEBUG))
     {
-      sub_100050E10(a1 + 72);
+      sub_100050E10();
     }
 
     if (*(*(*(a1 + 64) + 8) + 40))
@@ -8582,7 +8456,7 @@ LABEL_29:
   {
     if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
     {
-      sub_100050E80(a1 + 64);
+      sub_100050E80();
     }
 
     [*(*(*(a1 + 88) + 8) + 40) closeFile];
@@ -8604,7 +8478,7 @@ LABEL_29:
   v59 = *(a1 + 40);
   if (v59)
   {
-    [v59 auditToken];
+    objc_msgSend_auditToken(v59);
   }
 
   else
@@ -8615,9 +8489,9 @@ LABEL_29:
   [CALogger logWithCoreAnalytics:"[MAServer GetTempAssetFileHandle:assetType:assetHandle:completion:]_block_invoke" client:v60 startTS:*(a1 + 120) error:*(*(*(a1 + 64) + 8) + 40)];
 }
 
-void sub_100047D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100047D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8629,65 +8503,63 @@ void sub_100047D38(void *a1)
   v4 = *(a1[4] + 72);
   v5 = *(a1[7] + 8);
   obj = *(v5 + 40);
-  v23 = 0;
-  v6 = [v4 createTempAssetFile:v3 protectionType:v2 pathOut:&v23 fileHandleOut:0 error:&obj];
-  v7 = v23;
+  v22 = 0;
+  v6 = [v4 createTempAssetFile:v3 protectionType:v2 pathOut:&v22 fileHandleOut:0 error:&obj];
+  v7 = v22;
   objc_storeStrong((v5 + 40), obj);
   if (v6)
   {
     v8 = a1[5];
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else
     {
+      v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
     }
 
-    v10 = *(a1[7] + 8);
-    v13 = *(v10 + 40);
-    v11 = (v10 + 40);
-    v12 = v13;
-    v14 = v7;
-    [v14 fileSystemRepresentation];
+    v9 = *(a1[7] + 8);
+    v12 = *(v9 + 40);
+    v10 = (v9 + 40);
+    v11 = v12;
+    v13 = v7;
+    [v13 fileSystemRepresentation];
+    v23 = v19;
     v24 = v20;
-    v25 = v21;
-    v15 = sandbox_extension_issue_file_to_process();
-    if (v15)
+    v14 = sandbox_extension_issue_file_to_process();
+    if (v14)
     {
-      v16 = v15;
-      v17 = [NSString stringWithUTF8String:v15];
-      free(v16);
+      v15 = v14;
+      v16 = [NSString stringWithUTF8String:v14];
+      free(v15);
     }
 
     else
     {
-      v12 = createManagedAssetError();
-      v18 = v12;
-      v17 = 0;
+      v11 = createManagedAssetError();
+      v17 = v11;
+      v16 = 0;
     }
 
-    objc_storeStrong(v11, v12);
-    v19 = [*(a1[4] + 72) malocalTmpAssetPath];
-    [_TtC6server14MAPurgeUtility markPurgeable:v19];
+    objc_storeStrong(v10, v11);
+    v18 = [*(a1[4] + 72) malocalTmpAssetPath];
+    [_TtC6server14MAPurgeUtility markPurgeable:v18];
 
-    *(*(a1[7] + 8) + 40);
     (*(a1[6] + 16))(a1[6]);
   }
 
   else
   {
-    v9 = *(*(a1[7] + 8) + 40);
     (*(a1[6] + 16))();
   }
 }
 
-void sub_100048130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100048130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8699,7 +8571,7 @@ void sub_10004814C(uint64_t a1)
   v15 = 0u;
   v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
@@ -8722,14 +8594,14 @@ void sub_10004814C(uint64_t a1)
         objc_storeStrong((v9 + 40), obj);
         if ((v10 & 1) == 0 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
         {
-          sub_100050EF0(v17, a1 + 48);
+          sub_100050EF0();
         }
 
         v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -8741,25 +8613,25 @@ void sub_10004814C(uint64_t a1)
 
 void sub_100048A50(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100051078(a1);
+    sub_100051078();
   }
 }
 
 void sub_100049688(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100051078(a1);
+    sub_100051078();
   }
 }
 
-void sub_1000499B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000499B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8776,10 +8648,10 @@ int64_t sub_10004A52C(id a1, NSArray *a2, NSArray *a3)
 
 void sub_10004A59C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
   {
-    sub_100051078(a1);
+    sub_100051078();
   }
 }
 
@@ -9135,5 +9007,100 @@ void sub_10004C3A8(uint64_t a1)
     v3 = "skip uploadOldAssets On startup as cloudSyncManager has not been started yet";
 LABEL_11:
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, v3, buf, 2u);
+  }
+}
+
+void sub_10004C504(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = v6;
+  if (!v5 || v6)
+  {
+    v10 = off_100127E38;
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v13 = v7;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Skip routine uploadOldAssetsWithOption as fetching signInUser failed: %@", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 104);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_10004C62C;
+    block[3] = &unk_100115E70;
+    block[4] = v8;
+    dispatch_async(v9, block);
+  }
+}
+
+id sub_10004C62C(uint64_t a1)
+{
+  v2 = off_100127E38;
+  if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "uploadOldAssetsWithOption on startup", v4, 2u);
+  }
+
+  return [*(a1 + 32) uploadOldAssetsWithOption:1 includeKVStoreData:1 error:0];
+}
+
+void sub_10004CB48(id a1, NSError *a2)
+{
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000518B0();
+  }
+}
+
+void sub_10004CB9C(id a1, NSError *a2)
+{
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  {
+    sub_100051920();
+  }
+}
+
+void sub_10004D1A0(id a1, NSError *a2)
+{
+  v2 = a2;
+  if (v2 && os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  {
+    sub_100051920();
+  }
+}
+
+void sub_10004D778(uint64_t a1)
+{
+  v2 = off_100127E38;
+  if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "startCloudSyncManager: starting cloudSyncManager", buf, 2u);
+  }
+
+  v3 = [*(a1 + 32) cloudSyncManager];
+
+  v4 = off_100127E38;
+  if (v3)
+  {
+    if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_DEFAULT))
+    {
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "startCloudSyncManager: cloudSyncManager is started", v5, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(off_100127E38, OS_LOG_TYPE_ERROR))
+  {
+    sub_100051BB4();
   }
 }

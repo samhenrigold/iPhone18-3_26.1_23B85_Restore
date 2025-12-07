@@ -9,7 +9,7 @@
 
 - (BOOL)_finishWithError:(id *)error
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   itemCount = self->_itemCount;
   if (itemCount == objc_msgSend_itemCount(self->_datasetInfo, a2, error, v3, v4, v5))
   {
@@ -17,37 +17,35 @@
     writer = self->_writer;
     self->_writer = 0;
 
-    v16 = *MEMORY[0x277D85DE8];
     return v14;
   }
 
   else
   {
-    v18 = MEMORY[0x277CCA9B8];
-    v33 = *MEMORY[0x277CCA450];
-    v19 = MEMORY[0x277CCACA8];
-    v20 = objc_msgSend_itemCount(self->_datasetInfo, v9, v10, v11, v12, v13);
-    v25 = objc_msgSend_stringWithFormat_(v19, v21, @"Expected %u dataset items but %u were added.", v22, v23, v24, v20, self->_itemCount);
-    v34[0] = v25;
-    v28 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v34, &v33, 1, v27);
-    v31 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v29, @"com.apple.koa.profile", 8, v28, v30);
+    v17 = MEMORY[0x277CCA9B8];
+    v31 = *MEMORY[0x277CCA450];
+    v18 = MEMORY[0x277CCACA8];
+    v19 = objc_msgSend_itemCount(self->_datasetInfo, v9, v10, v11, v12, v13);
+    v24 = objc_msgSend_stringWithFormat_(v18, v20, @"Expected %u dataset items but %u were added.", v21, v22, v23, v19, self->_itemCount);
+    v32[0] = v24;
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v32, &v31, 1, v26);
+    v30 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v28, @"com.apple.koa.profile", 8, v27, v29);
     if (error)
     {
-      if (v31)
+      if (v30)
       {
-        v31 = v31;
-        *error = v31;
+        v30 = v30;
+        *error = v30;
       }
     }
 
-    v32 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
 - (id)addItem:(id)item error:(id *)error
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (itemCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -64,41 +62,41 @@
 
     else
     {
-      v41 = MEMORY[0x277CCA9B8];
-      v71 = *MEMORY[0x277CCA450];
-      v42 = MEMORY[0x277CCACA8];
-      v43 = objc_msgSend_itemType(itemCopy, v18, v19, v20, v21, v22);
-      if (v43 - 1 >= 0x1A)
+      v40 = MEMORY[0x277CCA9B8];
+      v70 = *MEMORY[0x277CCA450];
+      v41 = MEMORY[0x277CCACA8];
+      v42 = objc_msgSend_itemType(itemCopy, v18, v19, v20, v21, v22);
+      if (v42 - 1 >= 0x1A)
       {
-        v47 = 0;
+        v46 = 0;
       }
 
       else
       {
-        v47 = v43;
+        v46 = v42;
       }
 
-      v48 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v44, off_279803A58[v47], 4, v45, v46);
-      v54 = objc_msgSend_itemType(self->_datasetInfo, v49, v50, v51, v52, v53);
-      if (v54 - 1 >= 0x1A)
+      v47 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v43, off_279803A58[v46], 4, v44, v45);
+      v53 = objc_msgSend_itemType(self->_datasetInfo, v48, v49, v50, v51, v52);
+      if (v53 - 1 >= 0x1A)
       {
-        v58 = 0;
+        v57 = 0;
       }
 
       else
       {
-        v58 = v54;
+        v57 = v53;
       }
 
-      v59 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v55, off_279803A58[v58], 4, v56, v57);
-      v64 = objc_msgSend_stringWithFormat_(v42, v60, @"Item has type %@ inconsistent with dataset itemType %@", v61, v62, v63, v48, v59);
-      v72 = v64;
-      v67 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v65, &v72, &v71, 1, v66);
-      v70 = objc_msgSend_errorWithDomain_code_userInfo_(v41, v68, @"com.apple.koa.profile", 7, v67, v69);
-      if (error && v70)
+      v58 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v54, off_279803A58[v57], 4, v55, v56);
+      v63 = objc_msgSend_stringWithFormat_(v41, v59, @"Item has type %@ inconsistent with dataset itemType %@", v60, v61, v62, v47, v58);
+      v71 = v63;
+      v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v64, &v71, &v70, 1, v65);
+      v69 = objc_msgSend_errorWithDomain_code_userInfo_(v40, v67, @"com.apple.koa.profile", 7, v66, v68);
+      if (error && v69)
       {
-        v70 = v70;
-        *error = v70;
+        v69 = v69;
+        *error = v69;
       }
     }
   }
@@ -106,13 +104,13 @@
   else
   {
     v24 = MEMORY[0x277CCA9B8];
-    v73 = *MEMORY[0x277CCA450];
+    v72 = *MEMORY[0x277CCA450];
     v25 = MEMORY[0x277CCACA8];
     v26 = objc_opt_class();
     v27 = NSStringFromClass(v26);
     v32 = objc_msgSend_stringWithFormat_(v25, v28, @"Invalid item: %@ expected %@", v29, v30, v31, itemCopy, v27);
-    v74[0] = v32;
-    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v74, &v73, 1, v34);
+    v73[0] = v32;
+    v35 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v73, &v72, 1, v34);
     v38 = objc_msgSend_errorWithDomain_code_userInfo_(v24, v36, @"com.apple.koa.profile", 7, v35, v37);
     if (error && v38)
     {
@@ -124,19 +122,17 @@
   selfCopy = 0;
 LABEL_11:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (KVDatasetBuilder)initWithDatasetInfo:(id)info writer:(id)writer error:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   writerCopy = writer;
-  v42.receiver = self;
-  v42.super_class = KVDatasetBuilder;
-  v11 = [(KVDatasetBuilder *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = KVDatasetBuilder;
+  v11 = [(KVDatasetBuilder *)&v41 init];
   v12 = v11;
   v13 = v11;
   if (!v11)
@@ -167,10 +163,10 @@ LABEL_11:
     datasetInfo = v12->_datasetInfo;
 LABEL_10:
     v32 = MEMORY[0x277CCA9B8];
-    v43 = *MEMORY[0x277CCA450];
+    v42 = *MEMORY[0x277CCA450];
     v33 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v14, @"Invalid DatasetInfo: %@", v15, v16, v17, datasetInfo);
-    v44[0] = v33;
-    v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v44, &v43, 1, v35);
+    v43[0] = v33;
+    v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v34, v43, &v42, 1, v35);
     v39 = objc_msgSend_errorWithDomain_code_userInfo_(v32, v37, @"com.apple.koa.profile", 6, v36, v38);
     if (error && v39)
     {
@@ -194,7 +190,6 @@ LABEL_7:
   v31 = v13;
 LABEL_15:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

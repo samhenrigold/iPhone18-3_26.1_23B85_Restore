@@ -3,8 +3,6 @@
 - (void)refreshAndRetrieveWithContextTypes:(id)types with:(id)with;
 - (void)refreshWithContextTypes:(id)types interactionId:(id)id with:(id)with;
 - (void)retrieveAndRankIntelligenceCommandContextValuesWithQuery:(id)query appBundleIds:(id)ids threshold:(id)threshold timeout:(id)timeout with:(id)with;
-- (void)retrieveContextValuesWithContextTypes:(id)types timeout:(id)timeout with:(id)with;
-- (void)retrieveContextValuesWithFailuresWithContextTypes:(id)types timeout:(id)timeout with:(id)with;
 - (void)retrieveContextValuesWithQuery:(id)query with:(id)with;
 - (void)retrieveRequiredContextValuesWith:(id)with;
 @end
@@ -67,36 +65,6 @@ LABEL_5:
   sub_254F1B830();
 
   sub_254EF2778(v8, v10);
-}
-
-- (void)retrieveContextValuesWithContextTypes:(id)types timeout:(id)timeout with:(id)with
-{
-  v8 = _Block_copy(with);
-  typesCopy = types;
-  timeoutCopy = timeout;
-  selfCopy = self;
-  v11 = sub_254F27900();
-  v13 = v12;
-
-  *(swift_allocObject() + 16) = v8;
-  sub_254F1E0CC();
-
-  sub_254EF278C(v11, v13);
-}
-
-- (void)retrieveContextValuesWithFailuresWithContextTypes:(id)types timeout:(id)timeout with:(id)with
-{
-  v8 = _Block_copy(with);
-  typesCopy = types;
-  timeoutCopy = timeout;
-  selfCopy = self;
-  v11 = sub_254F27900();
-  v13 = v12;
-
-  *(swift_allocObject() + 16) = v8;
-  sub_254F1E0CC();
-
-  sub_254EF278C(v11, v13);
 }
 
 - (void)retrieveAndRankIntelligenceCommandContextValuesWithQuery:(id)query appBundleIds:(id)ids threshold:(id)threshold timeout:(id)timeout with:(id)with

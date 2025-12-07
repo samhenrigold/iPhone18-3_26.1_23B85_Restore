@@ -843,16 +843,16 @@ void __46__MPHomeManagerObserver_monitorForCurrentUser__block_invoke(uint64_t a1
   dispatch_async(accessQueue, v4);
 }
 
-uint64_t __46__MPHomeManagerObserver_setSoundCheckEnabled___block_invoke(uint64_t result)
+void *__46__MPHomeManagerObserver_setSoundCheckEnabled___block_invoke(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   v4 = *(result + 40);
   if (*(v3 + 64) != v4)
   {
     v8 = v1;
     v9 = v2;
     *(v3 + 64) = v4;
-    v5 = *(result + 32);
+    v5 = result[4];
     v6 = *(v5 + 32);
     LOBYTE(v7) = *(result + 40);
     return [v6 updateSoundCheckEnabled:MEMORY[0x1E69E9820] completion:{3221225472, __46__MPHomeManagerObserver_setSoundCheckEnabled___block_invoke_2, &unk_1E76784D8, v5, v7, v8, v9}];

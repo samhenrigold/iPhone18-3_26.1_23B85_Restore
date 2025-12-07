@@ -211,7 +211,7 @@
 
 - (id)sqliteRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v6 = objc_msgSend_containerIdentifier(self, v4, v5);
   v7 = NSStringFromSelector(sel_containerIdentifier);
@@ -226,9 +226,9 @@
   v20 = NSStringFromSelector(sel_repairZoneID);
   objc_msgSend_setObject_forKeyedSubscript_(v3, v21, v19, v20);
 
-  v31 = 0;
-  v23 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v22, v3, 0, &v31);
-  v24 = v31;
+  v30 = 0;
+  v23 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x1E696ACB0], v22, v3, 0, &v30);
+  v24 = v30;
   if (v24)
   {
     if (ck_log_initialization_predicate != -1)
@@ -240,7 +240,7 @@
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v33 = v24;
+      v32 = v24;
       _os_log_error_impl(&dword_1883EA000, v25, OS_LOG_TYPE_ERROR, "Error converting CKUploadRequestConfiguration to JSON: %@", buf, 0xCu);
     }
   }
@@ -248,21 +248,19 @@
   v26 = objc_alloc(MEMORY[0x1E696AEC0]);
   v28 = objc_msgSend_initWithData_encoding_(v26, v27, v23, 4);
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v28;
 }
 
 - (CKUploadRequestConfiguration)initWithSqliteRepresentation:(id)representation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   if (objc_msgSend_length(representationCopy, v5, v6))
   {
     v8 = objc_msgSend_dataUsingEncoding_(representationCopy, v7, 4);
-    v33 = 0;
-    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v33);
-    v11 = v33;
+    v32 = 0;
+    v10 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v9, v8, 0, &v32);
+    v11 = v32;
     if (v11 || !v10)
     {
       if (ck_log_initialization_predicate != -1)
@@ -274,7 +272,7 @@
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v11;
+        v34 = v11;
         _os_log_error_impl(&dword_1883EA000, v29, OS_LOG_TYPE_ERROR, "Error converting JSON data to CKUploadRequestConfiguration: %@", buf, 0xCu);
       }
 
@@ -283,9 +281,9 @@
 
     else
     {
-      v32.receiver = self;
-      v32.super_class = CKUploadRequestConfiguration;
-      v12 = [(CKUploadRequestConfiguration *)&v32 init];
+      v31.receiver = self;
+      v31.super_class = CKUploadRequestConfiguration;
+      v12 = [(CKUploadRequestConfiguration *)&v31 init];
       if (v12)
       {
         v13 = NSStringFromSelector(sel_containerIdentifier);
@@ -316,7 +314,6 @@
     selfCopy = 0;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

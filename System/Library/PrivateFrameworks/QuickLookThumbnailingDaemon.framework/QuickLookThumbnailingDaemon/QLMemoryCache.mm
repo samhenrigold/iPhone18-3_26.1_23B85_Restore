@@ -106,7 +106,7 @@
 
 - (void)reset
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = _log_8();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
@@ -115,31 +115,31 @@
   }
 
   [(QLMemoryCache *)self _getWriteLock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_thumbnailDataToSave;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setState:{2, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setState:{2, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
@@ -148,7 +148,6 @@
   [(NSMutableArray *)self->_thumbnailDataToSave removeAllObjects];
   [(NSMutableDictionary *)self->_thumbnailData removeAllObjects];
   [(QLMemoryCache *)self _releaseWriteLock];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateThumbnailData:(id)data
@@ -182,7 +181,7 @@
 
 - (BOOL)addThumbnailData:(id)data
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   cacheEnabled = self->_cacheEnabled;
   if (!cacheEnabled)
@@ -199,15 +198,15 @@
     bitmapFormat = [dataCopy bitmapFormat];
     width = [bitmapFormat width];
     bitmapFormat2 = [dataCopy bitmapFormat];
-    v38 = 138413058;
-    v39 = fileIdentifier;
-    v40 = 2048;
-    v41 = v9;
-    v42 = 2048;
-    v43 = width;
-    v44 = 2048;
+    v37 = 138413058;
+    v38 = fileIdentifier;
+    v39 = 2048;
+    v40 = v9;
+    v41 = 2048;
+    v42 = width;
+    v43 = 2048;
     height = [bitmapFormat2 height];
-    _os_log_impl(&dword_2615D3000, v6, OS_LOG_TYPE_INFO, "Adding thumbnail %@ %f (%zd, %zd) to pending saves", &v38, 0x2Au);
+    _os_log_impl(&dword_2615D3000, v6, OS_LOG_TYPE_INFO, "Adding thumbnail %@ %f (%zd, %zd) to pending saves", &v37, 0x2Au);
   }
 
   fileIdentifier2 = [dataCopy fileIdentifier];
@@ -270,10 +269,10 @@
           }
         }
 
-        v37 = _log_8();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+        v36 = _log_8();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
-          [(QLMemoryCache *)v22 addThumbnailData:v37];
+          [(QLMemoryCache *)v22 addThumbnailData:v36];
         }
 
         [(QLMemoryCache *)self _invalidateThumbnailData:v22];
@@ -312,13 +311,12 @@ LABEL_22:
   [(QLMemoryCache *)self _releaseWriteLock];
 
 LABEL_25:
-  v35 = *MEMORY[0x277D85DE8];
   return cacheEnabled;
 }
 
 - (BOOL)sendThumbnailDataForThumbnailRequest:(id)request withCacheThread:(id)thread
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   threadCopy = thread;
   if (!self->_cacheEnabled)
@@ -360,38 +358,38 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v48 = v15;
+  v47 = v15;
   selfCopy = self;
-  v47 = v9FileIdentifier;
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v46 = v9FileIdentifier;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (!v18)
   {
 
-    v9FileIdentifier = v47;
-    v16 = v48;
+    v9FileIdentifier = v46;
+    v16 = v47;
     goto LABEL_39;
   }
 
   v19 = v18;
-  v45 = threadCopy;
-  v46 = requestCopy;
+  v44 = threadCopy;
+  v45 = requestCopy;
   v20 = 0;
-  v21 = *v52;
+  v21 = *v51;
   while (2)
   {
     for (i = 0; i != v19; ++i)
     {
-      if (*v52 != v21)
+      if (*v51 != v21)
       {
         objc_enumerationMutation(v17);
       }
 
-      v23 = *(*(&v51 + 1) + 8 * i);
+      v23 = *(*(&v50 + 1) + 8 * i);
       if (iconMode == [v23 iconMode] && objc_msgSend(v23, "badgeType") == badgeType)
       {
         iconVariant = [v23 iconVariant];
@@ -462,7 +460,7 @@ LABEL_24:
       }
     }
 
-    v19 = [v17 countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v19 = [v17 countByEnumeratingWithState:&v50 objects:v54 count:16];
     if (v19)
     {
       continue;
@@ -473,10 +471,10 @@ LABEL_24:
 
 LABEL_34:
 
-  threadCopy = v45;
-  requestCopy = v46;
-  v9FileIdentifier = v47;
-  v16 = v48;
+  threadCopy = v44;
+  requestCopy = v45;
+  v9FileIdentifier = v46;
+  v16 = v47;
   self = selfCopy;
   if (!v20)
   {
@@ -496,10 +494,10 @@ LABEL_34:
   }
 
   [(QLMemoryCache *)selfCopy _releaseReadLock];
-  v16 = v48;
+  v16 = v47;
   if (v20)
   {
-    [v45 _sendThumbnailData:v20 forThumbnailRequest:v46];
+    [v44 _sendThumbnailData:v20 forThumbnailRequest:v45];
     v37 = 1;
   }
 
@@ -513,48 +511,47 @@ LABEL_40:
 LABEL_41:
 LABEL_42:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (void)thumbnailDataBatchSaved:(id)saved
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   savedCopy = saved;
   [(QLMemoryCache *)self _getWriteLock];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v5 = savedCopy;
-  v6 = [v5 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v28;
+    v9 = *v27;
     *&v7 = 138412546;
-    v25 = v7;
+    v24 = v7;
     obj = v5;
     do
     {
       v10 = 0;
       do
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * v10);
+        v11 = *(*(&v26 + 1) + 8 * v10);
         v12 = _log_8();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           fileIdentifier = [v11 fileIdentifier];
           [v11 size];
-          *buf = v25;
-          v32 = fileIdentifier;
-          v33 = 2048;
-          v34 = v22;
+          *buf = v24;
+          v31 = fileIdentifier;
+          v32 = 2048;
+          v33 = v22;
           _os_log_debug_impl(&dword_2615D3000, v12, OS_LOG_TYPE_DEBUG, "thumbnail saved %@ %f", buf, 0x16u);
         }
 
@@ -571,7 +568,7 @@ LABEL_42:
             v17 = 0;
             while (1)
             {
-              v18 = [v15 objectAtIndexedSubscript:{v17, v25}];
+              v18 = [v15 objectAtIndexedSubscript:{v17, v24}];
 
               if (v11 == v18)
               {
@@ -604,7 +601,7 @@ LABEL_17:
 
       while (v10 != v8);
       v5 = obj;
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v8);
@@ -617,13 +614,11 @@ LABEL_17:
   }
 
   [(QLMemoryCache *)self _releaseWriteLock];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)thumbnailDataToSaveWithBatch:(unint64_t)batch
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(QLMemoryCache *)self _getWriteLock];
   if (batch && [(NSMutableArray *)self->_thumbnailDataToSave count]>= batch || (batch = [(NSMutableArray *)self->_thumbnailDataToSave count]) != 0)
   {
@@ -638,21 +633,20 @@ LABEL_17:
   v6 = _log_8();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = [batch count];
+    v8 = [batch count];
     thumbnailDataToSave = self->_thumbnailDataToSave;
-    v11 = 138413058;
+    v10 = 138413058;
     selfCopy = self;
-    v13 = 2048;
-    v14 = v9;
-    v15 = 2048;
+    v12 = 2048;
+    v13 = v8;
+    v14 = 2048;
     batchCopy = batch;
-    v17 = 2112;
-    v18 = thumbnailDataToSave;
-    _os_log_debug_impl(&dword_2615D3000, v6, OS_LOG_TYPE_DEBUG, "%@: getting thumbnail data save batch: %lu thumbnails, asked for %lu - total: %@", &v11, 0x2Au);
+    v16 = 2112;
+    v17 = thumbnailDataToSave;
+    _os_log_debug_impl(&dword_2615D3000, v6, OS_LOG_TYPE_DEBUG, "%@: getting thumbnail data save batch: %lu thumbnails, asked for %lu - total: %@", &v10, 0x2Au);
   }
 
   [(QLMemoryCache *)self _releaseWriteLock];
-  v7 = *MEMORY[0x277D85DE8];
 
   return batch;
 }
@@ -691,7 +685,7 @@ LABEL_17:
 
 void __104__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -708,38 +702,36 @@ void __104__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWith
       [*(a1 + 40) addObject:v7];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v18 + 1) + 8 * i);
-          [v16 setState:{2, v18}];
+          v16 = *(*(&v17 + 1) + 8 * i);
+          [v16 setState:{2, v17}];
           [*(a1 + 48) setMemoryUsed:{objc_msgSend(*(a1 + 48), "memoryUsed") - objc_msgSend(v16, "totalBufferSize")}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __104__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithRemainingFileProviderIdentifiers___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -802,7 +794,7 @@ void __104__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWith
 
 void __83__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -819,38 +811,36 @@ void __83__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithI
       [*(a1 + 40) addObject:v7];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v18 + 1) + 8 * i);
-          [v16 setState:{2, v18}];
+          v16 = *(*(&v17 + 1) + 8 * i);
+          [v16 setState:{2, v17}];
           [*(a1 + 48) setMemoryUsed:{objc_msgSend(*(a1 + 48), "memoryUsed") - objc_msgSend(v16, "totalBufferSize")}];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __83__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithIdentifiers___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -888,29 +878,26 @@ void __83__QLMemoryCache_removeCachedThumbnailsFromUninstalledFileProvidersWithI
 
 - (void)addThumbnailData:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [a1 fileIdentifier];
   [a1 size];
-  v7 = 138412802;
-  v8 = v4;
-  v9 = 2048;
-  v10 = v5;
-  v11 = 2080;
-  v12 = " (replacing same)";
-  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Removing thumbnail %@ %f from pending saves to limit number of saves%s", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412802;
+  v7 = v4;
+  v8 = 2048;
+  v9 = v5;
+  v10 = 2080;
+  v11 = " (replacing same)";
+  _os_log_debug_impl(&dword_2615D3000, a2, OS_LOG_TYPE_DEBUG, "Removing thumbnail %@ %f from pending saves to limit number of saves%s", &v6, 0x20u);
 }
 
 - (void)thumbnailToSaveCount
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_2615D3000, log, OS_LOG_TYPE_DEBUG, "%@: thumbnail left to be saved %ld", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_2615D3000, log, OS_LOG_TYPE_DEBUG, "%@: thumbnail left to be saved %ld", &v3, 0x16u);
 }
 
 @end

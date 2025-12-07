@@ -35,25 +35,25 @@
 
 - (BOOL)addItem:(id)item error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   package = self->_package;
   if (!package)
   {
     v8 = [(BRCStageRegistry *)self->_registry createURLForUploadWithStageID:self->_stageID name:self->_name];
     boundaryKey = self->_boundaryKey;
-    v30 = 0;
-    v14 = [MEMORY[0x277CBC538] br_packageWithBoundaryKey:boundaryKey error:&v30];
-    v15 = v30;
+    v29 = 0;
+    v14 = [MEMORY[0x277CBC538] br_packageWithBoundaryKey:boundaryKey error:&v29];
+    v15 = v29;
     v16 = self->_package;
     self->_package = v14;
 
     v17 = self->_package;
     if (v17)
     {
-      v29 = v15;
-      v18 = [(CKPackage *)v17 anchorAtURL:v8 error:&v29];
-      v19 = v29;
+      v28 = v15;
+      v18 = [(CKPackage *)v17 anchorAtURL:v8 error:&v28];
+      v19 = v28;
 
       if (v18)
       {
@@ -62,21 +62,21 @@
         goto LABEL_2;
       }
 
-      v25 = brc_bread_crumbs();
-      v26 = brc_default_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v24 = brc_bread_crumbs();
+      v25 = brc_default_log();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = self->_package;
+        v26 = self->_package;
         path = [v8 path];
         *buf = 138413058;
-        v32 = v27;
-        v33 = 2112;
-        v34 = path;
-        v35 = 2112;
-        v36 = v19;
-        v37 = 2112;
-        v38 = v25;
-        _os_log_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to anchor package %@ at %@: %@%@", buf, 0x2Au);
+        v31 = v26;
+        v32 = 2112;
+        v33 = path;
+        v34 = 2112;
+        v35 = v19;
+        v36 = 2112;
+        v37 = v24;
+        _os_log_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to anchor package %@ at %@: %@%@", buf, 0x2Au);
       }
 
       v15 = v19;
@@ -134,7 +134,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -147,22 +146,6 @@ LABEL_16:
   }
 
   return result;
-}
-
-- (void)addItem:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Failed to add package item: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addItem:error:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Failed to create package: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

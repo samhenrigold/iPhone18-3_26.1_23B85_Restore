@@ -53,13 +53,13 @@
 
 - (id)nextWithError:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v55 = 0;
-  v56[0] = &v55;
-  v56[1] = 0x3032000000;
-  v56[2] = __Block_byref_object_copy_;
-  v56[3] = __Block_byref_object_dispose_;
-  v57 = 0;
+  v64 = *MEMORY[0x1E69E9840];
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy_;
+  v58 = __Block_byref_object_dispose_;
+  v59 = 0;
   if (self->_insideADatalessFolder)
   {
     error = [(FPDIterator *)self->_datalessFolderIterator error];
@@ -84,22 +84,22 @@ LABEL_13:
     }
 
     datalessFolderIterator = self->_datalessFolderIterator;
-    v54 = 0;
-    v12 = [(FPDIterator *)datalessFolderIterator nextWithError:&v54];
-    v9 = v54;
-    v13 = *(v56[0] + 40);
-    *(v56[0] + 40) = v12;
+    v53 = 0;
+    v12 = [(FPDIterator *)datalessFolderIterator nextWithError:&v53];
+    v9 = v53;
+    v13 = v55[5];
+    v55[5] = v12;
 
-    if (*(v56[0] + 40))
+    if (v55[5])
     {
       v14 = fp_current_or_default_log();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [FPDHybridIterator nextWithError:v56];
+        [FPDHybridIterator nextWithError:];
       }
 
 LABEL_18:
-      v10 = *(v56[0] + 40);
+      v10 = v55[5];
       goto LABEL_55;
     }
 
@@ -157,13 +157,13 @@ LABEL_37:
   }
 
   v15 = self->_diskIterator;
-  v53 = 0;
-  v16 = [(FPDDiskIterator *)v15 nextWithError:&v53];
-  v9 = v53;
-  v17 = *(v56[0] + 40);
-  *(v56[0] + 40) = v16;
+  v52 = 0;
+  v16 = [(FPDDiskIterator *)v15 nextWithError:&v52];
+  v9 = v52;
+  v17 = v55[5];
+  v55[5] = v16;
 
-  v18 = *(v56[0] + 40);
+  v18 = v55[5];
   if (!v18)
   {
     if (![(FPDDiskIterator *)self->_diskIterator done])
@@ -183,7 +183,7 @@ LABEL_11:
     goto LABEL_55;
   }
 
-  v52 = 0;
+  v51 = 0;
   asURL = [v18 asURL];
   path = [asURL path];
   v21 = path;
@@ -195,16 +195,16 @@ LABEL_11:
     v30 = fp_current_or_default_log();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      asURL2 = [*(v56[0] + 40) asURL];
-      v44 = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
+      asURL2 = [v55[5] asURL];
+      v43 = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
       *buf = 138412546;
-      v59 = asURL2;
-      v60 = 2112;
-      v61 = v44;
+      v61 = asURL2;
+      v62 = 2112;
+      v63 = v43;
       _os_log_error_impl(&dword_1CEFC7000, v30, OS_LOG_TYPE_ERROR, "[ERROR] FPDHybridIterator: encountered error during fpfs_is_dataless_fault_at for url: %@, %@", buf, 0x16u);
     }
 
-    v52 = 1;
+    v51 = 1;
   }
 
   else if (!self->_enforceFPItem)
@@ -212,7 +212,7 @@ LABEL_11:
     v23 = fp_current_or_default_log();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      [FPDHybridIterator nextWithError:v56];
+      [FPDHybridIterator nextWithError:];
     }
 
     goto LABEL_18;
@@ -221,23 +221,23 @@ LABEL_11:
   v31 = fp_current_or_default_log();
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    [FPDHybridIterator nextWithError:v56];
+    [FPDHybridIterator nextWithError:];
   }
 
   v32 = dispatch_group_create();
   dispatch_group_enter(v32);
   defaultBackend = [(FPDDomain *)self->_domain defaultBackend];
-  asURL3 = [*(v56[0] + 40) asURL];
+  asURL3 = [v55[5] asURL];
   v35 = +[FPDRequest requestForSelf];
-  v45 = MEMORY[0x1E69E9820];
-  v46 = 3221225472;
-  v47 = __35__FPDHybridIterator_nextWithError___block_invoke;
-  v48 = &unk_1E83BE090;
-  v51 = &v55;
+  v44 = MEMORY[0x1E69E9820];
+  v45 = 3221225472;
+  v46 = __35__FPDHybridIterator_nextWithError___block_invoke;
+  v47 = &unk_1E83BE090;
+  v50 = &v54;
   selfCopy = self;
   v36 = v32;
-  v50 = v36;
-  [defaultBackend itemForURL:asURL3 options:0 request:v35 completionHandler:&v45];
+  v49 = v36;
+  [defaultBackend itemForURL:asURL3 options:0 request:v35 completionHandler:&v44];
 
   dispatch_group_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
   if (self->_insideADatalessFolder)
@@ -248,7 +248,7 @@ LABEL_11:
       [FPDHybridIterator nextWithError:v37];
     }
 
-    [(FPDDiskIterator *)self->_diskIterator skipDescendants:v45];
+    [(FPDDiskIterator *)self->_diskIterator skipDescendants:v44];
     error4 = [(FPDIterator *)self->_datalessFolderIterator error];
 
     if (error4)
@@ -275,19 +275,17 @@ LABEL_11:
     v39 = fp_current_or_default_log();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      [FPDHybridIterator nextWithError:v56];
+      [FPDHybridIterator nextWithError:];
     }
 
-    v40 = *(v56[0] + 40);
+    v40 = v55[5];
   }
 
   v10 = v40;
 LABEL_54:
 
 LABEL_55:
-  _Block_object_dispose(&v55, 8);
-
-  v41 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v54, 8);
 
   return v10;
 }
@@ -331,7 +329,6 @@ void __35__FPDHybridIterator_nextWithError___block_invoke(uint64_t a1, void *a2,
 
 - (id)error
 {
-  insideADatalessFolder = self->_insideADatalessFolder;
   if (self->_diskIterator)
   {
     if (!self->_insideADatalessFolder)
@@ -393,12 +390,11 @@ LABEL_7:
   [(FPDHybridIterator *)&v5 dealloc];
 }
 
-- (void)nextWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)nextWithError:.cold.1()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] FPDHybridIterator: enumerating provider item %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] FPDHybridIterator: enumerating provider item %@", v2, v3, v4, v5);
 }
 
 - (void)nextWithError:(os_log_t)log .cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -408,42 +404,37 @@ LABEL_7:
   _os_log_debug_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDHybridIterator: error while enuemrating the provider %@", buf, 0xCu);
 }
 
-- (void)nextWithError:(uint64_t)a1 .cold.3(uint64_t a1)
+- (void)nextWithError:.cold.3()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] FPDHybridIterator: enumerated item from disk: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] FPDHybridIterator: enumerated item from disk: %@", v2, v3, v4, v5);
 }
 
-- (void)nextWithError:(uint64_t)a1 .cold.4(uint64_t a1)
+- (void)nextWithError:.cold.4()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] FPDHybridIterator: fetching item enumerator for %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] FPDHybridIterator: fetching item enumerator for %@", v2, v3, v4, v5);
 }
 
-- (void)nextWithError:(uint64_t)a1 .cold.5(uint64_t a1)
+- (void)nextWithError:.cold.5()
 {
-  OUTLINED_FUNCTION_0_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_0_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] FPDHybridIterator: fetched FPItem %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] FPDHybridIterator: fetched FPItem %@", v2, v3, v4, v5);
 }
 
 void __35__FPDHybridIterator_nextWithError___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [*(*(*(a1 + 48) + 8) + 40) asURL];
   v6 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDHybridIterator: failed to fetchItemForURL:%@ - %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDHybridIterator: failed to fetchItemForURL:%@ - %@", &v7, 0x16u);
 }
 
 @end

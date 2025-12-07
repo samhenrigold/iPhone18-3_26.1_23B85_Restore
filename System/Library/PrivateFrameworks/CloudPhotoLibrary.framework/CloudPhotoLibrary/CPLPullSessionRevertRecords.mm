@@ -17,13 +17,13 @@
 
 - (BOOL)applyToStore:(id)store error:(id *)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   storeCopy = store;
-  v42.receiver = self;
-  v42.super_class = CPLPullSessionRevertRecords;
-  v43 = 0;
-  v7 = [(CPLChangeSessionUpdate *)&v42 applyToStore:storeCopy error:&v43];
-  v8 = v43;
+  v41.receiver = self;
+  v41.super_class = CPLPullSessionRevertRecords;
+  v42 = 0;
+  v7 = [(CPLChangeSessionUpdate *)&v41 applyToStore:storeCopy error:&v42];
+  v8 = v42;
   if (!v7)
   {
     v26 = 0;
@@ -43,41 +43,41 @@
     {
       revertedChangesBatch = self->_revertedChangesBatch;
       *buf = 138412290;
-      v46 = revertedChangesBatch;
+      v45 = revertedChangesBatch;
       _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Client acknowledged reverted records %@", buf, 0xCu);
     }
   }
 
   quarantinedRecords = [storeCopy quarantinedRecords];
-  v31 = storeCopy;
+  v30 = storeCopy;
   idMapping = [storeCopy idMapping];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   selfCopy = self;
   v12 = self->_revertedChangesBatch;
-  v13 = [(CPLChangeBatch *)v12 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v13 = [(CPLChangeBatch *)v12 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v39;
+    v15 = *v38;
     obj = v12;
 LABEL_8:
     v16 = 0;
     while (1)
     {
-      if (*v39 != v15)
+      if (*v38 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v38 + 1) + 8 * v16);
+      v17 = *(*(&v37 + 1) + 8 * v16);
       v18 = objc_autoreleasePoolPush();
       scopedIdentifier = [v17 scopedIdentifier];
-      v37 = v8;
-      v20 = [quarantinedRecords removeQuarantinedRecordWithScopedIdentifier:scopedIdentifier notify:0 error:&v37];
-      v21 = v37;
+      v36 = v8;
+      v20 = [quarantinedRecords removeQuarantinedRecordWithScopedIdentifier:scopedIdentifier notify:0 error:&v36];
+      v21 = v36;
 
       if ((v20 & 1) == 0)
       {
@@ -87,9 +87,9 @@ LABEL_8:
       if ([v17 isDelete])
       {
         scopedIdentifier2 = [v17 scopedIdentifier];
-        v36 = v21;
-        v23 = [idMapping addDeleteEventForRecordWithLocalScopedIdentifier:scopedIdentifier2 direction:0 error:&v36];
-        v8 = v36;
+        v35 = v21;
+        v23 = [idMapping addDeleteEventForRecordWithLocalScopedIdentifier:scopedIdentifier2 direction:0 error:&v35];
+        v8 = v35;
 
         objc_autoreleasePoolPop(v18);
         if (!v23)
@@ -97,7 +97,7 @@ LABEL_8:
           v26 = 0;
           v21 = v8;
 LABEL_22:
-          storeCopy = v31;
+          storeCopy = v30;
           revertRecords = obj;
           goto LABEL_23;
         }
@@ -112,7 +112,7 @@ LABEL_22:
       if (v14 == ++v16)
       {
         v12 = obj;
-        v14 = [(CPLChangeBatch *)obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v14 = [(CPLChangeBatch *)obj countByEnumeratingWithState:&v37 objects:v43 count:16];
         if (v14)
         {
           goto LABEL_8;
@@ -129,12 +129,12 @@ LABEL_22:
 
 LABEL_18:
 
-  storeCopy = v31;
-  revertRecords = [v31 revertRecords];
+  storeCopy = v30;
+  revertRecords = [v30 revertRecords];
   v25 = selfCopy->_revertedChangesBatch;
-  v35 = v8;
-  v26 = [revertRecords deleteRecordsToRevertFromBatch:v25 error:&v35];
-  v21 = v35;
+  v34 = v8;
+  v26 = [revertRecords deleteRecordsToRevertFromBatch:v25 error:&v34];
+  v21 = v34;
 
 LABEL_23:
   v8 = v21;
@@ -151,7 +151,6 @@ LABEL_24:
 
 LABEL_26:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

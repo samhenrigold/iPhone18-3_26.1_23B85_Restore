@@ -35,7 +35,7 @@
 {
   codableObjectCollectionsByProvenance = self->_codableObjectCollectionsByProvenance;
   self->_codableObjectCollectionsByProvenance = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, codableObjectCollectionsByProvenance);
 }
 
 - (HDDataProvenanceCache)initWithProfile:(id)profile transaction:(id)transaction purpose:(int64_t)purpose
@@ -96,7 +96,7 @@
 
 - (id)provenanceWithID:(id)d
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(NSMutableDictionary *)self->_provenanceByID objectForKeyedSubscript:dCopy];
   if (v5)
@@ -107,9 +107,9 @@
 
   provenanceManager = self->_provenanceManager;
   transaction = self->_transaction;
-  v36 = 0;
-  v9 = [(HDDataProvenanceManager *)provenanceManager originProvenanceForPersistentID:dCopy transaction:transaction error:&v36];
-  v10 = v36;
+  v35 = 0;
+  v9 = [(HDDataProvenanceManager *)provenanceManager originProvenanceForPersistentID:dCopy transaction:transaction error:&v35];
+  v10 = v35;
   if (!v9)
   {
     _HKInitializeLogging();
@@ -117,9 +117,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v39 = dCopy;
-      v40 = 2114;
-      v41 = v10;
+      v38 = dCopy;
+      v39 = 2114;
+      v40 = v10;
       _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "failed to find provenance for provenance %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -130,11 +130,11 @@
   v11 = v9;
   contributorReference = [v11 contributorReference];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v37 = 0;
-  v14 = [HDContributorEntity externalReferenceForContributorReference:contributorReference profile:WeakRetained error:&v37];
-  v15 = v37;
+  v36 = 0;
+  v14 = [HDContributorEntity externalReferenceForContributorReference:contributorReference profile:WeakRetained error:&v36];
+  v15 = v36;
 
-  v35 = v14;
+  v34 = v14;
   if (v14)
   {
     goto LABEL_14;
@@ -147,27 +147,27 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v39 = v15;
+      v38 = v15;
       _os_log_fault_impl(&dword_228986000, v20, OS_LOG_TYPE_FAULT, "Failed to externalize contributor reference: %{public}@", buf, 0xCu);
     }
 
-    v35 = +[HDContributorReference contributorReferenceForNoContributor];
+    v34 = +[HDContributorReference contributorReferenceForNoContributor];
 LABEL_14:
     syncProvenance = [v11 syncProvenance];
     syncIdentity = [v11 syncIdentity];
     productType = [v11 productType];
     systemBuild = [v11 systemBuild];
-    [v11 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v11);
     sourceVersion = [v11 sourceVersion];
     [v11 timeZoneName];
-    v24 = v34 = v15;
+    v24 = v33 = v15;
     [v11 sourceID];
-    v25 = v33 = v10;
+    v25 = v32 = v10;
     deviceID = [v11 deviceID];
-    v18 = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:syncProvenance syncIdentity:syncIdentity productType:productType systemBuild:systemBuild operatingSystemVersion:buf sourceVersion:sourceVersion timeZoneName:v24 sourceID:v25 deviceID:deviceID contributorReference:v35];
+    v18 = [HDDataOriginProvenance dataProvenanceWithSyncProvenance:syncProvenance syncIdentity:syncIdentity productType:productType systemBuild:systemBuild operatingSystemVersion:buf sourceVersion:sourceVersion timeZoneName:v24 sourceID:v25 deviceID:deviceID contributorReference:v34];
 
-    v10 = v33;
-    v15 = v34;
+    v10 = v32;
+    v15 = v33;
 
 LABEL_15:
     v17 = v10;
@@ -178,7 +178,7 @@ LABEL_15:
   v16 = v15;
   if (!v16)
   {
-    v35 = 0;
+    v34 = 0;
     v18 = 0;
     goto LABEL_15;
   }
@@ -202,9 +202,9 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v39 = dCopy;
-      v40 = 2114;
-      v41 = v27;
+      v38 = dCopy;
+      v39 = 2114;
+      v40 = v27;
       _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "failed to externalize contributor for provenance %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -215,14 +215,13 @@ LABEL_16:
 LABEL_22:
 
 LABEL_23:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)codableSourceWithProvenance:(id)provenance profile:(id)profile
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   provenanceCopy = provenance;
   profileCopy = profile;
   if ([(HDEntityEncoder *)self->_sourceEncoder purpose])
@@ -243,9 +242,9 @@ LABEL_23:
     {
       transaction = self->_transaction;
       sourceEncoder = self->_sourceEncoder;
-      v21 = 0;
-      v10 = [(HDSourceEntity *)v11 codableSourceWithEncoder:sourceEncoder transaction:transaction profile:profileCopy error:&v21];
-      v16 = v21;
+      v20 = 0;
+      v10 = [(HDSourceEntity *)v11 codableSourceWithEncoder:sourceEncoder transaction:transaction profile:profileCopy error:&v20];
+      v16 = v20;
       if (v10)
       {
         [(NSMutableDictionary *)self->_codableSourcesByID setObject:v10 forKeyedSubscript:sourceID];
@@ -258,9 +257,9 @@ LABEL_23:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v23 = sourceID;
-          v24 = 2114;
-          v25 = v16;
+          v22 = sourceID;
+          v23 = 2114;
+          v24 = v16;
           _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Failed to get codable source for sourceID %{public}@: %{public}@", buf, 0x16u);
         }
       }
@@ -272,23 +271,21 @@ LABEL_23:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)deviceUUIDBytesWithProvenance:(id)provenance
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deviceID = [provenance deviceID];
   hk_dataForUUIDBytes = [(NSMutableDictionary *)self->_deviceUUIDBytesByID objectForKeyedSubscript:deviceID];
   if (!hk_dataForUUIDBytes)
   {
     v6 = -[HDSQLiteEntity initWithPersistentID:]([HDDeviceEntity alloc], "initWithPersistentID:", [deviceID longLongValue]);
     unprotectedDatabase = [(HDDatabaseTransaction *)self->_transaction unprotectedDatabase];
-    v13 = 0;
-    v8 = [(HDDeviceEntity *)v6 deviceUUIDInDatabase:unprotectedDatabase error:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [(HDDeviceEntity *)v6 deviceUUIDInDatabase:unprotectedDatabase error:&v12];
+    v9 = v12;
 
     if (v8)
     {
@@ -303,17 +300,15 @@ LABEL_23:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v15 = deviceID;
-        v16 = 2114;
-        v17 = v9;
+        v14 = deviceID;
+        v15 = 2114;
+        v16 = v9;
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Failed to find device %{public}@: %{public}@", buf, 0x16u);
       }
 
       hk_dataForUUIDBytes = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return hk_dataForUUIDBytes;
 }
@@ -345,11 +340,11 @@ LABEL_23:
     [(HDCodableProvenance *)v9 setDeviceUUID:v7];
     if (provenanceCopy)
     {
-      [provenanceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(provenanceCopy);
       [(HDCodableProvenance *)v9 setOriginMajorVersion:v23];
-      [provenanceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(provenanceCopy);
       [(HDCodableProvenance *)v9 setOriginMinorVersion:v22];
-      [provenanceCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(provenanceCopy);
       v14 = v21;
     }
 
@@ -383,7 +378,7 @@ LABEL_23:
 
 - (id)codableObjectCollectionForProvenance:(id)provenance profile:(id)profile
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   provenanceCopy = provenance;
   profileCopy = profile;
   codableObjectCollectionsByProvenance = self->_codableObjectCollectionsByProvenance;
@@ -417,9 +412,9 @@ LABEL_23:
   syncIdentityManager = [WeakRetained syncIdentityManager];
   syncIdentity = [provenanceCopy syncIdentity];
   transaction = self->_transaction;
-  v26 = 0;
-  v18 = [syncIdentityManager identityForEntityID:syncIdentity transaction:transaction error:&v26];
-  v19 = v26;
+  v25 = 0;
+  v18 = [syncIdentityManager identityForEntityID:syncIdentity transaction:transaction error:&v25];
+  v19 = v25;
 
   if (v18)
   {
@@ -437,18 +432,16 @@ LABEL_9:
   }
 
   _HKInitializeLogging();
-  v25 = *MEMORY[0x277CCC2A0];
+  v24 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v28 = v19;
-    _os_log_fault_impl(&dword_228986000, v25, OS_LOG_TYPE_FAULT, "Unable to create sync identity from HDDataOriginProvenance  %{public}@", buf, 0xCu);
+    v27 = v19;
+    _os_log_fault_impl(&dword_228986000, v24, OS_LOG_TYPE_FAULT, "Unable to create sync identity from HDDataOriginProvenance  %{public}@", buf, 0xCu);
   }
 
   v22 = 0;
 LABEL_10:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -519,7 +512,7 @@ LABEL_10:
       v44 = 0;
       if (provenanceCopy)
       {
-        [provenanceCopy operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(provenanceCopy);
       }
 
       sourceVersion = [provenanceCopy sourceVersion];

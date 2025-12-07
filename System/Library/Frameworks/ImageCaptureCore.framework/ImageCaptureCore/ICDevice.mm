@@ -9,7 +9,6 @@
 - (id)deviceDelegate;
 - (id)valueForUndefinedKey:(id)key;
 - (void)addCapability:(id)capability;
-- (void)cleanupDeviceWithErrorCode:(id)code completionBlock:(id)block;
 - (void)imageCaptureEventNotification:(id)notification completion:(id)completion;
 - (void)notifyObservers:(id)observers;
 - (void)removeCapabilities;
@@ -27,11 +26,11 @@
 
 - (ICDevice)initWithDictionary:(id)dictionary
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v47.receiver = self;
-  v47.super_class = ICDevice;
-  v5 = [(ICDevice *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = ICDevice;
+  v5 = [(ICDevice *)&v46 init];
   v6 = v5;
   if (v5)
   {
@@ -127,16 +126,15 @@
       v42 = v40;
       uTF8String = [(__CFString *)v33 UTF8String];
       *buf = 136446466;
-      v49 = uTF8String;
-      v50 = 2114;
-      v51 = v39;
+      v48 = uTF8String;
+      v49 = 2114;
+      v50 = v39;
       _os_log_impl(&dword_1C6F19000, v42, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     v44 = v6;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -268,38 +266,36 @@ LABEL_11:
 
 void __28__ICDevice_notifyObservers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * i);
-        [*(a1 + 40) willChangeValueForKey:{v7, v9}];
+        v7 = *(*(&v8 + 1) + 8 * i);
+        [*(a1 + 40) willChangeValueForKey:{v7, v8}];
         [*(a1 + 40) didChangeValueForKey:v7];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSessionState:(int64_t)state
@@ -444,7 +440,7 @@ void __28__ICDevice_notifyObservers___block_invoke(uint64_t a1)
 
 - (void)setDelegate:(id)delegate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = delegate;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
@@ -470,13 +466,12 @@ void __28__ICDevice_notifyObservers___block_invoke(uint64_t a1)
     v13 = v11;
     *buf = 136446466;
     uTF8String = [(__CFString *)v7 UTF8String];
-    v17 = 2114;
-    v18 = v10;
+    v16 = 2114;
+    v17 = v10;
     _os_log_impl(&dword_1C6F19000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   objc_storeWeak(&self->_deviceDelegate, v4);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)delegate
@@ -554,31 +549,31 @@ void __39__ICDevice_requestEjectWithCompletion___block_invoke(uint64_t a1)
 
 - (void)addCapability:(id)capability
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   capabilityCopy = capability;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   capabilities = [(ICDevice *)self capabilities];
   v6 = [capabilities copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v21 + 1) + 8 * v10) isEqualToString:capabilityCopy])
+        if ([*(*(&v20 + 1) + 8 * v10) isEqualToString:capabilityCopy])
         {
 
           goto LABEL_15;
@@ -588,7 +583,7 @@ void __39__ICDevice_requestEjectWithCompletion___block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v8)
       {
         continue;
@@ -614,9 +609,9 @@ void __39__ICDevice_requestEjectWithCompletion___block_invoke(uint64_t a1)
     v16 = v14;
     uTF8String = [(__CFString *)v11 UTF8String];
     *buf = 136446466;
-    v26 = uTF8String;
-    v27 = 2114;
-    v28 = capabilityCopy;
+    v25 = uTF8String;
+    v26 = 2114;
+    v27 = capabilityCopy;
     _os_log_impl(&dword_1C6F19000, v16, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
@@ -630,8 +625,6 @@ void __39__ICDevice_requestEjectWithCompletion___block_invoke(uint64_t a1)
   block[4] = self;
   ICPerformBlockOnMainThread(block);
 LABEL_15:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __26__ICDevice_addCapability___block_invoke(uint64_t a1)
@@ -656,30 +649,30 @@ void __26__ICDevice_addCapability___block_invoke(uint64_t a1)
 
 - (void)removeCapability:(id)capability
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   capabilityCopy = capability;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   capabilities = [(ICDevice *)self capabilities];
   v6 = [capabilities copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 isEqualToString:capabilityCopy])
         {
           deviceCapabilities = [(ICDevice *)self deviceCapabilities];
@@ -695,7 +688,7 @@ void __26__ICDevice_addCapability___block_invoke(uint64_t a1)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -706,7 +699,6 @@ void __26__ICDevice_addCapability___block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __29__ICDevice_removeCapability___block_invoke(uint64_t a1)
@@ -759,36 +751,36 @@ void __29__ICDevice_removeCapability___block_invoke(uint64_t a1)
 
 - (void)updateCapabilities:(id)capabilities
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   v5 = capabilitiesCopy;
   if (capabilitiesCopy && [capabilitiesCopy count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v18 = v5;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v17 = v5;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (!v7)
     {
       goto LABEL_32;
     }
 
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         unsignedIntValue = [v11 unsignedIntValue];
         if (unsignedIntValue > 1701471586)
         {
@@ -872,13 +864,13 @@ LABEL_28:
       }
 
       while (v8 != v10);
-      v16 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       v8 = v16;
       if (!v16)
       {
 LABEL_32:
 
-        v5 = v18;
+        v5 = v17;
         break;
       }
     }
@@ -888,8 +880,6 @@ LABEL_32:
   {
     [(ICDevice *)self addCapability:@"ICDeviceCanEjectOrDisconnect"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)autolaunchApplicationPath
@@ -923,13 +913,6 @@ LABEL_32:
   return icon;
 }
 
-- (void)cleanupDeviceWithErrorCode:(id)code completionBlock:(id)block
-{
-  connectionID = self->_connectionID;
-  self->_connectionID = 0;
-  MEMORY[0x1EEE66BB8]();
-}
-
 - (void)removeCapabilities
 {
   deviceCapabilities = [(ICDevice *)self deviceCapabilities];
@@ -938,9 +921,7 @@ LABEL_32:
 
 - (void)setAutolaunchApplicationPath:(NSString *)autolaunchApplicationPath
 {
-  v4 = [(NSString *)autolaunchApplicationPath copy];
-  v5 = self->_autolaunchApplicationPath;
-  self->_autolaunchApplicationPath = v4;
+  self->_autolaunchApplicationPath = [(NSString *)autolaunchApplicationPath copy];
 
   MEMORY[0x1EEE66BB8]();
 }

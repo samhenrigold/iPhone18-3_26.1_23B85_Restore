@@ -155,10 +155,10 @@
 
 - (id)binarySampleRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v2 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], a2, self, 1, &v12);
-  if (v12)
+  v22 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v2 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], a2, self, 1, &v13);
+  if (v13)
   {
     if (qword_1EAFE2AA8 != -1)
     {
@@ -171,9 +171,9 @@
       v4 = objc_opt_class();
       v5 = NSStringFromClass(v4);
       *buf = 138543618;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v12;
+      v19 = v5;
+      v20 = 2114;
+      v21 = v13;
       _os_log_impl(&dword_19B41C000, v3, OS_LOG_TYPE_ERROR, "Failed to archive %{public}@ object: %{public}@", buf, 0x16u);
     }
 
@@ -186,46 +186,46 @@
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E2A2C0);
       }
 
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v12;
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalMobilitySamples(SensorKit) binarySampleRepresentation]", "CoreLocation: %s\n", v9);
-      if (v9 != buf)
+      v7 = qword_1EAFE2AB0;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v13;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v7, 16, "Failed to archive %{public}@ object: %{public}@", &v14, 22);
+      v11 = v10;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalMobilitySamples(SensorKit) binarySampleRepresentation]", "CoreLocation: %s\n", v10);
+      if (v11 != buf)
       {
-        free(v9);
+        free(v11);
       }
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (CMHistoricalMobilitySamples)initWithBinarySampleRepresentation:(id)representation metadata:(id)metadata timestamp:(double)timestamp
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_length(representation, a2, representation, metadata, timestamp))
   {
 LABEL_15:
 
-    self = 0;
-    goto LABEL_16;
+    return 0;
   }
 
-  v22.receiver = self;
-  v22.super_class = CMHistoricalMobilitySamples;
-  self = [(CMHistoricalMobilitySamples *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = CMHistoricalMobilitySamples;
+  self = [(CMHistoricalMobilitySamples *)&v23 init];
   if (self)
   {
-    v21 = 0;
+    v22 = 0;
     v7 = MEMORY[0x1E696ACD0];
     v8 = objc_opt_class();
-    v10 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v7, v9, v8, representation, &v21);
-    if (v21)
+    v10 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v7, v9, v8, representation, &v22);
+    if (v22)
     {
       if (qword_1EAFE2AA8 != -1)
       {
@@ -238,9 +238,9 @@ LABEL_15:
         v12 = objc_opt_class();
         v13 = NSStringFromClass(v12);
         *buf = 138543618;
-        v28 = v13;
-        v29 = 2114;
-        v30 = v21;
+        v29 = v13;
+        v30 = 2114;
+        v31 = v22;
         _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_ERROR, "Failed to unarchive %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -253,57 +253,55 @@ LABEL_15:
           dispatch_once(&qword_1EAFE2AA8, &unk_1F0E2A2C0);
         }
 
-        v15 = objc_opt_class();
-        v16 = NSStringFromClass(v15);
-        v23 = 138543618;
-        v24 = v16;
-        v25 = 2114;
-        v26 = v21;
-        v17 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalMobilitySamples(SensorKit) initWithBinarySampleRepresentation:metadata:timestamp:]", "CoreLocation: %s\n", v17);
-        if (v17 != buf)
+        v15 = qword_1EAFE2AB0;
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
+        v24 = 138543618;
+        v25 = v17;
+        v26 = 2114;
+        v27 = v22;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v15, 16, "Failed to unarchive %{public}@: %{public}@", &v24, 22);
+        v19 = v18;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHistoricalMobilitySamples(SensorKit) initWithBinarySampleRepresentation:metadata:timestamp:]", "CoreLocation: %s\n", v18);
+        if (v19 != buf)
         {
-          free(v17);
+          free(v19);
         }
       }
 
       goto LABEL_15;
     }
 
-    v20 = v10;
+    v21 = v10;
     if (v10)
     {
 
-      self = v20;
+      return v21;
     }
   }
 
-LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (id)sr_dictionaryRepresentation
 {
-  v31[5] = *MEMORY[0x1E69E9840];
-  v30[0] = @"walkingBoutMobility";
+  v30[5] = *MEMORY[0x1E69E9840];
+  v29[0] = @"walkingBoutMobility";
   v4 = objc_msgSend_walkingBoutMobility(self, a2, v2);
-  v31[0] = sub_19B746CF4(v4, v5, v6);
-  v30[1] = @"strideCalEntries";
+  v30[0] = sub_19B746CF4(v4, v5, v6);
+  v29[1] = @"strideCalEntries";
   v9 = objc_msgSend_strideCalEntries(self, v7, v8);
-  v31[1] = sub_19B746CF4(v9, v10, v11);
-  v30[2] = @"predictedDistanceBoutsMobilityCalibration";
+  v30[1] = sub_19B746CF4(v9, v10, v11);
+  v29[2] = @"predictedDistanceBoutsMobilityCalibration";
   v14 = objc_msgSend_predictedDistanceBoutsMobilityCalibration(self, v12, v13);
-  v31[2] = sub_19B746CF4(v14, v15, v16);
-  v30[3] = @"predictedDistanceBouts";
+  v30[2] = sub_19B746CF4(v14, v15, v16);
+  v29[3] = @"predictedDistanceBouts";
   v19 = objc_msgSend_predictedDistanceBouts(self, v17, v18);
-  v31[3] = sub_19B746CF4(v19, v20, v21);
-  v30[4] = @"gaitMetrics";
+  v30[3] = sub_19B746CF4(v19, v20, v21);
+  v29[4] = @"gaitMetrics";
   v24 = objc_msgSend_gaitMetrics(self, v22, v23);
-  v31[4] = sub_19B746CF4(v24, v25, v26);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v31, v30, 5);
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
+  v30[4] = sub_19B746CF4(v24, v25, v26);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v27, v30, v29, 5);
 }
 
 @end

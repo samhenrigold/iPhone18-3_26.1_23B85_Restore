@@ -96,25 +96,25 @@
 
 - (id)_intentsIdentifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [self _payloadForIdentifier:@"UAIntentsIdentifierPayload"];
   if (!v2)
   {
     goto LABEL_7;
   }
 
-  v13 = 0;
-  uUIDString = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v13];
-  v4 = v13;
+  v12 = 0;
+  uUIDString = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v2 error:&v12];
+  v4 = v12;
   if (v4)
   {
     v5 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[NSUserActivity(IntentsAdditions) _intentsIdentifier]";
-      v16 = 2112;
-      v17 = v4;
+      v14 = "[NSUserActivity(IntentsAdditions) _intentsIdentifier]";
+      v15 = 2112;
+      v16 = v4;
       _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Unable to unarchive intentsIdentifier with error: %@", buf, 0x16u);
     }
   }
@@ -130,9 +130,9 @@ LABEL_7:
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v12 = 0;
-    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:uUIDString requiringSecureCoding:1 error:&v12];
-    v8 = v12;
+    v11 = 0;
+    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:uUIDString requiringSecureCoding:1 error:&v11];
+    v8 = v11;
 
     if (v8)
     {
@@ -140,17 +140,15 @@ LABEL_7:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "[NSUserActivity(IntentsAdditions) _intentsIdentifier]";
-        v16 = 2112;
-        v17 = v8;
+        v14 = "[NSUserActivity(IntentsAdditions) _intentsIdentifier]";
+        v15 = 2112;
+        v16 = v8;
         _os_log_error_impl(&dword_18E991000, v9, OS_LOG_TYPE_ERROR, "%s Unable to archive intentsIdentifierPayload with error: %@", buf, 0x16u);
       }
     }
 
     [self _setPayload:v6 object:uUIDString identifier:@"UAIntentsIdentifierPayload"];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return uUIDString;
 }
@@ -224,7 +222,7 @@ LABEL_7:
 
 - (id)interaction
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [self _objectForIdentifier:@"UAINInteractionPayload"];
   if (v2)
   {
@@ -237,19 +235,19 @@ LABEL_2:
   v3 = [self _payloadForIdentifier:@"UAINInteractionPayload"];
   if (v3)
   {
-    v8 = 0;
-    v2 = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
-    v6 = v8;
-    if (v6)
+    v7 = 0;
+    v2 = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v7];
+    v5 = v7;
+    if (v5)
     {
-      v7 = INSiriLogContextIntents;
+      v6 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v10 = "[NSUserActivity(IntentsAdditions) interaction]";
-        v11 = 2112;
-        v12 = v6;
-        _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Unable to unarchive interactionPayloadData with error: %@", buf, 0x16u);
+        v9 = "[NSUserActivity(IntentsAdditions) interaction]";
+        v10 = 2112;
+        v11 = v5;
+        _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s Unable to unarchive interactionPayloadData with error: %@", buf, 0x16u);
       }
     }
 
@@ -263,7 +261,6 @@ LABEL_2:
 
 LABEL_3:
   [self _setAccessedInteraction:1];
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -283,25 +280,25 @@ LABEL_3:
 
 - (id)_appIntent
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [self _objectForIdentifier:@"UAINAppIntentPayload"];
   if (!v2)
   {
     v3 = [self _payloadForIdentifier:@"UAINAppIntentPayload"];
     if (v3)
     {
-      v8 = 0;
-      v2 = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v8];
-      v4 = v8;
+      v7 = 0;
+      v2 = [MEMORY[0x1E696ACD0] _in_safeUnarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v7];
+      v4 = v7;
       if (v4)
       {
         v5 = INSiriLogContextIntents;
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v10 = "[NSUserActivity(IntentsAdditions) _appIntent]";
-          v11 = 2112;
-          v12 = v4;
+          v9 = "[NSUserActivity(IntentsAdditions) _appIntent]";
+          v10 = 2112;
+          v11 = v4;
           _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Unable to unarchive interactionPayloadData with error: %@", buf, 0x16u);
         }
       }
@@ -312,8 +309,6 @@ LABEL_3:
       v2 = 0;
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

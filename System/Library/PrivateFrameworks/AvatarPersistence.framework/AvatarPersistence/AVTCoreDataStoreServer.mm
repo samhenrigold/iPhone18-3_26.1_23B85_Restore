@@ -11,6 +11,7 @@
 - (void)migrate;
 - (void)mirroringHandler:(id)handler didResetSyncWithReason:(unint64_t)reason;
 - (void)mirroringHandler:(id)handler willResetSyncWithReason:(unint64_t)reason;
+- (void)scheduleExportWithManagedObjectContext:(id)context discretionary:(BOOL)discretionary completion:(id)completion;
 - (void)scheduleImportDiscretionary:(BOOL)discretionary completionBlock:(id)block;
 - (void)scheduleImportExportIfRequiredWithPostImportHandler:(id)handler completion:(id)completion;
 - (void)scheduleMigrationThen:(id)then;
@@ -258,7 +259,7 @@ void __40__AVTCoreDataStoreServer_startListening__block_invoke(uint64_t a1)
 
 void __40__AVTCoreDataStoreServer_startListening__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v19 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ((*(AVTAnyTransactionHasChangesFromAuthor + 2))(AVTAnyTransactionHasChangesFromAuthor, v5, @"AvatarUIClient"))
@@ -269,27 +270,32 @@ void __40__AVTCoreDataStoreServer_startListening__block_invoke_2(uint64_t a1, vo
     v8 = [WeakRetained schedulingAuthority];
     [v8 madeLocalChanges];
 
-    [WeakRetained scheduleExportWithManagedObjectContext:v11 discretionary:0 completion:&__block_literal_global_10];
+    [WeakRetained scheduleExportWithManagedObjectContext:v19 discretionary:0 completion:&__block_literal_global_10];
   }
 
-  if ((*(AVTAnyTransactionHasChangesFromOtherThanAuthor + 2))(AVTAnyTransactionHasChangesFromOtherThanAuthor, v5, @"AvatarUIClient"))
+  v9 = (*(AVTAnyTransactionHasChangesFromOtherThanAuthor + 2))(AVTAnyTransactionHasChangesFromOtherThanAuthor, v5, @"AvatarUIClient");
+  if (v9)
   {
-    v9 = [WeakRetained logger];
-    [v9 logChangesRequireThumbnailUpdate];
+    v11 = [WeakRetained logger];
+    [v11 logChangesRequireThumbnailUpdate];
 
-    v10 = [WeakRetained storeMaintenance];
-    [v10 storeDidChange];
+    v12 = [WeakRetained storeMaintenance];
+    [v12 storeDidChange];
 
     [WeakRetained scheduleUpdateThumbnails];
-    [WeakRetained deleteStickerRecents];
+    v9 = [WeakRetained deleteStickerRecents];
   }
 
-  if ((!AVTUIHasDisplayedSplashScreen_once() || !AVTUIHasDisplayedAnimojiSplashScreen_once() || !AVTUIHasDisplayedCameraEffectsSplashScreen_once() || (AVTUIHasDisplayedPaddleView_once() & 1) == 0) && (*(AVTAnyTransactionHasAvatarChange + 2))(AVTAnyTransactionHasAvatarChange, v5))
+  v13 = AVTUIHasDisplayedSplashScreen_once(v9, v10);
+  if (!v13 || (v15 = AVTUIHasDisplayedAnimojiSplashScreen_once(v13, v14), !v15) || (v17 = AVTUIHasDisplayedCameraEffectsSplashScreen_once(v15, v16), !v17) || (AVTUIHasDisplayedPaddleView_once(v17, v18) & 1) == 0)
   {
-    AVTUISetHasDisplayedSplashScreen(1);
-    AVTUISetHasDisplayedAnimojiSplashScreen(1);
-    AVTUISetHasDisplayedCameraEffectsSplashScreen(1);
-    AVTUISetHasDisplayedPaddleView(1);
+    if ((*(AVTAnyTransactionHasAvatarChange + 2))(AVTAnyTransactionHasAvatarChange, v5))
+    {
+      AVTUISetHasDisplayedSplashScreen(1);
+      AVTUISetHasDisplayedAnimojiSplashScreen(1);
+      AVTUISetHasDisplayedCameraEffectsSplashScreen(1);
+      AVTUISetHasDisplayedPaddleView(1);
+    }
   }
 }
 
@@ -357,7 +363,7 @@ void __40__AVTCoreDataStoreServer_startListening__block_invoke_8(uint64_t a1)
   [v2 performBlock:v5 afterDelay:v4 onQueue:0.0];
 }
 
-uint64_t __40__AVTCoreDataStoreServer_startListening__block_invoke_9(uint64_t a1)
+void *__40__AVTCoreDataStoreServer_startListening__block_invoke_9(uint64_t a1)
 {
   [*(a1 + 32) setUserRequestedBackupActivityCompletion:*(a1 + 40)];
   result = [*(a1 + 32) setupCompleted];
@@ -697,33 +703,33 @@ uint64_t __48__AVTCoreDataStoreServer_scheduleMigrationThen___block_invoke(uint6
 
 - (void)migrate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   logger = [(AVTCoreDataStoreServer *)self logger];
   [logger logCheckingIfMigrationNeeded];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   configuration = [(AVTCoreDataStoreServer *)self configuration];
   migratableSources = [configuration migratableSources];
 
-  v6 = [migratableSources countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [migratableSources countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(migratableSources);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ([v11 migrationNeeded])
         {
           if (!v8)
@@ -737,7 +743,7 @@ uint64_t __48__AVTCoreDataStoreServer_scheduleMigrationThen___block_invoke(uint6
         }
       }
 
-      v7 = [migratableSources countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [migratableSources countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -747,8 +753,6 @@ uint64_t __48__AVTCoreDataStoreServer_scheduleMigrationThen___block_invoke(uint6
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleImportDiscretionary:(BOOL)discretionary completionBlock:(id)block
@@ -797,10 +801,9 @@ uint64_t __70__AVTCoreDataStoreServer_scheduleImportDiscretionary_completionBloc
     [v3 importDidCompleteSuccessfully];
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(*(a1 + 56) + 16);
+  v4 = *(*(a1 + 56) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (BOOL)processInternalSettingsChanges:(id)changes
@@ -898,6 +901,26 @@ void __57__AVTCoreDataStoreServer_processInternalSettingsChanges___block_invoke_
 
     v9();
   }
+}
+
+- (void)scheduleExportWithManagedObjectContext:(id)context discretionary:(BOOL)discretionary completion:(id)completion
+{
+  discretionaryCopy = discretionary;
+  completionCopy = completion;
+  contextCopy = context;
+  v10 = os_transaction_create();
+  mirroringHandler = [(AVTCoreDataStoreServer *)self mirroringHandler];
+  backgroundQueue = [(AVTCoreDataStoreServer *)self backgroundQueue];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __90__AVTCoreDataStoreServer_scheduleExportWithManagedObjectContext_discretionary_completion___block_invoke;
+  v15[3] = &unk_278CFB220;
+  v16 = v10;
+  v17 = completionCopy;
+  v15[4] = self;
+  v13 = v10;
+  v14 = completionCopy;
+  [mirroringHandler scheduleExportChangesWithManagedObjectContext:contextCopy discretionary:discretionaryCopy workQueue:backgroundQueue completionHandler:v15];
 }
 
 void __90__AVTCoreDataStoreServer_scheduleExportWithManagedObjectContext_discretionary_completion___block_invoke(uint64_t a1, int a2, void *a3)
@@ -1051,25 +1074,24 @@ void __66__AVTCoreDataStoreServer_mirroringHandler_didResetSyncWithReason___bloc
 void __66__AVTCoreDataStoreServer_mirroringHandler_didResetSyncWithReason___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if ([objc_opt_class() resetSyncShouldPreserveContentForReason:*(a1 + 40)])
   {
-    v5 = [*(a1 + 32) configuration];
-    v6 = [v5 copiedAsideMigratableSource];
+    v4 = [*(a1 + 32) configuration];
+    v5 = [v4 copiedAsideMigratableSource];
 
-    v7 = [*(a1 + 32) migratorProvider];
-    v8 = v7[2]();
+    v6 = [*(a1 + 32) migratorProvider];
+    v7 = v6[2]();
 
-    v9 = [*(a1 + 32) backend];
-    v14 = 0;
-    v10 = [v8 migrateContentFromSource:v6 toDestination:v9 error:&v14];
-    v11 = v14;
+    v8 = [*(a1 + 32) backend];
+    v13 = 0;
+    v9 = [v7 migrateContentFromSource:v5 toDestination:v8 error:&v13];
+    v10 = v13;
 
-    if ((v10 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v12 = [*(a1 + 32) logger];
-      v13 = [v11 description];
-      [v12 logErrorMergingCopiedAsideContent:v13];
+      v11 = [*(a1 + 32) logger];
+      v12 = [v10 description];
+      [v11 logErrorMergingCopiedAsideContent:v12];
     }
   }
 

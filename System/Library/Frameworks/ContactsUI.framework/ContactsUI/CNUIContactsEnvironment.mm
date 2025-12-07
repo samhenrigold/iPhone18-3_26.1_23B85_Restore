@@ -58,9 +58,11 @@
 
 uint64_t __45__CNUIContactsEnvironment_currentEnvironment__block_invoke(uint64_t a1)
 {
-  currentEnvironment_cn_once_object_10 = [*(a1 + 32) makeCurrentEnvironment];
+  v1 = [*(a1 + 32) makeCurrentEnvironment];
+  v2 = currentEnvironment_cn_once_object_10;
+  currentEnvironment_cn_once_object_10 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)makeCurrentEnvironment
@@ -419,7 +421,7 @@ uint64_t __45__CNUIContactsEnvironment_currentEnvironment__block_invoke(uint64_t
   return v2;
 }
 
-uint64_t __39__CNUIContactsEnvironment_sortCollator__block_invoke(uint64_t a1)
+void *__39__CNUIContactsEnvironment_sortCollator__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) nts_lazySortCollator];
   *(*(*(a1 + 40) + 8) + 24) = result;

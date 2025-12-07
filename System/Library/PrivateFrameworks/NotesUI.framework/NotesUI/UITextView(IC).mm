@@ -520,8 +520,8 @@ LABEL_13:
     typingAttributes = [self typingAttributes];
   }
 
-  v8 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69DB648]];
-  v9 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B75E8]];
+  v8 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
+  v9 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
   intValue = [v9 intValue];
 
   fontDescriptor = [v8 fontDescriptor];
@@ -532,14 +532,14 @@ LABEL_13:
   LOBYTE(symbolicTraits) = [fontDescriptor2 symbolicTraits];
 
   v15 = (intValue | (2 * symbolicTraits)) & 2 | v13 & 1u;
-  v16 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69DB758]];
+  v16 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
   if ([v16 integerValue])
   {
   }
 
   else
   {
-    v17 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7620]];
+    v17 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
     bOOLValue = [v17 BOOLValue];
 
     if (!bOOLValue)
@@ -550,14 +550,14 @@ LABEL_13:
 
   v15 |= 4uLL;
 LABEL_8:
-  v19 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69DB6B8]];
+  v19 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
   if ([v19 integerValue])
   {
   }
 
   else
   {
-    v20 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7608]];
+    v20 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
     bOOLValue2 = [v20 BOOLValue];
 
     if (!bOOLValue2)
@@ -568,9 +568,8 @@ LABEL_8:
 
   v15 |= 8uLL;
 LABEL_12:
-  v22 = MEMORY[0x1E69B75D8];
-  v23 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
-  if ([v23 integerValue])
+  v22 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
+  if ([v22 integerValue])
   {
 
 LABEL_15:
@@ -578,8 +577,8 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v24 = [typingAttributes objectForKeyedSubscript:*v22];
-  bOOLValue3 = [v24 BOOLValue];
+  v23 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
+  bOOLValue3 = [v23 BOOLValue];
 
   if (bOOLValue3)
   {
@@ -652,7 +651,7 @@ LABEL_16:
   {
     objc_opt_class();
     typingAttributes = [self typingAttributes];
-    v10 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B75D8]];
+    v10 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
     v11 = ICDynamicCast();
 
     if (v11)
@@ -709,7 +708,7 @@ LABEL_16:
   else
   {
     typingAttributes = [self typingAttributes];
-    v10 = [typingAttributes objectForKeyedSubscript:*MEMORY[0x1E69B7600]];
+    v10 = objc_msgSend_objectForKeyedSubscript_(typingAttributes);
 
     if ([v10 isList])
     {

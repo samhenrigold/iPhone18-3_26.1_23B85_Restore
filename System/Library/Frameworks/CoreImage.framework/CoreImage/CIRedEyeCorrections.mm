@@ -324,11 +324,11 @@ LABEL_40:
     v74 = [(NSArray *)selfCopy->inputCorrectionInfo objectAtIndex:0];
     [objc_msgSend(v74 objectForKeyedSubscript:{@"xf", "doubleValue"}];
     v76 = array2;
-    [array2 addObject:metadataPropertyWithDouble(v75)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeW", v75)}];
     [objc_msgSend(v74 objectForKeyedSubscript:{@"yf", "doubleValue"}];
-    [array2 addObject:metadataPropertyWithDouble(v77)];
-    [array2 addObject:metadataPropertyWithDouble(1.0)];
-    [array2 addObject:metadataPropertyWithDouble(1.0)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeH", v77)}];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeISV", 1.0)}];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeOrt", 1.0)}];
     v78 = 64.0;
   }
 
@@ -438,17 +438,17 @@ LABEL_40:
     v101 = [(NSArray *)selfCopy->inputCorrectionInfo objectAtIndex:0];
     [objc_msgSend(v101 objectForKeyedSubscript:{@"fullImageWidth", "doubleValue"}];
     v76 = array2;
-    [array2 addObject:metadataPropertyWithDouble(v102)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeW", v102)}];
     [objc_msgSend(v101 objectForKeyedSubscript:{@"fullImageHeight", "doubleValue"}];
-    [array2 addObject:metadataPropertyWithDouble(v103)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeH", v103)}];
     [objc_msgSend(v101 objectForKeyedSubscript:{@"imageSpecialValue", "doubleValue"}];
-    [array2 addObject:metadataPropertyWithDouble(v104)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeISV", v104)}];
     [objc_msgSend(v101 objectForKeyedSubscript:{@"imageOrientation", "doubleValue"}];
-    [array2 addObject:metadataPropertyWithDouble(v105)];
+    [array2 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeOrt", v105)}];
     [objc_msgSend(v101 objectForKeyedSubscript:{@"imageSignalToNoiseRatio", "doubleValue"}];
   }
 
-  [v76 addObject:metadataPropertyWithDouble(v78)];
+  [v76 addObject:{metadataPropertyWithDouble(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"RedEyeSNR", v78)}];
   inputCameraModel = v73->inputCameraModel;
   if (inputCameraModel)
   {
@@ -456,15 +456,16 @@ LABEL_40:
   }
 
   [v76 addObject:{metadataPropertyWithArrayOfStructs(@"http://ns.apple.com/adjustment-settings/1.0/", @"aas", @"http://ns.apple.com/adjustment-settings/1.0/sType/redeye", @"re", @"RedEyeCorrections", array3)}];
-  [v76 addObject:metadataPropertyWithBool()];
+  [v76 addObject:{metadataPropertyWithBool(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"AlreadyApplied", 0)}];
   [v76 addObject:{metadataPropertyWithArray(@"http://ns.adobe.com/camera-raw-settings/1.0/", @"crs", @"RedEyeInfo", array)}];
   return v76;
 }
 
 - (id)_initFromProperties:(id)properties
 {
+  propertiesCopy = properties;
   v260 = *MEMORY[0x1E69E9840];
-  ArrayOfStructs = metadataPropertyArrayGetArrayOfStructs(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"http://ns.apple.com/adjustment-settings/1.0/sType/red-eye");
+  ArrayOfStructs = metadataPropertyArrayGetArrayOfStructs(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"http://ns.apple.com/adjustment-settings/1.0/sType/red-eye", @"RedEyeCorrections");
   if (!ArrayOfStructs)
   {
     goto LABEL_12;
@@ -508,14 +509,14 @@ LABEL_12:
     v224 = 0.0;
     v225 = 0.0;
     v223 = 0.0;
-    if (!metadataPropertyArrayGetDouble(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeW", &v227) || !metadataPropertyArrayGetDouble(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeH", &v226) || !metadataPropertyArrayGetDouble(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeISV", &v225) || !metadataPropertyArrayGetDouble(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeOrt", &v224) || (metadataPropertyArrayGetDouble(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeSNR", &v223) & 1) == 0)
+    if (!metadataPropertyArrayGetDouble(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeW", &v227) || !metadataPropertyArrayGetDouble(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeH", &v226) || !metadataPropertyArrayGetDouble(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeISV", &v225) || !metadataPropertyArrayGetDouble(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeOrt", &v224) || (metadataPropertyArrayGetDouble(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeSNR", &v223) & 1) == 0)
     {
       goto LABEL_41;
     }
 
-    propertiesCopy = properties;
+    v193 = propertiesCopy;
     selfCopy = self;
-    v14 = metadataPropertyArrayGetArrayOfStructs(properties, @"http://ns.apple.com/adjustment-settings/1.0/", @"http://ns.apple.com/adjustment-settings/1.0/sType/redeye");
+    v14 = metadataPropertyArrayGetArrayOfStructs(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"http://ns.apple.com/adjustment-settings/1.0/sType/redeye", @"RedEyeCorrections");
     v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v14, "count")}];
     v219 = 0u;
     v220 = 0u;
@@ -537,7 +538,7 @@ LABEL_12:
           }
 
           v17 = *(*(&v219 + 1) + 8 * j);
-          if ([v17 objectForKeyedSubscript:{@"hb", propertiesCopy, selfCopy}])
+          if ([v17 objectForKeyedSubscript:{@"hb", v193, selfCopy}])
           {
             v217 = j;
             v218 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:50];
@@ -1117,10 +1118,11 @@ LABEL_12:
       }
     }
 
+    propertiesCopy = v193;
     self = selfCopy;
   }
 
-  String = metadataPropertyArrayGetString();
+  String = metadataPropertyArrayGetString(propertiesCopy, @"http://ns.apple.com/adjustment-settings/1.0/", @"RedEyeModel");
   if (v6)
   {
     v13 = String;

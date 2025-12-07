@@ -24,9 +24,9 @@
 - (void)createRamBackend
 {
   v9 = *MEMORY[0x277D85DE8];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a2);
   v5 = (*(*v6 + 40))(v6);
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v7 = (*(*v4 + 168))(v4);
   v8 = v3;
   std::allocate_shared[abi:ne200100]<Ram,std::allocator<Ram>,unsigned long long,boost::uuids::uuid,0>();
@@ -34,19 +34,18 @@
 
 - (RamXPC)initWithCoder:(id)coder
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = RamXPC;
-  if ([(BackendXPC *)&v8 initWithCoder:coderCopy])
+  v7.receiver = self;
+  v7.super_class = RamXPC;
+  if ([(BackendXPC *)&v7 initWithCoder:coderCopy])
   {
-    v7 = [coderCopy decodeInt64ForKey:@"size"];
+    v6 = [coderCopy decodeInt64ForKey:@"size"];
     [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
-    [objc_claimAutoreleasedReturnValue() getUUIDBytes:v9];
+    [objc_claimAutoreleasedReturnValue() getUUIDBytes:v8];
     std::allocate_shared[abi:ne200100]<BackendNull,std::allocator<BackendNull>,unsigned long long &,boost::uuids::uuid &,0>();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -56,7 +55,7 @@
   v8.receiver = self;
   v8.super_class = RamXPC;
   [(BackendXPC *)&v8 encodeWithCoder:coderCopy];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   [coderCopy encodeInt64:(*(*v6 + 40))() forKey:@"size"];
   if (v7)
   {
@@ -73,7 +72,7 @@
   v9.receiver = self;
   v9.super_class = RamXPC;
   v4 = [(BackendXPC *)&v9 description];
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self);
   v5 = [v3 stringWithFormat:@"%@[ramsize=%llu]", v4, (*(*v7 + 40))()];
   if (v8)
   {

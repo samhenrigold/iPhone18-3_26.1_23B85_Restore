@@ -469,7 +469,7 @@ LABEL_4:
   if ([assetCopy kind] == 1)
   {
     v69 = MEMORY[0x1E696AD98];
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     v70 = [v69 numberWithDouble:?];
     [v15 setObject:v70 forKeyedSubscript:@"photosDuration"];
   }
@@ -506,7 +506,7 @@ LABEL_4:
   v114 = [self _personsForAsset:assetCopy fetchHelper:v138 thumbnailMap:v136];
   v81 = [self _jsonRepresentationForCSPersons:?];
   v113 = v81;
-  if ([v81 count])
+  if (objc_msgSend_count(v81))
   {
     v82 = v81;
   }
@@ -520,7 +520,7 @@ LABEL_4:
   buf[0] = 0;
   v83 = [self _jsonRepresentationForScenesFromAsset:assetCopy fetchHelper:v138 indexingContext:contextCopy isSensitiveLocation:buf thumbnailMap:v136];
   v112 = v83;
-  if ([v83 count])
+  if (objc_msgSend_count(v83))
   {
     v84 = v83;
   }
@@ -585,7 +585,7 @@ LABEL_4:
 
   v103 = MEMORY[0x1E696AD98];
   vectors = [csEmbedding vectors];
-  v105 = [v103 numberWithUnsignedInteger:{objc_msgSend(vectors, "count")}];
+  v105 = [v103 numberWithUnsignedInteger:objc_msgSend_count(vectors)];
   [v15 setObject:v105 forKeyedSubscript:@"photosEmbeddingCount"];
 
   [selfCopy updateThumbnailMap:v136 withMADEmbedding:result];
@@ -812,7 +812,7 @@ LABEL_3:
 
         v21 = MEMORY[0x1E696AD98];
         curatedAssets = [v19 curatedAssets];
-        v23 = [v21 numberWithUnsignedInteger:{objc_msgSend(curatedAssets, "count")}];
+        v23 = [v21 numberWithUnsignedInteger:objc_msgSend_count(curatedAssets)];
         [v13 addObject:v23];
       }
 
@@ -1176,7 +1176,7 @@ LABEL_35:
     [v12 addObjectsFromArray:locationsCopy];
   }
 
-  else if ([locationsCopy count])
+  else if (objc_msgSend_count(locationsCopy))
   {
     v16 = PLSearchBackendModelTranslationGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
@@ -1452,7 +1452,7 @@ LABEL_27:
                     v49 = *(*(&v67 + 1) + 8 * i);
                     if (v49 && [*(*(&v67 + 1) + 8 * i) length])
                     {
-                      if ([v49 isEqualToString:v38])
+                      if (objc_msgSend_isEqualToString_(v49))
                       {
                         v50 = PLSearchBackendSceneTaxonomyGetLog();
                         if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
@@ -1799,7 +1799,7 @@ LABEL_32:
     v27 = PLServicesLocalizedFrameworkString();
     [v6 addObject:v27];
     v28 = PLServicesLocalizedFrameworkString();
-    if ([v28 length] && (objc_msgSend(v28, "isEqualToString:", @"NULL") & 1) == 0)
+    if ([v28 length] && (objc_msgSend_isEqualToString_(v28) & 1) == 0)
     {
       v29 = MEMORY[0x1E695DFD8];
       v30 = [v28 componentsSeparatedByString:@"|"];
@@ -2396,7 +2396,7 @@ LABEL_9:
 void __66__PLSpotlightAssetTranslator_updateThumbnailMap_withMADEmbedding___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = a2;
-  if (([v6 isEqualToString:@"NULL"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v6) & 1) == 0)
   {
     v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"embeddingIndex/%tu", a3];
     [*(a1 + 32) setOrReplaceThumbnailIdentifierIfEarlier:v6 forLookupIdentifier:v5];
@@ -2430,9 +2430,9 @@ void __66__PLSpotlightAssetTranslator_updateThumbnailMap_withMADEmbedding___bloc
   if ([dateCreated isEqualToDate:distantPast])
   {
     importedByBundleIdentifier = [assetCopy importedByBundleIdentifier];
-    v19 = [importedByBundleIdentifier isEqualToString:*MEMORY[0x1E69BFF00]];
+    isEqualToString = objc_msgSend_isEqualToString_(importedByBundleIdentifier);
 
-    if (v19)
+    if (isEqualToString)
     {
       v20 = PLSearchBackendModelTranslationGetLog();
       if (os_log_type_enabled(&v20->super, OS_LOG_TYPE_ERROR))
@@ -2638,7 +2638,7 @@ void __66__PLSpotlightAssetTranslator_updateThumbnailMap_withMADEmbedding___bloc
     if ([assetCopy kind] == 1)
     {
       v91 = MEMORY[0x1E696AD98];
-      [assetCopy duration];
+      objc_msgSend_duration(assetCopy);
       v92 = [v91 numberWithDouble:?];
       [v177 setPhotosDuration:v92];
     }
@@ -2814,7 +2814,7 @@ void __66__PLSpotlightAssetTranslator_updateThumbnailMap_withMADEmbedding___bloc
     [v177 setPhotoEmbedding:csEmbedding];
     v140 = MEMORY[0x1E696AD98];
     vectors = [csEmbedding vectors];
-    v142 = [v140 numberWithUnsignedInteger:{objc_msgSend(vectors, "count")}];
+    v142 = [v140 numberWithUnsignedInteger:objc_msgSend_count(vectors)];
     [contextCopy photosEmbeddingCountKey];
     v143 = fetcherCopy;
     v145 = v144 = observationCopy;

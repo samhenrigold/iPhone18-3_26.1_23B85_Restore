@@ -22,11 +22,11 @@
 
 - (id)latestWashoutEndDateWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pregnancySampleProvider = self->_pregnancySampleProvider;
-  v25 = 0;
-  v6 = [(HDHRPregnancySampleProviding *)pregnancySampleProvider getSamplesWithError:&v25];
-  v7 = v25;
+  v24 = 0;
+  v6 = [(HDHRPregnancySampleProviding *)pregnancySampleProvider getSamplesWithError:&v24];
+  v7 = v24;
   if (!v7)
   {
     firstObject = [v6 firstObject];
@@ -45,9 +45,9 @@
 
         if (v16 >= 12096000.0)
         {
-          v23 = MEMORY[0x277CBEAA8];
+          v22 = MEMORY[0x277CBEAA8];
           endDate3 = [v10 endDate];
-          v18 = [v23 dateWithTimeInterval:endDate3 sinceDate:7257600.0];
+          v18 = [v22 dateWithTimeInterval:endDate3 sinceDate:7257600.0];
 
           goto LABEL_18;
         }
@@ -89,8 +89,8 @@ LABEL_16:
     v20 = HKSensitiveLogItem();
     *buf = 138543618;
     selfCopy = self;
-    v28 = 2112;
-    v29 = v20;
+    v27 = 2112;
+    v28 = v20;
     _os_log_impl(&dword_229486000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] %@", buf, 0x16u);
 
     goto LABEL_17;
@@ -116,17 +116,7 @@ LABEL_16:
   v18 = 0;
 LABEL_19:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
-}
-
-- (void)latestWashoutEndDateWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to get samples with error: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

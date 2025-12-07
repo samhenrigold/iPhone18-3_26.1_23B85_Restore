@@ -98,7 +98,7 @@
 
 - (id)generatePointCloudFromRawFrame:(id)frame timestamp:(id *)timestamp usingDataBuffer:(__CVBuffer *)buffer
 {
-  v5 = (MEMORY[0x28223BE20])(self, a2, frame);
+  v5 = MEMORY[0x28223BE20](self, a2, frame);
   v7 = v6;
   v9 = v8;
   v101 = v5;
@@ -756,7 +756,7 @@ LABEL_9:
     *v108 = *v9;
     *&v108[16] = *(v9 + 16);
     v94 = 0;
-    if (peridot::PeridotAlgo::Impl::processSuperFrame(*(v101 + 96), bytes, v19, *v108))
+    if (peridot::PeridotAlgo::Impl::processSuperFrame(*(v101 + 96), bytes, v19))
     {
       if (BYTE8(v146[269]) == 255)
       {

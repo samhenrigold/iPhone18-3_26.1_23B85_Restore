@@ -39,197 +39,197 @@
 - (TSTTableStrokePresetData)initWithArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v23.receiver = self;
-  v23.super_class = TSTTableStrokePresetData;
-  v7 = [(TSTTableStrokePresetData *)&v23 init];
-  v10 = v7;
+  v20.receiver = self;
+  v20.super_class = TSTTableStrokePresetData;
+  v7 = [(TSTTableStrokePresetData *)&v20 init];
+  v9 = v7;
   if (v7)
   {
     v7->mVisibleMask = *(archive + 12);
-    v11 = MEMORY[0x277D804A0];
+    v10 = MEMORY[0x277D804A0];
     if (*(archive + 3))
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, *(archive + 3), unarchiverCopy, v9);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, *(archive + 3), unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, MEMORY[0x277D804A0], unarchiverCopy, v9);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, MEMORY[0x277D804A0], unarchiverCopy);
     }
-    v12 = ;
-    mHorizontalStroke = v10->mHorizontalStroke;
-    v10->mHorizontalStroke = v12;
+    v11 = ;
+    mHorizontalStroke = v9->mHorizontalStroke;
+    v9->mHorizontalStroke = v11;
 
     if (*(archive + 4))
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v14, *(archive + 4), unarchiverCopy, v15);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v13, *(archive + 4), unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v14, v11, unarchiverCopy, v15);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v13, v10, unarchiverCopy);
     }
-    v16 = ;
-    mVerticalStroke = v10->mVerticalStroke;
-    v10->mVerticalStroke = v16;
+    v14 = ;
+    mVerticalStroke = v9->mVerticalStroke;
+    v9->mVerticalStroke = v14;
 
     if (*(archive + 5))
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v18, *(archive + 5), unarchiverCopy, v19);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v16, *(archive + 5), unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v18, v11, unarchiverCopy, v19);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v16, v10, unarchiverCopy);
     }
-    v20 = ;
-    mExteriorStroke = v10->mExteriorStroke;
-    v10->mExteriorStroke = v20;
+    v17 = ;
+    mExteriorStroke = v9->mExteriorStroke;
+    v9->mExteriorStroke = v17;
   }
 
-  return v10;
+  return v9;
 }
 
 - (TSTTableStrokePresetData)initWithDeprecatedArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v29.receiver = self;
-  v29.super_class = TSTTableStrokePresetData;
-  v7 = [(TSTTableStrokePresetData *)&v29 init];
-  v10 = v7;
+  v26.receiver = self;
+  v26.super_class = TSTTableStrokePresetData;
+  v7 = [(TSTTableStrokePresetData *)&v26 init];
+  v9 = v7;
   if (v7)
   {
     v7->mVisibleMask = *(archive + 12);
-    v11 = *(archive + 4);
-    if (!v11)
+    v10 = *(archive + 4);
+    if (!v10)
     {
-      v11 = &qword_2812E9B08;
+      v10 = &qword_2812E9B08;
     }
 
-    v12 = v11[3];
-    v13 = MEMORY[0x277D804A0];
-    if (v12)
+    v11 = v10[3];
+    v12 = MEMORY[0x277D804A0];
+    if (v11)
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, v12, unarchiverCopy, v9);
-    }
-
-    else
-    {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, MEMORY[0x277D804A0], unarchiverCopy, v9);
-    }
-    v14 = ;
-    mHorizontalStroke = v10->mHorizontalStroke;
-    v10->mHorizontalStroke = v14;
-
-    v18 = *(archive + 3);
-    if (!v18)
-    {
-      v18 = &qword_2812E9B08;
-    }
-
-    v19 = v18[3];
-    if (v19)
-    {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v16, v19, unarchiverCopy, v17);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, v11, unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v16, v13, unarchiverCopy, v17);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v8, MEMORY[0x277D804A0], unarchiverCopy);
     }
-    v20 = ;
-    mVerticalStroke = v10->mVerticalStroke;
-    v10->mVerticalStroke = v20;
+    v13 = ;
+    mHorizontalStroke = v9->mHorizontalStroke;
+    v9->mHorizontalStroke = v13;
 
-    v24 = *(archive + 5);
-    if (!v24)
+    v16 = *(archive + 3);
+    if (!v16)
     {
-      v24 = &qword_2812E9B08;
+      v16 = &qword_2812E9B08;
     }
 
-    v25 = v24[3];
-    if (v25)
+    v17 = v16[3];
+    if (v17)
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v22, v25, unarchiverCopy, v23);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v15, v17, unarchiverCopy);
     }
 
     else
     {
-      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v22, v13, unarchiverCopy, v23);
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v15, v12, unarchiverCopy);
     }
-    v26 = ;
-    mExteriorStroke = v10->mExteriorStroke;
-    v10->mExteriorStroke = v26;
+    v18 = ;
+    mVerticalStroke = v9->mVerticalStroke;
+    v9->mVerticalStroke = v18;
+
+    v21 = *(archive + 5);
+    if (!v21)
+    {
+      v21 = &qword_2812E9B08;
+    }
+
+    v22 = v21[3];
+    if (v22)
+    {
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v20, v22, unarchiverCopy);
+    }
+
+    else
+    {
+      objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80368], v20, v12, unarchiverCopy);
+    }
+    v23 = ;
+    mExteriorStroke = v9->mExteriorStroke;
+    v9->mExteriorStroke = v23;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
   mVisibleMask = self->mVisibleMask;
-  v10 = *(archive + 4);
-  *(archive + 4) = v10 | 8;
+  v9 = *(archive + 4);
+  *(archive + 4) = v9 | 8;
   *(archive + 12) = mVisibleMask;
   mHorizontalStroke = self->mHorizontalStroke;
-  *(archive + 4) = v10 | 9;
-  v12 = *(archive + 3);
-  v24 = archiverCopy;
-  if (!v12)
+  *(archive + 4) = v9 | 9;
+  v11 = *(archive + 3);
+  v21 = archiverCopy;
+  if (!v11)
   {
-    v13 = *(archive + 1);
-    if (v13)
+    v12 = *(archive + 1);
+    if (v12)
     {
-      v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+      v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v12 = MEMORY[0x223DA0290](v13);
-    *(archive + 3) = v12;
-    archiverCopy = v24;
+    v11 = MEMORY[0x223DA0290](v12);
+    *(archive + 3) = v11;
+    archiverCopy = v21;
   }
 
-  objc_msgSend_saveToArchive_archiver_(mHorizontalStroke, v6, v12, archiverCopy, v8);
+  objc_msgSend_saveToArchive_archiver_(mHorizontalStroke, v6, v11, archiverCopy);
   mVerticalStroke = self->mVerticalStroke;
   *(archive + 4) |= 2u;
-  v17 = *(archive + 4);
-  if (!v17)
+  v15 = *(archive + 4);
+  if (!v15)
   {
-    v18 = *(archive + 1);
-    if (v18)
+    v16 = *(archive + 1);
+    if (v16)
     {
-      v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+      v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v17 = MEMORY[0x223DA0290](v18);
-    *(archive + 4) = v17;
+    v15 = MEMORY[0x223DA0290](v16);
+    *(archive + 4) = v15;
   }
 
-  objc_msgSend_saveToArchive_archiver_(mVerticalStroke, v14, v17, v24, v15);
+  objc_msgSend_saveToArchive_archiver_(mVerticalStroke, v13, v15, v21);
   mExteriorStroke = self->mExteriorStroke;
   *(archive + 4) |= 4u;
-  v22 = *(archive + 5);
-  if (!v22)
+  v19 = *(archive + 5);
+  if (!v19)
   {
-    v23 = *(archive + 1);
-    if (v23)
+    v20 = *(archive + 1);
+    if (v20)
     {
-      v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
+      v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v22 = MEMORY[0x223DA0290](v23);
-    *(archive + 5) = v22;
+    v19 = MEMORY[0x223DA0290](v20);
+    *(archive + 5) = v19;
   }
 
-  objc_msgSend_saveToArchive_archiver_(mExteriorStroke, v19, v22, v24, v20);
+  objc_msgSend_saveToArchive_archiver_(mExteriorStroke, v17, v19, v21);
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v14 = (objc_msgSend_isEqual_(self->mHorizontalStroke, v5, equalCopy[1], v6, v7) & 1) != 0 && objc_msgSend_isEqual_(self->mVerticalStroke, v8, equalCopy[2], v9, v10) && objc_msgSend_isEqual_(self->mExteriorStroke, v11, equalCopy[3], v12, v13) && self->mVisibleMask == *(equalCopy + 8);
+  v11 = (objc_msgSend_isEqual_(self->mHorizontalStroke, v5, equalCopy[1], v6) & 1) != 0 && objc_msgSend_isEqual_(self->mVerticalStroke, v7, equalCopy[2], v8) && objc_msgSend_isEqual_(self->mExteriorStroke, v9, equalCopy[3], v10) && self->mVisibleMask == *(equalCopy + 8);
 
-  return v14;
+  return v11;
 }
 
 @end

@@ -29,25 +29,24 @@
 - (void)setAllowUnrestrictedCellularDownload:(BOOL)download
 {
   selfCopy = self;
-  v6 = a2;
+  v5 = a2;
   downloadCopy = download;
-  v4[0] = 2;
+  v3[0] = 2;
   p_lock = &self->_lock;
-  v8 = 0;
+  v7 = 0;
   os_unfair_lock_lock_with_options();
-  v4[1] = p_lock;
+  v3[1] = p_lock;
   selfCopy->_allowUnrestrictedCellularDownload = downloadCopy;
-  v10 = v4;
-  switch(v4[0])
+  v9 = v3;
+  switch(v3[0])
   {
     case 1:
-      [v10[1] unlock];
+      [v9[1] unlock];
       break;
     case 2:
-      os_unfair_lock_unlock(v10[1]);
+      os_unfair_lock_unlock(v9[1]);
       break;
     case 3:
-      v3 = v10[1];
       os_unfair_recursive_lock_unlock();
       break;
   }
@@ -71,25 +70,24 @@
 - (void)setClientIsBuddy:(BOOL)buddy
 {
   selfCopy = self;
-  v6 = a2;
+  v5 = a2;
   buddyCopy = buddy;
-  v4[0] = 2;
+  v3[0] = 2;
   p_lock = &self->_lock;
-  v8 = 0;
+  v7 = 0;
   os_unfair_lock_lock_with_options();
-  v4[1] = p_lock;
+  v3[1] = p_lock;
   selfCopy->_clientIsBuddy = buddyCopy;
-  v10 = v4;
-  switch(v4[0])
+  v9 = v3;
+  switch(v3[0])
   {
     case 1:
-      [v10[1] unlock];
+      [v9[1] unlock];
       break;
     case 2:
-      os_unfair_lock_unlock(v10[1]);
+      os_unfair_lock_unlock(v9[1]);
       break;
     case 3:
-      v3 = v10[1];
       os_unfair_recursive_lock_unlock();
       break;
   }
@@ -113,25 +111,24 @@
 - (void)setBypassTermsAndConditions:(BOOL)conditions
 {
   selfCopy = self;
-  v6 = a2;
+  v5 = a2;
   conditionsCopy = conditions;
-  v4[0] = 2;
+  v3[0] = 2;
   p_lock = &self->_lock;
-  v8 = 0;
+  v7 = 0;
   os_unfair_lock_lock_with_options();
-  v4[1] = p_lock;
+  v3[1] = p_lock;
   selfCopy->_bypassTermsAndConditions = conditionsCopy;
-  v10 = v4;
-  switch(v4[0])
+  v9 = v3;
+  switch(v3[0])
   {
     case 1:
-      [v10[1] unlock];
+      [v9[1] unlock];
       break;
     case 2:
-      os_unfair_lock_unlock(v10[1]);
+      os_unfair_lock_unlock(v9[1]);
       break;
     case 3:
-      v3 = v10[1];
       os_unfair_recursive_lock_unlock();
       break;
   }
@@ -197,7 +194,6 @@
   MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](v13);
   MEMORY[0x277D82BD8](v14);
-  *MEMORY[0x277D85DE8];
 
   return v12;
 }

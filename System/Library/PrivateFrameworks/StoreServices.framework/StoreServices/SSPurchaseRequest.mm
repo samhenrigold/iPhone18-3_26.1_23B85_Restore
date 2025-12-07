@@ -317,7 +317,7 @@ void __43__SSPurchaseRequest__addPurchasesToManager__block_invoke(uint64_t a1, c
   _Block_object_dispose(&v38, 8);
 }
 
-uint64_t __51__SSPurchaseRequest__finishPurchasesWithResponses___block_invoke(void *a1)
+void *__51__SSPurchaseRequest__finishPurchasesWithResponses___block_invoke(void *a1)
 {
   v14 = *MEMORY[0x1E69E9840];
   *(*(a1[6] + 8) + 40) = [*(a1[4] + 120) copy];

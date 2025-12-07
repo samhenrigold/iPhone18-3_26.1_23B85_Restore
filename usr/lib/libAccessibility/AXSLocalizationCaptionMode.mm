@@ -3,7 +3,7 @@
 
 @implementation AXSLocalizationCaptionMode
 
-uint64_t ___AXSLocalizationCaptionMode_block_invoke()
+void *___AXSLocalizationCaptionMode_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

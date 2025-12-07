@@ -1,13 +1,13 @@
 @interface NSData(SafariCoreExtras)
 + (id)safari_dataWithHexString:()SafariCoreExtras;
 - (BOOL)safari_dataAppearsToBeCompressed;
-- (id)safari_SHA1Hash;
 - (id)safari_dataByAppendingData:()SafariCoreExtras;
 - (id)safari_dataByCompressingData;
 - (id)safari_dataByDecompressingData;
 - (id)safari_descriptionWithoutSpaces;
 - (id)safari_scryptHashWithSalt:()SafariCoreExtras N:r:p:keyLength:;
 - (uint64_t)safari_hashMD5;
+- (unsigned)safari_SHA1Hash;
 @end
 
 @implementation NSData(SafariCoreExtras)
@@ -49,7 +49,7 @@
 
 - (id)safari_dataByDecompressingData
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([self length])
   {
     memset(&strm.avail_in, 0, 104);
@@ -62,13 +62,13 @@
       while (1)
       {
         strm.avail_out = 0x10000;
-        strm.next_out = v7;
+        strm.next_out = v6;
         if (inflate(&strm, 0) >= 2)
         {
           break;
         }
 
-        [data appendBytes:v7 length:0x10000 - strm.avail_out];
+        [data appendBytes:v6 length:0x10000 - strm.avail_out];
         if (strm.avail_out)
         {
           inflateEnd(&strm);
@@ -88,8 +88,6 @@ LABEL_9:
     data2 = [MEMORY[0x1E695DEF0] data];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return data2;
 }
 
@@ -108,97 +106,92 @@ LABEL_9:
 
 - (uint64_t)safari_hashMD5
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   CC_MD5([self bytes], objc_msgSend(self, "length"), md);
-  if (v4 >= 0)
+  if (v3 >= 0)
   {
-    result = v4;
+    return v3;
   }
 
   else
   {
-    result = -v4;
+    return -v3;
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-- (id)safari_SHA1Hash
+- (unsigned)safari_SHA1Hash
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = CC_SHA1([self bytes], objc_msgSend(self, "length"), md);
   if (v1)
   {
     v1 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:20];
   }
 
-  v2 = *MEMORY[0x1E69E9840];
-
   return v1;
 }
 
 - (id)safari_scryptHashWithSalt:()SafariCoreExtras N:r:p:keyLength:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v8 = a6;
+  v9 = a5;
+  v33 = *MEMORY[0x1E69E9840];
   v12 = a3;
   v13 = ccscrypt_storage_size();
   if (v13 <= 0)
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = WBS_LOG_CHANNEL_PREFIXPasswords(v13, v14);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 134349568;
-      v27 = a4;
-      v28 = 1026;
-      v29 = a5;
-      v30 = 1026;
-      v31 = a6;
-      _os_log_error_impl(&dword_1B8447000, v21, OS_LOG_TYPE_ERROR, "Invalid scrypt parameters N: %{public}llu, r: %{public}u, p: %{public}u.", buf, 0x18u);
+      v28 = a4;
+      v29 = 1026;
+      v30 = v9;
+      v31 = 1026;
+      v32 = v8;
+      _os_log_error_impl(&dword_1B8447000, v23, OS_LOG_TYPE_ERROR, "Invalid scrypt parameters N: %{public}llu, r: %{public}u, p: %{public}u.", buf, 0x18u);
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v14 = malloc_type_malloc(v13, 0x6FC353A4uLL);
-    v15 = malloc_type_malloc(a7, 0x44A4AFCBuLL);
-    v16 = objc_alloc_init(WBSScopeExitHandler);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __70__NSData_SafariCoreExtras__safari_scryptHashWithSalt_N_r_p_keyLength___block_invoke;
-    v25[3] = &__block_descriptor_48_e5_v8__0l;
-    v25[4] = v14;
-    v25[5] = v15;
-    v24 = v16;
-    [(WBSScopeExitHandler *)v16 setHandler:v25];
+    v15 = malloc_type_malloc(v13, 0x6FC353A4uLL);
+    v16 = malloc_type_malloc(a7, 0x44A4AFCBuLL);
+    v17 = objc_alloc_init(WBSScopeExitHandler);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __70__NSData_SafariCoreExtras__safari_scryptHashWithSalt_N_r_p_keyLength___block_invoke;
+    v26[3] = &__block_descriptor_48_e5_v8__0l;
+    v26[4] = v15;
+    v26[5] = v16;
+    v25 = v17;
+    [(WBSScopeExitHandler *)v17 setHandler:v26];
     [self length];
     [self bytes];
     [v12 length];
     [v12 bytes];
-    v17 = ccscrypt();
-    if (v17)
+    v18 = ccscrypt();
+    if (v18)
     {
-      v18 = v17;
-      v19 = WBS_LOG_CHANNEL_PREFIXPasswords();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = v18;
+      v21 = WBS_LOG_CHANNEL_PREFIXPasswords(v18, v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [NSData(SafariCoreExtras) safari_scryptHashWithSalt:v18 N:v19 r:? p:? keyLength:?];
+        [NSData(SafariCoreExtras) safari_scryptHashWithSalt:v20 N:v21 r:? p:? keyLength:?];
       }
 
-      v20 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v20 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:{a7, a7, v15}];
+      v22 = [MEMORY[0x1E695DEF0] dataWithBytes:v16 length:{a7, a7, v16}];
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v22;
 }
 
 - (id)safari_descriptionWithoutSpaces
@@ -249,11 +242,10 @@ LABEL_9:
 
 - (void)safari_scryptHashWithSalt:()SafariCoreExtras N:r:p:keyLength:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67240192;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Scrypt failed with error: %{public}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67240192;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Scrypt failed with error: %{public}d", v2, 8u);
 }
 
 @end

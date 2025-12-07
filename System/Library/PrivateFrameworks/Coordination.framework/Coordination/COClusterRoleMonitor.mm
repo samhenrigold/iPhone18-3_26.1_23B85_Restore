@@ -28,12 +28,12 @@
 
 - (COClusterRoleMonitor)initWithConnectionProvider:(id)provider cluster:(id)cluster
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   clusterCopy = cluster;
-  v26.receiver = self;
-  v26.super_class = COClusterRoleMonitor;
-  v9 = [(COClusterRoleMonitor *)&v26 init];
+  v24.receiver = self;
+  v24.super_class = COClusterRoleMonitor;
+  v9 = [(COClusterRoleMonitor *)&v24 init];
   v10 = v9;
   if (v9)
   {
@@ -58,21 +58,19 @@
     v19 = COLogForCategory(2);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v22 = v10->_cluster;
-      provider = v10->_provider;
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v21 = v10->_cluster;
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 134218498;
-      v28 = v10;
+      v26 = v10;
+      v27 = 2112;
+      v28 = v21;
       v29 = 2112;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v25;
+      v30 = v23;
       _os_log_debug_impl(&dword_244328000, v19, OS_LOG_TYPE_DEBUG, "%p role monitor created for Cluster(%@) with %@ provider", buf, 0x20u);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -170,7 +168,7 @@ void __67__COClusterRoleMonitor_addObserverForMember_toDispatchQueue_block___blo
 
 void __48__COClusterRoleMonitor_removeObserverForMember___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) memberObservers];
   v3 = [v2 indexOfObject:*(a1 + 40)];
   if (v3 != 0x7FFFFFFFFFFFFFFFLL)
@@ -183,26 +181,26 @@ void __48__COClusterRoleMonitor_removeObserverForMember___block_invoke(uint64_t 
     v2 = v5;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = v2;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [*(a1 + 40) member];
         v13 = [v11 member];
         v14 = [v12 isEqual:v13];
@@ -213,13 +211,11 @@ void __48__COClusterRoleMonitor_removeObserverForMember___block_invoke(uint64_t 
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addObserverForRole:(id)role toDispatchQueue:(id)queue block:(id)block
@@ -287,7 +283,7 @@ void __65__COClusterRoleMonitor_addObserverForRole_toDispatchQueue_block___block
 
 void __46__COClusterRoleMonitor_removeObserverForRole___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) roleObservers];
   v3 = [v2 indexOfObject:*(a1 + 40)];
   if (v3 != 0x7FFFFFFFFFFFFFFFLL)
@@ -300,27 +296,27 @@ void __46__COClusterRoleMonitor_removeObserverForRole___block_invoke(uint64_t a1
     v2 = v5;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = v2;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
         v11 = *(a1 + 48);
-        v12 = [*(*(&v14 + 1) + 8 * i) role];
+        v12 = [*(*(&v13 + 1) + 8 * i) role];
         LODWORD(v11) = [v11 isEqual:v12];
 
         if (v11)
@@ -329,13 +325,11 @@ void __46__COClusterRoleMonitor_removeObserverForRole___block_invoke(uint64_t a1
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)addObserverForSnapshotsToDispatchQueue:(id)queue block:(id)block
@@ -430,7 +424,7 @@ void __51__COClusterRoleMonitor_removeObserverForSnapshots___block_invoke(uint64
 
 - (void)roleOfMember:(id)member inCluster:(id)cluster didChangeTo:(id)to
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   memberCopy = member;
   toCopy = to;
   v9 = COLogForCategory(2);
@@ -438,80 +432,78 @@ void __51__COClusterRoleMonitor_removeObserverForSnapshots___block_invoke(uint64
   {
     *buf = 134218498;
     selfCopy = self;
-    v29 = 2112;
-    v30 = toCopy;
-    v31 = 2112;
-    v32 = memberCopy;
+    v28 = 2112;
+    v29 = toCopy;
+    v30 = 2112;
+    v31 = memberCopy;
     _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p notified of Role(%@) change for Member(%@)", buf, 0x20u);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __59__COClusterRoleMonitor_roleOfMember_inCluster_didChangeTo___block_invoke;
-  v23[3] = &unk_278E12738;
-  v23[4] = self;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __59__COClusterRoleMonitor_roleOfMember_inCluster_didChangeTo___block_invoke;
+  v22[3] = &unk_278E12738;
+  v22[4] = self;
   v11 = memberCopy;
-  v24 = v11;
+  v23 = v11;
   v12 = array;
-  v25 = v12;
-  [(COClusterRoleMonitor *)self _withLock:v23];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v24 = v12;
+  [(COClusterRoleMonitor *)self _withLock:v22];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v19 + 1) + 8 * v17++) notify:{toCopy, v19}];
+        [*(*(&v18 + 1) + 8 * v17++) notify:{toCopy, v18}];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __59__COClusterRoleMonitor_roleOfMember_inCluster_didChangeTo___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) memberObservers];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 member];
         LODWORD(v8) = [v8 isEqual:v9];
@@ -522,18 +514,16 @@ void __59__COClusterRoleMonitor_roleOfMember_inCluster_didChangeTo___block_invok
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)membersWithRole:(id)role inCluster:(id)cluster didChangeTo:(id)to
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   toCopy = to;
   v9 = COLogForCategory(2);
@@ -541,80 +531,78 @@ void __59__COClusterRoleMonitor_roleOfMember_inCluster_didChangeTo___block_invok
   {
     *buf = 134218498;
     selfCopy = self;
-    v29 = 2112;
-    v30 = toCopy;
-    v31 = 2112;
-    v32 = roleCopy;
+    v28 = 2112;
+    v29 = toCopy;
+    v30 = 2112;
+    v31 = roleCopy;
     _os_log_impl(&dword_244328000, v9, OS_LOG_TYPE_DEFAULT, "%p notified of Member(%@) change for Role(%@)", buf, 0x20u);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __62__COClusterRoleMonitor_membersWithRole_inCluster_didChangeTo___block_invoke;
-  v23[3] = &unk_278E12738;
-  v23[4] = self;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __62__COClusterRoleMonitor_membersWithRole_inCluster_didChangeTo___block_invoke;
+  v22[3] = &unk_278E12738;
+  v22[4] = self;
   v11 = roleCopy;
-  v24 = v11;
+  v23 = v11;
   v12 = array;
-  v25 = v12;
-  [(COClusterRoleMonitor *)self _withLock:v23];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v24 = v12;
+  [(COClusterRoleMonitor *)self _withLock:v22];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v20;
+    v16 = *v19;
     do
     {
       v17 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v19 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v19 + 1) + 8 * v17++) notify:{toCopy, v19}];
+        [*(*(&v18 + 1) + 8 * v17++) notify:{toCopy, v18}];
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v18 objects:v25 count:16];
     }
 
     while (v15);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __62__COClusterRoleMonitor_membersWithRole_inCluster_didChangeTo___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) roleObservers];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 role];
         LODWORD(v8) = [v8 isEqual:v9];
@@ -625,18 +613,16 @@ void __62__COClusterRoleMonitor_membersWithRole_inCluster_didChangeTo___block_in
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)snapshotOfCluster:(id)cluster didChangeTo:(id)to
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   toCopy = to;
   v8 = COLogForCategory(2);
@@ -647,54 +633,53 @@ void __62__COClusterRoleMonitor_membersWithRole_inCluster_didChangeTo___block_in
     *&buf[12] = 2112;
     *&buf[14] = toCopy;
     *&buf[22] = 2112;
-    v21 = clusterCopy;
+    v20 = clusterCopy;
     _os_log_impl(&dword_244328000, v8, OS_LOG_TYPE_DEFAULT, "%p notified of Snapshot(%@) change in Cluster(%@)", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v21 = __Block_byref_object_copy__10;
-  v22 = __Block_byref_object_dispose__10;
-  v23 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __54__COClusterRoleMonitor_snapshotOfCluster_didChangeTo___block_invoke;
-  v18[3] = &unk_278E122F0;
-  v18[4] = self;
-  v18[5] = buf;
-  [(COClusterRoleMonitor *)self _withLock:v18];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
+  v20 = __Block_byref_object_copy__10;
+  v21 = __Block_byref_object_dispose__10;
+  v22 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __54__COClusterRoleMonitor_snapshotOfCluster_didChangeTo___block_invoke;
+  v17[3] = &unk_278E122F0;
+  v17[4] = self;
+  v17[5] = buf;
+  [(COClusterRoleMonitor *)self _withLock:v17];
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v9 = *(*&buf[8] + 40);
-  v10 = [v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) notify:{toCopy, v14}];
+        [*(*(&v13 + 1) + 8 * v12++) notify:{toCopy, v13}];
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__COClusterRoleMonitor_snapshotOfCluster_didChangeTo___block_invoke(uint64_t a1)
@@ -833,7 +818,7 @@ void __42__COClusterRoleMonitor__serviceConnection__block_invoke_2(uint64_t a1)
 
 void __42__COClusterRoleMonitor__serviceConnection__block_invoke_93(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -846,15 +831,13 @@ void __42__COClusterRoleMonitor__serviceConnection__block_invoke_93(uint64_t a1)
     v4 = COLogForCategory(2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
-      v7 = WeakRetained;
-      _os_log_impl(&dword_244328000, v4, OS_LOG_TYPE_DEFAULT, "%p connection to Role service invalidated", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = WeakRetained;
+      _os_log_impl(&dword_244328000, v4, OS_LOG_TYPE_DEFAULT, "%p connection to Role service invalidated", &v5, 0xCu);
     }
 
     [WeakRetained _lostConnectionToService];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_remoteInterfaceWithErrorHandler:(id)handler
@@ -868,83 +851,83 @@ void __42__COClusterRoleMonitor__serviceConnection__block_invoke_93(uint64_t a1)
 
 - (void)_lostConnectionToService
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   v4 = [MEMORY[0x277CBEB58] set];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __48__COClusterRoleMonitor__lostConnectionToService__block_invoke;
-  v25[3] = &unk_278E12210;
-  v25[4] = self;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __48__COClusterRoleMonitor__lostConnectionToService__block_invoke;
+  v24[3] = &unk_278E12210;
+  v24[4] = self;
   v5 = v3;
-  v26 = v5;
+  v25 = v5;
   v6 = v4;
-  v27 = v6;
-  v28 = &v29;
-  [(COClusterRoleMonitor *)self _withLock:v25];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v26 = v6;
+  v27 = &v28;
+  [(COClusterRoleMonitor *)self _withLock:v24];
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v36 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v35 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(COClusterRoleMonitor *)self _registerMemberObserver:*(*(&v21 + 1) + 8 * v10++)];
+        [(COClusterRoleMonitor *)self _registerMemberObserver:*(*(&v20 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v36 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v35 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v6;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v34 count:16];
   if (v12)
   {
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(COClusterRoleMonitor *)self _registerRoleObserver:*(*(&v17 + 1) + 8 * v14++), v17];
+        [(COClusterRoleMonitor *)self _registerRoleObserver:*(*(&v16 + 1) + 8 * v14++), v16];
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v17 objects:v35 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v16 objects:v34 count:16];
     }
 
     while (v12);
   }
 
-  if (*(v30 + 24) == 1)
+  if (*(v29 + 24) == 1)
   {
     [(COClusterRoleMonitor *)self _registerSnapshotObserver];
   }
@@ -957,76 +940,75 @@ void __42__COClusterRoleMonitor__serviceConnection__block_invoke_93(uint64_t a1)
     _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%p done restoring state after lost connection to service", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v29, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v28, 8);
 }
 
 void __48__COClusterRoleMonitor__lostConnectionToService__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v2 = [*(a1 + 32) memberObservers];
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v22;
     do
     {
       v6 = 0;
       do
       {
-        if (*v23 != v5)
+        if (*v22 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v22 + 1) + 8 * v6) member];
+        v8 = [*(*(&v21 + 1) + 8 * v6) member];
         [v7 addObject:v8];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v4);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = [*(a1 + 32) roleObservers];
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
         v14 = *(a1 + 48);
-        v15 = [*(*(&v18 + 1) + 8 * v13) role];
+        v15 = [*(*(&v17 + 1) + 8 * v13) role];
         [v14 addObject:v15];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
@@ -1034,45 +1016,41 @@ void __48__COClusterRoleMonitor__lostConnectionToService__block_invoke(uint64_t 
 
   v16 = [*(a1 + 32) snapshotObservers];
   *(*(*(a1 + 56) + 8) + 24) = [v16 count] != 0;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerMemberObserver:(id)observer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__COClusterRoleMonitor__registerMemberObserver___block_invoke;
-  v10[3] = &unk_278E131D8;
-  objc_copyWeak(&v12, &location);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__COClusterRoleMonitor__registerMemberObserver___block_invoke;
+  v9[3] = &unk_278E131D8;
+  objc_copyWeak(&v11, &location);
   v5 = observerCopy;
-  v11 = v5;
-  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v10];
+  v10 = v5;
+  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v9];
   v7 = COLogForCategory(2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, "%p registering observer for Member(%@)", buf, 0x16u);
   }
 
   cluster = [(COClusterRoleMonitor *)self cluster];
   [v6 registerForRoleChangesOfMember:v5 inCluster:cluster];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__COClusterRoleMonitor__registerMemberObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1080,55 +1058,51 @@ void __48__COClusterRoleMonitor__registerMemberObserver___block_invoke(uint64_t 
     v5 = COLogForCategory(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register observer for Member(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register observer for Member(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterMemberObserver:(id)observer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __50__COClusterRoleMonitor__unregisterMemberObserver___block_invoke;
-  v10[3] = &unk_278E131D8;
-  objc_copyWeak(&v12, &location);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __50__COClusterRoleMonitor__unregisterMemberObserver___block_invoke;
+  v9[3] = &unk_278E131D8;
+  objc_copyWeak(&v11, &location);
   v5 = observerCopy;
-  v11 = v5;
-  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v10];
+  v10 = v5;
+  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v9];
   v7 = COLogForCategory(2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, "%p unregistering observer for Member(%@)", buf, 0x16u);
   }
 
   cluster = [(COClusterRoleMonitor *)self cluster];
   [v6 unregisterForRoleChangesOfMember:v5 inCluster:cluster];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__COClusterRoleMonitor__unregisterMemberObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1136,55 +1110,51 @@ void __50__COClusterRoleMonitor__unregisterMemberObserver___block_invoke(uint64_
     v5 = COLogForCategory(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister observer for Member(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister observer for Member(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerRoleObserver:(id)observer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __46__COClusterRoleMonitor__registerRoleObserver___block_invoke;
-  v10[3] = &unk_278E131D8;
-  objc_copyWeak(&v12, &location);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__COClusterRoleMonitor__registerRoleObserver___block_invoke;
+  v9[3] = &unk_278E131D8;
+  objc_copyWeak(&v11, &location);
   v5 = observerCopy;
-  v11 = v5;
-  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v10];
+  v10 = v5;
+  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v9];
   v7 = COLogForCategory(2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, "%p registering observer for Role(%@)", buf, 0x16u);
   }
 
   cluster = [(COClusterRoleMonitor *)self cluster];
   [v6 registerForMemberChangesWithRole:v5 inCluster:cluster];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__COClusterRoleMonitor__registerRoleObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1192,55 +1162,51 @@ void __46__COClusterRoleMonitor__registerRoleObserver___block_invoke(uint64_t a1
     v5 = COLogForCategory(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register observer for Role(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to register observer for Role(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterRoleObserver:(id)observer
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__COClusterRoleMonitor__unregisterRoleObserver___block_invoke;
-  v10[3] = &unk_278E131D8;
-  objc_copyWeak(&v12, &location);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__COClusterRoleMonitor__unregisterRoleObserver___block_invoke;
+  v9[3] = &unk_278E131D8;
+  objc_copyWeak(&v11, &location);
   v5 = observerCopy;
-  v11 = v5;
-  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v10];
+  v10 = v5;
+  v6 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:v9];
   v7 = COLogForCategory(2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v5;
+    v15 = 2112;
+    v16 = v5;
     _os_log_impl(&dword_244328000, v7, OS_LOG_TYPE_DEFAULT, "%p unregistering observer for Role(%@)", buf, 0x16u);
   }
 
   cluster = [(COClusterRoleMonitor *)self cluster];
   [v6 unregisterForMemberChangesWithRole:v5 inCluster:cluster];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __48__COClusterRoleMonitor__unregisterRoleObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -1248,30 +1214,28 @@ void __48__COClusterRoleMonitor__unregisterRoleObserver___block_invoke(uint64_t 
     v5 = COLogForCategory(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 134218498;
-      v9 = WeakRetained;
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister observer for Role(%@): %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 134218498;
+      v8 = WeakRetained;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_244328000, v5, OS_LOG_TYPE_ERROR, "%p failed to unregister observer for Role(%@): %@", &v7, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerSnapshotObserver
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke;
-  v10 = &unk_278E12710;
-  objc_copyWeak(&v11, &location);
-  v3 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:&v7];
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke;
+  v9 = &unk_278E12710;
+  objc_copyWeak(&v10, &location);
+  v3 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:&v6];
   v4 = COLogForCategory(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1280,13 +1244,11 @@ void __48__COClusterRoleMonitor__unregisterRoleObserver___block_invoke(uint64_t 
     _os_log_impl(&dword_244328000, v4, OS_LOG_TYPE_DEFAULT, "%p registering Snapshot observer", buf, 0xCu);
   }
 
-  v5 = [(COClusterRoleMonitor *)self cluster:v7];
+  v5 = [(COClusterRoleMonitor *)self cluster:v6];
   [v3 registerForSnapshotChangesInCluster:v5];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke(uint64_t a1, void *a2)
@@ -1305,14 +1267,14 @@ void __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke(uint64_t
 
 - (void)_unregisterSnapshotObserver
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = __51__COClusterRoleMonitor__unregisterSnapshotObserver__block_invoke;
-  v10 = &unk_278E12710;
-  objc_copyWeak(&v11, &location);
-  v3 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:&v7];
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __51__COClusterRoleMonitor__unregisterSnapshotObserver__block_invoke;
+  v9 = &unk_278E12710;
+  objc_copyWeak(&v10, &location);
+  v3 = [(COClusterRoleMonitor *)self _remoteInterfaceWithErrorHandler:&v6];
   v4 = COLogForCategory(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1321,13 +1283,11 @@ void __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke(uint64_t
     _os_log_impl(&dword_244328000, v4, OS_LOG_TYPE_DEFAULT, "%p unregistering Snapshot observer", buf, 0xCu);
   }
 
-  v5 = [(COClusterRoleMonitor *)self cluster:v7];
+  v5 = [(COClusterRoleMonitor *)self cluster:v6];
   [v3 unregisterForSnapshotChangesInCluster:v5];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__COClusterRoleMonitor__unregisterSnapshotObserver__block_invoke(uint64_t a1, void *a2)
@@ -1362,27 +1322,10 @@ void __51__COClusterRoleMonitor__unregisterSnapshotObserver__block_invoke(uint64
 
 void __42__COClusterRoleMonitor__serviceConnection__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Role service interrupted", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __49__COClusterRoleMonitor__registerSnapshotObserver__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p failed to register Snapshot observer: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __51__COClusterRoleMonitor__unregisterSnapshotObserver__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_244328000, v0, v1, "%p failed to unregister Snapshot observer: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_244328000, a2, OS_LOG_TYPE_ERROR, "%p connection to Role service interrupted", &v2, 0xCu);
 }
 
 @end

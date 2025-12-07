@@ -8,7 +8,7 @@
 
 - (void)wrapperDidCancel:(id)cancel
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CA2C8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CA2C8, &qword_1A34EFF00);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15 - v7;
@@ -23,7 +23,7 @@
   os_unfair_lock_lock((v10 + v12));
   sub_1A329AB2C(v10 + v11);
   os_unfair_lock_unlock((v10 + v12));
-  sub_1A3288FDC(v8, &qword_1EB0CA2C8);
+  sub_1A3288FDC(v8, &qword_1EB0CA2C8, &qword_1A34EFF00);
 }
 
 - (void)wrapper:(id)wrapper memojiMetadataForSelectedRecord:(id)record

@@ -51,22 +51,23 @@
 
 - (BOOL)addGraphWithID:(id)d type:(unint64_t)type inputs:(id)inputs outputs:(id)outputs error:(id *)error
 {
+  inputsCopy = inputs;
   if (inputs)
   {
     type metadata accessor for PSSGGraphInput(self);
-    sub_25EB6E3D8();
+    inputsCopy = sub_25EB6E3D8();
   }
 
   if (outputs)
   {
     type metadata accessor for PSSGResourceID(0);
-    sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID);
-    sub_25EB6E438();
+    sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID, MEMORY[0x277D85378]);
+    outputs = sub_25EB6E438();
   }
 
   dCopy = d;
   selfCopy = self;
-  PSSGBuilder.addGraph(with:type:inputs:outputs:)(dCopy, type);
+  PSSGBuilder.addGraph(with:type:inputs:outputs:)(dCopy, type, inputsCopy, outputs);
 
   return 1;
 }
@@ -90,10 +91,10 @@
 - (BOOL)removeGraphsWithIDs:(id)ds error:(id *)error
 {
   type metadata accessor for PSSGGraphID(0);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v5 = sub_25EB6E438();
   selfCopy = self;
-  PSSGBuilder.removeGraphs(with:)(v5);
+  PSSGBuilder.removeGraphs(with:)(v5, v7);
 
   return 1;
 }
@@ -156,15 +157,15 @@ LABEL_7:
 LABEL_8:
   selfCopy = self;
   dCopy = d;
-  sub_25EB2FB1C(v10);
-  sub_25EB2FB1C(v11);
-  sub_25EB2FB1C(v12);
+  sub_25EB2FB1C(v10, v13);
+  sub_25EB2FB1C(v11, v14);
+  sub_25EB2FB1C(v12, v15);
   sub_25EB30638(selfCopy, v10, v13, v11, v14, v12, v15);
   v18 = sub_25EB1958C(dCopy);
 
-  sub_25EB318AC(v12);
-  sub_25EB318AC(v11);
-  sub_25EB318AC(v10);
+  sub_25EB318AC(v12, v15);
+  sub_25EB318AC(v11, v14);
+  sub_25EB318AC(v10, v13);
 
   return v18;
 }
@@ -218,15 +219,15 @@ LABEL_7:
 LABEL_8:
   selfCopy = self;
   dCopy = d;
-  sub_25EB2FB1C(v10);
-  sub_25EB2FB1C(v11);
-  sub_25EB2FB1C(v12);
+  sub_25EB2FB1C(v10, v13);
+  sub_25EB2FB1C(v11, v14);
+  sub_25EB2FB1C(v12, v15);
   sub_25EB30638(selfCopy, v10, v13, v11, v14, v12, v15);
   v18 = sub_25EB197BC(dCopy);
 
-  sub_25EB318AC(v12);
-  sub_25EB318AC(v11);
-  sub_25EB318AC(v10);
+  sub_25EB318AC(v12, v15);
+  sub_25EB318AC(v11, v14);
+  sub_25EB318AC(v10, v13);
 
   return v18;
 }
@@ -274,7 +275,7 @@ LABEL_8:
   PSSGBuilder.strideDependentGraphs(for:)(dCopy);
 
   type metadata accessor for PSSGGraphID(0);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v6 = sub_25EB6E428();
 
   return v6;
@@ -284,7 +285,7 @@ LABEL_8:
 {
   type metadata accessor for PSSGGraphID(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD121D0, &unk_25EB78ED8);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v4 = sub_25EB6E208();
   selfCopy = self;
   v6 = sub_25EB30C5C(v4);
@@ -296,7 +297,7 @@ LABEL_8:
 {
   type metadata accessor for PSSGGraphID(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD121D0, &unk_25EB78ED8);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v4 = sub_25EB6E208();
   selfCopy = self;
   sub_25EB1EC4C(v4);
@@ -313,7 +314,7 @@ LABEL_8:
 
   type metadata accessor for PSSGGraphID(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FD121D0, &unk_25EB78ED8);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v3 = sub_25EB6E1F8();
 
   return v3;
@@ -322,16 +323,17 @@ LABEL_8:
 - (id)allDependentGraphsForResourceSet:(id)set
 {
   type metadata accessor for PSSGResourceID(0);
-  sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID);
-  v4 = sub_25EB6E438();
+  v4 = MEMORY[0x277D85378];
+  sub_25EB24DC0(&qword_27FD11EA0, 255, type metadata accessor for PSSGResourceID, MEMORY[0x277D85378]);
+  v5 = sub_25EB6E438();
   selfCopy = self;
-  PSSGBuilder.allDependentGraphs(forResourceSet:)(v4);
+  PSSGBuilder.allDependentGraphs(forResourceSet:)(v5);
 
   type metadata accessor for PSSGGraphID(0);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
-  v6 = sub_25EB6E428();
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, v4);
+  v7 = sub_25EB6E428();
 
-  return v6;
+  return v7;
 }
 
 - (id)externalSharedInputsForGraph:(id)graph
@@ -379,7 +381,7 @@ LABEL_8:
   if (v9)
   {
     type metadata accessor for PSSGGraphID(0);
-    sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+    sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
     v10 = sub_25EB6E428();
   }
 

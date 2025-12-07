@@ -92,29 +92,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [v6 isEqual:v8];
-
-  if (!v9)
-  {
-    goto LABEL_8;
-  }
-
-  timeRange = [(CNObservedResult *)self timeRange];
-  v12 = v11;
-  v19.location = [equalCopy timeRange];
-  v19.length = v13;
-  v18.location = timeRange;
-  v18.length = v12;
-  if (NSIntersectionRange(v18, v19).length)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = objc_opt_class(), NSStringFromClass(v5), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_opt_class(), NSStringFromClass(v7), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v6 isEqual:v8], v8, v6, v9) && (v10 = -[CNObservedResult timeRange](self, "timeRange"), v12 = v11, v19.location = objc_msgSend(equalCopy, "timeRange"), v19.length = v13, v18.location = v10, v18.length = v12, NSIntersectionRange(v18, v19).length))
   {
     value = [(CNObservedResult *)self value];
     if (value || equalCopy[2])
@@ -131,7 +109,6 @@
 
   else
   {
-LABEL_8:
     v16 = 0;
   }
 
@@ -158,12 +135,11 @@ LABEL_8:
 
 unint64_t __24__CNObservedResult_hash__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [CNHashBuilder objectHash:v3];
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = [CNHashBuilder objectHash:v2];
 
-  return v4;
+  return v3;
 }
 
 unint64_t __24__CNObservedResult_hash__block_invoke_2(uint64_t a1)

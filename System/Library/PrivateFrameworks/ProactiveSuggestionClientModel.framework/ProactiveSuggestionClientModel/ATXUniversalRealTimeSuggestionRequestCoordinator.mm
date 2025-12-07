@@ -40,29 +40,27 @@
 
 - (void)registerRealTimeSuggestionProviderDelegate:(id)delegate clientModelId:(id)id
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   idCopy = id;
-  v8 = __atxlog_handle_blending();
+  v8 = __atxlog_handle_blending(idCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = idCopy;
+    v16 = idCopy;
     _os_log_impl(&dword_1DEFC4000, v8, OS_LOG_TYPE_DEFAULT, "RealTimeRequestCoordinator registering a delegate for clientModelId: %{public}@...", buf, 0xCu);
   }
 
   pendingRefreshTrackerLock = self->_pendingRefreshTrackerLock;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __109__ATXUniversalRealTimeSuggestionRequestCoordinator_registerRealTimeSuggestionProviderDelegate_clientModelId___block_invoke;
-  v13[3] = &unk_1E86A4B00;
-  v14 = delegateCopy;
-  v15 = idCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __109__ATXUniversalRealTimeSuggestionRequestCoordinator_registerRealTimeSuggestionProviderDelegate_clientModelId___block_invoke;
+  v12[3] = &unk_1E86A4B00;
+  v13 = delegateCopy;
+  v14 = idCopy;
   v10 = idCopy;
   v11 = delegateCopy;
-  [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:v12];
 }
 
 void __109__ATXUniversalRealTimeSuggestionRequestCoordinator_registerRealTimeSuggestionProviderDelegate_clientModelId___block_invoke(uint64_t a1, void *a2)
@@ -71,168 +69,163 @@ void __109__ATXUniversalRealTimeSuggestionRequestCoordinator_registerRealTimeSug
   v3 = [a2 registeredDelegatesForClientModels];
   [v3 setObject:*(a1 + 32) forKey:*(a1 + 40)];
 
-  v4 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = __atxlog_handle_blending(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 40);
+    v6 = *(a1 + 40);
     v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "RealTimeRequestCoordinator done registering a delegate for clientModelId: %{public}@.", &v7, 0xCu);
+    v8 = v6;
+    _os_log_impl(&dword_1DEFC4000, v5, OS_LOG_TYPE_DEFAULT, "RealTimeRequestCoordinator done registering a delegate for clientModelId: %{public}@.", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)clientModelUpdatesForSuggestionRequest:(id)request
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   sel_getName(a2);
-  v32 = os_transaction_create();
-  v4 = __atxlog_handle_blending();
+  v35 = os_transaction_create();
+  v4 = __atxlog_handle_blending(v35);
   spid = os_signpost_id_generate(v4);
 
-  v5 = __atxlog_handle_blending();
-  v6 = v5;
-  v33 = spid - 1;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = __atxlog_handle_blending(v5);
+  v7 = v6;
+  v36 = spid - 1;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     originatorId = [requestCopy originatorId];
     LODWORD(buf) = 138543362;
     *(&buf + 4) = originatorId;
-    _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v6, OS_SIGNPOST_INTERVAL_BEGIN, spid, "RealTimeSuggestionRequest", "originatorId=%{signpost.telemetry:string1, public}@ enableTelemetry=YES ", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v7, OS_SIGNPOST_INTERVAL_BEGIN, spid, "RealTimeSuggestionRequest", "originatorId=%{signpost.telemetry:string1, public}@ enableTelemetry=YES ", &buf, 0xCu);
   }
 
-  v8 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_blending(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
     *(&buf + 4) = requestCopy;
-    _os_log_impl(&dword_1DEFC4000, v8, OS_LOG_TYPE_DEFAULT, "Blending: Received suggestion request: %{public}@", &buf, 0xCu);
+    _os_log_impl(&dword_1DEFC4000, v10, OS_LOG_TYPE_DEFAULT, "Blending: Received suggestion request: %{public}@", &buf, 0xCu);
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
     pendingRefreshTrackerLock = self->_pendingRefreshTrackerLock;
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke;
-    v53[3] = &unk_1E86A4178;
-    v37 = requestCopy;
-    v54 = v37;
-    [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:v53];
-    v10 = [(ATXUniversalBlendingLayerHyperParametersProtocol *)self->_hyperParameters clientModelsToConsiderForConsumerSubType:[v37 consumerSubType]];
-    v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:v10];
-    v12 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke;
+    v56[3] = &unk_1E86A4178;
+    v40 = requestCopy;
+    v57 = v40;
+    [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:v56];
+    v13 = [(ATXUniversalBlendingLayerHyperParametersProtocol *)self->_hyperParameters clientModelsToConsiderForConsumerSubType:[v40 consumerSubType]];
+    v14 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithSet:v13];
+    v15 = __atxlog_handle_blending(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v10;
-      _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "Blending: Communicating with client models for request: %{public}@", &buf, 0xCu);
+      *(&buf + 4) = v13;
+      _os_log_impl(&dword_1DEFC4000, v15, OS_LOG_TYPE_DEFAULT, "Blending: Communicating with client models for request: %{public}@", &buf, 0xCu);
     }
 
-    v13 = dispatch_group_create();
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
+    v16 = dispatch_group_create();
     v52 = 0u;
-    obj = v10;
-    v14 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
-    if (v14)
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    obj = v13;
+    v17 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+    if (v17)
     {
-      v15 = *v50;
+      v18 = *v53;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v50 != v15)
+          if (*v53 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v49 + 1) + 8 * i);
-          dispatch_group_enter(v13);
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_15;
-          v45[3] = &unk_1E86A4B28;
-          v45[4] = self;
-          v45[5] = v17;
-          v46 = v11;
-          v47 = v13;
-          v48 = v37;
-          [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self realTimeProviderDelegateForClientModelId:v17 completion:v45];
+          v20 = *(*(&v52 + 1) + 8 * i);
+          dispatch_group_enter(v16);
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_15;
+          v48[3] = &unk_1E86A4B28;
+          v48[4] = self;
+          v48[5] = v20;
+          v49 = v14;
+          v50 = v16;
+          v51 = v40;
+          [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self realTimeProviderDelegateForClientModelId:v20 completion:v48];
         }
 
-        v14 = [obj countByEnumeratingWithState:&v49 objects:v60 count:16];
+        v17 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
       }
 
-      while (v14);
+      while (v17);
     }
 
-    v18 = MEMORY[0x1E69C5D10];
-    [v37 timeout];
-    v20 = v19;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_19;
-    v42[3] = &unk_1E86A4B50;
-    v21 = v37;
-    v43 = v21;
-    v22 = v11;
-    v44 = v22;
-    [v18 waitForGroup:v13 timeoutSeconds:&__block_literal_global_15 onGroupComplete:v42 onTimeout:v20];
-    v23 = __atxlog_handle_blending();
-    v24 = v23;
-    if (v33 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v23))
-    {
-      LOWORD(buf) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v24, OS_SIGNPOST_INTERVAL_END, spid, "RealTimeSuggestionRequest", "", &buf, 2u);
-    }
-
-    *&buf = 0;
-    *(&buf + 1) = &buf;
-    v56 = 0x3032000000;
-    v57 = __Block_byref_object_copy__7;
-    v58 = __Block_byref_object_dispose__7;
-    v59 = 0;
-    v25 = self->_pendingRefreshTrackerLock;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_20;
-    v39[3] = &unk_1E86A4B78;
-    p_buf = &buf;
-    v40 = v21;
-    [(_PASLock *)v25 runWithLockAcquired:v39];
-    v26 = [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self cacheUpdateDictionaryFromCacheUpdatesArray:*(*(&buf + 1) + 40)];
-
-    _Block_object_dispose(&buf, 8);
-    v27 = v54;
-  }
-
-  else
-  {
-    v30 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
-    {
-      [ATXUniversalRealTimeSuggestionRequestCoordinator clientModelUpdatesForSuggestionRequest:];
-    }
-
-    v31 = __atxlog_handle_blending();
-    v27 = v31;
-    if (v33 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v31))
+    v21 = MEMORY[0x1E69C5D10];
+    [v40 timeout];
+    v23 = v22;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_19;
+    v45[3] = &unk_1E86A4B50;
+    v24 = v40;
+    v46 = v24;
+    v25 = v14;
+    v47 = v25;
+    v26 = __atxlog_handle_blending([v21 waitForGroup:v16 timeoutSeconds:&__block_literal_global_15 onGroupComplete:v45 onTimeout:v23]);
+    v27 = v26;
+    if (v36 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v26))
     {
       LOWORD(buf) = 0;
       _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v27, OS_SIGNPOST_INTERVAL_END, spid, "RealTimeSuggestionRequest", "", &buf, 2u);
     }
 
-    v26 = 0;
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v59 = 0x3032000000;
+    v60 = __Block_byref_object_copy__7;
+    v61 = __Block_byref_object_dispose__7;
+    v62 = 0;
+    v28 = self->_pendingRefreshTrackerLock;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_20;
+    v42[3] = &unk_1E86A4B78;
+    p_buf = &buf;
+    v43 = v24;
+    [(_PASLock *)v28 runWithLockAcquired:v42];
+    v29 = [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self cacheUpdateDictionaryFromCacheUpdatesArray:*(*(&buf + 1) + 40)];
+
+    _Block_object_dispose(&buf, 8);
+    v30 = v57;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v32 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+    {
+      [ATXUniversalRealTimeSuggestionRequestCoordinator clientModelUpdatesForSuggestionRequest:requestCopy];
+    }
 
-  return v26;
+    v34 = __atxlog_handle_blending(v33);
+    v30 = v34;
+    if (v36 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v34))
+    {
+      LOWORD(buf) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v30, OS_SIGNPOST_INTERVAL_END, spid, "RealTimeSuggestionRequest", "", &buf, 2u);
+    }
+
+    v29 = 0;
+  }
+
+  return v29;
 }
 
 void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke(uint64_t a1, void *a2)
@@ -246,18 +239,18 @@ void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesFo
   [v4 setObject:v7 forKeyedSubscript:v6];
 }
 
-void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_2()
+void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = __atxlog_handle_blending(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_2_cold_1(v0);
+    __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_2_cold_1(v1);
   }
 }
 
 void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_19(uint64_t a1)
 {
-  v2 = __atxlog_handle_blending();
+  v2 = __atxlog_handle_blending(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_19_cold_1(a1);
@@ -332,111 +325,100 @@ void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesFo
 
 - (void)updateSuggestionsFromDelegate:(id)delegate connection:(id)connection clientModelId:(id)id clientModelsPendingUpdate:(id)update dispatchGroup:(id)group suggestionRequest:(id)request
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   connectionCopy = connection;
   idCopy = id;
   updateCopy = update;
   groupCopy = group;
   requestCopy = request;
+  v20 = requestCopy;
   if (!delegateCopy)
   {
     dispatch_group_leave(groupCopy);
-    goto LABEL_30;
+    goto LABEL_28;
   }
 
-  v20 = __atxlog_handle_blending();
-  v21 = os_signpost_id_generate(v20);
+  v21 = __atxlog_handle_blending(requestCopy);
+  v22 = os_signpost_id_generate(v21);
 
-  v22 = __atxlog_handle_blending();
-  v23 = v22;
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v24 = __atxlog_handle_blending(v23);
+  v25 = v24;
+  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
   {
     *buf = 138543362;
-    v44 = idCopy;
-    _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "RequestSuggestionsFromRealTimeProviderDelegate", "clientModelId=%{signpost.telemetry:string1, public}@ enableTelemetry=YES ", buf, 0xCu);
+    v45 = idCopy;
+    _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v22, "RequestSuggestionsFromRealTimeProviderDelegate", "clientModelId=%{signpost.telemetry:string1, public}@ enableTelemetry=YES ", buf, 0xCu);
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v24 = &selRef_suggestionsForInteractionSuggestionRequest_clientModelId_reply_;
-  }
-
-  else
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v24 = &selRef_suggestionsForContextualActionSuggestionRequest_clientModelId_reply_;
-    }
-
-    else
+    if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v34 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+        v36 = __atxlog_handle_blending(isKindOfClass);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
         {
-          [ATXUniversalRealTimeSuggestionRequestCoordinator updateSuggestionsFromDelegate:connection:clientModelId:clientModelsPendingUpdate:dispatchGroup:suggestionRequest:];
+          [ATXUniversalRealTimeSuggestionRequestCoordinator updateSuggestionsFromDelegate:v20 connection:? clientModelId:? clientModelsPendingUpdate:? dispatchGroup:? suggestionRequest:?];
         }
 
-        goto LABEL_26;
+        goto LABEL_24;
       }
-
-      v24 = &selRef_suggestionsForIntentSuggestionRequest_clientModelId_reply_;
     }
   }
 
-  v25 = *v24;
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  v27 = objc_opt_respondsToSelector();
+  if ((v27 & 1) == 0)
   {
-    v29 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = __atxlog_handle_blending(v27);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v32 = objc_opt_class();
+      v33 = NSStringFromClass(v32);
       *buf = 138543618;
-      v44 = idCopy;
-      v45 = 2114;
-      v46 = v31;
-      _os_log_impl(&dword_1DEFC4000, v29, OS_LOG_TYPE_DEFAULT, "Blending: %{public}@ may not have a real-time request delegate that supports %{public}@ requests. Falling back to cache.", buf, 0x16u);
+      v45 = idCopy;
+      v46 = 2114;
+      v47 = v33;
+      _os_log_impl(&dword_1DEFC4000, v31, OS_LOG_TYPE_DEFAULT, "Blending: %{public}@ may not have a real-time request delegate that supports %{public}@ requests. Falling back to cache.", buf, 0x16u);
     }
 
-    [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self respondToRequestWithPreviouslyCachedPredictionsForClientModelId:idCopy suggestionRequest:requestCopy];
-    [updateCopy removeObject:idCopy];
-    v32 = __atxlog_handle_blending();
-    v33 = v32;
-    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self respondToRequestWithPreviouslyCachedPredictionsForClientModelId:idCopy suggestionRequest:v20];
+    v34 = __atxlog_handle_blending([updateCopy removeObject:idCopy]);
+    v35 = v34;
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v33, OS_SIGNPOST_INTERVAL_END, v21, "RequestSuggestionsFromRealTimeProviderDelegate", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1DEFC4000, v35, OS_SIGNPOST_INTERVAL_END, v22, "RequestSuggestionsFromRealTimeProviderDelegate", "", buf, 2u);
     }
 
-LABEL_26:
+LABEL_24:
     dispatch_group_leave(groupCopy);
-    goto LABEL_30;
+    goto LABEL_28;
   }
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __165__ATXUniversalRealTimeSuggestionRequestCoordinator_updateSuggestionsFromDelegate_connection_clientModelId_clientModelsPendingUpdate_dispatchGroup_suggestionRequest___block_invoke;
-  v36[3] = &unk_1E86A4BA0;
-  v36[4] = self;
-  v26 = idCopy;
-  v37 = v26;
-  v27 = requestCopy;
-  v38 = v27;
-  v39 = updateCopy;
-  v42 = v21;
-  v40 = connectionCopy;
-  v41 = groupCopy;
-  v28 = MEMORY[0x1E12CD4B0](v36);
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __165__ATXUniversalRealTimeSuggestionRequestCoordinator_updateSuggestionsFromDelegate_connection_clientModelId_clientModelsPendingUpdate_dispatchGroup_suggestionRequest___block_invoke;
+  v37[3] = &unk_1E86A4BA0;
+  v37[4] = self;
+  v28 = idCopy;
+  v38 = v28;
+  v29 = v20;
+  v39 = v29;
+  v40 = updateCopy;
+  v43 = v22;
+  v41 = connectionCopy;
+  v42 = groupCopy;
+  v30 = MEMORY[0x1E12CD4B0](v37);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [delegateCopy suggestionsForInteractionSuggestionRequest:v27 clientModelId:v26 reply:v28];
+    [delegateCopy suggestionsForInteractionSuggestionRequest:v29 clientModelId:v28 reply:v30];
   }
 
   else
@@ -444,7 +426,7 @@ LABEL_26:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [delegateCopy suggestionsForContextualActionSuggestionRequest:v27 clientModelId:v26 reply:v28];
+      [delegateCopy suggestionsForContextualActionSuggestionRequest:v29 clientModelId:v28 reply:v30];
     }
 
     else
@@ -452,19 +434,17 @@ LABEL_26:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [delegateCopy suggestionsForIntentSuggestionRequest:v27 clientModelId:v26 reply:v28];
+        [delegateCopy suggestionsForIntentSuggestionRequest:v29 clientModelId:v28 reply:v30];
       }
     }
   }
 
-LABEL_30:
-  v35 = *MEMORY[0x1E69E9840];
+LABEL_28:
 }
 
 void __165__ATXUniversalRealTimeSuggestionRequestCoordinator_updateSuggestionsFromDelegate_connection_clientModelId_clientModelsPendingUpdate_dispatchGroup_suggestionRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) delegateUpdatedSuggestionsForClientModelId:*(a1 + 40) suggestionRequest:*(a1 + 48) response:a2 clientModelsPendingUpdate:*(a1 + 56)];
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending([*(a1 + 32) delegateUpdatedSuggestionsForClientModelId:*(a1 + 40) suggestionRequest:*(a1 + 48) response:a2 clientModelsPendingUpdate:*(a1 + 56)]);
   v4 = v3;
   v5 = *(a1 + 80);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -483,7 +463,7 @@ void __165__ATXUniversalRealTimeSuggestionRequestCoordinator_updateSuggestionsFr
   requestCopy = request;
   responseCopy = response;
   updateCopy = update;
-  v14 = __atxlog_handle_blending();
+  v14 = __atxlog_handle_blending(updateCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = objc_opt_class();
@@ -502,51 +482,53 @@ void __165__ATXUniversalRealTimeSuggestionRequestCoordinator_updateSuggestionsFr
     [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self respondToRequestWithPreviouslyCachedPredictionsForClientModelId:idCopy suggestionRequest:requestCopy];
   }
 
-  else if ([responseCopy responseCode] == 3 || !objc_msgSend(responseCopy, "responseCode") || objc_msgSend(responseCopy, "responseCode") == 5)
+  else
   {
-    v17 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    responseCode2 = [responseCopy responseCode];
+    if (responseCode2 == 3 || (responseCode2 = [responseCopy responseCode], !responseCode2) || (responseCode2 = objc_msgSend(responseCopy, "responseCode"), responseCode2 == 5))
     {
-      [ATXUniversalRealTimeSuggestionRequestCoordinator delegateUpdatedSuggestionsForClientModelId:idCopy suggestionRequest:responseCopy response:? clientModelsPendingUpdate:?];
-    }
-  }
-
-  else if ([responseCopy responseCode] == 2 || objc_msgSend(responseCopy, "responseCode") == 4)
-  {
-    v19 = [ATXClientModelCacheUpdate alloc];
-    suggestions = [responseCopy suggestions];
-    feedbackMetadata = [responseCopy feedbackMetadata];
-    v22 = [(ATXClientModelCacheUpdate *)v19 initWithClientModelId:idCopy suggestions:suggestions feedbackMetadata:feedbackMetadata responseForRealTimeRequest:responseCopy];
-
-    [(ATXUniversalBlendingFeedbackWriter *)self->_feedbackWriter sendEventToBiomeIfNeededForClientModelCacheUpdate:v22 previousUpdate:0];
-    if ([responseCopy responseCode] == 4)
-    {
-      WeakRetained = objc_loadWeakRetained(&self->_server);
-      suggestions2 = [responseCopy suggestions];
-      feedbackMetadata2 = [responseCopy feedbackMetadata];
-      [WeakRetained clientModelUpdatedSuggestions:suggestions2 feedbackMetadata:feedbackMetadata2 clientModelId:idCopy completion:&__block_literal_global_32_0];
+      v18 = __atxlog_handle_blending(responseCode2);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      {
+        [ATXUniversalRealTimeSuggestionRequestCoordinator delegateUpdatedSuggestionsForClientModelId:idCopy suggestionRequest:responseCopy response:? clientModelsPendingUpdate:?];
+      }
     }
 
-    pendingRefreshTrackerLock = self->_pendingRefreshTrackerLock;
-    v28 = MEMORY[0x1E69E9820];
-    v29 = 3221225472;
-    v30 = __148__ATXUniversalRealTimeSuggestionRequestCoordinator_delegateUpdatedSuggestionsForClientModelId_suggestionRequest_response_clientModelsPendingUpdate___block_invoke_33;
-    v31 = &unk_1E86A4B00;
-    v32 = requestCopy;
-    v33 = v22;
-    v27 = v22;
-    [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:&v28];
+    else if ([responseCopy responseCode] == 2 || objc_msgSend(responseCopy, "responseCode") == 4)
+    {
+      v19 = [ATXClientModelCacheUpdate alloc];
+      suggestions = [responseCopy suggestions];
+      feedbackMetadata = [responseCopy feedbackMetadata];
+      v22 = [(ATXClientModelCacheUpdate *)v19 initWithClientModelId:idCopy suggestions:suggestions feedbackMetadata:feedbackMetadata responseForRealTimeRequest:responseCopy];
+
+      [(ATXUniversalBlendingFeedbackWriter *)self->_feedbackWriter sendEventToBiomeIfNeededForClientModelCacheUpdate:v22 previousUpdate:0];
+      if ([responseCopy responseCode] == 4)
+      {
+        WeakRetained = objc_loadWeakRetained(&self->_server);
+        suggestions2 = [responseCopy suggestions];
+        feedbackMetadata2 = [responseCopy feedbackMetadata];
+        [WeakRetained clientModelUpdatedSuggestions:suggestions2 feedbackMetadata:feedbackMetadata2 clientModelId:idCopy completion:&__block_literal_global_32_0];
+      }
+
+      pendingRefreshTrackerLock = self->_pendingRefreshTrackerLock;
+      v28 = MEMORY[0x1E69E9820];
+      v29 = 3221225472;
+      v30 = __148__ATXUniversalRealTimeSuggestionRequestCoordinator_delegateUpdatedSuggestionsForClientModelId_suggestionRequest_response_clientModelsPendingUpdate___block_invoke_33;
+      v31 = &unk_1E86A4B00;
+      v32 = requestCopy;
+      v33 = v22;
+      v27 = v22;
+      [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:&v28];
+    }
   }
 
   [updateCopy removeObject:{idCopy, v28, v29, v30, v31}];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __148__ATXUniversalRealTimeSuggestionRequestCoordinator_delegateUpdatedSuggestionsForClientModelId_suggestionRequest_response_clientModelsPendingUpdate___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __148__ATXUniversalRealTimeSuggestionRequestCoordinator_delegateUpdatedSuggestionsForClientModelId_suggestionRequest_response_clientModelsPendingUpdate___block_invoke_cold_1(v2, v3);
@@ -598,40 +580,38 @@ void __134__ATXUniversalRealTimeSuggestionRequestCoordinator_respondToRequestWit
 
 - (id)cacheUpdateDictionaryFromCacheUpdatesArray:(id)array
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         clientModelId = [v10 clientModelId];
         [v4 setObject:v10 forKey:clientModelId];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -655,15 +635,15 @@ void __134__ATXUniversalRealTimeSuggestionRequestCoordinator_respondToRequestWit
   v18 = &v19;
   v9 = idCopy;
   v17 = v9;
-  [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:&v13];
+  v10 = [(_PASLock *)pendingRefreshTrackerLock runWithLockAcquired:&v13];
   if (v20[5])
   {
-    v10 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v26 = v9;
-      _os_log_impl(&dword_1DEFC4000, v10, OS_LOG_TYPE_DEFAULT, "Found a cached delegate for clientModelId: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_1DEFC4000, v11, OS_LOG_TYPE_DEFAULT, "Found a cached delegate for clientModelId: %{public}@", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, v20[5], 0);
@@ -671,19 +651,18 @@ void __134__ATXUniversalRealTimeSuggestionRequestCoordinator_respondToRequestWit
 
   else
   {
-    v11 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v26 = v9;
-      _os_log_impl(&dword_1DEFC4000, v11, OS_LOG_TYPE_DEFAULT, "Blending: Fetching delegate for client model %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "Blending: Fetching delegate for client model %{public}@", buf, 0xCu);
     }
 
     [(ATXUniversalRealTimeSuggestionRequestCoordinator *)self remoteAsyncDelegateForClientModel:v9 completion:completionCopy, v13, v14, v15, v16];
   }
 
   _Block_object_dispose(&v19, 8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __104__ATXUniversalRealTimeSuggestionRequestCoordinator_realTimeProviderDelegateForClientModelId_completion___block_invoke(uint64_t a1, void *a2)
@@ -697,14 +676,14 @@ void __104__ATXUniversalRealTimeSuggestionRequestCoordinator_realTimeProviderDel
 
 - (void)remoteAsyncDelegateForClientModel:(id)model completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   completionCopy = completion;
-  v7 = __atxlog_handle_blending();
+  v7 = __atxlog_handle_blending(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = modelCopy;
+    v26 = modelCopy;
     _os_log_impl(&dword_1DEFC4000, v7, OS_LOG_TYPE_DEFAULT, "Establishing XPC connection to clientModelId: %{public}@", buf, 0xCu);
   }
 
@@ -713,49 +692,47 @@ void __104__ATXUniversalRealTimeSuggestionRequestCoordinator_realTimeProviderDel
   v10 = ATXProactiveSuggestionRealTimeProviderXPCInterface();
   [v9 setRemoteObjectInterface:v10];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke;
-  v24[3] = &unk_1E86A45B0;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke;
+  v23[3] = &unk_1E86A45B0;
   v11 = modelCopy;
-  v25 = v11;
-  [v9 setInterruptionHandler:v24];
+  v24 = v11;
+  [v9 setInterruptionHandler:v23];
   interruptionHandler = [v9 interruptionHandler];
   [v9 setInvalidationHandler:interruptionHandler];
 
   [v9 resume];
   if (v9)
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_40;
-    v21[3] = &unk_1E86A43B0;
-    v22 = v11;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_40;
+    v20[3] = &unk_1E86A43B0;
+    v21 = v11;
     v13 = completionCopy;
-    v23 = v13;
-    v14 = [v9 remoteObjectProxyWithErrorHandler:v21];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_41;
-    v17[3] = &unk_1E86A4BC8;
-    v20 = v13;
-    v18 = v14;
-    v19 = v9;
+    v22 = v13;
+    v14 = [v9 remoteObjectProxyWithErrorHandler:v20];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_41;
+    v16[3] = &unk_1E86A4BC8;
+    v19 = v13;
+    v17 = v14;
+    v18 = v9;
     v15 = v14;
-    [v15 pingWithCompletion:v17];
+    [v15 pingWithCompletion:v16];
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_blending();
+  v2 = __atxlog_handle_blending(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_cold_1(a1, v2);
@@ -765,7 +742,7 @@ void __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateF
 void __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_40(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_40_cold_1(a1, v3, v4);
@@ -788,77 +765,62 @@ uint64_t __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDeleg
   }
 }
 
-- (void)clientModelUpdatesForSuggestionRequest:.cold.1()
+- (void)clientModelUpdatesForSuggestionRequest:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_9();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __91__ATXUniversalRealTimeSuggestionRequestCoordinator_clientModelUpdatesForSuggestionRequest___block_invoke_19_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) timeout];
-  v8 = *(a1 + 40);
   OUTLINED_FUNCTION_0_9();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-- (void)updateSuggestionsFromDelegate:connection:clientModelId:clientModelsPendingUpdate:dispatchGroup:suggestionRequest:.cold.1()
+- (void)updateSuggestionsFromDelegate:(uint64_t)a1 connection:clientModelId:clientModelsPendingUpdate:dispatchGroup:suggestionRequest:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_9();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)delegateUpdatedSuggestionsForClientModelId:(uint64_t)a1 suggestionRequest:(void *)a2 response:clientModelsPendingUpdate:.cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [a2 error];
+  v7 = [a2 error];
   OUTLINED_FUNCTION_0_9();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __148__ATXUniversalRealTimeSuggestionRequestCoordinator_delegateUpdatedSuggestionsForClientModelId_suggestionRequest_response_clientModelsPendingUpdate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Error when updating suggestions in Real Time Request Coordinator. Error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Error when updating suggestions in Real Time Request Coordinator. Error: %{public}@", &v2, 0xCu);
 }
 
 void __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Connection to Client Model %{public}@ interrupted in 2-way communication server.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Connection to Client Model %{public}@ interrupted in 2-way communication server.", &v3, 0xCu);
 }
 
 void __97__ATXUniversalRealTimeSuggestionRequestCoordinator_remoteAsyncDelegateForClientModel_completion___block_invoke_40_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "Blending: Got xpc error for %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_ERROR, "Blending: Got xpc error for %@: %@", &v4, 0x16u);
 }
 
 @end

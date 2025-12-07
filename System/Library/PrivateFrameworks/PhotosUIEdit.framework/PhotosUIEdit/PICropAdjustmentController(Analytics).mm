@@ -53,7 +53,7 @@
           if (([analyticsKeysBlocklist containsObject:v14] & 1) == 0)
           {
             angleKey = [*(v11 + 2224) angleKey];
-            if ([v14 isEqualToString:angleKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self angle];
               v17 = v16;
@@ -78,7 +78,7 @@ LABEL_20:
             }
 
             yawKey = [*(v11 + 2224) yawKey];
-            if ([v14 isEqualToString:yawKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self yaw];
               v26 = v25;
@@ -101,7 +101,7 @@ LABEL_20:
             }
 
             pitchKey = [*(v11 + 2224) pitchKey];
-            if ([v14 isEqualToString:pitchKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
               [self pitch];
               v30 = v29;
@@ -125,20 +125,20 @@ LABEL_20:
 
             v32 = v2;
             widthKey = [*(v11 + 2224) widthKey];
-            if ([v14 isEqualToString:widthKey])
+            if (objc_msgSend_isEqualToString_(v14))
             {
             }
 
             else
             {
               heightKey = [*(v11 + 2224) heightKey];
-              v35 = [v14 isEqualToString:heightKey];
+              isEqualToString = objc_msgSend_isEqualToString_(v14);
 
               v11 = 0x277D3A000uLL;
-              if (!v35)
+              if (!isEqualToString)
               {
                 xOriginKey = [MEMORY[0x277D3A8B0] xOriginKey];
-                if ([v14 isEqualToString:xOriginKey])
+                if (objc_msgSend_isEqualToString_(v14))
                 {
 
                   v2 = v32;
@@ -146,7 +146,7 @@ LABEL_20:
                 }
 
                 yOriginKey = [MEMORY[0x277D3A8B0] yOriginKey];
-                v47 = [v14 isEqualToString:yOriginKey];
+                v47 = objc_msgSend_isEqualToString_(v14);
 
                 v2 = v32;
                 if (v47)

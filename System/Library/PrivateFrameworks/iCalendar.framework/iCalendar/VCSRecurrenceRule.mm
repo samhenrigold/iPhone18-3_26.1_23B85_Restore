@@ -141,7 +141,7 @@ LABEL_18:
 
   else
   {
-    v12 = VCSLogHandle();
+    v12 = VCSLogHandle(v5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [VCSRecurrenceRule initWithString:v12];

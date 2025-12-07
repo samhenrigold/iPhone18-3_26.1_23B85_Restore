@@ -64,22 +64,22 @@
   return v2;
 }
 
-void __41__ATXNotificationDigestRankerClient_init__block_invoke()
+void __41__ATXNotificationDigestRankerClient_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __41__ATXNotificationDigestRankerClient_init__block_invoke_cold_1(v0);
+    __41__ATXNotificationDigestRankerClient_init__block_invoke_cold_1(v2);
   }
 }
 
-void __41__ATXNotificationDigestRankerClient_init__block_invoke_76()
+void __41__ATXNotificationDigestRankerClient_init__block_invoke_76(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = __atxlog_handle_notification_management(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_INFO, "[ATXNotificationDigestRankerClient] Invalidation Handler Called", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_INFO, "[ATXNotificationDigestRankerClient] Invalidation Handler Called", v3, 2u);
   }
 }
 
@@ -93,59 +93,60 @@ void __41__ATXNotificationDigestRankerClient_init__block_invoke_76()
 
 - (void)generateDigestForAppGroupedNotificationStacks:(id)stacks maxGlobalMarqueeGroups:(unint64_t)groups maxAppMarqueeGroups:(unint64_t)marqueeGroups reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   stacksCopy = stacks;
   replyCopy = reply;
   if (!replyCopy)
   {
-    v16 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v17 = MEMORY[0x1E695DF30];
-    v18 = *MEMORY[0x1E695D930];
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = NSStringFromSelector(a2);
-    [v17 raise:v18 format:{@"[%@] No reply handler provided for %@", v20, v21}];
+    v18 = MEMORY[0x1E695DF30];
+    v19 = *MEMORY[0x1E695D930];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v22 = NSStringFromSelector(a2);
+    [v18 raise:v19 format:{@"[%@] No reply handler provided for %@", v21, v22}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.proactive.NotificationDigest.xpc" logHandle:0] & 1) == 0)
+  v13 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.proactive.NotificationDigest.xpc" logHandle:0];
+  if ((v13 & 1) == 0)
   {
-    v22 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = __atxlog_handle_notification_management(v13);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v24 = *MEMORY[0x1E696A5A0];
-    v29 = *MEMORY[0x1E696A578];
-    v30[0] = @"Missing entitlement for digest generation.  Not calling XPC service.";
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v20 = [v23 initWithDomain:v24 code:1 userInfo:v25];
+    v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v25 = *MEMORY[0x1E696A5A0];
+    v30 = *MEMORY[0x1E696A578];
+    v31[0] = @"Missing entitlement for digest generation.  Not calling XPC service.";
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v21 = [v24 initWithDomain:v25 code:1 userInfo:v26];
 
-    replyCopy[2](replyCopy, 0, v20);
+    replyCopy[2](replyCopy, 0, v21);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke;
-  v26[3] = &unk_1E80C1100;
-  v26[4] = self;
-  v28 = a2;
-  v14 = replyCopy;
-  v27 = v14;
-  v15 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-  [v15 generateDigestForAppGroupedNotificationStacks:stacksCopy maxGlobalMarqueeGroups:groups maxAppMarqueeGroups:marqueeGroups reply:v14];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke;
+  v27[3] = &unk_1E80C1100;
+  v27[4] = self;
+  v29 = a2;
+  v15 = replyCopy;
+  v28 = v15;
+  v16 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+  [v16 generateDigestForAppGroupedNotificationStacks:stacksCopy maxGlobalMarqueeGroups:groups maxAppMarqueeGroups:marqueeGroups reply:v15];
 
 LABEL_11:
 }
@@ -153,7 +154,7 @@ LABEL_11:
 void __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
@@ -164,59 +165,60 @@ void __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotific
 
 - (void)generateDigestForNotificationStacks:(id)stacks reply:(id)reply
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   stacksCopy = stacks;
   replyCopy = reply;
   if (!replyCopy)
   {
-    v12 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D930];
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = NSStringFromSelector(a2);
-    [v13 raise:v14 format:{@"[%@] No reply handler provided for %@", v16, v17}];
+    v14 = MEMORY[0x1E695DF30];
+    v15 = *MEMORY[0x1E695D930];
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = NSStringFromSelector(a2);
+    [v14 raise:v15 format:{@"[%@] No reply handler provided for %@", v17, v18}];
 
     goto LABEL_10;
   }
 
-  if (([MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.proactive.NotificationDigest.xpc" logHandle:0] & 1) == 0)
+  v9 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.proactive.NotificationDigest.xpc" logHandle:0];
+  if ((v9 & 1) == 0)
   {
-    v18 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_notification_management(v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v20 = *MEMORY[0x1E696A5A0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = @"Missing entitlement for digest generation.  Not calling XPC service.";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-    v16 = [v19 initWithDomain:v20 code:1 userInfo:v21];
+    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v21 = *MEMORY[0x1E696A5A0];
+    v26 = *MEMORY[0x1E696A578];
+    v27[0] = @"Missing entitlement for digest generation.  Not calling XPC service.";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v17 = [v20 initWithDomain:v21 code:1 userInfo:v22];
 
-    replyCopy[2](replyCopy, 0, v16);
+    replyCopy[2](replyCopy, 0, v17);
 LABEL_10:
 
     goto LABEL_11;
   }
 
   xpcConnection = self->_xpcConnection;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __79__ATXNotificationDigestRankerClient_generateDigestForNotificationStacks_reply___block_invoke;
-  v22[3] = &unk_1E80C1100;
-  v22[4] = self;
-  v24 = a2;
-  v10 = replyCopy;
-  v23 = v10;
-  v11 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v22];
-  [v11 generateDigestForNotificationStacks:stacksCopy reply:v10];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __79__ATXNotificationDigestRankerClient_generateDigestForNotificationStacks_reply___block_invoke;
+  v23[3] = &unk_1E80C1100;
+  v23[4] = self;
+  v25 = a2;
+  v11 = replyCopy;
+  v24 = v11;
+  v12 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v23];
+  [v12 generateDigestForNotificationStacks:stacksCopy reply:v11];
 
 LABEL_11:
 }
@@ -224,7 +226,7 @@ LABEL_11:
 void __79__ATXNotificationDigestRankerClient_generateDigestForNotificationStacks_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
@@ -235,77 +237,78 @@ void __79__ATXNotificationDigestRankerClient_generateDigestForNotificationStacks
 
 - (void)appsSortedByNotificationsReceivedInPreviousNumDays:(unint64_t)days reply:(id)reply
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
     v8 = [MEMORY[0x1E69C5D20] hasTrueBooleanEntitlement:@"com.apple.proactive.NotificationDigest.xpc" logHandle:0];
-    v9 = __atxlog_handle_notification_management();
-    v10 = v9;
-    if (v8)
+    v9 = v8;
+    v10 = __atxlog_handle_notification_management(v8);
+    v11 = v10;
+    if (v9)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [ATXNotificationDigestRankerClient appsSortedByNotificationsReceivedInPreviousNumDays:reply:];
       }
 
       xpcConnection = self->_xpcConnection;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedInPreviousNumDays_reply___block_invoke;
-      v26[3] = &unk_1E80C1100;
-      v26[4] = self;
-      v28 = a2;
-      v12 = replyCopy;
-      v27 = v12;
-      v13 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedInPreviousNumDays_reply___block_invoke_95;
-      v24[3] = &unk_1E80C5478;
-      v25 = v12;
-      [v13 appsSortedByNotificationsReceivedInPreviousNumDays:days reply:v24];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedInPreviousNumDays_reply___block_invoke;
+      v27[3] = &unk_1E80C1100;
+      v27[4] = self;
+      v29 = a2;
+      v13 = replyCopy;
+      v28 = v13;
+      v14 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v27];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedInPreviousNumDays_reply___block_invoke_95;
+      v25[3] = &unk_1E80C5478;
+      v26 = v13;
+      [v14 appsSortedByNotificationsReceivedInPreviousNumDays:days reply:v25];
     }
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
       }
 
-      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v21 = *MEMORY[0x1E696A5A0];
-      v29 = *MEMORY[0x1E696A578];
-      v30[0] = @"Missing entitlement for apps sorted by notifications.  Not calling XPC service.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-      v23 = [v20 initWithDomain:v21 code:1 userInfo:v22];
+      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v22 = *MEMORY[0x1E696A5A0];
+      v30 = *MEMORY[0x1E696A578];
+      v31[0] = @"Missing entitlement for apps sorted by notifications.  Not calling XPC service.";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v24 = [v21 initWithDomain:v22 code:1 userInfo:v23];
 
-      (*(replyCopy + 2))(replyCopy, 0, 0, 0, v23);
+      (*(replyCopy + 2))(replyCopy, 0, 0, 0, v24);
     }
   }
 
   else
   {
-    v14 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationDigestRankerClient generateDigestForAppGroupedNotificationStacks:maxGlobalMarqueeGroups:maxAppMarqueeGroups:reply:];
     }
 
-    v15 = MEMORY[0x1E695DF30];
-    v16 = *MEMORY[0x1E695D930];
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = NSStringFromSelector(a2);
-    [v15 raise:v16 format:{@"[%@] No reply handler provided for %@", v18, v19}];
+    v16 = MEMORY[0x1E695DF30];
+    v17 = *MEMORY[0x1E695D930];
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = NSStringFromSelector(a2);
+    [v16 raise:v17 format:{@"[%@] No reply handler provided for %@", v19, v20}];
   }
 }
 
 void __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedInPreviousNumDays_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
@@ -333,7 +336,7 @@ void __94__ATXNotificationDigestRankerClient_appsSortedByNotificationsReceivedIn
 void __86__ATXNotificationDigestRankerClient_numberOfActiveNotificationsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_notification_management();
+  v4 = __atxlog_handle_notification_management(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1();
@@ -356,14 +359,14 @@ void __86__ATXNotificationDigestRankerClient_numberOfActiveNotificationsWithComp
 void __132__ATXNotificationDigestRankerClient_generateDigestForAppGroupedNotificationStacks_maxGlobalMarqueeGroups_maxAppMarqueeGroups_reply___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3_2();
-  v1 = OUTLINED_FUNCTION_8_1();
-  NSStringFromClass(v1);
+  v2 = OUTLINED_FUNCTION_8_1(v1);
+  NSStringFromClass(v2);
   objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_7_3();
-  v3 = NSStringFromSelector(v2);
+  v3 = OUTLINED_FUNCTION_7_3();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_11();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 - (void)appsSortedByNotificationsReceivedInPreviousNumDays:reply:.cold.2()

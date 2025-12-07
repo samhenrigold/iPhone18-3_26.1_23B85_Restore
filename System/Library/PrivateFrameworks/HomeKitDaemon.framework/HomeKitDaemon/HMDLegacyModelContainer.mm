@@ -13,7 +13,7 @@
 
 - (id)decodePropertyValueFromData:(id)data forProperty:(id)property field:(id)field storageLocation:(unint64_t)location error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   propertyCopy = property;
   fieldCopy = field;
@@ -27,21 +27,19 @@
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D0F1A0];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"should conform to NSSecureCoding (but storage class for property %@ does not)", propertyCopy, @"message"];
-    v20[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v13 errorWithDomain:v14 code:3 userInfo:v16];
 
     error = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 - (id)encodePropertyValue:(id)value forProperty:(id)property field:(id)field storageLocation:(unint64_t)location error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   valueCopy = value;
   if ([objc_opt_class() conformsToProtocol:&unk_283E85EF8])
@@ -60,16 +58,14 @@
     {
       v16 = MEMORY[0x277CCA9B8];
       v17 = *MEMORY[0x277D0F1A0];
-      v21 = @"message";
-      v22[0] = propertyCopy;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = @"message";
+      v21[0] = propertyCopy;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v16 errorWithDomain:v17 code:3 userInfo:v18];
     }
 
     v11 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -137,7 +133,7 @@
 
 - (id)modelFromData:(id)data encoding:(unint64_t)encoding storageLocation:(unint64_t)location type:(id)type error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   typeCopy = type;
   if (![dataCopy length])
@@ -160,11 +156,11 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         v23 = HMFGetLogIdentifier();
-        v29 = 138543618;
-        v30 = v23;
-        v31 = 2048;
+        v28 = 138543618;
+        v29 = v23;
+        v30 = 2048;
         encodingCopy = encoding;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Cannot deserialize from unknown encoding: %lu", &v29, 0x16u);
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Cannot deserialize from unknown encoding: %lu", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -200,11 +196,11 @@ LABEL_17:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v29 = 138543618;
-        v30 = v19;
-        v31 = 2112;
+        v28 = 138543618;
+        v29 = v19;
+        v30 = 2112;
         encodingCopy = v15;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine type for model %@", &v29, 0x16u);
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to determine type for model %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -239,14 +235,13 @@ LABEL_17:
   }
 
 LABEL_24:
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (Class)modelClassForTypeName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = +[HMDBackingStoreSingleton sharedInstance];
   nameToClassTransform = [v5 nameToClassTransform];
@@ -268,11 +263,11 @@ LABEL_24:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           v12 = HMFGetLogIdentifier();
-          v16 = 138543618;
-          v17 = v12;
-          v18 = 2112;
-          v19 = nameCopy;
-          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unable to translate type name %@ to class", &v16, 0x16u);
+          v15 = 138543618;
+          v16 = v12;
+          v17 = 2112;
+          v18 = nameCopy;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unable to translate type name %@ to class", &v15, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -281,8 +276,6 @@ LABEL_24:
   }
 
   v13 = v7;
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

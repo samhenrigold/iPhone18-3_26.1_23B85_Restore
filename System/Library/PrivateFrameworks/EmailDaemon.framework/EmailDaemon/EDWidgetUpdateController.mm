@@ -175,51 +175,51 @@ void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke(
 
 void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     v3 = *(a1 + 32);
     if (v3)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       obj = v3;
-      v16 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
-      if (v16)
+      v15 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      if (v15)
       {
-        v17 = *v25;
+        v16 = *v24;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v25 != v17)
+            if (*v24 != v16)
             {
               objc_enumerationMutation(obj);
             }
 
-            v4 = *(*(&v24 + 1) + 8 * i);
+            v4 = *(*(&v23 + 1) + 8 * i);
+            v19 = 0u;
             v20 = 0u;
             v21 = 0u;
             v22 = 0u;
-            v23 = 0u;
             v5 = [v4 widgetConfigurations];
-            v6 = [v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+            v6 = [v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
             if (v6)
             {
-              v7 = *v21;
+              v7 = *v20;
               while (2)
               {
                 for (j = 0; j != v6; ++j)
                 {
-                  if (*v21 != v7)
+                  if (*v20 != v7)
                   {
                     objc_enumerationMutation(v5);
                   }
 
-                  v9 = *(*(&v20 + 1) + 8 * j);
+                  v9 = *(*(&v19 + 1) + 8 * j);
                   v10 = [WeakRetained identifiers];
                   v11 = [v9 widget];
                   v12 = [v11 kind];
@@ -233,7 +233,7 @@ void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke_
                   }
                 }
 
-                v6 = [v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+                v6 = [v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
                 if (v6)
                 {
                   continue;
@@ -244,10 +244,10 @@ void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke_
             }
           }
 
-          v16 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+          v15 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
         }
 
-        while (v16);
+        while (v15);
       }
     }
 
@@ -265,8 +265,6 @@ void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke_
   }
 
 LABEL_23:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_scheduleActivityWithReason:(id)reason
@@ -289,7 +287,7 @@ LABEL_23:
 
 void __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke(id *a1, char a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = [a1[4] _activityDelay];
@@ -297,7 +295,7 @@ void __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke(i
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Schedule activity with %llds delay", buf, 0xCu);
     }
 
@@ -307,16 +305,16 @@ void __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke(i
     aBlock[3] = &__block_descriptor_40_e33_v16__0__NSObject_OS_xpc_object__8l;
     aBlock[4] = v3;
     v5 = _Block_copy(aBlock);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke_2;
-    v8[3] = &unk_1E82571D0;
-    objc_copyWeak(&v10, a1 + 6);
-    v9 = a1[5];
-    v6 = _Block_copy(v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke_2;
+    v7[3] = &unk_1E82571D0;
+    objc_copyWeak(&v9, a1 + 6);
+    v8 = a1[5];
+    v6 = _Block_copy(v7);
     ef_xpc_activity_register_withcriteria();
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
   }
 
   else
@@ -328,8 +326,6 @@ void __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke(i
       _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Skip widget update - no Mail widgets are configured", buf, 2u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __56__EDWidgetUpdateController__scheduleActivityWithReason___block_invoke_21(uint64_t a1, void *a2)
@@ -409,32 +405,32 @@ void __40__EDWidgetUpdateController__runActivity__block_invoke(uint64_t a1)
 
 - (void)_refreshTimelinesWithReason:(id)reason
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   timelineControllers = [(EDWidgetUpdateController *)self timelineControllers];
-  v7 = [timelineControllers countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [timelineControllers countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(timelineControllers);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * i) reloadTimelineWithReason:reasonCopy];
+        v10 = [*(*(&v13 + 1) + 8 * i) reloadTimelineWithReason:reasonCopy];
         [v5 ef_addOptionalObject:v10];
       }
 
-      v7 = [timelineControllers countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [timelineControllers countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
@@ -457,12 +453,10 @@ void __40__EDWidgetUpdateController__runActivity__block_invoke(uint64_t a1)
     {
       numberOfUpdates = [(EDWidgetUpdateController *)self numberOfUpdates];
       *buf = 134217984;
-      v19 = numberOfUpdates;
+      v18 = numberOfUpdates;
       _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Successfully updated widget (%ld)", buf, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateLastUpdateInformation
@@ -499,7 +493,7 @@ void __40__EDWidgetUpdateController__runActivity__block_invoke(uint64_t a1)
 
 - (void)persistenceDidChangeFlags:(id)flags messages:(id)messages generationWindow:(id)window
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   if ([flagsCopy hasChanges] && ((objc_msgSend(flagsCopy, "readChanged") & 1) != 0 || objc_msgSend(flagsCopy, "deletedChanged")))
   {
@@ -507,9 +501,9 @@ void __40__EDWidgetUpdateController__runActivity__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       ef_publicDescription = [flagsCopy ef_publicDescription];
-      v12 = 138543362;
-      v13 = ef_publicDescription;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did change flags: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = ef_publicDescription;
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Persistence did change flags: %{public}@", &v11, 0xCu);
     }
 
     [(EDWidgetUpdateController *)self _scheduleActivityWithReason:@"flagChanged"];
@@ -521,11 +515,9 @@ void __40__EDWidgetUpdateController__runActivity__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       ef_publicDescription2 = [flagsCopy ef_publicDescription];
-      [EDWidgetUpdateController persistenceDidChangeFlags:ef_publicDescription2 messages:&v12 generationWindow:v9];
+      [EDWidgetUpdateController persistenceDidChangeFlags:ef_publicDescription2 messages:&v11 generationWindow:v9];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_restoreFromUserDefaults
@@ -578,11 +570,10 @@ void __57__EDWidgetUpdateController__hasUserConfiguredMailWidget___block_invoke_
 
 - (void)_refreshTimelinesWithReason:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Update timelines failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Update timelines failed: %{public}@", &v2, 0xCu);
 }
 
 - (void)persistenceDidChangeFlags:(void *)a1 messages:(uint8_t *)buf generationWindow:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

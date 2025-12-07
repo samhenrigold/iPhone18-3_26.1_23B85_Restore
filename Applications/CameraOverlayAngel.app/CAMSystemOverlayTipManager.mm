@@ -15,30 +15,29 @@
 {
   v2 = type metadata accessor for Tips.Status();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12[0] = 0xD000000000000014;
-  v12[1] = 0x8000000100041FD0;
+  v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11[0] = 0xD000000000000014;
+  v11[1] = 0x8000000100041FD0;
   sub_10001B21C();
   Tip.status.getter();
-  v7 = (*(v3 + 88))(v6, v2);
-  v8 = v7;
-  v9 = enum case for Tips.Status.invalidated(_:);
-  if (v7 == enum case for Tips.Status.invalidated(_:))
+  v6 = (*(v3 + 88))(v5, v2);
+  v7 = v6;
+  v8 = enum case for Tips.Status.invalidated(_:);
+  if (v6 == enum case for Tips.Status.invalidated(_:))
   {
     goto LABEL_7;
   }
 
-  if (v7 != enum case for Tips.Status.pending(_:) && v7 != enum case for Tips.Status.available(_:))
+  if (v6 != enum case for Tips.Status.pending(_:) && v6 != enum case for Tips.Status.available(_:))
   {
     _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
 LABEL_7:
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 
-  return v8 != v9;
+  return v7 != v8;
 }
 
 - (void)startTipObservationForViewController:(id)controller sourceItem:(id)item
@@ -46,7 +45,7 @@ LABEL_7:
   controllerCopy = controller;
   itemCopy = item;
   selfCopy = self;
-  sub_100018668();
+  sub_100018668(controllerCopy, itemCopy);
 }
 
 - (void)stopTipObservation
@@ -108,12 +107,12 @@ LABEL_7:
   swift_unknownObjectRelease();
   signals = [discoverability Signals];
   swift_unknownObjectRelease();
-  v2 = objc_allocWithZone(BMDiscoverabilitySignals);
-  v3 = String._bridgeToObjectiveC()();
-  v4 = [v2 initWithContentIdentifier:v3 context:0 osBuild:0 userInfo:0];
+  v3 = objc_allocWithZone(BMDiscoverabilitySignals);
+  v4 = String._bridgeToObjectiveC()();
+  v5 = [v3 initWithContentIdentifier:v4 context:0 osBuild:0 userInfo:0];
 
   source = [signals source];
-  [source sendEvent:v4];
+  [source sendEvent:v5];
 }
 
 @end

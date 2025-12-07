@@ -1,7 +1,10 @@
 @interface SDShareSheetSession
 + (id)labelColorWithHostConfiguration:(id)configuration;
 + (id)secondaryLabelColorWithHostConfiguration:(id)configuration;
+- (BOOL)addAttributedString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
+- (BOOL)addData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)addImage:(id)image withAttachmentName:(id)name description:(id)description previewImage:(id)previewImage itemIndex:(int)index;
+- (BOOL)addString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)addURL:(id)l withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index;
 - (BOOL)createURLPayloadForData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index completion:(id)completion;
 - (BOOL)isValidPayload:(id)payload toPerson:(id)person invalidMessage:(id *)message;
@@ -59,9 +62,9 @@
   sheetCopy = sheet;
   dCopy = d;
   connectionCopy = connection;
-  v61.receiver = self;
-  v61.super_class = SDShareSheetSession;
-  v15 = [(SDShareSheetSession *)&v61 init];
+  v62.receiver = self;
+  v62.super_class = SDShareSheetSession;
+  v15 = [(SDShareSheetSession *)&v62 init];
   if (v15)
   {
     v16 = +[SDShareSheetSlotManager sharedManager];
@@ -70,78 +73,79 @@
     objc_storeStrong(&v15->__connection, connection);
     if (sheetCopy)
     {
-      v17 = [connectionCopy valueForEntitlement:@"com.apple.sharesheet.allow-custom-view"];
-      if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v17 BOOLValue] & 1) != 0)
+      isKindOfClass = [connectionCopy valueForEntitlement:@"com.apple.sharesheet.allow-custom-view"];
+      v18 = isKindOfClass;
+      if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0) && (isKindOfClass = [v18 BOOLValue], (isKindOfClass & 1) != 0))
       {
-        v18 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v19 = share_sheet_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+        v20 = share_sheet_log(isKindOfClass);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
         {
-          sub_1001B1B74(buf, [connectionCopy processIdentifier], v19);
+          sub_1001B1B74(buf, [connectionCopy processIdentifier], v20);
         }
 
-        v18 = 0;
+        v19 = 0;
       }
 
-      v15->_instantShareSheet = v18;
+      v15->_instantShareSheet = v19;
     }
 
     v15->_remoteShareSheet = shareSheet;
-    v20 = objc_opt_new();
+    v21 = objc_opt_new();
     airDropNodes = v15->_airDropNodes;
-    v15->_airDropNodes = v20;
+    v15->_airDropNodes = v21;
 
-    v22 = objc_opt_new();
+    v23 = objc_opt_new();
     peopleNodes = v15->_peopleNodes;
-    v15->_peopleNodes = v22;
+    v15->_peopleNodes = v23;
 
-    v24 = objc_opt_new();
+    v25 = objc_opt_new();
     realNameToNodeID = v15->_realNameToNodeID;
-    v15->_realNameToNodeID = v24;
+    v15->_realNameToNodeID = v25;
 
-    v26 = objc_opt_new();
+    v27 = objc_opt_new();
     shareActivityToID = v15->_shareActivityToID;
-    v15->_shareActivityToID = v26;
+    v15->_shareActivityToID = v27;
 
-    v28 = objc_opt_new();
+    v29 = objc_opt_new();
     actionActivityToID = v15->_actionActivityToID;
-    v15->_actionActivityToID = v28;
+    v15->_actionActivityToID = v29;
 
     v15->_attachmentCount = 0;
     v15->_sharedItemsCount = 0;
-    v30 = +[NSMutableDictionary dictionary];
+    v31 = +[NSMutableDictionary dictionary];
     sharedItemsMap = v15->_sharedItemsMap;
-    v15->_sharedItemsMap = v30;
+    v15->_sharedItemsMap = v31;
 
-    v32 = +[NSMutableDictionary dictionary];
+    v33 = +[NSMutableDictionary dictionary];
     sharedItemsRequestIDToPreviewPhoto = v15->_sharedItemsRequestIDToPreviewPhoto;
-    v15->_sharedItemsRequestIDToPreviewPhoto = v32;
+    v15->_sharedItemsRequestIDToPreviewPhoto = v33;
 
-    v34 = objc_alloc_init(NSMutableOrderedSet);
+    v35 = objc_alloc_init(NSMutableOrderedSet);
     cachedSharedItems = v15->_cachedSharedItems;
-    v15->_cachedSharedItems = v34;
+    v15->_cachedSharedItems = v35;
 
-    v36 = objc_alloc_init(NSOperationQueue);
+    v37 = objc_alloc_init(NSOperationQueue);
     operationQueue = v15->_operationQueue;
-    v15->_operationQueue = v36;
+    v15->_operationQueue = v37;
 
     [(NSOperationQueue *)v15->_operationQueue setMaxConcurrentOperationCount:1];
-    v38 = +[NSMutableDictionary dictionary];
+    v39 = +[NSMutableDictionary dictionary];
     transferNodes = v15->_transferNodes;
-    v15->_transferNodes = v38;
+    v15->_transferNodes = v39;
 
-    v40 = +[NSMutableArray array];
+    v41 = +[NSMutableArray array];
     activeSecurityContexts = v15->_activeSecurityContexts;
-    v15->_activeSecurityContexts = v40;
+    v15->_activeSecurityContexts = v41;
 
     v15->_xrRenderingMode = mode;
-    v42 = objc_alloc_init(SDPeopleBrowser);
+    v43 = objc_alloc_init(SDPeopleBrowser);
     peopleBrowser = v15->_peopleBrowser;
-    v15->_peopleBrowser = v42;
+    v15->_peopleBrowser = v43;
 
     sd_connectionBundleID = [connectionCopy sd_connectionBundleID];
     [(SDPeopleBrowser *)v15->_peopleBrowser setBundleID:sd_connectionBundleID];
@@ -149,42 +153,42 @@
     [(SDPeopleBrowser *)v15->_peopleBrowser setSessionID:dCopy];
     if (SFDeviceSupportsRapportOnlyAirDropDiscovery())
     {
-      v62 = kSFBrowserOptionsDelayBonjourUntilTransferKey;
-      v63 = &__kCFBooleanTrue;
-      v45 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-      [(SDPeopleBrowser *)v15->_peopleBrowser setOptions:v45];
+      v63 = kSFBrowserOptionsDelayBonjourUntilTransferKey;
+      v64 = &__kCFBooleanTrue;
+      v46 = [NSDictionary dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+      [(SDPeopleBrowser *)v15->_peopleBrowser setOptions:v46];
     }
 
     if (+[SFAirDropUserDefaults_objc privateContactDiscoveryEnabled])
     {
-      v46 = [SDShareSheetAirDropController alloc];
+      v47 = [SDShareSheetAirDropController alloc];
       _queue = [connectionCopy _queue];
-      v48 = [(SDShareSheetAirDropController *)v46 initWithSessionID:dCopy queue:_queue];
+      v49 = [(SDShareSheetAirDropController *)v47 initWithSessionID:dCopy queue:_queue];
       airDropController = v15->_airDropController;
-      v15->_airDropController = v48;
+      v15->_airDropController = v49;
 
       [(SDShareSheetAirDropController *)v15->_airDropController setDelegate:v15];
     }
 
-    v50 = [SDShareSheetProxyLoaderManager alloc];
+    v51 = [SDShareSheetProxyLoaderManager alloc];
     sessionID = [(SDShareSheetSession *)v15 sessionID];
-    v52 = [(SDShareSheetProxyLoaderManager *)v50 initWithSessionIdentifier:sessionID];
+    v53 = [(SDShareSheetProxyLoaderManager *)v51 initWithSessionIdentifier:sessionID];
 
-    [(SDShareSheetProxyLoaderManager *)v52 setDelegate:v15];
-    [(SDShareSheetSession *)v15 setProxyLoaderManager:v52];
+    [(SDShareSheetProxyLoaderManager *)v53 setDelegate:v15];
+    [(SDShareSheetSession *)v15 setProxyLoaderManager:v53];
     objc_initWeak(&location, v15);
-    v53 = [SDScreenTimeMonitor alloc];
-    v57[0] = _NSConcreteStackBlock;
-    v57[1] = 3221225472;
-    v57[2] = sub_100194FD0;
-    v57[3] = &unk_1008D29A8;
-    objc_copyWeak(&v59, &location);
-    v58 = connectionCopy;
-    v54 = [(SDScreenTimeMonitor *)v53 initWithPoliciesChangedHandler:v57];
+    v54 = [SDScreenTimeMonitor alloc];
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_100194FD0;
+    v58[3] = &unk_1008D29A8;
+    objc_copyWeak(&v60, &location);
+    v59 = connectionCopy;
+    v55 = [(SDScreenTimeMonitor *)v54 initWithPoliciesChangedHandler:v58];
     screenTimeMonitor = v15->_screenTimeMonitor;
-    v15->_screenTimeMonitor = v54;
+    v15->_screenTimeMonitor = v55;
 
-    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v60);
     objc_destroyWeak(&location);
 
     objc_sync_exit(v16);
@@ -681,65 +685,65 @@ LABEL_8:
 {
   typesCopy = types;
   obj = +[SDShareSheetSlotManager sharedManager];
-  objc_sync_enter(obj);
-  v4 = share_sheet_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = objc_sync_enter(obj);
+  v5 = share_sheet_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = typesCopy;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "update restricted activity types:%@", buf, 0xCu);
+    v36 = typesCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "update restricted activity types:%@", buf, 0xCu);
   }
 
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   hostShareActivityProxies = [(SDShareSheetSession *)self hostShareActivityProxies];
-  v6 = [hostShareActivityProxies countByEnumeratingWithState:&v29 objects:v39 count:16];
-  if (v6)
+  v7 = [hostShareActivityProxies countByEnumeratingWithState:&v31 objects:v41 count:16];
+  if (v7)
   {
-    v28 = *v30;
-    v27 = hostShareActivityProxies;
+    v30 = *v32;
+    v29 = hostShareActivityProxies;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v30 != v28)
+        if (*v32 != v30)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v29);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
-        activity = [v8 activity];
+        v9 = *(*(&v31 + 1) + 8 * i);
+        activity = [v9 activity];
         if (!activity)
         {
-          v23 = +[NSAssertionHandler currentHandler];
-          [v23 handleFailureInMethod:a2 object:self file:@"SDShareSheetSlotManager.m" lineNumber:646 description:{@"activity is nil for proxy:%@", v8}];
+          v25 = +[NSAssertionHandler currentHandler];
+          [v25 handleFailureInMethod:a2 object:self file:@"SDShareSheetSlotManager.m" lineNumber:646 description:{@"activity is nil for proxy:%@", v9}];
         }
 
         screenTimeMonitor = [(SDShareSheetSession *)self screenTimeMonitor];
-        v11 = [screenTimeMonitor bundleIDForActivity:activity];
+        v12 = [screenTimeMonitor bundleIDForActivity:activity];
 
         screenTimeMonitor2 = [(SDShareSheetSession *)self screenTimeMonitor];
-        [v8 setIsDisabled:{objc_msgSend(screenTimeMonitor2, "cachedPolicyForBundleID:", v11) != 0}];
+        [v9 setIsDisabled:{objc_msgSend(screenTimeMonitor2, "cachedPolicyForBundleID:", v12) != 0}];
 
         activityType = [activity activityType];
-        v14 = UIActivityTypeAirDrop;
-        v15 = activityType;
-        v16 = v15;
-        if (v14 == v15)
+        v15 = UIActivityTypeAirDrop;
+        v16 = activityType;
+        v17 = v16;
+        if (v15 == v16)
         {
 
 LABEL_15:
-          [v8 setIsRestricted:{-[SDShareSheetSession airDropAllowed](self, "airDropAllowed") ^ 1}];
+          v19 = [v9 setIsRestricted:{-[SDShareSheetSession airDropAllowed](self, "airDropAllowed") ^ 1}];
           goto LABEL_18;
         }
 
-        if ((UIActivityTypeAirDrop != 0) != (v15 == 0))
+        if ((UIActivityTypeAirDrop != 0) != (v16 == 0))
         {
-          v17 = [(NSString *)v14 isEqual:v15];
+          v18 = [(NSString *)v15 isEqual:v16];
 
-          if (v17)
+          if (v18)
           {
             goto LABEL_15;
           }
@@ -749,31 +753,31 @@ LABEL_15:
         {
         }
 
-        v18 = +[SDStatusMonitor sharedMonitor];
-        effectiveBlockedAppBundleIDs = [v18 effectiveBlockedAppBundleIDs];
-        [v8 setIsRestricted:{objc_msgSend(effectiveBlockedAppBundleIDs, "containsObject:", v11)}];
+        v20 = +[SDStatusMonitor sharedMonitor];
+        effectiveBlockedAppBundleIDs = [v20 effectiveBlockedAppBundleIDs];
+        [v9 setIsRestricted:{objc_msgSend(effectiveBlockedAppBundleIDs, "containsObject:", v12)}];
 
 LABEL_18:
-        v20 = share_sheet_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = share_sheet_log(v19);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           activityType2 = [activity activityType];
           activityUUID = [activity activityUUID];
           *buf = 138412802;
-          v34 = activityType2;
-          v35 = 2112;
-          v36 = activityUUID;
+          v36 = activityType2;
           v37 = 2112;
-          v38 = v8;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Updating policy for %@/%@, proxy:%@", buf, 0x20u);
+          v38 = activityUUID;
+          v39 = 2112;
+          v40 = v9;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Updating policy for %@/%@, proxy:%@", buf, 0x20u);
         }
       }
 
-      hostShareActivityProxies = v27;
-      v6 = [v27 countByEnumeratingWithState:&v29 objects:v39 count:16];
+      hostShareActivityProxies = v29;
+      v7 = [v29 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
   [(SDShareSheetSession *)self checkPolicyForSuggestedPeople];
@@ -815,51 +819,51 @@ LABEL_18:
 {
   obj = +[SDShareSheetSlotManager sharedManager];
   objc_sync_enter(obj);
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
   airDropPeople = [(SDShareSheetSession *)self airDropPeople];
-  v3 = [airDropPeople countByEnumeratingWithState:&v31 objects:v42 count:16];
+  v3 = [airDropPeople countByEnumeratingWithState:&v32 objects:v43 count:16];
   if (v3)
   {
-    v22 = *v32;
-    v21 = airDropPeople;
+    v23 = *v33;
+    v22 = airDropPeople;
     do
     {
-      v23 = v3;
-      for (i = 0; i != v23; i = i + 1)
+      v24 = v3;
+      for (i = 0; i != v24; i = i + 1)
       {
-        if (*v32 != v22)
+        if (*v33 != v23)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v22);
         }
 
-        v26 = *(*(&v31 + 1) + 8 * i);
+        v27 = *(*(&v32 + 1) + 8 * i);
         airDropAllowed = [(SDShareSheetSession *)self airDropAllowed];
         realNameToNodeID = [(SDShareSheetSession *)self realNameToNodeID];
-        realName = [v26 realName];
+        realName = [v27 realName];
         v7 = [realNameToNodeID objectForKeyedSubscript:realName];
 
-        v29 = 0u;
         v30 = 0u;
-        v27 = 0u;
+        v31 = 0u;
         v28 = 0u;
+        v29 = 0u;
         airDropNodes = [(SDShareSheetSession *)self airDropNodes];
-        v9 = [airDropNodes countByEnumeratingWithState:&v27 objects:v41 count:16];
+        v9 = [airDropNodes countByEnumeratingWithState:&v28 objects:v42 count:16];
         if (v9)
         {
-          v10 = *v28;
+          v10 = *v29;
           while (2)
           {
             for (j = 0; j != v9; j = j + 1)
             {
-              if (*v28 != v10)
+              if (*v29 != v10)
               {
                 objc_enumerationMutation(airDropNodes);
               }
 
-              v12 = *(*(&v27 + 1) + 8 * j);
+              v12 = *(*(&v28 + 1) + 8 * j);
               identifier = [v12 identifier];
               v14 = v7;
               v15 = identifier;
@@ -887,7 +891,7 @@ LABEL_20:
               }
             }
 
-            v9 = [airDropNodes countByEnumeratingWithState:&v27 objects:v41 count:16];
+            v9 = [airDropNodes countByEnumeratingWithState:&v28 objects:v42 count:16];
             if (v9)
             {
               continue;
@@ -899,27 +903,27 @@ LABEL_20:
 
 LABEL_21:
 
-        v18 = share_sheet_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v19 = share_sheet_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v19 = "yes";
+          v20 = "yes";
           if (airDropAllowed)
           {
-            v19 = "no";
+            v20 = "no";
           }
 
-          v36 = v26;
-          v37 = 2112;
-          v38 = v7;
-          v39 = 2080;
-          v40 = v19;
-          _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Updating policy for %@/%@, isDisabled: %s", buf, 0x20u);
+          v37 = v27;
+          v38 = 2112;
+          v39 = v7;
+          v40 = 2080;
+          v41 = v20;
+          _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Updating policy for %@/%@, isDisabled: %s", buf, 0x20u);
         }
       }
 
-      airDropPeople = v21;
-      v3 = [v21 countByEnumeratingWithState:&v31 objects:v42 count:16];
+      airDropPeople = v22;
+      v3 = [v22 countByEnumeratingWithState:&v32 objects:v43 count:16];
     }
 
     while (v3);
@@ -1456,70 +1460,69 @@ LABEL_23:
 {
   payloadCopy = payload;
   personCopy = person;
+  v71 = 0;
   v72 = 0;
-  v73 = 0;
   SFFakeFilesAndItemsArrayForURLs();
   v8 = 0;
   v9 = 0;
-  v71 = 0;
   v70 = 0;
-  v58 = SFContentTypes();
-  v56 = 0;
-  v57 = v9;
+  v69 = 0;
+  v57 = SFContentTypes();
+  v55 = 0;
+  v56 = v9;
   if (([personCopy supportsPasses] & 1) == 0)
   {
-    v59 = personCopy;
-    v54 = payloadCopy;
-    v55 = v8;
+    v58 = personCopy;
+    v53 = payloadCopy;
+    v54 = v8;
     firstObject = [v8 firstObject];
     v21 = [firstObject objectForKeyedSubscript:kSFOperationFileNameKey];
     pathExtension = [v21 pathExtension];
 
-    [v58 allKeys];
+    [v57 allKeys];
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    obj = v69 = 0u;
-    v22 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+    obj = v68 = 0u;
+    v22 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v67;
+      v24 = *v66;
       v25 = 1;
       do
       {
-        for (i = 0; i != v23; i = i + 1)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v67 != v24)
+          if (*v66 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v66 + 1) + 8 * i);
           if (SFIsPass())
           {
-            isUnknown = [v59 isUnknown];
-            v29 = @"TRANSFER_TO_PERSON_NO_WALLET_TEXT";
+            isUnknown = [v58 isUnknown];
+            v28 = @"TRANSFER_TO_PERSON_NO_WALLET_TEXT";
             if (isUnknown)
             {
-              v29 = @"TRANSFER_TO_DEVICE_NO_WALLET_TEXT";
+              v28 = @"TRANSFER_TO_DEVICE_NO_WALLET_TEXT";
             }
 
-            v30 = v29;
-            v31 = SFLocalizedStringForKey();
+            v29 = v28;
+            v30 = SFLocalizedStringForKey();
             SFLocalizedStringForKey();
-            v33 = v32 = pathExtension;
+            v32 = v31 = pathExtension;
 
-            displayName = [v59 displayName];
-            v35 = [NSString stringWithFormat:v33, displayName];
-            *message = [NSString stringWithFormat:v31, v35];
+            displayName = [v58 displayName];
+            v34 = [NSString stringWithFormat:v32, displayName];
+            *message = [NSString stringWithFormat:v30, v34];
 
-            pathExtension = v32;
+            pathExtension = v31;
             v25 = 0;
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v66 objects:v77 count:16];
+        v23 = [obj countByEnumeratingWithState:&v65 objects:v76 count:16];
       }
 
       while (v23);
@@ -1530,7 +1533,7 @@ LABEL_23:
       v25 = 1;
     }
 
-    payloadCopy = v54;
+    payloadCopy = v53;
     goto LABEL_27;
   }
 
@@ -1545,20 +1548,20 @@ LABEL_23:
       MyFriendsLink = SFIsCredential();
       if (MyFriendsLink)
       {
-        firstObject3 = [v57 firstObject];
+        firstObject3 = [v56 firstObject];
         SFIsPasskeyCredentialLink();
 
         v15 = SFLocalizedStringForKey();
         v16 = SFLocalizedStringForKeyInStringsFileNamed();
         *message = [NSString stringWithFormat:v15, v16];
 
-        v75[0] = @"supportsCredentials";
+        v74[0] = @"supportsCredentials";
         v17 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [personCopy supportsCredentials]);
-        v75[1] = @"unknownPeer";
-        v76[0] = v17;
+        v74[1] = @"unknownPeer";
+        v75[0] = v17;
         v18 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [personCopy isUnknown]);
-        v76[1] = v18;
-        v19 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:2];
+        v75[1] = v18;
+        v19 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
 
         SFMetricsLog();
 LABEL_23:
@@ -1569,43 +1572,43 @@ LABEL_23:
       goto LABEL_24;
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     pathExtension = payloadCopy;
-    v46 = [pathExtension countByEnumeratingWithState:&v62 objects:v74 count:16];
-    if (!v46)
+    v45 = [pathExtension countByEnumeratingWithState:&v61 objects:v73 count:16];
+    if (!v45)
     {
       v25 = 1;
       goto LABEL_28;
     }
 
-    v47 = v46;
-    v55 = v8;
-    v59 = personCopy;
-    v48 = *v63;
+    v46 = v45;
+    v54 = v8;
+    v58 = personCopy;
+    v47 = *v62;
     while (2)
     {
-      for (j = 0; j != v47; j = j + 1)
+      for (j = 0; j != v46; j = j + 1)
       {
-        if (*v63 != v48)
+        if (*v62 != v47)
         {
           objc_enumerationMutation(pathExtension);
         }
 
-        v50 = *(*(&v62 + 1) + 8 * j);
-        v51 = +[LSApplicationWorkspace defaultWorkspace];
-        if ([v51 isApplicationAvailableToOpenURL:v50 error:0])
+        v49 = *(*(&v61 + 1) + 8 * j);
+        v50 = +[LSApplicationWorkspace defaultWorkspace];
+        if ([v50 isApplicationAvailableToOpenURL:v49 error:0])
         {
         }
 
         else
         {
-          v52 = +[LSApplicationWorkspace defaultWorkspace];
-          v53 = [v52 isApplicationAvailableToOpenURL:v50 includePrivateURLSchemes:1 error:0];
+          v51 = +[LSApplicationWorkspace defaultWorkspace];
+          v52 = [v51 isApplicationAvailableToOpenURL:v49 includePrivateURLSchemes:1 error:0];
 
-          if (v53)
+          if (v52)
           {
             [pathExtension count];
             SFLocalizedStringForKey();
@@ -1615,9 +1618,9 @@ LABEL_23:
         }
       }
 
-      v47 = [pathExtension countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v46 = [pathExtension countByEnumeratingWithState:&v61 objects:v73 count:16];
       v25 = 1;
-      if (v47)
+      if (v46)
       {
         continue;
       }
@@ -1626,8 +1629,8 @@ LABEL_23:
     }
 
 LABEL_27:
-    personCopy = v59;
-    v8 = v55;
+    personCopy = v58;
+    v8 = v54;
     goto LABEL_28;
   }
 
@@ -1639,22 +1642,22 @@ LABEL_27:
   if (MyFriendsLink)
   {
     isUnknown2 = [personCopy isUnknown];
-    v39 = @"TRANSFER_TO_PERSON_NO_FMF_TEXT";
+    v38 = @"TRANSFER_TO_PERSON_NO_FMF_TEXT";
     if (isUnknown2)
     {
-      v39 = @"TRANSFER_TO_DEVICE_NO_FMF_TEXT";
+      v38 = @"TRANSFER_TO_DEVICE_NO_FMF_TEXT";
     }
 
-    v40 = pathExtension;
-    v41 = v39;
+    v39 = pathExtension;
+    v40 = v38;
     v19 = SFLocalizedStringForKey();
-    v42 = SFLocalizedStringForKey();
+    v41 = SFLocalizedStringForKey();
 
     displayName2 = [personCopy displayName];
-    v44 = [NSString stringWithFormat:v42, displayName2];
-    *message = [NSString stringWithFormat:v19, v44];
+    v43 = [NSString stringWithFormat:v41, displayName2];
+    *message = [NSString stringWithFormat:v19, v43];
 
-    pathExtension = v40;
+    pathExtension = v39;
     goto LABEL_23;
   }
 
@@ -1810,6 +1813,71 @@ LABEL_28:
   return 1;
 }
 
+- (BOOL)addData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v8 = *&index;
+  dataCopy = data;
+  typeCopy = type;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v19 = +[SDShareSheetSlotManager sharedManager];
+  objc_sync_enter(v19);
+  v20 = airdrop_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    v27 = [dataCopy length];
+    [imageCopy size];
+    v26 = NSStringFromCGSize(v42);
+    *buf = 134219522;
+    v29 = dataCopy;
+    v30 = 2048;
+    v31 = v27;
+    v32 = 2112;
+    v33 = typeCopy;
+    v34 = 2112;
+    v35 = nameCopy;
+    v36 = 2112;
+    v37 = descriptionCopy;
+    v38 = 2112;
+    v39 = imageCopy;
+    v40 = 2112;
+    v41 = v26;
+    _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "addData:[%p]-length:[%lu] ofType:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x48u);
+  }
+
+  self->_itemsReady = 0;
+  v21 = imageCopy;
+  v22 = v21;
+  if (!v21)
+  {
+    if (UTTypeConformsTo(typeCopy, kUTTypeImage))
+    {
+      v22 = [UIImage imageWithData:dataCopy];
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+  }
+
+  if (nameCopy)
+  {
+    v23 = nameCopy;
+  }
+
+  else
+  {
+    v23 = descriptionCopy;
+  }
+
+  v24 = [(SDShareSheetSession *)self createURLPayloadForData:dataCopy ofType:typeCopy withAttachmentName:v23 description:descriptionCopy previewImage:v22 itemIndex:v8 completion:0];
+
+  objc_sync_exit(v19);
+  return v24;
+}
+
 - (BOOL)createURLPayloadForData:(id)data ofType:(id)type withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index completion:(id)completion
 {
   dataCopy = data;
@@ -1899,31 +1967,129 @@ LABEL_13:
   return 1;
 }
 
+- (BOOL)addString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v7 = *&index;
+  stringCopy = string;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v17 = airdrop_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  {
+    [imageCopy size];
+    v23 = NSStringFromCGSize(v34);
+    *buf = 138413314;
+    v25 = stringCopy;
+    v26 = 2112;
+    v27 = nameCopy;
+    v28 = 2112;
+    v29 = descriptionCopy;
+    v30 = 2112;
+    v31 = imageCopy;
+    v32 = 2112;
+    v33 = v23;
+    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "addString:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x34u);
+  }
+
+  v18 = [stringCopy dataUsingEncoding:4];
+  if (descriptionCopy)
+  {
+    v19 = airdrop_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = NSStringFromSelector(a2);
+      *buf = 138412290;
+      v25 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ discarding description", buf, 0xCu);
+    }
+  }
+
+  v21 = [(SDShareSheetSession *)self createURLPayloadForData:v18 ofType:kUTTypePlainText withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v7 completion:&stru_1008D2B38];
+
+  return v21;
+}
+
+- (BOOL)addAttributedString:(id)string withAttachmentName:(id)name description:(id)description previewImage:(id)image itemIndex:(int)index
+{
+  v7 = *&index;
+  stringCopy = string;
+  nameCopy = name;
+  descriptionCopy = description;
+  imageCopy = image;
+  v16 = airdrop_log();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  {
+    [imageCopy size];
+    v26 = NSStringFromCGSize(v40);
+    *buf = 138413314;
+    v31 = stringCopy;
+    v32 = 2112;
+    v33 = nameCopy;
+    v34 = 2112;
+    v35 = descriptionCopy;
+    v36 = 2112;
+    v37 = imageCopy;
+    v38 = 2112;
+    v39 = v26;
+    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "addAttributedString:[%@] withAttachmentName:[%@] description:[%@] previewImage:[%@]-size:[%@]", buf, 0x34u);
+  }
+
+  v17 = [stringCopy length];
+  v28 = NSDocumentTypeDocumentAttribute;
+  v29 = NSHTMLTextDocumentType;
+  v18 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = 0;
+  v19 = [stringCopy dataFromRange:0 documentAttributes:v17 error:{v18, &v27}];
+  v20 = v27;
+
+  if (v20)
+  {
+    v21 = airdrop_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001B1D74();
+    }
+
+    string = [stringCopy string];
+  }
+
+  else
+  {
+    string = [[NSString alloc] initWithData:v19 encoding:4];
+  }
+
+  v23 = string;
+  v24 = [(SDShareSheetSession *)self addString:string withAttachmentName:nameCopy description:descriptionCopy previewImage:imageCopy itemIndex:v7];
+
+  return v24;
+}
+
 - (void)generateSpecialPreviewPhotoForRequestID:(int64_t)d
 {
   obj = +[SDShareSheetSlotManager sharedManager];
   objc_sync_enter(obj);
   v4 = +[NSMutableArray array];
   v5 = +[NSMutableArray array];
-  v35 = 0u;
-  v36 = 0u;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v6 = self->_cachedSharedItems;
-  v7 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v7 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v7)
   {
-    v8 = *v34;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v34 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         if ([v10 identifer] == d)
         {
           v11 = [v10 URL];
@@ -1944,7 +2110,7 @@ LABEL_13:
         }
       }
 
-      v7 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v7 = [(NSMutableOrderedSet *)v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
@@ -1952,25 +2118,25 @@ LABEL_13:
 
   if ([v4 count] >= 2)
   {
-    v31 = 0u;
-    v32 = 0u;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v16 = v5;
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v17)
     {
-      v18 = *v30;
+      v18 = *v27;
       while (2)
       {
         for (j = 0; j != v17; j = j + 1)
         {
-          if (*v30 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          pathExtension = [*(*(&v29 + 1) + 8 * j) pathExtension];
+          pathExtension = [*(*(&v26 + 1) + 8 * j) pathExtension];
           PreferredIdentifierForTag = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension, 0);
           if ((SFIsImage() & 1) == 0 && (SFIsVideo() & 1) == 0 && (SFIsLivePhotos() & 1) == 0)
           {
@@ -1979,7 +2145,7 @@ LABEL_13:
           }
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v17)
         {
           continue;
@@ -1991,9 +2157,7 @@ LABEL_13:
 
     v22 = +[UIScreen mainScreen];
     [v22 scale];
-    v24 = v23 == 2.0;
 
-    v25 = qword_1007F51F0[v24];
     v16 = SFImageStackFromImages();
     sharedItemsRequestIDToPreviewPhoto = self->_sharedItemsRequestIDToPreviewPhoto;
     pathExtension = [NSNumber numberWithInteger:d];
@@ -2017,7 +2181,7 @@ LABEL_25:
     hostTraitCollection = [configurationCopy hostTraitCollection];
     if (!hostTraitCollection)
     {
-      v6 = share_sheet_log();
+      v6 = share_sheet_log(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 138412290;
@@ -2048,7 +2212,7 @@ LABEL_25:
     hostTraitCollection = [configurationCopy hostTraitCollection];
     if (!hostTraitCollection)
     {
-      v6 = share_sheet_log();
+      v6 = share_sheet_log(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v9 = 138412290;
@@ -2412,7 +2576,7 @@ LABEL_16:
 {
   cancelledCopy = cancelled;
   sectionCopy = section;
-  v7 = share_sheet_log();
+  v7 = share_sheet_log(sectionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"NO";

@@ -146,21 +146,21 @@ void __46__AIDAAccountManager__accountStoreChangeQueue__block_invoke()
   if (v4)
   {
     delegate2 = [(AIDAAccountManager *)self delegate];
-    v6 = [delegate2 accountsForAccountManager:self];
+    v7 = [delegate2 accountsForAccountManager:self];
   }
 
   else
   {
-    v7 = _AIDALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AIDALogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(AIDAAccountManager *)self _delegate_accountsForAccountManager];
     }
 
-    v6 = MEMORY[0x1E695E0F8];
+    v7 = MEMORY[0x1E695E0F8];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_accountStoreDidChange:(id)change
@@ -176,52 +176,50 @@ void __46__AIDAAccountManager__accountStoreChangeQueue__block_invoke()
 
 void __45__AIDAAccountManager__accountStoreDidChange___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) accounts];
   [*(a1 + 32) setAccounts:0];
   v3 = [*(a1 + 32) accounts];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = [*(*(a1 + 32) + 24) allValues];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = MEMORY[0x1E69E96A0];
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __45__AIDAAccountManager__accountStoreDidChange___block_invoke_2;
         block[3] = &unk_1E86833F8;
-        v15 = v10;
-        v13 = v2;
-        v14 = v3;
+        v14 = v10;
+        v12 = v2;
+        v13 = v3;
         dispatch_async(v8, block);
 
         ++v9;
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAccountChangeObserver:(id)observer handler:(id)handler
@@ -271,13 +269,11 @@ void __55__AIDAAccountManager_addAccountChangeObserver_handler___block_invoke(vo
 
 - (void)_delegate_accountsForAccountManager
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   delegate = [self delegate];
-  v5 = 138543362;
-  v6 = delegate;
-  _os_log_error_impl(&dword_1DEB1B000, a2, OS_LOG_TYPE_ERROR, "Delegate %{public}@ failed respond to -accountsForAccountManager: !", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = delegate;
+  _os_log_error_impl(&dword_1DEB1B000, a2, OS_LOG_TYPE_ERROR, "Delegate %{public}@ failed respond to -accountsForAccountManager: !", &v4, 0xCu);
 }
 
 @end

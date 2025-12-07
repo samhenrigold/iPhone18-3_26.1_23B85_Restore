@@ -63,7 +63,7 @@
 
 - (NSDiffableDataSourceSnapshot)snapshot
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD6C8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD6C8, &unk_19A7C1D60);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v11[-v5];
@@ -84,10 +84,10 @@
 
 - (void)setSnapshot:(id)snapshot
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD6C8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD6C8, &unk_19A7C1D60);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v8 - v5;
-  sub_19A5F5028(0, &qword_1ED8B1FE0);
+  sub_19A5F5028(0, &qword_1ED8B1FE0, 0x1E696AD98);
   sub_19A762B98();
   sub_19A7A94D4();
   selfCopy = self;
@@ -96,7 +96,7 @@
 
 - (STKImageGlyphDataSource)init
 {
-  v2 = objc_allocWithZone(type metadata accessor for ImageGlyphDataSource());
+  v2 = objc_allocWithZone(type metadata accessor for ImageGlyphDataSource(0));
   v3 = sub_19A75A584(0, 0);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
@@ -112,7 +112,7 @@
 
 - (void)refresh
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - v4;
   v6 = objc_opt_self();
@@ -126,7 +126,7 @@
     *(v9 + 24) = 0;
     sub_19A755944(0, 0, v5, &unk_19A7C1DA8, v9);
 
-    sub_19A5F2B54(v5, &unk_1EAFCD690);
+    sub_19A5F2B54(v5, &unk_1EAFCD690, &qword_19A7B6B00);
   }
 
   sub_19A652D38();
@@ -247,7 +247,7 @@
 
 - (id)indexPathForCategoryIndex:(int64_t)index
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   selfCopy = self;
@@ -290,7 +290,7 @@
 
 - (void)donateImageGlyphToRecents:(id)recents
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v10 - v5;
   v7 = sub_19A7AB394();
@@ -302,7 +302,7 @@
   recentsCopy = recents;
   sub_19A755944(0, 0, v6, &unk_19A7C1D98, v8);
 
-  sub_19A5F2B54(v6, &unk_1EAFCD690);
+  sub_19A5F2B54(v6, &unk_1EAFCD690, &qword_19A7B6B00);
 }
 
 - (id)imageGlyphCompositionalLayout

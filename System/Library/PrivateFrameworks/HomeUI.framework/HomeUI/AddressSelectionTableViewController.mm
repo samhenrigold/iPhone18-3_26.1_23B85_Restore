@@ -15,7 +15,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20D563878();
   (*(v5 + 8))(v7, v4);
-  sub_20CECF940(0, &qword_27C820E48);
+  sub_20CECF940(0, &qword_27C820E48, 0x277D75B48);
   return swift_getObjCClassFromMetadata();
 }
 

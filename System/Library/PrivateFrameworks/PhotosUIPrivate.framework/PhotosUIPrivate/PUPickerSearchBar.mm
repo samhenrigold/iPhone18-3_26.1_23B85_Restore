@@ -14,17 +14,20 @@
   v9 = _Block_copy(handler);
   v10 = _Block_copy(thumbnailHandler);
   v11 = _Block_copy(scopeHandler);
-  *(swift_allocObject() + 16) = v9;
-  *(swift_allocObject() + 16) = v10;
-  *(swift_allocObject() + 16) = v11;
-  return sub_1B3810438(library);
+  v12 = swift_allocObject();
+  *(v12 + 16) = v9;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v10;
+  v14 = swift_allocObject();
+  *(v14 + 16) = v11;
+  return sub_1B3810438(library, sub_1B3811720, v12, sub_1B3811728, v13, sub_1B3811730, v14);
 }
 
 - (void)updateSearchText:(id)text
 {
   textCopy = text;
   selfCopy = self;
-  sub_1B3810D2C();
+  sub_1B3810D2C(textCopy);
 }
 
 - (void)updateContainerFromSuggestion:(id)suggestion

@@ -42,7 +42,7 @@
 
 - (void)setUpUI
 {
-  v93[7] = *MEMORY[0x277D85DE8];
+  v92[7] = *MEMORY[0x277D85DE8];
   titleLabel = [(WDHeartRhythmHeaderView *)self titleLabel];
   [titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
 
@@ -55,8 +55,8 @@
   titleLabel4 = [(WDHeartRhythmHeaderView *)self titleLabel];
   [titleLabel4 setNumberOfLines:0];
 
-  v92 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76A20] addingSymbolicTraits:2 options:0];
-  v7 = [MEMORY[0x277D74300] fontWithDescriptor:v92 size:0.0];
+  v91 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76A20] addingSymbolicTraits:2 options:0];
+  v7 = [MEMORY[0x277D74300] fontWithDescriptor:v91 size:0.0];
   titleLabel5 = [(WDHeartRhythmHeaderView *)self titleLabel];
   [titleLabel5 setFont:v7];
 
@@ -160,42 +160,40 @@
   [(NSLayoutConstraint *)self->_bottomMarginToBodyLastBaselineConstraint setPriority:v63];
   [(WDHeartRhythmHeaderView *)self updateConstraintConstants];
   v64 = self->_bodyFirstBaslineToTitleLastBaslineConstraint;
-  v81 = MEMORY[0x277CCAAD0];
-  v93[0] = self->_titleFirstBaselineToTopMarginConstraint;
-  v93[1] = v64;
-  v93[2] = self->_bottomMarginToBodyLastBaselineConstraint;
+  v80 = MEMORY[0x277CCAAD0];
+  v92[0] = self->_titleFirstBaselineToTopMarginConstraint;
+  v92[1] = v64;
+  v92[2] = self->_bottomMarginToBodyLastBaselineConstraint;
   titleLabel12 = [(WDHeartRhythmHeaderView *)self titleLabel];
   leadingAnchor = [titleLabel12 leadingAnchor];
   contentView7 = [(WDHeartRhythmHeaderView *)self contentView];
   layoutMarginsGuide3 = [contentView7 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide3 leadingAnchor];
-  v86 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v93[3] = v86;
+  v85 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v92[3] = v85;
   titleLabel13 = [(WDHeartRhythmHeaderView *)self titleLabel];
   trailingAnchor = [titleLabel13 trailingAnchor];
   contentView8 = [(WDHeartRhythmHeaderView *)self contentView];
   layoutMarginsGuide4 = [contentView8 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide4 trailingAnchor];
-  v79 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v93[4] = v79;
+  v78 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v92[4] = v78;
   bodyTextView15 = [(WDHeartRhythmHeaderView *)self bodyTextView];
   leadingAnchor3 = [bodyTextView15 leadingAnchor];
   contentView9 = [(WDHeartRhythmHeaderView *)self contentView];
   layoutMarginsGuide5 = [contentView9 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide5 leadingAnchor];
   v67 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v93[5] = v67;
+  v92[5] = v67;
   bodyTextView16 = [(WDHeartRhythmHeaderView *)self bodyTextView];
   trailingAnchor3 = [bodyTextView16 trailingAnchor];
   contentView10 = [(WDHeartRhythmHeaderView *)self contentView];
   layoutMarginsGuide6 = [contentView10 layoutMarginsGuide];
   trailingAnchor4 = [layoutMarginsGuide6 trailingAnchor];
   v73 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v93[6] = v73;
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:7];
-  [v81 activateConstraints:v74];
-
-  v75 = *MEMORY[0x277D85DE8];
+  v92[6] = v73;
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:7];
+  [v80 activateConstraints:v74];
 }
 
 - (void)updateConstraintConstants
@@ -222,23 +220,23 @@
 
 - (void)updateBodyTextView
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   bodyTextAttributedString = [(WDHeartRhythmHeaderView *)self bodyTextAttributedString];
   bodyURLAttributedString = [(WDHeartRhythmHeaderView *)self bodyURLAttributedString];
   v5 = bodyURLAttributedString;
   if (bodyTextAttributedString && bodyURLAttributedString)
   {
     v6 = objc_alloc(MEMORY[0x277CCA898]);
-    v16 = *MEMORY[0x277D740A8];
+    v15 = *MEMORY[0x277D740A8];
     v7 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-    v17[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v9 = [v6 initWithString:@" " attributes:v8];
 
-    v15[0] = bodyTextAttributedString;
-    v15[1] = v9;
-    v15[2] = v5;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = bodyTextAttributedString;
+    v14[1] = v9;
+    v14[2] = v5;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     v11 = HKUIJoinAttributedStringsForLocale();
   }
 
@@ -259,26 +257,13 @@
 
   bodyTextView = [(WDHeartRhythmHeaderView *)self bodyTextView];
   [bodyTextView setAttributedText:v11];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  if (!changeCopy)
+  if (!changeCopy || (-[WDHeartRhythmHeaderView traitCollection](self, "traitCollection"), v4 = objc_claimAutoreleasedReturnValue(), [v4 preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(changeCopy, "preferredContentSizeCategory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  traitCollection = [(WDHeartRhythmHeaderView *)self traitCollection];
-  preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v7 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     [(WDHeartRhythmHeaderView *)self updateConstraintConstants];
   }
 }
@@ -319,18 +304,18 @@ LABEL_3:
 
 - (NSAttributedString)bodyTextAttributedString
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   bodyText = [(WDHeartRhythmHeaderView *)self bodyText];
 
   if (bodyText)
   {
-    v12[0] = *MEMORY[0x277D740A8];
+    v11[0] = *MEMORY[0x277D740A8];
     v4 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-    v13[0] = v4;
-    v12[1] = *MEMORY[0x277D740C0];
+    v12[0] = v4;
+    v11[1] = *MEMORY[0x277D740C0];
     labelColor = [MEMORY[0x277D75348] labelColor];
-    v13[1] = labelColor;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = labelColor;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
     v7 = objc_alloc(MEMORY[0x277CCA898]);
     bodyText2 = [(WDHeartRhythmHeaderView *)self bodyText];
@@ -342,27 +327,25 @@ LABEL_3:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (NSAttributedString)bodyURLAttributedString
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   bodyURLText = [(WDHeartRhythmHeaderView *)self bodyURLText];
   if (bodyURLText && (v4 = bodyURLText, [(WDHeartRhythmHeaderView *)self bodyURL], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
   {
-    v15[0] = *MEMORY[0x277D740A8];
+    v14[0] = *MEMORY[0x277D740A8];
     v6 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-    v16[0] = v6;
-    v15[1] = *MEMORY[0x277D740C0];
+    v15[0] = v6;
+    v14[1] = *MEMORY[0x277D740C0];
     hk_appKeyColor = [MEMORY[0x277D75348] hk_appKeyColor];
-    v16[1] = hk_appKeyColor;
-    v15[2] = *MEMORY[0x277D740E8];
+    v15[1] = hk_appKeyColor;
+    v14[2] = *MEMORY[0x277D740E8];
     bodyURL = [(WDHeartRhythmHeaderView *)self bodyURL];
-    v16[2] = bodyURL;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+    v15[2] = bodyURL;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
     v10 = objc_alloc(MEMORY[0x277CCA898]);
     bodyURLText2 = [(WDHeartRhythmHeaderView *)self bodyURLText];
@@ -373,8 +356,6 @@ LABEL_3:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

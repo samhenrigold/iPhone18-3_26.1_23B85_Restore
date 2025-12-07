@@ -12,6 +12,8 @@
 - (void)loadView;
 - (void)setConfiguration:(id)configuration;
 - (void)setSession:(id)session;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _EXHostViewController
@@ -140,6 +142,37 @@
   return placeholderView;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  session = [(_EXHostSessionDriver *)self->_sessionDriver session];
+  remoteViewController = [session remoteViewController];
+
+  if (remoteViewController)
+  {
+    [(_EXHostViewController *)self embedViewController:remoteViewController];
+  }
+
+  else
+  {
+    session2 = [(_EXHostSessionDriver *)self->_sessionDriver session];
+    sceneViewController = [session2 sceneViewController];
+
+    [(_EXHostViewController *)self embedViewController:sceneViewController];
+  }
+
+  v9.receiver = self;
+  v9.super_class = _EXHostViewController;
+  [(_EXHostViewController *)&v9 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = _EXHostViewController;
+  [(_EXHostViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)embedViewController:(id)controller
 {
   controllerCopy = controller;
@@ -224,15 +257,14 @@
 
 - (void)setSession:(os_log_t)log .cold.1(os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = "session == nil || session.detached";
-  v4 = 2080;
-  v2 = 136315650;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/HostViewController/_EXHostViewController.m";
-  v6 = 1024;
-  v7 = 91;
-  _os_log_fault_impl(&dword_1D29CC000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Only detached sessions can be set", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = "session == nil || session.detached";
+  v3 = 2080;
+  v1 = 136315650;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/HostViewController/_EXHostViewController.m";
+  v5 = 1024;
+  v6 = 91;
+  _os_log_fault_impl(&dword_1D29CC000, log, OS_LOG_TYPE_FAULT, "%s - %s:%d: Only detached sessions can be set", &v1, 0x1Cu);
 }
 
 @end

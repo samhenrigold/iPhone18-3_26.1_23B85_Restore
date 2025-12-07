@@ -168,20 +168,19 @@
 - (CGRect)imagePixelRectForCoordinateSystem:(int64_t)system
 {
   selfCopy = self;
-  sub_18DFFC224(system);
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
+  v5 = sub_18DFFC224(system);
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
 
-  v13 = v6;
-  v14 = v8;
-  v15 = v10;
-  v16 = v12;
-  result.size.height = v16;
-  result.size.width = v15;
-  result.origin.y = v14;
-  result.origin.x = v13;
+  v12 = v5;
+  v13 = v7;
+  v14 = v9;
+  v15 = v11;
+  result.size.height = v15;
+  result.size.width = v14;
+  result.origin.y = v13;
+  result.origin.x = v12;
   return result;
 }
 

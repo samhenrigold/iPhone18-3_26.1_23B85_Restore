@@ -10,11 +10,11 @@
 
 - (SFRequestParameters)initWithCoder:(id)coder
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v37.receiver = self;
-  v37.super_class = SFRequestParameters;
-  v5 = [(SFRequestParameters *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = SFRequestParameters;
+  v5 = [(SFRequestParameters *)&v36 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SFRequestParameters::applicationName"];
@@ -26,9 +26,9 @@
     v5->_applicationVersion = v8;
 
     v10 = MEMORY[0x1E695DFD8];
-    v39[0] = objc_opt_class();
-    v39[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+    v38[0] = objc_opt_class();
+    v38[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"SFRequestParameters::inlineItemList"];
     inlineItemList = v5->_inlineItemList;
@@ -52,9 +52,9 @@
 
     v5->_narrowband = [coderCopy decodeBoolForKey:@"SFRequestParameters::narrowband"];
     v23 = MEMORY[0x1E695DFD8];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
     v25 = [v23 setWithArray:v24];
     v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"SFRequestParameters::recognitionOverrides"];
     recognitionOverrides = v5->_recognitionOverrides;
@@ -79,7 +79,6 @@
     v5->_enableAutoPunctuation = [coderCopy decodeBoolForKey:@"SFRequestParameters::enableAutoPunctuation"];
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -119,45 +118,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_29;
-  }
-
-  applicationName = self->_applicationName;
-  if (applicationName != equalCopy[2] && ![(NSString *)applicationName isEqual:?])
-  {
-    goto LABEL_29;
-  }
-
-  applicationVersion = self->_applicationVersion;
-  if (applicationVersion != equalCopy[3] && ![(NSString *)applicationVersion isEqual:?])
-  {
-    goto LABEL_29;
-  }
-
-  inlineItemList = self->_inlineItemList;
-  if (inlineItemList != equalCopy[4] && ![(NSArray *)inlineItemList isEqual:?])
-  {
-    goto LABEL_29;
-  }
-
-  requestIdentifier = self->_requestIdentifier;
-  if (requestIdentifier != equalCopy[5] && ![(NSString *)requestIdentifier isEqual:?])
-  {
-    goto LABEL_29;
-  }
-
-  if (((taskIdentifier = self->_taskIdentifier, taskIdentifier == equalCopy[6]) || [(NSString *)taskIdentifier isEqual:?]) && ((task = self->_task, task == equalCopy[8]) || [(NSString *)task isEqual:?]) && ((language = self->_language, language == equalCopy[7]) || [(NSString *)language isEqual:?]) && self->_narrowband == *(equalCopy + 8) && ((recognitionOverrides = self->_recognitionOverrides, recognitionOverrides == equalCopy[9]) || [(NSDictionary *)recognitionOverrides isEqual:?]) && ((modelOverrideURL = self->_modelOverrideURL, modelOverrideURL == equalCopy[10]) || [(NSURL *)modelOverrideURL isEqual:?]) && self->_maximumRecognitionDuration == *(equalCopy + 11) && ((dynamicLanguageModel = self->_dynamicLanguageModel, dynamicLanguageModel == equalCopy[12]) || [(NSURL *)dynamicLanguageModel isEqual:?]) && ((dynamicVocabulary = self->_dynamicVocabulary, dynamicVocabulary == equalCopy[13]) || [(NSURL *)dynamicVocabulary isEqual:?]) && self->_detectMultipleUtterances == *(equalCopy + 9) && self->_onDeviceOnly == *(equalCopy + 10))
-  {
-    v16 = self->_enableAutoPunctuation == *(equalCopy + 11);
-  }
-
-  else
-  {
-LABEL_29:
-    v16 = 0;
-  }
+  v16 = (objc_opt_isKindOfClass() & 1) != 0 && ((applicationName = self->_applicationName, applicationName == equalCopy[2]) || [(NSString *)applicationName isEqual:?]) && ((applicationVersion = self->_applicationVersion, applicationVersion == equalCopy[3]) || [(NSString *)applicationVersion isEqual:?]) && ((inlineItemList = self->_inlineItemList, inlineItemList == equalCopy[4]) || [(NSArray *)inlineItemList isEqual:?]) && ((requestIdentifier = self->_requestIdentifier, requestIdentifier == equalCopy[5]) || [(NSString *)requestIdentifier isEqual:?]) && ((taskIdentifier = self->_taskIdentifier, taskIdentifier == equalCopy[6]) || [(NSString *)taskIdentifier isEqual:?]) && ((task = self->_task, task == equalCopy[8]) || [(NSString *)task isEqual:?]) && ((language = self->_language, language == equalCopy[7]) || [(NSString *)language isEqual:?]) && self->_narrowband == *(equalCopy + 8) && ((recognitionOverrides = self->_recognitionOverrides, recognitionOverrides == equalCopy[9]) || [(NSDictionary *)recognitionOverrides isEqual:?]) && ((modelOverrideURL = self->_modelOverrideURL, modelOverrideURL == equalCopy[10]) || [(NSURL *)modelOverrideURL isEqual:?]) && self->_maximumRecognitionDuration == *(equalCopy + 11) && ((dynamicLanguageModel = self->_dynamicLanguageModel, dynamicLanguageModel == equalCopy[12]) || [(NSURL *)dynamicLanguageModel isEqual:?]) && ((dynamicVocabulary = self->_dynamicVocabulary, dynamicVocabulary == equalCopy[13]) || [(NSURL *)dynamicVocabulary isEqual:?]) && self->_detectMultipleUtterances == *(equalCopy + 9) && self->_onDeviceOnly == *(equalCopy + 10) && self->_enableAutoPunctuation == *(equalCopy + 11);
 
   return v16;
 }

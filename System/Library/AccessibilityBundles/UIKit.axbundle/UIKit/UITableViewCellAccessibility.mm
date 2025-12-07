@@ -7019,7 +7019,7 @@ id __60__UITableViewCellAccessibility_accessibilityScrollToVisible__block_invoke
     MEMORY[0x29EDC9740](title);
   }
 
-  [UITableViewAccessibility _accessibilitySetShouldConsiderSwipeDeletionCommitted:v29];
+  [(UITableViewAccessibility *)v29 _accessibilitySetShouldConsiderSwipeDeletionCommitted:?];
   objc_storeStrong(&v29, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
@@ -7110,7 +7110,7 @@ void __49__UITableViewCellAccessibility__axPerformAction___block_invoke(uint64_t
   v23 = MEMORY[0x29EDC9748](v24);
   objc_storeStrong(&v24, 0);
   v26[0] = v23;
-  [UITableViewAccessibility _accessibilitySetShouldConsiderSwipeDeletionCommitted:v23];
+  [(UITableViewAccessibility *)v23 _accessibilitySetShouldConsiderSwipeDeletionCommitted:?];
   v21 = 0;
   objc_opt_class();
   v20 = __UIAccessibilityCastAsClass();
@@ -7150,11 +7150,11 @@ void __49__UITableViewCellAccessibility__axPerformAction___block_invoke(uint64_t
   objc_storeStrong(v26, 0);
 }
 
-uint64_t __49__UITableViewCellAccessibility__axPerformAction___block_invoke_2(uint64_t result)
+id *__49__UITableViewCellAccessibility__axPerformAction___block_invoke_2(id *result)
 {
-  if ((*(result + 80) & 1) == 0)
+  if ((result[10] & 1) == 0)
   {
-    return [*(result + 32) _accessibilityFinishSwipeAction:*(result + 40) controller:*(result + 48) indexPath:*(result + 56) tableView:*(result + 64) tvDelegate:*(result + 72) wasEditing:*(result + 81) & 1];
+    return [result[4] _accessibilityFinishSwipeAction:result[5] controller:result[6] indexPath:result[7] tableView:result[8] tvDelegate:result[9] wasEditing:*(result + 81) & 1];
   }
 
   return result;
@@ -7846,7 +7846,7 @@ uint64_t __91__UITableViewCellAccessibility__axReorderElementsByMovingIndexPaths
     v36 = MEMORY[0x29EDC9748](v37);
     objc_storeStrong(&v37, 0);
     v39 = v36;
-    if (!v36 || ((v34 = 0, objc_opt_class(), v33 = __UIAccessibilityCastAsClass(), v32 = MEMORY[0x29EDC9748](v33), objc_storeStrong(&v33, 0), v35 = v32, v31 = 0uLL, v15 = v32, [v32 bounds], v25 = v2, v26 = v3, v27 = v4, v28 = v5, UIRectGetCenter(), v29 = v6, v30 = v7, objc_msgSend(v15, "convertPoint:toView:", _accessibilityParentTableView, v6, v7), *&v31 = v8, *(&v31 + 1) = v9, v20 = 0, v21 = &v20, v22 = 0x20000000, v23 = 32, v24 = 0, v18[1] = &v20, v17 = MEMORY[0x29EDC9748](_accessibilityParentTableView), v19 = v31, v18[0] = MEMORY[0x29EDC9748](selfCopy), AXPerformSafeBlock(), (v21[3] & 1) == 0) ? (v41 = 0) : (v14 = objc_alloc(MEMORY[0x29EDC7900]), v12 = accessibilityLocalizedString(@"drag.table.view.cell"), v13 = objc_msgSend(v14, "initWithName:point:inView:", *&v31, *(&v31 + 1)), v45[0] = v13, v44 = objc_msgSend(MEMORY[0x29EDB8D80], "arrayWithObjects:count:", v45, 1), MEMORY[0x29EDC9740](v13), MEMORY[0x29EDC9740](v12), v41 = 1), objc_storeStrong(v18, 0), objc_storeStrong(&v17, 0), _Block_object_dispose(&v20, 8), objc_storeStrong(&v35, 0), !v41))
+    if (!v36 || ((v34 = 0, objc_opt_class(), v33 = __UIAccessibilityCastAsClass(), v32 = MEMORY[0x29EDC9748](v33), objc_storeStrong(&v33, 0), v35 = v32, v31 = 0uLL, v15 = v32, [v32 bounds], v25 = v2, v26 = v3, v27 = v4, v28 = v5, UIRectGetCenter(), v29 = v6, v30 = v7, objc_msgSend(v15, "convertPoint:toView:", _accessibilityParentTableView, v6, v7), *&v31 = v8, *(&v31 + 1) = v9, v20 = 0, v21 = &v20, v22 = 0x20000000, v23 = 32, v24 = 0, v18[1] = &v20, v17 = MEMORY[0x29EDC9748](_accessibilityParentTableView), v19 = v31, v18[0] = MEMORY[0x29EDC9748](selfCopy), AXPerformSafeBlock(), (v21[3] & 1) == 0) ? (v41 = 0) : (v14 = objc_alloc(MEMORY[0x29EDC7900]), v12 = accessibilityLocalizedString(@"drag.table.view.cell"), v13 = objc_msgSend(v14, "initWithName:point:inView:", v31), v45[0] = v13, v44 = objc_msgSend(MEMORY[0x29EDB8D80], "arrayWithObjects:count:", v45, 1), MEMORY[0x29EDC9740](v13), MEMORY[0x29EDC9740](v12), v41 = 1), objc_storeStrong(v18, 0), objc_storeStrong(&v17, 0), _Block_object_dispose(&v20, 8), objc_storeStrong(&v35, 0), !v41))
     {
       v44 = 0;
       v41 = 1;
@@ -7902,7 +7902,7 @@ double __66__UITableViewCellAccessibility_accessibilityDragSourceDescriptors__bl
       v36[1] = v9;
       v21 = objc_alloc(MEMORY[0x29EDC7900]);
       v22 = accessibilityLocalizedString(@"drop.table.view.cell.onto");
-      v35 = [v21 initWithName:*v36 point:? inView:?];
+      v35 = [v21 initWithName:v36[0] point:v36[1] inView:?];
       MEMORY[0x29EDC9740](v22);
       *&v36[0] = v41;
       v36[1] = -10.0;
@@ -7912,7 +7912,7 @@ double __66__UITableViewCellAccessibility_accessibilityDragSourceDescriptors__bl
       *v36 = v34;
       v23 = objc_alloc(MEMORY[0x29EDC7900]);
       v24 = accessibilityLocalizedString(@"drop.table.view.cell.before");
-      v33 = [v23 initWithName:*v36 point:? inView:?];
+      v33 = [v23 initWithName:v36[0] point:v36[1] inView:?];
       MEMORY[0x29EDC9740](v24);
       *v36 = v41;
       [(UITableViewCellAccessibility *)selfCopy bounds];
@@ -7927,7 +7927,7 @@ double __66__UITableViewCellAccessibility_accessibilityDragSourceDescriptors__bl
       *v36 = v28;
       v25 = objc_alloc(MEMORY[0x29EDC7900]);
       v26 = accessibilityLocalizedString(@"drop.table.view.cell.after");
-      v27 = [v25 initWithName:*v36 point:? inView:?];
+      v27 = [v25 initWithName:v36[0] point:v36[1] inView:?];
       *&v18 = MEMORY[0x29EDC9740](v26).n128_u64[0];
       v48[0] = v33;
       v48[1] = v35;

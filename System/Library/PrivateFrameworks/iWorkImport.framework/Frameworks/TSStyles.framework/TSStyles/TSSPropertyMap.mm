@@ -1,5 +1,6 @@
 @interface TSSPropertyMap
 + (TSSPropertyMap)propertyMapWithDictionary:(id)dictionary;
++ (TSSPropertyMap)propertyMapWithPropertiesAndValues:(int)values;
 + (TSSPropertyMap)propertyMapWithPropertyMap:(id)map;
 + (id)propertyMap;
 - (BOOL)containsAnyPropertyInProperties:(id)properties;
@@ -7,6 +8,7 @@
 - (NSArray)allKeys;
 - (NSString)description;
 - (TSSPropertyMap)init;
+- (TSSPropertyMap)initWithFirstKey:(int)key andArgumentList:(char *)list;
 - (TSSPropertyMap)initWithPropertyMap:(id)map;
 - (TSSPropertyMap)propertyMapWithProperties:(id)properties;
 - (TSSPropertySet)allProperties;
@@ -28,8 +30,10 @@
 - (void)dealloc;
 - (void)enumerateDataPropertiesUsingBlock:(id)block;
 - (void)enumeratePropertiesAndObjectsUsingBlock:(id)block;
+- (void)enumerateReferencedDataForProperty:(int)property usingBlock:(id)block;
 - (void)filterWithProperties:(id)properties;
 - (void)minusPropertyMap:(id)map;
+- (void)p_enumerateReferencedDataForProperty:(int)property withObject:(id)object stop:(BOOL *)stop usingBlock:(id)block;
 - (void)p_getAllKeys:(int *)keys;
 - (void)removeValueForProperty:(int)property;
 - (void)removeValuesForProperties:(id)properties;
@@ -50,6 +54,13 @@
   v3 = objc_msgSend_copy(map, a2, map);
 
   return v3;
+}
+
++ (TSSPropertyMap)propertyMapWithPropertiesAndValues:(int)values
+{
+  v3 = *&values;
+  v4 = [self alloc];
+  return objc_msgSend_initWithFirstKey_andArgumentList_(v4, v5, v3, &v7);
 }
 
 + (TSSPropertyMap)propertyMapWithDictionary:(id)dictionary
@@ -118,6 +129,26 @@
   return v4;
 }
 
+- (TSSPropertyMap)initWithFirstKey:(int)key andArgumentList:(char *)list
+{
+  v5 = *&key;
+  v9.receiver = self;
+  v9.super_class = TSSPropertyMap;
+  v6 = [(TSSPropertyMap *)&v9 init];
+  if (v6)
+  {
+    v7 = sub_276CAFD00(v5, list);
+    v6->mStore = v7;
+    if (!v7)
+    {
+
+      return 0;
+    }
+  }
+
+  return v6;
+}
+
 - (void)dealloc
 {
   sub_276CAFFB0(self->mStore);
@@ -168,64 +199,64 @@
 
 - (NSArray)allKeys
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   mStore = self->mStore;
-  if (mStore && (v3 = *mStore) != 0)
+  if (!mStore)
   {
-    v4 = (MEMORY[0x28223BE20])();
-    v6 = v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v7 = MEMORY[0x28223BE20](v4);
-    v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v11 = *(v7 + 8);
-    if (v11)
+    return MEMORY[0x277CBEBF8];
+  }
+
+  v3 = *mStore;
+  if (!*mStore)
+  {
+    return MEMORY[0x277CBEBF8];
+  }
+
+  v4 = MEMORY[0x28223BE20](self);
+  v6 = v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v4);
+  v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(v7 + 8);
+  if (v11)
+  {
+    v12 = *v11;
+    if (*v11)
     {
-      v12 = *v11;
-      if (*v11)
+      v13 = 0;
+      v14 = v11[1];
+      v15 = 1;
+      do
       {
-        v13 = 0;
-        v14 = v11[1];
-        v15 = 1;
-        do
-        {
-          *&v6[4 * v13] = *(v14 + 16 * v13 + 8);
-          v13 = v15;
-          v16 = v12 > v15++;
-        }
-
-        while (v16);
+        *&v6[4 * v13] = *(v14 + 16 * v13 + 8);
+        v13 = v15;
+        v16 = v12 > v15++;
       }
-    }
 
-    v17 = 0;
-    v18 = 1;
-    do
-    {
-      *&v10[8 * v17] = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v8, *&v6[4 * v17]);
-      v17 = v18;
-      v16 = v3 > v18++;
+      while (v16);
     }
-
-    while (v16);
-    result = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v10, v3);
   }
 
-  else
+  v17 = 0;
+  v18 = 1;
+  do
   {
-    result = MEMORY[0x277CBEBF8];
+    *&v10[8 * v17] = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v8, *&v6[4 * v17]);
+    v17 = v18;
+    v16 = v3 > v18++;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v16);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v10, v3);
 }
 
 - (TSSPropertySet)allProperties
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   mStore = self->mStore;
   if (mStore && (v4 = *mStore) != 0)
   {
     MEMORY[0x28223BE20](self);
-    v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
     v11 = objc_msgSend_propertySet(TSSMutablePropertySet, v8, v9);
     v12 = self->mStore;
     if (v12)
@@ -257,13 +288,11 @@
     }
 
     while (v17);
-    v20 = *MEMORY[0x277D85DE8];
     return v11;
   }
 
   else
   {
-    v22 = *MEMORY[0x277D85DE8];
 
     return objc_msgSend_propertySet(TSSPropertySet, a2, v2);
   }
@@ -319,6 +348,119 @@
   objc_msgSend_enumeratePropertiesUsingBlock_(v5, v6, v7);
 }
 
+- (void)p_enumerateReferencedDataForProperty:(int)property withObject:(id)object stop:(BOOL *)stop usingBlock:(id)block
+{
+  v8 = *&property;
+  v38 = *MEMORY[0x277D85DE8];
+  objc_opt_class();
+  v10 = TSUDynamicCast();
+  if (v10)
+  {
+    v12 = v10;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v32, v37, 16);
+    if (v13)
+    {
+      v15 = v13;
+      v16 = *v33;
+LABEL_4:
+      v17 = 0;
+      while (1)
+      {
+        if (*v33 != v16)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        objc_msgSend_p_enumerateReferencedDataForProperty_withObject_stop_usingBlock_(self, v14, v8, *(*(&v32 + 1) + 8 * v17), stop, block);
+        if (stop)
+        {
+          if (*stop)
+          {
+            break;
+          }
+        }
+
+        if (v15 == ++v17)
+        {
+          v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v32, v37, 16);
+          if (v15)
+          {
+            goto LABEL_4;
+          }
+
+          return;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v18 = TSUProtocolCast();
+    if (v18)
+    {
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v21 = objc_msgSend_referencedDataList(v18, v19, v20, &unk_2886153A8);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v28, v36, 16);
+      if (v23)
+      {
+        v24 = v23;
+        v25 = *v29;
+LABEL_15:
+        v26 = 0;
+        while (1)
+        {
+          if (*v29 != v25)
+          {
+            objc_enumerationMutation(v21);
+          }
+
+          (*(block + 2))(block, v8, *(*(&v28 + 1) + 8 * v26), stop);
+          if (stop)
+          {
+            if (*stop)
+            {
+              break;
+            }
+          }
+
+          if (v24 == ++v26)
+          {
+            v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v27, &v28, v36, 16);
+            if (v24)
+            {
+              goto LABEL_15;
+            }
+
+            return;
+          }
+        }
+      }
+    }
+  }
+}
+
+- (void)enumerateReferencedDataForProperty:(int)property usingBlock:(id)block
+{
+  v5 = *&property;
+  if (!String(property))
+  {
+    v10 = 0;
+    v8 = objc_msgSend_objectForProperty_(self, v7, v5);
+    if (v8)
+    {
+      objc_msgSend_p_enumerateReferencedDataForProperty_withObject_stop_usingBlock_(self, v9, v5, v8, &v10, block);
+    }
+  }
+}
+
 - (void)enumerateDataPropertiesUsingBlock:(id)block
 {
   v3[0] = MEMORY[0x277D85DD0];
@@ -355,7 +497,7 @@
   if (result)
   {
 
-    return sub_276CB3794(result, v4, v5, v6);
+    return sub_276CB3794(result, v6, v4, v5);
   }
 
   return result;
@@ -392,7 +534,7 @@
     return INFINITY;
   }
 
-  return sub_276CB3210(v3, v4, v5);
+  return sub_276CB3210(v3, v5, v4);
 }
 
 - (double)doubleValueForProperty:(int)property
@@ -469,14 +611,14 @@
 
 - (void)removeValuesForProperties:(id)properties
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_count(properties, a2, properties);
   if (v5)
   {
     v7 = v5;
     if (v5 < 0x21)
     {
-      v8 = v12;
+      v8 = v11;
     }
 
     else
@@ -484,32 +626,29 @@
       v8 = malloc_type_calloc(v5, 4uLL, 0x100004052888210uLL);
       if (!v8)
       {
-        goto LABEL_9;
+        return;
       }
     }
 
-    v11[0] = 0;
-    v11[1] = v11;
-    v11[2] = 0x2020000000;
-    v11[3] = 0;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = sub_276CB1E00;
-    v10[3] = &unk_27A6EEFE8;
-    v10[4] = v11;
-    v10[5] = v8;
-    objc_msgSend_enumeratePropertiesUsingBlock_(properties, v6, v10);
+    v10[0] = 0;
+    v10[1] = v10;
+    v10[2] = 0x2020000000;
+    v10[3] = 0;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = sub_276CB1E00;
+    v9[3] = &unk_27A6EEFE8;
+    v9[4] = v10;
+    v9[5] = v8;
+    objc_msgSend_enumeratePropertiesUsingBlock_(properties, v6, v9);
     sub_276CB1E1C(self->mStore, v8, v7);
-    if (v8 != v12)
+    if (v8 != v11)
     {
       free(v8);
     }
 
-    _Block_object_dispose(v11, 8);
+    _Block_object_dispose(v10, 8);
   }
-
-LABEL_9:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)filterWithProperties:(id)properties

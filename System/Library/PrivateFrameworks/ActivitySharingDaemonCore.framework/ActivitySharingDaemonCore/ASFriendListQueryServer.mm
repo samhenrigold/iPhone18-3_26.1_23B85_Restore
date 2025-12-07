@@ -125,7 +125,7 @@ LABEL_8:
 
 - (void)friendListDidUpdate:(id)update
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   clientProxy = [(HDQueryServer *)self clientProxy];
   v6 = ASCodableFriendListFromFriends();
@@ -134,16 +134,14 @@ LABEL_8:
   if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v12 = 134217984;
-    v13 = [updateCopy count];
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "ASFriendListQueryServer calling deliverFriendList with %lu friends", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [updateCopy count];
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "ASFriendListQueryServer calling deliverFriendList with %lu friends", &v11, 0xCu);
   }
 
   data = [v6 data];
   queryUUID = [(HDQueryServer *)self queryUUID];
   [clientProxy client_deliverFriendList:data queryUUID:queryUUID];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activitySharingManagerProcessingStarted

@@ -1,7 +1,7 @@
-uint64_t emit(uint64_t a1, uint64_t a2, float *a3, unint64_t a4, unsigned int a5, int a6, float a7, float32x2_t a8, __n128 a9, float32_t a10, int32x4_t a11, __n128 a12, __n128 a13, float32x4_t a14, uint64_t a15, uint64_t a16, unsigned __int32 a17, __int32 a18, __int32 a19, __int32 a20)
+uint64_t emit(uint64_t a1, uint64_t a2, float *a3, unint64_t a4, unsigned int a5, int a6, float a7, int32x2_t a8, __n128 a9, float32_t a10, int32x4_t a11, __n128 a12, __n128 a13, float32x4_t a14, uint64_t a15, uint64_t a16, unsigned __int32 a17, __int32 a18, __int32 a19, __int32 a20)
 {
   v33 = a3;
-  v395 = a8.f32[0];
+  v395 = *a8.i32;
   v396 = a12.n128_f32[0];
   v30.i32[0] = a11.i32[0];
   v34.i32[0] = a9.n128_u32[0];
@@ -208,21 +208,21 @@ LABEL_33:
           v391 = v175;
           v382 = a13;
           v385 = a9;
-          v399.n128_u64[0] = a11.i64[0];
+          v399 = a11.i64[0];
           v184 = __sincosf_stret((*a11.i32 * (*(i - 3) * 6.2832)) * 0.5);
-          a8.f32[0] = v184.__cosval;
+          *a8.i32 = v184.__cosval;
           a13 = v382;
           v185.f32[0] = *(i - 7);
           v20.n128_f32[0] = *(i - 6) * v184.__sinval;
           v186.f32[0] = *(i - 10);
           v23.f32[0] = *(i - 13);
-          a14.i32[1] = v399.n128_i32[1];
-          *v30.i32 = v399.n128_f32[0] * (v185.f32[0] * *(i - 8));
+          a14.i32[1] = HIDWORD(v399);
+          *v30.i32 = *&v399 * (v185.f32[0] * *(i - 8));
           v186.i32[1] = v185.i32[0];
           v185.f32[1] = *(i - 9);
           v58 = vmul_n_f32(*(i - 5), v184.__sinval);
           v175 = v391;
-          v34 = vadd_f32(vadd_f32(__PAIR64__(v23.u32[0], v382.n128_u32[0]), vmul_n_f32(vmul_f32(v186, v185), v399.n128_f32[0])), vmul_n_f32(vmul_n_f32(*(i + 1), v399.n128_f32[0]), v399.n128_f32[0]));
+          v34 = vadd_f32(vadd_f32(__PAIR64__(v23.u32[0], v382.n128_u32[0]), vmul_n_f32(vmul_f32(v186, v185), *&v399)), vmul_n_f32(vmul_n_f32(*(i + 1), *&v399), *&v399));
           v396 = 1.0;
           a9 = v385;
         }
@@ -241,7 +241,7 @@ LABEL_33:
         a11.i32[1] = 0;
         v26.f32[0] = (a9.n128_f32[0] - a14.f32[0]) * v58.f32[0];
         v27.f32[0] = v20.n128_f32[0] * (a9.n128_f32[0] - a14.f32[0]);
-        v183 = i[6] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - i[6])));
+        v183 = i[6] + (v396 + ((*a8.i32 * 0.0) + (0.0 - i[6])));
         v189.f32[0] = i[13];
         v190.f32[0] = i[14];
         v189.f32[1] = i[9];
@@ -268,9 +268,9 @@ LABEL_33:
         v201 = vsubq_f32(v199, vmulq_f32(v191, vtrn1q_s32(v27, v196)));
         v202 = vtrn1q_s32(v193, v194);
         v203 = vaddq_f32(vtrn2q_s32(v193, v194), v200);
-        v204 = vaddq_f32(v188, vaddq_f32(vmulq_n_f32(vtrn1q_s32(v26, v27), a8.f32[0]), vaddq_f32(v202, v201)));
-        v205 = vaddq_f32(v188, vaddq_f32(vmulq_n_f32(vtrn2q_s32(v26, v27), a8.f32[0]), v203));
-        v206 = vaddq_f32(vdupq_lane_s32(*v30.i8, 0), vaddq_f32(vmulq_n_f32(v196, a8.f32[0]), vaddq_f32(vdupq_lane_s32(*v24.i8, 0), vsubq_f32(vmulq_n_f32(v27, v20.n128_f32[0]), vmulq_n_f32(v26, v58.f32[0])))));
+        v204 = vaddq_f32(v188, vaddq_f32(vmulq_n_f32(vtrn1q_s32(v26, v27), *a8.i32), vaddq_f32(v202, v201)));
+        v205 = vaddq_f32(v188, vaddq_f32(vmulq_n_f32(vtrn2q_s32(v26, v27), *a8.i32), v203));
+        v206 = vaddq_f32(vdupq_lane_s32(*v30.i8, 0), vaddq_f32(vmulq_n_f32(v196, *a8.i32), vaddq_f32(vdupq_lane_s32(*v24.i8, 0), vsubq_f32(vmulq_n_f32(v27, v20.n128_f32[0]), vmulq_n_f32(v26, v58.f32[0])))));
         v24 = vaddq_f32(v192, v205);
         v178 = vaddq_f32(v192, v204);
         a14 = vaddq_f32(vdupq_lane_s32(*a14.f32, 0), v206);
@@ -278,10 +278,10 @@ LABEL_33:
         v204.f32[0] = (v58.f32[0] - v206.f32[0]) + (v58.f32[0] - v206.f32[0]);
         v206.f32[0] = (v206.f32[0] - v20.n128_f32[0]) + (v206.f32[0] - v20.n128_f32[0]);
         v193.f32[0] = ((v20.n128_f32[0] * 0.0) - (0.0 * v58.f32[0])) + ((v20.n128_f32[0] * 0.0) - (0.0 * v58.f32[0]));
-        v180 = (a8.f32[0] * v204.f32[0]) + (((v193.f32[0] * v58.f32[0]) - vmuls_lane_f32(v206.f32[0], v58, 1)) + 0.0);
-        v181 = (a8.f32[0] * v206.f32[0]) + ((vmuls_lane_f32(v204.f32[0], v58, 1) - (v20.n128_f32[0] * v193.f32[0])) + 0.0);
-        v179 = (a8.f32[0] * v193.f32[0]) + (((v20.n128_f32[0] * v206.f32[0]) - (v204.f32[0] * v58.f32[0])) + v167);
-        v182 = (a8.f32[0] * 0.0) + 0.0;
+        v180 = (*a8.i32 * v204.f32[0]) + (((v193.f32[0] * v58.f32[0]) - vmuls_lane_f32(v206.f32[0], v58, 1)) + 0.0);
+        v181 = (*a8.i32 * v206.f32[0]) + ((vmuls_lane_f32(v204.f32[0], v58, 1) - (v20.n128_f32[0] * v193.f32[0])) + 0.0);
+        v179 = (*a8.i32 * v193.f32[0]) + (((v20.n128_f32[0] * v206.f32[0]) - (v204.f32[0] * v58.f32[0])) + v167);
+        v182 = (*a8.i32 * 0.0) + 0.0;
       }
 
       v207 = vextq_s8(v24, v24, 8uLL).u64[0];
@@ -661,7 +661,7 @@ LABEL_33:
           v384 = a12;
           v398 = a11.i64[0];
           v112 = __sincosf_stret((*a11.i32 * (*(j - 2) * 6.2832)) * 0.5);
-          a8.f32[0] = v112.__cosval;
+          *a8.i32 = v112.__cosval;
           v113.f32[0] = *(j - 6);
           v20.n128_f32[0] = *(j - 5) * v112.__sinval;
           v114.f32[0] = *(j - 9);
@@ -689,7 +689,7 @@ LABEL_33:
         v21.f32[0] = a9.n128_f32[0] - *&v22;
         *v24.i32 = (a9.n128_f32[0] - *&v22) * v58.f32[0];
         *v25.i32 = v20.n128_f32[0] * (a9.n128_f32[0] - *&v22);
-        v111 = j[7] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - j[7])));
+        v111 = j[7] + (v396 + ((*a8.i32 * 0.0) + (0.0 - j[7])));
         v116.f32[0] = j[12];
         v27.f32[0] = j[13];
         v116.f32[1] = j[10];
@@ -714,9 +714,9 @@ LABEL_33:
         *&v127.u32[2] = v34;
         v128 = v118 + v124;
         v129.i32[0] = vdup_lane_s32(v58, 1).u32[0];
-        v130 = (a8.f32[0] * v121) + (a14.f32[0] + ((v123 * v58.f32[0]) - vmuls_lane_f32(v122, v58, 1)));
-        a14.f32[0] = (a8.f32[0] * v122) + v128;
-        v131 = (a8.f32[0] * v123) + ((a9.n128_f32[0] - *&v22) + v125);
+        v130 = (*a8.i32 * v121) + (a14.f32[0] + ((v123 * v58.f32[0]) - vmuls_lane_f32(v122, v58, 1)));
+        a14.f32[0] = (*a8.i32 * v122) + v128;
+        v131 = (*a8.i32 * v123) + ((a9.n128_f32[0] - *&v22) + v125);
         a14.f32[0] = v117.f32[1] + (v34.f32[1] + a14.f32[0]);
         *v26.f32 = vsub_f32(*v26.f32, vdup_lane_s32(*v117.f32, 0));
         *v27.f32 = vsub_f32(*v27.f32, vdup_lane_s32(*v117.f32, 1));
@@ -733,7 +733,7 @@ LABEL_33:
         v133 = vmulq_f32(v129, vzip1q_s32(v25, v28));
         *v129.f32 = vdup_lane_s32(*v21.f32, 0);
         v21 = vaddq_f32(vzip1q_s32(v26, v27), vsubq_f32(v132, v133));
-        v134 = vaddq_f32(vmulq_n_f32(vzip1q_s32(v24, v25), a8.f32[0]), v21);
+        v134 = vaddq_f32(vmulq_n_f32(vzip1q_s32(v24, v25), *a8.i32), v21);
         v21.f32[0] = v117.f32[0] + (v34.f32[0] + v130);
         v117.i64[1] = v117.i64[0];
         v26 = vaddq_f32(v127, v134);
@@ -747,10 +747,10 @@ LABEL_33:
         *v25.i32 = (v58.f32[0] - *v24.i32) + (v58.f32[0] - *v24.i32);
         *v24.i32 = (*v24.i32 - a13.n128_f32[0]) + (*v24.i32 - a13.n128_f32[0]);
         v26.f32[0] = ((a13.n128_f32[0] * 0.0) - (0.0 * v58.f32[0])) + ((a13.n128_f32[0] * 0.0) - (0.0 * v58.f32[0]));
-        v108 = (a8.f32[0] * *v25.i32) + (((v26.f32[0] * v58.f32[0]) - vmuls_lane_f32(*v24.i32, v58, 1)) + 0.0);
-        v109 = (a8.f32[0] * *v24.i32) + ((vmuls_lane_f32(*v25.i32, v58, 1) - (a13.n128_f32[0] * v26.f32[0])) + 0.0);
-        v107 = (a8.f32[0] * v26.f32[0]) + (((a13.n128_f32[0] * *v24.i32) - (*v25.i32 * v58.f32[0])) + v97);
-        v110 = (a8.f32[0] * 0.0) + 0.0;
+        v108 = (*a8.i32 * *v25.i32) + (((v26.f32[0] * v58.f32[0]) - vmuls_lane_f32(*v24.i32, v58, 1)) + 0.0);
+        v109 = (*a8.i32 * *v24.i32) + ((vmuls_lane_f32(*v25.i32, v58, 1) - (a13.n128_f32[0] * v26.f32[0])) + 0.0);
+        v107 = (*a8.i32 * v26.f32[0]) + (((a13.n128_f32[0] * *v24.i32) - (*v25.i32 * v58.f32[0])) + v97);
+        v110 = (*a8.i32 * 0.0) + 0.0;
         v30 = a11;
       }
 
@@ -1060,7 +1060,7 @@ LABEL_33:
           v379 = v29;
           v400 = a12;
           v270 = __sincosf_stret((a12.n128_f32[0] * (v33[11] * 6.2832)) * 0.5);
-          a8.f32[0] = v270.__cosval;
+          *a8.i32 = v270.__cosval;
           v29 = v379;
           v253 = -1.0;
           v252 = v375;
@@ -1102,7 +1102,7 @@ LABEL_33:
         *a11.i8 = vadd_f32(v276, *a11.i8);
         v279.i32[0] = a11.i32[0];
         v264 = vadd_f32(v273, vadd_f32(v34, vadd_f32(vmul_f32(*&vdupq_lane_s32(a8, 0), *v26.f32), vadd_f32(vext_s8(v275, v277, 4uLL), vsub_f32(vmul_f32(v58, v279), vmul_f32(__PAIR64__(v20.n128_u32[0], v274.u32[0]), vext_s8(*v26.f32, v279, 4uLL)))))));
-        *&v22 = *&v22 + (*v30.i32 + ((a8.f32[0] * *a11.i32) + *&a11.i32[1]));
+        *&v22 = *&v22 + (*v30.i32 + ((*a8.i32 * *a11.i32) + *&a11.i32[1]));
         v281 = vmul_f32(v58, 0);
         v277.i32[1] = v274.i32[1];
         v277.f32[0] = v20.n128_f32[0] * 0.0;
@@ -1118,7 +1118,7 @@ LABEL_33:
         *a11.i32 = v282.f32[0];
         v285 = vmul_f32(v274, *a11.i8);
         *v286.f32 = vadd_f32(v283, 0);
-        v287 = vmulq_n_f32(v284, a8.f32[0]);
+        v287 = vmulq_n_f32(v284, *a8.i32);
         v265 = v33[20] + (v396 + (v287.f32[3] + (0.0 - v33[20])));
         v286.i64[1] = COERCE_UNSIGNED_INT(vsub_f32(v285, vdup_lane_s32(v285, 1)).f32[0] + v246);
         v266 = vaddq_f32(v287, v286);
@@ -1146,20 +1146,20 @@ LABEL_33:
       v296 = vext_s8(v290, v292, 4uLL);
       v297 = v290.f32[0] + (vmuls_lane_f32(v20.n128_f32[0], v294, 1) - vmul_f32(v58, v294).f32[0]);
       v290.f32[0] = (v263 * (v33[22] - v33[1])) - v288.f32[1];
-      v298 = v33[20] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - v33[20])));
+      v298 = v33[20] + (v396 + ((*a8.i32 * 0.0) + (0.0 - v33[20])));
       v299 = vmul_f32(v295, v290);
       v300 = vsub_f32(v299, vdup_lane_s32(v299, 1));
       v301 = vdup_lane_s32(v294, 0);
       v301.f32[0] = vadd_f32(v300, v300).f32[0];
-      *(k + 48) = vadd_f32(v288, vadd_f32(v34, vadd_f32(vmul_n_f32(v294, a8.f32[0]), vadd_f32(v296, vsub_f32(vmul_f32(v58, v301), vmul_f32(v291, vext_s8(v294, v301, 4uLL)))))));
+      *(k + 48) = vadd_f32(v288, vadd_f32(v34, vadd_f32(vmul_n_f32(v294, *a8.i32), vadd_f32(v296, vsub_f32(vmul_f32(v58, v301), vmul_f32(v291, vext_s8(v294, v301, 4uLL)))))));
       v302 = (k + 48);
-      *(k + 56) = v26.f32[0] + (*v30.i32 + ((a8.f32[0] * v301.f32[0]) + v297));
+      *(k + 56) = v26.f32[0] + (*v30.i32 + ((*a8.i32 * v301.f32[0]) + v297));
       *(k + 60) = v298;
       *(k + 64) = v266.i64[0];
       *(k + 72) = v266.i32[2];
       *(k + 76) = v40;
       v26.f32[0] = v33[19];
-      v288.f32[0] = v33[20] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - v33[20])));
+      v288.f32[0] = v33[20] + (v396 + ((*a8.i32 * 0.0) + (0.0 - v33[20])));
       v303 = *(v33 + 17);
       v301.i32[0] = v29;
       v301.f32[1] = v263 * (v33[23] - *v33);
@@ -1175,8 +1175,8 @@ LABEL_33:
       v310 = vsub_f32(v309, vdup_lane_s32(v309, 1));
       v311 = vdup_lane_s32(v307, 0);
       v311.f32[0] = vadd_f32(v310, v310).f32[0];
-      *(k + 96) = vadd_f32(v303, vadd_f32(v34, vadd_f32(vmul_n_f32(v307, a8.f32[0]), vadd_f32(v308, vsub_f32(vmul_f32(v58, v311), vmul_f32(v291, vext_s8(v307, v311, 4uLL)))))));
-      *(k + 104) = v26.f32[0] + (*v30.i32 + ((a8.f32[0] * v311.f32[0]) + v296.f32[0]));
+      *(k + 96) = vadd_f32(v303, vadd_f32(v34, vadd_f32(vmul_n_f32(v307, *a8.i32), vadd_f32(v308, vsub_f32(vmul_f32(v58, v311), vmul_f32(v291, vext_s8(v307, v311, 4uLL)))))));
+      *(k + 104) = v26.f32[0] + (*v30.i32 + ((*a8.i32 * v311.f32[0]) + v296.f32[0]));
       *(k + 108) = v288.i32[0];
       *(k + 112) = v266.i64[0];
       *(k + 120) = v266.i32[2];
@@ -1226,10 +1226,10 @@ LABEL_33:
           v327 = vdup_lane_s32(v324, 0);
           v327.f32[0] = vadd_f32(*&v318, *&v318).f32[0];
           v328 = (k + 48 * v313);
-          v321.f32[0] = v33[20] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - v33[20])));
-          v328[1].f32[0] = v26.f32[0] + (*v30.i32 + ((a8.f32[0] * v327.f32[0]) + v326));
+          v321.f32[0] = v33[20] + (v396 + ((*a8.i32 * 0.0) + (0.0 - v33[20])));
+          v328[1].f32[0] = v26.f32[0] + (*v30.i32 + ((*a8.i32 * v327.f32[0]) + v326));
           v328[1].i32[1] = v321.i32[0];
-          *v328 = vadd_f32(v319, vadd_f32(v34, vadd_f32(vmul_n_f32(v324, a8.f32[0]), vadd_f32(v325, vsub_f32(vmul_f32(v58, v327), vmul_f32(v312, vext_s8(v324, v327, 4uLL)))))));
+          *v328 = vadd_f32(v319, vadd_f32(v34, vadd_f32(vmul_n_f32(v324, *a8.i32), vadd_f32(v325, vsub_f32(vmul_f32(v58, v327), vmul_f32(v312, vext_s8(v324, v327, 4uLL)))))));
           v328[2] = *v266.f32;
           v328[3].i32[0] = v266.i32[2];
           v328[3].f32[1] = v40;
@@ -1335,9 +1335,9 @@ LABEL_33:
         v344 = (v333 + 48 * (v340 + 2));
         a11 = *(v333 + v343);
         *v344 = a11;
-        v344[1].n128_u64[0] = v266.i64[0];
-        v344[1].n128_u32[2] = v266.u32[2];
-        v344[1].n128_u32[3] = v387;
+        v344[1].i64[0] = v266.i64[0];
+        v344[1].i32[2] = v266.i32[2];
+        v344[1].i32[3] = v387;
         if (a5)
         {
           v345 = 0;
@@ -1396,12 +1396,12 @@ LABEL_33:
             *(v371 + 28) = v39;
             *v371 = v372;
             a11 = *v348;
-            v373 = (v245 + 48 * (v345 + 5));
-            v373[1].n128_f32[0] = v362;
-            v373[1].n128_f32[1] = v363;
+            v373 = v245 + 48 * (v345 + 5);
+            *(v373 + 16) = v362;
+            *(v373 + 20) = v363;
             *v373 = a11;
-            v373[1].n128_f32[2] = v364;
-            v373[1].n128_f32[3] = v39;
+            *(v373 + 24) = v364;
+            *(v373 + 28) = v39;
             v345 += 6;
             v346 += 3;
           }
@@ -1467,7 +1467,7 @@ LABEL_33:
         v389 = a11;
         v397 = v67;
         v72 = __sincosf_stret((v67 * (v33[11] * 6.2832)) * 0.5);
-        a8.f32[0] = v72.__cosval;
+        *a8.i32 = v72.__cosval;
         v73.f32[0] = v33[7];
         v74.n128_f32[0] = v33[8] * v72.__sinval;
         v75.f32[0] = v33[4];
@@ -1504,9 +1504,9 @@ LABEL_33:
       v82.i32[0] = v87.i32[0];
       v88 = vadd_f32(v82, v87);
       v86.i32[0] = v88.i32[0];
-      v68 = vadd_f32(v77, vadd_f32(v34, vadd_f32(vmul_n_f32(v85, a8.f32[0]), vadd_f32(vext_s8(v79, v83, 4uLL), vsub_f32(vmul_f32(v58, v86), vmul_f32(__PAIR64__(v74.n128_u32[0], v80.u32[0]), vext_s8(v85, v86, 4uLL)))))));
-      *a11.i32 = v23.f32[0] + (*v30.i32 + ((a8.f32[0] * v88.f32[0]) + v88.f32[1]));
-      v69 = v33[20] + (v396 + ((a8.f32[0] * 0.0) + (0.0 - v33[20])));
+      v68 = vadd_f32(v77, vadd_f32(v34, vadd_f32(vmul_n_f32(v85, *a8.i32), vadd_f32(vext_s8(v79, v83, 4uLL), vsub_f32(vmul_f32(v58, v86), vmul_f32(__PAIR64__(v74.n128_u32[0], v80.u32[0]), vext_s8(v85, v86, 4uLL)))))));
+      *a11.i32 = v23.f32[0] + (*v30.i32 + ((*a8.i32 * v88.f32[0]) + v88.f32[1]));
+      v69 = v33[20] + (v396 + ((*a8.i32 * 0.0) + (0.0 - v33[20])));
       v89 = vmul_f32(__PAIR64__(v74.n128_u32[0], v80.u32[0]), 0);
       v90 = vsub_f32(v58, v89);
       v79.i32[0] = v74.n128_u32[0];
@@ -1520,8 +1520,8 @@ LABEL_33:
       v60 = v74;
       v80.i32[0] = v74.n128_u32[0];
       v95 = vadd_f32(vsub_f32(vmul_f32(v81, v93), vmul_f32(v80, vext_s8(v92, v93, 4uLL))), 0x3F80000000000000);
-      v23 = vmul_n_f32(v92, a8.f32[0]);
-      v70 = (a8.f32[0] * v89.f32[0]) + (vsub_f32(v94, vdup_lane_s32(v94, 1)).f32[0] + 0.0);
+      v23 = vmul_n_f32(v92, *a8.i32);
+      v70 = (*a8.i32 * v89.f32[0]) + (vsub_f32(v94, vdup_lane_s32(v94, 1)).f32[0] + 0.0);
       v71 = vadd_f32(v23, v95);
     }
 
@@ -2318,7 +2318,7 @@ void HGArriLogCDefaultToneCurveLUTInfo::colorAtIndex(HGArriLogCDefaultToneCurveL
         goto LABEL_23;
       }
 
-      if (atomic_load_explicit(&qword_280C5E4E8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E4E8, memory_order_acquire))
       {
         if (v12 > 0.0562318841)
         {
@@ -2534,19 +2534,19 @@ void *HGArriLogC4LinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGArriLogC4LinearizationLUTInfo::colorAtIndex(HGArriLogC4LinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGArriLogC4LinearizationLUTInfo::colorAtIndex(HGArriLogC4LinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E4F8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E4F8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E508, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E508, memory_order_acquire))
     {
       goto LABEL_3;
     }
 
 LABEL_8:
-    v16 = a2;
+    v16 = a2.n128_f32[0];
     HGArriLogC4LinearizationLUTInfo::colorAtIndex();
-    a2 = v16;
+    a2.n128_f32[0] = v16;
     v12 = 0.0;
     if (v16 >= 0.0)
     {
@@ -2558,30 +2558,30 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v15 = a2;
+  v15 = a2.n128_u32[0];
   HGArriLogC4LinearizationLUTInfo::colorAtIndex();
-  a2 = v15;
-  if ((atomic_load_explicit(&qword_280C5E508, memory_order_acquire) & 1) == 0)
+  a2.n128_u32[0] = v15;
+  if ((atomic_load_explicit(byte_280C5E508, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
   v12 = 0.0;
-  if (a2 < 0.0)
+  if (a2.n128_f32[0] < 0.0)
   {
     goto LABEL_9;
   }
 
 LABEL_4:
   v12 = 1.0;
-  if (a2 > 1.0)
+  if (a2.n128_f32[0] > 1.0)
   {
     goto LABEL_9;
   }
 
-  v12 = a2;
-  if (a2 >= 0.0)
+  v12 = a2.n128_f32[0];
+  if (a2.n128_f32[0] >= 0.0)
   {
     goto LABEL_9;
   }
@@ -2598,7 +2598,7 @@ LABEL_10:
 
 double HGCanonLogToneCurveLUTInfo::kMinLogGamma(HGCanonLogToneCurveLUTInfo *this)
 {
-  if ((atomic_load_explicit(&qword_280C5E518, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E518, memory_order_acquire) & 1) == 0)
   {
     HGCanonLogToneCurveLUTInfo::kMinLogGamma();
   }
@@ -2608,9 +2608,9 @@ double HGCanonLogToneCurveLUTInfo::kMinLogGamma(HGCanonLogToneCurveLUTInfo *this
 
 double HGCanonLogToneCurveLUTInfo::kMaxLogGamma(HGCanonLogToneCurveLUTInfo *this)
 {
-  if (atomic_load_explicit(&qword_280C5E528, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E528, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E538, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E538, memory_order_acquire))
     {
       return *&qword_280C5E530;
     }
@@ -2619,7 +2619,7 @@ double HGCanonLogToneCurveLUTInfo::kMaxLogGamma(HGCanonLogToneCurveLUTInfo *this
   else
   {
     HGCanonLogToneCurveLUTInfo::kMaxLogGamma();
-    if (atomic_load_explicit(&qword_280C5E538, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E538, memory_order_acquire))
     {
       return *&qword_280C5E530;
     }
@@ -2653,7 +2653,7 @@ void *HGCanonLogToneCurveLUTInfo::isEqual(uint64_t a1, void *lpsrc)
 
 float HGCanonLogToneCurveLUTInfo::colorAtIndex(HGCanonLogToneCurveLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if ((atomic_load_explicit(&qword_280C5E548, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E548, memory_order_acquire) & 1) == 0)
   {
     v24 = a2;
     HGCanonLogToneCurveLUTInfo::colorAtIndex();
@@ -2752,7 +2752,7 @@ float HGCanonLogLinearizationLUTInfo::colorAtIndex(HGCanonLogLinearizationLUTInf
     }
   }
 
-  if ((atomic_load_explicit(&qword_280C5E558, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E558, memory_order_acquire) & 1) == 0)
   {
     v20 = v13;
     HGCanonLogLinearizationLUTInfo::colorAtIndex();
@@ -2845,11 +2845,11 @@ void *HGCanonLog3LinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGCanonLog3LinearizationLUTInfo::colorAtIndex(HGCanonLog3LinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGCanonLog3LinearizationLUTInfo::colorAtIndex(HGCanonLog3LinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E568, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E568, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E578, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E578, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -2857,19 +2857,19 @@ float HGCanonLog3LinearizationLUTInfo::colorAtIndex(HGCanonLog3LinearizationLUTI
 
   else
   {
-    v17 = a2;
+    v17 = a2.n128_u32[0];
     HGCanonLog3LinearizationLUTInfo::colorAtIndex();
-    a2 = v17;
-    if (atomic_load_explicit(&qword_280C5E578, memory_order_acquire))
+    a2.n128_u32[0] = v17;
+    if (atomic_load_explicit(byte_280C5E578, memory_order_acquire))
     {
 LABEL_3:
-      if (atomic_load_explicit(&qword_280C5E588, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E588, memory_order_acquire))
       {
         goto LABEL_4;
       }
 
 LABEL_15:
-      v19 = a2;
+      v19 = a2.n128_f32[0];
       HGCanonLog3LinearizationLUTInfo::colorAtIndex();
       v12 = v19;
       v13 = -0.0730593607;
@@ -2882,16 +2882,16 @@ LABEL_15:
     }
   }
 
-  v18 = a2;
+  v18 = a2.n128_u32[0];
   HGCanonLog3LinearizationLUTInfo::colorAtIndex();
-  a2 = v18;
-  if ((atomic_load_explicit(&qword_280C5E588, memory_order_acquire) & 1) == 0)
+  a2.n128_u32[0] = v18;
+  if ((atomic_load_explicit(byte_280C5E588, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  v12 = a2;
+  v12 = a2.n128_f32[0];
   v13 = -0.0730593607;
   if (v12 < -0.0730593607)
   {
@@ -2970,9 +2970,9 @@ float HGSonySLog2LinearizationLUTInfo::colorAtIndex(HGSonySLog2LinearizationLUTI
     }
   }
 
-  if (atomic_load_explicit(&qword_280C5E598, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E598, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E5A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E5A8, memory_order_acquire))
     {
       goto LABEL_6;
     }
@@ -2996,7 +2996,7 @@ LABEL_10:
   v18 = v13;
   HGSonySLog2LinearizationLUTInfo::colorAtIndex();
   v13 = v18;
-  if ((atomic_load_explicit(&qword_280C5E5A8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E5A8, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_9;
   }
@@ -3042,11 +3042,11 @@ void *HGSonySLog3LinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGSonySLog3LinearizationLUTInfo::colorAtIndex(HGSonySLog3LinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGSonySLog3LinearizationLUTInfo::colorAtIndex(HGSonySLog3LinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E5B8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E5B8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E5C8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E5C8, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3054,13 +3054,13 @@ float HGSonySLog3LinearizationLUTInfo::colorAtIndex(HGSonySLog3LinearizationLUTI
 
   else
   {
-    v16 = a2;
+    v16 = a2.n128_u32[0];
     HGSonySLog3LinearizationLUTInfo::colorAtIndex();
-    a2 = v16;
-    if (atomic_load_explicit(&qword_280C5E5C8, memory_order_acquire))
+    a2.n128_u32[0] = v16;
+    if (atomic_load_explicit(byte_280C5E5C8, memory_order_acquire))
     {
 LABEL_3:
-      if (atomic_load_explicit(&qword_280C5E5D8, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E5D8, memory_order_acquire))
       {
         goto LABEL_4;
       }
@@ -3069,14 +3069,14 @@ LABEL_3:
     }
   }
 
-  v17 = a2;
+  v17 = a2.n128_u32[0];
   HGSonySLog3LinearizationLUTInfo::colorAtIndex();
-  a2 = v17;
-  if (atomic_load_explicit(&qword_280C5E5D8, memory_order_acquire))
+  a2.n128_u32[0] = v17;
+  if (atomic_load_explicit(byte_280C5E5D8, memory_order_acquire))
   {
 LABEL_4:
     v12 = 0.0;
-    if (a2 >= 0.0)
+    if (a2.n128_f32[0] >= 0.0)
     {
       goto LABEL_5;
     }
@@ -3085,16 +3085,16 @@ LABEL_4:
   }
 
 LABEL_14:
-  v18 = a2;
+  v18 = a2.n128_f32[0];
   HGSonySLog3LinearizationLUTInfo::colorAtIndex();
-  a2 = v18;
+  a2.n128_f32[0] = v18;
   v12 = 0.0;
   if (v18 >= 0.0)
   {
 LABEL_5:
-    if (a2 <= 1.0)
+    if (a2.n128_f32[0] <= 1.0)
     {
-      v12 = a2;
+      v12 = a2.n128_f32[0];
     }
 
     else
@@ -3145,11 +3145,11 @@ void *HGPanasonicVLogLinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGPanasonicVLogLinearizationLUTInfo::colorAtIndex(HGPanasonicVLogLinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGPanasonicVLogLinearizationLUTInfo::colorAtIndex(HGPanasonicVLogLinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E5E8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E5E8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E5F8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E5F8, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3157,23 +3157,23 @@ float HGPanasonicVLogLinearizationLUTInfo::colorAtIndex(HGPanasonicVLogLineariza
 
   else
   {
-    v15 = a2;
+    v15 = a2.n128_u32[0];
     HGPanasonicVLogLinearizationLUTInfo::colorAtIndex();
-    a2 = v15;
-    if (atomic_load_explicit(&qword_280C5E5F8, memory_order_acquire))
+    a2.n128_u32[0] = v15;
+    if (atomic_load_explicit(byte_280C5E5F8, memory_order_acquire))
     {
 LABEL_3:
       v12 = 0.0;
-      if (a2 < 0.0)
+      if (a2.n128_f32[0] < 0.0)
       {
         goto LABEL_4;
       }
 
 LABEL_8:
-      if (a2 <= 1.0)
+      if (a2.n128_f32[0] <= 1.0)
       {
-        v12 = a2;
-        if (a2 < *&qword_280C5E5E0)
+        v12 = a2.n128_f32[0];
+        if (a2.n128_f32[0] < *&qword_280C5E5E0)
         {
           goto LABEL_5;
         }
@@ -3194,9 +3194,9 @@ LABEL_10:
     }
   }
 
-  v16 = a2;
+  v16 = a2.n128_f32[0];
   HGPanasonicVLogLinearizationLUTInfo::colorAtIndex();
-  a2 = v16;
+  a2.n128_f32[0] = v16;
   v12 = 0.0;
   if (v16 >= 0.0)
   {
@@ -3244,7 +3244,7 @@ void *HGNikonNLogLinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
 
 float HGNikonNLogLinearizationLUTInfo::colorAtIndex(HGNikonNLogLinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E608, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E608, memory_order_acquire))
   {
     v12 = 0.0;
     if (a2 < 0.0)
@@ -3342,9 +3342,9 @@ LABEL_4:
     }
 
 LABEL_10:
-    if (atomic_load_explicit(&qword_280C5E618, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E618, memory_order_acquire))
     {
-      if (atomic_load_explicit(&qword_280C5E628, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E628, memory_order_acquire))
       {
         goto LABEL_12;
       }
@@ -3355,7 +3355,7 @@ LABEL_10:
       v21 = v12;
       HGBMDFilmLinearizationLUTInfo::colorAtIndex();
       v12 = v21;
-      if (atomic_load_explicit(&qword_280C5E628, memory_order_acquire))
+      if (atomic_load_explicit(byte_280C5E628, memory_order_acquire))
       {
 LABEL_12:
         if (v12 < *&qword_280C5E610)
@@ -3397,9 +3397,9 @@ LABEL_20:
   }
 
 LABEL_5:
-  if (atomic_load_explicit(&qword_280C5E638, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E638, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E648, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E648, memory_order_acquire))
     {
       goto LABEL_7;
     }
@@ -3419,7 +3419,7 @@ LABEL_16:
   v19 = v12;
   HGBMDFilmLinearizationLUTInfo::colorAtIndex();
   v12 = v19;
-  if ((atomic_load_explicit(&qword_280C5E648, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E648, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_16;
   }
@@ -3471,11 +3471,11 @@ void *HGAppleLogLinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGAppleLogLinearizationLUTInfo::colorAtIndex(HGAppleLogLinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGAppleLogLinearizationLUTInfo::colorAtIndex(HGAppleLogLinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E658, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E658, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E668, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E668, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3483,26 +3483,26 @@ float HGAppleLogLinearizationLUTInfo::colorAtIndex(HGAppleLogLinearizationLUTInf
 
   else
   {
-    v18 = a2;
+    v18 = a2.n128_u32[0];
     HGAppleLogLinearizationLUTInfo::colorAtIndex();
-    a2 = v18;
-    if (atomic_load_explicit(&qword_280C5E668, memory_order_acquire))
+    a2.n128_u32[0] = v18;
+    if (atomic_load_explicit(byte_280C5E668, memory_order_acquire))
     {
       goto LABEL_3;
     }
   }
 
-  v19 = a2;
+  v19 = a2.n128_u32[0];
   HGAppleLogLinearizationLUTInfo::colorAtIndex();
-  a2 = v19;
+  a2.n128_u32[0] = v19;
 LABEL_3:
-  v12 = a2;
-  if (a2 > 1.0)
+  v12 = a2.n128_f32[0];
+  if (a2.n128_f32[0] > 1.0)
   {
     v12 = 1.0;
   }
 
-  if (a2 >= 0.0)
+  if (a2.n128_f32[0] >= 0.0)
   {
     v13 = v12;
   }
@@ -3560,11 +3560,11 @@ void *HGDJIDLogLinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGDJIDLogLinearizationLUTInfo::colorAtIndex(HGDJIDLogLinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGDJIDLogLinearizationLUTInfo::colorAtIndex(HGDJIDLogLinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E678, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E678, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E688, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E688, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3572,23 +3572,23 @@ float HGDJIDLogLinearizationLUTInfo::colorAtIndex(HGDJIDLogLinearizationLUTInfo 
 
   else
   {
-    v16 = a2;
+    v16 = a2.n128_u32[0];
     HGDJIDLogLinearizationLUTInfo::colorAtIndex();
-    a2 = v16;
-    if (atomic_load_explicit(&qword_280C5E688, memory_order_acquire))
+    a2.n128_u32[0] = v16;
+    if (atomic_load_explicit(byte_280C5E688, memory_order_acquire))
     {
 LABEL_3:
       v12 = 0.0;
-      if (a2 < 0.0)
+      if (a2.n128_f32[0] < 0.0)
       {
         goto LABEL_4;
       }
 
 LABEL_8:
-      if (a2 <= 1.0)
+      if (a2.n128_f32[0] <= 1.0)
       {
-        v12 = a2;
-        if (a2 > *&qword_280C5E670)
+        v12 = a2.n128_f32[0];
+        if (a2.n128_f32[0] > *&qword_280C5E670)
         {
           goto LABEL_5;
         }
@@ -3610,9 +3610,9 @@ LABEL_10:
     }
   }
 
-  v17 = a2;
+  v17 = a2.n128_f32[0];
   HGDJIDLogLinearizationLUTInfo::colorAtIndex();
-  a2 = v17;
+  a2.n128_f32[0] = v17;
   v12 = 0.0;
   if (v17 >= 0.0)
   {
@@ -3659,11 +3659,11 @@ void *HGFujifilmFLogLinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGFujifilmFLogLinearizationLUTInfo::colorAtIndex(HGFujifilmFLogLinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGFujifilmFLogLinearizationLUTInfo::colorAtIndex(HGFujifilmFLogLinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E698, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E698, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E6A8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E6A8, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3671,23 +3671,23 @@ float HGFujifilmFLogLinearizationLUTInfo::colorAtIndex(HGFujifilmFLogLinearizati
 
   else
   {
-    v16 = a2;
+    v16 = a2.n128_u32[0];
     HGFujifilmFLogLinearizationLUTInfo::colorAtIndex();
-    a2 = v16;
-    if (atomic_load_explicit(&qword_280C5E6A8, memory_order_acquire))
+    a2.n128_u32[0] = v16;
+    if (atomic_load_explicit(byte_280C5E6A8, memory_order_acquire))
     {
 LABEL_3:
       v12 = 0.0;
-      if (a2 < 0.0)
+      if (a2.n128_f32[0] < 0.0)
       {
         goto LABEL_4;
       }
 
 LABEL_8:
-      if (a2 <= 1.0)
+      if (a2.n128_f32[0] <= 1.0)
       {
-        v12 = a2;
-        if (a2 < *&qword_280C5E690)
+        v12 = a2.n128_f32[0];
+        if (a2.n128_f32[0] < *&qword_280C5E690)
         {
           goto LABEL_5;
         }
@@ -3709,9 +3709,9 @@ LABEL_10:
     }
   }
 
-  v17 = a2;
+  v17 = a2.n128_f32[0];
   HGFujifilmFLogLinearizationLUTInfo::colorAtIndex();
-  a2 = v17;
+  a2.n128_f32[0] = v17;
   v12 = 0.0;
   if (v17 >= 0.0)
   {
@@ -3758,11 +3758,11 @@ void *HGFujifilmFLog2LinearizationLUTInfo::isEqual(uint64_t a1, void *lpsrc)
   return HGApplyNDLUTInfo::isEqual(a1, v3);
 }
 
-float HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex(HGFujifilmFLog2LinearizationLUTInfo *this, float a2, float a3, float a4, float *a5, float *a6, float *a7, float *a8)
+float HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex(HGFujifilmFLog2LinearizationLUTInfo *this, __n128 a2, __n128 a3, __n128 a4, float *a5, float *a6, float *a7, float *a8)
 {
-  if (atomic_load_explicit(&qword_280C5E6B8, memory_order_acquire))
+  if (atomic_load_explicit(byte_280C5E6B8, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280C5E6C8, memory_order_acquire))
+    if (atomic_load_explicit(byte_280C5E6C8, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -3770,23 +3770,23 @@ float HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex(HGFujifilmFLog2Lineariza
 
   else
   {
-    v16 = a2;
+    v16 = a2.n128_u32[0];
     HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex();
-    a2 = v16;
-    if (atomic_load_explicit(&qword_280C5E6C8, memory_order_acquire))
+    a2.n128_u32[0] = v16;
+    if (atomic_load_explicit(byte_280C5E6C8, memory_order_acquire))
     {
 LABEL_3:
       v12 = 0.0;
-      if (a2 < 0.0)
+      if (a2.n128_f32[0] < 0.0)
       {
         goto LABEL_4;
       }
 
 LABEL_8:
-      if (a2 <= 1.0)
+      if (a2.n128_f32[0] <= 1.0)
       {
-        v12 = a2;
-        if (a2 < *&qword_280C5E6B0)
+        v12 = a2.n128_f32[0];
+        if (a2.n128_f32[0] < *&qword_280C5E6B0)
         {
           goto LABEL_5;
         }
@@ -3808,9 +3808,9 @@ LABEL_10:
     }
   }
 
-  v17 = a2;
+  v17 = a2.n128_f32[0];
   HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex();
-  a2 = v17;
+  a2.n128_f32[0] = v17;
   v12 = 0.0;
   if (v17 >= 0.0)
   {
@@ -4025,65 +4025,65 @@ void HGLinearToERsRGBToneCurveLUTInfo::colorAtIndex(HGLinearToERsRGBToneCurveLUT
 
 void HGArriLogCDefaultToneCurveLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E4E8))
+  if (__cxa_guard_acquire(byte_280C5E4E8))
   {
     _MergedGlobals_26 = 0x3F732E5BF55474D3;
 
-    __cxa_guard_release(&qword_280C5E4E8);
+    __cxa_guard_release(byte_280C5E4E8);
   }
 }
 
 void HGArriLogC4LinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E4F8))
+  if (__cxa_guard_acquire(byte_280C5E4F8))
   {
     qword_280C5E4F0 = 0x3FBD14B4E7E63D19;
 
-    __cxa_guard_release(&qword_280C5E4F8);
+    __cxa_guard_release(byte_280C5E4F8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E508))
+  if (__cxa_guard_acquire(byte_280C5E508))
   {
     qword_280C5E500 = 0xBF927D887F3231C4;
 
-    __cxa_guard_release(&qword_280C5E508);
+    __cxa_guard_release(byte_280C5E508);
   }
 }
 
 void HGCanonLogToneCurveLUTInfo::kMinLogGamma()
 {
-  if (__cxa_guard_acquire(&qword_280C5E518))
+  if (__cxa_guard_acquire(byte_280C5E518))
   {
     qword_280C5E510 = 0x3FA371775C883CCDLL;
 
-    __cxa_guard_release(&qword_280C5E518);
+    __cxa_guard_release(byte_280C5E518);
   }
 }
 
 void HGCanonLogToneCurveLUTInfo::kMaxLogGamma()
 {
-  if (__cxa_guard_acquire(&qword_280C5E528))
+  if (__cxa_guard_acquire(byte_280C5E528))
   {
     qword_280C5E520 = 0x3FF33A573B3EED8ALL;
 
-    __cxa_guard_release(&qword_280C5E528);
+    __cxa_guard_release(byte_280C5E528);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E538))
+  if (__cxa_guard_acquire(byte_280C5E538))
   {
     *&qword_280C5E530 = log10(*&qword_280C5E520 * 10.1596 + 1.0) * 0.529136 + 0.0730597;
 
-    __cxa_guard_release(&qword_280C5E538);
+    __cxa_guard_release(byte_280C5E538);
   }
 }
 
 void HGCanonLogToneCurveLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E548))
+  if (__cxa_guard_acquire(byte_280C5E548))
   {
     v0 = OUTLINED_FUNCTION_0_12(&qword_280C5E540);
 
@@ -4093,7 +4093,7 @@ void HGCanonLogToneCurveLUTInfo::colorAtIndex()
 
 void HGCanonLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E558))
+  if (__cxa_guard_acquire(byte_280C5E558))
   {
     v0 = OUTLINED_FUNCTION_0_12(&qword_280C5E550);
 
@@ -4103,218 +4103,218 @@ void HGCanonLogLinearizationLUTInfo::colorAtIndex()
 
 void HGCanonLog3LinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E568))
+  if (__cxa_guard_acquire(byte_280C5E568))
   {
     qword_280C5E560 = 0x3FA4DEB50262DEBFLL;
 
-    __cxa_guard_release(&qword_280C5E568);
+    __cxa_guard_release(byte_280C5E568);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E578))
+  if (__cxa_guard_acquire(byte_280C5E578))
   {
     qword_280C5E570 = 0x3FBAF8AEDB215573;
 
-    __cxa_guard_release(&qword_280C5E578);
+    __cxa_guard_release(byte_280C5E578);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E588))
+  if (__cxa_guard_acquire(byte_280C5E588))
   {
     qword_280C5E580 = 0x401579709D43F5C0;
 
-    __cxa_guard_release(&qword_280C5E588);
+    __cxa_guard_release(byte_280C5E588);
   }
 }
 
 void HGSonySLog2LinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E598))
+  if (__cxa_guard_acquire(byte_280C5E598))
   {
     qword_280C5E590 = 0x3F9EB8A3FBF49AE0;
 
-    __cxa_guard_release(&qword_280C5E598);
+    __cxa_guard_release(byte_280C5E598);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E5A8))
+  if (__cxa_guard_acquire(byte_280C5E5A8))
   {
     qword_280C5E5A0 = 0x4015492995272697;
 
-    __cxa_guard_release(&qword_280C5E5A8);
+    __cxa_guard_release(byte_280C5E5A8);
   }
 }
 
 void HGSonySLog3LinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E5B8))
+  if (__cxa_guard_acquire(byte_280C5E5B8))
   {
     qword_280C5E5B0 = 0x406566BABBEF8B7ALL;
 
-    __cxa_guard_release(&qword_280C5E5B8);
+    __cxa_guard_release(byte_280C5E5B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E5C8))
+  if (__cxa_guard_acquire(byte_280C5E5C8))
   {
     *&qword_280C5E5C0 = *&qword_280C5E5B0 + -95.0;
 
-    __cxa_guard_release(&qword_280C5E5C8);
+    __cxa_guard_release(byte_280C5E5C8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E5D8))
+  if (__cxa_guard_acquire(byte_280C5E5D8))
   {
     qword_280C5E5D0 = 0x3F820882EBA5480ALL;
 
-    __cxa_guard_release(&qword_280C5E5D8);
+    __cxa_guard_release(byte_280C5E5D8);
   }
 }
 
 void HGPanasonicVLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E5E8))
+  if (__cxa_guard_acquire(byte_280C5E5E8))
   {
     qword_280C5E5E0 = 0x3FC72B00BE1A1A7DLL;
 
-    __cxa_guard_release(&qword_280C5E5E8);
+    __cxa_guard_release(byte_280C5E5E8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E5F8))
+  if (__cxa_guard_acquire(byte_280C5E5F8))
   {
     qword_280C5E5F0 = 0x402311635B128422;
 
-    __cxa_guard_release(&qword_280C5E5F8);
+    __cxa_guard_release(byte_280C5E5F8);
   }
 }
 
 void HGNikonNLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E608))
+  if (__cxa_guard_acquire(byte_280C5E608))
   {
     qword_280C5E600 = 0x3FDC42A6121F81AALL;
 
-    __cxa_guard_release(&qword_280C5E608);
+    __cxa_guard_release(byte_280C5E608);
   }
 }
 
 void HGBMDFilmLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E618))
+  if (__cxa_guard_acquire(byte_280C5E618))
   {
     qword_280C5E610 = 0x3FBD384ED1A78752;
 
-    __cxa_guard_release(&qword_280C5E618);
+    __cxa_guard_release(byte_280C5E618);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E628))
+  if (__cxa_guard_acquire(byte_280C5E628))
   {
     qword_280C5E620 = 0x40190DFAF2EFA06ALL;
 
-    __cxa_guard_release(&qword_280C5E628);
+    __cxa_guard_release(byte_280C5E628);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E638))
+  if (__cxa_guard_acquire(byte_280C5E638))
   {
     qword_280C5E630 = 0x3FBB97B1767A8EEALL;
 
-    __cxa_guard_release(&qword_280C5E638);
+    __cxa_guard_release(byte_280C5E638);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E648))
+  if (__cxa_guard_acquire(byte_280C5E648))
   {
     qword_280C5E640 = 0x400FA32D714B55AELL;
 
-    __cxa_guard_release(&qword_280C5E648);
+    __cxa_guard_release(byte_280C5E648);
   }
 }
 
 void HGAppleLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E658))
+  if (__cxa_guard_acquire(byte_280C5E658))
   {
     qword_280C5E650 = 0x3FCAB1F0CDAACC3ELL;
 
-    __cxa_guard_release(&qword_280C5E658);
+    __cxa_guard_release(byte_280C5E658);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E668))
+  if (__cxa_guard_acquire(byte_280C5E668))
   {
     qword_280C5E660 = 0x4020368B277C7D96;
 
-    __cxa_guard_release(&qword_280C5E668);
+    __cxa_guard_release(byte_280C5E668);
   }
 }
 
 void HGDJIDLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E678))
+  if (__cxa_guard_acquire(byte_280C5E678))
   {
     qword_280C5E670 = 0x3FC1E81CC48A70B5;
 
-    __cxa_guard_release(&qword_280C5E678);
+    __cxa_guard_release(byte_280C5E678);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E688))
+  if (__cxa_guard_acquire(byte_280C5E688))
   {
     qword_280C5E680 = 0x4021F1463A0B6A33;
 
-    __cxa_guard_release(&qword_280C5E688);
+    __cxa_guard_release(byte_280C5E688);
   }
 }
 
 void HGFujifilmFLogLinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E698))
+  if (__cxa_guard_acquire(byte_280C5E698))
   {
     qword_280C5E690 = 0x3FB9C026A3080D26;
 
-    __cxa_guard_release(&qword_280C5E698);
+    __cxa_guard_release(byte_280C5E698);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E6A8))
+  if (__cxa_guard_acquire(byte_280C5E6A8))
   {
     qword_280C5E6A0 = 0x401AB8C38E6C7294;
 
-    __cxa_guard_release(&qword_280C5E6A8);
+    __cxa_guard_release(byte_280C5E6A8);
   }
 }
 
 void HGFujifilmFLog2LinearizationLUTInfo::colorAtIndex()
 {
-  if (__cxa_guard_acquire(&qword_280C5E6B8))
+  if (__cxa_guard_acquire(byte_280C5E6B8))
   {
     qword_280C5E6B0 = 0x3FB9C69A8FA91FF2;
 
-    __cxa_guard_release(&qword_280C5E6B8);
+    __cxa_guard_release(byte_280C5E6B8);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280C5E6C8))
+  if (__cxa_guard_acquire(byte_280C5E6C8))
   {
     qword_280C5E6C0 = 0x4022C66B961C7A0CLL;
 
-    __cxa_guard_release(&qword_280C5E6C8);
+    __cxa_guard_release(byte_280C5E6C8);
   }
 }
 
@@ -4333,7 +4333,7 @@ void sub_25FD493D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void HGColorClamp::HGColorClamp(HGColorClamp *this, float a2, float a3)
+void HGColorClamp::HGColorClamp(HGColorClamp *this, int32x2_t a2, int32x2_t a3)
 {
   HGNode::HGNode(this);
   *v3 = &unk_287226CB8;
@@ -4681,7 +4681,7 @@ uint64_t GetAffineNearestTile(int32x4_t *a1, float32x4_t *a2)
       v23 = vdupq_n_s32(v10);
       v24 = (v13 + 32);
       v25 = 16 * v18;
-      v26 = (v13 + 64);
+      v26 = v13 + 64;
       do
       {
         v27 = 0;
@@ -4727,7 +4727,7 @@ uint64_t GetAffineNearestTile(int32x4_t *a1, float32x4_t *a2)
         v17 = vaddq_f32(v12, v17);
         ++v19;
         v24 = (v24 + v25);
-        v26 = (v26 + v25);
+        v26 += v25;
       }
 
       while (v19 != v2);
@@ -6011,7 +6011,7 @@ LABEL_3:
   return HGNode::RenderPageMetal(a1, a2);
 }
 
-uint64_t HGLegacyBlend::InitProgramDescriptor(HGNode *this, HGProgramDescriptor *a2)
+void HGLegacyBlend::InitProgramDescriptor(HGNode *this, HGProgramDescriptor *a2)
 {
   v2 = *(this + 106);
   if (v2 < 9)
@@ -6019,10 +6019,10 @@ uint64_t HGLegacyBlend::InitProgramDescriptor(HGNode *this, HGProgramDescriptor 
     s_programdesc_blend_table[v2](a2);
   }
 
-  return HGNode::InitProgramDescriptor(this, a2);
+  HGNode::InitProgramDescriptor(this, a2);
 }
 
-uint64_t HGLegacyBlend::BindTexture(HGLegacyBlend *this, HGHandler *a2, int a3)
+uint64_t HGLegacyBlend::BindTexture(HGLegacyBlend *this, HGHandler *a2, uint64_t a3)
 {
   HGHandler::TexCoord(a2, a3, 0, 0, 0);
   if (!(*(**(a2 + 18) + 128))(*(a2 + 18), 46))
@@ -7744,7 +7744,7 @@ uint64_t HGColorMatrix::Bind(HGColorMatrix *this, HGHandler *a2)
   return 0;
 }
 
-uint64_t HGColorMatrix::BindTexture(HGColorMatrix *this, HGHandler *a2, int a3)
+uint64_t HGColorMatrix::BindTexture(HGColorMatrix *this, HGHandler *a2, uint64_t a3)
 {
   HGHandler::TexCoord(a2, a3, 0, 0, 0);
   if (!(*(**(a2 + 18) + 128))(*(a2 + 18), 46))
@@ -8100,9 +8100,9 @@ uint64_t HGCropNode::RenderPage(HGNode *this, HGPage *a2)
   return v6;
 }
 
-void sub_25FD51714(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FD51714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullTexturesGuard::~HGPagePullTexturesGuard(va);
   _Unwind_Resume(a1);
 }
@@ -8127,9 +8127,9 @@ uint64_t HGCropNode::RenderPageMetal(HGNode *this, HGPage *a2)
   return v6;
 }
 
-void sub_25FD51810(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FD51810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HGPagePullMetalTexturesGuard::~HGPagePullMetalTexturesGuard(va);
   _Unwind_Resume(a1);
 }
@@ -8800,10 +8800,10 @@ uint64_t HGToneCurve::RenderTile(HGToneCurve *this, HGTile *a2)
   return v2[*(this + 105)](a2, *(this + 54), this);
 }
 
-uint64_t HGToneCurve::SetToneCurveParams(uint64_t a1, uint64_t a2, char *a3, float a4, float a5, float a6, float a7, float a8, float a9, float a10)
+uint64_t HGToneCurve::SetToneCurveParams(uint64_t a1, uint64_t a2, float a3, float a4, float a5, float a6, float a7, float a8, float a9, char *a10)
 {
   v17 = a2;
-  HGNode::ClearBits(a1, a2, a3);
+  HGNode::ClearBits(a1, a2, a10);
   if ((v17 & ~(v17 >> 31)) >= 4)
   {
     v19 = 4;
@@ -8815,14 +8815,14 @@ uint64_t HGToneCurve::SetToneCurveParams(uint64_t a1, uint64_t a2, char *a3, flo
   }
 
   *(a1 + 408) = v19;
-  *(a1 + 440) = a4;
-  *(a1 + 444) = a5;
-  *(a1 + 448) = a6;
-  *(a1 + 452) = a7;
-  *(a1 + 456) = a8;
-  *(a1 + 460) = a9;
-  *(a1 + 464) = a10;
-  result = HGToneCurve::AcceleratedState(v19, a4, a5, a6, a7, a8, a9, a10);
+  *(a1 + 440) = a3;
+  *(a1 + 444) = a4;
+  *(a1 + 448) = a5;
+  *(a1 + 452) = a6;
+  *(a1 + 456) = a7;
+  *(a1 + 460) = a8;
+  *(a1 + 464) = a9;
+  result = HGToneCurve::AcceleratedState(v19, a3, a4, a5, a6, a7, a8, a9);
   *(a1 + 424) = result;
   return result;
 }

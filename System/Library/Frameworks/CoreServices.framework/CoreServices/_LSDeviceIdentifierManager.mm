@@ -8,7 +8,7 @@
 
 + (id)sharedInstance
 {
-  _LSAssertRunningInServer("+[_LSDeviceIdentifierManager sharedInstance]");
+  _LSAssertRunningInServer("+[_LSDeviceIdentifierManager sharedInstance]", a2);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __44___LSDeviceIdentifierManager_sharedInstance__block_invoke;

@@ -9,6 +9,7 @@
 - (void)dumpARFrame:(__n128)frame withKeyFrames:(__n128)frames withCameraPose:(__n128)pose;
 - (void)dumpLastARFrameImage;
 - (void)dumpObjects:(id)objects;
+- (void)logKeyFrame:(id)frame WithSkip:(BOOL)skip;
 - (void)logMemory:(unint64_t)memory;
 - (void)reset;
 - (void)setFirstARFrame:(id)frame;
@@ -69,36 +70,99 @@
   }
 }
 
+- (void)logKeyFrame:(id)frame WithSkip:(BOOL)skip
+{
+  skipCopy = skip;
+  frameCopy = frame;
+  NSLog(&cfstr_LogKeyFrame.isa);
+  if (self->_enableLiveDump)
+  {
+    if (!skipCopy || self->_maxKeyframeFPS != 0.0 && (!self->_lastKeyframeTime || ([MEMORY[0x277CBEAA8] date], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "timeIntervalSinceDate:", self->_lastKeyframeTime), v9 = v8, v10 = 1.0 / self->_maxKeyframeFPS, v7, v9 >= v10)))
+    {
+      date = [MEMORY[0x277CBEAA8] date];
+      lastKeyframeTime = self->_lastKeyframeTime;
+      self->_lastKeyframeTime = date;
+
+      v13 = [(NSString *)self->_loggingDirectory stringByAppendingPathComponent:@"Live"];
+      v14 = self->_save_group;
+      v15 = [frameCopy copy];
+      v16 = self->_keyframeMeta;
+      dispatch_group_enter(v14);
+      save_queue = self->_save_queue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __45__OUInternalInfoDumper_logKeyFrame_WithSkip___block_invoke;
+      block[3] = &unk_2799C4170;
+      v18 = v15;
+      v31 = v18;
+      v19 = v16;
+      v32 = v19;
+      v20 = v13;
+      v33 = v20;
+      selfCopy = self;
+      v21 = v14;
+      v35 = v21;
+      dispatch_async(save_queue, block);
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v23 = [MEMORY[0x277CCABB0] numberWithBool:skipCopy];
+      [dictionary setObject:v23 forKeyedSubscript:@"skipped"];
+
+      lastARFrame = self->_lastARFrame;
+      if (lastARFrame)
+      {
+        v25 = MEMORY[0x277CCABB0];
+        [(OUFrame *)lastARFrame timestamp];
+        v26 = [v25 numberWithDouble:?];
+        [dictionary setObject:v26 forKeyedSubscript:@"timestamp"];
+
+        v27 = MEMORY[0x277CCABB0];
+        [(OUFrame *)self->_lastARFrame timestamp];
+        v29 = [v27 numberWithDouble:v28 - self->_firstARFrameTime];
+        [dictionary setObject:v29 forKeyedSubscript:@"video_timestamp"];
+      }
+
+      else
+      {
+        [dictionary setObject:&unk_286EC22C0 forKeyedSubscript:@"timestamp"];
+        [dictionary setObject:&unk_286EC22C0 forKeyedSubscript:@"video_timestamp"];
+      }
+
+      [(NSMutableArray *)self->_keyframesDebug addObject:dictionary];
+      [(OUInternalInfoDumper *)self dumpLastARFrameImage];
+    }
+  }
+}
+
 void __45__OUInternalInfoDumper_logKeyFrame_WithSkip___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v33 = [MEMORY[0x277CBEB18] array];
-  v43 = 0u;
+  v47 = *MEMORY[0x277D85DE8];
+  v32 = [MEMORY[0x277CBEB18] array];
   v42 = 0u;
   v41 = 0u;
   v40 = 0u;
+  v39 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v40 objects:v47 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v3)
   {
-    v4 = *v41;
+    v4 = *v40;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v41 != v4)
+        if (*v40 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v40 + 1) + 8 * i);
+        v6 = *(*(&v39 + 1) + 8 * i);
         v7 = *(a1 + 40);
         v8 = [v6 identifier];
         v9 = [v7 objectForKeyedSubscript:v8];
 
         if (v9)
         {
-          [v9 samplePoints];
+          objc_msgSend_samplePoints(v9);
         }
 
         else
@@ -124,11 +188,11 @@ void __45__OUInternalInfoDumper_logKeyFrame_WithSkip___block_invoke(uint64_t a1)
           v16 = [v6 identifier];
           [v15 setObject:v13 forKeyedSubscript:v16];
 
-          [v33 addObject:v6];
+          [v32 addObject:v6];
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v40 objects:v47 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v39 objects:v46 count:16];
     }
 
     while (v3);
@@ -143,45 +207,43 @@ void __45__OUInternalInfoDumper_logKeyFrame_WithSkip___block_invoke(uint64_t a1)
   v22 = [v18 stringWithFormat:@"%@/%@_fp_input.plist", v19, v21];
 
   v23 = [MEMORY[0x277CBEB38] dictionary];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v24 = v33;
-  v25 = [v24 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v24 = v32;
+  v25 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v25)
   {
-    v26 = *v35;
+    v26 = *v34;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v35 != v26)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(v24);
         }
 
-        v28 = *(*(&v34 + 1) + 8 * j);
+        v28 = *(*(&v33 + 1) + 8 * j);
         v29 = [v28 identifier];
         [v23 setObject:v28 forKeyedSubscript:v29];
       }
 
-      v25 = [v24 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v25);
   }
 
-  v44 = @"keyframes";
+  v43 = @"keyframes";
   v30 = OUKeyframeSequenceToDictionary(v23);
-  v45 = v30;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+  v44 = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
 
   [*(a1 + 56) createDirectory:*(a1 + 48)];
   [v31 writeToFile:v22 atomically:0];
   dispatch_group_leave(*(a1 + 64));
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFirstARFrame:(id)frame
@@ -307,10 +369,10 @@ LABEL_14:
 
 - (id)encodeRGBPng:(__CVBuffer *)png withWidth:(unint64_t)width Height:(unint64_t)height
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   pixelBufferOut = 0;
   pixelTransferSessionOut = 0;
-  if (VTPixelTransferSessionCreate(0, &pixelTransferSessionOut) || (v14 = *MEMORY[0x277CC4DE8], v15[0] = MEMORY[0x277CBEC10], CVPixelBufferCreate(0, width, height, 0x20u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1], &pixelBufferOut)) || !pixelBufferOut)
+  if (VTPixelTransferSessionCreate(0, &pixelTransferSessionOut) || (v13 = *MEMORY[0x277CC4DE8], v14[0] = MEMORY[0x277CBEC10], CVPixelBufferCreate(0, width, height, 0x20u, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1], &pixelBufferOut)) || !pixelBufferOut)
   {
     v9 = 0;
   }
@@ -323,8 +385,6 @@ LABEL_14:
     v9 = [(OUInternalInfoDumper *)self encodePng:pixelBufferOut];
     CVPixelBufferRelease(pixelBufferOut);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -363,42 +423,40 @@ LABEL_14:
 
 - (void)dumpLastARFrameImage
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [(NSString *)self->_loggingDirectory stringByAppendingPathComponent:@"Live"];
   firstARFrameTime = self->_firstARFrameTime;
   v5 = self->_lastARFrame;
   v6 = *&self->_anon_70[16];
-  v28 = *self->_anon_70;
-  v29 = v6;
+  v27 = *self->_anon_70;
+  v28 = v6;
   v7 = *&self->_anon_70[48];
-  v30 = *&self->_anon_70[32];
-  v31 = v7;
+  v29 = *&self->_anon_70[32];
+  v30 = v7;
   v8 = [(NSMutableArray *)self->_keyframesDebug count];
   v9 = *&self->_enableARFrameRGB;
   v10 = self->_save_group;
   dispatch_group_enter(v10);
   save_queue = self->_save_queue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __44__OUInternalInfoDumper_dumpLastARFrameImage__block_invoke;
-  v16[3] = &unk_2799C4198;
-  v21 = v3;
-  v22 = v5;
-  v24 = v10;
-  v25 = v8;
-  v26 = firstARFrameTime;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __44__OUInternalInfoDumper_dumpLastARFrameImage__block_invoke;
+  v15[3] = &unk_2799C4198;
+  v20 = v3;
+  v21 = v5;
+  v23 = v10;
+  v24 = v8;
+  v25 = firstARFrameTime;
+  v16 = v27;
   v17 = v28;
   v18 = v29;
   v19 = v30;
-  v20 = v31;
-  v27 = v9;
+  v26 = v9;
   selfCopy = self;
   v12 = v10;
   v13 = v5;
   v14 = v3;
-  dispatch_async(save_queue, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(save_queue, v15);
 }
 
 void __44__OUInternalInfoDumper_dumpLastARFrameImage__block_invoke(uint64_t a1)
@@ -556,7 +614,7 @@ void __44__OUInternalInfoDumper_dumpLastARFrameImage__block_invoke(uint64_t a1)
 
 void __36__OUInternalInfoDumper_dumpObjects___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v2 setDateFormat:@"MM_dd_yyyy_HH_mm_ss_SSS"];
   v3 = MEMORY[0x277CCACA8];
@@ -566,26 +624,26 @@ void __36__OUInternalInfoDumper_dumpObjects___block_invoke(uint64_t a1)
   v7 = [v3 stringWithFormat:@"%@/%@_Objects.plist", v4, v6];
 
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = *(a1 + 40);
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * v12) dictionaryRepresentation];
+        v13 = [*(*(&v15 + 1) + 8 * v12) dictionaryRepresentation];
         v14 = [v13 copy];
         [v8 addObject:v14];
 
@@ -593,7 +651,7 @@ void __36__OUInternalInfoDumper_dumpObjects___block_invoke(uint64_t a1)
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -602,8 +660,6 @@ void __36__OUInternalInfoDumper_dumpObjects___block_invoke(uint64_t a1)
   [*(a1 + 48) createDirectory:*(a1 + 32)];
   [v8 writeToFile:v7 atomically:0];
   dispatch_group_leave(*(a1 + 56));
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpARFrame:(__n128)frame withKeyFrames:(__n128)frames withCameraPose:(__n128)pose
@@ -680,28 +736,29 @@ void __65__OUInternalInfoDumper_dumpARFrame_withKeyFrames_withCameraPose___block
 
 - (void)logMemory:(unint64_t)memory
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  if (self->_enableLiveDump && self->_lastARFrame)
+  v10[2] = *MEMORY[0x277D85DE8];
+  if (self->_enableLiveDump)
   {
-    sysDebug = self->_sysDebug;
-    v10[0] = @"avail_mem";
-    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:memory];
-    v10[1] = @"time_stamp";
-    v11[0] = v5;
-    v6 = MEMORY[0x277CCABB0];
-    [(OUFrame *)self->_lastARFrame timestamp];
-    v7 = [v6 numberWithDouble:?];
-    v11[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-    [(NSMutableArray *)sysDebug addObject:v8];
+    if (self->_lastARFrame)
+    {
+      sysDebug = self->_sysDebug;
+      v9[0] = @"avail_mem";
+      v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:memory];
+      v9[1] = @"time_stamp";
+      v10[0] = v5;
+      v6 = MEMORY[0x277CCABB0];
+      [(OUFrame *)self->_lastARFrame timestamp];
+      v7 = [v6 numberWithDouble:?];
+      v10[1] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+      [(NSMutableArray *)sysDebug addObject:v8];
+    }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDebugInfoWithConfig:(id)config OnlineDebug:(id)debug
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configCopy = config;
   debugCopy = debug;
   v8 = debugCopy;
@@ -734,30 +791,28 @@ void __65__OUInternalInfoDumper_dumpARFrame_withKeyFrames_withCameraPose___block
     save_group = self->_save_group;
     v19 = dispatch_time(0, 30000000000);
     dispatch_group_wait(save_group, v19);
-    v24[0] = @"config";
-    v24[1] = @"keyframeDebug";
+    v23[0] = @"config";
+    v23[1] = @"keyframeDebug";
     keyframesDebug = self->_keyframesDebug;
-    v25[0] = configCopy;
-    v25[1] = keyframesDebug;
-    v25[2] = array;
-    v24[2] = @"floorPlanDebug";
-    v24[3] = @"coachingDebug";
-    v26 = *&self->_coachingDebug;
-    v24[4] = @"driftDebug";
-    v24[5] = @"sysDebug";
+    v24[0] = configCopy;
+    v24[1] = keyframesDebug;
+    v24[2] = array;
+    v23[2] = @"floorPlanDebug";
+    v23[3] = @"coachingDebug";
+    v25 = *&self->_coachingDebug;
+    v23[4] = @"driftDebug";
+    v23[5] = @"sysDebug";
     sysDebug = self->_sysDebug;
-    v24[6] = @"firstARFrameTime";
+    v23[6] = @"firstARFrameTime";
     v21 = [MEMORY[0x277CCABB0] numberWithDouble:self->_firstARFrameTime];
-    v28 = v21;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:7];
+    v27 = v21;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
   }
 
   else
   {
     v17 = MEMORY[0x277CBEC10];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

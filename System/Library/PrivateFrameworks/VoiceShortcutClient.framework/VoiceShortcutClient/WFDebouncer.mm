@@ -165,7 +165,7 @@ void __32__WFDebouncer_addTarget_action___block_invoke(uint64_t a1)
 
 - (void)fire
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   [(WFDebouncer *)self setPendingFire:?];
   [(WFDebouncer *)self resetDelayTimer];
   if (self)
@@ -207,30 +207,30 @@ void __32__WFDebouncer_addTarget_action___block_invoke(uint64_t a1)
   }
 
   self->_firingReasonsQueue = 0;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v10 = self->_targetTable;
-  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v11 = [(NSMapTable *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v11)
   {
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       v13 = 0;
       do
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * v13);
+        v14 = *(*(&v27 + 1) + 8 * v13);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         if (self)
         {
           targetTable = self->_targetTable;
@@ -242,27 +242,27 @@ void __32__WFDebouncer_addTarget_action___block_invoke(uint64_t a1)
         }
 
         v16 = targetTable;
-        v17 = [(NSMapTable *)v16 objectForKey:v14, v24];
+        v17 = [(NSMapTable *)v16 objectForKey:v14, v23];
 
-        v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v18)
         {
-          v19 = *v25;
+          v19 = *v24;
           do
           {
             v20 = 0;
             do
             {
-              if (*v25 != v19)
+              if (*v24 != v19)
               {
                 objc_enumerationMutation(v17);
               }
 
-              [v14 performSelector:NSSelectorFromString(*(*(&v24 + 1) + 8 * v20++)) withObject:self];
+              [v14 performSelector:NSSelectorFromString(*(*(&v23 + 1) + 8 * v20++)) withObject:self];
             }
 
             while (v18 != v20);
-            v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v18);
@@ -272,7 +272,7 @@ void __32__WFDebouncer_addTarget_action___block_invoke(uint64_t a1)
       }
 
       while (v13 != v11);
-      v21 = [(NSMapTable *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v21 = [(NSMapTable *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       v11 = v21;
     }
 
@@ -281,8 +281,6 @@ void __32__WFDebouncer_addTarget_action___block_invoke(uint64_t a1)
 
   v22 = self->_firingReasons;
   self->_firingReasons = 0;
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPendingFire:(uint64_t)fire
@@ -466,7 +464,7 @@ LABEL_7:
 
     v6[4] = v12;
     v21 = *v7;
-    v6[1] = v7 + 8;
+    v6[1] = (v7 + 8);
     std::__split_buffer<WFDebouncerPokeReason * {__strong}*>::emplace_back<WFDebouncerPokeReason * {__strong}*&>(v6, &v21);
     v7 = v6[1];
     v8 = v6[2];

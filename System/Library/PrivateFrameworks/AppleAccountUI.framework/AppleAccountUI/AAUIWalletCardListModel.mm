@@ -110,7 +110,7 @@ void __58__AAUIWalletCardListModel_fetchWalletCardsWithCompletion___block_invoke
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (!WeakRetained)
   {
-    v24 = _AAUISignOutLogSystem();
+    v24 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       __58__AAUIWalletCardListModel_fetchWalletCardsWithCompletion___block_invoke_2_cold_2(v24);
@@ -122,7 +122,7 @@ void __58__AAUIWalletCardListModel_fetchWalletCardsWithCompletion___block_invoke
   v3 = *(a1 + 32);
   if (!v3)
   {
-    v24 = _AAUISignOutLogSystem();
+    v24 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       __58__AAUIWalletCardListModel_fetchWalletCardsWithCompletion___block_invoke_2_cold_1(v24);

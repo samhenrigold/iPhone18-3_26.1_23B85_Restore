@@ -36,16 +36,14 @@ void __21___OSIBLManager_init__block_invoke(uint64_t a1, void *a2)
 
 void __21___OSIBLManager_init__block_invoke_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) log];
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138412290;
-    v4 = @"com.apple.osintelligence.iblm.evaluate";
-    _os_log_impl(&dword_25D171000, v1, OS_LOG_TYPE_DEFAULT, "Expiration for %@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = @"com.apple.osintelligence.iblm.evaluate";
+    _os_log_impl(&dword_25D171000, v1, OS_LOG_TYPE_DEFAULT, "Expiration for %@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __21___OSIBLManager_init__block_invoke_86(uint64_t a1)
@@ -104,18 +102,18 @@ uint64_t __39___OSIBLManager_isIBLMCurrentlyEnabled__block_invoke(uint64_t resul
 
 void __41___OSIBLManager_updateTrialOSIParameters__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 128) levelForFactor:@"IBLM_FeatureEnabled" withNamespaceName:@"COREOS_PREDICTION_BATTERY"];
   v3 = [v2 BOOLeanValue];
 
   v4 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543618;
-    v7 = @"IBLM_FeatureEnabled";
-    v8 = 1026;
-    v9 = v3;
-    _os_log_impl(&dword_25D171000, v4, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v6, 0x12u);
+    v5 = 138543618;
+    v6 = @"IBLM_FeatureEnabled";
+    v7 = 1026;
+    v8 = v3;
+    _os_log_impl(&dword_25D171000, v4, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v5, 0x12u);
   }
 
   if ((v3 & 1) == 0)
@@ -124,12 +122,11 @@ void __41___OSIBLManager_updateTrialOSIParameters__block_invoke(uint64_t a1)
   }
 
   *(*(a1 + 32) + 10) = v3;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41___OSIBLManager_updateTrialOSIParameters__block_invoke_97(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 128) levelForFactor:@"IBLM_MitigationsEnabled" withNamespaceName:@"COREOS_PREDICTION_BATTERY"];
   *(*(a1 + 32) + 11) = [v2 BOOLeanValue];
 
@@ -137,11 +134,11 @@ void __41___OSIBLManager_updateTrialOSIParameters__block_invoke_97(uint64_t a1)
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(*(a1 + 32) + 11);
-    v18 = 138543618;
-    v19 = @"IBLM_MitigationsEnabled";
-    v20 = 1026;
-    LODWORD(v21) = v4;
-    _os_log_impl(&dword_25D171000, v3, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v18, 0x12u);
+    v17 = 138543618;
+    v18 = @"IBLM_MitigationsEnabled";
+    v19 = 1026;
+    LODWORD(v20) = v4;
+    _os_log_impl(&dword_25D171000, v3, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v17, 0x12u);
   }
 
   v5 = *(a1 + 32);
@@ -158,11 +155,11 @@ void __41___OSIBLManager_updateTrialOSIParameters__block_invoke_97(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(*(a1 + 32) + 12);
-    v18 = 138543618;
-    v19 = @"IBLM_PerformanceMitigationEnabled";
-    v20 = 1026;
-    LODWORD(v21) = v8;
-    _os_log_impl(&dword_25D171000, v7, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v18, 0x12u);
+    v17 = 138543618;
+    v18 = @"IBLM_PerformanceMitigationEnabled";
+    v19 = 1026;
+    LODWORD(v20) = v8;
+    _os_log_impl(&dword_25D171000, v7, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}d", &v17, 0x12u);
   }
 
   v9 = *(a1 + 32);
@@ -193,19 +190,17 @@ void __41___OSIBLManager_updateTrialOSIParameters__block_invoke_97(uint64_t a1)
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = *(*(a1 + 32) + 152);
-    v18 = 138543618;
-    v19 = @"IBLM_EngagementPredictionThreshold";
-    v20 = 2050;
-    v21 = v16;
-    _os_log_impl(&dword_25D171000, v15, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}f", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = @"IBLM_EngagementPredictionThreshold";
+    v19 = 2050;
+    v20 = v16;
+    _os_log_impl(&dword_25D171000, v15, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}f", &v17, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __41___OSIBLManager_updateTrialPXPParameters__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 128) levelForFactor:@"CLPC_IBLMOption" withNamespaceName:@"COREOS_POWER_EXPERIENCE_POWER_TUNING"];
   v3 = v2;
   if (v2)
@@ -220,16 +215,14 @@ void __41___OSIBLManager_updateTrialPXPParameters__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(*(a1 + 32) + 144);
-    v9 = 138543874;
-    v10 = @"CLPC_IBLMOption";
-    v11 = 2114;
-    v12 = v3;
-    v13 = 2050;
-    v14 = v7;
-    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}@:%{public}ld", &v9, 0x20u);
+    v8 = 138543874;
+    v9 = @"CLPC_IBLMOption";
+    v10 = 2114;
+    v11 = v3;
+    v12 = 2050;
+    v13 = v7;
+    _os_log_impl(&dword_25D171000, v6, OS_LOG_TYPE_DEFAULT, "Trial: %{public}@:%{public}@:%{public}ld", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __22___OSIBLManager_start__block_invoke(uint64_t a1)
@@ -417,17 +410,17 @@ uint64_t __38___OSIBLManager_handleFeatureDisabled__block_invoke(uint64_t a1)
 
 void __46___OSIBLManager_updateFeatureState_withError___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 112);
-    v10 = 134349312;
-    v11 = v3;
-    v12 = 2050;
-    v13 = v4;
-    _os_log_impl(&dword_25D171000, v2, OS_LOG_TYPE_DEFAULT, "State updated to %{public}ld from %{public}ld", &v10, 0x16u);
+    v9 = 134349312;
+    v10 = v3;
+    v11 = 2050;
+    v12 = v4;
+    _os_log_impl(&dword_25D171000, v2, OS_LOG_TYPE_DEFAULT, "State updated to %{public}ld from %{public}ld", &v9, 0x16u);
   }
 
   v6 = *(a1 + 40);
@@ -444,7 +437,7 @@ void __46___OSIBLManager_updateFeatureState_withError___block_invoke(uint64_t a1
 
     else if (os_log_type_enabled(v7[13], OS_LOG_TYPE_ERROR))
     {
-      __46___OSIBLManager_updateFeatureState_withError___block_invoke_cold_1(v5);
+      __46___OSIBLManager_updateFeatureState_withError___block_invoke_cold_1();
     }
   }
 
@@ -455,49 +448,41 @@ void __46___OSIBLManager_updateFeatureState_withError___block_invoke(uint64_t a1
 
   v8 = +[_OSIBLMAnalyticsHandler sharedInstance];
   [v8 recordFeatureState:*v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __52___OSIBLManager_updateNotificationsState_withError___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 104);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = *(*(a1 + 32) + 120);
-    v7 = 134349312;
-    v8 = v3;
-    v9 = 2050;
-    v10 = v4;
-    _os_log_impl(&dword_25D171000, v2, OS_LOG_TYPE_DEFAULT, "State updated to %{public}ld from %{public}ld", &v7, 0x16u);
+    v6 = 134349312;
+    v7 = v3;
+    v8 = 2050;
+    v9 = v4;
+    _os_log_impl(&dword_25D171000, v2, OS_LOG_TYPE_DEFAULT, "State updated to %{public}ld from %{public}ld", &v6, 0x16u);
   }
 
   *(*(a1 + 32) + 120) = *(a1 + 40);
   [_OSIBLMState saveCurrentIBLMNotificationsState:?];
   v5 = +[_OSIBLMAnalyticsHandler sharedInstance];
   [v5 recordFeatureNotificationState:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __22___OSIBLManager_start__block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_25D171000, v0, OS_LOG_TYPE_DEBUG, "Is PluggedIn %ld ", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25D171000, v0, OS_LOG_TYPE_DEBUG, "Is PluggedIn %ld ", v1, 0xCu);
 }
 
-void __46___OSIBLManager_updateFeatureState_withError___block_invoke_cold_1(uint64_t *a1)
+void __46___OSIBLManager_updateFeatureState_withError___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

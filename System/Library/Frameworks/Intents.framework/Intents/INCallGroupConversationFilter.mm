@@ -16,80 +16,78 @@
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   caller = [(INCallGroupConversationFilter *)self caller];
   [caller _intents_updateContainerWithCache:cacheCopy];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   participants = [(INCallGroupConversationFilter *)self participants];
-  v7 = [participants countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(participants);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v11 + 1) + 8 * v10++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v8 != v10);
-      v8 = [participants countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   caller = [(INCallGroupConversationFilter *)self caller];
   _intents_cacheableObjects = [caller _intents_cacheableObjects];
   [v3 unionSet:_intents_cacheableObjects];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   participants = [(INCallGroupConversationFilter *)self participants];
-  v7 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(participants);
         }
 
-        _intents_cacheableObjects2 = [*(*(&v16 + 1) + 8 * v10) _intents_cacheableObjects];
+        _intents_cacheableObjects2 = [*(*(&v15 + 1) + 8 * v10) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects2];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [participants countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [participants countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -107,14 +105,13 @@
 
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v14[0] = @"caller";
+  v14[4] = *MEMORY[0x1E69E9840];
+  v13[0] = @"caller";
   caller = self->_caller;
   null = caller;
   if (!caller)
@@ -122,8 +119,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"participants";
+  v14[0] = null;
+  v13[1] = @"participants";
   participants = self->_participants;
   null2 = participants;
   if (!participants)
@@ -131,8 +128,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"matchCallerAndParticipantsExactly";
+  v14[1] = null2;
+  v13[2] = @"matchCallerAndParticipantsExactly";
   matchCallerAndParticipantsExactly = self->_matchCallerAndParticipantsExactly;
   null3 = matchCallerAndParticipantsExactly;
   if (!matchCallerAndParticipantsExactly)
@@ -140,8 +137,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"callGroup";
+  v14[2] = null3;
+  v13[3] = @"callGroup";
   callGroup = self->_callGroup;
   null4 = callGroup;
   if (!callGroup)
@@ -149,8 +146,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (callGroup)
   {
     if (matchCallerAndParticipantsExactly)
@@ -195,7 +192,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -246,13 +242,13 @@ LABEL_13:
 
 - (INCallGroupConversationFilter)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"caller"];
   v6 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"participants"];
 
@@ -260,7 +256,6 @@ LABEL_13:
   v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"callGroup"];
 
   v12 = [(INCallGroupConversationFilter *)self initWithCaller:v5 participants:v9 matchCallerAndParticipantsExactly:v10 callGroup:v11];
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

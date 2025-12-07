@@ -134,7 +134,7 @@ uint64_t __50__MGRemoteQueryServerManager_initWithQueryRunner___block_invoke(uin
 
 - (BOOL)_shouldRunServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryServerManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -154,6 +154,16 @@ uint64_t __50__MGRemoteQueryServerManager_initWithQueryRunner___block_invoke(uin
   {
     if (v5)
     {
+      v8 = 89;
+    }
+
+    else
+    {
+      v8 = 78;
+    }
+
+    if ([(MGRemoteQueryServerManager *)self havePermissiveACL])
+    {
       v9 = 89;
     }
 
@@ -162,7 +172,7 @@ uint64_t __50__MGRemoteQueryServerManager_initWithQueryRunner___block_invoke(uin
       v9 = 78;
     }
 
-    if ([(MGRemoteQueryServerManager *)self havePermissiveACL])
+    if ([(MGRemoteQueryServerManager *)self haveGroupsToAdvertise])
     {
       v10 = 89;
     }
@@ -172,47 +182,36 @@ uint64_t __50__MGRemoteQueryServerManager_initWithQueryRunner___block_invoke(uin
       v10 = 78;
     }
 
-    if ([(MGRemoteQueryServerManager *)self haveGroupsToAdvertise])
-    {
-      v11 = 89;
-    }
-
-    else
-    {
-      v11 = 78;
-    }
-
     homeHash2 = [(MGRemoteQueryServerManager *)self homeHash];
-    v14 = 134219008;
+    v13 = 134219008;
     if ([homeHash2 length])
     {
-      v13 = 89;
+      v12 = 89;
     }
 
     else
     {
-      v13 = 78;
+      v12 = 78;
     }
 
     selfCopy = self;
-    v16 = 1024;
-    v17 = v9;
-    v18 = 1024;
-    v19 = v10;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 1024;
-    v23 = v13;
-    _os_log_debug_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEBUG, "%p server should run %c, ACL(%c) GTA(%c) HH(%c)", &v14, 0x24u);
+    v15 = 1024;
+    v16 = v8;
+    v17 = 1024;
+    v18 = v9;
+    v19 = 1024;
+    v20 = v10;
+    v21 = 1024;
+    v22 = v12;
+    _os_log_debug_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEBUG, "%p server should run %c, ACL(%c) GTA(%c) HH(%c)", &v13, 0x24u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)_startServer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryServerManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -224,11 +223,11 @@ uint64_t __50__MGRemoteQueryServerManager_initWithQueryRunner___block_invoke(uin
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       server2 = [(MGRemoteQueryServerManager *)self server];
-      v12 = 134218240;
+      v11 = 134218240;
       selfCopy2 = self;
-      v14 = 2048;
-      v15 = server2;
-      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p server already started, running %p", &v12, 0x16u);
+      v13 = 2048;
+      v14 = server2;
+      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p server already started, running %p", &v11, 0x16u);
 LABEL_6:
     }
   }
@@ -245,21 +244,19 @@ LABEL_6:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       server2 = [(MGRemoteQueryServerManager *)self server];
-      v12 = 134218240;
+      v11 = 134218240;
       selfCopy2 = self;
-      v14 = 2048;
-      v15 = server2;
-      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p started server %p", &v12, 0x16u);
+      v13 = 2048;
+      v14 = server2;
+      _os_log_impl(&dword_25863A000, v5, OS_LOG_TYPE_DEFAULT, "%p started server %p", &v11, 0x16u);
       goto LABEL_6;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopServer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryServerManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -270,11 +267,11 @@ LABEL_6:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134218240;
+      v7 = 134218240;
       selfCopy2 = self;
-      v10 = 2048;
-      v11 = server;
-      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p stopping server %p", &v8, 0x16u);
+      v9 = 2048;
+      v10 = server;
+      _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p stopping server %p", &v7, 0x16u);
     }
 
     [(MGRemoteQueryServerManager *)self setServer:0];
@@ -284,18 +281,16 @@ LABEL_6:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
+      v7 = 134217984;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p server already stopped", &v8, 0xCu);
+      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, "%p server already stopped", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupQuery
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryServerManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -310,8 +305,8 @@ LABEL_6:
       identifier = [query2 identifier];
       *buf = 134218242;
       selfCopy = self;
-      v28 = 2112;
-      v29 = identifier;
+      v27 = 2112;
+      v28 = identifier;
       _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p server monitoring query already running %@", buf, 0x16u);
     }
   }
@@ -320,42 +315,40 @@ LABEL_6:
   {
     v8 = MEMORY[0x277CCA920];
     predicateForCurrentDevice = [MEMORY[0x277D27470] predicateForCurrentDevice];
-    v25[0] = predicateForCurrentDevice;
+    v24[0] = predicateForCurrentDevice;
     v10 = MEMORY[0x277CCA920];
     rq_predicateForHaveCurrentHome = [MEMORY[0x277D27440] rq_predicateForHaveCurrentHome];
-    v24[0] = rq_predicateForHaveCurrentHome;
+    v23[0] = rq_predicateForHaveCurrentHome;
     rq_predicateForLocal = [MEMORY[0x277D27440] rq_predicateForLocal];
-    v24[1] = rq_predicateForLocal;
+    v23[1] = rq_predicateForLocal;
     v13 = [MEMORY[0x277CCAC30] predicateWithValue:0];
-    v24[2] = v13;
+    v23[2] = v13;
     rq_predicateForInCurrentHome = [MEMORY[0x277D27440] rq_predicateForInCurrentHome];
-    v24[3] = rq_predicateForInCurrentHome;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+    v23[3] = rq_predicateForInCurrentHome;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
     v16 = [v10 andPredicateWithSubpredicates:v15];
-    v25[1] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[1] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     v5 = [v8 orPredicateWithSubpredicates:v17];
 
     objc_initWeak(buf, self);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __41__MGRemoteQueryServerManager__setupQuery__block_invoke;
-    v22[3] = &unk_27989F060;
-    objc_copyWeak(&v23, buf);
-    v18 = MEMORY[0x259C85F90](v22);
-    queryRunner = [(MGRemoteQueryServerManager *)self queryRunner];
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __41__MGRemoteQueryServerManager__setupQuery__block_invoke_19;
-    v21[3] = &unk_27989F0D8;
-    v21[4] = self;
-    [queryRunner startOutstandingQueryWithPredicate:v5 handler:v18 completion:v21];
+    v21[2] = __41__MGRemoteQueryServerManager__setupQuery__block_invoke;
+    v21[3] = &unk_27989F060;
+    objc_copyWeak(&v22, buf);
+    v18 = MEMORY[0x259C85F90](v21);
+    queryRunner = [(MGRemoteQueryServerManager *)self queryRunner];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __41__MGRemoteQueryServerManager__setupQuery__block_invoke_19;
+    v20[3] = &unk_27989F0D8;
+    v20[4] = self;
+    [queryRunner startOutstandingQueryWithPredicate:v5 handler:v18 completion:v20];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MGRemoteQueryServerManager__setupQuery__block_invoke(uint64_t a1, void *a2)
@@ -391,27 +384,27 @@ void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2(uint64_t a1)
     _os_log_impl(&dword_25863A000, v3, OS_LOG_TYPE_DEFAULT, "%p server monitoring query received %lu groups", &buf, 0x16u);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
+        v10 = *(*(&v19 + 1) + 8 * v9);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -438,7 +431,7 @@ void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2(uint64_t a1)
             [v15 setHomeHash:v16];
 
             [*(a1 + 40) setHaveGroupsToAdvertise:v2 != 1];
-            goto LABEL_18;
+            return;
           }
         }
 
@@ -446,7 +439,7 @@ void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -467,8 +460,6 @@ void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2(uint64_t a1)
 
   [*(a1 + 40) setHomeHash:0];
   [*(a1 + 40) setHaveGroupsToAdvertise:0];
-LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_19(uint64_t a1, void *a2)
@@ -487,22 +478,20 @@ void __41__MGRemoteQueryServerManager__setupQuery__block_invoke_19(uint64_t a1, 
 
 uint64_t __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2_20(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = MGLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) identifier];
-    v7 = 134218242;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p server monitoring using query %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEFAULT, "%p server monitoring using query %@", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) setQuery:*(a1 + 40)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setQuery:*(a1 + 40)];
 }
 
 - (void)setHavePermissiveACL:(BOOL)l
@@ -545,7 +534,7 @@ uint64_t __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2_20(uint64_
 
 - (void)setHomeHash:(id)hash
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   dispatchQueue = [(MGRemoteQueryServerManager *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -562,8 +551,8 @@ uint64_t __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2_20(uint64_
       {
         *buf = 134218242;
         selfCopy = self;
-        v16 = 2112;
-        v17 = hashCopy;
+        v15 = 2112;
+        v16 = hashCopy;
         _os_log_impl(&dword_25863A000, v8, OS_LOG_TYPE_DEFAULT, "%p home hash changing %@", buf, 0x16u);
       }
 
@@ -581,8 +570,6 @@ uint64_t __41__MGRemoteQueryServerManager__setupQuery__block_invoke_2_20(uint64_
       dispatch_async(dispatchQueue2, block);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverInvalidated:(id)invalidated withError:(id)error
@@ -662,7 +649,7 @@ void __58__MGRemoteQueryServerManager_serverInvalidated_withError___block_invoke
 
 void __77__MGRemoteQueryServerManager_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isEqualToString:@"accessControlLevel"])
   {
     v2 = [*(a1 + 40) airplayDefaults];
@@ -677,11 +664,11 @@ void __77__MGRemoteQueryServerManager_observeValueForKeyPath_ofObject_change_con
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 40);
-        v13 = 134218240;
-        v14 = v7;
-        v15 = 2048;
-        v16 = v5;
-        _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p ACL changed to %ld", &v13, 0x16u);
+        v12 = 134218240;
+        v13 = v7;
+        v14 = 2048;
+        v15 = v5;
+        _os_log_impl(&dword_25863A000, v6, OS_LOG_TYPE_DEFAULT, "%p ACL changed to %ld", &v12, 0x16u);
       }
 
       v8 = *(a1 + 40);
@@ -694,9 +681,9 @@ void __77__MGRemoteQueryServerManager_observeValueForKeyPath_ofObject_change_con
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = *(a1 + 40);
-        v13 = 134217984;
-        v14 = v11;
-        _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p ACL not set", &v13, 0xCu);
+        v12 = 134217984;
+        v13 = v11;
+        _os_log_impl(&dword_25863A000, v10, OS_LOG_TYPE_DEFAULT, "%p ACL not set", &v12, 0xCu);
       }
 
       v8 = *(a1 + 40);
@@ -705,8 +692,6 @@ void __77__MGRemoteQueryServerManager_observeValueForKeyPath_ofObject_change_con
 
     [v8 setHavePermissiveACL:v9];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (MGInternalQueryRunner)queryRunner

@@ -14,69 +14,65 @@
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"NetworkUsage";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"NetworkUsage";
   entryAggregateDefinitionNetUsage = [self entryAggregateDefinitionNetUsage];
-  v7[0] = entryAggregateDefinitionNetUsage;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionNetUsage;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionNetUsage
 {
-  v31[4] = *MEMORY[0x277D85DE8];
-  v30[0] = *MEMORY[0x277D3F4E8];
+  v30[4] = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v28[0] = *MEMORY[0x277D3F568];
-  v28[1] = v2;
-  v29[0] = &unk_2870FEEA0;
-  v29[1] = MEMORY[0x277CBEC28];
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
-  v31[0] = v20;
-  v30[1] = *MEMORY[0x277D3F540];
-  v26[0] = @"NetProcessName";
+  v27[0] = *MEMORY[0x277D3F568];
+  v27[1] = v2;
+  v28[0] = &unk_2870FEEA0;
+  v28[1] = MEMORY[0x277CBEC28];
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v30[0] = v19;
+  v29[1] = *MEMORY[0x277D3F540];
+  v25[0] = @"NetProcessName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v27[0] = commonTypeDict_StringFormat;
-  v26[1] = @"WifiIn";
+  v26[0] = commonTypeDict_StringFormat;
+  v25[1] = @"WifiIn";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v27[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
-  v26[2] = @"WifiOut";
+  v26[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
+  v25[2] = @"WifiOut";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v27[2] = commonTypeDict_IntegerFormat_aggregateFunction_sum2;
-  v26[3] = @"CellIn";
+  v26[2] = commonTypeDict_IntegerFormat_aggregateFunction_sum2;
+  v25[3] = @"CellIn";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum3 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v27[3] = commonTypeDict_IntegerFormat_aggregateFunction_sum3;
-  v26[4] = @"CellOut";
+  v26[3] = commonTypeDict_IntegerFormat_aggregateFunction_sum3;
+  v25[4] = @"CellOut";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum4 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v27[4] = commonTypeDict_IntegerFormat_aggregateFunction_sum4;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:5];
-  v31[1] = v8;
-  v30[2] = *MEMORY[0x277D3F478];
-  v24 = &unk_2870FEEB0;
-  v22 = *MEMORY[0x277D3F470];
+  v26[4] = commonTypeDict_IntegerFormat_aggregateFunction_sum4;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:5];
+  v30[1] = v8;
+  v29[2] = *MEMORY[0x277D3F478];
   v23 = &unk_2870FEEB0;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-  v25 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  v31[2] = v10;
-  v30[3] = *MEMORY[0x277D3F488];
-  v21[0] = @"WifiIn";
-  v21[1] = @"WifiOut";
-  v21[2] = @"CellIn";
-  v21[3] = @"CellOut";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
-  v31[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D3F470];
+  v22 = &unk_2870FEEB0;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v24 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+  v30[2] = v10;
+  v29[3] = *MEMORY[0x277D3F488];
+  v20[0] = @"WifiIn";
+  v20[1] = @"WifiOut";
+  v20[2] = @"CellIn";
+  v20[3] = @"CellOut";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+  v30[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
   return v12;
 }
@@ -141,21 +137,21 @@
   }
 }
 
-uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke(uint64_t result, uint64_t a2)
+id *__43__PLAWDNetworkUsage_startMetricCollection___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleNetCallback:a2];
+    return [result[4] handleNetCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t result, uint64_t a2)
+id *__43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleNameConnectionCallback:a2];
+    return [result[4] handleNameConnectionCallback:a2];
   }
 
   return result;
@@ -185,7 +181,7 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
 
 - (BOOL)submitDataToAWDServer:(id)server withAwdConn:(id)conn
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   connCopy = conn;
   v8 = [connCopy newMetricContainerWithIdentifier:{objc_msgSend(serverCopy, "unsignedIntValue")}];
@@ -200,12 +196,12 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
     v12 = v11;
     if (v11)
     {
-      v55 = v11;
-      v57 = v8;
-      v58 = connCopy;
-      v59 = serverCopy;
-      v61 = objc_opt_new();
+      v54 = v11;
+      v56 = v8;
+      v57 = connCopy;
+      v58 = serverCopy;
       v60 = objc_opt_new();
+      v59 = objc_opt_new();
       v13 = [MEMORY[0x277CBEAA8] monotonicDateWithTimeIntervalSinceNow:-86400.0];
       monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
       [v13 timeIntervalSince1970];
@@ -217,29 +213,29 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
       selfCopy = self;
       operator = [(PLAWDAuxMetrics *)self operator];
       storage = [operator storage];
-      v54 = v19;
+      v53 = v19;
       v22 = [storage aggregateEntriesForKey:v19 withBucketLength:86400.0 inTimeIntervalRange:{v16, v18}];
 
-      v53 = v22;
+      v52 = v22;
       [MEMORY[0x277D3F190] summarizeAggregateEntries:v22];
+      v64 = 0u;
       v65 = 0u;
       v66 = 0u;
-      v67 = 0u;
-      obj = v68 = 0u;
-      v64 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
-      if (v64)
+      obj = v67 = 0u;
+      v63 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
+      if (v63)
       {
-        v63 = *v66;
+        v62 = *v65;
         do
         {
-          for (i = 0; i != v64; ++i)
+          for (i = 0; i != v63; ++i)
           {
-            if (*v66 != v63)
+            if (*v65 != v62)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v65 + 1) + 8 * i);
+            v24 = *(*(&v64 + 1) + 8 * i);
             v25 = objc_opt_new();
             v26 = [v24 objectForKeyedSubscript:@"WifiIn"];
             [v26 doubleValue];
@@ -274,23 +270,23 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
               [v25 setNumConnections:0];
               if ([v40 rangeOfString:@"com.apple"] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(v40, "rangeOfString:", @"system") == 0x7FFFFFFFFFFFFFFFLL)
               {
-                [v60 setObject:v25 forKey:v41];
+                [v59 setObject:v25 forKey:v41];
               }
 
               else
               {
-                [v61 addObject:v25];
+                [v60 addObject:v25];
               }
             }
           }
 
-          v64 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
+          v63 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
         }
 
-        while (v64);
+        while (v63);
       }
 
-      allKeys = [v60 allKeys];
+      allKeys = [v59 allKeys];
       v44 = [allKeys sortedArrayUsingSelector:sel_compare_];
       reverseObjectEnumerator = [v44 reverseObjectEnumerator];
       allObjects = [reverseObjectEnumerator allObjects];
@@ -303,19 +299,19 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
         }
 
         v48 = [allObjects objectAtIndexedSubscript:j];
-        v49 = [v60 objectForKey:v48];
+        v49 = [v59 objectForKey:v48];
 
-        [v61 addObject:v49];
+        [v60 addObject:v49];
       }
 
-      connCopy = v58;
-      v12 = v55;
-      [v55 setTimestamp:{objc_msgSend(v58, "getAWDTimestamp")}];
-      [v55 setUsages:v61];
-      v8 = v57;
-      [v57 setMetric:v55];
+      connCopy = v57;
+      v12 = v54;
+      [v54 setTimestamp:{objc_msgSend(v57, "getAWDTimestamp")}];
+      [v54 setUsages:v60];
+      v8 = v56;
+      [v56 setMetric:v54];
 
-      serverCopy = v59;
+      serverCopy = v58;
       self = selfCopy;
     }
 
@@ -326,7 +322,6 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
     v9 = [connCopy submitMetric:v8];
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -440,7 +435,7 @@ uint64_t __43__PLAWDNetworkUsage_startMetricCollection___block_invoke_2(uint64_t
   }
 }
 
-uint64_t __50__PLAWDNetworkUsage_handleNameConnectionCallback___block_invoke(uint64_t a1)
+void *__50__PLAWDNetworkUsage_handleNameConnectionCallback___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleNameConnectionCallback__classDebugEnabled = result;
@@ -457,11 +452,10 @@ uint64_t __50__PLAWDNetworkUsage_handleNameConnectionCallback___block_invoke(uin
 
 - (void)handleNameConnectionCallback:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25EE16000, a2, OS_LOG_TYPE_DEBUG, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25EE16000, a2, OS_LOG_TYPE_DEBUG, "%@", &v2, 0xCu);
 }
 
 @end

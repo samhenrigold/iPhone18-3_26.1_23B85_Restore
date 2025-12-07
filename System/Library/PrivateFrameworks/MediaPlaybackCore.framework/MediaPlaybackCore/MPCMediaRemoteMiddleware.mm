@@ -1189,55 +1189,31 @@ LABEL_12:
     [currentHandler handleFailureInMethod:duration object:self file:@"MPCMediaRemoteMiddleware.m" lineNumber:199 description:{@"Could not find content item at indexPath: %@", chainCopy}];
   }
 
-  if ([v13 isLoading])
-  {
-    bOOLValue = 1;
-  }
-
-  else
+  if (([v13 isLoading] & 1) == 0)
   {
     userInfo = [v13 userInfo];
     v15 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69702C0]];
-    bOOLValue = [v15 BOOLValue];
+    [v15 BOOLValue];
   }
 
   [v13 elapsedTimeTimestamp];
-  v17 = v16;
   [v13 startTime];
-  v19 = v18;
   userInfo2 = [v13 userInfo];
-  v21 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E69702A0]];
-  [v21 doubleValue];
-  v23 = v22;
-  [v13 duration];
-  v25 = v24;
+  v17 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E69702A0]];
+  [v17 doubleValue];
+  objc_msgSend_duration(v13);
   [v13 elapsedTime];
-  v27 = v26;
   [(MPCMediaRemoteMiddleware *)self _playbackRateForContentItem:v13];
-  v29 = v28;
   [v13 defaultPlaybackRate];
-  v31 = v30;
-  isAlwaysLiveItem = [v13 isAlwaysLiveItem];
-  playerState = [(MPCMediaRemoteMiddleware *)self playerState];
-  isInTransition = [v13 isInTransition];
+  [v13 isAlwaysLiveItem];
+  [(MPCMediaRemoteMiddleware *)self playerState];
+  [v13 isInTransition];
 
   nextObject = [v11 nextObject];
-  v36 = nextObject;
+  v19 = nextObject;
   if (nextObject)
   {
-    v40[0] = v17;
-    v40[1] = v19;
-    v40[2] = v23;
-    v40[3] = v25;
-    v40[4] = v27;
-    v41 = v29;
-    v42 = v31;
-    v43 = isAlwaysLiveItem;
-    v44 = (playerState == 2) & bOOLValue;
-    v45 = isInTransition;
-    v46 = 0;
-    v47 = 0;
-    [nextObject playerItemDuration:v40 atIndexPath:chainCopy chain:v11];
+    objc_msgSend_playerItemDuration_atIndexPath_chain_(nextObject);
   }
 
   else

@@ -782,7 +782,7 @@
     geometry = [(THGlossaryWPLayout *)self->mRelatedTermsLayout geometry];
     if (geometry)
     {
-      [geometry transform];
+      objc_msgSend_transform(geometry);
       v33 = *(&v62 + 1);
     }
 
@@ -804,7 +804,7 @@
     geometry2 = [(THGlossaryWPLayout *)self->mIndexLayout geometry];
     if (geometry2)
     {
-      [geometry2 transform];
+      objc_msgSend_transform(geometry2);
       v37 = *(&v59 + 1);
     }
 

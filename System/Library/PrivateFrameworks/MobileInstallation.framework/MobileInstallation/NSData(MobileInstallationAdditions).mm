@@ -10,9 +10,9 @@
   v14 = a9;
   v15 = a3;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v61 = 0;
-  v17 = [defaultManager URLForDirectory:99 inDomain:1 appropriateForURL:v15 create:1 error:&v61];
-  v18 = v61;
+  v59 = 0;
+  v17 = [defaultManager URLForDirectory:99 inDomain:1 appropriateForURL:v15 create:1 error:&v59];
+  v18 = v59;
 
   if (!v17)
   {
@@ -26,7 +26,7 @@
     goto LABEL_23;
   }
 
-  v60 = v15;
+  v58 = v15;
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
   v21 = [v17 URLByAppendingPathComponent:uUIDString isDirectory:0];
@@ -41,7 +41,7 @@
       v38 = *__error();
       v35 = *MEMORY[0x1E696A798];
       v36 = v38;
-      v58 = v23;
+      v56 = v23;
       strerror(v38);
       v29 = @"open failed for %s : %s";
       v30 = 67;
@@ -58,14 +58,14 @@
       v26 = *MEMORY[0x1E696A798];
       v27 = v25;
       strerror(v25);
-      v58 = v23;
+      v56 = v23;
       v29 = @"open_dprotected_np failed for %s for class %d : %s";
       v30 = 56;
       v31 = v26;
 LABEL_5:
       v32 = v27;
 LABEL_15:
-      _CreateError("[NSData(MobileInstallationAdditions) MI_writeAtomicallyToURL:withMode:owner:group:protectionClass:withBarrier:error:]", v30, v31, v32, 0, 0, v29, v28, v58);
+      _CreateError("[NSData(MobileInstallationAdditions) MI_writeAtomicallyToURL:withMode:owner:group:protectionClass:withBarrier:error:]", v30, v31, v32, 0, 0, v29, v28, v56);
       v39 = LABEL_16:;
       goto LABEL_17;
     }
@@ -77,7 +77,7 @@ LABEL_15:
     v35 = *MEMORY[0x1E696A798];
     v36 = v34;
     strerror(v34);
-    v58 = a4;
+    v56 = a4;
     v29 = @"Failed to set mode to 0%o for %s : %s";
     v30 = 75;
 LABEL_14:
@@ -91,7 +91,7 @@ LABEL_14:
     v37 = *__error();
     v35 = *MEMORY[0x1E696A798];
     v36 = v37;
-    v58 = v23;
+    v56 = v23;
     strerror(v37);
     v29 = @"Failed to set owner for %s : %s";
     v30 = 82;
@@ -103,14 +103,14 @@ LABEL_14:
   v44 = write(v24, bytes, v43);
   if (v44 < 0)
   {
-    v48 = *__error();
-    v49 = *MEMORY[0x1E696A798];
-    v27 = v48;
-    strerror(v48);
-    v58 = v43;
+    v47 = *__error();
+    v48 = *MEMORY[0x1E696A798];
+    v27 = v47;
+    strerror(v47);
+    v56 = v43;
     v29 = @"Failed to write %lu bytes to %s : %s";
     v30 = 92;
-    v31 = v49;
+    v31 = v48;
     goto LABEL_5;
   }
 
@@ -128,7 +128,6 @@ LABEL_14:
     }
 
     v46 = __error();
-    v47 = *v46;
     if (gLogHandle)
     {
       if (*(gLogHandle + 44) < 3)
@@ -146,7 +145,6 @@ LABEL_14:
     }
 
     v46 = __error();
-    v50 = *v46;
     if (gLogHandle)
     {
       if (*(gLogHandle + 44) < 3)
@@ -160,20 +158,20 @@ LABEL_14:
   MOLogWrite();
 LABEL_39:
   close(v24);
-  fileSystemRepresentation2 = [v60 fileSystemRepresentation];
-  rename(v23, fileSystemRepresentation2, v52);
-  if (!v53)
+  fileSystemRepresentation2 = [v58 fileSystemRepresentation];
+  rename(v23, fileSystemRepresentation2, v50);
+  if (!v51)
   {
     v33 = 1;
     v24 = -1;
     goto LABEL_20;
   }
 
-  v54 = *__error();
-  v55 = *MEMORY[0x1E696A798];
-  v56 = v54;
-  strerror(v54);
-  v39 = _CreateError("[NSData(MobileInstallationAdditions) MI_writeAtomicallyToURL:withMode:owner:group:protectionClass:withBarrier:error:]", 126, v55, v56, 0, 0, @"Failed to rename %s to %s : %s", v57, v23);
+  v52 = *__error();
+  v53 = *MEMORY[0x1E696A798];
+  v54 = v52;
+  strerror(v52);
+  v39 = _CreateError("[NSData(MobileInstallationAdditions) MI_writeAtomicallyToURL:withMode:owner:group:protectionClass:withBarrier:error:]", 126, v53, v54, 0, 0, @"Failed to rename %s to %s : %s", v55, v23);
   v24 = -1;
 LABEL_17:
 
@@ -185,7 +183,7 @@ LABEL_17:
   v33 = 0;
   v18 = v39;
 LABEL_20:
-  v15 = v60;
+  v15 = v58;
   unlink([v17 fileSystemRepresentation]);
   if ((v24 & 0x80000000) == 0)
   {

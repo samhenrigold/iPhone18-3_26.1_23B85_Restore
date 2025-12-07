@@ -824,7 +824,7 @@ uint64_t __82__SBSceneHostingDisplayController_observeValueForKeyPath_ofObject_c
 
   [v9 contentsScale];
   v28 = v27;
-  v29 = SBCADifferenceMaskCalculate(self->_caDisplay, v12, v14, v27);
+  v29 = SBCADifferenceMaskCalculate(self->_caDisplay, v12, v14, v27, v16, v15);
   v30 = v29;
   if (SBCADisplayDifferenceMaskHasDifference(v29))
   {
@@ -1027,19 +1027,19 @@ LABEL_9:
   [(SBSceneHostingDisplayControllerPolicy *)policy displayController:self updatePresentationWithSceneManager:sceneManager displayConfiguration:presentedConfiguration completion:v10];
 }
 
-uint64_t __64__SBSceneHostingDisplayController__updatePolicyForPresentation___block_invoke(uint64_t a1)
+uint64_t __64__SBSceneHostingDisplayController__updatePolicyForPresentation___block_invoke(void *a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = SBLogDisplayControlling();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = _SBDisplayControllerLoggingProem(*(*(a1 + 32) + 8));
+    v3 = _SBDisplayControllerLoggingProem(*(a1[4] + 8));
     v5 = 138543362;
     v6 = v3;
     _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ presentation update complete", &v5, 0xCu);
   }
 
-  return (*(*(a1 + 40) + 16))();
+  return (*(a1[5] + 16))();
 }
 
 - (void)_updatePresentationBinderIfNecessary
@@ -1084,7 +1084,7 @@ void __77__SBSceneHostingDisplayController__enqueueEvaluateAndApplyPresentationU
   *(v3 + 168) = v2;
 
   v5 = v2;
-  v6 = SBLogBacklight();
+  v6 = SBLogBacklight(v5);
   v7 = os_signpost_id_make_with_pointer(v6, v5);
 
   v8 = SBLogDisplayControlling();
@@ -1673,7 +1673,7 @@ id __73__SBSceneHostingDisplayController_descriptionBuilderWithMultilinePrefix__
 id __73__SBSceneHostingDisplayController_descriptionBuilderWithMultilinePrefix___block_invoke_4(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  [*(*(a1 + 40) + 96) frame];
+  objc_msgSend_frame(*(*(a1 + 40) + 96));
   v3 = [v2 appendRect:@"frame" withName:?];
   v4 = *(a1 + 32);
   [*(*(a1 + 40) + 96) windowLevel];

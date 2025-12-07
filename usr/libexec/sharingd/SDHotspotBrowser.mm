@@ -37,6 +37,7 @@
 - (void)continuity:(id)continuity didStopScanningForType:(int64_t)type;
 - (void)continuityDidUpdateState:(id)state;
 - (void)credentialLog:(id)log;
+- (void)credentialsWithCompletionHandler:(id)handler canConnectOn5GHz:(BOOL)hz;
 - (void)debugInfoRequested:(id)requested;
 - (void)enableHotspotForDevice:(id)device withCompletionHandler:(id)handler;
 - (void)generateNextDayTimeOffset;
@@ -749,7 +750,7 @@ LABEL_13:
   {
     if (validCopy)
     {
-      [validCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(validCopy);
       if (!((v19 < 6) | d2dEncryptionAvailable & 1))
       {
 LABEL_17:
@@ -770,10 +771,10 @@ LABEL_17:
     if (validCopy)
     {
 LABEL_10:
-      [validCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(validCopy);
       if (v18 == 10)
       {
-        [validCopy operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(validCopy);
         v12 = 0;
         v13 = (v17 < 15) | v10;
       }
@@ -804,7 +805,7 @@ LABEL_15:
       goto LABEL_4;
     }
 
-    [validCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(validCopy);
     if (((v16 > 12) & d2dEncryptionAvailable) != 1)
     {
       goto LABEL_17;
@@ -2316,7 +2317,7 @@ LABEL_24:
         modelIdentifier = [v20 modelIdentifier];
         [0xFFFFFFFFFFFFLL setModel:modelIdentifier];
 
-        [v20 operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(v20);
         [0xFFFFFFFFFFFFLL setOsSupportsAutoHotspot:v35 > 12];
         if (0xFFFFFFFFFFFFLL)
         {
@@ -2875,6 +2876,28 @@ LABEL_39:
   os_activity_scope_leave(&v21);
 }
 
+- (void)credentialsWithCompletionHandler:(id)handler canConnectOn5GHz:(BOOL)hz
+{
+  hzCopy = hz;
+  handlerCopy = handler;
+  v7 = tethering_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Turning on personal hotspot", buf, 2u);
+  }
+
+  v10 = _NSConcreteStackBlock;
+  v11 = 3221225472;
+  v12 = sub_1000C4338;
+  v13 = &unk_1008CF838;
+  selfCopy = self;
+  v15 = handlerCopy;
+  v8 = handlerCopy;
+  v9 = objc_retainBlock(&v10);
+  [(SDHotspotManager *)self->_hotspotManager startTetheringWithCompletionHandler:v9 modelID:0 productVersion:0 canConnectOn5GHz:hzCopy, v10, v11, v12, v13, selfCopy];
+}
+
 - (void)tetheringDidRetrieveCredentials:(id)credentials credentials:(id)a4 requestRecord:(id)record error:(id)error
 {
   credentialsCopy = credentials;
@@ -3058,7 +3081,7 @@ LABEL_39:
     uUIDString4 = tethering_log();
     if (os_log_type_enabled(uUIDString4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000C67B8(credentialsCopy, &self->_handlers);
+      sub_1000C67B8(credentialsCopy);
     }
   }
 }

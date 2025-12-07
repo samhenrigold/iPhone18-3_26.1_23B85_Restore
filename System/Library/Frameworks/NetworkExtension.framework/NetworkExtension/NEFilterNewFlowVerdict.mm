@@ -2,11 +2,13 @@
 + (NEFilterNewFlowVerdict)URLAppendStringVerdictWithMapKey:(NSString *)urlAppendMapKey;
 + (NEFilterNewFlowVerdict)allowVerdict;
 + (NEFilterNewFlowVerdict)dropVerdict;
++ (NEFilterNewFlowVerdict)filterDataVerdictWithFilterInbound:(BOOL)filterInbound peekInboundBytes:(NSUInteger)peekInboundBytes filterOutbound:(BOOL)filterOutbound peekOutboundBytes:(NSUInteger)peekOutboundBytes;
 + (NEFilterNewFlowVerdict)needRulesVerdict;
 + (NEFilterNewFlowVerdict)pauseVerdict;
 + (NEFilterNewFlowVerdict)remediateVerdictWithRemediationURLMapKey:(NSString *)remediationURLMapKey remediationButtonTextMapKey:(NSString *)remediationButtonTextMapKey;
 - (NEFilterNewFlowVerdict)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (int64_t)filterAction;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -32,6 +34,33 @@
   }
 
   return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v11.receiver = self;
+  v11.super_class = NEFilterNewFlowVerdict;
+  v7 = [NEFilterVerdict descriptionWithIndent:sel_descriptionWithIndent_options_ options:?];
+  [v7 appendPrettyBOOL:-[NEFilterNewFlowVerdict filterInbound](self withName:"filterInbound") andIndent:@"filterInbound" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterNewFlowVerdict peekInboundBytes](self withName:"peekInboundBytes") andIndent:@"peekInboundBytes" options:{v5, options}];
+  [v7 appendPrettyBOOL:-[NEFilterNewFlowVerdict filterOutbound](self withName:"filterOutbound") andIndent:@"filterOutbound" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterNewFlowVerdict peekOutboundBytes](self withName:"peekOutboundBytes") andIndent:@"peekOutboundBytes" options:{v5, options}];
+  statisticsReportFrequency = [(NEFilterNewFlowVerdict *)self statisticsReportFrequency];
+  objc_opt_self();
+  if ((statisticsReportFrequency - 1) > 2)
+  {
+    v9 = @"none";
+  }
+
+  else
+  {
+    v9 = off_1E7F07850[statisticsReportFrequency - 1];
+  }
+
+  [v7 appendPrettyObject:v9 withName:@"statisticsReportFrequency" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -93,6 +122,19 @@
   }
 
   return v2;
+}
+
++ (NEFilterNewFlowVerdict)filterDataVerdictWithFilterInbound:(BOOL)filterInbound peekInboundBytes:(NSUInteger)peekInboundBytes filterOutbound:(BOOL)filterOutbound peekOutboundBytes:(NSUInteger)peekOutboundBytes
+{
+  v7 = filterOutbound;
+  v9 = filterInbound;
+  v10 = [(NEFilterVerdict *)[NEFilterNewFlowVerdict alloc] initWithDrop:0 remediate:0];
+  [(NEFilterNewFlowVerdict *)v10 setFilterInbound:v9];
+  [(NEFilterNewFlowVerdict *)v10 setPeekInboundBytes:peekInboundBytes];
+  [(NEFilterNewFlowVerdict *)v10 setFilterOutbound:v7];
+  [(NEFilterNewFlowVerdict *)v10 setPeekOutboundBytes:peekOutboundBytes];
+
+  return v10;
 }
 
 + (NEFilterNewFlowVerdict)URLAppendStringVerdictWithMapKey:(NSString *)urlAppendMapKey

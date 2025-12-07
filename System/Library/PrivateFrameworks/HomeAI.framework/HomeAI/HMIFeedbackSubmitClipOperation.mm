@@ -9,12 +9,10 @@
 - (id)feedbackServiceHost;
 - (id)feedbackServiceURL;
 - (void)_downloadClipWithCameraProfileUUID:(id)d clipUUID:(id)iD completionHandler:(id)handler;
-- (void)_removeTemporaryFiles;
 - (void)_requestPreSignedURLWithClipUUID:(id)d completionHandler:(id)handler;
 - (void)_stripAudioTrackAndFacesFromAsset:(id)asset completionHandler:(id)handler;
 - (void)_submitClipWithCameraProfileUUID:(id)d clipUUID:(id)iD completionHandler:(id)handler;
 - (void)_uploadPayloadData:(id)data uploadURL:(id)l completionHandler:(id)handler;
-- (void)main;
 @end
 
 @implementation HMIFeedbackSubmitClipOperation
@@ -70,13 +68,13 @@
   objc_autoreleasePoolPop(v11);
   feedbackSession = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackSession];
   homeKitClient = [feedbackSession homeKitClient];
-  v17 = [homeKitClient cameraProfileWithUUID:dCopy];
+  v17 = [homeKitClient cameraProfileWithUUID:?];
 
   if (v17)
   {
     feedbackSession2 = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackSession];
     homeKitClient2 = [feedbackSession2 homeKitClient];
-    v20 = [homeKitClient2 homeWithCameraProfileUUID:dCopy];
+    v20 = [homeKitClient2 homeWithCameraProfileUUID:?];
 
     if (v20)
     {
@@ -119,19 +117,19 @@
       objc_autoreleasePoolPop(v26);
       clipManager = [v22 clipManager];
       iDCopy = v33;
-      [clipManager fetchClipWithUUID:v33 completion:v25];
+      [clipManager fetchClipWithUUID:? completion:?];
     }
 
     else
     {
-      v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Cannot find home for camera profile."];
+      v31 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
       (*(handlerCopy + 2))(handlerCopy, 0, v31);
     }
   }
 
   else
   {
-    v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Cannot find camera profile."];
+    v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
     (*(handlerCopy + 2))(handlerCopy, 0, v20);
   }
 }
@@ -141,37 +139,26 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [MEMORY[0x277CCAD78] UUID];
-  v19 = 0;
-  v6 = [v4 _temporaryFileURLWithUUID:v5 extension:@"mp4" error:&v19];
-  v7 = v19;
+  v6 = [v4 _temporaryFileURLWithUUID:? extension:? error:?];
+  v7 = 0;
 
   if (v6)
   {
     v8 = [MEMORY[0x277CCAA00] defaultManager];
     v9 = [v6 path];
-    v10 = [v8 fileExistsAtPath:v9];
+    v10 = [v8 fileExistsAtPath:?];
 
     if (!v10)
     {
       v12 = objc_alloc(MEMORY[0x277CD18E8]);
       v13 = [*(a1 + 40) clipManager];
-      v14 = [v12 initWithClipManager:v13 clip:v3];
+      v14 = [v12 initWithClipManager:? clip:?];
 
-      [v14 setClipDestinationFileURL:v6];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_2;
-      v16[3] = &unk_278753DB0;
-      v16[4] = *(a1 + 32);
-      v18 = *(a1 + 48);
-      v17 = v6;
-      [v14 setFetchVideoAssetContextCompletionBlock:v16];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_149;
-      v15[3] = &unk_278753DD8;
-      v15[4] = *(a1 + 32);
-      [v14 setDownloadProgressHandler:v15];
+      [v14 setClipDestinationFileURL:?];
+      v16 = *(a1 + 48);
+      v15 = v6;
+      [v14 setFetchVideoAssetContextCompletionBlock:?];
+      [v14 setDownloadProgressHandler:?];
       [v14 start];
 
       goto LABEL_7;
@@ -218,7 +205,7 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
 
   else
   {
-    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Cannot download clip asset." suggestion:@"Check network connectivity." underlyingError:v6];
+    v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? suggestion:? underlyingError:?];
     (*(v11 + 16))(v11, 0, v12);
   }
 }
@@ -244,13 +231,13 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
 
 void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_152(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v5)
   {
     v20 = *(a1 + 48);
-    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Cannot download clip for camera profile." suggestion:@"Ensure the clip belongs to the camera profile." underlyingError:v6];
+    v14 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? suggestion:? underlyingError:?];
     (*(v20 + 16))(v20, 0, v14);
 LABEL_9:
 
@@ -269,13 +256,13 @@ LABEL_9:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v12;
+      v25 = v12;
       _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_INFO, "%{public}@Fetching Face Crops", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v13 = [v5 significantEvents];
-    v14 = [v13 na_map:&__block_literal_global_162];
+    v14 = [v13 na_map:?];
 
     v15 = objc_autoreleasePoolPush();
     v16 = *(a1 + 40);
@@ -284,22 +271,17 @@ LABEL_9:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = v14;
+      v25 = v18;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_22D12F000, v17, OS_LOG_TYPE_INFO, "%{public}@Fetched Person UUIDs: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
     v19 = [*(a1 + 32) personManager];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_163;
-    v22[3] = &unk_278753E28;
-    v22[4] = *(a1 + 40);
-    v24 = *(a1 + 56);
-    v23 = v5;
-    [v19 fetchFaceCropsForPersonsWithUUIDs:v14 completion:v22];
+    v23 = *(a1 + 56);
+    v22 = v5;
+    [v19 fetchFaceCropsForPersonsWithUUIDs:? completion:?];
 
     goto LABEL_9;
   }
@@ -308,7 +290,7 @@ LABEL_9:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v21;
+    v25 = v21;
     _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_INFO, "%{public}@Face crops are not available.", buf, 0xCu);
   }
 
@@ -356,7 +338,7 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
   }
 
   objc_autoreleasePoolPop(v7);
-  [*(a1 + 32) setFaceCrops:v5];
+  [*(a1 + 32) setFaceCrops:?];
   (*(*(a1 + 48) + 16))();
 }
 
@@ -367,8 +349,8 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
   handlerCopy = handler;
   uUID = [MEMORY[0x277CCAD78] UUID];
   v34 = 0;
-  v9 = [(HMIFeedbackSubmitClipOperation *)self _temporaryFileURLWithUUID:uUID extension:@"mp4" error:&v34];
-  v10 = v34;
+  v9 = [HMIFeedbackSubmitClipOperation _temporaryFileURLWithUUID:"_temporaryFileURLWithUUID:extension:error:" extension:? error:?];
+  v10 = 0;
 
   if (!v9)
   {
@@ -393,11 +375,11 @@ void __96__HMIFeedbackSubmitClipOperation__downloadClipWithCameraProfileUUID_cli
   v32 = 0;
   v21 = objc_alloc_init(HMIFeedbackVisionProcessor);
   buf = v33;
-  v22 = [(HMIFeedbackVisionProcessor *)v21 blurFacesFromAssetURL:assetCopy outputURL:v9 duration:&buf analysisFPS:5 windowSize:&v32 faceDetected:COERCE_DOUBLE(__PAIR64__(HIDWORD(v33.value), 15.0))];
+  v22 = [HMIFeedbackVisionProcessor blurFacesFromAssetURL:v21 outputURL:"blurFacesFromAssetURL:outputURL:duration:analysisFPS:windowSize:faceDetected:" duration:? analysisFPS:? windowSize:? faceDetected:?];
 
-  if (!v22)
+  if ((v22 & 1) == 0)
   {
-    v17 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Unable to blur faces."];
+    v17 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
     handlerCopy[2](handlerCopy, 0, v17);
 LABEL_19:
 
@@ -419,7 +401,7 @@ LABEL_5:
     }
 
     objc_autoreleasePoolPop(v13);
-    v17 = [MEMORY[0x277CE63D8] assetWithURL:assetCopy];
+    v17 = [MEMORY[0x277CE63D8] assetWithURL:?];
     if ([v17 isReadable])
     {
       v27[0] = MEMORY[0x277D85DD0];
@@ -432,14 +414,14 @@ LABEL_5:
       v29 = v9;
       v31 = v33;
       v19 = MEMORY[0x2318CB8E0](v27);
-      [v18 loadValuesAsynchronouslyForKeys:&unk_284075570 completionHandler:v19];
+      [v18 loadValuesAsynchronouslyForKeys:? completionHandler:?];
 
       v20 = v28;
     }
 
     else
     {
-      v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1004 description:@"Unable to read the asset from disk."];
+      v20 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
       handlerCopy[2](handlerCopy, 0, v20);
     }
 
@@ -465,23 +447,21 @@ LABEL_20:
 void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_completionHandler___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v29 = 0;
-  v3 = [v2 statusOfValueForKey:@"tracks" error:&v29];
-  v4 = v29;
+  v24 = 0;
+  v3 = [v2 statusOfValueForKey:? error:?];
+  v4 = 0;
   if (v3 == 2)
   {
     v5 = [MEMORY[0x277CE6548] composition];
-    v6 = *MEMORY[0x277CE5EA8];
-    v7 = [v5 addMutableTrackWithMediaType:*MEMORY[0x277CE5EA8] preferredTrackID:0];
-    v8 = [*(a1 + 32) tracksWithMediaType:v6];
-    v9 = [v8 firstObject];
+    v6 = [v5 addMutableTrackWithMediaType:? preferredTrackID:?];
+    v7 = [*(a1 + 32) tracksWithMediaType:?];
+    v8 = [v7 firstObject];
 
-    if (v9)
+    if (v8)
     {
-      v10 = *(a1 + 32);
-      if (v10)
+      if (*(a1 + 32))
       {
-        [v10 duration];
+        [&duration duration];
       }
 
       else
@@ -490,36 +470,30 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
       }
 
       start = **&MEMORY[0x277CC08F0];
-      v19 = *&start.value;
+      v16 = *&start.value;
       epoch = start.epoch;
-      CMTimeRangeMake(&v28, &start, &duration);
-      v25 = v4;
-      *&duration.value = v19;
+      CMTimeRangeMake(&v23, &start, &duration);
+      v20 = v4;
+      *&duration.value = v16;
       duration.epoch = epoch;
-      v14 = [v7 insertTimeRange:&v28 ofTrack:v9 atTime:&duration error:&v25];
-      v15 = v25;
+      v12 = [v6 insertTimeRange:? ofTrack:? atTime:? error:?];
+      v13 = v4;
 
-      if (v14)
+      if (v12)
       {
-        v16 = objc_alloc(MEMORY[0x277CE6400]);
-        v17 = [v16 initWithAsset:v5 presetName:*MEMORY[0x277CE5C78]];
-        [v17 setOutputFileType:*MEMORY[0x277CE5D98]];
-        [v17 setOutputURL:*(a1 + 40)];
-        [v17 setShouldOptimizeForNetworkUse:1];
-        CMTimeMake(&v28.start, 0, 1000);
+        v14 = [objc_alloc(MEMORY[0x277CE6400]) initWithAsset:? presetName:?];
+        [v14 setOutputFileType:?];
+        [v14 setOutputURL:?];
+        [v14 setShouldOptimizeForNetworkUse:?];
+        CMTimeMake(&v23.start, 0, 1000);
         duration = *(a1 + 56);
-        CMTimeRangeMake(&v24, &v28.start, &duration);
-        v28 = v24;
-        [v17 setTimeRange:&v28];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_completionHandler___block_invoke_2;
-        v20[3] = &unk_278753E78;
-        v21 = v17;
-        v23 = *(a1 + 48);
-        v22 = *(a1 + 40);
-        v18 = v17;
-        [v18 exportAsynchronouslyWithCompletionHandler:v20];
+        CMTimeRangeMake(&v19, &v23.start, &duration);
+        v23 = v19;
+        [v14 setTimeRange:?];
+        v18 = *(a1 + 48);
+        v17 = *(a1 + 40);
+        v15 = v14;
+        [v15 exportAsynchronouslyWithCompletionHandler:?];
       }
 
       else
@@ -527,14 +501,14 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
         (*(*(a1 + 48) + 16))();
       }
 
-      v4 = v15;
+      v4 = v13;
     }
 
     else
     {
-      v11 = *(a1 + 48);
-      v12 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Clip doesn't have a video track."];
-      (*(v11 + 16))(v11, 0, v12);
+      v9 = *(a1 + 48);
+      v10 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+      (*(v9 + 16))(v9, 0, v10);
     }
   }
 
@@ -572,8 +546,8 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
   feedbackServiceURL = [(HMIFeedbackSubmitClipOperation *)self feedbackServiceURL];
   uUIDString = [dCopy UUIDString];
 
-  v9 = [v5 stringWithFormat:@"%@%@", feedbackServiceURL, uUIDString];
-  v10 = [v4 URLWithString:v9];
+  v9 = [v5 stringWithFormat:feedbackServiceURL, uUIDString];
+  v10 = [v4 URLWithString:?];
 
   return v10;
 }
@@ -590,15 +564,15 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
 {
   v2 = MEMORY[0x277CCACA8];
   feedbackServiceHost = [(HMIFeedbackSubmitClipOperation *)self feedbackServiceHost];
-  v4 = [v2 stringWithFormat:@"https://%@/v2/clip-uuid/", feedbackServiceHost];
+  v4 = [v2 stringWithFormat:feedbackServiceHost];
 
   return v4;
 }
 
 - (id)_base64StringFromData:(id)data
 {
-  v3 = [data base64EncodedDataWithOptions:1];
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v3 encoding:4];
+  v3 = [data base64EncodedDataWithOptions:?];
+  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:? encoding:?];
 
   return v4;
 }
@@ -611,19 +585,19 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
   v11 = v10;
   if (v10)
   {
-    v12 = [v10 URLByAppendingPathComponent:@"feedback"];
+    v12 = [v10 URLByAppendingPathComponent:?];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     path = [v12 path];
-    v15 = [defaultManager fileExistsAtPath:path];
+    v15 = [defaultManager fileExistsAtPath:?];
 
-    if ((v15 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "path"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v17, 1, 0, error), v17, v16, v19 = 0, v18))
+    if ((v15 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "path"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:"), v17, v16, v19 = 0, v18))
     {
       path2 = [v12 path];
-      extensionCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", dCopy, extensionCopy];
-      v22 = [path2 stringByAppendingPathComponent:extensionCopy];
+      extensionCopy = [MEMORY[0x277CCACA8] stringWithFormat:dCopy, extensionCopy];
+      v22 = [path2 stringByAppendingPathComponent:?];
 
-      v19 = [MEMORY[0x277CBEBC0] fileURLWithPath:v22];
-      [(NSMutableArray *)self->_temporaryFileURLs addObject:v19];
+      v19 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+      [(NSMutableArray *)self->_temporaryFileURLs addObject:?];
     }
   }
 
@@ -637,7 +611,7 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
 
 - (void)_uploadPayloadData:(id)data uploadURL:(id)l completionHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   lCopy = l;
   handlerCopy = handler;
@@ -648,34 +622,30 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v29 = v14;
-    v30 = 2112;
-    v31 = dataCopy;
-    v32 = 2112;
-    v33 = lCopy;
+    v25 = v14;
+    v26 = 2112;
+    v27 = dataCopy;
+    v28 = 2112;
+    v29 = lCopy;
     _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_INFO, "%{public}@Uploading payload data: %@, to URL %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
   uUID = [MEMORY[0x277CCAD78] UUID];
-  v27 = 0;
-  v16 = [(HMIFeedbackSubmitClipOperation *)selfCopy _temporaryFileURLWithUUID:uUID extension:@"json" error:&v27];
-  v17 = v27;
+  v16 = [HMIFeedbackSubmitClipOperation _temporaryFileURLWithUUID:selfCopy extension:"_temporaryFileURLWithUUID:extension:error:" error:?];
+  v17 = 0;
 
   if (v16)
   {
-    [dataCopy writeToURL:v16 atomically:1];
-    v18 = [MEMORY[0x277CCAB70] requestWithURL:lCopy];
-    [v18 setHTTPMethod:@"PUT"];
-    [v18 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [dataCopy writeToURL:? atomically:?];
+    v18 = [MEMORY[0x277CCAB70] requestWithURL:?];
+    [v18 setHTTPMethod:?];
+    [v18 setValue:? forHTTPHeaderField:?];
     feedbackSession = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackSession];
     session = [feedbackSession session];
     v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __81__HMIFeedbackSubmitClipOperation__uploadPayloadData_uploadURL_completionHandler___block_invoke;
-    v25 = &unk_278753EC8;
-    v26 = handlerCopy;
-    v21 = [session uploadTaskWithRequest:v18 fromFile:v16 completionHandler:&v22];
+    v23 = handlerCopy;
+    v21 = [session uploadTaskWithRequest:v22 fromFile:3221225472 completionHandler:{__81__HMIFeedbackSubmitClipOperation__uploadPayloadData_uploadURL_completionHandler___block_invoke, &unk_278753EC8}];
 
     [v21 resume];
   }
@@ -688,108 +658,106 @@ void __86__HMIFeedbackSubmitClipOperation__stripAudioTrackAndFacesFromAsset_comp
 
 - (BOOL)_attachEncryptedDataUsingKey:(id)key toPayload:(id)payload error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   payloadCopy = payload;
   if ([keyCopy length] == 32)
   {
-    v10 = [MEMORY[0x277CBEB28] dataWithLength:{-[NSData length](self->_assetData, "length")}];
-    v11 = [MEMORY[0x277CBEB28] dataWithLength:16];
-    v62 = 0;
-    v12 = NSRandomData();
-    v13 = 0;
-    v14 = v13;
-    if (v12)
+    v10 = MEMORY[0x277CBEB28];
+    [(NSData *)self->_assetData length];
+    v11 = [v10 dataWithLength:?];
+    v12 = [MEMORY[0x277CBEB28] dataWithLength:?];
+    v13 = NSRandomData();
+    v14 = 0;
+    v15 = v14;
+    if (v13)
     {
       errorCopy = error;
-      v49 = v13;
+      v49 = v14;
       v50 = payloadCopy;
       [keyCopy bytes];
       [keyCopy length];
-      [v12 bytes];
-      [v12 length];
+      [v13 bytes];
+      [v13 length];
       [(NSData *)self->_assetData bytes];
-      v57 = v12;
-      v15 = [(NSData *)self->_assetData length];
-      mutableBytes = [v10 mutableBytes];
-      mutableBytes2 = [v11 mutableBytes];
-      v44 = [v11 length];
+      v57 = v13;
+      v16 = [(NSData *)self->_assetData length];
+      mutableBytes = [v11 mutableBytes];
+      mutableBytes2 = [v12 mutableBytes];
+      v44 = [v12 length];
       selfCopy = self;
       if (CCCryptorGCMOneshotEncrypt())
       {
-        v17 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:{@"Failed to encrypt data.", v15, mutableBytes, mutableBytes2, v44}];
-        array = v17;
+        v18 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:v16 description:{mutableBytes, mutableBytes2, v44}];
+        array = v18;
         if (errorCopy)
         {
-          v19 = v17;
+          v20 = v18;
           *errorCopy = array;
         }
 
         HMIErrorLog(self, array);
-        v20 = 0;
-        v14 = v49;
+        v21 = 0;
+        v15 = v49;
       }
 
       else
       {
-        v26 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:v12, v15, mutableBytes, mutableBytes2, v44];
-        [payloadCopy setObject:v26 forKeyedSubscript:@"iv"];
+        v27 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:v16, mutableBytes, mutableBytes2, v44];
+        [payloadCopy setObject:? forKeyedSubscript:?];
 
-        v27 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:v11];
-        [payloadCopy setObject:v27 forKeyedSubscript:@"authTag"];
+        v28 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:?];
+        [payloadCopy setObject:? forKeyedSubscript:?];
 
-        v28 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:v10];
-        [payloadCopy setObject:v28 forKeyedSubscript:@"clip"];
+        v29 = [(HMIFeedbackSubmitClipOperation *)self _base64StringFromData:?];
+        [payloadCopy setObject:? forKeyedSubscript:?];
 
         if (!+[HMIPreference isInternalInstall])
         {
-          v20 = 1;
-          v14 = v49;
+          v21 = 1;
+          v15 = v49;
 LABEL_29:
 
           goto LABEL_30;
         }
 
-        v46 = v11;
-        v47 = v10;
+        v46 = v12;
+        v47 = v11;
         array = [MEMORY[0x277CBEB18] array];
-        v58 = 0u;
-        v59 = 0u;
-        v60 = 0u;
-        v61 = 0u;
         obj = [(HMIFeedbackSubmitClipOperation *)self faceCrops];
-        v55 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+        v55 = [obj countByEnumeratingWithState:? objects:? count:?];
         if (v55)
         {
           v53 = keyCopy;
-          v54 = *v59;
+          v54 = MEMORY[0];
           v52 = array;
           while (2)
           {
-            for (i = 0; i != v55; ++i)
+            for (i = 0; i != v55; i = (i + 1))
             {
-              if (*v59 != v54)
+              if (MEMORY[0] != v54)
               {
                 objc_enumerationMutation(obj);
               }
 
-              dataRepresentation = [*(*(&v58 + 1) + 8 * i) dataRepresentation];
-              v31 = [MEMORY[0x277CBEB28] dataWithLength:{objc_msgSend(dataRepresentation, "length")}];
-              v32 = [MEMORY[0x277CBEB28] dataWithLength:16];
+              dataRepresentation = [*(8 * i) dataRepresentation];
+              v32 = MEMORY[0x277CBEB28];
+              [dataRepresentation length];
+              v33 = [v32 dataWithLength:?];
+              v34 = [MEMORY[0x277CBEB28] dataWithLength:?];
               [keyCopy bytes];
               [keyCopy length];
               [v57 bytes];
               [v57 length];
               [dataRepresentation bytes];
-              v33 = [dataRepresentation length];
-              mutableBytes3 = [v31 mutableBytes];
-              mutableBytes4 = [v32 mutableBytes];
-              v45 = [v32 length];
+              v35 = [dataRepresentation length];
+              mutableBytes3 = [v33 mutableBytes];
+              mutableBytes4 = [v34 mutableBytes];
+              v45 = [v34 length];
               if (CCCryptorGCMOneshotEncrypt())
               {
-                v38 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:{@"Failed to encrypt face crop data.", v33, mutableBytes3, mutableBytes4, v45}];
+                v38 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:v35 description:{mutableBytes3, mutableBytes4, v45}];
                 v39 = v38;
-                v10 = v47;
+                v11 = v47;
                 array = v52;
                 if (errorCopy)
                 {
@@ -799,26 +767,22 @@ LABEL_29:
 
                 HMIErrorLog(selfCopy, v39);
 
-                v20 = 0;
+                v21 = 0;
                 keyCopy = v53;
                 payloadCopy = v50;
                 goto LABEL_27;
               }
 
-              v63[0] = @"data";
-              v35 = [(HMIFeedbackSubmitClipOperation *)selfCopy _base64StringFromData:v31, v33, mutableBytes3, mutableBytes4, v45];
-              v63[1] = @"authTag";
-              v64[0] = v35;
-              v36 = [(HMIFeedbackSubmitClipOperation *)selfCopy _base64StringFromData:v32];
-              v64[1] = v36;
-              v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
+              v58 = [(HMIFeedbackSubmitClipOperation *)selfCopy _base64StringFromData:v35, mutableBytes3, mutableBytes4, v45];
+              v59 = [(HMIFeedbackSubmitClipOperation *)selfCopy _base64StringFromData:?];
+              v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
               array = v52;
-              [v52 addObject:v37];
+              [v52 addObject:?];
 
               keyCopy = v53;
             }
 
-            v55 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+            v55 = [obj countByEnumeratingWithState:? objects:? count:?];
             if (v55)
             {
               continue;
@@ -829,80 +793,80 @@ LABEL_29:
         }
 
         payloadCopy = v50;
-        [v50 setObject:array forKeyedSubscript:@"faceCrops"];
-        v20 = 1;
-        v10 = v47;
+        [v50 setObject:? forKeyedSubscript:?];
+        v21 = 1;
+        v11 = v47;
 LABEL_27:
-        v11 = v46;
-        v14 = v49;
-        v12 = v57;
+        v12 = v46;
+        v15 = v49;
+        v13 = v57;
       }
     }
 
     else
     {
-      v24 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Cannot generate initialization vector."];
-      array = v24;
+      v25 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+      array = v25;
       if (error)
       {
-        v25 = v24;
+        v26 = v25;
         *error = array;
       }
 
       HMIErrorLog(self, array);
-      v20 = 0;
+      v21 = 0;
     }
 
     goto LABEL_29;
   }
 
-  v21 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1000 description:@"Invalid key size."];
-  v22 = v21;
+  v22 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+  v23 = v22;
   if (error)
   {
-    v23 = v21;
-    *error = v22;
+    v24 = v22;
+    *error = v23;
   }
 
-  HMIErrorLog(self, v22);
+  HMIErrorLog(self, v23);
 
-  v20 = 0;
+  v21 = 0;
 LABEL_30:
 
-  return v20;
+  return v21;
 }
 
 - (id)_createPayloadWithServiceResult:(id)result error:(id *)error
 {
   resultCopy = result;
-  v7 = [resultCopy objectForKeyedSubscript:@"key"];
-  v8 = [v7 dataUsingEncoding:4];
+  v6 = [resultCopy objectForKeyedSubscript:?];
+  v7 = [v6 dataUsingEncoding:?];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  if ([(HMIFeedbackSubmitClipOperation *)self _attachEncryptedDataUsingKey:v8 toPayload:dictionary error:error])
+  if ([HMIFeedbackSubmitClipOperation _attachEncryptedDataUsingKey:"_attachEncryptedDataUsingKey:toPayload:error:" toPayload:? error:?])
   {
-    v10 = [resultCopy objectForKeyedSubscript:@"wrappedKey"];
-    [dictionary setObject:v10 forKeyedSubscript:@"key"];
+    v9 = [resultCopy objectForKeyedSubscript:?];
+    [dictionary setObject:? forKeyedSubscript:?];
 
     if (+[HMIPreference isInternalInstall])
     {
-      [dictionary setObject:@"1" forKeyedSubscript:@"internal"];
+      [dictionary setObject:? forKeyedSubscript:?];
     }
 
-    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionary options:8 error:error];
+    v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:? options:? error:?];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)_submitClipWithCameraProfileUUID:(id)d clipUUID:(id)iD completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   handlerCopy = handler;
@@ -913,52 +877,47 @@ LABEL_30:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v35 = v14;
-    v36 = 2112;
-    v37 = iDCopy;
-    v38 = 2112;
-    v39 = dCopy;
+    v34 = v14;
+    v35 = 2112;
+    v36 = iDCopy;
+    v37 = 2112;
+    v38 = dCopy;
     _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_INFO, "%{public}@Submitting clipUUID: %@, cameraProfileUUID: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke;
-  v32[3] = &unk_278753EF0;
-  v32[4] = selfCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke;
+  v31[3] = &unk_278753EF0;
+  v31[4] = selfCopy;
   v15 = handlerCopy;
-  v33 = v15;
-  v16 = MEMORY[0x2318CB8E0](v32);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_231;
-  v29[3] = &unk_278753F18;
-  v29[4] = selfCopy;
+  v32 = v15;
+  v16 = MEMORY[0x2318CB8E0](v31);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_231;
+  v28[3] = &unk_278753F18;
+  v28[4] = selfCopy;
   v17 = v15;
-  v30 = v17;
-  v31 = v16;
+  v29 = v17;
+  v30 = v16;
   v18 = v16;
-  v19 = MEMORY[0x2318CB8E0](v29);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_232;
-  v24[3] = &unk_278753F40;
-  v24[4] = selfCopy;
+  v19 = MEMORY[0x2318CB8E0](v28);
+  v24 = MEMORY[0x277D85DD0];
   v25 = dCopy;
   v26 = iDCopy;
-  v27 = v17;
-  v28 = v19;
+  v27 = v19;
   v20 = v19;
   v21 = iDCopy;
   v22 = dCopy;
   v23 = v17;
-  [(HMIFeedbackSubmitClipOperation *)selfCopy _requestPreSignedURLWithClipUUID:v21 completionHandler:v24];
+  [(HMIFeedbackSubmitClipOperation *)selfCopy _requestPreSignedURLWithClipUUID:v24 completionHandler:3221225472, __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke_232, &unk_278753F40, selfCopy];
 }
 
 void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipUUID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -968,11 +927,11 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v5;
-    v24 = 2112;
-    v25 = v6;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&dword_22D12F000, v9, OS_LOG_TYPE_INFO, "%{public}@Stripped Audio %@, error: %@", buf, 0x20u);
   }
 
@@ -984,23 +943,22 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
 
   else
   {
-    v11 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5];
-    [*(a1 + 32) setAssetData:v11];
+    v11 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
+    [*(a1 + 32) setAssetData:?];
 
     v12 = *(a1 + 32);
     v13 = [v12 serviceResult];
-    v19 = 0;
-    v14 = [v12 _createPayloadWithServiceResult:v13 error:&v19];
-    v6 = v19;
+    v14 = [v12 _createPayloadWithServiceResult:? error:?];
+    v6 = 0;
 
     if (v14)
     {
       v15 = MEMORY[0x277CBEBC0];
       v16 = [*(a1 + 32) serviceResult];
-      v17 = [v16 objectForKeyedSubscript:@"url"];
-      v18 = [v15 URLWithString:v17];
+      v17 = [v16 objectForKeyedSubscript:?];
+      v18 = [v15 URLWithString:?];
 
-      [*(a1 + 32) _uploadPayloadData:v14 uploadURL:v18 completionHandler:*(a1 + 40)];
+      [*(a1 + 32) _uploadPayloadData:? uploadURL:? completionHandler:?];
     }
 
     else
@@ -1033,7 +991,7 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
   objc_autoreleasePoolPop(v7);
   if (v5)
   {
-    [*(a1 + 32) _stripAudioTrackAndFacesFromAsset:v5 completionHandler:*(a1 + 48)];
+    [*(a1 + 32) _stripAudioTrackAndFacesFromAsset:? completionHandler:?];
   }
 
   else
@@ -1049,8 +1007,8 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
   v6 = a3;
   if (v5)
   {
-    [*(a1 + 32) setServiceResult:v5];
-    [*(a1 + 32) _downloadClipWithCameraProfileUUID:*(a1 + 40) clipUUID:*(a1 + 48) completionHandler:*(a1 + 64)];
+    [*(a1 + 32) setServiceResult:?];
+    [*(a1 + 32) _downloadClipWithCameraProfileUUID:? clipUUID:? completionHandler:?];
   }
 
   else
@@ -1075,7 +1033,7 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
 
 - (void)_requestPreSignedURLWithClipUUID:(id)d completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -1086,41 +1044,36 @@ void __94__HMIFeedbackSubmitClipOperation__submitClipWithCameraProfileUUID_clipU
     v11 = HMFGetLogIdentifier();
     feedbackServiceHost = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackServiceHost];
     *buf = 138543874;
-    v25 = v11;
-    v26 = 2112;
-    v27 = feedbackServiceHost;
-    v28 = 2112;
-    v29 = dCopy;
+    v21 = v11;
+    v22 = 2112;
+    v23 = feedbackServiceHost;
+    v24 = 2112;
+    v25 = dCopy;
     _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_INFO, "%{public}@Requesting a pre-signed url from server endpoint:%@, for clipUUID:%@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   feedbackSession = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackSession];
   session = [feedbackSession session];
-  v15 = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackRequestURLForClipWithUUID:dCopy];
+  v15 = [(HMIFeedbackSubmitClipOperation *)selfCopy feedbackRequestURLForClipWithUUID:?];
   v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __85__HMIFeedbackSubmitClipOperation__requestPreSignedURLWithClipUUID_completionHandler___block_invoke;
-  v21 = &unk_278753F68;
-  v22 = selfCopy;
-  v23 = handlerCopy;
+  v19 = handlerCopy;
   v16 = handlerCopy;
-  v17 = [session dataTaskWithURL:v15 completionHandler:&v18];
+  v17 = [session dataTaskWithURL:v18 completionHandler:{3221225472, __85__HMIFeedbackSubmitClipOperation__requestPreSignedURLWithClipUUID_completionHandler___block_invoke, &unk_278753F68, selfCopy}];
 
   [v17 resume];
 }
 
 void __85__HMIFeedbackSubmitClipOperation__requestPreSignedURLWithClipUUID_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (!v9)
   {
-    v34 = 0;
-    v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v7 options:4 error:&v34];
-    v15 = v34;
+    v14 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
+    v15 = 0;
     if (!v14)
     {
       v22 = objc_autoreleasePoolPush();
@@ -1130,15 +1083,15 @@ void __85__HMIFeedbackSubmitClipOperation__requestPreSignedURLWithClipUUID_compl
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v36 = v25;
-        v37 = 2112;
-        v38 = v15;
+        v32 = v25;
+        v33 = 2112;
+        v34 = v15;
         _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode server response, error: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
       (*(*(a1 + 40) + 16))();
-      goto LABEL_26;
+      goto LABEL_25;
     }
 
     v16 = v8;
@@ -1147,80 +1100,71 @@ void __85__HMIFeedbackSubmitClipOperation__requestPreSignedURLWithClipUUID_compl
     v18 = *(a1 + 32);
     v19 = HMFGetOSLogHandle();
     v20 = v19;
-    switch(v17)
+    if (v17 == 500)
     {
-      case 500:
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-        {
-          v30 = HMFGetLogIdentifier();
-          *buf = 138543618;
-          v36 = v30;
-          v37 = 2112;
-          v38 = v14;
-          _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result due to internal server error, serverResponse: %@", buf, 0x16u);
-        }
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v27 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v32 = v27;
+        v33 = 2112;
+        v34 = v14;
+        _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result due to internal server error, serverResponse: %@", buf, 0x16u);
+      }
+    }
 
-        objc_autoreleasePoolPop(context);
-        v27 = MEMORY[0x277CCA9B8];
-        v28 = @"Status Code:500, Error: Internal server error";
-        v29 = 1049;
-        break;
-      case 404:
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-        {
-          v26 = HMFGetLogIdentifier();
-          *buf = 138543618;
-          v36 = v26;
-          v37 = 2112;
-          v38 = v14;
-          _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result, resource is not found, serverResponse: %@", buf, 0x16u);
-        }
+    else if (v17 == 404)
+    {
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v26 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v32 = v26;
+        v33 = 2112;
+        v34 = v14;
+        _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result, resource is not found, serverResponse: %@", buf, 0x16u);
+      }
+    }
 
-        objc_autoreleasePoolPop(context);
-        v27 = MEMORY[0x277CCA9B8];
-        v28 = @"Status Code:400, Error: Resource not found on server error";
-        v29 = 1050;
-        break;
-      case 200:
+    else
+    {
+      if (v17 == 200)
+      {
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v21 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v36 = v21;
-          v37 = 2112;
-          v38 = v14;
+          v32 = v21;
+          v33 = 2112;
+          v34 = v14;
           _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_INFO, "%{public}@Service result: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
         (*(*(a1 + 40) + 16))();
-        goto LABEL_25;
-      default:
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-        {
-          v31 = HMFGetLogIdentifier();
-          *buf = 138543618;
-          v36 = v31;
-          v37 = 2112;
-          v38 = v14;
-          _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result due to server error, serverResponse: %@", buf, 0x16u);
-        }
+        goto LABEL_24;
+      }
 
-        objc_autoreleasePoolPop(context);
-        v27 = MEMORY[0x277CCA9B8];
-        v28 = @"Unkown server error";
-        v29 = 1000;
-        break;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v28 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v32 = v28;
+        v33 = 2112;
+        v34 = v14;
+        _os_log_impl(&dword_22D12F000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result due to server error, serverResponse: %@", buf, 0x16u);
+      }
     }
 
-    v32 = [v27 hmiPrivateErrorWithCode:v29 description:{v28, context}];
+    objc_autoreleasePoolPop(context);
+    v29 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:context description:?];
 
     (*(*(a1 + 40) + 16))();
-    v15 = v32;
-LABEL_25:
+    v15 = v29;
+LABEL_24:
 
-LABEL_26:
-    goto LABEL_27;
+LABEL_25:
+    goto LABEL_26;
   }
 
   v10 = objc_autoreleasePoolPush();
@@ -1230,26 +1174,15 @@ LABEL_26:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v13;
-    v37 = 2112;
-    v38 = v9;
+    v32 = v13;
+    v33 = 2112;
+    v34 = v9;
     _os_log_impl(&dword_22D12F000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to request service result from server, error: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   (*(*(a1 + 40) + 16))();
-LABEL_27:
-}
-
-- (void)_removeTemporaryFiles
-{
-  temporaryFileURLs = self->_temporaryFileURLs;
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __55__HMIFeedbackSubmitClipOperation__removeTemporaryFiles__block_invoke;
-  v3[3] = &unk_278753F90;
-  v3[4] = self;
-  [(NSMutableArray *)temporaryFileURLs na_each:v3];
+LABEL_26:
 }
 
 void __55__HMIFeedbackSubmitClipOperation__removeTemporaryFiles__block_invoke(uint64_t a1, void *a2)
@@ -1272,13 +1205,13 @@ void __55__HMIFeedbackSubmitClipOperation__removeTemporaryFiles__block_invoke(ui
   objc_autoreleasePoolPop(v4);
   v8 = [MEMORY[0x277CCAA00] defaultManager];
   v9 = [v3 path];
-  v10 = [v8 fileExistsAtPath:v9];
+  v10 = [v8 fileExistsAtPath:?];
 
   if (v10)
   {
     v11 = [MEMORY[0x277CCAA00] defaultManager];
     v18 = 0;
-    v12 = [v11 removeItemAtURL:v3 error:&v18];
+    v12 = [v11 removeItemAtURL:? error:?];
     v13 = v18;
 
     if ((v12 & 1) == 0)
@@ -1303,18 +1236,6 @@ void __55__HMIFeedbackSubmitClipOperation__removeTemporaryFiles__block_invoke(ui
   }
 }
 
-- (void)main
-{
-  cameraProfileUUID = self->_cameraProfileUUID;
-  clipUUID = self->_clipUUID;
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __38__HMIFeedbackSubmitClipOperation_main__block_invoke;
-  v4[3] = &unk_2787529D0;
-  v4[4] = self;
-  [(HMIFeedbackSubmitClipOperation *)self _submitClipWithCameraProfileUUID:cameraProfileUUID clipUUID:clipUUID completionHandler:v4];
-}
-
 void __38__HMIFeedbackSubmitClipOperation_main__block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -1322,7 +1243,7 @@ void __38__HMIFeedbackSubmitClipOperation_main__block_invoke(uint64_t a1, void *
   v3 = *(a1 + 32);
   if (v4)
   {
-    [v3 cancelWithError:v4];
+    [v3 cancelWithError:?];
   }
 
   else
@@ -1345,9 +1266,11 @@ void __38__HMIFeedbackSubmitClipOperation_main__block_invoke(uint64_t a1, void *
 
 uint64_t __45__HMIFeedbackSubmitClipOperation_logCategory__block_invoke()
 {
-  logCategory__hmf_once_v38 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v38;
+  logCategory__hmf_once_v38 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -452,25 +452,24 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v7 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_friendUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -489,9 +488,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -505,9 +503,8 @@ LABEL_8:
   }
 
 LABEL_34:
-  totalEnergyBurnedInCanonicalUnit = self->_totalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -521,9 +518,8 @@ LABEL_9:
   }
 
 LABEL_35:
-  totalBasalEnergyBurnedInCanonicalUnit = self->_totalBasalEnergyBurnedInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -537,9 +533,8 @@ LABEL_10:
   }
 
 LABEL_36:
-  totalDistanceInCanonicalUnit = self->_totalDistanceInCanonicalUnit;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -553,69 +548,64 @@ LABEL_11:
   }
 
 LABEL_37:
-  goalType = self->_goalType;
   PBDataWriterWriteInt64Field();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_12:
-    goal = self->_goal;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_13:
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x20) != 0)
   {
-    isWatchWorkout = self->_isWatchWorkout;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
-    v7 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v7 & 0x10) != 0)
+  if ((v6 & 0x10) != 0)
   {
-    isIndoorWorkout = self->_isIndoorWorkout;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_deviceManufacturer)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_deviceModel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (*&self->_has)
   {
-    amm = self->_amm;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_seymourCatalogWorkoutIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_seymourMediaType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 }
 

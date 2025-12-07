@@ -1,6 +1,7 @@
 @interface _INPBSearchForMessagesIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSearchForMessagesIntent)initWithCoder:(id)coder;
+- (id)attributesAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAttributes:(id)attributes;
@@ -477,19 +478,17 @@ LABEL_59:
 
 - (void)writeTo:(id)to
 {
-  p_attributes = &self->_attributes;
   toCopy = to;
   if (self->_attributes.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = p_attributes->list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_attributes.count);
+    while (v4 < self->_attributes.count);
   }
 
   content = [(_INPBSearchForMessagesIntent *)self content];
@@ -574,13 +573,13 @@ LABEL_59:
 
   speakableGroupName = [(_INPBSearchForMessagesIntent *)self speakableGroupName];
 
-  v28 = toCopy;
+  v26 = toCopy;
   if (speakableGroupName)
   {
     speakableGroupName2 = [(_INPBSearchForMessagesIntent *)self speakableGroupName];
     PBDataWriterWriteSubmessage();
 
-    v28 = toCopy;
+    v26 = toCopy;
   }
 }
 
@@ -615,6 +614,21 @@ LABEL_59:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)attributesAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E727F8E0 + (string - 1));
   }
 
   return v4;

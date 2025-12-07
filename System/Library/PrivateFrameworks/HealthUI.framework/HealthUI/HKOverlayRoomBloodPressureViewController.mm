@@ -863,14 +863,14 @@ uint64_t __87__HKOverlayRoomBloodPressureViewController_didUpdatePreferredClassi
   return [v3 _retrievePreferredClassificationGuidelinesIfNecessaryWithCompletion:v5];
 }
 
-uint64_t __87__HKOverlayRoomBloodPressureViewController_didUpdatePreferredClassificationGuidelines___block_invoke_2(uint64_t result, uint64_t a2)
+id *__87__HKOverlayRoomBloodPressureViewController_didUpdatePreferredClassificationGuidelines___block_invoke_2(id *result, id a2)
 {
-  if (*(result + 40) != a2)
+  if (result[5] != a2)
   {
     v3 = result;
-    [*(result + 32) setInitialCategoryData:0];
-    [*(v3 + 32) setPreferredContextLocation:0];
-    v4 = *(v3 + 32);
+    [result[4] setInitialCategoryData:0];
+    [v3[4] setPreferredContextLocation:0];
+    v4 = v3[4];
 
     return [v4 reloadOverlayContextItems];
   }

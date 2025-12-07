@@ -97,7 +97,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_3F52E4();
+  sub_3F52E4(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -140,7 +140,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -157,8 +157,8 @@
 {
   v9 = sub_AB3820();
   v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = sub_AB92A0();
   v15 = v14;
   sub_AB3790();
@@ -166,24 +166,26 @@
   kindCopy = kind;
   pathCopy = path;
   selfCopy = self;
-  v20 = sub_3F7168(viewCopy, v13, v15, v12);
+  sub_3F7168(viewCopy, v13, v15, v12);
+  v21 = v20;
 
   (*(v10 + 8))(v12, v9);
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)collectionView:(id)view canFocusItemAtIndexPath:(id)path
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  LOBYTE(self) = sub_403208(v10);
+  sub_403208(v10);
+  LOBYTE(self) = v14;
   (*(v8 + 8))(v10, v7);
 
   return self & 1;
@@ -193,7 +195,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   viewCopy = view;
@@ -207,7 +209,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_404AC4(&unk_E05380, 255, type metadata accessor for InfoKey);
+  sub_404AC4(&unk_E05380, 255, type metadata accessor for InfoKey, &unk_AF7660);
   v7 = sub_AB8FF0();
   controllerCopy = controller;
   infoCopy = info;

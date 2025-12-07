@@ -20,30 +20,30 @@
 
 - (id)_addressNodesFromCuratedAssetCollection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_curatedAssetCollection)
   {
     v3 = [MEMORY[0x277CBEB58] set];
     [(PGTitleGenerator *)self _fetchAssetsFromCuratedAssetCollection];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v4 = v18 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = v17 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           v10 = objc_autoreleasePoolPush();
           location = [v9 location];
           if (location)
@@ -58,7 +58,7 @@
           objc_autoreleasePoolPop(v10);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -70,45 +70,43 @@
     v3 = [MEMORY[0x277CBEB98] set];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (double)_ratioOfAssetsWithoutLocation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _fetchAssetsFromCuratedAssetCollection = [(PGTitleGenerator *)self _fetchAssetsFromCuratedAssetCollection];
   v3 = [_fetchAssetsFromCuratedAssetCollection count];
   if (v3)
   {
     v4 = v3;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = _fetchAssetsFromCuratedAssetCollection;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
           v11 = MEMORY[0x277D3ACD0];
-          [*(*(&v16 + 1) + 8 * i) locationCoordinate];
+          [*(*(&v15 + 1) + 8 * i) locationCoordinate];
           v8 += [v11 canUseCoordinate:?] ^ 1;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -128,7 +126,6 @@
     v13 = 0.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -159,7 +156,7 @@
 
 - (id)_addressNodeFromKeyAsset
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   keyAsset = self->_keyAsset;
   if (keyAsset)
   {
@@ -184,9 +181,9 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
       {
         v9 = self->_momentNodes;
-        v12 = 138412290;
-        v13 = v9;
-        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Cannot find address node in moment node %@.", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v9;
+        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Cannot find address node in moment node %@.", &v11, 0xCu);
       }
     }
   }
@@ -195,8 +192,6 @@
   {
     v6 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -406,34 +401,34 @@ void __41__PGTitleGenerator__defaultLocationTitle__block_invoke(uint64_t a1, voi
 
 - (void)_generateTitleAndSubtitle
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__42818;
-  v36 = __Block_byref_object_dispose__42819;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__42818;
-  v30 = __Block_byref_object_dispose__42819;
+  v41 = *MEMORY[0x277D85DE8];
   v31 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __45__PGTitleGenerator__generateTitleAndSubtitle__block_invoke;
-  v25[3] = &unk_278884728;
-  v25[4] = &v32;
-  v25[5] = &v26;
-  [(PGTitleGenerator *)self _generateTitleAndSubtitleWithResult:v25];
-  stringValue = [v33[5] stringValue];
-  stringValue2 = [v27[5] stringValue];
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__42818;
+  v35 = __Block_byref_object_dispose__42819;
+  v36 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__42818;
+  v29 = __Block_byref_object_dispose__42819;
+  v30 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __45__PGTitleGenerator__generateTitleAndSubtitle__block_invoke;
+  v24[3] = &unk_278884728;
+  v24[4] = &v31;
+  v24[5] = &v25;
+  [(PGTitleGenerator *)self _generateTitleAndSubtitleWithResult:v24];
+  stringValue = [v32[5] stringValue];
+  stringValue2 = [v26[5] stringValue];
   if (stringValue && [stringValue length] || -[PGTitleGenerator _triggerDefaultTitleGenerationIfNil](self, "_triggerDefaultTitleGenerationIfNil"))
   {
-    objc_storeStrong(&self->_subtitle, v27[5]);
+    objc_storeStrong(&self->_subtitle, v26[5]);
     if (stringValue && [stringValue length])
     {
-      v5 = v33;
+      v5 = v32;
 LABEL_7:
       v6 = v5[5];
       title = self->_title;
@@ -485,7 +480,7 @@ LABEL_8:
 
     if (stringValue2 && [stringValue2 length])
     {
-      v5 = v27;
+      v5 = v26;
       goto LABEL_7;
     }
   }
@@ -498,12 +493,12 @@ LABEL_19:
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v23 = v33[5];
-      v24 = v27[5];
+      v22 = v32[5];
+      v23 = v26[5];
       *buf = 138412546;
-      v39 = v23;
-      v40 = 2112;
-      v41 = v24;
+      v38 = v22;
+      v39 = 2112;
+      v40 = v23;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Title and subtitle are nil, which should never happen. %@ %@. Will use empty string for title", buf, 0x16u);
     }
 
@@ -515,10 +510,8 @@ LABEL_19:
     self->_subtitle = 0;
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 void __45__PGTitleGenerator__generateTitleAndSubtitle__block_invoke(uint64_t a1, void *a2, void *a3)

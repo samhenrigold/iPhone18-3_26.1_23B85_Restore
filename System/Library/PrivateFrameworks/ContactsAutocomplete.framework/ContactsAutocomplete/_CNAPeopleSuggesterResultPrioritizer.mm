@@ -42,7 +42,7 @@
 
 - (id)applyPriorityOrderToResults:(id)results fetchRequest:(id)request andCompletePriorityResultsPromise:(id)promise
 {
-  v118 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   requestCopy = request;
   promiseCopy = promise;
@@ -50,66 +50,67 @@
   [defaultProvider timestamp];
   v9 = v8;
 
-  v10 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = CNALoggingContextTriage(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier = [requestCopy triageIdentifier];
     *buf = 138543362;
     *&buf[4] = triageIdentifier;
-    _os_log_impl(&dword_2155FE000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will sort", buf, 0xCu);
+    _os_log_impl(&dword_2155FE000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will sort", buf, 0xCu);
   }
 
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
   searchNames = [requestCopy searchNames];
-  v83 = [(_CNAPeopleSuggesterResultPrioritizer *)self partitionCandidatesForRanking:resultsCopy givenPrefixes:searchNames];
+  v87 = [(_CNAPeopleSuggesterResultPrioritizer *)self partitionCandidatesForRanking:resultsCopy givenPrefixes:searchNames];
 
-  first = [v83 first];
-  second = [v83 second];
-  v93 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(orderedSet, "count")}];
-  v108 = 0u;
-  v109 = 0u;
-  v106 = 0u;
-  v107 = 0u;
+  first = [v87 first];
+  second = [v87 second];
+  v97 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(orderedSet, "count")}];
+  v112 = 0u;
+  v113 = 0u;
+  v110 = 0u;
+  v111 = 0u;
   obj = first;
-  v92 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
-  if (v92)
+  v96 = [obj countByEnumeratingWithState:&v110 objects:v118 count:16];
+  if (v96)
   {
-    v90 = *v107;
+    v94 = *v111;
     do
     {
-      for (i = 0; i != v92; ++i)
+      for (i = 0; i != v96; ++i)
       {
-        if (*v107 != v90)
+        if (*v111 != v94)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v106 + 1) + 8 * i);
-        value = [v15 value];
-        if ([(_CNAPeopleSuggesterResultPrioritizer *)self resultIdentifierIsValidMessagesChatGuid:v15])
+        v16 = *(*(&v110 + 1) + 8 * i);
+        value = [v16 value];
+        if ([(_CNAPeopleSuggesterResultPrioritizer *)self resultIdentifierIsValidMessagesChatGuid:v16])
         {
-          identifier = [v15 identifier];
-          v105 = 0;
-          v18 = [v15 members:&v105];
-          v19 = v105;
-          if (v18)
+          identifier = [v16 identifier];
+          v109 = 0;
+          v19 = [v16 members:&v109];
+          v20 = v109;
+          v21 = v20;
+          if (v19)
           {
-            v20 = [v18 _cn_compactMap:&__block_literal_global_18_1];
+            v22 = [v19 _cn_compactMap:&__block_literal_global_18_1];
           }
 
           else
           {
-            v25 = CNALoggingContextDebug();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v27 = CNALoggingContextDebug(v20);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
               *&buf[4] = identifier;
               *&buf[12] = 2112;
-              *&buf[14] = v19;
-              _os_log_impl(&dword_2155FE000, v25, OS_LOG_TYPE_DEFAULT, "Error retrieving chat recipients from %@ : %@", buf, 0x16u);
+              *&buf[14] = v21;
+              _os_log_impl(&dword_2155FE000, v27, OS_LOG_TYPE_DEFAULT, "Error retrieving chat recipients from %@ : %@", buf, 0x16u);
             }
 
-            v20 = 0;
+            v22 = 0;
           }
 
           unformattedInternationalStringValue = 0;
@@ -119,11 +120,11 @@
         {
           if ([value addressType] == 2)
           {
-            v21 = MEMORY[0x277CBDB70];
+            v23 = MEMORY[0x277CBDB70];
             address = [value address];
-            v23 = [v21 phoneNumberWithStringValue:address];
+            v25 = [v23 phoneNumberWithStringValue:address];
 
-            unformattedInternationalStringValue = [v23 unformattedInternationalStringValue];
+            unformattedInternationalStringValue = [v25 unformattedInternationalStringValue];
           }
 
           else
@@ -131,34 +132,35 @@
             unformattedInternationalStringValue = [value address];
           }
 
-          v20 = 0;
+          v22 = 0;
           identifier = 0;
         }
 
         if (identifier)
         {
-          v26 = identifier;
+          v28 = identifier;
         }
 
         else
         {
-          v26 = unformattedInternationalStringValue;
+          v28 = unformattedInternationalStringValue;
         }
 
-        v27 = v26;
-        if (v27)
+        v29 = v28;
+        v30 = v29;
+        if (v29)
         {
-          [v93 setObject:v15 forKeyedSubscript:v27];
+          v29 = [v97 setObject:v16 forKeyedSubscript:v29];
         }
 
-        v28 = objc_alloc(get_PSAutocompleteSuggestionClass());
-        displayName = [v15 displayName];
-        identifier2 = [v15 identifier];
-        v31 = [v28 initWithChatGuid:identifier chatHandles:v20 displayName:displayName handle:unformattedInternationalStringValue contactIdentifier:identifier2 resultSourceType:objc_msgSend(v15 autocompleteResult:{"sourceType"), 0}];
+        v31 = objc_alloc(get_PSAutocompleteSuggestionClass(v29));
+        displayName = [v16 displayName];
+        identifier2 = [v16 identifier];
+        v34 = [v31 initWithChatGuid:identifier chatHandles:v22 displayName:displayName handle:unformattedInternationalStringValue contactIdentifier:identifier2 resultSourceType:objc_msgSend(v16 autocompleteResult:{"sourceType"), 0}];
 
-        if (v31)
+        if (v34)
         {
-          [orderedSet addObject:v31];
+          [orderedSet addObject:v34];
         }
 
         else
@@ -167,25 +169,25 @@
           if (os_log_type_enabled(os_log, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v15;
+            *&buf[4] = v16;
             _os_log_error_impl(&dword_2155FE000, os_log, OS_LOG_TYPE_ERROR, "Could not create suggestion from result: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v92 = [obj countByEnumeratingWithState:&v106 objects:v114 count:16];
+      v96 = [obj countByEnumeratingWithState:&v110 objects:v118 count:16];
     }
 
-    while (v92);
+    while (v96);
   }
 
-  v33 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v37 = CNALoggingContextTriage(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier2 = [requestCopy triageIdentifier];
     *buf = 138543362;
     *&buf[4] = triageIdentifier2;
-    _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will re-rank with PSSuggester", buf, 0xCu);
+    _os_log_impl(&dword_2155FE000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will re-rank with PSSuggester", buf, 0xCu);
   }
 
   bundleIdentifierOfCurrentProcess = [objc_opt_class() bundleIdentifierOfCurrentProcess];
@@ -202,73 +204,73 @@
     searchString = 0;
   }
 
-  v99[0] = MEMORY[0x277D85DD0];
-  v99[1] = 3221225472;
-  v99[2] = __115___CNAPeopleSuggesterResultPrioritizer_applyPriorityOrderToResults_fetchRequest_andCompletePriorityResultsPromise___block_invoke_20;
-  v99[3] = &unk_2781C4CE0;
-  v85 = bundleIdentifierOfCurrentProcess;
-  v100 = v85;
-  v86 = sendingAddressAccountIdentifier;
-  v101 = v86;
-  v91 = searchString;
-  v102 = v91;
-  v89 = orderedSet;
-  v103 = v89;
+  v103[0] = MEMORY[0x277D85DD0];
+  v103[1] = 3221225472;
+  v103[2] = __115___CNAPeopleSuggesterResultPrioritizer_applyPriorityOrderToResults_fetchRequest_andCompletePriorityResultsPromise___block_invoke_20;
+  v103[3] = &unk_2781C4CE0;
+  v89 = bundleIdentifierOfCurrentProcess;
+  v104 = v89;
+  v90 = sendingAddressAccountIdentifier;
+  v105 = v90;
+  v95 = searchString;
+  v106 = v95;
+  v93 = orderedSet;
+  v107 = v93;
   selfCopy = self;
-  v39 = v99;
+  v43 = v103;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v116 = __Block_byref_object_copy__2;
-  *&v117 = __Block_byref_object_dispose__2;
-  *(&v117 + 1) = 0;
-  v110[0] = MEMORY[0x277D85DD0];
-  v110[1] = 3221225472;
-  v110[2] = __CNResultWithQoS_block_invoke;
-  v110[3] = &unk_2781C4D78;
-  v112 = buf;
-  v40 = v39;
-  v111 = v40;
-  v41 = v110;
-  v42 = dispatch_block_create_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0, v41);
-  v43 = objc_opt_self();
+  v120 = __Block_byref_object_copy__2;
+  *&v121 = __Block_byref_object_dispose__2;
+  *(&v121 + 1) = 0;
+  v114[0] = MEMORY[0x277D85DD0];
+  v114[1] = 3221225472;
+  v114[2] = __CNResultWithQoS_block_invoke;
+  v114[3] = &unk_2781C4D78;
+  v116 = buf;
+  v44 = v43;
+  v115 = v44;
+  v45 = v114;
+  v46 = dispatch_block_create_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0, v45);
+  v47 = objc_opt_self();
 
-  v43[2](v43);
-  v44 = *(*&buf[8] + 40);
+  v47[2](v47);
+  v48 = *(*&buf[8] + 40);
 
   _Block_object_dispose(buf, 8);
-  v45 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+  v50 = CNALoggingContextTriage(v49);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier3 = [requestCopy triageIdentifier];
     *buf = 138543362;
     *&buf[4] = triageIdentifier3;
-    _os_log_impl(&dword_2155FE000, v45, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will convert to autocomplete results", buf, 0xCu);
+    _os_log_impl(&dword_2155FE000, v50, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Will convert to autocomplete results", buf, 0xCu);
   }
 
   orderedSet2 = [MEMORY[0x277CBEB40] orderedSet];
   orderedSet3 = [MEMORY[0x277CBEB40] orderedSet];
-  v97 = 0u;
-  v98 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v49 = v44;
-  v50 = [v49 countByEnumeratingWithState:&v95 objects:v113 count:16];
-  if (v50)
+  v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v54 = v48;
+  v55 = [v54 countByEnumeratingWithState:&v99 objects:v117 count:16];
+  if (v55)
   {
-    v51 = *v96;
+    v56 = *v100;
     do
     {
-      for (j = 0; j != v50; ++j)
+      for (j = 0; j != v55; ++j)
       {
-        if (*v96 != v51)
+        if (*v100 != v56)
         {
-          objc_enumerationMutation(v49);
+          objc_enumerationMutation(v54);
         }
 
-        v53 = *(*(&v95 + 1) + 8 * j);
-        chatGuid = [v53 chatGuid];
-        v55 = chatGuid;
+        v58 = *(*(&v99 + 1) + 8 * j);
+        chatGuid = [v58 chatGuid];
+        v60 = chatGuid;
         if (chatGuid)
         {
           handle = chatGuid;
@@ -276,20 +278,20 @@
 
         else
         {
-          handle = [v53 handle];
+          handle = [v58 handle];
         }
 
-        v57 = handle;
+        v62 = handle;
 
-        v58 = [v93 objectForKeyedSubscript:v57];
-        v59 = v58;
-        if (v58)
+        v63 = [v97 objectForKeyedSubscript:v62];
+        v64 = v63;
+        if (v63)
         {
-          [v58 setSourceType:{objc_msgSend(v53, "resultSourceType") | objc_msgSend(v58, "sourceType")}];
-          [orderedSet2 addObject:v59];
-          if (([v59 sourceType] & 0x10) != 0)
+          [v63 setSourceType:{objc_msgSend(v58, "resultSourceType") | objc_msgSend(v63, "sourceType")}];
+          [orderedSet2 addObject:v64];
+          if (([v64 sourceType] & 0x10) != 0)
           {
-            [orderedSet3 addObject:v59];
+            [orderedSet3 addObject:v64];
           }
         }
 
@@ -299,16 +301,16 @@
           if (os_log_type_enabled(os_log2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            *&buf[4] = v53;
+            *&buf[4] = v58;
             _os_log_error_impl(&dword_2155FE000, os_log2, OS_LOG_TYPE_ERROR, "Suggestion from PS has no identifier; this result may be ranked lower than it should be: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v50 = [v49 countByEnumeratingWithState:&v95 objects:v113 count:16];
+      v55 = [v54 countByEnumeratingWithState:&v99 objects:v117 count:16];
     }
 
-    while (v50);
+    while (v55);
   }
 
   os_log3 = [objc_opt_class() os_log];
@@ -333,44 +335,42 @@
   [orderedSet2 addObjectsFromArray:second];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [orderedSet2 array];
-  v66 = [(_CNAPeopleSuggesterResultPrioritizer *)self partitionStewieResults:array2];
+  v71 = [(_CNAPeopleSuggesterResultPrioritizer *)self partitionStewieResults:array2];
 
-  first2 = [v66 first];
+  first2 = [v71 first];
   [array addObjectsFromArray:first2];
 
-  second2 = [v66 second];
+  second2 = [v71 second];
   [array addObjectsFromArray:second2];
 
   [promiseCopy finishWithResult:orderedSet3];
   defaultProvider2 = [MEMORY[0x277CFBED0] defaultProvider];
   [defaultProvider2 timestamp];
-  v71 = v70;
+  v76 = v75;
 
-  v72 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v71 - v9];
-  v73 = CNALoggingContextTriage();
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+  v77 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v76 - v9];
+  v78 = CNALoggingContextTriage(v77);
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
   {
     triageIdentifier4 = [requestCopy triageIdentifier];
-    v75 = [array count];
-    v76 = [array count];
-    v77 = "results";
+    v80 = [array count];
+    v81 = [array count];
+    v82 = "results";
     *buf = 138544130;
     *&buf[4] = triageIdentifier4;
     *&buf[12] = 2048;
-    if (v76 == 1)
+    if (v81 == 1)
     {
-      v77 = "result";
+      v82 = "result";
     }
 
-    *&buf[14] = v75;
+    *&buf[14] = v80;
     *&buf[22] = 2080;
-    v116 = v77;
-    LOWORD(v117) = 2114;
-    *(&v117 + 2) = v72;
-    _os_log_impl(&dword_2155FE000, v73, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Sort complete (%lu %s, %{public}@)", buf, 0x2Au);
+    v120 = v82;
+    LOWORD(v121) = 2114;
+    *(&v121 + 2) = v77;
+    _os_log_impl(&dword_2155FE000, v78, OS_LOG_TYPE_DEFAULT, "[%{public}@] PeopleSuggester: Sort complete (%lu %s, %{public}@)", buf, 0x2Au);
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -510,30 +510,6 @@ LABEL_11:
   }
 
   return bundleIdentifier;
-}
-
-- (void)applyPriorityOrderToResults:fetchRequest:andCompletePriorityResultsPromise:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2155FE000, v0, v1, "Final assembly 1. finalResults: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)applyPriorityOrderToResults:fetchRequest:andCompletePriorityResultsPromise:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2155FE000, v0, v1, "Final assembly 2. candidatesToRank: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)applyPriorityOrderToResults:fetchRequest:andCompletePriorityResultsPromise:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2155FE000, v0, v1, "Final assembly 3. nonCandidates: %{private}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

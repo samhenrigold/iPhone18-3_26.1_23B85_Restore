@@ -440,7 +440,7 @@ intptr_t __53__SKUIRedeemNativeResultsViewController__openAction___block_invoke(
 
 - (void)_redeemAnotherAction:(id)action
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   navigationController = [(SKUIRedeemNativeResultsViewController *)self navigationController];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -448,16 +448,21 @@ intptr_t __53__SKUIRedeemNativeResultsViewController__openAction___block_invoke(
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -466,31 +471,30 @@ intptr_t __53__SKUIRedeemNativeResultsViewController__openAction___block_invoke(
     {
       v8 = objc_opt_class();
       v9 = v8;
-      *v13 = 138543618;
-      *&v13[4] = v8;
-      *&v13[12] = 2114;
-      *&v13[14] = objc_opt_class();
-      v10 = *&v13[14];
-      LODWORD(v12) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2114;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_215BAE000, oSLogObject, 16, "%{public}@: Unable to perform redeem again. Invalid redeem view controller type: %{public}@", &v12, 22);
 
       if (!v11)
       {
-LABEL_12:
+LABEL_13:
 
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, v13, v12, *v13, *&v13[16]}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   [navigationController redeemAgainAnimated:1];
-LABEL_13:
+LABEL_14:
 }
 
 - (id)_anotherButtonSection

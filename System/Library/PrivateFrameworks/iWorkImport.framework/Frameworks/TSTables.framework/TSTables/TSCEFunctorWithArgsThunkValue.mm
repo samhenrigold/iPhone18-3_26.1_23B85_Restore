@@ -19,9 +19,9 @@
 + (id)functorWithArgsValue:(const TSCEFunctor *)value args:(const void *)args
 {
   v6 = [TSCEFunctorWithArgsThunkValue alloc];
-  v9 = objc_msgSend_initWithFunctor_args_(v6, v7, value, args, v8);
+  v8 = objc_msgSend_initWithFunctor_args_(v6, v7, value, args);
 
-  return v9;
+  return v8;
 }
 
 - (TSCEFunctorWithArgsThunkValue)initWithFunctor:(const TSCEFunctor *)functor args:(const void *)args
@@ -75,51 +75,51 @@
 {
   v7 = *&index;
   numberCopy = number;
-  v14 = objc_msgSend_unwrapThunk_(numberCopy, v11, self, v12, v13);
-  v16 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v14, v15, numberCopy, spec, v7, error);
+  v13 = objc_msgSend_unwrapThunk_(numberCopy, v11, self, v12);
+  v15 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v13, v14, numberCopy, spec, v7, error);
 
-  return v16;
+  return v15;
 }
 
 - (id)asDate:(id)date functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
   dateCopy = date;
-  v14 = objc_msgSend_unwrapThunk_(dateCopy, v11, self, v12, v13);
-  v16 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v14, v15, dateCopy, spec, v7, error);
+  v13 = objc_msgSend_unwrapThunk_(dateCopy, v11, self, v12);
+  v15 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v13, v14, dateCopy, spec, v7, error);
 
-  return v16;
+  return v15;
 }
 
 - (id)asString:(id)string functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
   stringCopy = string;
-  v14 = objc_msgSend_unwrapThunk_(stringCopy, v11, self, v12, v13);
-  v16 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v14, v15, stringCopy, spec, v7, error);
+  v13 = objc_msgSend_unwrapThunk_(stringCopy, v11, self, v12);
+  v15 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v13, v14, stringCopy, spec, v7, error);
 
-  return v16;
+  return v15;
 }
 
 - (id)asRawString:(id)string functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
   stringCopy = string;
-  v14 = objc_msgSend_unwrapThunk_(stringCopy, v11, self, v12, v13);
-  v16 = objc_msgSend_asRawString_functionSpec_argumentIndex_outError_(v14, v15, stringCopy, spec, v7, error);
+  v13 = objc_msgSend_unwrapThunk_(stringCopy, v11, self, v12);
+  v15 = objc_msgSend_asRawString_functionSpec_argumentIndex_outError_(v13, v14, stringCopy, spec, v7, error);
 
-  return v16;
+  return v15;
 }
 
 - (TSCERichTextStorage)asRichTextStorage:(SEL)storage functionSpec:(id)spec argumentIndex:(id)index outError:(int)error
 {
   v8 = *&error;
   specCopy = spec;
-  v15 = objc_msgSend_unwrapThunk_(specCopy, v12, self, v13, v14);
-  v17 = v15;
-  if (v15)
+  v14 = objc_msgSend_unwrapThunk_(specCopy, v12, self, v13);
+  v16 = v14;
+  if (v14)
   {
-    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v15, v16, specCopy, index, v8, a7);
+    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v14, v15, specCopy, index, v8, a7);
   }
 
   else
@@ -136,11 +136,11 @@
 {
   v8 = *&error;
   specCopy = spec;
-  v15 = objc_msgSend_unwrapThunk_(specCopy, v12, self, v13, v14);
-  v17 = v15;
-  if (v15)
+  v14 = objc_msgSend_unwrapThunk_(specCopy, v12, self, v13);
+  v16 = v14;
+  if (v14)
   {
-    objc_msgSend_asRawRichTextStorage_functionSpec_argumentIndex_outError_(v15, v16, specCopy, index, v8, a7);
+    objc_msgSend_asRawRichTextStorage_functionSpec_argumentIndex_outError_(v14, v15, specCopy, index, v8, a7);
   }
 
   else
@@ -157,8 +157,8 @@
 {
   v7 = *&index;
   booleanCopy = boolean;
-  v14 = objc_msgSend_unwrapThunk_(booleanCopy, v11, self, v12, v13);
-  LOBYTE(error) = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v14, v15, booleanCopy, spec, v7, error);
+  v13 = objc_msgSend_unwrapThunk_(booleanCopy, v11, self, v12);
+  LOBYTE(error) = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v13, v14, booleanCopy, spec, v7, error);
 
   return error;
 }
@@ -168,10 +168,10 @@
   formatCopy = format;
   v9 = *&index;
   gridCopy = grid;
-  v16 = objc_msgSend_unwrapThunk_(gridCopy, v13, self, v14, v15);
-  v18 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v16, v17, gridCopy, spec, v9, formatCopy, error);
+  v15 = objc_msgSend_unwrapThunk_(gridCopy, v13, self, v14);
+  v17 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v15, v16, gridCopy, spec, v9, formatCopy, error);
 
-  return v18;
+  return v17;
 }
 
 - (id).cxx_construct

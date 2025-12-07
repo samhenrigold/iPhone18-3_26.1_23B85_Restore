@@ -54,7 +54,7 @@
     CGAffineTransformMakeRotation(&v36, -v19);
     v35 = v36;
     [presentationView setTransform:&v35];
-    [presentationView frame];
+    objc_msgSend_frame(presentationView);
     x = v38.origin.x;
     y = v38.origin.y;
     width = v38.size.width;

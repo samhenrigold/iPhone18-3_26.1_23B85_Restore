@@ -82,7 +82,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5 = type metadata accessor for VerticalLockupCollectionViewCell();
+  v5 = type metadata accessor for VerticalLockupCollectionViewCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -99,7 +99,7 @@
 - (void)setSelected:(BOOL)selected
 {
   selectedCopy = selected;
-  v5 = type metadata accessor for VerticalLockupCollectionViewCell();
+  v5 = type metadata accessor for VerticalLockupCollectionViewCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;

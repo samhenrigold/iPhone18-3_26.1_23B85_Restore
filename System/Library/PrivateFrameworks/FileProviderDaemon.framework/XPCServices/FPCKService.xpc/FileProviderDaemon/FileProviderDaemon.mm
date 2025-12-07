@@ -58,205 +58,204 @@ void sub_10000144C(uint64_t a1)
 
 void sub_100001790(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 40);
-  v3 = fpfs_adopt_log();
-  v4 = fp_current_or_default_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v2 = fpfs_adopt_log();
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "[INFO] 🧹 FPCKService, starting FPCK", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "[INFO] 🧹 FPCKService, starting FPCK", buf, 2u);
   }
 
-  v5 = *(a1 + 32);
-  if (v5[8])
+  v4 = *(a1 + 32);
+  if (v4[8])
   {
-    v6 = v5;
-    objc_sync_enter(v6);
+    v5 = v4;
+    objc_sync_enter(v5);
     if (*(*(a1 + 32) + 24) == 1)
     {
       (*(*(a1 + 48) + 16))();
-      objc_sync_exit(v6);
+      objc_sync_exit(v5);
     }
 
     else
     {
-      objc_sync_exit(v6);
+      objc_sync_exit(v5);
 
       dispatch_semaphore_signal(*(*(a1 + 32) + 16));
-      v46 = [[FPXPCAutomaticErrorProxy alloc] initWithConnection:*(a1 + 40) protocol:&OBJC_PROTOCOL___FPCKUpdateReceiving orError:0 name:@"UpdateReceiverProxy" requestPid:getpid()];
-      v47 = [v46 synchronousRemoteObjectProxy];
-      v48 = &stru_1000082C0;
-      v49 = &stru_100008300;
-      if (*(a1 + 40) && v47)
+      v45 = [[FPXPCAutomaticErrorProxy alloc] initWithConnection:*(a1 + 40) protocol:&OBJC_PROTOCOL___FPCKUpdateReceiving orError:0 name:@"UpdateReceiverProxy" requestPid:getpid()];
+      v46 = [v45 synchronousRemoteObjectProxy];
+      v47 = &stru_1000082C0;
+      v48 = &stru_100008300;
+      if (*(a1 + 40) && v46)
       {
         *buf = 0;
-        v77 = buf;
-        v78 = 0x3032000000;
-        v79 = sub_100001FDC;
-        v80 = sub_100001FEC;
-        v81 = [FPCKTask buildPauseResult:0 semaphore:0];
-        v72[0] = 0;
-        v72[1] = v72;
-        v72[2] = 0x3032000000;
-        v72[3] = sub_100001FDC;
-        v72[4] = sub_100001FEC;
-        v73 = +[NSDate now];
-        v67[0] = _NSConcreteStackBlock;
-        v67[1] = 3221225472;
-        v67[2] = sub_100001FF4;
-        v67[3] = &unk_100008350;
-        v70 = v72;
-        v71 = buf;
-        v9 = v47;
-        v10 = *(a1 + 32);
+        v76 = buf;
+        v77 = 0x3032000000;
+        v78 = sub_100001FDC;
+        v79 = sub_100001FEC;
+        v80 = [FPCKTask buildPauseResult:0 semaphore:0];
+        v71[0] = 0;
+        v71[1] = v71;
+        v71[2] = 0x3032000000;
+        v71[3] = sub_100001FDC;
+        v71[4] = sub_100001FEC;
+        v72 = +[NSDate now];
+        v66[0] = _NSConcreteStackBlock;
+        v66[1] = 3221225472;
+        v66[2] = sub_100001FF4;
+        v66[3] = &unk_100008350;
+        v69 = v71;
+        v70 = buf;
+        v8 = v46;
+        v9 = *(a1 + 32);
+        v67 = v8;
         v68 = v9;
-        v69 = v10;
-        v48 = objc_retainBlock(v67);
-        v65[0] = _NSConcreteStackBlock;
-        v65[1] = 3221225472;
-        v65[2] = sub_1000021D0;
-        v65[3] = &unk_100008378;
-        v66 = v9;
-        v49 = objc_retainBlock(v65);
+        v47 = objc_retainBlock(v66);
+        v64[0] = _NSConcreteStackBlock;
+        v64[1] = 3221225472;
+        v64[2] = sub_1000021D0;
+        v64[3] = &unk_100008378;
+        v65 = v8;
+        v48 = objc_retainBlock(v64);
 
-        _Block_object_dispose(v72, 8);
+        _Block_object_dispose(v71, 8);
         _Block_object_dispose(buf, 8);
       }
 
-      v11 = objc_alloc_init(NSMutableArray);
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
+      v10 = objc_alloc_init(NSMutableArray);
       v62 = 0u;
-      v12 = *(*(a1 + 32) + 88);
-      v13 = [v12 countByEnumeratingWithState:&v61 objects:v75 count:16];
-      if (v13)
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
+      v11 = *(*(a1 + 32) + 88);
+      v12 = [v11 countByEnumeratingWithState:&v60 objects:v74 count:16];
+      if (v12)
       {
-        v14 = *v62;
+        v13 = *v61;
         do
         {
-          for (i = 0; i != v13; i = i + 1)
+          for (i = 0; i != v12; i = i + 1)
           {
-            if (*v62 != v14)
+            if (*v61 != v13)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v61 + 1) + 8 * i);
-            v17 = [v16 url];
-            v18 = [v17 startAccessingSecurityScopedResource];
+            v15 = *(*(&v60 + 1) + 8 * i);
+            v16 = [v15 url];
+            v17 = [v16 startAccessingSecurityScopedResource];
 
-            if (v18)
+            if (v17)
             {
-              v19 = [v16 url];
-              [v11 addObject:v19];
+              v18 = [v15 url];
+              [v10 addObject:v18];
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v61 objects:v75 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v60 objects:v74 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
 
-      v20 = [*(*(a1 + 32) + 72) url];
+      v19 = [*(*(a1 + 32) + 72) url];
+      [v19 startAccessingSecurityScopedResource];
+
+      v20 = [*(*(a1 + 32) + 80) url];
       [v20 startAccessingSecurityScopedResource];
 
-      v21 = [*(*(a1 + 32) + 80) url];
-      [v21 startAccessingSecurityScopedResource];
-
-      v59 = 0u;
-      v60 = 0u;
-      v57 = 0u;
       v58 = 0u;
-      v22 = *(*(a1 + 32) + 96);
-      v23 = [v22 countByEnumeratingWithState:&v57 objects:v74 count:16];
-      if (v23)
+      v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v21 = *(*(a1 + 32) + 96);
+      v22 = [v21 countByEnumeratingWithState:&v56 objects:v73 count:16];
+      if (v22)
       {
-        v24 = *v58;
+        v23 = *v57;
         do
         {
-          for (j = 0; j != v23; j = j + 1)
+          for (j = 0; j != v22; j = j + 1)
           {
-            if (*v58 != v24)
+            if (*v57 != v23)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v57 + 1) + 8 * j);
-            v27 = [v26 url];
-            v28 = [v27 startAccessingSecurityScopedResource];
+            v25 = *(*(&v56 + 1) + 8 * j);
+            v26 = [v25 url];
+            v27 = [v26 startAccessingSecurityScopedResource];
 
-            if ((v28 & 1) == 0)
+            if ((v27 & 1) == 0)
             {
-              v29 = fp_current_or_default_log();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+              v28 = fp_current_or_default_log();
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
-                sub_100002610(buf, v26, &buf[4], v29);
+                sub_100002610(buf, v25, &buf[4], v28);
               }
             }
           }
 
-          v23 = [v22 countByEnumeratingWithState:&v57 objects:v74 count:16];
+          v22 = [v21 countByEnumeratingWithState:&v56 objects:v73 count:16];
         }
 
-        while (v23);
+        while (v22);
       }
 
-      v56[0] = _NSConcreteStackBlock;
-      v56[1] = 3221225472;
-      v56[2] = sub_1000021DC;
-      v56[3] = &unk_1000083A0;
-      v56[4] = *(a1 + 32);
-      v30 = objc_retainBlock(v56);
-      v54[0] = _NSConcreteStackBlock;
-      v54[1] = 3221225472;
-      v54[2] = sub_1000021E4;
-      v54[3] = &unk_1000083C8;
-      v55 = *(a1 + 40);
-      v44 = objc_retainBlock(v54);
-      v52[0] = _NSConcreteStackBlock;
-      v52[1] = 3221225472;
-      v52[2] = sub_1000021F0;
-      v52[3] = &unk_1000083C8;
-      v53 = *(a1 + 40);
-      v45 = objc_retainBlock(v52);
-      v43 = *(*(a1 + 32) + 56);
-      v42 = *(*(a1 + 32) + 64);
-      v31 = [*(*(a1 + 32) + 72) url];
-      v32 = [*(*(a1 + 32) + 80) url];
-      v33 = *(a1 + 32);
-      v34 = *(v33 + 52);
-      v35 = *(v33 + 104);
-      v36 = *(v33 + 112);
-      v37 = *(v33 + 48);
-      v38 = a1;
-      v39 = v30;
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_1000021FC;
-      v50[3] = &unk_1000083F0;
-      v50[4] = v33;
-      v40 = *(v38 + 56);
-      v51 = *(v38 + 48);
-      LOWORD(v41) = v37;
-      [FPCKTask runFPCKForDomain:v43 domainUserInfo:v42 domainRootURL:v31 databaseBackupPath:v32 urls:v11 volumeRole:v34 options:v35 reason:v36 fpfs:v41 iCDPackageDetection:v48 shouldPause:v44 sendDiagnostics:v49 saveCheckpoint:v45 reingestItems:v39 isInvalidated:v40 contentBarrier:v50 completionHandler:?];
+      v55[0] = _NSConcreteStackBlock;
+      v55[1] = 3221225472;
+      v55[2] = sub_1000021DC;
+      v55[3] = &unk_1000083A0;
+      v55[4] = *(a1 + 32);
+      v29 = objc_retainBlock(v55);
+      v53[0] = _NSConcreteStackBlock;
+      v53[1] = 3221225472;
+      v53[2] = sub_1000021E4;
+      v53[3] = &unk_1000083C8;
+      v54 = *(a1 + 40);
+      v43 = objc_retainBlock(v53);
+      v51[0] = _NSConcreteStackBlock;
+      v51[1] = 3221225472;
+      v51[2] = sub_1000021F0;
+      v51[3] = &unk_1000083C8;
+      v52 = *(a1 + 40);
+      v44 = objc_retainBlock(v51);
+      v42 = *(*(a1 + 32) + 56);
+      v41 = *(*(a1 + 32) + 64);
+      v30 = [*(*(a1 + 32) + 72) url];
+      v31 = [*(*(a1 + 32) + 80) url];
+      v32 = *(a1 + 32);
+      v33 = *(v32 + 52);
+      v34 = *(v32 + 104);
+      v35 = *(v32 + 112);
+      v36 = *(v32 + 48);
+      v37 = a1;
+      v38 = v29;
+      v49[0] = _NSConcreteStackBlock;
+      v49[1] = 3221225472;
+      v49[2] = sub_1000021FC;
+      v49[3] = &unk_1000083F0;
+      v49[4] = v32;
+      v39 = *(v37 + 56);
+      v50 = *(v37 + 48);
+      LOWORD(v40) = v36;
+      [FPCKTask runFPCKForDomain:v42 domainUserInfo:v41 domainRootURL:v30 databaseBackupPath:v31 urls:v10 volumeRole:v33 options:v34 reason:v35 fpfs:v40 iCDPackageDetection:v47 shouldPause:v43 sendDiagnostics:v48 saveCheckpoint:v44 reingestItems:v38 isInvalidated:v39 contentBarrier:v49 completionHandler:?];
 
-      v6 = v46;
+      v5 = v45;
     }
   }
 
   else
   {
-    v7 = fp_current_or_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v6 = fp_current_or_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000025CC(v7);
+      sub_1000025CC(v6);
     }
 
-    v8 = *(a1 + 48);
-    v6 = [NSError fp_invalidArgumentError:@"Prepare!"];
-    (*(v8 + 16))(v8, 0, 0, 0, v6);
+    v7 = *(a1 + 48);
+    v5 = [NSError fp_invalidArgumentError:@"Prepare!"];
+    (*(v7 + 16))(v7, 0, 0, 0, v5);
   }
 }
 

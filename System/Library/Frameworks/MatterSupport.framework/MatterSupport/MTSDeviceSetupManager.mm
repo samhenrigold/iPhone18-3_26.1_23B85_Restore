@@ -10,7 +10,7 @@
 
 - (void)performDeviceSetupUsingRequest:(id)request completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   if (!requestCopy)
@@ -36,33 +36,31 @@ LABEL_7:
     identifier = [v9 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543874;
-    v24 = v13;
-    v25 = 2114;
-    v26 = shortDescription;
-    v27 = 2112;
-    v28 = requestCopy;
+    v23 = v13;
+    v24 = 2114;
+    v25 = shortDescription;
+    v26 = 2112;
+    v27 = requestCopy;
     _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Performing Matter device setup using request: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   serverProxy = [(MTSDeviceSetupManager *)selfCopy serverProxy];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandler___block_invoke;
-  v20[3] = &unk_278AA1928;
-  v20[4] = selfCopy;
-  v21 = v9;
-  v22 = v8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandler___block_invoke;
+  v19[3] = &unk_278AA1928;
+  v19[4] = selfCopy;
+  v20 = v9;
+  v21 = v8;
   v17 = v8;
   v18 = v9;
-  [serverProxy performDeviceSetupUsingRequest:requestCopy completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [serverProxy performDeviceSetupUsingRequest:requestCopy completionHandler:v19];
 }
 
 void __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -75,13 +73,13 @@ void __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandle
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 40) identifier];
       v10 = [v9 shortDescription];
-      v17 = 138543874;
-      v18 = v8;
-      v19 = 2114;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v3;
-      _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to perform Matter device setup setup: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v8;
+      v18 = 2114;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v3;
+      _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to perform Matter device setup setup: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -97,18 +95,16 @@ void __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandle
       v13 = HMFGetLogIdentifier();
       v14 = [*(a1 + 40) identifier];
       v15 = [v14 shortDescription];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v15;
-      _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully performed Matter device setup setup", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v15;
+      _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully performed Matter device setup setup", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     (*(*(a1 + 48) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -166,7 +162,6 @@ void __74__MTSDeviceSetupManager_performDeviceSetupUsingRequest_completionHandle
 
 uint64_t __36__MTSDeviceSetupManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v4 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

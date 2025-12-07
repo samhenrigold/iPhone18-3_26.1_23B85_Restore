@@ -1,6 +1,7 @@
 @interface BCMessage
 + (id)defaultBubbleTitleFor:(id)for;
 - (BCMessage)initWithData:(id)data url:(id)url messageGUID:(id)d isFromMe:(BOOL)me;
+- (BCMessage)initWithData:(id)data url:(id)url sessionIdentifier:(id)identifier isFromMe:(BOOL)me;
 - (BOOL)isVersionSupported;
 - (NSData)data;
 - (NSDictionary)dictionaryValue;
@@ -18,10 +19,24 @@
 
 @implementation BCMessage
 
+- (BCMessage)initWithData:(id)data url:(id)url sessionIdentifier:(id)identifier isFromMe:(BOOL)me
+{
+  meCopy = me;
+  identifierCopy = identifier;
+  v12 = [(BCMessage *)self initWithData:data url:url messageGUID:0 isFromMe:meCopy];
+  v13 = v12;
+  if (v12)
+  {
+    objc_storeStrong(&v12->_sessionIdentifier, identifier);
+  }
+
+  return v13;
+}
+
 - (BCMessage)initWithData:(id)data url:(id)url messageGUID:(id)d isFromMe:(BOOL)me
 {
   meCopy = me;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   urlCopy = url;
   dCopy = d;
@@ -31,17 +46,17 @@
     v50 = [dataCopy description];
     v51 = [urlCopy description];
     *buf = 138412802;
-    v76 = v50;
-    v77 = 2112;
-    v78 = v51;
-    v79 = 1024;
-    v80 = meCopy;
+    v75 = v50;
+    v76 = 2112;
+    v77 = v51;
+    v78 = 1024;
+    v79 = meCopy;
     _os_log_debug_impl(&dword_236EA0000, v13, OS_LOG_TYPE_DEBUG, "BCMessage: initWithData: %@ url: %@ isFromMe: %d", buf, 0x1Cu);
   }
 
-  v74.receiver = self;
-  v74.super_class = BCMessage;
-  v14 = [(BCMessage *)&v74 init];
+  v73.receiver = self;
+  v73.super_class = BCMessage;
+  v14 = [(BCMessage *)&v73 init];
   if (!v14)
   {
     goto LABEL_35;
@@ -63,7 +78,7 @@
     goto LABEL_22;
   }
 
-  v73 = dataCopy;
+  v72 = dataCopy;
   v17 = dCopy;
   combinedDictionary2 = [(BCMessageData *)v15 combinedDictionary];
   v19 = [combinedDictionary2 objectForKeyedSubscript:@"version"];
@@ -92,7 +107,7 @@
       _os_log_error_impl(&dword_236EA0000, v48, OS_LOG_TYPE_ERROR, "BCMessage: Cannot initialize with nil version", buf, 2u);
     }
 
-    dataCopy = v73;
+    dataCopy = v72;
     goto LABEL_21;
   }
 
@@ -102,12 +117,12 @@
   {
     v48 = LogCategory_Daemon();
     dCopy = v17;
-    dataCopy = v73;
+    dataCopy = v72;
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       version = v14->_version;
       *buf = 134217984;
-      v76 = version;
+      v75 = version;
       _os_log_error_impl(&dword_236EA0000, v48, OS_LOG_TYPE_ERROR, "BCMessage: Unexpected payload version %ld", buf, 0xCu);
     }
 
@@ -125,7 +140,7 @@ LABEL_22:
   obj = v27;
   if (v27)
   {
-    v70 = v24;
+    v69 = v24;
     v28 = [BCImageStore alloc];
     imagesArray = [(BCMessageData *)v15 imagesArray];
     v30 = [(BCImageStore *)v28 initWithArray:imagesArray];
@@ -136,7 +151,7 @@ LABEL_22:
 
     dictionary = [(BCImageStore *)v30 dictionary];
     v14->_isFromMe = meCopy;
-    v69 = v30;
+    v68 = v30;
     objc_storeStrong(&v14->_imageStore, v30);
     if ([(BCMessage *)v14 isVersionSupported])
     {
@@ -144,7 +159,7 @@ LABEL_22:
       v36 = dictionary;
       rootObject = v14->_rootObject;
       v14->_rootObject = v35;
-      v67 = v35;
+      v66 = v35;
 
       v38 = [BCMessageInfo alloc];
       replyMessageDictionary = [(BCMessageData *)v15 replyMessageDictionary];
@@ -169,26 +184,26 @@ LABEL_22:
         type = [(BCMessage *)v14 type];
         v54 = v14->_version;
         *buf = 134218240;
-        v76 = type;
-        v77 = 2048;
-        v78 = v54;
+        v75 = type;
+        v76 = 2048;
+        v77 = v54;
         _os_log_impl(&dword_236EA0000, receivedMessageDictionary, OS_LOG_TYPE_DEFAULT, "BCMessage: Cannot create rootObject for BCMessage of type %ld since version %ld of payload is not supported", buf, 0x16u);
       }
     }
 
-    v55 = v70;
+    v55 = v69;
 
     objc_storeStrong(&v14->_requestIdentifier, obj);
     v56 = LogCategory_Daemon();
     if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
     {
       [(BCMessageData *)v15 combinedDictionary];
-      v65 = v64 = dictionary;
+      v64 = v63 = dictionary;
       *buf = 138412290;
-      v76 = v65;
+      v75 = v64;
       _os_log_debug_impl(&dword_236EA0000, v56, OS_LOG_TYPE_DEBUG, "BCMessage: messageData: %@ ", buf, 0xCu);
 
-      dictionary = v64;
+      dictionary = v63;
     }
 
     v57 = LogCategory_Daemon();
@@ -196,19 +211,19 @@ LABEL_22:
     {
       combinedDictionary6 = [(BCMessageData *)v15 combinedDictionary];
       [combinedDictionary6 objectForKeyedSubscript:@"version"];
-      v72 = v33;
+      v71 = v33;
       v59 = v58 = dictionary;
       combinedDictionary7 = [(BCMessageData *)v15 combinedDictionary];
       v61 = [combinedDictionary7 objectForKeyedSubscript:@"mspVersion"];
       *buf = 138412546;
-      v76 = v59;
-      v77 = 2112;
-      v78 = v61;
+      v75 = v59;
+      v76 = 2112;
+      v77 = v61;
       _os_log_impl(&dword_236EA0000, v57, OS_LOG_TYPE_DEFAULT, "BCMessage: version: %@ mspVersion: %@", buf, 0x16u);
 
-      v55 = v70;
+      v55 = v69;
       dictionary = v58;
-      v33 = v72;
+      v33 = v71;
     }
 
     if (dCopy)
@@ -217,7 +232,7 @@ LABEL_22:
       [(BCMessage *)v14 updateTitles];
     }
 
-    dataCopy = v73;
+    dataCopy = v72;
 LABEL_35:
     v49 = v14;
     goto LABEL_36;
@@ -231,10 +246,9 @@ LABEL_35:
   }
 
   v49 = 0;
-  dataCopy = v73;
+  dataCopy = v72;
 LABEL_36:
 
-  v62 = *MEMORY[0x277D85DE8];
   return v49;
 }
 
@@ -430,19 +444,19 @@ LABEL_36:
 - (id)encodedStringForDictionary:(uint64_t)dictionary
 {
   normalizedBase64Encoded = 0;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (dictionary && a2)
   {
-    v9 = 0;
-    v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:a2 options:1 error:&v9];
-    v4 = v9;
+    v8 = 0;
+    v3 = [MEMORY[0x277CCAAA0] dataWithJSONObject:a2 options:1 error:&v8];
+    v4 = v8;
     if (v4)
     {
       v5 = LogCategory_Daemon();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v4;
+        v10 = v4;
         _os_log_error_impl(&dword_236EA0000, v5, OS_LOG_TYPE_ERROR, "BCMessage: error encoding dictionary %@", buf, 0xCu);
       }
 
@@ -459,8 +473,6 @@ LABEL_36:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return normalizedBase64Encoded;
 }
 
@@ -475,7 +487,7 @@ LABEL_36:
 
 - (int64_t)style
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([(BCMessage *)self isFromMe])
   {
     [(BCMessage *)self replyMessage];
@@ -491,9 +503,9 @@ LABEL_36:
   v5 = LogCategory_Daemon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = style;
-    _os_log_impl(&dword_236EA0000, v5, OS_LOG_TYPE_DEFAULT, "BCMessage: style %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = style;
+    _os_log_impl(&dword_236EA0000, v5, OS_LOG_TYPE_DEFAULT, "BCMessage: style %@", &v8, 0xCu);
   }
 
   if ([style isEqualToString:@"small"])
@@ -511,7 +523,6 @@ LABEL_36:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -728,61 +739,57 @@ LABEL_19:
 
 - (uint64_t)isAnyUnknownRootKey
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (self)
+  v14 = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    if (qword_27DE8BA78 != -1)
-    {
-      dispatch_once(&qword_27DE8BA78, &__block_literal_global);
-    }
+    return 0;
+  }
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    messageData = [self messageData];
-    combinedDictionary = [messageData combinedDictionary];
-    allKeys = [combinedDictionary allKeys];
+  if (qword_27DE8BA78 != -1)
+  {
+    dispatch_once(&qword_27DE8BA78, &__block_literal_global);
+  }
 
-    v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (v5)
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  messageData = [self messageData];
+  combinedDictionary = [messageData combinedDictionary];
+  allKeys = [combinedDictionary allKeys];
+
+  v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
+  {
+    v6 = *v10;
+    while (2)
     {
-      v6 = *v11;
-      while (2)
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v10 != v6)
         {
-          if (*v11 != v6)
-          {
-            objc_enumerationMutation(allKeys);
-          }
-
-          if (![_MergedGlobals_4 containsObject:*(*(&v10 + 1) + 8 * i)])
-          {
-            v5 = 1;
-            goto LABEL_14;
-          }
+          objc_enumerationMutation(allKeys);
         }
 
-        v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
-        if (v5)
+        if (![_MergedGlobals_4 containsObject:*(*(&v9 + 1) + 8 * i)])
         {
-          continue;
+          v5 = 1;
+          goto LABEL_14;
         }
-
-        break;
       }
+
+      v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
 LABEL_14:
-  }
 
-  else
-  {
-    v5 = 0;
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -856,32 +863,30 @@ LABEL_9:
 
 void __32__BCMessage_isAnyUnknownRootKey__block_invoke()
 {
-  v6[16] = *MEMORY[0x277D85DE8];
+  v5[16] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB58]);
-  v6[0] = @"images";
-  v6[1] = @"mspVersion";
-  v6[2] = @"data";
-  v6[3] = @"receivedMessage";
-  v6[4] = @"replyMessage";
-  v6[5] = @"requestIdentifier";
-  v6[6] = @"version";
-  v6[7] = @"authenticate";
-  v6[8] = @"content";
-  v6[9] = @"event";
-  v6[10] = @"internalAuthenticate";
-  v6[11] = @"dynamic";
-  v6[12] = @"listPicker";
-  v6[13] = @"payment";
-  v6[14] = @"quick-reply";
-  v6[15] = @"notification";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:16];
+  v5[0] = @"images";
+  v5[1] = @"mspVersion";
+  v5[2] = @"data";
+  v5[3] = @"receivedMessage";
+  v5[4] = @"replyMessage";
+  v5[5] = @"requestIdentifier";
+  v5[6] = @"version";
+  v5[7] = @"authenticate";
+  v5[8] = @"content";
+  v5[9] = @"event";
+  v5[10] = @"internalAuthenticate";
+  v5[11] = @"dynamic";
+  v5[12] = @"listPicker";
+  v5[13] = @"payment";
+  v5[14] = @"quick-reply";
+  v5[15] = @"notification";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:16];
   v2 = [v0 initWithArray:v1];
 
   v3 = [v2 copy];
   v4 = _MergedGlobals_4;
   _MergedGlobals_4 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isVersionSupported

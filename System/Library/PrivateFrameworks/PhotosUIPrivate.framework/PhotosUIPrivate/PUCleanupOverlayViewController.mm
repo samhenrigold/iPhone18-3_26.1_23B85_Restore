@@ -526,7 +526,7 @@ void __65__PUCleanupOverlayViewController_fadeOutBrushStrokeWithDuration___block
               {
                 v118 = [v116 imageByApplyingFilter:@"CIMaskToAlpha"];
                 context = [MEMORY[0x1E695F620] context];
-                [v118 extent];
+                objc_msgSend_extent(v118);
                 v120 = [context createCGImage:v118 fromRect:?];
 
                 [(PUVFXBrushView *)self->_vfxBrushView setMask:v120];

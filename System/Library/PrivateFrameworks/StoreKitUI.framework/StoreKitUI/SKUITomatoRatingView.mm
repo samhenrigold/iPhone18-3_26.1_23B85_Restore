@@ -228,37 +228,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUITomatoRatingView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUITomatoRatingView *)self bounds];
-  v12 = v11;
-  v14 = v13;
-  v15 = *MEMORY[0x277CBF3A0];
-  [(UIImageView *)self->_imageView sizeThatFits:v11, v13];
-  v17 = v16;
-  v19 = v18;
-  *&v16 = (v14 - v18) * 0.5;
-  v20 = floorf(*&v16);
-  [(UIImageView *)self->_imageView setFrame:v15, v20, v17, v18];
-  [(SKUIAttributedStringView *)self->_labelView sizeThatFits:v12, v14];
-  v22 = v21;
-  v25.origin.x = v15;
-  v25.origin.y = v20;
-  v25.size.width = v17;
-  v25.size.height = v19;
-  MaxX = CGRectGetMaxX(v25);
-  v24 = (v14 - v22) * 0.5;
-  [(SKUIAttributedStringView *)self->_labelView setFrame:MaxX + 3.0, floorf(v24), v12 - (MaxX + 3.0), v22];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITomatoRatingView layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -298,23 +269,23 @@
   ratingText = [ratingCopy ratingText];
   style = [ratingCopy style];
 
-  v9 = SKUIViewElementFontWithStyle(style);
-  if (!v9)
+  v10 = SKUIViewElementFontWithStyle(style);
+  if (!v10)
   {
-    v9 = SKUIFontForTextStyle(10);
+    v10 = SKUIFontForTextStyle(10, v9);
   }
 
   tintColor = [contextCopy tintColor];
-  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v12 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v11)
+  if (!v12)
   {
-    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
+    v12 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.6];
   }
 
-  v12 = [ratingText attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
+  v13 = [ratingText attributedStringWithDefaultFont:v10 foregroundColor:v12 style:style];
 
-  return v12;
+  return v13;
 }
 
 + (id)_tomatoImageForFreshness:(int64_t)freshness
@@ -323,11 +294,59 @@
   {
     v4 = off_278200A20[freshness];
     v5 = MEMORY[0x277D755B8];
-    v6 = SKUIBundle();
+    v6 = SKUIBundle(self, a2);
     v3 = [v5 imageNamed:v4 inBundle:v6];
   }
 
   return v3;
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITomatoRatingView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITomatoRatingView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITomatoRatingView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITomatoRatingView sizeThatFitsWidth:viewElement:context:]";
+}
+
+- (void)reloadWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITomatoRatingView reloadWithViewElement:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITomatoRatingView setImage:forArtworkRequest:context:]";
+}
+
+- (void)updateWithItemState:(uint64_t)a3 context:(uint64_t)a4 animated:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITomatoRatingView updateWithItemState:context:animated:]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITomatoRatingView viewForElementIdentifier:]";
 }
 
 @end

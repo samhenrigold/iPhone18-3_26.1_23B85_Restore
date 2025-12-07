@@ -32,8 +32,8 @@
 
 - (id)toDict
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v25[0] = @"countOfPencilStrokes";
+  v25[6] = *MEMORY[0x277D85DE8];
+  v24[0] = @"countOfPencilStrokes";
   countOfPencilStrokes = [(ICASDrawingRecognitionData *)self countOfPencilStrokes];
   if (countOfPencilStrokes)
   {
@@ -45,9 +45,9 @@
     countOfPencilStrokes2 = objc_opt_new();
   }
 
-  v23 = countOfPencilStrokes2;
-  v26[0] = countOfPencilStrokes2;
-  v25[1] = @"countOfFingerStrokes";
+  v22 = countOfPencilStrokes2;
+  v25[0] = countOfPencilStrokes2;
+  v24[1] = @"countOfFingerStrokes";
   countOfFingerStrokes = [(ICASDrawingRecognitionData *)self countOfFingerStrokes];
   if (countOfFingerStrokes)
   {
@@ -60,8 +60,8 @@
   }
 
   v5 = countOfFingerStrokes2;
-  v26[1] = countOfFingerStrokes2;
-  v25[2] = @"countOfRecognizedHandwrittenCharacters";
+  v25[1] = countOfFingerStrokes2;
+  v24[2] = @"countOfRecognizedHandwrittenCharacters";
   countOfRecognizedHandwrittenCharacters = [(ICASDrawingRecognitionData *)self countOfRecognizedHandwrittenCharacters];
   if (countOfRecognizedHandwrittenCharacters)
   {
@@ -74,8 +74,8 @@
   }
 
   v8 = countOfRecognizedHandwrittenCharacters2;
-  v26[2] = countOfRecognizedHandwrittenCharacters2;
-  v25[3] = @"countOfRecognizedLines";
+  v25[2] = countOfRecognizedHandwrittenCharacters2;
+  v24[3] = @"countOfRecognizedLines";
   countOfRecognizedLines = [(ICASDrawingRecognitionData *)self countOfRecognizedLines];
   if (countOfRecognizedLines)
   {
@@ -88,8 +88,8 @@
   }
 
   v11 = countOfRecognizedLines2;
-  v26[3] = countOfRecognizedLines2;
-  v25[4] = @"handwritingLanguage";
+  v25[3] = countOfRecognizedLines2;
+  v24[4] = @"handwritingLanguage";
   handwritingLanguage = [(ICASDrawingRecognitionData *)self handwritingLanguage];
   if (handwritingLanguage)
   {
@@ -102,8 +102,8 @@
   }
 
   v14 = handwritingLanguage2;
-  v26[4] = handwritingLanguage2;
-  v25[5] = @"drawingID";
+  v25[4] = handwritingLanguage2;
+  v24[5] = @"drawingID";
   drawingID = [(ICASDrawingRecognitionData *)self drawingID];
   if (drawingID)
   {
@@ -116,10 +116,8 @@
   }
 
   v17 = drawingID2;
-  v26[5] = drawingID2;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[5] = drawingID2;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
 
   return v18;
 }

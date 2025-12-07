@@ -116,7 +116,7 @@
 
   else
   {
-    v11 = sub_1000104FC();
+    v11 = sub_1000104FC(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *v13 = 0;
@@ -173,7 +173,7 @@
 
   else
   {
-    v12 = sub_1000104FC();
+    v12 = sub_1000104FC(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;

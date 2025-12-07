@@ -13,22 +13,19 @@
   *v3 = 0;
   v3[1] = 0;
   v4 = OBJC_IVAR____TtC16ScreenSharingKit38AXPBackedAccessibilityServerPrimitives_accessibilityDataSubject;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FF8B470, qword_264B4BB60);
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27FF8B470, qword_264B4BB60);
   swift_allocObject();
   *(&self->super.isa + v4) = sub_264B409D4();
   *(&self->super.isa + OBJC_IVAR____TtC16ScreenSharingKit38AXPBackedAccessibilityServerPrimitives_axpManager) = 0;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for AXPBackedAccessibilityServerPrimitives();
-  return [(AXPBackedAccessibilityServerPrimitives *)&v9 init];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for AXPBackedAccessibilityServerPrimitives();
+  return [(AXPBackedAccessibilityServerPrimitives *)&v6 init];
 }
 
 - (void)accessibilityTranslationTransportSendData:(NSData *)data completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FF898C0, &unk_264B44190);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v18 - v9;
   v11 = _Block_copy(handler);
   v12 = swift_allocObject();
@@ -63,7 +60,7 @@
   *v6 = sub_264A9FFB4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2649CB67C(v7);
+  sub_2649CB67C(v7, v8);
 
   return selfCopy;
 }
@@ -72,8 +69,7 @@
 {
   v0 = sub_264B3FFD4();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v0);
+  MEMORY[0x28223BE20](v0, v2);
   v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_27FF88400 != -1)
   {

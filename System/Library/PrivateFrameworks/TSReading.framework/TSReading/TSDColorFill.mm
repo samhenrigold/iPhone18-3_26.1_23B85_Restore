@@ -366,14 +366,14 @@
   return TSDMixingTypeWithObject(self, object, v4);
 }
 
-uint64_t __37__TSDColorFill_mixingTypeWithObject___block_invoke()
+uint64_t __37__TSDColorFill_mixingTypeWithObject___block_invoke(uint64_t a1)
 {
   objc_opt_class();
   if (!TSUDynamicCast())
   {
-    v0 = [MEMORY[0x277D6C290] currentHandler];
-    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDColorFill mixingTypeWithObject:]_block_invoke"];
-    [v0 handleFailureInFunction:v1 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDColorFill.m"), 304, @"nil object after cast"}];
+    v1 = [MEMORY[0x277D6C290] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDColorFill mixingTypeWithObject:]_block_invoke"];
+    [v1 handleFailureInFunction:v2 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/drawables/TSDColorFill.m"), 304, @"nil object after cast"}];
   }
 
   return 4;

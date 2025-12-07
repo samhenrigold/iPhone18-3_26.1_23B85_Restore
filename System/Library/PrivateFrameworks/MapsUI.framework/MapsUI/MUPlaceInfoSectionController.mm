@@ -52,7 +52,7 @@
 
 - (void)_populateRevealedAnalyticsModule:(id)module
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   moduleCopy = module;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   availability = [(MUPlaceInfoSectionControllerConfiguration *)self->_configuration availability];
@@ -60,7 +60,7 @@
 
   if (supportsInlineReportAnIssue)
   {
-    v30 = moduleCopy;
+    v29 = moduleCopy;
     availability2 = [(MUPlaceInfoSectionControllerConfiguration *)self->_configuration availability];
     supportsHours = [availability2 supportsHours];
 
@@ -70,48 +70,48 @@
       [v5 _mapsui_addObjectIfNotNil:v10];
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     obj = self->_sectionStackViews;
-    v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v11 = [(NSMutableArray *)obj countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v41;
+      v13 = *v40;
       do
       {
         v14 = 0;
         do
         {
-          if (*v41 != v13)
+          if (*v40 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v40 + 1) + 8 * v14);
+          v15 = *(*(&v39 + 1) + 8 * v14);
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
           v38 = 0u;
-          v39 = 0u;
           viewModels = [v15 viewModels];
-          v17 = [viewModels countByEnumeratingWithState:&v36 objects:v45 count:16];
+          v17 = [viewModels countByEnumeratingWithState:&v35 objects:v44 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v37;
+            v19 = *v36;
             do
             {
               v20 = 0;
               do
               {
-                if (*v37 != v19)
+                if (*v36 != v19)
                 {
                   objc_enumerationMutation(viewModels);
                 }
 
-                v21 = *(*(&v36 + 1) + 8 * v20);
+                v21 = *(*(&v35 + 1) + 8 * v20);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -123,7 +123,7 @@
               }
 
               while (v18 != v20);
-              v18 = [viewModels countByEnumeratingWithState:&v36 objects:v45 count:16];
+              v18 = [viewModels countByEnumeratingWithState:&v35 objects:v44 count:16];
             }
 
             while (v18);
@@ -133,43 +133,43 @@
         }
 
         while (v14 != v12);
-        v12 = [(NSMutableArray *)obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v12 = [(NSMutableArray *)obj countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v12);
     }
 
-    moduleCopy = v30;
+    moduleCopy = v29;
   }
 
   if ([v5 count])
   {
     v23 = objc_alloc_init(MEMORY[0x1E69A24C0]);
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v24 = v5;
-    v25 = [v24 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v31 objects:v43 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v33;
+      v27 = *v32;
       do
       {
         v28 = 0;
         do
         {
-          if (*v33 != v27)
+          if (*v32 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          [v23 addButtons:*(*(&v32 + 1) + 8 * v28++)];
+          [v23 addButtons:*(*(&v31 + 1) + 8 * v28++)];
         }
 
         while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v31 objects:v43 count:16];
       }
 
       while (v26);
@@ -177,8 +177,6 @@
 
     [moduleCopy setInfos:v23];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)draggableContent
@@ -247,13 +245,13 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
 
 - (void)_performActionItem:(id)item withOptions:(id)options
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v14 = *MEMORY[0x1E696F108];
+  v13 = *MEMORY[0x1E696F108];
   itemCopy = item;
   v8 = [(MUPlaceSectionController *)self analyticsModuleForAction:0 presentationOptions:0];
-  v15[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v10 = [v9 mutableCopy];
 
   if (optionsCopy)
@@ -264,8 +262,6 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
   actionDelegate = [(MUPlaceInfoSectionControllerConfiguration *)self->_configuration actionDelegate];
   v12 = [v10 copy];
   [actionDelegate performAction:itemCopy options:v12 completion:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_rapEditPlaceHoursSectionHeaderButtonTapped
@@ -276,7 +272,7 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
 
 - (id)_rapEditPlaceDetailsMenu
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   inlineRapEnablement = [(MUPlaceInfoSectionController *)self inlineRapEnablement];
   v5 = inlineRapEnablement;
@@ -307,25 +303,25 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
 
   array2 = [MEMORY[0x1E695DF70] array];
   objc_initWeak(&location, self);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = array;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        integerValue = [*(*(&v22 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v21 + 1) + 8 * i) integerValue];
         v11 = integerValue;
         v12 = MEMORY[0x1E69DC628];
         v13 = &stru_1F44CA030;
@@ -334,19 +330,19 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
           v13 = _MULocalizedStringFromThisBundle(off_1E821A440[integerValue]);
         }
 
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke;
-        v20[3] = &unk_1E821A3F8;
-        objc_copyWeak(v21, &location);
-        v21[1] = v11;
-        v14 = [v12 actionWithTitle:v13 image:0 identifier:0 handler:v20];
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke;
+        v19[3] = &unk_1E821A3F8;
+        objc_copyWeak(v20, &location);
+        v20[1] = v11;
+        v14 = [v12 actionWithTitle:v13 image:0 identifier:0 handler:v19];
 
         [array2 addObject:v14];
-        objc_destroyWeak(v21);
+        objc_destroyWeak(v20);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
@@ -354,8 +350,6 @@ uint64_t __48__MUPlaceInfoSectionController_draggableContent__block_invoke(uint6
 
   v15 = [MEMORY[0x1E69DCC60] menuWithChildren:array2];
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -443,20 +437,19 @@ void __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke(u
 
 - (void)_tappedMessageType
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696F308] actionItemWithType:11];
-  v7 = *MEMORY[0x1E696F108];
+  v6 = *MEMORY[0x1E696F108];
   v4 = [(MUPlaceSectionController *)self analyticsModuleForAction:0 presentationOptions:0];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   [(MUPlaceInfoSectionController *)self _performActionItem:v3 withOptions:v5];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tappedContactOfType:(int64_t)type withLabeledValue:(id)value
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if ((type - 1) > 2)
   {
@@ -471,9 +464,9 @@ void __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke(u
   v8 = [MEMORY[0x1E696F308] actionItemWithType:v7];
   if (valueCopy)
   {
-    v11 = *MEMORY[0x1E696F0E8];
-    v12[0] = valueCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696F0E8];
+    v11[0] = valueCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -482,13 +475,11 @@ void __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke(u
   }
 
   [(MUPlaceInfoSectionController *)self _performActionItem:v8 withOptions:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)labeledValuesForContactValues:(id)values type:(int64_t)type
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   availability = [(MUPlaceInfoSectionControllerConfiguration *)self->_configuration availability];
   if (![availability supportsInlineReportAnIssue])
@@ -503,42 +494,42 @@ void __56__MUPlaceInfoSectionController__rapEditPlaceDetailsMenu__block_invoke(u
   {
 LABEL_11:
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = valuesCopy;
-    v11 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v11 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
     if (v11)
     {
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = [[MUContactLabeledValue alloc] initWithContactLabeledValue:v14 type:type];
           [(MUContactLabeledValue *)v15 setActionVariant:1];
           objc_initWeak(&location, self);
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___block_invoke_2;
-          v24[3] = &unk_1E821A3D0;
-          objc_copyWeak(v25, &location);
-          v25[1] = type;
-          v24[4] = v14;
-          [(MUContactLabeledValue *)v15 setActionBlock:v24];
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___block_invoke_2;
+          v23[3] = &unk_1E821A3D0;
+          objc_copyWeak(v24, &location);
+          v24[1] = type;
+          v23[4] = v14;
+          [(MUContactLabeledValue *)v15 setActionBlock:v23];
           [(MUAddMissingDataLabeledValue *)v10 addObject:v15];
-          objc_destroyWeak(v25);
+          objc_destroyWeak(v24);
           objc_destroyWeak(&location);
         }
 
-        v11 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v11 = [obj countByEnumeratingWithState:&v25 objects:v32 count:16];
       }
 
       while (v11);
@@ -571,16 +562,16 @@ LABEL_27:
     v10 = [[MUAddMissingDataLabeledValue alloc] initWithType:v8];
     [(MUAddMissingDataLabeledValue *)v10 setActionVariant:1];
     objc_initWeak(&location, self);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___block_invoke;
-    v30[3] = &unk_1E821A308;
-    objc_copyWeak(v31, &location);
-    v31[1] = v8;
-    [(MUAddMissingDataLabeledValue *)v10 setActionBlock:v30];
-    v34[0] = v10;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
-    objc_destroyWeak(v31);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___block_invoke;
+    v29[3] = &unk_1E821A308;
+    objc_copyWeak(v30, &location);
+    v30[1] = v8;
+    [(MUAddMissingDataLabeledValue *)v10 setActionBlock:v29];
+    v33[0] = v10;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+    objc_destroyWeak(v30);
     objc_destroyWeak(&location);
 LABEL_19:
 
@@ -598,17 +589,15 @@ LABEL_19:
     isWebsiteEditable = [inlineRapEnablement2 isPhoneEditable];
   }
 
-  v21 = isWebsiteEditable;
+  v20 = isWebsiteEditable;
 
-  if (v21)
+  if (v20)
   {
     goto LABEL_27;
   }
 
   v16 = MEMORY[0x1E695E0F0];
 LABEL_20:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -654,7 +643,7 @@ void __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___blo
 
 - (MUPlaceSectionFooterViewModel)sectionFooterViewModel
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   sectionFooterViewModel = self->_sectionFooterViewModel;
   if (sectionFooterViewModel)
   {
@@ -671,8 +660,8 @@ void __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___blo
       name = [mapItem name];
 
       v16 = [MUPlaceFooterAtributionViewModel alloc];
-      v26[0] = name;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v25[0] = name;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
       v18 = [(MUPlaceFooterAtributionViewModel *)v16 initWithFormatString:v13 providerNames:v17 isInteractable:0];
       v19 = self->_sectionFooterViewModel;
       self->_sectionFooterViewModel = v18;
@@ -692,18 +681,16 @@ void __67__MUPlaceInfoSectionController_labeledValuesForContactValues_type___blo
 
     objc_initWeak(&location, self);
     v20 = self->_sectionFooterViewModel;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __54__MUPlaceInfoSectionController_sectionFooterViewModel__block_invoke;
-    v23[3] = &unk_1E821BAC8;
-    objc_copyWeak(&v24, &location);
-    [(MUPlaceSectionFooterViewModel *)v20 setActionBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __54__MUPlaceInfoSectionController_sectionFooterViewModel__block_invoke;
+    v22[3] = &unk_1E821BAC8;
+    objc_copyWeak(&v23, &location);
+    [(MUPlaceSectionFooterViewModel *)v20 setActionBlock:v22];
     v3 = self->_sectionFooterViewModel;
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -790,24 +777,22 @@ void __54__MUPlaceInfoSectionController_sectionFooterViewModel__block_invoke(uin
 
 - (void)_refineMapItemForIdentifier:(id)identifier completion:(id)completion
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v6 = MEMORY[0x1E696F298];
   identifierCopy = identifier;
   sharedService = [v6 sharedService];
-  v15[0] = identifierCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+  v14[0] = identifierCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
   v10 = [sharedService ticketForIdentifiers:v9 traits:0];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __71__MUPlaceInfoSectionController__refineMapItemForIdentifier_completion___block_invoke;
-  v13[3] = &unk_1E821A3A8;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__MUPlaceInfoSectionController__refineMapItemForIdentifier_completion___block_invoke;
+  v12[3] = &unk_1E821A3A8;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [v10 submitWithHandler:v13 networkActivity:0];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [v10 submitWithHandler:v12 networkActivity:0];
 }
 
 void __71__MUPlaceInfoSectionController__refineMapItemForIdentifier_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -879,7 +864,7 @@ LABEL_7:
 
 - (id)_createAddressItem
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   mapItem = [(MUPlaceSectionController *)self mapItem];
   _addressFormattedAsLocation = [mapItem _addressFormattedAsLocation];
 
@@ -890,9 +875,9 @@ LABEL_7:
     v7 = MUGetPlaceCardLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = _addressFormattedAsLocation;
-      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "We have a location formatted string %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = _addressFormattedAsLocation;
+      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "We have a location formatted string %@", &v21, 0xCu);
     }
   }
 
@@ -904,9 +889,9 @@ LABEL_7:
     v7 = MUGetPlaceCardLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138412290;
-      v23 = _addressFormattedAsMultilineAddress;
-      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "We have a multiline address string %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = _addressFormattedAsMultilineAddress;
+      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_DEBUG, "We have a multiline address string %@", &v21, 0xCu);
     }
 
     _addressFormattedAsLocation = _addressFormattedAsMultilineAddress;
@@ -924,8 +909,8 @@ LABEL_7:
       v13 = MUGetPlaceCardLog();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_DEBUG, "Asking to suppress address with GEOLocationInfoStyleSuppress", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1C5620000, v13, OS_LOG_TYPE_DEBUG, "Asking to suppress address with GEOLocationInfoStyleSuppress", &v21, 2u);
       }
 
       goto LABEL_19;
@@ -967,13 +952,11 @@ LABEL_19:
 
   else if (!v6 && ![(MUPlaceInfoSectionControllerConfiguration *)self->_configuration isDeveloperPlaceCard])
   {
-    v21 = +[MUContactsViewModelGenerator symbolImageForAddressItem];
-    [(MULabeledValueActionViewModel *)v14 setSymbolName:v21];
+    v20 = +[MUContactsViewModelGenerator symbolImageForAddressItem];
+    [(MULabeledValueActionViewModel *)v14 setSymbolName:v20];
   }
 
 LABEL_20:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1099,7 +1082,7 @@ void __58__MUPlaceInfoSectionController__loadRAPStatusViewIfNeeded__block_invoke
 
 - (id)_loadPlaceInfoAddress:(id)address contact:(id)contact
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   contactCopy = contact;
   v8 = MUGetPlaceCardLog();
@@ -1107,9 +1090,9 @@ void __58__MUPlaceInfoSectionController__loadRAPStatusViewIfNeeded__block_invoke
   {
     identifier = [addressCopy identifier];
     *buf = 138412546;
-    v32 = identifier;
-    v33 = 2112;
-    v34 = contactCopy;
+    v31 = identifier;
+    v32 = 2112;
+    v33 = contactCopy;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_DEBUG, "Building section view for address: %@, contact: %@", buf, 0x16u);
   }
 
@@ -1119,22 +1102,22 @@ void __58__MUPlaceInfoSectionController__loadRAPStatusViewIfNeeded__block_invoke
   aBlock[2] = __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_invoke;
   aBlock[3] = &unk_1E821A330;
   v11 = v10;
-  v30 = v11;
+  v29 = v11;
   v12 = _Block_copy(aBlock);
   v13 = [(MUContactsViewModelGenerator *)self->_contactsViewModelGenerator viewModelForAddress:addressCopy];
   objc_initWeak(buf, self);
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_invoke_2;
-  v25 = &unk_1E821A358;
-  objc_copyWeak(&v28, buf);
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_invoke_2;
+  v24 = &unk_1E821A358;
+  objc_copyWeak(&v27, buf);
   v14 = addressCopy;
-  v26 = v14;
+  v25 = v14;
   v15 = contactCopy;
-  v27 = v15;
-  v12[2](v12, v13, &v22);
+  v26 = v15;
+  v12[2](v12, v13, &v21);
   v16 = [MUPlaceInfoSectionView alloc];
-  v17 = [MUInfoCardStyle preferredVerticalCardConfiguration:v22];
+  v17 = [MUInfoCardStyle preferredVerticalCardConfiguration:v21];
   v18 = [(MUPlaceVerticalCardContainerView *)v16 initWithConfiguration:v17];
 
   [(MUPlaceInfoSectionView *)v18 setAccessibilityIdentifier:@"PlaceDetailsInfo"];
@@ -1142,10 +1125,8 @@ void __58__MUPlaceInfoSectionController__loadRAPStatusViewIfNeeded__block_invoke
   [(MUPlaceInfoSectionView *)v18 setViewModels:v19];
 
   [(NSMutableArray *)self->_sectionStackViews addObject:v18];
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -1191,9 +1172,9 @@ void __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_in
   aBlock[1] = 3221225472;
   aBlock[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke;
   aBlock[3] = &unk_1E821A330;
-  v54 = v5;
-  v70 = v54;
-  v56 = _Block_copy(aBlock);
+  v53 = v5;
+  v69 = v53;
+  v55 = _Block_copy(aBlock);
   contact = [(_MKPlaceItem *)self->_placeItem contact];
   if (!contact)
   {
@@ -1203,18 +1184,18 @@ void __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_in
     contact = _placeCardContact;
   }
 
-  v53 = contact;
+  v52 = contact;
   emailAddresses = [contact emailAddresses];
   v10 = [(MUPlaceInfoSectionController *)self labeledValuesForContactValues:emailAddresses type:2];
-  [v54 addObjectsFromArray:v10];
+  [v53 addObjectsFromArray:v10];
 
-  phoneNumbers = [v53 phoneNumbers];
+  phoneNumbers = [v52 phoneNumbers];
   v12 = [(MUPlaceInfoSectionController *)self labeledValuesForContactValues:phoneNumbers type:1];
-  [v54 addObjectsFromArray:v12];
+  [v53 addObjectsFromArray:v12];
 
-  urlAddresses = [v53 urlAddresses];
+  urlAddresses = [v52 urlAddresses];
   v14 = [(MUPlaceInfoSectionController *)self labeledValuesForContactValues:urlAddresses type:3];
-  [v54 addObjectsFromArray:v14];
+  [v53 addObjectsFromArray:v14];
 
   if (![(MUPlaceInfoSectionControllerConfiguration *)self->_configuration isDeveloperPlaceCard])
   {
@@ -1227,13 +1208,13 @@ void __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_in
       v18 = [MULabeledValueActionViewModel messageItemWithMapItem:mapItem2];
 
       objc_initWeak(location, self);
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_2;
-      v67[3] = &unk_1E821BAA0;
-      objc_copyWeak(&v68, location);
-      v56[2](v56, v18, v67);
-      objc_destroyWeak(&v68);
+      v66[0] = MEMORY[0x1E69E9820];
+      v66[1] = 3221225472;
+      v66[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_2;
+      v66[3] = &unk_1E821BAA0;
+      objc_copyWeak(&v67, location);
+      v55[2](v55, v18, v66);
+      objc_destroyWeak(&v67);
       objc_destroyWeak(location);
     }
   }
@@ -1249,25 +1230,25 @@ void __62__MUPlaceInfoSectionController__loadPlaceInfoAddress_contact___block_in
     factoidReferences = [moduleConfiguration factoidReferences];
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = factoidReferences;
-  v21 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+  v21 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
   if (v21)
   {
-    v22 = *v64;
+    v22 = *v63;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v64 != v22)
+        if (*v63 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v63 + 1) + 8 * i);
+        v24 = *(*(&v62 + 1) + 8 * i);
         mapItem3 = [(_MKPlaceItem *)self->_placeItem mapItem];
         _geoMapItem = [mapItem3 _geoMapItem];
         _encyclopedicInfo = [_geoMapItem _encyclopedicInfo];
@@ -1336,16 +1317,16 @@ LABEL_24:
           }
 
           objc_initWeak(location, self);
-          v59[0] = MEMORY[0x1E69E9820];
-          v59[1] = 3221225472;
-          v59[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_81;
-          v59[3] = &unk_1E821A358;
-          objc_copyWeak(&v62, location);
-          v60 = v28;
-          v61 = v24;
-          v56[2](v56, v29, v59);
+          v58[0] = MEMORY[0x1E69E9820];
+          v58[1] = 3221225472;
+          v58[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_81;
+          v58[3] = &unk_1E821A358;
+          objc_copyWeak(&v61, location);
+          v59 = v28;
+          v60 = v24;
+          v55[2](v55, v29, v58);
 
-          objc_destroyWeak(&v62);
+          objc_destroyWeak(&v61);
           objc_destroyWeak(location);
           goto LABEL_34;
         }
@@ -1362,7 +1343,7 @@ LABEL_24:
 LABEL_34:
       }
 
-      v21 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+      v21 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
     }
 
     while (v21);
@@ -1370,12 +1351,12 @@ LABEL_34:
 
   objc_initWeak(location, self);
   _createAddressItem = [(MUPlaceInfoSectionController *)self _createAddressItem];
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_2_82;
-  v57[3] = &unk_1E821BAA0;
-  objc_copyWeak(&v58, location);
-  v56[2](v56, _createAddressItem, v57);
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __61__MUPlaceInfoSectionController__loadPlaceInfoContentIfNeeded__block_invoke_2_82;
+  v56[3] = &unk_1E821BAA0;
+  objc_copyWeak(&v57, location);
+  v55[2](v55, _createAddressItem, v56);
 
   availability2 = [(MUPlaceInfoSectionControllerConfiguration *)self->_configuration availability];
   supportsShowingCoordinates = [availability2 supportsShowingCoordinates];
@@ -1393,10 +1374,10 @@ LABEL_34:
     valueString2 = [(MUCoordinateViewModel *)v44 valueString];
     [(MULabeledValueActionViewModel *)v45 setValueString:valueString2];
 
-    v56[2](v56, v45, 0);
+    v55[2](v55, v45, 0);
   }
 
-  if ([v54 count])
+  if ([v53 count])
   {
     if ([(MUPlaceInfoSectionControllerConfiguration *)self->_configuration isDeveloperPlaceCard])
     {
@@ -1410,7 +1391,7 @@ LABEL_34:
     v48 = ;
     v3 = [(MUPlaceVerticalCardContainerView *)[MUPlaceInfoSectionView alloc] initWithConfiguration:v48];
     [(MUPlaceInfoSectionView *)v3 setAccessibilityIdentifier:@"PlaceDetailsInfo"];
-    v49 = [v54 copy];
+    v49 = [v53 copy];
     [(MUPlaceInfoSectionView *)v3 setViewModels:v49];
 
     if ([(MUPlaceInfoSectionControllerConfiguration *)self->_configuration isDeveloperPlaceCard])
@@ -1418,7 +1399,7 @@ LABEL_34:
       [(MUStackView *)v3 setContentEdgeInsets:8.0, 0.0, 8.0, 0.0];
     }
 
-    objc_storeStrong((&self->super.super.isa + v52), v3);
+    objc_storeStrong((&self->super.super.isa + v51), v3);
   }
 
   else
@@ -1426,11 +1407,10 @@ LABEL_34:
     v3 = 0;
   }
 
-  objc_destroyWeak(&v58);
+  objc_destroyWeak(&v57);
   objc_destroyWeak(location);
 
 LABEL_47:
-  v50 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

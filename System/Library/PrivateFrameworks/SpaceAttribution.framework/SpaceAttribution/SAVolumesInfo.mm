@@ -10,6 +10,7 @@
 - (void)addPurgeableTaggedClone:(unint64_t)clone size:(unint64_t)size volumePath:(id)path;
 - (void)addSUPurgeableClone:(unint64_t)clone size:(unint64_t)size volumePath:(id)path;
 - (void)insertDirCacheElement:(id)element dirKey:(id)key volumePath:(id)path;
+- (void)insertDirKey:(id)key bundleIDs:(id)ds purgeable:(BOOL)purgeable cache:(BOOL)cache volumePath:(id)path;
 - (void)insertTagHash:(id)hash bundleID:(id)d volumePath:(id)path;
 @end
 
@@ -296,6 +297,30 @@ LABEL_16:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100040C7C();
+    }
+  }
+}
+
+- (void)insertDirKey:(id)key bundleIDs:(id)ds purgeable:(BOOL)purgeable cache:(BOOL)cache volumePath:(id)path
+{
+  cacheCopy = cache;
+  purgeableCopy = purgeable;
+  keyCopy = key;
+  dsCopy = ds;
+  pathCopy = path;
+  v15 = [(NSMutableDictionary *)self->_volumesInfo objectForKey:pathCopy];
+  if (v15)
+  {
+    v16 = [SADirCacheElement newWithBundleIDs:dsCopy purgeable:purgeableCopy cacheFolder:cacheCopy];
+    [v15 addDirCacheElement:v16 dirKey:keyCopy];
+  }
+
+  else
+  {
+    v16 = SALog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      sub_100040CF0();
     }
   }
 }

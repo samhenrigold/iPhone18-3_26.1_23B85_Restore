@@ -111,12 +111,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -135,28 +134,26 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sessionID = self->_sessionID;
   PBDataWriterWriteUint32Field();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_4:
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_token)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_pairedDeviceID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -269,7 +266,6 @@ LABEL_5:
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 44);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0 || self->_version != *(equalCopy + 10))
@@ -281,7 +277,7 @@ LABEL_5:
   else if ((*(equalCopy + 44) & 4) != 0)
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -320,17 +316,17 @@ LABEL_21:
   pairedDeviceID = self->_pairedDeviceID;
   if (pairedDeviceID | *(equalCopy + 2))
   {
-    v8 = [(NSString *)pairedDeviceID isEqual:?];
+    v7 = [(NSString *)pairedDeviceID isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

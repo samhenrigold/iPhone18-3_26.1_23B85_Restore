@@ -152,7 +152,6 @@ LABEL_12:
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v53;
 }
 
@@ -193,7 +192,6 @@ LABEL_12:
   }
 
   objc_storeStrong(&oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccelerometerData:(id)data withTimestamp:(double)timestamp
@@ -480,7 +478,6 @@ void __42__AXPhoenixClassifier__computeFrameLength__block_invoke(void *a1, void 
 
   objc_storeStrong(&v49, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v18 = v53;
 
   return v18;
@@ -614,7 +611,6 @@ void __42__AXPhoenixClassifier__computeFrameLength__block_invoke(void *a1, void 
   MEMORY[0x277D82BD8](logBuffer3);
   v10 = MEMORY[0x277D82BE0](v23);
   objc_storeStrong(&v23, 0);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -861,8 +857,6 @@ void __42__AXPhoenixClassifier__computeFrameLength__block_invoke(void *a1, void 
     objc_storeStrong(&v48, 0);
     objc_storeStrong(&v49, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_logWindowData:(id)data doubleTap:(BOOL)tap tapData:(id)tapData
@@ -1052,98 +1046,95 @@ void __56__AXPhoenixClassifier__logWindowData_doubleTap_tapData___block_invoke(i
 
   else
   {
-    v37 = 1;
+    return 1;
   }
 
-  *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (id)_clippedMultiArrayInputWithError:(id *)error beforeTime:(double)time
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v41 = a2;
+  v40 = a2;
   errorCopy = error;
   timeCopy = time;
+  v35 = 0.0;
   v36 = 0.0;
   v37 = 0.0;
-  v38 = 0.0;
-  v35 = [(AccelerometerBuffer *)self->_accelBuffer bufferWithMovingSum:&v36];
+  v34 = [(AccelerometerBuffer *)self->_accelBuffer bufferWithMovingSum:&v35];
+  v31 = 0.0;
   v32 = 0.0;
   v33 = 0.0;
-  v34 = 0.0;
+  v31 = v35 / selfCopy->_frameLength;
   v32 = v36 / selfCopy->_frameLength;
   v33 = v37 / selfCopy->_frameLength;
-  v34 = v38 / selfCopy->_frameLength;
-  v31 = 0;
-  v4 = [v35 count];
-  v30 = v4 - selfCopy->_frameLength;
-  v29 = (timeCopy * 100.0);
-  for (i = v30; ; ++i)
+  v30 = 0;
+  v4 = [v34 count];
+  v29 = v4 - selfCopy->_frameLength;
+  v28 = (timeCopy * 100.0);
+  for (i = v29; ; ++i)
   {
-    v20 = i;
-    if (v20 >= [v35 count])
+    v19 = i;
+    if (v19 >= [v34 count])
     {
       break;
     }
 
-    v27 = i - v30;
-    frameLength = selfCopy->_frameLength;
-    v26 = i - v30;
-    v25 = i - v30 + selfCopy->_frameLength;
-    v24 = i - v30 + 2 * selfCopy->_frameLength;
-    v23 = [v35 objectAtIndexedSubscript:i];
-    v19 = i;
-    v6 = [v35 count];
-    if (v19 < v6 - v30 - v29)
+    v26 = i - v29;
+    v25 = i - v29;
+    v24 = i - v29 + selfCopy->_frameLength;
+    v23 = i - v29 + 2 * selfCopy->_frameLength;
+    v22 = [v34 objectAtIndexedSubscript:i];
+    v18 = i;
+    v5 = [v34 count];
+    if (v18 < v5 - v29 - v28)
     {
-      v16 = [v35 objectAtIndexedSubscript:i];
-      [v16 setX:?];
+      v15 = [v34 objectAtIndexedSubscript:i];
+      [v15 setX:?];
+      MEMORY[0x277D82BD8](v15);
+      v16 = [v34 objectAtIndexedSubscript:i];
+      [v16 setY:0.0];
       MEMORY[0x277D82BD8](v16);
-      v17 = [v35 objectAtIndexedSubscript:i];
-      [v17 setY:0.0];
+      v17 = [v34 objectAtIndexedSubscript:i];
+      [v17 setZ:0.0];
       MEMORY[0x277D82BD8](v17);
-      v18 = [v35 objectAtIndexedSubscript:i];
-      [v18 setZ:0.0];
-      MEMORY[0x277D82BD8](v18);
     }
 
-    [v23 x];
-    selfCopy->_arrayDataPointer[v26] = v7 - v32;
-    [v23 y];
-    selfCopy->_arrayDataPointer[v25] = v8 - v33;
-    [v23 z];
-    selfCopy->_arrayDataPointer[v24] = v9 - v34;
-    objc_storeStrong(&v23, 0);
+    [v22 x];
+    selfCopy->_arrayDataPointer[v25] = v6 - v31;
+    [v22 y];
+    selfCopy->_arrayDataPointer[v24] = v7 - v32;
+    [v22 z];
+    selfCopy->_arrayDataPointer[v23] = v8 - v33;
+    objc_storeStrong(&v22, 0);
   }
 
-  v22 = 65600;
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_frameLength];
-  v43[0] = v14;
-  v43[1] = &unk_287037C00;
-  v43[2] = &unk_287037C00;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
-  MEMORY[0x277D82BD8](v14);
-  v10 = objc_alloc(MEMORY[0x277CBFF48]);
-  v11 = [v10 initWithDataPointer:selfCopy->_arrayDataPointer shape:selfCopy->_shape dataType:v22 strides:v21 deallocator:&__block_literal_global_3 error:errorCopy];
-  v12 = v31;
-  v31 = v11;
-  MEMORY[0x277D82BD8](v12);
-  v15 = MEMORY[0x277D82BE0](v31);
-  objc_storeStrong(&v21, 0);
-  objc_storeStrong(&v31, 0);
-  objc_storeStrong(&v35, 0);
-  *MEMORY[0x277D85DE8];
+  v21 = 65600;
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_frameLength];
+  v42[0] = v13;
+  v42[1] = &unk_287037C00;
+  v42[2] = &unk_287037C00;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
+  MEMORY[0x277D82BD8](v13);
+  v9 = objc_alloc(MEMORY[0x277CBFF48]);
+  v10 = [v9 initWithDataPointer:selfCopy->_arrayDataPointer shape:selfCopy->_shape dataType:v21 strides:v20 deallocator:&__block_literal_global_3 error:errorCopy];
+  v11 = v30;
+  v30 = v10;
+  MEMORY[0x277D82BD8](v11);
+  v14 = MEMORY[0x277D82BE0](v30);
+  objc_storeStrong(&v20, 0);
+  objc_storeStrong(&v30, 0);
+  objc_storeStrong(&v34, 0);
 
-  return v15;
+  return v14;
 }
 
 - (id)_multiArrayInputForClassifierWithError:(id *)error
 {
-  v39[3] = *MEMORY[0x277D85DE8];
+  v38[3] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v37 = a2;
+  v36 = a2;
   errorCopy = error;
   shouldResetBuffer = self->_shouldResetBuffer;
   if (shouldResetBuffer)
@@ -1153,74 +1144,72 @@ void __56__AXPhoenixClassifier__logWindowData_doubleTap_tapData___block_invoke(i
     [(PredictionsBuffer *)selfCopy->_predictionsBuffer reset];
   }
 
+  v31 = 0.0;
   v32 = 0.0;
   v33 = 0.0;
-  v34 = 0.0;
-  v31 = [(AccelerometerBuffer *)selfCopy->_accelBuffer bufferWithMovingSum:&v32];
+  v30 = [(AccelerometerBuffer *)selfCopy->_accelBuffer bufferWithMovingSum:&v31];
+  v27 = 0.0;
   v28 = 0.0;
   v29 = 0.0;
-  v30 = 0.0;
+  v27 = v31 / selfCopy->_frameLength;
   v28 = v32 / selfCopy->_frameLength;
   v29 = v33 / selfCopy->_frameLength;
-  v30 = v34 / selfCopy->_frameLength;
-  v27 = 0;
-  v3 = [v31 count];
-  v26 = v3 - selfCopy->_frameLength;
-  for (i = v26; ; ++i)
+  v26 = 0;
+  v3 = [v30 count];
+  v25 = v3 - selfCopy->_frameLength;
+  for (i = v25; ; ++i)
   {
-    v17 = i;
-    if (v17 >= [v31 count])
+    v16 = i;
+    if (v16 >= [v30 count])
     {
       break;
     }
 
-    v24 = i - v26;
-    frameLength = selfCopy->_frameLength;
-    v23 = i - v26;
-    v22 = i - v26 + selfCopy->_frameLength;
-    v21 = i - v26 + 2 * selfCopy->_frameLength;
+    v23 = i - v25;
+    v22 = i - v25;
+    v21 = i - v25 + selfCopy->_frameLength;
+    v20 = i - v25 + 2 * selfCopy->_frameLength;
     if (shouldResetBuffer)
     {
-      v14 = [v31 objectAtIndexedSubscript:i];
-      [v14 setX:?];
+      v13 = [v30 objectAtIndexedSubscript:i];
+      [v13 setX:?];
+      MEMORY[0x277D82BD8](v13);
+      v14 = [v30 objectAtIndexedSubscript:i];
+      [v14 setY:0.0];
       MEMORY[0x277D82BD8](v14);
-      v15 = [v31 objectAtIndexedSubscript:i];
-      [v15 setY:0.0];
+      v15 = [v30 objectAtIndexedSubscript:i];
+      [v15 setZ:0.0];
       MEMORY[0x277D82BD8](v15);
-      v16 = [v31 objectAtIndexedSubscript:i];
-      [v16 setZ:0.0];
-      MEMORY[0x277D82BD8](v16);
     }
 
-    v20 = [v31 objectAtIndexedSubscript:i];
-    [v20 x];
-    selfCopy->_arrayDataPointer[v23] = v5 - v28;
-    [v20 y];
-    selfCopy->_arrayDataPointer[v22] = v6 - v29;
-    [v20 z];
-    selfCopy->_arrayDataPointer[v21] = v7 - v30;
-    objc_storeStrong(&v20, 0);
+    v19 = [v30 objectAtIndexedSubscript:i];
+    [v19 x];
+    selfCopy->_arrayDataPointer[v22] = v4 - v27;
+    [v19 y];
+    selfCopy->_arrayDataPointer[v21] = v5 - v28;
+    [v19 z];
+    selfCopy->_arrayDataPointer[v20] = v6 - v29;
+    objc_storeStrong(&v19, 0);
   }
 
-  v19 = 65600;
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_frameLength];
-  v39[0] = v12;
-  v39[1] = &unk_287037C00;
-  v39[2] = &unk_287037C00;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
-  MEMORY[0x277D82BD8](v12);
-  v8 = objc_alloc(MEMORY[0x277CBFF48]);
-  v9 = [v8 initWithDataPointer:selfCopy->_arrayDataPointer shape:selfCopy->_shape dataType:v19 strides:v18 deallocator:&__block_literal_global_239 error:errorCopy];
-  v10 = v27;
-  v27 = v9;
-  MEMORY[0x277D82BD8](v10);
-  v13 = MEMORY[0x277D82BE0](v27);
-  objc_storeStrong(&v18, 0);
-  objc_storeStrong(&v27, 0);
-  objc_storeStrong(&v31, 0);
-  *MEMORY[0x277D85DE8];
+  v18 = 65600;
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:selfCopy->_frameLength];
+  v38[0] = v11;
+  v38[1] = &unk_287037C00;
+  v38[2] = &unk_287037C00;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
+  MEMORY[0x277D82BD8](v11);
+  v7 = objc_alloc(MEMORY[0x277CBFF48]);
+  v8 = [v7 initWithDataPointer:selfCopy->_arrayDataPointer shape:selfCopy->_shape dataType:v18 strides:v17 deallocator:&__block_literal_global_239 error:errorCopy];
+  v9 = v26;
+  v26 = v8;
+  MEMORY[0x277D82BD8](v9);
+  v12 = MEMORY[0x277D82BE0](v26);
+  objc_storeStrong(&v17, 0);
+  objc_storeStrong(&v26, 0);
+  objc_storeStrong(&v30, 0);
 
-  return v13;
+  return v12;
 }
 
 @end

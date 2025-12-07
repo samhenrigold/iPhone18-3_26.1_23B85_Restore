@@ -19,7 +19,7 @@
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v11 = sub_100005368();
+  v11 = sub_100005368(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = [sceneCopy description];
@@ -107,18 +107,18 @@
 
   if (userInterfaceIdiom == 1)
   {
-    v17 = sub_100005368();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100005368(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000BFE4();
     }
 
 LABEL_46:
 
-    v41 = sub_100005368();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v46 = sub_100005368(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      sub_10000C038(self, v41);
+      sub_10000C038(self, v46);
     }
 
     [(ContinuityCaptureShieldUIBaseViewController *)self->_viewController tearDownShield];
@@ -127,45 +127,45 @@ LABEL_46:
 
   if (v16)
   {
-    v50 = 0;
-    v18 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v16 error:&v50];
-    v17 = v50;
-    v19 = sub_100005368();
-    v20 = v19;
-    if (!v18 || v17)
+    v55 = 0;
+    v19 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v16 error:&v55];
+    v18 = v55;
+    v20 = sub_100005368(v18);
+    v21 = v20;
+    if (!v19 || v18)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v42 = 136315906;
-        v43 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
-        v44 = 2048;
+        v47 = 136315906;
+        v48 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
+        v49 = 2048;
         selfCopy5 = self;
-        v46 = 2112;
-        v47 = firstObject;
-        v48 = 2112;
-        v49 = v17;
-        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s: <%p> Launching ShieldUI via URL without a valid URL payload for the launchUIConfiguration: %@ error: %@", &v42, 0x2Au);
+        v51 = 2112;
+        v52 = firstObject;
+        v53 = 2112;
+        v54 = v18;
+        _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%s: <%p> Launching ShieldUI via URL without a valid URL payload for the launchUIConfiguration: %@ error: %@", &v47, 0x2Au);
       }
 
       goto LABEL_46;
     }
 
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = 136315650;
-      v43 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
-      v44 = 2048;
+      v47 = 136315650;
+      v48 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
+      v49 = 2048;
       selfCopy5 = self;
-      v46 = 2112;
-      v47 = v18;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with launchUIConfiguration: %@", &v42, 0x20u);
+      v51 = 2112;
+      v52 = v19;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with launchUIConfiguration: %@", &v47, 0x20u);
     }
 
-    v21 = +[CMContinuityCaptureUIStateTracker sharedInstance];
-    [v21 setUIConfiguration:v18];
+    v22 = +[CMContinuityCaptureUIStateTracker sharedInstance];
+    [v22 setUIConfiguration:v19];
 
-    v22 = +[CSShieldConnectionManager sharedManager];
-    singURL = [v22 singURL];
+    v23 = +[CSShieldConnectionManager sharedManager];
+    singURL = [v23 singURL];
     if (singURL)
     {
       remoteDisplayIdentifier2 = singURL;
@@ -173,24 +173,24 @@ LABEL_46:
 
     else
     {
-      remoteDisplayIdentifier = [v18 remoteDisplayIdentifier];
+      remoteDisplayIdentifier = [v19 remoteDisplayIdentifier];
 
       if (!remoteDisplayIdentifier)
       {
         goto LABEL_18;
       }
 
-      v31 = _os_feature_enabled_impl();
-      v22 = +[CSShieldConnectionManager sharedManager];
-      remoteDisplayIdentifier2 = [v18 remoteDisplayIdentifier];
-      if (v31)
+      v33 = _os_feature_enabled_impl();
+      v23 = +[CSShieldConnectionManager sharedManager];
+      remoteDisplayIdentifier2 = [v19 remoteDisplayIdentifier];
+      if (v33)
       {
-        [v22 bootstrapFromRemoteDisplayConnection:remoteDisplayIdentifier2];
+        [v23 bootstrapFromRemoteDisplayConnection:remoteDisplayIdentifier2];
       }
 
       else
       {
-        [v22 requestGroupSessionURL:remoteDisplayIdentifier2];
+        [v23 requestGroupSessionURL:remoteDisplayIdentifier2];
       }
     }
 
@@ -204,20 +204,20 @@ LABEL_18:
     if ([scheme isEqualToString:SingQRCodeURLScheme])
     {
       lastPathComponent = [v7 lastPathComponent];
-      v27 = [lastPathComponent isEqualToString:CSShieldOpenMusicPrivacyURLPath];
+      v28 = [lastPathComponent isEqualToString:CSShieldOpenMusicPrivacyURLPath];
 
-      if (v27)
+      if (v28)
       {
-        v28 = sub_100005368();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v30 = sub_100005368(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = 136315650;
-          v43 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
-          v44 = 2048;
+          v47 = 136315650;
+          v48 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
+          v49 = 2048;
           selfCopy5 = self;
-          v46 = 2112;
-          v47 = v7;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s: <%p> Reloading privacy info %@", &v42, 0x20u);
+          v51 = 2112;
+          v52 = v7;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%s: <%p> Reloading privacy info %@", &v47, 0x20u);
         }
 
         embeddedViewController = +[CSShieldConnectionManager sharedManager];
@@ -234,20 +234,20 @@ LABEL_18:
   if (_os_feature_enabled_impl())
   {
     scheme2 = [v7 scheme];
-    v33 = [scheme2 isEqualToString:SingQRCodeURLScheme];
+    v35 = [scheme2 isEqualToString:SingQRCodeURLScheme];
 
-    if (v33)
+    if (v35)
     {
-      v34 = sub_100005368();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v37 = sub_100005368(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = 136315650;
-        v43 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
-        v44 = 2048;
+        v47 = 136315650;
+        v48 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
+        v49 = 2048;
         selfCopy5 = self;
-        v46 = 2112;
-        v47 = v7;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with continuity sing url: %@", &v42, 0x20u);
+        v51 = 2112;
+        v52 = v7;
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with continuity sing url: %@", &v47, 0x20u);
       }
 
       embeddedViewController = +[CSShieldConnectionManager sharedManager];
@@ -256,10 +256,11 @@ LABEL_18:
     }
   }
 
-  if (!_os_feature_enabled_impl() || ([v7 scheme], v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "isEqualToString:", CSShieldOpenPickerURLScheme), v35, !v36))
+  v38 = _os_feature_enabled_impl();
+  if (!v38 || ([v7 scheme], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "isEqualToString:", CSShieldOpenPickerURLScheme), v39, !v40))
   {
-    v17 = sub_100005368();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100005368(v38);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10000BF80();
     }
@@ -267,16 +268,16 @@ LABEL_18:
     goto LABEL_46;
   }
 
-  v37 = sub_100005368();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v41 = sub_100005368(v38);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = 136315650;
-    v43 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
-    v44 = 2048;
+    v47 = 136315650;
+    v48 = "[ContinuitySingShieldUIBaseSceneDelegate scene:openURLContexts:]";
+    v49 = 2048;
     selfCopy5 = self;
-    v46 = 2112;
-    v47 = v7;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%s: <%p> Opening picker url %@", &v42, 0x20u);
+    v51 = 2112;
+    v52 = v7;
+    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%s: <%p> Opening picker url %@", &v47, 0x20u);
   }
 
   windowScene = [(UIWindow *)self->_window windowScene];
@@ -315,7 +316,7 @@ LABEL_49:
 - (void)sceneDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v5 = sub_100005368();
+  v5 = sub_100005368(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;
@@ -366,22 +367,22 @@ LABEL_49:
   if (!self->_idleTimerAssertion)
   {
     v3 = +[ITIdleTimerState sharedInstance];
-    v14 = 0;
-    v4 = [v3 newAssertionToDisableIdleTimerForReason:@"ContinuitySingShieldUI - Keep screen on during Continuity Sing session" error:&v14];
-    v5 = v14;
+    v15 = 0;
+    v4 = [v3 newAssertionToDisableIdleTimerForReason:@"ContinuitySingShieldUI - Keep screen on during Continuity Sing session" error:&v15];
+    v5 = v15;
     idleTimerAssertion = self->_idleTimerAssertion;
     self->_idleTimerAssertion = v4;
 
-    v7 = sub_100005368();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100005368(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315650;
-      v9 = "[ContinuitySingShieldUIBaseSceneDelegate _holdBacklightAssertion]";
-      v10 = 2048;
+      v9 = 136315650;
+      v10 = "[ContinuitySingShieldUIBaseSceneDelegate _holdBacklightAssertion]";
+      v11 = 2048;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: <%p> Created backlight assertion to keep screen on with error: %@", &v8, 0x20u);
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: <%p> Created backlight assertion to keep screen on with error: %@", &v9, 0x20u);
     }
   }
 }
@@ -395,14 +396,14 @@ LABEL_49:
     v4 = self->_idleTimerAssertion;
     self->_idleTimerAssertion = 0;
 
-    v5 = sub_100005368();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100005368(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[ContinuitySingShieldUIBaseSceneDelegate _releaseBacklightAssertion]";
-      v8 = 2048;
+      v7 = 136315394;
+      v8 = "[ContinuitySingShieldUIBaseSceneDelegate _releaseBacklightAssertion]";
+      v9 = 2048;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: <%p> Released backlight assertion for screen management", &v6, 0x16u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: <%p> Released backlight assertion for screen management", &v7, 0x16u);
     }
   }
 }

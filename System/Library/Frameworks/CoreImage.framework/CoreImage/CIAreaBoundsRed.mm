@@ -152,7 +152,7 @@
           v61.var3 = 0.0;
         }
 
-        Rectangle::integralize(&v61, 0.0001, &v62);
+        Rectangle::integralize(&v62, &v61, 0.0001);
         if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v62, v58), vceqq_f64(v63, v57))))))
         {
           v59 = v63.f64[0];
@@ -260,7 +260,7 @@ void __30__CIAreaBoundsRed_outputImage__block_invoke(CGFloat a1, CGFloat a2, CGF
     *&v18.var2 = 0uLL;
   }
 
-  Rectangle::integralize(&v18, 0.0001, &v19);
+  Rectangle::integralize(&v19, &v18, 0.0001);
 }
 
 @end

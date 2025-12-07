@@ -671,7 +671,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    salientPredictedAsSalient = self->_salientPredictedAsSalient;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -691,7 +690,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  salientPredictedAsNeutral = self->_salientPredictedAsNeutral;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -706,7 +704,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  salientPredictedAsIgnorable = self->_salientPredictedAsIgnorable;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -721,7 +718,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  neutralPredictedAsSalient = self->_neutralPredictedAsSalient;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -736,7 +732,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  neutralPredictedAsNeutral = self->_neutralPredictedAsNeutral;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -751,7 +746,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  neutralPredictedAsIgnorable = self->_neutralPredictedAsIgnorable;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -766,7 +760,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  ignorablePredictedAsSalient = self->_ignorablePredictedAsSalient;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -781,12 +774,10 @@ LABEL_9:
   }
 
 LABEL_21:
-  ignorablePredictedAsNeutral = self->_ignorablePredictedAsNeutral;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_10:
-    ignorablePredictedAsIgnorable = self->_ignorablePredictedAsIgnorable;
     PBDataWriterWriteUint32Field();
   }
 

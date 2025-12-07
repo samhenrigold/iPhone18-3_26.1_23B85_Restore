@@ -1,4 +1,5 @@
 @interface BKSHIDEventDispatchingTarget
++ (id)focusTargetForPID:(int)d;
 + (id)keyboardFocusTarget;
 + (id)keyboardFocusTargetWithDeferringToken:(id)token;
 + (id)systemTarget;
@@ -6,6 +7,8 @@
 + (id)targetForDeferringEnvironment:(id)environment;
 + (id)targetForDeferringEnvironment:(id)environment deferringToken:(id)token;
 + (id)targetForDeferringEnvironment:(id)environment selectionPath:(id)path;
++ (id)targetForPID:(int)d environment:(id)environment;
++ (id)targetForPID:(int)d environment:(id)environment selectionPath:(id)path;
 - (BKSHIDEventDispatchingTarget)init;
 - (BKSHIDEventDispatchingTarget)initWithCoder:(id)coder;
 - (BOOL)isEqual:(id)equal;
@@ -38,31 +41,30 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __61__BKSHIDEventDispatchingTarget_appendDescriptionToFormatter___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = formatterCopy;
   selfCopy = self;
   v5 = formatterCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __61__BKSHIDEventDispatchingTarget_appendDescriptionToFormatter___block_invoke, &unk_1E6F47C78}];
 }
 
 id __61__BKSHIDEventDispatchingTarget_appendDescriptionToFormatter___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) deferringEnvironment];
-  v4 = [v2 appendObject:v3 withName:0 skipIfNil:1];
+  v4 = [v2 appendObject:? withName:? skipIfNil:?];
 
   v5 = *(a1 + 32);
   v6 = [*(a1 + 40) deferringToken];
-  v7 = [v5 appendObject:v6 withName:@"token" skipIfNil:1];
+  v7 = [v5 appendObject:? withName:? skipIfNil:?];
 
   v8 = *(a1 + 32);
   v9 = [*(a1 + 40) selectionPathIdentifier];
-  v10 = [v8 appendObject:v9 withName:@"selectionPath" skipIfNil:1];
+  v10 = [v8 appendObject:? withName:? skipIfNil:?];
 
-  return [*(a1 + 32) appendInteger:objc_msgSend(*(a1 + 40) withName:{"pid"), @"pid"}];
+  v11 = *(a1 + 32);
+  [*(a1 + 40) pid];
+  return [v11 appendInteger:? withName:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -70,122 +72,114 @@ id __61__BKSHIDEventDispatchingTarget_appendDescriptionToFormatter___block_invok
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v12 = 1;
+    v6 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if (v5 == objc_opt_class() && self->_pid == equalCopy->_pid && (environment = self->_environment, v7 = equalCopy->_environment, BSEqualObjects()) && (deferringToken = self->_deferringToken, v9 = equalCopy->_deferringToken, BSEqualObjects()))
+    if (v5 == objc_opt_class() && self->_pid == equalCopy->_pid && BSEqualObjects() && BSEqualObjects())
     {
-      selectionPathIdentifier = self->_selectionPathIdentifier;
-      v11 = equalCopy->_selectionPathIdentifier;
-      v12 = BSEqualObjects();
+      v6 = BSEqualObjects();
     }
 
     else
     {
-      v12 = 0;
+      v6 = 0;
     }
   }
 
-  return v12;
+  return v6;
 }
 
 - (BKSHIDEventDispatchingTarget)initWithCoder:(id)coder
 {
-  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   if (v5 != objc_opt_class())
   {
     v6 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696A250];
-    v20 = *MEMORY[0x1E696A588];
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDispatchingTarget: subclasses are not allowed : %@", objc_opt_class()];
-    v21 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v10 = [v6 errorWithDomain:v7 code:4866 userInfo:v9];
-    [coderCopy failWithError:v10];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v9 = [v6 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
 LABEL_7:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"environment"];
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deferringToken"];
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"selectionPath"];
-  v11 = [coderCopy decodeInt32ForKey:@"pid"];
-  if (!v8 || v11 < 1)
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
+  v10 = [coderCopy decodeInt32ForKey:?];
+  if (!v7 || v10 < 1)
   {
-    v13 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A250];
-    v22 = *MEMORY[0x1E696A588];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode BKSHIDEventDispatchingTarget: invalid pid or environment : pid=%i environment=%@", v11, v8];
-    v23[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v17 = [v13 errorWithDomain:v14 code:4866 userInfo:v16];
-    [coderCopy failWithError:v17];
+    v12 = MEMORY[0x1E696ABC0];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:v10, v7];
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v14 = [v12 errorWithDomain:? code:? userInfo:?];
+    [coderCopy failWithError:?];
 
     goto LABEL_7;
   }
 
-  v12 = [[BKSHIDEventDispatchingTarget alloc] _initWithEnvironment:v8 token:v9 selectionPath:v10 pid:v11];
+  v11 = [BKSHIDEventDispatchingTarget _initWithEnvironment:"_initWithEnvironment:token:selectionPath:pid:" token:? selectionPath:? pid:?];
 LABEL_8:
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  environment = self->_environment;
   coderCopy = coder;
-  [coderCopy encodeObject:environment forKey:@"environment"];
-  [coderCopy encodeObject:self->_deferringToken forKey:@"deferringToken"];
-  [coderCopy encodeObject:self->_selectionPathIdentifier forKey:@"selectionPath"];
-  [coderCopy encodeInt32:self->_pid forKey:@"pid"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInt32:? forKey:?];
 }
 
 - (id)_initWithEnvironment:(id)environment token:(id)token selectionPath:(id)path pid:(int)pid
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   environmentCopy = environment;
   tokenCopy = token;
   pathCopy = path;
   v14 = objc_opt_class();
   if (v14 != objc_opt_class())
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventDispatchingTarget is not subclassable"];
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2048;
+      v25 = v20;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2048;
       selfCopy = self;
-      v31 = 2114;
-      v32 = @"BKSHIDEventDispatchingTarget.m";
-      v33 = 1024;
-      v34 = 33;
-      v35 = 2114;
-      v36 = v20;
+      v30 = 2114;
+      v31 = @"BKSHIDEventDispatchingTarget.m";
+      v32 = 1024;
+      v33 = 33;
+      v34 = 2114;
+      v35 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186367AD8);
   }
 
-  v24.receiver = self;
-  v24.super_class = BKSHIDEventDispatchingTarget;
-  v15 = [(BKSHIDEventDispatchingTarget *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = BKSHIDEventDispatchingTarget;
+  v15 = [(BKSHIDEventDispatchingTarget *)&v23 init];
   if (v15)
   {
     v16 = [environmentCopy copy];
@@ -197,13 +191,12 @@ LABEL_8:
     objc_storeStrong(&v15->_selectionPathIdentifier, path);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BKSHIDEventDispatchingTarget)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventDispatchingTarget"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -230,30 +223,160 @@ LABEL_8:
   return result;
 }
 
++ (id)focusTargetForPID:(int)d
+{
+  v25 = *MEMORY[0x1E69E9840];
+  if (d <= 0)
+  {
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = 138544642;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v12;
+      v17 = 2048;
+      selfCopy = self;
+      v19 = 2114;
+      v20 = @"BKSHIDEventDispatchingTarget.m";
+      v21 = 1024;
+      v22 = 108;
+      v23 = 2114;
+      v24 = v9;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+    }
+
+    [v9 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x186367DBCLL);
+  }
+
+  if (getpid() == d)
+  {
+    v3 = +[BKSHIDEventDispatchingTarget keyboardFocusTarget];
+  }
+
+  else
+  {
+    v4 = [BKSHIDEventDispatchingTarget alloc];
+    v5 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
+    v3 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v4 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
+  }
+
+  return v3;
+}
+
++ (id)targetForPID:(int)d environment:(id)environment selectionPath:(id)path
+{
+  pathCopy = path;
+  environmentCopy = environment;
+  v8 = [BKSHIDEventDispatchingTarget _initWithEnvironment:"_initWithEnvironment:token:selectionPath:pid:" token:? selectionPath:? pid:?];
+
+  return v8;
+}
+
++ (id)targetForPID:(int)d environment:(id)environment
+{
+  v32 = *MEMORY[0x1E69E9840];
+  environmentCopy = environment;
+  if (d <= 0)
+  {
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v17 = NSStringFromSelector(a2);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = 138544642;
+      v21 = v17;
+      v22 = 2114;
+      v23 = v19;
+      v24 = 2048;
+      selfCopy = self;
+      v26 = 2114;
+      v27 = @"BKSHIDEventDispatchingTarget.m";
+      v28 = 1024;
+      v29 = 89;
+      v30 = 2114;
+      v31 = v16;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v20, 0x3Au);
+    }
+
+    [v16 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x186368068);
+  }
+
+  v8 = environmentCopy;
+  if (getpid() != d)
+  {
+    goto LABEL_7;
+  }
+
+  v9 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
+  v10 = [v8 isEqual:?];
+
+  if (v10)
+  {
+    v11 = +[BKSHIDEventDispatchingTarget keyboardFocusTarget];
+    goto LABEL_8;
+  }
+
+  v12 = +[BKSHIDEventDeferringEnvironment systemEnvironment];
+  v13 = [v8 isEqual:?];
+
+  if (v13)
+  {
+    v11 = +[BKSHIDEventDispatchingTarget systemTarget];
+  }
+
+  else
+  {
+LABEL_7:
+    v11 = [BKSHIDEventDispatchingTarget _initWithEnvironment:"_initWithEnvironment:token:selectionPath:pid:" token:? selectionPath:? pid:?];
+  }
+
+LABEL_8:
+  v14 = v11;
+
+  return v14;
+}
+
 + (id)targetForDeferringEnvironment:(id)environment selectionPath:(id)path
 {
   pathCopy = path;
   environmentCopy = environment;
-  v7 = [[BKSHIDEventDispatchingTarget alloc] _initWithEnvironment:environmentCopy token:0 selectionPath:pathCopy pid:getpid()];
+  v7 = [BKSHIDEventDispatchingTarget alloc];
+  getpid();
+  v8 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v7 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
 
-  return v7;
+  return v8;
 }
 
 + (id)targetForDeferringEnvironment:(id)environment deferringToken:(id)token
 {
   tokenCopy = token;
   environmentCopy = environment;
-  v7 = [[BKSHIDEventDispatchingTarget alloc] _initWithEnvironment:environmentCopy token:tokenCopy selectionPath:0 pid:getpid()];
+  v7 = [BKSHIDEventDispatchingTarget alloc];
+  getpid();
+  v8 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v7 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
 
-  return v7;
+  return v8;
 }
 
 + (id)targetForDeferringEnvironment:(id)environment
 {
   environmentCopy = environment;
-  v4 = [[BKSHIDEventDispatchingTarget alloc] _initWithEnvironment:environmentCopy token:0 selectionPath:0 pid:getpid()];
+  v4 = [BKSHIDEventDispatchingTarget alloc];
+  getpid();
+  v5 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v4 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
 
-  return v4;
+  return v5;
 }
 
 + (id)keyboardFocusTargetWithDeferringToken:(id)token
@@ -261,7 +384,8 @@ LABEL_8:
   tokenCopy = token;
   v4 = [BKSHIDEventDispatchingTarget alloc];
   v5 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
-  v6 = [(BKSHIDEventDispatchingTarget *)v4 _initWithEnvironment:v5 token:tokenCopy selectionPath:0 pid:getpid()];
+  getpid();
+  v6 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v4 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
 
   return v6;
 }
@@ -271,7 +395,8 @@ LABEL_8:
   tokenCopy = token;
   v4 = [BKSHIDEventDispatchingTarget alloc];
   v5 = +[BKSHIDEventDeferringEnvironment systemEnvironment];
-  v6 = [(BKSHIDEventDispatchingTarget *)v4 _initWithEnvironment:v5 token:tokenCopy selectionPath:0 pid:getpid()];
+  getpid();
+  v6 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v4 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
 
   return v6;
 }
@@ -292,7 +417,8 @@ void __51__BKSHIDEventDispatchingTarget_keyboardFocusTarget__block_invoke()
 {
   v0 = [BKSHIDEventDispatchingTarget alloc];
   v3 = +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
-  v1 = [(BKSHIDEventDispatchingTarget *)v0 _initWithEnvironment:v3 token:0 selectionPath:0 pid:getpid()];
+  getpid();
+  v1 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v0 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
   v2 = keyboardFocusTarget___focusTarget;
   keyboardFocusTarget___focusTarget = v1;
 }
@@ -313,7 +439,8 @@ void __44__BKSHIDEventDispatchingTarget_systemTarget__block_invoke()
 {
   v0 = [BKSHIDEventDispatchingTarget alloc];
   v3 = +[BKSHIDEventDeferringEnvironment systemEnvironment];
-  v1 = [(BKSHIDEventDispatchingTarget *)v0 _initWithEnvironment:v3 token:0 selectionPath:0 pid:getpid()];
+  getpid();
+  v1 = [BKSHIDEventDispatchingTarget _initWithEnvironment:v0 token:"_initWithEnvironment:token:selectionPath:pid:" selectionPath:? pid:?];
   v2 = systemTarget___systemTarget;
   systemTarget___systemTarget = v1;
 }

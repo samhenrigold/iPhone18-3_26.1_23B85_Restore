@@ -8,6 +8,7 @@
 - (BOOL)isSyncEnabled;
 - (BOOL)isSyncPreferenceEnabled;
 - (BOOL)syncEngine:(id)engine shouldFetchChangesForZoneID:(id)d;
+- (DNDSSyncEngine)initWithMetadataStore:(id)store lastChanceDataStore:(id)dataStore keybag:(id)keybag syncEnabled:(BOOL)enabled;
 - (DNDSSyncEngine)initWithMetadataStore:(id)store lastChanceDataStore:(id)dataStore syncEngine:(id)engine keybag:(id)keybag syncEnabled:(BOOL)enabled;
 - (id)_lock_currentUserRecordID;
 - (id)_lock_dataSourceForRecord:(id)record;
@@ -27,10 +28,12 @@
 - (void)_lock_purgeData;
 - (void)_lock_setCurrentAccountStatus:(int64_t)status;
 - (void)_lock_setCurrentUserRecordID:(id)d;
+- (void)_lock_setEncryptionAvailable:(BOOL)available;
 - (void)_migrateOldStoresWithSyncEnabledState:(BOOL)state;
 - (void)_purgeDataFromDataSources;
 - (void)_retryLastChanceRecords;
 - (void)_retryLastChanceRecordsForDataSource:(id)source withZoneName:(id)name;
+- (void)_syncEngineQueue_updateAccountWithSyncEnabledState:(BOOL)state;
 - (void)_updateAccountWithCurrentSyncEnabledState;
 - (void)_updateAccountWithSyncEnabledState:(BOOL)state;
 - (void)addRecordIDsToSave:(id)save recordIDsToDelete:(id)delete;
@@ -43,7 +46,9 @@
 - (void)removeZoneWithID:(id)d;
 - (void)sendChangesWithCompletionHandler:(id)handler;
 - (void)setDataSource:(id)source forZoneName:(id)name;
+- (void)setSyncPreferenceEnabled:(BOOL)enabled;
 - (void)setTesting:(BOOL)testing;
+- (void)sync:(BOOL)sync withCompletionHandler:(id)handler;
 - (void)syncEngine:(id)engine didDeleteRecordWithID:(id)d;
 - (void)syncEngine:(id)engine didFetchRecord:(id)record;
 - (void)syncEngine:(id)engine didSaveRecord:(id)record;
@@ -86,6 +91,28 @@ void __32__DNDSSyncEngine_sharedInstance__block_invoke()
   v8 = [[DNDSSyncEngine alloc] initWithMetadataStore:v10 lastChanceDataStore:v4 keybag:v7 syncEnabled:v6 ^ 1u];
   v9 = sharedInstance_shared;
   sharedInstance_shared = v8;
+}
+
+- (DNDSSyncEngine)initWithMetadataStore:(id)store lastChanceDataStore:(id)dataStore keybag:(id)keybag syncEnabled:(BOOL)enabled
+{
+  v6 = [(DNDSSyncEngine *)self initWithMetadataStore:store lastChanceDataStore:dataStore syncEngine:0 keybag:keybag syncEnabled:enabled];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_allowSyncEngineCreation = 1;
+    if (v6->_state.featureEnabled)
+    {
+      v8 = [MEMORY[0x277CBC218] containerWithIdentifier:@"com.apple.donotdisturbd"];
+      container = v7->_container;
+      v7->_container = v8;
+
+      [(DNDSSyncEngine *)v7 _updateAccountWithCurrentSyncEnabledState];
+      defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+      [defaultCenter addObserver:v7 selector:sel__cloudKitAccountChanged_ name:*MEMORY[0x277CBBF00] object:0];
+    }
+  }
+
+  return v7;
 }
 
 - (DNDSSyncEngine)initWithMetadataStore:(id)store lastChanceDataStore:(id)dataStore syncEngine:(id)engine keybag:(id)keybag syncEnabled:(BOOL)enabled
@@ -137,7 +164,7 @@ void __32__DNDSSyncEngine_sharedInstance__block_invoke()
     *(v26 + 74) = [v26[7] accountStatus] == 1;
     *(v26 + 75) = [v26[7] isEncryptionAvailable];
     v29 = *(v26 + 18) | (*(v26 + 38) << 32);
-    if (v29 & 0x10000000000) != 0 || (~v29 & 0x101010100) == 0 && (*(v26 + 38), (v26[9]))
+    if (v29 & 0x10000000000) != 0 || (~v29 & 0x101010100) == 0 && (v26[9])
     {
       v30 = DNDSLogCloudSync;
       storeCopy = v19;
@@ -159,7 +186,6 @@ LABEL_19:
 
     else
     {
-      *(v26 + 38);
       if ((v26[9] & 0x100) != 0)
       {
         storeCopy = v19;
@@ -295,6 +321,38 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
   return syncEnabled;
 }
 
+- (void)setSyncPreferenceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock(&self->_lock);
+  if (self->_state.syncEnabled == enabledCopy)
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    v5 = DNDSLogCloudSync;
+    if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = "disabled";
+      if (enabledCopy)
+      {
+        v6 = "enabled";
+      }
+
+      v7 = 136446210;
+      v8 = v6;
+      _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Sync engine changing to %{public}s", &v7, 0xCu);
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+    [(DNDSSyncEngine *)self _updateAccountWithSyncEnabledState:enabledCopy];
+  }
+}
+
 - (void)setTesting:(BOOL)testing
 {
   os_unfair_lock_lock(&self->_lock);
@@ -305,7 +363,7 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
 
 - (void)setDataSource:(id)source forZoneName:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   nameCopy = name;
   os_unfair_lock_lock(&self->_lock);
@@ -323,9 +381,9 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
         v13 = DNDSLogCloudSync;
         if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 138412290;
-          v16 = nameCopy;
-          _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Performing initial sync for new zone: %@", &v15, 0xCu);
+          v14 = 138412290;
+          v15 = nameCopy;
+          _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Performing initial sync for new zone: %@", &v14, 0xCu);
         }
 
         [(DNDSSyncEngine *)self _initialSyncForDataSource:sourceCopy withZoneName:nameCopy];
@@ -346,13 +404,11 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
     [(DNDSSyncEngineMetadataStoring *)self->_metadataStore removeZoneName:nameCopy];
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRecordIDsToSave:(id)save recordIDsToDelete:(id)delete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   deleteCopy = delete;
   os_unfair_lock_lock(&self->_lock);
@@ -361,11 +417,11 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
     v8 = DNDSLogCloudSync;
     if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = saveCopy;
-      v13 = 2114;
-      v14 = deleteCopy;
-      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Adding record IDs to save: %{public}@; to delete: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = saveCopy;
+      v12 = 2114;
+      v13 = deleteCopy;
+      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Adding record IDs to save: %{public}@; to delete: %{public}@", &v10, 0x16u);
     }
 
     _lock_syncEngine = [(DNDSSyncEngine *)self _lock_syncEngine];
@@ -383,13 +439,11 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRecordZonesToSave:(id)save recordZoneIDsToDelete:(id)delete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   deleteCopy = delete;
   os_unfair_lock_lock(&self->_lock);
@@ -398,11 +452,11 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
     v8 = DNDSLogCloudSync;
     if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543618;
-      v12 = saveCopy;
-      v13 = 2114;
-      v14 = deleteCopy;
-      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Adding zones to save: %{public}@; to delete: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = saveCopy;
+      v12 = 2114;
+      v13 = deleteCopy;
+      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Adding zones to save: %{public}@; to delete: %{public}@", &v10, 0x16u);
     }
 
     _lock_syncEngine = [(DNDSSyncEngine *)self _lock_syncEngine];
@@ -420,8 +474,6 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendChangesWithCompletionHandler:(id)handler
@@ -495,9 +547,41 @@ uint64_t __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngi
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)sync:(BOOL)sync withCompletionHandler:(id)handler
+{
+  syncCopy = sync;
+  handlerCopy = handler;
+  if ([(DNDSSyncEngine *)self isSyncEnabled])
+  {
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke;
+    v13[3] = &unk_278F8BD18;
+    v13[4] = self;
+    v14 = handlerCopy;
+    v7 = handlerCopy;
+    [(DNDSSyncEngine *)self fetchChanges:syncCopy withCompletionHandler:v13];
+    v8 = v14;
+  }
+
+  else
+  {
+    v9 = dispatch_get_global_queue(21, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_36;
+    block[3] = &unk_278F8BCC8;
+    v12 = handlerCopy;
+    v10 = handlerCopy;
+    dispatch_async(v9, block);
+
+    v8 = v12;
+  }
+}
+
 void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DNDSLogCloudSync;
   v5 = os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT);
@@ -506,7 +590,7 @@ void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke(uint64_t a1,
     if (v5)
     {
       *buf = 138543362;
-      v11 = v3;
+      v10 = v3;
       _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Error fetching changes: %{public}@", buf, 0xCu);
     }
 
@@ -521,16 +605,14 @@ void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke(uint64_t a1,
       _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Fetched changes", buf, 2u);
     }
 
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34;
-    v8[3] = &unk_278F8BCF0;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34;
+    v7[3] = &unk_278F8BCF0;
     v6 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    [v6 sendChangesWithCompletionHandler:v8];
+    v8 = *(a1 + 40);
+    [v6 sendChangesWithCompletionHandler:v7];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34(uint64_t a1, void *a2)
@@ -563,7 +645,7 @@ void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34(uint64_t 
 
 - (void)handleFetchedRecord:(id)record
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   os_unfair_lock_lock(&self->_lock);
   [(DNDSSyncEngineMetadataStoring *)self->_store addRecord:recordCopy];
@@ -580,11 +662,11 @@ void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34(uint64_t 
         v22 = v21;
         recordID = [recordCopy recordID];
         recordName = [recordID recordName];
-        v26 = 138543618;
-        v27 = v5;
-        v28 = 2114;
-        v29 = recordName;
-        _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Failed to find data source with zoneID %{public}@ for record %{public}@; sending to last-chance store", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v5;
+        v27 = 2114;
+        v28 = recordName;
+        _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Failed to find data source with zoneID %{public}@ for record %{public}@; sending to last-chance store", &v25, 0x16u);
       }
 
       goto LABEL_14;
@@ -595,9 +677,9 @@ void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34(uint64_t 
         v18 = v17;
         recordID2 = [recordCopy recordID];
         recordName2 = [recordID2 recordName];
-        v26 = 138543362;
-        v27 = recordName2;
-        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Record %{public}@ is from the future; saving what we can and sending to last-chance store", &v26, 0xCu);
+        v25 = 138543362;
+        v26 = recordName2;
+        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Record %{public}@ is from the future; saving what we can and sending to last-chance store", &v25, 0xCu);
       }
 
       [v6 syncEngine:self didFetchRecord:recordCopy];
@@ -619,9 +701,9 @@ LABEL_14:
           v12 = v11;
           recordID4 = [recordCopy recordID];
           recordName3 = [recordID4 recordName];
-          v26 = 138543362;
-          v27 = recordName3;
-          _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Record %{public}@ overrides a previously-stored record in the last-chance store.", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = recordName3;
+          _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Record %{public}@ overrides a previously-stored record in the last-chance store.", &v25, 0xCu);
         }
 
         v15 = self->_lastChanceStore;
@@ -632,8 +714,6 @@ LABEL_14:
       [v6 syncEngine:self didFetchRecord:recordCopy];
       break;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeletedRecordID:(id)d
@@ -685,7 +765,7 @@ LABEL_14:
 
 - (void)purgeZoneWithID:(id)d
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_lock(&self->_lock);
   v5 = [(DNDSSyncEngine *)self _lock_dataSourceForZoneID:dCopy];
@@ -701,15 +781,14 @@ LABEL_14:
   os_unfair_lock_lock(&self->_lock);
   v9 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:dCopy];
   _lock_syncEngine = [(DNDSSyncEngine *)self _lock_syncEngine];
-  v14[0] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   [_lock_syncEngine addRecordZonesToSave:v11 recordZoneIDsToDelete:0];
 
   os_unfair_lock_unlock(&self->_lock);
   zoneName2 = [dCopy zoneName];
 
   [(DNDSSyncEngine *)self _initialSyncForDataSource:v5 withZoneName:zoneName2];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasLocalChanges
@@ -724,61 +803,55 @@ LABEL_14:
 
 - (void)syncEngine:(id)engine didDeleteRecordWithID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v6 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = dCopy;
-    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Deleted record: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = dCopy;
+    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Deleted record: %{public}@", &v7, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(DNDSSyncEngineMetadataStoring *)self->_store removeRecordWithID:dCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine didFetchRecord:(id)record
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v6 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     recordID = [recordCopy recordID];
-    v10 = 138543362;
-    v11 = recordID;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Fetched record: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = recordID;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Fetched record: %{public}@", &v9, 0xCu);
   }
 
   [(DNDSSyncEngine *)self handleFetchedRecord:recordCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine didSaveRecord:(id)record
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v6 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
     v7 = v6;
     recordID = [recordCopy recordID];
-    v10 = 138543362;
-    v11 = recordID;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Saved record: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = recordID;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Saved record: %{public}@", &v9, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(DNDSSyncEngineMetadataStoring *)self->_store addRecord:recordCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine didUpdateMetadata:(id)metadata
@@ -828,7 +901,7 @@ LABEL_14:
 
 - (void)syncEngine:(id)engine failedToSaveRecord:(id)record error:(id)error
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   recordCopy = record;
   errorCopy = error;
@@ -869,8 +942,8 @@ LABEL_14:
         os_unfair_lock_lock(&self->_lock);
         [(DNDSSyncEngineMetadataStoring *)self->_store removeRecordWithID:recordID];
         os_unfair_lock_unlock(&self->_lock);
-        v47 = recordID;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+        v46 = recordID;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
         [(DNDSSyncEngine *)self addRecordIDsToSave:v19 recordIDsToDelete:0];
         goto LABEL_48;
       }
@@ -930,19 +1003,19 @@ LABEL_49:
 
       if (!recordID2)
       {
-        v41 = DNDSLogCloudSync;
+        v40 = DNDSLogCloudSync;
         if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_ERROR))
         {
-          [DNDSSyncEngine syncEngine:v41 failedToSaveRecord:recordCopy error:?];
+          [DNDSSyncEngine syncEngine:v40 failedToSaveRecord:recordCopy error:?];
         }
 
         goto LABEL_26;
       }
 
       recordID3 = [zoneName3 recordID];
-      v48[0] = recordID3;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-      [(DNDSSyncEngine *)self addRecordIDsToSave:v40 recordIDsToDelete:0];
+      v47[0] = recordID3;
+      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+      [(DNDSSyncEngine *)self addRecordIDsToSave:v39 recordIDsToDelete:0];
     }
 
     else
@@ -958,7 +1031,7 @@ LABEL_49:
             v34 = v33;
             zoneName = [recordID zoneName];
             *buf = 138543362;
-            v46 = zoneName;
+            v45 = zoneName;
             _os_log_impl(&dword_24912E000, v34, OS_LOG_TYPE_DEFAULT, "User deleted zone %{public}@; deleting zone", buf, 0xCu);
           }
 
@@ -984,7 +1057,7 @@ LABEL_49:
             v17 = v16;
             zoneName2 = [recordID zoneName];
             *buf = 138543362;
-            v46 = zoneName2;
+            v45 = zoneName2;
             _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Missing identity for zone %{public}@; deleting and recreating zone", buf, 0xCu);
           }
 
@@ -1003,8 +1076,8 @@ LABEL_49:
           os_unfair_lock_lock(&self->_lock);
           v19 = [(DNDSSyncEngine *)self _lock_dataSourceForZoneID:recordID];
           _lock_syncEngine = [(DNDSSyncEngine *)self _lock_syncEngine];
-          v42 = recordID;
-          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+          v41 = recordID;
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
           [_lock_syncEngine addRecordZonesToSave:0 recordZoneIDsToDelete:v21];
 
           [(DNDSSyncEngineMetadataStoring *)self->_store removeRecordsWithZoneID:recordID];
@@ -1024,7 +1097,7 @@ LABEL_49:
         v29 = v28;
         zoneName4 = [recordID zoneName];
         *buf = 138543362;
-        v46 = zoneName4;
+        v45 = zoneName4;
         _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_DEFAULT, "Zone %{public}@ not found; pushing zone to server", buf, 0xCu);
       }
 
@@ -1039,13 +1112,13 @@ LABEL_49:
       }
 
       v19 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneID:recordID];
-      v44 = v19;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+      v43 = v19;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
       [(DNDSSyncEngine *)self addRecordZonesToSave:v31 recordZoneIDsToDelete:0];
 
       zoneName3 = [recordCopy recordID];
-      v43 = zoneName3;
-      recordID3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+      v42 = zoneName3;
+      recordID3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
       [(DNDSSyncEngine *)self addRecordIDsToSave:recordID3 recordIDsToDelete:0];
     }
 
@@ -1060,21 +1133,19 @@ LABEL_26:
   }
 
 LABEL_50:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)syncEngine:(id)engine recordToSaveForRecordID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   dCopy = d;
   v8 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = 138543362;
-    v30 = dCopy;
-    _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Creating record to save: %{public}@", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = dCopy;
+    _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Creating record to save: %{public}@", &v28, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -1105,9 +1176,9 @@ LABEL_13:
       v24 = v23;
       recordID = [v11 recordID];
       recordName = [recordID recordName];
-      v29 = 138543362;
-      v30 = recordName;
-      _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, "Record %{public}@ has changes from the future; saving healed modifications to last-chance store", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = recordName;
+      _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, "Record %{public}@ has changes from the future; saving healed modifications to last-chance store", &v28, 0xCu);
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -1144,9 +1215,9 @@ LABEL_13:
         v18 = v17;
         recordID3 = [v11 recordID];
         recordName2 = [recordID3 recordName];
-        v29 = 138543362;
-        v30 = recordName2;
-        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Record %{public}@ was overridden locally; removing record in last-chance store.", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = recordName2;
+        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Record %{public}@ was overridden locally; removing record in last-chance store.", &v28, 0xCu);
       }
 
       v21 = self->_lastChanceStore;
@@ -1157,26 +1228,22 @@ LABEL_13:
 
 LABEL_21:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)syncEngine:(id)engine recordWithIDWasDeleted:(id)deleted recordType:(id)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   v7 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = deletedCopy;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Record was deleted: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = deletedCopy;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, "Record was deleted: %{public}@", &v8, 0xCu);
   }
 
   [(DNDSSyncEngine *)self handleDeletedRecordID:deletedCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)syncEngine:(id)engine shouldFetchChangesForZoneID:(id)d
@@ -1191,36 +1258,32 @@ LABEL_21:
 
 - (void)syncEngine:(id)engine zoneWithIDWasDeleted:(id)deleted
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   deletedCopy = deleted;
   v6 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = deletedCopy;
-    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Zone was deleted: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = deletedCopy;
+    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Zone was deleted: %{public}@", &v7, 0xCu);
   }
 
   [(DNDSSyncEngine *)self removeZoneWithID:deletedCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(id)engine zoneWithIDWasPurged:(id)purged
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   purgedCopy = purged;
   v6 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = purgedCopy;
-    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Zone was purged: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = purgedCopy;
+    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_DEFAULT, "Zone was purged: %{public}@", &v7, 0xCu);
   }
 
   [(DNDSSyncEngine *)self purgeZoneWithID:purgedCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keybagDidUnlockForTheFirstTime:(id)time
@@ -1239,7 +1302,7 @@ LABEL_21:
 - (id)sysdiagnoseDataForDate:(id)date redacted:(BOOL)redacted
 {
   redactedCopy = redacted;
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   os_unfair_lock_lock(&self->_lock);
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_allowSyncEngineCreation];
@@ -1267,7 +1330,7 @@ LABEL_21:
   records = [(DNDSSyncEngineLastChanceDataStoring *)self->_lastChanceStore records];
   allValues = [records allValues];
 
-  v41 = dictionary;
+  v40 = dictionary;
   if (redactedCopy)
   {
     [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(allValues, "count")}];
@@ -1277,29 +1340,29 @@ LABEL_21:
   {
     [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(allValues, "count")}];
   }
-  v44 = ;
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
+  v43 = ;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = allValues;
-  v45 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
-  if (v45)
+  v44 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+  if (v44)
   {
-    v43 = *v55;
+    v42 = *v54;
     do
     {
       v16 = 0;
       do
       {
-        if (*v55 != v43)
+        if (*v54 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v54 + 1) + 8 * v16);
-        v47 = MEMORY[0x277CCACA8];
-        v49 = v16;
+        v17 = *(*(&v53 + 1) + 8 * v16);
+        v46 = MEMORY[0x277CCACA8];
+        v48 = v16;
         recordType = [v17 recordType];
         recordID = [v17 recordID];
         recordName = [recordID recordName];
@@ -1309,12 +1372,12 @@ LABEL_21:
         recordID3 = [v17 recordID];
         zoneID2 = [recordID3 zoneID];
         ownerName = [zoneID2 ownerName];
-        v48 = [v47 stringWithFormat:@"%@ %@:%@(%@)", recordType, recordName, zoneName, ownerName];
+        v47 = [v46 stringWithFormat:@"%@ %@:%@(%@)", recordType, recordName, zoneName, ownerName];
 
         if (redactedCopy)
         {
-          [v44 addObject:v44];
-          v26 = v48;
+          [v43 addObject:v43];
+          v26 = v47;
         }
 
         else
@@ -1322,28 +1385,28 @@ LABEL_21:
           values = [v17 values];
           v28 = [values mutableCopy];
 
-          v52 = 0u;
-          v53 = 0u;
-          v50 = 0u;
           v51 = 0u;
-          v58[0] = @"DNDSModeConfigurationsRecordMainPartition";
-          v58[1] = @"DNDSModeConfigurationsRecordSecondaryPartition";
-          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
-          v30 = [v29 countByEnumeratingWithState:&v50 objects:v59 count:16];
+          v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
+          v57[0] = @"DNDSModeConfigurationsRecordMainPartition";
+          v57[1] = @"DNDSModeConfigurationsRecordSecondaryPartition";
+          v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+          v30 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v51;
+            v32 = *v50;
             do
             {
               for (i = 0; i != v31; ++i)
               {
-                if (*v51 != v32)
+                if (*v50 != v32)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                v34 = *(*(&v50 + 1) + 8 * i);
+                v34 = *(*(&v49 + 1) + 8 * i);
                 encryptedValues = [v17 encryptedValues];
                 v36 = [encryptedValues objectForKey:v34];
 
@@ -1354,32 +1417,30 @@ LABEL_21:
                 }
               }
 
-              v31 = [v29 countByEnumeratingWithState:&v50 objects:v59 count:16];
+              v31 = [v29 countByEnumeratingWithState:&v49 objects:v58 count:16];
             }
 
             while (v31);
           }
 
-          v26 = v48;
-          [v44 setObject:v28 forKeyedSubscript:v48];
+          v26 = v47;
+          [v43 setObject:v28 forKeyedSubscript:v47];
         }
 
-        v16 = v49 + 1;
+        v16 = v48 + 1;
       }
 
-      while (v49 + 1 != v45);
-      v45 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      while (v48 + 1 != v44);
+      v44 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
-  [v41 setObject:v44 forKeyedSubscript:@"lastChanceStore"];
+  [v40 setObject:v43 forKeyedSubscript:@"lastChanceStore"];
   os_unfair_lock_unlock(&selfCopy->_lock);
 
-  v38 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 - (id)_zoneIDForRecord:(id)record
@@ -1392,7 +1453,7 @@ LABEL_21:
 
 - (void)_retryLastChanceRecords
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   keybag = self->_keybag;
   if (!keybag || [(DNDSKeybagStateProviding *)keybag hasUnlockedSinceBoot])
@@ -1400,43 +1461,41 @@ LABEL_21:
     os_unfair_lock_lock(&self->_lock);
     dictionaryRepresentation = [(NSMapTable *)self->_sourcesByZoneName dictionaryRepresentation];
     os_unfair_lock_unlock(&self->_lock);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = dictionaryRepresentation;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
-          v11 = [v5 objectForKeyedSubscript:{v10, v13}];
+          v10 = *(*(&v12 + 1) + 8 * i);
+          v11 = [v5 objectForKeyedSubscript:{v10, v12}];
           [(DNDSSyncEngine *)self _retryLastChanceRecordsForDataSource:v11 withZoneName:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_retryLastChanceRecordsForDataSource:(id)source withZoneName:(id)name
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   nameCopy = name;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -1446,32 +1505,32 @@ LABEL_21:
     v9 = [objc_alloc(MEMORY[0x277CBC5E8]) initWithZoneName:nameCopy];
     os_unfair_lock_lock(&self->_lock);
     lastChanceStore = self->_lastChanceStore;
-    v30 = v9;
+    v29 = v9;
     zoneID = [v9 zoneID];
     v12 = [(DNDSSyncEngineLastChanceDataStoring *)lastChanceStore recordsWithZoneID:zoneID];
 
     os_unfair_lock_unlock(&self->_lock);
     array = [MEMORY[0x277CBEB18] array];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v14 = v12;
-    v15 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v35 + 1) + 8 * i);
+          v19 = *(*(&v34 + 1) + 8 * i);
           v20 = [sourceCopy syncEngine:self wantsRecord:v19];
           if (v20)
           {
@@ -1484,38 +1543,38 @@ LABEL_21:
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v16);
     }
 
     os_unfair_lock_lock(&self->_lock);
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v22 = array;
-    v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v32;
+      v25 = *v31;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v32 != v25)
+          if (*v31 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
           v27 = self->_lastChanceStore;
-          recordID = [*(*(&v31 + 1) + 8 * j) recordID];
+          recordID = [*(*(&v30 + 1) + 8 * j) recordID];
           [(DNDSSyncEngineLastChanceDataStoring *)v27 removeRecordWithID:recordID];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v24);
@@ -1523,8 +1582,6 @@ LABEL_21:
 
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAccountWithCurrentSyncEnabledState
@@ -1562,23 +1619,128 @@ LABEL_21:
   dispatch_source_merge_data(accountUpdateSource, v4);
 }
 
+- (void)_syncEngineQueue_updateAccountWithSyncEnabledState:(BOOL)state
+{
+  stateCopy = state;
+  v25 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_assert_not_owner(&self->_lock);
+  dispatch_assert_queue_V2(self->_syncEngineQueue);
+  v5 = DNDSLogCloudSync;
+  if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "Updating account", buf, 2u);
+  }
+
+  [(DNDSSyncEngine *)self _migrateOldStoresWithSyncEnabledState:stateCopy];
+  os_unfair_lock_lock(&self->_lock);
+  _lock_isSyncPreferenceEnabled = [(DNDSSyncEngine *)self _lock_isSyncPreferenceEnabled];
+  featureEnabled = self->_state.featureEnabled;
+  supportedDevice = self->_state.supportedDevice;
+  os_unfair_lock_unlock(&self->_lock);
+  if (!supportedDevice)
+  {
+    v11 = DNDSLogCloudSync;
+    if (!os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 0;
+    v12 = "Ignoring account change because device is unsupported";
+LABEL_12:
+    _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
+    return;
+  }
+
+  if (!featureEnabled)
+  {
+    v11 = DNDSLogCloudSync;
+    if (!os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 0;
+    v12 = "Ignoring account change because feature is not enabled";
+    goto LABEL_12;
+  }
+
+  keybag = self->_keybag;
+  if (keybag && ([(DNDSKeybagStateProviding *)keybag hasUnlockedSinceBoot]& 1) == 0)
+  {
+    os_unfair_lock_lock(&self->_lock);
+    v13 = DNDSLogCloudSync;
+    if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Device is locked", buf, 2u);
+    }
+
+    _lock_currentUserRecordID = [(DNDSSyncEngine *)self _lock_currentUserRecordID];
+    self->_state.accountAvailable = _lock_currentUserRecordID != 0;
+    self->_state.encryptionAvailable = [(DNDSSyncEngine *)self _lock_encryptionAvailable];
+    v15 = DNDSLogCloudSync;
+    if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = "unavailable";
+      if (self->_state.accountAvailable)
+      {
+        v17 = "available";
+      }
+
+      else
+      {
+        v17 = "unavailable";
+      }
+
+      if (self->_state.encryptionAvailable)
+      {
+        v16 = "available";
+      }
+
+      *buf = 136315394;
+      v22 = v17;
+      v23 = 2080;
+      v24 = v16;
+      _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Initial account state is %s; encryption is %s", buf, 0x16u);
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    dispatch_suspend(self->_syncEngineQueue);
+    container = self->_container;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke;
+    v18[3] = &unk_278F8BD68;
+    v18[4] = self;
+    v19 = stateCopy;
+    v20 = _lock_isSyncPreferenceEnabled;
+    [(CKContainer *)container accountStatusWithCompletionHandler:v18];
+  }
+}
+
 void __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
     v6 = *(a1 + 32);
     if (a2 == 1)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke_76;
-      v16[3] = &unk_278F8BD40;
-      v16[4] = v6;
-      v16[5] = 1;
-      v17 = *(a1 + 40);
-      [(os_unfair_lock_s *)v6 _fetchAccountStateWithCompletionHandler:v16];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke_76;
+      v15[3] = &unk_278F8BD40;
+      v15[4] = v6;
+      v15[5] = 1;
+      v16 = *(a1 + 40);
+      [(os_unfair_lock_s *)v6 _fetchAccountStateWithCompletionHandler:v15];
       goto LABEL_22;
     }
 
@@ -1666,7 +1828,7 @@ LABEL_19:
       }
 
       *buf = 138412290;
-      v19 = 0;
+      v18 = 0;
       v11 = "Sync engine will be disabled because of an error: %@";
       v12 = v14;
       v13 = 12;
@@ -1683,8 +1845,6 @@ LABEL_19:
 
   dispatch_resume(*(*(a1 + 32) + 32));
 LABEL_22:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke_76(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1766,7 +1926,6 @@ void __58__DNDSSyncEngine__fetchAccountStateWithCompletionHandler___block_invoke
   else
   {
     v7 = [v5 recordName];
-    v8 = *(a1 + 40);
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -1775,17 +1934,17 @@ void __58__DNDSSyncEngine__fetchAccountStateWithCompletionHandler___block_invoke
 {
   enabledCopy = enabled;
   availableCopy = available;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_lock(&self->_lock);
   _lock_encryptionAvailable = [(DNDSSyncEngine *)self _lock_encryptionAvailable];
   _lock_currentUserRecordID = [(DNDSSyncEngine *)self _lock_currentUserRecordID];
   syncEnabled = self->_state.syncEnabled;
   featureEnabled = self->_state.featureEnabled;
-  v36 = *&self->_state.supportedDevice;
+  v35 = *&self->_state.supportedDevice;
   v13 = DNDSLogCloudSync;
   v14 = os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT);
-  v34 = availableCopy;
+  v33 = availableCopy;
   if (availableCopy)
   {
     if (_lock_encryptionAvailable)
@@ -1986,7 +2145,7 @@ LABEL_54:
   self->_state.featureEnabled = featureEnabled;
   self->_state.accountAvailable = v22;
   self->_state.encryptionAvailable = v16;
-  *&self->_state.supportedDevice = v36;
+  *&self->_state.supportedDevice = v35;
   v28 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
@@ -1997,7 +2156,7 @@ LABEL_54:
     }
 
     *buf = 136315138;
-    v38 = v31;
+    v37 = v31;
     _os_log_impl(&dword_24912E000, v28, OS_LOG_TYPE_DEFAULT, "Sync engine resolved state: %s", buf, 0xCu);
   }
 
@@ -2008,7 +2167,7 @@ LABEL_54:
       [(DNDSSyncEngine *)self _lock_purgeData];
       [(DNDSSyncEngine *)self _lock_destroySyncEngine];
       [(DNDSSyncEngine *)self _lock_setCurrentAccountStatus:status];
-      [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v34];
+      [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v33];
       os_unfair_lock_unlock(&self->_lock);
       [(DNDSSyncEngine *)self _purgeDataFromDataSources];
       goto LABEL_75;
@@ -2018,7 +2177,7 @@ LABEL_54:
     {
       [(DNDSSyncEngine *)self _lock_setCurrentUserRecordID:dCopy];
       [(DNDSSyncEngine *)self _lock_setCurrentAccountStatus:status];
-      [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v34];
+      [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v33];
       os_unfair_lock_unlock(&self->_lock);
 LABEL_72:
       [(DNDSSyncEngine *)self _initialSyncForDataSources];
@@ -2035,7 +2194,7 @@ LABEL_72:
       case 7:
         [(DNDSSyncEngine *)self _lock_destroySyncEngine];
         [(DNDSSyncEngine *)self _lock_setCurrentAccountStatus:status];
-        [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v34];
+        [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v33];
         os_unfair_lock_unlock(&self->_lock);
         goto LABEL_75;
       case 5:
@@ -2048,7 +2207,7 @@ LABEL_64:
   }
 
   [(DNDSSyncEngine *)self _lock_setCurrentAccountStatus:status];
-  [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v34];
+  [(DNDSSyncEngine *)self _lock_setEncryptionAvailable:v33];
   os_unfair_lock_unlock(&self->_lock);
   if (((1 << v15) & 0x54) != 0)
   {
@@ -2065,8 +2224,6 @@ LABEL_64:
   }
 
 LABEL_75:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_syncEngine
@@ -2101,7 +2258,7 @@ LABEL_19:
   else
   {
     v4 = *&self->_state.syncEnabled | (*&self->_state.supportedDevice << 32);
-    if (v4 & 0x10000000000) != 0 || (~v4 & 0x101010100) == 0 && (*&self->_state.supportedDevice, (*&self->_state.syncEnabled))
+    if (v4 & 0x10000000000) != 0 || (~v4 & 0x101010100) == 0 && (*&self->_state.syncEnabled)
     {
       syncEngine = self->_syncEngine;
       if (syncEngine)
@@ -2182,39 +2339,37 @@ LABEL_21:
 
 - (id)_lock_dataSources
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_sourcesByZoneName;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSMapTable *)self->_sourcesByZoneName objectForKey:*(*(&v12 + 1) + 8 * i), v12];
+        v9 = [(NSMapTable *)self->_sourcesByZoneName objectForKey:*(*(&v11 + 1) + 8 * i), v11];
         [array addObject:v9];
       }
 
-      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -2229,7 +2384,7 @@ LABEL_21:
 
 - (void)_lock_setCurrentAccountStatus:(int64_t)status
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   accountStatus = [(DNDSSyncEngineMetadataStoring *)self->_metadataStore accountStatus];
   v6 = DNDSLogCloudSync;
@@ -2240,9 +2395,9 @@ LABEL_21:
     {
       v8 = v6;
       v9 = CKStringFromAccountStatus();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Account status is unchanged: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Account status is unchanged: %{public}@", &v12, 0xCu);
     }
   }
 
@@ -2252,15 +2407,13 @@ LABEL_21:
     {
       v10 = v6;
       v11 = CKStringFromAccountStatus();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Account status has changed to: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Account status has changed to: %{public}@", &v12, 0xCu);
     }
 
     [(DNDSSyncEngineMetadataStoring *)self->_metadataStore setAccountStatus:status];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_currentUserRecordID
@@ -2279,22 +2432,32 @@ LABEL_21:
   return [(DNDSSyncEngineMetadataStoring *)metadataStore isEncryptionAvailable];
 }
 
+- (void)_lock_setEncryptionAvailable:(BOOL)available
+{
+  availableCopy = available;
+  os_unfair_lock_assert_owner(&self->_lock);
+  if ([(DNDSSyncEngineMetadataStoring *)self->_metadataStore isEncryptionAvailable]!= availableCopy)
+  {
+    metadataStore = self->_metadataStore;
+
+    [(DNDSSyncEngineMetadataStoring *)metadataStore setEncryptionAvailable:availableCopy];
+  }
+}
+
 - (void)_lock_setCurrentUserRecordID:(id)d
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_assert_owner(&self->_lock);
   v5 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = dCopy;
-    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "User record ID has changed to: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = dCopy;
+    _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_DEFAULT, "User record ID has changed to: %{public}@", &v6, 0xCu);
   }
 
   [(DNDSSyncEngineMetadataStoring *)self->_metadataStore setUserRecordID:dCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_lock_isSyncEnabled
@@ -2306,22 +2469,17 @@ LABEL_21:
     return 1;
   }
 
-  *&self->_state.supportedDevice;
   if ((~*&self->_state.syncEnabled & 0x1010100) != 0)
   {
     return 0;
   }
 
-  *&self->_state.supportedDevice;
   if (*&self->_state.syncEnabled)
   {
     return BYTE4(v3) & 1;
   }
 
-  else
-  {
-    return 0;
-  }
+  return 0;
 }
 
 - (BOOL)_lock_isSyncAvailable
@@ -2334,7 +2492,6 @@ LABEL_21:
     return 1;
   }
 
-  *&self->_state.supportedDevice;
   v5 = HIDWORD(v4) & 1;
   return (~v3 & 0x1010100) == 0 && v5;
 }
@@ -2364,7 +2521,7 @@ LABEL_21:
 
 - (void)_purgeDataFromDataSources
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   v3 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
@@ -2379,54 +2536,52 @@ LABEL_21:
   os_unfair_lock_unlock(&self->_lock);
   if (syncEnabled)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v15 = dictionaryRepresentation;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v14 = dictionaryRepresentation;
     v6 = dictionaryRepresentation;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           v12 = [(NSMapTable *)self->_sourcesByZoneName objectForKey:v11];
           v13 = DNDSLogCloudSync;
           if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v21 = v11;
+            v20 = v11;
             _os_log_impl(&dword_24912E000, v13, OS_LOG_TYPE_DEFAULT, "Purging data from zone %{public}@", buf, 0xCu);
           }
 
           [v12 purgeRecordsForSyncEngine:self];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v8);
     }
 
-    dictionaryRepresentation = v15;
+    dictionaryRepresentation = v14;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initialSyncForDataSources
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   v3 = DNDSLogCloudSync;
   if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
@@ -2451,43 +2606,41 @@ LABEL_21:
   os_unfair_lock_unlock(&self->_lock);
   if (v5)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = dictionaryRepresentation;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
-          v13 = [v7 objectForKey:{v12, v15}];
+          v12 = *(*(&v14 + 1) + 8 * i);
+          v13 = [v7 objectForKey:{v12, v14}];
           [(DNDSSyncEngine *)self _initialSyncForDataSource:v13 withZoneName:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initialSyncForDataSource:(id)source withZoneName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   nameCopy = name;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -2505,9 +2658,9 @@ LABEL_21:
         v10 = DNDSLogCloudSync;
         if (os_log_type_enabled(DNDSLogCloudSync, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138543362;
-          v13 = nameCopy;
-          _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Performing initial sync for zone %{public}@", &v12, 0xCu);
+          v11 = 138543362;
+          v12 = nameCopy;
+          _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "Performing initial sync for zone %{public}@", &v11, 0xCu);
         }
 
         [(DNDSSyncEngine *)self addRecordIDsToSave:v9 recordIDsToDelete:0];
@@ -2519,25 +2672,23 @@ LABEL_21:
   {
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateOldStoresWithSyncEnabledState:(BOOL)state
 {
-  v72[4] = *MEMORY[0x277D85DE8];
+  v71[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEBC0];
   v5 = BSCurrentUserDirectory();
-  v72[0] = v5;
-  v72[1] = @"Library";
-  v72[2] = @"DoNotDisturb";
-  v72[3] = @"DB";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:4];
+  v71[0] = v5;
+  v71[1] = @"Library";
+  v71[2] = @"DoNotDisturb";
+  v71[3] = @"DB";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:4];
   v7 = [v4 fileURLWithPathComponents:v6];
 
   v8 = [v7 URLByAppendingPathComponent:@"LocalModeConfigurations.json"];
   v9 = [v7 URLByAppendingPathComponent:@"LocalModeConfigurationsSecure.json"];
-  v59 = [v7 URLByAppendingPathComponent:@"LocalGlobalConfiguration.json"];
+  v58 = [v7 URLByAppendingPathComponent:@"LocalGlobalConfiguration.json"];
   v10 = [v7 URLByAppendingPathComponent:@"SyncedGlobalConfiguration.json"];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [v8 path];
@@ -2557,9 +2708,9 @@ LABEL_21:
 
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_globalConfigurationBackingStoreFileURL = [MEMORY[0x277CBEBC0] dnds_globalConfigurationBackingStoreFileURL];
-      v63 = 0;
-      v18 = [defaultManager2 moveItemAtURL:v10 toURL:dnds_globalConfigurationBackingStoreFileURL error:&v63];
-      v19 = v63;
+      v62 = 0;
+      v18 = [defaultManager2 moveItemAtURL:v10 toURL:dnds_globalConfigurationBackingStoreFileURL error:&v62];
+      v19 = v62;
 
       if ((v18 & 1) == 0)
       {
@@ -2567,15 +2718,15 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v19;
+          v70 = v19;
           _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_DEFAULT, "Could not delete old synced global store: %@", buf, 0xCu);
         }
       }
 
       defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-      v62 = v19;
-      v22 = [defaultManager3 removeItemAtURL:v8 error:&v62];
-      v23 = v62;
+      v61 = v19;
+      v22 = [defaultManager3 removeItemAtURL:v8 error:&v61];
+      v23 = v61;
 
       if ((v22 & 1) == 0)
       {
@@ -2583,15 +2734,15 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v23;
+          v70 = v23;
           _os_log_impl(&dword_24912E000, v24, OS_LOG_TYPE_DEFAULT, "Could not delete old mode store: %@", buf, 0xCu);
         }
       }
 
       defaultManager4 = [MEMORY[0x277CCAA00] defaultManager];
-      v61 = v23;
-      v26 = [defaultManager4 removeItemAtURL:v9 error:&v61];
-      v27 = v61;
+      v60 = v23;
+      v26 = [defaultManager4 removeItemAtURL:v9 error:&v60];
+      v27 = v60;
 
       if ((v26 & 1) == 0)
       {
@@ -2599,15 +2750,15 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v27;
+          v70 = v27;
           _os_log_impl(&dword_24912E000, v28, OS_LOG_TYPE_DEFAULT, "Could not delete old secure mode store: %@", buf, 0xCu);
         }
       }
 
       defaultManager5 = [MEMORY[0x277CCAA00] defaultManager];
-      v60 = v27;
-      v30 = [defaultManager5 removeItemAtURL:v59 error:&v60];
-      v31 = v60;
+      v59 = v27;
+      v30 = [defaultManager5 removeItemAtURL:v58 error:&v59];
+      v31 = v59;
 
       if ((v30 & 1) == 0)
       {
@@ -2615,7 +2766,7 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v31;
+          v70 = v31;
           _os_log_impl(&dword_24912E000, v32, OS_LOG_TYPE_DEFAULT, "Could not delete old global store: %@", buf, 0xCu);
         }
       }
@@ -2631,9 +2782,9 @@ LABEL_21:
 
       defaultManager6 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_modeConfigurationsBackingStoreFileURL = [MEMORY[0x277CBEBC0] dnds_modeConfigurationsBackingStoreFileURL];
-      v69 = 0;
-      v35 = [defaultManager6 removeItemAtURL:dnds_modeConfigurationsBackingStoreFileURL error:&v69];
-      v36 = v69;
+      v68 = 0;
+      v35 = [defaultManager6 removeItemAtURL:dnds_modeConfigurationsBackingStoreFileURL error:&v68];
+      v36 = v68;
 
       if ((v35 & 1) == 0 && os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_ERROR))
       {
@@ -2642,9 +2793,9 @@ LABEL_21:
 
       defaultManager7 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_modeConfigurationsSecureBackingStoreFileURL = [MEMORY[0x277CBEBC0] dnds_modeConfigurationsSecureBackingStoreFileURL];
-      v68 = v36;
-      v39 = [defaultManager7 removeItemAtURL:dnds_modeConfigurationsSecureBackingStoreFileURL error:&v68];
-      v40 = v68;
+      v67 = v36;
+      v39 = [defaultManager7 removeItemAtURL:dnds_modeConfigurationsSecureBackingStoreFileURL error:&v67];
+      v40 = v67;
 
       if ((v39 & 1) == 0)
       {
@@ -2652,15 +2803,15 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v40;
+          v70 = v40;
           _os_log_impl(&dword_24912E000, v41, OS_LOG_TYPE_DEFAULT, "Could not delete secure mode store: %@", buf, 0xCu);
         }
       }
 
       defaultManager8 = [MEMORY[0x277CCAA00] defaultManager];
-      v67 = v40;
-      v43 = [defaultManager8 removeItemAtURL:v10 error:&v67];
-      v44 = v67;
+      v66 = v40;
+      v43 = [defaultManager8 removeItemAtURL:v10 error:&v66];
+      v44 = v66;
 
       if ((v43 & 1) == 0)
       {
@@ -2668,16 +2819,16 @@ LABEL_21:
         if (os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v44;
+          v70 = v44;
           _os_log_impl(&dword_24912E000, v45, OS_LOG_TYPE_DEFAULT, "Could not delete old synced global store: %@", buf, 0xCu);
         }
       }
 
       defaultManager9 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_modeConfigurationsBackingStoreFileURL2 = [MEMORY[0x277CBEBC0] dnds_modeConfigurationsBackingStoreFileURL];
-      v66 = v44;
-      v48 = [defaultManager9 moveItemAtURL:v8 toURL:dnds_modeConfigurationsBackingStoreFileURL2 error:&v66];
-      v49 = v66;
+      v65 = v44;
+      v48 = [defaultManager9 moveItemAtURL:v8 toURL:dnds_modeConfigurationsBackingStoreFileURL2 error:&v65];
+      v49 = v65;
 
       if ((v48 & 1) == 0 && os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_ERROR))
       {
@@ -2686,9 +2837,9 @@ LABEL_21:
 
       defaultManager10 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_modeConfigurationsSecureBackingStoreFileURL2 = [MEMORY[0x277CBEBC0] dnds_modeConfigurationsSecureBackingStoreFileURL];
-      v65 = v49;
-      v52 = [defaultManager10 moveItemAtURL:v58 toURL:dnds_modeConfigurationsSecureBackingStoreFileURL2 error:&v65];
-      v53 = v65;
+      v64 = v49;
+      v52 = [defaultManager10 moveItemAtURL:v57 toURL:dnds_modeConfigurationsSecureBackingStoreFileURL2 error:&v64];
+      v53 = v64;
 
       if ((v52 & 1) == 0 && os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_ERROR))
       {
@@ -2697,205 +2848,81 @@ LABEL_21:
 
       defaultManager11 = [MEMORY[0x277CCAA00] defaultManager];
       dnds_globalConfigurationBackingStoreFileURL2 = [MEMORY[0x277CBEBC0] dnds_globalConfigurationBackingStoreFileURL];
-      v64 = v53;
-      v56 = [defaultManager11 moveItemAtURL:v59 toURL:dnds_globalConfigurationBackingStoreFileURL2 error:&v64];
-      v31 = v64;
+      v63 = v53;
+      v56 = [defaultManager11 moveItemAtURL:v58 toURL:dnds_globalConfigurationBackingStoreFileURL2 error:&v63];
+      v31 = v63;
 
       if ((v56 & 1) == 0 && os_log_type_enabled(DNDSLogGeneral, OS_LOG_TYPE_ERROR))
       {
         [DNDSSyncEngine _migrateOldStoresWithSyncEnabledState:];
       }
 
-      v9 = v58;
+      v9 = v57;
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DNDSSyncEngine_initWithMetadataStore_lastChanceDataStore_syncEngine_keybag_syncEnabled___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [OUTLINED_FUNCTION_2_2() numberWithUnsignedLong:a2];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3_2();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void __45__DNDSSyncEngine_sync_withCompletionHandler___block_invoke_34_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Error sending changes: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDeletedRecordID:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
-  v4 = v0;
-  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Removing record with ID %{public}@ from source %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleDeletedRecordID:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not find a source for removing record with ID %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_24912E000, v1, OS_LOG_TYPE_ERROR, "Removing record with ID %{public}@ from source %{public}@", v2, 0x16u);
 }
 
 - (void)syncEngine:(void *)a1 failedToDeleteRecordWithID:error:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_2() recordName];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(uint64_t)a1 failedToDeleteRecordWithID:(void *)a2 error:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v11 = [a3 recordName];
+  v10 = [a3 recordName];
   OUTLINED_FUNCTION_3_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(void *)a1 failedToSaveRecord:error:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_2() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(void *)a1 failedToSaveRecord:error:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_2() recordID];
   v4 = [v3 recordName];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_3_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncEngine:(void *)a1 failedToSaveRecord:(void *)a2 error:.cold.6(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 recordID];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Both server and client record IDs are nil for record ID %{public}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)syncEngine:failedToSaveRecord:error:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to find data source with zoneID %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)syncEngine:failedToSaveRecord:error:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Unhandled error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)syncEngine:recordToSaveForRecordID:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Failed to create record to save: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not fetch account status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __69__DNDSSyncEngine__syncEngineQueue_updateAccountWithSyncEnabledState___block_invoke_76_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not fetch account state: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__DNDSSyncEngine__fetchAccountStateWithCompletionHandler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not fetch account info ID: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __58__DNDSSyncEngine__fetchAccountStateWithCompletionHandler___block_invoke_79_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not fetch user record ID: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_migrateOldStoresWithSyncEnabledState:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not delete mode store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_migrateOldStoresWithSyncEnabledState:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not replace mode store with old store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_migrateOldStoresWithSyncEnabledState:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not replace secure mode store with old store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_migrateOldStoresWithSyncEnabledState:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0(&dword_24912E000, v0, v1, "Could not replace global store with old store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Both server and client record IDs are nil for record ID %{public}@", v5, 0xCu);
 }
 
 @end

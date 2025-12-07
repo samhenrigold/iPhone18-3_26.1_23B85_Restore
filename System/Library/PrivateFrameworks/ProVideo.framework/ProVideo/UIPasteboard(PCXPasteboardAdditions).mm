@@ -8,7 +8,7 @@
 
 + (uint64_t)pcxPasteboardWithName:()PCXPasteboardAdditions
 {
-  if (PCInfo_IsUnitTesting())
+  if (PCInfo_IsUnitTesting(self, a2))
   {
     if (pcxPasteboardWithName__s_makePasteboardOnce != -1)
     {

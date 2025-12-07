@@ -24,35 +24,44 @@
 
 - (void)cellularStatusService:(id)service didUpdateModuleStatus:(unsigned __int8)status
 {
+  statusCopy = status;
   serviceCopy = service;
   selfCopy = self;
-  CAFCellularStatusObservable.cellularStatusService(_:didUpdateModuleStatus:)(selfCopy, status);
+  CAFCellularStatusObservable.cellularStatusService(_:didUpdateModuleStatus:)(selfCopy, statusCopy);
 }
 
 - (void)cellularStatusService:(id)service didUpdateSignalBars:(unsigned __int8)bars
 {
+  barsCopy = bars;
   serviceCopy = service;
   selfCopy = self;
-  CAFCellularStatusObservable.cellularStatusService(_:didUpdateSignalBars:)(selfCopy, bars);
+  CAFCellularStatusObservable.cellularStatusService(_:didUpdateSignalBars:)(selfCopy, barsCopy);
 }
 
 - (void)cellularStatusService:(id)service didUpdateCellularType:(unsigned __int8)type
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCellularStatusObservable.cellularStatusService(_:didUpdateCellularType:)();
+  CAFCellularStatusObservable.cellularStatusService(_:didUpdateCellularType:)(selfCopy, type);
 }
 
 - (void)cellularStatusService:(id)service didUpdateContentURLAction:(id)action
 {
   if (action)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFCellularStatusObservable.cellularStatusService(_:didUpdateContentURLAction:)();
+  CAFCellularStatusObservable.cellularStatusService(_:didUpdateContentURLAction:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

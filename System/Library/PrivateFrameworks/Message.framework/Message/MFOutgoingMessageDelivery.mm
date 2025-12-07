@@ -1,6 +1,7 @@
 @interface MFOutgoingMessageDelivery
 + (id)log;
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other;
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 + (id)newWithMessage:(id)message;
 - (MFDeliveryDelegate)delegate;
 - (MFOutgoingMessageDelivery)init;
@@ -108,6 +109,16 @@ void __32__MFOutgoingMessageDelivery_log__block_invoke(uint64_t a1)
   v5 = [[self alloc] initWithMessage:messageCopy];
 
   return v5;
+}
+
++ (id)newWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  lCopy = l;
+  headersCopy = headers;
+  contentCopy = content;
+  v10 = [[self alloc] initWithHeaders:headersCopy mixedContent:contentCopy textPartsAreHTML:lCopy];
+
+  return v10;
 }
 
 + (id)newWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other
@@ -304,7 +315,7 @@ LABEL_13:
 
 - (id)deliverSynchronouslyWithCompletion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!-[MailAccount isPrimaryDeliveryAccountDisabled](self->_archiveAccount, "isPrimaryDeliveryAccountDisabled") && (-[MFOutgoingMessageDelivery account](self, "account"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) || (-[MailAccount deliveryAccountAlternates](self->_archiveAccount, "deliveryAccountAlternates"), v5 = objc_claimAutoreleasedReturnValue(), [v5 count]))
   {
@@ -325,7 +336,7 @@ LABEL_5:
 
       if (isPrimaryDeliveryAccountDisabled)
       {
-        v40 = 0;
+        v39 = 0;
         v9 = v6;
 LABEL_16:
         if ([(MFDeliveryResult *)v9 status]== 5 || [(MFDeliveryResult *)v9 status]== 2)
@@ -335,13 +346,13 @@ LABEL_16:
 
         if ([(MFDeliveryResult *)v9 status]== 1)
         {
-          v34 = +[MFActivityMonitor currentMonitor];
-          error = [v34 error];
+          v33 = +[MFActivityMonitor currentMonitor];
+          error = [v33 error];
 
           if (error)
           {
             domain = [error domain];
-            v37 = domain;
+            v36 = domain;
             if (@"MFMessageErrorDomain" == domain)
             {
               code = [error code];
@@ -350,24 +361,24 @@ LABEL_16:
               {
 LABEL_18:
                 [(MailAccount *)self->_archiveAccount deliveryAccountAlternates];
+                v42 = 0u;
                 v43 = 0u;
-                v44 = 0u;
-                v41 = 0u;
-                v18 = v42 = 0u;
-                v19 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
+                v40 = 0u;
+                v18 = v41 = 0u;
+                v19 = [v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
                 if (v19)
                 {
-                  v20 = *v42;
+                  v20 = *v41;
 LABEL_20:
                   v21 = 0;
                   while (1)
                   {
-                    if (*v42 != v20)
+                    if (*v41 != v20)
                     {
                       objc_enumerationMutation(v18);
                     }
 
-                    v22 = *(*(&v41 + 1) + 8 * v21);
+                    v22 = *(*(&v40 + 1) + 8 * v21);
                     v23 = +[MFActivityMonitor currentMonitor];
                     [v23 setShouldCancel:0];
 
@@ -386,7 +397,7 @@ LABEL_20:
 
                     if (v19 == ++v21)
                     {
-                      v19 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
+                      v19 = [v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
                       if (v19)
                       {
                         goto LABEL_20;
@@ -432,7 +443,7 @@ LABEL_20:
           }
         }
 
-        if ([(MFDeliveryResult *)v9 status]== 0 && !v40)
+        if ([(MFDeliveryResult *)v9 status]== 0 && !v39)
         {
           _currentDeliveryObject = [(MFOutgoingMessageDelivery *)self _currentDeliveryObject];
           [_currentDeliveryObject archive];
@@ -454,24 +465,24 @@ LABEL_20:
 
       if ([(MFDeliveryResult *)v9 status]|| (supportsOutboxCopy & 1) == 0 && [(MailAccount *)self->_archiveAccount mustArchiveSentMessages])
       {
-        v40 = 0;
+        v39 = 0;
         goto LABEL_16;
       }
 
       if (![(MailAccount *)self->_archiveAccount canArchiveSentMessages])
       {
-        v40 = 1;
+        v39 = 1;
         goto LABEL_16;
       }
 
       account = [(MFOutgoingMessageDelivery *)self _currentDeliveryObject];
       followUpWarning = [account followUpWarning];
-      v40 = followUpWarning == 0;
+      v39 = followUpWarning == 0;
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
       v9 = v6;
     }
 
@@ -491,8 +502,6 @@ LABEL_20:
 
   v9 = [[MFDeliveryResult alloc] initWithStatus:5];
 LABEL_43:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

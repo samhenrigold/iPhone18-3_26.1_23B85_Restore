@@ -3,6 +3,7 @@
 - (BOOL)handleAODStateUpdate:(unint64_t)update transitionTime:(float)time context:(id)context;
 - (BOOL)isInActiveRange;
 - (BOOL)setProperty:(id)property forKey:(id)key;
+- (BOOL)shouldRampFromStartLux:(float)lux toTargetLux:(float)targetLux;
 - (CBChromaticCorrection)initWithBacklightParams:(id)params andPolicy:(id)policy andRamp:(id)ramp;
 - (float)currentStrength;
 - (float)luxAdjustedByInternalPolicies:(float)policies;
@@ -29,63 +30,63 @@
 - (float)currentStrength
 {
   v21 = *MEMORY[0x1E69E9840];
-  if (std::__math::isnan[abi:de200100](self->_nits) || (-[CBLuxRamp lux](self->_ramp, "lux"), std::__math::isnan[abi:de200100](v2)))
+  if (std::__math::isnan[abi:de200100](self->_nits))
   {
-    v19 = 0.0;
+    return 0.0;
   }
 
-  else if ([(CBChromaticCorrection *)self isInActiveRange])
+  [(CBLuxRamp *)self->_ramp lux];
+  if (std::__math::isnan[abi:de200100](v2))
   {
-    policy = self->_policy;
-    nits = self->_nits;
-    [(CBLuxRamp *)self->_ramp lux];
-    LODWORD(v4) = v3;
-    *&v5 = nits;
-    [(CBChromaticCorrectionPolicy *)policy strengthForNits:v5 andLux:v4];
-    v17 = v6;
-    context = objc_autoreleasePoolPush();
-    strengthNotification = [(CBChromaticCorrectionPolicy *)self->_policy strengthNotification];
-    *&v7 = v17;
-    -[CBModule sendNotificationForKey:withValue:](self, "sendNotificationForKey:withValue:", strengthNotification, [MEMORY[0x1E696AD98] numberWithFloat:v7]);
-    objc_autoreleasePoolPop(context);
-    if (self->super._logHandle)
-    {
-      logHandle = self->super._logHandle;
-    }
+    return 0.0;
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
+  if (![(CBChromaticCorrection *)self isInActiveRange])
+  {
+    return 0.0;
+  }
 
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-    {
-      *&v10 = self->_nits;
-      [(CBLuxRamp *)self->_ramp lux];
-      __os_log_helper_16_0_3_8_0_8_0_8_0(v20, v10, COERCE__INT64(v8), COERCE__INT64(v17));
-      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Interpolation | Nits=%f Lux=%f Strength=%f", v20, 0x20u);
-    }
-
-    v19 = v17;
+  policy = self->_policy;
+  nits = self->_nits;
+  [(CBLuxRamp *)self->_ramp lux];
+  LODWORD(v4) = v3;
+  *&v5 = nits;
+  [(CBChromaticCorrectionPolicy *)policy strengthForNits:v5 andLux:v4];
+  v17 = v6;
+  context = objc_autoreleasePoolPush();
+  strengthNotification = [(CBChromaticCorrectionPolicy *)self->_policy strengthNotification];
+  *&v7 = v17;
+  -[CBModule sendNotificationForKey:withValue:](self, "sendNotificationForKey:withValue:", strengthNotification, [MEMORY[0x1E696AD98] numberWithFloat:v7]);
+  objc_autoreleasePoolPop(context);
+  if (self->super._logHandle)
+  {
+    logHandle = self->super._logHandle;
   }
 
   else
   {
-    v19 = 0.0;
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v19;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+  {
+    *&v10 = self->_nits;
+    [(CBLuxRamp *)self->_ramp lux];
+    __os_log_helper_16_0_3_8_0_8_0_8_0(v20, v10, COERCE__INT64(v8), COERCE__INT64(v17));
+    _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Interpolation | Nits=%f Lux=%f Strength=%f", v20, 0x20u);
+  }
+
+  return v17;
 }
 
 - (BOOL)isInActiveRange
@@ -276,6 +277,113 @@ LABEL_34:
   [(CBModule *)&v3 dealloc];
 }
 
+- (BOOL)shouldRampFromStartLux:(float)lux toTargetLux:(float)targetLux
+{
+  v28 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  v24 = a2;
+  luxCopy = lux;
+  *&v4 = targetLux;
+  [(CBChromaticCorrection *)self luxAdjustedByInternalPolicies:v4];
+  v22 = v5;
+  *&v6 = luxCopy;
+  if (([(CBChromaticCorrectionPolicy *)selfCopy->_policy luxIsInActiveRange:v6]& 1) == 0)
+  {
+    *&v7 = v22;
+    if (([(CBChromaticCorrectionPolicy *)selfCopy->_policy luxIsInActiveRange:v7]& 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  *&v7 = luxCopy;
+  *&v8 = v22;
+  v21 = [(CBLuxRamp *)selfCopy->_ramp shouldRampFromStartLux:v7 toTargetLux:v8];
+  if (selfCopy->_aodIsOn && selfCopy->_aodRampHandoffPending)
+  {
+    if (selfCopy->super._logHandle)
+    {
+      logHandle = selfCopy->super._logHandle;
+    }
+
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        inited = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        inited = init_default_corebrightness_log();
+      }
+
+      logHandle = inited;
+    }
+
+    v20 = logHandle;
+    v19 = 2;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      log = v20;
+      type = v19;
+      __os_log_helper_16_0_0(v18);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "Lux | AOD.RampHandoffPending=YES", v18, 2u);
+    }
+
+    v21 = 1;
+    selfCopy->_aodRampHandoffPending = 0;
+  }
+
+  if (selfCopy->super._logHandle)
+  {
+    v13 = selfCopy->super._logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      v12 = init_default_corebrightness_log();
+    }
+
+    v13 = v12;
+  }
+
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    if ([(CBChromaticCorrection *)selfCopy rampIsRunning])
+    {
+      v9 = "YES";
+    }
+
+    else
+    {
+      v9 = "NO";
+    }
+
+    if (v21)
+    {
+      v10 = "YES";
+    }
+
+    else
+    {
+      v10 = "NO";
+    }
+
+    __os_log_helper_16_2_4_8_32_8_0_8_0_8_32(v27, v9, COERCE__INT64(luxCopy), COERCE__INT64(v22), v10);
+    _os_log_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_DEFAULT, "Lux | RampIsRunning=%s StartLux=%.2f TargetLux=%.2f ShouldRamp=%s", v27, 0x2Au);
+  }
+
+  return v21 & 1;
+}
+
 - (float)luxAdjustedByInternalPolicies:(float)policies
 {
   if ([(CBChromaticCorrection *)self enabled])
@@ -335,8 +443,6 @@ LABEL_34:
       [(CBModule *)self sendNotificationForKey:@"ExternalRampHasFinished" withValue:[(CBChromaticCorrectionPolicy *)self->_policy rampIdentifier]];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleLuxUpdate:(float)update
@@ -410,8 +516,6 @@ LABEL_34:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleAODStateUpdate:(unint64_t)update transitionTime:(float)time context:(id)context
@@ -493,7 +597,6 @@ LABEL_34:
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -582,8 +685,6 @@ LABEL_34:
       [(CBChromaticCorrection *)self handleLuxUpdate:v3];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -634,8 +735,6 @@ LABEL_34:
       [(CBChromaticCorrection *)self handleLuxUpdate:v3];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setTrustedLux:(float)lux
@@ -694,8 +793,6 @@ LABEL_34:
 
     self->_referenceModeActive = active;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

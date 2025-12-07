@@ -42,12 +42,11 @@ LABEL_8:
 
 - (id)featureNames
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Square";
-  v5[1] = @"Portrait";
-  v5[2] = @"Landscape";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Square";
+  v4[1] = @"Portrait";
+  v4[2] = @"Landscape";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

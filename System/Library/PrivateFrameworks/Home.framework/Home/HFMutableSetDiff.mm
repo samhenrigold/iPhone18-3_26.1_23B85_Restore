@@ -56,7 +56,7 @@
 
 - (void)addObject:(id)object
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -89,18 +89,16 @@
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = NSStringFromSelector(a2);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Ignoring %@ %@ because object is nil", &v11, 0x16u);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v9 = NSStringFromSelector(a2);
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Ignoring %@ %@ because object is nil", &v10, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteObject:(id)object

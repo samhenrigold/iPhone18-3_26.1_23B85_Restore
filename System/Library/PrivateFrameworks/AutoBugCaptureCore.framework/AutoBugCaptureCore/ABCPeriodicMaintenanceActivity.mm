@@ -83,7 +83,7 @@ LABEL_6:
 
 - (void)_registerPeriodicMaintenanceActivity
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = xpc_dictionary_create(0, 0, 0);
   v4 = v3;
   if (v3)
@@ -104,53 +104,49 @@ LABEL_6:
 
   else
   {
-    v8 = symptomsLogHandle();
+    v8 = symptomsLogHandle(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2080;
+      v13 = v10;
+      v14 = 2080;
       periodicActivityID2 = [objc_opt_class() periodicActivityID];
       _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to create xpc_activity criteria for %s", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ABCPeriodicMaintenanceActivity__registerPeriodicMaintenanceActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if (xpc_activity_get_state(v3) == 2)
+  state = xpc_activity_get_state(v3);
+  if (state == 2)
   {
     [*(a1 + 32) _handleActivityRun:v3];
   }
 
   else
   {
-    v4 = symptomsLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = symptomsLogHandle(state);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
       v6 = objc_opt_class();
       v7 = NSStringFromClass(v6);
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2048;
-      state = xpc_activity_get_state(v3);
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unexpected xpc_activity state %lld, ignoring...", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2048;
+      v11 = xpc_activity_get_state(v3);
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unexpected xpc_activity state %lld, ignoring...", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActivityRun:(id)run
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   runCopy = run;
   obj = self->_activities;
   objc_sync_enter(obj);
@@ -162,26 +158,27 @@ void __70__ABCPeriodicMaintenanceActivity__registerPeriodicMaintenanceActivity__
 LABEL_13:
     objc_sync_exit(obj);
 
-    v21 = symptomsLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = symptomsLogHandle(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
       *buf = 138543362;
-      v36 = v23;
-      _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed running periodic activity xpc_activity", buf, 0xCu);
+      v39 = v25;
+      _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed running periodic activity xpc_activity", buf, 0xCu);
     }
 
-    if (!xpc_activity_set_state(runCopy, 5))
+    v26 = xpc_activity_set_state(runCopy, 5);
+    if (!v26)
     {
-      v24 = symptomsLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = symptomsLogHandle(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
+        v28 = objc_opt_class();
+        v29 = NSStringFromClass(v28);
         *buf = 138543362;
-        v36 = v26;
-        _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set periodic activity xpc_activity state to DONE!", buf, 0xCu);
+        v39 = v29;
+        _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set periodic activity xpc_activity state to DONE!", buf, 0xCu);
       }
     }
 
@@ -193,29 +190,29 @@ LABEL_13:
     v8 = v6 - 1;
     while (1)
     {
-      v9 = symptomsLogHandle();
+      v9 = symptomsLogHandle(v6);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
         *buf = 138543618;
-        v36 = v11;
-        v37 = 2048;
-        v38 = nextActivityIndex;
+        v39 = v11;
+        v40 = 2048;
+        v41 = nextActivityIndex;
         _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_DEBUG, "[%{public}@] Preparing to run periodic activity index %ld", buf, 0x16u);
       }
 
       v12 = [(NSMutableArray *)self->_activities objectAtIndexedSubscript:nextActivityIndex];
-      v13 = symptomsLogHandle();
+      v13 = symptomsLogHandle(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
         activityIdentifier = [v12 activityIdentifier];
         *buf = 138543618;
-        v36 = v15;
-        v37 = 2112;
-        v38 = activityIdentifier;
+        v39 = v15;
+        v40 = 2112;
+        v41 = activityIdentifier;
         _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ready to run periodic activity %@", buf, 0x16u);
       }
 
@@ -226,9 +223,13 @@ LABEL_13:
       v19 = nextActivityIndex + 1;
       v20 = v8 == nextActivityIndex ? 0 : nextActivityIndex + 1;
       self->_nextActivityIndex = v20;
-      if (v19 < v7 && xpc_activity_should_defer(runCopy))
+      if (v19 < v7)
       {
-        break;
+        should_defer = xpc_activity_should_defer(runCopy);
+        if (should_defer)
+        {
+          break;
+        }
       }
 
       ++nextActivityIndex;
@@ -238,33 +239,32 @@ LABEL_13:
       }
     }
 
-    v28 = symptomsLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v30 = symptomsLogHandle(should_defer);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       *buf = 138543362;
-      v36 = v30;
-      _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deferring periodic activity xpc_activity", buf, 0xCu);
+      v39 = v32;
+      _os_log_impl(&dword_241804000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deferring periodic activity xpc_activity", buf, 0xCu);
     }
 
-    if (!xpc_activity_set_state(runCopy, 3))
+    v33 = xpc_activity_set_state(runCopy, 3);
+    if (!v33)
     {
-      v31 = symptomsLogHandle();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = symptomsLogHandle(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v32 = objc_opt_class();
-        v33 = NSStringFromClass(v32);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138543362;
-        v36 = v33;
-        _os_log_impl(&dword_241804000, v31, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set periodic activity xpc_activity state to DEFER!", buf, 0xCu);
+        v39 = v36;
+        _os_log_impl(&dword_241804000, v34, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to set periodic activity xpc_activity state to DEFER!", buf, 0xCu);
       }
     }
 
     objc_sync_exit(obj);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerPeriodicActivityWithIdentifier:(id)identifier queue:(id)queue activity:(id)activity
@@ -274,20 +274,20 @@ LABEL_13:
   queueCopy = queue;
   activityCopy = activity;
   v11 = activityCopy;
-  if (queueCopy && activityCopy && [identifierCopy length])
+  if (queueCopy && activityCopy && (activityCopy = [identifierCopy length]) != 0)
   {
     v12 = self->_activities;
-    objc_sync_enter(v12);
-    v13 = symptomsLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = objc_sync_enter(v12);
+    v14 = symptomsLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138543618;
-      *&buf[4] = v15;
+      *&buf[4] = v16;
       *&buf[12] = 2112;
       *&buf[14] = identifierCopy;
-      _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_INFO, "[%{public}@] Registering periodic activity %@", buf, 0x16u);
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "[%{public}@] Registering periodic activity %@", buf, 0x16u);
     }
 
     *buf = 0;
@@ -299,28 +299,27 @@ LABEL_13:
     v25[1] = 3221225472;
     v25[2] = __89__ABCPeriodicMaintenanceActivity__registerPeriodicActivityWithIdentifier_queue_activity___block_invoke;
     v25[3] = &unk_278CF1558;
-    v17 = identifierCopy;
-    v26 = v17;
+    v18 = identifierCopy;
+    v26 = v18;
     selfCopy = self;
     v28 = buf;
     [(NSMutableArray *)activities enumerateObjectsUsingBlock:v25];
     if (*(*&buf[8] + 24) == 1)
     {
-      v18 = objc_alloc_init(ABCMaintenanceActivity);
-      [(ABCMaintenanceActivity *)v18 setActivityBlock:v11];
-      [(ABCMaintenanceActivity *)v18 setActivityQueue:queueCopy];
-      [(ABCMaintenanceActivity *)v18 setActivityIdentifier:v17];
-      [(NSMutableArray *)self->_activities addObject:v18];
-      v19 = symptomsLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v19 = objc_alloc_init(ABCMaintenanceActivity);
+      [(ABCMaintenanceActivity *)v19 setActivityBlock:v11];
+      [(ABCMaintenanceActivity *)v19 setActivityQueue:queueCopy];
+      [(ABCMaintenanceActivity *)v19 setActivityIdentifier:v18];
+      v20 = symptomsLogHandle([(NSMutableArray *)self->_activities addObject:v19]);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *v29 = 138543618;
-        v30 = v21;
+        v30 = v22;
         v31 = 2112;
-        v32 = v17;
-        _os_log_impl(&dword_241804000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registered periodic activity %@", v29, 0x16u);
+        v32 = v18;
+        _os_log_impl(&dword_241804000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registered periodic activity %@", v29, 0x16u);
       }
     }
 
@@ -330,47 +329,42 @@ LABEL_13:
 
   else
   {
-    v12 = symptomsLogHandle();
+    v12 = symptomsLogHandle(activityCopy);
     if (os_log_type_enabled(&v12->super.super, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138543362;
-      *&buf[4] = v23;
+      *&buf[4] = v24;
       _os_log_impl(&dword_241804000, &v12->super.super, OS_LOG_TYPE_ERROR, "[%{public}@] Registering a periodic activity requires a valid block, queue, and identifier", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ABCPeriodicMaintenanceActivity__registerPeriodicActivityWithIdentifier_queue_activity___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [a2 activityIdentifier];
   v7 = [v6 isEqualToString:a1[4]];
 
   if (v7)
   {
-    v8 = symptomsLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = symptomsLogHandle(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v9 = a1[5];
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       v12 = a1[4];
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "[%{public}@] A periodic activity already exists for identifier %@. Skipping registration", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_241804000, v9, OS_LOG_TYPE_INFO, "[%{public}@] A periodic activity already exists for identifier %@. Skipping registration", &v13, 0x16u);
     }
 
     *(*(a1[6] + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

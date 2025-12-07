@@ -18,16 +18,17 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
   selfCopy = self;
-  sub_220FB17AC(width);
-  v6 = v5;
-  v8 = v7;
+  sub_220FB17AC(width, height);
+  v7 = v6;
+  v9 = v8;
 
-  v9 = v6;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

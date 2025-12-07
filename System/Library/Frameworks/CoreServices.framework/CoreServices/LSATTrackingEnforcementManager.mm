@@ -6,16 +6,16 @@
 
 + (BOOL)shouldEnforceTrackingWithReasonCode:(int64_t *)code
 {
-  if (getATTrackingEnforcementManagerClass())
+  if (getATTrackingEnforcementManagerClass(self, a2))
   {
-    ATTrackingEnforcementManagerClass = getATTrackingEnforcementManagerClass();
+    v4 = (getATTrackingEnforcementManagerClass)();
 
-    return [(objc_class *)ATTrackingEnforcementManagerClass shouldEnforceTrackingWithReasonCode:code];
+    return [(objc_class *)v4 shouldEnforceTrackingWithReasonCode:code];
   }
 
   else
   {
-    v6 = _LSDefaultLog();
+    v6 = _LSDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [LSATTrackingEnforcementManager shouldEnforceTrackingWithReasonCode:v6];

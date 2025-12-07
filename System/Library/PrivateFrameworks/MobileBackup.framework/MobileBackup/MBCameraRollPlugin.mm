@@ -34,7 +34,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Mega backup policy, so backing up photos", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Mega backup policy, so backing up photos");
     }
 
     [(MBCameraRollPlugin *)self _updateCameraRollBackupStateWithEngine:engineCopy foundiCPLSyncMarker:0];
@@ -49,9 +49,9 @@
     if (v11)
     {
       v12 = +[NSFileManager defaultManager];
-      v44 = 0;
-      v13 = [v12 attributesOfItemAtPath:cloudPhotosSyncedMarkerPath error:&v44];
-      v14 = v44;
+      v40 = 0;
+      v13 = [v12 attributesOfItemAtPath:cloudPhotosSyncedMarkerPath error:&v40];
+      v14 = v40;
 
       if (!v13)
       {
@@ -59,17 +59,15 @@
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v46 = cloudPhotosSyncedMarkerPath;
-          v47 = 2112;
-          v48 = v14;
+          v42 = cloudPhotosSyncedMarkerPath;
+          v43 = 2112;
+          v44 = v14;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to fetch the attributes for %@: %@", buf, 0x16u);
-          v38 = cloudPhotosSyncedMarkerPath;
-          v40 = v14;
-          _MBLog();
+          _MBLog(@"E ", "Failed to fetch the attributes for %@: %@", cloudPhotosSyncedMarkerPath, v14);
         }
       }
 
-      v16 = [v13 objectForKeyedSubscript:{NSFileCreationDate, v38, v40}];
+      v16 = [v13 objectForKeyedSubscript:NSFileCreationDate];
       [v16 timeIntervalSince1970];
       v18 = v17;
 
@@ -77,23 +75,21 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v46 = cloudPhotosSyncedMarkerPath;
-        v47 = 2048;
-        v48 = v18;
+        v42 = cloudPhotosSyncedMarkerPath;
+        v43 = 2048;
+        v44 = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Found %@ (%.3f)", buf, 0x16u);
-        v41 = v18;
-        v39 = cloudPhotosSyncedMarkerPath;
-        _MBLog();
+        _MBLog(@"Df", "Found %@ (%.3f)", cloudPhotosSyncedMarkerPath, v18);
       }
 
-      v43 = v13;
+      v39 = v13;
 
       v20 = MBGetDefaultLog();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Cloud photos is enabled and fully synced - excluding camera roll from backup", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Cloud photos is enabled and fully synced - excluding camera roll from backup");
       }
 
       [(MBCameraRollPlugin *)self _updateCameraRollBackupStateWithEngine:engineCopy foundiCPLSyncMarker:1];
@@ -101,7 +97,7 @@
       v22 = [domainManager domainForName:nameCopy];
 
       relativePathsToBackupAndRestore = [v22 relativePathsToBackupAndRestore];
-      v42 = [relativePathsToBackupAndRestore containsObject:@"Media/MediaAnalysis/.backup"];
+      v38 = [relativePathsToBackupAndRestore containsObject:@"Media/MediaAnalysis/.backup"];
 
       relativePathsToBackupAndRestore2 = [v22 relativePathsToBackupAndRestore];
       v25 = [relativePathsToBackupAndRestore2 containsObject:@"Media/PhotoData"];
@@ -141,13 +137,13 @@
         [v32 removeObject:@"Media/PhotoData"];
       }
 
-      if (v42)
+      if (v38)
       {
         [v35 addObject:@"Media/MediaAnalysis/.backup"];
         [v32 removeObject:@"Media/MediaAnalysis/.backup"];
       }
 
-      [v22 setRelativePathsToBackupAndRestore:{v35, v39, v41}];
+      [v22 setRelativePathsToBackupAndRestore:v35];
       relativePathsNotToBackup = [v22 relativePathsNotToBackup];
 
       if (relativePathsNotToBackup)
@@ -166,7 +162,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Cloud photos is not enabled or not fully synced", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Cloud photos is not enabled or not fully synced");
       }
 
       [(MBCameraRollPlugin *)self _updateCameraRollBackupStateWithEngine:engineCopy foundiCPLSyncMarker:0];
@@ -214,8 +210,7 @@
       *buf = 134217984;
       cameraRollBackupState = [v6 cameraRollBackupState];
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "MBCameraRollBackupState: %ld", buf, 0xCu);
-      [v6 cameraRollBackupState];
-      _MBLog();
+      _MBLog(@"Df", "MBCameraRollBackupState: %ld", [v6 cameraRollBackupState]);
     }
   }
 }
@@ -276,7 +271,7 @@
       v38 = 1024;
       LODWORD(v39) = v10;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "lstat failed at %{public}@ (%{public}@): %{errno}d", buf, 0x1Cu);
-      _MBLog();
+      _MBLog(@"E ", "lstat failed at %{public}@ (%{public}@): %{errno}d", temporaryPathCopy, pathCopy, v10);
     }
   }
 
@@ -293,9 +288,7 @@
       v38 = 2048;
       v39 = *&st_size;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Scrubbing the SQLite database at %{public}@ (%{public}@) (%lld bytes)", buf, 0x20u);
-      v30 = pathCopy;
-      v31 = st_size;
-      _MBLog();
+      _MBLog(@"Df", "Scrubbing the SQLite database at %{public}@ (%{public}@) (%lld bytes)", temporaryPathCopy, pathCopy, st_size);
     }
 
     +[NSDate timeIntervalSinceReferenceDate];
@@ -314,12 +307,10 @@
         v38 = 1024;
         LODWORD(v39) = v18;
         _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "sqlite3_open_v2 failed at %{public}@ (%{public}@): %d", buf, 0x1Cu);
-        v30 = pathCopy;
-        v31 = v18;
-        _MBLog();
+        _MBLog(@"E ", "sqlite3_open_v2 failed at %{public}@ (%{public}@): %d", temporaryPathCopy, pathCopy, v18);
       }
 
-      [MBError errorWithCode:1 path:temporaryPathCopy format:@"sqlite3_open_v2 failed: %d", v18, v30, v31];
+      [MBError errorWithCode:1 path:temporaryPathCopy format:@"sqlite3_open_v2 failed: %d", v18, v31];
     }
 
     else
@@ -345,15 +336,16 @@
             v29 = v27;
           }
 
+          v30 = v25 - v16;
           v35 = temporaryPathCopy;
           v36 = 2114;
           v37 = pathCopy;
           v38 = 2048;
-          v39 = v25 - v16;
+          v39 = v30;
           v40 = 2048;
           v41 = v29;
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Finished scrubbing the SQLite database at %{public}@ (%{public}@) in %.3fs (%lld bytes)", buf, 0x2Au);
-          _MBLog();
+          _MBLog(@"Df", "Finished scrubbing the SQLite database at %{public}@ (%{public}@) in %.3fs (%lld bytes)", temporaryPathCopy, pathCopy, *&v30, v29, *&v32.st_dev, v32.st_ino, *&v32.st_uid, *&v32.st_rdev, v32.st_atimespec.tv_sec, v32.st_atimespec.tv_nsec, v32.st_mtimespec.tv_sec, v32.st_mtimespec.tv_nsec, v32.st_ctimespec.tv_sec, v32.st_ctimespec.tv_nsec, v32.st_birthtimespec.tv_sec, v32.st_birthtimespec.tv_nsec);
         }
 
         v11 = 0;
@@ -371,11 +363,10 @@
         v38 = 1024;
         LODWORD(v39) = v21;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "sqlite3_exec failed at %{public}@ (%{public}@): %d", buf, 0x1Cu);
-        v31 = v21;
-        _MBLog();
+        _MBLog(@"E ", "sqlite3_exec failed at %{public}@ (%{public}@): %d", temporaryPathCopy, pathCopy, v21);
       }
 
-      [MBError errorWithCode:1 path:temporaryPathCopy format:@"sqlite3_exec failed: %s (%d)", sqlite3_errmsg(ppDb), v21, v31];
+      [MBError errorWithCode:1 path:temporaryPathCopy format:@"sqlite3_exec failed: %s (%d)", sqlite3_errmsg(ppDb), v21];
     }
     v11 = ;
   }

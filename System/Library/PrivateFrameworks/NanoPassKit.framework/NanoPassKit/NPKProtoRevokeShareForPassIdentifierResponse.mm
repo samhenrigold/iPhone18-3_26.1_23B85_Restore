@@ -40,8 +40,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  success = self->_success;
-  v6 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_errorData)
   {
@@ -78,13 +76,12 @@
     goto LABEL_4;
   }
 
-  v5 = *(equalCopy + 16);
   if (self->_success)
   {
     if ((*(equalCopy + 16) & 1) == 0)
     {
 LABEL_4:
-      v6 = 0;
+      v5 = 0;
       goto LABEL_5;
     }
   }
@@ -97,17 +94,17 @@ LABEL_4:
   errorData = self->_errorData;
   if (errorData | *(equalCopy + 1))
   {
-    v6 = [(NSData *)errorData isEqual:?];
+    v5 = [(NSData *)errorData isEqual:?];
   }
 
   else
   {
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_5:
 
-  return v6;
+  return v5;
 }
 
 - (void)mergeFrom:(id)from

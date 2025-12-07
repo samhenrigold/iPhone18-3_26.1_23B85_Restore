@@ -143,7 +143,7 @@ LABEL_32:
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 10;
   }
@@ -156,7 +156,7 @@ LABEL_32:
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 5;
   }
@@ -232,47 +232,47 @@ void __39__MADTextEmbeddingResource_textEncoder__block_invoke(uint64_t a1)
 
 void __41__MADTextEmbeddingResource_entityGallery__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 24);
   if (!v2)
   {
     v3 = [MEMORY[0x1E69789B0] vcp_defaultPhotoLibrary];
     v4 = [v3 vcp_visionCacheStorageDirectoryURL];
-    v5 = VCPSignPostLog();
+    v5 = VCPSignPostLog(v4);
     v6 = os_signpost_id_generate(v5);
 
-    v7 = VCPSignPostLog();
-    v8 = v7;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    v8 = VCPSignPostLog(v7);
+    v9 = v8;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VUWGallery_initWithPath", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "VUWGallery_initWithPath", "", buf, 2u);
     }
 
-    v18 = 0;
-    v9 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:v4 error:&v18];
-    v10 = v18;
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 24);
-    *(v11 + 24) = v9;
+    v20 = 0;
+    v10 = [objc_alloc(MEMORY[0x1E69E0678]) initWithClient:0 path:v4 error:&v20];
+    v11 = v20;
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 24);
+    *(v12 + 24) = v10;
 
-    v13 = VCPSignPostLog();
-    v14 = v13;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = VCPSignPostLog(v14);
+    v16 = v15;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v6, "VUWGallery_initWithPath", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v6, "VUWGallery_initWithPath", "", buf, 2u);
     }
 
     if (!*(*(a1 + 32) + 24) && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = [v10 description];
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v19 = [v11 description];
       *buf = 138412546;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v17;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v19;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create %@ (%@)", buf, 0x16u);
     }
 
@@ -306,46 +306,51 @@ void __41__MADTextEmbeddingResource_entityGallery__block_invoke(uint64_t a1)
 
 void __39__MADTextEmbeddingResource_calibration__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 32))
   {
-    if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    v2 = MediaAnalysisLogLevel();
+    if (v2 >= 5)
     {
-      [*(a1 + 32) version];
-      v2 = MADUnifiedEmbeddingVersionToString();
-      v12 = 138412290;
-      v13 = v2;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Creating calibration model (%@)", &v12, 0xCu);
+      v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+      if (v2)
+      {
+        [*(a1 + 32) version];
+        v3 = MADUnifiedEmbeddingVersionToString();
+        v15 = 138412290;
+        v16 = v3;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Creating calibration model (%@)", &v15, 0xCu);
+      }
     }
 
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v4 = VCPSignPostLog(v2);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADTextEmbeddingThreshold_create", "", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingThreshold_create", "", &v15, 2u);
     }
 
-    v7 = +[MADTextEmbeddingThreshold createForEmbeddingVersion:](MADTextEmbeddingThreshold, "createForEmbeddingVersion:", [*(a1 + 32) version]);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 32);
-    *(v8 + 32) = v7;
+    v9 = +[MADTextEmbeddingThreshold createForEmbeddingVersion:](MADTextEmbeddingThreshold, "createForEmbeddingVersion:", [*(a1 + 32) version]);
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 32);
+    *(v10 + 32) = v9;
 
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v13 = VCPSignPostLog(v12);
+    v14 = v13;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v4, "MADTextEmbeddingThreshold_create", "", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingThreshold_create", "", &v15, 2u);
     }
 
     if (!*(*(a1 + 32) + 32) && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create embedding calibration", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create embedding calibration", &v15, 2u);
     }
   }
 
@@ -376,46 +381,51 @@ void __39__MADTextEmbeddingResource_calibration__block_invoke(uint64_t a1)
 
 void __34__MADTextEmbeddingResource_safety__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!*(*(a1 + 32) + 40))
   {
-    if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    v2 = MediaAnalysisLogLevel();
+    if (v2 >= 5)
     {
-      [*(a1 + 32) version];
-      v2 = MADUnifiedEmbeddingVersionToString();
-      v12 = 138412290;
-      v13 = v2;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Creating safety model (%@)", &v12, 0xCu);
+      v2 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT);
+      if (v2)
+      {
+        [*(a1 + 32) version];
+        v3 = MADUnifiedEmbeddingVersionToString();
+        v15 = 138412290;
+        v16 = v3;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Creating safety model (%@)", &v15, 0xCu);
+      }
     }
 
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v4 = VCPSignPostLog(v2);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MADTextEmbeddingSafety_create", "", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "MADTextEmbeddingSafety_create", "", &v15, 2u);
     }
 
-    v7 = +[MADTextEmbeddingSafety createForEmbeddingVersion:](MADTextEmbeddingSafety, "createForEmbeddingVersion:", [*(a1 + 32) version]);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v9 = +[MADTextEmbeddingSafety createForEmbeddingVersion:](MADTextEmbeddingSafety, "createForEmbeddingVersion:", [*(a1 + 32) version]);
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v13 = VCPSignPostLog(v12);
+    v14 = v13;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      LOWORD(v12) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v4, "MADTextEmbeddingSafety_create", "", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v5, "MADTextEmbeddingSafety_create", "", &v15, 2u);
     }
 
     if (!*(*(a1 + 32) + 40) && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create embedding safety", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to create embedding safety", &v15, 2u);
     }
   }
 

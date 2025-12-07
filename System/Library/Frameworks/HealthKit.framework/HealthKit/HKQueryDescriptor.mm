@@ -182,7 +182,7 @@ LABEL_19:
 
 - (HKQueryDescriptor)initWithCoder:(id)coder
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SampleType"];
   sampleType = self->_sampleType;
@@ -198,11 +198,11 @@ LABEL_19:
     if (!v7->_filter)
     {
       v10 = MEMORY[0x1E695DFD8];
-      v19[0] = objc_opt_class();
-      v19[1] = objc_opt_class();
-      v19[2] = objc_opt_class();
-      v19[3] = objc_opt_class();
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+      v18[0] = objc_opt_class();
+      v18[1] = objc_opt_class();
+      v18[2] = objc_opt_class();
+      v18[3] = objc_opt_class();
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
       v12 = [v10 setWithArray:v11];
       v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"Predicate"];
 
@@ -216,7 +216,6 @@ LABEL_19:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -258,91 +257,81 @@ LABEL_19:
 
 + (id)allergiesDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKAllergyRecordType allergyRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)clinicalNotesDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKClinicalNoteRecordType clinicalNoteRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)conditionsDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKConditionRecordType conditionRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)coverageDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKCoverageRecordType coverageRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)immunizationsDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKVaccinationRecordType vaccinationRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)labsDescriptionsWithPredicate:(id)predicate
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = [HKQuery predicateForDiagnosticTestResultCategory:@"laboratory"];
   v5 = v4;
   if (predicateCopy)
   {
     v6 = MEMORY[0x1E696AB28];
-    v17[0] = v4;
-    v17[1] = predicateCopy;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[0] = v4;
+    v16[1] = predicateCopy;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v8 = [v6 andPredicateWithSubpredicates:v7];
 
     v5 = v8;
@@ -350,64 +339,58 @@ LABEL_19:
 
   v9 = +[HKDiagnosticTestReportType diagnosticTestReportType];
   v10 = [HKQueryDescriptor queryDescriptorWithSampleType:v9 predicate:predicateCopy];
-  v16[0] = v10;
+  v15[0] = v10;
   v11 = +[HKDiagnosticTestResultType diagnosticTestResultType];
   v12 = [HKQueryDescriptor queryDescriptorWithSampleType:v11 predicate:v5];
-  v16[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
 
   return v13;
 }
 
 + (id)medicationsDescriptionsWithPredicate:(id)predicate
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKMedicationDispenseRecordType medicationDispenseRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
   v6 = +[HKMedicationOrderType medicationOrderType];
   v7 = [HKQueryDescriptor queryDescriptorWithSampleType:v6 predicate:predicateCopy];
-  v13[1] = v7;
+  v12[1] = v7;
   v8 = +[HKMedicationRecordType medicationRecordType];
   v9 = [HKQueryDescriptor queryDescriptorWithSampleType:v8 predicate:predicateCopy];
 
-  v13[2] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:3];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[2] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:3];
 
   return v10;
 }
 
 + (id)proceduresDescriptionsWithPredicate:(id)predicate
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = +[HKProcedureRecordType procedureRecordType];
   v5 = [HKQueryDescriptor queryDescriptorWithSampleType:v4 predicate:predicateCopy];
 
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)vitalsDescriptionsWithPredicate:(id)predicate
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v4 = [HKQuery predicateForDiagnosticTestResultCategory:@"vital-signs"];
   v5 = v4;
   if (predicateCopy)
   {
     v6 = MEMORY[0x1E696AB28];
-    v15[0] = v4;
-    v15[1] = predicateCopy;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+    v14[0] = v4;
+    v14[1] = predicateCopy;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
     v8 = [v6 andPredicateWithSubpredicates:v7];
 
     v5 = v8;
@@ -415,10 +398,8 @@ LABEL_19:
 
   v9 = +[HKDiagnosticTestResultType diagnosticTestResultType];
   v10 = [HKQueryDescriptor queryDescriptorWithSampleType:v9 predicate:v5];
-  v14 = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
 
   return v11;
 }

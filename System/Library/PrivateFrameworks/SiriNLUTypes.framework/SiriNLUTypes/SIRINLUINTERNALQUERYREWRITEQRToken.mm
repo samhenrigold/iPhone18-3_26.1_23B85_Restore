@@ -361,19 +361,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_value)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    startIndex = self->_startIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -392,29 +391,26 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  endIndex = self->_endIndex;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_6:
-    asrConfidence = self->_asrConfidence;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_phoneSequence)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    removeSpaceAfter = self->_removeSpaceAfter;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

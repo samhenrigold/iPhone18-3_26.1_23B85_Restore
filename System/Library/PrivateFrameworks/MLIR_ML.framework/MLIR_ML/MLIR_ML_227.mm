@@ -1,200 +1,16 @@
-void *llvm::WithColor::warning(llvm::WithColor *this)
-{
-  v1 = llvm::errs(this);
-
-  return llvm::WithColor::warning(v1, "", 0, 0);
-}
-
-void *llvm::WithColor::warning(void *a1, const void *a2, size_t a3, char a4)
-{
-  if (!a3)
-  {
-LABEL_5:
-    v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
-    if (a4)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_9;
-  }
-
-  v6 = a1[4];
-  if (a3 <= a1[3] - v6)
-  {
-    memcpy(v6, a2, a3);
-    v8 = (a1[4] + a3);
-    a1[4] = v8;
-    v7 = a1;
-    if (a1[3] - v8 > 1uLL)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    v7 = llvm::raw_ostream::write(a1, a2, a3);
-    v8 = v7[4];
-    if (v7[3] - v8 > 1uLL)
-    {
-LABEL_4:
-      *v8 = 8250;
-      v7[4] += 2;
-      goto LABEL_5;
-    }
-  }
-
-  llvm::raw_ostream::write(v7, ": ", 2uLL);
-  v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
-  if (a4)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_9:
-  if ((v9[174])(a1))
-  {
-    (*(*a1 + 24))(a1, 5, 1, 0);
-  }
-
-LABEL_11:
-  v11 = a1[4];
-  if ((a1[3] - v11) > 8)
-  {
-    *(v11 + 8) = 32;
-    *v11 = *"warning: ";
-    a1[4] += 9;
-    v12 = a1;
-    if (a4)
-    {
-      return v12;
-    }
-  }
-
-  else
-  {
-    v12 = llvm::raw_ostream::write(a1, "warning: ", 9uLL);
-    if (a4)
-    {
-      return v12;
-    }
-  }
-
-  if (!(v9[174])(a1))
-  {
-    return v12;
-  }
-
-  (*(*a1 + 32))(a1);
-  return v12;
-}
-
-void *llvm::WithColor::note(llvm::WithColor *this)
-{
-  v1 = llvm::errs(this);
-
-  return llvm::WithColor::note(v1, "", 0, 0);
-}
-
-void *llvm::WithColor::note(void *a1, const void *a2, size_t a3, char a4)
-{
-  if (!a3)
-  {
-LABEL_5:
-    v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
-    if (a4)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_9;
-  }
-
-  v6 = a1[4];
-  if (a3 <= a1[3] - v6)
-  {
-    memcpy(v6, a2, a3);
-    v8 = (a1[4] + a3);
-    a1[4] = v8;
-    v7 = a1;
-    if (a1[3] - v8 > 1uLL)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    v7 = llvm::raw_ostream::write(a1, a2, a3);
-    v8 = v7[4];
-    if (v7[3] - v8 > 1uLL)
-    {
-LABEL_4:
-      *v8 = 8250;
-      v7[4] += 2;
-      goto LABEL_5;
-    }
-  }
-
-  llvm::raw_ostream::write(v7, ": ", 2uLL);
-  v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
-  if (a4)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_9:
-  if ((v9[174])(a1))
-  {
-    (*(*a1 + 24))(a1, 0, 1, 0);
-  }
-
-LABEL_11:
-  v11 = a1[4];
-  if ((a1[3] - v11) > 5)
-  {
-    *(v11 + 4) = 8250;
-    *v11 = 1702129518;
-    a1[4] += 6;
-    v12 = a1;
-    if (a4)
-    {
-      return v12;
-    }
-  }
-
-  else
-  {
-    v12 = llvm::raw_ostream::write(a1, "note: ", 6uLL);
-    if (a4)
-    {
-      return v12;
-    }
-  }
-
-  if (!(v9[174])(a1))
-  {
-    return v12;
-  }
-
-  (*(*a1 + 32))(a1);
-  return v12;
-}
-
-void *llvm::WithColor::remark(llvm::WithColor *this)
+llvm::raw_ostream *llvm::WithColor::remark(llvm::WithColor *this)
 {
   v1 = llvm::errs(this);
 
   return llvm::WithColor::remark(v1, "", 0, 0);
 }
 
-void *llvm::WithColor::remark(void *a1, const void *a2, size_t a3, char a4)
+llvm::raw_ostream *llvm::WithColor::remark(llvm::raw_ostream *a1, const void *a2, size_t a3, char a4)
 {
   if (!a3)
   {
 LABEL_5:
-    v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
+    v9 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
     if (a4)
     {
       goto LABEL_11;
@@ -203,14 +19,14 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v6 = a1[4];
-  if (a3 <= a1[3] - v6)
+  v6 = *(a1 + 4);
+  if (a3 <= *(a1 + 3) - v6)
   {
     memcpy(v6, a2, a3);
-    v8 = (a1[4] + a3);
-    a1[4] = v8;
+    v8 = (*(a1 + 4) + a3);
+    *(a1 + 4) = v8;
     v7 = a1;
-    if (a1[3] - v8 > 1uLL)
+    if (*(a1 + 3) - v8 > 1uLL)
     {
       goto LABEL_4;
     }
@@ -219,35 +35,35 @@ LABEL_5:
   else
   {
     v7 = llvm::raw_ostream::write(a1, a2, a3);
-    v8 = v7[4];
-    if (v7[3] - v8 > 1uLL)
+    v8 = *(v7 + 4);
+    if (*(v7 + 3) - v8 > 1uLL)
     {
 LABEL_4:
       *v8 = 8250;
-      v7[4] += 2;
+      *(v7 + 4) += 2;
       goto LABEL_5;
     }
   }
 
   llvm::raw_ostream::write(v7, ": ", 2uLL);
-  v9 = llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
+  v9 = &llvm::detail::UniqueFunctionBase<BOOL,mlir::TypeID>::CallbacksHolder<mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1},mlir::Op<mlir::arith::BitcastOp,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::Type>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::ConditionallySpeculatable::Trait,mlir::OpTrait::AlwaysSpeculatableImplTrait,mlir::MemoryEffectOpInterface::Trait,mlir::OpTrait::SameOperandsAndResultShape,mlir::CastOpInterface::Trait,mlir::VectorUnrollOpInterface::Trait,mlir::OpTrait::Elementwise,mlir::OpTrait::Scalarizable,mlir::OpTrait::Vectorizable,mlir::OpTrait::Tensorizable>::getHasTraitFn(void)::{lambda(mlir::TypeID)#1} const,void>::Callbacks;
   if (a4)
   {
     goto LABEL_11;
   }
 
 LABEL_9:
-  if ((v9[174])(a1))
+  if ((v9[174])(a1, a2))
   {
     (*(*a1 + 24))(a1, 4, 1, 0);
   }
 
 LABEL_11:
-  v11 = a1[4];
-  if (a1[3] - v11 > 7uLL)
+  v11 = *(a1 + 4);
+  if (*(a1 + 3) - v11 > 7uLL)
   {
     *v11 = 0x203A6B72616D6572;
-    a1[4] += 8;
+    *(a1 + 4) += 8;
     v12 = a1;
     if (a4)
     {
@@ -264,7 +80,7 @@ LABEL_11:
     }
   }
 
-  if (!(v9[174])(a1))
+  if (!(v9)[174](a1))
   {
     return v12;
   }
@@ -360,7 +176,7 @@ void **llvm::WithColor::defaultErrorHandler(void **result)
   *result = 0;
   if (v1)
   {
-    if ((*(*v1 + 48))(v1, &llvm::ErrorList::ID))
+    if (((*v1)[6])(v1, &llvm::ErrorList::ID))
     {
       v8 = 0;
       v2 = v1[1];
@@ -392,7 +208,7 @@ void **llvm::WithColor::defaultErrorHandler(void **result)
 
           if (v11)
           {
-            (*(*v11 + 8))(v11);
+            ((*v11)[1])(v11);
           }
 
           ++v2;
@@ -402,7 +218,7 @@ void **llvm::WithColor::defaultErrorHandler(void **result)
         v8 = v4;
       }
 
-      return (*(*v1 + 8))(v1);
+      return ((*v1)[1])(v1);
     }
 
     else
@@ -433,7 +249,7 @@ void **llvm::WithColor::defaultWarningHandler(void **result)
   *result = 0;
   if (v1)
   {
-    if ((*(*v1 + 48))(v1, &llvm::ErrorList::ID))
+    if (((*v1)[6])(v1, &llvm::ErrorList::ID))
     {
       v8 = 0;
       v2 = v1[1];
@@ -465,7 +281,7 @@ void **llvm::WithColor::defaultWarningHandler(void **result)
 
           if (v11)
           {
-            (*(*v11 + 8))(v11);
+            ((*v11)[1])(v11);
           }
 
           ++v2;
@@ -475,7 +291,7 @@ void **llvm::WithColor::defaultWarningHandler(void **result)
         v8 = v4;
       }
 
-      return (*(*v1 + 8))(v1);
+      return ((*v1)[1])(v1);
     }
 
     else
@@ -542,13 +358,13 @@ uint64_t llvm::cl::opt<llvm::cl::BOOLOrDefault,false,llvm::cl::parser<llvm::cl::
   *(a1 + 160) = &unk_2868A34C0;
   *(a1 + 184) = a1 + 160;
   v12 = strlen(a2);
-  llvm::cl::Option::setArgStr(a1, a2, v12);
+  llvm::cl::Option::setArgStr(a1, a2, v12, v13, v14, v15);
   llvm::cl::Option::addCategory(a1, *a3);
   *(a1 + 32) = *a4;
-  v13 = **a5;
-  *(a1 + 128) = v13;
+  v16 = **a5;
+  *(a1 + 128) = v16;
   *(a1 + 148) = 1;
-  *(a1 + 144) = v13;
+  *(a1 + 144) = v16;
   llvm::cl::Option::addArgument(a1);
   return a1;
 }
@@ -888,42 +704,42 @@ LABEL_20:
   return (*(*v5 + 8))(v5);
 }
 
-uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
+uint64_t llvm::yaml::dumpTokens(std::string::size_type a1, const char *a2, llvm::raw_ostream *a3)
 {
-  v77[13] = *MEMORY[0x277D85DE8];
-  llvm::SourceMgr::SourceMgr(v57);
-  v58 = v57;
+  v76[13] = *MEMORY[0x277D85DE8];
+  llvm::SourceMgr::SourceMgr(v56);
+  v57 = v56;
+  v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v61 = 1;
+  v60 = 1;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v64 = v66;
-  v65 = 0x400000000;
-  v67 = v69;
-  v68 = 0;
-  v69[0] = 0;
-  v69[1] = 1;
-  v70 = &v70;
-  v71 = &v70;
-  v72 = v74;
-  v73 = 0x400000000;
-  v75 = v77;
-  v76 = 0x400000000;
-  v77[12] = 0;
-  *&v53 = a1;
-  *(&v53 + 1) = a2;
-  v54 = "YAML";
+  v63 = v65;
+  v64 = 0x400000000;
+  v66 = v68;
+  v67 = 0;
+  v68[0] = 0;
+  v68[1] = 1;
+  v69 = &v69;
+  v70 = &v69;
+  v71 = v73;
+  v72 = 0x400000000;
+  v74 = v76;
+  v75 = 0x400000000;
+  v76[12] = 0;
+  v53.__r_.__value_.__r.__words[0] = a1;
+  v53.__r_.__value_.__l.__size_ = a2;
+  v53.__r_.__value_.__r.__words[2] = "YAML";
   __p = 4;
-  llvm::yaml::Scanner::init(&v58, &v53);
+  llvm::yaml::Scanner::init(&v57, &v53);
   while (2)
   {
-    llvm::yaml::Scanner::getNext(&v58, &v53);
-    switch(v53)
+    llvm::yaml::Scanner::getNext(&v53, &v57);
+    switch(LODWORD(v53.__r_.__value_.__l.__data_))
     {
       case 1:
-        v6 = a3[4];
-        if (a3[3] - v6 <= 0xDuLL)
+        v6 = *(a3 + 4);
+        if (*(a3 + 3) - v6 <= 0xDuLL)
         {
           v7 = a3;
           v8 = "Stream-Start: ";
@@ -933,8 +749,8 @@ uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
         v43 = "Stream-Start: ";
         goto LABEL_94;
       case 2:
-        v28 = a3[4];
-        if ((a3[3] - v28) <= 0xB)
+        v28 = *(a3 + 4);
+        if ((*(a3 + 3) - v28) <= 0xB)
         {
           v29 = a3;
           v30 = "Stream-End: ";
@@ -945,8 +761,8 @@ uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
         v44 = "Stream-End: ";
         goto LABEL_96;
       case 3:
-        v20 = a3[4];
-        if ((a3[3] - v20) <= 0x12)
+        v20 = *(a3 + 4);
+        if ((*(a3 + 3) - v20) <= 0x12)
         {
           v21 = a3;
           v22 = "Version-Directive: ";
@@ -957,46 +773,46 @@ uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
         v41 = "Version-Directive: ";
         goto LABEL_79;
       case 4:
-        v26 = a3[4];
-        if (a3[3] - v26 > 0xEuLL)
+        v26 = *(a3 + 4);
+        if (*(a3 + 3) - v26 > 0xEuLL)
         {
           qmemcpy(v26, "Tag-Directive: ", 15);
-          v39 = a3[4] + 15;
+          v39 = *(a3 + 4) + 15;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Tag-Directive: ", 0xFuLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
       case 5:
-        v19 = a3[4];
-        if (a3[3] - v19 > 0xFuLL)
+        v19 = *(a3 + 4);
+        if (*(a3 + 3) - v19 > 0xFuLL)
         {
           *v19 = *"Document-Start: ";
-          v39 = a3[4] + 16;
+          v39 = *(a3 + 4) + 16;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Document-Start: ", 0x10uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
       case 6:
-        v6 = a3[4];
-        if (a3[3] - v6 <= 0xDuLL)
+        v6 = *(a3 + 4);
+        if (*(a3 + 3) - v6 <= 0xDuLL)
         {
           v7 = a3;
           v8 = "Document-End: ";
@@ -1006,66 +822,66 @@ uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
         v43 = "Document-End: ";
         goto LABEL_94;
       case 7:
-        v35 = a3[4];
-        if (a3[3] - v35 > 0xCuLL)
+        v35 = *(a3 + 4);
+        if (*(a3 + 3) - v35 > 0xCuLL)
         {
           qmemcpy(v35, "Block-Entry: ", 13);
-          v39 = a3[4] + 13;
+          v39 = *(a3 + 4) + 13;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Block-Entry: ", 0xDuLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
       case 8:
-        v27 = a3[4];
-        if ((a3[3] - v27) > 0xA)
+        v27 = *(a3 + 4);
+        if ((*(a3 + 3) - v27) > 0xA)
         {
           *(v27 + 7) = 540697710;
           *v27 = *"Block-End: ";
-          v39 = a3[4] + 11;
+          v39 = *(a3 + 4) + 11;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Block-End: ", 0xBuLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
       case 9:
-        v36 = a3[4];
-        if (a3[3] - v36 > 0x15uLL)
+        v36 = *(a3 + 4);
+        if (*(a3 + 3) - v36 > 0x15uLL)
         {
           qmemcpy(v36, "Block-Sequence-Start: ", 22);
-          v39 = a3[4] + 22;
+          v39 = *(a3 + 4) + 22;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Block-Sequence-Start: ", 0x16uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 10:
-        v16 = a3[4];
-        if ((a3[3] - v16) <= 0x14)
+      case 0xA:
+        v16 = *(a3 + 4);
+        if ((*(a3 + 3) - v16) <= 0x14)
         {
           v17 = a3;
           v18 = "Block-Mapping-Start: ";
@@ -1074,15 +890,15 @@ uint64_t llvm::yaml::dumpTokens(uint64_t a1, uint64_t a2, void *a3)
 
         v40 = "Block-Mapping-Start: ";
         goto LABEL_77;
-      case 11:
-        v28 = a3[4];
-        if ((a3[3] - v28) > 0xB)
+      case 0xB:
+        v28 = *(a3 + 4);
+        if ((*(a3 + 3) - v28) > 0xB)
         {
           *(v28 + 8) = 540703090;
           v44 = "Flow-Entry: ";
 LABEL_96:
           *v28 = *v44;
-          v39 = a3[4] + 12;
+          v39 = *(a3 + 4) + 12;
           goto LABEL_100;
         }
 
@@ -1090,24 +906,24 @@ LABEL_96:
         v30 = "Flow-Entry: ";
 LABEL_60:
         llvm::raw_ostream::write(v29, v30, 0xCuLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 12:
-        v16 = a3[4];
-        if ((a3[3] - v16) > 0x14)
+      case 0xC:
+        v16 = *(a3 + 4);
+        if ((*(a3 + 3) - v16) > 0x14)
         {
           v40 = "Flow-Sequence-Start: ";
 LABEL_77:
           *v16 = *v40;
           *(v16 + 13) = *(v40 + 13);
-          v39 = a3[4] + 21;
+          v39 = *(a3 + 4) + 21;
           goto LABEL_100;
         }
 
@@ -1115,24 +931,24 @@ LABEL_77:
         v18 = "Flow-Sequence-Start: ";
 LABEL_20:
         llvm::raw_ostream::write(v17, v18, 0x15uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 13:
-        v20 = a3[4];
-        if ((a3[3] - v20) > 0x12)
+      case 0xD:
+        v20 = *(a3 + 4);
+        if ((*(a3 + 3) - v20) > 0x12)
         {
           *(v20 + 15) = 540697710;
           v41 = "Flow-Sequence-End: ";
 LABEL_79:
           *v20 = *v41;
-          v39 = a3[4] + 19;
+          v39 = *(a3 + 4) + 19;
           goto LABEL_100;
         }
 
@@ -1140,58 +956,58 @@ LABEL_79:
         v22 = "Flow-Sequence-End: ";
 LABEL_24:
         llvm::raw_ostream::write(v21, v22, 0x13uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 14:
-        v34 = a3[4];
-        if ((a3[3] - v34) > 0x13)
+      case 0xE:
+        v34 = *(a3 + 4);
+        if ((*(a3 + 3) - v34) > 0x13)
         {
           *(v34 + 16) = 540701810;
           *v34 = *"Flow-Mapping-Start: ";
-          v39 = a3[4] + 20;
+          v39 = *(a3 + 4) + 20;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Flow-Mapping-Start: ", 0x14uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 15:
-        v12 = a3[4];
-        if ((a3[3] - v12) > 0x11)
+      case 0xF:
+        v12 = *(a3 + 4);
+        if ((*(a3 + 3) - v12) > 0x11)
         {
           *(v12 + 16) = 8250;
           *v12 = *"Flow-Mapping-End: ";
-          v39 = a3[4] + 18;
+          v39 = *(a3 + 4) + 18;
           goto LABEL_100;
         }
 
         llvm::raw_ostream::write(a3, "Flow-Mapping-End: ", 0x12uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 16:
-        v23 = a3[4];
-        if ((a3[3] - v23) <= 4)
+      case 0x10:
+        v23 = *(a3 + 4);
+        if ((*(a3 + 3) - v23) <= 4)
         {
           v24 = a3;
           v25 = "Key: ";
@@ -1201,9 +1017,9 @@ LABEL_24:
         *(v23 + 4) = 32;
         v42 = 981034315;
         goto LABEL_90;
-      case 17:
-        v9 = a3[4];
-        if (a3[3] - v9 <= 6uLL)
+      case 0x11:
+        v9 = *(a3 + 4);
+        if (*(a3 + 3) - v9 <= 6uLL)
         {
           v10 = a3;
           v11 = "Value: ";
@@ -1213,9 +1029,9 @@ LABEL_24:
         *(v9 + 3) = 540697973;
         v38 = 1970037078;
         goto LABEL_99;
-      case 18:
-        v31 = a3[4];
-        if (a3[3] - v31 <= 7uLL)
+      case 0x12:
+        v31 = *(a3 + 4);
+        if (*(a3 + 3) - v31 <= 7uLL)
         {
           v32 = a3;
           v33 = "Scalar: ";
@@ -1224,15 +1040,15 @@ LABEL_24:
 
         v45 = 0x72616C616353;
         goto LABEL_87;
-      case 19:
-        v6 = a3[4];
-        if (a3[3] - v6 > 0xDuLL)
+      case 0x13:
+        v6 = *(a3 + 4);
+        if (*(a3 + 3) - v6 > 0xDuLL)
         {
           v43 = "Block Scalar: ";
 LABEL_94:
           *v6 = *v43;
           *(v6 + 6) = *(v43 + 6);
-          v39 = a3[4] + 14;
+          v39 = *(a3 + 4) + 14;
           goto LABEL_100;
         }
 
@@ -1240,24 +1056,24 @@ LABEL_94:
         v8 = "Block Scalar: ";
 LABEL_56:
         llvm::raw_ostream::write(v7, v8, 0xEuLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 20:
-        v9 = a3[4];
-        if (a3[3] - v9 > 6uLL)
+      case 0x14:
+        v9 = *(a3 + 4);
+        if (*(a3 + 3) - v9 > 6uLL)
         {
           *(v9 + 3) = 540701537;
           v38 = 1634298945;
 LABEL_99:
           *v9 = v38;
-          v39 = a3[4] + 7;
+          v39 = *(a3 + 4) + 7;
           goto LABEL_100;
         }
 
@@ -1266,23 +1082,23 @@ LABEL_99:
 LABEL_67:
         llvm::raw_ostream::write(v10, v11, 7uLL);
 LABEL_68:
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 <= a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] <= *(a3 + 3) - v15)
         {
           goto LABEL_101;
         }
 
         goto LABEL_69;
-      case 21:
-        v31 = a3[4];
-        if (a3[3] - v31 > 7uLL)
+      case 0x15:
+        v31 = *(a3 + 4);
+        if (*(a3 + 3) - v31 > 7uLL)
         {
           v45 = 0x726F68636E41;
 LABEL_87:
           *v31 = v45 & 0xFFFFFFFFFFFFLL | 0x203A000000000000;
-          v39 = a3[4] + 8;
+          v39 = *(a3 + 4) + 8;
           goto LABEL_100;
         }
 
@@ -1290,35 +1106,35 @@ LABEL_87:
         v33 = "Anchor: ";
 LABEL_40:
         llvm::raw_ostream::write(v32, v33, 8uLL);
-        v13 = *(&v53 + 1);
-        v14 = v54;
-        v15 = a3[4];
-        if (v54 > a3[3] - v15)
+        v14 = v53.__r_.__value_.__r.__words[2];
+        size = v53.__r_.__value_.__l.__size_;
+        v15 = *(a3 + 4);
+        if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
         {
           goto LABEL_69;
         }
 
         goto LABEL_101;
-      case 22:
-        v23 = a3[4];
-        if ((a3[3] - v23) > 4)
+      case 0x16:
+        v23 = *(a3 + 4);
+        if ((*(a3 + 3) - v23) > 4)
         {
           *(v23 + 4) = 32;
           v42 = 979853652;
 LABEL_90:
           *v23 = v42;
-          v39 = a3[4] + 5;
+          v39 = *(a3 + 4) + 5;
 LABEL_100:
-          a3[4] = v39;
-          v13 = *(&v53 + 1);
-          v14 = v54;
-          v15 = a3[4];
-          if (v54 > a3[3] - v15)
+          *(a3 + 4) = v39;
+          v14 = v53.__r_.__value_.__r.__words[2];
+          size = v53.__r_.__value_.__l.__size_;
+          v15 = *(a3 + 4);
+          if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
           {
 LABEL_69:
-            v37 = llvm::raw_ostream::write(a3, v13, v14);
-            v15 = v37[4];
-            if (v37[3] != v15)
+            v37 = llvm::raw_ostream::write(a3, size, v14);
+            v15 = *(v37 + 4);
+            if (*(v37 + 3) != v15)
             {
               goto LABEL_70;
             }
@@ -1333,10 +1149,10 @@ LABEL_69:
           v25 = "Tag: ";
 LABEL_46:
           llvm::raw_ostream::write(v24, v25, 5uLL);
-          v13 = *(&v53 + 1);
-          v14 = v54;
-          v15 = a3[4];
-          if (v54 > a3[3] - v15)
+          v14 = v53.__r_.__value_.__r.__words[2];
+          size = v53.__r_.__value_.__l.__size_;
+          v15 = *(a3 + 4);
+          if (v53.__r_.__value_.__r.__words[2] > *(a3 + 3) - v15)
           {
             goto LABEL_69;
           }
@@ -1345,34 +1161,34 @@ LABEL_46:
 LABEL_101:
         if (v14)
         {
-          memcpy(v15, v13, v14);
-          v15 = (a3[4] + v14);
-          a3[4] = v15;
+          memcpy(v15, size, v14);
+          v15 = (*(a3 + 4) + v14);
+          *(a3 + 4) = v15;
         }
 
         v37 = a3;
-        if (a3[3] != v15)
+        if (*(a3 + 3) != v15)
         {
 LABEL_70:
           *v15 = 10;
-          ++v37[4];
+          ++*(v37 + 4);
           goto LABEL_105;
         }
 
 LABEL_104:
         llvm::raw_ostream::write(v37, "\n", 1uLL);
 LABEL_105:
-        if (v53 == 2)
+        if (LODWORD(v53.__r_.__value_.__l.__data_) == 2)
         {
           v46 = 3;
         }
 
         else
         {
-          v46 = v53 == 0;
+          v46 = LODWORD(v53.__r_.__value_.__l.__data_) == 0;
         }
 
-        if (v56 < 0)
+        if (v55 < 0)
         {
           operator delete(__p);
         }
@@ -1385,8 +1201,8 @@ LABEL_105:
         if (v46 == 3)
         {
           v47 = 1;
-          v48 = v75;
-          if (v75 == v77)
+          v48 = v74;
+          if (v74 == v76)
           {
             goto LABEL_115;
           }
@@ -1395,8 +1211,8 @@ LABEL_105:
         else
         {
           v47 = 0;
-          v48 = v75;
-          if (v75 == v77)
+          v48 = v74;
+          if (v74 == v76)
           {
             goto LABEL_115;
           }
@@ -1404,13 +1220,13 @@ LABEL_105:
 
         free(v48);
 LABEL_115:
-        if (v72 != v74)
+        if (v71 != v73)
         {
-          free(v72);
+          free(v71);
         }
 
-        v49 = v71;
-        if (v71 != &v70)
+        v49 = v70;
+        if (v70 != &v69)
         {
           do
           {
@@ -1428,30 +1244,30 @@ LABEL_115:
             v49 = v52;
           }
 
-          while (v52 != &v70);
+          while (v52 != &v69);
         }
 
-        if (v65)
+        if (v64)
         {
-          llvm::deallocate_buffer(*v64, 0x1000);
+          llvm::deallocate_buffer(*v63, 0x1000);
         }
 
-        if (v68)
+        if (v67)
         {
-          llvm::deallocate_buffer(*v67, *(v67 + 1));
+          llvm::deallocate_buffer(*v66, *(v66 + 1));
         }
 
-        if (v67 != v69)
+        if (v66 != v68)
         {
-          free(v67);
+          free(v66);
         }
 
-        if (v64 != v66)
+        if (v63 != v65)
         {
-          free(v64);
+          free(v63);
         }
 
-        llvm::SourceMgr::~SourceMgr(v57);
+        llvm::SourceMgr::~SourceMgr(v56);
         return v47;
       default:
         goto LABEL_68;
@@ -1516,17 +1332,17 @@ uint64_t llvm::yaml::Scanner::Scanner(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return a1;
 }
 
-void llvm::yaml::Scanner::getNext(llvm::yaml::Scanner *this@<X0>, uint64_t a2@<X8>)
+void llvm::yaml::Scanner::getNext(std::string *__return_ptr a1@<X8>, llvm ***this@<X0>)
 {
   v4 = llvm::yaml::Scanner::peekNext(this);
   v5 = *v4;
-  *(a2 + 16) = v4[2];
-  *a2 = v5;
+  a1->__r_.__value_.__r.__words[2] = v4[2];
+  *&a1->__r_.__value_.__l.__data_ = v5;
   if (*(v4 + 47) < 0)
   {
-    std::string::__init_copy_ctor_external((a2 + 24), v4[3], v4[4]);
-    v7 = (this + 176);
-    if (*(this + 22) == (this + 176))
+    std::string::__init_copy_ctor_external(a1 + 1, v4[3], v4[4]);
+    v7 = this + 22;
+    if (this[22] == (this + 22))
     {
       goto LABEL_6;
     }
@@ -1535,20 +1351,20 @@ void llvm::yaml::Scanner::getNext(llvm::yaml::Scanner *this@<X0>, uint64_t a2@<X
   else
   {
     v6 = *(v4 + 3);
-    *(a2 + 40) = v4[5];
-    *(a2 + 24) = v6;
-    v7 = (this + 176);
-    if (*(this + 22) == (this + 176))
+    a1[1].__r_.__value_.__r.__words[2] = v4[5];
+    *&a1[1].__r_.__value_.__l.__data_ = v6;
+    v7 = this + 22;
+    if (this[22] == (this + 22))
     {
       goto LABEL_6;
     }
   }
 
-  v8 = *(this + 23);
+  v8 = this[23];
   v10 = *v8;
   v9 = v8[1];
   *v9 = *v8;
-  *(v10 + 8) = v9;
+  *(v10 + 1) = v9;
   *v8 = 0;
   v8[1] = 0;
   if (*(v8 + 63) < 0)
@@ -1571,75 +1387,75 @@ LABEL_6:
 LABEL_9:
   if (*(this + 38))
   {
-    llvm::deallocate_buffer(**(this + 18), *(*(this + 18) + 8));
+    llvm::deallocate_buffer(*this[18], this[18][1]);
   }
 
   *(this + 38) = 0;
   v11 = *(this + 26);
   if (v11)
   {
-    *(this + 20) = 0;
-    v12 = *(this + 12);
-    v13 = *v12 + 4096;
-    *(this + 10) = *v12;
-    *(this + 11) = v13;
+    this[20] = 0;
+    v12 = this[12];
+    v13 = (*v12 + 4096);
+    this[10] = *v12;
+    this[11] = v13;
     if (v11 != 1)
     {
-      v14 = ((v12 + 8 - *(this + 12)) >> 10) & 0x1FFFFFF;
+      v14 = (((v12 + 1) - this[12]) >> 10) & 0x1FFFFFF;
       if (v14 >= 0x1E)
       {
         LOBYTE(v14) = 30;
       }
 
-      llvm::deallocate_buffer(*(v12 + 8), (4096 << v14));
+      llvm::deallocate_buffer(v12[1], (4096 << v14));
     }
 
     *(this + 26) = 1;
   }
 }
 
-uint64_t llvm::yaml::scanTokens(uint64_t a1, uint64_t a2)
+uint64_t llvm::yaml::scanTokens(std::string::size_type a1, std::string::size_type a2)
 {
-  v35[13] = *MEMORY[0x277D85DE8];
-  llvm::SourceMgr::SourceMgr(v15);
-  v16 = v15;
+  v34[13] = *MEMORY[0x277D85DE8];
+  llvm::SourceMgr::SourceMgr(v14);
+  v15 = v14;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 1;
+  v18 = 1;
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
-  v22 = v24;
-  v23 = 0x400000000;
-  v25 = v27;
-  v26 = 0;
-  v27[0] = 0;
-  v27[1] = 1;
-  v28 = &v28;
-  v29 = &v28;
-  v30 = v32;
-  v31 = 0x400000000;
-  v33 = v35;
-  v34 = 0x400000000;
-  v35[12] = 0;
-  *&v11 = a1;
-  *(&v11 + 1) = a2;
-  v12 = "YAML";
+  v21 = v23;
+  v22 = 0x400000000;
+  v24 = v26;
+  v25 = 0;
+  v26[0] = 0;
+  v26[1] = 1;
+  v27 = &v27;
+  v28 = &v27;
+  v29 = v31;
+  v30 = 0x400000000;
+  v32 = v34;
+  v33 = 0x400000000;
+  v34[12] = 0;
+  v11.__r_.__value_.__r.__words[0] = a1;
+  v11.__r_.__value_.__l.__size_ = a2;
+  v11.__r_.__value_.__r.__words[2] = "YAML";
   __p = 4;
-  llvm::yaml::Scanner::init(&v16, &v11);
+  llvm::yaml::Scanner::init(&v15, &v11);
   do
   {
-    llvm::yaml::Scanner::getNext(&v16, &v11);
-    if (v11 == 2)
+    llvm::yaml::Scanner::getNext(&v11, &v15);
+    if (LODWORD(v11.__r_.__value_.__l.__data_) == 2)
     {
       v4 = 3;
     }
 
     else
     {
-      v4 = v11 == 0;
+      v4 = LODWORD(v11.__r_.__value_.__l.__data_) == 0;
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p);
     }
@@ -1649,8 +1465,8 @@ uint64_t llvm::yaml::scanTokens(uint64_t a1, uint64_t a2)
   if (v4 != 3)
   {
     v5 = 0;
-    v6 = v33;
-    if (v33 == v35)
+    v6 = v32;
+    if (v32 == v34)
     {
       goto LABEL_13;
     }
@@ -1659,21 +1475,21 @@ uint64_t llvm::yaml::scanTokens(uint64_t a1, uint64_t a2)
   }
 
   v5 = 1;
-  v6 = v33;
-  if (v33 != v35)
+  v6 = v32;
+  if (v32 != v34)
   {
 LABEL_12:
     free(v6);
   }
 
 LABEL_13:
-  if (v30 != v32)
+  if (v29 != v31)
   {
-    free(v30);
+    free(v29);
   }
 
-  v7 = v29;
-  if (v29 != &v28)
+  v7 = v28;
+  if (v28 != &v27)
   {
     do
     {
@@ -1691,38 +1507,37 @@ LABEL_13:
       v7 = v10;
     }
 
-    while (v10 != &v28);
+    while (v10 != &v27);
   }
 
-  if (v23)
+  if (v22)
   {
-    llvm::deallocate_buffer(*v22, 0x1000);
+    llvm::deallocate_buffer(*v21, 0x1000);
   }
 
-  if (v26)
+  if (v25)
   {
-    llvm::deallocate_buffer(*v25, *(v25 + 1));
+    llvm::deallocate_buffer(*v24, *(v24 + 1));
   }
 
-  if (v25 != v27)
+  if (v24 != v26)
   {
-    free(v25);
+    free(v24);
   }
 
-  if (v22 != v24)
+  if (v21 != v23)
   {
-    free(v22);
+    free(v21);
   }
 
-  llvm::SourceMgr::~SourceMgr(v15);
+  llvm::SourceMgr::~SourceMgr(v14);
   return v5;
 }
 
-void llvm::yaml::escape(char *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, std::string *a4@<X8>)
+void llvm::yaml::escape(std::string::value_type *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, std::string *a4@<X8>)
 {
   v54 = *MEMORY[0x277D85DE8];
-  a4->__r_.__value_.__r.__words[0] = 0;
-  a4->__r_.__value_.__l.__size_ = 0;
+  *&a4->__r_.__value_.__l.__data_ = 0uLL;
   a4->__r_.__value_.__r.__words[2] = 0;
   if (!a2)
   {
@@ -1783,11 +1598,11 @@ void llvm::yaml::escape(char *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, std::stri
           goto LABEL_28;
         case 0x22:
           v9 = a4;
-          v10 = "\\"";
+          v10 = "\";
           goto LABEL_28;
         case 0x5C:
           v9 = a4;
-          v10 = "\\\";
+          v10 = "\\\"";
           goto LABEL_28;
       }
     }
@@ -2251,7 +2066,7 @@ LABEL_87:
   }
 }
 
-uint64_t decodeUTF8(char *a1, uint64_t a2)
+uint64_t decodeUTF8(char *a1, unint64_t a2)
 {
   if (a2 < 1)
   {
@@ -2767,7 +2582,7 @@ uint64_t llvm::yaml::Scanner::Scanner(uint64_t a1, _OWORD *a2, uint64_t a3, char
 uint64_t *llvm::yaml::Scanner::peekNext(uint64_t **this)
 {
   v2 = 0;
-  v3 = (this + 22);
+  v3 = this + 22;
   while ((v2 & 1) == 0 && *v3 != v3 || (llvm::yaml::Scanner::fetchMoreTokens(this) & 1) != 0)
   {
     llvm::yaml::Scanner::removeStaleSimpleKeyCandidates(this);
@@ -3361,7 +3176,7 @@ void llvm::yaml::Scanner::removeStaleSimpleKeyCandidates(llvm::yaml::Scanner *th
   }
 }
 
-const char *llvm::yaml::Scanner::skip_nb_char(llvm::yaml::Scanner *this, char *a2)
+char *llvm::yaml::Scanner::skip_nb_char(llvm::yaml::Scanner *this, char *a2)
 {
   v2 = *(this + 6) - a2;
   if (!v2)
@@ -3456,7 +3271,7 @@ const char *llvm::yaml::Scanner::skip_s_white(const char **this, const char *a2)
   return a2;
 }
 
-const char *llvm::yaml::Scanner::skip_ns_char(llvm::yaml::Scanner *this, char *a2)
+char *llvm::yaml::Scanner::skip_ns_char(llvm::yaml::Scanner *this, char *a2)
 {
   v2 = *(this + 6) - a2;
   if (!v2)
@@ -3568,7 +3383,7 @@ uint64_t llvm::yaml::Scanner::advanceWhile(uint64_t a1, uint64_t (*a2)(void *, u
   return result;
 }
 
-uint64_t llvm::yaml::Scanner::scan_ns_uri_char(uint64_t this)
+unint64_t llvm::yaml::Scanner::scan_ns_uri_char(unint64_t this)
 {
   v3 = *(this + 40);
   v4 = *(this + 48);
@@ -7342,7 +7157,7 @@ LABEL_4:
   return result;
 }
 
-void llvm::yaml::Stream::Stream()
+void llvm::yaml::Stream::Stream(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
 {
   operator new();
 }
@@ -7351,6 +7166,7 @@ void llvm::yaml::Stream::Stream()
   operator new();
 }
 
+void llvm::yaml::Stream::Stream(uint64_t *a1, _OWORD *a2, uint64_t a3, char a4, uint64_t a5)
 {
   operator new();
 }
@@ -7359,31 +7175,31 @@ void llvm::yaml::Stream::Stream()
   operator new();
 }
 
-void llvm::yaml::Stream::~Stream(llvm::yaml::Stream *this)
+void llvm::yaml::Stream::~Stream(llvm::yaml::Stream *this, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v2 = *(this + 1);
+  v5 = *(this + 1);
   *(this + 1) = 0;
-  if (v2)
+  if (v5)
   {
-    std::__tree<long long>::destroy(v2 + 112, *(v2 + 120));
-    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v2 + 8);
-    MEMORY[0x259C63180](v2, 0x10B0C409530C935);
+    std::__tree<long long>::destroy(v5 + 112, *(v5 + 120));
+    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v5 + 8, v6, v7, v8);
+    MEMORY[0x259C63180](v5, 0x10B0C409530C935);
   }
 
-  std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](this, 0);
+  std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](this, 0, a3, a4);
 }
 
 {
-  v2 = *(this + 1);
+  v5 = *(this + 1);
   *(this + 1) = 0;
-  if (v2)
+  if (v5)
   {
-    std::__tree<long long>::destroy(v2 + 112, *(v2 + 120));
-    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v2 + 8);
-    MEMORY[0x259C63180](v2, 0x10B0C409530C935);
+    std::__tree<long long>::destroy(v5 + 112, *(v5 + 120));
+    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v5 + 8, v6, v7, v8);
+    MEMORY[0x259C63180](v5, 0x10B0C409530C935);
   }
 
-  std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](this, 0);
+  std::unique_ptr<llvm::yaml::Scanner>::reset[abi:nn200100](this, 0, a3, a4);
 }
 
 void llvm::yaml::Stream::printError(llvm ***a1, uint64_t a2, llvm::formatv_object_base **a3, int a4)
@@ -7402,12 +7218,12 @@ void llvm::yaml::Stream::printError(llvm ***a1, uint64_t a2, llvm::formatv_objec
   llvm::SourceMgr::PrintMessage(**a1, a2, a4, a3, &v4, 1, 0, 0, *(*a1 + 76));
 }
 
-void llvm::yaml::Stream::begin(llvm::yaml::Scanner **this)
+void llvm::yaml::Stream::begin(llvm ****this, uint64_t a2, BOOL a3)
 {
   if (!this[1])
   {
-    llvm::yaml::Scanner::getNext(*this, &v1);
-    if (v3 < 0)
+    llvm::yaml::Scanner::getNext(&v3, *this);
+    if (v5 < 0)
     {
       operator delete(__p);
     }
@@ -7415,7 +7231,7 @@ void llvm::yaml::Stream::begin(llvm::yaml::Scanner **this)
     operator new();
   }
 
-  llvm::report_fatal_error("Can only iterate over the stream once", 1);
+  llvm::report_fatal_error("Can only iterate over the stream once", 1, a3);
 }
 
 unint64_t llvm::yaml::Document::skip(llvm::yaml::Document *this)
@@ -7437,7 +7253,7 @@ unint64_t llvm::yaml::Document::skip(llvm::yaml::Document *this)
 
     else if (v3 == 6)
     {
-      llvm::yaml::Scanner::getNext(**this, &v4);
+      llvm::yaml::Scanner::getNext(&v4, **this);
       if (v6 < 0)
       {
         operator delete(__p);
@@ -7467,8 +7283,8 @@ llvm::yaml::Document **llvm::yaml::document_iterator::operator++(llvm::yaml::Doc
   **a1 = 0;
   if (v3)
   {
-    std::__tree<long long>::destroy(v3 + 112, *(v3 + 15));
-    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v3 + 8);
+    std::__tree<long long>::destroy(v3 + 112, *(v3 + 120));
+    llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::~BumpPtrAllocatorImpl(v3 + 8, v4, v5, v6);
     MEMORY[0x259C63180](v3, 0x10B0C409530C935);
   }
 
@@ -8033,63 +7849,63 @@ unint64_t llvm::yaml::Document::parseBlockNode(uint64_t ****this)
 {
   v2 = llvm::yaml::Scanner::peekNext(**this);
   v3 = v2[2];
-  v120 = *v2;
-  v121 = v3;
+  v118 = *v2;
+  v119 = v3;
   if (*(v2 + 47) < 0)
   {
-    std::string::__init_copy_ctor_external(&v122, v2[3], v2[4]);
+    std::string::__init_copy_ctor_external(&v120, v2[3], v2[4]);
   }
 
   else
   {
     v4 = *(v2 + 3);
-    v122.__r_.__value_.__r.__words[2] = v2[5];
-    *&v122.__r_.__value_.__l.__data_ = v4;
+    v120.__r_.__value_.__r.__words[2] = v2[5];
+    *&v120.__r_.__value_.__l.__data_ = v4;
   }
 
   v5 = 0;
   v6 = 0;
   __p = 0;
   v92 = 0;
-  v7 = 0;
+  data = 0;
   v8 = 0;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = 0;
-  v13 = v120;
-  if (v120 != 21)
+  size = 0;
+  v13 = v118;
+  if (v118 != 21)
   {
     goto LABEL_10;
   }
 
   while (2)
   {
-    if (v7 == 21)
+    if (data == 21)
     {
       v23 = "Already encountered an anchor for this node!";
       goto LABEL_104;
     }
 
-    llvm::yaml::Scanner::getNext(**this, &v111);
-    v7 = v111;
-    v12 = v112;
-    v11 = v113;
+    llvm::yaml::Scanner::getNext(&v111, **this);
+    data = v111.__r_.__value_.__l.__data_;
+    v11 = v111.__r_.__value_.__r.__words[2];
+    size = v111.__r_.__value_.__l.__size_;
     if (v9 < 0)
     {
       operator delete(v10);
     }
 
-    v10 = v114;
-    v9 = v116;
+    v10 = v112;
+    v9 = v114;
 LABEL_9:
     v14 = llvm::yaml::Scanner::peekNext(**this);
     v15 = v14[2];
-    v120 = *v14;
-    v121 = v15;
-    std::string::operator=(&v122, v14 + 1);
-    v13 = v120;
-    if (v120 == 21)
+    v118 = *v14;
+    v119 = v15;
+    std::string::operator=(&v120, v14 + 1);
+    v13 = v118;
+    if (v118 == 21)
     {
       continue;
     }
@@ -8109,7 +7925,7 @@ LABEL_10:
       this[11] += 11;
       if (v64 && (Slow = (v64 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v63 = Slow + 88;
+        *v63 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8124,12 +7940,12 @@ LABEL_10:
       v65 = *this;
       if (v11)
       {
-        v66 = v12 + 1;
+        v66 = size + 1;
       }
 
       else
       {
-        v66 = v12;
+        v66 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8149,7 +7965,7 @@ LABEL_10:
       *(Slow + 72) = 2;
       goto LABEL_81;
     case 9:
-      llvm::yaml::Scanner::getNext(**this, v108);
+      llvm::yaml::Scanner::getNext(&v108, **this);
       if (v110 < 0)
       {
         operator delete(v109);
@@ -8160,7 +7976,7 @@ LABEL_10:
       this[11] += 11;
       if (v44 && (Slow = (v44 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v43 = Slow + 88;
+        *v43 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8175,12 +7991,12 @@ LABEL_10:
       v45 = *this;
       if (v11)
       {
-        v46 = v12 + 1;
+        v46 = size + 1;
       }
 
       else
       {
-        v46 = v12;
+        v46 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8200,7 +8016,7 @@ LABEL_10:
       *(Slow + 72) = 0;
       goto LABEL_81;
     case 10:
-      llvm::yaml::Scanner::getNext(**this, v105);
+      llvm::yaml::Scanner::getNext(&v105, **this);
       if (v107 < 0)
       {
         operator delete(v106);
@@ -8211,7 +8027,7 @@ LABEL_10:
       this[11] += 11;
       if (v50 && (Slow = (v50 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v49 = Slow + 88;
+        *v49 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8226,12 +8042,12 @@ LABEL_10:
       v51 = *this;
       if (v11)
       {
-        v52 = v12 + 1;
+        v52 = size + 1;
       }
 
       else
       {
-        v52 = v12;
+        v52 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8262,7 +8078,7 @@ LABEL_10:
       v23 = "Unexpected token";
       goto LABEL_104;
     case 12:
-      llvm::yaml::Scanner::getNext(**this, v102);
+      llvm::yaml::Scanner::getNext(&v102, **this);
       if (v104 < 0)
       {
         operator delete(v103);
@@ -8273,7 +8089,7 @@ LABEL_10:
       this[11] += 11;
       if (v38 && (Slow = (v38 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v37 = Slow + 88;
+        *v37 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8288,12 +8104,12 @@ LABEL_10:
       v39 = *this;
       if (v11)
       {
-        v40 = v12 + 1;
+        v40 = size + 1;
       }
 
       else
       {
-        v40 = v12;
+        v40 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8317,7 +8133,7 @@ LABEL_81:
       *(Slow + 80) = 0;
       goto LABEL_126;
     case 14:
-      llvm::yaml::Scanner::getNext(**this, v99);
+      llvm::yaml::Scanner::getNext(&v99, **this);
       if (v101 < 0)
       {
         operator delete(v100);
@@ -8328,7 +8144,7 @@ LABEL_81:
       this[11] += 11;
       if (v70 && (Slow = (v70 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v69 = Slow + 88;
+        *v69 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8343,12 +8159,12 @@ LABEL_81:
       v71 = *this;
       if (v11)
       {
-        v72 = v12 + 1;
+        v72 = size + 1;
       }
 
       else
       {
-        v72 = v12;
+        v72 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8373,7 +8189,7 @@ LABEL_81:
       this[11] += 11;
       if (v25 && (Slow = (v25 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v24 = Slow + 88;
+        *v24 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8388,12 +8204,12 @@ LABEL_81:
       v26 = *this;
       if (v11)
       {
-        v27 = v12 + 1;
+        v27 = size + 1;
       }
 
       else
       {
-        v27 = v12;
+        v27 = size;
       }
 
       *Slow = &unk_2868A3550;
@@ -8416,7 +8232,7 @@ LABEL_92:
       *(Slow + 80) = 0;
       goto LABEL_126;
     case 18:
-      llvm::yaml::Scanner::getNext(**this, v96);
+      llvm::yaml::Scanner::getNext(&v96, **this);
       if (v98 < 0)
       {
         operator delete(v97);
@@ -8427,7 +8243,7 @@ LABEL_92:
       this[11] += 11;
       if (v31 && (Slow = (v31 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v30 = Slow + 88;
+        *v30 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8442,16 +8258,16 @@ LABEL_92:
       v32 = *this;
       if (v11)
       {
-        v33 = v12 + 1;
+        v33 = size + 1;
       }
 
       else
       {
-        v33 = v12;
+        v33 = size;
       }
 
-      v34 = *(&v120 + 1);
-      v35 = v121;
+      v34 = *(&v118 + 1);
+      v35 = v119;
       *Slow = &unk_2868A3550;
       *(Slow + 16) = 0;
       *(Slow + 24) = 0;
@@ -8468,34 +8284,34 @@ LABEL_92:
       *(Slow + 80) = v35;
       goto LABEL_125;
     case 19:
-      llvm::yaml::Scanner::getNext(**this, v93);
+      llvm::yaml::Scanner::getNext(&v93, **this);
       if (v95 < 0)
       {
         operator delete(v94);
       }
 
-      if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v120.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v75 = &v122;
+        v75 = &v120;
       }
 
       else
       {
-        v75 = v122.__r_.__value_.__r.__words[0];
+        v75 = v120.__r_.__value_.__r.__words[0];
       }
 
-      if ((v122.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v120.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v122.__r_.__value_.__r.__words[2]);
+        v76 = HIBYTE(v120.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        size = v122.__r_.__value_.__l.__size_;
+        v76 = v120.__r_.__value_.__l.__size_;
       }
 
-      v77 = size + 1;
-      if (size == -1)
+      v77 = v76 + 1;
+      if (v76 == -1)
       {
         v78 = 0;
       }
@@ -8512,17 +8328,17 @@ LABEL_92:
         else
         {
           v89 = v75;
-          v90 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow((this + 1), size + 1, size + 1, 0);
+          v90 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::AllocateSlow((this + 1), v76 + 1, v76 + 1, 0);
           v75 = v89;
           v78 = v90;
         }
 
-        memmove(v78, v75, size + 1);
+        memmove(v78, v75, v76 + 1);
       }
 
-      if (v77 < size)
+      if (v77 < v76)
       {
-        ++size;
+        ++v76;
       }
 
       this[11] += 11;
@@ -8544,16 +8360,16 @@ LABEL_92:
       v85 = *this;
       if (v11)
       {
-        v86 = v12 + 1;
+        v86 = size + 1;
       }
 
       else
       {
-        v86 = v12;
+        v86 = size;
       }
 
-      v34 = *(&v120 + 1);
-      v35 = v121;
+      v34 = *(&v118 + 1);
+      v35 = v119;
       *Slow = &unk_2868A3550;
       *(Slow + 16) = 0;
       *(Slow + 24) = 0;
@@ -8567,16 +8383,16 @@ LABEL_92:
       llvm::yaml::Scanner::peekNext(**v87);
       *Slow = &unk_2868A35F0;
       *(Slow + 72) = v78;
-      *(Slow + 80) = size;
+      *(Slow + 80) = v76;
 LABEL_125:
       *(Slow + 16) = v34;
       *(Slow + 24) = v34 + v35;
       goto LABEL_126;
     case 20:
-      llvm::yaml::Scanner::getNext(**this, v117);
-      if (v119 < 0)
+      llvm::yaml::Scanner::getNext(&v115, **this);
+      if (v117 < 0)
       {
-        operator delete(v118);
+        operator delete(v116);
       }
 
       v55 = this + 1;
@@ -8584,7 +8400,7 @@ LABEL_125:
       this[11] += 11;
       if (v56 && (Slow = (v56 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 88 <= this[2]))
       {
-        *v55 = Slow + 88;
+        *v55 = (Slow + 88);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8597,15 +8413,15 @@ LABEL_125:
       }
 
       v57 = *this;
-      v58 = v121;
-      if (v121)
+      v58 = v119;
+      if (v119)
       {
-        v59 = *(&v120 + 1) + 1;
+        v59 = *(&v118 + 1) + 1;
       }
 
       else
       {
-        v59 = *(&v120 + 1);
+        v59 = *(&v118 + 1);
       }
 
       *Slow = &unk_2868A3550;
@@ -8627,37 +8443,37 @@ LABEL_125:
     case 22:
       if (v8 != 22)
       {
-        llvm::yaml::Scanner::getNext(**this, &v111);
-        v8 = v111;
-        v5 = v112;
-        v6 = v113;
+        llvm::yaml::Scanner::getNext(&v111, **this);
+        v8 = v111.__r_.__value_.__l.__data_;
+        v6 = v111.__r_.__value_.__r.__words[2];
+        v5 = v111.__r_.__value_.__l.__size_;
         if (v92 < 0)
         {
           operator delete(__p);
         }
 
-        __p = v114;
-        v92 = v116;
+        __p = v112;
+        v92 = v114;
         goto LABEL_9;
       }
 
       v23 = "Already encountered a tag for this node!";
 LABEL_104:
-      v111 = v23;
-      v115 = 259;
+      v111.__r_.__value_.__r.__words[0] = v23;
+      v113 = 259;
       v79 = **this;
-      v80 = v79[6];
-      if (v80 <= *(&v120 + 1))
+      v80 = *(v79 + 48);
+      if (v80 <= *(&v118 + 1))
       {
-        v81 = v80 - 1;
+        v81 = (v80 - 1);
       }
 
       else
       {
-        v81 = *(&v120 + 1);
+        v81 = *(&v118 + 1);
       }
 
-      v82 = v79[42];
+      v82 = *(v79 + 336);
       if (v82)
       {
         v83 = std::generic_category();
@@ -8682,10 +8498,10 @@ LABEL_126:
         }
 
 LABEL_128:
-        if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
         {
 LABEL_132:
-          operator delete(v122.__r_.__value_.__l.__data_);
+          operator delete(v120.__r_.__value_.__l.__data_);
         }
       }
 
@@ -8698,7 +8514,7 @@ LABEL_132:
 
 LABEL_131:
         operator delete(v10);
-        if (SHIBYTE(v122.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v120.__r_.__value_.__r.__words[2]) < 0)
         {
           goto LABEL_132;
         }
@@ -8712,7 +8528,7 @@ LABEL_17:
       this[11] += 9;
       if (v18 && (Slow = (v18 + 15) & 0xFFFFFFFFFFFFFFF0, Slow + 72 <= this[2]))
       {
-        *v17 = Slow + 72;
+        *v17 = (Slow + 72);
         if (!Slow)
         {
           goto LABEL_126;
@@ -8771,7 +8587,7 @@ void llvm::yaml::Document::setError(uint64_t **a1, llvm::formatv_object_base **a
   *(v4 + 75) = 1;
 }
 
-uint64_t llvm::yaml::ScalarNode::getValue(uint64_t a1, uint64_t *a2)
+void *llvm::yaml::ScalarNode::getValue(uint64_t a1, void **a2)
 {
   v21 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 72);
@@ -8882,7 +8698,7 @@ LABEL_18:
   return parseScalarValue(v17, v16, a2, "\r\n", 2, v19);
 }
 
-uint64_t llvm::yaml::ScalarNode::getDoubleQuotedValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *llvm::yaml::ScalarNode::getDoubleQuotedValue(uint64_t a1, uint64_t a2, uint64_t a3, void **a4)
 {
   v10 = *MEMORY[0x277D85DE8];
   if (a3)
@@ -8922,7 +8738,7 @@ uint64_t llvm::yaml::ScalarNode::getDoubleQuotedValue(uint64_t a1, uint64_t a2, 
   return v6;
 }
 
-uint64_t llvm::yaml::ScalarNode::getSingleQuotedValue(char *a1, uint64_t a2, uint64_t *a3)
+void *llvm::yaml::ScalarNode::getSingleQuotedValue(char *a1, uint64_t a2, void **a3)
 {
   v8 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -8956,7 +8772,7 @@ uint64_t llvm::yaml::ScalarNode::getSingleQuotedValue(char *a1, uint64_t a2, uin
   return v4;
 }
 
-uint64_t llvm::yaml::ScalarNode::getPlainValue(void *a1, unint64_t a2, uint64_t *a3)
+void *llvm::yaml::ScalarNode::getPlainValue(void *a1, unint64_t a2, void **a3)
 {
   v14 = *MEMORY[0x277D85DE8];
   v10 = a1;
@@ -8988,7 +8804,7 @@ uint64_t llvm::yaml::ScalarNode::getPlainValue(void *a1, unint64_t a2, uint64_t 
   return parseScalarValue(v10, v8, a3, "\r\n", 2, v12);
 }
 
-uint64_t parseScalarValue(void *a1, unint64_t a2, uint64_t *p_src, unsigned __int8 *a4, uint64_t a5, uint64_t a6)
+void *parseScalarValue(void *a1, unint64_t a2, void **p_src, unsigned __int8 *a4, uint64_t a5, uint64_t a6)
 {
   __src = a1;
   v32 = a2;
@@ -9017,7 +8833,7 @@ uint64_t parseScalarValue(void *a1, unint64_t a2, uint64_t *p_src, unsigned __in
         v25 = v11;
       }
 
-      llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, *p_src + p_src[1], __src, __src + v25);
+      llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, p_src[1] + *p_src, __src, __src + v25);
       if (v32 >= v11)
       {
         v26 = v11;
@@ -9044,7 +8860,7 @@ LABEL_12:
       v11 = llvm::StringRef::find_first_of(&__src, a4, a5, 0);
       if (v11 == -1)
       {
-        llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, *p_src + p_src[1], __src, __src + v32);
+        llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, p_src[1] + *p_src, __src, __src + v32);
         return *p_src;
       }
     }
@@ -9063,8 +8879,8 @@ LABEL_12:
         v21 = *p_src;
         v12 = 10;
 LABEL_25:
-        *(v21 + v20) = v12;
-        ++p_src[1];
+        v20[v21] = v12;
+        p_src[1] = p_src[1] + 1;
         v23 = __src;
         v22 = v32;
         if (v32 >= v11)
@@ -9088,7 +8904,7 @@ LABEL_25:
       if (v12 == 32)
       {
         v12 = 10;
-        *(*p_src + p_src[1] - 1) = 10;
+        *(p_src[1] + *p_src - 1) = 10;
         v23 = __src;
         v22 = v32;
         if (v32 >= v11)
@@ -9152,7 +8968,7 @@ LABEL_5:
         v19 = v32;
       }
 
-      llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, *p_src + p_src[1], __src, __src + v19);
+      llvm::SmallVectorImpl<char>::insert<char const*,void>(p_src, p_src[1] + *p_src, __src, __src + v19);
     }
 
     v20 = p_src[1];
@@ -9180,7 +8996,7 @@ void *llvm::yaml::KeyValueNode::getKey(llvm::yaml::KeyValueNode *this)
     {
       if (v3 == 16)
       {
-        llvm::yaml::Scanner::getNext(****(this + 1), &v16);
+        llvm::yaml::Scanner::getNext(&v16, ****(this + 1));
         if (v18 < 0)
         {
           operator delete(__p);
@@ -9471,7 +9287,7 @@ LABEL_42:
       goto LABEL_44;
     }
 
-    llvm::yaml::Scanner::getNext(****(this + 1), v37);
+    llvm::yaml::Scanner::getNext(&v37, ****(this + 1));
     if (v39 < 0)
     {
       operator delete(__p);
@@ -9489,8 +9305,8 @@ LABEL_42:
     v32 = *(v30 + 8);
     v31 = (v30 + 8);
     v31[10] += 72;
-    Slow = (v32 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v34 = Slow + 72;
+    Slow = ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v34 = Slow + 9;
     if (v32)
     {
       v35 = v34 > v31[1];
@@ -9642,7 +9458,7 @@ LABEL_18:
       {
         if (v10 == 11)
         {
-          llvm::yaml::Scanner::getNext(****(this + 1), v33);
+          llvm::yaml::Scanner::getNext(&v33, ****(this + 1));
           if (v35 < 0)
           {
             operator delete(__p);
@@ -9683,7 +9499,7 @@ LABEL_18:
         goto LABEL_50;
       }
 
-      llvm::yaml::Scanner::getNext(****(this + 1), v30);
+      llvm::yaml::Scanner::getNext(&v30, ****(this + 1));
       if (v32 < 0)
       {
         v19 = v31;
@@ -9727,7 +9543,7 @@ LABEL_18:
       goto LABEL_50;
     }
 
-    llvm::yaml::Scanner::getNext(****(this + 1), v38);
+    llvm::yaml::Scanner::getNext(&v38, ****(this + 1));
     if (v40 < 0)
     {
       v19 = v39;
@@ -9803,7 +9619,7 @@ LABEL_8:
         {
           if (v38 == 8)
           {
-            llvm::yaml::Scanner::getNext(****(this + 1), v32);
+            llvm::yaml::Scanner::getNext(&v32, ****(this + 1));
             if (v34 < 0)
             {
               operator delete(v33);
@@ -9814,7 +9630,7 @@ LABEL_8:
           {
             if (v38 == 7)
             {
-              llvm::yaml::Scanner::getNext(****(this + 1), v35);
+              llvm::yaml::Scanner::getNext(&v35, ****(this + 1));
               if ((v37 & 0x80000000) == 0)
               {
                 goto LABEL_20;
@@ -9892,7 +9708,7 @@ LABEL_49:
       {
         if (v38 == 13)
         {
-          llvm::yaml::Scanner::getNext(****(this + 1), v21);
+          llvm::yaml::Scanner::getNext(&v21, ****(this + 1));
           if (v23 < 0)
           {
             operator delete(v22);
@@ -9903,7 +9719,7 @@ LABEL_49:
 
         if (v38 == 11)
         {
-          llvm::yaml::Scanner::getNext(****(this + 1), v24);
+          llvm::yaml::Scanner::getNext(&v24, ****(this + 1));
           if (v26 < 0)
           {
             operator delete(v25);
@@ -9963,7 +9779,7 @@ LABEL_49:
 
   if (v38 == 7)
   {
-    llvm::yaml::Scanner::getNext(****(this + 1), v27);
+    llvm::yaml::Scanner::getNext(&v27, ****(this + 1));
     if ((v29 & 0x80000000) == 0)
     {
       goto LABEL_20;

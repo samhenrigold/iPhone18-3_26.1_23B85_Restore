@@ -52,16 +52,16 @@
   }
 }
 
-uint64_t __40__ACMHTTPTransport_updateBackgroundTask__block_invoke(uint64_t a1)
+uint64_t __40__ACMHTTPTransport_updateBackgroundTask__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (qword_2A1EB8EC8 && (ACFLogSettingsGetLevelMask() & 0x40) != 0)
   {
     ACFLog(6, "[ACMHTTPTransport updateBackgroundTask]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/AppleConnectClients/Mobile/Common/Sources/ACMHTTPTransport.m", 27, 0, "Handling background task expiration");
   }
 
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 updateBackgroundTask];
+  return [v3 updateBackgroundTask];
 }
 
 - (void)didStart

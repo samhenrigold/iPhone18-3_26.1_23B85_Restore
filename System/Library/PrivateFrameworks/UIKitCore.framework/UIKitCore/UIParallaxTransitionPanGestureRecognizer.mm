@@ -5,7 +5,7 @@
 
 uint64_t __70___UIParallaxTransitionPanGestureRecognizer_isContentBackSwipeEnabled__block_invoke()
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UINavigationContentBackSwipe, @"UINavigationContentBackSwipe", _UIInternalPreferenceUpdateInteger) & 1) == 0 && qword_1ED48ACB8)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UINavigationContentBackSwipe, @"UINavigationContentBackSwipe", _UIInternalPreferenceUpdateInteger) && qword_1ED48ACB8)
   {
     result = qword_1ED48ACB8 >= 0;
   }

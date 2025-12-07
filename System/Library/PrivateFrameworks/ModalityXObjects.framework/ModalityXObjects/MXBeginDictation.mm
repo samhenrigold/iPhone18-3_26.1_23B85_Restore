@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)inputOriginAsString:(int)string;
+- (id)keyboardReturnKeyAsString:(int)string;
+- (id)keyboardTypeAsString:(int)string;
 - (int)StringAsInputOrigin:(id)origin;
 - (int)StringAsKeyboardReturnKey:(id)key;
 - (int)StringAsKeyboardType:(id)type;
@@ -52,6 +55,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)keyboardTypeAsString:(int)string
+{
+  if (string >= 0x10)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BAC8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsKeyboardType:(id)type
@@ -171,6 +189,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)keyboardReturnKeyAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BB48[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsKeyboardReturnKey:(id)key
@@ -351,6 +384,21 @@
   {
     return 0;
   }
+}
+
+- (id)inputOriginAsString:(int)string
+{
+  if (string >= 0x13)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BBA8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsInputOrigin:(id)origin
@@ -697,7 +745,7 @@ LABEL_47:
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_audioMetadata)
   {
@@ -732,14 +780,12 @@ LABEL_47:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    keyboardType = self->_keyboardType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    keyboardReturnKey = self->_keyboardReturnKey;
     PBDataWriterWriteInt32Field();
   }
 
@@ -758,62 +804,60 @@ LABEL_47:
     PBDataWriterWriteStringField();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v8 = self->_inlineLmeItems;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v9)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v6 = self->_inlineLmeItems;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v34;
+    v8 = v7;
+    v9 = *v23;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v11)
+        if (*v23 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v14 = self->_languages;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v15)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = self->_languages;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v30;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v30 != v17)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v29 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_region)
@@ -826,16 +870,15 @@ LABEL_47:
     PBDataWriterWriteDataField();
   }
 
-  v20 = self->_has;
-  if ((v20 & 8) != 0)
+  v16 = self->_has;
+  if ((v16 & 8) != 0)
   {
-    censorSpeech = self->_censorSpeech;
     PBDataWriterWriteBOOLField();
-    v20 = self->_has;
-    if ((v20 & 0x80) == 0)
+    v16 = self->_has;
+    if ((v16 & 0x80) == 0)
     {
 LABEL_43:
-      if ((v20 & 0x40) == 0)
+      if ((v16 & 0x40) == 0)
       {
         goto LABEL_45;
       }
@@ -849,12 +892,10 @@ LABEL_43:
     goto LABEL_43;
   }
 
-  speakerIndependentRecognition = self->_speakerIndependentRecognition;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_44:
-    saveRequestAudio = self->_saveRequestAudio;
     PBDataWriterWriteBOOLField();
   }
 
@@ -864,8 +905,8 @@ LABEL_45:
     PBDataWriterWriteStringField();
   }
 
-  v22 = self->_has;
-  if ((v22 & 0x10) == 0)
+  v17 = self->_has;
+  if ((v17 & 0x10) == 0)
   {
     if ((*&self->_has & 1) == 0)
     {
@@ -873,7 +914,6 @@ LABEL_45:
     }
 
 LABEL_56:
-    inputOrigin = self->_inputOrigin;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -883,25 +923,21 @@ LABEL_56:
     goto LABEL_50;
   }
 
-  enablePartialResults = self->_enablePartialResults;
   PBDataWriterWriteBOOLField();
-  v22 = self->_has;
-  if (v22)
+  v17 = self->_has;
+  if (v17)
   {
     goto LABEL_56;
   }
 
 LABEL_49:
-  if ((v22 & 0x20) != 0)
+  if ((v17 & 0x20) != 0)
   {
 LABEL_50:
-    isAutoPunctuationEnabled = self->_isAutoPunctuationEnabled;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_51:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1091,7 +1127,7 @@ LABEL_45:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(MXAudioMetadata *)self->_audioMetadata copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -1143,59 +1179,59 @@ LABEL_45:
   v24 = *(v5 + 96);
   *(v5 + 96) = v23;
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v25 = self->_inlineLmeItems;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v52;
+    v28 = *v51;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v52 != v28)
+        if (*v51 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v51 + 1) + 8 * i) copyWithZone:zone];
+        v30 = [*(*(&v50 + 1) + 8 * i) copyWithZone:zone];
         [v5 addInlineLmeItems:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v27);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v31 = self->_languages;
-  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v48;
+    v34 = *v47;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v48 != v34)
+        if (*v47 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v47 + 1) + 8 * j) copyWithZone:{zone, v47}];
+        v36 = [*(*(&v46 + 1) + 8 * j) copyWithZone:{zone, v46}];
         [v5 addLanguages:v36];
       }
 
-      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
     while (v33);
@@ -1242,7 +1278,7 @@ LABEL_22:
   }
 
 LABEL_23:
-  v42 = [(NSString *)self->_keyboardIdentifier copyWithZone:zone, v47];
+  v42 = [(NSString *)self->_keyboardIdentifier copyWithZone:zone, v46];
   v43 = *(v5 + 72);
   *(v5 + 72) = v42;
 
@@ -1259,7 +1295,7 @@ LABEL_32:
     *(v5 + 144) |= 1u;
     if ((*&self->_has & 0x20) == 0)
     {
-      goto LABEL_27;
+      return v5;
     }
 
     goto LABEL_26;
@@ -1281,8 +1317,6 @@ LABEL_26:
     *(v5 + 144) |= 0x20u;
   }
 
-LABEL_27:
-  v45 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1348,7 +1382,6 @@ LABEL_27:
     }
   }
 
-  v11 = *(equalCopy + 144);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 144) & 4) == 0 || self->_keyboardType != *(equalCopy + 21))
@@ -1436,7 +1469,6 @@ LABEL_27:
   }
 
   has = self->_has;
-  v20 = *(equalCopy + 144);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 144) & 8) == 0)
@@ -1444,7 +1476,6 @@ LABEL_27:
       goto LABEL_81;
     }
 
-    v22 = *(equalCopy + 136);
     if (self->_censorSpeech)
     {
       if ((*(equalCopy + 136) & 1) == 0)
@@ -1471,7 +1502,6 @@ LABEL_27:
       goto LABEL_81;
     }
 
-    v23 = *(equalCopy + 140);
     if (self->_speakerIndependentRecognition)
     {
       if ((*(equalCopy + 140) & 1) == 0)
@@ -1498,7 +1528,6 @@ LABEL_27:
       goto LABEL_81;
     }
 
-    v24 = *(equalCopy + 139);
     if (self->_saveRequestAudio)
     {
       if ((*(equalCopy + 139) & 1) == 0)
@@ -1536,7 +1565,6 @@ LABEL_27:
       goto LABEL_81;
     }
 
-    v25 = *(equalCopy + 137);
     if (self->_enablePartialResults)
     {
       if ((*(equalCopy + 137) & 1) == 0)
@@ -1586,19 +1614,19 @@ LABEL_27:
         goto LABEL_81;
       }
 
-      v26 = 1;
+      v20 = 1;
       goto LABEL_82;
     }
 
 LABEL_81:
-    v26 = 0;
+    v20 = 0;
     goto LABEL_82;
   }
 
-  v26 = (*(equalCopy + 144) & 0x20) == 0;
+  v20 = (*(equalCopy + 144) & 0x20) == 0;
 LABEL_82:
 
-  return v26;
+  return v20;
 }
 
 - (unint64_t)hash
@@ -1715,7 +1743,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   audioMetadata = self->_audioMetadata;
   v6 = *(fromCopy + 4);
@@ -1786,57 +1814,57 @@ LABEL_16:
     [(MXBeginDictation *)self setPostfixText:?];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = *(fromCopy + 7);
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(MXBeginDictation *)self addInlineLmeItems:*(*(&v25 + 1) + 8 * i)];
+        [(MXBeginDictation *)self addInlineLmeItems:*(*(&v24 + 1) + 8 * i)];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v10);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = *(fromCopy + 11);
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        [(MXBeginDictation *)self addLanguages:*(*(&v21 + 1) + 8 * j), v21];
+        [(MXBeginDictation *)self addLanguages:*(*(&v20 + 1) + 8 * j), v20];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v15);
@@ -1926,8 +1954,6 @@ LABEL_53:
   }
 
 LABEL_54:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

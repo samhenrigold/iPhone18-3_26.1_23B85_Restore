@@ -7,26 +7,24 @@
 
 + (id)makeLocationBarUI:(id)i
 {
-  v3 = type metadata accessor for QLWebLocationBarView();
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v3 - 8);
-  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v18 - v8;
-  v10 = sub_23A7EDF64();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for QLWebLocationBarView(0);
+  v4 = MEMORY[0x28223BE20](v3 - 8);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &v16 - v7;
+  v9 = sub_23A7EDF64();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23A7EDF44();
-  (*(v11 + 16))(v9, v14, v10);
-  sub_23A7ABC3C(v9, v7);
-  v15 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFA9718, &unk_23A7FD680));
-  v16 = sub_23A7EE564();
-  sub_23A7ABCA0(v9);
-  (*(v11 + 8))(v14, v10);
+  (*(v10 + 16))(v8, v12, v9);
+  sub_23A7ABC3C(v8, v6);
+  v13 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFA9718, &unk_23A7FD680));
+  v14 = sub_23A7EE564();
+  sub_23A7ABCA0(v8);
+  (*(v10 + 8))(v12, v9);
 
-  return v16;
+  return v14;
 }
 
 - (_TtC9QuickLook29QLWebLocationBarViewInterface)init

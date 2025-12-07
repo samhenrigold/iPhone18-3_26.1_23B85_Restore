@@ -81,31 +81,31 @@ void __76__CRSystemHealthStatus_getCurrentSystemHealthStatusForComponents_WithRe
 
 void __76__CRSystemHealthStatus_getCurrentSystemHealthStatusForComponents_WithReply___block_invoke_11(void *a1, int a2, void *a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = handleForCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 67109120;
-    LODWORD(v20) = a2;
-    _os_log_impl(&dword_24785F000, v9, OS_LOG_TYPE_DEFAULT, "success %d", &v19, 8u);
+    v18 = 67109120;
+    LODWORD(v19) = a2;
+    _os_log_impl(&dword_24785F000, v9, OS_LOG_TYPE_DEFAULT, "success %d", &v18, 8u);
   }
 
   v10 = handleForCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = v7;
-    _os_log_impl(&dword_24785F000, v10, OS_LOG_TYPE_DEFAULT, "systemhealth %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v7;
+    _os_log_impl(&dword_24785F000, v10, OS_LOG_TYPE_DEFAULT, "systemhealth %@", &v18, 0xCu);
   }
 
   v11 = handleForCategory();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = v8;
-    _os_log_impl(&dword_24785F000, v11, OS_LOG_TYPE_DEFAULT, "error %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v8;
+    _os_log_impl(&dword_24785F000, v11, OS_LOG_TYPE_DEFAULT, "error %@", &v18, 0xCu);
   }
 
   v12 = *(a1[4] + 8);
@@ -120,16 +120,14 @@ void __76__CRSystemHealthStatus_getCurrentSystemHealthStatusForComponents_WithRe
   v17 = v7;
 
   [*(*(a1[7] + 8) + 40) invalidate];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CRSystemHealthStatus_getCurrentSystemHealthStatusForComponents_WithReply___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "getCurrentSystemHealthStatusForComponentsInternal Error:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24785F000, a2, OS_LOG_TYPE_ERROR, "getCurrentSystemHealthStatusForComponentsInternal Error:%@", &v2, 0xCu);
 }
 
 @end

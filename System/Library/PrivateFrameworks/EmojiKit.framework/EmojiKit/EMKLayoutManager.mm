@@ -573,7 +573,7 @@ LABEL_21:
 LABEL_29:
 }
 
-uint64_t __94__EMKLayoutManager_processEditingForTextStorage_edited_range_changeInLength_invalidatedRange___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__94__EMKLayoutManager_processEditingForTextStorage_edited_range_changeInLength_invalidatedRange___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   [*(a1[4] + 264) addAttribute:@"EMKEmojiTokenList" value:a4 range:{a2, a3}];
   result = [*(a1[4] + 264) addAttribute:@"EMKEmojiConversionLanguage" value:a1[5] range:{a2, a3}];

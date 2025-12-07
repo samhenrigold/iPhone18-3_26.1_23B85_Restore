@@ -109,23 +109,23 @@ LABEL_15:
   v8 = [(UIKBRenderFactoryEmoji_iPhone *)&v120 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
   if (([keyCopy state] & 0x10) == 0 && objc_msgSend(keyCopy, "displayType") == 5)
   {
-    geometry = [v8 geometry];
-    [geometry frame];
+    v9 = objc_msgSend_geometry(v8);
+    [v9 frame];
     v11 = v10;
     v13 = v12;
     v15 = v14;
     v17 = v16;
-    geometry2 = [v8 geometry];
-    [geometry2 setPaddedFrame:{v11, v13, v15, v17}];
+    v18 = objc_msgSend_geometry(v8);
+    [v18 setPaddedFrame:{v11, v13, v15, v17}];
 
-    geometry3 = [v8 geometry];
-    [geometry3 paddedFrame];
+    v19 = objc_msgSend_geometry(v8);
+    [v19 paddedFrame];
     v21 = v20;
     v23 = v22;
     v25 = v24;
     v27 = v26;
-    geometry4 = [v8 geometry];
-    [geometry4 setFrame:{v21, v23, v25, v27}];
+    v28 = objc_msgSend_geometry(v8);
+    [v28 setFrame:{v21, v23, v25, v27}];
 
     lightKeycapsFontName = [(UIKBRenderFactoryEmoji_iPad *)self lightKeycapsFontName];
     v30 = [UIKBTextStyle styleWithFontName:lightKeycapsFontName withFontSize:40.0];
@@ -206,23 +206,23 @@ LABEL_14:
 
   if ([keyCopy displayType] == 25)
   {
-    geometry5 = [v8 geometry];
-    [geometry5 paddedFrame];
+    v52 = objc_msgSend_geometry(v8);
+    [v52 paddedFrame];
     v54 = v53;
     v56 = v55;
     v58 = v57;
     v60 = v59;
-    geometry6 = [v8 geometry];
-    [geometry6 setFrame:{v54, v56, v58, v60}];
+    v61 = objc_msgSend_geometry(v8);
+    [v61 setFrame:{v54, v56, v58, v60}];
 
-    geometry7 = [v8 geometry];
-    [geometry7 displayFrame];
+    v62 = objc_msgSend_geometry(v8);
+    [v62 displayFrame];
     v64 = v63;
     v66 = v65;
     v68 = v67;
     v70 = v69;
-    geometry8 = [v8 geometry];
-    [geometry8 setSymbolFrame:{v64, v66, v68, v70}];
+    v71 = objc_msgSend_geometry(v8);
+    [v71 setSymbolFrame:{v64, v66, v68, v70}];
 
     lightTextFontName = [(UIKBRenderFactory *)self lightTextFontName];
     v73 = [UIKBTextStyle styleWithFontName:lightTextFontName withFontSize:18.0];
@@ -232,9 +232,9 @@ LABEL_14:
   }
 
   name = [keyCopy name];
-  v82 = [name isEqualToString:@"EmojiPopupKey"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v82)
+  if (isEqualToString)
   {
     visualStyling = [keyplaneCopy visualStyling];
     lightweightFactory = [(UIKBRenderFactory *)self lightweightFactory];

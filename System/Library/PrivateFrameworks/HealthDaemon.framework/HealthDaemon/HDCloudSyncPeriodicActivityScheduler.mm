@@ -76,20 +76,20 @@
 
 void __70__HDCloudSyncPeriodicActivityScheduler_updatePeriodicActivityCriteria__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 56) getRequest];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v20 = 0;
-  v4 = [WeakRetained canPerformCloudSyncWithError:&v20];
-  v5 = v20;
+  v19 = 0;
+  v4 = [WeakRetained canPerformCloudSyncWithError:&v19];
+  v5 = v19;
 
   if (v4)
   {
     [(HDCloudSyncPeriodicActivityScheduler *)*(a1 + 32) _configureRequest:v2];
     v6 = *(*(a1 + 32) + 56);
-    v18 = v5;
-    [v6 updateRequest:v2 error:&v18];
-    v7 = v18;
+    v17 = v5;
+    [v6 updateRequest:v2 error:&v17];
+    v7 = v17;
 
     if (v7)
     {
@@ -99,9 +99,9 @@ void __70__HDCloudSyncPeriodicActivityScheduler_updatePeriodicActivityCriteria__
       {
         v9 = *(a1 + 32);
         *buf = 138543618;
-        v22 = v9;
-        v23 = 2114;
-        v24 = v7;
+        v21 = v9;
+        v22 = 2114;
+        v23 = v7;
         v10 = "%{public}@: Failed to update periodic activity request: %{public}@";
 LABEL_12:
         _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, v10, buf, 0x16u);
@@ -121,16 +121,16 @@ LABEL_12:
     {
       v13 = *(a1 + 32);
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2114;
-      v24 = v5;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v5;
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud sync unavailable due to %{public}@, canceling periodic activity request", buf, 0x16u);
     }
 
     v14 = *(*(a1 + 32) + 56);
-    v19 = 0;
-    [v14 cancelRequestAndReturnError:&v19];
-    v15 = v19;
+    v18 = 0;
+    [v14 cancelRequestAndReturnError:&v18];
+    v15 = v18;
     if (v15)
     {
       v7 = v15;
@@ -138,11 +138,11 @@ LABEL_12:
       v8 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        v17 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 138543618;
-        v22 = v17;
-        v23 = 2114;
-        v24 = v7;
+        v21 = v16;
+        v22 = 2114;
+        v23 = v7;
         v10 = "%{public}@: Failed to cancel sync activity due to %{public}@ when sync is unavailable.";
         goto LABEL_12;
       }
@@ -150,8 +150,6 @@ LABEL_12:
 LABEL_9:
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureRequest:(uint64_t)request
@@ -212,7 +210,7 @@ LABEL_8:
 
 void __101__HDCloudSyncPeriodicActivityScheduler_updatePeriodicActivitesWithResult_minimumRetryInterval_error___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1[5])
   {
     _HKInitializeLogging();
@@ -221,36 +219,33 @@ void __101__HDCloudSyncPeriodicActivityScheduler_updatePeriodicActivitesWithResu
     {
       v3 = a1[4];
       v4 = a1[6];
-      v9 = 138543618;
-      v10 = v3;
-      v11 = 2050;
-      v12 = v4;
-      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring minimum retry interval of %{public}f when updating periodic activities.", &v9, 0x16u);
+      v7 = 138543618;
+      v8 = v3;
+      v9 = 2050;
+      v10 = v4;
+      _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Ignoring minimum retry interval of %{public}f when updating periodic activities.", &v7, 0x16u);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v6 = a1[4];
-    v7 = *(v6 + 56);
-    v8 = *MEMORY[0x277D85DE8];
+    v5 = a1[4];
+    v6 = *(v5 + 56);
 
-    [(HDCloudSyncPeriodicActivityScheduler *)v6 _resetIntervalForTask:v7];
+    [(HDCloudSyncPeriodicActivityScheduler *)v5 _resetIntervalForTask:v6];
   }
 }
 
 - (void)_resetIntervalForTask:(uint64_t)task
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (task)
   {
     v4 = *(task + 56);
-    v17 = 0;
-    [v4 cancelRequestAndReturnError:&v17];
-    v5 = v17;
+    v16 = 0;
+    [v4 cancelRequestAndReturnError:&v16];
+    v5 = v16;
     if (v5)
     {
       v6 = v5;
@@ -267,8 +262,8 @@ LABEL_8:
       identifier = [v3 identifier];
       *buf = 138543618;
       taskCopy2 = task;
-      v20 = 2114;
-      v21 = identifier;
+      v19 = 2114;
+      v20 = identifier;
       _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: failed to cancel background task request for %{public}@", buf, 0x16u);
     }
 
@@ -280,9 +275,9 @@ LABEL_8:
 
       [(HDCloudSyncPeriodicActivityScheduler *)task _configureRequest:v8];
       v12 = *(task + 56);
-      v16 = 0;
-      [v12 submitRequest:v8 error:&v16];
-      v6 = v16;
+      v15 = 0;
+      [v12 submitRequest:v8 error:&v15];
+      v6 = v15;
       if (!v6)
       {
         goto LABEL_7;
@@ -299,8 +294,8 @@ LABEL_8:
       identifier3 = [v3 identifier];
       *buf = 138543618;
       taskCopy2 = task;
-      v20 = 2114;
-      v21 = identifier3;
+      v19 = 2114;
+      v20 = identifier3;
       _os_log_error_impl(&dword_228986000, identifier, OS_LOG_TYPE_ERROR, "%{public}@: failed to reset interval for background task %{public}@", buf, 0x16u);
     }
 
@@ -309,8 +304,6 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_createActivities
@@ -404,7 +397,7 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
 
 - (void)performPeriodicActivity:(void *)activity completion:
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   activityCopy = activity;
   if (self)
@@ -416,8 +409,8 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v36 = 2114;
-      v37 = v5;
+      v35 = 2114;
+      v36 = v5;
       _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud Sync Triggered to Perform Periodic Activity: %{public}@", buf, 0x16u);
     }
 
@@ -428,9 +421,9 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
 
     Current = CFAbsoluteTimeGetCurrent();
     v13 = objc_loadWeakRetained(self + 1);
-    v33 = 0;
-    LOBYTE(analyticsSubmissionCoordinator) = [v13 markAllClientSyncRequestsAsInProgress:&v33];
-    v14 = v33;
+    v32 = 0;
+    LOBYTE(analyticsSubmissionCoordinator) = [v13 markAllClientSyncRequestsAsInProgress:&v32];
+    v14 = v32;
 
     if ((analyticsSubmissionCoordinator & 1) == 0)
     {
@@ -440,8 +433,8 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v36 = 2114;
-        v37 = v14;
+        v35 = 2114;
+        v36 = v14;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Error marking all client sync requests in progress %{public}@", buf, 0x16u);
       }
     }
@@ -453,17 +446,17 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
     v18 = v17;
     if (v17)
     {
-      v24 = MEMORY[0x277D85DD0];
-      v25 = 3221225472;
-      v26 = __75__HDCloudSyncPeriodicActivityScheduler_performPeriodicActivity_completion___block_invoke;
-      v27 = &unk_278629FD0;
+      v23 = MEMORY[0x277D85DD0];
+      v24 = 3221225472;
+      v25 = __75__HDCloudSyncPeriodicActivityScheduler_performPeriodicActivity_completion___block_invoke;
+      v26 = &unk_278629FD0;
       selfCopy3 = self;
-      v29 = v17;
-      v32 = Current;
-      v30 = v5;
-      v31 = activityCopy;
-      v19 = [HDMaintenanceOperation maintenanceOperationWithName:@"Periodic Cloud Sync" asynchronousBlock:&v24];
-      [v19 setFaultOnTimeout:{0, v24, v25, v26, v27, selfCopy3}];
+      v28 = v17;
+      v31 = Current;
+      v29 = v5;
+      v30 = activityCopy;
+      v19 = [HDMaintenanceOperation maintenanceOperationWithName:@"Periodic Cloud Sync" asynchronousBlock:&v23];
+      [v19 setFaultOnTimeout:{0, v23, v24, v25, v26, selfCopy3}];
       v20 = objc_loadWeakRetained(self + 1);
       daemon2 = [v20 daemon];
       maintenanceWorkCoordinator = [daemon2 maintenanceWorkCoordinator];
@@ -475,8 +468,6 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
       (*(activityCopy + 2))(activityCopy, 0, 0);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -489,7 +480,7 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
 
 void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -508,9 +499,9 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
     }
 
     v11 = objc_loadWeakRetained(WeakRetained + 1);
-    v31 = 0;
-    v12 = [v11 markAllClientSyncRequestsAsInProgress:&v31];
-    v13 = v31;
+    v30 = 0;
+    v12 = [v11 markAllClientSyncRequestsAsInProgress:&v30];
+    v13 = v30;
 
     if ((v12 & 1) == 0)
     {
@@ -529,20 +520,20 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
     v15 = objc_loadWeakRetained(WeakRetained + 1);
     [v15 prepareAllProfilesForPeriodicSyncAndRestore];
 
-    v29 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:1 pull:1];
-    v28 = objc_alloc_init(MEMORY[0x277CCDA40]);
+    v28 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:1 pull:1];
+    v27 = objc_alloc_init(MEMORY[0x277CCDA40]);
     v16 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:1 lite:0];
-    v17 = [objc_alloc(MEMORY[0x277CCD140]) initWithChangesSyncRequest:v16 contextSyncRequest:v29 stateSyncRequest:v28 medicalIDSyncRequest:0 summarySharingSyncRequest:0];
+    v17 = [objc_alloc(MEMORY[0x277CCD140]) initWithChangesSyncRequest:v16 contextSyncRequest:v28 stateSyncRequest:v27 medicalIDSyncRequest:0 summarySharingSyncRequest:0];
     v18 = [[HDCloudSyncContext alloc] initForPurpose:0 options:HDOptionsForRequest(v17) reason:33 backgroundTask:v7];
     [v18 setSyncRequest:v17];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion___block_invoke;
-    v33 = &unk_278629F80;
-    v34 = WeakRetained;
-    v35 = v18;
-    v36 = v7;
-    v37 = v8;
+    v32 = &unk_278629F80;
+    v33 = WeakRetained;
+    v34 = v18;
+    v35 = v7;
+    v36 = v8;
     v19 = v18;
     v20 = [HDMaintenanceOperation maintenanceOperationWithName:@"FastPass restore sync" asynchronousBlock:buf];
     [v20 setFaultOnTimeout:0];
@@ -557,8 +548,6 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
     v8 = v22;
     v7 = v21;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupPeriodicActivities
@@ -574,22 +563,22 @@ void __63__HDCloudSyncPeriodicActivityScheduler__queue_createActivities__block_i
 
 void __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v10 = 0;
-  v3 = [WeakRetained canPerformCloudSyncWithError:&v10];
-  v4 = v10;
+  v9 = 0;
+  v3 = [WeakRetained canPerformCloudSyncWithError:&v9];
+  v4 = v9;
 
   if (v3)
   {
     v5 = objc_loadWeakRetained((*(a1 + 32) + 8));
     v6 = [v5 syncStatusProvider];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_invoke_2;
-    v9[3] = &unk_278613968;
-    v9[4] = *(a1 + 32);
-    [v6 updateCachedLastSyncDatesWithCompletion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_invoke_2;
+    v8[3] = &unk_278613968;
+    v8[4] = *(a1 + 32);
+    [v6 updateCachedLastSyncDatesWithCompletion:v8];
   }
 
   else
@@ -599,14 +588,12 @@ void __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_i
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "Sync unavailable; setting up periodic activity with default values: %{public}@", buf, 0xCu);
     }
 
     [(HDCloudSyncPeriodicActivityScheduler *)*(a1 + 32) _queue_createActivities];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_invoke_2(uint64_t a1)
@@ -662,7 +649,7 @@ void __63__HDCloudSyncPeriodicActivityScheduler_setupPeriodicActivities__block_i
   return v3;
 }
 
-uint64_t __66__HDCloudSyncPeriodicActivityScheduler_periodicActivityErrorCount__block_invoke(uint64_t a1)
+void *__66__HDCloudSyncPeriodicActivityScheduler_periodicActivityErrorCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) errorCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -698,7 +685,7 @@ void __80__HDCloudSyncPeriodicActivityScheduler_updatePeriodicActivitiesWithSync
 
 void __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
@@ -706,29 +693,27 @@ void __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Initial restore now starting from maintenance coordinator.", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion___block_invoke_322;
-  v11[3] = &unk_278629F58;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion___block_invoke_322;
+  v10[3] = &unk_278629F58;
   v7 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v12 = *(a1 + 48);
-  v13 = v3;
-  v14 = *(a1 + 56);
+  v10[4] = *(a1 + 32);
+  v11 = *(a1 + 48);
+  v12 = v3;
+  v13 = *(a1 + 56);
   v8 = v3;
-  v9 = [WeakRetained syncAllProfilesWithContext:v7 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = [WeakRetained syncAllProfilesWithContext:v7 completion:v10];
 }
 
 void __73__HDCloudSyncPeriodicActivityScheduler_performInitialRestore_completion___block_invoke_322(uint64_t a1, char a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -748,12 +733,12 @@ LABEL_6:
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = 138543618;
-      v15 = v13;
-      v16 = 2114;
-      v17 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Treating cloud sync error as success for periodic activity: %{public}@", &v14, 0x16u);
+      v11 = *(a1 + 32);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2114;
+      v15 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Treating cloud sync error as success for periodic activity: %{public}@", &v12, 0x16u);
     }
 
     v5 = 0;
@@ -767,15 +752,15 @@ LABEL_6:
 
   if ([*(a1 + 40) shouldDefer])
   {
-    v8 = 2 * ([*(a1 + 40) expirationReason] != 1);
+    [*(a1 + 40) expirationReason];
   }
 
   if (![v5 hk_isHealthKitError] || objc_msgSend(v5, "code") != 701)
   {
-    v9 = [v5 domain];
-    v10 = [v9 isEqualToString:*MEMORY[0x277CBBF50]];
+    v8 = [v5 domain];
+    v9 = [v8 isEqualToString:*MEMORY[0x277CBBF50]];
 
-    if (v10)
+    if (v9)
     {
       if ([v5 code] != 3)
       {
@@ -791,8 +776,6 @@ LABEL_19:
 
   (*(*(a1 + 48) + 16))();
   (*(*(a1 + 56) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_periodicActivityShouldTreatSyncErrorAsSuccess:(uint64_t)success
@@ -845,7 +828,7 @@ void __75__HDCloudSyncPeriodicActivityScheduler_performPeriodicActivity_completi
 
 void __75__HDCloudSyncPeriodicActivityScheduler_performPeriodicActivity_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = CFAbsoluteTimeGetCurrent() - *(a1 + 72);
   if (a2)
@@ -872,12 +855,12 @@ LABEL_6:
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 32);
-      v24 = 138543618;
-      v25 = v23;
-      v26 = 2114;
-      v27 = v5;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Treating cloud sync error as success for periodic activity: %{public}@", &v24, 0x16u);
+      v22 = *(a1 + 32);
+      v23 = 138543618;
+      v24 = v22;
+      v25 = 2114;
+      v26 = v5;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Treating cloud sync error as success for periodic activity: %{public}@", &v23, 0x16u);
     }
 
     v5 = 0;
@@ -936,8 +919,6 @@ LABEL_22:
   (*(*(a1 + 56) + 16))();
   [*(a1 + 48) setMinimumRetryInterval:v12];
   (*(*(a1 + 64) + 16))();
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setupTaskGroupForRequest:(id)request
@@ -949,7 +930,7 @@ LABEL_22:
 
 - (id)syncContextForBackgroundTask:(id)task periodicSyncType:(int64_t)type
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v6 = taskCopy;
   if (*&self == 0.0)
@@ -981,161 +962,141 @@ LABEL_22:
     v11 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v77 = 138543362;
-      v78 = *&self;
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Cellular access requested for activity because cellular threshold has passed", &v77, 0xCu);
+      v76 = 138543362;
+      v77 = *&self;
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Cellular access requested for activity because cellular threshold has passed", &v76, 0xCu);
     }
 
     v10 = 1024;
   }
 
-  if (![(_HKBehavior *)self->_behavior supportsPeriodicFullCloudSync])
+  if (!-[_HKBehavior supportsPeriodicFullCloudSync](self->_behavior, "supportsPeriodicFullCloudSync") || (Sync = -[HDCloudSyncPeriodicActivityScheduler _timeSinceLastSyncSuccess](self), v13 = objc_loadWeakRetained(&self->_coordinator), [v13 syncStatusProvider], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "syncStatus"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "lastSuccessfulPullDate"), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v14, v13, v17 = objc_loadWeakRetained(&self->_coordinator), objc_msgSend(v17, "syncStatusProvider"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "syncStatus"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "lastSuccessfulPushDate"), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v17, v16) && v20 && Sync <= 28800.0)
   {
-    goto LABEL_15;
-  }
+    WeakRetained = objc_loadWeakRetained(&self->_coordinator);
+    syncStatusProvider = [WeakRetained syncStatusProvider];
+    syncStatus = [syncStatusProvider syncStatus];
 
-  Sync = [(HDCloudSyncPeriodicActivityScheduler *)self _timeSinceLastSyncSuccess];
-  WeakRetained = objc_loadWeakRetained(&self->_coordinator);
-  syncStatusProvider = [WeakRetained syncStatusProvider];
-  syncStatus = [syncStatusProvider syncStatus];
-  lastSuccessfulPullDate = [syncStatus lastSuccessfulPullDate];
-
-  v17 = objc_loadWeakRetained(&self->_coordinator);
-  syncStatusProvider2 = [v17 syncStatusProvider];
-  syncStatus2 = [syncStatusProvider2 syncStatus];
-  lastSuccessfulPushDate = [syncStatus2 lastSuccessfulPushDate];
-
-  if (lastSuccessfulPullDate)
-  {
-    if (lastSuccessfulPushDate && Sync <= 28800.0)
+    if (![(_HKBehavior *)self->_behavior supportsPeriodicLiteCloudSync])
     {
-LABEL_15:
-      v21 = objc_loadWeakRetained(&self->_coordinator);
-      syncStatusProvider3 = [v21 syncStatusProvider];
-      syncStatus3 = [syncStatusProvider3 syncStatus];
-
-      if (![(_HKBehavior *)self->_behavior supportsPeriodicLiteCloudSync])
-      {
 LABEL_51:
 
-        goto LABEL_52;
-      }
+      goto LABEL_52;
+    }
 
-      lastSuccessfulLitePushDate = [syncStatus3 lastSuccessfulLitePushDate];
+    lastSuccessfulLitePushDate = [syncStatus lastSuccessfulLitePushDate];
 
-      if (!lastSuccessfulLitePushDate)
-      {
+    if (!lastSuccessfulLitePushDate)
+    {
 
 LABEL_41:
-        isConfiguredForLiteSync = [(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration isConfiguredForLiteSync];
-        v47 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:1 pull:1];
-        if (isConfiguredForLiteSync)
-        {
-          v48 = objc_alloc_init(MEMORY[0x277CCDA40]);
-          v49 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:-[HDCloudSyncPlatformConfiguration canLiteSyncPull](self->_platformConfiguration lite:{"canLiteSyncPull"), 1}];
-        }
-
-        else
-        {
-          v49 = 0;
-          v48 = 0;
-        }
-
-        v50 = 32;
-        goto LABEL_45;
-      }
-
-      if ([(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration shouldRestrictSyncInSleepFocus])
+      isConfiguredForLiteSync = [(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration isConfiguredForLiteSync];
+      v47 = [objc_alloc(MEMORY[0x277CCD220]) initWithPush:1 pull:1];
+      if (isConfiguredForLiteSync)
       {
-        _HKInitializeLogging();
-        v25 = *MEMORY[0x277CCC328];
-        if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
-        {
-          v77 = 138543362;
-          v78 = *&self;
-          _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Device is in sleep focus mode, not triggering lite sync", &v77, 0xCu);
-        }
-
-        goto LABEL_51;
+        v48 = objc_alloc_init(MEMORY[0x277CCDA40]);
+        v49 = [objc_alloc(MEMORY[0x277CCD0C8]) initWithPush:1 pull:-[HDCloudSyncPlatformConfiguration canLiteSyncPull](self->_platformConfiguration lite:{"canLiteSyncPull"), 1}];
       }
 
-      Current = CFAbsoluteTimeGetCurrent();
-      [(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration liteSyncThreshold];
-      v53 = v52;
-      if ([(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration participateInCoordinatedSync])
+      else
       {
-        v54 = objc_loadWeakRetained(&self->_coordinator);
-        daemon = [v54 daemon];
-        primaryProfile = [daemon primaryProfile];
-        v57 = HDCloudSyncLastSuccessfulPushDateForCoordinatedSync(primaryProfile);
-
-        if (v57)
-        {
-          [v57 timeIntervalSinceReferenceDate];
-          v59 = Current - v58;
-          if (Current - v58 < 3600.0)
-          {
-            _HKInitializeLogging();
-            v73 = *MEMORY[0x277CCC328];
-            if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
-            {
-              v77 = 134217984;
-              v78 = v59 / 60.0;
-              _os_log_debug_impl(&dword_228986000, v73, OS_LOG_TYPE_DEBUG, "Skipping Lite Sync on Watch because paired phone last synced %f minutes ago", &v77, 0xCu);
-            }
-
-            goto LABEL_51;
-          }
-        }
+        v49 = 0;
+        v48 = 0;
       }
 
-      lastSuccessfulPushDate2 = [syncStatus3 lastSuccessfulPushDate];
-      [lastSuccessfulPushDate2 timeIntervalSinceReferenceDate];
-      v62 = Current - v61;
+      v50 = 32;
+      goto LABEL_45;
+    }
 
-      lastSuccessfulLitePushDate2 = [syncStatus3 lastSuccessfulLitePushDate];
-      [lastSuccessfulLitePushDate2 timeIntervalSinceReferenceDate];
-      v65 = Current - v64;
-
-      if (v62 < v65)
-      {
-        v65 = v62;
-      }
-
-      if (v65 > v53)
-      {
-        goto LABEL_41;
-      }
-
-LABEL_52:
+    if ([(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration shouldRestrictSyncInSleepFocus])
+    {
       _HKInitializeLogging();
-      v74 = *MEMORY[0x277CCC328];
+      v25 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
-        v44 = v74;
-        identifier = [v6 identifier];
-        v77 = 138543618;
-        v78 = *&self;
-        v79 = 2114;
-        v80 = identifier;
-        v46 = "%{public}@: Performing No-op for activity %{public}@";
-        goto LABEL_54;
+        v76 = 138543362;
+        v77 = *&self;
+        _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Device is in sleep focus mode, not triggering lite sync", &v76, 0xCu);
       }
 
-      goto LABEL_55;
+      goto LABEL_51;
     }
+
+    Current = CFAbsoluteTimeGetCurrent();
+    [(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration liteSyncThreshold];
+    v53 = v52;
+    if ([(HDCloudSyncPlatformConfiguration *)self->_platformConfiguration participateInCoordinatedSync])
+    {
+      v54 = objc_loadWeakRetained(&self->_coordinator);
+      daemon = [v54 daemon];
+      primaryProfile = [daemon primaryProfile];
+      v57 = HDCloudSyncLastSuccessfulPushDateForCoordinatedSync(primaryProfile);
+
+      if (v57)
+      {
+        [v57 timeIntervalSinceReferenceDate];
+        v59 = Current - v58;
+        if (Current - v58 < 3600.0)
+        {
+          _HKInitializeLogging();
+          v73 = *MEMORY[0x277CCC328];
+          if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
+          {
+            v76 = 134217984;
+            v77 = v59 / 60.0;
+            _os_log_debug_impl(&dword_228986000, v73, OS_LOG_TYPE_DEBUG, "Skipping Lite Sync on Watch because paired phone last synced %f minutes ago", &v76, 0xCu);
+          }
+
+          goto LABEL_51;
+        }
+      }
+    }
+
+    lastSuccessfulPushDate = [syncStatus lastSuccessfulPushDate];
+    [lastSuccessfulPushDate timeIntervalSinceReferenceDate];
+    v62 = Current - v61;
+
+    lastSuccessfulLitePushDate2 = [syncStatus lastSuccessfulLitePushDate];
+    [lastSuccessfulLitePushDate2 timeIntervalSinceReferenceDate];
+    v65 = Current - v64;
+
+    if (v62 < v65)
+    {
+      v65 = v62;
+    }
+
+    if (v65 > v53)
+    {
+      goto LABEL_41;
+    }
+
+LABEL_52:
+    _HKInitializeLogging();
+    v74 = *MEMORY[0x277CCC328];
+    if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
+    {
+      v44 = v74;
+      identifier = [v6 identifier];
+      v76 = 138543618;
+      v77 = *&self;
+      v78 = 2114;
+      v79 = identifier;
+      v46 = "%{public}@: Performing No-op for activity %{public}@";
+      goto LABEL_54;
+    }
+
+    goto LABEL_55;
   }
 
   v26 = objc_loadWeakRetained(&self->_coordinator);
-  syncStatusProvider4 = [v26 syncStatusProvider];
-  syncStatus4 = [syncStatusProvider4 syncStatus];
-  lastSuccessfulPushDate3 = [syncStatus4 lastSuccessfulPushDate];
+  syncStatusProvider2 = [v26 syncStatusProvider];
+  syncStatus2 = [syncStatusProvider2 syncStatus];
+  lastSuccessfulPushDate2 = [syncStatus2 lastSuccessfulPushDate];
 
   v33 = 1;
-  if (lastSuccessfulPushDate3)
+  if (lastSuccessfulPushDate2)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    [date timeIntervalSinceDate:lastSuccessfulPushDate3];
+    [date timeIntervalSinceDate:lastSuccessfulPushDate2];
     v32 = v31;
 
     if (v32 < 7200.0)
@@ -1145,14 +1106,14 @@ LABEL_52:
   }
 
   v34 = objc_loadWeakRetained(&self->_coordinator);
-  syncStatusProvider5 = [v34 syncStatusProvider];
-  syncStatus5 = [syncStatusProvider5 syncStatus];
-  lastSuccessfulPullDate2 = [syncStatus5 lastSuccessfulPullDate];
+  syncStatusProvider3 = [v34 syncStatusProvider];
+  syncStatus3 = [syncStatusProvider3 syncStatus];
+  lastSuccessfulPullDate = [syncStatus3 lastSuccessfulPullDate];
 
-  if (lastSuccessfulPullDate2)
+  if (lastSuccessfulPullDate)
   {
     date2 = [MEMORY[0x277CBEAA8] date];
-    [date2 timeIntervalSinceDate:lastSuccessfulPullDate2];
+    [date2 timeIntervalSinceDate:lastSuccessfulPullDate];
     v40 = v39;
 
     v41 = v40 > 900.0;
@@ -1165,13 +1126,13 @@ LABEL_52:
       {
         v44 = v43;
         identifier = [v6 identifier];
-        v77 = 138543618;
-        v78 = *&self;
-        v79 = 2114;
-        v80 = identifier;
+        v76 = 138543618;
+        v77 = *&self;
+        v78 = 2114;
+        v79 = identifier;
         v46 = "%{public}@: No Push and Pull required. Performing No-op for activity %{public}@";
 LABEL_54:
-        _os_log_impl(&dword_228986000, v44, OS_LOG_TYPE_DEFAULT, v46, &v77, 0x16u);
+        _os_log_impl(&dword_228986000, v44, OS_LOG_TYPE_DEFAULT, v46, &v76, 0x16u);
       }
 
 LABEL_55:
@@ -1200,26 +1161,25 @@ LABEL_45:
     v70 = v69;
     v71 = HKCloudSyncReasonToString();
     identifier2 = [v6 identifier];
-    v77 = 138544130;
-    v78 = *&self;
-    v79 = 2114;
-    v80 = v71;
-    v81 = 2114;
-    v82 = v68;
-    v83 = 2114;
-    v84 = identifier2;
-    _os_log_impl(&dword_228986000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@: Performing %{public}@ with context %{public}@ for activity %{public}@", &v77, 0x2Au);
+    v76 = 138544130;
+    v77 = *&self;
+    v78 = 2114;
+    v79 = v71;
+    v80 = 2114;
+    v81 = v68;
+    v82 = 2114;
+    v83 = identifier2;
+    _os_log_impl(&dword_228986000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@: Performing %{public}@ with context %{public}@ for activity %{public}@", &v76, 0x2Au);
   }
 
 LABEL_56:
-  v75 = *MEMORY[0x277D85DE8];
 
   return v68;
 }
 
 - (__CFString)_reportingDescriptionForError:(void *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   v3 = [domain isEqualToString:*MEMORY[0x277CCBDB0]];
@@ -1271,33 +1231,33 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v33 = errorCopy;
+  v32 = errorCopy;
   v10 = errorCopy;
   v11 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"CloudKit Partial Error:"];
-  v32 = v10;
+  v31 = v10;
   userInfo3 = [v10 userInfo];
   v13 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v35;
+    v17 = *v34;
 LABEL_9:
     v18 = 0;
     while (1)
     {
-      if (*v35 != v17)
+      if (*v34 != v17)
       {
         objc_enumerationMutation(v14);
       }
 
-      v19 = *(*(&v34 + 1) + 8 * v18);
+      v19 = *(*(&v33 + 1) + 8 * v18);
       v20 = [v14 objectForKeyedSubscript:v19];
       domain3 = [v20 domain];
       v22 = [domain3 isEqualToString:v8];
@@ -1317,7 +1277,7 @@ LABEL_16:
 
       if (v16 == ++v18)
       {
-        v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
         if (v16)
         {
           goto LABEL_9;
@@ -1346,10 +1306,8 @@ LABEL_18:
   v6 = v11;
 LABEL_23:
 
-  errorCopy = v33;
+  errorCopy = v32;
 LABEL_27:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1410,24 +1368,8 @@ LABEL_27:
 
 void __66__HDCloudSyncPeriodicActivityScheduler__persistPeriodicSyncError___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 32))
-  {
-    goto LABEL_7;
-  }
-
-  v2 = [HDCloudSyncPeriodicActivityScheduler _reportingDescriptionForError:?];
-  if (!v2)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = v2;
-  v4 = MEMORY[0x277CCACA8];
-  v5 = [MEMORY[0x277CBEAA8] date];
-  v6 = [v4 stringWithFormat:@"[%@] %@", v5, v3];
-
-  if (v6)
+  v18 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 32) && (-[HDCloudSyncPeriodicActivityScheduler _reportingDescriptionForError:](*(a1 + 40)), (v2 = objc_claimAutoreleasedReturnValue()) != 0) && (v3 = v2, v4 = MEMORY[0x277CCACA8], [MEMORY[0x277CBEAA8] date], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "stringWithFormat:", @"[%@] %@", v5, v3), v6 = objc_claimAutoreleasedReturnValue(), v5, v3, v6))
   {
     v7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
     v8 = [v7 stringArrayForKey:@"HDLongTimeWithoutSuccessfulCloudSyncPeriodicSyncErrorStrings"];
@@ -1443,8 +1385,8 @@ void __66__HDCloudSyncPeriodicActivityScheduler__persistPeriodicSyncError___bloc
 
     else
     {
-      v14 = v6;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+      v13 = v6;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
     }
 
     [v7 setObject:v9 forKey:@"HDLongTimeWithoutSuccessfulCloudSyncPeriodicSyncErrorStrings"];
@@ -1452,24 +1394,21 @@ void __66__HDCloudSyncPeriodicActivityScheduler__persistPeriodicSyncError___bloc
 
   else
   {
-LABEL_7:
     _HKInitializeLogging();
     v10 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 40);
       *buf = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
       _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Skipping persistence of error: %{public}@", buf, 0x16u);
     }
 
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __73__HDCloudSyncPeriodicActivityScheduler__resetPersistedPeriodicSyncErrors__block_invoke()

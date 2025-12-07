@@ -105,7 +105,7 @@
   v5 = songKind;
   if (songKind)
   {
-    [songKind predicateWithBaseProperty:0];
+    objc_msgSend_predicateWithBaseProperty_(songKind);
   }
 
   else

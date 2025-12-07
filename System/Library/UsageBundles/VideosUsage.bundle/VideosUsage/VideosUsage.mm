@@ -47,49 +47,48 @@ TVUsageEntityItem *sub_2FA0(uint64_t a1, void *a2)
   v7 = [v5 valueForProperty:*(a1 + 32)];
   [(TVUsageEntityItem *)v6 setTitle:v7];
 
-  v8 = *(a1 + 40);
   if (objc_opt_respondsToSelector())
   {
-    v9 = NSStringFromSelector(*(a1 + 40));
-    v10 = [v3 valueForKey:v9];
-    [(TVUsageEntityItem *)v6 setArtworkCatalog:v10];
+    v8 = NSStringFromSelector(*(a1 + 40));
+    v9 = [v3 valueForKey:v8];
+    [(TVUsageEntityItem *)v6 setArtworkCatalog:v9];
 
-    v11 = [v5 mediaType];
+    v10 = [v5 mediaType];
     if (qword_11E30 != -1)
     {
       sub_6A30();
     }
 
-    v12 = qword_11E28;
-    v13 = [NSNumber numberWithUnsignedInteger:v11];
-    v14 = [v12 objectForKey:v13];
+    v11 = qword_11E28;
+    v12 = [NSNumber numberWithUnsignedInteger:v10];
+    v13 = [v11 objectForKey:v12];
 
-    if (!v14)
+    if (!v13)
     {
-      v15 = [MPPlaceholderArtwork noArtPlaceholderImageForMediaType:v11];
-      [v15 scale];
-      v17 = v16;
-      v26.width = 44.0;
-      v26.height = 44.0;
-      UIGraphicsBeginImageContextWithOptions(v26, 1, v17);
+      v14 = [MPPlaceholderArtwork noArtPlaceholderImageForMediaType:v10];
+      [v14 scale];
+      v16 = v15;
+      v25.width = 44.0;
+      v25.height = 44.0;
+      UIGraphicsBeginImageContextWithOptions(v25, 1, v16);
       CurrentContext = UIGraphicsGetCurrentContext();
       CGContextSetInterpolationQuality(CurrentContext, kCGInterpolationHigh);
-      [v15 drawInRect:{0.0, 0.0, 44.0, 44.0}];
-      v14 = UIGraphicsGetImageFromCurrentImageContext();
+      [v14 drawInRect:{0.0, 0.0, 44.0, 44.0}];
+      v13 = UIGraphicsGetImageFromCurrentImageContext();
       UIGraphicsEndImageContext();
-      v19 = qword_11E28;
-      v20 = [NSNumber numberWithUnsignedInteger:v11];
-      [v19 setObject:v14 forKey:v20];
+      v18 = qword_11E28;
+      v19 = [NSNumber numberWithUnsignedInteger:v10];
+      [v18 setObject:v13 forKey:v19];
     }
 
-    [(TVUsageEntityItem *)v6 setPlaceholderImage:v14];
+    [(TVUsageEntityItem *)v6 setPlaceholderImage:v13];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = [v3 valueForProperty:MPMediaItemPropertyFileSize];
-    v22 = [v21 unsignedLongLongValue];
+    v20 = [v3 valueForProperty:MPMediaItemPropertyFileSize];
+    v21 = [v20 unsignedLongLongValue];
   }
 
   else
@@ -97,17 +96,17 @@ TVUsageEntityItem *sub_2FA0(uint64_t a1, void *a2)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = sub_594C(v3);
+      v21 = sub_594C(v3);
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
   }
 
-  v23 = [NSByteCountFormatter stringFromByteCount:v22 countStyle:2];
-  [(TVUsageEntityItem *)v6 setFileSizeString:v23];
+  v22 = [NSByteCountFormatter stringFromByteCount:v21 countStyle:2];
+  [(TVUsageEntityItem *)v6 setFileSizeString:v22];
 
   return v6;
 }

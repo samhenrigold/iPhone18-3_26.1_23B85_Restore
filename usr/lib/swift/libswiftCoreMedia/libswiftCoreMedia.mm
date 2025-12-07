@@ -106,11 +106,10 @@ __n128 sub_22E0A1650(__n128 *a1, __n128 *a2)
   return result;
 }
 
-id sub_22E0A165C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+id sub_22E0A165C@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = *a1;
   result = CMReadySampleBuffer.rawDecryptor.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -191,7 +190,6 @@ _BYTE *sub_22E0A1938(_BYTE *result, void *a2, void *a3)
 
 uint64_t sub_22E0A196C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -204,18 +202,11 @@ _OWORD *_sypWOb_0(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_22E0A1B2C@<X0>(id *a1@<X0>, char *a2@<X8>)
+uint64_t sub_22E0A1B2C@<X0>(id *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *a1;
 
   return CMSampleBufferRef.DynamicContent.init(from:)(v3, a2);
-}
-
-void sub_22E0A1C44(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v3[0] = *a1;
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo17CMSampleBufferRefa8CMObjectRtzrlE22firstSampleAttachmentsAgAE0kL0VvgAlGYTXEfU_(v3);
-  *a2 = v3[1];
 }
 
 uint64_t sub_22E0A1CB0@<X0>(id *a1@<X0>, char *a2@<X8>)
@@ -241,7 +232,7 @@ uint64_t sub_22E0A1D6C(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-void sub_22E0A1DDC(OpaqueCMBlockBuffer **a1@<X0>, OpaqueCMBlockBuffer **a2@<X8>)
+void sub_22E0A1DDC(OpaqueCMBlockBuffer **a1@<X0>, void *a2@<X8>)
 {
   v3[1] = *a1;
   CMReadySampleBuffer<>.content.getter(v3);
@@ -250,7 +241,6 @@ void sub_22E0A1DDC(OpaqueCMBlockBuffer **a1@<X0>, OpaqueCMBlockBuffer **a2@<X8>)
 
 uint64_t sub_22E0A1E48()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -264,7 +254,7 @@ id sub_22E0A1EB8@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
   return v3;
 }
 
-CMItemCount sub_22E0A1EDC@<X0>(id *a1@<X0>, opaqueCMSampleBuffer **a2@<X8>)
+opaqueCMSampleBuffer *sub_22E0A1EDC@<X0>(id *a1@<X0>, opaqueCMSampleBuffer **a2@<X8>)
 {
   v3 = *a1;
   result = CMSampleBufferGetNumSamples(v3);
@@ -365,14 +355,7 @@ uint64_t sub_22E0A200C@<X0>(id *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-void sub_22E0A20A8(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v3[0] = *a1;
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo17CMSampleBufferRefa8CMObjectRtzrlE22firstSampleAttachmentsAgAE0kL0VvgAlGYTXEfU_(v3);
-  *a2 = v3[1];
-}
-
-uint64_t _syXlSo6CMTimeaIeggd_SgWOy_0(uint64_t result)
+uint64_t _syXlSo6CMTimeaIeggd_SgWOy_0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -381,7 +364,7 @@ uint64_t _syXlSo6CMTimeaIeggd_SgWOy_0(uint64_t result)
   return result;
 }
 
-uint64_t _syXlSo6CMTimeaIeggd_SgWOe_0(uint64_t result)
+uint64_t _syXlSo6CMTimeaIeggd_SgWOe_0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -398,21 +381,17 @@ uint64_t sub_22E0A212C()
 
 uint64_t sub_22E0A2174()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
 uint64_t sub_22E0A21B4()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t get_enum_tag_for_layout_string_yXlSo6CMTimeaIeggd_Sg_0(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_yXlSo6CMTimeaIeggd_Sg_0(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -425,7 +404,6 @@ uint64_t get_enum_tag_for_layout_string_yXlSo6CMTimeaIeggd_Sg_0(uint64_t *a1)
 
 uint64_t sub_22E0A2224()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -439,9 +417,6 @@ void _sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsVSlACSl34_customLastInd
 
 uint64_t sub_22E0A23E0()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -454,7 +429,6 @@ uint64_t sub_22E0A2420()
 
 uint64_t sub_22E0A2458()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
@@ -522,17 +496,16 @@ uint64_t sub_22E0A278C@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-__n128 sub_22E0A27E8@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 sub_22E0A27E8@<Q0>(uint64_t a1@<X8>)
 {
-  v5 = *a1;
-  CMSampleBufferRef.SampleAttachments.hevcTemporalInfo.getter(v6);
-  v3 = v6[3];
-  *(a2 + 32) = v6[2];
-  *(a2 + 48) = v3;
-  *(a2 + 64) = v7;
-  result = v6[1];
-  *a2 = v6[0];
-  *(a2 + 16) = result;
+  CMSampleBufferRef.SampleAttachments.hevcTemporalInfo.getter(v4);
+  v2 = v4[3];
+  *(a1 + 32) = v4[2];
+  *(a1 + 48) = v2;
+  *(a1 + 64) = v5;
+  result = v4[1];
+  *a1 = v4[0];
+  *(a1 + 16) = result;
   return result;
 }
 
@@ -550,7 +523,7 @@ uint64_t sub_22E0A28A4@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-uint64_t sub_22E0A29EC(uint64_t a1)
+uint64_t sub_22E0A29EC(uint64_t *a1)
 {
   v1 = *(a1 + 8);
   v3 = *a1;
@@ -559,21 +532,16 @@ uint64_t sub_22E0A29EC(uint64_t a1)
   return CMSampleBufferRef.SamplePropertiesCollection.sizes.setter(&v3);
 }
 
-__n128 sub_22E0A2A34@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+__n128 sub_22E0A2A34@<Q0>(uint64_t a1@<X8>)
 {
-  v5 = *a1;
-  v6 = *(a1 + 1);
-  v7 = a1[3];
-  v8 = a1[4];
-  v9 = *(a1 + 40);
-  CMSampleBufferRef.SamplePropertiesCollection.timings.getter(v10);
-  v3 = v11[0];
-  *(a2 + 32) = v10[2];
-  *(a2 + 48) = v3;
-  *(a2 + 57) = *(v11 + 9);
-  result = v10[1];
-  *a2 = v10[0];
-  *(a2 + 16) = result;
+  CMSampleBufferRef.SamplePropertiesCollection.timings.getter(v4);
+  v2 = v5[0];
+  *(a1 + 32) = v4[2];
+  *(a1 + 48) = v2;
+  *(a1 + 57) = *(v5 + 9);
+  result = v4[1];
+  *a1 = v4[0];
+  *(a1 + 16) = result;
   return result;
 }
 
@@ -757,11 +725,10 @@ uint64_t _CMInitTrampoline.init(_:)(uint64_t (*a1)(uint64_t *), uint64_t a2, uin
 
 uint64_t one-time initialization function for tlsKey()
 {
-  v2[1] = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
-  result = pthread_key_create(v2, 0);
-  static BoxedError.tlsKey = v2[0];
-  v1 = *MEMORY[0x277D85DE8];
+  v1[1] = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
+  result = pthread_key_create(v1, 0);
+  static BoxedError.tlsKey = v1[0];
   return result;
 }
 
@@ -771,54 +738,30 @@ uint64_t BoxedError.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0, 24, 7);
 }
 
-uint64_t _CMObjectiveCBridgeableWithRawValue<>.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t _CMObjectiveCBridgeableWithRawValue<>.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a3 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v5 = *(AssociatedTypeWitness - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v8 = &v10 - v7;
+  v7 = &v9 - v6;
   dispatch thunk of RawRepresentable.rawValue.getter();
   dispatch thunk of Hashable.hash(into:)();
-  return (*(v5 + 8))(v8, AssociatedTypeWitness);
-}
-
-uint64_t _CMObjectiveCBridgeableWithRawValue<>._bridgeToObjectiveC()(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  dispatch thunk of RawRepresentable.rawValue.getter();
-  return v4;
-}
-
-{
-  v2 = *(a2 + 16);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v4 = *(AssociatedTypeWitness - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v7 = &v10 - v6;
-  dispatch thunk of RawRepresentable.rawValue.getter();
-  v8 = dispatch thunk of _ObjectiveCBridgeable._bridgeToObjectiveC()();
-  (*(v4 + 8))(v7, AssociatedTypeWitness);
-  return v8;
+  return (*(v5 + 8))(v7, AssociatedTypeWitness);
 }
 
 uint64_t static _CMObjectiveCBridgeableWithRawValue<>._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = type metadata accessor for Optional();
-  (*(*(v7 - 8) + 8))(a2, v7);
-  v8 = *(a4 + 16);
-  v9 = a1;
+  v6 = type metadata accessor for Optional();
+  (*(*(v6 - 8) + 8))(a2, v6);
+  v7 = a1;
   return dispatch thunk of RawRepresentable.init(rawValue:)();
 }
 
 uint64_t static _CMObjectiveCBridgeableWithRawValue<>._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = type metadata accessor for Optional();
-  (*(*(v7 - 8) + 8))(a2, v7);
-  v8 = *(a4 + 16);
-  v9 = a1;
+  v6 = type metadata accessor for Optional();
+  (*(*(v6 - 8) + 8))(a2, v6);
+  v7 = a1;
   dispatch thunk of RawRepresentable.init(rawValue:)();
   return 1;
 }
@@ -826,58 +769,66 @@ uint64_t static _CMObjectiveCBridgeableWithRawValue<>._conditionallyBridgeFromOb
 uint64_t static _CMObjectiveCBridgeableWithRawValue<>._unconditionallyBridgeFromObjectiveC(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = type metadata accessor for Optional();
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8 - 8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v18 - v13;
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v17 - v12;
   if (a1)
   {
-    v19 = a1;
-    v12 = *(a3 + 16);
-    v15 = a1;
+    v18 = a1;
+    v11 = *(a3 + 16);
+    v14 = a1;
     dispatch thunk of RawRepresentable.init(rawValue:)();
-    a3 = *(a2 - 8);
-    if ((*(a3 + 48))(v14, 1, a2) != 1)
+    v15 = *(a2 - 8);
+    if ((*(v15 + 48))(v13, 1, a2) != 1)
     {
-      return (*(a3 + 32))(a4, v14, a2);
+      return (*(v15 + 32))(a4, v13, a2);
     }
 
     __break(1u);
   }
 
-  v19 = MEMORY[0x2318E2770](0, 0xE000000000000000);
-  v16 = *(a3 + 16);
+  v18 = MEMORY[0x2318E2770](0, 0xE000000000000000);
   dispatch thunk of RawRepresentable.init(rawValue:)();
-  a3 = *(a2 - 8);
-  result = (*(a3 + 48))(v12, 1, a2);
+  v15 = *(a2 - 8);
+  result = (*(v15 + 48))(v11, 1, a2);
   if (result != 1)
   {
-    v14 = v12;
-    return (*(a3 + 32))(a4, v14, a2);
+    v13 = v11;
+    return (*(v15 + 32))(a4, v13, a2);
   }
 
   __break(1u);
   return result;
 }
 
+uint64_t _CMObjectiveCBridgeableWithRawValue<>._bridgeToObjectiveC()(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v4 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v6 = &v9 - v5;
+  dispatch thunk of RawRepresentable.rawValue.getter();
+  v7 = dispatch thunk of _ObjectiveCBridgeable._bridgeToObjectiveC()();
+  (*(v4 + 8))(v6, AssociatedTypeWitness);
+  return v7;
+}
+
 uint64_t static _CMObjectiveCBridgeableWithRawValue<>._forceBridgeFromObjectiveC(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19[1] = a5;
-  v6 = *(a4 + 16);
+  v17[1] = a5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = type metadata accessor for Optional();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = v19 - v14;
-  v16 = *(AssociatedTypeWitness - 8);
-  (*(v16 + 56))(v19 - v14, 1, 1, AssociatedTypeWitness);
+  v7 = type metadata accessor for Optional();
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v11 = v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v17 - v12;
+  v14 = *(AssociatedTypeWitness - 8);
+  (*(v14 + 56))(v17 - v12, 1, 1, AssociatedTypeWitness);
   dispatch thunk of static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:)();
-  (*(v9 + 16))(v13, v15, v8);
-  result = (*(v16 + 48))(v13, 1, AssociatedTypeWitness);
+  (*(v8 + 16))(v11, v13, v7);
+  result = (*(v14 + 48))(v11, 1, AssociatedTypeWitness);
   if (result == 1)
   {
     __break(1u);
@@ -885,68 +836,63 @@ uint64_t static _CMObjectiveCBridgeableWithRawValue<>._forceBridgeFromObjectiveC
 
   else
   {
-    v18 = type metadata accessor for Optional();
-    (*(*(v18 - 8) + 8))(a2, v18);
+    v16 = type metadata accessor for Optional();
+    (*(*(v16 - 8) + 8))(a2, v16);
     dispatch thunk of RawRepresentable.init(rawValue:)();
-    return (*(v9 + 8))(v15, v8);
+    return (*(v8 + 8))(v13, v7);
   }
 
   return result;
 }
 
-uint64_t static _CMObjectiveCBridgeableWithRawValue<>._conditionallyBridgeFromObjectiveC(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t static _CMObjectiveCBridgeableWithRawValue<>._conditionallyBridgeFromObjectiveC(_:result:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v19 = a2;
-  v4 = *(a4 + 16);
+  v18 = a2;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v6 = type metadata accessor for Optional();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v18 - v12;
-  v14 = *(AssociatedTypeWitness - 8);
-  (*(v14 + 56))(&v18 - v12, 1, 1, AssociatedTypeWitness);
-  v15 = dispatch thunk of static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:)();
-  if ((v15 & 1) == 0)
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v17 - v11;
+  v13 = *(AssociatedTypeWitness - 8);
+  (*(v13 + 56))(&v17 - v11, 1, 1, AssociatedTypeWitness);
+  v14 = dispatch thunk of static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:)();
+  if ((v14 & 1) == 0)
   {
     goto LABEL_4;
   }
 
-  (*(v7 + 16))(v11, v13, v6);
-  result = (*(v14 + 48))(v11, 1, AssociatedTypeWitness);
+  (*(v7 + 16))(v10, v12, v6);
+  result = (*(v13 + 48))(v10, 1, AssociatedTypeWitness);
   if (result != 1)
   {
-    v17 = type metadata accessor for Optional();
-    (*(*(v17 - 8) + 8))(v19, v17);
+    v16 = type metadata accessor for Optional();
+    (*(*(v16 - 8) + 8))(v18, v16);
     dispatch thunk of RawRepresentable.init(rawValue:)();
 LABEL_4:
-    (*(v7 + 8))(v13, v6);
-    return v15 & 1;
+    (*(v7 + 8))(v12, v6);
+    return v14 & 1;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t static _CMObjectiveCBridgeableWithRawValue<>._unconditionallyBridgeFromObjectiveC(_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+uint64_t static _CMObjectiveCBridgeableWithRawValue<>._unconditionallyBridgeFromObjectiveC(_:)@<X0>(uint64_t a2@<X1>, uint64_t a5@<X8>)
 {
-  v5 = *(a2 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x28223BE20](AssociatedTypeWitness);
   v8 = type metadata accessor for Optional();
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v14 - v10;
+  v10 = &v13 - v9;
   dispatch thunk of static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:)();
   dispatch thunk of RawRepresentable.init(rawValue:)();
-  v12 = *(a1 - 8);
-  result = (*(v12 + 48))(v11, 1, a1);
+  v11 = *(a2 - 8);
+  result = (*(v11 + 48))(v10, 1, a2);
   if (result != 1)
   {
-    return (*(v12 + 32))(a3, v11, a1);
+    return (*(v11 + 32))(a5, v10, a2);
   }
 
   __break(1u);
@@ -1221,62 +1167,30 @@ uint64_t storeEnumTagSinglePayload for CMSampleTimingInfo(uint64_t result, int a
   return result;
 }
 
-uint64_t @objc callClosureFromRefconCMBuffer(_:_:)(uint64_t result, uint64_t a2)
+uint64_t @objc callClosureFromRefconCMBuffer(_:_:)(uint64_t result, void (**a2)(uint64_t *))
 {
   if (a2)
   {
-    v3 = *a2;
-    v2 = *(a2 + 8);
-    v4 = result;
+    v2 = *a2;
+    v3 = result;
     swift_unknownObjectRetain();
 
-    v3(&v4);
+    v2(&v3);
     swift_unknownObjectRelease();
   }
 
   return result;
 }
 
-uint64_t protocol witness for Hashable.hashValue.getter in conformance CFStringRef()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hashValue.getter();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance CFStringRef()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef()
-{
-  return protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef();
-}
-
-{
-  Hasher.init(_seed:)();
-  v1 = *v0;
-  swift_getWitnessTable();
-  _CFObject.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFStringRef(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
   swift_getWitnessTable();
 
   return static _CFObject.== infix(_:_:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFDictionaryRef(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CFDictionaryRef(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getWitnessTable();
 
   return static _CFObject.== infix(_:_:)();
@@ -1290,11 +1204,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CMTagCa
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMTagCategory()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMTagCategory(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -1306,21 +1220,15 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
   return result;
 }
 
-uint64_t protocol witness for Hashable.hashValue.getter in conformance CFDictionaryRef()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CFStringRef(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = *v0;
+  Hasher.init(_seed:)();
   swift_getWitnessTable();
-  return _CFObject.hashValue.getter();
+  _CFObject.hash(into:)();
+  return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CFDictionaryRef()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return _CFObject.hash(into:)();
-}
-
-uint64_t lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CFDictionaryRef and conformance CFDictionaryRef(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1467,12 +1375,12 @@ uint64_t storeEnumTagSinglePayload for AudioChannelDescription(uint64_t result, 
   return result;
 }
 
-void type metadata accessor for simd_float3x3(uint64_t a1, unint64_t *a2)
+void type metadata accessor for simd_float3x3(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -1581,7 +1489,7 @@ uint64_t static CMClockRef.convertHostTimeToSystemUnits(_:)(CMTimeValue a1, uint
 void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> CMClockRef.anchorTime()(Swift::tuple_anchorTime_CMTime_referenceTime_CMTime *__return_ptr retstr)
 {
   v2 = v1;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   memset(&clockTimeOut, 0, sizeof(clockTimeOut));
   memset(&referenceClockTimeOut, 0, sizeof(referenceClockTimeOut));
   AnchorTime = CMClockGetAnchorTime(v2, &clockTimeOut, &referenceClockTimeOut);
@@ -1606,8 +1514,6 @@ void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,
     [v10 initWithDomain:*MEMORY[0x277CCA590] code:AnchorTime userInfo:0];
     swift_willThrow();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void _CMTimebaseInitTrampoline.init(sourceClock:)(void *a1, uint64_t a2, uint64_t a3)
@@ -1641,95 +1547,44 @@ void protocol witness for _CMInitTrampoline.init(referencing:) in conformance CM
   *a2 = v4;
 }
 
-uint64_t CMTimebaseRef.source.getter@<X0>(uint64_t *a1@<X8>)
+uint64_t CMTimebaseRef.source.getter@<X0>(uint64_t *a2@<X8>)
 {
-  return CMTimebaseRef.source.getter(a1);
+  return CMTimebaseRef.source.getter(a2);
 }
 
 {
-  v2 = v1;
-  v4 = CMTimebaseCopySource(v2);
-  v5 = swift_unknownObjectRetain();
-  v6 = CFGetTypeID(v5);
-  if (v6 == CMTimebaseGetTypeID())
+  v3 = v2;
+  v5 = CMTimebaseCopySource(v3);
+  v6 = swift_unknownObjectRetain();
+  v7 = CFGetTypeID(v6);
+  if (v7 == CMTimebaseGetTypeID())
   {
     type metadata accessor for CMTimebaseRef(0);
-    v8 = v7;
-    v9 = &protocol witness table for CMTimebaseRef;
+    v9 = v8;
+    v10 = &protocol witness table for CMTimebaseRef;
 LABEL_5:
-    v12 = swift_dynamicCastUnknownClassUnconditional();
-    a1[3] = v8;
-    a1[4] = v9;
+    v13 = swift_dynamicCastUnknownClassUnconditional();
+    a2[3] = v9;
+    a2[4] = v10;
     result = swift_unknownObjectRelease();
-    *a1 = v12;
+    *a2 = v13;
     return result;
   }
 
-  v10 = CFGetTypeID(v4);
+  v11 = CFGetTypeID(v5);
   swift_unknownObjectRelease();
-  if (v10 == CMClockGetTypeID())
+  if (v11 == CMClockGetTypeID())
   {
     type metadata accessor for CMClockRef(0);
-    v8 = v11;
+    v9 = v12;
     swift_unknownObjectRetain();
-    v9 = &protocol witness table for CMClockRef;
+    v10 = &protocol witness table for CMClockRef;
     goto LABEL_5;
   }
 
   _StringGuts.grow(_:)(59);
   MEMORY[0x2318E2800](0xD000000000000016, 0x800000022E0F87E0);
   swift_getObjectType();
-  DefaultStringInterpolation.appendInterpolation<A>(_:)();
-  MEMORY[0x2318E2800](0xD000000000000023, 0x800000022E0F8800);
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t CMTimebaseRef.source.setter(uint64_t *a1)
-{
-  return CMTimebaseRef.source.setter(a1);
-}
-
-{
-  v2 = v1;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v4 = _bridgeAnythingToObjectiveC<A>(_:)();
-  v5 = swift_unknownObjectRetain();
-  v6 = CFGetTypeID(v5);
-  if (v6 == CMTimebaseGetTypeID())
-  {
-    swift_unknownObjectRelease();
-    outlined init with copy of CMSyncProtocol(a1, v11);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia14CMSyncProtocol_pMd, &_s9CoreMedia14CMSyncProtocol_pMR);
-    type metadata accessor for CMTimebaseRef(0);
-    swift_dynamicCast();
-    v7 = newSourceTimebase;
-    CMTimebaseSetSourceTimebase(v2, newSourceTimebase);
-LABEL_5:
-
-    swift_unknownObjectRelease();
-    return __swift_destroy_boxed_opaque_existential_1(a1);
-  }
-
-  v8 = CFGetTypeID(v4);
-  swift_unknownObjectRelease();
-  if (v8 == CMClockGetTypeID())
-  {
-    outlined init with copy of CMSyncProtocol(a1, v11);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia14CMSyncProtocol_pMd, &_s9CoreMedia14CMSyncProtocol_pMR);
-    type metadata accessor for CMClockRef(0);
-    swift_dynamicCast();
-    v7 = newSourceTimebase;
-    CMTimebaseSetSourceClock(v2, newSourceTimebase);
-    goto LABEL_5;
-  }
-
-  v11[0] = 0;
-  v11[1] = 0xE000000000000000;
-  _StringGuts.grow(_:)(59);
-  MEMORY[0x2318E2800](0xD000000000000016, 0x800000022E0F87E0);
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
   MEMORY[0x2318E2800](0xD000000000000023, 0x800000022E0F8800);
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -1761,7 +1616,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1769,18 +1623,20 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-void (*CMTimebaseRef.source.modify(uint64_t **a1))(uint64_t *a1, char a2)
+void (*CMTimebaseRef.source.modify(uint64_t **a1))(uint64_t *a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -1798,7 +1654,54 @@ void (*CMTimebaseRef.source.modify(uint64_t **a1))(uint64_t *a1, char a2)
   return CMTimebaseRef.source.modify;
 }
 
-void (*CMTimebaseRef.master.modify(uint64_t **a1))(uint64_t *a1, char a2)
+uint64_t CMTimebaseRef.source.setter(void *a1, uint64_t a2)
+{
+  v3 = v2;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v5 = _bridgeAnythingToObjectiveC<A>(_:)();
+  v6 = swift_unknownObjectRetain();
+  v7 = CFGetTypeID(v6);
+  if (v7 == CMTimebaseGetTypeID())
+  {
+    swift_unknownObjectRelease();
+    outlined init with copy of CMSyncProtocol(a1, v12);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia14CMSyncProtocol_pMd, &_s9CoreMedia14CMSyncProtocol_pMR);
+    type metadata accessor for CMTimebaseRef(0);
+    swift_dynamicCast();
+    v8 = newSourceTimebase;
+    CMTimebaseSetSourceTimebase(v3, newSourceTimebase);
+LABEL_5:
+
+    swift_unknownObjectRelease();
+    return __swift_destroy_boxed_opaque_existential_1(a1);
+  }
+
+  v9 = CFGetTypeID(v5);
+  swift_unknownObjectRelease();
+  if (v9 == CMClockGetTypeID())
+  {
+    outlined init with copy of CMSyncProtocol(a1, v12);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia14CMSyncProtocol_pMd, &_s9CoreMedia14CMSyncProtocol_pMR);
+    type metadata accessor for CMClockRef(0);
+    swift_dynamicCast();
+    v8 = newSourceTimebase;
+    CMTimebaseSetSourceClock(v3, newSourceTimebase);
+    goto LABEL_5;
+  }
+
+  v12[0] = 0;
+  v12[1] = 0xE000000000000000;
+  _StringGuts.grow(_:)(59);
+  MEMORY[0x2318E2800](0xD000000000000016, 0x800000022E0F87E0);
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  DefaultStringInterpolation.appendInterpolation<A>(_:)();
+  MEMORY[0x2318E2800](0xD000000000000023, 0x800000022E0F8800);
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+void (*CMTimebaseRef.master.modify(uint64_t **a1))(uint64_t *a1, uint64_t a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -1816,10 +1719,9 @@ void (*CMTimebaseRef.master.modify(uint64_t **a1))(uint64_t *a1, char a2)
   return CMTimebaseRef.master.modify;
 }
 
-void CMTimebaseRef.source.modify(uint64_t *a1, char a2, void (*a3)(uint64_t *))
+void CMTimebaseRef.source.modify(uint64_t *a1, char a2, void (*a3)(void *))
 {
   v4 = *a1;
-  v5 = *(*a1 + 80);
   if (a2)
   {
     outlined init with copy of CMSyncProtocol(*a1, (v4 + 5));
@@ -1875,13 +1777,11 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 
 Float64 CMTimebaseRef.timeAndRate.getter()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   memset(&timeOut, 0, sizeof(timeOut));
   rateOut = 0.0;
   CMTimebaseGetTimeAndRate(v0, &timeOut, &rateOut);
-  result = rateOut;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return rateOut;
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> CMTimebaseRef.setRate(_:)(Swift::Double a1)
@@ -1961,14 +1861,14 @@ uint64_t CMTimebaseRef.addTimer<A>(_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(
   return result;
 }
 
-uint64_t CMTimebaseRef.setTimerNextFireTime<A>(_:fireTime:)(uint64_t a1, CMTimeValue a2, unint64_t a3, CMTimeEpoch a4)
+uint64_t CMTimebaseRef.setTimerNextFireTime<A>(_:fireTime:)(uint64_t a1, CMTimeValue a2, unint64_t a3, CMTimeEpoch a4, uint64_t a5)
 {
-  v5 = closure #1 in CMTimebaseRef.setTimerNextFireTime<A>(_:fireTime:)(v4, a1, a2, a3, a4);
+  v6 = closure #1 in CMTimebaseRef.setTimerNextFireTime<A>(_:fireTime:)(v5, a1, a2, a3, a4);
   result = noErr.getter();
-  if (v5 != result)
+  if (v6 != result)
   {
-    v7 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-    [v7 initWithDomain:*MEMORY[0x277CCA590] code:v5 userInfo:0];
+    v8 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v8 initWithDomain:*MEMORY[0x277CCA590] code:v6 userInfo:0];
     return swift_willThrow();
   }
 
@@ -2022,7 +1922,7 @@ id static CMTimebaseRef.NotificationKey.eventTime.getter@<X0>(void *a1@<X8>)
   return v2;
 }
 
-id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CMTimebaseRef.NotificationKey@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance CMTimebaseRef.NotificationKey@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1;
   if (!a1)
@@ -2036,17 +1936,15 @@ id protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromO
   return v2;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance CMTimebaseRef.NotificationKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance CMTimebaseRef.NotificationKey(uint64_t a1)
 {
-  v1 = *v0;
   type metadata accessor for CFStringRef(0);
   lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef();
   return _CFObject.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMTimebaseRef.NotificationKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMTimebaseRef.NotificationKey(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   type metadata accessor for CFStringRef(0);
   lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef();
@@ -2056,96 +1954,78 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMT
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance CMTimebaseRef.NotificationKey(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
   type metadata accessor for CFStringRef(0);
   lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef();
   return static _CFObject.== infix(_:_:)() & 1;
 }
 
-double CMTimebaseRef.rate<A>(relativeTo:)()
+double CMTimebaseRef.rate<A>(relativeTo:)(uint64_t a1, uint64_t a2)
 {
-  v1 = _bridgeAnythingToObjectiveC<A>(_:)();
-  RelativeRate = CMSyncGetRelativeRate(v0, v1);
+  v3 = _bridgeAnythingToObjectiveC<A>(_:)();
+  RelativeRate = CMSyncGetRelativeRate(v2, v3);
   swift_unknownObjectRelease();
   return RelativeRate;
 }
 
-uint64_t CMClockRef.rateAndAnchorTime<A>(relativeTo:)@<X0>(uint64_t a1@<X8>)
+uint64_t CMTimebaseRef.rateAndAnchorTime<A>(relativeTo:)@<X0>(uint64_t a3@<X8>)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  result = CMTimebaseRef.rateAndAnchorTime<A>(relativeTo:)(a1);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t CMTimebaseRef.rateAndAnchorTime<A>(relativeTo:)@<X0>(uint64_t a1@<X8>)
-{
-  v2 = v1;
+  v4 = v3;
   outRelativeRate[1] = *MEMORY[0x277D85DE8];
   outRelativeRate[0] = 0.0;
   memset(&outOfClockOrTimebaseAnchorTime, 0, sizeof(outOfClockOrTimebaseAnchorTime));
-  memset(&v15, 0, sizeof(v15));
-  v4 = _bridgeAnythingToObjectiveC<A>(_:)();
-  RelativeRateAndAnchorTime = CMSyncGetRelativeRateAndAnchorTime(v2, v4, outRelativeRate, &outOfClockOrTimebaseAnchorTime, &v15);
+  memset(&v16, 0, sizeof(v16));
+  v6 = _bridgeAnythingToObjectiveC<A>(_:)();
+  RelativeRateAndAnchorTime = CMSyncGetRelativeRateAndAnchorTime(v4, v6, outRelativeRate, &outOfClockOrTimebaseAnchorTime, &v16);
   swift_unknownObjectRelease();
   result = noErr.getter();
   if (RelativeRateAndAnchorTime == result)
   {
-    epoch = v15.epoch;
+    epoch = v16.epoch;
     value = outOfClockOrTimebaseAnchorTime.value;
-    v9 = outOfClockOrTimebaseAnchorTime.epoch;
-    v10 = v15.value;
-    v11 = *&v15.timescale;
-    v12 = *&outOfClockOrTimebaseAnchorTime.timescale;
-    *a1 = outRelativeRate[0];
-    *(a1 + 8) = value;
-    *(a1 + 16) = v12;
-    *(a1 + 24) = v9;
-    *(a1 + 32) = v10;
-    *(a1 + 40) = v11;
-    *(a1 + 48) = epoch;
+    v11 = outOfClockOrTimebaseAnchorTime.epoch;
+    v12 = v16.value;
+    v13 = *&v16.timescale;
+    v14 = *&outOfClockOrTimebaseAnchorTime.timescale;
+    *a3 = outRelativeRate[0];
+    *(a3 + 8) = value;
+    *(a3 + 16) = v14;
+    *(a3 + 24) = v11;
+    *(a3 + 32) = v12;
+    *(a3 + 40) = v13;
+    *(a3 + 48) = epoch;
   }
 
   else
   {
-    v13 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-    [v13 initWithDomain:*MEMORY[0x277CCA590] code:RelativeRateAndAnchorTime userInfo:0];
-    result = swift_willThrow();
+    v15 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v15 initWithDomain:*MEMORY[0x277CCA590] code:RelativeRateAndAnchorTime userInfo:0];
+    return swift_willThrow();
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
+CMTimeValue CMTimebaseRef.convertTime<A>(_:to:)(CMTimeValue a1, unint64_t a2, CMTimeEpoch a3, uint64_t a4, uint64_t a5)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  result = CMClockRef.rateAndAnchorTime<A>(relativeTo:)(a1);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-CMTimeValue CMTimebaseRef.convertTime<A>(_:to:)(CMTimeValue a1, unint64_t a2, CMTimeEpoch a3)
-{
-  v5 = a2;
-  v7 = HIDWORD(a2);
-  v8 = _bridgeAnythingToObjectiveC<A>(_:)();
+  v7 = a2;
+  v9 = HIDWORD(a2);
+  v10 = _bridgeAnythingToObjectiveC<A>(_:)();
   time.value = a1;
-  time.timescale = v5;
-  time.flags = v7;
+  time.timescale = v7;
+  time.flags = v9;
   time.epoch = a3;
-  CMSyncConvertTime(&v11, &time, v3, v8);
-  value = v11.value;
+  CMSyncConvertTime(&v13, &time, v5, v10);
+  value = v13.value;
   swift_unknownObjectRelease();
   return value;
 }
 
-BOOL CMTimebaseRef.mightDrift<A>(relativeTo:)()
+BOOL CMTimebaseRef.mightDrift<A>(relativeTo:)(uint64_t a1, uint64_t a2)
 {
-  v1 = _bridgeAnythingToObjectiveC<A>(_:)();
-  v2 = CMSyncMightDrift(v0, v1);
+  v3 = _bridgeAnythingToObjectiveC<A>(_:)();
+  v4 = CMSyncMightDrift(v2, v3);
   swift_unknownObjectRelease();
-  return v2 != 0;
+  return v4 != 0;
 }
 
 unint64_t instantiation function for generic protocol witness table for CMTimebaseRef.NotificationKey(void *a1)
@@ -2204,32 +2084,24 @@ unint64_t lazy protocol witness table accessor for type CMTimebaseRef.Notificati
 
 double protocol witness for CMSyncProtocol.rateAndAnchorTime<A>(relativeTo:) in conformance CMTimebaseRef@<D0>(void (*a1)(void *__return_ptr)@<X5>, uint64_t a2@<X8>)
 {
-  v5 = *v2;
-  a1(v12);
-  if (!v3)
+  a1(v10);
+  if (!v2)
   {
-    result = *v12;
-    v7 = v12[1];
-    v8 = v12[2];
+    result = *v10;
+    v5 = v10[1];
+    v6 = v10[2];
+    v7 = v11;
+    v8 = v12;
     v9 = v13;
-    v10 = v14;
-    v11 = v15;
-    *a2 = v12[0];
-    *(a2 + 8) = v7;
-    *(a2 + 16) = v8;
-    *(a2 + 24) = v9;
-    *(a2 + 40) = v10;
-    *(a2 + 48) = v11;
+    *a2 = v10[0];
+    *(a2 + 8) = v5;
+    *(a2 + 16) = v6;
+    *(a2 + 24) = v7;
+    *(a2 + 40) = v8;
+    *(a2 + 48) = v9;
   }
 
   return result;
-}
-
-uint64_t keypath_setTm(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(_BYTE *))
-{
-  outlined init with copy of CMSyncProtocol(a1, v9);
-  v7 = *a2;
-  return a5(v9);
 }
 
 uint64_t getEnumTagSinglePayload for CMClockRef.Error(unsigned int *a1, int a2)
@@ -2460,13 +2332,11 @@ uint64_t CMTaggedBuffer.init(tags:pixelBuffer:)@<X0>(uint64_t result@<X0>, uint6
 uint64_t CMTaggedBuffer.description.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
   _StringGuts.grow(_:)(20);
   MEMORY[0x2318E2800](0x203A73676174, 0xE600000000000000);
-  v4 = type metadata accessor for CMTag();
-  v5 = MEMORY[0x2318E28C0](v1, v4);
-  MEMORY[0x2318E2800](v5);
+  v2 = type metadata accessor for CMTag();
+  v3 = MEMORY[0x2318E28C0](v1, v2);
+  MEMORY[0x2318E2800](v3);
 
   MEMORY[0x2318E2800](0x726566667562202CLL, 0xEA0000000000203ALL);
   _print_unlocked<A, B>(_:_:)();
@@ -2485,7 +2355,7 @@ CMItemCount CMTaggedBufferGroupRef.indices.getter()
   return result;
 }
 
-const OpaqueCMTagCollection *CMTaggedBufferGroupRef.subscript.getter@<X0>(CFIndex index@<X0>, uint64_t a2@<X8>)
+CMSampleBufferRef CMTaggedBufferGroupRef.subscript.getter@<X0>(CFIndex index@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
   result = CMTaggedBufferGroupGetTagCollectionAtIndex(v2, index);
@@ -2575,17 +2445,9 @@ CMItemCount protocol witness for Collection.endIndex.getter in conformance CMTag
   return result;
 }
 
-void (*protocol witness for Collection.subscript.read in conformance CMTaggedBufferGroupRef(uint64_t a1, CFIndex *a2))(uint64_t *a1)
+void protocol witness for Collection.subscript.read in conformance CMTaggedBufferGroupRef(void *a1)
 {
-  v3 = *v2;
-  CMTaggedBufferGroupRef.subscript.getter(*a2, a1);
-  return protocol witness for Collection.subscript.read in conformance CMTaggedBufferGroupRef;
-}
-
-void protocol witness for Collection.subscript.read in conformance CMTaggedBufferGroupRef(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
+  v1 = a1[1];
 }
 
 CMItemCount protocol witness for Collection.subscript.getter in conformance CMTaggedBufferGroupRef@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -2662,10 +2524,9 @@ void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conforma
 
 CMItemCount protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance CMTaggedBufferGroupRef@<X0>(CMItemCount *a1@<X0>, uint64_t a2@<X1>, CMItemCount *a3@<X2>, uint64_t a4@<X8>)
 {
-  v6 = *v4;
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
-  *(a4 + 8) = v8 & 1;
+  *(a4 + 8) = v6 & 1;
   return result;
 }
 
@@ -2795,25 +2656,22 @@ CMItemCount Array<A>.init(taggedBufferGroup:)(OpaqueCMTaggedBufferGroup *a1)
 
 uint64_t Array<A>.taggedBufferGroup.getter(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
-  v22[0] = 0;
+  v16[1] = *MEMORY[0x277D85DE8];
+  v16[0] = 0;
   v2 = *MEMORY[0x277CBECE8];
   v3 = *(a1 + 16);
   if (v3)
   {
-    v20 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
     v4 = (a1 + 40);
     v5 = v3;
     do
     {
-      v6 = *(v4 - 1);
-      v7 = *v4;
+      v6 = *v4;
 
-      Array<A>.tagCollection.getter(v8);
+      Array<A>.tagCollection.getter(v7);
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v9 = *(v20 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -2825,20 +2683,18 @@ uint64_t Array<A>.taggedBufferGroup.getter(uint64_t a1)
   }
 
   type metadata accessor for CMTagCollectionRef(0);
-  v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   if (v3)
   {
-    v21 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
-    v11 = (a1 + 40);
+    v9 = (a1 + 40);
     do
     {
-      v12 = *v11;
-      v11 += 3;
-      v13 = v12;
+      v10 = *v9;
+      v9 += 3;
+      v11 = v10;
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v14 = *(v21 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -2850,19 +2706,14 @@ uint64_t Array<A>.taggedBufferGroup.getter(uint64_t a1)
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v16 = MEMORY[0x2318E3740](v2, v10.super.isa, isa, v22);
+  v13 = MEMORY[0x2318E3740](v2, v8.super.isa, isa, v16);
 
-  if (v16 == noErr.getter() && (result = v22[0]) != 0)
-  {
-    v18 = *MEMORY[0x277D85DE8];
-  }
-
-  else
+  if (v13 != noErr.getter() || (result = v16[0]) == 0)
   {
     _StringGuts.grow(_:)(53);
     MEMORY[0x2318E2800](0xD000000000000033, 0x800000022E0F8860);
-    v19 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x2318E2800](v19);
+    v15 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x2318E2800](v15);
 
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -2876,30 +2727,29 @@ uint64_t Array<A>.taggedBufferGroup.getter(uint64_t a1)
   v2 = MEMORY[0x277D84F90];
   if (v1)
   {
-    v17 = MEMORY[0x277D84F90];
+    v16 = MEMORY[0x277D84F90];
     v4 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v2 = v17;
+    v2 = v16;
     v5 = (a1 + 48);
     do
     {
-      v7 = *(v5 - 2);
       v6 = *(v5 - 1);
       if (*v5)
       {
-        v14 = *(v5 - 2);
-        v15 = *(v5 - 1);
-        v16 = 0;
+        v13 = *(v5 - 2);
+        v14 = *(v5 - 1);
+        v15 = 0;
         if (*v5 == 1)
         {
-          v8 = 1;
+          v7 = 1;
         }
 
         else
         {
-          v8 = 2;
+          v7 = 2;
         }
 
-        outlined copy of CMTaggedDynamicBuffer.Content(*(v5 - 1), v8);
+        outlined copy of CMTaggedDynamicBuffer.Content(*(v5 - 1), v7);
       }
 
       else
@@ -2914,28 +2764,28 @@ uint64_t Array<A>.taggedBufferGroup.getter(uint64_t a1)
         outlined consume of CMTaggedDynamicBuffer.Content(v6, 0);
       }
 
-      v10 = *(v17 + 16);
-      v9 = *(v17 + 24);
-      if (v10 >= v9 >> 1)
+      v9 = *(v16 + 16);
+      v8 = *(v16 + 24);
+      if (v9 >= v8 >> 1)
       {
-        v4 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v10 + 1, 1);
+        v4 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v9 + 1, 1);
       }
 
       v5 += 24;
-      *(v17 + 16) = v10 + 1;
-      v11 = v17 + 24 * v10;
-      *(v11 + 32) = v14;
-      *(v11 + 40) = v15;
-      *(v11 + 48) = v16;
+      *(v16 + 16) = v9 + 1;
+      v10 = v16 + 24 * v9;
+      *(v10 + 32) = v13;
+      *(v10 + 40) = v14;
+      *(v10 + 48) = v15;
       --v1;
     }
 
     while (v1);
   }
 
-  v12 = Array<A>.taggedBufferGroup.getter(v2);
+  v11 = Array<A>.taggedBufferGroup.getter(v2);
 
-  return v12;
+  return v11;
 }
 
 CMItemCount specialized _copyCollectionToContiguousArray<A>(_:)(OpaqueCMTaggedBufferGroup *a1)
@@ -2999,7 +2849,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -3019,13 +2868,13 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance <> Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySo22CMTaggedBufferGroupRefaGMd, &_ss5SliceVySo22CMTaggedBufferGroupRefaGMR);
-    lazy protocol witness table accessor for type CMTaggedBufferGroupRef and conformance CMTaggedBufferGroupRef(a2);
+    lazy protocol witness table accessor for type CMTaggedBufferGroupRef and conformance CMTaggedBufferGroupRef(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -3033,7 +2882,7 @@ uint64_t lazy protocol witness table accessor for type Slice<CMTaggedBufferGroup
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CMTaggedBufferGroupRef and conformance CMTaggedBufferGroupRef(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type CMTaggedBufferGroupRef and conformance CMTaggedBufferGroupRef(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -3046,7 +2895,7 @@ uint64_t lazy protocol witness table accessor for type CMTaggedBufferGroupRef an
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -3060,7 +2909,7 @@ uint64_t lazy protocol witness table accessor for type Range<Int> and conformanc
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3249,16 +3098,14 @@ LABEL_13:
 uint64_t CMSampleBufferRef.Initializer.create(_:)(CMSampleBufferRef *a1)
 {
   v2 = v1;
-  v73 = *MEMORY[0x277D85DE8];
-  v4 = type metadata accessor for CMSampleDataReference();
-  v5 = *(*(v4 - 8) + 64);
+  v61 = *MEMORY[0x277D85DE8];
+  v4 = type metadata accessor for CMSampleDataReference(0);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v69 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for CMSampleBufferRef.Initializer();
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v69 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of CMSampleBufferRef.Initializer(v2, v11);
+  v6 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for CMSampleBufferRef.Initializer(0);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v57 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of CMSampleBufferRef.Initializer(v2, v9);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 4)
   {
@@ -3266,23 +3113,19 @@ uint64_t CMSampleBufferRef.Initializer.create(_:)(CMSampleBufferRef *a1)
     {
       if (EnumCaseMultiPayload)
       {
-        v61 = *v11;
-        v60 = *(v11 + 1);
-        v62 = *(v11 + 4);
-        sampleTiming.duration.value = *(v11 + 2);
-        *&sampleTiming.duration.timescale = *(v11 + 3);
-        sampleTiming.duration.epoch = v62;
-        ReadyWithPacketDescriptions = CMAudioSampleBufferCreateWithPacketDescriptions(0, 0, 0, 0, 0, v61, v60, &sampleTiming.duration, 0, a1);
+        v50 = *v9;
+        v49 = *(v9 + 1);
+        v51 = *(v9 + 4);
+        sampleTiming.duration.value = *(v9 + 2);
+        *&sampleTiming.duration.timescale = *(v9 + 3);
+        sampleTiming.duration.epoch = v51;
+        Ready = CMAudioSampleBufferCreateWithPacketDescriptions(0, 0, 0, 0, 0, v50, v49, &sampleTiming.duration, 0, a1);
 
-        goto LABEL_30;
+        return Ready;
       }
 
-      v25 = *v11;
-      v24 = *(v11 + 1);
-      v26 = *(v11 + 2);
-      v27 = *(v11 + 3);
-      v28 = *(v11 + 4);
-      ReadyWithPacketDescriptions = CMSampleBufferCreate(0, 0, 0, 0, 0, v25, v24, *(v27 + 16), (v27 + 32), *(v26 + 16), (v26 + 32), a1);
+      v21 = *v9;
+      Ready = CMSampleBufferCreate(0, 0, 0, 0, 0, *v9, *(v9 + 1), *(*(v9 + 3) + 16), (*(v9 + 3) + 32), *(*(v9 + 2) + 16), (*(v9 + 2) + 32), a1);
     }
 
     else
@@ -3291,102 +3134,91 @@ uint64_t CMSampleBufferRef.Initializer.create(_:)(CMSampleBufferRef *a1)
       {
         if (EnumCaseMultiPayload == 3)
         {
-          if (v11[72])
+          if (v9[72])
           {
-            Ready = CMSampleBufferCreateReady(0, 0, 0, 0, 0, 0, 0, 0, a1);
+            return CMSampleBufferCreateReady(0, 0, 0, 0, 0, 0, 0, 0, a1);
           }
 
-          else
-          {
-            v65 = *(v11 + 3);
-            *&sampleTiming.presentationTimeStamp.timescale = *(v11 + 2);
-            *&sampleTiming.decodeTimeStamp.value = v65;
-            sampleTiming.decodeTimeStamp.epoch = *(v11 + 8);
-            v66 = *(v11 + 1);
-            *&sampleTiming.duration.value = *v11;
-            *&sampleTiming.duration.epoch = v66;
-            Ready = CMSampleBufferCreateReady(0, 0, 0, 0, 1, &sampleTiming, 0, 0, a1);
-          }
-
-          ReadyWithPacketDescriptions = Ready;
-          goto LABEL_30;
+          v54 = *(v9 + 3);
+          *&sampleTiming.presentationTimeStamp.timescale = *(v9 + 2);
+          *&sampleTiming.decodeTimeStamp.value = v54;
+          sampleTiming.decodeTimeStamp.epoch = *(v9 + 8);
+          v55 = *(v9 + 1);
+          *&sampleTiming.duration.value = *v9;
+          *&sampleTiming.duration.epoch = v55;
+          return CMSampleBufferCreateReady(0, 0, 0, 0, 1, &sampleTiming, 0, 0, a1);
         }
 
-        v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia21CMSampleDataReferenceV7content_So22CMFormatDescriptionRefa6formatSo0c6BufferI0aAAE26SamplePropertiesCollectionV06sampleM0tMd, &_s9CoreMedia21CMSampleDataReferenceV7content_So22CMFormatDescriptionRefa6formatSo0c6BufferI0aAAE26SamplePropertiesCollectionV06sampleM0tMR);
-        v39 = *&v11[*(v43 + 48)];
-        v44 = &v11[*(v43 + 64)];
-        v45 = *v44;
-        v46 = v44[1];
-        v47 = v44[2];
-        v48 = v44[3];
-        outlined init with take of CMSampleDataReference(v11, v7);
-        ReadyWithPacketDescriptions = CMSampleBufferCreateReady(0, 0, v39, v45, *(v47 + 16), (v47 + 32), *(v46 + 16), (v46 + 32), a1);
+        v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia21CMSampleDataReferenceV7content_So22CMFormatDescriptionRefa6formatSo0c6BufferI0aAAE26SamplePropertiesCollectionV06sampleM0tMd, &_s9CoreMedia21CMSampleDataReferenceV7content_So22CMFormatDescriptionRefa6formatSo0c6BufferI0aAAE26SamplePropertiesCollectionV06sampleM0tMR);
+        v28 = *&v9[*(v32 + 48)];
+        v33 = &v9[*(v32 + 64)];
+        v34 = *v33;
+        v35 = v33[1];
+        v36 = v33[2];
+        outlined init with take of CMSampleDataReference(v9, v6);
+        Ready = CMSampleBufferCreateReady(0, 0, v28, v34, *(v36 + 16), (v36 + 32), *(v35 + 16), (v35 + 32), a1);
 
         if (*a1)
         {
-          v49 = *a1;
-          CMSampleDataReference.embed(into:)(v49);
+          v37 = *a1;
+          CMSampleDataReference.embed(into:)(v37);
 
-          outlined destroy of CMSampleDataReference(v7);
-          goto LABEL_30;
+          outlined destroy of CMSampleDataReference(v6);
+          return Ready;
         }
 
-        outlined destroy of CMSampleDataReference(v7);
+        outlined destroy of CMSampleDataReference(v6);
 LABEL_25:
 
-        goto LABEL_30;
+        return Ready;
       }
 
-      v25 = *v11;
-      v35 = *(v11 + 3);
-      v36 = *(v11 + 4);
-      mStartOffset = v36[1].mStartOffset;
-      sampleTiming.duration.value = *(v11 + 1);
-      *&sampleTiming.duration.timescale = *(v11 + 2);
-      sampleTiming.duration.epoch = v35;
-      ReadyWithPacketDescriptions = CMAudioSampleBufferCreateWithPacketDescriptions(0, 0, 0, 0, 0, v25, mStartOffset, &sampleTiming.duration, v36 + 2, a1);
+      v21 = *v9;
+      v24 = *(v9 + 3);
+      v25 = *(v9 + 4);
+      mStartOffset = v25[1].mStartOffset;
+      sampleTiming.duration.value = *(v9 + 1);
+      *&sampleTiming.duration.timescale = *(v9 + 2);
+      sampleTiming.duration.epoch = v24;
+      Ready = CMAudioSampleBufferCreateWithPacketDescriptions(0, 0, 0, 0, 0, v21, mStartOffset, &sampleTiming.duration, v25 + 2, a1);
     }
 
-    goto LABEL_30;
+    return Ready;
   }
 
   if (EnumCaseMultiPayload <= 6)
   {
     if (EnumCaseMultiPayload == 5)
     {
-      v29 = *v11;
-      v30 = *(v11 + 1);
-      v31 = *(v11 + 2);
-      v32 = *(v11 + 3);
-      v34 = *(v11 + 4);
-      v33 = *(v11 + 5);
-      ReadyWithPacketDescriptions = CMSampleBufferCreateReady(0, v29, v30, v31, *(v34 + 16), (v34 + 32), *(v32 + 16), (v32 + 32), a1);
+      v22 = *v9;
+      v23 = *(v9 + 1);
+      Ready = CMSampleBufferCreateReady(0, *v9, v23, *(v9 + 2), *(*(v9 + 4) + 16), (*(v9 + 4) + 32), *(*(v9 + 3) + 16), (*(v9 + 3) + 32), a1);
 
-      goto LABEL_30;
+      return Ready;
     }
 
-    v38 = *v11;
-    v39 = *(v11 + 1);
-    v63 = *(v11 + 2);
-    v64 = *(v11 + 5);
-    sampleTiming.duration.value = *(v11 + 3);
-    *&sampleTiming.duration.timescale = *(v11 + 4);
-    sampleTiming.duration.epoch = v64;
-    ReadyWithPacketDescriptions = CMAudioSampleBufferCreateReadyWithPacketDescriptions(0, v38, v39, v63, &sampleTiming.duration, 0, a1);
+    v27 = *v9;
+    v28 = *(v9 + 1);
+    v52 = *(v9 + 2);
+    v53 = *(v9 + 5);
+    sampleTiming.duration.value = *(v9 + 3);
+    *&sampleTiming.duration.timescale = *(v9 + 4);
+    sampleTiming.duration.epoch = v53;
+    Ready = CMAudioSampleBufferCreateReadyWithPacketDescriptions(0, v27, v28, v52, &sampleTiming.duration, 0, a1);
     goto LABEL_24;
   }
 
   if (EnumCaseMultiPayload == 7)
   {
-    v38 = *v11;
-    v39 = *(v11 + 1);
-    v40 = *(v11 + 4);
-    v41 = *(v11 + 5);
-    v42 = v41[1].mStartOffset;
-    sampleTiming.duration.value = *(v11 + 2);
-    *&sampleTiming.duration.timescale = *(v11 + 3);
-    sampleTiming.duration.epoch = v40;
-    ReadyWithPacketDescriptions = CMAudioSampleBufferCreateReadyWithPacketDescriptions(0, v38, v39, v42, &sampleTiming.duration, v41 + 2, a1);
+    v27 = *v9;
+    v28 = *(v9 + 1);
+    v29 = *(v9 + 4);
+    v30 = *(v9 + 5);
+    v31 = v30[1].mStartOffset;
+    sampleTiming.duration.value = *(v9 + 2);
+    *&sampleTiming.duration.timescale = *(v9 + 3);
+    sampleTiming.duration.epoch = v29;
+    Ready = CMAudioSampleBufferCreateReadyWithPacketDescriptions(0, v27, v28, v31, &sampleTiming.duration, v30 + 2, a1);
 
 LABEL_24:
 
@@ -3395,22 +3227,21 @@ LABEL_24:
 
   if (EnumCaseMultiPayload == 8)
   {
-    v14 = *v11;
-    v15 = *(v11 + 1);
-    v16 = *(v11 + 2);
-    v17 = *(v11 + 4);
-    v18 = *(v11 + 7);
-    v19 = *MEMORY[0x277CC0898];
-    v20 = *(MEMORY[0x277CC0898] + 16);
-    sampleTiming.duration.value = *(v11 + 5);
-    *&sampleTiming.duration.timescale = *(v11 + 6);
-    sampleTiming.duration.epoch = v18;
-    sampleTiming.presentationTimeStamp.value = v16;
-    *&sampleTiming.presentationTimeStamp.timescale = *(v11 + 3);
-    sampleTiming.presentationTimeStamp.epoch = v17;
-    sampleTiming.decodeTimeStamp.value = v19;
+    v12 = *(v9 + 1);
+    v13 = *(v9 + 2);
+    v14 = *(v9 + 4);
+    v15 = *(v9 + 7);
+    v16 = *MEMORY[0x277CC0898];
+    v17 = *(MEMORY[0x277CC0898] + 16);
+    sampleTiming.duration.value = *(v9 + 5);
+    *&sampleTiming.duration.timescale = *(v9 + 6);
+    sampleTiming.duration.epoch = v15;
+    sampleTiming.presentationTimeStamp.value = v13;
+    *&sampleTiming.presentationTimeStamp.timescale = *(v9 + 3);
+    sampleTiming.presentationTimeStamp.epoch = v14;
+    sampleTiming.decodeTimeStamp.value = v16;
     *&sampleTiming.decodeTimeStamp.timescale = *(MEMORY[0x277CC0898] + 8);
-    sampleTiming.decodeTimeStamp.epoch = v20;
+    sampleTiming.decodeTimeStamp.epoch = v17;
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
     type metadata accessor for CVBufferRef(0);
@@ -3418,67 +3249,65 @@ LABEL_24:
     _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
 
     value = sbufDuration.value;
-    ReadyWithPacketDescriptions = CMSampleBufferCreateReadyWithImageBuffer(0, sbufDuration.value, v15, &sampleTiming, a1);
+    Ready = CMSampleBufferCreateReadyWithImageBuffer(0, sbufDuration.value, v12, &sampleTiming, a1);
   }
 
   else
   {
-    v51 = *v11;
-    v50 = *(v11 + 1);
-    v52 = *(v11 + 2);
-    v53 = *(v11 + 3);
-    v54 = *(v11 + 5);
-    v69 = *(v11 + 4);
-    v70 = v52;
-    v56 = *(v11 + 6);
-    v55 = *(v11 + 7);
-    v57 = v11[64];
-    swift_getKeyPath();
+    v39 = *v9;
+    v38 = *(v9 + 1);
+    v40 = *(v9 + 2);
+    v41 = *(v9 + 3);
+    v42 = *(v9 + 5);
+    v57 = *(v9 + 4);
+    v58 = v40;
+    v44 = *(v9 + 6);
+    v43 = *(v9 + 7);
+    v45 = v9[64];
+    v46 = swift_getKeyPath();
 
-    v58 = _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFSo0cE8GroupRefa_Tg506_sSay9a7Media14ce8VGSo0cD8J33RefaIeggo_AdFs5Error_pIegTgrzo_TRAgIIeggo_Tf1cn_nTf4ng_n(v51, partial apply for implicit closure #3 in CMSampleBufferRef.Initializer.create(_:));
+    v47 = _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFSo0cE8GroupRefa_Tg506_sSay9a7Media14ce8VGSo0cD8J33RefaIeggo_AdFs5Error_pIegTgrzo_TRAgIIeggo_Tf1cn_nTf4ng_n(v39, partial apply for implicit closure #3 in CMSampleBufferRef.Initializer.create(_:), v46);
 
-    if (v57)
+    if (v45)
     {
-      v54 = *MEMORY[0x277CC0898];
-      LODWORD(v56) = *(MEMORY[0x277CC0898] + 8);
-      LODWORD(v59) = *(MEMORY[0x277CC0898] + 12);
-      v55 = *(MEMORY[0x277CC0898] + 16);
+      v42 = *MEMORY[0x277CC0898];
+      LODWORD(v44) = *(MEMORY[0x277CC0898] + 8);
+      LODWORD(v48) = *(MEMORY[0x277CC0898] + 12);
+      v43 = *(MEMORY[0x277CC0898] + 16);
     }
 
     else
     {
-      v59 = HIDWORD(v56);
+      v48 = HIDWORD(v44);
     }
 
-    sampleTiming.duration.value = v70;
-    *&sampleTiming.duration.timescale = v53;
-    sampleTiming.duration.epoch = v69;
-    sbufDuration.value = v54;
-    sbufDuration.timescale = v56;
-    sbufDuration.flags = v59;
-    sbufDuration.epoch = v55;
-    ReadyWithPacketDescriptions = CMSampleBufferCreateForTaggedBufferGroup(0, v58, &sampleTiming.duration, &sbufDuration, v50, a1);
+    sampleTiming.duration.value = v58;
+    *&sampleTiming.duration.timescale = v41;
+    sampleTiming.duration.epoch = v57;
+    sbufDuration.value = v42;
+    sbufDuration.timescale = v44;
+    sbufDuration.flags = v48;
+    sbufDuration.epoch = v43;
+    Ready = CMSampleBufferCreateForTaggedBufferGroup(0, v47, &sampleTiming.duration, &sbufDuration, v38, a1);
   }
 
-LABEL_30:
-  v67 = *MEMORY[0x277D85DE8];
-  return ReadyWithPacketDescriptions;
+  return Ready;
 }
 
-uint64_t implicit closure #1 in closure #4 in CMSampleBufferRef.Initializer.create(_:)(void *a1)
+uint64_t implicit closure #1 in closure #4 in CMSampleBufferRef.Initializer.create(_:)(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
+  swift_getAtKeyPath();
+
+  return v4;
+}
+
+uint64_t implicit closure #3 in CMSampleBufferRef.Initializer.create(_:)(uint64_t a1, uint64_t a2)
+{
+
   swift_getAtKeyPath();
 
   return v3;
-}
-
-uint64_t implicit closure #3 in CMSampleBufferRef.Initializer.create(_:)()
-{
-
-  swift_getAtKeyPath();
-
-  return v1;
 }
 
 CFTypeRef protocol witness for ConcurrentAccess.CloneForCopyOnWrite.init(cloneForCopyOnWrite:) in conformance CMSampleBufferRef(void *a1)
@@ -3489,7 +3318,7 @@ CFTypeRef protocol witness for ConcurrentAccess.CloneForCopyOnWrite.init(cloneFo
   return v2;
 }
 
-uint64_t type metadata accessor for CMSampleBufferRef.Initializer()
+uint64_t type metadata accessor for CMSampleBufferRef.Initializer(uint64_t a1)
 {
   result = type metadata singleton initialization cache for CMSampleBufferRef.Initializer;
   if (!type metadata singleton initialization cache for CMSampleBufferRef.Initializer)
@@ -3500,37 +3329,37 @@ uint64_t type metadata accessor for CMSampleBufferRef.Initializer()
   return result;
 }
 
-void type metadata completion function for CMSampleBufferRef.Initializer()
+void type metadata completion function for CMSampleBufferRef.Initializer(uint64_t a1)
 {
-  type metadata accessor for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)();
-  if (v0 <= 0x3F)
+  type metadata accessor for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime)();
-    if (v1 <= 0x3F)
+    type metadata accessor for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime)(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription])();
-      if (v2 <= 0x3F)
+      type metadata accessor for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription])(319);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for (sampleTiming: CMSampleTimingInfo?)();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)();
-          if (v4 <= 0x3F)
+          type metadata accessor for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(319);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)();
-            if (v5 <= 0x3F)
+            type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(319);
+            if (v6 <= 0x3F)
             {
               type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime)(319);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription])(319);
-                if (v7 <= 0x3F)
+                if (v8 <= 0x3F)
                 {
                   type metadata accessor for (content: CVReadOnlyPixelBuffer, format: CMFormatDescriptionRef, presentationTime: CMTime, duration: CMTime)(319);
-                  if (v8 <= 0x3F)
+                  if (v9 <= 0x3F)
                   {
                     type metadata accessor for (content: [CMTaggedDynamicBuffer], format: CMFormatDescriptionRef, presentationTime: CMTime, duration: CMTime?)(319);
-                    if (v9 <= 0x3F)
+                    if (v10 <= 0x3F)
                     {
                       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
                     }
@@ -3545,34 +3374,34 @@ void type metadata completion function for CMSampleBufferRef.Initializer()
   }
 }
 
-void type metadata accessor for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)()
+void type metadata accessor for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection))
   {
     type metadata accessor for CMFormatDescriptionRef(255);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection));
     }
   }
 }
 
-void type metadata accessor for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime)()
+void type metadata accessor for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime))
   {
     type metadata accessor for CMFormatDescriptionRef(255);
     type metadata accessor for CMTime(255);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (format: CMFormatDescriptionRef, sampleCount: Int, presentationTime: CMTime));
     }
   }
 }
 
-void type metadata accessor for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription])()
+void type metadata accessor for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription])(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription]))
   {
@@ -3580,7 +3409,7 @@ void type metadata accessor for (format: CMFormatDescriptionRef, presentationTim
     type metadata accessor for CMTime(255);
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo28AudioStreamPacketDescriptionVGMd, &_sSaySo28AudioStreamPacketDescriptionVGMR);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (format: CMFormatDescriptionRef, presentationTime: CMTime, packetDescriptions: [AudioStreamPacketDescription]));
     }
@@ -3591,7 +3420,7 @@ void type metadata accessor for (sampleTiming: CMSampleTimingInfo?)()
 {
   if (!lazy cache variable for type metadata for (sampleTiming: CMSampleTimingInfo?))
   {
-    type metadata accessor for CMSampleTimingInfo?();
+    type metadata accessor for CMSampleTimingInfo?(0);
     if (!v1)
     {
       atomic_store(v0, &lazy cache variable for type metadata for (sampleTiming: CMSampleTimingInfo?));
@@ -3599,40 +3428,40 @@ void type metadata accessor for (sampleTiming: CMSampleTimingInfo?)()
   }
 }
 
-void type metadata accessor for CMSampleTimingInfo?()
+void type metadata accessor for CMSampleTimingInfo?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CMSampleTimingInfo?)
   {
     type metadata accessor for CMSampleTimingInfo(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CMSampleTimingInfo?);
+      atomic_store(v1, &lazy cache variable for type metadata for CMSampleTimingInfo?);
     }
   }
 }
 
-void type metadata accessor for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)()
+void type metadata accessor for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection))
   {
-    type metadata accessor for CMSampleDataReference();
+    type metadata accessor for CMSampleDataReference(255);
     type metadata accessor for CMFormatDescriptionRef(255);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (content: CMSampleDataReference, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection));
     }
   }
 }
 
-void type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)()
+void type metadata accessor for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection))
   {
     type metadata accessor for CMFormatDescriptionRef(255);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (content: CMReadOnlyDataBlockBuffer, format: CMFormatDescriptionRef, sampleProperties: CMSampleBufferRef.SamplePropertiesCollection));
     }
@@ -3703,9 +3532,8 @@ void type metadata accessor for (content: [CMTaggedDynamicBuffer], format: CMFor
   }
 }
 
-void _s9CoreMedia16ConcurrentAccessO7WrapperPAASo17CMSampleBufferRefa8CMObjectRtzrlE22firstSampleAttachmentsAgAE0kL0VvgAlGYTXEfU_(uint64_t *a1)
+void _s9CoreMedia16ConcurrentAccessO7WrapperPAASo17CMSampleBufferRefa8CMObjectRtzrlE22firstSampleAttachmentsAgAE0kL0VvgAlGYTXEfU_()
 {
-  v1 = *a1;
   v2 = FigSampleBufferGetSingleSampleAttachments();
   if (v2)
   {
@@ -3737,19 +3565,17 @@ Class Array<A>.rawValue.getter(uint64_t a1)
   isa = *(a1 + 16);
   if (isa)
   {
-    v7 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
-    v3 = (a1 + 32);
+    v3 = a1 + 32;
     type metadata accessor for CFStringRef(0);
     lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef();
     do
     {
-      v4 = *v3++;
+      v3 += 8;
 
       Dictionary._bridgeToObjectiveC()();
 
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v5 = *(v7 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -3766,21 +3592,21 @@ Class Array<A>.rawValue.getter(uint64_t a1)
 
 uint64_t outlined init with copy of CMSampleBufferRef.Initializer(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CMSampleBufferRef.Initializer();
+  v4 = type metadata accessor for CMSampleBufferRef.Initializer(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined init with take of CMSampleDataReference(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CMSampleDataReference();
+  v4 = type metadata accessor for CMSampleDataReference(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of CMSampleDataReference(uint64_t a1)
 {
-  v2 = type metadata accessor for CMSampleDataReference();
+  v2 = type metadata accessor for CMSampleDataReference(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3802,25 +3628,24 @@ uint64_t specialized Array<A>.init(rawValue:)(void *a1)
 
 uint64_t _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lF(void (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
-  v3 = a1;
-  v4 = *(a3 + 16);
-  v5 = MEMORY[0x277D84F90];
-  if (v4)
+  v4 = a1;
+  v5 = *(a3 + 16);
+  v6 = MEMORY[0x277D84F90];
+  if (v5)
   {
     v20 = MEMORY[0x277D84F90];
-    v7 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = v20;
-    v8 = (a3 + 48);
+    v8 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
+    v6 = v20;
+    v9 = (a3 + 48);
     do
     {
-      v10 = *(v8 - 2);
-      v9 = *(v8 - 1);
-      if (*v8)
+      v10 = *(v9 - 1);
+      if (*v9)
       {
-        v17 = *(v8 - 2);
-        v18 = *(v8 - 1);
+        v17 = *(v9 - 2);
+        v18 = *(v9 - 1);
         v19 = 0;
-        if (*v8 == 1)
+        if (*v9 == 1)
         {
           v11 = 1;
         }
@@ -3830,47 +3655,46 @@ uint64_t _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersy
           v11 = 2;
         }
 
-        outlined copy of CMTaggedDynamicBuffer.Content(*(v8 - 1), v11);
+        outlined copy of CMTaggedDynamicBuffer.Content(*(v9 - 1), v11);
       }
 
       else
       {
-        MEMORY[0x28223BE20](v7);
+        MEMORY[0x28223BE20](v8);
 
-        outlined copy of CMTaggedDynamicBuffer.Content(v9, 0);
-        outlined copy of CMTaggedDynamicBuffer.Content(v9, 0);
+        outlined copy of CMTaggedDynamicBuffer.Content(v10, 0);
+        outlined copy of CMTaggedDynamicBuffer.Content(v10, 0);
         _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
-        outlined consume of CMTaggedDynamicBuffer.Content(v9, 0);
+        outlined consume of CMTaggedDynamicBuffer.Content(v10, 0);
 
-        outlined consume of CMTaggedDynamicBuffer.Content(v9, 0);
+        outlined consume of CMTaggedDynamicBuffer.Content(v10, 0);
       }
 
       v13 = *(v20 + 16);
       v12 = *(v20 + 24);
       if (v13 >= v12 >> 1)
       {
-        v7 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        v8 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
       }
 
-      v8 += 24;
+      v9 += 24;
       *(v20 + 16) = v13 + 1;
       v14 = v20 + 24 * v13;
       *(v14 + 32) = v17;
       *(v14 + 40) = v18;
       *(v14 + 48) = v19;
-      --v4;
+      --v5;
     }
 
-    while (v4);
-    v3 = a1;
+    while (v5);
+    v4 = a1;
   }
 
-  v3(v5);
+  v4(v6);
 }
 
 uint64_t CMTaggedDynamicBuffer.tags.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -3930,43 +3754,38 @@ uint64_t CMTaggedDynamicBuffer.init(tags:content:)@<X0>(uint64_t result@<X0>, ui
 
 uint64_t CMTaggedDynamicBuffer.init(unsafeBuffer:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v3 = a1[1];
   if (a1[2])
   {
-    v5 = type metadata accessor for CVReadOnlyPixelBuffer();
-    v6 = *(v5 + 48);
-    v7 = *(v5 + 52);
+    type metadata accessor for CVReadOnlyPixelBuffer();
     swift_allocObject();
 
-    v8 = v3;
+    v5 = v3;
     v3 = CVReadOnlyPixelBuffer.init(unsafeBuffer:)();
 
-    v10 = 0;
+    v7 = 0;
 LABEL_11:
     *a2 = v4;
     *(a2 + 8) = v3;
-    *(a2 + 16) = v10;
-    v14 = *MEMORY[0x277D85DE8];
+    *(a2 + 16) = v7;
     return result;
   }
 
-  v11 = *a1;
-
-  v12 = v3;
-  v13 = FigSampleBufferPayloadTypeForSwiftOverlay();
-  if (v13)
+  v8 = v3;
+  v9 = FigSampleBufferPayloadTypeForSwiftOverlay();
+  if (v9)
   {
-    if (v13 == 1)
+    if (v9 == 1)
     {
-      if (CMSampleBufferIsValid(v12))
+      if (CMSampleBufferIsValid(v8))
       {
         statusOut = noErr.getter();
-        if (CMSampleBufferDataIsReady(v12))
+        if (CMSampleBufferDataIsReady(v8))
         {
 
-          v10 = 1;
+          v7 = 1;
           goto LABEL_11;
         }
 
@@ -3983,73 +3802,74 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (!CMSampleBufferIsValid(v12))
+  if (!CMSampleBufferIsValid(v8))
   {
     goto LABEL_13;
   }
 
   statusOut = noErr.getter();
-  if (CMSampleBufferDataIsReady(v12))
+  if (CMSampleBufferDataIsReady(v8))
   {
 
-    v10 = 2;
+    v7 = 2;
     goto LABEL_11;
   }
 
-  CMSampleBufferHasDataFailed(v12, &statusOut);
+  CMSampleBufferHasDataFailed(v8, &statusOut);
   __break(1u);
 LABEL_16:
-  result = CMSampleBufferHasDataFailed(v12, &statusOut);
+  result = CMSampleBufferHasDataFailed(v8, &statusOut);
   __break(1u);
   return result;
 }
 
 void _s9CoreMedia21CMTaggedDynamicBufferV016withUnsafeTaggedE0yxxAA0cE0VKYTXEKlF(uint64_t a1)
 {
-  v2 = *v1;
-  v3 = v1[1];
-  v4 = *(v1 + 16);
-  if (*(v1 + 16))
+  v3 = *(v2 + 8);
+  v4 = *(v2 + 16);
+  if (*(v2 + 16))
   {
-    v26 = v1[1];
+    v30 = *(v2 + 8);
     if (v4 == 1)
     {
       v5 = MEMORY[0x28223BE20](a1);
-      v22 = v6;
-      v23 = v5;
-      v24 = v7;
-      v25 = v8;
-      v9 = v3;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVy0A5Video015CVReadOnlyPixelE0CGMd, &_s9CoreMedia19CMReadySampleBufferVy0A5Video015CVReadOnlyPixelE0CGMR);
-      _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(_s9CoreMedia21CMTaggedDynamicBufferV016withUnsafeTaggedE0yxxAA0cE0VKYTXEKlFxSo08CMSampleE3RefaKYTXEfU0_TA, v21);
+      v26 = v6;
+      v27 = v5;
+      v28 = v7;
+      v29 = v8;
+      v9 = v6;
       v10 = v3;
-      v11 = 1;
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVy0A5Video015CVReadOnlyPixelE0CGMd, &_s9CoreMedia19CMReadySampleBufferVy0A5Video015CVReadOnlyPixelE0CGMR);
+      _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(_s9CoreMedia21CMTaggedDynamicBufferV016withUnsafeTaggedE0yxxAA0cE0VKYTXEKlFxSo08CMSampleE3RefaKYTXEfU0_TA, v25, v11, v9);
+      v12 = v3;
+      v13 = 1;
     }
 
     else
     {
-      v16 = MEMORY[0x28223BE20](a1);
-      v22 = v17;
-      v23 = v16;
-      v24 = v18;
-      v25 = v19;
-      v20 = v3;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVyAA019CMReadOnlyDataBlockE0VGMd, &_s9CoreMedia19CMReadySampleBufferVyAA019CMReadOnlyDataBlockE0VGMR);
-      _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(_s9CoreMedia21CMTaggedDynamicBufferV016withUnsafeTaggedE0yxxAA0cE0VKYTXEKlFxSo08CMSampleE3RefaKYTXEfU1_TA, v21);
-      v10 = v3;
-      v11 = 2;
+      v18 = MEMORY[0x28223BE20](a1);
+      v26 = v19;
+      v27 = v18;
+      v28 = v20;
+      v29 = v21;
+      v22 = v19;
+      v23 = v3;
+      v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVyAA019CMReadOnlyDataBlockE0VGMd, &_s9CoreMedia19CMReadySampleBufferVyAA019CMReadOnlyDataBlockE0VGMR);
+      _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(_s9CoreMedia21CMTaggedDynamicBufferV016withUnsafeTaggedE0yxxAA0cE0VKYTXEKlFxSo08CMSampleE3RefaKYTXEfU1_TA, v25, v24, v22);
+      v12 = v3;
+      v13 = 2;
     }
 
-    outlined consume of CMTaggedDynamicBuffer.Content(v10, v11);
+    outlined consume of CMTaggedDynamicBuffer.Content(v12, v13);
   }
 
   else
   {
-    v12 = MEMORY[0x28223BE20](a1);
-    v22 = v13;
-    v23 = v12;
-    v24 = v14;
-    v25 = v15;
+    v14 = MEMORY[0x28223BE20](a1);
+    v26 = v15;
+    v27 = v14;
+    v28 = v16;
+    v29 = v17;
 
     _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
     outlined consume of CMTaggedDynamicBuffer.Content(v3, 0);
@@ -4174,9 +3994,9 @@ LABEL_22:
   return MEMORY[0x277D84F90];
 }
 
-id _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFAfCXEfU_A2Fcfu_32d41d8cd98f00b204e9800998ecf8427eA2FTf3nnpk_nTm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+id _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFAfCXEfU_A2Fcfu_32d41d8cd98f00b204e9800998ecf8427eA2FTf3nnpk_nTm@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v2 = *(a1 + 16);
   *a2 = *a1;
   *(a2 + 8) = v4;
@@ -4264,27 +4084,26 @@ uint64_t storeEnumTagSinglePayload for CMTaggedDynamicBuffer.Content(uint64_t re
   return result;
 }
 
-uint64_t _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFSo0cE8GroupRefa_Tg506_sSay9a7Media14ce8VGSo0cD8J33RefaIeggo_AdFs5Error_pIegTgrzo_TRAgIIeggo_Tf1cn_nTf4ng_n(uint64_t a1, uint64_t (*a2)(void))
+uint64_t _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersyqd__qd__SayAA0cE0VGKYTXEKRi_d__lFSo0cE8GroupRefa_Tg506_sSay9a7Media14ce8VGSo0cD8J33RefaIeggo_AdFs5Error_pIegTgrzo_TRAgIIeggo_Tf1cn_nTf4ng_n(uint64_t a1, uint64_t (*a2)(void), uint64_t a3)
 {
-  v2 = *(a1 + 16);
-  v3 = MEMORY[0x277D84F90];
-  if (v2)
+  v3 = *(a1 + 16);
+  v4 = MEMORY[0x277D84F90];
+  if (v3)
   {
     v15 = a2;
     v19 = MEMORY[0x277D84F90];
-    v5 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
-    v3 = v19;
-    v6 = (a1 + 48);
+    v6 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
+    v4 = v19;
+    v7 = (a1 + 48);
     do
     {
-      v8 = *(v6 - 2);
-      v7 = *(v6 - 1);
-      if (*v6)
+      v8 = *(v7 - 1);
+      if (*v7)
       {
-        v16 = *(v6 - 2);
-        v17 = *(v6 - 1);
+        v16 = *(v7 - 2);
+        v17 = *(v7 - 1);
         v18 = 0;
-        if (*v6 == 1)
+        if (*v7 == 1)
         {
           v9 = 1;
         }
@@ -4294,49 +4113,48 @@ uint64_t _sSa9CoreMediaAA21CMTaggedDynamicBufferVRszlE23withUnsafeTaggedBuffersy
           v9 = 2;
         }
 
-        outlined copy of CMTaggedDynamicBuffer.Content(*(v6 - 1), v9);
+        outlined copy of CMTaggedDynamicBuffer.Content(*(v7 - 1), v9);
       }
 
       else
       {
-        MEMORY[0x28223BE20](v5);
+        MEMORY[0x28223BE20](v6);
 
-        outlined copy of CMTaggedDynamicBuffer.Content(v7, 0);
-        outlined copy of CMTaggedDynamicBuffer.Content(v7, 0);
+        outlined copy of CMTaggedDynamicBuffer.Content(v8, 0);
+        outlined copy of CMTaggedDynamicBuffer.Content(v8, 0);
         _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
-        outlined consume of CMTaggedDynamicBuffer.Content(v7, 0);
+        outlined consume of CMTaggedDynamicBuffer.Content(v8, 0);
 
-        outlined consume of CMTaggedDynamicBuffer.Content(v7, 0);
+        outlined consume of CMTaggedDynamicBuffer.Content(v8, 0);
       }
 
       v11 = *(v19 + 16);
       v10 = *(v19 + 24);
       if (v11 >= v10 >> 1)
       {
-        v5 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1);
+        v6 = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1);
       }
 
-      v6 += 24;
+      v7 += 24;
       *(v19 + 16) = v11 + 1;
       v12 = v19 + 24 * v11;
       *(v12 + 32) = v16;
       *(v12 + 40) = v17;
       *(v12 + 48) = v18;
-      --v2;
+      --v3;
     }
 
-    while (v2);
+    while (v3);
     a2 = v15;
   }
 
-  v13 = a2(v3);
+  v13 = a2(v4);
 
   return v13;
 }
 
 uint64_t specialized ConcurrentAccess.Wrapper<>.sampleProperties.getter@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t a2@<X8>)
 {
-  v10 = *MEMORY[0x277D85DE8];
   FigSampleBufferGetSampleInfosForSwiftOverlay();
   v4 = 0;
   NumSamples = CMSampleBufferGetNumSamples(a1);
@@ -4349,7 +4167,6 @@ uint64_t specialized ConcurrentAccess.Wrapper<>.sampleProperties.getter@<X0>(opa
   *(a2 + 16) = v7;
   *(a2 + 24) = result;
   *(a2 + 32) = a1;
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4417,40 +4234,34 @@ LABEL_7:
   }
 
   v6 = v2[6];
-  v7 = *v6;
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v9 = *v6;
+  v8 = *v6;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    v10 = v9;
-    v9 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v10);
-    v11 = v2[6];
+    v9 = v8;
+    v8 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v9);
+    v10 = v2[6];
 
-    *v11 = v9;
+    *v10 = v8;
   }
 
-  v12 = *(v2[1] + 16);
-  v13 = *(v2[2] + 16);
-  v14 = *(v2[3] + 16);
+  v11 = *(v2[3] + 16);
 
-  v15 = v9;
-  if (v14)
+  v12 = v8;
+  if (v11)
   {
 
-    v14 = Array<A>.rawValue.getter(v16);
+    v11 = Array<A>.rawValue.getter(v13);
   }
 
   FigSampleBufferSetSampleInfosForSwiftOverlay();
 
 LABEL_13:
-  v17 = v2[1];
-  v18 = v2[2];
-  v19 = v2[3];
 
   free(v2);
 }
 
-uint64_t specialized ConcurrentAccess.Wrapper<>.outputSampleTimings.getter@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t a2@<X8>)
+double specialized ConcurrentAccess.Wrapper<>.outputSampleTimings.getter@<D0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t a2@<X8>)
 {
   timingArrayEntriesNeededOut[2] = *MEMORY[0x277D85DE8];
   timingArrayEntriesNeededOut[0] = 0;
@@ -4463,46 +4274,44 @@ uint64_t specialized ConcurrentAccess.Wrapper<>.outputSampleTimings.getter@<X0>(
   *&timingArrayOut.duration.value = *MEMORY[0x277CC0918];
   *&timingArrayOut.duration.epoch = v4;
   OutputSampleTimingInfoArray = CMSampleBufferGetOutputSampleTimingInfoArray(a1, 1, &timingArrayOut, timingArrayEntriesNeededOut);
-  result = noErr.getter();
-  if (result != OutputSampleTimingInfoArray)
+  if (noErr.getter() != OutputSampleTimingInfoArray)
   {
     if (OutputSampleTimingInfoArray == -12737)
     {
-      v9 = MEMORY[0x28223BE20](timingArrayEntriesNeededOut[0]);
-      result = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSo18CMSampleTimingInfoa_Tt1g5(v9, partial apply for specialized closure #2 in ConcurrentAccess.Wrapper<>.outputSampleTimings.getter);
-      if (*(result + 16))
+      v8 = MEMORY[0x28223BE20](timingArrayEntriesNeededOut[0]);
+      v9 = _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSo18CMSampleTimingInfoa_Tt1g5(v8, partial apply for specialized closure #2 in ConcurrentAccess.Wrapper<>.outputSampleTimings.getter);
+      if (*(v9 + 16))
       {
-        *a2 = result;
+        *a2 = v9;
         *(a2 + 72) = 0;
-        goto LABEL_8;
+        return *&v7;
       }
     }
 
     *(a2 + 64) = 0;
+    *&v7 = 0;
     *(a2 + 32) = 0u;
     *(a2 + 48) = 0u;
     *a2 = 0u;
     *(a2 + 16) = 0u;
     *(a2 + 72) = -1;
-    goto LABEL_8;
+    return *&v7;
   }
 
-  v7 = *&timingArrayOut.decodeTimeStamp.value;
+  v6 = *&timingArrayOut.decodeTimeStamp.value;
   *(a2 + 32) = *&timingArrayOut.presentationTimeStamp.timescale;
-  *(a2 + 48) = v7;
+  *(a2 + 48) = v6;
   *(a2 + 64) = timingArrayOut.decodeTimeStamp.epoch;
-  v8 = *&timingArrayOut.duration.epoch;
+  v7 = *&timingArrayOut.duration.epoch;
   *a2 = *&timingArrayOut.duration.value;
-  *(a2 + 16) = v8;
+  *(a2 + 16) = v7;
   *(a2 + 72) = 1;
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return *&v7;
 }
 
 uint64_t CMReadySampleBuffer.init(_:)@<X0>(opaqueCMSampleBuffer *a1@<X0>, opaqueCMSampleBuffer **a2@<X8>)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (!CMSampleBufferIsValid(a1))
   {
     __break(1u);
@@ -4519,26 +4328,24 @@ LABEL_5:
   }
 
   *a2 = a1;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(uint64_t (*a1)(uint64_t), uint64_t a2)
+uint64_t _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *v2;
+  v7 = *v4;
   type metadata accessor for CMSampleBufferRef(0);
-  return _s9CoreMedia16ConcurrentAccessO11CopyOnWriteV016withUnsafeSharedD0yqd__qd__xKYTXEKRi_d__lF(a1, a2, v5);
+  return _s9CoreMedia16ConcurrentAccessO11CopyOnWriteV016withUnsafeSharedD0yqd__qd__xKYTXEKRi_d__lF(a1, a2, v7);
 }
 
 uint64_t CMReadySampleBuffer.contentType.getter@<X0>(char *a1@<X8>)
 {
-  v3 = *v1;
   result = FigSampleBufferPayloadTypeForSwiftOverlay();
   if (result <= 0)
   {
     if (!result)
     {
-      v5 = 2;
+      v3 = 2;
       goto LABEL_13;
     }
   }
@@ -4548,13 +4355,13 @@ uint64_t CMReadySampleBuffer.contentType.getter@<X0>(char *a1@<X8>)
     switch(result)
     {
       case 3:
-        v5 = 4;
+        v3 = 4;
         goto LABEL_13;
       case 4:
-        v5 = 0;
+        v3 = 0;
         goto LABEL_13;
       case 5:
-        v5 = 1;
+        v3 = 1;
         goto LABEL_13;
     }
   }
@@ -4563,9 +4370,9 @@ uint64_t CMReadySampleBuffer.contentType.getter@<X0>(char *a1@<X8>)
   {
     if (result == 1)
     {
-      v5 = 3;
+      v3 = 3;
 LABEL_13:
-      *a1 = v5;
+      *a1 = v3;
       return result;
     }
 
@@ -4583,9 +4390,8 @@ CMFormatDescriptionRef CMReadySampleBuffer.formatDescription.getter()
   return FormatDescription;
 }
 
-uint64_t key path getter for CMReadySampleBuffer.outputPresentationTimeStamp : <A>CMReadySampleBuffer<A>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t key path getter for CMReadySampleBuffer.outputPresentationTimeStamp : <A>CMReadySampleBuffer<A>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v7 = *a1;
   result = CMReadySampleBuffer.outputPresentationTimeStamp.getter(a1);
   *a2 = result;
   *(a2 + 8) = v4;
@@ -4596,27 +4402,26 @@ uint64_t key path getter for CMReadySampleBuffer.outputPresentationTimeStamp : <
 
 uint64_t CMReadySampleBuffer.outputPresentationTimeStamp.setter(CMTimeValue a1, uint64_t a2, CMTimeEpoch a3)
 {
-  v7 = *v3;
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v9 = *v3;
+  v8 = *v3;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    v10 = v9;
-    v11 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v10);
+    v9 = v8;
+    v10 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v9);
 
-    v9 = v11;
-    *v3 = v11;
+    v8 = v10;
+    *v3 = v10;
   }
 
-  v15.value = a1;
-  *&v15.timescale = a2;
-  v15.epoch = a3;
-  v12 = CMSampleBufferSetOutputPresentationTimeStamp(v9, &v15);
+  v14.value = a1;
+  *&v14.timescale = a2;
+  v14.epoch = a3;
+  v11 = CMSampleBufferSetOutputPresentationTimeStamp(v8, &v14);
   result = noErr.getter();
-  if (v12 != result)
+  if (v11 != result)
   {
-    v14 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-    [v14 initWithDomain:*MEMORY[0x277CCA590] code:v12 userInfo:0];
+    v13 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v13 initWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
     swift_willThrow();
     swift_unexpectedError();
     __break(1u);
@@ -4658,7 +4463,6 @@ void (*CMReadySampleBuffer.outputPresentationTimeStamp.modify(void *a1, uint64_t
 void CMReadySampleBuffer.outputPresentationTimeStamp.modify(uint64_t **a1)
 {
   v1 = *a1;
-  v2 = (*a1)[1];
   CMReadySampleBuffer.outputPresentationTimeStamp.setter((*a1)[2], v1[3], v1[4]);
 
   free(v1);
@@ -4666,7 +4470,6 @@ void CMReadySampleBuffer.outputPresentationTimeStamp.modify(uint64_t **a1)
 
 id CMReadySampleBuffer.rawDecryptor.getter()
 {
-  v1 = *v0;
   Decryptor = FigSampleBufferGetDecryptor();
 
   return Decryptor;
@@ -4674,17 +4477,14 @@ id CMReadySampleBuffer.rawDecryptor.getter()
 
 uint64_t key path setter for CMReadySampleBuffer.rawDecryptor : <A>CMReadySampleBuffer<A>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a3 + a4 - 16);
-  v5 = *(a3 + a4 - 8);
-  v6 = *a1;
-  type metadata accessor for CMReadySampleBuffer();
-  v7 = swift_unknownObjectRetain();
-  specialized CMReadySampleBuffer.rawDecryptor.setter(v7);
+  type metadata accessor for CMReadySampleBuffer(0, *(a3 + a4 - 16), *(a3 + a4 - 8), a4);
+  v4 = swift_unknownObjectRetain();
+  specialized CMReadySampleBuffer.rawDecryptor.setter(v4);
 
   return swift_unknownObjectRelease();
 }
 
-uint64_t CMReadySampleBuffer.rawDecryptor.setter(uint64_t a1)
+uint64_t CMReadySampleBuffer.rawDecryptor.setter(uint64_t a1, uint64_t a2)
 {
   specialized CMReadySampleBuffer.rawDecryptor.setter(a1);
 
@@ -4695,32 +4495,29 @@ uint64_t (*CMReadySampleBuffer.rawDecryptor.modify(void *a1, uint64_t a2))(uint6
 {
   a1[1] = a2;
   a1[2] = v2;
-  v4 = *v2;
   *a1 = FigSampleBufferGetDecryptor();
   return CMReadySampleBuffer.rawDecryptor.modify;
 }
 
 uint64_t CMReadySampleBuffer.rawDecryptor.modify(uint64_t *a1, char a2)
 {
-  v3 = a1[1];
-  v2 = a1[2];
-  v4 = *a1;
+  v2 = *a1;
   if (a2)
   {
-    v5 = swift_unknownObjectRetain();
-    specialized CMReadySampleBuffer.rawDecryptor.setter(v5);
+    v3 = swift_unknownObjectRetain();
+    specialized CMReadySampleBuffer.rawDecryptor.setter(v3);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    specialized CMReadySampleBuffer.rawDecryptor.setter(v4);
+    specialized CMReadySampleBuffer.rawDecryptor.setter(v2);
   }
 
   return swift_unknownObjectRelease();
 }
 
-const opaqueCMFormatDescription *CMReadySampleBuffer<>.formatDescription.getter()
+CMFormatDescriptionRef CMReadySampleBuffer<>.formatDescription.getter()
 {
   result = CMSampleBufferGetFormatDescription(*v0);
   if (!result)
@@ -4731,22 +4528,19 @@ const opaqueCMFormatDescription *CMReadySampleBuffer<>.formatDescription.getter(
   return result;
 }
 
-const opaqueCMFormatDescription *key path getter for CMReadySampleBuffer<>.formatDescription : <A>CMReadySampleBuffer<A>@<X0>(uint64_t *a1@<X0>, const opaqueCMFormatDescription **a2@<X8>)
+const opaqueCMFormatDescription *key path getter for CMReadySampleBuffer<>.formatDescription : <A>CMReadySampleBuffer<A>@<X0>(const opaqueCMFormatDescription **a1@<X8>)
 {
-  v4 = *a1;
   result = CMReadySampleBuffer<>.formatDescription.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
 void key path setter for CMReadySampleBuffer<>.formatDescription : <A>CMReadySampleBuffer<A>(void **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a3 + a4 - 16);
-  v5 = *a1;
-  v6 = *(*(a3 + a4 - 8) + 8);
-  type metadata accessor for CMReadySampleBuffer();
-  v7 = v5;
-  specialized CMReadySampleBuffer<>.formatDescription.setter(v7);
+  v4 = *a1;
+  type metadata accessor for CMReadySampleBuffer(0, *(a3 + a4 - 16), *(*(a3 + a4 - 8) + 8), a4);
+  v5 = v4;
+  specialized CMReadySampleBuffer<>.formatDescription.setter(v5);
 }
 
 void CMReadySampleBuffer<>.formatDescription.setter(void *a1)
@@ -4754,32 +4548,28 @@ void CMReadySampleBuffer<>.formatDescription.setter(void *a1)
   specialized CMReadySampleBuffer<>.formatDescription.setter(a1);
 }
 
-void (*CMReadySampleBuffer<>.formatDescription.modify(const opaqueCMFormatDescription **a1, const opaqueCMFormatDescription *a2, const opaqueCMFormatDescription *a3))(uint64_t a1, char a2)
+void (*CMReadySampleBuffer<>.formatDescription.modify(const opaqueCMFormatDescription **a1, const opaqueCMFormatDescription *a2, const opaqueCMFormatDescription *a3))(void **a1, char a2)
 {
   a1[2] = a3;
   a1[3] = v3;
   a1[1] = a2;
-  v5 = *v3;
   *a1 = CMReadySampleBuffer<>.formatDescription.getter();
   return CMReadySampleBuffer<>.formatDescription.modify;
 }
 
-void CMReadySampleBuffer<>.formatDescription.modify(uint64_t a1, char a2)
+void CMReadySampleBuffer<>.formatDescription.modify(void **a1, char a2)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
+  v2 = *a1;
   v4 = *a1;
-  v5 = *(a1 + 8);
-  v7 = *a1;
   if (a2)
   {
-    v6 = v4;
-    specialized CMReadySampleBuffer<>.formatDescription.setter(v6);
+    v3 = v2;
+    specialized CMReadySampleBuffer<>.formatDescription.setter(v3);
   }
 
   else
   {
-    specialized CMReadySampleBuffer<>.formatDescription.setter(v4);
+    specialized CMReadySampleBuffer<>.formatDescription.setter(v2);
   }
 }
 
@@ -4808,10 +4598,7 @@ uint64_t key path setter for CMReadySampleBuffer<>.sampleProperties : <A>CMReady
   v5 = a1[4];
   v6 = *(a1 + 40);
 
-  v7 = CMReadySampleBuffer<>.sampleProperties.modify(v13);
-  v9 = *(v8 + 8);
-  v10 = *(v8 + 16);
-  v11 = *(v8 + 24);
+  v7 = CMReadySampleBuffer<>.sampleProperties.modify(v10);
   *v8 = v2;
   *(v8 + 8) = v1;
   *(v8 + 16) = v3;
@@ -4819,10 +4606,10 @@ uint64_t key path setter for CMReadySampleBuffer<>.sampleProperties : <A>CMReady
   *(v8 + 32) = v5;
   *(v8 + 40) = v6;
 
-  return (v7)(v13, 0);
+  return (v7)(v10, 0);
 }
 
-void (*CMReadySampleBuffer<>.sampleProperties.modify(uint64_t **a1))(void *a1)
+uint64_t (*CMReadySampleBuffer<>.sampleProperties.modify(uint64_t **a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4849,38 +4636,36 @@ void CMReadySampleBuffer<>.sampleProperties.modify(void *a1)
 
 uint64_t CMReadySampleBuffer<>.sampleProperties.setter(uint64_t *a1)
 {
-  v2 = a1[1];
-  v21 = *a1;
-  v4 = a1[2];
-  v3 = a1[3];
-  v5 = a1[4];
-  v6 = *(a1 + 40);
-  v7 = *v1;
-  specialized ConcurrentAccess.Wrapper<>.sampleProperties.getter(*v1, v22);
-  v8 = v23;
+  v16 = *a1;
+  v2 = a1[3];
+  v3 = a1[4];
+  v4 = *(a1 + 40);
+  v5 = *v1;
+  specialized ConcurrentAccess.Wrapper<>.sampleProperties.getter(*v1, v17);
+  v6 = v18;
 
-  if (v8)
+  if (v6)
   {
-    if (v5)
+    if (v3)
     {
-      v9 = v8 == v5;
+      v7 = v6 == v3;
     }
 
     else
     {
-      v9 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v9 = v5 == 0;
+    v7 = v3 == 0;
   }
 
-  v10 = !v9;
-  if ((v10 | v6))
+  v8 = !v7;
+  if ((v8 | v4))
   {
-    if (v21 != CMSampleBufferGetNumSamples(v7))
+    if (v16 != CMSampleBufferGetNumSamples(v5))
     {
       __break(1u);
       result = swift_unexpectedError();
@@ -4888,26 +4673,23 @@ uint64_t CMReadySampleBuffer<>.sampleProperties.setter(uint64_t *a1)
       return result;
     }
 
-    v11 = *v1;
     isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-    v13 = *v1;
+    v10 = *v1;
     if ((isUniquelyReferenced_nonNull & 1) == 0)
     {
-      v14 = v13;
-      v13 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v14);
+      v11 = v10;
+      v10 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v11);
 
-      *v1 = v13;
+      *v1 = v10;
     }
 
-    v15 = *(v2 + 16);
-    v16 = *(v4 + 16);
-    v17 = *(v3 + 16);
+    v12 = *(v2 + 16);
 
-    v18 = v13;
-    if (v17)
+    v13 = v10;
+    if (v12)
     {
 
-      v17 = Array<A>.rawValue.getter(v19);
+      v12 = Array<A>.rawValue.getter(v14);
     }
 
     FigSampleBufferSetSampleInfosForSwiftOverlay();
@@ -4926,13 +4708,12 @@ uint64_t CMReadySampleBuffer<>.splitSamples()(uint64_t a1, uint64_t a2)
   return v5[7];
 }
 
-uint64_t _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t a2@<X3>, uint64_t *a3@<X8>)
+uint64_t _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   CMSampleBufferGetNumSamples(a1);
-  v5 = *(a2 + 8);
-  type metadata accessor for CMReadySampleBuffer();
+  type metadata accessor for CMReadySampleBuffer(0, a3, *(a4 + 8), v8);
   result = Array.init(_unsafeUninitializedCapacity:initializingWith:)();
-  *a3 = result;
+  *a5 = result;
   return result;
 }
 
@@ -5080,9 +4861,9 @@ LABEL_21:
 
 CFTypeRef specialized _CMSampleBufferInitTrampoline.init(copying:)(CMSampleBufferRef sbuf)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  Copy = CMSampleBufferCreateCopy(*MEMORY[0x277CBECE8], sbuf, v7);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  Copy = CMSampleBufferCreateCopy(*MEMORY[0x277CBECE8], sbuf, v6);
   result = noErr.getter();
   if (Copy != result)
   {
@@ -5090,16 +4871,14 @@ CFTypeRef specialized _CMSampleBufferInitTrampoline.init(copying:)(CMSampleBuffe
     [v5 initWithDomain:*MEMORY[0x277CCA590] code:Copy userInfo:0];
     swift_willThrow();
 
-    goto LABEL_5;
+    return Copy;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    v4 = v7[0];
+    v4 = v6[0];
     Copy = _swiftInitForCMTimebase(v4);
 
-LABEL_5:
-    v6 = *MEMORY[0x277D85DE8];
     return Copy;
   }
 
@@ -5109,55 +4888,39 @@ LABEL_5:
 
 uint64_t specialized CMReadySampleBuffer.rawDecryptor.setter(uint64_t a1)
 {
-  v3 = *v1;
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v5 = *v1;
+  v4 = *v1;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    v6 = v5;
-    v7 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v6);
+    v5 = v4;
+    v6 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v5);
 
-    v5 = v7;
-    *v1 = v7;
+    v4 = v6;
+    *v1 = v6;
   }
 
-  return MEMORY[0x282112B38](v5, a1);
+  return MEMORY[0x282112B38](v4, a1);
 }
 
 void specialized CMReadySampleBuffer<>.formatDescription.setter(void *a1)
 {
-  v5 = a1;
-  v2 = *v1;
+  v4 = a1;
   if ((swift_isUniquelyReferenced_nonNull() & 1) == 0)
   {
-    v3 = *v1;
-    v4 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v3);
+    v2 = *v1;
+    v3 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v2);
 
-    *v1 = v4;
+    *v1 = v3;
   }
 
   FigSampleBufferBufferSetFormatDescriptionForSwiftOverlay();
 }
 
-uint64_t _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_TA@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = v2[2];
-  v4 = v2[4];
-  return _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_(a1, v2[3], a2);
-}
-
-uint64_t type metadata instantiation function for CMReadySampleBuffer()
+uint64_t type metadata instantiation function for CMReadySampleBuffer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
-}
-
-void _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_ySryAHGz_SiztXEfU_s5Int32VAE_SitXEfU_TA(void *a1, uint64_t a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  _s9CoreMedia19CMReadySampleBufferVAASo08CMSampleE3RefaAAE05MultiD7ContentRzrlE12splitSamplesSayACyxGGyFAiEYTXEfU_ySryAHGz_SiztXEfU_s5Int32VAE_SitXEfU_(a1, a2, *(v2 + 32), *(v2 + 40));
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -5207,7 +4970,7 @@ uint64_t CMReadOnlyDataBlockBuffer.init(unsafeBlockBuffer:)@<X0>(OpaqueCMBlockBu
   return result;
 }
 
-CFTypeRef CMReadOnlyDataBlockBuffer.init(subBlockCapacity:)@<X0>(unint64_t a1@<X0>, void *a2@<X8>)
+CFTypeRef CMReadOnlyDataBlockBuffer.init(subBlockCapacity:)@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   result = _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE8capacity5flagsxSi_So0cD3RefaAAE5FlagsVtKcfCAG_Tt2B5(a1, 0);
   *a2 = result;
@@ -5230,7 +4993,7 @@ CFTypeRef _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE8capacity5flagsxSi_So0cD
     [v4 initWithDomain:*MEMORY[0x277CCA590] code:Empty userInfo:0];
     swift_willThrow();
 
-    goto LABEL_6;
+    return Empty;
   }
 
   result = cf[0];
@@ -5238,8 +5001,6 @@ CFTypeRef _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE8capacity5flagsxSi_So0cD
   {
     Empty = _swiftInitForCMTimebase(cf[0]);
 
-LABEL_6:
-    v5 = *MEMORY[0x277D85DE8];
     return Empty;
   }
 
@@ -5254,7 +5015,7 @@ uint64_t CMReadOnlyDataBlockBuffer.init(_:)@<X0>(void *a1@<X0>, void *a2@<X8>)
   v4 = a1[3];
   v5 = a1[4];
   *a2 = *a1;
-  return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v2);
+  return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v2, v3, v4, v5);
 }
 
 void CMReadOnlyDataBlockBuffer.init(_:)(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
@@ -5341,21 +5102,18 @@ uint64_t CMReadOnlyDataBlockBuffer.init(_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@
 {
   v4 = type metadata accessor for DispatchData();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v5 + 16))(v8, a1, v4);
-  inited = _s9CoreMedia28_CMBlockBufferInitTrampolinePAAEyx8Dispatch0G4DataVKcfCSo0cD3Refa_Tt1g5(v8);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v7, a1, v4);
+  inited = _s9CoreMedia28_CMBlockBufferInitTrampolinePAAEyx8Dispatch0G4DataVKcfCSo0cD3Refa_Tt1g5(v7);
   result = (*(v5 + 8))(a1, v4);
   *a2 = inited;
   return result;
 }
 
-uint64_t _s9CoreMedia28_CMBlockBufferInitTrampolinePAAEyx8Dispatch0G4DataVKcfCSo0cD3Refa_Tt1g5(uint64_t a1)
+CFTypeRef _s9CoreMedia28_CMBlockBufferInitTrampolinePAAEyx8Dispatch0G4DataVKcfCSo0cD3Refa_Tt1g5(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277CBECE8];
-  v3 = DispatchData._bridgeToObjectiveC()();
+  v2 = DispatchData._bridgeToObjectiveC()();
   BlockBufferWithDispatchDataNoCopyForSwiftOverlay = FigCreateBlockBufferWithDispatchDataNoCopyForSwiftOverlay();
 
   if (BlockBufferWithDispatchDataNoCopyForSwiftOverlay == noErr.getter())
@@ -5366,13 +5124,12 @@ uint64_t _s9CoreMedia28_CMBlockBufferInitTrampolinePAAEyx8Dispatch0G4DataVKcfCSo
 
   else
   {
-    v6 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-    [v6 initWithDomain:*MEMORY[0x277CCA590] code:BlockBufferWithDispatchDataNoCopyForSwiftOverlay userInfo:0];
+    v5 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v5 initWithDomain:*MEMORY[0x277CCA590] code:BlockBufferWithDispatchDataNoCopyForSwiftOverlay userInfo:0];
     swift_willThrow();
 
-    v7 = type metadata accessor for DispatchData();
-    (*(*(v7 - 8) + 8))(a1, v7);
-    v8 = *MEMORY[0x277D85DE8];
+    v6 = type metadata accessor for DispatchData();
+    (*(*(v6 - 8) + 8))(a1, v6);
     return BlockBufferWithDispatchDataNoCopyForSwiftOverlay;
   }
 
@@ -5391,12 +5148,12 @@ BOOL CMReadOnlyDataBlockBuffer.isContiguous.getter()
   return CMBlockBufferIsRangeContiguous(v1, 0, DataLength) != 0;
 }
 
-void _s9CoreMedia25CMReadOnlyDataBlockBufferV32withContiguousStorageIfAvailableyxSgxSWKYTXEKlF(uint64_t (*a1)(uint64_t, uint64_t)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void _s9CoreMedia25CMReadOnlyDataBlockBufferV32withContiguousStorageIfAvailableyxSgxSWKYTXEKlF(uint64_t (*a1)(uint64_t, uint64_t)@<X0>, uint64_t a3@<X2>, uint64_t x8_0@<X8>)
 {
-  v7 = *v3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR);
-  v9 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.CopyOnWrite<CMBlockBufferRef> and conformance ConcurrentAccess.CopyOnWrite<A>, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR);
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, a1, v8, a2, v9, a3);
+  v8 = *v4;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR);
+  v10 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.CopyOnWrite<CMBlockBufferRef> and conformance ConcurrentAccess.CopyOnWrite<A>, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR, &protocol conformance descriptor for ConcurrentAccess.CopyOnWrite<A>);
+  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, a1, v9, a3, v10, x8_0);
 }
 
 uint64_t CMReadOnlyDataBlockBuffer.append(referenceOf:optimizeDepth:)(void **a1, char a2)
@@ -5425,28 +5182,25 @@ uint64_t CMReadOnlyDataBlockBuffer.append(referenceOf:optimizeDepth:)(void **a1,
 void CMReadOnlyDataBlockBuffer.append(referenceOf:optimizeDepth:)(uint64_t a1, char a2)
 {
   v4 = *a1;
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v7 = *(a1 + 32);
-  outlined consume of CMMutableDataBlockBuffer.BlockSource?(*(a1 + 8));
+  outlined consume of CMMutableDataBlockBuffer.BlockSource?(*(a1 + 8), *(a1 + 16), *(a1 + 24), *(a1 + 32));
   if (a2)
   {
-    v8 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v8 = 4;
+    v5 = 4;
   }
 
-  v12 = v8;
+  v9 = v5;
   type metadata accessor for CMBlockBufferRef(0);
-  v11[3] = v9;
-  v11[4] = &protocol witness table for CMBlockBufferRef;
-  v11[0] = v4;
-  v10 = v4;
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(v11, v2, &v12);
-  __swift_destroy_boxed_opaque_existential_1(v11);
+  v8[3] = v6;
+  v8[4] = &protocol witness table for CMBlockBufferRef;
+  v8[0] = v4;
+  v7 = v4;
+  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(v8, v2, &v9);
+  __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
 uint64_t static CMReadOnlyDataBlockBuffer.+ infix(_:_:)@<X0>(void **a1@<X0>, void **a2@<X1>, void **a3@<X8>)
@@ -5475,7 +5229,7 @@ void static CMReadOnlyDataBlockBuffer.+ infix(_:_:)(void **a1@<X0>, uint64_t a2@
   v9 = *(a2 + 32);
   *a3 = *a1;
   v10 = v4;
-  outlined consume of CMMutableDataBlockBuffer.BlockSource?(v5);
+  outlined consume of CMMutableDataBlockBuffer.BlockSource?(v5, v7, v8, v9);
   v14 = 0;
   type metadata accessor for CMBlockBufferRef(0);
   v13[3] = v11;
@@ -5502,18 +5256,15 @@ uint64_t static CMReadOnlyDataBlockBuffer.+= infix(_:_:)(void **a1, void **a2)
 void static CMReadOnlyDataBlockBuffer.+= infix(_:_:)(void **a1, uint64_t a2)
 {
   v3 = *a2;
-  v5 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  v6 = *(a2 + 32);
-  outlined consume of CMMutableDataBlockBuffer.BlockSource?(*(a2 + 8));
-  v10 = 0;
+  outlined consume of CMMutableDataBlockBuffer.BlockSource?(*(a2 + 8), *(a2 + 16), *(a2 + 24), *(a2 + 32));
+  v7 = 0;
   type metadata accessor for CMBlockBufferRef(0);
-  v9[3] = v7;
-  v9[4] = &protocol witness table for CMBlockBufferRef;
-  v9[0] = v3;
-  v8 = v3;
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(v9, a1, &v10);
-  __swift_destroy_boxed_opaque_existential_1(v9);
+  v6[3] = v4;
+  v6[4] = &protocol witness table for CMBlockBufferRef;
+  v6[0] = v3;
+  v5 = v3;
+  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(v6, a1, &v7);
+  __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
 uint64_t key path getter for CMBlockBufferRef.isEmpty : CMBlockBufferRef@<X0>(CMBlockBufferRef *a1@<X0>, BOOL *a2@<X8>)
@@ -5525,15 +5276,14 @@ uint64_t key path getter for CMBlockBufferRef.isEmpty : CMBlockBufferRef@<X0>(CM
 
 uint64_t CMReadOnlyDataBlockBuffer.startIndex.getter()
 {
-  v1 = *v0;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v3))
+  if (__OFADD__(result, v1))
   {
     __break(1u);
     goto LABEL_5;
   }
 
-  if (result + v3 < result)
+  if (result + v1 < result)
   {
 LABEL_5:
     __break(1u);
@@ -5544,16 +5294,15 @@ LABEL_5:
 
 uint64_t CMReadOnlyDataBlockBuffer.endIndex.getter()
 {
-  v1 = *v0;
-  v2 = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  result = v2 + v3;
-  if (__OFADD__(v2, v3))
+  v0 = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  result = v0 + v1;
+  if (__OFADD__(v0, v1))
   {
     __break(1u);
     goto LABEL_5;
   }
 
-  if (result < v2)
+  if (result < v0)
   {
 LABEL_5:
     __break(1u);
@@ -5564,17 +5313,16 @@ LABEL_5:
 
 uint64_t CMReadOnlyDataBlockBuffer.indices.getter()
 {
-  v1 = *v0;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v4 = __OFADD__(result, v3);
-  v5 = result + v3;
-  if (v4)
+  v2 = __OFADD__(result, v1);
+  v3 = result + v1;
+  if (v2)
   {
     __break(1u);
     goto LABEL_5;
   }
 
-  if (v5 < result)
+  if (v3 < result)
   {
 LABEL_5:
     __break(1u);
@@ -5732,7 +5480,7 @@ uint64_t specialized ConcurrentAccess.Wrapper<>.subBlocks.getter(OpaqueCMBlockBu
 
 uint64_t CMReadOnlyDataBlockBuffer.subscript.getter(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = *v1;
   v4 = FigBlockBufferImpliedIndicesForSwiftOverlay();
   v6 = v4 + v5;
@@ -5785,8 +5533,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v12[0] = 0;
-  DataPointer = CMBlockBufferGetDataPointer(v3, a1 - v7, 0, 0, v12);
+  v11[0] = 0;
+  DataPointer = CMBlockBufferGetDataPointer(v3, a1 - v7, 0, 0, v11);
   if (DataPointer != noErr.getter())
   {
 LABEL_19:
@@ -5794,12 +5542,12 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (!v12[0])
+  if (!v11[0])
   {
     goto LABEL_21;
   }
 
-  result = *v12[0];
+  result = *v11[0];
   if ((result & 0x80000000) != 0)
   {
 LABEL_20:
@@ -5808,7 +5556,6 @@ LABEL_21:
     __break(1u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5903,7 +5650,7 @@ void _s9CoreMedia25CMReadOnlyDataBlockBufferV010withUnsafefG0yxxSo07CMBlockG3Ref
 {
   v8 = *v4;
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR);
-  v10 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.CopyOnWrite<CMBlockBufferRef> and conformance ConcurrentAccess.CopyOnWrite<A>, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR);
+  v10 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.CopyOnWrite<CMBlockBufferRef> and conformance ConcurrentAccess.CopyOnWrite<A>, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMd, &_s9CoreMedia16ConcurrentAccessO11CopyOnWriteVy_So16CMBlockBufferRefaGMR, &protocol conformance descriptor for ConcurrentAccess.CopyOnWrite<A>);
   a4(a1, a2, v9, a3, v10);
 }
 
@@ -5992,7 +5739,7 @@ __n128 protocol witness for DataProtocol.regions.getter in conformance CMReadOnl
   return result;
 }
 
-uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance CMReadOnlyDataBlockBuffer.BlockRegion@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance CMReadOnlyDataBlockBuffer.BlockRegion@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   result = specialized RandomAccessCollection<>.index(before:)(*a1, *v2, v2[1], v2[2]);
   *a2 = result;
@@ -6057,7 +5804,7 @@ void protocol witness for Collection.endIndex.getter in conformance CMReadOnlyDa
   }
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance CMReadOnlyDataBlockBuffer.BlockRegion(uint64_t (*result)(), void *a2))()
+void (*protocol witness for Collection.subscript.read in conformance CMReadOnlyDataBlockBuffer.BlockRegion(void (*result)(), void *a2))()
 {
   v3 = v2[2];
   if (__OFSUB__(*a2, v3))
@@ -6164,9 +5911,9 @@ uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:
   return result;
 }
 
-uint64_t protocol witness for Collection.index(after:) in conformance CMReadOnlyDataBlockBuffer.BlockRegion@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for Collection.index(after:) in conformance CMReadOnlyDataBlockBuffer.BlockRegion@<X0>(uint64_t *a2@<X8>)
 {
-  result = specialized RandomAccessCollection<>.index(after:)(*a1, *v2, v2[1], v2[2]);
+  result = specialized RandomAccessCollection<>.index(after:)();
   *a2 = result;
   return result;
 }
@@ -6219,24 +5966,23 @@ uint64_t protocol witness for DataProtocol.regions.getter in conformance CMReadO
 
 char *protocol witness for BidirectionalCollection.index(before:) in conformance CMReadOnlyDataBlockBuffer@<X0>(char *result@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = *result - 1;
+  v3 = *result - 1;
   if (__OFSUB__(*result, 1))
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  v5 = *v2;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v6))
+  if (__OFADD__(result, v4))
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  v7 = result;
-  if (&result[v6] < result)
+  v5 = result;
+  if (&result[v4] < result)
   {
 LABEL_11:
     __break(1u);
@@ -6244,31 +5990,31 @@ LABEL_11:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v9 = &result[v8];
-  if (__OFADD__(result, v8))
+  v7 = &result[v6];
+  if (__OFADD__(result, v6))
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  if (v9 < result)
+  if (v7 < result)
   {
 LABEL_13:
     __break(1u);
     goto LABEL_14;
   }
 
-  if (v4 < v7)
+  if (v3 < v5)
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  if (v4 < v9)
+  if (v3 < v7)
   {
-    *a2 = v4;
+    *a2 = v3;
     return result;
   }
 
@@ -6277,17 +6023,132 @@ LABEL_15:
   return result;
 }
 
-uint64_t *protocol witness for BidirectionalCollection.formIndex(before:) in conformance CMReadOnlyDataBlockBuffer(uint64_t *result)
+char *protocol witness for BidirectionalCollection.formIndex(before:) in conformance CMReadOnlyDataBlockBuffer(char *result)
 {
-  v2 = *result - 1;
+  v1 = *result - 1;
   if (__OFSUB__(*result, 1))
   {
     __break(1u);
     goto LABEL_10;
   }
 
-  v3 = result;
-  v4 = *v1;
+  v2 = result;
+  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  if (__OFADD__(result, v3))
+  {
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  v4 = result;
+  if (&result[v3] < result)
+  {
+LABEL_11:
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  v6 = &result[v5];
+  if (__OFADD__(result, v5))
+  {
+LABEL_12:
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  if (v6 < result)
+  {
+LABEL_13:
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  if (v1 < v4)
+  {
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (v1 < v6)
+  {
+    *v2 = v1;
+    return result;
+  }
+
+LABEL_15:
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for Collection.startIndex.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
+{
+  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  if (__OFADD__(result, v3))
+  {
+    __break(1u);
+  }
+
+  else if (result + v3 >= result)
+  {
+    *a1 = result;
+    return result;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for Collection.endIndex.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
+{
+  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  v4 = result + v3;
+  if (__OFADD__(result, v3))
+  {
+    __break(1u);
+  }
+
+  else if (v4 >= result)
+  {
+    *a1 = v4;
+    return result;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for Collection.indices.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
+{
+  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
+  v4 = result + v3;
+  if (__OFADD__(result, v3))
+  {
+    __break(1u);
+  }
+
+  else if (v4 >= result)
+  {
+    *a1 = result;
+    a1[1] = v4;
+    return result;
+  }
+
+  __break(1u);
+  return result;
+}
+
+char *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conformance CMReadOnlyDataBlockBuffer@<X0>(char *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v4 = *result + a2;
+  if (__OFADD__(*result, a2))
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
   if (__OFADD__(result, v5))
   {
@@ -6297,7 +6158,7 @@ LABEL_10:
   }
 
   v6 = result;
-  if ((result + v5) < result)
+  if (&result[v5] < result)
   {
 LABEL_11:
     __break(1u);
@@ -6305,7 +6166,7 @@ LABEL_11:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v8 = result + v7;
+  v8 = &result[v7];
   if (__OFADD__(result, v7))
   {
 LABEL_12:
@@ -6320,136 +6181,16 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (v2 < v6)
+  if (v4 < v6)
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  if (v2 < v8)
+  if (v8 >= v4)
   {
-    *v3 = v2;
-    return result;
-  }
-
-LABEL_15:
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for Collection.startIndex.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *v1;
-  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v5))
-  {
-    __break(1u);
-  }
-
-  else if (result + v5 >= result)
-  {
-    *a1 = result;
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for Collection.endIndex.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *v1;
-  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v6 = result + v5;
-  if (__OFADD__(result, v5))
-  {
-    __break(1u);
-  }
-
-  else if (v6 >= result)
-  {
-    *a1 = v6;
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for Collection.indices.getter in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
-{
-  v3 = *v1;
-  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v6 = result + v5;
-  if (__OFADD__(result, v5))
-  {
-    __break(1u);
-  }
-
-  else if (v6 >= result)
-  {
-    *a1 = result;
-    a1[1] = v6;
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-char *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conformance CMReadOnlyDataBlockBuffer@<X0>(char *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v5 = *result + a2;
-  if (__OFADD__(*result, a2))
-  {
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  v6 = *v3;
-  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v7))
-  {
-LABEL_10:
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  v8 = result;
-  if (&result[v7] < result)
-  {
-LABEL_11:
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v10 = &result[v9];
-  if (__OFADD__(result, v9))
-  {
-LABEL_12:
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  if (v10 < result)
-  {
-LABEL_13:
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  if (v5 < v8)
-  {
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  if (v10 >= v5)
-  {
-    *a3 = v5;
+    *a3 = v4;
     return result;
   }
 
@@ -6461,8 +6202,7 @@ LABEL_15:
 uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   v7 = *a1;
-  v8 = *v4;
-  result = specialized RandomAccessCollection<>.distance(from:to:)(*a1, *a3);
+  result = specialized RandomAccessCollection<>.distance(from:to:)(*a1, *a3, *v4);
   if (a2 < 1)
   {
     if (result <= 0 && result > a2)
@@ -6474,32 +6214,32 @@ uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:
   else if ((result & 0x8000000000000000) == 0 && result < a2)
   {
 LABEL_4:
-    v10 = 0;
-    v11 = 1;
+    v9 = 0;
+    v10 = 1;
 LABEL_18:
-    *a4 = v10;
-    *(a4 + 8) = v11;
+    *a4 = v9;
+    *(a4 + 8) = v10;
     return result;
   }
 
-  v13 = __OFADD__(v7, a2);
-  v10 = v7 + a2;
-  if (v13)
+  v12 = __OFADD__(v7, a2);
+  v9 = v7 + a2;
+  if (v12)
   {
     __break(1u);
     goto LABEL_20;
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v14))
+  if (__OFADD__(result, v13))
   {
 LABEL_20:
     __break(1u);
     goto LABEL_21;
   }
 
-  v15 = result;
-  if (result + v14 < result)
+  v14 = result;
+  if (result + v13 < result)
   {
 LABEL_21:
     __break(1u);
@@ -6507,31 +6247,31 @@ LABEL_21:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v17 = result + v16;
-  if (__OFADD__(result, v16))
+  v16 = result + v15;
+  if (__OFADD__(result, v15))
   {
 LABEL_22:
     __break(1u);
     goto LABEL_23;
   }
 
-  if (v17 < result)
+  if (v16 < result)
   {
 LABEL_23:
     __break(1u);
     goto LABEL_24;
   }
 
-  if (v10 < v15)
+  if (v9 < v14)
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  if (v17 >= v10)
+  if (v16 >= v9)
   {
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -6542,17 +6282,16 @@ LABEL_25:
 
 uint64_t protocol witness for Collection.index(after:) in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *v2;
+  v3 = *a1;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v7))
+  if (__OFADD__(result, v5))
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  v8 = result;
-  if (result + v7 < result)
+  v6 = result;
+  if (result + v5 < result)
   {
 LABEL_9:
     __break(1u);
@@ -6560,31 +6299,31 @@ LABEL_9:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v10 = result + v9;
-  if (__OFADD__(result, v9))
+  v8 = result + v7;
+  if (__OFADD__(result, v7))
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  if (v10 < result)
+  if (v8 < result)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  if (v4 < v8)
+  if (v3 < v6)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  if (v4 < v10)
+  if (v3 < v8)
   {
-    *a2 = v4 + 1;
+    *a2 = v3 + 1;
     return result;
   }
 
@@ -6595,17 +6334,16 @@ LABEL_13:
 
 uint64_t protocol witness for Collection.formIndex(after:) in conformance CMReadOnlyDataBlockBuffer(uint64_t *a1)
 {
-  v3 = *v1;
-  v4 = *a1;
+  v2 = *a1;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v6))
+  if (__OFADD__(result, v4))
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  v7 = result;
-  if (result + v6 < result)
+  v5 = result;
+  if (result + v4 < result)
   {
 LABEL_9:
     __break(1u);
@@ -6613,31 +6351,31 @@ LABEL_9:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v9 = result + v8;
-  if (__OFADD__(result, v8))
+  v7 = result + v6;
+  if (__OFADD__(result, v6))
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  if (v9 < result)
+  if (v7 < result)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  if (v4 < v7)
+  if (v2 < v5)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  if (v4 < v9)
+  if (v2 < v7)
   {
-    *a1 = v4 + 1;
+    *a1 = v2 + 1;
     return result;
   }
 
@@ -6646,7 +6384,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t protocol witness for Sequence.makeIterator() in conformance CMReadOnlyDataBlockBuffer@<X0>(void *a1@<X8>)
+uint64_t protocol witness for Sequence.makeIterator() in conformance CMReadOnlyDataBlockBuffer@<X0>(uint64_t *a1@<X8>)
 {
   *a1 = *v1;
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
@@ -6674,7 +6412,7 @@ void protocol witness for Sequence._copyToContiguousArray() in conformance CMRea
     v3 = DataLength;
     v4 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1g5(DataLength, 0);
     v5 = v1;
-    v6 = specialized Sequence._copySequenceContents(initializing:)(&v7, (v4 + 4), v3, v5);
+    v6 = specialized Sequence._copySequenceContents(initializing:)(v7, (v4 + 4), v3, v5);
 
     if (v6 == v3)
     {
@@ -6698,7 +6436,7 @@ size_t key path getter for CMBlockBufferProtocol.dataLength : CMBlockBufferRef@<
   return result;
 }
 
-uint64_t _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(void *a1, void **a2, CMBlockBufferFlags *a3)
+uint64_t _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE6append11referenceOf5range13optimizeDepthyqd___SnySiGSgSbtAcDRd__AgHRtd__lFyAA0fG8Protocol_pYTXEfU_AC11CopyOnWriteVy_AGG_ATTg5Tm(void *a1, void **a2, unsigned int *a3)
 {
   v7 = a1[3];
   v8 = a1[4];
@@ -6706,10 +6444,9 @@ uint64_t _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjec
   result = CMBlockBufferProtocol.dataLength.getter(v7, v8);
   if (result >= 1)
   {
-    v10 = *a2;
     if ((swift_isUniquelyReferenced_nonNull() & 1) == 0)
     {
-      v11 = *a2;
+      v10 = *a2;
       result = FigBlockBufferCloneForSwiftOverlay();
       if (!result)
       {
@@ -6717,18 +6454,17 @@ uint64_t _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjec
         return result;
       }
 
-      v12 = result;
-      v13 = _swiftInitForCMTimebase(result);
+      v11 = result;
+      v12 = _swiftInitForCMTimebase(result);
 
-      *a2 = v13;
+      *a2 = v12;
     }
 
-    v15 = a1[3];
-    v14 = a1[4];
-    v16 = __swift_project_boxed_opaque_existential_1(a1, v15);
-    v17 = *a2;
-    v18 = *a3;
-    result = CMBlockBufferRef.append<A>(bufferReference:flags:)(v16, &v18, v15, v14);
+    v14 = a1[3];
+    v13 = a1[4];
+    v15 = __swift_project_boxed_opaque_existential_1(a1, v14);
+    v16 = *a3;
+    result = CMBlockBufferRef.append<A>(bufferReference:flags:)(v15, &v16, v14, v13);
     if (v3)
     {
       result = swift_unexpectedError();
@@ -6739,9 +6475,9 @@ uint64_t _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjec
   return result;
 }
 
-uint64_t _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE6buffer11deallocator5flagsxs5SliceVySwG_ySv_SitcSo0cD3RefaAAE5FlagsVtKcfCAK_Tt3B5(size_t a1, uint64_t a2, void *a3, uint64_t a4, OpaqueCMBlockBuffer *a5, OpaqueCMBlockBuffer *a6, CMBlockBufferFlags a7)
+CFTypeRef _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE6buffer11deallocator5flagsxs5SliceVySwG_ySv_SitcSo0cD3RefaAAE5FlagsVtKcfCAK_Tt3B5(size_t a1, uint64_t a2, void *a3, uint64_t a4, OpaqueCMBlockBuffer *a5, OpaqueCMBlockBuffer *a6, CMBlockBufferFlags a7)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v12 = a4 - a3;
@@ -6770,7 +6506,7 @@ uint64_t _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE6buffer11deallocator5flag
     [v17 initWithDomain:*MEMORY[0x277CCA590] code:v14 userInfo:0];
     swift_willThrow();
 
-    goto LABEL_8;
+    return v14;
   }
 
   if (blockBufferOut[0])
@@ -6778,8 +6514,6 @@ uint64_t _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE6buffer11deallocator5flag
     v16 = blockBufferOut[0];
     v14 = _swiftInitForCMTimebase(v16);
 
-LABEL_8:
-    v18 = *MEMORY[0x277D85DE8];
     return v14;
   }
 
@@ -6787,7 +6521,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t outlined consume of CMMutableDataBlockBuffer.BlockSource?(uint64_t result)
+uint64_t outlined consume of CMMutableDataBlockBuffer.BlockSource?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
@@ -6796,13 +6530,13 @@ uint64_t outlined consume of CMMutableDataBlockBuffer.BlockSource?(uint64_t resu
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -6874,7 +6608,7 @@ unint64_t lazy protocol witness table accessor for type CMReadOnlyDataBlockBuffe
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<CMReadOnlyDataBlockBuffer.BlockRegion> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<CMReadOnlyDataBlockBuffer.BlockRegion> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6952,13 +6686,6 @@ __n128 __swift_memcpy24_8(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@unowned UnsafeMutableRawPointer?, @unowned Int) -> (@unowned Int32)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
@@ -7007,17 +6734,17 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized RandomAccessCollection<>.distance(from:to:)(uint64_t a1, uint64_t a2)
+uint64_t specialized RandomAccessCollection<>.distance(from:to:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v5))
+  if (__OFADD__(result, v6))
   {
     __break(1u);
     goto LABEL_16;
   }
 
-  v6 = result;
-  if (result + v5 < result)
+  v7 = result;
+  if (result + v6 < result)
   {
 LABEL_16:
     __break(1u);
@@ -7025,29 +6752,29 @@ LABEL_16:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v8 = result + v7;
-  if (__OFADD__(result, v7))
+  v9 = result + v8;
+  if (__OFADD__(result, v8))
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  if (v8 < result)
+  if (v9 < result)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  if (v6 > a1)
+  if (v7 > a1)
   {
 LABEL_19:
     __break(1u);
     goto LABEL_20;
   }
 
-  if (v8 < a1)
+  if (v9 < a1)
   {
 LABEL_20:
     __break(1u);
@@ -7055,15 +6782,15 @@ LABEL_20:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  if (__OFADD__(result, v9))
+  if (__OFADD__(result, v10))
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  v10 = result;
-  if (result + v9 < result)
+  v11 = result;
+  if (result + v10 < result)
   {
 LABEL_22:
     __break(1u);
@@ -7071,29 +6798,29 @@ LABEL_22:
   }
 
   result = FigBlockBufferImpliedIndicesForSwiftOverlay();
-  v12 = result + v11;
-  if (__OFADD__(result, v11))
+  v13 = result + v12;
+  if (__OFADD__(result, v12))
   {
 LABEL_23:
     __break(1u);
     goto LABEL_24;
   }
 
-  if (v12 < result)
+  if (v13 < result)
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  if (v10 > a2)
+  if (v11 > a2)
   {
 LABEL_25:
     __break(1u);
     goto LABEL_26;
   }
 
-  if (v12 < a2)
+  if (v13 < a2)
   {
 LABEL_26:
     __break(1u);
@@ -7149,7 +6876,7 @@ void _s9CoreMedia24CMMutableDataBlockBufferV010withUnsafeeF0yxxSo07CMBlockF3Refa
 {
   v7 = *v3;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  v9 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
+  v9 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[", &protocol conformance descriptor for ConcurrentAccess.NonCopyable<A>);
   _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE015withUnsafeBlockG0yqd__qd__AGKYTXEKRi_d__lF(a1, a2, v8, a3, v9);
 }
 
@@ -7252,7 +6979,6 @@ uint64_t key path setter for CMMutableDataBlockBuffer.BlockSource.allocate : CMM
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   *(v5 + 24) = v3;
-  v6 = a2[1];
 
   *a2 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Int) -> (@out UnsafeMutableRawBufferPointer);
   a2[1] = v5;
@@ -7262,14 +6988,12 @@ uint64_t key path setter for CMMutableDataBlockBuffer.BlockSource.allocate : CMM
 uint64_t CMMutableDataBlockBuffer.BlockSource.allocate.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t CMMutableDataBlockBuffer.BlockSource.allocate.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -7283,7 +7007,6 @@ uint64_t key path setter for CMMutableDataBlockBuffer.BlockSource.deallocate : C
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   *(v5 + 24) = v3;
-  v6 = *(a2 + 24);
 
   *(a2 + 16) = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed UnsafeMutableRawBufferPointer) -> (@out ());
   *(a2 + 24) = v5;
@@ -7293,14 +7016,12 @@ uint64_t key path setter for CMMutableDataBlockBuffer.BlockSource.deallocate : C
 uint64_t CMMutableDataBlockBuffer.BlockSource.deallocate.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t CMMutableDataBlockBuffer.BlockSource.deallocate.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -7316,7 +7037,7 @@ uint64_t CMMutableDataBlockBuffer.BlockSource.init(allocate:deallocate:)@<X0>(ui
   return result;
 }
 
-CFTypeRef CMMutableDataBlockBuffer.init(count:blockSource:)@<X0>(size_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+CFTypeRef CMMutableDataBlockBuffer.init(count:blockSource:)@<X0>(size_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = a2[1];
   v6 = a2[2];
@@ -7346,7 +7067,7 @@ __n128 CMMutableDataBlockBuffer.init(subBlockCapacity:blockSource:)@<Q0>(unint64
   return result;
 }
 
-void CMMutableDataBlockBuffer.init(copying:blockSource:)(unsigned int *a1@<X0>, uint64_t *a2@<X1>, OpaqueCMBlockBuffer **a3@<X8>)
+void CMMutableDataBlockBuffer.init(copying:blockSource:)(OpaqueCMBlockBuffer *a1@<X0>, uint64_t *a2@<X1>, OpaqueCMBlockBuffer **a3@<X8>)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -7357,7 +7078,7 @@ void CMMutableDataBlockBuffer.init(copying:blockSource:)(unsigned int *a1@<X0>, 
   {
     v10 = 0;
     v11 = 16 * v9;
-    v12 = (a1 + 3);
+    v12 = (a1 + 12);
     while (1)
     {
       v13 = *v12;
@@ -7453,20 +7174,20 @@ LABEL_7:
   return result;
 }
 
-void _s9CoreMedia24CMMutableDataBlockBufferV32withContiguousStorageIfAvailable2in_xSgSnySiGSg_xSWKYTXEtKlF(uint64_t (*a1)(uint64_t, uint64_t)@<X3>, uint64_t a2@<X5>, uint64_t a3@<X8>)
+void _s9CoreMedia24CMMutableDataBlockBufferV32withContiguousStorageIfAvailable2in_xSgSnySiGSg_xSWKYTXEtKlF(uint64_t (*a4)(uint64_t, uint64_t)@<X3>, uint64_t a6@<X5>, uint64_t x8_0@<X8>)
 {
-  v7 = *v3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  v9 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, a1, v8, a2, v9, a3);
+  v11 = *v7;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
+  v13 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[", &protocol conformance descriptor for ConcurrentAccess.NonCopyable<A>);
+  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, a4, v12, a6, v13, x8_0);
 }
 
-void _s9CoreMedia24CMMutableDataBlockBufferV39withContiguousMutableStorageIfAvailable2in_xSgSnySiGSg_xSwKYTXEtKlF(uint64_t a1@<X5>, uint64_t a2@<X8>)
+void _s9CoreMedia24CMMutableDataBlockBufferV39withContiguousMutableStorageIfAvailable2in_xSgSnySiGSg_xSwKYTXEtKlF(uint64_t a6@<X5>, uint64_t x8_0@<X8>)
 {
-  v5 = *v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  v7 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, _s9CoreMedia24CMMutableDataBlockBufferV39withContiguousMutableStorageIfAvailable2in_xSgSnySiGSg_xSwKYTXEtKlFxSWKYTXEfU_TA, v6, a1, v7, a2);
+  v10 = *v7;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
+  v12 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[", &protocol conformance descriptor for ConcurrentAccess.NonCopyable<A>);
+  _s9CoreMedia16ConcurrentAccessO7WrapperPAASo16CMBlockBufferRefa8CMObjectRtzrlE32withContiguousStorageIfAvailable2in_qd__SgSnySiGSg_qd__SWKYTXEtKlF(0, 0, 1, _s9CoreMedia24CMMutableDataBlockBufferV39withContiguousMutableStorageIfAvailable2in_xSgSnySiGSg_xSwKYTXEtKlFxSWKYTXEfU_TA, v11, a6, v12, x8_0);
 }
 
 uint64_t _s9CoreMedia24CMMutableDataBlockBufferV010withUnsafeE7RegionsyxxSayAA010CMReadOnlydeF0V0E6RegionVGKYTXEKlF(void (*a1)(void))
@@ -7581,19 +7302,19 @@ uint64_t _s9CoreMedia24CMMutableDataBlockBufferV017withUnsafeMutableE7Regionsyxx
   a1(v5);
 }
 
-void CMMutableDataBlockBuffer.copyBytes<A>(to:from:)(void *a1, uint64_t a2)
+void CMMutableDataBlockBuffer.copyBytes<A>(to:from:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *v2;
-  if ((CMBlockBufferGetDataLength(*v2) & 0x8000000000000000) != 0)
+  v8 = *v5;
+  if ((CMBlockBufferGetDataLength(*v5) & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_10;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
-  lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(&lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>);
+  lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(&lazy protocol witness table cache variable for type Range<Int> and conformance <> Range<A>, MEMORY[0x277D83D48]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  if (__OFSUB__(v9, v8))
+  if (__OFSUB__(v12, v11))
   {
 LABEL_10:
     __break(1u);
@@ -7602,21 +7323,21 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v6 = a2 - a1;
+  v9 = a2 - a1;
   if (!a1)
   {
-    v6 = 0;
+    v9 = 0;
   }
 
-  if ((v8 & 0x8000000000000000) != 0 || v6 < (v9 - v8))
+  if ((v11 & 0x8000000000000000) != 0 || v9 < (v12 - v11))
   {
     goto LABEL_11;
   }
 
-  if (CMBlockBufferGetDataLength(v5) >= v9)
+  if (CMBlockBufferGetDataLength(v8) >= v12)
   {
-    v7 = v5;
-    specialized CMBlockBufferProtocol.copyDataBytes(to:)(a1, a2, v7, v8, v9);
+    v10 = v8;
+    specialized CMBlockBufferProtocol.copyDataBytes(to:)(a1, a2, v10, v11, v12);
 
     return;
   }
@@ -7695,7 +7416,7 @@ uint64_t CMMutableDataBlockBuffer.append(referenceOf:range:optimizeDepth:)(uint6
   v13 = *a1;
   specialized ConcurrentAccess.Wrapper<>.append<A>(referenceOf:range:optimizeDepth:)(v13, a2, a3, a4 & 1, a5);
 
-  return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v9);
+  return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v9, v10, v11, v12);
 }
 
 uint64_t static CMMutableDataBlockBuffer.+= infix(_:_:)(OpaqueCMBlockBuffer **a1, uint64_t a2)
@@ -7708,7 +7429,7 @@ uint64_t static CMMutableDataBlockBuffer.+= infix(_:_:)(OpaqueCMBlockBuffer **a1
   if (CMBlockBufferGetDataLength(v7) < 1 || (v8 = *a1, v9 = v7, DataLength = CMBlockBufferGetDataLength(v9), appended = CMBlockBufferAppendBufferReference(v8, v9, 0, DataLength, 0), v9, appended == noErr.getter()))
   {
 
-    return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v3);
+    return outlined consume of CMMutableDataBlockBuffer.BlockSource?(v3, v4, v5, v6);
   }
 
   else
@@ -7739,7 +7460,7 @@ Swift::Void __swiftcall CMMutableDataBlockBuffer.extend(by:)(Swift::Int by)
 uint64_t _s9CoreMedia24CMMutableDataBlockBufferV6extend2byySi_tFySo07CMBlockF3RefazYTXEfU_(CMBlockBufferRef *a1, void **a2, size_t blockLength)
 {
   v4 = a2;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2[1];
   if (v5)
   {
@@ -7757,9 +7478,9 @@ uint64_t _s9CoreMedia24CMMutableDataBlockBufferV6extend2byySi_tFySo07CMBlockF3Re
     v11[3] = v6;
     v11[4] = v7;
     v11[5] = v8;
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5);
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5);
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5, v6, v7, v8);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5, v6, v7, v8);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v5, v6, v7, v8);
 
     customBlockSource.version = 0;
     customBlockSource.AllocateBlock = @objc CustomAllocatorAllocateBlock(refcon:sizeInBytes:);
@@ -7768,54 +7489,48 @@ uint64_t _s9CoreMedia24CMMutableDataBlockBufferV6extend2byySi_tFySo07CMBlockF3Re
     appended = CMBlockBufferAppendMemoryBlock(v9, 0, blockLength, 0, &customBlockSource, 0, blockLength, 1u);
     if (appended == noErr.getter())
     {
-      outlined consume of CMMutableDataBlockBuffer.BlockSource?(v5);
-
-LABEL_5:
-      v15 = *MEMORY[0x277D85DE8];
-      return result;
+      outlined consume of CMMutableDataBlockBuffer.BlockSource?(v5, v6, v7, v8);
     }
 
-    v16 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-    v14 = [v16 initWithDomain:*MEMORY[0x277CCA590] code:appended userInfo:0];
+    v15 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    v14 = [v15 initWithDomain:*MEMORY[0x277CCA590] code:appended userInfo:0];
     swift_willThrow();
 
-    v17 = *v4;
-    v18 = v4[1];
-    v19 = v4[2];
-    v20 = v4[3];
+    v16 = *v4;
+    v17 = v4[1];
+    v18 = v4[2];
+    v19 = v4[3];
     v4 = v4[4];
 
-    outlined consume of CMMutableDataBlockBuffer.BlockSource?(v18);
+    outlined consume of CMMutableDataBlockBuffer.BlockSource?(v17, v18, v19, v4);
     swift_unexpectedError();
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v14 = CMBlockBufferAppendMemoryBlock(*a1, 0, blockLength, *MEMORY[0x277CBECE8], 0, 0, blockLength, 1u);
+  result = noErr.getter();
+  if (v14 != result)
+  {
+LABEL_7:
+    v20 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v20 initWithDomain:*MEMORY[0x277CCA590] code:v14 userInfo:0];
+    swift_willThrow();
+    v21 = *v4;
+    v22 = v4[1];
+    v23 = v4[2];
+    v24 = v4[3];
+    v25 = v4[4];
+
+    outlined consume of CMMutableDataBlockBuffer.BlockSource?(v22, v23, v24, v25);
+    result = swift_unexpectedError();
     __break(1u);
   }
 
-  else
-  {
-    v14 = CMBlockBufferAppendMemoryBlock(*a1, 0, blockLength, *MEMORY[0x277CBECE8], 0, 0, blockLength, 1u);
-    result = noErr.getter();
-    if (v14 == result)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  v21 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-  [v21 initWithDomain:*MEMORY[0x277CCA590] code:v14 userInfo:0];
-  swift_willThrow();
-  v22 = *v4;
-  v23 = v4[1];
-  v24 = v4[2];
-  v25 = v4[3];
-  v26 = v4[4];
-
-  outlined consume of CMMutableDataBlockBuffer.BlockSource?(v23);
-  result = swift_unexpectedError();
-  __break(1u);
   return result;
 }
 
-void CMMutableDataBlockBuffer.replaceSubrange(_:with:)(size_t a1, uint64_t a2, const void *a3, uint64_t a4)
+void CMMutableDataBlockBuffer.replaceSubrange(_:with:)(size_t a1, int64_t a2, const void *a3, uint64_t a4)
 {
   v5 = a2 - a1;
   if (__OFSUB__(a2, a1))
@@ -7880,7 +7595,7 @@ LABEL_21:
   specialized CMBlockBufferProtocol.replaceDataBytes(with:)(a3, a4, v13, a1, a2);
 }
 
-uint64_t CMMutableDataBlockBuffer.replaceAll(with:)(uint64_t result, uint64_t a2)
+const void *CMMutableDataBlockBuffer.replaceAll(with:)(const void *result, uint64_t a2)
 {
   if (result && a2 - result >= 1)
   {
@@ -7904,7 +7619,7 @@ uint64_t CMMutableDataBlockBuffer.replaceAll(with:)(uint64_t result, uint64_t a2
 uint64_t CMMutableDataBlockBuffer.replaceSubrange<A>(_:with:)(unsigned int (*a1)(char *, uint64_t, uint64_t), unsigned int (*a2)(char *, uint64_t, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  v11 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
+  v11 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[", &protocol conformance descriptor for ConcurrentAccess.NonCopyable<A>);
 
   return ConcurrentAccess.Wrapper<>.replace<A>(range:with:)(a1, a2, 0, a3, v10, a4, v11, a5);
 }
@@ -7912,7 +7627,7 @@ uint64_t CMMutableDataBlockBuffer.replaceSubrange<A>(_:with:)(unsigned int (*a1)
 uint64_t CMMutableDataBlockBuffer.replaceAll<A>(with:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
-  v7 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[");
+  v7 = lazy protocol witness table accessor for type Slice<CMTaggedBufferGroupRef> and conformance Slice<A>(&lazy protocol witness table cache variable for type ConcurrentAccess.NonCopyable<CMBlockBufferRef> and conformance ConcurrentAccess.NonCopyable<A>, &_s9CoreMedia16ConcurrentAccessO11NonCopyableVy_So16CMBlockBufferRefaGMd, "@[", &protocol conformance descriptor for ConcurrentAccess.NonCopyable<A>);
 
   return ConcurrentAccess.Wrapper<>.replace<A>(range:with:)(0, 0, 1, a1, v6, a2, v7, a3);
 }
@@ -7987,22 +7702,22 @@ size_t CMMutableDataBlockBuffer.indices.getter()
 
 uint64_t CMMutableDataBlockBuffer.subscript.getter(size_t offset)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = *v1;
-  v7[0] = 0;
-  DataPointer = CMBlockBufferGetDataPointer(v3, offset, 0, 0, v7);
+  v6[0] = 0;
+  DataPointer = CMBlockBufferGetDataPointer(v3, offset, 0, 0, v6);
   if (DataPointer != noErr.getter())
   {
     __break(1u);
     goto LABEL_6;
   }
 
-  if (!v7[0])
+  if (!v6[0])
   {
     goto LABEL_7;
   }
 
-  result = *v7[0];
+  result = *v6[0];
   if ((result & 0x80000000) != 0)
   {
 LABEL_6:
@@ -8011,15 +7726,14 @@ LABEL_7:
     __break(1u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t CMMutableDataBlockBuffer.subscript.setter(char a1, size_t a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  DataPointer = CMBlockBufferGetDataPointer(*v2, a2, 0, 0, v7);
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
+  DataPointer = CMBlockBufferGetDataPointer(*v2, a2, 0, 0, v6);
   result = noErr.getter();
   if (DataPointer != result)
   {
@@ -8027,26 +7741,23 @@ uint64_t CMMutableDataBlockBuffer.subscript.setter(char a1, size_t a2)
     goto LABEL_7;
   }
 
-  if (v7[0])
+  if (!v6[0])
   {
-    if ((a1 & 0x80) == 0)
-    {
-      *v7[0] = a1;
-      goto LABEL_5;
-    }
+    return result;
+  }
 
+  if (a1 < 0)
+  {
 LABEL_7:
     __break(1u);
   }
 
-LABEL_5:
-  v6 = *MEMORY[0x277D85DE8];
+  *v6[0] = a1;
   return result;
 }
 
 uint64_t (*CMMutableDataBlockBuffer.subscript.modify(char **dataPointerOut, char *a2))(char **dataPointerOut, char a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v4 = *v2;
   dataPointerOut[1] = a2;
   dataPointerOut[2] = v4;
@@ -8073,7 +7784,6 @@ LABEL_7:
   }
 
   *(dataPointerOut + 24) = v6;
-  v7 = *MEMORY[0x277D85DE8];
   return CMMutableDataBlockBuffer.subscript.modify;
 }
 
@@ -8226,16 +7936,6 @@ __n128 CMMutableDataBlockBuffer.BlockRegion.regions.getter@<Q0>(__n128 *a1@<X8>)
   return result;
 }
 
-uint64_t CMMutableDataBlockBuffer.BlockRegion.withUnsafeBytes<A>(_:)(uint64_t (*a1)(void))
-{
-  if (*v1)
-  {
-    v2 = v1[1];
-  }
-
-  return a1();
-}
-
 uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance CMMutableDataBlockBuffer.BlockRegion@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   result = specialized RandomAccessCollection<>.index(before:)(*a1, *v2, v2[1], v2[2]);
@@ -8362,13 +8062,10 @@ LABEL_11:
 
 CFTypeRef specialized static CMMutableDataBlockBuffer.makeBlockBuffer(count:blockSource:)(size_t blockLength, uint64_t *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!blockLength)
   {
-    inited = _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE8capacity5flagsxSi_So0cD3RefaAAE5FlagsVtKcfCAG_Tt2B5(0, 0);
-LABEL_11:
-    v12 = *MEMORY[0x277D85DE8];
-    return inited;
+    return _s9CoreMedia28_CMBlockBufferInitTrampolinePAAE8capacity5flagsxSi_So0cD3RefaAAE5FlagsVtKcfCAG_Tt2B5(0, 0);
   }
 
   v2 = blockLength;
@@ -8391,9 +8088,9 @@ LABEL_11:
     blockBufferOut[1] = v7;
     blockBufferOut[2] = partial apply for closure #2 in static CMMutableDataBlockBuffer.makeBlockBuffer(count:blockSource:);
     blockBufferOut[3] = v8;
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3);
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3);
-    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3, v4, v5, v6);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3, v4, v5, v6);
+    outlined copy of CMMutableDataBlockBuffer.BlockSource?(v3, v4, v5, v6);
 
     customBlockSource.version = 0;
     customBlockSource.AllocateBlock = @objc CustomAllocatorAllocateBlock(refcon:sizeInBytes:);
@@ -8404,8 +8101,8 @@ LABEL_11:
     if (v2 != noErr.getter())
     {
 LABEL_14:
-      v14 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-      [v14 initWithDomain:*MEMORY[0x277CCA590] code:v2 userInfo:0];
+      v13 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+      [v13 initWithDomain:*MEMORY[0x277CCA590] code:v2 userInfo:0];
       swift_willThrow();
 
       swift_unexpectedError();
@@ -8418,12 +8115,12 @@ LABEL_14:
     if (blockBufferOut[0])
     {
       v9 = blockBufferOut[0];
-      inited = _swiftInitForCMTimebase(v9);
-      outlined consume of CMMutableDataBlockBuffer.BlockSource?(v3);
+      v10 = _swiftInitForCMTimebase(v9);
+      outlined consume of CMMutableDataBlockBuffer.BlockSource?(v3, v4, v5, v6);
 
 LABEL_10:
 
-      goto LABEL_11;
+      return v10;
     }
 
     __break(1u);
@@ -8439,7 +8136,7 @@ LABEL_13:
   {
     if (blockBufferOut[0])
     {
-      inited = _swiftInitForCMTimebase(blockBufferOut[0]);
+      v10 = _swiftInitForCMTimebase(blockBufferOut[0]);
       goto LABEL_10;
     }
 
@@ -8447,20 +8144,13 @@ LABEL_13:
   }
 
 LABEL_15:
-  v15 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
-  [v15 initWithDomain:*MEMORY[0x277CCA590] code:v7 userInfo:0];
+  v14 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+  [v14 initWithDomain:*MEMORY[0x277CCA590] code:v7 userInfo:0];
   swift_willThrow();
 
   result = swift_unexpectedError();
   __break(1u);
   return result;
-}
-
-uint64_t _s9CoreMedia24CMMutableDataBlockBufferV39withContiguousMutableStorageIfAvailable2in_xSgSnySiGSg_xSwKYTXEtKlFxSWKYTXEfU_TA()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return v1();
 }
 
 unint64_t lazy protocol witness table accessor for type CMMutableDataBlockBuffer.BlockRegion and conformance CMMutableDataBlockBuffer.BlockRegion()
@@ -8530,7 +8220,7 @@ unint64_t lazy protocol witness table accessor for type CMMutableDataBlockBuffer
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<CMMutableDataBlockBuffer.BlockRegion> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<CMMutableDataBlockBuffer.BlockRegion> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8548,9 +8238,6 @@ void destroy for CMMutableDataBlockBuffer(uint64_t a1)
 {
   if (*(a1 + 8))
   {
-    v2 = *(a1 + 16);
-
-    v3 = *(a1 + 32);
   }
 }
 
@@ -8569,18 +8256,16 @@ uint64_t assignWithTake for CMMutableDataBlockBuffer(uint64_t a1, uint64_t a2)
   {
     outlined destroy of CMMutableDataBlockBuffer.BlockSource(a1 + 8);
 LABEL_5:
-    v9 = *(a2 + 24);
+    v7 = *(a2 + 24);
     *(a1 + 8) = *(a2 + 8);
-    *(a1 + 24) = v9;
+    *(a1 + 24) = v7;
     return a1;
   }
 
   v6 = *(a2 + 16);
-  v7 = *(a1 + 16);
   *(a1 + 8) = v5;
   *(a1 + 16) = v6;
 
-  v8 = *(a1 + 32);
   *(a1 + 24) = *(a2 + 24);
 
   return a1;
@@ -8715,39 +8400,28 @@ LABEL_8:
 uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed UnsafeMutableRawBufferPointer) -> (@out ())(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  v6[0] = a1;
-  v6[1] = a2;
-  return v3(v6);
-}
-
-uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable (@unowned UnsafeMutableRawBufferPointer) -> ()(void *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1, a1[1]);
+  v5[0] = a1;
+  v5[1] = a2;
+  return v3(v5);
 }
 
 uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Int) -> (@out UnsafeMutableRawBufferPointer)(uint64_t a1)
 {
   v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v6 = a1;
-  v2(&v5, &v6);
-  return v5;
+  v5 = a1;
+  v2(&v4, &v5);
+  return v4;
 }
 
 uint64_t partial apply for thunk for @escaping @callee_guaranteed @Sendable (@unowned Int) -> (@unowned UnsafeMutableRawBufferPointer)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = *(v2 + 16);
-  v5 = *(v2 + 24);
-  result = v4(*a1);
+  result = (*(v2 + 16))(*a1);
   *a2 = result;
-  a2[1] = v7;
+  a2[1] = v5;
   return result;
 }
 
-uint64_t outlined copy of CMMutableDataBlockBuffer.BlockSource?(uint64_t result)
+uint64_t outlined copy of CMMutableDataBlockBuffer.BlockSource?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
@@ -8756,27 +8430,10 @@ uint64_t outlined copy of CMMutableDataBlockBuffer.BlockSource?(uint64_t result)
   return result;
 }
 
-uint64_t partial apply for closure #1 in static CMMutableDataBlockBuffer.makeBlockBuffer(count:blockSource:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t objectdestroy_21Tm()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
-}
-
-uint64_t partial apply for closure #2 in static CMMutableDataBlockBuffer.makeBlockBuffer(count:blockSource:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(v2 + 32);
-  v4 = *(v2 + 40);
-  return v3(a1, a1 + a2);
 }
 
 uint64_t CMAttachmentBearerAttachments.Value.mode.getter@<X0>(_BYTE *a1@<X8>)
@@ -8815,11 +8472,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance CMAttac
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMAttachmentBearerAttachments.Mode()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMAttachmentBearerAttachments.Mode(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -8849,7 +8506,7 @@ _DWORD *protocol witness for RawRepresentable.init(rawValue:) in conformance CMA
   return result;
 }
 
-void CMAttachmentBearerAttachments.subscript.getter(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double CMAttachmentBearerAttachments.subscript.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v18 = *MEMORY[0x277D85DE8];
   attachmentModeOut = 0;
@@ -8859,41 +8516,40 @@ void CMAttachmentBearerAttachments.subscript.getter(uint64_t a1@<X0>, uint64_t a
   v9 = CMGetAttachment(v7, v8, &attachmentModeOut);
   swift_unknownObjectRelease();
 
-  if (!v9)
+  if (v9)
   {
-    goto LABEL_8;
-  }
+    if (!attachmentModeOut)
+    {
+      v10 = 0;
+      ObjectType = swift_getObjectType();
+      *&v16 = v9;
+      goto LABEL_6;
+    }
 
-  if (!attachmentModeOut)
-  {
-    v10 = 0;
-    ObjectType = swift_getObjectType();
-    *&v16 = v9;
-    goto LABEL_6;
-  }
-
-  if (attachmentModeOut != 1)
-  {
-    swift_unknownObjectRelease();
-LABEL_8:
-    *a3 = 0u;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = -1;
-    goto LABEL_9;
-  }
-
-  ObjectType = swift_getObjectType();
-  *&v16 = v9;
-  v10 = 1;
+    if (attachmentModeOut == 1)
+    {
+      ObjectType = swift_getObjectType();
+      *&v16 = v9;
+      v10 = 1;
 LABEL_6:
-  _sypWOb_0(&v16, v14);
-  v15 = v10;
-  *(a3 + 32) = v10;
-  v11 = v14[1];
-  *a3 = v14[0];
-  *(a3 + 16) = v11;
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
+      _sypWOb_0(&v16, v14);
+      v15 = v10;
+      *(a3 + 32) = v10;
+      result = *v14;
+      v12 = v14[1];
+      *a3 = v14[0];
+      *(a3 + 16) = v12;
+      return result;
+    }
+
+    swift_unknownObjectRelease();
+  }
+
+  result = 0.0;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = -1;
+  return result;
 }
 
 uint64_t key path setter for CMAttachmentBearerAttachments.subscript(_:) : CMAttachmentBearerAttachments(uint64_t a1, uint64_t a2, uint64_t *a3)
@@ -8908,24 +8564,23 @@ uint64_t key path setter for CMAttachmentBearerAttachments.subscript(_:) : CMAtt
 uint64_t CMAttachmentBearerAttachments.subscript.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  outlined init with copy of CMAttachmentBearerAttachments.Value?(a1, &v30, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMd, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMR);
-  if (v32 == 255)
+  outlined init with copy of CMAttachmentBearerAttachments.Value?(a1, &v28, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMd, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMR);
+  if (v30 == 255)
   {
-    outlined destroy of CMAttachmentBearerAttachments.Value?(&v30);
-    outlined init with copy of CMAttachmentBearerAttachments(v4, &v30);
-    v18 = *(&v31 + 1);
-    v19 = __swift_project_boxed_opaque_existential_1(&v30, *(&v31 + 1));
-    v20 = *(v18 - 8);
-    v21 = *(v20 + 64);
-    MEMORY[0x28223BE20](v19);
-    v23 = v26 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v20 + 16))(v23);
-    __swift_destroy_boxed_opaque_existential_1(&v30);
-    v24 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v20 + 8))(v23, v18);
-    v25 = MEMORY[0x2318E2770](a2, a3);
+    outlined destroy of CMAttachmentBearerAttachments.Value?(&v28);
+    outlined init with copy of CMAttachmentBearerAttachments(v4, &v28);
+    v17 = *(&v29 + 1);
+    v18 = __swift_project_boxed_opaque_existential_1(&v28, *(&v29 + 1));
+    v19 = *(v17 - 8);
+    MEMORY[0x28223BE20](v18);
+    v21 = v24 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v19 + 16))(v21);
+    __swift_destroy_boxed_opaque_existential_1(&v28);
+    v22 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v19 + 8))(v21, v17);
+    v23 = MEMORY[0x2318E2770](a2, a3);
 
-    CMRemoveAttachment(v24, v25);
+    CMRemoveAttachment(v22, v23);
 
     swift_unknownObjectRelease();
     return outlined destroy of CMAttachmentBearerAttachments.Value?(a1);
@@ -8933,36 +8588,35 @@ uint64_t CMAttachmentBearerAttachments.subscript.setter(uint64_t a1, uint64_t a2
 
   else
   {
-    v33[0] = v30;
-    v33[1] = v31;
-    v34 = v32;
-    outlined init with copy of CMAttachmentBearerAttachments(v4, &v30);
-    v8 = *(&v31 + 1);
-    v9 = __swift_project_boxed_opaque_existential_1(&v30, *(&v31 + 1));
+    v31[0] = v28;
+    v31[1] = v29;
+    v32 = v30;
+    outlined init with copy of CMAttachmentBearerAttachments(v4, &v28);
+    v8 = *(&v29 + 1);
+    v9 = __swift_project_boxed_opaque_existential_1(&v28, *(&v29 + 1));
     v10 = *(v8 - 8);
-    v11 = *(v10 + 64);
     MEMORY[0x28223BE20](v9);
-    v13 = v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v13);
-    __swift_destroy_boxed_opaque_existential_1(&v30);
-    v14 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v10 + 8))(v13, v8);
-    v15 = MEMORY[0x2318E2770](a2, a3);
+    v12 = v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v12);
+    __swift_destroy_boxed_opaque_existential_1(&v28);
+    v13 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v10 + 8))(v12, v8);
+    v14 = MEMORY[0x2318E2770](a2, a3);
 
-    outlined init with copy of CMAttachmentBearerAttachments.Value(v33, v26);
-    _sypWOb_0(v26, v28);
-    __swift_project_boxed_opaque_existential_1(v28, v29);
-    v16 = _bridgeAnythingToObjectiveC<A>(_:)();
-    outlined init with copy of CMAttachmentBearerAttachments.Value(v33, v26);
-    LODWORD(v8) = v27;
-    outlined destroy of CMAttachmentBearerAttachments.Value(v26);
-    CMSetAttachment(v14, v15, v16, v8);
+    outlined init with copy of CMAttachmentBearerAttachments.Value(v31, v24);
+    _sypWOb_0(v24, &v26);
+    __swift_project_boxed_opaque_existential_1(&v26, v27);
+    v15 = _bridgeAnythingToObjectiveC<A>(_:)();
+    outlined init with copy of CMAttachmentBearerAttachments.Value(v31, v24);
+    LODWORD(v8) = v25;
+    outlined destroy of CMAttachmentBearerAttachments.Value(v24);
+    CMSetAttachment(v13, v14, v15, v8);
 
     swift_unknownObjectRelease();
     swift_unknownObjectRelease();
     outlined destroy of CMAttachmentBearerAttachments.Value?(a1);
-    outlined destroy of CMAttachmentBearerAttachments.Value(v33);
-    return __swift_destroy_boxed_opaque_existential_1(v28);
+    outlined destroy of CMAttachmentBearerAttachments.Value(v31);
+    return __swift_destroy_boxed_opaque_existential_1(&v26);
   }
 }
 
@@ -8996,21 +8650,20 @@ void (*CMAttachmentBearerAttachments.subscript.modify(void *a1, uint64_t a2, uin
 void CMAttachmentBearerAttachments.subscript.modify(uint64_t *a1, char a2)
 {
   v2 = *a1;
-  v4 = *(*a1 + 88);
-  v3 = *(*a1 + 96);
-  v5 = *(*a1 + 80);
+  v3 = *(*a1 + 88);
+  v4 = *(*a1 + 80);
   if (a2)
   {
     outlined init with copy of CMAttachmentBearerAttachments.Value?(*a1, v2 + 40, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMd, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMR);
 
-    CMAttachmentBearerAttachments.subscript.setter(v2 + 40, v5, v4);
+    CMAttachmentBearerAttachments.subscript.setter(v2 + 40, v4, v3);
     outlined destroy of CMAttachmentBearerAttachments.Value?(v2);
   }
 
   else
   {
 
-    CMAttachmentBearerAttachments.subscript.setter(v2, v5, v4);
+    CMAttachmentBearerAttachments.subscript.setter(v2, v4, v3);
   }
 
   free(v2);
@@ -9020,19 +8673,17 @@ void CMAttachmentBearerAttachments.subscript.modify(uint64_t *a1, char a2)
   v2 = *a1;
   if (a2)
   {
-    v3 = v2[10];
-    v4 = v2[11];
+    v3 = v2[11];
     outlined init with copy of CMAttachmentBearerAttachments.Value?(*a1, (v2 + 5), &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMd, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMR);
-    v6 = v4;
-    CMAttachmentBearerAttachments.subscript.setter((v2 + 5), &v6);
+    v4 = v3;
+    CMAttachmentBearerAttachments.subscript.setter((v2 + 5), &v4);
     outlined destroy of CMAttachmentBearerAttachments.Value?(v2, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMd, &_s9CoreMedia29CMAttachmentBearerAttachmentsV5ValueOSgMR);
   }
 
   else
   {
-    v5 = v2[10];
-    v6 = v2[11];
-    CMAttachmentBearerAttachments.subscript.setter(v2, &v6);
+    v4 = v2[11];
+    CMAttachmentBearerAttachments.subscript.setter(v2, &v4);
   }
 
   free(v2);
@@ -9072,6 +8723,16 @@ unint64_t CMAttachmentBearerAttachments.nonPropagated.getter(CMAttachmentMode a1
   }
 
   return result;
+}
+
+Swift::Void __swiftcall CMAttachmentBearerAttachments.merge(_:mode:)(Swift::OpaquePointer _, CoreMedia::CMAttachmentBearerAttachments::Mode mode)
+{
+  v3 = *mode;
+  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
+  v4 = _bridgeAnythingToObjectiveC<A>(_:)();
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  CMSetAttachments(v4, isa, v3);
+  swift_unknownObjectRelease();
 }
 
 id CMBlockBufferRef.attachments.getter@<X0>(void *a1@<X8>)
@@ -9222,10 +8883,10 @@ uint64_t CMBlockBufferRef.attachments.setter(uint64_t a1, uint64_t (*a2)(void), 
   return outlined destroy of CMAttachmentBearerAttachments(a1);
 }
 
-uint64_t CMBlockBufferRef.propagateAttachments<A>(to:)()
+uint64_t CMBlockBufferRef.propagateAttachments<A>(to:)(uint64_t a1, uint64_t a2)
 {
-  v1 = _bridgeAnythingToObjectiveC<A>(_:)();
-  CMPropagateAttachments(v0, v1);
+  v3 = _bridgeAnythingToObjectiveC<A>(_:)();
+  CMPropagateAttachments(v2, v3);
 
   return swift_unknownObjectRelease();
 }
@@ -9243,12 +8904,11 @@ id protocol witness for CMAttachmentBearerProtocol.attachments.getter in conform
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -9860,4 +9520,316 @@ LABEL_10:
   }
 
   return result;
+}
+
+uint64_t outlined init with copy of CMAttachmentBearerAttachments.Value?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
+  return a2;
+}
+
+CFTypeRef _s9CoreMedia29_CMSampleBufferInitTrampolinePAAEyxSo0cD3RefaAAE11InitializerOcfCAE_Tt1g5(uint64_t a1)
+{
+  cf[1] = *MEMORY[0x277D85DE8];
+  cf[0] = 0;
+  v2 = CMSampleBufferRef.Initializer.create(_:)(cf);
+  if (v2 == noErr.getter())
+  {
+    v3 = cf[0];
+    if (!cf[0])
+    {
+      __break(1u);
+    }
+
+    v4 = _swiftInitForCMTimebase(cf[0]);
+
+    outlined destroy of CMSampleBufferRef.DynamicContent(a1, type metadata accessor for CMSampleBufferRef.Initializer);
+    return v4;
+  }
+
+  else
+  {
+    v6 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+    [v6 initWithDomain:*MEMORY[0x277CCA590] code:v2 userInfo:0];
+    swift_willThrow();
+
+    result = swift_unexpectedError();
+    __break(1u);
+  }
+
+  return result;
+}
+
+Swift::Int CMSampleBufferRef.ContentType.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x2318E2D50](v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance CMSampleBufferRef.ContentType()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x2318E2D50](v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CMSampleBufferRef.ContentType(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  MEMORY[0x2318E2D50](v2);
+  return Hasher._finalize()();
+}
+
+uint64_t CMSampleBufferRef.DynamicContent.init(from:)@<X0>(opaqueCMSampleBuffer *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v5 = FigSampleBufferPayloadTypeForSwiftOverlay();
+  if (v5 <= 0)
+  {
+    if (!v5)
+    {
+      v7 = CMSampleBufferGetDataBuffer(a1);
+      if (v7)
+      {
+        v8 = v7;
+        if (CMBlockBufferIsEmpty(v7) || (v2 = CMBlockBufferAssureBlockMemory(v8), v2 == noErr.getter()))
+        {
+
+          *a2 = v8;
+          type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+          goto LABEL_17;
+        }
+
+LABEL_24:
+        v10 = objc_allocWithZone(MEMORY[0x277CCA9B8]);
+        [v10 initWithDomain:*MEMORY[0x277CCA590] code:v2 userInfo:0];
+        swift_willThrow();
+        result = swift_unexpectedError();
+        __break(1u);
+        return result;
+      }
+
+      goto LABEL_22;
+    }
+
+LABEL_21:
+    __break(1u);
+LABEL_22:
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  if (v5 > 2)
+  {
+    switch(v5)
+    {
+      case 3:
+        *a2 = specialized Array<A>.init(from:)(a1);
+        type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+        goto LABEL_17;
+      case 4:
+
+        type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+        goto LABEL_17;
+      case 5:
+        CMSampleDataReference.init(from:)(a1, a2);
+        type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+        goto LABEL_17;
+    }
+
+    goto LABEL_21;
+  }
+
+  if (v5 != 1)
+  {
+    __break(1u);
+    goto LABEL_21;
+  }
+
+  if (!CMSampleBufferGetImageBuffer(a1))
+  {
+LABEL_23:
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  type metadata accessor for CVReadOnlyPixelBuffer();
+  v6 = dispatch thunk of CVReadOnlyPixelBuffer.__allocating_init(unsafeBuffer:)();
+
+  *a2 = v6;
+  type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+LABEL_17:
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+Swift::Void __swiftcall CMSampleBufferRef.DynamicContent.embed(into:)(CMSampleBufferRef into)
+{
+  v2 = v1;
+  v4 = type metadata accessor for CMSampleDataReference(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+  MEMORY[0x28223BE20](v7);
+  v9 = (v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of CMSampleBufferRef.DynamicContent(v2, v9, type metadata accessor for CMSampleBufferRef.DynamicContent);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
+  {
+    if (!EnumCaseMultiPayload)
+    {
+      outlined init with take of CMSampleDataReference(v9, v6);
+      CMSampleDataReference.embed(into:)(into);
+      outlined destroy of CMSampleBufferRef.DynamicContent(v6, type metadata accessor for CMSampleDataReference);
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (EnumCaseMultiPayload == 2)
+  {
+    CVReadOnlyPixelBuffer.embed(into:)(into);
+
+    return;
+  }
+
+  if (EnumCaseMultiPayload == 3)
+  {
+    Array<A>.embed(into:)(into, *v9);
+
+    return;
+  }
+
+  v11 = FigSampleBufferPayloadTypeForSwiftOverlay();
+  if (v11 < 4)
+  {
+    __break(1u);
+    return;
+  }
+
+  if (v11 != 4)
+  {
+    __break(1u);
+LABEL_11:
+    v12 = *v9;
+    v13[1] = v12;
+    CMReadOnlyDataBlockBuffer.embed(into:)(into);
+  }
+}
+
+void CMReadySampleBuffer<>.init(unsafeBuffer:)(void *a1@<X0>, opaqueCMSampleBuffer **a2@<X8>)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  if (!CMSampleBufferIsValid(v3))
+  {
+    __break(1u);
+LABEL_5:
+    CMSampleBufferHasDataFailed(v3, &statusOut);
+    __break(1u);
+  }
+
+  statusOut = noErr.getter();
+  if (!CMSampleBufferDataIsReady(v3))
+  {
+    goto LABEL_5;
+  }
+
+  *a2 = v3;
+}
+
+uint64_t CMReadySampleBuffer<>.content.getter@<X0>(uint64_t *a1@<X8>)
+{
+  v3 = *v1;
+
+  return CMSampleBufferRef.DynamicContent.init(from:)(v3, a1);
+}
+
+uint64_t key path setter for CMReadySampleBuffer<>.content : CMReadySampleBuffer<CMSampleBufferRef.DynamicContent>(uint64_t a1, void **a2)
+{
+  v4 = type metadata accessor for CMSampleBufferRef.DynamicContent(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of CMSampleBufferRef.DynamicContent(a1, v6, type metadata accessor for CMSampleBufferRef.DynamicContent);
+  isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
+  v8 = *a2;
+  if ((isUniquelyReferenced_nonNull & 1) == 0)
+  {
+    v9 = v8;
+    v10 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v9);
+
+    v8 = v10;
+    *a2 = v10;
+  }
+
+  CMSampleBufferRef.DynamicContent.embed(into:)(v8);
+  return outlined destroy of CMSampleBufferRef.DynamicContent(v6, type metadata accessor for CMSampleBufferRef.DynamicContent);
+}
+
+uint64_t CMReadySampleBuffer<>.content.setter(uint64_t a1)
+{
+  isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
+  v4 = *v1;
+  if ((isUniquelyReferenced_nonNull & 1) == 0)
+  {
+    v5 = v4;
+    v6 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v5);
+
+    v4 = v6;
+    *v1 = v6;
+  }
+
+  CMSampleBufferRef.DynamicContent.embed(into:)(v4);
+  return outlined destroy of CMSampleBufferRef.DynamicContent(a1, type metadata accessor for CMSampleBufferRef.DynamicContent);
+}
+
+{
+  isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
+  v3 = *v1;
+  if ((isUniquelyReferenced_nonNull & 1) == 0)
+  {
+    v4 = v3;
+    v5 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v4);
+
+    v3 = v5;
+    *v1 = v5;
+  }
+
+  CVReadOnlyPixelBuffer.embed(into:)(v3);
+}
+
+{
+  isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
+  v4 = *v1;
+  if ((isUniquelyReferenced_nonNull & 1) == 0)
+  {
+    v5 = v4;
+    v6 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v5);
+
+    v4 = v6;
+    *v1 = v6;
+  }
+
+  CMSampleDataReference.embed(into:)(v4);
+  return outlined destroy of CMSampleDataReference(a1, type metadata accessor for CMSampleDataReference);
+}
+
+{
+  isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
+  v4 = *v1;
+  if ((isUniquelyReferenced_nonNull & 1) == 0)
+  {
+    v5 = v4;
+    v6 = specialized _CMSampleBufferInitTrampoline.init(copying:)(v5);
+
+    v4 = v6;
+    *v1 = v6;
+  }
+
+  Array<A>.embed(into:)(v4, a1);
 }

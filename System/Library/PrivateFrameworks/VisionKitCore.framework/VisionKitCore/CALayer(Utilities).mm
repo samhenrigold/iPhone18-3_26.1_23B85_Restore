@@ -49,17 +49,18 @@
   v4 = [vk_randomColor colorWithAlphaComponent:0.8];
   -[VKAutoFadeOutLayer setBackgroundColor:](v2, "setBackgroundColor:", [v4 CGColor]);
 
-  [(VKAutoFadeOutLayer *)v2 setBounds:VKMRectWithOriginAndSize(v5, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), 10.0, 10.0)];
+  VKMRectWithOriginAndSize();
+  [(VKAutoFadeOutLayer *)v2 setBounds:?];
   [self addSublayer:v2];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51__CALayer_Utilities__vk_autoFadeOutShapePointLayer__block_invoke;
-  v8[3] = &unk_1E7BE4208;
-  v6 = v2;
-  v9 = v6;
-  vk_dispatchMainAfterDelay(v8, 1.0);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51__CALayer_Utilities__vk_autoFadeOutShapePointLayer__block_invoke;
+  v7[3] = &unk_1E7BE4208;
+  v5 = v2;
+  v8 = v5;
+  vk_dispatchMainAfterDelay(v7, 1.0);
 
-  return v6;
+  return v5;
 }
 
 - (id)vk_autoFadeOutShapeRectLayer

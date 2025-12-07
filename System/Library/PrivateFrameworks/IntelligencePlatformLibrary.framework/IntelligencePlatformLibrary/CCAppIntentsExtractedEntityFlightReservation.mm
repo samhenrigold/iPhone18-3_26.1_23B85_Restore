@@ -809,14 +809,14 @@
   v9 = MEMORY[0x1E6993AB0];
   if (*&v7[*MEMORY[0x1E6993AB8]] >= *&v7[*MEMORY[0x1E6993AB0]])
   {
-    v50 = 0;
-    v51 = 0;
+    v47 = 0;
+    v48 = 0;
     goto LABEL_77;
   }
 
   v10 = 0;
-  v50 = 0;
-  v51 = 0;
+  v47 = 0;
+  v48 = 0;
   v11 = MEMORY[0x1E6993AA8];
   v12 = MEMORY[0x1E6993AA0];
 LABEL_3:
@@ -888,9 +888,9 @@ LABEL_21:
             goto LABEL_68;
           case 6u:
             v27 = CCPBReaderReadStringNoCopy();
-            if (!v51)
+            if (!v48)
             {
-              v51 = objc_opt_new();
+              v48 = objc_opt_new();
             }
 
             if (!v27)
@@ -898,7 +898,7 @@ LABEL_21:
               goto LABEL_55;
             }
 
-            v28 = v51;
+            v28 = v48;
             goto LABEL_54;
           case 7u:
             v25 = CCPBReaderReadStringNoCopy();
@@ -950,9 +950,9 @@ LABEL_21:
             goto LABEL_68;
           case 0x13u:
             v27 = CCPBReaderReadStringNoCopy();
-            if (!v50)
+            if (!v47)
             {
-              v50 = objc_opt_new();
+              v47 = objc_opt_new();
             }
 
             if (!v27)
@@ -960,7 +960,7 @@ LABEL_21:
               goto LABEL_55;
             }
 
-            v28 = v50;
+            v28 = v47;
 LABEL_54:
             [v28 addObject:v27];
 LABEL_55:
@@ -1066,7 +1066,6 @@ LABEL_69:
               NSStringFromClass(v33);
               errorCopy = error;
               v35 = v34 = dataCopy;
-              v36 = *&v7[*v11];
               v10 = CCSkipFieldErrorForMessage();
 
               dataCopy = v34;
@@ -1108,13 +1107,13 @@ LABEL_77:
   }
 
 LABEL_78:
-  v37 = [v51 copy];
+  v36 = [v48 copy];
   customerNames = self->_customerNames;
-  self->_customerNames = v37;
+  self->_customerNames = v36;
 
-  v39 = [v50 copy];
+  v38 = [v47 copy];
   seatNumbers = self->_seatNumbers;
-  self->_seatNumbers = v39;
+  self->_seatNumbers = v38;
 
   if (v10)
   {
@@ -1123,32 +1122,30 @@ LABEL_78:
 
   else
   {
-    v41 = MEMORY[0x1E6993AA8];
     if (!*&v7[*MEMORY[0x1E6993AA8]])
     {
-      v47 = 1;
+      v44 = 1;
       goto LABEL_83;
     }
 
-    v42 = objc_opt_class();
-    v43 = NSStringFromClass(v42);
-    v44 = *&v7[*v41];
+    v40 = objc_opt_class();
+    v41 = NSStringFromClass(v40);
     CCInvalidBufferErrorForMessage();
-    v46 = v45 = dataCopy;
+    v43 = v42 = dataCopy;
     CCSetError();
 
-    dataCopy = v45;
+    dataCopy = v42;
   }
 
-  v47 = 0;
+  v44 = 0;
 LABEL_83:
 
-  return v47;
+  return v44;
 }
 
 - (CCAppIntentsExtractedEntityFlightReservation)initWithFlightDesignator:(id)designator flightConfirmationNumber:(id)number flightCarrier:(id)carrier flightCarrierCode:(id)code provider:(id)provider customerNames:(id)names flightDepartureDateTime:(id)time flightDepartureTimeZone:(id)self0 flightBoardingDateTime:(id)self1 flightDepartureAirportCode:(id)self2 flightDepartureAirportName:(id)self3 flightDepartureAirportAddress:(id)self4 flightDepartureAirportLocality:(id)self5 flightDepartureAirportRegion:(id)self6 flightDepartureAirportPostalCode:(id)self7 flightDepartureAirportCountry:(id)self8 flightDepartureTerminal:(id)self9 flightDepartureGate:(id)gate seatNumbers:(id)numbers flightArrivalDateTime:(id)arrivalDateTime flightArrivalTimeZone:(id)timeZone flightArrivalAirportCode:(id)arrivalAirportCode flightArrivalAirportName:(id)airportName flightArrivalAirportAddress:(id)airportAddress flightArrivalAirportLocality:(id)airportLocality flightArrivalAirportRegion:(id)airportRegion flightArrivalAirportPostalCode:(id)airportPostalCode flightArrivalAirportCountry:(id)designator0 flightArrivalTerminal:(id)designator1 flightArrivalGate:(id)designator2 duration:(id)designator3 flightCheckInUrl:(id)designator4 cost:(id)designator5 costCurrencyCode:(id)designator6 flightNumber:(id)designator7 eventStatus:(id)designator8 error:(id *)designator9
 {
-  v172 = *MEMORY[0x1E69E9840];
+  v169 = *MEMORY[0x1E69E9840];
   designatorCopy = designator;
   numberCopy = number;
   carrierCopy = carrier;
@@ -1186,16 +1183,16 @@ LABEL_83:
   flightNumberCopy = flightNumber;
   statusCopy = status;
   v49 = objc_opt_new();
-  v138 = zoneCopy;
+  v135 = zoneCopy;
   if (!designatorCopy)
   {
     v51 = 0;
 LABEL_5:
-    v109 = designatorCopy;
+    v106 = designatorCopy;
     if (numberCopy)
     {
       objc_opt_class();
-      v168 = v51;
+      v165 = v51;
       IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
       v53 = v51;
 
@@ -1228,7 +1225,7 @@ LABEL_8:
     }
 
     objc_opt_class();
-    v167 = v53;
+    v164 = v53;
     v58 = CCValidateIsInstanceOfExpectedClass();
     v51 = v53;
 
@@ -1242,7 +1239,7 @@ LABEL_8:
     {
 LABEL_9:
       objc_opt_class();
-      v166 = v51;
+      v163 = v51;
       v54 = CCValidateIsInstanceOfExpectedClass();
       v53 = v51;
 
@@ -1265,7 +1262,7 @@ LABEL_16:
     if (!providerCopy)
     {
 LABEL_11:
-      v108 = codeCopy;
+      v105 = codeCopy;
       v55 = providerCopy;
       v51 = v53;
       goto LABEL_19;
@@ -1273,7 +1270,7 @@ LABEL_11:
 
 LABEL_17:
     objc_opt_class();
-    v165 = v53;
+    v162 = v53;
     v59 = CCValidateIsInstanceOfExpectedClass();
     v51 = v53;
 
@@ -1282,14 +1279,14 @@ LABEL_17:
       goto LABEL_155;
     }
 
-    v108 = codeCopy;
+    v105 = codeCopy;
     v55 = providerCopy;
     CCPBDataWriterWriteStringField();
 LABEL_19:
     if (namesCopy)
     {
       objc_opt_class();
-      v164 = v51;
+      v161 = v51;
       v60 = CCValidateArrayValues();
       v61 = v51;
 
@@ -1298,36 +1295,35 @@ LABEL_19:
         goto LABEL_40;
       }
 
-      v162 = 0u;
-      v163 = 0u;
+      v159 = 0u;
       v160 = 0u;
-      v161 = 0u;
+      v157 = 0u;
+      v158 = 0u;
       v62 = namesCopy;
-      v63 = [v62 countByEnumeratingWithState:&v160 objects:v171 count:16];
+      v63 = [v62 countByEnumeratingWithState:&v157 objects:v168 count:16];
       if (v63)
       {
         v64 = v63;
-        v65 = *v161;
+        v65 = *v158;
         do
         {
           for (i = 0; i != v64; ++i)
           {
-            if (*v161 != v65)
+            if (*v158 != v65)
             {
               objc_enumerationMutation(v62);
             }
 
-            v67 = *(*(&v160 + 1) + 8 * i);
             CCPBDataWriterWriteStringField();
           }
 
-          v64 = [v62 countByEnumeratingWithState:&v160 objects:v171 count:16];
+          v64 = [v62 countByEnumeratingWithState:&v157 objects:v168 count:16];
         }
 
         while (v64);
       }
 
-      zoneCopy = v138;
+      zoneCopy = v135;
     }
 
     else
@@ -1338,11 +1334,11 @@ LABEL_19:
     if (timeCopy)
     {
       objc_opt_class();
-      v159 = v61;
-      v68 = CCValidateIsInstanceOfExpectedClass();
+      v156 = v61;
+      v67 = CCValidateIsInstanceOfExpectedClass();
       v51 = v61;
 
-      if (!v68)
+      if (!v67)
       {
         CCSetError();
         v56 = 0;
@@ -1356,15 +1352,15 @@ LABEL_33:
         v61 = v51;
 LABEL_37:
         providerCopy = v55;
-        codeCopy = v108;
+        codeCopy = v105;
         if (dateTimeCopy)
         {
           objc_opt_class();
-          v157 = v61;
-          v70 = CCValidateIsInstanceOfExpectedClass();
+          v154 = v61;
+          v69 = CCValidateIsInstanceOfExpectedClass();
           v51 = v61;
 
-          if (!v70)
+          if (!v69)
           {
             goto LABEL_155;
           }
@@ -1380,11 +1376,11 @@ LABEL_37:
         if (airportCodeCopy)
         {
           objc_opt_class();
-          v156 = v51;
-          v71 = CCValidateIsInstanceOfExpectedClass();
+          v153 = v51;
+          v70 = CCValidateIsInstanceOfExpectedClass();
           v53 = v51;
 
-          if (!v71)
+          if (!v70)
           {
             goto LABEL_150;
           }
@@ -1400,11 +1396,11 @@ LABEL_37:
         if (nameCopy)
         {
           objc_opt_class();
-          v155 = v53;
-          v72 = CCValidateIsInstanceOfExpectedClass();
+          v152 = v53;
+          v71 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
-          if (!v72)
+          if (!v71)
           {
             goto LABEL_155;
           }
@@ -1420,11 +1416,11 @@ LABEL_37:
         if (addressCopy)
         {
           objc_opt_class();
-          v154 = v51;
-          v73 = CCValidateIsInstanceOfExpectedClass();
+          v151 = v51;
+          v72 = CCValidateIsInstanceOfExpectedClass();
           v53 = v51;
 
-          if (!v73)
+          if (!v72)
           {
             goto LABEL_150;
           }
@@ -1440,11 +1436,11 @@ LABEL_37:
         if (localityCopy)
         {
           objc_opt_class();
-          v153 = v53;
-          v74 = CCValidateIsInstanceOfExpectedClass();
+          v150 = v53;
+          v73 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
-          if (!v74)
+          if (!v73)
           {
             goto LABEL_155;
           }
@@ -1460,11 +1456,11 @@ LABEL_37:
         if (regionCopy)
         {
           objc_opt_class();
-          v152 = v51;
-          v75 = CCValidateIsInstanceOfExpectedClass();
+          v149 = v51;
+          v74 = CCValidateIsInstanceOfExpectedClass();
           v53 = v51;
 
-          if (!v75)
+          if (!v74)
           {
             goto LABEL_150;
           }
@@ -1480,11 +1476,11 @@ LABEL_37:
         if (postalCodeCopy)
         {
           objc_opt_class();
-          v151 = v53;
-          v76 = CCValidateIsInstanceOfExpectedClass();
+          v148 = v53;
+          v75 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
-          if (!v76)
+          if (!v75)
           {
             goto LABEL_155;
           }
@@ -1500,11 +1496,11 @@ LABEL_37:
         if (countryCopy)
         {
           objc_opt_class();
-          v150 = v51;
-          v77 = CCValidateIsInstanceOfExpectedClass();
+          v147 = v51;
+          v76 = CCValidateIsInstanceOfExpectedClass();
           v53 = v51;
 
-          if (!v77)
+          if (!v76)
           {
             goto LABEL_150;
           }
@@ -1520,11 +1516,11 @@ LABEL_37:
         if (terminalCopy)
         {
           objc_opt_class();
-          v149 = v53;
-          v78 = CCValidateIsInstanceOfExpectedClass();
+          v146 = v53;
+          v77 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
-          if (!v78)
+          if (!v77)
           {
             goto LABEL_155;
           }
@@ -1540,11 +1536,11 @@ LABEL_37:
         if (gateCopy)
         {
           objc_opt_class();
-          v148 = v51;
-          v79 = CCValidateIsInstanceOfExpectedClass();
+          v145 = v51;
+          v78 = CCValidateIsInstanceOfExpectedClass();
           v53 = v51;
 
-          if (!v79)
+          if (!v78)
           {
             goto LABEL_150;
           }
@@ -1560,42 +1556,41 @@ LABEL_37:
         if (numbersCopy)
         {
           objc_opt_class();
-          v147 = v53;
-          v80 = CCValidateArrayValues();
+          v144 = v53;
+          v79 = CCValidateArrayValues();
           v51 = v53;
 
-          if (!v80)
+          if (!v79)
           {
             goto LABEL_155;
           }
 
-          v145 = 0u;
-          v146 = 0u;
+          v142 = 0u;
           v143 = 0u;
-          v144 = 0u;
-          v81 = numbersCopy;
-          v82 = [v81 countByEnumeratingWithState:&v143 objects:v170 count:16];
-          if (v82)
+          v140 = 0u;
+          v141 = 0u;
+          v80 = numbersCopy;
+          v81 = [v80 countByEnumeratingWithState:&v140 objects:v167 count:16];
+          if (v81)
           {
-            v83 = v82;
-            v84 = *v144;
+            v82 = v81;
+            v83 = *v141;
             do
             {
-              for (j = 0; j != v83; ++j)
+              for (j = 0; j != v82; ++j)
               {
-                if (*v144 != v84)
+                if (*v141 != v83)
                 {
-                  objc_enumerationMutation(v81);
+                  objc_enumerationMutation(v80);
                 }
 
-                v86 = *(*(&v143 + 1) + 8 * j);
                 CCPBDataWriterWriteStringField();
               }
 
-              v83 = [v81 countByEnumeratingWithState:&v143 objects:v170 count:16];
+              v82 = [v80 countByEnumeratingWithState:&v140 objects:v167 count:16];
             }
 
-            while (v83);
+            while (v82);
           }
         }
 
@@ -1605,6 +1600,44 @@ LABEL_37:
         }
 
         if (arrivalDateTimeCopy)
+        {
+          objc_opt_class();
+          v85 = CCValidateIsInstanceOfExpectedClass();
+          v53 = v51;
+
+          if (!v85)
+          {
+            goto LABEL_150;
+          }
+
+          CCPBDataWriterWriteStringField();
+        }
+
+        else
+        {
+          v53 = v51;
+        }
+
+        if (timeZoneCopy)
+        {
+          objc_opt_class();
+          v86 = CCValidateIsInstanceOfExpectedClass();
+          v51 = v53;
+
+          if (!v86)
+          {
+            goto LABEL_155;
+          }
+
+          CCPBDataWriterWriteStringField();
+        }
+
+        else
+        {
+          v51 = v53;
+        }
+
+        if (arrivalAirportCodeCopy)
         {
           objc_opt_class();
           v87 = CCValidateIsInstanceOfExpectedClass();
@@ -1623,7 +1656,7 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (timeZoneCopy)
+        if (airportNameCopy)
         {
           objc_opt_class();
           v88 = CCValidateIsInstanceOfExpectedClass();
@@ -1642,7 +1675,7 @@ LABEL_37:
           v51 = v53;
         }
 
-        if (arrivalAirportCodeCopy)
+        if (airportAddressCopy)
         {
           objc_opt_class();
           v89 = CCValidateIsInstanceOfExpectedClass();
@@ -1661,7 +1694,7 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (airportNameCopy)
+        if (airportLocalityCopy)
         {
           objc_opt_class();
           v90 = CCValidateIsInstanceOfExpectedClass();
@@ -1680,7 +1713,7 @@ LABEL_37:
           v51 = v53;
         }
 
-        if (airportAddressCopy)
+        if (airportRegionCopy)
         {
           objc_opt_class();
           v91 = CCValidateIsInstanceOfExpectedClass();
@@ -1699,7 +1732,7 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (airportLocalityCopy)
+        if (airportPostalCodeCopy)
         {
           objc_opt_class();
           v92 = CCValidateIsInstanceOfExpectedClass();
@@ -1718,7 +1751,7 @@ LABEL_37:
           v51 = v53;
         }
 
-        if (airportRegionCopy)
+        if (airportCountryCopy)
         {
           objc_opt_class();
           v93 = CCValidateIsInstanceOfExpectedClass();
@@ -1737,7 +1770,7 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (airportPostalCodeCopy)
+        if (arrivalTerminalCopy)
         {
           objc_opt_class();
           v94 = CCValidateIsInstanceOfExpectedClass();
@@ -1756,7 +1789,7 @@ LABEL_37:
           v51 = v53;
         }
 
-        if (airportCountryCopy)
+        if (arrivalGateCopy)
         {
           objc_opt_class();
           v95 = CCValidateIsInstanceOfExpectedClass();
@@ -1775,7 +1808,7 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (arrivalTerminalCopy)
+        if (durationCopy)
         {
           objc_opt_class();
           v96 = CCValidateIsInstanceOfExpectedClass();
@@ -1786,7 +1819,8 @@ LABEL_37:
             goto LABEL_155;
           }
 
-          CCPBDataWriterWriteStringField();
+          [durationCopy doubleValue];
+          CCPBDataWriterWriteDoubleField();
         }
 
         else
@@ -1794,7 +1828,7 @@ LABEL_37:
           v51 = v53;
         }
 
-        if (arrivalGateCopy)
+        if (urlCopy)
         {
           objc_opt_class();
           v97 = CCValidateIsInstanceOfExpectedClass();
@@ -1813,52 +1847,13 @@ LABEL_37:
           v53 = v51;
         }
 
-        if (durationCopy)
+        if (costCopy)
         {
           objc_opt_class();
           v98 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
           if (!v98)
-          {
-            goto LABEL_155;
-          }
-
-          [durationCopy doubleValue];
-          CCPBDataWriterWriteDoubleField();
-        }
-
-        else
-        {
-          v51 = v53;
-        }
-
-        if (urlCopy)
-        {
-          objc_opt_class();
-          v99 = CCValidateIsInstanceOfExpectedClass();
-          v53 = v51;
-
-          if (!v99)
-          {
-            goto LABEL_150;
-          }
-
-          CCPBDataWriterWriteStringField();
-        }
-
-        else
-        {
-          v53 = v51;
-        }
-
-        if (costCopy)
-        {
-          objc_opt_class();
-          v100 = CCValidateIsInstanceOfExpectedClass();
-          v51 = v53;
-
-          if (!v100)
           {
             goto LABEL_155;
           }
@@ -1878,10 +1873,10 @@ LABEL_37:
         }
 
         objc_opt_class();
-        v101 = CCValidateIsInstanceOfExpectedClass();
+        v99 = CCValidateIsInstanceOfExpectedClass();
         v53 = v51;
 
-        if (v101)
+        if (v99)
         {
           CCPBDataWriterWriteStringField();
 LABEL_152:
@@ -1892,10 +1887,10 @@ LABEL_152:
           }
 
           objc_opt_class();
-          v102 = CCValidateIsInstanceOfExpectedClass();
+          v100 = CCValidateIsInstanceOfExpectedClass();
           v51 = v53;
 
-          if (v102)
+          if (v100)
           {
             CCPBDataWriterWriteStringField();
 LABEL_160:
@@ -1910,23 +1905,23 @@ LABEL_163:
             }
 
             objc_opt_class();
-            v105 = CCValidateIsInstanceOfExpectedClass();
-            v106 = v51;
+            v102 = CCValidateIsInstanceOfExpectedClass();
+            v103 = v51;
 
-            if (v105)
+            if (v102)
             {
               CCPBDataWriterWriteStringField();
-              v51 = v106;
+              v51 = v103;
               goto LABEL_163;
             }
 
             CCSetError();
             v56 = 0;
-            v51 = v106;
+            v51 = v103;
 LABEL_156:
             selfCopy3 = self;
 LABEL_157:
-            designatorCopy = v109;
+            designatorCopy = v106;
             goto LABEL_158;
           }
 
@@ -1954,11 +1949,11 @@ LABEL_150:
     }
 
     objc_opt_class();
-    v158 = v51;
-    v69 = CCValidateIsInstanceOfExpectedClass();
+    v155 = v51;
+    v68 = CCValidateIsInstanceOfExpectedClass();
     v61 = v51;
 
-    if (v69)
+    if (v68)
     {
       CCPBDataWriterWriteStringField();
       goto LABEL_37;
@@ -1971,13 +1966,13 @@ LABEL_40:
 LABEL_42:
     selfCopy3 = self;
     providerCopy = v55;
-    codeCopy = v108;
-    designatorCopy = v109;
+    codeCopy = v105;
+    designatorCopy = v106;
     goto LABEL_158;
   }
 
   objc_opt_class();
-  v169 = 0;
+  v166 = 0;
   v50 = CCValidateIsInstanceOfExpectedClass();
   v51 = 0;
   if (v50)
@@ -1991,7 +1986,6 @@ LABEL_42:
   selfCopy3 = self;
 LABEL_158:
 
-  v103 = *MEMORY[0x1E69E9840];
   return v56;
 }
 

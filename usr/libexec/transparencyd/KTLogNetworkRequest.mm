@@ -3,6 +3,7 @@
 - (id)initGETWithURL:(id)l application:(id)application;
 - (id)initPOSTWithURL:(id)l data:(id)data uuid:(id)uuid application:(id)application;
 - (id)initPUSHWithURL:(id)l data:(id)data uuid:(id)uuid application:(id)application;
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now completionHandler:(id)handler;
 @end
 
 @implementation KTLogNetworkRequest
@@ -117,6 +118,56 @@
   }
 
   return error;
+}
+
+- (void)createRequestForAuthentication:(id)authentication fetchAuthNow:(BOOL)now completionHandler:(id)handler
+{
+  nowCopy = now;
+  authenticationCopy = authentication;
+  handlerCopy = handler;
+  v10 = +[NSMutableDictionary dictionary];
+  additionalHeaders = [(TransparencyNetworkRequest *)self additionalHeaders];
+
+  if (additionalHeaders)
+  {
+    additionalHeaders2 = [(TransparencyNetworkRequest *)self additionalHeaders];
+    v13 = [NSMutableDictionary dictionaryWithDictionary:additionalHeaders2];
+
+    v10 = v13;
+  }
+
+  application = [(KTLogNetworkRequest *)self application];
+  v15 = [TransparencyApplication applicationValueForIdentifier:application];
+  stringValue = [v15 stringValue];
+
+  [v10 setObject:stringValue forKeyedSubscript:off_10038B9E0];
+  v17 = +[TransparencySettings automatedDeviceGroup];
+  [v10 setObject:v17 forKeyedSubscript:off_10038B9F0];
+
+  v18 = +[TransparencySettings transparencyVersionStr];
+  [v10 setObject:v18 forKeyedSubscript:off_10038B9F8];
+
+  httpMethod = [(TransparencyNetworkRequest *)self httpMethod];
+  if (httpMethod - 1 >= 2)
+  {
+    if (!httpMethod)
+    {
+      v20 = [(TransparencyNetworkRequest *)self url];
+      +[TransparencySettings defaultNetworkTimeout];
+      v24 = 0;
+      v21 = [(KTLogNetworkRequest *)self createGETRequestForURL:v20 timeout:&v24 error:?];
+      v22 = v24;
+
+      handlerCopy[2](handlerCopy, v21, v22);
+    }
+  }
+
+  else
+  {
+    v23.receiver = self;
+    v23.super_class = KTLogNetworkRequest;
+    [(TransparencyNetworkRequest *)&v23 createRequestForAuthentication:authenticationCopy fetchAuthNow:nowCopy additionalHeaders:v10 completionHandler:handlerCopy];
+  }
 }
 
 @end

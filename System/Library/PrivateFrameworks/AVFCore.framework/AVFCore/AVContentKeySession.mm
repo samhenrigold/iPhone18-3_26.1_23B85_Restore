@@ -365,41 +365,41 @@ void __83__AVContentKeySession_externalProtectionStateChangedCallbackWithBoss_ke
 - (AVContentKeySession)initWithKeySystem:(id)system storageDirectoryAtURL:(id)l legacyWebKitCompatibilityMode:(BOOL)mode
 {
   modeCopy = mode;
-  v46[30] = *MEMORY[0x1E69E9840];
-  v46[0] = 1;
-  v46[1] = avcks_didProvideKeyRequest;
-  v46[2] = avcks_didProvideRenewalKeyRequest;
-  v46[3] = avcks_didUpdatePersistableKey;
-  v46[4] = avcks_contentKeyRequestDidSucceed;
-  v46[5] = avcks_contentKeyRequestDidFail;
-  v46[6] = avcks_externalProtectionStateChangedCallback;
+  v47[30] = *MEMORY[0x1E69E9840];
+  v47[0] = 1;
+  v47[1] = avcks_didProvideKeyRequest;
+  v47[2] = avcks_didProvideRenewalKeyRequest;
+  v47[3] = avcks_didUpdatePersistableKey;
+  v47[4] = avcks_contentKeyRequestDidSucceed;
+  v47[5] = avcks_contentKeyRequestDidFail;
+  v47[6] = avcks_externalProtectionStateChangedCallback;
   if (([system isEqualToString:@"FairPlayStreaming"] & 1) == 0 && (objc_msgSend(system, "isEqualToString:", @"ClearKeySystem") & 1) == 0 && (objc_msgSend(system, "isEqualToString:", @"AuthorizationTokenSystem") & 1) == 0)
   {
     selfCopy = self;
-    v37 = MEMORY[0x1E695DF30];
-    v38 = *MEMORY[0x1E695D940];
-    v33 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, @"input keySystem is not supported", v39, v40, v41, v42, v43, v44);
-    v34 = v37;
+    v38 = MEMORY[0x1E695DF30];
+    v39 = *MEMORY[0x1E695D940];
+    v34 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, @"input keySystem is not supported", v40, v41, v42, v43, v44, v45);
     v35 = v38;
+    v36 = v39;
 LABEL_23:
-    objc_exception_throw([v34 exceptionWithName:v35 reason:v33 userInfo:0]);
+    objc_exception_throw([v35 exceptionWithName:v36 reason:v34 userInfo:0]);
   }
 
   v10 = [system isEqualToString:@"FairPlayStreaming"];
   if (l && (v10 & 1) == 0)
   {
     selfCopy2 = self;
-    v26 = MEMORY[0x1E695DF30];
-    v27 = *MEMORY[0x1E695D940];
-    v33 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, @"%@ does not support storage URL", v28, v29, v30, v31, v32, system);
-    v34 = v26;
+    v27 = MEMORY[0x1E695DF30];
+    v28 = *MEMORY[0x1E695D940];
+    v34 = AVMethodExceptionReasonWithObjectAndSelector(self, a2, @"%@ does not support storage URL", v29, v30, v31, v32, v33, system);
     v35 = v27;
+    v36 = v28;
     goto LABEL_23;
   }
 
-  v45.receiver = self;
-  v45.super_class = AVContentKeySession;
-  v11 = [(AVContentKeySession *)&v45 init];
+  v46.receiver = self;
+  v46.super_class = AVContentKeySession;
+  v11 = [(AVContentKeySession *)&v46 init];
   if (!v11)
   {
     goto LABEL_18;
@@ -420,7 +420,7 @@ LABEL_23:
   v14 = MEMORY[0x1E696AEC0];
   v15 = objc_opt_class();
   v16 = [objc_msgSend(v14 stringWithFormat:@"<%@: %p> contentkeysession delegate serialization queue", NSStringFromClass(v15), v11), "UTF8String"];
-  v11->_session->_delegateReadWriteQueue = av_readwrite_dispatch_queue_create(v16);
+  v11->_session->_delegateReadWriteQueue = av_readwrite_dispatch_queue_create(v16, v17);
   v11->_session->keyRequestsByRequestID = objc_alloc_init(MEMORY[0x1E695DF90]);
   v11->_session->_storageURL = [l copy];
   v11->_session->_keySystem = system;
@@ -448,8 +448,8 @@ LABEL_23:
     session = v11->_session;
     contentKeyBoss = session->_contentKeyBoss;
     threadSafetyQ = session->_threadSafetyQ;
-    v20 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-    if (!v20 || v20(contentKeyBoss, v46, v11, threadSafetyQ))
+    v21 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+    if (!v21 || v21(contentKeyBoss, v47, v11, threadSafetyQ))
     {
       goto LABEL_20;
     }
@@ -463,15 +463,15 @@ LABEL_23:
   }
 
   v11->_session->_defaultContentKeyGroup = [[AVContentKeyReportGroup alloc] initWithKeySystem:system keySession:v11 contentKeyBoss:v11->_session->_contentKeyBoss useContentKeyBoss:v11->_session->_useContentKeyBoss groupID:defaultGroupID storageDirectoryAtURL:l];
-  v22 = v11->_session;
-  if (!v22->_defaultContentKeyGroup)
+  v23 = v11->_session;
+  if (!v23->_defaultContentKeyGroup)
   {
 LABEL_20:
 
     return 0;
   }
 
-  [(NSMutableArray *)v22->_contentKeyGroups addObject:?];
+  [(NSMutableArray *)v23->_contentKeyGroups addObject:?];
 LABEL_18:
   if (dword_1EAEFCEB0)
   {
@@ -629,6 +629,7 @@ LABEL_13:
 
 uint64_t __46__AVContentKeySession_addContentKeyRecipient___block_invoke(uint64_t a1)
 {
+  v6 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 32) + 8) + 64);
   if (!v2)
   {
@@ -699,6 +700,7 @@ LABEL_6:
 
 uint64_t __49__AVContentKeySession_removeContentKeyRecipient___block_invoke(uint64_t a1)
 {
+  v4 = *MEMORY[0x1E69E9840];
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -741,7 +743,7 @@ uint64_t __49__AVContentKeySession_removeContentKeyRecipient___block_invoke(uint
   return v3;
 }
 
-uint64_t __43__AVContentKeySession_contentKeyRecipients__block_invoke(uint64_t a1)
+void *__43__AVContentKeySession_contentKeyRecipients__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 64) allObjects];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -750,79 +752,79 @@ uint64_t __43__AVContentKeySession_contentKeyRecipients__block_invoke(uint64_t a
 
 - (void)expire
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3052000000;
-  v35 = __Block_byref_object_copy__41;
-  v36 = __Block_byref_object_dispose__41;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3052000000;
-  v29 = __Block_byref_object_copy__41;
-  v30 = __Block_byref_object_dispose__41;
-  v31 = 0;
+  v38 = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3052000000;
+  v33 = __Block_byref_object_copy__41;
+  v34 = __Block_byref_object_dispose__41;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3052000000;
+  v27 = __Block_byref_object_copy__41;
+  v28 = __Block_byref_object_dispose__41;
+  v29 = 0;
   threadSafetyQ = self->_session->_threadSafetyQ;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __29__AVContentKeySession_expire__block_invoke;
   block[3] = &unk_1E7462B60;
   block[4] = self;
-  block[5] = &v32;
-  block[6] = &v26;
+  block[5] = &v30;
+  block[6] = &v24;
   dispatch_sync(threadSafetyQ, block);
-  v4 = v27[5];
+  v4 = v25[5];
   if (v4)
   {
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v21 objects:v39 count:16];
+    v19 = 0u;
+    v20 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v37 count:16];
     if (v5)
     {
-      v6 = *v22;
+      v6 = *v20;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v22 != v6)
+          if (*v20 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v21 + 1) + 8 * i) expire];
+          [*(*(&v19 + 1) + 8 * i) expire];
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v21 objects:v39 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v19 objects:v37 count:16];
       }
 
       while (v5);
     }
   }
 
-  if (v33[5])
+  if (v31[5])
   {
-    v19 = 0u;
-    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v8 = v33[5];
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v38 count:16];
+    v15 = 0u;
+    v16 = 0u;
+    v8 = v31[5];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v36 count:16];
     if (v9)
     {
-      v10 = *v18;
+      v10 = *v16;
       do
       {
         for (j = 0; j != v9; ++j)
         {
-          if (*v18 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * j);
+          v12 = *(*(&v15 + 1) + 8 * j);
           if (dword_1EAEFCEB0)
           {
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -833,7 +835,7 @@ uint64_t __43__AVContentKeySession_contentKeyRecipients__block_invoke(uint64_t a
           [v12 expire];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v38 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v15 objects:v36 count:16];
       }
 
       while (v9);
@@ -847,21 +849,21 @@ uint64_t __43__AVContentKeySession_contentKeyRecipients__block_invoke(uint64_t a
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
-uint64_t __29__AVContentKeySession_expire__block_invoke(uint64_t result)
+void *__29__AVContentKeySession_expire__block_invoke(void *result)
 {
-  v2 = *(*(result + 32) + 8);
+  v2 = *(result[4] + 8);
   if ((*(v2 + 40) & 1) == 0)
   {
     v3 = result;
     *(v2 + 40) = 1;
-    *(*(*(result + 40) + 8) + 40) = [*(*(*(result + 32) + 8) + 64) allObjects];
-    [*(*(*(v3 + 32) + 8) + 80) removeAllObjects];
-    *(*(*(v3 + 48) + 8) + 40) = [*(*(*(v3 + 32) + 8) + 88) copy];
-    v4 = *(*(*(v3 + 32) + 8) + 88);
+    *(*(result[5] + 8) + 40) = [*(*(result[4] + 8) + 64) allObjects];
+    [*(*(v3[4] + 8) + 80) removeAllObjects];
+    *(*(v3[6] + 8) + 40) = [*(*(v3[4] + 8) + 88) copy];
+    v4 = *(*(v3[4] + 8) + 88);
 
     return [v4 removeAllObjects];
   }
@@ -1050,7 +1052,7 @@ LABEL_14:
 
 uint64_t __69__AVContentKeySession_renewExpiringResponseDataForContentKeyRequest___block_invoke_2(uint64_t result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -1064,7 +1066,7 @@ uint64_t __69__AVContentKeySession_renewExpiringResponseDataForContentKeyRequest
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:*(v3 + 32) didProvideRenewingContentKeyRequest:{*(v3 + 40), v5, v6}];
+      return [a2 contentKeySession:*(v3 + 32) didProvideRenewingContentKeyRequest:*(v3 + 40)];
     }
   }
 
@@ -1124,7 +1126,7 @@ LABEL_21:
     v14 = *(*(CMBaseObjectGetVTable() + 16) + 96);
     if (!v14)
     {
-      v15 = -12782;
+      v15 = 4294954514;
       goto LABEL_10;
     }
 
@@ -1237,7 +1239,7 @@ LABEL_22:
       v18 = *(*(CMBaseObjectGetVTable() + 16) + 96);
       if (!v18)
       {
-        v19 = -12782;
+        v19 = 4294954514;
         goto LABEL_11;
       }
 
@@ -1353,7 +1355,7 @@ LABEL_21:
     v21 = *(*(CMBaseObjectGetVTable() + 16) + 96);
     if (!v21)
     {
-      v22 = -12782;
+      v22 = 4294954514;
       goto LABEL_10;
     }
 
@@ -1411,33 +1413,33 @@ void __91__AVContentKeySession_invalidateAllPersistableContentKeysForApp_options
   cf[0] = 0;
   if (!appIdentifier)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D940];
-    v15 = @"valid appIdentifier is required";
+    v20 = MEMORY[0x1E695DF30];
+    v21 = *MEMORY[0x1E695D940];
+    v22 = @"valid appIdentifier is required";
     goto LABEL_19;
   }
 
   if (!storageURL)
   {
-    v13 = MEMORY[0x1E695DF30];
-    v14 = *MEMORY[0x1E695D940];
-    v15 = @"valid storageURL is required";
+    v20 = MEMORY[0x1E695DF30];
+    v21 = *MEMORY[0x1E695D940];
+    v22 = @"valid storageURL is required";
 LABEL_19:
-    v16 = [v13 exceptionWithName:v14 reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, v15, storageURL, v4, v5, v6, v7, v17), 0}];
-    objc_exception_throw(v16);
+    v23 = [v20 exceptionWithName:v21 reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, v22, storageURL, v4, v5, v6, v7, v24), 0}];
+    objc_exception_throw(v23);
   }
 
-  v8 = [AVContentKeySession copyDefaultSecureStopManagerForAppIdentifier:"copyDefaultSecureStopManagerForAppIdentifier:storageDirectoryAtURL:" storageDirectoryAtURL:?];
-  if (!v8)
+  v15 = [AVContentKeySession copyDefaultSecureStopManagerForAppIdentifier:"copyDefaultSecureStopManagerForAppIdentifier:storageDirectoryAtURL:" storageDirectoryAtURL:?];
+  if (!v15)
   {
-    +[AVContentKeySession(AVContentKeySessionPendingExpiredSessionReports) pendingExpiredSessionReportsWithAppIdentifier:storageDirectoryAtURL:];
+    [(AVContentKeySession(AVContentKeySessionPendingExpiredSessionReports) *)0 pendingExpiredSessionReportsWithAppIdentifier:v8 storageDirectoryAtURL:v9, v10, v11, v12, v13, v14, v24, v25, SHIDWORD(v25), v26];
 LABEL_9:
     allValues = 0;
     goto LABEL_10;
   }
 
-  v9 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v9 || v9(v8, cf))
+  v16 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (!v16 || v16(v15, cf))
   {
     goto LABEL_9;
   }
@@ -1456,9 +1458,9 @@ LABEL_10:
     CFRelease(cf[0]);
   }
 
-  if (v8)
+  if (v15)
   {
-    CFRelease(v8);
+    CFRelease(v15);
   }
 
   if (!allValues)
@@ -1538,14 +1540,14 @@ LABEL_15:
   CFRelease(v12);
 }
 
-uint64_t __147__AVContentKeySession_AVContentKeySessionPendingExpiredSessionReports__removePendingExpiredSessionReports_withAppIdentifier_storageDirectoryAtURL___block_invoke(uint64_t a1)
+uint64_t __147__AVContentKeySession_AVContentKeySessionPendingExpiredSessionReports__removePendingExpiredSessionReports_withAppIdentifier_storageDirectoryAtURL___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if ((result & 1) == 0)
   {
-    v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(*(a1 + 32) userInfo:{*(a1 + 40), @"expiredSessionReports should be an array of NSData objects", v3, v4, v5, v6, v7, v9), 0}];
-    objc_exception_throw(v8);
+    v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector(*(a1 + 32) userInfo:{*(a1 + 40), @"expiredSessionReports should be an array of NSData objects", v4, v5, v6, v7, v8, v10), 0}];
+    objc_exception_throw(v9);
   }
 
   return result;
@@ -1563,7 +1565,7 @@ uint64_t __147__AVContentKeySession_AVContentKeySessionPendingExpiredSessionRepo
 
 uint64_t __114__AVContentKeySession_AVContentKeySessionPendingExpiredSessionReports___handleSecureStopDidFinalizeRecordCallback__block_invoke(uint64_t result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -1577,7 +1579,7 @@ uint64_t __114__AVContentKeySession_AVContentKeySessionPendingExpiredSessionRepo
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySessionDidGenerateExpiredSessionReport:{*(v3 + 32), v5, v6}];
+      return [a2 contentKeySessionDidGenerateExpiredSessionReport:*(v3 + 32)];
     }
   }
 
@@ -1698,14 +1700,14 @@ void *__113__AVContentKeySession_AVContentKeySessionPrivateUtilities___contentKe
   dispatch_async(threadSafetyQ, block);
 }
 
-uint64_t __119__AVContentKeySession_AVContentKeySessionPrivateUtilities___removeContentKeyRequestForCryptorUUID_cryptorKeyRequestID___block_invoke(uint64_t result)
+void *__119__AVContentKeySession_AVContentKeySessionPrivateUtilities___removeContentKeyRequestForCryptorUUID_cryptorKeyRequestID___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1)
   {
     v2 = result;
-    v3 = [AVContentKeySession _uniqueIDForCyptorUUID:v1 cryptorKeyRequestID:*(result + 48)];
-    v4 = *(*(*(v2 + 40) + 8) + 80);
+    v3 = [AVContentKeySession _uniqueIDForCyptorUUID:v1 cryptorKeyRequestID:result[6]];
+    v4 = *(*(v2[5] + 8) + 80);
 
     return [v4 removeObjectForKey:v3];
   }
@@ -1821,7 +1823,7 @@ void __130__AVContentKeySession_AVContentKeySessionPrivateUtilities___invokeDele
 
 uint64_t __106__AVContentKeySession_AVContentKeySessionPrivateUtilities___handleUpdateToPersistentKey_forKeyIdentifier___block_invoke(uint64_t result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -1835,7 +1837,7 @@ uint64_t __106__AVContentKeySession_AVContentKeySessionPrivateUtilities___handle
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:v3[4] didUpdatePersistableContentKey:v3[5] forContentKeyIdentifier:{v3[6], v5, v6}];
+      return [a2 contentKeySession:v3[4] didUpdatePersistableContentKey:v3[5] forContentKeyIdentifier:v3[6]];
     }
   }
 
@@ -1855,7 +1857,7 @@ uint64_t __106__AVContentKeySession_AVContentKeySessionPrivateUtilities___handle
 
 uint64_t __111__AVContentKeySession_AVContentKeySessionPrivateUtilities___handleContentProtectionSessionIdentifierDidChange___block_invoke(uint64_t result, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -1868,7 +1870,7 @@ uint64_t __111__AVContentKeySession_AVContentKeySessionPrivateUtilities___handle
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:*(v3 + 32) contentProtectionSessionIdentifierDidChangeForReportGroup:{*(v3 + 40), v6, v7}];
+      return [a2 contentKeySession:*(v3 + 32) contentProtectionSessionIdentifierDidChangeForReportGroup:*(v3 + 40)];
     }
 
     else
@@ -1883,7 +1885,7 @@ uint64_t __111__AVContentKeySession_AVContentKeySessionPrivateUtilities___handle
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        return [a2 contentKeySessionContentProtectionSessionIdentifierDidChange:{*(v3 + 32), v6, v7}];
+        return [a2 contentKeySessionContentProtectionSessionIdentifierDidChange:*(v3 + 32)];
       }
     }
   }
@@ -1925,7 +1927,7 @@ LABEL_6:
   return 0;
 }
 
-uint64_t __68__AVContentKeySession_AVContentKeyRequestSupport__setAppIdentifier___block_invoke(void *a1)
+void *__68__AVContentKeySession_AVContentKeyRequestSupport__setAppIdentifier___block_invoke(void *a1)
 {
   v2 = a1[5];
   v3 = *(*(a1[4] + 8) + 32);
@@ -1989,7 +1991,7 @@ uint64_t __68__AVContentKeySession_AVContentKeyRequestSupport__setAppIdentifier_
 
             v10 = *(*(&v12 + 1) + 8 * i);
             v17[5] = v10;
-            [v10 _setError:{AVLocalizedErrorWithUnderlyingOSStatus(-11835, 0)}];
+            [v10 _setError:{AVLocalizedErrorWithUnderlyingOSStatus(4294955461, 0)}];
           }
 
           v7 = [requests countByEnumeratingWithState:&v12 objects:v22 count:16];
@@ -2005,9 +2007,9 @@ uint64_t __68__AVContentKeySession_AVContentKeyRequestSupport__setAppIdentifier_
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __97__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyRequests_forInitializationData___block_invoke(uint64_t result, void *a2)
+void *__97__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyRequests_forInitializationData___block_invoke(void *result, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -2015,81 +2017,82 @@ uint64_t __97__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyRe
     {
       if (dword_1EAEFCEB0)
       {
-        v29 = 0;
+        v30 = 0;
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [a2 contentKeySession:v3[4] didProvideContentKeyRequests:v3[5] forInitializationData:{v3[6], v18, v19}];
+      return [a2 contentKeySession:v3[4] didProvideContentKeyRequests:v3[5] forInitializationData:v3[6]];
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v26 = 0uLL;
         v27 = 0uLL;
-        v24 = 0uLL;
+        v28 = 0uLL;
         v25 = 0uLL;
+        v26 = 0uLL;
         v5 = v3[5];
-        result = [v5 countByEnumeratingWithState:&v24 objects:v31 count:16];
+        result = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
         if (result)
         {
           v6 = result;
-          v7 = *v25;
+          v7 = *v26;
+          v20 = 136315650;
           do
           {
             v8 = 0;
             do
             {
-              if (*v25 != v7)
+              if (*v26 != v7)
               {
                 objc_enumerationMutation(v5);
               }
 
-              *(*(v3[7] + 8) + 40) = *(*(&v24 + 1) + 8 * v8);
+              *(*(v3[7] + 8) + 40) = *(*(&v25 + 1) + 8 * v8);
               if (dword_1EAEFCEB0)
               {
-                v29 = 0;
+                v30 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
                 v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v10 = v29;
+                v10 = v30;
+                v11 = type;
                 if (os_log_type_enabled(v9, type))
                 {
-                  v11 = v10;
+                  v12 = v10;
                 }
 
                 else
                 {
-                  v11 = v10 & 0xFFFFFFFE;
+                  v12 = v10 & 0xFFFFFFFE;
                 }
 
-                if (v11)
+                if (v12)
                 {
-                  v12 = v3[4];
-                  v13 = *(*(v3[7] + 8) + 40);
-                  v32 = 136315650;
-                  v33 = "[AVContentKeySession(AVContentKeyRequestSupport) issueContentKeyRequests:forInitializationData:]_block_invoke";
-                  v34 = 2048;
-                  v35 = v12;
-                  v36 = 2048;
-                  v37 = v13;
+                  v13 = v3[4];
+                  v14 = *(*(v3[7] + 8) + 40);
+                  v33 = v20;
+                  v34 = "[AVContentKeySession(AVContentKeyRequestSupport) issueContentKeyRequests:forInitializationData:]_block_invoke";
+                  v35 = 2048;
+                  v36 = v13;
+                  v37 = 2048;
+                  v38 = v14;
                   LODWORD(v19) = 32;
-                  v18 = &v32;
-                  _os_log_send_and_compose_impl();
+                  _os_log_send_and_compose_impl(v12, 0, v39, 128, &dword_196061000, v9, v11, "<<<< AVContentKeySession >>>> %s: %p %p issuing key request", &v33, v19, v20);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              [a2 contentKeySession:v3[4] didProvideContentKeyRequest:{*(*(v3[7] + 8) + 40), v18, v19}];
-              ++v8;
+              [a2 contentKeySession:v3[4] didProvideContentKeyRequest:*(*(v3[7] + 8) + 40)];
+              v8 = (v8 + 1);
             }
 
             while (v6 != v8);
-            result = [v5 countByEnumeratingWithState:&v24 objects:v31 count:16];
+            result = [v5 countByEnumeratingWithState:&v25 objects:v32 count:16];
             v6 = result;
           }
 
@@ -2099,34 +2102,34 @@ uint64_t __97__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyRe
 
       else
       {
-        v22 = 0uLL;
         v23 = 0uLL;
-        v20 = 0uLL;
+        v24 = 0uLL;
         v21 = 0uLL;
-        v14 = v3[5];
-        result = [v14 countByEnumeratingWithState:&v20 objects:v30 count:16];
+        v22 = 0uLL;
+        v15 = v3[5];
+        result = [v15 countByEnumeratingWithState:&v21 objects:v31 count:16];
         if (result)
         {
-          v15 = result;
-          v16 = *v21;
+          v16 = result;
+          v17 = *v22;
           do
           {
-            v17 = 0;
+            v18 = 0;
             do
             {
-              if (*v21 != v16)
+              if (*v22 != v17)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v15);
               }
 
-              *(*(v3[7] + 8) + 40) = *(*(&v20 + 1) + 8 * v17);
-              [*(*(v3[7] + 8) + 40) _setError:{AVLocalizedErrorWithUnderlyingOSStatus(-11835, 0)}];
-              ++v17;
+              *(*(v3[7] + 8) + 40) = *(*(&v21 + 1) + 8 * v18);
+              [*(*(v3[7] + 8) + 40) _setError:{AVLocalizedErrorWithUnderlyingOSStatus(4294955461, 0)}];
+              v18 = (v18 + 1);
             }
 
-            while (v15 != v17);
-            result = [v14 countByEnumeratingWithState:&v20 objects:v30 count:16];
-            v15 = result;
+            while (v16 != v18);
+            result = [v15 countByEnumeratingWithState:&v21 objects:v31 count:16];
+            v16 = result;
           }
 
           while (result);
@@ -2171,7 +2174,7 @@ uint64_t __105__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyR
     else
     {
       v6 = *(v3 + 40);
-      v7 = AVLocalizedErrorWithUnderlyingOSStatus(-11835, 0);
+      v7 = AVLocalizedErrorWithUnderlyingOSStatus(4294955461, 0);
 
       return [v6 _setError:v7];
     }
@@ -2189,7 +2192,7 @@ uint64_t __105__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyR
 
 - (void)issuePersistableContentKeyRequest:(id)request
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCEB0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -2197,12 +2200,12 @@ uint64_t __105__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyR
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVContentKeySession *)self issueContentKeyRequest:request toDelegateWithCallbackSelector:sel_contentKeySession_didProvidePersistableContentKeyRequest_, v6, v7];
+  [(AVContentKeySession *)self issueContentKeyRequest:request toDelegateWithCallbackSelector:sel_contentKeySession_didProvidePersistableContentKeyRequest_];
 }
 
 - (void)issueRenewableContentKeyRequest:(id)request
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCEB0)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -2210,7 +2213,7 @@ uint64_t __105__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyR
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVContentKeySession *)self issueContentKeyRequest:request toDelegateWithCallbackSelector:sel_contentKeySession_didProvideRenewingContentKeyRequest_, v6, v7];
+  [(AVContentKeySession *)self issueContentKeyRequest:request toDelegateWithCallbackSelector:sel_contentKeySession_didProvideRenewingContentKeyRequest_];
 }
 
 - (void)issueContentKeyRequestWithCustomURLHandler:(OpaqueFigCustomURLHandler *)handler identifier:(id)identifier requestInfo:(__CFDictionary *)info requestID:(unint64_t)d providesPersistableKey:(BOOL)key
@@ -2246,7 +2249,7 @@ uint64_t __105__AVContentKeySession_AVContentKeyRequestSupport__issueContentKeyR
   dispatch_async(threadSafetyQ, v4);
 }
 
-uint64_t __89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequestDidProduceContentKey___block_invoke(uint64_t a1)
+void *__89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequestDidProduceContentKey___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   v2 = CFCopyDescription([*(a1 + 32) _internalContentKeySpecifier]);
@@ -2283,7 +2286,7 @@ uint64_t __89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequest
         block[5] = v8;
         block[6] = v10;
         dispatch_async(global_queue, block);
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -2299,7 +2302,7 @@ uint64_t __89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequest
 
 uint64_t __89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequestDidProduceContentKey___block_invoke_2(uint64_t result)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if ((*(*(*(result + 32) + 8) + 40) & 1) == 0)
   {
     v1 = result;
@@ -2313,7 +2316,7 @@ uint64_t __89__AVContentKeySession_AVContentKeyRequestSupport__contentKeyRequest
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      return [*(v1 + 40) contentKeySession:*(v1 + 32) didProvideContentKey:{*(v1 + 48), v3, v4}];
+      return [*(v1 + 40) contentKeySession:*(v1 + 32) didProvideContentKey:*(v1 + 48)];
     }
   }
 
@@ -2424,9 +2427,9 @@ LABEL_6:
   return v14;
 }
 
-uint64_t __97__AVContentKeySession_AVContentKeySession_Internal__issueContentKeyRequestForInitializationData___block_invoke(uint64_t result, void *a2)
+void *__97__AVContentKeySession_AVContentKeySession_Internal__issueContentKeyRequestForInitializationData___block_invoke(void *result, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = result;
@@ -2437,7 +2440,7 @@ uint64_t __97__AVContentKeySession_AVContentKeySession_Internal__issueContentKey
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    return [a2 contentKeySession:*(v3 + 32) didProvideContentKeyRequest:{*(v3 + 40), v5, v6}];
+    return [a2 contentKeySession:v3[4] didProvideContentKeyRequest:v3[5]];
   }
 
   return result;
@@ -2502,14 +2505,14 @@ LABEL_4:
   return v9;
 }
 
-uint64_t __86__AVContentKeySession_AVContentKeySession_Internal__copyCryptorForInitializationData___block_invoke(uint64_t result)
+void *__86__AVContentKeySession_AVContentKeySession_Internal__copyCryptorForInitializationData___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
+  v1 = *(result[4] + 8);
   if ((*(v1 + 40) & 1) == 0)
   {
     v2 = result;
     result = [*(v1 + 88) copy];
-    *(*(*(v2 + 40) + 8) + 40) = result;
+    *(*(v2[5] + 8) + 40) = result;
   }
 
   return result;
@@ -2587,14 +2590,14 @@ LABEL_4:
   return v9;
 }
 
-uint64_t __86__AVContentKeySession_AVContentKeySession_Internal__copyCryptorForCryptKeyAttributes___block_invoke(uint64_t result)
+void *__86__AVContentKeySession_AVContentKeySession_Internal__copyCryptorForCryptKeyAttributes___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
+  v1 = *(result[4] + 8);
   if ((*(v1 + 40) & 1) == 0)
   {
     v2 = result;
     result = [*(v1 + 88) copy];
-    *(*(*(v2 + 40) + 8) + 40) = result;
+    *(*(v2[5] + 8) + 40) = result;
   }
 
   return result;
@@ -2698,7 +2701,7 @@ uint64_t __86__AVContentKeySession_AVContentKeySession_Internal__copyCryptorForC
   if (!v20)
   {
     v22 = 0;
-    v21 = -12782;
+    v21 = 4294954514;
     goto LABEL_15;
   }
 
@@ -2779,7 +2782,7 @@ LABEL_16:
   {
     v25 = 0;
     v18 = 0;
-    v24 = -12782;
+    v24 = 4294954514;
     goto LABEL_17;
   }
 
@@ -2859,7 +2862,7 @@ LABEL_24:
 
   else
   {
-    v8 = -12782;
+    v8 = 4294954514;
     if (!error)
     {
       return v8 == 0;

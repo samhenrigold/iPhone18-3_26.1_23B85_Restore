@@ -167,7 +167,7 @@
 
 - (void)_visit:(id)_visit ofRoot:(id)root withMaxDepth:(int64_t)depth handler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   _visitCopy = _visit;
   rootCopy = root;
   handlerCopy = handler;
@@ -176,7 +176,7 @@
   [v13 addObject:rootCopy];
   v14 = 0;
   v15 = 0;
-  v26 = depth & ~(depth >> 63);
+  v25 = depth & ~(depth >> 63);
   while (1)
   {
     v16 = v13;
@@ -185,34 +185,34 @@
       break;
     }
 
-    v27 = v14;
+    v26 = v14;
 
     v13 = objc_alloc_init(*(v12 + 2840));
     while ([v16 count])
     {
       firstObject = [v16 firstObject];
       [v16 removeObjectAtIndex:0];
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
-      v28 = firstObject;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v27 = firstObject;
       relationships = [firstObject relationships];
-      v19 = [relationships countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v19 = [relationships countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v30;
+        v21 = *v29;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v30 != v21)
+            if (*v29 != v21)
             {
               objc_enumerationMutation(relationships);
             }
 
-            v23 = *(*(&v29 + 1) + 8 * i);
+            v23 = *(*(&v28 + 1) + 8 * i);
             if ([_visitCopy containsInteger:{objc_msgSend(v23, "type")}])
             {
               destination = [v23 destination];
@@ -226,7 +226,7 @@
             }
           }
 
-          v20 = [relationships countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v20 = [relationships countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v20)
           {
             continue;
@@ -237,10 +237,10 @@
       }
     }
 
-    v14 = v27 + 1;
+    v14 = v26 + 1;
     v15 = v16;
     v12 = 0x277CBE000;
-    if (v27 == v26)
+    if (v26 == v25)
     {
       goto LABEL_19;
     }
@@ -248,8 +248,6 @@
 
   v16 = v15;
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_tradeNameProduct

@@ -176,7 +176,7 @@
   }
 }
 
-uint64_t __65__PXFeedViewController__checkCanNavigate_toDestination_iterator___block_invoke(uint64_t a1, char a2)
+uint64_t __65__PXFeedViewController__checkCanNavigate_toDestination_iterator___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -648,7 +648,7 @@ uint64_t __73__PXFeedViewController_handleSelectActionOnItemAtIndexPath_inDataSo
   v15 = 0u;
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
   }
 
   v13[0] = v14;
@@ -799,18 +799,18 @@ uint64_t __73__PXFeedViewController_handleSelectActionOnItemAtIndexPath_inDataSo
     selectionSnapshot = [viewModel2 selectionSnapshot];
     selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
 
+    v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    identifier = [dataSource identifier];
+    [dataSource identifier];
     if (selectedIndexPaths)
     {
-      [selectedIndexPaths firstItemIndexPathForDataSourceIdentifier:identifier];
-      if (v14 != *off_1E7721F68 && v15 != 0x7FFFFFFFFFFFFFFFLL && *(&v15 + 1) == 0x7FFFFFFFFFFFFFFFLL)
+      objc_msgSend_firstItemIndexPathForDataSourceIdentifier_(selectedIndexPaths);
+      if (v13 != *off_1E7721F68 && v14 != 0x7FFFFFFFFFFFFFFFLL && *(&v14 + 1) == 0x7FFFFFFFFFFFFFFFLL)
       {
         actionPerformer = [(PXFeedViewController *)self actionPerformer];
-        v13[0] = v14;
-        v13[1] = v15;
-        [actionPerformer handlePrimaryActionOnItemAtIndexPath:v13 inDataSource:dataSource fromViewController:self];
+        v12[0] = v13;
+        v12[1] = v14;
+        [actionPerformer handlePrimaryActionOnItemAtIndexPath:v12 inDataSource:dataSource fromViewController:self];
       }
     }
   }

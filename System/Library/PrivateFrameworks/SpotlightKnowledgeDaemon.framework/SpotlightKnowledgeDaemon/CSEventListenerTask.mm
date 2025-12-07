@@ -108,7 +108,7 @@
 
 - (void)_throttling:(BOOL)_throttling
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_needsThrottling)
   {
     _throttlingCopy = _throttling;
@@ -132,23 +132,21 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         name = self->_name;
-        v11 = 138412546;
-        v12 = name;
-        v13 = 1024;
-        v14 = _throttlingCopy;
-        _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### changing throttle state for %@ event: permitted: %{BOOL}d", &v11, 0x12u);
+        v10 = 138412546;
+        v11 = name;
+        v12 = 1024;
+        v13 = _throttlingCopy;
+        _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_INFO, "### changing throttle state for %@ event: permitted: %{BOOL}d", &v10, 0x12u);
       }
     }
 
     atomic_store(_throttlingCopy, &self->_allowed);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setup
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_needsThrottling && !self->_task)
   {
     atomic_store(0, &self->_allowed);
@@ -176,7 +174,7 @@
       {
         name = self->_name;
         *buf = 138412290;
-        v17 = name;
+        v16 = name;
         _os_log_impl(&dword_231B25000, v9, OS_LOG_TYPE_INFO, "### setting up %@ task handler", buf, 0xCu);
       }
     }
@@ -184,15 +182,13 @@
     mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
     taskIdentifier = self->_taskIdentifier;
     v13 = self->_taskQueue;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __28__CSEventListenerTask_setup__block_invoke;
-    v15[3] = &unk_27893D098;
-    v15[4] = self;
-    [mEMORY[0x277CF0810] registerForTaskWithIdentifier:taskIdentifier usingQueue:v13 launchHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __28__CSEventListenerTask_setup__block_invoke;
+    v14[3] = &unk_27893D098;
+    v14[4] = self;
+    [mEMORY[0x277CF0810] registerForTaskWithIdentifier:taskIdentifier usingQueue:v13 launchHandler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __28__CSEventListenerTask_setup__block_invoke(uint64_t a1, void *a2)
@@ -204,17 +200,17 @@ void __28__CSEventListenerTask_setup__block_invoke(uint64_t a1, void *a2)
 
 - (void)handle
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self->_needsThrottling)
   {
     objc_initWeak(&location, self);
-    v10 = MEMORY[0x277D85DD0];
-    v11 = 3221225472;
-    v12 = __29__CSEventListenerTask_handle__block_invoke;
-    v13 = &unk_27893D0C0;
-    objc_copyWeak(&v14, &location);
-    [(BGNonRepeatingSystemTask *)self->_task setExpirationHandler:&v10];
-    [(CSEventListenerTask *)self _throttling:1, v10, v11, v12, v13];
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __29__CSEventListenerTask_handle__block_invoke;
+    v12 = &unk_27893D0C0;
+    objc_copyWeak(&v13, &location);
+    [(BGNonRepeatingSystemTask *)self->_task setExpirationHandler:&v9];
+    [(CSEventListenerTask *)self _throttling:1, v9, v10, v11, v12];
     v3 = +[CSXPCEventListener sharedInstance];
     atomic_store([v3 jobCountWithTaskName:self->_name], &self->_jobCount);
 
@@ -227,11 +223,11 @@ void __28__CSEventListenerTask_setup__block_invoke(uint64_t a1, void *a2)
         name = self->_name;
         task = self->_task;
         *buf = 138412802;
-        v17 = name;
-        v18 = 2112;
-        v19 = task;
-        v20 = 1024;
-        v21 = v4;
+        v16 = name;
+        v17 = 2112;
+        v18 = task;
+        v19 = 1024;
+        v20 = v4;
         _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_DEFAULT, "### handle %@ task %@, job count %d", buf, 0x1Cu);
       }
     }
@@ -239,16 +235,14 @@ void __28__CSEventListenerTask_setup__block_invoke(uint64_t a1, void *a2)
     v8 = +[CSXPCEventListener sharedInstance];
     [v8 runJobWithTaskName:self->_name];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __29__CSEventListenerTask_handle__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
@@ -258,9 +252,9 @@ void __29__CSEventListenerTask_handle__block_invoke(uint64_t a1)
       v3 = WeakRetained[1];
       v4 = WeakRetained[8];
       *buf = 138412546;
-      v12 = v3;
-      v13 = 2112;
-      v14 = v4;
+      v11 = v3;
+      v12 = 2112;
+      v13 = v4;
       _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_DEFAULT, "### task %@ %@ expired", buf, 0x16u);
     }
   }
@@ -276,36 +270,34 @@ void __29__CSEventListenerTask_handle__block_invoke(uint64_t a1)
   v7 = v5;
   v8 = v6;
   dispatch_group_notify(v8, v7, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
+void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 64))
   {
     if (SKGLogGetCurrentLoggingLevel() >= 4)
     {
-      v2 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      v3 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = *(a1 + 32);
-        v4 = *(v3 + 8);
-        v5 = *(v3 + 64);
+        v4 = *(a1 + 32);
+        v5 = *(v4 + 8);
+        v6 = *(v4 + 64);
         *buf = 138412546;
-        v18 = v4;
+        v18 = v5;
         v19 = 2112;
-        v20 = v5;
-        _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_DEFAULT, "### %@ batches completed; marking deferred %@", buf, 0x16u);
+        v20 = v6;
+        _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_DEFAULT, "### %@ batches completed; marking deferred %@", buf, 0x16u);
       }
     }
 
-    v6 = *(*(a1 + 32) + 64);
+    v7 = *(*(a1 + 32) + 64);
     v16 = 0;
-    v7 = [v6 setTaskExpiredWithRetryAfter:&v16 error:300.0];
-    v8 = v16;
-    if (v7)
+    v8 = [v7 setTaskExpiredWithRetryAfter:&v16 error:300.0];
+    v9 = v16;
+    if (v8)
     {
       *(*(a1 + 32) + 56) = 0;
     }
@@ -314,37 +306,35 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 4)
       {
-        v9 = SKGLogUpdaterInit();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = SKGLogUpdaterInit();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(a1 + 32);
-          v11 = *(v10 + 8);
-          v12 = *(v10 + 64);
+          v11 = *(a1 + 32);
+          v12 = *(v11 + 8);
+          v13 = *(v11 + 64);
           *buf = 138412802;
-          v18 = v11;
+          v18 = v12;
           v19 = 2112;
-          v20 = v8;
+          v20 = v9;
           v21 = 2112;
-          v22 = v12;
-          _os_log_impl(&dword_231B25000, v9, OS_LOG_TYPE_DEFAULT, "### %@ batches completed, deferring failed with error: %@; marking complete %@", buf, 0x20u);
+          v22 = v13;
+          _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_DEFAULT, "### %@ batches completed, deferring failed with error: %@; marking complete %@", buf, 0x20u);
         }
       }
 
       [*(*(a1 + 32) + 64) setTaskCompleted];
-      v13 = *(a1 + 32);
-      v14 = *(v13 + 64);
-      *(v13 + 64) = 0;
+      v14 = *(a1 + 32);
+      v15 = *(v14 + 64);
+      *(v14 + 64) = 0;
 
       [*(a1 + 32) launch];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launch
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   if (self->_needsThrottling)
   {
     mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
@@ -480,15 +470,15 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
         {
           taskIdentifier = self->_taskIdentifier;
           *buf = 138412290;
-          v47 = taskIdentifier;
+          v46 = taskIdentifier;
           _os_log_impl(&dword_231B25000, v24, OS_LOG_TYPE_DEFAULT, "### submitted task %@", buf, 0xCu);
         }
       }
 
       mEMORY[0x277CF0810]2 = [MEMORY[0x277CF0810] sharedScheduler];
-      v45 = 0;
-      [mEMORY[0x277CF0810]2 updateTaskRequest:v5 error:&v45];
-      v27 = v45;
+      v44 = 0;
+      [mEMORY[0x277CF0810]2 updateTaskRequest:v5 error:&v44];
+      v27 = v44;
 
       self->_wait = 0;
     }
@@ -496,9 +486,9 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
     else
     {
       mEMORY[0x277CF0810]3 = [MEMORY[0x277CF0810] sharedScheduler];
-      v44 = 0;
-      v29 = [mEMORY[0x277CF0810]3 submitTaskRequest:v5 error:&v44];
-      v27 = v44;
+      v43 = 0;
+      v29 = [mEMORY[0x277CF0810]3 submitTaskRequest:v5 error:&v43];
+      v27 = v43;
 
       if (v29)
       {
@@ -510,7 +500,7 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
           {
             name = self->_name;
             *buf = 138412290;
-            v47 = name;
+            v46 = name;
             _os_log_impl(&dword_231B25000, v30, OS_LOG_TYPE_DEFAULT, "### submitted task %@", buf, 0xCu);
           }
         }
@@ -533,20 +523,20 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
           v36 = SKGLogUpdaterInit();
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v40 = self->_name;
-            v41 = @"Unknown";
+            v39 = self->_name;
+            v40 = @"Unknown";
             if (v27)
             {
-              v41 = v27;
+              v40 = v27;
             }
 
-            v42 = self->_wait;
+            v41 = self->_wait;
             *buf = 138412802;
-            v47 = v40;
-            v48 = 2112;
-            v49 = v41;
-            v50 = 2048;
-            v51 = v42;
+            v46 = v39;
+            v47 = 2112;
+            v48 = v40;
+            v49 = 2048;
+            v50 = v41;
             _os_log_error_impl(&dword_231B25000, v36, OS_LOG_TYPE_ERROR, "### failed to submit task %@ with error: %@ (wait: %lld)", buf, 0x20u);
           }
         }
@@ -562,13 +552,11 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)complete
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self->_workGroup && self->_taskQueue && self->_task)
   {
     if (SKGLogGetCurrentLoggingLevel() >= 5)
@@ -579,9 +567,9 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
         name = self->_name;
         task = self->_task;
         *buf = 138412546;
-        v12 = name;
-        v13 = 2112;
-        v14 = task;
+        v11 = name;
+        v12 = 2112;
+        v13 = task;
         _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### deferring task %@ early %@", buf, 0x16u);
       }
     }
@@ -590,23 +578,21 @@ void __29__CSEventListenerTask_handle__block_invoke_3(uint64_t a1)
     objc_initWeak(buf, self);
     taskQueue = self->_taskQueue;
     workGroup = self->_workGroup;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __31__CSEventListenerTask_complete__block_invoke;
-    v9[3] = &unk_27893D0E8;
-    objc_copyWeak(&v10, buf);
-    v9[4] = self;
-    dispatch_group_notify(workGroup, taskQueue, v9);
-    objc_destroyWeak(&v10);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __31__CSEventListenerTask_complete__block_invoke;
+    v8[3] = &unk_27893D0E8;
+    objc_copyWeak(&v9, buf);
+    v8[4] = self;
+    dispatch_group_notify(workGroup, taskQueue, v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __31__CSEventListenerTask_complete__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained[8])
   {
@@ -618,9 +604,9 @@ void __31__CSEventListenerTask_complete__block_invoke(uint64_t a1)
         v4 = WeakRetained[1];
         v5 = WeakRetained[8];
         *buf = 138412546;
-        v18 = v4;
-        v19 = 2112;
-        v20 = v5;
+        v17 = v4;
+        v18 = 2112;
+        v19 = v5;
         _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_INFO, "### %@ batches completed; marking deferred %@", buf, 0x16u);
       }
     }
@@ -633,9 +619,9 @@ void __31__CSEventListenerTask_complete__block_invoke(uint64_t a1)
     else
     {
       v7 = *(*(a1 + 32) + 64);
-      v16 = 0;
-      v8 = [v7 setTaskExpiredWithRetryAfter:&v16 error:300.0];
-      v6 = v16;
+      v15 = 0;
+      v8 = [v7 setTaskExpiredWithRetryAfter:&v15 error:300.0];
+      v6 = v15;
       if (v8)
       {
         *(*(a1 + 32) + 56) = 0;
@@ -654,11 +640,11 @@ LABEL_16:
         v11 = *(v10 + 8);
         v12 = *(v10 + 64);
         *buf = 138412802;
-        v18 = v11;
-        v19 = 2112;
-        v20 = v6;
-        v21 = 2112;
-        v22 = v12;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v6;
+        v20 = 2112;
+        v21 = v12;
         _os_log_impl(&dword_231B25000, v9, OS_LOG_TYPE_INFO, "### %@ batches completed, deferring failed with error: %@; marking complete %@", buf, 0x20u);
       }
     }
@@ -678,8 +664,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

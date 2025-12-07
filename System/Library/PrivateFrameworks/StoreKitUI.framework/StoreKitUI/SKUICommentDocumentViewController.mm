@@ -636,111 +636,111 @@ void __54__SKUICommentDocumentViewController__checkAdminStatus__block_invoke_2(u
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-void __54__SKUICommentDocumentViewController__checkAdminStatus__block_invoke_3(uint64_t a1)
+void __54__SKUICommentDocumentViewController__checkAdminStatus__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
-  v32 = a1;
+  v41 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_new();
+  v33 = a1;
   if (*(*(a1 + 32) + 1064))
   {
-    v3 = [[SKUICommenter alloc] initWithAuthor:*(*(a1 + 32) + 1064)];
-    [(SKUICommenter *)v3 setIsMySelf:1];
-    [v2 addObject:v3];
+    v4 = [[SKUICommenter alloc] initWithAuthor:*(*(a1 + 32) + 1064)];
+    [(SKUICommenter *)v4 setIsMySelf:1];
+    [v3 addObject:v4];
 
-    a1 = v32;
+    a1 = v33;
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    v37 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    obj = v4;
-    v5 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
-    if (v5)
+    v37 = 0u;
+    obj = v5;
+    v6 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v36;
-      v8 = @"commentAsEntity";
-      v9 = @"commentWithAttribution";
+      v7 = v6;
+      v8 = *v37;
+      v9 = @"commentAsEntity";
+      v10 = @"commentWithAttribution";
       do
       {
-        v10 = 0;
-        v33 = v6;
+        v11 = 0;
+        v34 = v7;
         do
         {
-          if (*v36 != v7)
+          if (*v37 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v35 + 1) + 8 * v10);
-          v12 = [v11 permissions];
-          v13 = [v12 containsObject:v8];
+          v12 = *(*(&v36 + 1) + 8 * v11);
+          v13 = [v12 permissions];
+          v14 = [v13 containsObject:v9];
 
-          if (v13)
+          if (v14)
           {
-            v14 = [[SKUICommenter alloc] initWithAuthor:v11];
-            [v2 addObject:v14];
+            v15 = [[SKUICommenter alloc] initWithAuthor:v12];
+            [v3 addObject:v15];
           }
 
-          v15 = [v11 permissions];
-          v16 = [v15 containsObject:v9];
+          v16 = [v12 permissions];
+          v17 = [v16 containsObject:v10];
 
-          if (v16)
+          if (v17)
           {
-            v17 = v9;
-            v18 = v8;
-            v19 = v7;
-            v20 = v2;
-            v21 = [[SKUICommenter alloc] initWithAuthor:v11];
-            [(SKUICommenter *)v21 setIsAttributed:1];
-            v22 = [*(a1 + 32) clientContext];
-            v23 = v22;
-            if (v22)
+            v18 = v10;
+            v19 = v9;
+            v20 = v8;
+            v21 = v3;
+            v22 = [[SKUICommenter alloc] initWithAuthor:v12];
+            [(SKUICommenter *)v22 setIsAttributed:1];
+            v23 = [*(a1 + 32) clientContext];
+            v24 = v23;
+            if (v23)
             {
-              [v22 localizedStringForKey:@"ATTRIBUTION_PERSON_%@_FROM_GROUP_%@"];
+              [v23 localizedStringForKey:@"ATTRIBUTION_PERSON_%@_FROM_GROUP_%@"];
             }
 
             else
             {
               [SKUIClientContext localizedStringForKey:@"ATTRIBUTION_PERSON_%@_FROM_GROUP_%@" inBundles:0];
             }
-            v24 = ;
+            v25 = ;
 
-            v25 = MEMORY[0x277CCACA8];
-            v26 = [*(*(a1 + 32) + 1064) name];
-            v27 = [v11 name];
-            v28 = [v25 stringWithValidatedFormat:v24 validFormatSpecifiers:@"%@%@" error:0, v26, v27];
+            v26 = MEMORY[0x277CCACA8];
+            v27 = [*(*(a1 + 32) + 1064) name];
+            v28 = [v12 name];
+            v29 = [v26 stringWithValidatedFormat:v25 validFormatSpecifiers:@"%@%@" error:0, v27, v28];
 
-            a1 = v32;
-            [(SKUICommenter *)v21 setAttributedName:v28];
-            [v20 addObject:v21];
+            a1 = v33;
+            [(SKUICommenter *)v22 setAttributedName:v29];
+            [v21 addObject:v22];
 
-            v2 = v20;
-            v7 = v19;
-            v8 = v18;
-            v9 = v17;
-            v6 = v33;
+            v3 = v21;
+            v8 = v20;
+            v9 = v19;
+            v10 = v18;
+            v7 = v34;
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v6 != v10);
-        v6 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        while (v7 != v11);
+        v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
   }
 
-  v29 = *(a1 + 32);
-  v30 = *(v29 + 1080);
-  *(v29 + 1080) = v2;
-  v31 = v2;
+  v30 = *(a1 + 32);
+  v31 = *(v30 + 1080);
+  *(v30 + 1080) = v3;
+  v32 = v3;
 
   [*(a1 + 32) _preloadCommenterImages];
 }
@@ -1023,6 +1023,12 @@ void __60__SKUICommentDocumentViewController__preloadCommenterImages__block_invo
 
     [(SKUICommentPostBarView *)v7 setCommenter:0];
   }
+}
+
+- (void)initWithTemplateElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICommentDocumentViewController initWithTemplateElement:]";
 }
 
 @end

@@ -23,10 +23,10 @@
   configurationCopy = configuration;
   selfCopy = self;
 
-  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD52248);
+  v9[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD52248, &qword_1BE0F5040);
   v9[4] = sub_1BD7546EC();
   __swift_allocate_boxed_opaque_existential_1(v9);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD52258);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD52258, &qword_1BE0F5048);
   sub_1BD754750();
   sub_1BE04FCE4();
   MEMORY[0x1BFB3FEF0](v9);

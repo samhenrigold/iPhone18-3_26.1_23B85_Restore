@@ -136,24 +136,24 @@ uint64_t __51__ISTrailingStatusBadgeRecipe_badgedFolderIconRect__block_invoke()
   [(ISLayer *)v8 setSize:width, height];
   [(ISLayer *)v8 setName:@"layer"];
   v9 = objc_opt_new();
-  v10 = hintedShadowBlur();
+  v10 = hintedShadowBlur(v9);
   [v10 hintedFloatForSize:{width, height}];
   [v9 setBlur:?];
 
-  v11 = hintedShadowSpread();
-  [v11 hintedFloatForSize:{width, height}];
+  v12 = hintedShadowSpread(v11);
+  [v12 hintedFloatForSize:{width, height}];
   [v9 setSpread:?];
 
   [v9 setScale:scale];
   [(ISLayer *)v8 setEffect:v9];
-  v12 = objc_alloc_init(ISContentLayer);
-  [(ISLayer *)v12 setName:@"Trailing bottom badge"];
-  [(ISContentLayer *)v12 setContent:@"kISPrimaryResourceKey"];
+  v13 = objc_alloc_init(ISContentLayer);
+  [(ISLayer *)v13 setName:@"Trailing bottom badge"];
+  [(ISContentLayer *)v13 setContent:@"kISPrimaryResourceKey"];
   trailingBottomBadgeRect = [(ISTrailingStatusBadgeRecipe *)self trailingBottomBadgeRect];
   [trailingBottomBadgeRect hintedRectForSize:{width, height}];
-  [(ISLayer *)v12 setFrame:?];
+  [(ISLayer *)v13 setFrame:?];
 
-  [(ISLayer *)v8 addSublayer:v12];
+  [(ISLayer *)v8 addSublayer:v13];
 
   return v8;
 }

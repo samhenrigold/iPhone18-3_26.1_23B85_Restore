@@ -3,6 +3,7 @@
 + (void)initialize;
 - (BOOL)isEqual:(id)equal;
 - (JavaMathBigDecimal)initWithCharArray:(id)array;
+- (JavaMathBigDecimal)initWithCharArray:(id)array withInt:(int)int withInt:(int)withInt withJavaMathMathContext:(id)context;
 - (JavaMathBigDecimal)initWithDouble:(double)double withJavaMathMathContext:(id)context;
 - (JavaMathBigDecimal)initWithInt:(int)int withJavaMathMathContext:(id)context;
 - (JavaMathBigDecimal)initWithJavaMathBigInteger:(id)integer withInt:(int)int withJavaMathMathContext:(id)context;
@@ -21,6 +22,7 @@
 - (id)divideToIntegralValueWithJavaMathBigDecimal:(id)decimal withJavaMathMathContext:(id)context;
 - (id)divideWithJavaMathBigDecimal:(id)decimal;
 - (id)divideWithJavaMathBigDecimal:(id)decimal withInt:(int)int;
+- (id)divideWithJavaMathBigDecimal:(id)decimal withInt:(int)int withInt:(int)withInt;
 - (id)divideWithJavaMathBigDecimal:(id)decimal withInt:(int)int withJavaMathRoundingModeEnum:(id)enum;
 - (id)divideWithJavaMathBigDecimal:(id)decimal withJavaMathMathContext:(id)context;
 - (id)maxWithJavaMathBigDecimal:(id)decimal;
@@ -29,10 +31,14 @@
 - (id)multiplyWithJavaMathBigDecimal:(id)decimal withJavaMathMathContext:(id)context;
 - (id)negate;
 - (id)negateWithJavaMathMathContext:(id)context;
+- (id)powWithInt:(int)int;
+- (id)powWithInt:(int)int withJavaMathMathContext:(id)context;
 - (id)remainderWithJavaMathBigDecimal:(id)decimal;
 - (id)remainderWithJavaMathBigDecimal:(id)decimal withJavaMathMathContext:(id)context;
 - (id)roundWithJavaMathMathContext:(id)context;
 - (id)scaleByPowerOfTenWithInt:(int)int;
+- (id)setScaleWithInt:(int)int;
+- (id)setScaleWithInt:(int)int withInt:(int)withInt;
 - (id)setScaleWithInt:(int)int withJavaMathRoundingModeEnum:(id)enum;
 - (id)stripTrailingZeros;
 - (id)subtractWithJavaMathBigDecimal:(id)decimal;
@@ -56,6 +62,13 @@
 
 @implementation JavaMathBigDecimal
 
+- (JavaMathBigDecimal)initWithCharArray:(id)array withInt:(int)int withInt:(int)withInt withJavaMathMathContext:(id)context
+{
+  JavaMathBigDecimal_initWithCharArray_withInt_withInt_(self, array, *&int, *&withInt);
+  sub_10015FC44(self, context);
+  return self;
+}
+
 - (JavaMathBigDecimal)initWithCharArray:(id)array
 {
   if (!array)
@@ -76,21 +89,21 @@
 
 - (JavaMathBigDecimal)initWithJavaMathBigInteger:(id)integer withJavaMathMathContext:(id)context
 {
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(self, integer, 0);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&self->super.super.super.isa, integer, 0);
   sub_10015FC44(self, context);
   return self;
 }
 
 - (JavaMathBigDecimal)initWithJavaMathBigInteger:(id)integer withInt:(int)int withJavaMathMathContext:(id)context
 {
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(self, integer, int);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&self->super.super.super.isa, integer, int);
   sub_10015FC44(self, context);
   return self;
 }
 
 - (JavaMathBigDecimal)initWithInt:(int)int withJavaMathMathContext:(id)context
 {
-  sub_10015DB2C(self, int, 0);
+  sub_10015DB2C(self, *&int, 0);
   sub_10015FC44(self, context);
   return self;
 }
@@ -159,7 +172,7 @@ LABEL_4:
       v16 = [v15 addWithJavaMathBigInteger:-[JavaMathBigDecimal unscaledValue]_0(decimalCopy)];
       v17 = self->scale__;
       v18 = [JavaMathBigDecimal alloc];
-      JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v18, v16, v17);
+      JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v18->super.super.super.isa, v16, v17);
 
       return v18;
     }
@@ -348,7 +361,7 @@ LABEL_43:
   v34 = [(JavaMathBigInteger *)v29 addWithJavaMathBigInteger:JavaMathBigInteger_valueOfWithLong_(signum)];
   v35 = selfCopy2[12];
   v36 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v36, v34, v35 + 1);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v36->super.super.super.isa, v34, v35 + 1);
   v30 = v36;
 LABEL_37:
 
@@ -398,7 +411,7 @@ LABEL_31:
           v27 = v23;
           v28 = v24;
 LABEL_47:
-          JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v25, v27, v28);
+          JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v25->super.super.super.isa, v27, v28);
 
           return v26;
         }
@@ -654,7 +667,7 @@ LABEL_35:
   v27 = [(JavaMathBigInteger *)v23 addWithJavaMathBigInteger:JavaMathBigInteger_valueOfWithLong_(signum)];
   v28 = self->scale__;
   v29 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v29, v27, v28 + 1);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v29->super.super.super.isa, v27, v28 + 1);
   v24 = v29;
 LABEL_30:
 
@@ -695,7 +708,7 @@ LABEL_18:
   v12 = [v11 multiplyWithJavaMathBigInteger:-[JavaMathBigDecimal unscaledValue]_0(decimal)];
   v13 = sub_10015FB94(v5 + scale);
   v14 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v14, v12, v13);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v14->super.super.super.isa, v12, v13);
 
   return v14;
 }
@@ -711,6 +724,14 @@ LABEL_18:
   v6 = v5;
   sub_10015FC44(v5, context);
   return v6;
+}
+
+- (id)divideWithJavaMathBigDecimal:(id)decimal withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&int;
+  v8 = JavaMathRoundingModeEnum_valueOfWithInt_(withInt);
+
+  return [(JavaMathBigDecimal *)self divideWithJavaMathBigDecimal:decimal withInt:v5 withJavaMathRoundingModeEnum:v8];
 }
 
 - (id)divideWithJavaMathBigDecimal:(id)decimal withInt:(int)int withJavaMathRoundingModeEnum:(id)enum
@@ -1015,7 +1036,7 @@ LABEL_28:
 LABEL_42:
         v37 = v36;
         v38 = [JavaMathBigDecimal alloc];
-        JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v38, v37, v34);
+        JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v38->super.super.super.isa, v37, v34);
 
         return v38;
       }
@@ -1305,8 +1326,8 @@ LABEL_46:
 
 - (id)divideToIntegralValueWithJavaMathBigDecimal:(id)decimal
 {
-  v44 = [JavaMathBigDecimal unscaledValue]_0(self);
-  [IOSObjectArray arrayWithObjects:&v44 count:1 type:JavaMathBigInteger_class_()];
+  v43 = [JavaMathBigDecimal unscaledValue]_0(self);
+  [IOSObjectArray arrayWithObjects:&v43 count:1 type:JavaMathBigInteger_class_()];
   if (!decimal || !qword_100554A68)
   {
     goto LABEL_61;
@@ -1316,8 +1337,8 @@ LABEL_46:
   v6 = *(decimal + 8);
   if (!v6 && *(decimal + 5) != -1)
   {
-    v43 = new_JavaLangArithmeticException_initWithNSString_(@"Division by zero");
-    objc_exception_throw(v43);
+    v42 = new_JavaLangArithmeticException_initWithNSString_(@"Division by zero");
+    objc_exception_throw(v42);
   }
 
   v7 = self->scale__ - *(decimal + 12);
@@ -1388,126 +1409,125 @@ LABEL_61:
 
   if (!v7)
   {
-    v27 = [JavaMathBigDecimal unscaledValue]_0(self);
-    if (!v27)
-    {
-      goto LABEL_61;
-    }
-
-    v28 = v27;
-    v29 = [JavaMathBigDecimal unscaledValue]_0(decimal);
-    v16 = [v28 divideWithJavaMathBigInteger:{v29, v44}];
-    v7 = 0;
-    goto LABEL_23;
-  }
-
-  v21 = self->scale__ != *(decimal + 12);
-  if (v7 >= 1)
-  {
-    v22 = JavaMathMultiplication_powerOf10WithLong_(self->scale__ - *(decimal + 12));
-    v23 = [JavaMathBigDecimal unscaledValue]_0(self);
-    if (!v23)
-    {
-      goto LABEL_61;
-    }
-
-    v24 = v23;
-    v25 = [JavaMathBigDecimal unscaledValue]_0(decimal);
-    if (!v25)
-    {
-      goto LABEL_61;
-    }
-
-    v26 = [v24 divideWithJavaMathBigInteger:{objc_msgSend(v25, "multiplyWithJavaMathBigInteger:", v22, v44)}];
+    v26 = [JavaMathBigDecimal unscaledValue]_0(self);
     if (!v26)
     {
       goto LABEL_61;
     }
 
-    v16 = [v26 multiplyWithJavaMathBigInteger:v22];
+    v27 = v26;
+    v28 = [JavaMathBigDecimal unscaledValue]_0(decimal);
+    v16 = [v27 divideWithJavaMathBigInteger:{v28, v43}];
+    v7 = 0;
     goto LABEL_23;
   }
 
-  v30 = JavaMathMultiplication_powerOf10WithLong_(*(decimal + 12) - self->scale__);
-  v31 = [JavaMathBigDecimal unscaledValue]_0(self);
+  if (v7 >= 1)
+  {
+    v21 = JavaMathMultiplication_powerOf10WithLong_(self->scale__ - *(decimal + 12));
+    v22 = [JavaMathBigDecimal unscaledValue]_0(self);
+    if (!v22)
+    {
+      goto LABEL_61;
+    }
+
+    v23 = v22;
+    v24 = [JavaMathBigDecimal unscaledValue]_0(decimal);
+    if (!v24)
+    {
+      goto LABEL_61;
+    }
+
+    v25 = [v23 divideWithJavaMathBigInteger:{objc_msgSend(v24, "multiplyWithJavaMathBigInteger:", v21, v43)}];
+    if (!v25)
+    {
+      goto LABEL_61;
+    }
+
+    v16 = [v25 multiplyWithJavaMathBigInteger:v21];
+    goto LABEL_23;
+  }
+
+  v29 = JavaMathMultiplication_powerOf10WithLong_(*(decimal + 12) - self->scale__);
+  v30 = [JavaMathBigDecimal unscaledValue]_0(self);
+  if (!v30)
+  {
+    goto LABEL_61;
+  }
+
+  v31 = [v30 multiplyWithJavaMathBigInteger:{v29, v43}];
   if (!v31)
   {
     goto LABEL_61;
   }
 
-  v32 = [v31 multiplyWithJavaMathBigInteger:{v30, v44}];
+  v32 = [v31 divideWithJavaMathBigInteger:-[JavaMathBigDecimal unscaledValue]_0(decimal)];
   if (!v32)
   {
     goto LABEL_61;
   }
 
-  v33 = [v32 divideWithJavaMathBigInteger:-[JavaMathBigDecimal unscaledValue]_0(decimal)];
-  if (!v33)
-  {
-    goto LABEL_61;
-  }
-
-  v16 = v33;
+  v16 = v32;
   v17 = 0;
-  v34 = v5 - 1;
-  v35 = 1;
+  v33 = v5 - 1;
+  v34 = 1;
   while (([v16 testBitWithInt:0] & 1) == 0)
   {
-    v36 = *(qword_100554A68 + 8);
-    if ((v35 & 0x80000000) != 0 || v35 >= v36)
+    v35 = *(qword_100554A68 + 8);
+    if ((v34 & 0x80000000) != 0 || v34 >= v35)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v36, v35);
+      IOSArray_throwOutOfBoundsWithMsg(v35, v34);
     }
 
-    v37 = [v16 divideAndRemainderWithJavaMathBigInteger:*(qword_100554A68 + 24 + 8 * v35)];
-    if (!v37)
+    v36 = [v16 divideAndRemainderWithJavaMathBigInteger:*(qword_100554A68 + 24 + 8 * v34)];
+    if (!v36)
     {
       goto LABEL_61;
     }
 
-    v38 = v37;
-    v39 = v37[2];
-    if (v39 <= 1)
+    v37 = v36;
+    v38 = v36[2];
+    if (v38 <= 1)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v39, 1);
+      IOSArray_throwOutOfBoundsWithMsg(v38, 1);
     }
 
-    v40 = *(v38 + 4);
-    if (!v40)
+    v39 = *(v37 + 4);
+    if (!v39)
     {
       goto LABEL_61;
     }
 
-    if ([v40 signum] || (v41 = v17 - v35, v41 < v7))
+    if ([v39 signum] || (v40 = v17 - v34, v40 < v7))
     {
-      if (v35 == 1)
+      if (v34 == 1)
       {
         break;
       }
 
-      v35 = 1;
+      v34 = 1;
     }
 
     else
     {
-      if (v35 >= v34)
+      if (v34 >= v33)
       {
-        v35 = v35;
+        v34 = v34;
       }
 
       else
       {
-        v35 = (v35 + 1);
+        v34 = (v34 + 1);
       }
 
-      v42 = v38[2];
-      if (v42 <= 0)
+      v41 = v37[2];
+      if (v41 <= 0)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v42, 0);
+        IOSArray_throwOutOfBoundsWithMsg(v41, 0);
       }
 
-      v16 = *(v38 + 3);
-      v17 = v41;
+      v16 = *(v37 + 3);
+      v17 = v40;
       if (!v16)
       {
         goto LABEL_61;
@@ -1523,7 +1543,7 @@ LABEL_24:
 
   v18 = sub_10015FB94(v17);
   v19 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v19, v16, v18);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v19->super.super.super.isa, v16, v18);
   return v19;
 }
 
@@ -1759,7 +1779,7 @@ LABEL_27:
 
     v34 = *(v15 + 24);
     v35 = [JavaMathBigDecimal alloc];
-    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v35, v34, 0);
+    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v35->super.super.super.isa, v34, 0);
     v66 = v35;
     precision4 = [(JavaMathBigDecimal *)v66 precision];
     if (v34)
@@ -1880,7 +1900,7 @@ LABEL_78:
 
 - (id)divideAndRemainderWithJavaMathBigDecimal:(id)decimal
 {
-  v5 = [IOSObjectArray arrayWithLength:2 type:JavaMathBigDecimal_class_()];
+  v5 = [IOSObjectArray arrayWithLength:2 type:JavaMathBigDecimal_class_(self, a2)];
   IOSObjectArray_Set(v5, 0, [(JavaMathBigDecimal *)self divideToIntegralValueWithJavaMathBigDecimal:decimal]);
   size = v5->super.size_;
   if (size <= 0)
@@ -1900,7 +1920,7 @@ LABEL_78:
 
 - (id)divideAndRemainderWithJavaMathBigDecimal:(id)decimal withJavaMathMathContext:(id)context
 {
-  v7 = [IOSObjectArray arrayWithLength:2 type:JavaMathBigDecimal_class_()];
+  v7 = [IOSObjectArray arrayWithLength:2 type:JavaMathBigDecimal_class_(self, a2)];
   IOSObjectArray_Set(v7, 0, [(JavaMathBigDecimal *)self divideToIntegralValueWithJavaMathBigDecimal:decimal withJavaMathMathContext:context]);
   size = v7->super.size_;
   if (size <= 0)
@@ -1916,6 +1936,141 @@ LABEL_78:
 
   IOSObjectArray_Set(v7, 1, [(JavaMathBigDecimal *)self subtractWithJavaMathBigDecimal:[(IOSClass *)elementType multiplyWithJavaMathBigDecimal:decimal]]);
   return v7;
+}
+
+- (id)powWithInt:(int)int
+{
+  if (!int)
+  {
+    return JavaMathBigDecimal_ONE_;
+  }
+
+  v3 = *&int;
+  if (int >= 0x3B9ACA00)
+  {
+    v11 = new_JavaLangArithmeticException_initWithNSString_(@"Invalid Operation");
+    objc_exception_throw(v11);
+  }
+
+  v4 = self->scale__ * int;
+  if (self->bitLength_ || self->smallValue_ == -1)
+  {
+    v5 = [JavaMathBigDecimal unscaledValue]_0(self);
+    if (!v5)
+    {
+      JreThrowNullPointerException();
+    }
+
+    v6 = [v5 powWithInt:v3];
+    v7 = sub_10015FB94(v4);
+    v8 = [JavaMathBigDecimal alloc];
+    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v8->super.super.super.isa, v6, v7);
+
+    return v8;
+  }
+
+  else
+  {
+    v10 = self->scale__ * int;
+
+    return sub_10015FAF4(v10);
+  }
+}
+
+- (id)powWithInt:(int)int withJavaMathMathContext:(id)context
+{
+  v5 = *&int;
+  v7 = JavaLangMath_absWithInt_(*&int);
+  if (!context)
+  {
+    goto LABEL_32;
+  }
+
+  v8 = v7;
+  getPrecision = [context getPrecision];
+  v10 = JavaLangMath_log10WithDouble_(v8);
+  v11 = v10;
+  if (v10 < 0.0)
+  {
+    v12 = 0x80000000;
+  }
+
+  else
+  {
+    v12 = 0x7FFFFFFF;
+  }
+
+  if (v11 == 0x80000000)
+  {
+    v11 = v12;
+  }
+
+  if (v5 && (self->bitLength_ || v5 < 1 || self->smallValue_ == -1))
+  {
+    if (v8 > 999999999 || (v5 & 0x80000000) != 0 && !getPrecision || (v13 = v11 + 1, getPrecision >= 1) && v13 > getPrecision)
+    {
+      v20 = new_JavaLangArithmeticException_initWithNSString_(@"Invalid Operation");
+      objc_exception_throw(v20);
+    }
+
+    contextCopy = context;
+    if (getPrecision >= 1)
+    {
+      contextCopy = new_JavaMathMathContext_initWithInt_withJavaMathRoundingModeEnum_(getPrecision + v13 + 1, [context getRoundingMode]);
+    }
+
+    v15 = [(JavaMathBigDecimal *)self roundWithJavaMathMathContext:contextCopy];
+    v16 = JavaLangInteger_highestOneBitWithInt_(v8) >> 1;
+    if (v16 < 1)
+    {
+LABEL_22:
+      if ((v5 & 0x80000000) != 0)
+      {
+        if (!JavaMathBigDecimal_ONE_)
+        {
+          goto LABEL_32;
+        }
+
+        v15 = [JavaMathBigDecimal_ONE_ divideWithJavaMathBigDecimal:v15 withJavaMathMathContext:contextCopy];
+      }
+
+      if (v15)
+      {
+        sub_10015FC44(v15, context);
+        return v15;
+      }
+    }
+
+    else
+    {
+      while (v15)
+      {
+        v17 = [v15 multiplyWithJavaMathBigDecimal:v15 withJavaMathMathContext:contextCopy];
+        v15 = v17;
+        if ((v16 & ~v8) == 0)
+        {
+          if (!v17)
+          {
+            break;
+          }
+
+          v15 = [v17 multiplyWithJavaMathBigDecimal:self withJavaMathMathContext:contextCopy];
+        }
+
+        v18 = v16 > 1;
+        v16 = v16 >> 1;
+        if (!v18)
+        {
+          goto LABEL_22;
+        }
+      }
+    }
+
+LABEL_32:
+    JreThrowNullPointerException();
+  }
+
+  return [(JavaMathBigDecimal *)self powWithInt:v5];
 }
 
 - (id)abs
@@ -1969,7 +2124,7 @@ LABEL_3:
   negate = [v7 negate];
   v9 = self->scale__;
   v10 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v10, negate, v9);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v10->super.super.super.isa, negate, v9);
 
   return v10;
 }
@@ -2002,14 +2157,14 @@ LABEL_3:
   {
     smallValue = self->smallValue_;
 
-    return JavaLangLong_signumWithLong_(smallValue);
+    return JavaLangLong_signumWithLong_(smallValue, a2);
   }
 }
 
 - (int)precision
 {
-  result = self->precision_;
-  if (result <= 0)
+  precision = self->precision_;
+  if (precision <= 0)
   {
     bitLength = self->bitLength_;
     if (bitLength > 1023)
@@ -2033,17 +2188,17 @@ LABEL_3:
         {
           if ([v10 signum])
           {
-            result = v8 + 1;
+            LODWORD(precision) = v8 + 1;
           }
 
           else
           {
-            result = v8;
+            LODWORD(precision) = v8;
           }
 
 LABEL_23:
-          self->precision_ = result;
-          return result;
+          self->precision_ = precision;
+          return precision;
         }
       }
     }
@@ -2063,7 +2218,7 @@ LABEL_23:
         }
 
 LABEL_17:
-        v11 = JavaLangMath_absWithDouble_(smallValue);
+        v11 = JavaLangMath_absWithDouble_(precision, smallValue, a2);
         v12 = JavaLangMath_log10WithDouble_(v11) + 1.0;
         if (v12 < 0.0)
         {
@@ -2077,12 +2232,12 @@ LABEL_17:
 
         if (v12 == 0x80000000)
         {
-          result = v13;
+          LODWORD(precision) = v13;
         }
 
         else
         {
-          result = v12;
+          LODWORD(precision) = v12;
         }
 
         goto LABEL_23;
@@ -2091,7 +2246,7 @@ LABEL_17:
       v5 = [JavaMathBigDecimal unscaledValue]_0(self);
       if (v5)
       {
-        [v5 doubleValue];
+        precision = [v5 doubleValue];
         goto LABEL_17;
       }
     }
@@ -2099,7 +2254,7 @@ LABEL_17:
     JreThrowNullPointerException();
   }
 
-  return result;
+  return precision;
 }
 
 - (id)roundWithJavaMathMathContext:(id)context
@@ -2108,7 +2263,7 @@ LABEL_17:
   v5 = [JavaMathBigDecimal unscaledValue]_0(self);
   LODWORD(selfCopy) = selfCopy->scale__;
   v6 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v6, v5, selfCopy);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v6->super.super.super.isa, v5, selfCopy);
   v7 = v6;
   sub_10015FC44(v7, context);
   return v7;
@@ -2136,7 +2291,7 @@ LABEL_13:
           v11 = [JavaMathBigDecimal unscaledValue]_0(self);
           v12 = JavaMathMultiplication_multiplyByTenPowWithJavaMathBigInteger_withLong_(v11, v6);
           v13 = [JavaMathBigDecimal alloc];
-          JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v13, v12, int);
+          JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v13->super.super.super.isa, v12, int);
 
           return v13;
         }
@@ -2146,7 +2301,6 @@ LABEL_13:
           v7 = *(qword_100554A58 + 8);
           if (v7 <= v6)
           {
-            v22 = *(self + 8);
             IOSArray_throwOutOfBoundsWithMsg(v7, v6);
           }
 
@@ -2210,6 +2364,27 @@ LABEL_23:
   return self;
 }
 
+- (id)setScaleWithInt:(int)int withInt:(int)withInt
+{
+  v4 = *&int;
+  v6 = JavaMathRoundingModeEnum_valueOfWithInt_(withInt);
+
+  return [(JavaMathBigDecimal *)self setScaleWithInt:v4 withJavaMathRoundingModeEnum:v6];
+}
+
+- (id)setScaleWithInt:(int)int
+{
+  v3 = *&int;
+  if ((atomic_load_explicit(JavaMathRoundingModeEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100164E08();
+  }
+
+  v5 = qword_100557E48;
+
+  return [(JavaMathBigDecimal *)self setScaleWithInt:v3 withJavaMathRoundingModeEnum:v5];
+}
+
 - (id)scaleByPowerOfTenWithInt:(int)int
 {
   v3 = self->scale__ - int;
@@ -2218,7 +2393,7 @@ LABEL_23:
     v7 = [JavaMathBigDecimal unscaledValue]_0(self);
     v8 = sub_10015FB94(v3);
     v9 = [JavaMathBigDecimal alloc];
-    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v9, v7, v8);
+    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v9->super.super.super.isa, v7, v8);
 
     return v9;
   }
@@ -2335,7 +2510,7 @@ LABEL_29:
 
   v15 = sub_10015FB94(scale);
   v16 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v16, v5, v15);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v16->super.super.super.isa, v5, v15);
 LABEL_26:
 
   return v16;
@@ -2629,7 +2804,7 @@ LABEL_24:
               [(JavaLangStringBuilder *)v10 insertWithInt:v8 withChar:43];
             }
 
-            [(JavaLangStringBuilder *)v10 insertWithInt:(v8 + 1) withNSString:JavaLangLong_toStringWithLong_(v9)];
+            [(JavaLangStringBuilder *)v10 insertWithInt:(v8 + 1) withNSString:JavaLangLong_toStringWithLong_(v9, v12)];
           }
 
           else if (v9 < 0)
@@ -2709,7 +2884,7 @@ LABEL_35:
           [(JavaLangStringBuilder *)v11 insertWithInt:v8 withChar:43];
         }
 
-        [(JavaLangStringBuilder *)v11 insertWithInt:(v8 + 1) withNSString:JavaLangLong_toStringWithLong_(v9)];
+        [(JavaLangStringBuilder *)v11 insertWithInt:(v8 + 1) withNSString:JavaLangLong_toStringWithLong_(v9, v24)];
       }
 
       goto LABEL_42;
@@ -3275,18 +3450,18 @@ LABEL_61:
       longLongValue = [v31 longLongValue];
       if ((~longLongValue & 3) != 0)
       {
-        v33 = longLongValue & (getLowestSetBit < v30);
+        v34 = longLongValue & (getLowestSetBit < v30);
       }
 
       else
       {
-        v33 = 1;
+        v34 = 1;
       }
 
-      v34 = longLongValue + 2;
-      if (!v33)
+      v35 = longLongValue + 2;
+      if (!v34)
       {
-        v34 = longLongValue;
+        v35 = longLongValue;
       }
 
       goto LABEL_40;
@@ -3296,43 +3471,43 @@ LABEL_61:
   }
 
   longLongValue = [v18 longLongValue] << (54 - bitLength);
-  v34 = longLongValue + 2;
+  v35 = longLongValue + 2;
   if ((~longLongValue & 3) != 0)
   {
-    v34 = longLongValue;
+    v35 = longLongValue;
   }
 
 LABEL_40:
-  v35 = bitLength - 53;
-  if ((v34 & 0x40000000000000) == 0)
+  v36 = bitLength - 53;
+  if ((v35 & 0x40000000000000) == 0)
   {
-    v35 = bitLength - 54;
+    v36 = bitLength - 54;
   }
 
-  v36 = v35 + v17;
-  if (v36 >= 2047)
+  v37 = v36 + v17;
+  if (v37 >= 2047)
   {
     goto LABEL_43;
   }
 
-  v37 = 1;
-  if ((v34 & 0x40000000000000) != 0)
+  v38 = 1;
+  if ((v35 & 0x40000000000000) != 0)
   {
-    v37 = 2;
+    v38 = 2;
   }
 
-  if (v36 <= 0)
+  if (v37 <= 0)
   {
-    if (v36 > -54)
+    if (v37 > -54)
     {
-      v39 = longLongValue >> 1 >> -v36;
-      if ((~v39 & 3) == 0 || (v39 & 1) != 0 && (((0xFFFFFFFFFFFFFFFFLL >> (v36 + 63)) & (longLongValue >> 1)) != 0 ? (v40 = getLowestSetBit < v30) : (v40 = 0), v40))
+      v40 = longLongValue >> 1 >> -v37;
+      if ((~v40 & 3) == 0 || (v40 & 1) != 0 && (((0xFFFFFFFFFFFFFFFFLL >> (v37 + 63)) & (longLongValue >> 1)) != 0 ? (v41 = getLowestSetBit < v30) : (v41 = 0), v41))
       {
-        ++v39;
+        ++v40;
       }
 
-      v36 = 0;
-      v38 = v39 >> 1;
+      v37 = 0;
+      v39 = v40 >> 1;
       goto LABEL_58;
     }
 
@@ -3345,10 +3520,10 @@ LABEL_10:
     return *v7.i64;
   }
 
-  v38 = v34 >> v37;
+  v39 = v35 >> v38;
 LABEL_58:
 
-  *v7.i64 = JavaLangDouble_longBitsToDoubleWithLong_(v5 & 0x8000000000000000 | (v36 << 52) | v38 & 0xFFFFFFFFFFFFFLL);
+  *v7.i64 = JavaLangDouble_longBitsToDoubleWithLong_(v5 & 0x8000000000000000 | (v37 << 52) | v39 & 0xFFFFFFFFFFFFFLL, v33);
   return *v7.i64;
 }
 
@@ -3454,128 +3629,128 @@ LABEL_58:
     v4 = [JavaMathBigDecimal alloc];
     sub_10015DB2C(v4, 10, 0);
     JreStrongAssignAndConsume(&JavaMathBigDecimal_TEN_, v4);
-    v24[6] = xmmword_100314920;
-    v24[7] = unk_100314930;
-    v24[8] = xmmword_100314940;
-    v25 = 1000000000000000000;
-    v24[2] = xmmword_1003148E0;
-    v24[3] = unk_1003148F0;
-    v24[4] = xmmword_100314900;
-    v24[5] = unk_100314910;
-    v24[0] = xmmword_1003148C0;
-    v24[1] = unk_1003148D0;
-    JreStrongAssignAndConsume(&qword_100554A50, [IOSLongArray newArrayWithLongs:v24 count:19]);
-    v23[10] = xmmword_1003149F8;
-    v23[11] = unk_100314A08;
-    v23[12] = xmmword_100314A18;
-    v23[13] = unk_100314A28;
-    v23[6] = xmmword_1003149B8;
-    v23[7] = unk_1003149C8;
-    v23[8] = xmmword_1003149D8;
-    v23[9] = unk_1003149E8;
-    v23[2] = xmmword_100314978;
-    v23[3] = unk_100314988;
-    v23[4] = xmmword_100314998;
-    v23[5] = unk_1003149A8;
-    v23[0] = xmmword_100314958;
-    v23[1] = unk_100314968;
-    JreStrongAssignAndConsume(&qword_100554A78, [IOSLongArray newArrayWithLongs:v23 count:28]);
+    v29[6] = xmmword_100314920;
+    v29[7] = unk_100314930;
+    v29[8] = xmmword_100314940;
+    v30 = 1000000000000000000;
+    v29[2] = xmmword_1003148E0;
+    v29[3] = unk_1003148F0;
+    v29[4] = xmmword_100314900;
+    v29[5] = unk_100314910;
+    v29[0] = xmmword_1003148C0;
+    v29[1] = unk_1003148D0;
+    JreStrongAssignAndConsume(&qword_100554A50, [IOSLongArray newArrayWithLongs:v29 count:19]);
+    v28[10] = xmmword_1003149F8;
+    v28[11] = unk_100314A08;
+    v28[12] = xmmword_100314A18;
+    v28[13] = unk_100314A28;
+    v28[6] = xmmword_1003149B8;
+    v28[7] = unk_1003149C8;
+    v28[8] = xmmword_1003149D8;
+    v28[9] = unk_1003149E8;
+    v28[2] = xmmword_100314978;
+    v28[3] = unk_100314988;
+    v28[4] = xmmword_100314998;
+    v28[5] = unk_1003149A8;
+    v28[0] = xmmword_100314958;
+    v28[1] = unk_100314968;
+    JreStrongAssignAndConsume(&qword_100554A78, [IOSLongArray newArrayWithLongs:v28 count:28]);
     JreStrongAssignAndConsume(&qword_100554A80, [IOSIntArray newArrayWithLength:*(qword_100554A78 + 8)]);
-    JreStrongAssignAndConsume(&qword_100554A58, [IOSIntArray newArrayWithLength:*(qword_100554A50 + 8)]);
-    v5 = [IOSObjectArray newArrayWithLength:11 type:JavaMathBigDecimal_class_()];
-    JreStrongAssignAndConsume(&qword_100554A88, v5);
-    v6 = [IOSObjectArray newArrayWithLength:11 type:JavaMathBigDecimal_class_()];
-    JreStrongAssignAndConsume(&qword_100554A90, v6);
+    v5 = JreStrongAssignAndConsume(&qword_100554A58, [IOSIntArray newArrayWithLength:*(qword_100554A50 + 8)]);
+    v7 = [IOSObjectArray newArrayWithLength:11 type:JavaMathBigDecimal_class_(v5, v6)];
+    v8 = JreStrongAssignAndConsume(&qword_100554A88, v7);
+    v10 = [IOSObjectArray newArrayWithLength:11 type:JavaMathBigDecimal_class_(v8, v9)];
+    JreStrongAssignAndConsume(&qword_100554A90, v10);
     JreStrongAssignAndConsume(&qword_100554A70, [IOSCharArray newArrayWithLength:100]);
     if (*(qword_100554A90 + 8) < 1)
     {
-      LODWORD(v7) = 0;
+      LODWORD(v12) = 0;
     }
 
     else
     {
-      v7 = 0;
+      v12 = 0;
       do
       {
-        v8 = qword_100554A88;
-        v9 = [JavaMathBigDecimal alloc];
-        sub_10015DB2C(v9, v7, 0);
-        IOSObjectArray_SetAndConsume(v8, v7, v9);
-        v10 = qword_100554A90;
-        v11 = [JavaMathBigDecimal alloc];
-        sub_10015DB2C(v11, 0, v7);
-        IOSObjectArray_SetAndConsume(v10, v7, v11);
-        v12 = *(qword_100554A70 + 8);
-        if (v7 >= v12)
+        v13 = qword_100554A88;
+        v14 = [JavaMathBigDecimal alloc];
+        sub_10015DB2C(v14, v12, 0);
+        IOSObjectArray_SetAndConsume(v13, v12, v14);
+        v15 = qword_100554A90;
+        v16 = [JavaMathBigDecimal alloc];
+        sub_10015DB2C(v16, 0, v12);
+        IOSObjectArray_SetAndConsume(v15, v12, v16);
+        v17 = *(qword_100554A70 + 8);
+        if (v12 >= v17)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v12, v7);
+          IOSArray_throwOutOfBoundsWithMsg(v17, v12);
         }
 
-        *(qword_100554A70 + 12 + 2 * v7++) = 48;
+        *(qword_100554A70 + 12 + 2 * v12++) = 48;
       }
 
-      while (v7 < *(qword_100554A90 + 8));
+      while (v12 < *(qword_100554A90 + 8));
     }
 
-    v13 = qword_100554A70;
-    if (v7 < *(qword_100554A70 + 8))
+    v18 = qword_100554A70;
+    if (v12 < *(qword_100554A70 + 8))
     {
-      v14 = v7;
+      v19 = v12;
       do
       {
-        *(v13 + 12 + 2 * v14++) = 48;
-        v13 = qword_100554A70;
+        *(v18 + 12 + 2 * v19++) = 48;
+        v18 = qword_100554A70;
       }
 
-      while (*(qword_100554A70 + 8) > v14);
+      while (*(qword_100554A70 + 8) > v19);
     }
 
     if (*(qword_100554A80 + 8) >= 1)
     {
-      v15 = 0;
+      v20 = 0;
       do
       {
-        v16 = *(qword_100554A78 + 8);
-        if (v15 >= v16)
+        v21 = *(qword_100554A78 + 8);
+        if (v20 >= v21)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v16, v15);
+          IOSArray_throwOutOfBoundsWithMsg(v21, v20);
         }
 
-        v17 = sub_10016465C(*(qword_100554A78 + 16 + 8 * v15));
-        v18 = *(qword_100554A80 + 8);
-        if (v15 >= v18)
+        v22 = sub_10016465C(*(qword_100554A78 + 16 + 8 * v20), v11);
+        v23 = *(qword_100554A80 + 8);
+        if (v20 >= v23)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v18, v15);
+          IOSArray_throwOutOfBoundsWithMsg(v23, v20);
         }
 
-        *(qword_100554A80 + 12 + 4 * v15++) = v17;
+        *(qword_100554A80 + 12 + 4 * v20++) = v22;
       }
 
-      while (v15 < *(qword_100554A80 + 8));
+      while (v20 < *(qword_100554A80 + 8));
     }
 
     if (*(qword_100554A58 + 8) >= 1)
     {
-      v19 = 0;
+      v24 = 0;
       do
       {
-        v20 = *(qword_100554A50 + 8);
-        if (v19 >= v20)
+        v25 = *(qword_100554A50 + 8);
+        if (v24 >= v25)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v20, v19);
+          IOSArray_throwOutOfBoundsWithMsg(v25, v24);
         }
 
-        v21 = sub_10016465C(*(qword_100554A50 + 16 + 8 * v19));
-        v22 = *(qword_100554A58 + 8);
-        if (v19 >= v22)
+        v26 = sub_10016465C(*(qword_100554A50 + 16 + 8 * v24), v11);
+        v27 = *(qword_100554A58 + 8);
+        if (v24 >= v27)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v22, v19);
+          IOSArray_throwOutOfBoundsWithMsg(v27, v24);
         }
 
-        *(qword_100554A58 + 12 + 4 * v19++) = v21;
+        *(qword_100554A58 + 12 + 4 * v24++) = v26;
       }
 
-      while (v19 < *(qword_100554A58 + 8));
+      while (v24 < *(qword_100554A58 + 8));
     }
 
     if ((atomic_load_explicit(JavaMathMultiplication__initialized, memory_order_acquire) & 1) == 0)

@@ -2,9 +2,11 @@
 - (NFCCStatusView)initWithFrame:(CGRect)frame;
 - (id)_makePromptLabelWrapper;
 - (void)_contentSizeCategoryDidChange;
+- (void)_moduleStateDidChangeAnimated:(BOOL)animated;
 - (void)_setUp;
 - (void)_updateUnsupportedTagPromptLabelWithFont:(id)font;
 - (void)didMoveToWindow;
+- (void)setModuleState:(int64_t)state animated:(BOOL)animated;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateOrientationIfNeeded;
 @end
@@ -282,6 +284,58 @@
 
   label2 = [(NFCCWrappedLabel *)self->_unsupportedTagPromptLabelWrapper label];
   [label2 setFont:fontCopy];
+}
+
+- (void)setModuleState:(int64_t)state animated:(BOOL)animated
+{
+  if (self->_moduleState != state)
+  {
+    self->_moduleState = state;
+    [(NFCCStatusView *)self _moduleStateDidChangeAnimated:animated];
+  }
+}
+
+- (void)_moduleStateDidChangeAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  glyphView = self->_glyphView;
+  v6 = self->_moduleState - 1;
+  if (v6 > 2)
+  {
+    v7 = 9;
+  }
+
+  else
+  {
+    v7 = qword_9D70[v6];
+  }
+
+  [(PKGlyphView *)glyphView setState:v7 animated:animatedCopy completionHandler:0];
+  moduleState = self->_moduleState;
+  v9 = moduleState == 3;
+  v10 = v9 ^ (moduleState != 4);
+  v11 = moduleState == 4;
+  [(NSLayoutConstraint *)self->_scanTagPromptLabelBottomConstraint setActive:v10];
+  [(NSLayoutConstraint *)self->_unavailablePromptLabelBottomConstraint setActive:v9];
+  [(NSLayoutConstraint *)self->_unsupportedTagPromptLabelBottomConstraint setActive:v11];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_55B8;
+  v13[3] = &unk_C4D8;
+  v13[4] = self;
+  v14 = v10;
+  v15 = v9;
+  v16 = v11;
+  v12 = objc_retainBlock(v13);
+  if (animatedCopy)
+  {
+    [UIView _animateUsingSpringInteractive:0 animations:v12 completion:0];
+  }
+
+  else
+  {
+    [UIView _performWithoutRetargetingAnimations:v12];
+  }
 }
 
 @end

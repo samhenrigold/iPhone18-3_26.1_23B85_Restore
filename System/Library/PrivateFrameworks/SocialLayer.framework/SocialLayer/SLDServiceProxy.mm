@@ -35,10 +35,20 @@
 
 - (void)connect
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_231772000, v0, v1, "[%@] Client requested service connection.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  if (![(SLDServiceProxy *)self connectionActive])
+  {
+    waitingForConnection = [(SLDServiceProxy *)self waitingForConnection];
+    if ((waitingForConnection & 1) == 0)
+    {
+      v4 = SLDaemonLogHandle(waitingForConnection);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      {
+        [SLDServiceProxy connect];
+      }
+
+      [(SLDServiceProxy *)self _establishNewConnection];
+    }
+  }
 }
 
 - (BOOL)connectionActive
@@ -77,10 +87,11 @@ void __42__SLDServiceProxy__establishNewConnection__block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
-  if (([*(a1 + 32) waitingForConnection] & 1) != 0 || (SLDAllowedServiceClasses(), v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "containsObject:", objc_msgSend(*v1, "serviceClass")), v2, !v3))
+  v2 = [*(a1 + 32) waitingForConnection];
+  if ((v2 & 1) != 0 || (SLDAllowedServiceClasses(), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 containsObject:{objc_msgSend(*v1, "serviceClass")}], v3, !v4))
   {
-    v6 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SLDaemonLogHandle(v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_3(v1);
     }
@@ -88,32 +99,32 @@ void __42__SLDServiceProxy__establishNewConnection__block_invoke(uint64_t a1)
 
   else
   {
-    v4 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = SLDaemonLogHandle(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_1(v1);
     }
 
     [*v1 setWaitingForConnection:1];
-    v5 = +[SLDServiceCenter sharedCenter];
-    v6 = [v5 connectionForServiceClass:{objc_msgSend(*v1, "serviceClass")}];
+    v6 = +[SLDServiceCenter sharedCenter];
+    v7 = [v6 connectionForServiceClass:{objc_msgSend(*v1, "serviceClass")}];
 
-    if (v6)
+    if (v7)
     {
 LABEL_6:
-      [*v1 _receivedServiceConnection:v6];
+      [*v1 _receivedServiceConnection:v7];
     }
 
     else
     {
       v9 = 0;
-      *&v7 = 138413058;
-      v16 = v7;
+      *&v8 = 138413058;
+      v16 = v8;
       while (1)
       {
         v10 = [*v1 connectionRetryCount];
-        v6 = SLDaemonLogHandle();
-        v11 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+        v7 = SLDaemonLogHandle(v10);
+        v11 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
         if (v9 > 0x13 || v9 >= v10)
         {
           break;
@@ -132,14 +143,14 @@ LABEL_6:
           v22 = v9;
           v23 = 2048;
           v24 = v15;
-          _os_log_error_impl(&dword_231772000, v6, OS_LOG_TYPE_ERROR, "[%@] Didn't get a connection for service class '%@'. Attempting to recover with retry number: %lu with max retries: %lu", buf, 0x2Au);
+          _os_log_error_impl(&dword_231772000, v7, OS_LOG_TYPE_ERROR, "[%@] Didn't get a connection for service class '%@'. Attempting to recover with retry number: %lu with max retries: %lu", buf, 0x2Au);
         }
 
         v12 = +[SLDServiceCenter sharedCenter];
-        v6 = [v12 connectionForServiceClass:{objc_msgSend(*v1, "serviceClass")}];
+        v7 = [v12 connectionForServiceClass:{objc_msgSend(*v1, "serviceClass")}];
 
         ++v9;
-        if (v6)
+        if (v7)
         {
           goto LABEL_6;
         }
@@ -147,12 +158,10 @@ LABEL_6:
 
       if (v11)
       {
-        __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_2(v1);
+        __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_2();
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)waitingForConnection
@@ -183,26 +192,26 @@ LABEL_6:
   if (conn)
   {
     conn2 = [(SLDServiceProxy *)self conn];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __43__SLDServiceProxy_synchronousRemoteService__block_invoke;
-    v8[3] = &unk_278925CC8;
-    v8[4] = self;
-    v5 = [conn2 synchronousRemoteObjectProxyWithErrorHandler:v8];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __43__SLDServiceProxy_synchronousRemoteService__block_invoke;
+    v9[3] = &unk_278925CC8;
+    v9[4] = self;
+    v6 = [conn2 synchronousRemoteObjectProxyWithErrorHandler:v9];
   }
 
   else
   {
-    v6 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SLDaemonLogHandle(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceProxy synchronousRemoteServiceWithErrorHandler:];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (NSXPCConnection)conn
@@ -275,7 +284,7 @@ uint64_t __27__SLDServiceProxy_delegate__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v4);
 }
 
 + (id)proxyForServiceClass:(Class)class targetSerialQueue:(id)queue delegate:(id)delegate
@@ -321,8 +330,8 @@ uint64_t __27__SLDServiceProxy_delegate__block_invoke(uint64_t a1)
     v11->_propertyConcurrentQueue = v17;
 
     v11->_connectionRetryCount = 3;
-    v19 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = SLDaemonLogHandle(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
       v24 = v11;
@@ -330,20 +339,27 @@ uint64_t __27__SLDServiceProxy_delegate__block_invoke(uint64_t a1)
       classCopy = class;
       v27 = 2112;
       v28 = delegateCopy;
-      _os_log_debug_impl(&dword_231772000, v19, OS_LOG_TYPE_DEBUG, "[%@] Initialized SLDServiceProxy with serviceClass: %@, delegate:%@", buf, 0x20u);
+      _os_log_debug_impl(&dword_231772000, v20, OS_LOG_TYPE_DEBUG, "[%@] Initialized SLDServiceProxy with serviceClass: %@, delegate:%@", buf, 0x20u);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)disconnect
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_231772000, v0, v1, "[%@] Client requested disconnection.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  connectionActive = [(SLDServiceProxy *)self connectionActive];
+  if (connectionActive)
+  {
+    v4 = SLDaemonLogHandle(connectionActive);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [SLDServiceProxy disconnect];
+    }
+
+    [(SLDServiceProxy *)self setShouldAutoReconnect:0];
+    [(SLDServiceProxy *)self _invalidateAndDestroyConnection];
+  }
 }
 
 - (id)synchronousRemoteServiceWithErrorHandler:(id)handler
@@ -354,27 +370,27 @@ uint64_t __27__SLDServiceProxy_delegate__block_invoke(uint64_t a1)
   if (conn)
   {
     conn2 = [(SLDServiceProxy *)self conn];
-    v7 = [conn2 synchronousRemoteObjectProxyWithErrorHandler:handlerCopy];
+    v8 = [conn2 synchronousRemoteObjectProxyWithErrorHandler:handlerCopy];
   }
 
   else
   {
-    v8 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = SLDaemonLogHandle(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceProxy synchronousRemoteServiceWithErrorHandler:];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void __43__SLDServiceProxy_synchronousRemoteService__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __43__SLDServiceProxy_synchronousRemoteService__block_invoke_cold_1(a1);
@@ -388,32 +404,32 @@ void __43__SLDServiceProxy_synchronousRemoteService__block_invoke(uint64_t a1, v
   if (conn)
   {
     conn2 = [(SLDServiceProxy *)self conn];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __32__SLDServiceProxy_remoteService__block_invoke;
-    v8[3] = &unk_278925CC8;
-    v8[4] = self;
-    v5 = [conn2 remoteObjectProxyWithErrorHandler:v8];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __32__SLDServiceProxy_remoteService__block_invoke;
+    v9[3] = &unk_278925CC8;
+    v9[4] = self;
+    v6 = [conn2 remoteObjectProxyWithErrorHandler:v9];
   }
 
   else
   {
-    v6 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = SLDaemonLogHandle(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SLDServiceProxy synchronousRemoteServiceWithErrorHandler:];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 void __32__SLDServiceProxy_remoteService__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __32__SLDServiceProxy_remoteService__block_invoke_cold_1(a1);
@@ -522,22 +538,20 @@ void __53__SLDServiceProxy__atomicConfigureWithNewConnection___block_invoke(uint
 
 void __43__SLDServiceProxy_setConnectionRetryCount___block_invoke(uint64_t a1)
 {
-  v2 = a1 + 32;
   v1 = *(a1 + 32);
-  v4 = (a1 + 40);
-  v3 = *(a1 + 40);
-  if (*(v1 + 24) != v3)
+  v2 = *(a1 + 40);
+  if (*(v1 + 24) != v2)
   {
-    if (v3 >= 0x14)
+    if (v2 >= 0x14)
     {
-      v3 = 20;
+      v2 = 20;
     }
 
-    *(v1 + 24) = v3;
-    v5 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    *(v1 + 24) = v2;
+    v3 = SLDaemonLogHandle(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __43__SLDServiceProxy_setConnectionRetryCount___block_invoke_cold_1(v2, v4);
+      __43__SLDServiceProxy_setConnectionRetryCount___block_invoke_cold_1();
     }
   }
 }
@@ -620,57 +634,56 @@ void __52__SLDServiceProxy__notifyDelegateProxyDidDisconnect__block_invoke(uint6
 
 - (void)_receivedServiceConnection:(id)connection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
+  v5 = connectionCopy;
   if (connectionCopy)
   {
-    v5 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SLDaemonLogHandle(connectionCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [SLDServiceProxy _receivedServiceConnection:?];
     }
 
-    [(SLDServiceProxy *)self _atomicConfigureWithNewConnection:connectionCopy];
+    [(SLDServiceProxy *)self _atomicConfigureWithNewConnection:v5];
     objc_initWeak(&location, self);
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __46__SLDServiceProxy__receivedServiceConnection___block_invoke;
-    v15 = &unk_278925C50;
-    objc_copyWeak(&v16, &location);
-    [connectionCopy setInvalidationHandler:&v12];
-    [connectionCopy resume];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __46__SLDServiceProxy__receivedServiceConnection___block_invoke;
+    v16 = &unk_278925C50;
+    objc_copyWeak(&v17, &location);
+    [v5 setInvalidationHandler:&v13];
+    [v5 resume];
     synchronousRemoteService = [(SLDServiceProxy *)self synchronousRemoteService];
     remoteObjectProtocol = [(objc_class *)[(SLDServiceProxy *)self serviceClass] remoteObjectProtocol];
-    v8 = [synchronousRemoteService conformsToProtocol:remoteObjectProtocol];
+    v9 = [synchronousRemoteService conformsToProtocol:remoteObjectProtocol];
 
-    if (v8)
+    if (v9)
     {
       [(SLDServiceProxy *)self _notifyDelegateProxyDidConnect];
     }
 
     else
     {
-      v9 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = SLDaemonLogHandle(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         remoteObjectProtocol2 = [(objc_class *)[(SLDServiceProxy *)self serviceClass] remoteObjectProtocol];
         *buf = 138412802;
         selfCopy = self;
-        v20 = 2112;
-        v21 = connectionCopy;
-        v22 = 2112;
-        v23 = remoteObjectProtocol2;
-        _os_log_error_impl(&dword_231772000, v9, OS_LOG_TYPE_ERROR, "[%@] The new connection (%@) either didn't yield a remote service, or it didn't conform to the expected remote object protocol:%@. Closing connection.", buf, 0x20u);
+        v21 = 2112;
+        v22 = v5;
+        v23 = 2112;
+        v24 = remoteObjectProtocol2;
+        _os_log_error_impl(&dword_231772000, v11, OS_LOG_TYPE_ERROR, "[%@] The new connection (%@) either didn't yield a remote service, or it didn't conform to the expected remote object protocol:%@. Closing connection.", buf, 0x20u);
       }
 
       [(SLDServiceProxy *)self _invalidateAndDestroyConnection];
     }
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SLDServiceProxy__receivedServiceConnection___block_invoke(uint64_t a1)
@@ -681,32 +694,27 @@ void __46__SLDServiceProxy__receivedServiceConnection___block_invoke(uint64_t a1
 
 - (void)_connectionInvalidated
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_231772000, v0, v1, "[%@] Attempting to reconnect.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  [self serviceClass];
+  delegate = [self delegate];
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_1();
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
 }
 
 - (void)_invalidateAndDestroyConnection
 {
-  v8 = *MEMORY[0x277D85DE8];
   conn = [self conn];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
   conn = [self conn];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __26__SLDServiceProxy_dealloc__block_invoke(uint64_t a1)
@@ -756,83 +764,60 @@ void __26__SLDServiceProxy_dealloc__block_invoke(uint64_t a1)
   return v3;
 }
 
-- (void)synchronousRemoteServiceWithErrorHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_6(&dword_231772000, v0, v1, "[%@] There is no current XPC connection, so no remote object proxy can be returned.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __43__SLDServiceProxy_synchronousRemoteService__block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) serviceClass];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SLDServiceProxy_remoteService__block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) serviceClass];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __43__SLDServiceProxy_setConnectionRetryCount___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __43__SLDServiceProxy_setConnectionRetryCount___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  v3 = *(*a1 + 24);
+  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  v9 = v4;
-  v10 = v5;
-  _os_log_debug_impl(&dword_231772000, v6, OS_LOG_TYPE_DEBUG, "[%@] Client requested to set connectionRetryCount=%lu. Sanitized value we set: %lu", v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_231772000, v2, OS_LOG_TYPE_DEBUG, "[%@] Client requested to set connectionRetryCount=%lu. Sanitized value we set: %lu", v3, 0x20u);
 }
 
 void __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_1(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 serviceClass];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_2(uint64_t *a1)
+void __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_231772000, v2, OS_LOG_TYPE_ERROR, "[%@] We could not retrieve a connection after attempting %lu times.", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_231772000, v0, OS_LOG_TYPE_ERROR, "[%@] We could not retrieve a connection after attempting %lu times.", v1, 0x16u);
 }
 
 void __42__SLDServiceProxy__establishNewConnection__block_invoke_cold_3(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [*a1 serviceClass];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receivedServiceConnection:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 serviceClass];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

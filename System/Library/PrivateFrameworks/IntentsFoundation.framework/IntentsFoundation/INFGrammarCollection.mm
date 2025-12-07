@@ -194,7 +194,7 @@ void __43__INFGrammarCollection_initWithDictionary___block_invoke_2(uint64_t a1,
 
 - (INFGrammarCollection)initWithGrammarCollectionNamed:(id)named bundle:(id)bundle language:(id)language
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   namedCopy = named;
   bundleCopy = bundle;
   languageCopy = language;
@@ -213,8 +213,8 @@ void __43__INFGrammarCollection_initWithDictionary___block_invoke_2(uint64_t a1,
   localizations = [mainBundle localizations];
   if (languageCopy)
   {
-    v24[0] = languageCopy;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = languageCopy;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     v16 = [v13 preferredLocalizationsFromArray:localizations forPreferences:v15];
   }
 
@@ -240,7 +240,6 @@ void __43__INFGrammarCollection_initWithDictionary___block_invoke_2(uint64_t a1,
     selfCopy = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

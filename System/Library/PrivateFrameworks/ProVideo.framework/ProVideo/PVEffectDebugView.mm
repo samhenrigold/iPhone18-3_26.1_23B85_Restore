@@ -451,7 +451,7 @@ void __59__PVEffectDebugView_updatePointsLayers_points_colors_size___block_invok
   }
 }
 
-void __72__PVEffectDebugView_updateUserRects_transformedLayer_effectScale_rects___block_invoke_3(uint64_t x0_0, void *a2)
+void __72__PVEffectDebugView_updateUserRects_transformedLayer_effectScale_rects___block_invoke_3(uint64_t a1, void *a2)
 {
   v15 = a2;
   v3 = [v15 ignoreTransform];
@@ -459,7 +459,7 @@ void __72__PVEffectDebugView_updateUserRects_transformedLayer_effectScale_rects_
   v5 = v4;
   if ((v3 & 1) == 0)
   {
-    v5 = v4 / *(x0_0 + 48);
+    v5 = v4 / *(a1 + 48);
   }
 
   v6 = [MEMORY[0x277CD9F90] layer];
@@ -479,7 +479,7 @@ void __72__PVEffectDebugView_updateUserRects_transformedLayer_effectScale_rects_
     v14 = 32;
   }
 
-  [*(x0_0 + v14) addSublayer:v6];
+  [*(a1 + v14) addSublayer:v6];
 }
 
 - (void)updateUserPoints:(id)points transformedLayer:(id)layer effectScale:(double)scale points:(id)a6
@@ -613,7 +613,7 @@ void __74__PVEffectDebugView_updateUserPoints_transformedLayer_effectScale_point
   v288 = 0u;
   v289 = 0u;
   v287 = 0u;
-  [(PVEffectDebugView *)self transform];
+  objc_msgSend_transform(self);
   v14 = *(MEMORY[0x277CBF2C0] + 16);
   v279 = *MEMORY[0x277CBF2C0];
   v15 = *(MEMORY[0x277CBF2C0] + 32);
@@ -662,9 +662,9 @@ void __74__PVEffectDebugView_updateUserPoints_transformedLayer_effectScale_point
   v282 = 0u;
   v280 = 0u;
   v279 = 0u;
-  [frameCopy transformInfo];
+  objc_msgSend_transformInfo(frameCopy);
   v28 = fmax(fabs(*&v283), 0.001);
-  [frameCopy transform];
+  objc_msgSend_transform(frameCopy);
   d = v296.d;
   b = v296.b;
   c = v296.c;
@@ -1087,7 +1087,7 @@ LABEL_41:
     [(PVEffectDebugView *)self updatePolygonLayer:hitAreaShapeLayer2 points:hitAreaPoints borderWidth:hitAreaShapeColor borderColor:&unk_28732D748 borderPhase:2.0 borderDashPattern:0.0];
 
     hitAreaMinimumSizeBoundingBoxLayer2 = [(PVEffectDebugView *)self hitAreaMinimumSizeBoundingBoxLayer];
-    ensureNSublayers(hitAreaMinimumSizeBoundingBoxLayer2, 1uLL);
+    ensureNSublayers(hitAreaMinimumSizeBoundingBoxLayer2, 1);
 
     hitAreaMinimumSizeBoundingBoxLayer3 = [(PVEffectDebugView *)self hitAreaMinimumSizeBoundingBoxLayer];
     sublayers = [hitAreaMinimumSizeBoundingBoxLayer3 sublayers];
@@ -1123,12 +1123,12 @@ LABEL_41:
   if ((v182 & 1) == 0)
   {
     cornerPointsLayer4 = [(PVEffectDebugView *)self cornerPointsLayer];
-    ensureNSublayers(cornerPointsLayer4, 4uLL);
+    ensureNSublayers(cornerPointsLayer4, 4);
 
     cornerPointsLayer5 = [(PVEffectDebugView *)self cornerPointsLayer];
     sublayers2 = [cornerPointsLayer5 sublayers];
 
-    [frameCopy cornerPoints];
+    objc_msgSend_cornerPoints(frameCopy);
     v187 = PVCGPointQuad_to_NSArray(&v296);
     options14 = [(PVEffectDebugView *)self options];
     cornerPointColors = [options14 cornerPointColors];
@@ -1188,7 +1188,7 @@ LABEL_41:
     {
       textCornerPointsContainerLayer4 = [(PVEffectDebugView *)self textCornerPointsContainerLayer];
       textFrames5 = [frameCopy textFrames];
-      ensureNSublayers(textCornerPointsContainerLayer4, 4 * [textFrames5 count]);
+      ensureNSublayers(textCornerPointsContainerLayer4, (4 * [textFrames5 count]));
 
       textCornerPointsContainerLayer5 = [(PVEffectDebugView *)self textCornerPointsContainerLayer];
       sublayers3 = [textCornerPointsContainerLayer5 sublayers];
@@ -1289,7 +1289,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke(uint64_t a1, v
   v7 = [v6 sublayers];
   v8 = [v7 objectAtIndexedSubscript:a3];
 
-  ensureNSublayers(v8, 1uLL);
+  ensureNSublayers(v8, 1);
   v9 = *(MEMORY[0x277CD9DE8] + 80);
   v47 = *(MEMORY[0x277CD9DE8] + 64);
   v48 = v9;
@@ -1310,7 +1310,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke(uint64_t a1, v
   [v8 setAnchorPoint:{v13, v14}];
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
     v16 = v43;
     v15 = v44;
     v18 = v45;
@@ -1352,7 +1352,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke(uint64_t a1, v
   v44 = 0u;
   if (v5)
   {
-    [v5 transformInfo];
+    objc_msgSend_transformInfo(v5, v43, v44, v45, v46);
     v23 = *&v47;
   }
 
@@ -1389,7 +1389,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke_97(uint64_t a1
   v2 = *(a1 + 32);
   if (a2)
   {
-    [a2 cornerPoints];
+    objc_msgSend_cornerPoints(a2);
   }
 
   else
@@ -1449,7 +1449,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke_97(uint64_t a1
   documentBoundingBoxColor = [optionsCopy documentBoundingBoxColor];
   setShapeLayerPathFromPointsWithStyle(layer, v11, clearColor, documentBoundingBoxColor, &unk_28732D760, 0.0, 2.0);
 
-  ensureNSublayers(layer, 2uLL);
+  ensureNSublayers(layer, 2);
   [layer bounds];
   v14 = v37.origin.x;
   v15 = v37.origin.y;
@@ -1547,7 +1547,7 @@ void __43__PVEffectDebugView_updateWithEffectFrame___block_invoke_97(uint64_t a1
   v15 = v10;
   [sublayers enumerateObjectsUsingBlock:&v29];
 
-  ensureNSublayers(layer, [v15 count] + 1);
+  ensureNSublayers(layer, ([v15 count] + 1));
   [layer bounds];
   v16 = v37.origin.x;
   v17 = v37.origin.y;
@@ -1715,7 +1715,7 @@ void __54__PVEffectDebugView_textBoundsLayerWithFrame_options___block_invoke(uin
   clearColor = [MEMORY[0x277D75348] clearColor];
   setShapeLayerPathFromPointsWithStyle(layer, v19, clearColor, hitAreaShapeColor, &unk_28732D7C0, 0.0, 2.0);
 
-  ensureNSublayers(layer, 0xAuLL);
+  ensureNSublayers(layer, 0xA);
   sublayers = [layer sublayers];
   v39[0] = MEMORY[0x277D85DD0];
   v39[1] = *"";
@@ -1733,7 +1733,7 @@ void __54__PVEffectDebugView_textBoundsLayerWithFrame_options___block_invoke(uin
   [layer2 setOpacity:v31];
   [layer2 setZPosition:-1.0];
   [layer addSublayer:layer2];
-  ensureNSublayers(layer2, 2uLL);
+  ensureNSublayers(layer2, 2);
   path = [layer path];
   sublayers2 = [layer2 sublayers];
   v34 = [sublayers2 objectAtIndexedSubscript:0];

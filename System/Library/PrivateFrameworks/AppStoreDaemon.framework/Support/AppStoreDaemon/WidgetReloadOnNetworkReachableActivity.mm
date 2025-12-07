@@ -19,7 +19,7 @@
 
 - (void)bootstrapWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(handler);
@@ -61,7 +61,7 @@
   swift_defaultActor_initialize();
   v7 = &self->$defaultActor[OBJC_IVAR____TtC9appstored38WidgetReloadOnNetworkReachableActivity_backoff];
   static Clock<>.continuous.getter();
-  v8 = sub_100085D40(&qword_10059D468);
+  v8 = sub_100085D40(&qword_10059D468, &qword_100436D88);
   *&v7[v8[12]] = 0;
   v9 = v8[13];
   v10 = type metadata accessor for ContinuousClock.Instant();

@@ -23,7 +23,7 @@
   v12 = &aBlock[-1] - v11;
   v13 = _Block_copy(block);
   v14 = self + OBJC_IVAR____TtC8NewsFeed25FormatVideoPlayerProvider_data;
-  v15 = *(type metadata accessor for FormatVideoPlayerData() + 36);
+  v15 = *(type metadata accessor for FormatVideoPlayerData(0) + 36);
   v16 = sub_1D72585BC();
   v17 = *(v16 - 8);
   (*(v17 + 16))(v12, &v14[v15], v16);
@@ -73,18 +73,19 @@
     swift_once();
   }
 
+  v3 = qword_1EDFFCEB0;
   sub_1D5B5472C(0, &qword_1EDF3C5E0, sub_1D5B8EA84, MEMORY[0x1E69E6F90]);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_1D7273AE0;
-  type metadata accessor for FormatVideoPlayerData();
-  v4 = sub_1D72583DC();
-  v6 = v5;
-  *(v3 + 56) = MEMORY[0x1E69E6158];
-  *(v3 + 64) = sub_1D5B7E2C0();
-  *(v3 + 32) = v4;
-  *(v3 + 40) = v6;
-  sub_1D7262EDC();
-  sub_1D725C30C();
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1D7273AE0;
+  type metadata accessor for FormatVideoPlayerData(0);
+  v5 = sub_1D72583DC();
+  v7 = v6;
+  *(v4 + 56) = MEMORY[0x1E69E6158];
+  *(v4 + 64) = sub_1D5B7E2C0();
+  *(v4 + 32) = v5;
+  *(v4 + 40) = v7;
+  v8 = sub_1D7262EDC();
+  sub_1D725C30C("Video playback ready to start for %{public}@", 44, 2, &dword_1D5B42000, v3, v8, v4);
 }
 
 - (void)playbackStarted

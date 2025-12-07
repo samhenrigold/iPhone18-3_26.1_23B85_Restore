@@ -29,7 +29,7 @@
 
 - (void)handleInterval:(id)interval
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   if (+[STYDeviceInfo isAppleInternal])
   {
@@ -87,16 +87,16 @@
 
   if (v12 <= 5000.0)
   {
-    v65 = 0;
-    v66 = &v65;
-    v67 = 0x3032000000;
-    v68 = __Block_byref_object_copy__0;
-    v69 = __Block_byref_object_dispose__0;
-    v17 = intervalCopy;
-    v70 = v17;
     v64 = 0;
-    v18 = [STYScenarioReport reportFromSignpostInterval:v17 error:&v64];
-    v19 = v64;
+    v65 = &v64;
+    v66 = 0x3032000000;
+    v67 = __Block_byref_object_copy__0;
+    v68 = __Block_byref_object_dispose__0;
+    v17 = intervalCopy;
+    v69 = v17;
+    v63 = 0;
+    v18 = [STYScenarioReport reportFromSignpostInterval:v17 error:&v63];
+    v19 = v63;
     v20 = v19;
     if (!v18)
     {
@@ -117,8 +117,8 @@
 
         else if ([v20 code] == -2000)
         {
-          v55 = +[STYFrameworkHelper sharedHelper];
-          logHandle2 = [v55 logHandle];
+          v54 = +[STYFrameworkHelper sharedHelper];
+          logHandle2 = [v54 logHandle];
 
           if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
           {
@@ -131,8 +131,8 @@
 
         else
         {
-          v56 = +[STYFrameworkHelper sharedHelper];
-          logHandle2 = [v56 logHandle];
+          v55 = +[STYFrameworkHelper sharedHelper];
+          logHandle2 = [v55 logHandle];
 
           if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
           {
@@ -145,8 +145,8 @@
 
       else
       {
-        v53 = +[STYFrameworkHelper sharedHelper];
-        logHandle2 = [v53 logHandle];
+        v52 = +[STYFrameworkHelper sharedHelper];
+        logHandle2 = [v52 logHandle];
 
         if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
         {
@@ -162,7 +162,7 @@
     logHandle2 = [v21 numberWithDouble:?];
     v23 = MEMORY[0x277CCABB0];
     endEvent2 = [v17 endEvent];
-    v57 = [v23 numberWithUnsignedInt:{objc_msgSend(endEvent2, "processID")}];
+    v56 = [v23 numberWithUnsignedInt:{objc_msgSend(endEvent2, "processID")}];
 
     v25 = +[STYFrameworkHelper sharedHelper];
     logHandle3 = [v25 logHandle];
@@ -236,17 +236,17 @@ LABEL_46:
               if (os_log_type_enabled(logHandle7, OS_LOG_TYPE_ERROR))
               {
                 +[STYUserScenarioCache sharedCache];
-                [objc_claimAutoreleasedReturnValue() scenarioIdForSignpostInterval:v66[5]];
+                [objc_claimAutoreleasedReturnValue() scenarioIdForSignpostInterval:v65[5]];
                 objc_claimAutoreleasedReturnValue();
                 [STYSpecialAppLaunchSignpostMonitorHelper handleInterval:];
               }
 
-              logHandle8 = v66[5];
-              v66[5] = 0;
+              logHandle8 = v65[5];
+              v65[5] = 0;
 LABEL_56:
 
 LABEL_57:
-              _Block_object_dispose(&v65, 8);
+              _Block_object_dispose(&v64, 8);
 
               goto LABEL_58;
             }
@@ -265,13 +265,13 @@ LABEL_57:
         block[1] = 3221225472;
         block[2] = __59__STYSpecialAppLaunchSignpostMonitorHelper_handleInterval___block_invoke;
         block[3] = &unk_279B9B810;
-        v63 = &v65;
+        v62 = &v64;
         block[4] = self;
-        v59 = v18;
-        v60 = logHandle2;
-        v61 = v57;
+        v58 = v18;
+        v59 = logHandle2;
+        v60 = v56;
         logHandle8 = v48;
-        v62 = logHandle8;
+        v61 = logHandle8;
         dispatch_async(v49, block);
         date2 = [MEMORY[0x277CBEAA8] date];
         v51 = dateOfLastTailspinRequest;
@@ -291,8 +291,8 @@ LABEL_57:
 LABEL_42:
       if (![(STYSpecialAppLaunchSignpostMonitorHelper *)self forceAppLaunchDiagnostics])
       {
-        v54 = +[STYFrameworkHelper sharedHelper];
-        logHandle8 = [v54 logHandle];
+        v53 = +[STYFrameworkHelper sharedHelper];
+        logHandle8 = [v53 logHandle];
 
         if (os_log_type_enabled(logHandle8, OS_LOG_TYPE_DEBUG))
         {
@@ -335,7 +335,6 @@ LABEL_45:
   }
 
 LABEL_58:
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __59__STYSpecialAppLaunchSignpostMonitorHelper_handleInterval___block_invoke(uint64_t a1)
@@ -350,7 +349,7 @@ void __59__STYSpecialAppLaunchSignpostMonitorHelper_handleInterval___block_invok
 
 - (void)processAppLaunch:(id)launch tailspinFilenamePrefix:(id)prefix duration:(id)duration andPID:(id)d reason:(id)reason
 {
-  v39[10] = *MEMORY[0x277D85DE8];
+  v38[10] = *MEMORY[0x277D85DE8];
   launchCopy = launch;
   prefixCopy = prefix;
   durationCopy = duration;
@@ -371,27 +370,27 @@ void __59__STYSpecialAppLaunchSignpostMonitorHelper_handleInterval___block_invok
     [STYGeneralSignpostMonitorHelper perfProblemDetected:launchCopy tailspinFilenamePrefix:?];
   }
 
-  v38[0] = kSTYScenarioReportRefKey;
-  v38[1] = kSTYTailspinFilenameKey;
-  v39[0] = v13;
-  v39[1] = v15;
-  v38[2] = kSTYScenarioStartTimeKey;
-  v38[3] = kSTYScenarioEndTimeKey;
-  v39[2] = v16;
-  v39[3] = v17;
-  v38[4] = kSTYScenarioReportKey;
-  v38[5] = kSTYReportTypeKey;
-  v39[4] = launchCopy;
-  v39[5] = kSTYAppLaunchReportType;
-  v38[6] = kSTYDurationKey;
-  v38[7] = kSTYThresholdKey;
-  v39[6] = durationCopy;
-  v39[7] = v18;
-  v38[8] = kSTYPIDKey;
-  v38[9] = kSTYReasonKey;
-  v39[8] = dCopy;
-  v39[9] = reasonCopy;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:10];
+  v37[0] = kSTYScenarioReportRefKey;
+  v37[1] = kSTYTailspinFilenameKey;
+  v38[0] = v13;
+  v38[1] = v15;
+  v37[2] = kSTYScenarioStartTimeKey;
+  v37[3] = kSTYScenarioEndTimeKey;
+  v38[2] = v16;
+  v38[3] = v17;
+  v37[4] = kSTYScenarioReportKey;
+  v37[5] = kSTYReportTypeKey;
+  v38[4] = launchCopy;
+  v38[5] = kSTYAppLaunchReportType;
+  v37[6] = kSTYDurationKey;
+  v37[7] = kSTYThresholdKey;
+  v38[6] = durationCopy;
+  v38[7] = v18;
+  v37[8] = kSTYPIDKey;
+  v37[9] = kSTYReasonKey;
+  v38[8] = dCopy;
+  v38[9] = reasonCopy;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:10];
   v22 = +[STYFrameworkHelper sharedHelper];
   logHandle2 = [v22 logHandle];
 
@@ -413,13 +412,11 @@ void __59__STYSpecialAppLaunchSignpostMonitorHelper_handleInterval___block_invok
   block[1] = 3221225472;
   block[2] = __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFilenamePrefix_duration_andPID_reason___block_invoke;
   block[3] = &unk_279B9B4C0;
-  v36 = v13;
-  v37 = launchCopy;
+  v35 = v13;
+  v36 = launchCopy;
   v29 = launchCopy;
   v30 = v13;
   dispatch_after(v27, v28, block);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFilenamePrefix_duration_andPID_reason___block_invoke(uint64_t a1)
@@ -443,7 +440,6 @@ void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFi
 
 - (void)handleInterval:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   +[STYUserScenarioCache sharedCache];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_13();
@@ -451,8 +447,6 @@ void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFi
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterval:(os_log_t)log .cold.2(char a1, uint8_t *buf, os_log_t log)
@@ -467,14 +461,6 @@ void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFi
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)handleInterval:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInterval:.cold.5()
@@ -516,7 +502,6 @@ void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFi
 
 - (void)handleInterval:.cold.14()
 {
-  v9 = *MEMORY[0x277D85DE8];
   +[STYUserScenarioCache sharedCache];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_13();
@@ -524,19 +509,14 @@ void __107__STYSpecialAppLaunchSignpostMonitorHelper_processAppLaunch_tailspinFi
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAppLaunch:(void *)a1 tailspinFilenamePrefix:duration:andPID:reason:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -83,8 +83,8 @@
 
 - (id)dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"summary";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"summary";
   summary = self->_summary;
   null = summary;
   if (!summary)
@@ -92,8 +92,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v10[1] = @"canonicalID";
-  v11[0] = null;
+  v9[1] = @"canonicalID";
+  v10[0] = null;
   canonicalID = self->_canonicalID;
   null2 = canonicalID;
   if (!canonicalID)
@@ -101,8 +101,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (canonicalID)
   {
     if (summary)
@@ -121,7 +121,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

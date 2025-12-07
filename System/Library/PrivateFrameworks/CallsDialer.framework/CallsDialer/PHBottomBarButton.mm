@@ -18,8 +18,10 @@
 - (void)layoutSubviews;
 - (void)refreshForCallState:(int64_t)state;
 - (void)setBackgroundColor:(id)color;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setHighlighted:(BOOL)highlighted;
 - (void)setOrientation:(int64_t)orientation;
+- (void)setSelected:(BOOL)selected;
 - (void)setUsesSmallerFontSize:(BOOL)size;
 @end
 
@@ -111,15 +113,15 @@ void __32__PHBottomBarButton_defaultFont__block_invoke()
 
 - (PHBottomBarButton)initWithConfiguration:(id)configuration appType:(int64_t)type
 {
-  v126[2] = *MEMORY[0x277D85DE8];
+  v125[2] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v125.receiver = self;
-  v125.super_class = PHBottomBarButton;
+  v124.receiver = self;
+  v124.super_class = PHBottomBarButton;
   v7 = *MEMORY[0x277CBF3A0];
   v8 = *(MEMORY[0x277CBF3A0] + 8);
   v9 = *(MEMORY[0x277CBF3A0] + 16);
   v10 = *(MEMORY[0x277CBF3A0] + 24);
-  v11 = [(PHBottomBarButton *)&v125 initWithFrame:*MEMORY[0x277CBF3A0], v8, v9, v10];
+  v11 = [(PHBottomBarButton *)&v124 initWithFrame:*MEMORY[0x277CBF3A0], v8, v9, v10];
   if (!v11)
   {
     goto LABEL_36;
@@ -353,9 +355,9 @@ void __32__PHBottomBarButton_defaultFont__block_invoke()
       v92 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:0];
       [(PHBottomBarButton *)v11 setEffectView:v92];
 
-      v126[0] = colorEffect2;
-      v126[1] = v91;
-      v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v126 count:2];
+      v125[0] = colorEffect2;
+      v125[1] = v91;
+      v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:2];
       effectView = [(PHBottomBarButton *)v11 effectView];
       [effectView setBackgroundEffects:v93];
 
@@ -390,20 +392,20 @@ void __32__PHBottomBarButton_defaultFont__block_invoke()
 
   if (backgroundMaterial)
   {
-    v115 = objc_alloc(MEMORY[0x277D75D68]);
+    v114 = objc_alloc(MEMORY[0x277D75D68]);
     backgroundMaterial2 = [configurationCopy backgroundMaterial];
-    v117 = [v115 initWithEffect:backgroundMaterial2];
-    [(PHBottomBarButton *)v11 setEffectView:v117];
+    v116 = [v114 initWithEffect:backgroundMaterial2];
+    [(PHBottomBarButton *)v11 setEffectView:v116];
 
     effectView8 = [(PHBottomBarButton *)v11 effectView];
     [effectView8 setAutoresizingMask:18];
 
     layer4 = [(PHBottomBarButton *)v11 layer];
     [layer4 cornerRadius];
-    v121 = v120;
+    v120 = v119;
     effectView9 = [(PHBottomBarButton *)v11 effectView];
     layer5 = [effectView9 layer];
-    [layer5 setCornerRadius:v121];
+    [layer5 setCornerRadius:v120];
 
     effectView10 = [(PHBottomBarButton *)v11 effectView];
     [effectView10 setClipsToBounds:1];
@@ -429,7 +431,6 @@ LABEL_33:
 
 LABEL_36:
 
-  v112 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -535,7 +536,7 @@ LABEL_36:
 {
   height = rect.size.height;
   width = rect.size.width;
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CBF3A0];
   v6 = *(MEMORY[0x277CBF3A0] + 8);
   v8 = *(MEMORY[0x277CBF3A0] + 16);
@@ -576,9 +577,9 @@ LABEL_36:
 
       v21 = defaultFont;
 
-      v43 = *MEMORY[0x277D740A8];
-      v44[0] = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v42 = *MEMORY[0x277D740A8];
+      v43[0] = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       currentTitle2 = [(PHBottomBarButton *)self currentTitle];
       [currentTitle2 boundingRectWithSize:1 options:v22 attributes:0 context:{3.40282347e38, 3.40282347e38}];
       v25 = v24;
@@ -642,19 +643,18 @@ LABEL_36:
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-  v39 = v7;
-  v40 = v6;
-  v41 = v8;
-  v42 = v9;
-  result.size.height = v42;
-  result.size.width = v41;
-  result.origin.y = v40;
-  result.origin.x = v39;
+  v38 = v7;
+  v39 = v6;
+  v40 = v8;
+  v41 = v9;
+  result.size.height = v41;
+  result.size.width = v40;
+  result.origin.y = v39;
+  result.origin.x = v38;
   return result;
 }
 
-uint64_t __37__PHBottomBarButton_titleRectYOffset__block_invoke()
+void *__37__PHBottomBarButton_titleRectYOffset__block_invoke()
 {
   result = [MEMORY[0x277D3A7E0] inCallBottomBarSpacing];
   v1 = 8.0;
@@ -703,6 +703,19 @@ uint64_t __37__PHBottomBarButton_titleRectYOffset__block_invoke()
   [v8 setAlpha:0.400000006];
   [v8 setUserInteractionEnabled:0];
   return v8;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  isEnabled = [(PHBottomBarButton *)self isEnabled];
+  v6.receiver = self;
+  v6.super_class = PHBottomBarButton;
+  [(PHBottomBarButton *)&v6 setEnabled:enabledCopy];
+  if (isEnabled != enabledCopy)
+  {
+    [(PHBottomBarButton *)self _performSetEnabled:enabledCopy];
+  }
 }
 
 - (void)_performSetEnabled:(BOOL)enabled
@@ -858,6 +871,19 @@ LABEL_3:
     [layer addAnimation:v8 forKey:@"opacityAnimation"];
 
     [MEMORY[0x277CD9FF0] commit];
+  }
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  isSelected = [(PHBottomBarButton *)self isSelected];
+  v6.receiver = self;
+  v6.super_class = PHBottomBarButton;
+  [(PHBottomBarButton *)&v6 setSelected:selectedCopy];
+  if (isSelected != selectedCopy)
+  {
+    [(PHBottomBarButton *)self _performSetSelected:selectedCopy];
   }
 }
 

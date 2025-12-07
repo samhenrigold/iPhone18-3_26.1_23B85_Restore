@@ -713,7 +713,7 @@ uint64_t __47__WLSQLController_insertRecordSummary_account___block_invoke(uint64
 
 void __104__WLSQLController__totalSummarySegmentCountForAccounts_migrationStateComparisonOperator_migrationState___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = 0;
@@ -757,16 +757,16 @@ void __104__WLSQLController__totalSummarySegmentCountForAccounts_migrationStateC
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = *(a1 + 32);
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       v12 = 1;
       do
       {
@@ -774,17 +774,17 @@ void __104__WLSQLController__totalSummarySegmentCountForAccounts_migrationStateC
         v14 = v12;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
           v12 = v14 + 1;
-          sqlite3_bind_int64(ppStmt, v14++, [*(*(&v16 + 1) + 8 * v13++) sqlID]);
+          sqlite3_bind_int64(ppStmt, v14++, [*(*(&v15 + 1) + 8 * v13++) sqlID]);
         }
 
         while (v10 != v13);
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v10);
@@ -810,8 +810,6 @@ void __104__WLSQLController__totalSummarySegmentCountForAccounts_migrationStateC
 
     sqlite3_finalize(ppStmt);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)totalSummaryItemSizeForAccounts:(id)accounts addOverhead:(BOOL)overhead completion:(id)completion
@@ -843,7 +841,7 @@ void __104__WLSQLController__totalSummarySegmentCountForAccounts_migrationStateC
 
 void __74__WLSQLController_totalSummaryItemSizeForAccounts_addOverhead_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = 0;
@@ -900,16 +898,16 @@ void __74__WLSQLController_totalSummaryItemSizeForAccounts_addOverhead_completio
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v11 = *(a1 + 32);
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       v15 = 1;
       do
       {
@@ -917,17 +915,17 @@ void __74__WLSQLController_totalSummaryItemSizeForAccounts_addOverhead_completio
         v17 = v15;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
           v15 = v17 + 1;
-          sqlite3_bind_int64(ppStmt, v17++, [*(*(&v19 + 1) + 8 * v16++) sqlID]);
+          sqlite3_bind_int64(ppStmt, v17++, [*(*(&v18 + 1) + 8 * v16++) sqlID]);
         }
 
         while (v13 != v16);
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v13);
@@ -953,8 +951,6 @@ void __74__WLSQLController_totalSummaryItemSizeForAccounts_addOverhead_completio
 
     sqlite3_finalize(ppStmt);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setData:(id)data forSummary:(id)summary
@@ -1244,39 +1240,32 @@ uint64_t __34__WLSQLController_migrationErrors__block_invoke(uint64_t a1)
   {
     if (sqlite3_step(ppStmt) == 100)
     {
-      v3 = 0x277CCA000uLL;
-      v4 = 0x277CCA000uLL;
-      v15 = v1;
+      v10 = v1;
       do
       {
-        v5 = sqlite3_column_bytes(ppStmt, 0);
-        if (v5 >= 1)
+        v3 = sqlite3_column_bytes(ppStmt, 0);
+        if (v3 >= 1)
         {
-          v6 = [MEMORY[0x277CBEA90] dataWithBytes:sqlite3_column_blob(ppStmt length:{0), v5}];
-          if (v6)
+          v4 = [MEMORY[0x277CBEA90] dataWithBytes:sqlite3_column_blob(ppStmt length:{0), v3}];
+          if (v4)
           {
-            v7 = *(v3 + 2760);
-            v8 = [*(v4 + 2488) wl_encodableErrorSupportedClasses];
-            v16 = 0;
-            v9 = [v7 unarchivedObjectOfClasses:v8 fromData:v6 error:&v16];
-            v10 = v16;
+            v5 = MEMORY[0x277CCAAC8];
+            v6 = [MEMORY[0x277CCA9B8] wl_encodableErrorSupportedClasses];
+            v11 = 0;
+            v7 = [v5 unarchivedObjectOfClasses:v6 fromData:v4 error:&v11];
+            v8 = v11;
 
-            if (v9)
+            if (v7)
             {
-              [*(v1 + 40) addObject:v9];
+              [*(v1 + 40) addObject:v7];
             }
 
             else
             {
-              v11 = v4;
-              v12 = v3;
-              v13 = *(v1 + 32);
-              v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "length")}];
-              v3 = v12;
-              v4 = v11;
+              v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "length")}];
               _WLLog();
 
-              v1 = v15;
+              v1 = v10;
             }
           }
         }
@@ -1340,54 +1329,52 @@ uint64_t __48__WLSQLController_updateModifiedDateForSummary___block_invoke(uint6
 
 - (id)summariesForAccount:(id)account
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = MEMORY[0x277CBEA60];
   accountCopy2 = account;
   v6 = [v4 arrayWithObjects:&accountCopy count:1];
 
-  v7 = [(WLSQLController *)self summariesForAccounts:v6 sortedByModifiedDate:0, accountCopy, v11];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(WLSQLController *)self summariesForAccounts:v6 sortedByModifiedDate:0, accountCopy, v10];
 
   return v7;
 }
 
 - (id)summariesForAccounts:(id)accounts sortedByModifiedDate:(BOOL)date
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__3;
-  v34 = __Block_byref_object_dispose__3;
-  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__3;
+  v33 = __Block_byref_object_dispose__3;
+  v34 = 0;
   v7 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(accountsCopy, "count")}];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = accountsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v9)
   {
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "sqlID")}];
         [v7 setObject:v12 forKey:v13];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v9);
@@ -1400,23 +1387,22 @@ uint64_t __48__WLSQLController_updateModifiedDateForSummary___block_invoke(uint6
   block[3] = &unk_279EB6120;
   v15 = v8;
   dateCopy = date;
-  v21 = v15;
+  v20 = v15;
   selfCopy = self;
-  v24 = &v30;
+  v23 = &v29;
   v16 = v7;
-  v23 = v16;
+  v22 = v16;
   dispatch_sync(databaseQueue, block);
-  v17 = [v31[5] copy];
+  v17 = [v30[5] copy];
 
-  _Block_object_dispose(&v30, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 
   return v17;
 }
 
 void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = 0;
@@ -1470,17 +1456,17 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
 
   else
   {
-    v42 = v7;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v41 = v7;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v10 = *(a1 + 32);
-    v11 = [v10 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v45;
+      v13 = *v44;
       v14 = 1;
       do
       {
@@ -1488,17 +1474,17 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
         v16 = v14;
         do
         {
-          if (*v45 != v13)
+          if (*v44 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
           v14 = v16 + 1;
-          sqlite3_bind_int64(ppStmt, v16++, [*(*(&v44 + 1) + 8 * v15++) sqlID]);
+          sqlite3_bind_int64(ppStmt, v16++, [*(*(&v43 + 1) + 8 * v15++) sqlID]);
         }
 
         while (v12 != v15);
-        v12 = [v10 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v12);
@@ -1553,9 +1539,9 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
         v30 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v29 length:v28 freeWhenDone:0];
         if (v30)
         {
-          v43 = 0;
-          v31 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v30 options:0 error:&v43];
-          v32 = v43;
+          v42 = 0;
+          v31 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v30 options:0 error:&v42];
+          v32 = v42;
           if (v31 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
             [(WLSourceDeviceRecordSummary *)v20 setMetadata:v31];
@@ -1563,8 +1549,8 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
 
           else if (v32)
           {
-            v40 = *(a1 + 40);
-            v41 = v32;
+            v39 = *(a1 + 40);
+            v40 = v32;
             _WLLog();
           }
         }
@@ -1576,7 +1562,7 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
       v36 = [v34 objectForKeyedSubscript:v35];
       [(WLSourceDeviceRecordSummary *)v20 setAccount:v36];
 
-      [(WLSourceDeviceRecordSummary *)v20 setDidDownload:sqlite3_column_int(ppStmt, 10) > 0, v40, v41];
+      [(WLSourceDeviceRecordSummary *)v20 setDidDownload:sqlite3_column_int(ppStmt, 10) > 0, v39, v40];
       v37 = sqlite3_column_text(ppStmt, 11);
       if (v37)
       {
@@ -1595,10 +1581,8 @@ void __61__WLSQLController_summariesForAccounts_sortedByModifiedDate___block_inv
     }
 
     sqlite3_finalize(ppStmt);
-    v7 = v42;
+    v7 = v41;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)migrationMetadataForSourceDevice:(id)device strictMatch:(BOOL)match
@@ -1945,41 +1929,36 @@ uint64_t __44__WLSQLController__migratableAppsForDevice___block_invoke(uint64_t 
     {
       v9 = 0x277CBE000uLL;
       v10 = 0x277CCA000uLL;
-      v11 = 0x277CCA000uLL;
       do
       {
-        v12 = sqlite3_column_bytes(ppStmt, 0);
-        if (v12 >= 1)
+        v11 = sqlite3_column_bytes(ppStmt, 0);
+        if (v11 >= 1)
         {
-          v13 = [*(v9 + 2704) dataWithBytes:sqlite3_column_blob(ppStmt length:{0), v12}];
-          if (v13)
+          v12 = [*(v9 + 2704) dataWithBytes:sqlite3_column_blob(ppStmt length:{0), v11}];
+          if (v12)
           {
-            v14 = *(v10 + 2760);
-            v15 = MEMORY[0x277CBEB98];
+            v13 = MEMORY[0x277CCAAC8];
+            v14 = MEMORY[0x277CBEB98];
+            v15 = objc_opt_class();
             v16 = objc_opt_class();
-            v17 = objc_opt_class();
-            v18 = *(v11 + 2992);
-            v19 = [v15 setWithObjects:{v16, v17, objc_opt_class(), 0}];
-            v25 = 0;
-            v20 = [v14 unarchivedObjectOfClasses:v19 fromData:v13 error:&v25];
-            v21 = v25;
+            v17 = [v14 setWithObjects:{v15, v16, objc_opt_class(), 0}];
+            v21 = 0;
+            v18 = [v13 unarchivedObjectOfClasses:v17 fromData:v12 error:&v21];
+            v19 = v21;
 
-            if (v20)
+            if (v18)
             {
-              [*(a1 + 48) addObject:v20];
+              [*(a1 + 48) addObject:v18];
             }
 
             else
             {
-              v22 = v10;
-              v23 = *(a1 + 40);
-              v24 = [*(v11 + 2992) numberWithUnsignedInteger:{objc_msgSend(v13, "length")}];
-              v10 = v22;
+              v20 = [*(v10 + 2992) numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
               v9 = 0x277CBE000;
               _WLLog();
             }
 
-            v11 = 0x277CCA000;
+            v10 = 0x277CCA000;
           }
         }
       }
@@ -2842,10 +2821,8 @@ void __44__WLSQLController__performQuery_rowHandler___block_invoke(uint64_t a1)
   ppStmt = 0;
   if (sqlite3_prepare_v2(*(*(a1 + 32) + 8), [*(a1 + 40) UTF8String], -1, &ppStmt, 0))
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v4 = NSStringFromClass(v3);
-    v5 = *(a1 + 40);
+    v2 = objc_opt_class();
+    v3 = NSStringFromClass(v2);
     sqlite3_errcode(*(*(a1 + 32) + 8));
     sqlite3_errmsg(*(*(a1 + 32) + 8));
     _WLLog();
@@ -2855,16 +2832,16 @@ void __44__WLSQLController__performQuery_rowHandler___block_invoke(uint64_t a1)
   {
     if (sqlite3_step(ppStmt) == 100)
     {
-      v6 = 0;
+      v4 = 0;
       do
       {
-        v7 = *(a1 + 48);
-        if (v7)
+        v5 = *(a1 + 48);
+        if (v5)
         {
-          (*(v7 + 16))(v7, ppStmt);
+          (*(v5 + 16))(v5, ppStmt);
         }
 
-        ++v6;
+        ++v4;
       }
 
       while (sqlite3_step(ppStmt) == 100);
@@ -2872,27 +2849,27 @@ void __44__WLSQLController__performQuery_rowHandler___block_invoke(uint64_t a1)
 
     else
     {
-      v6 = 0;
+      v4 = 0;
     }
 
     if (sqlite3_errcode(*(*(a1 + 32) + 8)) == 101 || sqlite3_errcode(*(*(a1 + 32) + 8)) < 1)
     {
-      v12 = [*(a1 + 40) uppercaseString];
-      v13 = [v12 hasPrefix:@"INSERT"];
+      v8 = [*(a1 + 40) uppercaseString];
+      v9 = [v8 hasPrefix:@"INSERT"];
 
-      if (v13)
+      if (v9)
       {
         *(*(*(a1 + 56) + 8) + 24) = sqlite3_last_insert_rowid(*(*(a1 + 32) + 8));
       }
 
       else
       {
-        v14 = [*(a1 + 40) uppercaseString];
-        v15 = [v14 hasPrefix:@"SELECT"];
+        v10 = [*(a1 + 40) uppercaseString];
+        v11 = [v10 hasPrefix:@"SELECT"];
 
-        if (v15)
+        if (v11)
         {
-          *(*(*(a1 + 56) + 8) + 24) = v6;
+          *(*(*(a1 + 56) + 8) + 24) = v4;
         }
 
         else
@@ -2904,10 +2881,8 @@ void __44__WLSQLController__performQuery_rowHandler___block_invoke(uint64_t a1)
 
     else
     {
-      v8 = *(a1 + 32);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 40);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       sqlite3_errcode(*(*(a1 + 32) + 8));
       sqlite3_errmsg(*(*(a1 + 32) + 8));
       _WLLog();

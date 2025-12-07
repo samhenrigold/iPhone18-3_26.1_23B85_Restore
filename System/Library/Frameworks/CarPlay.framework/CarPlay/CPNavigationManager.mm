@@ -19,6 +19,7 @@
 - (void)_resetRouteGuidanceIsRequired:(BOOL)required;
 - (void)_sendRouteLine;
 - (void)_setupConnection;
+- (void)_startNavigationWithRouteInfo:(id)info originalState:(unsigned __int8)state;
 - (void)activeNavigationIdentifiersChangedTo:(id)to;
 - (void)addLaneGuidances:(id)guidances;
 - (void)addManeuvers:(id)maneuvers;
@@ -42,8 +43,10 @@
 - (void)setRouteGuidance:(id)guidance;
 - (void)setRouteLine:(id)line;
 - (void)setSupportsAccNav:(BOOL)nav;
+- (void)setSupportsRouteSharing:(BOOL)sharing;
 - (void)startNavigationWithRouteInfo:(id)info;
 - (void)startRerouting;
+- (void)vehicleStateManager:(id)manager didUpdateRouteSharingEnabled:(BOOL)enabled;
 - (void)willSendGuidanceStateLoading;
 @end
 
@@ -89,7 +92,7 @@
 
 - (void)_setupConnection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.carkit.navigation.service" options:4096];
   v4 = CRNavigationClientInterface();
   [v3 setExportedInterface:v4];
@@ -99,54 +102,51 @@
   [v3 setRemoteObjectInterface:v5];
 
   objc_initWeak(&location, self);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __39__CPNavigationManager__setupConnection__block_invoke;
-  v17[3] = &unk_278A106E0;
-  objc_copyWeak(&v18, &location);
-  [v3 setInterruptionHandler:v17];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __39__CPNavigationManager__setupConnection__block_invoke_2;
-  v15[3] = &unk_278A106E0;
-  objc_copyWeak(&v16, &location);
-  [v3 setInvalidationHandler:v15];
-  v6 = CarPlayFrameworkACCNavLogging();
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __39__CPNavigationManager__setupConnection__block_invoke;
+  v16[3] = &unk_278A106E0;
+  objc_copyWeak(&v17, &location);
+  [v3 setInterruptionHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __39__CPNavigationManager__setupConnection__block_invoke_2;
+  v14[3] = &unk_278A106E0;
+  objc_copyWeak(&v15, &location);
+  v6 = CarPlayFrameworkACCNavLogging([v3 setInvalidationHandler:v14]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = v3;
+    v20 = v3;
     _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to CarKit navigation service %{public}@.", buf, 0xCu);
   }
 
   [v3 resume];
   [(CPNavigationManager *)self setConnection:v3];
   navigationService = [(CPNavigationManager *)self navigationService];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __39__CPNavigationManager__setupConnection__block_invoke_231;
-  v13[3] = &unk_278A10708;
-  objc_copyWeak(&v14, &location);
-  [navigationService fetchNavigationOwnerWithReply:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __39__CPNavigationManager__setupConnection__block_invoke_231;
+  v12[3] = &unk_278A10708;
+  objc_copyWeak(&v13, &location);
+  [navigationService fetchNavigationOwnerWithReply:v12];
 
   navigationService2 = [(CPNavigationManager *)self navigationService];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __39__CPNavigationManager__setupConnection__block_invoke_233;
-  v11[3] = &unk_278A10730;
-  objc_copyWeak(&v12, &location);
-  [navigationService2 fetchNavigationIdentifiersWithReply:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __39__CPNavigationManager__setupConnection__block_invoke_233;
+  v10[3] = &unk_278A10730;
+  objc_copyWeak(&v11, &location);
+  [navigationService2 fetchNavigationIdentifiersWithReply:v10];
 
   navigationService3 = [(CPNavigationManager *)self navigationService];
   [navigationService3 beginObserving];
 
-  objc_destroyWeak(&v12);
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (CPNavigationManagerDelegate)delegate
@@ -158,39 +158,40 @@
 
 - (CPNavigationManager)initWithIdentifier:(id)identifier delegate:(id)delegate
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   delegateCopy = delegate;
-  v58.receiver = self;
-  v58.super_class = CPNavigationManager;
-  v8 = [(CPNavigationManager *)&v58 init];
+  v61.receiver = self;
+  v61.super_class = CPNavigationManager;
+  v8 = [(CPNavigationManager *)&v61 init];
+  v9 = v8;
   if (!v8)
   {
     goto LABEL_30;
   }
 
-  v9 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = CarPlayFrameworkACCNavLogging(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v61 = identifierCopy;
-    v62 = 2112;
-    v63 = delegateCopy;
-    _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "init! identifier=%{public}@ delegate=%@", buf, 0x16u);
+    v64 = identifierCopy;
+    v65 = 2112;
+    v66 = delegateCopy;
+    _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "init! identifier=%{public}@ delegate=%@", buf, 0x16u);
   }
 
-  v10 = [identifierCopy copy];
-  identifier = v8->_identifier;
-  v8->_identifier = v10;
+  v11 = [identifierCopy copy];
+  identifier = v9->_identifier;
+  v9->_identifier = v11;
 
-  objc_storeWeak(&v8->_delegate, delegateCopy);
-  v8->_ownershipRequested = 0;
+  objc_storeWeak(&v9->_delegate, delegateCopy);
+  v9->_ownershipRequested = 0;
   if (![identifierCopy isEqualToString:@"com.apple.Maps"])
   {
     if ([identifierCopy isEqualToString:@"CPNavTool"])
     {
-      bundleName = v8->_bundleName;
-      v8->_bundleName = @"CPNavTool";
+      bundleName = v9->_bundleName;
+      v9->_bundleName = @"CPNavTool";
       goto LABEL_21;
     }
 
@@ -199,31 +200,32 @@
       goto LABEL_22;
     }
 
-    v55 = 0;
-    v15 = [MEMORY[0x277CC1E70] bundleRecordWithApplicationIdentifier:identifierCopy error:&v55];
-    bundleName = v55;
+    v58 = 0;
+    v16 = [MEMORY[0x277CC1E70] bundleRecordWithApplicationIdentifier:identifierCopy error:&v58];
+    bundleName = v58;
     objc_opt_class();
-    v16 = v15;
-    if (objc_opt_isKindOfClass())
+    v17 = v16;
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      if (v16)
+      if (v17)
       {
-        v17 = [v16 localizedNameWithContext:@"Car"];
-        v18 = v17;
-        if (v17)
+        v19 = [v17 localizedNameWithContext:@"Car"];
+        v20 = v19;
+        if (v19)
         {
-          localizedName = v17;
+          localizedName = v19;
         }
 
         else
         {
-          localizedName = [v16 localizedName];
+          localizedName = [v17 localizedName];
         }
 
-        v23 = v8->_bundleName;
-        v8->_bundleName = localizedName;
+        v25 = v9->_bundleName;
+        v9->_bundleName = localizedName;
 
-        v21 = v16;
+        v23 = v17;
         goto LABEL_20;
       }
     }
@@ -231,124 +233,123 @@
     else
     {
 
-      if (v16)
+      if (v17)
       {
-        localizedName2 = [v16 localizedName];
-        v21 = v8->_bundleName;
-        v8->_bundleName = localizedName2;
+        localizedName2 = [v17 localizedName];
+        v23 = v9->_bundleName;
+        v9->_bundleName = localizedName2;
 LABEL_20:
 
         goto LABEL_21;
       }
     }
 
-    v21 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = CarPlayFrameworkACCNavLogging(isKindOfClass);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [(NSString *)bundleName description];
+      v24 = [(NSString *)bundleName description];
       *buf = 138412290;
-      v61 = v22;
-      _os_log_impl(&dword_236ED4000, v21, OS_LOG_TYPE_DEFAULT, "Unable to retrieve app record: %@", buf, 0xCu);
+      v64 = v24;
+      _os_log_impl(&dword_236ED4000, v23, OS_LOG_TYPE_DEFAULT, "Unable to retrieve app record: %@", buf, 0xCu);
     }
 
     goto LABEL_20;
   }
 
-  v12 = CPLocalizedStringForKey(@"APPLE_MAPS");
-  v13 = v8->_bundleName;
-  v8->_bundleName = v12;
+  v13 = CPLocalizedStringForKey(@"APPLE_MAPS");
+  v14 = v9->_bundleName;
+  v9->_bundleName = v13;
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke;
   block[3] = &unk_278A105A0;
-  v57 = v8;
+  v60 = v9;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  bundleName = &v57->super.isa;
+  bundleName = &v60->super.isa;
 LABEL_21:
 
 LABEL_22:
-  v24 = objc_opt_new();
-  accNavControllersIndexed = v8->_accNavControllersIndexed;
-  v8->_accNavControllersIndexed = v24;
-
   v26 = objc_opt_new();
-  maneuversIndexed = v8->_maneuversIndexed;
-  v8->_maneuversIndexed = v26;
+  accNavControllersIndexed = v9->_accNavControllersIndexed;
+  v9->_accNavControllersIndexed = v26;
 
   v28 = objc_opt_new();
-  laneGuidanceIndexed = v8->_laneGuidanceIndexed;
-  v8->_laneGuidanceIndexed = v28;
+  maneuversIndexed = v9->_maneuversIndexed;
+  v9->_maneuversIndexed = v28;
 
-  v30 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
-  v31 = dispatch_queue_create("com.apple.carkit.navigation.xpcConnection", v30);
-  connectionQueue = v8->_connectionQueue;
-  v8->_connectionQueue = v31;
+  v30 = objc_opt_new();
+  laneGuidanceIndexed = v9->_laneGuidanceIndexed;
+  v9->_laneGuidanceIndexed = v30;
 
-  connectionQueue = [(CPNavigationManager *)v8 connectionQueue];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_174;
-  v53[3] = &unk_278A105A0;
-  v34 = v8;
-  v54 = v34;
-  dispatch_sync(connectionQueue, v53);
+  v32 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_DEFAULT, 0);
+  v33 = dispatch_queue_create("com.apple.carkit.navigation.xpcConnection", v32);
+  connectionQueue = v9->_connectionQueue;
+  v9->_connectionQueue = v33;
 
-  v35 = [[CPVehicleStateManager alloc] initWithDelegate:v34];
-  vehicleStateManager = v34->_vehicleStateManager;
-  v34->_vehicleStateManager = v35;
+  connectionQueue = [(CPNavigationManager *)v9 connectionQueue];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_174;
+  v56[3] = &unk_278A105A0;
+  v36 = v9;
+  v57 = v36;
+  dispatch_sync(connectionQueue, v56);
 
-  v37 = CarPlayFrameworkACCNavLogging();
-  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG);
+  v37 = [[CPVehicleStateManager alloc] initWithDelegate:v36];
+  vehicleStateManager = v36->_vehicleStateManager;
+  v36->_vehicleStateManager = v37;
 
-  v39 = CarPlayFrameworkACCNavLogging();
-  v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
-  if (v38)
+  v40 = CarPlayFrameworkACCNavLogging(v39);
+  v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG);
+
+  v43 = CarPlayFrameworkACCNavLogging(v42);
+  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+  if (v41)
   {
-    if (v40)
+    if (v44)
     {
       *buf = 0;
-      _os_log_impl(&dword_236ED4000, v39, OS_LOG_TYPE_DEFAULT, "[StateCapture] enabled", buf, 2u);
+      _os_log_impl(&dword_236ED4000, v43, OS_LOG_TYPE_DEFAULT, "[StateCapture] enabled", buf, 2u);
     }
 
-    objc_initWeak(buf, v34);
-    v41 = [CYStateCapture alloc];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180;
-    v51[3] = &unk_278A105C8;
-    objc_copyWeak(&v52, buf);
-    v42 = [(CYStateCapture *)v41 initWithIdentifier:@"Maneuvers" capture:v51];
-    v59[0] = v42;
-    v43 = [CYStateCapture alloc];
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187;
-    v49[3] = &unk_278A105C8;
-    objc_copyWeak(&v50, buf);
-    v44 = [(CYStateCapture *)v43 initWithIdentifier:@"LaneGuidances" capture:v49];
-    v59[1] = v44;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-    stateCaptures = v34->_stateCaptures;
-    v34->_stateCaptures = v45;
+    objc_initWeak(buf, v36);
+    v45 = [CYStateCapture alloc];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180;
+    v54[3] = &unk_278A105C8;
+    objc_copyWeak(&v55, buf);
+    v46 = [(CYStateCapture *)v45 initWithIdentifier:@"Maneuvers" capture:v54];
+    v62[0] = v46;
+    v47 = [CYStateCapture alloc];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187;
+    v52[3] = &unk_278A105C8;
+    objc_copyWeak(&v53, buf);
+    v48 = [(CYStateCapture *)v47 initWithIdentifier:@"LaneGuidances" capture:v52];
+    v62[1] = v48;
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    stateCaptures = v36->_stateCaptures;
+    v36->_stateCaptures = v49;
 
-    objc_destroyWeak(&v50);
-    objc_destroyWeak(&v52);
+    objc_destroyWeak(&v53);
+    objc_destroyWeak(&v55);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (v40)
+    if (v44)
     {
       *buf = 0;
-      _os_log_impl(&dword_236ED4000, v39, OS_LOG_TYPE_DEFAULT, "[StateCapture] disabled", buf, 2u);
+      _os_log_impl(&dword_236ED4000, v43, OS_LOG_TYPE_DEFAULT, "[StateCapture] disabled", buf, 2u);
     }
   }
 
 LABEL_30:
-  v47 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180(uint64_t a1)
@@ -385,13 +386,11 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180(uint
     while (v5);
   }
 
-  v9 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = CarPlayFrameworkACCNavLogging(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180_cold_1(v2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -430,34 +429,31 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187(uint
     while (v5);
   }
 
-  v9 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = CarPlayFrameworkACCNavLogging(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_cold_1(v2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = CarPlayFrameworkACCNavLogging();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v8 = 2080;
-    v9 = "[CPNavigationManager dealloc]";
+    v7 = 2080;
+    v8 = "[CPNavigationManager dealloc]";
     _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "%@ %s", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = CPNavigationManager;
-  [(CPNavigationManager *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = CPNavigationManager;
+  [(CPNavigationManager *)&v4 dealloc];
 }
 
 - (void)setSupportsAccNav:(BOOL)nav
@@ -500,6 +496,13 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187(uint
   [(CPNavigationManager *)self setAccNavRole:v4];
 }
 
+- (void)setSupportsRouteSharing:(BOOL)sharing
+{
+  sharingCopy = sharing;
+  vehicleStateManager = [(CPNavigationManager *)self vehicleStateManager];
+  [vehicleStateManager setSupportsRouteSharing:sharingCopy];
+}
+
 - (BOOL)supportsRouteSharing
 {
   vehicleStateManager = [(CPNavigationManager *)self vehicleStateManager];
@@ -510,109 +513,110 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187(uint
 
 - (void)_resendInfo
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(CPNavigationManager *)self _sendRouteLine];
-  if ([(CPNavigationManager *)self ownsNavigation]&& [(CPNavigationManager *)self controlsAccNav])
+  if ([(CPNavigationManager *)self ownsNavigation]&& (v3 = [(CPNavigationManager *)self controlsAccNav], v3))
   {
-    v3 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "skip resending info: AccNav is controlled by owner", &v13, 2u);
-    }
-  }
-
-  else if ([(CPNavigationManager *)self ownsNavigation]&& [(CPNavigationManager *)self supportsAccNav])
-  {
-    v4 = CarPlayFrameworkACCNavLogging();
+    v4 = CarPlayFrameworkACCNavLogging(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "resending Info", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "skip resending info: AccNav is controlled by owner", &v14, 2u);
     }
-
-    [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_3];
   }
 
   else
   {
-    v5 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    ownsNavigation = [(CPNavigationManager *)self ownsNavigation];
+    if (ownsNavigation && (ownsNavigation = [(CPNavigationManager *)self supportsAccNav], ownsNavigation))
     {
-      if ([(CPNavigationManager *)self ownsNavigation])
+      v6 = CarPlayFrameworkACCNavLogging(ownsNavigation);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = @"YES";
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "resending Info", &v14, 2u);
       }
 
-      else
-      {
-        v6 = @"NO";
-      }
+      [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_3];
+    }
 
-      [(CPNavigationManager *)self accNavRole];
-      v7 = NSStringFromCRAccNavRole();
-      owner = [(CPNavigationManager *)self owner];
-      v9 = @"None";
-      if (owner == 1)
+    else
+    {
+      v7 = CarPlayFrameworkACCNavLogging(ownsNavigation);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = @"iOS";
-      }
+        if ([(CPNavigationManager *)self ownsNavigation])
+        {
+          v8 = @"YES";
+        }
 
-      if (owner == 2)
-      {
-        v9 = @"Car";
-      }
+        else
+        {
+          v8 = @"NO";
+        }
 
-      v10 = v9;
-      lastNavigatingBundleIdentifier = [(CPNavigationManager *)self lastNavigatingBundleIdentifier];
-      v13 = 138413058;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = lastNavigatingBundleIdentifier;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "resending Info failed ownsNavigation=%@ accNavRole=%@ owner=%@ lastNavigatingBundleIdentifier=%@", &v13, 0x2Au);
+        [(CPNavigationManager *)self accNavRole];
+        v9 = NSStringFromCRAccNavRole();
+        owner = [(CPNavigationManager *)self owner];
+        v11 = @"None";
+        if (owner == 1)
+        {
+          v11 = @"iOS";
+        }
+
+        if (owner == 2)
+        {
+          v11 = @"Car";
+        }
+
+        v12 = v11;
+        lastNavigatingBundleIdentifier = [(CPNavigationManager *)self lastNavigatingBundleIdentifier];
+        v14 = 138413058;
+        v15 = v8;
+        v16 = 2112;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v12;
+        v20 = 2112;
+        v21 = lastNavigatingBundleIdentifier;
+        _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "resending Info failed ownsNavigation=%@ accNavRole=%@ owner=%@ lastNavigatingBundleIdentifier=%@", &v14, 0x2Au);
+      }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = CarPlayFrameworkACCNavLogging();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412546;
+    v5 = 138412546;
     selfCopy = self;
-    v8 = 2080;
-    v9 = "[CPNavigationManager invalidate]";
-    _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "%@ %s", &v6, 0x16u);
+    v7 = 2080;
+    v8 = "[CPNavigationManager invalidate]";
+    _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "%@ %s", &v5, 0x16u);
   }
 
   connection = [(CPNavigationManager *)self connection];
   [connection invalidate];
 
   [(CPNavigationManager *)self setConnection:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestNavigationOwnership
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = CarPlayFrameworkACCNavLogging();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(CPNavigationManager *)self identifier];
     [(CPNavigationManager *)self accNavRole];
     v5 = NSStringFromCRAccNavRole();
     *buf = 138543618;
-    v11 = identifier;
-    v12 = 2114;
-    v13 = v5;
+    v10 = identifier;
+    v11 = 2114;
+    v12 = v5;
     _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "requestNavigationOwnership for %{public}@ accNavRole=%{public}@", buf, 0x16u);
   }
 
@@ -626,18 +630,17 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187(uint
   block[3] = &unk_278A105A0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)releaseNavigationOwnership
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = CarPlayFrameworkACCNavLogging();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(CPNavigationManager *)self identifier];
     *buf = 138543362;
-    v11 = identifier;
+    v10 = identifier;
     _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "releaseNavigationOwnership for %{public}@", buf, 0xCu);
   }
 
@@ -654,7 +657,6 @@ id __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187(uint
   block[3] = &unk_278A105A0;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t a1)
@@ -666,10 +668,10 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
 - (void)setOwner:(unint64_t)owner
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_owner != owner)
   {
-    v5 = CarPlayFrameworkACCNavLogging();
+    v5 = CarPlayFrameworkACCNavLogging(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       owner = self->_owner;
@@ -710,11 +712,11 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
       }
 
       v11 = v10;
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Navigation owner changed from %{public}@ to %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Navigation owner changed from %{public}@ to %{public}@", &v13, 0x16u);
     }
 
     self->_owner = owner;
@@ -723,32 +725,31 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     [(CPNavigationManager *)self _resendInfo];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastNavigatingBundleIdentifier:(id)identifier
 {
   v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  if (![(NSString *)self->_lastNavigatingBundleIdentifier isEqualToString:identifierCopy])
+  v6 = [(NSString *)self->_lastNavigatingBundleIdentifier isEqualToString:identifierCopy];
+  if ((v6 & 1) == 0)
   {
-    v6 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CarPlayFrameworkACCNavLogging(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       lastNavigatingBundleIdentifier = self->_lastNavigatingBundleIdentifier;
       v13 = 138543618;
       v14 = lastNavigatingBundleIdentifier;
       v15 = 2114;
       v16 = identifierCopy;
-      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "updating lastNavigatingBundleIdentifier from %{public}@ to %{public}@", &v13, 0x16u);
+      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "updating lastNavigatingBundleIdentifier from %{public}@ to %{public}@", &v13, 0x16u);
     }
 
     objc_storeStrong(&self->_lastNavigatingBundleIdentifier, identifier);
     delegate = [(CPNavigationManager *)self delegate];
-    v9 = objc_opt_respondsToSelector();
+    v10 = objc_opt_respondsToSelector();
 
-    if (v9)
+    if (v10)
     {
       delegate2 = [(CPNavigationManager *)self delegate];
       [delegate2 didUpdateLastNavigatingBundleIdentifier:identifierCopy];
@@ -759,8 +760,6 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     [(CPNavigationManager *)self _resendInfo];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createRouteGuidanceObject
@@ -788,8 +787,8 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 - (void)_resetRouteGuidanceIsRequired:(BOOL)required
 {
   requiredCopy = required;
-  v19 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkACCNavLogging();
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     if (requiredCopy)
@@ -804,11 +803,11 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     routeGuidance = [(CPNavigationManager *)self routeGuidance];
     v8 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
-    v15 = 138543618;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Resetting RouteGuidance. required=%{public}@ guidanceState=%{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Resetting RouteGuidance. required=%{public}@ guidanceState=%{public}@", &v14, 0x16u);
   }
 
   routeGuidance2 = [(CPNavigationManager *)self routeGuidance];
@@ -827,47 +826,43 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_202];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enumerateNavControllersWithBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   accNavControllersIndexed = [(CPNavigationManager *)self accNavControllersIndexed];
   allValues = [accNavControllersIndexed allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v10++));
+        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)guidanceState
@@ -918,13 +913,14 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 - (void)startNavigationWithRouteInfo:(id)info
 {
   infoCopy = info;
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v5 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "startNavigationWithRouteInfo", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "startNavigationWithRouteInfo", v11, 2u);
     }
 
     routeGuidance = [infoCopy routeGuidance];
@@ -932,10 +928,10 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     if (guidanceState != 1 && guidanceState != 6)
     {
-      v8 = CarPlayFrameworkACCNavLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v10 = CarPlayFrameworkACCNavLogging(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        [(CPNavigationManager *)guidanceState startNavigationWithRouteInfo:v8];
+        [(CPNavigationManager *)guidanceState startNavigationWithRouteInfo:v10];
       }
 
       guidanceState = 1;
@@ -945,79 +941,135 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
   }
 }
 
+- (void)_startNavigationWithRouteInfo:(id)info originalState:(unsigned __int8)state
+{
+  stateCopy = state;
+  v22 = *MEMORY[0x277D85DE8];
+  infoCopy = info;
+  v7 = CarPlayFrameworkACCNavLogging(infoCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = NSStringFromCPGuidanceState(stateCopy);
+    *buf = 138543362;
+    v21 = v8;
+    _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "_startNavigationWithRouteInfo:originalState: %{public}@", buf, 0xCu);
+  }
+
+  v9 = CarPlayFrameworkACCNavLogging([(CPNavigationManager *)self resetRouteGuidance]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_DEFAULT, "startNavigation: route reset", buf, 2u);
+  }
+
+  routeGuidance = [infoCopy routeGuidance];
+  [routeGuidance setGuidanceState:3];
+  maneuvers = [infoCopy maneuvers];
+  [routeGuidance setTotalManeuverCount:{objc_msgSend(maneuvers, "count")}];
+
+  laneGuidances = [infoCopy laneGuidances];
+  [routeGuidance setTotalLaneGuidanceCount:{objc_msgSend(laneGuidances, "count")}];
+
+  v13 = CarPlayFrameworkACCNavLogging([(CPNavigationManager *)self setRouteGuidance:routeGuidance]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_236ED4000, v13, OS_LOG_TYPE_DEFAULT, "startNavigation: set route guidance with loading state and counts", buf, 2u);
+  }
+
+  maneuvers2 = [infoCopy maneuvers];
+  [(CPNavigationManager *)self setManeuvers:maneuvers2];
+
+  laneGuidances2 = [infoCopy laneGuidances];
+  [(CPNavigationManager *)self setLaneGuidances:laneGuidances2];
+
+  routeLine = [infoCopy routeLine];
+  [(CPNavigationManager *)self setRouteLine:routeLine];
+
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __67__CPNavigationManager__startNavigationWithRouteInfo_originalState___block_invoke;
+  v18[3] = &__block_descriptor_33_e25_v16__0__CPRouteGuidance_8l;
+  v19 = stateCopy;
+  v17 = CarPlayFrameworkACCNavLogging([(CPNavigationManager *)self modifyRouteGuidance:v18]);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_236ED4000, v17, OS_LOG_TYPE_DEFAULT, "startNavigation: set route guidance with original route guidance", buf, 2u);
+  }
+}
+
 - (void)startRerouting
 {
   v14 = *MEMORY[0x277D85DE8];
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v3 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       routeGuidance = [(CPNavigationManager *)self routeGuidance];
-      v5 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
+      v6 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
       v12 = 138543362;
-      v13 = v5;
-      _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "startRerouting: current state: %{public}@", &v12, 0xCu);
+      v13 = v6;
+      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "startRerouting: current state: %{public}@", &v12, 0xCu);
     }
 
     routeGuidance2 = [(CPNavigationManager *)self routeGuidance];
     if (routeGuidance2)
     {
-      v7 = routeGuidance2;
+      v8 = routeGuidance2;
       routeGuidance3 = [(CPNavigationManager *)self routeGuidance];
       guidanceState = [routeGuidance3 guidanceState];
 
       if (guidanceState)
       {
-        [(CPNavigationManager *)self modifyRouteGuidance:&__block_literal_global_206];
-        v10 = CarPlayFrameworkACCNavLogging();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = CarPlayFrameworkACCNavLogging([(CPNavigationManager *)self modifyRouteGuidance:&__block_literal_global_206]);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(v12) = 0;
-          _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "startRerouting: set rerouting routeguidance", &v12, 2u);
+          _os_log_impl(&dword_236ED4000, v11, OS_LOG_TYPE_DEFAULT, "startRerouting: set rerouting routeguidance", &v12, 2u);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)routeChangedWithReason:(unsigned __int8)reason routeInfo:(id)info
 {
   v13 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v7 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = NSStringFromCPRerouteReason(reason);
+      v9 = NSStringFromCPRerouteReason(reason);
       v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_236ED4000, v7, OS_LOG_TYPE_DEFAULT, "routeChangedWithReason: %{public}@", &v11, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "routeChangedWithReason: %{public}@", &v11, 0xCu);
     }
 
     routeGuidance = [infoCopy routeGuidance];
     -[CPNavigationManager _startNavigationWithRouteInfo:originalState:](self, "_startNavigationWithRouteInfo:originalState:", infoCopy, [routeGuidance guidanceState]);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelRerouting
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(CPNavigationManager *)self supportsAccNav])
+  v13 = *MEMORY[0x277D85DE8];
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v3 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       routeGuidance = [(CPNavigationManager *)self routeGuidance];
-      v5 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEFAULT, "cancelRerouting guidanceState: %{public}@", &v10, 0xCu);
+      v6 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
+      v11 = 138543362;
+      v12 = v6;
+      _os_log_impl(&dword_236ED4000, v4, OS_LOG_TYPE_DEFAULT, "cancelRerouting guidanceState: %{public}@", &v11, 0xCu);
     }
 
     routeGuidance2 = [(CPNavigationManager *)self routeGuidance];
@@ -1025,24 +1077,22 @@ void __49__CPNavigationManager_releaseNavigationOwnership__block_invoke(uint64_t
 
     if (guidanceState == 5)
     {
-      v8 = CarPlayFrameworkACCNavLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = CarPlayFrameworkACCNavLogging(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_DEFAULT, "cancelRerouting: state was rerouting, setting to active", &v10, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_236ED4000, v10, OS_LOG_TYPE_DEFAULT, "cancelRerouting: state was rerouting, setting to active", &v11, 2u);
       }
 
       [(CPNavigationManager *)self modifyRouteGuidance:&__block_literal_global_208];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __38__CPNavigationManager_cancelRerouting__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarPlayFrameworkACCNavLogging();
+  v3 = CarPlayFrameworkACCNavLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1071,8 +1121,8 @@ void __38__CPNavigationManager_cancelRerouting__block_invoke(uint64_t a1, void *
     guidanceState = [(CPRouteGuidance *)routeGuidance guidanceState];
     guidanceState2 = [guidanceCopy guidanceState];
     objc_storeStrong(&self->_routeGuidance, guidance);
-    v9 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = CarPlayFrameworkACCNavLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [CPNavigationManager setRouteGuidance:guidanceCopy];
     }
@@ -1099,20 +1149,21 @@ LABEL_9:
 - (void)setChargePrecondition:(id)precondition
 {
   preconditionCopy = precondition;
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v5 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [CPNavigationManager setChargePrecondition:];
     }
 
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __45__CPNavigationManager_setChargePrecondition___block_invoke;
-    v6[3] = &unk_278A10650;
-    v7 = preconditionCopy;
-    [(CPNavigationManager *)self modifyRouteGuidance:v6];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __45__CPNavigationManager_setChargePrecondition___block_invoke;
+    v7[3] = &unk_278A10650;
+    v8 = preconditionCopy;
+    [(CPNavigationManager *)self modifyRouteGuidance:v7];
   }
 }
 
@@ -1141,48 +1192,49 @@ uint64_t __32__CPNavigationManager_maneuvers__block_invoke(uint64_t a1, void *a2
 
 - (void)setManeuvers:(id)maneuvers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   maneuversCopy = maneuvers;
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v5 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [CPNavigationManager setManeuvers:maneuversCopy];
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v6 = maneuversCopy;
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v7)
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v7 = maneuversCopy;
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v29;
+      v9 = v8;
+      v10 = *v28;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v29 != v9)
+          if (*v28 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * v10);
-          v12 = CarPlayFrameworkACCNavLogging();
+          v12 = CarPlayFrameworkACCNavLogging(v8);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [CPNavigationManager setManeuvers:];
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v9 = v8;
       }
 
       while (v8);
@@ -1191,47 +1243,45 @@ uint64_t __32__CPNavigationManager_maneuvers__block_invoke(uint64_t a1, void *a2
     maneuversIndexed = [(CPNavigationManager *)self maneuversIndexed];
     [maneuversIndexed removeAllObjects];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v14 = v6;
-    v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v14 = v7;
+    v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
+          v19 = *(*(&v23 + 1) + 8 * i);
           maneuversIndexed2 = [(CPNavigationManager *)self maneuversIndexed];
           v21 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v19, "index")}];
           [maneuversIndexed2 setObject:v19 forKeyedSubscript:v21];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v16);
     }
 
     [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_216];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __36__CPNavigationManager_setManeuvers___block_invoke_2;
-    v23[3] = &unk_278A10650;
-    v23[4] = self;
-    [(CPNavigationManager *)self modifyRouteGuidance:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __36__CPNavigationManager_setManeuvers___block_invoke_2;
+    v22[3] = &unk_278A10650;
+    v22[4] = self;
+    [(CPNavigationManager *)self modifyRouteGuidance:v22];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CPNavigationManager_setManeuvers___block_invoke_2(uint64_t a1, void *a2)
@@ -1244,59 +1294,64 @@ void __36__CPNavigationManager_setManeuvers___block_invoke_2(uint64_t a1, void *
 
 - (void)addManeuvers:(id)maneuvers
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   maneuversCopy = maneuvers;
-  if (![(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (!supportsAccNav)
   {
     goto LABEL_29;
   }
 
-  v5 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [CPNavigationManager addManeuvers:maneuversCopy];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v25 = maneuversCopy;
-  v6 = maneuversCopy;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v7)
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v24 = maneuversCopy;
+  v7 = maneuversCopy;
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v34;
+    v9 = v8;
+    v10 = *v33;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v11 = 0;
+      do
       {
-        if (*v34 != v9)
+        if (*v33 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
-        v12 = CarPlayFrameworkACCNavLogging();
+        v12 = CarPlayFrameworkACCNavLogging(v8);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [CPNavigationManager addManeuvers:];
         }
+
+        ++v11;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v9 != v11);
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = v8;
     }
 
     while (v8);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  obj = v6;
-  v13 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  obj = v7;
+  v13 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (!v13)
   {
     v15 = 0;
@@ -1305,17 +1360,17 @@ void __36__CPNavigationManager_setManeuvers___block_invoke_2(uint64_t a1, void *
 
   v14 = v13;
   v15 = 0;
-  v16 = *v30;
+  v16 = *v29;
   do
   {
-    for (j = 0; j != v14; ++j)
+    for (i = 0; i != v14; ++i)
     {
-      if (*v30 != v16)
+      if (*v29 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v29 + 1) + 8 * j);
+      v18 = *(*(&v28 + 1) + 8 * i);
       maneuversIndexed = [(CPNavigationManager *)self maneuversIndexed];
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v18, "index")}];
       v21 = [maneuversIndexed objectForKeyedSubscript:v20];
@@ -1327,12 +1382,12 @@ void __36__CPNavigationManager_setManeuvers___block_invoke_2(uint64_t a1, void *
           goto LABEL_22;
         }
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __36__CPNavigationManager_addManeuvers___block_invoke;
-        v28[3] = &unk_278A10698;
-        v28[4] = v18;
-        [(CPNavigationManager *)self _enumerateNavControllersWithBlock:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __36__CPNavigationManager_addManeuvers___block_invoke;
+        v27[3] = &unk_278A10698;
+        v27[4] = v18;
+        [(CPNavigationManager *)self _enumerateNavControllersWithBlock:v27];
       }
 
       maneuversIndexed2 = [(CPNavigationManager *)self maneuversIndexed];
@@ -1343,27 +1398,25 @@ void __36__CPNavigationManager_setManeuvers___block_invoke_2(uint64_t a1, void *
 LABEL_22:
     }
 
-    v14 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v14 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   }
 
   while (v14);
 LABEL_26:
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __36__CPNavigationManager_addManeuvers___block_invoke_2;
-  v27[3] = &unk_278A10650;
-  v27[4] = self;
-  [(CPNavigationManager *)self modifyRouteGuidance:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __36__CPNavigationManager_addManeuvers___block_invoke_2;
+  v26[3] = &unk_278A10650;
+  v26[4] = self;
+  [(CPNavigationManager *)self modifyRouteGuidance:v26];
   if (v15)
   {
     [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_218];
   }
 
-  maneuversCopy = v25;
+  maneuversCopy = v24;
 LABEL_29:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CPNavigationManager_addManeuvers___block_invoke_2(uint64_t a1, void *a2)
@@ -1399,48 +1452,49 @@ uint64_t __36__CPNavigationManager_laneGuidances__block_invoke(uint64_t a1, void
 
 - (void)setLaneGuidances:(id)guidances
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   guidancesCopy = guidances;
-  if ([(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (supportsAccNav)
   {
-    v5 = CarPlayFrameworkACCNavLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [CPNavigationManager setLaneGuidances:guidancesCopy];
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v6 = guidancesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    if (v7)
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v7 = guidancesCopy;
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v29;
+      v9 = v8;
+      v10 = *v28;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v29 != v9)
+          if (*v28 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * v10);
-          v12 = CarPlayFrameworkACCNavLogging();
+          v12 = CarPlayFrameworkACCNavLogging(v8);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             [CPNavigationManager setLaneGuidances:];
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v9 = v8;
       }
 
       while (v8);
@@ -1449,47 +1503,45 @@ uint64_t __36__CPNavigationManager_laneGuidances__block_invoke(uint64_t a1, void
     laneGuidanceIndexed = [(CPNavigationManager *)self laneGuidanceIndexed];
     [laneGuidanceIndexed removeAllObjects];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v14 = v6;
-    v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v14 = v7;
+    v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * i);
+          v19 = *(*(&v23 + 1) + 8 * i);
           laneGuidanceIndexed2 = [(CPNavigationManager *)self laneGuidanceIndexed];
           v21 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v19, "index")}];
           [laneGuidanceIndexed2 setObject:v19 forKeyedSubscript:v21];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v16);
     }
 
     [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_223];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __40__CPNavigationManager_setLaneGuidances___block_invoke_2;
-    v23[3] = &unk_278A10650;
-    v23[4] = self;
-    [(CPNavigationManager *)self modifyRouteGuidance:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __40__CPNavigationManager_setLaneGuidances___block_invoke_2;
+    v22[3] = &unk_278A10650;
+    v22[4] = self;
+    [(CPNavigationManager *)self modifyRouteGuidance:v22];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CPNavigationManager_setLaneGuidances___block_invoke_2(uint64_t a1, void *a2)
@@ -1502,59 +1554,64 @@ void __40__CPNavigationManager_setLaneGuidances___block_invoke_2(uint64_t a1, vo
 
 - (void)addLaneGuidances:(id)guidances
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   guidancesCopy = guidances;
-  if (![(CPNavigationManager *)self supportsAccNav])
+  supportsAccNav = [(CPNavigationManager *)self supportsAccNav];
+  if (!supportsAccNav)
   {
     goto LABEL_29;
   }
 
-  v5 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = CarPlayFrameworkACCNavLogging(supportsAccNav);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [CPNavigationManager addLaneGuidances:guidancesCopy];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v25 = guidancesCopy;
-  v6 = guidancesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v7)
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v24 = guidancesCopy;
+  v7 = guidancesCopy;
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v34;
+    v9 = v8;
+    v10 = *v33;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v11 = 0;
+      do
       {
-        if (*v34 != v9)
+        if (*v33 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
-        v12 = CarPlayFrameworkACCNavLogging();
+        v12 = CarPlayFrameworkACCNavLogging(v8);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [CPNavigationManager addLaneGuidances:];
         }
+
+        ++v11;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v9 != v11);
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v9 = v8;
     }
 
     while (v8);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  obj = v6;
-  v13 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  obj = v7;
+  v13 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (!v13)
   {
     v15 = 0;
@@ -1563,17 +1620,17 @@ void __40__CPNavigationManager_setLaneGuidances___block_invoke_2(uint64_t a1, vo
 
   v14 = v13;
   v15 = 0;
-  v16 = *v30;
+  v16 = *v29;
   do
   {
-    for (j = 0; j != v14; ++j)
+    for (i = 0; i != v14; ++i)
     {
-      if (*v30 != v16)
+      if (*v29 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v29 + 1) + 8 * j);
+      v18 = *(*(&v28 + 1) + 8 * i);
       laneGuidanceIndexed = [(CPNavigationManager *)self laneGuidanceIndexed];
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v18, "index")}];
       v21 = [laneGuidanceIndexed objectForKeyedSubscript:v20];
@@ -1585,12 +1642,12 @@ void __40__CPNavigationManager_setLaneGuidances___block_invoke_2(uint64_t a1, vo
           goto LABEL_22;
         }
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __40__CPNavigationManager_addLaneGuidances___block_invoke;
-        v28[3] = &unk_278A10698;
-        v28[4] = v18;
-        [(CPNavigationManager *)self _enumerateNavControllersWithBlock:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __40__CPNavigationManager_addLaneGuidances___block_invoke;
+        v27[3] = &unk_278A10698;
+        v27[4] = v18;
+        [(CPNavigationManager *)self _enumerateNavControllersWithBlock:v27];
       }
 
       laneGuidanceIndexed2 = [(CPNavigationManager *)self laneGuidanceIndexed];
@@ -1601,27 +1658,25 @@ void __40__CPNavigationManager_setLaneGuidances___block_invoke_2(uint64_t a1, vo
 LABEL_22:
     }
 
-    v14 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v14 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   }
 
   while (v14);
 LABEL_26:
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __40__CPNavigationManager_addLaneGuidances___block_invoke_2;
-  v27[3] = &unk_278A10650;
-  v27[4] = self;
-  [(CPNavigationManager *)self modifyRouteGuidance:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __40__CPNavigationManager_addLaneGuidances___block_invoke_2;
+  v26[3] = &unk_278A10650;
+  v26[4] = self;
+  [(CPNavigationManager *)self modifyRouteGuidance:v26];
   if (v15)
   {
     [(CPNavigationManager *)self _enumerateNavControllersWithBlock:&__block_literal_global_225];
   }
 
-  guidancesCopy = v25;
+  guidancesCopy = v24;
 LABEL_29:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CPNavigationManager_addLaneGuidances___block_invoke_2(uint64_t a1, void *a2)
@@ -1643,7 +1698,7 @@ void __40__CPNavigationManager_addLaneGuidances___block_invoke_2(uint64_t a1, vo
 - (void)setRouteLine:(id)line
 {
   lineCopy = line;
-  v5 = CarPlayFrameworkACCNavLogging();
+  v5 = CarPlayFrameworkACCNavLogging(lineCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(CPNavigationManager *)lineCopy setRouteLine:v5, v6, v7, v8, v9, v10, v11];
@@ -1657,49 +1712,45 @@ void __40__CPNavigationManager_addLaneGuidances___block_invoke_2(uint64_t a1, vo
 
 - (void)_sendRouteLine
 {
-  v9 = *MEMORY[0x277D85DE8];
   [self ownsNavigation];
   routeLine = [self routeLine];
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CPNavigationManager__setupConnection__block_invoke(uint64_t a1)
 {
   v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _connectionRetryDelay];
-  v4 = v3;
-  v5 = CarPlayFrameworkACCNavLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v3 = [WeakRetained _connectionRetryDelay];
+  v5 = v4;
+  v6 = CarPlayFrameworkACCNavLogging(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [WeakRetained connection];
+    v7 = [WeakRetained connection];
     *buf = 138543874;
     v14 = WeakRetained;
     v15 = 2114;
-    v16 = v6;
+    v16 = v7;
     v17 = 2048;
-    v18 = v4;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "connection interrupted %{public}@ %{public}@. Reconnect in %.2f seconds", buf, 0x20u);
+    v18 = v5;
+    _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "connection interrupted %{public}@ %{public}@. Reconnect in %.2f seconds", buf, 0x20u);
   }
 
-  v7 = [WeakRetained connection];
-  [v7 invalidate];
+  v8 = [WeakRetained connection];
+  [v8 invalidate];
 
   [WeakRetained setConnection:0];
-  v8 = dispatch_time(0, (v4 * 1000000000.0));
-  v9 = [WeakRetained connectionQueue];
+  v9 = dispatch_time(0, (v5 * 1000000000.0));
+  v10 = [WeakRetained connectionQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __39__CPNavigationManager__setupConnection__block_invoke_230;
   block[3] = &unk_278A106E0;
   objc_copyWeak(&v12, (a1 + 32));
-  dispatch_after(v8, v9, block);
+  dispatch_after(v9, v10, block);
 
   objc_destroyWeak(&v12);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CPNavigationManager__setupConnection__block_invoke_230(uint64_t a1)
@@ -1711,29 +1762,28 @@ void __39__CPNavigationManager__setupConnection__block_invoke_230(uint64_t a1)
 
 void __39__CPNavigationManager__setupConnection__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = CarPlayFrameworkACCNavLogging();
+  v2 = CarPlayFrameworkACCNavLogging(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [WeakRetained connection];
-    v6 = 138543618;
-    v7 = WeakRetained;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "connection invalidated %{public}@ %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = WeakRetained;
+    v7 = 2114;
+    v8 = v3;
+    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "connection invalidated %{public}@ %{public}@", &v5, 0x16u);
   }
 
   v4 = [WeakRetained connection];
   [v4 invalidate];
 
   [WeakRetained setConnection:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CPNavigationManager__setupConnection__block_invoke_231(uint64_t a1, uint64_t a2)
 {
-  v4 = CarPlayFrameworkACCNavLogging();
+  v4 = CarPlayFrameworkACCNavLogging(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1747,7 +1797,7 @@ void __39__CPNavigationManager__setupConnection__block_invoke_231(uint64_t a1, u
 void __39__CPNavigationManager__setupConnection__block_invoke_233(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CarPlayFrameworkACCNavLogging();
+  v4 = CarPlayFrameworkACCNavLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1813,8 +1863,8 @@ void __45__CPNavigationManager__handleConnectionReset__block_invoke(uint64_t a1)
 
 - (void)navigationOwnershipChangedTo:(unint64_t)to
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkACCNavLogging();
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkACCNavLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"None";
@@ -1831,26 +1881,25 @@ void __45__CPNavigationManager__handleConnectionReset__block_invoke(uint64_t a1)
     v7 = v6;
     delegate = [(CPNavigationManager *)self delegate];
     *buf = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = delegate;
+    v11 = v7;
+    v12 = 2112;
+    v13 = delegate;
     _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Dispatching navigationOwnershipChangedTo: %{public}@ delegate=%@", buf, 0x16u);
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __52__CPNavigationManager_navigationOwnershipChangedTo___block_invoke;
-  v10[3] = &unk_278A10758;
-  v10[4] = self;
-  v10[5] = to;
-  dispatch_async(MEMORY[0x277D85CD0], v10);
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__CPNavigationManager_navigationOwnershipChangedTo___block_invoke;
+  v9[3] = &unk_278A10758;
+  v9[4] = self;
+  v9[5] = to;
+  dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
 uint64_t __52__CPNavigationManager_navigationOwnershipChangedTo___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = CarPlayFrameworkACCNavLogging();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = CarPlayFrameworkACCNavLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1872,16 +1921,14 @@ uint64_t __52__CPNavigationManager_navigationOwnershipChangedTo___block_invoke(u
 
     v6 = v5;
     v7 = [*(a1 + 32) delegate];
-    v10 = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "Updating navigationOwnershipChangedTo: %{public}@ delegate=%@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "Updating navigationOwnershipChangedTo: %{public}@ delegate=%@", &v9, 0x16u);
   }
 
-  result = [*(a1 + 32) setOwner:*(a1 + 40)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setOwner:*(a1 + 40)];
 }
 
 - (void)activeNavigationIdentifiersChangedTo:(id)to
@@ -1899,20 +1946,18 @@ uint64_t __52__CPNavigationManager_navigationOwnershipChangedTo___block_invoke(u
 
 void __60__CPNavigationManager_activeNavigationIdentifiersChangedTo___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = CarPlayFrameworkACCNavLogging();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = CarPlayFrameworkACCNavLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "activeNavigationIdentifiers=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "activeNavigationIdentifiers=%{public}@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) lastObject];
   [*(a1 + 40) setLastNavigatingBundleIdentifier:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateActiveComponents:(id)components
@@ -1930,69 +1975,69 @@ void __60__CPNavigationManager_activeNavigationIdentifiersChangedTo___block_invo
 
 void __49__CPNavigationManager_didUpdateActiveComponents___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v2 = CarPlayFrameworkACCNavLogging();
+  v39 = *MEMORY[0x277D85DE8];
+  v2 = CarPlayFrameworkACCNavLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v39 = v3;
+    v38 = v3;
     _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "activeComponents=%{public}@", buf, 0xCu);
   }
 
   v4 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v5 = [*(a1 + 40) accNavControllersIndexed];
   v6 = [v5 allKeys];
 
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     v10 = MEMORY[0x277CBEC28];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v4 setObject:v10 forKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
+        [v4 setObject:v10 forKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v8);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = *(a1 + 32);
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     v15 = MEMORY[0x277CBEC38];
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * j);
+        v17 = *(*(&v27 + 1) + 8 * j);
         v18 = [v17 uuid];
         [v4 setObject:v15 forKeyedSubscript:v18];
 
@@ -2009,20 +2054,18 @@ void __49__CPNavigationManager_didUpdateActiveComponents___block_invoke(uint64_t
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v13);
   }
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __49__CPNavigationManager_didUpdateActiveComponents___block_invoke_242;
-  v27[3] = &unk_278A107A8;
-  v27[4] = *(a1 + 40);
-  [v4 enumerateKeysAndObjectsUsingBlock:v27];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __49__CPNavigationManager_didUpdateActiveComponents___block_invoke_242;
+  v26[3] = &unk_278A107A8;
+  v26[4] = *(a1 + 40);
+  [v4 enumerateKeysAndObjectsUsingBlock:v26];
 }
 
 void __49__CPNavigationManager_didUpdateActiveComponents___block_invoke_242(uint64_t a1, void *a2, void *a3)
@@ -2037,69 +2080,68 @@ void __49__CPNavigationManager_didUpdateActiveComponents___block_invoke_242(uint
 
 - (void)willSendGuidanceStateLoading
 {
-  v9 = *MEMORY[0x277D85DE8];
   routeGuidance = [self routeGuidance];
   v2 = NSStringFromCPGuidanceState([routeGuidance guidanceState]);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInfo:(id)info toComponentUID:(id)d
 {
   infoCopy = info;
   dCopy = d;
+  v8 = dCopy;
   if (infoCopy)
   {
     if ([(CPNavigationManager *)self accNavRole])
     {
       if ([(CPNavigationManager *)self accNavRole]== 2)
       {
-        navigationService = CarPlayFrameworkACCNavLogging();
+        navigationService = CarPlayFrameworkACCNavLogging(2);
         if (os_log_type_enabled(navigationService, OS_LOG_TYPE_DEBUG))
         {
-          [CPNavigationManager sendInfo:dCopy toComponentUID:self];
+          [CPNavigationManager sendInfo:v8 toComponentUID:self];
         }
       }
 
       else
       {
         ownsNavigation = [(CPNavigationManager *)self ownsNavigation];
-        navigationService = CarPlayFrameworkACCNavLogging();
-        v10 = os_log_type_enabled(navigationService, OS_LOG_TYPE_DEBUG);
-        if (ownsNavigation)
+        v11 = ownsNavigation;
+        navigationService = CarPlayFrameworkACCNavLogging(ownsNavigation);
+        v12 = os_log_type_enabled(navigationService, OS_LOG_TYPE_DEBUG);
+        if (v11)
         {
-          if (v10)
+          if (v12)
           {
             [CPNavigationManager sendInfo:toComponentUID:];
           }
 
           navigationService = [(CPNavigationManager *)self navigationService];
-          [navigationService sendInfo:infoCopy toComponentUID:dCopy];
+          [navigationService sendInfo:infoCopy toComponentUID:v8];
         }
 
-        else if (v10)
+        else if (v12)
         {
-          [(CPNavigationManager *)dCopy sendInfo:navigationService toComponentUID:?];
+          [(CPNavigationManager *)v8 sendInfo:navigationService toComponentUID:?];
         }
       }
     }
 
     else
     {
-      navigationService = CarPlayFrameworkACCNavLogging();
+      navigationService = CarPlayFrameworkACCNavLogging(0);
       if (os_log_type_enabled(navigationService, OS_LOG_TYPE_DEBUG))
       {
-        [CPNavigationManager sendInfo:dCopy toComponentUID:self];
+        [CPNavigationManager sendInfo:v8 toComponentUID:self];
       }
     }
   }
 
   else
   {
-    navigationService = CarPlayFrameworkACCNavLogging();
+    navigationService = CarPlayFrameworkACCNavLogging(dCopy);
     if (os_log_type_enabled(navigationService, OS_LOG_TYPE_DEBUG))
     {
       [CPNavigationManager sendInfo:toComponentUID:];
@@ -2107,63 +2149,72 @@ void __49__CPNavigationManager_didUpdateActiveComponents___block_invoke_242(uint
   }
 }
 
+- (void)vehicleStateManager:(id)manager didUpdateRouteSharingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = CarPlayFrameworkACCNavLogging(self);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    [(CPNavigationManager *)enabledCopy vehicleStateManager:v6 didUpdateRouteSharingEnabled:v7, v8, v9, v10, v11, v12];
+  }
+
+  delegate = [(CPNavigationManager *)self delegate];
+  v14 = objc_opt_respondsToSelector();
+
+  if (v14)
+  {
+    delegate2 = [(CPNavigationManager *)self delegate];
+    [delegate2 didUpdateRouteSharingActive:enabledCopy];
+  }
+
+  [(CPNavigationManager *)self _sendRouteLine];
+}
+
 void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_180_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startNavigationWithRouteInfo:(unsigned __int8)a1 .cold.1(unsigned __int8 a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromCPGuidanceState(a1);
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_236ED4000, a2, OS_LOG_TYPE_FAULT, "unexpected state in startNavigation: %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_236ED4000, a2, OS_LOG_TYPE_FAULT, "unexpected state in startNavigation: %{public}@", v4, 0xCu);
 }
 
 - (void)setRouteGuidance:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [CPAccNavUpdate description:a1];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setChargePrecondition:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_236ED4000, v0, OS_LOG_TYPE_DEBUG, "Setting ChargePrecondition: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_236ED4000, v0, OS_LOG_TYPE_DEBUG, "Setting ChargePrecondition: %{public}@", v1, 0xCu);
 }
 
 - (void)setManeuvers:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setManeuvers:.cold.2()
@@ -2177,12 +2228,10 @@ void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_co
 
 - (void)addManeuvers:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addManeuvers:.cold.2()
@@ -2196,12 +2245,10 @@ void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_co
 
 - (void)setLaneGuidances:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLaneGuidances:.cold.2()
@@ -2215,12 +2262,10 @@ void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_co
 
 - (void)addLaneGuidances:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLaneGuidances:.cold.2()
@@ -2234,14 +2279,16 @@ void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_co
 
 - (void)setRouteLine:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(&dword_236ED4000, a2, a3, "%s: routeLine=%{public}p", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  *v8 = 136315394;
+  *&v8[4] = "[CPNavigationManager setRouteLine:]";
+  *&v8[12] = 2050;
+  *&v8[14] = a1;
+  OUTLINED_FUNCTION_5(&dword_236ED4000, a2, a3, "%s: routeLine=%{public}p", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)sendInfo:(NSObject *)a3 toComponentUID:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = [a2 identifier];
   v7 = [a2 owner];
   v8 = @"None";
@@ -2257,67 +2304,69 @@ void __51__CPNavigationManager_initWithIdentifier_delegate___block_invoke_187_co
 
   v9 = v8;
   v10 = [a2 lastNavigatingBundleIdentifier];
-  v14[0] = 136316162;
+  v13[0] = 136316162;
   OUTLINED_FUNCTION_1_0();
-  v15 = a1;
-  v16 = v11;
-  v17 = v6;
-  v18 = v11;
-  v19 = v9;
-  v20 = v11;
-  v21 = v12;
-  _os_log_debug_impl(&dword_236ED4000, a3, OS_LOG_TYPE_DEBUG, "%s: componentUID=%{public}@ %{public}@ does not own navigation (owner=%{public}@ lastNavigatingBundleIdentifier=%{public}@)", v14, 0x34u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = a1;
+  v15 = v11;
+  v16 = v6;
+  v17 = v11;
+  v18 = v9;
+  v19 = v11;
+  v20 = v12;
+  _os_log_debug_impl(&dword_236ED4000, a3, OS_LOG_TYPE_DEBUG, "%s: componentUID=%{public}@ %{public}@ does not own navigation (owner=%{public}@ lastNavigatingBundleIdentifier=%{public}@)", v13, 0x34u);
 }
 
 - (void)sendInfo:toComponentUID:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = 136315650;
   OUTLINED_FUNCTION_1_0();
-  v6 = v0;
-  v7 = v1;
-  v8 = v2;
-  _os_log_debug_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEBUG, "%s: componentUID=%{public}@ info=%{public}@", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_236ED4000, v3, OS_LOG_TYPE_DEBUG, "%s: componentUID=%{public}@ info=%{public}@", v4, 0x20u);
 }
 
 - (void)sendInfo:(uint64_t)a1 toComponentUID:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInfo:(uint64_t)a1 toComponentUID:(void *)a2 .cold.4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = [a2 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInfo:toComponentUID:.cold.5()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_236ED4000, v0, v1, "%s: componentUID=%{public}@ nothing to send", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_236ED4000, v0, v1, "%s: componentUID=%{public}@ nothing to send", v2, v3, v4, v5, v6);
 }
 
 - (void)vehicleStateManager:(uint64_t)a3 didUpdateRouteSharingEnabled:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(&dword_236ED4000, a2, a3, "%s: enabled=%{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    v8 = @"YES";
+  }
+
+  else
+  {
+    v8 = @"NO";
+  }
+
+  *v9 = 136315394;
+  *&v9[4] = "[CPNavigationManager vehicleStateManager:didUpdateRouteSharingEnabled:]";
+  *&v9[12] = 2114;
+  *&v9[14] = v8;
+  OUTLINED_FUNCTION_5(&dword_236ED4000, a2, a3, "%s: enabled=%{public}@", a5, a6, a7, a8, *v9, *&v9[8], *&v9[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

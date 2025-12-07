@@ -104,16 +104,12 @@
       dispatch_async(notificationQueue, &block);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 double __44__CBFilter_sendNotificationForKey_andValue___block_invoke(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v1 = *(a1 + 32);
-    v2 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
     _Block_release(*(a1 + 48));
   }

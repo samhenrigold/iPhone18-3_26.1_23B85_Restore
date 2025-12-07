@@ -9,18 +9,16 @@
 
 - (OS_xpc_object)status
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___OSEligibilityQuery_status);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (OS_xpc_object)context
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___OSEligibilityQuery_context);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (OSEligibilityQuery)initWithDomain:(unint64_t)domain bundleID:(id)d persona:(id)persona error:(id *)error

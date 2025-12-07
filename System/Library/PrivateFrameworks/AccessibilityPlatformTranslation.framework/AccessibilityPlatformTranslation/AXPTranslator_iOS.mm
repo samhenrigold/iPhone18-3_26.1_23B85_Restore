@@ -77,6 +77,7 @@
 - (id)processSetAttribute:(id)attribute;
 - (id)processSupportedActions:(id)actions;
 - (id)processSupportsAttributes:(id)attributes;
+- (id)remoteTranslationDataWithTranslation:(id)translation pid:(int)pid;
 - (id)translationCache;
 - (id)translationObjectFromData:(id)data;
 - (id)translationObjectFromPlatformElement:(__AXUIElement *)element;
@@ -122,9 +123,9 @@
 
 - (AXPTranslator_iOS)init
 {
-  v14.receiver = self;
-  v14.super_class = AXPTranslator_iOS;
-  v2 = [(AXPTranslator *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = AXPTranslator_iOS;
+  v2 = [(AXPTranslator *)&v16 init];
   v3 = dispatch_queue_create("com.apple.axptranslator.cache.queue", 0);
   cacheQueue = v2->_cacheQueue;
   v2->_cacheQueue = v3;
@@ -146,7 +147,7 @@
   axTreeDumpLock = v2->_axTreeDumpLock;
   v2->_axTreeDumpLock = v11;
 
-  if (AXPIsCatalyst())
+  if (AXPIsCatalyst(v13, v14))
   {
     [MEMORY[0x277CE6BB0] applyElementAttributeCacheScheme:7];
   }
@@ -156,39 +157,39 @@
 
 - (void)_addCacheElement:(id)element translationObject:(id)object
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   objectCopy = object;
   dispatch_assert_queue_V2(self->_cacheQueue);
   if ([(NSMutableArray *)self->_cachedElements count]> 0x1000)
   {
     1024 = [(NSMutableArray *)self->_cachedElements subarrayWithRange:0, 1024];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v9 = [1024 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [1024 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(1024);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if (([v13 isEqual:elementCopy] & 1) == 0)
           {
             [(AXPTranslator_iOS *)self _removeCacheEntriesForElement:v13];
           }
         }
 
-        v10 = [1024 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [1024 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -201,13 +202,11 @@
 
   backTranslationCache = [(AXPTranslator_iOS *)self backTranslationCache];
   [backTranslationCache setObject:elementCopy forKey:objectCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeCacheEntriesForElement:(id)element
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   elementCopy = element;
   dispatch_assert_queue_V2(self->_cacheQueue);
   [(NSMutableArray *)self->_cachedElements removeObject:elementCopy];
@@ -217,27 +216,27 @@
   backTranslationCache = [(AXPTranslator_iOS *)self backTranslationCache];
   allKeys = [backTranslationCache allKeys];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = allKeys;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * v12);
+        v13 = *(*(&v18 + 1) + 8 * v12);
         backTranslationCache2 = [(AXPTranslator_iOS *)self backTranslationCache];
         v15 = [backTranslationCache2 objectForKey:v13];
         v16 = [v15 isEqual:elementCopy];
@@ -252,13 +251,11 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)translationCache
@@ -291,12 +288,12 @@
 
 - (void)_resetSystemWideElementAfterDelay
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = AXPlatformTranslationLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[AXPTranslator_iOS _resetSystemWideElementAfterDelay]";
+    v7 = "[AXPTranslator_iOS _resetSystemWideElementAfterDelay]";
     _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
@@ -307,18 +304,17 @@
   block[3] = &unk_278BE8288;
   block[4] = self;
   dispatch_after(v4, MEMORY[0x277D85CD0], block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_attemptToResetSystemWideElement
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = AXPlatformTranslationLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[AXPTranslator_iOS _attemptToResetSystemWideElement]";
-    _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[AXPTranslator_iOS _attemptToResetSystemWideElement]";
+    _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
   }
 
   [(AXPTranslator_iOS *)self _resetSystemWideElement];
@@ -329,31 +325,124 @@
     v5 = AXPlatformTranslationLogCommon();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[AXPTranslator_iOS _attemptToResetSystemWideElement]";
-      _os_log_impl(&dword_23D766000, v5, OS_LOG_TYPE_INFO, "%s: systemWideElement still nil, will retry after delay", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AXPTranslator_iOS _attemptToResetSystemWideElement]";
+      _os_log_impl(&dword_23D766000, v5, OS_LOG_TYPE_INFO, "%s: systemWideElement still nil, will retry after delay", &v6, 0xCu);
     }
 
     [(AXPTranslator_iOS *)self _resetSystemWideElementAfterDelay];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetSystemWideElement
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  systemAppElement = self->_systemAppElement;
+  self->_systemAppElement = 0;
+
+  SystemWide = AXUIElementCreateSystemWide();
+  if (SystemWide)
+  {
+    v5 = SystemWide;
+    v6 = MEMORY[0x277CE6BB0];
+    v7 = objc_opt_new();
+    v8 = [v6 uiElementWithAXElement:v5 cache:v7];
+    [(AXPTranslator_iOS *)self setSystemWideElement:v8];
+
+    systemApplication = [MEMORY[0x277CE6BA0] systemApplication];
+    v10 = AXPlatformTranslationLogCommon();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      *buf = 136315394;
+      v15 = "[AXPTranslator_iOS _resetSystemWideElement]";
+      v16 = 1024;
+      v17 = [systemApplication pid];
+      _os_log_impl(&dword_23D766000, v10, OS_LOG_TYPE_INFO, "%s: successfully created systemApp with pid: %d", buf, 0x12u);
+    }
+
+    uiElement = [systemApplication uiElement];
+    axElement = [uiElement axElement];
+
+    if (axElement)
+    {
+      AXUIElementRegisterForApplicationDeath();
+    }
+
+    CFRelease(v5);
+  }
+
+  else
+  {
+    v13 = AXPlatformTranslationLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [AXPTranslator_iOS _resetSystemWideElement];
+    }
+  }
 }
 
 - (void)_registerAccessibilityNotifications
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  if (!AXPIsCatalyst(self, a2))
+  {
+    AXUIElementRegisterSystemWideServerDeathCallback();
+    systemWideElement = [(AXPTranslator_iOS *)self systemWideElement];
+
+    if (!systemWideElement)
+    {
+      [(AXPTranslator_iOS *)self _resetSystemWideElement];
+    }
+
+    systemWideElement2 = [(AXPTranslator_iOS *)self systemWideElement];
+    axElement = [systemWideElement2 axElement];
+
+    if ([(AXPTranslator_iOS *)self axEventObserver])
+    {
+      goto LABEL_8;
+    }
+
+    pid = 0;
+    AXUIElementGetPid(axElement, &pid);
+    v12 = 0;
+    v7 = AXObserverCreate(pid, _axEventHandler, &v12);
+    [(AXPTranslator_iOS *)self setAxEventObserver:v12];
+    if (v7)
+    {
+      v8 = AXPlatformTranslationLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [AXPTranslator_iOS _registerAccessibilityNotifications];
+      }
+    }
+
+    else
+    {
+      RunLoopSource = AXObserverGetRunLoopSource([(AXPTranslator_iOS *)self axEventObserver]);
+      if (RunLoopSource)
+      {
+        v10 = RunLoopSource;
+        Main = CFRunLoopGetMain();
+        CFRunLoopAddSource(Main, v10, *MEMORY[0x277CBF058]);
+LABEL_8:
+        for (i = 0; i != 18; ++i)
+        {
+          AXObserverAddNotification([(AXPTranslator_iOS *)self axEventObserver], axElement, dword_23D77E1B0[i], self);
+        }
+
+        return;
+      }
+
+      v8 = AXPlatformTranslationLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [AXPTranslator_iOS _registerAccessibilityNotifications];
+      }
+    }
+
+    return;
+  }
+
+  MEMORY[0x2821390F8](notificationBypass, 0);
 }
 
 - (id)_processAccessibilityAttributeValue:(int64_t)value
@@ -439,23 +528,21 @@
 
 - (void)setAccessibilityEnabled:(BOOL)enabled
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (enabled && !self->_accessibilityEnabled)
   {
     v4 = AXPlatformTranslationLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 136315394;
-      v7 = "[AXPTranslator_iOS setAccessibilityEnabled:]";
-      v8 = 2112;
-      v9 = @"YES";
-      _os_log_impl(&dword_23D766000, v4, OS_LOG_TYPE_INFO, "%s: accessibilityEnabled: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[AXPTranslator_iOS setAccessibilityEnabled:]";
+      v7 = 2112;
+      v8 = @"YES";
+      _os_log_impl(&dword_23D766000, v4, OS_LOG_TYPE_INFO, "%s: accessibilityEnabled: %@", &v5, 0x16u);
     }
 
     [(AXPTranslator_iOS *)self enableAccessibility];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signalAppAXReady
@@ -497,50 +584,50 @@
 - (id)processMultipleAttributeRequest:(id)request removeEmptyValue:(BOOL)value
 {
   valueCopy = value;
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   _convertAXPClientToiOS([requestCopy clientType]);
   AXOverrideRequestingClientType();
   translation = [requestCopy translation];
   v7 = +[AXPTranslator_iOS sharedInstance];
-  v45 = translation;
+  v44 = translation;
   v8 = [v7 createPlatformElementFromTranslationObject:translation];
 
   v9 = MEMORY[0x277CE6BB0];
   v10 = objc_opt_new();
   element = v8;
-  v51 = [v9 uiElementWithAXElement:v8 cache:v10];
+  v50 = [v9 uiElementWithAXElement:v8 cache:v10];
 
-  v62 = 0;
-  v52 = objc_opt_new();
+  v61 = 0;
+  v51 = objc_opt_new();
   v11 = objc_opt_new();
   v12 = objc_opt_new();
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v48 = requestCopy;
+  v47 = requestCopy;
   v13 = requestCopy;
   v14 = v11;
   parameters = [v13 parameters];
   v16 = [parameters objectForKeyedSubscript:@"attributes"];
 
-  v17 = [v16 countByEnumeratingWithState:&v58 objects:v64 count:16];
-  v49 = v14;
+  v17 = [v16 countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v48 = v14;
   if (v17)
   {
     v18 = v17;
-    v19 = *v59;
+    v19 = *v58;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v59 != v19)
+        if (*v58 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v58 + 1) + 8 * i);
+        v21 = *(*(&v57 + 1) + 8 * i);
         integerValue = [v21 integerValue];
         v23 = [(AXPTranslator_iOS *)self attributeFromRequest:integerValue];
         if (v23)
@@ -553,27 +640,27 @@
 
         else
         {
-          v25 = -[AXPTranslator_iOS _processAttributeSpecialCases:uiElement:error:client:](self, "_processAttributeSpecialCases:uiElement:error:client:", integerValue, v51, &v62, [v48 clientType]);
+          v25 = -[AXPTranslator_iOS _processAttributeSpecialCases:uiElement:error:client:](self, "_processAttributeSpecialCases:uiElement:error:client:", integerValue, v50, &v61, [v47 clientType]);
           if (valueCopy)
           {
             v26 = [(AXPTranslator_iOS *)self _nilOutEmptyValue:v25];
 
             v25 = v26;
-            v14 = v49;
+            v14 = v48;
           }
 
-          [v52 setObject:v25 forKeyedSubscript:v21];
+          [v51 setObject:v25 forKeyedSubscript:v21];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v58 objects:v64 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v57 objects:v63 count:16];
     }
 
     while (v18);
   }
 
   v27 = objc_opt_new();
-  [v27 setError:v62];
+  [v27 setError:v61];
   v28 = element;
   if ([v14 count])
   {
@@ -586,32 +673,32 @@
 
     else
     {
-      v44 = v27;
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
+      v43 = v27;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v30 = values;
-      v31 = [(__CFArray *)v30 countByEnumeratingWithState:&v53 objects:v63 count:16];
+      v31 = [(__CFArray *)v30 countByEnumeratingWithState:&v52 objects:v62 count:16];
       if (v31)
       {
         v32 = v31;
         v33 = 0;
-        v47 = *v54;
+        v46 = *v53;
         do
         {
           for (j = 0; j != v32; ++j)
           {
-            if (*v54 != v47)
+            if (*v53 != v46)
             {
               objc_enumerationMutation(v30);
             }
 
-            v35 = _AXPConvertOutgoingValueWithDesiredType(*(*(&v53 + 1) + 8 * j), 0);
+            v35 = _AXPConvertOutgoingValueWithDesiredType(*(*(&v52 + 1) + 8 * j), 0);
             v36 = [v14 objectAtIndexedSubscript:v33];
             intValue = [v36 intValue];
             v38 = [v12 objectAtIndexedSubscript:v33];
-            v39 = -[AXPTranslator_iOS _postProcessAttributeRequest:iosAttribute:axpAttribute:result:error:](self, "_postProcessAttributeRequest:iosAttribute:axpAttribute:result:error:", v51, intValue, [v38 intValue], v35, &v62);
+            v39 = -[AXPTranslator_iOS _postProcessAttributeRequest:iosAttribute:axpAttribute:result:error:](self, "_postProcessAttributeRequest:iosAttribute:axpAttribute:result:error:", v50, intValue, [v38 intValue], v35, &v61);
 
             if (valueCopy)
             {
@@ -621,19 +708,19 @@
             }
 
             v41 = [v12 objectAtIndexedSubscript:v33];
-            [v52 setObject:v39 forKeyedSubscript:v41];
+            [v51 setObject:v39 forKeyedSubscript:v41];
 
             ++v33;
-            v14 = v49;
+            v14 = v48;
           }
 
-          v32 = [(__CFArray *)v30 countByEnumeratingWithState:&v53 objects:v63 count:16];
+          v32 = [(__CFArray *)v30 countByEnumeratingWithState:&v52 objects:v62 count:16];
         }
 
         while (v32);
       }
 
-      v27 = v44;
+      v27 = v43;
       v28 = element;
     }
 
@@ -643,15 +730,13 @@
     }
   }
 
-  [v27 setResultData:v52];
+  [v27 setResultData:v51];
   if (v28)
   {
     CFRelease(v28);
   }
 
   AXOverrideRequestingClientType();
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -787,25 +872,24 @@ LABEL_10:
 
 - (id)_postProcessAttributeRequest:(id)request iosAttribute:(int64_t)attribute axpAttribute:(unint64_t)axpAttribute result:(id)result error:(unint64_t *)error
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   v14 = resultCopy;
-  v15 = 0x277CCA000uLL;
   if (attribute == 2003 || axpAttribute == 106 || axpAttribute == 5)
   {
-    v16 = MEMORY[0x277CCAE60];
+    v15 = MEMORY[0x277CCAE60];
     v14 = resultCopy;
-    v17 = *(MEMORY[0x277CBF398] + 16);
-    v51 = *MEMORY[0x277CBF398];
-    v52 = v17;
+    v16 = *(MEMORY[0x277CBF398] + 16);
+    v48 = *MEMORY[0x277CBF398];
+    v49 = v16;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) != 0 && !strcmp([v14 objCType], "{CGRect={CGPoint=dd}{CGSize=dd}}"))
     {
-      [v14 getValue:&v51];
+      [v14 getValue:&v48];
     }
 
-    v18 = [v16 valueWithRect:{v51, v52}];
+    v17 = [v15 valueWithRect:{v48, v49}];
     goto LABEL_8;
   }
 
@@ -816,17 +900,17 @@ LABEL_10:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && ![v14 integerValue])
       {
-        v40 = [requestCopy objectWithAXAttribute:2001];
+        v37 = [requestCopy objectWithAXAttribute:2001];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v41 = [v40 attributeValueForKey:*MEMORY[0x277CE6B90]];
+          v38 = [v37 attributeValueForKey:*MEMORY[0x277CE6B90]];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v42 = v41;
+            v39 = v38;
 
-            v14 = v42;
+            v14 = v39;
           }
         }
       }
@@ -841,20 +925,20 @@ LABEL_10:
       {
         case 2:
 
-          v19 = &unk_284FCBB08;
+          v18 = &unk_284FCBB08;
           goto LABEL_9;
         case 1:
 
-          v19 = &unk_284FCBB20;
+          v18 = &unk_284FCBB20;
           goto LABEL_9;
         case 0:
 
-          v19 = &unk_284FCBAF0;
+          v18 = &unk_284FCBAF0;
           goto LABEL_9;
       }
 
 LABEL_58:
-      v19 = v14;
+      v18 = v14;
       goto LABEL_9;
     }
 
@@ -864,9 +948,9 @@ LABEL_33:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v43 = [(AXPTranslator_iOS *)self _processAuditIssuesResult:v14];
+        v40 = [(AXPTranslator_iOS *)self _processAuditIssuesResult:v14];
 
-        v14 = v43;
+        v14 = v40;
       }
 
       goto LABEL_19;
@@ -881,74 +965,73 @@ LABEL_33:
       }
 
       errorCopy = error;
-      v45 = requestCopy;
-      v46 = objc_opt_new();
+      v42 = requestCopy;
+      v43 = objc_opt_new();
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v50 = 0u;
-      v25 = v14;
-      v26 = [v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
-      if (v26)
+      v22 = v14;
+      v23 = [v22 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      if (v23)
       {
-        v27 = v26;
-        v28 = *v48;
-        v29 = @"CustomActionIdentifier";
-        v30 = @"CustomActionName";
+        v24 = v23;
+        v25 = *v45;
+        v26 = @"CustomActionIdentifier";
+        v27 = @"CustomActionName";
         do
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v24; ++i)
           {
-            if (*v48 != v28)
+            if (*v45 != v25)
             {
-              objc_enumerationMutation(v25);
+              objc_enumerationMutation(v22);
             }
 
-            v32 = *(*(&v47 + 1) + 8 * i);
+            v29 = *(*(&v44 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v33 = [v32 objectForKeyedSubscript:v29];
-              v34 = [v32 objectForKeyedSubscript:v30];
-              v35 = v34;
-              if (v33)
+              v30 = [v29 objectForKeyedSubscript:v26];
+              v31 = [v29 objectForKeyedSubscript:v27];
+              v32 = v31;
+              if (v30)
               {
-                v36 = v34 == 0;
+                v33 = v31 == 0;
               }
 
               else
               {
-                v36 = 1;
+                v33 = 1;
               }
 
-              if (!v36)
+              if (!v33)
               {
-                v53[0] = @"AXPCustomActionIdentifier";
-                v53[1] = @"AXPCustomActionName";
-                v54[0] = v33;
-                v54[1] = v34;
-                [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
-                v37 = v30;
-                v39 = v38 = v29;
-                [v46 addObject:v39];
+                v50[0] = @"AXPCustomActionIdentifier";
+                v50[1] = @"AXPCustomActionName";
+                v51[0] = v30;
+                v51[1] = v31;
+                [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+                v34 = v27;
+                v36 = v35 = v26;
+                [v43 addObject:v36];
 
-                v29 = v38;
-                v30 = v37;
+                v26 = v35;
+                v27 = v34;
               }
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v47 objects:v55 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v44 objects:v52 count:16];
         }
 
-        while (v27);
+        while (v24);
       }
 
       error = errorCopy;
-      requestCopy = v45;
-      v15 = 0x277CCA000;
+      requestCopy = v42;
       axpAttribute = 13;
-      v19 = v46;
+      v18 = v43;
       goto LABEL_9;
     }
 
@@ -957,7 +1040,7 @@ LABEL_33:
 
   if (attribute == 95227)
   {
-    v18 = [(AXPTranslator_iOS *)self _processOutgoingCustomRotorSearchResult:resultCopy];
+    v17 = [(AXPTranslator_iOS *)self _processOutgoingCustomRotorSearchResult:resultCopy];
   }
 
   else
@@ -967,19 +1050,18 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v18 = [(AXPTranslator_iOS *)self _processCustomRotorData:resultCopy];
+    v17 = [(AXPTranslator_iOS *)self _processCustomRotorData:resultCopy];
   }
 
 LABEL_8:
-  v19 = v18;
+  v18 = v17;
 
 LABEL_9:
   if (axpAttribute == 47)
   {
 LABEL_12:
-    v20 = *(v15 + 3680);
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || [v19 rangeValue] != 0x7FFFFFFF)
+    if ((objc_opt_isKindOfClass() & 1) == 0 || [v18 rangeValue] != 0x7FFFFFFF)
     {
       goto LABEL_14;
     }
@@ -992,7 +1074,7 @@ LABEL_12:
     if (axpAttribute != 92)
     {
 LABEL_14:
-      v14 = v19;
+      v14 = v18;
       goto LABEL_19;
     }
 
@@ -1008,7 +1090,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  intValue2 = [v19 intValue];
+  intValue2 = [v18 intValue];
   if (intValue2)
   {
     v14 = [MEMORY[0x277CCABB0] numberWithInt:intValue2 == 1];
@@ -1022,8 +1104,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1342,7 +1422,7 @@ LABEL_7:
 
 - (id)_processChildrenAttributeRequest:(id)request error:(unint64_t *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if ([(AXPTranslator_iOS *)self _usingCachedTree])
   {
@@ -1352,15 +1432,13 @@ LABEL_7:
 
   else
   {
-    v13 = *MEMORY[0x277CE6B48];
+    v12 = *MEMORY[0x277CE6B48];
     v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[AXPTranslator_iOS shouldHonorGroupsForElementTraversal](self, "shouldHonorGroupsForElementTraversal")}];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
 
     v8 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:requestCopy attribute:95236 parameter:v10 error:error];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1368,18 +1446,18 @@ LABEL_7:
 - (id)_processClassNameAttributeRequest:(id)request error:(unint64_t *)error
 {
   requestCopy = request;
-  if (AXPIsCatalyst())
+  if (AXPIsCatalyst(requestCopy, v7))
   {
-    v7 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:requestCopy iosAttribute:5045 axpAttribute:7 parameter:0 error:error];
+    v8 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:requestCopy iosAttribute:5045 axpAttribute:7 parameter:0 error:error];
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
     *error = 3;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_processCellWithIndexPathAttributeRequest:(id)request parameter:(id)parameter error:(unint64_t *)error
@@ -1403,11 +1481,16 @@ LABEL_7:
 {
   resquestCopy = resquest;
   v7 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:resquestCopy iosAttribute:2188 axpAttribute:23 parameter:0 error:error];
-  if (AXPNilOrEmptyString(v7) && (!AXPIsCatalyst() || AXPLinkedOnOrAfterGozul() && !AXPIsGoodOldAppleCatalystApp()))
+  v8 = AXPNilOrEmptyString(v7);
+  if (v8)
   {
-    v8 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:resquestCopy iosAttribute:2002 axpAttribute:23 parameter:0 error:error];
+    v10 = AXPIsCatalyst(v8, v9);
+    if (!v10 || (v12 = AXPLinkedOnOrAfterGozul(v10, v11), v12) && !AXPIsGoodOldAppleCatalystApp(v12, v13))
+    {
+      v14 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:resquestCopy iosAttribute:2002 axpAttribute:23 parameter:0 error:error];
 
-    v7 = v8;
+      v7 = v14;
+    }
   }
 
   return v7;
@@ -1415,7 +1498,7 @@ LABEL_7:
 
 - (id)_processLinkedUIElementsAttributeRequest:(id)request error:(unint64_t *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:requestCopy iosAttribute:2167 axpAttribute:76 parameter:0 error:error];
   v8 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:requestCopy iosAttribute:2033 axpAttribute:76 parameter:0 error:error];
@@ -1445,33 +1528,33 @@ LABEL_21:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
-          if (([v9 containsObject:{v16, v20}] & 1) == 0)
+          v16 = *(*(&v19 + 1) + 8 * i);
+          if (([v9 containsObject:{v16, v19}] & 1) == 0)
           {
             [array addObject:v16];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -1479,7 +1562,6 @@ LABEL_21:
   }
 
 LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1565,17 +1647,17 @@ LABEL_22:
 
 - (id)_processNextLineRangeAttributeRequest:(id)request parameter:(id)parameter error:(unint64_t *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v9 = [(AXPTranslator_iOS *)self _processLineRangeAttributeRequest:requestCopy parameter:parameter error:error];
   v10 = v9;
   if (v9)
   {
     rangeValue = [v9 rangeValue];
-    v19 = @"parameter";
+    v18 = @"parameter";
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12 + rangeValue + 1];
-    v20[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v15 = [(AXPTranslator_iOS *)self _processLineRangeAttributeRequest:requestCopy parameter:v14 error:error];
 
     if (v15 && [v15 rangeValue] == 0x7FFFFFFF)
@@ -1591,21 +1673,19 @@ LABEL_22:
     v15 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_processPreviousLineRangeAttributeRequest:(id)request parameter:(id)parameter error:(unint64_t *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v9 = [(AXPTranslator_iOS *)self _processLineRangeAttributeRequest:requestCopy parameter:parameter error:error];
   v10 = v9;
   if (v9)
   {
     rangeValue = [v9 rangeValue];
-    v18 = @"parameter";
+    v17 = @"parameter";
     if (rangeValue)
     {
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:rangeValue - 1];
@@ -1616,8 +1696,8 @@ LABEL_22:
       v12 = &unk_284FCBAD8;
     }
 
-    v19[0] = v12;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v13 = [(AXPTranslator_iOS *)self _processLineRangeAttributeRequest:requestCopy parameter:v14 error:error];
 
     if (rangeValue)
@@ -1637,14 +1717,12 @@ LABEL_22:
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_processMoveFocusToOpaqueElementAttributeRequest:(id)request parameter:(id)parameter direction:(int64_t)direction error:(unint64_t *)error
 {
-  v20[6] = *MEMORY[0x277D85DE8];
+  v19[6] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   parameterCopy = parameter;
   objc_opt_class();
@@ -1659,14 +1737,14 @@ LABEL_22:
       if (objc_opt_isKindOfClass())
       {
         v14 = [MEMORY[0x277CCABB0] numberWithLong:direction];
-        v20[0] = v14;
-        v20[1] = &unk_284FCBC88;
+        v19[0] = v14;
+        v19[1] = &unk_284FCBC88;
         v15 = [MEMORY[0x277CCAE60] valueWithRange:{0x7FFFFFFFLL, 0}];
-        v20[2] = v15;
-        v20[3] = v13;
-        v20[4] = MEMORY[0x277CBEC38];
-        v20[5] = MEMORY[0x277CBEC38];
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:6];
+        v19[2] = v15;
+        v19[3] = v13;
+        v19[4] = MEMORY[0x277CBEC38];
+        v19[5] = MEMORY[0x277CBEC38];
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:6];
 
         v17 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:requestCopy attribute:95225 parameter:v16 error:error];
       }
@@ -1691,22 +1769,20 @@ LABEL_22:
     *error = 7;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_processRawElementDataRequest:(id)request error:(unint64_t *)error
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if ([request axElement] && (Data = _AXUIElementCreateData()) != 0)
   {
     v5 = Data;
-    v9[0] = @"TokenType";
-    v9[1] = @"ElementData";
-    v10[0] = @"AXElementTokenSimulator";
-    v10[1] = Data;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = @"TokenType";
+    v8[1] = @"ElementData";
+    v9[0] = @"AXElementTokenSimulator";
+    v9[1] = Data;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     CFRelease(v5);
   }
 
@@ -1715,22 +1791,20 @@ LABEL_22:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)_processSelectedTextRequest:(id)request error:(unint64_t *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = [requestCopy rangeWithAXAttribute:2005];
   if (v7 != 0x7FFFFFFF && v7 | v8)
   {
-    v14 = @"parameter";
+    v13 = @"parameter";
     v10 = [MEMORY[0x277CCAE60] valueWithRange:{v7, v8}];
-    v15[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
     v9 = [(AXPTranslator_iOS *)self _processStringForRangeAttributeRequest:requestCopy parameter:v11 error:error];
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -1744,8 +1818,6 @@ LABEL_22:
   {
     v9 = &stru_284FC8428;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1942,112 +2014,119 @@ LABEL_10:
 - (unint64_t)_processRoleAttributeRequest:(id)request traits:(unint64_t)traits error:(unint64_t *)error
 {
   requestCopy = request;
-  if ([requestCopy BOOLWithAXAttribute:5020] && !objc_msgSend(requestCopy, "BOOLWithAXAttribute:", 2016))
+  v9 = [requestCopy BOOLWithAXAttribute:5020];
+  if (v9)
   {
-    v9 = 5;
-    goto LABEL_18;
+    v9 = [requestCopy BOOLWithAXAttribute:2016];
+    if (!v9)
+    {
+      v11 = 5;
+      goto LABEL_18;
+    }
   }
 
   if ((*MEMORY[0x277CE6DB0] & ~traits) == 0 || (*MEMORY[0x277CE6DF0] & ~traits) == 0)
   {
-    v9 = 9;
+    v11 = 9;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6E70] & ~traits) == 0)
   {
-    v9 = 3;
+    v11 = 3;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6DA0] & ~traits) == 0)
   {
-    v9 = 19;
+    v11 = 19;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6D00] & ~traits) == 0 || (*MEMORY[0x277CE6D68] & ~traits) == 0 || (*MEMORY[0x277CE6D70] & ~traits) == 0)
   {
-    v10 = _AXPElementIsTabButton(requestCopy, traits) == 0;
-    v11 = 9;
-    v12 = 2;
+    v12 = _AXPElementIsTabButton(requestCopy, traits) == 0;
+    v13 = 9;
+    v14 = 2;
     goto LABEL_15;
   }
 
   if ((*MEMORY[0x277CE6D50] & ~traits) == 0)
   {
-    v9 = 6;
+    v11 = 6;
     goto LABEL_18;
   }
 
-  if (!AXPIsSwiftPlaygrounds() && (*MEMORY[0x277CE6E00] & ~traits) == 0 && (*MEMORY[0x277CE6E68] & ~traits) == 0)
+  v16 = AXPIsSwiftPlaygrounds(v9, v10);
+  if (!v16 && (*MEMORY[0x277CE6E00] & ~traits) == 0 && (*MEMORY[0x277CE6E68] & ~traits) == 0)
   {
     goto LABEL_24;
   }
 
   if ((*MEMORY[0x277CE6D78] & ~traits) == 0)
   {
-    v9 = 8;
+    v11 = 8;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6D58] & ~traits) == 0 || (*MEMORY[0x277CE6DA8] & ~traits) == 0 || (*MEMORY[0x277CE6D80] & ~traits) == 0)
   {
-    v9 = 7;
+    v11 = 7;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6DE8] & ~traits) == 0)
   {
-    v9 = 14;
+    v11 = 14;
     goto LABEL_18;
   }
 
-  if (!AXPIsSwiftPlaygrounds() && (*MEMORY[0x277CE6E00] & ~traits) == 0)
+  if (!AXPIsSwiftPlaygrounds(v16, v17) && (*MEMORY[0x277CE6E00] & ~traits) == 0)
   {
     goto LABEL_24;
   }
 
   if ((*MEMORY[0x277CE6E08] & ~traits) == 0)
   {
-    v9 = 15;
+    v11 = 15;
     goto LABEL_18;
   }
 
   if ((*MEMORY[0x277CE6CB8] & ~traits) != 0)
   {
-    if ([requestCopy BOOLWithAXAttribute:5056])
+    v18 = [requestCopy BOOLWithAXAttribute:5056];
+    if (v18)
     {
-      v9 = 11;
+      v11 = 11;
       goto LABEL_18;
     }
 
-    if (!AXPIsSwiftPlaygrounds())
+    if (!AXPIsSwiftPlaygrounds(v18, v19))
     {
-      v14 = *MEMORY[0x277CE6E68];
+      v20 = *MEMORY[0x277CE6E68];
       goto LABEL_46;
     }
 
-    v14 = *MEMORY[0x277CE6E68];
-    if ((*MEMORY[0x277CE6E00] & ~traits) != 0 || (v14 & traits) != v14)
+    v20 = *MEMORY[0x277CE6E68];
+    if ((*MEMORY[0x277CE6E00] & ~traits) != 0 || (v20 & traits) != v20)
     {
 LABEL_46:
-      v15 = [MEMORY[0x277CE6BA0] elementWithUIElement:requestCopy];
-      containerType = [v15 containerType];
-      if ((v14 & ~traits) == 0 && !containerType)
+      v21 = [MEMORY[0x277CE6BA0] elementWithUIElement:requestCopy];
+      containerType = [v21 containerType];
+      if ((v20 & ~traits) == 0 && !containerType)
       {
-        v17 = [(AXPTranslator_iOS *)self _processChildrenAttributeRequest:requestCopy error:error];
-        if (v17)
+        v23 = [(AXPTranslator_iOS *)self _processChildrenAttributeRequest:requestCopy error:error];
+        if (v23)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 || [v17 count])
+          if ((objc_opt_isKindOfClass() & 1) == 0 || [v23 count])
           {
 
             goto LABEL_57;
           }
         }
 
-        v9 = 14;
+        v11 = 14;
 LABEL_69:
 
         goto LABEL_18;
@@ -2058,13 +2137,13 @@ LABEL_69:
         switch(containerType)
         {
           case 0x400:
-            v9 = 20;
+            v11 = 20;
             goto LABEL_69;
           case 0x800:
-            v9 = 12;
+            v11 = 12;
             goto LABEL_69;
           case 0x4000:
-            v9 = 16;
+            v11 = 16;
             goto LABEL_69;
         }
       }
@@ -2077,50 +2156,50 @@ LABEL_69:
 LABEL_57:
             if ([requestCopy BOOLWithAXAttribute:2016])
             {
-              v9 = 4;
+              v11 = 4;
             }
 
             else
             {
-              v9 = 5;
+              v11 = 5;
             }
 
             goto LABEL_69;
           case 2:
-            v9 = 21;
+            v11 = 21;
             goto LABEL_69;
           case 512:
-            v9 = 10;
+            v11 = 10;
             goto LABEL_69;
         }
       }
 
-      v9 = 5;
+      v11 = 5;
       goto LABEL_69;
     }
 
 LABEL_24:
-    v9 = 17;
+    v11 = 17;
     goto LABEL_18;
   }
 
-  v10 = (*MEMORY[0x277CE6DD8] & ~traits) == 0;
-  v11 = 13;
-  v12 = 18;
+  v12 = (*MEMORY[0x277CE6DD8] & ~traits) == 0;
+  v13 = 13;
+  v14 = 18;
 LABEL_15:
-  if (v10)
+  if (v12)
   {
-    v9 = v12;
+    v11 = v14;
   }
 
   else
   {
-    v9 = v11;
+    v11 = v13;
   }
 
 LABEL_18:
 
-  return v9;
+  return v11;
 }
 
 - (id)_processRoleDescriptionAttributeRequest:(id)request error:(unint64_t *)error
@@ -2295,57 +2374,55 @@ LABEL_5:
 {
   selfCopy = self;
   errorCopy = error;
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   parameterCopy = parameter;
   v7 = objc_opt_new();
-  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v26 = parameterCopy;
+  v32 = 0u;
+  v27 = parameterCopy;
   v8 = _AXPiOSParameterFromPlatformParameter(parameterCopy);
   allKeys = [v8 allKeys];
 
-  v10 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v30;
     v13 = *MEMORY[0x277CE6B30];
     v14 = MEMORY[0x277CBEC38];
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
-        v32 = v13;
-        v33 = v14;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:{1, selfCopy, errorCopy, v26}];
+        v16 = *(*(&v29 + 1) + 8 * i);
+        v33 = v13;
+        v34 = v14;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:{1, selfCopy, errorCopy, v27}];
         [v7 setObject:v17 forKeyedSubscript:v16];
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v11);
   }
 
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:AXPIsCatalyst()];
-  [v7 setObject:v18 forKeyedSubscript:*MEMORY[0x277CE6B28]];
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{AXPIsCatalyst(v18, v19)}];
+  [v7 setObject:v20 forKeyedSubscript:*MEMORY[0x277CE6B28]];
 
-  v19 = [requestCopy objectWithAXAttribute:95005 parameter:v7];
-  v20 = _AXPConvertOutgoingValueWithDesiredType(v19, 0);
-  v21 = [(AXPTranslator_iOS *)selfCopy _postProcessAttributeRequest:requestCopy iosAttribute:95005 axpAttribute:83 result:v20 error:errorCopy];
+  v21 = [requestCopy objectWithAXAttribute:95005 parameter:v7];
+  v22 = _AXPConvertOutgoingValueWithDesiredType(v21, 0);
+  v23 = [(AXPTranslator_iOS *)selfCopy _postProcessAttributeRequest:requestCopy iosAttribute:95005 axpAttribute:83 result:v22 error:errorCopy];
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v23;
 }
 
 - (id)_processAttributedStringForRangeAttributeRequest:(id)request parameter:(id)parameter error:(unint64_t *)error
@@ -2353,69 +2430,58 @@ LABEL_5:
   requestCopy = request;
   v9 = _AXPiOSParameterFromPlatformParameter(parameter);
   v10 = [requestCopy objectWithAXAttribute:92508 parameter:v9];
-  v11 = 0x277CCA000uLL;
   if (!v10 || ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)) && ![v10 length])
   {
-    v12 = [(AXPTranslator_iOS *)self _processRoleAttributeRequest:requestCopy error:error];
-    unsignedIntegerValue = [v12 unsignedIntegerValue];
+    v11 = [(AXPTranslator_iOS *)self _processRoleAttributeRequest:requestCopy error:error];
+    unsignedIntegerValue = [v11 unsignedIntegerValue];
 
     if ((unsignedIntegerValue & 0xFFFFFFFFFFFFFFF7) == 6)
     {
-      v14 = [requestCopy objectWithAXAttribute:2001];
+      v13 = [requestCopy objectWithAXAttribute:2001];
       rangeValue = [v9 rangeValue];
-      v17 = v16;
+      v16 = v15;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (rangeValue + v17 <= [v14 length])
+        if (rangeValue + v16 > [v13 length])
         {
-          v18 = [v14 substringWithRange:{rangeValue, v17}];
-LABEL_13:
-          v19 = v18;
-          v11 = 0x277CCA000uLL;
-
-          v10 = v19;
           goto LABEL_14;
         }
+
+        v17 = [v13 substringWithRange:{rangeValue, v16}];
       }
 
       else
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        if ((objc_opt_isKindOfClass() & 1) == 0 || rangeValue + v16 > [v13 length])
         {
-LABEL_14:
-
-          goto LABEL_15;
+          goto LABEL_14;
         }
 
-        if (rangeValue + v17 <= [v14 length])
-        {
-          v18 = [v14 attributedSubstringFromRange:{rangeValue, v17}];
-          goto LABEL_13;
-        }
+        v17 = [v13 attributedSubstringFromRange:{rangeValue, v16}];
       }
 
-      v11 = 0x277CCA000;
-      goto LABEL_14;
+      v18 = v17;
+
+      v10 = v18;
+LABEL_14:
     }
   }
 
-LABEL_15:
-  v20 = objc_opt_class();
-  v21 = _AXPConvertOutgoingValueWithDesiredType(v10, v20);
-  v22 = [(AXPTranslator_iOS *)self _postProcessAttributeRequest:requestCopy iosAttribute:92508 axpAttribute:4 result:v21 error:error];
+  v19 = objc_opt_class();
+  v20 = _AXPConvertOutgoingValueWithDesiredType(v10, v19);
+  v21 = [(AXPTranslator_iOS *)self _postProcessAttributeRequest:requestCopy iosAttribute:92508 axpAttribute:4 result:v20 error:error];
 
-  v23 = *(v11 + 3240);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v24 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v22];
+    v22 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v21];
 
-    v22 = v24;
+    v21 = v22;
   }
 
-  return v22;
+  return v21;
 }
 
 - (id)_processStringForRangeAttributeRequest:(id)request parameter:(id)parameter error:(unint64_t *)error
@@ -2523,17 +2589,17 @@ LABEL_16:
 
 - (id)_processFirstContainedElement:(id)element parameter:(id)parameter error:(unint64_t *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v9 = MEMORY[0x277CBEB38];
-  v19[0] = *MEMORY[0x277CE6B48];
+  v18[0] = *MEMORY[0x277CE6B48];
   v10 = MEMORY[0x277CCABB0];
   parameterCopy = parameter;
   v12 = [v10 numberWithBool:{-[AXPTranslator_iOS shouldHonorGroupsForElementTraversal](self, "shouldHonorGroupsForElementTraversal")}];
-  v19[1] = *MEMORY[0x277CE6B50];
-  v20[0] = v12;
-  v20[1] = MEMORY[0x277CBEC38];
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[1] = *MEMORY[0x277CE6B50];
+  v19[0] = v12;
+  v19[1] = MEMORY[0x277CBEC38];
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v14 = [v9 dictionaryWithDictionary:v13];
 
   v15 = _AXPiOSParameterFromPlatformParameter(parameterCopy);
@@ -2544,8 +2610,6 @@ LABEL_16:
   }
 
   v16 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:elementCopy attribute:95230 parameter:v14 error:error];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2580,17 +2644,17 @@ LABEL_16:
 
 - (id)_processLastContainedElement:(id)element parameter:(id)parameter error:(unint64_t *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   v9 = MEMORY[0x277CBEB38];
-  v19[0] = *MEMORY[0x277CE6B48];
+  v18[0] = *MEMORY[0x277CE6B48];
   v10 = MEMORY[0x277CCABB0];
   parameterCopy = parameter;
   v12 = [v10 numberWithBool:{-[AXPTranslator_iOS shouldHonorGroupsForElementTraversal](self, "shouldHonorGroupsForElementTraversal")}];
-  v19[1] = *MEMORY[0x277CE6B50];
-  v20[0] = v12;
-  v20[1] = MEMORY[0x277CBEC38];
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v18[1] = *MEMORY[0x277CE6B50];
+  v19[0] = v12;
+  v19[1] = MEMORY[0x277CBEC38];
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v14 = [v9 dictionaryWithDictionary:v13];
 
   v15 = _AXPiOSParameterFromPlatformParameter(parameterCopy);
@@ -2602,43 +2666,37 @@ LABEL_16:
 
   v16 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:elementCopy attribute:95231 parameter:v14 error:error];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_processFirstElementForFocus:(id)focus parameter:(id)parameter error:(unint64_t *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = *MEMORY[0x277CE6B48];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277CE6B48];
   v7 = MEMORY[0x277CCABB0];
   focusCopy = focus;
   v9 = [v7 numberWithBool:{-[AXPTranslator_iOS shouldHonorGroupsForElementTraversal](self, "shouldHonorGroupsForElementTraversal")}];
-  v15[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   v11 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:focusCopy attribute:95250 parameter:v10 error:error];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)_processVisibleOpaqueElements:(id)elements error:(unint64_t *)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277CE6B48];
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277CE6B48];
   v6 = MEMORY[0x277CCABB0];
   elementsCopy = elements;
   v8 = [v6 numberWithBool:{-[AXPTranslator_iOS shouldHonorGroupsForElementTraversal](self, "shouldHonorGroupsForElementTraversal")}];
-  v13[1] = *MEMORY[0x277CE6B58];
-  v14[0] = v8;
-  v14[1] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[1] = *MEMORY[0x277CE6B58];
+  v13[0] = v8;
+  v13[1] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   v10 = [(AXPTranslator_iOS *)self _processParameterizedAttributeRequest:elementsCopy attribute:95249 parameter:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3078,42 +3136,42 @@ LABEL_23:
 
 - (id)processSupportedActions:(id)actions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   _convertAXPClientToiOS([actionsCopy clientType]);
   AXOverrideRequestingClientType();
   v5 = objc_opt_new();
   v6 = [(AXPTranslator_iOS *)self axElementFromTranslatorRequest:actionsCopy];
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   parameters = [actionsCopy parameters];
   v9 = [parameters objectForKeyedSubscript:@"actions"];
 
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         if ([v6 supportsAction:{_convertAXPActionToiOS(objc_msgSend(v14, "intValue"))}])
         {
           [v7 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -3122,42 +3180,40 @@ LABEL_23:
   [v5 setResultData:v7];
   AXOverrideRequestingClientType();
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)processSupportsAttributes:(id)attributes
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   _convertAXPClientToiOS([attributesCopy clientType]);
   AXOverrideRequestingClientType();
-  v22 = objc_opt_new();
+  v21 = objc_opt_new();
   v5 = [(AXPTranslator_iOS *)self axElementFromTranslatorRequest:attributesCopy];
   v6 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   parameters = [attributesCopy parameters];
   v8 = [parameters objectForKeyedSubscript:@"attributes"];
 
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         integerValue = [v13 integerValue];
         if (integerValue == 96)
         {
@@ -3184,18 +3240,16 @@ LABEL_10:
         [v6 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
   }
 
-  [v22 setResultData:v6];
+  [v21 setResultData:v6];
   AXOverrideRequestingClientType();
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (id)_preprocessRequest:(int64_t)request parameter:(id)parameter
@@ -3384,21 +3438,21 @@ LABEL_18:
 
 - (AXUIElement)systemAppElement
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   systemAppElement = self->_systemAppElement;
   if (!systemAppElement)
   {
     v4 = AXPlatformTranslationLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v14 = 136315138;
-      *&v14[4] = "[AXPTranslator_iOS systemAppElement]";
-      _os_log_impl(&dword_23D766000, v4, OS_LOG_TYPE_INFO, "%s: setting _systemAppElement", v14, 0xCu);
+      *v13 = 136315138;
+      *&v13[4] = "[AXPTranslator_iOS systemAppElement]";
+      _os_log_impl(&dword_23D766000, v4, OS_LOG_TYPE_INFO, "%s: setting _systemAppElement", v13, 0xCu);
     }
 
     systemWideElement = [(AXPTranslator_iOS *)self systemWideElement];
-    *v14 = 0;
-    v6 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:systemWideElement iosAttribute:1001 axpAttribute:0 parameter:0 error:v14];
+    *v13 = 0;
+    v6 = [(AXPTranslator_iOS *)self _processDirectAttributeRequest:systemWideElement iosAttribute:1001 axpAttribute:0 parameter:0 error:v13];
     if (v6)
     {
       v7 = [(AXPTranslator_iOS *)self createPlatformElementFromTranslationObject:v6];
@@ -3416,8 +3470,6 @@ LABEL_18:
 
     systemAppElement = self->_systemAppElement;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return systemAppElement;
 }
@@ -3577,22 +3629,21 @@ LABEL_18:
 
 - (void)setRequestResolvingBehavior:(unint64_t)behavior
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = AXPlatformTranslationLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v9 = "[AXPTranslator_iOS setRequestResolvingBehavior:]";
-    v10 = 2048;
+    v8 = "[AXPTranslator_iOS setRequestResolvingBehavior:]";
+    v9 = 2048;
     behaviorCopy = behavior;
     _os_log_impl(&dword_23D766000, v5, OS_LOG_TYPE_INFO, "%s: %lu", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = AXPTranslator_iOS;
-  [(AXPTranslator *)&v7 setRequestResolvingBehavior:behavior];
+  v6.receiver = self;
+  v6.super_class = AXPTranslator_iOS;
+  [(AXPTranslator *)&v6 setRequestResolvingBehavior:behavior];
   [(AXPTranslator_iOS *)self setShouldHonorGroupsForElementTraversal:[(AXPTranslator_iOS *)self _usingCachedTree]^ 1];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_usingCachedTree
@@ -3620,14 +3671,14 @@ LABEL_18:
 
 - (void)stopGeneratingAXTreeDump
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = AXPlatformTranslationLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[AXPTranslator_iOS stopGeneratingAXTreeDump]";
-    _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[AXPTranslator_iOS stopGeneratingAXTreeDump]";
+    _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", &v6, 0xCu);
   }
 
   axTreeDumpLock = [(AXPTranslator_iOS *)self axTreeDumpLock];
@@ -3636,8 +3687,6 @@ LABEL_18:
   [(AXPTranslator_iOS *)self setShouldStopGeneratingAXTree:1];
   axTreeDumpLock2 = [(AXPTranslator_iOS *)self axTreeDumpLock];
   [axTreeDumpLock2 unlock];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchNextSetOfElementAttrsOnBackgroundThreadWithEarlyTermination:(BOOL)termination
@@ -3713,7 +3762,7 @@ LABEL_18:
 
 - (void)axTreeDumpGenerateNextSetOfElementAttrsOnMainThread
 {
-  v91[1] = *MEMORY[0x277D85DE8];
+  v90[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   axTreeDumpLock = [(AXPTranslator_iOS *)self axTreeDumpLock];
   [axTreeDumpLock lock];
@@ -3748,7 +3797,7 @@ LABEL_18:
       v18 = v13;
     }
 
-    v69 = v18;
+    v68 = v18;
     if (!v18 || axTreeDumpCurrentChildIndex >= v13)
     {
 LABEL_46:
@@ -3761,21 +3810,21 @@ LABEL_46:
 
       v64 = dispatch_time(0, 0);
       axTreeDumpSharedBackgroundQueue = [(AXPTranslator_iOS *)self axTreeDumpSharedBackgroundQueue];
-      v75[0] = MEMORY[0x277D85DD0];
-      v75[1] = 3221225472;
-      v75[2] = __72__AXPTranslator_iOS_axTreeDumpGenerateNextSetOfElementAttrsOnMainThread__block_invoke_586;
-      v75[3] = &unk_278BE8288;
-      v75[4] = self;
-      dispatch_after(v64, axTreeDumpSharedBackgroundQueue, v75);
+      v74[0] = MEMORY[0x277D85DD0];
+      v74[1] = 3221225472;
+      v74[2] = __72__AXPTranslator_iOS_axTreeDumpGenerateNextSetOfElementAttrsOnMainThread__block_invoke_586;
+      v74[3] = &unk_278BE8288;
+      v74[4] = self;
+      dispatch_after(v64, axTreeDumpSharedBackgroundQueue, v74);
 
-      goto LABEL_47;
+      return;
     }
 
-    v72 = 0;
+    v71 = 0;
     v19 = 0x277CBE000uLL;
     *&v17 = 136315394;
-    v67 = v17;
-    v68 = axTreeDumpCurrentType;
+    v66 = v17;
+    v67 = axTreeDumpCurrentType;
     while (1)
     {
       axTreeDumpLock7 = [(AXPTranslator_iOS *)self axTreeDumpLock];
@@ -3813,12 +3862,12 @@ LABEL_46:
 LABEL_18:
       v26 = objc_alloc_init(AXPTranslatorRequest);
       [(AXPTranslatorRequest *)v26 setTranslation:v22];
-      v90 = @"attributes";
-      v91[0] = array;
-      v27 = [*(v19 + 2752) dictionaryWithObjects:v91 forKeys:&v90 count:1];
+      v89 = @"attributes";
+      v90[0] = array;
+      v27 = [*(v19 + 2752) dictionaryWithObjects:v90 forKeys:&v89 count:1];
       [(AXPTranslatorRequest *)v26 setParameters:v27];
 
-      v70 = v26;
+      v69 = v26;
       v28 = [(AXPTranslator_iOS *)self processMultipleAttributeRequest:v26 removeEmptyValue:0];
       if ([v28 error])
       {
@@ -3826,40 +3875,40 @@ LABEL_18:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           error = [v28 error];
-          *buf = v67;
-          v87 = "[AXPTranslator_iOS axTreeDumpGenerateNextSetOfElementAttrsOnMainThread]";
-          v88 = 2048;
-          v89 = error;
+          *buf = v66;
+          v86 = "[AXPTranslator_iOS axTreeDumpGenerateNextSetOfElementAttrsOnMainThread]";
+          v87 = 2048;
+          v88 = error;
           _os_log_error_impl(&dword_23D766000, v29, OS_LOG_TYPE_ERROR, "%s: error while attempting to process attrs: %lu", buf, 0x16u);
         }
       }
 
-      v73 = axTreeDumpCurrentChildIndex;
-      v71 = array;
+      v72 = axTreeDumpCurrentChildIndex;
+      v70 = array;
       [v28 setAssociatedTranslationObject:v22];
       [v28 setAssociatedRequestType:5];
-      v74 = v28;
+      v73 = v28;
       [(AXPTranslator_iOS *)self _safelyAddAXTreeDumpResponseToCurrentOutput:v28];
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
       _allAXTreeCanSetAttrValues = [(AXPTranslator_iOS *)self _allAXTreeCanSetAttrValues];
-      v31 = [_allAXTreeCanSetAttrValues countByEnumeratingWithState:&v76 objects:v85 count:16];
+      v31 = [_allAXTreeCanSetAttrValues countByEnumeratingWithState:&v75 objects:v84 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v77;
+        v33 = *v76;
         do
         {
           for (i = 0; i != v32; ++i)
           {
-            if (*v77 != v33)
+            if (*v76 != v33)
             {
               objc_enumerationMutation(_allAXTreeCanSetAttrValues);
             }
 
-            unsignedIntegerValue = [*(*(&v76 + 1) + 8 * i) unsignedIntegerValue];
+            unsignedIntegerValue = [*(*(&v75 + 1) + 8 * i) unsignedIntegerValue];
             v36 = objc_alloc_init(AXPTranslatorRequest);
             [(AXPTranslatorRequest *)v36 setAttributeType:unsignedIntegerValue];
             [(AXPTranslatorRequest *)v36 setTranslation:v22];
@@ -3875,20 +3924,20 @@ LABEL_18:
             }
           }
 
-          v32 = [_allAXTreeCanSetAttrValues countByEnumeratingWithState:&v76 objects:v85 count:16];
+          v32 = [_allAXTreeCanSetAttrValues countByEnumeratingWithState:&v75 objects:v84 count:16];
         }
 
         while (v32);
       }
 
-      resultData2 = [v74 resultData];
+      resultData2 = [v73 resultData];
       v19 = 0x277CBE000uLL;
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       if (isKindOfClass)
       {
-        resultData3 = [v74 resultData];
+        resultData3 = [v73 resultData];
         v42 = [resultData3 objectForKeyedSubscript:&unk_284FCBAA8];
       }
 
@@ -3897,8 +3946,8 @@ LABEL_18:
         v42 = 0;
       }
 
-      axTreeDumpCurrentType = v68;
-      v43 = v73;
+      axTreeDumpCurrentType = v67;
+      v43 = v72;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -3912,13 +3961,13 @@ LABEL_18:
         [axTreeDumpLock10 unlock];
       }
 
-      if ([v68 isEqualToString:@"AXPTreeDumpTypeAdditionalData"])
+      if ([v67 isEqualToString:@"AXPTreeDumpTypeAdditionalData"])
       {
         v47 = objc_alloc_init(AXPTranslatorRequest);
-        v83 = @"actions";
+        v82 = @"actions";
         _allAXTreeActions = [(AXPTranslator_iOS *)self _allAXTreeActions];
-        v84 = _allAXTreeActions;
-        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v83 = _allAXTreeActions;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
         [(AXPTranslatorRequest *)v47 setParameters:v49];
 
         [(AXPTranslatorRequest *)v47 setTranslation:v22];
@@ -3933,10 +3982,10 @@ LABEL_18:
         }
 
         v52 = objc_alloc_init(AXPTranslatorRequest);
-        v81 = @"attributes";
+        v80 = @"attributes";
         _allAXTreeAttrValues = [(AXPTranslator_iOS *)self _allAXTreeAttrValues];
-        v82 = _allAXTreeAttrValues;
-        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        v81 = _allAXTreeAttrValues;
+        v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
         [(AXPTranslatorRequest *)v52 setParameters:v54];
 
         [(AXPTranslatorRequest *)v52 setTranslation:v22];
@@ -3950,7 +3999,7 @@ LABEL_18:
           [(AXPTranslator_iOS *)self _safelyAddAXTreeDumpResponseToCurrentOutput:v55];
         }
 
-        v43 = v73;
+        v43 = v72;
         v19 = 0x277CBE000;
       }
 
@@ -3964,13 +4013,13 @@ LABEL_18:
       axTreeDumpLock12 = [(AXPTranslator_iOS *)self axTreeDumpLock];
       [axTreeDumpLock12 unlock];
 
-      if (++v72 >= v69)
+      if (++v71 >= v68)
       {
-        array = v71;
+        array = v70;
         goto LABEL_46;
       }
 
-      array = v71;
+      array = v70;
       if (axTreeDumpCurrentChildIndex >= v59)
       {
         goto LABEL_46;
@@ -3982,7 +4031,7 @@ LABEL_18:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v87 = "[AXPTranslator_iOS axTreeDumpGenerateNextSetOfElementAttrsOnMainThread]";
+    v86 = "[AXPTranslator_iOS axTreeDumpGenerateNextSetOfElementAttrsOnMainThread]";
     _os_log_impl(&dword_23D766000, v5, OS_LOG_TYPE_INFO, "%s: shouldStopGeneratingAXTree", buf, 0xCu);
   }
 
@@ -4000,9 +4049,6 @@ LABEL_18:
   block[3] = &unk_278BE8288;
   block[4] = self;
   dispatch_async(axTreeDumpSharedBackgroundQueue2, block);
-
-LABEL_47:
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateAXTreeDumpTypeOnBackgroundThread:(id)thread completionHandler:(id)handler
@@ -4261,7 +4307,7 @@ LABEL_20:
 
 - (id)_frontmostAppChildrenForXCTest
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [(AXPTranslator_iOS *)self processFrontMostApp:0];
   translationResponse = [v3 translationResponse];
   v5 = [(AXPTranslator_iOS *)self createPlatformElementFromTranslationObject:translationResponse];
@@ -4269,30 +4315,30 @@ LABEL_20:
   v6 = [MEMORY[0x277CE6BB0] uiElementWithAXElement:v5];
   v7 = [v6 arrayWithAXAttribute:5001];
   array = [MEMORY[0x277CBEB18] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(AXPTranslator_iOS *)self translationObjectFromPlatformElement:*(*(&v17 + 1) + 8 * i), v17];
+        v14 = [(AXPTranslator_iOS *)self translationObjectFromPlatformElement:*(*(&v16 + 1) + 8 * i), v16];
         [array addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -4302,8 +4348,6 @@ LABEL_20:
   {
     CFRelease(v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -4593,17 +4637,55 @@ LABEL_20:
   return v5;
 }
 
+- (id)remoteTranslationDataWithTranslation:(id)translation pid:(int)pid
+{
+  v4 = *&pid;
+  translationCopy = translation;
+  rawElementData = [translationCopy rawElementData];
+
+  if (!rawElementData)
+  {
+    goto LABEL_7;
+  }
+
+  rawElementData2 = [translationCopy rawElementData];
+  v8 = _AXUIElementCreateWithData();
+
+  cf = 0;
+  v9 = _AXPAXUIElementReplaceWithRemotePid(v8, &cf, v4);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  if (v9)
+  {
+    Data = _AXUIElementCreateData();
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+  }
+
+  else
+  {
+LABEL_7:
+    Data = 0;
+  }
+
+  return Data;
+}
+
 - (void)_safelyAddAXTreeDumpResponseToCurrentOutput:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 resultData];
-  v5 = 136315394;
-  v6 = "[AXPTranslator_iOS _safelyAddAXTreeDumpResponseToCurrentOutput:]";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_23D766000, a2, OS_LOG_TYPE_ERROR, "%s: resultData does not conform to NSSecureCoding: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[AXPTranslator_iOS _safelyAddAXTreeDumpResponseToCurrentOutput:]";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_23D766000, a2, OS_LOG_TYPE_ERROR, "%s: resultData does not conform to NSSecureCoding: %@", &v4, 0x16u);
 }
 
 @end

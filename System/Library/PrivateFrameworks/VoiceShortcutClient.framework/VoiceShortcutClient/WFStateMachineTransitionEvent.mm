@@ -1,4 +1,5 @@
 @interface WFStateMachineTransitionEvent
++ (id)transitionEventWithState:(id)state reason:(id)reason valid:(BOOL)valid;
 - (WFStateMachineTransitionEvent)initWithState:(id)state reason:(id)reason valid:(BOOL)valid;
 - (id)description;
 @end
@@ -46,6 +47,16 @@
   }
 
   return v12;
+}
+
++ (id)transitionEventWithState:(id)state reason:(id)reason valid:(BOOL)valid
+{
+  validCopy = valid;
+  reasonCopy = reason;
+  stateCopy = state;
+  v10 = [[self alloc] initWithState:stateCopy reason:reasonCopy valid:validCopy];
+
+  return v10;
 }
 
 @end

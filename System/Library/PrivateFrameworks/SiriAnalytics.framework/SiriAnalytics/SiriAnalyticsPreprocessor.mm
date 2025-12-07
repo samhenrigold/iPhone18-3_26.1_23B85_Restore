@@ -31,7 +31,7 @@
 
   selfCopy = self;
   sub_1D988B8B8(reason, v6, v7);
-  sub_1D98750DC(v6);
+  sub_1D98750DC(v6, v7);
 }
 
 @end

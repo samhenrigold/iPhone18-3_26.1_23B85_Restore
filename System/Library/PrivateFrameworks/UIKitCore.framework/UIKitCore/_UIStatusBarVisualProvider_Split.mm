@@ -1182,9 +1182,9 @@ LABEL_10:
     }
 
     v8 = createdCopy;
-    if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B520, @"SplitStatusBarBatteryPercentageEnabled", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B524)
+    if (_UIInternalPreferenceUsesDefault(&dword_1ED48B520, @"SplitStatusBarBatteryPercentageEnabled", _UIInternalPreferenceUpdateBool) || byte_1ED48B524)
     {
-      v9 = (_UIInternalPreferenceUsesDefault(&dword_1ED48B528, @"SplitStatusBarBatteryPercentageAlwaysEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B52C || [(_UIStatusBarVisualProvider_Split *)self supportsCondensedBatteryPercentage];
+      v9 = !_UIInternalPreferenceUsesDefault(&dword_1ED48B528, @"SplitStatusBarBatteryPercentageAlwaysEnabled", _UIInternalPreferenceUpdateBool) && byte_1ED48B52C || [(_UIStatusBarVisualProvider_Split *)self supportsCondensedBatteryPercentage];
     }
 
     else
@@ -1214,7 +1214,7 @@ LABEL_15:
 {
   v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"batteryPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     expanded = [(_UIStatusBarVisualProvider_iOS *)self expanded];
     v6 = MEMORY[0x1E695DFD8];
@@ -1233,7 +1233,7 @@ LABEL_15:
 
   else
   {
-    if ([identifierCopy isEqual:@"fittingLeadingPartIdentifier"])
+    if (objc_msgSend_isEqual_(identifierCopy))
     {
       statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
       if ([(_UIStatusBarVisualProvider_iOS *)self expanded])
@@ -1251,7 +1251,7 @@ LABEL_15:
 
     else
     {
-      if (![identifierCopy isEqual:@"fittingTrailingPartIdentifier"])
+      if (!objc_msgSend_isEqual_(identifierCopy))
       {
         v12.receiver = self;
         v12.super_class = _UIStatusBarVisualProvider_Split;
@@ -1326,7 +1326,7 @@ LABEL_17:
 
 - (void)_delaySystemUpdateData
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SplitStatusBarShowVPNDisconnect, @"SplitStatusBarShowVPNDisconnect", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E6C4 && ![(_UIStatusBarVisualProvider_Split *)self delayedSystemUpdateData])
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SplitStatusBarShowVPNDisconnect, @"SplitStatusBarShowVPNDisconnect", _UIInternalPreferenceUpdateBool) && byte_1EA95E6C4 && ![(_UIStatusBarVisualProvider_Split *)self delayedSystemUpdateData])
   {
     [(_UIStatusBarVisualProvider_Split *)self setDelayedSystemUpdateData:1];
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
@@ -1338,7 +1338,7 @@ LABEL_17:
 
 - (void)_resumeSystemUpdateData
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SplitStatusBarShowVPNDisconnect, @"SplitStatusBarShowVPNDisconnect", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E6C4 && [(_UIStatusBarVisualProvider_Split *)self delayedSystemUpdateData])
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_SplitStatusBarShowVPNDisconnect, @"SplitStatusBarShowVPNDisconnect", _UIInternalPreferenceUpdateBool) && byte_1EA95E6C4 && [(_UIStatusBarVisualProvider_Split *)self delayedSystemUpdateData])
   {
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
     dataAggregator = [statusBar dataAggregator];
@@ -1447,7 +1447,7 @@ LABEL_17:
 - (id)regionIdentifiersForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"batteryPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v5 = MEMORY[0x1E695DFD8];
     v6 = @"trailing";
@@ -1456,14 +1456,14 @@ LABEL_5:
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqual:@"clockPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v5 = MEMORY[0x1E695DFD8];
     v6 = @"leading";
     goto LABEL_5;
   }
 
-  if ([identifierCopy isEqual:@"leadingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v8 = MEMORY[0x1E695DFD8];
     v21 = @"expandedLowerLeading";
@@ -1475,13 +1475,13 @@ LABEL_8:
     goto LABEL_19;
   }
 
-  if ([identifierCopy isEqual:@"trailingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"trailing", @"systemUpdates", @"expandedTrailing", @"expandedLowerTrailing", 0}];
     goto LABEL_18;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C3D0])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v8 = MEMORY[0x1E695DFD8];
     v21 = @"bottomLeading";
@@ -1490,12 +1490,12 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C3F0])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     goto LABEL_14;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C410])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
 LABEL_16:
     v11 = MEMORY[0x1E695DFD8];
@@ -1503,13 +1503,13 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if ([identifierCopy isEqual:0x1EFB9C430])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     [MEMORY[0x1E695DFD8] setWithObjects:{@"expandedLowerLeading", @"expandedLowerTrailing", 0, v20, v22}];
     goto LABEL_18;
   }
 
-  if ([identifierCopy isEqual:@"visibleExpandedPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
     currentData = [statusBar currentData];
@@ -1900,9 +1900,9 @@ LABEL_15:
           identifier = [*(*(&v21 + 1) + 8 * i) identifier];
           v10 = [_UIStatusBarItem itemIdentifierForDisplayItemIdentifier:identifier];
           v11 = +[(_UIStatusBarItem *)_UIStatusBarBatteryItem];
-          v12 = [v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
 
-          if ((v12 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             [v20 addSubAnimation:v19 forDisplayItemWithIdentifier:identifier];
           }
@@ -2008,9 +2008,9 @@ LABEL_15:
           identifier = [*(*(&v23 + 1) + 8 * i) identifier];
           v12 = [_UIStatusBarItem itemIdentifierForDisplayItemIdentifier:identifier];
           v13 = +[(_UIStatusBarItem *)_UIStatusBarBatteryItem];
-          v14 = [v12 isEqual:v13];
+          isEqual = objc_msgSend_isEqual_(v12);
 
-          if ((v14 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             [v4 addSubAnimation:v21 forDisplayItemWithIdentifier:identifier];
           }

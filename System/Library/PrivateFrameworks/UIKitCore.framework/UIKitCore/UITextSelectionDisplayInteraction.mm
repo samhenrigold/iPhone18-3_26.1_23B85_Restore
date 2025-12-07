@@ -1261,7 +1261,7 @@ LABEL_17:
     v10 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained caretTransformForPosition:v8];
+      objc_msgSend_caretTransformForPosition_(WeakRetained);
       goto LABEL_8;
     }
 
@@ -1281,7 +1281,7 @@ LABEL_7:
     v10 = v9;
     if (v9)
     {
-      [v9 _caretTransformForPosition:v8];
+      objc_msgSend__caretTransformForPosition_(v9);
 LABEL_8:
 
       cursorView = [(UITextSelectionDisplayInteraction *)self cursorView];
@@ -2486,10 +2486,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v14 = [v11 isEqual:v12];
+  isEqual = objc_msgSend_isEqual_(v11);
 
   v15 = defaultCopy;
-  if ((v14 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v15 = v11;
@@ -2525,7 +2525,7 @@ LABEL_10:
   memset(&v13[1], 0, sizeof(CGAffineTransform));
   if (viewCopy)
   {
-    [viewCopy transform];
+    objc_msgSend_transform(viewCopy);
   }
 
   v13[0] = v13[1];
@@ -2630,11 +2630,11 @@ LABEL_10:
         {
           if (textInputView3)
           {
-            [textInputView3 transform];
+            objc_msgSend_transform(textInputView3);
             if (!CGAffineTransformIsIdentity(&v276))
             {
               memset(&v276, 0, sizeof(v276));
-              [textInputView3 transform];
+              objc_msgSend_transform(textInputView3);
               goto LABEL_25;
             }
           }
@@ -2865,12 +2865,12 @@ LABEL_44:
     v103 = [_endCustomSelectionPath bezierPathForHostView:_hostViewAboveText targetView:trailingLollipopView];
     [trailingLollipopView setCustomShape:v103];
 
-    [(UITextSelectionDisplayInteraction *)self _lollipopTransformForSelectionRect:v95 view:leadingLollipopView];
+    objc_msgSend__lollipopTransformForSelectionRect_view_(self);
     v276 = v274;
     v249 = leadingLollipopView;
     [leadingLollipopView setTransform:&v276];
     v250 = v96;
-    [(UITextSelectionDisplayInteraction *)self _lollipopTransformForSelectionRect:v96 view:trailingLollipopView];
+    objc_msgSend__lollipopTransformForSelectionRect_view_(self);
     v276 = v273;
     v247 = trailingLollipopView;
     [trailingLollipopView setTransform:&v276];
@@ -3288,7 +3288,7 @@ LABEL_145:
 
   [(UITextCursorView *)self->_cursorView setBounds:v218, v219, v216, v217];
   [(UITextCursorView *)self->_cursorView setCenter:v221, v223];
-  [(UITextSelectionDisplayInteraction *)self _caretTransform];
+  objc_msgSend__caretTransform(self);
   cursorView = self->_cursorView;
   v276 = v264;
   [(UITextCursorView *)cursorView setTransform:&v276];
@@ -3425,7 +3425,7 @@ LABEL_152:
 
         if (v14)
         {
-          [v14 transform];
+          objc_msgSend_transform(v14);
         }
 
         else
@@ -3630,7 +3630,7 @@ LABEL_8:
             v14 = v13;
             if (v13)
             {
-              if (([v13 isEqual:v10] & 1) == 0)
+              if ((objc_msgSend_isEqual_(v13) & 1) == 0)
               {
                 _proofreadingUnderlineView = [(UITextSelectionDisplayInteraction *)self _proofreadingUnderlineView];
                 [_proofreadingUnderlineView removeUnderlines:v10 animated:0];
@@ -4442,9 +4442,9 @@ LABEL_6:
       v13 = *(*(&v20 + 1) + 8 * v15);
 
       languageWithRegion = [v13 languageWithRegion];
-      v18 = [v8 isEqualToString:languageWithRegion];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-      if (v18)
+      if (isEqualToString)
       {
         break;
       }
@@ -4554,7 +4554,7 @@ LABEL_13:
               [(_UIInputModeCursorAccessory *)v41 setInputModeIdentifier:identifier];
 
               [(_UIInputModeCursorAccessory *)v41 setDictationLanguage:v38];
-              -[_UICursorAccessory setStyle:](v41, "setStyle:", [v38 isEqualToString:v31]);
+              [(_UICursorAccessory *)v41 setStyle:objc_msgSend_isEqualToString_(v38)];
               [(_UICursorAccessory *)v41 setInteractive:1];
               [(_UICursorAccessory *)v41 setLarge:1];
               [v72 addObject:v41];
@@ -4664,7 +4664,7 @@ LABEL_13:
                 identifier3 = [v51 identifier];
                 [(_UIInputModeCursorAccessory *)v50 setInputModeIdentifier:identifier3];
 
-                -[_UICursorAccessory setStyle:](v50, "setStyle:", [v49 isEqual:selectedInputMode]);
+                [(_UICursorAccessory *)v50 setStyle:objc_msgSend_isEqual_(v49)];
                 [(_UICursorAccessory *)v50 setInteractive:1];
                 [(_UICursorAccessory *)v50 setLarge:1];
                 [v72 addObject:v50];
@@ -4844,9 +4844,9 @@ void __84__UITextSelectionDisplayInteraction_Assertions__setActiveIndicators_ani
         activeDictationLanguage = [v12 activeDictationLanguage];
 
         dictationLanguage2 = [v9 dictationLanguage];
-        v15 = [dictationLanguage2 isEqualToString:activeDictationLanguage];
+        isEqualToString = objc_msgSend_isEqualToString_(dictationLanguage2);
 
-        if ((v15 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
           objc_initWeak(&location, defaultCenter);

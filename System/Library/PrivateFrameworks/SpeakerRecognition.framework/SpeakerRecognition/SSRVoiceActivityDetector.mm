@@ -18,7 +18,7 @@
 
 - (void)clientSilenceFeaturesAvailable:(id)available
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   if (self->_endpointReported)
   {
@@ -26,7 +26,7 @@
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v62 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
+      v61 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
       _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Endpoint already reported. Not scheduling", buf, 0xCu);
     }
   }
@@ -52,12 +52,12 @@
     *&v22 = v21;
     *&v23 = v20;
     v24 = [v6 initWithWordCount:wordCount trailingSilenceDuration:trailingSilenceDuration endOfSentenceLikelihood:MEMORY[0x277CBEBF8] acousticEndpointerScore:0 pauseCounts:v10 silencePosterior:v12 clientSilenceFramesCountMs:v14 clientSilenceProbability:v16 silencePosteriorNF:v18 serverFeaturesLatency:v23 eagerResultEndTime:v22];
-    v60 = 0;
+    v59 = 0;
     hybridClassifier = self->_hybridClassifier;
     [availableCopy processedAudioMs];
-    v59 = 0;
-    v26 = [(_EAREndpointer *)hybridClassifier didEndpointWithFeatures:v24 audioTimestamp:&v59 featuresToLog:&v60 + 4 endpointPosterior:&v60 extraDelayMs:?];
-    v27 = v59;
+    v58 = 0;
+    v26 = [(_EAREndpointer *)hybridClassifier didEndpointWithFeatures:v24 audioTimestamp:&v58 featuresToLog:&v59 + 4 endpointPosterior:&v59 extraDelayMs:?];
+    v27 = v58;
     [availableCopy processedAudioMs];
     v29 = v28;
     *&v12 = (1000 * self->_segmentStartPointSampleCount);
@@ -78,15 +78,15 @@
         v39 = v38;
         [availableCopy processedAudioMs];
         *buf = 136316162;
-        v62 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
-        v63 = 2048;
-        v64 = v35;
-        v65 = 2048;
-        v66 = v37;
-        v67 = 2048;
-        v68 = v39;
-        v69 = 2048;
-        v70 = v40;
+        v61 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
+        v62 = 2048;
+        v63 = v35;
+        v64 = 2048;
+        v65 = v37;
+        v66 = 2048;
+        v67 = v39;
+        v68 = 2048;
+        v69 = v40;
         _os_log_impl(&dword_225E12000, v33, OS_LOG_TYPE_DEFAULT, "%s Found Endpoint at: [%f %f %f %f]", buf, 0x34u);
       }
 
@@ -126,15 +126,15 @@
             v53 = v52;
             [availableCopy processedAudioMs];
             *buf = 136316162;
-            v62 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
-            v63 = 2048;
-            v64 = v49;
-            v65 = 2048;
-            v66 = v51;
-            v67 = 2048;
-            v68 = v53;
-            v69 = 2048;
-            v70 = v54;
+            v61 = "[SSRVoiceActivityDetector clientSilenceFeaturesAvailable:]";
+            v62 = 2048;
+            v63 = v49;
+            v64 = 2048;
+            v65 = v51;
+            v66 = 2048;
+            v67 = v53;
+            v68 = 2048;
+            v69 = v54;
             _os_log_impl(&dword_225E12000, v47, OS_LOG_TYPE_DEFAULT, "%s Found startpoint at: [%f %f %f %f]", buf, 0x34u);
           }
 
@@ -152,8 +152,6 @@
       }
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeSPGWithContext:(id)context
@@ -191,7 +189,7 @@
 
 - (void)processAudioData:(id)data numSamples:(unint64_t)samples
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(EARCaesuraSilencePosteriorGenerator *)self->_earSpg addAudio:data numSamples:?];
   v6 = self->_numSamplesProcessed + samples;
   self->_numSamplesProcessed = v6;
@@ -203,25 +201,23 @@
       v8 = MEMORY[0x277D016E0];
       v9 = v7;
       [v8 inputRecordingSampleRate];
-      v12 = 136315394;
-      v13 = "[SSRVoiceActivityDetector processAudioData:numSamples:]";
-      v14 = 2048;
-      v15 = v6 / v10;
-      _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s VAD processed %f secs of audio", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[SSRVoiceActivityDetector processAudioData:numSamples:]";
+      v13 = 2048;
+      v14 = v6 / v10;
+      _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s VAD processed %f secs of audio", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVoiceActivityDetector)initWithContext:(id)context delegate:(id)delegate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
-  v27.receiver = self;
-  v27.super_class = SSRVoiceActivityDetector;
-  v9 = [(SSRVoiceActivityDetector *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = SSRVoiceActivityDetector;
+  v9 = [(SSRVoiceActivityDetector *)&v26 init];
   v10 = v9;
   if (v9)
   {
@@ -238,9 +234,9 @@
     v13 = objc_alloc(MEMORY[0x277D07238]);
     vadResourcePath = [contextCopy vadResourcePath];
     path = [vadResourcePath path];
-    v26 = 0;
-    v16 = [v13 initWithConfiguration:path modelVersion:&v26];
-    v17 = v26;
+    v25 = 0;
+    v16 = [v13 initWithConfiguration:path modelVersion:&v25];
+    v17 = v25;
     hybridClassifier = v10->_hybridClassifier;
     v10->_hybridClassifier = v16;
 
@@ -252,7 +248,7 @@
       if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v29 = "[SSRVoiceActivityDetector initWithContext:delegate:]";
+        v28 = "[SSRVoiceActivityDetector initWithContext:delegate:]";
         _os_log_impl(&dword_225E12000, v21, OS_LOG_TYPE_DEFAULT, "%s ERR: Hybrid endpointer not ready for processing request", buf, 0xCu);
       }
     }
@@ -264,7 +260,6 @@
     v10->_endpointReported = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

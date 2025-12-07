@@ -21,26 +21,27 @@
 
 - (void)layoutSubviews
 {
-  v8.receiver = self;
-  v8.super_class = _s10PocketBlurCMa();
-  v2 = v8.receiver;
-  [(UIView *)&v8 layoutSubviews];
-  v4 = sub_188FFA534();
-  if (*(v3 + 16))
+  _s10PocketBlurCMa();
+  v10.receiver = self;
+  v10.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v10 layoutSubviews];
+  v6 = sub_188FFA534(v9);
+  if (*(v5 + 16))
   {
-    v5 = v3;
-    v6 = v2;
-    sub_188FFF7D8(v5, v6);
+    v7 = v5;
+    v8 = selfCopy;
+    sub_188FFF7D8(v7, v8);
   }
 
-  (v4)(&v7, 0);
+  (v6)(v9, 0);
   sub_188FFAE38();
 }
 
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  v4 = sub_188FFA534();
+  v4 = sub_188FFA534(v7);
   if (*(v3 + 16))
   {
     v5 = v3;
@@ -48,7 +49,7 @@
     sub_188FFF7D8(v5, v6);
   }
 
-  (v4)(&v7, 0);
+  (v4)(v7, 0);
 }
 
 @end

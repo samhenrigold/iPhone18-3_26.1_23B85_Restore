@@ -105,7 +105,7 @@
   }
 
   encryptionVersion = [responseCopy encryptionVersion];
-  if (([encryptionVersion isEqualToString:@"EV_ECC_v1-ASN.1"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(encryptionVersion) & 1) == 0)
   {
 
     goto LABEL_13;

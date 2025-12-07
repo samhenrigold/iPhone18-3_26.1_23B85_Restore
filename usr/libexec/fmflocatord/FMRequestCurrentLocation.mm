@@ -2,6 +2,7 @@
 + (id)serializedFormOfLocation:(id)location;
 - (BOOL)canReplace:(id)replace;
 - (BOOL)canRequestBeRetriedNow;
+- (FMRequestCurrentLocation)initWithProvider:(id)provider location:(id)location finalLocation:(BOOL)finalLocation locateCommand:(id)command reason:(int64_t)reason accuracyChange:(double)change;
 - (id)requestBody;
 - (id)requestUrl;
 - (void)deinitializeRequest;
@@ -16,6 +17,27 @@
   [(FMRequest *)&v3 deinitializeRequest];
   [(FMRequestCurrentLocation *)self setLocation:0];
   [(FMRequestCurrentLocation *)self setLocateCommand:0];
+}
+
+- (FMRequestCurrentLocation)initWithProvider:(id)provider location:(id)location finalLocation:(BOOL)finalLocation locateCommand:(id)command reason:(int64_t)reason accuracyChange:(double)change
+{
+  finalLocationCopy = finalLocation;
+  locationCopy = location;
+  commandCopy = command;
+  v19.receiver = self;
+  v19.super_class = FMRequestCurrentLocation;
+  v16 = [(FMRequest *)&v19 initWithProvider:provider];
+  v17 = v16;
+  if (v16)
+  {
+    [(FMRequestCurrentLocation *)v16 setLocation:locationCopy];
+    [(FMRequestCurrentLocation *)v17 setFinalLocation:finalLocationCopy];
+    [(FMRequestCurrentLocation *)v17 setLocateCommand:commandCopy];
+    [(FMRequestCurrentLocation *)v17 setPublishReason:reason];
+    [(FMRequestCurrentLocation *)v17 setAccuracyChange:change];
+  }
+
+  return v17;
 }
 
 - (id)requestUrl

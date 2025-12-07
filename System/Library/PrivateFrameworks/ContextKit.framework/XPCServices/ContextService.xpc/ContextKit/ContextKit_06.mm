@@ -1,296 +1,3 @@
-id sub_1001453CC(uint64_t a1, void *a2, uint64_t a3, int a4)
-{
-  if (!a2 || (v8 = [a2 length], (v9 = *(a1 + 56)) == 0))
-  {
-    JreThrowNullPointerException();
-  }
-
-  v10 = v8;
-  v11 = *(v9 + 224);
-  if (v11 == 48)
-  {
-    [a2 appendWithLong:a3];
-  }
-
-  else
-  {
-    v12 = JavaLangLong_toStringWithLong_(a3);
-    [a2 appendWithJavaLangCharSequence:{sub_100143B24(a1, v12)}];
-  }
-
-  result = [a2 length];
-  v14 = (v10 - result + a4);
-  if (v14 >= 1)
-  {
-    if (v11 == 48)
-    {
-      v15 = qword_100554908;
-
-      return [a2 insertWithInt:v10 withCharArray:v15 withInt:0 withInt:v14];
-    }
-
-    else
-    {
-      do
-      {
-        result = [a2 insertWithInt:v10 withChar:v11];
-        LODWORD(v14) = v14 - 1;
-      }
-
-      while (v14);
-    }
-  }
-
-  return result;
-}
-
-JavaLangStringBuilder *sub_1001454E4(uint64_t a1, double a2)
-{
-  if (JavaLangDouble_isNaNWithDouble_())
-  {
-    v4 = *(a1 + 40);
-    if (v4)
-    {
-      v5 = @"NaN";
-      goto LABEL_15;
-    }
-
-LABEL_19:
-    JreThrowNullPointerException();
-  }
-
-  if (a2 == INFINITY)
-  {
-    v4 = *(a1 + 40);
-    if (!v4)
-    {
-      goto LABEL_19;
-    }
-
-    if (v4[15])
-    {
-      v5 = @"+Infinity";
-      goto LABEL_15;
-    }
-
-    v6 = v4[17];
-    v7 = @"Infinity";
-    v8 = @" Infinity";
-  }
-
-  else
-  {
-    if (a2 != -INFINITY)
-    {
-      return 0;
-    }
-
-    v4 = *(a1 + 40);
-    if (!v4)
-    {
-      goto LABEL_19;
-    }
-
-    v6 = v4[14];
-    v7 = @"-Infinity";
-    v8 = @"(Infinity)";
-  }
-
-  if (v6)
-  {
-    v5 = v8;
-  }
-
-  else
-  {
-    v5 = v7;
-  }
-
-LABEL_15:
-  [v4 setPrecisionWithInt:0xFFFFFFFFLL];
-  *(*(a1 + 40) + 18) = 0;
-
-  return sub_100144084(a1, v5, 0);
-}
-
-JavaLangStringBuilder *sub_1001455EC(uint64_t a1)
-{
-  v1 = a1;
-  if (!*(a1 + 24))
-  {
-    v6 = *(a1 + 40);
-    if (v6)
-    {
-      *(v6 + 18) = 0;
-      v7 = @"null";
-      v8 = 0;
-      goto LABEL_52;
-    }
-
-LABEL_55:
-    JreThrowNullPointerException();
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v2 = *(v1 + 24), objc_opt_class(), (objc_opt_isKindOfClass()))
-  {
-    v3 = *(v1 + 24);
-    objc_opt_class();
-    if (v3 && (objc_opt_isKindOfClass() & 1) == 0)
-    {
-      JreThrowClassCastException();
-    }
-
-    [v3 doubleValue];
-    if ((*&v4 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
-    {
-
-      return sub_1001454E4(v1, v4);
-    }
-  }
-
-  else
-  {
-    v9 = *(v1 + 24);
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      sub_100143AD4(v1);
-    }
-  }
-
-  v10 = *(v1 + 40);
-  if (!v10)
-  {
-    goto LABEL_55;
-  }
-
-  v11 = [v10 getConversionType];
-  if ((v11 & 0xFFFFFFDF) != 0x41 && ([*(v1 + 40) isPrecisionSet] & 1) == 0)
-  {
-    [*(v1 + 40) setPrecisionWithInt:6];
-  }
-
-  v12 = new_JavaLangStringBuilder_init();
-  if (v11 <= 96)
-  {
-    if (v11 == 65)
-    {
-LABEL_30:
-      sub_100146030(v1, v12);
-      goto LABEL_32;
-    }
-
-    if (v11 == 69)
-    {
-LABEL_29:
-      sub_10014591C(v1, v12);
-      goto LABEL_32;
-    }
-
-    if (v11 != 71)
-    {
-      goto LABEL_25;
-    }
-
-LABEL_28:
-    sub_100145B60(v1, v12);
-    goto LABEL_32;
-  }
-
-  if (v11 <= 101)
-  {
-    if (v11 != 97)
-    {
-      if (v11 != 101)
-      {
-LABEL_25:
-        objc_exception_throw([*(v1 + 40) unknownFormatConversionException]);
-      }
-
-      goto LABEL_29;
-    }
-
-    goto LABEL_30;
-  }
-
-  if (v11 != 102)
-  {
-    if (v11 != 103)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_28;
-  }
-
-  sub_100145E08(v1, v12);
-LABEL_32:
-  [*(v1 + 40) setPrecisionWithInt:0xFFFFFFFFLL];
-  v13 = [(JavaLangAbstractStringBuilder *)v12 charAtWithInt:0];
-  v14 = *(v1 + 56);
-  if (!v14)
-  {
-    goto LABEL_55;
-  }
-
-  v15 = *(v14 + 238);
-  v16 = *(v1 + 40);
-  if (v13 == v15)
-  {
-    if (v16[14] == 1)
-    {
-
-      return sub_1001442C4(v1, v12);
-    }
-
-    v17 = 0;
-  }
-
-  else
-  {
-    if (v16[17] == 1)
-    {
-      [(JavaLangStringBuilder *)v12 insertWithInt:0 withChar:32];
-      v16 = *(v1 + 40);
-      v17 = 1;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    if (v16[15] == 1)
-    {
-      [(JavaLangStringBuilder *)v12 insertWithInt:0 withChar:43];
-      ++v17;
-    }
-  }
-
-  v18 = [(JavaLangAbstractStringBuilder *)v12 charAtWithInt:0];
-  if (*(*(v1 + 40) + 18) == 1 && (v18 == 43 || v18 == *(*(v1 + 56) + 238)))
-  {
-    v17 = 1;
-  }
-
-  if ((v11 & 0xFFFFFFDF) == 0x41)
-  {
-    v8 = v17 + 2;
-  }
-
-  else
-  {
-    v8 = v17;
-  }
-
-  a1 = v1;
-  v7 = v12;
-LABEL_52:
-
-  return sub_100144084(a1, v7, v8);
-}
-
 id sub_10014591C(void *a1, void *a2)
 {
   v3 = a1[5];
@@ -327,7 +34,6 @@ id sub_10014591C(void *a1, void *a2)
   }
 
   v10 = [v9 updateWithLibcoreIcuLocaleData:a1[7] withNSString:v8];
-  v11 = a1[3];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -336,11 +42,11 @@ id sub_10014591C(void *a1, void *a2)
       goto LABEL_30;
     }
 
-    v12 = a1[3];
+    v11 = a1[3];
     objc_opt_class();
-    if (!v12 || (objc_opt_isKindOfClass() & 1) != 0)
+    if (!v11 || (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v13 = [v10 formatBigDecimalWithJavaMathBigDecimal:v12 withJavaTextFieldPosition:0];
+      v12 = [v10 formatBigDecimalWithJavaMathBigDecimal:v11 withJavaTextFieldPosition:0];
       goto LABEL_16;
     }
 
@@ -353,9 +59,9 @@ LABEL_31:
     goto LABEL_30;
   }
 
-  v14 = a1[3];
+  v13 = a1[3];
   objc_opt_class();
-  if (!v14)
+  if (!v13)
   {
     goto LABEL_30;
   }
@@ -365,28 +71,28 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  [v14 doubleValue];
-  v13 = [v10 formatDoubleWithDouble:0 withJavaTextFieldPosition:?];
+  [v13 doubleValue];
+  v12 = [v10 formatDoubleWithDouble:0 withJavaTextFieldPosition:?];
 LABEL_16:
-  if (!v13)
+  if (!v12)
   {
     goto LABEL_30;
   }
 
-  if (v13[2] >= 1)
+  if (v12[2] >= 1)
   {
-    v15 = 0;
+    v14 = 0;
     do
     {
-      if (*(v13 + v15 + 6) == 69)
+      if (*(v12 + v14 + 6) == 69)
       {
-        *(v13 + v15 + 6) = 101;
+        *(v12 + v14 + 6) = 101;
       }
 
-      ++v15;
+      ++v14;
     }
 
-    while (v15 < v13[2]);
+    while (v14 < v12[2]);
   }
 
   if (!a2)
@@ -394,23 +100,23 @@ LABEL_16:
     goto LABEL_30;
   }
 
-  result = [a2 appendWithCharArray:v13];
+  result = [a2 appendWithCharArray:v12];
   if (v5 || (*(a1[5] + 16) & 1) == 0)
   {
     return result;
   }
 
-  v17 = [a2 indexOfWithNSString:@"e"];
-  v18 = a1[7];
-  if (!v18)
+  v16 = [a2 indexOfWithNSString:@"e"];
+  v17 = a1[7];
+  if (!v17)
   {
 LABEL_30:
     JreThrowNullPointerException();
   }
 
-  v19 = *(v18 + 226);
+  v18 = *(v17 + 226);
 
-  return [a2 insertWithInt:v17 withChar:v19];
+  return [a2 insertWithInt:v16 withChar:v18];
 }
 
 id sub_100145B60(uint64_t a1, void *a2)
@@ -436,57 +142,57 @@ id sub_100145B60(uint64_t a1, void *a2)
     JreThrowClassCastException();
   }
 
-  [v7 doubleValue];
-  if (v8 == 0.0)
+  v8 = [v7 doubleValue];
+  if (v10 == 0.0)
   {
-    v9 = (v6 - 1);
-    v10 = *(a1 + 40);
+    v11 = (v6 - 1);
+    v12 = *(a1 + 40);
 LABEL_9:
-    [v10 setPrecisionWithInt:v9];
+    [v12 setPrecisionWithInt:v11];
 LABEL_10:
 
     return sub_100145E08(a1, a2);
   }
 
-  v12 = JavaLangMath_absWithDouble_(v8);
-  if (!JavaLangDouble_isInfiniteWithDouble_(v12))
+  v14 = JavaLangMath_absWithDouble_(v8, v10, v9);
+  if (!JavaLangDouble_isInfiniteWithDouble_(v15, v16, v14))
   {
-    v13 = new_JavaMathMathContext_initWithInt_(v6);
-    v14 = new_JavaMathBigDecimal_initWithDouble_withJavaMathMathContext_(v13, v12);
-    [(JavaMathBigDecimal *)v14 doubleValue];
-    v16 = v15;
-    v17 = [(JavaMathBigDecimal *)v14 longLongValue];
-    if (v16 < 1.0 || (v18 = v17, v16 >= JavaLangMath_powWithDouble_withDouble_(10.0, v6)))
+    v17 = new_JavaMathMathContext_initWithInt_(v6);
+    v18 = new_JavaMathBigDecimal_initWithDouble_withJavaMathMathContext_(v17, v14);
+    [(JavaMathBigDecimal *)v18 doubleValue];
+    v20 = v19;
+    v21 = [(JavaMathBigDecimal *)v18 longLongValue];
+    if (v20 < 1.0 || (v22 = v21, v20 >= JavaLangMath_powWithDouble_withDouble_(10.0, v6)))
     {
-      v26 = [(JavaMathBigDecimal *)v14 movePointRightWithInt:4];
-      if (v26)
+      v30 = [(JavaMathBigDecimal *)v18 movePointRightWithInt:4];
+      if (v30)
       {
-        v27 = [v26 longLongValue];
-        v28 = JavaLangMath_powWithDouble_withDouble_(10.0, -4.0);
-        if (v16 >= 1.0 || v16 < v28)
+        v31 = [v30 longLongValue];
+        v32 = JavaLangMath_powWithDouble_withDouble_(10.0, -4.0);
+        if (v20 >= 1.0 || v20 < v32)
         {
           goto LABEL_14;
         }
 
-        v29 = NSString_valueOfLong_(v27);
-        if (v29)
+        v33 = NSString_valueOfLong_(v31);
+        if (v33)
         {
-          v30 = v6 - [(__CFString *)v29 length];
-          LODWORD(v6) = v30 + 5;
-          v31 = [(JavaMathBigDecimal *)v14 movePointRightWithInt:(v30 + 5)];
-          if (v31)
+          v34 = v6 - [(__CFString *)v33 length];
+          LODWORD(v6) = v34 + 5;
+          v35 = [(JavaMathBigDecimal *)v18 movePointRightWithInt:(v34 + 5)];
+          if (v35)
           {
-            v32 = NSString_valueOfLong_([v31 longLongValue]);
-            if (v32)
+            v36 = NSString_valueOfLong_([v35 longLongValue]);
+            if (v36)
             {
-              v33 = v30 + 4;
-              v34 = [(__CFString *)v32 length];
-              v6 = [*(a1 + 40) getPrecision] >= v34 ? v6 : v33;
-              v35 = [(JavaMathBigDecimal *)v14 movePointRightWithInt:v6];
-              if (v35)
+              v37 = v34 + 4;
+              v38 = [(__CFString *)v36 length];
+              v6 = [*(a1 + 40) getPrecision] >= v38 ? v6 : v37;
+              v39 = [(JavaMathBigDecimal *)v18 movePointRightWithInt:v6];
+              if (v39)
               {
-                v36 = [v35 longLongValue];
-                if (JavaLangMath_powWithDouble_withDouble_(10.0, (v6 - 4)) > v36)
+                v40 = [v39 longLongValue];
+                if (JavaLangMath_powWithDouble_withDouble_(10.0, (v6 - 4)) > v40)
                 {
                   goto LABEL_10;
                 }
@@ -501,35 +207,35 @@ LABEL_10:
 
     else
     {
-      if (JavaLangMath_powWithDouble_withDouble_(10.0, v6) <= v18)
+      if (JavaLangMath_powWithDouble_withDouble_(10.0, v6) <= v22)
       {
         goto LABEL_14;
       }
 
-      v19 = NSString_valueOfLong_(v18);
-      if (v19)
+      v23 = NSString_valueOfLong_(v22);
+      if (v23)
       {
-        v20 = [(__CFString *)v19 length];
-        v21 = (v6 - v20) & ~((v6 - v20) >> 31);
-        v22 = JavaLangMath_powWithDouble_withDouble_(10.0, (v21 + 1));
-        v23 = JavaLangMath_roundWithDouble_(v16 * v22);
-        v24 = NSString_valueOfLong_(v23);
-        if (v24)
+        v24 = [(__CFString *)v23 length];
+        v25 = (v6 - v24) & ~((v6 - v24) >> 31);
+        v26 = JavaLangMath_powWithDouble_withDouble_(10.0, (v25 + 1));
+        v27 = JavaLangMath_roundWithDouble_(v20 * v26);
+        v28 = NSString_valueOfLong_(v27);
+        if (v28)
         {
-          v25 = [(__CFString *)v24 length];
-          if ([*(a1 + 40) getPrecision] >= v25)
+          v29 = [(__CFString *)v28 length];
+          if ([*(a1 + 40) getPrecision] >= v29)
           {
-            v6 = v21 + 1;
+            v6 = v25 + 1;
           }
 
           else
           {
-            v6 = v21;
+            v6 = v25;
           }
 
 LABEL_36:
-          v10 = *(a1 + 40);
-          v9 = v6;
+          v12 = *(a1 + 40);
+          v11 = v6;
           goto LABEL_9;
         }
       }
@@ -601,7 +307,6 @@ id sub_100145E08(void *a1, void *a2)
   }
 
   v13 = [v12 updateWithLibcoreIcuLocaleData:a1[7] withNSString:v7];
-  v14 = a1[3];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -615,17 +320,17 @@ id sub_100145E08(void *a1, void *a2)
       goto LABEL_31;
     }
 
-    v17 = a1[3];
+    v16 = a1[3];
     objc_opt_class();
-    if (!v17)
+    if (!v16)
     {
       goto LABEL_31;
     }
 
     if (objc_opt_isKindOfClass())
     {
-      [v17 doubleValue];
-      v16 = [v13 formatDoubleWithDouble:0 withJavaTextFieldPosition:?];
+      [v16 doubleValue];
+      v15 = [v13 formatDoubleWithDouble:0 withJavaTextFieldPosition:?];
       goto LABEL_24;
     }
 
@@ -638,49 +343,48 @@ LABEL_32:
     goto LABEL_31;
   }
 
-  v15 = a1[3];
+  v14 = a1[3];
   objc_opt_class();
-  if (v15 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (v14 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_32;
   }
 
-  v16 = [v13 formatBigDecimalWithJavaMathBigDecimal:v15 withJavaTextFieldPosition:0];
+  v15 = [v13 formatBigDecimalWithJavaMathBigDecimal:v14 withJavaTextFieldPosition:0];
 LABEL_24:
-  result = [a2 appendWithCharArray:v16];
+  result = [a2 appendWithCharArray:v15];
   if (*(a1[5] + 16) != 1 || v6)
   {
     return result;
   }
 
-  v19 = a1[7];
-  if (!v19)
+  v18 = a1[7];
+  if (!v18)
   {
 LABEL_31:
     JreThrowNullPointerException();
   }
 
-  v20 = *(v19 + 226);
+  v19 = *(v18 + 226);
 
-  return [a2 appendWithChar:v20];
+  return [a2 appendWithChar:v19];
 }
 
 id sub_100146030(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 24);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     if (a2)
     {
-      v5 = *(a1 + 24);
+      v4 = *(a1 + 24);
       objc_opt_class();
-      if (v5)
+      if (v4)
       {
         if (objc_opt_isKindOfClass())
         {
-          [v5 floatValue];
-          v7 = JavaLangFloat_toHexStringWithFloat_(v6);
+          v5 = [v4 floatValue];
+          v8 = JavaLangFloat_toHexStringWithFloat_(v5, v6, v7);
           goto LABEL_11;
         }
 
@@ -693,7 +397,6 @@ LABEL_25:
     JreThrowNullPointerException();
   }
 
-  v8 = *(a1 + 24);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -717,38 +420,38 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  [v9 doubleValue];
-  v7 = JavaLangDouble_toHexStringWithDouble_(v10);
+  v10 = [v9 doubleValue];
+  v8 = JavaLangDouble_toHexStringWithDouble_(v10, v11, v12);
 LABEL_11:
-  [a2 appendWithNSString:v7];
-  v11 = *(a1 + 40);
-  if (!v11)
+  [a2 appendWithNSString:v8];
+  v13 = *(a1 + 40);
+  if (!v13)
   {
     goto LABEL_25;
   }
 
-  result = [v11 isPrecisionSet];
+  result = [v13 isPrecisionSet];
   if (result)
   {
-    v13 = [*(a1 + 40) getPrecision];
-    v14 = v13 <= 1 ? 1 : v13;
-    v15 = [a2 indexOfWithNSString:@"."] + 1;
+    v15 = [*(a1 + 40) getPrecision];
+    v16 = v15 <= 1 ? 1 : v15;
+    v17 = [a2 indexOfWithNSString:@"."] + 1;
     result = [a2 indexOfWithNSString:@"p"];
-    if (v14 != result - v15)
+    if (v16 != result - v17)
     {
-      v16 = result;
-      if (v14 <= (result - v15))
+      v18 = result;
+      if (v16 <= (result - v17))
       {
 
-        return [a2 delete__WithInt:v15 + v14 withInt:result];
+        return [a2 delete__WithInt:v17 + v16 withInt:result];
       }
 
       else
       {
-        v17 = [IOSCharArray arrayWithLength:(v14 - (result - v15))];
-        JavaUtilArrays_fillWithCharArray_withChar_(v17, 48);
+        v19 = [IOSCharArray arrayWithLength:(v16 - (result - v17))];
+        JavaUtilArrays_fillWithCharArray_withChar_(v19, 48);
 
-        return [a2 insertWithInt:v16 withCharArray:v17];
+        return [a2 insertWithInt:v18 withCharArray:v19];
       }
     }
   }
@@ -772,7 +475,7 @@ IOSObjectArray *JavaUtilFormatter_BigDecimalLayoutFormEnum_values()
 
   v0 = JavaUtilFormatter_BigDecimalLayoutFormEnum_class_();
 
-  return [IOSObjectArray arrayWithObjects:&JavaUtilFormatter_BigDecimalLayoutFormEnum_values_ count:2 type:v0];
+  return [IOSObjectArray arrayWithObjects:JavaUtilFormatter_BigDecimalLayoutFormEnum_values_ count:2 type:v0];
 }
 
 void *JavaUtilFormatter_BigDecimalLayoutFormEnum_valueOfWithNSString_(void *a1)
@@ -822,7 +525,7 @@ void *sub_100146F20(uint64_t a1, void *a2)
   v4 = *(a1 + 24);
   if (v4 >= *(a1 + 16))
   {
-    if (!JavaLangCharacter_isDigitWithChar_(0xFFFF))
+    if (!JavaLangCharacter_isDigitWithChar_(0xFFFFLL, a2))
     {
 LABEL_17:
       if (a2)
@@ -833,29 +536,29 @@ LABEL_17:
       goto LABEL_37;
     }
 
-    v6 = -1;
+    v7 = -1;
 LABEL_9:
-    v7 = sub_100147388(a1);
+    v9 = sub_100147388(a1);
     if (*(a1 + 24) < *(a1 + 16))
     {
-      v8 = *(a1 + 8);
-      if (!v8)
+      v10 = *(a1 + 8);
+      if (!v10)
       {
         goto LABEL_37;
       }
 
-      if ([v8 charAtWithInt:?] == 36)
+      if ([v10 charAtWithInt:?] == 36)
       {
         sub_100147170(a1);
-        if (v7 == -1)
+        if (v9 == -1)
         {
-          v11 = new_JavaUtilMissingFormatArgumentException_initWithNSString_([a1 getFormatSpecifierText]);
-          objc_exception_throw(v11);
+          v13 = new_JavaUtilMissingFormatArgumentException_initWithNSString_([a1 getFormatSpecifierText]);
+          objc_exception_throw(v13);
         }
 
         if (a2)
         {
-          [a2 setArgIndexWithInt:{JavaLangMath_maxWithInt_withInt_(0, v7 - 1)}];
+          [a2 setArgIndexWithInt:{JavaLangMath_maxWithInt_withInt_(0, v9 - 1)}];
           goto LABEL_21;
         }
 
@@ -863,12 +566,12 @@ LABEL_9:
       }
     }
 
-    if (v6 != 48)
+    if (v7 != 48)
     {
-      v9 = a1;
-      v10 = a2;
+      v11 = a1;
+      v12 = a2;
 LABEL_34:
-      sub_100147200(v9, v10);
+      sub_100147200(v11, v12);
       return a2;
     }
 
@@ -883,12 +586,13 @@ LABEL_34:
   }
 
   v6 = [v5 charAtWithInt:v4];
-  if (JavaLangCharacter_isDigitWithChar_(v6))
+  v7 = v6;
+  if (JavaLangCharacter_isDigitWithChar_(v6, v8))
   {
     goto LABEL_9;
   }
 
-  if (v6 != 60)
+  if (v7 != 60)
   {
     goto LABEL_17;
   }
@@ -905,25 +609,25 @@ LABEL_34:
 LABEL_21:
     if (*(a1 + 24) >= *(a1 + 16))
     {
-      v13 = 0xFFFFFFFFLL;
+      v15 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v12 = *(a1 + 8);
-      if (!v12)
+      v14 = *(a1 + 8);
+      if (!v14)
       {
         goto LABEL_37;
       }
 
-      v13 = [v12 charAtWithInt:?];
+      v15 = [v14 charAtWithInt:?];
     }
   }
 
-  while ([a2 setFlagWithInt:v13]);
+  while ([a2 setFlagWithInt:v15]);
   if (*(a1 + 24) >= *(a1 + 16))
   {
-    if (!JavaLangCharacter_isDigitWithChar_(0xFFFF))
+    if (!JavaLangCharacter_isDigitWithChar_(0xFFFFLL, v16))
     {
       goto LABEL_35;
     }
@@ -931,24 +635,25 @@ LABEL_21:
     goto LABEL_33;
   }
 
-  v14 = *(a1 + 8);
-  if (!v14)
+  v17 = *(a1 + 8);
+  if (!v17)
   {
 LABEL_37:
     JreThrowNullPointerException();
   }
 
-  v15 = [v14 charAtWithInt:?];
-  if (JavaLangCharacter_isDigitWithChar_(v15))
+  v18 = [v17 charAtWithInt:?];
+  v19 = v18;
+  if (JavaLangCharacter_isDigitWithChar_(v18, v20))
   {
 LABEL_33:
     sub_100147388(a1);
-    v9 = a1;
-    v10 = a2;
+    v11 = a1;
+    v12 = a2;
     goto LABEL_34;
   }
 
-  if (v15 != 46)
+  if (v19 != 46)
   {
 LABEL_35:
     sub_100147318(a1, a2);
@@ -978,7 +683,7 @@ id sub_100147170(uint64_t a1)
   return [v2 charAtWithInt:?];
 }
 
-void *sub_100147200(uint64_t a1, void *a2)
+void *sub_100147200(_DWORD *a1, void *a2)
 {
   if (!a2)
   {
@@ -986,14 +691,14 @@ void *sub_100147200(uint64_t a1, void *a2)
   }
 
   [a2 setWidthWithInt:?];
-  if (*(a1 + 24) >= *(a1 + 16))
+  if (a1[6] >= a1[4])
   {
 LABEL_6:
     sub_100147318(a1, a2);
     return a2;
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(a1 + 1);
   if (!v4)
   {
 LABEL_8:
@@ -1014,21 +719,21 @@ void *sub_100147280(uint64_t a1, void *a2)
   sub_100147170(a1);
   if (*(a1 + 24) >= *(a1 + 16))
   {
-    v5 = 0xFFFF;
+    v6 = 0xFFFFLL;
   }
 
   else
   {
-    v4 = *(a1 + 8);
-    if (!v4)
+    v5 = *(a1 + 8);
+    if (!v5)
     {
       goto LABEL_10;
     }
 
-    v5 = [v4 charAtWithInt:?];
+    v6 = [v5 charAtWithInt:?];
   }
 
-  if (!JavaLangCharacter_isDigitWithChar_(v5))
+  if (!JavaLangCharacter_isDigitWithChar_(v6, v4))
   {
     sub_1001471D0(a1);
   }
@@ -1073,23 +778,24 @@ uint64_t sub_100147388(uint64_t a1)
       goto LABEL_9;
     }
 
-    if (!JavaLangCharacter_isDigitWithChar_([v3 charAtWithInt:?]))
+    v4 = [v3 charAtWithInt:?];
+    if (!JavaLangCharacter_isDigitWithChar_(v4, v5))
     {
       break;
     }
 
-    v4 = *(a1 + 8);
-    if (!v4)
+    v6 = *(a1 + 8);
+    if (!v6)
     {
 LABEL_9:
       JreThrowNullPointerException();
     }
 
     ++*(a1 + 24);
-    v2 = 10 * v2 + [v4 charAtWithInt:?] - 48;
+    v2 = 10 * v2 + [v6 charAtWithInt:?] - 48;
     if (v2 >= 0x80000000)
     {
-      sub_10014743C(a1);
+      sub_10014743C(a1, v7);
       return 0xFFFFFFFFLL;
     }
   }
@@ -1097,27 +803,27 @@ LABEL_9:
   return v2;
 }
 
-BOOL sub_10014743C(uint64_t a1)
+BOOL sub_10014743C(uint64_t a1, uint64_t a2)
 {
   while (1)
   {
     if (*(a1 + 24) >= *(a1 + 16))
     {
-      v3 = 0xFFFF;
+      v4 = 0xFFFFLL;
     }
 
     else
     {
-      v2 = *(a1 + 8);
-      if (!v2)
+      v3 = *(a1 + 8);
+      if (!v3)
       {
         JreThrowNullPointerException();
       }
 
-      v3 = [v2 charAtWithInt:?];
+      v4 = [v3 charAtWithInt:?];
     }
 
-    result = JavaLangCharacter_isDigitWithChar_(v3);
+    result = JavaLangCharacter_isDigitWithChar_(v4, a2);
     if (!result)
     {
       break;
@@ -1164,7 +870,7 @@ JavaNioByteBufferAsIntBuffer *JavaNioByteBufferAsIntBuffer_asIntBufferWithJavaNi
   return v4;
 }
 
-id sub_1001479D0(uint64_t a1, uint64_t *a2)
+id sub_1001479D0(uint64_t a1, void *a2)
 {
   if (!a2)
   {
@@ -1252,8 +958,8 @@ id JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_(uint64_t a1, void *a2)
 {
   JavaNetSocketImpl_init();
   *(a1 + 36) = 1;
-  v4 = DalvikSystemCloseGuard_get();
-  JreStrongAssign((a1 + 48), v4);
+  v6 = DalvikSystemCloseGuard_get(v4, v5);
+  JreStrongAssign((a1 + 48), v6);
   JreStrongAssign((a1 + 24), a2);
   if (!a2)
   {
@@ -1266,14 +972,14 @@ id JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_(uint64_t a1, void *a2)
     return result;
   }
 
-  v6 = *(a1 + 48);
-  if (!v6)
+  v8 = *(a1 + 48);
+  if (!v8)
   {
 LABEL_8:
     JreThrowNullPointerException();
   }
 
-  return [v6 openWithNSString:@"close"];
+  return [v8 openWithNSString:@"close"];
 }
 
 id JavaNetPlainSocketImpl_initWithJavaNetProxy_(uint64_t a1, void *a2)
@@ -1284,19 +990,19 @@ id JavaNetPlainSocketImpl_initWithJavaNetProxy_(uint64_t a1, void *a2)
   return JreStrongAssign((a1 + 40), a2);
 }
 
-id JavaNetPlainSocketImpl_init(uint64_t a1)
+id JavaNetPlainSocketImpl_init(uint64_t a1, uint64_t a2)
 {
-  v2 = new_JavaIoFileDescriptor_init();
+  v3 = new_JavaIoFileDescriptor_init();
 
-  return JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_(a1, v2);
+  return JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_(a1, v3);
 }
 
 id JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_withInt_withJavaNetInetAddress_withInt_(uint64_t a1, void *a2, int a3, void *a4, int a5)
 {
   JavaNetSocketImpl_init();
   *(a1 + 36) = 1;
-  v10 = DalvikSystemCloseGuard_get();
-  JreStrongAssign((a1 + 48), v10);
+  v12 = DalvikSystemCloseGuard_get(v10, v11);
+  JreStrongAssign((a1 + 48), v12);
   JreStrongAssign((a1 + 24), a2);
   *(a1 + 32) = a3;
   JreStrongAssign((a1 + 8), a4);
@@ -1312,14 +1018,14 @@ id JavaNetPlainSocketImpl_initWithJavaIoFileDescriptor_withInt_withJavaNetInetAd
     return result;
   }
 
-  v12 = *(a1 + 48);
-  if (!v12)
+  v14 = *(a1 + 48);
+  if (!v14)
   {
 LABEL_8:
     JreThrowNullPointerException();
   }
 
-  return [v12 openWithNSString:@"close"];
+  return [v14 openWithNSString:@"close"];
 }
 
 void sub_100148B0C(_Unwind_Exception *exception_object, int a2)
@@ -1366,17 +1072,19 @@ id sub_100148DFC(uint64_t a1)
   return result;
 }
 
-id sub_100149018(uint64_t a1, void *a2, uint64_t a3, int a4)
+id sub_100149018(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
     JreThrowNullPointerException();
   }
 
+  v4 = a4;
+  v8 = [a2 isAnyLocalAddress];
   LocalHost = a2;
-  if ([a2 isAnyLocalAddress])
+  if (v8)
   {
-    LocalHost = JavaNetInetAddress_getLocalHost();
+    LocalHost = JavaNetInetAddress_getLocalHost(v8, v9);
   }
 
   if (*(a1 + 36) == 1 && [JavaNetPlainSocketImpl usingSocks]_0(a1))
@@ -1386,7 +1094,7 @@ id sub_100149018(uint64_t a1, void *a2, uint64_t a3, int a4)
 
   else
   {
-    LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_withInt_(*(a1 + 24), LocalHost, a3, a4);
+    LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_withInt_(*(a1 + 24), LocalHost, a3, v4);
   }
 
   result = JreStrongAssign((a1 + 8), LocalHost);
@@ -1433,10 +1141,10 @@ IOSClass *sub_10014947C(uint64_t a1)
   v3 = [v2 getHostName];
   if (!v3)
   {
-    v4 = [v2 getAddress];
-    if (v4)
+    v5 = [v2 getAddress];
+    if (v5)
     {
-      v3 = [v4 getHostAddress];
+      v3 = [v5 getHostAddress];
       goto LABEL_7;
     }
 
@@ -1446,15 +1154,16 @@ LABEL_10:
 
 LABEL_7:
 
-  return JavaNetInetAddress_getByNameWithNSString_(v3);
+  return JavaNetInetAddress_getByNameWithNSString_(v3, v4);
 }
 
-id sub_100149514(void *a1, void *a2, uint64_t a3, int a4)
+id sub_100149514(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v8 = a1[3];
   v9 = sub_10014947C(a1);
   v10 = sub_100149408(a1);
-  LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_withInt_(v8, v9, v10, a4);
+  LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_withInt_(v8, v9, v10, v4);
   sub_1001495F8(a1, a2, a3);
   result = JreStrongAssign(&qword_100554928, a2);
   dword_100554930 = a3;
@@ -1814,7 +1523,7 @@ uint64_t JavaNioCharsetModifiedUtf8_countBytesWithNSString_withBoolean_(void *a1
   return v5;
 }
 
-uint64_t JavaNioCharsetModifiedUtf8_encodeWithByteArray_withInt_withNSString_(uint64_t a1, uint64_t a2, void *a3)
+id JavaNioCharsetModifiedUtf8_encodeWithByteArray_withInt_withNSString_(_BYTE *a1, uint64_t a2, void *a3)
 {
   if (!a3)
   {
@@ -1842,24 +1551,24 @@ LABEL_32:
             goto LABEL_32;
           }
 
-          v14 = *(a1 + 8);
+          v14 = *(a1 + 2);
           if ((a2 & 0x80000000) != 0 || a2 >= v14)
           {
             IOSArray_throwOutOfBoundsWithMsg(v14, a2);
           }
 
           v15 = a2 + 1;
-          *(a1 + 12 + a2) = (v10 >> 12) | 0xE0;
-          v16 = *(a1 + 8);
+          a1[a2 + 12] = (v10 >> 12) | 0xE0;
+          v16 = *(a1 + 2);
           if (a2 + 1 < 0 || v15 >= v16)
           {
             IOSArray_throwOutOfBoundsWithMsg(v16, (a2 + 1));
           }
 
-          *(a1 + 12 + v15) = (v10 >> 6) & 0x3F | 0x80;
+          a1[v15 + 12] = (v10 >> 6) & 0x3F | 0x80;
           v11 = v10 & 0x3F | 0x80;
           v12 = (a2 + 3);
-          result = *(a1 + 8);
+          result = *(a1 + 2);
           if (a2 + 2 < 0 || a2 + 2 >= result)
           {
             IOSArray_throwOutOfBoundsWithMsg(result, (a2 + 2));
@@ -1876,16 +1585,16 @@ LABEL_32:
             goto LABEL_32;
           }
 
-          v13 = *(a1 + 8);
+          v13 = *(a1 + 2);
           if ((a2 & 0x80000000) != 0 || a2 >= v13)
           {
             IOSArray_throwOutOfBoundsWithMsg(v13, a2);
           }
 
-          *(a1 + 12 + a2) = (v10 >> 6) | 0xC0;
+          a1[a2 + 12] = (v10 >> 6) | 0xC0;
           v11 = v10 & 0x3F | 0x80;
           v12 = (a2 + 2);
-          result = *(a1 + 8);
+          result = *(a1 + 2);
           if (a2 + 1 < 0 || a2 + 1 >= result)
           {
             IOSArray_throwOutOfBoundsWithMsg(result, (a2 + 1));
@@ -1904,14 +1613,14 @@ LABEL_32:
 
         v11 = v9;
         v12 = (a2 + 1);
-        result = *(a1 + 8);
+        result = *(a1 + 2);
         if ((a2 & 0x80000000) != 0 || a2 >= result)
         {
           IOSArray_throwOutOfBoundsWithMsg(result, a2);
         }
       }
 
-      *(a1 + 12 + a2) = v11;
+      a1[a2 + 12] = v11;
       v8 = (v8 + 1);
       a2 = v12;
     }
@@ -1936,7 +1645,7 @@ IOSByteArray *JavaNioCharsetModifiedUtf8_encodeWithNSString_(void *a1)
   return v3;
 }
 
-JavaNioCharsetCoderMalfunctionError *new_JavaNioCharsetCoderMalfunctionError_initWithJavaLangException_(uint64_t a1)
+JavaNioCharsetCoderMalfunctionError *new_JavaNioCharsetCoderMalfunctionError_initWithJavaLangException_(void *a1)
 {
   v2 = [JavaNioCharsetCoderMalfunctionError alloc];
   JavaLangError_initWithJavaLangThrowable_(v2, a1);
@@ -2151,7 +1860,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t sub_10014C720(uint64_t a1, void *a2, int a3, int a4)
+id *sub_10014C720(id *a1, void *a2, int a3, int a4)
 {
   if (!a2)
   {
@@ -2166,19 +1875,19 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  JreStrongAssign((a1 + 24), [a2 description]);
-  v9 = *(a1 + 24);
+  JreStrongAssign(a1 + 3, [a2 description]);
+  v9 = a1[3];
   if (!v9)
   {
     JreThrowNullPointerException();
   }
 
-  JreStrongAssign((a1 + 32), [v9 toCharArray]);
-  *(a1 + 40) = a3;
-  *(a1 + 44) = a4;
+  JreStrongAssign(a1 + 4, [v9 toCharArray]);
+  *(a1 + 10) = a3;
+  *(a1 + 11) = a4;
   [JavaUtilRegexMatcher resetForInput]_0(a1);
   *(a1 + 52) = 0;
-  *(a1 + 48) = 0;
+  *(a1 + 12) = 0;
   return a1;
 }
 
@@ -2502,10 +2211,10 @@ IOSIntArray *JavaMathDivision_divideWithIntArray_withInt_withIntArray_withInt_wi
           v39 = v60[3] * v30;
           v40 = (v35 << 32) | *(&v11->super.size_ + v36 + 1);
           v41 = v62 + v35;
-          v42 = JavaLangInteger_numberOfLeadingZerosWithInt_(SHIDWORD(v41));
+          v42 = JavaLangInteger_numberOfLeadingZerosWithInt_(HIDWORD(v41));
           v34 = v42 < 32;
           v35 = v42 >= 32 ? v41 : v35;
-          LODWORD(v33) = v30 - 1;
+          v33 = (v30 - 1);
         }
 
         while (v39 > v40);
@@ -2520,7 +2229,7 @@ IOSIntArray *JavaMathDivision_divideWithIntArray_withInt_withIntArray_withInt_wi
         goto LABEL_34;
       }
 
-      v30 = 0;
+      LODWORD(v30) = 0;
       v20 = v56;
 LABEL_48:
       if (v25)
@@ -2543,11 +2252,11 @@ LABEL_48:
       }
     }
 
-    v30 = -1;
+    v30 = 0xFFFFFFFFLL;
 LABEL_34:
     if (JavaMathDivision_multiplyAndSubtractWithIntArray_withInt_withIntArray_withInt_withInt_(v11, (v27 - v20), v13, v20, v30))
     {
-      --v30;
+      LODWORD(v30) = v30 - 1;
       if (v20 >= 1)
       {
         v58 = v27;
@@ -2712,7 +2421,7 @@ unint64_t JavaMathDivision_divideArrayByIntWithIntArray_withIntArray_withInt_wit
   return 0;
 }
 
-unint64_t JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(uint64_t a1, int a2, unsigned int a3)
+unint64_t JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(uint64_t a1, int a2, uint64_t a3)
 {
   v3 = (a2 - 1);
   if (a2 - 1 < 0)
@@ -2725,6 +2434,7 @@ unint64_t JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(uint
     JreThrowNullPointerException();
   }
 
+  v5 = a3;
   v6 = 0;
   do
   {
@@ -2734,7 +2444,7 @@ unint64_t JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(uint
       IOSArray_throwOutOfBoundsWithMsg(v7, v3);
     }
 
-    v8 = JavaMathDivision_divideLongByIntWithLong_withInt_((v6 << 32) | *(a1 + 12 + 4 * v3), a3);
+    v8 = JavaMathDivision_divideLongByIntWithLong_withInt_((v6 << 32) | *(a1 + 12 + 4 * v3), v5);
     v6 = v8 >> 32;
   }
 
@@ -2742,7 +2452,7 @@ unint64_t JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(uint
   return HIDWORD(v8);
 }
 
-unint64_t JavaMathDivision_remainderWithJavaMathBigInteger_withInt_(uint64_t a1, unsigned int a2)
+unint64_t JavaMathDivision_remainderWithJavaMathBigInteger_withInt_(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -2888,7 +2598,7 @@ LABEL_17:
   return [IOSObjectArray arrayWithObjects:v14 count:2 type:v13];
 }
 
-unint64_t JavaMathDivision_multiplyAndSubtractWithIntArray_withInt_withIntArray_withInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, int a4, unsigned int a5)
+unint64_t JavaMathDivision_multiplyAndSubtractWithIntArray_withInt_withIntArray_withInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
   v23 = a2;
   if (a4 >= 1)
@@ -2953,8 +2663,8 @@ LABEL_22:
 LABEL_17:
   v18 = *(a1 + 8);
   v19 = a4 + v23;
-  v20 = a4 + v23;
-  if (a4 + v23 < 0 || v19 >= v18)
+  v20 = (a4 + v23);
+  if ((a4 + v23) < 0 || v19 >= v18)
   {
     IOSArray_throwOutOfBoundsWithMsg(v18, v19);
   }
@@ -2993,10 +2703,10 @@ id JavaMathDivision_gcdBinaryWithJavaMathBigInteger_withJavaMathBigInteger_(void
   while (1)
   {
     v11 = v10;
-    v12 = *(v9 + 16);
-    if (v12 != 2)
+    numberLength = v9->numberLength_;
+    if (numberLength != 2)
     {
-      if (v12 == 1)
+      if (numberLength == 1)
       {
         break;
       }
@@ -3004,61 +2714,61 @@ id JavaMathDivision_gcdBinaryWithJavaMathBigInteger_withJavaMathBigInteger_(void
       goto LABEL_16;
     }
 
-    v13 = *(v9 + 8);
-    if (!v13)
+    digits = v9->digits_;
+    if (!digits)
     {
       goto LABEL_29;
     }
 
-    v14 = *(v13 + 8);
-    if (v14 <= 1)
+    size = digits->super.size_;
+    if (size <= 1)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v14, 1);
+      IOSArray_throwOutOfBoundsWithMsg(size, 1);
     }
 
-    if (*(v13 + 16) >= 1)
+    if (digits->buffer_[0] >= 1)
     {
       break;
     }
 
-    v12 = *(v9 + 16);
+    numberLength = v9->numberLength_;
 LABEL_16:
-    if (v10[4] * 1.2 >= v12)
+    if (v10[4] * 1.2 >= numberLength)
     {
       do
       {
         JavaMathElementary_inplaceSubtractWithJavaMathBigInteger_withJavaMathBigInteger_(v9, v11);
-        JavaMathBitLevel_inplaceShiftRightWithJavaMathBigInteger_withInt_(v9, [v9 getLowestSetBit]);
+        JavaMathBitLevel_inplaceShiftRightWithJavaMathBigInteger_withInt_(v9, [(JavaMathBigInteger *)v9 getLowestSetBit]);
       }
 
-      while (([v9 compareToWithId:v11] & 0x80000000) == 0);
+      while (([(JavaMathBigInteger *)v9 compareToWithId:v11]& 0x80000000) == 0);
     }
 
     else
     {
-      v15 = [v9 remainderWithJavaMathBigInteger:v10];
+      v15 = [(JavaMathBigInteger *)v9 remainderWithJavaMathBigInteger:v10];
       if (!v15)
       {
         goto LABEL_29;
       }
 
       v9 = v15;
-      if ([v15 signum])
+      if ([(JavaMathBigInteger *)v15 signum])
       {
-        JavaMathBitLevel_inplaceShiftRightWithJavaMathBigInteger_withInt_(v9, [v9 getLowestSetBit]);
+        JavaMathBitLevel_inplaceShiftRightWithJavaMathBigInteger_withInt_(v9, [(JavaMathBigInteger *)v9 getLowestSetBit]);
       }
     }
 
     v10 = v9;
-    v16 = *(v9 + 20);
+    sign = v9->sign_;
     v9 = v11;
-    if (!v16)
+    if (!sign)
     {
       goto LABEL_25;
     }
   }
 
-  v17 = JavaMathDivision_gcdBinaryWithLong_withLong_([v10 longLongValue], objc_msgSend(v9, "longLongValue"));
+  v17 = JavaMathDivision_gcdBinaryWithLong_withLong_([v10 longLongValue], -[JavaMathBigInteger longLongValue](v9, "longLongValue"));
   v11 = JavaMathBigInteger_valueOfWithLong_(v17);
 LABEL_25:
   if (!v11)
@@ -3070,33 +2780,33 @@ LABEL_29:
   return [(JavaMathBigInteger *)v11 shiftLeftWithInt:v7];
 }
 
-int64_t JavaMathDivision_gcdBinaryWithLong_withLong_(unint64_t a1, unint64_t a2)
+uint64_t JavaMathDivision_gcdBinaryWithLong_withLong_(unint64_t a1, unint64_t a2)
 {
-  v4 = JavaLangLong_numberOfTrailingZerosWithLong_(a1);
-  v5 = JavaLangLong_numberOfTrailingZerosWithLong_(a2);
-  v6 = v5;
-  v7 = JavaLangMath_minWithInt_withInt_(v4, v5);
-  v8 = a1 >> v4;
-  v9 = a2 >> v6;
+  v4 = JavaLangLong_numberOfTrailingZerosWithLong_(a1, a2);
+  v6 = JavaLangLong_numberOfTrailingZerosWithLong_(a2, v5);
+  v7 = v6;
+  v9 = JavaLangMath_minWithInt_withInt_(v4, v6);
+  v10 = a1 >> v4;
+  v11 = a2 >> v7;
   do
   {
-    while (v8 < v9)
+    while (v10 < v11)
     {
-      v9 = (v9 - v8) >> JavaLangLong_numberOfTrailingZerosWithLong_(v9 - v8);
-      if (!v8)
+      v11 = (v11 - v10) >> JavaLangLong_numberOfTrailingZerosWithLong_(v11 - v10, v8);
+      if (!v10)
       {
-        return v9 << v7;
+        return v11 << v9;
       }
     }
 
-    v8 = (v8 - v9) >> JavaLangLong_numberOfTrailingZerosWithLong_(v8 - v9);
+    v10 = (v10 - v11) >> JavaLangLong_numberOfTrailingZerosWithLong_(v10 - v11, v8);
   }
 
-  while (v8);
-  return v9 << v7;
+  while (v10);
+  return v11 << v9;
 }
 
-JavaMathBigInteger *JavaMathDivision_modInverseMontgomeryWithJavaMathBigInteger_withJavaMathBigInteger_(_DWORD *a1, _DWORD *a2)
+JavaMathBigInteger *JavaMathDivision_modInverseMontgomeryWithJavaMathBigInteger_withJavaMathBigInteger_(unsigned int *a1, _DWORD *a2)
 {
   if (!a1)
   {
@@ -3272,13 +2982,14 @@ uint64_t sub_10014EC64(uint64_t a1)
   return -v3;
 }
 
-JavaMathBigInteger *JavaMathDivision_squareAndMultiplyWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(JavaMathBigInteger *a1, uint64_t a2, void *a3, uint64_t a4, unsigned int a5)
+IOSIntArray *JavaMathDivision_squareAndMultiplyWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(IOSIntArray *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   if (!a3)
   {
     JreThrowNullPointerException();
   }
 
+  v5 = a5;
   v10 = [a3 bitLength];
   if ((v10 - 1) >= 0)
   {
@@ -3286,10 +2997,10 @@ JavaMathBigInteger *JavaMathDivision_squareAndMultiplyWithJavaMathBigInteger_wit
     do
     {
       --v11;
-      a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a1, a4, a5);
+      a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a1, a4, v5);
       if (JavaMathBitLevel_testBitWithJavaMathBigInteger_withInt_(a3, v11))
       {
-        a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a2, a4, a5);
+        a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a2, a4, v5);
       }
     }
 
@@ -3479,11 +3190,12 @@ LABEL_48:
   return [v6 addWithJavaMathBigInteger:a2];
 }
 
-JavaMathBigInteger *JavaMathDivision_slidingWindowWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(JavaMathBigInteger *a1, void *a2, void *a3, uint64_t a4, unsigned int a5)
+IOSIntArray *JavaMathDivision_slidingWindowWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(IOSIntArray *a1, IOSIntArray *a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = [IOSObjectArray arrayWithLength:8 type:JavaMathBigInteger_class_()];
   IOSObjectArray_Set(v10, 0, a2);
-  v11 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a2, a2, a4, a5);
+  v11 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a2, a2, a4, v5);
   v12 = 0;
   do
   {
@@ -3494,7 +3206,7 @@ JavaMathBigInteger *JavaMathDivision_slidingWindowWithJavaMathBigInteger_withJav
       IOSArray_throwOutOfBoundsWithMsg(size, v12);
     }
 
-    v15 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_((&v10->elementType_)[v12], v11, a4, a5);
+    v15 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_((&v10->elementType_)[v12], v11, a4, v5);
     IOSObjectArray_Set(v10, ++v12, v15);
   }
 
@@ -3510,7 +3222,7 @@ JavaMathBigInteger *JavaMathDivision_slidingWindowWithJavaMathBigInteger_withJav
   {
     v18 = v16;
     v34 = v10;
-    v33 = a5;
+    v33 = v5;
     do
     {
       if (JavaMathBitLevel_testBitWithJavaMathBigInteger_withInt_(a3, v17))
@@ -3555,14 +3267,14 @@ JavaMathBigInteger *JavaMathDivision_slidingWindowWithJavaMathBigInteger_withJav
 
         while (v23 != v22);
         v20 = (v25 - 1) >> 1;
-        a5 = v33;
+        v5 = v33;
         if (v21 <= v17)
         {
 LABEL_19:
           v29 = v21;
           do
           {
-            a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a1, a4, a5);
+            a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(a1, a1, a4, v5);
             ++v29;
           }
 
@@ -3584,7 +3296,7 @@ LABEL_19:
         v31 = a1;
       }
 
-      a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(v31, a1, a4, a5);
+      a1 = JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(v31, a1, a4, v5);
       v18 = v17--;
     }
 
@@ -3594,14 +3306,14 @@ LABEL_19:
   return a1;
 }
 
-JavaMathBigInteger *JavaMathDivision_oddModPowWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_(void *a1, void *a2, uint64_t a3)
+JavaMathBigInteger *JavaMathDivision_oddModPowWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_(void *PowerOfTwoWithInt, void *a2, uint64_t a3)
 {
-  if (!a3 || !a1 || (v5 = (32 * *(a3 + 16)), (v6 = [a1 shiftLeftWithInt:v5]) == 0) || (v7 = objc_msgSend(v6, "modWithJavaMathBigInteger:", a3), (PowerOfTwoWithInt = JavaMathBigInteger_getPowerOfTwoWithInt_(v5)) == 0))
+  if (!a3 || !PowerOfTwoWithInt || (v5 = (32 * *(a3 + 16)), (v6 = [PowerOfTwoWithInt shiftLeftWithInt:v5]) == 0) || (v7 = objc_msgSend(v6, "modWithJavaMathBigInteger:", a3), (v8 = JavaMathBigInteger_getPowerOfTwoWithInt_(v5)) == 0))
   {
     JreThrowNullPointerException();
   }
 
-  v9 = [(JavaMathBigInteger *)PowerOfTwoWithInt modWithJavaMathBigInteger:a3];
+  v9 = [(JavaMathBigInteger *)v8 modWithJavaMathBigInteger:a3];
   v10 = sub_10014EC64(a3);
   if (*(a3 + 16) == 1)
   {
@@ -3671,8 +3383,9 @@ LABEL_12:
   return [(JavaMathBigInteger *)v8 addWithJavaMathBigInteger:v14];
 }
 
-_DWORD *JavaMathDivision_pow2ModPowWithJavaMathBigInteger_withJavaMathBigInteger_withInt_(void *a1, void *a2, int a3)
+_DWORD *JavaMathDivision_pow2ModPowWithJavaMathBigInteger_withJavaMathBigInteger_withInt_(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   if (atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire))
   {
     if (!a2)
@@ -3701,10 +3414,10 @@ _DWORD *JavaMathDivision_pow2ModPowWithJavaMathBigInteger_withJavaMathBigInteger
   v9 = [a1 copy];
   if ([a1 testBitWithInt:0])
   {
-    JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v8, a3 - 1);
+    JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v8, v3 - 1);
   }
 
-  JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v9, a3);
+  JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v9, v3);
   if (!v8)
   {
 LABEL_16:
@@ -3719,7 +3432,7 @@ LABEL_16:
     {
       --v11;
       v12 = [v6 copy];
-      JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v12, a3);
+      JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v12, v3);
       v6 = [v6 multiplyWithJavaMathBigInteger:v12];
       if (JavaMathBitLevel_testBitWithJavaMathBigInteger_withInt_(v8, v11))
       {
@@ -3729,7 +3442,7 @@ LABEL_16:
         }
 
         v6 = [v6 multiplyWithJavaMathBigInteger:v9];
-        JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v6, a3);
+        JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v6, v3);
       }
 
       if (v11 <= 0)
@@ -3742,7 +3455,7 @@ LABEL_16:
   }
 
 LABEL_14:
-  JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v6, a3);
+  JavaMathDivision_inplaceModPow2WithJavaMathBigInteger_withInt_(v6, v3);
   return v6;
 }
 
@@ -3893,9 +3606,9 @@ LABEL_29:
   return result;
 }
 
-JavaMathBigInteger *JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+JavaMathBigInteger *JavaMathDivision_monProWithJavaMathBigInteger_withJavaMathBigInteger_withJavaMathBigInteger_withInt_(IOSIntArray *a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  if (!a3 || (v8 = *(a3 + 16), v9 = [IOSIntArray arrayWithLength:((2 * v8) | 1)], !a1) || (v10 = v9, v11 = *(a1 + 8), v12 = JavaLangMath_minWithInt_withInt_(v8, *(a1 + 16)), !a2))
+  if (!a3 || (v8 = *(a3 + 16), v9 = [IOSIntArray arrayWithLength:((2 * v8) | 1)], !a1) || (v10 = v9, v11 = *&a1->super.size_, v12 = JavaLangMath_minWithInt_withInt_(v8, a1->buffer_[0]), !a2))
   {
     JreThrowNullPointerException();
   }
@@ -4090,7 +3803,6 @@ LABEL_14:
   v7 = *(v6 + 8);
   if ((v4 & 0x80000000) != 0 || v4 >= v7)
   {
-    v8 = *(v3 + 1);
     IOSArray_throwOutOfBoundsWithMsg(v7, v4);
   }
 
@@ -4173,7 +3885,7 @@ LABEL_13:
 
 uint64_t sub_1001501F8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  AllByNameWithNSString = JavaNetInetAddress_getAllByNameWithNSString_(a2);
+  AllByNameWithNSString = JavaNetInetAddress_getAllByNameWithNSString_(a2, a2);
   if (!AllByNameWithNSString)
   {
     JreThrowNullPointerException();
@@ -4429,22 +4141,24 @@ JavaNioChannelsAsynchronousCloseException *new_JavaNioChannelsAsynchronousCloseE
   return v0;
 }
 
-id JavaUtilZipDeflater_initWithInt_withBoolean_(uint64_t a1, int a2, int a3)
+id JavaUtilZipDeflater_initWithInt_withBoolean_(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0xFFFFFFFFLL;
   *(a1 + 24) = xmmword_1003148A0;
-  v6 = DalvikSystemCloseGuard_get();
+  v6 = DalvikSystemCloseGuard_get(a1, a2);
   JreStrongAssign((a1 + 56), v6);
-  if ((a2 - 10) <= 0xFFFFFFF4)
+  if ((v4 - 10) <= 0xFFFFFFF4)
   {
     v15 = JreStrcat("$I", v7, v8, v9, v10, v11, v12, v13, @"Bad level: ");
     v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
     objc_exception_throw(v16);
   }
 
-  *(a1 + 16) = a2;
-  *(a1 + 24) = sub_100153084(a2, *(a1 + 20), a3);
+  *(a1 + 16) = v4;
+  *(a1 + 24) = sub_100153084(v4, *(a1 + 20), v3);
   v14 = *(a1 + 56);
   if (!v14)
   {
@@ -4454,8 +4168,10 @@ id JavaUtilZipDeflater_initWithInt_withBoolean_(uint64_t a1, int a2, int a3)
   return [v14 openWithNSString:@"end"];
 }
 
-uint64_t sub_100152374(uint64_t a1, uint64_t a2, int a3, uInt a4, int a5)
+uint64_t sub_100152374(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
   objc_sync_enter(a1);
   [JavaUtilZipDeflater checkOpen]_0(a1);
   if (!a2)
@@ -4463,8 +4179,8 @@ uint64_t sub_100152374(uint64_t a1, uint64_t a2, int a3, uInt a4, int a5)
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(a2 + 8), a3, a4);
-  if (!*(a1 + 40))
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(a2 + 8), a3, v6);
+  if (!a1[5])
   {
     if ((atomic_load_explicit(LibcoreUtilEmptyArray__initialized, memory_order_acquire) & 1) == 0)
     {
@@ -4474,7 +4190,7 @@ uint64_t sub_100152374(uint64_t a1, uint64_t a2, int a3, uInt a4, int a5)
     [a1 setInputWithByteArray:LibcoreUtilEmptyArray_BYTE_];
   }
 
-  v10 = sub_100152550(a1, a2, a3, a4, *(a1 + 24), a5);
+  v10 = sub_100152550(a1, a2, a3, v6, a1[3], v5);
   objc_sync_exit(a1);
   return v10;
 }
@@ -4605,7 +4321,7 @@ z_stream *sub_100153084(int a1, int a2, int a3)
   return v7;
 }
 
-JavaUtilZipDeflater *new_JavaUtilZipDeflater_initWithInt_withBoolean_(int a1, int a2)
+JavaUtilZipDeflater *new_JavaUtilZipDeflater_initWithInt_withBoolean_(uint64_t a1, uint64_t a2)
 {
   v4 = [JavaUtilZipDeflater alloc];
   JavaUtilZipDeflater_initWithInt_withBoolean_(v4, a1, a2);
@@ -4649,7 +4365,7 @@ char *sub_100153F78(char *result, int a2)
 
     while (v7 < v5);
     v8 = [IOSObjectArray arrayWithLength:v7 type:NSString_class_()];
-    v9 = *(v2 + 2);
+    v9 = *(v2 + 8);
     if (v9 >= 1)
     {
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*v4, 0, v8, 0, (5 * v9));
@@ -4743,7 +4459,7 @@ uint64_t JavaUtilLoggingLogRecord_class_()
   return qword_100554990;
 }
 
-uint64_t JavaBeansPropertyChangeListener_class_()
+uint64_t JavaBeansPropertyChangeListener_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_1005549A8 != -1)
   {
@@ -4762,7 +4478,7 @@ IOSObjectArray *JavaLangAnnotationRetentionPolicyEnum_values()
 
   v0 = JavaLangAnnotationRetentionPolicyEnum_class_();
 
-  return [IOSObjectArray arrayWithObjects:&JavaLangAnnotationRetentionPolicyEnum_values_ count:3 type:v0];
+  return [IOSObjectArray arrayWithObjects:JavaLangAnnotationRetentionPolicyEnum_values_ count:3 type:v0];
 }
 
 void *JavaLangAnnotationRetentionPolicyEnum_valueOfWithNSString_(void *a1)
@@ -4805,21 +4521,22 @@ uint64_t JavaLangAnnotationRetentionPolicyEnum_class_()
   return qword_1005549B0;
 }
 
-void *JavaIoByteArrayOutputStream_initWithInt_(uint64_t a1, unsigned int a2)
+void *JavaIoByteArrayOutputStream_initWithInt_(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   JavaIoOutputStream_init();
-  if ((a2 & 0x80000000) != 0)
+  if ((v2 & 0x80000000) != 0)
   {
     v6 = new_JavaLangIllegalArgumentException_initWithNSString_(@"size < 0");
     objc_exception_throw(v6);
   }
 
-  v4 = [IOSByteArray newArrayWithLength:a2];
+  v4 = [IOSByteArray newArrayWithLength:v2];
 
   return JreStrongAssignAndConsume((a1 + 8), v4);
 }
 
-id *sub_100155114(id *result, int a2)
+void *sub_100155114(void *result, int a2)
 {
   v2 = result[1];
   if (!v2)
@@ -4829,12 +4546,12 @@ id *sub_100155114(id *result, int a2)
 
   v3 = result;
   v4 = *(result + 4) + a2;
-  if (v4 > v2[2])
+  if (v4 > *(v2 + 8))
   {
     v5 = [IOSByteArray arrayWithLength:2 * v4];
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v3[1], 0, v5, 0, *(v3 + 4));
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*(v3 + 8), 0, v5, 0, *(v3 + 16));
 
-    return JreStrongAssign(v3 + 1, v5);
+    return JreStrongAssign((v3 + 8), v5);
   }
 
   return result;
@@ -4843,12 +4560,12 @@ id *sub_100155114(id *result, int a2)
 JavaIoByteArrayOutputStream *new_JavaIoByteArrayOutputStream_init()
 {
   v0 = [JavaIoByteArrayOutputStream alloc];
-  JavaIoOutputStream_init(v0, v1);
+  JavaIoOutputStream_init();
   JreStrongAssignAndConsume(&v0->buf_, [IOSByteArray newArrayWithLength:32]);
   return v0;
 }
 
-JavaIoByteArrayOutputStream *new_JavaIoByteArrayOutputStream_initWithInt_(unsigned int a1)
+JavaIoByteArrayOutputStream *new_JavaIoByteArrayOutputStream_initWithInt_(uint64_t a1)
 {
   v2 = [JavaIoByteArrayOutputStream alloc];
   JavaIoByteArrayOutputStream_initWithInt_(v2, a1);
@@ -4859,12 +4576,12 @@ void *JavaUtilConcurrentCountDownLatch_initWithInt_(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 0x80000000) != 0)
   {
-    v7 = new_JavaLangIllegalArgumentException_initWithNSString_(@"count < 0");
-    objc_exception_throw(v7);
+    v6 = new_JavaLangIllegalArgumentException_initWithNSString_(@"count < 0");
+    objc_exception_throw(v6);
   }
 
   v4 = [JavaUtilConcurrentCountDownLatch_Sync alloc];
-  JavaUtilConcurrentLocksAbstractQueuedSynchronizer_init(v4, v5);
+  JavaUtilConcurrentLocksAbstractQueuedSynchronizer_init();
   [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)v4 setStateWithInt:a2];
 
   return JreStrongAssignAndConsume((a1 + 8), v4);
@@ -4877,7 +4594,7 @@ JavaUtilConcurrentCountDownLatch *new_JavaUtilConcurrentCountDownLatch_initWithI
   return v2;
 }
 
-uint64_t JavaLangComparable_class_()
+uint64_t JavaLangComparable_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_1005549C8 != -1)
   {
@@ -4894,7 +4611,7 @@ JavaIoUnsupportedEncodingException *new_JavaIoUnsupportedEncodingException_initW
   return v2;
 }
 
-void *JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1, uint64_t a2)
+void *JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1, void *a2)
 {
   JavaNioChannelsPipe_init();
   v4 = new_JavaIoFileDescriptor_init();
@@ -4918,25 +4635,25 @@ void *JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1, u
   return JreStrongAssignAndConsume((a1 + 16), v7);
 }
 
-JavaNioPipeImpl *new_JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1)
+JavaNioPipeImpl *new_JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(void *a1)
 {
   v2 = [JavaNioPipeImpl alloc];
   JavaNioPipeImpl_initWithJavaNioChannelsSpiSelectorProvider_(v2, a1);
   return v2;
 }
 
-void *sub_100155EC0(uint64_t a1, uint64_t a2, void *a3)
+void *sub_100155EC0(uint64_t a1, void *a2, void *a3)
 {
-  JavaNioChannelsPipe_SourceChannel_initWithJavaNioChannelsSpiSelectorProvider_();
+  JavaNioChannelsPipe_SourceChannel_initWithJavaNioChannelsSpiSelectorProvider_(a1, a2);
   JreStrongAssign((a1 + 55), a3);
   v6 = new_JavaNioSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_withJavaIoFileDescriptor_(a2, a3);
 
   return JreStrongAssignAndConsume((a1 + 63), v6);
 }
 
-void *sub_1001560DC(uint64_t a1, uint64_t a2, void *a3)
+void *sub_1001560DC(uint64_t a1, void *a2, void *a3)
 {
-  JavaNioChannelsPipe_SinkChannel_initWithJavaNioChannelsSpiSelectorProvider_();
+  JavaNioChannelsPipe_SinkChannel_initWithJavaNioChannelsSpiSelectorProvider_(a1, a2);
   JreStrongAssign((a1 + 55), a3);
   v6 = new_JavaNioSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_withJavaIoFileDescriptor_(a2, a3);
 
@@ -4957,7 +4674,7 @@ id JavaNioFloatArrayBuffer_initWithFloatArray_(uint64_t a1, unsigned int *a2, ui
   return result;
 }
 
-JavaNioFloatArrayBuffer *sub_1001563E4(uint64_t a1, int a2, BOOL a3)
+JavaNioFloatArrayBuffer *sub_1001563E4(uint64_t a1, int a2, _BOOL8 a3)
 {
   if (!a1)
   {
@@ -5015,7 +4732,7 @@ id LibcoreIoStructUtsname_initWithNSString_withNSString_withNSString_withNSStrin
   return JreStrongAssign(a1 + 5, a6);
 }
 
-uint64_t JavaLangAnnotationAnnotation_class_()
+uint64_t JavaLangAnnotationAnnotation_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_1005549D8 != -1)
   {
@@ -5051,12 +4768,12 @@ void sub_100157128(void *a1)
   JreThrowNullPointerException();
 }
 
-void sub_10015717C(void *a1)
+void sub_10015717C(void *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v1 = new_JavaLangNullPointerException_initWithNSString_(@"array == null");
-    objc_exception_throw(v1);
+    v2 = new_JavaLangNullPointerException_initWithNSString_(@"array == null");
+    objc_exception_throw(v2);
   }
 
   if ([objc_msgSend(a1 "getClass")])
@@ -5069,7 +4786,7 @@ void sub_10015717C(void *a1)
 
 JavaLangLong *JavaLangReflectArray_getWithId_withInt_(unsigned int *a1, uint64_t a2)
 {
-  v4 = NSObject_class_();
+  v4 = NSObject_class_(a1, a2);
   if ([IOSClass_arrayType(v4 1u)])
   {
     objc_opt_class();
@@ -5145,15 +4862,15 @@ LABEL_82:
         goto LABEL_72;
       }
 
-      v10 = a1[2];
-      if ((a2 & 0x80000000) != 0 || v10 <= a2)
+      v11 = a1[2];
+      if ((a2 & 0x80000000) != 0 || v11 <= a2)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v10, a2);
+        IOSArray_throwOutOfBoundsWithMsg(v11, a2);
       }
 
-      v11 = *(a1 + a2 + 12);
+      v12 = *(a1 + a2 + 12);
 
-      return JavaLangByte_valueOfWithByte_(v11);
+      return JavaLangByte_valueOfWithByte_(v12, v10);
     }
 
     else
@@ -5172,15 +4889,15 @@ LABEL_82:
           goto LABEL_72;
         }
 
-        v12 = a1[2];
-        if ((a2 & 0x80000000) != 0 || v12 <= a2)
+        v14 = a1[2];
+        if ((a2 & 0x80000000) != 0 || v14 <= a2)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v12, a2);
+          IOSArray_throwOutOfBoundsWithMsg(v14, a2);
         }
 
-        v13 = *(a1 + a2 + 6);
+        v15 = *(a1 + a2 + 6);
 
-        return JavaLangCharacter_valueOfWithChar_(v13);
+        return JavaLangCharacter_valueOfWithChar_(v15, v13);
       }
 
       else
@@ -5199,15 +4916,15 @@ LABEL_82:
             goto LABEL_72;
           }
 
-          v14 = a1[2];
-          if ((a2 & 0x80000000) != 0 || v14 <= a2)
+          v17 = a1[2];
+          if ((a2 & 0x80000000) != 0 || v17 <= a2)
           {
-            IOSArray_throwOutOfBoundsWithMsg(v14, a2);
+            IOSArray_throwOutOfBoundsWithMsg(v17, a2);
           }
 
-          v15 = *(a1 + a2 + 6);
+          v18 = *(a1 + a2 + 6);
 
-          return JavaLangShort_valueOfWithShort_(v15);
+          return JavaLangShort_valueOfWithShort_(v18, v16);
         }
 
         else
@@ -5226,15 +4943,15 @@ LABEL_82:
               goto LABEL_72;
             }
 
-            v16 = a1[2];
-            if ((a2 & 0x80000000) != 0 || v16 <= a2)
+            v19 = a1[2];
+            if ((a2 & 0x80000000) != 0 || v19 <= a2)
             {
-              IOSArray_throwOutOfBoundsWithMsg(v16, a2);
+              IOSArray_throwOutOfBoundsWithMsg(v19, a2);
             }
 
-            v17 = a1[a2 + 3];
+            v20 = a1[a2 + 3];
 
-            return JavaLangInteger_valueOfWithInt_(v17);
+            return JavaLangInteger_valueOfWithInt_(v20);
           }
 
           else
@@ -5253,15 +4970,15 @@ LABEL_82:
                 goto LABEL_72;
               }
 
-              v18 = a1[2];
-              if ((a2 & 0x80000000) != 0 || v18 <= a2)
+              v22 = a1[2];
+              if ((a2 & 0x80000000) != 0 || v22 <= a2)
               {
-                IOSArray_throwOutOfBoundsWithMsg(v18, a2);
+                IOSArray_throwOutOfBoundsWithMsg(v22, a2);
               }
 
-              v19 = *&a1[2 * a2 + 4];
+              v23 = *&a1[2 * a2 + 4];
 
-              return JavaLangLong_valueOfWithLong_(v19);
+              return JavaLangLong_valueOfWithLong_(v23, v21);
             }
 
             else
@@ -5280,13 +4997,13 @@ LABEL_82:
                   goto LABEL_72;
                 }
 
-                v20 = a1[2];
-                if ((a2 & 0x80000000) != 0 || v20 <= a2)
+                v24 = a1[2];
+                if ((a2 & 0x80000000) != 0 || v24 <= a2)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v20, a2);
+                  IOSArray_throwOutOfBoundsWithMsg(v24, a2);
                 }
 
-                v21 = new_JavaLangFloat_initWithFloat_(*&a1[a2 + 3]);
+                v25 = new_JavaLangFloat_initWithFloat_(*&a1[a2 + 3]);
               }
 
               else
@@ -5296,8 +5013,8 @@ LABEL_82:
                 {
                   if (!a1)
                   {
-                    v23 = new_JavaLangNullPointerException_initWithNSString_(@"array == null");
-                    objc_exception_throw(v23);
+                    v27 = new_JavaLangNullPointerException_initWithNSString_(@"array == null");
+                    objc_exception_throw(v27);
                   }
 
                   sub_1001570D4(a1);
@@ -5314,16 +5031,16 @@ LABEL_82:
                   goto LABEL_72;
                 }
 
-                v22 = a1[2];
-                if ((a2 & 0x80000000) != 0 || v22 <= a2)
+                v26 = a1[2];
+                if ((a2 & 0x80000000) != 0 || v26 <= a2)
                 {
-                  IOSArray_throwOutOfBoundsWithMsg(v22, a2);
+                  IOSArray_throwOutOfBoundsWithMsg(v26, a2);
                 }
 
-                v21 = new_JavaLangDouble_initWithDouble_(*&a1[2 * a2 + 4]);
+                v25 = new_JavaLangDouble_initWithDouble_(*&a1[2 * a2 + 4]);
               }
 
-              return v21;
+              return v25;
             }
           }
         }
@@ -5337,7 +5054,7 @@ uint64_t JavaLangReflectArray_getBooleanWithId_withInt_(unsigned int *a1, uint64
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v4);
   }
 
   objc_opt_class();
@@ -5351,10 +5068,10 @@ uint64_t JavaLangReflectArray_getBooleanWithId_withInt_(unsigned int *a1, uint64
     JreThrowClassCastException();
   }
 
-  v4 = a1[2];
-  if ((a2 & 0x80000000) != 0 || v4 <= a2)
+  v5 = a1[2];
+  if ((a2 & 0x80000000) != 0 || v5 <= a2)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v4, a2);
+    IOSArray_throwOutOfBoundsWithMsg(v5, a2);
   }
 
   return *(a1 + a2 + 12);
@@ -5365,7 +5082,7 @@ uint64_t JavaLangReflectArray_getByteWithId_withInt_(unsigned int *a1, uint64_t 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v4);
   }
 
   objc_opt_class();
@@ -5379,10 +5096,10 @@ uint64_t JavaLangReflectArray_getByteWithId_withInt_(unsigned int *a1, uint64_t 
     JreThrowClassCastException();
   }
 
-  v4 = a1[2];
-  if ((a2 & 0x80000000) != 0 || v4 <= a2)
+  v5 = a1[2];
+  if ((a2 & 0x80000000) != 0 || v5 <= a2)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v4, a2);
+    IOSArray_throwOutOfBoundsWithMsg(v5, a2);
   }
 
   return *(a1 + a2 + 12);
@@ -5393,7 +5110,7 @@ uint64_t JavaLangReflectArray_getCharWithId_withInt_(unsigned int *a1, uint64_t 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v4);
   }
 
   objc_opt_class();
@@ -5407,10 +5124,10 @@ uint64_t JavaLangReflectArray_getCharWithId_withInt_(unsigned int *a1, uint64_t 
     JreThrowClassCastException();
   }
 
-  v4 = a1[2];
-  if ((a2 & 0x80000000) != 0 || v4 <= a2)
+  v5 = a1[2];
+  if ((a2 & 0x80000000) != 0 || v5 <= a2)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v4, a2);
+    IOSArray_throwOutOfBoundsWithMsg(v5, a2);
   }
 
   return *(a1 + a2 + 6);
@@ -5542,7 +5259,7 @@ LABEL_52:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      sub_10015717C(a1);
+      sub_10015717C(a1, v13);
     }
 
     objc_opt_class();
@@ -5556,10 +5273,10 @@ LABEL_52:
       goto LABEL_44;
     }
 
-    v13 = a1[2];
-    if ((a2 & 0x80000000) != 0 || v13 <= a2)
+    v14 = a1[2];
+    if ((a2 & 0x80000000) != 0 || v14 <= a2)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v13, a2);
+      IOSArray_throwOutOfBoundsWithMsg(v14, a2);
     }
 
     return *(a1 + a2 + 6);
@@ -5692,7 +5409,7 @@ LABEL_45:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          sub_10015717C(a1);
+          sub_10015717C(a1, v12);
         }
 
         objc_opt_class();
@@ -5706,10 +5423,10 @@ LABEL_45:
           goto LABEL_38;
         }
 
-        v12 = a1[2];
-        if ((a2 & 0x80000000) != 0 || v12 <= a2)
+        v13 = a1[2];
+        if ((a2 & 0x80000000) != 0 || v13 <= a2)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v12, a2);
+          IOSArray_throwOutOfBoundsWithMsg(v13, a2);
         }
 
         return *(a1 + a2 + 6);
@@ -5817,7 +5534,7 @@ LABEL_30:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        sub_10015717C(a1);
+        sub_10015717C(a1, v8);
       }
 
       objc_opt_class();
@@ -5831,10 +5548,10 @@ LABEL_30:
         goto LABEL_25;
       }
 
-      v8 = a1[2];
-      if ((a2 & 0x80000000) != 0 || v8 <= a2)
+      v9 = a1[2];
+      if ((a2 & 0x80000000) != 0 || v9 <= a2)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v8, a2);
+        IOSArray_throwOutOfBoundsWithMsg(v9, a2);
       }
 
       return *(a1 + a2 + 6);
@@ -5842,10 +5559,10 @@ LABEL_30:
   }
 }
 
-uint64_t JavaLangReflectArray_getLengthWithId_(unsigned int *a1)
+uint64_t JavaLangReflectArray_getLengthWithId_(unsigned int *a1, uint64_t a2)
 {
-  v2 = NSObject_class_();
-  if (![IOSClass_arrayType(v2 1u)])
+  v3 = NSObject_class_(a1, a2);
+  if (![IOSClass_arrayType(v3 1u)])
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -5871,7 +5588,7 @@ uint64_t JavaLangReflectArray_getLengthWithId_(unsigned int *a1)
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    sub_10015717C(a1);
+                    sub_10015717C(a1, v4);
                   }
                 }
               }
@@ -6001,7 +5718,7 @@ LABEL_37:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          sub_10015717C(a1);
+          sub_10015717C(a1, v9);
         }
 
         objc_opt_class();
@@ -6015,10 +5732,10 @@ LABEL_37:
           goto LABEL_31;
         }
 
-        v9 = a1[2];
-        if ((a2 & 0x80000000) != 0 || v9 <= a2)
+        v10 = a1[2];
+        if ((a2 & 0x80000000) != 0 || v10 <= a2)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v9, a2);
+          IOSArray_throwOutOfBoundsWithMsg(v10, a2);
         }
 
         return *(a1 + a2 + 6);
@@ -6057,7 +5774,7 @@ LABEL_17:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v6);
   }
 
   objc_opt_class();
@@ -6071,10 +5788,10 @@ LABEL_17:
     goto LABEL_14;
   }
 
-  v6 = a1[2];
-  if ((a2 & 0x80000000) != 0 || v6 <= a2)
+  v7 = a1[2];
+  if ((a2 & 0x80000000) != 0 || v7 <= a2)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v6, a2);
+    IOSArray_throwOutOfBoundsWithMsg(v7, a2);
   }
 
   return *(a1 + a2 + 12);
@@ -6194,23 +5911,24 @@ uint64_t JavaLangReflectArray_setWithId_withInt_withId_(void *a1, uint64_t a2, v
     goto LABEL_53;
   }
 
-  if (([objc_msgSend(a1 "getClass")] & 1) == 0)
+  v6 = [objc_msgSend(a1 "getClass")];
+  if ((v6 & 1) == 0)
   {
     sub_1001570D4(a1);
   }
 
-  v6 = NSObject_class_();
-  if ([IOSClass_arrayType(v6 1u)])
+  v8 = NSObject_class_(v6, v7);
+  if ([IOSClass_arrayType(v8 1u)])
   {
     if (!a3)
     {
       goto LABEL_7;
     }
 
-    v7 = [objc_msgSend(a1 "getClass")];
-    if (v7)
+    v9 = [objc_msgSend(a1 "getClass")];
+    if (v9)
     {
-      if (([v7 isInstance:a3] & 1) == 0)
+      if (([v9 isInstance:a3] & 1) == 0)
       {
         sub_100157128(a1);
       }
@@ -6233,8 +5951,8 @@ LABEL_53:
 
   if (!a3)
   {
-    v17 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Primitive array can't take null values.");
-    objc_exception_throw(v17);
+    v19 = new_JavaLangIllegalArgumentException_initWithNSString_(@"Primitive array can't take null values.");
+    objc_exception_throw(v19);
   }
 
   objc_opt_class();
@@ -6246,9 +5964,9 @@ LABEL_53:
       goto LABEL_54;
     }
 
-    v9 = [a3 BOOLeanValue];
+    v11 = [a3 BOOLeanValue];
 
-    return JavaLangReflectArray_setBooleanWithId_withInt_withBoolean_(a1, a2, v9);
+    return JavaLangReflectArray_setBooleanWithId_withInt_withBoolean_(a1, a2, v11);
   }
 
   else
@@ -6262,9 +5980,9 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      v10 = [a3 charValue];
+      v12 = [a3 charValue];
 
-      return JavaLangReflectArray_setByteWithId_withInt_withByte_(a1, a2, v10);
+      return JavaLangReflectArray_setByteWithId_withInt_withByte_(a1, a2, v12);
     }
 
     else
@@ -6278,9 +5996,9 @@ LABEL_53:
           goto LABEL_54;
         }
 
-        v11 = [a3 charValue];
+        v13 = [a3 charValue];
 
-        return JavaLangReflectArray_setCharWithId_withInt_withChar_(a1, a2, v11);
+        return JavaLangReflectArray_setCharWithId_withInt_withChar_(a1, a2, v13);
       }
 
       else
@@ -6294,9 +6012,9 @@ LABEL_53:
             goto LABEL_54;
           }
 
-          v12 = [a3 shortValue];
+          v14 = [a3 shortValue];
 
-          return JavaLangReflectArray_setShortWithId_withInt_withShort_(a1, a2, v12);
+          return JavaLangReflectArray_setShortWithId_withInt_withShort_(a1, a2, v14);
         }
 
         else
@@ -6310,9 +6028,9 @@ LABEL_53:
               goto LABEL_54;
             }
 
-            v13 = [a3 intValue];
+            v15 = [a3 intValue];
 
-            return JavaLangReflectArray_setIntWithId_withInt_withInt_(a1, a2, v13);
+            return JavaLangReflectArray_setIntWithId_withInt_withInt_(a1, a2, v15);
           }
 
           else
@@ -6326,9 +6044,9 @@ LABEL_53:
                 goto LABEL_54;
               }
 
-              v14 = [a3 longLongValue];
+              v16 = [a3 longLongValue];
 
-              return JavaLangReflectArray_setLongWithId_withInt_withLong_(a1, a2, v14);
+              return JavaLangReflectArray_setLongWithId_withInt_withLong_(a1, a2, v16);
             }
 
             else
@@ -6344,7 +6062,7 @@ LABEL_53:
 
                 [a3 floatValue];
 
-                return JavaLangReflectArray_setFloatWithId_withInt_withFloat_(a1, a2, v15);
+                return JavaLangReflectArray_setFloatWithId_withInt_withFloat_(a1, a2, v17);
               }
 
               else
@@ -6364,7 +6082,7 @@ LABEL_53:
 
                 [a3 doubleValue];
 
-                return JavaLangReflectArray_setDoubleWithId_withInt_withDouble_(a1, a2, v16);
+                return JavaLangReflectArray_setDoubleWithId_withInt_withDouble_(a1, a2, v18);
               }
             }
           }
@@ -6379,7 +6097,7 @@ uint64_t JavaLangReflectArray_setBooleanWithId_withInt_withBoolean_(unsigned int
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v6);
   }
 
   objc_opt_class();
@@ -6403,7 +6121,7 @@ uint64_t JavaLangReflectArray_setBooleanWithId_withInt_withBoolean_(unsigned int
   return result;
 }
 
-uint64_t JavaLangReflectArray_setByteWithId_withInt_withByte_(unsigned int *a1, uint64_t a2, int a3)
+uint64_t JavaLangReflectArray_setByteWithId_withInt_withByte_(unsigned int *a1, uint64_t a2, unsigned int a3)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -6534,7 +6252,7 @@ LABEL_44:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            sub_10015717C(a1);
+            sub_10015717C(a1, v7);
           }
 
           objc_opt_class();
@@ -6669,7 +6387,7 @@ LABEL_37:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          sub_10015717C(a1);
+          sub_10015717C(a1, v7);
         }
 
         objc_opt_class();
@@ -6702,7 +6420,7 @@ uint64_t JavaLangReflectArray_setDoubleWithId_withInt_withDouble_(unsigned int *
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v6);
   }
 
   objc_opt_class();
@@ -6757,7 +6475,7 @@ LABEL_16:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    sub_10015717C(a1);
+    sub_10015717C(a1, v7);
   }
 
   objc_opt_class();
@@ -6771,18 +6489,18 @@ LABEL_16:
     goto LABEL_13;
   }
 
-  v7 = a3;
+  v8 = a3;
   result = a1[2];
   if ((a2 & 0x80000000) != 0 || result <= a2)
   {
     IOSArray_throwOutOfBoundsWithMsg(result, a2);
   }
 
-  *&a1[2 * a2 + 4] = v7;
+  *&a1[2 * a2 + 4] = v8;
   return result;
 }
 
-uint64_t JavaLangReflectArray_setIntWithId_withInt_withInt_(unsigned int *a1, uint64_t a2, int a3)
+uint64_t JavaLangReflectArray_setIntWithId_withInt_withInt_(unsigned int *a1, uint64_t a2, unsigned int a3)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -6863,7 +6581,7 @@ LABEL_30:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        sub_10015717C(a1);
+        sub_10015717C(a1, v7);
       }
 
       objc_opt_class();
@@ -6946,7 +6664,7 @@ LABEL_23:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      sub_10015717C(a1);
+      sub_10015717C(a1, v7);
     }
 
     objc_opt_class();
@@ -6972,7 +6690,7 @@ LABEL_23:
   return result;
 }
 
-uint64_t JavaLangReflectArray_setShortWithId_withInt_withShort_(unsigned int *a1, uint64_t a2, int a3)
+uint64_t JavaLangReflectArray_setShortWithId_withInt_withShort_(unsigned int *a1, uint64_t a2, unsigned int a3)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -7078,7 +6796,7 @@ LABEL_37:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          sub_10015717C(a1);
+          sub_10015717C(a1, v7);
         }
 
         objc_opt_class();
@@ -7118,11 +6836,10 @@ IOSObjectArray *sub_10015A254(int a1)
   return [IOSObjectArray arrayWithLength:a1 type:v2];
 }
 
-void *JavaUtilWeakHashMap_initWithInt_(uint64_t a1, uint64_t a2)
+void *JavaUtilWeakHashMap_initWithInt_(uint64_t a1, unsigned int a2)
 {
-  v2 = a2;
-  JavaUtilAbstractMap_init(a1, a2);
-  if ((v2 & 0x80000000) != 0)
+  JavaUtilAbstractMap_init();
+  if ((a2 & 0x80000000) != 0)
   {
     v16 = JreStrcat("$I", v4, v5, v6, v7, v8, v9, v10, @"capacity < 0: ");
     v17 = new_JavaLangIllegalArgumentException_initWithNSString_(v16);
@@ -7130,14 +6847,14 @@ void *JavaUtilWeakHashMap_initWithInt_(uint64_t a1, uint64_t a2)
   }
 
   *(a1 + 24) = 0;
-  if (v2 <= 1)
+  if (a2 <= 1)
   {
     v11 = 1;
   }
 
   else
   {
-    v11 = v2;
+    v11 = a2;
   }
 
   v12 = sub_10015A254(v11);
@@ -7155,11 +6872,10 @@ void *JavaUtilWeakHashMap_initWithInt_(uint64_t a1, uint64_t a2)
   return JreStrongAssignAndConsume((a1 + 48), v14);
 }
 
-void *JavaUtilWeakHashMap_initWithInt_withFloat_(uint64_t a1, uint64_t a2, float a3)
+void *JavaUtilWeakHashMap_initWithInt_withFloat_(uint64_t a1, unsigned int a2, float a3)
 {
-  v4 = a2;
-  JavaUtilAbstractMap_init(a1, a2);
-  if ((v4 & 0x80000000) != 0)
+  JavaUtilAbstractMap_init();
+  if ((a2 & 0x80000000) != 0)
   {
     v20 = JreStrcat("$I", v6, v7, v8, v9, v10, v11, v12, @"capacity < 0: ");
     goto LABEL_19;
@@ -7174,14 +6890,14 @@ LABEL_19:
   }
 
   *(a1 + 24) = 0;
-  if (v4 <= 1)
+  if (a2 <= 1)
   {
     v13 = 1;
   }
 
   else
   {
-    v13 = v4;
+    v13 = a2;
   }
 
   v14 = sub_10015A254(v13);
@@ -7244,25 +6960,25 @@ id JavaUtilWeakHashMap_initWithJavaUtilMap_(void *a1, void *a2)
 JavaUtilWeakHashMap *new_JavaUtilWeakHashMap_init()
 {
   v0 = [JavaUtilWeakHashMap alloc];
-  JavaUtilWeakHashMap_initWithInt_(v0, 16);
+  JavaUtilWeakHashMap_initWithInt_(v0, 0x10u);
   return v0;
 }
 
-id JavaUtilWeakHashMap_Entry_initWithId_withId_withJavaLangRefReferenceQueue_(uint64_t a1, void *a2, void *a3, uint64_t a4)
+id JavaUtilWeakHashMap_Entry_initWithId_withId_withJavaLangRefReferenceQueue_(uint64_t a1, void *a2, void *a3, unint64_t a4)
 {
   JavaLangRefWeakReference_initWithId_withJavaLangRefReferenceQueue_(a1, a2, a4);
   *(a1 + 44) = a2 == 0;
   if (*(a1 + 44))
   {
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = JavaUtilCollections_secondaryHashWithId_(a2);
+    v8 = JavaUtilCollections_secondaryHashWithId_(a2, v7);
   }
 
-  *(a1 + 40) = v7;
+  *(a1 + 40) = v8;
 
   return JreStrongAssign((a1 + 48), a3);
 }
@@ -7278,28 +6994,30 @@ JavaUtilWeakHashMap_HashIterator *new_JavaUtilWeakHashMap_HashIterator_initWithJ
   return v4;
 }
 
-uint64_t JavaLangByte_decodeWithNSString_(void *a1)
+uint64_t JavaLangByte_decodeWithNSString_(void *a1, uint64_t a2)
 {
   if ((atomic_load_explicit(JavaLangByte__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10015CB98();
   }
 
-  v3 = JavaLangInteger_decodeWithNSString_(a1);
-  if (!v2)
+  v4 = JavaLangInteger_decodeWithNSString_(a1);
+  if (!v3)
   {
     JreThrowNullPointerException();
   }
 
-  v4 = [v2 intValue];
-  if (v4 != v4)
+  v5 = [v3 intValue];
+  if (v5 != v5)
   {
-    v13 = JreStrcat("$$C", v5, v6, v7, v8, v9, v10, v11, @"Value out of range for byte: ");
-    v14 = new_JavaLangNumberFormatException_initWithNSString_(v13);
-    objc_exception_throw(v14);
+    v15 = JreStrcat("$$C", v6, v7, v8, v9, v10, v11, v12, @"Value out of range for byte: ");
+    v16 = new_JavaLangNumberFormatException_initWithNSString_(v15);
+    objc_exception_throw(v16);
   }
 
-  return JavaLangByte_valueOfWithByte_(v4);
+  v13 = v5;
+
+  return JavaLangByte_valueOfWithByte_(v13, v6);
 }
 
 uint64_t JavaLangByte_parseByteWithNSString_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7330,7 +7048,7 @@ uint64_t JavaLangByte_parseByteWithNSString_withInt_(void *a1, uint64_t a2, uint
   return v10;
 }
 
-NSString *JavaLangByte_toHexStringWithByte_withBoolean_(unsigned __int8 a1, int a2)
+NSString *JavaLangByte_toHexStringWithByte_withBoolean_(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(JavaLangByte__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -7340,14 +7058,15 @@ NSString *JavaLangByte_toHexStringWithByte_withBoolean_(unsigned __int8 a1, int 
   return JavaLangIntegralToString_byteToHexStringWithByte_withBoolean_(a1, a2);
 }
 
-NSString *JavaLangByte_toStringWithByte_(unsigned int a1)
+const __CFString *JavaLangByte_toStringWithByte_(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if ((atomic_load_explicit(JavaLangByte__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10015CB98();
   }
 
-  return JavaLangInteger_toStringWithInt_(a1);
+  return JavaLangInteger_toStringWithInt_(v2);
 }
 
 uint64_t JavaLangByte_valueOfWithNSString_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7359,7 +7078,7 @@ uint64_t JavaLangByte_valueOfWithNSString_(void *a1, uint64_t a2, uint64_t a3, u
 
   v9 = JavaLangByte_parseByteWithNSString_(a1, a2, a3, a4, a5, a6, a7, a8);
 
-  return JavaLangByte_valueOfWithByte_(v9);
+  return JavaLangByte_valueOfWithByte_(v9, v10);
 }
 
 uint64_t JavaLangByte_valueOfWithNSString_withInt_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7371,11 +7090,12 @@ uint64_t JavaLangByte_valueOfWithNSString_withInt_(void *a1, uint64_t a2, uint64
 
   v10 = JavaLangByte_parseByteWithNSString_withInt_(a1, a2, a3, a4, a5, a6, a7, a8);
 
-  return JavaLangByte_valueOfWithByte_(v10);
+  return JavaLangByte_valueOfWithByte_(v10, v11);
 }
 
-uint64_t JavaLangByte_valueOfWithByte_(int a1)
+uint64_t JavaLangByte_valueOfWithByte_(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if ((atomic_load_explicit(JavaLangByte__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10015CB98();
@@ -7386,17 +7106,17 @@ uint64_t JavaLangByte_valueOfWithByte_(int a1)
     JreThrowNullPointerException();
   }
 
-  v2 = a1 + 128;
-  v3 = *(qword_100554A00 + 8);
-  if (v3 <= v2)
+  v3 = v2 + 128;
+  v4 = *(qword_100554A00 + 8);
+  if (v4 <= v3)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v3, v2);
+    IOSArray_throwOutOfBoundsWithMsg(v4, v3);
   }
 
-  return *(qword_100554A00 + 24 + 8 * v2);
+  return *(qword_100554A00 + 24 + 8 * v3);
 }
 
-uint64_t JavaLangByte_class_()
+uint64_t JavaLangByte_class_(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(JavaLangByte__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -7414,11 +7134,11 @@ uint64_t JavaLangByte_class_()
 JavaUtilConcurrentModificationException *new_JavaUtilConcurrentModificationException_init()
 {
   v0 = [JavaUtilConcurrentModificationException alloc];
-  JavaLangRuntimeException_init(v0, v1);
+  JavaLangRuntimeException_init(v0);
   return v0;
 }
 
-uint64_t OrgXmlSaxXMLReader_class_()
+uint64_t OrgXmlSaxXMLReader_class_(uint64_t a1, uint64_t a2)
 {
   if (qword_100554A20 != -1)
   {
@@ -7430,9 +7150,9 @@ uint64_t OrgXmlSaxXMLReader_class_()
 
 void sub_10015CFBC(id a1)
 {
-  v1[0] = NSCopying_class_();
-  v1[1] = JavaIoSerializable_class_();
-  qword_100554A30 = [IOSObjectArray newArrayWithObjects:v1 count:2 type:IOSClass_class_()];
+  v3[0] = NSCopying_class_(a1, v1);
+  v3[1] = JavaIoSerializable_class_(v3[0], v2);
+  qword_100554A30 = [IOSObjectArray newArrayWithObjects:v3 count:2 type:IOSClass_class_()];
 }
 
 id JavaNioCharsetIOSCharset_charsetForNameWithNSString_(void *a1)
@@ -7541,20 +7261,20 @@ LABEL_29:
   return v3;
 }
 
-id JavaNioCharsetIOSCharset_getAvailableCharsetNames()
+id JavaNioCharsetIOSCharset_getAvailableCharsetNames(void *a1, const char *a2)
 {
   if ((atomic_load_explicit(JavaNioCharsetIOSCharset__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_10015D9B8();
   }
 
-  v0 = +[JavaNioCharsetIOSCharset getEncodings]_0();
-  if (!v0)
+  v2 = +[JavaNioCharsetIOSCharset getEncodings]_0();
+  if (!v2)
   {
     JreThrowNullPointerException();
   }
 
-  return [v0 keySet];
+  return [v2 keySet];
 }
 
 JavaNioCharsetIOSCharset *sub_10015D888(uint64_t a1)
@@ -7592,24 +7312,24 @@ uint64_t sub_10015DA74(uint64_t a1, uint64_t a2, int a3)
   *(a1 + 52) = 0;
   *(a1 + 40) = a2;
   *(a1 + 48) = a3;
-  result = sub_10016465C(a2);
+  result = sub_10016465C(a2, v6);
   *(a1 + 32) = result;
   return result;
 }
 
-uint64_t sub_10015DB2C(uint64_t a1, int a2, int a3)
+uint64_t sub_10015DB2C(uint64_t a1, uint64_t a2, int a3)
 {
   JreStrongAssign((a1 + 8), 0);
   *(a1 + 16) = 0;
   *(a1 + 52) = 0;
   *(a1 + 40) = a2;
   *(a1 + 48) = a3;
-  result = sub_1001646AC(a2);
+  result = sub_1001646AC(a2, v6);
   *(a1 + 32) = result;
   return result;
 }
 
-id JavaMathBigDecimal_initWithCharArray_withInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, signed int a4)
+id JavaMathBigDecimal_initWithCharArray_withInt_withInt_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   JreStrongAssign((a1 + 8), 0);
   *(a1 + 16) = 0;
@@ -7617,7 +7337,7 @@ id JavaMathBigDecimal_initWithCharArray_withInt_withInt_(uint64_t a1, uint64_t a
   *(a1 + 52) = 0;
   if (!a2)
   {
-    v61 = new_JavaLangNullPointerException_init();
+    v62 = new_JavaLangNullPointerException_init();
     goto LABEL_98;
   }
 
@@ -7625,7 +7345,7 @@ id JavaMathBigDecimal_initWithCharArray_withInt_withInt_(uint64_t a1, uint64_t a
   v10 = a4 + a3 - 1;
   if (v10 < 0 || a4 < 1 || (a3 & 0x80000000) != 0 || v10 >= *(a2 + 8))
   {
-    v61 = new_JavaLangNumberFormatException_init();
+    v62 = new_JavaLangNumberFormatException_init();
     goto LABEL_98;
   }
 
@@ -7649,7 +7369,7 @@ id JavaMathBigDecimal_initWithCharArray_withInt_withInt_(uint64_t a1, uint64_t a
     }
   }
 
-  v62 = v9;
+  v63 = v9;
   if (a3 > v10)
   {
     v13 = 0;
@@ -7660,7 +7380,7 @@ LABEL_13:
     goto LABEL_43;
   }
 
-  v63 = v11;
+  v64 = v11;
   v15 = 0;
   v16 = 0;
   v13 = 0;
@@ -7727,12 +7447,12 @@ LABEL_13:
     if (v14 > v10)
     {
       v8 = &OBJC_IVAR___OrgApacheLuceneSearchDisjunctionMaxScorer_tieBreakerMultiplier_;
-      v11 = v63;
+      v11 = v64;
       goto LABEL_13;
     }
   }
 
-  [(JavaLangStringBuilder *)v63 appendWithCharArray:a2 withInt:a3 withInt:v15];
+  [(JavaLangStringBuilder *)v64 appendWithCharArray:a2 withInt:a3 withInt:v15];
   v24 = *(a2 + 8);
   v14 = (a3 + v15);
   if ((v19 & 0x80000000) != 0 || v14 >= v24)
@@ -7743,7 +7463,7 @@ LABEL_13:
   if (*(a2 + 12 + 2 * v19) != 46)
   {
     v8 = &OBJC_IVAR___OrgApacheLuceneSearchDisjunctionMaxScorer_tieBreakerMultiplier_;
-    v11 = v63;
+    v11 = v64;
 LABEL_43:
     *(a1 + 48) = 0;
     goto LABEL_44;
@@ -7755,25 +7475,25 @@ LABEL_43:
     v26 = (a3 + v15 + 1);
     do
     {
-      v56 = *(a2 + 8);
-      if ((v26 & 0x80000000) != 0 || v26 >= v56)
+      v57 = *(a2 + 8);
+      if ((v26 & 0x80000000) != 0 || v26 >= v57)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v56, v26);
+        IOSArray_throwOutOfBoundsWithMsg(v57, v26);
       }
 
-      v57 = *(a2 + 12 + 2 * v26);
-      if (v57 == 101)
+      v58 = *(a2 + 12 + 2 * v26);
+      if (v58 == 101)
       {
         break;
       }
 
-      v58 = *(a2 + 8);
-      if ((v26 & 0x80000000) != 0 || v26 >= v58)
+      v59 = *(a2 + 8);
+      if ((v26 & 0x80000000) != 0 || v26 >= v59)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v58, v26);
+        IOSArray_throwOutOfBoundsWithMsg(v59, v26);
       }
 
-      if (v57 == 69)
+      if (v58 == 69)
       {
         break;
       }
@@ -7785,15 +7505,15 @@ LABEL_43:
 
       else
       {
-        v59 = *(a2 + 8);
-        if ((v26 & 0x80000000) != 0 || v26 >= v59)
+        v60 = *(a2 + 8);
+        if ((v26 & 0x80000000) != 0 || v26 >= v60)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v59, v26);
+          IOSArray_throwOutOfBoundsWithMsg(v60, v26);
         }
 
-        v60 = *(a2 + 12 + 2 * v26);
-        v16 = v60 != 48;
-        if (v60 == 48)
+        v61 = *(a2 + 12 + 2 * v26);
+        v16 = v61 != 48;
+        if (v61 == 48)
         {
           ++v13;
         }
@@ -7812,8 +7532,8 @@ LABEL_43:
 
   *(a1 + 48) = ~a3 + v26 - v15;
   LODWORD(v15) = *(a1 + 48) + v15;
-  v11 = v63;
-  [(JavaLangStringBuilder *)v63 appendWithCharArray:a2 withInt:v25 withInt:?];
+  v11 = v64;
+  [(JavaLangStringBuilder *)v64 appendWithCharArray:a2 withInt:v25 withInt:?];
   v14 = v26;
   v8 = &OBJC_IVAR___OrgApacheLuceneSearchDisjunctionMaxScorer_tieBreakerMultiplier_;
 LABEL_44:
@@ -7870,15 +7590,15 @@ LABEL_101:
         }
       }
 
-      v35 = NSString_valueOfChars_offset_count_(a2, v30, (v62 - v30));
+      v35 = NSString_valueOfChars_offset_count_(a2, v30, (v63 - v30));
       v36 = *(a1 + 48);
       v44 = v36 - JavaLangInteger_parseIntWithNSString_(v35, v37, v38, v39, v40, v41, v42, v43);
       *(a1 + 48) = v44;
       if (v44 != *(a1 + 48))
       {
-        v61 = new_JavaLangNumberFormatException_initWithNSString_(@"Scale out of range.");
+        v62 = new_JavaLangNumberFormatException_initWithNSString_(@"Scale out of range.");
 LABEL_98:
-        objc_exception_throw(v61);
+        objc_exception_throw(v62);
       }
     }
   }
@@ -7886,15 +7606,15 @@ LABEL_98:
   v45 = [(JavaLangStringBuilder *)v11 description];
   if (v15 > 18)
   {
-    v54 = new_JavaMathBigInteger_initWithNSString_(v45);
-    sub_100161B18(a1, v54);
+    v55 = new_JavaMathBigInteger_initWithNSString_(v45);
+    sub_100161B18(a1, v55);
   }
 
   else
   {
     v53 = JavaLangLong_parseLongWithNSString_(v45, v46, v47, v48, v49, v50, v51, v52);
     *(a1 + 40) = v53;
-    *(a1 + 32) = sub_10016465C(v53);
+    *(a1 + 32) = sub_10016465C(v53, v54);
   }
 
   *(a1 + v8[858]) = [(JavaLangStringBuilder *)v11 length]- v13;
@@ -7907,7 +7627,7 @@ LABEL_98:
   return result;
 }
 
-id JavaMathBigDecimal_initWithCharArray_withJavaMathMathContext_(_DWORD *a1, uint64_t a2, void *a3)
+id JavaMathBigDecimal_initWithCharArray_withJavaMathMathContext_(unsigned int *a1, uint64_t a2, void *a3)
 {
   if (!a2)
   {
@@ -7932,7 +7652,7 @@ id JavaMathBigDecimal_initWithNSString_(uint64_t a1, void *a2)
   return JavaMathBigDecimal_initWithCharArray_withInt_withInt_(a1, v4, 0, v5);
 }
 
-id JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_(_DWORD *a1, void *a2, void *a3)
+id JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_(unsigned int *a1, void *a2, void *a3)
 {
   if (!a2)
   {
@@ -7946,32 +7666,33 @@ id JavaMathBigDecimal_initWithNSString_withJavaMathMathContext_(_DWORD *a1, void
 
 id JavaMathBigDecimal_initWithDouble_(uint64_t a1, double a2)
 {
-  JreStrongAssign((a1 + 8), 0);
+  v4 = JreStrongAssign((a1 + 8), 0);
   *(a1 + 16) = 0;
   *(a1 + 52) = 0;
-  if (JavaLangDouble_isInfiniteWithDouble_(a2) || JavaLangDouble_isNaNWithDouble_())
+  isInfiniteWithDouble = JavaLangDouble_isInfiniteWithDouble_(v4, v5, a2);
+  if (isInfiniteWithDouble || JavaLangDouble_isNaNWithDouble_(isInfiniteWithDouble, v7))
   {
-    v21 = new_JavaLangNumberFormatException_initWithNSString_(@"Infinite or NaN");
-    objc_exception_throw(v21);
+    v27 = new_JavaLangNumberFormatException_initWithNSString_(@"Infinite or NaN");
+    objc_exception_throw(v27);
   }
 
-  v4 = JavaLangDouble_doubleToLongBitsWithDouble_(a2);
-  *(a1 + 48) = 1075 - ((v4 >> 52) & 0x7FF);
-  v5 = *(a1 + 48);
-  if (v5 != 1075)
+  v9 = JavaLangDouble_doubleToLongBitsWithDouble_(a2);
+  *(a1 + 48) = 1075 - ((v9 >> 52) & 0x7FF);
+  v10 = *(a1 + 48);
+  if (v10 != 1075)
   {
-    v6 = v4 & 0xFFFFFFFFFFFFFLL | 0x10000000000000;
+    v11 = v9 & 0xFFFFFFFFFFFFFLL | 0x10000000000000;
     goto LABEL_8;
   }
 
-  v6 = 2 * (v4 & 0xFFFFFFFFFFFFFLL);
-  if (!v6)
+  v11 = 2 * (v9 & 0xFFFFFFFFFFFFFLL);
+  if (!v11)
   {
     *(a1 + 48) = 0;
     *(a1 + 52) = 1;
-    v5 = *(a1 + 48);
+    v10 = *(a1 + 48);
 LABEL_8:
-    if (v5 < 1)
+    if (v10 < 1)
     {
       goto LABEL_10;
     }
@@ -7979,58 +7700,58 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v5 = 1075;
+  v10 = 1075;
 LABEL_9:
-  v7 = JavaLangLong_numberOfTrailingZerosWithLong_(v6);
-  v8 = JavaLangMath_minWithInt_withInt_(v5, v7);
-  v6 >>= v8;
-  *(a1 + 48) -= v8;
+  v12 = JavaLangLong_numberOfTrailingZerosWithLong_(v11, v8);
+  v13 = JavaLangMath_minWithInt_withInt_(v10, v12);
+  v11 >>= v13;
+  *(a1 + 48) -= v13;
 LABEL_10:
-  if (v4 >= 0)
+  if (v9 >= 0)
   {
-    v9 = v6;
+    v14 = v11;
   }
 
   else
   {
-    v9 = -v6;
+    v14 = -v11;
   }
 
-  result = sub_10016465C(v9);
-  v11 = result;
-  v12 = *(a1 + 48);
-  if ((v12 & 0x80000000) != 0)
+  result = sub_10016465C(v14, v8);
+  v17 = result;
+  v18 = *(a1 + 48);
+  if ((v18 & 0x80000000) != 0)
   {
-    v17 = result - v12;
+    v23 = result - v18;
     if (!result)
     {
-      v17 = 0;
+      v23 = 0;
     }
 
-    *(a1 + 32) = v17;
+    *(a1 + 32) = v23;
     if (*(a1 + 32) > 63)
     {
-      v20 = JavaMathBigInteger_valueOfWithLong_(v9);
-      if (!v20)
+      v26 = JavaMathBigInteger_valueOfWithLong_(v14);
+      if (!v26)
       {
         goto LABEL_34;
       }
 
-      result = JreStrongAssign((a1 + 24), [(JavaMathBigInteger *)v20 shiftLeftWithInt:-*(a1 + 48)]);
+      result = JreStrongAssign((a1 + 24), [(JavaMathBigInteger *)v26 shiftLeftWithInt:-*(a1 + 48)]);
     }
 
     else
     {
-      *(a1 + 40) = v9 << -*(a1 + 48);
+      *(a1 + 40) = v14 << -*(a1 + 48);
     }
 
     *(a1 + 48) = 0;
     return result;
   }
 
-  if (!v12)
+  if (!v18)
   {
-    *(a1 + 40) = v9;
+    *(a1 + 40) = v14;
     *(a1 + 32) = result;
     return result;
   }
@@ -8040,7 +7761,7 @@ LABEL_10:
     goto LABEL_34;
   }
 
-  if (v12 >= *(qword_100554A78 + 8))
+  if (v18 >= *(qword_100554A78 + 8))
   {
     goto LABEL_27;
   }
@@ -8051,47 +7772,47 @@ LABEL_34:
     JreThrowNullPointerException();
   }
 
-  v13 = *(qword_100554A80 + 8);
-  if (v12 >= v13)
+  v19 = *(qword_100554A80 + 8);
+  if (v18 >= v19)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v13, v12);
+    IOSArray_throwOutOfBoundsWithMsg(v19, v18);
   }
 
-  if (*(qword_100554A80 + 12 + 4 * v12) + v11 <= 63)
+  if (*(qword_100554A80 + 12 + 4 * v18) + v17 <= 63)
   {
-    v14 = *(a1 + 48);
-    v15 = *(qword_100554A78 + 8);
-    if (v14 < 0 || v14 >= v15)
+    v20 = *(a1 + 48);
+    v21 = *(qword_100554A78 + 8);
+    if (v20 < 0 || v20 >= v21)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v15, v14);
+      IOSArray_throwOutOfBoundsWithMsg(v21, v20);
     }
 
-    v16 = *(qword_100554A78 + 16 + 8 * v14) * v9;
-    *(a1 + 40) = v16;
-    result = sub_10016465C(v16);
+    v22 = *(qword_100554A78 + 16 + 8 * v20) * v14;
+    *(a1 + 40) = v22;
+    result = sub_10016465C(v22, v16);
     *(a1 + 32) = result;
     return result;
   }
 
 LABEL_27:
-  v18 = JavaMathBigInteger_valueOfWithLong_(v9);
-  v19 = JavaMathMultiplication_multiplyByFivePowWithJavaMathBigInteger_withInt_(v18, *(a1 + 48));
+  v24 = JavaMathBigInteger_valueOfWithLong_(v14);
+  v25 = JavaMathMultiplication_multiplyByFivePowWithJavaMathBigInteger_withInt_(v24, *(a1 + 48));
 
-  return sub_100161B18(a1, v19);
+  return sub_100161B18(a1, v25);
 }
 
-id JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(uint64_t a1, void *a2, int a3)
+id JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(id *a1, void *a2, int a3)
 {
-  JreStrongAssign((a1 + 8), 0);
-  *(a1 + 16) = 0;
-  *(a1 + 52) = 0;
+  JreStrongAssign(a1 + 1, 0);
+  *(a1 + 4) = 0;
+  *(a1 + 13) = 0;
   if (!a2)
   {
     v7 = new_JavaLangNullPointerException_init();
     objc_exception_throw(v7);
   }
 
-  *(a1 + 48) = a3;
+  *(a1 + 12) = a3;
 
   return sub_100161B18(a1, a2);
 }
@@ -8170,24 +7891,25 @@ JavaMathBigDecimal *JavaMathBigDecimal_valueOfWithLong_(unint64_t a1)
   }
 }
 
-JavaMathBigDecimal *JavaMathBigDecimal_valueOfWithDouble_(double a1)
+JavaMathBigDecimal *JavaMathBigDecimal_valueOfWithDouble_(uint64_t a1, double a2, uint64_t a3)
 {
   if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
   {
-    sub_100164DDC();
+    a1 = sub_100164DDC();
   }
 
-  if (JavaLangDouble_isInfiniteWithDouble_(a1) || JavaLangDouble_isNaNWithDouble_())
+  isInfiniteWithDouble = JavaLangDouble_isInfiniteWithDouble_(a1, a3, a2);
+  if (isInfiniteWithDouble || (isNaNWithDouble = JavaLangDouble_isNaNWithDouble_(isInfiniteWithDouble, v5), isNaNWithDouble))
   {
-    v5 = new_JavaLangNumberFormatException_initWithNSString_(@"Infinite or NaN");
-    objc_exception_throw(v5);
+    v11 = new_JavaLangNumberFormatException_initWithNSString_(@"Infinite or NaN");
+    objc_exception_throw(v11);
   }
 
-  v2 = JavaLangDouble_toStringWithDouble_(a1);
-  v3 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithNSString_(v3, v2);
+  v8 = JavaLangDouble_toStringWithDouble_(isNaNWithDouble, v7, a2);
+  v9 = [JavaMathBigDecimal alloc];
+  JavaMathBigDecimal_initWithNSString_(v9, v8);
 
-  return v3;
+  return v9;
 }
 
 JavaMathBigDecimal *sub_10015EEA4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8251,7 +7973,7 @@ LABEL_17:
   v15 = [v13 addWithJavaMathBigInteger:{JavaMathMultiplication_multiplyByTenPowWithJavaMathBigInteger_withLong_(v14, a3)}];
   v16 = *(a1 + 48);
   v17 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v17, v15, v16);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v17->super.super.super.isa, v15, v16);
 
   return v17;
 }
@@ -8313,7 +8035,7 @@ LABEL_8:
   return a1;
 }
 
-id sub_10015FC44(_DWORD *a1, void *a2)
+id sub_10015FC44(unsigned int *a1, void *a2)
 {
   if (!a2)
   {
@@ -8469,7 +8191,7 @@ LABEL_42:
 
                     v34 = *(v14 + 24);
                     v35 = [JavaMathBigDecimal alloc];
-                    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v35, v34, 0);
+                    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v35->super.super.super.isa, v34, 0);
                     if ([(JavaMathBigDecimal *)v35 precision]<= v5)
                     {
                       goto LABEL_42;
@@ -8518,34 +8240,34 @@ JavaMathBigDecimal *sub_1001603C4(uint64_t a1, uint64_t a2, int a3, void *a4)
 
   v8 = a1 / a2;
   v9 = a1 % a2;
-  v10 = JavaLangLong_signumWithLong_(a1);
-  v11 = JavaLangLong_signumWithLong_(a2);
+  v10 = JavaLangLong_signumWithLong_(a1, a2);
+  v12 = JavaLangLong_signumWithLong_(a2, v11);
   if (v9)
   {
-    v12 = v11 * v10;
-    v13 = 2 * JavaLangMath_absWithLong_(v9);
-    v14 = JavaLangMath_absWithLong_(a2);
+    v13 = v12 * v10;
+    v14 = 2 * JavaLangMath_absWithLong_(v9);
+    v15 = JavaLangMath_absWithLong_(a2);
     if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_100164DDC();
     }
 
-    if (v13 < v14)
+    if (v14 < v15)
     {
-      v15 = 4;
+      v16 = 4;
     }
 
     else
     {
-      v15 = 5;
+      v16 = 5;
     }
 
-    if (v13 > v14)
+    if (v14 > v15)
     {
-      v15 = 6;
+      v16 = 6;
     }
 
-    v8 += sub_1001643C4(v8 & 1, (v12 * v15), a4);
+    v8 += sub_1001643C4(v8 & 1, (v13 * v16), a4);
   }
 
   return JavaMathBigDecimal_valueOfWithLong_withInt_(v8, a3);
@@ -8599,7 +8321,7 @@ JavaMathBigDecimal *sub_1001604AC(void *a1, void *a2, int a3, void *a4)
   {
 LABEL_27:
     v31 = [JavaMathBigDecimal alloc];
-    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v31, v11, a3);
+    JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v31->super.super.super.isa, v11, a3);
     v32 = v31;
     goto LABEL_29;
   }
@@ -8690,7 +8412,7 @@ LABEL_22:
 
   v33 = [v11 addWithJavaMathBigInteger:JavaMathBigInteger_valueOfWithLong_(v28)];
   v34 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v34, v33, a3);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v34->super.super.super.isa, v33, a3);
   v32 = v34;
 LABEL_29:
 
@@ -8700,7 +8422,7 @@ LABEL_29:
 JavaMathBigDecimal *new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_withJavaMathMathContext_(void *a1, int a2, void *a3)
 {
   v6 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v6, a1, a2);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v6->super.super.super.isa, a1, a2);
   sub_10015FC44(v6, a3);
   return v6;
 }
@@ -8708,7 +8430,7 @@ JavaMathBigDecimal *new_JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_wi
 JavaMathBigDecimal *new_JavaMathBigDecimal_initWithJavaMathBigInteger_(void *a1)
 {
   v2 = [JavaMathBigDecimal alloc];
-  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v2, a1, 0);
+  JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v2->super.super.super.isa, a1, 0);
   return v2;
 }
 
@@ -8750,7 +8472,7 @@ LABEL_12:
       v7 = [JavaMathBigDecimal unscaledValue]_0(a1);
       v8 = sub_10015FB94(a2);
       v9 = [JavaMathBigDecimal alloc];
-      JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v9, v7, v8);
+      JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v9->super.super.super.isa, v7, v8);
       v10 = v9;
       goto LABEL_30;
     }
@@ -8796,7 +8518,7 @@ LABEL_29:
         v18 = [JavaMathBigDecimal unscaledValue]_0(a1);
         v19 = JavaMathMultiplication_multiplyByTenPowWithJavaMathBigInteger_withLong_(v18, v13);
         v20 = [JavaMathBigDecimal alloc];
-        JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(v20, v19, 0);
+        JavaMathBigDecimal_initWithJavaMathBigInteger_withInt_(&v20->super.super.super.isa, v19, 0);
         v10 = v20;
 LABEL_30:
 
@@ -8868,34 +8590,34 @@ id sub_1001641E4(uint64_t a1, void *a2, uint64_t a3)
   v10 = v8 % v6;
   if (v8 % v6)
   {
-    v11 = JavaLangMath_absWithLong_(v8 % v6);
+    v12 = JavaLangMath_absWithLong_(v8 % v6);
     if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_100164DDC();
     }
 
-    v12 = JavaLangLong_signumWithLong_(v10);
+    v13 = JavaLangLong_signumWithLong_(v10, v11);
     if (a2)
     {
-      if (2 * v11 < v6)
+      if (2 * v12 < v6)
       {
-        v13 = 4;
+        v14 = 4;
       }
 
       else
       {
-        v13 = 5;
+        v14 = 5;
       }
 
-      if (2 * v11 > v6)
+      if (2 * v12 > v6)
       {
-        v13 = 6;
+        v14 = 6;
       }
 
-      v9 += sub_1001643C4(v9 & 1, (v12 * v13), [a2 getRoundingMode]);
-      v14 = JavaLangMath_absWithLong_(v9);
-      v15 = JavaLangMath_log10WithDouble_(v14);
-      if (v15 >= [a2 getPrecision])
+      v9 += sub_1001643C4(v9 & 1, (v13 * v14), [a2 getRoundingMode]);
+      v15 = JavaLangMath_absWithLong_(v9);
+      v16 = JavaLangMath_log10WithDouble_(v15);
+      if (v16 >= [a2 getPrecision])
       {
         v9 /= 10;
         --v7;
@@ -8917,13 +8639,14 @@ LABEL_15:
 
   *(a1 + 52) = [a2 getPrecision];
   *(a1 + 40) = v9;
-  *(a1 + 32) = sub_10016465C(v9);
+  *(a1 + 32) = sub_10016465C(v9, v17);
 
   return JreStrongAssign((a1 + 24), 0);
 }
 
-uint64_t sub_1001643C4(int a1, uint64_t a2, void *a3)
+uint64_t sub_1001643C4(uint64_t a1, uint64_t a2, void *a3)
 {
+  v5 = a1;
   if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100164DDC();
@@ -8945,7 +8668,7 @@ uint64_t sub_1001643C4(int a1, uint64_t a2, void *a3)
         return 0;
       }
 
-      if ((JavaLangMath_absWithInt_(a2) + a1) >= 6)
+      if ((JavaLangMath_absWithInt_(a2) + v5) >= 6)
       {
         goto LABEL_19;
       }
@@ -8991,24 +8714,25 @@ LABEL_19:
   }
 }
 
-uint64_t sub_10016465C(uint64_t a1)
+uint64_t sub_10016465C(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100164DDC();
   }
 
-  return 64 - JavaLangLong_numberOfLeadingZerosWithLong_(a1 ^ (a1 >> 63));
+  return 64 - JavaLangLong_numberOfLeadingZerosWithLong_(a1 ^ (a1 >> 63), a2);
 }
 
-uint64_t sub_1001646AC(int a1)
+uint64_t sub_1001646AC(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100164DDC();
   }
 
-  return 32 - JavaLangInteger_numberOfLeadingZerosWithInt_(a1 ^ (a1 >> 31));
+  return 32 - JavaLangInteger_numberOfLeadingZerosWithInt_(v2 ^ (v2 >> 31));
 }
 
 JavaMathBigDecimal *new_JavaMathBigDecimal_initWithDouble_withJavaMathMathContext_(void *a1, double a2)
@@ -9026,7 +8750,7 @@ JavaMathBigDecimal *new_JavaMathBigDecimal_initWithLong_(uint64_t a1)
   return v2;
 }
 
-uint64_t JavaMathBigDecimal_class_()
+uint64_t JavaMathBigDecimal_class_(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(JavaMathBigDecimal__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -9041,7 +8765,7 @@ uint64_t JavaMathBigDecimal_class_()
   return qword_100554A98;
 }
 
-void *JavaIoBufferedWriter_initWithJavaIoWriter_withInt_(uint64_t a1, void *a2, int a3)
+void *JavaIoBufferedWriter_initWithJavaIoWriter_withInt_(uint64_t a1, void *a2, unsigned int a3)
 {
   JavaIoWriter_initWithId_(a1, a2);
   if (a3 <= 0)
@@ -9059,19 +8783,19 @@ void *JavaIoBufferedWriter_initWithJavaIoWriter_withInt_(uint64_t a1, void *a2, 
 JavaIoBufferedWriter *new_JavaIoBufferedWriter_initWithJavaIoWriter_(void *a1)
 {
   v2 = [JavaIoBufferedWriter alloc];
-  JavaIoBufferedWriter_initWithJavaIoWriter_withInt_(v2, a1, 0x2000);
+  JavaIoBufferedWriter_initWithJavaIoWriter_withInt_(v2, a1, 0x2000u);
   return v2;
 }
 
-void *JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1)
+void *JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(char *a1, uint64_t a2)
 {
-  JavaNioChannelsServerSocketChannel_initWithJavaNioChannelsSpiSelectorProvider_();
+  JavaNioChannelsServerSocketChannel_initWithJavaNioChannelsSpiSelectorProvider_(a1, a2);
   JreStrongAssignAndConsume((a1 + 63), [NSObject alloc]);
-  v2 = [JavaNioServerSocketChannelImpl_ServerSocketAdapter alloc];
-  JavaNetServerSocket_init(v2);
-  objc_storeWeak(&v2->channelImpl_, a1);
+  v3 = [JavaNioServerSocketChannelImpl_ServerSocketAdapter alloc];
+  JavaNetServerSocket_init(v3);
+  objc_storeWeak(&v3->channelImpl_, a1);
 
-  return JreStrongAssignAndConsume((a1 + 55), v2);
+  return JreStrongAssignAndConsume((a1 + 55), v3);
 }
 
 void sub_100165C38()
@@ -9118,21 +8842,21 @@ LABEL_9:
   return v3[21] != 35;
 }
 
-JavaNioServerSocketChannelImpl *new_JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_()
+JavaNioServerSocketChannelImpl *new_JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(uint64_t a1)
 {
-  v0 = [JavaNioServerSocketChannelImpl alloc];
-  JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(v0);
-  return v0;
+  v2 = [JavaNioServerSocketChannelImpl alloc];
+  JavaNioServerSocketChannelImpl_initWithJavaNioChannelsSpiSelectorProvider_(v2, a1);
+  return v2;
 }
 
-JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
+JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t size)
 {
-  if (!a1)
+  if (!size)
   {
     goto LABEL_67;
   }
 
-  v2 = *(a1 + 20);
+  v2 = *(size + 20);
   explicit = atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire);
   if (!v2)
   {
@@ -9150,7 +8874,7 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
     sub_100147554();
   }
 
-  if ([a1 isEqual:JavaMathBigInteger_MINUS_ONE_])
+  if ([size isEqual:JavaMathBigInteger_MINUS_ONE_])
   {
     if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
     {
@@ -9161,9 +8885,9 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
     return *v4;
   }
 
-  v6 = [IOSIntArray arrayWithLength:*(a1 + 16) + 1];
-  v7 = *(a1 + 8);
-  if (*(a1 + 20) <= 0)
+  v6 = [IOSIntArray arrayWithLength:*(size + 16) + 1];
+  v7 = *(size + 8);
+  if (*(size + 20) <= 0)
   {
     if (!v7)
     {
@@ -9184,15 +8908,15 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
         break;
       }
 
-      size = v6->super.size_;
-      if ((v10 & 0x80000000) != 0 || v10 >= size)
+      v15 = v6->super.size_;
+      if ((v10 & 0x80000000) != 0 || v10 >= v15)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, v10);
+        IOSArray_throwOutOfBoundsWithMsg(v15, v10);
       }
 
       *(&v6->super.size_ + v10 + 1) = -1;
       v10 = (v10 + 1);
-      v7 = *(a1 + 8);
+      v7 = *(size + 8);
       if (!v7)
       {
         goto LABEL_67;
@@ -9208,7 +8932,7 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
     }
 
     v8 = *(v7 + 8);
-    v9 = *(a1 + 16) - 1;
+    v9 = *(size + 16) - 1;
     if (v9 < 0 || v9 >= v8)
     {
       IOSArray_throwOutOfBoundsWithMsg(v8, v9);
@@ -9216,7 +8940,7 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
 
     if (*(v7 + 12 + 4 * v9) == -1)
     {
-      v16 = *(a1 + 16);
+      v16 = *(size + 16);
       if (v16 < 1)
       {
         v10 = 0;
@@ -9227,7 +8951,7 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
         v10 = 0;
         while (1)
         {
-          v17 = *(a1 + 8);
+          v17 = *(size + 8);
           v18 = *(v17 + 8);
           if (v10 >= v18)
           {
@@ -9240,14 +8964,14 @@ JavaMathBigInteger *JavaMathLogical_not__WithJavaMathBigInteger_(uint64_t a1)
           }
 
           ++v10;
-          v16 = *(a1 + 16);
+          v16 = *(size + 16);
           if (v10 >= v16)
           {
             goto LABEL_45;
           }
         }
 
-        v16 = *(a1 + 16);
+        v16 = *(size + 16);
       }
 
 LABEL_45:
@@ -9260,7 +8984,7 @@ LABEL_45:
         }
 
         *(&v6->super.size_ + v16 + 1) = 1;
-        v20 = -*(a1 + 20);
+        v20 = -*(size + 20);
         v21 = v16 + 1;
         goto LABEL_64;
       }
@@ -9271,7 +8995,7 @@ LABEL_45:
       LODWORD(v10) = -1;
       do
       {
-        v11 = *(a1 + 8);
+        v11 = *(size + 8);
         v12 = *(v11 + 8);
         v13 = v10 + 1;
         if (v10 + 1 < 0 || v13 >= v12)
@@ -9286,7 +9010,7 @@ LABEL_45:
     }
   }
 
-  v22 = *(a1 + 8);
+  v22 = *(size + 8);
   if (!v22)
   {
 LABEL_67:
@@ -9299,7 +9023,7 @@ LABEL_67:
     IOSArray_throwOutOfBoundsWithMsg(v23, v10);
   }
 
-  v24 = *(a1 + 20) + *(v22 + 12 + 4 * v10);
+  v24 = *(size + 20) + *(v22 + 12 + 4 * v10);
   v25 = v6->super.size_;
   if ((v10 & 0x80000000) != 0 || v10 >= v25)
   {
@@ -9308,12 +9032,12 @@ LABEL_67:
 
   *(&v6->super.size_ + v10 + 1) = v24;
   v21 = v10 + 1;
-  if (v10 + 1 < *(a1 + 16))
+  if (v10 + 1 < *(size + 16))
   {
     v26 = v21;
     do
     {
-      v27 = *(a1 + 8);
+      v27 = *(size + 8);
       v28 = *(v27 + 8);
       if (v26 < 0 || v26 >= v28)
       {
@@ -9330,25 +9054,25 @@ LABEL_67:
       *(&v6->super.size_ + ++v26) = v29;
     }
 
-    while (v26 < *(a1 + 16));
+    while (v26 < *(size + 16));
     v21 = v26;
   }
 
-  v20 = -*(a1 + 20);
+  v20 = -*(size + 20);
 LABEL_64:
   v31 = new_JavaMathBigInteger_initWithInt_withInt_withIntArray_(v20, v21, v6);
 
   return v31;
 }
 
-JavaMathBigInteger *JavaMathLogical_and__WithJavaMathBigInteger_withJavaMathBigInteger_(_DWORD *a1, _DWORD *a2)
+JavaMathBigInteger *JavaMathLogical_and__WithJavaMathBigInteger_withJavaMathBigInteger_(IOSIntArray *a1, IOSIntArray *a2)
 {
   if (!a2)
   {
     goto LABEL_32;
   }
 
-  if (!a2[5])
+  if (!a2->buffer_[1])
   {
 LABEL_12:
     if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
@@ -9366,7 +9090,7 @@ LABEL_32:
     JreThrowNullPointerException();
   }
 
-  if (!a1[5])
+  if (!a1->buffer_[1])
   {
     goto LABEL_12;
   }
@@ -9376,7 +9100,7 @@ LABEL_32:
     sub_100147554();
   }
 
-  if ([a2 isEqual:JavaMathBigInteger_MINUS_ONE_])
+  if (([(IOSIntArray *)a2 isEqual:JavaMathBigInteger_MINUS_ONE_]& 1) != 0)
   {
     return v3;
   }
@@ -9386,13 +9110,13 @@ LABEL_32:
     sub_100147554();
   }
 
-  if ([v3 isEqual:JavaMathBigInteger_MINUS_ONE_])
+  if (([(IOSIntArray *)v3 isEqual:JavaMathBigInteger_MINUS_ONE_]& 1) != 0)
   {
     return a2;
   }
 
-  v5 = a2[5];
-  if (v3[5] >= 1)
+  v5 = a2->buffer_[1];
+  if (v3->buffer_[1] >= 1)
   {
     v6 = v3;
     v7 = a2;
@@ -9414,7 +9138,7 @@ LABEL_23:
     return JavaMathLogical_andDiffSignsWithJavaMathBigInteger_withJavaMathBigInteger_(v6, v7);
   }
 
-  if (v3[4] <= a2[4])
+  if (v3->buffer_[0] <= a2->buffer_[0])
   {
     v8 = a2;
     v9 = v3;
@@ -9429,16 +9153,16 @@ LABEL_23:
   return JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(v8, v9);
 }
 
-uint64_t JavaMathLogical_andPositiveWithJavaMathBigInteger_withJavaMathBigInteger_(uint64_t a1, uint64_t a2)
+JavaMathBigInteger *JavaMathLogical_andPositiveWithJavaMathBigInteger_withJavaMathBigInteger_(IOSIntArray *size, uint64_t a2)
 {
-  if (!a1 || !a2)
+  if (!size || !a2)
   {
 LABEL_21:
     JreThrowNullPointerException();
   }
 
-  v4 = JavaLangMath_minWithInt_withInt_(*(a1 + 16), *(a2 + 16));
-  v5 = JavaLangMath_maxWithInt_withInt_([a1 getFirstNonzeroDigit], objc_msgSend(a2, "getFirstNonzeroDigit"));
+  v4 = JavaLangMath_minWithInt_withInt_(size->buffer_[0], *(a2 + 16));
+  v5 = JavaLangMath_maxWithInt_withInt_(-[IOSIntArray getFirstNonzeroDigit](size, "getFirstNonzeroDigit"), [a2 getFirstNonzeroDigit]);
   if (v5 >= v4)
   {
     if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
@@ -9458,7 +9182,7 @@ LABEL_21:
     v8 = v8;
     do
     {
-      v9 = *(a1 + 8);
+      v9 = *&size->super.size_;
       if (!v9)
       {
         goto LABEL_21;
@@ -9479,10 +9203,10 @@ LABEL_21:
       }
 
       v14 = *(v12 + 12 + 4 * v8);
-      size = v7->super.size_;
-      if (v8 < 0 || v8 >= size)
+      v15 = v7->super.size_;
+      if (v8 < 0 || v8 >= v15)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, v8);
+        IOSArray_throwOutOfBoundsWithMsg(v15, v8);
       }
 
       *(&v7->super.size_ + ++v8) = v14 & v11;
@@ -9496,7 +9220,7 @@ LABEL_21:
   return v16;
 }
 
-uint64_t JavaMathLogical_andDiffSignsWithJavaMathBigInteger_withJavaMathBigInteger_(uint64_t a1, uint64_t a2)
+JavaMathBigInteger *JavaMathLogical_andDiffSignsWithJavaMathBigInteger_withJavaMathBigInteger_(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -9644,14 +9368,14 @@ LABEL_42:
   return v26;
 }
 
-JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(uint64_t a1, uint64_t a2)
+JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(uint64_t size, uint64_t a2)
 {
-  if (!a1)
+  if (!size)
   {
     goto LABEL_81;
   }
 
-  v4 = [a1 getFirstNonzeroDigit];
+  v4 = [size getFirstNonzeroDigit];
   if (!a2)
   {
     goto LABEL_81;
@@ -9661,7 +9385,7 @@ JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMa
   v6 = [a2 getFirstNonzeroDigit];
   if (v5 >= *(a2 + 16))
   {
-    return a1;
+    return size;
   }
 
   v7 = v6;
@@ -9704,7 +9428,7 @@ JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMa
       v21 = ~*(v18 + 12 + 4 * v9);
     }
 
-    v23 = *(a1 + 8);
+    v23 = *(size + 8);
     v24 = *(v23 + 8);
     if ((v9 & 0x80000000) != 0 || v9 >= v24)
     {
@@ -9733,7 +9457,7 @@ JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMa
     }
 
     v12 = -*(v10 + 12 + 4 * v9);
-    v13 = *(a1 + 8);
+    v13 = *(size + 8);
     v14 = *(v13 + 8);
     if ((v9 & 0x80000000) != 0 || v9 >= v14)
     {
@@ -9746,12 +9470,12 @@ JavaMathBigInteger *JavaMathLogical_andNegativeWithJavaMathBigInteger_withJavaMa
 LABEL_11:
       LODWORD(v16) = v9;
 LABEL_47:
-      v35 = *(a1 + 16);
+      v35 = *(size + 16);
       v36 = [IOSIntArray arrayWithLength:v35];
-      size = v36->super.size_;
-      if ((v16 & 0x80000000) != 0 || v16 >= size)
+      v37 = v36->super.size_;
+      if ((v16 & 0x80000000) != 0 || v16 >= v37)
       {
-        IOSArray_throwOutOfBoundsWithMsg(size, v16);
+        IOSArray_throwOutOfBoundsWithMsg(v37, v16);
       }
 
       *(&v36->super.size_ + v16 + 1) = -v15;
@@ -9762,7 +9486,7 @@ LABEL_47:
         v16 = v16;
         do
         {
-          v38 = *(a1 + 8);
+          v38 = *(size + 8);
           if (!v38)
           {
             goto LABEL_81;
@@ -9796,7 +9520,7 @@ LABEL_47:
         v35 = v55;
       }
 
-      if (v16 >= *(a1 + 16))
+      if (v16 >= *(size + 16))
       {
 LABEL_74:
         v49 = v35;
@@ -9807,7 +9531,7 @@ LABEL_74:
       v45 = v16;
       while (1)
       {
-        v46 = *(a1 + 8);
+        v46 = *(size + 8);
         if (!v46)
         {
           break;
@@ -9826,7 +9550,7 @@ LABEL_74:
         }
 
         *(&v36->super.size_ + v45 + 1) = *(v46 + 12 + 4 * v45);
-        if (++v45 >= *(a1 + 16))
+        if (++v45 >= *(size + 16))
         {
           goto LABEL_74;
         }
@@ -9846,7 +9570,7 @@ LABEL_81:
       break;
     }
 
-    v25 = *(a1 + 8);
+    v25 = *(size + 8);
     if (!v25)
     {
       goto LABEL_81;
@@ -9874,7 +9598,7 @@ LABEL_81:
     }
   }
 
-  v31 = *(a1 + 16);
+  v31 = *(size + 16);
   if (v16 >= v31)
   {
     v52 = v31;
@@ -9884,7 +9608,7 @@ LABEL_81:
   v16 = v16;
   do
   {
-    v32 = *(a1 + 8);
+    v32 = *(size + 8);
     if (!v32)
     {
       goto LABEL_81;
@@ -9904,7 +9628,7 @@ LABEL_81:
     }
 
     ++v16;
-    v31 = *(a1 + 16);
+    v31 = *(size + 16);
   }
 
   while (v16 < v31);
@@ -9924,4 +9648,325 @@ LABEL_75:
   v51 = new_JavaMathBigInteger_initWithInt_withInt_withIntArray_(-1, v49, v50);
 
   return v51;
+}
+
+JavaMathBigInteger *JavaMathLogical_andNotWithJavaMathBigInteger_withJavaMathBigInteger_(JavaMathBigInteger *a1, _DWORD *a2)
+{
+  if (!a2)
+  {
+    goto LABEL_35;
+  }
+
+  v3 = a1;
+  if (!a2[5])
+  {
+    return v3;
+  }
+
+  if (!a1)
+  {
+LABEL_35:
+    JreThrowNullPointerException();
+  }
+
+  sign = a1->sign_;
+  explicit = atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire);
+  if (!sign)
+  {
+    if ((explicit & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    return JavaMathBigInteger_ZERO_;
+  }
+
+  if ((explicit & 1) == 0)
+  {
+    sub_100147554();
+  }
+
+  if ([(JavaMathBigInteger *)v3 isEqual:JavaMathBigInteger_MINUS_ONE_])
+  {
+
+    return [a2 not__];
+  }
+
+  if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100147554();
+  }
+
+  if ([a2 isEqual:JavaMathBigInteger_MINUS_ONE_])
+  {
+    if ((atomic_load_explicit(JavaMathBigInteger__initialized, memory_order_acquire) & 1) == 0)
+    {
+LABEL_17:
+      sub_100147554();
+    }
+
+    return JavaMathBigInteger_ZERO_;
+  }
+
+  v6 = a2[5];
+  if (v3->sign_ < 1)
+  {
+    if (v6 < 1)
+    {
+
+      return JavaMathLogical_andNotNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(v3, a2);
+    }
+
+    else
+    {
+
+      return JavaMathLogical_andNotNegativePositiveWithJavaMathBigInteger_withJavaMathBigInteger_(v3, a2);
+    }
+  }
+
+  else if (v6 < 1)
+  {
+
+    return JavaMathLogical_andNotPositiveNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(v3, a2);
+  }
+
+  else
+  {
+
+    return JavaMathLogical_andNotPositiveWithJavaMathBigInteger_withJavaMathBigInteger_(v3, a2);
+  }
+}
+
+JavaMathBigInteger *JavaMathLogical_andNotPositiveWithJavaMathBigInteger_withJavaMathBigInteger_(IOSIntArray *size, uint64_t a2)
+{
+  if (!size)
+  {
+    goto LABEL_29;
+  }
+
+  v4 = [IOSIntArray arrayWithLength:size->buffer_[0]];
+  if (!a2)
+  {
+    goto LABEL_29;
+  }
+
+  v5 = v4;
+  v6 = JavaLangMath_minWithInt_withInt_(size->buffer_[0], *(a2 + 16));
+  v7 = [(IOSIntArray *)size getFirstNonzeroDigit];
+  if (v7 < v6)
+  {
+    v8 = v7;
+    v24 = v6;
+    v9 = v6;
+    do
+    {
+      v10 = *&size->super.size_;
+      if (!v10)
+      {
+        goto LABEL_29;
+      }
+
+      v11 = *(v10 + 8);
+      if (v8 < 0 || v8 >= v11)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v11, v8);
+      }
+
+      v12 = *(v10 + 12 + 4 * v8);
+      v13 = *(a2 + 8);
+      v14 = *(v13 + 8);
+      if (v8 < 0 || v8 >= v14)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v14, v8);
+      }
+
+      v15 = *(v13 + 12 + 4 * v8);
+      v16 = v5[2];
+      if (v8 < 0 || v8 >= v16)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v16, v8);
+      }
+
+      v5[v8++ + 3] = v12 & ~v15;
+    }
+
+    while (v9 != v8);
+    v7 = v24;
+  }
+
+  LODWORD(v17) = size->buffer_[0];
+  if (v7 < v17)
+  {
+    v18 = v7;
+    while (1)
+    {
+      v19 = *&size->super.size_;
+      if (!v19)
+      {
+        break;
+      }
+
+      v20 = *(v19 + 8);
+      if (v18 < 0 || v18 >= v20)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v20, v18);
+      }
+
+      v21 = v5[2];
+      if (v18 < 0 || v18 >= v21)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v21, v18);
+      }
+
+      v5[v18 + 3] = *(v19 + 12 + 4 * v18);
+      ++v18;
+      v17 = size->buffer_[0];
+      if (v18 >= v17)
+      {
+        goto LABEL_28;
+      }
+    }
+
+LABEL_29:
+    JreThrowNullPointerException();
+  }
+
+LABEL_28:
+  v22 = new_JavaMathBigInteger_initWithInt_withInt_withIntArray_(1, v17, v5);
+  [(JavaMathBigInteger *)v22 cutOffLeadingZeroes];
+  return v22;
+}
+
+JavaMathBigInteger *JavaMathLogical_andNotPositiveNegativeWithJavaMathBigInteger_withJavaMathBigInteger_(JavaMathBigInteger *size, uint64_t a2)
+{
+  if (!a2)
+  {
+    goto LABEL_40;
+  }
+
+  v4 = [a2 getFirstNonzeroDigit];
+  if (!size)
+  {
+    goto LABEL_40;
+  }
+
+  v5 = v4;
+  LODWORD(v6) = [(JavaMathBigInteger *)size getFirstNonzeroDigit];
+  numberLength = size->numberLength_;
+  if (v5 < numberLength)
+  {
+    v8 = JavaLangMath_minWithInt_withInt_(numberLength, *(a2 + 16));
+    v9 = [IOSIntArray arrayWithLength:v8];
+    if (v6 < v5)
+    {
+      v6 = v6;
+      while (1)
+      {
+        digits = size->digits_;
+        if (!digits)
+        {
+          break;
+        }
+
+        v11 = digits->super.size_;
+        if (v6 < 0 || v6 >= v11)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v11, v6);
+        }
+
+        v12 = *(&digits->super.size_ + v6 + 1);
+        v13 = v9->super.size_;
+        if (v6 < 0 || v6 >= v13)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v13, v6);
+        }
+
+        *(&v9->super.size_ + ++v6) = v12;
+        if (v5 == v6)
+        {
+          goto LABEL_16;
+        }
+      }
+
+LABEL_40:
+      JreThrowNullPointerException();
+    }
+
+    if (v6 == v5)
+    {
+LABEL_16:
+      v14 = size->digits_;
+      if (!v14)
+      {
+        goto LABEL_40;
+      }
+
+      v15 = v14->super.size_;
+      if ((v5 & 0x80000000) != 0 || v5 >= v15)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v15, v5);
+      }
+
+      v16 = *(&v14->super.size_ + v5 + 1);
+      v17 = *(a2 + 8);
+      v18 = *(v17 + 8);
+      if ((v5 & 0x80000000) != 0 || v5 >= v18)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v18, v5);
+      }
+
+      v19 = (*(v17 + 12 + 4 * v5) - 1) & v16;
+      v20 = v9->super.size_;
+      if ((v5 & 0x80000000) != 0 || v5 >= v20)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v20, v5);
+      }
+
+      *(&v9->super.size_ + v5 + 1) = v19;
+      LODWORD(v6) = v5 + 1;
+    }
+
+    if (v6 < v8)
+    {
+      v21 = v6;
+      do
+      {
+        v22 = size->digits_;
+        if (!v22)
+        {
+          goto LABEL_40;
+        }
+
+        v23 = v22->super.size_;
+        if (v21 < 0 || v21 >= v23)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v23, v21);
+        }
+
+        v24 = *(&v22->super.size_ + v21 + 1);
+        v25 = *(a2 + 8);
+        v26 = *(v25 + 8);
+        if (v21 < 0 || v21 >= v26)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v26, v21);
+        }
+
+        v27 = *(v25 + 12 + 4 * v21);
+        v28 = v9->super.size_;
+        if (v21 < 0 || v21 >= v28)
+        {
+          IOSArray_throwOutOfBoundsWithMsg(v28, v21);
+        }
+
+        *(&v9->super.size_ + ++v21) = v27 & v24;
+      }
+
+      while (v8 != v21);
+    }
+
+    size = new_JavaMathBigInteger_initWithInt_withInt_withIntArray_(1, v8, v9);
+    [(JavaMathBigInteger *)size cutOffLeadingZeroes];
+  }
+
+  return size;
 }

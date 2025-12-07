@@ -29,9 +29,9 @@ uint64_t __35__SESXPCEventListener_sharedObject__block_invoke()
 
 - (SESXPCEventListener)init
 {
-  v14.receiver = self;
-  v14.super_class = SESXPCEventListener;
-  v2 = [(SESXPCEventListener *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = SESXPCEventListener;
+  v2 = [(SESXPCEventListener *)&v13 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -49,8 +49,7 @@ uint64_t __35__SESXPCEventListener_sharedObject__block_invoke()
     pendingEvents = v2->pendingEvents;
     v2->pendingEvents = v9;
 
-    v11 = v2->queue;
-    v13 = v2;
+    v12 = v2;
     os_state_add_handler();
   }
 
@@ -59,48 +58,46 @@ uint64_t __35__SESXPCEventListener_sharedObject__block_invoke()
 
 + (id)registerOnStream:(id)stream forEvent:(id)event handler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
   eventCopy = event;
   handlerCopy = handler;
   v10 = +[SESXPCEventListener sharedObject];
   dispatch_assert_queue_not_V2(v10[1]);
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
   v11 = v10[1];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __57__SESXPCEventListener_registerOnStream_forEvent_handler___block_invoke;
   block[3] = &unk_1E86FFC50;
   v12 = v10;
-  v22 = v12;
+  v21 = v12;
   v13 = streamCopy;
-  v23 = v13;
+  v22 = v13;
   v14 = handlerCopy;
-  v24 = v14;
+  v23 = v14;
   v15 = eventCopy;
-  v25 = v15;
-  v26 = &v27;
+  v24 = v15;
+  v25 = &v26;
   dispatch_sync(v11, block);
   v16 = SESDefaultLogObject();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v17 = [v28[5] count];
+    v17 = [v27[5] count];
     *buf = 138412546;
-    v34 = v13;
-    v35 = 1024;
-    v36 = v17;
+    v33 = v13;
+    v34 = 1024;
+    v35 = v17;
     _os_log_impl(&dword_1E0FCB000, v16, OS_LOG_TYPE_INFO, "Registered client for stream %@ and returning %u pending events", buf, 0x12u);
   }
 
-  v18 = v28[5];
-  _Block_object_dispose(&v27, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = v27[5];
+  _Block_object_dispose(&v26, 8);
 
   return v18;
 }
@@ -153,7 +150,7 @@ void __57__SESXPCEventListener_registerOnStream_forEvent_handler___block_invoke(
 
 - (void)_handleEvent:(id)event payload:(id)payload
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   payloadCopy = payload;
   dispatch_assert_queue_V2(self->queue);
@@ -162,41 +159,41 @@ void __57__SESXPCEventListener_registerOnStream_forEvent_handler___block_invoke(
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v24 = eventCopy;
-    v25 = 2048;
-    v26 = [v8 count];
+    v23 = eventCopy;
+    v24 = 2048;
+    v25 = [v8 count];
     _os_log_impl(&dword_1E0FCB000, v9, OS_LOG_TYPE_INFO, "Received event on stream %@ have %lu delegates", buf, 0x16u);
   }
 
   if (v8)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * i);
+          v15 = *(*(&v17 + 1) + 8 * i);
           if (v15)
           {
-            [v15 onEvent:eventCopy eventPayload:{payloadCopy, v18}];
+            [v15 onEvent:eventCopy eventPayload:{payloadCopy, v17}];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -216,21 +213,19 @@ void __57__SESXPCEventListener_registerOnStream_forEvent_handler___block_invoke(
 
     [v10 addObject:payloadCopy];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (os_state_data_s)_dumpState
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"registeredStreams";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"registeredStreams";
   keyEnumerator = [(NSMutableDictionary *)self->registeredDelegates keyEnumerator];
   allObjects = [keyEnumerator allObjects];
-  v11[1] = @"pendingEvents";
-  v12[0] = allObjects;
+  v10[1] = @"pendingEvents";
+  v11[0] = allObjects;
   allKeys = [(NSMutableDictionary *)self->pendingEvents allKeys];
-  v12[1] = allKeys;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = allKeys;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   v7 = [MEMORY[0x1E696AE40] dataWithPropertyList:v6 format:200 options:0 error:0];
   v8 = malloc_type_calloc(1uLL, [v7 length] + 200, 0x1000040BEF03554uLL);
@@ -239,7 +234,6 @@ void __57__SESXPCEventListener_registerOnStream_forEvent_handler___block_invoke(
   __strlcpy_chk();
   memcpy(v8->var4, [v7 bytes], objc_msgSend(v7, "length"));
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

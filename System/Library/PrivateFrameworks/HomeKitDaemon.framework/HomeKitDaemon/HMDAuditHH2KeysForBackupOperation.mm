@@ -23,58 +23,53 @@
 
 void __48__HMDAuditHH2KeysForBackupOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_191698;
-  logCategory__hmf_once_v15_191698 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_191698;
+  logCategory__hmf_once_v15_191698 = v0;
 }
 
 + (void)resetHH2KeyBackupOperationFromUserDefault
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Going to reset the last backup run from user defaults", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Going to reset the last backup run from user defaults", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults removeObjectForKey:@"HMDHH2BackUpKeyBackgroundOperationTimeStampKey"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)recordCurrentBackupRunToUserDefault
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Going to record the successful backup run", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Going to record the successful backup run", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v8 = [MEMORY[0x277CBEAA8] now];
   [standardUserDefaults setObject:v8 forKey:@"HMDHH2BackUpKeyBackgroundOperationTimeStampKey"];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)shouldWeScheduleHH2KeyBackupOperation
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults objectForKey:@"HMDHH2BackUpKeyBackgroundOperationTimeStampKey"];
 
@@ -104,13 +99,13 @@ void __48__HMDAuditHH2KeysForBackupOperation_logCategory__block_invoke()
     }
 
     v18 = HMFGetLogIdentifier();
-    v24 = 138543362;
-    v25 = v18;
+    v23 = 138543362;
+    v24 = v18;
     v19 = "%{public}@Allowing the backup operation to run as there is no object stored inside user defaults";
     v20 = v13;
     v21 = 12;
 LABEL_13:
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, v19, &v24, v21);
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, v19, &v23, v21);
 
     goto LABEL_15;
   }
@@ -132,10 +127,10 @@ LABEL_13:
     }
 
     v18 = HMFGetLogIdentifier();
-    v24 = 138543618;
-    v25 = v18;
-    v26 = 2112;
-    v27 = v7;
+    v23 = 138543618;
+    v24 = v18;
+    v25 = 2112;
+    v26 = v7;
     v19 = "%{public}@Allowing the backup operation to run as it was last run at %@";
     v16 = 1;
     v20 = v13;
@@ -146,18 +141,17 @@ LABEL_13:
   if (v14)
   {
     v15 = HMFGetLogIdentifier();
-    v24 = 138543618;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v7;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Not allowing the backup operation to run as it was last run at %@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v7;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Not allowing the backup operation to run as it was last run at %@", &v23, 0x16u);
   }
 
   v16 = 0;
 LABEL_15:
 
   objc_autoreleasePoolPop(v11);
-  v22 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -171,7 +165,7 @@ LABEL_15:
 
 - (BOOL)mainWithError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
@@ -186,12 +180,12 @@ LABEL_15:
   objc_autoreleasePoolPop(v4);
   [objc_opt_class() recordCurrentBackupRunToUserDefault];
   systemStore = [MEMORY[0x277CFEC78] systemStore];
-  v38 = 0;
-  v9 = [systemStore allKeysForType:&unk_283E73A60 error:&v38];
-  v10 = v38;
-  v37 = v10;
-  v11 = [systemStore allKeysForType:&unk_283E73A78 error:&v37];
-  v12 = v37;
+  v37 = 0;
+  v9 = [systemStore allKeysForType:&unk_283E73A60 error:&v37];
+  v10 = v37;
+  v36 = v10;
+  v11 = [systemStore allKeysForType:&unk_283E73A78 error:&v36];
+  v12 = v36;
 
   v13 = [v9 count] == 0;
   v14 = objc_autoreleasePoolPush();
@@ -222,7 +216,7 @@ LABEL_15:
       *&buf[12] = 2112;
       *&buf[14] = v19;
       *&buf[22] = 2112;
-      v42 = v9;
+      v41 = v9;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Found %@ HH2 keys in the list: %@{public}", buf, 0x20u);
     }
 
@@ -239,7 +233,7 @@ LABEL_15:
       *&buf[12] = 2112;
       *&buf[14] = v24;
       *&buf[22] = 2112;
-      v42 = v11;
+      v41 = v11;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Found %@ keys in back up list: %@{public}", buf, 0x20u);
     }
 
@@ -247,16 +241,16 @@ LABEL_15:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v42) = 0;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke;
-    v32[3] = &unk_27867E428;
-    v33 = v11;
-    v34 = v21;
-    v35 = systemStore;
-    v36 = buf;
-    [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v32];
+    LOBYTE(v41) = 0;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke;
+    v31[3] = &unk_27867E428;
+    v32 = v11;
+    v33 = v21;
+    v34 = systemStore;
+    v35 = buf;
+    [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v31];
     if (*(*&buf[8] + 24) == 1)
     {
       v25 = objc_autoreleasePoolPush();
@@ -265,9 +259,9 @@ LABEL_15:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        *v39 = 138543362;
-        v40 = v28;
-        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Looks like we failed to back up at least one key. Will retry the back up operation again in next homed reboot.", v39, 0xCu);
+        *v38 = 138543362;
+        v39 = v28;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Looks like we failed to back up at least one key. Will retry the back up operation again in next homed reboot.", v38, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -276,22 +270,21 @@ LABEL_15:
     _Block_object_dispose(buf, 8);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke_2;
-  v20[3] = &unk_2786864C8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke_2;
+  v19[3] = &unk_2786864C8;
   v5 = v3;
-  v21 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v20];
+  v20 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v19];
   v7 = objc_autoreleasePoolPush();
   v8 = *(a1 + 40);
   v9 = HMFGetOSLogHandle();
@@ -303,9 +296,9 @@ void __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke(uint64
       v11 = HMFGetLogIdentifier();
       v12 = [v5 identifier];
       *buf = 138543618;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v12;
+      v22 = v11;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@We already have the back up for the key: %@", buf, 0x16u);
     }
 
@@ -319,9 +312,9 @@ void __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke(uint64
       v13 = HMFGetLogIdentifier();
       v14 = [v5 identifier];
       *buf = 138543618;
-      v23 = v13;
-      v24 = 2112;
-      v25 = v14;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v14;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Looks like we do not have back up for key : %@. Adding it into the list", buf, 0x16u);
     }
 
@@ -335,9 +328,9 @@ void __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke(uint64
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v23 = v18;
-        v24 = 2112;
-        v25 = v5;
+        v22 = v18;
+        v23 = 2112;
+        v24 = v5;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to back up the key : %@", buf, 0x16u);
       }
 
@@ -345,8 +338,6 @@ void __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke(uint64
       *(*(*(a1 + 56) + 8) + 24) = 1;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__HMDAuditHH2KeysForBackupOperation_mainWithError___block_invoke_2(uint64_t a1, void *a2)

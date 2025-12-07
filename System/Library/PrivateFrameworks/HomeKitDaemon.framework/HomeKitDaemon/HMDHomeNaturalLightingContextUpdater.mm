@@ -2,6 +2,7 @@
 + (id)logCategory;
 - (BOOL)areEncodedBrightnessLevelTransitionPointsValid:(id)valid;
 - (HMDHome)home;
+- (HMDHomeNaturalLightingContextUpdater)initWithHome:(id)home demoModeEnabled:(BOOL)enabled;
 - (HMDHomeNaturalLightingContextUpdater)initWithHome:(id)home workQueue:(id)queue demoModeEnabled:(BOOL)enabled logIdentifier:(id)identifier notificationCenter:(id)center dataSource:(id)source;
 - (id)colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve:(id)curve;
 - (id)colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve:(id)curve;
@@ -24,7 +25,7 @@
 
 - (void)updateNaturalLightingContext
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -38,9 +39,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v36 = 138543362;
-      v37 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Skipping updating natural lighting context, home is not set", &v36, 0xCu);
+      v35 = 138543362;
+      v36 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Skipping updating natural lighting context, home is not set", &v35, 0xCu);
       goto LABEL_8;
     }
 
@@ -62,13 +63,13 @@ LABEL_9:
       v11 = HMFGetLogIdentifier();
       v12 = HMFBooleanToString();
       v13 = HMFBooleanToString();
-      v36 = 138543874;
-      v37 = v11;
-      v38 = 2112;
-      v39 = v12;
-      v40 = 2112;
-      v41 = v13;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping updating natural lighting context, device is primary resident: %@ and demo mode is enabled: %@", &v36, 0x20u);
+      v35 = 138543874;
+      v36 = v11;
+      v37 = 2112;
+      v38 = v12;
+      v39 = 2112;
+      v40 = v13;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping updating natural lighting context, device is primary resident: %@ and demo mode is enabled: %@", &v35, 0x20u);
 
 LABEL_8:
       goto LABEL_9;
@@ -102,11 +103,11 @@ LABEL_8:
     if (v24)
     {
       v25 = HMFGetLogIdentifier();
-      v36 = 138543618;
-      v37 = v25;
-      v38 = 2112;
-      v39 = naturalLightingContext;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping updating natural lighting context, since it is already set: %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v25;
+      v37 = 2112;
+      v38 = naturalLightingContext;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Skipping updating natural lighting context, since it is already set: %@", &v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -117,11 +118,11 @@ LABEL_8:
     if (v24)
     {
       v26 = HMFGetLogIdentifier();
-      v36 = 138543618;
-      v37 = v26;
-      v38 = 2112;
-      v39 = v18;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating natural lighting context to %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v26;
+      v37 = 2112;
+      v38 = v18;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating natural lighting context to %@", &v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -141,12 +142,11 @@ LABEL_8:
   }
 
 LABEL_21:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)colorTemperatureForTransitionPoint:(id)point
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -166,26 +166,25 @@ LABEL_21:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2112;
-      v18 = pointCopy;
-      v19 = 2112;
-      v20 = @"ColorTemperature";
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness Transition Point: %@ is missing key: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2112;
+      v17 = pointCopy;
+      v18 = 2112;
+      v19 = @"ColorTemperature";
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness Transition Point: %@ is missing key: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = -1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (int64_t)timeOfDayForMinimumBrightnessTransitionPoint:(id)point maximumBrighnessTransitionPoint:(id)transitionPoint
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   transitionPointCopy = transitionPoint;
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
@@ -211,14 +210,14 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v25 = 138544130;
-        v26 = v19;
-        v27 = 2112;
-        v28 = @"TimeOfDay";
-        v29 = 2112;
-        v30 = transitionPointCopy;
-        v31 = 2112;
-        v32 = pointCopy;
+        v24 = 138544130;
+        v25 = v19;
+        v26 = 2112;
+        v27 = @"TimeOfDay";
+        v28 = 2112;
+        v29 = transitionPointCopy;
+        v30 = 2112;
+        v31 = pointCopy;
         v20 = "%{public}@Maximum Brightness Transition Point: %@ key value:%@ doesn't match Minimum Brightness Transition Point: %@";
         v21 = v18;
         v22 = 42;
@@ -234,17 +233,17 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v25 = 138543874;
-        v26 = v19;
-        v27 = 2112;
-        v28 = transitionPointCopy;
-        v29 = 2112;
-        v30 = @"TimeOfDay";
+        v24 = 138543874;
+        v25 = v19;
+        v26 = 2112;
+        v27 = transitionPointCopy;
+        v28 = 2112;
+        v29 = @"TimeOfDay";
         v20 = "%{public}@Maximum Brightness Transition Point: %@ is missing key: %@";
         v21 = v18;
         v22 = 32;
 LABEL_12:
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, v20, &v25, v22);
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, v20, &v24, v22);
       }
     }
 
@@ -259,43 +258,42 @@ LABEL_12:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     v15 = HMFGetLogIdentifier();
-    v25 = 138543874;
-    v26 = v15;
-    v27 = 2112;
-    v28 = pointCopy;
-    v29 = 2112;
-    v30 = @"TimeOfDay";
-    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness Transition Point: %@ is missing key: %@", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v15;
+    v26 = 2112;
+    v27 = pointCopy;
+    v28 = 2112;
+    v29 = @"TimeOfDay";
+    _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness Transition Point: %@ is missing key: %@", &v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   longLongValue = -1;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return longLongValue;
 }
 
 - (id)colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve:(id)curve
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   curveCopy = curve;
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke;
-  v26[3] = &unk_278686BA8;
-  v26[4] = self;
-  v6 = [curveCopy na_firstObjectPassingTest:v26];
-  v7 = [v6 hmf_arrayForKey:@"ColorTemperatureTransitionPoints"];
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke_40;
-  v25[3] = &unk_278686EA0;
+  v25[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke;
+  v25[3] = &unk_278686BA8;
   v25[4] = self;
-  v8 = [v7 na_filter:v25];
+  v6 = [curveCopy na_firstObjectPassingTest:v25];
+  v7 = [v6 hmf_arrayForKey:@"ColorTemperatureTransitionPoints"];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke_40;
+  v24[3] = &unk_278686EA0;
+  v24[4] = self;
+  v8 = [v7 na_filter:v24];
 
   if ([v8 count] > 2)
   {
@@ -308,7 +306,7 @@ LABEL_15:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v18;
+      v27 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Validating minimum brightness transition points dictionary", buf, 0xCu);
     }
 
@@ -328,7 +326,7 @@ LABEL_15:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v22;
+        v27 = v22;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate minimum brightness transitions points dictionary", buf, 0xCu);
       }
 
@@ -347,11 +345,11 @@ LABEL_15:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v8;
-      v31 = 2048;
-      v32 = 3;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v8;
+      v30 = 2048;
+      v31 = 3;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Color Temperature Transition Points specified for minimum Brightness: %@ are less than %ld", buf, 0x20u);
     }
 
@@ -359,14 +357,12 @@ LABEL_15:
     v13 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_numberForKey:@"Brightness"];
   v5 = v4;
@@ -378,13 +374,13 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = @"Brightness";
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Missing %@ key in %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = @"Brightness";
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Missing %@ key in %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -403,13 +399,12 @@ LABEL_8:
   v7 = 1;
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMinimumBrightnessWithEncodeNaturalLightingCurve___block_invoke_40(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -423,19 +418,18 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543874;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      v16 = 2112;
-      v17 = @"ColorTemperatureTransitionPoints";
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness, Object: %@ for key: %@ is not of type: NSDictionary", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
+      v16 = @"ColorTemperatureTransitionPoints";
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness, Object: %@ for key: %@ is not of type: NSDictionary", &v11, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -451,24 +445,24 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
 
 - (id)colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve:(id)curve
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   curveCopy = curve;
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke;
-  v26[3] = &unk_278686BA8;
-  v26[4] = self;
-  v6 = [curveCopy na_firstObjectPassingTest:v26];
-  v7 = [v6 hmf_arrayForKey:@"ColorTemperatureTransitionPoints"];
   v25[0] = MEMORY[0x277D85DD0];
   v25[1] = 3221225472;
-  v25[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke_35;
-  v25[3] = &unk_278686EA0;
+  v25[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke;
+  v25[3] = &unk_278686BA8;
   v25[4] = self;
-  v8 = [v7 na_filter:v25];
+  v6 = [curveCopy na_firstObjectPassingTest:v25];
+  v7 = [v6 hmf_arrayForKey:@"ColorTemperatureTransitionPoints"];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke_35;
+  v24[3] = &unk_278686EA0;
+  v24[4] = self;
+  v8 = [v7 na_filter:v24];
 
   if ([v8 count] > 2)
   {
@@ -481,7 +475,7 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v18;
+      v27 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Validating maximum brightness transition points dictionary", buf, 0xCu);
     }
 
@@ -501,7 +495,7 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v22;
+        v27 = v22;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to validate maximum brightness transitions points dictionary", buf, 0xCu);
       }
 
@@ -520,11 +514,11 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v28 = v12;
-      v29 = 2112;
-      v30 = v8;
-      v31 = 2048;
-      v32 = 3;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v8;
+      v30 = 2048;
+      v31 = 3;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Color Temperature Transition Points specified for maximum Brightness: %@ are less than %ld", buf, 0x20u);
     }
 
@@ -532,14 +526,12 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     v13 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_numberForKey:@"Brightness"];
   v5 = v4;
@@ -551,13 +543,13 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543874;
-      v14 = v10;
-      v15 = 2112;
-      v16 = @"Brightness";
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Missing %@ key in Natural Lighting Curve entry: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v10;
+      v14 = 2112;
+      v15 = @"Brightness";
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Missing %@ key in Natural Lighting Curve entry: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -575,13 +567,12 @@ LABEL_7:
   v6 = 1;
 LABEL_8:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionPointsForMaximumBrightnessWithEncodeNaturalLightingCurve___block_invoke_35(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -595,19 +586,18 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543874;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v3;
-      v16 = 2112;
-      v17 = @"ColorTemperatureTransitionPoints";
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Maximum Brightness, Object: %@ for key: %@ is not of type: NSDictionary", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v3;
+      v15 = 2112;
+      v16 = @"ColorTemperatureTransitionPoints";
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Maximum Brightness, Object: %@ for key: %@ is not of type: NSDictionary", &v11, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -623,7 +613,7 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
 
 - (BOOL)areEncodedBrightnessLevelTransitionPointsValid:(id)valid
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -646,13 +636,13 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
         v14 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v25 = HMFGetLogIdentifier();
+          v24 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v28 = v25;
-          v29 = 2112;
-          v30 = v10;
-          v31 = 2112;
-          v32 = v11;
+          v27 = v24;
+          v28 = 2112;
+          v29 = v10;
+          v30 = 2112;
+          v31 = v11;
           _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@First transition point color temperature:%@ doesn't match last transition point color temperature: %@", buf, 0x20u);
         }
 
@@ -669,9 +659,9 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v22;
-        v29 = 2048;
-        v30 = 86400000;
+        v27 = v22;
+        v28 = 2048;
+        v29 = 86400000;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Last transition point time of day doesn't end at %llums", buf, 0x16u);
       }
 
@@ -689,9 +679,9 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v18;
-      v29 = 2048;
-      v30 = 0;
+      v27 = v18;
+      v28 = 2048;
+      v29 = 0;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@First transition point doesn't begin at %llums", buf, 0x16u);
     }
 
@@ -699,13 +689,12 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     v12 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)initalizeCurve
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomeNaturalLightingContextUpdater *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -716,7 +705,7 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v89 = v7;
+    v88 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Initializing transitions points for the curve", buf, 0xCu);
   }
 
@@ -736,11 +725,11 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v89 = v40;
-      v90 = 2112;
-      v91 = naturalLightingCurveResourceFileContent;
-      v92 = 2112;
-      v93 = @"NaturalLightingCurve";
+      v88 = v40;
+      v89 = 2112;
+      v90 = naturalLightingCurveResourceFileContent;
+      v91 = 2112;
+      v92 = @"NaturalLightingCurve";
       _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Missing natural lighting curve key in resource file content %@:%@", buf, 0x20u);
     }
 
@@ -758,11 +747,11 @@ uint64_t __123__HMDHomeNaturalLightingContextUpdater_colorTemperatureTransitionP
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v89 = v44;
-      v90 = 2048;
-      v91 = v41;
-      v92 = 2048;
-      v93 = 2;
+      v88 = v44;
+      v89 = 2048;
+      v90 = v41;
+      v91 = 2048;
+      v92 = 2;
       _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_ERROR, "%{public}@Natural Lighting Curve Brightness Level count: %lu is not equal to supported brightness level count: %lu", buf, 0x20u);
     }
 
@@ -780,41 +769,41 @@ LABEL_45:
       v15 = [v14 count];
       if (v15 == [v13 count])
       {
-        v74 = naturalLightingCurveResourceFileContent;
+        v73 = naturalLightingCurveResourceFileContent;
         array = [MEMORY[0x277CBEB18] array];
+        v82 = 0u;
         v83 = 0u;
         v84 = 0u;
         v85 = 0u;
-        v86 = 0u;
         obj = v14;
-        v78 = v13;
-        v75 = [obj countByEnumeratingWithState:&v83 objects:v87 count:16];
+        v77 = v13;
+        v74 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
         v17 = 0;
-        if (v75)
+        if (v74)
         {
-          v82 = 0;
+          v81 = 0;
           v18 = 0;
           v19 = 0;
-          v76 = *v84;
-          v77 = array;
-          v72 = v14;
-          v73 = v11;
+          v75 = *v83;
+          v76 = array;
+          v71 = v14;
+          v72 = v11;
           while (2)
           {
-            v81 = v17;
+            v80 = v17;
             v20 = 0;
             v21 = v18;
             do
             {
-              if (*v84 != v76)
+              if (*v83 != v75)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v83 + 1) + 8 * v20);
+              v22 = *(*(&v82 + 1) + 8 * v20);
               v23 = [v13 objectAtIndex:v19];
               v24 = [(HMDHomeNaturalLightingContextUpdater *)selfCopy timeOfDayForMinimumBrightnessTransitionPoint:v22 maximumBrighnessTransitionPoint:v23];
-              v80 = v23;
+              v79 = v23;
               if (v24 < 0)
               {
                 v58 = objc_autoreleasePoolPush();
@@ -824,9 +813,9 @@ LABEL_45:
                 {
                   v61 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v89 = v61;
-                  v90 = 2048;
-                  v91 = v24;
+                  v88 = v61;
+                  v89 = 2048;
+                  v90 = v24;
                   v62 = "%{public}@Invalid time of day for transition point: %lld";
                   goto LABEL_71;
                 }
@@ -844,9 +833,9 @@ LABEL_45:
                 {
                   v61 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v89 = v61;
-                  v90 = 2048;
-                  v91 = v24;
+                  v88 = v61;
+                  v89 = 2048;
+                  v90 = v24;
                   v62 = "%{public}@Invalid minimum brightness color temperature value: %lld";
                   goto LABEL_71;
                 }
@@ -865,9 +854,9 @@ LABEL_45:
                 {
                   v61 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v89 = v61;
-                  v90 = 2048;
-                  v91 = v24;
+                  v88 = v61;
+                  v89 = 2048;
+                  v90 = v24;
                   v62 = "%{public}@Invalid maximum brightness color temperature value: %lld";
                   goto LABEL_71;
                 }
@@ -896,17 +885,17 @@ LABEL_45:
                 v30 = v26;
               }
 
-              if (v82 >= v29)
+              if (v81 >= v29)
               {
                 v31 = v29;
               }
 
               else
               {
-                v31 = v82;
+                v31 = v81;
               }
 
-              if (v82)
+              if (v81)
               {
                 v32 = v31;
               }
@@ -916,22 +905,22 @@ LABEL_45:
                 v32 = v29;
               }
 
-              if (v81 <= v30)
+              if (v80 <= v30)
               {
                 v33 = v30;
               }
 
               else
               {
-                v33 = v81;
+                v33 = v80;
               }
 
-              if (!v81)
+              if (!v80)
               {
                 v33 = v30;
               }
 
-              v81 = v33;
+              v80 = v33;
               v18 = v24;
               v34 = v24 - v21;
               if (v34 < 0)
@@ -943,24 +932,24 @@ LABEL_45:
                 {
                   v61 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v89 = v61;
-                  v90 = 2048;
-                  v91 = v18;
+                  v88 = v61;
+                  v89 = 2048;
+                  v90 = v18;
                   v62 = "%{public}@Target completion duration for transition point at %lld is invalid";
                   goto LABEL_71;
                 }
 
 LABEL_72:
-                v11 = v73;
-                naturalLightingCurveResourceFileContent = v74;
-                v14 = v72;
-                array = v77;
+                v11 = v72;
+                naturalLightingCurveResourceFileContent = v73;
+                v14 = v71;
+                array = v76;
 
                 objc_autoreleasePoolPop(v58);
                 goto LABEL_73;
               }
 
-              v82 = v32;
+              v81 = v32;
               if (!v34)
               {
                 firstObject = [obj firstObject];
@@ -974,9 +963,9 @@ LABEL_72:
                   {
                     v61 = HMFGetLogIdentifier();
                     *buf = 138543618;
-                    v89 = v61;
-                    v90 = 2048;
-                    v91 = v21;
+                    v88 = v61;
+                    v89 = 2048;
+                    v90 = v21;
                     v62 = "%{public}@Target completion duration for non-first transition point at %lld is zero.";
 LABEL_71:
                     _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, v62, buf, 0x16u);
@@ -987,21 +976,21 @@ LABEL_71:
               }
 
               v36 = [MEMORY[0x277CFEAA0] transitionPointWithMinimumBrightness:-[HMDHomeNaturalLightingContextUpdater curveMinimumBrightness](selfCopy minimumBrightnessColorTemperature:"curveMinimumBrightness") maximumBrightness:v26 maximumBrightnessColorTemperature:100 targetCompletionDuration:{v28, v34}];
-              [v77 addObject:v36];
+              [v76 addObject:v36];
               ++v19;
 
               ++v20;
               v21 = v18;
-              v13 = v78;
+              v13 = v77;
             }
 
-            while (v75 != v20);
-            v14 = v72;
-            v11 = v73;
-            array = v77;
-            v17 = v81;
-            v75 = [obj countByEnumeratingWithState:&v83 objects:v87 count:16];
-            if (v75)
+            while (v74 != v20);
+            v14 = v71;
+            v11 = v72;
+            array = v76;
+            v17 = v80;
+            v74 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
+            if (v74)
             {
               continue;
             }
@@ -1012,14 +1001,14 @@ LABEL_71:
 
         else
         {
-          v82 = 0;
+          v81 = 0;
         }
 
         if ([array count])
         {
-          v51 = [(HMDNaturalLightingCurve *)[HMDMutableNaturalLightingCurve alloc] initWithVersion:1 transitionPoints:array minimumBrightness:[(HMDHomeNaturalLightingContextUpdater *)selfCopy curveMinimumBrightness] maximumBrightness:[(HMDHomeNaturalLightingContextUpdater *)selfCopy curveMaximumBrightness] minimumColorTemperature:v82 maximumColorTemperature:v17];
-          naturalLightingCurveResourceFileContent = v74;
-          v52 = [v74 hmf_numberForKey:@"ColorTemperatureValueUpdateInterval"];
+          v51 = [(HMDNaturalLightingCurve *)[HMDMutableNaturalLightingCurve alloc] initWithVersion:1 transitionPoints:array minimumBrightness:[(HMDHomeNaturalLightingContextUpdater *)selfCopy curveMinimumBrightness] maximumBrightness:[(HMDHomeNaturalLightingContextUpdater *)selfCopy curveMaximumBrightness] minimumColorTemperature:v81 maximumColorTemperature:v17];
+          naturalLightingCurveResourceFileContent = v73;
+          v52 = [v73 hmf_numberForKey:@"ColorTemperatureValueUpdateInterval"];
           longLongValue = [v52 longLongValue];
 
           if (longLongValue >= 1)
@@ -1027,7 +1016,7 @@ LABEL_71:
             [(HMDNaturalLightingCurve *)v51 setColorTemperatureUpdateIntervalInMilliseconds:longLongValue];
           }
 
-          v54 = [v74 hmf_numberForKey:@"ColorTemperatureNotifyIntervalThreshold"];
+          v54 = [v73 hmf_numberForKey:@"ColorTemperatureNotifyIntervalThreshold"];
           longLongValue2 = [v54 longLongValue];
 
           if (longLongValue2 >= 1)
@@ -1035,7 +1024,7 @@ LABEL_71:
             [(HMDNaturalLightingCurve *)v51 setColorTemperatureNotifyIntervalThresholdInMilliseconds:longLongValue2];
           }
 
-          v56 = [v74 hmf_numberForKey:@"ColorTemperatureNotifyValueChangeThreshold"];
+          v56 = [v73 hmf_numberForKey:@"ColorTemperatureNotifyValueChangeThreshold"];
           integerValue = [v56 integerValue];
 
           if (integerValue >= 1)
@@ -1047,7 +1036,7 @@ LABEL_71:
           [(HMDHomeNaturalLightingContextUpdater *)selfCopy updateNaturalLightingContext];
 
 LABEL_73:
-          v13 = v78;
+          v13 = v77;
         }
 
         else
@@ -1055,15 +1044,15 @@ LABEL_73:
           v63 = objc_autoreleasePoolPush();
           v64 = selfCopy;
           v65 = HMFGetOSLogHandle();
-          naturalLightingCurveResourceFileContent = v74;
+          naturalLightingCurveResourceFileContent = v73;
           if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
           {
             v66 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v89 = v66;
+            v88 = v66;
             _os_log_impl(&dword_229538000, v65, OS_LOG_TYPE_ERROR, "%{public}@No transition points found", buf, 0xCu);
 
-            v13 = v78;
+            v13 = v77;
           }
 
           objc_autoreleasePoolPop(v63);
@@ -1081,11 +1070,11 @@ LABEL_73:
           v49 = [v14 count];
           v50 = [v13 count];
           *buf = 138543874;
-          v89 = v48;
-          v90 = 2048;
-          v91 = v49;
-          v92 = 2048;
-          v93 = v50;
+          v88 = v48;
+          v89 = 2048;
+          v90 = v49;
+          v91 = 2048;
+          v92 = v50;
           _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@Minimum Brightness Transition Points: %lu don't match maximum Brightness Transition Points: %lu", buf, 0x20u);
         }
 
@@ -1095,7 +1084,6 @@ LABEL_73:
   }
 
 LABEL_77:
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__HMDHomeNaturalLightingContextUpdater_initalizeCurve__block_invoke(uint64_t a1, void *a2)
@@ -1150,7 +1138,7 @@ uint64_t __54__HMDHomeNaturalLightingContextUpdater_initalizeCurve__block_invoke
     objc_storeWeak(&v19->_home, homeCopy);
     objc_storeStrong(&v20->_workQueue, queue);
     objc_storeStrong(&v20->_dataSource, source);
-    v21 = [identifierCopy copy];
+    v21 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v20->_logIdentifier;
     v20->_logIdentifier = v21;
 
@@ -1159,6 +1147,19 @@ uint64_t __54__HMDHomeNaturalLightingContextUpdater_initalizeCurve__block_invoke
   }
 
   return v20;
+}
+
+- (HMDHomeNaturalLightingContextUpdater)initWithHome:(id)home demoModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  homeCopy = home;
+  v7 = objc_alloc_init(HMDLightProfileDataSource);
+  workQueue = [homeCopy workQueue];
+  name = [homeCopy name];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v11 = [(HMDHomeNaturalLightingContextUpdater *)self initWithHome:homeCopy workQueue:workQueue demoModeEnabled:enabledCopy logIdentifier:name notificationCenter:defaultCenter dataSource:v7];
+
+  return v11;
 }
 
 + (id)logCategory
@@ -1175,10 +1176,9 @@ uint64_t __54__HMDHomeNaturalLightingContextUpdater_initalizeCurve__block_invoke
 
 void __51__HMDHomeNaturalLightingContextUpdater_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v37_257929;
-  logCategory__hmf_once_v37_257929 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v37_257929;
+  logCategory__hmf_once_v37_257929 = v0;
 }
 
 @end

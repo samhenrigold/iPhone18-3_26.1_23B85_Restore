@@ -1,8 +1,19 @@
 @interface PhysicalSocialSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation PhysicalSocialSignal
+
+- (NSSet)featureNames
+{
+
+  sub_1C4ABA3FC();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

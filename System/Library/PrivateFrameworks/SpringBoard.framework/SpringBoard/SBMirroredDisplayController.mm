@@ -284,7 +284,7 @@ id __42__SBMirroredDisplayController_description__block_invoke_3(uint64_t a1)
   [MEMORY[0x277CD9FF0] generateSeed];
 }
 
-uint64_t __71__SBMirroredDisplayController_displayAssertionDidGainControlOfDisplay___block_invoke(id *a1)
+void *__71__SBMirroredDisplayController_displayAssertionDidGainControlOfDisplay___block_invoke(id *a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   result = [a1[4] hasBeenSignalled];
@@ -329,7 +329,7 @@ uint64_t __71__SBMirroredDisplayController_displayAssertionDidGainControlOfDispl
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __78__SBMirroredDisplayController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__78__SBMirroredDisplayController_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v2 = SBLogDisplayControlling();

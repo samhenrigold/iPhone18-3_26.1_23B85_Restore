@@ -34,28 +34,28 @@ void __76__CPLUploadComputeStatesAccumulator_enumerateUploadedComputeStateWithBl
 
 - (id)localComputeStatesToDropAfterClientProvidedPayloadForLocalComputeStates:(id)states
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   if (!self->_batchEnumerator)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v30 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Trying to update payload of compute states without having started enumerating the batches", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "Trying to update payload of compute states without having started enumerating the batches", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
-    v24 = @"Trying to update payload of compute states without having started enumerating the batches";
-    v25 = currentHandler;
-    v26 = a2;
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
+    v23 = @"Trying to update payload of compute states without having started enumerating the batches";
+    v24 = currentHandler;
+    v25 = a2;
     selfCopy3 = self;
-    v28 = v23;
-    v29 = 84;
+    v27 = v22;
+    v28 = 84;
     goto LABEL_31;
   }
 
@@ -63,49 +63,49 @@ void __76__CPLUploadComputeStatesAccumulator_enumerateUploadedComputeStateWithBl
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v31 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v31, OS_LOG_TYPE_ERROR, "Trying to update payload without a batch", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v30, OS_LOG_TYPE_ERROR, "Trying to update payload without a batch", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
-    v24 = @"Trying to update payload without a batch";
-    v25 = currentHandler;
-    v26 = a2;
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
+    v23 = @"Trying to update payload without a batch";
+    v24 = currentHandler;
+    v25 = a2;
     selfCopy3 = self;
-    v28 = v23;
-    v29 = 85;
+    v27 = v22;
+    v28 = 85;
     goto LABEL_31;
   }
 
-  v33 = a2;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v32 = a2;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v6 = statesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (!v7)
   {
     goto LABEL_23;
   }
 
   v8 = v7;
-  v9 = *v35;
+  v9 = *v34;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v35 != v9)
+      if (*v34 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v34 + 1) + 8 * i);
+      v11 = *(*(&v33 + 1) + 8 * i);
       fileURL = [v11 fileURL];
       if (fileURL)
       {
@@ -120,7 +120,7 @@ void __76__CPLUploadComputeStatesAccumulator_enumerateUploadedComputeStateWithBl
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v39 = v11;
+              v38 = v11;
               _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Client provided a file URL for an unknown %@", buf, 0xCu);
             }
 
@@ -143,26 +143,26 @@ LABEL_18:
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v21 = __CPLGenericOSLogDomain();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v20 = __CPLGenericOSLogDomain();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v39 = v15;
-            _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Missing cloud compute state for %@", buf, 0xCu);
+            v38 = v15;
+            _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Missing cloud compute state for %@", buf, 0xCu);
           }
         }
 
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
-        v32 = v15;
-        v24 = @"Missing cloud compute state for %@";
-        v25 = currentHandler;
-        v26 = v33;
+        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesAccumulator.m"];
+        v31 = v15;
+        v23 = @"Missing cloud compute state for %@";
+        v24 = currentHandler;
+        v25 = v32;
         selfCopy3 = self;
-        v28 = v23;
-        v29 = 100;
+        v27 = v22;
+        v28 = 100;
 LABEL_31:
-        [v25 handleFailureInMethod:v26 object:selfCopy3 file:v28 lineNumber:v29 description:{v24, v32}];
+        [v24 handleFailureInMethod:v25 object:selfCopy3 file:v27 lineNumber:v28 description:{v23, v31}];
 
         abort();
       }
@@ -176,7 +176,7 @@ LABEL_31:
       if (os_log_type_enabled(itemScopedIdentifier, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = v11;
+        v38 = v11;
         _os_log_impl(&dword_1DC05A000, itemScopedIdentifier, OS_LOG_TYPE_ERROR, "Client provided no file URL for %@", buf, 0xCu);
       }
 
@@ -185,15 +185,13 @@ LABEL_20:
 LABEL_21:
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v33 objects:v39 count:16];
   }
 
   while (v8);
 LABEL_23:
 
   allValues = [(NSMutableDictionary *)self->_currentBatchOfComputeStatesNeedingPayload allValues];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return allValues;
 }

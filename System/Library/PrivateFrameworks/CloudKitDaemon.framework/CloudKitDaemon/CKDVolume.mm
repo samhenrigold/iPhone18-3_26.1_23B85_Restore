@@ -9,12 +9,12 @@
 
 + (id)volumeForPath:(const char *)path
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v26 = 0u;
-  memset(v27, 0, 496);
-  v20 = xmmword_225447C20;
-  v21 = 0;
-  if (getattrlist(path, &v20, &v26, 0x420uLL, 0))
+  v27 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
+  memset(v26, 0, 496);
+  v19 = xmmword_225447C20;
+  v20 = 0;
+  if (getattrlist(path, &v19, &v25, 0x420uLL, 0))
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -24,14 +24,14 @@
     v4 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v17 = v4;
-      v18 = __error();
-      v19 = strerror(*v18);
+      v16 = v4;
+      v17 = __error();
+      v18 = strerror(*v17);
       *buf = 136446466;
       pathCopy = path;
-      v24 = 2082;
-      v25 = v19;
-      _os_log_debug_impl(&dword_22506F000, v17, OS_LOG_TYPE_DEBUG, "getattrlist() failed for path %{public}s - %{public}s", buf, 0x16u);
+      v23 = 2082;
+      v24 = v18;
+      _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "getattrlist() failed for path %{public}s - %{public}s", buf, 0x16u);
     }
 
     v5 = 0;
@@ -40,14 +40,12 @@
   else
   {
     v6 = objc_alloc(MEMORY[0x277CCAD78]);
-    v8 = objc_msgSend_initWithUUIDBytes_(v6, v7, v27);
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, &v26 + SDWORD2(v26) + 8);
+    v8 = objc_msgSend_initWithUUIDBytes_(v6, v7, v26);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, &v25 + SDWORD2(v25) + 8);
     v11 = [CKDVolume alloc];
-    v13 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, DWORD1(v26));
+    v13 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v12, DWORD1(v25));
     v5 = objc_msgSend_initWithVolumeUUID_deviceID_mountToPath_(v11, v14, v8, v13, v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

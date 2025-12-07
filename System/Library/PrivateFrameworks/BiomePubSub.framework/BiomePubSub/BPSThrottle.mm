@@ -51,7 +51,7 @@
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [BPSDebounce subscribe:];
+    [BPSDebounce subscribe:?];
   }
 
   v6 = [_BPSThrottleInner alloc];
@@ -67,26 +67,24 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSThrottle *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 - (id)nextEvent
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   upstream = [(BPSThrottle *)self upstream];
   nextEvent = [upstream nextEvent];
 
   if (nextEvent)
   {
     *&v5 = 138412802;
-    v35 = v5;
+    v34 = v5;
     while (1)
     {
       getTimestamp = [(BPSThrottle *)self getTimestamp];
@@ -97,12 +95,12 @@
       {
         v26 = objc_opt_class();
         v27 = [v7 description];
-        *__y = v35;
+        *__y = v34;
         *&__y[4] = v26;
-        v37 = 2112;
-        v38 = nextEvent;
-        v39 = 2112;
-        v40 = v27;
+        v36 = 2112;
+        v37 = nextEvent;
+        v38 = 2112;
+        v39 = v27;
         _os_log_debug_impl(&dword_1C871B000, v8, OS_LOG_TYPE_DEBUG, "%@ - receiving: %@ at %@", __y, 0x20u);
       }
 
@@ -144,7 +142,7 @@
           v31 = __biome_log_for_category();
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
-            [BPSDebounce nextEvent];
+            [(BPSDebounce *)self nextEvent];
           }
 
           goto LABEL_22;
@@ -169,7 +167,7 @@
     v28 = __biome_log_for_category();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      [BPSThrottle nextEvent];
+      [(BPSThrottle *)self nextEvent];
     }
 
     [(BPSThrottle *)self setStartTimestamp:v7];
@@ -187,8 +185,6 @@ LABEL_22:
 LABEL_15:
     intervalEvent = 0;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return intervalEvent;
 }
@@ -213,12 +209,10 @@ LABEL_15:
 
 - (void)nextEvent
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

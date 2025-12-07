@@ -355,52 +355,52 @@ LABEL_10:
 
 + (unint64_t)categoryForDescription:(id)description
 {
-  v11[21] = *MEMORY[0x1E69E9840];
-  v10[0] = @"person";
-  v10[1] = @"organization";
-  v11[0] = &unk_1F1B45CE8;
-  v11[1] = &unk_1F1B45D00;
-  v10[2] = @"location";
-  v10[3] = @"restaurant";
-  v11[2] = &unk_1F1B45D18;
-  v11[3] = &unk_1F1B45D30;
-  v10[4] = @"activity location";
-  v10[5] = @"media";
-  v11[4] = &unk_1F1B45D48;
-  v11[5] = &unk_1F1B45D60;
-  v10[6] = @"artist";
-  v10[7] = @"street address";
-  v11[6] = &unk_1F1B45D78;
-  v11[7] = &unk_1F1B45D90;
-  v10[8] = @"city";
-  v10[9] = @"state";
-  v11[8] = &unk_1F1B45DA8;
-  v11[9] = &unk_1F1B45DC0;
-  v10[10] = @"country";
-  v10[11] = @"full address";
-  v11[10] = &unk_1F1B45DD8;
-  v11[11] = &unk_1F1B45DF0;
-  v10[12] = @"tourist attraction";
-  v10[13] = @"event title";
-  v11[12] = &unk_1F1B45E08;
-  v11[13] = &unk_1F1B45E20;
-  v10[14] = @"sports team";
-  v10[15] = @"professional athlete";
-  v11[14] = &unk_1F1B45E38;
-  v11[15] = &unk_1F1B45E50;
-  v10[16] = @"musician";
-  v10[17] = @"movie";
-  v11[16] = &unk_1F1B45E68;
-  v11[17] = &unk_1F1B45E80;
-  v10[18] = @"dynamic";
-  v10[19] = @"politician";
-  v11[18] = &unk_1F1B45E98;
-  v11[19] = &unk_1F1B45EB0;
-  v10[20] = @"tv show";
-  v11[20] = &unk_1F1B45EC8;
+  v10[21] = *MEMORY[0x1E69E9840];
+  v9[0] = @"person";
+  v9[1] = @"organization";
+  v10[0] = &unk_1F1B45CE8;
+  v10[1] = &unk_1F1B45D00;
+  v9[2] = @"location";
+  v9[3] = @"restaurant";
+  v10[2] = &unk_1F1B45D18;
+  v10[3] = &unk_1F1B45D30;
+  v9[4] = @"activity location";
+  v9[5] = @"media";
+  v10[4] = &unk_1F1B45D48;
+  v10[5] = &unk_1F1B45D60;
+  v9[6] = @"artist";
+  v9[7] = @"street address";
+  v10[6] = &unk_1F1B45D78;
+  v10[7] = &unk_1F1B45D90;
+  v9[8] = @"city";
+  v9[9] = @"state";
+  v10[8] = &unk_1F1B45DA8;
+  v10[9] = &unk_1F1B45DC0;
+  v9[10] = @"country";
+  v9[11] = @"full address";
+  v10[10] = &unk_1F1B45DD8;
+  v10[11] = &unk_1F1B45DF0;
+  v9[12] = @"tourist attraction";
+  v9[13] = @"event title";
+  v10[12] = &unk_1F1B45E08;
+  v10[13] = &unk_1F1B45E20;
+  v9[14] = @"sports team";
+  v9[15] = @"professional athlete";
+  v10[14] = &unk_1F1B45E38;
+  v10[15] = &unk_1F1B45E50;
+  v9[16] = @"musician";
+  v9[17] = @"movie";
+  v10[16] = &unk_1F1B45E68;
+  v10[17] = &unk_1F1B45E80;
+  v9[18] = @"dynamic";
+  v9[19] = @"politician";
+  v10[18] = &unk_1F1B45E98;
+  v10[19] = &unk_1F1B45EB0;
+  v9[20] = @"tv show";
+  v10[20] = &unk_1F1B45EC8;
   v3 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:21];
+  v5 = [v3 dictionaryWithObjects:v10 forKeys:v9 count:21];
   v6 = [v5 objectForKeyedSubscript:descriptionCopy];
 
   if (v6)
@@ -413,7 +413,6 @@ LABEL_10:
     unsignedIntValue = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return unsignedIntValue;
 }
 

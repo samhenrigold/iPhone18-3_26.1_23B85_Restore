@@ -81,7 +81,6 @@
   PBDataWriterWriteSubmessage();
   if (*&self->_has)
   {
-    index = self->_index;
     PBDataWriterWriteUint32Field();
   }
 }

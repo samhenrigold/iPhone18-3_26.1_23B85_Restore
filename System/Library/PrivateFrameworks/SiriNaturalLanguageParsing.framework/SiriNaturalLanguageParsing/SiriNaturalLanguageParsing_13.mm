@@ -1,1038 +1,11 @@
-void std::vector<nl_featurization::beam_search::BeamSequence>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void sub_222929E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v6 = *(v4 - 3);
-        if (v6)
-        {
-          *(v4 - 2) = v6;
-          operator delete(v6);
-        }
-
-        v7 = *(v4 - 6);
-        if (v7)
-        {
-          *(v4 - 5) = v7;
-          operator delete(v7);
-        }
-
-        v8 = *(v4 - 9);
-        if (v8)
-        {
-          *(v4 - 8) = v8;
-          operator delete(v8);
-        }
-
-        std::__tree<unsigned long>::destroy(*(v4 - 11));
-        v4 -= 128;
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void sub_222927C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
-{
-  UPInferenceResult::~UPInferenceResult(v28);
-  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a11);
-  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a17);
-  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a23);
-  if (*(v29 - 113) < 0)
-  {
-    operator delete(*(v29 - 136));
-  }
-
-  if (*(v29 - 89) < 0)
-  {
-    operator delete(*(v29 - 112));
-  }
-
-  if (*(v29 - 65) < 0)
-  {
-    operator delete(*(v29 - 88));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t snlp::ssu::trigger::SSUTriggerDisjunction::isTriggered(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  if (v2 == v3)
-  {
-    LODWORD(v5) = 0;
-LABEL_6:
-    v6 = 0;
-    v7 = 0;
-  }
-
-  else
-  {
-    while (1)
-    {
-      v5 = (*(**v2 + 16))(*v2, a2);
-      if ((v5 & 0x100000000) != 0)
-      {
-        break;
-      }
-
-      v2 += 2;
-      if (v2 == v3)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v7 = v5 & 0xFF00000000;
-    v6 = v5;
-  }
-
-  return v5 & 0xFFFFFF00 | v6 | v7;
-}
-
-void snlp::ssu::trigger::SSUTriggerDisjunction::~SSUTriggerDisjunction(snlp::ssu::trigger::SSUTriggerDisjunction *this)
-{
-  *this = &unk_2835E4240;
-  v1 = (this + 8);
-  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&v1);
-
-  JUMPOUT(0x223DC4D00);
-}
-
-{
-  *this = &unk_2835E4240;
-  v1 = (this + 8);
-  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&v1);
-}
-
-void *snlp::ssu::trigger::SSUTriggerDisjunction::SSUTriggerDisjunction(void *result, uint64_t a2)
-{
-  *result = &unk_2835E4240;
-  result[1] = 0;
-  result[2] = 0;
-  result[3] = 0;
-  *(result + 1) = *a2;
-  result[3] = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  for (i = result[1]; i != result[2]; i += 2)
-  {
-    if (!*i)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Cannot construct SSUTriggerDisjunction with nullptr");
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-  }
-
-  return result;
-}
-
-void sub_222928864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, void **a10)
-{
-  a10 = a9;
-  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-uint64_t snlp::ssu::trigger::SSUTriggerDisjunction::subTriggers@<X0>(uint64_t this@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v2 = *(this + 8);
-  v3 = *(this + 16);
-  if (v3 != v2)
-  {
-    if (((v3 - v2) & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  return this;
-}
-
-uint64_t nlv4_inference_orchestrator::inference_engine::Trail::getTokenHistory@<X0>(nlv4_inference_orchestrator::inference_engine::Trail *this@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a2, *(this + 25), *(this + 26), (*(this + 26) - *(this + 25)) >> 3);
-}
-
-uint64_t *uaap::EspressoModule::EspressoModule(uint64_t *a1, uint64_t *a2)
-{
-  uaap::EspressoModule::deserializeModule(a1, a2);
-  return a1;
-}
-
-{
-  uaap::EspressoModule::deserializeModule(a1, a2);
-  return a1;
-}
-
-uint64_t uaap::EspressoModule::deserializeModule(uint64_t *a1, uint64_t *a2)
-{
-  context = espresso_create_context();
-  *a1 = context;
-  if (!context)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Espresso context is nil.");
-    goto LABEL_10;
-  }
-
-  plan = espresso_create_plan();
-  a1[1] = plan;
-  if (!plan)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Espresso plan is nil.");
-    goto LABEL_10;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    v6 = *a2;
-  }
-
-  result = espresso_plan_add_network();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not create espresso plan.");
-LABEL_10:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return result;
-}
-
-void uaap::EspressoModule::~EspressoModule(uaap::EspressoModule *this)
-{
-  v2 = *(this + 1);
-  espresso_plan_destroy();
-  v3 = *this;
-  espresso_context_destroy();
-}
-
-uint64_t uaap::EspressoModule::buildPlan(uaap::EspressoModule *this)
-{
-  v1 = *(this + 1);
-  result = espresso_plan_build();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Failed to build espresso plan.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return result;
-}
-
-uint64_t uaap::EspressoModule::executePlan(uaap::EspressoModule *this)
-{
-  v1 = *(this + 1);
-  result = espresso_plan_execute_sync();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Failed to execute espresso plan.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return result;
-}
-
-uint64_t uaap::EspressoModule::cleanPlan(uaap::EspressoModule *this)
-{
-  v1 = *(this + 1);
-  result = espresso_plan_build_clean();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Failed to clean up espresso plan.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return result;
-}
-
-uint64_t uaap::EspressoModule::reshape(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v48 = *MEMORY[0x277D85DE8];
-  v5 = SNLPOSLoggerForCategory(3);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "Reshaping network to handle current request inputs", buf, 2u);
-  }
-
-  v47 = xmmword_2784B69F8;
-  v6 = *a2;
-  v7 = *a3;
-  v8 = *(*a3 + 8);
-  v45 = *(*a2 + 16);
-  v46 = v8;
-  v9 = 1;
-  v43 = 1;
-  v44 = *v7;
-  v41 = *v6;
-  v42 = 1;
-  v40 = 0x100000001;
-  v39 = -1;
-  v38 = 0x300000003;
-  v10 = &v47;
-  v11 = &v45;
-  v12 = &v43;
-  v13 = &v41;
-  v14 = &v40;
-  do
-  {
-    v15 = v9;
-    v16 = SNLPOSLoggerForCategory(3);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
-    {
-      v17 = *v10;
-      v18 = *v11;
-      v19 = *v12;
-      v20 = *v13;
-      v21 = *v14;
-      *buf = 136316162;
-      v29 = v17;
-      v30 = 1024;
-      v31 = v18;
-      v32 = 1024;
-      v33 = v19;
-      v34 = 1024;
-      v35 = v20;
-      v36 = 1024;
-      v37 = v21;
-      _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_DEBUG, "Reshaping blob '%s' to w=%d, h=%d, k=%d, n=%d", buf, 0x24u);
-    }
-
-    v9 = 0;
-    v13 = &v42;
-    v14 = (&v40 + 4);
-    v12 = &v44;
-    v11 = &v46;
-    v10 = (&v47 + 8);
-  }
-
-  while ((v15 & 1) != 0);
-  v22 = *(a1 + 16);
-  v23 = *(a1 + 24);
-  result = espresso_network_change_input_blob_shapes_seq_rank();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Failed to reshape espresso blob.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t uaap::EspressoModule::setInput(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
-{
-  v13 = *a3;
-  v6 = a4[1] - *a4;
-  espresso_buffer_pack_tensor_shape();
-  v14 = 65568;
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 24);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
-  result = espresso_network_bind_buffer();
-  if (result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::operator+<char>();
-    std::runtime_error::runtime_error(exception, &v12);
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return result;
-}
-
-void sub_222929008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((v15 & 1) == 0)
-    {
-LABEL_6:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v15)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v14);
-  goto LABEL_6;
-}
-
-void uaap::EspressoModule::getOutput(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 65568;
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  if (*(a2 + 23) < 0)
-  {
-    v7 = *a2;
-  }
-
-  v8 = *(a1 + 16);
-  v9 = v21;
-  if (espresso_network_bind_buffer())
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::operator+<char>();
-    std::runtime_error::runtime_error(exception, &v23);
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v20 = 0;
-  espresso_buffer_unpack_tensor_shape();
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 0u;
-  *a3 = 0u;
-  v19 = 0uLL;
-  __p = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, &v23, &v23 + 8 * v20, v20);
-  v10 = __p;
-  v11 = v21;
-  *a3 = __p;
-  v12 = v19;
-  *(a3 + 8) = v19;
-  if (v12 == v10)
-  {
-    v14 = 1;
-  }
-
-  else
-  {
-    v13 = v12 - v10;
-    if (v13 <= 1)
-    {
-      v13 = 1;
-    }
-
-    v14 = 1;
-    do
-    {
-      v15 = *v10++;
-      v14 *= v15;
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  __p = 0;
-  v19 = 0uLL;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v11, v11 + 4 * v14, v14);
-  if ((a3 + 24) != &__p)
-  {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 24), __p, v19, (v19 - __p) >> 2);
-  }
-
-  if (__p)
-  {
-    *&v19 = __p;
-    operator delete(__p);
-  }
-
-  if (v9)
-  {
-    free(v9);
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-void sub_222929218(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (*(v13 - 113) < 0)
-  {
-    operator delete(*(v13 - 136));
-    if ((v12 & 1) == 0)
-    {
-LABEL_6:
-      if (v10)
-      {
-        free(v10);
-      }
-
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v12)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v11);
-  goto LABEL_6;
-}
-
-char **uaap::DateDurationHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = DDResultHasType();
-  if (result)
-  {
-
-    return uaap::mapDateDurationToItemizedUsos(a3);
-  }
-
-  return result;
-}
-
-char **uaap::mapDateDurationToItemizedUsos(uint64_t a1)
-{
-  CFHash(@"DateDuration");
-  uaap::DateSpanHandler::mapDateSpanToItemizedUsos(a1);
-  uaap::DateHandler::mapDateToItemizedUsos(a1);
-  uaap::mapTimeSpansToItemizedUsos(a1);
-
-  return uaap::mapTimeSpanSpansToItemizedUsos(a1);
-}
-
-void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  v3 = vcnt_s8(a2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
-  {
-    v4 = a3;
-    if (a3 >= a2)
-    {
-      v4 = a3 % a2;
-    }
-  }
-
-  else
-  {
-    v4 = (a2 - 1) & a3;
-  }
-
-  v5 = *(a1 + 8 * v4);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  result = *v5;
-  if (*v5)
-  {
-    do
-    {
-      v7 = result[1];
-      if (v7 == a3)
-      {
-        if (result[2] == a3)
-        {
-          return result;
-        }
-      }
-
-      else
-      {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= a2)
-          {
-            v7 %= a2;
-          }
-        }
-
-        else
-        {
-          v7 &= a2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
-      }
-
-      result = *result;
-    }
-
-    while (result);
-  }
-
-  return result;
-}
-
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *,0>(__n128 *a1, __n128 *a2, float *a3, __int128 *a4, uint64_t a5)
-{
-  v5 = a2->n128_f32[2];
-  v6 = a3[2];
-  if (v5 >= a1->n128_f32[2])
-  {
-    if (v6 < v5)
-    {
-      result = *a2;
-      v21 = *a2;
-      v9 = *(a3 + 2);
-      a2->n128_u64[0] = *a3;
-      a2->n128_u32[2] = v9;
-      *a3 = v21.n128_u64[0];
-      a3[2] = v21.n128_f32[2];
-      if (a2->n128_f32[2] < a1->n128_f32[2])
-      {
-        result = *a1;
-        v22 = *a1;
-        v10 = a2->n128_u32[2];
-        a1->n128_u64[0] = a2->n128_u64[0];
-        a1->n128_u32[2] = v10;
-        a2->n128_u64[0] = v22.n128_u64[0];
-        a2->n128_u32[2] = v22.n128_u32[2];
-      }
-    }
-  }
-
-  else
-  {
-    if (v6 < v5)
-    {
-      result = *a1;
-      v20 = *a1;
-      v8 = *(a3 + 2);
-      a1->n128_u64[0] = *a3;
-      a1->n128_u32[2] = v8;
-LABEL_9:
-      *a3 = v20.n128_u64[0];
-      a3[2] = v20.n128_f32[2];
-      goto LABEL_10;
-    }
-
-    result = *a1;
-    v23 = *a1;
-    v11 = a2->n128_u32[2];
-    a1->n128_u64[0] = a2->n128_u64[0];
-    a1->n128_u32[2] = v11;
-    a2->n128_u64[0] = v23.n128_u64[0];
-    a2->n128_u32[2] = v23.n128_u32[2];
-    if (a3[2] < a2->n128_f32[2])
-    {
-      result = *a2;
-      v20 = *a2;
-      v12 = *(a3 + 2);
-      a2->n128_u64[0] = *a3;
-      a2->n128_u32[2] = v12;
-      goto LABEL_9;
-    }
-  }
-
-LABEL_10:
-  if (*(a4 + 2) < a3[2])
-  {
-    result = *a3;
-    v24 = *a3;
-    v13 = *(a4 + 2);
-    *a3 = *a4;
-    *(a3 + 2) = v13;
-    *a4 = v24;
-    *(a4 + 2) = DWORD2(v24);
-    if (a3[2] < a2->n128_f32[2])
-    {
-      result = *a2;
-      v25 = *a2;
-      v14 = *(a3 + 2);
-      a2->n128_u64[0] = *a3;
-      a2->n128_u32[2] = v14;
-      *a3 = v25.n128_u64[0];
-      a3[2] = v25.n128_f32[2];
-      if (a2->n128_f32[2] < a1->n128_f32[2])
-      {
-        result = *a1;
-        v26 = *a1;
-        v15 = a2->n128_u32[2];
-        a1->n128_u64[0] = a2->n128_u64[0];
-        a1->n128_u32[2] = v15;
-        a2->n128_u64[0] = v26.n128_u64[0];
-        a2->n128_u32[2] = v26.n128_u32[2];
-      }
-    }
-  }
-
-  result.n128_u32[0] = *(a5 + 8);
-  if (result.n128_f32[0] < *(a4 + 2))
-  {
-    result = *a4;
-    v27 = *a4;
-    v16 = *(a5 + 8);
-    *a4 = *a5;
-    *(a4 + 2) = v16;
-    *a5 = v27;
-    *(a5 + 8) = DWORD2(v27);
-    result.n128_u32[0] = *(a4 + 2);
-    if (result.n128_f32[0] < a3[2])
-    {
-      result = *a3;
-      v28 = *a3;
-      v17 = *(a4 + 2);
-      *a3 = *a4;
-      *(a3 + 2) = v17;
-      *a4 = v28;
-      *(a4 + 2) = DWORD2(v28);
-      result.n128_f32[0] = a3[2];
-      if (result.n128_f32[0] < a2->n128_f32[2])
-      {
-        result = *a2;
-        v29 = *a2;
-        v18 = *(a3 + 2);
-        a2->n128_u64[0] = *a3;
-        a2->n128_u32[2] = v18;
-        *a3 = v29.n128_u64[0];
-        a3[2] = v29.n128_f32[2];
-        result.n128_u32[0] = a2->n128_u32[2];
-        if (result.n128_f32[0] < a1->n128_f32[2])
-        {
-          result = *a1;
-          v30 = *a1;
-          v19 = a2->n128_u32[2];
-          a1->n128_u64[0] = a2->n128_u64[0];
-          a1->n128_u32[2] = v19;
-          a2->n128_u64[0] = v30.n128_u64[0];
-          a2->n128_u32[2] = v30.n128_u32[2];
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *>(uint64_t a1, uint64_t a2)
-{
-  v2 = (a2 - a1) >> 4;
-  if (v2 > 2)
-  {
-    if (v2 == 3)
-    {
-      v4 = (a2 - 16);
-      v5 = *(a1 + 24);
-      v6 = *(a2 - 8);
-      if (v5 < *(a1 + 8))
-      {
-        if (v6 >= v5)
-        {
-          v37 = *a1;
-          *a1 = *(a1 + 16);
-          *(a1 + 8) = *(a1 + 24);
-          *(a1 + 16) = v37.n128_u64[0];
-          *(a1 + 24) = v37.n128_u32[2];
-          if (*(a2 - 8) >= *(a1 + 24))
-          {
-            return 1;
-          }
-
-          v29 = *(a1 + 16);
-          v16 = *(a2 - 8);
-          *(a1 + 16) = *v4;
-          *(a1 + 24) = v16;
-        }
-
-        else
-        {
-          v29 = *a1;
-          v7 = *(a2 - 8);
-          *a1 = *v4;
-          *(a1 + 8) = v7;
-        }
-
-        *v4 = v29.n128_u64[0];
-        *(a2 - 8) = v29.n128_u32[2];
-        return 1;
-      }
-
-      if (v6 >= v5)
-      {
-        return 1;
-      }
-
-      v32 = *(a1 + 16);
-      v15 = *(a2 - 8);
-      *(a1 + 16) = *v4;
-      *(a1 + 24) = v15;
-      *v4 = v32;
-      *(a2 - 8) = DWORD2(v32);
-LABEL_50:
-      if (*(a1 + 24) < *(a1 + 8))
-      {
-        v42 = *a1;
-        *a1 = *(a1 + 16);
-        *(a1 + 8) = *(a1 + 24);
-        *(a1 + 16) = v42.n128_u64[0];
-        *(a1 + 24) = v42.n128_u32[2];
-      }
-
-      return 1;
-    }
-
-    if (v2 != 4)
-    {
-      if (v2 != 5)
-      {
-        goto LABEL_13;
-      }
-
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *,0>(a1, (a1 + 16), (a1 + 32), (a1 + 48), a2 - 16);
-      return 1;
-    }
-
-    v12 = *(a1 + 24);
-    v13 = *(a1 + 8);
-    v14 = *(a1 + 40);
-    if (v12 >= v13)
-    {
-      if (v14 < v12)
-      {
-        v35 = *(a1 + 16);
-        *(a1 + 16) = *(a1 + 32);
-        *(a1 + 24) = *(a1 + 40);
-        *(a1 + 32) = v35;
-        *(a1 + 40) = DWORD2(v35);
-        if (*(a1 + 24) < v13)
-        {
-          v36 = *a1;
-          *a1 = *(a1 + 16);
-          *(a1 + 8) = *(a1 + 24);
-          *(a1 + 16) = v36.n128_u64[0];
-          *(a1 + 24) = v36.n128_u32[2];
-        }
-      }
-
-      goto LABEL_47;
-    }
-
-    if (v14 >= v12)
-    {
-      v39 = *a1;
-      *a1 = *(a1 + 16);
-      *(a1 + 8) = *(a1 + 24);
-      *(a1 + 16) = v39.n128_u64[0];
-      *(a1 + 24) = v39.n128_u32[2];
-      if (v14 >= *(a1 + 24))
-      {
-        goto LABEL_47;
-      }
-
-      v31 = *(a1 + 16);
-      *(a1 + 16) = *(a1 + 32);
-      *(a1 + 24) = *(a1 + 40);
-    }
-
-    else
-    {
-      v31 = *a1;
-      *a1 = *(a1 + 32);
-      *(a1 + 8) = *(a1 + 40);
-    }
-
-    *(a1 + 32) = v31.n128_u64[0];
-    *(a1 + 40) = v31.n128_u32[2];
-LABEL_47:
-    if (*(a2 - 8) >= *(a1 + 40))
-    {
-      return 1;
-    }
-
-    v25 = a2 - 16;
-    v40 = *(a1 + 32);
-    v26 = *(a2 - 8);
-    *(a1 + 32) = *(a2 - 16);
-    *(a1 + 40) = v26;
-    *v25 = v40;
-    *(v25 + 8) = DWORD2(v40);
-    if (*(a1 + 40) >= *(a1 + 24))
-    {
-      return 1;
-    }
-
-    v41 = *(a1 + 16);
-    *(a1 + 16) = *(a1 + 32);
-    *(a1 + 24) = *(a1 + 40);
-    *(a1 + 32) = v41;
-    *(a1 + 40) = DWORD2(v41);
-    goto LABEL_50;
-  }
-
-  if (v2 < 2)
-  {
-    return 1;
-  }
-
-  if (v2 == 2)
-  {
-    if (*(a2 - 8) < *(a1 + 8))
-    {
-      v28 = *a1;
-      v3 = *(a2 - 8);
-      *a1 = *(a2 - 16);
-      *(a1 + 8) = v3;
-      *(a2 - 16) = v28.n128_u64[0];
-      *(a2 - 8) = v28.n128_u32[2];
-    }
-
-    return 1;
-  }
-
-LABEL_13:
-  v8 = a1 + 32;
-  v9 = *(a1 + 24);
-  v10 = *(a1 + 8);
-  v11 = *(a1 + 40);
-  if (v9 >= v10)
-  {
-    if (v11 < v9)
-    {
-      v33 = *(a1 + 16);
-      *(a1 + 16) = *v8;
-      *(a1 + 24) = *(a1 + 40);
-      *v8 = v33;
-      *(a1 + 40) = DWORD2(v33);
-      if (*(a1 + 24) < v10)
-      {
-        v34 = *a1;
-        *a1 = *(a1 + 16);
-        *(a1 + 8) = *(a1 + 24);
-        *(a1 + 16) = v34.n128_u64[0];
-        *(a1 + 24) = v34.n128_u32[2];
-      }
-    }
-  }
-
-  else
-  {
-    if (v11 >= v9)
-    {
-      v38 = *a1;
-      *a1 = *(a1 + 16);
-      *(a1 + 8) = *(a1 + 24);
-      *(a1 + 16) = v38.n128_u64[0];
-      *(a1 + 24) = v38.n128_u32[2];
-      if (v11 >= *(a1 + 24))
-      {
-        goto LABEL_33;
-      }
-
-      v30 = *(a1 + 16);
-      *(a1 + 16) = *v8;
-      *(a1 + 24) = *(a1 + 40);
-    }
-
-    else
-    {
-      v30 = *a1;
-      *a1 = *v8;
-      *(a1 + 8) = *(a1 + 40);
-    }
-
-    *v8 = v30.n128_u64[0];
-    *(a1 + 40) = v30.n128_u32[2];
-  }
-
-LABEL_33:
-  v17 = a1 + 48;
-  if (a1 + 48 == a2)
-  {
-    return 1;
-  }
-
-  v18 = 0;
-  v19 = 0;
-  while (1)
-  {
-    v20 = *(v17 + 8);
-    if (v20 < *(v8 + 8))
-    {
-      v21 = *v17;
-      v22 = v18;
-      while (1)
-      {
-        v23 = a1 + v22;
-        *(v23 + 48) = *(a1 + v22 + 32);
-        *(v23 + 56) = *(a1 + v22 + 40);
-        if (v22 == -32)
-        {
-          break;
-        }
-
-        v22 -= 16;
-        if (v20 >= *(v23 + 24))
-        {
-          v24 = a1 + v22 + 48;
-          goto LABEL_41;
-        }
-      }
-
-      v24 = a1;
-LABEL_41:
-      *v24 = v21;
-      *(v24 + 8) = v20;
-      if (++v19 == 8)
-      {
-        return v17 + 16 == a2;
-      }
-    }
-
-    v8 = v17;
-    v18 += 16;
-    v17 += 16;
-    if (v17 == a2)
-    {
-      return 1;
-    }
-  }
-}
-
-void sub_222929E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
+  va_start(va, a7);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void snlp::ssu::app::SSUFileWrapper::SSUFileWrapper(snlp::ssu::app::SSUFileWrapper *this, const std::__fs::filesystem::path *a2)
+void snlp::ssu::app::SSUFileWrapper::SSUFileWrapper(snlp::ssu::app::SSUFileWrapper *this, std::__fs::filesystem::path *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
   *this = 0;
@@ -1047,14 +20,14 @@ void snlp::ssu::app::SSUFileWrapper::SSUFileWrapper(snlp::ssu::app::SSUFileWrapp
   operator new();
 }
 
-void sub_22292A87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_22292A87C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x223DC4D00](v24, 0x1070C400E7C11DFLL);
+  MEMORY[0x223DC4D00](v24, 0x1070C400E7C11DFLL, a3, a4, a5, a6, a7, a8);
   std::unique_ptr<snlp::ssu::app::file_wrapper_utils::SSUMappedFileData>::reset[abi:ne200100](v23, 0);
   _Unwind_Resume(a1);
 }
@@ -1864,9 +837,9 @@ uint64_t snlp::ssu::app::SSUFileWrapper::getAssetDirectoryFormatVersion(snlp::ss
   }
 }
 
-_BYTE *snlp::ssu::app::SSUFileWrapper::getLocale@<X0>(snlp::ssu::app::SSUFileWrapper *this@<X0>, _BYTE *a2@<X8>)
+void *snlp::ssu::app::SSUFileWrapper::getLocale@<X0>(apple::aiml::flatbuffers2::String *a1@<X8>, uint64_t a2@<X0>)
 {
-  v4 = *(*this + 24);
+  v4 = *(*a2 + 24);
   v5 = (v4 - *v4);
   if (*v5 >= 9u && (v6 = v5[4]) != 0)
   {
@@ -1878,10 +851,10 @@ _BYTE *snlp::ssu::app::SSUFileWrapper::getLocale@<X0>(snlp::ssu::app::SSUFileWra
     v7 = 0;
   }
 
-  return apple::aiml::flatbuffers2::String::str(a2, v7);
+  return apple::aiml::flatbuffers2::String::str(a1, v7);
 }
 
-_BYTE *apple::aiml::flatbuffers2::String::str(_BYTE *this, unsigned int *a2)
+void *apple::aiml::flatbuffers2::String::str(void *this, unsigned int *a2)
 {
   v2 = this;
   v3 = *a2;
@@ -1890,17 +863,17 @@ _BYTE *apple::aiml::flatbuffers2::String::str(_BYTE *this, unsigned int *a2)
     operator new();
   }
 
-  this[23] = v3;
+  *(this + 23) = v3;
   if (v3)
   {
     this = memcpy(this, a2 + 1, v3);
   }
 
-  v2[v3] = 0;
+  *(v2 + v3) = 0;
   return this;
 }
 
-_BYTE *snlp::ssu::app::SSUFileWrapper::getDataVersion@<X0>(snlp::ssu::app::SSUFileWrapper *this@<X0>, _BYTE *a2@<X8>)
+void *snlp::ssu::app::SSUFileWrapper::getDataVersion@<X0>(snlp::ssu::app::SSUFileWrapper *this@<X0>, void *a2@<X8>)
 {
   v4 = *(*this + 24);
   v5 = (v4 - *v4);
@@ -1928,12 +901,12 @@ _BYTE *snlp::ssu::app::SSUFileWrapper::getDataVersion@<X0>(snlp::ssu::app::SSUFi
   return apple::aiml::flatbuffers2::String::str(a2, v10);
 }
 
-void snlp::ssu::app::SSUFileWrapper::getAllCategoriesWithGroup(void *a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void snlp::ssu::app::SSUFileWrapper::getAllCategoriesWithGroup(void *a1@<X0>, void *a2@<X8>, const void **a3@<X1>)
 {
-  v3 = a3;
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  v3 = a2;
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   v4 = *(*a1 + 24);
   v5 = *(v4 - *v4 + 10);
   v6 = *(v4 + v5);
@@ -1950,7 +923,7 @@ void snlp::ssu::app::SSUFileWrapper::getAllCategoriesWithGroup(void *a1@<X0>, co
     {
       v14 = v7[v10 / 4 + 1];
       v15 = (&v7[v10 / 4] + v14);
-      a1 = snlp::ssu::app::SSUFileWrapper::lookupGroup(a1, v15 + 1, a2);
+      a1 = snlp::ssu::app::SSUFileWrapper::lookupGroup(a1, v15 + 1, a3);
       if (a1)
       {
         v16 = &v13[v10 + v14 - v15[1]];
@@ -2093,10 +1066,10 @@ char *snlp::ssu::app::SSUFileWrapper::lookupGroup(uint64_t a1, int *a2, const vo
   }
 }
 
-void snlp::ssu::app::SSUFileWrapper::getNegativeExampleEncodedVectors(uint64_t a1@<X0>, unsigned __int8 a2@<W1>, uint64_t a3@<X2>, void *a4@<X8>)
+void snlp::ssu::app::SSUFileWrapper::getNegativeExampleEncodedVectors(std::vector<int> *a1@<X8>, uint64_t a2@<X0>, unsigned __int8 a3@<W1>, uint64_t a4@<X2>)
 {
   v37 = *MEMORY[0x277D85DE8];
-  Group = snlp::ssu::app::SSUFileWrapper::getGroup(a1, a2, a3);
+  Group = snlp::ssu::app::SSUFileWrapper::getGroup(a2, a3, a4);
   v6 = &Group[-*Group];
   if (*v6 >= 9u && (v7 = *(v6 + 4)) != 0)
   {
@@ -2205,23 +1178,23 @@ void snlp::ssu::app::SSUFileWrapper::getNegativeExampleEncodedVectors(uint64_t a
 
     v35[0] = v9;
     v35[1] = v34;
-    a4[1] = 0;
-    a4[2] = 0;
-    *a4 = 0;
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a4, v35, &v36, 2uLL);
+    a1->__end_ = 0;
+    a1->__end_cap_.__value_ = 0;
+    a1->__begin_ = 0;
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a1, v35, &v36, 2uLL);
   }
 
   v36.__begin_ = 0;
   v36.__end_ = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  *a4 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a4, &v36, &v36.__end_cap_, 2uLL);
+  a1->__end_ = 0;
+  a1->__end_cap_.__value_ = 0;
+  a1->__begin_ = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a1, &v36, &v36.__end_cap_, 2uLL);
 }
 
 char *snlp::ssu::app::SSUFileWrapper::getGroup(uint64_t a1, unsigned __int8 a2, uint64_t a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = (*(*a1 + 24) + *(*(*a1 + 24) - **(*a1 + 24) + 10));
   v6 = (v5 + *v5);
@@ -2257,7 +1230,52 @@ char *snlp::ssu::app::SSUFileWrapper::getGroup(uint64_t a1, unsigned __int8 a2, 
 
   if (&v6[*v6 + 1] == v7)
   {
-    v15 = std::string::basic_string[abi:ne200100]<0>(&buf, "No such category in the SSU file: ");
+    v14 = std::string::basic_string[abi:ne200100]<0>(&buf, "No such category in the SSU file: ");
+    if (v4 <= 3)
+    {
+      v15 = EnumNamesSSUCategoryType(void)::names[v4];
+    }
+
+    else
+    {
+      v15 = "";
+    }
+
+    v17 = std::string::append(v14, v15);
+    v18 = *&v17->__r_.__value_.__l.__data_;
+    v36.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v36.__r_.__value_.__l.__data_ = v18;
+    v17->__r_.__value_.__l.__size_ = 0;
+    v17->__r_.__value_.__r.__words[2] = 0;
+    v17->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(buf.__r_.__value_.__l.__data_);
+    }
+
+    v19 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      v20 = &v36;
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v20 = v36.__r_.__value_.__r.__words[0];
+      }
+
+      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
+      *(buf.__r_.__value_.__r.__words + 4) = v20;
+      _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_ERROR, "%s", &buf, 0xCu);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, &v36);
+    exception->__vftable = &unk_2835E9238;
+  }
+
+  result = snlp::ssu::app::SSUFileWrapper::lookupGroup(a1, (v7 + *v7), a3);
+  if (!result)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&v34, "No such group in the SSU file category ");
     if (v4 <= 3)
     {
       v16 = EnumNamesSSUCategoryType(void)::names[v4];
@@ -2268,101 +1286,51 @@ char *snlp::ssu::app::SSUFileWrapper::getGroup(uint64_t a1, unsigned __int8 a2, 
       v16 = "";
     }
 
-    v18 = std::string::append(v15, v16);
-    v19 = *&v18->__r_.__value_.__l.__data_;
-    v37.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-    *&v37.__r_.__value_.__l.__data_ = v19;
-    v18->__r_.__value_.__l.__size_ = 0;
-    v18->__r_.__value_.__r.__words[2] = 0;
-    v18->__r_.__value_.__r.__words[0] = 0;
+    v22 = std::string::append(&v34, v16);
+    v23 = *&v22->__r_.__value_.__l.__data_;
+    v35.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
+    *&v35.__r_.__value_.__l.__data_ = v23;
+    v22->__r_.__value_.__l.__size_ = 0;
+    v22->__r_.__value_.__r.__words[2] = 0;
+    v22->__r_.__value_.__r.__words[0] = 0;
+    v24 = std::string::append(&v35, " and group ");
+    v25 = *&v24->__r_.__value_.__l.__data_;
+    buf.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+    *&buf.__r_.__value_.__l.__data_ = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
+    v26 = *(a3 + 23);
+    if (v26 >= 0)
+    {
+      v27 = a3;
+    }
+
+    else
+    {
+      v27 = *a3;
+    }
+
+    if (v26 >= 0)
+    {
+      v28 = *(a3 + 23);
+    }
+
+    else
+    {
+      v28 = *(a3 + 8);
+    }
+
+    v29 = std::string::append(&buf, v27, v28);
+    v30 = *&v29->__r_.__value_.__l.__data_;
+    v36.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+    *&v36.__r_.__value_.__l.__data_ = v30;
+    v29->__r_.__value_.__l.__size_ = 0;
+    v29->__r_.__value_.__r.__words[2] = 0;
+    v29->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(buf.__r_.__value_.__l.__data_);
-    }
-
-    v20 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      v21 = &v37;
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v21 = v37.__r_.__value_.__r.__words[0];
-      }
-
-      LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v21;
-      _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_ERROR, "%s", &buf, 0xCu);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, &v37);
-    exception->__vftable = &unk_2835E9238;
-  }
-
-  result = snlp::ssu::app::SSUFileWrapper::lookupGroup(a1, (v7 + *v7), a3);
-  if (!result)
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v35, "No such group in the SSU file category ");
-    if (v4 <= 3)
-    {
-      v17 = EnumNamesSSUCategoryType(void)::names[v4];
-    }
-
-    else
-    {
-      v17 = "";
-    }
-
-    v23 = std::string::append(&v35, v17);
-    v24 = *&v23->__r_.__value_.__l.__data_;
-    v36.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-    *&v36.__r_.__value_.__l.__data_ = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
-    v25 = std::string::append(&v36, " and group ");
-    v26 = *&v25->__r_.__value_.__l.__data_;
-    buf.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-    *&buf.__r_.__value_.__l.__data_ = v26;
-    v25->__r_.__value_.__l.__size_ = 0;
-    v25->__r_.__value_.__r.__words[2] = 0;
-    v25->__r_.__value_.__r.__words[0] = 0;
-    v27 = *(a3 + 23);
-    if (v27 >= 0)
-    {
-      v28 = a3;
-    }
-
-    else
-    {
-      v28 = *a3;
-    }
-
-    if (v27 >= 0)
-    {
-      v29 = *(a3 + 23);
-    }
-
-    else
-    {
-      v29 = *(a3 + 8);
-    }
-
-    v30 = std::string::append(&buf, v28, v29);
-    v31 = *&v30->__r_.__value_.__l.__data_;
-    v37.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
-    *&v37.__r_.__value_.__l.__data_ = v31;
-    v30->__r_.__value_.__l.__size_ = 0;
-    v30->__r_.__value_.__r.__words[2] = 0;
-    v30->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(buf.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v36.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
@@ -2370,26 +1338,30 @@ char *snlp::ssu::app::SSUFileWrapper::getGroup(uint64_t a1, unsigned __int8 a2, 
       operator delete(v35.__r_.__value_.__l.__data_);
     }
 
-    v32 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
     {
-      v33 = &v37;
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      operator delete(v34.__r_.__value_.__l.__data_);
+    }
+
+    v31 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    {
+      v32 = &v36;
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v33 = v37.__r_.__value_.__r.__words[0];
+        v32 = v36.__r_.__value_.__r.__words[0];
       }
 
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
-      *(buf.__r_.__value_.__r.__words + 4) = v33;
-      _os_log_impl(&dword_22284A000, v32, OS_LOG_TYPE_ERROR, "%s", &buf, 0xCu);
+      *(buf.__r_.__value_.__r.__words + 4) = v32;
+      _os_log_impl(&dword_22284A000, v31, OS_LOG_TYPE_ERROR, "%s", &buf, 0xCu);
     }
 
-    v34 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v34, &v37);
-    v34->__vftable = &unk_2835E9238;
+    v33 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v33, &v36);
+    v33->__vftable = &unk_2835E9238;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2494,7 +1466,7 @@ void snlp::ssu::app::SSUFileWrapper::getNegativeExampleUtterances(uint64_t a1@<X
         *(v23 + 16) = v29;
         v29 = 0;
         v28 = 0uLL;
-        v18 = 24 * v19 + 24;
+        v18 = (24 * v19 + 24);
         v24 = a4->__end_ - a4->__begin_;
         v25 = (24 * v19 - v24);
         memcpy((v23 - v24), a4->__begin_, v24);
@@ -2514,7 +1486,7 @@ void snlp::ssu::app::SSUFileWrapper::getNegativeExampleUtterances(uint64_t a1@<X
       {
         *&end->__r_.__value_.__l.__data_ = v28;
         end->__r_.__value_.__r.__words[2] = v29;
-        v18 = &end[1];
+        v18 = end + 1;
       }
 
       a4->__end_ = v18;
@@ -2627,7 +1599,7 @@ void snlp::ssu::app::SSUFileWrapper::getPositiveExamples(uint64_t a1@<X0>, unsig
             v29 = 0;
           }
 
-          apple::aiml::flatbuffers2::String::str(&v70.__end_cap_, v29);
+          apple::aiml::flatbuffers2::String::str(&v70.__end_cap_.__value_, v29);
           v30 = v76;
           if (v76 >= *(&v76 + 1))
           {
@@ -2834,7 +1806,7 @@ void snlp::ssu::app::SSUFileWrapper::getPositiveExamples(uint64_t a1@<X0>, unsig
       else
       {
         std::vector<snlp::ssu::app::SSUAppIntent>::__construct_one_at_end[abi:ne200100]<snlp::ssu::app::SSUAppIntent>(&v79, &v70);
-        v63 = v62 + 72;
+        v63 = (v62 + 72);
       }
 
       v80 = v63;
@@ -2878,14 +1850,12 @@ void sub_22292CCA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<snlp::ssu::app::SSUAppIntent>::reserve(void *result, unint64_t a2)
+std::string **std::vector<snlp::ssu::app::SSUAppIntent>::reserve(std::string **result, unint64_t a2)
 {
   if (0x8E38E38E38E38E39 * ((result[2] - *result) >> 3) < a2)
   {
     if (a2 < 0x38E38E38E38E38FLL)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::app::SSUAppIntent>>(a2);
     }
 
@@ -2895,53 +1865,51 @@ void *std::vector<snlp::ssu::app::SSUAppIntent>::reserve(void *result, unint64_t
   return result;
 }
 
-void sub_22292CE68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22292CE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<snlp::ssu::app::SSUAppIntent>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<snlp::ssu::app::SSUAppIntent>::__construct_one_at_end[abi:ne200100]<snlp::ssu::app::SSUAppIntent>(uint64_t a1, __int128 *a2)
+uint64_t *std::vector<snlp::ssu::app::SSUAppIntent>::__construct_one_at_end[abi:ne200100]<snlp::ssu::app::SSUAppIntent>(uint64_t a1, __int128 *a2)
 {
   v3 = *(a1 + 8);
   v4 = *a2;
   *(v3 + 16) = *(a2 + 2);
   *v3 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(v3 + 24) = 0;
   *(v3 + 32) = 0;
   *(v3 + 40) = 0;
   *(v3 + 24) = *(a2 + 24);
   *(v3 + 40) = *(a2 + 5);
-  *(a2 + 3) = 0;
-  *(a2 + 4) = 0;
+  *(a2 + 24) = 0uLL;
   *(a2 + 5) = 0;
   *(v3 + 56) = 0;
   *(v3 + 64) = 0;
   *(v3 + 48) = 0;
-  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v3 + 48, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
+  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v3 + 48), *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
   *(a1 + 8) = v3 + 72;
   return result;
 }
 
-void sub_22292CF20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22292CF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = v3;
+  va_start(va, a3);
+  v5 = v4;
   std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v4 + 23) < 0)
+  if (*(v5 + 23) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v5);
   }
 
-  *(v2 + 8) = v4;
+  *(v3 + 8) = v5;
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<snlp::ssu::app::SSUAppIntent>::__emplace_back_slow_path<snlp::ssu::app::SSUAppIntent>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<snlp::ssu::app::SSUAppIntent>::__emplace_back_slow_path<snlp::ssu::app::SSUAppIntent>(std::string **a1, __int128 *a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -2978,21 +1946,19 @@ uint64_t std::vector<snlp::ssu::app::SSUAppIntent>::__emplace_back_slow_path<snl
   v7 = *a2;
   *(v6 + 16) = *(a2 + 2);
   *v6 = v7;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(v6 + 24) = 0;
   *(v6 + 32) = 0;
   *(v6 + 40) = 0;
   *(v6 + 24) = *(a2 + 24);
   *(v6 + 40) = *(a2 + 5);
-  *(a2 + 3) = 0;
-  *(a2 + 4) = 0;
+  *(a2 + 24) = 0uLL;
   *(a2 + 5) = 0;
   *(v6 + 56) = 0;
   *(v6 + 64) = 0;
   *(v6 + 48) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v6 + 48, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v6 + 48), *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
   *&v16 = v16 + 72;
   v8 = a1[1];
   v9 = (v15 + *a1 - v8);
@@ -3010,9 +1976,9 @@ uint64_t std::vector<snlp::ssu::app::SSUAppIntent>::__emplace_back_slow_path<snl
   return v13;
 }
 
-void sub_22292D0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22292D0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<snlp::ssu::app::SSUAppIntent>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3029,7 +1995,7 @@ void snlp::ssu::app::SSUAppIntent::~SSUAppIntent(void **this)
   }
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::app::SSUAppIntent>,snlp::ssu::app::SSUAppIntent*>(uint64_t a1, uint64_t a2, uint64_t a3, std::string *this)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::app::SSUAppIntent>,snlp::ssu::app::SSUAppIntent*>(uint64_t a1, __int128 *a2, __int128 *a3, std::string *this)
 {
   v12 = this;
   v13 = this;
@@ -3051,25 +2017,25 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<sn
     {
       if (*(v7 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(v4, *v7, *(v7 + 8));
+        std::string::__init_copy_ctor_external(v4, *v7, *(v7 + 1));
       }
 
       else
       {
         v8 = *v7;
-        v4->__r_.__value_.__r.__words[2] = *(v7 + 16);
+        v4->__r_.__value_.__r.__words[2] = *(v7 + 2);
         *&v4->__r_.__value_.__l.__data_ = v8;
       }
 
       v4[1].__r_.__value_.__r.__words[0] = 0;
       v4[1].__r_.__value_.__l.__size_ = 0;
       v4[1].__r_.__value_.__r.__words[2] = 0;
-      std::vector<snlp::ssu::app::SSUAppParameter>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppParameter*,snlp::ssu::app::SSUAppParameter*>(&v4[1], *(v7 + 24), *(v7 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 32) - *(v7 + 24)) >> 4));
+      std::vector<snlp::ssu::app::SSUAppParameter>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppParameter*,snlp::ssu::app::SSUAppParameter*>(&v4[1], *(v7 + 3), *(v7 + 4), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 4) - *(v7 + 3)) >> 4));
       v4[2].__r_.__value_.__r.__words[0] = 0;
       v4[2].__r_.__value_.__l.__size_ = 0;
       v4[2].__r_.__value_.__r.__words[2] = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v4[2], *(v7 + 48), *(v7 + 56), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 56) - *(v7 + 48)) >> 3));
-      v7 += 72;
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v4[2], *(v7 + 6), *(v7 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(v7 + 7) - *(v7 + 6)) >> 3));
+      v7 = (v7 + 72);
       v4 = v13 + 3;
       v13 += 3;
     }
@@ -3079,7 +2045,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<sn
     do
     {
       std::allocator_traits<std::allocator<snlp::ssu::app::SSUAppIntent>>::destroy[abi:ne200100]<snlp::ssu::app::SSUAppIntent,0>(v6);
-      v6 += 72;
+      v6 = (v6 + 72);
     }
 
     while (v6 != a3);
@@ -3088,9 +2054,9 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<sn
   return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<snlp::ssu::app::SSUAppIntent>,snlp::ssu::app::SSUAppIntent*>>::~__exception_guard_exceptions[abi:ne200100](v10);
 }
 
-void sub_22292D290(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22292D290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<snlp::ssu::app::SSUAppIntent>,snlp::ssu::app::SSUAppIntent*>>::~__exception_guard_exceptions[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3251,7 +2217,7 @@ uint64_t std::vector<sirinluinternal::MatchingSpan>::__emplace_back_slow_path<si
     do
     {
       v12 = MEMORY[0x223DC3150](v11, v10);
-      v10 += 11;
+      v10 += 88;
       v11 = v12 + 88;
     }
 
@@ -3392,14 +2358,13 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupName
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
 void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupNameTransform::transformTreeNode(nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupNameTransform *this, std::string *a2, BOOL *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   *a3 = 0;
   if (nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupNameTransform::isCommonPersonOrAgentNode(a2, a2))
   {
@@ -3418,7 +2383,7 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupName
           {
             v12 = *(this + 3);
             *buf = 136315138;
-            v25 = v12;
+            v24 = v12;
             _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "[%s] Found an smsGroupName span that matches a common_Person or common_Agent node", buf, 0xCu);
           }
 
@@ -3434,7 +2399,7 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupName
               {
                 v22 = *(this + 3);
                 *buf = 136315138;
-                v25 = v22;
+                v24 = v22;
                 _os_log_impl(&dword_22284A000, v21, OS_LOG_TYPE_DEBUG, "[%s] Found a personFullName span that matches a common_Person or common_Agent node, so skipping group_name_transform", buf, 0xCu);
               }
 
@@ -3467,11 +2432,11 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupName
 
             v20 = *(this + 3);
             *buf = 136315650;
-            v25 = v20;
-            v26 = 2080;
-            v27 = v18;
-            v28 = 2080;
-            v29 = v19;
+            v24 = v20;
+            v25 = 2080;
+            v26 = v18;
+            v27 = 2080;
+            v28 = v19;
             _os_log_impl(&dword_22284A000, v17, OS_LOG_TYPE_DEBUG, "[%s] Replacing the node label %s with %s", buf, 0x20u);
           }
 
@@ -3487,8 +2452,6 @@ LABEL_21:
       ;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 BOOL nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupNameTransform::isCommonPersonOrAgentNode(size_t *this, const nlv4_inference_orchestrator::trees::TreeNode *a2)
@@ -3616,15 +2579,15 @@ BOOL nlv4_inference_orchestrator::post_processing::tree_manipulations::GroupName
 
 void snlp::common::text_uso_graph::readUsoGraphFromText(uint64_t *a1)
 {
-  v1 = a1[1];
-  v2[0] = *a1;
-  v2[1] = v1;
-  if (v1)
+  v3 = a1[1];
+  v4[0] = *a1;
+  v4[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  snlp::common::text_uso_graph::UsoGraphTextTreeParser::UsoGraphTextTreeParser(&v3, v2, 1, 0);
+  snlp::common::text_uso_graph::UsoGraphTextTreeParser::UsoGraphTextTreeParser(&v5, v4, 1, 0);
 }
 
 void sub_22292E0A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
@@ -3777,17 +2740,17 @@ void snlp::common::text_uso_graph::UsoGraphTextTreeParseError::~UsoGraphTextTree
   JUMPOUT(0x223DC4D00);
 }
 
-void snlp::common::text_uso_graph::readUserDialogActFromText(void *a1)
+void snlp::common::text_uso_graph::readUserDialogActFromText(void *a1, uint64_t a2)
 {
-  v1 = a1[1];
-  v2[0] = *a1;
-  v2[1] = v1;
-  if (v1)
+  v2 = a1[1];
+  v3[0] = *a1;
+  v3[1] = v2;
+  if (v2)
   {
-    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  snlp::common::text_uso_graph::UDATextTreeParser::UDATextTreeParser(v3, v2);
+  snlp::common::text_uso_graph::UDATextTreeParser::UDATextTreeParser(v4, v3);
 }
 
 void sub_22292E5D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, std::locale a16)
@@ -3872,189 +2835,144 @@ void snlp::common::text_uso_graph::UDATextTreeParseError::~UDATextTreeParseError
   JUMPOUT(0x223DC4D00);
 }
 
-char **uaap::TimeHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3)
+void *uaap::TimeHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = DDResultHasType();
   if (result)
   {
-    uaap::mapTimeSpansToItemizedUsos(a3);
+    uaap::mapTimeSpansToItemizedUsos(a3, a4);
 
-    return uaap::mapTimeSpanSpansToItemizedUsos(a3);
+    return uaap::mapTimeSpanSpansToItemizedUsos(a3, a4);
   }
 
   return result;
 }
 
-char **uaap::mapTimeSpansToItemizedUsos(uint64_t a1)
+void *uaap::mapTimeSpansToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  v2 = CFHash(@"Time");
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v2);
+  v3 = CFHash(@"Time");
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v3);
   if (result)
   {
-    v5 = result[3];
-    v4 = result[4];
-    if (v4 != v5)
+    v6 = result[3];
+    v5 = result[4];
+    if (v5 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        result = *&v5[8 * v6];
+        result = *(v6 + 8 * v7);
         if (result)
         {
-          v7 = **result;
           if (result)
           {
             operator new();
           }
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v6 < (v4 - v5) >> 3);
+      while (v7 < (v5 - v6) >> 3);
     }
   }
 
   return result;
 }
 
-void sub_22292EA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22292EA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-char **uaap::mapTimeSpanSpansToItemizedUsos(uint64_t a1)
+void *uaap::mapTimeSpanSpansToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  v2 = CFHash(@"TimeSpan");
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v2);
+  v3 = CFHash(@"TimeSpan");
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v3);
   if (result)
   {
-    v5 = result[3];
-    v4 = result[4];
-    if (v4 != v5)
+    v6 = result[3];
+    v5 = result[4];
+    if (v5 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        result = *&v5[8 * v6];
+        result = *(v6 + 8 * v7);
         if (result)
         {
-          v7 = **result;
           if (result)
           {
             operator new();
           }
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v6 < (v4 - v5) >> 3);
+      while (v7 < (v5 - v6) >> 3);
     }
   }
 
   return result;
 }
 
-const void *uaap::TimeHandler::resolveDateTimeQualifierListValue(uaap::TimeHandler *this, uaap::UPDDDateTimeBaseSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+void *uaap::TimeHandler::resolveDateTimeQualifierListValue(uaap::TimeHandler *this, uaap::UPDDDateTimeBaseSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   v4 = 0;
   if (this && a2 && a3)
   {
-    v7 = *(this + 6);
-    if (!v7)
+    v6 = *(this + 6);
+    if (!v6)
     {
       return 0;
     }
 
-    v4 = *(v7 + 24);
+    v4 = *(v6 + 24);
     if (v4)
     {
-      v8 = *(a3 + 3);
       siri::ontology::oname::graph::ontology_init::common_DateTime(this);
-      v9 = siri::ontology::operator!=();
-      if (!v9)
+      v7 = siri::ontology::operator!=();
+      if (!v7 || (siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v7), v8 = siri::ontology::operator!=(), !v8) || (siri::ontology::oname::graph::ontology_init::common_Date(v8), v9 = siri::ontology::operator!=(), !v9) || (siri::ontology::oname::graph::ontology_init::common_Time(v9), v10 = siri::ontology::operator!=(), !v10) || (siri::ontology::oname::graph::ontology_init::common_Integer(v10), v11 = siri::ontology::operator!=(), !v11) || (siri::ontology::oname::graph::ontology_init::common_DayOfWeek(v11), v12 = siri::ontology::operator!=(), !v12) || (siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v12), v13 = siri::ontology::operator!=(), !v13) || (siri::ontology::oname::graph::ontology_init::Root(v13), (siri::ontology::operator!=() & 1) == 0))
       {
-        goto LABEL_14;
-      }
-
-      v10 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v9);
-      v11 = siri::ontology::operator!=();
-      if (!v11)
-      {
-        goto LABEL_14;
-      }
-
-      v12 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_Date(v11);
-      v13 = siri::ontology::operator!=();
-      if (!v13)
-      {
-        goto LABEL_14;
-      }
-
-      v14 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_Time(v13);
-      v15 = siri::ontology::operator!=();
-      if (!v15)
-      {
-        goto LABEL_14;
-      }
-
-      v16 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_Integer(v15);
-      v17 = siri::ontology::operator!=();
-      if (!v17)
-      {
-        goto LABEL_14;
-      }
-
-      v18 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_DayOfWeek(v17);
-      v19 = siri::ontology::operator!=();
-      if (!v19 || (v20 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v19), v21 = siri::ontology::operator!=(), !v21) || (v22 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::Root(v21), (siri::ontology::operator!=() & 1) == 0))
-      {
-LABEL_14:
-        v23 = CFEqual(v4, @"this");
-        if (v23)
+        v14 = CFEqual(v4, @"this");
+        if (v14)
         {
-          siri::ontology::oname::graph::ontology_init::common_ListPosition_Current(v23);
+          siri::ontology::oname::graph::ontology_init::common_ListPosition_Current(v14);
           goto LABEL_20;
         }
 
-        v24 = CFEqual(v4, @"last");
-        if (v24)
+        v15 = CFEqual(v4, @"last");
+        if (v15)
         {
-          siri::ontology::oname::graph::ontology_init::common_ListPosition_Previous(v24);
+          siri::ontology::oname::graph::ontology_init::common_ListPosition_Previous(v15);
           goto LABEL_20;
         }
 
-        v25 = CFEqual(v4, @"next");
-        if (v25)
+        v16 = CFEqual(v4, @"next");
+        if (v16)
         {
-          siri::ontology::oname::graph::ontology_init::common_ListPosition_Next(v25);
+          siri::ontology::oname::graph::ontology_init::common_ListPosition_Next(v16);
 LABEL_20:
           EntityNode = siri::ontology::UsoGraph::createEntityNode();
           siri::ontology::oname::graph::ontology_init::common_ListPosition(EntityNode);
-          v27 = siri::ontology::UsoGraph::createEntityNode();
-          v28 = *(a3 + 3);
-          siri::ontology::oname::graph::ontology_init::Root(v27);
-          v29 = siri::ontology::operator==();
-          if (v29)
+          v18 = siri::ontology::UsoGraph::createEntityNode();
+          siri::ontology::oname::graph::ontology_init::Root(v18);
+          v19 = siri::ontology::operator==();
+          if (v19)
           {
-            siri::ontology::oname::graph::ontology_init::Argument_entity(v29);
+            siri::ontology::oname::graph::ontology_init::Argument_entity(v19);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v27, *(this + 6), v30);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v18, *(this + 6), v20);
           }
 
-          siri::ontology::oname::graph::ontology_init::Argument_usoListPosition(v29);
-          v31 = siri::ontology::UsoGraphNode::setSuccessor();
-          siri::ontology::oname::graph::ontology_init::Argument_definedValue(v31);
+          siri::ontology::oname::graph::ontology_init::Argument_usoListPosition(v19);
+          v21 = siri::ontology::UsoGraphNode::setSuccessor();
+          siri::ontology::oname::graph::ontology_init::Argument_definedValue(v21);
           siri::ontology::UsoGraphNode::setSuccessor();
-          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(this + 6), v32);
+          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(this + 6), v22);
         }
       }
 
@@ -4095,7 +3013,7 @@ void sub_22292F024(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t uaap::TimeHandler::resolveRecurringTime(siri::ontology::UsoEntityNode ***a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
+siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveRecurringTime(siri::ontology::UsoEntityNode ***a1, uaap::UPDDDateTimeBaseSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -4105,28 +3023,27 @@ uint64_t uaap::TimeHandler::resolveRecurringTime(siri::ontology::UsoEntityNode *
       {
         if (a4)
         {
-          v7 = a1[15];
-          if (v7)
+          v6 = a1[15];
+          if (v6)
           {
-            v8 = v7[6];
-            if (v8)
+            v7 = v6[6];
+            if (v7)
             {
-              v9 = *(v8 + 3);
-              if (v9)
+              v8 = *(v7 + 3);
+              if (v8)
               {
-                v10 = CFEqual(@"every", v9);
-                if (v10)
+                v9 = CFEqual(@"every", v8);
+                if (v9)
                 {
-                  v11 = *(a3 + 24);
-                  siri::ontology::oname::graph::ontology_init::Root(v10);
-                  v12 = siri::ontology::operator!=();
-                  if ((v12 & 1) == 0)
+                  siri::ontology::oname::graph::ontology_init::Root(v9);
+                  v10 = siri::ontology::operator!=();
+                  if ((v10 & 1) == 0)
                   {
-                    siri::ontology::oname::graph::ontology_init::common_DateTime(v12);
+                    siri::ontology::oname::graph::ontology_init::common_DateTime(v10);
                     EntityNode = siri::ontology::UsoGraph::createEntityNode();
-                    if (uaap::TimeHandler::resolveDateTimeRangeValue(a1[15], a2, EntityNode, v14))
+                    if (uaap::TimeHandler::resolveDateTimeRangeValue(a1[15], a2, EntityNode, v12))
                     {
-                      uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v15);
+                      uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v13);
                     }
                   }
                 }
@@ -4141,7 +3058,7 @@ uint64_t uaap::TimeHandler::resolveRecurringTime(siri::ontology::UsoEntityNode *
   return 0;
 }
 
-uint64_t uaap::TimeHandler::resolveTimeWithDateTimeRange(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::TimeHandler::resolveTimeWithDateTimeRange(siri::ontology::UsoEntityNode *a1, uaap::UPDDDateTimeBaseSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -4156,17 +3073,16 @@ uint64_t uaap::TimeHandler::resolveTimeWithDateTimeRange(siri::ontology::oname::
           {
             if (*(v6 + 96))
             {
-              v7 = *(a3 + 24);
               siri::ontology::oname::graph::ontology_init::Root(a1);
-              v8 = siri::ontology::operator!=();
-              if ((v8 & 1) == 0)
+              v7 = siri::ontology::operator!=();
+              if ((v7 & 1) == 0)
               {
-                v9 = *(a1 + 15);
-                siri::ontology::oname::graph::ontology_init::common_DateTime(v8);
+                v8 = *(a1 + 15);
+                siri::ontology::oname::graph::ontology_init::common_DateTime(v7);
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
-                if (uaap::TimeHandler::resolveDateTimeRangeValue(v9, a2, EntityNode, v11))
+                if (uaap::TimeHandler::resolveDateTimeRangeValue(v8, a2, EntityNode, v10))
                 {
-                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v12);
+                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v11);
                 }
               }
             }
@@ -4179,7 +3095,7 @@ uint64_t uaap::TimeHandler::resolveTimeWithDateTimeRange(siri::ontology::oname::
   return 0;
 }
 
-siri::ontology::UsoGraph *uaap::TimeHandler::resolveTime(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
+siri::ontology::UsoGraph *uaap::TimeHandler::resolveTime(uaap::TimeHandler *a1, uaap::UPDDTimeSpan *a2, uint64_t a3, uint64_t a4)
 {
   EntityNode = 0;
   if (!a1 || !a2 || !a3 || !a4)
@@ -4205,7 +3121,7 @@ LABEL_10:
 
   a1 = uaap::TimeHandler::resolveTimeAndMeridian(a1, a2, a3, a4);
   EntityNode = a1;
-  if (!v6[12])
+  if (!*(v6 + 12))
   {
     if (!a1)
     {
@@ -4228,8 +3144,8 @@ LABEL_13:
     uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v6, v7);
   }
 
-  v10 = v6[6];
-  if (v10 && *(v10 + 3))
+  v10 = *(v6 + 6);
+  if (v10 && *(v10 + 24))
   {
     uaap::TimeHandler::resolveDateTimeQualifierListValue(v6, a2, EntityNode, v8);
   }
@@ -4237,7 +3153,7 @@ LABEL_13:
   return EntityNode;
 }
 
-uint64_t uaap::mapNowAndTimeOffsetToItemizedUsos(uint64_t result)
+uint64_t uaap::mapNowAndTimeOffsetToItemizedUsos(uint64_t result, uint64_t a2)
 {
   if (*(result + 112))
   {
@@ -4252,15 +3168,15 @@ uint64_t uaap::mapNowAndTimeOffsetToItemizedUsos(uint64_t result)
   return result;
 }
 
-void sub_22292F550(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22292F550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x223DC4D00](v3, v2);
+  va_start(va, a3);
+  MEMORY[0x223DC4D00](v4, v3);
   std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t uaap::mapMinutesBeforeToItemizedUsos(uint64_t result)
+uint64_t uaap::mapMinutesBeforeToItemizedUsos(uint64_t result, uint64_t a2)
 {
   if (*(result + 72))
   {
@@ -4270,10 +3186,10 @@ uint64_t uaap::mapMinutesBeforeToItemizedUsos(uint64_t result)
   return result;
 }
 
-void sub_22292F6C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22292F6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x223DC4D00](v3, v2);
+  va_start(va, a3);
+  MEMORY[0x223DC4D00](v4, v3);
   std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4316,7 +3232,7 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveOffsetDur
   return this;
 }
 
-uint64_t uaap::TimeHandler::resolveOffsetDurationValue(CFTypeRef *a1, uaap::UPDDSpan *a2, uint64_t a3, uint64_t a4)
+siri::ontology::UsoGraph *uaap::TimeHandler::resolveOffsetDurationValue(CFTypeRef *a1, uaap::UPDDSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -4326,30 +3242,28 @@ uint64_t uaap::TimeHandler::resolveOffsetDurationValue(CFTypeRef *a1, uaap::UPDD
       {
         if (a4)
         {
-          v7 = CFEqual(a1[1], @"MinutesBefore");
-          if (v7 || (v7 = CFEqual(a1[1], @"TimeOffset"), v7) || (v7 = CFEqual(a1[1], @"TimeSpan"), v7))
+          v6 = CFEqual(a1[1], @"MinutesBefore");
+          if (v6 || (v6 = CFEqual(a1[1], @"TimeOffset"), v6) || (v6 = CFEqual(a1[1], @"TimeSpan"), v6))
           {
-            v8 = *(a3 + 24);
-            siri::ontology::oname::graph::ontology_init::Root(v7);
-            v9 = siri::ontology::operator!=();
-            if (!v9 || (v10 = *(a3 + 24), siri::ontology::oname::graph::ontology_init::common_DateTime(v9), v9 = siri::ontology::operator!=(), (v9 & 1) == 0))
+            siri::ontology::oname::graph::ontology_init::Root(v6);
+            v7 = siri::ontology::operator!=();
+            if (!v7 || (siri::ontology::oname::graph::ontology_init::common_DateTime(v7), v7 = siri::ontology::operator!=(), (v7 & 1) == 0))
             {
-              siri::ontology::oname::graph::ontology_init::common_Duration(v9);
+              siri::ontology::oname::graph::ontology_init::common_Duration(v7);
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
               if (CFEqual(a1[1], @"MinutesBefore"))
               {
-                uaap::TimeSpanHandler::resolveMinutesBeforeTimeSpanWithUnit(a1, a2, EntityNode, v12);
+                uaap::TimeSpanHandler::resolveMinutesBeforeTimeSpanWithUnit(a1, a2, EntityNode, v9);
                 goto LABEL_16;
               }
 
               if (CFEqual(a1[1], @"TimeOffset") || CFEqual(a1[1], @"TimeSpan"))
               {
-                v14 = **a1;
-                if (v15)
+                if (v11)
                 {
-                  uaap::TimeSpanHandler::resolveTimeSpanWithUnit(v15, a2, EntityNode, v16);
+                  uaap::TimeSpanHandler::resolveTimeSpanWithUnit(v11, a2, EntityNode, v12);
 LABEL_16:
-                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v13);
+                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v10);
                 }
               }
             }
@@ -4362,102 +3276,101 @@ LABEL_16:
   return 0;
 }
 
-uint64_t uaap::TimeHandler::resolveTimeWithOffsetValueAndDirection(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDSpan *a2, uint64_t a3, uint64_t a4)
+siri::ontology::UsoGraph *uaap::TimeHandler::resolveTimeWithOffsetValueAndDirection(CFTypeRef **a1, uaap::UPDDSpan *a2, uint64_t a3, uint64_t a4)
 {
-  if (a1 && a2 && a3 && a4 && (*(a1 + 9) || *(a1 + 14) || *(a1 + 13)))
+  if (a1 && a2 && a3 && a4 && (a1[9] || a1[14] || a1[13]))
   {
-    v6 = *(a3 + 24);
     siri::ontology::oname::graph::ontology_init::Root(a1);
-    v7 = siri::ontology::operator!=();
-    if ((v7 & 1) == 0)
+    v6 = siri::ontology::operator!=();
+    if ((v6 & 1) == 0)
     {
-      siri::ontology::oname::graph::ontology_init::common_DateTime(v7);
+      siri::ontology::oname::graph::ontology_init::common_DateTime(v6);
       EntityNode = siri::ontology::UsoGraph::createEntityNode();
-      v10 = EntityNode;
-      v11 = *(a1 + 13);
-      if (v11 && (v12 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(EntityNode), (EntityNode = uaap::TimeHandler::resolveOffsetDurationValue(v11, a2, v10, v12)) != 0))
+      v9 = EntityNode;
+      v10 = a1[13];
+      if (v10 && (v11 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(EntityNode), (EntityNode = uaap::TimeHandler::resolveOffsetDurationValue(v10, a2, v9, v11)) != 0))
       {
-        v13 = 0;
-        LODWORD(v14) = 1;
+        v12 = 0;
+        LODWORD(v13) = 1;
       }
 
       else
       {
-        v14 = *(a1 + 9);
-        if (v14)
+        v13 = a1[9];
+        if (v13)
         {
-          v15 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(EntityNode);
-          EntityNode = uaap::TimeHandler::resolveOffsetDurationValue(v14, a2, v10, v15);
-          LODWORD(v14) = EntityNode != 0;
+          v14 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(EntityNode);
+          EntityNode = uaap::TimeHandler::resolveOffsetDurationValue(v13, a2, v9, v14);
+          LODWORD(v13) = EntityNode != 0;
         }
 
-        v13 = 1;
-        if (!v11)
+        v12 = 1;
+        if (!v10)
         {
 LABEL_19:
-          if (*(a1 + 9))
+          if (a1[9])
           {
 LABEL_20:
             siri::ontology::oname::graph::ontology_init::common_OffsetDirection_Before(EntityNode);
             goto LABEL_28;
           }
 
-          if (v11)
+          if (v10)
           {
-            EntityNode = CFEqual(v11, @"after");
+            EntityNode = CFEqual(v10, @"after");
             if (EntityNode)
             {
 LABEL_27:
               siri::ontology::oname::graph::ontology_init::common_OffsetDirection_After(EntityNode);
 LABEL_28:
+              v17 = siri::ontology::UsoGraph::createEntityNode();
+              siri::ontology::oname::graph::ontology_init::common_OffsetDirection(v17);
               v18 = siri::ontology::UsoGraph::createEntityNode();
-              siri::ontology::oname::graph::ontology_init::common_OffsetDirection(v18);
-              v19 = siri::ontology::UsoGraph::createEntityNode();
-              siri::ontology::oname::graph::ontology_init::Argument_direction(v19);
-              v20 = siri::ontology::UsoGraphNode::setSuccessor();
-              siri::ontology::oname::graph::ontology_init::Argument_definedValue(v20);
+              siri::ontology::oname::graph::ontology_init::Argument_direction(v18);
+              v19 = siri::ontology::UsoGraphNode::setSuccessor();
+              siri::ontology::oname::graph::ontology_init::Argument_definedValue(v19);
               siri::ontology::UsoGraphNode::setSuccessor();
-              v23 = *(a1 + 9);
-              if (v23 || (v25 = *(a1 + 13)) != 0 && (v23 = *(v25 + 48)) != 0)
+              v22 = a1[9];
+              if (v22 || (v24 = a1[13]) != 0 && (v22 = v24[6]) != 0)
               {
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v18, v23, v21);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v17, v22, v20);
               }
 
-              uaap::TimeHandler::resolveOffsetReference(a1, a2, v10, v22);
+              uaap::TimeHandler::resolveOffsetReference(a1, a2, v9, v21);
               goto LABEL_31;
             }
 
-            EntityNode = CFEqual(v11, @"before");
+            EntityNode = CFEqual(v10, @"before");
             if (EntityNode)
             {
               goto LABEL_20;
             }
           }
 
-          if (v13)
+          if (v12)
           {
-            if (((uaap::TimeHandler::resolveOffsetReference(a1, a2, v10, v9) == 0) & ~v14) != 0)
+            if (((uaap::TimeHandler::resolveOffsetReference(a1, a2, v9, v8) == 0) & ~v13) != 0)
             {
               return 0;
             }
 
 LABEL_31:
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v10, a1, v17);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v9, a1, v16);
           }
 
           goto LABEL_27;
         }
       }
 
-      v16 = v11[6];
-      if (v16)
+      v15 = v10[6];
+      if (v15)
       {
-        v11 = *(v16 + 24);
+        v10 = *(v15 + 3);
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
 
       goto LABEL_19;
@@ -4467,17 +3380,16 @@ LABEL_31:
   return 0;
 }
 
-siri::ontology::UsoGraph *uaap::TimeHandler::resolveOffsetReference(CFTypeRef **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::UsoGraph *uaap::TimeHandler::resolveOffsetReference(uaap::TimeHandler **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   EntityNode = 0;
   if (this && a2 && a3)
   {
-    v7 = *(a3 + 3);
     siri::ontology::oname::graph::ontology_init::common_DateTime(this);
-    v8 = siri::ontology::operator!=();
-    if ((v8 & 1) == 0 && ((siri::ontology::oname::graph::ontology_init::common_DateTime(v8), EntityNode = siri::ontology::UsoGraph::createEntityNode(), (v10 = this[14]) == 0) ? (v11 = 0) : (v10 = uaap::TimeHandler::resolveNow(v10, a2, EntityNode, v9), v11 = v10 != 0), (v12 = siri::ontology::oname::graph::ontology_init::Argument_time(v10), v13 = uaap::TimeHandler::resolveTimeAndMeridian(this, a2, EntityNode, v12), v11) || v13))
+    v7 = siri::ontology::operator!=();
+    if ((v7 & 1) == 0 && ((siri::ontology::oname::graph::ontology_init::common_DateTime(v7), EntityNode = siri::ontology::UsoGraph::createEntityNode(), (v9 = this[14]) == 0) ? (v10 = 0) : (v9 = uaap::TimeHandler::resolveNow(v9, a2, EntityNode, v8), v10 = v9 != 0), (v11 = siri::ontology::oname::graph::ontology_init::Argument_time(v9), v12 = uaap::TimeHandler::resolveTimeAndMeridian(this, a2, EntityNode, v11), v10) || v12))
     {
-      siri::ontology::oname::graph::ontology_init::Argument_offsetReference(v13);
+      siri::ontology::oname::graph::ontology_init::Argument_offsetReference(v12);
       siri::ontology::UsoGraphNode::setSuccessor();
     }
 
@@ -4490,7 +3402,7 @@ siri::ontology::UsoGraph *uaap::TimeHandler::resolveOffsetReference(CFTypeRef **
   return EntityNode;
 }
 
-uint64_t uaap::TimeHandler::resolveNow(CFTypeRef *this, uaap::UPDDSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+uaap::AbstractDateTimeHandler *uaap::TimeHandler::resolveNow(CFTypeRef *this, uaap::UPDDSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
@@ -4498,27 +3410,25 @@ uint64_t uaap::TimeHandler::resolveNow(CFTypeRef *this, uaap::UPDDSpan *a2, siri
     {
       if (a3)
       {
-        v6 = CFEqual(this[1], @"Now");
-        if (v6)
+        v5 = CFEqual(this[1], @"Now");
+        if (v5)
         {
-          v7 = *(a3 + 3);
-          siri::ontology::oname::graph::ontology_init::Root(v6);
-          v8 = siri::ontology::operator!=();
-          if (!v8 || (v9 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_DateTime(v8), v8 = siri::ontology::operator!=(), (v8 & 1) == 0))
+          siri::ontology::oname::graph::ontology_init::Root(v5);
+          v6 = siri::ontology::operator!=();
+          if (!v6 || (siri::ontology::oname::graph::ontology_init::common_DateTime(v6), v6 = siri::ontology::operator!=(), (v6 & 1) == 0))
           {
-            v10 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::Root(v8);
-            v11 = siri::ontology::operator==();
-            if (v11)
+            siri::ontology::oname::graph::ontology_init::Root(v6);
+            v7 = siri::ontology::operator==();
+            if (v7)
             {
-              siri::ontology::oname::graph::ontology_init::common_DateTime(v11);
+              siri::ontology::oname::graph::ontology_init::common_DateTime(v7);
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this, v13);
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this, v9);
             }
 
-            siri::ontology::oname::graph::ontology_init::common_DateTime_Now(v11);
-            v14 = siri::ontology::UsoGraph::createEntityNode();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v14, this, v15);
+            siri::ontology::oname::graph::ontology_init::common_DateTime_Now(v7);
+            v10 = siri::ontology::UsoGraph::createEntityNode();
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v10, this, v11);
           }
         }
       }
@@ -4528,20 +3438,20 @@ uint64_t uaap::TimeHandler::resolveNow(CFTypeRef *this, uaap::UPDDSpan *a2, siri
   return 0;
 }
 
-uint64_t uaap::TimeHandler::resolveTimeAndMeridian(siri::ontology::oname::graph::ontology_init *IntValueFromCFStringRef, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t uaap::TimeHandler::resolveTimeAndMeridian(siri::ontology::oname::graph::ontology_init *Length, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   EntityNode = 0;
-  if (IntValueFromCFStringRef && a2 && a3 && a4)
+  if (Length && a2 && a3 && a4)
   {
-    v6 = IntValueFromCFStringRef;
-    v7 = *(IntValueFromCFStringRef + 7);
-    if (v7 && (IntValueFromCFStringRef = CFStringGetLength(*(v7 + 24))) != 0 || *(v6 + 8) || *(v6 + 10))
+    v6 = Length;
+    v7 = *(Length + 7);
+    if (v7 && (Length = CFStringGetLength(*(v7 + 24))) != 0 || *(v6 + 8) || *(v6 + 10))
     {
       v8 = *(v6 + 7);
-      if (v8 && (IntValueFromCFStringRef = CFStringGetLength(*(v8 + 24))) != 0)
+      if (v8 && (Length = CFStringGetLength(*(v8 + 24))) != 0)
       {
-        IntValueFromCFStringRef = uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(v6 + 7) + 24), v9);
-        v10 = IntValueFromCFStringRef;
+        Length = uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(v6 + 7) + 24), v9);
+        v10 = Length;
       }
 
       else
@@ -4559,14 +3469,14 @@ uint64_t uaap::TimeHandler::resolveTimeAndMeridian(siri::ontology::oname::graph:
 
       if (v10 && (v10 - 13) > 0xB)
       {
-        siri::ontology::oname::graph::ontology_init::common_Time(IntValueFromCFStringRef);
+        siri::ontology::oname::graph::ontology_init::common_Time(Length);
         EntityNode = siri::ontology::UsoGraph::createEntityNode();
         siri::ontology::UsoGraphNode::setSuccessor();
       }
 
       else
       {
-        siri::ontology::oname::graph::ontology_init::common_Time24HourClock(IntValueFromCFStringRef);
+        siri::ontology::oname::graph::ontology_init::common_Time24HourClock(Length);
         EntityNode = siri::ontology::UsoGraph::createEntityNode();
         siri::ontology::UsoGraphNode::setSuccessor();
       }
@@ -4620,9 +3530,9 @@ uint64_t uaap::TimeHandler::resolveTimeAndMeridian(siri::ontology::oname::graph:
         __p = 0;
         v25 = 0;
         v24 = 8 * v15 + 8;
-        v20 = uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(v6 + 10) + 24), v19);
-        v21 = siri::ontology::oname::graph::ontology_init::Argument_second(v20);
-        uaap::TimeHandler::_buildTimeWithUnit(v20, v21, a2, EntityNode, *(v6 + 10));
+        IntValueFromCFStringRef = uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(v6 + 10) + 24), v19);
+        v21 = siri::ontology::oname::graph::ontology_init::Argument_second(IntValueFromCFStringRef);
+        uaap::TimeHandler::_buildTimeWithUnit(IntValueFromCFStringRef, v21, a2, EntityNode, *(v6 + 10));
       }
 
       uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, &__p);
@@ -4653,29 +3563,28 @@ void sub_222930244(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t uaap::TimeHandler::_buildTimeWithUnit(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4, siri::ontology::UsoEntityNode *a5)
 {
-  v7 = *(a4 + 24);
   siri::ontology::oname::graph::ontology_init::common_Time24HourClock(a1);
-  v8 = siri::ontology::operator!=();
-  if (!v8 || (v9 = *(a4 + 24), siri::ontology::oname::graph::ontology_init::common_Time12HourClock(v8), v8 = siri::ontology::operator!=(), !v8) || (v10 = *(a4 + 24), siri::ontology::oname::graph::ontology_init::common_Time(v8), v8 = siri::ontology::operator!=(), (v8 & 1) == 0))
+  v6 = siri::ontology::operator!=();
+  if (!v6 || (siri::ontology::oname::graph::ontology_init::common_Time12HourClock(v6), v6 = siri::ontology::operator!=(), !v6) || (siri::ontology::oname::graph::ontology_init::common_Time(v6), v6 = siri::ontology::operator!=(), (v6 & 1) == 0))
   {
-    siri::ontology::oname::graph::ontology_init::Argument_hour(v8);
-    v11 = siri::ontology::operator!=();
-    if (!v11 || (siri::ontology::oname::graph::ontology_init::Argument_minute(v11), v11 = siri::ontology::operator!=(), !v11) || (siri::ontology::oname::graph::ontology_init::Argument_second(v11), v11 = siri::ontology::operator!=(), (v11 & 1) == 0))
+    siri::ontology::oname::graph::ontology_init::Argument_hour(v6);
+    v7 = siri::ontology::operator!=();
+    if (!v7 || (siri::ontology::oname::graph::ontology_init::Argument_minute(v7), v7 = siri::ontology::operator!=(), !v7) || (siri::ontology::oname::graph::ontology_init::Argument_second(v7), v7 = siri::ontology::operator!=(), (v7 & 1) == 0))
     {
-      siri::ontology::oname::graph::ontology_init::common_Integer(v11);
+      siri::ontology::oname::graph::ontology_init::common_Integer(v7);
       siri::ontology::UsoGraph::createEntityNode();
       siri::ontology::UsoGraphNode::setSuccessor();
       IntNode = siri::ontology::UsoGraph::createIntNode();
       siri::ontology::oname::graph::ontology_init::Argument_integerValue(IntNode);
       siri::ontology::UsoGraphNode::setSuccessor();
-      uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(IntNode, a5, v13);
+      uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(IntNode, a5, v9);
     }
   }
 
   return 0;
 }
 
-uint64_t uaap::TimeHandler::resolveDateTimeRangeValue(siri::ontology::UsoEntityNode **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveDateTimeRangeValue(siri::ontology::UsoEntityNode **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
@@ -4685,21 +3594,20 @@ uint64_t uaap::TimeHandler::resolveDateTimeRangeValue(siri::ontology::UsoEntityN
       {
         if (this[12])
         {
-          v6 = *(a3 + 3);
           siri::ontology::oname::graph::ontology_init::common_Time(this);
-          v7 = siri::ontology::operator!=();
-          if (!v7 || (v8 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_DateTime(v7), (siri::ontology::operator!=() & 1) == 0))
+          v5 = siri::ontology::operator!=();
+          if (!v5 || (siri::ontology::oname::graph::ontology_init::common_DateTime(v5), (siri::ontology::operator!=() & 1) == 0))
           {
             if (uaap::TimeHandler::getSpecialTimeDefinedValue(this))
             {
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
               siri::ontology::oname::graph::ontology_init::common_DateTimeRange(EntityNode);
-              v10 = siri::ontology::UsoGraph::createEntityNode();
-              siri::ontology::oname::graph::ontology_init::Argument_occurringIn(v10);
-              v11 = siri::ontology::UsoGraphNode::setSuccessor();
-              siri::ontology::oname::graph::ontology_init::Argument_definedValue(v11);
+              v7 = siri::ontology::UsoGraph::createEntityNode();
+              siri::ontology::oname::graph::ontology_init::Argument_occurringIn(v7);
+              v8 = siri::ontology::UsoGraphNode::setSuccessor();
+              siri::ontology::oname::graph::ontology_init::Argument_definedValue(v8);
               siri::ontology::UsoGraphNode::setSuccessor();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this[12], v12);
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this[12], v9);
             }
           }
         }
@@ -4710,7 +3618,7 @@ uint64_t uaap::TimeHandler::resolveDateTimeRangeValue(siri::ontology::UsoEntityN
   return 0;
 }
 
-uint64_t uaap::TimeHandler::resolveSpecialTimePeriod(siri::ontology::UsoEntityNode **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveSpecialTimePeriod(siri::ontology::UsoEntityNode **this, uaap::UPDDTimeSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
@@ -4720,31 +3628,30 @@ uint64_t uaap::TimeHandler::resolveSpecialTimePeriod(siri::ontology::UsoEntityNo
       {
         if (this[12])
         {
-          v5 = *(a3 + 3);
           siri::ontology::oname::graph::ontology_init::common_Time(this);
           if ((siri::ontology::operator!=() & 1) == 0)
           {
-            v6 = CFEqual(*(this[12] + 3), @"midnight");
-            if (v6)
+            v5 = CFEqual(*(this[12] + 3), @"midnight");
+            if (v5)
             {
-              siri::ontology::oname::graph::ontology_init::common_Time_Midnight(v6);
+              siri::ontology::oname::graph::ontology_init::common_Time_Midnight(v5);
             }
 
             else
             {
-              v7 = CFEqual(*(this[12] + 3), @"noon");
-              if (!v7)
+              v6 = CFEqual(*(this[12] + 3), @"noon");
+              if (!v6)
               {
                 return 0;
               }
 
-              siri::ontology::oname::graph::ontology_init::common_Time_Noon(v7);
+              siri::ontology::oname::graph::ontology_init::common_Time_Noon(v6);
             }
 
             EntityNode = siri::ontology::UsoGraph::createEntityNode();
             siri::ontology::oname::graph::ontology_init::Argument_definedValue(EntityNode);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this[12], v9);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, this[12], v8);
           }
         }
       }
@@ -4833,41 +3740,40 @@ uint64_t uaap::TimeHandler::resolveDateTimeRangeQualifierValue(CFTypeRef *a1, ui
       {
         if (a4)
         {
-          v5 = *(a3 + 24);
           siri::ontology::oname::graph::ontology_init::common_DateTimeRange(a1);
           if ((siri::ontology::operator!=() & 1) == 0)
           {
-            v6 = CFEqual(a1[3], @"restof");
-            if (v6 || (v6 = CFEqual(a1[3], @"late"), v6))
+            v5 = CFEqual(a1[3], @"restof");
+            if (v5 || (v5 = CFEqual(a1[3], @"late"), v5))
             {
-              siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_RestOf(v6);
+              siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_RestOf(v5);
             }
 
             else
             {
-              v11 = CFEqual(a1[3], @"early");
-              if (v11)
+              v10 = CFEqual(a1[3], @"early");
+              if (v10)
               {
-                siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_EarlierPartOf(v11);
+                siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_EarlierPartOf(v10);
               }
 
               else
               {
-                v12 = CFEqual(a1[3], @"middle");
-                if (v12)
+                v11 = CFEqual(a1[3], @"middle");
+                if (v11)
                 {
-                  siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_MiddleOf(v12);
+                  siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_MiddleOf(v11);
                 }
 
                 else
                 {
-                  v13 = CFEqual(a1[3], @"beginning");
-                  if (!v13)
+                  v12 = CFEqual(a1[3], @"beginning");
+                  if (!v12)
                   {
                     return 0;
                   }
 
-                  siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_StartOf(v13);
+                  siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier_StartOf(v12);
                 }
               }
             }
@@ -4875,10 +3781,10 @@ uint64_t uaap::TimeHandler::resolveDateTimeRangeQualifierValue(CFTypeRef *a1, ui
             EntityNode = siri::ontology::UsoGraph::createEntityNode();
             siri::ontology::oname::graph::ontology_init::common_DateTimeRangeQualifier(EntityNode);
             siri::ontology::UsoGraph::createEntityNode();
-            v8 = siri::ontology::UsoGraphNode::setSuccessor();
-            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v8);
+            v7 = siri::ontology::UsoGraphNode::setSuccessor();
+            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v7);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v9);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v8);
           }
         }
       }
@@ -4893,27 +3799,9 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveTimeWithD
   EntityNode = 0;
   if (a1 && a2 && a3 && a4)
   {
-    v8 = *(a3 + 24);
     siri::ontology::oname::graph::ontology_init::common_DateTimeRange(a1);
-    v9 = siri::ontology::operator!=();
-    if (v9)
-    {
-      v10 = *(a3 + 24);
-      siri::ontology::oname::graph::ontology_init::common_DateTime(v9);
-      v9 = siri::ontology::operator!=();
-      if (v9)
-      {
-        return 0;
-      }
-    }
-
-    siri::ontology::oname::graph::ontology_init::common_DateTime(v9);
-    EntityNode = siri::ontology::UsoGraph::createEntityNode();
-    v11 = siri::ontology::oname::graph::ontology_init::Argument_time(EntityNode);
-    v12 = uaap::TimeHandler::resolveTime(a1, a2, EntityNode, v11);
-    v14 = uaap::TimeHandler::resolveDateTimeRangeValue(a1, a2, EntityNode, v13);
-    v16 = uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, EntityNode, v15);
-    if (v12 || v14 || v16)
+    v7 = siri::ontology::operator!=();
+    if ((!v7 || (siri::ontology::oname::graph::ontology_init::common_DateTime(v7), v7 = siri::ontology::operator!=(), (v7 & 1) == 0)) && ((siri::ontology::oname::graph::ontology_init::common_DateTime(v7), EntityNode = siri::ontology::UsoGraph::createEntityNode(), v8 = siri::ontology::oname::graph::ontology_init::Argument_time(EntityNode), v9 = uaap::TimeHandler::resolveTime(a1, a2, EntityNode, v8), v11 = uaap::TimeHandler::resolveDateTimeRangeValue(a1, a2, EntityNode, v10), v13 = uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, EntityNode, v12), v9) || v11 || v13))
     {
       siri::ontology::UsoGraphNode::setSuccessor();
     }
@@ -4927,11 +3815,11 @@ siri::ontology::oname::graph::ontology_init *uaap::TimeHandler::resolveTimeWithD
   return EntityNode;
 }
 
-uint64_t uaap::TimeHandler::resolveNowGraph(uint64_t this, siri::ontology::UsoGraph **a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+uaap::AbstractDateTimeHandler *uaap::TimeHandler::resolveNowGraph(uaap::AbstractDateTimeHandler *this, siri::ontology::UsoGraph **a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
-    this = *(this + 112);
+    this = *(this + 14);
     if (this)
     {
       return uaap::TimeHandler::resolveNow(this, a2, a2[11], a4);
@@ -4993,14 +3881,14 @@ siri::ontology::oname::graph::ontology_init *uaap::resolveTimeGraphWithDateTimeR
   return this;
 }
 
-char **uaap::TimeHandler::mapTimeToItemizedUsos(uint64_t a1)
+void *uaap::TimeHandler::mapTimeToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  uaap::mapTimeSpansToItemizedUsos(a1);
+  uaap::mapTimeSpansToItemizedUsos(a1, a2);
 
-  return uaap::mapTimeSpanSpansToItemizedUsos(a1);
+  return uaap::mapTimeSpanSpansToItemizedUsos(a1, a2);
 }
 
-unsigned __int8 *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,int,0>(unsigned __int8 *result, int *a2)
+double *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,int,0>(double *result, int *a2)
 {
   v2 = result;
   v3 = *result;
@@ -5008,7 +3896,7 @@ unsigned __int8 *nlohmann::detail::from_json<nlohmann::basic_json<std::map,std::
   {
     if (v3 == 7)
     {
-      v4 = *(result + 1);
+      v4 = result[1];
       goto LABEL_11;
     }
 
@@ -5043,7 +3931,7 @@ LABEL_7:
 
   if (v3 == 4)
   {
-    v4 = result[8];
+    v4 = *(result + 8);
     goto LABEL_11;
   }
 
@@ -5100,15 +3988,15 @@ void sub_222931574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a14)
   {
-    (*(*a14 + 16))(a14);
+    (*(*a14 + 16))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_2229316A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2229316A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   std::unique_ptr<PB::Writer>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -5121,49 +4009,49 @@ void sub_2229317AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void itfm_inference_orchestrator::inference_engine::ITFMModule::forward(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void itfm_inference_orchestrator::inference_engine::ITFMModule::forward(snlp::common::espresso_inference::pre_e5ml::EspressoModule *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v30, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v30, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   v33 = 0;
   v34 = 0;
   v35 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, a2[3], a2[4], (a2[4] - a2[3]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v33, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 2);
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::setInput(a1, a1 + 10, &v30);
   v24 = 0;
   v25 = 0;
   v26 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v24, a2[6], a2[7], (a2[7] - a2[6]) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v24, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 3);
   v27 = 0;
   v28 = 0;
   v29 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v27, a2[9], a2[10], (a2[10] - a2[9]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v27, *(a2 + 72), *(a2 + 80), (*(a2 + 80) - *(a2 + 72)) >> 2);
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::setInput(a1, a1 + 13, &v24);
   v18 = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v18, a2[12], a2[13], (a2[13] - a2[12]) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v18, *(a2 + 96), *(a2 + 104), (*(a2 + 104) - *(a2 + 96)) >> 3);
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v21, a2[15], a2[16], (a2[16] - a2[15]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v21, *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 2);
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::setInput(a1, a1 + 16, &v18);
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v12, a2[18], a2[19], (a2[19] - a2[18]) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v12, *(a2 + 144), *(a2 + 152), (*(a2 + 152) - *(a2 + 144)) >> 3);
   __p = 0;
   v16 = 0;
   v17 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, a2[21], a2[22], (a2[22] - a2[21]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(a2 + 168), *(a2 + 176), (*(a2 + 176) - *(a2 + 168)) >> 2);
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::setInput(a1, a1 + 19, &v12);
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::executePlan(a1);
   *(a3 + 16) = 0u;
   *(a3 + 32) = 0u;
   *a3 = 0u;
-  itfm_inference_orchestrator::inference_engine::ITFMModule::getITFMOutput(a1, &v8);
+  itfm_inference_orchestrator::inference_engine::ITFMModule::getITFMOutput(&v8);
   v6 = v9;
   *a3 = v8;
   *(a3 + 16) = v6;
@@ -5229,17 +4117,17 @@ void sub_222931BB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void itfm_inference_orchestrator::inference_engine::ITFMModule::getITFMOutput(itfm_inference_orchestrator::inference_engine::ITFMModule *this@<X0>, void *a2@<X8>)
+void itfm_inference_orchestrator::inference_engine::ITFMModule::getITFMOutput(uint64_t *__return_ptr a1@<X8>)
 {
-  snlp::common::espresso_inference::pre_e5ml::EspressoModule::getOutput(this, this + 22, &v3);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a2, v3, v4, (v4 - v3) >> 3);
-  a2[3] = 0;
-  a2[4] = 0;
-  a2[5] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a2 + 3), __p, v6, (v6 - __p) >> 2);
+  snlp::common::espresso_inference::pre_e5ml::EspressoModule::getOutput(&v3);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a1, v3, v4, (v4 - v3) >> 3);
+  a1[3] = 0;
+  a1[4] = 0;
+  a1[5] = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 3, __p, v6, (v6 - __p) >> 2);
   if (__p)
   {
     v6 = __p;
@@ -5266,35 +4154,34 @@ void sub_222931D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-char **uaap::DateSpanHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3)
+void *uaap::DateSpanHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = DDResultHasType();
   if (result)
   {
 
-    return uaap::DateSpanHandler::mapDateSpanToItemizedUsos(a3);
+    return uaap::DateSpanHandler::mapDateSpanToItemizedUsos(a3, a4);
   }
 
   return result;
 }
 
-char **uaap::DateSpanHandler::mapDateSpanToItemizedUsos(uint64_t a1)
+void *uaap::DateSpanHandler::mapDateSpanToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  v2 = CFHash(@"DateSpan");
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v2);
+  v3 = CFHash(@"DateSpan");
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v3);
   if (result)
   {
-    v5 = result[3];
-    v4 = result[4];
-    if (v4 != v5)
+    v6 = result[3];
+    v5 = result[4];
+    if (v5 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        result = *&v5[8 * v6];
+        result = *(v6 + 8 * v7);
         if (result)
         {
-          v7 = **result;
           if (result)
           {
             v8 = result;
@@ -5304,7 +4191,7 @@ char **uaap::DateSpanHandler::mapDateSpanToItemizedUsos(uint64_t a1)
             }
 
             v9 = v8[16];
-            if (v9 && *(v9 + 6))
+            if (v9 && *(v9 + 48))
             {
               operator new();
             }
@@ -5321,17 +4208,17 @@ char **uaap::DateSpanHandler::mapDateSpanToItemizedUsos(uint64_t a1)
           }
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v6 < (v4 - v5) >> 3);
+      while (v7 < (v5 - v6) >> 3);
     }
   }
 
   return result;
 }
 
-uint64_t uaap::DateSpanHandler::isRecurringDate(uint64_t result)
+BOOL uaap::DateSpanHandler::isRecurringDate(_BOOL8 result)
 {
   if (result)
   {
@@ -5369,7 +4256,7 @@ uint64_t uaap::DateSpanHandler::isRecurringDate(uint64_t result)
   return result;
 }
 
-uint64_t uaap::DateSpanHandler::resolveRecurringDateSpan(siri::ontology::oname::graph::ontology_init *a1, uaap *a2, uint64_t a3, uint64_t a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateSpanHandler::resolveRecurringDateSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDDateSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -5379,35 +4266,34 @@ uint64_t uaap::DateSpanHandler::resolveRecurringDateSpan(siri::ontology::oname::
       {
         if (a4)
         {
-          v6 = *(a3 + 24);
           siri::ontology::oname::graph::ontology_init::Root(a1);
-          v7 = siri::ontology::operator!=();
-          if ((v7 & 1) == 0)
+          v6 = siri::ontology::operator!=();
+          if ((v6 & 1) == 0)
           {
-            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v7);
+            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v6);
             EntityNode = siri::ontology::UsoGraph::createEntityNode();
-            v9 = siri::ontology::oname::graph::ontology_init::Argument_recurrencePeriod(EntityNode);
-            v10 = uaap::DateHandler::resolveDurationValueAndUnit(a1, a2, EntityNode, v9);
-            siri::ontology::oname::graph::ontology_init::common_DateTime(v10);
-            v11 = siri::ontology::UsoGraph::createEntityNode();
-            v13 = uaap::DateHandler::resolveDateTimeRangeValue(a1, a2, v11, v12);
-            if (v13)
+            v8 = siri::ontology::oname::graph::ontology_init::Argument_recurrencePeriod(EntityNode);
+            v9 = uaap::DateHandler::resolveDurationValueAndUnit(a1, a2, EntityNode, v8);
+            siri::ontology::oname::graph::ontology_init::common_DateTime(v9);
+            v10 = siri::ontology::UsoGraph::createEntityNode();
+            v12 = uaap::DateHandler::resolveDateTimeRangeValue(a1, a2, v10, v11);
+            if (v12)
             {
-              siri::ontology::oname::graph::ontology_init::Argument_recurrenceDateTimes(v13);
+              siri::ontology::oname::graph::ontology_init::Argument_recurrenceDateTimes(v12);
               siri::ontology::UsoGraphNode::setSuccessor();
-              v16 = *(a1 + 6);
-              if (v16 && *(v16 + 24))
+              v15 = *(a1 + 6);
+              if (v15 && *(v15 + 24))
               {
-                uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, v11, v15);
+                uaap::TimeHandler::resolveDateTimeQualifierListValue(a1, a2, v10, v14);
               }
             }
 
-            else if (!v10)
+            else if (!v9)
             {
               return 0;
             }
 
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v14);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v13);
           }
         }
       }
@@ -5417,7 +4303,7 @@ uint64_t uaap::DateSpanHandler::resolveRecurringDateSpan(siri::ontology::oname::
   return 0;
 }
 
-uint64_t uaap::DateSpanHandler::resolveDateSpan(siri::ontology::oname::graph::ontology_init *a1, __CFString *a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::DateSpanHandler::resolveDateSpan(siri::ontology::oname::graph::ontology_init *a1, __CFString *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1 || !a2 || !a3 || !a4)
   {
@@ -5546,13 +4432,12 @@ uaap::DateHandler *uaap::DateSpanHandler::resolveDateTimeRangeSpanGraph(uaap::Da
       {
         if (*(v5 + 24))
         {
-          v7 = *(a2 + 11);
           siri::ontology::oname::graph::ontology_init::common_DateTime(this);
           EntityNode = siri::ontology::UsoGraph::createEntityNode();
-          this = uaap::DateHandler::resolveDateTimeRangeValue(v3, a2, EntityNode, v9);
+          this = uaap::DateHandler::resolveDateTimeRangeValue(v3, a2, EntityNode, v8);
           if (this)
           {
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v3, v10);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v3, v9);
           }
         }
       }
@@ -5623,7 +4508,7 @@ LABEL_14:
   return EntityNode;
 }
 
-uint64_t uaap::DateSpanHandler::resolveDateSpanWithOrdinalCount(uaap::DateSpanHandler *this, const __CFString *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateSpanHandler::resolveDateSpanWithOrdinalCount(uaap::DateSpanHandler *this, const __CFString *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
@@ -5631,78 +4516,35 @@ uint64_t uaap::DateSpanHandler::resolveDateSpanWithOrdinalCount(uaap::DateSpanHa
     {
       if (a3)
       {
-        v7 = *(this + 16);
-        if (v7)
+        v6 = *(this + 16);
+        if (v6)
         {
-          if (*(v7 + 88))
+          if (*(v6 + 88))
           {
-            v8 = *(a3 + 3);
             siri::ontology::oname::graph::ontology_init::common_DateTime(this);
-            v9 = siri::ontology::operator!=();
-            if (!v9)
+            v7 = siri::ontology::operator!=();
+            if (!v7 || (siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v7), v9 = siri::ontology::operator!=(), !v9) || (siri::ontology::oname::graph::ontology_init::common_Date(v9), v10 = siri::ontology::operator!=(), !v10) || (siri::ontology::oname::graph::ontology_init::common_Time(v10), v11 = siri::ontology::operator!=(), !v11) || (siri::ontology::oname::graph::ontology_init::common_Integer(v11), v12 = siri::ontology::operator!=(), !v12) || (siri::ontology::oname::graph::ontology_init::common_DayOfWeek(v12), v13 = siri::ontology::operator!=(), !v13) || (siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v13), v14 = siri::ontology::operator!=(), !v14) || (siri::ontology::oname::graph::ontology_init::Root(v14), (siri::ontology::operator!=() & 1) == 0))
             {
-              goto LABEL_14;
-            }
-
-            v11 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v9);
-            v12 = siri::ontology::operator!=();
-            if (!v12)
-            {
-              goto LABEL_14;
-            }
-
-            v13 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::common_Date(v12);
-            v14 = siri::ontology::operator!=();
-            if (!v14)
-            {
-              goto LABEL_14;
-            }
-
-            v15 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::common_Time(v14);
-            v16 = siri::ontology::operator!=();
-            if (!v16)
-            {
-              goto LABEL_14;
-            }
-
-            v17 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::common_Integer(v16);
-            v18 = siri::ontology::operator!=();
-            if (!v18)
-            {
-              goto LABEL_14;
-            }
-
-            v19 = *(a3 + 3);
-            siri::ontology::oname::graph::ontology_init::common_DayOfWeek(v18);
-            v20 = siri::ontology::operator!=();
-            if (!v20 || (v21 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v20), v22 = siri::ontology::operator!=(), !v22) || (v23 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::Root(v22), (siri::ontology::operator!=() & 1) == 0))
-            {
-LABEL_14:
-              OrdinalCountAsListPositionVal = uaap::getOrdinalCountAsListPositionVal(this, a2, v10);
+              OrdinalCountAsListPositionVal = uaap::getOrdinalCountAsListPositionVal(this, a2, v8);
               if (OrdinalCountAsListPositionVal)
               {
-                v25 = OrdinalCountAsListPositionVal;
+                v16 = OrdinalCountAsListPositionVal;
                 siri::ontology::oname::graph::ontology_init::common_ListPosition(OrdinalCountAsListPositionVal);
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
-                v27 = *(a3 + 3);
                 siri::ontology::oname::graph::ontology_init::Root(EntityNode);
-                v28 = siri::ontology::operator==();
-                if (v28)
+                v18 = siri::ontology::operator==();
+                if (v18)
                 {
-                  siri::ontology::oname::graph::ontology_init::Argument_entity(v28);
+                  siri::ontology::oname::graph::ontology_init::Argument_entity(v18);
                   siri::ontology::UsoGraphNode::setSuccessor();
-                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(*(this + 16) + 88), v29);
+                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(*(this + 16) + 88), v19);
                 }
 
-                siri::ontology::oname::graph::ontology_init::Argument_usoListPosition(v28);
-                v30 = siri::ontology::UsoGraphNode::setSuccessor();
-                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v30);
+                siri::ontology::oname::graph::ontology_init::Argument_usoListPosition(v18);
+                v20 = siri::ontology::UsoGraphNode::setSuccessor();
+                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v20);
                 siri::ontology::UsoGraphNode::setSuccessor();
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v25, this, v31);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v16, this, v21);
               }
             }
           }
@@ -5714,7 +4556,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t uaap::resolveDateSpanRelativeDay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::resolveDateSpanRelativeDay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = 0;
   if (a1 && a2 && a3 && a4)
@@ -5856,7 +4698,7 @@ uint64_t uaap::getOrdinalCountAsListPositionVal(uaap *this, const __CFString *a2
 
 uint64_t uaap::DateSpanHandler::getMonthOfYearDefinedValue(const __CFString *this, const __CFString *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   IntValueFromCFStringRef = uaap::UPDDSpan::extractIntValueFromCFStringRef(this, a2);
   switch(IntValueFromCFStringRef)
   {
@@ -5865,7 +4707,7 @@ uint64_t uaap::DateSpanHandler::getMonthOfYearDefinedValue(const __CFString *thi
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         applesauce::CF::convert_to<std::string,0>(__p, this);
-        if (v22 >= 0)
+        if (v9 >= 0)
         {
           v5 = __p;
         }
@@ -5876,9 +4718,9 @@ uint64_t uaap::DateSpanHandler::getMonthOfYearDefinedValue(const __CFString *thi
         }
 
         *buf = 136315138;
-        v24 = v5;
+        v11 = v5;
         _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEFAULT, "Warning: failed to parse month number string as an integer: '%s'. Returning nullptr.", buf, 0xCu);
-        if (v22 < 0)
+        if (v9 < 0)
         {
           operator delete(__p[0]);
         }
@@ -5886,76 +4728,63 @@ uint64_t uaap::DateSpanHandler::getMonthOfYearDefinedValue(const __CFString *thi
 
       goto LABEL_37;
     case 1:
-      v13 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3D40]();
       break;
     case 2:
-      v10 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3DB0]();
       break;
     case 3:
-      v11 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3C80]();
       break;
     case 4:
-      v7 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3C78]();
       break;
     case 5:
-      v14 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3BE0]();
       break;
     case 6:
-      v17 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3C40]();
       break;
     case 7:
-      v12 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3C38]();
       break;
     case 8:
-      v19 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3CF8]();
       break;
     case 9:
-      v9 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3E08]();
       break;
     case 10:
-      v18 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3D48]();
       break;
     case 11:
-      v6 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3DB8]();
       break;
     case 12:
-      v8 = *MEMORY[0x277D85DE8];
 
       result = MEMORY[0x2821C3DA8]();
       break;
     default:
-      v15 = SNLPOSLoggerForCategory(3);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v6 = SNLPOSLoggerForCategory(3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(__p[0]) = 67109120;
         HIDWORD(__p[0]) = IntValueFromCFStringRef;
-        _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEFAULT, "Warning: parsed month number not in [1, 12]: %u. Returning nullptr.", __p, 8u);
+        _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEFAULT, "Warning: parsed month number not in [1, 12]: %u. Returning nullptr.", __p, 8u);
       }
 
 LABEL_37:
-      v16 = *MEMORY[0x277D85DE8];
       result = 0;
       break;
   }
@@ -6167,10 +4996,10 @@ uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::SSUAppExamplesPositiveI
   return result;
 }
 
-uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t *snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v3 = *(this + 8);
-  v2 = *(this + 16);
+  v3 = this[1];
+  v2 = this[2];
   v4 = *(this + 32);
   while (1)
   {
@@ -6187,7 +5016,7 @@ uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t t
         }
 
         v10 = v2 + 72;
-        *(this + 16) = v2 + 72;
+        this[2] = v2 + 72;
         if (v2 + 72 == v3)
         {
           goto LABEL_19;
@@ -6200,7 +5029,7 @@ uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t t
       }
 
       v6 = *(v2 + 56);
-      v7 = *(this + 24);
+      v7 = this[3];
       v8 = v7 == v6;
       if (v7 != v6 || v2 == v3)
       {
@@ -6208,7 +5037,7 @@ uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t t
       }
 
       v10 = v2 + 72;
-      *(this + 16) = v2 + 72;
+      this[2] = v2 + 72;
       if (v2 + 72 == v3)
       {
         goto LABEL_19;
@@ -6218,7 +5047,7 @@ uint64_t snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext@<X0>(uint64_t t
 LABEL_15:
       v2 = v10;
       v5 = 0;
-      *(this + 24) = v11;
+      this[3] = v11;
       v4 = 1;
       if (v8)
       {
@@ -6237,18 +5066,18 @@ LABEL_18:
     {
 LABEL_19:
       v12 = 0;
-      *a2 = 0;
+      *a1 = 0;
       goto LABEL_20;
     }
   }
 
-  *(this + 24) = v7 + 24;
-  *a2 = 0x8E38E38E38E38E39 * ((v2 - *this) >> 3);
-  *(a2 + 8) = v2;
-  *(a2 + 16) = v7;
+  this[3] = v7 + 24;
+  *a1 = 0x8E38E38E38E38E39 * ((v2 - *this) >> 3);
+  a1[1] = v2;
+  a1[2] = v7;
   v12 = 1;
 LABEL_20:
-  *(a2 + 24) = v12;
+  *(a1 + 24) = v12;
   return this;
 }
 
@@ -6278,15 +5107,15 @@ uint64_t snlp::common::espresso_inference::e5ml::selflogging::convertErrorCode(u
   }
 }
 
-void sub_222934274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int16 a11, char a12, char a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+void sub_222934274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   std::unique_ptr<siri::ontology::UsoUtteranceAlignment>::~unique_ptr[abi:ne200100](&a10);
-  std::unique_ptr<siri::ontology::UsoUtteranceAlignment>::~unique_ptr[abi:ne200100](&a27);
+  std::unique_ptr<siri::ontology::UsoUtteranceAlignment>::~unique_ptr[abi:ne200100](&a28);
 
   _Unwind_Resume(a1);
 }
 
-void siri::ontology::UsoUtteranceAlignment::UsoUtteranceAlignment(uint64_t a1)
+void siri::ontology::UsoUtteranceAlignment::UsoUtteranceAlignment(uint64_t a1, int a2, int a3, int a4, int a5)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -6295,9 +5124,9 @@ void siri::ontology::UsoUtteranceAlignment::UsoUtteranceAlignment(uint64_t a1)
   operator new();
 }
 
-void sub_2229344A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2229344A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::unique_ptr<siri::ontology::UsoUtteranceSpan>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6394,42 +5223,41 @@ void sub_22293579C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char **uaap::DateHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3)
+void *uaap::DateHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = DDResultHasType();
   if (result)
   {
 
-    return uaap::DateHandler::mapDateToItemizedUsos(a3);
+    return uaap::DateHandler::mapDateToItemizedUsos(a3, a4);
   }
 
   return result;
 }
 
-char **uaap::DateHandler::mapDateToItemizedUsos(uint64_t a1)
+void *uaap::DateHandler::mapDateToItemizedUsos(uint64_t a1, uint64_t a2)
 {
-  v2 = CFHash(@"Date");
-  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v2);
+  v3 = CFHash(@"Date");
+  result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v3);
   if (result)
   {
-    v4 = result;
-    v5 = CFHash(@"DateTime");
-    result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v5);
-    v6 = v4[3];
-    if (v4[4] != v6)
+    v5 = result;
+    v6 = CFHash(@"DateTime");
+    result = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(*a1, *(a1 + 8), v6);
+    v7 = v5[3];
+    if (v5[4] != v7)
     {
-      v7 = result;
-      v8 = 0;
+      v8 = result;
+      v9 = 0;
       do
       {
-        result = *&v6[8 * v8];
+        result = *(v7 + 8 * v9);
         if (result)
         {
-          v9 = **result;
           if (result)
           {
             v10 = result;
-            if (!v7)
+            if (!v8)
             {
               result = uaap::DateSpanHandler::isRecurringDate(result);
               if (result)
@@ -6465,18 +5293,18 @@ char **uaap::DateHandler::mapDateToItemizedUsos(uint64_t a1)
           }
         }
 
-        ++v8;
-        v6 = v4[3];
+        ++v9;
+        v7 = v5[3];
       }
 
-      while (v8 < (v4[4] - v6) >> 3);
+      while (v9 < (v5[4] - v7) >> 3);
     }
   }
 
   return result;
 }
 
-uint64_t uaap::DateHandler::resolveRecurringDateSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDDateOffsetSpan *a2, uint64_t a3, uint64_t a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveRecurringDateSpan(siri::ontology::oname::graph::ontology_init *a1, uaap::UPDDDateOffsetSpan *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -6486,19 +5314,18 @@ uint64_t uaap::DateHandler::resolveRecurringDateSpan(siri::ontology::oname::grap
       {
         if (a4)
         {
-          v6 = *(a3 + 24);
           siri::ontology::oname::graph::ontology_init::Root(a1);
-          v7 = siri::ontology::operator!=();
-          if ((v7 & 1) == 0)
+          v6 = siri::ontology::operator!=();
+          if ((v6 & 1) == 0)
           {
-            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v7);
+            siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(v6);
             EntityNode = siri::ontology::UsoGraph::createEntityNode();
             siri::ontology::oname::graph::ontology_init::common_DateTime(EntityNode);
-            v9 = siri::ontology::UsoGraph::createEntityNode();
-            v10 = siri::ontology::oname::graph::ontology_init::Argument_date(v9);
-            if (uaap::DateHandler::resolveDate(a1, a2, v9, v10, v11))
+            v8 = siri::ontology::UsoGraph::createEntityNode();
+            v9 = siri::ontology::oname::graph::ontology_init::Argument_date(v8);
+            if (uaap::DateHandler::resolveDate(a1, a2, v8, v9, v10))
             {
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v12);
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v11);
             }
           }
         }
@@ -6515,23 +5342,22 @@ siri::ontology::UsoGraph *uaap::DateHandler::resolveDateOffset(uint64_t a1, uaap
   if (a1 && a2 && a3 && a4)
   {
     v8 = CFEqual(*(a1 + 8), @"Date");
-    if (v8 && *(a1 + 120) && ((v9 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::Root(v8), v10 = siri::ontology::operator!=(), !v10) || (v11 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_DateTime(v10), v10 = siri::ontology::operator!=(), (v10 & 1) == 0)))
+    if (v8 && *(a1 + 120) && ((siri::ontology::oname::graph::ontology_init::Root(v8), v9 = siri::ontology::operator!=(), !v9) || (siri::ontology::oname::graph::ontology_init::common_DateTime(v9), v9 = siri::ontology::operator!=(), (v9 & 1) == 0)))
     {
-      v12 = *(a1 + 120);
-      v13 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_DateTime(v10);
-      v14 = siri::ontology::operator==();
-      if ((v14 & 1) == 0)
+      v10 = *(a1 + 120);
+      siri::ontology::oname::graph::ontology_init::common_DateTime(v9);
+      v11 = siri::ontology::operator==();
+      if ((v11 & 1) == 0)
       {
-        siri::ontology::oname::graph::ontology_init::common_DateTime(v14);
+        siri::ontology::oname::graph::ontology_init::common_DateTime(v11);
         EntityNode = siri::ontology::UsoGraph::createEntityNode();
-        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v12, v17);
+        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v10, v14);
       }
 
-      v18 = uaap::DateHandler::resolveOffsetDirection(v12, a2, a3, v15);
-      v19 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(v18);
-      uaap::DateHandler::resolveOffsetDurationValueAndUnit(v12, a2, a3, v19);
-      uaap::resolveOffsetReference(a1, a2, a3, v20);
+      uaap::DateHandler::resolveOffsetDirection(v10, a2, a3, v12);
+      v16 = siri::ontology::oname::graph::ontology_init::Argument_offsetValue(v15);
+      uaap::DateHandler::resolveOffsetDurationValueAndUnit(v10, a2, a3, v16);
+      uaap::resolveOffsetReference(a1, a2, a3, v17);
       return a3;
     }
 
@@ -6558,20 +5384,17 @@ siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveDateDurat
   return this;
 }
 
-uaap::DateHandler *uaap::DateHandler::resolveRelativeDayOfWeekGraph(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3)
+void uaap::DateHandler::resolveRelativeDayOfWeekGraph(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3)
 {
   if (this)
   {
-    v4 = this;
     v5 = *(a2 + 11);
     v6 = *(this + 13);
     v7 = siri::ontology::oname::graph::ontology_init::Argument_entity(this);
     v9 = uaap::DateHandler::resolveRelativeDayOfWeek(v6, a2, v5, v7);
 
-    return uaap::DateHandler::updateDayOfWeekWithListValIfExists(v4, a2, v9, v8, v10);
+    uaap::DateHandler::updateDayOfWeekWithListValIfExists(this, a2, v9, v8, v10);
   }
-
-  return this;
 }
 
 siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveRelativeDayGraph(siri::ontology::oname::graph::ontology_init *this, uaap::UPDDSpan *a2, siri::ontology::UsoGraph *a3)
@@ -6602,88 +5425,87 @@ siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveAbsoluteD
   return this;
 }
 
-uint64_t uaap::DateHandler::resolveDateTimeRangeWithQualifier(siri::ontology::oname::graph::ontology_init *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveDateTimeRangeWithQualifier(siri::ontology::oname::graph::ontology_init *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 && a2 && a3 && a4 && *(a1 + 6) && (*(a1 + 16) || *(a1 + 12) || *(a1 + 13) || *(a1 + 14)))
   {
-    v6 = *(a3 + 24);
     siri::ontology::oname::graph::ontology_init::Root(a1);
-    v7 = siri::ontology::operator!=();
-    if ((v7 & 1) == 0)
+    v6 = siri::ontology::operator!=();
+    if ((v6 & 1) == 0)
     {
-      siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v7);
+      siri::ontology::oname::graph::ontology_init::common_DateTimeRange(v6);
       EntityNode = siri::ontology::UsoGraph::createEntityNode();
-      v9 = *(a1 + 6);
-      v10 = siri::ontology::oname::graph::ontology_init::Argument_qualifier(EntityNode);
-      v11 = uaap::TimeHandler::resolveDateTimeRangeQualifierValue(v9, a2, EntityNode, v10);
-      if (v11)
+      v8 = *(a1 + 6);
+      v9 = siri::ontology::oname::graph::ontology_init::Argument_qualifier(EntityNode);
+      v10 = uaap::TimeHandler::resolveDateTimeRangeQualifierValue(v8, a2, EntityNode, v9);
+      if (v10)
       {
-        siri::ontology::oname::graph::ontology_init::common_DateTime(v11);
-        v12 = siri::ontology::UsoGraph::createEntityNode();
-        v13 = v12;
-        v14 = *(a1 + 16);
-        if (v14)
+        siri::ontology::oname::graph::ontology_init::common_DateTime(v10);
+        v11 = siri::ontology::UsoGraph::createEntityNode();
+        v12 = v11;
+        v13 = *(a1 + 16);
+        if (v13)
         {
-          v15 = siri::ontology::oname::graph::ontology_init::Argument_date(v12);
-          v12 = uaap::DateHandler::resolveSpecialDatePeriodUnit(v14, a2, v13, v15);
-          if (v12)
+          v14 = siri::ontology::oname::graph::ontology_init::Argument_date(v11);
+          v11 = uaap::DateHandler::resolveSpecialDatePeriodUnit(v13, a2, v12, v14);
+          if (v11)
           {
-            v16 = 1;
+            v15 = 1;
           }
 
           else
           {
-            v17 = siri::ontology::oname::graph::ontology_init::Argument_date(0);
-            v12 = uaap::DateSpanHandler::resolveDateWithMonthOfYear(a1, a2, v13, v17);
-            v16 = v12 != 0;
+            v16 = siri::ontology::oname::graph::ontology_init::Argument_date(0);
+            v11 = uaap::DateSpanHandler::resolveDateWithMonthOfYear(a1, a2, v12, v16);
+            v15 = v11 != 0;
           }
         }
 
         else
         {
-          v16 = 0;
+          v15 = 0;
         }
 
-        v18 = *(a1 + 12);
-        if (v18)
+        v17 = *(a1 + 12);
+        if (v17)
         {
-          v19 = siri::ontology::oname::graph::ontology_init::Argument_date(v12);
-          v12 = uaap::DateHandler::resolveRelativeDay(v18, a2, v13, v19);
-          if (v12)
+          v18 = siri::ontology::oname::graph::ontology_init::Argument_date(v11);
+          v11 = uaap::DateHandler::resolveRelativeDay(v17, a2, v12, v18);
+          if (v11)
           {
-            v16 = 1;
+            v15 = 1;
           }
         }
 
-        v20 = *(a1 + 13);
-        if (v20)
+        v19 = *(a1 + 13);
+        if (v19)
         {
-          v21 = siri::ontology::oname::graph::ontology_init::Argument_date(v12);
-          v12 = uaap::DateHandler::resolveRelativeDayOfWeek(v20, a2, v13, v21);
-          if (v12)
+          v20 = siri::ontology::oname::graph::ontology_init::Argument_date(v11);
+          v11 = uaap::DateHandler::resolveRelativeDayOfWeek(v19, a2, v12, v20);
+          if (v11)
           {
-            v16 = 1;
+            v15 = 1;
           }
         }
 
-        v22 = *(a1 + 14);
-        if (v22)
+        v21 = *(a1 + 14);
+        if (v21)
         {
-          v23 = siri::ontology::oname::graph::ontology_init::Argument_date(v12);
-          v12 = uaap::DateHandler::resolveAbsoluteDate(v22, a2, v13, v23);
-          if (v12 != 0 || v16)
+          v22 = siri::ontology::oname::graph::ontology_init::Argument_date(v11);
+          v11 = uaap::DateHandler::resolveAbsoluteDate(v21, a2, v12, v22);
+          if (v11 != 0 || v15)
           {
             goto LABEL_25;
           }
         }
 
-        else if (v16)
+        else if (v15)
         {
 LABEL_25:
-          siri::ontology::oname::graph::ontology_init::Argument_at(v12);
+          siri::ontology::oname::graph::ontology_init::Argument_at(v11);
           siri::ontology::UsoGraphNode::setSuccessor();
           siri::ontology::UsoGraphNode::setSuccessor();
-          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v24);
+          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v23);
         }
       }
     }
@@ -6692,7 +5514,7 @@ LABEL_25:
   return 0;
 }
 
-uint64_t uaap::DateHandler::resolveSpecialDatePeriodUnit(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveSpecialDatePeriodUnit(siri::ontology::oname::graph::ontology_init *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -6704,63 +5526,62 @@ uint64_t uaap::DateHandler::resolveSpecialDatePeriodUnit(siri::ontology::oname::
         {
           if (*(a1 + 6))
           {
-            v5 = *(a3 + 24);
             siri::ontology::oname::graph::ontology_init::common_DateTime(a1);
             if ((siri::ontology::operator!=() & 1) == 0)
             {
-              v6 = CFEqual(*(*(a1 + 6) + 24), @"day");
-              if (v6)
+              v5 = CFEqual(*(*(a1 + 6) + 24), @"day");
+              if (v5)
               {
-                siri::ontology::oname::graph::ontology_init::common_Date(v6);
+                siri::ontology::oname::graph::ontology_init::common_Date(v5);
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
                 siri::ontology::oname::graph::ontology_init::common_Integer(EntityNode);
-                v8 = siri::ontology::UsoGraph::createEntityNode();
-                siri::ontology::oname::graph::ontology_init::Argument_dayOfMonth(v8);
+                v7 = siri::ontology::UsoGraph::createEntityNode();
+                siri::ontology::oname::graph::ontology_init::Argument_dayOfMonth(v7);
               }
 
               else
               {
-                v9 = CFEqual(*(*(a1 + 6) + 24), @"week");
-                if (v9)
+                v8 = CFEqual(*(*(a1 + 6) + 24), @"week");
+                if (v8)
                 {
-                  siri::ontology::oname::graph::ontology_init::common_Date(v9);
-                  v10 = siri::ontology::UsoGraph::createEntityNode();
-                  siri::ontology::oname::graph::ontology_init::common_Integer(v10);
-                  v8 = siri::ontology::UsoGraph::createEntityNode();
-                  siri::ontology::oname::graph::ontology_init::Argument_weekOfYear(v8);
+                  siri::ontology::oname::graph::ontology_init::common_Date(v8);
+                  v9 = siri::ontology::UsoGraph::createEntityNode();
+                  siri::ontology::oname::graph::ontology_init::common_Integer(v9);
+                  v7 = siri::ontology::UsoGraph::createEntityNode();
+                  siri::ontology::oname::graph::ontology_init::Argument_weekOfYear(v7);
                 }
 
                 else
                 {
-                  v11 = CFEqual(*(*(a1 + 6) + 24), @"month");
-                  if (v11)
+                  v10 = CFEqual(*(*(a1 + 6) + 24), @"month");
+                  if (v10)
                   {
-                    siri::ontology::oname::graph::ontology_init::common_Date(v11);
-                    v12 = siri::ontology::UsoGraph::createEntityNode();
-                    siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v12);
-                    v8 = siri::ontology::UsoGraph::createEntityNode();
-                    siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v8);
+                    siri::ontology::oname::graph::ontology_init::common_Date(v10);
+                    v11 = siri::ontology::UsoGraph::createEntityNode();
+                    siri::ontology::oname::graph::ontology_init::common_MonthOfYear(v11);
+                    v7 = siri::ontology::UsoGraph::createEntityNode();
+                    siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v7);
                   }
 
                   else
                   {
-                    v13 = CFEqual(*(*(a1 + 6) + 24), @"year");
-                    if (!v13)
+                    v12 = CFEqual(*(*(a1 + 6) + 24), @"year");
+                    if (!v12)
                     {
                       return 0;
                     }
 
-                    siri::ontology::oname::graph::ontology_init::common_Date(v13);
-                    v14 = siri::ontology::UsoGraph::createEntityNode();
-                    siri::ontology::oname::graph::ontology_init::common_Integer(v14);
-                    v8 = siri::ontology::UsoGraph::createEntityNode();
-                    siri::ontology::oname::graph::ontology_init::Argument_year(v8);
+                    siri::ontology::oname::graph::ontology_init::common_Date(v12);
+                    v13 = siri::ontology::UsoGraph::createEntityNode();
+                    siri::ontology::oname::graph::ontology_init::common_Integer(v13);
+                    v7 = siri::ontology::UsoGraph::createEntityNode();
+                    siri::ontology::oname::graph::ontology_init::Argument_year(v7);
                   }
                 }
               }
 
               siri::ontology::UsoGraphNode::setSuccessor();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v8, a1, v15);
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v7, a1, v14);
             }
           }
         }
@@ -6771,7 +5592,7 @@ uint64_t uaap::DateHandler::resolveSpecialDatePeriodUnit(siri::ontology::oname::
   return 0;
 }
 
-uint64_t uaap::DateHandler::resolveRelativeDay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::DateHandler::resolveRelativeDay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -6799,7 +5620,7 @@ uint64_t uaap::DateHandler::resolveRelativeDay(uint64_t a1, uint64_t a2, uint64_
   return 0;
 }
 
-uint64_t uaap::DateHandler::resolveRelativeDayOfWeek(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::DateHandler::resolveRelativeDayOfWeek(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 && a2 && a3 && a4 && (CFEqual(*(a1 + 8), @"DayOfWeek") || CFEqual(*(a1 + 8), @"DayOfNextWeek") || CFEqual(*(a1 + 8), @"DayOfThisWeek")))
   {
@@ -6820,18 +5641,9 @@ uaap::AbstractDateTimeHandler *uaap::DateHandler::resolveAbsoluteDate(uint64_t a
   EntityNode = 0;
   if (a1 && a2 && a3 && a4)
   {
-    if (!*(a1 + 24) || !*(a1 + 56) && !*(a1 + 64) && !*(a1 + 72) && !*(a1 + 80))
+    if (*(a1 + 24) && (*(a1 + 56) || *(a1 + 64) || *(a1 + 72) || *(a1 + 80)) && ((siri::ontology::oname::graph::ontology_init::Root(a1), v7 = siri::ontology::operator!=(), !v7) || (siri::ontology::oname::graph::ontology_init::common_DateTime(v7), v7 = siri::ontology::operator!=(), !v7) || (siri::ontology::oname::graph::ontology_init::common_Date(v7), v7 = siri::ontology::operator!=(), (v7 & 1) == 0)))
     {
-      return 0;
-    }
-
-    v7 = *(a3 + 3);
-    siri::ontology::oname::graph::ontology_init::Root(a1);
-    v8 = siri::ontology::operator!=();
-    if (!v8 || (v9 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_DateTime(v8), v8 = siri::ontology::operator!=(), !v8) || (v10 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_Date(v8), v8 = siri::ontology::operator!=(), (v8 & 1) == 0))
-    {
-      v11 = *(a3 + 3);
-      siri::ontology::oname::graph::ontology_init::common_Date(v8);
+      siri::ontology::oname::graph::ontology_init::common_Date(v7);
       MonthOfYearDefinedValue = siri::ontology::operator!=();
       if (MonthOfYearDefinedValue)
       {
@@ -6845,86 +5657,86 @@ uaap::AbstractDateTimeHandler *uaap::DateHandler::resolveAbsoluteDate(uint64_t a
         EntityNode = a3;
       }
 
-      v15 = *(a1 + 56);
-      if (v15 && *(v15 + 24))
+      v11 = *(a1 + 56);
+      if (v11 && *(v11 + 24))
       {
-        uaap::toUTF8String(*(a1 + 24), v13);
+        uaap::toUTF8String(*(a1 + 24));
       }
 
-      v16 = *(a1 + 64);
-      if (v16 && *(v16 + 24))
+      v12 = *(a1 + 64);
+      if (v12 && *(v12 + 24))
       {
         siri::ontology::oname::graph::ontology_init::common_Integer(MonthOfYearDefinedValue);
-        v17 = siri::ontology::UsoGraph::createEntityNode();
-        siri::ontology::oname::graph::ontology_init::Argument_dayOfMonth(v17);
+        v13 = siri::ontology::UsoGraph::createEntityNode();
+        siri::ontology::oname::graph::ontology_init::Argument_dayOfMonth(v13);
         siri::ontology::UsoGraphNode::setSuccessor();
-        uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(a1 + 64) + 24), v18);
+        uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(a1 + 64) + 24), v14);
         IntNode = siri::ontology::UsoGraph::createIntNode();
         siri::ontology::oname::graph::ontology_init::Argument_integerValue(IntNode);
         siri::ontology::UsoGraphNode::setSuccessor();
-        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(IntNode, *(a1 + 64), v20);
+        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(IntNode, *(a1 + 64), v16);
       }
 
-      v21 = *(a1 + 72);
-      if (v21)
+      v17 = *(a1 + 72);
+      if (v17)
       {
-        MonthOfYearDefinedValue = *(v21 + 24);
+        MonthOfYearDefinedValue = *(v17 + 24);
         if (MonthOfYearDefinedValue)
         {
-          MonthOfYearDefinedValue = uaap::DateSpanHandler::getMonthOfYearDefinedValue(MonthOfYearDefinedValue, v13);
+          MonthOfYearDefinedValue = uaap::DateSpanHandler::getMonthOfYearDefinedValue(MonthOfYearDefinedValue, v9);
           if (MonthOfYearDefinedValue)
           {
             siri::ontology::oname::graph::ontology_init::common_MonthOfYear(MonthOfYearDefinedValue);
-            v22 = siri::ontology::UsoGraph::createEntityNode();
-            siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v22);
+            v18 = siri::ontology::UsoGraph::createEntityNode();
+            siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v18);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::DateSpanHandler::getMonthOfYearDefinedValue(*(*(a1 + 72) + 24), v23);
-            v24 = siri::ontology::UsoGraph::createEntityNode();
-            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v24);
+            uaap::DateSpanHandler::getMonthOfYearDefinedValue(*(*(a1 + 72) + 24), v19);
+            v20 = siri::ontology::UsoGraph::createEntityNode();
+            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v20);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v24, *(a1 + 72), v25);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v20, *(a1 + 72), v21);
           }
         }
       }
 
-      v26 = *(a1 + 80);
-      if (v26 && *(v26 + 24))
+      v22 = *(a1 + 80);
+      if (v22 && *(v22 + 24))
       {
         siri::ontology::oname::graph::ontology_init::common_Integer(MonthOfYearDefinedValue);
-        v27 = siri::ontology::UsoGraph::createEntityNode();
-        siri::ontology::oname::graph::ontology_init::Argument_year(v27);
+        v23 = siri::ontology::UsoGraph::createEntityNode();
+        siri::ontology::oname::graph::ontology_init::Argument_year(v23);
         siri::ontology::UsoGraphNode::setSuccessor();
-        uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(a1 + 80) + 24), v28);
-        v29 = siri::ontology::UsoGraph::createIntNode();
-        siri::ontology::oname::graph::ontology_init::Argument_integerValue(v29);
+        uaap::UPDDSpan::extractIntValueFromCFStringRef(*(*(a1 + 80) + 24), v24);
+        v25 = siri::ontology::UsoGraph::createIntNode();
+        siri::ontology::oname::graph::ontology_init::Argument_integerValue(v25);
         siri::ontology::UsoGraphNode::setSuccessor();
-        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v29, *(a1 + 80), v30);
+        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v25, *(a1 + 80), v26);
       }
 
-      v31 = *(a1 + 88);
-      if (v31)
+      v27 = *(a1 + 88);
+      if (v27)
       {
-        v32 = *(v31 + 24);
-        if (v32)
+        v28 = *(v27 + 24);
+        if (v28)
         {
-          DayOfWeekDefinedValue = uaap::getDayOfWeekDefinedValue(v32, v13);
+          DayOfWeekDefinedValue = uaap::getDayOfWeekDefinedValue(v28, v9);
           if (DayOfWeekDefinedValue)
           {
             siri::ontology::oname::graph::ontology_init::common_DayOfWeek(DayOfWeekDefinedValue);
-            v34 = siri::ontology::UsoGraph::createEntityNode();
-            siri::ontology::oname::graph::ontology_init::Argument_dayOfWeek(v34);
+            v30 = siri::ontology::UsoGraph::createEntityNode();
+            siri::ontology::oname::graph::ontology_init::Argument_dayOfWeek(v30);
             siri::ontology::UsoGraphNode::setSuccessor();
-            v35 = siri::ontology::UsoGraph::createEntityNode();
-            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v35);
+            v31 = siri::ontology::UsoGraph::createEntityNode();
+            siri::ontology::oname::graph::ontology_init::Argument_definedValue(v31);
             siri::ontology::UsoGraphNode::setSuccessor();
-            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v34, *(a1 + 88), v36);
+            uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v30, *(a1 + 88), v32);
           }
         }
       }
 
       if (*(EntityNode + 7) == *(EntityNode + 8))
       {
-        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v14);
+        uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v10);
       }
     }
 
@@ -7075,11 +5887,11 @@ uint64_t uaap::getRelativeDayDefinedValue(const __CFString *this, const __CFStri
   }
 }
 
-const void *uaap::DateHandler::updateDayOfWeekWithListValIfExists(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4, siri::ontology::UsoEntityNode *a5)
+void uaap::DateHandler::updateDayOfWeekWithListValIfExists(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4, siri::ontology::UsoEntityNode *a5)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  result = uaap::TimeHandler::resolveDateTimeQualifierListValue(this, a2, a4, a4);
-  if (a3 && result)
+  v15 = *MEMORY[0x277D85DE8];
+  v7 = uaap::TimeHandler::resolveDateTimeQualifierListValue(this, a2, a4, a4);
+  if (a3 && v7)
   {
     v8 = *(a3 + 7);
     v9 = *(a3 + 8);
@@ -7098,14 +5910,11 @@ const void *uaap::DateHandler::updateDayOfWeekWithListValIfExists(uaap::DateHand
 
     *(a3 + 8) = v8;
     v12 = *(this + 13);
-    v15[0] = *(this + 6);
-    v15[1] = v12;
+    v14[0] = *(this + 6);
+    v14[1] = v12;
     memset(__p, 0, sizeof(__p));
-    std::vector<uaap::UPDDSpan *>::__init_with_size[abi:ne200100]<uaap::UPDDSpan * const*,uaap::UPDDSpan * const*>(__p, v15, &v16, 2uLL);
+    std::vector<uaap::UPDDSpan *>::__init_with_size[abi:ne200100]<uaap::UPDDSpan * const*,uaap::UPDDSpan * const*>(__p, v14, &v15, 2uLL);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_222937490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
@@ -7118,7 +5927,7 @@ void sub_222937490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t uaap::DateHandler::resolveOffsetDurationValueAndUnit(uint64_t a1, uaap *a2, uint64_t a3, uint64_t a4)
+uaap::AbstractDateTimeHandler *uaap::DateHandler::resolveOffsetDurationValueAndUnit(siri::ontology::UsoGraph **a1, uaap *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
@@ -7128,44 +5937,43 @@ uint64_t uaap::DateHandler::resolveOffsetDurationValueAndUnit(uint64_t a1, uaap 
       {
         if (a4)
         {
-          v7 = *(a3 + 24);
           siri::ontology::oname::graph::ontology_init::common_DateTime(a1);
-          v8 = siri::ontology::operator!=();
-          if (!v8 || (v11 = *(a3 + 24), siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(v8), v8 = siri::ontology::operator!=(), !v8) || (v12 = *(a3 + 24), siri::ontology::oname::graph::ontology_init::Root(v8), v8 = siri::ontology::operator!=(), (v8 & 1) == 0))
+          v6 = siri::ontology::operator!=();
+          if (!v6 || (siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(v6), v6 = siri::ontology::operator!=(), !v6) || (siri::ontology::oname::graph::ontology_init::Root(v6), v6 = siri::ontology::operator!=(), (v6 & 1) == 0))
           {
-            v13 = *(a1 + 80);
-            if (v13)
+            v9 = a1[10];
+            if (v9)
             {
-              v8 = uaap::addSpecialDateUnit(a2, v13, v9);
-              v15 = v8;
-              if (v8)
+              v6 = uaap::addSpecialDateUnit(a2, v9, v7);
+              v11 = v6;
+              if (v6)
               {
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v8, a1, v14);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v6, a1, v10);
               }
             }
 
             else
             {
-              v15 = 0;
+              v11 = 0;
             }
 
-            v16 = *(a1 + 56);
-            if (v16 && *(v16 + 3))
+            v12 = a1[7];
+            if (v12 && *(v12 + 3))
             {
-              v8 = uaap::addOccurrenceCount(a2, v16, *(a1 + 72), *(a1 + 64), v10);
-              v17 = v8;
+              v6 = uaap::addOccurrenceCount(a2, v12, a1[9], a1[8], v8);
+              v13 = v6;
             }
 
             else
             {
-              v17 = 0;
+              v13 = 0;
             }
 
-            if (v15 | v17)
+            if (v11 | v13)
             {
-              siri::ontology::oname::graph::ontology_init::common_Duration(v8);
+              siri::ontology::oname::graph::ontology_init::common_Duration(v6);
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
-              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v19);
+              uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v15);
             }
           }
         }
@@ -7234,9 +6042,9 @@ uint64_t uaap::addSpecialDateUnit(uaap *this, CFTypeRef *a2, const uaap::UPDDSpa
   return siri::ontology::UsoGraph::createEntityNode();
 }
 
-uint64_t uaap::addOccurrenceCount(uaap *this, siri::ontology::UsoGraph *a2, uaap::UPDDSpan *a3, uaap::UPDDSpan *a4, uaap::UPDDSpan *a5)
+siri::ontology::oname::graph::ontology_init *uaap::addOccurrenceCount(uaap *this, siri::ontology::UsoGraph *a2, uaap::UPDDSpan *a3, uaap::UPDDSpan *a4, uaap::UPDDSpan *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v6 = *(a2 + 3);
@@ -7264,7 +6072,7 @@ uint64_t uaap::addOccurrenceCount(uaap *this, siri::ontology::UsoGraph *a2, uaap
             v18 = SNLPOSLoggerForCategory(6);
             if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              goto LABEL_19;
+              return 0;
             }
 
             *buf = 134217984;
@@ -7278,13 +6086,13 @@ uint64_t uaap::addOccurrenceCount(uaap *this, siri::ontology::UsoGraph *a2, uaap
         {
           siri::ontology::oname::graph::ontology_init::common_MixedFraction(IntValueFromCFStringRef);
           siri::ontology::UsoGraph::createEntityNode();
-          v23 = siri::ontology::UsoGraph::createIntNode();
-          siri::ontology::oname::graph::ontology_init::Argument_numeratorValue(v23);
+          v22 = siri::ontology::UsoGraph::createIntNode();
+          siri::ontology::oname::graph::ontology_init::Argument_numeratorValue(v22);
           siri::ontology::UsoGraphNode::setSuccessor();
-          v26 = siri::ontology::UsoGraph::createIntNode();
-          siri::ontology::oname::graph::ontology_init::Argument_denominatorValue(v26);
+          v25 = siri::ontology::UsoGraph::createIntNode();
+          siri::ontology::oname::graph::ontology_init::Argument_denominatorValue(v25);
           siri::ontology::UsoGraphNode::setSuccessor();
-          v13 = v26;
+          v13 = v25;
 LABEL_6:
           uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v13, a2, v12);
         }
@@ -7296,10 +6104,10 @@ LABEL_6:
         {
           siri::ontology::oname::graph::ontology_init::common_MixedFraction(v17);
           siri::ontology::UsoGraph::createEntityNode();
-          v24 = siri::ontology::UsoGraph::createIntNode();
-          siri::ontology::oname::graph::ontology_init::Argument_numeratorValue(v24);
+          v23 = siri::ontology::UsoGraph::createIntNode();
+          siri::ontology::oname::graph::ontology_init::Argument_numeratorValue(v23);
           siri::ontology::UsoGraphNode::setSuccessor();
-          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v24, a2, v25);
+          uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v23, a2, v24);
         }
 
         v18 = SNLPOSLoggerForCategory(6);
@@ -7328,20 +6136,18 @@ LABEL_18:
     }
   }
 
-LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-siri::ontology::oname::graph::ontology_init *uaap::DateHandler::addUnitAndOccurance(uaap::DateHandler *this, siri::ontology::UsoEntityNode *a2, siri::ontology::UsoEntityNode *a3, siri::ontology::UsoGraph *a4, siri::ontology::UsoEntityNode *a5, uaap::UPDDSpan *a6)
+void uaap::DateHandler::addUnitAndOccurance(uaap::DateHandler *this, siri::ontology::UsoEntityNode *a2, siri::ontology::UsoEntityNode *a3, siri::ontology::UsoGraph *a4, siri::ontology::UsoEntityNode *a5, uaap::UPDDSpan *a6)
 {
   siri::ontology::oname::graph::ontology_init::common_DurationComponent(this);
   EntityNode = siri::ontology::UsoGraph::createEntityNode();
   siri::ontology::oname::graph::ontology_init::Argument_components(EntityNode);
-  result = siri::ontology::UsoGraphNode::setSuccessor();
+  v10 = siri::ontology::UsoGraphNode::setSuccessor();
   if (a4)
   {
-    siri::ontology::oname::graph::ontology_init::common_TimeUnit(result);
+    siri::ontology::oname::graph::ontology_init::common_TimeUnit(v10);
     v11 = siri::ontology::UsoGraph::createEntityNode();
     siri::ontology::oname::graph::ontology_init::Argument_unit(v11);
     v12 = siri::ontology::UsoGraphNode::setSuccessor();
@@ -7352,15 +6158,13 @@ siri::ontology::oname::graph::ontology_init *uaap::DateHandler::addUnitAndOccura
 
   if (a2)
   {
-    siri::ontology::oname::graph::ontology_init::Argument_value(result);
+    siri::ontology::oname::graph::ontology_init::Argument_value(v10);
 
-    return siri::ontology::UsoGraphNode::setSuccessor();
+    siri::ontology::UsoGraphNode::setSuccessor();
   }
-
-  return result;
 }
 
-uint64_t uaap::addOccurrenceCount(siri::ontology::UsoGraph *,uaap::UPDDSpan *,uaap::UPDDSpan *,uaap::UPDDSpan *)::$_2::operator()(const __CFString ***a1, const __CFString *a2)
+uint64_t uaap::addOccurrenceCount(siri::ontology::UsoGraph *,uaap::UPDDSpan *,uaap::UPDDSpan *,uaap::UPDDSpan *)::$_2::operator()(CFTypeRef **a1, const __CFString *a2)
 {
   IntValueFromCFStringRef = uaap::UPDDSpan::extractIntValueFromCFStringRef(**a1, a2);
   if (IntValueFromCFStringRef || CFEqual(@"0", **a1))
@@ -7380,7 +6184,7 @@ uint64_t uaap::addOccurrenceCount(siri::ontology::UsoGraph *,uaap::UPDDSpan *,ua
   return v6 | v5 | v4;
 }
 
-uint64_t uaap::DateHandler::resolveOffsetDirection(uint64_t this, uaap::UPDDDateOffsetSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+void uaap::DateHandler::resolveOffsetDirection(siri::ontology::UsoEntityNode **this, uaap::UPDDDateOffsetSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (this)
   {
@@ -7388,40 +6192,38 @@ uint64_t uaap::DateHandler::resolveOffsetDirection(uint64_t this, uaap::UPDDDate
     {
       if (a3)
       {
-        v5 = this;
-        v6 = *(a3 + 3);
         siri::ontology::oname::graph::ontology_init::common_DateTime(this);
-        this = siri::ontology::operator!=();
-        if (!this || (v7 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(this), this = siri::ontology::operator!=(), (this & 1) == 0))
+        v5 = siri::ontology::operator!=();
+        if (!v5 || (siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(v5), (siri::ontology::operator!=() & 1) == 0))
         {
-          v8 = *(v5 + 48);
-          if (v8)
+          v6 = this[6];
+          if (v6)
           {
-            v9 = *(v8 + 24);
-            if (v9)
+            v7 = *(v6 + 3);
+            if (v7)
             {
-              v10 = CFEqual(*(v8 + 24), @"before");
-              if (v10)
+              v8 = CFEqual(*(v6 + 3), @"before");
+              if (v8)
               {
-                siri::ontology::oname::graph::ontology_init::common_OffsetDirection_Before(v10);
+                siri::ontology::oname::graph::ontology_init::common_OffsetDirection_Before(v8);
                 goto LABEL_12;
               }
 
-              this = CFEqual(v9, @"after");
-              if (this)
+              v9 = CFEqual(v7, @"after");
+              if (v9)
               {
-                siri::ontology::oname::graph::ontology_init::common_OffsetDirection_After(this);
+                siri::ontology::oname::graph::ontology_init::common_OffsetDirection_After(v9);
 LABEL_12:
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
                 siri::ontology::oname::graph::ontology_init::common_OffsetDirection(EntityNode);
-                v12 = siri::ontology::UsoGraph::createEntityNode();
-                siri::ontology::oname::graph::ontology_init::Argument_direction(v12);
-                v13 = siri::ontology::UsoGraphNode::setSuccessor();
-                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v13);
+                v11 = siri::ontology::UsoGraph::createEntityNode();
+                siri::ontology::oname::graph::ontology_init::Argument_direction(v11);
+                v12 = siri::ontology::UsoGraphNode::setSuccessor();
+                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v12);
                 siri::ontology::UsoGraphNode::setSuccessor();
-                v15 = *(v5 + 48);
+                v14 = this[6];
 
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v15, v14);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, v14, v13);
               }
             }
           }
@@ -7429,8 +6231,6 @@ LABEL_12:
       }
     }
   }
-
-  return this;
 }
 
 uint64_t uaap::resolveOffsetReference(uint64_t this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
@@ -7441,25 +6241,24 @@ uint64_t uaap::resolveOffsetReference(uint64_t this, uaap::UPDDDateSpan *a2, sir
     {
       if (a3)
       {
-        v6 = this;
-        v7 = *(a3 + 3);
+        v5 = this;
         siri::ontology::oname::graph::ontology_init::common_DateTime(this);
         this = siri::ontology::operator!=();
-        if (!this || (v8 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(this), this = siri::ontology::operator!=(), (this & 1) == 0))
+        if (!this || (siri::ontology::oname::graph::ontology_init::common_OffsetDateTime(this), this = siri::ontology::operator!=(), (this & 1) == 0))
         {
-          v9 = *(v6 + 112);
-          if (v9)
+          v6 = *(v5 + 112);
+          if (v6)
           {
-            if (*(v9 + 24))
+            if (*(v6 + 24))
             {
               siri::ontology::oname::graph::ontology_init::common_DateTime(this);
               EntityNode = siri::ontology::UsoGraph::createEntityNode();
               siri::ontology::oname::graph::ontology_init::Argument_offsetReference(EntityNode);
-              v11 = siri::ontology::UsoGraphNode::setSuccessor();
-              v12 = *(v6 + 112);
-              v13 = siri::ontology::oname::graph::ontology_init::Argument_date(v11);
+              v8 = siri::ontology::UsoGraphNode::setSuccessor();
+              v9 = *(v5 + 112);
+              v10 = siri::ontology::oname::graph::ontology_init::Argument_date(v8);
 
-              return uaap::DateHandler::resolveAbsoluteDate(v12, a2, EntityNode, v13);
+              return uaap::DateHandler::resolveAbsoluteDate(v9, a2, EntityNode, v10);
             }
           }
         }
@@ -7576,7 +6375,7 @@ uint64_t uaap::DateHandler::getSpecialDateUnitDefinedValue(uint64_t a1)
     return MEMORY[0x2821C3D80]();
   }
 
-  if ((uaap::DateSpanHandler::isRecurringDate(a1) & 1) != 0 || !CFEqual(v4, @"day"))
+  if (uaap::DateSpanHandler::isRecurringDate(a1) || !CFEqual(v4, @"day"))
   {
     return 0;
   }
@@ -7584,7 +6383,7 @@ uint64_t uaap::DateHandler::getSpecialDateUnitDefinedValue(uint64_t a1)
   return MEMORY[0x2821C3DD0]();
 }
 
-uint64_t uaap::DateHandler::resolveDateTimeRangeValue(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
+siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveDateTimeRangeValue(uaap::DateHandler *this, uaap::UPDDDateSpan *a2, siri::ontology::UsoGraph *a3, siri::ontology::UsoEntityNode *a4)
 {
   if (a2)
   {
@@ -7592,29 +6391,28 @@ uint64_t uaap::DateHandler::resolveDateTimeRangeValue(uaap::DateHandler *this, u
     {
       if (a3)
       {
-        v6 = *(this + 16);
-        if (v6)
+        v5 = *(this + 16);
+        if (v5)
         {
-          v7 = *(v6 + 48);
-          if (v7)
+          v6 = *(v5 + 48);
+          if (v6)
           {
-            if (*(v7 + 24))
+            if (*(v6 + 24))
             {
-              v8 = *(a3 + 3);
               siri::ontology::oname::graph::ontology_init::common_Date(this);
-              v9 = siri::ontology::operator!=();
-              if (!v9 || (v10 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::common_DateTime(v9), (siri::ontology::operator!=() & 1) == 0))
+              v7 = siri::ontology::operator!=();
+              if (!v7 || (siri::ontology::oname::graph::ontology_init::common_DateTime(v7), (siri::ontology::operator!=() & 1) == 0))
               {
                 if (uaap::DateHandler::getSpecialDateUnitDefinedValue(this))
                 {
                   EntityNode = siri::ontology::UsoGraph::createEntityNode();
                   siri::ontology::oname::graph::ontology_init::common_DateTimeRange(EntityNode);
-                  v12 = siri::ontology::UsoGraph::createEntityNode();
-                  siri::ontology::oname::graph::ontology_init::Argument_occurringIn(v12);
-                  v13 = siri::ontology::UsoGraphNode::setSuccessor();
-                  siri::ontology::oname::graph::ontology_init::Argument_definedValue(v13);
+                  v9 = siri::ontology::UsoGraph::createEntityNode();
+                  siri::ontology::oname::graph::ontology_init::Argument_occurringIn(v9);
+                  v10 = siri::ontology::UsoGraphNode::setSuccessor();
+                  siri::ontology::oname::graph::ontology_init::Argument_definedValue(v10);
                   siri::ontology::UsoGraphNode::setSuccessor();
-                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(this + 16), v14);
+                  uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, *(this + 16), v11);
                 }
               }
             }
@@ -7655,40 +6453,39 @@ uint64_t uaap::DateHandler::resolveDurationValueAndUnit(siri::ontology::oname::g
           v4 = *(a1 + 16);
           if (v4)
           {
-            v8 = *(a3 + 24);
             siri::ontology::oname::graph::ontology_init::common_RecurringDateTime(a1);
-            v9 = siri::ontology::operator!=();
-            if (!v9 || (v12 = *(a3 + 24), siri::ontology::oname::graph::ontology_init::Root(v9), v9 = siri::ontology::operator!=(), (v9 & 1) == 0))
+            v7 = siri::ontology::operator!=();
+            if (!v7 || (siri::ontology::oname::graph::ontology_init::Root(v7), v7 = siri::ontology::operator!=(), (v7 & 1) == 0))
             {
-              v13 = *(v4 + 48);
-              if (v13)
+              v10 = *(v4 + 48);
+              if (v10)
               {
-                v9 = uaap::addSpecialDateUnit(a2, v13, v10);
-                v14 = v9;
+                v7 = uaap::addSpecialDateUnit(a2, v10, v8);
+                v11 = v7;
               }
 
               else
               {
-                v14 = 0;
+                v11 = 0;
               }
 
-              v15 = *(v4 + 64);
-              if (v15 && *(v15 + 3))
+              v12 = *(v4 + 64);
+              if (v12 && *(v12 + 3))
               {
-                v9 = uaap::addOccurrenceCount(a2, v15, *(v4 + 80), *(v4 + 72), v11);
-                v16 = v9;
+                v7 = uaap::addOccurrenceCount(a2, v12, *(v4 + 80), *(v4 + 72), v9);
+                v13 = v7;
               }
 
               else
               {
-                v16 = 0;
+                v13 = 0;
               }
 
-              if (v14 | v16)
+              if (v11 | v13)
               {
-                siri::ontology::oname::graph::ontology_init::common_Duration(v9);
+                siri::ontology::oname::graph::ontology_init::common_Duration(v7);
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v18);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(EntityNode, a1, v15);
               }
             }
 
@@ -7707,39 +6504,38 @@ siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveAbsoluteD
   v4 = 0;
   if (a1 && a2 && a3 && a4)
   {
-    if ((*(a1 + 7) || *(a1 + 8) || *(a1 + 9) || *(a1 + 10) || *(a1 + 16)) && (v9 = *(a3 + 3), siri::ontology::oname::graph::ontology_init::Root(a1), (siri::ontology::operator!=() & 1) == 0))
+    if ((*(a1 + 7) || *(a1 + 8) || *(a1 + 9) || *(a1 + 10) || *(a1 + 16)) && (siri::ontology::oname::graph::ontology_init::Root(a1), (siri::ontology::operator!=() & 1) == 0))
     {
-      v10 = uaap::DateHandler::resolveAbsoluteDate(a1, a2, a3, a4);
-      v4 = v10;
-      if (v10)
+      v9 = uaap::DateHandler::resolveAbsoluteDate(a1, a2, a3, a4);
+      v4 = v9;
+      if (v9)
       {
-        v11 = *(a1 + 16);
-        if (v11)
+        v10 = *(a1 + 16);
+        if (v10)
         {
-          v12 = *(v11 + 56);
-          if (v12)
+          v11 = *(v10 + 56);
+          if (v11)
           {
-            if (*(v12 + 24))
+            if (*(v11 + 24))
             {
-              siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v10);
-              v13 = *(v4 + 1);
+              siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(v9);
               siri::ontology::UsoGraph::getSuccessors();
-              if (v20)
+              if (v18)
               {
-                operator delete(v20);
+                operator delete(v18);
               }
 
-              MonthOfYearDefinedValue = uaap::DateSpanHandler::getMonthOfYearDefinedValue(*(*(*(a1 + 16) + 56) + 24), v14);
-              if (v21 == v20 && MonthOfYearDefinedValue)
+              MonthOfYearDefinedValue = uaap::DateSpanHandler::getMonthOfYearDefinedValue(*(*(*(a1 + 16) + 56) + 24), v12);
+              if (v19 == v18 && MonthOfYearDefinedValue)
               {
                 siri::ontology::oname::graph::ontology_init::common_MonthOfYear(MonthOfYearDefinedValue);
                 EntityNode = siri::ontology::UsoGraph::createEntityNode();
                 siri::ontology::oname::graph::ontology_init::Argument_monthOfYear(EntityNode);
                 siri::ontology::UsoGraphNode::setSuccessor();
-                v17 = siri::ontology::UsoGraph::createEntityNode();
-                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v17);
+                v15 = siri::ontology::UsoGraph::createEntityNode();
+                siri::ontology::oname::graph::ontology_init::Argument_definedValue(v15);
                 siri::ontology::UsoGraphNode::setSuccessor();
-                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v17, *(*(a1 + 16) + 56), v18);
+                uaap::AbstractDateTimeHandler::appendUtteranceAlignmentToEntity(v15, *(*(a1 + 16) + 56), v16);
               }
             }
           }
@@ -7812,7 +6608,7 @@ siri::ontology::oname::graph::ontology_init *uaap::DateHandler::resolveDateTimeR
   return this;
 }
 
-void std::vector<sirinluinternal::MatchingSpan>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<sirinluinternal::MatchingSpan>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2E8BA2E8BA2E8BBLL)
   {
@@ -7854,7 +6650,7 @@ void std::__shared_ptr_emplace<itfm_inference_orchestrator::vocabulary::Vocabula
   JUMPOUT(0x223DC4D00);
 }
 
-void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, _DWORD *a9)
+void itfm_inference_orchestrator::orchestration::ITFMOrchestrator::ITFMOrchestrator(uint64_t a1, uint64_t a2, std::string *a3, uint64_t *a4, uint64_t a5, const sirinluinternalsnlp_intermediate::SNLPAssetVersion *a6, uint64_t a7, uint64_t a8, int *a9)
 {
   LOBYTE(v11) = 0;
   v12 = 0;
@@ -7936,32 +6732,32 @@ void sub_222938C60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<sirinluinternal::MatchingSpan>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long &&>,std::tuple<>>(float *a1, unint64_t a2, uint64_t **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7969,47 +6765,47 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::getPersonMatchingSpans(std::vector<sirinluinternal::MatchingSpan> const&)::$_0 &,sirinluinternal::MatchingSpan*,false>(uint64_t result, sirinluinternal *a2, sirinluinternal::MatchingSpan *a3, char a4)
+sirinluinternal *std::__introsort<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::getPersonMatchingSpans(std::vector<sirinluinternal::MatchingSpan> const&)::$_0 &,sirinluinternal::MatchingSpan*,false>(sirinluinternal *result, sirinluinternal *a2, sirinluinternal::MatchingSpan *a3, char a4)
 {
   v5 = a3;
   v6 = result;
@@ -8596,7 +7392,7 @@ LABEL_71:
       if (result)
       {
         a2 = v40;
-        if (!v53)
+        if ((v53 & 1) == 0)
         {
           goto LABEL_2;
         }
@@ -8604,7 +7400,7 @@ LABEL_71:
         return result;
       }
 
-      if (!v53)
+      if ((v53 & 1) == 0)
       {
 LABEL_83:
         result = std::__introsort<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::getPersonMatchingSpans(std::vector<sirinluinternal::MatchingSpan> const&)::$_0 &,sirinluinternal::MatchingSpan*,false>(v6, v40, v5, a4 & 1);
@@ -8789,7 +7585,7 @@ LABEL_10:
   return this;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::getPersonMatchingSpans(std::vector<sirinluinternal::MatchingSpan> const&)::$_0 &,sirinluinternal::MatchingSpan*>(sirinluinternal *this, sirinluinternal *a2, sirinluinternal::MatchingSpan *a3)
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::getPersonMatchingSpans(std::vector<sirinluinternal::MatchingSpan> const&)::$_0 &,sirinluinternal::MatchingSpan*>(sirinluinternal *this, sirinluinternal *a2, sirinluinternal::MatchingSpan *a3)
 {
   v4 = this;
   v5 = 0x2E8BA2E8BA2E8BA3 * ((a2 - this) >> 3);
@@ -9021,83 +7817,83 @@ uint64_t nlv4_inference_orchestrator::post_processing::tree_manipulations::Conta
     v12 = v9[1];
   }
 
-  if (v10 == v12 && ((v5 & 0x80000000) == 0 ? (v13 = v4) : (v13 = *v4), (v14 = *v9, v11 >= 0) ? (v15 = *(a2 + 6)) : (v15 = *v9), !memcmp(v13, v15, v10)))
+  if (v10 == v12 && ((v5 & 0x80000000) == 0 ? (v13 = v4) : (v13 = *v4), v11 >= 0 ? (v14 = *(a2 + 6)) : (v14 = *v9), !memcmp(v13, v14, v10)))
   {
-    v28 = *(a2 + 1);
-    v29 = *(a2 + 2);
-    if (v28 != v29)
+    v26 = *(a2 + 1);
+    v27 = *(a2 + 2);
+    if (v26 != v27)
     {
-      while (*v28 != 3 && *v28 != 8)
+      while (*v26 != 3 && *v26 != 8)
       {
-        if (++v28 == v29)
+        if (++v26 == v27)
         {
-          v28 = *(a2 + 2);
+          v26 = *(a2 + 2);
           break;
         }
       }
     }
 
-    v16 = v29 != v28;
+    v15 = v27 != v26;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = *(this + 79);
-  if (v17 < 0)
+  v16 = *(this + 79);
+  if (v16 < 0)
   {
-    v18 = *(this + 7);
-    v19 = *(this + 8);
+    v17 = *(this + 7);
+    v18 = *(this + 8);
   }
 
   else
   {
-    v18 = this + 56;
-    v19 = *(this + 79);
+    v17 = this + 56;
+    v18 = *(this + 79);
   }
 
-  v20 = nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::doesMatchingSpanHaveLabelAndMatcher(v18, v19, 2, a2);
-  v21 = *(this + 8);
-  if (v17 >= 0)
+  v19 = nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::doesMatchingSpanHaveLabelAndMatcher(v17, v18, 2, a2);
+  v20 = *(this + 8);
+  if (v16 >= 0)
   {
-    v21 = v17;
+    v20 = v16;
   }
 
-  if (v21 == v12 && (v17 >= 0 ? (v22 = this + 56) : (v22 = *(this + 7)), (v23 = *v9, v11 >= 0) ? (v24 = v9) : (v24 = *v9), !memcmp(v22, v24, v12)))
+  if (v20 == v12 && (v16 >= 0 ? (v21 = this + 56) : (v21 = *(this + 7)), v11 >= 0 ? (v22 = v9) : (v22 = *v9), !memcmp(v21, v22, v12)))
   {
-    v31 = *(a2 + 1);
-    v32 = *(a2 + 2);
-    if (v31 != v32)
+    v29 = *(a2 + 1);
+    v30 = *(a2 + 2);
+    if (v29 != v30)
     {
-      while (*v31 != 3 && *v31 != 8)
+      while (*v29 != 3 && *v29 != 8)
       {
-        if (++v31 == v32)
+        if (++v29 == v30)
         {
-          v31 = *(a2 + 2);
+          v29 = *(a2 + 2);
           break;
         }
       }
     }
 
-    v25 = v32 != v31;
+    v23 = v30 != v29;
   }
 
   else
   {
-    v25 = 0;
+    v23 = 0;
   }
 
-  v26 = v20 | v25;
-  if ((v8 | v16))
+  v24 = v19 | v23;
+  if ((v8 | v15))
   {
     return 1;
   }
 
   else
   {
-    return v26;
+    return v24;
   }
 }
 
@@ -9110,8 +7906,7 @@ void nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTy
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -9125,11 +7920,11 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::__wrap_iter<nlv4
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-unint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>,false>(unint64_t result, unint64_t *a2, uint64_t a3, unint64_t *a4, uint64_t a5, char a6)
+char *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>,false>(char *result, char *a2, char *a3, char *a4, uint64_t a5, char a6)
 {
   while (1)
   {
-    v10 = a2 - a4;
+    v10 = (a2 - a4) >> 3;
     if (v10 > 2)
     {
       break;
@@ -9159,14 +7954,15 @@ LABEL_8:
       {
         if (a2 != a4)
         {
-          v81 = a2 - 1;
-          if (a2 - 1 != a4)
+          v81 = a2 - 8;
+          if (a2 - 8 != a4)
           {
             v82 = 0;
-            v83 = a2 - 1;
+            v83 = a2 - 8;
             do
             {
-              v85 = *--v83;
+              v85 = *(v83 - 1);
+              v83 -= 8;
               v84 = v85;
               v86 = *v81;
               if (v85 < *v81)
@@ -9181,8 +7977,8 @@ LABEL_8:
                     break;
                   }
 
-                  ++v81;
-                  v86 = v88[1];
+                  v81 += 8;
+                  v86 = *(v88 + 1);
                   v87 -= 8;
                 }
 
@@ -9201,14 +7997,15 @@ LABEL_8:
 
       else if (a2 != a4)
       {
-        v118 = a2 - 1;
-        if (a2 - 1 != a4)
+        v118 = a2 - 8;
+        if (a2 - 8 != a4)
         {
-          v119 = a2 - 1;
+          v119 = a2 - 8;
           do
           {
-            v120 = v118 + 1;
-            v122 = *--v119;
+            v120 = v118 + 8;
+            v122 = *(v119 - 1);
+            v119 -= 8;
             v121 = v122;
             if (v122 < *v118)
             {
@@ -9216,9 +8013,10 @@ LABEL_8:
               do
               {
                 *(v118 - 1) = *v123;
-                v118 = v120++;
-                v124 = v123[1];
-                ++v123;
+                v118 = v120;
+                v120 += 8;
+                v124 = *(v123 + 1);
+                v123 += 8;
               }
 
               while (v124 > v121);
@@ -9249,15 +8047,15 @@ LABEL_8:
           {
             v93 = v92 >> 2;
             v94 = (v92 >> 2) | 1;
-            v95 = &a2[-v94];
+            v95 = &a2[-8 * v94];
             v96 = v93 + 2;
             if (v96 < v10 && *(v95 - 1) < *(v95 - 2))
             {
-              --v95;
+              v95 -= 8;
               v94 = v96;
             }
 
-            v97 = &a2[-v91];
+            v97 = &a2[-8 * v91];
             v98 = *(v95 - 1);
             v99 = *(v97 - 1);
             if (v98 >= v99)
@@ -9272,7 +8070,7 @@ LABEL_8:
                 }
 
                 v100 = (2 * v94) | 1;
-                v95 = &a2[-v100];
+                v95 = &a2[-8 * v100];
                 v94 = 2 * v94 + 2;
                 if (v94 >= v10)
                 {
@@ -9289,7 +8087,7 @@ LABEL_8:
 
                   else
                   {
-                    --v95;
+                    v95 -= 8;
                   }
                 }
 
@@ -9312,12 +8110,12 @@ LABEL_8:
           v103 = a2;
           do
           {
-            v104 = &v103[~v101];
+            v104 = &v103[8 * ~v101];
             v105 = (2 * v101) | 1;
             v106 = 2 * v101 + 2;
             if (v106 < v10 && *(v104 - 1) < *(v104 - 2))
             {
-              --v104;
+              v104 -= 8;
               v105 = v106;
             }
 
@@ -9327,8 +8125,8 @@ LABEL_8:
           }
 
           while (v105 <= (v10 - 2) / 2);
-          v107 = v104 - 1;
-          if (a4 + 1 == v104)
+          v107 = v104 - 8;
+          if (a4 + 8 == v104)
           {
             *v107 = v102;
           }
@@ -9337,13 +8135,13 @@ LABEL_8:
           {
             *v107 = *a4;
             *a4 = v102;
-            v108 = a2 - v107;
+            v108 = (a2 - v107) >> 3;
             v109 = v108 < 2;
             v110 = v108 - 2;
             if (!v109)
             {
               v111 = v110 >> 1;
-              v112 = &a2[-(v110 >> 1)];
+              v112 = &a2[-8 * (v110 >> 1)];
               v113 = *(v112 - 1);
               v114 = *v107;
               if (v113 < *v107)
@@ -9358,7 +8156,7 @@ LABEL_8:
                   }
 
                   v111 = (v111 - 1) >> 1;
-                  v112 = &a2[-v111];
+                  v112 = &a2[-8 * v111];
                   v113 = *(v112 - 1);
                 }
 
@@ -9368,7 +8166,7 @@ LABEL_8:
             }
           }
 
-          ++a4;
+          a4 += 8;
           v109 = v10-- <= 2;
         }
 
@@ -9379,8 +8177,8 @@ LABEL_8:
     }
 
     v11 = ((a2 - a4) >> 1) & 0xFFFFFFFFFFFFFFF8;
-    v12 = (a2 - v11);
-    v13 = a2 - v11;
+    v12 = &a2[-v11];
+    v13 = &a2[-v11];
     v14 = *a4;
     if (v10 >= 0x81)
     {
@@ -9421,16 +8219,16 @@ LABEL_25:
       }
 
       v25 = *v12;
-      v23 = v12 + 1;
+      v23 = v12 + 8;
       v24 = v25;
       v26 = *(a2 - 2);
-      v27 = a4[1];
+      v27 = *(a4 + 1);
       if (v25 >= v26)
       {
         if (v27 < v24)
         {
           *(v23 - 1) = v27;
-          a4[1] = v24;
+          *(a4 + 1) = v24;
           v28 = *(v23 - 1);
           v29 = *(a2 - 2);
           if (v28 < v29)
@@ -9451,25 +8249,25 @@ LABEL_25:
 
         *(a2 - 2) = v24;
         *(v23 - 1) = v26;
-        v30 = a4[1];
+        v30 = *(a4 + 1);
         if (v30 < v26)
         {
           *(v23 - 1) = v30;
 LABEL_37:
-          a4[1] = v26;
+          *(a4 + 1) = v26;
         }
       }
 
-      v31 = a2 - v11 - 8;
+      v31 = &a2[-v11 - 8];
       v32 = *(v31 - 1);
       v33 = *(a2 - 3);
-      v34 = a4[2];
+      v34 = *(a4 + 2);
       if (v32 >= v33)
       {
         if (v34 < v32)
         {
           *(v31 - 1) = v34;
-          a4[2] = v32;
+          *(a4 + 2) = v32;
           v35 = *(v31 - 1);
           v36 = *(a2 - 3);
           if (v35 < v36)
@@ -9490,12 +8288,12 @@ LABEL_37:
 
         *(a2 - 3) = v32;
         *(v31 - 1) = v33;
-        v37 = a4[2];
+        v37 = *(a4 + 2);
         if (v37 < v33)
         {
           *(v31 - 1) = v37;
 LABEL_46:
-          a4[2] = v33;
+          *(a4 + 2) = v33;
         }
       }
 
@@ -9591,13 +8389,13 @@ LABEL_77:
       do
       {
         v58 = *(v57 - 2);
-        --v57;
+        v57 -= 8;
       }
 
       while (v58 < v45);
-      v59 = v57 + 1;
+      v59 = v57 + 8;
       v60 = a4;
-      if (v57 + 1 == a2)
+      if (v57 + 8 == a2)
       {
         v60 = a4;
         do
@@ -9607,7 +8405,8 @@ LABEL_77:
             break;
           }
 
-          v61 = *v60++;
+          v61 = *v60;
+          v60 += 8;
         }
 
         while (v61 >= v45);
@@ -9617,7 +8416,8 @@ LABEL_77:
       {
         do
         {
-          v62 = *v60++;
+          v62 = *v60;
+          v60 += 8;
         }
 
         while (v62 >= v45);
@@ -9629,26 +8429,27 @@ LABEL_77:
         v64 = v60;
         do
         {
-          v65 = *(v63 - 8);
-          *(v63 - 8) = *(v64 - 1);
+          v65 = *(v63 - 1);
+          *(v63 - 1) = *(v64 - 1);
           *(v64 - 1) = v65;
           do
           {
-            v66 = *(v63 - 16);
+            v66 = *(v63 - 2);
             v63 -= 8;
           }
 
           while (v66 < v45);
           do
           {
-            v67 = *v64++;
+            v67 = *v64;
+            v64 += 8;
           }
 
           while (v67 >= v45);
         }
 
         while (v64 < v63);
-        v59 = (v63 + 8);
+        v59 = v63 + 8;
       }
 
       if (v59 != a2)
@@ -9663,7 +8464,7 @@ LABEL_77:
         v133 = result;
         v69 = a3;
         v70 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>>(result, a2, v59, v59);
-        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>>((v59 - 1), v59 - 1, v69, a4))
+        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>>((v59 - 8), v59 - 1, v69, a4))
         {
           a3 = v59;
           a4 = v59;
@@ -9677,7 +8478,7 @@ LABEL_77:
         else
         {
           result = v59;
-          a2 = v59 - 1;
+          a2 = v59 - 8;
           a3 = v69;
           v56 = v132;
           if ((v70 & 1) == 0)
@@ -9695,7 +8496,7 @@ LABEL_95:
         a3 = v68;
         a6 = 0;
         result = v59;
-        a2 = v59 - 1;
+        a2 = v59 - 8;
       }
     }
 
@@ -9707,7 +8508,7 @@ LABEL_95:
         goto LABEL_77;
       }
 
-      v46 = a2 - 1;
+      v46 = a2 - 8;
       if (*a4 <= v45)
       {
         do
@@ -9718,7 +8519,7 @@ LABEL_95:
             break;
           }
 
-          --v46;
+          v46 -= 8;
         }
 
         while (*(v48 - 1) <= v45);
@@ -9729,9 +8530,9 @@ LABEL_95:
         v47 = a2;
         do
         {
-          v48 = v47 - 1;
+          v48 = v47 - 8;
           v49 = *(v47 - 2);
-          --v47;
+          v47 -= 8;
         }
 
         while (v49 <= v45);
@@ -9743,7 +8544,8 @@ LABEL_95:
         v50 = a4;
         do
         {
-          v51 = *v50++;
+          v51 = *v50;
+          v50 += 8;
         }
 
         while (v51 > v45);
@@ -9757,19 +8559,20 @@ LABEL_95:
         do
         {
           v53 = *(v48 - 2);
-          --v48;
+          v48 -= 8;
         }
 
         while (v53 <= v45);
         do
         {
-          v54 = *v50++;
+          v54 = *v50;
+          v50 += 8;
         }
 
         while (v54 > v45);
       }
 
-      if (v48 + 1 != a2)
+      if (v48 + 8 != a2)
       {
         *(a2 - 1) = *v48;
       }
@@ -9982,4 +8785,964 @@ LABEL_173:
   }
 
   return result;
+}
+
+uint64_t *std::vector<nlv4_inference_orchestrator::trees::TreeNode>::reserve(uint64_t *result, unint64_t a2)
+{
+  if (0x8E38E38E38E38E39 * ((result[2] - *result) >> 4) < a2)
+  {
+    if (a2 < 0x1C71C71C71C71C8)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>>(a2);
+    }
+
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  return result;
+}
+
+std::string *std::__copy_impl::operator()[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode const*,nlv4_inference_orchestrator::trees::TreeNode const*,std::back_insert_iterator<std::vector<nlv4_inference_orchestrator::trees::TreeNode>>>(std::string *result, const nlv4_inference_orchestrator::trees::TreeNode *a2, uint64_t *a3)
+{
+  if (result != a2)
+  {
+    v5 = result;
+    v6 = a3[1];
+    do
+    {
+      if (v6 >= a3[2])
+      {
+        result = std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode const&>(a3, v5);
+        v6 = result;
+      }
+
+      else
+      {
+        result = nlv4_inference_orchestrator::trees::TreeNode::TreeNode(v6, v5);
+        v6 += 6;
+        a3[1] = v6;
+      }
+
+      a3[1] = v6;
+      v5 = (v5 + 144);
+    }
+
+    while (v5 != a2);
+  }
+
+  return result;
+}
+
+uint64_t std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode const&>(uint64_t *a1, const nlv4_inference_orchestrator::trees::TreeNode *a2)
+{
+  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 4);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0x1C71C71C71C71C7)
+  {
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4) > v3)
+  {
+    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 4);
+  }
+
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 4) >= 0xE38E38E38E38E3)
+  {
+    v5 = 0x1C71C71C71C71C7;
+  }
+
+  else
+  {
+    v5 = v3;
+  }
+
+  v15 = a1;
+  if (v5)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>>(v5);
+  }
+
+  v12 = 0;
+  v13 = 144 * v2;
+  nlv4_inference_orchestrator::trees::TreeNode::TreeNode((144 * v2), a2);
+  v14 = 144 * v2 + 144;
+  v6 = a1[1];
+  v7 = 144 * v2 + *a1 - v6;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>,nlv4_inference_orchestrator::trees::TreeNode*>(a1, *a1, v6, v7);
+  v8 = *a1;
+  *a1 = v7;
+  v9 = a1[2];
+  v11 = v14;
+  *(a1 + 1) = v14;
+  *&v14 = v8;
+  *(&v14 + 1) = v9;
+  v12 = v8;
+  v13 = v8;
+  std::__split_buffer<nlv4_inference_orchestrator::trees::TreeNode>::~__split_buffer(&v12);
+  return v11;
+}
+
+void sub_22293AF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<nlv4_inference_orchestrator::trees::TreeNode>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>,nlv4_inference_orchestrator::trees::TreeNode*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+{
+  v15 = a4;
+  v14 = a4;
+  v12[0] = a1;
+  v12[1] = &v14;
+  v12[2] = &v15;
+  if (a2 == a3)
+  {
+    v13 = 1;
+  }
+
+  else
+  {
+    v5 = a2;
+    v6 = a2;
+    do
+    {
+      v7 = *v6;
+      *(a4 + 16) = *(v6 + 2);
+      *a4 = v7;
+      *(v6 + 1) = 0;
+      *(v6 + 2) = 0;
+      *v6 = 0;
+      v8 = *(v6 + 24);
+      *(a4 + 40) = *(v6 + 5);
+      *(a4 + 24) = v8;
+      *(v6 + 4) = 0;
+      *(v6 + 5) = 0;
+      *(v6 + 3) = 0;
+      v9 = v6[3];
+      *(a4 + 64) = *(v6 + 8);
+      *(a4 + 48) = v9;
+      *(v6 + 7) = 0;
+      *(v6 + 8) = 0;
+      *(v6 + 6) = 0;
+      *(a4 + 72) = *(v6 + 72);
+      *(a4 + 96) = 0;
+      *(a4 + 104) = 0;
+      *(a4 + 88) = 0;
+      *(a4 + 88) = *(v6 + 88);
+      *(a4 + 104) = *(v6 + 13);
+      *(v6 + 11) = 0;
+      *(v6 + 12) = 0;
+      *(v6 + 13) = 0;
+      v10 = v6[8];
+      *(a4 + 112) = v6[7];
+      *(a4 + 128) = v10;
+      v6 += 9;
+      a4 += 144;
+    }
+
+    while (v6 != a3);
+    v15 = a4;
+    v13 = 1;
+    do
+    {
+      std::allocator_traits<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>>::destroy[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode,0>(v5);
+      v5 += 9;
+    }
+
+    while (v5 != a3);
+  }
+
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>,nlv4_inference_orchestrator::trees::TreeNode*>>::~__exception_guard_exceptions[abi:ne200100](v12);
+}
+
+uint64_t std::__split_buffer<nlv4_inference_orchestrator::trees::TreeNode>::~__split_buffer(uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  while (1)
+  {
+    v3 = *(a1 + 16);
+    if (v3 == v2)
+    {
+      break;
+    }
+
+    *(a1 + 16) = v3 - 144;
+    std::allocator_traits<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>>::destroy[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode,0>(v3 - 144);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::allocator_traits<std::allocator<nlv4_inference_orchestrator::trees::TreeNode>>::destroy[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode,0>(uint64_t a1)
+{
+  v3 = (a1 + 88);
+  std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v3);
+  if (*(a1 + 71) < 0)
+  {
+    operator delete(*(a1 + 48));
+  }
+
+  if (*(a1 + 47) < 0)
+  {
+    operator delete(*(a1 + 24));
+  }
+
+  if (*(a1 + 23) < 0)
+  {
+    v2 = *a1;
+
+    operator delete(v2);
+  }
+}
+
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::__wrap_iter<nlv4_inference_orchestrator::trees::TreeNode const*> *>>>(uint64_t a1, unint64_t *a2, uint64_t a3, unint64_t *a4)
+{
+  v4 = a2 - a4;
+  if (v4 > 2)
+  {
+    if (v4 == 3)
+    {
+      v12 = *(a2 - 2);
+      v11 = *(a2 - 1);
+      v13 = *a4;
+      if (v12 < v11)
+      {
+        if (v13 >= v12)
+        {
+          *(a2 - 2) = v11;
+          *(a2 - 1) = v12;
+          if (*a4 >= v11)
+          {
+            goto LABEL_3;
+          }
+
+          *(a2 - 2) = *a4;
+        }
+
+        else
+        {
+          *(a2 - 1) = v13;
+        }
+
+        *a4 = v11;
+        goto LABEL_3;
+      }
+
+      if (v13 >= v12)
+      {
+LABEL_3:
+        v5 = 1;
+        return v5 & 1;
+      }
+
+      *(a2 - 2) = v13;
+      *a4 = v12;
+      v21 = *(a2 - 2);
+LABEL_69:
+      v40 = *(a2 - 1);
+      if (v21 < v40)
+      {
+        *(a2 - 2) = v40;
+        *(a2 - 1) = v21;
+      }
+
+      goto LABEL_3;
+    }
+
+    if (v4 != 4)
+    {
+      if (v4 != 5)
+      {
+        goto LABEL_17;
+      }
+
+      v7 = *(a2 - 2);
+      v8 = *(a2 - 1);
+      v9 = *(a2 - 3);
+      if (v7 >= v8)
+      {
+        if (v9 >= v7)
+        {
+          v7 = *(a2 - 3);
+        }
+
+        else
+        {
+          *(a2 - 3) = v7;
+          *(a2 - 2) = v9;
+          v23 = *(a2 - 1);
+          if (v9 < v23)
+          {
+            *(a2 - 2) = v23;
+            *(a2 - 1) = v9;
+            v7 = *(a2 - 3);
+          }
+        }
+
+        goto LABEL_54;
+      }
+
+      if (v9 >= v7)
+      {
+        *(a2 - 2) = v8;
+        *(a2 - 1) = v7;
+        v7 = *(a2 - 3);
+        if (v7 >= v8)
+        {
+          goto LABEL_54;
+        }
+
+        *(a2 - 2) = v7;
+      }
+
+      else
+      {
+        *(a2 - 1) = v9;
+      }
+
+      *(a2 - 3) = v8;
+      v7 = v8;
+LABEL_54:
+      v34 = *(a2 - 4);
+      if (v34 < v7)
+      {
+        *(a2 - 4) = v7;
+        *(a2 - 3) = v34;
+        v35 = *(a2 - 2);
+        if (v34 < v35)
+        {
+          *(a2 - 3) = v35;
+          *(a2 - 2) = v34;
+          v36 = *(a2 - 1);
+          if (v34 < v36)
+          {
+            *(a2 - 2) = v36;
+            *(a2 - 1) = v34;
+          }
+        }
+      }
+
+      v37 = *(a2 - 4);
+      if (*a4 >= v37)
+      {
+        goto LABEL_3;
+      }
+
+      *(a2 - 4) = *a4;
+      *a4 = v37;
+      v21 = *(a2 - 4);
+      v38 = *(a2 - 3);
+      if (v21 >= v38)
+      {
+        goto LABEL_3;
+      }
+
+      *(a2 - 4) = v38;
+      *(a2 - 3) = v21;
+LABEL_67:
+      v39 = *(a2 - 2);
+      if (v21 >= v39)
+      {
+        goto LABEL_3;
+      }
+
+      *(a2 - 3) = v39;
+      *(a2 - 2) = v21;
+      goto LABEL_69;
+    }
+
+    v18 = *(a2 - 2);
+    v19 = *(a2 - 1);
+    v20 = *(a2 - 3);
+    if (v18 >= v19)
+    {
+      if (v20 >= v18)
+      {
+        v18 = *(a2 - 3);
+      }
+
+      else
+      {
+        *(a2 - 3) = v18;
+        *(a2 - 2) = v20;
+        v24 = *(a2 - 1);
+        if (v20 < v24)
+        {
+          *(a2 - 2) = v24;
+          *(a2 - 1) = v20;
+          v18 = *(a2 - 3);
+        }
+      }
+
+      goto LABEL_65;
+    }
+
+    if (v20 >= v18)
+    {
+      *(a2 - 2) = v19;
+      *(a2 - 1) = v18;
+      v18 = *(a2 - 3);
+      if (v18 >= v19)
+      {
+LABEL_65:
+        if (*a4 >= v18)
+        {
+          goto LABEL_3;
+        }
+
+        *(a2 - 3) = *a4;
+        *a4 = v18;
+        v21 = *(a2 - 3);
+        goto LABEL_67;
+      }
+
+      *(a2 - 2) = v18;
+    }
+
+    else
+    {
+      *(a2 - 1) = v20;
+    }
+
+    *(a2 - 3) = v19;
+    v18 = v19;
+    goto LABEL_65;
+  }
+
+  if (v4 < 2)
+  {
+    goto LABEL_3;
+  }
+
+  if (v4 == 2)
+  {
+    v10 = *(a2 - 1);
+    if (*a4 < v10)
+    {
+      *(a2 - 1) = *a4;
+      *a4 = v10;
+    }
+
+    goto LABEL_3;
+  }
+
+LABEL_17:
+  v16 = *(a2 - 2);
+  v15 = *(a2 - 1);
+  v14 = a2 - 2;
+  v17 = *(a2 - 3);
+  if (v16 >= v15)
+  {
+    if (v17 < v16)
+    {
+      *(a2 - 3) = v16;
+      *(a2 - 2) = v17;
+      v22 = *(a2 - 1);
+      if (v17 < v22)
+      {
+        *(a2 - 2) = v22;
+        *(a2 - 1) = v17;
+      }
+    }
+
+    goto LABEL_40;
+  }
+
+  if (v17 < v16)
+  {
+    *(a2 - 1) = v17;
+LABEL_39:
+    *(a2 - 3) = v15;
+    goto LABEL_40;
+  }
+
+  *(a2 - 2) = v15;
+  *(a2 - 1) = v16;
+  v25 = *(a2 - 3);
+  if (v25 < v15)
+  {
+    *(a2 - 2) = v25;
+    goto LABEL_39;
+  }
+
+LABEL_40:
+  v26 = a2 - 3;
+  if (a2 - 3 == a4)
+  {
+LABEL_48:
+    v33 = 1;
+  }
+
+  else
+  {
+    v27 = 0;
+    v28 = a2 - 3;
+    while (1)
+    {
+      v30 = *--v28;
+      v29 = v30;
+      if (v30 < *(v14 - 1))
+      {
+        v31 = v26;
+        do
+        {
+          v32 = v14;
+          *(v31 - 1) = *(v14 - 1);
+          if (v14 == a2)
+          {
+            break;
+          }
+
+          ++v14;
+          v31 = v32;
+        }
+
+        while (*v32 > v29);
+        *(v32 - 1) = v29;
+        if (++v27 == 8)
+        {
+          break;
+        }
+      }
+
+      v14 = v26;
+      v26 = v28;
+      if (v28 == a4)
+      {
+        goto LABEL_48;
+      }
+    }
+
+    v33 = 0;
+    LOBYTE(v26) = v28 == a4;
+  }
+
+  v5 = v33 | v26;
+  return v5 & 1;
+}
+
+uint64_t nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::splitCommonPersonNodes(nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit *a1, const nlv4_inference_orchestrator::trees::TreeNode *a2, size_t *this)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  if (!nlv4_inference_orchestrator::post_processing::tree_manipulations::utils::isCommonPersonNode(this, a2))
+  {
+    return 0;
+  }
+
+  nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::handleCommonPersonSubtree(&v14, a1, this);
+  v6 = v20;
+  v7 = SNLPOSLoggerForCategory(1);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v6)
+  {
+    if (v8)
+    {
+      v9 = *(a1 + 3);
+      *buf = 136315138;
+      *&buf[4] = v9;
+      _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] Successfully split the common_Person node into name/contact type", buf, 0xCu);
+    }
+
+    if ((v20 & 1) == 0)
+    {
+      std::__throw_bad_optional_access[abi:ne200100]();
+    }
+
+    v10 = *(a2 + 1);
+    if (v10 >= *(a2 + 2))
+    {
+      v11 = std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__emplace_back_slow_path<nlv4_inference_orchestrator::trees::TreeNode const&>(a2, &v14);
+    }
+
+    else
+    {
+      nlv4_inference_orchestrator::trees::TreeNode::TreeNode(*(a2 + 1), &v14);
+      v11 = v10 + 144;
+      *(a2 + 1) = v10 + 144;
+    }
+
+    *(a2 + 1) = v11;
+  }
+
+  else if (v8)
+  {
+    v12 = *(a1 + 3);
+    *buf = 136315138;
+    *&buf[4] = v12;
+    _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] Could not split this common_Person node", buf, 0xCu);
+  }
+
+  if (v20 == 1)
+  {
+    *buf = &v19;
+    std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](buf);
+    if (v18 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (v16 < 0)
+    {
+      operator delete(v15);
+    }
+
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v14.__r_.__value_.__l.__data_);
+    }
+  }
+
+  return v6;
+}
+
+void sub_22293B650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  *(v3 + 8) = v4;
+  std::optional<nlv4_inference_orchestrator::trees::TreeNode>::~optional(va);
+  _Unwind_Resume(a1);
+}
+
+void nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::handleCommonPersonSubtree(std::string *__return_ptr a1@<X8>, nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit *this@<X0>, const nlv4_inference_orchestrator::trees::TreeNode *a3@<X1>)
+{
+  v84 = *MEMORY[0x277D85DE8];
+  v7 = SNLPOSLoggerForCategory(1);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+  if (v8)
+  {
+    v9 = *(this + 3);
+    *buf = 136315138;
+    *&buf[4] = v9;
+    _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] Handling common_Person subtree", buf, 0xCu);
+  }
+
+  v10 = *(a3 + 11);
+  if (*(a3 + 12) - v10 != 144)
+  {
+    v21 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      v24 = *(this + 3);
+      *buf = 136315138;
+      *&buf[4] = v24;
+      goto LABEL_21;
+    }
+
+LABEL_23:
+    a1->__r_.__value_.__s.__data_[0] = 0;
+    a1[6].__r_.__value_.__s.__data_[0] = 0;
+    return;
+  }
+
+  v11 = siri::ontology::oname::graph::ontology_init::Argument_name(v8);
+  v12 = *(v10 + 71);
+  if (v12 >= 0)
+  {
+    v13 = *(v10 + 71);
+  }
+
+  else
+  {
+    v13 = *(v10 + 56);
+  }
+
+  v14 = *(v11 + 31);
+  v15 = v14;
+  if ((v14 & 0x80u) != 0)
+  {
+    v14 = *(v11 + 16);
+  }
+
+  if (v13 != v14 || (v12 >= 0 ? (v16 = (v10 + 48)) : (v16 = *(v10 + 48)), (v19 = *(v11 + 8), v17 = (v11 + 8), v18 = v19, v15 >= 0) ? (v20 = v17) : (v20 = v18), memcmp(v16, v20, v13)))
+  {
+    v21 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = *(this + 3);
+      *buf = 136315138;
+      *&buf[4] = v22;
+LABEL_21:
+      v25 = v21;
+      v26 = OS_LOG_TYPE_DEFAULT;
+LABEL_22:
+      _os_log_impl(&dword_22284A000, v25, v26, v23, buf, 0xCu);
+      goto LABEL_23;
+    }
+
+    goto LABEL_23;
+  }
+
+  v27 = SNLPOSLoggerForCategory(1);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  {
+    v28 = *(this + 3);
+    v29 = (v10 + 24);
+    if (*(v10 + 47) < 0)
+    {
+      v29 = *v29;
+    }
+
+    *buf = 136315395;
+    *&buf[4] = v28;
+    v77 = 2085;
+    v78 = v29;
+    _os_log_impl(&dword_22284A000, v27, OS_LOG_TYPE_DEBUG, "[%s] common_Person.name value: %{sensitive}s", buf, 0x16u);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(buf, *(this + 3));
+  v30 = *(this + 10);
+  v31 = *(this + 11);
+  if (v31 == v30)
+  {
+LABEL_33:
+    v35 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    {
+      v36 = buf;
+      if (v79 < 0)
+      {
+        v36 = *buf;
+      }
+
+      v37 = *(v10 + 72);
+      *v66 = 136315394;
+      *&v66[4] = v36;
+      v67 = 2048;
+      v68 = v37;
+      v38 = "[%s] Warning: could not find start token index corresponding to node.startCharIndex=%lu";
+LABEL_45:
+      _os_log_impl(&dword_22284A000, v35, OS_LOG_TYPE_DEFAULT, v38, v66, 0x16u);
+    }
+
+LABEL_46:
+    v32 = 0;
+    v44 = 0;
+    goto LABEL_47;
+  }
+
+  v32 = 0;
+  v33 = 0x8E38E38E38E38E39 * ((v31 - v30) >> 4);
+  v34 = (v30 + 104);
+  while (*(v34 - 1) != *(v10 + 72))
+  {
+    ++v32;
+    v34 += 18;
+    if (v32 >= v33)
+    {
+      goto LABEL_33;
+    }
+  }
+
+  v39 = v33 - v32;
+  if (v33 <= v32)
+  {
+LABEL_41:
+    v35 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    {
+      v42 = buf;
+      if (v79 < 0)
+      {
+        v42 = *buf;
+      }
+
+      v43 = *(v10 + 80);
+      *v66 = 136315394;
+      *&v66[4] = v42;
+      v67 = 2048;
+      v68 = v43;
+      v38 = "[%s] Warning: could not find end token index corresponding to node.endCharIndex=%lu";
+      goto LABEL_45;
+    }
+
+    goto LABEL_46;
+  }
+
+  v40 = ~v32;
+  while (1)
+  {
+    v41 = *v34;
+    v34 += 18;
+    if (v41 == *(v10 + 80))
+    {
+      break;
+    }
+
+    --v40;
+    if (!--v39)
+    {
+      goto LABEL_41;
+    }
+  }
+
+  v3 = -v40;
+  v44 = 1;
+LABEL_47:
+  if (v79 < 0)
+  {
+    operator delete(*buf);
+  }
+
+  if ((v44 & 1) == 0)
+  {
+    goto LABEL_23;
+  }
+
+  if (nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::hasMatchingSpanPerson(this, v32, v3))
+  {
+    v45 = SNLPOSLoggerForCategory(1);
+    if (!os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_23;
+    }
+
+    v46 = *(this + 3);
+    *buf = 136315138;
+    *&buf[4] = v46;
+    v23 = "[%s] There exists a person matching span covering this entire common_Person.name node. Skipping.";
+    v25 = v45;
+    v26 = OS_LOG_TYPE_DEBUG;
+    goto LABEL_22;
+  }
+
+  nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::findMatchingSpansSplit(buf, this, v32, v3);
+  if (v83)
+  {
+    v49 = *(a3 + 6);
+    v48 = a3 + 48;
+    v47 = v49;
+    v50 = v48[23];
+    if (v50 >= 0)
+    {
+      v51 = v48;
+    }
+
+    else
+    {
+      v51 = v47;
+    }
+
+    if (v50 >= 0)
+    {
+      v52 = v48[23];
+    }
+
+    else
+    {
+      v52 = *(v48 + 1);
+    }
+
+    v53 = *(v10 + 47);
+    if ((v53 & 0x8000000000000000) != 0)
+    {
+      v54 = *(v10 + 24);
+      v53 = *(v10 + 32);
+    }
+
+    else
+    {
+      v54 = v10 + 24;
+    }
+
+    nlv4_inference_orchestrator::post_processing::tree_manipulations::ContactTypeSplit::generateCommonPersonNode(this, buf, v81, v51, v52, v54, v53, *(v10 + 72), v66);
+    if (v75)
+    {
+      std::__optional_copy_base<nlv4_inference_orchestrator::trees::TreeNode,false>::__optional_copy_base[abi:ne200100](a1, v66);
+    }
+
+    else
+    {
+      v57 = v80;
+      if (v80)
+      {
+        if (*(v80 + 23) < 0)
+        {
+          v57 = *v80;
+        }
+      }
+
+      else
+      {
+        v57 = "nullptr";
+      }
+
+      v58 = v82;
+      if (v82)
+      {
+        if (*(v82 + 23) < 0)
+        {
+          v58 = *v82;
+        }
+      }
+
+      else
+      {
+        v58 = "nullptr";
+      }
+
+      v59 = SNLPOSLoggerForCategory(1);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      {
+        v60 = *(this + 3);
+        *v61 = 136315651;
+        *&v61[4] = v60;
+        v62 = 2085;
+        v63 = v57;
+        v64 = 2085;
+        v65 = v58;
+        _os_log_impl(&dword_22284A000, v59, OS_LOG_TYPE_DEFAULT, "[%s] Warning: Failed to generate a node for matching span (personInput=%{sensitive}s, contactTypeInput=%{sensitive}s)", v61, 0x20u);
+      }
+
+      a1->__r_.__value_.__s.__data_[0] = 0;
+      a1[6].__r_.__value_.__s.__data_[0] = 0;
+    }
+
+    if (v75 == 1)
+    {
+      *v61 = &v74;
+      std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](v61);
+      if (v73 < 0)
+      {
+        operator delete(__p);
+      }
+
+      if (v71 < 0)
+      {
+        operator delete(v70);
+      }
+
+      if (v69 < 0)
+      {
+        operator delete(*v66);
+      }
+    }
+  }
+
+  else
+  {
+    v55 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+    {
+      v56 = *(this + 3);
+      *v66 = 136315138;
+      *&v66[4] = v56;
+      _os_log_impl(&dword_22284A000, v55, OS_LOG_TYPE_DEBUG, "[%s] Could not find a split for this common_Person. Skipping.", v66, 0xCu);
+    }
+
+    a1->__r_.__value_.__s.__data_[0] = 0;
+    a1[6].__r_.__value_.__s.__data_[0] = 0;
+  }
+
+  if (v83 == 1)
+  {
+    MEMORY[0x223DC3180](v81);
+    MEMORY[0x223DC3180](buf);
+  }
 }

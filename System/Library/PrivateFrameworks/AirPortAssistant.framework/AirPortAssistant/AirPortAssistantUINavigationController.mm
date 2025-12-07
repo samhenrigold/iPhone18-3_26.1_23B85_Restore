@@ -6,8 +6,8 @@
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  v4 = objc_msgSend_currentDevice(MEMORY[0x277D75418], a2, v2);
-  if (objc_msgSend_userInterfaceIdiom(v4, v5, v6) == 1 && sub_23EC13460(self, v7, v8) == 2)
+  v5 = objc_msgSend_currentDevice(MEMORY[0x277D75418], a2, v2, v3);
+  if (objc_msgSend_userInterfaceIdiom(v5, v6, v7, v8) == 1 && sub_23EC13460(self, v9, v10, v11) == 2)
   {
     return 30;
   }

@@ -7,9 +7,7 @@
 
 - (void)setDebugMessage:(id)message
 {
-  v4 = [message copy];
-  debugMessage = self->_debugMessage;
-  self->_debugMessage = v4;
+  self->_debugMessage = [message copy];
 
   MEMORY[0x1EEE66BB8]();
 }

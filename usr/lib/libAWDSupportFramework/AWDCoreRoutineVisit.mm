@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)mapItemSourcesAsString:(int)string;
 - (int)StringAsMapItemSources:(id)sources;
 - (int)mapItemSourcesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -35,6 +36,19 @@
   }
 
   return p_mapItemSources->list[index];
+}
+
+- (id)mapItemSourcesAsString:(int)string
+{
+  if (string >= 0x12)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32648[string];
+  }
 }
 
 - (int)StringAsMapItemSources:(id)sources
@@ -153,7 +167,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   p_mapItemSources = &self->_mapItemSources;
   if (self->_mapItemSources.count)
@@ -188,29 +202,29 @@
   if ([(NSMutableArray *)self->_possibleMapItems count])
   {
     v9 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_possibleMapItems, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     possibleMapItems = self->_possibleMapItems;
-    v11 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(possibleMapItems);
           }
 
-          [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v9 addObject:{objc_msgSend(*(*(&v17 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v12 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -230,20 +244,18 @@
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedLongLong:", self->_dwellTime), @"dwellTime"}];
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   p_mapItemSources = &self->_mapItemSources;
   if (self->_mapItemSources.count)
   {
     v5 = 0;
     do
     {
-      v6 = p_mapItemSources->list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -251,33 +263,32 @@
     while (v5 < p_mapItemSources->count);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   possibleMapItems = self->_possibleMapItems;
-  v8 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v8)
+  v7 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(possibleMapItems);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_selectedMapItem)
@@ -287,11 +298,8 @@
 
   if (*&self->_has)
   {
-    dwellTime = self->_dwellTime;
     PBDataWriterWriteUint64Field();
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -338,33 +346,33 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   PBRepeatedInt32Copy();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   possibleMapItems = self->_possibleMapItems;
-  v7 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(possibleMapItems);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) copyWithZone:zone];
+        v11 = [*(*(&v13 + 1) + 8 * i) copyWithZone:zone];
         [v5 addPossibleMapItems:v11];
       }
 
-      v8 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)possibleMapItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -377,7 +385,6 @@
     *(v5 + 56) |= 1u;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -428,7 +435,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   mapItemSourcesCount = [from mapItemSourcesCount];
   if (mapItemSourcesCount)
   {
@@ -439,29 +446,29 @@
     }
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = *(from + 5);
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(AWDCoreRoutineVisit *)self addPossibleMapItems:*(*(&v16 + 1) + 8 * j)];
+        [(AWDCoreRoutineVisit *)self addPossibleMapItems:*(*(&v15 + 1) + 8 * j)];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -487,8 +494,6 @@
     self->_dwellTime = *(from + 4);
     *&self->_has |= 1u;
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 @end

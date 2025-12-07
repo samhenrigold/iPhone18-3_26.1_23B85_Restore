@@ -11,6 +11,7 @@
 - (void)handleDeeplink:(id)deeplink;
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)initAccountInfo;
+- (void)mailSettingsStateChangedWithEnabled:(BOOL)enabled;
 - (void)mailboxBehaviorWasTapped;
 - (void)openMailboxBehaviors;
 - (void)openSMIME;
@@ -81,7 +82,7 @@
   accountManager2 = [(PreferencesViewController *)self accountManager];
   if (!accountManager2 || (v14 = accountManager2, [(PreferencesViewController *)self appleAccount], v15 = objc_claimAutoreleasedReturnValue(), v15, v14, !v15))
   {
-    v16 = _MSLogSystem();
+    v16 = _MSLogSystem(accountManager2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_D47B8(self, v16);
@@ -127,65 +128,67 @@
   lCopy = l;
   completionCopy = completion;
   v8 = [lCopy objectForKey:@"path"];
-  v9 = _MSLogSystem();
+  v9 = _MSLogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_D488C();
   }
 
   v10 = [v8 isEqualToString:@"BYOD_SETTING_SPECIFIER_ID"];
-  v11 = _MSLogSystem();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
-  if (v10)
+  v11 = v10;
+  v12 = _MSLogSystem(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
       sub_D496C();
     }
 
-    v13 = [lCopy objectForKey:@"domain"];
-    if ([(PreferencesViewController *)self _hasIcloudMailConfigured])
+    v14 = [lCopy objectForKey:@"domain"];
+    _hasIcloudMailConfigured = [(PreferencesViewController *)self _hasIcloudMailConfigured];
+    if (_hasIcloudMailConfigured)
     {
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_3F1C;
       block[3] = &unk_113050;
-      v29 = lCopy;
+      v31 = lCopy;
       dispatch_async(&_dispatch_main_q, block);
-      v14 = v29;
+      v16 = v31;
     }
 
     else
     {
-      v15 = _MSLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v17 = _MSLogSystem(_hasIcloudMailConfigured);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         sub_D49A8();
       }
 
-      v16 = [NSBundle bundleForClass:objc_opt_class()];
-      v17 = [v16 localizedStringForKey:@"BYOD_MEMBER_MAIL_CONFIGURE_ALERT_MESSAGE" value:&stru_11B690 table:0];
-      v14 = [NSString stringWithFormat:v17, v13];
-
       v18 = [NSBundle bundleForClass:objc_opt_class()];
-      [v18 localizedStringForKey:@"BYOD_MEMBER_MAIL_CONFIGURE_ALERT_TITLE" value:&stru_11B690 table:0];
-      v19 = v25 = v13;
-      v20 = [UIAlertController alertControllerWithTitle:v19 message:v14 preferredStyle:1];
+      v19 = [v18 localizedStringForKey:@"BYOD_MEMBER_MAIL_CONFIGURE_ALERT_MESSAGE" value:&stru_11B690 table:0];
+      v16 = [NSString stringWithFormat:v19, v14];
 
-      v21 = [NSBundle bundleForClass:objc_opt_class()];
-      v22 = [v21 localizedStringForKey:@"OK" value:&stru_11B690 table:0];
-      v23 = [UIAlertAction actionWithTitle:v22 style:0 handler:0];
+      v20 = [NSBundle bundleForClass:objc_opt_class()];
+      [v20 localizedStringForKey:@"BYOD_MEMBER_MAIL_CONFIGURE_ALERT_TITLE" value:&stru_11B690 table:0];
+      v21 = v27 = v14;
+      v22 = [UIAlertController alertControllerWithTitle:v21 message:v16 preferredStyle:1];
 
-      v13 = v25;
-      [v20 addAction:v23];
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_3F80;
-      v26[3] = &unk_113078;
-      v26[4] = self;
-      v27 = v20;
-      v24 = v20;
-      dispatch_async(&_dispatch_main_q, v26);
+      v23 = [NSBundle bundleForClass:objc_opt_class()];
+      v24 = [v23 localizedStringForKey:@"OK" value:&stru_11B690 table:0];
+      v25 = [UIAlertAction actionWithTitle:v24 style:0 handler:0];
+
+      v14 = v27;
+      [v22 addAction:v25];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_3F80;
+      v28[3] = &unk_113078;
+      v28[4] = self;
+      v29 = v22;
+      v26 = v22;
+      dispatch_async(&_dispatch_main_q, v28);
     }
 
     if (completionCopy)
@@ -197,7 +200,7 @@ LABEL_16:
 
   else
   {
-    if (v12)
+    if (v13)
     {
       sub_D48FC();
     }
@@ -213,74 +216,74 @@ LABEL_16:
 - (void)handleDeeplink:(id)deeplink
 {
   deeplinkCopy = deeplink;
+  v5 = deeplinkCopy;
   if (deeplinkCopy)
   {
-    v5 = _MSLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _MSLogSystem(deeplinkCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = deeplinkCopy;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Deeplink: %@", buf, 0xCu);
+      v31 = v5;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Deeplink: %@", buf, 0xCu);
     }
 
     selfCopy = self;
 
-    v6 = [[NSURLComponents alloc] initWithString:deeplinkCopy];
-    path = [v6 path];
-    v8 = [path stringByReplacingOccurrencesOfString:@"com.apple.Dataclass.Mail/" withString:&stru_11B690];
-    v9 = [v8 stringByReplacingOccurrencesOfString:@"ICLOUD_SERVICE/" withString:&stru_11B690];
+    v7 = [[NSURLComponents alloc] initWithString:v5];
+    path = [v7 path];
+    v9 = [path stringByReplacingOccurrencesOfString:@"com.apple.Dataclass.Mail/" withString:&stru_11B690];
+    v10 = [v9 stringByReplacingOccurrencesOfString:@"ICLOUD_SERVICE/" withString:&stru_11B690];
 
-    v10 = objc_opt_new();
-    [v10 setValue:v9 forKey:@"path"];
-    v11 = _MSLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = objc_opt_new();
+    v12 = _MSLogSystem([v11 setValue:v10 forKey:@"path"]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      queryItems = [v6 queryItems];
+      queryItems = [v7 queryItems];
       *buf = 138412290;
-      v29 = queryItems;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "NSURLComponents: %@", buf, 0xCu);
+      v31 = queryItems;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "NSURLComponents: %@", buf, 0xCu);
     }
 
+    v27 = 0u;
+    v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    queryItems2 = [v6 queryItems];
-    v14 = [queryItems2 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v14)
+    queryItems2 = [v7 queryItems];
+    v15 = [queryItems2 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v24;
+      v16 = v15;
+      v17 = *v26;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v16; i = i + 1)
         {
-          if (*v24 != v16)
+          if (*v26 != v17)
           {
             objc_enumerationMutation(queryItems2);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
-          value = [v18 value];
-          name = [v18 name];
-          [v10 setValue:value forKey:name];
+          v19 = *(*(&v25 + 1) + 8 * i);
+          value = [v19 value];
+          name = [v19 name];
+          [v11 setValue:value forKey:name];
         }
 
-        v15 = [queryItems2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [queryItems2 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v21 = _MSLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = _MSLogSystem(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v10;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Handle deeplink: %@", buf, 0xCu);
+      v31 = v11;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Handle deeplink: %@", buf, 0xCu);
     }
 
-    [(PreferencesViewController *)selfCopy handleURL:v10 withCompletion:0];
+    [(PreferencesViewController *)selfCopy handleURL:v11 withCompletion:0];
   }
 }
 
@@ -327,9 +330,43 @@ LABEL_16:
   dispatch_async(&_dispatch_main_q, v5);
 }
 
+- (void)mailSettingsStateChangedWithEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = [NSNumber numberWithBool:?];
+  v6 = _MSLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138412290;
+    v16 = v5;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[PreferencesViewController] mail dataclass state changed to %@", &v15, 0xCu);
+  }
+
+  mailSpecifier = self->_mailSpecifier;
+  if (mailSpecifier && ([(MailSettingsSpecifierProvider *)mailSpecifier delegate], (v8 = objc_claimAutoreleasedReturnValue()) != 0) && (v9 = v8, [(MailSettingsSpecifierProvider *)self->_mailSpecifier delegate], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_opt_respondsToSelector(), v10, v9, (v11 & 1) != 0))
+  {
+    delegate = [(MailSettingsSpecifierProvider *)self->_mailSpecifier delegate];
+    [delegate specifierProvider:self->_mailSpecifier dataclassSwitchStateDidChange:v5 withSpecifier:*&self->PSViewController_opaque[OBJC_IVAR___PSViewController__specifier]];
+  }
+
+  else
+  {
+    delegate = [(ACAccount *)self->_appleAccount copy];
+    v13 = _MSLogSystem([delegate setEnabled:enabledCopy forDataclass:ACAccountDataclassMail]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "No delegate set to save data class state, saving...", &v15, 2u);
+    }
+
+    v14 = +[ACAccountStore defaultStore];
+    [v14 saveAccount:delegate withDataclassActions:0 doVerify:0 completion:&stru_1130B8];
+  }
+}
+
 - (void)mailboxBehaviorWasTapped
 {
-  v3 = _MSLogSystem();
+  v3 = _MSLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_D4B04();
@@ -340,7 +377,7 @@ LABEL_16:
 
 - (void)customEmailDomainWasTapped
 {
-  v3 = _MSLogSystem();
+  v3 = _MSLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -358,18 +395,18 @@ LABEL_16:
 
   else
   {
-    v7 = _MSLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _MSLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Custom Email Specifier is nil", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Custom Email Specifier is nil", v9, 2u);
     }
   }
 }
 
 - (void)sMimeTapped
 {
-  v3 = _MSLogSystem();
+  v3 = _MSLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_D4B40();
@@ -392,8 +429,8 @@ LABEL_16:
 
   else
   {
-    v6 = _MSLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _MSLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_D4B7C();
     }
@@ -414,8 +451,8 @@ LABEL_16:
 
   else
   {
-    v6 = _MSLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _MSLogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_D4BBC();
     }
@@ -458,54 +495,55 @@ LABEL_16:
   [(PreferencesViewController *)self _loadMailSettingsBundleIfNeeded];
   v5 = NSClassFromString(nameCopy);
   v6 = [(objc_class *)v5 conformsToProtocol:&OBJC_PROTOCOL___AAUISpecifierProvider];
-  v7 = _MSLogSystem();
-  v8 = v7;
-  if (v6)
+  v7 = v6;
+  v8 = _MSLogSystem(v6);
+  v9 = v8;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       accountManager = self->_accountManager;
       *buf = 138412290;
-      v23 = accountManager;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "AccountManager: %@", buf, 0xCu);
+      v25 = accountManager;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "AccountManager: %@", buf, 0xCu);
     }
 
     if (!self->_accountManager)
     {
-      v10 = _MSLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v12 = _MSLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         sub_D4C70();
       }
 
-      v11 = [AIDAAccountManager alloc];
-      v12 = +[ACAccountStore defaultStore];
-      v13 = [v11 initWithAccountStore:v12];
-      v14 = self->_accountManager;
-      self->_accountManager = v13;
+      v13 = [AIDAAccountManager alloc];
+      v14 = +[ACAccountStore defaultStore];
+      v15 = [v13 initWithAccountStore:v14];
+      v16 = self->_accountManager;
+      self->_accountManager = v15;
 
-      v15 = +[ACAccountStore defaultStore];
-      aa_primaryAppleAccount = [v15 aa_primaryAppleAccount];
-      v21 = aa_primaryAppleAccount;
-      v17 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v17 = +[ACAccountStore defaultStore];
+      aa_primaryAppleAccount = [v17 aa_primaryAppleAccount];
+      v23 = aa_primaryAppleAccount;
+      v19 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
 
-      [(AIDAAccountManager *)self->_accountManager setAccounts:v17];
+      [(AIDAAccountManager *)self->_accountManager setAccounts:v19];
     }
 
-    v18 = [[v5 alloc] initWithAccountManager:self->_accountManager presenter:self];
+    v20 = [[v5 alloc] initWithAccountManager:self->_accountManager presenter:self];
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_D4BFC();
     }
 
-    v18 = 0;
+    v20 = 0;
   }
 
-  return v18;
+  return v20;
 }
 
 - (void)_loadBundleIfNeeded:(id)needed
@@ -516,10 +554,11 @@ LABEL_16:
 
   v6 = [v5 stringByAppendingPathComponent:neededCopy];
   v7 = [NSBundle bundleWithPath:v6];
-  if (([v7 isLoaded] & 1) == 0)
+  isLoaded = [v7 isLoaded];
+  if ((isLoaded & 1) == 0)
   {
-    v8 = _MSLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _MSLogSystem(isLoaded);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_D4CB0();
     }

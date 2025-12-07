@@ -44,20 +44,20 @@
 void __52__WBSCompletionListVendorForHistoryService__connect__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXHistory();
-  v4 = v3;
+  v4 = WBS_LOG_CHANNEL_PREFIXHistory(v2, v3);
+  v5 = v4;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __52__WBSCompletionListVendorForHistoryService__connect__block_invoke_cold_1(v4, v2);
+      __52__WBSCompletionListVendorForHistoryService__connect__block_invoke_cold_1(v5, v2);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Successfully sent completion list endpoint to history service.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Successfully sent completion list endpoint to history service.", v6, 2u);
   }
 }
 
@@ -68,10 +68,11 @@ void __52__WBSCompletionListVendorForHistoryService__connect__block_invoke(uint6
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   HasEntitlement = WBSAuditTokenHasEntitlement();
+  v11 = HasEntitlement;
   if (HasEntitlement)
   {
     [(WBSCompletionListVendorForHistoryService *)self _setExportedInterfaceAndObjectForConnection:v8];
@@ -80,14 +81,14 @@ void __52__WBSCompletionListVendorForHistoryService__connect__block_invoke(uint6
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXHistory(HasEntitlement, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [WBSCompletionListVendorForHistoryService listener:v10 shouldAcceptNewConnection:?];
+      [WBSCompletionListVendorForHistoryService listener:v12 shouldAcceptNewConnection:?];
     }
   }
 
-  return HasEntitlement;
+  return v11;
 }
 
 - (WBSCompletionListVendorForHistoryServiceDataSource)dataSource

@@ -7,7 +7,7 @@
 
 - (double)computeIntrinsicAspectRatio
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   [v2 aspectRatio];
   v4 = v3;
 
@@ -20,8 +20,8 @@
   v4 = v3;
   [(TUILayout *)self computeHeight];
   v6 = v5;
-  children = [(TUILayout *)self children];
-  firstObject = [children firstObject];
+  v7 = objc_msgSend_children(self);
+  firstObject = [v7 firstObject];
 
   [firstObject setContainingWidth:v4];
   [firstObject setContainingHeight:v6];
@@ -49,13 +49,13 @@
   }
 
   [firstObject setFlexedHeight:v11];
-  [firstObject validateLayout];
-  [firstObject computedTransformedSize];
+  objc_msgSend_validateLayout(firstObject);
+  objc_msgSend_computedTransformedSize(firstObject);
   v13 = v12;
   v15 = v14;
   x = CGPointZero.x;
   computedLayoutDirection = [(TUILayout *)self computedLayoutDirection];
-  v18 = [firstObject box];
+  v18 = objc_msgSend_box(firstObject);
   halign = [v18 halign];
 
   if (halign <= 1)
@@ -103,7 +103,7 @@ LABEL_16:
   }
 
 LABEL_20:
-  v21 = [firstObject box];
+  v21 = objc_msgSend_box(firstObject, v20);
   valign = [v21 valign];
 
   if (valign > 4)

@@ -8,12 +8,12 @@
 
 + (uint64_t)assertionCount
 {
-  v0 = objc_opt_self();
-  objc_sync_enter(v0);
-  v1 = _DKKnowledgeSyncStorageAssertionCount;
-  objc_sync_exit(v0);
+  v1 = objc_opt_self();
+  objc_sync_enter(v1);
+  v2 = _DKKnowledgeSyncStorageAssertionCount;
+  objc_sync_exit(v1);
 
-  return v1;
+  return v2;
 }
 
 - (_DKKnowledgeSyncStorageAssertion)init

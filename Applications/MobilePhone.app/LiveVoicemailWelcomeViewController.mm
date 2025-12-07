@@ -30,7 +30,7 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMd, &_s6TipKit4TipsO5EventVy_AC13EmptyDonationVGMR);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11 - v7;

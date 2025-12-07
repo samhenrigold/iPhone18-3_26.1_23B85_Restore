@@ -71,7 +71,7 @@
 
 - (id)sanitizeWidgetViews:(id)views
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DF70];
   viewsCopy = views;
   array = [v4 array];
@@ -81,25 +81,25 @@
 
   selfCopy = self;
   os_unfair_lock_lock(&self->_lastWidgetViewLock);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v7;
-  v45 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
-  if (v45)
+  v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
+  if (v44)
   {
-    v44 = *v53;
+    v43 = *v52;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v53 != v44)
+        if (*v52 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v52 + 1) + 8 * i);
+        v9 = *(*(&v51 + 1) + 8 * i);
         budgetID = [v9 budgetID];
         if (budgetID)
         {
@@ -110,26 +110,26 @@
             array2 = [MEMORY[0x1E695DF70] array];
           }
 
-          v50 = 0u;
-          v51 = 0u;
-          v48 = 0u;
           v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
           v13 = array2;
-          v14 = [v13 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v47 objects:v59 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v49;
+            v16 = *v48;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v49 != v16)
+                if (*v48 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v48 + 1) + 8 * j);
+                v18 = *(*(&v47 + 1) + 8 * j);
                 startDate = [v9 startDate];
                 endDate = [v18 endDate];
                 [startDate timeIntervalSinceDate:endDate];
@@ -146,9 +146,9 @@
                     budgetID2 = [v9 budgetID];
                     startDate2 = [v9 startDate];
                     *buf = 138412546;
-                    v57 = budgetID2;
-                    v58 = 2112;
-                    v59 = startDate2;
+                    v56 = budgetID2;
+                    v57 = 2112;
+                    v58 = startDate2;
                     _os_log_debug_impl(&dword_1B6E2F000, v32, OS_LOG_TYPE_DEBUG, "Coalescing view for %@ at %@", buf, 0x16u);
 
                     v23 = v13;
@@ -158,7 +158,7 @@
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v48 objects:v60 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v47 objects:v59 count:16];
               if (v15)
               {
                 continue;
@@ -179,9 +179,9 @@
               budgetID3 = [v9 budgetID];
               startDate3 = [v9 startDate];
               *buf = 138412546;
-              v57 = budgetID3;
-              v58 = 2112;
-              v59 = startDate3;
+              v56 = budgetID3;
+              v57 = 2112;
+              v58 = startDate3;
               _os_log_debug_impl(&dword_1B6E2F000, v28, OS_LOG_TYPE_DEBUG, "Coalescing view for %@ at %@ (Cache)", buf, 0x16u);
             }
           }
@@ -201,56 +201,54 @@ LABEL_24:
         }
       }
 
-      v45 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+      v44 = [obj countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   os_unfair_lock_unlock(&selfCopy->_lastWidgetViewLock);
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __50___DASWidgetRefreshScheduler_sanitizeWidgetViews___block_invoke_244;
-  v46[3] = &unk_1E7C8F2C8;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __50___DASWidgetRefreshScheduler_sanitizeWidgetViews___block_invoke_244;
+  v45[3] = &unk_1E7C8F2C8;
   v36 = array;
-  v47 = v36;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v46];
+  v46 = v36;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v45];
 
   objc_autoreleasePoolPop(context);
   v37 = [v36 copy];
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
 
 - (void)recordWidgetViews:(id)views
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = [(_DASWidgetRefreshScheduler *)self sanitizeWidgetViews:views];
   v4 = BiomeLibrary();
   widgets = [v4 Widgets];
   viewed = [widgets Viewed];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = v3;
-  v38 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+  if (v37)
   {
-    v37 = *v42;
+    v36 = *v41;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v42 != v37)
+        if (*v41 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v41 + 1) + 8 * i);
+        v7 = *(*(&v40 + 1) + 8 * i);
         budgetID = [v7 budgetID];
 
         if (budgetID)
@@ -258,7 +256,7 @@ LABEL_24:
           v9 = [(_DASWidgetRefreshScheduler *)self log];
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            [(_DASWidgetRefreshScheduler *)v47 recordWidgetViews:v7, &v48, v9];
+            [(_DASWidgetRefreshScheduler *)v46 recordWidgetViews:v7, &v47, v9];
           }
 
           v10 = objc_alloc(MEMORY[0x1E698F078]);
@@ -284,66 +282,64 @@ LABEL_24:
             v22 = @"viewed_stale";
           }
 
-          v46[0] = v22;
-          v45[0] = @"metricKey";
-          v45[1] = @"metricValue";
+          v45[0] = v22;
+          v44[0] = @"metricKey";
+          v44[1] = @"metricValue";
           v23 = MEMORY[0x1E696AD98];
           [v7 timeUntilContentExpiration];
           LODWORD(v25) = llround(v24);
           v26 = [v23 numberWithInt:v25];
-          v46[1] = v26;
-          v45[2] = @"widgetID";
+          v45[1] = v26;
+          v44[2] = @"widgetID";
           v27 = MEMORY[0x1E696AEC0];
           budgetID3 = [v7 budgetID];
           v29 = [v27 stringWithFormat:@"%lul", objc_msgSend(budgetID3, "hash")];
-          v46[2] = v29;
-          v45[3] = @"page";
+          v45[2] = v29;
+          v44[3] = @"page";
           v30 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v7, "pageID")}];
-          v46[3] = v30;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:4];
+          v45[3] = v30;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:4];
 
           v32 = v31;
           AnalyticsSendEventLazy();
         }
       }
 
-      v38 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v37 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recordWidgetRefreshes:(id)refreshes
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   refreshesCopy = refreshes;
   v4 = BiomeLibrary();
   widgets = [v4 Widgets];
   refresh = [widgets Refresh];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = refreshesCopy;
-  v6 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v6 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v36 = *v38;
+    v35 = *v37;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v36)
+        if (*v37 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v36 + 1) + 8 * i);
         budgetID = [v9 budgetID];
 
         if (budgetID)
@@ -386,31 +382,29 @@ LABEL_24:
             }
           }
 
-          v41[0] = @"metricKey";
-          v41[1] = @"metricValue";
-          v42[0] = v19;
-          v42[1] = &unk_1F2ED4958;
-          v41[2] = @"widgetID";
+          v40[0] = @"metricKey";
+          v40[1] = @"metricValue";
+          v41[0] = v19;
+          v41[1] = &unk_1F2ED4958;
+          v40[2] = @"widgetID";
           v27 = MEMORY[0x1E696AEC0];
           budgetID4 = [v9 budgetID];
           v29 = [v27 stringWithFormat:@"%llu", objc_msgSend(budgetID4, "hash")];
-          v41[3] = @"page";
-          v42[2] = v29;
-          v42[3] = &unk_1F2ED4970;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:4];
+          v40[3] = @"page";
+          v41[2] = v29;
+          v41[3] = &unk_1F2ED4970;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:4];
 
           v31 = v30;
           AnalyticsSendEventLazy();
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v7 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v7);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBudget:(id)budget
@@ -443,29 +437,29 @@ LABEL_24:
 
 - (id)decrementBudgetForWidgetID:(id)d by:(double)by
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [(_DASScheduler *)self->_dasScheduler allBudgets];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = v30 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v7 = v29 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
     selfCopy = self;
-    v10 = *v28;
+    v10 = *v27;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v28 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:@"name"];
         v14 = [v12 objectForKeyedSubscript:@"balance"];
         [v14 doubleValue];
@@ -490,12 +484,12 @@ LABEL_24:
               v19 = [v12 objectForKeyedSubscript:@"capacity"];
               v20 = [v12 objectForKeyedSubscript:@"balance"];
               *buf = 138413058;
-              v32 = v13;
-              v33 = 2112;
-              v34 = v19;
-              v35 = 2112;
-              v36 = v20;
-              v37 = 2048;
+              v31 = v13;
+              v32 = 2112;
+              v33 = v19;
+              v34 = 2112;
+              v35 = v20;
+              v36 = 2048;
               byCopy = by;
               _os_log_impl(&dword_1B6E2F000, v18, OS_LOG_TYPE_DEFAULT, "Decremented budget %@ with capacity %@ and balance %@ by %f", buf, 0x2Au);
             }
@@ -512,7 +506,7 @@ LABEL_24:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v26 objects:v38 count:16];
       if (v9)
       {
         continue;
@@ -524,8 +518,6 @@ LABEL_24:
 
   v17 = 0;
 LABEL_16:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -546,7 +538,7 @@ LABEL_16:
 
 - (id)createRefreshActivityForWidgetBudgetID:(id)d containingAppID:(id)iD refreshAfter:(id)after refreshBefore:(id)before widgetInfo:(id)info refreshHandler:(id)handler
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   beforeCopy = before;
@@ -559,35 +551,33 @@ LABEL_16:
   v21 = [_DASActivity activityWithName:dCopy priority:_DASSchedulingPriorityUtility duration:_DASActivityDurationShort startingAfter:afterCopy startingBefore:v19];
 
   [v21 setWidgetBudgetID:dCopy];
-  v31[0] = iDCopy;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+  v30[0] = iDCopy;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
   [v21 setRelatedApplications:v22];
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke;
-  v28[3] = &unk_1E7C8F318;
-  v29 = dCopy;
-  v30 = handlerCopy;
-  v28[4] = self;
-  v23 = dCopy;
-  v24 = handlerCopy;
-  [v21 setStartHandler:v28];
   v27[0] = MEMORY[0x1E69E9820];
   v27[1] = 3221225472;
-  v27[2] = __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_311;
-  v27[3] = &unk_1E7C8F340;
+  v27[2] = __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke;
+  v27[3] = &unk_1E7C8F318;
+  v28 = dCopy;
+  v29 = handlerCopy;
   v27[4] = self;
-  [v21 setSuspendHandler:v27];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = dCopy;
+  v24 = handlerCopy;
+  [v21 setStartHandler:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __138___DASWidgetRefreshScheduler_createRefreshActivityForWidgetBudgetID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_311;
+  v26[3] = &unk_1E7C8F340;
+  v26[4] = self;
+  [v21 setSuspendHandler:v26];
 
   return v21;
 }
 
 - (id)createRefreshActivityWithRateLimitConfigurationName:(id)name forWidgetBudgetID:(id)d withRemoteDeviceID:(id)iD containingAppID:(id)appID refreshAfter:(id)after refreshBefore:(id)before widgetInfo:(id)info refreshHandler:(id)self0
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dCopy = d;
   iDCopy = iD;
@@ -598,10 +588,10 @@ LABEL_16:
   v23 = handlerCopy;
   if (nameCopy || dCopy || iDCopy)
   {
-    v36 = handlerCopy;
+    v35 = handlerCopy;
     v26 = appIDCopy;
     v27 = [afterCopy dateByAddingTimeInterval:900.0];
-    v37 = beforeCopy;
+    v36 = beforeCopy;
     v24 = [beforeCopy laterDate:v27];
 
     v28 = [MEMORY[0x1E696AD60] stringWithString:@"com.apple."];
@@ -642,29 +632,29 @@ LABEL_16:
       [v25 setTargetDevice:3];
     }
 
-    v43[0] = v26;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
+    v42[0] = v26;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
     [v25 setRelatedApplications:v33];
 
     appIDCopy = v26;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __188___DASWidgetRefreshScheduler_createRefreshActivityWithRateLimitConfigurationName_forWidgetBudgetID_withRemoteDeviceID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke;
-    v39[3] = &unk_1E7C8F368;
-    v39[4] = self;
-    v40 = dCopy;
-    v41 = nameCopy;
-    v23 = v36;
-    v42 = v36;
-    [v25 setStartHandler:v39];
     v38[0] = MEMORY[0x1E69E9820];
     v38[1] = 3221225472;
-    v38[2] = __188___DASWidgetRefreshScheduler_createRefreshActivityWithRateLimitConfigurationName_forWidgetBudgetID_withRemoteDeviceID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_328;
-    v38[3] = &unk_1E7C8F340;
+    v38[2] = __188___DASWidgetRefreshScheduler_createRefreshActivityWithRateLimitConfigurationName_forWidgetBudgetID_withRemoteDeviceID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke;
+    v38[3] = &unk_1E7C8F368;
     v38[4] = self;
-    [v25 setSuspendHandler:v38];
+    v39 = dCopy;
+    v40 = nameCopy;
+    v23 = v35;
+    v41 = v35;
+    [v25 setStartHandler:v38];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __188___DASWidgetRefreshScheduler_createRefreshActivityWithRateLimitConfigurationName_forWidgetBudgetID_withRemoteDeviceID_containingAppID_refreshAfter_refreshBefore_widgetInfo_refreshHandler___block_invoke_328;
+    v37[3] = &unk_1E7C8F340;
+    v37[4] = self;
+    [v25 setSuspendHandler:v37];
 
-    beforeCopy = v37;
+    beforeCopy = v36;
   }
 
   else
@@ -678,14 +668,12 @@ LABEL_16:
     v25 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 - (id)createRefreshActivityWithWidgetParameters:(id)parameters
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   widgetBudgetIdentifier = [parametersCopy widgetBudgetIdentifier];
   if (widgetBudgetIdentifier || ([parametersCopy remoteDeviceIdentifier], (widgetBudgetIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
@@ -764,16 +752,16 @@ LABEL_4:
     }
 
     appIdentifier = [parametersCopy appIdentifier];
-    v35[0] = appIdentifier;
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+    v34[0] = appIdentifier;
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
     [v22 setRelatedApplications:v30];
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __72___DASWidgetRefreshScheduler_createRefreshActivityWithWidgetParameters___block_invoke;
-    v34[3] = &unk_1E7C8F340;
-    v34[4] = self;
-    [v22 setSuspendHandler:v34];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __72___DASWidgetRefreshScheduler_createRefreshActivityWithWidgetParameters___block_invoke;
+    v33[3] = &unk_1E7C8F340;
+    v33[4] = self;
+    [v22 setSuspendHandler:v33];
 
     goto LABEL_18;
   }
@@ -793,8 +781,6 @@ LABEL_4:
 
   v22 = 0;
 LABEL_18:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v22;
 }

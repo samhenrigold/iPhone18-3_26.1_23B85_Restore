@@ -106,7 +106,7 @@ LABEL_7:
   {
     v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"trash"];
     v15 = MEMORY[0x1E69DC628];
-    v16 = CKFrameworkBundle();
+    v16 = CKFrameworkBundle(v14);
     v17 = [v16 localizedStringForKey:@"SEARCH_DELETE" value:&stru_1F04268F8 table:@"ChatKit"];
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;

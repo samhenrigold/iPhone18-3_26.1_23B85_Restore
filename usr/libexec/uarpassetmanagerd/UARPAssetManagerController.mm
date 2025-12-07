@@ -21,72 +21,68 @@
 
 - (UARPAssetManagerController)initWithIdleTimeout:(int64_t)timeout
 {
-  v35 = a2;
+  v31 = a2;
   timeoutCopy = timeout;
-  v36 = 0;
-  v33.receiver = self;
-  v33.super_class = UARPAssetManagerController;
-  v36 = [(UARPAssetManagerController *)&v33 init];
-  objc_storeStrong(&v36, v36);
-  if (v36)
+  v32 = 0;
+  v29.receiver = self;
+  v29.super_class = UARPAssetManagerController;
+  v32 = [(UARPAssetManagerController *)&v29 init];
+  objc_storeStrong(&v32, v32);
+  if (v32)
   {
-    v36->_idleExitTimeoutSec = timeoutCopy;
+    v32->_idleExitTimeoutSec = timeoutCopy;
     v3 = dispatch_queue_create("com.apple.AsyncAssetManager.queue", 0);
-    internalQueue = v36->_internalQueue;
-    v36->_internalQueue = v3;
+    internalQueue = v32->_internalQueue;
+    v32->_internalQueue = v3;
 
     v5 = [UARPAssetManagerServiceManager alloc];
-    v6 = [(UARPAssetManagerServiceManager *)v5 initWithDelegate:v36];
-    assetManagerServiceManager = v36->_assetManagerServiceManager;
-    v36->_assetManagerServiceManager = v6;
+    v6 = [(UARPAssetManagerServiceManager *)v5 initWithDelegate:v32];
+    assetManagerServiceManager = v32->_assetManagerServiceManager;
+    v32->_assetManagerServiceManager = v6;
 
     v8 = os_log_create("com.apple.uarpassetmanager.uarp", "uarpAssetManager");
-    log = v36->_log;
-    v36->_log = v8;
+    log = v32->_log;
+    v32->_log = v8;
 
     v10 = [UARPAssetManagerListener alloc];
-    v11 = [(UARPAssetManagerListener *)v10 initWithDelegate:v36];
-    assetManagerListener = v36->_assetManagerListener;
-    v36->_assetManagerListener = v11;
+    v11 = [(UARPAssetManagerListener *)v10 initWithDelegate:v32];
+    assetManagerListener = v32->_assetManagerListener;
+    v32->_assetManagerListener = v11;
 
     v13 = [UARPAssetManagerSettingsListener alloc];
-    v14 = [(UARPAssetManagerSettingsListener *)v13 initWithController:v36 dispatchQueue:v36->_internalQueue];
-    settingsListener = v36->_settingsListener;
-    v36->_settingsListener = v14;
+    v14 = [(UARPAssetManagerSettingsListener *)v13 initWithController:v32 dispatchQueue:v32->_internalQueue];
+    settingsListener = v32->_settingsListener;
+    v32->_settingsListener = v14;
 
-    [(UARPAssetManagerController *)v36 setActivityForUARPPeriodicLaunch];
+    [(UARPAssetManagerController *)v32 setActivityForUARPPeriodicLaunch];
     v16 = objc_opt_new();
-    subscriberTokens = v36->_subscriberTokens;
-    v36->_subscriberTokens = v16;
+    subscriberTokens = v32->_subscriberTokens;
+    v32->_subscriberTokens = v16;
 
     [kUARPAssetAvailabilityXPCEventName UTF8String];
-    v18 = v36->_internalQueue;
-    v19 = xpc_event_publisher_create();
-    publisher = v36->_publisher;
-    v36->_publisher = v19;
+    v18 = xpc_event_publisher_create();
+    publisher = v32->_publisher;
+    v32->_publisher = v18;
 
-    objc_initWeak(&v32, v36);
-    v25 = v36->_publisher;
-    v26[3] = _NSConcreteStackBlock;
-    v27 = -1073741824;
-    v28 = 0;
-    v29 = __50__UARPAssetManagerController_initWithIdleTimeout___block_invoke;
-    v30 = &unk_100035CB8;
-    objc_copyWeak(&v31, &v32);
+    objc_initWeak(&v28, v32);
+    v22[3] = _NSConcreteStackBlock;
+    v23 = -1073741824;
+    v24 = 0;
+    v25 = __50__UARPAssetManagerController_initWithIdleTimeout___block_invoke;
+    v26 = &unk_100035CB8;
+    objc_copyWeak(&v27, &v28);
     xpc_event_publisher_set_handler();
-    v24 = v36->_publisher;
-    objc_copyWeak(v26, &v32);
+    objc_copyWeak(v22, &v28);
     xpc_event_publisher_set_error_handler();
-    v21 = v36->_publisher;
     xpc_event_publisher_activate();
-    objc_destroyWeak(v26);
-    objc_destroyWeak(&v31);
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(v22);
+    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v28);
   }
 
-  v23 = v36;
-  objc_storeStrong(&v36, 0);
-  return v23;
+  v21 = v32;
+  objc_storeStrong(&v32, 0);
+  return v21;
 }
 
 void __50__UARPAssetManagerController_initWithIdleTimeout___block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, id obj)
@@ -483,57 +479,55 @@ void __59__UARPAssetManagerController_notifySubscribers_withDomain___block_invok
   {
     memset(__b, 0, sizeof(__b));
     obj = location[0];
-    v14 = [obj countByEnumeratingWithState:__b objects:v28 count:16];
-    if (v14)
+    v12 = [obj countByEnumeratingWithState:__b objects:v26 count:16];
+    if (v12)
     {
-      v10 = *__b[2];
-      v11 = 0;
-      v12 = v14;
+      v8 = *__b[2];
+      v9 = 0;
+      v10 = v12;
       while (1)
       {
-        v9 = v11;
-        if (*__b[2] != v10)
+        v7 = v9;
+        if (*__b[2] != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(__b[1] + 8 * v11);
-        v19 = *(a1[4] + 32);
-        v18 = OS_LOG_TYPE_INFO;
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v19 = *(__b[1] + 8 * v9);
+        v17 = *(a1[4] + 32);
+        v16 = OS_LOG_TYPE_INFO;
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v7 = v19;
-          v8 = v18;
-          __os_log_helper_16_2_2_8_66_8_2(v27, a1[6], [v21 unsignedLongLongValue]);
-          _os_log_impl(&_mh_execute_header, v7, v8, "Sending notification %{public}@ to %{public}llu", v27, 0x16u);
+          v5 = v17;
+          v6 = v16;
+          __os_log_helper_16_2_2_8_66_8_2(v25, a1[6], [v19 unsignedLongLongValue]);
+          _os_log_impl(&_mh_execute_header, v5, v6, "Sending notification %{public}@ to %{public}llu", v25, 0x16u);
         }
 
-        objc_storeStrong(&v19, 0);
-        v6 = *(a1[4] + 56);
-        [v21 unsignedLongLongValue];
-        v1 = a1[6];
+        objc_storeStrong(&v17, 0);
+        [v19 unsignedLongLongValue];
         if (xpc_event_publisher_fire())
         {
-          v16 = *(a1[4] + 32);
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v14 = *(a1[4] + 32);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v5 = v16;
-            v3 = a1[6];
-            v4 = [v21 unsignedLongLongValue];
-            v2 = xpc_strerror();
-            __os_log_helper_16_2_3_8_66_8_2_8_34(v26, v3, v4, v2);
-            _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Sending %{public}@ to %{public}llu failed with error: %{public}s", v26, 0x20u);
+            v4 = v14;
+            v2 = a1[6];
+            v3 = [v19 unsignedLongLongValue];
+            v1 = xpc_strerror();
+            __os_log_helper_16_2_3_8_66_8_2_8_34(v24, v2, v3, v1);
+            _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Sending %{public}@ to %{public}llu failed with error: %{public}s", v24, 0x20u);
           }
 
-          objc_storeStrong(&v16, 0);
+          objc_storeStrong(&v14, 0);
         }
 
-        ++v11;
-        if (v9 + 1 >= v12)
+        ++v9;
+        if (v7 + 1 >= v10)
         {
-          v11 = 0;
-          v12 = [obj countByEnumeratingWithState:__b objects:v28 count:16];
-          if (!v12)
+          v9 = 0;
+          v10 = [obj countByEnumeratingWithState:__b objects:v26 count:16];
+          if (!v10)
           {
             break;
           }
@@ -541,7 +535,7 @@ void __59__UARPAssetManagerController_notifySubscribers_withDomain___block_invok
       }
     }
 
-    v22 = 0;
+    v20 = 0;
   }
 
   else
@@ -550,12 +544,12 @@ void __59__UARPAssetManagerController_notifySubscribers_withDomain___block_invok
     type = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_66(v29, a1[5]);
-      _os_log_error_impl(&_mh_execute_header, oslog, type, "Did not find any subscribers for domain %{public}@", v29, 0xCu);
+      __os_log_helper_16_2_1_8_66(v27, a1[5]);
+      _os_log_error_impl(&_mh_execute_header, oslog, type, "Did not find any subscribers for domain %{public}@", v27, 0xCu);
     }
 
     objc_storeStrong(&oslog, 0);
-    v22 = 1;
+    v20 = 1;
   }
 
   objc_storeStrong(location, 0);

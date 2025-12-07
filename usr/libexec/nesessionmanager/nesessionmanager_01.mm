@@ -352,10 +352,10 @@ id sub_100022D7C(uint64_t a1)
       v6 = [v5 IPv6Settings];
       if (!v6)
       {
-        v22 = [v3 pluginConfigurationEntities];
-        v23 = [v22 tunnelRemoteAddress];
+        v21 = [v3 pluginConfigurationEntities];
+        v22 = [v21 tunnelRemoteAddress];
 
-        if (!v23)
+        if (!v22)
         {
           goto LABEL_10;
         }
@@ -369,7 +369,7 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v3;
+      v24 = v3;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%@: Resetting the virtual interface", buf, 0xCu);
     }
 
@@ -432,7 +432,7 @@ LABEL_19:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v25 = v8;
+          v24 = v8;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%@: Setting proxies", buf, 0xCu);
         }
 
@@ -443,7 +443,7 @@ LABEL_19:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v25 = v8;
+            v24 = v8;
             _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%@: failed to set the proxy configuration", buf, 0xCu);
           }
         }
@@ -458,7 +458,6 @@ LABEL_34:
     v20 = 0;
 LABEL_28:
     [v20 virtualInterface];
-    v21 = *(a1 + 40);
     if (NEVirtualInterfaceUpdateAdHocServiceReturnChanges())
     {
       return 0;
@@ -497,7 +496,6 @@ LABEL_30:
       v43 = *(a1 + 32);
 LABEL_31:
       [v43 virtualInterface];
-      v44 = *(a1 + 40);
       NEVirtualInterfaceUpdateAdHocServiceReturnChanges();
       [*(a1 + 32) virtualInterface];
       NEVirtualInterfaceRemoveAllRoutes();
@@ -523,7 +521,7 @@ LABEL_8:
       v10 = [NEDNSSettingsNetworkAgent alloc];
       v11 = [v3 configuration];
       v12 = [v11 identifier];
-      v13 = [v10 initWithConfigUUID:v12 sessionType:objc_msgSend(v3 name:{"type"), 0}];
+      v13 = [v10 initWithConfigUUID:v12 sessionType:objc_msgSend_type(v3) name:0];
       [v3 setDnsAgent:v13];
 
       v14 = [v3 dnsAgent];
@@ -614,12 +612,12 @@ LABEL_8:
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_10003B744;
-        v85 = &unk_1000E9EC8;
-        v86 = v33;
-        v87 = v37;
-        v88 = v39;
-        v90 = v32;
-        v89 = v38;
+        v84 = &unk_1000E9EC8;
+        v85 = v33;
+        v86 = v37;
+        v87 = v39;
+        v89 = v32;
+        v88 = v38;
         sub_100031500(NESMPolicyMasterSession, buf);
       }
 
@@ -640,131 +638,131 @@ LABEL_29:
       goto LABEL_8;
     }
 
-    v45 = ne_log_obj();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v44 = ne_log_obj();
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       *&buf[4] = v3;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "%@: Setting DNS", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%@: Setting DNS", buf, 0xCu);
     }
 
     sub_100020644(v3);
-    v46 = [v4 DNSSettings];
-    v47 = [v46 domainName];
+    v45 = [v4 DNSSettings];
+    v46 = [v45 domainName];
 
-    if (v47)
+    if (v46)
     {
-      v48 = [v4 DNSSettings];
-      v42 = [v48 domainName];
+      v47 = [v4 DNSSettings];
+      v42 = [v47 domainName];
     }
 
     else
     {
-      v48 = [v3 protocol];
-      v49 = [v48 DNSSettings];
-      v42 = [v49 domainName];
+      v47 = [v3 protocol];
+      v48 = [v47 DNSSettings];
+      v42 = [v48 domainName];
     }
 
     [v3 virtualInterface];
     if (!NEVirtualInterfaceSetDNSDomain())
     {
-      v50 = ne_log_obj();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+      v49 = ne_log_obj();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v3;
-        _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS domain", buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v49, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS domain", buf, 0xCu);
       }
     }
 
-    v51 = [v4 DNSSettings];
-    v52 = [v51 servers];
+    v50 = [v4 DNSSettings];
+    v51 = [v50 servers];
 
-    if (v52)
+    if (v51)
     {
-      v53 = [v4 DNSSettings];
-      v41 = [v53 servers];
+      v52 = [v4 DNSSettings];
+      v41 = [v52 servers];
     }
 
     else
     {
-      v53 = [v3 protocol];
-      v54 = [v53 DNSSettings];
-      v41 = [v54 servers];
+      v52 = [v3 protocol];
+      v53 = [v52 DNSSettings];
+      v41 = [v53 servers];
     }
 
     [v3 virtualInterface];
     if (!NEVirtualInterfaceSetDNSServers())
     {
-      v55 = ne_log_obj();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+      v54 = ne_log_obj();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v3;
-        _os_log_error_impl(&_mh_execute_header, v55, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS servers", buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS servers", buf, 0xCu);
       }
     }
 
-    v56 = [v4 DNSSettings];
-    v57 = [v56 searchDomains];
+    v55 = [v4 DNSSettings];
+    v56 = [v55 searchDomains];
 
-    if (v57)
+    if (v56)
     {
-      v58 = [v4 DNSSettings];
-      v59 = [v58 searchDomains];
+      v57 = [v4 DNSSettings];
+      v58 = [v57 searchDomains];
     }
 
     else
     {
-      v58 = [v3 protocol];
-      v60 = [v58 DNSSettings];
-      v59 = [v60 searchDomains];
+      v57 = [v3 protocol];
+      v59 = [v57 DNSSettings];
+      v58 = [v59 searchDomains];
     }
 
-    v61 = [v4 DNSSettings];
-    v62 = [v61 matchDomains];
+    v60 = [v4 DNSSettings];
+    v61 = [v60 matchDomains];
 
-    if (v62)
+    if (v61)
     {
+      v62 = [v4 DNSSettings];
+      v39 = [v62 matchDomains];
+
       v63 = [v4 DNSSettings];
-      v39 = [v63 matchDomains];
-
-      v64 = [v4 DNSSettings];
-      v65 = [v64 matchDomainsNoSearch];
+      v64 = [v63 matchDomainsNoSearch];
     }
 
     else
     {
-      v66 = [v3 protocol];
-      v67 = [v66 DNSSettings];
-      v39 = [v67 matchDomains];
+      v65 = [v3 protocol];
+      v66 = [v65 DNSSettings];
+      v39 = [v66 matchDomains];
 
-      v64 = [v3 protocol];
-      v68 = [v64 DNSSettings];
-      v65 = [v68 matchDomainsNoSearch];
+      v63 = [v3 protocol];
+      v67 = [v63 DNSSettings];
+      v64 = [v67 matchDomainsNoSearch];
     }
 
-    if ([v3 type] != 2)
+    if (objc_msgSend_type(v3) != 2)
     {
       goto LABEL_62;
     }
 
-    if (v59)
+    if (v58)
     {
-      if ([v59 count] || !v39)
+      if ([v58 count] || !v39)
       {
 LABEL_62:
-        v40 = v59;
+        v40 = v58;
 LABEL_63:
         [v3 virtualInterface];
         if (!NEVirtualInterfaceSetDNSSearchDomains())
         {
-          v69 = ne_log_obj();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v68 = ne_log_obj();
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             *&buf[4] = v3;
-            _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS search domains", buf, 0xCu);
+            _os_log_error_impl(&_mh_execute_header, v68, OS_LOG_TYPE_ERROR, "%@: failed to set the DNS search domains", buf, 0xCu);
           }
         }
 
@@ -773,36 +771,36 @@ LABEL_63:
           [v3 virtualInterface];
           if (!NEVirtualInterfaceSetDNSSupplementalMatchDomains())
           {
-            v70 = ne_log_obj();
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v69 = ne_log_obj();
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = v3;
-              _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "%@: failed to set the supplemental match domains", buf, 0xCu);
+              _os_log_error_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "%@: failed to set the supplemental match domains", buf, 0xCu);
             }
           }
 
           [v3 virtualInterface];
           if (!NEVirtualInterfaceSetDNSSupplementalMatchDomainsNoSearch())
           {
-            v71 = ne_log_obj();
-            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+            v70 = ne_log_obj();
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = v3;
-              _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%@: failed to set the supplemental match domains NoSearch flag", buf, 0xCu);
+              _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "%@: failed to set the supplemental match domains NoSearch flag", buf, 0xCu);
             }
           }
         }
 
-        v72 = [v4 IPv4Settings];
+        v71 = [v4 IPv4Settings];
 
-        if (v72)
+        if (v71)
         {
-          v73 = [v4 IPv4Settings];
-          v74 = [v73 hasDefaultRoute];
+          v72 = [v4 IPv4Settings];
+          v73 = [v72 hasDefaultRoute];
 
-          if (v74)
+          if (v73)
           {
             [v3 virtualInterface];
             NEVirtualInterfaceSetHasDefaultRoute();
@@ -810,24 +808,24 @@ LABEL_63:
 
           else
           {
-            v75 = [v4 IPv4Settings];
-            v76 = [v75 includedRoutes];
+            v74 = [v4 IPv4Settings];
+            v75 = [v74 includedRoutes];
 
-            if (v76)
+            if (v75)
             {
-              sub_1000251FC(v3, v76, 0, 2);
+              sub_1000251FC(v3, v75, 0, 2);
             }
           }
         }
 
-        v77 = [v4 IPv6Settings];
+        v76 = [v4 IPv6Settings];
 
-        if (v77)
+        if (v76)
         {
-          v78 = [v4 IPv6Settings];
-          v79 = [v78 hasDefaultRoute];
+          v77 = [v4 IPv6Settings];
+          v78 = [v77 hasDefaultRoute];
 
-          if (v79)
+          if (v78)
           {
             [v3 virtualInterface];
             NEVirtualInterfaceSetHasDefaultRoute();
@@ -835,12 +833,12 @@ LABEL_63:
 
           else
           {
-            v80 = [v4 IPv6Settings];
-            v81 = [v80 includedRoutes];
+            v79 = [v4 IPv6Settings];
+            v80 = [v79 includedRoutes];
 
-            if (v81)
+            if (v80)
             {
-              sub_1000251FC(v3, v81, 0, 30);
+              sub_1000251FC(v3, v80, 0, 30);
             }
           }
         }
@@ -855,19 +853,19 @@ LABEL_63:
       goto LABEL_63;
     }
 
-    if (!(([v39 count] == 0) | v65 & 1))
+    if (!(([v39 count] == 0) | v64 & 1))
     {
-      v82 = [NSPredicate predicateWithBlock:&stru_1000E9B08];
-      v40 = [v39 filteredArrayUsingPredicate:v82];
+      v81 = [NSPredicate predicateWithBlock:&stru_1000E9B08];
+      v40 = [v39 filteredArrayUsingPredicate:v81];
 
-      v83 = ne_log_obj();
-      if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+      v82 = ne_log_obj();
+      if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
         *&buf[4] = v3;
         *&buf[12] = 2112;
         *&buf[14] = v40;
-        _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_INFO, "%@: Using per-app match domains as search domains: %@", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "%@: Using per-app match domains as search domains: %@", buf, 0x16u);
       }
 
       goto LABEL_63;
@@ -888,10 +886,9 @@ id sub_100023DA8(uint64_t a1)
     v3 = *(a1 + 32);
     if (!v3)
     {
-      v88 = 0;
+      v89 = 0;
 LABEL_122:
-      [v88 virtualInterface];
-      v89 = *(a1 + 40);
+      [v89 virtualInterface];
       if (NEVirtualInterfaceUpdateAdHocServiceReturnChanges())
       {
         return 0;
@@ -1128,7 +1125,7 @@ LABEL_59:
       if (([v3 isSecondaryConnection] & 1) == 0)
       {
         sub_1000251FC(v3, theArray, 0, 2);
-        sub_1000251FC(v3, v94, 1, 2);
+        sub_1000251FC(v3, v94, 1u, 2);
         if (number)
         {
           valuePtr = 0;
@@ -1156,7 +1153,7 @@ LABEL_68:
 
           if (!v57)
           {
-            a1 = v98;
+            v68 = v98;
             goto LABEL_110;
           }
 
@@ -1201,19 +1198,19 @@ LABEL_71:
 LABEL_75:
           if (v66 >= 1)
           {
-            v68 = 0;
             v69 = 0;
+            v70 = 0;
             while (1)
             {
-              v70 = CFArrayGetValueAtIndex(v63, v69);
-              v71 = 0;
-              if (v65 && v68 < v67)
+              v71 = CFArrayGetValueAtIndex(v63, v70);
+              v72 = 0;
+              if (v65 && v69 < v67)
               {
-                v72 = CFArrayGetValueAtIndex(v65, v68);
+                v73 = CFArrayGetValueAtIndex(v65, v69);
                 *buf = 128;
-                CFNumberGetValue(v72, kCFNumberIntType, buf);
-                v71 = NECreateIPv6AddressMaskStringFromPrefix();
-                ++v68;
+                CFNumberGetValue(v73, kCFNumberIntType, buf);
+                v72 = NECreateIPv6AddressMaskStringFromPrefix();
+                ++v69;
               }
 
               [v3 virtualInterface];
@@ -1222,52 +1219,52 @@ LABEL_75:
                 break;
               }
 
-              if (v71)
+              if (v72)
               {
                 goto LABEL_82;
               }
 
 LABEL_83:
-              if (v66 == ++v69)
+              if (v66 == ++v70)
               {
                 goto LABEL_99;
               }
             }
 
-            v73 = ne_log_obj();
-            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+            v74 = ne_log_obj();
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               v106 = v3;
-              _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%@: failed to add IPv6 address and netmask", buf, 0xCu);
+              _os_log_error_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "%@: failed to add IPv6 address and netmask", buf, 0xCu);
             }
 
-            v74 = ne_log_obj();
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+            v75 = ne_log_obj();
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
               v106 = v3;
               v107 = 2112;
-              v108 = v70;
+              v108 = v71;
               v109 = 2112;
-              v110 = v71;
-              _os_log_debug_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEBUG, "%@: failed to add address %@ netmask %@", buf, 0x20u);
+              v110 = v72;
+              _os_log_debug_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEBUG, "%@: failed to add address %@ netmask %@", buf, 0x20u);
             }
 
-            if (!v71)
+            if (!v72)
             {
               goto LABEL_83;
             }
 
 LABEL_82:
-            CFRelease(v71);
+            CFRelease(v72);
             goto LABEL_83;
           }
 
-          v75 = [v4 IPv6Settings];
-          v76 = [v75 configMethod];
+          v76 = [v4 IPv6Settings];
+          v77 = [v76 configMethod];
 
-          if (v76 == 1)
+          if (v77 == 1)
           {
             [v3 virtualInterface];
             if (NEVirtualInterfaceSetIPv6ConfigurationMethod())
@@ -1275,32 +1272,32 @@ LABEL_82:
               goto LABEL_99;
             }
 
-            v77 = ne_log_obj();
-            if (!os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+            v78 = ne_log_obj();
+            if (!os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_98;
             }
 
             [v3 virtualInterface];
-            v78 = NEVirtualInterfaceGetType();
+            v79 = NEVirtualInterfaceGetType();
             *buf = 138412546;
             v106 = v3;
             v107 = 2048;
-            v108 = v78;
-            v79 = "%@: failed to set the configuration method to Automatic for interface with type %ld";
+            v108 = v79;
+            v80 = "%@: failed to set the configuration method to Automatic for interface with type %ld";
           }
 
           else
           {
-            v80 = [v4 IPv6Settings];
-            v81 = [v80 configMethod];
+            v81 = [v4 IPv6Settings];
+            v82 = [v81 configMethod];
 
-            if (v81 != 3 || ([v3 virtualInterface], NEVirtualInterfaceSetIPv6ConfigurationMethod()))
+            if (v82 != 3 || ([v3 virtualInterface], NEVirtualInterfaceSetIPv6ConfigurationMethod()))
             {
 LABEL_99:
               if ([v3 isSecondaryConnection])
               {
-                a1 = v98;
+                v68 = v98;
                 v4 = v99;
                 v54 = v103;
               }
@@ -1308,40 +1305,40 @@ LABEL_99:
               else
               {
                 sub_1000251FC(v3, v101, 0, 30);
-                sub_1000251FC(v3, theArraya, 1, 30);
+                sub_1000251FC(v3, theArraya, 1u, 30);
                 v54 = v103;
                 if (v95)
                 {
-                  v82 = v103;
+                  v83 = v103;
                 }
 
                 else
                 {
-                  v82 = 1;
+                  v83 = 1;
                 }
 
-                a1 = v98;
+                v68 = v98;
                 v4 = v99;
-                if ((v82 & 1) == 0)
+                if ((v83 & 1) == 0)
                 {
                   valuePtr = 0;
                   CFNumberGetValue(v95, kCFNumberIntType, &valuePtr);
-                  v83 = valuePtr;
+                  v84 = valuePtr;
                   v54 = valuePtr != 0;
-                  v84 = ne_log_obj();
-                  if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+                  v85 = ne_log_obj();
+                  if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
                   {
-                    v85 = @"not primary";
-                    if (v83)
+                    v86 = @"not primary";
+                    if (v84)
                     {
-                      v85 = @"primary";
+                      v86 = @"primary";
                     }
 
                     *buf = 138412546;
                     v106 = v3;
                     v107 = 2112;
-                    v108 = v85;
-                    _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "%@: %@ for IPv6", buf, 0x16u);
+                    v108 = v86;
+                    _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "%@: %@ for IPv6", buf, 0x16u);
                   }
                 }
               }
@@ -1356,13 +1353,13 @@ LABEL_110:
 
               else
               {
-                v86 = [v3 tunnelKind];
+                v87 = [v3 tunnelKind];
                 [v3 virtualInterface];
                 if (!v54)
                 {
                   NEVirtualInterfaceSetAsPrimary();
                   [v3 virtualInterface];
-                  if (v86 == 1)
+                  if (v87 == 1)
                   {
                     NEVirtualInterfaceSetRankLast();
                   }
@@ -1372,15 +1369,15 @@ LABEL_110:
                     NEVirtualInterfaceSetRankNever();
                   }
 
-                  v87 = [v3 configuration];
-                  [v87 grade];
+                  v88 = [v3 configuration];
+                  [v88 grade];
 
                   [v3 virtualInterface];
                   NEVirtualInterfaceSetServiceIndex();
                   goto LABEL_121;
                 }
 
-                if (v86 != 1)
+                if (v87 != 1)
                 {
                   NEVirtualInterfaceSetRankNever();
                   goto LABEL_121;
@@ -1393,12 +1390,12 @@ LABEL_110:
               NEVirtualInterfaceSetRankLast();
 LABEL_121:
 
-              v88 = *(a1 + 32);
+              v89 = *(v68 + 32);
               goto LABEL_122;
             }
 
-            v77 = ne_log_obj();
-            if (!os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+            v78 = ne_log_obj();
+            if (!os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
             {
 LABEL_98:
 
@@ -1411,10 +1408,10 @@ LABEL_98:
             v106 = v3;
             v107 = 2048;
             v108 = v91;
-            v79 = "%@: failed to set the configuration method to LinkLocalOnly for interface with type %ld";
+            v80 = "%@: failed to set the configuration method to LinkLocalOnly for interface with type %ld";
           }
 
-          _os_log_error_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, v79, buf, 0x16u);
+          _os_log_error_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, v80, buf, 0x16u);
           goto LABEL_98;
         }
       }
@@ -1685,7 +1682,7 @@ LABEL_9:
   sub_1000213D8(*(a1 + 32), a2);
 }
 
-uint64_t sub_1000251FC(void *a1, CFArrayRef theArray, int a3, int a4)
+uint64_t sub_1000251FC(void *a1, CFArrayRef theArray, unsigned int a3, int a4)
 {
   if (theArray)
   {
@@ -1893,51 +1890,50 @@ uint64_t sub_100026374(uint64_t a1)
   if ([*(a1 + 32) virtualInterface])
   {
     [*(a1 + 32) virtualInterface];
-    v2 = *(a1 + 40);
     if (!NEVirtualInterfaceSetDelegateInterface())
     {
-      v5 = ne_log_obj();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = ne_log_obj();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 32);
-        v12 = *(a1 + 40);
-        v14 = 138412546;
-        v15 = v11;
-        v16 = 2112;
-        v17 = v12;
-        _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%@: failed to set delegate interface to %@", &v14, 0x16u);
+        v10 = *(a1 + 32);
+        v11 = *(a1 + 40);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2112;
+        v16 = v11;
+        _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%@: failed to set delegate interface to %@", &v13, 0x16u);
       }
 
       goto LABEL_13;
     }
 
-    v3 = *(a1 + 40);
-    if (v3)
+    v2 = *(a1 + 40);
+    if (v2)
     {
-      v4 = *(a1 + 32);
-      v5 = v3;
-      if (v4)
+      v3 = *(a1 + 32);
+      v4 = v2;
+      if (v3)
       {
-        v6 = [v4 pluginConfigurationEntities];
-        v7 = [v6 tunnelRemoteAddress];
+        v5 = [v3 pluginConfigurationEntities];
+        v6 = [v5 tunnelRemoteAddress];
 
-        if (v7 && NEGetAddressFamilyFromString())
+        if (v6 && NEGetAddressFamilyFromString())
         {
-          [v5 UTF8String];
-          v8 = NECopyInterfaceAddress();
-          [v4 setDelegateInterfaceAddress:v8];
+          [v4 UTF8String];
+          v7 = NECopyInterfaceAddress();
+          [v3 setDelegateInterfaceAddress:v7];
 
-          v9 = ne_log_obj();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v8 = ne_log_obj();
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            v13 = [v4 delegateInterfaceAddress];
-            v14 = 138412802;
-            v15 = v4;
-            v16 = 2112;
-            v17 = v5;
-            v18 = 2112;
-            v19 = v13;
-            _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%@: IP address for %@ is %@", &v14, 0x20u);
+            v12 = [v3 delegateInterfaceAddress];
+            v13 = 138412802;
+            v14 = v3;
+            v15 = 2112;
+            v16 = v4;
+            v17 = 2112;
+            v18 = v12;
+            _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%@: IP address for %@ is %@", &v13, 0x20u);
           }
         }
       }
@@ -2215,11 +2211,10 @@ uint64_t sub_100027A6C(uint64_t a1, int a2)
   if (a2)
   {
     v3 = [*(a1 + 32) queue];
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) controlSocket];
-    [v5 fileDescriptor];
-    v6 = [*(a1 + 40) name];
-    [v6 UTF8String];
+    v4 = [*(a1 + 40) controlSocket];
+    [v4 fileDescriptor];
+    v5 = [*(a1 + 40) name];
+    [v5 UTF8String];
     [*(a1 + 40) userEthernetController];
     [*(a1 + 32) setVirtualInterface:NEVirtualInterfaceCreateUserEthernet()];
 
@@ -2228,11 +2223,11 @@ uint64_t sub_100027A6C(uint64_t a1, int a2)
 
   else
   {
-    v7 = ne_log_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = ne_log_obj();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v9 = 0;
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to create a user ethernet interface", v9, 2u);
+      *v8 = 0;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to create a user ethernet interface", v8, 2u);
     }
   }
 
@@ -2253,12 +2248,11 @@ uint64_t sub_100028A34(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2080;
-    v9 = inputNotification2String();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: Handling a %s event", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2080;
+    v8 = inputNotification2String();
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@: Handling a %s event", &v5, 0x16u);
   }
 
   return sub_10008F168(*(a1 + 32), *(a1 + 40) == 1);
@@ -2275,48 +2269,45 @@ void sub_100028C78(uint64_t a1)
   if (v3)
   {
     v4 = objc_getProperty(v3, v2, 496, 1);
-    v5 = *(a1 + 32);
     if (v4)
     {
-      v6 = v4;
-      v7 = [*(a1 + 32) server];
-      v8 = [v7 primaryPhysicalInterface];
-      if ([v8 type] == 1)
+      v5 = v4;
+      v6 = [*(a1 + 32) server];
+      v7 = [v6 primaryPhysicalInterface];
+      if (objc_msgSend_type(v7) == 1)
       {
-        v9 = [*(a1 + 32) server];
-        v10 = [v9 primaryPhysicalInterface];
-        v11 = [v10 interfaceName];
-        v12 = *(a1 + 40);
+        v8 = [*(a1 + 32) server];
+        v9 = [v8 primaryPhysicalInterface];
+        v10 = [v9 interfaceName];
+        v11 = *(a1 + 40);
 
-        v14 = *(a1 + 32);
-        if (v11 == v12)
+        v13 = *(a1 + 32);
+        if (v10 == v11)
         {
-          v15 = *(a1 + 40);
-          if (v14)
+          v14 = *(a1 + 40);
+          if (v13)
           {
-            Property = objc_getProperty(*(a1 + 32), v13, 496, 1);
-            v17 = *(a1 + 48);
+            Property = objc_getProperty(*(a1 + 32), v12, 496, 1);
+            v16 = *(a1 + 48);
+            v17 = v13;
             v18 = v14;
-            v19 = v15;
           }
 
           else
           {
-            v17 = *(a1 + 48);
-            v18 = 0;
-            v19 = *(a1 + 40);
+            v16 = *(a1 + 48);
+            v17 = 0;
+            v18 = *(a1 + 40);
             Property = 0;
           }
 
-          sub_10002903C(v18, v19, Property, v17);
+          sub_10002903C(v17, v18, Property, v16);
           return;
         }
       }
 
       else
       {
-
-        v20 = *(a1 + 32);
       }
     }
   }
@@ -2324,67 +2315,67 @@ void sub_100028C78(uint64_t a1)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [*(a1 + 32) tunnelKind] == 2)
   {
-    v21 = [*(a1 + 32) server];
-    v22 = [v21 primaryCellularInterface];
+    v19 = [*(a1 + 32) server];
+    v20 = [v19 primaryCellularInterface];
   }
 
   else
   {
-    v21 = [*(a1 + 32) server];
-    v22 = [v21 primaryPhysicalInterface];
+    v19 = [*(a1 + 32) server];
+    v20 = [v19 primaryPhysicalInterface];
   }
 
-  v23 = v22;
-  v39 = [v22 interfaceName];
+  v21 = v20;
+  v37 = [v20 interfaceName];
 
   [*(a1 + 32) virtualInterface];
-  v24 = NEVirtualInterfaceCopyDelegateInterfaceName();
-  if (([v24 isEqualToString:v39] & 1) == 0)
+  v22 = NEVirtualInterfaceCopyDelegateInterfaceName();
+  if (([v22 isEqualToString:v37] & 1) == 0)
   {
-    v25 = v39;
+    v23 = v37;
 
-    [*(a1 + 32) setDelegateInterfaceName:v25];
-    v24 = v25;
+    [*(a1 + 32) setDelegateInterfaceName:v23];
+    v22 = v23;
   }
 
-  v26 = [*(a1 + 32) primaryTunnelPlugin];
+  v24 = [*(a1 + 32) primaryTunnelPlugin];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && sub_10001A2D4(v26))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && sub_10001A2D4(v24))
   {
-    v27 = [*(a1 + 32) server];
-    v28 = [v27 primaryPhysicalInterface];
-    v29 = [v28 interfaceName];
-    sub_10001AA48(v26, v29);
+    v25 = [*(a1 + 32) server];
+    v26 = [v25 primaryPhysicalInterface];
+    v27 = [v26 interfaceName];
+    sub_10001AA48(v24, v27);
   }
 
-  v30 = [*(a1 + 32) proxyEnabled:*(a1 + 40)];
-  v31 = *(a1 + 48);
-  sub_10001C2F0(*(a1 + 32), (v31 & 4) != 0, v30, v39);
+  v28 = [*(a1 + 32) proxyEnabled:*(a1 + 40)];
+  v29 = *(a1 + 48);
+  sub_10001C2F0(*(a1 + 32), (v29 >> 2) & 1, v28, v37);
   if (([*(a1 + 40) hasPrefix:@"utun"] & 1) == 0 && (objc_msgSend(*(a1 + 40), "hasPrefix:", @"ipsec") & 1) == 0)
   {
-    if ((v31 & 4) != 0)
+    if ((v29 & 4) != 0)
     {
-      v32 = [*(a1 + 32) configuration];
-      v33 = [v32 VPN];
-      if ([v33 isOnDemandEnabled])
+      v30 = [*(a1 + 32) configuration];
+      v31 = [v30 VPN];
+      if ([v31 isOnDemandEnabled])
       {
       }
 
       else
       {
-        v34 = [*(a1 + 32) configuration];
-        v35 = [v34 VPN];
-        v36 = [v35 protocol];
-        v37 = [v36 includeAllNetworks];
+        v32 = [*(a1 + 32) configuration];
+        v33 = [v32 VPN];
+        v34 = [v33 protocol];
+        v35 = [v34 includeAllNetworks];
 
-        if (v37)
+        if (v35)
         {
-          sub_10001F404(*(a1 + 32), v38);
+          sub_10001F404(*(a1 + 32), v36);
         }
       }
     }
 
-    sub_10002903C(*(a1 + 32), *(a1 + 40), v24, *(a1 + 48));
+    sub_10002903C(*(a1 + 32), *(a1 + 40), v22, *(a1 + 48));
   }
 }
 
@@ -2777,8 +2768,8 @@ void sub_10002EF6C(void *a1)
       if (v3)
       {
         v4 = v3;
-        v20 = a1;
-        v21 = objc_alloc_init(NSMutableArray);
+        v19 = a1;
+        v20 = objc_alloc_init(NSMutableArray);
         if (*(v4 + 12) >= 1)
         {
           v5 = 0;
@@ -2791,11 +2782,10 @@ void sub_10002EF6C(void *a1)
               v8 = 0;
               do
               {
-                v9 = *(*(v6 + 12) + 8 * v8);
-                v10 = NECreateAddressString();
-                if (v10)
+                v9 = NECreateAddressString();
+                if (v9)
                 {
-                  [v7 addObject:v10];
+                  [v7 addObject:v9];
                 }
 
                 ++v8;
@@ -2804,36 +2794,36 @@ void sub_10002EF6C(void *a1)
               while (v8 < *(v6 + 8));
             }
 
-            v11 = objc_alloc_init(NSMutableArray);
-            v12 = *(v6 + 24);
-            if (v12 >= 1)
+            v10 = objc_alloc_init(NSMutableArray);
+            v11 = *(v6 + 24);
+            if (v11 >= 1)
             {
-              for (i = 0; i < v12; ++i)
+              for (i = 0; i < v11; ++i)
               {
                 if (*(*(v6 + 28) + 8 * i))
                 {
-                  v14 = [[NSString alloc] initWithUTF8String:*(*(v6 + 28) + 8 * i)];
-                  if (v14)
+                  v13 = [[NSString alloc] initWithUTF8String:*(*(v6 + 28) + 8 * i)];
+                  if (v13)
                   {
-                    [v11 addObject:v14];
+                    [v10 addObject:v13];
                   }
 
-                  v12 = *(v6 + 24);
+                  v11 = *(v6 + 24);
                 }
               }
             }
 
-            v15 = [[NEDNSSettings alloc] initWithServers:v7];
-            if (v15)
+            v14 = [[NEDNSSettings alloc] initWithServers:v7];
+            if (v14)
             {
               if (*v6)
               {
-                v16 = [[NSString alloc] initWithUTF8String:*v6];
-                [v15 setDomainName:v16];
+                v15 = [[NSString alloc] initWithUTF8String:*v6];
+                [v14 setDomainName:v15];
               }
 
-              [v15 setSearchDomains:{v11, v20}];
-              [v21 addObject:v15];
+              [v14 setSearchDomains:{v10, v19}];
+              [v20 addObject:v14];
             }
 
             ++v5;
@@ -2843,14 +2833,14 @@ void sub_10002EF6C(void *a1)
         }
 
         dns_configuration_free();
-        if (v21)
+        if (v20)
         {
-          v17 = [v20 primaryTunnelPlugin];
-          if (v17)
+          v16 = [v19 primaryTunnelPlugin];
+          if (v16)
           {
-            v18 = v21;
-            v19 = [v17 remotePluginObject];
-            [v19 setSystemDNSSettings:v18];
+            v17 = v20;
+            v18 = [v16 remotePluginObject];
+            [v18 setSystemDNSSettings:v17];
           }
         }
       }
@@ -8136,20 +8126,20 @@ LABEL_52:
   if (v65)
   {
     v67 = v64;
-    [(NETrie *)v65 trie];
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v65);
+    objc_msgSend_trie(v66);
     v109[1] = v108 - 40;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[2] = v107;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[3] = v106;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[4] = v105;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[5] = v104;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[6] = v103;
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v109[7] = v102;
     v109[8] = 46;
     if (v89)
@@ -8164,7 +8154,7 @@ LABEL_52:
 
     v109[9] = v68;
     v69 = [NSData alloc];
-    [(NETrie *)v66 trie];
+    objc_msgSend_trie(v66);
     v70 = [v69 initWithBytes:v109 length:v101];
     v11 = v92;
     v71 = v92;
@@ -8204,7 +8194,7 @@ LABEL_102:
       v80 = ne_log_obj();
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
-        [(NETrie *)v66 trie];
+        objc_msgSend_trie(v66);
         *__strerrbuf = 134218240;
         *&__strerrbuf[4] = v100;
         *&__strerrbuf[12] = 2048;
@@ -8301,14 +8291,14 @@ uint64_t sub_100039578(uint64_t a1, void *a2)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     Property = *(a1 + 32);
-    v75 = *(a1 + 40);
+    v74 = *(a1 + 40);
     if (Property)
     {
       Property = objc_getProperty(Property, v6, 64, 1);
     }
 
     LODWORD(buffer[0]) = 138412546;
-    *(buffer + 4) = v75;
+    *(buffer + 4) = v74;
     WORD6(buffer[0]) = 2112;
     *(buffer + 14) = Property;
     _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "control Policy IDs to be removed %@: %@", buffer, 0x16u);
@@ -8329,17 +8319,17 @@ uint64_t sub_100039578(uint64_t a1, void *a2)
   v10 = ne_log_large_obj();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v76 = *(a1 + 32);
-    v77 = *(a1 + 40);
-    if (v76)
+    v75 = *(a1 + 32);
+    v76 = *(a1 + 40);
+    if (v75)
     {
-      v76 = objc_getProperty(v76, v11, 72, 1);
+      v75 = objc_getProperty(v75, v11, 72, 1);
     }
 
     LODWORD(buffer[0]) = 138412546;
-    *(buffer + 4) = v77;
+    *(buffer + 4) = v76;
     WORD6(buffer[0]) = 2112;
-    *(buffer + 14) = v76;
+    *(buffer + 14) = v75;
     _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "low control Policy IDs to be removed %@: %@", buffer, 0x16u);
   }
 
@@ -8355,26 +8345,13 @@ uint64_t sub_100039578(uint64_t a1, void *a2)
   }
 
   sub_100032AF0(v3, v14);
-  v15 = *(a1 + 48);
   if (isa_nsarray() && [*(a1 + 48) count] && *(a1 + 40))
   {
-    v87 = [NEPolicyResult scopeSocketToInterfaceName:?];
-    v86 = [NEPolicyResult tunnelIPToInterfaceName:*(a1 + 40) secondaryResultType:1];
+    v86 = [NEPolicyResult scopeSocketToInterfaceName:?];
+    v85 = [NEPolicyResult tunnelIPToInterfaceName:*(a1 + 40) secondaryResultType:1];
     if (*(a1 + 56) == 1)
     {
-      v81 = sub_100039DEC(*(a1 + 32), *(a1 + 40), @"DNSAgent");
-      v85 = [NEPolicyResult netAgentUUID:?];
-    }
-
-    else
-    {
-      v85 = 0;
-      v81 = 0;
-    }
-
-    if (*(a1 + 57) == 1)
-    {
-      v80 = sub_100039DEC(*(a1 + 32), *(a1 + 40), @"ProxyAgent");
+      v80 = sub_100039DEC(*(a1 + 32), *(a1 + 40), @"DNSAgent");
       v84 = [NEPolicyResult netAgentUUID:?];
     }
 
@@ -8384,163 +8361,185 @@ uint64_t sub_100039578(uint64_t a1, void *a2)
       v80 = 0;
     }
 
-    v93 = 0u;
-    v94 = 0u;
-    v91 = 0u;
-    v92 = 0u;
-    obj = *(a1 + 48);
-    v19 = [obj countByEnumeratingWithState:&v91 objects:v100 count:16];
-    v88 = v3;
-    if (v19)
+    if (*(a1 + 57) == 1)
     {
-      v20 = v19;
-      v21 = *v92;
-      v22 = CTBundle_ptr;
-      v83 = v4;
-      v82 = *v92;
+      v79 = sub_100039DEC(*(a1 + 32), *(a1 + 40), @"ProxyAgent");
+      v83 = [NEPolicyResult netAgentUUID:?];
+    }
+
+    else
+    {
+      v83 = 0;
+      v79 = 0;
+    }
+
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    obj = *(a1 + 48);
+    v18 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+    v87 = v3;
+    if (v18)
+    {
+      v19 = v18;
+      v20 = *v91;
+      v21 = CTBundle_ptr;
+      v82 = v4;
+      v81 = *v91;
       do
       {
-        v23 = 0;
-        v89 = v20;
+        v22 = 0;
+        v88 = v19;
         do
         {
-          if (*v92 != v21)
+          if (*v91 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v91 + 1) + 8 * v23);
-          v99 = 0;
+          v23 = *(*(&v90 + 1) + 8 * v22);
+          v98 = 0;
           memset(buffer, 0, sizeof(buffer));
-          if (proc_pidinfo([v24 intValue], 17, 1uLL, buffer, 56) == 56)
+          if (proc_pidinfo([v23 intValue], 17, 1uLL, buffer, 56) == 56)
           {
-            v25 = [[NSUUID alloc] initWithUUIDBytes:buffer];
-            v26 = +[NEPolicyCondition effectivePID:](NEPolicyCondition, "effectivePID:", [v24 intValue]);
-            v97[0] = v26;
-            v27 = [NEPolicyCondition effectiveApplication:v25];
-            v97[1] = v27;
-            v28 = [NSArray arrayWithObjects:v97 count:2];
+            v24 = [[NSUUID alloc] initWithUUIDBytes:buffer];
+            v25 = +[NEPolicyCondition effectivePID:](NEPolicyCondition, "effectivePID:", [v23 intValue]);
+            v96[0] = v25;
+            v26 = [NEPolicyCondition effectiveApplication:v24];
+            v96[1] = v26;
+            v27 = [NSArray arrayWithObjects:v96 count:2];
 
             if (*(a1 + 56) == 1)
             {
-              v30 = [objc_alloc(v22[43]) initWithOrder:v4 result:v85 conditions:v28];
-              v31 = *(a1 + 32);
-              if (v31)
+              v29 = [objc_alloc(v21[43]) initWithOrder:v4 result:v84 conditions:v27];
+              v30 = *(a1 + 32);
+              if (v30)
               {
-                v32 = objc_getProperty(v31, v29, 64, 1);
+                v31 = objc_getProperty(v30, v28, 64, 1);
               }
 
               else
               {
-                v32 = 0;
+                v31 = 0;
               }
 
-              sub_100033A90(v3, v30, v32);
+              sub_100033A90(v3, v29, v31);
             }
 
             if (*(a1 + 57) == 1)
             {
-              v34 = [objc_alloc(v22[43]) initWithOrder:(v4 + 2) result:v84 conditions:v28];
-              v35 = *(a1 + 32);
-              if (v35)
+              v33 = [objc_alloc(v21[43]) initWithOrder:(v4 + 2) result:v83 conditions:v27];
+              v34 = *(a1 + 32);
+              if (v34)
               {
-                v36 = objc_getProperty(v35, v33, 64, 1);
+                v35 = objc_getProperty(v34, v32, 64, 1);
               }
 
               else
               {
-                v36 = 0;
+                v35 = 0;
               }
 
-              sub_100033A90(v3, v34, v36);
+              sub_100033A90(v3, v33, v35);
             }
 
-            v38 = [objc_alloc(v22[43]) initWithOrder:(v4 + 6) result:v87 conditions:v28];
-            v39 = *(a1 + 32);
-            if (v39)
+            v37 = [objc_alloc(v21[43]) initWithOrder:(v4 + 6) result:v86 conditions:v27];
+            v38 = *(a1 + 32);
+            if (v38)
             {
-              v40 = objc_getProperty(v39, v37, 64, 1);
+              v39 = objc_getProperty(v38, v36, 64, 1);
             }
 
             else
             {
-              v40 = 0;
+              v39 = 0;
             }
 
-            sub_100033A90(v3, v38, v40);
+            sub_100033A90(v3, v37, v39);
 
-            v41 = +[NEPolicyCondition effectivePID:](NEPolicyCondition, "effectivePID:", [v24 intValue]);
-            v96[0] = v41;
-            v42 = [NEPolicyCondition effectiveApplication:v25];
-            v96[1] = v42;
-            v43 = [NEPolicyCondition scopedInterface:*(a1 + 40)];
-            v96[2] = v43;
-            v44 = [NSArray arrayWithObjects:v96 count:3];
+            v40 = +[NEPolicyCondition effectivePID:](NEPolicyCondition, "effectivePID:", [v23 intValue]);
+            v95[0] = v40;
+            v41 = [NEPolicyCondition effectiveApplication:v24];
+            v95[1] = v41;
+            v42 = [NEPolicyCondition scopedInterface:*(a1 + 40)];
+            v95[2] = v42;
+            v43 = [NSArray arrayWithObjects:v95 count:3];
 
             if (*(a1 + 56) == 1)
             {
-              v46 = [[NEPolicy alloc] initWithOrder:v4 result:v85 conditions:v44];
-              v47 = *(a1 + 32);
-              if (v47)
+              v45 = [[NEPolicy alloc] initWithOrder:v4 result:v84 conditions:v43];
+              v46 = *(a1 + 32);
+              if (v46)
               {
-                v48 = objc_getProperty(v47, v45, 64, 1);
+                v47 = objc_getProperty(v46, v44, 64, 1);
               }
 
               else
               {
-                v48 = 0;
+                v47 = 0;
               }
 
-              sub_100033A90(v3, v46, v48);
+              sub_100033A90(v3, v45, v47);
             }
 
             if (*(a1 + 57) == 1)
             {
-              v50 = [[NEPolicy alloc] initWithOrder:(v4 + 2) result:v84 conditions:v44];
-              v51 = *(a1 + 32);
-              if (v51)
+              v49 = [[NEPolicy alloc] initWithOrder:(v4 + 2) result:v83 conditions:v43];
+              v50 = *(a1 + 32);
+              if (v50)
               {
-                v52 = objc_getProperty(v51, v49, 64, 1);
+                v51 = objc_getProperty(v50, v48, 64, 1);
               }
 
               else
               {
-                v52 = 0;
+                v51 = 0;
               }
 
-              sub_100033A90(v3, v50, v52);
+              sub_100033A90(v3, v49, v51);
             }
 
-            v54 = [[NEPolicy alloc] initWithOrder:(v4 + 6) result:v86 conditions:v44];
-            v55 = *(a1 + 32);
-            if (v55)
+            v53 = [[NEPolicy alloc] initWithOrder:(v4 + 6) result:v85 conditions:v43];
+            v54 = *(a1 + 32);
+            if (v54)
             {
-              v56 = objc_getProperty(v55, v53, 64, 1);
+              v55 = objc_getProperty(v54, v52, 64, 1);
             }
 
             else
             {
-              v56 = 0;
+              v55 = 0;
             }
 
-            sub_100033A90(v3, v54, v56);
+            sub_100033A90(v3, v53, v55);
 
-            v58 = *(a1 + 32);
-            if (v58)
+            v57 = *(a1 + 32);
+            if (v57)
             {
-              v59 = objc_getProperty(v58, v57, 72, 1);
+              v58 = objc_getProperty(v57, v56, 72, 1);
             }
 
             else
             {
-              v59 = 0;
+              v58 = 0;
             }
 
-            sub_100033920(v3, v44, v59);
-            v60 = [NEPolicy alloc];
+            sub_100033920(v3, v43, v58);
+            v59 = [NEPolicy alloc];
             if (*(a1 + 32))
             {
-              v61 = 18000;
+              v60 = 18000;
+            }
+
+            else
+            {
+              v60 = 0;
+            }
+
+            if (*(a1 + 32))
+            {
+              v61 = 18120;
             }
 
             else
@@ -8548,86 +8547,76 @@ uint64_t sub_100039578(uint64_t a1, void *a2)
               v61 = 0;
             }
 
-            if (*(a1 + 32))
+            v62 = [NEPolicyResult skipWithOrder:v61];
+            v63 = [NEPolicyCondition effectiveApplication:v24];
+            v94[0] = v63;
+            v64 = +[NEPolicyCondition allInterfaces];
+            v94[1] = v64;
+            v65 = [NSArray arrayWithObjects:v94 count:2];
+            v67 = [v59 initWithOrder:v60 result:v62 conditions:v65];
+            v68 = *(a1 + 32);
+            if (v68)
             {
-              v62 = 18120;
+              v69 = objc_getProperty(v68, v66, 64, 1);
             }
 
             else
             {
-              v62 = 0;
+              v69 = 0;
             }
 
-            v63 = [NEPolicyResult skipWithOrder:v62];
-            v64 = [NEPolicyCondition effectiveApplication:v25];
-            v95[0] = v64;
-            v65 = +[NEPolicyCondition allInterfaces];
-            v95[1] = v65;
-            v66 = [NSArray arrayWithObjects:v95 count:2];
-            v68 = [v60 initWithOrder:v61 result:v63 conditions:v66];
-            v69 = *(a1 + 32);
-            if (v69)
-            {
-              v70 = objc_getProperty(v69, v67, 64, 1);
-            }
+            v3 = v87;
+            sub_100033A90(v87, v67, v69);
 
-            else
-            {
-              v70 = 0;
-            }
-
-            v3 = v88;
-            sub_100033A90(v88, v68, v70);
-
-            v4 = v83;
-            v20 = v89;
-            v21 = v82;
-            v22 = CTBundle_ptr;
+            v4 = v82;
+            v19 = v88;
+            v20 = v81;
+            v21 = CTBundle_ptr;
           }
 
-          v23 = v23 + 1;
+          v22 = v22 + 1;
         }
 
-        while (v20 != v23);
-        v71 = [obj countByEnumeratingWithState:&v91 objects:v100 count:16];
-        v20 = v71;
+        while (v19 != v22);
+        v70 = [obj countByEnumeratingWithState:&v90 objects:v99 count:16];
+        v19 = v70;
       }
 
-      while (v71);
+      while (v70);
     }
 
-    v17 = sub_100031EB4(v3);
-    if (v17)
+    v16 = sub_100031EB4(v3);
+    if (v16)
     {
-      v72 = ne_log_large_obj();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+      v71 = ne_log_large_obj();
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
       {
-        v78 = *(a1 + 32);
-        v79 = *(a1 + 40);
-        if (v78)
+        v77 = *(a1 + 32);
+        v78 = *(a1 + 40);
+        if (v77)
         {
-          v78 = objc_getProperty(v78, v73, 64, 1);
+          v77 = objc_getProperty(v77, v72, 64, 1);
         }
 
         LODWORD(buffer[0]) = 138412546;
-        *(buffer + 4) = v79;
+        *(buffer + 4) = v78;
         WORD6(buffer[0]) = 2112;
-        *(buffer + 14) = v78;
-        _os_log_debug_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEBUG, "control Policy IDs added %@: %@", buffer, 0x16u);
+        *(buffer + 14) = v77;
+        _os_log_debug_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEBUG, "control Policy IDs added %@: %@", buffer, 0x16u);
       }
     }
 
-    v16 = v88;
+    v15 = v87;
   }
 
   else
   {
     sub_100031EB4(v3);
-    v16 = v3;
-    v17 = 1;
+    v15 = v3;
+    v16 = 1;
   }
 
-  return v17;
+  return v16;
 }
 
 id sub_100039DEC(uint64_t a1, void *a2, void *a3)

@@ -15,15 +15,15 @@
 
 + (BOOL)fileExistsAndNotEmpty:(id)empty samplingComponent:(id)component
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   emptyCopy = empty;
   componentCopy = component;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if ([defaultManager fileExistsAtPath:emptyCopy])
   {
-    v20 = 0;
-    v8 = [defaultManager attributesOfItemAtPath:emptyCopy error:&v20];
-    v9 = v20;
+    v19 = 0;
+    v8 = [defaultManager attributesOfItemAtPath:emptyCopy error:&v19];
+    v9 = v19;
     if (v8)
     {
       v10 = [v8 objectForKey:*MEMORY[0x1E696A3B8]];
@@ -35,11 +35,11 @@
         if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v22 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
-          v23 = 2112;
-          v24 = componentCopy;
-          v25 = 2112;
-          v26 = emptyCopy;
+          v21 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
+          v22 = 2112;
+          v23 = componentCopy;
+          v24 = 2112;
+          v25 = emptyCopy;
           _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s %@ Sampling: File is empty: %@", buf, 0x20u);
         }
       }
@@ -50,17 +50,17 @@
       v15 = AFSiriLogContextSpeech;
       if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
       {
-        v18 = v15;
+        v17 = v15;
         localizedDescription = [v9 localizedDescription];
         *buf = 136315906;
-        v22 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
-        v23 = 2112;
-        v24 = componentCopy;
-        v25 = 2112;
-        v26 = emptyCopy;
-        v27 = 2112;
-        v28 = localizedDescription;
-        _os_log_error_impl(&dword_1912FE000, v18, OS_LOG_TYPE_ERROR, "%s %@ Sampling: Failed to resolve attributes for file: %@, error: %@", buf, 0x2Au);
+        v21 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
+        v22 = 2112;
+        v23 = componentCopy;
+        v24 = 2112;
+        v25 = emptyCopy;
+        v26 = 2112;
+        v27 = localizedDescription;
+        _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s %@ Sampling: Failed to resolve attributes for file: %@, error: %@", buf, 0x2Au);
       }
 
       v12 = 0;
@@ -73,18 +73,17 @@
     if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v22 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
-      v23 = 2112;
-      v24 = componentCopy;
-      v25 = 2112;
-      v26 = emptyCopy;
+      v21 = "+[AFSamplingUtilities fileExistsAndNotEmpty:samplingComponent:]";
+      v22 = 2112;
+      v23 = componentCopy;
+      v24 = 2112;
+      v25 = emptyCopy;
       _os_log_error_impl(&dword_1912FE000, v14, OS_LOG_TYPE_ERROR, "%s %@ Sampling: No file at path: %@", buf, 0x20u);
     }
 
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -149,13 +148,13 @@
 
 + (BOOL)isFileOlderThanAgeInSeconds:(double)seconds filePath:(id)path samplingComponent:(id)component
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   componentCopy = component;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v21 = 0;
-  v10 = [defaultManager attributesOfItemAtPath:pathCopy error:&v21];
-  v11 = v21;
+  v20 = 0;
+  v10 = [defaultManager attributesOfItemAtPath:pathCopy error:&v20];
+  v11 = v20;
 
   if (!v10)
   {
@@ -168,13 +167,13 @@ LABEL_7:
     }
 
     *buf = 136315906;
-    v23 = "+[AFSamplingUtilities isFileOlderThanAgeInSeconds:filePath:samplingComponent:]";
-    v24 = 2112;
-    v25 = componentCopy;
-    v26 = 2112;
-    v27 = pathCopy;
-    v28 = 2112;
-    v29 = v11;
+    v22 = "+[AFSamplingUtilities isFileOlderThanAgeInSeconds:filePath:samplingComponent:]";
+    v23 = 2112;
+    v24 = componentCopy;
+    v25 = 2112;
+    v26 = pathCopy;
+    v27 = 2112;
+    v28 = v11;
     v17 = "%s %@ Sampling: Failed to resolve attributes for file: %@, error: %@";
 LABEL_10:
     _os_log_error_impl(&dword_1912FE000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0x2Au);
@@ -193,15 +192,15 @@ LABEL_10:
       goto LABEL_7;
     }
 
-    v20 = v14 / 60.0;
+    v19 = v14 / 60.0;
     *buf = 136315906;
-    v23 = "+[AFSamplingUtilities isFileOlderThanAgeInSeconds:filePath:samplingComponent:]";
-    v24 = 2112;
-    v25 = componentCopy;
-    v26 = 2048;
-    v27 = rintf(v20);
-    v28 = 2112;
-    v29 = pathCopy;
+    v22 = "+[AFSamplingUtilities isFileOlderThanAgeInSeconds:filePath:samplingComponent:]";
+    v23 = 2112;
+    v24 = componentCopy;
+    v25 = 2048;
+    v26 = rintf(v19);
+    v27 = 2112;
+    v28 = pathCopy;
     v17 = "%s %@ Sampling: File ineligible for upload as it is only %ld minutes old: %@";
     goto LABEL_10;
   }
@@ -209,23 +208,22 @@ LABEL_10:
   v15 = 1;
 LABEL_8:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 + (void)deleteAllSamplingData
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextUtility;
   if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_INFO))
   {
     v4 = v3;
     component = [self component];
-    v21 = 136315394;
-    v22 = "+[AFSamplingUtilities deleteAllSamplingData]";
-    v23 = 2112;
-    v24 = component;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Deleting all sampling data.", &v21, 0x16u);
+    v20 = 136315394;
+    v21 = "+[AFSamplingUtilities deleteAllSamplingData]";
+    v22 = 2112;
+    v23 = component;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Deleting all sampling data.", &v20, 0x16u);
   }
 
   v6 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
@@ -245,13 +243,13 @@ LABEL_8:
 
     v12 = v11;
     component2 = [self component];
-    v21 = 136315650;
-    v22 = "+[AFSamplingUtilities deleteAllSamplingData]";
-    v23 = 2112;
-    v24 = component2;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Successfully deleted sampling cache: %@", &v21, 0x20u);
+    v20 = 136315650;
+    v21 = "+[AFSamplingUtilities deleteAllSamplingData]";
+    v22 = 2112;
+    v23 = component2;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Successfully deleted sampling cache: %@", &v20, 0x20u);
     goto LABEL_6;
   }
 
@@ -259,13 +257,13 @@ LABEL_8:
   {
     v12 = v11;
     component2 = [self component];
-    v21 = 136315650;
-    v22 = "+[AFSamplingUtilities deleteAllSamplingData]";
-    v23 = 2112;
-    v24 = component2;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s %@ Sampling - Deletion: Failed to delete sampling cache: %@", &v21, 0x20u);
+    v20 = 136315650;
+    v21 = "+[AFSamplingUtilities deleteAllSamplingData]";
+    v22 = 2112;
+    v23 = component2;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s %@ Sampling - Deletion: Failed to delete sampling cache: %@", &v20, 0x20u);
 LABEL_6:
   }
 
@@ -284,13 +282,13 @@ LABEL_8:
     v17 = v16;
     component3 = [self component];
     sampledLibraryDirectoryPath2 = [self sampledLibraryDirectoryPath];
-    v21 = 136315650;
-    v22 = "+[AFSamplingUtilities deleteAllSamplingData]";
-    v23 = 2112;
-    v24 = component3;
-    v25 = 2112;
-    v26 = sampledLibraryDirectoryPath2;
-    _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s %@ Sampling - Deletion: Failed to delete sampling directory: %@", &v21, 0x20u);
+    v20 = 136315650;
+    v21 = "+[AFSamplingUtilities deleteAllSamplingData]";
+    v22 = 2112;
+    v23 = component3;
+    v24 = 2112;
+    v25 = sampledLibraryDirectoryPath2;
+    _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s %@ Sampling - Deletion: Failed to delete sampling directory: %@", &v20, 0x20u);
     goto LABEL_11;
   }
 
@@ -299,19 +297,17 @@ LABEL_8:
     v17 = v16;
     component3 = [self component];
     sampledLibraryDirectoryPath2 = [self sampledLibraryDirectoryPath];
-    v21 = 136315650;
-    v22 = "+[AFSamplingUtilities deleteAllSamplingData]";
-    v23 = 2112;
-    v24 = component3;
-    v25 = 2112;
-    v26 = sampledLibraryDirectoryPath2;
-    _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Successfully deleted sampling directory: %@", &v21, 0x20u);
+    v20 = 136315650;
+    v21 = "+[AFSamplingUtilities deleteAllSamplingData]";
+    v22 = 2112;
+    v23 = component3;
+    v24 = 2112;
+    v25 = sampledLibraryDirectoryPath2;
+    _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Successfully deleted sampling directory: %@", &v20, 0x20u);
 LABEL_11:
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)deleteItemAtFilePath:(id)path
@@ -325,12 +321,12 @@ LABEL_13:
 
 + (BOOL)deleteItemAtFilePath:(id)path error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v21 = 0;
-  v8 = [defaultManager removeItemAtPath:pathCopy error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [defaultManager removeItemAtPath:pathCopy error:&v20];
+  v9 = v20;
   v10 = v9;
   if ((v8 & 1) == 0 && !AFIsFileNotFoundError(v9))
   {
@@ -340,13 +336,13 @@ LABEL_13:
       v17 = v15;
       component = [self component];
       *buf = 136315906;
-      v23 = "+[AFSamplingUtilities deleteItemAtFilePath:error:]";
-      v24 = 2112;
-      v25 = component;
-      v26 = 2112;
-      v27 = pathCopy;
-      v28 = 2112;
-      v29 = v10;
+      v22 = "+[AFSamplingUtilities deleteItemAtFilePath:error:]";
+      v23 = 2112;
+      v24 = component;
+      v25 = 2112;
+      v26 = pathCopy;
+      v27 = 2112;
+      v28 = v10;
       _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s %@ Sampling - Deletion: Failed to delete file: %@, error: %@", buf, 0x2Au);
 
       if (error)
@@ -375,28 +371,27 @@ LABEL_7:
     v13 = v11;
     component2 = [self component];
     *buf = 136315650;
-    v23 = "+[AFSamplingUtilities deleteItemAtFilePath:error:]";
-    v24 = 2112;
-    v25 = component2;
-    v26 = 2112;
-    v27 = pathCopy;
+    v22 = "+[AFSamplingUtilities deleteItemAtFilePath:error:]";
+    v23 = 2112;
+    v24 = component2;
+    v25 = 2112;
+    v26 = pathCopy;
     _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s %@ Sampling - Deletion: Successfully deleted file: %@", buf, 0x20u);
   }
 
 LABEL_10:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (id)createSamplingDirectory
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   sampledLibraryDirectoryPath = [self sampledLibraryDirectoryPath];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = 0;
-  v5 = [defaultManager createDirectoryAtPath:sampledLibraryDirectoryPath withIntermediateDirectories:1 attributes:0 error:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [defaultManager createDirectoryAtPath:sampledLibraryDirectoryPath withIntermediateDirectories:1 attributes:0 error:&v12];
+  v6 = v12;
 
   if (v5)
   {
@@ -408,23 +403,21 @@ LABEL_10:
     v8 = AFSiriLogContextUtility;
     if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
-      v11 = v8;
+      v10 = v8;
       component = [self component];
       *buf = 136315906;
-      v15 = "+[AFSamplingUtilities createSamplingDirectory]";
-      v16 = 2112;
-      v17 = component;
-      v18 = 2112;
-      v19 = sampledLibraryDirectoryPath;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s %@ Sampling: Failed to create sampling directory (%@), error: %@", buf, 0x2Au);
+      v14 = "+[AFSamplingUtilities createSamplingDirectory]";
+      v15 = 2112;
+      v16 = component;
+      v17 = 2112;
+      v18 = sampledLibraryDirectoryPath;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s %@ Sampling: Failed to create sampling directory (%@), error: %@", buf, 0x2Au);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

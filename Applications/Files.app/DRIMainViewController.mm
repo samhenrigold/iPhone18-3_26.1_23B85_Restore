@@ -155,9 +155,8 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for DOCPreviewController();
   if (swift_dynamicCastClass())
@@ -169,7 +168,7 @@
     swift_unknownObjectRelease();
   }
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)initForOpeningFilesWithContentTypes:(id)types
@@ -199,18 +198,17 @@
 {
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
   effectiveFullBrowser = [(DRIMainViewController *)selfCopy effectiveFullBrowser];
-  URL._bridgeToObjectiveC()(v15);
-  v17 = v16;
-  [effectiveFullBrowser importScannedDocumentAt:v16 presentingController:controllerCopy importToCurrentLocation:0];
+  URL._bridgeToObjectiveC()(v14);
+  v16 = v15;
+  [effectiveFullBrowser importScannedDocumentAt:v15 presentingController:controllerCopy importToCurrentLocation:0];
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)documentCameraViewControllerDidCancel:(id)cancel

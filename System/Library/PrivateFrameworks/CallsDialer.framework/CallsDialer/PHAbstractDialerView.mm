@@ -18,15 +18,11 @@
 
 - (void)dialerLCDFieldTextDidChange:(id)change
 {
-  if (self->_lcdView == change)
+  if (self->_lcdView == change && (objc_opt_respondsToSelector() & 1) != 0)
   {
     delegate = self->_delegate;
-    if (objc_opt_respondsToSelector())
-    {
-      v5 = self->_delegate;
 
-      [(DialerViewDelegate *)v5 dialerViewTextDidChange:self];
-    }
+    [(DialerViewDelegate *)delegate dialerViewTextDidChange:self];
   }
 }
 
@@ -35,11 +31,10 @@
   pastedCopy = pasted;
   if (self->_lcdView == field)
   {
-    delegate = self->_delegate;
-    v8 = pastedCopy;
+    v7 = pastedCopy;
     if (objc_opt_respondsToSelector())
     {
-      [(DialerViewDelegate *)self->_delegate dialerView:self stringWasPasted:v8];
+      [(DialerViewDelegate *)self->_delegate dialerView:self stringWasPasted:v7];
     }
   }
 
@@ -49,27 +44,26 @@
 - (id)senderIdentityMenuForDialerField:(id)field selectedSenderIdentity:(id)identity
 {
   identityCopy = identity;
-  if (self->_lcdView == field && (delegate = self->_delegate, (objc_opt_respondsToSelector() & 1) != 0))
+  if (self->_lcdView == field && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v8 = [(DialerViewDelegate *)self->_delegate senderIdentityMenuForDialerView:self selectedSenderIdentity:identityCopy];
+    v7 = [(DialerViewDelegate *)self->_delegate senderIdentityMenuForDialerView:self selectedSenderIdentity:identityCopy];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)updateIDSStatus
 {
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_delegate;
+    delegate = self->_delegate;
 
-    [(DialerViewDelegate *)v4 updateIDSStatus];
+    [(DialerViewDelegate *)delegate updateIDSStatus];
   }
 }
 

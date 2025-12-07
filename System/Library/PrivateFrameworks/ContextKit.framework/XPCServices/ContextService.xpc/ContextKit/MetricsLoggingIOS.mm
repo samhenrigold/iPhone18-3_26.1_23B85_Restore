@@ -2,10 +2,14 @@
 - (MetricsLoggingIOS)init;
 - (void)recordAssetInfo:(id)info;
 - (void)recordFindResultsMsec:(double)msec queryType:(unint64_t)type requestType:(unint64_t)requestType indexId:(id)id;
+- (void)recordInputLength:(unint64_t)length languageTag:(id)tag languageSupported:(BOOL)supported requestType:(unint64_t)type indexId:(id)id;
 - (void)recordQueryEngagementWithUserInputLength:(unint64_t)length completionLength:(unint64_t)completionLength result:(id)result rank:(unint64_t)rank indexId:(id)id requestType:(unint64_t)type logType:(unint64_t)logType;
 - (void)recordQueryEventWithLuceneResultCount:(unint64_t)count error:(id)error requestType:(unint64_t)type indexId:(id)id;
 - (void)recordQueryLuceneMsec:(double)msec queryType:(unint64_t)type requestType:(unint64_t)requestType indexId:(id)id;
+- (void)recordResultsShownWithUserInputLength:(unint64_t)length count:(unint64_t)count couldHaveShown:(unint64_t)shown topicIds:(id)ids serverOverride:(BOOL)override indexId:(id)id requestType:(unint64_t)type logType:(unint64_t)self0;
+- (void)recordSlowFindResults:(BOOL)results requestType:(unint64_t)type indexId:(id)id coldEngine:(BOOL)engine;
 - (void)recordTransactionSuccessfulWithUserInputLength:(unint64_t)length completionLength:(unint64_t)completionLength indexId:(id)id requestType:(unint64_t)type logType:(unint64_t)logType;
+- (void)recordURLLookupSucceeded:(unint64_t)succeeded bundleId:(BOOL)id indexId:(id)indexId requestType:(unint64_t)type;
 @end
 
 @implementation MetricsLoggingIOS
@@ -205,6 +209,30 @@
   }
 }
 
+- (void)recordInputLength:(unint64_t)length languageTag:(id)tag languageSupported:(BOOL)supported requestType:(unint64_t)type indexId:(id)id
+{
+  supportedCopy = supported;
+  tagCopy = tag;
+  idCopy = id;
+  if (type != 3)
+  {
+    v20.receiver = self;
+    v20.super_class = MetricsLoggingIOS;
+    [(MetricsLogging *)&v20 recordInputLength:length languageTag:tagCopy languageSupported:supportedCopy requestType:type indexId:idCopy];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10029A968;
+    v14[3] = &unk_100483AC8;
+    v14[4] = self;
+    v15 = idCopy;
+    typeCopy = type;
+    lengthCopy = length;
+    v16 = tagCopy;
+    v19 = supportedCopy;
+    [(MetricsLogging *)self runInBackground:v14];
+  }
+}
+
 - (void)recordQueryEventWithLuceneResultCount:(unint64_t)count error:(id)error requestType:(unint64_t)type indexId:(id)id
 {
   errorCopy = error;
@@ -254,6 +282,47 @@
     countCopy = count;
     v20 = v14;
     [(MetricsLogging *)self runInBackground:v16];
+  }
+}
+
+- (void)recordResultsShownWithUserInputLength:(unint64_t)length count:(unint64_t)count couldHaveShown:(unint64_t)shown topicIds:(id)ids serverOverride:(BOOL)override indexId:(id)id requestType:(unint64_t)type logType:(unint64_t)self0
+{
+  overrideCopy = override;
+  idsCopy = ids;
+  idCopy = id;
+  if (logType)
+  {
+    v18 = 1;
+  }
+
+  else
+  {
+    v18 = type > 0x12;
+  }
+
+  if (!v18 && ((1 << type) & 0x6A807) != 0)
+  {
+    v28.receiver = self;
+    v28.super_class = MetricsLoggingIOS;
+    [(MetricsLogging *)&v28 recordResultsShownWithUserInputLength:length count:count couldHaveShown:shown topicIds:idsCopy serverOverride:overrideCopy indexId:idCopy requestType:type logType:0];
+    if (length >= 5)
+    {
+      length = 5;
+    }
+
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10029AF64;
+    v20[3] = &unk_100483AF0;
+    v20[4] = self;
+    v21 = idCopy;
+    typeCopy = type;
+    countCopy = count;
+    shownCopy = shown;
+    lengthCopy = length;
+    v27 = overrideCopy;
+    v22 = idsCopy;
+    [(MetricsLogging *)self runInBackground:v20];
   }
 }
 
@@ -330,6 +399,51 @@
   selfCopy = self;
   v4 = infoCopy;
   [(MetricsLogging *)self runInBackground:v5];
+}
+
+- (void)recordSlowFindResults:(BOOL)results requestType:(unint64_t)type indexId:(id)id coldEngine:(BOOL)engine
+{
+  engineCopy = engine;
+  resultsCopy = results;
+  idCopy = id;
+  if (type != 3)
+  {
+    v16.receiver = self;
+    v16.super_class = MetricsLoggingIOS;
+    [(MetricsLogging *)&v16 recordSlowFindResults:resultsCopy requestType:type indexId:idCopy coldEngine:engineCopy];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10029BAC0;
+    v11[3] = &unk_100483B90;
+    v14 = resultsCopy;
+    v11[4] = self;
+    v12 = idCopy;
+    typeCopy = type;
+    v15 = engineCopy;
+    [(MetricsLogging *)self runInBackground:v11];
+  }
+}
+
+- (void)recordURLLookupSucceeded:(unint64_t)succeeded bundleId:(BOOL)id indexId:(id)indexId requestType:(unint64_t)type
+{
+  idCopy = id;
+  indexIdCopy = indexId;
+  if (type != 3)
+  {
+    v16.receiver = self;
+    v16.super_class = MetricsLoggingIOS;
+    [(MetricsLogging *)&v16 recordURLLookupSucceeded:succeeded bundleId:idCopy indexId:indexIdCopy requestType:type];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10029BCC8;
+    v11[3] = &unk_100483BB8;
+    v11[4] = self;
+    v12 = indexIdCopy;
+    typeCopy = type;
+    succeededCopy = succeeded;
+    v15 = idCopy;
+    [(MetricsLogging *)self runInBackground:v11];
+  }
 }
 
 @end

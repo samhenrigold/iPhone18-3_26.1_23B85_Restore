@@ -3,6 +3,9 @@
 - (DKCloudProvider)init;
 - (unint64_t)isUploadSupportedForCurrentNetwork;
 - (void)_communicateProgress;
+- (void)_startBackupForProvider:(id)provider remainingProviders:(id)providers allowExpensiveCellular:(BOOL)cellular;
+- (void)_startBackupWithProviders:(id)providers allowExpensiveCellular:(BOOL)cellular;
+- (void)beginUploadAllowingExpensiveCellular:(BOOL)cellular progressHandler:(id)handler completion:(id)completion;
 - (void)cancelUpload;
 - (void)hasDataToUpload:(id)upload;
 - (void)syncCompletedWithErrors:(id)errors;
@@ -13,10 +16,10 @@
 
 - (DKCloudProvider)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = DKCloudProvider;
-  v2 = [(DKCloudProvider *)&v25 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = DKCloudProvider;
+  v2 = [(DKCloudProvider *)&v24 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.diskembarkui.progress", 0);
@@ -33,36 +36,36 @@
     v2->_pathEvaluator = v7;
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     defaultStore = [MEMORY[0x277CB8F48] defaultStore];
     aa_appleAccounts = [defaultStore aa_appleAccounts];
 
-    v12 = [aa_appleAccounts countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v12 = [aa_appleAccounts countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         v15 = 0;
         do
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(aa_appleAccounts);
           }
 
-          v16 = [[DKBackupProvider alloc] initWithAccount:*(*(&v21 + 1) + 8 * v15)];
+          v16 = [[DKBackupProvider alloc] initWithAccount:*(*(&v20 + 1) + 8 * v15)];
           [v9 addObject:v16];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [aa_appleAccounts countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v13 = [aa_appleAccounts countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v13);
@@ -73,13 +76,12 @@
     v2->_backupProviders = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (unint64_t)isUploadSupportedForCurrentNetwork
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathEvaluator = [(DKCloudProvider *)self pathEvaluator];
   path = [pathEvaluator path];
 
@@ -91,26 +93,26 @@
   {
     if (type == 2)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       backupProviders = [(DKCloudProvider *)self backupProviders];
-      v9 = [backupProviders countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [backupProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(backupProviders);
             }
 
-            if (![*(*(&v16 + 1) + 8 * i) isManualBackupOnCellularAllowed])
+            if (![*(*(&v15 + 1) + 8 * i) isManualBackupOnCellularAllowed])
             {
 
               v7 = 0;
@@ -118,7 +120,7 @@
             }
           }
 
-          v10 = [backupProviders countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [backupProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v10)
           {
             continue;
@@ -157,40 +159,39 @@
 
 LABEL_20:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)hasDataToUpload:(id)upload
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
   defaultStore = [MEMORY[0x277CB8F48] defaultStore];
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
 
   if (aa_primaryAppleAccount)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     backupProviders = [(DKCloudProvider *)self backupProviders];
-    v8 = [backupProviders countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [backupProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(backupProviders);
           }
 
-          if ([*(*(&v16 + 1) + 8 * v11) isBackupEnabled])
+          if ([*(*(&v15 + 1) + 8 * v11) isBackupEnabled])
           {
             uploadCopy[2](uploadCopy, 1);
 
@@ -201,7 +202,7 @@ LABEL_20:
         }
 
         while (v9 != v11);
-        v9 = [backupProviders countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [backupProviders countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -212,12 +213,12 @@ LABEL_20:
     }
 
     cloudSyncClient = [(DKCloudProvider *)self cloudSyncClient];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __35__DKCloudProvider_hasDataToUpload___block_invoke;
-    v14[3] = &unk_278F7DCD8;
-    v15 = uploadCopy;
-    [cloudSyncClient needsToSync:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __35__DKCloudProvider_hasDataToUpload___block_invoke;
+    v13[3] = &unk_278F7DCD8;
+    v14 = uploadCopy;
+    [cloudSyncClient needsToSync:v13];
   }
 
   else
@@ -226,8 +227,6 @@ LABEL_20:
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __35__DKCloudProvider_hasDataToUpload___block_invoke(uint64_t a1, uint64_t a2)
@@ -243,33 +242,33 @@ void __35__DKCloudProvider_hasDataToUpload___block_invoke(uint64_t a1, uint64_t 
 
 - (BOOL)isRestoring
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   backupProviders = [(DKCloudProvider *)self backupProviders];
-  v3 = [backupProviders countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [backupProviders countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(backupProviders);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isRestoring])
+        if ([*(*(&v7 + 1) + 8 * i) isRestoring])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [backupProviders countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [backupProviders countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -281,8 +280,58 @@ void __35__DKCloudProvider_hasDataToUpload___block_invoke(uint64_t a1, uint64_t 
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
+}
+
+- (void)beginUploadAllowingExpensiveCellular:(BOOL)cellular progressHandler:(id)handler completion:(id)completion
+{
+  cellularCopy = cellular;
+  handlerCopy = handler;
+  completionCopy = completion;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __83__DKCloudProvider_beginUploadAllowingExpensiveCellular_progressHandler_completion___block_invoke;
+  block[3] = &unk_278F7DD00;
+  block[4] = self;
+  v24 = handlerCopy;
+  v25 = completionCopy;
+  v10 = completionCopy;
+  v11 = handlerCopy;
+  dispatch_async(MEMORY[0x277D85CD0], block);
+  progressQueue = [(DKCloudProvider *)self progressQueue];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __83__DKCloudProvider_beginUploadAllowingExpensiveCellular_progressHandler_completion___block_invoke_2;
+  v22[3] = &unk_278F7DC60;
+  v22[4] = self;
+  dispatch_async(progressQueue, v22);
+
+  v14 = _DKLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *v21 = 0;
+    _os_log_impl(&dword_248D68000, v14, OS_LOG_TYPE_DEFAULT, "Beginning cloud upload...", v21, 2u);
+  }
+
+  v16 = _DKLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *v21 = 0;
+    _os_log_impl(&dword_248D68000, v16, OS_LOG_TYPE_DEFAULT, "Starting backup(s)...", v21, 2u);
+  }
+
+  backupProviders = [(DKCloudProvider *)self backupProviders];
+  [(DKCloudProvider *)self _startBackupWithProviders:backupProviders allowExpensiveCellular:cellularCopy];
+
+  v19 = _DKLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *v21 = 0;
+    _os_log_impl(&dword_248D68000, v19, OS_LOG_TYPE_DEFAULT, "Starting sync...", v21, 2u);
+  }
+
+  cloudSyncClient = [(DKCloudProvider *)self cloudSyncClient];
+  [cloudSyncClient startSync];
 }
 
 uint64_t __83__DKCloudProvider_beginUploadAllowingExpensiveCellular_progressHandler_completion___block_invoke(uint64_t a1)
@@ -316,7 +365,7 @@ uint64_t __83__DKCloudProvider_beginUploadAllowingExpensiveCellular_progressHand
 
 - (void)cancelUpload
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   progressQueue = [(DKCloudProvider *)self progressQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -325,54 +374,116 @@ uint64_t __83__DKCloudProvider_beginUploadAllowingExpensiveCellular_progressHand
   block[4] = self;
   dispatch_async(progressQueue, block);
 
-  v4 = _DKLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _DKLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v4, OS_LOG_TYPE_DEFAULT, "Cancelling backup(s)...", buf, 2u);
+    _os_log_impl(&dword_248D68000, v5, OS_LOG_TYPE_DEFAULT, "Cancelling backup(s)...", buf, 2u);
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
   backupProviders = [(DKCloudProvider *)self backupProviders];
-  v6 = [backupProviders countByEnumeratingWithState:&v13 objects:v19 count:16];
-  if (v6)
+  v7 = [backupProviders countByEnumeratingWithState:&v14 objects:v20 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v14;
+    v8 = v7;
+    v9 = *v15;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(backupProviders);
         }
 
-        [*(*(&v13 + 1) + 8 * v9++) cancel];
+        [*(*(&v14 + 1) + 8 * v10++) cancel];
       }
 
-      while (v7 != v9);
-      v7 = [backupProviders countByEnumeratingWithState:&v13 objects:v19 count:16];
+      while (v8 != v10);
+      v8 = [backupProviders countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = _DKLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _DKLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v10, OS_LOG_TYPE_DEFAULT, "Cancelling sync...", buf, 2u);
+    _os_log_impl(&dword_248D68000, v12, OS_LOG_TYPE_DEFAULT, "Cancelling sync...", buf, 2u);
   }
 
   cloudSyncClient = [(DKCloudProvider *)self cloudSyncClient];
   [cloudSyncClient cancelSync];
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)_startBackupWithProviders:(id)providers allowExpensiveCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  providersCopy = providers;
+  if ([providersCopy count])
+  {
+    v7 = [providersCopy mutableCopy];
+    firstObject = [v7 firstObject];
+    [v7 removeObjectAtIndex:0];
+    [(DKCloudProvider *)self _startBackupForProvider:firstObject remainingProviders:v7 allowExpensiveCellular:cellularCopy];
+  }
+
+  else
+  {
+    v9 = _DKLogSystem(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *v10 = 0;
+      _os_log_impl(&dword_248D68000, v9, OS_LOG_TYPE_DEFAULT, "All backups complete!", v10, 2u);
+    }
+
+    [(DKCloudProvider *)self _communicateProgress];
+  }
+}
+
+- (void)_startBackupForProvider:(id)provider remainingProviders:(id)providers allowExpensiveCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  providerCopy = provider;
+  providersCopy = providers;
+  v10 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:100];
+  progressQueue = [(DKCloudProvider *)self progressQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __85__DKCloudProvider__startBackupForProvider_remainingProviders_allowExpensiveCellular___block_invoke;
+  block[3] = &unk_278F7DD28;
+  block[4] = self;
+  v12 = providerCopy;
+  v25 = v12;
+  v13 = v10;
+  v26 = v13;
+  dispatch_async(progressQueue, block);
+
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __85__DKCloudProvider__startBackupForProvider_remainingProviders_allowExpensiveCellular___block_invoke_2;
+  v22[3] = &unk_278F7DD78;
+  v22[4] = self;
+  v23 = v13;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __85__DKCloudProvider__startBackupForProvider_remainingProviders_allowExpensiveCellular___block_invoke_4;
+  v17[3] = &unk_278F7DDC8;
+  v17[4] = self;
+  v18 = v12;
+  v19 = v23;
+  v20 = providersCopy;
+  v21 = cellularCopy;
+  v14 = providersCopy;
+  v15 = v23;
+  v16 = v12;
+  [v16 startBackupWithExpensiveCellularAllowed:cellularCopy progressHandler:v22 completionHandler:v17];
 }
 
 void __85__DKCloudProvider__startBackupForProvider_remainingProviders_allowExpensiveCellular___block_invoke(uint64_t a1)
@@ -486,22 +597,22 @@ void __39__DKCloudProvider__communicateProgress__block_invoke(uint64_t a1)
   if (!v4)
   {
 LABEL_8:
-    v9 = [*v1 backupProgress];
-    [v9 fractionCompleted];
-    v11 = v10;
-    v12 = [*v1 syncProgress];
-    [v12 fractionCompleted];
-    *&v11 = v13 * 0.25 + v11 * 0.75;
+    v10 = [*v1 backupProgress];
+    [v10 fractionCompleted];
+    v12 = v11;
+    v13 = [*v1 syncProgress];
+    [v13 fractionCompleted];
+    *&v12 = v14 * 0.25 + v12 * 0.75;
 
     [*v1 timeRemaining];
-    v14 = v20;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __39__DKCloudProvider__communicateProgress__block_invoke_2;
-    v20[3] = &unk_278F7DDF0;
-    v20[4] = *v1;
-    v21 = LODWORD(v11);
-    v20[5] = v15;
+    v15 = v22;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __39__DKCloudProvider__communicateProgress__block_invoke_2;
+    v22[3] = &unk_278F7DDF0;
+    v22[4] = *v1;
+    v23 = LODWORD(v12);
+    v22[5] = v16;
     goto LABEL_9;
   }
 
@@ -509,49 +620,49 @@ LABEL_8:
   v5 = [*v1 syncErrors];
   v6 = [v5 count];
 
-  v7 = _DKLogSystem();
-  v8 = v7;
+  v8 = _DKLogSystem(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __39__DKCloudProvider__communicateProgress__block_invoke_cold_1(v1);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v8, OS_LOG_TYPE_DEFAULT, "Sync completed successfully!", buf, 2u);
+    _os_log_impl(&dword_248D68000, v9, OS_LOG_TYPE_DEFAULT, "Sync completed successfully!", buf, 2u);
   }
 
-  v16 = [*v1 backupResults];
-  v17 = [v16 count];
+  v17 = [*v1 backupResults];
+  v18 = [v17 count];
 
-  v18 = _DKLogSystem();
-  v19 = v18;
-  if (v17)
+  v20 = _DKLogSystem(v19);
+  v21 = v20;
+  if (v18)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       __39__DKCloudProvider__communicateProgress__block_invoke_cold_2(v1);
     }
   }
 
-  else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_248D68000, v19, OS_LOG_TYPE_DEFAULT, "Backup(s) completed successfully!", buf, 2u);
+    _os_log_impl(&dword_248D68000, v21, OS_LOG_TYPE_DEFAULT, "Backup(s) completed successfully!", buf, 2u);
   }
 
-  v14 = v22;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __39__DKCloudProvider__communicateProgress__block_invoke_21;
-  v22[3] = &unk_278F7DC60;
-  v22[4] = *v1;
+  v15 = v24;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __39__DKCloudProvider__communicateProgress__block_invoke_21;
+  v24[3] = &unk_278F7DC60;
+  v24[4] = *v1;
 LABEL_9:
-  dispatch_async(MEMORY[0x277D85CD0], v14);
+  dispatch_async(MEMORY[0x277D85CD0], v15);
 }
 
 void __39__DKCloudProvider__communicateProgress__block_invoke_21(uint64_t a1)
@@ -633,20 +744,18 @@ void __32__DKCloudProvider_syncProgress___block_invoke(uint64_t a1)
 
 void __39__DKCloudProvider__communicateProgress__block_invoke_cold_1(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 syncErrors];
-  OUTLINED_FUNCTION_0_0(&dword_248D68000, v2, v3, "Sync completed with errors: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_248D68000, v2, v3, "Sync completed with errors: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __39__DKCloudProvider__communicateProgress__block_invoke_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*a1 backupResults];
-  OUTLINED_FUNCTION_0_0(&dword_248D68000, v2, v3, "Backup(s) completed with errors: %{public}@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_248D68000, v2, v3, "Backup(s) completed with errors: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -99,15 +99,15 @@ uint64_t __67__RTIInputSystemUIService_sharedServiceWithDomainName_serviceName__
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v7 = RTILogFacility();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v19 = "[RTIInputSystemUIService listener:didReceiveConnection:withContext:]";
-    v20 = 2112;
-    v21 = connectionCopy;
+    v18 = "[RTIInputSystemUIService listener:didReceiveConnection:withContext:]";
+    v19 = 2112;
+    v20 = connectionCopy;
     _os_log_impl(&dword_19A2A6000, v7, OS_LOG_TYPE_DEFAULT, "%s  didReceiveConnection: %@", buf, 0x16u);
   }
 
@@ -118,14 +118,12 @@ uint64_t __67__RTIInputSystemUIService_sharedServiceWithDomainName_serviceName__
   block[1] = 3221225472;
   block[2] = __69__RTIInputSystemUIService_listener_didReceiveConnection_withContext___block_invoke_2;
   block[3] = &unk_1E75142D0;
-  v15 = v9;
-  v16 = remoteProcess;
+  v14 = v9;
+  v15 = remoteProcess;
   selfCopy = self;
   v11 = remoteProcess;
   v12 = v9;
   dispatch_async(dispatchQueue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __69__RTIInputSystemUIService_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1)

@@ -40,33 +40,33 @@
 
 - (BOOL)commitElements:(id)elements error:(id *)error timeout:(int64_t)timeout callback:(id)callback
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   elementsCopy = elements;
   callbackCopy = callback;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v12 = [elementsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [elementsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(elementsCopy);
         }
 
-        IOHIDTransactionAddElement(self->_transaction, *(*(&v22 + 1) + 8 * v15++));
+        IOHIDTransactionAddElement(self->_transaction, *(*(&v21 + 1) + 8 * v15++));
       }
 
       while (v13 != v15);
-      v13 = [elementsCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [elementsCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -99,7 +99,6 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19 == 0;
 }
 

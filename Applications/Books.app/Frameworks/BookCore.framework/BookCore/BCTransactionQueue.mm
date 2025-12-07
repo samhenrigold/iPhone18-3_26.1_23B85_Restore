@@ -65,28 +65,28 @@
   [v17 setOriginatingSceneController:controllerCopy];
 
   [v17 setTargetSceneDescriptor:descriptorCopy];
-  v18 = BCTransactionLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = BCTransactionLog(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [v17 debugDescription];
+    v20 = [v17 debugDescription];
     *buf = 138543362;
-    v31 = v19;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Creating transaction: %{public}@", buf, 0xCu);
+    v32 = v20;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Creating transaction: %{public}@", buf, 0xCu);
   }
 
   sync = self->_sync;
-  v24 = _NSConcreteStackBlock;
-  v25 = 3221225472;
-  v26 = sub_1355E0;
-  v27 = &unk_2C7BE8;
+  v25 = _NSConcreteStackBlock;
+  v26 = 3221225472;
+  v27 = sub_1355E0;
+  v28 = &unk_2C7BE8;
   selfCopy = self;
-  v29 = v17;
-  v21 = v17;
-  dispatch_sync(sync, &v24);
-  [v21 setContext:{contextCopy, v24, v25, v26, v27, selfCopy}];
+  v30 = v17;
+  v22 = v17;
+  dispatch_sync(sync, &v25);
+  [v22 setContext:{contextCopy, v25, v26, v27, v28, selfCopy}];
 
-  v22 = [[_BCTransactionProxy alloc] initWithTransaction:v21];
-  return v22;
+  v23 = [[_BCTransactionProxy alloc] initWithTransaction:v22];
+  return v23;
 }
 
 - (void)_cancelTransactionsConflictedByTransaction:(id)transaction
@@ -135,14 +135,14 @@
 
   if (sq_isFinal)
   {
-    v5 = BCTransactionLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = BCTransactionLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       activeTransaction2 = [(BCTransactionQueue *)self activeTransaction];
-      v7 = [activeTransaction2 debugDescription];
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "removing active transaction: %{public}@", &v8, 0xCu);
+      v8 = [activeTransaction2 debugDescription];
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "removing active transaction: %{public}@", &v9, 0xCu);
     }
 
     [(BCTransactionQueue *)self setActiveTransaction:0];

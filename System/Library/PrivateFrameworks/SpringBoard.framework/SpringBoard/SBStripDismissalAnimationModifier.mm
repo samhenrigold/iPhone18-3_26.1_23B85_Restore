@@ -63,7 +63,7 @@
   {
     appLayoutsInStrip = self->_appLayoutsInStrip;
     appLayout = [itemCopy appLayout];
-    LODWORD(appLayoutsInStrip) = [(NSSet *)appLayoutsInStrip containsObject:appLayout];
+    LODWORD(appLayoutsInStrip) = objc_msgSend_containsObject_(appLayoutsInStrip);
 
     if (appLayoutsInStrip)
     {

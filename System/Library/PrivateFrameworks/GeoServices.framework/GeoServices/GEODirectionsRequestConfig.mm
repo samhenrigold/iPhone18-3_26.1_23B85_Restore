@@ -59,27 +59,26 @@
 
 - (id)additionalURLQueryItems
 {
-  v3 = GeoServicesConfig_ExperimentalDirectionsService[1];
-  v4 = GEOConfigGetString();
-  if ([v4 length])
+  v3 = GEOConfigGetString();
+  if ([v3 length])
   {
-    if ([v4 hasPrefix:@"?"])
+    if ([v3 hasPrefix:@"?"])
     {
-      v5 = @"http://www.apple.com/";
+      v4 = @"http://www.apple.com/";
     }
 
     else
     {
-      v5 = @"http://www.apple.com/?";
+      v4 = @"http://www.apple.com/?";
     }
 
-    v6 = [(__CFString *)v5 stringByAppendingString:v4];
-    v7 = [NSURLComponents componentsWithString:v6];
-    queryItems = [v7 queryItems];
+    v5 = [(__CFString *)v4 stringByAppendingString:v3];
+    v6 = [NSURLComponents componentsWithString:v5];
+    queryItems = [v6 queryItems];
 
     if (queryItems)
     {
-      queryItems2 = [v7 queryItems];
+      queryItems2 = [v6 queryItems];
       queryItems = [NSMutableArray arrayWithArray:queryItems2];
     }
   }
@@ -89,22 +88,21 @@
     queryItems = 0;
   }
 
-  v10 = GeoServicesConfig_DirectionsRequestURLQueryItems[1];
-  v11 = GEOConfigGetDictionary();
-  if ([v11 count])
+  v9 = GEOConfigGetDictionary();
+  if ([v9 count])
   {
     if (!queryItems)
     {
       queryItems = +[NSMutableArray array];
     }
 
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100046540;
-    v16[3] = &unk_100083550;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100046540;
+    v14[3] = &unk_100083550;
     queryItems = queryItems;
-    v17 = queryItems;
-    [v11 enumerateKeysAndObjectsUsingBlock:v16];
+    v15 = queryItems;
+    [v9 enumerateKeysAndObjectsUsingBlock:v14];
   }
 
   if (queryItems)
@@ -114,14 +112,14 @@
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = GEODirectionsRequestConfig;
-    additionalURLQueryItems = [(GEODirectionsRequestConfig *)&v15 additionalURLQueryItems];
+    v13.receiver = self;
+    v13.super_class = GEODirectionsRequestConfig;
+    additionalURLQueryItems = [(GEODirectionsRequestConfig *)&v13 additionalURLQueryItems];
   }
 
-  v13 = additionalURLQueryItems;
+  v11 = additionalURLQueryItems;
 
-  return v13;
+  return v11;
 }
 
 - (GEODirectionsRequestConfig)initWithRequest:(id)request requestPriority:(id)priority

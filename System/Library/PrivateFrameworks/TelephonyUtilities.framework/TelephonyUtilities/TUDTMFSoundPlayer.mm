@@ -23,13 +23,13 @@
 
 uint64_t __25__TUDTMFSoundPlayer_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = TUDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = TUDefaultLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = a2;
-    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesPlaySystemSoundWithOptions() with system sound ID %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = a2;
+    _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Calling AudioServicesPlaySystemSoundWithOptions() with system sound ID %d", v5, 8u);
   }
 
   if (_block_invoke__pred_AudioServicesPlaySystemSoundWithOptionsAudioToolbox != -1)
@@ -37,9 +37,7 @@ uint64_t __25__TUDTMFSoundPlayer_init__block_invoke(uint64_t a1, uint64_t a2)
     __25__TUDTMFSoundPlayer_init__block_invoke_cold_1();
   }
 
-  result = _block_invoke__AudioServicesPlaySystemSoundWithOptions(a2, 0, 0);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return _block_invoke__AudioServicesPlaySystemSoundWithOptions(a2, 0, 0);
 }
 
 uint64_t (*__25__TUDTMFSoundPlayer_init__block_invoke_1())(void, void, void)
@@ -52,7 +50,7 @@ uint64_t (*__25__TUDTMFSoundPlayer_init__block_invoke_1())(void, void, void)
 - (BOOL)attemptToPlayKey:(unsigned __int8)key
 {
   keyCopy = key;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (key > 51)
   {
     if (key <= 54)
@@ -105,21 +103,19 @@ uint64_t (*__25__TUDTMFSoundPlayer_init__block_invoke_1())(void, void, void)
         v4 = 0;
 LABEL_26:
         [(TUDTMFSoundPlayer *)self attemptToPlaySoundType:v4];
-        v5 = 1;
-        goto LABEL_27;
+        return 1;
     }
 
 LABEL_28:
-    v8 = TUDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = TUDefaultLog(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = keyCopy;
-      _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Requested to play DTMF tone for unknown key: %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = keyCopy;
+      _os_log_impl(&dword_1956FD000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Requested to play DTMF tone for unknown key: %d", v8, 8u);
     }
 
-    v5 = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   if (key != 49)
@@ -139,20 +135,18 @@ LABEL_28:
 
   v5 = 1;
   [(TUDTMFSoundPlayer *)self attemptToPlaySoundType:1];
-LABEL_27:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)attemptToPlaySoundType:(int64_t)type
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v5 = TUDefaultLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to play DTMF sound type %ld", &v8, 0xCu);
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to play DTMF sound type %ld", &v7, 0xCu);
   }
 
   if (type <= 0xB)
@@ -160,8 +154,6 @@ LABEL_27:
     playSystemSoundHandler = [(TUDTMFSoundPlayer *)self playSystemSoundHandler];
     playSystemSoundHandler[2](playSystemSoundHandler, type | 0x4B0);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

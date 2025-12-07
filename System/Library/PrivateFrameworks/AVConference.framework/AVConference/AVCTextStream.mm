@@ -1968,7 +1968,7 @@ LABEL_16:
 
   _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, v8, v15, v10);
 LABEL_17:
-  [(AVConferenceXPCClient *)self->_connection sendMessageAsync:"vcMediaStreamStartConference", *v15, *&v15[16], v16, selfCopy];
+  [(AVConferenceXPCClient *)self->_connection sendMessageAsync:"vcMediaStreamStartConference", *v15, *&v15[8], v16, selfCopy];
 LABEL_18:
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCTextStream-start");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
@@ -3005,7 +3005,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d server died", v2, v3, v4, v5);
 }
 
 - (void)validateResultsDictionary:error:.cold.2()
@@ -3061,7 +3061,7 @@ void __55__AVCTextStream_registerBlocksForDelegateNotifications__block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Server died", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Server died", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.2()
@@ -3119,7 +3119,7 @@ void __55__AVCTextStream_registerBlocksForDelegateNotifications__block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Missing stream token", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Missing stream token", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.8()
@@ -3152,7 +3152,7 @@ void __55__AVCTextStream_registerBlocksForDelegateNotifications__block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_16(&dword_1DB56E000, v0, v1, "AVCTextStream [%s] %s:%d Missing result dictionary", v2, v3, v4, v5);
 }
 
 - (void)validateInitializeConnectionResult:.cold.12()

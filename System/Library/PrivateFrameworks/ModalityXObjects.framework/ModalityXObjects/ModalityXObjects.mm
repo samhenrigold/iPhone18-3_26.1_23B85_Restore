@@ -120,28 +120,28 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
-id MXModalityx_sharedOptions()
+id MXModalityx_sharedOptions(uint64_t a1)
 {
   if (MXModalityx_sharedOptions_once != -1)
   {
     MXModalityx_sharedOptions_cold_1();
   }
 
-  v1 = MXModalityx_sharedOptions_sOptions;
+  v2 = MXModalityx_sharedOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
-id MXQss_single_userOptions()
+id MXQss_single_userOptions(uint64_t a1)
 {
   if (MXQss_single_userOptions_once != -1)
   {
     MXQss_single_userOptions_cold_1();
   }
 
-  v1 = MXQss_single_userOptions_sOptions;
+  v2 = MXQss_single_userOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
 uint64_t MXSpeechProfileRebuildNeededReadFrom(uint64_t a1, void *a2)
@@ -2486,16 +2486,16 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-id MXSpeech_profile_dataOptions()
+id MXSpeech_profile_dataOptions(uint64_t a1)
 {
   if (MXSpeech_profile_dataOptions_once != -1)
   {
     MXSpeech_profile_dataOptions_cold_1();
   }
 
-  v1 = MXSpeech_profile_dataOptions_sOptions;
+  v2 = MXSpeech_profile_dataOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
 uint64_t MXRecognitionCandidateReadFrom(uint64_t a1, void *a2)
@@ -6028,16 +6028,16 @@ LABEL_79:
   return [a2 hasError] ^ 1;
 }
 
-id MXModalityxOptions()
+id MXModalityxOptions(uint64_t a1)
 {
   if (MXModalityxOptions_once != -1)
   {
     MXModalityxOptions_cold_1();
   }
 
-  v1 = MXModalityxOptions_sOptions;
+  v2 = MXModalityxOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
 void __MXModalityxOptions_block_invoke()
@@ -6168,7 +6168,7 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t MXChoiceAlignmentReadFrom(void *a1, void *a2)
+uint64_t MXChoiceAlignmentReadFrom(char *a1, void *a2)
 {
   v4 = [a2 position];
   if (v4 < [a2 length])
@@ -7354,16 +7354,16 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-id MXEnumsOptions()
+id MXEnumsOptions(uint64_t a1)
 {
   if (MXEnumsOptions_once != -1)
   {
     MXEnumsOptions_cold_1();
   }
 
-  v1 = MXEnumsOptions_sOptions;
+  v2 = MXEnumsOptions_sOptions;
 
-  return v1;
+  return v2;
 }
 
 void __MXEnumsOptions_block_invoke()
@@ -7372,11 +7372,11 @@ void __MXEnumsOptions_block_invoke()
   MXEnumsOptions_sOptions = &unk_286BDC048;
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter(uint64_t a1, void (*a2)(uint64_t))
+Swift::Int specialized RawRepresentable<>.hashValue.getter(char a1, uint64_t (*a2)(uint64_t))
 {
   v3 = Hasher.init(_seed:)();
-  a2(v3);
-  OUTLINED_FUNCTION_7();
+  v4 = a2(v3);
+  OUTLINED_FUNCTION_7(v4, v5, v6, v7, v8, v9, v10, v11, v13);
   return Hasher._finalize()();
 }
 
@@ -7387,11 +7387,11 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance ModalityXUserI
   return MEMORY[0x28217E238](a1, a2, v4);
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t))
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, char a2, uint64_t (*a3)(uint64_t))
 {
   v4 = Hasher.init(_seed:)();
-  a3(v4);
-  OUTLINED_FUNCTION_7();
+  v5 = a3(v4);
+  OUTLINED_FUNCTION_7(v5, v6, v7, v8, v9, v10, v11, v12, v14);
   return Hasher._finalize()();
 }
 
@@ -8524,7 +8524,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v14 = "language";
   *(v14 + 1) = 8;
   v14[16] = 2;
-  v15 = *MEMORY[0x277D21870];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -8643,11 +8642,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v52 = swift_allocObject();
-  *(v52 + 16) = xmmword_25A1D8770;
-  v4 = v52 + v3;
-  v5 = v52 + v3 + v1[14];
-  *(v52 + v3) = 1;
+  v51 = swift_allocObject();
+  *(v51 + 16) = xmmword_25A1D8770;
+  v4 = v51 + v3;
+  v5 = v51 + v3 + v1[14];
+  *(v51 + v3) = 1;
   *v5 = "audio_metadata";
   *(v5 + 8) = 14;
   *(v5 + 16) = 2;
@@ -8737,70 +8736,69 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v31 = "languages";
   *(v31 + 1) = 9;
   v31[16] = 2;
-  v32 = *MEMORY[0x277D21870];
   v8();
-  v33 = (v4 + 13 * v2);
-  v34 = v33 + v1[14];
-  *v33 = 14;
-  *v34 = "region";
-  *(v34 + 1) = 6;
-  v34[16] = 2;
+  v32 = (v4 + 13 * v2);
+  v33 = v32 + v1[14];
+  *v32 = 14;
+  *v33 = "region";
+  *(v33 + 1) = 6;
+  v33[16] = 2;
   v8();
-  v35 = (v4 + 14 * v2);
-  v36 = v35 + v1[14];
-  *v35 = 15;
-  *v36 = "activation_token";
-  *(v36 + 1) = 16;
-  v36[16] = 2;
+  v34 = (v4 + 14 * v2);
+  v35 = v34 + v1[14];
+  *v34 = 15;
+  *v35 = "activation_token";
+  *(v35 + 1) = 16;
+  v35[16] = 2;
   v8();
-  v37 = (v4 + 15 * v2);
-  v38 = v37 + v1[14];
-  *v37 = 16;
-  *v38 = "censor_speech";
-  *(v38 + 1) = 13;
-  v38[16] = 2;
+  v36 = (v4 + 15 * v2);
+  v37 = v36 + v1[14];
+  *v36 = 16;
+  *v37 = "censor_speech";
+  *(v37 + 1) = 13;
+  v37[16] = 2;
   v8();
-  v39 = (v4 + 16 * v2);
-  v40 = v39 + v1[14];
-  *v39 = 17;
-  *v40 = "speaker_independent_recognition";
-  *(v40 + 1) = 31;
-  v40[16] = 2;
+  v38 = (v4 + 16 * v2);
+  v39 = v38 + v1[14];
+  *v38 = 17;
+  *v39 = "speaker_independent_recognition";
+  *(v39 + 1) = 31;
+  v39[16] = 2;
   v8();
-  v41 = (v4 + 17 * v2);
-  v42 = v41 + v1[14];
-  *v41 = 18;
-  *v42 = "save_request_audio";
-  *(v42 + 1) = 18;
-  v42[16] = 2;
+  v40 = (v4 + 17 * v2);
+  v41 = v40 + v1[14];
+  *v40 = 18;
+  *v41 = "save_request_audio";
+  *(v41 + 1) = 18;
+  v41[16] = 2;
   v8();
-  v43 = (v4 + 18 * v2);
-  v44 = v43 + v1[14];
-  *v43 = 19;
-  *v44 = "keyboard_identifier";
-  *(v44 + 1) = 19;
-  v44[16] = 2;
+  v42 = (v4 + 18 * v2);
+  v43 = v42 + v1[14];
+  *v42 = 19;
+  *v43 = "keyboard_identifier";
+  *(v43 + 1) = 19;
+  v43[16] = 2;
   v8();
-  v45 = (v4 + 19 * v2);
-  v46 = v45 + v1[14];
-  *v45 = 20;
-  *v46 = "enable_partial_results";
-  *(v46 + 1) = 22;
-  v46[16] = 2;
+  v44 = (v4 + 19 * v2);
+  v45 = v44 + v1[14];
+  *v44 = 20;
+  *v45 = "enable_partial_results";
+  *(v45 + 1) = 22;
+  v45[16] = 2;
   v8();
-  v47 = (v4 + 20 * v2);
-  v48 = v47 + v1[14];
-  *v47 = 21;
-  *v48 = "input_origin";
-  *(v48 + 1) = 12;
-  v48[16] = 2;
+  v46 = (v4 + 20 * v2);
+  v47 = v46 + v1[14];
+  *v46 = 21;
+  *v47 = "input_origin";
+  *(v47 + 1) = 12;
+  v47[16] = 2;
   v8();
-  v49 = (v4 + 21 * v2);
-  v50 = v49 + v1[14];
-  *v49 = 22;
-  *v50 = "is_auto_punctuation_enabled";
-  *(v50 + 1) = 27;
-  v50[16] = 2;
+  v48 = (v4 + 21 * v2);
+  v49 = v48 + v1[14];
+  *v48 = 22;
+  *v49 = "is_auto_punctuation_enabled";
+  *(v49 + 1) = 27;
+  v49[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -8830,7 +8828,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "reason";
   *(v10 + 1) = 6;
   v10[16] = 2;
-  v11 = *MEMORY[0x277D21870];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -8860,14 +8857,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "audio";
   *(v10 + 1) = 5;
   v10[16] = 2;
-  v11 = *MEMORY[0x277D21870];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "last_frame";
-  *(v13 + 1) = 10;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "last_frame";
+  *(v12 + 1) = 10;
+  v12[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -8933,21 +8929,20 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "error_description";
   *(v10 + 8) = 17;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x277D21888];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "error_source";
-  *(v13 + 1) = 12;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "error_source";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "request_id";
-  *(v15 + 1) = 10;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "request_id";
+  *(v14 + 1) = 10;
+  v14[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9013,28 +9008,27 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v12 = "locale";
   *(v12 + 1) = 6;
   v12[16] = 2;
-  v13 = *MEMORY[0x277D21870];
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "phone_set_version";
-  *(v15 + 1) = 17;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "phone_set_version";
+  *(v14 + 1) = 17;
+  v14[16] = 2;
   v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "existing_language_profile";
-  *(v17 + 1) = 25;
-  v17[16] = 2;
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "existing_language_profile";
+  *(v16 + 1) = 25;
+  v16[16] = 2;
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "existing_pronunciation_cache";
-  *(v19 + 1) = 28;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "existing_pronunciation_cache";
+  *(v18 + 1) = 28;
+  v18[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9064,14 +9058,13 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "locale";
   *(v10 + 1) = 6;
   v10[16] = 2;
-  v11 = *MEMORY[0x277D21870];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "phone_set_version";
-  *(v13 + 1) = 17;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "phone_set_version";
+  *(v12 + 1) = 17;
+  v12[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9144,28 +9137,27 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "error";
   *(v10 + 8) = 5;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x277D21870];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "incomplete_profile";
-  *(v13 + 1) = 18;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "incomplete_profile";
+  *(v12 + 1) = 18;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 10;
-  *v15 = "language_profile";
-  *(v15 + 1) = 16;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 10;
+  *v14 = "language_profile";
+  *(v14 + 1) = 16;
+  v14[16] = 2;
   v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 11;
-  *v17 = "pronunciation_cache";
-  *(v17 + 1) = 19;
-  v17[16] = 2;
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 11;
+  *v16 = "pronunciation_cache";
+  *(v16 + 1) = 19;
+  v16[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9216,28 +9208,27 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v16 = "confidence";
   *(v16 + 1) = 10;
   v16[16] = 2;
-  v17 = *MEMORY[0x277D21870];
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "add_space_after";
-  *(v19 + 1) = 15;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "add_space_after";
+  *(v18 + 1) = 15;
+  v18[16] = 2;
   v9();
-  v20 = (v5 + 6 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 7;
-  *v21 = "phone_seq";
-  *(v21 + 1) = 9;
-  v21[16] = 2;
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "phone_seq";
+  *(v20 + 1) = 9;
+  v20[16] = 2;
   v9();
-  v22 = (v5 + 7 * v2);
-  v23 = v22 + v1[14];
-  *v22 = 8;
-  *v23 = "ipa_phone_seq";
-  *(v23 + 1) = 13;
-  v23[16] = 2;
+  v21 = (v5 + 7 * v2);
+  v22 = v21 + v1[14];
+  *v21 = 8;
+  *v22 = "ipa_phone_seq";
+  *(v22 + 1) = 13;
+  v22[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9296,7 +9287,6 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "confidence";
   *(v10 + 1) = 10;
   v10[16] = 2;
-  v11 = *MEMORY[0x277D21870];
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9438,11 +9428,11 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v36 = swift_allocObject();
-  *(v36 + 16) = xmmword_25A1DA710;
-  v4 = v36 + v3;
-  v5 = v36 + v3 + v1[14];
-  *(v36 + v3) = 1;
+  v35 = swift_allocObject();
+  *(v35 + 16) = xmmword_25A1DA710;
+  v4 = v35 + v3;
+  v5 = v35 + v3 + v1[14];
+  *(v35 + v3) = 1;
   *v5 = "speech_id";
   *(v5 + 8) = 9;
   *(v5 + 16) = 2;
@@ -9490,56 +9480,55 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v19 = "snr";
   *(v19 + 1) = 3;
   v19[16] = 2;
-  v20 = *MEMORY[0x277D21870];
   v8();
-  v21 = (v4 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 8;
-  *v22 = "fingerprint_detection";
-  *(v22 + 1) = 21;
-  v22[16] = 2;
+  v20 = (v4 + 7 * v2);
+  v21 = v20 + v1[14];
+  *v20 = 8;
+  *v21 = "fingerprint_detection";
+  *(v21 + 1) = 21;
+  v21[16] = 2;
   v8();
-  v23 = (v4 + 8 * v2);
-  v24 = v23 + v1[14];
-  *v23 = 9;
-  *v24 = "audio_analytics";
-  *(v24 + 1) = 15;
-  v24[16] = 2;
+  v22 = (v4 + 8 * v2);
+  v23 = v22 + v1[14];
+  *v22 = 9;
+  *v23 = "audio_analytics";
+  *(v23 + 1) = 15;
+  v23[16] = 2;
   v8();
-  v25 = (v4 + 9 * v2);
-  v26 = v25 + v1[14];
-  *v25 = 10;
-  *v26 = "watermark_detection";
-  *(v26 + 1) = 19;
-  v26[16] = 2;
+  v24 = (v4 + 9 * v2);
+  v25 = v24 + v1[14];
+  *v24 = 10;
+  *v25 = "watermark_detection";
+  *(v25 + 1) = 19;
+  v25[16] = 2;
   v8();
-  v27 = (v4 + 10 * v2);
-  v28 = v27 + v1[14];
-  *v27 = 11;
-  *v28 = "watermark_peak_average";
-  *(v28 + 1) = 22;
-  v28[16] = 2;
+  v26 = (v4 + 10 * v2);
+  v27 = v26 + v1[14];
+  *v26 = 11;
+  *v27 = "watermark_peak_average";
+  *(v27 + 1) = 22;
+  v27[16] = 2;
   v8();
-  v29 = (v4 + 11 * v2);
-  v30 = v29 + v1[14];
-  *v29 = 12;
-  *v30 = "language";
-  *(v30 + 1) = 8;
-  v30[16] = 2;
+  v28 = (v4 + 11 * v2);
+  v29 = v28 + v1[14];
+  *v28 = 12;
+  *v29 = "language";
+  *(v29 + 1) = 8;
+  v29[16] = 2;
   v8();
-  v31 = (v4 + 12 * v2);
-  v32 = v31 + v1[14];
-  *v31 = 13;
-  *v32 = "latnn_mitigator_result";
-  *(v32 + 1) = 22;
-  v32[16] = 2;
+  v30 = (v4 + 12 * v2);
+  v31 = v30 + v1[14];
+  *v30 = 13;
+  *v31 = "latnn_mitigator_result";
+  *(v31 + 1) = 22;
+  v31[16] = 2;
   v8();
-  v33 = (v4 + 13 * v2);
-  v34 = v33 + v1[14];
-  *v33 = 14;
-  *v34 = "request_locale";
-  *(v34 + 1) = 14;
-  v34[16] = 2;
+  v32 = (v4 + 13 * v2);
+  v33 = v32 + v1[14];
+  *v32 = 14;
+  *v33 = "request_locale";
+  *(v33 + 1) = 14;
+  v33[16] = 2;
   v8();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9711,10 +9700,10 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
   v2 = *(*v1 + 72);
   v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v33 = swift_allocObject();
-  *(v33 + 16) = xmmword_25A1DA720;
-  v4 = v33 + v3 + v1[14];
-  *(v33 + v3) = 1;
+  v32 = swift_allocObject();
+  *(v32 + 16) = xmmword_25A1DA720;
+  v4 = v32 + v3 + v1[14];
+  *(v32 + v3) = 1;
   *v4 = "speech_id";
   *(v4 + 8) = 9;
   *(v4 + 16) = 2;
@@ -9722,89 +9711,88 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   v6 = type metadata accessor for _NameMap.NameDescription();
   v7 = *(*(v6 - 8) + 104);
   (v7)(v4, v5, v6);
-  v8 = v33 + v3 + v2 + v1[14];
-  *(v33 + v3 + v2) = 2;
+  v8 = v32 + v3 + v2 + v1[14];
+  *(v32 + v3 + v2) = 2;
   *v8 = "session_id";
   *(v8 + 8) = 10;
   *(v8 + 16) = 2;
   v7();
-  v9 = (v33 + v3 + 2 * v2);
+  v9 = (v32 + v3 + 2 * v2);
   v10 = v9 + v1[14];
   *v9 = 3;
   *v10 = "return_code";
   *(v10 + 1) = 11;
   v10[16] = 2;
   v7();
-  v11 = (v33 + v3 + 3 * v2);
+  v11 = (v32 + v3 + 3 * v2);
   v12 = v11 + v1[14];
   *v11 = 4;
   *v12 = "return_str";
   *(v12 + 1) = 10;
   v12[16] = 2;
   v7();
-  v13 = (v33 + v3 + 4 * v2);
+  v13 = (v32 + v3 + 4 * v2);
   v14 = v13 + v1[14];
   *v13 = 5;
   *v14 = "recognition_result";
   *(v14 + 1) = 18;
   v14[16] = 2;
   v7();
-  v15 = (v33 + v3 + 5 * v2);
+  v15 = (v32 + v3 + 5 * v2);
   v16 = v15 + v1[14];
   *v15 = 6;
   *v16 = "lang_profile_recreate_codes";
   *(v16 + 1) = 27;
   v16[16] = 2;
   v7();
-  v17 = (v33 + v3 + 6 * v2);
+  v17 = (v32 + v3 + 6 * v2);
   v18 = v17 + v1[14];
   *v17 = 7;
   *v18 = "audio_analytics";
   *(v18 + 1) = 15;
   v18[16] = 2;
   v7();
-  v19 = (v33 + v3 + 7 * v2);
+  v19 = (v32 + v3 + 7 * v2);
   v20 = v19 + v1[14];
   *v19 = 8;
   *v20 = "watermark_detection";
   *(v20 + 1) = 19;
   v20[16] = 2;
   v7();
-  v21 = (v33 + v3 + 8 * v2);
+  v21 = (v32 + v3 + 8 * v2);
   v22 = v21 + v1[14];
   *v21 = 9;
   *v22 = "watermark_peak_average";
   *(v22 + 1) = 22;
   v22[16] = 2;
   v7();
-  v23 = (v33 + v3 + 9 * v2);
+  v23 = (v32 + v3 + 9 * v2);
   v24 = v23 + v1[14];
   *v23 = 10;
   *v24 = "language";
   *(v24 + 1) = 8;
   v24[16] = 2;
-  v25 = *MEMORY[0x277D21870];
   v7();
-  v26 = (v33 + v3 + 10 * v2);
-  v27 = v26 + v1[14];
-  *v26 = 11;
-  *v27 = "latnn_mitigator_result";
-  *(v27 + 1) = 22;
-  v27[16] = 2;
+  v25 = (v32 + v3 + 10 * v2);
+  v26 = v25 + v1[14];
+  *v25 = 11;
+  *v26 = "latnn_mitigator_result";
+  *(v26 + 1) = 22;
+  v26[16] = 2;
   v7();
-  v28 = (v33 + v3 + 11 * v2);
-  v29 = v28 + v1[14];
-  *v28 = 12;
-  *v29 = "request_locale";
-  *(v29 + 1) = 14;
-  v29[16] = 2;
+  v27 = (v32 + v3 + 11 * v2);
+  v28 = v27 + v1[14];
+  *v27 = 12;
+  *v28 = "request_locale";
+  *(v28 + 1) = 14;
+  v28[16] = 2;
   v7();
-  v30 = (v33 + v3 + 12 * v2);
-  v31 = v30 + v1[14];
-  *v30 = 13;
-  *v31 = "has_result";
-  *(v31 + 1) = 10;
-  v31[16] = 2;
+  v29 = (v32 + v3 + 12 * v2);
+  v30 = v29 + v1[14];
+  *v29 = 13;
+  *v30 = "has_result";
+  *(v30 + 1) = 10;
+  v30[16] = 2;
   v7();
   return _NameMap.init(dictionaryLiteral:)();
 }
@@ -9956,35 +9944,34 @@ uint64_t one-time initialization function for _protobuf_nameMap()
   *v10 = "audio_source";
   *(v10 + 8) = 12;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x277D21888];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "is_far_field";
-  *(v13 + 1) = 12;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "is_far_field";
+  *(v12 + 1) = 12;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "voice_trigger_info";
-  *(v15 + 1) = 18;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "voice_trigger_info";
+  *(v14 + 1) = 18;
+  v14[16] = 2;
   v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "enable_server_endpoint";
-  *(v17 + 1) = 22;
-  v17[16] = 2;
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "enable_server_endpoint";
+  *(v16 + 1) = 22;
+  v16[16] = 2;
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "client_model_version";
-  *(v19 + 1) = 20;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "client_model_version";
+  *(v18 + 1) = 20;
+  v18[16] = 2;
   v9();
   return _NameMap.init(dictionaryLiteral:)();
 }

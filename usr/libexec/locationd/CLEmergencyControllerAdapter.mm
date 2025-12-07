@@ -7,37 +7,33 @@
 - (void)checkEmergencyCallStatus
 {
   currentCalls = [qword_1026380F0 currentCalls];
-  v8 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v3 = [currentCalls countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = objc_msgSend_countByEnumeratingWithState_objects_count_(currentCalls, 0);
   if (v3)
   {
-    v4 = v3;
-    v5 = *v9;
+    v5 = v3;
+    v6 = MEMORY[0];
 LABEL_3:
-    v6 = 0;
+    v7 = 0;
     while (1)
     {
-      if (*v9 != v5)
+      if (MEMORY[0] != v6)
       {
         objc_enumerationMutation(currentCalls);
       }
 
-      v7 = *(*(&v8 + 1) + 8 * v6);
-      if (v7)
+      v8 = *(8 * v7);
+      if (v8)
       {
-        if ([*(*(&v8 + 1) + 8 * v6) isEmergency])
+        if ([*(8 * v7) isEmergency])
         {
           break;
         }
       }
 
-      if (v4 == ++v6)
+      if (v5 == ++v7)
       {
-        v4 = [currentCalls countByEnumeratingWithState:&v8 objects:v12 count:16];
-        if (v4)
+        v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(currentCalls);
+        if (v5)
         {
           goto LABEL_3;
         }
@@ -50,10 +46,10 @@ LABEL_3:
   else
   {
 LABEL_10:
-    v7 = 0;
+    v8 = 0;
   }
 
-  sub_100303768(qword_1026380E8, v7);
+  sub_100303768(qword_1026380E8, v8, v4);
 }
 
 @end

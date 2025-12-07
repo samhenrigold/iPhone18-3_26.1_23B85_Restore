@@ -7,6 +7,7 @@
 - (id)_connection;
 - (void)_cleanUpComponents;
 - (void)_cleanUpConnection;
+- (void)_clientServiceDidChange:(BOOL)change;
 - (void)_invalidate;
 - (void)activateWithContext:(id)context completion:(id)completion;
 - (void)cancelPendingSpeechSynthesisRequest:(id)request;
@@ -23,6 +24,8 @@
 - (void)getInstanceInfoWithCompletion:(id)completion;
 - (void)handleSpeechSynthesisSynthesizedBufferForHandlerUUID:(id)d audioChunkData:(id)data audioChunkIndex:(unint64_t)index reply:(id)reply;
 - (void)invalidate;
+- (void)notifyAudioSessionDidBecomeActive:(BOOL)active activationContext:(id)context deactivationContext:(id)deactivationContext;
+- (void)notifyAudioSessionWillBecomeActive:(BOOL)active activationContext:(id)context deactivationContext:(id)deactivationContext;
 - (void)notifyDidActivateWithContext:(id)context;
 - (void)notifyDidChangeSessionStateFrom:(int64_t)from to:(int64_t)to;
 - (void)notifyDidDeactivateWithContext:(id)context;
@@ -96,28 +99,27 @@
 
 - (void)connectionInvalidated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[SVXClientServiceConnection connectionInvalidated]";
+    v7 = "[SVXClientServiceConnection connectionInvalidated]";
     _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __51__SVXClientServiceConnection_connectionInvalidated__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __51__SVXClientServiceConnection_connectionInvalidated__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [(SVXQueuePerformer *)queuePerformer performBlock:v5];
 }
 
 uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((*(v2 + 24) & 1) != 0 || !*(v2 + 88))
   {
@@ -125,12 +127,12 @@ uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke(ui
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
+      v10 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
       _os_log_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEFAULT, "%s Invalidate", buf, 0xCu);
       v2 = *(a1 + 32);
     }
 
-    result = [v2 _invalidate];
+    return [v2 _invalidate];
   }
 
   else
@@ -139,7 +141,7 @@ uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke(ui
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
+      v10 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
       _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEFAULT, "%s KeepAlive", buf, 0xCu);
       v2 = *(a1 + 32);
     }
@@ -147,16 +149,13 @@ uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke(ui
     [v2 _cleanUpConnection];
     v4 = *(a1 + 32);
     v5 = *(v4 + 88);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_28;
-    v9[3] = &unk_279C68108;
-    v9[4] = v4;
-    result = [v5 connectWithCompletion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_28;
+    v8[3] = &unk_279C68108;
+    v8[4] = v4;
+    return [v5 connectWithCompletion:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_28(uint64_t a1, void *a2)
@@ -176,7 +175,7 @@ void __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_28(uin
 
 uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x277CEF098];
   v4 = *MEMORY[0x277CEF098];
@@ -184,51 +183,47 @@ uint64_t __51__SVXClientServiceConnection_connectionInvalidated__block_invoke_2(
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke_2";
-      v9 = 2112;
-      v10 = v2;
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Failed KeepAlive (error = %@)", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke_2";
+      v8 = 2112;
+      v9 = v2;
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Failed KeepAlive (error = %@)", &v6, 0x16u);
     }
 
-    result = [*(a1 + 40) _invalidate];
+    return [*(a1 + 40) _invalidate];
   }
 
   else
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
-      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Done KeepAlive", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SVXClientServiceConnection connectionInvalidated]_block_invoke";
+      _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Done KeepAlive", &v6, 0xCu);
     }
 
-    result = [*(a1 + 40) _clientServiceDidChange:1];
+    return [*(a1 + 40) _clientServiceDidChange:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)connectionInterrupted
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v8 = "[SVXClientServiceConnection connectionInterrupted]";
+    v7 = "[SVXClientServiceConnection connectionInterrupted]";
     _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __51__SVXClientServiceConnection_connectionInterrupted__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __51__SVXClientServiceConnection_connectionInterrupted__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [(SVXQueuePerformer *)queuePerformer performBlock:v5];
 }
 
 uint64_t __51__SVXClientServiceConnection_connectionInterrupted__block_invoke(uint64_t a1)
@@ -296,6 +291,21 @@ void __41__SVXClientServiceConnection__connection__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained connectionInvalidated];
+}
+
+- (void)_clientServiceDidChange:(BOOL)change
+{
+  changeCopy = change;
+  [(SVXClientActivationService *)self->_activationService clientServiceDidChange:?];
+  [(SVXClientAudioSystemService *)self->_audioSystemService clientServiceDidChange:changeCopy];
+  [(SVXClientDeviceService *)self->_deviceService clientServiceDidChange:changeCopy];
+  [(SVXClientAudioPowerService *)self->_inputAudioPowerService clientServiceDidChange:changeCopy];
+  [(SVXClientAudioPowerService *)self->_outputAudioPowerService clientServiceDidChange:changeCopy];
+  [(SVXClientSessionService *)self->_sessionService clientServiceDidChange:changeCopy];
+  [(SVXClientSpeechSynthesisService *)self->_speechSynthesisService clientServiceDidChange:changeCopy];
+  keepAliveService = self->_keepAliveService;
+
+  [(SVXClientKeepAliveService *)keepAliveService clientServiceDidChange:changeCopy];
 }
 
 - (id)_clientServiceWithErrorHandler:(id)handler
@@ -382,32 +392,76 @@ void __70__SVXClientServiceConnection_getClientServiceUsingBlock_errorHandler___
 
 - (void)handleSpeechSynthesisSynthesizedBufferForHandlerUUID:(id)d audioChunkData:(id)data audioChunkIndex:(unint64_t)index reply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   replyCopy = reply;
   v13 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v15 = 136315906;
-    v16 = "[SVXClientServiceConnection handleSpeechSynthesisSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:reply:]";
-    v17 = 2112;
-    v18 = dCopy;
-    v19 = 2048;
+    v14 = 136315906;
+    v15 = "[SVXClientServiceConnection handleSpeechSynthesisSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:reply:]";
+    v16 = 2112;
+    v17 = dCopy;
+    v18 = 2048;
     indexCopy = index;
-    v21 = 2112;
-    v22 = dataCopy;
-    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s handlerUUID = %@, audioChunkIndex = %tu, audioChunkData = %@", &v15, 0x2Au);
+    v20 = 2112;
+    v21 = dataCopy;
+    _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s handlerUUID = %@, audioChunkIndex = %tu, audioChunkData = %@", &v14, 0x2Au);
   }
 
   [(SVXClientSpeechSynthesisService *)self->_speechSynthesisService handleSynthesizedBufferForHandlerUUID:dCopy audioChunkData:dataCopy audioChunkIndex:index reply:replyCopy];
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)notifyAudioSessionDidBecomeActive:(BOOL)active activationContext:(id)context deactivationContext:(id)deactivationContext
+{
+  activeCopy = active;
+  v19 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  deactivationContextCopy = deactivationContext;
+  v10 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315906;
+    v12 = "[SVXClientServiceConnection notifyAudioSessionDidBecomeActive:activationContext:deactivationContext:]";
+    v13 = 1024;
+    v14 = activeCopy;
+    v15 = 2112;
+    v16 = contextCopy;
+    v17 = 2112;
+    v18 = deactivationContextCopy;
+    _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v11, 0x26u);
+  }
+
+  [(SVXClientAudioSystemService *)self->_audioSystemService handleAudioSessionDidBecomeActive:activeCopy activationContext:contextCopy deactivationContext:deactivationContextCopy];
+}
+
+- (void)notifyAudioSessionWillBecomeActive:(BOOL)active activationContext:(id)context deactivationContext:(id)deactivationContext
+{
+  activeCopy = active;
+  v19 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  deactivationContextCopy = deactivationContext;
+  v10 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
+  {
+    v11 = 136315906;
+    v12 = "[SVXClientServiceConnection notifyAudioSessionWillBecomeActive:activationContext:deactivationContext:]";
+    v13 = 1024;
+    v14 = activeCopy;
+    v15 = 2112;
+    v16 = contextCopy;
+    v17 = 2112;
+    v18 = deactivationContextCopy;
+    _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v11, 0x26u);
+  }
+
+  [(SVXClientAudioSystemService *)self->_audioSystemService handleAudioSessionWillBecomeActive:activeCopy activationContext:contextCopy deactivationContext:deactivationContextCopy];
 }
 
 - (void)notifyDidEndUpdateAudioPowerWithType:(int64_t)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -423,32 +477,34 @@ void __70__SVXClientServiceConnection_getClientServiceUsingBlock_errorHandler___
     }
 
     v8 = v7;
-    v11 = 136315394;
-    v12 = "[SVXClientServiceConnection notifyDidEndUpdateAudioPowerWithType:]";
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s type = %@", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "[SVXClientServiceConnection notifyDidEndUpdateAudioPowerWithType:]";
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s type = %@", &v10, 0x16u);
   }
 
   if (type == 1)
   {
     v9 = 48;
-    goto LABEL_10;
   }
 
-  if (type == 2)
+  else
   {
+    if (type != 2)
+    {
+      return;
+    }
+
     v9 = 56;
-LABEL_10:
-    [*(&self->super.isa + v9) handleDidEndUpdateAudioPower];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  [*(&self->super.isa + v9) handleDidEndUpdateAudioPower];
 }
 
 - (void)notifyWillBeginUpdateAudioPowerWithType:(int64_t)type wrapper:(id)wrapper
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   wrapperCopy = wrapper;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -465,13 +521,13 @@ LABEL_10:
     }
 
     v10 = v9;
-    v14 = 136315650;
-    v15 = "[SVXClientServiceConnection notifyWillBeginUpdateAudioPowerWithType:wrapper:]";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = wrapperCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s type = %@, wrapper = %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SVXClientServiceConnection notifyWillBeginUpdateAudioPowerWithType:wrapper:]";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = wrapperCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s type = %@, wrapper = %@", &v13, 0x20u);
   }
 
   if (type == 1)
@@ -487,97 +543,88 @@ LABEL_10:
     v12 = [objc_alloc(MEMORY[0x277CEF198]) initWithXPCWrapper:wrapperCopy];
     [*(&self->super.isa + v11) handleWillBeginUpdateAudioPowerWithProvider:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionDidResignActiveWithDeactivationContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifySessionDidResignActiveWithDeactivationContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deactivationContext = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifySessionDidResignActiveWithDeactivationContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s deactivationContext = %@", &v6, 0x16u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleDidResignActiveWithDeactivationContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionWillResignActiveWithOptions:(unint64_t)options duration:(double)duration
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v8 = v7;
     v9 = SVXSessionResignActiveOptionsGetNames(options);
-    v11 = 136315650;
-    v12 = "[SVXClientServiceConnection notifySessionWillResignActiveWithOptions:duration:]";
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2048;
+    v10 = 136315650;
+    v11 = "[SVXClientServiceConnection notifySessionWillResignActiveWithOptions:duration:]";
+    v12 = 2112;
+    v13 = v9;
+    v14 = 2048;
     durationCopy = duration;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s options = %@, duration = %f", &v11, 0x20u);
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s options = %@, duration = %f", &v10, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleWillResignActiveWithOptions:options duration:duration];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionDidBecomeActiveWithActivationContext:(id)context turnID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "[SVXClientServiceConnection notifySessionDidBecomeActiveWithActivationContext:turnID:]";
-    v12 = 2112;
-    v13 = contextCopy;
-    v14 = 2112;
-    v15 = dCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SVXClientServiceConnection notifySessionDidBecomeActiveWithActivationContext:turnID:]";
+    v11 = 2112;
+    v12 = contextCopy;
+    v13 = 2112;
+    v14 = dCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", &v9, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleDidBecomeActiveWithActivationContext:contextCopy turnID:dCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionWillBecomeActiveWithActivationContext:(id)context turnID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "[SVXClientServiceConnection notifySessionWillBecomeActiveWithActivationContext:turnID:]";
-    v12 = 2112;
-    v13 = contextCopy;
-    v14 = 2112;
-    v15 = dCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SVXClientServiceConnection notifySessionWillBecomeActiveWithActivationContext:turnID:]";
+    v11 = 2112;
+    v12 = contextCopy;
+    v13 = 2112;
+    v14 = dCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s activationContext = %@, turnID = %@", &v9, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleWillBecomeActiveWithActivationContext:contextCopy turnID:dCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionDidStopSoundWithID:(int64_t)d error:(id)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -594,23 +641,21 @@ LABEL_10:
     }
 
     v10 = v9;
-    v12 = 136315650;
-    v13 = "[SVXClientServiceConnection notifySessionDidStopSoundWithID:error:]";
-    v14 = 2112;
-    v15 = v10;
-    v16 = 2112;
-    v17 = errorCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s soundID = %@, error = %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SVXClientServiceConnection notifySessionDidStopSoundWithID:error:]";
+    v13 = 2112;
+    v14 = v10;
+    v15 = 2112;
+    v16 = errorCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s soundID = %@, error = %@", &v11, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleDidStopSoundWithID:d error:errorCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionDidStartSoundWithID:(int64_t)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -626,20 +671,19 @@ LABEL_10:
     }
 
     v8 = v7;
-    v10 = 136315394;
-    v11 = "[SVXClientServiceConnection notifySessionDidStartSoundWithID:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXClientServiceConnection notifySessionDidStartSoundWithID:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", &v9, 0x16u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleDidStartSoundWithID:d];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionWillStartSoundWithID:(int64_t)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -655,39 +699,36 @@ LABEL_10:
     }
 
     v8 = v7;
-    v10 = 136315394;
-    v11 = "[SVXClientServiceConnection notifySessionWillStartSoundWithID:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXClientServiceConnection notifySessionWillStartSoundWithID:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s soundID = %@", &v9, 0x16u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleWillStartSoundWithID:d];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifySessionWillPresentFeedbackWithDialogIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifySessionWillPresentFeedbackWithDialogIdentifier:]";
-    v9 = 2112;
-    v10 = identifierCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s dialogIdentifier = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifySessionWillPresentFeedbackWithDialogIdentifier:]";
+    v8 = 2112;
+    v9 = identifierCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s dialogIdentifier = %@", &v6, 0x16u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleWillPresentFeedbackWithDialogIdentifier:identifierCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidChangeSessionStateFrom:(int64_t)from to:(int64_t)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -714,22 +755,21 @@ LABEL_10:
     }
 
     v12 = v11;
-    v14 = 136315650;
-    v15 = "[SVXClientServiceConnection notifyDidChangeSessionStateFrom:to:]";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SVXClientServiceConnection notifyDidChangeSessionStateFrom:to:]";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", &v13, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleDidChangeStateFrom:from to:to];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWillChangeSessionStateFrom:(int64_t)from to:(int64_t)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -756,147 +796,134 @@ LABEL_10:
     }
 
     v12 = v11;
-    v14 = 136315650;
-    v15 = "[SVXClientServiceConnection notifyWillChangeSessionStateFrom:to:]";
-    v16 = 2112;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SVXClientServiceConnection notifyWillChangeSessionStateFrom:to:]";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s fromState = %@, toState = %@", &v13, 0x20u);
   }
 
   [(SVXClientSessionService *)self->_sessionService handleWillChangeStateFrom:from to:to];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidDeactivateWithContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifyDidDeactivateWithContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifyDidDeactivateWithContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v6, 0x16u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleDidDeactivateWithContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWillDeactivateWithContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifyWillDeactivateWithContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifyWillDeactivateWithContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v6, 0x16u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleWillDeactivateWithContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidNotActivateWithContext:(id)context error:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   errorCopy = error;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315650;
-    v11 = "[SVXClientServiceConnection notifyDidNotActivateWithContext:error:]";
-    v12 = 2112;
-    v13 = contextCopy;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@, error = %@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SVXClientServiceConnection notifyDidNotActivateWithContext:error:]";
+    v11 = 2112;
+    v12 = contextCopy;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@, error = %@", &v9, 0x20u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleDidNotActivateWithContext:contextCopy error:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidActivateWithContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifyDidActivateWithContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifyDidActivateWithContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v6, 0x16u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleDidActivateWithContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyWillActivateWithContext:(id)context
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection notifyWillActivateWithContext:]";
-    v9 = 2112;
-    v10 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection notifyWillActivateWithContext:]";
+    v8 = 2112;
+    v9 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", &v6, 0x16u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleWillActivateWithContext:contextCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPermissionToActivateWithContext:(id)context completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[SVXClientServiceConnection requestPermissionToActivateWithContext:completion:]";
-    v12 = 2112;
-    v13 = contextCopy;
-    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SVXClientServiceConnection requestPermissionToActivateWithContext:completion:]";
+    v11 = 2112;
+    v12 = contextCopy;
+    _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", &v9, 0x16u);
   }
 
   [(SVXClientActivationService *)self->_activationService handleRequestPermissionToActivateWithContext:contextCopy completion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getInstanceInfoWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v8 = 136315138;
-    v9 = "[SVXClientServiceConnection getInstanceInfoWithCompletion:]";
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SVXClientServiceConnection getInstanceInfoWithCompletion:]";
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", &v7, 0xCu);
   }
 
   if (completionCopy)
@@ -904,38 +931,34 @@ LABEL_10:
     info = [(AFInstanceContext *)self->_instanceContext info];
     completionCopy[2](completionCopy, info, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForDeviceSetupWithContext:(id)context completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientServiceConnection prepareForDeviceSetupWithContext:completion:]";
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = "[SVXClientServiceConnection prepareForDeviceSetupWithContext:completion:]";
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v14 = contextCopy;
-  v15 = completionCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v13 = contextCopy;
+  v14 = completionCopy;
+  v12[4] = self;
   v10 = contextCopy;
   v11 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v12];
 }
 
 void __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completion___block_invoke(uint64_t a1)
@@ -952,16 +975,16 @@ void __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completio
 
 void __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection prepareForDeviceSetupWithContext:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection prepareForDeviceSetupWithContext:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -969,35 +992,31 @@ void __74__SVXClientServiceConnection_prepareForDeviceSetupWithContext_completio
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceSetupContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientServiceConnection setDeviceSetupContext:]";
-    v13 = 2112;
-    v14 = contextCopy;
+    v11 = "[SVXClientServiceConnection setDeviceSetupContext:]";
+    v12 = 2112;
+    v13 = contextCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__SVXClientServiceConnection_setDeviceSetupContext___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = contextCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__SVXClientServiceConnection_setDeviceSetupContext___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = contextCopy;
   v7 = contextCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __52__SVXClientServiceConnection_setDeviceSetupContext___block_invoke(uint64_t a1)
@@ -1008,46 +1027,42 @@ void __52__SVXClientServiceConnection_setDeviceSetupContext___block_invoke(uint6
 
 void __52__SVXClientServiceConnection_setDeviceSetupContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection setDeviceSetupContext:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection setDeviceSetupContext:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopSpeechSynthesisRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientServiceConnection stopSpeechSynthesisRequest:]";
-    v13 = 2112;
-    v14 = requestCopy;
+    v11 = "[SVXClientServiceConnection stopSpeechSynthesisRequest:]";
+    v12 = 2112;
+    v13 = requestCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s request = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__SVXClientServiceConnection_stopSpeechSynthesisRequest___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = requestCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __57__SVXClientServiceConnection_stopSpeechSynthesisRequest___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = requestCopy;
   v7 = requestCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __57__SVXClientServiceConnection_stopSpeechSynthesisRequest___block_invoke(uint64_t a1)
@@ -1058,46 +1073,42 @@ void __57__SVXClientServiceConnection_stopSpeechSynthesisRequest___block_invoke(
 
 void __57__SVXClientServiceConnection_stopSpeechSynthesisRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection stopSpeechSynthesisRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection stopSpeechSynthesisRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPendingSpeechSynthesisRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientServiceConnection cancelPendingSpeechSynthesisRequest:]";
-    v13 = 2112;
-    v14 = requestCopy;
+    v11 = "[SVXClientServiceConnection cancelPendingSpeechSynthesisRequest:]";
+    v12 = 2112;
+    v13 = requestCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s request = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __66__SVXClientServiceConnection_cancelPendingSpeechSynthesisRequest___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = requestCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __66__SVXClientServiceConnection_cancelPendingSpeechSynthesisRequest___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = requestCopy;
   v7 = requestCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __66__SVXClientServiceConnection_cancelPendingSpeechSynthesisRequest___block_invoke(uint64_t a1)
@@ -1108,49 +1119,45 @@ void __66__SVXClientServiceConnection_cancelPendingSpeechSynthesisRequest___bloc
 
 void __66__SVXClientServiceConnection_cancelPendingSpeechSynthesisRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection cancelPendingSpeechSynthesisRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection cancelPendingSpeechSynthesisRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueSpeechSynthesisRequest:(id)request completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientServiceConnection enqueueSpeechSynthesisRequest:completion:]";
-    v18 = 2112;
-    v19 = requestCopy;
+    v16 = "[SVXClientServiceConnection enqueueSpeechSynthesisRequest:completion:]";
+    v17 = 2112;
+    v18 = requestCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s request = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v14 = requestCopy;
-  v15 = completionCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v13 = requestCopy;
+  v14 = completionCopy;
+  v12[4] = self;
   v10 = requestCopy;
   v11 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v12];
 }
 
 void __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion___block_invoke(uint64_t a1)
@@ -1167,16 +1174,16 @@ void __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion__
 
 void __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[SVXClientServiceConnection enqueueSpeechSynthesisRequest:completion:]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SVXClientServiceConnection enqueueSpeechSynthesisRequest:completion:]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1185,13 +1192,11 @@ void __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion__
     v6 = [[SVXSpeechSynthesisResult alloc] initWithType:4 utteranceInfo:0 error:v3];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synthesizeRequest:(id)request handlerUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dCopy = d;
   completionCopy = completion;
@@ -1199,29 +1204,27 @@ void __71__SVXClientServiceConnection_enqueueSpeechSynthesisRequest_completion__
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v22 = "[SVXClientServiceConnection synthesizeRequest:handlerUUID:completion:]";
-    v23 = 2112;
-    v24 = requestCopy;
-    v25 = 2112;
-    v26 = dCopy;
+    v21 = "[SVXClientServiceConnection synthesizeRequest:handlerUUID:completion:]";
+    v22 = 2112;
+    v23 = requestCopy;
+    v24 = 2112;
+    v25 = dCopy;
     _os_log_impl(&dword_2695B9000, v11, OS_LOG_TYPE_INFO, "%s request = %@, handlerUUID = %@", buf, 0x20u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion___block_invoke;
-  v17[3] = &unk_279C69038;
-  v17[4] = self;
-  v18 = requestCopy;
-  v19 = dCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion___block_invoke;
+  v16[3] = &unk_279C69038;
+  v16[4] = self;
+  v17 = requestCopy;
+  v18 = dCopy;
+  v19 = completionCopy;
   v13 = dCopy;
   v14 = requestCopy;
   v15 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v16];
 }
 
 void __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion___block_invoke(uint64_t a1)
@@ -1238,16 +1241,16 @@ void __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion__
 
 void __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[SVXClientServiceConnection synthesizeRequest:handlerUUID:completion:]_block_invoke_2";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SVXClientServiceConnection synthesizeRequest:handlerUUID:completion:]_block_invoke_2";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1256,35 +1259,31 @@ void __71__SVXClientServiceConnection_synthesizeRequest_handlerUUID_completion__
     v6 = [[SVXSpeechSynthesisResult alloc] initWithType:4 utteranceInfo:0 error:v3];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v12 = "[SVXClientServiceConnection prewarmRequest:]";
-    v13 = 2112;
-    v14 = requestCopy;
+    v11 = "[SVXClientServiceConnection prewarmRequest:]";
+    v12 = 2112;
+    v13 = requestCopy;
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s request = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__SVXClientServiceConnection_prewarmRequest___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = requestCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__SVXClientServiceConnection_prewarmRequest___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = requestCopy;
   v7 = requestCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __45__SVXClientServiceConnection_prewarmRequest___block_invoke(uint64_t a1)
@@ -1295,24 +1294,22 @@ void __45__SVXClientServiceConnection_prewarmRequest___block_invoke(uint64_t a1)
 
 void __45__SVXClientServiceConnection_prewarmRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection prewarmRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection prewarmRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAudioPowerWithType:(int64_t)type completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -1330,24 +1327,22 @@ void __45__SVXClientServiceConnection_prewarmRequest___block_invoke_2(uint64_t a
 
     v10 = v9;
     *buf = 136315394;
-    v18 = "[SVXClientServiceConnection fetchAudioPowerWithType:completion:]";
-    v19 = 2112;
-    v20 = v10;
+    v17 = "[SVXClientServiceConnection fetchAudioPowerWithType:completion:]";
+    v18 = 2112;
+    v19 = v10;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s type = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block_invoke;
-  v14[3] = &unk_279C68D70;
-  v14[4] = self;
-  v15 = completionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block_invoke;
+  v13[3] = &unk_279C68D70;
+  v13[4] = self;
+  v14 = completionCopy;
   typeCopy = type;
   v12 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
 }
 
 void __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block_invoke(uint64_t a1)
@@ -1364,16 +1359,16 @@ void __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block
 
 void __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection fetchAudioPowerWithType:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection fetchAudioPowerWithType:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1381,38 +1376,34 @@ void __65__SVXClientServiceConnection_fetchAudioPowerWithType_completion___block
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmWithContext:(id)context completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientServiceConnection prewarmWithContext:completion:]";
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = "[SVXClientServiceConnection prewarmWithContext:completion:]";
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v14 = contextCopy;
-  v15 = completionCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v13 = contextCopy;
+  v14 = completionCopy;
+  v12[4] = self;
   v10 = contextCopy;
   v11 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v12];
 }
 
 void __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invoke(uint64_t a1)
@@ -1429,16 +1420,16 @@ void __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invo
 
 void __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection prewarmWithContext:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection prewarmWithContext:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1446,13 +1437,11 @@ void __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invo
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preheatWithActivationSource:(int64_t)source
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
@@ -1469,21 +1458,20 @@ void __60__SVXClientServiceConnection_prewarmWithContext_completion___block_invo
 
     v8 = v7;
     *buf = 136315394;
-    v13 = "[SVXClientServiceConnection preheatWithActivationSource:]";
-    v14 = 2112;
-    v15 = v8;
+    v12 = "[SVXClientServiceConnection preheatWithActivationSource:]";
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s activationSource = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__SVXClientServiceConnection_preheatWithActivationSource___block_invoke;
-  v11[3] = &unk_279C68C68;
-  v11[4] = self;
-  v11[5] = source;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v11];
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__SVXClientServiceConnection_preheatWithActivationSource___block_invoke;
+  v10[3] = &unk_279C68C68;
+  v10[4] = self;
+  v10[5] = source;
+  [(SVXQueuePerformer *)queuePerformer performBlock:v10];
 }
 
 void __58__SVXClientServiceConnection_preheatWithActivationSource___block_invoke(uint64_t a1)
@@ -1494,19 +1482,17 @@ void __58__SVXClientServiceConnection_preheatWithActivationSource___block_invoke
 
 void __58__SVXClientServiceConnection_preheatWithActivationSource___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection preheatWithActivationSource:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection preheatWithActivationSource:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAlarmAndTimerFiringContextWithCompletion:(id)completion
@@ -1537,16 +1523,16 @@ void __76__SVXClientServiceConnection_fetchAlarmAndTimerFiringContextWithComplet
 
 void __76__SVXClientServiceConnection_fetchAlarmAndTimerFiringContextWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection fetchAlarmAndTimerFiringContextWithCompletion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1554,33 +1540,29 @@ void __76__SVXClientServiceConnection_fetchAlarmAndTimerFiringContextWithComplet
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSessionActivityStateWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[SVXClientServiceConnection fetchSessionActivityStateWithCompletion:]";
+    v11 = "[SVXClientServiceConnection fetchSessionActivityStateWithCompletion:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___block_invoke;
-  v9[3] = &unk_279C68EF8;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___block_invoke;
+  v8[3] = &unk_279C68EF8;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___block_invoke(uint64_t a1)
@@ -1597,16 +1579,16 @@ void __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___
 
 void __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection fetchSessionActivityStateWithCompletion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection fetchSessionActivityStateWithCompletion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1614,33 +1596,29 @@ void __70__SVXClientServiceConnection_fetchSessionActivityStateWithCompletion___
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSessionStateWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[SVXClientServiceConnection fetchSessionStateWithCompletion:]";
+    v11 = "[SVXClientServiceConnection fetchSessionStateWithCompletion:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_invoke;
-  v9[3] = &unk_279C68EF8;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_invoke;
+  v8[3] = &unk_279C68EF8;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_invoke(uint64_t a1)
@@ -1657,16 +1635,16 @@ void __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_in
 
 void __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection fetchSessionStateWithCompletion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection fetchSessionStateWithCompletion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1674,32 +1652,29 @@ void __62__SVXClientServiceConnection_fetchSessionStateWithCompletion___block_in
   {
     (*(v5 + 16))(v5, 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transitToAutomaticEndpointingWithTimestamp:(unint64_t)timestamp
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v10 = "[SVXClientServiceConnection transitToAutomaticEndpointingWithTimestamp:]";
-    v11 = 2048;
+    v9 = "[SVXClientServiceConnection transitToAutomaticEndpointingWithTimestamp:]";
+    v10 = 2048;
     timestampCopy = timestamp;
     _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s timestamp = %lld", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __73__SVXClientServiceConnection_transitToAutomaticEndpointingWithTimestamp___block_invoke;
-  v8[3] = &unk_279C68C68;
-  v8[4] = self;
-  v8[5] = timestamp;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __73__SVXClientServiceConnection_transitToAutomaticEndpointingWithTimestamp___block_invoke;
+  v7[3] = &unk_279C68C68;
+  v7[4] = self;
+  v7[5] = timestamp;
+  [(SVXQueuePerformer *)queuePerformer performBlock:v7];
 }
 
 void __73__SVXClientServiceConnection_transitToAutomaticEndpointingWithTimestamp___block_invoke(uint64_t a1)
@@ -1716,43 +1691,40 @@ void __73__SVXClientServiceConnection_transitToAutomaticEndpointingWithTimestamp
 
 void __73__SVXClientServiceConnection_transitToAutomaticEndpointingWithTimestamp___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[SVXClientServiceConnection transitToAutomaticEndpointingWithTimestamp:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@, timestamp = %lld", &v7, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = 136315650;
+    v7 = "[SVXClientServiceConnection transitToAutomaticEndpointingWithTimestamp:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2048;
+    v11 = v5;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@, timestamp = %lld", &v6, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performManualEndpointing
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[SVXClientServiceConnection performManualEndpointing]";
+    v7 = "[SVXClientServiceConnection performManualEndpointing]";
     _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __54__SVXClientServiceConnection_performManualEndpointing__block_invoke;
-  v6[3] = &unk_279C68FC0;
-  v6[4] = self;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __54__SVXClientServiceConnection_performManualEndpointing__block_invoke;
+  v5[3] = &unk_279C68FC0;
+  v5[4] = self;
+  [(SVXQueuePerformer *)queuePerformer performBlock:v5];
 }
 
 void __54__SVXClientServiceConnection_performManualEndpointing__block_invoke(uint64_t a1)
@@ -1763,49 +1735,45 @@ void __54__SVXClientServiceConnection_performManualEndpointing__block_invoke(uin
 
 void __54__SVXClientServiceConnection_performManualEndpointing__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientServiceConnection performManualEndpointing]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientServiceConnection performManualEndpointing]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateWithContext:(id)context completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientServiceConnection deactivateWithContext:completion:]";
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = "[SVXClientServiceConnection deactivateWithContext:completion:]";
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __63__SVXClientServiceConnection_deactivateWithContext_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v14 = contextCopy;
-  v15 = completionCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __63__SVXClientServiceConnection_deactivateWithContext_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v13 = contextCopy;
+  v14 = completionCopy;
+  v12[4] = self;
   v10 = contextCopy;
   v11 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v12];
 }
 
 void __63__SVXClientServiceConnection_deactivateWithContext_completion___block_invoke(uint64_t a1)
@@ -1822,16 +1790,16 @@ void __63__SVXClientServiceConnection_deactivateWithContext_completion___block_i
 
 void __63__SVXClientServiceConnection_deactivateWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection deactivateWithContext:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection deactivateWithContext:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1839,38 +1807,34 @@ void __63__SVXClientServiceConnection_deactivateWithContext_completion___block_i
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateWithContext:(id)context completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[SVXClientServiceConnection activateWithContext:completion:]";
-    v18 = 2112;
-    v19 = contextCopy;
+    v16 = "[SVXClientServiceConnection activateWithContext:completion:]";
+    v17 = 2112;
+    v18 = contextCopy;
     _os_log_impl(&dword_2695B9000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   queuePerformer = self->_queuePerformer;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __61__SVXClientServiceConnection_activateWithContext_completion___block_invoke;
-  v13[3] = &unk_279C68EA8;
-  v14 = contextCopy;
-  v15 = completionCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __61__SVXClientServiceConnection_activateWithContext_completion___block_invoke;
+  v12[3] = &unk_279C68EA8;
+  v13 = contextCopy;
+  v14 = completionCopy;
+  v12[4] = self;
   v10 = contextCopy;
   v11 = completionCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v12];
 }
 
 void __61__SVXClientServiceConnection_activateWithContext_completion___block_invoke(uint64_t a1)
@@ -1887,16 +1851,16 @@ void __61__SVXClientServiceConnection_activateWithContext_completion___block_inv
 
 void __61__SVXClientServiceConnection_activateWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection activateWithContext:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection activateWithContext:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1904,33 +1868,29 @@ void __61__SVXClientServiceConnection_activateWithContext_completion___block_inv
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pingWithReply:(id)reply
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[SVXClientServiceConnection pingWithReply:]";
+    v11 = "[SVXClientServiceConnection pingWithReply:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   queuePerformer = self->_queuePerformer;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__SVXClientServiceConnection_pingWithReply___block_invoke;
-  v9[3] = &unk_279C68EF8;
-  v9[4] = self;
-  v10 = replyCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__SVXClientServiceConnection_pingWithReply___block_invoke;
+  v8[3] = &unk_279C68EF8;
+  v8[4] = self;
+  v9 = replyCopy;
   v7 = replyCopy;
-  [(SVXQueuePerformer *)queuePerformer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(SVXQueuePerformer *)queuePerformer performBlock:v8];
 }
 
 void __44__SVXClientServiceConnection_pingWithReply___block_invoke(uint64_t a1)
@@ -1947,16 +1907,16 @@ void __44__SVXClientServiceConnection_pingWithReply___block_invoke(uint64_t a1)
 
 void __44__SVXClientServiceConnection_pingWithReply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientServiceConnection pingWithReply:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientServiceConnection pingWithReply:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -1964,8 +1924,6 @@ void __44__SVXClientServiceConnection_pingWithReply___block_invoke_2(uint64_t a1
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1981,7 +1939,7 @@ void __44__SVXClientServiceConnection_pingWithReply___block_invoke_2(uint64_t a1
 
 - (SVXClientServiceConnection)initWithQueuePerformer:(id)performer activationService:(id)service audioSystemService:(id)systemService deviceService:(id)deviceService inputAudioPowerService:(id)powerService outputAudioPowerService:(id)audioPowerService sessionService:(id)sessionService speechSynthesisService:(id)self0 keepAliveService:(id)self1 instanceContext:(id)self2 connectionFactory:(id)self3 delegate:(id)self4
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   performerCopy = performer;
   serviceCopy = service;
   serviceCopy2 = service;
@@ -1996,18 +1954,18 @@ void __44__SVXClientServiceConnection_pingWithReply___block_invoke_2(uint64_t a1
   contextCopy = context;
   factoryCopy = factory;
   delegateCopy = delegate;
-  v45.receiver = self;
-  v45.super_class = SVXClientServiceConnection;
-  v22 = [(SVXClientServiceConnection *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = SVXClientServiceConnection;
+  v22 = [(SVXClientServiceConnection *)&v44 init];
   if (v22)
   {
-    v33 = factoryCopy;
+    v32 = factoryCopy;
     v23 = delegateCopy;
     v24 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v47 = "[SVXClientServiceConnection initWithQueuePerformer:activationService:audioSystemService:deviceService:inputAudioPowerService:outputAudioPowerService:sessionService:speechSynthesisService:keepAliveService:instanceContext:connectionFactory:delegate:]";
+      v46 = "[SVXClientServiceConnection initWithQueuePerformer:activationService:audioSystemService:deviceService:inputAudioPowerService:outputAudioPowerService:sessionService:speechSynthesisService:keepAliveService:instanceContext:connectionFactory:delegate:]";
       _os_log_impl(&dword_2695B9000, v24, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
     }
 
@@ -2036,17 +1994,16 @@ void __44__SVXClientServiceConnection_pingWithReply___block_invoke_2(uint64_t a1
 
     objc_storeStrong(&v22->_connectionFactory, factory);
     objc_storeWeak(&v22->_delegate, v23);
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __249__SVXClientServiceConnection_initWithQueuePerformer_activationService_audioSystemService_deviceService_inputAudioPowerService_outputAudioPowerService_sessionService_speechSynthesisService_keepAliveService_instanceContext_connectionFactory_delegate___block_invoke;
-    v43[3] = &unk_279C68108;
-    v44 = v22;
-    [(SVXClientServiceConnection *)v44 pingWithReply:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __249__SVXClientServiceConnection_initWithQueuePerformer_activationService_audioSystemService_deviceService_inputAudioPowerService_outputAudioPowerService_sessionService_speechSynthesisService_keepAliveService_instanceContext_connectionFactory_delegate___block_invoke;
+    v42[3] = &unk_279C68108;
+    v43 = v22;
+    [(SVXClientServiceConnection *)v43 pingWithReply:v42];
 
-    factoryCopy = v33;
+    factoryCopy = v32;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -2086,34 +2043,34 @@ void __249__SVXClientServiceConnection_initWithQueuePerformer_activationService_
 
 - (SVXClientServiceConnection)initWithComponents:(unint64_t)components instanceContext:(id)context delegate:(id)delegate
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
   v10 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v53 = "[SVXClientServiceConnection initWithComponents:instanceContext:delegate:]";
-    v54 = 2048;
+    v52 = "[SVXClientServiceConnection initWithComponents:instanceContext:delegate:]";
+    v53 = 2048;
     componentsCopy = components;
     _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s components = %lu", buf, 0x16u);
   }
 
   v11 = [[SVXQueuePerformer alloc] initWithIdentifier:@"Client Service Connection" qosClass:33 relativePriority:0 options:2];
-  v51 = [objc_alloc(MEMORY[0x277CEF158]) initWithInstanceContext:contextCopy];
+  v50 = [objc_alloc(MEMORY[0x277CEF158]) initWithInstanceContext:contextCopy];
   if ((components & 2) != 0)
   {
     v14 = [SVXClientActivationService alloc];
     v15 = [delegateCopy clientServiceConnection:self performerForComponent:1];
     if (v15)
     {
-      v50 = [(SVXClientActivationService *)v14 initWithClientServiceProvider:self analytics:v51 performer:v15];
+      v49 = [(SVXClientActivationService *)v14 initWithClientServiceProvider:self analytics:v50 performer:v15];
     }
 
     else
     {
       v19 = +[SVXQueuePerformer sharedMainQueuePerformer];
-      v50 = [(SVXClientActivationService *)v14 initWithClientServiceProvider:self analytics:v51 performer:v19];
+      v49 = [(SVXClientActivationService *)v14 initWithClientServiceProvider:self analytics:v50 performer:v19];
     }
 
     if ((components & 4) != 0)
@@ -2123,13 +2080,13 @@ LABEL_5:
       v13 = [delegateCopy clientServiceConnection:self performerForComponent:2];
       if (v13)
       {
-        v49 = [(SVXClientAudioSystemService *)v12 initWithClientServiceProvider:self analytics:v51 performer:v13];
+        v48 = [(SVXClientAudioSystemService *)v12 initWithClientServiceProvider:self analytics:v50 performer:v13];
       }
 
       else
       {
         v16 = +[SVXQueuePerformer sharedMainQueuePerformer];
-        v49 = [(SVXClientAudioSystemService *)v12 initWithClientServiceProvider:self analytics:v51 performer:v16];
+        v48 = [(SVXClientAudioSystemService *)v12 initWithClientServiceProvider:self analytics:v50 performer:v16];
       }
 
       if ((components & 8) != 0)
@@ -2138,21 +2095,21 @@ LABEL_5:
       }
 
 LABEL_16:
-      v48 = 0;
+      v47 = 0;
       goto LABEL_19;
     }
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
     if ((components & 4) != 0)
     {
       goto LABEL_5;
     }
   }
 
-  v49 = 0;
+  v48 = 0;
   if ((components & 8) == 0)
   {
     goto LABEL_16;
@@ -2163,26 +2120,26 @@ LABEL_11:
   v18 = [delegateCopy clientServiceConnection:self performerForComponent:3];
   if (v18)
   {
-    v48 = [(SVXClientDeviceService *)v17 initWithClientServiceProvider:self analytics:v51 performer:v18];
+    v47 = [(SVXClientDeviceService *)v17 initWithClientServiceProvider:self analytics:v50 performer:v18];
   }
 
   else
   {
     v20 = +[SVXQueuePerformer sharedMainQueuePerformer];
-    v48 = [(SVXClientDeviceService *)v17 initWithClientServiceProvider:self analytics:v51 performer:v20];
+    v47 = [(SVXClientDeviceService *)v17 initWithClientServiceProvider:self analytics:v50 performer:v20];
   }
 
 LABEL_19:
   if ((components & 0x10) == 0)
   {
-    v47 = 0;
+    v46 = 0;
     if ((components & 0x20) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_31:
-    v46 = 0;
+    v45 = 0;
     if ((components & 0x40) != 0)
     {
       goto LABEL_27;
@@ -2200,18 +2157,18 @@ LABEL_33:
     v31 = [delegateCopy clientServiceConnection:self performerForComponent:7];
     if (v31)
     {
-      v32 = [(SVXClientSpeechSynthesisService *)v30 initWithClientServiceProvider:self analytics:v51 performer:v31];
+      v32 = [(SVXClientSpeechSynthesisService *)v30 initWithClientServiceProvider:self analytics:v50 performer:v31];
     }
 
     else
     {
       +[SVXQueuePerformer sharedMainQueuePerformer];
-      v43 = v11;
+      v42 = v11;
       v38 = v37 = contextCopy;
-      v32 = [(SVXClientSpeechSynthesisService *)v30 initWithClientServiceProvider:self analytics:v51 performer:v38];
+      v32 = [(SVXClientSpeechSynthesisService *)v30 initWithClientServiceProvider:self analytics:v50 performer:v38];
 
       contextCopy = v37;
-      v11 = v43;
+      v11 = v42;
     }
 
     if ((components & 0x100) != 0)
@@ -2228,13 +2185,13 @@ LABEL_42:
   v24 = [delegateCopy clientServiceConnection:self performerForComponent:4];
   if (v24)
   {
-    v47 = [(SVXClientAudioPowerService *)v23 initWithType:1 clientServiceProvider:self analytics:v51 performer:v24];
+    v46 = [(SVXClientAudioPowerService *)v23 initWithType:1 clientServiceProvider:self analytics:v50 performer:v24];
   }
 
   else
   {
     v29 = +[SVXQueuePerformer sharedMainQueuePerformer];
-    v47 = [(SVXClientAudioPowerService *)v23 initWithType:1 clientServiceProvider:self analytics:v51 performer:v29];
+    v46 = [(SVXClientAudioPowerService *)v23 initWithType:1 clientServiceProvider:self analytics:v50 performer:v29];
   }
 
   if ((components & 0x20) == 0)
@@ -2247,13 +2204,13 @@ LABEL_21:
   v22 = [delegateCopy clientServiceConnection:self performerForComponent:5];
   if (v22)
   {
-    v46 = [(SVXClientAudioPowerService *)v21 initWithType:2 clientServiceProvider:self analytics:v51 performer:v22];
+    v45 = [(SVXClientAudioPowerService *)v21 initWithType:2 clientServiceProvider:self analytics:v50 performer:v22];
   }
 
   else
   {
     v25 = +[SVXQueuePerformer sharedMainQueuePerformer];
-    v46 = [(SVXClientAudioPowerService *)v21 initWithType:2 clientServiceProvider:self analytics:v51 performer:v25];
+    v45 = [(SVXClientAudioPowerService *)v21 initWithType:2 clientServiceProvider:self analytics:v50 performer:v25];
   }
 
   if ((components & 0x40) == 0)
@@ -2266,13 +2223,13 @@ LABEL_27:
   v27 = [delegateCopy clientServiceConnection:self performerForComponent:6];
   if (v27)
   {
-    v28 = [(SVXClientSessionService *)v26 initWithClientServiceProvider:self analytics:v51 performer:v27];
+    v28 = [(SVXClientSessionService *)v26 initWithClientServiceProvider:self analytics:v50 performer:v27];
   }
 
   else
   {
     v33 = +[SVXQueuePerformer sharedMainQueuePerformer];
-    v28 = [(SVXClientSessionService *)v26 initWithClientServiceProvider:self analytics:v51 performer:v33];
+    v28 = [(SVXClientSessionService *)v26 initWithClientServiceProvider:self analytics:v50 performer:v33];
   }
 
   if ((components & 0x80) != 0)
@@ -2292,25 +2249,24 @@ LABEL_38:
   v35 = [delegateCopy clientServiceConnection:self performerForComponent:8];
   if (v35)
   {
-    v36 = [(SVXClientKeepAliveService *)v34 initWithClientServiceProvider:self analytics:v51 performer:v35];
+    v36 = [(SVXClientKeepAliveService *)v34 initWithClientServiceProvider:self analytics:v50 performer:v35];
   }
 
   else
   {
     +[SVXQueuePerformer sharedMainQueuePerformer];
-    v44 = v11;
+    v43 = v11;
     v40 = v39 = contextCopy;
-    v36 = [(SVXClientKeepAliveService *)v34 initWithClientServiceProvider:self analytics:v51 performer:v40];
+    v36 = [(SVXClientKeepAliveService *)v34 initWithClientServiceProvider:self analytics:v50 performer:v40];
 
     contextCopy = v39;
-    v11 = v44;
+    v11 = v43;
   }
 
 LABEL_45:
-  v45 = [(SVXClientServiceConnection *)self initWithQueuePerformer:v11 activationService:v50 audioSystemService:v49 deviceService:v48 inputAudioPowerService:v47 outputAudioPowerService:v46 sessionService:v28 speechSynthesisService:v32 keepAliveService:v36 instanceContext:contextCopy delegate:delegateCopy];
+  v44 = [(SVXClientServiceConnection *)self initWithQueuePerformer:v11 activationService:v49 audioSystemService:v48 deviceService:v47 inputAudioPowerService:v46 outputAudioPowerService:v45 sessionService:v28 speechSynthesisService:v32 keepAliveService:v36 instanceContext:contextCopy delegate:delegateCopy];
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v45;
+  return v44;
 }
 
 - (SVXClientServiceConnection)initWithComponents:(unint64_t)components delegate:(id)delegate

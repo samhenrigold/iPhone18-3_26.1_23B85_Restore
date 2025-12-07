@@ -1,18 +1,18 @@
 @interface NSMutableArray(FCAdditions)
+- (char)fc_reverseObjects;
+- (char)fc_trimFromFrontToMaxCount:()FCAdditions;
+- (char)fc_trimToMaxCount:()FCAdditions;
 - (id)fc_popFirstObject;
 - (id)fc_popLastObject;
 - (id)fc_popLeadingObjectsOfCount:()FCAdditions;
 - (id)fc_safelyPopFirstObject;
-- (uint64_t)fc_removeFirstObject;
 - (uint64_t)fc_removeObject:()FCAdditions sortedUsingSelector:;
-- (uint64_t)fc_reverseObjects;
 - (uint64_t)fc_safelyAddObjectsFromArray:()FCAdditions;
-- (unint64_t)fc_trimFromFrontToMaxCount:()FCAdditions;
-- (unint64_t)fc_trimToMaxCount:()FCAdditions;
 - (void)fc_insertObject:()FCAdditions inOrderRelativeToContents:;
 - (void)fc_insertObject:()FCAdditions sortedUsingSelector:;
 - (void)fc_insertObjects:()FCAdditions atIndex:;
 - (void)fc_insertObjects:()FCAdditions inOrderRelativeToContents:;
+- (void)fc_removeFirstObject;
 - (void)fc_removeObjectsPassingTest:()FCAdditions;
 - (void)fc_replaceObjectIdenticalTo:()FCAdditions withObject:;
 - (void)fc_replaceObjectIdenticalTo:()FCAdditions withObjects:;
@@ -48,7 +48,7 @@
   return [self removeObjectAtIndex:v8];
 }
 
-- (uint64_t)fc_removeFirstObject
+- (void)fc_removeFirstObject
 {
   result = [self count];
   if (result)
@@ -136,17 +136,53 @@
 
 - (void)fc_insertObject:()FCAdditions inOrderRelativeToContents:
 {
+  v17 = *MEMORY[0x1E69E9840];
+  v6 = a3;
+  if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "object"];
+    *buf = 136315906;
+    v10 = "[NSMutableArray(FCAdditions) fc_insertObject:inOrderRelativeToContents:]";
+    v11 = 2080;
+    v12 = "NSMutableArray+FCAdditions.m";
+    v13 = 1024;
+    v14 = 101;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  if (a4 == 1)
+  {
+    v7 = [self count];
+  }
+
+  else if (a4)
+  {
+    v7 = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  [self insertObject:v6 atIndex:v7];
+}
+
+- (void)fc_insertObjects:()FCAdditions inOrderRelativeToContents:
+{
   v18 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "object"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "objects"];
     *buf = 136315906;
-    v11 = "[NSMutableArray(FCAdditions) fc_insertObject:inOrderRelativeToContents:]";
+    v11 = "[NSMutableArray(FCAdditions) fc_insertObjects:inOrderRelativeToContents:]";
     v12 = 2080;
     v13 = "NSMutableArray+FCAdditions.m";
     v14 = 1024;
-    v15 = 101;
+    v15 = 124;
     v16 = 2114;
     v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
@@ -167,48 +203,8 @@
     v7 = 0;
   }
 
-  [self insertObject:v6 atIndex:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fc_insertObjects:()FCAdditions inOrderRelativeToContents:
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v6 = a3;
-  if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "objects"];
-    *buf = 136315906;
-    v12 = "[NSMutableArray(FCAdditions) fc_insertObjects:inOrderRelativeToContents:]";
-    v13 = 2080;
-    v14 = "NSMutableArray+FCAdditions.m";
-    v15 = 1024;
-    v16 = 124;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-  }
-
-  if (a4 == 1)
-  {
-    v7 = [self count];
-  }
-
-  else if (a4)
-  {
-    v7 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
   v8 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{v7, objc_msgSend(v6, "count")}];
   [self insertObjects:v6 atIndexes:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fc_insertObjects:()FCAdditions atIndex:
@@ -219,25 +215,25 @@
   [self insertObjects:v7 atIndexes:v8];
 }
 
-- (unint64_t)fc_trimToMaxCount:()FCAdditions
+- (char)fc_trimToMaxCount:()FCAdditions
 {
   result = [self count];
   if (result > a3)
   {
 
-    return [self removeObjectsInRange:{a3, result - a3}];
+    return [self removeObjectsInRange:{a3, &result[-a3]}];
   }
 
   return result;
 }
 
-- (unint64_t)fc_trimFromFrontToMaxCount:()FCAdditions
+- (char)fc_trimFromFrontToMaxCount:()FCAdditions
 {
   result = [self count];
   if (result > a3)
   {
 
-    return [self removeObjectsInRange:{0, result - a3}];
+    return [self removeObjectsInRange:{0, &result[-a3]}];
   }
 
   return result;
@@ -247,10 +243,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (uint64_t)fc_safelyAddObjectsFromArray:()FCAdditions
@@ -275,46 +271,44 @@
 
 - (void)fc_replaceObjectIdenticalTo:()FCAdditions withObjects:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = [self indexOfObjectIdenticalTo:a3];
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v8 = v7;
     [self removeObjectAtIndex:v7];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [self insertObject:*(*(&v15 + 1) + 8 * i) atIndex:{v8++, v15}];
+          [self insertObject:*(*(&v14 + 1) + 8 * i) atIndex:{v8++, v14}];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)fc_reverseObjects
+- (char)fc_reverseObjects
 {
   result = [self count];
   if (result)

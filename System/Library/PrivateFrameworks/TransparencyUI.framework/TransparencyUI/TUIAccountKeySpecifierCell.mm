@@ -9,7 +9,7 @@
 
 - (TUIAccountKeySpecifierCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v43[4] = *MEMORY[0x277D85DE8];
+  v42[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_8 != -1)
   {
@@ -21,9 +21,9 @@
     [TUIAccountKeySpecifierCell initWithStyle:reuseIdentifier:];
   }
 
-  v42.receiver = self;
-  v42.super_class = TUIAccountKeySpecifierCell;
-  v7 = [(PSTableCell *)&v42 initWithStyle:style reuseIdentifier:identifierCopy];
+  v41.receiver = self;
+  v41.super_class = TUIAccountKeySpecifierCell;
+  v7 = [(PSTableCell *)&v41 initWithStyle:style reuseIdentifier:identifierCopy];
   if (v7)
   {
     v8 = [TUIAccountKeyLabel alloc];
@@ -54,41 +54,40 @@
     editInteraction = [(TUIAccountKeySpecifierCell *)v7 editInteraction];
     [(TUIAccountKeyLabel *)v19 addInteraction:editInteraction];
 
-    v40 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:v7 action:sel_handleLongPressGesture_];
-    [v40 setAllowedTouchTypes:&unk_287F9E738];
-    [(TUIAccountKeyLabel *)v7->_accountKeyLabel addGestureRecognizer:v40];
+    v39 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:v7 action:sel_handleLongPressGesture_];
+    [v39 setAllowedTouchTypes:&unk_287F9E738];
+    [(TUIAccountKeyLabel *)v7->_accountKeyLabel addGestureRecognizer:v39];
     contentView = [(TUIAccountKeySpecifierCell *)v7 contentView];
     [contentView addSubview:v7->_accountKeyLabel];
 
     [(TUIAccountKeyLabel *)v7->_accountKeyLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     contentView2 = [(TUIAccountKeySpecifierCell *)v7 contentView];
     [contentView2 layoutMarginsGuide];
-    v23 = v41 = identifierCopy;
+    v23 = v40 = identifierCopy;
 
-    v35 = MEMORY[0x277CCAAD0];
+    v34 = MEMORY[0x277CCAAD0];
     topAnchor = [(TUIAccountKeyLabel *)v7->_accountKeyLabel topAnchor];
     topAnchor2 = [v23 topAnchor];
-    v37 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:5.0];
-    v43[0] = v37;
+    v36 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:5.0];
+    v42[0] = v36;
     bottomAnchor = [(TUIAccountKeyLabel *)v7->_accountKeyLabel bottomAnchor];
     bottomAnchor2 = [v23 bottomAnchor];
     v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-5.0];
-    v43[1] = v24;
+    v42[1] = v24;
     leadingAnchor = [(TUIAccountKeyLabel *)v7->_accountKeyLabel leadingAnchor];
     leadingAnchor2 = [v23 leadingAnchor];
     v27 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v43[2] = v27;
+    v42[2] = v27;
     trailingAnchor = [(TUIAccountKeyLabel *)v7->_accountKeyLabel trailingAnchor];
     trailingAnchor2 = [v23 trailingAnchor];
     v30 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v43[3] = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
-    [v35 activateConstraints:v31];
+    v42[3] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
+    [v34 activateConstraints:v31];
 
-    identifierCopy = v41;
+    identifierCopy = v40;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -171,18 +170,16 @@ uint64_t __63__TUIAccountKeySpecifierCell_refreshCellContentsWithSpecifier___blo
 
 - (void)initWithStyle:reuseIdentifier:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)refreshCellContentsWithSpecifier:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -8,27 +8,27 @@
 - (int64_t)appendData:(id)data
 {
   v3 = MEMORY[0x1EEE9AC00](self, a2, data);
-  v31 = *MEMORY[0x1E69E9840];
-  v23 = v4;
-  v24 = [v23 length];
+  v30 = *MEMORY[0x1E69E9840];
+  v22 = v4;
+  v23 = [v22 length];
   memset(__b, 170, sizeof(__b));
   if (*(v3 + 33) == 1)
   {
-    v29.receiver = v3;
-    v29.super_class = MFQuotedPrintableDecoder;
-    [(MFBaseFilterDataConsumer *)&v29 appendData:v23];
+    v28.receiver = v3;
+    v28.super_class = MFQuotedPrintableDecoder;
+    [(MFBaseFilterDataConsumer *)&v28 appendData:v22];
     goto LABEL_40;
   }
 
-  if (v24)
+  if (v23)
   {
-    bytes = [v23 bytes];
-    if (v24 >= 1)
+    bytes = [v22 bytes];
+    if (v23 >= 1)
     {
       v6 = bytes;
       v7 = 0;
-      v8 = bytes + v24;
-      v9 = bytes + v24 - 1;
+      v8 = bytes + v23;
+      v9 = bytes + v23 - 1;
       while (1)
       {
         if (*(v3 + 33) == 1)
@@ -36,15 +36,15 @@
           if (v7)
           {
             v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v7 freeWhenDone:0];
-            v28.receiver = v3;
-            v28.super_class = MFQuotedPrintableDecoder;
-            [(MFBaseFilterDataConsumer *)&v28 appendData:v10];
+            v27.receiver = v3;
+            v27.super_class = MFQuotedPrintableDecoder;
+            [(MFBaseFilterDataConsumer *)&v27 appendData:v10];
           }
 
           v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v6 length:v8 - v6 freeWhenDone:0];
-          v27.receiver = v3;
-          v27.super_class = MFQuotedPrintableDecoder;
-          [(MFBaseFilterDataConsumer *)&v27 appendData:v11];
+          v26.receiver = v3;
+          v26.super_class = MFQuotedPrintableDecoder;
+          [(MFBaseFilterDataConsumer *)&v26 appendData:v11];
           v6 = v9;
           goto LABEL_36;
         }
@@ -117,9 +117,9 @@ LABEL_34:
         if (v7 >= 0x3FFE)
         {
           v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v7 freeWhenDone:0];
-          v26.receiver = v3;
-          v26.super_class = MFQuotedPrintableDecoder;
-          [(MFBaseFilterDataConsumer *)&v26 appendData:v11];
+          v25.receiver = v3;
+          v25.super_class = MFQuotedPrintableDecoder;
+          [(MFBaseFilterDataConsumer *)&v25 appendData:v11];
 LABEL_36:
 
           v7 = 0;
@@ -130,9 +130,9 @@ LABEL_36:
           if (v7)
           {
             v20 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:__b length:v7 freeWhenDone:0];
-            v25.receiver = v3;
-            v25.super_class = MFQuotedPrintableDecoder;
-            [(MFBaseFilterDataConsumer *)&v25 appendData:v20];
+            v24.receiver = v3;
+            v24.super_class = MFQuotedPrintableDecoder;
+            [(MFBaseFilterDataConsumer *)&v24 appendData:v20];
           }
 
           goto LABEL_40;
@@ -153,21 +153,20 @@ LABEL_36:
 
 LABEL_40:
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v23;
 }
 
 - (void)done
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *&self->_lastEncoded;
   if (v2)
   {
-    memset(&v8[1], 170, 0x3FFFuLL);
-    v8[0] = 61;
+    memset(&v7[1], 170, 0x3FFFuLL);
+    v7[0] = 61;
     if (v2 == 1)
     {
-      v8[1] = *(&self->super._serialAppend + 1);
+      v7[1] = *(&self->super._serialAppend + 1);
       v4 = 2;
     }
 
@@ -177,13 +176,11 @@ LABEL_40:
     }
 
     *&self->_lastEncoded = 0;
-    v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v8 length:v4 freeWhenDone:0];
-    v7.receiver = self;
-    v7.super_class = MFQuotedPrintableDecoder;
-    [(MFBaseFilterDataConsumer *)&v7 appendData:v5];
+    v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v7 length:v4 freeWhenDone:0];
+    v6.receiver = self;
+    v6.super_class = MFQuotedPrintableDecoder;
+    [(MFBaseFilterDataConsumer *)&v6 appendData:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

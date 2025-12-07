@@ -18,18 +18,16 @@ void __68___MKFApplicationData_HMDBackingStoreModelObject__hmd_parentModelID__bl
 
 void __50___MKFApplicationData_hmd_parentAttributeKeyPaths__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"accessory";
-  v3[1] = @"actionSet";
-  v3[2] = @"home";
-  v3[3] = @"room";
-  v3[4] = @"service";
-  v3[5] = @"serviceGroup";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"accessory";
+  v2[1] = @"actionSet";
+  v2[2] = @"home";
+  v2[3] = @"room";
+  v2[4] = @"service";
+  v2[5] = @"serviceGroup";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v1 = hmd_parentAttributeKeyPaths__hmf_once_v4;
   hmd_parentAttributeKeyPaths__hmf_once_v4 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __54___MKFApplicationData_castIfApplicationDataContainer___block_invoke()

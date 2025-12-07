@@ -114,108 +114,108 @@ void __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    v41 = WeakRetained;
-    v43 = v3;
-    v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
+    v43 = WeakRetained;
+    v45 = v3;
+    v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
     v6 = [*(a1 + 32) delegate];
     v7 = [v6 dateCellRequestedScheduledMessageCount:*(a1 + 32)];
 
     v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"SEND_LATER_SEND_MESSAGE_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
-    v11 = [v8 localizedStringWithFormat:v10, v7];
+    v10 = CKFrameworkBundle(v9);
+    v11 = [v10 localizedStringForKey:@"SEND_LATER_SEND_MESSAGE_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12 = [v8 localizedStringWithFormat:v11, v7];
 
-    v12 = [MEMORY[0x1E69DC668] sharedApplication];
-    v13 = [v12 userInterfaceLayoutDirection];
+    v13 = [MEMORY[0x1E69DC668] sharedApplication];
+    v14 = [v13 userInterfaceLayoutDirection];
 
-    if (v13 == 1)
+    if (v14 == 1)
     {
-      v14 = @"\u200F";
+      v15 = @"\u200F";
     }
 
     else
     {
-      v14 = @"\u200E";
+      v15 = @"\u200E";
     }
 
-    v15 = [(__CFString *)v14 stringByAppendingString:v11];
+    v16 = [(__CFString *)v15 stringByAppendingString:v12];
 
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"SEND_LATER_DELETE_ALL_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
-    v19 = [v16 localizedStringWithFormat:v18, v7];
+    v17 = MEMORY[0x1E696AEC0];
+    v19 = CKFrameworkBundle(v18);
+    v20 = [v19 localizedStringForKey:@"SEND_LATER_DELETE_ALL_MESSAGES" value:&stru_1F04268F8 table:@"ChatKit"];
+    v21 = [v17 localizedStringWithFormat:v20, v7];
 
-    v20 = [MEMORY[0x1E69DC668] sharedApplication];
-    v21 = [v20 userInterfaceLayoutDirection];
+    v22 = [MEMORY[0x1E69DC668] sharedApplication];
+    v23 = [v22 userInterfaceLayoutDirection];
 
-    if (v21 == 1)
+    if (v23 == 1)
     {
-      v22 = @"\u200F";
+      v24 = @"\u200F";
     }
 
     else
     {
-      v22 = @"\u200E";
+      v24 = @"\u200E";
     }
 
-    v23 = [(__CFString *)v22 stringByAppendingString:v19];
+    v25 = [(__CFString *)v24 stringByAppendingString:v21];
 
-    v24 = +[CKUIBehavior sharedBehaviors];
-    v25 = [v24 sendLaterScheduledSectionMenuSendNowImage];
+    v26 = +[CKUIBehavior sharedBehaviors];
+    v27 = [v26 sendLaterScheduledSectionMenuSendNowImage];
 
-    v26 = MEMORY[0x1E69DC628];
+    v28 = MEMORY[0x1E69DC628];
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_224;
+    v50[3] = &unk_1E72EBCD8;
+    objc_copyWeak(v51, (a1 + 40));
+    v41 = v16;
+    v42 = v27;
+    v29 = [v28 actionWithTitle:v16 image:v27 identifier:0 handler:v50];
+    v30 = MEMORY[0x1E69DC628];
+    v31 = CKFrameworkBundle(v29);
+    v32 = [v31 localizedStringForKey:@"EDIT_TIME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v33 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"clock"];
     v48[0] = MEMORY[0x1E69E9820];
     v48[1] = 3221225472;
-    v48[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_224;
+    v48[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_233;
     v48[3] = &unk_1E72EBCD8;
-    objc_copyWeak(v49, (a1 + 40));
-    v39 = v15;
-    v40 = v25;
-    v27 = [v26 actionWithTitle:v15 image:v25 identifier:0 handler:v48];
-    v28 = MEMORY[0x1E69DC628];
-    v29 = CKFrameworkBundle();
-    v30 = [v29 localizedStringForKey:@"EDIT_TIME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"clock"];
+    objc_copyWeak(&v49, (a1 + 40));
+    v34 = [v30 actionWithTitle:v32 image:v33 identifier:0 handler:v48];
+
+    v35 = MEMORY[0x1E69DC628];
+    v36 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"trash"];
     v46[0] = MEMORY[0x1E69E9820];
     v46[1] = 3221225472;
-    v46[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_233;
+    v46[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_237;
     v46[3] = &unk_1E72EBCD8;
     objc_copyWeak(&v47, (a1 + 40));
-    v32 = [v28 actionWithTitle:v30 image:v31 identifier:0 handler:v46];
+    v37 = v35;
+    v38 = v25;
+    v39 = [v37 actionWithTitle:v25 image:v36 identifier:0 handler:v46];
 
-    v33 = MEMORY[0x1E69DC628];
-    v34 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"trash"];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_237;
-    v44[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v45, (a1 + 40));
-    v35 = v33;
-    v36 = v23;
-    v37 = [v35 actionWithTitle:v23 image:v34 identifier:0 handler:v44];
-
-    v3 = v43;
+    v3 = v45;
     if (!CKIsRunningInMacCatalyst())
     {
-      [v37 setAttributes:2];
+      [v39 setAttributes:2];
     }
 
-    [v42 addObject:v27];
-    [v42 addObject:v32];
-    [v42 addObject:v37];
-    (v43)[2](v43, v42);
+    [v44 addObject:v29];
+    [v44 addObject:v34];
+    [v44 addObject:v39];
+    v45[2](v45, v44);
 
-    objc_destroyWeak(&v45);
     objc_destroyWeak(&v47);
+    objc_destroyWeak(&v49);
 
-    objc_destroyWeak(v49);
-    v5 = v41;
+    objc_destroyWeak(v51);
+    v5 = v43;
   }
 
   else
   {
-    v38 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v40 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       __64__CKScheduledSectionDateCell__deferredMenuForEditScheduleButton__block_invoke_cold_1();
     }

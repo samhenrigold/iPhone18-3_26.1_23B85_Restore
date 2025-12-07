@@ -39,16 +39,15 @@
 
 void __36__DOCFavoritesManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [objc_opt_class() favoritesCollection];
-  v2 = [(DOCItemCollectionObserver *)[DOCFavoritesManager alloc] initWithItemCollection:v4];
-  v3 = sharedManager_sharedManager;
-  sharedManager_sharedManager = v2;
+  v3 = [objc_opt_class() favoritesCollection];
+  v1 = [(DOCItemCollectionObserver *)[DOCFavoritesManager alloc] initWithItemCollection:v3];
+  v2 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v1;
 }
 
 + (id)favoritesCollection
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CC6408] defaultManager];
   newFavoritesCollection = [defaultManager newFavoritesCollection];
 
@@ -56,11 +55,9 @@ void __36__DOCFavoritesManager_sharedManager__block_invoke(uint64_t a1)
   [newFavoritesCollection setItemFilteringPredicate:v4];
 
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"favoriteRank" ascending:0 comparator:&__block_literal_global_10];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [newFavoritesCollection reorderItemsWithSortDescriptors:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return newFavoritesCollection;
 }
@@ -527,7 +524,7 @@ void __78__DOCFavoritesManager_updateFavoritesRanksToMatchOrderedFavorites_compl
 
 - (void)moveFavorite:(id)favorite toTargetIndex:(int64_t)index completion:(id)completion
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   favoriteCopy = favorite;
   v9 = _Block_copy(completion);
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -535,7 +532,7 @@ void __78__DOCFavoritesManager_updateFavoritesRanksToMatchOrderedFavorites_compl
   aBlock[2] = __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block_invoke;
   aBlock[3] = &unk_278F9B620;
   v10 = v9;
-  v36 = v10;
+  v35 = v10;
   v11 = _Block_copy(aBlock);
   v12 = _Block_copy(v11);
   favoritedLocations = [(DOCFavoritesManager *)self favoritedLocations];
@@ -566,10 +563,10 @@ void __78__DOCFavoritesManager_updateFavoritesRanksToMatchOrderedFavorites_compl
     v19 = [v16 doc_computeNewRankForIndex:indexCopy];
     if (v19)
     {
-      v38[0] = favoriteCopy;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-      v37 = v19;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v37[0] = favoriteCopy;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+      v36 = v19;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       [(DOCFavoritesManager *)self favoriteItems:v20 ranks:v21 completion:v12];
     }
 
@@ -587,19 +584,17 @@ void __78__DOCFavoritesManager_updateFavoritesRanksToMatchOrderedFavorites_compl
         [(DOCFavoritesManager *)v22 moveFavorite:v23 toTargetIndex:v24 completion:v25, v26, v27, v28, v29];
       }
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block_invoke_27;
-      v31[3] = &unk_278F9B710;
-      v31[4] = self;
-      v32 = favoriteCopy;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block_invoke_27;
+      v30[3] = &unk_278F9B710;
+      v30[4] = self;
+      v31 = favoriteCopy;
       indexCopy2 = index;
-      v33 = v12;
-      [(DOCFavoritesManager *)self redistributeRanksCompletion:v31];
+      v32 = v12;
+      [(DOCFavoritesManager *)self redistributeRanksCompletion:v30];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block_invoke(uint64_t a1)
@@ -628,7 +623,7 @@ uint64_t __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block
 
 - (void)removeFavorite:(id)favorite completion:(id)completion
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   favoriteCopy = favorite;
   v7 = _Block_copy(completion);
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -636,33 +631,33 @@ uint64_t __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block
   aBlock[2] = __49__DOCFavoritesManager_removeFavorite_completion___block_invoke;
   aBlock[3] = &unk_278F9B620;
   v8 = v7;
-  v29 = v8;
+  v28 = v8;
   v9 = _Block_copy(aBlock);
   v10 = _Block_copy(v9);
   favoritedLocations = [(DOCFavoritesManager *)self favoritedLocations];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_2;
-  v26[3] = &unk_278F9B738;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_2;
+  v25[3] = &unk_278F9B738;
   v12 = favoriteCopy;
-  v27 = v12;
-  v13 = [favoritedLocations indexesOfObjectsPassingTest:v26];
+  v26 = v12;
+  v13 = [favoritedLocations indexesOfObjectsPassingTest:v25];
 
   if ([v13 count])
   {
     v14 = [DOCModifyFavoritesOperation alloc];
-    v30[0] = v12;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = v12;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     v16 = +[DOCUndoManager shared];
     v17 = [(DOCModifyFavoritesOperation *)v14 initWithItemsToUnfavorite:v15 undoManager:v16];
 
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3;
-    v23 = &unk_278F9B760;
-    v24 = v12;
-    v25 = v10;
-    [(FPActionOperation *)v17 setActionCompletionBlock:&v20];
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3;
+    v22 = &unk_278F9B760;
+    v23 = v12;
+    v24 = v10;
+    [(FPActionOperation *)v17 setActionCompletionBlock:&v19];
     defaultManager = [MEMORY[0x277CC6408] defaultManager];
     [defaultManager scheduleAction:v17];
   }
@@ -671,8 +666,6 @@ uint64_t __61__DOCFavoritesManager_moveFavorite_toTargetIndex_completion___block
   {
     (*(v10 + 2))(v10, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__DOCFavoritesManager_removeFavorite_completion___block_invoke(uint64_t a1)
@@ -714,7 +707,7 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3_cold_1(a1);
+      __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3_cold_1();
     }
   }
 
@@ -723,7 +716,7 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
 
 - (void)insertFavorite:(id)favorite atIndex:(int64_t)index completion:(id)completion
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   favoriteCopy = favorite;
   v9 = _Block_copy(completion);
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -731,7 +724,7 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
   aBlock[2] = __57__DOCFavoritesManager_insertFavorite_atIndex_completion___block_invoke;
   aBlock[3] = &unk_278F9B620;
   v10 = v9;
-  v33 = v10;
+  v32 = v10;
   v11 = _Block_copy(aBlock);
   v12 = _Block_copy(v11);
   favoritedLocations = [(DOCFavoritesManager *)self favoritedLocations];
@@ -744,10 +737,10 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
 
     if (v16)
     {
-      v35[0] = favoriteCopy;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
-      v34 = v16;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+      v34[0] = favoriteCopy;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+      v33 = v16;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
       [(DOCFavoritesManager *)self favoriteItems:v17 ranks:v18 completion:v12];
     }
 
@@ -765,15 +758,15 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
         [(DOCFavoritesManager *)v19 insertFavorite:v20 atIndex:v21 completion:v22, v23, v24, v25, v26];
       }
 
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __57__DOCFavoritesManager_insertFavorite_atIndex_completion___block_invoke_32;
-      v28[3] = &unk_278F9B710;
-      v28[4] = self;
-      v29 = favoriteCopy;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __57__DOCFavoritesManager_insertFavorite_atIndex_completion___block_invoke_32;
+      v27[3] = &unk_278F9B710;
+      v27[4] = self;
+      v28 = favoriteCopy;
       indexCopy = index;
-      v30 = v12;
-      [(DOCFavoritesManager *)self redistributeRanksCompletion:v28];
+      v29 = v12;
+      [(DOCFavoritesManager *)self redistributeRanksCompletion:v27];
     }
   }
 
@@ -781,8 +774,6 @@ void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3(uint64
   {
     [(DOCFavoritesManager *)self moveFavorite:favoriteCopy toTargetIndex:index - (v14 < index) completion:v12];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__DOCFavoritesManager_insertFavorite_atIndex_completion___block_invoke(uint64_t a1)
@@ -944,7 +935,7 @@ void __54__DOCFavoritesManager_favoriteItems_ranks_completion___block_invoke_2(u
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __54__DOCFavoritesManager_favoriteItems_ranks_completion___block_invoke_2_cold_1(a1);
+      __54__DOCFavoritesManager_favoriteItems_ranks_completion___block_invoke_2_cold_1();
     }
   }
 
@@ -976,24 +967,6 @@ void __54__DOCFavoritesManager_favoriteItems_ranks_completion___block_invoke_2(u
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:self object:a2 file:@"DOCFavoritesManager.m" lineNumber:83 description:@"Must call from main thread"];
-}
-
-void __49__DOCFavoritesManager_removeFavorite_completion___block_invoke_3_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_249340000, v2, v3, "Failed to unfavorite item %@. Error: %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __54__DOCFavoritesManager_favoriteItems_ranks_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2(&dword_249340000, v2, v3, "Failed to favorite items %@. Error: %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

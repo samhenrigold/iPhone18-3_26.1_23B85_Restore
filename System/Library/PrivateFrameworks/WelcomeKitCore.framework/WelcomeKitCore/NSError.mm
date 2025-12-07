@@ -36,17 +36,15 @@ void __61__NSError_WelcomeKit___wl_encodableDictionaryFromDictionary___block_inv
 
 void __65__NSError_WelcomeKit___wl_objectIsKindOfNonCollectionPlistClass___block_invoke()
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
+  v2[5] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:5];
   v1 = _wl_objectIsKindOfNonCollectionPlistClass__nonCollectionPlistClasses;
   _wl_objectIsKindOfNonCollectionPlistClass__nonCollectionPlistClasses = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -2,9 +2,9 @@
 + (NSSQLStoreMappingGenerator)defaultMappingGenerator;
 - (CFStringRef)newGeneratedPropertyName:(uint64_t)name;
 - (NSSQLStoreMappingGenerator)init;
-- (uint64_t)generateTableName:(int)name isAncillary:;
 - (uint64_t)uniqueNameWithBase:(uint64_t)base;
 - (void)dealloc;
+- (void)generateTableName:(int)name isAncillary:;
 @end
 
 @implementation NSSQLStoreMappingGenerator
@@ -58,7 +58,7 @@
       if (!__maskrune(v4, 0x100uLL))
       {
 LABEL_7:
-        v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%c%@", ((v4 - 48) % 26 + 65), objc_msgSend(v2, "substringFromIndex:", 1)];
+        v2 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], ((v4 - 48) % 26 + 65), [v2 substringFromIndex:1]);
       }
     }
 
@@ -96,13 +96,10 @@ LABEL_7:
 
 - (CFStringRef)newGeneratedPropertyName:(uint64_t)name
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   if (!name)
   {
-    Copy = 0;
-LABEL_27:
-    v22 = *MEMORY[0x1E69E9840];
-    return Copy;
+    return 0;
   }
 
   name = [a2 name];
@@ -110,9 +107,7 @@ LABEL_27:
   v5 = v4 + 1;
   if ((v4 + 1) < 0x201)
   {
-    v9 = v4;
-    v54 = 0u;
-    v55 = 0u;
+    v8 = v4;
     v52 = 0u;
     v53 = 0u;
     v50 = 0u;
@@ -139,25 +134,27 @@ LABEL_27:
     v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    *chars = 0u;
-    v25 = 0u;
-    chars[0] = 90;
     v26 = 0u;
     v27 = 0u;
+    *chars = 0u;
+    v23 = 0u;
+    chars[0] = 90;
+    v24 = 0u;
+    v25 = 0u;
     [name getCharacters:&chars[1]];
     chars[v5] = 0;
     if (v5 >= 2)
     {
-      v10 = &chars[1];
-      v11 = v9;
+      v9 = &chars[1];
+      v10 = v8;
       do
       {
-        *v10 = __toupper(*v10);
-        ++v10;
-        --v11;
+        *v9 = __toupper(*v9);
+        ++v9;
+        --v10;
       }
 
-      while (v11);
+      while (v10);
     }
 
     if (!v5)
@@ -165,16 +162,16 @@ LABEL_27:
       goto LABEL_15;
     }
 
-    v12 = chars[0];
+    v11 = chars[0];
     if (SLOBYTE(chars[0]) > 0x7F)
     {
       if (!__maskrune(SLOBYTE(chars[0]), 0x100uLL))
       {
 LABEL_14:
         __memmove_chk();
-        chars[0] = (v12 - 48 - 26 * ((v12 - 48) / 0x1Au + ((((20165 * (v12 - 48)) >> 16) & 0x8000u) != 0)) + 65);
-        v5 = v9 + 2;
-        chars[v9 + 2] = 0;
+        chars[0] = (v11 - 48 - 26 * ((v11 - 48) / 0x1Au + ((((20165 * (v11 - 48)) >> 16) & 0x8000u) != 0)) + 65);
+        v5 = v8 + 2;
+        chars[v8 + 2] = 0;
       }
     }
 
@@ -184,9 +181,7 @@ LABEL_14:
     }
 
 LABEL_15:
-    v13 = CFStringCreateWithCharacters(0, chars, v5);
-    v87 = 0u;
-    v86 = 0u;
+    v12 = CFStringCreateWithCharacters(0, chars, v5);
     v85 = 0u;
     v84 = 0u;
     v83 = 0u;
@@ -217,17 +212,19 @@ LABEL_15:
     v58 = 0u;
     v57 = 0u;
     v56 = 0u;
-    v14 = _PFStackAllocatorCreate(&v56, 1024);
-    v15 = [*(name + 8) objectForKey:v13];
-    if (v15)
+    v55 = 0u;
+    v54 = 0u;
+    v13 = _PFStackAllocatorCreate(&v54, 1024);
+    v14 = [*(name + 8) objectForKey:v12];
+    if (v14)
     {
-      unsignedIntValue = [v15 unsignedIntValue];
+      unsignedIntValue = [v14 unsignedIntValue];
       MutableWithExternalCharactersNoCopy = 0;
-      v18 = *MEMORY[0x1E695E498];
-      v19 = (unsignedIntValue + 1);
+      v17 = *MEMORY[0x1E695E498];
+      v18 = (unsignedIntValue + 1);
       do
       {
-        if (*(&v57 + 1))
+        if (*(&v55 + 1))
         {
           if (MutableWithExternalCharactersNoCopy)
           {
@@ -237,13 +234,13 @@ LABEL_15:
 
         else
         {
-          *(&v56 + 1) = v56;
+          *(&v54 + 1) = v54;
         }
 
-        MutableWithExternalCharactersNoCopy = CFStringCreateMutableWithExternalCharactersNoCopy(v14, chars, v5, 512, v18);
-        valuePtr = v19;
-        CFStringAppendFormat(MutableWithExternalCharactersNoCopy, 0, @"%d", v19);
-        v19 = (v19 + 1);
+        MutableWithExternalCharactersNoCopy = CFStringCreateMutableWithExternalCharactersNoCopy(v13, chars, v5, 512, v17);
+        valuePtr = v18;
+        CFStringAppendFormat(MutableWithExternalCharactersNoCopy, 0, @"%d", v18);
+        v18 = (v18 + 1);
       }
 
       while ([*(name + 8) objectForKey:MutableWithExternalCharactersNoCopy]);
@@ -253,28 +250,27 @@ LABEL_15:
     else
     {
       valuePtr = 0;
-      Copy = v13;
+      Copy = v12;
       MutableWithExternalCharactersNoCopy = 0;
     }
 
-    v21 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    [*(name + 8) setObject:v21 forKey:v13];
+    v20 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    [*(name + 8) setObject:v20 forKey:v12];
 
-    if (MutableWithExternalCharactersNoCopy && *(&v57 + 1))
+    if (MutableWithExternalCharactersNoCopy && *(&v55 + 1))
     {
       CFRelease(MutableWithExternalCharactersNoCopy);
     }
 
-    goto LABEL_27;
+    return Copy;
   }
 
   v6 = -[NSSQLStoreMappingGenerator uniqueNameWithBase:](name, [@"Z" stringByAppendingString:{objc_msgSend(name, "uppercaseString")}]);
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
-- (uint64_t)generateTableName:(int)name isAncillary:
+- (void)generateTableName:(int)name isAncillary:
 {
   if (result)
   {

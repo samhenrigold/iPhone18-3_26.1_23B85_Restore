@@ -89,7 +89,7 @@ void figRouteDiscoveryManager_stopTimerForActivityMonitoring(int a1)
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          FigRouteDiscovererSetDiscoveryModeNoneOnDiscoverer();
+          FigRouteDiscovererSetDiscoveryModeNoneOnDiscoverer(v11);
           FigRouteDiscoveryManagerUpdateDiscoveryMode();
         }
 
@@ -107,18 +107,15 @@ void figRouteDiscoveryManager_stopTimerForActivityMonitoring(int a1)
 
   else if (dword_1EB75DF60)
   {
-    LODWORD(cf[0]) = 0;
     v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __figRouteDiscoveryManager_setDiscoveryModeDetailedOnCachedDiscoverers_block_invoke(uint64_t a1)
+double __figRouteDiscoveryManager_setDiscoveryModeDetailedOnCachedDiscoverers_block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DF60)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -127,62 +124,48 @@ uint64_t __figRouteDiscoveryManager_setDiscoveryModeDetailedOnCachedDiscoverers_
   }
 
   CMNotificationCenterGetDefaultLocalCenter();
-  v3 = *(a1 + 32);
-  result = CMNotificationCenterPostNotification();
-  v5 = *MEMORY[0x1E69E9840];
+  CMNotificationCenterPostNotification();
   return result;
 }
 
-void sub_1B184AB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B184AB40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t BiomeStreamsLibraryCore()
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
     BiomeStreamsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = BiomeStreamsLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return BiomeStreamsLibraryCore_frameworkLibrary;
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t BiomeLibraryLibraryCore()
+uint64_t BiomeLibraryLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!BiomeLibraryLibraryCore_frameworkLibrary)
   {
     BiomeLibraryLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = BiomeLibraryLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return BiomeLibraryLibraryCore_frameworkLibrary;
 }
 
 uint64_t __BiomeLibraryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeLibraryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -207,11 +190,19 @@ Class __getBMDeviceSilentModeClass_block_invoke(uint64_t a1)
 
 uint64_t BiomeLibraryLibrary()
 {
-  v0 = BiomeLibraryLibraryCore();
+  v3 = 0;
+  v0 = BiomeLibraryLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -385,7 +376,7 @@ uint64_t FigRoutingContextUtilities_SetLeaderUUIDForContext(const void *a1, uint
 
     if (qword_1EB75CFC0 == a1)
     {
-      CMSMUtility_UpdateAudioBehaviourForSessionsUsingRoutingContextUUID();
+      CMSMUtility_UpdateAudioBehaviourForSessionsUsingRoutingContextUUID(a1);
       routingContextUtilities_setRoutingContextDetailsForVolumeControl(v10[3], a1);
     }
 
@@ -397,11 +388,11 @@ uint64_t FigRoutingContextUtilities_SetLeaderUUIDForContext(const void *a1, uint
   return v6;
 }
 
-void sub_1B184C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B184C228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -551,7 +542,7 @@ uint64_t FigRoutingContextUtilities_UnfollowUUIDFromLeader(const void *a1, __CFS
 
     if (qword_1EB75CFC0 == a1)
     {
-      CMSMUtility_UpdateAudioBehaviourForSessionsUsingRoutingContextUUID();
+      CMSMUtility_UpdateAudioBehaviourForSessionsUsingRoutingContextUUID(a1);
       routingContextUtilities_setRoutingContextDetailsForVolumeControl(v8[3], a1);
     }
 
@@ -563,44 +554,41 @@ uint64_t FigRoutingContextUtilities_UnfollowUUIDFromLeader(const void *a1, __CFS
   return v4;
 }
 
-void sub_1B184C5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B184C5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _routingContextUtilities_getIndexOfFollower(uint64_t a1, uint64_t a2)
+CFIndex _routingContextUtilities_getIndexOfFollower(uint64_t a1, uint64_t a2)
 {
   v2 = -1;
   if (a1)
   {
     if (a2)
     {
-      v5 = *(a1 + 88);
-      if (v5)
+      v4 = *(a1 + 88);
+      if (v4)
       {
-        Count = CFArrayGetCount(v5);
+        Count = CFArrayGetCount(v4);
         if (Count >= 1)
         {
-          v7 = Count;
+          v6 = Count;
           v2 = 0;
           while (1)
           {
             ValueAtIndex = CFArrayGetValueAtIndex(*(a1 + 88), v2);
-            ContextFromWeakRef = _routingContextUtilities_getContextFromWeakRef(ValueAtIndex);
-            if (ContextFromWeakRef)
+            if (_routingContextUtilities_getContextFromWeakRef(ValueAtIndex))
             {
-              v10 = *(ContextFromWeakRef + 1);
-              v11 = *(a2 + 8);
               if (FigCFEqual())
               {
                 break;
               }
             }
 
-            if (v7 == ++v2)
+            if (v6 == ++v2)
             {
               return -1;
             }
@@ -615,31 +603,24 @@ uint64_t _routingContextUtilities_getIndexOfFollower(uint64_t a1, uint64_t a2)
 
 void _routingContextUtilities_removeLeader(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (!a1)
+  v5 = *MEMORY[0x1E69E9840];
+  if (a1)
   {
-LABEL_9:
-    v6 = *MEMORY[0x1E69E9840];
-    return;
-  }
+    v2 = *(a1 + 80);
+    if (v2 && CFArrayGetCount(v2) == 1)
+    {
+      v3 = *(a1 + 80);
 
-  v2 = *(a1 + 80);
-  if (!v2 || CFArrayGetCount(v2) != 1)
-  {
-    if (dword_1EB75DF20)
+      CFArrayRemoveValueAtIndex(v3, 0);
+    }
+
+    else if (dword_1EB75DF20)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
-
-    goto LABEL_9;
   }
-
-  v3 = *(a1 + 80);
-  v4 = *MEMORY[0x1E69E9840];
-
-  CFArrayRemoveValueAtIndex(v3, 0);
 }
 
 uint64_t FigRoutingManagerContextUtilities_AddContext(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
@@ -682,7 +663,7 @@ uint64_t FigRoutingManagerContextUtilities_AddContext(uint64_t a1, uint64_t a2, 
 
 uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
   {
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
@@ -692,7 +673,7 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(
   if (a1 && byte_1EB75CFA8)
   {
     cf = 0;
-    v19 = 0;
+    v18 = 0;
     if (a2)
     {
       v7 = *MEMORY[0x1E695E480];
@@ -700,7 +681,7 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(
       v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v9)
       {
-        v9(CMBaseObject, *MEMORY[0x1E69620F8], v7, &v19);
+        v9(CMBaseObject, *MEMORY[0x1E69620F8], v7, &v18);
       }
 
       v10 = FigEndpointGetCMBaseObject();
@@ -713,7 +694,7 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(
 
     if (dword_1EB75DF20)
     {
-      v17 = 0;
+      v16 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -726,41 +707,47 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(
       cf = 0;
     }
 
-    if (v19)
+    if (v18)
     {
-      CFRelease(v19);
-      v19 = 0;
+      CFRelease(v18);
+      v18 = 0;
     }
 
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo_block_invoke;
-    v15[3] = &unk_1E7AE79A8;
-    v15[6] = a1;
-    v15[7] = a2;
-    v15[4] = &v20;
-    v15[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
-    v15[8] = a3;
-    MXDispatchSync("FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo", "FigRoutingManagerContextUtilities.m", 1345, 0, 0, qword_1EB75CF98, v15);
-    v13 = v21[3];
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo_block_invoke;
+    v14[3] = &unk_1E7AE79A8;
+    v14[6] = a1;
+    v14[7] = a2;
+    v14[4] = &v19;
+    v14[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
+    v14[8] = a3;
+    MXDispatchSync("FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo", "FigRoutingManagerContextUtilities.m", 1345, 0, 0, qword_1EB75CF98, v14);
+    v13 = v20[3];
     if (v13)
     {
       CFRelease(v13);
     }
 
-    _Block_object_dispose(&v20, 8);
-    result = 0;
+    _Block_object_dispose(&v19, 8);
+    return 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingSubEndpointsInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_1B184D2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingSubEndpointsInfo(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v42 = *MEMORY[0x1E69E9840];
   if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
@@ -768,50 +755,50 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingSubEndpointsI
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
   }
 
-  v9 = 4294949876;
+  v10 = 4294949876;
   if (a1 && byte_1EB75CFA8)
   {
     v35 = 0;
     cf = 0;
     v33 = 0;
     v34 = 0;
-    v10 = MEMORY[0x1E69620F8];
-    v11 = MEMORY[0x1E695E480];
-    v12 = MEMORY[0x1E69621E8];
+    v11 = MEMORY[0x1E69620F8];
+    v12 = MEMORY[0x1E695E480];
+    v13 = MEMORY[0x1E69621E8];
     if (a2)
     {
-      v13 = *MEMORY[0x1E695E480];
+      v14 = *MEMORY[0x1E695E480];
       CMBaseObject = FigEndpointGetCMBaseObject();
-      v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v15)
+      v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v16)
       {
-        v15(CMBaseObject, *v10, v13, &cf);
+        v16(CMBaseObject, *v11, v14, &cf);
       }
 
-      v16 = FigEndpointGetCMBaseObject();
-      v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v17)
+      v17 = FigEndpointGetCMBaseObject();
+      v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v18)
       {
-        v17(v16, *v12, v13, &v35);
+        v18(v17, *v13, v14, &v35);
       }
     }
 
     if (a3)
     {
-      v18 = FigEndpointGetCMBaseObject();
+      v19 = FigEndpointGetCMBaseObject();
       VTable = CMBaseObjectGetVTable();
-      v20 = *v11;
-      v21 = *(*(VTable + 8) + 48);
-      if (v21)
+      v21 = *v12;
+      v22 = *(*(VTable + 8) + 48);
+      if (v22)
       {
-        v21(v18, *v10, v20, &v34);
+        v22(v19, *v11, v21, &v34);
       }
 
-      v22 = FigEndpointGetCMBaseObject();
-      v23 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-      if (v23)
+      v23 = FigEndpointGetCMBaseObject();
+      v24 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v24)
       {
-        v23(v22, *v12, v20, &v33);
+        v24(v23, *v13, v21, &v33);
       }
     }
 
@@ -870,17 +857,23 @@ uint64_t FigRoutingManagerContextUtilities_ResetCurrentlyActivatingSubEndpointsI
     v28[9] = a5;
     v28[10] = a4;
     MXDispatchSync("FigRoutingManagerContextUtilities_ResetCurrentlyActivatingSubEndpointsInfo", "FigRoutingManagerContextUtilities.m", 1438, 0, 0, qword_1EB75CF98, v28);
-    v9 = *(v39 + 6);
+    v10 = *(v39 + 6);
     _Block_object_dispose(&v38, 8);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
-void _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(void *a1, const __CFDictionary *a2)
+void sub_1B184D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  RouteConfigUpdatedPayload = routingContextUtilities_createRouteConfigUpdatedPayload(a2);
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void _routingContextUtilities_postRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(void *a1, const __CFDictionary *a2, uint64_t a3)
+{
+  RouteConfigUpdatedPayload = routingContextUtilities_createRouteConfigUpdatedPayload(a2, a3);
   if (a1)
   {
     if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
@@ -932,16 +925,16 @@ uint64_t FigRoutingManagerContextUtilities_SaveCommChannelUUID(uint64_t a1, uint
   return v4;
 }
 
-void sub_1B184DD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B184DD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
   {
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
@@ -951,7 +944,7 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(uint64
   if (a2 && byte_1EB75CFA8)
   {
     cf = 0;
-    v23 = 0;
+    v22 = 0;
     if (a3)
     {
       v11 = *MEMORY[0x1E695E480];
@@ -959,7 +952,7 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(uint64
       v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v13)
       {
-        v13(CMBaseObject, *MEMORY[0x1E69620F8], v11, &v23);
+        v13(CMBaseObject, *MEMORY[0x1E69620F8], v11, &v22);
       }
 
       v14 = FigEndpointGetCMBaseObject();
@@ -972,7 +965,7 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(uint64
 
     if (dword_1EB75DF20)
     {
-      v21 = 0;
+      v20 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -985,34 +978,40 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(uint64
       cf = 0;
     }
 
-    if (v23)
+    if (v22)
     {
-      CFRelease(v23);
-      v23 = 0;
+      CFRelease(v22);
+      v22 = 0;
     }
 
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_invoke;
-    v19[3] = &unk_1E7AE7AB8;
-    v19[4] = &v24;
-    v19[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
-    v19[6] = a2;
-    v19[7] = a3;
-    v19[8] = a1;
-    v19[9] = a4;
-    v19[10] = a5;
-    MXDispatchSync("FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint", "FigRoutingManagerContextUtilities.m", 1584, 0, 0, qword_1EB75CF98, v19);
-    v10 = *(v25 + 6);
-    _Block_object_dispose(&v24, 8);
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
+    v26 = 0;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint_block_invoke;
+    v18[3] = &unk_1E7AE7AB8;
+    v18[4] = &v23;
+    v18[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
+    v18[6] = a2;
+    v18[7] = a3;
+    v18[8] = a1;
+    v18[9] = a4;
+    v18[10] = a5;
+    MXDispatchSync("FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint", "FigRoutingManagerContextUtilities.m", 1584, 0, 0, qword_1EB75CF98, v18);
+    v10 = *(v24 + 6);
+    _Block_object_dispose(&v23, 8);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
+}
+
+void sub_1B184E18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void _routingContextUtilities_checkActivationTimeout(uint64_t a1, const void *a2)
@@ -1087,7 +1086,7 @@ void _routingContextUtilities_checkActivationTimeout(uint64_t a1, const void *a2
 
 uint64_t FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
   {
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
@@ -1096,7 +1095,7 @@ uint64_t FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint(uin
   v7 = 4294949876;
   if (a2 && byte_1EB75CFA8)
   {
-    v20 = 0;
+    v19 = 0;
     cf = 0;
     if (a3)
     {
@@ -1112,13 +1111,13 @@ uint64_t FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint(uin
       v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v12)
       {
-        v12(v11, *MEMORY[0x1E69621E8], v8, &v20);
+        v12(v11, *MEMORY[0x1E69621E8], v8, &v19);
       }
     }
 
     if (dword_1EB75DF20)
     {
-      v19 = 0;
+      v18 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1131,10 +1130,10 @@ uint64_t FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint(uin
       cf = 0;
     }
 
-    if (v20)
+    if (v19)
     {
-      CFRelease(v20);
-      v20 = 0;
+      CFRelease(v19);
+      v19 = 0;
       v14 = cf;
     }
 
@@ -1143,26 +1142,32 @@ uint64_t FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint(uin
       v14 = 0;
     }
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint_block_invoke;
-    v17[3] = &unk_1E7AE79A8;
-    v17[4] = &v22;
-    v17[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
-    v17[6] = a2;
-    v17[7] = a4;
-    v17[8] = v14;
-    MXDispatchSync("FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint", "FigRoutingManagerContextUtilities.m", 1687, 0, 0, qword_1EB75CF98, v17);
-    v7 = *(v23 + 6);
-    _Block_object_dispose(&v22, 8);
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x2020000000;
+    v24 = 0;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint_block_invoke;
+    v16[3] = &unk_1E7AE79A8;
+    v16[4] = &v21;
+    v16[5] = &routingContextUtilities_getSharedContextUtilities_contextState;
+    v16[6] = a2;
+    v16[7] = a4;
+    v16[8] = v14;
+    MXDispatchSync("FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpoint", "FigRoutingManagerContextUtilities.m", 1687, 0, 0, qword_1EB75CF98, v16);
+    v7 = *(v22 + 6);
+    _Block_object_dispose(&v21, 8);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v7;
+}
+
+void sub_1B184EAA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void _routingContextUtilities_removeCurrentlyActivatingEndpointWithID(void *key, const __CFString *a2)
@@ -1257,12 +1262,12 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoint(uin
 
 uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints(uint64_t a1, uint64_t a2, CFArrayRef theArray, uint64_t a4, uint64_t a5)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
   {
-    v23 = a2;
+    v22 = a2;
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
-    a2 = v23;
+    a2 = v22;
   }
 
   if (byte_1EB75CFA8)
@@ -1278,10 +1283,10 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints(ui
   v7 = 4294949876;
   if (a1 && a2 && byte_1EB75CFA8)
   {
-    v24 = v6;
-    v27 = a2;
+    v23 = v6;
+    v26 = a2;
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
     if (theArray)
     {
       Count = CFArrayGetCount(theArray);
@@ -1292,48 +1297,48 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints(ui
       Count = 0;
     }
 
-    v29 = *MEMORY[0x1E69620F8];
+    v28 = *MEMORY[0x1E69620F8];
     v9 = *MEMORY[0x1E695E480];
     CMBaseObject = FigEndpointGetCMBaseObject();
     v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v11)
     {
-      v11(CMBaseObject, v29, v9, &v37);
+      v11(CMBaseObject, v28, v9, &v36);
     }
 
     v12 = FigEndpointGetCMBaseObject();
     VTable = CMBaseObjectGetVTable();
-    v28 = *MEMORY[0x1E69621E8];
+    v27 = *MEMORY[0x1E69621E8];
     v14 = *(*(VTable + 8) + 48);
     if (v14)
     {
-      v14(v12, v28, v9, &v36);
+      v14(v12, v27, v9, &v35);
     }
 
     if (Count >= 1)
     {
       for (i = 0; i != Count; ++i)
       {
-        v34 = 0;
+        v33 = 0;
         cf = 0;
         CFArrayGetValueAtIndex(theArray, i);
         v16 = FigEndpointGetCMBaseObject();
         v17 = *(*(CMBaseObjectGetVTable() + 8) + 48);
         if (v17)
         {
-          v17(v16, v29, v9, &cf);
+          v17(v16, v28, v9, &cf);
         }
 
         v18 = FigEndpointGetCMBaseObject();
         v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
         if (v19)
         {
-          v19(v18, v28, v9, &v34);
+          v19(v18, v27, v9, &v33);
         }
 
         if (dword_1EB75DF20)
         {
-          v33 = 0;
+          v32 = 0;
           type = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -1346,17 +1351,11 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints(ui
           cf = 0;
         }
 
-        if (v34)
+        if (v33)
         {
-          CFRelease(v34);
+          CFRelease(v33);
         }
       }
-    }
-
-    if (v37)
-    {
-      CFRelease(v37);
-      v37 = 0;
     }
 
     if (v36)
@@ -1365,34 +1364,39 @@ uint64_t FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints(ui
       v36 = 0;
     }
 
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints_block_invoke;
-    v31[3] = &unk_1E7AE7AB8;
-    v31[4] = &v38;
-    v31[5] = v24;
-    v31[6] = a1;
-    v31[7] = a4;
-    v31[8] = theArray;
-    v31[9] = a5;
-    v31[10] = v27;
-    MXDispatchSync("FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints", "FigRoutingManagerContextUtilities.m", 1754, 0, 0, qword_1EB75CF98, v31);
+    if (v35)
+    {
+      CFRelease(v35);
+      v35 = 0;
+    }
+
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints_block_invoke;
+    v30[3] = &unk_1E7AE7AB8;
+    v30[4] = &v37;
+    v30[5] = v23;
+    v30[6] = a1;
+    v30[7] = a4;
+    v30[8] = theArray;
+    v30[9] = a5;
+    v30[10] = v26;
+    MXDispatchSync("FigRoutingManagerContextUtilities_AddCurrentlyActivatingSubEndpoints", "FigRoutingManagerContextUtilities.m", 1754, 0, 0, qword_1EB75CF98, v30);
     FigRouteDiscoveryManagerLowerBTDiscoveryModeFromDetailed();
-    v7 = *(v39 + 6);
-    _Block_object_dispose(&v38, 8);
+    v7 = *(v38 + 6);
+    _Block_object_dispose(&v37, 8);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 uint64_t FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(const void *a1, const void *a2, uint64_t a3, uint64_t a4)
 {
-  v21[16] = *MEMORY[0x1E69E9840];
+  v19[16] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E695E480];
   if (a2)
   {
@@ -1405,40 +1409,39 @@ uint64_t FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(const void
     Mutable = 0;
   }
 
-  v10 = *MEMORY[0x1E69626B0];
-  if (FigRoutingManagerIsEndpointOfType(a2))
+  if (FigRoutingManagerIsEndpointOfType(a2, *MEMORY[0x1E69626B0]))
   {
     if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
     {
       FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers_cold_1();
     }
 
-    v11 = byte_1EB75CFA8;
-    v12 = CFArrayCreateMutable(*v8, 0, MEMORY[0x1E695E9C0]);
-    v13 = v12;
+    v10 = byte_1EB75CFA8;
+    v11 = CFArrayCreateMutable(*v8, 0, MEMORY[0x1E695E9C0]);
+    v12 = v11;
     if (a1 && a2)
     {
-      v14 = &routingContextUtilities_getSharedContextUtilities_contextState;
-      v15 = &qword_1EB75CF98;
-      if (!v11)
+      v13 = &routingContextUtilities_getSharedContextUtilities_contextState;
+      v14 = &qword_1EB75CF98;
+      if (!v10)
       {
-        v15 = 504;
+        v14 = 504;
       }
 
-      v16 = *v15;
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __routingContextUtilities_copyIndividualEndpointsFromAggregate_block_invoke;
-      v21[3] = &__block_descriptor_56_e5_v8__0l;
-      if (!v11)
+      v15 = *v14;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __routingContextUtilities_copyIndividualEndpointsFromAggregate_block_invoke;
+      v19[3] = &__block_descriptor_56_e5_v8__0l;
+      if (!v10)
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      v21[4] = a2;
-      v21[5] = v14;
-      v21[6] = v12;
-      MXDispatchSync("routingContextUtilities_copyIndividualEndpointsFromAggregate", "FigRoutingManagerContextUtilities.m", 2926, 0, 0, v16, v21);
+      v19[4] = a2;
+      v19[5] = v13;
+      v19[6] = v11;
+      MXDispatchSync("routingContextUtilities_copyIndividualEndpointsFromAggregate", "FigRoutingManagerContextUtilities.m", 2926, 0, 0, v15, v19);
     }
 
     else
@@ -1448,22 +1451,22 @@ uint64_t FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(const void
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v17 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v13, 0);
-    if (v13)
+    v16 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v12, 0);
+    if (v12)
     {
-      CFRelease(v13);
+      CFRelease(v12);
     }
   }
 
   else
   {
-    v17 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(Mutable, 0);
+    v16 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(Mutable, 0);
   }
 
-  FigRoutingManagerContextUtilities_SetPickedEndpoints(a1, Mutable, a3, a4, v17);
-  if (v17)
+  FigRoutingManagerContextUtilities_SetPickedEndpoints(a1, Mutable, a3, a4, v16);
+  if (v16)
   {
-    CFRelease(v17);
+    CFRelease(v16);
   }
 
   if (Mutable)
@@ -1471,7 +1474,6 @@ uint64_t FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(const void
     CFRelease(Mutable);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1497,28 +1499,23 @@ uint64_t FigRoutingContextUtilities_DoesArrayOfEndpointsContainEndpoint(const __
   prefix = 0;
   v6 = *MEMORY[0x1E695E480];
   CMBaseObject = FigEndpointGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 48);
-  if (!v9 || (v10 = *(VTable + 8) + 48, v9(CMBaseObject, *MEMORY[0x1E69620F8], v6, &prefix), !prefix))
+  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v8 || (v8(CMBaseObject, *MEMORY[0x1E69620F8], v6, &prefix), !prefix))
   {
-    v27 = 0;
-    v17 = FigEndpointGetCMBaseObject();
-    v18 = CMBaseObjectGetVTable();
-    v19 = *(*(v18 + 8) + 48);
-    if (v19)
+    v21 = 0;
+    v15 = FigEndpointGetCMBaseObject();
+    v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v16)
     {
-      v20 = *(v18 + 8) + 48;
-      v19(v17, *MEMORY[0x1E69621E8], v6, &v27);
+      v16(v15, *MEMORY[0x1E69621E8], v6, &v21);
     }
 
     cf = 0;
-    v21 = FigEndpointGetCMBaseObject();
-    v22 = CMBaseObjectGetVTable();
-    v23 = *(*(v22 + 8) + 48);
-    if (v23)
+    v17 = FigEndpointGetCMBaseObject();
+    v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v18)
     {
-      v24 = *(v22 + 8) + 48;
-      v23(v21, *MEMORY[0x1E69622F8], v6, &cf);
+      v18(v17, *MEMORY[0x1E69622F8], v6, &cf);
       if (cf)
       {
         CFRelease(cf);
@@ -1526,31 +1523,31 @@ uint64_t FigRoutingContextUtilities_DoesArrayOfEndpointsContainEndpoint(const __
       }
     }
 
-    if (v27)
+    if (v21)
     {
-      CFRelease(v27);
+      CFRelease(v21);
     }
 
     return 0;
   }
 
-  v11 = routingContextUtilities_copyEndpointIDs(a1);
-  v12 = v11;
-  if (v11 && (v13 = CFArrayGetCount(v11), v13 >= 1))
+  v9 = routingContextUtilities_copyEndpointIDs(a1);
+  v10 = v9;
+  if (v9 && (v11 = CFArrayGetCount(v9), v11 >= 1))
   {
-    v14 = v13;
-    v15 = 0;
+    v12 = v11;
+    v13 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v12, v15);
+      ValueAtIndex = CFArrayGetValueAtIndex(v10, v13);
       if (CFStringHasPrefix(ValueAtIndex, prefix))
       {
         break;
       }
 
-      if (v14 == ++v15)
+      if (v12 == ++v13)
       {
-        goto LABEL_14;
+        goto LABEL_13;
       }
     }
 
@@ -1559,7 +1556,7 @@ uint64_t FigRoutingContextUtilities_DoesArrayOfEndpointsContainEndpoint(const __
 
   else
   {
-LABEL_14:
+LABEL_13:
     v5 = 0;
   }
 
@@ -1569,9 +1566,9 @@ LABEL_14:
     prefix = 0;
   }
 
-  if (v12)
+  if (v10)
   {
-    CFRelease(v12);
+    CFRelease(v10);
   }
 
   return v5;
@@ -1649,9 +1646,9 @@ uint64_t FigRoutingManagerContextUtilities_AddActivatedEndpoint(uint64_t a1, uin
   return v11;
 }
 
-void sub_1B184FD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1B184FD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1717,9 +1714,9 @@ uint64_t FigRoutingManagerContextUtilities_GetPickingState(uint64_t a1, uint64_t
   return v4;
 }
 
-void sub_1B1850270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1850270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1754,9 +1751,9 @@ uint64_t FigRoutingManagerContextUtilities_SetPickingState(uint64_t a1, int a2)
   return v4;
 }
 
-void sub_1B18503E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B18503E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1791,9 +1788,9 @@ uint64_t FigRoutingManagerContextUtilities_SetDefaultLeaderUUIDForContext(uint64
   return v4;
 }
 
-void sub_1B185055C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B185055C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1883,7 +1880,7 @@ uint64_t FigRoutingManagerContextUtilities_CopyPickedEndpointNames(uint64_t a1, 
   return v2;
 }
 
-uint64_t FigRoutingManagerContextUtilities_IsOnlyRoutedToLocalAirPlayEndpoint(uint64_t a1)
+BOOL FigRoutingManagerContextUtilities_IsOnlyRoutedToLocalAirPlayEndpoint(uint64_t a1)
 {
   if (!a1)
   {
@@ -1916,7 +1913,7 @@ uint64_t FigRoutingManagerContextUtilities_IsOnlyRoutedToLocalAirPlayEndpoint(ui
   return IsEndpointLocal;
 }
 
-uint64_t FigRoutingManagerContextUtilities_IsOnlyRoutedToSelf(uint64_t a1)
+BOOL FigRoutingManagerContextUtilities_IsOnlyRoutedToSelf(uint64_t a1)
 {
   if (!a1)
   {
@@ -1930,23 +1927,13 @@ uint64_t FigRoutingManagerContextUtilities_IsOnlyRoutedToSelf(uint64_t a1)
     return 0;
   }
 
-  if (CFArrayGetCount(theArray) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0), FigRoutingManagerIsEndpointWHAGroupable(ValueAtIndex)))
-  {
-    v2 = *MEMORY[0x1E69626D8];
-    v3 = FigRoutingManagerIsEndpointOfType(ValueAtIndex) != 0;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
+  v2 = CFArrayGetCount(theArray) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0), FigRoutingManagerIsEndpointWHAGroupable(ValueAtIndex)) && FigRoutingManagerIsEndpointOfType(ValueAtIndex, *MEMORY[0x1E69626D8]) != 0;
   if (theArray)
   {
     CFRelease(theArray);
   }
 
-  return v3;
+  return v2;
 }
 
 BOOL FigRoutingManagerContextUtilities_IsOnlyRoutedToLocalStereoPair(uint64_t a1)
@@ -1963,23 +1950,13 @@ BOOL FigRoutingManagerContextUtilities_IsOnlyRoutedToLocalStereoPair(uint64_t a1
     return 0;
   }
 
-  if (CFArrayGetCount(theArray) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0), FigRoutingManagerIsEndpointLocal(ValueAtIndex)))
-  {
-    v2 = *MEMORY[0x1E6962628];
-    v3 = FigRoutingManagerIsEndpointOfSubtype(ValueAtIndex) != 0;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
+  v2 = CFArrayGetCount(theArray) == 1 && (ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0), FigRoutingManagerIsEndpointLocal(ValueAtIndex)) && FigRoutingManagerIsEndpointOfSubtype(ValueAtIndex, *MEMORY[0x1E6962628]) != 0;
   if (theArray)
   {
     CFRelease(theArray);
   }
 
-  return v3;
+  return v2;
 }
 
 uint64_t FigRoutingManagerContextUtilities_CopyPickedEndpointForRemoteControl(uint64_t a1, uint64_t a2)
@@ -2012,9 +1989,9 @@ uint64_t FigRoutingManagerContextUtilities_CopyPickedEndpointForRemoteControl(ui
   return v4;
 }
 
-void sub_1B1850BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1850BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2223,9 +2200,9 @@ uint64_t FigRoutingManagerContextUtilities_AppendCurrentlyActivatingEndpointInfo
   return v2;
 }
 
-void sub_1B1851748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1851748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2314,9 +2291,9 @@ uint64_t FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpoints(uint
   return v2;
 }
 
-void sub_1B1851978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1851978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2405,9 +2382,9 @@ uint64_t FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpointsInfo(
   return v2;
 }
 
-void sub_1B1851B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1851B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2527,9 +2504,9 @@ uint64_t FigRoutingManagerContextUtilities_CopyActivatedEndpointsInfo(uint64_t a
   return v2;
 }
 
-void sub_1B185206C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B185206C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2606,101 +2583,96 @@ uint64_t FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEnd
 
 uint64_t FigRoutingManagerContextUtilities_RemoveContext(const void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  if (a1)
+  v27 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
-    if (dword_1EB75DF20)
-    {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
+    return 4294949876;
+  }
 
-    if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
-    {
-      FigRoutingManagerContextUtilities_UpdateRouteDescriptorForGivenContext_cold_1();
-    }
+  if (dword_1EB75DF20)
+  {
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
 
-    if (byte_1EB75CFA8)
-    {
-      v4 = &routingContextUtilities_getSharedContextUtilities_contextState;
-    }
+  if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
+  {
+    FigRoutingManagerContextUtilities_UpdateRouteDescriptorForGivenContext_cold_1();
+  }
 
-    else
-    {
-      v4 = 0;
-    }
-
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    LOBYTE(v23) = 0;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 0;
-    *type = 0;
-    v13 = type;
-    v14 = 0x2020000000;
-    v15 = 0;
-    if (byte_1EB75CFA8)
-    {
-      v5 = &qword_1EB75CF98;
-    }
-
-    else
-    {
-      v5 = 504;
-    }
-
-    v6 = *v5;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __FigRoutingManagerContextUtilities_RemoveContext_block_invoke;
-    v11[3] = &unk_1E7AE7B80;
-    v11[8] = v4;
-    v11[9] = a1;
-    v11[4] = &v16;
-    v11[5] = &v24;
-    v11[6] = type;
-    v11[7] = &v20;
-    MXDispatchSync("FigRoutingManagerContextUtilities_RemoveContext", "FigRoutingManagerContextUtilities.m", 3847, 0, 0, v6, v11);
-    if (*(v21 + 24))
-    {
-      FigVolumeControllerSaveRoutingContextState(a1);
-    }
-
-    if (v17[3])
-    {
-      v7 = *v5;
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __FigRoutingManagerContextUtilities_RemoveContext_block_invoke_2;
-      v10[3] = &unk_1E7AE7A20;
-      v10[4] = &v16;
-      v10[5] = type;
-      v10[6] = v4;
-      v10[7] = a1;
-      MXDispatchSync("FigRoutingManagerContextUtilities_RemoveContext", "FigRoutingManagerContextUtilities.m", 3936, 0, 0, v7, v10);
-    }
-
-    v3 = *(v25 + 6);
-    _Block_object_dispose(type, 8);
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v20, 8);
-    _Block_object_dispose(&v24, 8);
+  if (byte_1EB75CFA8)
+  {
+    v4 = &routingContextUtilities_getSharedContextUtilities_contextState;
   }
 
   else
   {
-    v3 = 4294949876;
+    v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  LOBYTE(v22) = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  *type = 0;
+  v12 = type;
+  v13 = 0x2020000000;
+  v14 = 0;
+  if (byte_1EB75CFA8)
+  {
+    v5 = &qword_1EB75CF98;
+  }
+
+  else
+  {
+    v5 = 504;
+  }
+
+  v6 = *v5;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __FigRoutingManagerContextUtilities_RemoveContext_block_invoke;
+  v10[3] = &unk_1E7AE7B80;
+  v10[8] = v4;
+  v10[9] = a1;
+  v10[4] = &v15;
+  v10[5] = &v23;
+  v10[6] = type;
+  v10[7] = &v19;
+  MXDispatchSync("FigRoutingManagerContextUtilities_RemoveContext", "FigRoutingManagerContextUtilities.m", 3847, 0, 0, v6, v10);
+  if (*(v20 + 24))
+  {
+    FigVolumeControllerSaveRoutingContextState(a1);
+  }
+
+  if (v16[3])
+  {
+    v7 = *v5;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __FigRoutingManagerContextUtilities_RemoveContext_block_invoke_2;
+    v9[3] = &unk_1E7AE7A20;
+    v9[4] = &v15;
+    v9[5] = type;
+    v9[6] = v4;
+    v9[7] = a1;
+    MXDispatchSync("FigRoutingManagerContextUtilities_RemoveContext", "FigRoutingManagerContextUtilities.m", 3936, 0, 0, v7, v9);
+  }
+
+  v3 = *(v24 + 6);
+  _Block_object_dispose(type, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
   return v3;
 }
 
@@ -2756,11 +2728,11 @@ uint64_t FigRoutingManagerContextUtilities_CopyHijackID(uint64_t a1)
   return v1;
 }
 
-void sub_1B1852E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1852E54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2858,9 +2830,9 @@ uint64_t FigRoutingManagerContextUtilities_CopyAggregateEndpointAsFigEndpointAgg
   return v2;
 }
 
-void sub_1B18532CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B18532CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3169,11 +3141,11 @@ uint64_t FigRoutingManagerContextUtilities_IsContextSidePlay(uint64_t a1)
   return v1;
 }
 
-void sub_1B1853ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1853ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3229,11 +3201,11 @@ uint64_t FigRoutingManagerContextUtilities_IsContextSystemAudio(uint64_t a1)
   return v1;
 }
 
-void sub_1B1854074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1854074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3280,9 +3252,9 @@ uint64_t FigRoutingContextUtilities_GetIndexOfCurrentlyActivatingSubEndpoints(ui
   return v2;
 }
 
-void sub_1B1854224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1854224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3330,9 +3302,9 @@ float FigRoutingManagerContextUtilities_GetMainVolumeScaleFactorForEndpointID(ui
   return v2;
 }
 
-void sub_1B1854400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1854400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3482,12 +3454,12 @@ void FigRoutingManagerContextUtilities_SetAudioEndpoint(uint64_t a1, uint64_t a2
 
 uint64_t FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v13 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v1 = 1;
-  v13 = 1;
+  v12 = 1;
   if (a1)
   {
     if (routingContextUtilities_getSharedContextUtilities_sContextUtilitiesStateSetupOnce != -1)
@@ -3512,14 +3484,14 @@ uint64_t FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver(uint64
     }
 
     v5 = *v4;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver_block_invoke;
-    v9[3] = &unk_1E7AE7140;
-    v9[5] = v3;
-    v9[6] = a1;
-    v9[4] = &v10;
-    MXDispatchSync("FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver", "FigRoutingManagerContextUtilities.m", 5762, 0, 0, v5, v9);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver_block_invoke;
+    v8[3] = &unk_1E7AE7140;
+    v8[5] = v3;
+    v8[6] = a1;
+    v8[4] = &v9;
+    MXDispatchSync("FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver", "FigRoutingManagerContextUtilities.m", 5762, 0, 0, v5, v8);
     if (dword_1EB75DF20)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -3527,11 +3499,10 @@ uint64_t FigRoutingManagerContextUtilities_IsRoutedToLocalAirplayReceiver(uint64
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v1 = *(v11 + 24);
+    v1 = *(v10 + 24);
   }
 
-  _Block_object_dispose(&v10, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v9, 8);
   return v1;
 }
 
@@ -3812,79 +3783,77 @@ void _routingContextUtilities_pruneLeaders(const __CFArray *a1)
   }
 }
 
-void __routingContextUtilities_copyIndividualEndpointsFromAggregate_block_invoke(uint64_t *a1)
+void __routingContextUtilities_copyIndividualEndpointsFromAggregate_block_invoke(void *a1)
 {
   theArray = 0;
-  v2 = a1[4];
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v4)
+  v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v3)
   {
-    v5 = *MEMORY[0x1E695E480];
-    v4(CMBaseObject, *MEMORY[0x1E6962270], *MEMORY[0x1E695E480], &theArray);
+    v4 = *MEMORY[0x1E695E480];
+    v3(CMBaseObject, *MEMORY[0x1E6962270], *MEMORY[0x1E695E480], &theArray);
     if (theArray)
     {
-      MutableCopy = CFArrayCreateMutableCopy(v5, 0, theArray);
+      MutableCopy = CFArrayCreateMutableCopy(v4, 0, theArray);
       if (theArray)
       {
-        v7 = *MEMORY[0x1E6962600];
-        if (FigRoutingManagerIsEndpointOfSubtype(a1[4]))
+        if (FigRoutingManagerIsEndpointOfSubtype(a1[4], *MEMORY[0x1E6962600]))
         {
-          v8 = FigRoutingManagerCopyLocalAirPlayEndpoint();
-          if (v8)
+          v6 = FigRoutingManagerCopyLocalAirPlayEndpoint();
+          if (v6)
           {
-            v9 = v8;
-            if (!FigRoutingManagerIsClusterLocalEndpoint(v8))
+            v7 = v6;
+            if (!FigRoutingManagerIsClusterLocalEndpoint(v6))
             {
-              v11 = theArray;
-              v21.length = CFArrayGetCount(theArray);
-              v21.location = 0;
-              FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v11, v21, v9);
+              v9 = theArray;
+              v19.length = CFArrayGetCount(theArray);
+              v19.location = 0;
+              FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v9, v19, v7);
               if (FirstIndexOfValue != -1)
               {
-                v13 = FirstIndexOfValue;
-                v14 = a1[5];
-                v15 = *(v14 + 528);
-                if (v15)
+                v11 = FirstIndexOfValue;
+                v12 = a1[5];
+                v13 = *(v12 + 528);
+                if (v13)
                 {
-                  v16 = CFRetain(v15);
-                  v14 = a1[5];
+                  v14 = CFRetain(v13);
+                  v12 = a1[5];
                 }
 
                 else
                 {
-                  v16 = 0;
+                  v14 = 0;
                 }
 
-                v19 = 0;
-                ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(v14 + 480), v16);
-                _routingContextUtilities_copyPickedEndpointAtIndex(ContextForUUIDFromDict, 0, &v19);
-                v18 = v19;
-                if (v19)
+                v17 = 0;
+                ContextForUUIDFromDict = _routingContextUtilities_getContextForUUIDFromDict(*(v12 + 480), v14);
+                _routingContextUtilities_copyPickedEndpointAtIndex(ContextForUUIDFromDict, 0, &v17);
+                v16 = v17;
+                if (v17)
                 {
-                  if (FigRoutingManagerIsEndpointWHAGroupable(v19))
+                  if (FigRoutingManagerIsEndpointWHAGroupable(v17))
                   {
-                    CFArraySetValueAtIndex(MutableCopy, v13, v18);
+                    CFArraySetValueAtIndex(MutableCopy, v11, v16);
                   }
 
-                  CFRelease(v18);
+                  CFRelease(v16);
                 }
 
-                if (v16)
+                if (v14)
                 {
-                  CFRelease(v16);
+                  CFRelease(v14);
                 }
               }
             }
 
-            CFRelease(v9);
+            CFRelease(v7);
           }
         }
 
-        v10 = a1[6];
-        v22.length = CFArrayGetCount(theArray);
-        v22.location = 0;
-        CFArrayAppendArray(v10, MutableCopy, v22);
+        v8 = a1[6];
+        v20.length = CFArrayGetCount(theArray);
+        v20.location = 0;
+        CFArrayAppendArray(v8, MutableCopy, v20);
         if (theArray)
         {
           CFRelease(theArray);
@@ -3903,20 +3872,19 @@ void __routingContextUtilities_copyIndividualEndpointsFromAggregate_block_invoke
 uint64_t FigRouteDiscovererStartServer()
 {
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v1 = *MEMORY[0x1E6963400];
   FigCFDictionarySetInt32();
-  v2 = FigXPCServerStart();
+  v1 = FigXPCServerStart();
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v2;
+  return v1;
 }
 
 uint64_t PowerManager_Initialize()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   IsCPMSSupportedForClient = powerManager_IsCPMSSupportedForClient(5);
   result = powerManager_IsCPMSSupportedForClient(6);
   if (IsCPMSSupportedForClient | result)
@@ -3951,17 +3919,16 @@ uint64_t PowerManager_Initialize()
     {
       v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t powerManager_IsCPMSSupportedForClient(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ([MEMORY[0x1E6991F30] isCPMSSupportedForClient:a1])
   {
     if (a1 == 5)
@@ -3981,8 +3948,7 @@ uint64_t powerManager_IsCPMSSupportedForClient(uint64_t a1)
     PowerManager_SetCPMSSupportedForHaptics(0);
     if (!dword_1EB75DE40)
     {
-      v2 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -3999,8 +3965,6 @@ LABEL_10:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -4016,17 +3980,17 @@ uint64_t FigRoutingManager_GetDataTransmissionQueue()
 
 uint64_t __FigRoutingManagerGetSharedManager_block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   FigNote_AllowInternalDefaultLogs();
   fig_note_initialize_category_with_default_work();
-  fig_note_initialize_category_with_default_work();
+  v0 = fig_note_initialize_category_with_default_work();
   if (dword_1EB75DF20 < 0x100)
   {
     if (dword_1EB75DF20)
     {
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
+      v0 = fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
@@ -4035,22 +3999,20 @@ uint64_t __FigRoutingManagerGetSharedManager_block_invoke()
     dword_1EB75DF20 = 0;
   }
 
-  v1 = MXGetSerialQueue();
-  qword_1ED6D2E28 = v1;
-  if (v1)
+  v3 = MXGetSerialQueue(v0, v1);
+  qword_1ED6D2E28 = v3;
+  if (v3)
   {
-    FigRoutingManagerContextUtilities_Create(routingManager_pickingTimeoutCallback, v1);
+    FigRoutingManagerContextUtilities_Create(routingManager_pickingTimeoutCallback, v3);
     unk_1ED6D2E58 = FigSimpleMutexCreate();
     byte_1ED6D2E49 = 0;
     unk_1ED6D2E68 = 0;
     unk_1ED6D2E60 = 0;
   }
 
-  v2 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  qword_1ED6D2E30 = dispatch_queue_create("com.apple.coremedia.routingManager.notificationQueue", v2);
-  result = FigRoutingManagerCreateEndpointManagers();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  qword_1ED6D2E30 = dispatch_queue_create("com.apple.coremedia.routingManager.notificationQueue", v4);
+  return FigRoutingManagerCreateEndpointManagers();
 }
 
 void routingManager_pickingTimeoutCallback(CFTypeRef cf, CFTypeRef a2)
@@ -4100,37 +4062,37 @@ void routingManager_pickingTimeoutCallback(CFTypeRef cf, CFTypeRef a2)
 
 uint64_t FigRoutingManagerCreateEndpointManagers()
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   result = MX_FeatureFlags_IsExplicitInitializationForFigEndpointManagersEnabled();
   if (!result)
   {
-    goto LABEL_37;
+    return result;
   }
 
-  if (AirPlaySenderLibraryCore())
+  if (AirPlaySenderLibraryCore(0))
   {
     if (FigRouteDiscoveryManagerShouldRegisterEndpointManager(*MEMORY[0x1E69618D0]))
     {
       cf = 0;
-      v26[0] = 0;
-      v26[1] = v26;
-      v26[2] = 0x2020000000;
+      v27[0] = 0;
+      v27[1] = v27;
+      v27[2] = 0x2020000000;
       v1 = getAPGetEndpointManagerSymbolLoc_ptr;
-      v27 = getAPGetEndpointManagerSymbolLoc_ptr;
+      v28 = getAPGetEndpointManagerSymbolLoc_ptr;
       if (!getAPGetEndpointManagerSymbolLoc_ptr)
       {
-        v21 = MEMORY[0x1E69E9820];
-        v22 = 3221225472;
-        v23 = __getAPGetEndpointManagerSymbolLoc_block_invoke;
-        v24 = &unk_1E7AE73A0;
-        v25 = v26;
+        v22 = MEMORY[0x1E69E9820];
+        v23 = 3221225472;
+        v24 = __getAPGetEndpointManagerSymbolLoc_block_invoke;
+        v25 = &unk_1E7AE73A0;
+        v26 = v27;
         v2 = AirPlaySenderLibrary();
-        *(v26[1] + 24) = dlsym(v2, "APGetEndpointManager");
-        getAPGetEndpointManagerSymbolLoc_ptr = *(v25[1] + 24);
-        v1 = *(v26[1] + 24);
+        *(v27[1] + 24) = dlsym(v2, "APGetEndpointManager");
+        getAPGetEndpointManagerSymbolLoc_ptr = *(v26[1] + 24);
+        v1 = *(v27[1] + 24);
       }
 
-      _Block_object_dispose(v26, 8);
+      _Block_object_dispose(v27, 8);
       if (!v1)
       {
         __68__MXBiomeStreams_updateBiomeSilentMode_clientType_untilTime_reason___block_invoke_cold_1();
@@ -4139,7 +4101,7 @@ uint64_t FigRoutingManagerCreateEndpointManagers()
 
       if (!v1(&cf))
       {
-        FigRouteDiscoveryManagerRegisterEndpointManager(cf);
+        FigRouteDiscoveryManagerRegisterEndpointManager(cf, v3);
         if (dword_1EB75DF20)
         {
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -4152,38 +4114,38 @@ uint64_t FigRoutingManagerCreateEndpointManagers()
     if (FigRouteDiscoveryManagerShouldRegisterEndpointManager(*MEMORY[0x1E69618E0]))
     {
       cf = 0;
-      v26[0] = 0;
-      v26[1] = v26;
-      v26[2] = 0x2020000000;
-      v4 = getAPGetEndpointManagerCarPlaySymbolLoc_ptr;
-      v27 = getAPGetEndpointManagerCarPlaySymbolLoc_ptr;
+      v27[0] = 0;
+      v27[1] = v27;
+      v27[2] = 0x2020000000;
+      v5 = getAPGetEndpointManagerCarPlaySymbolLoc_ptr;
+      v28 = getAPGetEndpointManagerCarPlaySymbolLoc_ptr;
       if (!getAPGetEndpointManagerCarPlaySymbolLoc_ptr)
       {
-        v21 = MEMORY[0x1E69E9820];
-        v22 = 3221225472;
-        v23 = __getAPGetEndpointManagerCarPlaySymbolLoc_block_invoke;
-        v24 = &unk_1E7AE73A0;
-        v25 = v26;
-        v5 = AirPlaySenderLibrary();
-        v6 = dlsym(v5, "APGetEndpointManagerCarPlay");
-        *(v25[1] + 24) = v6;
-        getAPGetEndpointManagerCarPlaySymbolLoc_ptr = *(v25[1] + 24);
-        v4 = *(v26[1] + 24);
+        v22 = MEMORY[0x1E69E9820];
+        v23 = 3221225472;
+        v24 = __getAPGetEndpointManagerCarPlaySymbolLoc_block_invoke;
+        v25 = &unk_1E7AE73A0;
+        v26 = v27;
+        v6 = AirPlaySenderLibrary();
+        v7 = dlsym(v6, "APGetEndpointManagerCarPlay");
+        *(v26[1] + 24) = v7;
+        getAPGetEndpointManagerCarPlaySymbolLoc_ptr = *(v26[1] + 24);
+        v5 = *(v27[1] + 24);
       }
 
-      _Block_object_dispose(v26, 8);
-      if (!v4)
+      _Block_object_dispose(v27, 8);
+      if (!v5)
       {
         goto LABEL_39;
       }
 
-      if (!v4(&cf))
+      if (!v5(&cf))
       {
-        FigRouteDiscoveryManagerRegisterEndpointManager(cf);
+        FigRouteDiscoveryManagerRegisterEndpointManager(cf, v8);
         if (dword_1EB75DF20)
         {
-          v7 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+          v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
       }
@@ -4195,35 +4157,35 @@ uint64_t FigRoutingManagerCreateEndpointManagers()
     }
 
     cf = 0;
-    v26[0] = 0;
-    v26[1] = v26;
-    v26[2] = 0x2020000000;
-    v8 = getSPGetEndpointManagerSymbolLoc_ptr;
-    v27 = getSPGetEndpointManagerSymbolLoc_ptr;
+    v27[0] = 0;
+    v27[1] = v27;
+    v27[2] = 0x2020000000;
+    v10 = getSPGetEndpointManagerSymbolLoc_ptr;
+    v28 = getSPGetEndpointManagerSymbolLoc_ptr;
     if (!getSPGetEndpointManagerSymbolLoc_ptr)
     {
-      v21 = MEMORY[0x1E69E9820];
-      v22 = 3221225472;
-      v23 = __getSPGetEndpointManagerSymbolLoc_block_invoke;
-      v24 = &unk_1E7AE73A0;
-      v25 = v26;
-      v9 = AirPlaySenderLibrary();
-      v10 = dlsym(v9, "SPGetEndpointManager");
-      *(v25[1] + 24) = v10;
-      getSPGetEndpointManagerSymbolLoc_ptr = *(v25[1] + 24);
-      v8 = *(v26[1] + 24);
+      v22 = MEMORY[0x1E69E9820];
+      v23 = 3221225472;
+      v24 = __getSPGetEndpointManagerSymbolLoc_block_invoke;
+      v25 = &unk_1E7AE73A0;
+      v26 = v27;
+      v11 = AirPlaySenderLibrary();
+      v12 = dlsym(v11, "SPGetEndpointManager");
+      *(v26[1] + 24) = v12;
+      getSPGetEndpointManagerSymbolLoc_ptr = *(v26[1] + 24);
+      v10 = *(v27[1] + 24);
     }
 
-    _Block_object_dispose(v26, 8);
-    if (v8)
+    _Block_object_dispose(v27, 8);
+    if (v10)
     {
-      if (!v8(&cf))
+      if (!v10(&cf))
       {
-        FigRouteDiscoveryManagerRegisterEndpointManager(cf);
+        FigRouteDiscoveryManagerRegisterEndpointManager(cf, v13);
         if (dword_1EB75DF20)
         {
-          v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+          v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
       }
@@ -4238,75 +4200,73 @@ LABEL_40:
   }
 
 LABEL_24:
-  result = MediaToolboxLibraryCore();
+  result = MediaToolboxLibraryCore(0);
   if (!result)
   {
-    goto LABEL_37;
+    return result;
   }
 
   result = FigRouteDiscoveryManagerShouldRegisterEndpointManager(*MEMORY[0x1E69618E8]);
   if (!result)
   {
-    goto LABEL_37;
+    return result;
   }
 
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v12 = getFigEndpointManagerForNeroGetSharedSymbolLoc_ptr;
-  v27 = getFigEndpointManagerForNeroGetSharedSymbolLoc_ptr;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x2020000000;
+  v15 = getFigEndpointManagerForNeroGetSharedSymbolLoc_ptr;
+  v28 = getFigEndpointManagerForNeroGetSharedSymbolLoc_ptr;
   if (!getFigEndpointManagerForNeroGetSharedSymbolLoc_ptr)
   {
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke;
-    v24 = &unk_1E7AE73A0;
-    v25 = v26;
-    __getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke(&v21);
-    v12 = *(v26[1] + 24);
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke;
+    v25 = &unk_1E7AE73A0;
+    v26 = v27;
+    __getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke(&v22);
+    v15 = *(v27[1] + 24);
   }
 
-  _Block_object_dispose(v26, 8);
-  if (!v12)
+  _Block_object_dispose(v27, 8);
+  if (!v15)
   {
     goto LABEL_39;
   }
 
-  result = v12(v13, v14);
-  v15 = result;
+  result = v15();
+  v17 = result;
   if (result)
   {
-    result = FigRouteDiscoveryManagerRegisterEndpointManager(result);
+    result = FigRouteDiscoveryManagerRegisterEndpointManager(result, v16);
     if (dword_1EB75DF20)
     {
       LODWORD(cf) = 0;
-      v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v17 = cf;
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v19 = cf;
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = v17;
+        v20 = v19;
       }
 
       else
       {
-        v18 = v17 & 0xFFFFFFFE;
+        v20 = v19 & 0xFFFFFFFE;
       }
 
-      if (v18)
+      if (v20)
       {
-        LODWORD(v26[0]) = 136315394;
-        *(v26 + 4) = "FigRoutingManagerCreateEndpointManagers";
-        WORD2(v26[1]) = 2048;
-        *(&v26[1] + 6) = v15;
-        _os_log_send_and_compose_impl();
+        LODWORD(v27[0]) = 136315394;
+        *(v27 + 4) = "FigRoutingManagerCreateEndpointManagers";
+        WORD2(v27[1]) = 2048;
+        *(&v27[1] + 6) = v17;
+        _os_log_send_and_compose_impl(v20, 0, &v22, 128, &dword_1B17A2000, v18, 0, "-FigRoutingManager- %s: MediaExperience created NeroEndpointManager (%p)", v27, 22);
       }
 
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-LABEL_37:
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4345,7 +4305,7 @@ void FigRoutingMangerCreateBluetoothEndpointManager()
 
     if (!(v3)(*MEMORY[0x1E695E480], v2, 0, &cf))
     {
-      FigRouteDiscoveryManagerRegisterEndpointManager(cf);
+      FigRouteDiscoveryManagerRegisterEndpointManager(cf, v4);
       if (dword_1EB75DF20)
       {
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -4359,15 +4319,13 @@ void FigRoutingMangerCreateBluetoothEndpointManager()
       CFRelease(cf);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MXRegisterEndpointManager(const void *a1)
 {
   v2 = objc_autoreleasePoolPush();
   FigRouteDiscoveryManagerInit();
-  FigRouteDiscoveryManagerRegisterEndpointManager(a1);
+  FigRouteDiscoveryManagerRegisterEndpointManager(a1, v3);
   FigRouteDiscoveryManagerStart();
   FigRoutingManagerInit();
   objc_autoreleasePoolPop(v2);
@@ -4395,8 +4353,8 @@ uint64_t FigRoutingManagerCreateAndActivateAggregateEndpointForContext(const voi
     v5 = 0;
   }
 
-  v6 = MXAggregateEndpointCreateAggregateEndpoint(v3, a1, v5, &cf);
-  if (!v6)
+  AggregateEndpoint = MXAggregateEndpointCreateAggregateEndpoint(v3, a1, v5, &cf);
+  if (!AggregateEndpoint)
   {
     if (cf)
     {
@@ -4422,7 +4380,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v8 = v6;
+  v8 = AggregateEndpoint;
   FigRoutingManagerContextUtilities_SetAggregateEndpoint(a1, 0);
 LABEL_12:
   if (cf)
@@ -4433,8 +4391,9 @@ LABEL_12:
   return v8;
 }
 
-uint64_t FigRoutingManagerRegisterAndCopyContext(uint64_t a1, const __CFDictionary *a2, int a3, CFStringRef *a4)
+uint64_t FigRoutingManagerRegisterAndCopyContext(uint64_t a1, const __CFDictionary *a2, uint64_t a3, CFStringRef *a4)
 {
+  v5 = a3;
   if (a3 - 1) < 0xE && ((0x3F07u >> (a3 - 1)))
   {
     return 4294955276;
@@ -4470,18 +4429,17 @@ uint64_t FigRoutingManagerRegisterAndCopyContext(uint64_t a1, const __CFDictiona
     return 4294955275;
   }
 
-  v15 = routingManager_registerContextInternal(v9, v13, a1, a3, a2);
-  v8 = v15;
-  if (!v15)
+  v8 = routingManager_registerContextInternal(v9, v13, a1, v5, a2);
+  if (!v8)
   {
     if (a4)
     {
       *a4 = v13;
-      FigRoutingContextUtilities_LogCurrentState(v15, v16);
+      FigRoutingContextUtilities_LogCurrentState();
       return 0;
     }
 
-    FigRoutingContextUtilities_LogCurrentState(v15, v16);
+    FigRoutingContextUtilities_LogCurrentState();
   }
 
   CFRelease(v13);
@@ -4490,17 +4448,16 @@ uint64_t FigRoutingManagerRegisterAndCopyContext(uint64_t a1, const __CFDictiona
 
 void __FigRoutingManagerUnregisterContext_block_invoke(uint64_t a1)
 {
+  routingManager_notifyRoutingContextChanged(*(a1 + 32), @"RoutingContextRemoved");
   v2 = *(a1 + 32);
-  routingManager_notifyRoutingContextChanged();
-  v3 = *(a1 + 32);
-  if (v3)
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
-void routingManager_notifyRoutingContextChanged()
+void routingManager_notifyRoutingContextChanged(uint64_t a1, uint64_t a2)
 {
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   FigCFDictionarySetValue();
@@ -4519,16 +4476,13 @@ void FigRoutingManagerCopyCurrentGroupUUID(uint64_t a1, void *a2)
   {
     cf = 0;
     FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a1, 0, &cf);
-    v3 = *MEMORY[0x1E69626B0];
-    if (FigRoutingManagerIsEndpointOfType(cf))
+    if (FigRoutingManagerIsEndpointOfType(cf, *MEMORY[0x1E69626B0]))
     {
       CMBaseObject = FigEndpointGetCMBaseObject();
-      VTable = CMBaseObjectGetVTable();
-      v6 = *(*(VTable + 8) + 48);
-      if (v6)
+      v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v4)
       {
-        v7 = *(VTable + 8) + 48;
-        v6(CMBaseObject, *MEMORY[0x1E69620C8], *MEMORY[0x1E695E480], a2);
+        v4(CMBaseObject, *MEMORY[0x1E69620C8], *MEMORY[0x1E695E480], a2);
       }
     }
 
@@ -4575,7 +4529,7 @@ LABEL_9:
       while (1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(theArray, v4);
-        if (FigRoutingManagerIsEndpointLocal(ValueAtIndex) || FigRoutingManagerIsEndpointOfType(ValueAtIndex))
+        if (FigRoutingManagerIsEndpointLocal(ValueAtIndex) || FigRoutingManagerIsEndpointOfType(ValueAtIndex, v5))
         {
           break;
         }
@@ -4598,8 +4552,9 @@ LABEL_9:
   return v3;
 }
 
-uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
+uint64_t routingManager_createSystemContext(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = 0;
   cf = 0;
   if (a2 <= 9)
@@ -4609,7 +4564,7 @@ uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
       if (a2 == 3)
       {
         v7 = @"577E1BCA-2D9B-41C2-A8F8-C515CE8072D4";
-        SystemMusicContextInternal = FigRoutingContextCreateSystemMusicContextInternal(@"577E1BCA-2D9B-41C2-A8F8-C515CE8072D4", &cf);
+        v8 = FigRoutingContextCreateSystemMusicContextInternal(@"577E1BCA-2D9B-41C2-A8F8-C515CE8072D4", &cf);
       }
 
       else
@@ -4621,14 +4576,14 @@ uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
         }
 
         v7 = @"0099C187-7408-4602-A91A-AD16480F63A6";
-        SystemMusicContextInternal = FigRoutingContextCreateSystemRemotePoolContextInternal(@"0099C187-7408-4602-A91A-AD16480F63A6", &cf);
+        v8 = FigRoutingContextCreateSystemRemotePoolContextInternal(@"0099C187-7408-4602-A91A-AD16480F63A6", &cf);
       }
     }
 
     else if (a2 == 1)
     {
       v7 = @"9FF3A19E-9347-44BE-9999-3527693EBD42";
-      SystemMusicContextInternal = FigRoutingContextCreateSystemAudioContextInternal(@"9FF3A19E-9347-44BE-9999-3527693EBD42", &cf);
+      v8 = FigRoutingContextCreateSystemAudioContextInternal(@"9FF3A19E-9347-44BE-9999-3527693EBD42", &cf);
     }
 
     else
@@ -4640,7 +4595,7 @@ uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
       }
 
       v7 = @"AE0596F4-FE8D-41DC-B2AC-CB0C10793AFB";
-      SystemMusicContextInternal = FigRoutingContextCreateSystemMirroringContextInternal(@"AE0596F4-FE8D-41DC-B2AC-CB0C10793AFB", &cf);
+      v8 = FigRoutingContextCreateSystemMirroringContextInternal(@"AE0596F4-FE8D-41DC-B2AC-CB0C10793AFB", &cf);
     }
   }
 
@@ -4649,26 +4604,26 @@ uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
     if (a2 == 10)
     {
       v7 = @"EE613C90-4977-407B-830E-615886FFD46B";
-      SystemMusicContextInternal = FigRoutingContextCreateSystemVideoDisplayMenu(@"EE613C90-4977-407B-830E-615886FFD46B", &cf);
+      v8 = FigRoutingContextCreateSystemVideoDisplayMenu(@"EE613C90-4977-407B-830E-615886FFD46B", &cf);
     }
 
     else
     {
       v7 = @"3C4D0FD7-378E-43FA-9D62-8F7873D548C7";
-      SystemMusicContextInternal = FigRoutingContextCreateSystemVideoContextInternal(@"3C4D0FD7-378E-43FA-9D62-8F7873D548C7", &cf);
+      v8 = FigRoutingContextCreateSystemVideoContextInternal(@"3C4D0FD7-378E-43FA-9D62-8F7873D548C7", &cf);
     }
   }
 
   else if (a2 == 12)
   {
     v7 = @"1631DE8A-D3C9-463D-B86F-95DB6C143A72";
-    SystemMusicContextInternal = FigRoutingContextCreateSidePlayContextInternal(@"1631DE8A-D3C9-463D-B86F-95DB6C143A72", &cf);
+    v8 = FigRoutingContextCreateSidePlayContextInternal(@"1631DE8A-D3C9-463D-B86F-95DB6C143A72", &cf);
   }
 
   else if (a2 == 13)
   {
     v7 = @"7D6934D3-F9A8-4C49-9F66-83AB896A0C99";
-    SystemMusicContextInternal = FigRoutingContextCreateSystemInputContextInternal(@"7D6934D3-F9A8-4C49-9F66-83AB896A0C99", &cf);
+    v8 = FigRoutingContextCreateSystemInputContextInternal(@"7D6934D3-F9A8-4C49-9F66-83AB896A0C99", &cf);
   }
 
   else
@@ -4680,18 +4635,18 @@ uint64_t routingManager_createSystemContext(uint64_t a1, int a2, void *a3)
     }
 
     v7 = @"1E27F250-0404-42B1-BF7E-AE233EA5DBC8";
-    SystemMusicContextInternal = FigRoutingContextCreateSystemRemoteDisplayInternal(@"1E27F250-0404-42B1-BF7E-AE233EA5DBC8", &cf);
+    v8 = FigRoutingContextCreateSystemRemoteDisplayInternal(@"1E27F250-0404-42B1-BF7E-AE233EA5DBC8", &cf);
   }
 
-  v9 = SystemMusicContextInternal;
-  if (SystemMusicContextInternal)
+  v9 = v8;
+  if (v8)
   {
     goto LABEL_32;
   }
 
   v6 = cf;
 LABEL_23:
-  v10 = routingManager_registerContextInternal(a1, v7, v6, a2, 0);
+  v10 = routingManager_registerContextInternal(a1, v7, v6, v4, 0);
   if (!v10)
   {
     if (!a3)
@@ -4757,50 +4712,45 @@ CFTypeRef FigRoutingManagerCopyWHAGroupableVAEndpoint()
   cf = 0;
   [+[MXEndpointDescriptorCache sharedInstance](MXEndpointDescriptorCache getEndpointManagerForType:"getEndpointManagerForType:", *MEMORY[0x1E69618F8]];
   CMBaseObject = FigEndpointManagerGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v2 = *(*(VTable + 8) + 48);
-  if (v2)
+  v1 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v1 && !v1(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &cf))
   {
-    v3 = *(VTable + 8) + 48;
-    if (!v2(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &cf))
+    v4 = 0;
+    while (1)
     {
-      v6 = 0;
-      while (1)
+      Count = cf;
+      if (cf)
       {
-        Count = cf;
-        if (cf)
-        {
-          Count = CFArrayGetCount(cf);
-        }
+        Count = CFArrayGetCount(cf);
+      }
 
-        if (v6 >= Count)
+      if (v4 >= Count)
+      {
+        break;
+      }
+
+      ValueAtIndex = CFArrayGetValueAtIndex(cf, v4++);
+      if (FigRoutingManagerIsEndpointWHAGroupable(ValueAtIndex))
+      {
+        if (!ValueAtIndex)
         {
           break;
         }
 
-        ValueAtIndex = CFArrayGetValueAtIndex(cf, v6++);
-        if (FigRoutingManagerIsEndpointWHAGroupable(ValueAtIndex))
-        {
-          if (!ValueAtIndex)
-          {
-            break;
-          }
-
-          v4 = CFRetain(ValueAtIndex);
-          goto LABEL_5;
-        }
+        v2 = CFRetain(ValueAtIndex);
+        goto LABEL_4;
       }
     }
   }
 
-  v4 = 0;
-LABEL_5:
+  v2 = 0;
+LABEL_4:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v2;
 }
 
 CFTypeRef FigRoutingManagerCopyLocalAirPlayEndpoint()
@@ -4812,76 +4762,71 @@ CFTypeRef FigRoutingManagerCopyLocalAirPlayEndpoint()
 
   cf = 0;
   CMBaseObject = FigEndpointManagerGetCMBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v2 = *(*(VTable + 8) + 48);
-  if (v2)
+  v1 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v1 && !v1(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &cf))
   {
-    v3 = *(VTable + 8) + 48;
-    if (!v2(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &cf))
+    v4 = 0;
+    while (1)
     {
-      v6 = 0;
-      while (1)
+      Count = cf;
+      if (cf)
       {
-        Count = cf;
-        if (cf)
-        {
-          Count = CFArrayGetCount(cf);
-        }
+        Count = CFArrayGetCount(cf);
+      }
 
-        if (v6 >= Count)
+      if (v4 >= Count)
+      {
+        break;
+      }
+
+      ValueAtIndex = CFArrayGetValueAtIndex(cf, v4++);
+      if (FigRoutingManagerIsEndpointNonRemoteControlLocalAirPlay(ValueAtIndex))
+      {
+        if (!ValueAtIndex)
         {
           break;
         }
 
-        ValueAtIndex = CFArrayGetValueAtIndex(cf, v6++);
-        if (FigRoutingManagerIsEndpointNonRemoteControlLocalAirPlay(ValueAtIndex))
-        {
-          if (!ValueAtIndex)
-          {
-            break;
-          }
-
-          v4 = CFRetain(ValueAtIndex);
-          goto LABEL_6;
-        }
+        v2 = CFRetain(ValueAtIndex);
+        goto LABEL_5;
       }
     }
   }
 
-  v4 = 0;
-LABEL_6:
+  v2 = 0;
+LABEL_5:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  return v4;
+  return v2;
 }
 
-CFTypeRef FigRoutingManagerCopyBluetoothEndpointAssociatedWithVAEndpoint()
+CFTypeRef FigRoutingManagerCopyBluetoothEndpointAssociatedWithVAEndpoint(uint64_t a1)
 {
   theArray = 0;
   [+[MXEndpointDescriptorCache sharedInstance](MXEndpointDescriptorCache getEndpointManagerForType:"getEndpointManagerForType:", *MEMORY[0x1E69618D8]];
   CMBaseObject = FigEndpointManagerGetCMBaseObject();
-  v1 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v1)
+  v2 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v2)
   {
     return 0;
   }
 
-  v2 = *MEMORY[0x1E695E480];
-  if (v1(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &theArray))
+  v3 = *MEMORY[0x1E695E480];
+  if (v2(CMBaseObject, *MEMORY[0x1E69618A8], *MEMORY[0x1E695E480], &theArray))
   {
     return 0;
   }
 
   theString = 0;
-  v5 = FigEndpointGetCMBaseObject();
-  v6 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v6)
+  v6 = FigEndpointGetCMBaseObject();
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v7)
   {
-    v7 = *MEMORY[0x1E69620F8];
-    v6(v5, *MEMORY[0x1E69620F8], v2, &theString);
+    v8 = *MEMORY[0x1E69620F8];
+    v7(v6, *MEMORY[0x1E69620F8], v3, &theString);
     if (theString)
     {
       for (i = 0; ; ++i)
@@ -4899,27 +4844,27 @@ CFTypeRef FigRoutingManagerCopyBluetoothEndpointAssociatedWithVAEndpoint()
 
         ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
         stringToFind = 0;
-        v11 = FigEndpointGetCMBaseObject();
-        v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-        if (!v12)
+        v12 = FigEndpointGetCMBaseObject();
+        v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+        if (!v13)
         {
           goto LABEL_15;
         }
 
-        v13 = v12(v11, v7, v2, &stringToFind);
-        v14 = stringToFind;
+        v14 = v13(v12, v8, v3, &stringToFind);
+        v15 = stringToFind;
         if (stringToFind)
         {
-          if (!v13)
+          if (!v14)
           {
             break;
           }
         }
 
 LABEL_16:
-        if (v14)
+        if (v15)
         {
-          CFRelease(v14);
+          CFRelease(v15);
         }
       }
 
@@ -4927,12 +4872,12 @@ LABEL_16:
       {
         if (ValueAtIndex)
         {
-          v3 = CFRetain(ValueAtIndex);
+          v4 = CFRetain(ValueAtIndex);
         }
 
         else
         {
-          v3 = 0;
+          v4 = 0;
         }
 
         if (stringToFind)
@@ -4944,13 +4889,13 @@ LABEL_16:
       }
 
 LABEL_15:
-      v14 = stringToFind;
+      v15 = stringToFind;
       goto LABEL_16;
     }
   }
 
 LABEL_19:
-  v3 = 0;
+  v4 = 0;
 LABEL_20:
   if (theArray)
   {
@@ -4963,69 +4908,68 @@ LABEL_20:
     CFRelease(theString);
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t FigRoutingManagerCopySelectedBufferedEndpointForTesting(uint64_t a1, uint64_t a2)
+CFTypeRef FigRoutingManagerCopySelectedBufferedEndpointForTesting(uint64_t a1, uint64_t a2)
 {
-  v15[24] = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15[0] = 0;
+  v13[24] = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13[0] = 0;
   cf = 0;
   if (a2 && FigRoutingManagerContextUtilities_IsContextSidePlay(a1))
   {
-    v3 = routingMangager_copySelectedBufferedEndpointForSidePlay();
-    v4 = 0;
-    v15[0] = v3;
+    v4 = routingMangager_copySelectedBufferedEndpointForSidePlay(a2);
+    v5 = 0;
+    v13[0] = v4;
   }
 
   else
   {
     FigRoutingManagerCopyPickedEndpointForRoutingContext(a1, &cf);
-    v3 = 0;
-    v4 = cf;
+    v4 = 0;
+    v5 = cf;
   }
 
-  v5 = *MEMORY[0x1E69626A8];
-  if (FigRoutingManagerIsEndpointOfType(v4) || (v6 = *MEMORY[0x1E69626B0], FigRoutingManagerIsEndpointOfType(cf)))
+  if (FigRoutingManagerIsEndpointOfType(v5, *MEMORY[0x1E69626A8]) || FigRoutingManagerIsEndpointOfType(cf, *MEMORY[0x1E69626B0]))
   {
-    v7 = cf;
-    v15[0] = cf;
+    v6 = cf;
+    v13[0] = cf;
     if (cf)
     {
       CFRetain(cf);
     }
 
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
   }
 
   else if (FigRoutingManagerContextUtilities_GetContextType(a1) - 3 > 2)
   {
-    v7 = v3;
+    v6 = v4;
   }
 
   else
   {
-    if (v3)
+    if (v4)
     {
-      CFRelease(v3);
-      v15[0] = 0;
+      CFRelease(v4);
+      v13[0] = 0;
     }
 
-    FigRoutingManagerContextUtilities_CopyFigEndpointFromAggregateEndpointForClientUse(a1, v15);
-    v7 = v15[0];
+    FigRoutingManagerContextUtilities_CopyFigEndpointFromAggregateEndpointForClientUse(a1, v13);
+    v6 = v13[0];
   }
 
-  if (v7)
+  if (v6)
   {
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v9)
+    v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v8)
     {
-      v9(CMBaseObject, *MEMORY[0x1E69621E8], *MEMORY[0x1E695E480], &v14);
+      v8(CMBaseObject, *MEMORY[0x1E69621E8], *MEMORY[0x1E695E480], &v12);
     }
   }
 
@@ -5036,10 +4980,10 @@ uint64_t FigRoutingManagerCopySelectedBufferedEndpointForTesting(uint64_t a1, ui
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  if (v14)
+  if (v12)
   {
-    CFRelease(v14);
-    v14 = 0;
+    CFRelease(v12);
+    v12 = 0;
   }
 
   if (cf)
@@ -5047,100 +4991,101 @@ uint64_t FigRoutingManagerCopySelectedBufferedEndpointForTesting(uint64_t a1, ui
     CFRelease(cf);
   }
 
-  result = v15[0];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return v13[0];
 }
 
-CFTypeRef routingMangager_copySelectedBufferedEndpointForSidePlay()
+CFTypeRef routingMangager_copySelectedBufferedEndpointForSidePlay(uint64_t a1)
 {
   cf[21] = *MEMORY[0x1E69E9840];
-  v0 = *MEMORY[0x1E695E480];
+  v1 = *MEMORY[0x1E695E480];
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-  v2 = FigRoutingManagerUtilities_CopySidePlayEndpoints();
-  v3 = 0;
+  v3 = FigRoutingManagerUtilities_CopySidePlayEndpoints();
   v4 = 0;
-  v5 = *MEMORY[0x1E69620F8];
-  v23 = *MEMORY[0x1E69621E8];
-  v6 = &qword_1EB75D000;
-  v22 = v0;
-  if (!v2)
+  v5 = 0;
+  v6 = *MEMORY[0x1E69620F8];
+  v24 = *MEMORY[0x1E69621E8];
+  v7 = &qword_1EB75D000;
+  v23 = v1;
+  if (!v3)
   {
     goto LABEL_3;
   }
 
 LABEL_2:
-  for (i = CFArrayGetCount(v2); ; i = 0)
+  for (i = CFArrayGetCount(v3); ; i = 0)
   {
-    if (v4 >= i)
+    if (v5 >= i)
     {
-      v19 = 0;
+      v20 = 0;
       goto LABEL_37;
     }
 
-    v8 = v6;
-    ValueAtIndex = CFArrayGetValueAtIndex(v2, v4);
+    v9 = v7;
+    ValueAtIndex = CFArrayGetValueAtIndex(v3, v5);
     cf[0] = 0;
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v11)
+    v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v12)
     {
-      v11(CMBaseObject, v5, v0, cf);
+      v12(CMBaseObject, v6, v1, cf);
     }
 
-    v24 = 0;
-    v12 = FigEndpointGetCMBaseObject();
-    v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v13)
+    v25 = 0;
+    v13 = FigEndpointGetCMBaseObject();
+    v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v14)
     {
-      v13(v12, v23, v0, &v24);
+      v14(v13, v24, v1, &v25);
     }
 
-    CFStringAppendFormat(Mutable, 0, @"\t[%ld] endpointName=%@, endpointID=%@\n", v4, v24, cf[0]);
-    v6 = v8;
-    v14 = v8[257];
+    CFStringAppendFormat(Mutable, 0, @"\t[%ld] endpointName=%@, endpointID=%@\n", v5, v25, cf[0]);
+    v7 = v9;
     if (!FigCFEqual())
     {
-      v15 = v8[257];
+      v15 = v9[257];
       if (v15)
       {
         CFRelease(v15);
-        v8[257] = 0;
+        v9[257] = 0;
       }
 
-      if (v2)
+      if (v3)
       {
-        v8[257] = CFRetain(v2);
-        v16 = CFArrayGetCount(v2) - 1;
+        v9[257] = CFRetain(v3);
+        v16 = CFArrayGetCount(v3) - 1;
       }
 
       else
       {
-        v8[257] = 0;
+        v9[257] = 0;
         v16 = -1;
       }
 
-      if (v4 == v16)
+      if (v5 == v16)
       {
         if (dword_1EB75DF20)
         {
+          v17 = v6;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-          v0 = v22;
+          v1 = v23;
+          v6 = v17;
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          v6 = v8;
+          v7 = v9;
         }
       }
 
-      else if (v4 && !(v3 + 5 * (v4 / 5uLL)))
+      else if (v5 && !(v4 + 5 * (v5 / 5uLL)))
       {
         if (dword_1EB75DF20)
         {
-          v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+          v22 = v6;
+          v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          v0 = v22;
-          v6 = v8;
+          v1 = v23;
+          v6 = v22;
+          v7 = v9;
         }
 
         if (Mutable)
@@ -5148,7 +5093,7 @@ LABEL_2:
           CFRelease(Mutable);
         }
 
-        Mutable = CFStringCreateMutable(v0, 0);
+        Mutable = CFStringCreateMutable(v1, 0);
       }
     }
 
@@ -5163,14 +5108,14 @@ LABEL_2:
       cf[0] = 0;
     }
 
-    if (v24)
+    if (v25)
     {
-      CFRelease(v24);
+      CFRelease(v25);
     }
 
-    ++v4;
-    --v3;
-    if (v2)
+    ++v5;
+    --v4;
+    if (v3)
     {
       goto LABEL_2;
     }
@@ -5179,16 +5124,16 @@ LABEL_3:
     ;
   }
 
-  v19 = CFRetain(ValueAtIndex);
+  v20 = CFRetain(ValueAtIndex);
   if (cf[0])
   {
     CFRelease(cf[0]);
     cf[0] = 0;
   }
 
-  if (v24)
+  if (v25)
   {
-    CFRelease(v24);
+    CFRelease(v25);
   }
 
 LABEL_37:
@@ -5197,16 +5142,15 @@ LABEL_37:
     CFRelease(Mutable);
   }
 
-  if (v2)
+  if (v3)
   {
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v20;
 }
 
-void FigRoutingManagerLogEndpointID(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void FigRoutingManagerLogEndpointID(__CFString *a1, uint64_t a2, __CFString *a3, int a4)
 {
   cf[24] = *MEMORY[0x1E69E9840];
   if (a2)
@@ -5231,11 +5175,9 @@ void FigRoutingManagerLogEndpointID(uint64_t a1, uint64_t a2, uint64_t a3, int a
       CFRelease(cf[0]);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void FigRoutingManagerLogEndpointIDs(uint64_t a1, const __CFArray *a2, uint64_t a3, int a4)
+void FigRoutingManagerLogEndpointIDs(__CFString *a1, const __CFArray *a2, __CFString *a3, int a4)
 {
   cf[16] = *MEMORY[0x1E69E9840];
   if (a2)
@@ -5281,24 +5223,22 @@ void FigRoutingManagerLogEndpointIDs(uint64_t a1, const __CFArray *a2, uint64_t 
       CFRelease(Mutable);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const __CFArray *a3, uint64_t a4, uint64_t a5, const __CFDictionary *a6)
+void FigRoutingManagerLogRoutingRequestDetails(__CFString *a1, uint64_t a2, const __CFArray *a3, int a4, uint64_t a5, const __CFDictionary *a6)
 {
-  v30[16] = *MEMORY[0x1E69E9840];
+  v28[16] = *MEMORY[0x1E69E9840];
   v9 = *MEMORY[0x1E695E480];
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
   if (a2)
   {
-    v30[0] = 0;
+    v28[0] = 0;
     CMBaseObject = FigEndpointGetCMBaseObject();
     v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v12)
     {
-      v12(CMBaseObject, *MEMORY[0x1E69621E8], v9, v30);
-      v13 = v30[0];
+      v12(CMBaseObject, *MEMORY[0x1E69621E8], v9, v28);
+      v13 = v28[0];
     }
 
     else
@@ -5314,9 +5254,9 @@ void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const _
     }
 
     CFStringAppendFormat(Mutable, 0, @"%@(isWHAGroupable=%s)", v13, v15);
-    if (v30[0])
+    if (v28[0])
     {
-      CFRelease(v30[0]);
+      CFRelease(v28[0]);
     }
   }
 
@@ -5331,16 +5271,16 @@ void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const _
       do
       {
         ValueAtIndex = CFArrayGetValueAtIndex(a3, v18);
-        v30[0] = 0;
+        v28[0] = 0;
         v21 = FigEndpointGetCMBaseObject();
         v22 = *(*(CMBaseObjectGetVTable() + 8) + 48);
         if (v22)
         {
-          v22(v21, v19, v9, v30);
+          v22(v21, v19, v9, v28);
         }
 
-        v23 = v30[0];
-        if (v30[0])
+        v23 = v28[0];
+        if (v28[0])
         {
           v24 = FigRoutingManagerIsEndpointWHAGroupable(ValueAtIndex);
           v25 = "YES";
@@ -5359,9 +5299,9 @@ void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const _
             CFStringAppendFormat(Mutable, 0, @"%@(isWHAGroupable=%s), ", v23, v25);
           }
 
-          if (v30[0])
+          if (v28[0])
           {
-            CFRelease(v30[0]);
+            CFRelease(v28[0]);
           }
         }
 
@@ -5382,11 +5322,6 @@ void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const _
     CFDictionaryGetValue(a6, @"silentSender");
   }
 
-  else
-  {
-    v27 = *MEMORY[0x1E695E4C0];
-  }
-
   if (dword_1EB75DF20)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -5403,26 +5338,22 @@ void FigRoutingManagerLogRoutingRequestDetails(uint64_t a1, uint64_t a2, const _
   {
     CFRelease(v26);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 CFStringRef FigRoutingManagerCopyClientNameFromPID(int a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  memset(v4, 0, sizeof(v4));
+  v4 = *MEMORY[0x1E69E9840];
+  memset(v3, 0, sizeof(v3));
   if (a1 >= 1)
   {
-    v1 = proc_name(a1, v4, 0x80u);
+    v1 = proc_name(a1, v3, 0x80u);
     if ((v1 & 0x80000000) == 0)
     {
-      *(v4 + v1) = 0;
+      *(v3 + v1) = 0;
     }
   }
 
-  result = CFStringCreateWithCString(*MEMORY[0x1E695E480], v4, 0x8000100u);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFStringCreateWithCString(*MEMORY[0x1E695E480], v3, 0x8000100u);
 }
 
 __CFDictionary *FigRoutingManagerCopyRoutingContextOptionsWithRouteRequestID(CFDictionaryRef theDict)
@@ -5508,23 +5439,23 @@ void __FigRoutingManagerHandleActivationTimeoutCallback_block_invoke(uint64_t a1
 
 void *__getBluetoothEndpointManagerCreateSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!BluetoothAudioLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __BluetoothAudioLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7AE7C50;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __BluetoothAudioLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7AE7C50;
+    v7 = 0;
     BluetoothAudioLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = BluetoothAudioLibraryCore_frameworkLibrary;
     if (BluetoothAudioLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -5532,7 +5463,7 @@ void *__getBluetoothEndpointManagerCreateSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -5544,40 +5475,30 @@ LABEL_5:
   result = dlsym(v2, "BluetoothEndpointManagerCreate");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getBluetoothEndpointManagerCreateSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BluetoothAudioLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BluetoothAudioLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t AirPlaySenderLibraryCore()
+uint64_t AirPlaySenderLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!AirPlaySenderLibraryCore_frameworkLibrary)
   {
     AirPlaySenderLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = AirPlaySenderLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return AirPlaySenderLibraryCore_frameworkLibrary;
 }
 
 uint64_t __AirPlaySenderLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AirPlaySenderLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5592,11 +5513,19 @@ void *__getAPGetEndpointManagerSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t AirPlaySenderLibrary()
 {
-  v0 = AirPlaySenderLibraryCore();
+  v3 = 0;
+  v0 = AirPlaySenderLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5620,36 +5549,38 @@ void *__getSPGetEndpointManagerSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t MediaToolboxLibraryCore()
+uint64_t MediaToolboxLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!MediaToolboxLibraryCore_frameworkLibrary)
   {
     MediaToolboxLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = MediaToolboxLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return MediaToolboxLibraryCore_frameworkLibrary;
 }
 
 uint64_t __MediaToolboxLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaToolboxLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke(uint64_t a1)
 {
-  v2 = MediaToolboxLibraryCore();
+  v5 = 0;
+  v2 = MediaToolboxLibraryCore(&v5);
+  v3 = v5;
   if (!v2)
   {
-    v4 = abort_report_np();
-    free(v4);
+    v3 = abort_report_np("%s", v5);
+    goto LABEL_5;
+  }
+
+  if (v5)
+  {
+LABEL_5:
+    free(v3);
   }
 
   result = dlsym(v2, "FigEndpointManagerForNeroGetShared");
@@ -5660,17 +5591,16 @@ void *__getFigEndpointManagerForNeroGetSharedSymbolLoc_block_invoke(uint64_t a1)
 
 void __routingManager_registerContextInternal_block_invoke(uint64_t a1)
 {
+  routingManager_notifyRoutingContextChanged(*(a1 + 32), @"RoutingContextAdded");
   v2 = *(a1 + 32);
-  routingManager_notifyRoutingContextChanged();
-  v3 = *(a1 + 32);
-  if (v3)
+  if (v2)
   {
 
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
-uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDict, const __CFDictionary *a3, const __CFDictionary *a4)
+uint64_t MXSystemAudio_PickRouteDescriptor(const __CFDictionary *a1, CFDictionaryRef theDict, const __CFDictionary *a3, const __CFDictionary *a4)
 {
   value[16] = *MEMORY[0x1E69E9840];
   if (theDict)
@@ -5680,7 +5610,7 @@ uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDi
 
   if (dword_1EB75DF20)
   {
-    LODWORD(v115) = 0;
+    LODWORD(v110) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -5692,14 +5622,14 @@ uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDi
     v9 = FigEndpointDescriptorUtility_CopyEndpointFromDescriptor(theDict, a1);
     if (!v9)
     {
-      LODWORD(v115) = 0;
+      LODWORD(v110) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
       v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
       v9 = FigRoutingManagerCopyRoutingContextOptionsWithRouteRequestID(a3);
       FigRoutingManagerContextUtilities_PostRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(a1, v9, @"configUpdateReasonEndedFailed");
-      v14 = 4294954296;
+      v13 = 4294954296;
       goto LABEL_150;
     }
   }
@@ -5709,12 +5639,12 @@ uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDi
     v9 = 0;
   }
 
-  v106 = 0;
+  v101 = 0;
   ContextType = FigRoutingManagerContextUtilities_GetContextType(a1);
   if (theDict && ContextType == 3)
   {
-    v13 = CFDictionaryGetValue(theDict, @"RouteSupportsAirPlayMusic");
-    if (v13 != *MEMORY[0x1E695E4D0])
+    v12 = CFDictionaryGetValue(theDict, @"RouteSupportsAirPlayMusic");
+    if (v12 != *MEMORY[0x1E695E4D0])
     {
       if (dword_1EB75DF20)
       {
@@ -5724,7 +5654,7 @@ uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDi
       goto LABEL_22;
     }
 
-    if (CFDictionaryGetValue(theDict, @"IsWHAGroupable") != v13)
+    if (CFDictionaryGetValue(theDict, @"IsWHAGroupable") != v12)
     {
       if (dword_1EB75DF20)
       {
@@ -5739,59 +5669,59 @@ uint64_t MXSystemAudio_PickRouteDescriptor(const void *a1, CFDictionaryRef theDi
       if (dword_1EB75DF20)
       {
 LABEL_21:
-        LODWORD(v115) = 0;
+        LODWORD(v110) = 0;
         type[0] = OS_LOG_TYPE_DEFAULT;
-        v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
 LABEL_22:
       FigRoutingContextUtilities_SetLeaderToSystemAudioContext(a1, 0);
-      ContextType = FigRoutingManagerContextUtilities_CopySystemAudioContextUUID(&v106);
+      FigRoutingManagerContextUtilities_CopySystemAudioContextUUID(&v101);
       goto LABEL_23;
     }
 
     if (dword_1EB75DF20)
     {
-      LODWORD(v115) = 0;
+      LODWORD(v110) = 0;
       type[0] = OS_LOG_TYPE_DEFAULT;
-      v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    ContextType = FigRoutingContextUtilities_CopyLeaderUUIDForContext(a1, &v106);
+    FigRoutingContextUtilities_CopyLeaderUUIDForContext(a1, &v101);
   }
 
 LABEL_23:
-  v17 = v106;
-  if (!v106)
+  v16 = v101;
+  if (!v101)
   {
-    if (!a1 || (ContextType = CFRetain(a1), v17 = ContextType, (v106 = ContextType) == 0))
+    if (!a1 || (v16 = CFRetain(a1), (v101 = v16) == 0))
     {
-      v14 = 0;
+      v13 = 0;
       goto LABEL_150;
     }
   }
 
-  FigRoutingContextUtilities_LogCurrentState(ContextType, v12);
-  v115 = 0;
-  v18 = MEMORY[0x1E695E480];
+  FigRoutingContextUtilities_LogCurrentState();
+  v110 = 0;
+  v17 = MEMORY[0x1E695E480];
   if (v9)
   {
     CMBaseObject = FigEndpointGetCMBaseObject();
-    v20 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v20)
+    v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v19)
     {
-      v20(CMBaseObject, *MEMORY[0x1E69621E8], *v18, &v115);
+      v19(CMBaseObject, *MEMORY[0x1E69621E8], *v17, &v110);
     }
   }
 
-  v21 = FigRoutingManagerCopyRoutingContextOptionsWithRouteRequestID(a3);
-  FigRoutingManagerLogRoutingRequestDetails(@"preprocessPickEndpoint - ", v9, 0, 0, v17, v21);
+  v20 = FigRoutingManagerCopyRoutingContextOptionsWithRouteRequestID(a3);
+  FigRoutingManagerLogRoutingRequestDetails(@"preprocessPickEndpoint - ", v9, 0, 0, v16, v20);
   *type = 0;
-  FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpoints(v17, type);
+  FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpoints(v16, type);
   if (!*type)
   {
     goto LABEL_46;
@@ -5803,39 +5733,39 @@ LABEL_23:
     goto LABEL_46;
   }
 
-  v23 = Count;
+  v22 = Count;
   if (CFArrayGetValueAtIndex(*type, 0) != v9)
   {
-    v24 = 1;
+    v23 = 1;
     while (1)
     {
-      v25 = v24;
-      if (v23 == v24)
+      v24 = v23;
+      if (v22 == v23)
       {
         break;
       }
 
-      ValueAtIndex = CFArrayGetValueAtIndex(*type, v24);
-      v24 = v25 + 1;
+      ValueAtIndex = CFArrayGetValueAtIndex(*type, v23);
+      v23 = v24 + 1;
       if (ValueAtIndex == v9)
       {
-        v27 = v25;
+        v26 = v24;
         goto LABEL_39;
       }
     }
 
-    v27 = 0;
+    v26 = 0;
 LABEL_39:
-    if (v25 < v23)
+    if (v24 < v22)
     {
       goto LABEL_40;
     }
 
 LABEL_46:
     theArray = 0;
-    FigRoutingManagerContextUtilities_CopyPickedEndpoints(v17, &theArray);
-    allocator = *v18;
-    Mutable = CFArrayCreateMutable(*v18, 0, MEMORY[0x1E695E9C0]);
+    FigRoutingManagerContextUtilities_CopyPickedEndpoints(v16, &theArray);
+    allocator = *v17;
+    Mutable = CFArrayCreateMutable(*v17, 0, MEMORY[0x1E695E9C0]);
     v32 = Mutable;
     if (v9)
     {
@@ -5853,16 +5783,16 @@ LABEL_46:
       goto LABEL_95;
     }
 
-    if (FigRoutingManagerContextUtilities_GetContextType(v17) != 1)
+    if (FigRoutingManagerContextUtilities_GetContextType(v16) != 1)
     {
 LABEL_94:
-      FigRoutingManagerContextUtilities_PostNoOpRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v17, v21, a4);
-      v14 = 0;
+      FigRoutingManagerContextUtilities_PostNoOpRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v16, v20, a4);
+      v13 = 0;
       goto LABEL_140;
     }
 
-    v98 = v21;
-    v100 = a4;
+    v94 = v20;
+    v96 = a4;
     v34 = CMSMUtility_CopyCurrentRouteIdentifiers();
     NumberOfCurrentOutputPorts = CMSMUtility_GetNumberOfCurrentOutputPorts();
     if (theArray)
@@ -5871,7 +5801,7 @@ LABEL_94:
       v37 = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
       if (v36 >= 1)
       {
-        v96 = a1;
+        v92 = a1;
         v38 = a3;
         v39 = 0;
         v40 = *MEMORY[0x1E69620F8];
@@ -5900,7 +5830,7 @@ LABEL_94:
 
         while (v36 != v39);
         a3 = v38;
-        a1 = v96;
+        a1 = v92;
       }
     }
 
@@ -5917,19 +5847,19 @@ LABEL_94:
       goto LABEL_87;
     }
 
-    v95 = a3;
-    v97 = a1;
+    v91 = a3;
+    v93 = a1;
     v46 = NumberOfCurrentOutputPorts;
-    v103 = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
+    v99 = CFArrayCreateMutable(allocator, 0, MEMORY[0x1E695E9C0]);
     if (NumberOfCurrentOutputPorts)
     {
       v47 = 0;
       v48 = *MEMORY[0x1E69618F8];
-      v102 = *MEMORY[0x1E69618D0];
+      v98 = *MEMORY[0x1E69618D0];
       do
       {
         v49 = CFArrayGetValueAtIndex(v34, v47);
-        v50 = FigRoutingManagerCopyEndpointWithDeviceID(v49, 0, v48, v17);
+        v50 = FigRoutingManagerCopyEndpointWithDeviceID(v49, 0, v48, v16);
         if (v50)
         {
           v51 = v50;
@@ -5945,7 +5875,7 @@ LABEL_94:
           if (PortFromCFNumber == 1885433971 || PortFromCFNumber == 1885433953)
           {
             CFRelease(v51);
-            v51 = FigRoutingManagerCopyEndpointWithDeviceID(v49, 1, v102, v17);
+            v51 = FigRoutingManagerCopyEndpointWithDeviceID(v49, 1, v98, v16);
           }
 
           if (value[0])
@@ -5955,7 +5885,7 @@ LABEL_94:
 
           if (v51)
           {
-            CFArrayAppendValue(v103, v51);
+            CFArrayAppendValue(v99, v51);
             CFRelease(v51);
           }
         }
@@ -5966,42 +5896,43 @@ LABEL_94:
       while (v46 != v47);
     }
 
-    v43 = v103;
-    if (v103)
+    v43 = v99;
+    if (v99)
     {
       if (!FigCFEqual())
       {
-        v44 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v103, 0);
-        FigRoutingManagerContextUtilities_SetPickedEndpoints(v17, v103, 0, 0, v44);
+        v44 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v99, 0);
+        FigRoutingManagerContextUtilities_SetPickedEndpoints(v16, v99, 0, 0, v44);
         if (dword_1EB75DF20)
         {
-          *v112 = 0;
+          *v107 = 0;
           LOBYTE(cf) = 0;
-          v85 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v86 = *v112;
-          if (os_log_type_enabled(v85, cf))
+          v82 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v83 = *v107;
+          v84 = cf;
+          if (os_log_type_enabled(v82, cf))
           {
-            v87 = v86;
+            v85 = v83;
           }
 
           else
           {
-            v87 = v86 & 0xFFFFFFFE;
+            v85 = v83 & 0xFFFFFFFE;
           }
 
-          if (v87)
+          if (v85)
           {
-            *v116 = 136315138;
-            *&v116[4] = "mxSystemAudio_preprocessPickEndpoint";
-            _os_log_send_and_compose_impl();
+            *v111 = 136315138;
+            *&v111[4] = "mxSystemAudio_preprocessPickEndpoint";
+            _os_log_send_and_compose_impl(v85, 0, value, 128, &dword_1B17A2000, v82, v84, "-MXSystemAudio_Embedded- %s: Setting picked endpoint to current endpoints on systemAudio. This is needed to make sure we don't end up in a no-op picking request.", v111);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
-          v43 = v103;
+          v43 = v99;
         }
 
-        a3 = v95;
-        a1 = v97;
+        a3 = v91;
+        a1 = v93;
         if (v44)
         {
           CFRelease(v44);
@@ -6025,35 +5956,34 @@ LABEL_87:
           CFRelease(v34);
         }
 
-        v21 = v98;
+        v20 = v94;
         if ((v45 & 1) == 0)
         {
           CFRelease(v43);
         }
 
-        a4 = v100;
+        a4 = v96;
         if (v44)
         {
           goto LABEL_94;
         }
 
 LABEL_95:
-        FigRoutingManagerContextUtilities_SetPickingState(v17, 1);
-        FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(a1, v17, v9, v21, a4);
+        FigRoutingManagerContextUtilities_SetPickingState(v16, 1);
+        FigRoutingManagerContextUtilities_AddCurrentlyActivatingEndpoint(a1, v16, v9, v20, a4);
         if (!v9)
         {
-          if (FigRoutingManagerContextUtilities_GetContextType(v17) == 1)
+          if (FigRoutingManagerContextUtilities_GetContextType(v16) == 1)
           {
-            v14 = 4294954296;
+            v13 = 4294954296;
           }
 
           else
           {
-            v14 = mxSystemAudio_processPickEndpoint(0, v17, v21, a4);
+            v13 = mxSystemAudio_processPickEndpoint(0, v16, v20, a4);
           }
 
 LABEL_140:
-          v56 = theArray;
           if (theArray)
           {
             CFRelease(theArray);
@@ -6062,98 +5992,100 @@ LABEL_140:
           goto LABEL_142;
         }
 
-        *v112 = 0;
-        v57 = *MEMORY[0x1E69626D8];
-        if (FigRoutingManagerIsEndpointOfType(v9))
+        *v107 = 0;
+        v55 = *MEMORY[0x1E69626D8];
+        if (FigRoutingManagerIsEndpointOfType(v9, *MEMORY[0x1E69626D8]))
         {
-          v58 = FigEndpointGetCMBaseObject();
-          v59 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-          if (v59)
+          v56 = FigEndpointGetCMBaseObject();
+          v57 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+          if (v57)
           {
-            v59(v58, 0x1F289D050, allocator, v112);
+            v57(v56, 0x1F289D050, allocator, v107);
           }
         }
 
-        v60 = *MEMORY[0x1E69626A8];
-        if (!FigRoutingManagerIsEndpointOfType(v9) && (!FigRoutingManagerIsEndpointOfType(v9) || !FigCFEqual()))
+        v58 = *MEMORY[0x1E69626A8];
+        if (!FigRoutingManagerIsEndpointOfType(v9, *MEMORY[0x1E69626A8]) && (!FigRoutingManagerIsEndpointOfType(v9, v55) || !FigCFEqual()))
         {
-          if (FigRoutingManagerIsEndpointOfType(v9) || (v67 = *MEMORY[0x1E69626B8], FigRoutingManagerIsEndpointOfType(v9)))
+          if (FigRoutingManagerIsEndpointOfType(v9, v55) || FigRoutingManagerIsEndpointOfType(v9, *MEMORY[0x1E69626B8]))
           {
-            v14 = mxSystemAudio_processPickEndpoint(v9, v17, v21, a4);
+            v13 = mxSystemAudio_processPickEndpoint(v9, v16, v20, a4);
           }
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
 
 LABEL_138:
-          if (*v112)
+          if (*v107)
           {
-            CFRelease(*v112);
+            CFRelease(*v107);
           }
 
           goto LABEL_140;
         }
 
-        v110 = 0;
+        v105 = 0;
         cf = 0;
-        FigRoutingManagerUtilities_CopyCurrentlyPickedAirPlayEndpoint(&v110, &cf, 0);
-        v61 = FigRoutingManagerContextUtilities_GetContextType(cf);
+        FigRoutingManagerUtilities_CopyCurrentlyPickedAirPlayEndpoint(&v105, &cf, 0);
+        v59 = FigRoutingManagerContextUtilities_GetContextType(cf);
         IsMirroringScreenAudioSeperateFunctionalityAllowed = MXSystemMirroring_IsMirroringScreenAudioSeperateFunctionalityAllowed();
-        v63 = v110;
-        if (IsMirroringScreenAudioSeperateFunctionalityAllowed && v110 && v61 == 2)
+        v61 = v105;
+        if (IsMirroringScreenAudioSeperateFunctionalityAllowed && v105 && v59 == 2)
         {
-          if (FigCFEqual())
+          IsMirroringScreenAudioSeperateFunctionalityAllowed = FigCFEqual();
+          if (IsMirroringScreenAudioSeperateFunctionalityAllowed)
           {
             if (dword_1EB75DF20)
             {
-              LODWORD(v109) = 0;
-              v108[0] = OS_LOG_TYPE_DEFAULT;
-              v64 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v65 = v109;
-              if (os_log_type_enabled(v64, v108[0]))
+              LODWORD(v104) = 0;
+              v103[0] = OS_LOG_TYPE_DEFAULT;
+              v62 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v63 = v104;
+              v64 = v103[0];
+              if (os_log_type_enabled(v62, v103[0]))
               {
-                v66 = v65;
+                v65 = v63;
               }
 
               else
               {
-                v66 = v65 & 0xFFFFFFFE;
+                v65 = v63 & 0xFFFFFFFE;
               }
 
-              if (v66)
+              if (v65)
               {
-                *v116 = 136315394;
-                *&v116[4] = "mxSystemAudio_preprocessPickEndpoint";
-                v117 = 2114;
-                v118 = v115;
-                _os_log_send_and_compose_impl();
+                *v111 = 136315394;
+                *&v111[4] = "mxSystemAudio_preprocessPickEndpoint";
+                v112 = 2114;
+                v113 = v110;
+                _os_log_send_and_compose_impl(v65, 0, value, 128, &dword_1B17A2000, v62, v64, "-MXSystemAudio_Embedded- %s: Endpoint with name=%{public}@ already activated on mirroring context, route System Audio / System Music to it.", v111, 22);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
 
             value[0] = 0;
-            FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(v17, v9, value);
-            FigEndpointFeatures = FigRoutingManagerGetFigEndpointFeatures(v9, v17);
-            MXSystemMirroring_iOSHandleEndpointAudioActivation(v9, FigEndpointFeatures, value[0], v17, a3);
-            FigRoutingContextUtilities_LogCurrentState(v89, v90);
+            FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(v16, v9, value);
+            FigEndpointFeatures = FigRoutingManagerGetFigEndpointFeatures(v9, v16);
+            MXSystemMirroring_iOSHandleEndpointAudioActivation(v9, FigEndpointFeatures, value[0], v16, a3);
+            FigRoutingContextUtilities_LogCurrentState();
             if (theArray)
             {
               CFRelease(theArray);
               theArray = 0;
             }
 
-            if (v21)
+            if (v20)
             {
-              CFRelease(v21);
+              CFRelease(v20);
             }
 
-            if (v115)
+            if (v110)
             {
-              CFRelease(v115);
-              v115 = 0;
+              CFRelease(v110);
+              v110 = 0;
             }
 
             if (*type)
@@ -6161,73 +6093,66 @@ LABEL_138:
               CFRelease(*type);
             }
 
-            v14 = 0;
+            v13 = 0;
             goto LABEL_148;
           }
 
-          v99 = v21;
-          v101 = a4;
-          v63 = v110;
+          v95 = v20;
+          v97 = a4;
+          v61 = v105;
         }
 
         else
         {
-          v99 = v21;
-          v101 = a4;
+          v95 = v20;
+          v97 = a4;
         }
 
-        if (!v63 || FigRoutingManagerUtilities_IsCurrentRouteHandoff())
+        if (!v61 || FigRoutingManagerUtilities_IsCurrentRouteHandoff(IsMirroringScreenAudioSeperateFunctionalityAllowed, v61))
         {
           value[0] = 0;
-          *v116 = 0;
-          FigRoutingManagerCopyAirPlayEndpointsInUseForFeatures(-1, value, v116, 0, 0);
+          *v111 = 0;
+          FigRoutingManagerCopyAirPlayEndpointsInUseForFeatures(-1, value, v111, 0, 0);
           if (value[0])
           {
-            v68 = CFArrayGetCount(value[0]);
-            if (v68 >= 1)
+            v66 = CFArrayGetCount(value[0]);
+            if (v66 >= 1)
             {
-              v69 = v68;
-              v70 = 0;
-              v104 = *MEMORY[0x1E69617E8];
-              v71 = *MEMORY[0x1E69617F8];
-              do
+              v67 = v66;
+              for (i = 0; i != v67; ++i)
               {
-                v72 = CFArrayGetValueAtIndex(value[0], v70);
-                v73 = CFArrayGetValueAtIndex(*v116, v70);
-                if (v72 != v9 || v73 != v17)
+                v69 = CFArrayGetValueAtIndex(value[0], i);
+                v70 = CFArrayGetValueAtIndex(*v111, i);
+                if (v69 != v9 || v70 != v16)
                 {
-                  v75 = v73;
-                  v76 = FigRoutingManagerGetFigEndpointFeatures(v72, v73);
-                  v77 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                  v72 = v70;
+                  v73 = FigRoutingManagerGetFigEndpointFeatures(v69, v70);
+                  v74 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
                   FigCFDictionarySetValue();
-                  v109 = 0;
-                  FigRoutingManagerCreateEndpointDeactivateCompletionContext(v75, &v109);
-                  FigRoutingManagerLogEndpointID(@"Preprocess - Calling to deactivate endpoint with name=", v72, 0, 1);
-                  FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(v75, v72, @"configUpdateReasonEndedUserCancelled");
-                  FigRoutingManagerEndpointDeactivateWithCompletionCallback(v72, v76, v77, FigRoutingManager_iOSEndpointDeactivateCompletionCallback, v109);
-                  if (v77)
+                  v104 = 0;
+                  FigRoutingManagerCreateEndpointDeactivateCompletionContext(v72, &v104);
+                  FigRoutingManagerLogEndpointID(@"Preprocess - Calling to deactivate endpoint with name=", v69, 0, 1);
+                  FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(v72, v69, @"configUpdateReasonEndedUserCancelled");
+                  FigRoutingManagerEndpointDeactivateWithCompletionCallback(v69, v73, v74, FigRoutingManager_iOSEndpointDeactivateCompletionCallback, v104);
+                  if (v74)
                   {
-                    CFRelease(v77);
+                    CFRelease(v74);
                   }
                 }
-
-                ++v70;
               }
-
-              while (v69 != v70);
             }
           }
 
-          v21 = v99;
-          v14 = mxSystemAudio_processPickEndpoint(v9, v17, v99, v101);
+          v20 = v95;
+          v13 = mxSystemAudio_processPickEndpoint(v9, v16, v95, v97);
           if (value[0])
           {
             CFRelease(value[0]);
             value[0] = 0;
           }
 
-          v78 = *v116;
-          if (!*v116)
+          v75 = *v111;
+          if (!*v111)
           {
             goto LABEL_136;
           }
@@ -6235,53 +6160,54 @@ LABEL_138:
           goto LABEL_135;
         }
 
-        FigRoutingManagerContextUtilities_SetPickingState(v17, 2);
-        CMSMAP_MakeAirPlayHandOffPortRoutable(1, v17);
-        v109 = 0;
-        FigEndpointCopyProperty(v110, *MEMORY[0x1E69621E8], allocator, &v109);
-        if (FigRoutingManagerIsEndpointOfType(v110))
+        FigRoutingManagerContextUtilities_SetPickingState(v16, 2);
+        CMSMAP_MakeAirPlayHandOffPortRoutable(1, v16);
+        v104 = 0;
+        FigEndpointCopyProperty(v105, *MEMORY[0x1E69621E8], allocator, &v104);
+        if (FigRoutingManagerIsEndpointOfType(v105, v58))
         {
-          v21 = v99;
-          v81 = v101;
+          v20 = v95;
+          v77 = v97;
           if (dword_1EB75DF20)
           {
-            *v108 = 0;
-            v107 = OS_LOG_TYPE_DEFAULT;
-            v82 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v83 = *v108;
-            if (os_log_type_enabled(v82, v107))
+            *v103 = 0;
+            v102 = OS_LOG_TYPE_DEFAULT;
+            v78 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v79 = *v103;
+            v80 = v102;
+            if (os_log_type_enabled(v78, v102))
             {
-              v84 = v83;
+              v81 = v79;
             }
 
             else
             {
-              v84 = v83 & 0xFFFFFFFE;
+              v81 = v79 & 0xFFFFFFFE;
             }
 
-            if (v84)
+            if (v81)
             {
-              *v116 = 136315650;
-              *&v116[4] = "mxSystemAudio_preprocessPickEndpoint";
-              v117 = 2114;
-              v118 = v109;
-              v119 = 2114;
-              v120 = v115;
-              _os_log_send_and_compose_impl();
+              *v111 = 136315650;
+              *&v111[4] = "mxSystemAudio_preprocessPickEndpoint";
+              v112 = 2114;
+              v113 = v104;
+              v114 = 2114;
+              v115 = v110;
+              _os_log_send_and_compose_impl(v81, 0, value, 128, &dword_1B17A2000, v78, v80, "-MXSystemAudio_Embedded- %s: Going to deactivate endpoint with name=%{public}@ before activating endpoint with name=%{public}@", v111, 32);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
           value[0] = 0;
-          FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(cf, v110, value);
-          FigRoutingManager_iOSDeactivateEndpoint(v110, value[0], 1);
-          if (v61 == 1)
+          FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(cf, v105, value);
+          FigRoutingManager_iOSDeactivateEndpoint(v105, value[0], 1);
+          if (v59 == 1)
           {
 LABEL_195:
-            v14 = mxSystemAudio_processPickEndpoint(v9, v17, v21, v81);
-            v78 = v109;
-            if (!v109)
+            v13 = mxSystemAudio_processPickEndpoint(v9, v16, v20, v77);
+            v75 = v104;
+            if (!v104)
             {
 LABEL_136:
               if (cf)
@@ -6293,50 +6219,50 @@ LABEL_136:
             }
 
 LABEL_135:
-            CFRelease(v78);
+            CFRelease(v75);
             goto LABEL_136;
           }
         }
 
         else
         {
-          v91 = *MEMORY[0x1E69626B0];
-          v21 = v99;
-          v81 = v101;
-          if (!FigRoutingManagerIsEndpointOfType(v110))
+          v20 = v95;
+          v77 = v97;
+          if (!FigRoutingManagerIsEndpointOfType(v105, *MEMORY[0x1E69626B0]))
           {
             goto LABEL_195;
           }
 
           if (dword_1EB75DF20)
           {
-            *v108 = 0;
-            v107 = OS_LOG_TYPE_DEFAULT;
-            v92 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v93 = *v108;
-            if (os_log_type_enabled(v92, v107))
+            *v103 = 0;
+            v102 = OS_LOG_TYPE_DEFAULT;
+            v87 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v88 = *v103;
+            v89 = v102;
+            if (os_log_type_enabled(v87, v102))
             {
-              v94 = v93;
+              v90 = v88;
             }
 
             else
             {
-              v94 = v93 & 0xFFFFFFFE;
+              v90 = v88 & 0xFFFFFFFE;
             }
 
-            if (v94)
+            if (v90)
             {
-              *v116 = 136315394;
-              *&v116[4] = "mxSystemAudio_preprocessPickEndpoint";
-              v117 = 2114;
-              v118 = v115;
-              _os_log_send_and_compose_impl();
+              *v111 = 136315394;
+              *&v111[4] = "mxSystemAudio_preprocessPickEndpoint";
+              v112 = 2114;
+              v113 = v110;
+              _os_log_send_and_compose_impl(v90, 0, value, 128, &dword_1B17A2000, v87, v89, "-MXSystemAudio_Embedded- %s: Going to remove all sub-endpoints from the aggregate endpoint before activating endpoint with name=%{public}@", v111, 22);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          FigRoutingManagerRemoveAllSubEndpointsFromAggregate(v110, cf, 0, 0, FigRoutingManagerAggregateRemoveEndpointCompletionCallback);
+          FigRoutingManagerRemoveAllSubEndpointsFromAggregate(v105, cf, 0, 0, FigRoutingManagerAggregateRemoveEndpointCompletionCallback);
           CMSMVAUtility_DestroyMusicVADIfNeeded(cf);
         }
 
@@ -6354,64 +6280,64 @@ LABEL_135:
       v45 = 1;
     }
 
-    a3 = v95;
-    a1 = v97;
+    a3 = v91;
+    a1 = v93;
     goto LABEL_87;
   }
 
-  v27 = 0;
+  v26 = 0;
 LABEL_40:
   if (dword_1EB75DF20)
   {
     LODWORD(theArray) = 0;
-    v112[0] = OS_LOG_TYPE_DEFAULT;
-    v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v29 = theArray;
-    if (os_log_type_enabled(v28, v112[0]))
+    v107[0] = OS_LOG_TYPE_DEFAULT;
+    v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v28 = theArray;
+    v29 = v107[0];
+    if (os_log_type_enabled(v27, v107[0]))
     {
-      v30 = v29;
+      v30 = v28;
     }
 
     else
     {
-      v30 = v29 & 0xFFFFFFFE;
+      v30 = v28 & 0xFFFFFFFE;
     }
 
     if (v30)
     {
-      *v116 = 136315394;
-      *&v116[4] = "mxSystemAudio_preprocessPickEndpoint";
-      v117 = 2114;
-      v118 = v115;
-      _os_log_send_and_compose_impl();
+      *v111 = 136315394;
+      *&v111[4] = "mxSystemAudio_preprocessPickEndpoint";
+      v112 = 2114;
+      v113 = v110;
+      _os_log_send_and_compose_impl(v30, 0, value, 128, &dword_1B17A2000, v27, v29, "-MXSystemAudio_Embedded- %s: endpoint %{public}@ is already currently being activated, move the endpoint to the end of the list of currently activating endpoints and notify client this is a no-op request", v111, 22);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   value[0] = 0;
-  FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpointInfoAtIndex(v17, v27, value);
-  FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpointInfoAtIndex(v17, v27);
-  FigRoutingManagerContextUtilities_AppendCurrentlyActivatingEndpointInfo(v17, value[0]);
-  FigRoutingManagerContextUtilities_PostNoOpRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v17, v21, a4);
-  v56 = value[0];
+  FigRoutingManagerContextUtilities_CopyCurrentlyActivatingEndpointInfoAtIndex(v16, v26, value);
+  FigRoutingManagerContextUtilities_RemoveCurrentlyActivatingEndpointInfoAtIndex(v16, v26);
+  FigRoutingManagerContextUtilities_AppendCurrentlyActivatingEndpointInfo(v16, value[0]);
+  FigRoutingManagerContextUtilities_PostNoOpRouteConfigUpdatedToClientsOfContextWithUUIDAndItsFollowers(v16, v20, a4);
   if (value[0])
   {
     CFRelease(value[0]);
   }
 
-  v14 = 0;
+  v13 = 0;
 LABEL_142:
-  FigRoutingContextUtilities_LogCurrentState(v56, v55);
-  if (v21)
+  FigRoutingContextUtilities_LogCurrentState();
+  if (v20)
   {
-    CFRelease(v21);
+    CFRelease(v20);
   }
 
-  if (v115)
+  if (v110)
   {
-    CFRelease(v115);
-    v115 = 0;
+    CFRelease(v110);
+    v110 = 0;
   }
 
   if (*type)
@@ -6420,9 +6346,9 @@ LABEL_142:
   }
 
 LABEL_148:
-  if (v106)
+  if (v101)
   {
-    CFRelease(v106);
+    CFRelease(v101);
   }
 
 LABEL_150:
@@ -6431,8 +6357,7 @@ LABEL_150:
     CFRelease(v9);
   }
 
-  v79 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v13;
 }
 
 uint64_t FigEndpointCopyProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6453,59 +6378,52 @@ uint64_t FigEndpointCopyProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
 uint64_t mxSystemAudio_processPickEndpoint(const void *a1, const void *a2, const __CFDictionary *a3, const void *a4)
 {
-  ContextType = FigRoutingManagerContextUtilities_SetPickingState(a2, 3);
-  v10 = ContextType;
+  v8 = FigRoutingManagerContextUtilities_SetPickingState(a2, 3);
+  v9 = v8;
   if (a1)
   {
-    if (!ContextType)
+    if (!v8)
     {
-      ContextType = FigRoutingManager_iOSActivateEndpoint(a1, a2, a3, a4);
-      v10 = ContextType;
+      v9 = FigRoutingManager_iOSActivateEndpoint(a1, a2, a3, a4);
     }
   }
 
-  else
+  else if (FigRoutingManagerContextUtilities_GetContextType(a2))
   {
-    ContextType = FigRoutingManagerContextUtilities_GetContextType(a2);
-    if (ContextType)
+    cf = 0;
+    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a2, 0, &cf);
+    if (cf)
     {
-      cf = 0;
-      ContextType = FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a2, 0, &cf);
+      FigRoutingManagerContextUtilities_SetPickedEndpoints(a2, 0, @"configUpdateReasonEndedSuccess", a3, 0);
+      v11 = 0;
+      FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(a2, cf, &v11);
+      if (FigRoutingManagerIsEndpointOfType(cf, *MEMORY[0x1E69626A8]))
+      {
+        FigRoutingManagerLogEndpointID(@"Going to deactivate endpoint with name=", cf, @"because user selected NULL", 1);
+        FigRoutingManager_iOSDeactivateEndpoint(cf, v11, 1);
+      }
+
       if (cf)
       {
-        FigRoutingManagerContextUtilities_SetPickedEndpoints(a2, 0, @"configUpdateReasonEndedSuccess", a3, 0);
-        v13 = 0;
-        FigRoutingManagerContextUtilities_GetActivationSeedForEndpoint(a2, cf, &v13);
-        v11 = *MEMORY[0x1E69626A8];
-        if (FigRoutingManagerIsEndpointOfType(cf))
-        {
-          FigRoutingManagerLogEndpointID(@"Going to deactivate endpoint with name=", cf, @"because user selected NULL", 1);
-          FigRoutingManager_iOSDeactivateEndpoint(cf, v13, 1);
-        }
-
-        ContextType = cf;
-        if (cf)
-        {
-          CFRelease(cf);
-        }
+        CFRelease(cf);
       }
     }
   }
 
-  FigRoutingContextUtilities_LogCurrentState(ContextType, v9);
-  return v10;
+  FigRoutingContextUtilities_LogCurrentState();
+  return v9;
 }
 
-void sub_1B185C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B185C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B185CF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B185CF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7023,18 +6941,18 @@ uint64_t OUTLINED_FUNCTION_17_1(int a1, int a2, int a3, int a4, int a5, int a6, 
   return CFNumberGetValue(v11, kCFNumberSInt32Type, &valuePtr);
 }
 
-uint64_t remoteXPCStarkModeController_DeadConnectionCallback()
+uint64_t remoteXPCStarkModeController_DeadConnectionCallback(uint64_t a1)
 {
   result = CMBaseObjectGetDerivedStorage();
   *(result + 8) = 1;
   return result;
 }
 
-uint64_t remoteFigStarkModeController_Finalize()
+uint64_t remoteFigStarkModeController_Finalize(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = *DerivedStorage;
+  v2 = *DerivedStorage;
   if (dword_1EB75E1F8)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -7045,27 +6963,25 @@ uint64_t remoteFigStarkModeController_Finalize()
   FigXPCRemoteClientDisassociateObject();
   if (*(DerivedStorage + 8))
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v3 = v1 == 0;
+    v4 = v2 == 0;
   }
 
-  if (!v3)
+  if (!v4)
   {
-    if (FigXPCCreateBasicMessage() || (v4 = FigXPCRemoteClientSendSyncMessage(), FigXPCRemoteClientKillServerOnTimeout(), v4))
+    if (FigXPCCreateBasicMessage() || (v5 = FigXPCRemoteClientSendSyncMessage(), FigXPCRemoteClientKillServerOnTimeout(), v5))
     {
-      v5 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  result = FigXPCRelease();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return FigXPCRelease();
 }
 
 uint64_t remoteFigStarkModeController_CopyDebugDescription(const void *a1)
@@ -7073,18 +6989,17 @@ uint64_t remoteFigStarkModeController_CopyDebugDescription(const void *a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = CFGetRetainCount(a1);
-  v5 = *DerivedStorage;
   if (*(DerivedStorage + 8))
   {
-    v6 = " SERVER DIED";
+    v5 = " SERVER DIED";
   }
 
   else
   {
-    v6 = "";
+    v5 = "";
   }
 
-  return [v3 initWithFormat:@"<FigStarkModeControllerRemote %p retainCount: %ld objectID: %016llx%s>", a1, v4, *DerivedStorage, v6];
+  return [v3 initWithFormat:@"<FigStarkModeControllerRemote %p retainCount: %ld objectID: %016llx%s>", a1, v4, *DerivedStorage, v5];
 }
 
 void __mxsmInteruptionActionMapper_setUpInterruptionPriorityDictionaries_block_invoke()
@@ -7123,7 +7038,7 @@ void sub_1B1868B9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void FigRoutingManager_iOSEndpointActivateCompletionCallback(const void *a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
-  SharedManager = FigRoutingManagerGetSharedManager();
+  SharedManager = FigRoutingManagerGetSharedManager(a1, a2);
   if (a5)
   {
     v11 = *a5;
@@ -7187,66 +7102,47 @@ uint64_t FigRoutingManagerRegisterForFigEndpointNotifications(uint64_t result)
   }
 
   v1 = result;
-  v2 = *MEMORY[0x1E69626C8];
-  if (FigRoutingManagerIsEndpointOfType(result))
+  if (FigRoutingManagerIsEndpointOfType(result, *MEMORY[0x1E69626C8]))
   {
-    v3 = *MEMORY[0x1E69626A8];
+    v2 = *MEMORY[0x1E69626A8];
 LABEL_7:
-    if (FigRoutingManagerIsEndpointOfType(v1))
+    IsEndpointOfType = FigRoutingManagerIsEndpointOfType(v1, v2);
+    if (IsEndpointOfType)
     {
-      FigRoutingManagerGetSharedManager();
+      FigRoutingManagerGetSharedManager(IsEndpointOfType, v5);
       CMNotificationCenterGetDefaultLocalCenter();
-      v9 = *MEMORY[0x1E69619D0];
-      CMNotificationCenterAddListener();
-      routingManager_handleAirPlayVolumeControlDidChange();
+      v6 = CMNotificationCenterAddListener();
+      routingManager_handleAirPlayVolumeControlDidChange(v6, v7, v8, v1);
     }
 
-    FigRoutingManagerGetSharedManager();
+    FigRoutingManagerGetSharedManager(IsEndpointOfType, v5);
     CMNotificationCenterGetDefaultLocalCenter();
-    v10 = *MEMORY[0x1E69619B0];
     CMNotificationCenterAddListener();
     goto LABEL_10;
   }
 
-  v4 = *MEMORY[0x1E69626B0];
-  IsEndpointOfType = FigRoutingManagerIsEndpointOfType(v1);
-  v6 = *MEMORY[0x1E69626A8];
-  if (IsEndpointOfType)
-  {
-    goto LABEL_7;
-  }
-
-  v7 = *MEMORY[0x1E69626A8];
-  if (FigRoutingManagerIsEndpointOfType(v1))
-  {
-    goto LABEL_7;
-  }
-
-  v8 = *MEMORY[0x1E69626C0];
-  if (FigRoutingManagerIsEndpointOfType(v1))
+  v3 = FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626B0]);
+  v2 = *MEMORY[0x1E69626A8];
+  if (v3 || FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626A8]) || FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626C0]))
   {
     goto LABEL_7;
   }
 
 LABEL_10:
-  result = FigRoutingManagerIsEndpointOfType(v1);
+  result = FigRoutingManagerIsEndpointOfType(v1, v2);
   if (!result)
   {
-    v11 = *MEMORY[0x1E69626B0];
-    result = FigRoutingManagerIsEndpointOfType(v1);
+    result = FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626B0]);
     if (!result)
     {
-      FigRoutingManagerGetSharedManager();
+      FigRoutingManagerGetSharedManager(result, v9);
       CMNotificationCenterGetDefaultLocalCenter();
-      v12 = *MEMORY[0x1E6961960];
-      CMNotificationCenterAddListener();
-      FigRoutingManagerGetSharedManager();
+      v10 = CMNotificationCenterAddListener();
+      FigRoutingManagerGetSharedManager(v10, v11);
       CMNotificationCenterGetDefaultLocalCenter();
-      v13 = *MEMORY[0x1E6961950];
-      CMNotificationCenterAddListener();
-      FigRoutingManagerGetSharedManager();
+      v12 = CMNotificationCenterAddListener();
+      FigRoutingManagerGetSharedManager(v12, v13);
       CMNotificationCenterGetDefaultLocalCenter();
-      v14 = *MEMORY[0x1E6961970];
 
       return CMNotificationCenterAddListener();
     }
@@ -7255,7 +7151,7 @@ LABEL_10:
   return result;
 }
 
-void FigRoutingManager_iOSHandleFigEndpointFeaturesActivation(void *a1, char a2, uint64_t a3, const void *a4, uint64_t a5)
+void FigRoutingManager_iOSHandleFigEndpointFeaturesActivation(const void *a1, char a2, uint64_t a3, const void *a4, uint64_t a5)
 {
   if (a1)
   {
@@ -7289,20 +7185,16 @@ LABEL_8:
     if ((a2 & 4) != 0)
     {
       FigRoutingManagerHandleEndpointPlaybackActivation(a1, a4, a5);
-      v12 = *MEMORY[0x1E69626C0];
-      if (FigRoutingManagerIsEndpointOfType(a1))
+      if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C0]))
       {
         CMBaseObject = FigEndpointGetCMBaseObject();
-        VTable = CMBaseObjectGetVTable();
-        v15 = *(*(VTable + 8) + 56);
-        if (v15)
+        v13 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+        if (v13)
         {
-          v16 = *(VTable + 8) + 56;
-          v15(CMBaseObject, *MEMORY[0x1E6962118], *MEMORY[0x1E695E4D0]);
+          v13(CMBaseObject, *MEMORY[0x1E6962118], *MEMORY[0x1E695E4D0]);
         }
 
         CMNotificationCenterGetDefaultLocalCenter();
-        v17 = *MEMORY[0x1E6961968];
         CMNotificationCenterPostNotification();
       }
     }
@@ -7316,30 +7208,26 @@ LABEL_8:
 
 uint64_t FigRoutingManager_iOSDeactivateEndpoint(const void *a1, uint64_t a2, int a3)
 {
-  v30[16] = *MEMORY[0x1E69E9840];
+  v26[16] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v8 = 4294954315;
-    goto LABEL_19;
+    return 4294954315;
   }
 
-  v6 = *MEMORY[0x1E69626B0];
-  if (FigRoutingManagerIsEndpointOfType(a1))
+  IsEndpointOfType = FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626B0]);
+  if (IsEndpointOfType)
   {
     if (dword_1EB75DF20)
     {
-      LODWORD(cf) = 0;
-      type[0] = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v8 = 0;
-    goto LABEL_19;
+    return 0;
   }
 
-  SharedManager = FigRoutingManagerGetSharedManager();
+  SharedManager = FigRoutingManagerGetSharedManager(IsEndpointOfType, v6);
   cf = 0;
   v10 = *MEMORY[0x1E695E480];
   CMBaseObject = FigEndpointGetCMBaseObject();
@@ -7352,7 +7240,7 @@ uint64_t FigRoutingManager_iOSDeactivateEndpoint(const void *a1, uint64_t a2, in
   if (dword_1EB75DF20)
   {
     *type = 0;
-    v27 = OS_LOG_TYPE_DEFAULT;
+    v23 = OS_LOG_TYPE_DEFAULT;
     v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -7364,13 +7252,13 @@ uint64_t FigRoutingManager_iOSDeactivateEndpoint(const void *a1, uint64_t a2, in
     cf = 0;
   }
 
-  v30[0] = 0;
+  v26[0] = 0;
   v14 = FigEndpointGetCMBaseObject();
   v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v15)
   {
-    v15(v14, *MEMORY[0x1E6962100], v10, v30);
-    v16 = v30[0];
+    v15(v14, *MEMORY[0x1E6962100], v10, v26);
+    v16 = v26[0];
   }
 
   else
@@ -7383,61 +7271,54 @@ uint64_t FigRoutingManager_iOSDeactivateEndpoint(const void *a1, uint64_t a2, in
     v8 = 0;
     if (!v16)
     {
-      goto LABEL_19;
+      return v8;
     }
 
 LABEL_18:
     CFRelease(v16);
-    goto LABEL_19;
+    return v8;
   }
 
   CFRetain(a1);
-  v19 = *(SharedManager + 1);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __FigRoutingManager_iOSDeactivateEndpoint_block_invoke;
-  v26[3] = &__block_descriptor_40_e5_v8__0l;
-  v26[4] = a1;
-  MXDispatchAsync("FigRoutingManager_iOSDeactivateEndpoint", "FigRoutingManager_iOSEndpointHelpers.m", 1127, 0, 0, v19, v26);
-  v29 = 0;
-  FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(a1, a2, &v29);
-  FigEndpointFeatures = FigRoutingManagerGetFigEndpointFeatures(a1, v29);
+  v18 = *(SharedManager + 1);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __FigRoutingManager_iOSDeactivateEndpoint_block_invoke;
+  v22[3] = &__block_descriptor_40_e5_v8__0l;
+  v22[4] = a1;
+  MXDispatchAsync("FigRoutingManager_iOSDeactivateEndpoint", "FigRoutingManager_iOSEndpointHelpers.m", 1127, 0, 0, v18, v22);
+  *v25 = 0;
+  FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(a1, a2, v25);
+  FigEndpointFeatures = FigRoutingManagerGetFigEndpointFeatures(a1, *v25);
   Mutable = CFDictionaryCreateMutable(v10, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v22 = *MEMORY[0x1E69617E8];
-  v23 = *MEMORY[0x1E69617F8];
-  if (a3)
-  {
-    v24 = *MEMORY[0x1E69617F8];
-  }
-
   FigCFDictionarySetValue();
   FigRoutingManagerUnregisterFromFigEndpointNotifications(a1);
   *type = 0;
-  FigRoutingManagerCreateEndpointDeactivateCompletionContext(v29, type);
+  FigRoutingManagerCreateEndpointDeactivateCompletionContext(*v25, type);
   v8 = FigRoutingManagerEndpointDeactivateWithCompletionCallback(a1, FigEndpointFeatures, Mutable, FigRoutingManager_iOSEndpointDeactivateCompletionCallback, *type);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  if (v29)
+  if (*v25)
   {
-    CFRelease(v29);
+    CFRelease(*v25);
   }
 
-  v16 = v30[0];
-  if (v30[0])
+  v16 = v26[0];
+  if (v26[0])
   {
     goto LABEL_18;
   }
 
-LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-uint64_t FigRoutingManager_iOSHandleEndpointActivationError(uint64_t a1, char a2, int a3, uint64_t a4, uint64_t a5)
+uint64_t FigRoutingManager_iOSHandleEndpointActivationError(CFTypeRef a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v10 = a2;
+  v11 = a1;
   cf[21] = *MEMORY[0x1E69E9840];
   if (dword_1EB75DF20)
   {
@@ -7445,7 +7326,7 @@ uint64_t FigRoutingManager_iOSHandleEndpointActivationError(uint64_t a1, char a2
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    a1 = fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   if (a3 > -15583)
@@ -7460,7 +7341,7 @@ uint64_t FigRoutingManager_iOSHandleEndpointActivationError(uint64_t a1, char a2
       if (a3 != 200453)
       {
 LABEL_15:
-        FigRoutingManager_HandleEndpointFailed(a1, a3, a4, 0);
+        FigRoutingManager_HandleEndpointFailed(v11, a3, a4, 0, a6);
         goto LABEL_16;
       }
     }
@@ -7468,40 +7349,40 @@ LABEL_15:
 
   else
   {
-    v11 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedUserCancelled;
+    v13 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedUserCancelled;
     if (a3 > -17602)
     {
       if (a3 == -17601)
       {
 LABEL_16:
-        v11 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedFailed;
+        v13 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedFailed;
         goto LABEL_30;
       }
 
       if (a3 == -17600)
       {
-        v11 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedUnauthorizedNoPrompt;
+        v13 = &kFigRoutingContextNotificationPayloadValue_ConfigUpdateReasonEndedUnauthorizedNoPrompt;
         goto LABEL_30;
       }
 
-      v12 = -16728;
+      v14 = -16728;
       goto LABEL_14;
     }
 
     if (a3 != -17608)
     {
-      v12 = -17604;
+      v14 = -17604;
 LABEL_14:
-      if (a3 == v12)
+      if (a3 == v14)
       {
 LABEL_30:
-        FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a5, a1, *v11);
-        if (a2)
+        FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a5, v11, *v13);
+        if (v10)
         {
-          routingManager_resetScreenSettings(a1);
+          routingManager_resetScreenSettings(v11);
         }
 
-        FigRoutingManagerContextUtilities_SetPickingState(a5, 0);
+        a1 = FigRoutingManagerContextUtilities_SetPickingState(a5, 0);
         goto LABEL_45;
       }
 
@@ -7509,27 +7390,27 @@ LABEL_30:
     }
   }
 
-  FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a5, a1, @"configUpdateReasonEndedFailed");
+  FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a5, v11, @"configUpdateReasonEndedFailed");
   FigRoutingManagerContextUtilities_SetPickingState(a5, 0);
-  v13 = *MEMORY[0x1E695E480];
+  v15 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   cf[0] = 0;
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v16 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v16)
-  {
-    v16(CMBaseObject, *MEMORY[0x1E69620F8], v13, cf);
-  }
-
-  *type = 0;
-  v17 = FigEndpointGetCMBaseObject();
   v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v18)
   {
-    v18(v17, *MEMORY[0x1E69621E8], v13, type);
+    v18(CMBaseObject, *MEMORY[0x1E69620F8], v15, cf);
   }
 
-  v19 = FigEndpointDescriptorUtility_CopyDescriptorForEndpoint(a1, 0);
+  *type = 0;
+  v19 = FigEndpointGetCMBaseObject();
+  v20 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v20)
+  {
+    v20(v19, *MEMORY[0x1E69621E8], v15, type);
+  }
+
+  v21 = FigEndpointDescriptorUtility_CopyDescriptorForEndpoint(v11, 0);
   FigCFDictionarySetValue();
   FigCFDictionarySetValue();
   FigCFDictionarySetValue();
@@ -7555,8 +7436,8 @@ LABEL_30:
     if (dword_1EB75DF20)
     {
 LABEL_36:
-      v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
@@ -7589,15 +7470,16 @@ LABEL_37:
     *type = 0;
   }
 
+  a1 = cf[0];
   if (cf[0])
   {
     CFRelease(cf[0]);
     cf[0] = 0;
   }
 
-  if (v19)
+  if (v21)
   {
-    CFRelease(v19);
+    CFRelease(v21);
   }
 
   if (Mutable)
@@ -7606,13 +7488,12 @@ LABEL_37:
   }
 
 LABEL_45:
-  if (FigRoutingManagerUtilities_IsCurrentRouteHandoff())
+  if (FigRoutingManagerUtilities_IsCurrentRouteHandoff(a1, a2))
   {
     CMSMAP_MakeAirPlayHandOffPortRoutable(0, a5);
   }
 
-  FigRoutingManagerRemoveCachedDelegateContext(a1);
-  v21 = *MEMORY[0x1E69E9840];
+  FigRoutingManagerRemoveCachedDelegateContext(v11, a5);
   return 0;
 }
 
@@ -7639,7 +7520,6 @@ uint64_t FigRoutingManager_iOSHandleStartupFailed(uint64_t result, CFMutableDict
 
 LABEL_19:
     CFDictionarySetValue(theDict, @"reason", @"startError");
-    v4 = *MEMORY[0x1E695E480];
     SInt32 = FigCFNumberCreateSInt32();
     FigCFDictionarySetValue();
     if (SInt32)
@@ -7675,47 +7555,45 @@ LABEL_16:
   return FigEndpointUIAgentHelper_ShowError(theDict);
 }
 
-void FigRoutingManagerHandleEndpointAudioActivation(void *a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5)
+void FigRoutingManagerHandleEndpointAudioActivation(const void *a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5)
 {
   cf[16] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_37;
+    return;
   }
 
-  v29 = 0;
+  v25 = 0;
   v9 = *MEMORY[0x1E695E480];
   CMBaseObject = FigEndpointGetCMBaseObject();
   v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v11)
   {
-    v11(CMBaseObject, *MEMORY[0x1E69622F8], v9, &v29);
+    v11(CMBaseObject, *MEMORY[0x1E69622F8], v9, &v25);
   }
 
-  v28 = 0;
+  v24 = 0;
   v12 = FigEndpointGetCMBaseObject();
   v13 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v13)
   {
-    v13(v12, *MEMORY[0x1E69621E8], v9, &v28);
+    v13(v12, *MEMORY[0x1E69621E8], v9, &v24);
   }
 
   if (dword_1EB75DF20)
   {
-    LODWORD(v27) = 0;
+    LODWORD(v23) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v15 = *MEMORY[0x1E69626A8];
   if (!FigCFEqual())
   {
-    v22 = *MEMORY[0x1E69626C0];
     if (FigCFEqual())
     {
       cf[0] = 0;
-      if (FigRoutingManagerFindCarPlayMainAudioPortForEndpoint(a1))
+      if (FigRoutingManagerFindCarPlayMainAudioPortForEndpoint(a1, cf))
       {
         FigRoutingManagerContextUtilities_SetPickingState(a4, 9);
         FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a4, a1, @"configUpdateReasonEndedSuccess");
@@ -7742,22 +7620,20 @@ void FigRoutingManagerHandleEndpointAudioActivation(void *a1, uint64_t a2, uint6
   if (ContextType <= 6 && ((1 << ContextType) & 0x46) != 0)
   {
     FigRoutingManagerStartDeactivateAirPlayEndpointTimer(a1, a3, 5.0);
-    v17 = *MEMORY[0x1E69625E8];
-    AirPlayPortForEndpoint = CMSMAP_FindAirPlayPortForEndpoint(a1);
+    AirPlayPortForEndpoint = CMSMAP_FindAirPlayPortForEndpoint(a1, *MEMORY[0x1E69625E8]);
     if (AirPlayPortForEndpoint)
     {
-      v19 = AirPlayPortForEndpoint;
-      FigRoutingManagerStopDeactivateAirPlayEndpointTimer();
+      v18 = AirPlayPortForEndpoint;
+      FigRoutingManagerStopDeactivateAirPlayEndpointTimer(AirPlayPortForEndpoint, v17);
       FigRoutingManagerContextUtilities_SetPickingState(a4, 9);
       FigCFDictionaryGetValue();
-      v20 = *MEMORY[0x1E695E4D0];
       if (FigCFEqual())
       {
         if (dword_1EB75DF20)
         {
-          LODWORD(v27) = 0;
-          v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+          LODWORD(v23) = 0;
+          v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
@@ -7767,28 +7643,28 @@ void FigRoutingManagerHandleEndpointAudioActivation(void *a1, uint64_t a2, uint6
         goto LABEL_32;
       }
 
-      if (CMSMVAUtility_MakePortRoutable(v19, a4))
+      if (CMSMVAUtility_MakePortRoutable(v18, a4))
       {
-        v27 = 0;
-        FigRoutingManagerContextUtilities_CopyPickedEndpoints(a4, &v27);
-        v23 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v27, 0);
-        FigRoutingManagerContextUtilities_SetPickedEndpoints(a4, v27, @"configUpdateReasonEndedFailed", a5, v23);
+        v23 = 0;
+        FigRoutingManagerContextUtilities_CopyPickedEndpoints(a4, &v23);
+        v20 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v23, 0);
+        FigRoutingManagerContextUtilities_SetPickedEndpoints(a4, v23, @"configUpdateReasonEndedFailed", a5, v20);
         if (dword_1EB75DF20)
         {
-          v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+          v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
         FigRoutingManager_iOSDeactivateEndpoint(a1, a3, 0);
         FigRoutingManagerContextUtilities_SetPickingState(a4, 0);
-        if (v23)
+        if (v20)
         {
-          CFRelease(v23);
+          CFRelease(v20);
         }
 
-        v25 = v27;
-        if (!v27)
+        v22 = v23;
+        if (!v23)
         {
           goto LABEL_32;
         }
@@ -7802,17 +7678,17 @@ void FigRoutingManagerHandleEndpointAudioActivation(void *a1, uint64_t a2, uint6
         FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(cf[0], a1, @"configUpdateReasonEndedSuccess", a5);
         FigRoutingManagerPostProcessPickEndpoint(a1, a4);
         FigRoutingManagerContextUtilities_SetPickingState(a4, 0);
-        v25 = cf[0];
+        v22 = cf[0];
         if (!cf[0])
         {
           goto LABEL_32;
         }
       }
 
-      CFRelease(v25);
+      CFRelease(v22);
 LABEL_32:
       MXSystemMirroring_IsMirroringScreenAudioSeperateFunctionalityAllowed();
-      FigRoutingManagerCrossfadePlayback();
+      FigRoutingManagerCrossfadePlayback(a1, a5, 0, 0);
       goto LABEL_33;
     }
 
@@ -7820,44 +7696,40 @@ LABEL_32:
   }
 
 LABEL_33:
-  if (v28)
+  if (v24)
   {
-    CFRelease(v28);
-    v28 = 0;
+    CFRelease(v24);
+    v24 = 0;
   }
 
-  if (v29)
+  if (v25)
   {
-    CFRelease(v29);
+    CFRelease(v25);
   }
-
-LABEL_37:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void FigRoutingManagerHandleEndpointScreenActivation(const void *a1, const void *a2, uint64_t a3)
 {
-  v28[16] = *MEMORY[0x1E69E9840];
-  v6 = *MEMORY[0x1E6962178];
+  v23[16] = *MEMORY[0x1E69E9840];
   IsPropertyTrue = FigEndpointUtility_EndpointPredicate_IsPropertyTrue();
-  v26 = 0;
-  v27 = 0;
-  v8 = *MEMORY[0x1E695E480];
+  v21 = 0;
+  v22 = 0;
+  v7 = *MEMORY[0x1E695E480];
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v10)
+  v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v9)
   {
-    v10(CMBaseObject, *MEMORY[0x1E69622F8], v8, &v27);
+    v9(CMBaseObject, *MEMORY[0x1E69622F8], v7, &v22);
   }
 
-  v11 = FigEndpointGetCMBaseObject();
-  v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v12)
+  v10 = FigEndpointGetCMBaseObject();
+  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v11)
   {
-    v12(v11, *MEMORY[0x1E69622F0], v8, &v26);
+    v11(v10, *MEMORY[0x1E69622F0], v7, &v21);
   }
 
-  CMScreenHandleActivation(v27, v26);
+  CMScreenHandleActivation(v22, v21);
   if (dword_1EB75DF20)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -7865,91 +7737,85 @@ void FigRoutingManagerHandleEndpointScreenActivation(const void *a1, const void 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v14 = *MEMORY[0x1E69626C0];
-  if (FigRoutingManagerIsEndpointOfType(a1) | IsPropertyTrue)
+  v13 = *MEMORY[0x1E69626C0];
+  if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C0]) | IsPropertyTrue)
   {
-    if (FigRoutingManagerIsEndpointOfType(a1))
+    if (FigRoutingManagerIsEndpointOfType(a1, v13))
     {
-      v15 = CMSMUtility_DoesiOSHaveCarPlayScreen();
-      v16 = CMSMUtility_CopyStarkEndpointCentral();
-      InitialModesReceived = FigEndpointCentralGetInitialModesReceived();
-      if (v15)
+      v14 = CMSMUtility_DoesiOSHaveCarPlayScreen();
+      v15 = CMSMUtility_CopyStarkEndpointCentral();
+      InitialModesReceived = FigEndpointCentralGetInitialModesReceived(v15);
+      if (v14)
       {
         if (InitialModesReceived)
         {
           CMScreenGetScreenState();
           if (!FigCFEqual())
           {
-            v25 = *MEMORY[0x1E69625F8];
             FigEndpointCopyFirstStreamOfType();
           }
         }
       }
 
-      if (v16)
+      if (v15)
       {
-        CFRelease(v16);
+        CFRelease(v15);
       }
     }
   }
 
   else
   {
-    v18 = *MEMORY[0x1E69625F8];
     FigEndpointCopyFirstStreamOfType();
   }
 
-  v19 = *MEMORY[0x1E69626C8];
-  if (FigRoutingManagerIsEndpointOfType(a1))
+  if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C8]))
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v20 = *MEMORY[0x1E6961968];
     CMNotificationCenterPostNotification();
-    v28[0] = 0;
-    v21 = FigEndpointGetCMBaseObject();
-    v22 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v22)
+    v23[0] = 0;
+    v17 = FigEndpointGetCMBaseObject();
+    v19 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v19)
     {
-      v22(v21, *MEMORY[0x1E69620B8], v8, v28);
-      v23 = v28[0];
+      v19(v17, *MEMORY[0x1E69620B8], v7, v23);
+      v20 = v23[0];
     }
 
     else
     {
-      v23 = 0;
+      v20 = 0;
     }
 
-    if (v23 == *MEMORY[0x1E695E4D0])
+    if (v20 == *MEMORY[0x1E695E4D0])
     {
       CMScreenSetMirroringMode(1);
-      v23 = v28[0];
+      v20 = v23[0];
     }
 
-    if (v23)
+    if (v20)
     {
-      CFRelease(v23);
-      v28[0] = 0;
+      CFRelease(v20);
+      v23[0] = 0;
     }
 
-    CMSMNotificationUtility_PostActiveNeroVisualStreamDidChange();
+    CMSMNotificationUtility_PostActiveNeroVisualStreamDidChange(v20, v18);
     CMSMNotificationUtility_PostActiveNeroVisualStreamInfoDidChange();
     FigRoutingManagerContextUtilities_SetPickedEndpointAsAnArray(a2, a1, @"configUpdateReasonEndedSuccess", a3);
     FigRoutingManagerPostProcessPickEndpoint(a1, a2);
     FigRoutingManagerContextUtilities_SetPickingState(a2, 0);
   }
 
-  if (v27)
+  if (v22)
   {
-    CFRelease(v27);
-    v27 = 0;
+    CFRelease(v22);
+    v22 = 0;
   }
 
-  if (v26)
+  if (v21)
   {
-    CFRelease(v26);
+    CFRelease(v21);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void FigRoutingManagerHandleEndpointPlaybackActivation(const void *a1, const void *a2, uint64_t a3)
@@ -7973,8 +7839,7 @@ void FigRoutingManagerHandleEndpointPlaybackActivation(const void *a1, const voi
     FigRoutingManagerContextUtilities_SetPickingState(a2, v6);
   }
 
-  v7 = *MEMORY[0x1E69626C0];
-  if (FigRoutingManagerIsEndpointOfType(a1))
+  if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C0]))
   {
 
     FigRoutingManagerContextUtilities_PostNotificationToClientsOfContextWithUUIDAndItsFollowers(a2, @"currentRouteChanged", 0);
@@ -7991,9 +7856,9 @@ uint64_t FigRoutingManagerHandleEndpointControlActivation(const void *a1, const 
 
 uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, const __CFDictionary *a3, const void *a4)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v8 = FigRoutingManagerContextUtilities_SetPickingState(a2, 4);
-  EndpointActivateOptions = FigRoutingManagerCreateEndpointActivateOptions(a1, a2, a3);
+  EndpointActivateOptions = FigRoutingManagerCreateEndpointActivateOptions(a1, a2, a3, a4);
   FigEndpointFeatures = FigRoutingManagerGetFigEndpointFeatures(a1, a2);
   cf = 0;
   if (a1)
@@ -8006,10 +7871,10 @@ uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, c
     }
   }
 
-  FigEndpointDescriptorUtilitySetUserManualRoute(a1);
+  FigEndpointDescriptorUtilitySetUserManualRoute(a1, a3);
   if (dword_1EB75DF20)
   {
-    LODWORD(v52) = 0;
+    LODWORD(v42) = 0;
     type[0] = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -8017,9 +7882,9 @@ uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, c
   }
 
   v13 = *MEMORY[0x1E69626A8];
-  if (FigRoutingManagerIsEndpointOfType(a1) || (v14 = *MEMORY[0x1E69626B0], FigRoutingManagerIsEndpointOfType(a1)))
+  if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626A8]) || FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626B0]))
   {
-    EndpointDelegateContext = FigRoutingManagerCreateEndpointDelegateContext();
+    EndpointDelegateContext = FigRoutingManagerCreateEndpointDelegateContext(a2, a3, a4);
     v16 = malloc_type_malloc(0x18uLL, 0x60040149E097CuLL);
     if (a1)
     {
@@ -8034,8 +7899,7 @@ uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, c
     v16[1] = v17;
     v16[2] = EndpointDelegateContext;
     *v16 = 0;
-    SharedManager = FigRoutingManagerGetSharedManager();
-    v19 = SharedManager[7];
+    SharedManager = FigRoutingManagerGetSharedManager(v17, v15);
     FigSimpleMutexLock();
     if (SharedManager[8])
     {
@@ -8048,31 +7912,29 @@ uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, c
     }
 
     SharedManager[9] = v16;
-    v20 = SharedManager[7];
     FigSimpleMutexUnlock();
-    v21 = *MEMORY[0x1E6962600];
-    if (FigRoutingManagerIsEndpointOfSubtype(a1))
+    if (FigRoutingManagerIsEndpointOfSubtype(a1, *MEMORY[0x1E6962600]))
     {
-      v55 = EndpointDelegateContext;
-      v56 = 0;
-      v57 = FigRoutingManager_HandleDidReceiveDataFromCommChannelDelegate;
-      v58 = FigRoutingManager_HandleDidCloseCommChannelDelegate;
-      v22 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-      if (v22)
+      v45 = EndpointDelegateContext;
+      v46 = 0;
+      v47 = FigRoutingManager_HandleDidReceiveDataFromCommChannelDelegate;
+      v48 = FigRoutingManager_HandleDidCloseCommChannelDelegate;
+      v19 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+      if (v19)
       {
-        v22(a1, &v55);
+        v19(a1, &v45);
       }
     }
 
-    v58 = 0;
-    v59 = 0;
-    v55 = EndpointDelegateContext;
-    v56 = FigRoutingManager_HandleAuthorizationRequiredDelegate;
-    v57 = FigRoutingManager_iOSHandleEndpointFailedDelegate;
-    v23 = *(*(CMBaseObjectGetVTable() + 16) + 48);
-    if (v23)
+    v48 = 0;
+    v49 = 0;
+    v45 = EndpointDelegateContext;
+    v46 = FigRoutingManager_HandleAuthorizationRequiredDelegate;
+    v47 = FigRoutingManager_iOSHandleEndpointFailedDelegate;
+    v20 = *(*(CMBaseObjectGetVTable() + 16) + 48);
+    if (v20)
     {
-      v23(a1, &v55);
+      v20(a1, &v45);
     }
   }
 
@@ -8091,155 +7953,148 @@ uint64_t FigRoutingManager_iOSActivateEndpoint(const void *a1, const void *a2, c
   }
 
   ContextType = FigRoutingManagerContextUtilities_GetContextType(a2);
-  v53 = 0;
-  FigRoutingManagerContextUtilities_GetPickingState(a2, &v53);
-  if (!FigRoutingManagerIsEndpointOfType(a1))
+  v43 = 0;
+  FigRoutingManagerContextUtilities_GetPickingState(a2, &v43);
+  if (!FigRoutingManagerIsEndpointOfType(a1, v13) && !FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626B0]))
   {
-    v26 = *MEMORY[0x1E69626B0];
-    if (!FigRoutingManagerIsEndpointOfType(a1))
+    if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C0]) || FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C8]))
     {
-      v32 = *MEMORY[0x1E69626C0];
-      if (FigRoutingManagerIsEndpointOfType(a1) || (v33 = *MEMORY[0x1E69626C8], FigRoutingManagerIsEndpointOfType(a1)))
+      FigRoutingManagerContextUtilities_SetPickingState(a2, 5);
+      v45 = 0;
+      FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v45);
+      v8 = FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, EndpointActivateOptions, FigRoutingManager_iOSEndpointActivateCompletionCallback, v45);
+      goto LABEL_31;
+    }
+
+    if (!FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626D8]))
+    {
+      v8 = 0;
+      if (FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626B8]) && ContextType != 13)
       {
-        FigRoutingManagerContextUtilities_SetPickingState(a2, 5);
-        v55 = 0;
-        FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v55);
-        v8 = FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, EndpointActivateOptions, FigRoutingManager_iOSEndpointActivateCompletionCallback, v55);
-        goto LABEL_31;
+        v45 = 0;
+        FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v45);
+        FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, EndpointActivateOptions, FigRoutingManager_iOSEndpointActivateCompletionCallback, v45);
+        v8 = 0;
       }
 
-      v34 = *MEMORY[0x1E69626D8];
-      if (!FigRoutingManagerIsEndpointOfType(a1))
+      goto LABEL_31;
+    }
+
+    FigRoutingManagerContextUtilities_SetPickingState(a2, 6);
+    v8 = FigEndpointActivate();
+    v42 = 0;
+    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a2, 0, &v42);
+    if (v8)
+    {
+      FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a2, a1, @"configUpdateReasonEndedFailed");
+      FigRoutingManagerContextUtilities_SetPickingState(a2, 0);
+      goto LABEL_73;
+    }
+
+    if (FigRoutingManagerIsEndpointOfType(v42, v13))
+    {
+      FigRoutingManagerDeactivateEndpointFromPickedContexts(v42, a2, 1, @"configUpdateReasonEndedSuccess");
+    }
+
+    if (ContextType == 13)
+    {
+      CurrentInputPortAtIndex = CMSMUtility_GetCurrentInputPortAtIndex(0);
+      v27 = vaeCopyDeviceIdentifierFromVADPort(CurrentInputPortAtIndex);
+      if (v27)
       {
-        v35 = *MEMORY[0x1E69626B8];
-        v8 = 0;
-        if (FigRoutingManagerIsEndpointOfType(a1) && ContextType != 13)
+        v40 = v27;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObject:v27];
+LABEL_52:
+        v38 = v27;
+        v28 = FigRoutingManagerCopyEndpointsFromRouteIdentifiers(v27, a2);
+        v29 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v28, 0);
+        FigRoutingManagerContextUtilities_SetPickedEndpoints(a2, v28, @"configUpdateReasonEndedSuccess", a3, v29);
+        FigRoutingManagerPostProcessPickEndpoint(a1, a2);
+        if (ContextType == 13)
         {
-          v55 = 0;
-          FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v55);
-          FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, EndpointActivateOptions, FigRoutingManager_iOSEndpointActivateCompletionCallback, v55);
-          v8 = 0;
+          CurrentOutputPortAtIndex = CMSMUtility_GetCurrentInputPortAtIndex(0);
         }
 
-        goto LABEL_31;
-      }
-
-      FigRoutingManagerContextUtilities_SetPickingState(a2, 6);
-      v8 = FigEndpointActivate();
-      v52 = 0;
-      FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a2, 0, &v52);
-      if (v8)
-      {
-        FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a2, a1, @"configUpdateReasonEndedFailed");
-        FigRoutingManagerContextUtilities_SetPickingState(a2, 0);
-        goto LABEL_73;
-      }
-
-      if (FigRoutingManagerIsEndpointOfType(v52))
-      {
-        FigRoutingManagerDeactivateEndpointFromPickedContexts(v52, a2, 1u, @"configUpdateReasonEndedSuccess");
-      }
-
-      if (ContextType == 13)
-      {
-        CurrentInputPortAtIndex = CMSMUtility_GetCurrentInputPortAtIndex(0);
-        v37 = vaeCopyDeviceIdentifierFromVADPort(CurrentInputPortAtIndex);
-        if (v37)
+        else
         {
-          v50 = v37;
-          v37 = [MEMORY[0x1E695DEC8] arrayWithObject:v37];
-LABEL_52:
-          v48 = v37;
-          v38 = FigRoutingManagerCopyEndpointsFromRouteIdentifiers(v37, a2);
-          v39 = FigEndpointDescriptorUtility_CopyDescriptorsForEndpoints(v38, 0);
-          FigRoutingManagerContextUtilities_SetPickedEndpoints(a2, v38, @"configUpdateReasonEndedSuccess", a3, v39);
-          FigRoutingManagerPostProcessPickEndpoint(a1, a2);
-          if (ContextType == 13)
+          CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
+        }
+
+        v31 = CurrentOutputPortAtIndex;
+        v32 = vaeCopySpecificNameForPort(CurrentOutputPortAtIndex);
+        v33 = vaeCopyDeviceIdentifierFromVADPort(v31);
+        *type = 0;
+        v34 = *MEMORY[0x1E69620F8];
+        v35 = *MEMORY[0x1E695E480];
+        v36 = FigEndpointGetCMBaseObject();
+        CMBaseObjectCopyProperty(v36, v34, v35, type);
+        if (!FigCFEqual())
+        {
+          if (dword_1EB75DF20)
           {
-            CurrentOutputPortAtIndex = CMSMUtility_GetCurrentInputPortAtIndex(0);
+            v37 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+            fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          else
-          {
-            CurrentOutputPortAtIndex = CMSMUtility_GetCurrentOutputPortAtIndex(0);
-          }
+          FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a2, a1, @"configUpdateReasonEndedFailed");
+        }
 
-          v41 = CurrentOutputPortAtIndex;
-          v42 = vaeCopySpecificNameForPort(CurrentOutputPortAtIndex);
-          v43 = vaeCopyDeviceIdentifierFromVADPort(v41);
+        FigRoutingManagerContextUtilities_SetPickingState(a2, 0);
+        if (*type)
+        {
+          CFRelease(*type);
           *type = 0;
-          v44 = *MEMORY[0x1E69620F8];
-          v45 = *MEMORY[0x1E695E480];
-          v46 = FigEndpointGetCMBaseObject();
-          CMBaseObjectCopyProperty(v46, v44, v45, type);
-          if (!FigCFEqual())
-          {
-            if (dword_1EB75DF20)
-            {
-              v47 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-            }
+        }
 
-            FigRoutingManagerContextUtilities_ResetCurrentlyActivatingEndpointInfo(a2, a1, @"configUpdateReasonEndedFailed");
-          }
+        if (v33)
+        {
+          CFRelease(v33);
+        }
 
-          FigRoutingManagerContextUtilities_SetPickingState(a2, 0);
-          if (*type)
-          {
-            CFRelease(*type);
-            *type = 0;
-          }
+        if (v32)
+        {
+          CFRelease(v32);
+        }
 
-          if (v43)
-          {
-            CFRelease(v43);
-          }
+        if (v29)
+        {
+          CFRelease(v29);
+        }
 
-          if (v42)
-          {
-            CFRelease(v42);
-          }
+        if (v28)
+        {
+          CFRelease(v28);
+        }
 
-          if (v39)
-          {
-            CFRelease(v39);
-          }
+        if (v38)
+        {
+          CFRelease(v38);
+        }
 
-          if (v38)
-          {
-            CFRelease(v38);
-          }
-
-          if (v48)
-          {
-            CFRelease(v48);
-          }
-
-          if (v50)
-          {
-            CFRelease(v50);
-          }
+        if (v40)
+        {
+          CFRelease(v40);
+        }
 
 LABEL_73:
-          v29 = v52;
-          if (v52)
-          {
-            goto LABEL_30;
-          }
-
-          goto LABEL_31;
+        v24 = v42;
+        if (v42)
+        {
+          goto LABEL_30;
         }
-      }
 
-      else
-      {
-        v37 = CMSMUtility_CopyCurrentRouteIdentifiers();
+        goto LABEL_31;
       }
-
-      v50 = 0;
-      goto LABEL_52;
     }
+
+    else
+    {
+      v27 = CMSMUtility_CopyCurrentRouteIdentifiers();
+    }
+
+    v40 = 0;
+    goto LABEL_52;
   }
 
   if (ContextType <= 6 && ((1 << ContextType) & 0x6E) != 0)
@@ -8247,17 +8102,16 @@ LABEL_73:
     FigRoutingManagerContextUtilities_SetPickingState(a2, 5);
   }
 
-  v55 = 0;
-  FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v55);
-  FigRoutingManagerCrossfadePlayback();
-  v27 = *MEMORY[0x1E695E480];
+  v45 = 0;
+  FigRoutingManagerCreateEndpointActivateCompletionContext(a2, a3, a4, EndpointActivateOptions, &v45);
+  FigRoutingManagerCrossfadePlayback(a1, a3, 1, 1);
   MutableCopy = FigCFDictionaryCreateMutableCopy();
-  v8 = FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, MutableCopy, FigRoutingManager_iOSEndpointActivateCompletionCallback, v55);
+  v8 = FigRoutingManagerEndpointActivateWithCompletionCallback(a1, FigEndpointFeatures, MutableCopy, FigRoutingManager_iOSEndpointActivateCompletionCallback, v45);
   if (MutableCopy)
   {
-    v29 = MutableCopy;
+    v24 = MutableCopy;
 LABEL_30:
-    CFRelease(v29);
+    CFRelease(v24);
   }
 
 LABEL_31:
@@ -8272,26 +8126,26 @@ LABEL_31:
     CFRelease(EndpointActivateOptions);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 void FigRoutingManager_iOSHandleEndpointFailedDelegate(const void *a1, uint64_t a2, const void *a3, const void *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a1 && a3)
   {
+    v7 = a1;
     if (dword_1EB75DF20)
     {
-      v14 = 0;
+      v13 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
+      a1 = fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    SharedManager = FigRoutingManagerGetSharedManager();
-    CFRetain(a1);
+    SharedManager = FigRoutingManagerGetSharedManager(a1, a2);
+    CFRetain(v7);
     CFRetain(a3);
     if (a4)
     {
@@ -8299,18 +8153,16 @@ void FigRoutingManager_iOSHandleEndpointFailedDelegate(const void *a1, uint64_t 
     }
 
     v10 = *(SharedManager + 1);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __FigRoutingManager_iOSHandleEndpointFailedDelegate_block_invoke;
-    v12[3] = &__block_descriptor_64_e5_v8__0l;
-    v12[4] = a4;
-    v12[5] = a3;
-    v12[6] = a1;
-    v12[7] = a2;
-    MXDispatchAsync("FigRoutingManager_iOSHandleEndpointFailedDelegate", "FigRoutingManager_iOSEndpointHelpers.m", 1533, 0, 0, v10, v12);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __FigRoutingManager_iOSHandleEndpointFailedDelegate_block_invoke;
+    v11[3] = &__block_descriptor_64_e5_v8__0l;
+    v11[4] = a4;
+    v11[5] = a3;
+    v11[6] = v7;
+    v11[7] = a2;
+    MXDispatchAsync("FigRoutingManager_iOSHandleEndpointFailedDelegate", "FigRoutingManager_iOSEndpointHelpers.m", 1533, 0, 0, v10, v11);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void FigRoutingManager_iOSEndpointDeactivateCompletionCallback(CFTypeRef cf, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
@@ -8330,88 +8182,85 @@ void FigRoutingManager_iOSEndpointDeactivateCompletionCallback(CFTypeRef cf, uin
     v10 = 0;
   }
 
-  [v10 timeIntervalSinceNow];
-  v12 = fabs(v11) * 1000.0;
-  SharedManager = FigRoutingManagerGetSharedManager();
-  v14 = objc_alloc_init(MEMORY[0x1E695DF00]);
-  v15 = *(SharedManager + 1);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __FigRoutingManager_iOSEndpointDeactivateCompletionCallback_block_invoke;
-  v16[3] = &unk_1E7AEA488;
-  v16[4] = v14;
-  v16[5] = cf;
-  v17 = a4;
-  v16[6] = a3;
-  v16[7] = a2;
-  v18 = v12;
-  v16[8] = a5;
-  v16[9] = a5;
-  MXDispatchAsync("FigRoutingManager_iOSEndpointDeactivateCompletionCallback", "FigRoutingManager_iOSEndpointHelpers.m", 1016, 0, 0, v15, v16);
+  v11 = [v10 timeIntervalSinceNow];
+  v13 = fabs(v12) * 1000.0;
+  SharedManager = FigRoutingManagerGetSharedManager(v11, v14);
+  v16 = objc_alloc_init(MEMORY[0x1E695DF00]);
+  v17 = *(SharedManager + 1);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __FigRoutingManager_iOSEndpointDeactivateCompletionCallback_block_invoke;
+  v18[3] = &unk_1E7AEA488;
+  v18[4] = v16;
+  v18[5] = cf;
+  v19 = a4;
+  v18[6] = a3;
+  v18[7] = a2;
+  v20 = v13;
+  v18[8] = a5;
+  v18[9] = a5;
+  MXDispatchAsync("FigRoutingManager_iOSEndpointDeactivateCompletionCallback", "FigRoutingManager_iOSEndpointHelpers.m", 1016, 0, 0, v17, v18);
 }
 
-void FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(const void *a1, char a2, uint64_t a3)
+double FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(const void *a1, char a2, uint64_t a3)
 {
   if (a2)
   {
     routingManager_resetScreenSettings(a1);
     cf = 0;
     CMBaseObject = FigEndpointGetCMBaseObject();
-    VTable = CMBaseObjectGetVTable();
-    v8 = *(*(VTable + 8) + 48);
-    if (v8)
+    v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v7)
     {
-      v9 = *(VTable + 8) + 48;
-      v8(CMBaseObject, *MEMORY[0x1E69622F8], *MEMORY[0x1E695E480], &cf);
+      v7(CMBaseObject, *MEMORY[0x1E69622F8], *MEMORY[0x1E695E480], &cf);
     }
 
     theArray = 0;
     FigRoutingManagerContextUtilities_CopyActivatedEndpointsInfo(a3, &theArray);
     if (!theArray)
     {
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
     Count = CFArrayGetCount(theArray);
     if (Count < 1)
     {
-      goto LABEL_13;
+      goto LABEL_12;
     }
 
-    v11 = Count;
-    v12 = 0;
+    v9 = Count;
+    v10 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v12);
+      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v10);
       if (CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_Endpoint") == a1)
       {
         break;
       }
 
-      if (v11 == ++v12)
+      if (v9 == ++v10)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
     }
 
     Value = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_EndpointTransportType");
     if (Value)
     {
-      v15 = CFRetain(Value);
+      v13 = CFRetain(Value);
     }
 
     else
     {
-LABEL_13:
-      v15 = 0;
+LABEL_12:
+      v13 = 0;
     }
 
-    CMScreenHandleDeactivation(cf, v15);
-    v16 = *MEMORY[0x1E69626C8];
+    CMScreenHandleDeactivation(cf, v13);
     if (FigCFEqual())
     {
       CMSMNotificationUtility_PostActiveNeroVisualStreamInfoDidChange();
-      CMSMNotificationUtility_PostActiveNeroVisualStreamDidChange();
+      CMSMNotificationUtility_PostActiveNeroVisualStreamDidChange(v15, v16);
     }
 
     if (theArray)
@@ -8420,9 +8269,9 @@ LABEL_13:
       theArray = 0;
     }
 
-    if (v15)
+    if (v13)
     {
-      CFRelease(v15);
+      CFRelease(v13);
     }
 
     if (cf)
@@ -8431,43 +8280,38 @@ LABEL_13:
     }
   }
 
-  if ((a2 & 4) != 0)
+  if ((a2 & 4) != 0 && FigRoutingManagerIsEndpointOfType(a1, *MEMORY[0x1E69626C0]))
   {
-    v17 = *MEMORY[0x1E69626C0];
-    if (FigRoutingManagerIsEndpointOfType(a1))
+    v17 = FigEndpointGetCMBaseObject();
+    v18 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v18)
     {
-      v18 = FigEndpointGetCMBaseObject();
-      v19 = CMBaseObjectGetVTable();
-      v20 = *(*(v19 + 8) + 56);
-      if (v20)
-      {
-        v21 = *(v19 + 8) + 56;
-        v20(v18, *MEMORY[0x1E6962118], *MEMORY[0x1E695E4C0]);
-      }
-
-      CMNotificationCenterGetDefaultLocalCenter();
-      v22 = *MEMORY[0x1E6961968];
-      CMNotificationCenterPostNotification();
+      v18(v17, *MEMORY[0x1E6962118], *MEMORY[0x1E695E4C0]);
     }
+
+    CMNotificationCenterGetDefaultLocalCenter();
+    CMNotificationCenterPostNotification();
   }
+
+  return result;
 }
 
-uint64_t FigRoutingManagerUnregisterFromFigEndpointNotifications(uint64_t result)
+const void *FigRoutingManagerUnregisterFromFigEndpointNotifications(const void *result)
 {
   if (result)
   {
     v1 = result;
     v2 = *MEMORY[0x1E69626B0];
-    if (FigRoutingManagerIsEndpointOfType(result))
+    if (FigRoutingManagerIsEndpointOfType(result, *MEMORY[0x1E69626B0]))
     {
       FigVolumeControllerRemoveAirPlayVolumeNotificationListeners(v1);
-      v11 = 0;
-      FigRoutingManagerContextUtilities_CopySystemMusicContextUUID(&v11);
+      v16 = 0;
+      FigRoutingManagerContextUtilities_CopySystemMusicContextUUID(&v16);
       cf = 0;
-      FigRoutingManagerContextUtilities_CopyAggregateEndpointAsFigEndpointAggregate(v11, &cf);
+      v3 = FigRoutingManagerContextUtilities_CopyAggregateEndpointAsFigEndpointAggregate(v16, &cf);
       if (cf)
       {
-        if (MX_FeatureFlags_IsBufferedBadgingAndCapabilitiesEnabled())
+        if (MX_FeatureFlags_IsBufferedBadgingAndCapabilitiesEnabled(v3, v4))
         {
           FigRoutingManagerUtilities_UnRegisterAirPlayStreamCapabilitiesDidChangeListener(cf, v1);
         }
@@ -8479,47 +8323,43 @@ uint64_t FigRoutingManagerUnregisterFromFigEndpointNotifications(uint64_t result
         }
       }
 
-      if (v11)
+      if (v16)
       {
-        CFRelease(v11);
+        CFRelease(v16);
       }
     }
 
-    v3 = *MEMORY[0x1E69626A8];
-    if (FigRoutingManagerIsEndpointOfType(v1))
+    v5 = *MEMORY[0x1E69626A8];
+    IsEndpointOfType = FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626A8]);
+    if (IsEndpointOfType)
     {
-      FigRoutingManagerGetSharedManager();
+      FigRoutingManagerGetSharedManager(IsEndpointOfType, v7);
       CMNotificationCenterGetDefaultLocalCenter();
-      v4 = *MEMORY[0x1E69619D0];
       CMNotificationCenterRemoveListener();
     }
 
-    v5 = *MEMORY[0x1E69626C8];
-    if (FigRoutingManagerIsEndpointOfType(v1) || FigRoutingManagerIsEndpointOfType(v1))
+    v8 = FigRoutingManagerIsEndpointOfType(v1, *MEMORY[0x1E69626C8]);
+    if (v8 || (v8 = FigRoutingManagerIsEndpointOfType(v1, v2), v8))
     {
-      FigRoutingManagerGetSharedManager();
+      FigRoutingManagerGetSharedManager(v8, v9);
       CMNotificationCenterGetDefaultLocalCenter();
-      v6 = *MEMORY[0x1E69619B0];
       CMNotificationCenterRemoveListener();
     }
 
-    result = FigRoutingManagerIsEndpointOfType(v1);
+    result = FigRoutingManagerIsEndpointOfType(v1, v5);
     if (!result)
     {
-      result = FigRoutingManagerIsEndpointOfType(v1);
+      result = FigRoutingManagerIsEndpointOfType(v1, v2);
       if (!result)
       {
-        FigRoutingManagerGetSharedManager();
+        FigRoutingManagerGetSharedManager(result, v10);
         CMNotificationCenterGetDefaultLocalCenter();
-        v7 = *MEMORY[0x1E6961960];
-        CMNotificationCenterRemoveListener();
-        FigRoutingManagerGetSharedManager();
+        v11 = CMNotificationCenterRemoveListener();
+        FigRoutingManagerGetSharedManager(v11, v12);
         CMNotificationCenterGetDefaultLocalCenter();
-        v8 = *MEMORY[0x1E6961950];
-        CMNotificationCenterRemoveListener();
-        FigRoutingManagerGetSharedManager();
+        v13 = CMNotificationCenterRemoveListener();
+        FigRoutingManagerGetSharedManager(v13, v14);
         CMNotificationCenterGetDefaultLocalCenter();
-        v9 = *MEMORY[0x1E6961970];
         return CMNotificationCenterRemoveListener();
       }
     }
@@ -8594,37 +8434,32 @@ void FigRoutingManagerResumeCurrentEndpointScreen(uint64_t a1)
 {
   if (a1)
   {
-    v14 = 0;
-    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a1, 0, &v14);
-    if (v14)
+    v9 = 0;
+    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a1, 0, &v9);
+    if (v9)
     {
-      v13 = 0;
+      v8 = 0;
       v1 = *MEMORY[0x1E695E480];
-      v2 = *MEMORY[0x1E69625F8];
       FigEndpointCopyFirstStreamOfType();
       cf = 0;
       CMBaseObject = FigEndpointGetCMBaseObject();
-      VTable = CMBaseObjectGetVTable();
-      v5 = *(*(VTable + 8) + 48);
+      v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v3)
+      {
+        v3(CMBaseObject, *MEMORY[0x1E69622F8], v1, &cf);
+      }
+
+      v6 = 0;
+      v4 = FigEndpointGetCMBaseObject();
+      v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v5)
       {
-        v6 = *(VTable + 8) + 48;
-        v5(CMBaseObject, *MEMORY[0x1E69622F8], v1, &cf);
+        v5(v4, *MEMORY[0x1E69622F0], v1, &v6);
       }
 
-      v11 = 0;
-      v7 = FigEndpointGetCMBaseObject();
-      v8 = CMBaseObjectGetVTable();
-      v9 = *(*(v8 + 8) + 48);
-      if (v9)
+      if (v8)
       {
-        v10 = *(v8 + 8) + 48;
-        v9(v7, *MEMORY[0x1E69622F0], v1, &v11);
-      }
-
-      if (v13)
-      {
-        CMScreenResumeStream(v13);
+        CMScreenResumeStream(v8);
       }
 
       if (cf)
@@ -8633,20 +8468,20 @@ void FigRoutingManagerResumeCurrentEndpointScreen(uint64_t a1)
         cf = 0;
       }
 
-      if (v11)
+      if (v6)
       {
-        CFRelease(v11);
-        v11 = 0;
+        CFRelease(v6);
+        v6 = 0;
       }
 
-      if (v13)
+      if (v8)
       {
-        CFRelease(v13);
+        CFRelease(v8);
       }
 
-      if (v14)
+      if (v9)
       {
-        CFRelease(v14);
+        CFRelease(v9);
       }
     }
   }
@@ -8656,37 +8491,32 @@ void FigRoutingManagerSuspendCurrentEndpointScreen(uint64_t a1)
 {
   if (a1)
   {
-    v14 = 0;
-    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a1, 0, &v14);
-    if (v14)
+    v9 = 0;
+    FigRoutingManagerContextUtilities_CopyPickedEndpointAtIndex(a1, 0, &v9);
+    if (v9)
     {
-      v13 = 0;
+      v8 = 0;
       v1 = *MEMORY[0x1E695E480];
-      v2 = *MEMORY[0x1E69625F8];
       FigEndpointCopyFirstStreamOfType();
       cf = 0;
       CMBaseObject = FigEndpointGetCMBaseObject();
-      VTable = CMBaseObjectGetVTable();
-      v5 = *(*(VTable + 8) + 48);
+      v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+      if (v3)
+      {
+        v3(CMBaseObject, *MEMORY[0x1E69622F8], v1, &cf);
+      }
+
+      v6 = 0;
+      v4 = FigEndpointGetCMBaseObject();
+      v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
       if (v5)
       {
-        v6 = *(VTable + 8) + 48;
-        v5(CMBaseObject, *MEMORY[0x1E69622F8], v1, &cf);
+        v5(v4, *MEMORY[0x1E69622F0], v1, &v6);
       }
 
-      v11 = 0;
-      v7 = FigEndpointGetCMBaseObject();
-      v8 = CMBaseObjectGetVTable();
-      v9 = *(*(v8 + 8) + 48);
-      if (v9)
+      if (v8)
       {
-        v10 = *(v8 + 8) + 48;
-        v9(v7, *MEMORY[0x1E69622F0], v1, &v11);
-      }
-
-      if (v13)
-      {
-        CMScreenSuspendStream(v13);
+        CMScreenSuspendStream(v8);
       }
 
       if (cf)
@@ -8695,33 +8525,31 @@ void FigRoutingManagerSuspendCurrentEndpointScreen(uint64_t a1)
         cf = 0;
       }
 
-      if (v11)
+      if (v6)
       {
-        CFRelease(v11);
-        v11 = 0;
+        CFRelease(v6);
+        v6 = 0;
       }
 
-      if (v13)
+      if (v8)
       {
-        CFRelease(v13);
+        CFRelease(v8);
       }
 
-      if (v14)
+      if (v9)
       {
-        CFRelease(v14);
+        CFRelease(v9);
       }
     }
   }
 }
 
-void routingManager_handleFigEndpointDeactivatedNotification(uint64_t a1, uint64_t a2, const void *a3, const void *a4)
+void routingManager_handleFigEndpointDeactivatedNotification(uint64_t a1, uint64_t a2, const void *a3, const void *a4, uint64_t a5)
 {
-  SharedManager = FigRoutingManagerGetSharedManager();
-  v14 = 0;
-  v7 = *MEMORY[0x1E6961918];
-  FigCFDictionaryGetInt64IfPresent();
+  SharedManager = FigRoutingManagerGetSharedManager(a1, a2);
   v13 = 0;
-  v8 = *MEMORY[0x1E6961908];
+  FigCFDictionaryGetInt64IfPresent();
+  v12 = 0;
   Int64IfPresent = FigCFDictionaryGetInt64IfPresent();
   if (a4)
   {
@@ -8733,17 +8561,17 @@ void routingManager_handleFigEndpointDeactivatedNotification(uint64_t a1, uint64
     CFRetain(a3);
   }
 
-  v10 = *(SharedManager + 1);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __routingManager_handleFigEndpointDeactivatedNotification_block_invoke;
-  v11[3] = &__block_descriptor_65_e5_v8__0l;
-  v12 = Int64IfPresent;
-  v11[4] = a4;
-  v11[5] = v14;
-  v11[6] = v13;
-  v11[7] = a3;
-  MXDispatchAsync("routingManager_handleFigEndpointDeactivatedNotification", "FigRoutingManager_iOSEndpointHelpers.m", 1748, 0, 0, v10, v11);
+  v9 = *(SharedManager + 1);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __routingManager_handleFigEndpointDeactivatedNotification_block_invoke;
+  v10[3] = &__block_descriptor_65_e5_v8__0l;
+  v11 = Int64IfPresent;
+  v10[4] = a4;
+  v10[5] = v13;
+  v10[6] = v12;
+  v10[7] = a3;
+  MXDispatchAsync("routingManager_handleFigEndpointDeactivatedNotification", "FigRoutingManager_iOSEndpointHelpers.m", 1748, 0, 0, v9, v10);
 }
 
 void __routingManager_handleFigEndpointDeactivatedNotification_block_invoke(uint64_t a1)
@@ -8768,15 +8596,15 @@ void __routingManager_handleFigEndpointDeactivatedNotification_block_invoke(uint
     }
   }
 
-  v22 = 0;
-  v23 = 0;
+  v19 = 0;
+  v20 = 0;
   if (*(a1 + 32))
   {
     v3 = FigEndpointGetCMBaseObject();
     v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v4)
     {
-      v4(v3, *MEMORY[0x1E69621E8], *v2, &v22);
+      v4(v3, *MEMORY[0x1E69621E8], *v2, &v19);
     }
   }
 
@@ -8787,28 +8615,26 @@ void __routingManager_handleFigEndpointDeactivatedNotification_block_invoke(uint
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = *MEMORY[0x1E69626C0];
-  if (FigRoutingManagerIsEndpointOfType(*(a1 + 32)))
+  if (FigRoutingManagerIsEndpointOfType(*(a1 + 32), *MEMORY[0x1E69626C0]))
   {
-    v9 = CMSMUtility_CopySystemAudioRoutingContextUUID();
-    v23 = v9;
-    FigRoutingManagerGetEndpointManager(*MEMORY[0x1E69618E0]);
-    v10 = *(a1 + 32);
-    FigRoutingManagerProcessCarPlayEndpointDeactivation(0);
+    v8 = CMSMUtility_CopySystemAudioRoutingContextUUID();
+    v20 = v8;
+    EndpointManager = FigRoutingManagerGetEndpointManager(*MEMORY[0x1E69618E0]);
+    FigRoutingManagerProcessCarPlayEndpointDeactivation(0, *(a1 + 32));
     cf[0] = 0;
-    v11 = FigEndpointManagerGetCMBaseObject();
-    v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v12)
+    v10 = FigEndpointManagerGetCMBaseObject();
+    v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v11)
     {
-      v12(v11, *MEMORY[0x1E69618B8], *v2, cf);
+      v11(v10, *MEMORY[0x1E69618B8], *v2, cf);
     }
 
-    v13 = FigRoutingManagerCopyEndpointToAutoConnect();
-    if (v13)
+    v12 = FigRoutingManagerCopyEndpointToAutoConnect(EndpointManager);
+    if (v12)
     {
-      v14 = v13;
-      FigRoutingManagerProcessEndpointToAutoconnect(v13);
-      CFRelease(v14);
+      v13 = v12;
+      FigRoutingManagerProcessEndpointToAutoconnect(v12, cf[0]);
+      CFRelease(v13);
     }
 
     if (cf[0])
@@ -8817,72 +8643,61 @@ void __routingManager_handleFigEndpointDeactivatedNotification_block_invoke(uint
       cf[0] = 0;
     }
 
-    FigEndpointServerSetActiveEndpoint();
-    if (MX_FeatureFlags_IsSystemRemoteDisplayContextEnabled())
+    active = FigEndpointServerSetActiveEndpoint();
+    if (MX_FeatureFlags_IsSystemRemoteDisplayContextEnabled(active, v15))
     {
-      v15 = *(a1 + 32);
-      FigRoutingManagerSetUpSystemRemoteDisplayContextWithEndpoint(0);
+      FigRoutingManagerSetUpSystemRemoteDisplayContextWithEndpoint(0, *(a1 + 32));
     }
 
     routingManager_resetCurrentlyActivatingCarPlayEndpointIfNeeded(*(a1 + 32), @"configUpdateReasonEndedFailed");
-    FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v9);
-    FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v9, *(a1 + 32), *(a1 + 48));
+    FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v8);
+    FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v8, *(a1 + 32), *(a1 + 48));
     FigRoutingManagerUtilities_UnRegisterAirPlayStreamCapabilitiesDidChangeListener(0, *(a1 + 32));
   }
 
-  else
+  else if (FigRoutingManagerIsEndpointOfType(*(a1 + 32), *MEMORY[0x1E69626C8]))
   {
-    v16 = *MEMORY[0x1E69626C8];
-    if (FigRoutingManagerIsEndpointOfType(*(a1 + 32)))
-    {
-      v17 = [+[MXSessionManager sharedInstance](MXSessionManager systemMirroringRoutingContextUUID];
-      v23 = v17;
-      FigRoutingManagerContextUtilities_SetPickedEndpoints(v17, 0, @"configUpdateReasonEndedBottomUpRouteChange", 0, 0);
-      FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v17);
-      FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v17, *(a1 + 32), *(a1 + 48));
-    }
+    v16 = [+[MXSessionManager sharedInstance](MXSessionManager systemMirroringRoutingContextUUID];
+    v20 = v16;
+    FigRoutingManagerContextUtilities_SetPickedEndpoints(v16, 0, @"configUpdateReasonEndedBottomUpRouteChange", 0, 0);
+    FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v16);
+    FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v16, *(a1 + 32), *(a1 + 48));
+  }
 
-    else
+  else if (FigRoutingManagerIsEndpointOfType(*(a1 + 32), *MEMORY[0x1E69626A8]))
+  {
+    FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(*(a1 + 32), *(a1 + 48), &v20);
+    if (v20)
     {
-      v21 = *MEMORY[0x1E69626A8];
-      if (FigRoutingManagerIsEndpointOfType(*(a1 + 32)))
-      {
-        FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(*(a1 + 32), *(a1 + 48), &v23);
-        if (v23)
-        {
-          FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v23);
-          FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v23, *(a1 + 32), *(a1 + 48));
-          FigRoutingManagerRemoveCachedDelegateContext(*(a1 + 32));
-        }
-      }
+      FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 32), *(a1 + 40), v20);
+      FigRoutingManagerContextUtilities_RemoveActivatedEndpoint(v20, *(a1 + 32), *(a1 + 48));
+      FigRoutingManagerRemoveCachedDelegateContext(*(a1 + 32), v20);
     }
   }
 
-  if (v22)
+  if (v19)
   {
-    CFRelease(v22);
-    v22 = 0;
+    CFRelease(v19);
+    v19 = 0;
   }
 
-  if (v23)
+  if (v20)
   {
-    CFRelease(v23);
-    v23 = 0;
+    CFRelease(v20);
+    v20 = 0;
   }
 
-  v18 = *(a1 + 32);
+  v17 = *(a1 + 32);
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+  v18 = *(a1 + 56);
   if (v18)
   {
     CFRelease(v18);
   }
-
-  v19 = *(a1 + 56);
-  if (v19)
-  {
-    CFRelease(v19);
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void routingManager_resetCurrentlyActivatingCarPlayEndpointIfNeeded(const void *a1, uint64_t a2)
@@ -8924,17 +8739,17 @@ LABEL_8:
 
 void routingManager_handleEndpointFailedNotification(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, const void *a5)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (a4)
   {
+    v24 = 0;
     v25 = 0;
-    v26 = 0;
     v7 = *MEMORY[0x1E695E480];
     CMBaseObject = FigEndpointGetCMBaseObject();
     v9 = *(*(CMBaseObjectGetVTable() + 8) + 48);
     if (v9)
     {
-      v9(CMBaseObject, *MEMORY[0x1E69621E8], v7, &v25);
+      v9(CMBaseObject, *MEMORY[0x1E69621E8], v7, &v24);
     }
 
     cf = 0;
@@ -8945,26 +8760,25 @@ void routingManager_handleEndpointFailedNotification(uint64_t a1, uint64_t a2, u
       v11(v10, *MEMORY[0x1E69622F8], v7, &cf);
     }
 
-    v12 = *MEMORY[0x1E6961920];
     Int64IfPresent = FigCFDictionaryGetInt64IfPresent();
     if (dword_1EB75DF20)
     {
-      v23 = 0;
+      v22 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v15 = *MEMORY[0x1E69626A8];
-    if (FigRoutingManagerIsEndpointOfType(a4))
+    IsEndpointOfType = FigRoutingManagerIsEndpointOfType(a4, *MEMORY[0x1E69626A8]);
+    if (IsEndpointOfType)
     {
       MXSimulateCrash("This is unexpected. Please file a radar to MediaExperience (New Bugs) | All.");
     }
 
     else
     {
-      SharedManager = FigRoutingManagerGetSharedManager();
+      SharedManager = FigRoutingManagerGetSharedManager(IsEndpointOfType, v15);
       CFRetain(a4);
       if (cf)
       {
@@ -8976,10 +8790,10 @@ void routingManager_handleEndpointFailedNotification(uint64_t a1, uint64_t a2, u
         CFRetain(a5);
       }
 
-      if (v25)
+      if (v24)
       {
-        CFRetain(v25);
-        v17 = v25;
+        CFRetain(v24);
+        v17 = v24;
       }
 
       else
@@ -8988,23 +8802,23 @@ void routingManager_handleEndpointFailedNotification(uint64_t a1, uint64_t a2, u
       }
 
       v18 = *(SharedManager + 1);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __routingManager_handleEndpointFailedNotification_block_invoke;
-      v20[3] = &__block_descriptor_73_e5_v8__0l;
-      v21 = Int64IfPresent;
-      v20[4] = a5;
-      v20[5] = a4;
-      v20[6] = v26;
-      v20[7] = cf;
-      v20[8] = v17;
-      MXDispatchAsync("routingManager_handleEndpointFailedNotification", "FigRoutingManager_iOSEndpointHelpers.m", 1473, 0, 0, v18, v20);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __routingManager_handleEndpointFailedNotification_block_invoke;
+      v19[3] = &__block_descriptor_73_e5_v8__0l;
+      v20 = Int64IfPresent;
+      v19[4] = a5;
+      v19[5] = a4;
+      v19[6] = v25;
+      v19[7] = cf;
+      v19[8] = v17;
+      MXDispatchAsync("routingManager_handleEndpointFailedNotification", "FigRoutingManager_iOSEndpointHelpers.m", 1473, 0, 0, v18, v19);
     }
 
-    if (v25)
+    if (v24)
     {
-      CFRelease(v25);
-      v25 = 0;
+      CFRelease(v24);
+      v24 = 0;
     }
 
     if (cf)
@@ -9012,65 +8826,59 @@ void routingManager_handleEndpointFailedNotification(uint64_t a1, uint64_t a2, u
       CFRelease(cf);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __routingManager_handleEndpointFailedNotification_block_invoke(uint64_t a1)
 {
   if (*(a1 + 72))
   {
-    v2 = *(a1 + 32);
-    v3 = *MEMORY[0x1E6961908];
     FigCFDictionaryGetInt64IfPresent();
-    FigRoutingManager_HandleEndpointFailed(*(a1 + 40), *(a1 + 48), 0, 1);
+    FigRoutingManager_HandleEndpointFailed(*(a1 + 40), *(a1 + 48), 0, 1, 0);
   }
 
-  v4 = *(a1 + 56);
-  v5 = *MEMORY[0x1E69626C0];
   if (FigCFEqual())
   {
     routingManager_resetCurrentlyActivatingCarPlayEndpointIfNeeded(*(a1 + 40), @"configUpdateReasonEndedFailed");
   }
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    CFRelease(v6);
+    CFRelease(v2);
   }
 
-  v7 = *(a1 + 56);
-  if (v7)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    CFRelease(v7);
+    CFRelease(v3);
   }
 
-  v8 = *(a1 + 32);
-  if (v8)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    CFRelease(v8);
+    CFRelease(v4);
   }
 
-  v9 = *(a1 + 64);
-  if (v9)
+  v5 = *(a1 + 64);
+  if (v5)
   {
-    CFRelease(v9);
+    CFRelease(v5);
   }
 }
 
-void routingManager_handleEndpointFeaturesChangedNotification(int a1, int a2, int a3, CFTypeRef cf, CFTypeRef a5)
+void routingManager_handleEndpointFeaturesChangedNotification(CFTypeRef a1, uint64_t a2, int a3, CFTypeRef cf, CFTypeRef a5)
 {
   if (cf)
   {
-    CFRetain(cf);
+    a1 = CFRetain(cf);
   }
 
   if (a5)
   {
-    CFRetain(a5);
+    a1 = CFRetain(a5);
   }
 
-  v7 = *(FigRoutingManagerGetSharedManager() + 1);
+  v7 = *(FigRoutingManagerGetSharedManager(a1, a2) + 1);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __routingManager_handleEndpointFeaturesChangedNotification_block_invoke;
@@ -9082,26 +8890,19 @@ void routingManager_handleEndpointFeaturesChangedNotification(int a1, int a2, in
 
 void __routingManager_handleEndpointFeaturesChangedNotification_block_invoke(uint64_t a1)
 {
-  v27[16] = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v25 = 0;
-  v23 = 0;
-  v2 = *(a1 + 32);
-  v3 = *MEMORY[0x1E6961918];
+  v18[16] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
   FigCFDictionaryGetInt64IfPresent();
-  v4 = *(a1 + 32);
-  v5 = *MEMORY[0x1E6961910];
   FigCFDictionaryGetInt64IfPresent();
-  v6 = *(a1 + 32);
-  v7 = *MEMORY[0x1E6961908];
   FigCFDictionaryGetInt64IfPresent();
   cf = 0;
-  v8 = *(a1 + 40);
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v10)
+  v3 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (v3)
   {
-    v10(CMBaseObject, *MEMORY[0x1E69621E8], *MEMORY[0x1E695E480], &cf);
+    v3(CMBaseObject, *MEMORY[0x1E69621E8], *MEMORY[0x1E695E480], &cf);
   }
 
   if (dword_1EB75DF20)
@@ -9111,47 +8912,45 @@ void __routingManager_handleEndpointFeaturesChangedNotification_block_invoke(uin
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v27[0] = 0;
-  FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(*(a1 + 40), v23, v27);
-  theArray = 0;
-  FigRoutingManagerContextUtilities_CopyActivatedEndpointsInfo(v27[0], &theArray);
-  if (theArray && (Count = CFArrayGetCount(theArray), Count >= 1))
+  v18[0] = 0;
+  FigRoutingManagerContextUtilities_CopyRoutingContextUUIDForActivatedEndpoint(*(a1 + 40), v14, v18);
+  *theArray = 0;
+  FigRoutingManagerContextUtilities_CopyActivatedEndpointsInfo(v18[0], theArray);
+  if (*theArray && (Count = CFArrayGetCount(*theArray), Count >= 1))
   {
-    v13 = Count;
-    v14 = 0;
-    v15 = 0;
+    v6 = Count;
+    v7 = 0;
     Value = 0;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v14);
+      ValueAtIndex = CFArrayGetValueAtIndex(*theArray, v7);
       if (ValueAtIndex)
       {
-        v18 = ValueAtIndex;
+        v10 = ValueAtIndex;
         Value = CFDictionaryGetValue(ValueAtIndex, @"ActivatedEndpointsInfo_ClientRouteChangeOptions");
-        v15 = CFDictionaryGetValue(v18, @"ActivatedEndpointsInfo_InternalRouteChangeOptions");
+        CFDictionaryGetValue(v10, @"ActivatedEndpointsInfo_InternalRouteChangeOptions");
       }
 
-      ++v14;
+      ++v7;
     }
 
-    while (v13 != v14);
+    while (v6 != v7);
   }
 
   else
   {
     Value = 0;
-    v15 = 0;
   }
 
-  if (v24)
+  if (v15)
   {
-    CMSMUtility_InformAirPlayOfAudioModeIfNecessary(v27[0]);
-    FigRoutingManager_iOSHandleFigEndpointFeaturesActivation(*(a1 + 40), v25, v23, v27[0], Value, v15);
+    CMSMUtility_InformAirPlayOfAudioModeIfNecessary(v18[0]);
+    FigRoutingManager_iOSHandleFigEndpointFeaturesActivation(*(a1 + 40), v16, v14, v18[0], Value);
   }
 
   else
   {
-    FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 40), v25, v27[0]);
+    FigRoutingManager_iOSHandleFigEndpointFeaturesDeactivation(*(a1 + 40), v16, v18[0]);
   }
 
   if (cf)
@@ -9160,78 +8959,77 @@ void __routingManager_handleEndpointFeaturesChangedNotification_block_invoke(uin
     cf = 0;
   }
 
-  if (v27[0])
+  if (v18[0])
   {
-    CFRelease(v27[0]);
-    v27[0] = 0;
+    CFRelease(v18[0]);
+    v18[0] = 0;
   }
 
-  if (theArray)
+  if (*theArray)
   {
-    CFRelease(theArray);
-    theArray = 0;
+    CFRelease(*theArray);
+    *theArray = 0;
   }
 
-  v19 = *(a1 + 40);
-  if (v19)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    CFRelease(v19);
+    CFRelease(v11);
   }
 
-  v20 = *(a1 + 32);
-  if (v20)
+  v12 = *(a1 + 32);
+  if (v12)
   {
-    CFRelease(v20);
+    CFRelease(v12);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
-void routingManager_handleAirPlayVolumeControlDidChange()
+void routingManager_handleAirPlayVolumeControlDidChange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   cf[20] = *MEMORY[0x1E69E9840];
   cf[0] = *MEMORY[0x1E695E4C0];
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v1 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (v1)
+  VTable = CMBaseObjectGetVTable();
+  v8 = *(VTable + 8);
+  v7 = VTable + 8;
+  v9 = *(v8 + 48);
+  if (v9)
   {
-    v1(CMBaseObject, *MEMORY[0x1E6962340], *MEMORY[0x1E695E480], cf);
+    v7 = v9(CMBaseObject, *MEMORY[0x1E6962340], *MEMORY[0x1E695E480], cf);
   }
 
   if (dword_1EB75DF20)
   {
-    v9 = 0;
+    v16 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    v7 = fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  SharedManager = FigRoutingManagerGetSharedManager();
+  SharedManager = FigRoutingManagerGetSharedManager(v7, v6);
   if (cf[0])
   {
     CFRetain(cf[0]);
-    v4 = cf[0];
+    v12 = cf[0];
   }
 
   else
   {
-    v4 = 0;
+    v12 = 0;
   }
 
-  v5 = *(SharedManager + 1);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __routingManager_handleAirPlayVolumeControlDidChange_block_invoke;
-  v7[3] = &__block_descriptor_40_e5_v8__0l;
-  v7[4] = v4;
-  MXDispatchAsync("routingManager_handleAirPlayVolumeControlDidChange", "FigRoutingManager_iOSEndpointHelpers.m", 1851, 0, 0, v5, v7);
+  v13 = *(SharedManager + 1);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __routingManager_handleAirPlayVolumeControlDidChange_block_invoke;
+  v14[3] = &__block_descriptor_40_e5_v8__0l;
+  v14[4] = v12;
+  MXDispatchAsync("routingManager_handleAirPlayVolumeControlDidChange", "FigRoutingManager_iOSEndpointHelpers.m", 1851, 0, 0, v13, v14);
   if (cf[0])
   {
     CFRelease(cf[0]);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __routingManager_handleAirPlayVolumeControlDidChange_block_invoke(uint64_t a1)
@@ -9245,115 +9043,109 @@ void __routingManager_handleAirPlayVolumeControlDidChange_block_invoke(uint64_t 
   }
 }
 
-uint64_t FigEndpointCreateCentral(uint64_t a1, const void *a2, void *a3, void *a4)
+uint64_t FigEndpointCreateCentral(uint64_t IsEndpointOfType, const void *a2, void *a3, CFTypeRef *a4)
 {
   v22 = *MEMORY[0x1E69E9840];
-  if (a2)
+  if (a2 && !FigRoutingManagerIsEndpointOfType(a2, *MEMORY[0x1E69626C0]))
   {
-    v7 = *MEMORY[0x1E69626C0];
-    if (!FigRoutingManagerIsEndpointOfType(a2))
-    {
-      v16 = 4294954311;
-      goto LABEL_19;
-    }
+    v17 = 4294954311;
+    goto LABEL_19;
   }
 
   if (!a4)
   {
     if (FigEndpointCreateCentral_cold_1(v21))
     {
-      v16 = 0;
-      goto LABEL_20;
+      return 0;
     }
 
-    v16 = v21[0];
+    v17 = v21[0];
     goto LABEL_19;
   }
 
   FigEndpointExtendedGetClassID();
-  v8 = CMDerivedObjectCreate();
-  if (v8)
+  v7 = CMDerivedObjectCreate();
+  if (v7)
   {
     goto LABEL_12;
   }
 
   gFigEndpointCentralObjectWeakRef = FigCFWeakReferenceHolderCreateWithReferencedObject();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v8 = FigStarkModeControllerCreate((DerivedStorage + 24));
-  if (v8)
+  v7 = FigStarkModeControllerCreate((DerivedStorage + 24));
+  if (v7)
   {
     goto LABEL_12;
   }
 
-  *(DerivedStorage + 48) = fsmcontroller_CopyCarModesQueue(*(DerivedStorage + 24));
-  if (MX_FeatureFlags_IsAirPlayDaemonEnabled())
+  v9 = fsmcontroller_CopyCarModesQueue(*(DerivedStorage + 24));
+  *(DerivedStorage + 48) = v9;
+  if (MX_FeatureFlags_IsAirPlayDaemonEnabled(v9, v10))
   {
     goto LABEL_7;
   }
 
-  v13 = *(DerivedStorage + 24);
+  v14 = *(DerivedStorage + 24);
   CMBaseObject = FigEndpointGetCMBaseObject();
-  v15 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (!v15)
+  v16 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (!v16)
   {
-    v16 = 4294954514;
+    v17 = 4294954514;
     goto LABEL_19;
   }
 
-  v8 = v15(CMBaseObject, *MEMORY[0x1E6962258], v13);
-  if (v8)
+  v7 = v16(CMBaseObject, *MEMORY[0x1E6962258], v14);
+  if (v7)
   {
 LABEL_12:
-    v16 = v8;
+    v17 = v7;
 LABEL_19:
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_20;
+    return v17;
   }
 
 LABEL_7:
-  v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v11 = dispatch_queue_create("com.apple.coremedia.figEndpointcentral.modechangequeue", v10);
-  *(DerivedStorage + 32) = v11;
-  if (!v11)
+  v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v12 = dispatch_queue_create("com.apple.coremedia.figEndpointcentral.modechangequeue", v11);
+  *(DerivedStorage + 32) = v12;
+  if (!v12)
   {
-    v16 = 4294954314;
+    v17 = 4294954314;
     goto LABEL_19;
   }
 
   if (a2)
   {
-    v12 = CFRetain(a2);
+    v13 = CFRetain(a2);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  *(DerivedStorage + 8) = v12;
+  *(DerivedStorage + 8) = v13;
   if (a3)
   {
-    v17 = a3;
-    *(DerivedStorage + 16) = v17;
-    CMSessionGetNotificationCenter(v17);
+    v18 = a3;
+    *(DerivedStorage + 16) = v18;
+    CMSessionGetNotificationCenter(v18);
     CMNotificationCenterAddListener();
   }
 
   *(DerivedStorage + 40) = FigStarkModeControllerAddStateChangedHandler(*(DerivedStorage + 24), *(DerivedStorage + 32), &__block_literal_global_9);
   CMNotificationCenterGetDefaultLocalCenter();
   FigNotificationCenterAddWeakListener();
-  v16 = 0;
+  v17 = 0;
   *a4 = 0;
-LABEL_20:
-  v19 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v17;
 }
 
 void central_interruptionNotificationCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (a5)
   {
@@ -9361,30 +9153,26 @@ void central_interruptionNotificationCallback(uint64_t a1, uint64_t a2, uint64_t
     if (FigCFEqual())
     {
       v9 = *(v8 + 48);
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __central_interruptionNotificationCallback_block_invoke;
-      v12[3] = &__block_descriptor_56_e5_v8__0l;
-      v12[4] = v8;
-      v12[5] = a4;
-      v12[6] = a5;
-      MXDispatchSync("central_interruptionNotificationCallback", "FigEndpoint_Central.m", 979, 0, 0, v9, v12);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __central_interruptionNotificationCallback_block_invoke;
+      v11[3] = &__block_descriptor_56_e5_v8__0l;
+      v11[4] = v8;
+      v11[5] = a4;
+      v11[6] = a5;
+      MXDispatchSync("central_interruptionNotificationCallback", "FigEndpoint_Central.m", 979, 0, 0, v9, v11);
     }
 
     else
     {
-      v14 = 0;
-      type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t FigEndpointCentralGetInitialModesReceived()
+uint64_t FigEndpointCentralGetInitialModesReceived(uint64_t a1)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (result)
@@ -9395,41 +9183,40 @@ uint64_t FigEndpointCentralGetInitialModesReceived()
   return result;
 }
 
-uint64_t FigEndpointSessionHandleInterruption(void *DerivedStorage, __int128 *a2, uint64_t a3, uint64_t *a4, char a5)
+uint64_t FigEndpointSessionHandleInterruption(void *DerivedStorage, __int128 *a2, uint64_t a3, void *a4, char a5)
 {
   if (*a2 == 1)
   {
     v14 = *(a2 + 2);
     v15 = *(a2 + 6);
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v32 = 0u;
-    memset(v33, 0, 24);
-    v30 = 0u;
     v31 = 0u;
+    memset(v32, 0, 24);
+    v29 = 0u;
+    v30 = 0u;
     if (DerivedStorage)
     {
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       if (DerivedStorage)
       {
         v17 = DerivedStorage;
-        *&v30 = 0x200000002;
+        *&v29 = 0x200000002;
         if (!FigCFEqual())
         {
           if (FigCFEqual())
           {
-            *(v33 + 12) = v14;
-            DWORD2(v33[0]) = v15;
+            *(v32 + 12) = v14;
+            DWORD2(v32[0]) = v15;
             if (a4)
             {
-              v18 = *a4;
               if (FigCFEqual())
               {
-                *&v32 = 23;
-                LODWORD(v33[0]) = 0;
-                v19 = v17[3];
+                *&v31 = 23;
+                LODWORD(v32[0]) = 0;
+                v18 = v17[3];
                 CStringPtrAndBufferToFree = FigCFStringGetCStringPtrAndBufferToFree();
-                v12 = fsmcontroller_RequestModeChange(v19, &v30, CStringPtrAndBufferToFree, &v25, a5);
+                v12 = fsmcontroller_RequestModeChange(v18, &v29, CStringPtrAndBufferToFree, &v24, a5);
                 DerivedStorage = 0;
                 goto LABEL_25;
               }
@@ -9450,25 +9237,25 @@ LABEL_25:
 
   if (!*a2)
   {
-    v22 = *a2;
-    v23 = a2[1];
-    v24 = *(a2 + 4);
-    v29 = 0;
+    v21 = *a2;
+    v22 = a2[1];
+    v23 = *(a2 + 4);
+    v28 = 0;
     if (DerivedStorage)
     {
       v6 = CMBaseObjectGetDerivedStorage();
       if (v6)
       {
         v7 = v6;
-        memset(v28, 0, sizeof(v28));
+        memset(v27, 0, sizeof(v27));
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
-        memset(v33, 0, 24);
+        memset(v32, 0, 24);
+        v24 = v21;
         v25 = v22;
         v26 = v23;
-        v27 = v24;
-        v8 = central_ConstructModeChangeRequestToGet(a4, @"MainAudio", &v25, &v30);
+        v8 = central_ConstructModeChangeRequestToGet(a4, @"MainAudio", &v24, &v29);
         if (v8)
         {
           v12 = v8;
@@ -9477,23 +9264,23 @@ LABEL_25:
 
         v9 = *(v7 + 24);
         v10 = FigCFStringGetCStringPtrAndBufferToFree();
-        v11 = fsmcontroller_RequestModeChange(v9, &v30, v10, v28, 0);
+        v11 = fsmcontroller_RequestModeChange(v9, &v29, v10, v27, 0);
         v12 = 4294954311;
-        if (v11 || DWORD2(v28[0]) != 2)
+        if (v11 || DWORD2(v27[0]) != 2)
         {
           goto LABEL_24;
         }
 
         if (a4)
         {
-          if ((v32 - 20) > 3)
+          if ((v31 - 20) > 3)
           {
             v13 = 0;
           }
 
           else
           {
-            v13 = *(&off_1E7AEA590 + (v32 - 20));
+            v13 = *(&off_1E7AEA590 + (v31 - 20));
           }
 
           v12 = 0;
@@ -9505,7 +9292,7 @@ LABEL_25:
 
     v12 = 0;
 LABEL_24:
-    DerivedStorage = v29;
+    DerivedStorage = v28;
     goto LABEL_25;
   }
 
@@ -9542,26 +9329,18 @@ uint64_t FigEndpointCentralEntityOwnsResource(uint64_t a1, uint64_t a2, const vo
         result = CMBaseObjectGetDerivedStorage();
         if (result)
         {
-          memset(v7, 0, sizeof(v7));
-          fsmcontroller_GetCurrentMode(*(result + 24), v7);
+          memset(v6, 0, sizeof(v6));
+          fsmcontroller_GetCurrentMode(*(result + 24), v6);
           if (CFEqual(a3, @"MainAudio"))
           {
-            v6 = v7 + 12;
+            return FigCFEqual();
           }
 
-          else
+          result = CFEqual(a3, @"Screen");
+          if (result)
           {
-            result = CFEqual(a3, @"Screen");
-            if (!result)
-            {
-              return result;
-            }
-
-            v6 = v7 + 4;
+            return FigCFEqual();
           }
-
-          *v6;
-          return FigCFEqual();
         }
       }
     }
@@ -9572,20 +9351,18 @@ uint64_t FigEndpointCentralEntityOwnsResource(uint64_t a1, uint64_t a2, const vo
 
 void __FigEndpointCentralUpdateiOSDeviceState_block_invoke(uint64_t a1, int a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t FigEndpointCentralCopyStarkModeController(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = 4294954316;
   if (a1 && a2)
   {
@@ -9612,11 +9389,10 @@ uint64_t FigEndpointCentralCopyStarkModeController(uint64_t a1, void *a2)
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      result = 4294954315;
+      return 4294954315;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9672,40 +9448,37 @@ void __central_deactivateEndpoint_block_invoke(uint64_t a1)
 
 void __central_deactivateEndpoint_block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!*DerivedStorage)
   {
-    v3 = DerivedStorage;
+    v2 = DerivedStorage;
     *DerivedStorage = 1;
     FigStarkModeControllerRemoveStateChangedHandler(*(DerivedStorage + 24), *(DerivedStorage + 40));
-    *(v3 + 40) = 0;
+    *(v2 + 40) = 0;
     CMNotificationCenterGetDefaultLocalCenter();
-    v4 = *(v3 + 8);
-    v5 = FigNotificationCenterRemoveWeakListener();
-    *(v3 + 1) = 0;
-    *(v3 + 3) = 0;
-    if (*(v3 + 16))
+    v3 = FigNotificationCenterRemoveWeakListener();
+    *(v2 + 1) = 0;
+    *(v2 + 3) = 0;
+    if (*(v2 + 16))
     {
-      CMSessionGetNotificationCenter(v5);
-      v6 = *(v3 + 16);
+      CMSessionGetNotificationCenter(v3);
       CMNotificationCenterRemoveListener();
-      v7 = *(v3 + 16);
-      *(v3 + 16) = 0;
+      v4 = *(v2 + 16);
+      *(v2 + 16) = 0;
     }
 
-    v8 = *(v3 + 24);
-    if (v8)
+    v5 = *(v2 + 24);
+    if (v5)
     {
-      CFRelease(v8);
-      *(v3 + 24) = 0;
+      CFRelease(v5);
+      *(v2 + 24) = 0;
     }
 
-    v9 = *(v3 + 8);
-    if (v9)
+    v6 = *(v2 + 8);
+    if (v6)
     {
-      CFRelease(v9);
-      *(v3 + 8) = 0;
+      CFRelease(v6);
+      *(v2 + 8) = 0;
     }
   }
 }
@@ -9753,9 +9526,9 @@ uint64_t central_RequestCarUI(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-void sub_1B1870E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1870E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9782,9 +9555,9 @@ uint64_t central_SetHIDInputMode(uint64_t a1, uint64_t a2, uint64_t a3)
   return v7;
 }
 
-void sub_1B1870F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1870F80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9810,4 +9583,229 @@ uint64_t central_CopyHIDInputMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   v9 = *(v13 + 6);
   _Block_object_dispose(&v12, 8);
   return v9;
+}
+
+uint64_t central_SendCommand(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v10 = *(CMBaseObjectGetDerivedStorage() + 48);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __central_SendCommand_block_invoke;
+  v12[3] = &__block_descriptor_72_e5_v8__0l;
+  v12[4] = a1;
+  v12[5] = a2;
+  v12[6] = a3;
+  v12[7] = a4;
+  v12[8] = a5;
+  MXDispatchSync("central_SendCommand", "FigEndpoint_Central.m", 1530, 0, 0, v10, v12);
+  return 0;
+}
+
+uint64_t central_CreateRemoteControlSession(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v6 = *(DerivedStorage + 8);
+  if (!v6 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v6 = 0;
+  }
+
+  v7 = *(DerivedStorage + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __central_CreateRemoteControlSession_block_invoke;
+  v10[3] = &unk_1E7AE79A8;
+  v10[4] = &v11;
+  v10[5] = DerivedStorage;
+  v10[6] = v6;
+  v10[7] = a2;
+  v10[8] = a3;
+  MXDispatchSync("central_CreateRemoteControlSession", "FigEndpoint_Central.m", 1582, 0, 0, v7, v10);
+  v8 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v8;
+}
+
+uint64_t central_CreateCommChannel(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v6 = *(DerivedStorage + 8);
+  if (!v6 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v6 = 0;
+  }
+
+  v7 = *(DerivedStorage + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __central_CreateCommChannel_block_invoke;
+  v10[3] = &unk_1E7AE79A8;
+  v10[4] = &v11;
+  v10[5] = DerivedStorage;
+  v10[6] = v6;
+  v10[7] = a2;
+  v10[8] = a3;
+  MXDispatchSync("central_CreateCommChannel", "FigEndpoint_Central.m", 1609, 0, 0, v7, v10);
+  v8 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v8;
+}
+
+uint64_t central_SendData(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, void, uint64_t), uint64_t a5)
+{
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v11 = *(DerivedStorage + 8);
+  if (!v11 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v11 = 0;
+  }
+
+  v12 = *(DerivedStorage + 48);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __central_SendData_block_invoke;
+  v15[3] = &unk_1E7AE7AB8;
+  v15[4] = &v16;
+  v15[5] = DerivedStorage;
+  v15[6] = v11;
+  v15[7] = a2;
+  v15[8] = a3;
+  v15[9] = a4;
+  v15[10] = a5;
+  MXDispatchSync("central_SendData", "FigEndpoint_Central.m", 1636, 0, 0, v12, v15);
+  v13 = *(v17 + 6);
+  if (v13 == -12782)
+  {
+    if (!a4)
+    {
+      v13 = 4294954514;
+      goto LABEL_10;
+    }
+
+LABEL_9:
+    a4(a1, a2, *(v17 + 6), a5);
+    v13 = *(v17 + 6);
+    goto LABEL_10;
+  }
+
+  if (a4 && v13 == -12785)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  _Block_object_dispose(&v16, 8);
+  return v13;
+}
+
+void sub_1B1871510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t central_CloseCommChannel(uint64_t a1, uint64_t a2)
+{
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v4 = *(DerivedStorage + 8);
+  if (!v4 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v4 = 0;
+  }
+
+  v5 = *(DerivedStorage + 48);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __central_CloseCommChannel_block_invoke;
+  v8[3] = &unk_1E7AE7A48;
+  v8[4] = &v9;
+  v8[5] = DerivedStorage;
+  v8[6] = v4;
+  v8[7] = a2;
+  MXDispatchSync("central_CloseCommChannel", "FigEndpoint_Central.m", 1666, 0, 0, v5, v8);
+  v6 = *(v10 + 6);
+  _Block_object_dispose(&v9, 8);
+  return v6;
+}
+
+void sub_1B187162C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t central_RequestScreenViewArea(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v6 = *(DerivedStorage + 8);
+  if (!v6 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v6 = 0;
+  }
+
+  v7 = *(DerivedStorage + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __central_RequestScreenViewArea_block_invoke;
+  v10[3] = &unk_1E7AE79A8;
+  v10[4] = &v11;
+  v10[5] = DerivedStorage;
+  v10[6] = v6;
+  v10[7] = a2;
+  v10[8] = a3;
+  MXDispatchSync("central_RequestScreenViewArea", "FigEndpoint_Central.m", 1693, 0, 0, v7, v10);
+  v8 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v8;
+}
+
+uint64_t central_CopyCurrentScreenViewArea(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v6 = *(DerivedStorage + 8);
+  if (!v6 || (FigEndpointExtendedGetClassID(), !CMBaseObjectIsMemberOfClass()))
+  {
+    v6 = 0;
+  }
+
+  v7 = *(DerivedStorage + 48);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __central_CopyCurrentScreenViewArea_block_invoke;
+  v10[3] = &unk_1E7AE79A8;
+  v10[4] = &v11;
+  v10[5] = DerivedStorage;
+  v10[6] = v6;
+  v10[7] = a2;
+  v10[8] = a3;
+  MXDispatchSync("central_CopyCurrentScreenViewArea", "FigEndpoint_Central.m", 1720, 0, 0, v7, v10);
+  v8 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  return v8;
 }

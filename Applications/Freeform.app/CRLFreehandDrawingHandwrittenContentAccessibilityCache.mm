@@ -46,7 +46,7 @@
   selfCopy = self;
   static PKDrawing._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_100FB30AC();
+  sub_100FB30AC(v8);
   (*(v6 + 8))(v8, v5);
 }
 
@@ -77,7 +77,7 @@
   selfCopy = self;
   static PKDrawing._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_100FB5AC4();
+  sub_100FB5AC4(v9);
   v13 = v12;
 
   (*(v7 + 8))(v9, v6);

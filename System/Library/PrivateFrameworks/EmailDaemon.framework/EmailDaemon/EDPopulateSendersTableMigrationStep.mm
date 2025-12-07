@@ -100,6 +100,7 @@ void ___ef_log_EDPopulateSendersTableMigrationStep_block_invoke()
   v22 = 0;
   v16 = [connectionCopy executeSelectStatement:v7 withBlock:v23 error:&v22];
   v17 = v22;
+  v18 = v17;
   if (v16)
   {
     allObjects = [v15 allObjects];
@@ -107,18 +108,16 @@ void ___ef_log_EDPopulateSendersTableMigrationStep_block_invoke()
 
   else
   {
-    v19 = _ef_log_EDPopulateSendersTableMigrationStep();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _ef_log_EDPopulateSendersTableMigrationStep(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [v17 ef_publicDescription];
+      [v18 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       +[EDPopulateSendersTableMigrationStep _allSenderAddressIDsWithConnection:sentMailboxURLStrings:];
     }
 
     allObjects = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -155,24 +154,24 @@ void __96__EDPopulateSendersTableMigrationStep__allSenderAddressIDsWithConnectio
   v21 = 0;
   v14 = [connectionCopy executeSelectStatement:v9 withBlock:v22 error:&v21];
   v15 = v21;
-  v16 = v13;
+  v16 = v15;
+  v17 = v13;
   if ((v14 & 1) == 0)
   {
-    v17 = _ef_log_EDPopulateSendersTableMigrationStep();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _ef_log_EDPopulateSendersTableMigrationStep(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [v15 ef_publicDescription];
+      [v16 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       +[EDPopulateSendersTableMigrationStep _addressesForSenderIDs:withConnection:];
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  v18 = v16;
+  v19 = v17;
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v17;
 }
 
 void __77__EDPopulateSendersTableMigrationStep__addressesForSenderIDs_withConnection___block_invoke(uint64_t a1, void *a2)
@@ -240,50 +239,51 @@ id __108__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForEmai
 
         v6 = *(*(&v30 + 1) + 8 * i);
         v7 = [v6 simpleAddress];
-        if (!v7 || ([v6 simpleAddress], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length") == 0, v8, v7, v9))
+        v8 = v7;
+        if (!v7 || ([v6 simpleAddress], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length") == 0, v9, v8, v10))
         {
-          v12 = _ef_log_EDPopulateSendersTableMigrationStep();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          v13 = _ef_log_EDPopulateSendersTableMigrationStep(v7);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_INFO, "Skipping sender because simple address is nil", buf, 2u);
+            _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_INFO, "Skipping sender because simple address is nil", buf, 2u);
           }
         }
 
         else
         {
-          v10 = [MEMORY[0x1E699B8C8] column:@"address"];
-          v11 = [v6 simpleAddress];
-          v12 = [v10 equalTo:v11];
+          v11 = [MEMORY[0x1E699B8C8] column:@"address"];
+          v12 = [v6 simpleAddress];
+          v13 = [v11 equalTo:v12];
 
-          v13 = [v6 displayName];
-          v14 = v13;
-          if (v13 && [v13 length])
+          v14 = [v6 displayName];
+          v15 = v14;
+          if (v14 && [v14 length])
           {
-            v15 = [MEMORY[0x1E699B8C8] column:@"comment"];
-            v16 = [v15 equalTo:v14];
+            v16 = [MEMORY[0x1E699B8C8] column:@"comment"];
+            v17 = [v16 equalTo:v15];
 
-            v17 = objc_alloc(MEMORY[0x1E699B898]);
-            v34[0] = v12;
-            v34[1] = v16;
-            v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
-            v19 = [v17 initWithExpressions:v18];
-            [*(a1 + 32) setWhere:v19];
+            v18 = objc_alloc(MEMORY[0x1E699B898]);
+            v34[0] = v13;
+            v34[1] = v17;
+            v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+            v20 = [v18 initWithExpressions:v19];
+            [*(a1 + 32) setWhere:v20];
           }
 
           else
           {
-            [*(a1 + 32) setWhere:v12];
+            [*(a1 + 32) setWhere:v13];
           }
 
-          v21 = *(a1 + 32);
-          v20 = *(a1 + 40);
+          v22 = *(a1 + 32);
+          v21 = *(a1 + 40);
           v27[0] = MEMORY[0x1E69E9820];
           v27[1] = 3221225472;
           v27[2] = __108__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForEmailAddressesByContact_withConnection___block_invoke_54;
           v27[3] = &unk_1E8250300;
           v28 = v25;
-          [v20 executeSelectStatement:v21 withBlock:v27 error:0];
+          [v21 executeSelectStatement:v22 withBlock:v27 error:0];
         }
       }
 
@@ -292,8 +292,6 @@ id __108__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForEmai
 
     while (v3);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -329,30 +327,29 @@ void __108__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForEm
   v7 = connectionCopy;
   v16 = v7;
   v18 = &v20;
-  [contact enumerateKeysAndObjectsUsingBlock:&v12];
+  v8 = [contact enumerateKeysAndObjectsUsingBlock:&v12];
   if (v27[3])
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v9 = _ef_log_EDPopulateSendersTableMigrationStep();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ef_log_EDPopulateSendersTableMigrationStep(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [v21[5] ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       +[EDPopulateSendersTableMigrationStep _insertSendersGroupedByContact:withConnection:];
     }
 
-    v8 = *(v27 + 24);
+    v9 = *(v27 + 24);
   }
 
   _Block_object_dispose(&v20, 8);
   _Block_object_dispose(&v26, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  return v9 & 1;
 }
 
 void __85__EDPopulateSendersTableMigrationStep__insertSendersGroupedByContact_withConnection___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
@@ -406,7 +403,7 @@ void __85__EDPopulateSendersTableMigrationStep__insertSendersGroupedByContact_wi
         if ((v15 & 1) == 0)
         {
 
-          v17 = _ef_log_EDPopulateSendersTableMigrationStep();
+          v17 = _ef_log_EDPopulateSendersTableMigrationStep(v18);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             [v9 ef_publicDescription];
@@ -437,7 +434,6 @@ void __85__EDPopulateSendersTableMigrationStep__insertSendersGroupedByContact_wi
   v17 = v8;
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -449,18 +445,18 @@ LABEL_13:
   v10[0] = 0;
   v5 = [connectionCopy executeDeleteStatement:v4 error:v10];
   v6 = v10[0];
+  v7 = v6;
   if (v6)
   {
-    v7 = _ef_log_EDPopulateSendersTableMigrationStep();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDPopulateSendersTableMigrationStep(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [v6 ef_publicDescription];
+      [v7 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       +[EDPopulateSendersTableMigrationStep _clearSendersTableWithConnection:];
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -472,73 +468,73 @@ LABEL_13:
   v10[0] = 0;
   v5 = [connectionCopy executeDeleteStatement:v4 error:v10];
   v6 = v10[0];
+  v7 = v6;
   if (v6)
   {
-    v7 = _ef_log_EDPopulateSendersTableMigrationStep();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ef_log_EDPopulateSendersTableMigrationStep(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [v6 ef_publicDescription];
+      [v7 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       +[EDPopulateSendersTableMigrationStep _clearSendersAddressesTableWithConnection:];
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 + (BOOL)_insertSenderWithAddresses:(id)addresses contact:(id)contact connection:(id)connection error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   addressesCopy = addresses;
   contactCopy = contact;
   connectionCopy = connection;
-  v24 = connectionCopy;
-  v26 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"senders"];
-  [v26 setObject:&unk_1F45E68B0 forKeyedSubscript:@"bucket"];
-  [v26 setObject:&unk_1F45E68C8 forKeyedSubscript:@"user_initiated"];
+  v23 = connectionCopy;
+  v25 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"senders"];
+  [v25 setObject:&unk_1F45E68B0 forKeyedSubscript:@"bucket"];
+  [v25 setObject:&unk_1F45E68C8 forKeyedSubscript:@"user_initiated"];
   if (contactCopy)
   {
     identifier = [contactCopy identifier];
-    [v26 setObject:identifier forKeyedSubscript:@"contact_identifier"];
+    [v25 setObject:identifier forKeyedSubscript:@"contact_identifier"];
   }
 
-  if ([connectionCopy executeInsertStatement:v26 error:{error, error}])
+  if ([connectionCopy executeInsertStatement:v25 error:{error, error}])
   {
     v10 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"sender_addresses" conflictResolution:4];
     lastInsertedDatabaseID = [connectionCopy lastInsertedDatabaseID];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = addressesCopy;
-    v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v12)
     {
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           addValue = [v10 addValue];
           [addValue setObject:v15 forKeyedSubscript:@"address"];
           v17 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
           [addValue setObject:v17 forKeyedSubscript:@"sender"];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v12);
     }
 
-    v18 = [v24 executeInsertStatement:v10 error:v22];
+    v18 = [v23 executeInsertStatement:v10 error:v21];
   }
 
   else
@@ -546,109 +542,107 @@ LABEL_13:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (id)_senderIDsGroupedByContactsForSenderAddressesToIDs:(id)ds withContactStore:(id)store unmatchedEmailAddresses:(id *)addresses otherEmailAddressesByContact:(id *)contact
 {
-  v46[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   storeCopy = store;
   v11 = *MEMORY[0x1E695C230];
-  v46[0] = *MEMORY[0x1E695C240];
-  v46[1] = v11;
-  v46[2] = *MEMORY[0x1E695C208];
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
+  v45[0] = *MEMORY[0x1E695C240];
+  v45[1] = v11;
+  v45[2] = *MEMORY[0x1E695C208];
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
   allKeys = [dsCopy allKeys];
-  v34 = [allKeys ef_compactMapSelector:sel_simpleAddress];
+  v33 = [allKeys ef_compactMapSelector:sel_simpleAddress];
 
-  v31 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v34];
-  v33 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v33];
   v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke;
-  v38[3] = &unk_1E8255E10;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke;
+  v37[3] = &unk_1E8255E10;
   v15 = storeCopy;
-  v39 = v15;
+  v38 = v15;
   v16 = v12;
-  v40 = v16;
-  v17 = v33;
-  v41 = v17;
+  v39 = v16;
+  v17 = v32;
+  v40 = v17;
   v18 = dsCopy;
-  v42 = v18;
-  v19 = v31;
-  v43 = v19;
-  v20 = v32;
-  v44 = v20;
+  v41 = v18;
+  v19 = v30;
+  v42 = v19;
+  v20 = v31;
+  v43 = v20;
   v21 = v14;
-  v45 = v21;
-  [v18 enumerateKeysAndObjectsUsingBlock:v38];
+  v44 = v21;
+  [v18 enumerateKeysAndObjectsUsingBlock:v37];
   v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke_2;
-  v35[3] = &unk_1E8255E38;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke_2;
+  v34[3] = &unk_1E8255E38;
   v23 = v16;
-  v36 = v23;
-  v37 = v22;
+  v35 = v23;
+  v36 = v22;
   v24 = v22;
-  [v20 enumerateKeysAndObjectsUsingBlock:v35];
+  [v20 enumerateKeysAndObjectsUsingBlock:v34];
   v25 = v21;
   *addresses = v21;
   v26 = v24;
   *contact = v24;
-  v27 = v37;
+  v27 = v36;
   v28 = v17;
 
-  v29 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 void __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v23 = a2;
-  v24 = a3;
-  v5 = [*(a1 + 32) em_fetchContactForEmailAddress:v23 keysToFetch:*(a1 + 40) createIfNeeded:0];
+  v29 = *MEMORY[0x1E69E9840];
+  v22 = a2;
+  v23 = a3;
+  v5 = [*(a1 + 32) em_fetchContactForEmailAddress:v22 keysToFetch:*(a1 + 40) createIfNeeded:0];
   if (v5)
   {
     v6 = [*(a1 + 48) objectForKeyedSubscript:v5];
     if (v6)
     {
-      v22 = v6;
-      [v6 addObject:v24];
+      v21 = v6;
+      [v6 addObject:v23];
     }
 
     else
     {
-      v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v24, 0, 0}];
+      v21 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v23, 0, 0}];
       [*(a1 + 48) setObject:? forKeyedSubscript:?];
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v7 = [v5 emailAddresses];
     v8 = [v7 ef_compactMapSelector:sel_value];
 
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = [*(*(&v25 + 1) + 8 * i) emailAddressValue];
+          v12 = [*(*(&v24 + 1) + 8 * i) emailAddressValue];
           v13 = v12;
           if (v12)
           {
@@ -694,7 +688,7 @@ void __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSe
 LABEL_20:
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
@@ -703,10 +697,8 @@ LABEL_20:
 
   else
   {
-    [*(a1 + 80) addObject:v23];
+    [*(a1 + 80) addObject:v22];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __160__EDPopulateSendersTableMigrationStep__senderIDsGroupedByContactsForSenderAddressesToIDs_withContactStore_unmatchedEmailAddresses_otherEmailAddressesByContact___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -825,16 +817,16 @@ LABEL_7:
 
 void __73__EDPopulateSendersTableMigrationStep__combineDictionary_withDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
   v8 = v7;
   if (v7)
   {
-    v12[0] = v6;
-    v12[1] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = v6;
+    v11[1] = v7;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v10 = [v9 ef_flatten];
     [*(a1 + 40) setObject:v10 forKeyedSubscript:v5];
   }
@@ -843,8 +835,6 @@ void __73__EDPopulateSendersTableMigrationStep__combineDictionary_withDictionary
   {
     [*(a1 + 40) setObject:v6 forKeyedSubscript:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __73__EDPopulateSendersTableMigrationStep__combineDictionary_withDictionary___block_invoke_2(uint64_t a1, void *a2, void *a3)

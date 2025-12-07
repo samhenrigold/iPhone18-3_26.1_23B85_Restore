@@ -3,6 +3,7 @@
 + (id)propertyDictionaryWithConfidence:(double)confidence;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphBirthdayEventEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphBirthdayEventEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toPersonNode:(id)personNode confidence:(double)confidence;
 - (id)propertyDictionary;
@@ -56,6 +57,30 @@
   return v9;
 }
 
+- (PGGraphBirthdayEventEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphBirthdayEventEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
+
+  return v22;
+}
+
 - (PGGraphBirthdayEventEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
 {
   targetNodeCopy = targetNode;
@@ -83,13 +108,11 @@
 
 + (id)propertyDictionaryWithConfidence:(double)confidence
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"confidence";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"confidence";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

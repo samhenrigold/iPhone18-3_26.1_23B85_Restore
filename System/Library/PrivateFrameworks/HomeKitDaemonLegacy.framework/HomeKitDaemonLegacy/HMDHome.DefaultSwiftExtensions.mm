@@ -13,7 +13,6 @@
   if (remoteEventRouterClientController)
   {
     v6 = remoteEventRouterClientController;
-    v7 = *(&selfCopy->super.isa + OBJC_IVAR____TtCE19HomeKitDaemonLegacyCSo7HMDHomeP33_957716E028C4BEBA7E0C7DA065DD87AC22DefaultSwiftExtensions_accessoryInfoFetchController);
     msgDispatcher = [(HMDHome.DefaultSwiftExtensions *)homeCopy msgDispatcher];
     if (!msgDispatcher)
     {
@@ -21,13 +20,13 @@
       return;
     }
 
-    v9 = msgDispatcher;
+    v8 = msgDispatcher;
     sub_25321CA58(msgDispatcher, v6);
   }
 
   else
   {
-    v9 = homeCopy;
+    v8 = homeCopy;
     homeCopy = selfCopy;
   }
 }

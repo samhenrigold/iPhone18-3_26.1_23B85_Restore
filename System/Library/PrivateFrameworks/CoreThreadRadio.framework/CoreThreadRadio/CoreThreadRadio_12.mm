@@ -1,3 +1,184 @@
+void sub_100109098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+    std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a16);
+    _Unwind_Resume(a1);
+  }
+
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a16);
+  _Unwind_Resume(a1);
+}
+
+void ___ZN6CtrXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_52(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    v3 = std::__shared_weak_count::lock(v2);
+    if (v3)
+    {
+      if (*(a1 + 32))
+      {
+        logging_obg = log_get_logging_obg("com.apple.wpantund.xpcserver", "default");
+        if (os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
+        {
+          xpc::object::to_string(__p, (a1 + 48));
+          v5 = __p[0];
+          if (SHIBYTE(v12) >= 0)
+          {
+            v5 = __p;
+          }
+
+          v6 = (a1 + 56);
+          if (*(a1 + 79) < 0)
+          {
+            v6 = *v6;
+          }
+
+          *buf = 136315394;
+          v16 = v5;
+          v17 = 2080;
+          v18 = v6;
+          _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "Client: %s, responded to: %s", buf, 0x16u);
+          if (SHIBYTE(v12) < 0)
+          {
+            operator delete(__p[0]);
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v7 = *(a1 + 80);
+  if (v7)
+  {
+    v8 = _Block_copy(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(a1 + 88);
+  __p[0] = _NSConcreteStackBlock;
+  __p[1] = 1174405120;
+  v12 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke_0;
+  v13 = &__block_descriptor_tmp_31;
+  if (!v8)
+  {
+    aBlock = 0;
+    dispatch_async(v9, __p);
+    v10 = aBlock;
+    if (!aBlock)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_19;
+  }
+
+  aBlock = _Block_copy(v8);
+  dispatch_async(v9, __p);
+  v10 = aBlock;
+  if (aBlock)
+  {
+LABEL_19:
+    _Block_release(v10);
+  }
+
+LABEL_20:
+  if (v8)
+  {
+    _Block_release(v8);
+  }
+
+  if (v3)
+  {
+    if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v3->__on_zero_shared)(v3);
+      std::__shared_weak_count::__release_weak(v3);
+    }
+  }
+}
+
+void sub_10010930C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_100109324(_Unwind_Exception *exception_object, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+void __copy_helper_block_e8_32c39_ZTSNSt3__18weak_ptrIN3ctu9XpcServerEEE48c23_ZTSKN3xpc10connectionE56c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE80c46_ZTSN8dispatch8callbackIU13block_pointerFvvEEE(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  v5 = *(a2 + 48);
+  *(a1 + 48) = v5;
+  if (v5)
+  {
+    xpc_retain(v5);
+    if ((*(a2 + 79) & 0x80000000) == 0)
+    {
+LABEL_5:
+      v6 = *(a2 + 56);
+      *(a1 + 72) = *(a2 + 72);
+      *(a1 + 56) = v6;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    *(a1 + 48) = xpc_null_create();
+    if ((*(a2 + 79) & 0x80000000) == 0)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  std::string::__init_copy_ctor_external((a1 + 56), *(a2 + 56), *(a2 + 64));
+LABEL_8:
+  v7 = *(a2 + 80);
+  if (v7)
+  {
+    v7 = _Block_copy(v7);
+  }
+
+  v8 = *(a2 + 88);
+  *(a1 + 80) = v7;
+  *(a1 + 88) = v8;
+  if (v8)
+  {
+
+    dispatch_retain(v8);
+  }
+}
+
 void sub_100109414(_Unwind_Exception *a1)
 {
   xpc::dict::~dict(v2);
@@ -144,7 +325,7 @@ void *std::__tree<std::__value_type<xpc::connection,CtrXPC::ServerClientState>,s
     v5 = a2;
     do
     {
-      v4 = v5[2];
+      v4 = *(v5 + 16);
       v6 = *v4 == v5;
       v5 = v4;
     }
@@ -286,22 +467,18 @@ uint64_t *std::unique_ptr<CtrXPC::Server>::~unique_ptr[abi:ne200100](uint64_t *a
   return a1;
 }
 
-uint64_t sendUserBTNotification()
+void sendUserBTNotification(char a1)
 {
-  result = RcpHostContext::sRcpHostContext;
   if (RcpHostContext::sRcpHostContext)
   {
-    result = RcpHostContext::isThreadDecoupledFromBluetooth(RcpHostContext::sRcpHostContext);
-    if ((result & 1) == 0)
+    if (!RcpHostContext::isThreadDecoupledFromBluetooth(RcpHostContext::sRcpHostContext))
     {
       operator new();
     }
   }
-
-  return result;
 }
 
-BOOL checkBluetoothStateAndNotifyUser(void)
+uint64_t checkBluetoothStateAndNotifyUser(void)
 {
   if (RcpHostContext::isThreadDecoupledFromBluetooth(RcpHostContext::sRcpHostContext))
   {
@@ -366,7 +543,7 @@ void append_complex_to_xpc_object_by_value_type(void *a1, any *a2)
       v60.__vftable = 0;
       std::bad_cast::bad_cast(&v60);
       v60.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v60);
     }
 
     std::list<std::string>::list(&__p, a2->var0 + 8);
@@ -799,6 +976,20 @@ void append_complex_to_xpc_object_by_value_type(void *a1, any *a2)
   }
 }
 
+void sub_10010AA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  std::list<std::string>::~list(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_10010AAC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  std::list<std::string>::~list(va);
+  _Unwind_Resume(a1);
+}
+
 void sub_10010AADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
 {
   if (!__p)
@@ -808,6 +999,13 @@ void sub_10010AADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   operator delete(__p);
   _Unwind_Resume(exception_object);
+}
+
+void sub_10010AB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  std::list<std::string>::~list(va);
+  _Unwind_Resume(a1);
 }
 
 void XPCHelpers::xpc_append_dictionary(XPCHelpers *this, const char *a2, any *a3, const any *a4)
@@ -864,7 +1062,7 @@ void append_basic_to_xpc_object_by_value_type(void *a1, any *a2)
       v58.__vftable = 0;
       std::bad_cast::bad_cast(&v58);
       v58.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v58);
     }
 
     var0 = a2->var0;
@@ -983,7 +1181,7 @@ LABEL_43:
       v58.__vftable = 0;
       std::bad_cast::bad_cast(&v58);
       v58.__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&v58);
     }
 
     goto LABEL_34;
@@ -1040,7 +1238,7 @@ LABEL_58:
       __p.__r_.__value_.__r.__words[0] = 0;
       std::bad_cast::bad_cast(&__p);
       __p.__r_.__value_.__r.__words[0] = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&__p);
     }
 
     goto LABEL_58;
@@ -1100,7 +1298,7 @@ LABEL_74:
       __p.__r_.__value_.__r.__words[0] = 0;
       std::bad_cast::bad_cast(&__p);
       __p.__r_.__value_.__r.__words[0] = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&__p);
     }
 
     goto LABEL_73;
@@ -1143,7 +1341,7 @@ LABEL_83:
       __p.__r_.__value_.__r.__words[0] = 0;
       std::bad_cast::bad_cast(&__p);
       __p.__r_.__value_.__r.__words[0] = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      boost::throw_exception<boost::bad_any_cast>(&__p);
     }
 
     v43 = *(a2->var0 + 8);
@@ -1300,7 +1498,7 @@ void sub_10010B824(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void append_basic_to_xpc_object_by_type(void *a1, uint64_t a2, const char *a3)
+void append_basic_to_xpc_object_by_type(void *a1, uint64_t a2, char *a3)
 {
   if (a2 <= 5)
   {
@@ -1587,7 +1785,7 @@ void append_to_xpc_object_by_value_type(void *a1, any *a2)
   }
 }
 
-void XPCHelpers::xpc_append_dictionary(XPCHelpers *this, const char *a2, const char *a3, const char *a4, void *a5)
+void XPCHelpers::xpc_append_dictionary(XPCHelpers *this, const char *a2, const char *a3, char *a4, void *a5)
 {
   if (a3 != 10 || a4)
   {
@@ -1619,7 +1817,7 @@ uint64_t boost::any_cast<std::map<std::string,boost::any> const&>(uint64_t *a1)
     v6.__vftable = 0;
     std::bad_cast::bad_cast(&v6);
     v6.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v6);
   }
 
   return *a1 + 8;
@@ -1643,35 +1841,36 @@ uint64_t boost::any_cast<std::list<std::map<std::string,boost::any>> const&>(uin
     v6.__vftable = 0;
     std::bad_cast::bad_cast(&v6);
     v6.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v6);
   }
 
   return *a1 + 8;
 }
 
-void *std::list<std::map<std::string,boost::any>>::list(void *result, uint64_t a2)
+uint64_t *std::list<std::map<std::string,boost::any>>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
-  if (*(a2 + 8) != a2)
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
+  v2 = *(a2 + 8);
+  if (v2 != a2)
   {
-    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>();
+    std::__list_imp<std::map<std::string,boost::any>>::__create_node[abi:ne200100]<std::map<std::string,boost::any> const&>(a1, 0, 0, (v2 + 16));
   }
 
-  return result;
+  return a1;
 }
 
 void sub_10010C530(_Unwind_Exception *a1)
@@ -1699,7 +1898,7 @@ uint64_t boost::any_cast<unsigned short const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1723,7 +1922,7 @@ uint64_t boost::any_cast<short const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1747,7 +1946,7 @@ uint64_t boost::any_cast<unsigned int const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1771,7 +1970,7 @@ uint64_t boost::any_cast<int const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1795,7 +1994,7 @@ uint64_t boost::any_cast<long long const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1819,7 +2018,7 @@ uint64_t boost::any_cast<double const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
@@ -1843,13 +2042,13 @@ uint64_t boost::any_cast<float const&>(uint64_t *a1)
     v7.__vftable = 0;
     std::bad_cast::bad_cast(&v7);
     v7.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v7);
   }
 
   return *a1 + 8;
 }
 
-void sub_10010CD00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_10010CD00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   std::shared_ptr<CtrXPC::Server>::~shared_ptr[abi:ne200100](&a10);
   if (a17 < 0)
@@ -2065,11 +2264,11 @@ void InternalClient::eventsOn(InternalClient *this)
   }
 }
 
-InternalClient *InternalClient::getClientEventListenersPtr@<X0>(InternalClient *this@<X0>, void *a2@<X8>)
+uint64_t *InternalClient::getClientEventListenersPtr@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v2 = *(this + 8);
-  *a2 = *(this + 7);
-  a2[1] = v2;
+  v2 = this[8];
+  *a1 = this[7];
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -2487,7 +2686,7 @@ void ___ZN14InternalClient3getENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9
   Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v8, *(v2 + 32), *(v2 + 40));
     if ((*(a1 + 63) & 0x80000000) == 0)
     {
       goto LABEL_3;
@@ -2496,30 +2695,32 @@ void ___ZN14InternalClient3getENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9
 
   else
   {
-    v7 = *(v2 + 32);
+    v8 = *(v2 + 32);
     if ((*(a1 + 63) & 0x80000000) == 0)
     {
 LABEL_3:
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       goto LABEL_6;
     }
   }
 
-  std::string::__init_copy_ctor_external(&v6, *(a1 + 40), *(a1 + 48));
+  std::string::__init_copy_ctor_external(&v7, *(a1 + 40), *(a1 + 48));
 LABEL_6:
   v4 = *(a1 + 64);
   if (v4)
   {
-    _Block_copy(v4);
+    v4 = _Block_copy(v4);
   }
 
   v5 = *(a1 + 72);
+  aBlock[0] = v4;
+  aBlock[1] = v5;
   if (v5)
   {
     dispatch_retain(v5);
   }
 
-  InternalIPCAPI::getProperty(Instance, &v7, &v6);
+  InternalIPCAPI::getProperty(Instance, &v8, &v7, aBlock);
 }
 
 void sub_10010DBD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -2592,54 +2793,54 @@ void __destroy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
 
 void InternalClient::set(uint64_t a1, uint64_t a2)
 {
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x2000000000;
-  v18 = 1;
-  v3 = dispatch_group_create();
-  dispatch_group_enter(v3);
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x2000000000;
+  v20 = 1;
+  v5 = dispatch_group_create();
+  dispatch_group_enter(v5);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient3setENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEPKc_block_invoke;
   aBlock[3] = &unk_1004C3D58;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v13, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v15, *a2, *(a2 + 8));
   }
 
   else
   {
-    v13 = *a2;
+    v15 = *a2;
   }
 
-  aBlock[4] = v17;
-  v14 = v3;
-  if (v3)
+  aBlock[4] = v19;
+  v16 = v5;
+  if (v5)
   {
-    dispatch_retain(v3);
+    dispatch_retain(v5);
   }
 
-  v4 = _Block_copy(aBlock);
+  v6 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v6 = global_queue;
+  v8 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  v15 = v4;
-  v16 = v6;
-  v11[0] = 0;
-  v11[1] = 0;
-  v10 = v11;
-  v9 = 13;
+  v17 = v6;
+  v18 = v8;
+  v13[0] = 0;
+  v13[1] = 0;
+  v12 = v13;
+  v11 = 13;
   strcpy(__p, "property_type");
-  v7[0] = __p;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v10, __p);
+  v9[0] = __p;
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v12, __p, &std::piecewise_construct, v9);
   operator new();
 }
 
-void sub_10010E3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, char *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46, dispatch_object_t object)
+void sub_10010E3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, char *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *__p, uint64_t a42, int a43, __int16 a44, char a45, char a46, dispatch_object_t object)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a33, a34);
   dispatch::callback<void({block_pointer})(void)>::~callback(v48 - 144);
@@ -2745,18 +2946,11 @@ void __destroy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
   }
 }
 
-void ___ZN14InternalClient3setENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEPKc_block_invoke_13(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_10010E798(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_10010E798(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -2765,7 +2959,7 @@ void sub_10010E798(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void __copy_helper_block_e8_40c127_ZTSNSt3__13mapINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEN5boost3anyENS_4lessIS6_EENS4_INS_4pairIKS6_S8_EEEEEE64c58_ZTSN8dispatch8callbackIU13block_pointerFvhN5boost3anyEEEE(uint64_t a1, uint64_t a2)
 {
-  std::map<std::string,boost::any>::map[abi:ne200100](a1 + 40, (a2 + 40));
+  std::map<std::string,boost::any>::map[abi:ne200100]((a1 + 40), (a2 + 40));
   v4 = *(a2 + 64);
   if (v4)
   {
@@ -2910,9 +3104,9 @@ LABEL_21:
   }
 }
 
-void sub_10010EB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10010EB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   dispatch::callback<void({block_pointer})(void)>::~callback(va);
   _Unwind_Resume(a1);
 }
@@ -2944,31 +3138,34 @@ void ___ZN14InternalClient15setEventHandlerENSt3__112basic_stringIcNS0_11char_tr
 
   if (*(a1 + 64) && *(a1 + 72))
   {
-    v2 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*(*(a1 + 32) + 56), (a1 + 40));
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v3 = _Block_copy(v3);
-    }
-
-    v4 = v2[7];
-    v2[7] = v3;
-    if (v4)
-    {
-      _Block_release(v4);
-    }
-
-    v5 = *(a1 + 72);
+    v2 = (a1 + 40);
+    v3 = *(*(a1 + 32) + 56);
+    v9 = (a1 + 40);
+    v4 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v3, v2, &std::piecewise_construct, &v9);
+    v5 = *(a1 + 64);
     if (v5)
     {
-      dispatch_retain(v5);
+      v5 = _Block_copy(v5);
     }
 
-    v6 = v2[8];
-    v2[8] = v5;
+    v6 = v4[7];
+    v4[7] = v5;
     if (v6)
     {
-      dispatch_release(v6);
+      _Block_release(v6);
+    }
+
+    v7 = *(a1 + 72);
+    if (v7)
+    {
+      dispatch_retain(v7);
+    }
+
+    v8 = v4[8];
+    v4[8] = v7;
+    if (v8)
+    {
+      dispatch_release(v8);
     }
   }
 }
@@ -3138,9 +3335,9 @@ LABEL_21:
   }
 }
 
-void sub_10010EF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10010EF2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   dispatch::callback<void({block_pointer})(void)>::~callback(va);
   _Unwind_Resume(a1);
 }
@@ -3172,31 +3369,34 @@ void ___ZN14InternalClient15setEventHandlerENSt3__112basic_stringIcNS0_11char_tr
 
   if (*(a1 + 64) && *(a1 + 72))
   {
-    v2 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(*(*(a1 + 32) + 56), (a1 + 40));
-    v3 = *(a1 + 64);
-    if (v3)
-    {
-      v3 = _Block_copy(v3);
-    }
-
-    v4 = v2[7];
-    v2[7] = v3;
-    if (v4)
-    {
-      _Block_release(v4);
-    }
-
-    v5 = *(a1 + 72);
+    v2 = (a1 + 40);
+    v3 = *(*(a1 + 32) + 56);
+    v9 = (a1 + 40);
+    v4 = std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v3, v2, &std::piecewise_construct, &v9);
+    v5 = *(a1 + 64);
     if (v5)
     {
-      dispatch_retain(v5);
+      v5 = _Block_copy(v5);
     }
 
-    v6 = v2[8];
-    v2[8] = v5;
+    v6 = v4[7];
+    v4[7] = v5;
     if (v6)
     {
-      dispatch_release(v6);
+      _Block_release(v6);
+    }
+
+    v7 = *(a1 + 72);
+    if (v7)
+    {
+      dispatch_retain(v7);
+    }
+
+    v8 = v4[8];
+    v4[8] = v7;
+    if (v8)
+    {
+      dispatch_release(v8);
     }
   }
 }
@@ -3211,44 +3411,44 @@ void InternalClient::sendData(InternalClient *this@<X0>, uint64_t a2@<X8>)
 
 void InternalClient::send_diagnostics_req()
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2000000000;
-  v10 = 1;
-  v0 = dispatch_group_create();
-  dispatch_group_enter(v0);
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2000000000;
+  v13 = 1;
+  v3 = dispatch_group_create();
+  dispatch_group_enter(v3);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient20send_diagnostics_reqE22Ctr_send_diagnostics_t_block_invoke;
   aBlock[3] = &unk_1004C3E20;
-  aBlock[4] = v9;
-  aBlock[5] = v0;
-  if (v0)
+  aBlock[4] = v12;
+  aBlock[5] = v3;
+  if (v3)
   {
-    dispatch_retain(v0);
+    dispatch_retain(v3);
   }
 
-  v1 = _Block_copy(aBlock);
+  v4 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v3 = global_queue;
+  v6 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  aBlock[6] = v1;
-  aBlock[7] = v3;
-  v7[0] = 0;
-  v7[1] = 0;
-  v6 = v7;
-  v5 = 6;
+  aBlock[6] = v4;
+  aBlock[7] = v6;
+  v10[0] = 0;
+  v10[1] = 0;
+  v9 = v10;
+  v8 = 6;
   strcpy(&__p, "method");
   p_p = &__p;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v6, &__p);
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v9, &__p, &std::piecewise_construct, &p_p);
   operator new();
 }
 
-void sub_10010F5A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25, char *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, dispatch_object_t object)
+void sub_10010F5A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, char *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, dispatch_object_t object)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a25, a26);
   dispatch::callback<void({block_pointer})(void)>::~callback(v34 - 160);
@@ -3307,11 +3507,11 @@ void __destroy_helper_block_e8_40c21_ZTSN8dispatch5groupE(uint64_t a1)
   }
 }
 
-void sub_10010F87C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_10010F87C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -3541,39 +3741,41 @@ void ___ZN14InternalClient15trm_get_ot_dataE21Ctr_trm_get_ot_data_tPN5boost3anyE
   v3 = *(v2 + 72);
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v9, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v10, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v9 = *(a1 + 40);
+    v10 = *(a1 + 40);
   }
 
-  v8 = 12;
+  v9 = 12;
   strcpy(__p, "TrmGetOTData");
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v6, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
   }
 
   else
   {
-    v6 = *(v2 + 32);
+    v7 = *(v2 + 32);
   }
 
   v4 = *(a1 + 72);
   if (v4)
   {
-    _Block_copy(v4);
+    v4 = _Block_copy(v4);
   }
 
   v5 = *(a1 + 80);
+  aBlock[0] = v4;
+  aBlock[1] = v5;
   if (v5)
   {
     dispatch_retain(v5);
   }
 
-  InternalIPCAPI::interface_trm_get_ot_data();
+  InternalIPCAPI::interface_trm_get_ot_data(v3, &v10, __p, &v7.__r_.__value_.__l.__data_, aBlock);
 }
 
 void sub_10010FE70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -3837,41 +4039,43 @@ void ___ZN14InternalClient18send_ping_node_reqE20Ctr_send_ping_node_t_block_invo
   v3 = *(v2 + 72);
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v12, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v11 = *(a1 + 40);
+    v12 = *(a1 + 40);
   }
 
   v4 = *(a1 + 64);
   v5 = *(a1 + 66);
   strcpy(__p, "NetworkMonitorPingNode");
-  v10 = 22;
+  v11 = 22;
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v8, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v9, *(v2 + 32), *(v2 + 40));
   }
 
   else
   {
-    v8 = *(v2 + 32);
+    v9 = *(v2 + 32);
   }
 
   v6 = *(a1 + 72);
   if (v6)
   {
-    _Block_copy(v6);
+    v6 = _Block_copy(v6);
   }
 
   v7 = *(a1 + 80);
+  aBlock[0] = v6;
+  aBlock[1] = v7;
   if (v7)
   {
     dispatch_retain(v7);
   }
 
-  InternalIPCAPI::interface_send_ping_req();
+  InternalIPCAPI::interface_send_ping_req(v3, &v12, v4, v5, __p, &v9.__r_.__value_.__l.__data_, aBlock);
 }
 
 void sub_1001104C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -4094,20 +4298,21 @@ LABEL_11:
   _Block_object_dispose(&v18, 8);
 }
 
-void sub_1001108C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_object_t object, char a15, uint64_t a16, char a17)
+void sub_1001108C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_object_t object, uint64_t a15, uint64_t a16, ...)
 {
+  va_start(va, a16);
   dispatch::callback<void({block_pointer})(void)>::~callback(&a15);
   if (object)
   {
     dispatch_release(object);
   }
 
-  if (v17)
+  if (v16)
   {
-    dispatch_release(v17);
+    dispatch_release(v16);
   }
 
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4138,19 +4343,18 @@ void ___ZN14InternalClient24get_device_data_diag_reqE19Ctr_get_diag_data_t_block
 
 void ___ZN14InternalClient24get_device_data_diag_reqE19Ctr_get_diag_data_t_block_invoke_41(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 72);
   if (*(a1 + 63) < 0)
   {
-    std::string::__init_copy_ctor_external(&v3, *(a1 + 40), *(a1 + 48));
+    std::string::__init_copy_ctor_external(&v2, *(a1 + 40), *(a1 + 48));
   }
 
   else
   {
-    v3 = *(a1 + 40);
+    v2 = *(a1 + 40);
   }
 
-  v4 = *(a1 + 64);
-  v5 = *(a1 + 80);
+  v3 = *(a1 + 64);
+  v4 = *(a1 + 80);
   operator new();
 }
 
@@ -4238,43 +4442,43 @@ void __destroy_helper_block_e8_40c25_ZTS19Ctr_get_diag_data_t88c58_ZTSN8dispatch
   }
 }
 
-void InternalClient::form(uint64_t a1@<X1>, uint64_t a2@<X8>)
+void InternalClient::form(uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2000000000;
+  v24 = 1;
   v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2000000000;
-  v23 = 1;
-  v21[0] = 0;
-  v21[1] = 0;
-  v20 = v21;
-  v4 = dispatch_group_create();
-  dispatch_group_enter(v4);
+  v22[1] = 0;
+  v21 = v22;
+  v5 = dispatch_group_create();
+  dispatch_group_enter(v5);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient4formE8Ctr_form_block_invoke;
   aBlock[3] = &unk_1004C3FC0;
-  aBlock[4] = v22;
-  v17 = v4;
-  if (v4)
+  aBlock[4] = v23;
+  v18 = v5;
+  if (v5)
   {
-    dispatch_retain(v4);
+    dispatch_retain(v5);
   }
 
-  v5 = _Block_copy(aBlock);
+  v6 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v7 = global_queue;
+  v8 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  v18 = v5;
-  object = v7;
-  v8 = *(a1 + 72);
-  if (v8)
+  v19 = v6;
+  object = v8;
+  v9 = *(a2 + 72);
+  if (v9)
   {
-    v9 = *a1;
-    if (*a1)
+    v10 = *a2;
+    if (*a2)
     {
       goto LABEL_7;
     }
@@ -4282,144 +4486,144 @@ void InternalClient::form(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
   else
   {
-    v8 = "router";
-    *(a1 + 72) = "router";
-    v9 = *a1;
-    if (*a1)
+    v9 = "router";
+    *(a2 + 72) = "router";
+    v10 = *a2;
+    if (*a2)
     {
 LABEL_7:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf[0]) = 136315394;
-        *(buf + 4) = v9;
+        *(buf + 4) = v10;
         WORD2(buf[1]) = 2080;
-        *(&buf[1] + 6) = v8;
+        *(&buf[1] + 6) = v9;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Forming WPAN %s as node type %s", buf, 0x16u);
       }
 
-      if (*(a1 + 8) == 1)
+      if (*(a2 + 8) == 1)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          v10 = *(a1 + 10);
+          v11 = *(a2 + 10);
           LODWORD(buf[0]) = 67109120;
-          HIDWORD(buf[0]) = v10;
-          v11 = ", channel:%d";
+          HIDWORD(buf[0]) = v11;
+          v12 = ", channel:%d";
 LABEL_18:
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, v11, buf, 8u);
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, v12, buf, 8u);
         }
       }
 
-      else if (*(a1 + 12) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      else if (*(a2 + 12) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
-        v12 = *(a1 + 16);
+        v13 = *(a2 + 16);
         LODWORD(buf[0]) = 67109120;
-        HIDWORD(buf[0]) = v12;
-        v11 = ", channel-mask:0x%x";
+        HIDWORD(buf[0]) = v13;
+        v12 = ", channel-mask:0x%x";
         goto LABEL_18;
       }
 
-      if (*(a1 + 20) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      if (*(a2 + 20) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
-        v13 = *(a1 + 22);
+        v14 = *(a2 + 22);
         LODWORD(buf[0]) = 67109120;
-        HIDWORD(buf[0]) = v13;
+        HIDWORD(buf[0]) = v14;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", panid:0x%04X", buf, 8u);
       }
 
-      if (*(a1 + 24) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      if (*(a2 + 24) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
-        v14 = *(a1 + 32);
+        v15 = *(a2 + 32);
         LODWORD(buf[0]) = 134217984;
-        *(buf + 4) = v14;
+        *(buf + 4) = v15;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", xpanid:0x%016llX", buf, 0xCu);
       }
 
-      if (*(a1 + 40) == 1)
+      if (*(a2 + 40) == 1)
       {
-        encode_data_into_string((a1 + 41), 16, buf, 0x24uLL, 0);
+        encode_data_into_string((a2 + 41), 16, buf, 0x24uLL, 0);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          LODWORD(v24[0]) = 136315138;
-          *(v24 + 4) = buf;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", key:[%s]", v24, 0xCu);
+          LODWORD(v25[0]) = 136315138;
+          *(v25 + 4) = buf;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", key:[%s]", v25, 0xCu);
         }
       }
 
-      if (*(a1 + 57) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+      if (*(a2 + 57) == 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
       {
-        v15 = *(a1 + 60);
+        v16 = *(a2 + 60);
         LODWORD(buf[0]) = 67109120;
-        HIDWORD(buf[0]) = v15;
+        HIDWORD(buf[0]) = v16;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", key-index:%d", buf, 8u);
       }
 
-      if (*(a1 + 80) == 1)
+      if (*(a2 + 80) == 1)
       {
         memset(buf + 2, 0, 44);
         LOWORD(buf[0]) = 14906;
-        v24[0] = *(a1 + 81);
-        v24[1] = 0;
-        inet_ntop(30, v24, buf, 0x2Eu);
+        v25[0] = *(a2 + 81);
+        v25[1] = 0;
+        inet_ntop(30, v25, buf, 0x2Eu);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          *v25 = 136315138;
-          *&v25[4] = buf;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", mesh-local-prefix:%s", v25, 0xCu);
+          *v26 = 136315138;
+          *&v26[4] = buf;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", mesh-local-prefix:%s", v26, 0xCu);
         }
       }
 
-      if (*(a1 + 89) == 1)
+      if (*(a2 + 89) == 1)
       {
         memset(buf + 2, 0, 44);
         LOWORD(buf[0]) = 14906;
-        v24[0] = *(a1 + 90);
-        v24[1] = 0;
-        inet_ntop(30, v24, buf, 0x2Eu);
+        v25[0] = *(a2 + 90);
+        v25[1] = 0;
+        inet_ntop(30, v25, buf, 0x2Eu);
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
-          *v25 = 136315138;
-          *&v25[4] = buf;
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", legacy-prefix:%s", v25, 0xCu);
+          *v26 = 136315138;
+          *&v26[4] = buf;
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, ", legacy-prefix:%s", v26, 0xCu);
         }
       }
 
       HIBYTE(buf[2]) = 6;
       strcpy(buf, "method");
-      v24[0] = buf;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v20, buf);
+      v25[0] = buf;
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v21, buf, &std::piecewise_construct, v25);
       operator new();
     }
   }
 
-  *a2 = 10;
-  strcpy((a2 + 8), "Network Name not Given");
-  *(a2 + 31) = 22;
-  if (v7)
+  *a3 = 10;
+  strcpy((a3 + 8), "Network Name not Given");
+  *(a3 + 31) = 22;
+  if (v8)
   {
-    dispatch_release(v7);
+    dispatch_release(v8);
+  }
+
+  if (v6)
+  {
+    _Block_release(v6);
+  }
+
+  if (v18)
+  {
+    dispatch_release(v18);
   }
 
   if (v5)
   {
-    _Block_release(v5);
+    dispatch_release(v5);
   }
 
-  if (v17)
-  {
-    dispatch_release(v17);
-  }
-
-  if (v4)
-  {
-    dispatch_release(v4);
-  }
-
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&v20, v21[0]);
-  _Block_object_dispose(v22, 8);
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&v21, v22[0]);
+  _Block_object_dispose(v23, 8);
 }
 
-void sub_100111FEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, char a25, uint64_t a26, char a27, char *a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40)
+void sub_100111FEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, dispatch_object_t object, uint64_t a25, uint64_t a26, uint64_t a27, char *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a25);
   if (object)
@@ -4468,18 +4672,11 @@ void ___ZN14InternalClient4formE8Ctr_form_block_invoke(uint64_t a1, int a2)
   dispatch_group_leave(*(a1 + 40));
 }
 
-void ___ZN14InternalClient4formE8Ctr_form_block_invoke_61(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_100112368(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_100112368(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -4625,7 +4822,7 @@ void ___ZN14InternalClient5leaveEb_block_invoke_68(uint64_t a1)
   Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v8, *(v2 + 32), *(v2 + 40));
     v4 = *(a1 + 56);
     v5 = *(a1 + 40);
     if (!v5)
@@ -4636,23 +4833,25 @@ void ___ZN14InternalClient5leaveEb_block_invoke_68(uint64_t a1)
 
   else
   {
-    v7 = *(v2 + 32);
+    v8 = *(v2 + 32);
     v4 = *(a1 + 56);
     v5 = *(a1 + 40);
     if (!v5)
     {
 LABEL_6:
       v6 = *(a1 + 48);
+      aBlock[0] = v5;
+      aBlock[1] = v6;
       if (v6)
       {
         dispatch_retain(v6);
       }
 
-      InternalIPCAPI::interface_leave_handler(Instance, &v7, v4);
+      InternalIPCAPI::interface_leave_handler(Instance, &v8, v4, aBlock);
     }
   }
 
-  _Block_copy(v5);
+  v5 = _Block_copy(v5);
   goto LABEL_6;
 }
 
@@ -4837,15 +5036,15 @@ void ___ZN14InternalClient21updatePrimaryResidentE23Ctr_primaryResidentInfo_bloc
 void ___ZN14InternalClient21updatePrimaryResidentE23Ctr_primaryResidentInfo_block_invoke_73(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  InternalIPCAPI::getInstance(a1);
+  Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v11, *(v2 + 32), *(v2 + 40));
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 41);
-    v9 = *(a1 + 48);
-    v6 = *(a1 + 64);
-    if (!v6)
+    std::string::__init_copy_ctor_external(&v10, *(v2 + 32), *(v2 + 40));
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 41);
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 64);
+    if (!v7)
     {
       goto LABEL_6;
     }
@@ -4853,25 +5052,27 @@ void ___ZN14InternalClient21updatePrimaryResidentE23Ctr_primaryResidentInfo_bloc
 
   else
   {
-    v11 = *(v2 + 32);
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 41);
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 64);
-    if (!v6)
+    v10 = *(v2 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 41);
+    v6 = *(a1 + 48);
+    v7 = *(a1 + 64);
+    if (!v7)
     {
 LABEL_6:
-      v10 = *(a1 + 72);
-      if (v10)
+      v8 = *(a1 + 72);
+      aBlock[0] = v7;
+      aBlock[1] = v8;
+      if (v8)
       {
-        dispatch_retain(v10);
+        dispatch_retain(v8);
       }
 
-      InternalIPCAPI::interface_update_primary_resident_handler();
+      InternalIPCAPI::interface_update_primary_resident_handler(Instance, &v10, v4, v5, v6, aBlock);
     }
   }
 
-  _Block_copy(v6);
+  v7 = _Block_copy(v7);
   goto LABEL_6;
 }
 
@@ -5056,14 +5257,14 @@ void ___ZN14InternalClient20updateHomeThreadInfoE18Ctr_homeThreadInfo_block_invo
 void ___ZN14InternalClient20updateHomeThreadInfoE18Ctr_homeThreadInfo_block_invoke_78(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  InternalIPCAPI::getInstance(a1);
+  Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
     std::string::__init_copy_ctor_external(&v9, *(v2 + 32), *(v2 + 40));
-    v6 = *(a1 + 56);
+    v7 = *(a1 + 56);
     v8 = *(a1 + 72);
-    v3 = *(a1 + 40);
-    if (!v3)
+    v4 = *(a1 + 40);
+    if (!v4)
     {
       goto LABEL_6;
     }
@@ -5072,23 +5273,25 @@ void ___ZN14InternalClient20updateHomeThreadInfoE18Ctr_homeThreadInfo_block_invo
   else
   {
     v9 = *(v2 + 32);
-    v5 = *(a1 + 56);
-    v7 = *(a1 + 72);
-    v3 = *(a1 + 40);
-    if (!v3)
+    v7 = *(a1 + 56);
+    v8 = *(a1 + 72);
+    v4 = *(a1 + 40);
+    if (!v4)
     {
 LABEL_6:
-      v4 = *(a1 + 48);
-      if (v4)
+      v5 = *(a1 + 48);
+      aBlock[0] = v4;
+      aBlock[1] = v5;
+      if (v5)
       {
-        dispatch_retain(v4);
+        dispatch_retain(v5);
       }
 
-      InternalIPCAPI::interface_update_home_thread_info_handler();
+      InternalIPCAPI::interface_update_home_thread_info_handler(Instance, &v9, &v7, aBlock);
     }
   }
 
-  _Block_copy(v3);
+  v4 = _Block_copy(v4);
   goto LABEL_6;
 }
 
@@ -5249,13 +5452,13 @@ void ___ZN14InternalClient8wedStartE13Ctr_wed_start_block_invoke(uint64_t a1, in
 void ___ZN14InternalClient8wedStartE13Ctr_wed_start_block_invoke_85(InternalIPCAPI *a1)
 {
   v2 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
+  Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v8, *(v2 + 32), *(v2 + 40));
     v5 = *(a1 + 5);
-    v3 = *(a1 + 6);
-    if (!v3)
+    v4 = *(a1 + 6);
+    if (!v4)
     {
       goto LABEL_6;
     }
@@ -5263,23 +5466,25 @@ void ___ZN14InternalClient8wedStartE13Ctr_wed_start_block_invoke_85(InternalIPCA
 
   else
   {
-    v7 = *(v2 + 32);
-    v4 = *(a1 + 5);
-    v3 = *(a1 + 6);
-    if (!v3)
+    v8 = *(v2 + 32);
+    v5 = *(a1 + 5);
+    v4 = *(a1 + 6);
+    if (!v4)
     {
 LABEL_6:
       v6 = *(a1 + 7);
+      aBlock[0] = v4;
+      aBlock[1] = v6;
       if (v6)
       {
         dispatch_retain(v6);
       }
 
-      InternalIPCAPI::interface_wed_start_handler();
+      InternalIPCAPI::interface_wed_start_handler(Instance, &v8, v5, aBlock);
     }
   }
 
-  _Block_copy(v3);
+  v4 = _Block_copy(v4);
   goto LABEL_6;
 }
 
@@ -5472,12 +5677,12 @@ void ___ZN14InternalClient7wedStopEv_block_invoke(uint64_t a1, int a2)
 void ___ZN14InternalClient7wedStopEv_block_invoke_90(InternalIPCAPI *a1)
 {
   v2 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
+  Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(v2 + 32), *(v2 + 40));
-    v3 = *(a1 + 5);
-    if (!v3)
+    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
+    v4 = *(a1 + 5);
+    if (!v4)
     {
       goto LABEL_6;
     }
@@ -5485,22 +5690,24 @@ void ___ZN14InternalClient7wedStopEv_block_invoke_90(InternalIPCAPI *a1)
 
   else
   {
-    v5 = *(v2 + 32);
-    v3 = *(a1 + 5);
-    if (!v3)
+    v7 = *(v2 + 32);
+    v4 = *(a1 + 5);
+    if (!v4)
     {
 LABEL_6:
-      v4 = *(a1 + 6);
-      if (v4)
+      v5 = *(a1 + 6);
+      aBlock[0] = v4;
+      aBlock[1] = v5;
+      if (v5)
       {
-        dispatch_retain(v4);
+        dispatch_retain(v5);
       }
 
-      InternalIPCAPI::interface_wed_stop_handler();
+      InternalIPCAPI::interface_wed_stop_handler(Instance, &v7, aBlock);
     }
   }
 
-  _Block_copy(v3);
+  v4 = _Block_copy(v4);
   goto LABEL_6;
 }
 
@@ -5524,42 +5731,41 @@ void InternalClient::scan(uint64_t a1, uint64_t a2)
   v11[0] = 0;
   v11[1] = 0;
   v10 = v11;
-  v3 = dispatch_group_create();
-  dispatch_group_enter(v3);
+  v4 = dispatch_group_create();
+  dispatch_group_enter(v4);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient4scanE8Ctr_scan_block_invoke;
   aBlock[3] = &unk_1004C4230;
   aBlock[4] = v12;
-  aBlock[5] = v3;
-  if (v3)
+  aBlock[5] = v4;
+  if (v4)
   {
-    dispatch_retain(v3);
+    dispatch_retain(v4);
   }
 
-  v4 = _Block_copy(aBlock);
+  v5 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v6 = global_queue;
+  v7 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  aBlock[6] = v4;
-  aBlock[7] = v6;
+  aBlock[6] = v5;
+  aBlock[7] = v7;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v7 = *(a2 + 16);
+    v8 = *(a2 + 16);
     *buf = 67109120;
-    *&buf[4] = v7;
+    *&buf[4] = v8;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "Starting Scan of Type %d \n", buf, 8u);
   }
 
-  v8 = *(a2 + 8);
   buf[23] = 12;
   v14 = buf;
   strcpy(buf, "channel_mask");
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v10, buf);
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v10, buf, &std::piecewise_construct, &v14);
   operator new();
 }
 
@@ -5588,18 +5794,11 @@ void ___ZN14InternalClient4scanE8Ctr_scan_block_invoke(uint64_t a1, int a2)
   dispatch_group_leave(*(a1 + 40));
 }
 
-void ___ZN14InternalClient4scanE8Ctr_scan_block_invoke_98(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_100114700(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_100114700(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -5609,34 +5808,36 @@ void sub_100114700(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void ___ZN14InternalClient4scanE8Ctr_scan_block_invoke_106(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  InternalIPCAPI::getInstance(a1);
-  std::map<std::string,boost::any>::map[abi:ne200100](v6, (a1 + 40));
+  Instance = InternalIPCAPI::getInstance(a1);
+  std::map<std::string,boost::any>::map[abi:ne200100](&v8, (a1 + 40));
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(v2 + 32), *(v2 + 40));
+    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
   }
 
   else
   {
-    v5 = *(v2 + 32);
+    v7 = *(v2 + 32);
   }
 
-  v3 = *(a1 + 64);
-  if (v3)
-  {
-    _Block_copy(v3);
-  }
-
-  v4 = *(a1 + 72);
+  v4 = *(a1 + 64);
   if (v4)
   {
-    dispatch_retain(v4);
+    v4 = _Block_copy(v4);
   }
 
-  InternalIPCAPI::interface_discover_scan_start_handler();
+  v5 = *(a1 + 72);
+  aBlock[0] = v4;
+  aBlock[1] = v5;
+  if (v5)
+  {
+    dispatch_retain(v5);
+  }
+
+  InternalIPCAPI::interface_discover_scan_start_handler(Instance, &v8, &v7, aBlock);
 }
 
-void sub_100114870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, char *a18)
+void sub_100114870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char *a18)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a9);
   if (a16 < 0)
@@ -5648,18 +5849,11 @@ void sub_100114870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN14InternalClient4scanE8Ctr_scan_block_invoke_111(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_1001149DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_1001149DC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -5668,42 +5862,42 @@ void sub_1001149DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void InternalClient::join(uint64_t a1, void *a2)
 {
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x2000000000;
+  v15 = 1;
   v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x2000000000;
-  v14 = 1;
-  v12[0] = 0;
-  v12[1] = 0;
-  v11 = v12;
-  v3 = dispatch_group_create();
-  dispatch_group_enter(v3);
+  v13[1] = 0;
+  v12 = v13;
+  v4 = dispatch_group_create();
+  dispatch_group_enter(v4);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient4joinE8Ctr_join_block_invoke;
   aBlock[3] = &unk_1004C42F8;
-  aBlock[4] = v13;
-  aBlock[5] = v3;
-  if (v3)
+  aBlock[4] = v14;
+  aBlock[5] = v4;
+  if (v4)
   {
-    dispatch_retain(v3);
+    dispatch_retain(v4);
   }
 
-  v4 = _Block_copy(aBlock);
+  v5 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v6 = global_queue;
+  v7 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  aBlock[6] = v4;
-  aBlock[7] = v6;
+  aBlock[6] = v5;
+  aBlock[7] = v7;
   if (*a2)
   {
-    v9 = 6;
+    v10 = 6;
     strcpy(__p, "method");
-    v7[0] = __p;
-    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v11, __p);
+    v8[0] = __p;
+    std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v12, __p, &std::piecewise_construct, v8);
     operator new();
   }
 
@@ -5759,18 +5953,11 @@ void ___ZN14InternalClient4joinE8Ctr_join_block_invoke(uint64_t a1, int a2)
   dispatch_group_leave(*(a1 + 40));
 }
 
-void ___ZN14InternalClient4joinE8Ctr_join_block_invoke_121(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_10011576C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_10011576C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -5985,12 +6172,12 @@ void ___ZN14InternalClient5resetEb_block_invoke(uint64_t a1, int a2)
 void ___ZN14InternalClient5resetEb_block_invoke_128(InternalIPCAPI *a1)
 {
   v2 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
+  Instance = InternalIPCAPI::getInstance(a1);
   if (*(v2 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(v2 + 32), *(v2 + 40));
-    v3 = *(a1 + 5);
-    if (!v3)
+    std::string::__init_copy_ctor_external(&v7, *(v2 + 32), *(v2 + 40));
+    v4 = *(a1 + 5);
+    if (!v4)
     {
       goto LABEL_6;
     }
@@ -5998,22 +6185,24 @@ void ___ZN14InternalClient5resetEb_block_invoke_128(InternalIPCAPI *a1)
 
   else
   {
-    v5 = *(v2 + 32);
-    v3 = *(a1 + 5);
-    if (!v3)
+    v7 = *(v2 + 32);
+    v4 = *(a1 + 5);
+    if (!v4)
     {
 LABEL_6:
-      v4 = *(a1 + 6);
-      if (v4)
+      v5 = *(a1 + 6);
+      aBlock[0] = v4;
+      aBlock[1] = v5;
+      if (v5)
       {
-        dispatch_retain(v4);
+        dispatch_retain(v5);
       }
 
-      InternalIPCAPI::interface_reset_handler();
+      InternalIPCAPI::interface_reset_handler(Instance, &v7, aBlock);
     }
   }
 
-  _Block_copy(v3);
+  v4 = _Block_copy(v4);
   goto LABEL_6;
 }
 
@@ -6091,45 +6280,45 @@ void sub_100115DE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void InternalClient::generatePSKc(uint64_t a1, void *a2, uint64_t a3)
 {
+  v14[0] = 0;
+  v14[1] = v14;
+  v14[2] = 0x2000000000;
+  v15 = 1;
   v13[0] = 0;
-  v13[1] = v13;
-  v13[2] = 0x2000000000;
-  v14 = 1;
-  v12[0] = 0;
-  v12[1] = 0;
-  v11 = v12;
-  v5 = dispatch_group_create();
-  dispatch_group_enter(v5);
+  v13[1] = 0;
+  v12 = v13;
+  v6 = dispatch_group_create();
+  dispatch_group_enter(v6);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient12generatePSKcE16Ctr_generatePSKcPN5boost3anyE_block_invoke;
   aBlock[3] = &unk_1004C43F8;
-  aBlock[4] = v13;
+  aBlock[4] = v14;
   aBlock[5] = a3;
-  aBlock[6] = v5;
-  if (v5)
+  aBlock[6] = v6;
+  if (v6)
   {
-    dispatch_retain(v5);
+    dispatch_retain(v6);
   }
 
-  v6 = _Block_copy(aBlock);
+  v7 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v8 = global_queue;
+  v9 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  aBlock[7] = v6;
-  aBlock[8] = v8;
+  aBlock[7] = v7;
+  aBlock[8] = v9;
   if (*a2)
   {
     if (a2[2])
     {
-      v16 = 6;
+      v17 = 6;
       strcpy(&__dst, "method");
       __p = &__dst;
-      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v11, &__dst);
+      std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v12, &__dst, &std::piecewise_construct, &__p);
       operator new();
     }
 
@@ -6139,7 +6328,7 @@ void InternalClient::generatePSKc(uint64_t a1, void *a2, uint64_t a3)
   operator new();
 }
 
-void sub_100116720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, dispatch_object_t object, char a33, uint64_t a34, char a35, char *a36)
+void sub_100116720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, dispatch_object_t object, uint64_t a33, uint64_t a34, uint64_t a35, char *a36)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a33);
   if (object)
@@ -6201,18 +6390,11 @@ LABEL_6:
   dispatch_group_leave(*(a1 + 48));
 }
 
-void ___ZN14InternalClient12generatePSKcE16Ctr_generatePSKcPN5boost3anyE_block_invoke_142(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_100116AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_100116AB0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -6270,41 +6452,41 @@ void sub_100116C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void InternalClient::getNCPStatus(InternalClient *this, any *a2)
 {
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2000000000;
+  v14 = 1;
   v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x2000000000;
-  v13 = 1;
-  v11[0] = 0;
-  v11[1] = 0;
-  v10 = v11;
-  v3 = dispatch_group_create();
-  dispatch_group_enter(v3);
+  v12[1] = 0;
+  v11 = v12;
+  v4 = dispatch_group_create();
+  dispatch_group_enter(v4);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN14InternalClient12getNCPStatusEPN5boost3anyE_block_invoke;
   aBlock[3] = &unk_1004C4460;
-  aBlock[4] = v12;
+  aBlock[4] = v13;
   aBlock[5] = a2;
-  aBlock[6] = v3;
-  if (v3)
+  aBlock[6] = v4;
+  if (v4)
   {
-    dispatch_retain(v3);
+    dispatch_retain(v4);
   }
 
-  v4 = _Block_copy(aBlock);
+  v5 = _Block_copy(aBlock);
   global_queue = dispatch_get_global_queue(0, 0);
-  v6 = global_queue;
+  v7 = global_queue;
   if (global_queue)
   {
     dispatch_retain(global_queue);
   }
 
-  aBlock[7] = v4;
-  aBlock[8] = v6;
-  v8 = 6;
+  aBlock[7] = v5;
+  aBlock[8] = v7;
+  v9 = 6;
   strcpy(&__p, "method");
   p_p = &__p;
-  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v10, &__p);
+  std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v11, &__p, &std::piecewise_construct, &p_p);
   operator new();
 }
 
@@ -6334,7 +6516,7 @@ LABEL_4:
 
 void ___ZN14InternalClient12getNCPStatusEPN5boost3anyE_block_invoke(uint64_t a1, char a2, any *a3)
 {
-  any_to_string(a3, &__p);
+  any_to_string(&__p, a3);
   *(*(*(a1 + 32) + 8) + 24) = a2;
   v6 = *(a1 + 40);
   if (a3->var0)
@@ -6360,9 +6542,9 @@ LABEL_3:
 
 LABEL_4:
   dispatch_group_leave(*(a1 + 48));
-  if (v10 < 0)
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -6376,27 +6558,20 @@ void sub_1001171C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ___ZN14InternalClient12getNCPStatusEPN5boost3anyE_block_invoke_150(InternalIPCAPI *a1)
-{
-  v1 = *(a1 + 4);
-  InternalIPCAPI::getInstance(a1);
-  operator new();
-}
-
-void sub_100117318(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
+void sub_100117318(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1001174DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1001174DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<InternalClient>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6596,117 +6771,117 @@ void __destroy_helper_block_e8_40c43_ZTSNSt3__110shared_ptrIK14InternalClientEE(
   }
 }
 
-void *std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::__map_value_compare<std::string,std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_25:
     operator new();
   }
 
-  v3 = *(a2 + 23);
-  if (v3 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v4 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
-    v4 = a2[1];
+    v6 = a2[1];
   }
 
-  if (v3 >= 0)
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v7 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v7 = *a2;
   }
 
   while (1)
   {
     while (1)
     {
-      v6 = v2;
-      v9 = v2[4];
-      v7 = v2 + 4;
-      v8 = v9;
-      v10 = *(v7 + 23);
-      if (v10 >= 0)
+      v8 = v4;
+      v11 = v4[4];
+      v9 = v4 + 4;
+      v10 = v11;
+      v12 = *(v9 + 23);
+      if (v12 >= 0)
       {
-        v11 = *(v7 + 23);
+        v13 = *(v9 + 23);
       }
 
       else
       {
-        v11 = v7[1];
+        v13 = v9[1];
       }
 
-      if (v10 >= 0)
+      if (v12 >= 0)
       {
-        v12 = v7;
+        v14 = v9;
       }
 
       else
       {
-        v12 = v8;
+        v14 = v10;
       }
 
-      if (v11 >= v4)
+      if (v13 >= v6)
       {
-        v13 = v4;
+        v15 = v6;
       }
 
       else
       {
-        v13 = v11;
+        v15 = v13;
       }
 
-      v14 = memcmp(v5, v12, v13);
-      v15 = v4 < v11;
-      if (v14)
+      v16 = memcmp(v7, v14, v15);
+      v17 = v6 < v13;
+      if (v16)
       {
-        v15 = v14 < 0;
+        v17 = v16 < 0;
       }
 
-      if (!v15)
+      if (!v17)
       {
         break;
       }
 
-      v2 = *v6;
-      if (!*v6)
+      v4 = *v8;
+      if (!*v8)
       {
         goto LABEL_25;
       }
     }
 
-    v16 = memcmp(v12, v5, v13);
-    v17 = v11 < v4;
-    if (v16)
+    v18 = memcmp(v14, v7, v15);
+    v19 = v13 < v6;
+    if (v18)
     {
-      v17 = v16 < 0;
+      v19 = v18 < 0;
     }
 
-    if (!v17)
+    if (!v19)
     {
-      return v6;
+      return v8;
     }
 
-    v2 = v6[1];
-    if (!v2)
+    v4 = v8[1];
+    if (!v4)
     {
       goto LABEL_25;
     }
   }
 }
 
-void sub_100117BD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100117BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,dispatch::callback<void({block_pointer})(boost::any)>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6816,7 +6991,7 @@ LABEL_23:
   }
 
 LABEL_15:
-  (*((v9 & 0xFFFFFFFFFFFFFFFELL) + 8))(__src + 48, v8);
+  (*((v9 & 0xFFFFFFFFFFFFFFFELL) + 8))(__src + 24, v8);
   return v7;
 }
 
@@ -6832,7 +7007,7 @@ uint64_t HostInterpreter::ProcessDatasetUpdate(HostInterpreter *this, unsigned _
       {
         if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_ERROR))
         {
-          HostInterpreter::ProcessDatasetUpdate(v13);
+          HostInterpreter::ProcessDatasetUpdate();
         }
       }
 
@@ -6843,7 +7018,7 @@ uint64_t HostInterpreter::ProcessDatasetUpdate(HostInterpreter *this, unsigned _
 
       if (v14)
       {
-        dskeychainRcp::AddDataSet(1u, v13, v14);
+        dskeychainRcp::AddDataSet(1, v13, v14);
       }
 
       else
@@ -6925,7 +7100,7 @@ LABEL_18:
   {
     if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      HostInterpreter::ProcessDatasetUpdate(a4);
+      HostInterpreter::ProcessDatasetUpdate();
     }
   }
 
@@ -6937,11 +7112,11 @@ LABEL_18:
   return PendingTlvs;
 }
 
-void sub_1001181C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+void sub_1001181C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   if (a16 < 0)
@@ -6953,7 +7128,7 @@ void sub_1001181C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HostInterpreter::ProcessDiscoverScan(HostInterpreter *this, unsigned __int8 a2, char **a3, void *a4)
+uint64_t HostInterpreter::ProcessDiscoverScan(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
 {
   v70 = 16;
   strcpy(__s1, "Scan:ChannelMask");
@@ -6981,7 +7156,7 @@ LABEL_20:
 
     if (v8 >= 0)
     {
-      v10 = (v7 + 4);
+      v10 = v7 + 4;
     }
 
     else
@@ -7035,7 +7210,7 @@ LABEL_3:
   v70 = 16;
   strcpy(__s1, "Scan:ChannelMask");
   v68.__vftable = __s1;
-  v16 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+  v16 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v68);
   v17 = v16[7];
   if (v17)
   {
@@ -7052,7 +7227,7 @@ LABEL_3:
     v68.__vftable = 0;
     std::bad_cast::bad_cast(&v68);
     v68.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v68);
   }
 
   v66 = *(v16[7] + 8);
@@ -7088,7 +7263,7 @@ LABEL_48:
 
     if (v22 >= 0)
     {
-      v24 = (v21 + 4);
+      v24 = v21 + 4;
     }
 
     else
@@ -7144,7 +7319,7 @@ LABEL_31:
   v70 = 10;
   v68.__vftable = __s1;
   strcpy(__s1, "Scan:PANID");
-  v30 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+  v30 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v68);
   v31 = v30[7];
   if (v31)
   {
@@ -7161,7 +7336,7 @@ LABEL_31:
     v68.__vftable = 0;
     std::bad_cast::bad_cast(&v68);
     v68.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v68);
   }
 
   v65 = *(v30[7] + 8);
@@ -7193,7 +7368,7 @@ LABEL_57:
 
       if (v36 >= 0)
       {
-        v38 = (v35 + 4);
+        v38 = v35 + 4;
       }
 
       else
@@ -7232,7 +7407,7 @@ LABEL_57:
           v70 = 20;
           strcpy(__s1, "Scan:EnableFiltering");
           v68.__vftable = __s1;
-          v46 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+          v46 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v68);
           v47 = any_to_BOOL(v46 + 7);
           if (v70 < 0)
           {
@@ -7339,7 +7514,7 @@ LABEL_82:
   v70 = 15;
   strcpy(__s1, "Scan:JoinerFlag");
   v68.__vftable = __s1;
-  v63 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v67, __s1);
+  v63 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v67, __s1, &std::piecewise_construct, &v68);
   v57 = any_to_BOOL(v63 + 7);
   if (v70 < 0)
   {
@@ -7401,14 +7576,14 @@ void sub_100118980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __int8 a2, char **a3, char *a4)
+uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
 {
   v43 = 16;
   strcpy(__s1, "Scan:ChannelMask");
-  v6 = *(a4 + 1);
+  v6 = a4[1];
   if (v6)
   {
-    v7 = *(a4 + 1);
+    v7 = a4[1];
     do
     {
       v8 = *(v7 + 55);
@@ -7424,7 +7599,7 @@ uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __in
 
       if (v8 >= 0)
       {
-        v10 = (v7 + 4);
+        v10 = v7 + 4;
       }
 
       else
@@ -7463,7 +7638,7 @@ uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __in
           v43 = 16;
           strcpy(__s1, "Scan:ChannelMask");
           v41.__vftable = __s1;
-          v17 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+          v17 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v41);
           v18 = v17[7];
           if (v18)
           {
@@ -7480,7 +7655,7 @@ uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __in
             v41.__vftable = 0;
             std::bad_cast::bad_cast(&v41);
             v41.__vftable = off_1004C1D50;
-            boost::throw_exception<boost::bad_any_cast>();
+            boost::throw_exception<boost::bad_any_cast>(&v41);
           }
 
           v16 = *(v17[7] + 8);
@@ -7489,7 +7664,7 @@ uint64_t HostInterpreter::ProcessEnergyScan(HostInterpreter *this, unsigned __in
             operator delete(*__s1);
           }
 
-          v6 = *(a4 + 1);
+          v6 = a4[1];
           goto LABEL_29;
         }
 
@@ -7528,7 +7703,7 @@ LABEL_48:
 
     if (v22 >= 0)
     {
-      v24 = (v6 + 4);
+      v24 = v6 + 4;
     }
 
     else
@@ -7582,7 +7757,7 @@ LABEL_31:
   v43 = 11;
   v41.__vftable = __s1;
   strcpy(__s1, "Scan:Period");
-  v35 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1);
+  v35 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, __s1, &std::piecewise_construct, &v41);
   v36 = v35[7];
   if (v36)
   {
@@ -7599,7 +7774,7 @@ LABEL_31:
     v41.__vftable = 0;
     std::bad_cast::bad_cast(&v41);
     v41.__vftable = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
+    boost::throw_exception<boost::bad_any_cast>(&v41);
   }
 
   v30 = *(v35[7] + 8);
@@ -7614,7 +7789,7 @@ LABEL_49:
   v31 = otLinkEnergyScan(*(this + 28), v16, v30, HostInterpreter::HandleEnergyScanResult, this);
   if (v31)
   {
-    v32 = *(a4 + 3);
+    v32 = a4[3];
     if (!v32)
     {
       std::runtime_error::runtime_error(__s1, "call to empty boost::function");
@@ -7622,7 +7797,7 @@ LABEL_49:
       boost::throw_exception<boost::bad_function_call>(__s1);
     }
 
-    (*((v32 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 32, v31);
+    (*((v32 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 4, v31);
     TaskQueueWrapper::pop_front(RcpHostContext::sRcpHostContext);
   }
 
@@ -7662,55 +7837,55 @@ void sub_100118EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::ProcessForm(HostInterpreter *this, unsigned __int8 a2, char **a3, _BYTE *a4)
+uint64_t HostInterpreter::ProcessForm(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
 {
   *__str = 0u;
-  v77 = 0u;
-  memset(&v67, 0, sizeof(v67));
-  gettimeofday(&v66, 0);
-  tv_sec = v66.tv_sec;
-  v74 = 0;
-  v73 = 0u;
-  v71 = 0u;
-  memset(v72, 0, sizeof(v72));
+  v76 = 0u;
+  memset(&v66, 0, sizeof(v66));
+  gettimeofday(&v65, 0);
+  tv_sec = v65.tv_sec;
+  v73 = 0;
+  v72 = 0u;
+  v70 = 0u;
+  memset(v71, 0, sizeof(v71));
   *(&__p.__r_.__value_.__s + 23) = 17;
-  memset(v70, 0, sizeof(v70));
+  memset(v69, 0, sizeof(v69));
   strcpy(&__p, "Thread:DeviceMode");
-  v63[0].__vftable = &__p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_);
+  v62[0].__vftable = &__p;
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, v62);
   if (*(v7 + 79) < 0)
   {
-    std::string::__init_copy_ctor_external(&v65, v7[7], v7[8]);
+    std::string::__init_copy_ctor_external(&v64, v7[7], v7[8]);
   }
 
   else
   {
-    v65 = *(v7 + 7);
+    v64 = *(v7 + 7);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
   }
 
-  else if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
 LABEL_6:
-    v64 = v65;
+    v63 = v64;
     goto LABEL_9;
   }
 
-  std::string::__init_copy_ctor_external(&v64, v65.__r_.__value_.__l.__data_, v65.__r_.__value_.__l.__size_);
+  std::string::__init_copy_ctor_external(&v63, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
 LABEL_9:
-  v8 = HostInterpreter::DeviceModeConfig(this, &v64);
+  v8 = HostInterpreter::DeviceModeConfig(this, &v63);
   NewNetwork = v8;
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v64.__r_.__value_.__l.__data_);
+    operator delete(v63.__r_.__value_.__l.__data_);
     if (NewNetwork)
     {
       goto LABEL_28;
@@ -7722,7 +7897,6 @@ LABEL_9:
     goto LABEL_28;
   }
 
-  v10 = *(this + 28);
   if (otPlatRadioGetRcp2Vendor2Enabled())
   {
     logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -7744,16 +7918,16 @@ LABEL_9:
     started = otPlatVendorSetVendorThreadStartStop(*(this + 28), 1);
     if (started)
     {
-      v13 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v13)
+      v12 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v12)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           LODWORD(__p.__r_.__value_.__l.__data_) = 136315394;
           *(__p.__r_.__value_.__r.__words + 4) = "ProcessForm";
           WORD2(__p.__r_.__value_.__r.__words[1]) = 1024;
           *(&__p.__r_.__value_.__r.__words[1] + 6) = started;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", &__p, 0x12u);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s: otPlatVendorSetVendorThreadStartStop Error: %d", &__p, 0x12u);
         }
       }
 
@@ -7764,34 +7938,34 @@ LABEL_9:
     }
   }
 
-  NewNetwork = otDatasetCreateNewNetwork(*(this + 28), v70);
+  NewNetwork = otDatasetCreateNewNetwork(*(this + 28), v69);
   if (NewNetwork)
   {
     goto LABEL_28;
   }
 
-  BYTE8(v73) = 1;
-  *&v70[0] = tv_sec;
-  WORD4(v70[0]) = 0;
-  BYTE10(v70[0]) = 1;
-  otThreadGetPskc(*(this + 28), &v75);
-  if (vmaxvq_u8(vtstq_s8(v75, v75)))
+  BYTE8(v72) = 1;
+  *&v69[0] = tv_sec;
+  WORD4(v69[0]) = 0;
+  BYTE10(v69[0]) = 1;
+  otThreadGetPskc(*(this + 28), &v74);
+  if (vmaxvq_u8(vtstq_s8(v74, v74)))
   {
-    *(&v72[3] + 6) = 0;
-    *(&v72[2] + 14) = 0;
-    otThreadGetPskc(*(this + 28), &v72[2] + 14);
-    BYTE1(v74) = 1;
+    *(&v71[3] + 6) = 0;
+    *(&v71[2] + 14) = 0;
+    otThreadGetPskc(*(this + 28), &v71[2] + 14);
+    BYTE1(v73) = 1;
   }
 
   else
   {
-    v23 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v23)
+    v22 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v22)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "ProcessForm::pskc not present. Generated new pskc", &__p, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "ProcessForm::pskc not present. Generated new pskc", &__p, 2u);
       }
     }
 
@@ -7801,155 +7975,155 @@ LABEL_9:
     }
   }
 
-  if (a4[32] == 1)
+  if (*(a4 + 32) == 1)
   {
     *(&__p.__r_.__value_.__s + 23) = 11;
     strcpy(&__p, "NCP:Channel");
-    v63[0].__vftable = &__p;
-    v20 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-    v21 = v20[7];
-    if (v21)
+    v62[0].__vftable = &__p;
+    v19 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, v62);
+    v20 = v19[7];
+    if (v20)
     {
-      v22 = (*(*v21 + 16))(v21);
+      v21 = (*(*v20 + 16))(v20);
     }
 
     else
     {
     }
 
-    v24 = (v22[1] & 0x7FFFFFFFFFFFFFFFLL);
-    if (v24 != v25 && strcmp(v24, v25))
+    v23 = (v21[1] & 0x7FFFFFFFFFFFFFFFLL);
+    if (v23 != v24 && strcmp(v23, v24))
     {
-      v63[0].__vftable = 0;
-      std::bad_cast::bad_cast(v63);
-      v63[0].__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      v62[0].__vftable = 0;
+      std::bad_cast::bad_cast(v62);
+      v62[0].__vftable = off_1004C1D50;
+      boost::throw_exception<boost::bad_any_cast>(v62);
     }
 
-    WORD5(v72[2]) = *(v20[7] + 8);
+    WORD5(v71[2]) = *(v19[7] + 8);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    LOBYTE(v74) = 1;
+    LOBYTE(v73) = 1;
   }
 
-  if (a4[31] == 1)
+  if (*(a4 + 31) == 1)
   {
     *(&__p.__r_.__value_.__s + 23) = 13;
     strcpy(&__p, "Network:PANID");
-    v63[0].__vftable = &__p;
-    v26 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-    v27 = v26[7];
-    if (v27)
+    v62[0].__vftable = &__p;
+    v25 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, v62);
+    v26 = v25[7];
+    if (v26)
     {
-      v28 = (*(*v27 + 16))(v27);
+      v27 = (*(*v26 + 16))(v26);
     }
 
     else
     {
     }
 
-    v29 = (v28[1] & 0x7FFFFFFFFFFFFFFFLL);
-    if (v29 != v30 && strcmp(v29, v30))
+    v28 = (v27[1] & 0x7FFFFFFFFFFFFFFFLL);
+    if (v28 != v29 && strcmp(v28, v29))
     {
-      v63[0].__vftable = 0;
-      std::bad_cast::bad_cast(v63);
-      v63[0].__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      v62[0].__vftable = 0;
+      std::bad_cast::bad_cast(v62);
+      v62[0].__vftable = off_1004C1D50;
+      boost::throw_exception<boost::bad_any_cast>(v62);
     }
 
-    WORD4(v72[2]) = *(v26[7] + 8);
+    WORD4(v71[2]) = *(v25[7] + 8);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    HIBYTE(v73) = 1;
+    HIBYTE(v72) = 1;
   }
 
-  if (a4[27] == 1)
+  if (*(a4 + 27) == 1)
   {
-    HIBYTE(v63[2].__vftable) = 12;
-    strcpy(v63, "Network:Name");
-    v68 = v63;
-    v31 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v63[0].__vftable);
-    boost::any_cast<std::string>((v31 + 7), &__p);
-    v67 = __p;
+    HIBYTE(v62[2].__vftable) = 12;
+    strcpy(v62, "Network:Name");
+    v67 = v62;
+    v30 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v62[0].__vftable, &std::piecewise_construct, &v67);
+    boost::any_cast<std::string>((v30 + 7), &__p);
+    v66 = __p;
     *(&__p.__r_.__value_.__s + 23) = 0;
     __p.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v63[2].__vftable) < 0)
+    if (SHIBYTE(v62[2].__vftable) < 0)
     {
-      operator delete(v63[0].__vftable);
+      operator delete(v62[0].__vftable);
     }
 
-    memset(v72, 0, 17);
-    if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    memset(v71, 0, 17);
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v32 = &v67;
-    }
-
-    else
-    {
-      v32 = v67.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v67.__r_.__value_.__r.__words[2]);
+      v31 = &v66;
     }
 
     else
     {
-      size = v67.__r_.__value_.__l.__size_;
+      v31 = v66.__r_.__value_.__r.__words[0];
     }
 
-    memcpy(v72, v32, size);
-    BYTE11(v73) = 1;
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v66.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v66.__r_.__value_.__l.__size_;
+    }
+
+    memcpy(v71, v31, size);
+    BYTE11(v72) = 1;
   }
 
-  if (a4[28] == 1)
+  if (*(a4 + 28) == 1)
   {
-    *(&v72[1] + 1) = 0;
+    *(&v71[1] + 1) = 0;
     *(&__p.__r_.__value_.__s + 23) = 14;
     strcpy(&__p, "Network:XPANID");
-    v63[0].__vftable = &__p;
-    v34 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-    v35 = v34[7];
-    if (v35)
+    v62[0].__vftable = &__p;
+    v33 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_, &std::piecewise_construct, v62);
+    v34 = v33[7];
+    if (v34)
     {
-      v36 = (*(*v35 + 16))(v35);
+      v35 = (*(*v34 + 16))(v34);
     }
 
     else
     {
     }
 
-    v37 = (v36[1] & 0x7FFFFFFFFFFFFFFFLL);
-    if (v37 != v38 && strcmp(v37, v38))
+    v36 = (v35[1] & 0x7FFFFFFFFFFFFFFFLL);
+    if (v36 != v37 && strcmp(v36, v37))
     {
-      v63[0].__vftable = 0;
-      std::bad_cast::bad_cast(v63);
-      v63[0].__vftable = off_1004C1D50;
-      boost::throw_exception<boost::bad_any_cast>();
+      v62[0].__vftable = 0;
+      std::bad_cast::bad_cast(v62);
+      v62[0].__vftable = off_1004C1D50;
+      boost::throw_exception<boost::bad_any_cast>(v62);
     }
 
-    v39 = *(v34[7] + 8);
+    v38 = *(v33[7] + 8);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    snprintf(__str, 0x20uLL, "%016llx", v39);
-    v40 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v40)
+    snprintf(__str, 0x20uLL, "%016llx", v38);
+    v39 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v39)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
         *(__p.__r_.__value_.__r.__words + 4) = __str;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "::Xpanid = [%s]", &__p, 0xCu);
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "::Xpanid = [%s]", &__p, 0xCu);
       }
     }
 
@@ -7958,65 +8132,65 @@ LABEL_9:
       [PowerEventHandler_Rcp init:];
     }
 
-    NewNetwork = ot::Utils::CmdLineParser::ParseAsHexString(__str, &v72[1] + 1, 8);
+    NewNetwork = ot::Utils::CmdLineParser::ParseAsHexString(__str, &v71[1] + 1, 8);
     if (!NewNetwork)
     {
-      BYTE12(v73) = 1;
+      BYTE12(v72) = 1;
       goto LABEL_100;
     }
 
 LABEL_28:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_29;
   }
 
 LABEL_100:
-  if (a4[26] != 1)
+  if (*(a4 + 26) != 1)
   {
-    v14 = 0;
+    v13 = 0;
     goto LABEL_130;
   }
 
-  HIBYTE(v63[2].__vftable) = 11;
-  strcpy(v63, "Network:Key");
-  v68 = v63;
-  v41 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v63[0].__vftable);
-  any_to_data(v41 + 7, &__p);
-  v42 = __p.__r_.__value_.__l.__size_;
-  v14 = __p.__r_.__value_.__r.__words[0];
+  HIBYTE(v62[2].__vftable) = 11;
+  strcpy(v62, "Network:Key");
+  v67 = v62;
+  v40 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v62[0].__vftable, &std::piecewise_construct, &v67);
+  any_to_data(&__p, v40 + 7);
+  v41 = __p.__r_.__value_.__l.__size_;
+  v13 = __p.__r_.__value_.__r.__words[0];
   memset(&__p, 0, sizeof(__p));
-  if (SHIBYTE(v63[2].__vftable) < 0)
+  if (SHIBYTE(v62[2].__vftable) < 0)
   {
-    operator delete(v63[0].__vftable);
+    operator delete(v62[0].__vftable);
   }
 
-  v43 = 2 * (v42 - v14);
-  if (v43 >= 0x7FFFFFFFFFFFFFF8)
+  v42 = 2 * (v41 - v13);
+  if (v42 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v43 >= 0x17)
+  if (v42 >= 0x17)
   {
     operator new();
   }
 
-  *(&__p.__r_.__value_.__s + 23) = 2 * (v42 - v14);
-  if (v43)
+  *(&__p.__r_.__value_.__s + 23) = 2 * (v41 - v13);
+  if (v42)
   {
-    bzero(&__p, 2 * (v42 - v14));
+    bzero(&__p, 2 * (v41 - v13));
   }
 
-  __p.__r_.__value_.__s.__data_[v43] = 0;
-  std::string::reserve(&__p, v43 | 1);
-  if (v14 == v42)
+  __p.__r_.__value_.__s.__data_[v42] = 0;
+  std::string::reserve(&__p, v42 | 1);
+  if (v13 == v41)
   {
-    v44 = 0;
+    v43 = 0;
   }
 
   else
   {
-    v44 = v14;
+    v43 = v13;
   }
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8031,29 +8205,29 @@ LABEL_100:
 
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v46 = 22;
+    v45 = 22;
   }
 
   else
   {
-    v46 = (__p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
+    v45 = (__p.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
   }
 
-  encode_data_into_string(v44, v42 - v14, p_p, v46, 0);
-  v71 = 0uLL;
+  encode_data_into_string(v43, v41 - v13, p_p, v45, 0);
+  v70 = 0uLL;
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v47 = &__p;
+    v46 = &__p;
   }
 
   else
   {
-    v47 = __p.__r_.__value_.__r.__words[0];
+    v46 = __p.__r_.__value_.__r.__words[0];
   }
 
-  v48 = ot::Utils::CmdLineParser::ParseAsHexString(v47, &v71, 0x10);
-  NewNetwork = v48;
-  if (v48)
+  v47 = ot::Utils::CmdLineParser::ParseAsHexString(v46, &v70, 0x10);
+  NewNetwork = v47;
+  if (v47)
   {
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
@@ -8063,11 +8237,11 @@ LABEL_100:
 
   else
   {
-    BYTE10(v73) = 1;
+    BYTE10(v72) = 1;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_124:
-      if (v48)
+      if (v47)
       {
         goto LABEL_29;
       }
@@ -8083,64 +8257,64 @@ LABEL_124:
   }
 
 LABEL_130:
-  if (a4[29] == 1)
+  if (*(a4 + 29) == 1)
   {
-    HIBYTE(v63[2].__vftable) = 20;
-    strcpy(v63, "IPv6:MeshLocalPrefix");
-    v68 = v63;
-    v49 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v63[0].__vftable);
-    any_to_string(v49 + 7, &__p);
-    if (SHIBYTE(v63[2].__vftable) < 0)
+    HIBYTE(v62[2].__vftable) = 20;
+    strcpy(v62, "IPv6:MeshLocalPrefix");
+    v67 = v62;
+    v48 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v62[0].__vftable, &std::piecewise_construct, &v67);
+    any_to_string(&__p, v48 + 7);
+    if (SHIBYTE(v62[2].__vftable) < 0)
     {
-      operator delete(v63[0].__vftable);
+      operator delete(v62[0].__vftable);
     }
 
+    v49 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     v50 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    v51 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v50 = __p.__r_.__value_.__l.__size_;
+      v49 = __p.__r_.__value_.__l.__size_;
     }
 
-    if (v50)
+    if (v49)
     {
-      if (v50 >= 5)
+      if (v49 >= 5)
       {
+        v51 = 4;
         v52 = 4;
-        v53 = 4;
         do
         {
-          std::string::insert(&__p, v52, ":");
-          v53 += 5;
-          v52 = v53;
-          v54 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          std::string::insert(&__p, v51, ":");
+          v52 += 5;
+          v51 = v52;
+          v53 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
           if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v54 = __p.__r_.__value_.__l.__size_;
+            v53 = __p.__r_.__value_.__l.__size_;
           }
         }
 
-        while (v54 > v53);
+        while (v53 > v52);
       }
 
       std::string::append(&__p, "::");
-      v51 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      v50 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
-    *(&v72[1] + 9) = 0;
-    if (v51 >= 0)
+    *(&v71[1] + 9) = 0;
+    if (v50 >= 0)
     {
-      v55 = &__p;
+      v54 = &__p;
     }
 
     else
     {
-      v55 = __p.__r_.__value_.__r.__words[0];
+      v54 = __p.__r_.__value_.__r.__words[0];
     }
 
-    v56 = ot::Utils::CmdLineParser::ParseAsIp6Address(v55, v63);
-    NewNetwork = v56;
-    if (v56)
+    v55 = ot::Utils::CmdLineParser::ParseAsIp6Address(v54, v62);
+    NewNetwork = v55;
+    if (v55)
     {
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
@@ -8150,12 +8324,12 @@ LABEL_130:
 
     else
     {
-      *(&v72[1] + 9) = v63[0];
-      BYTE13(v73) = 1;
+      *(&v71[1] + 9) = v62[0];
+      BYTE13(v72) = 1;
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_147:
-        if (v56)
+        if (v55)
         {
           goto LABEL_29;
         }
@@ -8172,16 +8346,16 @@ LABEL_147:
   }
 
 LABEL_151:
-  NewNetwork = otDatasetSetActive(*(this + 28), v70);
+  NewNetwork = otDatasetSetActive(*(this + 28), v69);
   if (!NewNetwork)
   {
-    v57 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v57)
+    v56 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v56)
     {
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
       {
         LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Dataset commit active, Done", &__p, 2u);
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_INFO, "Dataset commit active, Done", &__p, 2u);
       }
     }
 
@@ -8190,18 +8364,18 @@ LABEL_151:
       [PowerEventHandler_Rcp init:];
     }
 
-    if ((a4[37] & 1) == 0)
+    if ((*(a4 + 37) & 1) == 0)
     {
-      v59 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v59)
+      v58 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v58)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
         {
           LODWORD(__p.__r_.__value_.__l.__data_) = 136315394;
           *(__p.__r_.__value_.__r.__words + 4) = "otError HostInterpreter::ProcessForm(uint8_t, char **, void *)";
           WORD2(__p.__r_.__value_.__r.__words[1]) = 1024;
           *(&__p.__r_.__value_.__r.__words[1] + 6) = 794;
-          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "%s:%d:Network will not be created ", &__p, 0x12u);
+          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "%s:%d:Network will not be created ", &__p, 0x12u);
         }
       }
 
@@ -8212,9 +8386,9 @@ LABEL_151:
 
 LABEL_183:
       NewNetwork = 0;
-      v17 = 0;
-      v18 = *(a4 + 5);
-      if (v18)
+      v16 = 0;
+      v17 = a4[5];
+      if (v17)
       {
         goto LABEL_40;
       }
@@ -8227,13 +8401,13 @@ LABEL_183:
     NewNetwork = otIp6SetEnabled(*(this + 28), 1);
     if (!NewNetwork)
     {
-      v58 = log_get_logging_obg("com.apple.threadradiod", "default");
-      if (v58)
+      v57 = log_get_logging_obg("com.apple.threadradiod", "default");
+      if (v57)
       {
-        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+        if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
         {
           LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "Ifconfig up, Done", &__p, 2u);
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Ifconfig up, Done", &__p, 2u);
         }
       }
 
@@ -8251,18 +8425,18 @@ LABEL_183:
           otThreadBecomeLeader(*(this + 28), 0);
         }
 
-        v61 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v61)
+        v60 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v60)
         {
           is_the_mask_enabled = syslog_is_the_mask_enabled(6);
           if (is_the_mask_enabled)
           {
-            is_the_mask_enabled = os_log_type_enabled(v61, OS_LOG_TYPE_INFO);
+            is_the_mask_enabled = os_log_type_enabled(v60, OS_LOG_TYPE_INFO);
             if (is_the_mask_enabled)
             {
               LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
               *(__p.__r_.__value_.__r.__words + 4) = "ProcessForm";
-              _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "%s Thread start, Done", &__p, 0xCu);
+              _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "%s Thread start, Done", &__p, 0xCu);
             }
           }
         }
@@ -8283,19 +8457,19 @@ LABEL_183:
   }
 
 LABEL_29:
-  HIDWORD(v16) = NewNetwork - 1;
-  LODWORD(v16) = NewNetwork - 1;
-  v15 = v16 >> 1;
-  if (v15 > 2)
+  HIDWORD(v15) = NewNetwork - 1;
+  LODWORD(v15) = NewNetwork - 1;
+  v14 = v15 >> 1;
+  if (v14 > 2)
   {
-    if (v15 != 6)
+    if (v14 != 6)
     {
-      if (v15 == 3)
+      if (v14 == 3)
       {
-        v17 = 2;
+        v16 = 2;
         NewNetwork = 7;
-        v18 = *(a4 + 5);
-        if (!v18)
+        v17 = a4[5];
+        if (!v17)
         {
           goto LABEL_37;
         }
@@ -8306,10 +8480,10 @@ LABEL_29:
       goto LABEL_39;
     }
 
-    v17 = 4;
+    v16 = 4;
     NewNetwork = 13;
-    v18 = *(a4 + 5);
-    if (v18)
+    v17 = a4[5];
+    if (v17)
     {
       goto LABEL_40;
     }
@@ -8320,13 +8494,13 @@ LABEL_37:
     boost::throw_exception<boost::bad_function_call>(&__p);
   }
 
-  if (!v15)
+  if (!v14)
   {
     NewNetwork = 1;
 LABEL_39:
-    v17 = 1;
-    v18 = *(a4 + 5);
-    if (!v18)
+    v16 = 1;
+    v17 = a4[5];
+    if (!v17)
     {
       goto LABEL_37;
     }
@@ -8334,31 +8508,31 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  if (v15 != 2)
+  if (v14 != 2)
   {
     goto LABEL_39;
   }
 
-  v17 = 9;
+  v16 = 9;
   NewNetwork = 5;
-  v18 = *(a4 + 5);
-  if (!v18)
+  v17 = a4[5];
+  if (!v17)
   {
     goto LABEL_37;
   }
 
 LABEL_40:
-  (*((v18 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 48, v17);
-  if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  (*((v17 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 6, v16);
+  if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v67.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v66.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_42;
     }
 
 LABEL_46:
-    operator delete(v67.__r_.__value_.__l.__data_);
-    if (!v14)
+    operator delete(v66.__r_.__value_.__l.__data_);
+    if (!v13)
     {
       return NewNetwork;
     }
@@ -8366,17 +8540,17 @@ LABEL_46:
     goto LABEL_43;
   }
 
-  operator delete(v65.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v64.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_46;
   }
 
 LABEL_42:
-  if (v14)
+  if (v13)
   {
 LABEL_43:
-    operator delete(v14);
+    operator delete(v13);
   }
 
   return NewNetwork;
@@ -8416,45 +8590,45 @@ LABEL_7:
   _Unwind_Resume(a1);
 }
 
-uint64_t HostInterpreter::ProcessGeneratePSKc(HostInterpreter *this, unsigned __int8 a2, char **a3, void *a4)
+uint64_t HostInterpreter::ProcessGeneratePSKc(HostInterpreter *this, unsigned __int8 a2, char **a3, uint64_t **a4)
 {
-  v21 = 11;
-  strcpy(v20, "pass_phrase");
-  __p[0] = v20;
-  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4 + 24, v20);
-  v7 = &v22;
-  any_to_string(v6 + 7, &v22);
-  if (v23 < 0)
+  v20 = 11;
+  strcpy(v19, "pass_phrase");
+  __p.__r_.__value_.__r.__words[0] = v19;
+  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4 + 3, v19, &std::piecewise_construct, &__p);
+  v7 = &v21;
+  any_to_string(&v21, v6 + 7);
+  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v7 = v22.__vftable;
+    v7 = v21.__r_.__value_.__r.__words[0];
   }
 
   v17 = 12;
   strcpy(v16, "network_name");
-  v24 = v16;
-  v8 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4 + 24, v16);
-  any_to_string(v8 + 7, __p);
-  v9 = v19;
-  v10 = __p[0];
+  v22 = v16;
+  v8 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4 + 3, v16, &std::piecewise_construct, &v22);
+  any_to_string(&__p, v8 + 7);
+  v9 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v10 = __p.__r_.__value_.__r.__words[0];
   otThreadGetExtendedPanId(*(this + 28));
   if (v9 >= 0)
   {
-    v12 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v12 = v10;
+    p_p = v10;
   }
 
-  Pskc = otDatasetGeneratePskc(v7, v12, v11, &v25);
-  if (v19 < 0)
+  Pskc = otDatasetGeneratePskc(v7, p_p, v11, &v23);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
     if ((v17 & 0x80000000) == 0)
     {
 LABEL_8:
-      if ((v23 & 0x80000000) == 0)
+      if ((SHIBYTE(v21.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_9;
       }
@@ -8469,10 +8643,10 @@ LABEL_8:
   }
 
   operator delete(v16[0]);
-  if ((v23 & 0x80000000) == 0)
+  if ((SHIBYTE(v21.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
 LABEL_9:
-    if ((v21 & 0x80000000) == 0)
+    if ((v20 & 0x80000000) == 0)
     {
       goto LABEL_10;
     }
@@ -8481,8 +8655,8 @@ LABEL_9:
   }
 
 LABEL_17:
-  operator delete(v22.__vftable);
-  if ((v21 & 0x80000000) == 0)
+  operator delete(v21.__r_.__value_.__l.__data_);
+  if ((v20 & 0x80000000) == 0)
   {
 LABEL_10:
     if (Pskc)
@@ -8495,7 +8669,7 @@ LABEL_19:
   }
 
 LABEL_18:
-  operator delete(v20[0]);
+  operator delete(v19[0]);
   if (!Pskc)
   {
     goto LABEL_19;
@@ -8576,13 +8750,13 @@ LABEL_9:
 
 uint64_t HostInterpreter::ProcessGetRcpCrashDump(HostInterpreter *this, unsigned __int8 a2, char **a3, void *a4)
 {
-  memset(&v63, 0, sizeof(v63));
   memset(&v62, 0, sizeof(v62));
-  *(v61 + 3) = 0;
-  v61[0] = 0;
-  memset(&v60, 0, sizeof(v60));
+  memset(&v61, 0, sizeof(v61));
+  *(v60 + 3) = 0;
+  v60[0] = 0;
+  memset(&v59, 0, sizeof(v59));
   DWORD1(xmmword_1004E5778) = 0;
-  FaultInfo = otPlatVendorGetFaultInfo(*(this + 28), &v64);
+  FaultInfo = otPlatVendorGetFaultInfo(*(this + 28), &v63);
   if (FaultInfo)
   {
 LABEL_2:
@@ -8597,17 +8771,17 @@ LABEL_2:
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
     {
       *buf = 67110400;
-      *&buf[4] = v65;
+      *&buf[4] = v64;
       *&buf[8] = 1024;
-      *&buf[10] = DWORD1(v65);
+      *&buf[10] = DWORD1(v64);
       *&buf[14] = 1024;
-      LODWORD(v67) = v64;
-      WORD2(v67) = 1024;
-      *(&v67 + 6) = WORD4(v65);
-      WORD5(v67) = 1024;
-      HIDWORD(v67) = DWORD1(v64);
-      v68 = 2048;
-      v69 = *(&v64 + 1);
+      LODWORD(v66) = v63;
+      WORD2(v66) = 1024;
+      *(&v66 + 6) = WORD4(v64);
+      WORD5(v66) = 1024;
+      HIDWORD(v66) = DWORD1(v63);
+      v67 = 2048;
+      v68 = *(&v63 + 1);
       _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "Fatal info address = %u line = %u random_id = %u crash_count = %u crash_type = %u time_stamp = %llu", buf, 0x2Au);
     }
   }
@@ -8617,9 +8791,9 @@ LABEL_2:
     [PowerEventHandler_Rcp init:];
   }
 
-  if (SDWORD1(v64) <= 1)
+  if (SDWORD1(v63) <= 1)
   {
-    if (!DWORD1(v64))
+    if (!DWORD1(v63))
     {
       v9 = log_get_logging_obg("com.apple.threadradiod", "default");
       if (!v9)
@@ -8649,9 +8823,9 @@ LABEL_71:
       goto LABEL_74;
     }
 
-    if (DWORD1(v64) == 1)
+    if (DWORD1(v63) == 1)
     {
-      std::string::assign(&v63, "assert_dump_");
+      std::string::assign(&v62, "assert_dump_");
       v11 = "E_NCP_RESET_CAUSE_ASSERT";
       DWORD1(xmmword_1004E5778) = 1;
       goto LABEL_27;
@@ -8660,15 +8834,15 @@ LABEL_71:
 
   else
   {
-    switch(DWORD1(v64))
+    switch(DWORD1(v63))
     {
       case 2:
-        std::string::assign(&v63, "fault_dump_");
+        std::string::assign(&v62, "fault_dump_");
         v11 = "E_NCP_RESET_CAUSE_HARD_FAULT";
         DWORD1(xmmword_1004E5778) = 2;
         goto LABEL_27;
       case 3:
-        std::string::assign(&v63, "stackoverflow_dump_");
+        std::string::assign(&v62, "stackoverflow_dump_");
         v11 = "E_NCP_RESET_CAUSE_STACK_OVERFLOW";
         DWORD1(xmmword_1004E5778) = 3;
         goto LABEL_27;
@@ -8695,17 +8869,17 @@ LABEL_71:
     }
   }
 
-  std::string::assign(&v63, "unknown_dump_");
+  std::string::assign(&v62, "unknown_dump_");
   v11 = "E_NCP_RESET_CAUSE_OTHER";
 LABEL_27:
-  std::string::assign(&v60, v11);
-  *&xmmword_1004E5788 = v65;
-  WORD4(xmmword_1004E5788) = WORD4(v65);
-  LODWORD(xmmword_1004E5778) = v64;
-  *(&xmmword_1004E5778 + 1) = *(&v64 + 1);
+  std::string::assign(&v59, v11);
+  *&xmmword_1004E5788 = v64;
+  WORD4(xmmword_1004E5788) = WORD4(v64);
+  LODWORD(xmmword_1004E5778) = v63;
+  *(&xmmword_1004E5778 + 1) = *(&v63 + 1);
   HostInterpreter::save_awd_stability_counters(this);
   FaultInfo = otPlatVendorGetVersion(*(this + 28), __s, 500);
-  std::string::assign(&v62, __s);
+  std::string::assign(&v61, __s);
   if (FaultInfo)
   {
     v12 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -8741,24 +8915,24 @@ LABEL_27:
     [PowerEventHandler_Rcp init:];
   }
 
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = &v62;
+    v14 = &v61;
   }
 
   else
   {
-    v14 = v62.__r_.__value_.__r.__words[0];
+    v14 = v61.__r_.__value_.__r.__words[0];
   }
 
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = SHIBYTE(v62.__r_.__value_.__r.__words[2]);
+    size = SHIBYTE(v61.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v62.__r_.__value_.__l.__size_;
+    size = v61.__r_.__value_.__l.__size_;
   }
 
   if (size < 5)
@@ -8814,14 +8988,14 @@ LABEL_67:
     goto LABEL_71;
   }
 
-  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+    v21 = HIBYTE(v62.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v21 = v63.__r_.__value_.__l.__size_;
+    v21 = v62.__r_.__value_.__l.__size_;
   }
 
   if (size + v21 > 0x7FFFFFFFFFFFFFF7)
@@ -8834,59 +9008,59 @@ LABEL_67:
     operator new();
   }
 
-  *&v67 = 0;
+  *&v66 = 0;
   memset(buf, 0, sizeof(buf));
-  BYTE7(v67) = size + v21;
+  BYTE7(v66) = size + v21;
   if (v21)
   {
-    if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v23 = &v63;
+      v23 = &v62;
     }
 
     else
     {
-      v23 = v63.__r_.__value_.__r.__words[0];
+      v23 = v62.__r_.__value_.__r.__words[0];
     }
 
     memmove(buf, v23, v21);
   }
 
   v24 = &buf[v21];
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v25 = &v62;
+    v25 = &v61;
   }
 
   else
   {
-    v25 = v62.__r_.__value_.__r.__words[0];
+    v25 = v61.__r_.__value_.__r.__words[0];
   }
 
   memmove(v24, v25, size);
   v24[size] = 0;
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v63.__r_.__value_.__l.__data_);
+    operator delete(v62.__r_.__value_.__l.__data_);
   }
 
-  v63.__r_.__value_.__r.__words[2] = v67;
-  *&v63.__r_.__value_.__l.__data_ = *buf;
-  if (SBYTE7(v67) < 0)
+  v62.__r_.__value_.__r.__words[2] = v66;
+  *&v62.__r_.__value_.__l.__data_ = *buf;
+  if (SBYTE7(v66) < 0)
   {
-    std::string::__init_copy_ctor_external(&v59, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v58, v62.__r_.__value_.__l.__data_, v62.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v59 = v63;
+    v58 = v62;
   }
 
-  new_crash_dump_file = create_new_crash_dump_file(__src, 250, &v59);
-  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+  new_crash_dump_file = create_new_crash_dump_file(__src, 250, &v58);
+  if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
   {
     v27 = new_crash_dump_file;
-    operator delete(v59.__r_.__value_.__l.__data_);
+    operator delete(v58.__r_.__value_.__l.__data_);
     new_crash_dump_file = v27;
   }
 
@@ -8941,69 +9115,69 @@ LABEL_67:
   v31 = SHIBYTE(__dst.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v57, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v56, __dst.__r_.__value_.__l.__data_, __dst.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v57 = __dst;
+    v56 = __dst;
   }
 
-  FaultInfo = HostInterpreter::SaveCrashLogs(this, &v57);
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  FaultInfo = HostInterpreter::SaveCrashLogs(this, &v56);
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
   if (!FaultInfo)
   {
     v33 = xmmword_1004E5778;
-    std::to_string(&v53, xmmword_1004E5788);
-    v34 = std::string::insert(&v53, 0, "{ADDRESS=");
+    std::to_string(&v52, xmmword_1004E5788);
+    v34 = std::string::insert(&v52, 0, "{ADDRESS=");
     v35 = *&v34->__r_.__value_.__l.__data_;
-    v54.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-    *&v54.__r_.__value_.__l.__data_ = v35;
+    v53.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
+    *&v53.__r_.__value_.__l.__data_ = v35;
     v34->__r_.__value_.__l.__size_ = 0;
     v34->__r_.__value_.__r.__words[2] = 0;
     v34->__r_.__value_.__r.__words[0] = 0;
-    v36 = std::string::append(&v54, ";");
+    v36 = std::string::append(&v53, ";");
     v37 = *&v36->__r_.__value_.__l.__data_;
-    v55.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
-    *&v55.__r_.__value_.__l.__data_ = v37;
+    v54.__r_.__value_.__r.__words[2] = v36->__r_.__value_.__r.__words[2];
+    *&v54.__r_.__value_.__l.__data_ = v37;
     v36->__r_.__value_.__l.__size_ = 0;
     v36->__r_.__value_.__r.__words[2] = 0;
     v36->__r_.__value_.__r.__words[0] = 0;
-    v38 = std::string::append(&v55, "LINE=");
+    v38 = std::string::append(&v54, "LINE=");
     v39 = *&v38->__r_.__value_.__l.__data_;
-    v56.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
-    *&v56.__r_.__value_.__l.__data_ = v39;
+    v55.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
+    *&v55.__r_.__value_.__l.__data_ = v39;
     v38->__r_.__value_.__l.__size_ = 0;
     v38->__r_.__value_.__r.__words[2] = 0;
     v38->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v52, DWORD1(xmmword_1004E5788));
-    if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v51, DWORD1(xmmword_1004E5788));
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v40 = &v52;
+      v40 = &v51;
     }
 
     else
     {
-      v40 = v52.__r_.__value_.__r.__words[0];
+      v40 = v51.__r_.__value_.__r.__words[0];
     }
 
-    if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v51.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v41 = HIBYTE(v52.__r_.__value_.__r.__words[2]);
+      v41 = HIBYTE(v51.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v41 = v52.__r_.__value_.__l.__size_;
+      v41 = v51.__r_.__value_.__l.__size_;
     }
 
-    v42 = std::string::append(&v56, v40, v41);
+    v42 = std::string::append(&v55, v40, v41);
     v43 = *&v42->__r_.__value_.__l.__data_;
-    *&v67 = *(&v42->__r_.__value_.__l + 2);
+    *&v66 = *(&v42->__r_.__value_.__l + 2);
     *buf = v43;
     v42->__r_.__value_.__l.__size_ = 0;
     v42->__r_.__value_.__r.__words[2] = 0;
@@ -9011,19 +9185,19 @@ LABEL_67:
     v44 = std::string::append(buf, "}");
     v6 = v44->__r_.__value_.__r.__words[0];
     v45 = v44->__r_.__value_.__l.__size_;
-    v61[0] = v44->__r_.__value_.__r.__words[2];
-    *(v61 + 3) = *(&v44->__r_.__value_.__r.__words[2] + 3);
+    v60[0] = v44->__r_.__value_.__r.__words[2];
+    *(v60 + 3) = *(&v44->__r_.__value_.__r.__words[2] + 3);
     v46 = SHIBYTE(v44->__r_.__value_.__r.__words[2]);
     v44->__r_.__value_.__l.__size_ = 0;
     v44->__r_.__value_.__r.__words[2] = 0;
     v44->__r_.__value_.__r.__words[0] = 0;
-    if (SBYTE7(v67) < 0)
+    if (SBYTE7(v66) < 0)
     {
       operator delete(*buf);
-      if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v51.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_131:
-        if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_132;
         }
@@ -9032,16 +9206,16 @@ LABEL_131:
       }
     }
 
-    else if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    else if ((SHIBYTE(v51.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_131;
     }
 
-    operator delete(v52.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v56.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v51.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_132:
-      if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_133;
       }
@@ -9050,11 +9224,11 @@ LABEL_132:
     }
 
 LABEL_143:
-    operator delete(v56.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v55.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v55.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_133:
-      if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v53.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_134;
       }
@@ -9063,64 +9237,63 @@ LABEL_133:
     }
 
 LABEL_144:
-    operator delete(v55.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v54.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v54.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v53.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_134:
-      if ((SHIBYTE(v53.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_135;
       }
 
 LABEL_146:
-      operator delete(v53.__r_.__value_.__l.__data_);
+      operator delete(v52.__r_.__value_.__l.__data_);
 LABEL_135:
       if (v46 < 0)
       {
-        std::string::__init_copy_ctor_external(&v49, v6, v45);
+        std::string::__init_copy_ctor_external(&v48, v6, v45);
       }
 
       else
       {
-        v49.__r_.__value_.__r.__words[0] = v6;
-        v49.__r_.__value_.__l.__size_ = v45;
-        LODWORD(v49.__r_.__value_.__r.__words[2]) = v61[0];
-        *(&v49.__r_.__value_.__r.__words[2] + 3) = *(v61 + 3);
-        *(&v49.__r_.__value_.__s + 23) = v46;
+        v48.__r_.__value_.__r.__words[0] = v6;
+        v48.__r_.__value_.__l.__size_ = v45;
+        LODWORD(v48.__r_.__value_.__r.__words[2]) = v60[0];
+        *(&v48.__r_.__value_.__r.__words[2] + 3) = *(v60 + 3);
+        *(&v48.__r_.__value_.__s + 23) = v46;
       }
 
-      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&__p, v59.__r_.__value_.__l.__data_, v59.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        __p = v60;
+        __p = v59;
       }
 
-      v51 = v33 == -559038737;
+      v50 = v33 == -559038737;
       analytics_send_event_lazy();
       if (v33 != -559038737)
       {
         *buf = xmmword_1004E5778;
-        v67 = xmmword_1004E5788;
+        v66 = xmmword_1004E5788;
         AWDMetricsClient_TriggerAutoBugCapture();
       }
 
+      v63 = 0u;
       v64 = 0u;
-      v65 = 0u;
-      v47 = *(this + 28);
       FaultInfo = otPlatVendorSetFaultInfo();
       if (!FaultInfo)
       {
-        v48 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v48)
+        v47 = log_get_logging_obg("com.apple.threadradiod", "default");
+        if (v47)
         {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Reset the fault info", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "Reset the fault info", buf, 2u);
           }
         }
 
@@ -9133,7 +9306,7 @@ LABEL_135:
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
-        if ((SHIBYTE(v49.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_156:
           if ((v31 & 0x80000000) == 0)
@@ -9145,12 +9318,12 @@ LABEL_156:
         }
       }
 
-      else if ((SHIBYTE(v49.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      else if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_156;
       }
 
-      operator delete(v49.__r_.__value_.__l.__data_);
+      operator delete(v48.__r_.__value_.__l.__data_);
       if ((v31 & 0x80000000) == 0)
       {
         goto LABEL_157;
@@ -9160,8 +9333,8 @@ LABEL_156:
     }
 
 LABEL_145:
-    operator delete(v54.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v53.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v53.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_135;
     }
@@ -9195,20 +9368,20 @@ LABEL_140:
 LABEL_157:
   v7 = v46 < 0;
 LABEL_75:
-  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v60.__r_.__value_.__l.__data_);
+    operator delete(v59.__r_.__value_.__l.__data_);
     if (v7)
     {
 LABEL_77:
       operator delete(v6);
-      if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
       {
         goto LABEL_78;
       }
 
 LABEL_82:
-      if ((SHIBYTE(v63.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v62.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         return FaultInfo;
       }
@@ -9222,17 +9395,17 @@ LABEL_82:
     goto LABEL_77;
   }
 
-  if ((SHIBYTE(v62.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_82;
   }
 
 LABEL_78:
-  operator delete(v62.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v61.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_79:
-    operator delete(v63.__r_.__value_.__l.__data_);
+    operator delete(v62.__r_.__value_.__l.__data_);
   }
 
   return FaultInfo;
@@ -9243,25 +9416,25 @@ void sub_10011B0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   if (a19 < 0)
   {
     operator delete(__p);
-    if ((v70 & 0x80000000) == 0)
+    if ((v66 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
   }
 
-  else if ((v70 & 0x80000000) == 0)
+  else if ((v66 & 0x80000000) == 0)
   {
 LABEL_6:
     if (a56 < 0)
     {
       operator delete(a51);
-      if (v71 >= 0)
+      if (v67 >= 0)
       {
         goto LABEL_8;
       }
     }
 
-    else if (v71 >= 0)
+    else if (v67 >= 0)
     {
 LABEL_8:
       if (a63 < 0)
@@ -9272,12 +9445,12 @@ LABEL_8:
       goto LABEL_13;
     }
 
-    operator delete(v69);
+    operator delete(v65);
     if (a63 < 0)
     {
 LABEL_9:
       operator delete(a58);
-      if ((a69 & 0x80000000) == 0)
+      if ((a65 & 0x80000000) == 0)
       {
         goto LABEL_10;
       }
@@ -9286,7 +9459,7 @@ LABEL_9:
     }
 
 LABEL_13:
-    if ((a69 & 0x80000000) == 0)
+    if ((a65 & 0x80000000) == 0)
     {
 LABEL_10:
       _Unwind_Resume(a1);
@@ -9303,6 +9476,7 @@ LABEL_14:
 
 void HostInterpreter::ProcessInitialize(HostInterpreter *this, unsigned __int8 a2, char **a3, void *a4)
 {
+  memset(&v21, 0, sizeof(v21));
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
@@ -9319,7 +9493,7 @@ void HostInterpreter::ProcessInitialize(HostInterpreter *this, unsigned __int8 a
   }
 
   RcpHostContext::clear_threadstart_metrics(RcpHostContext::sRcpHostContext);
-  if (FillmoreControllerGetTmac(v33))
+  if (FillmoreControllerGetTmac(v35))
   {
     v6 = log_get_logging_obg("com.apple.threadradiod", "default");
     if (v6)
@@ -9336,7 +9510,7 @@ void HostInterpreter::ProcessInitialize(HostInterpreter *this, unsigned __int8 a
       [PowerEventHandler_Rcp init:];
     }
 
-    v9 = otPlatVendorSetAssignedHwMac(*(this + 28), v33);
+    v9 = otPlatVendorSetAssignedHwMac(*(this + 28), v35);
     if (v9)
     {
       v10 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -9379,8 +9553,8 @@ LABEL_31:
         }
 
 LABEL_55:
-        v32 = 0;
-        if (otPlatVendorGetAssignedHwMac(*(this + 28), &v32))
+        v34 = 0;
+        if (otPlatVendorGetAssignedHwMac(*(this + 28), &v34))
         {
           v14 = log_get_logging_obg("com.apple.threadradiod", "default");
           if (v14)
@@ -9397,7 +9571,7 @@ LABEL_55:
           }
         }
 
-        snprintf(__str, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v32, BYTE1(v32), BYTE2(v32), BYTE3(v32), BYTE4(v32), BYTE5(v32), BYTE6(v32), HIBYTE(v32));
+        snprintf(__str, 0xC8uLL, "%02X%02X%02X%02X%02X%02X%02X%02X", v34, BYTE1(v34), BYTE2(v34), BYTE3(v34), BYTE4(v34), BYTE5(v34), BYTE6(v34), HIBYTE(v34));
         std::string::assign((RcpHostContext::sRcpHostContext + 5632), __str);
         v15 = log_get_logging_obg("com.apple.threadradiod", "default");
         if (v15)
@@ -9446,9 +9620,10 @@ LABEL_55:
           [PowerEventHandler_Rcp init:];
         }
 
-        BYTE1(v21) = 20;
+        BYTE1(v23) = 20;
         strcpy(buf, "ca:reporting:enabled");
-        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf);
+        __dst = buf;
+        std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, buf, &std::piecewise_construct, &__dst);
         operator new();
       }
 
@@ -9474,15 +9649,15 @@ LABEL_54:
         *&buf[14] = 1024;
         *&buf[16] = __str[2];
         *&buf[20] = 1024;
-        v21 = __str[3];
-        v22 = 1024;
-        v23 = __str[4];
+        v23 = __str[3];
         v24 = 1024;
-        v25 = __str[5];
+        v25 = __str[4];
         v26 = 1024;
-        v27 = __str[6];
+        v27 = __str[5];
         v28 = 1024;
-        v29 = __str[7];
+        v29 = __str[6];
+        v30 = 1024;
+        v31 = __str[7];
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "tmac: read from RCP2=%x%x%x%x%x%x%x%x", buf, 0x32u);
       }
     }
@@ -9492,7 +9667,7 @@ LABEL_54:
       [PowerEventHandler_Rcp init:];
     }
 
-    if (*v33 == *__str)
+    if (*v35 == *__str)
     {
       v7 = log_get_logging_obg("com.apple.threadradiod", "default");
       if (!v7)
@@ -9567,7 +9742,7 @@ void sub_10011CB68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a22)
   {
-    (*(*a22 + 8))(a22);
+    (*(*a22 + 8))(a22, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a28 < 0)
@@ -9577,17 +9752,17 @@ void sub_10011CB68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (a29)
   {
-    (*(*a29 + 8))(a29);
+    (*(*a29 + 8))(a29, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30)
   {
-    (*(*a30 + 8))(a30);
+    (*(*a30 + 8))(a30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a31)
   {
-    (*(*a31 + 8))(a31);
+    (*(*a31 + 8))(a31, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a37 < 0)
@@ -9596,502 +9771,4 @@ void sub_10011CB68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   _Unwind_Resume(a1);
-}
-
-uint64_t HostInterpreter::ProcessJoin(HostInterpreter *this, unsigned __int8 a2, char **a3, _BYTE *a4)
-{
-  memset(&v48, 0, sizeof(v48));
-  ot::Settings::Init((*(this + 28) + 200));
-  memset(v47, 0, 7);
-  memset(v51, 0, sizeof(v51));
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0;
-  if (a4[32] != 1)
-  {
-    goto LABEL_44;
-  }
-
-  *(&__p.__r_.__value_.__s + 23) = 11;
-  strcpy(&__p, "NCP:Channel");
-  v46.__r_.__value_.__r.__words[0] = &__p;
-  v6 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-  v7 = v6[7];
-  if (v7)
-  {
-    v8 = (*(*v7 + 16))(v7);
-  }
-
-  else
-  {
-  }
-
-  v9 = (v8[1] & 0x7FFFFFFFFFFFFFFFLL);
-  v11 = (v10 & 0x7FFFFFFFFFFFFFFFLL);
-  if (v9 != (v10 & 0x7FFFFFFFFFFFFFFFLL) && strcmp(v9, (v10 & 0x7FFFFFFFFFFFFFFFLL)))
-  {
-    v46.__r_.__value_.__r.__words[0] = 0;
-    std::bad_cast::bad_cast(&v46);
-    v46.__r_.__value_.__r.__words[0] = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
-  }
-
-  WORD5(v55) = *(v6[7] + 8);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-    LOBYTE(v58) = 1;
-    if ((a4[31] & 1) == 0)
-    {
-      goto LABEL_44;
-    }
-  }
-
-  else
-  {
-    LOBYTE(v58) = 1;
-    if ((a4[31] & 1) == 0)
-    {
-      goto LABEL_44;
-    }
-  }
-
-  *(&__p.__r_.__value_.__s + 23) = 13;
-  strcpy(&__p, "Network:PANID");
-  v46.__r_.__value_.__r.__words[0] = &__p;
-  v12 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-  v13 = v12[7];
-  if (v13)
-  {
-    v14 = (*((*(*v13 + 16))(v13) + 8) & 0x7FFFFFFFFFFFFFFFLL);
-    if (v14 == v11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    if (v14 == v11)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  if (strcmp(v14, v11))
-  {
-    v46.__r_.__value_.__r.__words[0] = 0;
-    std::bad_cast::bad_cast(&v46);
-    v46.__r_.__value_.__r.__words[0] = off_1004C1D50;
-    boost::throw_exception<boost::bad_any_cast>();
-  }
-
-LABEL_16:
-  WORD4(v55) = *(v12[7] + 8);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-    HIBYTE(v57) = 1;
-    if (a4[27])
-    {
-      goto LABEL_20;
-    }
-
-LABEL_44:
-    v23 = 0;
-    v24 = 0;
-LABEL_45:
-    v25 = 2;
-    v26 = 7;
-    goto LABEL_46;
-  }
-
-  HIBYTE(v57) = 1;
-  if ((a4[27] & 1) == 0)
-  {
-    goto LABEL_44;
-  }
-
-LABEL_20:
-  *(&v46.__r_.__value_.__s + 23) = 12;
-  strcpy(&v46, "Network:Name");
-  v49 = &v46;
-  v15 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_);
-  boost::any_cast<std::string>((v15 + 7), &__p);
-  v48 = __p;
-  *(&__p.__r_.__value_.__s + 23) = 0;
-  __p.__r_.__value_.__s.__data_[0] = 0;
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  v53 = 0uLL;
-  LOBYTE(v54) = 0;
-  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v16 = &v48;
-  }
-
-  else
-  {
-    v16 = v48.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v48.__r_.__value_.__l.__size_;
-  }
-
-  memcpy(&v53, v16, size);
-  BYTE11(v57) = 1;
-  if ((a4[28] & 1) == 0)
-  {
-    goto LABEL_44;
-  }
-
-  *(&__p.__r_.__value_.__s + 23) = 14;
-  strcpy(&__p, "Network:XPANID");
-  v46.__r_.__value_.__r.__words[0] = &__p;
-  v18 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &__p.__r_.__value_.__l.__data_);
-  v19 = any_to_uint64(v18 + 7, 0);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
-  if (logging_obg)
-  {
-    if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(logging_obg, OS_LOG_TYPE_INFO))
-    {
-      LODWORD(__p.__r_.__value_.__l.__data_) = 134217984;
-      *(__p.__r_.__value_.__r.__words + 4) = v19;
-      _os_log_impl(&_mh_execute_header, logging_obg, OS_LOG_TYPE_INFO, "DatasetTest buf extpanid saved: %llx", &__p, 0xCu);
-    }
-  }
-
-  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-  {
-    [PowerEventHandler_Rcp init:];
-  }
-
-  *(&v54 + 5) = bswap32(v19);
-  BYTE4(v54) = BYTE4(v19);
-  BYTE3(v54) = BYTE5(v19);
-  BYTE2(v54) = BYTE6(v19);
-  BYTE1(v54) = HIBYTE(v19);
-  BYTE12(v57) = 1;
-  if (a4[26] != 1)
-  {
-    goto LABEL_44;
-  }
-
-  *(&v46.__r_.__value_.__s + 23) = 11;
-  strcpy(&v46, "Network:Key");
-  v49 = &v46;
-  v21 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_);
-  any_to_data(v21 + 7, &__p);
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  v22 = 2 * (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]);
-  if (v22 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v22 >= 0x17)
-  {
-    operator new();
-  }
-
-  *(&v46.__r_.__value_.__s + 23) = 2 * (__p.__r_.__value_.__s.__data_[8] - __p.__r_.__value_.__s.__data_[0]);
-  if (v22)
-  {
-    bzero(&v46, v22);
-  }
-
-  v46.__r_.__value_.__s.__data_[v22] = 0;
-  std::string::reserve(&v46, (2 * (__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0])) | 1);
-  if (__p.__r_.__value_.__l.__size_ == __p.__r_.__value_.__r.__words[0])
-  {
-    v29 = 0;
-  }
-
-  else
-  {
-    v29 = __p.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v30 = &v46;
-  }
-
-  else
-  {
-    v30 = v46.__r_.__value_.__r.__words[0];
-  }
-
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v31 = 22;
-  }
-
-  else
-  {
-    v31 = (v46.__r_.__value_.__r.__words[2] & 0x7FFFFFFFFFFFFFFFLL) - 1;
-  }
-
-  encode_data_into_string(v29, __p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0], v30, v31, 0);
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v32 = &v46;
-  }
-
-  else
-  {
-    v32 = v46.__r_.__value_.__r.__words[0];
-  }
-
-  v26 = ot::Utils::CmdLineParser::ParseAsHexString(v32, &v52, 0x10);
-  if (v26)
-  {
-    v33 = 6;
-  }
-
-  else
-  {
-    v33 = 0;
-    BYTE10(v57) = 1;
-  }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  if (__p.__r_.__value_.__r.__words[0])
-  {
-    __p.__r_.__value_.__l.__size_ = __p.__r_.__value_.__r.__words[0];
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (v33)
-  {
-    v23 = 0;
-    v24 = 0;
-    if (!v26)
-    {
-LABEL_75:
-      v25 = 0;
-      goto LABEL_46;
-    }
-  }
-
-  else
-  {
-    std::string::basic_string[abi:ne200100]<0>(&v46, "Network:NodeType");
-    v49 = &v46;
-    v34 = std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a4, &v46.__r_.__value_.__l.__data_);
-    boost::any_cast<std::string>((v34 + 7), &__p);
-    v35 = __p.__r_.__value_.__l.__size_;
-    v23 = __p.__r_.__value_.__r.__words[0];
-    v47[0] = __p.__r_.__value_.__r.__words[2];
-    *(v47 + 3) = *(&__p.__r_.__value_.__r.__words[2] + 3);
-    v24 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-    *(&__p.__r_.__value_.__s + 23) = 0;
-    __p.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v46.__r_.__value_.__l.__data_);
-    }
-
-    if (v24 < 0)
-    {
-      std::string::__init_copy_ctor_external(&v45, v23, v35);
-    }
-
-    else
-    {
-      v45.__r_.__value_.__r.__words[0] = v23;
-      v45.__r_.__value_.__l.__size_ = v35;
-      LODWORD(v45.__r_.__value_.__r.__words[2]) = v47[0];
-      *(&v45.__r_.__value_.__r.__words[2] + 3) = *(v47 + 3);
-      *(&v45.__r_.__value_.__s + 23) = v24;
-    }
-
-    v26 = HostInterpreter::DeviceModeConfig(this, &v45);
-    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v45.__r_.__value_.__l.__data_);
-    }
-
-    if (!v26)
-    {
-      v26 = otDatasetSetActive(*(this + 28), v51);
-      if (!v26)
-      {
-        v36 = log_get_logging_obg("com.apple.threadradiod", "default");
-        if (v36)
-        {
-          if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
-          {
-            LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Dataset commit active, Done", &__p, 2u);
-          }
-        }
-
-        else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-        {
-          [PowerEventHandler_Rcp init:];
-        }
-
-        HostInterpreter::setExtendedMACAddressInDataSetIfAvailableinDB(this);
-        otIp6SetSlaacEnabled(*(this + 28), 1);
-        v26 = otIp6SetEnabled(*(this + 28), 1);
-        if (!v26)
-        {
-          v37 = log_get_logging_obg("com.apple.threadradiod", "default");
-          if (v37)
-          {
-            if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
-            {
-              LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Ifconfig up, Done", &__p, 2u);
-            }
-          }
-
-          else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-          {
-            [PowerEventHandler_Rcp init:];
-          }
-
-          v26 = otThreadSetEnabled(*(this + 28), 1);
-          if (!v26)
-          {
-            LinkMode = otThreadGetLinkMode(*(this + 28));
-            if ((~LinkMode & 6) == 0 && (LinkMode & 1) == 0)
-            {
-              otThreadBecomeLeader(*(this + 28), 0);
-            }
-
-            v41 = log_get_logging_obg("com.apple.threadradiod", "default");
-            if (v41)
-            {
-              if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
-              {
-                LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
-                *(__p.__r_.__value_.__r.__words + 4) = "ProcessJoin";
-                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s Thread start, Done", &__p, 0xCu);
-              }
-            }
-
-            else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-            {
-              [PowerEventHandler_Rcp init:];
-            }
-
-            HostInterpreter::saveExtendedMACAddressIfNotAvailableinDB(this);
-            isThreadSessionJoinEnabled = HostInterpreter::isThreadSessionJoinEnabled(v42);
-            if (!isThreadSessionJoinEnabled)
-            {
-              v44 = log_get_logging_obg("com.apple.threadradiod", "default");
-              if (v44)
-              {
-                if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-                {
-                  LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
-                  *(__p.__r_.__value_.__r.__words + 4) = "ProcessJoin";
-                  _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s Thread Session Join THREAD_SESSION_ON", &__p, 0xCu);
-                }
-              }
-
-              else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-              {
-                [PowerEventHandler_Rcp init:];
-              }
-
-              HostInterpreter::persistThreadSessionJoin(this, 1);
-            }
-
-            HostInterpreter::transactionEnabled(isThreadSessionJoinEnabled, 1);
-            v26 = 0;
-            goto LABEL_75;
-          }
-        }
-      }
-    }
-  }
-
-  HIDWORD(v39) = v26 - 1;
-  LODWORD(v39) = v26 - 1;
-  v38 = v39 >> 1;
-  if (v38 <= 2)
-  {
-    if (v38)
-    {
-      if (v38 == 2)
-      {
-        v25 = 9;
-        v26 = 5;
-        goto LABEL_46;
-      }
-    }
-
-    else
-    {
-      v26 = 1;
-    }
-
-    goto LABEL_107;
-  }
-
-  if (v38 != 6)
-  {
-    if (v38 == 3)
-    {
-      goto LABEL_45;
-    }
-
-LABEL_107:
-    v25 = 1;
-    goto LABEL_46;
-  }
-
-  v25 = 4;
-  v26 = 13;
-LABEL_46:
-  v27 = *(a4 + 5);
-  if (!v27)
-  {
-    std::runtime_error::runtime_error(&__p, "call to empty boost::function");
-    __p.__r_.__value_.__r.__words[0] = off_1004C1548;
-    boost::throw_exception<boost::bad_function_call>(&__p);
-  }
-
-  (*((v27 & 0xFFFFFFFFFFFFFFFELL) + 8))(a4 + 48, v25);
-  if (v24 < 0)
-  {
-    operator delete(v23);
-  }
-
-  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v48.__r_.__value_.__l.__data_);
-  }
-
-  return v26;
 }

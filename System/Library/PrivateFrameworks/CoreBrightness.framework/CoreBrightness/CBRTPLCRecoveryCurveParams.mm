@@ -8,17 +8,17 @@
 
 - (BOOL)loadParametersFromParser:(id)parser
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v100 = a2;
+  v98 = a2;
   parserCopy = parser;
   if (parser)
   {
-    v95 = 0.0;
-    if ([parserCopy loadFixedFloat:@"LminProduct" toDestination:&v95])
+    v93 = 0.0;
+    if ([parserCopy loadFixedFloat:@"LminProduct" toDestination:&v93])
     {
-      v91 = 0.0;
-      if ([parserCopy loadFixedFloat:@"edr-max-nits" toDestination:&v91])
+      v89 = 0.0;
+      if ([parserCopy loadFixedFloat:@"edr-max-nits" toDestination:&v89])
       {
         selfCopy->_apceTableSizeEDT = [parserCopy loadFloatArray:@"rtplc-hdr-recovery-curve-apce" toDestination:&selfCopy->_apceTableEDT];
         if (selfCopy->_apceTableEDT)
@@ -31,7 +31,7 @@
               {
                 if (selfCopy->_log)
                 {
-                  v37 = selfCopy->_log;
+                  v35 = selfCopy->_log;
                 }
 
                 else
@@ -46,19 +46,18 @@
                     inited = init_default_corebrightness_log();
                   }
 
-                  v37 = inited;
+                  v35 = inited;
                 }
 
-                v80 = v37;
-                v79 = OS_LOG_TYPE_ERROR;
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                v78 = v35;
+                v77 = OS_LOG_TYPE_ERROR;
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
-                  __os_log_helper_16_0_2_8_0_8_0(v109, i, COERCE__INT64(selfCopy->_apceTableEDT[i]));
-                  _os_log_error_impl(&dword_1DE8E5000, v80, v79, "The HDR recovery curve APCE table element #%lu with value %f is out of the valid [0, 1] range", v109, 0x16u);
+                  __os_log_helper_16_0_2_8_0_8_0(v107, i, COERCE__INT64(selfCopy->_apceTableEDT[i]));
+                  _os_log_error_impl(&dword_1DE8E5000, v78, v77, "The HDR recovery curve APCE table element #%lu with value %f is out of the valid [0, 1] range", v107, 0x16u);
                 }
 
-                v102 = 0;
-                goto LABEL_178;
+                return 0;
               }
             }
 
@@ -68,36 +67,35 @@
               {
                 if (selfCopy->_log)
                 {
-                  v35 = selfCopy->_log;
+                  v33 = selfCopy->_log;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v34 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v32 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v34 = init_default_corebrightness_log();
+                    v32 = init_default_corebrightness_log();
                   }
 
-                  v35 = v34;
+                  v33 = v32;
                 }
 
-                v77 = v35;
-                v76 = OS_LOG_TYPE_ERROR;
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                v75 = v33;
+                v74 = OS_LOG_TYPE_ERROR;
+                if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
-                  v32 = v77;
-                  v33 = v76;
-                  __os_log_helper_16_0_0(v75);
-                  _os_log_error_impl(&dword_1DE8E5000, v32, v33, "The HDR recovery curve APCE table is not monotonically non-decreasing", v75, 2u);
+                  v30 = v75;
+                  v31 = v74;
+                  __os_log_helper_16_0_0(v73);
+                  _os_log_error_impl(&dword_1DE8E5000, v30, v31, "The HDR recovery curve APCE table is not monotonically non-decreasing", v73, 2u);
                 }
 
-                v102 = 0;
-                goto LABEL_178;
+                return 0;
               }
             }
 
@@ -108,44 +106,7 @@
               {
                 for (k = 0; k < selfCopy->_nitsTableSizeEDT; ++k)
                 {
-                  if (selfCopy->_nitsTableEDT[k] < v95 || selfCopy->_nitsTableEDT[k] > v91)
-                  {
-                    if (selfCopy->_log)
-                    {
-                      v23 = selfCopy->_log;
-                    }
-
-                    else
-                    {
-                      if (_COREBRIGHTNESS_LOG_DEFAULT)
-                      {
-                        v22 = _COREBRIGHTNESS_LOG_DEFAULT;
-                      }
-
-                      else
-                      {
-                        v22 = init_default_corebrightness_log();
-                      }
-
-                      v23 = v22;
-                    }
-
-                    v67 = v23;
-                    v66 = OS_LOG_TYPE_ERROR;
-                    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-                    {
-                      __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v108, k, COERCE__INT64(selfCopy->_nitsTableEDT[k]), COERCE__INT64(v95), COERCE__INT64(v91));
-                      _os_log_error_impl(&dword_1DE8E5000, v67, v66, "The HDR recovery curve nits table element #%lu with value %f is out of the valid [%f, %f] range", v108, 0x2Au);
-                    }
-
-                    v102 = 0;
-                    goto LABEL_178;
-                  }
-                }
-
-                for (m = 0; m < selfCopy->_nitsTableSizeEDT - 1; ++m)
-                {
-                  if (selfCopy->_nitsTableEDT[m] < selfCopy->_nitsTableEDT[m + 1])
+                  if (selfCopy->_nitsTableEDT[k] < v93 || selfCopy->_nitsTableEDT[k] > v89)
                   {
                     if (selfCopy->_log)
                     {
@@ -167,77 +128,84 @@
                       v21 = v20;
                     }
 
-                    oslog = v21;
-                    v63 = OS_LOG_TYPE_ERROR;
+                    v65 = v21;
+                    v64 = OS_LOG_TYPE_ERROR;
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                     {
-                      v18 = oslog;
-                      v19 = v63;
-                      __os_log_helper_16_0_0(v62);
-                      _os_log_error_impl(&dword_1DE8E5000, v18, v19, "The HDR recovery curve nits table is not monotonically non-increasing", v62, 2u);
+                      __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v106, k, COERCE__INT64(selfCopy->_nitsTableEDT[k]), COERCE__INT64(v93), COERCE__INT64(v89));
+                      _os_log_error_impl(&dword_1DE8E5000, v65, v64, "The HDR recovery curve nits table element #%lu with value %f is out of the valid [%f, %f] range", v106, 0x2Au);
                     }
 
-                    v102 = 0;
-                    goto LABEL_178;
+                    return 0;
+                  }
+                }
+
+                for (m = 0; m < selfCopy->_nitsTableSizeEDT - 1; ++m)
+                {
+                  if (selfCopy->_nitsTableEDT[m] < selfCopy->_nitsTableEDT[m + 1])
+                  {
+                    if (selfCopy->_log)
+                    {
+                      v19 = selfCopy->_log;
+                    }
+
+                    else
+                    {
+                      if (_COREBRIGHTNESS_LOG_DEFAULT)
+                      {
+                        v18 = _COREBRIGHTNESS_LOG_DEFAULT;
+                      }
+
+                      else
+                      {
+                        v18 = init_default_corebrightness_log();
+                      }
+
+                      v19 = v18;
+                    }
+
+                    oslog = v19;
+                    v61 = OS_LOG_TYPE_ERROR;
+                    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                    {
+                      v16 = oslog;
+                      v17 = v61;
+                      __os_log_helper_16_0_0(v60);
+                      _os_log_error_impl(&dword_1DE8E5000, v16, v17, "The HDR recovery curve nits table is not monotonically non-increasing", v60, 2u);
+                    }
+
+                    return 0;
                   }
                 }
 
                 if (selfCopy->_apceTableSizeEDT == selfCopy->_nitsTableSizeEDT)
                 {
-                  v61 = objc_alloc_init(MEMORY[0x1E696AD60]);
+                  v59 = objc_alloc_init(MEMORY[0x1E696AD60]);
                   for (n = 0; n < selfCopy->_apceTableSizeEDT; ++n)
                   {
-                    v3 = selfCopy->_apceTableEDT[n];
-                    v4 = "";
+                    v3 = "";
                     if (n != selfCopy->_apceTableSizeEDT - 1)
+                    {
+                      v3 = ",";
+                    }
+
+                    [v59 appendFormat:@" %f%s", selfCopy->_apceTableEDT[n], v3];
+                  }
+
+                  [v59 appendString:@" "];
+                  v57 = objc_alloc_init(MEMORY[0x1E696AD60]);
+                  for (ii = 0; ii < selfCopy->_nitsTableSizeEDT; ++ii)
+                  {
+                    v4 = "";
+                    if (ii != selfCopy->_nitsTableSizeEDT - 1)
                     {
                       v4 = ",";
                     }
 
-                    [v61 appendFormat:@" %f%s", selfCopy->_apceTableEDT[n], v4];
+                    [v57 appendFormat:@" %f%s", selfCopy->_nitsTableEDT[ii], v4];
                   }
 
-                  [v61 appendString:@" "];
-                  v59 = objc_alloc_init(MEMORY[0x1E696AD60]);
-                  for (ii = 0; ii < selfCopy->_nitsTableSizeEDT; ++ii)
-                  {
-                    v5 = selfCopy->_nitsTableEDT[ii];
-                    v6 = "";
-                    if (ii != selfCopy->_nitsTableSizeEDT - 1)
-                    {
-                      v6 = ",";
-                    }
-
-                    [v59 appendFormat:@" %f%s", selfCopy->_nitsTableEDT[ii], v6];
-                  }
-
-                  [v59 appendString:@" "];
-                  if (selfCopy->_log)
-                  {
-                    v15 = selfCopy->_log;
-                  }
-
-                  else
-                  {
-                    if (_COREBRIGHTNESS_LOG_DEFAULT)
-                    {
-                      v14 = _COREBRIGHTNESS_LOG_DEFAULT;
-                    }
-
-                    else
-                    {
-                      v14 = init_default_corebrightness_log();
-                    }
-
-                    v15 = v14;
-                  }
-
-                  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-                  {
-                    __os_log_helper_16_0_1_8_0(v106, selfCopy->_apceTableSizeEDT);
-                    _os_log_impl(&dword_1DE8E5000, v15, OS_LOG_TYPE_DEFAULT, "APCETableSize=%lu", v106, 0xCu);
-                  }
-
+                  [v57 appendString:@" "];
                   if (selfCopy->_log)
                   {
                     v13 = selfCopy->_log;
@@ -260,8 +228,8 @@
 
                   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
                   {
-                    __os_log_helper_16_2_1_8_32(v105, [v61 UTF8String]);
-                    _os_log_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_DEFAULT, "APCETable={%s}", v105, 0xCu);
+                    __os_log_helper_16_0_1_8_0(v104, selfCopy->_apceTableSizeEDT);
+                    _os_log_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_DEFAULT, "APCETableSize=%lu", v104, 0xCu);
                   }
 
                   if (selfCopy->_log)
@@ -286,8 +254,8 @@
 
                   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
                   {
-                    __os_log_helper_16_0_1_8_0(v104, selfCopy->_nitsTableSizeEDT);
-                    _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEFAULT, "NitsTableSize=%lu", v104, 0xCu);
+                    __os_log_helper_16_2_1_8_32(v103, [v59 UTF8String]);
+                    _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEFAULT, "APCETable={%s}", v103, 0xCu);
                   }
 
                   if (selfCopy->_log)
@@ -312,44 +280,70 @@
 
                   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
                   {
-                    __os_log_helper_16_2_1_8_32(v103, [v59 UTF8String]);
-                    _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "NitsTable={%s}", v103, 0xCu);
+                    __os_log_helper_16_0_1_8_0(v102, selfCopy->_nitsTableSizeEDT);
+                    _os_log_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_DEFAULT, "NitsTableSize=%lu", v102, 0xCu);
                   }
 
-                  MEMORY[0x1E69E5920](v61);
-                  MEMORY[0x1E69E5920](v59);
-                  v102 = 1;
-                }
-
-                else
-                {
                   if (selfCopy->_log)
                   {
-                    v17 = selfCopy->_log;
+                    v7 = selfCopy->_log;
                   }
 
                   else
                   {
                     if (_COREBRIGHTNESS_LOG_DEFAULT)
                     {
-                      v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+                      v6 = _COREBRIGHTNESS_LOG_DEFAULT;
                     }
 
                     else
                     {
-                      v16 = init_default_corebrightness_log();
+                      v6 = init_default_corebrightness_log();
                     }
 
-                    v17 = v16;
+                    v7 = v6;
                   }
 
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
                   {
-                    __os_log_helper_16_0_2_8_0_8_0(v107, selfCopy->_apceTableSizeEDT, selfCopy->_nitsTableSizeEDT);
-                    _os_log_error_impl(&dword_1DE8E5000, v17, OS_LOG_TYPE_ERROR, "The HDR recovery curve nits table and APCE table do not have matching size (apce.size=%lu, nits.size=%lu)", v107, 0x16u);
+                    __os_log_helper_16_2_1_8_32(v101, [v57 UTF8String]);
+                    _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "NitsTable={%s}", v101, 0xCu);
                   }
 
-                  v102 = 0;
+                  MEMORY[0x1E69E5920](v59);
+                  MEMORY[0x1E69E5920](v57);
+                  return 1;
+                }
+
+                else
+                {
+                  if (selfCopy->_log)
+                  {
+                    v15 = selfCopy->_log;
+                  }
+
+                  else
+                  {
+                    if (_COREBRIGHTNESS_LOG_DEFAULT)
+                    {
+                      v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    }
+
+                    else
+                    {
+                      v14 = init_default_corebrightness_log();
+                    }
+
+                    v15 = v14;
+                  }
+
+                  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+                  {
+                    __os_log_helper_16_0_2_8_0_8_0(v105, selfCopy->_apceTableSizeEDT, selfCopy->_nitsTableSizeEDT);
+                    _os_log_error_impl(&dword_1DE8E5000, v15, OS_LOG_TYPE_ERROR, "The HDR recovery curve nits table and APCE table do not have matching size (apce.size=%lu, nits.size=%lu)", v105, 0x16u);
+                  }
+
+                  return 0;
                 }
               }
 
@@ -357,35 +351,35 @@
               {
                 if (selfCopy->_log)
                 {
-                  v27 = selfCopy->_log;
+                  v25 = selfCopy->_log;
                 }
 
                 else
                 {
                   if (_COREBRIGHTNESS_LOG_DEFAULT)
                   {
-                    v26 = _COREBRIGHTNESS_LOG_DEFAULT;
+                    v24 = _COREBRIGHTNESS_LOG_DEFAULT;
                   }
 
                   else
                   {
-                    v26 = init_default_corebrightness_log();
+                    v24 = init_default_corebrightness_log();
                   }
 
-                  v27 = v26;
+                  v25 = v24;
                 }
 
-                v71 = v27;
-                v70 = OS_LOG_TYPE_ERROR;
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v69 = v25;
+                v68 = OS_LOG_TYPE_ERROR;
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                 {
-                  v24 = v71;
-                  v25 = v70;
-                  __os_log_helper_16_0_0(v69);
-                  _os_log_error_impl(&dword_1DE8E5000, v24, v25, "The HDR recovery curve nits table has less than one element", v69, 2u);
+                  v22 = v69;
+                  v23 = v68;
+                  __os_log_helper_16_0_0(v67);
+                  _os_log_error_impl(&dword_1DE8E5000, v22, v23, "The HDR recovery curve nits table has less than one element", v67, 2u);
                 }
 
-                v102 = 0;
+                return 0;
               }
             }
 
@@ -393,35 +387,35 @@
             {
               if (selfCopy->_log)
               {
-                v31 = selfCopy->_log;
+                v29 = selfCopy->_log;
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v30 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v28 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v30 = init_default_corebrightness_log();
+                  v28 = init_default_corebrightness_log();
                 }
 
-                v31 = v30;
+                v29 = v28;
               }
 
-              v74 = v31;
-              v73 = OS_LOG_TYPE_ERROR;
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v72 = v29;
+              v71 = OS_LOG_TYPE_ERROR;
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
-                v28 = v74;
-                v29 = v73;
-                __os_log_helper_16_0_0(v72);
-                _os_log_error_impl(&dword_1DE8E5000, v28, v29, "Unable to load the HDR recovery curve nits table", v72, 2u);
+                v26 = v72;
+                v27 = v71;
+                __os_log_helper_16_0_0(v70);
+                _os_log_error_impl(&dword_1DE8E5000, v26, v27, "Unable to load the HDR recovery curve nits table", v70, 2u);
               }
 
-              v102 = 0;
+              return 0;
             }
           }
 
@@ -429,35 +423,35 @@
           {
             if (selfCopy->_log)
             {
-              v41 = selfCopy->_log;
+              v39 = selfCopy->_log;
             }
 
             else
             {
               if (_COREBRIGHTNESS_LOG_DEFAULT)
               {
-                v40 = _COREBRIGHTNESS_LOG_DEFAULT;
+                v38 = _COREBRIGHTNESS_LOG_DEFAULT;
               }
 
               else
               {
-                v40 = init_default_corebrightness_log();
+                v38 = init_default_corebrightness_log();
               }
 
-              v41 = v40;
+              v39 = v38;
             }
 
-            v84 = v41;
-            v83 = OS_LOG_TYPE_ERROR;
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+            v82 = v39;
+            v81 = OS_LOG_TYPE_ERROR;
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
-              v38 = v84;
-              v39 = v83;
-              __os_log_helper_16_0_0(v82);
-              _os_log_error_impl(&dword_1DE8E5000, v38, v39, "The HDR recovery curve APCE table has less than one element", v82, 2u);
+              v36 = v82;
+              v37 = v81;
+              __os_log_helper_16_0_0(v80);
+              _os_log_error_impl(&dword_1DE8E5000, v36, v37, "The HDR recovery curve APCE table has less than one element", v80, 2u);
             }
 
-            v102 = 0;
+            return 0;
           }
         }
 
@@ -465,35 +459,35 @@
         {
           if (selfCopy->_log)
           {
-            v45 = selfCopy->_log;
+            v43 = selfCopy->_log;
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v44 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v42 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v44 = init_default_corebrightness_log();
+              v42 = init_default_corebrightness_log();
             }
 
-            v45 = v44;
+            v43 = v42;
           }
 
-          v87 = v45;
-          v86 = OS_LOG_TYPE_ERROR;
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+          v85 = v43;
+          v84 = OS_LOG_TYPE_ERROR;
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
-            v42 = v87;
-            v43 = v86;
-            __os_log_helper_16_0_0(v85);
-            _os_log_error_impl(&dword_1DE8E5000, v42, v43, "Unable to load the HDR recovery curve APCE table", v85, 2u);
+            v40 = v85;
+            v41 = v84;
+            __os_log_helper_16_0_0(v83);
+            _os_log_error_impl(&dword_1DE8E5000, v40, v41, "Unable to load the HDR recovery curve APCE table", v83, 2u);
           }
 
-          v102 = 0;
+          return 0;
         }
       }
 
@@ -501,35 +495,35 @@
       {
         if (selfCopy->_log)
         {
-          v49 = selfCopy->_log;
+          v47 = selfCopy->_log;
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v48 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v46 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v48 = init_default_corebrightness_log();
+            v46 = init_default_corebrightness_log();
           }
 
-          v49 = v48;
+          v47 = v46;
         }
 
-        v90 = v49;
-        v89 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v88 = v47;
+        v87 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v46 = v90;
-          v47 = v89;
-          __os_log_helper_16_0_0(v88);
-          _os_log_error_impl(&dword_1DE8E5000, v46, v47, "Unable to load maximum EDR nits", v88, 2u);
+          v44 = v88;
+          v45 = v87;
+          __os_log_helper_16_0_0(v86);
+          _os_log_error_impl(&dword_1DE8E5000, v44, v45, "Unable to load maximum EDR nits", v86, 2u);
         }
 
-        v102 = 0;
+        return 0;
       }
     }
 
@@ -537,35 +531,35 @@
     {
       if (selfCopy->_log)
       {
-        v53 = selfCopy->_log;
+        v51 = selfCopy->_log;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v52 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v50 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v52 = init_default_corebrightness_log();
+          v50 = init_default_corebrightness_log();
         }
 
-        v53 = v52;
+        v51 = v50;
       }
 
-      v94 = v53;
-      v93 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+      v92 = v51;
+      v91 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v50 = v94;
-        v51 = v93;
-        __os_log_helper_16_0_0(v92);
-        _os_log_error_impl(&dword_1DE8E5000, v50, v51, "Unable to load minimum product nits", v92, 2u);
+        v48 = v92;
+        v49 = v91;
+        __os_log_helper_16_0_0(v90);
+        _os_log_error_impl(&dword_1DE8E5000, v48, v49, "Unable to load minimum product nits", v90, 2u);
       }
 
-      v102 = 0;
+      return 0;
     }
   }
 
@@ -573,40 +567,36 @@
   {
     if (selfCopy->_log)
     {
-      v57 = selfCopy->_log;
+      v55 = selfCopy->_log;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v56 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v54 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v56 = init_default_corebrightness_log();
+        v54 = init_default_corebrightness_log();
       }
 
-      v57 = v56;
+      v55 = v54;
     }
 
-    v98 = v57;
-    v97 = 16;
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    v96 = v55;
+    v95 = 16;
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
-      log = v98;
-      type = v97;
-      __os_log_helper_16_0_0(v96);
-      _os_log_error_impl(&dword_1DE8E5000, log, type, "Parser is null", v96, 2u);
+      log = v96;
+      type = v95;
+      __os_log_helper_16_0_0(v94);
+      _os_log_error_impl(&dword_1DE8E5000, log, type, "Parser is null", v94, 2u);
     }
 
-    v102 = 0;
+    return 0;
   }
-
-LABEL_178:
-  *MEMORY[0x1E69E9840];
-  return v102 & 1;
 }
 
 - (CBRTPLCRecoveryCurveParams)initWithParser:(id)parser

@@ -1134,13 +1134,13 @@ id __56__HUPresenceUserPickerItemModule__attributedFooterTitle__block_invoke_2(u
   return v2;
 }
 
-id __56__HUPresenceUserPickerItemModule__attributedFooterTitle__block_invoke_3()
+id __56__HUPresenceUserPickerItemModule__attributedFooterTitle__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277D2C900];
-  v1 = [objc_opt_class() _locationDeviceTextForDeviceNameString:0];
-  v2 = [v0 futureWithResult:v1];
+  v2 = MEMORY[0x277D2C900];
+  v3 = [objc_opt_class() _locationDeviceTextForDeviceNameString:0];
+  v4 = [v2 futureWithResult:v3];
 
-  return v2;
+  return v4;
 }
 
 uint64_t __56__HUPresenceUserPickerItemModule__attributedFooterTitle__block_invoke_4(uint64_t a1, uint64_t a2)

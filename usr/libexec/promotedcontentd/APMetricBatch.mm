@@ -345,7 +345,7 @@ LABEL_35:
   v35 = 0;
   v21 = [v19 fileForWritingAtKeyPath:_openFilePath error:&v35];
   v22 = v35;
-  v23 = sub_100007F08();
+  v23 = sub_100007F08(APMetricsObservability);
   lastPathComponent = [_openFilePath lastPathComponent];
   sub_1003947DC(v23, lastPathComponent, purpose);
 
@@ -719,7 +719,7 @@ LABEL_32:
         [v17 timeIntervalSinceDate:timestamp];
         v21 = v20;
 
-        v18 = sub_100007F08();
+        v18 = sub_100007F08(APMetricsObservability);
         sub_1003949C8(v18, [fileCopy purpose], v21);
       }
     }
@@ -777,7 +777,7 @@ LABEL_32:
   if (v14)
   {
     v17 = v4 - 2;
-    v15 = sub_100007F08();
+    v15 = sub_100007F08(APMetricsObservability);
     lastPathComponent = [_openFilePath lastPathComponent];
     purpose = [(APMetricBatch *)self purpose];
     closedStoragePathPrefix = [(objc_class *)+[MetricsModuleClasses storageClass](MetricsModuleClasses closedStoragePathPrefix];
@@ -881,7 +881,7 @@ LABEL_32:
     v8 = (v7 == 0) & v6;
     if (v8)
     {
-      v9 = sub_100007F08();
+      v9 = sub_100007F08(APMetricsObservability);
       lastPathComponent = [tokenCopy lastPathComponent];
       v11 = [APMetricStorage_private batchPathToPurpose:tokenCopy];
       closedStoragePathPrefix = [(objc_class *)+[MetricsModuleClasses storageClass](MetricsModuleClasses closedStoragePathPrefix];

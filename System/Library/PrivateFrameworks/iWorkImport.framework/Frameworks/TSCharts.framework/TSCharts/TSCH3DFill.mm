@@ -406,169 +406,153 @@ LABEL_7:
 - (id)p_convertToTSDFillWithSize:(unint64_t)size technique:(unint64_t)technique context:(id)context
 {
   contextCopy = context;
-  sizeCopy = 512;
-  if (size < 0x200)
-  {
-    sizeCopy = size;
-  }
-
-  if (sizeCopy <= 1)
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v13 = sizeCopy;
-  }
-
   __asm { FMOV            V0.4S, #1.0 }
 
-  v141 = _Q0;
-  v148[0] = _Q0;
-  v19 = objc_msgSend_lightingModel(self, v8, *_Q0.i64, v10, v11);
-  v24 = objc_msgSend_representativeMaterialLightenedByPercentage_(v19, v20, v21, v22, v23, self->_percentage);
+  v135 = _Q0;
+  v142[0] = _Q0;
+  v16 = objc_msgSend_lightingModel(self, v13, *_Q0.i64, v14, v15);
+  v21 = objc_msgSend_representativeMaterialLightenedByPercentage_(v16, v17, v18, v19, v20, self->_percentage);
 
   objc_opt_class();
-  v25 = TSUDynamicCast();
-  v30 = v25;
-  if (v25)
+  v22 = TSUDynamicCast();
+  v26 = v22;
+  if (v22)
   {
-    objc_msgSend_color(v25, v26, v27, v28, v29);
-    v141 = v146;
-    v148[0] = v146;
+    objc_msgSend_color(v22, v23, v24, v25);
+    v135 = v140;
+    v142[0] = v140;
   }
 
   techniqueCopy = technique;
   objc_opt_class();
-  v35 = objc_msgSend_firstTexture(v30, v31, v32, v33, v34);
-  v36 = TSUDynamicCast();
+  v31 = objc_msgSend_firstTexture(v26, v27, v28, v29, v30);
+  v32 = TSUDynamicCast();
 
-  v139 = v36;
-  v41 = objc_msgSend_data(v36, v37, v38, v39, v40);
-  v46 = objc_msgSend_databufferForDataCache_(v41, v42, v43, v44, v45, 0);
+  v133 = v32;
+  v37 = objc_msgSend_data(v32, v33, v34, v35, v36);
+  v42 = objc_msgSend_databufferForDataCache_(v37, v38, v39, v40, v41, 0);
 
-  if (v46)
+  if (v42)
   {
-    v135 = v46;
-    v136 = v30;
-    objc_msgSend_dataWithSizeGreaterOrEqualTo_(v46, v47, v48, v49, v50, v13);
-    v55 = objc_msgSend_components(v46, v51, v52, v53, v54);
-    sub_276171178(__p, 4 * v146.i32[3] * v146.i32[2] * v147);
-    v60 = __p[0];
-    v61 = v146.i64[0];
-    if (v55 != 4)
+    v129 = v42;
+    v130 = v26;
+    objc_msgSend_dataWithSizeGreaterOrEqualTo_(v42, v44, v45, v46);
+    v51 = objc_msgSend_components(v42, v47, v48, v49, v50);
+    sub_276171178(__p, 4 * v140.i32[3] * v140.i32[2] * v141);
+    v56 = __p[0];
+    v57 = v140.i64[0];
+    if (v51 != 4)
     {
-      goto LABEL_12;
+      goto LABEL_7;
     }
 
     __asm { FMOV            V0.4S, #1.0 }
 
-    v58 = 0x200000001;
-    v57 = vbicq_s8(xmmword_2764D64A0, vceqq_f32(v141, _Q0));
-    v57.i32[0] = vaddvq_s32(v57);
-    if ((v57.i8[0] & 0xF) != 0 || (objc_msgSend_percentageValue(self, v56, *v57.i64, COERCE_DOUBLE(0x200000001), v59), LODWORD(v58) = 1.0, *v57.i32 != 1.0))
+    v54 = 0x200000001;
+    v53 = vbicq_s8(xmmword_2764D64A0, vceqq_f32(v135, _Q0));
+    v53.i32[0] = vaddvq_s32(v53);
+    if ((v53.i8[0] & 0xF) != 0 || (objc_msgSend_percentageValue(self, v52, *v53.i64, COERCE_DOUBLE(0x200000001), v55), LODWORD(v54) = 1.0, *v53.i32 != 1.0))
     {
-LABEL_12:
-      v63 = v146.i32[3] * v146.i32[2];
-      v64 = v63 * v147;
-      if (v63 * v147)
+LABEL_7:
+      v59 = v140.i32[3] * v140.i32[2];
+      v60 = v59 * v141;
+      if (v59 * v141)
       {
-        v65 = v55 - 3;
-        v140 = vdupq_n_s32(0x437F0000u);
+        v61 = v51 - 3;
+        v134 = vdupq_n_s32(0x437F0000u);
         selfCopy = self;
         do
         {
           __dst = -16777216;
-          if (v55 == 1)
+          if (v51 == 1)
           {
-            v66 = 255;
+            v62 = 255;
           }
 
           else
           {
-            if (v55 != 2)
+            if (v51 != 2)
             {
-              if (v65 >= 2)
+              if (v61 >= 2)
               {
-                v69 = MEMORY[0x277D81150];
-                v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, -5.48612928e303, *&v58, v59, "[TSCH3DFill p_convertToTSDFillWithSize:technique:context:]");
-                v71 = v65;
-                v76 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v72, v73, v74, v75, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DFill.mm");
-                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v69, v77, v78, v79, v80, v70, v76, 324, 0, "Incorrect # of components");
+                v65 = MEMORY[0x277D81150];
+                v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, -5.48612928e303, *&v54, v55, "[TSCH3DFill p_convertToTSDFillWithSize:technique:context:]");
+                v67 = v61;
+                v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, v69, v70, v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DFill.mm");
+                objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v73, v74, v75, v76, v66, v72, 324, 0, "Incorrect # of components");
 
-                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v81, v82, v83, v84);
-                v65 = v71;
+                objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v77, v78, v79, v80);
+                v61 = v67;
                 self = selfCopy;
               }
 
-              memcpy(&__dst, v61, v55);
-              v85.i32[0] = __dst;
-              v68 = vmovl_u8(v85);
-              goto LABEL_22;
+              memcpy(&__dst, v57, v51);
+              v81.i32[0] = __dst;
+              v64 = vmovl_u8(v81);
+              goto LABEL_17;
             }
 
-            v66 = v61[1];
-            HIBYTE(__dst) = v61[1];
+            v62 = v57[1];
+            HIBYTE(__dst) = v57[1];
           }
 
-          LOBYTE(v58) = *v61;
-          v67 = v58;
-          v67.i16[1] = v66;
-          *v68.i8 = vzip1_s16(v67, v67);
-          v68.i8[4] = *v61;
-LABEL_22:
-          v143 = vdivq_f32(vmulq_f32(v141, vcvtq_f32_u32(vmovl_u16((v68.i64[0] & 0xFF00FF00FF00FFLL)))), v140);
-          objc_msgSend_percentageValue(self, v56, *v143.i64, *v140.i64, *v141.i64);
-          objc_msgSend_lightenDiffuseFragmentColor_byPercent_(TSCH3DLightenShaderEffect, v86, v87, v88, v89, &v143);
-          v90 = 0;
-          --v64;
+          LOBYTE(v54) = *v57;
+          v63 = v54;
+          v63.i16[1] = v62;
+          *v64.i8 = vzip1_s16(v63, v63);
+          v64.i8[4] = *v57;
+LABEL_17:
+          v137 = vdivq_f32(vmulq_f32(v135, vcvtq_f32_u32(vmovl_u16((v64.i64[0] & 0xFF00FF00FF00FFLL)))), v134);
+          objc_msgSend_percentageValue(self, v52, *v137.i64, *v134.i64, *v135.i64);
+          objc_msgSend_lightenDiffuseFragmentColor_byPercent_(TSCH3DLightenShaderEffect, v82, v83, v84);
+          v85 = 0;
+          --v60;
           do
           {
-            LODWORD(v58) = 1132396544;
-            *v57.i32 = v142[v90] * 255.0;
-            v60[v90++] = *v57.i32;
+            LODWORD(v54) = 1132396544;
+            *v53.i32 = v136[v85] * 255.0;
+            v56[v85++] = *v53.i32;
           }
 
-          while (v90 != 4);
-          v60 += 4;
-          v61 += v55;
+          while (v85 != 4);
+          v56 += 4;
+          v57 += v51;
         }
 
-        while (v64);
+        while (v60);
       }
 
-      v61 = __p[0];
+      v57 = __p[0];
     }
 
-    v91 = sub_2761E72B0(v146.i64, v56, v143.i64, *v57.i64, *&v58, v59);
-    v94 = sub_2761D82BC(v61, &v143, 4, v91, v92, v93);
-    v99 = objc_msgSend_identifier(self, v95, v96, v97, v98);
-    v104 = objc_msgSend_textureSetFilename(v99, v100, v101, v102, v103);
-    if (objc_msgSend_length(v104, v105, v106, v107, v108))
+    v86 = sub_2761E72B0(v140.i64, v137.i64, v52, *v53.i64, *&v54, v55);
+    v89 = sub_2761D82BC(v57, &v137, 4, v86, v87, v88);
+    v94 = objc_msgSend_identifier(self, v90, v91, v92, v93);
+    v99 = objc_msgSend_textureSetFilename(v94, v95, v96, v97, v98);
+    if (objc_msgSend_length(v99, v100, v101, v102, v103))
     {
-      v113 = objc_msgSend_identifier(self, v109, v110, v111, v112);
-      v118 = objc_msgSend_textureSetFilename(v113, v114, v115, v116, v117);
+      v108 = objc_msgSend_identifier(self, v104, v105, v106, v107);
+      v113 = objc_msgSend_textureSetFilename(v108, v109, v110, v111, v112);
     }
 
     else
     {
-      v118 = @"texture-fill.png";
+      v113 = @"texture-fill.png";
     }
 
-    v46 = v135;
+    v42 = v129;
     if (contextCopy)
     {
-      objc_msgSend_dataFromNSData_filename_context_(MEMORY[0x277D80828], v126, v127, v128, v129, v94, v118, contextCopy);
+      objc_msgSend_dataFromNSData_filename_context_(MEMORY[0x277D80828], v120, v121, v122, v123, v89, v113, contextCopy);
     }
 
     else
     {
-      objc_msgSend_readOnlyDataFromNSData_filename_(MEMORY[0x277D80828], v126, v127, v128, v129, v94, v118);
+      objc_msgSend_readOnlyDataFromNSData_filename_(MEMORY[0x277D80828], v120, v121, v122, v123, v89, v113);
     }
-    v130 = ;
-    v131 = objc_alloc(MEMORY[0x277D802C0]);
-    v125 = objc_msgSend_initWithImageData_technique_tintColor_size_(v131, v132, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), v133, v130, techniqueCopy, 0);
+    v124 = ;
+    v125 = objc_alloc(MEMORY[0x277D802C0]);
+    v119 = objc_msgSend_initWithImageData_technique_tintColor_size_(v125, v126, *MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8), v127, v124, techniqueCopy, 0);
 
     if (__p[0])
     {
@@ -576,19 +560,19 @@ LABEL_22:
       operator delete(__p[0]);
     }
 
-    v30 = v136;
-    v119 = v139;
+    v26 = v130;
+    v114 = v133;
   }
 
   else
   {
-    v119 = v139;
-    objc_msgSend_percentageValue(self, v47, v48, v49, v50);
-    objc_msgSend_lightenDiffuseFragmentColor_byPercent_(TSCH3DLightenShaderEffect, v120, v121, v122, v123, v148);
-    v125 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D801F8], v124, v146.f32[0], v146.f32[1], v146.f32[2], v146.f32[3]);
+    v114 = v133;
+    objc_msgSend_percentageValue(self, v43, v44, v45, v46);
+    objc_msgSend_lightenDiffuseFragmentColor_byPercent_(TSCH3DLightenShaderEffect, v115, v116, v117);
+    v119 = objc_msgSend_colorWithRed_green_blue_alpha_(MEMORY[0x277D801F8], v118, v140.f32[0], v140.f32[1], v140.f32[2], v140.f32[3]);
   }
 
-  return v125;
+  return v119;
 }
 
 - (id)convertToSimpleTSDFillWithSize:(unint64_t)size context:(id)context
@@ -972,7 +956,7 @@ LABEL_13:
   v21 = v16;
   if (v16)
   {
-    objc_msgSend_color(v16, v17, v18, v19, v20);
+    objc_msgSend_color(v16, v18, v19, v20);
   }
 
   else
@@ -1019,7 +1003,7 @@ LABEL_13:
     v21 = v16;
     if (v16)
     {
-      objc_msgSend_color(v16, v17, v18, v19, v20);
+      objc_msgSend_color(v16, v18, v19, v20);
     }
 
     else

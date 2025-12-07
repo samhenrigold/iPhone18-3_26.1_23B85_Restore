@@ -7,7 +7,7 @@
 
 + (id)_extensionAuxiliaryVendorProtocol
 {
-  v2 = LogCategory_Extensions();
+  v2 = LogCategory_Extensions(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -42,7 +42,7 @@ void __56__FMDExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
 
 + (id)_extensionAuxiliaryHostProtocol
 {
-  v2 = LogCategory_Extensions();
+  v2 = LogCategory_Extensions(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

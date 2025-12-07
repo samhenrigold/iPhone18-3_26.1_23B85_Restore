@@ -35,22 +35,21 @@ LABEL_19:
     }
 
     [self coreResult];
-    v14 = *MEMORY[0x277D04140];
     if (DDResultHasType())
     {
-      v27 = 0;
-      v28 = 0.0;
+      v25 = 0;
+      v26 = 0.0;
       if (DDResultCurrencyExtraction())
       {
-        v25 = 0;
-        v26 = 0.0;
+        v23 = 0;
+        v24 = 0.0;
         [v4 coreResult];
         if (DDResultCurrencyExtraction())
         {
-          if (v28 == v26)
+          if (v26 == v24)
           {
-            v13 = [v27 isEqualToString:{v25, v28}];
-            v15 = 0;
+            v13 = [v25 isEqualToString:{v23, v26}];
+            v14 = 0;
 LABEL_18:
 
             goto LABEL_19;
@@ -61,36 +60,35 @@ LABEL_18:
 
     else
     {
-      v16 = *MEMORY[0x277D04168];
       if (!DDResultHasType())
       {
-        v24 = 0;
-        v13 = [self getPhoneValue:&v24 label:0];
-        v15 = v24;
+        v22 = 0;
+        v13 = [self getPhoneValue:&v22 label:0];
+        v14 = v22;
         if (v13)
         {
-          v23 = 0;
-          v18 = [v4 getPhoneValue:&v23 label:0];
-          v19 = v23;
-          v20 = v19;
+          v21 = 0;
+          v16 = [v4 getPhoneValue:&v21 label:0];
+          v17 = v21;
+          v18 = v17;
           v13 = 0;
-          if (v18 && v19)
+          if (v16 && v17)
           {
-            if (v15 == v19)
+            if (v14 == v17)
             {
               v13 = 1;
             }
 
-            else if ([v15 containsString:@"@"])
+            else if ([v14 containsString:@"@"])
             {
-              lowercaseString3 = [v15 lowercaseString];
-              lowercaseString4 = [v20 lowercaseString];
+              lowercaseString3 = [v14 lowercaseString];
+              lowercaseString4 = [v18 lowercaseString];
               v13 = [lowercaseString3 isEqualToString:lowercaseString4];
             }
 
             else
             {
-              v13 = [DDContactUtils phoneNumber:v15 isEqualToPhoneNumber:v20];
+              v13 = [DDContactUtils phoneNumber:v14 isEqualToPhoneNumber:v18];
             }
           }
         }
@@ -98,19 +96,19 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      v27 = 0;
-      v28 = 0.0;
+      v25 = 0;
+      v26 = 0.0;
       if (DDResultPhysicalUnitsExtraction())
       {
-        v25 = 0;
-        v26 = 0.0;
+        v23 = 0;
+        v24 = 0.0;
         [v4 coreResult];
         if (DDResultPhysicalUnitsExtraction())
         {
-          if (v28 == v26)
+          if (v26 == v24)
           {
-            v13 = [v27 isEqualToArray:{v25, v28}];
-            v15 = 0;
+            v13 = [v25 isEqualToArray:{v23, v26}];
+            v14 = 0;
             goto LABEL_18;
           }
         }
@@ -118,7 +116,7 @@ LABEL_18:
     }
 
     v13 = 0;
-    v15 = 0;
+    v14 = 0;
     goto LABEL_18;
   }
 

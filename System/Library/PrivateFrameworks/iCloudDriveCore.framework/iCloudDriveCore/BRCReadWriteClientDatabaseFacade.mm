@@ -4,6 +4,7 @@
 - (BOOL)updateClientStateData:(id)data;
 - (BOOL)updateClientStateDictionary:(id)dictionary;
 - (BRCReadWriteClientDatabaseFacade)initWithDB:(id)b workloop:(id)workloop;
+- (void)captureSyncErrorForItemWithRowID:(unint64_t)d error:(id)error errorMessage:(id)message underlyingError:(id)underlyingError serviceCode:(int)code;
 @end
 
 @implementation BRCReadWriteClientDatabaseFacade
@@ -90,6 +91,33 @@
   LOBYTE(self) = -[BRCReadWriteClientDatabaseFacade saveAppLibrary:supportsEnhancedDrivePrivacy:](self, "saveAppLibrary:supportsEnhancedDrivePrivacy:", libraryCopy, [v5 supportsEnhancedDrivePrivacy]);
 
   return self;
+}
+
+- (void)captureSyncErrorForItemWithRowID:(unint64_t)d error:(id)error errorMessage:(id)message underlyingError:(id)underlyingError serviceCode:(int)code
+{
+  v7 = *&code;
+  db = self->super.super._db;
+  underlyingErrorCopy = underlyingError;
+  messageCopy = message;
+  errorCopy = error;
+  domain = [errorCopy domain];
+  code = [errorCopy code];
+
+  domain2 = [underlyingErrorCopy domain];
+  v17 = domain2;
+  if (domain2)
+  {
+    v18 = domain2;
+  }
+
+  else
+  {
+    v18 = &stru_2837504F0;
+  }
+
+  code2 = [underlyingErrorCopy code];
+
+  [(BRCPQLConnection *)db execute:@"INSERT OR REPLACE INTO item_errors (item_rowid, error_domain, error_code, error_message, underlying_error_domain, underlying_error_code, service) VALUES (%llu, %@, %ld, %@, %@, %ld, %d)", d, domain, code, messageCopy, v18, code2, v7];
 }
 
 @end

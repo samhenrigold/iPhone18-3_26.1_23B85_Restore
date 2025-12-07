@@ -35,18 +35,18 @@
 
 - (IXPromisedInMemoryDictionary)initWithName:(id)name client:(unint64_t)client dictionary:(id)dictionary location:(id)location
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dictionaryCopy = dictionary;
   locationCopy = location;
-  v27 = 0;
-  v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionaryCopy format:200 options:0 error:&v26];
+  v14 = v26;
   if (v13)
   {
-    v26.receiver = self;
-    v26.super_class = IXPromisedInMemoryDictionary;
-    self = -[IXOwnedDataPromise initWithName:client:diskSpaceNeeded:location:](&v26, sel_initWithName_client_diskSpaceNeeded_location_, nameCopy, client, [v13 length], locationCopy);
+    v25.receiver = self;
+    v25.super_class = IXPromisedInMemoryDictionary;
+    self = -[IXOwnedDataPromise initWithName:client:diskSpaceNeeded:location:](&v25, sel_initWithName_client_diskSpaceNeeded_location_, nameCopy, client, [v13 length], locationCopy);
     if (!self)
     {
       goto LABEL_9;
@@ -55,14 +55,14 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v29 = 0;
+    v28 = 0;
     v15 = +[IXServerConnection sharedConnection];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke;
-    v25[3] = &unk_1E85C5560;
-    v25[4] = buf;
-    selfCopy2 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v25];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke;
+    v24[3] = &unk_1E85C5560;
+    v24[4] = buf;
+    selfCopy2 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v24];
 
     if (!selfCopy2)
     {
@@ -71,14 +71,14 @@
     }
 
     seed = [(IXDataPromise *)self seed];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke_7;
-    v22[3] = &unk_1E85C6A00;
-    v24 = buf;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke_7;
+    v21[3] = &unk_1E85C6A00;
+    v23 = buf;
     selfCopy = self;
-    v23 = selfCopy;
-    [(IXPromisedInMemoryDictionary *)selfCopy2 _remote_createInMemoryDictionaryPromiseWithSeed:seed dictionary:dictionaryCopy completion:v22];
+    v22 = selfCopy;
+    [(IXPromisedInMemoryDictionary *)selfCopy2 _remote_createInMemoryDictionaryPromiseWithSeed:seed dictionary:dictionaryCopy completion:v21];
 
     LOBYTE(seed) = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
@@ -113,42 +113,40 @@ LABEL_9:
 
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
 void __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[IXPromisedInMemoryDictionary initWithName:client:dictionary:location:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[IXPromisedInMemoryDictionary initWithName:client:dictionary:location:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1DA47A000, v4, OS_LOG_TYPE_DEFAULT, "%s: Failed to contact daemon: %@", &v5, 0x16u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = IXGetLoggingHandle(kIXLoggingSubsystem);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[IXPromisedInMemoryDictionary initWithName:client:dictionary:location:]_block_invoke";
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up in memory dictionary promise: %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[IXPromisedInMemoryDictionary initWithName:client:dictionary:location:]_block_invoke";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_1DA47A000, v6, OS_LOG_TYPE_DEFAULT, "%s: Failed tell daemon to set up in memory dictionary promise: %@", &v7, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -158,8 +156,6 @@ void __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location_
   {
     [*(a1 + 32) _updateInitWithSeed:a2 notifyDaemon:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithCompletion:(id)completion
@@ -185,13 +181,12 @@ void __72__IXPromisedInMemoryDictionary_initWithName_client_dictionary_location_
 
 - (void)resetWithCompletion:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = 136315394;
-  v3 = "[IXPromisedInMemoryDictionary resetWithCompletion:]";
-  v4 = 2112;
-  v5 = 0;
-  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Resetting an in-memory dictionary promise doesn't make sense. : %@", &v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v1 = 136315394;
+  v2 = "[IXPromisedInMemoryDictionary resetWithCompletion:]";
+  v3 = 2112;
+  v4 = 0;
+  _os_log_error_impl(&dword_1DA47A000, log, OS_LOG_TYPE_ERROR, "%s: Resetting an in-memory dictionary promise doesn't make sense. : %@", &v1, 0x16u);
 }
 
 @end

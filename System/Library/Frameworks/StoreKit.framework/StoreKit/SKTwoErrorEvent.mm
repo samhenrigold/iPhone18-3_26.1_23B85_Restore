@@ -16,7 +16,7 @@
 - (id)createPayload
 {
   selfCopy = self;
-  v3 = sub_1B24D0ED4();
+  v3 = sub_1B24D0ED4(selfCopy);
 
   if (v3)
   {

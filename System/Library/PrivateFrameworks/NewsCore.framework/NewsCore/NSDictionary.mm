@@ -63,7 +63,7 @@ void __72__NSDictionary_FCAdditions__fc_dictionaryByTransformingValuesWithBlock_
 
 void __71__NSDictionary_FCAdditions__fc_dictionaryWithKeys_valueWithIndexBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = (*(*(a1 + 40) + 16))();
   if (v4)
@@ -73,19 +73,17 @@ void __71__NSDictionary_FCAdditions__fc_dictionaryWithKeys_valueWithIndexBlock__
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "value"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "value"];
     *buf = 136315906;
-    v8 = "+[NSDictionary(FCAdditions) fc_dictionaryWithKeys:valueWithIndexBlock:]_block_invoke";
-    v9 = 2080;
-    v10 = "NSDictionary+FCAdditions.m";
-    v11 = 1024;
-    v12 = 195;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "+[NSDictionary(FCAdditions) fc_dictionaryWithKeys:valueWithIndexBlock:]_block_invoke";
+    v8 = 2080;
+    v9 = "NSDictionary+FCAdditions.m";
+    v10 = 1024;
+    v11 = 195;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __61__NSDictionary_FCAdditions__fr_descriptionWithKeyComparator___block_invoke(uint64_t a1, void *a2)

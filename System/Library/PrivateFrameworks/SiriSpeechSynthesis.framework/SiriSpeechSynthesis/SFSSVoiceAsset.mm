@@ -24,12 +24,12 @@
 
 - (id)init:(id)init gender:(int64_t)gender name:(id)name type:(int64_t)type footprint:(int64_t)footprint contentVersion:(int64_t)version
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   initCopy = init;
   nameCopy = name;
-  v23.receiver = self;
-  v23.super_class = SFSSVoiceAsset;
-  v16 = [(SFSSVoiceAsset *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SFSSVoiceAsset;
+  v16 = [(SFSSVoiceAsset *)&v22 init];
   if (v16)
   {
     v17 = [initCopy stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
@@ -48,21 +48,20 @@
   {
     v20 = [(SFSSVoiceAsset *)v16 key];
     *buf = 138412290;
-    v25 = v20;
+    v24 = v20;
     _os_log_impl(&dword_269079000, v19, OS_LOG_TYPE_INFO, "Init VoiceAsset with key=%@", buf, 0xCu);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (SFSSVoiceAsset)initWithPath:(id)path
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v12.receiver = self;
-  v12.super_class = SFSSVoiceAsset;
-  v6 = [(SFSSVoiceAsset *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = SFSSVoiceAsset;
+  v6 = [(SFSSVoiceAsset *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -72,12 +71,11 @@
     {
       assetPath = v7->_assetPath;
       *buf = 138412290;
-      v14 = assetPath;
+      v13 = assetPath;
       _os_log_impl(&dword_269079000, v8, OS_LOG_TYPE_INFO, "Init VoiceAsset with assetPath=%@", buf, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

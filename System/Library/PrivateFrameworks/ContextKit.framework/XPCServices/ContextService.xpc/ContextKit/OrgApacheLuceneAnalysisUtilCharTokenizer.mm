@@ -10,7 +10,7 @@
 - (BOOL)incrementToken
 {
   [(OrgApacheLuceneUtilAttributeSource *)self clearAttributes];
-  v24 = 72;
+  v25 = 72;
   termAtt = self->termAtt_;
   if (!termAtt)
   {
@@ -19,8 +19,8 @@
 
   buffer = [(OrgApacheLuceneAnalysisTokenattributesCharTermAttribute *)termAtt buffer];
   v4 = 0;
-  v25 = -1;
-  v27 = -1;
+  v26 = -1;
+  v28 = -1;
   while (1)
   {
     dataLen = self->dataLen_;
@@ -64,8 +64,8 @@ LABEL_8:
     }
 
     v10 = [(OrgApacheLuceneAnalysisUtilCharacterUtils *)v8 codePointAtWithCharArray:[(OrgApacheLuceneAnalysisUtilCharacterUtils_CharacterBuffer *)v9 getBuffer] withInt:self->bufferIndex_ withInt:[(OrgApacheLuceneAnalysisUtilCharacterUtils_CharacterBuffer *)self->ioBuffer_ getLength]];
-    v11 = JavaLangCharacter_charCountWithInt_(v10);
-    self->bufferIndex_ += v11;
+    v12 = JavaLangCharacter_charCountWithInt_(v10, v11);
+    self->bufferIndex_ += v12;
     if ([(OrgApacheLuceneAnalysisUtilCharTokenizer *)self isTokenCharWithInt:v10])
     {
       if (v4)
@@ -77,21 +77,21 @@ LABEL_8:
 
         if (v4 >= buffer[2] - 1)
         {
-          buffer = [*(&self->super.super.super.super.isa + v24) resizeBufferWithInt:(v4 + 2)];
+          buffer = [*(&self->super.super.super.super.isa + v25) resizeBufferWithInt:(v4 + 2)];
         }
 
-        v12 = v27;
+        v13 = v28;
       }
 
       else
       {
-        v12 = self->offset_ - v11 + self->bufferIndex_;
-        v25 = v12;
+        v13 = self->offset_ - v12 + self->bufferIndex_;
+        v26 = v13;
       }
 
-      v27 = v12 + v11;
-      v13 = [(OrgApacheLuceneAnalysisUtilCharTokenizer *)self normalizeWithInt:v10, v24];
-      v4 = JavaLangCharacter_toCharsWithInt_withCharArray_withInt_(v13, buffer, v4, v14, v15, v16, v17, v18) + v4;
+      v28 = v13 + v12;
+      v14 = [(OrgApacheLuceneAnalysisUtilCharTokenizer *)self normalizeWithInt:v10, v25];
+      v4 = JavaLangCharacter_toCharsWithInt_withCharArray_withInt_(v14, buffer, v4, v15, v16, v17, v18, v19) + v4;
       if (v4 > 254)
       {
         goto LABEL_22;
@@ -108,14 +108,14 @@ LABEL_8:
   if (v4 > 0)
   {
 LABEL_22:
-    [*(&self->super.super.super.super.isa + v24) setLengthWithInt:{v4, v24}];
+    [*(&self->super.super.super.super.isa + v25) setLengthWithInt:{v4, v25}];
     offsetAtt = self->offsetAtt_;
     if (offsetAtt)
     {
-      v20 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:v25];
-      v21 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:v27];
-      self->finalOffset_ = v21;
-      [(OrgApacheLuceneAnalysisTokenattributesOffsetAttribute *)offsetAtt setOffsetWithInt:v20 withInt:v21];
+      v21 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:v26];
+      v22 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:v28];
+      self->finalOffset_ = v22;
+      [(OrgApacheLuceneAnalysisTokenattributesOffsetAttribute *)offsetAtt setOffsetWithInt:v21 withInt:v22];
       return 1;
     }
 
@@ -123,9 +123,9 @@ LABEL_25:
     JreThrowNullPointerException();
   }
 
-  v23 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:self->offset_];
+  v24 = [(OrgApacheLuceneAnalysisTokenizer *)self correctOffsetWithInt:self->offset_];
   result = 0;
-  self->finalOffset_ = v23;
+  self->finalOffset_ = v24;
   return result;
 }
 

@@ -48,10 +48,11 @@
 
   v7 = (self + OBJC_IVAR___ICTagOperatorCell_selectionChangeHandler);
   v8 = *(self + OBJC_IVAR___ICTagOperatorCell_selectionChangeHandler);
+  v9 = *(self + OBJC_IVAR___ICTagOperatorCell_selectionChangeHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1002B5F48(v8);
+  sub_1002B5F48(v8, v9);
 }
 
 - (void)setTagSelection:(id)selection

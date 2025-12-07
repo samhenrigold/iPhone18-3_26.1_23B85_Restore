@@ -2,6 +2,7 @@
 - (CHWorkoutDetailHeartRateChartHeartRateAxisDescriptor)init;
 - (id)_createAverageHeartRateLabel;
 - (id)axisSubLabels;
+- (void)invalidateCaches;
 - (void)setAverageHeartRate:(id)rate;
 - (void)setSubAxisSpacing:(id)spacing;
 @end
@@ -30,6 +31,13 @@
   [(CHWorkoutDetailHeartRateChartHeartRateAxisDescriptor *)&v5 setSubAxisSpacing:spacing];
   averageHeartRateLabel = self->_averageHeartRateLabel;
   self->_averageHeartRateLabel = 0;
+}
+
+- (void)invalidateCaches
+{
+  averageHeartRateLabel = self->_averageHeartRateLabel;
+  self->_averageHeartRateLabel = 0;
+  _objc_release_x1(self, averageHeartRateLabel);
 }
 
 - (void)setAverageHeartRate:(id)rate

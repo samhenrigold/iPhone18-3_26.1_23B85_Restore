@@ -119,9 +119,10 @@ void __48__AXSpeechControllerSettingsController_loadView__block_invoke_3(uint64_
 {
   v3 = +[AXSettings sharedInstance];
   [v3 speechControllerIdleOpacity];
-  v4 = AXFormatFloatWithPercentage();
+  *&v4 = v4;
+  v5 = AXFormatFloatWithPercentage(*&v4);
 
-  return v4;
+  return v5;
 }
 
 @end

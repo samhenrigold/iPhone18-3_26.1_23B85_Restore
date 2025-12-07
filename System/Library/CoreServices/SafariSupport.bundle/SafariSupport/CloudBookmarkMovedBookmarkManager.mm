@@ -85,23 +85,23 @@
   bookmarkCopy = bookmark;
   recordName = [bookmarkCopy recordName];
   parentRecordName = [bookmarkCopy parentRecordName];
-  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v8 = v7;
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(parentRecordName, v7);
+  v9 = v8;
   if (parentRecordName)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = 138543618;
-      v10 = recordName;
-      v11 = 2114;
-      v12 = parentRecordName;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Moving record %{public}@ into parent record %{public}@", &v9, 0x16u);
+      v10 = 138543618;
+      v11 = recordName;
+      v12 = 2114;
+      v13 = parentRecordName;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Moving record %{public}@ into parent record %{public}@", &v10, 0x16u);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10003DFA0();
     }
@@ -116,12 +116,12 @@
 - (void)didLocallyMoveBookmarkWithRecordName:(id)name
 {
   nameCopy = name;
-  v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(nameCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = 138543362;
-    v7 = nameCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Marking record name %{public}@ as moved locally", &v6, 0xCu);
+    v7 = 138543362;
+    v8 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Marking record name %{public}@ as moved locally", &v7, 0xCu);
   }
 
   [(NSMutableSet *)self->_movedBookmarkRecordNames addObject:nameCopy];
@@ -132,11 +132,11 @@
 {
   nameCopy = name;
   v5 = [CKRecord safari_folderTypeForRecordName:nameCopy];
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v7 = v6;
+  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+  v8 = v7;
   if (v5)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10003E008();
     }
@@ -144,11 +144,11 @@
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = 138543362;
-      v9 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Marking record name %{public}@ as deleted", &v8, 0xCu);
+      v9 = 138543362;
+      v10 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Marking record name %{public}@ as deleted", &v9, 0xCu);
     }
 
     [(NSMutableSet *)self->_movedBookmarkRecordNames removeObject:nameCopy];
@@ -165,13 +165,14 @@
   v9 = WBSCloudBookmarkListRecordNameTopBookmark;
   if ([nameCopy isEqualToString:WBSCloudBookmarkListRecordNameTopBookmark])
   {
-    if (-[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], 0, self->_databaseRef))
+    v10 = -[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], 0, self->_databaseRef);
+    if (v10)
     {
       goto LABEL_12;
     }
 
-    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v10, v11);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_12;
     }
@@ -183,21 +184,22 @@
   {
     if (([nameCopy isEqualToString:v9] & 1) == 0)
     {
-      [(NSMutableSet *)self->_misplacedBuiltInFolderRecordNames addObject:recordName];
-      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = [(NSMutableSet *)self->_misplacedBuiltInFolderRecordNames addObject:recordName];
+      v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10003E070();
       }
     }
 
-    if (-[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], 0, self->_databaseRef))
+    v16 = -[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], 0, self->_databaseRef);
+    if (v16)
     {
       goto LABEL_12;
     }
 
-    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v16, v17);
+    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_12;
     }
@@ -213,10 +215,11 @@ LABEL_12:
   {
     [(NSMutableSet *)self->_parentRecordNamesWithMovedChildren addObject:nameCopy];
     [(CloudBookmarkMovedBookmarkManager *)self _createBuiltInFolderWithRecordNameIfNeeded:nameCopy];
-    if ((-[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], nameCopy, self->_databaseRef) & 1) == 0)
+    v19 = -[WBSBookmarkDBAccess addItem:underFolderWithServerId:database:](self->_databaseAccessor, "addItem:underFolderWithServerId:database:", [bookmarkCopy item], nameCopy, self->_databaseRef);
+    if ((v19 & 1) == 0)
     {
-      v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v19, v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10003E140();
       }
@@ -235,7 +238,7 @@ LABEL_12:
 
     else
     {
-      v15 = WBSCloudBookmarkListRecordNameTemporaryParentFolder;
+      v23 = WBSCloudBookmarkListRecordNameTemporaryParentFolder;
       if (!self->_hasTemporaryParentFolder)
       {
         [(CloudBookmarkMovedBookmarkManager *)self _createBuiltInFolderWithRecordNameIfNeeded:WBSCloudBookmarkListRecordNameTemporaryParentFolder];
@@ -243,10 +246,11 @@ LABEL_12:
       }
 
       [(NSMutableDictionary *)self->_childRecordNamesToParentRecordNames setObject:nameCopy forKeyedSubscript:recordName];
-      if (([(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:item underFolderWithServerId:v15 database:self->_databaseRef]& 1) == 0)
+      v24 = [(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:item underFolderWithServerId:v23 database:self->_databaseRef];
+      if ((v24 & 1) == 0)
       {
-        v16 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           sub_10003E1A8();
         }
@@ -264,28 +268,28 @@ LABEL_13:
   v8 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyItemWithServerId:nameCopy database:self->_databaseRef];
   if (v8)
   {
-    v9 = v8;
-    v10 = [(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:v8 underFolderWithServerId:recordNameCopy database:self->_databaseRef];
-    CFRelease(v9);
+    v10 = v8;
+    v11 = [(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:v8 underFolderWithServerId:recordNameCopy database:self->_databaseRef];
+    CFRelease(v10);
   }
 
   else
   {
-    v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10003E210();
     }
 
-    v12 = +[NSNotificationCenter defaultCenter];
-    v15 = @"bugIDs";
-    v16 = &off_10013C908;
-    v10 = 1;
-    v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    [v12 postNotificationName:@"cloudBookmarkDidDetectBug" object:self userInfo:v13];
+    v13 = +[NSNotificationCenter defaultCenter];
+    v16 = @"bugIDs";
+    v17 = &off_10013C908;
+    v11 = 1;
+    v14 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    [v13 postNotificationName:@"cloudBookmarkDidDetectBug" object:self userInfo:v14];
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)_createBuiltInFolderWithRecordNameIfNeeded:(id)needed
@@ -299,18 +303,18 @@ LABEL_13:
 
   else
   {
-    v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = 138543362;
-      v9 = neededCopy;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Creating built-in folder with record name: %{public}@", &v8, 0xCu);
+      v9 = 138543362;
+      v10 = neededCopy;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Creating built-in folder with record name: %{public}@", &v9, 0xCu);
     }
 
-    v7 = [(WBSBookmarkDBAccess *)self->_databaseAccessor createFolderWithType:[CKRecord database:"safari_folderTypeForRecordName:" safari_folderTypeForRecordName:neededCopy], self->_databaseRef];
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:neededCopy item:v7];
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:v7 underFolderWithServerId:0 database:self->_databaseRef];
-    CFRelease(v7);
+    v8 = [(WBSBookmarkDBAccess *)self->_databaseAccessor createFolderWithType:[CKRecord database:"safari_folderTypeForRecordName:" safari_folderTypeForRecordName:neededCopy], self->_databaseRef];
+    [(WBSBookmarkDBAccess *)self->_databaseAccessor setServerId:neededCopy item:v8];
+    [(WBSBookmarkDBAccess *)self->_databaseAccessor addItem:v8 underFolderWithServerId:0 database:self->_databaseRef];
+    CFRelease(v8);
     self->_topBookmarkFolderRequiresReordering = 1;
   }
 }
@@ -324,12 +328,13 @@ LABEL_13:
     v5 = [v4 mutableCopy];
 
     [v5 minusSet:self->_deletedBookmarkRecordNames];
-    if ([v5 count])
+    v6 = [v5 count];
+    if (v6)
     {
-      v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_10003E278(v6, v5);
+        sub_10003E278(v8, v5);
       }
     }
 
@@ -400,48 +405,48 @@ LABEL_13:
   objc_autoreleasePoolPop(v7);
   if ([(CloudBookmarkMovedBookmarkManager *)self hasUnverifiedMovedBookmarks])
   {
-    v31 = +[NSMutableSet set];
+    v36 = +[NSMutableSet set];
     v8 = +[NSMutableSet set];
     if (parentsCopy)
     {
       obj = [(NSMutableSet *)self->_movedBookmarkRecordNames mutableCopy];
-      v27 = [(NSMutableSet *)self->_misplacedBuiltInFolderRecordNames mutableCopy];
-      v28 = [(NSMutableDictionary *)self->_childRecordNamesToParentRecordNames mutableCopy];
+      v32 = [(NSMutableSet *)self->_misplacedBuiltInFolderRecordNames mutableCopy];
+      v33 = [(NSMutableDictionary *)self->_childRecordNamesToParentRecordNames mutableCopy];
     }
 
     else
     {
-      v28 = 0;
-      v27 = 0;
+      v33 = 0;
+      v32 = 0;
       obj = 0;
     }
 
-    [v31 unionSet:self->_misplacedBuiltInFolderRecordNames];
+    [v36 unionSet:self->_misplacedBuiltInFolderRecordNames];
     [v8 unionSet:self->_misplacedBuiltInFolderRecordNames];
     [(NSMutableSet *)self->_misplacedBuiltInFolderRecordNames removeAllObjects];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     p_movedBookmarkRecordNames = &self->_movedBookmarkRecordNames;
     v10 = self->_movedBookmarkRecordNames;
-    v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v35 objects:v41 count:16];
-    v29 = parentsCopy;
+    v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v34 = parentsCopy;
     if (v11)
     {
       v12 = v11;
-      v13 = *v36;
+      v13 = *v41;
       do
       {
         v14 = 0;
         do
         {
-          if (*v36 != v13)
+          if (*v41 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * v14);
+          v15 = *(*(&v40 + 1) + 8 * v14);
           v16 = objc_autoreleasePoolPush();
           v17 = [(CloudBookmarkMovedBookmarkManager *)self _recordNameOfAncestorToReparentForRecordName:v15 verifiedRecordNames:v8];
           if (v17)
@@ -449,41 +454,42 @@ LABEL_13:
             if (parentsCopy)
             {
               [obj addObject:v17];
-              v34 = 0;
-              [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v17 getParentRecordName:&v34];
-              v18 = v34;
+              v39 = 0;
+              [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v17 getParentRecordName:&v39];
+              v18 = v39;
               if ([v18 length])
               {
-                [v28 setObject:v18 forKeyedSubscript:v17];
+                [v33 setObject:v18 forKeyedSubscript:v17];
               }
 
               else
               {
-                v19 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v19);
+                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v40 = v17;
-                  _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Record with name %{public}@ does not have a parent even though it was checked right before", buf, 0xCu);
+                  v45 = v17;
+                  _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Record with name %{public}@ does not have a parent even though it was checked right before", buf, 0xCu);
                 }
               }
 
-              parentsCopy = v29;
+              parentsCopy = v34;
             }
 
             [(NSMutableDictionary *)self->_childRecordNamesToParentRecordNames removeObjectForKey:v17];
-            if (![(CloudBookmarkMovedBookmarkManager *)self _insertBookmarkWithRecordName:v17 intoExistingFolderWithRecordName:0])
+            v21 = [(CloudBookmarkMovedBookmarkManager *)self _insertBookmarkWithRecordName:v17 intoExistingFolderWithRecordName:0];
+            if ((v21 & 1) == 0)
             {
-              v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v21, v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v40 = v17;
-                _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to insert %{public}@ into the root folder and for some reason the parent folder does not exist or creates a cycle!", buf, 0xCu);
+                v45 = v17;
+                _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to insert %{public}@ into the root folder and for some reason the parent folder does not exist or creates a cycle!", buf, 0xCu);
               }
             }
 
-            [v31 addObject:v17];
+            [v36 addObject:v17];
           }
 
           objc_autoreleasePoolPop(v16);
@@ -491,40 +497,40 @@ LABEL_13:
         }
 
         while (v12 != v14);
-        v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v12);
     }
 
-    [(NSMutableSet *)*p_movedBookmarkRecordNames removeAllObjects];
-    v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    removeAllObjects = [(NSMutableSet *)*p_movedBookmarkRecordNames removeAllObjects];
+    v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(removeAllObjects, v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Did finish checking hierarchy consistency, will move remaining records into their final location", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Did finish checking hierarchy consistency, will move remaining records into their final location", buf, 2u);
     }
 
     childRecordNamesToParentRecordNames = self->_childRecordNamesToParentRecordNames;
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_10003CAB4;
-    v32[3] = &unk_100132FB0;
-    v32[4] = self;
-    v23 = v31;
-    v33 = v23;
-    [(NSMutableDictionary *)childRecordNamesToParentRecordNames enumerateKeysAndObjectsUsingBlock:v32];
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_10003CAB4;
+    v37[3] = &unk_100132FB0;
+    v37[4] = self;
+    v28 = v36;
+    v38 = v28;
+    [(NSMutableDictionary *)childRecordNamesToParentRecordNames enumerateKeysAndObjectsUsingBlock:v37];
     [(NSMutableDictionary *)self->_childRecordNamesToParentRecordNames removeAllObjects];
     [(CloudBookmarkMovedBookmarkManager *)self _deleteTemporaryParentFolder];
-    if (v29)
+    if (v34)
     {
       objc_storeStrong(p_movedBookmarkRecordNames, obj);
-      objc_storeStrong(&self->_misplacedBuiltInFolderRecordNames, v27);
-      objc_storeStrong(&self->_childRecordNamesToParentRecordNames, v28);
+      objc_storeStrong(&self->_misplacedBuiltInFolderRecordNames, v32);
+      objc_storeStrong(&self->_childRecordNamesToParentRecordNames, v33);
     }
 
-    v24 = v33;
-    v9 = v23;
+    v29 = v38;
+    v9 = v28;
   }
 
   else
@@ -559,135 +565,138 @@ LABEL_13:
   nameCopy = name;
   namesCopy = names;
   v8 = [namesCopy containsObject:nameCopy];
-  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-  if (!v8)
+  v9 = v8;
+  v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v8, v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  if (!v9)
   {
-    if (v10)
+    if (v12)
     {
       *buf = 138543362;
-      v32 = nameCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Checking parent chain of record with name %{public}@", buf, 0xCu);
+      v40 = nameCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Checking parent chain of record with name %{public}@", buf, 0xCu);
     }
 
-    v12 = [namesCopy copy];
-    v13 = nameCopy;
-    v14 = +[NSMutableOrderedSet orderedSet];
-    [v14 addObject:v13];
-    [namesCopy addObject:v13];
-    v30 = 0;
-    v15 = [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v13 getParentRecordName:&v30];
-    v16 = v30;
-    v17 = v16;
-    if (v15)
+    v14 = [namesCopy copy];
+    v15 = nameCopy;
+    v16 = +[NSMutableOrderedSet orderedSet];
+    [v16 addObject:v15];
+    [namesCopy addObject:v15];
+    v38 = 0;
+    v17 = [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v15 getParentRecordName:&v38];
+    v18 = v38;
+    v20 = v18;
+    if (v17)
     {
-      if (!v16)
+      if (!v18)
       {
-        v11 = 0;
+        v13 = 0;
         goto LABEL_21;
       }
 
-      v18 = WBSCloudBookmarkListRecordNameNullParentFolder;
+      v21 = WBSCloudBookmarkListRecordNameNullParentFolder;
       while (1)
       {
-        if ([v17 isEqualToString:v18])
+        if ([v20 isEqualToString:v21])
         {
           goto LABEL_32;
         }
 
-        if ([(NSMutableSet *)self->_deletedBookmarkRecordNames containsObject:v17])
+        v22 = [(NSMutableSet *)self->_deletedBookmarkRecordNames containsObject:v20];
+        if (v22)
         {
-          v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v35 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v22, v23);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v32 = v17;
-            v33 = 2114;
-            v34 = v13;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Parent %{public}@ was deleted, reparenting %{public}@", buf, 0x16u);
+            v40 = v20;
+            v41 = 2114;
+            v42 = v15;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Parent %{public}@ was deleted, reparenting %{public}@", buf, 0x16u);
           }
 
 LABEL_32:
-          v13 = v13;
-          v11 = v13;
+          v15 = v15;
+          v13 = v15;
           goto LABEL_20;
         }
 
-        if ([v12 containsObject:v17])
+        if ([v14 containsObject:v20])
         {
           goto LABEL_19;
         }
 
-        v19 = [v14 indexOfObject:v17];
-        if (v19 != 0x7FFFFFFFFFFFFFFFLL)
+        v24 = [v16 indexOfObject:v20];
+        if (v24 != 0x7FFFFFFFFFFFFFFFLL)
         {
           break;
         }
 
-        v29 = 0;
-        v20 = [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v17 getParentRecordName:&v29];
-        v21 = v29;
-        if ((v20 & 1) == 0)
+        v37 = 0;
+        v25 = [(CloudBookmarkMovedBookmarkManager *)self _localDatabaseContainsItemWithRecordName:v20 getParentRecordName:&v37];
+        v26 = v37;
+        v28 = v26;
+        if ((v25 & 1) == 0)
         {
-          v28 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v36 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v26, v27);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v32 = v17;
-            v33 = 2114;
-            v34 = v13;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Parent %{public}@ is not in the database, reparenting %{public}@", buf, 0x16u);
+            v40 = v20;
+            v41 = 2114;
+            v42 = v15;
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "Parent %{public}@ is not in the database, reparenting %{public}@", buf, 0x16u);
           }
 
-          v13 = v13;
+          v15 = v15;
 
-          v11 = v13;
+          v13 = v15;
           goto LABEL_20;
         }
 
-        v22 = v17;
+        v29 = v20;
 
-        [v14 addObject:v22];
-        [namesCopy addObject:v22];
+        [v16 addObject:v29];
+        [namesCopy addObject:v29];
 
-        v13 = v22;
-        v17 = v21;
-        if (!v21)
+        v15 = v29;
+        v20 = v28;
+        if (!v28)
         {
-          v11 = 0;
-          v13 = v22;
+          v13 = 0;
+          v15 = v29;
           goto LABEL_20;
         }
       }
 
-      v25 = v19;
-      if (v19)
+      v32 = v24;
+      if (v24)
       {
-        [v14 removeObjectsInRange:{0, v19}];
+        [v16 removeObjectsInRange:{0, v24}];
       }
 
-      v11 = [(CloudBookmarkMovedBookmarkManager *)self _recordNameOfAncestorToReparentInLoop:v14, v25];
-      v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      v13 = [(CloudBookmarkMovedBookmarkManager *)self _recordNameOfAncestorToReparentInLoop:v16, v32];
+      v34 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v13, v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v32 = v11;
-        v33 = 2114;
-        v34 = v14;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Loop detected, reparenting %{public}@ in list %{public}@", buf, 0x16u);
+        v40 = v13;
+        v41 = 2114;
+        v42 = v16;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "Loop detected, reparenting %{public}@ in list %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v18, v19);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_10003E43C();
       }
 
 LABEL_19:
-      v11 = 0;
+      v13 = 0;
     }
 
 LABEL_20:
@@ -696,17 +705,17 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if (v10)
+  if (v12)
   {
     *buf = 138543362;
-    v32 = nameCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Already verified parent chain fo record with name %{public}@", buf, 0xCu);
+    v40 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Already verified parent chain fo record with name %{public}@", buf, 0xCu);
   }
 
-  v11 = 0;
+  v13 = 0;
 LABEL_22:
 
-  return v11;
+  return v13;
 }
 
 - (id)_recordNameOfAncestorToReparentInLoop:(id)loop
@@ -746,7 +755,7 @@ LABEL_22:
 
 - (void)reorderAllBookmarksUsingSyncPosition
 {
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -764,12 +773,13 @@ LABEL_22:
 - (void)_recursivelyUpdateChildrenOrderWithParentServerID:(id)d depth:(int)depth
 {
   dCopy = d;
-  if ([(NSMutableSet *)self->_reorderedBySyncPositionBookmarkFolderServerIDs containsObject:dCopy])
+  v7 = [(NSMutableSet *)self->_reorderedBySyncPositionBookmarkFolderServerIDs containsObject:dCopy];
+  if (v7)
   {
-    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      sub_10003E518(dCopy, &self->_reorderedBySyncPositionBookmarkFolderServerIDs, v7);
+      sub_10003E518(dCopy, &self->_reorderedBySyncPositionBookmarkFolderServerIDs, v9);
     }
   }
 
@@ -777,95 +787,96 @@ LABEL_22:
   {
     if (dCopy)
     {
-      v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v32 = dCopy;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Reordering children of %{public}@", buf, 0xCu);
+        v37 = dCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Reordering children of %{public}@", buf, 0xCu);
       }
 
       [(NSMutableSet *)self->_reorderedBySyncPositionBookmarkFolderServerIDs addObject:dCopy];
-      v10 = objc_autoreleasePoolPush();
+      v12 = objc_autoreleasePoolPush();
       [(CloudBookmarkMovedBookmarkManager *)self _reorderChildrenOfFolderWithServerSyncId:dCopy];
-      objc_autoreleasePoolPop(v10);
+      objc_autoreleasePoolPop(v12);
     }
 
-    v11 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdsInFolderWithServerId:dCopy database:self->_databaseRef];
-    v12 = [v11 count];
-    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-    if (v12)
+    v13 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdsInFolderWithServerId:dCopy database:self->_databaseRef];
+    v14 = [v13 count];
+    v16 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v14, v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      if (v14)
+      if (v17)
       {
-        v15 = v13;
-        v16 = [v11 count];
+        v18 = v16;
+        v19 = [v13 count];
         *buf = 134218242;
-        v32 = v16;
-        v33 = 2114;
-        v34 = dCopy;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Recursing to update order for %lu children of %{public}@", buf, 0x16u);
+        v37 = v19;
+        v38 = 2114;
+        v39 = dCopy;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Recursing to update order for %lu children of %{public}@", buf, 0x16u);
       }
     }
 
-    else if (v14)
+    else if (v17)
     {
       *buf = 138543362;
-      v32 = dCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No children of bookmark %{public}@ to recurse on", buf, 0xCu);
+      v37 = dCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No children of bookmark %{public}@ to recurse on", buf, 0xCu);
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v17 = v11;
-    v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v18)
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v20 = v13;
+    v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v21)
     {
-      v20 = v18;
-      v21 = *v27;
-      *&v19 = 138543362;
-      v25 = v19;
+      v23 = v21;
+      v24 = *v32;
+      *&v22 = 138543362;
+      v30 = v22;
       do
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v23; i = i + 1)
         {
-          if (*v27 != v21)
+          if (*v32 != v24)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v20);
           }
 
-          v23 = *(*(&v26 + 1) + 8 * i);
-          if ([dCopy isEqualToString:{v23, v25, v26}])
+          v26 = *(*(&v31 + 1) + 8 * i);
+          v27 = [dCopy isEqualToString:{v26, v30, v31}];
+          if (v27)
           {
-            v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v29 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v27, v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
-              *buf = v25;
-              v32 = dCopy;
-              _os_log_fault_impl(&_mh_execute_header, v24, OS_LOG_TYPE_FAULT, "Child bookmark ID unexpectedly equal to parent server ID %{public}@", buf, 0xCu);
+              *buf = v30;
+              v37 = dCopy;
+              _os_log_fault_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Child bookmark ID unexpectedly equal to parent server ID %{public}@", buf, 0xCu);
             }
           }
 
           else
           {
-            [(CloudBookmarkMovedBookmarkManager *)self _recursivelyUpdateChildrenOrderWithParentServerID:v23 depth:(depth + 1)];
+            [(CloudBookmarkMovedBookmarkManager *)self _recursivelyUpdateChildrenOrderWithParentServerID:v26 depth:(depth + 1)];
           }
         }
 
-        v20 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v23 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v20);
+      while (v23);
     }
   }
 
   else
   {
-    v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_10003E4A4();
     }
@@ -874,7 +885,7 @@ LABEL_22:
 
 - (void)moveBookmarksIntoPlace
 {
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -927,46 +938,47 @@ LABEL_22:
   context = objc_autoreleasePoolPush();
   v6 = +[NSMutableArray array];
   v7 = +[NSMutableArray array];
-  v22 = 0u;
-  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v23 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         v14 = [(CloudBookmarkMovedBookmarkManager *)self _positionOfBookmarkWithRecordNameForFolderSorting:v13];
+        v16 = v14;
         if (v14)
         {
-          v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v14, v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v27 = v13;
-            v28 = 2112;
-            v29 = v14;
-            _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Record name %@, position: %@", buf, 0x16u);
+            v29 = v13;
+            v30 = 2112;
+            v31 = v16;
+            _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Record name %@, position: %@", buf, 0x16u);
           }
 
-          v16 = [v7 indexOfObject:v14 inSortedRange:0 options:objc_msgSend(v7 usingComparator:{"count"), 1024, &stru_100133030}];
-          [v6 insertObject:v13 atIndex:v16];
-          [v7 insertObject:v14 atIndex:v16];
+          v18 = [v7 indexOfObject:v16 inSortedRange:0 options:objc_msgSend(v7 usingComparator:{"count"), 1024, &stru_100133030}];
+          [v6 insertObject:v13 atIndex:v18];
+          [v7 insertObject:v16 atIndex:v18];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
@@ -975,7 +987,7 @@ LABEL_22:
   if (position)
   {
     lastObject = [v7 lastObject];
-    v18 = *position;
+    v20 = *position;
     *position = lastObject;
   }
 
@@ -988,7 +1000,7 @@ LABEL_22:
 {
   if (self->_topBookmarkFolderRequiresReordering)
   {
-    v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+    v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1015,12 +1027,12 @@ LABEL_22:
       [v12 addObject:v11];
     }
 
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor setChildrenOrder:v12 forFolderWithServerId:0 database:self->_databaseRef];
-    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = [(WBSBookmarkDBAccess *)self->_databaseAccessor setChildrenOrder:v12 forFolderWithServerId:0 database:self->_databaseRef];
+    v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Did finish reordering children of root folder", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Did finish reordering children of root folder", v18, 2u);
     }
 
     self->_topBookmarkFolderRequiresReordering = 0;
@@ -1029,7 +1041,7 @@ LABEL_22:
   else if (position)
   {
     _lastValidPositionInRootFolder = [(CloudBookmarkMovedBookmarkManager *)self _lastValidPositionInRootFolder];
-    v15 = *position;
+    v17 = *position;
     *position = _lastValidPositionInRootFolder;
   }
 }
@@ -1055,29 +1067,29 @@ LABEL_22:
   idCopy = id;
   v5 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copyServerIdsInFolderWithServerId:idCopy database:self->_databaseRef];
   v6 = [v5 count];
-  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v8 = v7;
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 138543362;
-      v12 = idCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Reordering children of record with Server Sync ID: %{public}@", &v11, 0xCu);
+      v14 = 138543362;
+      v15 = idCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Reordering children of record with Server Sync ID: %{public}@", &v14, 0xCu);
     }
 
-    v9 = [(CloudBookmarkMovedBookmarkManager *)self _sortedRecordNamesWithChildIDs:v5 getLastPosition:0];
-    [(WBSBookmarkDBAccess *)self->_databaseAccessor setChildrenOrder:v9 forFolderWithServerId:idCopy database:self->_databaseRef];
-    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v10 = [(CloudBookmarkMovedBookmarkManager *)self _sortedRecordNamesWithChildIDs:v5 getLastPosition:0];
+    v11 = [(WBSBookmarkDBAccess *)self->_databaseAccessor setChildrenOrder:v10 forFolderWithServerId:idCopy database:self->_databaseRef];
+    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v11 = 138543362;
-      v12 = idCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Did finish reordering children of record with Server Sync ID: %{public}@", &v11, 0xCu);
+      v14 = 138543362;
+      v15 = idCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Did finish reordering children of record with Server Sync ID: %{public}@", &v14, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10003E5CC();
   }
@@ -1085,7 +1097,7 @@ LABEL_22:
 
 - (void)removeLocalItemsForDeletedRecordNames
 {
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     deletedBookmarkRecordNames = self->_deletedBookmarkRecordNames;

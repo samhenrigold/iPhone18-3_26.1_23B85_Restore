@@ -61,7 +61,7 @@
       v27 = 55;
       v28 = 2114;
       v29 = 0;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) Init Error (error='%{public}@'", &v22, 38);
     }
 
     v9 = 0;
@@ -103,26 +103,24 @@ LABEL_18:
   if (version)
   {
     filePaths = [(W5PeerSnifferResponsePayload *)self filePaths];
-    v18 = 0;
-    version = [NSKeyedArchiver archivedDataWithRootObject:filePaths requiringSecureCoding:1 error:&v18];
-    v8 = v18;
+    v16 = 0;
+    version = [NSKeyedArchiver archivedDataWithRootObject:filePaths requiringSecureCoding:1 error:&v16];
+    v8 = v16;
 
     if (!version || v8)
     {
       v9 = sub_100098A04();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315906;
-        v20 = "[W5PeerSnifferResponsePayload encode]";
-        v21 = 2080;
-        v22 = "W5PeerSnifferResponsePayload.m";
-        v23 = 1024;
-        v24 = 82;
-        v25 = 2114;
-        v26 = v8;
-        LODWORD(v17) = 38;
-        v16 = &v19;
-        _os_log_send_and_compose_impl();
+        v17 = 136315906;
+        v18 = "[W5PeerSnifferResponsePayload encode]";
+        v19 = 2080;
+        v20 = "W5PeerSnifferResponsePayload.m";
+        v21 = 1024;
+        v22 = 82;
+        v23 = 2114;
+        v24 = v8;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) Failed to encode channels with error='%{public}@'", &v17, 38);
       }
     }
 
@@ -137,12 +135,12 @@ LABEL_18:
     v8 = 0;
   }
 
-  v10 = [(W5PeerSnifferResponsePayload *)self uuid:v16];
+  uuid = [(W5PeerSnifferResponsePayload *)self uuid];
 
-  if (v10)
+  if (uuid)
   {
-    uuid = [(W5PeerSnifferResponsePayload *)self uuid];
-    [v3 setObject:uuid forKey:@"uuid"];
+    uuid2 = [(W5PeerSnifferResponsePayload *)self uuid];
+    [v3 setObject:uuid2 forKey:@"uuid"];
   }
 
 LABEL_13:

@@ -49,7 +49,7 @@ void __43__EXUIKit_Subsystem_beginUsing_withBundle___block_invoke(uint64_t a1)
     v14 = NSClassFromString(v11);
     if (!v14)
     {
-      v15 = _EXLegacyLog();
+      v15 = _EXLegacyLog(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         __43__EXUIKit_Subsystem_beginUsing_withBundle___block_invoke_cold_1(v15);

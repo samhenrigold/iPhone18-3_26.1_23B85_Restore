@@ -63,7 +63,7 @@
   }
 }
 
-uint64_t __56__MPPlayableContentManager__scheduleUpdateSupportedAPIs__block_invoke(uint64_t a1)
+void *__56__MPPlayableContentManager__scheduleUpdateSupportedAPIs__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _updateSupportedAPIs];
   *(*(a1 + 32) + 41) = 0;
@@ -302,7 +302,7 @@ void __65__MPPlayableContentManager__markContentItemsAsSentToMediaRemote___block
   return serialQueue;
 }
 
-uint64_t __61__MPPlayableContentManager__contentItemWasSentToMediaRemote___block_invoke(uint64_t a1)
+void *__61__MPPlayableContentManager__contentItemWasSentToMediaRemote___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueueContentItemWasSentToMediaRemote:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

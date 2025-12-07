@@ -22,11 +22,15 @@
   v15 = _Block_copy(thumbnailsHandler);
   v16 = _Block_copy(scopeHandler);
   v17 = _Block_copy(editingHandler);
-  *(swift_allocObject() + 16) = v14;
-  *(swift_allocObject() + 16) = v15;
-  *(swift_allocObject() + 16) = v16;
-  *(swift_allocObject() + 16) = v17;
-  return sub_1B380E600(library, configuration, compact);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v14;
+  v19 = swift_allocObject();
+  *(v19 + 16) = v15;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v16;
+  v21 = swift_allocObject();
+  *(v21 + 16) = v17;
+  return sub_1B380E600(library, configuration, compact, sub_1B3811C48, v18, sub_1B3811C4C, v19, sub_1B3811C50, v20, sub_1B3811C50, v21);
 }
 
 - (UIBarButtonItem)compactSearchBarButtonItem
@@ -82,8 +86,9 @@
 
 - (void)setIsEditing:(BOOL)editing
 {
+  editingCopy = editing;
   selfCopy = self;
-  sub_1B380F3F8();
+  sub_1B380F3F8(editingCopy);
 }
 
 - (NSAttributedString)searchText
@@ -98,7 +103,7 @@
 {
   textCopy = text;
   selfCopy = self;
-  sub_1B380F4F0();
+  sub_1B380F4F0(textCopy);
 }
 
 - (void)setContainerFromSuggestion:(id)suggestion

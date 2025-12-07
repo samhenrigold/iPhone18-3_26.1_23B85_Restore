@@ -18,7 +18,7 @@
 
 - (HPSUIDeviceAnalytics)init
 {
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -41,22 +41,23 @@
 
 - (void)updateProductID:(unsigned int)d
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&d];
   [(NSMutableDictionary *)self->_analyticDict setObject:v4 forKeyedSubscript:@"ProductID"];
 
-  v5 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sharedBluetoothSettingsLogComponent(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [(NSMutableDictionary *)self->_analyticDict valueForKey:@"ProductID"];
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&dword_1AC1C3000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Product ID: %@", &v7, 0xCu);
+    v7 = [(NSMutableDictionary *)self->_analyticDict valueForKey:@"ProductID"];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_1AC1C3000, v6, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Product ID: %@", &v8, 0xCu);
   }
 }
 
 - (void)updateEntryPoint:(int)point
 {
+  selfCopy = self;
   v9 = *MEMORY[0x1E69E9840];
   if (point)
   {
@@ -73,12 +74,12 @@
     v4 = @"iOS_Top_Level";
   }
 
-  [(NSMutableDictionary *)self->_analyticDict setValue:v4 forKey:@"EntryPoint"];
+  self = [(NSMutableDictionary *)self->_analyticDict setValue:v4 forKey:@"EntryPoint"];
 LABEL_6:
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [(NSMutableDictionary *)self->_analyticDict valueForKey:@"EntryPoint"];
+    v6 = [(NSMutableDictionary *)selfCopy->_analyticDict valueForKey:@"EntryPoint"];
     v7 = 138412290;
     v8 = v6;
     _os_log_impl(&dword_1AC1C3000, v5, OS_LOG_TYPE_DEFAULT, "Headphone Configs: Analytics, Update Entry Point: %@", &v7, 0xCu);
@@ -98,7 +99,7 @@ LABEL_6:
     v4 = off_1E7970800[count];
   }
 
-  v5 = sharedBluetoothSettingsLogComponent();
+  v5 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -285,10 +286,11 @@ LABEL_61:
 LABEL_62:
       if (stringCopy)
       {
+        stringCopy = stringCopy;
         v10 = stringCopy;
       }
 
-      v21 = sharedBluetoothSettingsLogComponent();
+      v21 = sharedBluetoothSettingsLogComponent(stringCopy);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = 138412546;
@@ -463,7 +465,7 @@ LABEL_36:
   }
 
 LABEL_25:
-  v13 = sharedBluetoothSettingsLogComponent();
+  v13 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412546;
@@ -481,7 +483,7 @@ LABEL_25:
 {
   v8 = *MEMORY[0x1E69E9840];
   v2 = self->_analyticDictFitTest;
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -498,7 +500,7 @@ LABEL_25:
 {
   v8 = *MEMORY[0x1E69E9840];
   v2 = self->_analyticDictV2;
-  v3 = sharedBluetoothSettingsLogComponent();
+  v3 = sharedBluetoothSettingsLogComponent(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -576,7 +578,7 @@ LABEL_25:
   v9 = *MEMORY[0x1E69E9840];
   [(HPSUIDeviceAnalytics *)self sendFeatureInfoEvent];
   v3 = self->_analyticDict;
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

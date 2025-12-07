@@ -45,7 +45,7 @@
 
 + (BOOL)isProcessEntitled:(id *)entitled entitlementName:(__CFString *)name
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = *&entitled->var0[4];
   *token.val = *entitled->var0;
   *&token.val[4] = v5;
@@ -87,8 +87,7 @@
     {
       token.val[0] = 138412290;
       *&token.val[1] = error;
-      LODWORD(v18) = 12;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1B23EF000, oSLogObject, 0, "Unable to get entitlements: %@", &token, 12);
 
       if (!v14)
       {
@@ -98,7 +97,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &token, v18}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }

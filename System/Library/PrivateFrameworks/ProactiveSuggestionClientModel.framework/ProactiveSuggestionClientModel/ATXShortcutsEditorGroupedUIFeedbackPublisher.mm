@@ -47,53 +47,53 @@ id __82__ATXShortcutsEditorGroupedUIFeedbackPublisher_shortcutsEditorUIFeedbackP
 
   if (isKindOfClass)
   {
-    v10 = [v6 session];
-    v11 = [v10 sessionMetadata];
+    v11 = [v6 session];
+    v12 = [v11 sessionMetadata];
 
     if ([v5 isGroupSessionComplete])
     {
-      v12 = objc_opt_new();
+      v13 = objc_opt_new();
 
-      [v12 setNumShortcutsAtStart:{objc_msgSend(v11, "numStepsInShortcutAtStart")}];
-      v5 = v12;
+      [v13 setNumShortcutsAtStart:{objc_msgSend(v12, "numStepsInShortcutAtStart")}];
+      v5 = v13;
     }
 
-    v13 = [v5 startDateOfFirstSession];
+    v14 = [v5 startDateOfFirstSession];
 
-    if (!v13)
+    if (!v14)
     {
-      [v5 setNumShortcutsAtStart:{objc_msgSend(v11, "numStepsInShortcutAtStart")}];
+      [v5 setNumShortcutsAtStart:{objc_msgSend(v12, "numStepsInShortcutAtStart")}];
     }
 
     [v5 updateWithIntermediateSessionResults:v6];
-    if ([v11 stepWasManuallyAdded])
+    if ([v12 stepWasManuallyAdded])
     {
       [v5 setNumManuallyAddedSteps:{objc_msgSend(v5, "numManuallyAddedSteps") + 1}];
     }
 
-    if ([v11 isLastSession])
+    if ([v12 isLastSession])
     {
       [v5 setIsGroupSessionComplete:1];
-      [v5 setNumShortcutsAtEnd:{objc_msgSend(v11, "numStepsInShortcutAtEnd")}];
+      [v5 setNumShortcutsAtEnd:{objc_msgSend(v12, "numStepsInShortcutAtEnd")}];
     }
 
     v5 = v5;
 
-    v14 = v5;
+    v15 = v5;
   }
 
   else
   {
-    v15 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = __atxlog_handle_blending(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      __82__ATXShortcutsEditorGroupedUIFeedbackPublisher_shortcutsEditorUIFeedbackPublisher__block_invoke_cold_1(v15);
+      __82__ATXShortcutsEditorGroupedUIFeedbackPublisher_shortcutsEditorUIFeedbackPublisher__block_invoke_cold_1(v16);
     }
 
-    v14 = *(a1 + 32);
+    v15 = *(a1 + 32);
   }
 
-  return v14;
+  return v15;
 }
 
 @end

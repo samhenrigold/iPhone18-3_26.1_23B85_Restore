@@ -470,7 +470,7 @@ void __53__SUIAShockwaveViewController_viewWillLayoutSubviews__block_invoke_2(ui
     v18 = self->_meshedBackdrop;
     if (v3)
     {
-      [v3 viewTransform];
+      objc_msgSend_viewTransform(v3);
     }
 
     else
@@ -616,7 +616,7 @@ LABEL_12:
     v55 = self->_fillSideLightMaskView;
     if (v4)
     {
-      [v4 sideLightMaskTransform];
+      objc_msgSend_sideLightMaskTransform(v4);
     }
 
     else
@@ -839,7 +839,7 @@ LABEL_12:
     v47 = MEMORY[0x277CCAE60];
     if (v3)
     {
-      [v3 colorMatrix];
+      objc_msgSend_colorMatrix(v3);
     }
 
     else

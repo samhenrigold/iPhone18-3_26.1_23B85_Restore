@@ -111,7 +111,7 @@
 
 - (unint64_t)eventNotificationCount
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   unselectedCalendarIdentifiersForFocusMode = [MEMORY[0x277CC59F0] unselectedCalendarIdentifiersForFocusMode];
   v4 = [unselectedCalendarIdentifiersForFocusMode count];
 
@@ -123,7 +123,7 @@
 
     if ([notificationReferences count])
     {
-      v28 = notificationReferences;
+      v26 = notificationReferences;
       firstObject = [notificationReferences firstObject];
       eventStore = [firstObject eventStore];
 
@@ -133,27 +133,27 @@
       notificationReferences2 = [notificationMonitor2 notificationReferences];
       v14 = [v11 batchLoadNotifications:notificationReferences2];
 
-      v31 = 0u;
-      v32 = 0u;
       v29 = 0u;
       v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v15 = v14;
-      v16 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (v16)
       {
         v17 = v16;
         v18 = 0;
-        v19 = *v30;
+        v19 = *v28;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v30 != v19)
+            if (*v28 != v19)
             {
               objc_enumerationMutation(v15);
             }
 
-            v21 = *(*(&v29 + 1) + 8 * i);
+            v21 = *(*(&v27 + 1) + 8 * i);
             if ([v21 cuik_shouldShowNotificationWithUnselectedCalendarsForFocus:v10])
             {
               ++v18;
@@ -166,13 +166,13 @@
               {
                 objectID = [v21 objectID];
                 *buf = 138543362;
-                v34 = objectID;
+                v32 = objectID;
                 _os_log_impl(&dword_242909000, v22, OS_LOG_TYPE_INFO, "Notification with objectID %{public}@ has a calendar that is hidden by focus. Not including in the badge count", buf, 0xCu);
               }
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v27 objects:v33 count:16];
         }
 
         while (v17);
@@ -183,7 +183,7 @@
         v18 = 0;
       }
 
-      notificationReferences = v28;
+      notificationReferences = v26;
     }
 
     else
@@ -191,7 +191,6 @@
       v18 = 0;
     }
 
-    v27 = *MEMORY[0x277D85DE8];
     return v18;
   }
 
@@ -199,7 +198,6 @@
   {
     notificationCount = [notificationMonitor notificationCount];
 
-    v25 = *MEMORY[0x277D85DE8];
     return notificationCount;
   }
 }
@@ -251,11 +249,10 @@
 
 - (void)receivedNotificationNamed:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Received notification but inbox notification monitor is not active. notification name = %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Received notification but inbox notification monitor is not active. notification name = %{public}@", &v2, 0xCu);
 }
 
 @end

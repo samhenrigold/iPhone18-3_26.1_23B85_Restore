@@ -99,21 +99,18 @@ void __44__FMDVolatileMetaDataRecord_appendMetaData___block_invoke(uint64_t a1)
 
 uint64_t __44__FMDVolatileMetaDataRecord_dictionaryValue__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) dictionary];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (FMDVolatileMetaDataRecord)initWithCoder:(id)coder
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = FMDVolatileMetaDataRecord;
-  v5 = [(FMDVolatileMetaDataRecord *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = FMDVolatileMetaDataRecord;
+  v5 = [(FMDVolatileMetaDataRecord *)&v14 init];
   if (v5)
   {
     v6 = dispatch_queue_create("FMDVolatileMetaDataRecordQueue", 0);
@@ -121,18 +118,17 @@ uint64_t __44__FMDVolatileMetaDataRecord_dictionaryValue__block_invoke(uint64_t 
     v5->_serialQueue = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v16[3] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:4];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v15[2] = objc_opt_class();
+    v15[3] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:4];
     v10 = [v8 setWithArray:v9];
     v11 = NSStringFromSelector(sel_dictionary);
     v12 = [coderCopy decodeObjectOfClasses:v10 forKey:v11];
     [(FMDVolatileMetaDataRecord *)v5 setDictionary:v12];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -162,10 +158,7 @@ uint64_t __44__FMDVolatileMetaDataRecord_dictionaryValue__block_invoke(uint64_t 
 
 uint64_t __45__FMDVolatileMetaDataRecord_encodeWithCoder___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) dictionary];
 
   return MEMORY[0x1EEE66BB8]();
 }

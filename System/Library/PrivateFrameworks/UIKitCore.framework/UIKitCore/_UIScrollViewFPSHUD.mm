@@ -10,30 +10,30 @@
 
 + (id)createFPSHUD
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   if (_UIInternalPreferencesRevisionOnce != -1)
   {
     dispatch_once(&_UIInternalPreferencesRevisionOnce, &__block_literal_global_5_11);
   }
 
-  v1 = _UIInternalPreferencesRevisionVar;
+  v2 = _UIInternalPreferencesRevisionVar;
   if (_UIInternalPreferencesRevisionVar < 1)
   {
     goto LABEL_4;
   }
 
-  v4 = _UIInternalPreference_UIScrollViewFPSHUD;
+  v5 = _UIInternalPreference_UIScrollViewFPSHUD;
   if (_UIInternalPreferencesRevisionVar == _UIInternalPreference_UIScrollViewFPSHUD)
   {
     goto LABEL_4;
   }
 
-  while (v1 >= v4)
+  while (v2 >= v5)
   {
-    _UIInternalPreferenceSync(v1, &_UIInternalPreference_UIScrollViewFPSHUD, @"UIScrollViewFPSHUD", _UIInternalPreferenceUpdateBool);
-    v2 = 0;
-    v4 = _UIInternalPreference_UIScrollViewFPSHUD;
-    if (v1 == _UIInternalPreference_UIScrollViewFPSHUD)
+    _UIInternalPreferenceSync(v2, &_UIInternalPreference_UIScrollViewFPSHUD, @"UIScrollViewFPSHUD", _UIInternalPreferenceUpdateBool);
+    v3 = 0;
+    v5 = _UIInternalPreference_UIScrollViewFPSHUD;
+    if (v2 == _UIInternalPreference_UIScrollViewFPSHUD)
     {
       goto LABEL_5;
     }
@@ -42,18 +42,18 @@
   if (!byte_1ED48B484)
   {
 LABEL_4:
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v5 = [v0 alloc];
-    v2 = [v5 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v6 = [v1 alloc];
+    v3 = [v6 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   }
 
 LABEL_5:
 
-  return v2;
+  return v3;
 }
 
 - (UILabel)createFormattedLabel

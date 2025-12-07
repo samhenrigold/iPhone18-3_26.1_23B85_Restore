@@ -42,7 +42,7 @@
     itemSourceController = [(PXActivity *)self itemSourceController];
     if ([itemSourceController isPreparingIndividualItems] && itemSourceController)
     {
-      [itemSourceController requestAssetsMediaTypeCount];
+      objc_msgSend_requestAssetsMediaTypeCount(itemSourceController);
     }
   }
 

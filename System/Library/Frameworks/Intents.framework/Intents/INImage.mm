@@ -100,7 +100,7 @@ void __35__INImage_registerImageLoadersOnce__block_invoke()
 
 - (id)_intents_encodeWithJSONEncoder:(id)encoder codableDescription:(id)description
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   encoderCopy = encoder;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   [(INImage *)self _imageSize];
@@ -116,17 +116,17 @@ void __35__INImage_registerImageLoadersOnce__block_invoke()
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v41[0] = @"width";
+        v40[0] = @"width";
         v13 = MEMORY[0x1E696AD98];
         [v12 _imageSize];
         v14 = [v13 numberWithDouble:?];
-        v41[1] = @"height";
-        v42[0] = v14;
+        v40[1] = @"height";
+        v41[0] = v14;
         v15 = MEMORY[0x1E696AD98];
         [v12 _imageSize];
         v17 = [v15 numberWithDouble:v16];
-        v42[1] = v17;
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
+        v41[1] = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
         [dictionary setObject:v18 forKey:@"imageSize"];
       }
     }
@@ -134,17 +134,17 @@ void __35__INImage_registerImageLoadersOnce__block_invoke()
 
   else
   {
-    v39[0] = @"width";
+    v38[0] = @"width";
     v19 = MEMORY[0x1E696AD98];
     [(INImage *)self _imageSize];
     v12 = [v19 numberWithDouble:?];
-    v39[1] = @"height";
-    v40[0] = v12;
+    v38[1] = @"height";
+    v39[0] = v12;
     v20 = MEMORY[0x1E696AD98];
     [(INImage *)self _imageSize];
     v22 = [v20 numberWithDouble:v21];
-    v40[1] = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v39[1] = v22;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
     [dictionary setObject:v23 forKey:@"imageSize"];
   }
 
@@ -235,8 +235,6 @@ void __35__INImage_registerImageLoadersOnce__block_invoke()
   [dictionary if_setObjectIfNonNil:v27 forKey:@"type"];
 LABEL_25:
   v36 = [dictionary copy];
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
@@ -344,67 +342,66 @@ LABEL_9:
 
 void __62__INImage_INCacheSupport__generateCachePayloadWithCompletion___block_invoke(uint64_t a1)
 {
-  v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v2 = [*(a1 + 32) _imageData];
   if (v2)
   {
-    [v17 setObject:v2 forKey:@"_imageData"];
+    [v16 setObject:v2 forKey:@"_imageData"];
   }
 
   v3 = [*(a1 + 32) _uri];
   if (v3)
   {
-    [v17 setObject:v3 forKey:@"_uri"];
+    [v16 setObject:v3 forKey:@"_uri"];
   }
 
   v4 = [*(a1 + 32) _name];
   if (v4)
   {
-    [v17 setObject:v4 forKey:@"_name"];
+    [v16 setObject:v4 forKey:@"_name"];
   }
 
   v5 = [*(a1 + 32) _bundlePath];
   if (v5)
   {
-    [v17 setObject:v5 forKey:@"_bundlePath"];
+    [v16 setObject:v5 forKey:@"_bundlePath"];
   }
 
   v6 = [*(a1 + 32) _bundleIdentifier];
   if (v6)
   {
-    [v17 setObject:v6 forKey:@"_bundleIdentifier"];
+    [v16 setObject:v6 forKey:@"_bundleIdentifier"];
   }
 
-  v7 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [*(a1 + 32) _storageServiceIdentifier];
-    if (v8)
+    v7 = [*(a1 + 32) _storageServiceIdentifier];
+    if (v7)
     {
-      [v17 setObject:v8 forKey:@"_storageServiceIdentifier"];
+      [v16 setObject:v7 forKey:@"_storageServiceIdentifier"];
     }
 
-    v9 = [*(a1 + 32) _proxyIdentifier];
-    if (v9)
+    v8 = [*(a1 + 32) _proxyIdentifier];
+    if (v8)
     {
-      [v17 setObject:v9 forKey:@"_proxyIdentifier"];
+      [v16 setObject:v8 forKey:@"_proxyIdentifier"];
     }
   }
 
-  v10 = MEMORY[0x1E696AD98];
+  v9 = MEMORY[0x1E696AD98];
   [*(a1 + 32) _imageSize];
-  v11 = [v10 numberWithDouble:?];
-  [v17 setObject:v11 forKey:@"_imageSize.width"];
+  v10 = [v9 numberWithDouble:?];
+  [v16 setObject:v10 forKey:@"_imageSize.width"];
 
-  v12 = MEMORY[0x1E696AD98];
+  v11 = MEMORY[0x1E696AD98];
   [*(a1 + 32) _imageSize];
-  v14 = [v12 numberWithDouble:v13];
-  [v17 setObject:v14 forKey:@"_imageSize.height"];
+  v13 = [v11 numberWithDouble:v12];
+  [v16 setObject:v13 forKey:@"_imageSize.height"];
 
-  v15 = *(a1 + 40);
-  v16 = [v17 copy];
-  (*(v15 + 16))(v15, v16);
+  v14 = *(a1 + 40);
+  v15 = [v16 copy];
+  (*(v14 + 16))(v14, v15);
 }
 
 + (void)buildFromCachePayload:(id)payload identifier:(id)identifier completion:(id)completion
@@ -514,13 +511,12 @@ LABEL_10:
 
 + (id)_classesInCluster
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
 
   return v2;
 }
@@ -580,7 +576,7 @@ LABEL_10:
 
 + (INImage)imageWithURL:(NSURL *)URL width:(double)width height:(double)height
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = URL;
   v8 = v7;
   if (!v7)
@@ -629,21 +625,19 @@ LABEL_9:
   v18 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v21 = 136315906;
-    v22 = "+[INImage imageWithURL:width:height:]";
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2048;
-    v26 = width;
-    v27 = 2048;
-    v28 = height;
-    _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Invalid URL=%@ {%f,%f}", &v21, 0x2Au);
+    v20 = 136315906;
+    v21 = "+[INImage imageWithURL:width:height:]";
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2048;
+    v25 = width;
+    v26 = 2048;
+    v27 = height;
+    _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Invalid URL=%@ {%f,%f}", &v20, 0x2Au);
   }
 
   v16 = 0;
 LABEL_12:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -747,9 +741,9 @@ LABEL_12:
 
 - (id)_dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"width:%f height:%f", *&self->_imageSize.width, *&self->_imageSize.height];
-  v11[0] = @"identifier";
+  v10[0] = @"identifier";
   identifier = self->_identifier;
   null = identifier;
   if (!identifier)
@@ -757,19 +751,19 @@ LABEL_12:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"_imageSize";
+  v11[0] = null;
+  v10[1] = @"_imageSize";
   null2 = v3;
   if (!v3)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v11[2] = @"_renderingMode";
+  v11[1] = null2;
+  v10[2] = @"_renderingMode";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->__renderingMode];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (v3)
   {
@@ -789,7 +783,6 @@ LABEL_12:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -847,38 +840,38 @@ LABEL_7:
 
 - (id)_preferredImageLoaderForFilePath
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = +[INImageServiceRegistry sharedInstance];
   imageLoaders = [v3 imageLoaders];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = imageLoaders;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ((objc_opt_respondsToSelector() & 1) == 0 || [v10 canLoadImageDataForImage:{self, v14}]) && (objc_opt_respondsToSelector())
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ((objc_opt_respondsToSelector() & 1) == 0 || [v10 canLoadImageDataForImage:{self, v13}]) && (objc_opt_respondsToSelector())
         {
           v11 = v10;
           goto LABEL_13;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -890,46 +883,44 @@ LABEL_7:
 
   v11 = 0;
 LABEL_13:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_preferredImageLoader
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = +[INImageServiceRegistry sharedInstance];
   imageLoaders = [v3 imageLoaders];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = imageLoaders;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        if ((objc_opt_respondsToSelector() & 1) == 0 || [v10 canLoadImageDataForImage:{self, v14}]) && (objc_opt_respondsToSelector())
+        v10 = *(*(&v13 + 1) + 8 * i);
+        if ((objc_opt_respondsToSelector() & 1) == 0 || [v10 canLoadImageDataForImage:{self, v13}]) && (objc_opt_respondsToSelector())
         {
           v11 = v10;
           goto LABEL_13;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -942,14 +933,12 @@ LABEL_13:
   v11 = 0;
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)_retrieveImageFilePathWithReply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
@@ -960,10 +949,10 @@ LABEL_13:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v14 = "[INImage _retrieveImageFilePathWithReply:]";
-        v15 = 2112;
-        v16 = _preferredImageLoaderForFilePath;
-        v17 = 2112;
+        v13 = "[INImage _retrieveImageFilePathWithReply:]";
+        v14 = 2112;
+        v15 = _preferredImageLoaderForFilePath;
+        v16 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Found preferred image loader %@ for image %@, attempting load", buf, 0x20u);
       }
@@ -974,20 +963,18 @@ LABEL_13:
     else
     {
       v7 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A578];
-      v12 = @"No preferred image loader available for image: %@";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x1E696A578];
+      v11 = @"No preferred image loader available for image: %@";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
       v9 = [v7 errorWithDomain:@"IntentsErrorDomain" code:6001 userInfo:v8];
       replyCopy[2](replyCopy, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_retrieveImageDataWithReply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   if (replyCopy)
   {
@@ -998,10 +985,10 @@ LABEL_13:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v14 = "[INImage _retrieveImageDataWithReply:]";
-        v15 = 2112;
-        v16 = _preferredImageLoader;
-        v17 = 2112;
+        v13 = "[INImage _retrieveImageDataWithReply:]";
+        v14 = 2112;
+        v15 = _preferredImageLoader;
+        v16 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Found preferred image loader %@ for image %@, attempting load", buf, 0x20u);
       }
@@ -1012,15 +999,13 @@ LABEL_13:
     else
     {
       v7 = MEMORY[0x1E696ABC0];
-      v11 = *MEMORY[0x1E696A578];
-      v12 = @"No preferred image loader available for image: %@";
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x1E696A578];
+      v11 = @"No preferred image loader available for image: %@";
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
       v9 = [v7 errorWithDomain:@"IntentsErrorDomain" code:6001 userInfo:v8];
       replyCopy[2](replyCopy, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_requiresRetrieval
@@ -1057,43 +1042,39 @@ LABEL_13:
 
 - (void)_retrieveFilePathWithCompletion:(id)completion
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (completion)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Attempted to grab file path for an INImage, which is not supported";
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Attempted to grab file path for an INImage, which is not supported";
     v5 = MEMORY[0x1E695DF20];
     completionCopy = completion;
-    v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v8 = [v4 errorWithDomain:@"IntentsErrorDomain" code:6004 userInfo:v7];
     (*(completion + 2))(completionCopy, 0, v8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadImageDataAndSizeWithHelper:(id)helper accessSpecifier:(id)specifier completion:(id)completion
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (completion)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = @"No intrinsic loading supported in the base class.";
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = @"No intrinsic loading supported in the base class.";
     v7 = MEMORY[0x1E695DF20];
     completionCopy = completion;
-    v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v9 = [v7 dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v10 = [v6 errorWithDomain:@"IntentsErrorDomain" code:6003 userInfo:v9];
     (*(completion + 2))(completionCopy, 0, 0, v10, 0.0, 0.0);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_in_writeableFilePersistenceConfigurationForStoreType:(unint64_t)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   _identifier = [(INImage *)self _identifier];
   uRLPathAllowedCharacterSet = [MEMORY[0x1E696AB08] URLPathAllowedCharacterSet];
   v6 = [uRLPathAllowedCharacterSet mutableCopy];
@@ -1110,11 +1091,11 @@ LABEL_13:
   v12 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
-    v20 = 136315394;
-    v21 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
-    v22 = 2112;
-    v23 = v11;
-    _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Checking writability of file path: %@", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
+    v21 = 2112;
+    v22 = v11;
+    _os_log_impl(&dword_18E991000, v12, OS_LOG_TYPE_INFO, "%s Checking writability of file path: %@", &v19, 0x16u);
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -1126,11 +1107,11 @@ LABEL_13:
   {
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315394;
-      v21 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_18E991000, v16, OS_LOG_TYPE_INFO, "%s Can write to file path: %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
+      v21 = 2112;
+      v22 = v11;
+      _os_log_impl(&dword_18E991000, v16, OS_LOG_TYPE_INFO, "%s Can write to file path: %@", &v19, 0x16u);
     }
 
     v17 = objc_alloc_init(_INFilePersistenceConfiguration);
@@ -1142,31 +1123,29 @@ LABEL_13:
   {
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315394;
-      v21 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
-      v22 = 2112;
-      v23 = v11;
-      _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Not able to write to file path: %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[INImage(INImageFilePersistence) _in_writeableFilePersistenceConfigurationForStoreType:]";
+      v21 = 2112;
+      v22 = v11;
+      _os_log_error_impl(&dword_18E991000, v16, OS_LOG_TYPE_ERROR, "%s Not able to write to file path: %@", &v19, 0x16u);
     }
 
     v17 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)_in_downscaledImageForFilePersistence
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = _INImageSizeProviderClass();
   if (v3)
   {
     [(INImage *)self _preferredScaledSize];
-    v9 = 0;
-    v4 = [v3 downscaledPNGImageForImage:self size:&v9 error:?];
-    v3 = v9;
+    v8 = 0;
+    v4 = [v3 downscaledPNGImageForImage:self size:&v8 error:?];
+    v3 = v8;
     if (!v3)
     {
       goto LABEL_7;
@@ -1176,11 +1155,11 @@ LABEL_13:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v11 = "[INImage(INImageFilePersistence) _in_downscaledImageForFilePersistence]";
-      v12 = 2112;
+      v10 = "[INImage(INImageFilePersistence) _in_downscaledImageForFilePersistence]";
+      v11 = 2112;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v3;
+      v13 = 2112;
+      v14 = v3;
       _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Failed to downscale data image %@ (non-fatal): %@", buf, 0x20u);
     }
   }
@@ -1194,7 +1173,6 @@ LABEL_7:
 
   selfCopy2 = self;
 
-  v7 = *MEMORY[0x1E69E9840];
   return self;
 }
 

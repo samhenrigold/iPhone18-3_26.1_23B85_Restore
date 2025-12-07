@@ -7,8 +7,10 @@
 - (void)capabilityWhenTryingToReparentToNewParent:(id)parent domain:(id)domain reply:(id)reply;
 - (void)copyShareIDWithReply:(id)reply;
 - (void)getAttributeValues:(id)values reply:(id)reply;
+- (void)getBookmarkData:(BOOL)data allowAccessByBundleID:(id)d documentID:(id)iD isDirectory:(BOOL)directory reply:(id)reply;
 - (void)getClientSaltingVerificationKeys:(id)keys;
 - (void)getCreatorNameComponents:(id)components;
+- (void)getPublishedURLForStreaming:(BOOL)streaming requestedTTL:(unint64_t)l reply:(id)reply;
 - (void)getServerContentSignature:(id)signature;
 - (void)getServerSaltingKeys:(id)keys;
 - (void)getiWorkNeedsShareMigrate:(id)migrate;
@@ -16,6 +18,7 @@
 - (void)getiWorkPublishingInfo:(id)info;
 - (void)launchItemCountMismatchChecks:(id)checks;
 - (void)refreshSharingState:(id)state;
+- (void)setiWorkPublishingInfo:(BOOL)info readonly:(BOOL)readonly reply:(id)reply;
 - (void)unboostFilePresenter:(id)presenter;
 @end
 
@@ -160,6 +163,39 @@
   }
 }
 
+- (void)getBookmarkData:(BOOL)data allowAccessByBundleID:(id)d documentID:(id)iD isDirectory:(BOOL)directory reply:(id)reply
+{
+  directoryCopy = directory;
+  dataCopy = data;
+  replyCopy = reply;
+  iDCopy = iD;
+  dCopy = d;
+  remoteObject = [(ICDFileProviderItemServiceProxy *)self remoteObject];
+  itemIdentifier = [(ICDFileProviderItemServiceProxy *)self itemIdentifier];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000E08C;
+  v18[3] = &unk_100044BA8;
+  v19 = replyCopy;
+  v17 = replyCopy;
+  [remoteObject getBookmarkDataForItemIdentifier:itemIdentifier onlyAllowItemKnowByServer:dataCopy allowAccessByBundleID:dCopy documentID:iDCopy isDirectory:directoryCopy reply:v18];
+}
+
+- (void)getPublishedURLForStreaming:(BOOL)streaming requestedTTL:(unint64_t)l reply:(id)reply
+{
+  streamingCopy = streaming;
+  replyCopy = reply;
+  remoteObject = [(ICDFileProviderItemServiceProxy *)self remoteObject];
+  itemIdentifier = [(ICDFileProviderItemServiceProxy *)self itemIdentifier];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000E2C0;
+  v12[3] = &unk_100044BD0;
+  v13 = replyCopy;
+  v11 = replyCopy;
+  [remoteObject getPublishedURLForItemIdentifier:itemIdentifier forStreaming:streamingCopy requestedTTL:l reply:v12];
+}
+
 - (void)getAttributeValues:(id)values reply:(id)reply
 {
   replyCopy = reply;
@@ -187,6 +223,22 @@
   v9 = infoCopy;
   v7 = infoCopy;
   [remoteObject getiWorkPublishingInfoForItemIdentifier:itemIdentifier reply:v8];
+}
+
+- (void)setiWorkPublishingInfo:(BOOL)info readonly:(BOOL)readonly reply:(id)reply
+{
+  readonlyCopy = readonly;
+  infoCopy = info;
+  replyCopy = reply;
+  remoteObject = [(ICDFileProviderItemServiceProxy *)self remoteObject];
+  itemIdentifier = [(ICDFileProviderItemServiceProxy *)self itemIdentifier];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000E924;
+  v12[3] = &unk_100044598;
+  v13 = replyCopy;
+  v11 = replyCopy;
+  [remoteObject setiWorkPublishingInfoForItemIdentifier:itemIdentifier isForPublish:infoCopy readonly:readonlyCopy reply:v12];
 }
 
 - (void)getiWorkPublishingBadgingStatus:(id)status

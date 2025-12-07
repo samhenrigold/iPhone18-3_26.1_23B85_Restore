@@ -4,7 +4,6 @@
 - (id)headphonePreferencesForActivePairedWatch;
 - (id)headphonePreferencesForLocalDevice;
 - (id)noisePreferences;
-- (void)headphonePreferencesForActivePairedWatch;
 @end
 
 @implementation HDAudioAnalyticsSettingsPreferences
@@ -178,28 +177,28 @@ LABEL_34:
 
 - (BOOL)_hasPairedWatchWithNoiseApp
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   getPairedDevices = [mEMORY[0x277D2BCF8] getPairedDevices];
-  v4 = [getPairedDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [getPairedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(getPairedDevices);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"F5C2DAD0-38FB-4B3B-86D3-B264F4F8CBDA"];
         LOBYTE(v8) = [v8 supportsCapability:v9];
 
@@ -210,7 +209,7 @@ LABEL_34:
         }
       }
 
-      v5 = [getPairedDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [getPairedDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -223,16 +222,7 @@ LABEL_34:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
-}
-
-- (void)headphonePreferencesForActivePairedWatch
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_251764000, v0, v1, "Unable to compute headphone preferences for active paired watch (haeIsTransient): %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,23 +13,23 @@
   v6 = sub_1D2877E98();
   controllerCopy = controller;
   selfCopy = self;
-  sub_1D274321C(v6);
+  sub_1D274321C(v6, v9, v10);
 }
 
 - (void)imagePickerControllerDidCancel:(id)cancel
 {
   v4 = sub_1D2875138();
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6E15F0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC6E15F0, &unk_1D28A2D00);
   MEMORY[0x1EEE9AC00](v5);
   v7 = &v9 - v6;
-  sub_1D22BD1D0(self + OBJC_IVAR____TtC23ImagePlaygroundInternal23CameraPickerCoordinator__presentationMode, &v9 - v6, &unk_1EC6E15F0);
+  sub_1D22BD1D0(self + OBJC_IVAR____TtC23ImagePlaygroundInternal23CameraPickerCoordinator__presentationMode, &v9 - v6, &unk_1EC6E15F0, &unk_1D28A2D00);
   selfCopy = self;
   MEMORY[0x1D389FF60](v5);
   sub_1D2875128();
   sub_1D28774F8();
 
-  sub_1D22BD238(v7, &unk_1EC6E15F0);
+  sub_1D22BD238(v7, &unk_1EC6E15F0, &unk_1D28A2D00);
 }
 
 - (_TtC23ImagePlaygroundInternal23CameraPickerCoordinator)init

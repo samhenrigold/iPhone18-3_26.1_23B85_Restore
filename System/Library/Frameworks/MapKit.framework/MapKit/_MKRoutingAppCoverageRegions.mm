@@ -36,8 +36,8 @@ LABEL_7:
   }
 
   v8 = [_MKMultiPolygonGeoRegion alloc];
-  path = [lCopy path];
-  v10 = [(_MKMultiPolygonGeoRegion *)v8 initWithContentsOfFile:path error:error];
+  v9 = objc_msgSend_path(lCopy);
+  v10 = [(_MKMultiPolygonGeoRegion *)v8 initWithContentsOfFile:v9 error:error];
   regions = v7->_regions;
   v7->_regions = v10;
 

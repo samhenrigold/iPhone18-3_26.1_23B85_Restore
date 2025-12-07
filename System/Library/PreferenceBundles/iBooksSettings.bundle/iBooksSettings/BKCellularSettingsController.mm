@@ -17,15 +17,14 @@
 
     v6 = objc_alloc_init(NSMutableArray);
     v7 = [PSSpecifier groupSpecifierWithID:@"CELLULAR_GROUP_ID"];
-    v8 = BKSettingsBundle();
+    v8 = BKSettingsBundle(v7);
     v9 = [v8 localizedStringForKey:@"Choose whether books and audiobooks can automatically download over a cellular network." value:&stru_14E68 table:@"Settings"];
     [v7 setProperty:v9 forKey:PSFooterTextGroupKey];
 
     v10 = [NSNumber numberWithBool:1];
     [v7 setProperty:v10 forKey:PSIsRadioGroupKey];
 
-    [v6 addObject:v7];
-    v11 = BKSettingsBundle();
+    v11 = BKSettingsBundle([v6 addObject:v7]);
     v12 = [v11 localizedStringForKey:@"Always Allow" value:&stru_14E68 table:@"Settings"];
     v13 = [PSSpecifier preferenceSpecifierNamed:v12 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
@@ -36,39 +35,39 @@
 
     if (cellularDataPrompt == &dword_0 + 2)
     {
-      [v7 setProperty:v13 forKey:PSRadioGroupCheckedSpecifierKey];
+      v16 = [v7 setProperty:v13 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    v16 = BKSettingsBundle();
-    v17 = [v16 localizedStringForKey:@"Ask If Over %@" value:&stru_14E68 table:@"Settings"];
-    v18 = [NSString stringWithFormat:v17, _formattedNetworkLimit];
-    v19 = [PSSpecifier preferenceSpecifierNamed:v18 target:0 set:0 get:0 detail:0 cell:3 edit:0];
+    v17 = BKSettingsBundle(v16);
+    v18 = [v17 localizedStringForKey:@"Ask If Over %@" value:&stru_14E68 table:@"Settings"];
+    v19 = [NSString stringWithFormat:v18, _formattedNetworkLimit];
+    v20 = [PSSpecifier preferenceSpecifierNamed:v19 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v19 setIdentifier:@"ASK_IF_OVER_XXX_MB_ID"];
-    [v6 addObject:v19];
+    [v20 setIdentifier:@"ASK_IF_OVER_XXX_MB_ID"];
+    [v6 addObject:v20];
     settings2 = [(BKCellularSettingsController *)self settings];
     cellularDataPrompt2 = [settings2 cellularDataPrompt];
 
     if (!cellularDataPrompt2)
     {
-      [v7 setProperty:v19 forKey:PSRadioGroupCheckedSpecifierKey];
+      v23 = [v7 setProperty:v20 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    v22 = BKSettingsBundle();
-    v23 = [v22 localizedStringForKey:@"Always Ask" value:&stru_14E68 table:@"Settings"];
-    v24 = [PSSpecifier preferenceSpecifierNamed:v23 target:0 set:0 get:0 detail:0 cell:3 edit:0];
+    v24 = BKSettingsBundle(v23);
+    v25 = [v24 localizedStringForKey:@"Always Ask" value:&stru_14E68 table:@"Settings"];
+    v26 = [PSSpecifier preferenceSpecifierNamed:v25 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v24 setIdentifier:@"ALWAYS_ASK_ID"];
-    [v6 addObject:v24];
+    [v26 setIdentifier:@"ALWAYS_ASK_ID"];
+    [v6 addObject:v26];
     settings3 = [(BKCellularSettingsController *)self settings];
     cellularDataPrompt3 = [settings3 cellularDataPrompt];
 
     if (cellularDataPrompt3 == &dword_0 + 1)
     {
-      [v7 setProperty:v24 forKey:PSRadioGroupCheckedSpecifierKey];
+      [v7 setProperty:v26 forKey:PSRadioGroupCheckedSpecifierKey];
     }
 
-    v27 = *&self->PSListController_opaque[v3];
+    v29 = *&self->PSListController_opaque[v3];
     *&self->PSListController_opaque[v3] = v6;
 
     v4 = *&self->PSListController_opaque[v3];

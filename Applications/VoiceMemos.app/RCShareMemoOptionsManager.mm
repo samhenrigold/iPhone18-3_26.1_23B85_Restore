@@ -9,7 +9,7 @@
 - (RCShareMemoOptionsManager)initWithCompositions:(id)compositions onUpdate:(id)update
 {
   v5 = _Block_copy(update);
-  sub_1000067AC(0, &qword_1002D02B8);
+  sub_1000067AC(0, &qword_1002D02B8, RCComposition_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = swift_allocObject();
   *(&self->super.isa + OBJC_IVAR___RCShareMemoOptionsManager_selectedSendAsOptionIndex) = 0;
@@ -37,7 +37,7 @@
   selfCopy = self;
   sub_1000FDF14();
 
-  sub_1000067AC(0, &qword_1002D0298);
+  sub_1000067AC(0, &qword_1002D0298, _UIActivityItemCustomizationGroup_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

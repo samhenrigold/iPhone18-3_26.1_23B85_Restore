@@ -20,7 +20,7 @@
       v16 = objc_msgSend_sharedText(TSCHText, v12, v13, v14, v15);
       v11->_font = objc_msgSend_retainedCTFontForParagraphStyle_(v16, v17, v18, v19, v20, v11->_paragraphStyle);
 
-      v21 = sub_2762AC268();
+      v21 = sub_2762AC268(v11->_font);
       v23 = v22;
       Ascent = CTFontGetAscent(v11->_font);
       Descent = CTFontGetDescent(v11->_font);

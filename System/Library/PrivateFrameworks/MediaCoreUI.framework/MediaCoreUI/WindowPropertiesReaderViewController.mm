@@ -16,8 +16,9 @@
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_1C5A98730(appearing);
+  sub_1C5A98730(appearingCopy);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator

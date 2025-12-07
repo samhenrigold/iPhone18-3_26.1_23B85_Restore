@@ -84,38 +84,38 @@
 
 - (id)getInterfaceWithSource:(uint64_t)source
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (source)
   {
     os_unfair_lock_lock((source + 8));
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __45__LNMetadataProvider_getInterfaceWithSource___block_invoke;
-    v19[3] = &unk_1E74B2318;
-    v19[4] = source;
-    v5 = _Block_copy(v19);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __45__LNMetadataProvider_getInterfaceWithSource___block_invoke;
+    v18[3] = &unk_1E74B2318;
+    v18[4] = source;
+    v5 = _Block_copy(v18);
     if (a2 == 1)
     {
       v7 = *(source + 32);
       if (!v7)
       {
-        v11 = [_TtC12LinkServices25_LNMetadataProviderDirect alloc];
-        v12 = *(source + 40);
-        v13 = *(source + 16);
-        v20 = 0;
-        v14 = [(_LNMetadataProviderDirect *)v11 initWithConnection:v12 options:v13 error:&v20];
-        v15 = v20;
-        v16 = *(source + 32);
-        *(source + 32) = v14;
+        v10 = [_TtC12LinkServices25_LNMetadataProviderDirect alloc];
+        v11 = *(source + 40);
+        v12 = *(source + 16);
+        v19 = 0;
+        v13 = [(_LNMetadataProviderDirect *)v10 initWithConnection:v11 options:v12 error:&v19];
+        v14 = v19;
+        v15 = *(source + 32);
+        *(source + 32) = v13;
 
-        if (v15)
+        if (v14)
         {
-          v17 = getLNLogCategoryMetadata();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v16 = getLNLogCategoryMetadata();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v22 = v15;
-            _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_ERROR, "Request for read access failed, falling back to XPC: %@", buf, 0xCu);
+            v21 = v14;
+            _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_ERROR, "Request for read access failed, falling back to XPC: %@", buf, 0xCu);
           }
 
           getXPCProvider = [(LNMetadataProvider *)source getXPCProvider];
@@ -166,40 +166,39 @@ LABEL_11:
 
   v2 = 0;
 LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)suggestionPhrasesForQueries:(id)queries error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   queriesCopy = queries;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__2676;
-  v31 = __Block_byref_object_dispose__2677;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__2676;
-  v25 = __Block_byref_object_dispose__2677;
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__2676;
+  v30 = __Block_byref_object_dispose__2677;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__2676;
+  v24 = __Block_byref_object_dispose__2677;
+  v25 = 0;
   v7 = _os_activity_create(&dword_19763D000, "appintents:fetch assistant suggestion phrases for bundle", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __56__LNMetadataProvider_suggestionPhrasesForQueries_error___block_invoke;
-  v17[3] = &unk_1E74B1228;
-  v19 = &v21;
-  v17[4] = self;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __56__LNMetadataProvider_suggestionPhrasesForQueries_error___block_invoke;
+  v16[3] = &unk_1E74B1228;
+  v18 = &v20;
+  v16[4] = self;
   v8 = queriesCopy;
-  v18 = v8;
-  v20 = &v27;
-  os_activity_apply(v7, v17);
+  v17 = v8;
+  v19 = &v26;
+  os_activity_apply(v7, v16);
 
-  v9 = v22[5];
+  v9 = v21[5];
   if (v9)
   {
     v10 = v9;
@@ -207,32 +206,31 @@ LABEL_13:
 
   else if (error)
   {
-    v13 = getLNLogCategoryMetadata();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = getLNLogCategoryMetadata();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *error;
+      v13 = *error;
       *buf = 138412290;
-      v34 = v14;
-      _os_log_impl(&dword_19763D000, v13, OS_LOG_TYPE_DEFAULT, "error when fetching suggestion phrases - %@", buf, 0xCu);
+      v33 = v13;
+      _os_log_impl(&dword_19763D000, v12, OS_LOG_TYPE_DEFAULT, "error when fetching suggestion phrases - %@", buf, 0xCu);
     }
 
-    v15 = v28[5];
-    if (v15)
+    v14 = v27[5];
+    if (v14)
     {
-      *error = v15;
+      *error = v14;
     }
 
     else
     {
-      v16 = NSErrorFromMetadataProviderError(9004);
-      *error = v16;
+      v15 = NSErrorFromMetadataProviderError(9004);
+      *error = v15;
     }
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v26, 8);
 
   return v9;
 }
@@ -1540,7 +1538,7 @@ void __39__LNMetadataProvider_bundlesWithError___block_invoke(uint64_t *a1)
 
 void __65__LNMetadataProvider_actionsWithFullyQualifiedIdentifiers_error___block_invoke(uint64_t *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [(LNMetadataProvider *)a1[4] getInterfaceWithSource:?];
   v3 = a1[5];
   v4 = *(a1[7] + 8);
@@ -1557,47 +1555,45 @@ void __65__LNMetadataProvider_actionsWithFullyQualifiedIdentifiers_error___block
     v9 = a1[5];
     v10 = *(*(a1[6] + 8) + 40);
     *buf = 138543618;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
     _os_log_impl(&dword_19763D000, v8, OS_LOG_TYPE_INFO, "Client requested %{public}@, got %{public}@", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)actionForBundleIdentifier:(id)identifier andActionIdentifier:(id)actionIdentifier error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   actionIdentifierCopy = actionIdentifier;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__2676;
-  v35 = __Block_byref_object_dispose__2677;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__2676;
-  v29 = __Block_byref_object_dispose__2677;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__2676;
+  v34 = __Block_byref_object_dispose__2677;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__2676;
+  v28 = __Block_byref_object_dispose__2677;
+  v29 = 0;
   v10 = _os_activity_create(&dword_19763D000, "appintents:fetch action for bundle", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __74__LNMetadataProvider_actionForBundleIdentifier_andActionIdentifier_error___block_invoke;
   block[3] = &unk_1E74B11D8;
-  v23 = &v25;
+  v22 = &v24;
   block[4] = self;
   v11 = identifierCopy;
-  v21 = v11;
+  v20 = v11;
   v12 = actionIdentifierCopy;
-  v22 = v12;
-  v24 = &v31;
+  v21 = v12;
+  v23 = &v30;
   os_activity_apply(v10, block);
 
-  v13 = v26[5];
+  v13 = v25[5];
   if (v13)
   {
     v14 = v13;
@@ -1605,39 +1601,38 @@ void __65__LNMetadataProvider_actionsWithFullyQualifiedIdentifiers_error___block
 
   else
   {
-    if (!v32[5])
+    if (!v31[5])
     {
-      v17 = getLNLogCategoryMetadata();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = getLNLogCategoryMetadata();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v38 = v11;
-        v39 = 2114;
-        v40 = v12;
-        _os_log_impl(&dword_19763D000, v17, OS_LOG_TYPE_DEFAULT, "Metadata not found for %{public}@:%{public}@", buf, 0x16u);
+        v37 = v11;
+        v38 = 2114;
+        v39 = v12;
+        _os_log_impl(&dword_19763D000, v16, OS_LOG_TYPE_DEFAULT, "Metadata not found for %{public}@:%{public}@", buf, 0x16u);
       }
     }
 
     if (error)
     {
-      v18 = v32[5];
-      if (v18)
+      v17 = v31[5];
+      if (v17)
       {
-        *error = v18;
+        *error = v17;
       }
 
       else
       {
-        v19 = NSErrorFromMetadataProviderError(9004);
-        *error = v19;
+        v18 = NSErrorFromMetadataProviderError(9004);
+        *error = v18;
       }
     }
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v31, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v13;
 }
@@ -1658,36 +1653,36 @@ void __74__LNMetadataProvider_actionForBundleIdentifier_andActionIdentifier_erro
 
 - (id)actionsForBundleIdentifier:(id)identifier andActionIdentifier:(id)actionIdentifier error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   actionIdentifierCopy = actionIdentifier;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__2676;
-  v35 = __Block_byref_object_dispose__2677;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__2676;
-  v29 = __Block_byref_object_dispose__2677;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__2676;
+  v34 = __Block_byref_object_dispose__2677;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__2676;
+  v28 = __Block_byref_object_dispose__2677;
+  v29 = 0;
   v10 = _os_activity_create(&dword_19763D000, "appintents:fetch actions for bundle and action", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __75__LNMetadataProvider_actionsForBundleIdentifier_andActionIdentifier_error___block_invoke;
   block[3] = &unk_1E74B11D8;
-  v23 = &v25;
+  v22 = &v24;
   block[4] = self;
   v11 = identifierCopy;
-  v21 = v11;
+  v20 = v11;
   v12 = actionIdentifierCopy;
-  v22 = v12;
-  v24 = &v31;
+  v21 = v12;
+  v23 = &v30;
   os_activity_apply(v10, block);
 
-  v13 = v26[5];
+  v13 = v25[5];
   if (v13)
   {
     if (![v13 count])
@@ -1696,21 +1691,21 @@ void __74__LNMetadataProvider_actionForBundleIdentifier_andActionIdentifier_erro
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v38 = v11;
-        v39 = 2114;
-        v40 = v12;
+        v37 = v11;
+        v38 = 2114;
+        v39 = v12;
         _os_log_impl(&dword_19763D000, v14, OS_LOG_TYPE_DEFAULT, "Metadata not found for %{public}@:%{public}@", buf, 0x16u);
       }
     }
 
-    v15 = v26[5];
+    v15 = v25[5];
   }
 
   else
   {
     if (error)
     {
-      v16 = v32[5];
+      v16 = v31[5];
       if (v16)
       {
         v15 = 0;
@@ -1726,10 +1721,9 @@ void __74__LNMetadataProvider_actionForBundleIdentifier_andActionIdentifier_erro
   }
 
 LABEL_12:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v31, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v15;
 }
@@ -2454,15 +2448,15 @@ void __75__LNMetadataProvider_enumerateQueriesForBundleIdentifier_usingBlock_err
 - (_TtC12LinkServices25_LNMetadataProviderDirect)getDirectProviderWithError:(_TtC12LinkServices25_LNMetadataProviderDirect *)error
 {
   errorCopy = error;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (error)
   {
     v4 = [_TtC12LinkServices25_LNMetadataProviderDirect alloc];
     v5 = *errorCopy[1].requiresAssertion;
     v6 = *errorCopy->requiresAssertion;
-    v13 = 0;
-    errorCopy = [(_LNMetadataProviderDirect *)v4 initWithConnection:v5 options:v6 error:&v13];
-    v7 = v13;
+    v12 = 0;
+    errorCopy = [(_LNMetadataProviderDirect *)v4 initWithConnection:v5 options:v6 error:&v12];
+    v7 = v12;
     if (errorCopy)
     {
       v8 = errorCopy;
@@ -2474,7 +2468,7 @@ void __75__LNMetadataProvider_enumerateQueriesForBundleIdentifier_usingBlock_err
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v7;
+        v14 = v7;
         _os_log_impl(&dword_19763D000, v9, OS_LOG_TYPE_ERROR, "Request for read access failed: %@", buf, 0xCu);
       }
 
@@ -2485,8 +2479,6 @@ void __75__LNMetadataProvider_enumerateQueriesForBundleIdentifier_usingBlock_err
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return errorCopy;
 }

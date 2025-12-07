@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for HeadphoneConnectViewController();
+  v3.super_class = type metadata accessor for HeadphoneConnectViewController(0);
   v2 = v3.receiver;
   [(HeadphoneConnectViewController *)&v3 viewDidLoad];
   [v2 setDismissalType:{1, v3.receiver, v3.super_class}];

@@ -69,7 +69,7 @@
     v15 = WKLogForCategory(3uLL);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [WKWallpaperBundle initWithURL:];
+      [(WKWallpaperBundle *)self initWithURL:lCopy];
     }
 
     selfCopy = 0;
@@ -89,40 +89,37 @@
 
 - (void)_loadBundle
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_1E4A23000, v2, v3, "%{public}@: Wallpaper bundle thumbnail does not exist at URL '%{public}@'", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1E4A23000, v4, v5, "%{public}@: Wallpaper bundle thumbnail does not exist at URL '%{public}@'", v6, v7, v8, v9);
 }
 
 - (void)_processAssetDictionary:(id)dictionary forLocation:(id)location
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   locationCopy = location;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v40 = [dictionaryCopy countByEnumeratingWithState:&v41 objects:v54 count:16];
-  if (v40)
+  v39 = [dictionaryCopy countByEnumeratingWithState:&v40 objects:v53 count:16];
+  if (v39)
   {
-    v39 = *v42;
+    v38 = *v41;
     *&v7 = 138543874;
-    v37 = v7;
+    v36 = v7;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v42 != v39)
+        if (*v41 != v38)
         {
           objc_enumerationMutation(dictionaryCopy);
         }
 
-        v9 = *(*(&v41 + 1) + 8 * i);
+        v9 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
         v10 = [dictionaryCopy objectForKeyedSubscript:v9];
         if (v10)
@@ -169,10 +166,10 @@
 
         if (!v15)
         {
-          v53[0] = @"assets";
-          v53[1] = v9;
-          v53[2] = @"type";
-          v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:3];
+          v52[0] = @"assets";
+          v52[1] = v9;
+          v52[2] = @"type";
+          v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:3];
           v17 = [v16 componentsJoinedByString:@"."];
           [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
         }
@@ -268,10 +265,10 @@ LABEL_48:
 
           if (!v22)
           {
-            v52[0] = @"assets";
-            v52[1] = v9;
-            v52[2] = @"representedType";
-            v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:3];
+            v51[0] = @"assets";
+            v51[1] = v9;
+            v51[2] = @"representedType";
+            v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
             v33 = [v32 componentsJoinedByString:@"."];
             [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v33];
           }
@@ -305,10 +302,10 @@ LABEL_48:
 
           if (!v22)
           {
-            v51[0] = @"assets";
-            v51[1] = v9;
-            v51[2] = @"representedType";
-            v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
+            v50[0] = @"assets";
+            v50[1] = v9;
+            v50[2] = @"representedType";
+            v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
             v30 = [v29 componentsJoinedByString:@"."];
             [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v30];
           }
@@ -337,30 +334,28 @@ LABEL_59:
         {
           v34 = objc_opt_class();
           v35 = NSStringFromClass(v34);
-          *buf = v37;
-          v46 = v35;
-          v47 = 2114;
-          v48 = locationCopy;
-          v49 = 2114;
-          v50 = v9;
+          *buf = v36;
+          v45 = v35;
+          v46 = 2114;
+          v47 = locationCopy;
+          v48 = 2114;
+          v49 = v9;
           _os_log_error_impl(&dword_1E4A23000, v25, OS_LOG_TYPE_ERROR, "%{public}@: Could not process wallpaper for location '%{public}@' and appearance '%{public}@'.", buf, 0x20u);
         }
 
 LABEL_61:
       }
 
-      v40 = [dictionaryCopy countByEnumeratingWithState:&v41 objects:v54 count:16];
+      v39 = [dictionaryCopy countByEnumeratingWithState:&v40 objects:v53 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldLoadWallpaperBundleAtURL:(id)l
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   pathExtension = [(__CFString *)lCopy pathExtension];
@@ -369,10 +364,10 @@ LABEL_61:
 
   if (v7)
   {
-    v53 = 0;
+    v52 = 0;
     path = [(__CFString *)lCopy path];
-    v9 = [defaultManager fileExistsAtPath:path isDirectory:&v53];
-    v10 = v53;
+    v9 = [defaultManager fileExistsAtPath:path isDirectory:&v52];
+    v10 = v52;
 
     if (!v9 || (v10 & 1) == 0)
     {
@@ -412,9 +407,9 @@ LABEL_61:
       {
         v17 = CPSharedResourcesDirectory();
         *buf = 136315394;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = v17;
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = v17;
         v18 = v17;
 LABEL_20:
         _os_log_impl(&dword_1E4A23000, v16, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper is in '%{public}@', should load.", buf, 0x16u);
@@ -436,9 +431,9 @@ LABEL_20:
       {
         v18 = NSTemporaryDirectory();
         *buf = 136315394;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = v18;
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = v18;
         goto LABEL_20;
       }
 
@@ -450,9 +445,9 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    v52 = 0;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v11 error:&v52];
-    v16 = v52;
+    v51 = 0;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:v11 error:&v51];
+    v16 = v51;
     if (v16)
     {
       sf_productType = WKLogForCategory(3uLL);
@@ -474,66 +469,66 @@ LABEL_26:
     if ((wk_ignoreLogicalScreenClassForWallpaperBundle & 1) == 0)
     {
       objc_opt_class();
-      v30 = [v24 objectForKeyedSubscript:@"logicalScreenClass"];
+      v29 = [v24 objectForKeyedSubscript:@"logicalScreenClass"];
       if (objc_opt_isKindOfClass())
       {
-        v31 = v30;
+        v30 = v29;
       }
 
       else
       {
-        v31 = 0;
+        v30 = 0;
       }
 
-      sf_productType = v31;
+      sf_productType = v30;
 
-      v32 = WKLogForCategory(3uLL);
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+      v31 = WKLogForCategory(3uLL);
+      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
       if (!sf_productType)
       {
-        if (v33)
+        if (v32)
         {
           *buf = 136315650;
-          v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-          v56 = 2114;
-          v57 = @"logicalScreenClass";
-          v58 = 2114;
-          v59 = v11;
-          _os_log_impl(&dword_1E4A23000, v32, OS_LOG_TYPE_DEFAULT, "%s: No entry found for '%{public}@' key in 'Wallpaper.plist' at URL '%{public}@'.", buf, 0x20u);
+          v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+          v55 = 2114;
+          v56 = @"logicalScreenClass";
+          v57 = 2114;
+          v58 = v11;
+          _os_log_impl(&dword_1E4A23000, v31, OS_LOG_TYPE_DEFAULT, "%s: No entry found for '%{public}@' key in 'Wallpaper.plist' at URL '%{public}@'.", buf, 0x20u);
         }
 
         LOBYTE(v20) = 0;
-        sf_productType = v32;
+        sf_productType = v31;
         goto LABEL_26;
       }
 
-      if (v33)
+      if (v32)
       {
         path5 = [(__CFString *)lCopy path];
         *buf = 136315650;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = path5;
-        v58 = 2114;
-        v59 = sf_productType;
-        _os_log_impl(&dword_1E4A23000, v32, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper '%{public}@' logical screen class is '%{public}@'.", buf, 0x20u);
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = path5;
+        v57 = 2114;
+        v58 = sf_productType;
+        _os_log_impl(&dword_1E4A23000, v31, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper '%{public}@' logical screen class is '%{public}@'.", buf, 0x20u);
       }
 
-      v35 = WKLogicalScreenClassString();
-      if (([v35 isEqualToString:sf_productType]& 1) == 0 && ([sf_productType isEqualToString:@"any"]& 1) == 0)
+      v34 = WKLogicalScreenClassString();
+      if (([v34 isEqualToString:sf_productType]& 1) == 0 && ([sf_productType isEqualToString:@"any"]& 1) == 0)
       {
-        v50 = WKLogForCategory(3uLL);
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v49 = WKLogForCategory(3uLL);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-          v56 = 2114;
-          v57 = sf_productType;
-          v58 = 2114;
-          v59 = v35;
-          v60 = 2114;
-          v61 = @"any";
-          _os_log_impl(&dword_1E4A23000, v50, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper Bundle logical screen class '%{public}@' does not match the current device logical screen class '%{public}@' or '%{public}@'.", buf, 0x2Au);
+          v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+          v55 = 2114;
+          v56 = sf_productType;
+          v57 = 2114;
+          v58 = v34;
+          v59 = 2114;
+          v60 = @"any";
+          _os_log_impl(&dword_1E4A23000, v49, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper Bundle logical screen class '%{public}@' does not match the current device logical screen class '%{public}@' or '%{public}@'.", buf, 0x2Au);
         }
 
         goto LABEL_25;
@@ -549,7 +544,7 @@ LABEL_26:
       if (os_log_type_enabled(sf_productType, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
         _os_log_impl(&dword_1E4A23000, sf_productType, OS_LOG_TYPE_DEFAULT, "%s: Device is configured to load wallpapers for all product types.", buf, 0xCu);
       }
 
@@ -561,46 +556,46 @@ LABEL_26:
     sf_productType = [currentDevice sf_productType];
 
     objc_opt_class();
-    v39 = [v24 objectForKeyedSubscript:@"unsupportedProductTypes"];
+    v38 = [v24 objectForKeyedSubscript:@"unsupportedProductTypes"];
     if (objc_opt_isKindOfClass())
     {
-      v40 = v39;
+      v39 = v38;
     }
 
     else
     {
-      v40 = 0;
+      v39 = 0;
     }
 
-    v41 = v40;
+    v40 = v39;
 
-    if ([v41 count])
+    if ([v40 count])
     {
-      v42 = WKLogForCategory(3uLL);
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v41 = WKLogForCategory(3uLL);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = @"unsupportedProductTypes";
-        v58 = 2114;
-        v59 = v41;
-        v60 = 2114;
-        v61 = sf_productType;
-        _os_log_impl(&dword_1E4A23000, v42, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle has '%{public}@' entry with values '%{public}@', checking if it contains '%{public}@'.", buf, 0x2Au);
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = @"unsupportedProductTypes";
+        v57 = 2114;
+        v58 = v40;
+        v59 = 2114;
+        v60 = sf_productType;
+        _os_log_impl(&dword_1E4A23000, v41, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle has '%{public}@' entry with values '%{public}@', checking if it contains '%{public}@'.", buf, 0x2Au);
       }
 
-      v43 = [MEMORY[0x1E695DFD8] setWithArray:v41];
-      if ([v43 containsObject:sf_productType])
+      v42 = [MEMORY[0x1E695DFD8] setWithArray:v40];
+      if ([v42 containsObject:sf_productType])
       {
-        v44 = WKLogForCategory(3uLL);
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v43 = WKLogForCategory(3uLL);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-          v56 = 2114;
-          v57 = sf_productType;
-          _os_log_impl(&dword_1E4A23000, v44, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle is not supported for product type %{public}@.", buf, 0x16u);
+          v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+          v55 = 2114;
+          v56 = sf_productType;
+          _os_log_impl(&dword_1E4A23000, v43, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle is not supported for product type %{public}@.", buf, 0x16u);
         }
 
         LOBYTE(v20) = 0;
@@ -610,70 +605,70 @@ LABEL_72:
       }
     }
 
-    v51 = v41;
+    v50 = v40;
     objc_opt_class();
-    v45 = [v24 objectForKeyedSubscript:@"productTypes"];
+    v44 = [v24 objectForKeyedSubscript:@"productTypes"];
     if (objc_opt_isKindOfClass())
     {
-      v46 = v45;
+      v45 = v44;
     }
 
     else
     {
-      v46 = 0;
+      v45 = 0;
     }
 
-    v43 = v46;
+    v42 = v45;
 
-    v47 = [v43 count];
-    v44 = WKLogForCategory(3uLL);
-    v48 = os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT);
-    if (v47)
+    v46 = [v42 count];
+    v43 = WKLogForCategory(3uLL);
+    v47 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+    if (v46)
     {
-      if (v48)
+      if (v47)
       {
         *buf = 136315906;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = @"productTypes";
-        v58 = 2114;
-        v59 = v43;
-        v60 = 2114;
-        v61 = sf_productType;
-        _os_log_impl(&dword_1E4A23000, v44, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle has '%{public}@' entry with values '%{public}@', checking if it contains '%{public}@'.", buf, 0x2Au);
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = @"productTypes";
+        v57 = 2114;
+        v58 = v42;
+        v59 = 2114;
+        v60 = sf_productType;
+        _os_log_impl(&dword_1E4A23000, v43, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle has '%{public}@' entry with values '%{public}@', checking if it contains '%{public}@'.", buf, 0x2Au);
       }
 
-      v44 = [MEMORY[0x1E695DFD8] setWithArray:v43];
-      v20 = [v44 containsObject:sf_productType];
+      v43 = [MEMORY[0x1E695DFD8] setWithArray:v42];
+      v20 = [v43 containsObject:sf_productType];
       if (v20)
       {
-        v49 = WKLogForCategory(3uLL);
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v48 = WKLogForCategory(3uLL);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-          v56 = 2114;
-          v57 = sf_productType;
-          _os_log_impl(&dword_1E4A23000, v49, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle is supported for product type %{public}@.", buf, 0x16u);
+          v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+          v55 = 2114;
+          v56 = sf_productType;
+          _os_log_impl(&dword_1E4A23000, v48, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle is supported for product type %{public}@.", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      if (v48)
+      if (v47)
       {
         *buf = 136315394;
-        v55 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
-        v56 = 2114;
-        v57 = lCopy;
-        _os_log_impl(&dword_1E4A23000, v44, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle at URL '%{public}@' should be loaded", buf, 0x16u);
+        v54 = "+[WKWallpaperBundle shouldLoadWallpaperBundleAtURL:]";
+        v55 = 2114;
+        v56 = lCopy;
+        _os_log_impl(&dword_1E4A23000, v43, OS_LOG_TYPE_DEFAULT, "%s: Wallpaper bundle at URL '%{public}@' should be loaded", buf, 0x16u);
       }
 
       LOBYTE(v20) = 1;
     }
 
-    v41 = v51;
+    v40 = v50;
     goto LABEL_72;
   }
 
@@ -686,7 +681,6 @@ LABEL_72:
   LOBYTE(v20) = 0;
 LABEL_29:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -816,7 +810,7 @@ LABEL_29:
 
 - (id)copyWallpaperRepresentingToDestinationDirectoryURL:(id)l error:(id *)error
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([(WKWallpaperBundle *)self supportsCopying])
   {
@@ -828,46 +822,32 @@ LABEL_29:
     bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
     v12 = [defaultManager copyItemAtURL:bundleURL2 toURL:v9 error:error];
 
-    if (!v12)
+    if (v12 && ([MEMORY[0x1E696AC08] defaultManager], v13 = objc_claimAutoreleasedReturnValue(), v14 = *MEMORY[0x1E696A3A0], v35 = *MEMORY[0x1E696A3A0], v15 = *MEMORY[0x1E696A3A8], v36 = *MEMORY[0x1E696A3A8], objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v36, &v35, 1), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "path"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v13, "setAttributes:ofItemAtPath:error:", v16, v17, error), v17, v16, v13, v18))
     {
-      goto LABEL_14;
-    }
+      defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
+      v20 = [defaultManager2 enumeratorAtURL:v9 includingPropertiesForKeys:0 options:0 errorHandler:0];
 
-    defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v14 = *MEMORY[0x1E696A3A0];
-    v36 = *MEMORY[0x1E696A3A0];
-    v15 = *MEMORY[0x1E696A3A8];
-    v37 = *MEMORY[0x1E696A3A8];
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    path = [v9 path];
-    v18 = [defaultManager2 setAttributes:v16 ofItemAtPath:path error:error];
-
-    if (v18)
-    {
-      defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-      v20 = [defaultManager3 enumeratorAtURL:v9 includingPropertiesForKeys:0 options:0 errorHandler:0];
-
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v32;
+        v24 = *v31;
         while (2)
         {
           v25 = 0;
           do
           {
-            if (*v32 != v24)
+            if (*v31 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            if (![*(*(&v31 + 1) + 8 * v25) setResourceValue:v15 forKey:v14 error:{error, v31}])
+            if (![*(*(&v30 + 1) + 8 * v25) setResourceValue:v15 forKey:v14 error:{error, v30}])
             {
 
               v26 = 0;
@@ -878,7 +858,7 @@ LABEL_29:
           }
 
           while (v23 != v25);
-          v23 = [v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v23)
           {
             continue;
@@ -894,7 +874,6 @@ LABEL_16:
 
     else
     {
-LABEL_14:
       v26 = 0;
     }
   }
@@ -903,14 +882,13 @@ LABEL_14:
   {
     v27 = MEMORY[0x1E696ABC0];
     v28 = WKWallpaperKitErrorDomain;
-    v38 = *MEMORY[0x1E696A580];
-    v39[0] = @"Unsupported copy action for wallpaper (supportsCopying == NO).";
-    lastPathComponent = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x1E696A580];
+    v38[0] = @"Unsupported copy action for wallpaper (supportsCopying == NO).";
+    lastPathComponent = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     [v27 errorWithDomain:v28 code:-10003 userInfo:lastPathComponent];
     *error = v26 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -932,7 +910,7 @@ LABEL_14:
 
 - (id)_processCommonWallpaperMetadataWithDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v47[3] = *MEMORY[0x1E69E9840];
+  v46[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -959,15 +937,15 @@ LABEL_14:
 
   if (!v10)
   {
-    v47[0] = @"assets";
-    v47[1] = appearanceCopy;
-    v47[2] = @"identifier";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:3];
+    v46[0] = @"assets";
+    v46[1] = appearanceCopy;
+    v46[2] = @"identifier";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
     v12 = [v11 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
   }
 
-  v42 = v10;
+  v41 = v10;
   integerValue = [v10 integerValue];
   objc_opt_class();
   v13 = [dictionaryCopy objectForKeyedSubscript:@"name"];
@@ -993,10 +971,10 @@ LABEL_14:
 
   if (!v15)
   {
-    v46[0] = @"assets";
-    v46[1] = appearanceCopy;
-    v46[2] = @"name";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
+    v45[0] = @"assets";
+    v45[1] = appearanceCopy;
+    v45[2] = @"name";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
     v17 = [v16 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
   }
@@ -1025,10 +1003,10 @@ LABEL_14:
 
   if (!v20)
   {
-    v45[0] = @"assets";
-    v45[1] = appearanceCopy;
-    v45[2] = @"thumbnailImageFileName";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+    v44[0] = @"assets";
+    v44[1] = appearanceCopy;
+    v44[2] = @"thumbnailImageFileName";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
     v22 = [v21 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v22];
   }
@@ -1055,23 +1033,21 @@ LABEL_14:
     [v36 raise];
   }
 
-  v43[0] = @"identifier";
+  v42[0] = @"identifier";
   v37 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
-  v44[0] = v37;
-  v44[1] = v15;
-  v43[1] = @"name";
-  v43[2] = @"thumbnailImageFileURL";
-  v44[2] = v25;
-  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:v43 count:3];
-
-  v39 = *MEMORY[0x1E69E9840];
+  v43[0] = v37;
+  v43[1] = v15;
+  v42[1] = @"name";
+  v42[2] = @"thumbnailImageFileURL";
+  v43[2] = v25;
+  v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:v42 count:3];
 
   return v38;
 }
 
 - (id)_processCommonFileBackedWallpaperMetadataWithDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v31[3] = *MEMORY[0x1E69E9840];
+  v30[3] = *MEMORY[0x1E69E9840];
   appearanceCopy = appearance;
   dictionaryCopy = dictionary;
   v8 = [(WKWallpaperBundle *)self _processCommonWallpaperMetadataWithDictionary:dictionaryCopy wallpaperAppearance:appearanceCopy];
@@ -1103,10 +1079,10 @@ LABEL_14:
 
   if (!v13)
   {
-    v31[0] = @"assets";
-    v31[1] = appearanceCopy;
-    v31[2] = @"fullSizeImageFileName";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+    v30[0] = @"assets";
+    v30[1] = appearanceCopy;
+    v30[2] = @"fullSizeImageFileName";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
     v15 = [v14 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v15];
   }
@@ -1133,8 +1109,6 @@ LABEL_14:
   }
 
   [v9 setObject:v17 forKeyedSubscript:@"fullSizeImageFileURL"];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1311,7 +1285,7 @@ LABEL_14:
 
 - (id)_liveWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v58[3] = *MEMORY[0x1E69E9840];
+  v57[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   v7 = [(WKWallpaperBundle *)self _processCommonFileBackedWallpaperMetadataWithDictionary:dictionaryCopy wallpaperAppearance:?];
@@ -1329,12 +1303,12 @@ LABEL_14:
       v9 = 0;
     }
 
-    v55 = v9;
+    v54 = v9;
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
   objc_opt_class();
@@ -1351,12 +1325,12 @@ LABEL_14:
       v11 = 0;
     }
 
-    v54 = v11;
+    v53 = v11;
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
   }
 
   objc_opt_class();
@@ -1419,10 +1393,10 @@ LABEL_14:
 
   if (!v20)
   {
-    v58[0] = @"assets";
-    v58[1] = appearanceCopy;
-    v58[2] = @"videoFileName";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:3];
+    v57[0] = @"assets";
+    v57[1] = appearanceCopy;
+    v57[2] = @"videoFileName";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
     v22 = [v21 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v22];
   }
@@ -1436,7 +1410,7 @@ LABEL_14:
 
   if ((v27 & 1) == 0)
   {
-    v53 = MEMORY[0x1E695DF30];
+    v52 = MEMORY[0x1E695DF30];
     v28 = *MEMORY[0x1E695D940];
     v29 = MEMORY[0x1E696AEC0];
     v30 = objc_opt_class();
@@ -1448,7 +1422,7 @@ LABEL_14:
     v35 = v17;
     v37 = v36 = v14;
     v38 = [v29 stringWithFormat:@"%@: Video asset does not exist at path '%@'", v31, v37];
-    v39 = [v53 exceptionWithName:v28 reason:v38 userInfo:0];
+    v39 = [v52 exceptionWithName:v28 reason:v38 userInfo:0];
 
     v14 = v36;
     v17 = v35;
@@ -1467,10 +1441,10 @@ LABEL_14:
     v42 = v40;
     if ((isKindOfClass & 1) == 0)
     {
-      v57[0] = @"assets";
-      v57[1] = appearanceCopy;
-      v57[2] = @"stillTimeInVideo";
-      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
+      v56[0] = @"assets";
+      v56[1] = appearanceCopy;
+      v56[2] = @"stillTimeInVideo";
+      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
       v44 = [v43 componentsJoinedByString:@"."];
       [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v44];
 
@@ -1486,19 +1460,18 @@ LABEL_14:
   v45 = v42;
 
   v46 = [WKLiveWallpaper alloc];
-  unsignedIntegerValue = [v55 unsignedIntegerValue];
+  unsignedIntegerValue = [v54 unsignedIntegerValue];
   [v45 doubleValue];
   v49 = v48;
 
-  v50 = [(WKLiveWallpaper *)v46 initWithIdentifier:unsignedIntegerValue name:v54 type:1 thumbnailImageURL:v17 fullsizeImageURL:v14 videoAssetURL:v24 stillTimeInVideo:v49];
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = [(WKLiveWallpaper *)v46 initWithIdentifier:unsignedIntegerValue name:v53 type:1 thumbnailImageURL:v17 fullsizeImageURL:v14 videoAssetURL:v24 stillTimeInVideo:v49];
 
   return v50;
 }
 
 - (id)_layeredThumbnailWallpaperWithMetadataDictionary:(id)dictionary representedType:(unint64_t)type wallpaperAppearance:(id)appearance
 {
-  v86[3] = *MEMORY[0x1E69E9840];
+  v83[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -1525,274 +1498,15 @@ LABEL_14:
 
   if (!v11)
   {
-    v86[0] = @"assets";
-    v86[1] = appearanceCopy;
-    v86[2] = @"identifier";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:3];
+    v83[0] = @"assets";
+    v83[1] = appearanceCopy;
+    v83[2] = @"identifier";
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:3];
     v13 = [v12 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v13];
   }
 
   integerValue = [v11 integerValue];
-  v14 = 0x1E696A000uLL;
-  objc_opt_class();
-  v15 = [dictionaryCopy objectForKeyedSubscript:@"name"];
-  if (v15)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v16 = v15;
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    v17 = v16;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  if (!v17)
-  {
-    v85[0] = @"assets";
-    v85[1] = appearanceCopy;
-    v85[2] = @"name";
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:3];
-    v19 = [v18 componentsJoinedByString:@"."];
-    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v19];
-  }
-
-  objc_opt_class();
-  v20 = [dictionaryCopy objectForKeyedSubscript:@"backgroundThumbnailImageFileName"];
-  if (v20)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v21 = v20;
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    v22 = v21;
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  v23 = 0x1E696A000uLL;
-  v81 = v22;
-  v82 = v17;
-  if (v22)
-  {
-    bundleURL = [(WKWallpaperBundle *)self bundleURL];
-    v25 = [bundleURL URLByAppendingPathComponent:v22];
-
-    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    path = [v25 path];
-    v28 = [defaultManager fileExistsAtPath:path];
-
-    if ((v28 & 1) == 0)
-    {
-      v29 = MEMORY[0x1E695DF30];
-      v30 = *MEMORY[0x1E695D940];
-      v31 = MEMORY[0x1E696AEC0];
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      [v25 path];
-      v35 = v34 = v25;
-      v36 = [v31 stringWithFormat:@"%@: Background thumbnail asset does not exist at path '%@'", v33, v35];
-      v37 = [v29 exceptionWithName:v30 reason:v36 userInfo:0];
-
-      v25 = v34;
-      v23 = 0x1E696A000;
-
-      v14 = 0x1E696A000;
-      [v37 raise];
-    }
-  }
-
-  else
-  {
-    v25 = 0;
-  }
-
-  v38 = *(v14 + 3776);
-  objc_opt_class();
-  v39 = [dictionaryCopy objectForKeyedSubscript:@"foregroundThumbnailImageFileName"];
-  if (v39)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v40 = v39;
-    }
-
-    else
-    {
-      v40 = 0;
-    }
-
-    v41 = v40;
-  }
-
-  else
-  {
-    v41 = 0;
-  }
-
-  v79 = dictionaryCopy;
-  v80 = v25;
-  v78 = appearanceCopy;
-  if (v41)
-  {
-    bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
-    v43 = [bundleURL2 URLByAppendingPathComponent:v41];
-
-    defaultManager2 = [*(v23 + 3080) defaultManager];
-    path2 = [v43 path];
-    v46 = [defaultManager2 fileExistsAtPath:path2];
-
-    if ((v46 & 1) == 0)
-    {
-      v47 = MEMORY[0x1E695DF30];
-      v48 = *MEMORY[0x1E695D940];
-      v49 = MEMORY[0x1E696AEC0];
-      v50 = objc_opt_class();
-      v51 = NSStringFromClass(v50);
-      [v43 path];
-      v52 = v23;
-      selfCopy = self;
-      v55 = v54 = v11;
-      v56 = [v49 stringWithFormat:@"%@: Foreground thumbnail asset does not exist at path '%@'", v51, v55];
-      v57 = [v47 exceptionWithName:v48 reason:v56 userInfo:0];
-
-      v11 = v54;
-      self = selfCopy;
-      v23 = v52;
-
-      appearanceCopy = v78;
-      dictionaryCopy = v79;
-      [v57 raise];
-    }
-  }
-
-  else
-  {
-    v43 = 0;
-  }
-
-  objc_opt_class();
-  v58 = [dictionaryCopy objectForKeyedSubscript:@"floatingThumbnailImageFileName"];
-  if (v58)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v59 = v58;
-    }
-
-    else
-    {
-      v59 = 0;
-    }
-
-    v60 = v59;
-  }
-
-  else
-  {
-    v60 = 0;
-  }
-
-  if (v60)
-  {
-    v77 = v11;
-    bundleURL3 = [(WKWallpaperBundle *)self bundleURL];
-    v62 = [bundleURL3 URLByAppendingPathComponent:v60];
-
-    defaultManager3 = [*(v23 + 3080) defaultManager];
-    path3 = [v62 path];
-    v65 = [defaultManager3 fileExistsAtPath:path3];
-
-    if ((v65 & 1) == 0)
-    {
-      v66 = MEMORY[0x1E695DF30];
-      v67 = *MEMORY[0x1E695D940];
-      v68 = MEMORY[0x1E696AEC0];
-      v69 = objc_opt_class();
-      v70 = NSStringFromClass(v69);
-      path4 = [v62 path];
-      v72 = [v68 stringWithFormat:@"%@: Floating thumbnail asset does not exist at path '%@'", v70, path4];
-      v73 = [v66 exceptionWithName:v67 reason:v72 userInfo:0];
-
-      [v73 raise];
-    }
-
-    appearanceCopy = v78;
-    dictionaryCopy = v79;
-    v11 = v77;
-  }
-
-  else
-  {
-    v62 = 0;
-  }
-
-  v74 = [[WKLayeredThumbnailWallpaper alloc] initWithIdentifier:integerValue name:v82 type:3 representedType:type backgroundThumbnailImageURL:v80 foregroundThumbnailImageURL:v43 floatingThumbnailImageURL:v62];
-
-  v75 = *MEMORY[0x1E69E9840];
-
-  return v74;
-}
-
-- (id)_layeredStillWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
-{
-  v143[3] = *MEMORY[0x1E69E9840];
-  dictionaryCopy = dictionary;
-  appearanceCopy = appearance;
-  objc_opt_class();
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
-  if (v8)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v9 = v8;
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  if (!v10)
-  {
-    v143[0] = @"assets";
-    v143[1] = appearanceCopy;
-    v143[2] = @"identifier";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v143 count:3];
-    v12 = [v11 componentsJoinedByString:@"."];
-    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
-  }
-
-  v138 = v10;
-  integerValue = [v10 integerValue];
-  v13 = 0x1E696A000uLL;
   objc_opt_class();
   v14 = [dictionaryCopy objectForKeyedSubscript:@"name"];
   if (v14)
@@ -1817,10 +1531,10 @@ LABEL_14:
 
   if (!v16)
   {
-    v142[0] = @"assets";
-    v142[1] = appearanceCopy;
-    v142[2] = @"name";
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v142 count:3];
+    v82[0] = @"assets";
+    v82[1] = appearanceCopy;
+    v82[2] = @"name";
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:3];
     v18 = [v17 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v18];
   }
@@ -1848,7 +1562,8 @@ LABEL_14:
   }
 
   v22 = 0x1E696A000uLL;
-  v135 = v21;
+  v78 = v21;
+  v79 = v16;
   if (v21)
   {
     bundleURL = [(WKWallpaperBundle *)self bundleURL];
@@ -1864,21 +1579,16 @@ LABEL_14:
       v29 = *MEMORY[0x1E695D940];
       v30 = MEMORY[0x1E696AEC0];
       v31 = objc_opt_class();
-      NSStringFromClass(v31);
-      v32 = v16;
-      v34 = v33 = appearanceCopy;
+      v32 = NSStringFromClass(v31);
       [v24 path];
-      v36 = v35 = v24;
-      v37 = [v30 stringWithFormat:@"%@: Background thumbnail asset does not exist at path '%@'", v34, v36];
-      v38 = [v28 exceptionWithName:v29 reason:v37 userInfo:0];
+      v34 = v33 = v24;
+      v35 = [v30 stringWithFormat:@"%@: Background thumbnail asset does not exist at path '%@'", v32, v34];
+      v36 = [v28 exceptionWithName:v29 reason:v35 userInfo:0];
 
-      v24 = v35;
+      v24 = v33;
       v22 = 0x1E696A000;
 
-      appearanceCopy = v33;
-      v16 = v32;
-      v13 = 0x1E696A000;
-      [v38 raise];
+      [v36 raise];
     }
   }
 
@@ -1887,81 +1597,118 @@ LABEL_14:
     v24 = 0;
   }
 
-  v39 = *(v13 + 3776);
   objc_opt_class();
-  v40 = [dictionaryCopy objectForKeyedSubscript:@"foregroundThumbnailImageFileName"];
-  if (v40)
+  v37 = [dictionaryCopy objectForKeyedSubscript:@"foregroundThumbnailImageFileName"];
+  if (v37)
   {
     if (objc_opt_isKindOfClass())
     {
-      v41 = v40;
+      v38 = v37;
     }
 
     else
     {
-      v41 = 0;
+      v38 = 0;
     }
 
-    v42 = v41;
+    v39 = v38;
   }
 
   else
   {
-    v42 = 0;
+    v39 = 0;
   }
 
-  v133 = v42;
-  v134 = v24;
-  selfCopy = self;
-  if (v42)
+  v76 = dictionaryCopy;
+  v77 = v24;
+  v75 = appearanceCopy;
+  if (v39)
   {
     bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
-    v44 = [bundleURL2 URLByAppendingPathComponent:v42];
+    v41 = [bundleURL2 URLByAppendingPathComponent:v39];
 
     defaultManager2 = [*(v22 + 3080) defaultManager];
-    path2 = [v44 path];
-    v47 = [defaultManager2 fileExistsAtPath:path2];
+    path2 = [v41 path];
+    v44 = [defaultManager2 fileExistsAtPath:path2];
 
-    if ((v47 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
-      v48 = MEMORY[0x1E695DF30];
-      v49 = *MEMORY[0x1E695D940];
-      v50 = MEMORY[0x1E696AEC0];
-      v51 = objc_opt_class();
-      NSStringFromClass(v51);
-      v52 = v16;
-      v54 = v53 = appearanceCopy;
-      path3 = [v44 path];
-      v56 = [v50 stringWithFormat:@"%@: Foreground thumbnail asset does not exist at path '%@'", v54, path3];
-      v57 = [v48 exceptionWithName:v49 reason:v56 userInfo:0];
+      v45 = MEMORY[0x1E695DF30];
+      v46 = *MEMORY[0x1E695D940];
+      v47 = MEMORY[0x1E696AEC0];
+      v48 = objc_opt_class();
+      v49 = NSStringFromClass(v48);
+      [v41 path];
+      v50 = v22;
+      selfCopy = self;
+      v53 = v52 = v11;
+      v54 = [v47 stringWithFormat:@"%@: Foreground thumbnail asset does not exist at path '%@'", v49, v53];
+      v55 = [v45 exceptionWithName:v46 reason:v54 userInfo:0];
 
-      appearanceCopy = v53;
-      v16 = v52;
+      v11 = v52;
       self = selfCopy;
-      [v57 raise];
+      v22 = v50;
+
+      appearanceCopy = v75;
+      dictionaryCopy = v76;
+      [v55 raise];
     }
   }
 
   else
   {
-    v44 = 0;
+    v41 = 0;
   }
 
   objc_opt_class();
-  v58 = [dictionaryCopy objectForKeyedSubscript:@"floatingThumbnailImageFileName"];
-  if (v58)
+  v56 = [dictionaryCopy objectForKeyedSubscript:@"floatingThumbnailImageFileName"];
+  if (v56)
   {
     if (objc_opt_isKindOfClass())
     {
-      v59 = v58;
+      v57 = v56;
     }
 
     else
     {
-      v59 = 0;
+      v57 = 0;
     }
 
-    v60 = v59;
+    v58 = v57;
+  }
+
+  else
+  {
+    v58 = 0;
+  }
+
+  if (v58)
+  {
+    v74 = v11;
+    bundleURL3 = [(WKWallpaperBundle *)self bundleURL];
+    v60 = [bundleURL3 URLByAppendingPathComponent:v58];
+
+    defaultManager3 = [*(v22 + 3080) defaultManager];
+    path3 = [v60 path];
+    v63 = [defaultManager3 fileExistsAtPath:path3];
+
+    if ((v63 & 1) == 0)
+    {
+      v64 = MEMORY[0x1E695DF30];
+      v65 = *MEMORY[0x1E695D940];
+      v66 = MEMORY[0x1E696AEC0];
+      v67 = objc_opt_class();
+      v68 = NSStringFromClass(v67);
+      path4 = [v60 path];
+      v70 = [v66 stringWithFormat:@"%@: Floating thumbnail asset does not exist at path '%@'", v68, path4];
+      v71 = [v64 exceptionWithName:v65 reason:v70 userInfo:0];
+
+      [v71 raise];
+    }
+
+    appearanceCopy = v75;
+    dictionaryCopy = v76;
+    v11 = v74;
   }
 
   else
@@ -1969,219 +1716,14 @@ LABEL_14:
     v60 = 0;
   }
 
-  v132 = v44;
+  v72 = [[WKLayeredThumbnailWallpaper alloc] initWithIdentifier:integerValue name:v79 type:3 representedType:type backgroundThumbnailImageURL:v77 foregroundThumbnailImageURL:v41 floatingThumbnailImageURL:v60];
 
-  v139 = appearanceCopy;
-  v137 = v16;
-  v131 = v60;
-  if (v60)
-  {
-    bundleURL3 = [(WKWallpaperBundle *)self bundleURL];
-    v62 = [bundleURL3 URLByAppendingPathComponent:v60];
-
-    defaultManager3 = [*(v22 + 3080) defaultManager];
-    path4 = [v62 path];
-    v65 = [defaultManager3 fileExistsAtPath:path4];
-
-    if ((v65 & 1) == 0)
-    {
-      v66 = MEMORY[0x1E695DF30];
-      v67 = *MEMORY[0x1E695D940];
-      v68 = MEMORY[0x1E696AEC0];
-      v69 = objc_opt_class();
-      v70 = NSStringFromClass(v69);
-      path5 = [v62 path];
-      v72 = [v68 stringWithFormat:@"%@: Floating thumbnail asset does not exist at path '%@'", v70, path5];
-      v73 = [v66 exceptionWithName:v67 reason:v72 userInfo:0];
-
-      v22 = 0x1E696A000;
-      [v73 raise];
-    }
-  }
-
-  else
-  {
-    v62 = 0;
-  }
-
-  objc_opt_class();
-  v74 = [dictionaryCopy objectForKeyedSubscript:@"backgroundFullSizeImageFileName"];
-  if (v74)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v75 = v74;
-    }
-
-    else
-    {
-      v75 = 0;
-    }
-
-    v76 = v75;
-  }
-
-  else
-  {
-    v76 = 0;
-  }
-
-  if (v76)
-  {
-    bundleURL4 = [(WKWallpaperBundle *)self bundleURL];
-    v78 = [bundleURL4 URLByAppendingPathComponent:v76];
-
-    defaultManager4 = [*(v22 + 3080) defaultManager];
-    path6 = [v78 path];
-    v81 = [defaultManager4 fileExistsAtPath:path6];
-
-    if ((v81 & 1) == 0)
-    {
-      v82 = MEMORY[0x1E695DF30];
-      v83 = *MEMORY[0x1E695D940];
-      v84 = MEMORY[0x1E696AEC0];
-      v85 = objc_opt_class();
-      v86 = NSStringFromClass(v85);
-      [v78 path];
-      v88 = v87 = v62;
-      v89 = [v84 stringWithFormat:@"%@: Background full size asset does not exist at path '%@'", v86, v88];
-      v90 = [v82 exceptionWithName:v83 reason:v89 userInfo:0];
-
-      v62 = v87;
-      self = selfCopy;
-      [v90 raise];
-    }
-  }
-
-  else
-  {
-    v78 = 0;
-  }
-
-  objc_opt_class();
-  v91 = [dictionaryCopy objectForKeyedSubscript:@"foregroundFullSizeImageFileName"];
-  if (v91)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v92 = v91;
-    }
-
-    else
-    {
-      v92 = 0;
-    }
-
-    v93 = v92;
-  }
-
-  else
-  {
-    v93 = 0;
-  }
-
-  v141 = dictionaryCopy;
-  v94 = v78;
-  v130 = v93;
-  if (v93)
-  {
-    v95 = v62;
-    bundleURL5 = [(WKWallpaperBundle *)self bundleURL];
-    v97 = [bundleURL5 URLByAppendingPathComponent:v93];
-
-    defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
-    path7 = [v97 path];
-    v100 = [defaultManager5 fileExistsAtPath:path7];
-
-    if ((v100 & 1) == 0)
-    {
-      v101 = MEMORY[0x1E695DF30];
-      v102 = *MEMORY[0x1E695D940];
-      v103 = MEMORY[0x1E696AEC0];
-      v104 = objc_opt_class();
-      v105 = NSStringFromClass(v104);
-      path8 = [v97 path];
-      v106 = [v103 stringWithFormat:@"%@: Foreground full size asset does not exist at path '%@'", v105, path8];
-      v108 = [v101 exceptionWithName:v102 reason:v106 userInfo:0];
-
-      dictionaryCopy = v141;
-      [v108 raise];
-    }
-
-    v62 = v95;
-  }
-
-  else
-  {
-    v97 = 0;
-  }
-
-  objc_opt_class();
-  v109 = [dictionaryCopy objectForKeyedSubscript:@"floatingFullSizeImageFileName"];
-  if (v109)
-  {
-    if (objc_opt_isKindOfClass())
-    {
-      v110 = v109;
-    }
-
-    else
-    {
-      v110 = 0;
-    }
-
-    v111 = v110;
-  }
-
-  else
-  {
-    v111 = 0;
-  }
-
-  if (v111)
-  {
-    v129 = v76;
-    v112 = v62;
-    bundleURL6 = [(WKWallpaperBundle *)selfCopy bundleURL];
-    v114 = [bundleURL6 URLByAppendingPathComponent:v111];
-
-    defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
-    path9 = [v114 path];
-    v117 = [defaultManager6 fileExistsAtPath:path9];
-
-    if ((v117 & 1) == 0)
-    {
-      v118 = MEMORY[0x1E695DF30];
-      v119 = *MEMORY[0x1E695D940];
-      v120 = MEMORY[0x1E696AEC0];
-      v121 = objc_opt_class();
-      v122 = NSStringFromClass(v121);
-      path10 = [v114 path];
-      v123 = [v120 stringWithFormat:@"%@: Floating full size asset does not exist at path '%@'", v122, path10];
-      v125 = [v118 exceptionWithName:v119 reason:v123 userInfo:0];
-
-      [v125 raise];
-    }
-
-    v62 = v112;
-    v76 = v129;
-  }
-
-  else
-  {
-    v114 = 0;
-  }
-
-  v126 = [[WKLayeredStillWallpaper alloc] initWithIdentifier:integerValue name:v137 backgroundThumbnailImageURL:v134 foregroundThumbnailImageURL:v132 floatingThumbnailImageURL:v62 backgroundFullSizeImageURL:v94 foregroundFullSizeImageURL:v97 floatingFullSizeImageURL:v114];
-
-  v127 = *MEMORY[0x1E69E9840];
-
-  return v126;
+  return v72;
 }
 
-- (id)_layeredStripeWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
+- (id)_layeredStillWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v56[3] = *MEMORY[0x1E69E9840];
+  v140[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -2208,10 +1750,431 @@ LABEL_14:
 
   if (!v10)
   {
-    v56[0] = @"assets";
-    v56[1] = appearanceCopy;
-    v56[2] = @"identifier";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
+    v140[0] = @"assets";
+    v140[1] = appearanceCopy;
+    v140[2] = @"identifier";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:3];
+    v12 = [v11 componentsJoinedByString:@"."];
+    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
+  }
+
+  v135 = v10;
+  integerValue = [v10 integerValue];
+  objc_opt_class();
+  v13 = [dictionaryCopy objectForKeyedSubscript:@"name"];
+  if (v13)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (!v15)
+  {
+    v139[0] = @"assets";
+    v139[1] = appearanceCopy;
+    v139[2] = @"name";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:3];
+    v17 = [v16 componentsJoinedByString:@"."];
+    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
+  }
+
+  objc_opt_class();
+  v18 = [dictionaryCopy objectForKeyedSubscript:@"backgroundThumbnailImageFileName"];
+  if (v18)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v19 = v18;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    v20 = v19;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v21 = 0x1E696A000uLL;
+  v132 = v20;
+  if (v20)
+  {
+    bundleURL = [(WKWallpaperBundle *)self bundleURL];
+    v23 = [bundleURL URLByAppendingPathComponent:v20];
+
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    path = [v23 path];
+    v26 = [defaultManager fileExistsAtPath:path];
+
+    if ((v26 & 1) == 0)
+    {
+      v27 = MEMORY[0x1E695DF30];
+      v28 = *MEMORY[0x1E695D940];
+      v29 = MEMORY[0x1E696AEC0];
+      v30 = objc_opt_class();
+      NSStringFromClass(v30);
+      v31 = v15;
+      v33 = v32 = appearanceCopy;
+      [v23 path];
+      v35 = v34 = v23;
+      v36 = [v29 stringWithFormat:@"%@: Background thumbnail asset does not exist at path '%@'", v33, v35];
+      v37 = [v27 exceptionWithName:v28 reason:v36 userInfo:0];
+
+      v23 = v34;
+      v21 = 0x1E696A000;
+
+      appearanceCopy = v32;
+      v15 = v31;
+      [v37 raise];
+    }
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  objc_opt_class();
+  v38 = [dictionaryCopy objectForKeyedSubscript:@"foregroundThumbnailImageFileName"];
+  if (v38)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v39 = v38;
+    }
+
+    else
+    {
+      v39 = 0;
+    }
+
+    v40 = v39;
+  }
+
+  else
+  {
+    v40 = 0;
+  }
+
+  v130 = v40;
+  v131 = v23;
+  selfCopy = self;
+  if (v40)
+  {
+    bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
+    v42 = [bundleURL2 URLByAppendingPathComponent:v40];
+
+    defaultManager2 = [*(v21 + 3080) defaultManager];
+    path2 = [v42 path];
+    v45 = [defaultManager2 fileExistsAtPath:path2];
+
+    if ((v45 & 1) == 0)
+    {
+      v46 = MEMORY[0x1E695DF30];
+      v47 = *MEMORY[0x1E695D940];
+      v48 = MEMORY[0x1E696AEC0];
+      v49 = objc_opt_class();
+      NSStringFromClass(v49);
+      v50 = v15;
+      v52 = v51 = appearanceCopy;
+      path3 = [v42 path];
+      v54 = [v48 stringWithFormat:@"%@: Foreground thumbnail asset does not exist at path '%@'", v52, path3];
+      v55 = [v46 exceptionWithName:v47 reason:v54 userInfo:0];
+
+      appearanceCopy = v51;
+      v15 = v50;
+      self = selfCopy;
+      [v55 raise];
+    }
+  }
+
+  else
+  {
+    v42 = 0;
+  }
+
+  objc_opt_class();
+  v56 = [dictionaryCopy objectForKeyedSubscript:@"floatingThumbnailImageFileName"];
+  if (v56)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v57 = v56;
+    }
+
+    else
+    {
+      v57 = 0;
+    }
+
+    v58 = v57;
+  }
+
+  else
+  {
+    v58 = 0;
+  }
+
+  v129 = v42;
+
+  v136 = appearanceCopy;
+  v134 = v15;
+  v128 = v58;
+  if (v58)
+  {
+    bundleURL3 = [(WKWallpaperBundle *)self bundleURL];
+    v60 = [bundleURL3 URLByAppendingPathComponent:v58];
+
+    defaultManager3 = [*(v21 + 3080) defaultManager];
+    path4 = [v60 path];
+    v63 = [defaultManager3 fileExistsAtPath:path4];
+
+    if ((v63 & 1) == 0)
+    {
+      v64 = MEMORY[0x1E695DF30];
+      v65 = *MEMORY[0x1E695D940];
+      v66 = MEMORY[0x1E696AEC0];
+      v67 = objc_opt_class();
+      v68 = NSStringFromClass(v67);
+      path5 = [v60 path];
+      v70 = [v66 stringWithFormat:@"%@: Floating thumbnail asset does not exist at path '%@'", v68, path5];
+      v71 = [v64 exceptionWithName:v65 reason:v70 userInfo:0];
+
+      v21 = 0x1E696A000;
+      [v71 raise];
+    }
+  }
+
+  else
+  {
+    v60 = 0;
+  }
+
+  objc_opt_class();
+  v72 = [dictionaryCopy objectForKeyedSubscript:@"backgroundFullSizeImageFileName"];
+  if (v72)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v73 = v72;
+    }
+
+    else
+    {
+      v73 = 0;
+    }
+
+    v74 = v73;
+  }
+
+  else
+  {
+    v74 = 0;
+  }
+
+  if (v74)
+  {
+    bundleURL4 = [(WKWallpaperBundle *)self bundleURL];
+    v76 = [bundleURL4 URLByAppendingPathComponent:v74];
+
+    defaultManager4 = [*(v21 + 3080) defaultManager];
+    path6 = [v76 path];
+    v79 = [defaultManager4 fileExistsAtPath:path6];
+
+    if ((v79 & 1) == 0)
+    {
+      v80 = MEMORY[0x1E695DF30];
+      v81 = *MEMORY[0x1E695D940];
+      v82 = MEMORY[0x1E696AEC0];
+      v83 = objc_opt_class();
+      v84 = NSStringFromClass(v83);
+      [v76 path];
+      v86 = v85 = v60;
+      v87 = [v82 stringWithFormat:@"%@: Background full size asset does not exist at path '%@'", v84, v86];
+      v88 = [v80 exceptionWithName:v81 reason:v87 userInfo:0];
+
+      v60 = v85;
+      self = selfCopy;
+      [v88 raise];
+    }
+  }
+
+  else
+  {
+    v76 = 0;
+  }
+
+  objc_opt_class();
+  v89 = [dictionaryCopy objectForKeyedSubscript:@"foregroundFullSizeImageFileName"];
+  if (v89)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v90 = v89;
+    }
+
+    else
+    {
+      v90 = 0;
+    }
+
+    v91 = v90;
+  }
+
+  else
+  {
+    v91 = 0;
+  }
+
+  v138 = dictionaryCopy;
+  v92 = v76;
+  v127 = v91;
+  if (v91)
+  {
+    v93 = v60;
+    bundleURL5 = [(WKWallpaperBundle *)self bundleURL];
+    v95 = [bundleURL5 URLByAppendingPathComponent:v91];
+
+    defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
+    path7 = [v95 path];
+    v98 = [defaultManager5 fileExistsAtPath:path7];
+
+    if ((v98 & 1) == 0)
+    {
+      v99 = MEMORY[0x1E695DF30];
+      v100 = *MEMORY[0x1E695D940];
+      v101 = MEMORY[0x1E696AEC0];
+      v102 = objc_opt_class();
+      v103 = NSStringFromClass(v102);
+      path8 = [v95 path];
+      v104 = [v101 stringWithFormat:@"%@: Foreground full size asset does not exist at path '%@'", v103, path8];
+      v106 = [v99 exceptionWithName:v100 reason:v104 userInfo:0];
+
+      dictionaryCopy = v138;
+      [v106 raise];
+    }
+
+    v60 = v93;
+  }
+
+  else
+  {
+    v95 = 0;
+  }
+
+  objc_opt_class();
+  v107 = [dictionaryCopy objectForKeyedSubscript:@"floatingFullSizeImageFileName"];
+  if (v107)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v108 = v107;
+    }
+
+    else
+    {
+      v108 = 0;
+    }
+
+    v109 = v108;
+  }
+
+  else
+  {
+    v109 = 0;
+  }
+
+  if (v109)
+  {
+    v126 = v74;
+    v110 = v60;
+    bundleURL6 = [(WKWallpaperBundle *)selfCopy bundleURL];
+    v112 = [bundleURL6 URLByAppendingPathComponent:v109];
+
+    defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
+    path9 = [v112 path];
+    v115 = [defaultManager6 fileExistsAtPath:path9];
+
+    if ((v115 & 1) == 0)
+    {
+      v116 = MEMORY[0x1E695DF30];
+      v117 = *MEMORY[0x1E695D940];
+      v118 = MEMORY[0x1E696AEC0];
+      v119 = objc_opt_class();
+      v120 = NSStringFromClass(v119);
+      path10 = [v112 path];
+      v121 = [v118 stringWithFormat:@"%@: Floating full size asset does not exist at path '%@'", v120, path10];
+      v123 = [v116 exceptionWithName:v117 reason:v121 userInfo:0];
+
+      [v123 raise];
+    }
+
+    v60 = v110;
+    v74 = v126;
+  }
+
+  else
+  {
+    v112 = 0;
+  }
+
+  v124 = [[WKLayeredStillWallpaper alloc] initWithIdentifier:integerValue name:v134 backgroundThumbnailImageURL:v131 foregroundThumbnailImageURL:v129 floatingThumbnailImageURL:v60 backgroundFullSizeImageURL:v92 foregroundFullSizeImageURL:v95 floatingFullSizeImageURL:v112];
+
+  return v124;
+}
+
+- (id)_layeredStripeWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
+{
+  v55[3] = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  appearanceCopy = appearance;
+  objc_opt_class();
+  v8 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
+  if (v8)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if (!v10)
+  {
+    v55[0] = @"assets";
+    v55[1] = appearanceCopy;
+    v55[2] = @"identifier";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
     v12 = [v11 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
   }
@@ -2241,10 +2204,10 @@ LABEL_14:
 
   if (!v15)
   {
-    v55[0] = @"assets";
-    v55[1] = appearanceCopy;
-    v55[2] = @"name";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:3];
+    v54[0] = @"assets";
+    v54[1] = appearanceCopy;
+    v54[2] = @"name";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
     v17 = [v16 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
   }
@@ -2271,14 +2234,14 @@ LABEL_14:
     v20 = 0;
   }
 
-  v51 = v10;
+  v50 = v10;
 
   if (!v20)
   {
-    v54[0] = @"assets";
-    v54[1] = appearanceCopy;
-    v54[2] = @"backgroundColor";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:3];
+    v53[0] = @"assets";
+    v53[1] = appearanceCopy;
+    v53[2] = @"backgroundColor";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:3];
     v22 = [v21 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v22];
   }
@@ -2309,10 +2272,10 @@ LABEL_14:
 
   if (!v27)
   {
-    v53[0] = @"assets";
-    v53[1] = v23;
-    v53[2] = @"stripeAngleDegrees";
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:3];
+    v52[0] = @"assets";
+    v52[1] = v23;
+    v52[2] = @"stripeAngleDegrees";
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:3];
     v29 = [v28 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v29];
   }
@@ -2341,10 +2304,10 @@ LABEL_14:
 
   if (!v32)
   {
-    v52[0] = @"assets";
-    v52[1] = v23;
-    v52[2] = @"stripeHeightFactor";
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:3];
+    v51[0] = @"assets";
+    v51[1] = v23;
+    v51[2] = @"stripeHeightFactor";
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
     v34 = [v33 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v34];
   }
@@ -2409,14 +2372,12 @@ LABEL_14:
   [v40 doubleValue];
   v47 = [(WKLayeredStripeWallpaper *)v41 initWithIdentifier:integerValue name:v15 backgroundColor:v24 stripeAngleDegrees:v43 stripeHeightFactor:v45 firstStripeOffsetScaleFactor:v46];
 
-  v48 = *MEMORY[0x1E69E9840];
-
   return v47;
 }
 
 - (id)_bokehWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v72[3] = *MEMORY[0x1E69E9840];
+  v71[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -2443,15 +2404,15 @@ LABEL_14:
 
   if (!v10)
   {
-    v72[0] = @"assets";
-    v72[1] = appearanceCopy;
-    v72[2] = @"identifier";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:3];
+    v71[0] = @"assets";
+    v71[1] = appearanceCopy;
+    v71[2] = @"identifier";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:3];
     v12 = [v11 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
   }
 
-  v64 = v10;
+  v63 = v10;
   integerValue = [v10 integerValue];
   objc_opt_class();
   v13 = [dictionaryCopy objectForKeyedSubscript:@"name"];
@@ -2475,13 +2436,13 @@ LABEL_14:
     v15 = 0;
   }
 
-  v63 = v15;
+  v62 = v15;
   if (!v15)
   {
-    v71[0] = @"assets";
-    v71[1] = appearanceCopy;
-    v71[2] = @"name";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:3];
+    v70[0] = @"assets";
+    v70[1] = appearanceCopy;
+    v70[2] = @"name";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:3];
     v17 = [v16 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
   }
@@ -2510,16 +2471,16 @@ LABEL_14:
 
   if (!v20)
   {
-    v70[0] = @"assets";
-    v70[1] = appearanceCopy;
-    v70[2] = @"backgroundColors";
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:3];
+    v69[0] = @"assets";
+    v69[1] = appearanceCopy;
+    v69[2] = @"backgroundColors";
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:3];
     v22 = [v21 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v22];
   }
 
-  v61 = v20;
-  v60 = [v20 na_map:&__block_literal_global_277];
+  v60 = v20;
+  v59 = [v20 na_map:&__block_literal_global_277];
   objc_opt_class();
   v23 = [dictionaryCopy objectForKeyedSubscript:@"bubbleColors"];
   if (v23)
@@ -2544,16 +2505,16 @@ LABEL_14:
 
   if (!v25)
   {
-    v69[0] = @"assets";
-    v69[1] = appearanceCopy;
-    v69[2] = @"bubbleColors";
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:3];
+    v68[0] = @"assets";
+    v68[1] = appearanceCopy;
+    v68[2] = @"bubbleColors";
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:3];
     v27 = [v26 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v27];
   }
 
-  v58 = v25;
-  v59 = [v25 na_map:&__block_literal_global_279];
+  v57 = v25;
+  v58 = [v25 na_map:&__block_literal_global_279];
   objc_opt_class();
   v28 = [dictionaryCopy objectForKeyedSubscript:@"bubbleCount"];
   if (v28)
@@ -2578,10 +2539,10 @@ LABEL_14:
 
   if (!v30)
   {
-    v68[0] = @"assets";
-    v68[1] = appearanceCopy;
-    v68[2] = @"bubbleCount";
-    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:3];
+    v67[0] = @"assets";
+    v67[1] = appearanceCopy;
+    v67[2] = @"bubbleCount";
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:3];
     v32 = [v31 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v32];
   }
@@ -2610,10 +2571,10 @@ LABEL_14:
 
   if (!v35)
   {
-    v67[0] = @"assets";
-    v67[1] = appearanceCopy;
-    v67[2] = @"bubbleScale";
-    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:3];
+    v66[0] = @"assets";
+    v66[1] = appearanceCopy;
+    v66[2] = @"bubbleScale";
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:3];
     v37 = [v36 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v37];
   }
@@ -2644,10 +2605,10 @@ LABEL_14:
 
   if (!v42)
   {
-    v66[0] = @"assets";
-    v66[1] = appearanceCopy;
-    v66[2] = @"parallaxMultiplier";
-    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:3];
+    v65[0] = @"assets";
+    v65[1] = appearanceCopy;
+    v65[2] = @"parallaxMultiplier";
+    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:3];
     v44 = [v43 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)selfCopy _raiseInvalidMetadataExceptionForMetadataKeypath:v44];
   }
@@ -2676,10 +2637,10 @@ LABEL_14:
 
   if (!v47)
   {
-    v65[0] = @"assets";
-    v65[1] = v39;
-    v65[2] = @"thumbnailSeed";
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:3];
+    v64[0] = @"assets";
+    v64[1] = v39;
+    v64[2] = @"thumbnailSeed";
+    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:3];
     v49 = [v48 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)selfCopy _raiseInvalidMetadataExceptionForMetadataKeypath:v49];
   }
@@ -2689,9 +2650,7 @@ LABEL_14:
   [v35 doubleValue];
   v53 = v52;
   [v42 doubleValue];
-  v55 = -[WKBokehWallpaper initWithIdentifier:name:backgroundColors:bubbleColors:bubbleCount:bubbleScale:parallaxMultiplier:thumbnailSeed:](v50, "initWithIdentifier:name:backgroundColors:bubbleColors:bubbleCount:bubbleScale:parallaxMultiplier:thumbnailSeed:", integerValue, v63, v60, v59, integerValue2, [v47 integerValue], v53, v54);
-
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = -[WKBokehWallpaper initWithIdentifier:name:backgroundColors:bubbleColors:bubbleCount:bubbleScale:parallaxMultiplier:thumbnailSeed:](v50, "initWithIdentifier:name:backgroundColors:bubbleColors:bubbleCount:bubbleScale:parallaxMultiplier:thumbnailSeed:", integerValue, v62, v59, v58, integerValue2, [v47 integerValue], v53, v54);
 
   return v55;
 }
@@ -2758,7 +2717,7 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
 - (id)_layeredAnimationWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v80[3] = *MEMORY[0x1E69E9840];
+  v77[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -2785,118 +2744,146 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
   if (!v9)
   {
-    v80[0] = @"assets";
-    v80[1] = appearanceCopy;
-    v80[2] = @"identifier";
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:3];
+    v77[0] = @"assets";
+    v77[1] = appearanceCopy;
+    v77[2] = @"identifier";
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:3];
     v11 = [v10 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v11];
   }
 
   integerValue = [v9 integerValue];
-  v12 = 0x1E696A000uLL;
   objc_opt_class();
-  v13 = [dictionaryCopy objectForKeyedSubscript:@"name"];
-  if (v13)
+  v12 = [dictionaryCopy objectForKeyedSubscript:@"name"];
+  if (v12)
   {
     if (objc_opt_isKindOfClass())
     {
-      v14 = v13;
+      v13 = v12;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v15 = v14;
+    v14 = v13;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  if (!v15)
+  if (!v14)
   {
-    v79[0] = @"assets";
-    v79[1] = appearanceCopy;
-    v79[2] = @"name";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:3];
-    v17 = [v16 componentsJoinedByString:@"."];
-    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v17];
+    v76[0] = @"assets";
+    v76[1] = appearanceCopy;
+    v76[2] = @"name";
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:3];
+    v16 = [v15 componentsJoinedByString:@"."];
+    [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v16];
   }
 
   objc_opt_class();
-  v18 = [dictionaryCopy objectForKeyedSubscript:@"backgroundAnimationFileName"];
-  if (v18)
+  v17 = [dictionaryCopy objectForKeyedSubscript:@"backgroundAnimationFileName"];
+  if (v17)
   {
     if (objc_opt_isKindOfClass())
     {
-      v19 = v18;
+      v18 = v17;
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v20 = v19;
+    v19 = v18;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v76 = v20;
-  v77 = v15;
-  if (v20)
+  v73 = v19;
+  v74 = v14;
+  if (v19)
   {
     bundleURL = [(WKWallpaperBundle *)self bundleURL];
-    v22 = [bundleURL URLByAppendingPathComponent:v20];
+    v21 = [bundleURL URLByAppendingPathComponent:v19];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    path = [v22 path];
-    v25 = [defaultManager fileExistsAtPath:path];
+    path = [v21 path];
+    v24 = [defaultManager fileExistsAtPath:path];
 
-    if ((v25 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
-      v26 = MEMORY[0x1E695DF30];
-      v27 = *MEMORY[0x1E695D940];
-      v28 = MEMORY[0x1E696AEC0];
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
-      path2 = [v22 path];
-      v32 = [v28 stringWithFormat:@"%@: Background animation asset does not exist at path '%@'", v30, path2];
-      v33 = [v26 exceptionWithName:v27 reason:v32 userInfo:0];
+      v25 = MEMORY[0x1E695DF30];
+      v26 = *MEMORY[0x1E695D940];
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
+      path2 = [v21 path];
+      v31 = [v27 stringWithFormat:@"%@: Background animation asset does not exist at path '%@'", v29, path2];
+      v32 = [v25 exceptionWithName:v26 reason:v31 userInfo:0];
 
-      v12 = 0x1E696A000;
-      [v33 raise];
+      [v32 raise];
     }
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  v34 = *(v12 + 3776);
   objc_opt_class();
-  v35 = [dictionaryCopy objectForKeyedSubscript:@"foregroundAnimationFileName"];
-  if (v35)
+  v33 = [dictionaryCopy objectForKeyedSubscript:@"foregroundAnimationFileName"];
+  if (v33)
   {
     if (objc_opt_isKindOfClass())
     {
-      v36 = v35;
+      v34 = v33;
     }
 
     else
     {
-      v36 = 0;
+      v34 = 0;
     }
 
-    v37 = v36;
+    v35 = v34;
+  }
+
+  else
+  {
+    v35 = 0;
+  }
+
+  if (v35)
+  {
+    bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
+    v37 = [bundleURL2 URLByAppendingPathComponent:v35];
+
+    defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
+    path3 = [v37 path];
+    v40 = [defaultManager2 fileExistsAtPath:path3];
+
+    if ((v40 & 1) == 0)
+    {
+      v68 = MEMORY[0x1E695DF30];
+      v41 = *MEMORY[0x1E695D940];
+      v42 = MEMORY[0x1E696AEC0];
+      v43 = objc_opt_class();
+      NSStringFromClass(v43);
+      v44 = v70 = v21;
+      path4 = [v37 path];
+      v46 = [v42 stringWithFormat:@"%@: Foreground animation asset does not exist at path '%@'", v44, path4];
+      v47 = [v68 exceptionWithName:v41 reason:v46 userInfo:0];
+
+      v21 = v70;
+      [v47 raise];
+    }
   }
 
   else
@@ -2904,107 +2891,74 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
     v37 = 0;
   }
 
-  if (v37)
-  {
-    bundleURL2 = [(WKWallpaperBundle *)self bundleURL];
-    v39 = [bundleURL2 URLByAppendingPathComponent:v37];
-
-    defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    path3 = [v39 path];
-    v42 = [defaultManager2 fileExistsAtPath:path3];
-
-    if ((v42 & 1) == 0)
-    {
-      v71 = MEMORY[0x1E695DF30];
-      v43 = *MEMORY[0x1E695D940];
-      v44 = MEMORY[0x1E696AEC0];
-      v45 = objc_opt_class();
-      NSStringFromClass(v45);
-      v46 = v73 = v22;
-      path4 = [v39 path];
-      v48 = [v44 stringWithFormat:@"%@: Foreground animation asset does not exist at path '%@'", v46, path4];
-      v49 = [v71 exceptionWithName:v43 reason:v48 userInfo:0];
-
-      v22 = v73;
-      [v49 raise];
-    }
-  }
-
-  else
-  {
-    v39 = 0;
-  }
-
   objc_opt_class();
-  v50 = [dictionaryCopy objectForKeyedSubscript:@"floatingAnimationFileNameKey"];
-  if (v50)
+  v48 = [dictionaryCopy objectForKeyedSubscript:@"floatingAnimationFileNameKey"];
+  if (v48)
   {
     if (objc_opt_isKindOfClass())
     {
-      v51 = v50;
+      v49 = v48;
     }
 
     else
     {
-      v51 = 0;
+      v49 = 0;
     }
 
-    v52 = v51;
+    v50 = v49;
   }
 
   else
   {
-    v52 = 0;
+    v50 = 0;
   }
 
-  if (v52)
+  if (v50)
   {
-    v72 = v37;
-    v74 = dictionaryCopy;
-    v53 = v22;
+    v69 = v35;
+    v71 = dictionaryCopy;
+    v51 = v21;
     bundleURL3 = [(WKWallpaperBundle *)self bundleURL];
-    v55 = [bundleURL3 URLByAppendingPathComponent:v52];
+    v53 = [bundleURL3 URLByAppendingPathComponent:v50];
 
     defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-    path5 = [v55 path];
-    v58 = [defaultManager3 fileExistsAtPath:path5];
+    path5 = [v53 path];
+    v56 = [defaultManager3 fileExistsAtPath:path5];
 
-    if ((v58 & 1) == 0)
+    if ((v56 & 1) == 0)
     {
-      v59 = MEMORY[0x1E695DF30];
-      v60 = *MEMORY[0x1E695D940];
-      v61 = MEMORY[0x1E696AEC0];
-      v62 = objc_opt_class();
-      v63 = NSStringFromClass(v62);
-      [v55 path];
-      v65 = v64 = v9;
-      v66 = [v61 stringWithFormat:@"%@: Floating animation asset does not exist at path '%@'", v63, v65];
-      v67 = [v59 exceptionWithName:v60 reason:v66 userInfo:0];
+      v57 = MEMORY[0x1E695DF30];
+      v58 = *MEMORY[0x1E695D940];
+      v59 = MEMORY[0x1E696AEC0];
+      v60 = objc_opt_class();
+      v61 = NSStringFromClass(v60);
+      [v53 path];
+      v63 = v62 = v9;
+      v64 = [v59 stringWithFormat:@"%@: Floating animation asset does not exist at path '%@'", v61, v63];
+      v65 = [v57 exceptionWithName:v58 reason:v64 userInfo:0];
 
-      v9 = v64;
-      [v67 raise];
+      v9 = v62;
+      [v65 raise];
     }
 
-    v22 = v53;
-    v37 = v72;
-    dictionaryCopy = v74;
+    v21 = v51;
+    v35 = v69;
+    dictionaryCopy = v71;
   }
 
   else
   {
-    v55 = 0;
+    v53 = 0;
   }
 
-  v68 = [[WKLayeredAnimationWallpaper alloc] initWithIdentifier:integerValue name:v77 backgroundAnimationFileURL:v22 foregroundAnimationFileURL:v39 floatingAnimationFileURL:v55];
+  v66 = [[WKLayeredAnimationWallpaper alloc] initWithIdentifier:integerValue name:v74 backgroundAnimationFileURL:v21 foregroundAnimationFileURL:v37 floatingAnimationFileURL:v53];
 
-  v69 = *MEMORY[0x1E69E9840];
-
-  return v68;
+  return v66;
 }
 
 - (id)_parameterizedCAWallpaperWithMetadataDictionary:(id)dictionary wallpaperAppearance:(id)appearance
 {
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   appearanceCopy = appearance;
   objc_opt_class();
@@ -3031,10 +2985,10 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
   if (!v10)
   {
-    v41[0] = @"assets";
-    v41[1] = appearanceCopy;
-    v41[2] = @"identifier";
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:3];
+    v40[0] = @"assets";
+    v40[1] = appearanceCopy;
+    v40[2] = @"identifier";
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
     v12 = [v11 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v12];
   }
@@ -3064,10 +3018,10 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
   if (!v16)
   {
-    v40[0] = @"assets";
-    v40[1] = appearanceCopy;
-    v40[2] = @"name";
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:3];
+    v39[0] = @"assets";
+    v39[1] = appearanceCopy;
+    v39[2] = @"name";
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:3];
     v18 = [v17 componentsJoinedByString:@"."];
     [(WKWallpaperBundle *)self _raiseInvalidMetadataExceptionForMetadataKeypath:v18];
   }
@@ -3096,8 +3050,8 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
   if (v21)
   {
-    v38 = integerValue;
-    v39 = appearanceCopy;
+    v37 = integerValue;
+    v38 = appearanceCopy;
     bundleURL = [(WKWallpaperBundle *)self bundleURL];
     v23 = [bundleURL URLByAppendingPathComponent:v21];
 
@@ -3119,8 +3073,8 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
       [v34 raise];
     }
 
-    integerValue = v38;
-    appearanceCopy = v39;
+    integerValue = v37;
+    appearanceCopy = v38;
   }
 
   else
@@ -3130,21 +3084,19 @@ id __79__WKWallpaperBundle__bokehWallpaperWithMetadataDictionary_wallpaperAppear
 
   v35 = [[WKParameterizedCAWallpaper alloc] initWithIdentifier:integerValue name:v16 fileURL:v23];
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
-id __32__WKWallpaperBundle_na_identity__block_invoke()
+id __32__WKWallpaperBundle_na_identity__block_invoke(uint64_t a1)
 {
   if (WKWallpaperMetadataOptionPreferredTitleColorKey_block_invoke_na_once_token_21 != -1)
   {
     __32__WKWallpaperBundle_na_identity__block_invoke_cold_1();
   }
 
-  v1 = WKWallpaperMetadataOptionPreferredTitleColorKey_block_invoke_na_once_object_21;
+  v2 = WKWallpaperMetadataOptionPreferredTitleColorKey_block_invoke_na_once_object_21;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_2()
@@ -3246,7 +3198,7 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
 + (id)_createWallpaperBundleInDirectory:(id)directory version:(int64_t)version identifier:(int64_t)identifier name:(id)name family:(id)family wantsDeviceMotion:(BOOL)motion isOffloaded:(BOOL)offloaded logicalScreenClass:(id)self0 thumbnailImageURL:(id)self1 adjustmentTraits:(id)self2 preferredProminentColors:(id)self3 preferredTitleColors:(id)self4 assetMapping:(id)self5
 {
   motionCopy = motion;
-  v102 = *MEMORY[0x1E69E9840];
+  v101 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   nameCopy = name;
   familyCopy = family;
@@ -3260,13 +3212,13 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    v73 = [uUIDString stringByAppendingPathExtension:@"wallpaper"];
+    v72 = [uUIDString stringByAppendingPathExtension:@"wallpaper"];
 
-    v82 = [directoryCopy URLByAppendingPathComponent:v73 isDirectory:1];
+    v81 = [directoryCopy URLByAppendingPathComponent:v72 isDirectory:1];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v98 = 0;
-    v22 = [defaultManager createDirectoryAtURL:v82 withIntermediateDirectories:1 attributes:0 error:&v98];
-    v23 = v98;
+    v97 = 0;
+    v22 = [defaultManager createDirectoryAtURL:v81 withIntermediateDirectories:1 attributes:0 error:&v97];
+    v23 = v97;
 
     if ((v22 & 1) == 0)
     {
@@ -3284,17 +3236,17 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
     aBlock[1] = 3221225472;
     aBlock[2] = __229__WKWallpaperBundle__createWallpaperBundleInDirectory_version_identifier_name_family_wantsDeviceMotion_isOffloaded_logicalScreenClass_thumbnailImageURL_adjustmentTraits_preferredProminentColors_preferredTitleColors_assetMapping___block_invoke_342;
     aBlock[3] = &unk_1E8766A98;
-    v97 = 0;
-    aBlock[4] = v82;
-    v69 = _Block_copy(aBlock);
+    v96 = 0;
+    aBlock[4] = v81;
+    v68 = _Block_copy(aBlock);
     if (lCopy)
     {
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
       lastPathComponent = [lCopy lastPathComponent];
-      v26 = [v82 URLByAppendingPathComponent:lastPathComponent];
-      v95 = v23;
-      v27 = [defaultManager2 copyItemAtURL:lCopy toURL:v26 error:&v95];
-      v28 = v95;
+      v26 = [v81 URLByAppendingPathComponent:lastPathComponent];
+      v94 = v23;
+      v27 = [defaultManager2 copyItemAtURL:lCopy toURL:v26 error:&v94];
+      v28 = v94;
 
       if ((v27 & 1) == 0)
       {
@@ -3389,10 +3341,10 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
     propertyListRepresentation = [traitsCopy propertyListRepresentation];
     [dictionary na_safeSetObject:propertyListRepresentation forKey:@"adjustments"];
 
-    v70 = [v82 URLByAppendingPathComponent:@"Wallpaper.plist"];
-    v94 = 0;
-    v68 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:100 options:0 error:&v94];
-    v28 = v94;
+    v69 = [v81 URLByAppendingPathComponent:@"Wallpaper.plist"];
+    v93 = 0;
+    v67 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:100 options:0 error:&v93];
+    v28 = v93;
 
     if (v28)
     {
@@ -3405,55 +3357,55 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
 
     else
     {
-      v93 = 0;
-      v51 = [v68 writeToURL:v70 options:1 error:&v93];
-      v28 = v93;
+      v92 = 0;
+      v51 = [v67 writeToURL:v69 options:1 error:&v92];
+      v28 = v92;
       if (v51)
       {
-        v91 = 0u;
-        v92 = 0u;
-        v89 = 0u;
         v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         v50 = mappingCopy;
-        v52 = [v50 countByEnumeratingWithState:&v89 objects:v100 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v88 objects:v99 count:16];
         if (v52)
         {
-          v53 = *v90;
-          v65 = *v90;
+          v53 = *v89;
+          v64 = *v89;
           do
           {
-            v66 = v52;
-            for (i = 0; i != v66; ++i)
+            v65 = v52;
+            for (i = 0; i != v65; ++i)
             {
-              if (*v90 != v53)
+              if (*v89 != v53)
               {
                 objc_enumerationMutation(v50);
               }
 
-              v54 = [v50 objectForKeyedSubscript:*(*(&v89 + 1) + 8 * i)];
-              v87 = 0u;
-              v88 = 0u;
-              v85 = 0u;
+              v54 = [v50 objectForKeyedSubscript:*(*(&v88 + 1) + 8 * i)];
               v86 = 0u;
+              v87 = 0u;
+              v84 = 0u;
+              v85 = 0u;
               v55 = v54;
-              v56 = [v55 countByEnumeratingWithState:&v85 objects:v99 count:16];
+              v56 = [v55 countByEnumeratingWithState:&v84 objects:v98 count:16];
               if (v56)
               {
-                v57 = *v86;
+                v57 = *v85;
                 v58 = v28;
                 while (2)
                 {
                   for (j = 0; j != v56; ++j)
                   {
-                    if (*v86 != v57)
+                    if (*v85 != v57)
                     {
                       objc_enumerationMutation(v55);
                     }
 
-                    v60 = [v55 objectForKeyedSubscript:*(*(&v85 + 1) + 8 * j)];
-                    v84 = v58;
-                    [v60 copyWallpaperContentsToDestinationDirectoryURL:v82 error:&v84];
-                    v28 = v84;
+                    v60 = [v55 objectForKeyedSubscript:*(*(&v84 + 1) + 8 * j)];
+                    v83 = v58;
+                    [v60 copyWallpaperContentsToDestinationDirectoryURL:v81 error:&v83];
+                    v28 = v83;
 
                     if (v28)
                     {
@@ -3469,7 +3421,7 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
                     v58 = 0;
                   }
 
-                  v56 = [v55 countByEnumeratingWithState:&v85 objects:v99 count:16];
+                  v56 = [v55 countByEnumeratingWithState:&v84 objects:v98 count:16];
                   v58 = 0;
                   v28 = 0;
                   if (v56)
@@ -3481,23 +3433,23 @@ uint64_t __32__WKWallpaperBundle_na_identity__block_invoke_15(uint64_t a1, void 
                 }
               }
 
-              v53 = v65;
+              v53 = v64;
             }
 
-            v52 = [v50 countByEnumeratingWithState:&v89 objects:v100 count:16];
+            v52 = [v50 countByEnumeratingWithState:&v88 objects:v99 count:16];
           }
 
           while (v52);
         }
 
-        v37 = [[WKWallpaperBundle alloc] initWithURL:v82];
+        v37 = [[WKWallpaperBundle alloc] initWithURL:v81];
         goto LABEL_52;
       }
 
       v50 = WKLogForCategory(3uLL);
       if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        path = [v70 path];
+        path = [v69 path];
         [WKWallpaperBundle _createWallpaperBundleInDirectory:path version:v28 identifier:buf name:v50 family:? wantsDeviceMotion:? isOffloaded:? logicalScreenClass:? thumbnailImageURL:? adjustmentTraits:? preferredProminentColors:? preferredTitleColors:? assetMapping:?];
       }
     }
@@ -3508,7 +3460,7 @@ LABEL_51:
 LABEL_52:
 
 LABEL_53:
-    v69[2]();
+    v68[2]();
 
     v23 = v28;
 LABEL_54:
@@ -3532,8 +3484,6 @@ LABEL_54:
   }
 
 LABEL_55:
-
-  v63 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
@@ -3622,7 +3572,7 @@ void __42__WKWallpaperBundle_wk_descriptionBuilder__block_invoke(uint64_t a1)
 
 void __44__WKWallpaperBundle_descriptionBuilderBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained identifierString];
@@ -3649,163 +3599,148 @@ void __44__WKWallpaperBundle_descriptionBuilderBlock__block_invoke(uint64_t a1, 
   v16 = [v3 appendObject:v15 withName:@"adjustmentTraits"];
 
   v17 = [WeakRetained preferredTitleColors];
-  v40 = v3;
+  v39 = v3;
   v18 = [v3 appendObject:v17 withName:@"preferredTitleColors"];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = [WeakRetained _wallpaperAssetLookup];
-  v37 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  if (v36)
   {
-    v36 = *v46;
+    v35 = *v45;
     do
     {
       v19 = 0;
       do
       {
-        if (*v46 != v36)
+        if (*v45 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v38 = v19;
-        v20 = *(*(&v45 + 1) + 8 * v19);
+        v37 = v19;
+        v20 = *(*(&v44 + 1) + 8 * v19);
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
         v21 = [WeakRetained _wallpaperAssetLookup];
         v22 = [v21 objectForKeyedSubscript:v20];
 
-        v39 = v22;
-        v23 = [v22 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v38 = v22;
+        v23 = [v22 countByEnumeratingWithState:&v40 objects:v49 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v42;
+          v25 = *v41;
           do
           {
             v26 = 0;
             do
             {
-              if (*v42 != v25)
+              if (*v41 != v25)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v38);
               }
 
-              v27 = *(*(&v41 + 1) + 8 * v26);
+              v27 = *(*(&v40 + 1) + 8 * v26);
               v28 = [WeakRetained _wallpaperAssetLookup];
               v29 = [v28 objectForKeyedSubscript:v20];
               v30 = [v29 objectForKeyedSubscript:v27];
-              v49[0] = @"_wallpaperAssetLookup";
-              v49[1] = v20;
-              v49[2] = v27;
-              v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:3];
+              v48[0] = @"_wallpaperAssetLookup";
+              v48[1] = v20;
+              v48[2] = v27;
+              v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:3];
               v32 = [v31 componentsJoinedByString:@"."];
-              v33 = [v40 appendObject:v30 withName:v32];
+              v33 = [v39 appendObject:v30 withName:v32];
 
               ++v26;
             }
 
             while (v24 != v26);
-            v24 = [v39 countByEnumeratingWithState:&v41 objects:v50 count:16];
+            v24 = [v38 countByEnumeratingWithState:&v40 objects:v49 count:16];
           }
 
           while (v24);
         }
 
-        v19 = v38 + 1;
+        v19 = v37 + 1;
       }
 
-      while (v38 + 1 != v37);
-      v37 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      while (v37 + 1 != v36);
+      v36 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithURL:.cold.1()
+- (void)initWithURL:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_3(&dword_1E4A23000, v2, v3, "%{public}@: Wallpaper bundle does not exist at URL '%{public}@', returning nil.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1E4A23000, v4, v5, "%{public}@: Wallpaper bundle does not exist at URL '%{public}@', returning nil.", v6, v7, v8, v9);
 }
 
 + (void)shouldLoadWallpaperBundleAtURL:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: URL does not have valid path extension ('.wallpaper') '%{public}@.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: URL does not have valid path extension ('.wallpaper') '%{public}@.", v2, v3, v4, v5, v6);
 }
 
 + (void)shouldLoadWallpaperBundleAtURL:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: No wallpaper bundle found at URL '%{public}@.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: No wallpaper bundle found at URL '%{public}@.", v2, v3, v4, v5, v6);
 }
 
 + (void)shouldLoadWallpaperBundleAtURL:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: No 'Wallpaper.plist' file found at URL '%{public}@.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: No 'Wallpaper.plist' file found at URL '%{public}@.", v2, v3, v4, v5, v6);
 }
 
 + (void)shouldLoadWallpaperBundleAtURL:.cold.4()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1E4A23000, v0, v1, "%s: Could not decode 'Wallpaper.plist' at URL '%{public}@', error '%{public}@'.", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1E4A23000, v0, v1, "%s: Could not decode 'Wallpaper.plist' at URL '%{public}@', error '%{public}@'.", v2);
 }
 
 + (void)_createWallpaperBundleInDirectory:(os_log_t)log version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "+[WKWallpaperBundle _createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:]";
-  _os_log_error_impl(&dword_1E4A23000, log, OS_LOG_TYPE_ERROR, "%s: Cannot create wallpaper bundle because one or more assets do not support copying or serialization.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "+[WKWallpaperBundle _createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:]";
+  _os_log_error_impl(&dword_1E4A23000, log, OS_LOG_TYPE_ERROR, "%s: Cannot create wallpaper bundle because one or more assets do not support copying or serialization.", &v1, 0xCu);
 }
 
 + (void)_createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to create wallpaper bundle directory, error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to create wallpaper bundle directory, error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 + (void)_createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to copy bundle thumbnail image, error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to copy bundle thumbnail image, error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 + (void)_createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.4()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1E4A23000, v0, v1, "%s: Could not serialized wallpaper metadata '%{public}@'.  Error: '%{public}@'.", v3);
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1E4A23000, v0, v1, "%s: Could not serialized wallpaper metadata '%{public}@'.  Error: '%{public}@'.", v2);
 }
 
 + (void)_createWallpaperBundleInDirectory:(uint8_t *)buf version:(os_log_t)log identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.5(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -3821,26 +3756,25 @@ void __44__WKWallpaperBundle_descriptionBuilderBlock__block_invoke(uint64_t a1, 
 
 + (void)_createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:.cold.6()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to copy wallpaper resources, error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Failed to copy wallpaper resources, error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 void __229__WKWallpaperBundle__createWallpaperBundleInDirectory_version_identifier_name_family_wantsDeviceMotion_isOffloaded_logicalScreenClass_thumbnailImageURL_adjustmentTraits_preferredProminentColors_preferredTitleColors_assetMapping___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Cannot create wallpaper bundle because wallpaper %{public}@ either cannot copy or cannot serialize.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, v0, v1, "%s: Cannot create wallpaper bundle because wallpaper %{public}@ either cannot copy or cannot serialize.", v2, v3, v4, v5, v6);
 }
 
 void __229__WKWallpaperBundle__createWallpaperBundleInDirectory_version_identifier_name_family_wantsDeviceMotion_isOffloaded_logicalScreenClass_thumbnailImageURL_adjustmentTraits_preferredProminentColors_preferredTitleColors_assetMapping___block_invoke_342_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = *(a1 + 32);
-  OUTLINED_FUNCTION_2(&dword_1E4A23000, a2, a3, "%s: Performing cleanup of '%{public}@'.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  *v8 = 136315394;
+  *&v8[4] = "+[WKWallpaperBundle _createWallpaperBundleInDirectory:version:identifier:name:family:wantsDeviceMotion:isOffloaded:logicalScreenClass:thumbnailImageURL:adjustmentTraits:preferredProminentColors:preferredTitleColors:assetMapping:]_block_invoke";
+  *&v8[12] = 2114;
+  *&v8[14] = *(a1 + 32);
+  OUTLINED_FUNCTION_2(&dword_1E4A23000, a2, a3, "%s: Performing cleanup of '%{public}@'.", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

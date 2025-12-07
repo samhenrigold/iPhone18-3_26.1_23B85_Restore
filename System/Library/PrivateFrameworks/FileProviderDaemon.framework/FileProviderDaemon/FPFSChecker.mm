@@ -36,30 +36,30 @@
   contextCopy = context;
   sCopy = s;
   selfCopy = self;
-  v83 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rootsCopy = roots;
   delegateCopy = delegate;
   v11 = [rootsCopy count];
-  v42[1] = v42;
-  v12 = (v42 - ((8 * v11 + 31) & 0xFFFFFFFFFFFFFFF0));
+  v40[1] = v40;
+  v12 = (v40 - ((8 * v11 + 31) & 0xFFFFFFFFFFFFFFF0));
   bzero(v12, 8 * v11 + 16);
   v13 = lCopy;
-  v46 = lCopy;
+  v44 = lCopy;
   fileSystemRepresentation = [v13 fileSystemRepresentation];
-  *&v43 = v12;
+  *&v41 = v12;
   *v12 = fileSystemRepresentation;
+  v68 = 0u;
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v73 = 0u;
   v15 = rootsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v68 objects:v80 count:16];
   if (v16)
   {
     v17 = 0;
-    v18 = *v71;
-    v19 = v43 + 8;
+    v18 = *v69;
+    v19 = v41 + 8;
     do
     {
       v20 = 0;
@@ -67,12 +67,12 @@
       v17 = v17;
       do
       {
-        if (*v71 != v18)
+        if (*v69 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        physicalLocation = [*(*(&v70 + 1) + 8 * v20) physicalLocation];
+        physicalLocation = [*(*(&v68 + 1) + 8 * v20) physicalLocation];
         v23 = physicalLocation;
         *(v19 + 8 * v17) = [physicalLocation fileSystemRepresentation];
 
@@ -82,7 +82,7 @@
       }
 
       while (v16 != v20);
-      v16 = [v15 countByEnumeratingWithState:&v70 objects:v82 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v68 objects:v80 count:16];
     }
 
     while (v16);
@@ -94,17 +94,11 @@
     v24 = 0;
   }
 
-  v25 = v43;
-  *(v43 + 8 * v24 + 8) = 0;
+  v25 = v41;
+  *(v41 + 8 * v24 + 8) = 0;
   v26 = selfCopy;
   *&selfCopy->_itemIsInsideAPackage = 0;
   v26->_itemIsInsideAnIgnoredFolder = 0;
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x3032000000;
-  v68[3] = __Block_byref_object_copy__20;
-  v68[4] = __Block_byref_object_dispose__20;
-  v69 = 0;
   v66[0] = 0;
   v66[1] = v66;
   v66[2] = 0x3032000000;
@@ -117,12 +111,18 @@
   v64[3] = __Block_byref_object_copy__20;
   v64[4] = __Block_byref_object_dispose__20;
   v65 = 0;
+  v62[0] = 0;
+  v62[1] = v62;
+  v62[2] = 0x3032000000;
+  v62[3] = __Block_byref_object_copy__20;
+  v62[4] = __Block_byref_object_dispose__20;
+  v63 = 0;
   v27 = fts_open(v25, 16, 0);
   if (v27)
   {
     v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:10];
     *&v29 = 138543874;
-    v43 = v29;
+    v41 = v29;
     while (1)
     {
       v30 = fts_read(v27);
@@ -134,8 +134,8 @@ LABEL_28:
       }
 
       v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v30->fts_path];
-      v81 = 0;
-      memset(v80, 0, sizeof(v80));
+      v79 = 0;
+      memset(v78, 0, sizeof(v78));
       v32 = objc_autoreleasePoolPush();
       if (v30->fts_info == 8 && errorInjectionPointEnabled(0, 4))
       {
@@ -144,25 +144,24 @@ LABEL_28:
 
       else
       {
-        fts_path = v30->fts_path;
-        v49 = MEMORY[0x1E69E9820];
-        v50 = 3221225472;
-        v51 = __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke;
-        v52 = &unk_1E83C18F8;
-        v61 = v30;
-        v62 = contextCopy;
-        v53 = selfCopy;
-        v58 = v66;
-        v63 = sCopy;
-        v54 = v15;
-        v55 = v46;
-        v56 = delegateCopy;
-        v57 = v28;
-        v59 = v68;
-        v60 = v64;
-        v34 = fpfs_open();
+        v47 = MEMORY[0x1E69E9820];
+        v48 = 3221225472;
+        v49 = __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke;
+        v50 = &unk_1E83C18F8;
+        v59 = v30;
+        v60 = contextCopy;
+        v51 = selfCopy;
+        v56 = v64;
+        v61 = sCopy;
+        v52 = v15;
+        v53 = v44;
+        v54 = delegateCopy;
+        v55 = v28;
+        v57 = v66;
+        v58 = v62;
+        v33 = fpfs_open();
 
-        if (!v34)
+        if (!v33)
         {
           goto LABEL_26;
         }
@@ -170,39 +169,39 @@ LABEL_28:
 
       if (*__error() != 4)
       {
-        if (*__error() != 1 || ![(FPFSChecker *)selfCopy isDataProtectedFileAtPath:v31 handle:v80])
+        if (*__error() != 1 || ![(FPFSChecker *)selfCopy isDataProtectedFileAtPath:v31 handle:v78])
         {
-          v36 = fp_current_or_default_log();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v35 = fp_current_or_default_log();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             fp_obfuscatedPath = [v31 fp_obfuscatedPath];
             fts_ino = v30->fts_ino;
-            v39 = *__error();
-            v74 = v43;
-            v75 = fp_obfuscatedPath;
-            v76 = 2048;
-            v77 = fts_ino;
-            v78 = 1024;
-            v79 = v39;
-            _os_log_impl(&dword_1CEFC7000, v36, OS_LOG_TYPE_DEFAULT, "[WARNING] FPCK checking %{public}@ (fileID=%llu) failed with %{errno}d", &v74, 0x1Cu);
+            v38 = *__error();
+            v72 = v41;
+            v73 = fp_obfuscatedPath;
+            v74 = 2048;
+            v75 = fts_ino;
+            v76 = 1024;
+            v77 = v38;
+            _os_log_impl(&dword_1CEFC7000, v35, OS_LOG_TYPE_DEFAULT, "[WARNING] FPCK checking %{public}@ (fileID=%llu) failed with %{errno}d", &v72, 0x1Cu);
           }
 
 LABEL_26:
-          v35 = 1;
+          v34 = 1;
           goto LABEL_27;
         }
 
-        if ([delegateCopy checker:selfCopy handleLockedItemAtPath:v31 handle:v80])
+        if ([delegateCopy checker:selfCopy handleLockedItemAtPath:v31 handle:v78])
         {
           goto LABEL_26;
         }
       }
 
-      v35 = 0;
+      v34 = 0;
 LABEL_27:
       objc_autoreleasePoolPop(v32);
 
-      if ((v35 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
         goto LABEL_28;
       }
@@ -212,61 +211,60 @@ LABEL_27:
   v28 = fp_current_or_default_log();
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v40 = __error();
-    [FPFSChecker enumerateItemsOnDiskAtURL:v40 detachedRoots:v80 usingFPFS:v28 ioContext:? delegate:?];
+    v39 = __error();
+    [FPFSChecker enumerateItemsOnDiskAtURL:v39 detachedRoots:v78 usingFPFS:v28 ioContext:? delegate:?];
   }
 
 LABEL_31:
 
+  _Block_object_dispose(v62, 8);
   _Block_object_dispose(v64, 8);
-  _Block_object_dispose(v66, 8);
 
-  _Block_object_dispose(v68, 8);
-  v41 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v66, 8);
 }
 
-uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke(uint64_t a1)
+uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 96) + 88);
-  if (v2 == 6)
+  v3 = *(*(a1 + 96) + 88);
+  if (v3 == 6)
   {
     [*(a1 + 64) removeLastObject];
-    v3 = *(a1 + 32);
-    if (v3[8] == 1)
+    v4 = *(a1 + 32);
+    if (v4[8] == 1)
     {
-      v4 = *(*(*(a1 + 80) + 8) + 40);
-      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
-      LODWORD(v4) = [v4 isEqualToString:v5];
+      v5 = *(*(*(a1 + 80) + 8) + 40);
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
+      LODWORD(v5) = [v5 isEqualToString:v6];
 
-      v3 = *(a1 + 32);
-      if (v4)
+      v4 = *(a1 + 32);
+      if (v5)
       {
-        v3[8] = 0;
-        v3 = *(a1 + 32);
+        v4[8] = 0;
+        v4 = *(a1 + 32);
       }
     }
 
-    if (v3[9] == 1)
+    if (v4[9] == 1)
     {
-      v6 = *(*(*(a1 + 72) + 8) + 40);
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
-      LODWORD(v6) = [v6 isEqualToString:v7];
+      v7 = *(*(*(a1 + 72) + 8) + 40);
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
+      LODWORD(v7) = [v7 isEqualToString:v8];
 
-      v3 = *(a1 + 32);
-      if (v6)
+      v4 = *(a1 + 32);
+      if (v7)
       {
-        v3[9] = 0;
-        v3 = *(a1 + 32);
+        v4[9] = 0;
+        v4 = *(a1 + 32);
       }
     }
 
-    if (v3[10] == 1)
+    if (v4[10] == 1)
     {
-      v8 = *(*(*(a1 + 88) + 8) + 40);
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
-      LODWORD(v8) = [v8 isEqualToString:v9];
+      v9 = *(*(*(a1 + 88) + 8) + 40);
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
+      LODWORD(v9) = [v9 isEqualToString:v10];
 
-      if (v8)
+      if (v9)
       {
         *(*(a1 + 32) + 10) = 0;
       }
@@ -275,72 +273,69 @@ uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioC
 
   else
   {
-    v42[0] = 0;
-    v42[1] = v42;
-    v42[2] = 0x2020000000;
-    v42[3] = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
-    v32[0] = 0;
-    v32[1] = v32;
-    v32[2] = 0x2020000000;
-    v33 = 0;
-    v29 = *(a1 + 72);
-    v31 = *(a1 + 112);
-    v30 = *(a1 + 104);
-    v25 = *(a1 + 32);
-    v10 = *(&v25 + 1);
-    v11 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    *&v13 = v11;
-    *(&v13 + 1) = v12;
-    v26 = *(&v25 + 1);
-    v27 = v13;
-    v28 = *(a1 + 64);
-    v14 = fpfs_fgetfileattrs();
-    if ((v14 & 0x80000000) == 0)
+    v40[0] = 0;
+    v40[1] = v40;
+    v40[2] = 0x2020000000;
+    v40[3] = 0;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v30[0] = 0;
+    v30[1] = v30;
+    v30[2] = 0x2020000000;
+    v31 = 0;
+    v26 = *(a1 + 32);
+    v11 = *(&v26 + 1);
+    v12 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    *&v14 = v12;
+    *(&v14 + 1) = v13;
+    v27 = *(&v26 + 1);
+    v28 = v14;
+    v29 = *(a1 + 64);
+    v15 = fpfs_fgetfileattrs();
+    if ((v15 & 0x80000000) == 0)
     {
-      if (*(v39 + 24) == 1)
+      if (*(v37 + 24) == 1)
       {
-        v15 = *(a1 + 32);
-        if ((*(v15 + 8) & 1) == 0)
+        v16 = *(a1 + 32);
+        if ((*(v16 + 8) & 1) == 0)
         {
-          *(v15 + 8) = 1;
-          v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
-          v17 = *(*(a1 + 80) + 8);
-          v18 = *(v17 + 40);
-          *(v17 + 40) = v16;
+          *(v16 + 8) = 1;
+          v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
+          v18 = *(*(a1 + 80) + 8);
+          v19 = *(v18 + 40);
+          *(v18 + 40) = v17;
         }
       }
 
-      if (v2 == 1)
+      if (v3 == 1)
       {
-        if (*(v35 + 24) == 1)
+        if (*(v33 + 24) == 1)
         {
           *(*(a1 + 32) + 10) = 1;
-          v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
-          v20 = *(*(a1 + 88) + 8);
-          v21 = *(v20 + 40);
-          *(v20 + 40) = v19;
+          v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(*(a1 + 96) + 48)];
+          v21 = *(*(a1 + 88) + 8);
+          v22 = *(v21 + 40);
+          *(v21 + 40) = v20;
         }
 
-        v22 = *(a1 + 64);
-        v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{*(*(a1 + 96) + 72), v25}];
-        [v22 addObject:v23];
+        v23 = *(a1 + 64);
+        v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{*(*(a1 + 96) + 72), v26}];
+        [v23 addObject:v24];
       }
     }
 
-    _Block_object_dispose(v32, 8);
-    _Block_object_dispose(&v34, 8);
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(v42, 8);
-    if (v14 < 0)
+    _Block_object_dispose(v30, 8);
+    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(v40, 8);
+    if (v15 < 0)
     {
       return 0xFFFFFFFFLL;
     }
@@ -351,7 +346,7 @@ uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioC
 
 uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 72) + 8) + 24) = (*(a2 + 44) & 0x200) != 0;
   if (*(a1 + 132) == 1 && (*(*(*(a1 + 72) + 8) + 24) & 1) == 0)
   {
@@ -378,21 +373,21 @@ uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioC
     }
   }
 
-  v45 = 0u;
-  *&v44[1] = 0u;
-  v39[0] = *(a1 + 133);
+  v44 = 0u;
+  *&v43[1] = 0u;
+  v38[0] = *(a1 + 133);
   v9 = *(a1 + 32);
-  v39[1] = *(v9 + 8);
-  v40 = *(v9 + 9);
+  v38[1] = *(v9 + 8);
+  v39 = *(v9 + 9);
   v10 = *(a1 + 80);
-  v41 = *(*(*(a1 + 72) + 8) + 24);
-  v42 = *(*(*(a1 + 88) + 8) + 24);
-  v43 = *(*(v10 + 8) + 24);
-  *v44 = 0;
-  v44[2] = 0;
-  *&v44[9] = a2;
+  v40 = *(*(*(a1 + 72) + 8) + 24);
+  v41 = *(*(*(a1 + 88) + 8) + 24);
+  v42 = *(*(v10 + 8) + 24);
+  *v43 = 0;
+  v43[2] = 0;
+  *&v43[9] = a2;
   v11 = *(a1 + 112);
-  DWORD2(v45) = *(*(a1 + 120) + 8);
+  DWORD2(v44) = *(*(a1 + 120) + 8);
   v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11 + 104];
   v13 = *(a1 + 112);
   v14 = *(v13 + 96);
@@ -406,30 +401,30 @@ uint64_t __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioC
     v15 = 1;
   }
 
-  v44[3] = *(a2 + 260) != 0 && v15;
-  *&v45 = v14;
+  v43[3] = *(a2 + 260) != 0 && v15;
+  *&v44 = v14;
   if ((*(a2 + 40) & 0xFFFFFFFE) == 2 && (*(a2 + 45) & 0x40) != 0)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v16 = *(a1 + 40);
-    v17 = [v16 countByEnumeratingWithState:&v35 objects:v46 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v34 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
 LABEL_16:
       v20 = 0;
       while (1)
       {
-        if (*v36 != v19)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * v20);
+        v21 = *(*(&v34 + 1) + 8 * v20);
         if ([v21 inode] == *(v14 + 8))
         {
           break;
@@ -437,7 +432,7 @@ LABEL_16:
 
         if (v18 == ++v20)
         {
-          v18 = [v16 countByEnumeratingWithState:&v35 objects:v46 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v34 objects:v45 count:16];
           if (v18)
           {
             goto LABEL_16;
@@ -448,7 +443,7 @@ LABEL_16:
       }
 
       v22 = v21;
-      v44[0] = 1;
+      v43[0] = 1;
 
       if (v22)
       {
@@ -467,14 +462,14 @@ LABEL_22:
 
     v26 = [_TtC18FileProviderDaemon16FPCKDetachedRoot alloc];
     v27 = *(a1 + 48);
-    v34 = 0;
-    v22 = [(FPCKDetachedRoot *)v26 initWithPhysicalLocation:v25 rootURL:v27 error:&v34];
-    v28 = v34;
+    v33 = 0;
+    v22 = [(FPCKDetachedRoot *)v26 initWithPhysicalLocation:v25 rootURL:v27 error:&v33];
+    v28 = v33;
     if (v22)
     {
-      v44[2] = [(FPCKDetachedRoot *)v22 shouldRefreshBookmark];
+      v43[2] = [(FPCKDetachedRoot *)v22 shouldRefreshBookmark];
       v29 = [(FPCKDetachedRoot *)v22 logicalLocation];
-      v44[1] = v29 == 0;
+      v43[1] = v29 == 0;
     }
 
     else
@@ -485,19 +480,19 @@ LABEL_22:
         __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke_2_cold_1(v25, v28, v30);
       }
 
-      v44[1] = 1;
+      v43[1] = 1;
     }
 
 LABEL_30:
     v13 = *(a1 + 112);
   }
 
-  if ((checkInvariants(v13, *(a1 + 128), *(*(a1 + 104) + 8) + 24, v39) & 0x80000000) != 0)
+  if ((checkInvariants(v13, *(a1 + 128), *(*(a1 + 104) + 8) + 24, v38) & 0x80000000) != 0)
   {
     goto LABEL_35;
   }
 
-  if (([*(a1 + 56) checker:*(a1 + 32) handleItem:*(a1 + 128) itemStatus:v39 under:*(a1 + 64) brokenInvariants:*(*(*(a1 + 104) + 8) + 24)] & 1) == 0)
+  if (([*(a1 + 56) checker:*(a1 + 32) handleItem:*(a1 + 128) itemStatus:v38 under:*(a1 + 64) brokenInvariants:*(*(*(a1 + 104) + 8) + 24)] & 1) == 0)
   {
     *__error() = 4;
 LABEL_35:
@@ -508,19 +503,17 @@ LABEL_35:
   v31 = 0;
 LABEL_36:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (void)isDataProtectedFileAtPath:(NSObject *)a1 handle:.cold.1(NSObject *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = __error();
   v3 = strerror(*v2);
-  v5 = 136315138;
-  v6 = v3;
-  _os_log_error_impl(&dword_1CEFC7000, a1, OS_LOG_TYPE_ERROR, "[ERROR] Unable to getattrlist: %s", &v5, 0xCu);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315138;
+  v5 = v3;
+  _os_log_error_impl(&dword_1CEFC7000, a1, OS_LOG_TYPE_ERROR, "[ERROR] Unable to getattrlist: %s", &v4, 0xCu);
 }
 
 - (void)enumerateItemsOnDiskAtURL:(os_log_t)log detachedRoots:usingFPFS:ioContext:delegate:.cold.1(int *a1, uint8_t *buf, os_log_t log)
@@ -533,16 +526,14 @@ LABEL_36:
 
 void __84__FPFSChecker_enumerateItemsOnDiskAtURL_detachedRoots_usingFPFS_ioContext_delegate___block_invoke_2_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 fp_shortDescription];
   v6 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] cannot build descriptor for detached item %@: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] cannot build descriptor for detached item %@: %@", &v7, 0x16u);
 }
 
 @end

@@ -7,29 +7,27 @@
 
 - (id)metadata
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   subset = [(CPAnalyticsKnowledgeStoreDatasetSample *)self subset];
 
   if (subset)
   {
-    v11[0] = @"_DKPhotosMetadataKey.identifier";
+    v10[0] = @"_DKPhotosMetadataKey.identifier";
     identifier = [(CPAnalyticsKnowledgeStoreDatasetSample *)self identifier];
-    v11[1] = @"_DKPhotosMetadataKey.subset";
-    v12[0] = identifier;
+    v10[1] = @"_DKPhotosMetadataKey.subset";
+    v11[0] = identifier;
     subset2 = [(CPAnalyticsKnowledgeStoreDatasetSample *)self subset];
-    v12[1] = subset2;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v11[1] = subset2;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   }
 
   else
   {
-    v9 = @"_DKPhotosMetadataKey.identifier";
+    v8 = @"_DKPhotosMetadataKey.identifier";
     identifier = [(CPAnalyticsKnowledgeStoreDatasetSample *)self identifier];
-    v10 = identifier;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    v9 = identifier;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

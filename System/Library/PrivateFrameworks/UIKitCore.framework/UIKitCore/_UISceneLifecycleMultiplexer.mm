@@ -506,9 +506,9 @@ LABEL_9:
   _FBSScene = [sceneCopy _FBSScene];
   v12 = contextCopy;
   _effectiveUISettings = [_mostActiveSceneForApplicationState _effectiveUISettings];
-  v14 = [WeakRetained isEqual:sceneCopy];
+  isEqual = objc_msgSend_isEqual_(WeakRetained);
   _effectiveUISettings2 = stateCopy;
-  if ((v14 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     _effectiveUISettings2 = [WeakRetained _effectiveUISettings];
   }
@@ -518,7 +518,7 @@ LABEL_9:
   if (self)
   {
     [(_UISceneLifecycleMultiplexer *)self _evalTransitionToSettings:_effectiveUISettings fromSettings:_effectiveUISettings2 forceExit:0 withTransitionStore:v16, v17];
-    if (v14)
+    if (isEqual)
     {
       goto LABEL_6;
     }
@@ -526,7 +526,7 @@ LABEL_9:
     goto LABEL_5;
   }
 
-  if ((v14 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_5:
   }

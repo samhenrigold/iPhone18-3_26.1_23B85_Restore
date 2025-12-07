@@ -4,6 +4,7 @@
 - (id)serialNumbers;
 - (void)checkAvailabilityWithReply:(id)reply;
 - (void)checkAvailabilityWithTicketNumber:(id)number timeout:(double)timeout exitWhenDone:(BOOL)done completion:(id)completion;
+- (void)checkAvailabilityWithTicketNumber:(id)number timeout:(double)timeout exitWhenDone:(BOOL)done response:(id)response;
 - (void)checkEnhancedLoggingStateWithReply:(id)reply;
 - (void)clearASTServerURL;
 - (void)rebootIntoCheckerBoard;
@@ -36,6 +37,18 @@
   _Block_object_dispose(v8, 8);
 
   objc_destroyWeak(&location);
+}
+
+- (void)checkAvailabilityWithTicketNumber:(id)number timeout:(double)timeout exitWhenDone:(BOOL)done response:(id)response
+{
+  doneCopy = done;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100005980;
+  v11[3] = &unk_100014788;
+  responseCopy = response;
+  v10 = responseCopy;
+  [(DADiagnosticsSessionAvailability *)self checkAvailabilityWithTicketNumber:number timeout:doneCopy exitWhenDone:v11 completion:timeout];
 }
 
 - (void)checkAvailabilityWithTicketNumber:(id)number timeout:(double)timeout exitWhenDone:(BOOL)done completion:(id)completion

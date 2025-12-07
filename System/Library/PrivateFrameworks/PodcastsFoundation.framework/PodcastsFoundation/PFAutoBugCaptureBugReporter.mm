@@ -29,9 +29,11 @@
 
 uint64_t __45__PFAutoBugCaptureBugReporter_sharedInstance__block_invoke()
 {
-  sharedInstance_singleton = objc_alloc_init(PFAutoBugCaptureBugReporter);
+  v0 = objc_alloc_init(PFAutoBugCaptureBugReporter);
+  v1 = sharedInstance_singleton;
+  sharedInstance_singleton = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PFAutoBugCaptureBugReporter)init
@@ -107,7 +109,7 @@ void __35__PFAutoBugCaptureBugReporter_init__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __85__PFAutoBugCaptureBugReporter_submitBugReport_userInfo_withMaximumSubmissionCadence___block_invoke(uint64_t a1)
+void *__85__PFAutoBugCaptureBugReporter_submitBugReport_userInfo_withMaximumSubmissionCadence___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canSubmitNewReport:*(a1 + 40) withMinimumElapsedTime:*(a1 + 56)];
   if (result)
@@ -126,18 +128,18 @@ uint64_t __85__PFAutoBugCaptureBugReporter_submitBugReport_userInfo_withMaximumS
 - (BOOL)canSubmitNewReport:(id)report withMinimumElapsedTime:(double)time
 {
   reportCopy = report;
-  if (isRunningUnitTests())
+  if (isRunningUnitTests(reportCopy, v7))
   {
     [PFAutoBugCaptureBugReporter canSubmitNewReport:withMinimumElapsedTime:];
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = ([reportCopy forceSubmissionAttempt] & 1) != 0 || -[PFAutoBugCaptureBugReporter _timeSinceLastSimilarReport:hasExceededElapsedTimeThreshold:](self, "_timeSinceLastSimilarReport:hasExceededElapsedTimeThreshold:", reportCopy, time);
+    v8 = ([reportCopy forceSubmissionAttempt] & 1) != 0 || -[PFAutoBugCaptureBugReporter _timeSinceLastSimilarReport:hasExceededElapsedTimeThreshold:](self, "_timeSinceLastSimilarReport:hasExceededElapsedTimeThreshold:", reportCopy, time);
   }
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)_timeSinceLastSimilarReport:(id)report hasExceededElapsedTimeThreshold:(double)threshold
@@ -247,7 +249,7 @@ void __93__PFAutoBugCaptureBugReporter__executeSubmitBugReport_userInfo_withMaxi
 
 - (void)_submitBugReport:(id)report withUserInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   reportCopy = report;
   infoCopy = info;
   reporter = self->_reporter;
@@ -265,13 +267,12 @@ void __93__PFAutoBugCaptureBugReporter__executeSubmitBugReport_userInfo_withMaxi
   v14 = _MTLogCategoryDefault();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v16 = 138543362;
-    v17 = v13;
-    _os_log_impl(&dword_1D8CEC000, v14, OS_LOG_TYPE_INFO, "Automatic bug identified, signature: %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v13;
+    _os_log_impl(&dword_1D8CEC000, v14, OS_LOG_TYPE_INFO, "Automatic bug identified, signature: %{public}@", &v15, 0xCu);
   }
 
   [(PFAutoBugCaptureBugReporter *)self _reportSignature:v13 forReport:reportCopy];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reportSignature:(id)signature forReport:(id)report
@@ -290,20 +291,10 @@ void __93__PFAutoBugCaptureBugReporter__executeSubmitBugReport_userInfo_withMaxi
 
 void __58__PFAutoBugCaptureBugReporter__reportSignature_forReport___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getkSymptomDiagnosticReplySuccess();
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = v4;
-  v6 = getkSymptomDiagnosticReplySuccess();
-  v7 = [v3 objectForKeyedSubscript:v6];
-  v8 = [v7 BOOLValue];
-
-  if (v8)
+  if (v4 && (v5 = v4, getkSymptomDiagnosticReplySuccess(), v6 = objc_claimAutoreleasedReturnValue(), -[NSObject objectForKeyedSubscript:](v3, "objectForKeyedSubscript:", v6), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 BOOLValue], v7, v6, v5, v8))
   {
     v9 = *(a1 + 32);
     v10 = [MEMORY[0x1E695DF00] now];
@@ -315,25 +306,22 @@ void __58__PFAutoBugCaptureBugReporter__reportSignature_forReport___block_invoke
     v13 = _MTLogCategoryDefault();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_INFO, "Bug report accepted, session identifier: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_1D8CEC000, v13, OS_LOG_TYPE_INFO, "Bug report accepted, session identifier: %{public}@", &v14, 0xCu);
     }
   }
 
   else
   {
-LABEL_6:
     v12 = _MTLogCategoryDefault();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = v3;
-      _os_log_impl(&dword_1D8CEC000, v12, OS_LOG_TYPE_ERROR, "Bug report was rejected. Response: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v3;
+      _os_log_impl(&dword_1D8CEC000, v12, OS_LOG_TYPE_ERROR, "Bug report was rejected. Response: %{public}@", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_processName
@@ -355,6 +343,7 @@ LABEL_6:
   v0 = _MTLogCategoryMetrics();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
+    v7 = 0;
   }
 }
 
@@ -363,7 +352,8 @@ LABEL_6:
   v0 = _MTLogCategoryMetrics();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_1D8CEC000, v1, v2, "Cannot submit bug reports while running unit tests", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_0(&dword_1D8CEC000, v1, v2, "Cannot submit bug reports while running unit tests", v3, v4, v5, v6, v7);
   }
 }
 

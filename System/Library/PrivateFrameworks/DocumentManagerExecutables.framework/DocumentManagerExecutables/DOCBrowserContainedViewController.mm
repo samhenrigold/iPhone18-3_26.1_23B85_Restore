@@ -75,11 +75,11 @@
 
 - (void)viewDidLoad
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for DOCBrowserContainedViewController();
-  v2 = v3.receiver;
-  [(DOCBrowserContainedViewController *)&v3 viewDidLoad];
-  DOCBrowserContainedViewController.updateOverlayIfNeeded()();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for DOCBrowserContainedViewController();
+  v2 = v4.receiver;
+  [(DOCBrowserContainedViewController *)&v4 viewDidLoad];
+  DOCBrowserContainedViewController.updateOverlayIfNeeded()(v3);
   DOCBrowserContainedViewController.updateUIPDocLandingBackground(appearance:)(0);
 }
 

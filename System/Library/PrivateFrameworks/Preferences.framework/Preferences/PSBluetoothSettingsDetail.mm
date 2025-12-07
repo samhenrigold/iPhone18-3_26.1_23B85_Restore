@@ -9,7 +9,7 @@
 {
   enabledCopy = enabled;
   v10 = *MEMORY[0x1E69E9840];
-  v4 = _PSLoggingFacility();
+  v4 = _PSLoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -25,19 +25,19 @@
 
 + (BOOL)isEnabled
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698F468] = [MEMORY[0x1E698F468] sharedInstance];
   available = [mEMORY[0x1E698F468] available];
 
-  v4 = _PSLoggingFacility();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = _PSLoggingFacility(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (available)
   {
-    if (v5)
+    if (v6)
     {
-      v15 = 136315138;
-      v16 = "+[PSBluetoothSettingsDetail isEnabled]";
-      _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "######## %s - BT is already available", &v15, 0xCu);
+      v16 = 136315138;
+      v17 = "+[PSBluetoothSettingsDetail isEnabled]";
+      _os_log_impl(&dword_18B008000, v5, OS_LOG_TYPE_DEFAULT, "######## %s - BT is already available", &v16, 0xCu);
     }
 
     mEMORY[0x1E698F468]2 = [MEMORY[0x1E698F468] sharedInstance];
@@ -46,37 +46,37 @@
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v15 = 136315138;
-      v16 = "+[PSBluetoothSettingsDetail isEnabled]";
-      _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "######## %s - BT not available, checking SCDynamicStore", &v15, 0xCu);
+      v16 = 136315138;
+      v17 = "+[PSBluetoothSettingsDetail isEnabled]";
+      _os_log_impl(&dword_18B008000, v5, OS_LOG_TYPE_DEFAULT, "######## %s - BT not available, checking SCDynamicStore", &v16, 0xCu);
     }
 
-    v8 = SCDynamicStoreCreate(0, @"com.apple.settings.bluetooth", 0, 0);
-    if (!v8)
+    v9 = SCDynamicStoreCreate(0, @"com.apple.settings.bluetooth", 0, 0);
+    if (!v9)
     {
       enabled = 0;
       goto LABEL_16;
     }
 
-    v9 = v8;
-    mEMORY[0x1E698F468]2 = SCDynamicStoreCopyValue(v8, @"com.apple.MobileBluetooth");
-    v10 = _PSLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = v9;
+    mEMORY[0x1E698F468]2 = SCDynamicStoreCopyValue(v9, @"com.apple.MobileBluetooth");
+    v11 = _PSLoggingFacility(mEMORY[0x1E698F468]2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315394;
-      v16 = "+[PSBluetoothSettingsDetail isEnabled]";
-      v17 = 2112;
-      v18 = mEMORY[0x1E698F468]2;
-      _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "######## %s - SCDynamicStore shows: %@", &v15, 0x16u);
+      v16 = 136315394;
+      v17 = "+[PSBluetoothSettingsDetail isEnabled]";
+      v18 = 2112;
+      v19 = mEMORY[0x1E698F468]2;
+      _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "######## %s - SCDynamicStore shows: %@", &v16, 0x16u);
     }
 
-    v11 = [mEMORY[0x1E698F468]2 objectForKey:@"Powered"];
-    v12 = v11;
-    if (v11)
+    v12 = [mEMORY[0x1E698F468]2 objectForKey:@"Powered"];
+    v13 = v12;
+    if (v12)
     {
-      enabled = [v11 BOOLValue];
+      enabled = [v12 BOOLValue];
     }
 
     else
@@ -84,18 +84,18 @@
       enabled = 0;
     }
 
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
 LABEL_16:
-  v13 = _PSLoggingFacility();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _PSLoggingFacility(v9);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "+[PSBluetoothSettingsDetail isEnabled]";
-    v17 = 1024;
-    LODWORD(v18) = enabled;
-    _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "######## %s - enabled: %d", &v15, 0x12u);
+    v16 = 136315394;
+    v17 = "+[PSBluetoothSettingsDetail isEnabled]";
+    v18 = 1024;
+    LODWORD(v19) = enabled;
+    _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "######## %s - enabled: %d", &v16, 0x12u);
   }
 
   return enabled;

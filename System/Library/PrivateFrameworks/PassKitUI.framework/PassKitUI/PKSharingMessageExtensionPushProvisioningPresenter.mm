@@ -416,7 +416,7 @@ void __101__PKSharingMessageExtensionPushProvisioningPresenter_validateForRecipi
   objc_destroyWeak(&v20);
 }
 
-uint64_t __101__PKSharingMessageExtensionPushProvisioningPresenter_validateForRecipients_senderAddress_completion___block_invoke_2_50(uint64_t a1, char a2)
+uint64_t __101__PKSharingMessageExtensionPushProvisioningPresenter_validateForRecipients_senderAddress_completion___block_invoke_2_50(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)

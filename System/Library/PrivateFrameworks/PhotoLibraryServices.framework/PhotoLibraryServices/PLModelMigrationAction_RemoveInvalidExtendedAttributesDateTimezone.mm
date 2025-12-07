@@ -91,43 +91,51 @@
         v45 = 0u;
         memset(buf, 0, sizeof(buf));
         v25 = PLMigrationGetLog();
-        os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
         v39 = 138543618;
-        v40 = v27;
+        v40 = v28;
         v41 = 2114;
         v42 = v19;
-        LODWORD(v35) = 22;
-        v28 = _os_log_send_and_compose_impl();
+        v29 = _os_log_send_and_compose_impl(v26, 0, buf, 512, &dword_19BF1F000, v25, 16, "Failed to execute batch update request for %{public}@. Error: %{public}@", &v39, 22);
 
-        v29 = [(PLModelMigrationActionCore *)self logger:&v39];
-        [v29 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{294, 16}];
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v29 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{294, 16}];
 
-        if (v28 != buf)
+        if (v29 != buf)
         {
-          free(v28);
+          free(v29);
         }
       }
 
       else
       {
-        v30 = PLMigrationGetLog();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v31 = PLMigrationGetLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          v31 = objc_opt_class();
-          v32 = NSStringFromClass(v31);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
           *buf = 138543618;
-          *&buf[4] = v32;
+          *&buf[4] = v33;
           *&buf[12] = 2114;
           *&buf[14] = v19;
-          _os_log_impl(&dword_19BF1F000, v30, OS_LOG_TYPE_ERROR, "Failed to execute batch update request for %{public}@. Error: %{public}@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v31, OS_LOG_TYPE_ERROR, "Failed to execute batch update request for %{public}@. Error: %{public}@", buf, 0x16u);
         }
       }
     }
 
     [(PLModelMigrationActionCore *)self finalizeProgress];
-    v33 = v19;
+    v34 = v19;
     v21 = 3;
   }
 

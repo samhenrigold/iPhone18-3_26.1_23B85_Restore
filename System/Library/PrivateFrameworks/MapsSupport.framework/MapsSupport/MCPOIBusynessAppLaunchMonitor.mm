@@ -71,14 +71,13 @@
 
 - (void)_createContextStoreRegistrationIfNecessary
 {
-  isolater = self->_isolater;
   geo_assert_isolated();
   if (!self->_changeRegistration)
   {
-    v6 = +[MCPOIBusynessAppLaunchMonitor _contextStorePredicate];
-    v4 = [_CDContextualChangeRegistration localWakingRegistrationWithIdentifier:@"com.apple.Maps.geocorrectiond.applaunch.registration" contextualPredicate:v6 clientIdentifier:@"com.apple.Maps.geocorrectiond.contextstore-registration" callback:&stru_10001CA68];
+    v5 = +[MCPOIBusynessAppLaunchMonitor _contextStorePredicate];
+    v3 = [_CDContextualChangeRegistration localWakingRegistrationWithIdentifier:@"com.apple.Maps.geocorrectiond.applaunch.registration" contextualPredicate:v5 clientIdentifier:@"com.apple.Maps.geocorrectiond.contextstore-registration" callback:&stru_10001CA68];
     changeRegistration = self->_changeRegistration;
-    self->_changeRegistration = v4;
+    self->_changeRegistration = v3;
   }
 }
 

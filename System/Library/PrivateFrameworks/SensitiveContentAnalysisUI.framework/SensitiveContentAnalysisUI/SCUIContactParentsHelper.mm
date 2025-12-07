@@ -132,10 +132,10 @@ void __90__SCUIContactParentsHelper_obtainChatWithParentsURLForInterventionType_
 
 void __59__SCUIContactParentsHelper_obtainParentsForCurrentContact___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v40 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v39 = [MEMORY[0x1E695E0F0] mutableCopy];
   if (!v5)
   {
     v7 = [MEMORY[0x1E697B660] clientUI];
@@ -147,12 +147,12 @@ void __59__SCUIContactParentsHelper_obtainParentsForCurrentContact___block_invok
     goto LABEL_29;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v7 = [v5 members];
-  v8 = [v7 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (!v8)
   {
 LABEL_29:
@@ -164,23 +164,23 @@ LABEL_31:
   }
 
   v9 = v8;
-  v37 = a1;
-  v38 = v6;
-  v39 = v5;
+  v36 = a1;
+  v37 = v6;
+  v38 = v5;
   v10 = 0;
-  v11 = *v43;
+  v11 = *v42;
   v12 = 0x1E697B000uLL;
   do
   {
     v13 = 0;
     do
     {
-      if (*v43 != v11)
+      if (*v42 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = *(*(&v42 + 1) + 8 * v13);
+      v14 = *(*(&v41 + 1) + 8 * v13);
       if (![v14 isMe])
       {
         if (![v14 isParent])
@@ -188,12 +188,12 @@ LABEL_31:
           goto LABEL_20;
         }
 
-        v41 = v10;
+        v40 = v10;
         v18 = [*(v12 + 1632) clientUI];
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v47[0] = v14;
+          v46[0] = v14;
           _os_log_impl(&dword_1BC630000, v18, OS_LOG_TYPE_DEFAULT, "Found parent: %@", buf, 0xCu);
         }
 
@@ -210,14 +210,14 @@ LABEL_31:
 
         if ([v23 length])
         {
-          v28 = v40;
+          v28 = v39;
           v29 = v23;
           goto LABEL_18;
         }
 
         if ([v27 length])
         {
-          v28 = v40;
+          v28 = v39;
           v29 = v27;
 LABEL_18:
           [v28 addObject:v29];
@@ -231,12 +231,12 @@ LABEL_18:
           if (v31)
           {
             v32 = [v14 appleID];
-            [v40 addObject:v32];
+            [v39 addObject:v32];
           }
         }
 
         v12 = 0x1E697B000;
-        v10 = v41;
+        v10 = v40;
         goto LABEL_20;
       }
 
@@ -246,9 +246,9 @@ LABEL_18:
         v16 = [v14 memberType];
         v17 = [v14 age];
         *buf = 67109376;
-        LODWORD(v47[0]) = v16;
-        WORD2(v47[0]) = 2048;
-        *(v47 + 6) = v17;
+        LODWORD(v46[0]) = v16;
+        WORD2(v46[0]) = 2048;
+        *(v46 + 6) = v17;
         _os_log_impl(&dword_1BC630000, v15, OS_LOG_TYPE_DEFAULT, "Found current member of type: %d (%lu)", buf, 0x12u);
       }
 
@@ -258,37 +258,34 @@ LABEL_20:
     }
 
     while (v9 != v13);
-    v33 = [v7 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    v33 = [v7 countByEnumeratingWithState:&v41 objects:v47 count:16];
     v9 = v33;
   }
 
   while (v33);
 
-  v34 = *(v37 + 32);
+  v34 = *(v36 + 32);
   if (!v10)
   {
-    v6 = v38;
-    v5 = v39;
+    v6 = v37;
+    v5 = v38;
     goto LABEL_31;
   }
 
-  v35 = [v40 copy];
+  v35 = [v39 copy];
   (*(v34 + 16))(v34, v35);
 
-  v6 = v38;
-  v5 = v39;
+  v6 = v37;
+  v5 = v38;
 LABEL_32:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SCUIContactParentsHelper_obtainParentsForCurrentContact___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1BC630000, a2, OS_LOG_TYPE_ERROR, "Error fetching FamilyCircle: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1BC630000, a2, OS_LOG_TYPE_ERROR, "Error fetching FamilyCircle: %@", &v2, 0xCu);
 }
 
 @end

@@ -10,24 +10,24 @@
 {
   engineCopy = engine;
   specCopy = spec;
-  v39.receiver = self;
-  v39.super_class = TSTConvertFormulasForCategoriesByRewritingWrapper;
-  v9 = [(TSTConvertFormulasForCategoriesByRewritingWrapper *)&v39 init];
+  v33.receiver = self;
+  v33.super_class = TSTConvertFormulasForCategoriesByRewritingWrapper;
+  v9 = [(TSTConvertFormulasForCategoriesByRewritingWrapper *)&v33 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_calcEngine, engine);
     objc_storeStrong(&v10->_rewriteSpec, spec);
-    v15 = objc_msgSend_rewriteType(v10->_rewriteSpec, v11, v12, v13, v14);
-    if ((objc_msgSend_isMoveRewriteType_(TSTConvertFormulasForCategoriesByRewritingWrapper, v16, v15, v17, v18) & 1) == 0)
+    v14 = objc_msgSend_rewriteType(v10->_rewriteSpec, v11, v12, v13);
+    if ((objc_msgSend_isMoveRewriteType_(TSTConvertFormulasForCategoriesByRewritingWrapper, v15, v14, v16) & 1) == 0)
     {
-      v22 = MEMORY[0x277D81150];
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTConvertFormulasForCategoriesByRewritingWrapper initWithCalcEngine:rewriteSpec:]", v20, v21);
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v25, v26);
-      v32 = objc_msgSend_rewriteType(v10->_rewriteSpec, v28, v29, v30, v31);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v33, v23, v27, 26, 0, "Why are we even being created for a non-move rewriteSpec: %d", v32);
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSTConvertFormulasForCategoriesByRewritingWrapper initWithCalcEngine:rewriteSpec:]", v18);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v22);
+      v27 = objc_msgSend_rewriteType(v10->_rewriteSpec, v24, v25, v26);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v28, v20, v23, 26, 0, "Why are we even being created for a non-move rewriteSpec: %d", v27);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
     }
   }
 
@@ -45,8 +45,8 @@
   }
 
   v8 = moveCopy;
-  v13 = objc_msgSend_rewriteType(self->_rewriteSpec, v9, v10, v11, v12);
-  if (!objc_msgSend_isMoveRewriteType_(TSTConvertFormulasForCategoriesByRewritingWrapper, v14, v13, v15, v16))
+  v12 = objc_msgSend_rewriteType(self->_rewriteSpec, v9, v10, v11);
+  if (!objc_msgSend_isMoveRewriteType_(TSTConvertFormulasForCategoriesByRewritingWrapper, v13, v12, v14))
   {
     goto LABEL_38;
   }
@@ -54,155 +54,155 @@
   rewriteSpecBaseToChrome = self->_rewriteSpecBaseToChrome;
   if (rewriteSpecBaseToChrome)
   {
-    v20 = rewriteSpecBaseToChrome;
+    v17 = rewriteSpecBaseToChrome;
   }
 
   else
   {
     objc_opt_class();
-    v25 = objc_msgSend_rewriteSpecBaseToChrome(self->_rewriteSpec, v21, v22, v23, v24);
-    v20 = TSUDynamicCast();
+    v21 = objc_msgSend_rewriteSpecBaseToChrome(self->_rewriteSpec, v18, v19, v20);
+    v17 = TSUDynamicCast();
   }
 
-  *&v170.var0 = cell->var0._tableUID;
-  v26 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v18, &v170, self->_calcEngine, v19);
-  v31 = objc_msgSend_tableInfo(v26, v27, v28, v29, v30);
-  v36 = objc_msgSend_translator(v31, v32, v33, v34, v35);
-  v169 = objc_msgSend_coordinateMapper(v36, v37, v38, v39, v40);
+  *&v138.var0 = cell->var0._tableUID;
+  v22 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v16, &v138, self->_calcEngine);
+  v26 = objc_msgSend_tableInfo(v22, v23, v24, v25);
+  v30 = objc_msgSend_translator(v26, v27, v28, v29);
+  v137 = objc_msgSend_coordinateMapper(v30, v31, v32, v33);
 
-  if (v20)
+  if (v17)
   {
-    v45 = v169;
-    v46 = objc_msgSend_coordMapper(v20, v41, v42, v43, v44);
+    v37 = v137;
+    v38 = objc_msgSend_coordMapper(v17, v34, v35, v36);
 
-    if (v46 != v169)
+    if (v38 != v137)
     {
-      objc_msgSend_setCoordMapper_(v20, v47, v169, v48, v49);
-      objc_storeStrong(&self->_rewriteSpecBaseToChrome, v20);
+      objc_msgSend_setCoordMapper_(v17, v39, v137, v40);
+      objc_storeStrong(&self->_rewriteSpecBaseToChrome, v17);
     }
   }
 
   else
   {
-    v50 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v41, v42, v43, v44);
-    v55 = objc_msgSend_srcTableUID(v50, v51, v52, v53, v54);
-    v57 = v56;
-    if (v55 == objc_msgSend_tableUID(v26, v56, v58, v59, v60) && v57 == v61)
+    v41 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v34, v35, v36);
+    v45 = objc_msgSend_srcTableUID(v41, v42, v43, v44);
+    v47 = v46;
+    if (v45 == objc_msgSend_tableUID(v22, v46, v48, v49) && v47 == v50)
     {
-      v165 = v26;
+      v133 = v22;
     }
 
     else
     {
-      v170.var0 = objc_msgSend_srcTableUID(v50, v61, v62, v63, v64);
-      v170.var1 = v69;
-      v165 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v69, &v170, self->_calcEngine, v70);
+      v138.var0 = objc_msgSend_srcTableUID(v41, v50, v51, v52);
+      v138.var1 = v56;
+      v133 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v56, &v138, self->_calcEngine);
     }
 
-    v71 = objc_msgSend_srcColumnUids(v50, v65, v66, v67, v68);
-    v164 = v71;
-    v168 = objc_msgSend_srcRowUids(v50, v72, v73, v74, v75);
-    v167 = objc_msgSend_dstColumnUids(v50, v76, v77, v78, v79);
-    v166 = objc_msgSend_dstRowUids(v50, v80, v81, v82, v83);
-    if (v71 && v168 && v167 && v166)
+    v57 = objc_msgSend_srcColumnUids(v41, v53, v54, v55);
+    v132 = v57;
+    v136 = objc_msgSend_srcRowUids(v41, v58, v59, v60);
+    v135 = objc_msgSend_dstColumnUids(v41, v61, v62, v63);
+    v134 = objc_msgSend_dstRowUids(v41, v64, v65, v66);
+    if (v57 && v136 && v135 && v134)
     {
-      v88 = v71;
-      v45 = v169;
-      v89 = objc_msgSend_uids(v88, v84, v85, v86, v87);
-      v94 = objc_msgSend_uids(v168, v90, v91, v92, v93);
-      sub_2210BBBE8(&v170, v89, v94);
-      v99 = objc_msgSend_uids(v167, v95, v96, v97, v98);
-      v104 = objc_msgSend_uids(v166, v100, v101, v102, v103);
-      sub_2210BBBE8(v173, v99, v104);
-      v105 = [TSTFormulaRewriteSpec alloc];
-      v172[0] = objc_msgSend_tableUID(v165, v106, v107, v108, v109);
-      v172[1] = v110;
-      v171[0] = objc_msgSend_dstTableUID(v50, v110, v111, v112, v113);
-      v171[1] = v114;
-      v20 = objc_msgSend_initForCategorizedTableBaseToChromeRewriterWithSrcTableUID_srcTract_dstTableUID_destTract_coordMapper_(v105, v114, v172, &v170, v171, v173, v169);
-      objc_msgSend_setRewriteSpecBaseToChrome_(self->_rewriteSpec, v115, v20, v116, v117);
-      objc_storeStrong(&self->_rewriteSpecBaseToChrome, v20);
-      if (v174)
+      v70 = v57;
+      v37 = v137;
+      v71 = objc_msgSend_uids(v70, v67, v68, v69);
+      v75 = objc_msgSend_uids(v136, v72, v73, v74);
+      sub_2210BBBE8(&v138, v71, v75);
+      v79 = objc_msgSend_uids(v135, v76, v77, v78);
+      v83 = objc_msgSend_uids(v134, v80, v81, v82);
+      sub_2210BBBE8(v141, v79, v83);
+      v84 = [TSTFormulaRewriteSpec alloc];
+      v140[0] = objc_msgSend_tableUID(v133, v85, v86, v87);
+      v140[1] = v88;
+      v139[0] = objc_msgSend_dstTableUID(v41, v88, v89, v90);
+      v139[1] = v91;
+      v17 = objc_msgSend_initForCategorizedTableBaseToChromeRewriterWithSrcTableUID_srcTract_dstTableUID_destTract_coordMapper_(v84, v91, v140, &v138, v139, v141, v137);
+      objc_msgSend_setRewriteSpecBaseToChrome_(self->_rewriteSpec, v92, v17, v93);
+      objc_storeStrong(&self->_rewriteSpecBaseToChrome, v17);
+      if (v142)
       {
-        v175 = v174;
-        operator delete(v174);
+        v143 = v142;
+        operator delete(v142);
       }
 
-      if (v173[0])
+      if (v141[0])
       {
-        v173[1] = v173[0];
-        operator delete(v173[0]);
+        v141[1] = v141[0];
+        operator delete(v141[0]);
       }
 
-      if (v170.var2.var0.var0._tableUID._lower)
+      if (v138.var2.var0.var0._tableUID._lower)
       {
-        v170.var2.var0.var0._tableUID._upper = v170.var2.var0.var0._tableUID._lower;
-        operator delete(v170.var2.var0.var0._tableUID._lower);
+        v138.var2.var0.var0._tableUID._upper = v138.var2.var0.var0._tableUID._lower;
+        operator delete(v138.var2.var0.var0._tableUID._lower);
       }
 
-      if (v170.var0)
+      if (v138.var0)
       {
-        v170.var1 = v170.var0;
-        operator delete(v170.var0);
+        v138.var1 = v138.var0;
+        operator delete(v138.var0);
       }
     }
 
     else
     {
-      if (!v71)
+      if (!v57)
       {
-        v118 = MEMORY[0x277D81150];
-        v119 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v86, v87);
-        v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v120, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v121, v122);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v118, v124, v119, v123, 73, 0, "invalid nil value for '%{public}s'", "srcColumnUids");
+        v94 = MEMORY[0x277D81150];
+        v95 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v69);
+        v98 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v96, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v97);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v94, v99, v95, v98, 73, 0, "invalid nil value for '%{public}s'", "srcColumnUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v125, v126, v127, v128);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v100, v101, v102);
       }
 
-      if (!v168)
+      if (!v136)
       {
-        v129 = MEMORY[0x277D81150];
-        v130 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v86, v87);
-        v134 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v131, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v132, v133);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v129, v135, v130, v134, 74, 0, "invalid nil value for '%{public}s'", "srcRowUids");
+        v103 = MEMORY[0x277D81150];
+        v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v69);
+        v107 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v106);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v103, v108, v104, v107, 74, 0, "invalid nil value for '%{public}s'", "srcRowUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v136, v137, v138, v139);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v109, v110, v111);
       }
 
-      if (!v167)
+      if (!v135)
       {
-        v140 = MEMORY[0x277D81150];
-        v141 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v86, v87);
-        v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v142, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v143, v144);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v140, v146, v141, v145, 75, 0, "invalid nil value for '%{public}s'", "dstColumnUids");
+        v112 = MEMORY[0x277D81150];
+        v113 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v69);
+        v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v114, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v115);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v112, v117, v113, v116, 75, 0, "invalid nil value for '%{public}s'", "dstColumnUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v147, v148, v149, v150);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v118, v119, v120);
       }
 
-      if (!v166)
+      if (!v134)
       {
-        v151 = MEMORY[0x277D81150];
-        v152 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v86, v87);
-        v156 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v153, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v154, v155);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v151, v157, v152, v156, 76, 0, "invalid nil value for '%{public}s'", "dstRowUids");
+        v121 = MEMORY[0x277D81150];
+        v122 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromBaseToChromeForCategorizedTableMove:containingCell:]", v69);
+        v125 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v123, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v124);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v121, v126, v122, v125, 76, 0, "invalid nil value for '%{public}s'", "dstRowUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v158, v159, v160, v161);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v127, v128, v129);
       }
 
-      v20 = 0;
-      v45 = v169;
+      v17 = 0;
+      v37 = v137;
     }
 
-    if (!v20)
+    if (!v17)
     {
       goto LABEL_37;
     }
   }
 
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v170, self->_calcEngine, cell);
-  v162 = sub_221491A58(v8, &v170, v20, 2);
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v138, self->_calcEngine, cell);
+  v130 = sub_221491A58(v8, &v138, v17, 2);
 
-  v8 = v162;
+  v8 = v130;
 LABEL_37:
 
 LABEL_38:
@@ -221,216 +221,216 @@ LABEL_38:
   }
 
   v8 = moveCopy;
-  v13 = objc_msgSend_rewriteType(self->_rewriteSpec, v9, v10, v11, v12);
-  v18 = objc_msgSend_rewriteType(self->_rewriteSpec, v14, v15, v16, v17);
-  if (v13 != 6 && v18 != 4)
+  v12 = objc_msgSend_rewriteType(self->_rewriteSpec, v9, v10, v11);
+  v16 = objc_msgSend_rewriteType(self->_rewriteSpec, v13, v14, v15);
+  if (v12 != 6 && v16 != 4)
   {
     goto LABEL_51;
   }
 
-  v213 = v18;
+  v174 = v16;
   p_rewriteSpecChromeToBase = &self->_rewriteSpecChromeToBase;
   rewriteSpecChromeToBase = self->_rewriteSpecChromeToBase;
   if (rewriteSpecChromeToBase)
   {
-    v24 = rewriteSpecChromeToBase;
+    v21 = rewriteSpecChromeToBase;
   }
 
   else
   {
     objc_opt_class();
-    v29 = objc_msgSend_rewriteSpecChromeToBase(self->_rewriteSpec, v25, v26, v27, v28);
-    v24 = TSUDynamicCast();
+    v25 = objc_msgSend_rewriteSpecChromeToBase(self->_rewriteSpec, v22, v23, v24);
+    v21 = TSUDynamicCast();
   }
 
-  *&v216.var0 = cell->var1._tableUID;
-  v215 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v22, &v216, self->_calcEngine, v23);
-  v34 = objc_msgSend_tableInfo(v215, v30, v31, v32, v33);
-  v39 = objc_msgSend_translator(v34, v35, v36, v37, v38);
-  v214 = objc_msgSend_coordinateMapper(v39, v40, v41, v42, v43);
+  *&v177.var0 = cell->var1._tableUID;
+  v176 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v20, &v177, self->_calcEngine);
+  v29 = objc_msgSend_tableInfo(v176, v26, v27, v28);
+  v33 = objc_msgSend_translator(v29, v30, v31, v32);
+  v175 = objc_msgSend_coordinateMapper(v33, v34, v35, v36);
 
-  if (!v24)
+  if (!v21)
   {
-    v54 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v44, v45, v46, v47);
-    v217 = 0uLL;
-    v207 = v54;
-    v217.n128_u64[0] = objc_msgSend_srcTableUID(v54, v55, v56, v57, v58);
-    v217.n128_u64[1] = v59;
-    v63 = objc_msgSend_tableUID(v215, v59, v60, v61, v62);
-    if (*&v217 == __PAIR128__(v64, v63))
+    v45 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v37, v38, v39);
+    v178 = 0uLL;
+    v168 = v45;
+    v178.n128_u64[0] = objc_msgSend_srcTableUID(v45, v46, v47, v48);
+    v178.n128_u64[1] = v49;
+    v52 = objc_msgSend_tableUID(v176, v49, v50, v51);
+    if (*&v178 == __PAIR128__(v53, v52))
     {
-      v208 = v215;
+      v169 = v176;
     }
 
     else
     {
-      v208 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v64, &v217, self->_calcEngine, v65);
+      v169 = objc_msgSend_tableModelForTableUID_withCalcEngine_(TSTTableModel, v53, &v178, self->_calcEngine);
     }
 
-    v53 = v207;
-    v212 = objc_msgSend_srcColumnUids(v207, v66, v67, v68, v69);
-    v211 = objc_msgSend_srcRowUids(v207, v70, v71, v72, v73);
-    v210 = objc_msgSend_dstColumnUids(v207, v74, v75, v76, v77);
-    v209 = objc_msgSend_dstRowUids(v207, v78, v79, v80, v81);
-    if (v212 && v211 && v210 && v209)
+    v44 = v168;
+    v173 = objc_msgSend_srcColumnUids(v168, v54, v55, v56);
+    v172 = objc_msgSend_srcRowUids(v168, v57, v58, v59);
+    v171 = objc_msgSend_dstColumnUids(v168, v60, v61, v62);
+    v170 = objc_msgSend_dstRowUids(v168, v63, v64, v65);
+    if (v173 && v172 && v171 && v170)
     {
-      v86 = objc_msgSend_uids(v212, v82, v83, v84, v85);
-      v91 = objc_msgSend_uids(v211, v87, v88, v89, v90);
-      sub_2210BBBE8(&v216, v86, v91);
-      v96 = objc_msgSend_uids(v210, v92, v93, v94, v95);
-      v101 = objc_msgSend_uids(v209, v97, v98, v99, v100);
-      sub_2210BBBE8(&v219, v96, v101);
-      v205 = [TSTFormulaRewriteSpec alloc];
-      v221[0] = objc_msgSend_dstTableUID(v207, v102, v103, v104, v105);
-      v221[1] = v106;
-      v206 = objc_msgSend_tableInfo(v208, v106, v107, v108, v109);
-      v114 = objc_msgSend_translator(v206, v110, v111, v112, v113);
-      v119 = objc_msgSend_coordinateMapper(v114, v115, v116, v117, v118);
-      v220[0] = objc_msgSend_fromTableUID(v208, v120, v121, v122, v123);
-      v220[1] = v124;
-      v24 = objc_msgSend_initForCategorizedTableChromeToBaseRewriterWithSrcTableUID_srcTract_dstTableUID_destTract_coordMapper_srcCoordMapper_fromTableUID_(v205, v124, &v217, &v216, v221, &v219, v214, v119, v220);
+      v69 = objc_msgSend_uids(v173, v66, v67, v68);
+      v73 = objc_msgSend_uids(v172, v70, v71, v72);
+      sub_2210BBBE8(&v177, v69, v73);
+      v77 = objc_msgSend_uids(v171, v74, v75, v76);
+      v81 = objc_msgSend_uids(v170, v78, v79, v80);
+      sub_2210BBBE8(&v180, v77, v81);
+      v166 = [TSTFormulaRewriteSpec alloc];
+      v182[0] = objc_msgSend_dstTableUID(v168, v82, v83, v84);
+      v182[1] = v85;
+      v167 = objc_msgSend_tableInfo(v169, v85, v86, v87);
+      v91 = objc_msgSend_translator(v167, v88, v89, v90);
+      v95 = objc_msgSend_coordinateMapper(v91, v92, v93, v94);
+      v181[0] = objc_msgSend_fromTableUID(v169, v96, v97, v98);
+      v181[1] = v99;
+      v21 = objc_msgSend_initForCategorizedTableChromeToBaseRewriterWithSrcTableUID_srcTract_dstTableUID_destTract_coordMapper_srcCoordMapper_fromTableUID_(v166, v99, &v178, &v177, v182, &v180, v175, v95, v181);
 
-      objc_msgSend_setRewriteSpecChromeToBase_(self->_rewriteSpec, v125, v24, v126, v127);
-      objc_storeStrong(&self->_rewriteSpecChromeToBase, v24);
-      if (v219.var1.coordinate)
+      objc_msgSend_setRewriteSpecChromeToBase_(self->_rewriteSpec, v100, v21, v101);
+      objc_storeStrong(&self->_rewriteSpecChromeToBase, v21);
+      if (v180.var1.coordinate)
       {
-        v219.var1._tableUID._lower = v219.var1.coordinate;
-        operator delete(*&v219.var1.coordinate);
+        v180.var1._tableUID._lower = v180.var1.coordinate;
+        operator delete(*&v180.var1.coordinate);
       }
 
-      if (v219.var0.coordinate)
+      if (v180.var0.coordinate)
       {
-        v219.var0._tableUID._lower = v219.var0.coordinate;
-        operator delete(*&v219.var0.coordinate);
+        v180.var0._tableUID._lower = v180.var0.coordinate;
+        operator delete(*&v180.var0.coordinate);
       }
 
-      if (v216.var2.var0.var0._tableUID._lower)
+      if (v177.var2.var0.var0._tableUID._lower)
       {
-        v216.var2.var0.var0._tableUID._upper = v216.var2.var0.var0._tableUID._lower;
-        operator delete(v216.var2.var0.var0._tableUID._lower);
+        v177.var2.var0.var0._tableUID._upper = v177.var2.var0.var0._tableUID._lower;
+        operator delete(v177.var2.var0.var0._tableUID._lower);
       }
 
-      if (v216.var0)
+      if (v177.var0)
       {
-        v216.var1 = v216.var0;
-        operator delete(v216.var0);
+        v177.var1 = v177.var0;
+        operator delete(v177.var0);
       }
     }
 
     else
     {
-      if (!v212)
+      if (!v173)
       {
-        v128 = MEMORY[0x277D81150];
-        v129 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v84, v85);
-        v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v130, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v131, v132);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v128, v134, v129, v133, 128, 0, "invalid nil value for '%{public}s'", "srcColumnUids");
+        v102 = MEMORY[0x277D81150];
+        v103 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v68);
+        v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v104, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v105);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v102, v107, v103, v106, 128, 0, "invalid nil value for '%{public}s'", "srcColumnUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v135, v136, v137, v138);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v108, v109, v110);
       }
 
-      if (!v211)
+      if (!v172)
       {
-        v139 = MEMORY[0x277D81150];
-        v140 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v84, v85);
-        v144 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v141, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v142, v143);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v139, v145, v140, v144, 129, 0, "invalid nil value for '%{public}s'", "srcRowUids");
+        v111 = MEMORY[0x277D81150];
+        v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v68);
+        v115 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v114);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v111, v116, v112, v115, 129, 0, "invalid nil value for '%{public}s'", "srcRowUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v146, v147, v148, v149);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v117, v118, v119);
       }
 
-      if (!v210)
+      if (!v171)
       {
-        v150 = MEMORY[0x277D81150];
-        v151 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v84, v85);
-        v155 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v152, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v153, v154);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v150, v156, v151, v155, 130, 0, "invalid nil value for '%{public}s'", "dstColumnUids");
+        v120 = MEMORY[0x277D81150];
+        v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v68);
+        v124 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v123);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v120, v125, v121, v124, 130, 0, "invalid nil value for '%{public}s'", "dstColumnUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v157, v158, v159, v160);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v126, v127, v128);
       }
 
-      if (!v209)
+      if (!v170)
       {
-        v161 = MEMORY[0x277D81150];
-        v162 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v82, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v84, v85);
-        v166 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v163, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v164, v165);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v161, v167, v162, v166, 131, 0, "invalid nil value for '%{public}s'", "dstRowUids");
+        v129 = MEMORY[0x277D81150];
+        v130 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "[TSTConvertFormulasForCategoriesByRewritingWrapper convertFromChromeToBaseForCategorizedTableMove:containingCell:]", v68);
+        v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v131, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTConvertFormulasForCategoriesByRewritingWrapper.mm", v132);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v129, v134, v130, v133, 131, 0, "invalid nil value for '%{public}s'", "dstRowUids");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v168, v169, v170, v171);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v135, v136, v137);
       }
 
-      v24 = 0;
-      v53 = v207;
+      v21 = 0;
+      v44 = v168;
     }
 
     goto LABEL_39;
   }
 
-  v48 = objc_msgSend_coordMapper(v24, v44, v45, v46, v47);
+  v40 = objc_msgSend_coordMapper(v21, v37, v38, v39);
 
-  v52 = v214;
-  if (v48 != v214)
+  v43 = v175;
+  if (v40 != v175)
   {
-    objc_msgSend_setCoordMapper_(v24, v49, v214, v50, v51);
-    v24 = v24;
-    v53 = *p_rewriteSpecChromeToBase;
-    *p_rewriteSpecChromeToBase = v24;
+    objc_msgSend_setCoordMapper_(v21, v41, v175, v42);
+    v21 = v21;
+    v44 = *p_rewriteSpecChromeToBase;
+    *p_rewriteSpecChromeToBase = v21;
 LABEL_39:
   }
 
-  if (v13 == 6)
+  if (v12 == 6)
   {
-    v172 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v49, v52, v50, v51);
-    v177 = objc_msgSend_finalDstTableUID(v172, v173, v174, v175, v176);
-    v179 = v178;
-    v183 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v178, v180, v181, v182);
-    if (v177 == objc_msgSend_dstTableUID(v183, v184, v185, v186, v187))
+    v138 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v41, v43, v42);
+    v142 = objc_msgSend_finalDstTableUID(v138, v139, v140, v141);
+    v144 = v143;
+    v147 = objc_msgSend_regionMovedInfo(self->_rewriteSpec, v143, v145, v146);
+    if (v142 == objc_msgSend_dstTableUID(v147, v148, v149, v150))
     {
-      v189 = v188;
+      v152 = v151;
 
-      v190 = 4;
-      if (v179 == v189)
+      v153 = 4;
+      if (v144 == v152)
       {
-        v190 = 12;
+        v153 = 12;
       }
     }
 
     else
     {
 
-      v190 = 4;
+      v153 = 4;
     }
   }
 
   else
   {
-    v190 = 0;
+    v153 = 0;
   }
 
-  if (v213 == 4)
+  if (v174 == 4)
   {
-    v191 = v190 | 0x10;
+    v154 = v153 | 0x10;
   }
 
   else
   {
-    v191 = v190;
+    v154 = v153;
   }
 
   coordinate = cell->var1.coordinate;
-  v193 = objc_msgSend_tableInfo(v215, v49, v52, v50, v51);
-  v198 = objc_msgSend_translator(v193, v194, v195, v196, v197);
-  v202 = objc_msgSend_chromeCellCoordForBaseCellCoord_(v198, v199, coordinate, v200, v201);
+  v156 = objc_msgSend_tableInfo(v176, v41, v43, v42);
+  v160 = objc_msgSend_translator(v156, v157, v158, v159);
+  v163 = objc_msgSend_chromeCellCoordForBaseCellCoord_(v160, v161, coordinate, v162);
 
-  v216.var0 = v202;
-  *&v216.var1 = cell->var1._tableUID;
-  v217 = *&cell->var1.coordinate.row;
+  v177.var0 = v163;
+  *&v177.var1 = cell->var1._tableUID;
+  v178 = *&cell->var1.coordinate.row;
   upper = cell->var1._tableUID._upper;
-  sub_2212C726C(&v219, &v216, &v217);
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v216, self->_calcEngine, &v219);
-  v203 = sub_22149252C(v8, &v216, v24, 2, v191);
+  sub_2212C726C(&v180, &v177, &v178);
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v177, self->_calcEngine, &v180);
+  v164 = sub_22149252C(v8, &v177, v21, 2, v154);
 
-  v8 = v203;
+  v8 = v164;
 LABEL_51:
 
   return v8;

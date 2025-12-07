@@ -122,7 +122,20 @@ void __44__PCMediaTransferObserver__xpcEnsureStarted__block_invoke_2(uint64_t a1
 void __50__PCMediaTransferObserver_activateWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 8) != 1)
+  if (*(v2 + 8) == 1)
+  {
+    v3 = MEMORY[0x2666FB170](*(a1 + 40));
+    if (v3)
+    {
+      v11 = v3;
+      v4 = NSErrorWithOSStatusF();
+      v11[2](v11, v4);
+
+      v3 = v11;
+    }
+  }
+
+  else
   {
     *(v2 + 8) = 1;
     [*(a1 + 32) _xpcEnsureStarted];
@@ -130,50 +143,28 @@ void __50__PCMediaTransferObserver_activateWithCompletion___block_invoke(uint64_
     v6 = **(v5 + 16);
     if (v6 <= 30)
     {
-      if (v6 == -1)
+      if (v6 != -1 || (v7 = _LogCategory_Initialize(), v5 = *(a1 + 32), v7))
       {
-        v7 = _LogCategory_Initialize();
+        LogPrintF();
         v5 = *(a1 + 32);
-        if (!v7)
-        {
-          goto LABEL_11;
-        }
-
-        v11 = *(v5 + 16);
       }
-
-      LogPrintF();
-      v5 = *(a1 + 32);
     }
 
-LABEL_11:
     v8 = *(v5 + 24);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_2;
-    v15[3] = &unk_279AD1C20;
-    v15[4] = v5;
-    v16 = *(a1 + 40);
-    v9 = [v8 remoteObjectProxyWithErrorHandler:v15];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_3;
-    v13[3] = &unk_279AD1AD8;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_2;
+    v14[3] = &unk_279AD1C20;
+    v14[4] = v5;
+    v15 = *(a1 + 40);
+    v9 = [v8 remoteObjectProxyWithErrorHandler:v14];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_3;
+    v12[3] = &unk_279AD1AD8;
     v10 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    [v9 mediaTransferObserver:v10 activateWithCompletion:v13];
-
-    return;
-  }
-
-  v3 = MEMORY[0x2666FB170](*(a1 + 40));
-  if (v3)
-  {
-    v12 = v3;
-    v4 = NSErrorWithOSStatusF();
-    v12[2](v12, v4);
-
-    v3 = v12;
+    v13 = *(a1 + 40);
+    [v9 mediaTransferObserver:v10 activateWithCompletion:v12];
   }
 }
 
@@ -182,13 +173,13 @@ void __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_2(uint6
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *v4[2];
-  v11 = v3;
+  v10 = v3;
   if (v5 <= 90)
   {
     if (v5 != -1)
     {
 LABEL_3:
-      v10 = v3;
+      v9 = v3;
       LogPrintF();
       v4 = *(a1 + 32);
       goto LABEL_5;
@@ -198,8 +189,7 @@ LABEL_3:
     v4 = *(a1 + 32);
     if (v6)
     {
-      v9 = v4[2];
-      v3 = v11;
+      v3 = v10;
       goto LABEL_3;
     }
   }
@@ -210,7 +200,7 @@ LABEL_5:
   v8 = v7;
   if (v7)
   {
-    (*(v7 + 16))(v7, v11);
+    (*(v7 + 16))(v7, v10);
   }
 }
 
@@ -245,41 +235,27 @@ void __50__PCMediaTransferObserver_activateWithCompletion___block_invoke_3(uint6
 - (void)_invalidateWithError:(id)error
 {
   errorCopy = error;
-  if (self->_invalidated)
+  if (!self->_invalidated)
   {
-    goto LABEL_9;
-  }
-
-  v9 = errorCopy;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
-  {
-    if (var0 == -1)
+    v8 = errorCopy;
+    var0 = self->_ucat->var0;
+    if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_6;
-      }
-
-      ucat = self->_ucat;
+      LogPrintF();
     }
 
-    LogPrintF();
-  }
+    dispatch_assert_queue_V2(self->_dispatchQueue);
+    self->_invalidated = 1;
+    [(PCMediaTransferObserver *)self _xpcEnsureStopped];
+    v6 = MEMORY[0x2666FB170](self->_invalidationHandler);
+    v7 = v6;
+    if (v6)
+    {
+      (*(v6 + 16))(v6, v8);
+    }
 
-LABEL_6:
-  dispatch_assert_queue_V2(self->_dispatchQueue);
-  self->_invalidated = 1;
-  [(PCMediaTransferObserver *)self _xpcEnsureStopped];
-  v6 = MEMORY[0x2666FB170](self->_invalidationHandler);
-  v7 = v6;
-  if (v6)
-  {
-    (*(v6 + 16))(v6, v9);
+    errorCopy = v8;
   }
-
-  errorCopy = v9;
-LABEL_9:
 }
 
 - (PCMediaTransferObserver)initWithCoder:(id)coder
@@ -298,23 +274,11 @@ LABEL_9:
 {
   contextCopy = context;
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_3:
-      LogPrintF();
-      goto LABEL_5;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
-    }
+    LogPrintF();
   }
 
-LABEL_5:
   v5 = MEMORY[0x2666FB170](self->_transferBeganHandler);
   v6 = v5;
   if (v5)
@@ -326,29 +290,17 @@ LABEL_5:
 - (void)transferEnded
 {
   var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  if (var0 <= 30 && (var0 != -1 || _LogCategory_Initialize()))
   {
-    if (var0 != -1)
-    {
-LABEL_3:
-      LogPrintF();
-      goto LABEL_5;
-    }
-
-    if (_LogCategory_Initialize())
-    {
-      ucat = self->_ucat;
-      goto LABEL_3;
-    }
+    LogPrintF();
   }
 
-LABEL_5:
   v4 = MEMORY[0x2666FB170](self->_transferEndedHandler);
   if (v4)
   {
-    v6 = v4;
+    v5 = v4;
     v4[2]();
-    v4 = v6;
+    v4 = v5;
   }
 }
 

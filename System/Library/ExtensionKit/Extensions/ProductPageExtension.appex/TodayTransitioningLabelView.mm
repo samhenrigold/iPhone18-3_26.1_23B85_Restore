@@ -27,7 +27,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1001E3000();
+  sub_1001E3000(selfCopy);
 }
 
 - (void)layoutDirectionDidChange

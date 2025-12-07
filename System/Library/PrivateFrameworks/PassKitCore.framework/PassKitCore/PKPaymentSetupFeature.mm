@@ -271,33 +271,29 @@
     }
   }
 
-  else
+  else if (([(NSSet *)v5 isEqual:?]& 1) == 0)
   {
-    v8 = [(NSSet *)v5 isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_53;
-    }
+    goto LABEL_53;
   }
 
   localizedDisplayName = self->_localizedDisplayName;
-  v10 = *(equalCopy + 2);
-  v11 = localizedDisplayName;
-  v12 = v11;
-  if (v10 == v11)
+  v9 = *(equalCopy + 2);
+  v10 = localizedDisplayName;
+  v11 = v10;
+  if (v9 == v10)
   {
   }
 
   else
   {
-    if (!v10 || !v11)
+    if (!v9 || !v10)
     {
       goto LABEL_52;
     }
 
-    v13 = [(NSString *)v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if (!v13)
+    if (!isEqualToString)
     {
       goto LABEL_53;
     }
@@ -309,46 +305,46 @@
   }
 
   productIdentifier = self->_productIdentifier;
-  v10 = *(equalCopy + 7);
-  v15 = productIdentifier;
-  v12 = v15;
-  if (v10 == v15)
+  v9 = *(equalCopy + 7);
+  v14 = productIdentifier;
+  v11 = v14;
+  if (v9 == v14)
   {
   }
 
   else
   {
-    if (!v10 || !v15)
+    if (!v9 || !v14)
     {
       goto LABEL_52;
     }
 
-    v16 = [(NSString *)v10 isEqualToString:v15];
+    v15 = objc_msgSend_isEqualToString_(v9);
 
-    if (!v16)
+    if (!v15)
     {
       goto LABEL_53;
     }
   }
 
   partnerIdentifier = self->_partnerIdentifier;
-  v10 = *(equalCopy + 8);
-  v18 = partnerIdentifier;
-  v12 = v18;
-  if (v10 == v18)
+  v9 = *(equalCopy + 8);
+  v17 = partnerIdentifier;
+  v11 = v17;
+  if (v9 == v17)
   {
   }
 
   else
   {
-    if (!v10 || !v18)
+    if (!v9 || !v17)
     {
       goto LABEL_52;
     }
 
-    v19 = [(NSString *)v10 isEqualToString:v18];
+    v18 = objc_msgSend_isEqualToString_(v9);
 
-    if (!v19)
+    if (!v18)
     {
       goto LABEL_53;
     }
@@ -360,62 +356,62 @@
   }
 
   notificationTitle = self->_notificationTitle;
-  v10 = *(equalCopy + 15);
-  v21 = notificationTitle;
-  v12 = v21;
-  if (v10 == v21)
+  v9 = *(equalCopy + 15);
+  v20 = notificationTitle;
+  v11 = v20;
+  if (v9 == v20)
   {
   }
 
   else
   {
-    if (!v10 || !v21)
+    if (!v9 || !v20)
     {
       goto LABEL_52;
     }
 
-    v22 = [(NSString *)v10 isEqualToString:v21];
+    v21 = objc_msgSend_isEqualToString_(v9);
 
-    if (!v22)
+    if (!v21)
     {
       goto LABEL_53;
     }
   }
 
   notificationMessage = self->_notificationMessage;
-  v10 = *(equalCopy + 16);
-  v24 = notificationMessage;
-  v12 = v24;
-  if (v10 == v24)
+  v9 = *(equalCopy + 16);
+  v23 = notificationMessage;
+  v11 = v23;
+  if (v9 == v23)
   {
   }
 
   else
   {
-    if (!v10 || !v24)
+    if (!v9 || !v23)
     {
       goto LABEL_52;
     }
 
-    v25 = [(NSString *)v10 isEqualToString:v24];
+    v24 = objc_msgSend_isEqualToString_(v9);
 
-    if (!v25)
+    if (!v24)
     {
       goto LABEL_53;
     }
   }
 
   discoveryCardIdentifier = self->_discoveryCardIdentifier;
-  v10 = *(equalCopy + 17);
-  v27 = discoveryCardIdentifier;
-  v12 = v27;
-  if (v10 != v27)
+  v9 = *(equalCopy + 17);
+  v26 = discoveryCardIdentifier;
+  v11 = v26;
+  if (v9 != v26)
   {
-    if (v10 && v27)
+    if (v9 && v26)
     {
-      v28 = [(NSString *)v10 isEqualToString:v27];
+      v27 = objc_msgSend_isEqualToString_(v9);
 
-      if (!v28)
+      if (!v27)
       {
         goto LABEL_53;
       }
@@ -431,15 +427,15 @@ LABEL_52:
 LABEL_56:
   if (*(equalCopy + 11) == self->_lastUpdated)
   {
-    v29 = *(equalCopy + 12) == self->_expiry;
+    v28 = *(equalCopy + 12) == self->_expiry;
     goto LABEL_54;
   }
 
 LABEL_53:
-  v29 = 0;
+  v28 = 0;
 LABEL_54:
 
-  return v29;
+  return v28;
 }
 
 - (unint64_t)hash

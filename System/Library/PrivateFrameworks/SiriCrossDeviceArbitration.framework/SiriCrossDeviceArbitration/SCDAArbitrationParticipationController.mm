@@ -99,21 +99,20 @@ void __81__SCDAArbitrationParticipationController_publishArbitrationParticipatio
 
 void __86__SCDAArbitrationParticipationController__publishFeedbackArbitrationRecordForNearMiss__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E69CE3C8]) initNearMiss];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[SCDAArbitrationParticipationController _publishFeedbackArbitrationRecordForNearMiss]_block_invoke";
-    _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s #scda #feedback", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SCDAArbitrationParticipationController _publishFeedbackArbitrationRecordForNearMiss]_block_invoke";
+    _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s #scda #feedback", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) settingsConnection];
   [v4 publishFeedbackArbitrationParticipation:v2];
 
   [*(a1 + 32) _resetSettingsConnection];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

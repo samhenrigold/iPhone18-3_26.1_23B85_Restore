@@ -12,11 +12,12 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___AXCameraManager_frameHandler);
   v7 = *(&self->super.isa + OBJC_IVAR___AXCameraManager_frameHandler);
+  v8 = *&self->queue[OBJC_IVAR___AXCameraManager_frameHandler];
   *v6 = sub_1C0E4A63C;
   v6[1] = v5;
   selfCopy = self;
 
-  sub_1C0E49F94(v7);
+  sub_1C0E49F94(v7, v8);
   sub_1C0E49694();
 }
 

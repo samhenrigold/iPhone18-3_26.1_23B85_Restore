@@ -16,12 +16,12 @@
   return v3;
 }
 
-void __54__CRKPlatformClassroomLockScreenMonitor_sharedMonitor__block_invoke()
+void __54__CRKPlatformClassroomLockScreenMonitor_sharedMonitor__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v0 = [v2 makeMonitor];
-  v1 = sharedMonitor_monitor;
-  sharedMonitor_monitor = v0;
+  v4 = objc_opt_new();
+  v2 = [v4 makeMonitor];
+  v3 = sharedMonitor_monitor;
+  sharedMonitor_monitor = v2;
 }
 
 @end

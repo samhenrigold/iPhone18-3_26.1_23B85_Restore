@@ -14,14 +14,11 @@
 
 - (NSString)productId
 {
-  v2 = (self + OBJC_IVAR___TPSUserGuideTopic_productId);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1C014C200();
+  v2 = sub_1C014C200();
 
-  return v5;
+  return v2;
 }
 
 - (void)setProductId:(id)id
@@ -30,7 +27,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___TPSUserGuideTopic_productId);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -46,42 +42,36 @@
 {
   v3 = sub_1C014BD80();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = (self + OBJC_IVAR___TPSUserGuideTopic_topicId);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR___TPSUserGuideTopic_topicId;
   swift_beginAccess();
-  if (v8[1])
-  {
-    v9 = *v8;
-    v10 = v8[1];
-  }
-
-  else
+  if (!*(v7 + 1))
   {
     selfCopy = self;
     sub_1C014BD70();
     sub_1C014BD50();
 
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
-  v12 = sub_1C014C200();
+  v9 = sub_1C014C200();
 
-  return v12;
+  return v9;
 }
 
 + (BOOL)isValidIdentifier:(id)identifier
 {
   v3 = sub_1C014C230();
-  v4 = objc_allocWithZone(type metadata accessor for UserGuideTopic());
-  v5 = UserGuideTopic.init(searchableItemUniqueIdentifier:)(v3);
-  v6 = v5;
-  if (v5)
+  v5 = v4;
+  v6 = objc_allocWithZone(type metadata accessor for UserGuideTopic());
+  v7 = UserGuideTopic.init(searchableItemUniqueIdentifier:)(v3, v5);
+  v8 = v7;
+  if (v7)
   {
   }
 
-  return v6 != 0;
+  return v8 != 0;
 }
 
 - (id)searchableItemUniqueIdentifierWith:(id)with
@@ -146,24 +136,23 @@ LABEL_3:
 - (NSURL)supportSiteURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBE06970, &qword_1C0156340);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  UserGuideTopic.supportSiteURL.getter(v6);
+  UserGuideTopic.supportSiteURL.getter(v5);
 
-  v8 = sub_1C014BC50();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1C014BC50();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C014BBB0();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C014BBB0();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 @end

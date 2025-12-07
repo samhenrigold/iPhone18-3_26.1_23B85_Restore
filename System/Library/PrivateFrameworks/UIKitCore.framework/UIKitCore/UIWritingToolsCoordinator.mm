@@ -14,14 +14,14 @@
 - (WTTextViewDelegate_Proposed_v1)_sessionTextViewDelegate;
 - (_NSRange)_adjustedResolvedRangeForContextWithIdentifier:(id)identifier;
 - (_UIWTCProofreadingDecorationView)_preparedProofreadingDecorationViewInContainer:(uint64_t)container;
+- (char)_trailingCursorLocationRangeForProofreadingSuggestion:(void *)suggestion inContextID:;
+- (char)_validSubrangeForTextAnimation:(unint64_t)animation withIndex:(void *)index contextID:;
 - (id)_bufferInvocationForSelector:(SEL)selector arguments:(id)arguments;
 - (id)_lastProofreadingSuggestionWithUnderlineFromProofreadingController:(uint64_t)controller;
 - (id)_replacementTracker;
 - (id)_replacementTrackerForContextID:(id)d;
 - (int64_t)behavior;
 - (int64_t)preferredBehavior;
-- (uint64_t)_trailingCursorLocationRangeForProofreadingSuggestion:(void *)suggestion inContextID:;
-- (uint64_t)_validSubrangeForTextAnimation:(unint64_t)animation withIndex:(void *)index contextID:;
 - (unint64_t)preferredResultOptions;
 - (unint64_t)resultOptions;
 - (void)_addProofreadSuggestionPendingUnderlineForRange:(_NSRange)range inContext:(id)context forProofreadingSuggestionID:(id)d completion:(id)completion;
@@ -69,7 +69,7 @@
 - (void)_sessionCleanup;
 - (void)_setInFlightDeliveryID:(id)d;
 - (void)_setUpTextEffectView;
-- (void)_synchronizeSuggestionInfoStateForProofreadingSuggestionWithIdentifier:(uint64_t)identifier state:;
+- (void)_synchronizeSuggestionInfoStateForProofreadingSuggestionWithIdentifier:(void *)identifier state:;
 - (void)_undrawProofreadingHighlightsForProofreadingSuggestionID:(id)d;
 - (void)_undrawProofreadingUnderlinesForProofreadingSuggestionID:(id)d;
 - (void)_updateDelegateRespondsToFlags;
@@ -249,7 +249,7 @@
 
 - (void)prepareForAnimationFor:(_TtC5UIKit21UITextEffectTextChunk *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -276,7 +276,7 @@
 
 - (void)finishAnimationFor:(_TtC5UIKit21UITextEffectTextChunk *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -303,7 +303,7 @@
 
 - (void)canGenerateTargetedPreviewsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -328,7 +328,7 @@
 
 - (void)canGenerateTargetedPreviewForChunk:(_TtC5UIKit21UITextEffectTextChunk *)chunk completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -355,7 +355,7 @@
 
 - (void)targetedPreviewFor:(_TtC5UIKit21UITextEffectTextChunk *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -382,7 +382,7 @@
 
 - (void)updateTextChunkVisibilityForAnimation:(_TtC5UIKit21UITextEffectTextChunk *)animation visible:(BOOL)visible completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -414,7 +414,7 @@
   width = previous.size.width;
   y = previous.origin.y;
   x = previous.origin.x;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v22 - v13;
   v15 = _Block_copy(handler);
@@ -495,7 +495,7 @@
 
 - (void)_invalidateReplacementForDeliveryID:(id)d subrangeIndex:(int64_t)index animated:(BOOL)animated
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v21 - v8;
   v10 = sub_18A4A29D8();
@@ -674,12 +674,12 @@ void __44__UIWritingToolsCoordinator__sessionCleanup__block_invoke(uint64_t a1)
   {
     if (*(self + 208) == a2)
     {
-      (*(stateCopy + 2))(stateCopy);
+      stateCopy[2](stateCopy);
     }
 
     else
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v10 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_changeToState_postStateChangeActions____s_category) + 8);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -724,7 +724,7 @@ void __44__UIWritingToolsCoordinator__sessionCleanup__block_invoke(uint64_t a1)
 void __33__UIWritingToolsCoordinator_init__block_invoke()
 {
   v2 = _UIMainBundleIdentifier();
-  if ([v2 isEqualToString:@"com.apple.Pages"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     _MergedGlobals_1019 = 1;
   }
@@ -732,7 +732,7 @@ void __33__UIWritingToolsCoordinator_init__block_invoke()
   else
   {
     v0 = _UIMainBundleIdentifier();
-    if ([v0 isEqualToString:@"com.apple.Keynote"])
+    if (objc_msgSend_isEqualToString_(v0))
     {
       _MergedGlobals_1019 = 1;
     }
@@ -740,7 +740,7 @@ void __33__UIWritingToolsCoordinator_init__block_invoke()
     else
     {
       v1 = _UIMainBundleIdentifier();
-      _MergedGlobals_1019 = [v1 isEqualToString:@"com.apple.Numbers"];
+      _MergedGlobals_1019 = objc_msgSend_isEqualToString_(v1);
     }
   }
 }
@@ -1083,7 +1083,7 @@ LABEL_7:
     d[26] = 1;
     if ([undoRoller hasFouled])
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v29 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CA98) + 8);
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -1107,16 +1107,16 @@ LABEL_7:
       {
         activeText = [replacementTracker activeText];
         string2 = [activeText string];
-        v15 = [string isEqualToString:string2];
+        isEqualToString = objc_msgSend_isEqualToString_(string);
 
-        if (v15)
+        if (isEqualToString)
         {
           [d _updateProofreadingTextAndTrackerToShowOriginal:0 inContextID:v3];
           goto LABEL_6;
         }
 
 LABEL_22:
-        if (!os_variant_has_internal_diagnostics() || ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) != 0 || !byte_1EA95E17C) && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) != 0 || !byte_1EA95E184))
+        if (!os_variant_has_internal_diagnostics() || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") || !byte_1EA95E17C) && (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") || !byte_1EA95E184))
         {
           goto LABEL_5;
         }
@@ -1162,7 +1162,7 @@ LABEL_51:
 
       originalText = [replacementTracker originalText];
       string3 = [originalText string];
-      v20 = [string isEqualToString:string3];
+      v20 = objc_msgSend_isEqualToString_(string);
 
       if (!v20)
       {
@@ -1201,7 +1201,7 @@ LABEL_6:
         string4 = [rolledReplacement3 string];
         originalText2 = [replacementTracker originalText];
         string5 = [originalText2 string];
-        v25 = [string4 isEqualToString:string5];
+        v25 = objc_msgSend_isEqualToString_(string4);
 
         if (v25)
         {
@@ -1214,7 +1214,7 @@ LABEL_6:
           goto LABEL_5;
         }
 
-        if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+        if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
         {
           v26 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CAA8) + 8);
           if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
@@ -1397,7 +1397,7 @@ LABEL_8:
 void __43__UIWritingToolsCoordinator__isIAWriterApp__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1ED49CA79 = [v0 isEqualToString:@"pro.writer"];
+  byte_1ED49CA79 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (void)didMoveToView:(id)view
@@ -1766,7 +1766,7 @@ void __74__UIWritingToolsCoordinator_willBeginWritingToolsSession_requestContext
   {
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
       {
         if (byte_1EA95E184)
         {
@@ -1788,7 +1788,7 @@ LABEL_31:
   {
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging"))
       {
         if (byte_1EA95E17C)
         {
@@ -1912,12 +1912,10 @@ LABEL_31:
         }
 
         v20 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-        v21 = byte_1EA95E17C ? v20 : 1;
-        if (v21 == 1)
+        if (!byte_1EA95E17C || v20)
         {
           v22 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging");
-          v23 = byte_1EA95E184 ? v22 : 1;
-          if (v23)
+          if (!byte_1EA95E184 || v22)
           {
             goto LABEL_10;
           }
@@ -1926,8 +1924,8 @@ LABEL_31:
         if (os_variant_has_internal_diagnostics())
         {
           v24 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-          v25 = byte_1EA95E17C ? v24 : 1;
-          if (v25 != 1 || ((v26 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v27 = 1) : (v27 = v26), (v27 & 1) == 0))
+          v25 = !byte_1EA95E17C || v24;
+          if (!v25 || ((v26 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v27 = 1) : (v27 = v26), (v27 & 1) == 0))
           {
             v28 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CAD8) + 8);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
@@ -1962,8 +1960,8 @@ LABEL_10:
   if (os_variant_has_internal_diagnostics())
   {
     v14 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-    v15 = byte_1EA95E17C ? v14 : 1;
-    if (v15 != 1 || ((v16 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v17 = 1) : (v17 = v16), (v17 & 1) == 0))
+    v15 = !byte_1EA95E17C || v14;
+    if (!v15 || ((v16 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v17 = 1) : (v17 = v16), (v17 & 1) == 0))
     {
       v18 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CAD0) + 8);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -2017,8 +2015,8 @@ void __64__UIWritingToolsCoordinator_didEndWritingToolsSession_accepted___block_
     if (os_variant_has_internal_diagnostics())
     {
       v28 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-      v29 = byte_1EA95E17C ? v28 : 1;
-      if (v29 != 1 || ((v30 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v31 = 1) : (v31 = v30), (v31 & 1) == 0))
+      v29 = !byte_1EA95E17C || v28;
+      if (!v29 || ((v30 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v31 = 1) : (v31 = v30), (v31 & 1) == 0))
       {
         v32 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &writingToolsSession_didReceiveAction____s_category) + 8);
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -2237,7 +2235,7 @@ void __66__UIWritingToolsCoordinator_writingToolsSession_didReceiveAction___bloc
                 [(UIWritingToolsCoordinator *)&self->super.isa _synchronizeSuggestionInfoStateForProofreadingSuggestionWithIdentifier:uuid state:0];
                 if (os_variant_has_internal_diagnostics())
                 {
-                  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+                  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
                   {
                     if (byte_1EA95E184)
                     {
@@ -2322,7 +2320,7 @@ LABEL_16:
   }
 }
 
-- (void)_synchronizeSuggestionInfoStateForProofreadingSuggestionWithIdentifier:(uint64_t)identifier state:
+- (void)_synchronizeSuggestionInfoStateForProofreadingSuggestionWithIdentifier:(void *)identifier state:
 {
   v5 = a2;
   if (self)
@@ -2445,8 +2443,7 @@ LABEL_12:
       if (os_variant_has_internal_diagnostics())
       {
         v23 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-        v24 = byte_1EA95E17C ? v23 : 1;
-        if ((v24 & 1) == 0)
+        if (byte_1EA95E17C && !v23)
         {
           v25 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CAE0) + 8);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
@@ -2502,8 +2499,7 @@ LABEL_12:
       if (os_variant_has_internal_diagnostics())
       {
         v29 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-        v30 = byte_1EA95E17C ? v29 : 1;
-        if ((v30 & 1) == 0)
+        if (byte_1EA95E17C && !v29)
         {
           v31 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CAF0) + 8);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -2604,7 +2600,7 @@ void __99__UIWritingToolsCoordinator_compositionSession_didReceiveText_replaceme
     v29 = v28 = finishedCopy;
     v30 = [(UIWritingToolsCoordinator *)self _bufferInvocationForSelector:a2 arguments:v29];
 
-    if (!os_variant_has_internal_diagnostics() || (v34 = v26, v35 = v28, (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) != 0))
+    if (!os_variant_has_internal_diagnostics() || (v34 = v26, v35 = v28, _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging")))
     {
       v18 = v24;
     }
@@ -2655,7 +2651,7 @@ LABEL_7:
   v31 = finishedCopy;
   if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
     {
       if (byte_1EA95E184)
       {
@@ -2893,9 +2889,9 @@ void __93__UIWritingToolsCoordinator__completeReceivingSuggestions_processedRang
     if ([v24 showingOriginal])
     {
       savedReviewingProofreadingSuggestionID = [v24 savedReviewingProofreadingSuggestionID];
-      v26 = [dCopy isEqual:savedReviewingProofreadingSuggestionID];
+      isEqual = objc_msgSend_isEqual_(dCopy);
 
-      if (v26)
+      if (isEqual)
       {
         goto LABEL_27;
       }
@@ -3017,8 +3013,7 @@ LABEL_27:
   if (os_variant_has_internal_diagnostics())
   {
     v19 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging");
-    v20 = byte_1EA95E184 ? v19 : 1;
-    if ((v20 & 1) == 0)
+    if (byte_1EA95E184 && !v19)
     {
       v21 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB08) + 8);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -3066,7 +3061,7 @@ void __96__UIWritingToolsCoordinator_proofreadingSession_didUpdateState_forSugge
       {
         if (os_variant_has_internal_diagnostics())
         {
-          if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+          if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
           {
             if (byte_1EA95E184)
             {
@@ -3089,7 +3084,7 @@ void __96__UIWritingToolsCoordinator_proofreadingSession_didUpdateState_forSugge
   }
 }
 
-- (uint64_t)_trailingCursorLocationRangeForProofreadingSuggestion:(void *)suggestion inContextID:
+- (char)_trailingCursorLocationRangeForProofreadingSuggestion:(void *)suggestion inContextID:
 {
   if (!self)
   {
@@ -3143,7 +3138,7 @@ void __96__UIWritingToolsCoordinator_proofreadingSession_didUpdateState_forSugge
   {
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
       {
         if (byte_1EA95E184)
         {
@@ -3379,7 +3374,7 @@ LABEL_45:
     v8 = state == 0;
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
       {
         if (byte_1EA95E184)
         {
@@ -3770,9 +3765,9 @@ void __101__UIWritingToolsCoordinator__executeForSubrangesOfRange_inContext_acti
           goto LABEL_27;
         }
 
-        v30 = [v27 isEqual:v28];
+        isEqual = objc_msgSend_isEqual_(v27);
 
-        if (!v30)
+        if (!isEqual)
         {
           goto LABEL_28;
         }
@@ -4073,7 +4068,7 @@ void __89__UIWritingToolsCoordinator__beginAnimatedTextReplacementForInFlightDel
   }
 }
 
-- (uint64_t)_validSubrangeForTextAnimation:(unint64_t)animation withIndex:(void *)index contextID:
+- (char)_validSubrangeForTextAnimation:(unint64_t)animation withIndex:(void *)index contextID:
 {
   if (!self)
   {
@@ -4155,7 +4150,7 @@ LABEL_11:
     v26 = _Block_copy(aBlock);
     v17 = [(UIWritingToolsCoordinator *)self _validSubrangeForTextAnimation:animation withIndex:index contextID:dCopy];
     v19 = v18;
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v25 = v16;
       v21 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_sendDelegatePrepareForTextAnimation_subrangeIndex_contextID_completion____s_category) + 8);
@@ -4214,7 +4209,7 @@ LABEL_11:
 
   if ([v14 isMarkedForRemovalTargetedPreview:v15])
   {
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v19 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_fetchStoredTargetedPreviewForContextID_previewSubrangeIndex_textAnimation_completion____s_category) + 8);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -4285,7 +4280,7 @@ LABEL_11:
         {
           v24 = [(UIWritingToolsCoordinator *)self _validSubrangeForTextAnimation:animation withIndex:index contextID:dCopy];
           v25 = v18;
-          if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+          if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
           {
             v23 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_sendDelegateFinishTextAnimation_subrangeIndex_contextID_completion____s_category) + 8);
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
@@ -4498,8 +4493,8 @@ uint64_t __97__UIWritingToolsCoordinator__sendDelegateFinishTextAnimation_subran
     if (os_variant_has_internal_diagnostics())
     {
       v27 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-      v28 = byte_1EA95E17C ? v27 : 1;
-      if (v28 != 1 || ((v29 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v30 = 1) : (v30 = v29), (v30 & 1) == 0))
+      v28 = !byte_1EA95E17C || v27;
+      if (!v28 || ((v29 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v30 = 1) : (v30 = v29), (v30 & 1) == 0))
       {
         v31 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB20) + 8);
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -4625,7 +4620,7 @@ void __129__UIWritingToolsCoordinator__sendDelegateTargetedPreviewOfActiveRangeF
 
     else
     {
-      (*(dCopy + 2))(dCopy);
+      dCopy[2](dCopy);
     }
   }
 }
@@ -4822,8 +4817,8 @@ LABEL_15:
       if (os_variant_has_internal_diagnostics())
       {
         v36 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging");
-        v37 = byte_1EA95E17C ? v36 : 1;
-        if (v37 != 1 || ((v38 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v39 = 1) : (v39 = v38), (v39 & 1) == 0))
+        v37 = !byte_1EA95E17C || v36;
+        if (!v37 || ((v38 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"), !byte_1EA95E184) ? (v39 = 1) : (v39 = v38), (v39 & 1) == 0))
         {
           v40 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_updateTextViewAndTrackerWithIncomingCompositionSessionState_forDelivery_animationParameters_contextID_completion____s_category) + 8);
           if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
@@ -4902,9 +4897,9 @@ void __143__UIWritingToolsCoordinator__updateTextViewAndTrackerWithIncomingCompo
   {
     if (v7 && v8)
     {
-      v10 = [v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (v10)
+      if (isEqual)
       {
         goto LABEL_13;
       }
@@ -4919,7 +4914,7 @@ void __143__UIWritingToolsCoordinator__updateTextViewAndTrackerWithIncomingCompo
   }
 
 LABEL_13:
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C && os_variant_has_internal_diagnostics())
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C && os_variant_has_internal_diagnostics())
   {
     v18 = *(a1 + 32);
     if (*(a1 + 40))
@@ -4936,7 +4931,7 @@ LABEL_13:
     v22 = v20;
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging"))
       {
         if (byte_1EA95E17C)
         {
@@ -5081,7 +5076,7 @@ uint64_t __143__UIWritingToolsCoordinator__updateTextViewAndTrackerWithIncomingC
     v12 = a2 + 1;
     if (v12 >= index)
     {
-      (*(dCopy + 2))(dCopy);
+      dCopy[2](dCopy);
     }
 
     else
@@ -5198,7 +5193,7 @@ void __83__UIWritingToolsCoordinator__cleanUpAnticipationAnimationTrackingInfoFo
   v16 = dCopy;
   if (animation >= indexes)
   {
-    (*(dCopy + 2))(dCopy);
+    dCopy[2](dCopy);
   }
 
   else if ([indexCopy containsIndex:animation])
@@ -5233,7 +5228,7 @@ void __132__UIWritingToolsCoordinator__finishNextReplacementAnimation_withSubran
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    [(UIWritingToolsCoordinator *)WeakRetained _finishNextReplacementAnimation:*(a1 + 72) + 1 withSubrangeIndex:*(a1 + 32) finishedIndexes:*(a1 + 80) numberOfIndexes:*(a1 + 40) contextID:*(a1 + 48) completion:?];
+    [(UIWritingToolsCoordinator *)WeakRetained _finishNextReplacementAnimation:(*(a1 + 72) + 1) withSubrangeIndex:*(a1 + 32) finishedIndexes:*(a1 + 80) numberOfIndexes:*(a1 + 40) contextID:*(a1 + 48) completion:?];
   }
 
   else
@@ -5261,7 +5256,7 @@ void __70__UIWritingToolsCoordinator__finishAllReplacementAnimationsInContext___
   if (self->_inFlightDeliveryID)
   {
     v37 = a2;
-    if (([deliveryCopy isEqual:?] & 1) == 0)
+    if ((objc_msgSend_isEqual_(deliveryCopy) & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:v37 object:self file:@"UIWritingToolsCoordinator.m" lineNumber:1922 description:{@"Replacement animation landed mismatched delivery, %@. _inFlightDeliveryID=%@", deliveryCopy, self->_inFlightDeliveryID}];
@@ -5277,7 +5272,7 @@ void __70__UIWritingToolsCoordinator__finishAllReplacementAnimationsInContext___
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
     if (landedReplacementSubrangeIndexes)
     {
-      if (has_internal_diagnostics && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (has_internal_diagnostics && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v32 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB30) + 8);
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
@@ -5352,7 +5347,7 @@ void __70__UIWritingToolsCoordinator__finishAllReplacementAnimationsInContext___
       objc_destroyWeak(from);
     }
 
-    else if (has_internal_diagnostics && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    else if (has_internal_diagnostics && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v34 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB28) + 8);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
@@ -5380,7 +5375,7 @@ void __95__UIWritingToolsCoordinator__replacementEffectDidLandInFlightDelivery_i
     v4 = [v3 _writingToolsDelegateMessageInvocationBuffer];
     if ([v4 count])
     {
-      if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+      if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
       {
         v16 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB38) + 8);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -5418,7 +5413,7 @@ LABEL_6:
           }
 
           [v4 removeObjectAtIndex:0];
-          if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+          if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
           {
             v20 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB40) + 8);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
@@ -5676,7 +5671,7 @@ void __72__UIWritingToolsCoordinator__updateToCompositionSessionState_contextID_
   _wtContext = [acceptedEvaluationContext _wtContext];
   v21 = [replacementTracker recordRewrittenText:textCopy forRange:v18 withContext:length finished:{_wtContext, finishedCopy}];
 
-  if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+  if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
   {
     v27 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_updateReplacementTrackerStartingAnimationsWithText_forRange_inContextWithID_finished____s_category) + 8);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -5739,7 +5734,7 @@ void __72__UIWritingToolsCoordinator__updateToCompositionSessionState_contextID_
   replacementTracker = [v15 replacementTracker];
   v21 = [replacementTracker recordRewrittenText:textCopy forRange:v19 withContext:length finished:{contextCopy, finishedCopy}];
 
-  if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+  if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
   {
     v24 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_updateReplacementTrackerWithText_forRange_inContext_finished____s_category) + 8);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -5789,7 +5784,7 @@ void __72__UIWritingToolsCoordinator__updateToCompositionSessionState_contextID_
     isFinished = [replacementTracker isFinished];
     if (os_variant_has_internal_diagnostics())
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging"))
       {
         if (byte_1EA95E17C)
         {
@@ -5858,7 +5853,7 @@ void __72__UIWritingToolsCoordinator__updateToCompositionSessionState_contextID_
     v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     v8 = [(UIWritingToolsCoordinator *)self _bufferInvocationForSelector:a2 arguments:v7];
 
-    if (os_variant_has_internal_diagnostics() && ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") & 1) == 0 && byte_1EA95E17C || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184))
+    if (os_variant_has_internal_diagnostics() && (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantRewriteLogging, @"UITextAssistantRewriteLogging") && byte_1EA95E17C || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184))
     {
       v16 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &_proofreadingOrCompositionFinishedInContext____s_category) + 8);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -6026,7 +6021,7 @@ void __119__UIWritingToolsCoordinator__updateVisualizationForProofreadingSuggest
         {
           v18 = [v11 range];
           v17 = 0;
-          v15 = v18 + v19;
+          v15 = (v18 + v19);
         }
 
         v20 = [MEMORY[0x1E696B098] valueWithRange:{v15, v17}];
@@ -6318,13 +6313,13 @@ LABEL_18:
               v21 = v12;
               v22 = v8;
               v23 = dCopy;
-              v24 = [savedReviewingProofreadingSuggestionID isEqual:v20];
+              isEqual = objc_msgSend_isEqual_(savedReviewingProofreadingSuggestionID);
 
               originalCopy = v19;
               self = selfCopy;
               v11 = v29;
 
-              v25 = v24 == 0;
+              v25 = isEqual == 0;
               dCopy = v23;
               v8 = v22;
               v12 = v21;
@@ -6498,14 +6493,14 @@ void __88__UIWritingToolsCoordinator__updateForProofreadingSuggestion_state_save
     v13 = v12;
 
     v14 = [*(a1 + 32) savedReviewingProofreadingSuggestionID];
-    v15 = [v14 isEqual:*(a1 + 40)];
+    isEqual = objc_msgSend_isEqual_(v14);
 
-    if (v15)
+    if (isEqual)
     {
       [*(a1 + 32) setSavedReviewingProofreadingSuggestionID:0];
       if (os_variant_has_internal_diagnostics())
       {
-        if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+        if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
         {
           if (byte_1EA95E184)
           {
@@ -6544,7 +6539,7 @@ void __88__UIWritingToolsCoordinator__updateForProofreadingSuggestion_state_save
   v15 = [_proofreadingSuggestionInfos objectForKeyedSubscript:dCopy];
 
   contextID = [v15 contextID];
-  LOBYTE(context) = [contextID isEqual:contextCopy];
+  LOBYTE(context) = objc_msgSend_isEqual_(contextID);
 
   if ((context & 1) == 0)
   {
@@ -6563,7 +6558,7 @@ void __88__UIWritingToolsCoordinator__updateForProofreadingSuggestion_state_save
   v45 = [editTracker rangeOfSuggestionWithRange:originalRange UUID:v22 applyDelta:{dCopy, state < 2}];
   v24 = v23;
 
-  if (os_variant_has_internal_diagnostics() && (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0 && byte_1EA95E184)
+  if (os_variant_has_internal_diagnostics() && !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") && byte_1EA95E184)
   {
     v34 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB48) + 8);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
@@ -6661,8 +6656,7 @@ void __88__UIWritingToolsCoordinator__updateForProofreadingSuggestion_state_save
     if (os_variant_has_internal_diagnostics())
     {
       v38 = _UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging");
-      v39 = byte_1EA95E184 ? v38 : 1;
-      if ((v39 & 1) == 0)
+      if (byte_1EA95E184 && !v38)
       {
         v40 = *(__UILogGetCategoryCachedImpl("UIWritingToolsCoordinator", &qword_1ED49CB50) + 8);
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
@@ -6685,7 +6679,7 @@ void __88__UIWritingToolsCoordinator__updateForProofreadingSuggestion_state_save
       }
     }
 
-    if ([(NSUUID *)self->_activeReviewingUUID isEqual:dCopy])
+    if (objc_msgSend_isEqual_(self->_activeReviewingUUID))
     {
       activeReviewingUUID = self->_activeReviewingUUID;
       self->_activeReviewingUUID = 0;
@@ -6760,7 +6754,7 @@ LABEL_10:
   iDCopy = iD;
   if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
     {
       if (byte_1EA95E184)
       {
@@ -7308,7 +7302,7 @@ LABEL_9:
   {
     if (has_internal_diagnostics)
     {
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+      if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
       {
         if (byte_1EA95E184)
         {
@@ -7696,7 +7690,7 @@ void __124__UIWritingToolsCoordinator__drawProofreadingUnderlinesForRange_inCont
         {
           if (has_internal_diagnostics)
           {
-            if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+            if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
             {
               if (byte_1EA95E184)
               {
@@ -7809,7 +7803,7 @@ LABEL_10:
 
   else if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
     {
       if (byte_1EA95E184)
       {
@@ -7876,7 +7870,7 @@ LABEL_10:
 
   else if (os_variant_has_internal_diagnostics())
   {
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging") & 1) == 0)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_UITextAssistantProofreadLogging, @"UITextAssistantProofreadLogging"))
     {
       if (byte_1EA95E184)
       {
@@ -8030,9 +8024,9 @@ void __163__UIWritingToolsCoordinator__delegateUpdateTextAccordingToProofreading
       {
         if (v6 && v7)
         {
-          v9 = [v6 isEqual:v7];
+          isEqual = objc_msgSend_isEqual_(v6);
 
-          if (v9)
+          if (isEqual)
           {
             goto LABEL_12;
           }

@@ -13,7 +13,7 @@
 
 - (FMDExtVendorContext)init
 {
-  v3 = LogCategory_Extensions();
+  v3 = LogCategory_Extensions(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -27,15 +27,15 @@
 
 - (void)fetchAllAccessoriesInfo:(id)info withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
-  v8 = LogCategory_Extensions();
+  v8 = LogCategory_Extensions(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[FMDExtVendorContext fetchAllAccessoriesInfo:withCompletion:]";
-    _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[FMDExtVendorContext fetchAllAccessoriesInfo:withCompletion:]";
+    _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s", &v15, 0xCu);
   }
 
   accessoryProvider = [(FMDExtVendorContext *)self accessoryProvider];
@@ -47,7 +47,7 @@
 
   else
   {
-    v14 = LogCategory_Extensions();
+    v14 = LogCategory_Extensions(accessoryProvider);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [FMDExtVendorContext fetchAllAccessoriesInfo:? withCompletion:?];
@@ -55,23 +55,21 @@
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionStatusForAccessory:(id)accessory withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   completionCopy = completion;
-  v8 = LogCategory_Extensions();
+  v8 = LogCategory_Extensions(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "[FMDExtVendorContext connectionStatusForAccessory:withCompletion:]";
-    v18 = 2112;
-    v19 = accessoryCopy;
-    _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[FMDExtVendorContext connectionStatusForAccessory:withCompletion:]";
+    v17 = 2112;
+    v18 = accessoryCopy;
+    _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v15, 0x16u);
   }
 
   accessoryProvider = [(FMDExtVendorContext *)self accessoryProvider];
@@ -83,7 +81,7 @@
 
   else
   {
-    v14 = LogCategory_Extensions();
+    v14 = LogCategory_Extensions(accessoryProvider);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [FMDExtVendorContext connectionStatusForAccessory:? withCompletion:?];
@@ -92,24 +90,22 @@
     accessoryProvider2 = [MEMORY[0x1E696ABC0] fm_cancelledError];
     completionCopy[2](completionCopy, 0, accessoryProvider2);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStyleForAccessory:(id)accessory info:(id)info withCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   infoCopy = info;
   completionCopy = completion;
-  v11 = LogCategory_Extensions();
+  v11 = LogCategory_Extensions(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315394;
-    v20 = "[FMDExtVendorContext getStyleForAccessory:info:withCompletion:]";
-    v21 = 2112;
-    v22 = accessoryCopy;
-    _os_log_impl(&dword_1DF650000, v11, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v19, 0x16u);
+    v18 = 136315394;
+    v19 = "[FMDExtVendorContext getStyleForAccessory:info:withCompletion:]";
+    v20 = 2112;
+    v21 = accessoryCopy;
+    _os_log_impl(&dword_1DF650000, v11, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v18, 0x16u);
   }
 
   accessoryProvider = [(FMDExtVendorContext *)self accessoryProvider];
@@ -121,7 +117,7 @@
 
   else
   {
-    v17 = LogCategory_Extensions();
+    v17 = LogCategory_Extensions(accessoryProvider);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FMDExtVendorContext getStyleForAccessory:? info:? withCompletion:?];
@@ -130,24 +126,22 @@
     accessoryProvider2 = [MEMORY[0x1E696ABC0] fm_cancelledError];
     completionCopy[2](completionCopy, 0, accessoryProvider2);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safetyAlertForAccessory:(id)accessory info:(id)info withCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   infoCopy = info;
   completionCopy = completion;
-  v11 = LogCategory_Extensions();
+  v11 = LogCategory_Extensions(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315394;
-    v20 = "[FMDExtVendorContext safetyAlertForAccessory:info:withCompletion:]";
-    v21 = 2112;
-    v22 = accessoryCopy;
-    _os_log_impl(&dword_1DF650000, v11, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v19, 0x16u);
+    v18 = 136315394;
+    v19 = "[FMDExtVendorContext safetyAlertForAccessory:info:withCompletion:]";
+    v20 = 2112;
+    v21 = accessoryCopy;
+    _os_log_impl(&dword_1DF650000, v11, OS_LOG_TYPE_DEFAULT, "EXTENSION API: %s called for accessory %@", &v18, 0x16u);
   }
 
   accessoryProvider = [(FMDExtVendorContext *)self accessoryProvider];
@@ -159,7 +153,7 @@
 
   else
   {
-    v17 = LogCategory_Extensions();
+    v17 = LogCategory_Extensions(accessoryProvider);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FMDExtVendorContext safetyAlertForAccessory:? info:? withCompletion:?];
@@ -168,8 +162,6 @@
     accessoryProvider2 = [MEMORY[0x1E696ABC0] fm_cancelledError];
     (*(completionCopy + 2))(completionCopy, 0, 0, accessoryProvider2);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)respondsToSelector:(SEL)selector
@@ -212,18 +204,18 @@
   [invocationCopy selector];
   v6 = objc_opt_respondsToSelector();
 
-  v7 = LogCategory_Extensions();
-  v8 = v7;
+  v8 = LogCategory_Extensions(v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       accessoryProvider2 = [(FMDExtVendorContext *)self accessoryProvider];
       *buf = 138412546;
       v14 = invocationCopy;
       v15 = 2112;
       v16 = accessoryProvider2;
-      _os_log_impl(&dword_1DF650000, v8, OS_LOG_TYPE_DEFAULT, "VendorCntext forwardInvocation %@ to delegate %@", buf, 0x16u);
+      _os_log_impl(&dword_1DF650000, v9, OS_LOG_TYPE_DEFAULT, "VendorCntext forwardInvocation %@ to delegate %@", buf, 0x16u);
     }
 
     accessoryProvider3 = [(FMDExtVendorContext *)self accessoryProvider];
@@ -232,7 +224,7 @@
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [FMDExtVendorContext forwardInvocation:invocationCopy];
     }
@@ -241,62 +233,45 @@
     v12.super_class = FMDExtVendorContext;
     [(FMDExtVendorContext *)&v12 forwardInvocation:invocationCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllAccessoriesInfo:(void *)a1 withCompletion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 accessoryProvider];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionStatusForAccessory:(void *)a1 withCompletion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 accessoryProvider];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getStyleForAccessory:(void *)a1 info:withCompletion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 accessoryProvider];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)safetyAlertForAccessory:(void *)a1 info:withCompletion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 accessoryProvider];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forwardInvocation:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = NSStringFromSelector([a1 selector]);
+  v6 = NSStringFromSelector([a1 selector]);
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -57,7 +57,6 @@ LABEL_9:
   toCopy = to;
   if ([(_CPEndSearchFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -65,7 +64,6 @@ LABEL_9:
 
   if (uuid)
   {
-    uuid = self->_uuid;
     PBDataWriterWriteStringField();
   }
 }

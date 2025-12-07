@@ -32,13 +32,15 @@
   v4 = sub_1CF9E6D48();
   selfCopy = self;
   sub_1CF4F7838(v4);
+
+  v4, v6, v7, v8, v9, v10, v11, v12;
 }
 
 - (void)finishEnumeratingWithError:(id)error
 {
   errorCopy = error;
   selfCopy = self;
-  sub_1CF4F7A10();
+  sub_1CF4F7A10(errorCopy);
 }
 
 - (_TtC18FileProviderDaemon27LocalChangesObserverContext)init

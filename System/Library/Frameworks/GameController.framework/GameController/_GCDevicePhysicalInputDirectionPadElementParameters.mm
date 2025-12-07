@@ -2,13 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (_GCDevicePhysicalInputDirectionPadElementParameters)init;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)downSources;
-- (id)leftSources;
-- (id)rightSources;
-- (id)upSources;
-- (id)xSources;
-- (id)xySources;
-- (id)ySources;
 - (uint64_t)eventDownValueField;
 - (uint64_t)eventLeftValueField;
 - (uint64_t)eventRightValueField;
@@ -19,6 +12,9 @@
 - (uint64_t)setEventLeftValueField:(uint64_t)result;
 - (uint64_t)setEventRightValueField:(uint64_t)result;
 - (uint64_t)setEventUpValueField:(uint64_t)result;
+- (void)downSources;
+- (void)leftSources;
+- (void)rightSources;
 - (void)setDownSources:(uint64_t)sources;
 - (void)setLeftSources:(uint64_t)sources;
 - (void)setRightSources:(uint64_t)sources;
@@ -26,6 +22,10 @@
 - (void)setXSources:(uint64_t)sources;
 - (void)setXySources:(uint64_t)sources;
 - (void)setYSources:(uint64_t)sources;
+- (void)upSources;
+- (void)xSources;
+- (void)xySources;
+- (void)ySources;
 @end
 
 @implementation _GCDevicePhysicalInputDirectionPadElementParameters
@@ -127,7 +127,7 @@
   return v1 & 1;
 }
 
-- (id)xySources
+- (void)xySources
 {
   selfCopy = self;
   if (self)
@@ -158,7 +158,7 @@
   return selfCopy;
 }
 
-- (id)xSources
+- (void)xSources
 {
   selfCopy = self;
   if (self)
@@ -189,7 +189,7 @@
   return selfCopy;
 }
 
-- (id)ySources
+- (void)ySources
 {
   selfCopy = self;
   if (self)
@@ -220,7 +220,7 @@
   return selfCopy;
 }
 
-- (id)upSources
+- (void)upSources
 {
   selfCopy = self;
   if (self)
@@ -251,7 +251,7 @@
   return selfCopy;
 }
 
-- (id)downSources
+- (void)downSources
 {
   selfCopy = self;
   if (self)
@@ -282,7 +282,7 @@
   return selfCopy;
 }
 
-- (id)leftSources
+- (void)leftSources
 {
   selfCopy = self;
   if (self)
@@ -313,7 +313,7 @@
   return selfCopy;
 }
 
-- (id)rightSources
+- (void)rightSources
 {
   selfCopy = self;
   if (self)

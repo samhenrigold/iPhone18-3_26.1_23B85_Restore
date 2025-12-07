@@ -50,7 +50,7 @@
 
 - (void)updatePredictions
 {
-  v3 = SBLogProactiveHome();
+  v3 = SBLogProactiveHome(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -87,7 +87,7 @@ uint64_t __60__SBProactiveHomeScreenSuggestionProvider_updatePredictions__block_
   else
   {
     v4 = *(a1 + 48);
-    v5 = SBLogProactiveHome();
+    v5 = SBLogProactiveHome(a1);
     v6 = v5;
     if (v4)
     {
@@ -111,7 +111,7 @@ uint64_t __60__SBProactiveHomeScreenSuggestionProvider_updatePredictions__block_
 {
   v25 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v5 = SBLogProactiveHome();
+  v5 = SBLogProactiveHome(predictionsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBProactiveHomeScreenSuggestionProvider *)predictionsCopy processUpdatedPredictions:v5];
@@ -177,7 +177,7 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
     v5 = [v4 uniqueIdentifier];
     v6 = [*(a1 + 32) suggestionForStackIdentifier:v5];
     v7 = [*(a1 + 40) suggestionForStackIdentifier:v5];
-    v8 = SBLogProactiveHome();
+    v8 = SBLogProactiveHome(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_cold_1();
@@ -203,32 +203,32 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
 
 void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17(uint64_t a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obj = [*(a1 + 32) suggestedWidgets];
-  v49 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
-  if (v49)
+  v55 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+  if (v55)
   {
-    v48 = *v59;
+    v54 = *v65;
     *&v3 = 138412290;
-    v44 = v3;
-    v45 = v2;
+    v50 = v3;
+    v51 = v2;
     do
     {
       v4 = 0;
       do
       {
-        if (*v59 != v48)
+        if (*v65 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = v4;
-        v5 = *(*(&v58 + 1) + 8 * v4);
+        v56 = v4;
+        v5 = *(*(&v64 + 1) + 8 * v4);
         v6 = *(a1 + 40);
         v7 = *(a1 + 48);
         v8 = [v5 widgetUniqueId];
@@ -238,12 +238,12 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
 
         if (v11)
         {
-          v12 = SBLogProactiveHome();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v13 = SBLogProactiveHome(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v44;
-            v64 = v11;
-            _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "skipping adding data source because the suggested widget %@ is already suggested in stack", buf, 0xCu);
+            *buf = v50;
+            v70 = v11;
+            _os_log_debug_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEBUG, "skipping adding data source because the suggested widget %@ is already suggested in stack", buf, 0xCu);
           }
 
           [v2 addObject:v11];
@@ -251,122 +251,125 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
 
         else
         {
-          v13 = [*(a1 + 40) _makeDataSourceForAtxWidget:v5];
-          if (v13)
+          v14 = [*(a1 + 40) _makeDataSourceForAtxWidget:v5];
+          v15 = v14;
+          if (v14)
           {
-            v14 = SBLogProactiveHome();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            v16 = SBLogProactiveHome(v14);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v44;
-              v64 = v13;
-              _os_log_debug_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEBUG, "adding new suggested widget data source %@", buf, 0xCu);
+              *buf = v50;
+              v70 = v15;
+              _os_log_debug_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEBUG, "adding new suggested widget data source %@", buf, 0xCu);
             }
 
-            v46 = v13;
+            v52 = v15;
 
-            v56 = 0u;
-            v57 = 0u;
-            v54 = 0u;
-            v55 = 0u;
-            v51 = *(*(a1 + 40) + 8);
-            v15 = [v51 countByEnumeratingWithState:&v54 objects:v62 count:16];
-            if (v15)
+            v62 = 0u;
+            v63 = 0u;
+            v60 = 0u;
+            v61 = 0u;
+            v57 = *(*(a1 + 40) + 8);
+            v17 = [v57 countByEnumeratingWithState:&v60 objects:v68 count:16];
+            if (v17)
             {
-              v16 = v15;
-              v17 = *v55;
+              v18 = v17;
+              v19 = *v61;
               do
               {
-                for (i = 0; i != v16; ++i)
+                for (i = 0; i != v18; ++i)
                 {
-                  if (*v55 != v17)
+                  if (*v61 != v19)
                   {
-                    objc_enumerationMutation(v51);
+                    objc_enumerationMutation(v57);
                   }
 
-                  v19 = *(*(&v54 + 1) + 8 * i);
+                  v21 = *(*(&v60 + 1) + 8 * i);
                   if (objc_opt_respondsToSelector())
                   {
-                    v20 = *(a1 + 40);
-                    v21 = [v5 intent];
-                    v22 = *(a1 + 56);
+                    v22 = *(a1 + 40);
+                    v23 = [v5 intent];
+                    v24 = *(a1 + 56);
                     [v5 widgetUniqueId];
-                    v23 = v5;
-                    v25 = v24 = a1;
-                    [v19 proactiveHomeScreenSuggestionProvider:v20 willUseTemporaryIntent:v21 forIconWithIdentifier:v22 widgetUniqueIdentifier:v25];
+                    v25 = v5;
+                    v27 = v26 = a1;
+                    [v21 proactiveHomeScreenSuggestionProvider:v22 willUseTemporaryIntent:v23 forIconWithIdentifier:v24 widgetUniqueIdentifier:v27];
 
-                    a1 = v24;
-                    v5 = v23;
+                    a1 = v26;
+                    v5 = v25;
                   }
                 }
 
-                v16 = [v51 countByEnumeratingWithState:&v54 objects:v62 count:16];
+                v18 = [v57 countByEnumeratingWithState:&v60 objects:v68 count:16];
               }
 
-              while (v16);
+              while (v18);
             }
 
-            v26 = [*(a1 + 48) allowsSuggestions];
-            v27 = *(a1 + 48);
-            if (v26)
+            v28 = [*(a1 + 48) allowsSuggestions];
+            v29 = *(a1 + 48);
+            if (v28)
             {
-              v13 = v46;
-              [v27 addIconDataSource:v46];
+              v15 = v52;
+              [v29 addIconDataSource:v52];
             }
 
             else
             {
-              v28 = [v27 activeDataSource];
-              v13 = v46;
-              [*(a1 + 48) insertIconDataSource:v46 beforeIconDataSource:v28];
+              v30 = [v29 activeDataSource];
+              v15 = v52;
+              [*(a1 + 48) insertIconDataSource:v52 beforeIconDataSource:v30];
             }
 
-            v2 = v45;
+            v2 = v51;
             v11 = 0;
-            [v45 addObject:v13];
+            [v51 addObject:v15];
           }
         }
 
-        v4 = v50 + 1;
+        v4 = v56 + 1;
       }
 
-      while (v50 + 1 != v49);
-      v49 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+      while (v56 + 1 != v55);
+      v55 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
     }
 
-    while (v49);
+    while (v55);
   }
 
-  v30 = (a1 + 48);
-  v29 = *(a1 + 48);
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_21;
-  v52[3] = &unk_2783B9298;
-  v31 = v2;
-  v53 = v31;
-  [v29 removeIconDataSourcesPassingTest:v52];
-  v32 = [*(a1 + 40) iconManager];
-  if ([v32 isShowingModalInteraction])
+  v32 = (a1 + 48);
+  v31 = *(a1 + 48);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_21;
+  v58[3] = &unk_2783B9298;
+  v33 = v2;
+  v59 = v33;
+  [v31 removeIconDataSourcesPassingTest:v58];
+  v34 = [*(a1 + 40) iconManager];
+  v35 = [v34 isShowingModalInteraction];
+  if (v35)
   {
-    v33 = SBLogProactiveHome();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v36 = SBLogProactiveHome(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_5(v33);
+      __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_5(v36);
     }
   }
 
   else
   {
-    v34 = [*(a1 + 32) topWidget];
+    v37 = [*(a1 + 32) topWidget];
 
-    if (v34)
+    if (v37)
     {
-      v33 = [*(a1 + 32) topWidget];
-      v35 = [*(a1 + 64) topWidget];
-      if ([v33 isEqual:v35])
+      v36 = [*(a1 + 32) topWidget];
+      v39 = [*(a1 + 64) topWidget];
+      v40 = [v36 isEqual:v39];
+      if (v40)
       {
-        v36 = SBLogProactiveHome();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+        v41 = SBLogProactiveHome(v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_3();
         }
@@ -374,31 +377,31 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
 
       else
       {
-        v38 = *(a1 + 40);
-        v37 = *(a1 + 48);
-        v39 = [v33 widgetUniqueId];
-        v40 = [v33 extensionBundleId];
-        v41 = [v33 widgetKind];
-        v36 = [v38 _iconDataSourceInIcon:v37 withUniqueIdentifier:v39 extensionBundleIdentifier:v40 widgetKind:v41 suggestionSource:0];
+        v43 = *(a1 + 40);
+        v42 = *(a1 + 48);
+        v44 = [v36 widgetUniqueId];
+        v45 = [v36 extensionBundleId];
+        v46 = [v36 widgetKind];
+        v41 = [v43 _iconDataSourceInIcon:v42 withUniqueIdentifier:v44 extensionBundleIdentifier:v45 widgetKind:v46 suggestionSource:0];
 
-        v42 = SBLogProactiveHome();
-        v43 = v42;
-        if (v36)
+        v48 = SBLogProactiveHome(v47);
+        v49 = v48;
+        if (v41)
         {
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
           {
-            __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_1(v36, v30, v43);
+            __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_1(v41, v32, v49);
           }
 
-          [*v30 setStackChangeReason:2];
-          [*v30 setActiveDataSource:v36];
+          [*v32 setStackChangeReason:2];
+          [*v32 setActiveDataSource:v41];
         }
 
         else
         {
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
-            __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_2(v33, v43);
+            __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_2(v36, v49);
           }
         }
       }
@@ -406,10 +409,10 @@ void __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___b
 
     else
     {
-      v33 = SBLogProactiveHome();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      v36 = SBLogProactiveHome(v38);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_4(v33);
+        __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_17_cold_4(v36);
       }
     }
   }
@@ -419,23 +422,23 @@ uint64_t __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions
 {
   v3 = a2;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && [v3 suggestionSource] == 1 && (objc_msgSend(*(a1 + 32), "containsObject:", v3) & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass())) && [v3 suggestionSource] == 1 && (v4 = objc_msgSend_containsObject_(*(a1 + 32)), (v4 & 1) == 0))
   {
-    v6 = SBLogProactiveHome();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = SBLogProactiveHome(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_21_cold_1(v3, v6);
+      __69__SBProactiveHomeScreenSuggestionProvider_processUpdatedPredictions___block_invoke_21_cold_1(v3, v7);
     }
 
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)addObserver:(id)observer
@@ -487,7 +490,7 @@ LABEL_3:
   {
     v18 = v17;
     _supportedElementClasses = [(SBProactiveHomeScreenSuggestionProvider *)self _supportedElementClasses];
-    v20 = [_supportedElementClasses containsObject:v18];
+    v20 = objc_msgSend_containsObject_(_supportedElementClasses);
 
     if (v20)
     {
@@ -572,45 +575,45 @@ uint64_t __140__SBProactiveHomeScreenSuggestionProvider__iconDataSourceInIcon_wi
 
 - (id)_makeDataSourceForAtxWidget:(id)widget
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   v5 = MEMORY[0x277D66148];
   extensionBundleId = [widgetCopy extensionBundleId];
   v7 = [v5 elementClassWithIdentifier:extensionBundleId];
 
-  if (!v7 || (-[SBProactiveHomeScreenSuggestionProvider _supportedElementClasses](self, "_supportedElementClasses"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 containsObject:v7], v8, !v9) || (v10 = [v7 alloc], objc_msgSend(widgetCopy, "widgetUniqueId"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "initWithUniqueIdentifier:", v11), v11, v13 = objc_msgSend(v12, "copyWithSuggestionSource:", 1), v12, !v13))
+  if (!v7 || (-[SBProactiveHomeScreenSuggestionProvider _supportedElementClasses](self, "_supportedElementClasses"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend_containsObject_(v8), v8, !v9) || (v10 = [v7 alloc], [widgetCopy widgetUniqueId], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "initWithUniqueIdentifier:", v11), v11, v13 = objc_msgSend(v12, "copyWithSuggestionSource:", 1), v12, !v13))
   {
     widgetKind = [widgetCopy widgetKind];
 
     if (widgetKind)
     {
-      v15 = objc_alloc(MEMORY[0x277D66320]);
+      v16 = objc_alloc(MEMORY[0x277D66320]);
       widgetUniqueId = [widgetCopy widgetUniqueId];
       widgetKind2 = [widgetCopy widgetKind];
       extensionBundleId2 = [widgetCopy extensionBundleId];
       appBundleId = [widgetCopy appBundleId];
-      v20 = [v15 initWithUniqueIdentifier:widgetUniqueId kind:widgetKind2 extensionBundleIdentifier:extensionBundleId2 containerBundleIdentifier:appBundleId];
+      v21 = [v16 initWithUniqueIdentifier:widgetUniqueId kind:widgetKind2 extensionBundleIdentifier:extensionBundleId2 containerBundleIdentifier:appBundleId];
 
-      v13 = [v20 copyWithSuggestionSource:1];
-      v21 = SBLogWidgets();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v13 = [v21 copyWithSuggestionSource:1];
+      v22 = SBLogWidgets();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        extensionBundleIdentifier = [v20 extensionBundleIdentifier];
-        uniqueIdentifier = [v20 uniqueIdentifier];
-        v25 = 138543618;
-        v26 = extensionBundleIdentifier;
-        v27 = 2114;
-        v28 = uniqueIdentifier;
-        _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created for home screen suggestion.", &v25, 0x16u);
+        extensionBundleIdentifier = [v21 extensionBundleIdentifier];
+        uniqueIdentifier = [v21 uniqueIdentifier];
+        v26 = 138543618;
+        v27 = extensionBundleIdentifier;
+        v28 = 2114;
+        v29 = uniqueIdentifier;
+        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Widget %{public}@ %{public}@ created for home screen suggestion.", &v26, 0x16u);
       }
     }
 
     else
     {
-      v20 = SBLogProactiveHome();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v21 = SBLogProactiveHome(v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
-        [SBProactiveHomeScreenSuggestionProvider _makeDataSourceForAtxWidget:v20];
+        [SBProactiveHomeScreenSuggestionProvider _makeDataSourceForAtxWidget:v21];
       }
 
       v13 = 0;

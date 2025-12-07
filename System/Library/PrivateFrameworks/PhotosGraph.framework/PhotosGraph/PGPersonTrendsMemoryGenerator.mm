@@ -9,17 +9,16 @@
 
 - (id)childOnlyPersonTrends
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"PlayTime";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"PlayTime";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   blockCopy = block;
   v8 = [(PGTrendsMemoryGenerator *)self validSceneFeatureNodesInGraph:graphCopy];
@@ -27,11 +26,11 @@
   {
     v9 = MEMORY[0x277D22C90];
     v10 = +[PGGraphMomentNode featureOfMoment];
-    v31[0] = v10;
+    v30[0] = v10;
     v11 = +[PGGraphPersonNode filterExcludingMe];
     relation = [v11 relation];
-    v31[1] = relation;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[1] = relation;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v14 = [v9 chain:v13];
 
     v15 = [PGGraphPersonNodeCollection personNodesInAgeCategories:&unk_2844860F0 includingMe:0 inGraph:graphCopy];
@@ -40,23 +39,21 @@
     v18 = +[PGGraphFeatureNodeCollection momentOfFeature];
     v19 = [v17 adjacencyWithSources:v8 relation:v18 targetsClass:objc_opt_class()];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __87__PGPersonTrendsMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
-    v24[3] = &unk_278884C20;
-    v25 = v14;
-    v26 = childOnlyPersonTrends;
-    v27 = v15;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __87__PGPersonTrendsMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke;
+    v23[3] = &unk_278884C20;
+    v24 = v14;
+    v25 = childOnlyPersonTrends;
+    v26 = v15;
     selfCopy = self;
-    v29 = graphCopy;
-    v30 = blockCopy;
+    v28 = graphCopy;
+    v29 = blockCopy;
     v20 = v15;
     v21 = childOnlyPersonTrends;
     v22 = v14;
-    [v19 enumerateTargetsBySourceWithBlock:v24];
+    [v19 enumerateTargetsBySourceWithBlock:v23];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PGPersonTrendsMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -124,40 +121,31 @@ LABEL_5:
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 16003;
+    return 16003;
   }
 
-  else
+  typeCopy = type;
+  if (type == 3)
   {
-    typeCopy = type;
-    if (type == 3)
-    {
-      result = 16004;
-    }
-
-    else
-    {
-      loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v9 = 138412546;
-        v10 = v8;
-        v11 = 1024;
-        v12 = typeCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-      }
-
-      result = 0;
-    }
+    return 16004;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
+  }
+
+  return 0;
 }
 
 - (PGPersonTrendsMemoryGenerator)initWithMemoryGenerationContext:(id)context configurations:(id)configurations

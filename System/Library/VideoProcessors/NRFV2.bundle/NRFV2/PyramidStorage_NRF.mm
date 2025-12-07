@@ -7,6 +7,7 @@
 - (int)setLumaTexture:(id)texture chromaTexture:(id)chromaTexture level:(int)level metal:(id)metal;
 - (int)setPixelBuffer:(__CVBuffer *)buffer level:(int)level texUsage:(unint64_t)usage metal:(id)metal alignDims:(BOOL)dims;
 - (int)setPixelBufferFloat16:(__CVBuffer *)float16 chromaBuffer:(__CVBuffer *)buffer level:(int)level metal:(id)metal;
+- (int)setPixelBufferForLuma:(__CVBuffer *)luma optionalChroma:(__CVBuffer *)chroma level:(int)level metal:(id)metal;
 - (void)clearLevel:(int)level;
 - (void)dealloc;
 - (void)releaseBuffers;
@@ -810,6 +811,19 @@ LABEL_9:
   }
 
   return v24;
+}
+
+- (int)setPixelBufferForLuma:(__CVBuffer *)luma optionalChroma:(__CVBuffer *)chroma level:(int)level metal:(id)metal
+{
+  if (chroma)
+  {
+    return MEMORY[0x2A1C70FE8](self, sel_setPixelBufferFloat16_chromaBuffer_level_metal_, luma, chroma);
+  }
+
+  else
+  {
+    return MEMORY[0x2A1C70FE8](self, sel_setPixelBuffer_level_texUsage_metal_alignDims_, luma, *&level);
+  }
 }
 
 - (void)releaseBuffers

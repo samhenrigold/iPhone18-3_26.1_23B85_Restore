@@ -914,30 +914,30 @@ LABEL_100:
   pathCopy = path;
   assetCopy = asset;
   resultCopy = result;
-  v52 = sessionCopy;
+  v46 = sessionCopy;
   recipe = [sessionCopy recipe];
   recipeUserInfo = [recipe recipeUserInfo];
 
   v17 = objc_alloc_init(NSMutableDictionary);
-  v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v18 = datasCopy;
-  v19 = [v18 countByEnumeratingWithState:&v86 objects:v95 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v80 objects:v89 count:16];
   if (v19)
   {
-    v20 = *v87;
+    v20 = *v81;
     do
     {
       for (i = 0; i != v19; i = i + 1)
       {
-        if (*v87 != v20)
+        if (*v81 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v86 + 1) + 8 * i);
+        v22 = *(*(&v80 + 1) + 8 * i);
         v23 = [infosCopy objectForKeyedSubscript:v22];
         v24 = [v23 objectForKeyedSubscript:@"language"];
 
@@ -955,24 +955,24 @@ LABEL_100:
         [v28 setObject:v27 forKeyedSubscript:v22];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v86 objects:v95 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v80 objects:v89 count:16];
     }
 
     while (v19);
   }
 
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = sub_6B70;
-  v84 = sub_6B80;
-  v85 = objc_alloc_init(NSMutableArray);
   v74 = 0;
   v75 = &v74;
   v76 = 0x3032000000;
   v77 = sub_6B70;
   v78 = sub_6B80;
   v79 = objc_alloc_init(NSMutableArray);
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = sub_6B70;
+  v72 = sub_6B80;
+  v73 = objc_alloc_init(NSMutableArray);
   queue = self->_queue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -980,100 +980,92 @@ LABEL_100:
   block[3] = &unk_104B0;
   block[4] = self;
   dispatch_sync(queue, block);
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v30 = v17;
-  v31 = [v30 countByEnumeratingWithState:&v69 objects:v94 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v63 objects:v88 count:16];
   if (v31)
   {
-    v58 = *v70;
-    v54 = !inCopy;
-    v32 = &FidesSelfHelper__metaData;
-    v33 = &FidesSelfHelper__metaData;
+    v52 = *v64;
+    v48 = !inCopy;
 LABEL_12:
-    v34 = 0;
-    base_props = v32[23].base_props;
-    v51 = *&v33[24].flags;
+    v32 = 0;
     while (1)
     {
-      if (*v70 != v58)
+      if (*v64 != v52)
       {
         objc_enumerationMutation(v30);
       }
 
-      v36 = *(*(&v69 + 1) + 8 * v34);
-      v63 = 0;
-      v64 = &v63;
-      v65 = 0x3032000000;
-      v66 = sub_6B70;
-      v67 = sub_6B80;
-      v68 = 0;
-      v37 = AFSiriLogContextFides;
+      v33 = *(*(&v63 + 1) + 8 * v32);
+      v57 = 0;
+      v58 = &v57;
+      v59 = 0x3032000000;
+      v60 = sub_6B70;
+      v61 = sub_6B80;
+      v62 = 0;
+      v34 = AFSiriLogContextFides;
       if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v91 = "[DictationPersonalizationFidesPlugin _redecodeWithSession:selectedRecordInfos:selectedRecordDatas:personalizedLMPath:personalizedLMTrainingAsset:optIn:result:error:]";
-        v92 = 2112;
-        v93 = v36;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "%s Run evaluation using embeddedspeech recognizer for language %@", buf, 0x16u);
+        v85 = "[DictationPersonalizationFidesPlugin _redecodeWithSession:selectedRecordInfos:selectedRecordDatas:personalizedLMPath:personalizedLMTrainingAsset:optIn:result:error:]";
+        v86 = 2112;
+        v87 = v33;
+        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "%s Run evaluation using embeddedspeech recognizer for language %@", buf, 0x16u);
       }
 
+      v35 = objc_opt_respondsToSelector();
       recognizer = self->_recognizer;
-      v39 = objc_opt_respondsToSelector();
-      v40 = self->_recognizer;
-      if (v39)
+      if (v35)
       {
         break;
       }
 
-      v44 = self->_recognizer;
       if (objc_opt_respondsToSelector())
       {
-        v45 = self->_recognizer;
-        v41 = [v30 objectForKeyedSubscript:v36];
-        v61[0] = _NSConcreteStackBlock;
-        v61[1] = 3221225472;
-        v61[2] = sub_7EC4;
-        v61[3] = &unk_10528;
-        v61[4] = v36;
-        v61[5] = &v63;
-        v61[6] = &v80;
-        v61[7] = &v74;
-        [(CoreEmbeddedSpeechRecognizer *)v45 runEvaluationWithDESRecordDatas:v41 language:v36 recipe:recipeUserInfo fidesPersonalizedLMPath:pathCopy fidesPersonalizedLMTrainingAsset:assetCopy scrubResult:v54 completion:v61];
+        v40 = self->_recognizer;
+        v37 = [v30 objectForKeyedSubscript:v33];
+        v55[0] = _NSConcreteStackBlock;
+        v55[1] = 3221225472;
+        v55[2] = sub_7EC4;
+        v55[3] = &unk_10528;
+        v55[4] = v33;
+        v55[5] = &v57;
+        v55[6] = &v74;
+        v55[7] = &v68;
+        [(CoreEmbeddedSpeechRecognizer *)v40 runEvaluationWithDESRecordDatas:v37 language:v33 recipe:recipeUserInfo fidesPersonalizedLMPath:pathCopy fidesPersonalizedLMTrainingAsset:assetCopy scrubResult:v48 completion:v55];
         goto LABEL_21;
       }
 
 LABEL_22:
-      if (v64[5])
+      if (v58[5])
       {
-        v47 = AFSiriLogContextFides;
+        v42 = AFSiriLogContextFides;
         if (os_log_type_enabled(AFSiriLogContextFides, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v91 = "[DictationPersonalizationFidesPlugin _redecodeWithSession:selectedRecordInfos:selectedRecordDatas:personalizedLMPath:personalizedLMTrainingAsset:optIn:result:error:]";
-          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "%s Evaluation failure", buf, 0xCu);
+          v85 = "[DictationPersonalizationFidesPlugin _redecodeWithSession:selectedRecordInfos:selectedRecordDatas:personalizedLMPath:personalizedLMTrainingAsset:optIn:result:error:]";
+          _os_log_impl(&dword_0, v42, OS_LOG_TYPE_INFO, "%s Evaluation failure", buf, 0xCu);
         }
 
         if (error)
         {
-          *error = v64[5];
+          *error = v58[5];
         }
 
-        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(&v57, 8);
 
-        v46 = 0;
+        v41 = 0;
         goto LABEL_31;
       }
 
-      _Block_object_dispose(&v63, 8);
+      _Block_object_dispose(&v57, 8);
 
-      if (v31 == ++v34)
+      if (v31 == ++v32)
       {
-        v31 = [v30 countByEnumeratingWithState:&v69 objects:v94 count:16];
-        v32 = &FidesSelfHelper__metaData;
-        v33 = &FidesSelfHelper__metaData;
+        v31 = [v30 countByEnumeratingWithState:&v63 objects:v88 count:16];
         if (v31)
         {
           goto LABEL_12;
@@ -1083,19 +1075,19 @@ LABEL_22:
       }
     }
 
-    v41 = [v30 objectForKeyedSubscript:v36];
-    recipe2 = [v52 recipe];
+    v37 = [v30 objectForKeyedSubscript:v33];
+    recipe2 = [v46 recipe];
     attachments = [recipe2 attachments];
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 3221225472;
-    v62[2] = sub_7D0C;
-    v62[3] = &unk_10528;
-    v62[4] = v36;
-    v62[5] = &v63;
-    v62[6] = &v80;
-    v62[7] = &v74;
-    LOBYTE(v49) = v54;
-    [(CoreEmbeddedSpeechRecognizer *)v40 runEvaluationWithDESRecordDatas:v41 language:v36 recipe:recipeUserInfo attachments:attachments fidesPersonalizedLMPath:pathCopy fidesPersonalizedLMTrainingAsset:assetCopy scrubResult:v49 completion:v62];
+    v56[0] = _NSConcreteStackBlock;
+    v56[1] = 3221225472;
+    v56[2] = sub_7D0C;
+    v56[3] = &unk_10528;
+    v56[4] = v33;
+    v56[5] = &v57;
+    v56[6] = &v74;
+    v56[7] = &v68;
+    LOBYTE(v44) = v48;
+    [(CoreEmbeddedSpeechRecognizer *)recognizer runEvaluationWithDESRecordDatas:v37 language:v33 recipe:recipeUserInfo attachments:attachments fidesPersonalizedLMPath:pathCopy fidesPersonalizedLMTrainingAsset:assetCopy scrubResult:v44 completion:v56];
 
 LABEL_21:
     goto LABEL_22;
@@ -1103,14 +1095,14 @@ LABEL_21:
 
 LABEL_25:
 
-  [resultCopy setObject:v81[5] forKeyedSubscript:@"audioResults"];
-  [resultCopy setObject:v75[5] forKeyedSubscript:@"languageMetadata"];
-  v46 = 1;
+  [resultCopy setObject:v75[5] forKeyedSubscript:@"audioResults"];
+  [resultCopy setObject:v69[5] forKeyedSubscript:@"languageMetadata"];
+  v41 = 1;
 LABEL_31:
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v68, 8);
 
-  _Block_object_dispose(&v80, 8);
-  return v46;
+  _Block_object_dispose(&v74, 8);
+  return v41;
 }
 
 - (BOOL)_trainPersonalizedLMWithSession:(id)session directory:(id)directory trainingAssetOut:(id *)out resultOut:(id *)resultOut error:(id *)error

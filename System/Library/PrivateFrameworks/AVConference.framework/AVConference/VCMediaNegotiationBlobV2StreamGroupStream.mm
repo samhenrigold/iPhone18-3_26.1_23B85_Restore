@@ -198,7 +198,7 @@ LABEL_36:
   }
 
   v11 = [VCMediaNegotiationBlobV2StreamGroupStream metadataWithStreamConfig:config];
-  if ([(VCMediaNegotiationBlobV2StreamGroupStream *)self metadata]!= v11)
+  if (objc_msgSend_metadata(self) != v11)
   {
     [(VCMediaNegotiationBlobV2StreamGroupStream *)self setMetadata:v11];
   }
@@ -390,8 +390,7 @@ LABEL_9:
   }
 
   [(VCMediaNegotiatorStreamGroupStreamConfiguration *)v13 setQualityIndex:DWORD1(v29)];
-  [(VCMediaNegotiatorStreamGroupStreamConfiguration *)v13 setRepairedMaxNetworkBitrate:[(VCMediaNegotiationBlobV2StreamGroupStream *)self actualMaxRepairedNetworkBitrateWithDefaultConfig:v12]];
-  if (VCFeatureFlagManager_UseAudioCodecACC24ForGFT() && [(VCMediaNegotiationBlobV2StreamGroupStream(Utils) *)self payloadsVersion]== 3)
+  if (VCFeatureFlagManager_UseAudioCodecACC24ForGFT([(VCMediaNegotiatorStreamGroupStreamConfiguration *)v13 setRepairedMaxNetworkBitrate:[(VCMediaNegotiationBlobV2StreamGroupStream *)self actualMaxRepairedNetworkBitrateWithDefaultConfig:v12]]) && [(VCMediaNegotiationBlobV2StreamGroupStream(Utils) *)self payloadsVersion]== 3)
   {
     streamID2 = [(VCMediaNegotiatorStreamGroupStreamConfiguration *)v13 streamID];
     if (streamID2 < 0xFF9Bu)
@@ -427,13 +426,13 @@ LABEL_9:
   {
     if (![(VCMediaNegotiationBlobV2StreamGroupStream *)self updatePayloadSpecsForConfig:v13 defaultConfig:v12 payloadConfigs:configs])
     {
-      [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:v13 payloadConfigSampleRates:&v29 + 8 streamGroupID:&v30];
+      [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:payloadConfigSampleRates:streamGroupID:];
       goto LABEL_42;
     }
 
     if (![rates count])
     {
-      [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:v13 payloadConfigSampleRates:&v29 + 8 streamGroupID:&v30];
+      [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:payloadConfigSampleRates:streamGroupID:];
       goto LABEL_42;
     }
 
@@ -443,7 +442,7 @@ LABEL_9:
 
   if (![(VCMediaNegotiationBlobV2StreamGroupStream *)self updatePayloadSpecsForConfig:v13 defaultConfig:v12])
   {
-    [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:v13 payloadConfigSampleRates:&v29 + 8 streamGroupID:&v30];
+    [VCMediaNegotiationBlobV2StreamGroupStream(Utils) streamConfigWithPayloadConfigs:payloadConfigSampleRates:streamGroupID:];
     goto LABEL_42;
   }
 
@@ -545,7 +544,7 @@ LABEL_35:
 
 + (void)printWithLogFile:(void *)file prefix:(id)prefix streamConfig:(id)config
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(config, "serializedSize"), prefix];
   [prefix appendFormat:@"Stream: QualityIndex=%4d", objc_msgSend(config, "qualityIndex")];
   [prefix appendFormat:@" SSRC=%08x StreamID=%5d NetworkBitrate=%6d", objc_msgSend(config, "ssrc"), objc_msgSend(config, "streamID"), objc_msgSend(config, "maxNetworkBitrate")];
@@ -576,23 +575,22 @@ LABEL_35:
     [prefix appendFormat:@" channels=%u", objc_msgSend(config, "audioChannelCount")];
   }
 
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v9, v10, v11, v12, v13, v14, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v15 = VRTraceErrorLogLevelToCSTR();
-    v16 = *MEMORY[0x1E6986650];
+    v8 = VRTraceErrorLogLevelToCSTR();
+    v9 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v18 = v15;
-      v19 = 2080;
-      v20 = "+[VCMediaNegotiationBlobV2StreamGroupStream(Utils) printWithLogFile:prefix:streamConfig:]";
-      v21 = 1024;
-      v22 = 624;
-      v23 = 2112;
-      v24 = prefix;
-      _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v11 = v8;
+      v12 = 2080;
+      v13 = "+[VCMediaNegotiationBlobV2StreamGroupStream(Utils) printWithLogFile:prefix:streamConfig:]";
+      v14 = 1024;
+      v15 = 624;
+      v16 = 2112;
+      v17 = prefix;
+      _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }
@@ -2282,7 +2280,7 @@ LABEL_96:
     return [VCMediaNegotiationBlobV2StreamGroupStream metadataWithStreamConfig:config];
   }
 
-  return [(VCMediaNegotiationBlobV2StreamGroupStream *)self metadata];
+  return objc_msgSend_metadata(self);
 }
 
 - (unsigned)actualQualityIndexWithDefaultConfig:(id)config
@@ -4434,7 +4432,7 @@ LABEL_19:
       {
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to copy the stream config for required fields compression", v12, v13, v14, v15, v16);
+        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to copy the stream config for required fields compression", v12, v13, v14, v15);
       }
     }
 
@@ -4477,7 +4475,7 @@ LABEL_19:
       {
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to copy the stream config for optional fields compression", v12, v13, v14, v15, v16);
+        OUTLINED_FUNCTION_21_4(&dword_1DB56E000, v10, v11, " [%s] %s:%d Failed to copy the stream config for optional fields compression", v12, v13, v14, v15);
       }
     }
 

@@ -29,7 +29,7 @@
     {
       *&v3 = MEMORY[0x1E69E5920](selfCopy).n128_u64[0];
       v4 = [providersCopy objectAtIndexedSubscript:{0, v3}];
-      v19 = MEMORY[0x1E69E5928](v4);
+      return MEMORY[0x1E69E5928](v4);
     }
 
     else
@@ -79,18 +79,15 @@
 
       selfCopy->_providers = v14;
       selfCopy->_logHandle = 0;
-      v19 = selfCopy;
+      return selfCopy;
     }
   }
 
   else
   {
     MEMORY[0x1E69E5920](selfCopy);
-    v19 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v19;
 }
 
 - (void)dealloc
@@ -114,59 +111,52 @@
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadFixedFloat:floatCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_3_8_64_8_0_8_64(v19, floatCopy, COERCE__INT64(*destinationCopy), v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v19, 0x20u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadFixedFloat:floatCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18 & 1;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_3_8_64_8_0_8_64(v19, floatCopy, COERCE__INT64(*destinationCopy), v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v19, 0x20u);
+    }
+  }
+
+  return 1;
 }
 
 - (BOOL)loadFixedFloat:(id)float withScaler:(float)scaler toDestination:(float *)destination
@@ -180,60 +170,53 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v13 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v23 count:16];
-  if (v13)
+  if (!v13)
   {
-    v9 = *__b[2];
-    v10 = 0;
-    v11 = v13;
-    while (1)
-    {
-      v8 = v10;
-      if (*__b[2] != v9)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v15 = 0;
-      v15 = *(__b[1] + 8 * v10);
-      *&v5 = scalerCopy;
-      if ([v15 loadFixedFloat:floatCopy withScaler:destinationCopy toDestination:v5])
-      {
-        break;
-      }
-
-      ++v10;
-      if (v8 + 1 >= v11)
-      {
-        v10 = 0;
-        v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v23 count:16];
-        if (!v11)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_3_8_64_8_0_8_64(v22, floatCopy, COERCE__INT64(*destinationCopy), v15);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v22, 0x20u);
-      }
-    }
-
-    v21 = 1;
+    return 0;
   }
 
-  else
+  v9 = *__b[2];
+  v10 = 0;
+  v11 = v13;
+  while (1)
   {
-LABEL_12:
-    v21 = 0;
+    v8 = v10;
+    if (*__b[2] != v9)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v15 = 0;
+    v15 = *(__b[1] + 8 * v10);
+    *&v5 = scalerCopy;
+    if ([v15 loadFixedFloat:floatCopy withScaler:destinationCopy toDestination:v5])
+    {
+      break;
+    }
+
+    ++v10;
+    if (v8 + 1 >= v11)
+    {
+      v10 = 0;
+      v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v23 count:16];
+      if (!v11)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v21 & 1;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_3_8_64_8_0_8_64(v22, floatCopy, COERCE__INT64(*destinationCopy), v15);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v22, 0x20u);
+    }
+  }
+
+  return 1;
 }
 
 - (BOOL)loadFloat:(id)float toDestination:(float *)destination
@@ -246,59 +229,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadFloat:floatCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_3_8_64_8_0_8_64(v19, floatCopy, COERCE__INT64(*destinationCopy), v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v19, 0x20u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadFloat:floatCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18 & 1;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_3_8_64_8_0_8_64(v19, floatCopy, COERCE__INT64(*destinationCopy), v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %f from %@", v19, 0x20u);
+    }
+  }
+
+  return 1;
 }
 
 - (unint64_t)loadFloatArray:(id)array toDestination:(float *)destination
@@ -311,59 +287,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadFloatArray:arrayCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadFloatArray:arrayCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
+    }
+  }
+
+  return 1;
 }
 
 - (unint64_t)loadIOFixedArray:(id)array toDestination:(float *)destination
@@ -376,59 +345,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadIOFixedArray:arrayCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadIOFixedArray:arrayCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
+    }
+  }
+
+  return 1;
 }
 
 - (unint64_t)loadInt16Array:(id)array toDestination:(signed __int16 *)destination
@@ -441,59 +403,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadInt16Array:arrayCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadInt16Array:arrayCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
+    }
+  }
+
+  return 1;
 }
 
 - (BOOL)loadInt:(id)int toDestination:(int *)destination
@@ -506,59 +461,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadInt:intCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_3_8_64_4_0_8_64(v19, intCopy, *destinationCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %d from %@", v19, 0x1Cu);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadInt:intCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18 & 1;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_3_8_64_4_0_8_64(v19, intCopy, *destinationCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %d from %@", v19, 0x1Cu);
+    }
+  }
+
+  return 1;
 }
 
 - (BOOL)loadUint:(id)uint toDestination:(unsigned int *)destination
@@ -571,59 +519,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadUint:uintCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_3_8_64_4_0_8_64(v19, uintCopy, *destinationCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %u from %@", v19, 0x1Cu);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadUint:uintCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18 & 1;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_3_8_64_4_0_8_64(v19, uintCopy, *destinationCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ = %u from %@", v19, 0x1Cu);
+    }
+  }
+
+  return 1;
 }
 
 - (unint64_t)loadUintArray:(id)array toDestination:(unsigned int *)destination
@@ -636,59 +577,52 @@ LABEL_12:
   memset(__b, 0, sizeof(__b));
   obj = selfCopy->_providers;
   v11 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v11)
+  if (!v11)
   {
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
-    {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v13 = 0;
-      v13 = *(__b[1] + 8 * v8);
-      if ([v13 loadUintArray:arrayCopy toDestination:destinationCopy])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v9)
-        {
-          goto LABEL_12;
-        }
-      }
-    }
-
-    if (selfCopy->_logHandle)
-    {
-      logHandle = selfCopy->_logHandle;
-      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
-        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
-      }
-    }
-
-    v18 = 1;
+    return 0;
   }
 
-  else
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
   {
-LABEL_12:
-    v18 = 0;
+    v6 = v8;
+    if (*__b[2] != v7)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v13 = 0;
+    v13 = *(__b[1] + 8 * v8);
+    if ([v13 loadUintArray:arrayCopy toDestination:destinationCopy])
+    {
+      break;
+    }
+
+    ++v8;
+    if (v6 + 1 >= v9)
+    {
+      v8 = 0;
+      v9 = [(NSArray *)obj countByEnumeratingWithState:__b objects:v20 count:16];
+      if (!v9)
+      {
+        return 0;
+      }
+    }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  if (selfCopy->_logHandle)
+  {
+    logHandle = selfCopy->_logHandle;
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_2_8_64_8_64(v19, arrayCopy, v13);
+      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Loaded %@ from %@", v19, 0x16u);
+    }
+  }
+
+  return 1;
 }
 
 @end

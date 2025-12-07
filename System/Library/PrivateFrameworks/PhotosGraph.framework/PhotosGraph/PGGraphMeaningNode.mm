@@ -277,34 +277,30 @@ void __61__PGGraphMeaningNode_enumerateMomentEdgesAndNodesUsingBlock___block_inv
 
 + (MARelation)momentOfReliableMeaning
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   eventOfReliableMeaning = [self eventOfReliableMeaning];
-  v10[0] = eventOfReliableMeaning;
+  v9[0] = eventOfReliableMeaning;
   v4 = +[PGGraphMomentNode filter];
   relation = [v4 relation];
-  v10[1] = relation;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = relation;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v2 chain:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (MARelation)momentOfMeaning
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   eventOfMeaning = [self eventOfMeaning];
-  v10[0] = eventOfMeaning;
+  v9[0] = eventOfMeaning;
   v4 = +[PGGraphMomentNode filter];
   relation = [v4 relation];
-  v10[1] = relation;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = relation;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v2 chain:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -357,64 +353,62 @@ void __61__PGGraphMeaningNode_enumerateMomentEdgesAndNodesUsingBlock___block_inv
 
 void __54__PGGraphMeaningNode__localizationKeyForMeaningLabel___block_invoke()
 {
-  v4[26] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Activity";
-  v3[1] = @"Hiking";
-  v4[0] = @"PGMeaningActivitySearchableText";
-  v4[1] = @"PGMeaningHikingSearchableText";
-  v3[2] = @"Beaching";
-  v3[3] = @"Diving";
-  v4[2] = @"PGMeaningBeachingSearchableText";
-  v4[3] = @"PGMeaningDivingSearchableText";
-  v3[4] = @"WinterSport";
-  v3[5] = @"Climbing";
-  v4[4] = @"PGMeaningWinterSportSearchableText";
-  v4[5] = @"PGMeaningClimbingSearchableText";
-  v3[6] = @"Entertainment";
-  v3[7] = @"AmusementPark";
-  v4[6] = @"PGMeaningEntertainmentSearchableText";
-  v4[7] = @"PGMeaningAmusementParkSearchableText";
-  v3[8] = @"Performance";
-  v3[9] = @"Concert";
-  v4[8] = @"PGMeaningPerformanceSearchableText";
-  v4[9] = @"PGMeaningConcertSearchableText";
-  v3[10] = @"Festival";
-  v3[11] = @"Theater";
-  v4[10] = @"PGMeaningFestivalSearchableText";
-  v4[11] = @"PGMeaningTheaterSearchableText";
-  v3[12] = @"Dance";
-  v3[13] = @"SportEvent";
-  v4[12] = @"PGMeaningDanceSearchableText";
-  v4[13] = @"PGMeaningSportEventSearchableText";
-  v3[14] = @"NightOut";
-  v3[15] = @"Museum";
-  v4[14] = @"PGMeaningNightOutSearchableText";
-  v4[15] = @"PGMeaningMuseumSearchableText";
-  v3[16] = @"Celebration";
-  v3[17] = @"Birthday";
-  v4[16] = @"PGMeaningCelebrationSearchableText";
-  v4[17] = @"PGMeaningBirthdaySearchableText";
-  v3[18] = @"Anniversary";
-  v3[19] = @"Wedding";
-  v4[18] = @"PGMeaningAnniversarySearchableText";
-  v4[19] = @"PGMeaningWeddingSearchableText";
-  v3[20] = @"HolidayEvent";
-  v3[21] = @"Gathering";
-  v4[20] = @"PGMeaningHolidayEventSearchableText";
-  v4[21] = @"PGMeaningGatheringSearchableText";
-  v3[22] = @"Restaurant";
-  v3[23] = @"Breakfast";
-  v4[22] = @"PGMeaningRestaurantSearchableText";
-  v4[23] = @"PGMeaningBreakfastSearchableText";
-  v3[24] = @"Lunch";
-  v3[25] = @"Dinner";
-  v4[24] = @"PGMeaningLunchSearchableText";
-  v4[25] = @"PGMeaningDinnerSearchableText";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:26];
+  v3[26] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Activity";
+  v2[1] = @"Hiking";
+  v3[0] = @"PGMeaningActivitySearchableText";
+  v3[1] = @"PGMeaningHikingSearchableText";
+  v2[2] = @"Beaching";
+  v2[3] = @"Diving";
+  v3[2] = @"PGMeaningBeachingSearchableText";
+  v3[3] = @"PGMeaningDivingSearchableText";
+  v2[4] = @"WinterSport";
+  v2[5] = @"Climbing";
+  v3[4] = @"PGMeaningWinterSportSearchableText";
+  v3[5] = @"PGMeaningClimbingSearchableText";
+  v2[6] = @"Entertainment";
+  v2[7] = @"AmusementPark";
+  v3[6] = @"PGMeaningEntertainmentSearchableText";
+  v3[7] = @"PGMeaningAmusementParkSearchableText";
+  v2[8] = @"Performance";
+  v2[9] = @"Concert";
+  v3[8] = @"PGMeaningPerformanceSearchableText";
+  v3[9] = @"PGMeaningConcertSearchableText";
+  v2[10] = @"Festival";
+  v2[11] = @"Theater";
+  v3[10] = @"PGMeaningFestivalSearchableText";
+  v3[11] = @"PGMeaningTheaterSearchableText";
+  v2[12] = @"Dance";
+  v2[13] = @"SportEvent";
+  v3[12] = @"PGMeaningDanceSearchableText";
+  v3[13] = @"PGMeaningSportEventSearchableText";
+  v2[14] = @"NightOut";
+  v2[15] = @"Museum";
+  v3[14] = @"PGMeaningNightOutSearchableText";
+  v3[15] = @"PGMeaningMuseumSearchableText";
+  v2[16] = @"Celebration";
+  v2[17] = @"Birthday";
+  v3[16] = @"PGMeaningCelebrationSearchableText";
+  v3[17] = @"PGMeaningBirthdaySearchableText";
+  v2[18] = @"Anniversary";
+  v2[19] = @"Wedding";
+  v3[18] = @"PGMeaningAnniversarySearchableText";
+  v3[19] = @"PGMeaningWeddingSearchableText";
+  v2[20] = @"HolidayEvent";
+  v2[21] = @"Gathering";
+  v3[20] = @"PGMeaningHolidayEventSearchableText";
+  v3[21] = @"PGMeaningGatheringSearchableText";
+  v2[22] = @"Restaurant";
+  v2[23] = @"Breakfast";
+  v3[22] = @"PGMeaningRestaurantSearchableText";
+  v3[23] = @"PGMeaningBreakfastSearchableText";
+  v2[24] = @"Lunch";
+  v2[25] = @"Dinner";
+  v3[24] = @"PGMeaningLunchSearchableText";
+  v3[25] = @"PGMeaningDinnerSearchableText";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:26];
   v1 = _localizationKeyForMeaningLabel__searchKeyByLabel;
   _localizationKeyForMeaningLabel__searchKeyByLabel = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_localizedNameForLabel:(id)label

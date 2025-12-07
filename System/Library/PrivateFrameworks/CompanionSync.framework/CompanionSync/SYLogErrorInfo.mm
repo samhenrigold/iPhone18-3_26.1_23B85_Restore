@@ -48,9 +48,8 @@
     [SYLogErrorInfo writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  code = self->_code;
   PBDataWriterWriteInt64Field();
 }
 

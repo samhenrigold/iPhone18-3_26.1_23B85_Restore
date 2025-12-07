@@ -119,16 +119,16 @@ LABEL_17:
 
 - (DAFolderChange)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
     [DAFolderChange initWithCoder:];
   }
 
-  v14.receiver = self;
-  v14.super_class = DAFolderChange;
-  v5 = [(DAFolderChange *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = DAFolderChange;
+  v5 = [(DAFolderChange *)&v13 init];
   if (v5)
   {
     v6 = [coderCopy decodeIntForKey:@"DAFCChangeType"];
@@ -139,7 +139,7 @@ LABEL_17:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 134217984;
-        v16 = v7;
+        v15 = v7;
         _os_log_impl(&dword_242505000, v8, OS_LOG_TYPE_FAULT, "Unknown DAItemChangeType %ld", buf, 0xCu);
       }
 
@@ -160,7 +160,6 @@ LABEL_17:
     -[DAFolderChange setRenameOnCollision:](v5, "setRenameOnCollision:", [coderCopy decodeBoolForKey:@"DAFCRenameOnCollision"]);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

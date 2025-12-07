@@ -194,7 +194,7 @@
 - (unint64_t)supportedFractionalWidthsForFont:(__CTFont *)font
 {
   v4 = 0;
-  [(CRLWPFontMetricsCache *)self p_fontHeightInfoForFont:font outWidths:&v4];
+  objc_msgSend_p_fontHeightInfoForFont_outWidths_(self, a2, font, &v4);
   return v4;
 }
 

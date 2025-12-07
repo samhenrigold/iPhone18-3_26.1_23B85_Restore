@@ -415,9 +415,9 @@ LABEL_42:
     *v111 = 0;
     v110 = -4;
     tableVerticalPositionEnumMap = [self tableVerticalPositionEnumMap];
-    v83 = readEnumProperty<WDVerticalPosition>(v77, "tblpYSpec", tableVerticalPositionEnumMap, &v110);
+    Enum = readEnumProperty<WDVerticalPosition>(v77, "tblpYSpec", tableVerticalPositionEnumMap, &v110);
 
-    if (v83)
+    if (Enum)
     {
       v84 = v110;
     }

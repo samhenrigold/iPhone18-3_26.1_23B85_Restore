@@ -15,61 +15,61 @@
 + (id)archivedDataForAnchorFeedbackMetadata:(id)metadata
 {
   metadataCopy = metadata;
-  v4 = objc_autoreleasePoolPush();
-  v10 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:metadataCopy requiringSecureCoding:1 error:&v10];
-  v6 = v10;
-  objc_autoreleasePoolPop(v4);
-  if (v5)
+  v5 = objc_autoreleasePoolPush();
+  v12 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:metadataCopy requiringSecureCoding:1 error:&v12];
+  v7 = v12;
+  objc_autoreleasePoolPop(v5);
+  if (v6)
   {
-    v7 = v6 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  if (!v7)
+  if (!v9)
   {
-    v8 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_anchor(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      +[ATXAnchorModelFeedbackMetadata archivedDataForAnchorFeedbackMetadata:];
+      [ATXAnchorModelFeedbackMetadata archivedDataForAnchorFeedbackMetadata:self];
     }
   }
 
-  return v5;
+  return v6;
 }
 
 + (id)anchorFeedbackMetadataFromArchivedData:(id)data
 {
   dataCopy = data;
-  v4 = objc_autoreleasePoolPush();
-  v10 = 0;
-  v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v10];
-  v6 = v10;
-  objc_autoreleasePoolPop(v4);
-  if (v5)
+  v5 = objc_autoreleasePoolPush();
+  v12 = 0;
+  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v12];
+  v7 = v12;
+  objc_autoreleasePoolPop(v5);
+  if (v6)
   {
-    v7 = v6 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  if (!v7)
+  if (!v9)
   {
-    v8 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_anchor(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      +[ATXAnchorModelFeedbackMetadata anchorFeedbackMetadataFromArchivedData:];
+      [ATXAnchorModelFeedbackMetadata anchorFeedbackMetadataFromArchivedData:self];
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (ATXAnchorModelFeedbackMetadata)initWithAnchorSuggestionTuples:(id)tuples
@@ -140,11 +140,11 @@ void __65__ATXAnchorModelFeedbackMetadata_initWithAnchorSuggestionTuples___block
   v9 = [v6 initWithObjects:{v7, v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v5);
   v10 = MEMORY[0x277D42620];
-  v11 = __atxlog_handle_anchor();
-  v12 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"mapping" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXAnchorModelFeedbackMetadata" errorCode:-1 logHandle:v11];
+  v12 = __atxlog_handle_anchor(v11);
+  v13 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"mapping" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXAnchorModelFeedbackMetadata" errorCode:-1 logHandle:v12];
 
-  v13 = [(ATXAnchorModelFeedbackMetadata *)self initWithSuggestionUUIDToAnchorPredictionMapping:v12];
-  return v13;
+  v14 = [(ATXAnchorModelFeedbackMetadata *)self initWithSuggestionUUIDToAnchorPredictionMapping:v13];
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -183,31 +183,31 @@ void __65__ATXAnchorModelFeedbackMetadata_initWithAnchorSuggestionTuples___block
 
 - (unint64_t)hash
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allValues = [(NSMutableDictionary *)self->_suggestionUUIDToAnchorPredictionMapping allValues];
-  v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v5 = [*(*(&v10 + 1) + 8 * i) hash] - v5 + 32 * v5;
+        v5 = [*(*(&v9 + 1) + 8 * i) hash] - v5 + 32 * v5;
       }
 
-      v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -218,30 +218,23 @@ void __65__ATXAnchorModelFeedbackMetadata_initWithAnchorSuggestionTuples___block
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-+ (void)archivedDataForAnchorFeedbackMetadata:.cold.1()
++ (void)archivedDataForAnchorFeedbackMetadata:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - could not archive metadata, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v3, v4, "%@ - could not archive metadata, error: %@", v5, v6, v7, v8);
 }
 
-+ (void)anchorFeedbackMetadataFromArchivedData:.cold.1()
++ (void)anchorFeedbackMetadataFromArchivedData:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v2, v3, "%@ - could not unarchive metadata, error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2263AA000, v3, v4, "%@ - could not unarchive metadata, error: %@", v5, v6, v7, v8);
 }
 
 @end

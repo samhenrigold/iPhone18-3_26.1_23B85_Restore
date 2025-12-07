@@ -1,3 +1,182 @@
+void sub_2402CC0F0(_Unwind_Exception *exception_object)
+{
+  v3 = *(v1 + 16);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+ACFUROM *ACFURTKitROM::create@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, ACFUROM **a4@<X8>)
+{
+  v22 = 0;
+  v8 = operator new(0x40uLL);
+  ACFUROM::ACFUROM(v8);
+  *v8 = &unk_28522F210;
+  *(v8 + 30) = 0;
+  v9 = *a1;
+  v10 = a1[1];
+  v21[0] = v9;
+  v21[1] = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v11 = *a2;
+  v12 = a2[1];
+  v20[0] = v11;
+  v20[1] = v12;
+  if (v12)
+  {
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v13 = *a3;
+  v14 = a3[1];
+  v19[0] = v13;
+  v19[1] = v14;
+  if (v14)
+  {
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v15 = ACFURTKitROM::init(v8, v21, v20, v19, &v22);
+  v16 = v15;
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  if (v16)
+  {
+    *a4 = v8;
+    result = operator new(0x20uLL);
+    *result = &unk_28522F278;
+    *(result + 1) = 0;
+    *(result + 2) = 0;
+    *(result + 3) = v8;
+  }
+
+  else
+  {
+    LogInstance = ACFULogging::getLogInstance(v15);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize RTKitROM object\n", "ACFURTKitROM", "create");
+    (*(*v8 + 48))(v8);
+    result = 0;
+    *a4 = 0;
+  }
+
+  a4[1] = result;
+  return result;
+}
+
+void sub_2402CC298(_Unwind_Exception *a1)
+{
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    if (!v3)
+    {
+LABEL_3:
+      if (!v2)
+      {
+LABEL_8:
+        (*(*v1 + 48))(v1);
+        _Unwind_Resume(a1);
+      }
+
+LABEL_7:
+      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+      goto LABEL_8;
+    }
+  }
+
+  else if (!v3)
+  {
+    goto LABEL_3;
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  if (!v2)
+  {
+    goto LABEL_8;
+  }
+
+  goto LABEL_7;
+}
+
+void ACFURTKitROM::ACFURTKitROM(ACFURTKitROM *this)
+{
+  ACFUROM::ACFUROM(this);
+  *v1 = &unk_28522F210;
+  *(v1 + 60) = 0;
+}
+
+{
+  ACFUROM::ACFUROM(this);
+  *v1 = &unk_28522F210;
+  *(v1 + 60) = 0;
+}
+
+uint64_t ACFURTKitROM::init(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, _WORD *a5)
+{
+  *(a1 + 60) = *a5;
+  v5 = a2[1];
+  v14 = *a2;
+  v15 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v6 = a3[1];
+  v12 = *a3;
+  v13 = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v7 = a4[1];
+  v10 = *a4;
+  v11 = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v8 = ACFUROM::init(a1, &v14, &v12, &v10);
+  if (v11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+  }
+
+  if (v13)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+  }
+
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  return v8;
+}
+
 void sub_2402CC40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
@@ -17,8 +196,8 @@ ACFUROM *ACFURTKitROM::create@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_
   *(v10 + 30) = 0;
   v11 = *a1;
   v12 = a1[1];
-  v28[0] = v11;
-  v28[1] = v12;
+  v23[0] = v11;
+  v23[1] = v12;
   if (v12)
   {
     atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -26,8 +205,8 @@ ACFUROM *ACFURTKitROM::create@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_
 
   v13 = *a2;
   v14 = a2[1];
-  v27[0] = v13;
-  v27[1] = v14;
+  v22[0] = v13;
+  v22[1] = v14;
   if (v14)
   {
     atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -35,14 +214,14 @@ ACFUROM *ACFURTKitROM::create@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_
 
   v15 = *a3;
   v16 = a3[1];
-  v26[0] = v15;
-  v26[1] = v16;
+  v21[0] = v15;
+  v21[1] = v16;
   if (v16)
   {
     atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v17 = ACFURTKitROM::init(v10, v28, v27, v26, a4);
+  v17 = ACFURTKitROM::init(v10, v23, v22, v21, a4);
   v18 = v17;
   if (v16)
   {
@@ -72,7 +251,7 @@ ACFUROM *ACFURTKitROM::create@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_
   else
   {
     LogInstance = ACFULogging::getLogInstance(v17);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize RTKitROM object\n", v21, v22, v23, v24, v25, "ACFURTKitROM");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize RTKitROM object\n", "ACFURTKitROM", "create");
     (*(*v10 + 48))(v10);
     result = 0;
     *a5 = 0;
@@ -128,34 +307,34 @@ void ACFURTKitROM::gatherPersonalizationParameters(ACFURTKitROM *this@<X0>, char
 
   else
   {
-    v6 = (***(this + 1))(&v16);
-    v8 = v16;
-    v7 = v17;
-    if (v17)
+    v6 = (***(this + 1))(&v11);
+    v8 = v11;
+    v7 = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-      v6 = v17;
-      v9 = v18;
-      if (v17)
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      v6 = v12;
+      v9 = v13;
+      if (v12)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
     }
 
     else
     {
-      v9 = v18;
+      v9 = v13;
     }
 
     LogInstance = ACFULogging::getLogInstance(v6);
     if (v9)
     {
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get board params (%d)\n", v11, v12, v13, v14, v15, "ACFURTKitROM");
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get board params (%d)\n", "ACFURTKitROM", "gatherPersonalizationParameters", v9);
     }
 
     else
     {
-      ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: Successfully gathered personalization parameters\n", v11, v12, v13, v14, v15, "ACFURTKitROM");
+      ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Successfully gathered personalization parameters\n", "ACFURTKitROM", "gatherPersonalizationParameters");
     }
 
     if (v7)
@@ -189,294 +368,300 @@ void sub_2402CC7B0(_Unwind_Exception *exception_object)
 uint64_t ACFURTKitROM::updateFirmware(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: firmware is not present! Trying to find firmware from restore options...\n", v6, v7, v8, v9, v10, "ACFURTKitROM");
-  v11 = (a1 + 24);
-  v12 = (***(a1 + 24))();
-  if (v12)
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: firmware is not present! Trying to find firmware from restore options...\n", "ACFURTKitROM", "updateFirmware");
+  v6 = (a1 + 24);
+  v7 = (***(a1 + 24))();
+  if (v7)
   {
-    v27 = v12;
-    ACFURTKitROM::updateFirmware(v12);
-    goto LABEL_56;
+    v18 = v7;
+    ACFURTKitROM::updateFirmware(v7);
+    goto LABEL_58;
   }
 
   (*(**(a1 + 24) + 8))(*(a1 + 24));
   if (*(a1 + 60) != 1)
   {
-    goto LABEL_6;
+    goto LABEL_8;
   }
 
-  v13 = (*(**v11 + 32))();
-  if (!v13)
+  v8 = (*(**v6 + 32))();
+  if (!v8)
   {
     ACFURTKitROM::updateFirmware(0);
-LABEL_67:
-    v27 = 1002;
-    goto LABEL_56;
+LABEL_69:
+    v18 = 1002;
+    goto LABEL_58;
   }
 
-  v14 = v13;
-  if (CFDataGetLength(v13) != 8)
+  v9 = v8;
+  if (CFDataGetLength(v8) != 8)
   {
-    ACFURTKitROM::updateFirmware(v14);
-    goto LABEL_67;
+    ACFURTKitROM::updateFirmware(v9);
+    goto LABEL_69;
   }
 
-  v15 = *CFDataGetBytePtr(v14);
-  CFRelease(v14);
-  v17 = ACFULogging::getLogInstance(v16);
-  ACFULogging::handleMessage(v17, 3u, "%s::%s: Has valid boot nonce? %s\n", v18, v19, v20, v21, v22, "ACFURTKitROM");
-  if (!v15)
+  v10 = *CFDataGetBytePtr(v9);
+  CFRelease(v9);
+  v12 = ACFULogging::getLogInstance(v11);
+  v13 = "Yes";
+  if (!v10)
+  {
+    v13 = "No";
+  }
+
+  ACFULogging::handleMessage(v12, 3, "%s::%s: Has valid boot nonce? %s\n", "ACFURTKitROM", "updateFirmware", v13);
+  if (!v10)
   {
     if (*(a1 + 60))
     {
-      goto LABEL_9;
+      goto LABEL_11;
     }
 
-    goto LABEL_7;
+    goto LABEL_9;
   }
 
-LABEL_6:
-  LOBYTE(v15) = 1;
-LABEL_7:
+LABEL_8:
+  LOBYTE(v10) = 1;
+LABEL_9:
   if ((*(a1 + 61) & 1) == 0)
   {
-    v23 = (*(**(a1 + 8) + 32))(*(a1 + 8));
-    if (v23)
+    v14 = (*(**(a1 + 8) + 32))(*(a1 + 8));
+    if (v14)
     {
-      v27 = v23;
-      ACFURTKitROM::updateFirmware(v23);
-      goto LABEL_56;
+      v18 = v14;
+      ACFURTKitROM::updateFirmware(v14);
+      goto LABEL_58;
     }
   }
 
-LABEL_9:
-  v24 = *(a1 + 16);
-  v94 = *(a1 + 8);
-  v95 = v24;
-  if (v24)
+LABEL_11:
+  v15 = *(a1 + 16);
+  v55 = *(a1 + 8);
+  v56 = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v25 = *(a1 + 32);
-  v92 = *(a1 + 24);
-  v93 = v25;
-  if (v25)
+  v16 = *(a1 + 32);
+  v53 = *(a1 + 24);
+  v54 = v16;
+  if (v16)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v26 = *(a3 + 24);
-  if (!v26)
+  v17 = *(a3 + 24);
+  if (!v17)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v27 = (*(*v26 + 48))(v26, &v94, &v92);
-  if (v93)
+  v18 = (*(*v17 + 48))(v17, &v55, &v53);
+  if (v54)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
   }
 
-  v28 = v95;
-  if (v95)
+  v19 = v56;
+  if (v56)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
   }
 
-  v29 = ACFULogging::getLogInstance(v28);
-  if (v27)
+  v20 = ACFULogging::getLogInstance(v19);
+  if (v18)
   {
-    ACFULogging::handleMessage(v29, 2u, "%s::%s: failed to perform preBoot actions (%d)\n", v30, v31, v32, v33, v34, "ACFURTKitROM");
-    goto LABEL_56;
+    ACFULogging::handleMessage(v20, 2, "%s::%s: failed to perform preBoot actions (%d)\n", "ACFURTKitROM", "updateFirmware", v18);
+    goto LABEL_58;
   }
 
-  ACFULogging::handleMessage(v29, 0, "%s::%s: booting firmware...\n", v30, v31, v32, v33, v34, "ACFURTKitROM");
-  v35 = ACFURTKitROM::bootFirmware(a1, (v15 ^ 1) & *(a1 + 60));
-  if (v35)
+  ACFULogging::handleMessage(v20, 0, "%s::%s: booting firmware...\n", "ACFURTKitROM", "updateFirmware");
+  v21 = ACFURTKitROM::bootFirmware(a1, (v10 ^ 1) & *(a1 + 60));
+  if (v21)
   {
-    v27 = v35;
-    ACFURTKitROM::updateFirmware(v35, a1, (a1 + 24));
-    goto LABEL_56;
+    v18 = v21;
+    ACFURTKitROM::updateFirmware(v21, a1, (a1 + 24));
+    goto LABEL_58;
   }
 
-  if (v15 & 1 | ((*(a1 + 60) & 1) == 0))
+  if (v10 & 1 | ((*(a1 + 60) & 1) == 0))
   {
-    goto LABEL_42;
+    goto LABEL_44;
   }
 
-  v36 = (***(a1 + 8))(&v89);
-  v27 = v91;
-  if (v91)
+  v22 = (***(a1 + 8))(&v50);
+  v18 = v52;
+  if (v52)
   {
-    v67 = ACFULogging::getLogInstance(v36);
-    ACFULogging::handleMessage(v67, 2u, "%s::%s: failed to get board parameters (%d)\n", v68, v69, v70, v71, v72, "ACFURTKitROM");
-    v58 = 0;
-    goto LABEL_39;
+    v43 = ACFULogging::getLogInstance(v22);
+    ACFULogging::handleMessage(v43, 2, "%s::%s: failed to get board parameters (%d)\n", "ACFURTKitROM", "updateFirmware", v18);
+    v34 = 0;
+    goto LABEL_41;
   }
 
-  v38 = v89;
-  v37 = v90;
-  if (!v90)
+  v24 = v50;
+  v23 = v51;
+  if (!v51)
   {
-    if (*(v89 + 80) == 1)
+    if (*(v50 + 80) == 1)
     {
-      v40 = 0;
-      v41 = *v11;
-      goto LABEL_30;
+      v26 = 0;
+      v27 = *v6;
+      goto LABEL_32;
     }
 
-LABEL_69:
-    v73 = ACFULogging::getLogInstance(v37);
-    ACFULogging::handleMessage(v73, 2u, "%s::%s: boot nonce is not present post boot. This is a failure.\n", v74, v75, v76, v77, v78, "ACFURTKitROM");
-    v58 = 0;
-    v27 = 2000;
-    goto LABEL_39;
+LABEL_71:
+    v44 = ACFULogging::getLogInstance(v23);
+    ACFULogging::handleMessage(v44, 2, "%s::%s: boot nonce is not present post boot. This is a failure.\n", "ACFURTKitROM", "updateFirmware");
+    v34 = 0;
+    v18 = 2000;
+    goto LABEL_41;
   }
 
-  atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-  v39 = *(v38 + 80);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-  if ((v39 & 1) == 0)
+  atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+  v25 = *(v24 + 80);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+  if ((v25 & 1) == 0)
   {
-    goto LABEL_69;
+    goto LABEL_71;
   }
 
-  v38 = v89;
-  v40 = v90;
-  v41 = *v11;
-  if (v90)
+  v24 = v50;
+  v26 = v51;
+  v27 = *v6;
+  if (v51)
   {
-    v42 = 0;
-    atomic_fetch_add_explicit(&v90->__shared_owners_, 1uLL, memory_order_relaxed);
-    goto LABEL_31;
+    v28 = 0;
+    atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
+    goto LABEL_33;
   }
 
-LABEL_30:
-  v42 = 1;
-LABEL_31:
-  v43 = (*(*v41 + 16))(v41, *(v38 + 72));
-  if ((v42 & 1) == 0)
+LABEL_32:
+  v28 = 1;
+LABEL_33:
+  v29 = (*(*v27 + 16))(v27, *(v24 + 72));
+  if ((v28 & 1) == 0)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
 
   if (*(a1 + 61) != 1)
   {
-    v27 = 0;
-    goto LABEL_38;
+    v18 = 0;
+    goto LABEL_40;
   }
 
-  v44 = ACFULogging::getLogInstance(v43);
-  ACFULogging::handleMessage(v44, 0, "%s::%s: booting firmware one more time to make sure everything is good...\n", v45, v46, v47, v48, v49, "ACFURTKitROM");
-  v50 = (*(**(a1 + 8) + 32))(*(a1 + 8));
-  v27 = v50;
-  if (v50)
+  v30 = ACFULogging::getLogInstance(v29);
+  ACFULogging::handleMessage(v30, 0, "%s::%s: booting firmware one more time to make sure everything is good...\n", "ACFURTKitROM", "updateFirmware");
+  v31 = (*(**(a1 + 8) + 32))(*(a1 + 8));
+  v18 = v31;
+  if (v31)
   {
-    v79 = ACFULogging::getLogInstance(v50);
-    ACFULogging::handleMessage(v79, 2u, "%s::%s: failed to reset chip (%d)\n", v80, v81, v82, v83, v84, "ACFURTKitROM");
-    goto LABEL_71;
+    v45 = ACFULogging::getLogInstance(v31);
+    ACFULogging::handleMessage(v45, 2, "%s::%s: failed to reset chip (%d)\n", "ACFURTKitROM", "updateFirmware", v18);
+    goto LABEL_73;
   }
 
-  v51 = ACFURTKitROM::bootFirmware(a1, 0);
-  v27 = v51;
-  if (!v51)
+  v32 = ACFURTKitROM::bootFirmware(a1, 0);
+  v18 = v32;
+  if (!v32)
   {
-LABEL_38:
-    v58 = 1;
-    goto LABEL_39;
+LABEL_40:
+    v34 = 1;
+    goto LABEL_41;
   }
 
-  v52 = ACFULogging::getLogInstance(v51);
-  ACFULogging::handleMessage(v52, 2u, "%s::%s: failed to boot firmware post update (%d)\n", v53, v54, v55, v56, v57, "ACFURTKitROM");
-LABEL_71:
-  v58 = 0;
-LABEL_39:
-  if (v90)
+  v33 = ACFULogging::getLogInstance(v32);
+  ACFULogging::handleMessage(v33, 2, "%s::%s: failed to boot firmware post update (%d)\n", "ACFURTKitROM", "updateFirmware", v18);
+LABEL_73:
+  v34 = 0;
+LABEL_41:
+  if (v51)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v51);
   }
 
-  if ((v58 & 1) == 0)
+  if ((v34 & 1) == 0)
   {
-    if (!v27)
+    if (!v18)
     {
-      return v27;
+      return v18;
     }
 
-    goto LABEL_56;
+    goto LABEL_58;
   }
 
-LABEL_42:
-  v59 = (*(**(a1 + 8) + 24))(*(a1 + 8));
-  if (v59)
+LABEL_44:
+  v35 = (*(**(a1 + 8) + 24))(*(a1 + 8));
+  if (v35)
   {
-    v27 = v59;
-    ACFURTKitROM::updateFirmware(v59);
+    v18 = v35;
+    ACFURTKitROM::updateFirmware(v35);
   }
 
   else
   {
-    v60 = *(a1 + 16);
-    v87 = *(a1 + 8);
-    v88 = v60;
-    if (v60)
+    v36 = *(a1 + 16);
+    v48 = *(a1 + 8);
+    v49 = v36;
+    if (v36)
     {
-      atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v61 = *(a1 + 32);
-    v85 = *(a1 + 24);
-    v86 = v61;
-    if (v61)
+    v37 = *(a1 + 32);
+    v46 = *(a1 + 24);
+    v47 = v37;
+    if (v37)
     {
-      atomic_fetch_add_explicit(&v61->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v62 = *(a3 + 56);
-    if (!v62)
+    v38 = *(a3 + 56);
+    if (!v38)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v27 = (*(*v62 + 48))(v62, &v87, &v85);
-    if (v86)
+    v18 = (*(*v38 + 48))(v38, &v48, &v46);
+    if (v47)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v47);
     }
 
-    if (v88)
+    if (v49)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v49);
     }
 
-    if (v27)
+    if (v18)
     {
-      ACFURTKitROM::updateFirmware(v27);
+      ACFURTKitROM::updateFirmware(v18);
     }
 
     else
     {
-      v63 = (*(**v11 + 24))();
-      v27 = v63;
-      if (!v63)
+      v39 = (*(**v6 + 24))();
+      v18 = v39;
+      if (!v39)
       {
-        return v27;
+        return v18;
       }
 
-      ACFURTKitROM::updateFirmware(v63);
+      ACFURTKitROM::updateFirmware(v39);
     }
   }
 
-LABEL_56:
-  if (ACFUFirmware::getManifest(*v11))
+LABEL_58:
+  if (ACFUFirmware::getManifest(*v6))
   {
-    v65 = *(a1 + 40);
+    v41 = *(a1 + 40);
     Manifest = ACFUFirmware::getManifest(*(a1 + 24));
-    ACFUDiagnostics::addItem(v65, @"ticket.der", Manifest, 1);
+    ACFUDiagnostics::addItem(v41, @"ticket.der", Manifest, 1);
   }
 
-  return v27;
+  return v18;
 }
 
 void sub_2402CCDCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, uint64_t a20)
@@ -539,23 +724,23 @@ LABEL_5:
 
 uint64_t ACFURTKitROM::certifyChip(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v98 = 0xDEADBEEFDEADBEEFLL;
-  v97 = -8531;
-  v96 = -8531;
-  v7 = (***(a1 + 8))(&v93);
-  if (v95)
+  v56 = 0xDEADBEEFDEADBEEFLL;
+  v55 = -8531;
+  v54 = -8531;
+  v7 = (***(a1 + 8))(&v51);
+  if (v53)
   {
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get board params (%d)\n", v58, v59, v60, v61, v62, "ACFURTKitROM");
-    v18 = v95;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get board params (%d)\n", "ACFURTKitROM", "certifyChip", v53);
+    v13 = v53;
     goto LABEL_24;
   }
 
-  v8 = v93;
-  v9 = v94;
-  if (v94)
+  v8 = v51;
+  v9 = v52;
+  if (v52)
   {
-    atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (v8[48] != 1)
@@ -564,18 +749,18 @@ uint64_t ACFURTKitROM::certifyChip(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     goto LABEL_13;
   }
 
-  v10 = v94;
-  if (v94)
+  v10 = v52;
+  if (v52)
   {
-    atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   if (v8[16] == 1)
   {
-    v7 = v94;
-    if (v94)
+    v7 = v52;
+    if (v52)
     {
-      atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
       v11 = v8[32] ^ 1;
       std::__shared_weak_count::__release_shared[abi:ne200100](v7);
       if (!v10)
@@ -613,170 +798,168 @@ LABEL_13:
   if (v11)
   {
     v12 = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(v12, 2u, "%s::%s: query command is missing chip ecid, chipId, or boardId\n", v13, v14, v15, v16, v17, "ACFURTKitROM");
-    v18 = 3011;
+    ACFULogging::handleMessage(v12, 2, "%s::%s: query command is missing chip ecid, chipId, or boardId\n", "ACFURTKitROM", "certifyChip");
+    v13 = 3011;
     goto LABEL_24;
   }
 
-  v19 = v93;
-  v20 = v94;
-  if (v94)
+  v14 = v51;
+  v15 = v52;
+  if (v52)
   {
-    atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned short>((v19 + 24), &v96);
-  if (v20)
+  DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned short>((v14 + 24), &v54);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  if (v96 == 57005 || !v96)
+  if (v54 == 57005 || !v54)
   {
-    v22 = ACFULogging::getLogInstance(DataAs);
-    ACFULogging::handleMessage(v22, 2u, "%s::%s: device with board id 0x%04x does not support certification\n", v23, v24, v25, v26, v27, "ACFURTKitROM");
-    v18 = 1010;
+    v17 = ACFULogging::getLogInstance(DataAs);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: device with board id 0x%04x does not support certification\n", "ACFURTKitROM", "certifyChip", v54);
+    v13 = 1010;
     goto LABEL_24;
   }
 
-  v31 = v93;
-  v32 = v94;
-  if (v94)
+  v21 = v51;
+  v22 = v52;
+  if (v52)
   {
-    atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  ACFUCommon::Parameter::GetDataAsType<unsigned short>((v31 + 8), &v97);
-  if (v32)
+  ACFUCommon::Parameter::GetDataAsType<unsigned short>((v21 + 8), &v55);
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  v33 = v93;
-  v34 = v94;
-  if (v94)
+  v23 = v51;
+  v24 = v52;
+  if (v52)
   {
-    atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  ACFUCommon::Parameter::GetDataAsType<unsigned long long>((v33 + 40), &v98);
-  if (v34)
+  ACFUCommon::Parameter::GetDataAsType<unsigned long long>((v23 + 40), &v56);
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
-  v35 = (***(a1 + 24))(*(a1 + 24), a4);
-  v18 = v35;
-  if (v35)
+  v25 = (***(a1 + 24))(*(a1 + 24), a4);
+  v13 = v25;
+  if (v25)
   {
-    v63 = ACFULogging::getLogInstance(v35);
-    ACFULogging::handleMessage(v63, 2u, "%s::%s: Could not create a valid firmware from restore options (%d).\n", v64, v65, v66, v67, v68, "ACFURTKitROM");
+    v43 = ACFULogging::getLogInstance(v25);
+    ACFULogging::handleMessage(v43, 2, "%s::%s: Could not create a valid firmware from restore options (%d).\n", "ACFURTKitROM", "certifyChip", v13);
     goto LABEL_24;
   }
 
-  v36 = ACFULogging::getLogInstance(v35);
-  ACFULogging::handleMessage(v36, 0, "%s::%s: performing certification...\n", v37, v38, v39, v40, v41, "ACFURTKitROM");
+  v26 = ACFULogging::getLogInstance(v25);
+  ACFULogging::handleMessage(v26, 0, "%s::%s: performing certification...\n", "ACFURTKitROM", "certifyChip");
   if (*(a2 + 32) == 2 && !*(a2 + 40))
   {
-    v42 = *(a1 + 8);
-    v43 = *(a1 + 32);
-    v89 = *(a1 + 24);
-    v90 = v43;
-    if (v43)
+    v27 = *(a1 + 8);
+    v28 = *(a1 + 32);
+    v48 = v28;
+    if (v28)
     {
-      atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    (*(*v42 + 48))(&v91);
-    v44 = v90;
-    v45 = v91;
-    v18 = v92;
-    if (v90)
+    (*(*v27 + 48))(&v49);
+    v29 = v48;
+    v30 = v49;
+    v13 = v50;
+    if (v48)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v90);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v48);
     }
 
-    if (v18)
+    if (v13)
     {
-      v81 = ACFULogging::getLogInstance(v44);
-      ACFULogging::handleMessage(v81, 2u, "%s::%s: failed to collect sik public key (%d)\n", v82, v83, v84, v85, v86, "ACFURTKitROM");
+      v46 = ACFULogging::getLogInstance(v29);
+      ACFULogging::handleMessage(v46, 2, "%s::%s: failed to collect sik public key (%d)\n", "ACFURTKitROM", "certifyChip", v13);
       goto LABEL_24;
     }
 
-    *(a2 + 40) = v45;
+    *(a2 + 40) = v30;
   }
 
   if (!*(a2 + 48))
   {
-    v46 = *(a1 + 8);
-    v47 = *(a1 + 32);
-    v87 = *(a1 + 24);
-    v88 = v47;
+    v31 = *(a1 + 8);
+    v32 = *(a1 + 32);
+    v47 = v32;
+    if (v32)
+    {
+      atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    (*(*v31 + 48))(&v49);
+    v33 = v49;
+    v13 = v50;
+    v34 = v47;
     if (v47)
     {
-      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v47);
     }
 
-    (*(*v46 + 48))(&v91);
-    v48 = v91;
-    v18 = v92;
-    v49 = v88;
-    if (v88)
+    if (v13)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88);
-    }
-
-    if (v18)
-    {
-      v75 = ACFULogging::getLogInstance(v49);
-      ACFULogging::handleMessage(v75, 2u, "%s::%s: failed to collect sik csr blob (%d)\n", v76, v77, v78, v79, v80, "ACFURTKitROM");
+      v45 = ACFULogging::getLogInstance(v34);
+      ACFULogging::handleMessage(v45, 2, "%s::%s: failed to collect sik csr blob (%d)\n", "ACFURTKitROM", "certifyChip", v13);
       goto LABEL_24;
     }
 
-    *(a2 + 48) = v48;
+    *(a2 + 48) = v33;
   }
 
   if (*(a2 + 64) == 1 && !*(a2 + 56))
   {
-    v56 = (*(*a1 + 56))(a1, *(a2 + 72));
-    *(a2 + 56) = v56;
-    if (!v56)
+    v41 = (*(*a1 + 56))(a1, *(a2 + 72));
+    *(a2 + 56) = v41;
+    if (!v41)
     {
-      v18 = 0;
+      v13 = 0;
       goto LABEL_24;
     }
 
-    v50 = 1;
+    v35 = 1;
   }
 
   else
   {
-    v50 = 0;
+    v35 = 0;
   }
 
-  v51 = *(a2 + 40);
-  if (v51)
+  v36 = *(a2 + 40);
+  if (v36)
   {
-    ACFUDiagnostics::addItem(*(a1 + 40), @"sikPubKey.bin", v51, 1);
+    ACFUDiagnostics::addItem(*(a1 + 40), @"sikPubKey.bin", v36, 1);
   }
 
-  v52 = *(a2 + 48);
-  if (v52)
+  v37 = *(a2 + 48);
+  if (v37)
   {
-    ACFUDiagnostics::addItem(*(a1 + 40), @"sikCSR.bin", v52, 1);
+    ACFUDiagnostics::addItem(*(a1 + 40), @"sikCSR.bin", v37, 1);
   }
 
-  v53 = *(a2 + 56);
-  if (v53)
+  v38 = *(a2 + 56);
+  if (v38)
   {
-    ACFUDiagnostics::addItem(*(a1 + 40), @"sikManifestSigCert.bin", v53, 1);
+    ACFUDiagnostics::addItem(*(a1 + 40), @"sikManifestSigCert.bin", v38, 1);
   }
 
-  v54 = ACFUFDR::certifyChip(a2, v97, v98, v96);
-  if (v54)
+  v39 = ACFUFDR::certifyChip(a2, v55, v56, v54);
+  if (v39)
   {
-    v18 = 0;
-    if (!v50)
+    v13 = 0;
+    if (!v35)
     {
       goto LABEL_24;
     }
@@ -784,43 +967,43 @@ LABEL_13:
 
   else
   {
-    v69 = ACFULogging::getLogInstance(v54);
-    ACFULogging::handleMessage(v69, 2u, "%s::%s: failed to perform FDR certification\n", v70, v71, v72, v73, v74, "ACFURTKitROM");
-    v18 = 1011;
-    if (!v50)
+    v44 = ACFULogging::getLogInstance(v39);
+    ACFULogging::handleMessage(v44, 2, "%s::%s: failed to perform FDR certification\n", "ACFURTKitROM", "certifyChip");
+    v13 = 1011;
+    if (!v35)
     {
       goto LABEL_24;
     }
   }
 
-  v55 = *(a2 + 56);
-  if (v55)
+  v40 = *(a2 + 56);
+  if (v40)
   {
-    CFRelease(v55);
+    CFRelease(v40);
     *(a2 + 56) = 0;
   }
 
 LABEL_24:
-  v28 = *(a2 + 48);
-  if (v28)
+  v18 = *(a2 + 48);
+  if (v18)
   {
-    CFRelease(v28);
+    CFRelease(v18);
     *(a2 + 48) = 0;
   }
 
-  v29 = *(a2 + 40);
-  if (v29)
+  v19 = *(a2 + 40);
+  if (v19)
   {
-    CFRelease(v29);
+    CFRelease(v19);
     *(a2 + 40) = 0;
   }
 
-  if (v94)
+  if (v52)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v94);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v52);
   }
 
-  return v18;
+  return v13;
 }
 
 void sub_2402CD4C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19)
@@ -847,34 +1030,32 @@ void ACFURTKitROM::~ACFURTKitROM(ACFURTKitROM *this)
 
 ACFULogging *ACFURTKitROM::copyManifestSigCert(ACFURTKitROM *this, CFDataRef theData)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v41 = 0;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
+  v35 = 0;
   v33 = 0u;
   v34 = 0u;
   v31 = 0u;
   v32 = 0u;
   v29 = 0u;
   v30 = 0u;
-  memset(v28, 0, sizeof(v28));
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  memset(v22, 0, sizeof(v22));
   if (!theData)
   {
     ACFURTKitROM::copyManifestSigCert(this);
-LABEL_24:
-    v10 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   BytePtr = CFDataGetBytePtr(theData);
   if (!BytePtr)
   {
     ACFURTKitROM::copyManifestSigCert(0);
-    goto LABEL_24;
+    return 0;
   }
 
   v4 = BytePtr;
@@ -882,80 +1063,78 @@ LABEL_24:
   if (!Length)
   {
     ACFURTKitROM::copyManifestSigCert(0);
-    goto LABEL_24;
+    return 0;
   }
 
   v6 = Length;
-  inited = Img4DecodeInitManifest(v4, Length, v28);
+  inited = Img4DecodeInitManifest(v4, Length, v22);
   if (inited)
   {
     ACFURTKitROM::copyManifestSigCert(inited);
-    goto LABEL_24;
+    return 0;
   }
 
-  v8 = *(&v29 + 1) + v30;
-  if (*(&v29 + 1) + v30 <= v4)
+  v8 = *(&v23 + 1) + v24;
+  if (*(&v23 + 1) + v24 <= v4)
   {
     ACFURTKitROM::copyManifestSigCert(inited);
-    goto LABEL_24;
+    return 0;
   }
 
   if (v8 >= v4 + v6)
   {
     ACFURTKitROM::copyManifestSigCert(inited);
-    goto LABEL_24;
+    return 0;
   }
 
   v9 = v4 - v8 + v6;
   if (!v9)
   {
     ACFURTKitROM::copyManifestSigCert(inited);
-    goto LABEL_24;
+    return 0;
   }
 
-  v10 = CFDataCreate(*MEMORY[0x277CBECE8], (*(&v29 + 1) + v30), v9);
+  v10 = CFDataCreate(*MEMORY[0x277CBECE8], (*(&v23 + 1) + v24), v9);
   LogInstance = ACFULogging::getLogInstance(v10);
-  v17 = LogInstance;
+  v12 = LogInstance;
   if (!v10)
   {
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create data\n", v12, v13, v14, v15, v16, "ACFURTKitROM");
-    goto LABEL_24;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create data\n", "ACFURTKitROM", "copyManifestSigCert");
+    return 0;
   }
 
-  *(&v24.__r_.__value_.__s + 23) = 12;
-  strcpy(&v24, "ACFURTKitROM");
-  v18 = std::string::append(&v24, "::");
-  v19 = *&v18->__r_.__value_.__l.__data_;
-  v25.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-  *&v25.__r_.__value_.__l.__data_ = v19;
-  v18->__r_.__value_.__l.__size_ = 0;
-  v18->__r_.__value_.__r.__words[2] = 0;
-  v18->__r_.__value_.__r.__words[0] = 0;
-  v20 = std::string::append(&v25, "copyManifestSigCert");
-  v21 = *&v20->__r_.__value_.__l.__data_;
-  v27 = v20->__r_.__value_.__r.__words[2];
-  *__p = v21;
-  v20->__r_.__value_.__l.__size_ = 0;
-  v20->__r_.__value_.__r.__words[2] = 0;
-  v20->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageBinary(v17, __p, 4, v8, v9, 0);
-  if (SHIBYTE(v27) < 0)
+  *(&v18.__r_.__value_.__s + 23) = 12;
+  strcpy(&v18, "ACFURTKitROM");
+  v13 = std::string::append(&v18, "::");
+  v14 = *&v13->__r_.__value_.__l.__data_;
+  v19.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
+  *&v19.__r_.__value_.__l.__data_ = v14;
+  v13->__r_.__value_.__l.__size_ = 0;
+  v13->__r_.__value_.__r.__words[2] = 0;
+  v13->__r_.__value_.__r.__words[0] = 0;
+  v15 = std::string::append(&v19, "copyManifestSigCert");
+  v16 = *&v15->__r_.__value_.__l.__data_;
+  v21 = v15->__r_.__value_.__r.__words[2];
+  *__p = v16;
+  v15->__r_.__value_.__l.__size_ = 0;
+  v15->__r_.__value_.__r.__words[2] = 0;
+  v15->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageBinary(v12, __p, 4, v8, v9, 0);
+  if (SHIBYTE(v21) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1009,7 +1188,7 @@ uint64_t std::__shared_ptr_pointer<ACFURTKitROM  *>::__get_deleter(uint64_t a1, 
   }
 }
 
-__CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
+__CFDictionary *ACFURestoreHost::getTags(CFDictionaryRef *this)
 {
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
@@ -1022,7 +1201,7 @@ __CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
       if (v5)
       {
         v6 = v5;
-        Value = CFDictionaryGetValue(*(this + 2), @"DeviceInfo");
+        Value = CFDictionaryGetValue(this[2], @"DeviceInfo");
         if (Value && (v8 = CFGetTypeID(Value), v8 == CFDictionaryGetTypeID()))
         {
           CFDictionaryAddValue(Mutable, @"BuildIdentityTags", v4);
@@ -1063,7 +1242,7 @@ __CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
         else
         {
           std::string::basic_string[abi:ne200100]<0>(v20, "getTags: failed to get device info list");
-          ACFUError::addError(this + 24, v20, 0xFA1uLL, 0);
+          ACFUError::addError((this + 3), v20, 0xFA1uLL, 0);
           ACFURestoreHost::getTags(v20);
         }
 
@@ -1073,7 +1252,7 @@ __CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
       else
       {
         std::string::basic_string[abi:ne200100]<0>(v21, "getTags: failed to create response tag list");
-        ACFUError::addError(this + 24, v21, 0xFA0uLL, 0);
+        ACFUError::addError((this + 3), v21, 0xFA0uLL, 0);
         ACFURestoreHost::getTags(v21);
       }
 
@@ -1083,7 +1262,7 @@ __CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
     else
     {
       std::string::basic_string[abi:ne200100]<0>(v22, "getTags: failed to create build identity tag list");
-      ACFUError::addError(this + 24, v22, 0xFA0uLL, 0);
+      ACFUError::addError((this + 3), v22, 0xFA0uLL, 0);
       ACFURestoreHost::getTags(v22);
     }
   }
@@ -1091,7 +1270,7 @@ __CFDictionary *ACFURestoreHost::getTags(ACFURestoreHost *this)
   else
   {
     std::string::basic_string[abi:ne200100]<0>(v23, "getTags: failed to allocate output dictionary");
-    ACFUError::addError(this + 24, v23, 0xFA0uLL, 0);
+    ACFUError::addError((this + 3), v23, 0xFA0uLL, 0);
     ACFURestoreHost::getTags(v23);
   }
 
@@ -1149,35 +1328,35 @@ const __CFData *ACFURestoreHost::copyFirmware(ACFURestoreHost *this)
   if (v5)
   {
     LogInstance = ACFULogging::getLogInstance(v5);
-    v8 = std::string::basic_string[abi:ne200100]<0>(&v186, "ACFURestoreHost");
+    v8 = std::string::basic_string[abi:ne200100]<0>(&v135, "ACFURestoreHost");
     v9 = std::string::append(v8, "::");
     v10 = *&v9->__r_.__value_.__l.__data_;
-    v187.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-    *&v187.__r_.__value_.__l.__data_ = v10;
+    v136.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+    *&v136.__r_.__value_.__l.__data_ = v10;
     v9->__r_.__value_.__l.__size_ = 0;
     v9->__r_.__value_.__r.__words[2] = 0;
     v9->__r_.__value_.__r.__words[0] = 0;
-    v11 = std::string::append(&v187, "copyFirmware");
+    v11 = std::string::append(&v136, "copyFirmware");
     v12 = *&v11->__r_.__value_.__l.__data_;
-    v188.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-    *&v188.__r_.__value_.__l.__data_ = v12;
+    v137.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+    *&v137.__r_.__value_.__l.__data_ = v12;
     v11->__r_.__value_.__l.__size_ = 0;
     v11->__r_.__value_.__r.__words[2] = 0;
     v11->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(LogInstance, &v188, 0, "personalizedURL: ", v6);
-    if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+    ACFULogging::handleMessageCFType(LogInstance, &v137, 0, "personalizedURL: ", v6);
+    if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v188.__r_.__value_.__l.__data_);
+      operator delete(v137.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v187.__r_.__value_.__l.__data_);
+      operator delete(v136.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v186.__r_.__value_.__l.__data_);
+      operator delete(v135.__r_.__value_.__l.__data_);
     }
   }
 
@@ -1186,193 +1365,194 @@ const __CFData *ACFURestoreHost::copyFirmware(ACFURestoreHost *this)
   v15 = ACFULogging::getLogInstance(v13);
   if (!v14)
   {
-    ACFULogging::handleMessage(v15, 0, "%s::%s: running host invoked restore info -- using bundleURL\n", v16, v17, v18, v19, v20, "ACFURestoreHost");
+    ACFULogging::handleMessage(v15, 0, "%s::%s: running host invoked restore info -- using bundleURL\n", "ACFURestoreHost", "copyFirmware");
     Mutable = CFDictionaryCreateMutable(v2, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (!Mutable)
     {
       ACFURestoreHost::copyFirmware(0);
-      goto LABEL_174;
+      goto LABEL_180;
     }
 
-    v33 = CFDictionaryCreateMutable(v2, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v33)
+    v28 = CFDictionaryCreateMutable(v2, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (!v28)
     {
       ACFURestoreHost::copyFirmware(0);
-      goto LABEL_174;
+      goto LABEL_180;
     }
 
-    v25 = v33;
-    v34 = CFDictionaryGetValue(*(this + 2), @"BundlePath");
-    if (!v34 || (v35 = v34, v36 = CFURLGetTypeID(), v36 != CFGetTypeID(v35)))
+    v20 = v28;
+    v29 = CFDictionaryGetValue(*(this + 2), @"BundlePath");
+    if (!v29 || (v30 = v29, v31 = CFURLGetTypeID(), v31 != CFGetTypeID(v30)))
     {
-      std::string::basic_string[abi:ne200100]<0>(v184, "copyFirmware: failed to get src bundle URL");
-      ACFUError::addError(this + 24, v184, 0xFA1uLL, 0);
-      ACFURestoreHost::copyFirmware(v184);
-      v30 = 0;
+      std::string::basic_string[abi:ne200100]<0>(v133, "copyFirmware: failed to get src bundle URL");
+      ACFUError::addError(this + 24, v133, 0xFA1uLL, 0);
+      ACFURestoreHost::copyFirmware(v133);
+      v25 = 0;
 LABEL_19:
-      v32 = v4;
-LABEL_161:
-      CFRelease(v32);
-      goto LABEL_162;
+      v27 = v4;
+LABEL_167:
+      CFRelease(v27);
+      goto LABEL_168;
     }
 
-    v37 = CFDictionaryGetValue(*(this + 2), @"Options");
-    v162 = v4;
-    if (v37 && (v39 = v37, v40 = CFGetTypeID(v37), v40 == CFDictionaryGetTypeID()))
+    v32 = CFDictionaryGetValue(*(this + 2), @"Options");
+    v111 = v4;
+    if (v32 && (v34 = v32, v35 = CFGetTypeID(v32), v35 == CFDictionaryGetTypeID()))
     {
       cf.__r_.__value_.__r.__words[0] = 0;
-      v41 = CFDictionaryGetValue(v39, @"ACFUFirmware");
-      if (v41)
+      v36 = CFDictionaryGetValue(v34, @"ACFUFirmware");
+      if (v36)
       {
         TypeID = CFStringGetTypeID();
-        if (TypeID == CFGetTypeID(v41))
+        if (TypeID == CFGetTypeID(v36))
         {
           if (v6)
           {
             AMSupportCopyURLWithAppendedComponent();
-            std::string::basic_string[abi:ne200100]<0>(v183, "copyFirmware: failed to create personalized rooted FW URL");
-            ACFUError::addError(this + 24, v183, 0xFA0uLL, 0);
-            ACFURestoreHost::copyFirmware(v183);
-LABEL_181:
-            v30 = 0;
+            std::string::basic_string[abi:ne200100]<0>(v132, "copyFirmware: failed to create personalized rooted FW URL");
+            ACFUError::addError(this + 24, v132, 0xFA0uLL, 0);
+            ACFURestoreHost::copyFirmware(v132);
+LABEL_187:
+            v25 = 0;
             goto LABEL_19;
           }
 
           URLFromString = AMSupportCreateURLFromString();
           if (!URLFromString)
           {
-            std::string::basic_string[abi:ne200100]<0>(v182, "copyFirmware: failed to create src rooted FW URL");
-            ACFUError::addError(this + 24, v182, 0xFA0uLL, 0);
-            ACFURestoreHost::copyFirmware(v182);
-            goto LABEL_181;
+            std::string::basic_string[abi:ne200100]<0>(v131, "copyFirmware: failed to create src rooted FW URL");
+            ACFUError::addError(this + 24, v131, 0xFA0uLL, 0);
+            ACFURestoreHost::copyFirmware(v131);
+            goto LABEL_187;
           }
 
-          v44 = URLFromString;
+          v39 = URLFromString;
           CFDictionaryAddValue(Mutable, *(this + 1), URLFromString);
-          CFDictionaryAddValue(v25, *(this + 1), v44);
-          CFRelease(v44);
+          CFDictionaryAddValue(v20, *(this + 1), v39);
+          CFRelease(v39);
         }
       }
 
-      v161 = v41 != 0;
+      v110 = v36 != 0;
     }
 
     else
     {
-      v161 = 0;
+      v110 = 0;
     }
 
-    v45 = *(this + 17);
-    if (v45 != *(this + 18))
+    v40 = *(this + 17);
+    if (v40 != *(this + 18))
     {
-      v46 = 0;
+      v41 = 0;
       while (1)
       {
-        v180 = 0;
+        v129 = 0;
         value = 0;
-        PathFromBuildID = ACFURestoreHost::getPathFromBuildID(*(this + 2), *v45, v38);
-        ACFUCommon::stringFromCFString(*v45, &v188);
-        if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+        PathFromBuildID = ACFURestoreHost::getPathFromBuildID(*(this + 2), *v40, v33);
+        ACFUCommon::stringFromCFString(&v137, *v40);
+        if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
         {
-          if (v188.__r_.__value_.__l.__size_)
+          if (v137.__r_.__value_.__l.__size_)
           {
-            std::string::__init_copy_ctor_external(&v187, v188.__r_.__value_.__l.__data_, v188.__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(&v136, v137.__r_.__value_.__l.__data_, v137.__r_.__value_.__l.__size_);
             goto LABEL_43;
           }
         }
 
-        else if (*(&v188.__r_.__value_.__s + 23))
+        else if (*(&v137.__r_.__value_.__s + 23))
         {
-          v187 = v188;
+          v136 = v137;
           goto LABEL_43;
         }
 
-        v48 = std::string::basic_string[abi:ne200100]<0>(&v187, "UNDEF");
+        v43 = std::string::basic_string[abi:ne200100]<0>(&v136, "UNDEF");
 LABEL_43:
-        if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v188.__r_.__value_.__l.__data_);
+          operator delete(v137.__r_.__value_.__l.__data_);
         }
 
-        v188 = v187;
+        v137 = v136;
         if (PathFromBuildID)
         {
           if (v6)
           {
-            if (AMSupportCopyURLWithAppendedComponent() || !v180)
+            v45 = AMSupportCopyURLWithAppendedComponent();
+            if (v45 || !v129)
             {
-              std::string::basic_string[abi:ne200100]<0>(v175, "copyFirmware: failed to create personalized FW URL");
-              v83 = ACFUError::addError(this + 24, v175, 0xFA0uLL, 0);
-              if (v176 < 0)
+              std::string::basic_string[abi:ne200100]<0>(v124, "copyFirmware: failed to create personalized FW URL");
+              v71 = ACFUError::addError(this + 24, v124, 0xFA0uLL, 0);
+              if (v125 < 0)
               {
-                operator delete(v175[0]);
+                operator delete(v124[0]);
               }
 
-              v84 = ACFULogging::getLogInstance(v83);
-              ACFULogging::handleMessage(v84, 2u, "%s::%s: copyFirmware: failed to create personalized FW URL (status: %d)\n", v85, v86, v87, v88, v89, "ACFURestoreHost");
-              goto LABEL_76;
+              v72 = ACFULogging::getLogInstance(v71);
+              ACFULogging::handleMessage(v72, 2, "%s::%s: copyFirmware: failed to create personalized FW URL (status: %d)\n", "ACFURestoreHost", "copyFirmware", v45);
+              goto LABEL_79;
             }
 
-            doesPathExist = ACFUCommon::doesPathExist(v180, v49);
+            doesPathExist = ACFUCommon::doesPathExist(v129, v44);
             if (doesPathExist)
             {
-              v51 = ACFULogging::getLogInstance(doesPathExist);
+              v47 = ACFULogging::getLogInstance(doesPathExist);
               std::string::basic_string[abi:ne200100]<0>(&cf, "ACFURestoreHost");
-              v52 = std::string::append(&cf, "::");
-              v53 = *&v52->__r_.__value_.__l.__data_;
-              v186.__r_.__value_.__r.__words[2] = v52->__r_.__value_.__r.__words[2];
-              *&v186.__r_.__value_.__l.__data_ = v53;
-              v52->__r_.__value_.__l.__size_ = 0;
-              v52->__r_.__value_.__r.__words[2] = 0;
-              v52->__r_.__value_.__r.__words[0] = 0;
-              v54 = std::string::append(&v186, "copyFirmware");
+              v48 = std::string::append(&cf, "::");
+              v49 = *&v48->__r_.__value_.__l.__data_;
+              v135.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
+              *&v135.__r_.__value_.__l.__data_ = v49;
+              v48->__r_.__value_.__l.__size_ = 0;
+              v48->__r_.__value_.__r.__words[2] = 0;
+              v48->__r_.__value_.__r.__words[0] = 0;
+              v50 = std::string::append(&v135, "copyFirmware");
+              v51 = *&v50->__r_.__value_.__l.__data_;
+              v136.__r_.__value_.__r.__words[2] = v50->__r_.__value_.__r.__words[2];
+              *&v136.__r_.__value_.__l.__data_ = v51;
+              v50->__r_.__value_.__l.__size_ = 0;
+              v50->__r_.__value_.__r.__words[2] = 0;
+              v50->__r_.__value_.__r.__words[0] = 0;
+              ACFULogging::handleMessageCFType(v47, &v136, 0, "Firmware Object: ", *v40);
+              if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v136.__r_.__value_.__l.__data_);
+              }
+
+              if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(v135.__r_.__value_.__l.__data_);
+              }
+
+              if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
+              {
+                operator delete(cf.__r_.__value_.__l.__data_);
+              }
+
+              v53 = ACFULogging::getLogInstance(v52);
+              std::string::basic_string[abi:ne200100]<0>(&cf, "ACFURestoreHost");
+              v54 = std::string::append(&cf, "::");
               v55 = *&v54->__r_.__value_.__l.__data_;
-              v187.__r_.__value_.__r.__words[2] = v54->__r_.__value_.__r.__words[2];
-              *&v187.__r_.__value_.__l.__data_ = v55;
+              v135.__r_.__value_.__r.__words[2] = v54->__r_.__value_.__r.__words[2];
+              *&v135.__r_.__value_.__l.__data_ = v55;
               v54->__r_.__value_.__l.__size_ = 0;
               v54->__r_.__value_.__r.__words[2] = 0;
               v54->__r_.__value_.__r.__words[0] = 0;
-              ACFULogging::handleMessageCFType(v51, &v187, 0, "Firmware Object: ", *v45);
-              if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+              v56 = std::string::append(&v135, "copyFirmware");
+              v57 = *&v56->__r_.__value_.__l.__data_;
+              v136.__r_.__value_.__r.__words[2] = v56->__r_.__value_.__r.__words[2];
+              *&v136.__r_.__value_.__l.__data_ = v57;
+              v56->__r_.__value_.__l.__size_ = 0;
+              v56->__r_.__value_.__r.__words[2] = 0;
+              v56->__r_.__value_.__r.__words[0] = 0;
+              ACFULogging::handleMessageCFType(v53, &v136, 0, "Personalized Bundle FW URL: ", v129);
+              if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v187.__r_.__value_.__l.__data_);
+                operator delete(v136.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v186.__r_.__value_.__l.__data_);
-              }
-
-              if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(cf.__r_.__value_.__l.__data_);
-              }
-
-              v57 = ACFULogging::getLogInstance(v56);
-              std::string::basic_string[abi:ne200100]<0>(&cf, "ACFURestoreHost");
-              v58 = std::string::append(&cf, "::");
-              v59 = *&v58->__r_.__value_.__l.__data_;
-              v186.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
-              *&v186.__r_.__value_.__l.__data_ = v59;
-              v58->__r_.__value_.__l.__size_ = 0;
-              v58->__r_.__value_.__r.__words[2] = 0;
-              v58->__r_.__value_.__r.__words[0] = 0;
-              v60 = std::string::append(&v186, "copyFirmware");
-              v61 = *&v60->__r_.__value_.__l.__data_;
-              v187.__r_.__value_.__r.__words[2] = v60->__r_.__value_.__r.__words[2];
-              *&v187.__r_.__value_.__l.__data_ = v61;
-              v60->__r_.__value_.__l.__size_ = 0;
-              v60->__r_.__value_.__r.__words[2] = 0;
-              v60->__r_.__value_.__r.__words[0] = 0;
-              ACFULogging::handleMessageCFType(v57, &v187, 0, "Personalized Bundle FW URL: ", v180);
-              if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(v187.__r_.__value_.__l.__data_);
-              }
-
-              if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
-              {
-                operator delete(v186.__r_.__value_.__l.__data_);
+                operator delete(v135.__r_.__value_.__l.__data_);
               }
 
               if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
@@ -1380,104 +1560,115 @@ LABEL_43:
                 operator delete(cf.__r_.__value_.__l.__data_);
               }
 
-              v46 = 1;
+              v41 = 1;
             }
 
-            else if (v180)
+            else if (v129)
             {
-              CFRelease(v180);
-              v46 = 0;
-              v180 = 0;
+              CFRelease(v129);
+              v41 = 0;
+              v129 = 0;
             }
 
             else
             {
-              v46 = 0;
+              v41 = 0;
             }
           }
 
-          if (AMSupportCopyURLWithAppendedComponent() || !value)
+          v67 = AMSupportCopyURLWithAppendedComponent();
+          if (v67 || !value)
           {
-            std::string::basic_string[abi:ne200100]<0>(v173, "copyFirmware: failed to create default FW URL");
-            v76 = ACFUError::addError(this + 24, v173, 0xFA0uLL, 0);
-            if (v174 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v122, "copyFirmware: failed to create default FW URL");
+            v69 = ACFUError::addError(this + 24, v122, 0xFA0uLL, 0);
+            if (v123 < 0)
             {
-              operator delete(v173[0]);
+              operator delete(v122[0]);
             }
 
-            v77 = ACFULogging::getLogInstance(v76);
-            ACFULogging::handleMessage(v77, 2u, "%s::%s: copyFirmware: failed to create default FW URL, (status: %d)\n", v78, v79, v80, v81, v82, "ACFURestoreHost");
-LABEL_76:
-            v67 = 4;
-            goto LABEL_86;
+            v70 = ACFULogging::getLogInstance(v69);
+            ACFULogging::handleMessage(v70, 2, "%s::%s: copyFirmware: failed to create default FW URL, (status: %d)\n", "ACFURestoreHost", "copyFirmware", v67);
+LABEL_79:
+            v63 = 4;
+            goto LABEL_89;
           }
 
-          if (v46)
+          if (v41)
           {
-            v75 = v180;
+            v68 = v129;
           }
 
           else
           {
-            v75 = value;
+            v68 = value;
           }
 
-          CFDictionaryAddValue(Mutable, *v45, v75);
-          CFDictionaryAddValue(v25, *v45, value);
+          CFDictionaryAddValue(Mutable, *v40, v68);
+          CFDictionaryAddValue(v20, *v40, value);
           if (value)
           {
             CFRelease(value);
-            v67 = 0;
+            v63 = 0;
             value = 0;
           }
 
           else
           {
-            v67 = 0;
+            v63 = 0;
           }
         }
 
         else
         {
-          if (*(v45 + 8) != 1)
+          if (*(v40 + 8) != 1)
           {
             std::string::basic_string[abi:ne200100]<0>(__p, "copyFirmware: failed to find FW");
-            v68 = ACFUError::addError(this + 24, __p, 0xFA1uLL, 0);
-            if (v178 < 0)
+            v64 = ACFUError::addError(this + 24, __p, 0xFA1uLL, 0);
+            if (v127 < 0)
             {
               operator delete(__p[0]);
             }
 
-            v69 = ACFULogging::getLogInstance(v68);
-            ACFULogging::handleMessage(v69, 2u, "%s::%s: copyFirmware: failed to find FW (%s) in build ID\n", v70, v71, v72, v73, v74, "ACFURestoreHost");
-            goto LABEL_76;
+            v65 = ACFULogging::getLogInstance(v64);
+            if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v66 = &v137;
+            }
+
+            else
+            {
+              v66 = v137.__r_.__value_.__r.__words[0];
+            }
+
+            ACFULogging::handleMessage(v65, 2, "%s::%s: copyFirmware: failed to find FW (%s) in build ID\n", "ACFURestoreHost", "copyFirmware", v66);
+            goto LABEL_79;
           }
 
-          v62 = ACFULogging::getLogInstance(v48);
+          v58 = ACFULogging::getLogInstance(v43);
           std::string::basic_string[abi:ne200100]<0>(&cf, "ACFURestoreHost");
-          v63 = std::string::append(&cf, "::");
-          v64 = *&v63->__r_.__value_.__l.__data_;
-          v186.__r_.__value_.__r.__words[2] = v63->__r_.__value_.__r.__words[2];
-          *&v186.__r_.__value_.__l.__data_ = v64;
-          v63->__r_.__value_.__l.__size_ = 0;
-          v63->__r_.__value_.__r.__words[2] = 0;
-          v63->__r_.__value_.__r.__words[0] = 0;
-          v65 = std::string::append(&v186, "copyFirmware");
-          v66 = *&v65->__r_.__value_.__l.__data_;
-          v187.__r_.__value_.__r.__words[2] = v65->__r_.__value_.__r.__words[2];
-          *&v187.__r_.__value_.__l.__data_ = v66;
-          v65->__r_.__value_.__l.__size_ = 0;
-          v65->__r_.__value_.__r.__words[2] = 0;
-          v65->__r_.__value_.__r.__words[0] = 0;
-          ACFULogging::handleMessageCFType(v62, &v187, 0, "skipping optional file...", *v45);
-          if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+          v59 = std::string::append(&cf, "::");
+          v60 = *&v59->__r_.__value_.__l.__data_;
+          v135.__r_.__value_.__r.__words[2] = v59->__r_.__value_.__r.__words[2];
+          *&v135.__r_.__value_.__l.__data_ = v60;
+          v59->__r_.__value_.__l.__size_ = 0;
+          v59->__r_.__value_.__r.__words[2] = 0;
+          v59->__r_.__value_.__r.__words[0] = 0;
+          v61 = std::string::append(&v135, "copyFirmware");
+          v62 = *&v61->__r_.__value_.__l.__data_;
+          v136.__r_.__value_.__r.__words[2] = v61->__r_.__value_.__r.__words[2];
+          *&v136.__r_.__value_.__l.__data_ = v62;
+          v61->__r_.__value_.__l.__size_ = 0;
+          v61->__r_.__value_.__r.__words[2] = 0;
+          v61->__r_.__value_.__r.__words[0] = 0;
+          ACFULogging::handleMessageCFType(v58, &v136, 0, "skipping optional file...", *v40);
+          if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v187.__r_.__value_.__l.__data_);
+            operator delete(v136.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v186.__r_.__value_.__l.__data_);
+            operator delete(v135.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
@@ -1485,279 +1676,289 @@ LABEL_76:
             operator delete(cf.__r_.__value_.__l.__data_);
           }
 
-          v67 = 29;
+          v63 = 29;
         }
 
-LABEL_86:
-        if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+LABEL_89:
+        if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v188.__r_.__value_.__l.__data_);
-          if (!v67)
+          operator delete(v137.__r_.__value_.__l.__data_);
+          if (!v63)
           {
-            goto LABEL_91;
+            goto LABEL_94;
           }
         }
 
-        else if (!v67)
+        else if (!v63)
         {
-          goto LABEL_91;
+          goto LABEL_94;
         }
 
-        if (v67 != 29)
+        if (v63 != 29)
         {
-          v30 = 0;
-          goto LABEL_160;
+          v25 = 0;
+          goto LABEL_166;
         }
 
-LABEL_91:
-        v45 += 16;
-        if (v45 == *(this + 18))
+LABEL_94:
+        v40 += 16;
+        if (v40 == *(this + 18))
         {
-          goto LABEL_100;
+          goto LABEL_103;
         }
       }
     }
 
-    v46 = 0;
-LABEL_100:
-    v90 = (*(*this + 40))(this, Mutable, 0);
-    v30 = v90;
-    if (v90)
+    v41 = 0;
+LABEL_103:
+    v73 = (*(*this + 40))(this, Mutable, 0);
+    v25 = v73;
+    if (v73)
     {
-      v91 = HIDWORD(v161);
+      v74 = HIDWORD(v110);
     }
 
     else
     {
-      v91 = HIDWORD(v161);
-      if (v46)
+      v74 = HIDWORD(v110);
+      if (v41)
       {
-        v92 = ACFULogging::getLogInstance(0);
-        ACFULogging::handleMessage(v92, 0, "%s::%s: attempting copyFirmwareUpdater again with source bundle file map\n", v93, v94, v95, v96, v97, "ACFURestoreHost");
-        v90 = (*(*this + 40))(this, v25, 0);
-        v30 = v90;
+        v75 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v75, 0, "%s::%s: attempting copyFirmwareUpdater again with source bundle file map\n", "ACFURestoreHost", "copyFirmware");
+        v73 = (*(*this + 40))(this, v20, 0);
+        v25 = v73;
       }
 
-      if (!v30)
+      if (!v25)
       {
-        std::string::basic_string[abi:ne200100]<0>(v171, "copyFirmware: updater failed to find firmware data with bundleURL");
-        v151 = ACFUError::addError(this + 24, v171, 0xFA0uLL, 0);
-        v30 = 0;
-        v152 = "%s::%s: updater failed to find firmware data with bundleURL\n";
-        if (v172 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v120, "copyFirmware: updater failed to find firmware data with bundleURL");
+        v105 = ACFUError::addError(this + 24, v120, 0xFA0uLL, 0);
+        v25 = 0;
+        v106 = "%s::%s: updater failed to find firmware data with bundleURL\n";
+        if (v121 < 0)
         {
-          v153 = v171;
-          goto LABEL_168;
+          v107 = v120;
+          goto LABEL_174;
         }
 
-        goto LABEL_169;
+        goto LABEL_175;
       }
     }
 
-    v98 = !v161;
+    v76 = !v110;
     if (!v6)
     {
-      v98 = 1;
+      v76 = 1;
     }
 
-    if (((v91 | v98) & 1) == 0)
+    if (((v74 | v76) & 1) == 0)
     {
-      v99 = ACFULogging::getLogInstance(v90);
-      ACFULogging::handleMessage(v99, 0, "%s::%s: copying preflighted rooted firmware into the dst bundle...\n", v100, v101, v102, v103, v104, "ACFURestoreHost");
-      v90 = ACFURestoreHost::copyToPersonalizedBundlePath(v105, *(this + 2), v162, v30);
-      if (v90)
+      v77 = ACFULogging::getLogInstance(v73);
+      ACFULogging::handleMessage(v77, 0, "%s::%s: copying preflighted rooted firmware into the dst bundle...\n", "ACFURestoreHost", "copyFirmware");
+      v73 = ACFURestoreHost::copyToPersonalizedBundlePath(v78, *(this + 2), v111, v25);
+      if (v73)
       {
-        std::string::basic_string[abi:ne200100]<0>(v169, "copyFirmware: failed to perform destination bundle copy of rooted firmware");
-        v151 = ACFUError::addError(this + 24, v169, 0xFA3uLL, 0);
-        v152 = "%s::%s: failed to perform destination bundle copy of rooted firmware\n";
-        if (v170 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v118, "copyFirmware: failed to perform destination bundle copy of rooted firmware");
+        v105 = ACFUError::addError(this + 24, v118, 0xFA3uLL, 0);
+        v106 = "%s::%s: failed to perform destination bundle copy of rooted firmware\n";
+        if (v119 < 0)
         {
-          v153 = v169;
-LABEL_168:
-          operator delete(*v153);
+          v107 = v118;
+LABEL_174:
+          operator delete(*v107);
         }
 
-LABEL_169:
-        v155 = ACFULogging::getLogInstance(v151);
-        ACFULogging::handleMessage(v155, 2u, v152, v156, v157, v158, v159, v160, "ACFURestoreHost");
-LABEL_160:
-        v32 = v162;
-        goto LABEL_161;
+LABEL_175:
+        v109 = ACFULogging::getLogInstance(v105);
+        ACFULogging::handleMessage(v109, 2, v106, "ACFURestoreHost", "copyFirmware");
+LABEL_166:
+        v27 = v111;
+        goto LABEL_167;
       }
     }
 
-    if ((v6 == 0) | v46 & 1)
+    if ((v6 == 0) | v41 & 1)
     {
-      if (v46)
+      if (v41)
       {
-        v106 = ACFULogging::getLogInstance(v90);
-        ACFULogging::handleMessage(v106, 0, "%s::%s: removing any personalized bits of bundle firmware\n", v107, v108, v109, v110, v111, "ACFURestoreHost");
-        v112 = *(this + 17);
-        if (v112 != *(this + 18))
+        v79 = ACFULogging::getLogInstance(v73);
+        ACFULogging::handleMessage(v79, 0, "%s::%s: removing any personalized bits of bundle firmware\n", "ACFURestoreHost", "copyFirmware");
+        v80 = *(this + 17);
+        if (v80 != *(this + 18))
         {
           while (1)
           {
-            v113 = CFDictionaryGetValue(Mutable, *v112);
-            if (v113 || *(v112 + 8) != 1)
+            v81 = CFDictionaryGetValue(Mutable, *v80);
+            if (v81 || *(v80 + 8) != 1)
             {
-              if ((ACFUCommon::removeFileWithURL(v113, v114) & 1) == 0)
+              if ((ACFUCommon::removeFileWithURL(v81, v82) & 1) == 0)
               {
-                std::string::basic_string[abi:ne200100]<0>(v163, "copyFirmware: failed to remove bundle fw personalized bits");
-                v151 = ACFUError::addError(this + 24, v163, 0x3ECuLL, 0);
-                v152 = "%s::%s: failed to remove bundle fw personalized bits\n";
-                if (v164 < 0)
+                std::string::basic_string[abi:ne200100]<0>(v112, "copyFirmware: failed to remove bundle fw personalized bits");
+                v105 = ACFUError::addError(this + 24, v112, 0x3ECuLL, 0);
+                v106 = "%s::%s: failed to remove bundle fw personalized bits\n";
+                if (v113 < 0)
                 {
-                  v153 = v163;
-                  goto LABEL_168;
+                  v107 = v112;
+                  goto LABEL_174;
                 }
 
-                goto LABEL_169;
+                goto LABEL_175;
               }
             }
 
             else
             {
-              v115 = ACFULogging::getLogInstance(0);
-              v116 = std::string::basic_string[abi:ne200100]<0>(&v186, "ACFURestoreHost");
-              v117 = std::string::append(v116, "::");
-              v118 = *&v117->__r_.__value_.__l.__data_;
-              v187.__r_.__value_.__r.__words[2] = v117->__r_.__value_.__r.__words[2];
-              *&v187.__r_.__value_.__l.__data_ = v118;
-              v117->__r_.__value_.__l.__size_ = 0;
-              v117->__r_.__value_.__r.__words[2] = 0;
-              v117->__r_.__value_.__r.__words[0] = 0;
-              v119 = std::string::append(&v187, "copyFirmware");
-              v120 = *&v119->__r_.__value_.__l.__data_;
-              v188.__r_.__value_.__r.__words[2] = v119->__r_.__value_.__r.__words[2];
-              *&v188.__r_.__value_.__l.__data_ = v120;
-              v119->__r_.__value_.__l.__size_ = 0;
-              v119->__r_.__value_.__r.__words[2] = 0;
-              v119->__r_.__value_.__r.__words[0] = 0;
-              ACFULogging::handleMessageCFType(v115, &v188, 0, "skipping removal of optional file...", *v112);
-              if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+              v83 = ACFULogging::getLogInstance(0);
+              v84 = std::string::basic_string[abi:ne200100]<0>(&v135, "ACFURestoreHost");
+              v85 = std::string::append(v84, "::");
+              v86 = *&v85->__r_.__value_.__l.__data_;
+              v136.__r_.__value_.__r.__words[2] = v85->__r_.__value_.__r.__words[2];
+              *&v136.__r_.__value_.__l.__data_ = v86;
+              v85->__r_.__value_.__l.__size_ = 0;
+              v85->__r_.__value_.__r.__words[2] = 0;
+              v85->__r_.__value_.__r.__words[0] = 0;
+              v87 = std::string::append(&v136, "copyFirmware");
+              v88 = *&v87->__r_.__value_.__l.__data_;
+              v137.__r_.__value_.__r.__words[2] = v87->__r_.__value_.__r.__words[2];
+              *&v137.__r_.__value_.__l.__data_ = v88;
+              v87->__r_.__value_.__l.__size_ = 0;
+              v87->__r_.__value_.__r.__words[2] = 0;
+              v87->__r_.__value_.__r.__words[0] = 0;
+              ACFULogging::handleMessageCFType(v83, &v137, 0, "skipping removal of optional file...", *v80);
+              if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v188.__r_.__value_.__l.__data_);
+                operator delete(v137.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v187.__r_.__value_.__l.__data_);
+                operator delete(v136.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v186.__r_.__value_.__l.__data_);
+                operator delete(v135.__r_.__value_.__l.__data_);
               }
             }
 
-            v112 += 16;
-            if (v112 == *(this + 18))
+            v80 += 16;
+            if (v80 == *(this + 18))
             {
-              goto LABEL_160;
+              goto LABEL_166;
             }
           }
         }
       }
 
-      goto LABEL_160;
+      goto LABEL_166;
     }
 
-    v121 = ACFULogging::getLogInstance(v90);
-    ACFULogging::handleMessage(v121, 0, "%s::%s: copying preflighted bundle firmware into the dst bundle...\n", v122, v123, v124, v125, v126, "ACFURestoreHost");
-    v128 = *(this + 17);
-    if (v128 == *(this + 18))
+    v89 = ACFULogging::getLogInstance(v73);
+    ACFULogging::handleMessage(v89, 0, "%s::%s: copying preflighted bundle firmware into the dst bundle...\n", "ACFURestoreHost", "copyFirmware");
+    v91 = *(this + 17);
+    if (v91 == *(this + 18))
     {
-      goto LABEL_160;
+      goto LABEL_166;
     }
 
     while (1)
     {
-      v129 = ACFURestoreHost::getPathFromBuildID(*(this + 2), *v128, v127);
-      ACFUCommon::stringFromCFString(*v128, &v188);
-      if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+      v92 = ACFURestoreHost::getPathFromBuildID(*(this + 2), *v91, v90);
+      ACFUCommon::stringFromCFString(&v137, *v91);
+      if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
       {
-        if (v188.__r_.__value_.__l.__size_)
+        if (v137.__r_.__value_.__l.__size_)
         {
-          std::string::__init_copy_ctor_external(&v187, v188.__r_.__value_.__l.__data_, v188.__r_.__value_.__l.__size_);
-          goto LABEL_129;
+          std::string::__init_copy_ctor_external(&v136, v137.__r_.__value_.__l.__data_, v137.__r_.__value_.__l.__size_);
+          goto LABEL_132;
         }
       }
 
-      else if (*(&v188.__r_.__value_.__s + 23))
+      else if (*(&v137.__r_.__value_.__s + 23))
       {
-        v187 = v188;
-        goto LABEL_129;
+        v136 = v137;
+        goto LABEL_132;
       }
 
-      v130 = std::string::basic_string[abi:ne200100]<0>(&v187, "UNDEF");
-LABEL_129:
-      if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+      v93 = std::string::basic_string[abi:ne200100]<0>(&v136, "UNDEF");
+LABEL_132:
+      if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v188.__r_.__value_.__l.__data_);
+        operator delete(v137.__r_.__value_.__l.__data_);
       }
 
-      v188 = v187;
-      if (v129)
+      v137 = v136;
+      if (v92)
       {
-        if (!ACFURestoreHost::copyToPersonalizedBundlePath(v130, *(this + 2), v129, v30))
+        if (!ACFURestoreHost::copyToPersonalizedBundlePath(v93, *(this + 2), v92, v25))
         {
-          v131 = 0;
-          goto LABEL_146;
+          v94 = 0;
+          goto LABEL_152;
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v165, "copyFirmware: failed to perform destination bundle copy of rooted firmware");
-        v144 = ACFUError::addError(this + 24, v165, 0xFA3uLL, 0);
-        if (v166 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v114, "copyFirmware: failed to perform destination bundle copy of rooted firmware");
+        v103 = ACFUError::addError(this + 24, v114, 0xFA3uLL, 0);
+        if (v115 < 0)
         {
-          operator delete(v165[0]);
+          operator delete(v114[0]);
         }
 
-        v145 = ACFULogging::getLogInstance(v144);
-        ACFULogging::handleMessage(v145, 2u, "%s::%s: failed to perform destination bundle copy of rooted firmware\n", v146, v147, v148, v149, v150, "ACFURestoreHost");
-        goto LABEL_145;
+        v104 = ACFULogging::getLogInstance(v103);
+        ACFULogging::handleMessage(v104, 2, "%s::%s: failed to perform destination bundle copy of rooted firmware\n", "ACFURestoreHost", "copyFirmware");
+        goto LABEL_151;
       }
 
-      if (*(v128 + 8) != 1)
+      if (*(v91 + 8) != 1)
       {
-        std::string::basic_string[abi:ne200100]<0>(v167, "copyFirmware: failed to find FW in personalized path");
-        v137 = ACFUError::addError(this + 24, v167, 0xFA1uLL, 0);
-        if (v168 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v116, "copyFirmware: failed to find FW in personalized path");
+        v100 = ACFUError::addError(this + 24, v116, 0xFA1uLL, 0);
+        if (v117 < 0)
         {
-          operator delete(v167[0]);
+          operator delete(v116[0]);
         }
 
-        v138 = ACFULogging::getLogInstance(v137);
-        ACFULogging::handleMessage(v138, 2u, "%s::%s: failed to find FW (%s) in build ID in personalized path\n", v139, v140, v141, v142, v143, "ACFURestoreHost");
-LABEL_145:
-        v131 = 4;
-        goto LABEL_146;
+        v101 = ACFULogging::getLogInstance(v100);
+        if ((v137.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v102 = &v137;
+        }
+
+        else
+        {
+          v102 = v137.__r_.__value_.__r.__words[0];
+        }
+
+        ACFULogging::handleMessage(v101, 2, "%s::%s: failed to find FW (%s) in build ID in personalized path\n", "ACFURestoreHost", "copyFirmware", v102);
+LABEL_151:
+        v94 = 4;
+        goto LABEL_152;
       }
 
-      v132 = ACFULogging::getLogInstance(v130);
+      v95 = ACFULogging::getLogInstance(v93);
       std::string::basic_string[abi:ne200100]<0>(&cf, "ACFURestoreHost");
-      v133 = std::string::append(&cf, "::");
-      v134 = *&v133->__r_.__value_.__l.__data_;
-      v186.__r_.__value_.__r.__words[2] = v133->__r_.__value_.__r.__words[2];
-      *&v186.__r_.__value_.__l.__data_ = v134;
-      v133->__r_.__value_.__l.__size_ = 0;
-      v133->__r_.__value_.__r.__words[2] = 0;
-      v133->__r_.__value_.__r.__words[0] = 0;
-      v135 = std::string::append(&v186, "copyFirmware");
-      v136 = *&v135->__r_.__value_.__l.__data_;
-      v187.__r_.__value_.__r.__words[2] = v135->__r_.__value_.__r.__words[2];
-      *&v187.__r_.__value_.__l.__data_ = v136;
-      v135->__r_.__value_.__l.__size_ = 0;
-      v135->__r_.__value_.__r.__words[2] = 0;
-      v135->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v132, &v187, 0, "skipping copying of optional file...", *v128);
-      if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+      v96 = std::string::append(&cf, "::");
+      v97 = *&v96->__r_.__value_.__l.__data_;
+      v135.__r_.__value_.__r.__words[2] = v96->__r_.__value_.__r.__words[2];
+      *&v135.__r_.__value_.__l.__data_ = v97;
+      v96->__r_.__value_.__l.__size_ = 0;
+      v96->__r_.__value_.__r.__words[2] = 0;
+      v96->__r_.__value_.__r.__words[0] = 0;
+      v98 = std::string::append(&v135, "copyFirmware");
+      v99 = *&v98->__r_.__value_.__l.__data_;
+      v136.__r_.__value_.__r.__words[2] = v98->__r_.__value_.__r.__words[2];
+      *&v136.__r_.__value_.__l.__data_ = v99;
+      v98->__r_.__value_.__l.__size_ = 0;
+      v98->__r_.__value_.__r.__words[2] = 0;
+      v98->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v95, &v136, 0, "skipping copying of optional file...", *v91);
+      if (SHIBYTE(v136.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v187.__r_.__value_.__l.__data_);
+        operator delete(v136.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v186.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v135.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v186.__r_.__value_.__l.__data_);
+        operator delete(v135.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
@@ -1765,65 +1966,65 @@ LABEL_145:
         operator delete(cf.__r_.__value_.__l.__data_);
       }
 
-      v131 = 48;
-LABEL_146:
-      if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+      v94 = 48;
+LABEL_152:
+      if (SHIBYTE(v137.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v188.__r_.__value_.__l.__data_);
-        if (v131)
+        operator delete(v137.__r_.__value_.__l.__data_);
+        if (v94)
         {
-LABEL_150:
-          if (v131 != 48)
+LABEL_156:
+          if (v94 != 48)
           {
-            goto LABEL_160;
+            goto LABEL_166;
           }
         }
       }
 
-      else if (v131)
+      else if (v94)
       {
-        goto LABEL_150;
+        goto LABEL_156;
       }
 
-      v128 += 16;
-      if (v128 == *(this + 18))
+      v91 += 16;
+      if (v91 == *(this + 18))
       {
-        goto LABEL_160;
+        goto LABEL_166;
       }
     }
   }
 
-  ACFULogging::handleMessage(v15, 0, "%s::%s: running device invoked restore info -- using bundleData\n", v16, v17, v18, v19, v20, "ACFURestoreHost");
-  v21 = CFDictionaryGetValue(*(this + 2), @"BundleDataDict");
-  if (v21 && (v22 = v21, v23 = CFDictionaryGetTypeID(), v21 = CFGetTypeID(v22), v23 == v21))
+  ACFULogging::handleMessage(v15, 0, "%s::%s: running device invoked restore info -- using bundleData\n", "ACFURestoreHost", "copyFirmware");
+  v16 = CFDictionaryGetValue(*(this + 2), @"BundleDataDict");
+  if (v16 && (v17 = v16, v18 = CFDictionaryGetTypeID(), v16 = CFGetTypeID(v17), v18 == v16))
   {
-    MutableCopy = CFDictionaryCreateMutableCopy(v2, 0, v22);
+    MutableCopy = CFDictionaryCreateMutableCopy(v2, 0, v17);
     if (MutableCopy)
     {
-      v25 = MutableCopy;
-      v26 = CFDictionaryGetValue(*(this + 2), @"FirmwareData");
-      if (v26)
+      v20 = MutableCopy;
+      v21 = CFDictionaryGetValue(*(this + 2), @"FirmwareData");
+      if (v21)
       {
-        v27 = v26;
-        v28 = CFDataGetTypeID();
-        if (v28 == CFGetTypeID(v27))
+        v22 = v21;
+        v23 = CFDataGetTypeID();
+        if (v23 == CFGetTypeID(v22))
         {
-          CFDictionarySetValue(v25, *(this + 1), v27);
+          CFDictionarySetValue(v20, *(this + 1), v22);
         }
       }
 
-      v29 = (*(*this + 40))(this, v25, 1);
-      if (v29)
+      v24 = (*(*this + 40))(this, v20, 1);
+      if (v24)
       {
-        v30 = v29;
+        v25 = v24;
       }
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(v185, "copyFirmware: updater failed to find firmware data with bundleData");
-        ACFUError::addError(this + 24, v185, 0xFA0uLL, 0);
-        ACFURestoreHost::copyFirmware(v185);
-        v30 = 0;
+        std::string::basic_string[abi:ne200100]<0>(v134, "copyFirmware: updater failed to find firmware data with bundleData");
+        ACFUError::addError(this + 24, v134, 0xFA0uLL, 0);
+        ACFURestoreHost::copyFirmware(v134);
+        v25 = 0;
       }
 
       Mutable = 0;
@@ -1835,21 +2036,21 @@ LABEL_150:
 
   else
   {
-    ACFURestoreHost::copyFirmware(v21);
+    ACFURestoreHost::copyFirmware(v16);
   }
 
   Mutable = 0;
-LABEL_174:
-  v30 = 0;
-  v25 = v4;
-LABEL_162:
-  CFRelease(v25);
+LABEL_180:
+  v25 = 0;
+  v20 = v4;
+LABEL_168:
+  CFRelease(v20);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v30;
+  return v25;
 }
 
 void sub_2402CEE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -1900,29 +2101,28 @@ uint64_t ACFURestoreHost::copyToPersonalizedBundlePath(ACFURestoreHost *this, CF
   Value = CFDictionaryGetValue(theDict, @"DestBundlePath");
   if (Value && (v5 = Value, v6 = CFURLGetTypeID(), Value = CFGetTypeID(v5), v6 == Value))
   {
-    v7 = *MEMORY[0x277CBECE8];
-    v8 = AMSupportCopyURLWithAppendedComponent();
-    if (v8)
+    v7 = AMSupportCopyURLWithAppendedComponent();
+    if (v7)
     {
-      ACFURestoreHost::copyToPersonalizedBundlePath(v8);
+      ACFURestoreHost::copyToPersonalizedBundlePath(v7);
       return 4000;
     }
 
-    v9 = MEMORY[0x245CBE680](0);
-    if (v9)
+    v8 = MEMORY[0x245CBE680](0);
+    if (v8)
     {
-      ACFURestoreHost::copyToPersonalizedBundlePath(v9);
+      ACFURestoreHost::copyToPersonalizedBundlePath(v8);
       return 1003;
     }
 
-    v10 = AMSupportWriteDataToFileURL();
-    if (v10)
+    v9 = AMSupportWriteDataToFileURL();
+    if (v9)
     {
-      ACFURestoreHost::copyToPersonalizedBundlePath(v10);
+      ACFURestoreHost::copyToPersonalizedBundlePath(v9);
       return 1004;
     }
 
-    doesPathExist = ACFUCommon::doesPathExist(0, v11);
+    doesPathExist = ACFUCommon::doesPathExist(0, v10);
     if (!doesPathExist)
     {
       ACFURestoreHost::copyToPersonalizedBundlePath(doesPathExist);
@@ -1933,7 +2133,7 @@ uint64_t ACFURestoreHost::copyToPersonalizedBundlePath(ACFURestoreHost *this, CF
   else
   {
     LogInstance = ACFULogging::getLogInstance(Value);
-    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: destination bundle was not specified, so we are skipping the copy step...\n", v14, v15, v16, v17, v18, "ACFURestoreHost");
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: destination bundle was not specified, so we are skipping the copy step...\n", "ACFURestoreHost", "copyToPersonalizedBundlePath");
   }
 
   return 0;
@@ -1945,9 +2145,9 @@ __CFDictionary *ACFURestoreHost::createRequest(uint64_t a1, CFDictionaryRef **a2
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
-    std::string::basic_string[abi:ne200100]<0>(v171, "createRequest: Failed to allocate output dictionary");
-    ACFUError::addError(a1 + 24, v171, 0xFA0uLL, 0);
-    ACFURestoreHost::createRequest(v171, (a1 + 24));
+    std::string::basic_string[abi:ne200100]<0>(v125, "createRequest: Failed to allocate output dictionary");
+    ACFUError::addError(a1 + 24, v125, 0xFA0uLL, 0);
+    ACFURestoreHost::createRequest(v125, (a1 + 24));
     return 0;
   }
 
@@ -1970,490 +2170,487 @@ __CFDictionary *ACFURestoreHost::createRequest(uint64_t a1, CFDictionaryRef **a2
   if (!__s.__r_.__value_.__r.__words[0])
   {
     LogInstance = ACFULogging::getLogInstance(v11);
-    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: skipping device identity validation against build identity\n", v14, v15, v16, v17, v18, "ACFURestoreHost");
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: skipping device identity validation against build identity\n", "ACFURestoreHost", "createRequest");
   }
 
-  v19 = CFDictionaryGetValue(*(a1 + 16), @"BuildIdentity");
-  if (!v19 || (v20 = v19, TypeID = CFDictionaryGetTypeID(), TypeID != CFGetTypeID(v20)))
+  v14 = CFDictionaryGetValue(*(a1 + 16), @"BuildIdentity");
+  if (!v14 || (v15 = v14, TypeID = CFDictionaryGetTypeID(), TypeID != CFGetTypeID(v15)))
   {
-    std::string::basic_string[abi:ne200100]<0>(v170, "createRequest: Failed to get build identity dict from options");
-    ACFUError::addError(a1 + 24, v170, 0xFA1uLL, 0);
-    ACFURestoreHost::createRequest(v170);
-    goto LABEL_124;
+    std::string::basic_string[abi:ne200100]<0>(v124, "createRequest: Failed to get build identity dict from options");
+    ACFUError::addError(a1 + 24, v124, 0xFA1uLL, 0);
+    ACFURestoreHost::createRequest(v124);
+    goto LABEL_123;
   }
 
-  v22 = CFDictionaryGetValue(*(a1 + 16), @"DeviceInfo");
-  if (!v22 || (v23 = v22, v24 = CFDictionaryGetTypeID(), v24 != CFGetTypeID(v23)))
+  v17 = CFDictionaryGetValue(*(a1 + 16), @"DeviceInfo");
+  if (!v17 || (v18 = v17, v19 = CFDictionaryGetTypeID(), v19 != CFGetTypeID(v18)))
   {
-    std::string::basic_string[abi:ne200100]<0>(v169, "createRequest: Failed to get build identity dict from options");
-    ACFUError::addError(a1 + 24, v169, 0xFA1uLL, 0);
-    ACFURestoreHost::createRequest(v169);
-    goto LABEL_124;
+    std::string::basic_string[abi:ne200100]<0>(v123, "createRequest: Failed to get build identity dict from options");
+    ACFUError::addError(a1 + 24, v123, 0xFA1uLL, 0);
+    ACFURestoreHost::createRequest(v123);
+    goto LABEL_123;
   }
 
   if (v12)
   {
-    std::map<__CFString const*,unsigned long>::map[abi:ne200100](v168, a1 + 160);
-    v25 = ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity((a1 + 64), (a1 + 40), v23, v20, v168);
-    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v168, v168[1]);
-    if ((v25 & 1) == 0)
+    std::map<__CFString const*,unsigned long>::map[abi:ne200100](v121, a1 + 160);
+    v20 = ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity((a1 + 64), (a1 + 40), v18, v15, v121);
+    std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v121, v122);
+    if ((v20 & 1) == 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(v167, "createRequest: Failed to validate device identity tags");
-      ACFUError::addError(a1 + 24, v167, 0xFA9uLL, 0);
-      ACFURestoreHost::createRequest(v167);
-      goto LABEL_124;
+      std::string::basic_string[abi:ne200100]<0>(v120, "createRequest: Failed to validate device identity tags");
+      ACFUError::addError(a1 + 24, v120, 0xFA9uLL, 0);
+      ACFURestoreHost::createRequest(v120);
+      goto LABEL_123;
     }
   }
 
-  std::map<__CFString const*,unsigned long>::map[abi:ne200100](v166, a1 + 160);
-  v26 = ACFURestoreHost::populateDictFromIdentity((a1 + 40), v166, v20, v7);
-  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v166, v166[1]);
-  if ((v26 & 1) == 0)
+  std::map<__CFString const*,unsigned long>::map[abi:ne200100](v118, a1 + 160);
+  v21 = ACFURestoreHost::populateDictFromIdentity((a1 + 40), v118, v15, v7);
+  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v118, v119);
+  if ((v21 & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v165, "createRequest: Failed to build parameters out of build identity");
-    ACFUError::addError(a1 + 24, v165, 0xFA4uLL, 0);
-    ACFURestoreHost::createRequest(v165);
-    goto LABEL_124;
+    std::string::basic_string[abi:ne200100]<0>(v117, "createRequest: Failed to build parameters out of build identity");
+    ACFUError::addError(a1 + 24, v117, 0xFA4uLL, 0);
+    ACFURestoreHost::createRequest(v117);
+    goto LABEL_123;
   }
 
-  std::map<__CFString const*,unsigned long>::map[abi:ne200100](v164, a1 + 160);
-  v27 = ACFURestoreHost::populateDictFromIdentity((a1 + 64), v164, v23, v7);
-  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v164, v164[1]);
-  if ((v27 & 1) == 0)
+  std::map<__CFString const*,unsigned long>::map[abi:ne200100](v115, a1 + 160);
+  v22 = ACFURestoreHost::populateDictFromIdentity((a1 + 64), v115, v18, v7);
+  std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::destroy(v115, v116);
+  if ((v22 & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v163, "createRequest: Failed to build parameters out of device identity");
-    ACFUError::addError(a1 + 24, v163, 0xFA4uLL, 0);
-    ACFURestoreHost::createRequest(v163);
-    goto LABEL_124;
+    std::string::basic_string[abi:ne200100]<0>(v114, "createRequest: Failed to build parameters out of device identity");
+    ACFUError::addError(a1 + 24, v114, 0xFA4uLL, 0);
+    ACFURestoreHost::createRequest(v114);
+    goto LABEL_123;
   }
 
   if (*a3)
   {
-    v29 = CFDictionaryGetValue(v23, *a3);
-    if (!v29 || (v30 = v29, v31 = CFDataGetTypeID(), v28 = CFGetTypeID(v30), v31 != v28))
+    v24 = CFDictionaryGetValue(v18, *a3);
+    if (!v24 || (v25 = v24, v26 = CFDataGetTypeID(), v23 = CFGetTypeID(v25), v26 != v23))
     {
-      std::string::basic_string[abi:ne200100]<0>(v162, "createRequest: Production mode not present in device info. This is fatal!");
-      ACFUError::addError(a1 + 24, v162, 0xFA1uLL, 0);
-      ACFURestoreHost::createRequest(v162);
-      goto LABEL_124;
+      std::string::basic_string[abi:ne200100]<0>(v113, "createRequest: Production mode not present in device info. This is fatal!");
+      ACFUError::addError(a1 + 24, v113, 0xFA1uLL, 0);
+      ACFURestoreHost::createRequest(v113);
+      goto LABEL_123;
     }
   }
 
   else
   {
-    v30 = 0;
+    v25 = 0;
   }
 
-  v32 = *(a3 + 8);
-  if (v32)
+  v27 = *(a3 + 8);
+  if (v27)
   {
-    v33 = CFDictionaryGetValue(v23, v32);
-    if (!v33 || (v34 = v33, v35 = CFDataGetTypeID(), v28 = CFGetTypeID(v34), v35 != v28))
+    v28 = CFDictionaryGetValue(v18, v27);
+    if (!v28 || (v29 = v28, v30 = CFDataGetTypeID(), v23 = CFGetTypeID(v29), v30 != v23))
     {
-      std::string::basic_string[abi:ne200100]<0>(v161, "createRequest: Security mode not present in device info. This is fatal!");
-      ACFUError::addError(a1 + 24, v161, 0xFA1uLL, 0);
-      ACFURestoreHost::createRequest(v161);
-      goto LABEL_124;
+      std::string::basic_string[abi:ne200100]<0>(v112, "createRequest: Security mode not present in device info. This is fatal!");
+      ACFUError::addError(a1 + 24, v112, 0xFA1uLL, 0);
+      ACFURestoreHost::createRequest(v112);
+      goto LABEL_123;
     }
   }
 
   else
   {
-    v34 = 0;
+    v29 = 0;
   }
 
-  v140 = v34;
-  v141 = v30;
-  theDict = v23;
-  v36 = *(a1 + 136);
-  if (v36 != *(a1 + 144))
+  v91 = v29;
+  v92 = v25;
+  theDict = v18;
+  v31 = *(a1 + 136);
+  if (v31 != *(a1 + 144))
   {
     value = *MEMORY[0x277CBED28];
     do
     {
-      ACFUCommon::stringFromCFString(*v36, &__s);
+      ACFUCommon::stringFromCFString(&__s, *v31);
       if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
       {
         if (__s.__r_.__value_.__l.__size_)
         {
-          std::string::__init_copy_ctor_external(&v159, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v110, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
           goto LABEL_33;
         }
       }
 
       else if (*(&__s.__r_.__value_.__s + 23))
       {
-        v159 = __s;
+        v110 = __s;
         goto LABEL_33;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v159, "UNDEF");
+      std::string::basic_string[abi:ne200100]<0>(&v110, "UNDEF");
 LABEL_33:
       if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__s.__r_.__value_.__l.__data_);
       }
 
-      __s = v159;
-      v37 = CFDictionaryGetValue(v20, *v36);
-      v38 = v37;
-      if (!v37)
+      __s = v110;
+      v32 = CFDictionaryGetValue(v15, *v31);
+      v33 = v32;
+      if (!v32)
       {
-        if (*(v36 + 8) == 1)
+        if (*(v31 + 8) == 1)
         {
-          v41 = ACFULogging::getLogInstance(0);
-          v47 = "%s::%s: optional tag %s missing from build identity, skipping\n";
+          v37 = ACFULogging::getLogInstance(0);
+          ACFULogging::handleMessage(v37, 0, "%s::%s: optional tag %s missing from build identity, skipping\n");
           goto LABEL_42;
         }
 
 LABEL_49:
         std::string::basic_string[abi:ne200100]<0>(__p, "createRequest: could not find FW in build ID");
-        v53 = ACFUError::addError(a1 + 24, __p, 0x3EDuLL, 0);
-        if (v158 < 0)
+        v43 = ACFUError::addError(a1 + 24, __p, 0x3EDuLL, 0);
+        if (v109 < 0)
         {
           operator delete(__p[0]);
         }
 
-        v54 = ACFULogging::getLogInstance(v53);
-        v60 = "%s::%s: could not find FW (%s) in build ID\n";
+        v44 = ACFULogging::getLogInstance(v43);
+        ACFULogging::handleMessage(v44, 2, "%s::%s: could not find FW (%s) in build ID\n");
 LABEL_52:
-        ACFULogging::handleMessage(v54, 2u, v60, v55, v56, v57, v58, v59, "ACFURestoreHost");
-LABEL_53:
-        v48 = 4;
-        goto LABEL_72;
+        v38 = 4;
+        goto LABEL_71;
       }
 
-      v39 = CFGetTypeID(v37);
-      if (v39 != CFDictionaryGetTypeID())
+      v34 = CFGetTypeID(v32);
+      if (v34 != CFDictionaryGetTypeID())
       {
         goto LABEL_49;
       }
 
       if (*a2)
       {
-        MeasureDataWithTag = ACFUFirmware::getMeasureDataWithTag(*a2, *v36);
+        MeasureDataWithTag = ACFUFirmware::getMeasureDataWithTag(*a2, *v31);
         if (!MeasureDataWithTag)
         {
-          v41 = ACFULogging::getLogInstance(0);
-          v47 = "%s::%s: tag %s missing from firmware, skipping\n";
+          v36 = ACFULogging::getLogInstance(0);
+          ACFULogging::handleMessage(v36, 0, "%s::%s: tag %s missing from firmware, skipping\n");
 LABEL_42:
-          ACFULogging::handleMessage(v41, 0, v47, v42, v43, v44, v45, v46, "ACFURestoreHost");
-          v48 = 24;
-          goto LABEL_72;
+          v38 = 24;
+          goto LABEL_71;
         }
       }
 
       else
       {
-        MeasureDataWithTag = CFDictionaryGetValue(v38, @"Digest");
+        MeasureDataWithTag = CFDictionaryGetValue(v33, @"Digest");
         if (!MeasureDataWithTag)
         {
-          std::string::basic_string[abi:ne200100]<0>(v155, "createRequest: no digest in build ID");
-          v86 = ACFUError::addError(a1 + 24, v155, 0x3EDuLL, 0);
-          if (v156 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v106, "createRequest: no digest in build ID");
+          v56 = ACFUError::addError(a1 + 24, v106, 0x3EDuLL, 0);
+          if (v107 < 0)
           {
-            operator delete(v155[0]);
+            operator delete(v106[0]);
           }
 
-          v54 = ACFULogging::getLogInstance(v86);
-          v60 = "%s::%s: no digest in build ID (%s)\n";
+          v57 = ACFULogging::getLogInstance(v56);
+          ACFULogging::handleMessage(v57, 2, "%s::%s: no digest in build ID (%s)\n");
           goto LABEL_52;
         }
       }
 
-      v49 = CFGetTypeID(MeasureDataWithTag);
-      if (v49 != CFDataGetTypeID())
+      v39 = CFGetTypeID(MeasureDataWithTag);
+      if (v39 != CFDataGetTypeID())
       {
-        std::string::basic_string[abi:ne200100]<0>(v153, "createRequest: wrong digest type");
-        v64 = ACFUError::addError(a1 + 24, v153, 0x3EDuLL, 0);
-        if (v154 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v104, "createRequest: wrong digest type");
+        v48 = ACFUError::addError(a1 + 24, v104, 0x3EDuLL, 0);
+        if (v105 < 0)
         {
-          operator delete(v153[0]);
+          operator delete(v104[0]);
         }
 
-        v54 = ACFULogging::getLogInstance(v64);
-        v60 = "%s::%s: wrong digest type (%s)\n";
+        v49 = ACFULogging::getLogInstance(v48);
+        ACFULogging::handleMessage(v49, 2, "%s::%s: wrong digest type (%s)\n");
         goto LABEL_52;
       }
 
-      v50 = CFDictionaryGetValue(v38, @"Trusted");
-      v51 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      if (!v51)
+      v40 = CFDictionaryGetValue(v33, @"Trusted");
+      v41 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      if (!v41)
       {
-        std::string::basic_string[abi:ne200100]<0>(v151, "createRequest: failed to allocate internal data structure");
-        v65 = ACFUError::addError(a1 + 24, v151, 0xFA0uLL, 0);
-        if (v152 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v102, "createRequest: failed to allocate internal data structure");
+        v50 = ACFUError::addError(a1 + 24, v102, 0xFA0uLL, 0);
+        if (v103 < 0)
         {
-          operator delete(v151[0]);
+          operator delete(v102[0]);
         }
 
-        v66 = ACFULogging::getLogInstance(v65);
-        ACFULogging::handleMessage(v66, 2u, "%s::%s: failed to allocate internal data structure\n", v67, v68, v69, v70, v71, "ACFURestoreHost");
-        goto LABEL_53;
+        v51 = ACFULogging::getLogInstance(v50);
+        ACFULogging::handleMessage(v51, 2, "%s::%s: failed to allocate internal data structure\n", "ACFURestoreHost", "createRequest");
+        goto LABEL_52;
       }
 
       if (*a3)
       {
         if (*(a3 + 16) == 1)
         {
-          v52 = *std::map<__CFString const*,std::string>::at(a1 + 200, v36);
+          v42 = *std::map<__CFString const*,std::string>::at(a1 + 200, v31);
         }
 
         else
         {
-          v52 = 0;
+          v42 = 0;
         }
 
-        ACFURestoreHost::createBoolFromData(v141, &v159);
-        if (v159.__r_.__value_.__s.__data_[8] == 1)
+        ACFURestoreHost::createBoolFromData(&v110, v92);
+        if (v110.__r_.__value_.__s.__data_[8] == 1)
         {
-          std::string::basic_string[abi:ne200100]<0>(v149, "createRequest: epro data to BOOLean conversion failure");
-          v72 = ACFUError::addError(a1 + 24, v149, 0x3EDuLL, 0);
-          if (v150 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v100, "createRequest: epro data to BOOLean conversion failure");
+          v52 = ACFUError::addError(a1 + 24, v100, 0x3EDuLL, 0);
+          if (v101 < 0)
           {
-            operator delete(v149[0]);
+            operator delete(v100[0]);
           }
 
-          v73 = ACFULogging::getLogInstance(v72);
-          ACFULogging::handleMessage(v73, 2u, "%s::%s: epro data to BOOLean conversion failure\n", v74, v75, v76, v77, v78, "ACFURestoreHost");
-          goto LABEL_53;
+          v53 = ACFULogging::getLogInstance(v52);
+          ACFULogging::handleMessage(v53, 2, "%s::%s: epro data to BOOLean conversion failure\n", "ACFURestoreHost", "createRequest");
+          goto LABEL_52;
         }
 
-        if (v52)
+        if (v42)
         {
-          CFDictionaryAddValue(v51, @"DPRO", value);
-          v61 = MEMORY[0x277CBED10];
+          CFDictionaryAddValue(v41, @"DPRO", value);
+          v45 = MEMORY[0x277CBED10];
         }
 
         else
         {
-          v61 = &v159;
+          v45 = &v110;
         }
 
-        CFDictionaryAddValue(v51, @"EPRO", v61->__r_.__value_.__l.__data_);
+        CFDictionaryAddValue(v41, @"EPRO", v45->__r_.__value_.__l.__data_);
       }
 
       if (*(a3 + 8))
       {
         if (*(a3 + 17) == 1)
         {
-          v62 = *(std::map<__CFString const*,std::string>::at(a1 + 200, v36) + 1);
+          v46 = *(std::map<__CFString const*,std::string>::at(a1 + 200, v31) + 1);
         }
 
         else
         {
-          v62 = 0;
+          v46 = 0;
         }
 
-        ACFURestoreHost::createBoolFromData(v140, &v159);
-        if (v159.__r_.__value_.__s.__data_[8] == 1)
+        ACFURestoreHost::createBoolFromData(&v110, v91);
+        if (v110.__r_.__value_.__s.__data_[8] == 1)
         {
-          std::string::basic_string[abi:ne200100]<0>(v147, "createRequest: esec data to BOOLean conversion failure");
-          v79 = ACFUError::addError(a1 + 24, v147, 0x3EDuLL, 0);
-          if (v148 < 0)
+          std::string::basic_string[abi:ne200100]<0>(v98, "createRequest: esec data to BOOLean conversion failure");
+          v54 = ACFUError::addError(a1 + 24, v98, 0x3EDuLL, 0);
+          if (v99 < 0)
           {
-            operator delete(v147[0]);
+            operator delete(v98[0]);
           }
 
-          v80 = ACFULogging::getLogInstance(v79);
-          ACFULogging::handleMessage(v80, 2u, "%s::%s: esec data to BOOLean conversion failure\n", v81, v82, v83, v84, v85, "ACFURestoreHost");
-          goto LABEL_53;
+          v55 = ACFULogging::getLogInstance(v54);
+          ACFULogging::handleMessage(v55, 2, "%s::%s: esec data to BOOLean conversion failure\n", "ACFURestoreHost", "createRequest");
+          goto LABEL_52;
         }
 
-        if (v62)
+        if (v46)
         {
-          CFDictionaryAddValue(v51, @"DSEC", value);
-          v63 = MEMORY[0x277CBED10];
+          CFDictionaryAddValue(v41, @"DSEC", value);
+          v47 = MEMORY[0x277CBED10];
         }
 
         else
         {
-          v63 = &v159;
+          v47 = &v110;
         }
 
-        CFDictionaryAddValue(v51, @"ESEC", v63->__r_.__value_.__l.__data_);
+        CFDictionaryAddValue(v41, @"ESEC", v47->__r_.__value_.__l.__data_);
       }
 
-      CFDictionaryAddValue(v51, @"Digest", MeasureDataWithTag);
-      if (v50)
+      CFDictionaryAddValue(v41, @"Digest", MeasureDataWithTag);
+      if (v40)
       {
-        CFDictionaryAddValue(v51, @"Trusted", v50);
+        CFDictionaryAddValue(v41, @"Trusted", v40);
       }
 
-      CFDictionaryAddValue(v7, *v36, v51);
-      CFRelease(v51);
-      v48 = 0;
-LABEL_72:
+      CFDictionaryAddValue(v7, *v31, v41);
+      CFRelease(v41);
+      v38 = 0;
+LABEL_71:
       if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__s.__r_.__value_.__l.__data_);
-        if (v48)
+        if (v38)
         {
-LABEL_76:
-          if (v48 != 24)
+LABEL_75:
+          if (v38 != 24)
           {
-            goto LABEL_124;
+            goto LABEL_123;
           }
         }
       }
 
-      else if (v48)
+      else if (v38)
       {
-        goto LABEL_76;
+        goto LABEL_75;
       }
 
-      v36 += 16;
+      v31 += 16;
     }
 
-    while (v36 != *(a1 + 144));
+    while (v31 != *(a1 + 144));
   }
 
   if (!*(a1 + 184))
   {
-    goto LABEL_113;
+    goto LABEL_112;
   }
 
-  v87 = CFDictionaryGetValue(*(a1 + 16), @"Options");
-  if (v87 && (v88 = v87, v89 = CFDictionaryContainsKey(v87, @"TrustObjectDigest"), v89))
+  v58 = CFDictionaryGetValue(*(a1 + 16), @"Options");
+  if (v58 && (v59 = v58, v60 = CFDictionaryContainsKey(v58, @"TrustObjectDigest"), v60))
   {
-    v90 = ACFULogging::getLogInstance(v89);
-    ACFULogging::handleMessage(v90, 0, "%s::%s: Using FDR trust object hash in updater options override\n", v91, v92, v93, v94, v95, "ACFURestoreHost");
-    v96 = CFDictionaryGetValue(v88, @"TrustObjectDigest");
-    if (!v96 || (v97 = v96, v98 = CFDataGetTypeID(), v99 = CFGetTypeID(v97), v98 != v99))
+    v61 = ACFULogging::getLogInstance(v60);
+    ACFULogging::handleMessage(v61, 0, "%s::%s: Using FDR trust object hash in updater options override\n", "ACFURestoreHost", "createRequest");
+    v62 = CFDictionaryGetValue(v59, @"TrustObjectDigest");
+    if (!v62 || (v63 = v62, v64 = CFDataGetTypeID(), v65 = CFGetTypeID(v63), v64 != v65))
     {
-      std::string::basic_string[abi:ne200100]<0>(v146, "createRequest: Invalid FDR trust object hash in updater options override");
-      ACFUError::addError(a1 + 24, v146, 0x3EDuLL, 0);
-      ACFURestoreHost::createRequest(v146);
-      goto LABEL_124;
+      std::string::basic_string[abi:ne200100]<0>(v97, "createRequest: Invalid FDR trust object hash in updater options override");
+      ACFUError::addError(a1 + 24, v97, 0x3EDuLL, 0);
+      ACFURestoreHost::createRequest(v97);
+      goto LABEL_123;
     }
   }
 
   else
   {
-    v100 = CFDictionaryContainsKey(theDict, @"ACFU,FDRTrustObjectHash");
-    v101 = v100;
-    v102 = ACFULogging::getLogInstance(v100);
-    if (!v101)
+    v66 = CFDictionaryContainsKey(theDict, @"ACFU,FDRTrustObjectHash");
+    v67 = v66;
+    v68 = ACFULogging::getLogInstance(v66);
+    if (!v67)
     {
-      ACFULogging::handleMessage(v102, 0, "%s::%s: Requesting FDR trust object hash\n", v103, v104, v105, v106, v107, "ACFURestoreHost");
-      v117 = CFDataCreateMutable(allocator, 0);
-      if (!v117)
+      ACFULogging::handleMessage(v68, 0, "%s::%s: Requesting FDR trust object hash\n", "ACFURestoreHost", "createRequest");
+      v73 = CFDataCreateMutable(allocator, 0);
+      if (!v73)
       {
-        std::string::basic_string[abi:ne200100]<0>(v144, "createRequest: Failed to create empty trust object hash");
-        ACFUError::addError(a1 + 24, v144, 0xFA0uLL, 0);
-        ACFURestoreHost::createRequest(v144);
-        goto LABEL_124;
+        std::string::basic_string[abi:ne200100]<0>(v95, "createRequest: Failed to create empty trust object hash");
+        ACFUError::addError(a1 + 24, v95, 0xFA0uLL, 0);
+        ACFURestoreHost::createRequest(v95);
+        goto LABEL_123;
       }
 
-      v118 = v117;
-      CFDictionarySetValue(v7, *(a1 + 184), v117);
-      CFRelease(v118);
-      v97 = 0;
-      goto LABEL_107;
+      v74 = v73;
+      CFDictionarySetValue(v7, *(a1 + 184), v73);
+      CFRelease(v74);
+      v63 = 0;
+      goto LABEL_106;
     }
 
-    ACFULogging::handleMessage(v102, 0, "%s::%s: Using FDR trust object hash in client updater override\n", v103, v104, v105, v106, v107, "ACFURestoreHost");
-    v108 = CFDictionaryGetValue(theDict, @"ACFU,FDRTrustObjectHash");
-    if (!v108 || (v97 = v108, v109 = CFDataGetTypeID(), v99 = CFGetTypeID(v97), v109 != v99))
+    ACFULogging::handleMessage(v68, 0, "%s::%s: Using FDR trust object hash in client updater override\n", "ACFURestoreHost", "createRequest");
+    v69 = CFDictionaryGetValue(theDict, @"ACFU,FDRTrustObjectHash");
+    if (!v69 || (v63 = v69, v70 = CFDataGetTypeID(), v65 = CFGetTypeID(v63), v70 != v65))
     {
-      std::string::basic_string[abi:ne200100]<0>(v145, "createRequest: Invalid FDR trust object hash in client updater override");
-      ACFUError::addError(a1 + 24, v145, 0x3EDuLL, 0);
-      ACFURestoreHost::createRequest(v145);
-      goto LABEL_124;
+      std::string::basic_string[abi:ne200100]<0>(v96, "createRequest: Invalid FDR trust object hash in client updater override");
+      ACFUError::addError(a1 + 24, v96, 0x3EDuLL, 0);
+      ACFURestoreHost::createRequest(v96);
+      goto LABEL_123;
     }
   }
 
-  v110 = ACFULogging::getLogInstance(v99);
-  ACFULogging::handleMessage(v110, 0, "%s::%s: Applying FDR trust object hash override\n", v111, v112, v113, v114, v115, "ACFURestoreHost");
-  CFDictionarySetValue(v7, *(a1 + 184), v97);
-LABEL_107:
-  v119 = ACFULogging::getLogInstance(v116);
-  std::string::basic_string[abi:ne200100]<0>(&v143, "ACFURestoreHost");
-  v120 = std::string::append(&v143, "::");
-  v121 = *&v120->__r_.__value_.__l.__data_;
-  v159.__r_.__value_.__r.__words[2] = v120->__r_.__value_.__r.__words[2];
-  *&v159.__r_.__value_.__l.__data_ = v121;
-  v120->__r_.__value_.__l.__size_ = 0;
-  v120->__r_.__value_.__r.__words[2] = 0;
-  v120->__r_.__value_.__r.__words[0] = 0;
-  v122 = std::string::append(&v159, "createRequest");
-  v123 = *&v122->__r_.__value_.__l.__data_;
-  __s.__r_.__value_.__r.__words[2] = v122->__r_.__value_.__r.__words[2];
-  *&__s.__r_.__value_.__l.__data_ = v123;
-  v122->__r_.__value_.__l.__size_ = 0;
-  v122->__r_.__value_.__r.__words[2] = 0;
-  v122->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v119, &__s, 4, "FDR Trust Object Digest: ", v97);
+  v71 = ACFULogging::getLogInstance(v65);
+  ACFULogging::handleMessage(v71, 0, "%s::%s: Applying FDR trust object hash override\n", "ACFURestoreHost", "createRequest");
+  CFDictionarySetValue(v7, *(a1 + 184), v63);
+LABEL_106:
+  v75 = ACFULogging::getLogInstance(v72);
+  std::string::basic_string[abi:ne200100]<0>(&v94, "ACFURestoreHost");
+  v76 = std::string::append(&v94, "::");
+  v77 = *&v76->__r_.__value_.__l.__data_;
+  v110.__r_.__value_.__r.__words[2] = v76->__r_.__value_.__r.__words[2];
+  *&v110.__r_.__value_.__l.__data_ = v77;
+  v76->__r_.__value_.__l.__size_ = 0;
+  v76->__r_.__value_.__r.__words[2] = 0;
+  v76->__r_.__value_.__r.__words[0] = 0;
+  v78 = std::string::append(&v110, "createRequest");
+  v79 = *&v78->__r_.__value_.__l.__data_;
+  __s.__r_.__value_.__r.__words[2] = v78->__r_.__value_.__r.__words[2];
+  *&__s.__r_.__value_.__l.__data_ = v79;
+  v78->__r_.__value_.__l.__size_ = 0;
+  v78->__r_.__value_.__r.__words[2] = 0;
+  v78->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v75, &__s, 4, "FDR Trust Object Digest: ", v63);
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v159.__r_.__value_.__l.__data_);
+    operator delete(v110.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v143.__r_.__value_.__l.__data_);
+    operator delete(v94.__r_.__value_.__l.__data_);
   }
 
-LABEL_113:
+LABEL_112:
   if (*(a1 + 192))
   {
-    v28 = CFDictionaryGetValue(theDict, @"ACFU,FDRAllowUnsealed");
-    if (v28)
+    v23 = CFDictionaryGetValue(theDict, @"ACFU,FDRAllowUnsealed");
+    if (v23)
     {
-      v124 = v28;
-      v125 = CFGetTypeID(v28);
-      v28 = CFBooleanGetTypeID();
-      if (v125 == v28)
+      v80 = v23;
+      v81 = CFGetTypeID(v23);
+      v23 = CFBooleanGetTypeID();
+      if (v81 == v23)
       {
-        v28 = CFBooleanGetValue(v124);
-        if (v28)
+        v23 = CFBooleanGetValue(v80);
+        if (v23)
         {
-          v126 = ACFULogging::getLogInstance(v28);
-          ACFULogging::handleMessage(v126, 0, "%s::%s: allowing unsealed FDR data\n", v127, v128, v129, v130, v131, "ACFURestoreHost");
+          v82 = ACFULogging::getLogInstance(v23);
+          ACFULogging::handleMessage(v82, 0, "%s::%s: allowing unsealed FDR data\n", "ACFURestoreHost", "createRequest");
           CFDictionaryAddValue(v7, *(a1 + 192), *MEMORY[0x277CBED28]);
         }
       }
     }
   }
 
-  v132 = ACFULogging::getLogInstance(v28);
-  std::string::basic_string[abi:ne200100]<0>(&v143, "ACFURestoreHost");
-  v133 = std::string::append(&v143, "::");
-  v134 = *&v133->__r_.__value_.__l.__data_;
-  v159.__r_.__value_.__r.__words[2] = v133->__r_.__value_.__r.__words[2];
-  *&v159.__r_.__value_.__l.__data_ = v134;
-  v133->__r_.__value_.__l.__size_ = 0;
-  v133->__r_.__value_.__r.__words[2] = 0;
-  v133->__r_.__value_.__r.__words[0] = 0;
-  v135 = std::string::append(&v159, "createRequest");
-  v136 = *&v135->__r_.__value_.__l.__data_;
-  __s.__r_.__value_.__r.__words[2] = v135->__r_.__value_.__r.__words[2];
-  *&__s.__r_.__value_.__l.__data_ = v136;
-  v135->__r_.__value_.__l.__size_ = 0;
-  v135->__r_.__value_.__r.__words[2] = 0;
-  v135->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v132, &__s, 0, "Request Dictionary:", v7);
+  v83 = ACFULogging::getLogInstance(v23);
+  std::string::basic_string[abi:ne200100]<0>(&v94, "ACFURestoreHost");
+  v84 = std::string::append(&v94, "::");
+  v85 = *&v84->__r_.__value_.__l.__data_;
+  v110.__r_.__value_.__r.__words[2] = v84->__r_.__value_.__r.__words[2];
+  *&v110.__r_.__value_.__l.__data_ = v85;
+  v84->__r_.__value_.__l.__size_ = 0;
+  v84->__r_.__value_.__r.__words[2] = 0;
+  v84->__r_.__value_.__r.__words[0] = 0;
+  v86 = std::string::append(&v110, "createRequest");
+  v87 = *&v86->__r_.__value_.__l.__data_;
+  __s.__r_.__value_.__r.__words[2] = v86->__r_.__value_.__r.__words[2];
+  *&__s.__r_.__value_.__l.__data_ = v87;
+  v86->__r_.__value_.__l.__size_ = 0;
+  v86->__r_.__value_.__r.__words[2] = 0;
+  v86->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v83, &__s, 0, "Request Dictionary:", v7);
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__s.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v159.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v110.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v159.__r_.__value_.__l.__data_);
+    operator delete(v110.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v143.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v143.__r_.__value_.__l.__data_);
+    operator delete(v94.__r_.__value_.__l.__data_);
   }
 
-LABEL_124:
+LABEL_123:
   if (ACFUError::hasError((a1 + 24)))
   {
     CFRelease(v7);
@@ -2479,13 +2676,14 @@ uint64_t ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity(const __CFStrin
   v6 = a1[1];
   if (*a1 == v6)
   {
-    v88 = 1;
-    return v88 & 1;
+    v80 = 1;
+    return v80 & 1;
   }
 
+  v7 = a5;
   cf2 = 0;
   cf = 0;
-  v94 = (a5 + 8);
+  v88 = (a5 + 8);
   while (1)
   {
     v10 = *a2;
@@ -2496,23 +2694,29 @@ uint64_t ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity(const __CFStrin
       {
         if (++v10 == v11)
         {
-          goto LABEL_27;
+          goto LABEL_33;
         }
       }
     }
 
     if (v10 == v11)
     {
-      goto LABEL_27;
+      goto LABEL_33;
     }
 
-    ACFUCommon::stringFromCFString(*v5, &v100);
+    ACFUCommon::stringFromCFString(v94, *v5);
     Value = CFDictionaryGetValue(a3, *v5);
     if (!Value)
     {
       LogInstance = ACFULogging::getLogInstance(0);
-      v27 = "%s::%s: tag '%s' not found in device info, skipping validation\n";
-      goto LABEL_21;
+      v22 = v94;
+      if (v95 < 0)
+      {
+        v22 = v94[0];
+      }
+
+      v23 = "%s::%s: tag '%s' not found in device info, skipping validation\n";
+      goto LABEL_27;
     }
 
     v13 = CFDictionaryGetValue(a4, *v5);
@@ -2520,18 +2724,24 @@ uint64_t ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity(const __CFStrin
     if (!v13)
     {
       LogInstance = ACFULogging::getLogInstance(0);
-      v27 = "%s::%s: tag '%s' not found in build identity, skipping validation\n";
-      goto LABEL_21;
+      v22 = v94;
+      if (v95 < 0)
+      {
+        v22 = v94[0];
+      }
+
+      v23 = "%s::%s: tag '%s' not found in build identity, skipping validation\n";
+      goto LABEL_27;
     }
 
-    v15 = *v94;
-    if (!*v94)
+    v15 = *v88;
+    if (!*v88)
     {
       goto LABEL_18;
     }
 
     v16 = *v5;
-    v17 = v94;
+    v17 = v88;
     do
     {
       v18 = v15[4];
@@ -2546,66 +2756,124 @@ uint64_t ACFURestoreHost::validateDeviceInfoAgainstBuildIdentity(const __CFStrin
     }
 
     while (v15);
-    if (v17 == v94 || v16 < v17[4])
+    if (v17 == v88 || v16 < v17[4])
     {
 LABEL_18:
       LogInstance = ACFULogging::getLogInstance(v13);
-      v27 = "%s::%s: tag '%s' not found in tss-request map, skipping validation\n";
-LABEL_21:
-      v28 = 3;
-      ACFULogging::handleMessage(LogInstance, 3u, v27, v22, v23, v24, v25, v26, "ACFURestoreHost");
-      v29 = 0;
-      goto LABEL_22;
+      v22 = v94;
+      if (v95 < 0)
+      {
+        v22 = v94[0];
+      }
+
+      v23 = "%s::%s: tag '%s' not found in tss-request map, skipping validation\n";
+LABEL_27:
+      v24 = 3;
+      ACFULogging::handleMessage(LogInstance, 3, v23, "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v22);
+      v25 = 0;
+      goto LABEL_28;
     }
 
-    v91 = CFGetTypeID(Value);
-    v90 = CFGetTypeID(v14);
-    v30 = std::map<__CFString const*,std::string>::at(a5, v5);
-    v31 = *v30;
-    v32 = ACFULogging::getLogInstance(v30);
-    ACFUCommon::cfTypeDescription(v91, 1, &v98);
-    ACFUCommon::cfTypeDescription(v31, 1, &__p);
-    ACFULogging::handleMessage(v32, 4u, "%s::%s: attempting to convert tag '%s' from device info type (%s) to tss-request map type (%s)\n", v33, v34, v35, v36, v37, "ACFURestoreHost");
+    v85 = CFGetTypeID(Value);
+    v82 = CFGetTypeID(v14);
+    v26 = std::map<__CFString const*,std::string>::at(v7, v5);
+    v27 = *v26;
+    v28 = ACFULogging::getLogInstance(v26);
+    v83 = a4;
+    v84 = v7;
+    if (v95 >= 0)
+    {
+      v29 = v94;
+    }
+
+    else
+    {
+      v29 = v94[0];
+    }
+
+    ACFUCommon::cfTypeDescription(v85, 1, &v92);
+    v30 = SHIBYTE(v93);
+    v31 = v92;
+    ACFUCommon::cfTypeDescription(v27, 1, &__p);
+    v32 = &v92;
+    if (v30 < 0)
+    {
+      v32 = v31;
+    }
+
+    p_p = &__p;
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    ACFULogging::handleMessage(v28, 4, "%s::%s: attempting to convert tag '%s' from device info type (%s) to tss-request map type (%s)\n", "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v29, v32, p_p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v99) < 0)
+    if (SHIBYTE(v93) < 0)
     {
-      operator delete(v98);
+      operator delete(v92);
       if (!cf)
       {
-        goto LABEL_36;
+        goto LABEL_49;
       }
 
-LABEL_35:
+LABEL_48:
       CFRelease(cf);
-      goto LABEL_36;
+      goto LABEL_49;
     }
 
     if (cf)
     {
-      goto LABEL_35;
+      goto LABEL_48;
     }
 
-LABEL_36:
-    v38 = ACFURestoreHost::convertCFType(Value, v31);
-    cf = v38;
-    if (v38)
+LABEL_49:
+    v34 = ACFURestoreHost::convertCFType(Value, v27);
+    cf = v34;
+    if (v34)
     {
-      v39 = ACFULogging::getLogInstance(v38);
-      ACFUCommon::cfTypeDescription(v90, 1, &v98);
-      ACFUCommon::cfTypeDescription(v31, 1, &__p);
-      ACFULogging::handleMessage(v39, 4u, "%s::%s: attempting to convert tag '%s' from build identity type (%s) to tss-request map type (%s)\n", v40, v41, v42, v43, v44, "ACFURestoreHost");
+      v35 = ACFULogging::getLogInstance(v34);
+      if (v95 >= 0)
+      {
+        v36 = v94;
+      }
+
+      else
+      {
+        v36 = v94[0];
+      }
+
+      ACFUCommon::cfTypeDescription(v82, 1, &v92);
+      v37 = SHIBYTE(v93);
+      v38 = v92;
+      ACFUCommon::cfTypeDescription(v27, 1, &__p);
+      v39 = &v92;
+      if (v37 < 0)
+      {
+        v39 = v38;
+      }
+
+      v40 = &__p;
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v40 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      ACFULogging::handleMessage(v35, 4, "%s::%s: attempting to convert tag '%s' from build identity type (%s) to tss-request map type (%s)\n", "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v36, v39, v40);
+      a4 = v83;
+      v7 = v84;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v99) < 0)
+      if (SHIBYTE(v93) < 0)
       {
-        operator delete(v98);
+        operator delete(v92);
       }
 
       if (cf2)
@@ -2613,39 +2881,81 @@ LABEL_36:
         CFRelease(cf2);
       }
 
-      cf2 = ACFURestoreHost::convertCFType(v14, v31);
+      cf2 = ACFURestoreHost::convertCFType(v14, v27);
       if (cf2)
       {
-        v45 = CFEqual(cf, cf2);
-        if (v45)
+        v41 = CFEqual(cf, cf2);
+        if (v41)
         {
-          v28 = 0;
-          v29 = 1;
-          goto LABEL_22;
+          v24 = 0;
+          v25 = 1;
+          goto LABEL_28;
         }
 
-        v58 = ACFULogging::getLogInstance(v45);
-        ACFULogging::handleMessage(v58, 2u, "%s::%s: tag '%s' has different values in device info and build identity\n", v59, v60, v61, v62, v63, "ACFURestoreHost");
-        v65 = ACFULogging::getLogInstance(v64);
-        std::string::basic_string[abi:ne200100]<0>(&v96, "ACFURestoreHost");
-        v66 = std::string::append(&v96, "::");
+        v54 = ACFULogging::getLogInstance(v41);
+        if (v95 >= 0)
+        {
+          v55 = v94;
+        }
+
+        else
+        {
+          v55 = v94[0];
+        }
+
+        ACFULogging::handleMessage(v54, 2, "%s::%s: tag '%s' has different values in device info and build identity\n", "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v55);
+        v57 = ACFULogging::getLogInstance(v56);
+        std::string::basic_string[abi:ne200100]<0>(&v90, "ACFURestoreHost");
+        v58 = std::string::append(&v90, "::");
+        v59 = *&v58->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v59;
+        v58->__r_.__value_.__l.__size_ = 0;
+        v58->__r_.__value_.__r.__words[2] = 0;
+        v58->__r_.__value_.__r.__words[0] = 0;
+        v60 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
+        v61 = *&v60->__r_.__value_.__l.__data_;
+        v93 = v60->__r_.__value_.__r.__words[2];
+        v92 = v61;
+        v60->__r_.__value_.__l.__size_ = 0;
+        v60->__r_.__value_.__r.__words[2] = 0;
+        v60->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v57, &v92, 2, "device info value: ", Value);
+        if (SHIBYTE(v93) < 0)
+        {
+          operator delete(v92);
+        }
+
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(__p.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v90.__r_.__value_.__l.__data_);
+        }
+
+        v63 = ACFULogging::getLogInstance(v62);
+        std::string::basic_string[abi:ne200100]<0>(&v90, "ACFURestoreHost");
+        v64 = std::string::append(&v90, "::");
+        v65 = *&v64->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v64->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v65;
+        v64->__r_.__value_.__l.__size_ = 0;
+        v64->__r_.__value_.__r.__words[2] = 0;
+        v64->__r_.__value_.__r.__words[0] = 0;
+        v66 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
         v67 = *&v66->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v66->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v67;
+        v93 = v66->__r_.__value_.__r.__words[2];
+        v92 = v67;
         v66->__r_.__value_.__l.__size_ = 0;
         v66->__r_.__value_.__r.__words[2] = 0;
         v66->__r_.__value_.__r.__words[0] = 0;
-        v68 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
-        v69 = *&v68->__r_.__value_.__l.__data_;
-        v99 = v68->__r_.__value_.__r.__words[2];
-        v98 = v69;
-        v68->__r_.__value_.__l.__size_ = 0;
-        v68->__r_.__value_.__r.__words[2] = 0;
-        v68->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v65, &v98, 2, "device info value: ", Value);
-        if (SHIBYTE(v99) < 0)
+        ACFULogging::handleMessageCFType(v63, &v92, 2, "device info value converted: ", cf);
+        if (SHIBYTE(v93) < 0)
         {
-          operator delete(v98);
+          operator delete(v92);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2653,31 +2963,31 @@ LABEL_36:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v96.__r_.__value_.__l.__data_);
+          operator delete(v90.__r_.__value_.__l.__data_);
         }
 
-        v71 = ACFULogging::getLogInstance(v70);
-        std::string::basic_string[abi:ne200100]<0>(&v96, "ACFURestoreHost");
-        v72 = std::string::append(&v96, "::");
+        v69 = ACFULogging::getLogInstance(v68);
+        std::string::basic_string[abi:ne200100]<0>(&v90, "ACFURestoreHost");
+        v70 = std::string::append(&v90, "::");
+        v71 = *&v70->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v70->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v71;
+        v70->__r_.__value_.__l.__size_ = 0;
+        v70->__r_.__value_.__r.__words[2] = 0;
+        v70->__r_.__value_.__r.__words[0] = 0;
+        v72 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
         v73 = *&v72->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v72->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v73;
+        v93 = v72->__r_.__value_.__r.__words[2];
+        v92 = v73;
         v72->__r_.__value_.__l.__size_ = 0;
         v72->__r_.__value_.__r.__words[2] = 0;
         v72->__r_.__value_.__r.__words[0] = 0;
-        v74 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
-        v75 = *&v74->__r_.__value_.__l.__data_;
-        v99 = v74->__r_.__value_.__r.__words[2];
-        v98 = v75;
-        v74->__r_.__value_.__l.__size_ = 0;
-        v74->__r_.__value_.__r.__words[2] = 0;
-        v74->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v71, &v98, 2, "device info value converted: ", cf);
-        if (SHIBYTE(v99) < 0)
+        ACFULogging::handleMessageCFType(v69, &v92, 2, "build identity value: ", v14);
+        if (SHIBYTE(v93) < 0)
         {
-          operator delete(v98);
+          operator delete(v92);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2685,31 +2995,31 @@ LABEL_36:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v96.__r_.__value_.__l.__data_);
+          operator delete(v90.__r_.__value_.__l.__data_);
         }
 
-        v77 = ACFULogging::getLogInstance(v76);
-        std::string::basic_string[abi:ne200100]<0>(&v96, "ACFURestoreHost");
-        v78 = std::string::append(&v96, "::");
+        v75 = ACFULogging::getLogInstance(v74);
+        std::string::basic_string[abi:ne200100]<0>(&v90, "ACFURestoreHost");
+        v76 = std::string::append(&v90, "::");
+        v77 = *&v76->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v76->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v77;
+        v76->__r_.__value_.__l.__size_ = 0;
+        v76->__r_.__value_.__r.__words[2] = 0;
+        v76->__r_.__value_.__r.__words[0] = 0;
+        v78 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
         v79 = *&v78->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v78->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v79;
+        v93 = v78->__r_.__value_.__r.__words[2];
+        v92 = v79;
         v78->__r_.__value_.__l.__size_ = 0;
         v78->__r_.__value_.__r.__words[2] = 0;
         v78->__r_.__value_.__r.__words[0] = 0;
-        v80 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
-        v81 = *&v80->__r_.__value_.__l.__data_;
-        v99 = v80->__r_.__value_.__r.__words[2];
-        v98 = v81;
-        v80->__r_.__value_.__l.__size_ = 0;
-        v80->__r_.__value_.__r.__words[2] = 0;
-        v80->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v77, &v98, 2, "build identity value: ", v14);
-        if (SHIBYTE(v99) < 0)
+        ACFULogging::handleMessageCFType(v75, &v92, 2, "build identity value converted: ", cf2);
+        if (SHIBYTE(v93) < 0)
         {
-          operator delete(v98);
+          operator delete(v92);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2717,58 +3027,52 @@ LABEL_36:
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v90.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v96.__r_.__value_.__l.__data_);
-        }
-
-        v83 = ACFULogging::getLogInstance(v82);
-        std::string::basic_string[abi:ne200100]<0>(&v96, "ACFURestoreHost");
-        v84 = std::string::append(&v96, "::");
-        v85 = *&v84->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v84->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v85;
-        v84->__r_.__value_.__l.__size_ = 0;
-        v84->__r_.__value_.__r.__words[2] = 0;
-        v84->__r_.__value_.__r.__words[0] = 0;
-        v86 = std::string::append(&__p, "validateDeviceInfoAgainstBuildIdentity");
-        v87 = *&v86->__r_.__value_.__l.__data_;
-        v99 = v86->__r_.__value_.__r.__words[2];
-        v98 = v87;
-        v86->__r_.__value_.__l.__size_ = 0;
-        v86->__r_.__value_.__r.__words[2] = 0;
-        v86->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v83, &v98, 2, "build identity value converted: ", cf2);
-        if (SHIBYTE(v99) < 0)
-        {
-          operator delete(v98);
-        }
-
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v96.__r_.__value_.__l.__data_);
+          operator delete(v90.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        v52 = ACFULogging::getLogInstance(0);
-        ACFUCommon::cfTypeDescription(v90, 1, &v98);
-        ACFUCommon::cfTypeDescription(v31, 1, &__p);
-        ACFULogging::handleMessage(v52, 2u, "%s::%s: failed to convert tag '%s' from build identity type (%s) to tss-request map type (%s)\n", v53, v54, v55, v56, v57, "ACFURestoreHost");
+        v48 = ACFULogging::getLogInstance(0);
+        if (v95 >= 0)
+        {
+          v49 = v94;
+        }
+
+        else
+        {
+          v49 = v94[0];
+        }
+
+        ACFUCommon::cfTypeDescription(v82, 1, &v92);
+        v50 = SHIBYTE(v93);
+        v51 = v92;
+        ACFUCommon::cfTypeDescription(v27, 1, &__p);
+        v52 = &v92;
+        if (v50 < 0)
+        {
+          v52 = v51;
+        }
+
+        v53 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v53 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        ACFULogging::handleMessage(v48, 2, "%s::%s: failed to convert tag '%s' from build identity type (%s) to tss-request map type (%s)\n", "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v49, v52, v53);
+        a4 = v83;
+        v7 = v84;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v99) < 0)
+        if (SHIBYTE(v93) < 0)
         {
-          operator delete(v98);
+          operator delete(v92);
         }
 
         cf2 = 0;
@@ -2777,58 +3081,84 @@ LABEL_36:
 
     else
     {
-      v46 = ACFULogging::getLogInstance(0);
-      ACFUCommon::cfTypeDescription(v91, 1, &v98);
-      ACFUCommon::cfTypeDescription(v31, 1, &__p);
-      ACFULogging::handleMessage(v46, 2u, "%s::%s: failed to convert tag '%s' from device info type (%s) to tss-request map type (%s)\n", v47, v48, v49, v50, v51, "ACFURestoreHost");
+      v42 = ACFULogging::getLogInstance(0);
+      if (v95 >= 0)
+      {
+        v43 = v94;
+      }
+
+      else
+      {
+        v43 = v94[0];
+      }
+
+      ACFUCommon::cfTypeDescription(v85, 1, &v92);
+      v44 = SHIBYTE(v93);
+      v45 = v92;
+      ACFUCommon::cfTypeDescription(v27, 1, &__p);
+      v46 = &v92;
+      if (v44 < 0)
+      {
+        v46 = v45;
+      }
+
+      v47 = &__p;
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v47 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      ACFULogging::handleMessage(v42, 2, "%s::%s: failed to convert tag '%s' from device info type (%s) to tss-request map type (%s)\n", "ACFURestoreHost", "validateDeviceInfoAgainstBuildIdentity", v43, v46, v47);
+      a4 = v83;
+      v7 = v84;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v99) < 0)
+      if (SHIBYTE(v93) < 0)
       {
-        operator delete(v98);
+        operator delete(v92);
       }
 
       cf = 0;
     }
 
-    v29 = 0;
-    v28 = 8;
-LABEL_22:
-    if ((v101 & 0x80000000) == 0)
+    v25 = 0;
+    v24 = 8;
+LABEL_28:
+    if ((v95 & 0x80000000) == 0)
     {
       break;
     }
 
-    operator delete(v100);
-    if ((v29 & 1) == 0)
+    operator delete(v94[0]);
+    if ((v25 & 1) == 0)
     {
-      goto LABEL_26;
+      goto LABEL_32;
     }
 
-LABEL_27:
+LABEL_33:
     if (++v5 == v6)
     {
-      v88 = 1;
-      goto LABEL_82;
+      v80 = 1;
+      goto LABEL_119;
     }
   }
 
-  if (v29)
+  if (v25)
   {
-    goto LABEL_27;
+    goto LABEL_33;
   }
 
-LABEL_26:
-  if (v28 < 4)
+LABEL_32:
+  if (v24 < 4)
   {
-    goto LABEL_27;
+    goto LABEL_33;
   }
 
-  v88 = 0;
-LABEL_82:
+  v80 = 0;
+LABEL_119:
   if (cf)
   {
     CFRelease(cf);
@@ -2839,7 +3169,7 @@ LABEL_82:
     CFRelease(cf2);
   }
 
-  return v88 & 1;
+  return v80 & 1;
 }
 
 void sub_2402D0A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -2902,39 +3232,59 @@ uint64_t ACFURestoreHost::populateDictFromIdentity(unint64_t **a1, uint64_t a2, 
         Value = CFDictionaryGetValue(theDict, v10);
         if (Value)
         {
-          v23 = Value;
-          v24 = std::map<__CFString const*,std::string>::at(a2, v4);
-          result = ACFURestoreHost::convertCFType(v23, *v24);
+          v19 = Value;
+          v20 = std::map<__CFString const*,std::string>::at(a2, v4);
+          result = ACFURestoreHost::convertCFType(v19, *v20);
           if (!result)
           {
             return result;
           }
 
-          v26 = result;
+          v22 = result;
           CFDictionarySetValue(a4, *v4, result);
-          CFRelease(v26);
-          goto LABEL_17;
+          CFRelease(v22);
+          goto LABEL_20;
         }
 
-        ACFUCommon::stringFromCFString(*v4, __p);
-        LogInstance = ACFULogging::getLogInstance(v27);
-        ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: tag '%s' not found in identity dictionary, ignoring\n", v29, v30, v31, v32, v33, "ACFURestoreHost");
+        ACFUCommon::stringFromCFString(__p, *v4);
+        LogInstance = ACFULogging::getLogInstance(v23);
+        if (v28 >= 0)
+        {
+          v25 = __p;
+        }
+
+        else
+        {
+          v25 = __p[0];
+        }
+
+        ACFULogging::handleMessage(LogInstance, 3, "%s::%s: tag '%s' not found in identity dictionary, ignoring\n", "ACFURestoreHost", "populateDictFromIdentity", v25);
       }
 
       else
       {
 LABEL_11:
-        ACFUCommon::stringFromCFString(*v4, __p);
+        ACFUCommon::stringFromCFString(__p, *v4);
         v16 = ACFULogging::getLogInstance(v15);
-        ACFULogging::handleMessage(v16, 3u, "%s::%s: tag '%s' not found in tss-request map, ignoring\n", v17, v18, v19, v20, v21, "ACFURestoreHost");
+        if (v28 >= 0)
+        {
+          v17 = __p;
+        }
+
+        else
+        {
+          v17 = __p[0];
+        }
+
+        ACFULogging::handleMessage(v16, 3, "%s::%s: tag '%s' not found in tss-request map, ignoring\n", "ACFURestoreHost", "populateDictFromIdentity", v17);
       }
 
-      if (v36 < 0)
+      if (v28 < 0)
       {
         operator delete(__p[0]);
       }
 
-LABEL_17:
+LABEL_20:
       ++v4;
     }
 
@@ -2954,51 +3304,49 @@ void sub_2402D0D1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ACFURestoreHost::createBoolFromData(ACFURestoreHost *this@<X0>, uint64_t a2@<X8>)
+void ACFURestoreHost::createBoolFromData(uint64_t *__return_ptr a1@<X8>, ACFURestoreHost *this@<X0>)
 {
-  v5 = *MEMORY[0x277CBED10];
+  v4 = *MEMORY[0x277CBED10];
   otherNumber = 0;
   valuePtr = 0;
-  v6 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &valuePtr);
-  if (v6)
+  v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &valuePtr);
+  if (v5)
   {
-    v8 = v6;
-    Num64Num32FromData = ACFURestoreHost::createNum64Num32FromData(this, &otherNumber, v7);
-    v10 = Num64Num32FromData;
+    v7 = v5;
+    Num64Num32FromData = ACFURestoreHost::createNum64Num32FromData(this, &otherNumber, v6);
+    v9 = Num64Num32FromData;
     if (Num64Num32FromData)
     {
-      v11 = otherNumber;
-      v12 = CFNumberCompare(v8, otherNumber, 0);
-      v13 = *MEMORY[0x277CBED28];
-      if (v12)
+      v10 = otherNumber;
+      if (CFNumberCompare(v7, otherNumber, 0))
       {
-        v5 = *MEMORY[0x277CBED28];
+        v4 = *MEMORY[0x277CBED28];
       }
     }
 
     else
     {
       LogInstance = ACFULogging::getLogInstance(Num64Num32FromData);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: CFData to CFBoolean conversion failure\n", v16, v17, v18, v19, v20, "ACFURestoreHost");
-      v11 = otherNumber;
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: CFData to CFBoolean conversion failure\n", "ACFURestoreHost", "createBoolFromData");
+      v10 = otherNumber;
     }
 
-    v14 = !v10;
-    CFRelease(v8);
-    if (v11)
+    v11 = !v9;
+    CFRelease(v7);
+    if (v10)
     {
-      CFRelease(v11);
+      CFRelease(v10);
     }
   }
 
   else
   {
     ACFURestoreHost::createBoolFromData(0);
-    v14 = 1;
+    v11 = 1;
   }
 
-  *a2 = v5;
-  *(a2 + 8) = v14;
+  *a1 = v4;
+  *(a1 + 8) = v11;
 }
 
 CFErrorRef ACFURestoreHost::getError(ACFURestoreHost *this)
@@ -3058,28 +3406,28 @@ void ACFURestoreHost::~ACFURestoreHost(ACFURestoreHost *this)
     operator delete(v7);
   }
 
-  ACFUError::~ACFUError((this + 24));
+  ACFUError::~ACFUError(this + 3);
 }
 
 uint64_t ACFURestoreHost::init(const void **this, const __CFDictionary *a2, const __CFString *a3)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ACFU Version: %s\n", v7, v8, v9, v10, v11, "ACFURestoreHost");
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ACFU Version: %s\n", "ACFURestoreHost", "init", "AppleConvergedFirmwareUpdater-454.0.1~2939");
   if (a2)
   {
-    v13 = a3 == 0;
+    v8 = a3 == 0;
   }
 
   else
   {
-    v13 = 1;
+    v8 = 1;
   }
 
-  v14 = !v13;
-  if (v13)
+  v9 = !v8;
+  if (v8)
   {
-    v16 = ACFULogging::getLogInstance(v12);
-    ACFULogging::handleMessage(v16, 2u, "%s::%s: bad parameter: options %p, domain %p\n", v17, v18, v19, v20, v21, "ACFURestoreHost");
+    v11 = ACFULogging::getLogInstance(v7);
+    ACFULogging::handleMessage(v11, 2, "%s::%s: bad parameter: options %p, domain %p\n", "ACFURestoreHost", "init", a2, a3);
   }
 
   else
@@ -3091,12 +3439,12 @@ uint64_t ACFURestoreHost::init(const void **this, const __CFDictionary *a2, cons
 
   if (this[5] == this[6] || this[17] == this[18] || this[8] == this[9] || this[11] == this[12] || this[14] == this[15] || !this[22] || !this[27] || !this[28])
   {
-    v22 = ACFULogging::getLogInstance(AppendedDomain);
-    ACFULogging::handleMessage(v22, 2u, "%s::%s: initialization failure due to incomplete parameters\n", v23, v24, v25, v26, v27, "ACFURestoreHost");
+    v12 = ACFULogging::getLogInstance(AppendedDomain);
+    ACFULogging::handleMessage(v12, 2, "%s::%s: initialization failure due to incomplete parameters\n", "ACFURestoreHost", "init");
     return 0;
   }
 
-  return v14;
+  return v9;
 }
 
 CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
@@ -3104,9 +3452,31 @@ CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
   v4 = CFGetTypeID(this);
   LogInstance = ACFULogging::getLogInstance(v4);
   ACFUCommon::cfTypeDescription(a2, 1, &cf);
+  data_high = SHIBYTE(cf.data);
+  isa = cf.isa;
   ACFUCommon::cfTypeDescription(v4, 1, __p);
-  ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: desired type %s, received type %s\n", v6, v7, v8, v9, v10, "ACFURestoreHost");
-  if (v64 < 0)
+  if (data_high >= 0)
+  {
+    p_cf = &cf;
+  }
+
+  else
+  {
+    p_cf = isa;
+  }
+
+  if (v32 >= 0)
+  {
+    v9 = __p;
+  }
+
+  else
+  {
+    v9 = __p[0];
+  }
+
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: desired type %s, received type %s\n", "ACFURestoreHost", "convertCFType", p_cf, v9);
+  if (v32 < 0)
   {
     operator delete(__p[0]);
   }
@@ -3118,24 +3488,24 @@ CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
 
   if (v4 == a2)
   {
-    v12 = ACFULogging::getLogInstance(v11);
-    ACFULogging::handleMessage(v12, 4u, "%s::%s: no conversion necessary\n", v13, v14, v15, v16, v17, "ACFURestoreHost");
+    v11 = ACFULogging::getLogInstance(v10);
+    ACFULogging::handleMessage(v11, 4, "%s::%s: no conversion necessary\n", "ACFURestoreHost", "convertCFType");
     return CFRetain(this);
   }
 
-  if (CFNumberGetTypeID() != a2 || (v19 = CFStringGetTypeID(), v4 != v19))
+  if (CFNumberGetTypeID() != a2 || (v13 = CFStringGetTypeID(), v4 != v13))
   {
-    if (CFNumberGetTypeID() == a2 && (v34 = CFDataGetTypeID(), v4 == v34))
+    if (CFNumberGetTypeID() == a2 && (v18 = CFDataGetTypeID(), v4 == v18))
     {
-      v35 = ACFULogging::getLogInstance(v34);
-      ACFULogging::handleMessage(v35, 4u, "%s::%s: converting from data to number\n", v36, v37, v38, v39, v40, "ACFURestoreHost");
+      v19 = ACFULogging::getLogInstance(v18);
+      ACFULogging::handleMessage(v19, 4, "%s::%s: converting from data to number\n", "ACFURestoreHost", "convertCFType");
       cf.isa = 0;
-      Num64Num32FromData = ACFURestoreHost::createNum64Num32FromData(this, &cf, v41);
+      Num64Num32FromData = ACFURestoreHost::createNum64Num32FromData(this, &cf, v20);
       if (!Num64Num32FromData)
       {
-        v43 = ACFULogging::getLogInstance(Num64Num32FromData);
-        ACFULogging::handleMessage(v43, 2u, "%s::%s: failed to convert from number to data\n", v44, v45, v46, v47, v48, "ACFURestoreHost");
-        goto LABEL_15;
+        v22 = ACFULogging::getLogInstance(Num64Num32FromData);
+        ACFULogging::handleMessage(v22, 2, "%s::%s: failed to convert from number to data\n");
+        goto LABEL_21;
       }
     }
 
@@ -3144,11 +3514,33 @@ CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
       TypeID = CFBooleanGetTypeID();
       if (TypeID != a2 || (TypeID = CFDataGetTypeID(), v4 != TypeID))
       {
-        v57 = ACFULogging::getLogInstance(TypeID);
+        v26 = ACFULogging::getLogInstance(TypeID);
         ACFUCommon::cfTypeDescription(a2, 1, &cf);
+        v27 = SHIBYTE(cf.data);
+        v28 = cf.isa;
         ACFUCommon::cfTypeDescription(v4, 1, __p);
-        ACFULogging::handleMessage(v57, 2u, "%s::%s: unsupported conversion: desired type %s, received type %s\n", v58, v59, v60, v61, v62, "ACFURestoreHost");
-        if (v64 < 0)
+        if (v27 >= 0)
+        {
+          v29 = &cf;
+        }
+
+        else
+        {
+          v29 = v28;
+        }
+
+        if (v32 >= 0)
+        {
+          v30 = __p;
+        }
+
+        else
+        {
+          v30 = __p[0];
+        }
+
+        ACFULogging::handleMessage(v26, 2, "%s::%s: unsupported conversion: desired type %s, received type %s\n", "ACFURestoreHost", "convertCFType", v29, v30);
+        if (v32 < 0)
         {
           operator delete(__p[0]);
         }
@@ -3161,12 +3553,12 @@ CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
         return 0;
       }
 
-      v50 = ACFULogging::getLogInstance(TypeID);
-      ACFULogging::handleMessage(v50, 4u, "%s::%s: converting from data to BOOLean\n", v51, v52, v53, v54, v55, "ACFURestoreHost");
-      ACFURestoreHost::createBoolFromData(this, &cf);
+      v24 = ACFULogging::getLogInstance(TypeID);
+      ACFULogging::handleMessage(v24, 4, "%s::%s: converting from data to BOOLean\n", "ACFURestoreHost", "convertCFType");
+      ACFURestoreHost::createBoolFromData(&cf, this);
       if (LOBYTE(cf.info) == 1)
       {
-        ACFURestoreHost::convertCFType(v56);
+        ACFURestoreHost::convertCFType(v25);
         return 0;
       }
     }
@@ -3174,18 +3566,18 @@ CFTypeRef ACFURestoreHost::convertCFType(__CFString *this, ACFUCommon *a2)
     return cf.isa;
   }
 
-  v20 = ACFULogging::getLogInstance(v19);
-  ACFULogging::handleMessage(v20, 4u, "%s::%s: converting from string to number\n", v21, v22, v23, v24, v25, "ACFURestoreHost");
+  v14 = ACFULogging::getLogInstance(v13);
+  ACFULogging::handleMessage(v14, 4, "%s::%s: converting from string to number\n", "ACFURestoreHost", "convertCFType");
   cf.isa = 0;
-  v27 = ACFURestoreHost::createNum32FromString(this, &cf, v26);
-  if (v27)
+  v16 = ACFURestoreHost::createNum32FromString(this, &cf, v15);
+  if (v16)
   {
     return cf.isa;
   }
 
-  v28 = ACFULogging::getLogInstance(v27);
-  ACFULogging::handleMessage(v28, 2u, "%s::%s: failed to convert from string to number\n", v29, v30, v31, v32, v33, "ACFURestoreHost");
-LABEL_15:
+  v17 = ACFULogging::getLogInstance(v16);
+  ACFULogging::handleMessage(v17, 2, "%s::%s: failed to convert from string to number\n");
+LABEL_21:
   result = cf.isa;
   if (!cf.isa)
   {
@@ -3214,7 +3606,7 @@ void sub_2402D134C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t ACFURestoreHost::createNum32FromString(const __CFString *this, const __CFString *a2, const __CFNumber **a3)
 {
   valuePtr = 0;
-  ACFUCommon::stringFromCFString(this, &__str);
+  ACFUCommon::stringFromCFString(&__str, this);
   size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
@@ -3233,16 +3625,15 @@ uint64_t ACFURestoreHost::createNum32FromString(const __CFString *this, const __
     }
 
     LogInstance = ACFULogging::getLogInstance(0);
-    v15 = "%s::%s: Failed to create CF number from int value\n";
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to create CF number from int value\n");
   }
 
   else
   {
-    LogInstance = ACFULogging::getLogInstance(v4);
-    v15 = "%s::%s: failed to get string\n";
+    v9 = ACFULogging::getLogInstance(v4);
+    ACFULogging::handleMessage(v9, 2, "%s::%s: failed to get string\n");
   }
 
-  ACFULogging::handleMessage(LogInstance, 2u, v15, v10, v11, v12, v13, v14, "ACFURestoreHost");
   v7 = 0;
 LABEL_6:
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -3329,7 +3720,7 @@ uint64_t *std::map<__CFString const*,unsigned long>::insert[abi:ne200100]<std::_
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,unsigned long> const&>(v5, v5 + 1, v4 + 4, v4 + 2);
+      result = std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,unsigned long> const&>(v5, (v5 + 8), v4 + 4, v4 + 2);
       v6 = v4[1];
       if (v6)
       {
@@ -3363,7 +3754,7 @@ uint64_t *std::map<__CFString const*,unsigned long>::insert[abi:ne200100]<std::_
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,unsigned long> const&>(uint64_t **a1, void *a2, unint64_t *a3, _OWORD *a4)
+uint64_t *std::__tree<std::__value_type<__CFString const*,unsigned long>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned long>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned long>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,unsigned long> const&>(uint64_t ***a1, void *a2, unint64_t *a3, _OWORD *a4)
 {
   v6 = std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__find_equal<__CFString const*>(a1, a2, &v11, &v10, a3);
   v7 = *v6;
@@ -3444,99 +3835,96 @@ LABEL_6:
   if (*(v7 + 2) != 512)
   {
     LogInstance = ACFULogging::getLogInstance(this);
-    v62 = *(v7 + 2);
-    ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: CoredumpRegions version mismatch. Expected: 0x%x Version in Crashlog: 0x%x\n", v9, v10, v11, v12, v13, "ACFUMachO");
+    ACFULogging::handleMessage(LogInstance, 3, "%s::%s: CoredumpRegions version mismatch. Expected: 0x%x Version in Crashlog: 0x%x\n", "ACFUMachO", "extractCoreDumpRegions", 512, *(v7 + 2));
     goto LABEL_6;
   }
 
-  v14 = *(v7 + 3);
-  if (v6 + v14 > a3)
+  v9 = *(v7 + 3);
+  if (v6 + v9 > a3)
   {
     *(v3 + 2) = *(v3 + 1);
-    v55 = ACFULogging::getLogInstance(this);
-    v63 = v6 + *(v7 + 3);
-    ACFULogging::handleMessage(v55, 2u, "%s::%s: parsing error while extracting the coredump regions. crashlog size: %zu offset and section size: %lu\n", v56, v57, v58, v59, v60, "ACFUMachO");
+    v35 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v35, 2, "%s::%s: parsing error while extracting the coredump regions. crashlog size: %zu offset and section size: %lu\n");
     return 0;
   }
 
-  if (v14 < 0x24)
+  if (v9 < 0x24)
   {
 LABEL_24:
-    v34 = 0xCCCCCCCCCCCCCCCDLL * ((*(v3 + 2) - *(v3 + 1)) >> 2);
-    *(v3 + 40) = v34;
-    v35 = v34;
-    v36 = ACFULogging::getLogInstance(this);
-    if (!v35)
+    v29 = 0xCCCCCCCCCCCCCCCDLL * ((*(v3 + 2) - *(v3 + 1)) >> 2);
+    *(v3 + 40) = v29;
+    v30 = v29;
+    v31 = ACFULogging::getLogInstance(this);
+    if (!v30)
     {
-      ACFULogging::handleMessage(v36, 2u, "%s::%s: no coredump region in the crashlog\n", v37, v38, v39, v40, v41, "ACFUMachO");
+      ACFULogging::handleMessage(v31, 2, "%s::%s: no coredump region in the crashlog\n");
       return 0;
     }
 
-    v61 = *(v3 + 40);
-    ACFULogging::handleMessage(v36, 3u, "%s::%s: Number of coredump sections available: %u\n", v37, v38, v39, v40, v41, "ACFUMachO");
+    ACFULogging::handleMessage(v31, 3, "%s::%s: Number of coredump sections available: %u\n", "ACFUMachO", "extractCoreDumpRegions", *(v3 + 40));
     return 1;
   }
 
-  v15 = 0;
-  v16 = &a2[v6];
+  v10 = 0;
+  v11 = &a2[v6];
   while (1)
   {
-    v64 = *&v16[v15 + 16];
-    v17 = *&v16[v15 + 32];
-    if (v17 > 0x200000)
+    v36 = *&v11[v10 + 16];
+    v12 = *&v11[v10 + 32];
+    if (v12 > 0x200000)
     {
       *(v3 + 2) = *(v3 + 1);
-      v43 = ACFULogging::getLogInstance(this);
-      ACFULogging::handleMessage(v43, 2u, "%s::%s: Coredump region size is too large: %d\n", v44, v45, v46, v47, v48, "ACFUMachO");
+      v33 = ACFULogging::getLogInstance(this);
+      ACFULogging::handleMessage(v33, 2, "%s::%s: Coredump region size is too large: %d\n");
       return 0;
     }
 
-    v19 = *(v3 + 1);
-    v18 = *(v3 + 2);
-    v20 = v18 - v19;
-    v21 = 0xCCCCCCCCCCCCCCCDLL * ((v18 - v19) >> 2);
-    if (v21 >= 0x40)
+    v14 = *(v3 + 1);
+    v13 = *(v3 + 2);
+    v15 = v13 - v14;
+    v16 = 0xCCCCCCCCCCCCCCCDLL * ((v13 - v14) >> 2);
+    if (v16 >= 0x40)
     {
       break;
     }
 
-    v22 = *(v3 + 3);
-    if (v18 >= v22)
+    v17 = *(v3 + 3);
+    if (v13 >= v17)
     {
-      if (0x999999999999999ALL * ((v22 - v19) >> 2) <= v21 + 1)
+      if (0x999999999999999ALL * ((v17 - v14) >> 2) <= v16 + 1)
       {
-        v24 = v21 + 1;
+        v19 = v16 + 1;
       }
 
       else
       {
-        v24 = 0x999999999999999ALL * ((v22 - v19) >> 2);
+        v19 = 0x999999999999999ALL * ((v17 - v14) >> 2);
       }
 
-      if (0xCCCCCCCCCCCCCCCDLL * ((v22 - v19) >> 2) >= 0x666666666666666)
+      if (0xCCCCCCCCCCCCCCCDLL * ((v17 - v14) >> 2) >= 0x666666666666666)
       {
-        v25 = 0xCCCCCCCCCCCCCCCLL;
+        v20 = 0xCCCCCCCCCCCCCCCLL;
       }
 
       else
       {
-        v25 = v24;
+        v20 = v19;
       }
 
-      v26 = std::__allocate_at_least[abi:ne200100]<std::allocator<CrashLogCoredumpData_t>>(v3 + 8, v25);
-      v27 = &v26[v20];
-      v29 = &v26[20 * v28];
-      *v27 = v64;
-      *(v27 + 4) = v17;
-      v23 = &v26[v20 + 20];
-      v30 = *(v3 + 1);
-      v31 = *(v3 + 2) - v30;
-      v32 = &v27[-v31];
-      memcpy(&v27[-v31], v30, v31);
+      v21 = std::__allocate_at_least[abi:ne200100]<std::allocator<CrashLogCoredumpData_t>>(v3 + 8, v20);
+      v22 = &v21[v15];
+      v24 = &v21[20 * v23];
+      *v22 = v36;
+      *(v22 + 4) = v12;
+      v18 = &v21[v15 + 20];
+      v25 = *(v3 + 1);
+      v26 = *(v3 + 2) - v25;
+      v27 = &v22[-v26];
+      memcpy(&v22[-v26], v25, v26);
       this = *(v3 + 1);
-      *(v3 + 1) = v32;
-      *(v3 + 2) = v23;
-      *(v3 + 3) = v29;
+      *(v3 + 1) = v27;
+      *(v3 + 2) = v18;
+      *(v3 + 3) = v24;
       if (this)
       {
         operator delete(this);
@@ -3545,23 +3933,23 @@ LABEL_24:
 
     else
     {
-      *v18 = *&v16[v15 + 16];
-      *(v18 + 16) = v17;
-      v23 = v18 + 20;
+      *v13 = *&v11[v10 + 16];
+      *(v13 + 16) = v12;
+      v18 = v13 + 20;
     }
 
-    *(v3 + 2) = v23;
-    v33 = v15 + 56;
-    v15 += 20;
-    if (v33 > *(v7 + 3))
+    *(v3 + 2) = v18;
+    v28 = v10 + 56;
+    v10 += 20;
+    if (v28 > *(v7 + 3))
     {
       goto LABEL_24;
     }
   }
 
-  *(v3 + 2) = v19;
-  v49 = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(v49, 2u, "%s::%s: There are more coredump regions than expected in the crashlog\n", v50, v51, v52, v53, v54, "ACFUMachO");
+  *(v3 + 2) = v14;
+  v34 = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(v34, 2, "%s::%s: There are more coredump regions than expected in the crashlog\n");
   return 0;
 }
 
@@ -3618,7 +4006,7 @@ void ACFUMachO32::create(ACFUMachO32 *this@<X0>, const unsigned __int8 *a2@<X1>,
     *a3 = 0;
     v7 = (*(*v6 + 8))(v6);
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to init macho32\n", v9, v10, v11, v12, v13, "ACFUMachO32");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to init macho32\n", "ACFUMachO32", "create");
   }
 }
 
@@ -3742,7 +4130,7 @@ void ACFUMachO64::create(ACFUMachO64 *this@<X0>, const unsigned __int8 *a2@<X1>,
     *a3 = 0;
     v7 = (*(*v6 + 8))(v6);
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to init macho64\n", v9, v10, v11, v12, v13, "ACFUMachO64");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to init macho64\n", "ACFUMachO64", "create");
   }
 }
 
@@ -4004,7 +4392,7 @@ uint64_t DERImg4DecodeProperty(void *a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+uint64_t DERImg4DecodeFindPropertyInSequence(unint64_t *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v10 = 0;
   v11 = 0uLL;
@@ -4374,50 +4762,45 @@ uint64_t Img4DecodeGetPayloadCompressionInfo(void *a1, _DWORD *a2, _DWORD *a3)
   return result;
 }
 
-uint64_t Img4DecodeCopyPayloadHashWithCallback(uint64_t a1, void (*a2)(void, void, __int128 *), uint64_t a3, int a4)
+double Img4DecodeCopyPayloadHashWithCallback(uint64_t a1, void (*a2)(void, void, __int128 *), uint64_t a3, int a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!a1 || a4 != 20 || !a3)
   {
-    result = 6;
     if (!a3)
     {
-      goto LABEL_12;
+      return *&v5;
     }
 
-    goto LABEL_11;
+LABEL_9:
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    return *&v5;
   }
 
   if (!*(a1 + 136) || !*(a1 + 144))
   {
-    result = 1;
-LABEL_11:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    goto LABEL_12;
+    goto LABEL_9;
   }
 
   if (*a1 == 1)
   {
-    result = 0;
-    v7 = *(a1 + 184);
+    v5 = *(a1 + 184);
     *(a3 + 16) = *(a1 + 200);
-    *a3 = v7;
+    *a3 = v5;
   }
 
   else
   {
-    v9 = 0uLL;
-    v10 = 0;
-    a2(*(a1 + 8), *(a1 + 16), &v9);
-    result = 0;
-    *a3 = v9;
-    *(a3 + 16) = v10;
+    v7 = 0uLL;
+    v8 = 0;
+    a2(*(a1 + 8), *(a1 + 16), &v7);
+    *&v5 = v7;
+    *a3 = v7;
+    *(a3 + 16) = v8;
   }
 
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return *&v5;
 }
 
 uint64_t Img4DecodeManifestExists(uint64_t a1, BOOL *a2)
@@ -4435,49 +4818,42 @@ uint64_t Img4DecodeManifestExists(uint64_t a1, BOOL *a2)
   return result;
 }
 
-uint64_t Img4DecodeCopyManifestHashWithCallback(uint64_t a1, void (*a2)(void), uint64_t a3, int a4)
+double Img4DecodeCopyManifestHashWithCallback(uint64_t a1, void (*a2)(void), uint64_t a3, int a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (!a1 || a4 != 20 || !a3)
   {
-    result = 6;
     if (!a3)
     {
-      goto LABEL_12;
+      return *&v5;
     }
 
-    goto LABEL_10;
+LABEL_8:
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    return *&v5;
   }
 
   if (!*(a1 + 24))
   {
-    result = 1;
-LABEL_10:
-    *a3 = 0;
-    *(a3 + 8) = 0;
-    goto LABEL_12;
+    goto LABEL_8;
   }
 
   if (*(a1 + 1) == 1)
   {
-    result = 0;
-    v7 = *(a1 + 328);
+    v5 = *(a1 + 328);
     *(a3 + 16) = *(a1 + 344);
-    *a3 = v7;
+    *a3 = v5;
   }
 
   else
   {
-    v9 = *(a1 + 32);
     a2();
-    result = 0;
+    *&v5 = 0;
     *a3 = 0uLL;
     *(a3 + 16) = 0;
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return *&v5;
 }
 
 uint64_t Img4DecodeSectionExists(void *a1, unsigned int a2, _BYTE *a3)
@@ -4544,37 +4920,37 @@ uint64_t Img4DecodeRestoreInfoExists(uint64_t a1, BOOL *a2)
   return result;
 }
 
-uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, unsigned int a2, uint64_t a3, BOOL *a4)
+uint64_t Img4DecodeGetBooleanFromSection(uint64_t a1, uint64_t a2, uint64_t a3, BOOL *a4, uint64_t a5, uint64_t a6)
+{
+  memset(v10, 0, sizeof(v10));
+  v6 = 6;
+  if (a1)
+  {
+    if (a4)
+    {
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v10);
+      v6 = v8;
+      if (!v8)
+      {
+        return DERParseBoolean(&v10[1] + 1, a4);
+      }
+    }
+  }
+
+  return v6;
+}
+
+void Img4DecodeGetIntegerFromSection(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, uint64_t a6)
 {
   memset(v8, 0, sizeof(v8));
-  v4 = 6;
   if (a1)
   {
     if (a4)
     {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 1uLL, v8);
-      v4 = v6;
-      if (!v6)
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v8);
+      if (!v7)
       {
-        return DERParseBoolean(&v8[1] + 1, a4);
-      }
-    }
-  }
-
-  return v4;
-}
-
-void Img4DecodeGetIntegerFromSection(uint64_t a1, unsigned int a2, uint64_t a3, _DWORD *a4)
-{
-  memset(v6, 0, sizeof(v6));
-  if (a1)
-  {
-    if (a4)
-    {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
-      {
-        if (DERParseInteger(&v6[1] + 8, a4))
+        if (DERParseInteger(&v8[1] + 8, a4))
         {
           *a4 = 0;
         }
@@ -4583,17 +4959,17 @@ void Img4DecodeGetIntegerFromSection(uint64_t a1, unsigned int a2, uint64_t a3, 
   }
 }
 
-void Img4DecodeGetInteger64FromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t *a4)
+void Img4DecodeGetInteger64FromSection(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5, uint64_t a6)
 {
-  memset(v6, 0, sizeof(v6));
+  memset(v8, 0, sizeof(v8));
   if (a1)
   {
     if (a4)
     {
-      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v6);
-      if (!v5)
+      Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 2uLL, v8);
+      if (!v7)
       {
-        if (DERParseInteger64(&v6[1] + 8, a4))
+        if (DERParseInteger64(&v8[1] + 8, a4))
         {
           *a4 = 0;
         }
@@ -4602,15 +4978,15 @@ void Img4DecodeGetInteger64FromSection(uint64_t a1, unsigned int a2, uint64_t a3
   }
 }
 
-void Img4DecodeGetDataFromSection(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, void *a5)
+void Img4DecodeGetDataFromSection(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6)
 {
-  v10 = 0u;
   v11 = 0u;
-  v9 = 0u;
+  v12 = 0u;
+  v10 = 0u;
   if (a1 && a4 && a5)
   {
-    Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 4uLL, &v9);
-    if (v7)
+    Img4DecodeGetPropertyFromSection(a1, a2, a3 | 0xE000000000000000, 4uLL, &v10);
+    if (v8)
     {
       *a5 = 0;
       *a4 = 0;
@@ -4618,9 +4994,9 @@ void Img4DecodeGetDataFromSection(uint64_t a1, unsigned int a2, uint64_t a3, voi
 
     else
     {
-      v8 = v11;
-      *a4 = *(&v10 + 1);
-      *a5 = v8;
+      v9 = v12;
+      *a4 = *(&v11 + 1);
+      *a5 = v9;
     }
   }
 }
@@ -4724,7 +5100,7 @@ void Img4DecodeGetObjectPropertyString(uint64_t a1, uint64_t a2, uint64_t a3, vo
 
 double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, _OWORD *a5)
 {
-  *v11 = 0uLL;
+  v11 = 0uLL;
   if (a2 <= 1 && a1 && a5)
   {
     v12 = 0;
@@ -4732,14 +5108,14 @@ double Img4DecodeGetPropertyFromSection(uint64_t a1, unsigned int a2, uint64_t a
     {
       if (a2)
       {
-        *v11 = *(a1 + 440);
+        v11 = *(a1 + 440);
         goto LABEL_9;
       }
 
-      if (!DERImg4DecodeParseManifestProperties(a1, 0, v11))
+      if (!DERImg4DecodeParseManifestProperties(a1, 0, &v11))
       {
 LABEL_9:
-        if (!DERImg4DecodeFindProperty(v11, a3, a4, a5))
+        if (!DERImg4DecodeFindProperty(&v11, a3, a4, a5))
         {
           return result;
         }
@@ -4840,7 +5216,7 @@ double Img4DecodeInit(uint64_t a1, uint64_t a2, uint64_t a3)
       *(a3 + 416) = 0u;
       *(a3 + 432) = 0u;
       *(a3 + 448) = 0;
-      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, a3 + 88) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
+      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, (a3 + 88)) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
       {
         *(a3 + 8) = v6;
         result = *&v7;
@@ -4887,7 +5263,7 @@ double Img4DecodeInitPayload(uint64_t a1, uint64_t a2, uint64_t a3)
     *(a3 + 416) = 0u;
     *(a3 + 432) = 0u;
     *(a3 + 448) = 0;
-    if (!DERImg4DecodePayload(&v5, a3 + 88))
+    if (!DERImg4DecodePayload(&v5, (a3 + 88)))
     {
       result = *&v5;
       *(a3 + 8) = v5;
@@ -5011,7 +5387,7 @@ uint64_t Img4DecodeInitManifestCommon(uint64_t a1, uint64_t a2, int a3, uint64_t
   return result;
 }
 
-uint64_t Img4DecodePerformTrustEvaluation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Img4DecodePerformTrustEvaluation(uint64_t a1, uint64_t a2, uint64_t (*a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, uint64_t a5)
 {
   v6[1] = 0;
   v6[2] = 0;
@@ -5019,7 +5395,7 @@ uint64_t Img4DecodePerformTrustEvaluation(unsigned int a1, uint64_t a2, uint64_t
   return _Img4DecodePerformTrustEvaluationWithCallbacksInternal(a1, a2, v6, a4, 0, a5);
 }
 
-uint64_t Img4DecodePerformTrustEvaluatation(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Img4DecodePerformTrustEvaluatation(uint64_t a1, uint64_t a2, uint64_t (*a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, uint64_t a5)
 {
   v6[1] = 0;
   v6[2] = 0;
@@ -5078,9 +5454,9 @@ void OUTLINED_FUNCTION_4_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
   _Img4DecodePayloadPropertyExistsWithValue(a1, a2, 2uLL, &a9, 0);
 }
 
-void OUTLINED_FUNCTION_5_0(uint64_t a1, ...)
+void OUTLINED_FUNCTION_5_0(uint64_t a1, uint64_t a2, ...)
 {
-  va_start(va, a1);
+  va_start(va, a2);
 
   bzero(va, 0xA0uLL);
 }
@@ -5091,44 +5467,44 @@ void *OUTLINED_FUNCTION_6(uint64_t a1, const void *a2)
   return memcpy(v3, a2, v2);
 }
 
-void _Img4DecodePayloadPropertyExistsWithValue(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, BOOL *a5)
+void _Img4DecodePayloadPropertyExistsWithValue(uint64_t a1, uint64_t a2, unint64_t a3, void *a4, BOOL *a5)
 {
-  v20[8] = *MEMORY[0x277D85DE8];
+  v19[8] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    bzero(v19, 0xA0uLL);
-    v18 = 0uLL;
+    bzero(v18, 0xA0uLL);
     v17 = 0uLL;
     v16 = 0uLL;
+    v15 = 0uLL;
     v11 = *(a1 + 8);
     v10 = a1 + 8;
     if (v11)
     {
-      bzero(v19, 0xA0uLL);
-      if (!DERImg4DecodePayloadWithProperties(v10, v19))
+      bzero(v18, 0xA0uLL);
+      if (!DERImg4DecodePayloadWithProperties(v10, v18))
       {
-        if (v20[0])
+        if (v19[0])
         {
-          DERImg4DecodeContentFindItemWithTag(v20, 0x2000000000000010, &v18);
+          DERImg4DecodeContentFindItemWithTag(v19, 0x2000000000000010, &v17);
           if (!v12)
           {
-            DERImg4DecodeContentFindItemWithTag(&v18, 0x2000000000000011, &v17);
+            DERImg4DecodeContentFindItemWithTag(&v17, 0x2000000000000011, &v16);
             if (!v13)
             {
               if (a5)
               {
-                DERImg4DecodeContentFindItemWithTag(&v17, a2, &v16);
+                DERImg4DecodeContentFindItemWithTag(&v16, a2, &v15);
                 if (v14)
                 {
-                  goto LABEL_12;
+                  return;
                 }
 
-                *a5 = v16 != 0;
+                *a5 = v15 != 0;
               }
 
               if (a4)
               {
-                DERImg4DecodeFindProperty(&v17, a2, a3, a4);
+                DERImg4DecodeFindProperty(&v16, a2, a3, a4);
               }
             }
           }
@@ -5136,9 +5512,6 @@ void _Img4DecodePayloadPropertyExistsWithValue(uint64_t a1, uint64_t a2, unint64
       }
     }
   }
-
-LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void Img4DecodeEvaluateCertificatePropertiesInternal(void *a1, _OWORD *a2)
@@ -5169,7 +5542,7 @@ void Img4DecodeEvaluateCertificatePropertiesInternal(void *a1, _OWORD *a2)
         return;
       }
 
-      v4 = (a1 + 7);
+      v4 = a1 + 7;
       switch(v17)
       {
         case 0xE00000004D414E50:
@@ -5243,13 +5616,13 @@ LABEL_11:
 
           break;
         case 0xE00000004F424A50:
-          v4 = (a1 + 9);
+          v4 = a1 + 9;
           if (a1[9])
           {
             goto LABEL_11;
           }
 
-          v4 = (a1 + 9);
+          v4 = a1 + 9;
           if (a1[10])
           {
             goto LABEL_11;
@@ -5263,11 +5636,11 @@ LABEL_11:
   }
 }
 
-uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1, uint64_t a2, uint64_t (**a3)(unint64_t, uint64_t *, uint64_t, uint64_t), uint64_t a4, char a5, uint64_t a6)
 {
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(v23, 0, sizeof(v23));
+  memset(v22, 0, sizeof(v22));
   result = 6;
   if (!a2)
   {
@@ -5325,7 +5698,6 @@ uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1,
     return 7;
   }
 
-  v14 = *(a2 + 32);
   result = (*a4)();
   if (result)
   {
@@ -5333,15 +5705,15 @@ uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1,
   }
 
   *(a2 + 1) = 1;
-  v15 = *(a3 + 8);
-  if (v15 && (v16 = v15(a2, a6)) != 0 && !memcmp((a2 + 328), v16, **(a4 + 32)))
+  v14 = a3[1];
+  if (v14 && (v15 = (v14)(a2, a6)) != 0 && !memcmp((a2 + 328), v15, **(a4 + 32)))
   {
-    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
-    result = (*(a4 + 8))(*(a2 + 296), *(a2 + 304), &v21, &v22, a2 + 312, a2 + 320, a4, a6);
+    result = (*(a4 + 8))(*(a2 + 296), *(a2 + 304), &v20, &v21, a2 + 312, a2 + 320, a4, a6);
     if (result)
     {
       return result;
@@ -5358,13 +5730,13 @@ uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1,
       return result;
     }
 
-    result = (*(a4 + 16))(v21, v22, *(a2 + 280), *(a2 + 288), a2 + 376, **(a4 + 32), a4, a6);
+    result = (*(a4 + 16))(v20, v21, *(a2 + 280), *(a2 + 288), a2 + 376, **(a4 + 32), a4, a6);
     if (result)
     {
       return result;
     }
 
-    v17 = 1;
+    v16 = 1;
   }
 
   result = DERImg4DecodeParseManifestProperties(a2, a2 + 40, a2 + 56);
@@ -5375,12 +5747,12 @@ uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1,
 
   if ((a5 & 1) == 0)
   {
-    v18 = *(a3 + 16);
-    v19 = (a2 + 40);
-    v20 = a1 | 0xE000000000000000;
-    if (v18)
+    v17 = a3[2];
+    v18 = (a2 + 40);
+    v19 = a1 | 0xE000000000000000;
+    if (v17)
     {
-      result = v18(v19, v20, 0x2000000000000011, v23, a6);
+      result = (v17)(v18, v19, 0x2000000000000011, v22, a6);
       if (result)
       {
         return result;
@@ -5389,17 +5761,17 @@ uint64_t _Img4DecodePerformTrustEvaluationWithCallbacksInternal(unsigned int a1,
 
     else
     {
-      result = DERImg4DecodeFindProperty(v19, v20, 0x2000000000000011uLL, v23);
+      result = DERImg4DecodeFindProperty(v18, v19, 0x2000000000000011uLL, v22);
       if (result)
       {
         return result;
       }
     }
 
-    *(a2 + 72) = *(&v23[1] + 8);
+    *(a2 + 72) = *(&v22[1] + 8);
   }
 
-  if (v17)
+  if (v16)
   {
     result = (*(a4 + 24))(a2, a6);
     if (result)
@@ -5517,63 +5889,48 @@ uint64_t verify_signature_rsa3k(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   return result;
 }
 
-uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+uint64_t verify_pkcs1_sig(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   if (a5 != 4096 && a5 != 3072)
   {
-    result = 0xFFFFFFFFLL;
-    goto LABEL_14;
+    return 0xFFFFFFFFLL;
   }
 
-  v24[2] = 0;
-  v24[3] = 0;
-  v8 = (a5 + 63) >> 6;
-  MEMORY[0x28223BE20](a1, (24 * v8 + 71) & 0x7FFFFFFFFFFFFFE0);
-  v10 = (v23 - v9);
-  bzero(v23 - v9, v9);
-  *v10 = v8;
-  v11 = *(a1 + 8);
-  v24[0] = *a1;
-  v24[1] = v11;
-  memset(v23, 0, sizeof(v23));
-  if (DERParseSequenceToObject(v24, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v23, 0x20uLL, 0x20uLL) || ccrsa_pub_init(v10, *(&v23[0] + 1), *&v23[0]))
+  v13[2] = 0;
+  v13[3] = 0;
+  v6 = (a5 + 63) >> 6;
+  MEMORY[0x28223BE20](a1, (24 * v6 + 71) & 0x7FFFFFFFFFFFFFE0);
+  v8 = (v12 - v7);
+  bzero(v12 - v7, v7);
+  *v8 = v6;
+  v9 = *(a1 + 8);
+  v13[0] = *a1;
+  v13[1] = v9;
+  memset(v12, 0, sizeof(v12));
+  if (DERParseSequenceToObject(v13, DERNumRSAPubKeyPKCS1ItemSpecs, &DERRSAPubKeyPKCS1ItemSpecs, v12, 0x20uLL, 0x20uLL) || ccrsa_pub_init(v8, *(&v12[0] + 1), *&v12[0]))
   {
-    goto LABEL_9;
+    return 0xFFFFFFFFLL;
   }
 
   if (MEMORY[0x277D85C38] && MEMORY[0x28223BE48])
   {
-    v13 = *a3;
-    v12 = a3[1];
-    v15 = *a4;
-    v14 = a4[1];
     if (ccrsa_verify_pkcs1v15_digest() || cc_cmp_safe())
     {
-LABEL_9:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_14;
+      return 0xFFFFFFFFLL;
     }
 
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
+    return 0;
   }
 
-  LOBYTE(v23[0]) = 0;
-  v18 = *a3;
-  v17 = a3[1];
-  v20 = *a4;
-  v19 = a4[1];
-  v21 = ccrsa_verify_pkcs1v15();
+  LOBYTE(v12[0]) = 0;
+  v11 = ccrsa_verify_pkcs1v15();
   result = 0xFFFFFFFFLL;
-  if (!v21 && (v23[0] & 1) != 0)
+  if (!v11 && (v12[0] & 1) != 0)
   {
-    goto LABEL_13;
+    return 0;
   }
 
-LABEL_14:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5654,122 +6011,100 @@ uint64_t verify_signature_rsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
 
 uint64_t verify_signature_rsa4096_fixed(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = 0;
   result = 6;
-  if (!a1)
+  if (a1)
   {
-    goto LABEL_26;
-  }
-
-  if (!a2)
-  {
-    goto LABEL_26;
-  }
-
-  if (!a3)
-  {
-    goto LABEL_26;
-  }
-
-  if (!a4)
-  {
-    goto LABEL_26;
-  }
-
-  if (!a5)
-  {
-    goto LABEL_26;
-  }
-
-  if (!a6)
-  {
-    goto LABEL_26;
-  }
-
-  if (!a7)
-  {
-    goto LABEL_26;
-  }
-
-  v9 = *(a7 + 32);
-  if (!v9)
-  {
-    goto LABEL_26;
-  }
-
-  v10 = *(v9 + 16);
-  if (!v10)
-  {
-    goto LABEL_26;
-  }
-
-  v11 = *v10;
-  if (!*v10)
-  {
-    result = 0xFFFFFFFFLL;
-    goto LABEL_26;
-  }
-
-  result = 0xFFFFFFFFLL;
-  if (a2 != 516 || *v11 != a6)
-  {
-    goto LABEL_26;
-  }
-
-  if (a1 < 0xFFFFFFFFFFFFFE00)
-  {
-    MEMORY[0x28223BE20](0xFFFFFFFFLL, 516);
-    bzero(&v16, 0x638uLL);
-    v15 = 64;
-    result = ccrsa_pub_init(&v15, 0x200uLL, a1);
-    if (!result)
+    if (a2)
     {
-      if (!MEMORY[0x277D85C38] || !MEMORY[0x28223BE48])
+      if (a3)
       {
-        v17 = 0;
-        v13 = v11[4];
-        LODWORD(result) = ccrsa_verify_pkcs1v15();
-        if (result || (v17 & 1) == 0)
+        if (a4)
         {
-          if (result)
+          if (a5)
           {
-            result = result;
+            if (a6)
+            {
+              if (a7)
+              {
+                v9 = *(a7 + 32);
+                if (v9)
+                {
+                  v10 = *(v9 + 16);
+                  if (v10)
+                  {
+                    if (*v10)
+                    {
+                      result = 0xFFFFFFFFLL;
+                      if (a2 == 516 && **v10 == a6)
+                      {
+                        if (a1 >= 0xFFFFFFFFFFFFFE00)
+                        {
+                          __break(0x5513u);
+                        }
+
+                        else
+                        {
+                          MEMORY[0x28223BE20](0xFFFFFFFFLL, 516);
+                          bzero(&v12, 0x638uLL);
+                          v11 = 64;
+                          result = ccrsa_pub_init(&v11, 0x200uLL, a1);
+                          if (!result)
+                          {
+                            if (MEMORY[0x277D85C38] && MEMORY[0x28223BE48])
+                            {
+                              result = ccrsa_verify_pkcs1v15_digest();
+                              if (!result)
+                              {
+                                if (cc_cmp_safe())
+                                {
+                                  return 0xFFFFFFFFLL;
+                                }
+
+                                return 0;
+                              }
+                            }
+
+                            else
+                            {
+                              v13 = 0;
+                              LODWORD(result) = ccrsa_verify_pkcs1v15();
+                              if (!result && (v13 & 1) != 0)
+                              {
+                                return 0;
+                              }
+
+                              if (result)
+                              {
+                                return result;
+                              }
+
+                              else
+                              {
+                                return 0xFFFFFFFFLL;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                    else
+                    {
+                      return 0xFFFFFFFFLL;
+                    }
+                  }
+                }
+              }
+            }
           }
-
-          else
-          {
-            result = 0xFFFFFFFFLL;
-          }
-
-          goto LABEL_26;
         }
-
-        goto LABEL_22;
-      }
-
-      v12 = v11[4];
-      result = ccrsa_verify_pkcs1v15_digest();
-      if (!result)
-      {
-        if (cc_cmp_safe())
-        {
-          result = 0xFFFFFFFFLL;
-          goto LABEL_26;
-        }
-
-LABEL_22:
-        result = 0;
       }
     }
-
-LABEL_26:
-    v14 = *MEMORY[0x277D85DE8];
-    return result;
   }
 
-  __break(0x5513u);
   return result;
 }
 
@@ -5855,57 +6190,57 @@ void verify_signature_ecdsa(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   }
 }
 
-void verify_ecdsa_sig(void *a1, uint64_t *a2, uint64_t *a3)
+void verify_ecdsa_sig(void *a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v22[7] = 0;
-  v6 = a1[1];
+  v15 = *MEMORY[0x277D85DE8];
+  v14[7] = 0;
   ccec_x963_import_pub_size();
-  if (!ccec_keysize_is_supported())
+  if (ccec_keysize_is_supported())
   {
-    goto LABEL_9;
-  }
-
-  cp = ccec_get_cp();
-  v8 = *cp;
-  if (*cp >> 61 || !is_mul_ok(8 * v8, 3uLL))
-  {
-    __break(0x550Cu);
-    goto LABEL_12;
-  }
-
-  v9 = 24 * v8;
-  v10 = __CFADD__(v9, 16);
-  v11 = v9 + 16;
-  if (v10 || (v10 = __CFADD__(v11, 16), v12 = v11 + 16, v10))
-  {
-LABEL_12:
-    __break(0x5500u);
-  }
-
-  v13 = cp;
-  v14 = v12 - 1;
-  MEMORY[0x28223BE20](cp, (v12 - 1) & 0xFFFFFFFFFFFFFFF0);
-  v16 = &v22[-v15];
-  bzero(&v22[-v15], v15);
-  if (v14 >= 0x10)
-  {
-    *v16 = v13;
-    if (!MEMORY[0x245CBEF00](v13, a1[1], *a1, v16))
+    cp = ccec_get_cp();
+    v5 = *cp;
+    if (*cp >> 61 || !is_mul_ok(8 * v5, 3uLL))
     {
-      v18 = *a2;
-      v17 = a2[1];
-      v20 = *a3;
-      v19 = a3[1];
-      ccec_verify();
+      __break(0x550Cu);
     }
 
-LABEL_9:
-    v21 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    else
+    {
+      v6 = 24 * v5;
+      v7 = __CFADD__(v6, 16);
+      v8 = v6 + 16;
+      if (!v7)
+      {
+        v7 = __CFADD__(v8, 16);
+        v9 = v8 + 16;
+        if (!v7)
+        {
+          v10 = cp;
+          v11 = v9 - 1;
+          MEMORY[0x28223BE20](cp, (v9 - 1) & 0xFFFFFFFFFFFFFFF0);
+          v13 = &v14[-v12];
+          bzero(&v14[-v12], v12);
+          if (v11 < 0x10)
+          {
+            __break(1u);
+          }
 
-  __break(1u);
+          else
+          {
+            *v13 = v10;
+            if (!MEMORY[0x245CBEF00](v10, a1[1], *a1, v13))
+            {
+              ccec_verify();
+            }
+          }
+
+          return;
+        }
+      }
+    }
+
+    __break(0x5500u);
+  }
 }
 
 uint64_t verify_chain_img4_v1(unint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7)
@@ -6182,69 +6517,83 @@ uint64_t parse_chain(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4,
 
 uint64_t verify_chain_signatures(void *a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
   if (!a2)
   {
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
   if (!a3)
   {
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v11 = 0;
-  memset(v14, 0, sizeof(v14));
-  v9 = 0;
   v10 = 0;
+  memset(v13, 0, sizeof(v13));
+  v8 = 0;
+  v9 = 0;
   v5 = *(a3 + 32);
-  if (!v5 || !v5[2] || !*a3 || !*(a3 + 40) || *v5 > 0x30uLL || DERParseSequenceContentToObject(a2 + 2, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v12, 0x20uLL, 0x20uLL))
+  if (!v5 || !v5[2] || !*a3 || !*(a3 + 40) || *v5 > 0x30uLL || DERParseSequenceContentToObject(a2 + 2, DERNumAlgorithmIdItemSpecs, &DERAlgorithmIdItemSpecs, &v11, 0x20uLL, 0x20uLL))
   {
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
-  if (!*(&v13 + 1) || (result = DEROidCompare(&v12, &oidEcPubKey), (result & 1) != 0))
+  if (*(&v12 + 1))
   {
-LABEL_16:
-    if (DEROidCompare(&v12, *(a3 + 40)) && !(*a3)(*a2, a2[1], v14, **(a3 + 32), a3) && !DERParseBitString((a2 + 4), &v9, &v11) && !v11)
+    result = DEROidCompare(&v11, &oidEcPubKey);
+    if ((result & 1) == 0)
     {
-      result = (*(a3 + 16))(*a1, a1[1], v9, v10, v14, **(a3 + 32), a3, 0);
-      if (!result)
+      if (*(&v12 + 1) != 2 || *v12 != 5)
       {
-        goto LABEL_21;
+        return 0xFFFFFFFFLL;
+      }
+
+      if (v12 == -1)
+      {
+        __break(0x5513u);
+        return result;
+      }
+
+      if (*(v12 + 1))
+      {
+        return 0xFFFFFFFFLL;
       }
     }
-
-    goto LABEL_22;
   }
 
-  if (*(&v13 + 1) != 2 || *v13 != 5)
+  if (!DEROidCompare(&v11, *(a3 + 40)))
   {
-LABEL_22:
-    result = 0xFFFFFFFFLL;
-LABEL_21:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
+    return 0xFFFFFFFFLL;
   }
 
-  if (v13 != -1)
+  if ((*a3)(*a2, a2[1], v13, **(a3 + 32), a3))
   {
-    if (!*(v13 + 1))
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_22;
+    return 0xFFFFFFFFLL;
   }
 
-  __break(0x5513u);
+  if (DERParseBitString((a2 + 4), &v8, &v10))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v10)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  result = (*(a3 + 16))(*a1, a1[1], v8, v9, v13, **(a3 + 32), a3, 0);
+  if (result)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
   return result;
 }
 
@@ -6321,7 +6670,7 @@ uint64_t verify_chain_img4_v2_with_crack_callback(uint64_t a1, uint64_t a2, void
   return result;
 }
 
-uint64_t crack_chain_rsa4k_sha384_x86(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_x86(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_X86_ROOT_CA_CERTIFICATE;
   a2[1] = 1382;
@@ -6336,7 +6685,7 @@ uint64_t crack_chain_rsa4k_sha384_x86(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_ddi(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_ddi(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_ROOT_CA_CERTIFICATE;
   a2[1] = 1394;
@@ -6351,7 +6700,7 @@ uint64_t crack_chain_rsa4k_sha384_ddi(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_ddi_global(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_ddi_global(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1404;
@@ -6366,7 +6715,7 @@ uint64_t crack_chain_rsa4k_sha384_ddi_global(unint64_t *a1, void *a2, unsigned i
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_ddi_fake(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_ddi_fake(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_ROOT_CA_CERTIFICATE;
   a2[1] = 1425;
@@ -6381,7 +6730,7 @@ uint64_t crack_chain_rsa4k_sha384_ddi_fake(unint64_t *a1, void *a2, unsigned int
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_ddi_fake_global(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_ddi_fake_global(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_DDI_FAKE_GLOBAL_ROOT_CA_CERTIFICATE;
   a2[1] = 1435;
@@ -6396,7 +6745,7 @@ uint64_t crack_chain_rsa4k_sha384_ddi_fake_global(unint64_t *a1, void *a2, unsig
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_avp(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_avp(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_AVP_ROOT_CA_CERTIFICATE;
   a2[1] = 1431;
@@ -6411,7 +6760,7 @@ uint64_t crack_chain_rsa4k_sha384_avp(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1382;
@@ -6426,7 +6775,7 @@ uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy(unint64_t *a1, void *a2, un
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy_hacktivate(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy_hacktivate(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_RSA4K_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 1442;
@@ -6441,7 +6790,7 @@ uint64_t crack_chain_rsa4k_sha384_tatsu_local_policy_hacktivate(unint64_t *a1, v
   }
 }
 
-uint64_t crack_chain_rsa3k_sha384(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa3k_sha384(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA3K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1118;
@@ -6456,7 +6805,7 @@ uint64_t crack_chain_rsa3k_sha384(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 1374;
@@ -6471,7 +6820,7 @@ uint64_t crack_chain_rsa4k_sha384(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_AWG1(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_AWG1(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_ROOT_CA_CERTIFICATE_AWG1;
   a2[1] = 1404;
@@ -6486,7 +6835,7 @@ uint64_t crack_chain_rsa4k_sha384_AWG1(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_rsa4k_sha384_PED(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_rsa4k_sha384_PED(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &RSA4K_SHA384_PED_ROOT_CA_CERTIFICATE;
   a2[1] = 1400;
@@ -6586,7 +6935,7 @@ uint64_t verify_chain_img4_ec_v1(uint64_t a1, uint64_t a2, void *a3, void *a4, v
   return result;
 }
 
-uint64_t parse_ec_chain(uint64_t result, unsigned int a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t parse_ec_chain(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -6803,7 +7152,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t crack_chain_ecdsa256_sha256(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_ecdsa256_sha256(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC256_SHA256_ROOT_CA_CERTIFICATE;
   a2[1] = 551;
@@ -6818,7 +7167,7 @@ uint64_t crack_chain_ecdsa256_sha256(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_ecdsa384_sha384_hacktivate(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_ecdsa384_sha384_hacktivate(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &LOCAL_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 610;
@@ -6833,7 +7182,7 @@ uint64_t crack_chain_ecdsa384_sha384_hacktivate(unint64_t *a1, void *a2, unsigne
   }
 }
 
-uint64_t crack_chain_ecdsa384_sha384(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_ecdsa384_sha384(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &EC384_SHA384_LP_ROOT_CA_CERTIFICATE;
   a2[1] = 542;
@@ -6848,7 +7197,7 @@ uint64_t crack_chain_ecdsa384_sha384(unint64_t *a1, void *a2, unsigned int a3)
   }
 }
 
-uint64_t crack_chain_ecdsa384_sha384_qa(unint64_t *a1, void *a2, unsigned int a3)
+uint64_t crack_chain_ecdsa384_sha384_qa(unint64_t *a1, void *a2, uint64_t a3)
 {
   *a2 = &QA_EC384_SHA384_ROOT_CA_CERTIFICATE;
   a2[1] = 540;
@@ -7560,24 +7909,23 @@ LABEL_9:
 
 uint64_t DERParseInteger(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64(a1, v5);
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64(a1, v4);
   if (!result)
   {
-    if (HIDWORD(v5[0]))
+    if (HIDWORD(v4[0]))
     {
-      result = 7;
+      return 7;
     }
 
     else
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7643,24 +7991,23 @@ LABEL_7:
 
 uint64_t DERParseIntegerSigned(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64Signed(a1, v5);
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64Signed(a1, v4);
   if (!result)
   {
-    if (v5[0] == SLODWORD(v5[0]))
+    if (v4[0] == SLODWORD(v4[0]))
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
 
     else
     {
-      result = 7;
+      return 7;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7747,42 +8094,41 @@ LABEL_10:
 
 uint64_t DERDecodeSeqInit(uint64_t a1, void *a2, void *a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  memset(v9, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v9, 0);
-  if (result)
+  v8[3] = *MEMORY[0x277D85DE8];
+  memset(v8, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v8, 0);
+  if (!result)
   {
-    goto LABEL_7;
-  }
-
-  v6 = v9[0];
-  *a2 = v9[0];
-  if (v6 >> 1 != 0x1000000000000008)
-  {
-    result = 2;
-    goto LABEL_7;
-  }
-
-  if (__CFADD__(v9[1], v9[2]))
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v7 = v9[1] + v9[2];
-    if (v9[1] <= v9[1] + v9[2])
+    v6 = v8[0];
+    *a2 = v8[0];
+    if (v6 >> 1 == 0x1000000000000008)
     {
-      result = 0;
-      *a3 = v9[1];
-      a3[1] = v7;
-LABEL_7:
-      v8 = *MEMORY[0x277D85DE8];
-      return result;
+      if (__CFADD__(v8[1], v8[2]))
+      {
+        __break(0x5513u);
+      }
+
+      else
+      {
+        v7 = v8[1] + v8[2];
+        if (v8[1] <= v8[1] + v8[2])
+        {
+          result = 0;
+          *a3 = v8[1];
+          a3[1] = v7;
+          return result;
+        }
+      }
+
+      __break(0x5519u);
+    }
+
+    else
+    {
+      return 2;
     }
   }
 
-  __break(0x5519u);
   return result;
 }
 
@@ -7812,71 +8158,66 @@ unint64_t *DERDecodeSeqContentInit(unint64_t *result, unint64_t *a2)
 
 uint64_t DERDecodeSeqNext(unint64_t *a1, unint64_t *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = 0;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 >= v3)
   {
-    result = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v11[0] = *a1;
-  v11[1] = v3 - v2;
-  result = DERDecodeItemPartialBufferGetLength(v11, a2, 0);
-  if (result)
+  v10[0] = *a1;
+  v10[1] = v3 - v2;
+  result = DERDecodeItemPartialBufferGetLength(v10, a2, 0);
+  if (!result)
   {
-LABEL_8:
-    v10 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v8 = a2[1];
-  v7 = a2[2];
-  if (!__CFADD__(v8, v7))
-  {
-    v9 = v8 + v7;
-    if (v9 <= a1[1] && *a1 <= v9)
+    v8 = a2[1];
+    v7 = a2[2];
+    if (!__CFADD__(v8, v7))
     {
-      result = 0;
-      *a1 = v9;
-      goto LABEL_8;
+      v9 = v8 + v7;
+      if (v9 <= a1[1] && *a1 <= v9)
+      {
+        result = 0;
+        *a1 = v9;
+        return result;
+      }
+
+      __break(0x5519u);
     }
 
-    __break(0x5519u);
+    __break(0x5513u);
   }
 
-  __break(0x5513u);
   return result;
 }
 
 uint64_t DERParseSequenceToObject(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  memset(v13, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v13, 0);
+  v12[3] = *MEMORY[0x277D85DE8];
+  memset(v12, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v12, 0);
   if (!result)
   {
-    if (v13[0] == 0x2000000000000010)
+    if (v12[0] == 0x2000000000000010)
     {
-      result = DERParseSequenceContentToObject(&v13[1], a2, a3, a4, a5, a6);
+      return DERParseSequenceContentToObject(&v12[1], a2, a3, a4, a5, a6);
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t DERParseSequenceContentToObject(unint64_t *a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v36 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v35 = 0;
   if (a6)
   {
     if (a6 > a5)
@@ -7905,177 +8246,175 @@ LABEL_59:
     __break(0x5519u);
   }
 
-  v36 = *a1;
-  v37 = v13;
-  if (a2)
+  v35 = *a1;
+  v36 = v13;
+  if (!a2)
   {
-    v14 = 0;
-    while (1)
+LABEL_48:
+    if (v11 == v13)
     {
-      memset(v35, 170, sizeof(v35));
-      v16 = v36;
-      v15 = v37;
-      result = DERDecodeSeqNext(&v36, v35);
-      if (result)
-      {
-        if (result == 1)
-        {
-          if (a2 <= v14)
-          {
-            result = 0;
-          }
+      return 0;
+    }
 
-          else
-          {
-            v29 = (a3 + 24 * v14 + 16);
-            v30 = a2 - v14;
-            result = 0;
-            while (1)
-            {
-              v31 = *v29;
-              v29 += 12;
-              if ((v31 & 1) == 0)
-              {
-                break;
-              }
-
-              if (!--v30)
-              {
-                goto LABEL_51;
-              }
-            }
-
-            result = 5;
-          }
-        }
-
-        goto LABEL_51;
-      }
-
-      if (a2 <= v14)
-      {
-        result = 2;
-        goto LABEL_51;
-      }
-
-      while (1)
-      {
-        if (24 * v14 > ~a3)
-        {
-          goto LABEL_58;
-        }
-
-        v18 = a3 + 24 * v14;
-        v19 = *(v18 + 16);
-        if ((v19 & 2) != 0 || v35[0] == *(v18 + 8))
-        {
-          break;
-        }
-
-        result = 2;
-        if ((v19 & 1) != 0 && a2 > ++v14)
-        {
-          continue;
-        }
-
-        goto LABEL_51;
-      }
-
-      if ((v19 & 4) == 0)
-      {
-        v20 = *v18;
-        v21 = *v18 + 16;
-        if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
-        {
-          result = 7;
-          goto LABEL_51;
-        }
-
-        if (v20 > ~a4)
-        {
-          goto LABEL_58;
-        }
-
-        v23 = (a4 + v20);
-        v24 = v23 + 16;
-        if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
-        {
-          goto LABEL_59;
-        }
-
-        *v23 = *&v35[1];
-        if ((v19 & 8) != 0)
-        {
-          if (v16 >= v35[1])
-          {
-            if (v15 < v16 || *(v23 + 1) > v15 - v16)
-            {
-              goto LABEL_59;
-            }
-
-            *v23 = v16;
-            result = 3;
-            goto LABEL_51;
-          }
-
-          v27 = *(v23 + 1);
-          v28 = v27 + v35[1] - v16;
-          if (__CFADD__(v27, v35[1] - v16))
-          {
-            __break(0x5500u);
-            return result;
-          }
-
-          if (v15 < v16 || v28 > v15 - v16)
-          {
-            goto LABEL_59;
-          }
-
-          *v23 = v16;
-          *(v23 + 1) = v28;
-        }
-      }
-
-      if (a2 == ++v14)
-      {
-        if (!__CFADD__(v35[1], v35[2]))
-        {
-          v32 = a1[1];
-          if (!__CFADD__(*a1, v32))
-          {
-            v11 = v35[1] + v35[2];
-            v13 = *a1 + v32;
-            break;
-          }
-        }
-
-LABEL_58:
-        __break(0x5513u);
-        goto LABEL_59;
-      }
-
-      if (a2 <= v14)
-      {
-        v11 = v36;
-        v13 = v37;
-        break;
-      }
+    else
+    {
+      return 3;
     }
   }
 
-  if (v11 == v13)
+  v14 = 0;
+  while (1)
   {
-    result = 0;
+    memset(v34, 170, sizeof(v34));
+    v16 = v35;
+    v15 = v36;
+    result = DERDecodeSeqNext(&v35, v34);
+    if (result)
+    {
+      if (result == 1)
+      {
+        if (a2 <= v14)
+        {
+          return 0;
+        }
+
+        else
+        {
+          v29 = (a3 + 24 * v14 + 16);
+          v30 = a2 - v14;
+          result = 0;
+          while (1)
+          {
+            v31 = *v29;
+            v29 += 12;
+            if ((v31 & 1) == 0)
+            {
+              break;
+            }
+
+            if (!--v30)
+            {
+              return result;
+            }
+          }
+
+          return 5;
+        }
+      }
+
+      return result;
+    }
+
+    if (a2 <= v14)
+    {
+      return 2;
+    }
+
+    while (1)
+    {
+      if (24 * v14 > ~a3)
+      {
+        goto LABEL_58;
+      }
+
+      v18 = a3 + 24 * v14;
+      v19 = *(v18 + 16);
+      if ((v19 & 2) != 0 || v34[0] == *(v18 + 8))
+      {
+        break;
+      }
+
+      result = 2;
+      if ((v19 & 1) != 0 && a2 > ++v14)
+      {
+        continue;
+      }
+
+      return result;
+    }
+
+    if ((v19 & 4) == 0)
+    {
+      v20 = *v18;
+      v21 = *v18 + 16;
+      if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
+      {
+        return 7;
+      }
+
+      if (v20 > ~a4)
+      {
+        goto LABEL_58;
+      }
+
+      v23 = (a4 + v20);
+      v24 = v23 + 16;
+      if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
+      {
+        goto LABEL_59;
+      }
+
+      *v23 = *&v34[1];
+      if ((v19 & 8) != 0)
+      {
+        break;
+      }
+    }
+
+LABEL_35:
+    if (a2 == ++v14)
+    {
+      if (!__CFADD__(v34[1], v34[2]))
+      {
+        v32 = a1[1];
+        if (!__CFADD__(*a1, v32))
+        {
+          v11 = v34[1] + v34[2];
+          v13 = *a1 + v32;
+          goto LABEL_48;
+        }
+      }
+
+LABEL_58:
+      __break(0x5513u);
+      goto LABEL_59;
+    }
+
+    if (a2 <= v14)
+    {
+      v11 = v35;
+      v13 = v36;
+      goto LABEL_48;
+    }
   }
 
-  else
+  if (v16 < v34[1])
   {
-    result = 3;
+    v27 = *(v23 + 1);
+    v28 = v27 + v34[1] - v16;
+    if (__CFADD__(v27, v34[1] - v16))
+    {
+      __break(0x5500u);
+      return result;
+    }
+
+    if (v15 < v16 || v28 > v15 - v16)
+    {
+      goto LABEL_59;
+    }
+
+    *v23 = v16;
+    *(v23 + 1) = v28;
+    goto LABEL_35;
   }
 
-LABEL_51:
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  if (v15 < v16 || *(v23 + 1) > v15 - v16)
+  {
+    goto LABEL_59;
+  }
+
+  *v23 = v16;
+  return 3;
 }
 
 uint64_t DERParseSequence(uint64_t result, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5)
@@ -8102,30 +8441,29 @@ unint64_t *DERParseSequenceContent(unint64_t *result, unsigned int a2, uint64_t 
 
 uint64_t DERDecodeSequenceWithBlock(uint64_t a1, uint64_t a2)
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  memset(v5, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v5, 0);
+  v4[3] = *MEMORY[0x277D85DE8];
+  memset(v4, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v4, 0);
   if (!result)
   {
-    if (v5[0] - 0x2000000000000012 >= 0xFFFFFFFFFFFFFFFELL)
+    if (v4[0] - 0x2000000000000012 >= 0xFFFFFFFFFFFFFFFELL)
     {
-      result = DERDecodeSequenceContentWithBlock(&v5[1], a2);
+      return DERDecodeSequenceContentWithBlock(&v4[1], a2);
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t DERDecodeSequenceContentWithBlock(unint64_t *a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v10[0] = 0;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v9[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (__CFADD__(*a1, v3))
@@ -8141,41 +8479,36 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v10[0] = *a1;
-  v10[1] = v4;
-  memset(v9, 170, sizeof(v9));
-  v8 = 0;
+  v9[0] = *a1;
+  v9[1] = v4;
+  memset(v8, 170, sizeof(v8));
+  v7 = 0;
   do
   {
-    if (v8)
+    if (v7)
     {
-      result = 0;
-      goto LABEL_11;
+      return 0;
     }
 
-    LODWORD(result) = DERDecodeSeqNext(v10, v9);
+    LODWORD(result) = DERDecodeSeqNext(v9, v8);
     if (result)
     {
       break;
     }
 
-    LODWORD(result) = (*(a2 + 16))(a2, v9, &v8);
+    LODWORD(result) = (*(a2 + 16))(a2, v8, &v7);
   }
 
   while (!result);
   if (result <= 1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 BOOL DEROidCompare(uint64_t a1, uint64_t a2)
@@ -8193,105 +8526,99 @@ BOOL DEROidCompare(uint64_t a1, uint64_t a2)
 void ACFURTKitNVRMGenerator::init(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, a1, v3, v4, v5, v6, v7, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, a1, "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: NVRM allocation failure\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: NVRM allocation failure\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: max length reservation is not equal to the data buffer\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: max length reservation is not equal to the data buffer\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: could not allocate variable\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: could not allocate variable\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: unsupported NV flags\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: unsupported NV flags\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: header length check validation failed\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: header length check validation failed\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: data buffer is empty\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: data buffer is empty\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed: bad input parameter\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
-}
-
-void ACFURTKitNVRMGenerator::copy(ACFULogging *a1, uint64_t a2)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  v10 = *a1;
-  v11 = *(*a2 + 8);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: length reservation requirements not met (max: %d, actual:%d)\n", v5, v6, v7, v8, v9, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed: bad input parameter\n", "ACFURTKitNVRMGenerator", "init");
 }
 
 void ACFURTKitNVRMGenerator::add(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: cowardly retreating since overwrite was not requested\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: cowardly retreating since overwrite was not requested\n", "ACFURTKitNVRMGenerator", "add");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate NVRM data\n", v2, v3, v4, v5, v6, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate NVRM data\n", "ACFURTKitNVRMGenerator", "add");
 }
 
 void ACFUDiagnostics::init(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create debug directory (status: %d)\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create debug directory (status: %d)\n", "ACFUDiagnostics", "init", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate debugPathToCreate\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate debugPathToCreate\n", "ACFUDiagnostics", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate fDebugLogPath\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate fDebugLogPath\n", "ACFUDiagnostics", "init");
 }
 
 void ACFUDiagnostics::saveLogFile(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to write data to output URL (%d)\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to write data to output URL (%d)\n", "ACFUDiagnostics", "saveLogFile", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: bad parameter: there is no data in the container\n", v3, v4, v5, v6, v7, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter: there is no data in the container\n", "ACFUDiagnostics", "saveLogFile");
 
   CFRelease(a1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create output URL\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create output URL\n", "ACFUDiagnostics", "saveLogFile");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: bad parameter: inputs to function are invalid\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter: inputs to function are invalid\n", "ACFUDiagnostics", "saveLogFile");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no debug log path provided by restore\n", v2, v3, v4, v5, v6, "ACFUDiagnostics");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no debug log path provided by restore\n", "ACFUDiagnostics", "saveLogFile");
 }
 
 void ACFURestore::getStepName(void **a1)
@@ -8311,44 +8638,46 @@ void ACFURestore::getStepName(void **a1)
 
 void ACFURestore::copyFDRTrustObjectDigest(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to decode manifest object (status: %d)\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to decode manifest object (status: %d)\n", "ACFURestore", "copyFDRTrustObjectDigest", v1);
+}
+
+{
+  v1 = a1;
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to decode manifest property object (status: %d)\n", "ACFURestore", "copyFDRTrustObjectDigest", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to decode manifest property object (status: %d)\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate hash digest\n", "ACFURestore", "copyFDRTrustObjectDigest");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate hash digest\n", v2, v3, v4, v5, v6, "ACFURestore");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get AP ticket\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get AP ticket\n", "ACFURestore", "copyFDRTrustObjectDigest");
 }
 
 void ACFURestore::init(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: unexpected debug log path type\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: unexpected debug log path type\n", "ACFURestore", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ticket key is of unsupported type\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ticket key is of unsupported type\n", "ACFURestore", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: ticket key must be provided\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: ticket key must be provided\n", "ACFURestore", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to setup diagnostics\n", v2, v3, v4, v5, v6, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to setup diagnostics\n", "ACFURestore", "init");
 }
 
 uint64_t ACFUROM::init(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
@@ -8414,12 +8743,13 @@ uint64_t ACFUROM::init(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 void ACFUROM::bootFirmware(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware not present to boot\n", v2, v3, v4, v5, v6, "ACFUROM");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware not present to boot\n", "ACFUROM", "bootFirmware");
 }
 
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to push firmware (%d)\n", v2, v3, v4, v5, v6, "ACFUROM");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to push firmware (%d)\n", "ACFUROM", "bootFirmware", v1);
 }
 
 BOOL ACFUTransport::init(uint64_t a1, uint64_t *a2)
@@ -8448,70 +8778,71 @@ BOOL ACFUTransport::init(uint64_t a1, uint64_t *a2)
 void ACFUDataContainer::copyData(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: object does not hold any data\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: object does not hold any data\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: offset out of range\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: offset out of range\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create mutable data in unoptimized path\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create mutable data in unoptimized path\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create mutable data in optimized path\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create mutable data in optimized path\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
   v2 = __error();
-  strerror(*v2);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to map file: (%s)\n", v3, v4, v5, v6, v7, "ACFUDataContainer");
+  v3 = strerror(*v2);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to map file: (%s)\n", "ACFUDataContainer", "copyData", v3);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid file descriptor\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid file descriptor\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get backing length\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get backing length\n", "ACFUDataContainer", "copyData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid length value\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid length value\n", "ACFUDataContainer", "copyData");
 }
 
 void ACFUDataContainer::setData(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to overwrite file (%d)\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to overwrite file (%d)\n", "ACFUDataContainer", "setData", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create path url\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create path url\n", "ACFUDataContainer", "setData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file path has not been initialized\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file path has not been initialized\n", "ACFUDataContainer", "setData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed obtain new file data\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed obtain new file data\n", "ACFUDataContainer", "setData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: cannot setData for a memory optimized data container.\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: cannot setData for a memory optimized data container.\n", "ACFUDataContainer", "setData");
 }
 
 const __CFData *ACFUCommon::Parameter::GetDataAsType<unsigned char>(uint64_t a1, _BYTE *a2)
@@ -8573,25 +8904,25 @@ const __CFData *ACFUCommon::Parameter::GetDataAsType<unsigned short>(uint64_t a1
 void ACFUCommon::getFileSize(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get file stats\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get file stats\n", "ACFUCommon", "getFileSize");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
   v2 = __error();
-  strerror(*v2);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to open file (%s)\n", v3, v4, v5, v6, v7, "ACFUCommon");
+  v3 = strerror(*v2);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to open file (%s)\n", "ACFUCommon", "getFileSize", v3);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get file system reprensetation\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get file system reprensetation\n", "ACFUCommon", "getFileSize");
 }
 
 void *ACFUCommon::Parameter::dataAsString(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid destination size indicated\n", v3, v4, v5, v6, v7, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid destination size indicated\n", "ACFUCommon", "BinToHex");
 
   return std::string::basic_string[abi:ne200100]<0>(a1, "BORKED");
 }
@@ -8599,444 +8930,447 @@ void *ACFUCommon::Parameter::dataAsString(ACFULogging *a1)
 void ACFUCommon::createURLByAppendingStrings(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create url from string\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create url from string\n", "ACFUCommon", "createURLByAppendingStrings");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to append strings together\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to append strings together\n", "ACFUCommon", "createURLByAppendingStrings");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate strings to join array\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate strings to join array\n", "ACFUCommon", "createURLByAppendingStrings");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed with bad input parameters\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed with bad input parameters\n", "ACFUCommon", "createURLByAppendingStrings");
 }
 
 void ACFUCommon::createFileDatafromFilePath(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create file data from file path (status: %u)\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create file data from file path (status: %u)\n", "ACFUCommon", "createFileDatafromFilePath", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create url from string.\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create url from string.\n", "ACFUCommon", "createFileDatafromFilePath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file path provided.\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file path provided.\n", "ACFUCommon", "createFileDatafromFilePath");
 }
 
 void ACFUCommon::createMutableFileDatafromFilePath(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ferror(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file i/o error (code: %d)\n", v3, v4, v5, v6, v7, "ACFUCommon");
+  v3 = ferror(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file i/o error (code: %d)\n", "ACFUCommon", "createMutableFileDatafromFilePath", v3);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create mutable data\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create mutable data\n", "ACFUCommon", "createMutableFileDatafromFilePath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get file system reprensetation\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get file system reprensetation\n", "ACFUCommon", "openFileForRead");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: bad input file parameters\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad input file parameters\n", "ACFUCommon", "createMutableFileDatafromFilePath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file is empty (file size: %zu)\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file is empty (file size: %zu)\n", "ACFUCommon", "createMutableFileDatafromFilePath", 0);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create url from string\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create url from string\n", "ACFUCommon", "createMutableFileDatafromFilePath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file path provided\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file path provided\n", "ACFUCommon", "createMutableFileDatafromFilePath");
 }
 
 void ACFUCommon::parseDebugArgs(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid Type of Updater Options dict\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Invalid Type of Updater Options dict\n", "ACFUCommon", "parseDebugArgs");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid Type of DebugArgs\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Invalid Type of DebugArgs\n", "ACFUCommon", "parseDebugArgs");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Missing = for key: %s\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Missing = for key: %s\n", "ACFUCommon", "parseDebugArgs", a1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to get DebugArgs buffer\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to get DebugArgs buffer\n", "ACFUCommon", "parseDebugArgs");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Empty DebugArgs\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Empty DebugArgs\n", "ACFUCommon", "parseDebugArgs");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid arguments to parseDebugArgs\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Invalid arguments to parseDebugArgs\n", "ACFUCommon", "parseDebugArgs");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Empty options dict\n", v2, v3, v4, v5, v6, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Empty options dict\n", "ACFUCommon", "parseDebugArgs");
 }
 
 void ACFUFile::fileVersionLog(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: data exceeds local buffer size\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: data exceeds local buffer size\n", "ACFUFile", "fileVersionLog");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no data to log\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no data to log\n", "ACFUFile", "fileVersionLog");
 }
 
 void ACFUFile::saveToPath(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create directory to save firmware (status: %d)\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create directory to save firmware (status: %d)\n", "ACFUFile", "saveToPath", v1);
+}
+
+{
+  v1 = a1;
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to save file (%d)\n", "ACFUFile", "saveToPath", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to save file (%d)\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to write some or all of data\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to write some or all of data\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to obtain reference of data from data container\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to obtain reference of data from data container\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not create URL to file\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not create URL to file\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: cannot save data using optimized flow\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: cannot save data using optimized flow\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file data?!\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file data?!\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file name not specified\n", "ACFUFile", "saveToPath");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file name not specified\n", v2, v3, v4, v5, v6, "ACFUFile");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: bad parameters\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameters\n", "ACFUFile", "saveToPath");
 }
 
 void ACFUFile::init(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: data is of an unsupported type\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: data is of an unsupported type\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create data container\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create data container\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: bad parameter!\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad parameter!\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file name specified\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file name specified\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: data is of an unsupported type\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: data is of an unsupported type\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create data container\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create data container\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create ftab file path\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create ftab file path\n", "ACFUFile", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file name does not exist\n", v2, v3, v4, v5, v6, "ACFUFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file name does not exist\n", "ACFUFile", "init");
 }
 
 void ACFUTrace::getTrace()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     *(&qword_2814622B0 + 5) = 0;
     qword_2814622B0 = 0;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void ACFUFirmware::saveFirmware(ACFULogging *a1)
 {
+  v1 = a1;
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create directory to save firmware (status: %d)\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create directory to save firmware (status: %d)\n", "ACFUFirmware", "saveFirmware", v1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to save packaged firmware file\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to save packaged firmware file\n", "ACFUFirmware", "saveFirmware");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: savePath for FW not specified. This needs to be specified.\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: savePath for FW not specified. This needs to be specified.\n", "ACFUFirmware", "saveFirmware");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: fFirmwareFile has not been initialized.\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: fFirmwareFile has not been initialized.\n", "ACFUFirmware", "saveFirmware");
 }
 
 void ACFUFirmware::hashData(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: empty file\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: empty file\n", "ACFUFirmware", "hashData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: SHA512 failed\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: SHA512 failed\n", "ACFUFirmware", "hashData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: SHA384 failed\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: SHA384 failed\n", "ACFUFirmware", "hashData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: SHA256 failed\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: SHA256 failed\n", "ACFUFirmware", "hashData");
 }
 
 void ACFUFirmware::init(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to allocate measurements dict\n", v2, v3, v4, v5, v6, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to allocate measurements dict\n", "ACFUFirmware", "init");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, a1, v3, v4, v5, v6, v7, "ACFUFirmware");
+  ACFULogging::handleMessage(LogInstance, 2, a1, "ACFUFirmware", "init");
 }
 
 void ACFUFTABFile::setManifestOnData(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data is invalid and does not meet ftab standards\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data is invalid and does not meet ftab standards\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data container is invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data container is invalid\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: something went wrong, extra bytes in file\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: something went wrong, extra bytes in file\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: manifest data has no bytes\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: manifest data has no bytes\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no manifest input provided\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no manifest input provided\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function cannot directly manipulate file data with optimized flow\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function cannot directly manipulate file data with optimized flow\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data must be valid or firmware data must be provided\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data must be valid or firmware data must be provided\n", "ACFUFTABFile", "setManifestOnData");
 }
 
 void ACFUFTABFile::isValidFileData(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: manifest present beyond the bounds of the file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: manifest present beyond the bounds of the file data\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid FTAB file\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid FTAB file\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Payload is out of valid range\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Payload is out of valid range\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: File indicated is within header space\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: File indicated is within header space\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: payload is out of valid range\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: payload is out of valid range\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file indicated is within header space\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file indicated is within header space\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to acquire cf data byte pointer\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to acquire cf data byte pointer\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to acquire ftab file header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to acquire ftab file header\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: manifest present in space allocated for header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: manifest present in space allocated for header\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  v8 = *a1;
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: too many files specified or there are no files. Limit is %d. Num Files: %d\n", v3, v4, v5, v6, v7, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: too many files specified or there are no files. Limit is %d. Num Files: %d\n", "ACFUFTABFile", "isValidFileData", 192, *a1);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: header is bigger than the file\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: header is bigger than the file\n", "ACFUFTABFile", "isValidFileData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file is smaller than the ftab header size\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file is smaller than the ftab header size\n", "ACFUFTABFile", "isValidFileData");
 }
 
 void ACFUFTABFile::setManifestToTopOnData(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data is invalid and does not meet ftab standards\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data is invalid and does not meet ftab standards\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data container is invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data container is invalid\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed obtain new file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed obtain new file data\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not allocate data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not allocate data\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function cannot directly manipulate file data with optimized flow\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function cannot directly manipulate file data with optimized flow\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data must be valid or firmware data must be provided\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data must be valid or firmware data must be provided\n", "ACFUFTABFile", "setManifestToTopOnData");
 }
 
 void ACFUFTABFile::removeManifestPadding(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no manifest preset in dataref\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no manifest preset in dataref\n", "ACFUFTABFile", "removeManifestPadding");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no dataref\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no dataref\n", "ACFUFTABFile", "removeManifestPadding");
 }
 
 void ACFUFTABFile::isCacheValid(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: number of files in cache is invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: number of files in cache is invalid\n", "ACFUFTABFile", "isCacheValid");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab file header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab file header\n", "ACFUFTABFile", "isCacheValid");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab header\n", "ACFUFTABFile", "isCacheValid");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file data?!\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file data?!\n", "ACFUFTABFile", "isCacheValid");
 }
 
 void ACFUFTABFile::updateCache(ACFULogging *a1)
@@ -9044,45 +9378,45 @@ void ACFUFTABFile::updateCache(ACFULogging *a1)
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: specified tag name is invalid! Tag name: %s\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: specified tag name is invalid! Tag name: %s\n", v2, v3, v4);
 }
 
 void ACFUFTABFile::copyManifest(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab header\n", "ACFUFTABFile", "copyManifest");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "copyManifest");
 }
 
 void ACFUFTABFile::setBootNonce(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "setBootNonce");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", "ACFUFTABFile", "setBootNonce");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "setBootNonce");
 }
 
 void ACFUFTABFile::getBootNonce(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab header\n", "ACFUFTABFile", "getBootNonce");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "getBootNonce");
 }
 
 void ACFUFTABFile::addNewFileToFTABOnData(ACFULogging *a1)
@@ -9090,81 +9424,81 @@ void ACFUFTABFile::addNewFileToFTABOnData(ACFULogging *a1)
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data is invalid and does not meet ftab standards\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data is invalid and does not meet ftab standards\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data container is invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data container is invalid\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to obtain copy of manifest\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to obtain copy of manifest\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update manifest\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update manifest\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed obtain new file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed obtain new file data\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update file data\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update cache\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update cache\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not allocate data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not allocate data\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: cowardly retreating because tag '%s' exists in runtime MMIO File Data. I refuse to overwrite existing files!\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: cowardly retreating because tag '%s' exists in runtime MMIO File Data. I refuse to overwrite existing files!\n", v2, v3, v4);
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: cowardly retreating because tag '%s' exists. I refuse to overwrite existing files!\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: cowardly retreating because tag '%s' exists. I refuse to overwrite existing files!\n", v2, v3, v4);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data has no bytes\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data has no bytes\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data provided is not valid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data provided is not valid\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data must be valid or firmware data must be provided\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data must be valid or firmware data must be provided\n", "ACFUFTABFile", "addNewFileToFTABOnData");
 }
 
 void ACFUFTABFile::updateFileInFTABOnData(ACFULogging *a1)
@@ -9172,64 +9506,64 @@ void ACFUFTABFile::updateFileInFTABOnData(ACFULogging *a1)
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data is invalid and does not meet ftab standards\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data is invalid and does not meet ftab standards\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: cannot update a file if no files exist\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: cannot update a file if no files exist\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab header\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware data container is invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: firmware data container is invalid\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: cannot update tag '%s' because it does not exist\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: cannot update tag '%s' because it does not exist\n", v2, v3, v4);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to obtain copy of manifest\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to obtain copy of manifest\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update manifest\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update manifest\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: input data has no bytes\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: input data has no bytes\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data provided is not valid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data provided is not valid\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data must be valid or firmware data must be provided\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data must be valid or firmware data must be provided\n", "ACFUFTABFile", "updateFileInFTABOnData");
 }
 
 void ACFUFTABFile::removeFileFromFTAB(ACFULogging *a1)
@@ -9237,34 +9571,34 @@ void ACFUFTABFile::removeFileFromFTAB(ACFULogging *a1)
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag '%s' doesn't exist\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag '%s' doesn't exist\n", v2, v3, v4);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not remove file entry from ftab cache\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not remove file entry from ftab cache\n", "ACFUFTABFile", "removeFileFromFTAB");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "removeFileFromFTAB");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", "ACFUFTABFile", "removeFileFromFTAB");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "removeFileFromFTAB");
 }
 
 void ACFUFTABFile::moveFileToTop(ACFULogging *a1)
@@ -9272,504 +9606,158 @@ void ACFUFTABFile::moveFileToTop(ACFULogging *a1)
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag is either larger or smaller than limit %u (size: %lu)\n", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: tag '%s' doesn't exist\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: tag '%s' doesn't exist\n", v2, v3, v4);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: didn't find requested tag\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: didn't find requested tag\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   v3 = OUTLINED_FUNCTION_4(a1);
-  v9 = *(CFDataGetBytePtr(v2) + 4);
-  CFDataGetLength(v1);
-  ACFULogging::handleMessage(v3, 2u, "%s::%s: beginning manifest offset mismatch: %u != %ld\n", v4, v5, v6, v7, v8, "ACFUFTABFile");
+  v4 = *(CFDataGetBytePtr(v2) + 4);
+  Length = CFDataGetLength(v1);
+  ACFULogging::handleMessage(v3, 2, "%s::%s: beginning manifest offset mismatch: %u != %ld\n", "ACFUFTABFile", "moveFileToTop", v4, Length);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update file data\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to reinit cache\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to reinit cache\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  v8 = *(CFDataGetBytePtr(a1) + 13);
-  CFDataGetLength(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: first file offset mismatch: %u < %ld\n", v3, v4, v5, v6, v7, "ACFUFTABFile");
+  v3 = *(CFDataGetBytePtr(a1) + 13);
+  Length = CFDataGetLength(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: first file offset mismatch: %u < %ld\n", "ACFUFTABFile", "moveFileToTop", v3, Length);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create new data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create new data\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "moveFileToTop");
 }
 
 void ACFUFTABFile::initCache(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy file header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy file header\n", "ACFUFTABFile", "initCache");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab file header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab file header\n", "ACFUFTABFile", "initCache");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy ftab header\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy ftab header\n", "ACFUFTABFile", "initCache");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no file data?!\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: no file data?!\n", "ACFUFTABFile", "initCache");
 }
 
 void ACFUFTABFile::setFTABValidity(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: could not obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: could not obtain file data\n", "ACFUFTABFile", "setFTABValidity");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: function is not supported in memory optimized flow. Memory optimized files are read only\n", "ACFUFTABFile", "setFTABValidity");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "setFTABValidity");
 }
 
 void ACFUFTABFile::copyFWDataByName(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to retain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to retain file data\n", "ACFUFTABFile", "copyFWDataByName");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: specified tag name is invalid!\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: specified tag name is invalid!\n", "ACFUFTABFile", "copyFWDataByName");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy file data\n", "ACFUFTABFile", "copyFWDataByName");
 }
 
 {
   OUTLINED_FUNCTION_4(a1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: file '%s' does not exist\n", v2, v3, v4, v5, v6, v7);
+  ACFULogging::handleMessage(v1, 2, "%s::%s: file '%s' does not exist\n", v2, v3, v4);
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "copyFWDataByName");
 }
 
 void ACFUFTABFile::copyFirmwareContainer(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to add new file\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to add new file\n", "ACFUFTABFile", "copyFirmwareContainer");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to update file\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to update file\n", "ACFUFTABFile", "copyFirmwareContainer");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to obtain file data\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to obtain file data\n", "ACFUFTABFile", "copyFirmwareContainer");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "copyFirmwareContainer");
 }
 
 void ACFUFTABFile::getFileSizeByFileName(ACFULogging *a1)
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed obtain file size\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed obtain file size\n", "ACFUFTABFile", "getFileSizeByFileName");
 }
 
 {
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file data was invalid\n", v2, v3, v4, v5, v6, "ACFUFTABFile");
-}
-
-void ACFUDataAccess::createPersonalizedFirmwarePath(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create path to firmware directory\n", v2, v3, v4, v5, v6, "ACFUDataAccess");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get firmware root path\n", v2, v3, v4, v5, v6, "ACFUDataAccess");
-}
-
-void RTKitFirmware::init(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize base object\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create manifest\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create firmware\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to initialize base object\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: No save path specified\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-void RTKitFirmware::setFirmwareNonce(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Bad parameter\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid firmware file\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-void RTKitFirmware::openFirmwareInRestoreOptions(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Unrecognized CF object!\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to open firmware in restore options\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to find firmware in restore options\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-void RTKitFirmware::saveFirmware(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Failed to set ftab validity\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: No manifest provided with firmware. Manifest is required!\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Invalid firmware file\n", v2, v3, v4, v5, v6, "RTKitFirmware");
-}
-
-void ACFULogging::getLogInstance()
-{
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
-  {
-    ACFULogging::ACFULogging(&unk_2814622C8);
-    __cxa_atexit(ACFULogging::~ACFULogging, &unk_2814622C8, &dword_2402B0000);
-
-    __cxa_guard_release(&_MergedGlobals_0);
-  }
-}
-
-void ACFUACIPCTransport::init(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init ACFUTransport\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to create dispatch queue\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-void ACFUACIPCTransport::processWriteCommand(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: unexpected (too many) amount of bytes were received from device, bailing\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to send response to device error: 0x%x\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-void ACFUACIPCTransport::processDoneCommand(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file transfer session still not closed\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to send response to device error: 0x%x\n\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-void ACFUACIPCTransport::processCommandFromDevice(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to process read command\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to process close command\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to process open command for write\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to process open command for read\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid parameter (done)\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid parameter (acipcInterface)\n", v2, v3, v4, v5, v6, "ACFUACIPCTransport");
-}
-
-const __CFData *ACFUCommon::Parameter::GetDataAsType<unsigned long long>(uint64_t a1, void *a2)
-{
-  if (*(a1 + 8) != 1)
-  {
-    return 0;
-  }
-
-  result = *a1;
-  if (result)
-  {
-    BytePtr = CFDataGetBytePtr(result);
-    Length = CFDataGetLength(*a1);
-    if (Length > 8)
-    {
-      return 0;
-    }
-
-    else
-    {
-      *a2 = 0;
-      memcpy(a2, BytePtr, Length);
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-void ACFURTKitROM::init(std::__shared_weak_count **a1, std::__shared_weak_count **a2)
-{
-  v3 = *a1;
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  if (*a2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*a2);
-  }
-}
-
-void ACFURTKitROM::gatherPersonalizationParameters(ACFULogging *a1)
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to reset chip (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-void ACFURTKitROM::updateFirmware(ACFULogging *a1)
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: could not find firmware in restore options (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to read boot nonce from firmware\n", v3, v4, v5, v6, v7, "ACFURTKitROM");
-
-  CFRelease(a1);
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to reset chip (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to ping device after firmware push (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to perform preSave actions (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to save firmware (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to read boot nonce from firmware\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-uint64_t ACFURTKitROM::updateFirmware(ACFULogging *a1, uint64_t a2, ACFUFirmware **a3)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to boot firmware (%d)\n", v6, v7, v8, v9, v10, "ACFURTKitROM");
-  v11 = *(a2 + 40);
-  v12 = ACFUFirmware::copyFWContainer(*a3);
-  return ACFUDiagnostics::addItem(v11, @"ftab.bin", v12, 1);
-}
-
-void ACFURTKitROM::bootFirmware(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: firmware not present to boot\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to set the boot nonce (%d)\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: boot nonce missing\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-void ACFURTKitROM::copyManifestSigCert(ACFULogging *a1)
-{
-  ACFULogging::getLogInstance(a1);
-  OUTLINED_FUNCTION_0_0();
-  ACFULogging::handleMessage(v1, 2u, "%s::%s: failed to decode manifest: %d\n", v2, v3, v4, v5, v6, v7);
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: sig cert start falls before start of manifest\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: sig cert start falls after end of manifest\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: invalid sig cert length\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get manifest length\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to get manifest start\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no manifest\n", v2, v3, v4, v5, v6, "ACFURTKitROM");
-}
-
-const void *ACFURestoreHost::copyDataFromFileDictionary(ACFULogging *key, CFDictionaryRef theDict, int a3)
-{
-  if (!key)
-  {
-    LogInstance = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: key value not provided\n", v9, v10, v11, v12, v13, "ACFURestoreHost");
-    return 0;
-  }
-
-  if (!theDict)
-  {
-    v14 = ACFULogging::getLogInstance(key);
-    ACFULogging::handleMessage(v14, 2u, "%s::%s: firmware file dictionary not provided\n", v15, v16, v17, v18, v19, "ACFURestoreHost");
-    return 0;
-  }
-
-  Value = CFDictionaryGetValue(theDict, key);
-  v5 = Value;
-  if (a3)
-  {
-    if (Value)
-    {
-      AMSupportSafeRetain();
-    }
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x277CBECE8];
-    AMSupportCreateDataFromFileURL();
-    return 0;
-  }
-
-  return v5;
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file data was invalid\n", "ACFUFTABFile", "getFileSizeByFileName");
 }

@@ -4,6 +4,7 @@
 - (FMDSupportedAccessory)initWithCoder:(id)coder;
 - (FMDSupportedAccessory)initWithDictionary:(id)dictionary assetRegistry:(id)registry;
 - (FMDSupportedAccessory)initWithType:(id)type locationInfo:(id)info;
+- (FMDSupportedAccessory)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD profile:(int64_t)profile;
 - (FMDSupportedAccessory)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD profile:(int64_t)profile assets:(id)assets;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int64_t)profileForProfileName:(id)name;
@@ -243,6 +244,16 @@
   }
 
   return v9;
+}
+
+- (FMDSupportedAccessory)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD profile:(int64_t)profile
+{
+  v6 = *&iD;
+  dCopy = d;
+  v9 = +[NSMutableArray array];
+  v10 = [(FMDSupportedAccessory *)self initWithVendorID:dCopy productID:v6 profile:profile assets:v9];
+
+  return v10;
 }
 
 - (FMDSupportedAccessory)initWithVendorID:(unsigned __int16)d productID:(unsigned int)iD profile:(int64_t)profile assets:(id)assets

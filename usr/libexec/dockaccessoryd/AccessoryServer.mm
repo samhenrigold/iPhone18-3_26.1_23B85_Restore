@@ -41,7 +41,7 @@
 {
   serverCopy = server;
   selfCopy = self;
-  sub_100169790("accessoryServer:didReceiveBadPasswordThrottleAttemptsWithDelay");
+  sub_100169790("accessoryServer:didReceiveBadPasswordThrottleAttemptsWithDelay", selfCopy);
 }
 
 - (void)accessoryServer:(id)server didStopPairingWithError:(id)error
@@ -56,7 +56,7 @@
 {
   serverCopy = server;
   selfCopy = self;
-  sub_100169790("accessoryServer:updatePairingProgress");
+  sub_100169790("accessoryServer:updatePairingProgress", selfCopy);
 }
 
 - (void)accessoryServer:(id)server didDiscoverAccessories:(id)accessories transaction:(id)transaction error:(id)error
@@ -110,14 +110,14 @@
 {
   serverCopy = server;
   selfCopy = self;
-  sub_100169790("accessoryServer:didUpdateHasPairings");
+  sub_100169790("accessoryServer:didUpdateHasPairings", selfCopy);
 }
 
 - (void)accessoryServerDidUpdateStateNumber:(id)number
 {
   numberCopy = number;
   selfCopy = self;
-  sub_100169790("accessoryServerDidUpdateStateNumber");
+  sub_100169790("accessoryServerDidUpdateStateNumber", selfCopy);
 }
 
 - (void)accessoryServer:(id)server didUpdateCategory:(id)category
@@ -125,7 +125,7 @@
   serverCopy = server;
   categoryCopy = category;
   selfCopy = self;
-  sub_100169790("accessoryServer:didUpdateCategory");
+  sub_100169790("accessoryServer:didUpdateCategory", selfCopy);
 }
 
 - (void)accessoryServer:(id)server didUpdateName:(id)name
@@ -137,26 +137,25 @@
 
   serverCopy = server;
   selfCopy = self;
-  sub_100169790("accessoryServer:didUpdateName");
+  sub_100169790("accessoryServer:didUpdateName", v8);
 }
 
 - (void)accessoryServer:(id)server validateUUID:(id)d token:(id)token model:(id)model
 {
   v11 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v28 - v13;
+  v13 = &v27 - v12;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v15 = type metadata accessor for UUID();
-    (*(*(v15 - 8) + 56))(v14, 0, 1, v15);
+    v14 = type metadata accessor for UUID();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
   }
 
   else
   {
-    v16 = type metadata accessor for UUID();
-    (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
+    v15 = type metadata accessor for UUID();
+    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
   }
 
   serverCopy = server;
@@ -164,15 +163,15 @@
   {
     modelCopy = model;
     selfCopy = self;
-    v22 = 0xF000000000000000;
+    v21 = 0xF000000000000000;
     if (model)
     {
       goto LABEL_6;
     }
 
 LABEL_8:
-    v23 = 0;
-    v25 = 0;
+    v22 = 0;
+    v24 = 0;
     goto LABEL_9;
   }
 
@@ -180,7 +179,7 @@ LABEL_8:
   modelCopy2 = model;
   selfCopy2 = self;
   token = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v22 = v21;
+  v21 = v20;
 
   if (!model)
   {
@@ -188,15 +187,15 @@ LABEL_8:
   }
 
 LABEL_6:
-  v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v25 = v24;
+  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v24 = v23;
 
 LABEL_9:
-  sub_100160974(serverCopy, v14, token, v22, v23, v25);
+  sub_100160974(serverCopy, v13, token, v21, v22, v24);
 
-  sub_1000A452C(token, v22);
+  sub_1000A452C(token, v21);
 
-  sub_100095C84(v14, &qword_1002A7AF0, &qword_10023C9D0);
+  sub_100095C84(v13, &qword_1002A7AF0, &qword_10023C9D0);
 }
 
 - (void)accessoryServer:(id)server validateCert:(id)cert model:(id)model
@@ -230,7 +229,7 @@ LABEL_3:
   }
 
 LABEL_5:
-  sub_100169790("accessoryServer:validateCert");
+  sub_100169790("accessoryServer:validateCert", v14);
 
   sub_1000A452C(certCopy, v13);
 }
@@ -238,20 +237,19 @@ LABEL_5:
 - (void)accessoryServer:(id)server authenticateUUID:(id)d token:(id)token
 {
   v9 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
+  v11 = &v20 - v10;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for UUID();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = type metadata accessor for UUID();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = type metadata accessor for UUID();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   serverCopy = server;
@@ -260,38 +258,37 @@ LABEL_5:
     tokenCopy = token;
     selfCopy = self;
     token = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = v18;
+    v18 = v17;
   }
 
   else
   {
     selfCopy2 = self;
-    v19 = 0xF000000000000000;
+    v18 = 0xF000000000000000;
   }
 
   sub_1001694C4(serverCopy);
-  sub_1000A452C(token, v19);
+  sub_1000A452C(token, v18);
 
-  sub_100095C84(v12, &qword_1002A7AF0, &qword_10023C9D0);
+  sub_100095C84(v11, &qword_1002A7AF0, &qword_10023C9D0);
 }
 
 - (void)accessoryServer:(id)server confirmUUID:(id)d token:(id)token
 {
   v9 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
+  v11 = &v20 - v10;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for UUID();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = type metadata accessor for UUID();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = type metadata accessor for UUID();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
   serverCopy = server;
@@ -300,19 +297,19 @@ LABEL_5:
     tokenCopy = token;
     selfCopy = self;
     token = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = v18;
+    v18 = v17;
   }
 
   else
   {
     selfCopy2 = self;
-    v19 = 0xF000000000000000;
+    v18 = 0xF000000000000000;
   }
 
-  sub_100161618(serverCopy, v12, token, v19);
-  sub_1000A452C(token, v19);
+  sub_100161618(serverCopy, v11, token, v18);
+  sub_1000A452C(token, v18);
 
-  sub_100095C84(v12, &qword_1002A7AF0, &qword_10023C9D0);
+  sub_100095C84(v11, &qword_1002A7AF0, &qword_10023C9D0);
 }
 
 - (void)accessoryServer:(id)server didFinishAuth:(id)auth
@@ -327,7 +324,7 @@ LABEL_5:
 {
   tokenCopy = token;
   selfCopy = self;
-  sub_100169790("accessoryServerNeedsOwnershipToken");
+  sub_100169790("accessoryServerNeedsOwnershipToken", selfCopy);
 }
 
 @end

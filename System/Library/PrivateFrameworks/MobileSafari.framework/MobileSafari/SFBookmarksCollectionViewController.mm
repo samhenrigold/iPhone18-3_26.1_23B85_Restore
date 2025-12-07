@@ -60,7 +60,7 @@
 {
   appearCopy = appear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SFBookmarksCollectionViewController();
+  v6.super_class = type metadata accessor for SFBookmarksCollectionViewController(0);
   v4 = v6.receiver;
   [(SFBookmarksCollectionViewController *)&v6 viewWillAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC12MobileSafari35SFBookmarksCollectionViewController_collectionView];
@@ -80,7 +80,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SFBookmarksCollectionViewController();
+  v7.super_class = type metadata accessor for SFBookmarksCollectionViewController(0);
   v4 = v7.receiver;
   [(SFBookmarksCollectionViewController *)&v7 viewDidAppear:appearCopy];
   v4[OBJC_IVAR____TtC12MobileSafari35SFBookmarksCollectionViewController_needsContentOffsetUpdate] = 0;
@@ -100,7 +100,7 @@
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SFBookmarksCollectionViewController();
+  v3.super_class = type metadata accessor for SFBookmarksCollectionViewController(0);
   v2 = v3.receiver;
   [(SFBookmarksCollectionViewController *)&v3 viewDidLayoutSubviews];
   sub_18BA99B28();
@@ -116,7 +116,7 @@
 {
   if (sub_18BAA22E8())
   {
-    sub_18B7B0AC0(0, &qword_1EA9D7FF0);
+    sub_18B7B0AC0(0, &qword_1EA9D7FF0, 0x1E69DCBA0);
     v2 = sub_18BC20D88();
   }
 
@@ -162,7 +162,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = SFBookmarksCollectionViewController.collectionView(_:shouldSelectItemAt:)(viewCopy);
+  LOBYTE(self) = SFBookmarksCollectionViewController.collectionView(_:shouldSelectItemAt:)(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -191,7 +191,7 @@
     if (sub_18B81CA10(v14) != 1)
     {
       (v14[13])();
-      sub_18B988BAC(v13, &qword_1EA9D7E00);
+      sub_18B988BAC(v13, &qword_1EA9D7E00, &qword_18BC49FE8);
     }
   }
 
@@ -223,7 +223,7 @@
   sub_18BC1ED88();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_18BAA2620();
+  LOBYTE(self) = sub_18BAA2620(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -245,7 +245,7 @@
   if (sub_18B81CA10(v14) != 1)
   {
     (v14[13])();
-    sub_18B988BAC(v13, &qword_1EA9D7E00);
+    sub_18B988BAC(v13, &qword_1EA9D7E00, &qword_18BC49FE8);
   }
 
   (*(v6 + 8))(v8, v5);
@@ -370,7 +370,7 @@
       (v16[31])();
     }
 
-    sub_18B988BAC(v15, &qword_1EA9D7E00);
+    sub_18B988BAC(v15, &qword_1EA9D7E00, &qword_18BC49FE8);
   }
 
   (*(v7 + 8))(v9, v6);
@@ -399,7 +399,7 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  LOBYTE(self) = sub_18BAA2BB8();
+  LOBYTE(self) = sub_18BAA2BB8(v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
@@ -446,7 +446,7 @@
   sub_18BA9D1E0(v9, 1);
 
   (*(v7 + 8))(v9, v6);
-  sub_18B7B0AC0(0, &qword_1EA9D7CE0);
+  sub_18B7B0AC0(0, &qword_1EA9D7CE0, 0x1E69DC990);
   v11 = sub_18BC20D88();
 
   return v11;
@@ -463,7 +463,7 @@
   sub_18BA9D1E0(v10, 0);
 
   (*(v8 + 8))(v10, v7);
-  sub_18B7B0AC0(0, &qword_1EA9D7CE0);
+  sub_18B7B0AC0(0, &qword_1EA9D7CE0, 0x1E69DC990);
   v12 = sub_18BC20D88();
 
   return v12;
@@ -496,7 +496,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D5BD0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA9D5BD0, &qword_18BC42210);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -518,7 +518,7 @@
   v16 = SFBookmarksCollectionViewController.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_18B988BAC(v11, &unk_1EA9D5BD0);
+  sub_18B988BAC(v11, &unk_1EA9D5BD0, &qword_18BC42210);
 
   return v16;
 }

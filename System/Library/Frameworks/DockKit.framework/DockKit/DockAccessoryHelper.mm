@@ -16,7 +16,7 @@
   v13 = sub_2381CA1DC();
   infoCopy = info;
   selfCopy = self;
-  sub_2381C4270(timestamp, infoCopy, v11, v12, v13);
+  sub_2381C4270(infoCopy, v11, v12, v13, timestamp);
 }
 
 - (void)systemEventDataWithInfo:(id)info data:(id)data
@@ -40,7 +40,7 @@
   infoCopy = info;
   dataCopy = data;
   selfCopy = self;
-  sub_2381A6CDC();
+  sub_2381A6CDC(infoCopy, dataCopy);
 }
 
 - (void)trajectoryProgressFeedbackWithInfo:(id)info system:(id)system progress:(id)progress

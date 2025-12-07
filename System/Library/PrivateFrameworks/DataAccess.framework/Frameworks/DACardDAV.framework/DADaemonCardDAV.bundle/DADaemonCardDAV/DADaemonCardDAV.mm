@@ -1,4 +1,4 @@
-BOOL sub_1910(uint64_t a1, const void *a2, signed int a3, int a4, uint64_t a5, void *a6)
+BOOL sub_1910(uint64_t a1, const void *a2, signed int a3, unsigned int a4, uint64_t a5, void *a6)
 {
   v10 = a6;
   v11 = DALoggingwithCategory();
@@ -86,40 +86,34 @@ LABEL_25:
 
 const void *sub_1B9C(void *a1)
 {
-  v8[0] = kABChangeHistoryChangeTableRowIDsKey;
-  v8[1] = kABChangeHistorySequenceNumbersKey;
-  v8[2] = kABChangeHistoryRecordGUIDsKey;
-  [NSArray arrayWithObjects:v8 count:3];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v4[0] = kABChangeHistoryChangeTableRowIDsKey;
+  v4[1] = kABChangeHistorySequenceNumbersKey;
+  v4[2] = kABChangeHistoryRecordGUIDsKey;
+  [NSArray arrayWithObjects:v4 count:3];
   EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-  v6 = EntityChangesSinceSequenceNumberForClient;
+  v2 = EntityChangesSinceSequenceNumberForClient;
   if (EntityChangesSinceSequenceNumberForClient)
   {
     CFRetain(EntityChangesSinceSequenceNumberForClient);
   }
 
-  return v6;
+  return v2;
 }
 
 const void *sub_1C64(void *a1)
 {
-  v8[0] = kABChangeHistoryChangeTableRowIDsKey;
-  v8[1] = kABChangeHistorySequenceNumbersKey;
-  v8[2] = kABChangeHistoryRecordGUIDsKey;
-  [NSArray arrayWithObjects:v8 count:3];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v4[0] = kABChangeHistoryChangeTableRowIDsKey;
+  v4[1] = kABChangeHistorySequenceNumbersKey;
+  v4[2] = kABChangeHistoryRecordGUIDsKey;
+  [NSArray arrayWithObjects:v4 count:3];
   EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-  v6 = EntityChangesSinceSequenceNumberForClient;
+  v2 = EntityChangesSinceSequenceNumberForClient;
   if (EntityChangesSinceSequenceNumberForClient)
   {
     CFRetain(EntityChangesSinceSequenceNumberForClient);
   }
 
-  return v6;
+  return v2;
 }
 
 void sub_343C(id a1)
@@ -129,7 +123,7 @@ void sub_343C(id a1)
   _objc_release_x1();
 }
 
-id sub_3E90(uint64_t a1, int a2)
+id sub_3E90(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   if (a2)
@@ -214,27 +208,27 @@ void sub_4874(uint64_t a1)
   if (os_log_type_enabled(v2, v3))
   {
     v4 = [*(a1 + 32) publicDescription];
-    v8 = 138543362;
-    v9 = v4;
-    _os_log_impl(&dword_0, v2, v3, "reachability indicates that the network is reachable.  We're going to retry our folder sync with %{public}@.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_0, v2, v3, "reachability indicates that the network is reachable.  We're going to retry our folder sync with %{public}@.", &v7, 0xCu);
   }
 
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() os_log_summary];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = [objc_opt_class() os_log_summary];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Network is now reachable; sync will occur", &v8, 2u);
+    LOWORD(v7) = 0;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Network is now reachable; sync will occur", &v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _validateAndSync:0];
 }
 
-void sub_6298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
+void sub_6298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
 {
+  va_start(va, a49);
   _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a50, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -407,18 +401,19 @@ id sub_9E58(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-void sub_A504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_A504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a53, 8);
   _Block_object_dispose(&a57, 8);
-  _Block_object_dispose(&a61, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_A594(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = a2;
+  v21 = a2;
   v7 = a3;
   v8 = a4;
   if (v7)
@@ -478,8 +473,6 @@ LABEL_9:
     v20 = +[DALocalDBGateKeeper sharedGateKeeper];
     [v20 relinquishLocksForWaiter:*(a1 + 32) dataclasses:2 moreComing:0];
 
-    v21 = *(*(*(a1 + 56) + 8) + 24);
-    v22 = *(*(*(a1 + 64) + 8) + 24);
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -680,7 +673,7 @@ void sub_B52C(id a1)
   _objc_release_x1();
 }
 
-id sub_CDA4(uint64_t a1)
+NSMutableDictionary *sub_CDA4(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = *(a1 + 32);
@@ -1045,6 +1038,13 @@ uint64_t sub_17E6C(const void *a1, int a2)
   return result;
 }
 
+void sub_1A0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1A1A8(uint64_t a1, uint64_t a2)
 {
   if (!*(*(*(a1 + 56) + 8) + 24))
@@ -1158,33 +1158,31 @@ void sub_1B2AC(id a1)
 void sub_1B708(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v17 = [v3 itemChangeType];
-    v18 = 1024;
-    v19 = [v3 changeId];
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "discarding existing CONTACT DAAction of type: %ld change: %d", buf, 0x12u);
+    v15 = [v3 itemChangeType];
+    v16 = 1024;
+    v17 = [v3 changeId];
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "discarding existing CONTACT DAAction of type: %ld change: %d", buf, 0x12u);
   }
 
-  v6 = [[CNChangeHistoryClearRequest alloc] initWithClientIdentifier:*(a1 + 40)];
-  v7 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 changeId]);
-  v15 = v7;
-  v8 = [NSArray arrayWithObjects:&v15 count:1];
-  [v6 setContactChangeIDs:v8];
+  v5 = [[CNChangeHistoryClearRequest alloc] initWithClientIdentifier:*(a1 + 40)];
+  v6 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 changeId]);
+  v13 = v6;
+  v7 = [NSArray arrayWithObjects:&v13 count:1];
+  [v5 setContactChangeIDs:v7];
 
-  v9 = [*(a1 + 32) contactStore];
-  v14 = 0;
-  v10 = [v9 executeChangeHistoryClearRequest:v6 error:&v14];
-  v11 = v14;
+  v8 = [*(a1 + 32) contactStore];
+  v12 = 0;
+  v9 = [v8 executeChangeHistoryClearRequest:v5 error:&v12];
+  v10 = v12;
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v12 = *(a1 + 32);
-    v13 = [objc_opt_class() os_log];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = [objc_opt_class() os_log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_25944();
     }
@@ -1194,42 +1192,40 @@ void sub_1B708(uint64_t a1, void *a2)
 void sub_1B8E0(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v17 = [v3 itemChangeType];
-    v18 = 1024;
-    v19 = [v3 changeId];
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "discarding existing GROUP DAAction of type: %ld change: %d", buf, 0x12u);
+    v15 = [v3 itemChangeType];
+    v16 = 1024;
+    v17 = [v3 changeId];
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "discarding existing GROUP DAAction of type: %ld change: %d", buf, 0x12u);
   }
 
-  v6 = [[CNChangeHistoryClearRequest alloc] initWithClientIdentifier:*(a1 + 40)];
-  v7 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 changeId]);
-  v15 = v7;
-  v8 = [NSArray arrayWithObjects:&v15 count:1];
-  [v6 setGroupChangeIDs:v8];
+  v5 = [[CNChangeHistoryClearRequest alloc] initWithClientIdentifier:*(a1 + 40)];
+  v6 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v3 changeId]);
+  v13 = v6;
+  v7 = [NSArray arrayWithObjects:&v13 count:1];
+  [v5 setGroupChangeIDs:v7];
 
-  v9 = [*(a1 + 32) contactStore];
-  v14 = 0;
-  v10 = [v9 executeChangeHistoryClearRequest:v6 error:&v14];
-  v11 = v14;
+  v8 = [*(a1 + 32) contactStore];
+  v12 = 0;
+  v9 = [v8 executeChangeHistoryClearRequest:v5 error:&v12];
+  v10 = v12;
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v12 = *(a1 + 32);
-    v13 = [objc_opt_class() os_log];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = [objc_opt_class() os_log];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_25944();
     }
   }
 }
 
-void sub_1C3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C3F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1247,10 +1243,11 @@ void sub_1D544(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v4, OS_LOG_TYPE_ERROR, a4, v5, 0xCu);
 }
 
-void sub_1D564(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1D564(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1DFD8(id a1)
@@ -1397,8 +1394,8 @@ void sub_2052C(uint64_t a1, uint64_t a2, int a3)
 LABEL_28:
 
 LABEL_29:
-        v30 = +[DALocalDBGateKeeper sharedGateKeeper];
-        [v30 relinquishLocksForWaiter:*(a1 + 32) dataclasses:2 moreComing:0];
+        v29 = +[DALocalDBGateKeeper sharedGateKeeper];
+        [v29 relinquishLocksForWaiter:*(a1 + 32) dataclasses:2 moreComing:0];
 
         return;
       }
@@ -1411,28 +1408,28 @@ LABEL_29:
       v12 = [*(a1 + 32) containerProvider];
       v13 = [v12 allContainers];
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v14 = v13;
-      v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v15)
       {
         v16 = v15;
-        v31 = v10;
-        v32 = v4;
-        v17 = *v35;
+        v30 = v10;
+        v31 = v4;
+        v17 = *v34;
         while (2)
         {
           for (i = 0; i != v16; i = i + 1)
           {
-            if (*v35 != v17)
+            if (*v34 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v34 + 1) + 8 * i);
+            v19 = *(*(&v33 + 1) + 8 * i);
             if ([v19 isLocal])
             {
               v20 = [*(a1 + 32) contactsProvider];
@@ -1450,23 +1447,22 @@ LABEL_29:
                 }
 
                 [v19 setType:4];
-                v25 = *(a1 + 32);
-                v26 = [objc_opt_class() addressBookConstraintsPlistPath];
-                [v19 setConstraintsPath:v26];
+                v25 = [objc_opt_class() addressBookConstraintsPlistPath];
+                [v19 setConstraintsPath:v25];
 
-                v27 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 legacyIdentifier]);
-                v28 = [v27 stringValue];
-                [v19 setAccountIdentifier:v28];
+                v26 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 legacyIdentifier]);
+                v27 = [v26 stringValue];
+                [v19 setAccountIdentifier:v27];
 
                 [v19 markAsDefault];
                 v5 = &cn_objectResultWithObjectLock_ptr;
-                v10 = v31;
-                v4 = v32;
+                v10 = v30;
+                v4 = v31;
                 if (+[DABehaviorOptions useContactsFramework])
                 {
-                  v29 = objc_alloc_init(CNSaveRequest);
-                  [v19 updateSaveRequest:v29];
-                  [v32 addSaveRequest:v29];
+                  v28 = objc_alloc_init(CNSaveRequest);
+                  [v19 updateSaveRequest:v28];
+                  [v31 addSaveRequest:v28];
                 }
 
                 v11 = 1;
@@ -1475,7 +1471,7 @@ LABEL_29:
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v16)
           {
             continue;
@@ -1485,8 +1481,8 @@ LABEL_29:
         }
 
         v11 = 0;
-        v10 = v31;
-        v4 = v32;
+        v10 = v30;
+        v4 = v31;
         v5 = &cn_objectResultWithObjectLock_ptr;
       }
 
@@ -1591,9 +1587,9 @@ void sub_234BC(id a1)
   _objc_release_x1();
 }
 
-void sub_23BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1627,9 +1623,9 @@ void sub_24344(uint64_t a1, void *a2)
   [v2 addObject:v4];
 }
 
-void sub_245F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_245F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

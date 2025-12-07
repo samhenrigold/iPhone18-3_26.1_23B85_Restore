@@ -128,7 +128,7 @@
     v19 = lsCopy;
     if ([v19 countByEnumeratingWithState:v32 objects:v34 count:16])
     {
-      [*v32[1] URLByAppendingPathComponent:@"mt-quasar-config.json"];
+      [*v32[0].super_class URLByAppendingPathComponent:@"mt-quasar-config.json"];
       objc_claimAutoreleasedReturnValue();
       quasar::SystemConfig::SystemConfig(v31);
     }
@@ -149,16 +149,21 @@
   return v21;
 }
 
-void __108__EMTTranslator_initWithModelURLs_task_skipNonFinalToCatchup_translatorCacheSize_useGlobalTranslationQueue___block_invoke(uint64_t a1)
+void __108__EMTTranslator_initWithModelURLs_task_skipNonFinalToCatchup_translatorCacheSize_useGlobalTranslationQueue___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v1 ear_toString];
+    objc_msgSend_ear_toString(v3, a2);
   }
 
-  quasar::TranslatorFactory::createTranslatorFactory((v2 + 56));
+  else
+  {
+    memset(__p, 0, sizeof(__p));
+  }
+
+  quasar::TranslatorFactory::createTranslatorFactory((v4 + 56), __p, *(a1 + 48));
 }
 
 - (void)loadTranslatorFrom:(id)from to:(id)to
@@ -187,11 +192,11 @@ void __39__EMTTranslator_loadTranslatorFrom_to___block_invoke(uint64_t a1)
   v5 = *(*(a1 + 48) + 8);
   if (v2)
   {
-    [v2 ear_toString];
+    objc_msgSend_ear_toString(v2);
     if (v4)
     {
 LABEL_3:
-      [v4 ear_toString];
+      objc_msgSend_ear_toString(v4);
       goto LABEL_6;
     }
   }
@@ -274,11 +279,11 @@ void __42__EMTTranslator_isCompileRequiredFrom_to___block_invoke(uint64_t a1)
   v5 = *(*(a1 + 48) + 8);
   if (v2)
   {
-    [v2 ear_toString];
+    objc_msgSend_ear_toString(v2);
     if (v4)
     {
 LABEL_3:
-      [v4 ear_toString];
+      objc_msgSend_ear_toString(v4);
       goto LABEL_6;
     }
   }
@@ -368,56 +373,56 @@ void __52__EMTTranslator_translateSpeech_from_to_completion___block_invoke(uint6
   dispatch_async(translationQueue, v23);
 }
 
-void __60__EMTTranslator_translateString_from_to_options_completion___block_invoke(void *a1)
+void __60__EMTTranslator_translateString_from_to_options_completion___block_invoke(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  if (v2)
+  v3 = a1[4];
+  if (v3)
   {
-    [v2 _tokenizeString:a1[5]];
-    v3 = a1[4];
-    if (v3)
+    objc_msgSend__tokenizeString_(v3, a2, a1[5]);
+    v4 = a1[4];
+    if (v4)
     {
-      [v3 _prepareFor:a1[6] to:a1[7]];
-      v4 = a1[4];
+      objc_msgSend__prepareFor_to_(v4);
+      v5 = a1[4];
       goto LABEL_6;
     }
   }
 
   else
   {
-    v10 = 0;
     v11 = 0;
     v12 = 0;
+    v13 = 0;
   }
 
-  v4 = 0;
-  v8 = 0;
+  v5 = 0;
   v9 = 0;
+  v10 = 0;
 LABEL_6:
-  memset(v7, 0, sizeof(v7));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v7, v10, v11, 0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3));
-  v5 = v8;
+  memset(v8, 0, sizeof(v8));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v8, v11, v12, 0xAAAAAAAAAAAAAAABLL * ((v12 - v11) >> 3));
   v6 = v9;
-  if (v9)
+  v7 = v10;
+  if (v10)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  [v4 _dispatchTranslationRequest:v7 isFinal:1 spans:0 translator:&v5 sourceLocale:a1[6] targetLocale:a1[7] options:a1[8] completion:a1[9]];
-  if (v6)
+  [v5 _dispatchTranslationRequest:v8 isFinal:1 spans:0 translator:&v6 sourceLocale:a1[6] targetLocale:a1[7] options:a1[8] completion:a1[9]];
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  v13 = v7;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
-  if (v9)
+  v14 = v8;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+  if (v10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  v8 = &v10;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v8);
+  v9 = &v11;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v9);
 }
 
 - (void)translateTokens:(id)tokens from:(id)from to:(id)to spans:(id)spans options:(id)options completion:(id)completion
@@ -476,7 +481,7 @@ void __66__EMTTranslator_translateTokens_from_to_spans_options_completion___bloc
         v6 = *(*(&v14 + 1) + 8 * i);
         if (v6)
         {
-          [v6 ear_toString];
+          objc_msgSend_ear_toString(v6);
         }
 
         else
@@ -501,7 +506,7 @@ void __66__EMTTranslator_translateTokens_from_to_spans_options_completion___bloc
   v7 = *(a1 + 40);
   if (v7)
   {
-    [v7 _prepareFor:*(a1 + 48) to:*(a1 + 56)];
+    objc_msgSend__prepareFor_to_(v7);
     v8 = *(a1 + 40);
   }
 
@@ -588,7 +593,7 @@ void __66__EMTTranslator_translateTokens_isFinal_spans_options_completion___bloc
         v6 = *(*(&v17 + 1) + 8 * i);
         if (v6)
         {
-          [v6 ear_toString];
+          objc_msgSend_ear_toString(v6);
         }
 
         else
@@ -654,12 +659,12 @@ void __66__EMTTranslator_translateTokens_isFinal_spans_options_completion___bloc
   dispatch_async(translationQueue, block);
 }
 
-void __31__EMTTranslator_prepareFor_to___block_invoke(uint64_t a1)
+void __31__EMTTranslator_prepareFor_to___block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _prepareFor:*(a1 + 40) to:*(a1 + 48)];
-  if (v1)
+  objc_msgSend__prepareFor_to_(*(a1 + 32), a2, *(a1 + 40), *(a1 + 48));
+  if (v2)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 }
 
@@ -692,7 +697,7 @@ void __31__EMTTranslator_prepareFor_to___block_invoke(uint64_t a1)
         v11 = lowercaseString;
         if (lowercaseString)
         {
-          [lowercaseString ear_toString];
+          objc_msgSend_ear_toString(lowercaseString);
         }
 
         else
@@ -749,11 +754,11 @@ void __31__EMTTranslator_prepareFor_to___block_invoke(uint64_t a1)
   ptr = self->_translatorFactory.__ptr_;
   if (localeIdentifier)
   {
-    [localeIdentifier ear_toString];
+    objc_msgSend_ear_toString(localeIdentifier);
     if (v14)
     {
 LABEL_10:
-      [v14 ear_toString];
+      objc_msgSend_ear_toString(v14);
       goto LABEL_13;
     }
   }
@@ -1156,7 +1161,7 @@ void __115__EMTTranslator__dispatchTranslationRequest_isFinal_spans_translator_s
         v51 = v50;
         if (v50)
         {
-          [v50 data];
+          objc_msgSend_data(v50);
         }
 
         else
@@ -1178,7 +1183,7 @@ void __115__EMTTranslator__dispatchTranslationRequest_isFinal_spans_translator_s
         v54 = v53;
         if (v53)
         {
-          [v53 sourceSideData];
+          objc_msgSend_sourceSideData(v53);
         }
 
         else
@@ -1365,7 +1370,7 @@ LABEL_104:
 
                     __src.__r_.__value_.__r.__words[0] = &v196;
                     p_src = (off_1F2D315E8[v89])(&__src);
-                    std::__tree<std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>,std::__map_value_compare<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>,std::less<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>>,true>,std::allocator<std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>>>::__emplace_hint_unique_key_args<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>&,EMTAlternativeDescription * {__strong}&>(&v147, v148, &v145);
+                    std::__tree<std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>,std::__map_value_compare<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>,std::less<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>>,true>,std::allocator<std::__value_type<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,EMTAlternativeDescription * {__strong}>>>::__emplace_hint_unique_key_args<std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>,std::shared_ptr<std::variant<quasar::AlternativeSelectionSpan::Alternative::GenderDescription,quasar::AlternativeSelectionSpan::Alternative::MeaningDescription>>&,EMTAlternativeDescription * {__strong}&>(&v147, v148, &v145, &v145, &p_src);
                     v90 = p_src;
                   }
 

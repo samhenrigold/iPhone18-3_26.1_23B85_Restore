@@ -175,11 +175,11 @@ void __53__NIHomeDeviceConfiguration__updateRegionDescription__block_invoke(uint
 
 - (NIHomeDeviceConfiguration)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = NIHomeDeviceConfiguration;
-  v5 = [(NIConfiguration *)&v18 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = NIHomeDeviceConfiguration;
+  v5 = [(NIConfiguration *)&v17 initWithCoder:coderCopy];
   if (v5 && (v6 = [coderCopy decodeIntegerForKey:@"allowedDevices"], +[NIInternalUtils isIntValidRelationshipSpecifier:](NIInternalUtils, "isIntValidRelationshipSpecifier:", v6)))
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sessionKey"];
@@ -188,9 +188,9 @@ void __53__NIHomeDeviceConfiguration__updateRegionDescription__block_invoke(uint
     if ([NIInternalUtils isIntValidAntennaDiversityOverride:v9])
     {
       v10 = MEMORY[0x1E695DFD8];
-      v19[0] = objc_opt_class();
-      v19[1] = objc_opt_class();
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+      v18[0] = objc_opt_class();
+      v18[1] = objc_opt_class();
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
       v12 = [v10 setWithArray:v11];
       v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"monitoredRegions"];
 
@@ -224,7 +224,6 @@ void __53__NIHomeDeviceConfiguration__updateRegionDescription__block_invoke(uint
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

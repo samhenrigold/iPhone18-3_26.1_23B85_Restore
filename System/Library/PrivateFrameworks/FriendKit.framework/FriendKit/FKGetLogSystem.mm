@@ -3,13 +3,13 @@
 
 @implementation FKGetLogSystem
 
-void ___FKGetLogSystem_block_invoke()
+void ___FKGetLogSystem_block_invoke(uint64_t a1)
 {
-  v3 = FriendKitBundle();
-  v0 = [v3 bundleIdentifier];
-  v1 = os_log_create([v0 UTF8String], "main");
-  v2 = _FKGetLogSystem_log;
-  _FKGetLogSystem_log = v1;
+  v4 = FriendKitBundle(a1);
+  v1 = [v4 bundleIdentifier];
+  v2 = os_log_create([v1 UTF8String], "main");
+  v3 = _FKGetLogSystem_log;
+  _FKGetLogSystem_log = v2;
 }
 
 @end

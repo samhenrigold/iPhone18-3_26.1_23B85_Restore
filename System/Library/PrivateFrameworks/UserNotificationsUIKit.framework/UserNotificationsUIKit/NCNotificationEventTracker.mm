@@ -67,9 +67,10 @@
 
 uint64_t __44__NCNotificationEventTracker_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___sharedInstance_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  sharedInstance___sharedInstance_0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1);
 }
 
 - (NCNotificationEventTracker)init

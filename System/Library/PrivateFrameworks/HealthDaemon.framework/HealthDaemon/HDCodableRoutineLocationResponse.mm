@@ -94,18 +94,30 @@
   v6 = fromCopy[1];
   if (locationOfInterest)
   {
-    if (v6)
+    if (!v6)
     {
-      [(HDCodableRoutineLocation *)locationOfInterest mergeFrom:?];
+      goto LABEL_7;
     }
+
+    v7 = fromCopy;
+    locationOfInterest = [(HDCodableRoutineLocation *)locationOfInterest mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(HDCodableRoutineLocationResponse *)self setLocationOfInterest:?];
+    if (!v6)
+    {
+      goto LABEL_7;
+    }
+
+    v7 = fromCopy;
+    locationOfInterest = [(HDCodableRoutineLocationResponse *)self setLocationOfInterest:?];
   }
 
-  MEMORY[0x2821F96F8]();
+  fromCopy = v7;
+LABEL_7:
+
+  MEMORY[0x2821F96F8](locationOfInterest, fromCopy);
 }
 
 @end

@@ -93,25 +93,25 @@ void __90___TVStackingPosterView_setSelected_animated_focusUpdateContext_withAni
   }
 }
 
-uint64_t __90___TVStackingPosterView_setSelected_animated_focusUpdateContext_withAnimationCoordinator___block_invoke_2(uint64_t result)
+void *__90___TVStackingPosterView_setSelected_animated_focusUpdateContext_withAnimationCoordinator___block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (!v1)
   {
     return result;
   }
 
   v2 = result;
-  [*(result + 32) size];
+  [*(result + 4) size];
   [v1 selectionMarginsForSize:?];
   v4 = v3;
   v44 = v6;
   v45 = v5;
   v8 = v7;
-  v9 = [*(v2 + 40) layer];
+  v9 = [v2[5] layer];
   v10 = [v9 hasBeenCommitted];
 
-  [*(v2 + 40) bounds];
+  [v2[5] bounds];
   v12 = v11;
   v14 = v13;
   v56 = 0u;
@@ -123,15 +123,15 @@ uint64_t __90___TVStackingPosterView_setSelected_animated_focusUpdateContext_wit
   v50 = 0u;
   v51 = 0u;
   v49 = 0u;
-  v15 = *(v2 + 40);
+  v15 = v2[5];
   if (v15)
   {
-    [v15 cellMetrics];
+    objc_msgSend_cellMetrics(v15);
     v17 = *(&v50 + 1);
     v16 = *&v50;
     v18 = *(&v51 + 1);
     v19 = *&v51;
-    v15 = *(v2 + 40);
+    v15 = v2[5];
   }
 
   else
@@ -159,39 +159,39 @@ uint64_t __90___TVStackingPosterView_setSelected_animated_focusUpdateContext_wit
 
   [v20 setTransform:&v48];
 
-  v23 = *(v2 + 40);
-  v24 = *(v23 + 448);
+  v23 = v2[5];
+  v24 = *(v23 + 56);
   if (*(v2 + 48))
   {
     v24 = v4 + v24;
   }
 
-  [*(v23 + 416) setConstant:v24];
-  v25 = *(v2 + 40);
-  v26 = *(v25 + 456);
+  [*(v23 + 52) setConstant:v24];
+  v25 = v2[5];
+  v26 = *(v25 + 57);
   if (*(v2 + 48))
   {
     v26 = v8 + v26;
   }
 
-  [*(v25 + 424) setConstant:v26];
-  v27 = [*(v2 + 32) valueForTVViewStyle:@"tv-focus-align"];
+  [*(v25 + 53) setConstant:v26];
+  v27 = [v2[4] valueForTVViewStyle:@"tv-focus-align"];
   v28 = [v27 isEqualToString:@"bottom"];
 
   if (v28)
   {
-    v29 = *(v2 + 40);
-    v30 = *(v29 + 464);
+    v29 = v2[5];
+    v30 = *(v29 + 58);
     if (*(v2 + 48))
     {
       v30 = v30 - v8;
     }
 
-    [*(v29 + 432) setConstant:v30];
-    v31 = *(v2 + 40);
-    v32 = *(v31 + 440);
+    [*(v29 + 54) setConstant:v30];
+    v31 = v2[5];
+    v32 = *(v31 + 55);
     v33 = *(v2 + 48);
-    v34 = *(v31 + 472);
+    v34 = *(v31 + 59);
     v35 = v34 - v8;
 LABEL_20:
     if (v33)
@@ -203,29 +203,29 @@ LABEL_20:
     goto LABEL_23;
   }
 
-  v36 = [*(v2 + 32) valueForTVViewStyle:@"tv-focus-align"];
+  v36 = [v2[4] valueForTVViewStyle:@"tv-focus-align"];
   v37 = [v36 isEqualToString:@"top"];
 
   if (v37)
   {
-    v38 = *(v2 + 40);
-    v39 = *(v38 + 464);
+    v38 = v2[5];
+    v39 = *(v38 + 58);
     if (*(v2 + 48))
     {
       v39 = v8 + v39;
     }
 
-    [*(v38 + 432) setConstant:v39];
-    v40 = *(v2 + 40);
-    v32 = *(v40 + 440);
+    [*(v38 + 54) setConstant:v39];
+    v40 = v2[5];
+    v32 = *(v40 + 55);
     v33 = *(v2 + 48);
-    v34 = *(v40 + 472);
+    v34 = *(v40 + 59);
     v35 = v8 + v34;
     goto LABEL_20;
   }
 
 LABEL_23:
-  v41 = *(v2 + 40);
+  v41 = v2[5];
   if (*(v2 + 49) & v10)
   {
     [v41 layoutIfNeeded];
@@ -234,11 +234,11 @@ LABEL_23:
   else if (v41[408] == 1)
   {
     [v41 _configureSubviews];
-    *(*(v2 + 40) + 408) = 0;
+    *(v2[5] + 408) = 0;
   }
 
-  v42 = *(v2 + 40);
-  v43 = *(v42 + 488);
+  v42 = v2[5];
+  v43 = v42[61];
   v46[0] = MEMORY[0x277D85DD0];
   v46[1] = 3221225472;
   v46[2] = __90___TVStackingPosterView_setSelected_animated_focusUpdateContext_withAnimationCoordinator___block_invoke_3;
@@ -428,7 +428,7 @@ uint64_t __43___TVStackingPosterView__configureSubviews__block_invoke(uint64_t a
   return [v2 numberWithDouble:?];
 }
 
-id __52___TVStackingPosterView__updateComponentConstraints__block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
+id __52___TVStackingPosterView__updateComponentConstraints__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v27 = *MEMORY[0x277D85DE8];
   v6 = a2;
@@ -538,14 +538,14 @@ void __48___TVStackingPosterView__cellMetricsForMaxSize___block_invoke(uint64_t 
   *a4 = v27;
 }
 
-void __48___TVStackingPosterView__cellMetricsForMaxSize___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, char *a4)
+void __48___TVStackingPosterView__cellMetricsForMaxSize___block_invoke_2(uint64_t a1, void *a2, _BYTE *a3, char *a4)
 {
   v28 = a2;
   [v28 tv_margin];
   v8 = v7;
   [v28 tv_alignmentInsetsForExpectedWidth:*(a1 + 72) - (v9 + v10)];
   v12 = v11;
-  if ([*(a1 + 32) count] - 1 == a3)
+  if (([*(a1 + 32) count] - 1) == a3)
   {
     [v28 tv_margin];
     v14 = *(*(a1 + 64) + 8);

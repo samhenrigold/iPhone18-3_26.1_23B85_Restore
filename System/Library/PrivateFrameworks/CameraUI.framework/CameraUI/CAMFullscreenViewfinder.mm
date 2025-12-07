@@ -350,7 +350,7 @@
 
 - (void)_updateGeometryForElapsedTimeAndInstructionLabels
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   [(CAMFullscreenViewfinder *)self frameForReticleViewport];
   v4 = v3;
   v6 = v5;
@@ -368,193 +368,187 @@
   }
 
   _layout = [(CAMFullscreenViewfinder *)self _layout];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
-  orientation = [(CAMFullscreenViewfinder *)self orientation];
-  isSystemOverlayVisible = [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
+  [(CAMFullscreenViewfinder *)self orientation];
+  [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
   if (_layout)
   {
-    [_layout geometryForElapsedTimeView:elapsedTimeView viewportFrame:orientation orientation:isSystemOverlayVisible systemOverlayVisible:{v4, v6, v8, v10}];
+    objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_systemOverlayVisible_(_layout, v4, v6, v8, v10);
   }
 
   else
   {
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
   }
 
   if (isElapsedTimeViewVisible)
   {
-    v67 = v73;
-    v68 = v74;
-    v69 = v75;
-    v70 = v76;
+    v64 = v70;
     v65 = v71;
     v66 = v72;
-    CAMViewSetGeometry(elapsedTimeView, &v65);
     v67 = v73;
-    v68 = v74;
-    v69 = v75;
-    v70 = v76;
-    v16 = v71;
-    v17 = v72;
+    v62 = v68;
+    v63 = v69;
+    CAMViewSetGeometry(elapsedTimeView, &v62);
+    v64 = v70;
+    v65 = v71;
+    v66 = v72;
+    v67 = v73;
+    v14 = v68;
+    v15 = v69;
   }
 
   else
   {
-    v67 = xmmword_1A3A6A490;
-    v68 = unk_1A3A6A4A0;
-    v69 = xmmword_1A3A6A4B0;
-    v70 = unk_1A3A6A4C0;
-    v16 = CAMViewGeometryZero;
-    v17 = unk_1A3A6A480;
+    v64 = *&CAMViewGeometryZero[32];
+    v65 = *&CAMViewGeometryZero[48];
+    v66 = *&CAMViewGeometryZero[64];
+    v67 = *&CAMViewGeometryZero[80];
+    v14 = *CAMViewGeometryZero;
+    v15 = *&CAMViewGeometryZero[16];
   }
 
-  v65 = v16;
-  v66 = v17;
-  v63 = 0u;
-  v64 = 0u;
+  v62 = v14;
+  v63 = v15;
+  v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   _createdPrimaryInstructionLabels = [(CAMFullscreenViewfinder *)self _createdPrimaryInstructionLabels];
-  v19 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v61 objects:v78 count:16];
-  if (v19)
+  v17 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v58 objects:v75 count:16];
+  if (v17)
   {
-    v20 = v19;
-    v21 = *v62;
-    v36 = unk_1A3A6A4A0;
-    v37 = xmmword_1A3A6A490;
-    v34 = unk_1A3A6A4C0;
-    v35 = xmmword_1A3A6A4B0;
-    v32 = unk_1A3A6A480;
-    v33 = CAMViewGeometryZero;
+    v18 = v17;
+    v19 = *v59;
+    v34 = *&CAMViewGeometryZero[48];
+    v35 = *&CAMViewGeometryZero[32];
+    v32 = *&CAMViewGeometryZero[80];
+    v33 = *&CAMViewGeometryZero[64];
+    v30 = *&CAMViewGeometryZero[16];
+    v31 = *CAMViewGeometryZero;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v62 != v21)
+        if (*v59 != v19)
         {
           objc_enumerationMutation(_createdPrimaryInstructionLabels);
         }
 
-        v23 = *(*(&v61 + 1) + 8 * i);
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
+        v21 = *(*(&v58 + 1) + 8 * i);
         v56 = 0u;
-        v51 = v37;
-        v52 = v36;
-        v53 = v35;
-        v54 = v34;
-        v49 = v33;
-        v50 = v32;
-        v45 = v67;
-        v46 = v68;
-        v47 = v69;
-        v48 = v70;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v48 = v35;
+        v49 = v34;
+        v50 = v33;
+        v51 = v32;
+        v46 = v31;
+        v47 = v30;
+        v42 = v64;
         v43 = v65;
         v44 = v66;
-        [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v23 belowInstructionLabelGeometry:&v49 elapsedTimeViewGeometry:&v43, v32, v33, v34, v35, v36, v37];
-        v51 = v57;
-        v52 = v58;
-        v53 = v59;
-        v54 = v60;
+        v45 = v67;
+        v40 = v62;
+        v41 = v63;
+        objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self, v30, v31, v32, v33, v34, v35);
+        v48 = v54;
         v49 = v55;
         v50 = v56;
-        CAMApplyAnimationSensitiveGeometryToView(&v49, v23);
+        v51 = v57;
+        v46 = v52;
+        v47 = v53;
+        CAMApplyAnimationSensitiveGeometryToView(&v46, v21);
       }
 
-      v20 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v61 objects:v78 count:16];
+      v18 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v58 objects:v75 count:16];
     }
 
-    while (v20);
+    while (v18);
   }
 
-  v24 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleInstructionLabel]];
-  v25 = v24;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v22 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleInstructionLabel]];
+  v23 = v22;
   v56 = 0u;
-  if (v24)
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  if (v22)
   {
-    CAMViewGetGeometry(v24, &v55);
+    CAMViewGetGeometry(v22, &v52);
   }
 
   else
   {
-    v57 = xmmword_1A3A6A490;
-    v58 = unk_1A3A6A4A0;
-    v59 = xmmword_1A3A6A4B0;
-    v60 = unk_1A3A6A4C0;
-    v55 = CAMViewGeometryZero;
-    v56 = unk_1A3A6A480;
+    v54 = *&CAMViewGeometryZero[32];
+    v55 = *&CAMViewGeometryZero[48];
+    v56 = *&CAMViewGeometryZero[64];
+    v57 = *&CAMViewGeometryZero[80];
+    v52 = *CAMViewGeometryZero;
+    v53 = *&CAMViewGeometryZero[16];
   }
 
-  v41 = 0u;
-  v42 = 0u;
+  v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   _createdSecondaryInstructionLabels = [(CAMFullscreenViewfinder *)self _createdSecondaryInstructionLabels];
-  v27 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v39 objects:v77 count:16];
-  if (v27)
+  v25 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v36 objects:v74 count:16];
+  if (v25)
   {
-    v28 = v27;
-    v29 = *v40;
+    v26 = v25;
+    v27 = *v37;
     do
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v26; ++j)
       {
-        if (*v40 != v29)
+        if (*v37 != v27)
         {
           objc_enumerationMutation(_createdSecondaryInstructionLabels);
         }
 
-        v31 = *(*(&v39 + 1) + 8 * j);
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
+        v29 = *(*(&v36 + 1) + 8 * j);
         v50 = 0u;
-        v45 = v57;
-        v46 = v58;
-        v47 = v59;
-        v48 = v60;
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        v42 = v54;
         v43 = v55;
         v44 = v56;
-        v38[2] = v67;
-        v38[3] = v68;
-        v38[4] = v69;
-        v38[5] = v70;
-        v38[0] = v65;
-        v38[1] = v66;
-        [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v31 belowInstructionLabelGeometry:&v43 elapsedTimeViewGeometry:v38];
-        v45 = v51;
-        v46 = v52;
-        v47 = v53;
-        v48 = v54;
+        v45 = v57;
+        v40 = v52;
+        v41 = v53;
+        objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self);
+        v42 = v48;
         v43 = v49;
         v44 = v50;
-        CAMApplyAnimationSensitiveGeometryToView(&v43, v31);
+        v45 = v51;
+        v40 = v46;
+        v41 = v47;
+        CAMApplyAnimationSensitiveGeometryToView(&v40, v29);
       }
 
-      v28 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v39 objects:v77 count:16];
+      v26 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v36 objects:v74 count:16];
     }
 
-    while (v28);
+    while (v26);
   }
 }
 
@@ -635,11 +629,11 @@
   _layout = [(CAMFullscreenViewfinder *)self _layout];
   if (!_layout)
   {
-    v230.origin.x = v4;
-    v230.origin.y = v6;
-    v230.size.width = v8;
-    v230.size.height = v10;
-    if (CGRectIsEmpty(v230))
+    v228.origin.x = v4;
+    v228.origin.y = v6;
+    v228.size.width = v8;
+    v228.size.height = v10;
+    if (CGRectIsEmpty(v228))
     {
       _layout = 0;
     }
@@ -665,22 +659,22 @@
   [chromeView setFrame:{v4, v6, v8, v10}];
 
   [(CAMFullscreenViewfinder *)self _frameForPreviewView];
-  v207 = v20;
-  v209 = v19;
+  v205 = v20;
+  v207 = v19;
   v22 = v21;
   v24 = v23;
   [(CAMFullscreenViewfinder *)self frameForReticleViewport];
-  v212 = v25;
-  v213 = v26;
-  v214 = v27;
-  v211 = v28;
+  v210 = v25;
+  v211 = v26;
+  v212 = v27;
+  v209 = v28;
   [(CAMFullscreenViewfinder *)self _setViewportAnimatorFrame:?];
   _previewContainerView = [(CAMFullscreenViewfinder *)self _previewContainerView];
   [_previewContainerView setFrame:{v4, v6, v8, v10}];
 
   [(CAMFullscreenViewfinder *)self _frameForContentClippingContainer];
-  v215 = v6;
-  v216 = v4;
+  v213 = v6;
+  v214 = v4;
   v31 = v30;
   v33 = v32;
   v35 = v34;
@@ -690,7 +684,7 @@
 
   _modulatingContentView = [(CAMFullscreenViewfinder *)self _modulatingContentView];
   superview = [_modulatingContentView superview];
-  [(CAMFullscreenViewfinder *)self convertRect:superview toView:v216, v215, v8, v10];
+  [(CAMFullscreenViewfinder *)self convertRect:superview toView:v214, v213, v8, v10];
   v42 = v41;
   v44 = v43;
   v46 = v45;
@@ -699,7 +693,7 @@
   [_modulatingContentView2 setFrame:{v42, v44, v46, v48}];
 
   _contentView = [(CAMFullscreenViewfinder *)self _contentView];
-  [_contentView setBounds:{v216, v215, v8, v10}];
+  [_contentView setBounds:{v214, v213, v8, v10}];
 
   UIRectGetCenter();
   v52 = v51;
@@ -708,7 +702,7 @@
   [_contentView2 setCenter:{v52, v54}];
 
   _contentViewBelowShutter = [(CAMFullscreenViewfinder *)self _contentViewBelowShutter];
-  [_contentViewBelowShutter setBounds:{v216, v215, v8, v10}];
+  [_contentViewBelowShutter setBounds:{v214, v213, v8, v10}];
 
   UIRectGetCenter();
   v58 = v57;
@@ -717,7 +711,7 @@
   [_contentViewBelowShutter2 setCenter:{v58, v60}];
 
   _chromeContentView = [(CAMFullscreenViewfinder *)self _chromeContentView];
-  [_chromeContentView setBounds:{v216, v215, v8, v10}];
+  [_chromeContentView setBounds:{v214, v213, v8, v10}];
 
   UIRectGetCenter();
   v64 = v63;
@@ -734,7 +728,7 @@
   v73 = *MEMORY[0x1E695EFF8];
   v74 = *(MEMORY[0x1E695EFF8] + 8);
   previewView2 = [(CAMFullscreenViewfinder *)self previewView];
-  v205 = v22;
+  v203 = v22;
   [previewView2 setBounds:{v73, v74, v22, v24}];
 
   [(CAMFullscreenViewfinder *)self _frameForFlipButton];
@@ -746,36 +740,36 @@
   [flipButton setFrame:{v77, v79, v81, v83}];
 
   badgeTray = [(CAMFullscreenViewfinder *)self badgeTray];
-  [(CAMFullscreenViewfinder *)self _geometryForBadgeTray];
-  CAMViewSetGeometry(badgeTray, &v224);
+  objc_msgSend__geometryForBadgeTray(self);
+  CAMViewSetGeometry(badgeTray, &v222);
 
   _reticleView = [(CAMFullscreenViewfinder *)self _reticleView];
-  [_reticleView setFrame:{v216, v215, v8, v10}];
+  [_reticleView setFrame:{v214, v213, v8, v10}];
 
   timerIndicator = [(CAMFullscreenViewfinder *)self timerIndicator];
-  v88 = v211;
-  CAMViewGeometryForOrientedFrame(1, &v224, v212, v214, v213, v211);
-  CAMViewSetGeometry(timerIndicator, &v224);
+  v88 = v209;
+  CAMViewGeometryForOrientedFrame(1, &v222, v210, v212, v211, v209);
+  CAMViewSetGeometry(timerIndicator, &v222);
 
   [(CAMFullscreenViewfinder *)self externalChromeTopInset];
-  if (v214 <= v89)
+  if (v212 <= v89)
   {
     timerIndicator2 = [(CAMFullscreenViewfinder *)self timerIndicator];
     UIRectInsetEdges();
-    CAMViewGeometryForOrientedFrame(1, &v224, v91, v92, v93, v94);
-    CAMViewSetGeometry(timerIndicator2, &v224);
+    CAMViewGeometryForOrientedFrame(1, &v222, v91, v92, v93, v94);
+    CAMViewSetGeometry(timerIndicator2, &v222);
   }
 
   _descriptionOverlayViewByKey = [(CAMFullscreenViewfinder *)self _descriptionOverlayViewByKey];
-  v223[0] = MEMORY[0x1E69E9820];
-  v223[1] = 3221225472;
-  v223[2] = __41__CAMFullscreenViewfinder_layoutSubviews__block_invoke;
-  v223[3] = &__block_descriptor_64_e55_v32__0___NSCopying__8__CAMDescriptionOverlayView_16_B24l;
-  *&v223[4] = v216;
-  *&v223[5] = v215;
-  *&v223[6] = v8;
-  *&v223[7] = v10;
-  [_descriptionOverlayViewByKey enumerateKeysAndObjectsUsingBlock:v223];
+  v221[0] = MEMORY[0x1E69E9820];
+  v221[1] = 3221225472;
+  v221[2] = __41__CAMFullscreenViewfinder_layoutSubviews__block_invoke;
+  v221[3] = &__block_descriptor_64_e55_v32__0___NSCopying__8__CAMDescriptionOverlayView_16_B24l;
+  *&v221[4] = v214;
+  *&v221[5] = v213;
+  *&v221[6] = v8;
+  *&v221[7] = v10;
+  [_descriptionOverlayViewByKey enumerateKeysAndObjectsUsingBlock:v221];
 
   flipButton2 = [(CAMFullscreenViewfinder *)self flipButton];
   [flipButton2 center];
@@ -788,21 +782,21 @@
   v104 = v103;
   v106 = v105;
 
-  v231.origin.x = v100;
-  v231.origin.y = v102;
-  v231.size.width = v104;
-  v231.size.height = v106;
-  v107 = v212;
-  [shutterControl setPauseResumeButtonCenterLeftInset:v8 - CGRectGetMidX(v231)];
+  v229.origin.x = v100;
+  v229.origin.y = v102;
+  v229.size.width = v104;
+  v229.size.height = v106;
+  v107 = v210;
+  [shutterControl setPauseResumeButtonCenterLeftInset:v8 - CGRectGetMidX(v229)];
   [(CAMFullscreenViewfinderLayout *)_layout frameForShutterControl:shutterControl];
   [shutterControl setFrame:?];
   if (![(CAMFullscreenViewfinder *)self isReticleAnimating])
   {
-    [(CAMFullscreenViewfinder *)self _layoutViewportWithFrame:v212 previewFrame:v214, v213, v211, v209, v207, v205, v24];
+    [(CAMFullscreenViewfinder *)self _layoutViewportWithFrame:v210 previewFrame:v212, v211, v209, v207, v205, v203, v24];
   }
 
   previewView3 = [(CAMFullscreenViewfinder *)self previewView];
-  [(CAMFullscreenViewfinder *)self _frameForPreviewOverlaysInViewport:v212, v214, v213, v211];
+  [(CAMFullscreenViewfinder *)self _frameForPreviewOverlaysInViewport:v210, v212, v211, v209];
   [previewView3 convertRect:self fromView:?];
   v110 = v109;
   v112 = v111;
@@ -834,10 +828,10 @@
   {
     [(CAMFullscreenViewfinder *)self _centerYForZoomControl:zoomControl zoomSlider:zoomSlider];
     [(CAMFullscreenViewfinder *)self _imageAnalysisButtonAlignmentRectForCenterY:?];
-    v233 = CGRectInset(v232, -3.0, -3.0);
-    y = v233.origin.y;
-    width = v233.size.width;
-    height = v233.size.height;
+    v231 = CGRectInset(v230, -3.0, -3.0);
+    y = v231.origin.y;
+    width = v231.size.width;
+    height = v231.size.height;
     [(CAMFullscreenViewfinder *)self bounds];
     v130 = v129 * 0.5 - width * 0.5;
     if ([(CAMFullscreenViewfinder *)self isZoomControlVisible]|| [(CAMFullscreenViewfinder *)self trueVideoState])
@@ -848,19 +842,19 @@
     flipAspectRatioButton2 = [(CAMFullscreenViewfinder *)self flipAspectRatioButton];
     [flipAspectRatioButton2 setFrame:{v130, y, width, height}];
 
-    v88 = v211;
-    v107 = v212;
+    v88 = v209;
+    v107 = v210;
   }
 
-  v206 = zoomControl;
-  v208 = zoomSlider;
-  v210 = shutterControl;
+  v204 = zoomControl;
+  v206 = zoomSlider;
+  v208 = shutterControl;
   _textInteractionBackground = [(CAMFullscreenViewfinder *)self _textInteractionBackground];
-  [_textInteractionBackground setFrame:{v216, v215, v8, v10}];
+  [_textInteractionBackground setFrame:{v214, v213, v8, v10}];
 
   textInteractionInsert = [(CAMFullscreenViewfinder *)self textInteractionInsert];
-  [(CAMFullscreenViewfinder *)self _geometryForTextInteractionInsertWithViewport:v107, v214, v213, v88];
-  CAMViewSetGeometry(textInteractionInsert, &v224);
+  objc_msgSend__geometryForTextInteractionInsertWithViewport_(self, v107, v212, v211, v88);
+  CAMViewSetGeometry(textInteractionInsert, &v222);
   [imageAnalysisButton backgroundDiameter];
   [textInteractionInsert setPreferredQuickActionButtonHeight:?];
   actionInfoView = [textInteractionInsert actionInfoView];
@@ -876,8 +870,8 @@
   {
     UIEdgeInsetsMakeWithEdges();
     [machineReadableCodeButton setHitTestInsets:?];
-    [(CAMFullscreenViewfinder *)self _geometryForMRCButton];
-    CAMViewSetGeometry(machineReadableCodeButton, &v224);
+    objc_msgSend__geometryForMRCButton(self);
+    CAMViewSetGeometry(machineReadableCodeButton, &v222);
   }
 
   controlDrawer = [(CAMFullscreenViewfinder *)self controlDrawer];
@@ -918,31 +912,31 @@
     [(CAMFullscreenViewfinder *)self _centerYForZoomControl:zoomControl2 zoomSlider:zoomSlider2];
     v163 = v162;
 
-    v234.origin.x = v147;
-    v234.origin.y = v149;
-    v234.size.width = v152;
-    v234.size.height = v155;
+    v232.origin.x = v147;
+    v232.origin.y = v149;
+    v232.size.width = v152;
+    v232.size.height = v155;
     v88 = v153;
     v107 = v150;
-    v164 = CGRectGetMaxY(v234) - v163;
+    v164 = CGRectGetMaxY(v232) - v163;
     lightingControl3 = [(CAMFullscreenViewfinder *)self lightingControl];
     [lightingControl3 setCollapsedSelectionCenterPointBottomInset:v164];
 
-    v228 = 0u;
-    v229 = 0u;
     v226 = 0u;
     v227 = 0u;
     v224 = 0u;
     v225 = 0u;
-    [(CAMFullscreenViewfinder *)self _geometryForLandscapeLightingBadge];
+    v222 = 0u;
+    v223 = 0u;
+    objc_msgSend__geometryForLandscapeLightingBadge(self);
     lightingNameBadge = [(CAMFullscreenViewfinder *)self lightingNameBadge];
-    v219 = v226;
-    v220 = v227;
-    v221 = v228;
-    v222 = v229;
     v217 = v224;
     v218 = v225;
-    CAMApplyAnimationSensitiveGeometryToView(&v217, lightingNameBadge);
+    v219 = v226;
+    v220 = v227;
+    v215 = v222;
+    v216 = v223;
+    CAMApplyAnimationSensitiveGeometryToView(&v215, lightingNameBadge);
   }
 
   filterNameBadge = [(CAMFullscreenViewfinder *)self filterNameBadge];
@@ -950,20 +944,20 @@
   if (filterNameBadge)
   {
     filterNameBadge2 = [(CAMFullscreenViewfinder *)self filterNameBadge];
-    v228 = 0u;
-    v229 = 0u;
     v226 = 0u;
     v227 = 0u;
     v224 = 0u;
     v225 = 0u;
-    [(CAMFullscreenViewfinder *)self _geometryForFilterNameBadge:filterNameBadge2];
-    v219 = v226;
-    v220 = v227;
-    v221 = v228;
-    v222 = v229;
+    v222 = 0u;
+    v223 = 0u;
+    objc_msgSend__geometryForFilterNameBadge_(self);
     v217 = v224;
     v218 = v225;
-    CAMApplyAnimationSensitiveGeometryToView(&v217, filterNameBadge2);
+    v219 = v226;
+    v220 = v227;
+    v215 = v222;
+    v216 = v223;
+    CAMApplyAnimationSensitiveGeometryToView(&v215, filterNameBadge2);
   }
 
   [(CAMFullscreenViewfinder *)self _layoutSemanticStyleMaskedBadges];
@@ -979,7 +973,7 @@
   if (_orientationInstructionView)
   {
     _orientationInstructionView2 = [(CAMFullscreenViewfinder *)self _orientationInstructionView];
-    [_orientationInstructionView2 setFrame:{v107, v214, v213, v88}];
+    [_orientationInstructionView2 setFrame:{v107, v212, v211, v88}];
   }
 
   spatialCaptureRecordingIndicator = [(CAMFullscreenViewfinder *)self spatialCaptureRecordingIndicator];
@@ -990,69 +984,69 @@
 
     if (isSpatialCaptureRecordingIndicatorVisible)
     {
-      v228 = 0u;
-      v229 = 0u;
       v226 = 0u;
       v227 = 0u;
       v224 = 0u;
       v225 = 0u;
+      v222 = 0u;
+      v223 = 0u;
       _layout3 = [(CAMFullscreenViewfinder *)self _layout];
       elapsedTimeView = [(CAMFullscreenViewfinder *)self elapsedTimeView];
-      orientation = [(CAMFullscreenViewfinder *)self orientation];
-      isSystemOverlayVisible = [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
+      [(CAMFullscreenViewfinder *)self orientation];
+      [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
       if (_layout3)
       {
-        [_layout3 geometryForElapsedTimeView:elapsedTimeView viewportFrame:orientation orientation:isSystemOverlayVisible systemOverlayVisible:{v107, v214, v213, v88}];
+        objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_systemOverlayVisible_(_layout3, v107, v212, v211, v88);
       }
 
       else
       {
-        v228 = 0u;
-        v229 = 0u;
         v226 = 0u;
         v227 = 0u;
         v224 = 0u;
         v225 = 0u;
+        v222 = 0u;
+        v223 = 0u;
       }
 
-      orientation2 = [(CAMFullscreenViewfinder *)self orientation];
-      v219 = v226;
-      v220 = v227;
-      v221 = v228;
-      v222 = v229;
+      orientation = [(CAMFullscreenViewfinder *)self orientation];
       v217 = v224;
       v218 = v225;
-      [(CAMFullscreenViewfinder *)self _frameForSpatialRecordingIndicatorWithElapsedTimeViewGeometry:&v217 orientation:orientation2];
+      v219 = v226;
+      v220 = v227;
+      v215 = v222;
+      v216 = v223;
+      [(CAMFullscreenViewfinder *)self _frameForSpatialRecordingIndicatorWithElapsedTimeViewGeometry:&v215 orientation:orientation];
+      v179 = v178;
       v181 = v180;
       v183 = v182;
       v185 = v184;
-      v187 = v186;
       spatialCaptureRecordingIndicator2 = [(CAMFullscreenViewfinder *)self spatialCaptureRecordingIndicator];
-      [spatialCaptureRecordingIndicator2 setFrame:{v181, v183, v185, v187}];
+      [spatialCaptureRecordingIndicator2 setFrame:{v179, v181, v183, v185}];
     }
   }
 
   [(CAMFullscreenViewfinder *)self _frameForFlipButton];
+  v188 = v187;
   v190 = v189;
   v192 = v191;
   v194 = v193;
-  v196 = v195;
   _layout4 = [(CAMFullscreenViewfinder *)self _layout];
   [_layout4 alignmentRectForShutterControl];
-  v199 = v198;
+  v197 = v196;
 
-  v235.origin.x = v190;
-  v235.origin.y = v192;
-  v235.size.width = v194;
-  v235.size.height = v196;
-  v236 = CGRectInset(v235, 0.0, (v196 - v199) * 0.5);
-  v237 = CGRectInset(v236, (v236.size.height - v236.size.width) * -0.5, 0.0);
-  x = v237.origin.x;
-  v201 = v237.origin.y;
-  v202 = v237.size.width;
-  v203 = v237.size.height;
+  v233.origin.x = v188;
+  v233.origin.y = v190;
+  v233.size.width = v192;
+  v233.size.height = v194;
+  v234 = CGRectInset(v233, 0.0, (v194 - v197) * 0.5);
+  v235 = CGRectInset(v234, (v234.size.height - v234.size.width) * -0.5, 0.0);
+  x = v235.origin.x;
+  v199 = v235.origin.y;
+  v200 = v235.size.width;
+  v201 = v235.size.height;
   photoVideoModeSwitch = [(CAMFullscreenViewfinder *)self photoVideoModeSwitch];
-  [photoVideoModeSwitch setFrame:{x, v201, v202, v203}];
+  [photoVideoModeSwitch setFrame:{x, v199, v200, v201}];
 
   [(CAMFullscreenViewfinder *)self _layoutSmartStyleNameBadge];
   [(CAMFullscreenViewfinder *)self _updateSubviewsVisibilityAnimated:0];
@@ -1420,7 +1414,7 @@ double __57__CAMFullscreenViewfinder__setViewportAnimatorRectValue___block_invok
   }
 }
 
-uint64_t __51__CAMFullscreenViewfinder__setNeedsLayoutAnimated___block_invoke(uint64_t a1)
+void *__51__CAMFullscreenViewfinder__setNeedsLayoutAnimated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _inFlightLayoutAnimationCount];
   if (!result)
@@ -2073,48 +2067,48 @@ LABEL_14:
   isElapsedTimeViewVisible = [(CAMFullscreenViewfinder *)self isElapsedTimeViewVisible];
   v16 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleInstructionLabel]];
   v17 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleSecondaryInstructionLabel]];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
   v65 = 0u;
   v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   _layout = [(CAMFullscreenViewfinder *)self _layout];
   elapsedTimeView = [(CAMFullscreenViewfinder *)self elapsedTimeView];
-  orientation2 = [(CAMFullscreenViewfinder *)self orientation];
-  isSystemOverlayVisible = [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
+  [(CAMFullscreenViewfinder *)self orientation];
+  [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
   if (_layout)
   {
-    [_layout geometryForElapsedTimeView:elapsedTimeView viewportFrame:orientation2 orientation:isSystemOverlayVisible systemOverlayVisible:{v6, v8, v10, v12}];
+    objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_systemOverlayVisible_(_layout, v6, v8, v10, v12);
   }
 
   else
   {
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
     v65 = 0u;
     v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
   }
 
-  v22 = *v14;
-  v23 = v14[1];
-  v24 = v14[2];
-  v25 = v14[3];
+  v20 = *v14;
+  v21 = v14[1];
+  v22 = v14[2];
+  v23 = v14[3];
 
-  v38 = v23;
-  v39 = v22;
-  v36 = v25;
-  v37 = v24;
+  v35 = v21;
+  v36 = v20;
+  v33 = v23;
+  v34 = v22;
   if (isElapsedTimeViewVisible)
   {
-    v61 = v67;
-    v62 = v68;
-    v63 = v69;
-    v64 = v70;
+    v57 = v63;
+    v58 = v64;
     v59 = v65;
     v60 = v66;
+    v55 = v61;
+    v56 = v62;
     if (!(v16 | v17))
     {
       if (orientation - 3 > 1)
@@ -2122,131 +2116,124 @@ LABEL_14:
         goto LABEL_13;
       }
 
-      v55 = v67;
-      v56 = v68;
-      v57 = v69;
-      v58 = v70;
+      v51 = v63;
+      v52 = v64;
       v53 = v65;
       v54 = v66;
-      v26 = &v53;
+      v49 = v61;
+      v50 = v62;
+      v24 = &v49;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v61 = xmmword_1A3A6A490;
-    v62 = unk_1A3A6A4A0;
-    v63 = xmmword_1A3A6A4B0;
-    v64 = unk_1A3A6A4C0;
-    v59 = CAMViewGeometryZero;
-    v60 = unk_1A3A6A480;
+    v57 = *&CAMViewGeometryZero[32];
+    v58 = *&CAMViewGeometryZero[48];
+    v59 = *&CAMViewGeometryZero[64];
+    v60 = *&CAMViewGeometryZero[80];
+    v55 = *CAMViewGeometryZero;
+    v56 = *&CAMViewGeometryZero[16];
     if (!(v16 | v17))
     {
       goto LABEL_13;
     }
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v49 = xmmword_1A3A6A490;
-  v50 = unk_1A3A6A4A0;
-  v51 = xmmword_1A3A6A4B0;
-  v52 = unk_1A3A6A4C0;
-  v47 = CAMViewGeometryZero;
-  v48 = unk_1A3A6A480;
-  v43 = v61;
-  v44 = v62;
-  v45 = v63;
-  v46 = v64;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v45 = *&CAMViewGeometryZero[32];
+  v46 = *&CAMViewGeometryZero[48];
+  v47 = *&CAMViewGeometryZero[64];
+  v48 = *&CAMViewGeometryZero[80];
+  v43 = *CAMViewGeometryZero;
+  v44 = *&CAMViewGeometryZero[16];
+  v39 = v57;
+  v40 = v58;
   v41 = v59;
   v42 = v60;
-  [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v16 belowInstructionLabelGeometry:&v47 elapsedTimeViewGeometry:&v41];
+  v37 = v55;
+  v38 = v56;
+  objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self);
   if (v17)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v43 = v55;
-    v44 = v56;
-    v45 = v57;
-    v46 = v58;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v39 = v51;
+    v40 = v52;
     v41 = v53;
     v42 = v54;
-    v40[2] = v61;
-    v40[3] = v62;
-    v40[4] = v63;
-    v40[5] = v64;
-    v40[0] = v59;
-    v40[1] = v60;
-    [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v17 belowInstructionLabelGeometry:&v41 elapsedTimeViewGeometry:v40];
-    v43 = v49;
-    v44 = v50;
-    v45 = v51;
-    v46 = v52;
+    v37 = v49;
+    v38 = v50;
+    objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self);
+    v39 = v45;
+    v40 = v46;
     v41 = v47;
     v42 = v48;
-    v26 = &v41;
+    v37 = v43;
+    v38 = v44;
+    v24 = &v37;
   }
 
   else
   {
-    v49 = v55;
-    v50 = v56;
-    v51 = v57;
-    v52 = v58;
+    v45 = v51;
+    v46 = v52;
     v47 = v53;
     v48 = v54;
-    v26 = &v47;
+    v43 = v49;
+    v44 = v50;
+    v24 = &v43;
   }
 
 LABEL_12:
-  CAMFrameForGeometry(v26);
-  v22 = v27;
-  v23 = v28;
-  v24 = v29;
-  v25 = v30;
+  v20 = CAMFrameForGeometry(v24);
+  v21 = v25;
+  v22 = v26;
+  v23 = v27;
 LABEL_13:
   if (orientation >= 3)
   {
     if (orientation == 3)
     {
       rect = v10;
-      v76.origin.x = v22;
-      v76.origin.y = v23;
-      v76.size.width = v24;
-      v76.size.height = v25;
-      v80.origin.y = v38;
-      v80.origin.x = v39;
-      v80.size.height = v36;
-      v80.size.width = v37;
-      v32 = 0.0;
-      if (!CGRectEqualToRect(v76, v80))
+      v72.origin.x = v20;
+      v72.origin.y = v21;
+      v72.size.width = v22;
+      v72.size.height = v23;
+      v76.origin.y = v35;
+      v76.origin.x = v36;
+      v76.size.height = v33;
+      v76.size.width = v34;
+      v29 = 0.0;
+      if (!CGRectEqualToRect(v72, v76))
       {
-        v77.origin.x = v6;
-        v77.origin.y = v8;
-        v77.size.width = rect;
-        v77.size.height = v12;
-        MaxX = CGRectGetMaxX(v77);
-        v78.origin.x = v22;
-        v78.origin.y = v23;
-        v78.size.width = v24;
-        v78.size.height = v25;
-        v32 = MaxX - CGRectGetMinX(v78);
+        v73.origin.x = v6;
+        v73.origin.y = v8;
+        v73.size.width = rect;
+        v73.size.height = v12;
+        MaxX = CGRectGetMaxX(v73);
+        v74.origin.x = v20;
+        v74.origin.y = v21;
+        v74.size.width = v22;
+        v74.size.height = v23;
+        v29 = MaxX - CGRectGetMinX(v74);
       }
 
-      v79.origin.x = v6;
-      v79.origin.y = v8;
-      v79.size.width = rect;
-      v79.size.height = v12;
-      v6 = CGRectGetMaxX(v79) + -40.0 - v32;
+      v75.origin.x = v6;
+      v75.origin.y = v8;
+      v75.size.width = rect;
+      v75.size.height = v12;
+      v6 = CGRectGetMaxX(v75) + -40.0 - v29;
       if (!(isElapsedTimeViewVisible | ![(CAMFullscreenViewfinder *)self isSystemOverlayVisible]) && [(CAMFullscreenViewfinder *)self visibleInstructionLabel])
       {
         v6 = v6 + -28.0;
@@ -2260,39 +2247,39 @@ LABEL_13:
         goto LABEL_27;
       }
 
-      v74.origin.x = v22;
-      v74.origin.y = v23;
-      v74.size.width = v24;
-      v74.size.height = v25;
-      v6 = CGRectGetMaxX(v74);
+      v70.origin.x = v20;
+      v70.origin.y = v21;
+      v70.size.width = v22;
+      v70.size.height = v23;
+      v6 = CGRectGetMaxX(v70);
     }
 
     v10 = 40.0;
     goto LABEL_27;
   }
 
-  v71.origin.x = v6;
-  v71.origin.y = v8;
-  v71.size.width = v10;
-  v71.size.height = v12;
-  CGRectGetMinY(v71);
-  v72.origin.x = v22;
-  v72.origin.y = v23;
-  v72.size.width = v24;
-  v72.size.height = v25;
-  if (CGRectIsEmpty(v72))
+  v67.origin.x = v6;
+  v67.origin.y = v8;
+  v67.size.width = v10;
+  v67.size.height = v12;
+  CGRectGetMinY(v67);
+  v68.origin.x = v20;
+  v68.origin.y = v21;
+  v68.size.width = v22;
+  v68.size.height = v23;
+  if (CGRectIsEmpty(v68))
   {
     [(CAMFullscreenViewfinder *)self _frameForPreviewOverlaysInViewport:v6, v8, v10, v12];
-    MinY = CGRectGetMinY(v73);
+    MinY = CGRectGetMinY(v69);
   }
 
   else
   {
-    v75.origin.x = v22;
-    v75.origin.y = v23;
-    v75.size.width = v24;
-    v75.size.height = v25;
-    MinY = CGRectGetMaxY(v75);
+    v71.origin.x = v20;
+    v71.origin.y = v21;
+    v71.size.width = v22;
+    v71.size.height = v23;
+    MinY = CGRectGetMaxY(v71);
   }
 
   v8 = MinY;
@@ -2435,7 +2422,7 @@ LABEL_27:
   *&retstr->var2.a = 0u;
   retstr->var0.origin = 0u;
   retstr->var0.size = 0u;
-  [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:machineReadableCodeButton margins:v28, v27];
+  objc_msgSend__geometryForBottomCenteredView_margins_(self, v28, v27);
   if (orientation >= 3)
   {
     if (orientation != 4)
@@ -2695,13 +2682,13 @@ LABEL_9:
 
   retstr->var0.size.width = v25;
   retstr->var0.size.height = v27;
-  v80 = v12;
-  v81 = v14;
+  v78 = v12;
+  v79 = v14;
   UIRectGetCenter();
-  v82 = v28;
+  v80 = v28;
   v30 = v29;
   v31 = CAMPixelWidthForView(self) + 10.0;
-  v79 = v30;
+  v77 = v30;
   if (v21 <= 1)
   {
     if ([(CAMFullscreenViewfinder *)self _showSemanticStylePicker])
@@ -2727,90 +2714,88 @@ LABEL_9:
 LABEL_13:
   v35 = *&a6->var2.a;
   var1 = a6->var1;
-  v92 = v35;
+  v90 = v35;
   v36 = *&a6->var2.tx;
-  v93 = *&a6->var2.c;
-  v94 = v36;
+  v91 = *&a6->var2.c;
+  v92 = v36;
   size = a6->var0.size;
   origin = a6->var0.origin;
-  v90 = size;
-  CAMFrameForGeometry(&origin);
-  v75 = v38;
-  v76 = v39;
-  v77 = v40;
-  v78 = v41;
-  v42 = *&a6->var2.a;
+  v88 = size;
+  v73 = CAMFrameForGeometry(&origin);
+  v74 = v38;
+  v75 = v39;
+  v76 = v40;
+  v41 = *&a6->var2.a;
   var1 = a6->var1;
+  v90 = v41;
+  v42 = *&a6->var2.tx;
+  v91 = *&a6->var2.c;
   v92 = v42;
-  v43 = *&a6->var2.tx;
-  v93 = *&a6->var2.c;
-  v94 = v43;
-  v44 = a6->var0.size;
+  v43 = a6->var0.size;
   origin = a6->var0.origin;
-  v90 = v44;
-  v85 = *&CAMViewGeometryZero[32];
-  v86 = *&CAMViewGeometryZero[48];
-  v87 = *&CAMViewGeometryZero[64];
-  v88 = *&CAMViewGeometryZero[80];
-  v83 = *CAMViewGeometryZero;
-  v84 = *&CAMViewGeometryZero[16];
-  IsEqualToViewGeometry = CAMViewGeometryIsEqualToViewGeometry(&origin, &v83);
-  v46 = *&viewGeometry->var2.a;
+  v88 = v43;
+  v83 = *&CAMViewGeometryZero[32];
+  v84 = *&CAMViewGeometryZero[48];
+  v85 = *&CAMViewGeometryZero[64];
+  v86 = *&CAMViewGeometryZero[80];
+  v81 = *CAMViewGeometryZero;
+  v82 = *&CAMViewGeometryZero[16];
+  IsEqualToViewGeometry = CAMViewGeometryIsEqualToViewGeometry(&origin, &v81);
+  v45 = *&viewGeometry->var2.a;
   var1 = viewGeometry->var1;
+  v90 = v45;
+  v46 = *&viewGeometry->var2.tx;
+  v91 = *&viewGeometry->var2.c;
   v92 = v46;
-  v47 = *&viewGeometry->var2.tx;
-  v93 = *&viewGeometry->var2.c;
-  v94 = v47;
-  v48 = viewGeometry->var0.size;
+  v47 = viewGeometry->var0.size;
   origin = viewGeometry->var0.origin;
-  v90 = v48;
-  v85 = *&CAMViewGeometryZero[32];
-  v86 = *&CAMViewGeometryZero[48];
-  v87 = *&CAMViewGeometryZero[64];
-  v88 = *&CAMViewGeometryZero[80];
-  v83 = *CAMViewGeometryZero;
-  v84 = *&CAMViewGeometryZero[16];
-  v49 = CAMViewGeometryIsEqualToViewGeometry(&origin, &v83);
-  v50 = *&viewGeometry->var2.a;
+  v88 = v47;
+  v83 = *&CAMViewGeometryZero[32];
+  v84 = *&CAMViewGeometryZero[48];
+  v85 = *&CAMViewGeometryZero[64];
+  v86 = *&CAMViewGeometryZero[80];
+  v81 = *CAMViewGeometryZero;
+  v82 = *&CAMViewGeometryZero[16];
+  v48 = CAMViewGeometryIsEqualToViewGeometry(&origin, &v81);
+  v49 = *&viewGeometry->var2.a;
   var1 = viewGeometry->var1;
+  v90 = v49;
+  v50 = *&viewGeometry->var2.tx;
+  v91 = *&viewGeometry->var2.c;
   v92 = v50;
-  v51 = *&viewGeometry->var2.tx;
-  v93 = *&viewGeometry->var2.c;
-  v94 = v51;
-  v52 = viewGeometry->var0.size;
+  v51 = viewGeometry->var0.size;
   origin = viewGeometry->var0.origin;
-  v90 = v52;
-  CAMFrameForGeometry(&origin);
-  v57 = v56;
-  v58 = v53;
-  v59 = v54;
-  v60 = v55;
-  v61 = 0.25;
-  if (v49)
+  v88 = v51;
+  v55 = CAMFrameForGeometry(&origin);
+  v56 = v52;
+  v57 = v53;
+  v58 = v54;
+  v59 = 0.25;
+  if (v48)
   {
-    v61 = 0.5;
+    v59 = 0.5;
   }
 
-  v62 = v31 + v27 * v61;
+  v60 = v31 + v27 * v59;
   if (v20 < 3)
   {
-    [(CAMFullscreenViewfinder *)self _frameForPreviewOverlaysInViewport:v80, v81, v16, v18];
-    if (v49)
+    [(CAMFullscreenViewfinder *)self _frameForPreviewOverlaysInViewport:v78, v79, v16, v18];
+    if (v48)
     {
-      MinY = CGRectGetMinY(*&v63);
+      MinY = CGRectGetMinY(*&v61);
     }
 
     else
     {
-      v96.origin.x = v57;
-      v96.origin.y = v58;
-      v96.size.width = v59;
-      v96.size.height = v60;
-      MinY = CGRectGetMaxY(v96);
+      v94.origin.x = v55;
+      v94.origin.y = v56;
+      v94.size.width = v57;
+      v94.size.height = v58;
+      MinY = CGRectGetMaxY(v94);
     }
 
-    v69 = v82;
-    v70 = v62 + MinY;
+    v67 = v80;
+    v68 = v60 + MinY;
     goto LABEL_40;
   }
 
@@ -2818,74 +2803,74 @@ LABEL_13:
   {
     if (v20 != 4)
     {
-      v70 = v79;
-      v69 = v82;
+      v68 = v77;
+      v67 = v80;
       goto LABEL_40;
     }
 
-    if (v49)
+    if (v48)
     {
       if (IsEqualToViewGeometry)
       {
-        v95.origin.x = v80;
-        v95.origin.y = v81;
-        v95.size.width = v16;
-        v95.size.height = v18;
-        MinX = CGRectGetMinX(v95);
+        v93.origin.x = v78;
+        v93.origin.y = v79;
+        v93.size.width = v16;
+        v93.size.height = v18;
+        MinX = CGRectGetMinX(v93);
 LABEL_39:
-        v70 = v79;
-        v69 = v62 + MinX;
+        v68 = v77;
+        v67 = v60 + MinX;
         goto LABEL_40;
       }
 
-      v73 = v75;
-      v53 = v76;
-      v54 = v77;
-      v55 = v78;
+      v71 = v73;
+      v52 = v74;
+      v53 = v75;
+      v54 = v76;
     }
 
     else
     {
-      v73 = v57;
+      v71 = v55;
     }
 
-    MinX = CGRectGetMaxX(*(&v53 - 1));
+    MinX = CGRectGetMaxX(*(&v52 - 1));
     goto LABEL_39;
   }
 
-  if (!v49)
+  if (!v48)
   {
-    v72 = v57;
+    v70 = v55;
 LABEL_32:
-    MaxX = CGRectGetMinX(*(&v53 - 1));
+    MaxX = CGRectGetMinX(*(&v52 - 1));
     goto LABEL_33;
   }
 
   if (!IsEqualToViewGeometry)
   {
-    v72 = v75;
-    v53 = v76;
-    v54 = v77;
-    v55 = v78;
+    v70 = v73;
+    v52 = v74;
+    v53 = v75;
+    v54 = v76;
     goto LABEL_32;
   }
 
-  v97.origin.x = v80;
-  v97.origin.y = v81;
-  v97.size.width = v16;
-  v97.size.height = v18;
-  MaxX = CGRectGetMaxX(v97);
+  v95.origin.x = v78;
+  v95.origin.y = v79;
+  v95.size.width = v16;
+  v95.size.height = v18;
+  MaxX = CGRectGetMaxX(v95);
 LABEL_33:
-  v70 = v79;
-  v69 = MaxX - v62;
-  if ([(CAMFullscreenViewfinder *)self isSystemOverlayVisible:*&v75]&& IsEqualToViewGeometry)
+  v68 = v77;
+  v67 = MaxX - v60;
+  if ([(CAMFullscreenViewfinder *)self isSystemOverlayVisible:*&v73]&& IsEqualToViewGeometry)
   {
-    v69 = v69 + -28.0;
+    v67 = v67 + -28.0;
   }
 
 LABEL_40:
-  retstr->var1.x = v69;
-  retstr->var1.y = v70;
+  retstr->var1.x = v67;
+  retstr->var1.y = v68;
   return CAMOrientationTransform(v20, &retstr->var2);
 }
 
@@ -2919,7 +2904,7 @@ LABEL_40:
 
   if ([(CAMFullscreenViewfinder *)self _showLandscapeLightingBadge]|| v7)
   {
-    [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:v6];
+    objc_msgSend__geometryForBottomCenteredView_(self);
     retstr->var1 = v11;
     *&retstr->var2.a = v12;
     *&retstr->var2.c = v13;
@@ -2944,7 +2929,7 @@ LABEL_40:
   v15 = v14;
   v17 = v16;
 
-  [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:marginsCopy margins:width aroundFrame:height, v11, v13, v15, v17];
+  objc_msgSend__geometryForBottomCenteredView_margins_aroundFrame_(self, width, height, v11, v13, v15, v17);
 
   return result;
 }
@@ -3379,7 +3364,7 @@ LABEL_8:
   v15[5] = v21;
   v15[0] = v16;
   v15[1] = v17;
-  CAMFrameForGeometry(v15);
+  v11 = CAMFrameForGeometry(v15);
   result.size.height = v14;
   result.size.width = v13;
   result.origin.y = v12;
@@ -3398,7 +3383,7 @@ LABEL_8:
     v8 = 0u;
     v5 = 0u;
     v6 = 0u;
-    [(CAMFullscreenViewfinder *)self _geometryForSmartStyleNameBadge:smartStyleNameBadge];
+    objc_msgSend__geometryForSmartStyleNameBadge_(self);
     v4[2] = v7;
     v4[3] = v8;
     v4[4] = v9;
@@ -3420,7 +3405,7 @@ LABEL_8:
     *&retstr->var2.a = 0u;
     retstr->var0.origin = 0u;
     retstr->var0.size = 0u;
-    [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:v15 margin:30.0];
+    objc_msgSend__geometryForBottomCenteredView_margin_(self, 30.0);
     [(CAMFullscreenViewfinder *)self externalChromeShutterButtonFrame];
     retstr->var1.y = CGRectGetMinY(v17) + retstr->var0.size.height * -0.5 + -50.0;
   }
@@ -3433,7 +3418,7 @@ LABEL_8:
     v9 = v6 + v8;
 
     [(CAMFullscreenViewfinder *)self frameForReticleViewport];
-    [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:v15 margins:v9 aroundFrame:v9, v10, v11, v12, v13];
+    objc_msgSend__geometryForBottomCenteredView_margins_aroundFrame_(self, v9, v9, v10, v11, v12, v13);
   }
 
   return result;
@@ -3447,7 +3432,7 @@ LABEL_8:
   *&retstr->var2.a = 0u;
   retstr->var0.origin = 0u;
   retstr->var0.size = 0u;
-  [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:a4];
+  objc_msgSend__geometryForBottomCenteredView_(self, badge, a4);
   result = [(CAMFullscreenViewfinder *)self orientation];
   if (&result[-1].var2.ty + 7 <= 1)
   {
@@ -3980,7 +3965,7 @@ void __59__CAMFullscreenViewfinder__layoutSemanticStyleMaskedBadges__block_invok
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 _geometryForBottomCenteredView:v5 margins:*(a1 + 40) aroundFrame:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80)}];
+    objc_msgSend__geometryForBottomCenteredView_margins_aroundFrame_(v6, *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80));
     v6 = *(a1 + 32);
   }
 
@@ -4007,7 +3992,7 @@ void __59__CAMFullscreenViewfinder__layoutSemanticStyleMaskedBadges__block_invok
   v33[5] = v39;
   v33[0] = v34;
   v33[1] = v35;
-  CAMFrameForGeometry(v33);
+  v40.origin.x = CAMFrameForGeometry(v33);
   x = v40.origin.x;
   v42.origin.x = v19;
   v42.origin.y = v21;
@@ -5732,7 +5717,7 @@ LABEL_40:
 
 - (void)setOrientation:(int64_t)orientation animated:(BOOL)animated
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   orientation = self->_orientation;
   if (orientation != orientation)
   {
@@ -5770,13 +5755,13 @@ LABEL_40:
     [photoVideoModeSwitch setOrientation:orientation animated:animatedCopy];
 
     _descriptionOverlayViewByKey = [(CAMFullscreenViewfinder *)self _descriptionOverlayViewByKey];
-    v112[0] = MEMORY[0x1E69E9820];
-    v112[1] = 3221225472;
-    v112[2] = __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke;
-    v112[3] = &__block_descriptor_41_e55_v32__0___NSCopying__8__CAMDescriptionOverlayView_16_B24l;
-    v112[4] = orientation;
-    v113 = animatedCopy;
-    [_descriptionOverlayViewByKey enumerateKeysAndObjectsUsingBlock:v112];
+    v110[0] = MEMORY[0x1E69E9820];
+    v110[1] = 3221225472;
+    v110[2] = __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke;
+    v110[3] = &__block_descriptor_41_e55_v32__0___NSCopying__8__CAMDescriptionOverlayView_16_B24l;
+    v110[4] = orientation;
+    v111 = animatedCopy;
+    [_descriptionOverlayViewByKey enumerateKeysAndObjectsUsingBlock:v110];
 
     disabledModeOverlayView = [(CAMFullscreenViewfinder *)self disabledModeOverlayView];
     [disabledModeOverlayView setOrientation:orientation animated:animatedCopy];
@@ -5787,27 +5772,27 @@ LABEL_40:
     v22 = v21;
     v24 = v23;
     v26 = v25;
-    v105[0] = MEMORY[0x1E69E9820];
-    v105[1] = 3221225472;
-    v105[2] = __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2;
-    v105[3] = &unk_1E76F7910;
-    v105[4] = self;
-    v107 = v19;
-    v108 = v21;
-    v109 = v23;
-    v110 = v25;
-    v60 = imageAnalysisButton;
-    v106 = v60;
+    v103[0] = MEMORY[0x1E69E9820];
+    v103[1] = 3221225472;
+    v103[2] = __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2;
+    v103[3] = &unk_1E76F7910;
+    v103[4] = self;
+    v105 = v19;
+    v106 = v21;
+    v107 = v23;
+    v108 = v25;
+    v59 = imageAnalysisButton;
+    v104 = v59;
     orientationCopy = orientation;
-    [CAMView animateIfNeededWithDuration:v105 animations:v8];
+    [CAMView animateIfNeededWithDuration:v103 animations:v8];
     badgeTray = [(CAMFullscreenViewfinder *)self badgeTray];
     lightingNameBadge = [(CAMFullscreenViewfinder *)self lightingNameBadge];
     filterNameBadge = [(CAMFullscreenViewfinder *)self filterNameBadge];
     smartStyleNameBadge = [(CAMFullscreenViewfinder *)self smartStyleNameBadge];
     elapsedTimeView = [(CAMFullscreenViewfinder *)self elapsedTimeView];
     [(CAMFullscreenViewfinder *)self machineReadableCodeButton];
-    v63 = v62 = lightingNameBadge;
-    v61 = elapsedTimeView;
+    v62 = v61 = lightingNameBadge;
+    v60 = elapsedTimeView;
     if (animatedCopy)
     {
       [(CAMFullscreenViewfinder *)self _transitionView:badgeTray fromOrientation:orientation toOrientation:orientation];
@@ -5840,45 +5825,45 @@ LABEL_40:
 
       if ([(CAMFullscreenViewfinder *)self _showSemanticStylePicker])
       {
-        v65 = smartStyleNameBadge;
-        v66 = filterNameBadge;
-        v103 = 0u;
-        v104 = 0u;
+        v64 = smartStyleNameBadge;
+        v65 = filterNameBadge;
         v101 = 0u;
         v102 = 0u;
+        v99 = 0u;
+        v100 = 0u;
         _semanticStyleBadges = [(CAMFullscreenViewfinder *)self _semanticStyleBadges];
-        v34 = [_semanticStyleBadges countByEnumeratingWithState:&v101 objects:v116 count:16];
+        v34 = [_semanticStyleBadges countByEnumeratingWithState:&v99 objects:v114 count:16];
         if (v34)
         {
           v35 = v34;
-          v36 = *v102;
+          v36 = *v100;
           do
           {
             for (i = 0; i != v35; ++i)
             {
-              if (*v102 != v36)
+              if (*v100 != v36)
               {
                 objc_enumerationMutation(_semanticStyleBadges);
               }
 
-              [(CAMFullscreenViewfinder *)self _transitionView:*(*(&v101 + 1) + 8 * i) fromOrientation:orientation toOrientation:orientation];
+              [(CAMFullscreenViewfinder *)self _transitionView:*(*(&v99 + 1) + 8 * i) fromOrientation:orientation toOrientation:orientation];
             }
 
-            v35 = [_semanticStyleBadges countByEnumeratingWithState:&v101 objects:v116 count:16];
+            v35 = [_semanticStyleBadges countByEnumeratingWithState:&v99 objects:v114 count:16];
           }
 
           while (v35);
         }
 
-        elapsedTimeView = v61;
-        lightingNameBadge = v62;
-        filterNameBadge = v66;
-        smartStyleNameBadge = v65;
+        elapsedTimeView = v60;
+        lightingNameBadge = v61;
+        filterNameBadge = v65;
+        smartStyleNameBadge = v64;
       }
 
-      if (v63)
+      if (v62)
       {
-        [(CAMFullscreenViewfinder *)self _transitionView:v63 fromOrientation:orientation toOrientation:orientation];
+        [(CAMFullscreenViewfinder *)self _transitionView:v62 fromOrientation:orientation toOrientation:orientation];
       }
 
       _showLandscapeLightingBadge = [(CAMFullscreenViewfinder *)self _showLandscapeLightingBadge];
@@ -5893,161 +5878,155 @@ LABEL_40:
     v41 = [layer animationForKey:@"opacity"];
     v42 = v41 == 0 || isElapsedTimeViewVisible;
 
-    v99 = 0u;
-    v100 = 0u;
     v97 = 0u;
     v98 = 0u;
     v95 = 0u;
     v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     _layout = [(CAMFullscreenViewfinder *)self _layout];
-    isSystemOverlayVisible = [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
+    [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
     if (_layout)
     {
-      [_layout geometryForElapsedTimeView:elapsedTimeView viewportFrame:orientation orientation:isSystemOverlayVisible systemOverlayVisible:{v20, v22, v24, v26}];
+      objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_systemOverlayVisible_(_layout, v20, v22, v24, v26);
     }
 
     else
     {
-      v99 = 0u;
-      v100 = 0u;
       v97 = 0u;
       v98 = 0u;
       v95 = 0u;
       v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
     }
 
     if (v42)
     {
-      v91 = v97;
-      v92 = v98;
-      v93 = v99;
-      v94 = v100;
       v89 = v95;
       v90 = v96;
-      CAMViewSetGeometry(elapsedTimeView, &v89);
+      v91 = v97;
+      v92 = v98;
+      v87 = v93;
+      v88 = v94;
+      CAMViewSetGeometry(elapsedTimeView, &v87);
     }
 
-    [(CAMFullscreenViewfinder *)self _geometryForBadgeTray];
-    CAMViewSetGeometry(badgeTray, &v89);
-    [(CAMFullscreenViewfinder *)self _geometryForLandscapeLightingBadge];
-    CAMViewSetGeometry(lightingNameBadge, &v89);
-    [(CAMFullscreenViewfinder *)self _geometryForBottomCenteredView:filterNameBadge];
-    CAMViewSetGeometry(filterNameBadge, &v89);
-    [(CAMFullscreenViewfinder *)self _geometryForSmartStyleNameBadge:smartStyleNameBadge];
-    CAMViewSetGeometry(smartStyleNameBadge, &v89);
-    [(CAMFullscreenViewfinder *)self _geometryForMRCButton];
-    CAMViewSetGeometry(v63, &v89);
+    objc_msgSend__geometryForBadgeTray(self);
+    CAMViewSetGeometry(badgeTray, &v87);
+    objc_msgSend__geometryForLandscapeLightingBadge(self);
+    CAMViewSetGeometry(lightingNameBadge, &v87);
+    objc_msgSend__geometryForBottomCenteredView_(self);
+    CAMViewSetGeometry(filterNameBadge, &v87);
+    objc_msgSend__geometryForSmartStyleNameBadge_(self);
+    CAMViewSetGeometry(smartStyleNameBadge, &v87);
+    objc_msgSend__geometryForMRCButton(self);
+    CAMViewSetGeometry(v62, &v87);
     [(CAMFullscreenViewfinder *)self _layoutSemanticStyleMaskedBadges];
     if (isElapsedTimeViewVisible)
     {
+      v89 = v95;
+      v90 = v96;
       v91 = v97;
       v92 = v98;
-      v93 = v99;
-      v94 = v100;
-      v45 = v95;
-      v46 = v96;
+      v44 = v93;
+      v45 = v94;
     }
 
     else
     {
-      v91 = *&CAMViewGeometryZero[32];
-      v92 = *&CAMViewGeometryZero[48];
-      v93 = *&CAMViewGeometryZero[64];
-      v94 = *&CAMViewGeometryZero[80];
-      v45 = *CAMViewGeometryZero;
-      v46 = *&CAMViewGeometryZero[16];
+      v89 = *&CAMViewGeometryZero[32];
+      v90 = *&CAMViewGeometryZero[48];
+      v91 = *&CAMViewGeometryZero[64];
+      v92 = *&CAMViewGeometryZero[80];
+      v44 = *CAMViewGeometryZero;
+      v45 = *&CAMViewGeometryZero[16];
     }
 
-    v89 = v45;
-    v90 = v46;
-    v87 = 0u;
-    v88 = 0u;
+    v87 = v44;
+    v88 = v45;
     v85 = 0u;
     v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     _createdPrimaryInstructionLabels = [(CAMFullscreenViewfinder *)self _createdPrimaryInstructionLabels];
-    v48 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v85 objects:v115 count:16];
-    if (v48)
+    v47 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v83 objects:v113 count:16];
+    if (v47)
     {
-      v49 = v48;
-      v50 = *v86;
+      v48 = v47;
+      v49 = *v84;
       do
       {
-        for (j = 0; j != v49; ++j)
+        for (j = 0; j != v48; ++j)
         {
-          if (*v86 != v50)
+          if (*v84 != v49)
           {
             objc_enumerationMutation(_createdPrimaryInstructionLabels);
           }
 
-          v52 = *(*(&v85 + 1) + 8 * j);
-          v78[3] = *&CAMViewGeometryZero[48];
-          v78[4] = *&CAMViewGeometryZero[64];
-          v78[5] = *&CAMViewGeometryZero[80];
-          memset(v78, 0, 48);
-          v74 = v91;
-          v75 = v92;
-          v76 = v93;
-          v77 = v94;
+          v51 = *(*(&v83 + 1) + 8 * j);
+          v76[3] = *&CAMViewGeometryZero[48];
+          v76[4] = *&CAMViewGeometryZero[64];
+          v76[5] = *&CAMViewGeometryZero[80];
+          memset(v76, 0, 48);
           v72 = v89;
           v73 = v90;
-          [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v52 belowInstructionLabelGeometry:v78 elapsedTimeViewGeometry:&v72];
-          CAMViewSetGeometry(v52, &v79);
+          v74 = v91;
+          v75 = v92;
+          v70 = v87;
+          v71 = v88;
+          objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self);
+          CAMViewSetGeometry(v51, &v77);
         }
 
-        v49 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v85 objects:v115 count:16];
+        v48 = [_createdPrimaryInstructionLabels countByEnumeratingWithState:&v83 objects:v113 count:16];
       }
 
-      while (v49);
+      while (v48);
     }
 
-    v53 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleInstructionLabel]];
-    v83 = 0u;
-    v84 = 0u;
+    v52 = [(CAMFullscreenViewfinder *)self _visibleInstructionLabelForInstructionLabelValue:[(CAMFullscreenViewfinder *)self visibleInstructionLabel]];
     v81 = 0u;
     v82 = 0u;
     v79 = 0u;
     v80 = 0u;
-    CAMViewGetGeometry(v53, &v79);
-    v70 = 0u;
-    v71 = 0u;
+    v77 = 0u;
+    v78 = 0u;
+    CAMViewGetGeometry(v52, &v77);
     v68 = 0u;
     v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     _createdSecondaryInstructionLabels = [(CAMFullscreenViewfinder *)self _createdSecondaryInstructionLabels];
-    v55 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v68 objects:v114 count:16];
-    if (v55)
+    v54 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v66 objects:v112 count:16];
+    if (v54)
     {
-      v56 = v55;
-      v57 = *v69;
+      v55 = v54;
+      v56 = *v67;
       do
       {
-        for (k = 0; k != v56; ++k)
+        for (k = 0; k != v55; ++k)
         {
-          if (*v69 != v57)
+          if (*v67 != v56)
           {
             objc_enumerationMutation(_createdSecondaryInstructionLabels);
           }
 
-          v59 = *(*(&v68 + 1) + 8 * k);
-          v74 = v81;
-          v75 = v82;
-          v76 = v83;
-          v77 = v84;
+          v58 = *(*(&v66 + 1) + 8 * k);
           v72 = v79;
           v73 = v80;
-          v67[2] = v91;
-          v67[3] = v92;
-          v67[4] = v93;
-          v67[5] = v94;
-          v67[0] = v89;
-          v67[1] = v90;
-          [(CAMFullscreenViewfinder *)self _geometryForInstructionLabel:v59 belowInstructionLabelGeometry:&v72 elapsedTimeViewGeometry:v67];
-          CAMViewSetGeometry(v59, v78);
+          v74 = v81;
+          v75 = v82;
+          v70 = v77;
+          v71 = v78;
+          objc_msgSend__geometryForInstructionLabel_belowInstructionLabelGeometry_elapsedTimeViewGeometry_(self);
+          CAMViewSetGeometry(v58, v76);
         }
 
-        v56 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v68 objects:v114 count:16];
+        v55 = [_createdSecondaryInstructionLabels countByEnumeratingWithState:&v66 objects:v112 count:16];
       }
 
-      while (v56);
+      while (v55);
     }
 
     [(CAMFullscreenViewfinder *)self _updateSubviewsVisibilityAnimated:animatedCopy];
@@ -6060,7 +6039,7 @@ void __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2(uint
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 _geometryForTextInteractionInsertWithViewport:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
+    objc_msgSend__geometryForTextInteractionInsertWithViewport_(v3, *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
   }
 
   else
@@ -6280,25 +6259,24 @@ void __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2(uint
       v18 = v17;
       elapsedTimeView2 = [(CAMFullscreenViewfinder *)self elapsedTimeView];
       _layout = [(CAMFullscreenViewfinder *)self _layout];
-      v21 = self->_elapsedTimeView;
-      orientation = [(CAMFullscreenViewfinder *)self orientation];
-      isSystemOverlayVisible = [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
+      [(CAMFullscreenViewfinder *)self orientation];
+      [(CAMFullscreenViewfinder *)self isSystemOverlayVisible];
       if (_layout)
       {
-        [_layout geometryForElapsedTimeView:v21 viewportFrame:orientation orientation:isSystemOverlayVisible systemOverlayVisible:{v12, v14, v16, v18}];
+        objc_msgSend_geometryForElapsedTimeView_viewportFrame_orientation_systemOverlayVisible_(_layout, v12, v14, v16, v18);
       }
 
       else
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
       }
 
-      CAMViewSetGeometry(elapsedTimeView2, &v24);
+      CAMViewSetGeometry(elapsedTimeView2, &v21);
     }
 
     if (animatedCopy)
@@ -6307,7 +6285,7 @@ void __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2(uint
     }
 
     self->_elapsedTimeViewVisible = visible;
-    [(CAMFullscreenViewfinder *)self _setNeedsLayoutAnimated:animatedCopy, v24, v25, v26, v27, v28, v29];
+    [(CAMFullscreenViewfinder *)self _setNeedsLayoutAnimated:animatedCopy, v21, v22, v23, v24, v25, v26];
     [(CAMFullscreenViewfinder *)self _updateSubviewsVisibilityAnimated:animatedCopy];
   }
 }
@@ -6398,9 +6376,10 @@ void __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2(uint
     [_previewContainerView addSubview:v13];
 
     [(CAMFullscreenViewfinder *)self _updateReticle];
+    viewCopy = v13;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](previewView, viewCopy);
 }
 
 - (void)setPanoramaView:(id)view
@@ -6420,9 +6399,11 @@ void __51__CAMFullscreenViewfinder_setOrientation_animated___block_invoke_2(uint
     objc_storeStrong(&self->_panoramaView, view);
     _modulatingContentView = [(CAMFullscreenViewfinder *)self _modulatingContentView];
     [_modulatingContentView addSubview:v9];
+
+    viewCopy = v9;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](panoramaView, viewCopy);
 }
 
 - (void)setPanoramaCaptureSize:(CGSize)size
@@ -6820,7 +6801,7 @@ LABEL_9:
     {
       [(CAMFullscreenViewfinder *)selfCopy insertSubview:insertCopy belowSubview:imageAnalysisButton];
       [(CAMFullscreenViewfinder *)selfCopy frameForReticleViewport];
-      [(CAMFullscreenViewfinder *)selfCopy _geometryForTextInteractionInsertWithViewport:?];
+      objc_msgSend__geometryForTextInteractionInsertWithViewport_(selfCopy);
       CAMViewSetGeometry(insertCopy, &v9);
       [imageAnalysisButton backgroundDiameter];
       [(VKTextLiftingView *)insertCopy setPreferredQuickActionButtonHeight:?];

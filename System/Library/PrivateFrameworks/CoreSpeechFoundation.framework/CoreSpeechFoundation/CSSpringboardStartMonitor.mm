@@ -4,6 +4,7 @@
 - (CSSpringboardStartMonitor)init;
 - (void)_didReceiveSpringboardStarted:(BOOL)started;
 - (void)_didReceiveSpringboardStartedInQueue:(BOOL)queue;
+- (void)_notifyObserver:(id)observer withStarted:(BOOL)started;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
 @end
@@ -24,9 +25,11 @@
 
 uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance_14587 = objc_alloc_init(CSSpringboardStartMonitor);
+  v0 = objc_alloc_init(CSSpringboardStartMonitor);
+  v1 = sharedInstance__sharedInstance_14587;
+  sharedInstance__sharedInstance_14587 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CSSpringboardStartMonitor)init
@@ -45,7 +48,7 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
 
 - (BOOL)_checkSpringBoardStarted
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (CSIsHorseman_onceToken != -1)
   {
     dispatch_once(&CSIsHorseman_onceToken, &__block_literal_global_9);
@@ -84,14 +87,24 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
 
       *state64 = 136315394;
       *&state64[4] = "[CSSpringboardStartMonitor _checkSpringBoardStarted]";
-      v9 = 2114;
-      v10 = v4;
+      v8 = 2114;
+      v9 = v4;
       _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s SpringBoard started = %{public}@", state64, 0x16u);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
+}
+
+- (void)_notifyObserver:(id)observer withStarted:(BOOL)started
+{
+  startedCopy = started;
+  observerCopy = observer;
+  [(CSEventMonitor *)self notifyObserver:observerCopy];
+  if (objc_opt_respondsToSelector())
+  {
+    [observerCopy CSSpringboardStartMonitor:self didReceiveStarted:startedCopy];
+  }
 }
 
 - (void)_didReceiveSpringboardStarted:(BOOL)started
@@ -118,7 +131,7 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   notifyToken = self->_notifyToken;
   if (notifyToken != -1)
   {
@@ -127,18 +140,16 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSSpringboardStartMonitor _stopMonitoring]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Springboard start", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSSpringboardStartMonitor _stopMonitoring]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Springboard start", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_notifyToken == -1)
   {
@@ -152,7 +163,7 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSSpringboardStartMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSSpringboardStartMonitor _startMonitoringWithQueue:]";
       v6 = "%s Start monitoring : Springboard start";
       goto LABEL_6;
     }
@@ -164,7 +175,7 @@ uint64_t __43__CSSpringboardStartMonitor_sharedInstance__block_invoke()
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSSpringboardStartMonitor _startMonitoringWithQueue:]";
+      v9 = "[CSSpringboardStartMonitor _startMonitoringWithQueue:]";
       v6 = "%s Cannot start monitoring Springboard start because it was already started";
 LABEL_6:
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
@@ -172,8 +183,6 @@ LABEL_6:
   }
 
   self->_isSpringBoardStarted = [(CSSpringboardStartMonitor *)self _checkSpringBoardStarted];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__CSSpringboardStartMonitor__startMonitoringWithQueue___block_invoke(uint64_t a1)

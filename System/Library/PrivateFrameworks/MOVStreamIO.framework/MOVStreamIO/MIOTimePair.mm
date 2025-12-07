@@ -146,7 +146,7 @@ LABEL_31:
                     {
                       memset(&v44, 0, sizeof(v44));
                       CMTimeMakeFromDictionary(&v44, v24);
-                      [nextTimedMetadataGroup timeRange];
+                      objc_msgSend_timeRange(nextTimedMetadataGroup);
                       v42 = v40;
                       v43 = v41;
                       v39 = v44;
@@ -219,7 +219,7 @@ LABEL_42:
     memset(&v26, 0, sizeof(v26));
     if (timesCopy)
     {
-      [timesCopy timeAtIndex:v10];
+      objc_msgSend_timeAtIndex_(timesCopy);
     }
 
     if (v11 >= [stampsCopy count])
@@ -245,7 +245,7 @@ LABEL_42:
     {
       if (v14)
       {
-        [v14 pts];
+        objc_msgSend_pts(v14);
       }
 
       else
@@ -280,7 +280,7 @@ LABEL_42:
 
           if (v19)
           {
-            [v19 pts];
+            objc_msgSend_pts(v19);
           }
 
           else
@@ -396,7 +396,7 @@ LABEL_25:
 
   v14 = v4;
   v15 = v5;
-  [(MIOTimePair *)self pts];
+  objc_msgSend_pts(self, a2);
   if ((v13.flags & 1) == 0)
   {
     return 0;
@@ -404,7 +404,7 @@ LABEL_25:
 
   memset(&v13, 0, sizeof(v13));
   lhs = *time;
-  [(MIOTimePair *)self pts];
+  objc_msgSend_pts(self);
   CMTimeSubtract(&time, &lhs, &rhs);
   CMTimeAbsoluteValue(&v13, &time);
   time = v13;
@@ -415,9 +415,9 @@ LABEL_25:
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  [(MIOTimePair *)self pts];
+  objc_msgSend_pts(self, a2);
   Seconds = CMTimeGetSeconds(&time);
-  [(MIOTimePair *)self originalTime];
+  objc_msgSend_originalTime(self);
   v5 = [v3 stringWithFormat:@"%f [Orig: %f]", *&Seconds, CMTimeGetSeconds(&time)];
 
   return v5;
@@ -426,7 +426,7 @@ LABEL_25:
 - (id)copyWithNewPts:(id *)pts
 {
   v5 = *pts;
-  [(MIOTimePair *)self originalTime];
+  objc_msgSend_originalTime(self, a2);
   [MIOTimePair timePairWithPts:&v5 originalTime:v4];
   return objc_claimAutoreleasedReturnValue();
 }

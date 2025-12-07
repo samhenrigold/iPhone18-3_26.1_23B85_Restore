@@ -17,75 +17,73 @@
 {
   channelCopy = channel;
   v4 = objc_opt_new();
-  objc_msgSend_setChannel_(v4, v5, channelCopy, v6, v7);
+  [v4 setChannel:channelCopy];
 
   return v4;
 }
 
 + (id)convertChannels:(id)channels
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
-  v8 = objc_msgSend_array(MEMORY[0x1E695DF70], v4, v5, v6, v7);
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v9 = channelsCopy;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v35, v39, 16);
-  if (v11)
+  array = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v5 = channelsCopy;
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v6)
   {
-    v16 = v11;
-    v17 = *v36;
+    v7 = v6;
+    v8 = *v19;
     do
     {
-      v18 = 0;
+      v9 = 0;
       do
       {
-        if (*v36 != v17)
+        if (*v19 != v8)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v5);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * v18);
-        v20 = objc_msgSend_channel(v19, v12, v13, v14, v15);
+        v10 = *(*(&v18 + 1) + 8 * v9);
+        channel = [v10 channel];
 
-        v25 = objc_msgSend_channel(v19, v21, v22, v23, v24);
-        v29 = v25;
-        if (v20)
+        channel2 = [v10 channel];
+        v13 = channel2;
+        if (channel)
         {
-          objc_msgSend_addObject_(v8, v26, v25, v27, v28);
+          [array addObject:channel2];
 LABEL_8:
 
           goto LABEL_10;
         }
 
-        if (!v29)
+        if (!v13)
         {
-          v29 = AXTTSLogCommon();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+          v13 = AXTTSLogCommon();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
-            sub_1A9578B50(&v33, v34, v29);
+            sub_1A9578B50(&v16, v17, v13);
           }
 
           goto LABEL_8;
         }
 
 LABEL_10:
-        ++v18;
+        ++v9;
       }
 
-      while (v16 != v18);
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v35, v39, 16);
-      v16 = v30;
+      while (v7 != v9);
+      v14 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = v14;
     }
 
-    while (v30);
+    while (v14);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return array;
 }
 
 - (TTSAudioSessionChannel)init
@@ -111,10 +109,10 @@ LABEL_10:
     return self->_channelLabel;
   }
 
-  v6 = objc_msgSend_channel(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_channelLabel(v6, v7, v8, v9, v10);
+  channel = [(TTSAudioSessionChannel *)self channel];
+  channelLabel = [channel channelLabel];
 
-  return v11;
+  return channelLabel;
 }
 
 - (unint64_t)channelNumber
@@ -124,10 +122,10 @@ LABEL_10:
     return self->_channelNumber;
   }
 
-  v5 = objc_msgSend_channel(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_channelNumber(v5, v6, v7, v8, v9);
+  channel = [(TTSAudioSessionChannel *)self channel];
+  channelNumber = [channel channelNumber];
 
-  return v10;
+  return channelNumber;
 }
 
 - (NSString)channelName
@@ -135,16 +133,16 @@ LABEL_10:
   channelName = self->_channelName;
   if (channelName)
   {
-    v6 = channelName;
+    channelName = channelName;
   }
 
   else
   {
-    v7 = objc_msgSend_channel(self, a2, v2, v3, v4);
-    v6 = objc_msgSend_channelName(v7, v8, v9, v10, v11);
+    channel = [(TTSAudioSessionChannel *)self channel];
+    channelName = [channel channelName];
   }
 
-  return v6;
+  return channelName;
 }
 
 - (NSString)owningPortUID
@@ -152,16 +150,16 @@ LABEL_10:
   owningPortUID = self->_owningPortUID;
   if (owningPortUID)
   {
-    v6 = owningPortUID;
+    owningPortUID = owningPortUID;
   }
 
   else
   {
-    v7 = objc_msgSend_channel(self, a2, v2, v3, v4);
-    v6 = objc_msgSend_owningPortUID(v7, v8, v9, v10, v11);
+    channel = [(TTSAudioSessionChannel *)self channel];
+    owningPortUID = [channel owningPortUID];
   }
 
-  return v6;
+  return owningPortUID;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -170,44 +168,44 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (self->_channelNumber == 0x7FFFFFFFFFFFFFFFLL || objc_msgSend_channelNumber(equalCopy, v5, v6, v7, v8) == 0x7FFFFFFFFFFFFFFFLL)
+    if (self->_channelNumber == 0x7FFFFFFFFFFFFFFFLL || [equalCopy channelNumber] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v9 = objc_msgSend_channel(self, v5, v6, v7, v8);
-      v14 = objc_msgSend_channel(equalCopy, v10, v11, v12, v13);
-      isEqual = objc_msgSend_isEqual_(v9, v15, v14, v16, v17);
+      channel = [(TTSAudioSessionChannel *)self channel];
+      channel2 = [equalCopy channel];
+      v7 = [channel isEqual:channel2];
     }
 
     else
     {
       channelNumber = self->_channelNumber;
-      isEqual = channelNumber == objc_msgSend_channelNumber(equalCopy, v5, v6, v7, v8);
+      v7 = channelNumber == [equalCopy channelNumber];
     }
   }
 
   else
   {
-    isEqual = 0;
+    v7 = 0;
   }
 
-  return isEqual;
+  return v7;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_setChannel_(self, a2, 0, v2, v3);
-  v5.receiver = self;
-  v5.super_class = TTSAudioSessionChannel;
-  [(TTSAudioSessionChannel *)&v5 dealloc];
+  [(TTSAudioSessionChannel *)self setChannel:0];
+  v3.receiver = self;
+  v3.super_class = TTSAudioSessionChannel;
+  [(TTSAudioSessionChannel *)&v3 dealloc];
 }
 
 - (id)description
 {
-  v5 = MEMORY[0x1E696AEC0];
-  v6 = objc_msgSend_channel(self, a2, v2, v3, v4);
-  v11 = objc_msgSend_description(v6, v7, v8, v9, v10);
-  v15 = objc_msgSend_stringWithFormat_(v5, v12, @"TTSAudioSessionChannel -> %@", v13, v14, v11);
+  v2 = MEMORY[0x1E696AEC0];
+  channel = [(TTSAudioSessionChannel *)self channel];
+  v4 = [channel description];
+  v5 = [v2 stringWithFormat:@"TTSAudioSessionChannel -> %@", v4];
 
-  return v15;
+  return v5;
 }
 
 @end

@@ -4,6 +4,7 @@
 - (WBBookmarkLabel)initWithCoder:(id)coder;
 - (WBBookmarkLabel)initWithTitle:(id)title address:(id)address pinned:(BOOL)pinned;
 - (WBBookmarkLabel)labelWithAddress:(id)address;
+- (WBBookmarkLabel)labelWithPinned:(BOOL)pinned;
 - (WBBookmarkLabel)labelWithTitle:(id)title;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
@@ -116,6 +117,13 @@
   v5 = [objc_alloc(objc_opt_class()) initWithTitle:self->_title address:addressCopy pinned:self->_pinned];
 
   return v5;
+}
+
+- (WBBookmarkLabel)labelWithPinned:(BOOL)pinned
+{
+  v3 = [objc_alloc(objc_opt_class()) initWithTitle:self->_title address:self->_address pinned:pinned];
+
+  return v3;
 }
 
 - (id)description

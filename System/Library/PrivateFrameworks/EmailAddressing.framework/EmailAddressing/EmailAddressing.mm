@@ -14,62 +14,22 @@ void sub_249FAD96C(_Unwind_Exception *a1)
 
 id _createStringByApplyingIDNATranslationWithRange(void *a1, uint64_t a2, unint64_t a3, uint64_t (*a4)(uint64_t, _OWORD *, unint64_t, uint64_t, void, _DWORD *, int *))
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a1;
   if (_createStringByApplyingIDNATranslationWithRange_onceToken != -1)
   {
     _createStringByApplyingIDNATranslationWithRange_cold_1();
   }
 
-  if (!_createStringByApplyingIDNATranslationWithRange_sIDNA)
+  if (!_createStringByApplyingIDNATranslationWithRange_sIDNA || (*&v8 = 0xAAAAAAAAAAAAAAAALL, *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL, v24[30] = v8, v24[31] = v8, v24[28] = v8, v24[29] = v8, v24[26] = v8, v24[27] = v8, v24[24] = v8, v24[25] = v8, v24[22] = v8, v24[23] = v8, v24[20] = v8, v24[21] = v8, v24[18] = v8, v24[19] = v8, v24[16] = v8, v24[17] = v8, v24[14] = v8, v24[15] = v8, v24[12] = v8, v24[13] = v8, v24[10] = v8, v24[11] = v8, v24[8] = v8, v24[9] = v8, v24[6] = v8, v24[7] = v8, v24[4] = v8, v24[5] = v8, v24[2] = v8, v24[3] = v8, v24[0] = v8, v24[1] = v8, a3 >> 31))
   {
-    goto LABEL_5;
-  }
-
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v25[30] = v8;
-  v25[31] = v8;
-  v25[28] = v8;
-  v25[29] = v8;
-  v25[26] = v8;
-  v25[27] = v8;
-  v25[24] = v8;
-  v25[25] = v8;
-  v25[22] = v8;
-  v25[23] = v8;
-  v25[20] = v8;
-  v25[21] = v8;
-  v25[18] = v8;
-  v25[19] = v8;
-  v25[16] = v8;
-  v25[17] = v8;
-  v25[14] = v8;
-  v25[15] = v8;
-  v25[12] = v8;
-  v25[13] = v8;
-  v25[10] = v8;
-  v25[11] = v8;
-  v25[8] = v8;
-  v25[9] = v8;
-  v25[6] = v8;
-  v25[7] = v8;
-  v25[4] = v8;
-  v25[5] = v8;
-  v25[2] = v8;
-  v25[3] = v8;
-  v25[0] = v8;
-  v25[1] = v8;
-  if (a3 >> 31)
-  {
-LABEL_5:
     v9 = 0;
     goto LABEL_32;
   }
 
   if (a3 < 0x101)
   {
-    v10 = v25;
+    v10 = v24;
   }
 
   else
@@ -78,13 +38,13 @@ LABEL_5:
   }
 
   [v7 getCharacters:v10 range:{a2, a3}];
-  v24 = 0;
-  LOWORD(v23[0]) = 16;
-  memset(v23 + 2, 0, 14);
-  v11 = a4(_createStringByApplyingIDNATranslationWithRange_sIDNA, v10, a3, 0, 0, v23, &v24);
+  v23 = 0;
+  LOWORD(v22[0]) = 16;
+  memset(v22 + 2, 0, 14);
+  v11 = a4(_createStringByApplyingIDNATranslationWithRange_sIDNA, v10, a3, 0, 0, v22, &v23);
   v12 = v11;
-  v14 = v24 < 1 && v23[1] == 0;
-  if (v24 != 15 && !v14)
+  v14 = v23 < 1 && v22[1] == 0;
+  if (v23 != 15 && !v14)
   {
     goto LABEL_25;
   }
@@ -93,16 +53,16 @@ LABEL_5:
   v16 = MEMORY[0x24C20B220](*MEMORY[0x277CBECE8], 2 * (v11 + 1), 0x1000040BDFB0063, 0);
   v17 = v16;
   v18 = v16 ? 0 : 7;
-  v24 = v18;
+  v23 = v18;
   if (!v16)
   {
     goto LABEL_25;
   }
 
-  LOWORD(v22[0]) = 16;
-  memset(v22 + 2, 0, 14);
-  a4(_createStringByApplyingIDNATranslationWithRange_sIDNA, v10, a3, v16, (v12 + 1), v22, &v24);
-  if (v24 > 0 || v22[1])
+  LOWORD(v21[0]) = 16;
+  memset(v21 + 2, 0, 14);
+  a4(_createStringByApplyingIDNATranslationWithRange_sIDNA, v10, a3, v16, (v12 + 1), v21, &v23);
+  if (v23 > 0 || v21[1])
   {
     CFAllocatorDeallocate(v15, v17);
 LABEL_25:
@@ -129,14 +89,13 @@ LABEL_26:
   }
 
 LABEL_32:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void ___createStringByApplyingIDNATranslationWithRange_block_invoke()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   code = U_ZERO_ERROR;
   _createStringByApplyingIDNATranslationWithRange_sIDNA = MEMORY[0x24C20B650](60, &code);
   if (code >= U_ILLEGAL_ARGUMENT_ERROR)
@@ -150,8 +109,6 @@ void ___createStringByApplyingIDNATranslationWithRange_block_invoke()
 
     _createStringByApplyingIDNATranslationWithRange_sIDNA = 0;
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_249FAF4A4(_Unwind_Exception *a1)

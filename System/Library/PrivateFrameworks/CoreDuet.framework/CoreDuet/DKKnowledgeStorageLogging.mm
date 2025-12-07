@@ -14,20 +14,18 @@ uint64_t __44___DKKnowledgeStorageLogging_sharedInstance__block_invoke()
 
 void __49___DKKnowledgeStorageLogging_portraitStreamNames__block_invoke()
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = +[_CDPortraitStreams topicStream];
   v2 = [v1 name];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = +[_CDPortraitStreams entityStream];
   v4 = [v3 name];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v0 setWithArray:v5];
   v7 = qword_1EADBD630;
   qword_1EADBD630 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __92___DKKnowledgeStorageLogging__sendDistributedNotificationName_object_throttledActivityName___block_invoke(uint64_t a1)

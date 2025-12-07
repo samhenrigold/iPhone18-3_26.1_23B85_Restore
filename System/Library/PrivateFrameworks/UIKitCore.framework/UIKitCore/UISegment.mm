@@ -1578,7 +1578,7 @@ LABEL_66:
   traitCollection4 = [(UIView *)self traitCollection];
   if (_segmentedControlClass3)
   {
-    [(objc_class *)_segmentedControlClass3 _highlightSelectionTransformForTraitCollection:traitCollection4];
+    objc_msgSend__highlightSelectionTransformForTraitCollection_(_segmentedControlClass3);
   }
 
   else
@@ -1593,7 +1593,7 @@ LABEL_66:
     v76 = 0u;
   }
 
-  [(UISegment *)self _highlightSelectionInfoTransform];
+  objc_msgSend__highlightSelectionInfoTransform(self);
   [(UISegment *)self _updateSelectionToTransform:&v75 infoTransform:&v67 hideSelection:0 shouldAnimate:animateSlidingSelectionByDefault];
 
 LABEL_69:
@@ -1657,7 +1657,7 @@ LABEL_69:
       traitCollection2 = [(UIView *)self traitCollection];
       if (_segmentedControlClass2)
       {
-        [(objc_class *)_segmentedControlClass2 _highlightSelectionTransformForTraitCollection:traitCollection2];
+        objc_msgSend__highlightSelectionTransformForTraitCollection_(_segmentedControlClass2);
       }
 
       else
@@ -2666,7 +2666,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
     v4 = [*(a1 + 40) traitCollection];
     if (v3)
     {
-      [v3 _hiddenSelectionTransformForTraitCollection:v4];
+      objc_msgSend__hiddenSelectionTransformForTraitCollection_(v3);
     }
 
     else
@@ -2710,7 +2710,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
   v9 = [*(a1 + 40) traitCollection];
   if (v8)
   {
-    [v8 _hiddenSelectionTransformForTraitCollection:v9];
+    objc_msgSend__hiddenSelectionTransformForTraitCollection_(v8);
   }
 
   else
@@ -2765,7 +2765,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
     v16 = presentationLayer2;
     if (presentationLayer2)
     {
-      [presentationLayer2 transform];
+      objc_msgSend_transform(presentationLayer2);
     }
 
     else
@@ -2783,7 +2783,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
 
   else if (layer2)
   {
-    [layer2 transform];
+    objc_msgSend_transform(layer2);
   }
 
   else
@@ -2816,7 +2816,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
     v22 = presentationLayer4;
     if (presentationLayer4)
     {
-      [presentationLayer4 transform];
+      objc_msgSend_transform(presentationLayer4);
     }
 
     else
@@ -2834,7 +2834,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
 
   else if (layer4)
   {
-    [layer4 transform];
+    objc_msgSend_transform(layer4);
   }
 
   else
@@ -2890,7 +2890,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
     traitCollection = [(UIView *)self traitCollection];
     if (_segmentedControlClass)
     {
-      [(objc_class *)_segmentedControlClass _hiddenSelectionTransformForTraitCollection:traitCollection];
+      objc_msgSend__hiddenSelectionTransformForTraitCollection_(_segmentedControlClass);
     }
 
     else
@@ -2935,7 +2935,7 @@ void __33__UISegment__insertSelectionView__block_invoke(uint64_t a1)
   v42 = layer7;
   if (layer7)
   {
-    [layer7 transform];
+    objc_msgSend_transform(layer7);
   }
 
   else
@@ -3135,7 +3135,7 @@ LABEL_44:
   traitCollection = [(UIView *)self traitCollection];
   if (_segmentedControlClass)
   {
-    [(objc_class *)_segmentedControlClass _highlightSelectionTransformForTraitCollection:traitCollection];
+    objc_msgSend__highlightSelectionTransformForTraitCollection_(_segmentedControlClass);
   }
 
   else
@@ -4276,10 +4276,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIAction *)action isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(action, v6, v6);
 
   v8 = v10;
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(UIAction *)v8 copy];
@@ -4606,7 +4606,7 @@ LABEL_41:
 
     if ([v55 useSelectionIndicatorStyling] && (~*&self->_segmentFlags & 0x4008) == 0 && _UISolariumEnabled() && (objc_msgSend(v55, "useTVStyleFocusSelection") & 1) == 0)
     {
-      [(UISegment *)self _highlightSelectionInfoTransform];
+      objc_msgSend__highlightSelectionInfoTransform(self);
       layer2 = [(UIView *)self->_info layer];
       v82 = v66;
       v83 = v67;
@@ -4623,7 +4623,7 @@ LABEL_41:
   }
 }
 
-unint64_t __28__UISegment_setObjectValue___block_invoke(uint64_t a1)
+void *__28__UISegment_setObjectValue___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) count];

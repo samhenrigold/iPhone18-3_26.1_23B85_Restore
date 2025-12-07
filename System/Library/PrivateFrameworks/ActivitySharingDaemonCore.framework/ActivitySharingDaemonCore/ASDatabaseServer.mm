@@ -141,19 +141,19 @@ void __50__ASDatabaseServer_remote_performWhenDaemonReady___block_invoke(uint64_
 
 - (void)remote_deletedHealthKitWorkoutsWithinLastNumberOfDays:(unint64_t)days maxBatchSize:(unint64_t)size anchor:(id)anchor completion:(id)completion
 {
-  v42[2] = *MEMORY[0x277D85DE8];
+  v41[2] = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   completionCopy = completion;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   date = [MEMORY[0x277CBEAA8] date];
-  v28 = [currentCalendar dateByAddingUnit:16 value:-days toDate:date options:0];
+  v27 = [currentCalendar dateByAddingUnit:16 value:-days toDate:date options:0];
 
-  v14 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10408] greaterThanOrEqualToValue:v28];
+  v14 = [MEMORY[0x277D10B18] predicateWithProperty:*MEMORY[0x277D10408] greaterThanOrEqualToValue:v27];
   v15 = HDDataEntityPredicateForType();
   v16 = MEMORY[0x277D10B20];
-  v42[0] = v14;
-  v42[1] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[0] = v14;
+  v41[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   v18 = [v16 predicateMatchingAllPredicates:v17];
 
   v19 = MEMORY[0x277D10848];
@@ -164,15 +164,15 @@ void __50__ASDatabaseServer_remote_performWhenDaemonReady___block_invoke(uint64_
   [v22 setPredicate:v18];
   [v22 setAnchor:anchorCopy];
   [v22 setLimitCount:size];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__5;
-  v40 = __Block_byref_object_dispose__5;
-  v41 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__5;
+  v39 = __Block_byref_object_dispose__5;
+  v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
   if (anchorCopy)
   {
     longValue = [anchorCopy longValue];
@@ -183,24 +183,22 @@ void __50__ASDatabaseServer_remote_performWhenDaemonReady___block_invoke(uint64_
     longValue = 0;
   }
 
-  v35 = longValue;
-  v30[5] = &v32;
-  v31 = 0;
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __105__ASDatabaseServer_remote_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_completion___block_invoke;
-  v30[3] = &unk_278C4B368;
-  v30[4] = &v36;
-  [v22 enumerateIncludingDeletedObjects:1 error:&v31 handler:{v30, v28}];
-  v24 = v31;
-  v25 = v37[5];
-  v26 = [MEMORY[0x277CCABB0] numberWithLongLong:v33[3]];
+  v34 = longValue;
+  v29[5] = &v31;
+  v30 = 0;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __105__ASDatabaseServer_remote_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_completion___block_invoke;
+  v29[3] = &unk_278C4B368;
+  v29[4] = &v35;
+  [v22 enumerateIncludingDeletedObjects:1 error:&v30 handler:{v29, v27}];
+  v24 = v30;
+  v25 = v36[5];
+  v26 = [MEMORY[0x277CCABB0] numberWithLongLong:v32[3]];
   completionCopy[2](completionCopy, v25, v26, v24);
 
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v36, 8);
-
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
 }
 
 uint64_t __105__ASDatabaseServer_remote_deletedHealthKitWorkoutsWithinLastNumberOfDays_maxBatchSize_anchor_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -422,7 +420,7 @@ void __41__ASDatabaseServer_connectionInvalidated__block_invoke(uint64_t a1)
 
 - (void)daemonReady:(id)ready
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serialQueue);
   ASLoggingInitialize();
   v4 = *MEMORY[0x277CE8FE0];
@@ -432,46 +430,45 @@ void __41__ASDatabaseServer_connectionInvalidated__block_invoke(uint64_t a1)
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138412546;
-    v20 = v7;
-    v21 = 2080;
-    v22 = "[ASDatabaseServer daemonReady:]";
+    v19 = v7;
+    v20 = 2080;
+    v21 = "[ASDatabaseServer daemonReady:]";
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "%@ received %s", buf, 0x16u);
   }
 
   self->_isDaemonReady = 1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = self->_queue_performWhenDaemonReadyBlocks;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
+        (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   [(NSMutableArray *)self->_queue_performWhenDaemonReadyBlocks removeAllObjects];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

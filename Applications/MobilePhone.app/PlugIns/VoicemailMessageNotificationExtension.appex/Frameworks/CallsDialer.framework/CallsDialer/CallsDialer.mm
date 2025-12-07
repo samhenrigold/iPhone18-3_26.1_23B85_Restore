@@ -1,13 +1,13 @@
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (PHDefaultLog_onceToken != -1)
   {
     PHDefaultLog_cold_1();
   }
 
-  v1 = PHDefaultLog_PHDefaultLog;
+  v2 = PHDefaultLog_PHDefaultLog;
 
-  return v1;
+  return v2;
 }
 
 void InitializeIconAndTitle(void *a1)
@@ -90,16 +90,15 @@ void InitializeIconAndTitle(void *a1)
 
 void __InitializeIconAndTitle_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() badge];
-  v5 = v4;
+  v2 = [objc_opt_class() badge];
+  v4 = v3;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __InitializeIconAndTitle_block_invoke_2;
   block[3] = &unk_4CBA0;
-  v7 = *(a1 + 40);
-  v8 = v3;
-  v9 = v5;
+  v6 = *(a1 + 40);
+  v7 = v2;
+  v8 = v4;
   dispatch_async(&_dispatch_main_q, block);
 }
 
@@ -110,12 +109,13 @@ void __InitializeIconAndTitle_block_invoke_2(void *a1)
   [v1 setBadgeValue:v2];
 }
 
-__CFString *PhoneStringForBadgeValue(char a1, unint64_t a2)
+__CFString *PhoneStringForBadgeValue(uint64_t a1, __CFString *a2)
 {
   v2 = a2;
+  v3 = a1;
   if (a2 >= 0x7FFFFFFF)
   {
-    v4 = PHDefaultLog();
+    v4 = PHDefaultLog(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -123,7 +123,7 @@ __CFString *PhoneStringForBadgeValue(char a1, unint64_t a2)
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Found unexpected badge count (%llu). Defaulting to zero.", buf, 0xCu);
     }
 
-    if (a1)
+    if (v3)
     {
       v2 = 0;
       goto LABEL_12;
@@ -220,13 +220,14 @@ uint64_t PHShouldAttemptTelephonyCallWithDialTypeAndSenderIdentityUUID(uint64_t 
       v9 = [v7 canAttemptTelephonyCallsWithoutCellularConnection];
     }
 
-    v11 = v9;
+    v12 = v9;
 
-    if (v11)
+    if (v12)
     {
 LABEL_11:
+      v11 = [v4 networkReachable];
       v10 = 1;
-      if ([v4 networkReachable])
+      if (v11)
       {
         goto LABEL_21;
       }
@@ -237,33 +238,28 @@ LABEL_11:
 
   else if (a1 == 1)
   {
-    if ((+[TUCallCapabilities canAttemptEmergencyCallsWithoutCellularConnection]& 1) != 0)
+    v11 = +[TUCallCapabilities canAttemptEmergencyCallsWithoutCellularConnection];
+    if (v11)
     {
       goto LABEL_11;
     }
   }
 
-  else if (+[TUCallCapabilities canAttemptTelephonyCallsWithoutCellularConnection])
+  else
   {
-    goto LABEL_11;
+    v11 = +[TUCallCapabilities canAttemptTelephonyCallsWithoutCellularConnection];
+    if (v11)
+    {
+      goto LABEL_11;
+    }
   }
 
   LODWORD(v10) = 0;
 LABEL_12:
-  v12 = PHDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PHDefaultLog(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     if (v10)
-    {
-      v13 = @"NO";
-    }
-
-    else
-    {
-      v13 = @"YES";
-    }
-
-    if ([v4 networkReachable])
     {
       v14 = @"NO";
     }
@@ -273,11 +269,21 @@ LABEL_12:
       v14 = @"YES";
     }
 
-    v16 = 138412546;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v14;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting telephony call, the device is in airplane mode and, cannot make telephony calls while in airplane mode (%@) or is not connected to an active Wi-Fi network (%@).", &v16, 0x16u);
+    if ([v4 networkReachable])
+    {
+      v15 = @"NO";
+    }
+
+    else
+    {
+      v15 = @"YES";
+    }
+
+    v17 = 138412546;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v15;
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting telephony call, the device is in airplane mode and, cannot make telephony calls while in airplane mode (%@) or is not connected to an active Wi-Fi network (%@).", &v17, 0x16u);
   }
 
   v10 = 0;
@@ -292,23 +298,23 @@ uint64_t sub_3D90()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-void sub_51B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_51B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_5430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_56FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_56FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -329,27 +335,28 @@ void sub_5878(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 
 id _inCallServiceDidAppear(uint64_t a1, void *a2)
 {
-  v3 = PHDefaultLog();
+  v3 = PHDefaultLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "TUCallCenterInCallServiceDidAppearNotification: Received in ", buf, 2u);
   }
 
-  v4 = PHDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = PHDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "DialerAnimation: Calling _resetButtonAnimation in ", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "DialerAnimation: Calling _resetButtonAnimation in ", v7, 2u);
   }
 
   return [a2 _resetButtonAnimation];
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id PHFormatDialerLCDViewText(void *a1)
@@ -385,7 +392,7 @@ id PHFormatDialerLCDViewText(void *a1)
 BOOL PHShouldShowWifiCallingAlert()
 {
   v0 = _wifiCallingAlertShowCount();
-  v1 = PHDefaultLog();
+  v1 = PHDefaultLog(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     if (v0 >= 3)
@@ -439,13 +446,13 @@ void PHIncrementWifiCallingAlertShowCount()
   if (v0 != -1)
   {
     v1 = [NSNumber numberWithUnsignedInteger:v0 + 1];
-    PHPreferencesSetValue();
-    v2 = PHDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = PHPreferencesSetValue();
+    v3 = PHDefaultLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 138412290;
-      v4 = v1;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Incrementing wifi calling alert show count to %@", &v3, 0xCu);
+      v4 = 138412290;
+      v5 = v1;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Incrementing wifi calling alert show count to %@", &v4, 0xCu);
     }
   }
 }
@@ -531,13 +538,14 @@ uint64_t PHShouldAttemptFaceTimeCall()
 
   else
   {
-    if ([v2 hasCurrentAudioCalls] && (objc_msgSend(v3, "supportsSimultaneousVoiceAndData") & 1) == 0 && (TUPreferredFaceTimeBundleIdentifier(), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v1, "wifiAllowedForBundleId:", v5), v5, v6))
+    v5 = [v2 hasCurrentAudioCalls];
+    if (v5 && (v5 = [v3 supportsSimultaneousVoiceAndData], (v5 & 1) == 0) && (TUPreferredFaceTimeBundleIdentifier(), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v1, "wifiAllowedForBundleId:", v6), v6, v7))
     {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PHDefaultLog(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Attempting FaceTime call because a telephone call is in progress and the carrier does not support simultaneous voice and data.", buf, 2u);
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Attempting FaceTime call because a telephone call is in progress and the carrier does not support simultaneous voice and data.", buf, 2u);
       }
 
       v4 = 1;
@@ -545,11 +553,11 @@ uint64_t PHShouldAttemptFaceTimeCall()
 
     else
     {
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PHDefaultLog(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting FaceTime call because the network is unavailable.", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Aborting FaceTime call because the network is unavailable.", v10, 2u);
       }
 
       v4 = 0;
@@ -644,29 +652,34 @@ BOOL PHLaunchFieldTestApplicationIfNecessaryForDestinationID(void *a1)
     {
       v4 = v2;
       v5 = MGGetStringAnswer();
-      v6 = @"com.apple.FTMInternal";
-      if (([v5 hasPrefix:@"ice"]& 1) == 0 && PHShouldUseFieldTestBundleIdentifier(v5))
+      v6 = [v5 hasPrefix:@"ice"];
+      v7 = @"com.apple.FTMInternal";
+      if ((v6 & 1) == 0)
       {
-        v6 = @"com.apple.fieldtest";
+        v6 = PHShouldUseFieldTestBundleIdentifier(v5);
+        if (v6)
+        {
+          v7 = @"com.apple.fieldtest";
+        }
       }
 
-      v7 = PHDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PHDefaultLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138412546;
-        v11 = v1;
-        v12 = 2112;
-        v13 = v6;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%@ matches the field test code, launching the legacy field test app %@", &v10, 0x16u);
+        v11 = 138412546;
+        v12 = v1;
+        v13 = 2112;
+        v14 = v7;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ matches the field test code, launching the legacy field test app %@", &v11, 0x16u);
       }
 
-      v8 = [v4 sharedService];
-      [v8 openApplication:v6 options:&__NSDictionary0__struct withResult:0];
+      v9 = [v4 sharedService];
+      [v9 openApplication:v7 options:&__NSDictionary0__struct withResult:0];
     }
 
     else
     {
-      v5 = PHDefaultLog();
+      v5 = PHDefaultLog(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         PHLaunchFieldTestApplicationIfNecessaryForDestinationID_cold_1(v5);
@@ -695,9 +708,9 @@ uint64_t uiDeviceOrientationForBSInterfaceOrientation(uint64_t a1)
   }
 }
 
-void sub_11E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_11E14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -734,7 +747,7 @@ void *__getSBSGetScreenLockStatusSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -751,50 +764,49 @@ LABEL_5:
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (PHOversizedLog_onceToken != -1)
   {
     PHOversizedLog_cold_1();
   }
 
-  v1 = PHOversizedLog_PHOversizedLog;
+  v2 = PHOversizedLog_PHOversizedLog;
 
-  return v1;
+  return v2;
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (PHOversizedLogQueue_onceToken != -1)
   {
     PHOversizedLogQueue_cold_1();
   }
 
-  v1 = PHOversizedLogQueue_PHOversizedLogQueue;
+  v2 = PHOversizedLogQueue_PHOversizedLogQueue;
 
-  return v1;
+  return v2;
 }
 
-void sub_1A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   va_copy(va2, va1);
-  v15 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
+  v26 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -815,14 +827,15 @@ void sub_1CCCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_1E4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_1E4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a53, 8);
-  _Block_object_dispose((v53 - 256), 8);
-  _Block_object_dispose((v53 - 224), 8);
-  _Block_object_dispose((v53 - 176), 8);
-  _Block_object_dispose((v53 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v52 - 256), 8);
+  _Block_object_dispose((v52 - 224), 8);
+  _Block_object_dispose((v52 - 176), 8);
+  _Block_object_dispose((v52 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -840,14 +853,14 @@ void sub_1F040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_20D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_20D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -883,11 +896,11 @@ Swift::Int sub_23888()
   return sub_2D8F8();
 }
 
-Swift::Int sub_238FC()
+Swift::Int sub_238FC(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2D8D8();
-  sub_2D8E8(v1);
+  sub_2D8E8(v2);
   return sub_2D8F8();
 }
 
@@ -1201,128 +1214,110 @@ void sub_24B6C()
 Class sub_24C5C(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     sub_25F80();
-    v5.super.isa = sub_2D788().super.isa;
+    v4.super.isa = sub_2D788().super.isa;
   }
 
   else
   {
-    v5.super.isa = 0;
+    v4.super.isa = 0;
   }
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
-uint64_t sub_24DE8()
+unint64_t sub_24DE8()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CA38, &qword_314F0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_313C0;
   strcpy((inited + 32), "apple_support");
   *(inited + 46) = -4864;
-  v2 = OBJC_IVAR___MPDialerInterceptReporter_appleSupport;
   swift_beginAccess();
-  v3 = *(v0 + v2);
   *(inited + 48) = sub_2D818();
   strcpy((inited + 56), "autocomplete");
   *(inited + 69) = 0;
   *(inited + 70) = -5120;
-  v4 = OBJC_IVAR___MPDialerInterceptReporter_autocomplete;
   swift_beginAccess();
-  v5 = *(v0 + v4);
   *(inited + 72) = sub_2D818();
   strcpy((inited + 80), "saved_contact");
   *(inited + 94) = -4864;
-  v6 = OBJC_IVAR___MPDialerInterceptReporter_savedContact;
   swift_beginAccess();
-  v7 = *(v0 + v6);
   *(inited + 96) = sub_2D818();
   strcpy((inited + 104), "shown_option_1");
   *(inited + 119) = -18;
-  v8 = OBJC_IVAR___MPDialerInterceptReporter_firstShownOption;
+  v2 = OBJC_IVAR___MPDialerInterceptReporter_firstShownOption;
   swift_beginAccess();
-  v9 = *(v0 + v8);
-  if (v9 > 2)
+  v3 = *(v0 + v2);
+  if (v3 <= 2)
   {
-    if (v9 <= 4 || v9 == 5 || v9 == 6)
+    if (v3 > 1 && v3 != 2)
     {
-      goto LABEL_11;
+      goto LABEL_32;
     }
-
-LABEL_32:
-    v21 = *(v0 + v8);
-    goto LABEL_35;
   }
 
-  if (v9 > 1 && v9 != 2)
+  else if (v3 > 4 && v3 != 5 && v3 != 6)
   {
     goto LABEL_32;
   }
 
-LABEL_11:
-  v10 = sub_2D798();
+  v4 = sub_2D798();
 
-  *(inited + 120) = v10;
+  *(inited + 120) = v4;
   strcpy((inited + 128), "shown_option_2");
   *(inited + 143) = -18;
-  v11 = OBJC_IVAR___MPDialerInterceptReporter_secondShownOption;
+  v5 = OBJC_IVAR___MPDialerInterceptReporter_secondShownOption;
   swift_beginAccess();
-  v12 = *(v0 + v11);
-  if (v12 <= 2)
+  v6 = *(v0 + v5);
+  if (v6 <= 2)
   {
-    if (v12 <= 1 || v12 == 2)
+    if (v6 > 1 && v6 != 2)
     {
-      goto LABEL_21;
+      goto LABEL_32;
     }
-
-LABEL_33:
-    v20 = *(v0 + v11);
-    goto LABEL_35;
   }
 
-  if (v12 > 4 && v12 != 5 && v12 != 6)
+  else if (v6 > 4 && v6 != 5 && v6 != 6)
   {
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
-LABEL_21:
-  v13 = sub_2D798();
+  v7 = sub_2D798();
 
-  *(inited + 144) = v13;
+  *(inited + 144) = v7;
   *(inited + 152) = 0x64657463656C6573;
   *(inited + 160) = 0xEF6E6F6974706F5FLL;
-  v14 = OBJC_IVAR___MPDialerInterceptReporter_selectedOption;
+  v8 = OBJC_IVAR___MPDialerInterceptReporter_selectedOption;
   swift_beginAccess();
-  v15 = *(v0 + v14);
-  if (v15 <= 2)
+  v9 = *(v0 + v8);
+  if (v9 <= 2)
   {
-    if (v15 <= 1 || v15 == 2)
+    if (v9 <= 1 || v9 == 2)
     {
       goto LABEL_31;
     }
   }
 
-  else if (v15 <= 4 || v15 == 5 || v15 == 6)
+  else if (v9 <= 4 || v9 == 5 || v9 == 6)
   {
 LABEL_31:
-    v16 = sub_2D798();
+    v10 = sub_2D798();
 
-    *(inited + 168) = v16;
-    v17 = sub_25E7C(inited);
+    *(inited + 168) = v10;
+    v11 = sub_25E7C(inited);
     swift_setDeallocating();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CA40, &qword_314F8);
     swift_arrayDestroy();
-    return v17;
+    return v11;
   }
 
-  v19 = *(v0 + v14);
-LABEL_35:
+LABEL_32:
   result = sub_2D8C8();
   __break(1u);
   return result;
@@ -1369,7 +1364,7 @@ uint64_t sub_25510(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_25590@<X0>(void *a1@<X8>)
+uint64_t sub_25590@<X0>(uint64_t *a1@<X8>)
 {
   sub_2D7C8();
   v2 = sub_2D798();
@@ -1378,77 +1373,69 @@ uint64_t sub_25590@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t sub_255D4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_255D4@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_2D798();
+  v3 = sub_2D798();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_2561C@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_2D7C8();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_25648(uint64_t a1)
 {
-  v2 = sub_26094(&qword_5CA70);
-  v3 = sub_26094(&qword_5CA78);
+  v2 = sub_26094(&qword_5CA70, &unk_3161C);
+  v3 = sub_26094(&qword_5CA78, &unk_315BC);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
 uint64_t sub_256E0()
 {
-  v1 = *v0;
   sub_2D7C8();
-  v2 = sub_2D7F8();
+  v0 = sub_2D7F8();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_2571C()
+uint64_t sub_2571C(uint64_t a1)
 {
-  v1 = *v0;
   sub_2D7C8();
   sub_2D7D8();
 }
 
-Swift::Int sub_25770()
+Swift::Int sub_25770(uint64_t a1)
 {
-  v1 = *v0;
   sub_2D7C8();
   sub_2D8D8();
   sub_2D7D8();
-  v2 = sub_2D8F8();
+  v1 = sub_2D8F8();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_257E4(uint64_t *a1, uint64_t *a2)
+uint64_t sub_257E4(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_2D7C8();
-  v6 = v5;
-  if (v4 == sub_2D7C8() && v6 == v7)
+  v2 = sub_2D7C8();
+  v4 = v3;
+  if (v2 == sub_2D7C8() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_2D8B8();
+    v7 = sub_2D8B8();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 unint64_t sub_2586C(unint64_t result)
@@ -1533,7 +1520,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1609,19 +1595,19 @@ unint64_t sub_25F80()
   return result;
 }
 
-void sub_25FE0(uint64_t a1, unint64_t *a2)
+void sub_25FE0(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_26094(unint64_t *a1)
+uint64_t sub_26094(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1637,191 +1623,189 @@ uint64_t sub_26094(unint64_t *a1)
 void GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   v5 = v4;
-  v10 = *(*(sub_2D738() - 8) + 64);
-  (off_50818)();
+  v10 = sub_2D738();
+  off_50818(v10 - 8);
   v11 = sub_2D618();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = (off_50818)();
-  v16 = &v69 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_50818(v14);
-  v18 = &v69 - v17;
-  v19 = sub_2D648();
-  v20 = *(*(v19 - 8) + 64);
-  off_50818(v19 - 8);
-  v71 = v12;
-  v21 = *(v12 + 16);
-  v21(&v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_frontCircleConfig], a1, v11);
-  v21(&v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_backCircleConfig], a2, v11);
-  v22 = &v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_size];
-  *v22 = a3;
-  v22[1] = a4;
-  v21(v18, a1, v11);
-  v72 = a2;
-  v21(v16, a2, v11);
+  v13 = off_50818(v11);
+  v15 = &v67 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_50818(v13);
+  v17 = &v67 - v16;
+  v18 = sub_2D648();
+  off_50818(v18 - 8);
+  v69 = v12;
+  v19 = *(v12 + 16);
+  v19(&v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_frontCircleConfig], a1, v11);
+  v19(&v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_backCircleConfig], a2, v11);
+  v20 = &v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_size];
+  *v20 = a3;
+  v20[1] = a4;
+  v19(v17, a1, v11);
+  v70 = a2;
+  v19(v15, a2, v11);
   sub_2D638();
-  v23 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CA80, &qword_316C0));
+  v21 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CA80, &qword_316C0));
   *&v5[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_hostingController] = sub_2D628();
-  v24 = type metadata accessor for GlassCutoutCirclesOverlayViewController();
-  v73.receiver = v5;
-  v73.super_class = v24;
-  v25 = objc_msgSendSuper2(&v73, "initWithNibName:bundle:", 0, 0);
-  v26 = OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_hostingController;
-  v27 = *&v25[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_hostingController];
-  v28 = v25;
-  [v28 addChildViewController:v27];
-  v29 = [v28 view];
-  if (!v29)
+  v22 = type metadata accessor for GlassCutoutCirclesOverlayViewController(0);
+  v71.receiver = v5;
+  v71.super_class = v22;
+  v23 = objc_msgSendSuper2(&v71, "initWithNibName:bundle:", 0, 0);
+  v24 = OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_hostingController;
+  v25 = *&v23[OBJC_IVAR___PHGlassCutoutCirclesOverlayViewController_hostingController];
+  v26 = v23;
+  [v26 addChildViewController:v25];
+  v27 = [v26 view];
+  if (!v27)
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v30 = v29;
-  v31 = [*&v25[v26] view];
-  if (!v31)
+  v28 = v27;
+  v29 = [*&v23[v24] view];
+  if (!v29)
   {
 LABEL_15:
     __break(1u);
     goto LABEL_16;
   }
 
-  v32 = v31;
-  [v30 addSubview:v31];
+  v30 = v29;
+  [v28 addSubview:v29];
 
-  v33 = [*&v25[v26] view];
-  if (!v33)
+  v31 = [*&v23[v24] view];
+  if (!v31)
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v34 = v33;
-  [v33 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v32 = v31;
+  [v31 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v35 = *&v25[v26];
+  v33 = *&v23[v24];
   sub_2D718();
 
-  v36 = *&v25[v26];
+  v34 = *&v23[v24];
   sub_2D728();
   sub_2D708();
 
-  v37 = [*&v25[v26] view];
-  if (!v37)
+  v35 = [*&v23[v24] view];
+  if (!v35)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  v38 = v37;
-  v39 = [objc_opt_self() clearColor];
-  [v38 setBackgroundColor:v39];
+  v36 = v35;
+  v37 = [objc_opt_self() clearColor];
+  [v36 setBackgroundColor:v37];
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CA90, qword_316C8);
-  v40 = swift_allocObject();
-  *(v40 + 16) = xmmword_316B0;
-  v41 = [*&v25[v26] view];
-  if (!v41)
+  v38 = swift_allocObject();
+  *(v38 + 16) = xmmword_316B0;
+  v39 = [*&v23[v24] view];
+  if (!v39)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  v42 = v41;
-  v70 = a1;
-  v43 = [v41 topAnchor];
+  v40 = v39;
+  v68 = a1;
+  v41 = [v39 topAnchor];
 
-  v44 = [v28 view];
-  if (!v44)
+  v42 = [v26 view];
+  if (!v42)
   {
 LABEL_19:
     __break(1u);
     goto LABEL_20;
   }
 
-  v45 = [v44 topAnchor];
+  v43 = [v42 topAnchor];
 
-  v46 = [v43 constraintEqualToAnchor:v45];
-  *(v40 + 32) = v46;
-  v47 = [*&v25[v26] view];
-  if (!v47)
+  v44 = [v41 constraintEqualToAnchor:v43];
+  *(v38 + 32) = v44;
+  v45 = [*&v23[v24] view];
+  if (!v45)
   {
 LABEL_20:
     __break(1u);
     goto LABEL_21;
   }
 
-  v48 = v47;
-  v49 = [v47 bottomAnchor];
+  v46 = v45;
+  v47 = [v45 bottomAnchor];
 
-  v50 = [v28 view];
-  if (!v50)
+  v48 = [v26 view];
+  if (!v48)
   {
 LABEL_21:
     __break(1u);
     goto LABEL_22;
   }
 
-  v51 = [v50 bottomAnchor];
+  v49 = [v48 bottomAnchor];
 
-  v52 = [v49 constraintEqualToAnchor:v51];
-  *(v40 + 40) = v52;
-  v53 = [*&v25[v26] view];
-  if (!v53)
+  v50 = [v47 constraintEqualToAnchor:v49];
+  *(v38 + 40) = v50;
+  v51 = [*&v23[v24] view];
+  if (!v51)
   {
 LABEL_22:
     __break(1u);
     goto LABEL_23;
   }
 
-  v54 = v53;
-  v55 = [v53 leadingAnchor];
+  v52 = v51;
+  v53 = [v51 leadingAnchor];
 
-  v56 = [v28 view];
-  if (!v56)
+  v54 = [v26 view];
+  if (!v54)
   {
 LABEL_23:
     __break(1u);
     goto LABEL_24;
   }
 
-  v57 = [v56 leadingAnchor];
+  v55 = [v54 leadingAnchor];
 
-  v58 = [v55 constraintEqualToAnchor:v57];
-  *(v40 + 48) = v58;
-  v59 = [*&v25[v26] view];
-  if (!v59)
+  v56 = [v53 constraintEqualToAnchor:v55];
+  *(v38 + 48) = v56;
+  v57 = [*&v23[v24] view];
+  if (!v57)
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v60 = v59;
-  v61 = [v59 trailingAnchor];
+  v58 = v57;
+  v59 = [v57 trailingAnchor];
 
-  v62 = [v28 view];
-  if (v62)
+  v60 = [v26 view];
+  if (v60)
   {
-    v63 = objc_opt_self();
-    v64 = [v62 trailingAnchor];
+    v61 = objc_opt_self();
+    v62 = [v60 trailingAnchor];
 
-    v65 = [v61 constraintEqualToAnchor:v64];
-    *(v40 + 56) = v65;
+    v63 = [v59 constraintEqualToAnchor:v62];
+    *(v38 + 56) = v63;
     sub_26930();
     isa = sub_2D808().super.isa;
 
-    [v63 activateConstraints:isa];
+    [v61 activateConstraints:isa];
 
-    v67 = *&v25[v26];
-    [v67 didMoveToParentViewController:v28];
+    v65 = *&v23[v24];
+    [v65 didMoveToParentViewController:v26];
 
-    v68 = *(v71 + 8);
-    v68(v72, v11);
-    v68(v70, v11);
+    v66 = *(v69 + 8);
+    v66(v70, v11);
+    v66(v68, v11);
     return;
   }
 
@@ -1829,7 +1813,7 @@ LABEL_25:
   __break(1u);
 }
 
-uint64_t type metadata accessor for GlassCutoutCirclesOverlayViewController()
+uint64_t type metadata accessor for GlassCutoutCirclesOverlayViewController(uint64_t a1)
 {
   result = qword_5CA98;
   if (!qword_5CA98)
@@ -1874,7 +1858,7 @@ id GlassCutoutCirclesOverlayViewController.__allocating_init(nibName:bundle:)(ui
 id GlassCutoutCirclesOverlayViewController.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for GlassCutoutCirclesOverlayViewController();
+  v2.super_class = type metadata accessor for GlassCutoutCirclesOverlayViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -1882,59 +1866,56 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC023makeTextSOSButton
 {
   v0 = sub_2D5E8();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v35 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v36 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v37 = *(v10 - 8);
-  v38 = v10;
-  v11 = *(v37 + 64);
-  v12 = off_50818(v10);
-  v40 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = off_50818(v12);
-  v39 = &v35 - v15;
-  v16 = off_50818(v14);
-  v18 = &v35 - v17;
-  off_50818(v16);
-  v20 = &v35 - v19;
-  v21 = *(v6 + 104);
-  v21(v9, enum case for CircleOverlayConfig.CircleCorner.topRight(_:), v5);
-  v22 = *(v1 + 104);
-  v22(v4, enum case for CircleOverlayConfig.CircleScale.small(_:), v0);
+  v3 = &v32 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v33 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v34 = *(v8 - 8);
+  v35 = v8;
+  v9 = off_50818(v8);
+  v37 = &v32 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = off_50818(v9);
+  v36 = &v32 - v12;
+  v13 = off_50818(v11);
+  v15 = &v32 - v14;
+  off_50818(v13);
+  v17 = &v32 - v16;
+  v18 = *(v5 + 104);
+  v18(v7, enum case for CircleOverlayConfig.CircleCorner.topRight(_:), v4);
+  v19 = *(v1 + 104);
+  v19(v3, enum case for CircleOverlayConfig.CircleScale.small(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v21(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v36);
-  v23 = v18;
-  v25 = v37;
-  v24 = v38;
-  v22(v4, enum case for CircleOverlayConfig.CircleScale.large(_:), v0);
+  v18(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v33);
+  v20 = v15;
+  v22 = v34;
+  v21 = v35;
+  v19(v3, enum case for CircleOverlayConfig.CircleScale.large(_:), v0);
   sub_2D768();
   sub_2D778();
   sub_2D608();
-  v26 = *(v25 + 16);
-  v27 = v39;
-  v26(v39, v20, v24);
-  v28 = v40;
-  v26(v40, v23, v24);
-  v29 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v27, v28, 93.0, 75.0);
-  v31 = v30;
-  result = [v30 view];
+  v23 = *(v22 + 16);
+  v24 = v36;
+  v23(v36, v17, v21);
+  v25 = v37;
+  v23(v37, v20, v21);
+  v26 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v24, v25, 93.0, 75.0);
+  v28 = v27;
+  result = [v27 view];
   if (result)
   {
-    v33 = result;
+    v30 = result;
 
-    v34 = *(v25 + 8);
-    v34(v23, v24);
-    v34(v20, v24);
-    return v33;
+    v31 = *(v22 + 8);
+    v31(v20, v21);
+    v31(v17, v21);
+    return v30;
   }
 
   else
@@ -1948,63 +1929,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC023makeTextSOSButton
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC032makeEndHoldAndAcceptButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D768();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2018,63 +1996,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC032makeEndHoldAndAcc
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC028makeEndAndAcceptButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D768();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 90.0, 90.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 90.0, 90.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2088,63 +2063,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC028makeEndAndAcceptB
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeHoldAndAcceptButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D778();
   sub_2D768();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D768();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 90.0, 90.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 90.0, 90.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2158,63 +2130,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeHoldAndAccept
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeEndAcceptVoipButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D758();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2228,63 +2197,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeEndAcceptVoip
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC033makeEndHoldAcceptVoipButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D758();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2298,63 +2264,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC033makeEndHoldAccept
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC017makeEndVoipAcceptk12ButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D758();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2368,63 +2331,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC017makeEndVoipAccept
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeEndVoipAcceptButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D748();
   sub_2D778();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D768();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2438,63 +2398,60 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC029makeEndVoipAccept
 id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC030makeHoldAcceptVoipButtonCircleG0So6UIViewCyFZ_0()
 {
   v0 = sub_2D5E8();
-  v37 = v0;
+  v34 = v0;
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50818(v0);
-  v4 = &v37 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D5F8();
-  v38 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50818(v5);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D618();
-  v11 = *(v10 - 8);
-  v39 = v10;
-  v40 = v11;
-  v12 = *(v11 + 64);
-  v13 = off_50818(v10);
-  v42 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = off_50818(v13);
-  v41 = &v37 - v16;
-  v17 = off_50818(v15);
-  v19 = &v37 - v18;
-  off_50818(v17);
-  v21 = &v37 - v20;
-  v22 = *(v6 + 104);
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v5);
-  v23 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
-  v24 = *(v1 + 104);
-  v24(v4, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
+  v3 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D5F8();
+  v35 = v4;
+  v5 = *(v4 - 8);
+  off_50818(v4);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D618();
+  v9 = *(v8 - 8);
+  v36 = v8;
+  v37 = v9;
+  v10 = off_50818(v8);
+  v39 = &v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = off_50818(v10);
+  v38 = &v34 - v13;
+  v14 = off_50818(v12);
+  v16 = &v34 - v15;
+  off_50818(v14);
+  v18 = &v34 - v17;
+  v19 = *(v5 + 104);
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.topLeft(_:), v4);
+  v20 = enum case for CircleOverlayConfig.CircleScale.regular(_:);
+  v21 = *(v1 + 104);
+  v21(v3, enum case for CircleOverlayConfig.CircleScale.regular(_:), v0);
   sub_2D778();
   sub_2D768();
   sub_2D608();
-  v22(v9, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v38);
-  v25 = v39;
-  v24(v4, v23, v37);
-  v26 = v19;
-  v27 = v40;
+  v19(v7, enum case for CircleOverlayConfig.CircleCorner.bottomRight(_:), v35);
+  v22 = v36;
+  v21(v3, v20, v34);
+  v23 = v16;
+  v24 = v37;
   sub_2D758();
   sub_2D778();
   sub_2D608();
-  v28 = *(v27 + 16);
-  v29 = v41;
-  v28(v41, v26, v25);
-  v30 = v42;
-  v28(v42, v21, v25);
-  v31 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController());
-  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v29, v30, 100.0, 100.0);
-  v33 = v32;
-  result = [v32 view];
+  v25 = *(v24 + 16);
+  v26 = v38;
+  v25(v38, v23, v22);
+  v27 = v39;
+  v25(v39, v18, v22);
+  v28 = objc_allocWithZone(type metadata accessor for GlassCutoutCirclesOverlayViewController(0));
+  GlassCutoutCirclesOverlayViewController.init(frontCircleConfig:backCircleConfig:size:)(v26, v27, 100.0, 100.0);
+  v30 = v29;
+  result = [v29 view];
   if (result)
   {
-    v35 = result;
+    v32 = result;
 
-    v36 = *(v27 + 8);
-    v36(v26, v25);
-    v36(v21, v25);
-    return v35;
+    v33 = *(v24 + 8);
+    v33(v23, v22);
+    v33(v18, v22);
+    return v32;
   }
 
   else
@@ -2505,12 +2462,11 @@ id _s11CallsDialer39GlassCutoutCirclesOverlayViewControllerC030makeHoldAcceptVoi
   return result;
 }
 
-uint64_t sub_290B4()
+uint64_t sub_290B4(uint64_t a1)
 {
   result = sub_2D618();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -2705,39 +2661,38 @@ id DialerResultButtonView.init(type:delegate:)(uint64_t a1, uint64_t a2)
   sub_2D668();
   *&v2[OBJC_IVAR___PHDialerResultButtonView____lazy_storage___stackView] = 0;
   *&v2[OBJC_IVAR___PHDialerResultButtonView_type] = a1;
-  v9 = *&v2[v6];
   *&v2[v6] = a2;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
-  v22.receiver = v2;
-  v22.super_class = ObjectType;
-  v10 = objc_msgSendSuper2(&v22, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  v11 = objc_opt_self();
-  v12 = v10;
-  v13 = [v11 clearColor];
-  [v12 setBackgroundColor:v13];
+  v21.receiver = v2;
+  v21.super_class = ObjectType;
+  v9 = objc_msgSendSuper2(&v21, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+  v10 = objc_opt_self();
+  v11 = v9;
+  v12 = [v10 clearColor];
+  [v11 setBackgroundColor:v12];
 
-  [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v14 = sub_2952C();
-  if (v14)
+  [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v13 = sub_2952C();
+  if (v13)
   {
-    v15 = v14;
-    v16 = sub_296C4();
-    [v16 addArrangedSubview:v15];
+    v14 = v13;
+    v15 = sub_296C4();
+    [v15 addArrangedSubview:v14];
   }
 
   sub_29B80();
-  v17 = [v12 traitCollection];
-  v18 = [v17 preferredContentSizeCategory];
+  v16 = [v11 traitCollection];
+  v17 = [v16 preferredContentSizeCategory];
 
-  v19 = sub_291E0();
-  [v19 setHidden:sub_2D838() & 1];
+  v18 = sub_291E0();
+  [v18 setHidden:sub_2D838() & 1];
 
-  v20 = [objc_opt_self() defaultCenter];
-  [v20 addObserver:v12 selector:"handleContentSizeCategoryDidChange:" name:UIContentSizeCategoryDidChangeNotification object:0];
+  v19 = [objc_opt_self() defaultCenter];
+  [v19 addObserver:v11 selector:"handleContentSizeCategoryDidChange:" name:UIContentSizeCategoryDidChangeNotification object:0];
   swift_unknownObjectRelease();
 
-  return v12;
+  return v11;
 }
 
 void sub_29B80()
@@ -2791,7 +2746,6 @@ void sub_29ED8(uint64_t a1)
   {
     if (v2 > 1)
     {
-      v8 = *(v1 + OBJC_IVAR___PHDialerResultButtonView_type);
       sub_2D8C8();
       __break(1u);
       return;
@@ -2866,102 +2820,101 @@ void DialerResultButtonView.configure(primaryTitle:image:buttonType:)(uint64_t a
 
 void sub_2A3FC(void *a1, uint64_t a2, uint64_t a3)
 {
-  v46 = a2;
+  v45 = a2;
   v5 = sub_2D5D8();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  (off_50838)();
-  v9 = &v43 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_5CAF0, &unk_318A0) - 8) + 64);
-  v11 = (off_50838)();
-  v13 = &v43 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = off_50838(v11);
-  v16 = &v43 - v15;
-  off_50838(v14);
-  v18 = &v43 - v17;
-  v19 = sub_296C4();
-  [v19 layoutIfNeeded];
+  off_50838(v5);
+  v8 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_5CAF0, &unk_318A0);
+  v10 = off_50838(v9 - 8);
+  v12 = &v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = off_50838(v10);
+  v15 = &v42 - v14;
+  off_50838(v13);
+  v17 = &v42 - v16;
+  v18 = sub_296C4();
+  [v18 layoutIfNeeded];
 
-  v20 = sub_2952C();
-  if (v20)
+  v19 = sub_2952C();
+  if (v19)
   {
-    v21 = v20;
-    [v20 sizeThatFits:{0.0, 0.0}];
-    v23 = v22;
-    [v21 frame];
-    Width = CGRectGetWidth(v47);
+    v20 = v19;
+    [v19 sizeThatFits:{0.0, 0.0}];
+    v22 = v21;
+    [v20 frame];
+    Width = CGRectGetWidth(v46);
 
-    if (Width < v23)
+    if (Width < v22)
     {
-      v44 = a3;
-      v25 = [objc_allocWithZone(NSPersonNameComponentsFormatter) init];
-      v26 = [a1 string];
-      if (!v26)
+      v43 = a3;
+      v24 = [objc_allocWithZone(NSPersonNameComponentsFormatter) init];
+      v25 = [a1 string];
+      if (!v25)
       {
         sub_2D7C8();
-        v26 = sub_2D798();
+        v25 = sub_2D798();
       }
 
-      v45 = v25;
-      v27 = [v25 personNameComponentsFromString:v26];
+      v44 = v24;
+      v26 = [v24 personNameComponentsFromString:v25];
 
-      if (v27)
+      if (v26)
       {
         sub_2D5C8();
 
-        (*(v6 + 56))(v16, 0, 1, v5);
+        (*(v6 + 56))(v15, 0, 1, v5);
       }
 
       else
       {
-        (*(v6 + 56))(v16, 1, 1, v5);
+        (*(v6 + 56))(v15, 1, 1, v5);
       }
 
+      v27 = v43;
+      sub_2BA94(v15, v17);
       v28 = v44;
-      sub_2BA94(v16, v18);
-      v29 = v45;
-      [v45 setStyle:1];
-      sub_2BB04(v18, v13, &unk_5CAF0, &unk_318A0);
-      if ((*(v6 + 48))(v13, 1, v5) == 1)
+      [v44 setStyle:1];
+      sub_2BB04(v17, v12, &unk_5CAF0, &unk_318A0);
+      if ((*(v6 + 48))(v12, 1, v5) == 1)
       {
-        sub_2BB6C(v18, &unk_5CAF0, &unk_318A0);
+        sub_2BB6C(v17, &unk_5CAF0, &unk_318A0);
 
-        v18 = v13;
+        v17 = v12;
 LABEL_18:
-        sub_2BB6C(v18, &unk_5CAF0, &unk_318A0);
+        sub_2BB6C(v17, &unk_5CAF0, &unk_318A0);
         return;
       }
 
-      (*(v6 + 32))(v9, v13, v5);
-      v30 = sub_2D658();
-      v31 = sub_2D828();
-      if (os_log_type_enabled(v30, v31))
+      (*(v6 + 32))(v8, v12, v5);
+      v29 = sub_2D658();
+      v30 = sub_2D828();
+      if (os_log_type_enabled(v29, v30))
       {
-        v32 = swift_slowAlloc();
-        *v32 = 0;
-        _os_log_impl(&dword_0, v30, v31, "DialerResultButtonView: Using Short name as the number is being truncated", v32, 2u);
+        v31 = swift_slowAlloc();
+        *v31 = 0;
+        _os_log_impl(&dword_0, v29, v30, "DialerResultButtonView: Using Short name as the number is being truncated", v31, 2u);
       }
 
-      v33 = sub_2D5B8();
-      v34 = [v29 stringFromPersonNameComponents:v33];
+      v32 = sub_2D5B8();
+      v33 = [v28 stringFromPersonNameComponents:v32];
 
-      v35 = v34;
-      v36 = v34;
-      if (v34)
+      v34 = v33;
+      v35 = v33;
+      if (v33)
       {
-        if (v28)
+        if (v27)
         {
 LABEL_14:
-          v37 = v34;
+          v36 = v33;
 
-          v38 = sub_29378();
-          v39 = sub_2D798();
-          v40 = [v36 attributedStringToHighlightText:v39 style:1];
+          v37 = sub_29378();
+          v38 = sub_2D798();
+          v39 = [v35 attributedStringToHighlightText:v38 style:1];
 LABEL_17:
-          v42 = v40;
+          v41 = v39;
 
-          [v38 setAttributedText:v42];
-          (*(v6 + 8))(v9, v5);
+          [v37 setAttributedText:v41];
+          (*(v6 + 8))(v8, v5);
           goto LABEL_18;
         }
       }
@@ -2969,24 +2922,24 @@ LABEL_17:
       else
       {
         sub_2D7C8();
-        v36 = sub_2D798();
+        v35 = sub_2D798();
 
         sub_2D7C8();
-        v35 = sub_2D798();
-        v29 = v45;
+        v34 = sub_2D798();
+        v28 = v44;
 
-        if (v28)
+        if (v27)
         {
           goto LABEL_14;
         }
       }
 
-      v41 = v34;
+      v40 = v33;
 
-      v38 = sub_29378();
-      v39 = sub_2D798();
-      v40 = [v35 attributedStringToHighlightText:v39];
-      v36 = v35;
+      v37 = sub_29378();
+      v38 = sub_2D798();
+      v39 = [v34 attributedStringToHighlightText:v38];
+      v35 = v34;
       goto LABEL_17;
     }
   }
@@ -3077,54 +3030,53 @@ Swift::Void __swiftcall DialerResultButtonView.handlePress()()
 void sub_2AD04(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CAE0, &qword_31890);
-  v3 = *(*(v2 - 8) + 64);
   off_50838(v2 - 8);
-  v5 = v14 - v4;
-  sub_2BB04(a1, v14 - v4, &qword_5CAE0, &qword_31890);
-  v6 = sub_2D5A8();
-  v7 = *(v6 - 8);
-  if ((*(v7 + 48))(v5, 1, v6) == 1)
+  v4 = v13 - v3;
+  sub_2BB04(a1, v13 - v3, &qword_5CAE0, &qword_31890);
+  v5 = sub_2D5A8();
+  v6 = *(v5 - 8);
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_2BB6C(v5, &qword_5CAE0, &qword_31890);
+    sub_2BB6C(v4, &qword_5CAE0, &qword_31890);
 LABEL_10:
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     goto LABEL_11;
   }
 
-  v8 = sub_2D598();
-  (*(v7 + 8))(v5, v6);
-  if (!v8)
+  v7 = sub_2D598();
+  (*(v6 + 8))(v4, v5);
+  if (!v7)
   {
     goto LABEL_10;
   }
 
-  v14[1] = sub_2D7C8();
-  v14[2] = v9;
+  v13[1] = sub_2D7C8();
+  v13[2] = v8;
   sub_2D878();
-  if (!*(v8 + 16) || (v10 = sub_2B500(v15), (v11 & 1) == 0))
+  if (!*(v7 + 16) || (v9 = sub_2B500(v14), (v10 & 1) == 0))
   {
 
-    sub_2B874(v15);
+    sub_2B874(v14);
     goto LABEL_10;
   }
 
-  sub_2B8C8(*(v8 + 56) + 32 * v10, &v16);
-  sub_2B874(v15);
+  sub_2B8C8(*(v7 + 56) + 32 * v9, &v15);
+  sub_2B874(v14);
 
-  if (!*(&v17 + 1))
+  if (!*(&v16 + 1))
   {
 LABEL_11:
-    sub_2BB6C(&v16, &qword_5CAE8, &qword_31898);
+    sub_2BB6C(&v15, &qword_5CAE8, &qword_31898);
     return;
   }
 
   type metadata accessor for UIContentSizeCategory(0);
   if (swift_dynamicCast())
   {
-    v12 = v15[0];
-    v13 = sub_291E0();
-    [v13 setHidden:sub_2D838() & 1];
+    v11 = v14[0];
+    v12 = sub_291E0();
+    [v12 setHidden:sub_2D838() & 1];
   }
 }
 
@@ -3204,12 +3156,11 @@ id DialerResultButtonView.__deallocating_deinit()
 
 unint64_t sub_2B488(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_2D8D8();
   sub_2D7D8();
-  v6 = sub_2D8F8();
+  v4 = sub_2D8F8();
 
-  return sub_2B544(a1, a2, v6);
+  return sub_2B544(a1, a2, v4);
 }
 
 unint64_t sub_2B500(uint64_t a1)
@@ -3297,7 +3248,7 @@ unint64_t sub_2B6D8()
   return result;
 }
 
-uint64_t type metadata accessor for DialerResultButtonView()
+uint64_t type metadata accessor for DialerResultButtonView(uint64_t a1)
 {
   result = qword_60768;
   if (!qword_60768)
@@ -3308,12 +3259,11 @@ uint64_t type metadata accessor for DialerResultButtonView()
   return result;
 }
 
-uint64_t sub_2B790()
+uint64_t sub_2B790(uint64_t a1)
 {
   result = sub_2D678();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -3375,12 +3325,11 @@ uint64_t sub_2BB6C(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_2BBCC(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_2BBCC(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3459,8 +3408,8 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
 
 uint64_t sub_2BEE0(void (*a1)(uint64_t))
 {
-  v2 = *(*(sub_2D6C8() - 8) + 64);
-  v3 = off_50840();
+  v2 = sub_2D6C8();
+  v3 = off_50840(v2 - 8);
   a1(v3);
   v5[3] = sub_2D6E8();
   v5[4] = &protocol witness table for _Glass;
@@ -3471,8 +3420,8 @@ uint64_t sub_2BEE0(void (*a1)(uint64_t))
 
 void sub_2BFAC(void *a1, uint64_t a2, void (*a3)(void))
 {
-  v5 = *(*(sub_2D6C8() - 8) + 64);
-  off_50840();
+  v5 = sub_2D6C8();
+  off_50840(v5 - 8);
   v6 = a1;
   a3();
   v7[3] = sub_2D6E8();
@@ -3486,94 +3435,87 @@ Swift::Void __swiftcall UIView.applyClearGlassBackgroundWithTintColor(_:)(UIColo
 {
   v1 = sub_2D6E8();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  (off_50840)();
-  v5 = &v16[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_2D6C8();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = (off_50840)();
-  v11 = &v16[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_50840(v9);
-  v13 = &v16[-1] - v12;
+  off_50840(v1);
+  v4 = &v14[-1] - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_2D6C8();
+  v6 = *(v5 - 8);
+  v7 = off_50840(v5);
+  v9 = &v14[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_50840(v7);
+  v11 = &v14[-1] - v10;
   sub_2D6B8();
   sub_2D688();
-  v14 = *(v7 + 8);
-  v14(v11, v6);
-  (*(v7 + 16))(v11, v13, v6);
+  v12 = *(v6 + 8);
+  v12(v9, v5);
+  (*(v6 + 16))(v9, v11, v5);
   sub_2D6F8();
-  v16[3] = v1;
-  v16[4] = &protocol witness table for _Glass;
-  __swift_allocate_boxed_opaque_existential_1(v16);
+  v14[3] = v1;
+  v14[4] = &protocol witness table for _Glass;
+  __swift_allocate_boxed_opaque_existential_1(v14);
   sub_2D6D8();
-  (*(v2 + 8))(v5, v1);
+  (*(v2 + 8))(v4, v1);
   sub_2D848();
-  v14(v13, v6);
+  v12(v11, v5);
 }
 
 Swift::Void __swiftcall UIView.applySmallClearGlassBackground()()
 {
   v0 = sub_2D698();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   off_50840(v0);
-  v4 = &v12[-1] - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D6C8();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = off_50840(v5);
-  v10 = &v12[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_50840(v8);
+  v3 = &v10[-1] - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D6C8();
+  v5 = *(v4 - 8);
+  v6 = off_50840(v4);
+  v8 = &v10[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_50840(v6);
   sub_2D6B8();
-  (*(v1 + 104))(v4, enum case for _Glass._GlassVariant.Size.small(_:), v0);
+  (*(v1 + 104))(v3, enum case for _Glass._GlassVariant.Size.small(_:), v0);
   sub_2D6A8();
-  (*(v1 + 8))(v4, v0);
-  (*(v6 + 8))(v10, v5);
-  v12[3] = sub_2D6E8();
-  v12[4] = &protocol witness table for _Glass;
-  __swift_allocate_boxed_opaque_existential_1(v12);
+  (*(v1 + 8))(v3, v0);
+  (*(v5 + 8))(v8, v4);
+  v10[3] = sub_2D6E8();
+  v10[4] = &protocol witness table for _Glass;
+  __swift_allocate_boxed_opaque_existential_1(v10);
   sub_2D6F8();
   sub_2D848();
 }
 
 Swift::Void __swiftcall UIView.applySmallClearGlassBackgroundWithTintColor(_:)(UIColor a1)
 {
-  v23[1] = a1.super.isa;
-  v23[0] = sub_2D6E8();
-  v1 = *(v23[0] - 8);
-  v2 = *(v1 + 64);
-  off_50840(v23[0]);
-  v4 = v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2D698();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  off_50840(v5);
-  v9 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2D6C8();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
+  v20[1] = a1.super.isa;
+  v20[0] = sub_2D6E8();
+  v1 = *(v20[0] - 8);
+  off_50840(v20[0]);
+  v3 = v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2D698();
+  v5 = *(v4 - 8);
+  off_50840(v4);
+  v7 = v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2D6C8();
+  v9 = *(v8 - 8);
+  v10 = off_50840(v8);
+  v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = off_50840(v10);
-  v15 = v23 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = off_50840(v13);
-  v18 = v23 - v17;
-  off_50840(v16);
-  v20 = v23 - v19;
+  v15 = v20 - v14;
+  off_50840(v13);
+  v17 = v20 - v16;
   sub_2D6B8();
-  (*(v6 + 104))(v9, enum case for _Glass._GlassVariant.Size.small(_:), v5);
+  (*(v5 + 104))(v7, enum case for _Glass._GlassVariant.Size.small(_:), v4);
   sub_2D6A8();
-  (*(v6 + 8))(v9, v5);
-  v21 = *(v11 + 8);
-  v21(v15, v10);
+  (*(v5 + 8))(v7, v4);
+  v18 = *(v9 + 8);
+  v18(v12, v8);
   sub_2D688();
-  v21(v18, v10);
-  (*(v11 + 16))(v18, v20, v10);
+  v18(v15, v8);
+  (*(v9 + 16))(v15, v17, v8);
   sub_2D6F8();
-  v22 = v23[0];
-  v24[3] = v23[0];
-  v24[4] = &protocol witness table for _Glass;
-  __swift_allocate_boxed_opaque_existential_1(v24);
+  v19 = v20[0];
+  v21[3] = v20[0];
+  v21[4] = &protocol witness table for _Glass;
+  __swift_allocate_boxed_opaque_existential_1(v21);
   sub_2D6D8();
-  (*(v1 + 8))(v4, v22);
+  (*(v1 + 8))(v3, v19);
   sub_2D848();
-  v21(v20, v10);
+  v18(v17, v8);
 }

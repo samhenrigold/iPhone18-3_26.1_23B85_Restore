@@ -30,42 +30,40 @@
     CFDictionarySetValue(v3, @"IDSSendMessageOptionsOffGridDeliveryTransportType", v5);
   }
 
-  originalUUID = self->_originalUUID;
-  v7 = IDSGetUUIDData();
+  v6 = IDSGetUUIDData();
+  if (v6)
+  {
+    CFDictionarySetValue(v3, @"IDSSendMessageOptionsOffGridDeliveryOriginalUUID", v6);
+  }
+
+  v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_serviceType];
   if (v7)
   {
-    CFDictionarySetValue(v3, @"IDSSendMessageOptionsOffGridDeliveryOriginalUUID", v7);
+    CFDictionarySetValue(v3, @"service-type", v7);
   }
 
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:self->_serviceType];
+  v8 = IDSGetUUIDData();
   if (v8)
   {
-    CFDictionarySetValue(v3, @"service-type", v8);
+    CFDictionarySetValue(v3, @"IDSSendMessageOptionUUID", v8);
   }
 
-  identifier = self->_identifier;
-  v10 = IDSGetUUIDData();
+  v9 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sendMode];
+  if (v9)
+  {
+    CFDictionarySetValue(v3, @"IDSSendMessageOptionSendModeKey", v9);
+  }
+
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_encryptPayload];
   if (v10)
   {
-    CFDictionarySetValue(v3, @"IDSSendMessageOptionUUID", v10);
-  }
-
-  v11 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sendMode];
-  if (v11)
-  {
-    CFDictionarySetValue(v3, @"IDSSendMessageOptionSendModeKey", v11);
-  }
-
-  v12 = [MEMORY[0x1E696AD98] numberWithBool:self->_encryptPayload];
-  if (v12)
-  {
-    CFDictionarySetValue(v3, @"IDSSendMessageOptionEncryptPayload", v12);
+    CFDictionarySetValue(v3, @"IDSSendMessageOptionEncryptPayload", v10);
   }
 
   CFDictionarySetValue(v3, @"IDSSendMessageOptionWantsCertifiedDelivery", MEMORY[0x1E695E118]);
-  v13 = [(__CFDictionary *)v3 mutableCopy];
+  v11 = [(__CFDictionary *)v3 mutableCopy];
 
-  return v13;
+  return v11;
 }
 
 - (void)setDefaultOptionsForTransportType:(int64_t)type

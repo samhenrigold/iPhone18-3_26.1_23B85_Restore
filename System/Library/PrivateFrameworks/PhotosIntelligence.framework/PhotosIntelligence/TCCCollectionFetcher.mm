@@ -13,7 +13,7 @@
 
   if (v8)
   {
-    sub_1C6F65BE8(0, &qword_1EDD0FA70);
+    sub_1C6F65BE8(0, &qword_1EDD0FA70, 0x1E6978630);
     v9 = sub_1C7550B3C();
   }
 

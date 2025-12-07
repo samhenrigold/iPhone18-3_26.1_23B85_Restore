@@ -17,27 +17,27 @@
 
 - (SUUIStackedImageView)initWithFrame:(CGRect)frame
 {
-  v11.receiver = self;
-  v11.super_class = SUUIStackedImageView;
-  v3 = [(SUUIStackedImageView *)&v11 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  v4 = v3;
+  v12.receiver = self;
+  v12.super_class = SUUIStackedImageView;
+  v3 = [(SUUIStackedImageView *)&v12 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v5 = v3;
   if (v3)
   {
     v3->_stackDepth = 3;
-    v5 = SUUIMPUFoundationFramework();
-    v6 = SUUIWeakLinkedClassForString(&cfstr_Mpuborderedima.isa, v5);
-    v7 = objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Mpustackview.isa, v5));
-    [(SUUIStackedImageView *)v4 bounds];
-    v8 = [v7 initWithFrame:v6 itemClass:@"0" itemReuseIdentifier:?];
-    stackView = v4->_stackView;
-    v4->_stackView = v8;
+    v6 = SUUIMPUFoundationFramework(v3, v4);
+    v7 = SUUIWeakLinkedClassForString(&cfstr_Mpuborderedima.isa, v6);
+    v8 = objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Mpustackview.isa, v6));
+    [(SUUIStackedImageView *)v5 bounds];
+    v9 = [v8 initWithFrame:v7 itemClass:@"0" itemReuseIdentifier:?];
+    stackView = v5->_stackView;
+    v5->_stackView = v9;
 
-    [(MPUStackView *)v4->_stackView setDataSource:v4];
-    [(MPUStackView *)v4->_stackView setForcesIntegralY:1];
-    [(SUUIStackedImageView *)v4 addSubview:v4->_stackView];
+    [(MPUStackView *)v5->_stackView setDataSource:v5];
+    [(MPUStackView *)v5->_stackView setForcesIntegralY:1];
+    [(SUUIStackedImageView *)v5 addSubview:v5->_stackView];
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)dealloc
@@ -55,7 +55,7 @@
   v5 = objc_opt_class();
   if (v5)
   {
-    [v5 _configurationForSize:{width, height, 0}];
+    objc_msgSend__configurationForSize_(v5, width, height, 0);
     v6 = 0.0 * 0;
   }
 
@@ -160,7 +160,7 @@
   v6 = objc_opt_class();
   if (v6)
   {
-    [v6 _configurationForSize:{width, height}];
+    objc_msgSend__configurationForSize_(v6, width, height);
     v8 = *(&v10 + 1);
     v7 = *&v10;
   }
@@ -262,30 +262,30 @@
   borderConfiguration = self->_borderConfiguration;
   if (!borderConfiguration)
   {
-    v11 = SUUIMPUFoundationFramework();
-    v12 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Mpuborderconfi.isa, v11));
-    v13 = self->_borderConfiguration;
-    self->_borderConfiguration = v12;
+    v12 = SUUIMPUFoundationFramework(0, v9);
+    v13 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Mpuborderconfi.isa, v12));
+    v14 = self->_borderConfiguration;
+    self->_borderConfiguration = v13;
 
     if (stackView_applyAttributesToItem_atIndex__sOnce != -1)
     {
       [SUUIStackedImageView stackView:applyAttributesToItem:atIndex:];
     }
 
-    v14 = self->_borderConfiguration;
+    v15 = self->_borderConfiguration;
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v14 setDropShadowColor:whiteColor];
+    [(MPUBorderConfiguration *)v15 setDropShadowColor:whiteColor];
 
     [(MPUBorderConfiguration *)self->_borderConfiguration setDropShadowEdges:11];
     [(MPUBorderConfiguration *)self->_borderConfiguration setDropShadowWidth:1.0 / *&stackView_applyAttributesToItem_atIndex__sScreenScale];
-    v16 = self->_borderConfiguration;
+    v17 = self->_borderConfiguration;
     whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v16 setBorderColor:whiteColor2];
+    [(MPUBorderConfiguration *)v17 setBorderColor:whiteColor2];
 
     [(MPUBorderConfiguration *)self->_borderConfiguration setBorderWidth:1.0 / *&stackView_applyAttributesToItem_atIndex__sScreenScale];
-    v18 = self->_borderConfiguration;
+    v19 = self->_borderConfiguration;
     whiteColor3 = [MEMORY[0x277D75348] whiteColor];
-    [(MPUBorderConfiguration *)v18 setFillColor:whiteColor3];
+    [(MPUBorderConfiguration *)v19 setFillColor:whiteColor3];
 
     borderConfiguration = self->_borderConfiguration;
   }
@@ -300,40 +300,40 @@
   [itemCopy setBorderConfiguration:self->_borderConfiguration];
   [itemCopy setImageAlpha:stackView_applyAttributesToItem_atIndex__sItemImageAlphas[index]];
   [itemCopy setImageContentsRect:{stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 1], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 2], stackView_applyAttributesToItem_atIndex__sItemImageContentRects[4 * index + 3]}];
-  v20 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipHorizontal[index];
-  v21 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipVertical[index];
-  v22 = *MEMORY[0x277CBF2C0];
-  v23 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v29.a = *MEMORY[0x277CBF2C0];
-  *&v29.c = v23;
-  v24 = *(MEMORY[0x277CBF2C0] + 32);
-  *&v29.tx = v24;
-  if ((v20 & 1) != 0 || v21)
+  v21 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipHorizontal[index];
+  v22 = stackView_applyAttributesToItem_atIndex__sItemImageShouldFlipVertical[index];
+  v23 = *MEMORY[0x277CBF2C0];
+  v24 = *(MEMORY[0x277CBF2C0] + 16);
+  *&v30.a = *MEMORY[0x277CBF2C0];
+  *&v30.c = v24;
+  v25 = *(MEMORY[0x277CBF2C0] + 32);
+  *&v30.tx = v25;
+  if ((v21 & 1) != 0 || v22)
   {
-    v25 = 1.0;
-    if (v20)
+    v26 = 1.0;
+    if (v21)
     {
-      v26 = -1.0;
+      v27 = -1.0;
     }
 
     else
     {
-      v26 = 1.0;
+      v27 = 1.0;
     }
 
-    if (v21)
+    if (v22)
     {
-      v25 = -1.0;
+      v26 = -1.0;
     }
 
-    *&v28.a = v22;
-    *&v28.c = v23;
-    *&v28.tx = v24;
-    CGAffineTransformScale(&v29, &v28, v26, v25);
+    *&v29.a = v23;
+    *&v29.c = v24;
+    *&v29.tx = v25;
+    CGAffineTransformScale(&v30, &v29, v27, v26);
   }
 
-  v28 = v29;
-  [itemCopy setImageTransform:&v28];
+  v29 = v30;
+  [itemCopy setImageTransform:&v29];
   image = [(SUUIStackedImageView *)self image];
   [itemCopy setImage:image];
 }

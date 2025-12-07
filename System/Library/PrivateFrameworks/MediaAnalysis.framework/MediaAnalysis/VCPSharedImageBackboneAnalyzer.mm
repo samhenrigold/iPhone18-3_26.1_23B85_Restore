@@ -64,23 +64,23 @@ VCPSharedImageBackboneAnalyzer *__61__VCPSharedImageBackboneAnalyzer_sharedAnaly
 - (int)analyzePixelBuffer:(__CVBuffer *)buffer flags:(unint64_t *)flags results:(id *)results cancel:(id)cancel
 {
   cancelCopy = cancel;
-  v11 = VCPSignPostLog();
+  v11 = VCPSignPostLog(cancelCopy);
   v12 = os_signpost_id_generate(v11);
 
-  v13 = VCPSignPostLog();
-  v14 = v13;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v14 = VCPSignPostLog(v13);
+  v15 = v14;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
-    *v18 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPSharedImageBackboneAnalyzer_Inference", "", v18, 2u);
+    *v19 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "VCPSharedImageBackboneAnalyzer_Inference", "", v19, 2u);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v16 = [(VCPImageBackboneAnalyzer *)selfCopy->_analyzer analyzePixelBuffer:buffer flags:flags results:results cancel:cancelCopy];
+  v17 = [(VCPImageBackboneAnalyzer *)selfCopy->_analyzer analyzePixelBuffer:buffer flags:flags results:results cancel:cancelCopy];
   objc_sync_exit(selfCopy);
 
-  return v16;
+  return v17;
 }
 
 @end

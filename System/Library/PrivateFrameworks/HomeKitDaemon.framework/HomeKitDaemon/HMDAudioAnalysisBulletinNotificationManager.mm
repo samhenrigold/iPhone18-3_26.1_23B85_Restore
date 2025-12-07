@@ -39,7 +39,7 @@
 
 - (id)_mkfLocalAnalysisSignificantEventRegistrationsWithManagedObjectContext:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   home = [(HMDAudioAnalysisBulletinNotificationManager *)self home];
   appleMediaAccessories = [home appleMediaAccessories];
@@ -47,9 +47,9 @@
   v8 = [v7 na_map:&__block_literal_global_68_98308];
 
   v9 = +[MKFLocalBulletinAnalysisRegistration fetchRequest];
-  v25 = 0;
-  v10 = [contextCopy executeFetchRequest:v9 error:&v25];
-  v11 = v25;
+  v24 = 0;
+  v10 = [contextCopy executeFetchRequest:v9 error:&v24];
+  v11 = v24;
   if (v10)
   {
     if (![v10 count])
@@ -61,19 +61,19 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v27 = v15;
+        v26 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@No local registrations fetched", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
     }
 
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSignificantEventRegistrationsWithManagedObjectContext___block_invoke_69;
-    v23[3] = &unk_278677CC8;
-    v24 = v8;
-    v16 = [v10 na_filter:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSignificantEventRegistrationsWithManagedObjectContext___block_invoke_69;
+    v22[3] = &unk_278677CC8;
+    v23 = v8;
+    v16 = [v10 na_filter:v22];
   }
 
   else
@@ -85,17 +85,15 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v11;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v11;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local registrations, error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
     v16 = MEMORY[0x277CBEBF8];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -111,7 +109,7 @@ uint64_t __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSig
 
 - (void)_updateRegistrationsOnPrimaryWithEnabledRegistrations:(id)registrations disabledRegistrations:(id)disabledRegistrations
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   registrationsCopy = registrations;
   disabledRegistrationsCopy = disabledRegistrations;
   workQueue = [(HMDAudioAnalysisBulletinNotificationManager *)self workQueue];
@@ -124,11 +122,11 @@ uint64_t __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSig
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v30 = v12;
-    v31 = 2112;
-    v32 = registrationsCopy;
-    v33 = 2112;
-    v34 = disabledRegistrationsCopy;
+    v29 = v12;
+    v30 = 2112;
+    v31 = registrationsCopy;
+    v32 = 2112;
+    v33 = disabledRegistrationsCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating registrations on primary resident, [enabled : %@], [disabled : %@]", buf, 0x20u);
   }
 
@@ -140,15 +138,15 @@ uint64_t __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSig
     v15 = source;
     if (source)
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __123__HMDAudioAnalysisBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke;
-      v25[3] = &unk_278683340;
-      v25[4] = selfCopy;
-      v26 = source;
-      v27 = registrationsCopy;
-      v28 = disabledRegistrationsCopy;
-      [home updateBulletinRegistrationOnPrimaryResidentWithSource:v26 enableRegistrations:v27 disableRegistration:v28 completionHandler:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __123__HMDAudioAnalysisBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke;
+      v24[3] = &unk_278683340;
+      v24[4] = selfCopy;
+      v25 = source;
+      v26 = registrationsCopy;
+      v27 = disabledRegistrationsCopy;
+      [home updateBulletinRegistrationOnPrimaryResidentWithSource:v25 enableRegistrations:v26 disableRegistration:v27 completionHandler:v24];
     }
 
     else
@@ -160,7 +158,7 @@ uint64_t __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSig
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v23;
+        v29 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve bulletin notification registration source for current device when updating notification registrations", buf, 0xCu);
       }
 
@@ -177,19 +175,17 @@ uint64_t __118__HMDAudioAnalysisBulletinNotificationManager__mkfLocalAnalysisSig
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Bulletin notifications are not supported, only modifying local registrations", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __123__HMDAudioAnalysisBulletinNotificationManager__updateRegistrationsOnPrimaryWithEnabledRegistrations_disabledRegistrations___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -203,22 +199,22 @@ void __123__HMDAudioAnalysisBulletinNotificationManager__updateRegistrationsOnPr
       v9 = *(a1 + 40);
       v10 = *(a1 + 48);
       v11 = *(a1 + 56);
-      v20 = 138544386;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v3;
+      v19 = 138544386;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v3;
       v12 = "%{public}@Unable to update audio analysis registrations resident: source: %@, [enabled : %@], [disabled : %@], error: %@";
       v13 = v7;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 52;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v13, v14, v12, &v20, v15);
+      _os_log_impl(&dword_229538000, v13, v14, v12, &v19, v15);
     }
   }
 
@@ -228,14 +224,14 @@ LABEL_6:
     v16 = *(a1 + 40);
     v17 = *(a1 + 48);
     v18 = *(a1 + 56);
-    v20 = 138544130;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v16;
-    v24 = 2112;
-    v25 = v17;
-    v26 = 2112;
-    v27 = v18;
+    v19 = 138544130;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v16;
+    v23 = 2112;
+    v24 = v17;
+    v25 = 2112;
+    v26 = v18;
     v12 = "%{public}@Updating audio analysis registrations primary resident was successful, source: %@, [enabled: %@], [disabled: %@]";
     v13 = v7;
     v14 = OS_LOG_TYPE_INFO;
@@ -244,12 +240,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronizeLocalRegistrationsWithPrimaryResident
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAudioAnalysisBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -275,63 +270,63 @@ LABEL_6:
     managedObjectContext = [context managedObjectContext];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v58 = 0x3032000000;
-    v59 = __Block_byref_object_copy__98321;
-    v60 = __Block_byref_object_dispose__98322;
-    v61 = [MEMORY[0x277CBEB58] set];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke;
-    v47[3] = &unk_278689D20;
-    v47[4] = selfCopy;
-    v48 = source;
+    v57 = 0x3032000000;
+    v58 = __Block_byref_object_copy__98321;
+    v59 = __Block_byref_object_dispose__98322;
+    v60 = [MEMORY[0x277CBEB58] set];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke;
+    v46[3] = &unk_278689D20;
+    v46[4] = selfCopy;
+    v47 = source;
     v13 = managedObjectContext;
-    v49 = v13;
+    v48 = v13;
     p_buf = &buf;
-    [context unsafeSynchronousBlock:v47];
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x3032000000;
-    v44 = __Block_byref_object_copy__98321;
-    v45 = __Block_byref_object_dispose__98322;
-    v46 = [MEMORY[0x277CBEB58] set];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3;
-    v38[3] = &unk_27868A4D8;
-    v38[4] = selfCopy;
+    [context unsafeSynchronousBlock:v46];
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x3032000000;
+    v43 = __Block_byref_object_copy__98321;
+    v44 = __Block_byref_object_dispose__98322;
+    v45 = [MEMORY[0x277CBEB58] set];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3;
+    v37[3] = &unk_27868A4D8;
+    v37[4] = selfCopy;
     v14 = v13;
-    v39 = v14;
-    v40 = &v41;
-    [v14 performBlockAndWait:v38];
+    v38 = v14;
+    v39 = &v40;
+    [v14 performBlockAndWait:v37];
     v15 = objc_autoreleasePoolPush();
     v16 = selfCopy;
     v17 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       v18 = HMFGetLogIdentifier();
-      v19 = v42[5];
+      v19 = v41[5];
       v20 = *(*(&buf + 1) + 40);
-      *v51 = 138543874;
-      v52 = v18;
-      v53 = 2112;
-      v54 = v19;
-      v55 = 2112;
-      v56 = v20;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalRegistrations: %@ remoteRegistrations: %@", v51, 0x20u);
+      *v50 = 138543874;
+      v51 = v18;
+      v52 = 2112;
+      v53 = v19;
+      v54 = 2112;
+      v55 = v20;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@enabledLocalRegistrations: %@ remoteRegistrations: %@", v50, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     v21 = [MEMORY[0x277CBEB58] set];
-    v22 = v42[5];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_58;
-    v35[3] = &unk_278677CA0;
-    v37 = &buf;
+    v22 = v41[5];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_58;
+    v34[3] = &unk_278677CA0;
+    v36 = &buf;
     v23 = v21;
-    v36 = v23;
-    [v22 hmf_enumerateWithAutoreleasePoolUsingBlock:v35];
+    v35 = v23;
+    [v22 hmf_enumerateWithAutoreleasePoolUsingBlock:v34];
     v24 = [MEMORY[0x277CBEB98] setWithSet:*(*(&buf + 1) + 40)];
     if ([v23 hmf_isEmpty] && objc_msgSend(v24, "hmf_isEmpty"))
     {
@@ -341,9 +336,9 @@ LABEL_6:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         v28 = HMFGetLogIdentifier();
-        *v51 = 138543362;
-        v52 = v28;
-        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@No changes detected to sync with primary", v51, 0xCu);
+        *v50 = 138543362;
+        v51 = v28;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@No changes detected to sync with primary", v50, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -351,11 +346,11 @@ LABEL_6:
 
     else
     {
-      v29 = [v23 copy];
+      v29 = objc_msgSend_copy(v23);
       [(HMDAudioAnalysisBulletinNotificationManager *)v16 _updateRegistrationsOnPrimaryWithEnabledRegistrations:v29 disabledRegistrations:v24];
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v40, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -374,20 +369,17 @@ LABEL_6:
 
     objc_autoreleasePoolPop(v30);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke(void *a1)
 {
-  v2 = a1[4];
-  v3 = [objc_opt_class() registrationsForSource:a1[5] context:a1[6]];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_2;
-  v4[3] = &unk_278677C28;
-  v4[4] = a1[7];
-  [v3 na_each:v4];
+  v2 = [objc_opt_class() registrationsForSource:a1[5] context:a1[6]];
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_2;
+  v3[3] = &unk_278677C28;
+  v3[4] = a1[7];
+  [v2 na_each:v3];
 }
 
 void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistrationsWithPrimaryResident__block_invoke_3(uint64_t a1)
@@ -457,7 +449,7 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
 
 - (void)_requestSynchronizeRegistrations
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -467,23 +459,21 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
     synchronizeWithPrimaryDebounceTimer = [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy synchronizeWithPrimaryDebounceTimer];
     [synchronizeWithPrimaryDebounceTimer isRunning];
     v8 = HMFBooleanToString();
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Requesting synchronize registrations, debounce timer running: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v8;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Requesting synchronize registrations, debounce timer running: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   synchronizeWithPrimaryDebounceTimer2 = [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy synchronizeWithPrimaryDebounceTimer];
   [synchronizeWithPrimaryDebounceTimer2 resume];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBulletinNotificationRegistrationSource)source
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accountManager = [(HMDAudioAnalysisBulletinNotificationManager *)self accountManager];
   account = [accountManager account];
   currentDevice = [account currentDevice];
@@ -508,9 +498,9 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device user", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v18;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device user", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -526,16 +516,14 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device address", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve current device address", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -582,7 +570,7 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
   v14 = v10;
   v15 = &v16;
   [v9 na_each:v13];
-  v11 = [v17[5] copy];
+  v11 = objc_msgSend_copy(v17[5]);
 
   _Block_object_dispose(&v16, 8);
 
@@ -591,7 +579,7 @@ void __96__HMDAudioAnalysisBulletinNotificationManager__synchronizeLocalRegistra
 
 void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 registration];
   v5 = [v3 source];
@@ -606,7 +594,7 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
     v11 = [v4 conditions];
     v12 = [v10 conditionsPass:v11 registrationUser:v9];
 
-    v37 = v9;
+    v36 = v9;
     if (v12)
     {
       v13 = [v3 registration];
@@ -625,40 +613,40 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v23 = v34 = v20;
+      v23 = v33 = v20;
       v24 = [v3 registration];
       [v24 conditions];
-      v25 = v36 = v4;
+      v25 = v35 = v4;
       HMFBooleanToString();
-      v35 = v15;
+      v34 = v15;
       v27 = v26 = v6;
       *buf = 138544130;
-      v40 = v23;
-      v41 = 2112;
-      v42 = v25;
-      v43 = 2112;
-      v44 = v27;
-      v45 = 2112;
-      v46 = v26;
+      v39 = v23;
+      v40 = 2112;
+      v41 = v25;
+      v42 = 2112;
+      v43 = v27;
+      v44 = 2112;
+      v45 = v26;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@conditions:%@, pass?%@, device:%@", buf, 0x2Au);
 
-      v4 = v36;
+      v4 = v35;
       v6 = v26;
-      v15 = v35;
+      v15 = v34;
 
-      v20 = v34;
+      v20 = v33;
     }
 
     objc_autoreleasePoolPop(v20);
-    v9 = v37;
+    v9 = v36;
     if ((([v6 isCurrentDevice] ^ 1) & v15) == 1 && v6)
     {
-      v38[0] = v6;
+      v37[0] = v6;
       v28 = [v3 source];
       [v28 userUUID];
       v30 = v29 = v4;
-      v38[1] = v30;
-      [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+      v37[1] = v30;
+      [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
       v32 = v31 = v6;
 
       v4 = v29;
@@ -677,23 +665,21 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v19;
-      v41 = 2112;
-      v42 = v4;
-      v43 = 2112;
-      v44 = v5;
+      v39 = v19;
+      v40 = 2112;
+      v41 = v4;
+      v42 = 2112;
+      v43 = v5;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to evaluate registration: %@, no matching user for source: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyDevice:(id)device event:(id)event user:(id)user
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   eventCopy = event;
   userCopy = user;
@@ -702,9 +688,9 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
   v13 = [(HMDRemoteDeviceMessageDestination *)v11 initWithTarget:accessoryUUID device:deviceCopy];
 
   serialize = [eventCopy serialize];
-  v36 = @"HMDAudioAnalysisBulletinDataMessageKey";
-  v37[0] = serialize;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v35 = @"HMDAudioAnalysisBulletinDataMessageKey";
+  v36[0] = serialize;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
   v16 = objc_autoreleasePoolPush();
   selfCopy = self;
   v18 = HMFGetOSLogHandle();
@@ -712,11 +698,11 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v31 = v19;
-    v32 = 2112;
-    v33 = deviceCopy;
-    v34 = 2112;
-    v35 = eventCopy;
+    v30 = v19;
+    v31 = 2112;
+    v32 = deviceCopy;
+    v33 = 2112;
+    v34 = eventCopy;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Notifying device:%@, event:%@", buf, 0x20u);
   }
 
@@ -733,25 +719,23 @@ void __77__HMDAudioAnalysisBulletinNotificationManager_userDevicesToNotify_withE
   }
 
   v22 = [(HMDRemoteMessage *)v20 initWithName:@"HMDAudioAnalysisPrimaryResidentRouteEventRequestMessage" destination:v13 payload:v15 type:0 timeout:1 secure:v21 restriction:60.0];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __72__HMDAudioAnalysisBulletinNotificationManager__notifyDevice_event_user___block_invoke;
-  v27[3] = &unk_278686658;
-  v27[4] = selfCopy;
-  v28 = deviceCopy;
-  v29 = eventCopy;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __72__HMDAudioAnalysisBulletinNotificationManager__notifyDevice_event_user___block_invoke;
+  v26[3] = &unk_278686658;
+  v26[4] = selfCopy;
+  v27 = deviceCopy;
+  v28 = eventCopy;
   v23 = eventCopy;
   v24 = deviceCopy;
-  [(HMDRemoteMessage *)v22 setResponseHandler:v27];
+  [(HMDRemoteMessage *)v22 setResponseHandler:v26];
   messageDispatcher = [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy messageDispatcher];
   [messageDispatcher sendMessage:v22];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDAudioAnalysisBulletinNotificationManager__notifyDevice_event_user___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -765,20 +749,20 @@ void __72__HMDAudioAnalysisBulletinNotificationManager__notifyDevice_event_user_
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
       v13 = *(a1 + 48);
-      v21 = 138544130;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2112;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v5;
+      v20 = 138544130;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2112;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v5;
       v14 = "%{public}@Failed to notify device:%@ for event:%@ with %@";
       v15 = v10;
       v16 = OS_LOG_TYPE_ERROR;
       v17 = 42;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v15, v16, v14, &v21, v17);
+      _os_log_impl(&dword_229538000, v15, v16, v14, &v20, v17);
     }
   }
 
@@ -787,12 +771,12 @@ LABEL_6:
     v11 = HMFGetLogIdentifier();
     v18 = *(a1 + 40);
     v19 = *(a1 + 48);
-    v21 = 138543874;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v18;
-    v25 = 2112;
-    v26 = v19;
+    v20 = 138543874;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2112;
+    v25 = v19;
     v14 = "%{public}@Successfully notified device:%@, event:%@";
     v15 = v10;
     v16 = OS_LOG_TYPE_INFO;
@@ -801,7 +785,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_remoteAudioAnalysisRegistrationsForUUID:(id)d
@@ -880,7 +863,7 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
 
 - (void)timerDidFire:(id)fire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDAudioAnalysisBulletinNotificationManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -903,20 +886,18 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized timer, ignoring", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unrecognized timer, ignoring", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdateNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -924,20 +905,18 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling primary resident update notification.", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling primary resident update notification.", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy synchronizeLocalRegistrationsWithPrimaryResident];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCurrentDeviceOrAccountUpdatedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -945,20 +924,18 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling current device or account updated notification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling current device or account updated notification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy synchronizeLocalRegistrationsWithPrimaryResident];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAudioAnalysisEventResidentToPrimaryMessage:(id)message
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -967,9 +944,9 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v8;
-    v33 = 2112;
-    v34 = messageCopy;
+    v31 = v8;
+    v32 = 2112;
+    v33 = messageCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received audio analysis notification message %@", buf, 0x16u);
   }
 
@@ -999,13 +976,13 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
     if (v16)
     {
       v17 = [(HMDAudioAnalysisBulletinNotificationManager *)selfCopy userDevicesToNotify:v16 withEvent:v12];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEventResidentToPrimaryMessage___block_invoke;
-      v29[3] = &unk_278687998;
-      v29[4] = selfCopy;
-      v30 = v12;
-      [v17 na_each:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEventResidentToPrimaryMessage___block_invoke;
+      v28[3] = &unk_278687998;
+      v28[4] = selfCopy;
+      v29 = v12;
+      [v17 na_each:v28];
     }
 
     else
@@ -1017,14 +994,14 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
       {
         v25 = HMFGetLogIdentifier();
         [(HMDAudioAnalysisEventBulletin *)v12 accessoryUUID];
-        v26 = v28 = v22;
+        v26 = v27 = v22;
         *buf = 138543618;
-        v32 = v25;
-        v33 = 2112;
-        v34 = v26;
+        v31 = v25;
+        v32 = 2112;
+        v33 = v26;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Did not find accessory with UUID:%@", buf, 0x16u);
 
-        v22 = v28;
+        v22 = v27;
       }
 
       objc_autoreleasePoolPop(v22);
@@ -1040,19 +1017,17 @@ id __60__HMDAudioAnalysisBulletinNotificationManager_registrations__block_invoke
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Ignoring audio analysis event, current device is not primary", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEventResidentToPrimaryMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count] == 2)
   {
@@ -1102,13 +1077,13 @@ void __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEvent
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v18 = 138543874;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v9;
-        v22 = 2112;
-        v23 = v6;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@device:%@, uuid:%@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
+        v21 = 2112;
+        v22 = v6;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@device:%@, uuid:%@", &v17, 0x20u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1125,13 +1100,11 @@ void __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEvent
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupMultipleRegistrationsAndReplaceWithRegistration:(id)registration completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   completionCopy = completion;
   workQueue = [(HMDAudioAnalysisBulletinNotificationManager *)self workQueue];
@@ -1144,9 +1117,9 @@ void __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEvent
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v12;
-    v28 = 2112;
-    v29 = registrationCopy;
+    v26 = v12;
+    v27 = 2112;
+    v28 = registrationCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Cleaning up multiple registrations and replacing with registration: %@", buf, 0x16u);
   }
 
@@ -1156,40 +1129,38 @@ void __97__HMDAudioAnalysisBulletinNotificationManager__handleAudioAnalysisEvent
   context = [backingStore context];
 
   managedObjectContext = [context managedObjectContext];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistrationsAndReplaceWithRegistration_completion___block_invoke;
-  v21[3] = &unk_278689AB8;
-  v22 = registrationCopy;
-  v23 = managedObjectContext;
-  v24 = selfCopy;
-  v25 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistrationsAndReplaceWithRegistration_completion___block_invoke;
+  v20[3] = &unk_278689AB8;
+  v21 = registrationCopy;
+  v22 = managedObjectContext;
+  v23 = selfCopy;
+  v24 = completionCopy;
   v17 = completionCopy;
   v18 = managedObjectContext;
   v19 = registrationCopy;
-  [v18 performBlock:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [v18 performBlock:v20];
 }
 
 void __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistrationsAndReplaceWithRegistration_completion___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) accessoryUUID];
   v3 = +[MKFLocalBulletinAnalysisRegistration fetchRequest];
   v4 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@)", @"accessoryModelID", v2];
   [v3 setPredicate:v4];
 
   v5 = *(a1 + 40);
-  v31 = 0;
-  v6 = [v5 executeFetchRequest:v3 error:&v31];
-  v7 = v31;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistrationsAndReplaceWithRegistration_completion___block_invoke_2;
-  v29[3] = &unk_278677B90;
-  v30 = *(a1 + 40);
-  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
+  v30 = 0;
+  v6 = [v5 executeFetchRequest:v3 error:&v30];
+  v7 = v30;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistrationsAndReplaceWithRegistration_completion___block_invoke_2;
+  v28[3] = &unk_278677B90;
+  v29 = *(a1 + 40);
+  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:v28];
   v8 = MEMORY[0x277CBE408];
   v9 = +[MKFLocalBulletinAnalysisRegistration entity];
   v10 = [v9 name];
@@ -1203,9 +1174,9 @@ void __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistra
   v14 = [HMDBulletinNotificationRegistrationUtilities createAndAddLocalConditionsToRegistration:v11 moc:v12 conditions:v13];
 
   v15 = *(a1 + 40);
-  v28 = v7;
-  v16 = [v15 save:&v28];
-  v17 = v28;
+  v27 = v7;
+  v16 = [v15 save:&v27];
+  v17 = v27;
 
   [*(a1 + 40) reset];
   v18 = objc_autoreleasePoolPush();
@@ -1218,9 +1189,9 @@ void __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistra
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v22;
-      v34 = 2112;
-      v35 = v2;
+      v32 = v22;
+      v33 = 2112;
+      v34 = v2;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Successfully cleaned up multiple local registrations for accessory UUID: %@", buf, 0x16u);
     }
 
@@ -1240,11 +1211,11 @@ void __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistra
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v2;
-      v36 = 2112;
-      v37 = v17;
+      v32 = v24;
+      v33 = 2112;
+      v34 = v2;
+      v35 = 2112;
+      v36 = v17;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to clean up multiple local registrations for accessory UUID: %@ due to error: %@", buf, 0x20u);
     }
 
@@ -1256,8 +1227,6 @@ void __114__HMDAudioAnalysisBulletinNotificationManager__cleanupMultipleRegistra
   {
     (*(v25 + 16))(v25, v17);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupMultipleRegistrationsAndReplaceWithRegistration:(id)registration completion:(id)completion
@@ -1333,7 +1302,7 @@ void __86__HMDAudioAnalysisBulletinNotificationManager_multipleLocalRegistration
 
 - (void)_updateNotificationRegistration:(id)registration enabled:(BOOL)enabled completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   completionCopy = completion;
   workQueue = [(HMDAudioAnalysisBulletinNotificationManager *)self workQueue];
@@ -1347,11 +1316,11 @@ void __86__HMDAudioAnalysisBulletinNotificationManager_multipleLocalRegistration
     v14 = HMFGetLogIdentifier();
     v15 = HMFBooleanToString();
     *buf = 138543874;
-    v31 = v14;
-    v32 = 2112;
-    v33 = registrationCopy;
-    v34 = 2112;
-    v35 = v15;
+    v30 = v14;
+    v31 = 2112;
+    v32 = registrationCopy;
+    v33 = 2112;
+    v34 = v15;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating registration: %@ enabled: %@", buf, 0x20u);
   }
 
@@ -1361,96 +1330,91 @@ void __86__HMDAudioAnalysisBulletinNotificationManager_multipleLocalRegistration
   context = [backingStore context];
 
   managedObjectContext = [context managedObjectContext];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __98__HMDAudioAnalysisBulletinNotificationManager__updateNotificationRegistration_enabled_completion___block_invoke;
-  v24[3] = &unk_278687E38;
-  v25 = registrationCopy;
-  v26 = managedObjectContext;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __98__HMDAudioAnalysisBulletinNotificationManager__updateNotificationRegistration_enabled_completion___block_invoke;
+  v23[3] = &unk_278687E38;
+  v24 = registrationCopy;
+  v25 = managedObjectContext;
   enabledCopy = enabled;
-  v27 = selfCopy;
-  v28 = completionCopy;
+  v26 = selfCopy;
+  v27 = completionCopy;
   v20 = completionCopy;
   v21 = managedObjectContext;
   v22 = registrationCopy;
-  [v21 performBlock:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [v21 performBlock:v23];
 }
 
 void __98__HMDAudioAnalysisBulletinNotificationManager__updateNotificationRegistration_enabled_completion___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   v3 = [MEMORY[0x277CBEB58] set];
-  v4 = [*(a1 + 32) accessoryUUID];
-  v5 = *(a1 + 40);
-  v53 = v4;
-  v6 = [MKFLocalBulletinAnalysisRegistration fetchAudioAnalysisModeRegistrationForAccessoryUUID:"fetchAudioAnalysisModeRegistrationForAccessoryUUID:managedObjectContext:" managedObjectContext:?];
-  if (!v6)
+  v49 = [*(a1 + 32) accessoryUUID];
+  v4 = [MKFLocalBulletinAnalysisRegistration fetchAudioAnalysisModeRegistrationForAccessoryUUID:"fetchAudioAnalysisModeRegistrationForAccessoryUUID:managedObjectContext:" managedObjectContext:?];
+  if (!v4)
   {
-    v12 = objc_autoreleasePoolPush();
-    v13 = *(a1 + 48);
-    v14 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v10 = objc_autoreleasePoolPush();
+    v11 = *(a1 + 48);
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v15 = HMFGetLogIdentifier();
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 64);
-      v18 = HMFBooleanToString();
+      v13 = HMFGetLogIdentifier();
+      v14 = *(a1 + 32);
+      v15 = HMFBooleanToString();
       *buf = 138543874;
+      v53 = v13;
+      v54 = 2112;
+      v55 = v14;
+      v56 = 2112;
       v57 = v15;
-      v58 = 2112;
-      v59 = v16;
-      v60 = 2112;
-      v61 = v18;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Local registration doesn't exist for registration: %@ enabled: %@, creating one now", buf, 0x20u);
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Local registration doesn't exist for registration: %@ enabled: %@, creating one now", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v12);
-    v19 = MEMORY[0x277CBE408];
-    v20 = +[MKFLocalBulletinAnalysisRegistration entity];
-    v21 = [v20 name];
-    v7 = [v19 insertNewObjectForEntityForName:v21 inManagedObjectContext:*(a1 + 40)];
+    objc_autoreleasePoolPop(v10);
+    v16 = MEMORY[0x277CBE408];
+    v17 = +[MKFLocalBulletinAnalysisRegistration entity];
+    v18 = [v17 name];
+    v5 = [v16 insertNewObjectForEntityForName:v18 inManagedObjectContext:*(a1 + 40)];
 
-    [v7 setAccessoryModelID:v53];
-    [v7 setClassifierOptions:{objc_msgSend(*(a1 + 32), "audioAnalysisClassifierOptions")}];
-    [v7 setEnabled:*(a1 + 64)];
+    [v5 setAccessoryModelID:v49];
+    [v5 setClassifierOptions:{objc_msgSend(*(a1 + 32), "audioAnalysisClassifierOptions")}];
+    [v5 setEnabled:*(a1 + 64)];
     goto LABEL_9;
   }
 
-  v7 = v6;
-  v8 = [v6 enabled];
-  v9 = *(a1 + 64);
-  v10 = v9 != v8;
-  if (v9 != v8)
+  v5 = v4;
+  v6 = [v4 enabled];
+  v7 = *(a1 + 64);
+  v8 = v7 != v6;
+  if (v7 != v6)
   {
-    [v7 setEnabled:?];
+    [v5 setEnabled:?];
   }
 
-  v11 = [v7 classifierOptions];
-  if (v11 != [*(a1 + 32) audioAnalysisClassifierOptions])
+  v9 = [v5 classifierOptions];
+  if (v9 != [*(a1 + 32) audioAnalysisClassifierOptions])
   {
-    [v7 setClassifierOptions:{objc_msgSend(*(a1 + 32), "audioAnalysisClassifierOptions")}];
+    [v5 setClassifierOptions:{objc_msgSend(*(a1 + 32), "audioAnalysisClassifierOptions")}];
 LABEL_9:
-    v10 = 1;
+    v8 = 1;
   }
 
-  v22 = [v7 conditions];
-  v23 = [MEMORY[0x277CBEB98] set];
-  if (v22)
+  v19 = [v5 conditions];
+  v20 = [MEMORY[0x277CBEB98] set];
+  if (v19)
   {
-    v24 = [HMDBulletinNotificationRegistrationUtilities conditionsFromLocalConditions:v22];
+    v21 = [HMDBulletinNotificationRegistrationUtilities conditionsFromLocalConditions:v19];
 
-    v23 = v24;
+    v20 = v21;
   }
 
-  v25 = [*(a1 + 32) conditions];
-  v26 = [v23 isEqualToSet:v25];
+  v22 = [*(a1 + 32) conditions];
+  v23 = [v20 isEqualToSet:v22];
 
-  if (v26)
+  if (v23)
   {
-    if (!v10)
+    if (!v8)
     {
       goto LABEL_22;
     }
@@ -1458,121 +1422,119 @@ LABEL_9:
 
   else
   {
-    if (v22)
+    if (v19)
     {
-      [v7 removeConditions:v22];
+      [v5 removeConditions:v19];
     }
 
-    v27 = *(a1 + 40);
-    v28 = [*(a1 + 32) conditions];
-    v29 = [HMDBulletinNotificationRegistrationUtilities createAndAddLocalConditionsToRegistration:v7 moc:v27 conditions:v28];
+    v24 = *(a1 + 40);
+    v25 = [*(a1 + 32) conditions];
+    v26 = [HMDBulletinNotificationRegistrationUtilities createAndAddLocalConditionsToRegistration:v5 moc:v24 conditions:v25];
   }
 
   if (*(a1 + 64))
   {
-    v30 = v2;
+    v27 = v2;
   }
 
   else
   {
-    v30 = v3;
+    v27 = v3;
   }
 
-  [v30 addObject:*(a1 + 32)];
+  [v27 addObject:*(a1 + 32)];
 LABEL_22:
   if ([v2 hmf_isEmpty] && objc_msgSend(v3, "hmf_isEmpty"))
   {
-    v31 = objc_autoreleasePoolPush();
-    v32 = *(a1 + 48);
-    v33 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v28 = objc_autoreleasePoolPush();
+    v29 = *(a1 + 48);
+    v30 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v34 = v2;
-      v36 = v35 = v3;
+      v31 = v2;
+      v33 = v32 = v3;
       *buf = 138543362;
-      v57 = v36;
-      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Skipping save and not messaging primary because notification registration update resulted in no changes", buf, 0xCu);
+      v53 = v33;
+      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Skipping save and not messaging primary because notification registration update resulted in no changes", buf, 0xCu);
 
-      v3 = v35;
-      v2 = v34;
+      v3 = v32;
+      v2 = v31;
     }
 
-    objc_autoreleasePoolPop(v31);
-    v37 = *(a1 + 56);
-    if (v37)
+    objc_autoreleasePoolPop(v28);
+    v34 = *(a1 + 56);
+    if (v34)
     {
-      (*(v37 + 16))(v37, 0);
+      (*(v34 + 16))(v34, 0);
     }
   }
 
   else
   {
-    v51 = v2;
-    v38 = v3;
-    v39 = *(a1 + 40);
-    v55 = 0;
-    v40 = [v39 save:{&v55, v51}];
-    v41 = v55;
+    v47 = v2;
+    v35 = v3;
+    v36 = *(a1 + 40);
+    v51 = 0;
+    v37 = [v36 save:{&v51, v47}];
+    v38 = v51;
     [*(a1 + 40) reset];
-    v42 = objc_autoreleasePoolPush();
-    v43 = *(a1 + 48);
-    v44 = HMFGetOSLogHandle();
-    v45 = v44;
-    if (v40)
+    v39 = objc_autoreleasePoolPush();
+    v40 = *(a1 + 48);
+    v41 = HMFGetOSLogHandle();
+    v42 = v41;
+    if (v37)
     {
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
-        v46 = HMFGetLogIdentifier();
+        v43 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v57 = v46;
-        v58 = 2112;
-        v59 = v52;
-        v60 = 2112;
-        v61 = v38;
-        _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Successfully updated local enabled registrations: %@, disabled registrations: %@", buf, 0x20u);
+        v53 = v43;
+        v54 = 2112;
+        v55 = v48;
+        v56 = 2112;
+        v57 = v35;
+        _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_INFO, "%{public}@Successfully updated local enabled registrations: %@, disabled registrations: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v42);
-      v47 = [*(a1 + 48) workQueue];
+      objc_autoreleasePoolPop(v39);
+      v44 = [*(a1 + 48) workQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __98__HMDAudioAnalysisBulletinNotificationManager__updateNotificationRegistration_enabled_completion___block_invoke_26;
       block[3] = &unk_27868A728;
       block[4] = *(a1 + 48);
-      dispatch_async(v47, block);
+      dispatch_async(v44, block);
     }
 
     else
     {
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        v48 = HMFGetLogIdentifier();
+        v45 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v57 = v48;
+        v53 = v45;
+        v54 = 2112;
+        v55 = v48;
+        v56 = 2112;
+        v57 = v35;
         v58 = 2112;
-        v59 = v52;
-        v60 = 2112;
-        v61 = v38;
-        v62 = 2112;
-        v63 = v41;
-        _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to update local enabled registrations: %@, disabled registrations: %@ due to error: %@", buf, 0x2Au);
+        v59 = v38;
+        _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to update local enabled registrations: %@, disabled registrations: %@ due to error: %@", buf, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v42);
+      objc_autoreleasePoolPop(v39);
     }
 
-    v49 = *(a1 + 56);
-    v3 = v38;
-    if (v49)
+    v46 = *(a1 + 56);
+    v3 = v35;
+    if (v46)
     {
-      (*(v49 + 16))(v49, v41);
+      (*(v46 + 16))(v46, v38);
     }
 
-    v2 = v52;
+    v2 = v48;
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNotificationRegistration:(id)registration enabled:(BOOL)enabled completion:(id)completion
@@ -1666,7 +1628,7 @@ void __85__HMDAudioAnalysisBulletinNotificationManager_localRegistrationForAcces
 
 - (void)handleAudioAnalysisEvent:(id)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   home = [(HMDAudioAnalysisBulletinNotificationManager *)self home];
   v6 = home;
@@ -1685,11 +1647,11 @@ void __85__HMDAudioAnalysisBulletinNotificationManager_localRegistrationForAcces
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v12;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Routing message from resident to primary, %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v12;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Routing message from resident to primary, %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -1713,28 +1675,26 @@ void __85__HMDAudioAnalysisBulletinNotificationManager_localRegistrationForAcces
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil home", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@nil home", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   home = [(HMDAudioAnalysisBulletinNotificationManager *)self home];
   if (home)
   {
     v4 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
     [v4 setTransportRestriction:8];
     v5 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0, v4];
-    v26[1] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[1] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
 
     messageDispatcher = [(HMDAudioAnalysisBulletinNotificationManager *)self messageDispatcher];
     [messageDispatcher registerForMessage:@"HMDAudioAnalysisResidentToPrimaryEventRequestMessage" receiver:self policies:v6 selector:sel__handleAudioAnalysisEventResidentToPrimaryMessage_];
@@ -1776,14 +1736,12 @@ void __85__HMDAudioAnalysisBulletinNotificationManager_localRegistrationForAcces
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v24;
+      v27 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Nil home on configure", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAudioAnalysisBulletinNotificationManager)initWithHome:(id)home workQueue:(id)queue messageDispatcher:(id)dispatcher accountManager:(id)manager evaluator:(id)evaluator notificationCenter:(id)center
@@ -1826,7 +1784,7 @@ id __132__HMDAudioAnalysisBulletinNotificationManager_initWithHome_workQueue_mes
 
 + (id)registrationsForSource:(id)source context:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   contextCopy = context;
   v8 = +[_MKFAnalysisEventBulletinRegistration fetchRequest];
@@ -1839,9 +1797,9 @@ id __132__HMDAudioAnalysisBulletinNotificationManager_initWithHome_workQueue_mes
   v15 = [v9 predicateWithFormat:@"(%K == %@) && (%K == %@) && (%K == %@)", @"user.modelID", userUUID, @"deviceIdsIdentifier", idsIdentifier, @"deviceIdsDestination", idsDestination];
   [v8 setPredicate:v15];
 
-  v25 = 0;
-  v16 = [contextCopy executeFetchRequest:v8 error:&v25];
-  v17 = v25;
+  v24 = 0;
+  v16 = [contextCopy executeFetchRequest:v8 error:&v24];
+  v17 = v24;
   if (v16)
   {
     v18 = v16;
@@ -1856,17 +1814,15 @@ id __132__HMDAudioAnalysisBulletinNotificationManager_initWithHome_workQueue_mes
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v22;
-      v28 = 2112;
-      v29 = sourceCopy;
+      v26 = v22;
+      v27 = 2112;
+      v28 = sourceCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch audio analysis bulletin registrations for source: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v18 = MEMORY[0x277CBEBF8];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1885,10 +1841,9 @@ id __132__HMDAudioAnalysisBulletinNotificationManager_initWithHome_workQueue_mes
 
 void __58__HMDAudioAnalysisBulletinNotificationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v28_98417;
-  logCategory__hmf_once_v28_98417 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v28_98417;
+  logCategory__hmf_once_v28_98417 = v0;
 }
 
 @end

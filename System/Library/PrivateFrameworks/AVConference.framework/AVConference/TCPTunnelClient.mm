@@ -53,7 +53,7 @@
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: timer is deleted.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: timer is deleted.", v2, v3, v4, v5);
 }
 
 - (void)createDispatchTimer:(float)timer withDetailedError:(int64_t)error
@@ -328,16 +328,16 @@ uint64_t __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_inv
   }
 }
 
-uint64_t __36__TCPTunnelClient_processSocketRead__block_invoke(uint64_t result)
+void *__36__TCPTunnelClient_processSocketRead__block_invoke(void *result)
 {
-  if ((*(result + 56) & 0xC000) == 0x4000)
+  if ((*(result + 28) & 0xC000) == 0x4000)
   {
-    return (*(*(result + 48) + 16))(*(result + 48), *(result + 40), *(*(result + 32) + 112));
+    return (*(*(result + 6) + 16))(*(result + 6), *(result + 5), *(*(result + 4) + 112));
   }
 
-  if ((*(result + 56) & 0xC000) == 0)
+  if ((*(result + 28) & 0xC000) == 0)
   {
-    return [*(result + 32) receivedControlData:*(result + 40)];
+    return [*(result + 4) receivedControlData:*(result + 5)];
   }
 
   return result;
@@ -814,17 +814,17 @@ LABEL_5:
   dispatch_async(queue, v9);
 }
 
-uint64_t __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetail___block_invoke(uint64_t result)
+void *__74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetail___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1[2] != 1)
   {
     v2 = result;
-    result = [v1 sendTCPData:objc_msgSend(*(result + 40) bufSize:{"bytes"), objc_msgSend(*(result + 40), "length")}];
-    if (*(v2 + 56) > 0.0)
+    result = [v1 sendTCPData:objc_msgSend(*(result + 5) bufSize:{"bytes"), objc_msgSend(*(result + 5), "length")}];
+    if (v2[14] > 0.0)
     {
-      v3 = *(v2 + 32);
-      v4 = *(v2 + 48);
+      v3 = *(v2 + 4);
+      v4 = *(v2 + 6);
 
       return [v3 createDispatchTimer:v4 withDetailedError:?];
     }
@@ -833,24 +833,24 @@ uint64_t __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withD
   return result;
 }
 
-void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetail___block_invoke_2(uint64_t a1)
+void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetail___block_invoke_2(uint64_t result)
 {
   v6 = *MEMORY[0x1E69E9840];
-  if (*(*(a1 + 32) + 8) == 8)
+  if (*(*(result + 32) + 8) == 8)
   {
-    v2 = (a1 + 40);
-    if ([*(a1 + 40) length] < 0xFFFD)
+    v2 = (result + 40);
+    if ([*(result + 40) length] < 0xFFFD)
     {
       LOWORD(v5) = 791;
       BYTE2(v5) = 1;
       *(&v5 + 5) = 0;
       HIBYTE(v5) = 0;
-      *(&v5 + 3) = bswap32([*(a1 + 40) length] + 3) >> 16;
-      [*(a1 + 32) sendTCPData:&v5 bufSize:8];
-      [*(a1 + 32) sendTCPData:objc_msgSend(*(a1 + 40) bufSize:{"bytes"), objc_msgSend(*(a1 + 40), "length")}];
-      if (*(a1 + 56) > 0.0)
+      *(&v5 + 3) = bswap32([*(result + 40) length] + 3) >> 16;
+      [*(result + 32) sendTCPData:&v5 bufSize:8];
+      [*(result + 32) sendTCPData:objc_msgSend(*(result + 40) bufSize:{"bytes"), objc_msgSend(*(result + 40), "length")}];
+      if (*(result + 56) > 0.0)
       {
-        [*(a1 + 32) createDispatchTimer:*(a1 + 48) withDetailedError:?];
+        [*(result + 32) createDispatchTimer:*(result + 48) withDetailedError:?];
       }
     }
 
@@ -868,7 +868,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
 
 - (void)receivedControlData:(id)data
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   memset(__b, 170, sizeof(__b));
   [data bytes];
   [data length];
@@ -893,8 +893,8 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
         *&buf[30] = isChannelBound;
         *&buf[34] = 1024;
         *&buf[36] = __b[1];
-        v56 = 1024;
-        v57 = __b[0];
+        v61 = 1024;
+        v62 = __b[0];
         _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: %d, Received TURN message: %x, %x", buf, 0x2Eu);
       }
     }
@@ -907,12 +907,12 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
         {
           if (self->_connectState == 9)
           {
-            v19 = 3;
+            v23 = 3;
           }
 
           else
           {
-            v19 = 4;
+            v23 = 4;
           }
 
           if (!self->_isChannelBound)
@@ -923,67 +923,67 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
           bindingResponseHandler = [(TCPTunnelClient *)self bindingResponseHandler];
           if (bindingResponseHandler)
           {
-            bindingResponseHandler[2](bindingResponseHandler, v19);
+            bindingResponseHandler = bindingResponseHandler[2](bindingResponseHandler, v23);
           }
 
-          v21 = self->_allocationTimestamp - micro() + 30.0;
-          v22 = VRTraceGetErrorLogLevelForModule();
-          if (v21 >= 0.1)
+          v26 = self->_allocationTimestamp - micro(bindingResponseHandler, v25) + 30.0;
+          v27 = VRTraceGetErrorLogLevelForModule();
+          if (v26 >= 0.1)
           {
-            if (v22 >= 7)
+            if (v27 >= 7)
             {
-              v26 = VRTraceErrorLogLevelToCSTR();
-              v27 = *MEMORY[0x1E6986650];
+              v31 = VRTraceErrorLogLevelToCSTR();
+              v32 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                *&buf[4] = v26;
+                *&buf[4] = v31;
                 *&buf[12] = 2080;
                 *&buf[14] = "[TCPTunnelClient receivedControlData:]";
                 *&buf[22] = 1024;
                 *&buf[24] = 521;
                 *&buf[28] = 2048;
-                *&buf[30] = v21;
-                _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: refreshing after %5.2f seconds", buf, 0x26u);
+                *&buf[30] = v26;
+                _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: refreshing after %5.2f seconds", buf, 0x26u);
               }
             }
 
-            v28 = dispatch_time(0, (v21 * 1000000000.0));
+            v33 = dispatch_time(0, (v26 * 1000000000.0));
             queue = self->_queue;
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 3221225472;
-            v43[2] = __39__TCPTunnelClient_receivedControlData___block_invoke_27;
-            v43[3] = &unk_1E85F3778;
-            v43[4] = self;
-            dispatch_after(v28, queue, v43);
+            v48[0] = MEMORY[0x1E69E9820];
+            v48[1] = 3221225472;
+            v48[2] = __39__TCPTunnelClient_receivedControlData___block_invoke_27;
+            v48[3] = &unk_1E85F3778;
+            v48[4] = self;
+            dispatch_after(v33, queue, v48);
             goto LABEL_84;
           }
 
-          if (v22 >= 7)
+          if (v27 >= 7)
           {
-            v23 = VRTraceErrorLogLevelToCSTR();
-            v24 = *MEMORY[0x1E6986650];
+            v28 = VRTraceErrorLogLevelToCSTR();
+            v29 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              *&buf[4] = v23;
+              *&buf[4] = v28;
               *&buf[12] = 2080;
               *&buf[14] = "[TCPTunnelClient receivedControlData:]";
               *&buf[22] = 1024;
               *&buf[24] = 510;
-              _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: refreshing now.", buf, 0x1Cu);
+              _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: refreshing now.", buf, 0x1Cu);
             }
           }
 
-          v17 = self->_queue;
+          v21 = self->_queue;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __39__TCPTunnelClient_receivedControlData___block_invoke;
           block[3] = &unk_1E85F3778;
           block[4] = self;
-          v18 = block;
+          v22 = block;
 LABEL_38:
-          dispatch_async(v17, v18);
+          dispatch_async(v21, v22);
 LABEL_84:
           FreeSTUNMessage();
           return;
@@ -1010,41 +1010,41 @@ LABEL_84:
 
         if (self->_isChannelBound)
         {
-          v36 = 32022;
+          v41 = 32022;
         }
 
         else
         {
-          v36 = 32002;
+          v41 = 32002;
         }
 
-        v31 = *buf;
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ChannelBind Failed: %u", *buf];
+        v36 = *buf;
+        v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ChannelBind Failed: %u", *buf];
         selfCopy3 = self;
-        v34 = v36;
-        v35 = 314;
+        v39 = v41;
+        v40 = 314;
         break;
       case 4:
-        [(TCPTunnelClient *)self destroyDispatchTimer];
+        destroyDispatchTimer = [(TCPTunnelClient *)self destroyDispatchTimer];
         if (__b[0] == 256)
         {
-          self->_allocationTimestamp = micro();
+          self->_allocationTimestamp = micro(destroyDispatchTimer, v19);
           STUNAttr = GetSTUNAttr();
           if (STUNAttr && !*(STUNAttr + 8))
           {
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v39 = VRTraceErrorLogLevelToCSTR();
-              v40 = *MEMORY[0x1E6986650];
+              v44 = VRTraceErrorLogLevelToCSTR();
+              v45 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                *&buf[4] = v39;
+                *&buf[4] = v44;
                 *&buf[12] = 2080;
                 *&buf[14] = "[TCPTunnelClient receivedControlData:]";
                 *&buf[22] = 1024;
                 *&buf[24] = 550;
-                _os_log_impl(&dword_1DB56E000, v40, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: Got TURN terminating response.", buf, 0x1Cu);
+                _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: Got TURN terminating response.", buf, 0x1Cu);
               }
             }
 
@@ -1058,13 +1058,13 @@ LABEL_84:
             goto LABEL_84;
           }
 
-          v17 = self->_queue;
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __39__TCPTunnelClient_receivedControlData___block_invoke_31;
-          v42[3] = &unk_1E85F3778;
-          v42[4] = self;
-          v18 = v42;
+          v21 = self->_queue;
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = __39__TCPTunnelClient_receivedControlData___block_invoke_31;
+          v47[3] = &unk_1E85F3778;
+          v47[4] = self;
+          v22 = v47;
           goto LABEL_38;
         }
 
@@ -1089,19 +1089,19 @@ LABEL_84:
 
         if (self->_isChannelBound)
         {
-          v30 = 32022;
+          v35 = 32022;
         }
 
         else
         {
-          v30 = 32002;
+          v35 = 32002;
         }
 
-        v31 = *buf;
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Refresh Failed: %u", *buf];
+        v36 = *buf;
+        v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Refresh Failed: %u", *buf];
         selfCopy3 = self;
-        v34 = v30;
-        v35 = 315;
+        v39 = v35;
+        v40 = 315;
         break;
       case 3:
         [(TCPTunnelClient *)self destroyDispatchTimer];
@@ -1112,11 +1112,12 @@ LABEL_84:
           *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
           *buf = v10;
           *&buf[16] = v10;
-          v54 = 0xAAAAAAAAAAAAAAAALL;
-          v52 = v10;
-          v53 = v10;
-          v45 = -1431655766;
-          if ((ProcessAllocateResponse() & 0x80000000) != 0)
+          v59 = 0xAAAAAAAAAAAAAAAALL;
+          v57 = v10;
+          v58 = v10;
+          v50 = -1431655766;
+          Response = ProcessAllocateResponse();
+          if ((Response & 0x80000000) != 0)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
@@ -1130,7 +1131,7 @@ LABEL_84:
 
           else
           {
-            self->_allocationTimestamp = micro();
+            self->_allocationTimestamp = micro(Response, v12);
             allocationResponseHandler = [(TCPTunnelClient *)self allocationResponseHandler];
             if (allocationResponseHandler)
             {
@@ -1141,31 +1142,31 @@ LABEL_84:
             {
               if (VRTraceGetErrorLogLevelForModule() >= 8)
               {
-                v13 = VRTraceErrorLogLevelToCSTR();
-                v14 = *MEMORY[0x1E6986650];
-                v15 = *MEMORY[0x1E6986650];
+                v15 = VRTraceErrorLogLevelToCSTR();
+                v16 = *MEMORY[0x1E6986650];
+                v17 = *MEMORY[0x1E6986650];
                 if (*MEMORY[0x1E6986640] == 1)
                 {
-                  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
                   {
-                    *v46 = 136315650;
-                    v47 = v13;
-                    v48 = 2080;
-                    v49 = "[TCPTunnelClient receivedControlData:]";
-                    v50 = 1024;
-                    v51 = 475;
-                    _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: send saved ChannelBinding request now.", v46, 0x1Cu);
+                    *v51 = 136315650;
+                    v52 = v15;
+                    v53 = 2080;
+                    v54 = "[TCPTunnelClient receivedControlData:]";
+                    v55 = 1024;
+                    v56 = 475;
+                    _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d TCPTUNNEL: send saved ChannelBinding request now.", v51, 0x1Cu);
                   }
                 }
 
-                else if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+                else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
                 {
                   [TCPTunnelClient receivedControlData:];
                 }
               }
 
-              *&v12 = self->_fTimeout;
-              [(TCPTunnelClient *)self vcArg:0 sendControlData:self->_channelBReq isTypeSSL:0 withTimeout:309 withDetail:v12];
+              *&v14 = self->_fTimeout;
+              [(TCPTunnelClient *)self vcArg:0 sendControlData:self->_channelBReq isTypeSSL:0 withTimeout:309 withDetail:v14];
             }
           }
 
@@ -1191,12 +1192,12 @@ LABEL_84:
           }
         }
 
-        v38 = *buf;
-        v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Allocation Failed: %u", *buf];
+        v43 = *buf;
+        v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Allocation Failed: %u", *buf];
         selfCopy3 = self;
-        v34 = 32002;
-        v35 = 313;
-        v37 = v38;
+        v39 = 32002;
+        v40 = 313;
+        v42 = v43;
         goto LABEL_83;
       default:
         if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1211,9 +1212,9 @@ LABEL_84:
         goto LABEL_84;
     }
 
-    v37 = v31;
+    v42 = v36;
 LABEL_83:
-    [(TCPTunnelClient *)selfCopy3 reportErrorAndTerminate:v34 detail:v35 returnCode:v37 description:@"cannot establish TCP TURN channel" reason:v32];
+    [(TCPTunnelClient *)selfCopy3 reportErrorAndTerminate:v39 detail:v40 returnCode:v42 description:@"cannot establish TCP TURN channel" reason:v37];
     goto LABEL_84;
   }
 
@@ -1236,15 +1237,15 @@ LABEL_83:
 
   if (self->_isChannelBound)
   {
-    v25 = 32022;
+    v30 = 32022;
   }
 
   else
   {
-    v25 = 32002;
+    v30 = 32002;
   }
 
-  -[TCPTunnelClient reportErrorAndTerminate:detail:returnCode:description:reason:](self, "reportErrorAndTerminate:detail:returnCode:description:reason:", v25, 312, v5, @"cannot establish TCP TURN channel", [MEMORY[0x1E696AEC0] stringWithFormat:@"Error parsing TURN message (%08X)", v5]);
+  -[TCPTunnelClient reportErrorAndTerminate:detail:returnCode:description:reason:](self, "reportErrorAndTerminate:detail:returnCode:description:reason:", v30, 312, v5, @"cannot establish TCP TURN channel", [MEMORY[0x1E696AEC0] stringWithFormat:@"Error parsing TURN message (%08X)", v5]);
 }
 
 uint64_t __39__TCPTunnelClient_receivedControlData___block_invoke(uint64_t a1)
@@ -1304,38 +1305,38 @@ uint64_t __39__TCPTunnelClient_receivedControlData___block_invoke_31(uint64_t a1
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: TCP/SSL socket is closed while accepting packets", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: TCP/SSL socket is closed while accepting packets", v2, v3, v4, v5);
 }
 
-unint64_t __39__TCPTunnelClient_processSocketReadSSL__block_invoke(unint64_t result)
+id *__39__TCPTunnelClient_processSocketReadSSL__block_invoke(id *result)
 {
   v1 = result;
   v9 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 56);
+  v2 = *(result + 28);
   if ((v2 - 20) > 2)
   {
     if (v2 == 23)
     {
-      result = [*(result + 40) length];
+      result = [result[5] length];
       if (result >= 8)
       {
         v8 = 0;
-        result = [*(v1 + 40) getBytes:&v8 + 2 range:{3, 2}];
+        result = [v1[5] getBytes:&v8 + 2 range:{3, 2}];
         HIWORD(v8) = bswap32(HIWORD(v8)) >> 16;
         if ((HIWORD(v8) & 0xC000) == 0x4000)
         {
-          [*(v1 + 40) getBytes:&v8 range:{5, 2}];
+          [v1[5] getBytes:&v8 range:{5, 2}];
           LOWORD(v8) = bswap32(v8) >> 16;
           v6 = MEMORY[0x1E695DEF0];
-          v7 = [*(v1 + 40) bytes];
+          v7 = [v1[5] bytes];
           [v6 dataWithBytesNoCopy:v7 + 7 length:v8 freeWhenDone:0];
-          return (*(*(v1 + 48) + 16))();
+          return (*(v1[6] + 2))();
         }
 
         else if ((v8 & 0xC0000000) == 0)
         {
-          v5 = [*(v1 + 40) length] - 3;
-          return [*(v1 + 32) receivedControlData:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytesNoCopy:length:freeWhenDone:", objc_msgSend(*(v1 + 40), "bytes") + 3, v5, 0)}];
+          v5 = [v1[5] length] - 3;
+          return [v1[4] receivedControlData:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytesNoCopy:length:freeWhenDone:", objc_msgSend(v1[5], "bytes") + 3, v5, 0)}];
         }
       }
     }
@@ -1343,8 +1344,8 @@ unint64_t __39__TCPTunnelClient_processSocketReadSSL__block_invoke(unint64_t res
 
   else
   {
-    v3 = *(result + 32);
-    v4 = *(v1 + 40);
+    v3 = result[4];
+    v4 = v1[5];
 
     return [v3 receivedSSLConnectionData:v4 recordType:?];
   }
@@ -1532,12 +1533,12 @@ LABEL_19:
   }
 }
 
-uint64_t __56__TCPTunnelClient_receivedSSLConnectionData_recordType___block_invoke(uint64_t a1)
+void *__56__TCPTunnelClient_receivedSSLConnectionData_recordType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) destroyHandler];
   if (result)
   {
-    v2 = *(result + 16);
+    v2 = result[2];
 
     return v2();
   }
@@ -2260,7 +2261,7 @@ LABEL_60:
   return 0;
 }
 
-uint64_t __35__TCPTunnelClient_sendAllocateMsg___block_invoke(uint64_t a1, double a2)
+void *__35__TCPTunnelClient_sendAllocateMsg___block_invoke(uint64_t a1, double a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
@@ -2405,7 +2406,7 @@ uint64_t __35__TCPTunnelClient_sendAllocateMsg___block_invoke(uint64_t a1, doubl
   return 0;
 }
 
-uint64_t __55__TCPTunnelClient_sendChannelBindingMsgWithDict_error___block_invoke(uint64_t a1, double a2)
+void *__55__TCPTunnelClient_sendChannelBindingMsgWithDict_error___block_invoke(uint64_t a1, double a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
@@ -2737,7 +2738,7 @@ uint64_t __36__TCPTunnelClient_closeTunnelSocket__block_invoke(uint64_t a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: timer is set.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: timer is set.", v2, v3, v4, v5);
 }
 
 void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_cold_1(uint64_t a1, uint64_t a2)
@@ -2763,7 +2764,7 @@ void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: socket error, tear down the connection.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: socket error, tear down the connection.", v2, v3, v4, v5);
 }
 
 - (void)sendTCPData:bufSize:.cold.2()
@@ -2771,14 +2772,14 @@ void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: socket error, tear down the connection.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: socket error, tear down the connection.", v2, v3, v4, v5);
 }
 
 - (void)sendTCPData:bufSize:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: wcb resume", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: wcb resume", v2, v3, v4, v5);
 }
 
 - (void)sendTCPData:bufSize:.cold.4()
@@ -2811,14 +2812,14 @@ void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Start SSL handshake", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Start SSL handshake", v2, v3, v4, v5);
 }
 
 - (void)processSocketWrite:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: We got a TCP connection!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: We got a TCP connection!", v2, v3, v4, v5);
 }
 
 - (void)processSocketWrite:.cold.5()
@@ -2826,7 +2827,7 @@ void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Socket error, tear down the connection.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Socket error, tear down the connection.", v2, v3, v4, v5);
 }
 
 - (void)processSocketWrite:.cold.6()
@@ -2834,21 +2835,21 @@ void __57__TCPTunnelClient_createDispatchTimer_withDetailedError___block_invoke_
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Socket error, tear down the connection.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Socket error, tear down the connection.", v2, v3, v4, v5);
 }
 
 - (void)processSocketWrite:.cold.7()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: reset write buffer", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: reset write buffer", v2, v3, v4, v5);
 }
 
 - (void)processSocketWrite:.cold.8()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: wcb suspend", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: wcb suspend", v2, v3, v4, v5);
 }
 
 void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetail___block_invoke_2_cold_1(uint64_t a1, id *a2, NSObject *a3)
@@ -2870,7 +2871,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Refresh request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Refresh request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.2()
@@ -2878,7 +2879,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Refresh request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Refresh request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.3()
@@ -2886,7 +2887,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for ChannelBinding request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for ChannelBinding request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.4()
@@ -2894,7 +2895,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for ChannelBinding request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for ChannelBinding request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.5()
@@ -2902,7 +2903,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Allocate request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Allocate request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.6()
@@ -2910,14 +2911,14 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Allocate request.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Got error response for Allocate request.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.7()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: send saved ChannelBinding request now.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: send saved ChannelBinding request now.", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.8()
@@ -2925,7 +2926,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: ProcessAllocateResponse failed", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: ProcessAllocateResponse failed", v2, v3, v4, v5);
 }
 
 - (void)receivedControlData:.cold.9()
@@ -2958,14 +2959,14 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: SSL enabled channel has set up.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: SSL enabled channel has set up.", v2, v3, v4, v5);
 }
 
 - (void)receivedSSLConnectionData:recordType:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: send Allocate request in queue now.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: send Allocate request in queue now.", v2, v3, v4, v5);
 }
 
 - (void)initWithRelayRequestDictionary:withCallID:relayType:errorCode:.cold.1()
@@ -2973,7 +2974,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't reserver buffer pool", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't reserver buffer pool", v2, v3, v4, v5);
 }
 
 - (void)initWithRelayRequestDictionary:withCallID:relayType:errorCode:.cold.2()
@@ -2981,7 +2982,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: no port to bind to.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: no port to bind to.", v2, v3, v4, v5);
 }
 
 - (void)initWithRelayRequestDictionary:withCallID:relayType:errorCode:.cold.3()
@@ -2989,7 +2990,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create socket", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create socket", v2, v3, v4, v5);
 }
 
 - (void)initWithRelayRequestDictionary:withCallID:relayType:errorCode:.cold.4()
@@ -2997,7 +2998,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Only Carrier interface available.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Only Carrier interface available.", v2, v3, v4, v5);
 }
 
 - (void)initWithRelayRequestDictionary:withCallID:relayType:errorCode:.cold.5()
@@ -3005,7 +3006,7 @@ void __74__TCPTunnelClient_vcArg_sendControlData_isTypeSSL_withTimeout_withDetai
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Only Carrier interface available.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: Only Carrier interface available.", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -3041,14 +3042,14 @@ void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_e
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Start SSL handshake", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Start SSL handshake", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_5()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: We got a TCP connection!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: We got a TCP connection!", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_6()
@@ -3056,7 +3057,7 @@ void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_e
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create read source.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create read source.", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_7()
@@ -3064,7 +3065,7 @@ void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_e
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create read source.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create read source.", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_8()
@@ -3072,7 +3073,7 @@ void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_e
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create write source.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_14_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create write source.", v2, v3, v4, v5);
 }
 
 void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_errorCode___block_invoke_cold_9()
@@ -3080,7 +3081,7 @@ void __81__TCPTunnelClient_initWithRelayRequestDictionary_withCallID_relayType_e
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3_8();
-  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create write source.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_15_2(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/TCPTunnelClient.m:%d: TCPTUNNEL: can't create write source.", v2, v3, v4, v5);
 }
 
 - (void)sendAllocateMsg:.cold.1()
@@ -3123,7 +3124,7 @@ void __35__TCPTunnelClient_sendAllocateMsg___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d sendAllocateMsg: save the message for set-up in progress.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d sendAllocateMsg: save the message for set-up in progress.", v2, v3, v4, v5);
 }
 
 - (void)sendChannelBindingMsgWithDict:error:.cold.1()
@@ -3166,7 +3167,7 @@ void __55__TCPTunnelClient_sendChannelBindingMsgWithDict_error___block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d sendChannelBindingMsgWithDict: save message for set-up in progress.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d sendChannelBindingMsgWithDict: save message for set-up in progress.", v2, v3, v4, v5);
 }
 
 - (void)sendRefreshMsg:error:.cold.1()
@@ -3191,21 +3192,21 @@ void __32__TCPTunnelClient_unbindChannel__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: TCP channel is unbound.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: TCP channel is unbound.", v2, v3, v4, v5);
 }
 
 void __36__TCPTunnelClient_closeTunnelSocket__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Canceling the writeSource.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Canceling the writeSource.", v2, v3, v4, v5);
 }
 
 void __36__TCPTunnelClient_closeTunnelSocket__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Canceling the readSource.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, " [%s] %s:%d TCPTUNNEL: Canceling the readSource.", v2, v3, v4, v5);
 }
 
 @end

@@ -130,38 +130,22 @@
     attributes = [(PFFileSystemEndpoint *)self attributes];
     v15 = [v12 createDirectoryAtURL:v13 withIntermediateDirectories:1 attributes:attributes error:error];
 
-    if (!v15)
+    v25 = 0;
+    if (v15)
     {
-      goto LABEL_15;
-    }
+      attributes2 = [(PFFileSystemEndpoint *)self attributes];
+      v17 = [attributes2 count];
 
-    attributes2 = [(PFFileSystemEndpoint *)self attributes];
-    v17 = [attributes2 count];
-
-    if (v17)
-    {
-      attributes3 = [(PFFileSystemEndpoint *)self attributes];
-      path = [v13 path];
-      v20 = [v12 setAttributes:attributes3 ofItemAtPath:path error:error];
-
-      if (!v20)
+      if (!v17 || (-[PFFileSystemEndpoint attributes](self, "attributes"), v18 = objc_claimAutoreleasedReturnValue(), [v13 path], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v12, "setAttributes:ofItemAtPath:error:", v18, v19, error), v19, v18, v20))
       {
-        goto LABEL_15;
+        resourceValues = [(PFFileSystemEndpoint *)self resourceValues];
+        v22 = [resourceValues count];
+
+        if (!v22 || (-[PFFileSystemEndpoint resourceValues](self, "resourceValues"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v13 setResourceValues:v23 error:error], v23, v24))
+        {
+          v25 = 1;
+        }
       }
-    }
-
-    resourceValues = [(PFFileSystemEndpoint *)self resourceValues];
-    v22 = [resourceValues count];
-
-    if (!v22 || (-[PFFileSystemEndpoint resourceValues](self, "resourceValues"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v13 setResourceValues:v23 error:error], v23, v24))
-    {
-      v25 = 1;
-    }
-
-    else
-    {
-LABEL_15:
-      v25 = 0;
     }
   }
 
@@ -340,27 +324,27 @@ LABEL_20:
 
 - (BOOL)copyURL:(id)l relativeTo:(id)to fileManager:(id)manager error:(id *)error
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   managerCopy = manager;
   v12 = [(PFFileSystemEndpoint *)self resolveWithBaseURL:to];
   absoluteURL = [v12 absoluteURL];
   uRLByDeletingLastPathComponent = [absoluteURL URLByDeletingLastPathComponent];
 
-  v34 = 0;
+  v33 = 0;
   path = [uRLByDeletingLastPathComponent path];
-  v16 = [managerCopy fileExistsAtPath:path isDirectory:&v34];
+  v16 = [managerCopy fileExistsAtPath:path isDirectory:&v33];
 
   if (v16)
   {
-    if ((v34 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
       if (error)
       {
         v17 = MEMORY[0x1E696ABC0];
-        v37 = *MEMORY[0x1E696A588];
-        v38[0] = @"Endpoint exists but was expecting a directory; aborting.";
-        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+        v36 = *MEMORY[0x1E696A588];
+        v37[0] = @"Endpoint exists but was expecting a directory; aborting.";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
         v19 = v17;
         v20 = 3;
 LABEL_15:
@@ -382,7 +366,7 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v34 = 1;
+    v33 = 1;
   }
 
   uRLByStandardizingPath = [lCopy URLByStandardizingPath];
@@ -417,9 +401,9 @@ LABEL_16:
   else if (error)
   {
     v31 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A588];
-    v36 = @"Unable to create file at endpoint";
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x1E696A588];
+    v35 = @"Unable to create file at endpoint";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v19 = v31;
     v20 = 0;
     goto LABEL_15;
@@ -427,13 +411,12 @@ LABEL_16:
 
 LABEL_17:
 
-  v32 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (void)initWithComponents:(char *)a1 attributes:resourceValues:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"components"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -441,7 +424,7 @@ LABEL_17:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"components", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -451,7 +434,7 @@ LABEL_17:
 
 - (void)prepareEndpointForBaseURL:(char *)a1 fileManager:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"baseURL"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -459,7 +442,7 @@ LABEL_17:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"baseURL", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -469,7 +452,7 @@ LABEL_17:
 
 - (void)prepareEndpointForBaseURL:(char *)a1 fileManager:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"fileManager"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -477,7 +460,7 @@ LABEL_17:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"fileManager", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

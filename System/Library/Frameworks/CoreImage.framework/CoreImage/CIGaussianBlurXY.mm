@@ -84,7 +84,7 @@
     [(NSNumber *)self->inputSigmaY doubleValue];
     inputImage = self->inputImage;
 
-    return blurImage(inputImage, v6, v7);
+    return blurImage(inputImage, v6, v8, v7);
   }
 }
 

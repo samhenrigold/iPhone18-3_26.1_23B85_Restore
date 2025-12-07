@@ -42,9 +42,7 @@
   selfCopy = [(CBHIDEvent *)&v37 initWithHIDEvent:event andService:service];
   if (!selfCopy)
   {
-LABEL_47:
-    v42 = selfCopy;
-    goto LABEL_48;
+    return selfCopy;
   }
 
   v4 = os_log_create("com.apple.CoreBrightness.CBALSEvent", "default");
@@ -67,37 +65,36 @@ LABEL_47:
     selfCopy->_illuminance = IntegerValue;
     v6 = [(CBALSEvent *)selfCopy getServiceOrientation:serviceCopy];
     selfCopy->_orientation = v6;
-    event = selfCopy->_event;
     if (IOHIDEventGetIntegerValue() == 1)
     {
       IOHIDEventGetDoubleValue();
+      *&v7 = v7 / 3.14159265;
+      selfCopy->_colorSample.XYZ[0] = *&v7;
+      IOHIDEventGetDoubleValue();
       *&v8 = v8 / 3.14159265;
-      selfCopy->_colorSample.XYZ[0] = *&v8;
+      selfCopy->_colorSample.XYZ[1] = *&v8;
       IOHIDEventGetDoubleValue();
       *&v9 = v9 / 3.14159265;
-      selfCopy->_colorSample.XYZ[1] = *&v9;
-      IOHIDEventGetDoubleValue();
-      *&v10 = v10 / 3.14159265;
-      selfCopy->_colorSample.XYZ[2] = *&v10;
+      selfCopy->_colorSample.XYZ[2] = *&v9;
       IOHIDEventGetFloatValue();
-      *&v11 = v11;
-      selfCopy->_colorSample.CCT1 = *&v11;
+      *&v10 = v10;
+      selfCopy->_colorSample.CCT1 = *&v10;
       if (selfCopy->_colorSample.XYZ[0] == 0.0 || selfCopy->_colorSample.XYZ[1] == 0.0)
       {
-        v12 = 0.0;
+        v11 = 0.0;
         selfCopy->_colorSample.xy.y = 0.0;
         selfCopy->_colorSample.xy.x = 0.0;
       }
 
       else
       {
-        *&v12 = CFXTristimulus2Chromaticity(selfCopy->_colorSample.XYZ, &selfCopy->_colorSample.xy);
+        *&v11 = CFXTristimulus2Chromaticity(selfCopy->_colorSample.XYZ, &selfCopy->_colorSample.xy);
       }
 
       __dst = &selfCopy->_vendorData;
       if (selfCopy)
       {
-        [(CBALSEvent *)selfCopy copyVendorDataFromEvent:eventCopy, v12];
+        objc_msgSend_copyVendorDataFromEvent_(selfCopy, v27, eventCopy, v11);
       }
 
       else
@@ -157,77 +154,74 @@ LABEL_47:
       selfCopy->_supportColor = 0;
       if (selfCopy->_logHandle)
       {
-        v22 = selfCopy->_logHandle;
+        v21 = selfCopy->_logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v21 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v20 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v21 = init_default_corebrightness_log();
+          v20 = init_default_corebrightness_log();
         }
 
-        v22 = v21;
+        v21 = v20;
       }
 
-      v33 = v22;
+      v33 = v21;
       v32 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v19 = v33;
-        v20 = v32;
+        v18 = v33;
+        v19 = v32;
         __os_log_helper_16_0_0(v31);
-        _os_log_debug_impl(&dword_1DE8E5000, v19, v20, "error: invalid Color space, can't load harmony data", v31, 2u);
+        _os_log_debug_impl(&dword_1DE8E5000, v18, v19, "error: invalid Color space, can't load harmony data", v31, 2u);
       }
     }
 
     selfCopy->_obstructed = 0;
     selfCopy->_firstALSSample = 0;
     selfCopy->_colorMitigationTriggered = 0;
-    goto LABEL_47;
+    return selfCopy;
   }
 
   if (selfCopy->_logHandle)
   {
-    v18 = selfCopy->_logHandle;
+    v17 = selfCopy->_logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v17 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v16 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v17 = init_default_corebrightness_log();
+      v16 = init_default_corebrightness_log();
     }
 
-    v18 = v17;
+    v17 = v16;
   }
 
-  v30 = v18;
+  v30 = v17;
   v29 = OS_LOG_TYPE_ERROR;
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v15 = v30;
-    v16 = v29;
+    v14 = v30;
+    v15 = v29;
     __os_log_helper_16_0_0(v28);
-    _os_log_error_impl(&dword_1DE8E5000, v15, v16, "HID Event type is not ALS", v28, 2u);
+    _os_log_error_impl(&dword_1DE8E5000, v14, v15, "HID Event type is not ALS", v28, 2u);
   }
 
   MEMORY[0x1E69E5920](selfCopy);
   selfCopy = 0;
-  v42 = 0;
-LABEL_48:
-  *MEMORY[0x1E69E9840];
-  return v42;
+  return 0;
 }
 
 - (int64_t)compare:(id)compare
@@ -288,7 +282,6 @@ LABEL_48:
 
 + (void)replaceLuxWithFilteredLux:(__IOHIDEvent *)lux
 {
-  v11 = *MEMORY[0x1E69E9840];
   theArray = IOHIDEventGetChildren();
   if (theArray)
   {
@@ -301,18 +294,14 @@ LABEL_48:
         {
           if (*(DataValue + 136))
           {
-            v3 = *(DataValue + 132);
             IOHIDEventSetDoubleValue();
-            v4 = *(DataValue + 132);
             IOHIDEventSetIntegerValue();
             IOHIDEventGetDoubleValue();
             IOHIDEventGetDoubleValue();
-            v9 = v5;
+            v6 = v3;
             IOHIDEventGetDoubleValue();
-            if (v9 > 0.0)
+            if (v6 > 0.0)
             {
-              v6 = *(DataValue + 132) / v9;
-              v10 = *(DataValue + 132);
               IOHIDEventSetDoubleValue();
               IOHIDEventSetDoubleValue();
               IOHIDEventSetDoubleValue();
@@ -322,8 +311,6 @@ LABEL_48:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

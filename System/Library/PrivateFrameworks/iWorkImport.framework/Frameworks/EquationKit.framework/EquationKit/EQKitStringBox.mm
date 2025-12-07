@@ -20,26 +20,26 @@
 
 - (EQKitStringBox)initWithAttributedString:(id)string cgColor:(CGColor *)color
 {
-  v12.receiver = self;
-  v12.super_class = EQKitStringBox;
-  v9 = [(EQKitStringBox *)&v12 init];
-  if (v9)
+  v9.receiver = self;
+  v9.super_class = EQKitStringBox;
+  v6 = [(EQKitStringBox *)&v9 init];
+  if (v6)
   {
-    v9->mAttributedString = objc_msgSend_copy(string, v6, v7, v8);
+    v6->mAttributedString = [string copy];
     if (color)
     {
-      v10 = CFRetain(color);
+      v7 = CFRetain(color);
     }
 
     else
     {
-      v10 = 0;
+      v7 = 0;
     }
 
-    v9->mCGColor = v10;
+    v6->mCGColor = v7;
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)dealloc
@@ -58,12 +58,11 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  v13 = objc_msgSend_attributedString(self, v9, v10, v11);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  attributedString = [(EQKitStringBox *)self attributedString];
   mCGColor = self->mCGColor;
 
-  return objc_msgSend_initWithAttributedString_cgColor_(v8, v12, v13, mCGColor);
+  return [v4 initWithAttributedString:attributedString cgColor:mCGColor];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -75,18 +74,17 @@
   {
     if (!v4)
     {
-      v6 = objc_opt_class();
-      LODWORD(self) = objc_msgSend_isMemberOfClass_(equal, v7, v6, v8);
+      LODWORD(self) = [equal isMemberOfClass:objc_opt_class()];
       if (self)
       {
-        v12 = objc_msgSend_attributedString(selfCopy, v9, v10, v11);
-        self = objc_msgSend_attributedString(equal, v13, v14, v15);
-        if (v12 == self || (v19 = self, LOBYTE(self) = 0, v12) && v19 && (LODWORD(self) = objc_msgSend_isEqualToAttributedString_(v12, v16, v19, v18), self))
+        attributedString = [(EQKitStringBox *)selfCopy attributedString];
+        self = [equal attributedString];
+        if (attributedString == self || (v7 = self, LOBYTE(self) = 0, attributedString) && v7 && (LODWORD(self) = [(EQKitStringBox *)attributedString isEqualToAttributedString:?], self))
         {
-          v20 = objc_msgSend_color(selfCopy, v16, v17, v18);
-          v24 = objc_msgSend_color(equal, v21, v22, v23);
+          color = [(EQKitStringBox *)selfCopy color];
+          color2 = [equal color];
 
-          LOBYTE(self) = CGColorEqualToColor(v20, v24);
+          LOBYTE(self) = CGColorEqualToColor(color, color2);
         }
       }
     }
@@ -106,7 +104,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitStringBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -117,7 +115,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitStringBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -128,7 +126,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitStringBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -139,7 +137,7 @@
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitStringBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -159,7 +157,7 @@
   result = self->mLine;
   if (!result)
   {
-    result = objc_msgSend_attributedString(self, a2, v2, v3);
+    result = [(EQKitStringBox *)self attributedString];
     if (result)
     {
       result = CTLineCreateWithAttributedString(result);
@@ -175,35 +173,35 @@
 {
   y = offset.y;
   x = offset.x;
-  v17.receiver = self;
-  v17.super_class = EQKitStringBox;
+  v14.receiver = self;
+  v14.super_class = EQKitStringBox;
   [EQKitBox renderIntoContext:sel_renderIntoContext_offset_ offset:?];
   if (context)
   {
-    v11 = objc_msgSend_line(self, v8, v9, v10);
-    if (v11)
+    line = [(EQKitStringBox *)self line];
+    if (line)
     {
-      v12 = v11;
+      v9 = line;
       if (self->mCGColor)
       {
         CGContextSaveGState(context);
         CGContextSetFillColorWithColor(context, self->mCGColor);
       }
 
-      memset(&v16, 0, sizeof(v16));
-      CGContextGetTextMatrix(&v16, context);
-      memset(&v15, 0, sizeof(v15));
-      v13 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v14.a = *MEMORY[0x277CBF2C0];
-      *&v14.c = v13;
-      *&v14.tx = *(MEMORY[0x277CBF2C0] + 32);
-      CGAffineTransformScale(&v15, &v14, 1.0, -1.0);
-      v14 = v15;
-      CGContextSetTextMatrix(context, &v14);
+      memset(&v13, 0, sizeof(v13));
+      CGContextGetTextMatrix(&v13, context);
+      memset(&v12, 0, sizeof(v12));
+      v10 = *(MEMORY[0x277CBF2C0] + 16);
+      *&v11.a = *MEMORY[0x277CBF2C0];
+      *&v11.c = v10;
+      *&v11.tx = *(MEMORY[0x277CBF2C0] + 32);
+      CGAffineTransformScale(&v12, &v11, 1.0, -1.0);
+      v11 = v12;
+      CGContextSetTextMatrix(context, &v11);
       CGContextSetTextPosition(context, x, y);
-      CTLineDraw(v12, context);
-      v14 = v16;
-      CGContextSetTextMatrix(context, &v14);
+      CTLineDraw(v9, context);
+      v11 = v13;
+      CGContextSetTextMatrix(context, &v11);
       if (self->mCGColor)
       {
         CGContextRestoreGState(context);
@@ -214,31 +212,30 @@
 
 - (double)positionOfCharacterAtIndex:(unint64_t)index
 {
-  v6 = objc_msgSend_line(self, a2, index, v3);
-  if (!v6)
+  line = [(EQKitStringBox *)self line];
+  if (!line)
   {
     return 0.0;
   }
 
-  v10 = v6;
-  v11 = objc_msgSend_attributedString(self, v7, v8, v9);
-  if (objc_msgSend_length(v11, v12, v13, v14) < index)
+  v6 = line;
+  if ([(NSAttributedString *)[(EQKitStringBox *)self attributedString] length]< index)
   {
     return 0.0;
   }
 
-  return CTLineGetOffsetForStringIndex(v10, index, 0);
+  return CTLineGetOffsetForStringIndex(v6, index, 0);
 }
 
 - (BOOL)appendOpticalAlignToSpec:(void *)spec offset:(CGPoint)offset
 {
   y = offset.y;
   x = offset.x;
-  GlyphRuns = objc_msgSend_line(self, a2, spec, v4);
+  GlyphRuns = [(EQKitStringBox *)self line];
   if (GlyphRuns)
   {
     GlyphRuns = CTLineGetGlyphRuns(GlyphRuns);
-    v9 = GlyphRuns;
+    v8 = GlyphRuns;
     if (GlyphRuns)
     {
       GlyphRuns = CFArrayGetCount(GlyphRuns);
@@ -247,43 +244,43 @@
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = *(spec + 6);
-  if (v10 != 2)
+  v9 = *(spec + 6);
+  if (v9 != 2)
   {
-    if (!v10 && GlyphRuns >= 1)
+    if (!v9 && GlyphRuns >= 1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
+      ValueAtIndex = CFArrayGetValueAtIndex(v8, 0);
       if (ValueAtIndex)
       {
-        v12 = ValueAtIndex;
+        v11 = ValueAtIndex;
         if (CTRunGetGlyphCount(ValueAtIndex) >= 1)
         {
           buffer = 0;
-          v30.location = 0;
-          v30.length = 1;
-          CTRunGetGlyphs(v12, v30, &buffer);
-          Attributes = CTRunGetAttributes(v12);
-          v14 = Attributes != 0;
+          v29.location = 0;
+          v29.length = 1;
+          CTRunGetGlyphs(v11, v29, &buffer);
+          Attributes = CTRunGetAttributes(v11);
+          v13 = Attributes != 0;
           if (Attributes)
           {
             Value = CFDictionaryGetValue(Attributes, *MEMORY[0x277CC4838]);
-            v31.location = 0;
-            v31.length = 1;
-            CTRunGetPositions(v12, v31, &v28);
-            v16 = x + v28.x;
-            v17 = y + v28.y;
-            v18 = buffer;
+            v30.location = 0;
+            v30.length = 1;
+            CTRunGetPositions(v11, v30, &v27);
+            v15 = x + v27.x;
+            v16 = y + v27.y;
+            v17 = buffer;
             specCopy2 = spec;
-            v20 = Value;
+            v19 = Value;
 LABEL_17:
-            sub_275CD8418(specCopy2, v20, v18, v16, v17);
-            return v14;
+            sub_275CD8418(specCopy2, v19, v17, v15, v16);
+            return v13;
           }
 
-          return v14;
+          return v13;
         }
       }
     }
@@ -296,55 +293,53 @@ LABEL_17:
     return 0;
   }
 
-  v21 = CFArrayGetValueAtIndex(v9, GlyphRuns - 1);
-  if (!v21)
+  v20 = CFArrayGetValueAtIndex(v8, GlyphRuns - 1);
+  if (!v20)
   {
     return 0;
   }
 
-  v22 = v21;
-  GlyphCount = CTRunGetGlyphCount(v21);
-  v24 = GlyphCount - 1;
+  v21 = v20;
+  GlyphCount = CTRunGetGlyphCount(v20);
+  v23 = GlyphCount - 1;
   if (GlyphCount < 1)
   {
     return 0;
   }
 
   buffer = 0;
-  v32.location = GlyphCount - 1;
-  v32.length = 1;
-  CTRunGetGlyphs(v22, v32, &buffer);
-  v25 = CTRunGetAttributes(v22);
-  v14 = v25 != 0;
-  if (v25)
+  v31.location = GlyphCount - 1;
+  v31.length = 1;
+  CTRunGetGlyphs(v21, v31, &buffer);
+  v24 = CTRunGetAttributes(v21);
+  v13 = v24 != 0;
+  if (v24)
   {
-    v26 = CFDictionaryGetValue(v25, *MEMORY[0x277CC4838]);
-    v33.location = v24;
-    v33.length = 1;
-    CTRunGetPositions(v22, v33, &v28);
-    v16 = x + v28.x;
-    v17 = y + v28.y;
-    v18 = buffer;
+    v25 = CFDictionaryGetValue(v24, *MEMORY[0x277CC4838]);
+    v32.location = v23;
+    v32.length = 1;
+    CTRunGetPositions(v21, v32, &v27);
+    v15 = x + v27.x;
+    v16 = y + v27.y;
+    v17 = buffer;
     specCopy2 = spec;
-    v20 = v26;
+    v19 = v25;
     goto LABEL_17;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  v14 = v13;
-  objc_msgSend_width(self, v15, v16, v17);
-  v19 = v18;
-  v23 = objc_msgSend_attributedString(self, v20, v21, v22);
-  return objc_msgSend_stringWithFormat_(v3, v24, @"<%@ %p>: height=%f depth=%f width=%f attributedString=%@", v25, v4, self, v9, v14, v19, v23);
+  [(EQKitStringBox *)self height];
+  v6 = v5;
+  [(EQKitStringBox *)self depth];
+  v8 = v7;
+  [(EQKitStringBox *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f width=%f attributedString=%@", v4, self, v6, v8, v9, -[EQKitStringBox attributedString](self, "attributedString")];
 }
 
 - (void)p_cacheDimensions
@@ -353,55 +348,55 @@ LABEL_17:
   self->mDepth = 0.0;
   self->mWidth = 0.0;
   p_mErasableBounds = &self->mErasableBounds;
-  v6 = *(MEMORY[0x277CBF3A0] + 16);
+  v4 = *(MEMORY[0x277CBF3A0] + 16);
   self->mErasableBounds.origin = *MEMORY[0x277CBF3A0];
-  self->mErasableBounds.size = v6;
-  v7 = objc_msgSend_line(self, a2, v2, v3);
-  if (v7)
+  self->mErasableBounds.size = v4;
+  line = [(EQKitStringBox *)self line];
+  if (line)
   {
-    v8 = v7;
-    v9 = sub_275C95064();
-    ImageBounds = CTLineGetImageBounds(v8, v9);
+    v7 = line;
+    v8 = sub_275C95064(line, v6);
+    ImageBounds = CTLineGetImageBounds(v7, v8);
     x = ImageBounds.origin.x;
     y = ImageBounds.origin.y;
     width = ImageBounds.size.width;
     height = ImageBounds.size.height;
     MaxY = CGRectGetMaxY(ImageBounds);
-    v22.origin.x = x;
-    v22.origin.y = y;
-    v22.size.width = width;
-    v22.size.height = height;
-    MinY = CGRectGetMinY(v22);
-    TypographicBounds = CTLineGetTypographicBounds(v8, 0, 0, 0);
+    v21.origin.x = x;
+    v21.origin.y = y;
+    v21.size.width = width;
+    v21.size.height = height;
+    MinY = CGRectGetMinY(v21);
+    TypographicBounds = CTLineGetTypographicBounds(v7, 0, 0, 0);
     if (TypographicBounds > 0.0)
     {
       self->mHeight = MaxY;
       self->mDepth = -MinY;
       self->mWidth = TypographicBounds;
+      v22.origin.x = x;
+      v22.origin.y = y;
+      v22.size.width = width;
+      v22.size.height = height;
+      MinX = CGRectGetMinX(v22);
       v23.origin.x = x;
       v23.origin.y = y;
       v23.size.width = width;
       v23.size.height = height;
-      MinX = CGRectGetMinX(v23);
+      v17 = -CGRectGetMaxY(v23);
       v24.origin.x = x;
       v24.origin.y = y;
       v24.size.width = width;
       v24.size.height = height;
-      v18 = -CGRectGetMaxY(v24);
+      v18 = CGRectGetWidth(v24);
       v25.origin.x = x;
       v25.origin.y = y;
       v25.size.width = width;
       v25.size.height = height;
-      v19 = CGRectGetWidth(v25);
-      v26.origin.x = x;
-      v26.origin.y = y;
-      v26.size.width = width;
-      v26.size.height = height;
-      v20 = CGRectGetHeight(v26);
+      v19 = CGRectGetHeight(v25);
       p_mErasableBounds->origin.x = MinX;
-      p_mErasableBounds->origin.y = v18;
-      p_mErasableBounds->size.width = v19;
-      p_mErasableBounds->size.height = v20;
+      p_mErasableBounds->origin.y = v17;
+      p_mErasableBounds->size.width = v18;
+      p_mErasableBounds->size.height = v19;
     }
   }
 }

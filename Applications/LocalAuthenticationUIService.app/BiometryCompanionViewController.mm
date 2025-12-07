@@ -24,7 +24,7 @@
   {
     v5 = v4;
     v6 = swift_allocObject();
-    v6[2] = v5;
+    *(v6 + 16) = v5;
     v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ();
   }
 
@@ -36,7 +36,7 @@
 
   selfCopy = self;
   BiometryCompanionViewController.dismissChild(completionHandler:)(v7, v6);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 - (_TtC28LocalAuthenticationUIService31BiometryCompanionViewController)initWithRequestID:(id)d endpoint:(id)endpoint

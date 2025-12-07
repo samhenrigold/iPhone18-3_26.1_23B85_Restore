@@ -31,7 +31,7 @@
 
 - (void)startTrackingWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -62,7 +62,7 @@
 
 - (void)trackObservationsWithMetadata:(_TtC11DockKitCore16FollowerMetadata *)metadata image:(CIImage *)image completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -100,7 +100,7 @@
 
 - (void)dumpStateWithDirectory:(id)directory
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C9DB0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D0C9DB0, &qword_224631CD8);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v9 - v5;
   if (directory)
@@ -116,12 +116,12 @@
     (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
   }
 
-  sub_2245098A0(v6, &unk_27D0C9DB0);
+  sub_2245098A0(v6, &unk_27D0C9DB0, &qword_224631CD8);
 }
 
 - (void)searchWithCalibrate:(BOOL)calibrate completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -147,7 +147,7 @@
 
 - (void)stopSearchWithCalibrate:(BOOL)calibrate completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -173,7 +173,7 @@
 
 - (void)returnToBaseWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -198,7 +198,7 @@
 
 - (void)stopReturnToBaseWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -223,7 +223,7 @@
 
 - (void)flip180WithClockwise:(BOOL)clockwise completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

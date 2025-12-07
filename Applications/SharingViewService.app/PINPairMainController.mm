@@ -17,8 +17,7 @@
   pairingCopy = pairing;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    v7 = pairingCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController _startPairing:]", 30, "Start pairing with %@\n", pairingCopy);
   }
 
   [(SFPINPairSession *)self->_pairingSession invalidate];
@@ -27,18 +26,18 @@
   self->_pairingSession = v5;
 
   [(SFPINPairSession *)self->_pairingSession setPeerDevice:pairingCopy];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100107AF8;
-  v9[3] = &unk_100195940;
-  v9[4] = self;
-  [(SFPINPairSession *)self->_pairingSession setCompletionHandler:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_100107BD0;
-  v8[3] = &unk_100195A48;
+  v8[2] = sub_100107AF8;
+  v8[3] = &unk_100195940;
   v8[4] = self;
-  [(SFPINPairSession *)self->_pairingSession setPromptForPINHandler:v8];
+  [(SFPINPairSession *)self->_pairingSession setCompletionHandler:v8];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100107BD0;
+  v7[3] = &unk_100195A48;
+  v7[4] = self;
+  [(SFPINPairSession *)self->_pairingSession setPromptForPINHandler:v7];
   [(SFPINPairSession *)self->_pairingSession activate];
 }
 
@@ -47,8 +46,7 @@
   v3 = *&i;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    v10 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController showDoneUI:]", 30, "Show done UI: %#m\n", v3);
   }
 
   vcDone = self->_vcDone;
@@ -62,7 +60,7 @@
     vcDone = self->_vcDone;
   }
 
-  [(PINPairDoneViewController *)vcDone setStatus:v3, v10];
+  [(PINPairDoneViewController *)vcDone setStatus:v3];
   vcNav = self->_vcNav;
   v9 = self->_vcDone;
 
@@ -117,7 +115,7 @@
         {
           if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BEAD8, "[PINPairMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(PINPairMainController *)self dismiss:4];
@@ -162,14 +160,14 @@
   disappearCopy = disappear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController viewDidDisappear:]", 30, "Proxy ViewDidDisappear\n");
   }
 
   if (!self->_dismissed)
   {
     if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEAD8, "[PINPairMainController viewDidDisappear:]", 30, "Proxy disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(PINPairMainController *)self dismiss:21];
@@ -207,7 +205,7 @@
   appearCopy = appear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController viewDidAppear:]", 30, "Proxy ViewDidAppear\n");
   }
 
   v14.receiver = self;
@@ -268,7 +266,7 @@
 
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController configureWithContext:completion:]", 30, "Proxy configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -280,7 +278,7 @@
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

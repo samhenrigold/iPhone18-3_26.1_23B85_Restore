@@ -10,7 +10,7 @@
 
 - (BOOL)previewController:(id)controller canShareItem:(id)item
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   controllerCopy = controller;
   v7 = objc_opt_class();
@@ -20,16 +20,16 @@
     v10 = getWFGeneralLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      *v19 = 136315906;
-      *&v19[4] = "WFEnforceClass";
-      *&v19[12] = 2114;
-      *&v19[14] = v8;
-      *&v19[22] = 2114;
-      v20 = objc_opt_class();
-      LOWORD(v21) = 2114;
-      *(&v21 + 2) = v7;
-      v11 = v20;
-      _os_log_impl(&dword_23E342000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", v19, 0x2Au);
+      *v18 = 136315906;
+      *&v18[4] = "WFEnforceClass";
+      *&v18[12] = 2114;
+      *&v18[14] = v8;
+      *&v18[22] = 2114;
+      v19 = objc_opt_class();
+      LOWORD(v20) = 2114;
+      *(&v20 + 2) = v7;
+      v11 = v19;
+      _os_log_impl(&dword_23E342000, v10, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", v18, 0x2Au);
     }
 
     v9 = 0;
@@ -54,9 +54,8 @@
     v15 = 1;
   }
 
-  v16 = [attributionSet isAllowedToBeSentToDestinationWithManagedLevel:{v15, *v19, *&v19[16], v20, v21}];
+  v16 = [attributionSet isAllowedToBeSentToDestinationWithManagedLevel:{v15, *v18, *&v18[8], v19, v20}];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

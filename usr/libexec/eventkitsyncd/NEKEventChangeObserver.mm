@@ -220,7 +220,7 @@
           }
         }
 
-        v21 = sub_10000A2E8(v16);
+        v21 = sub_10000A2E8();
         v22 = *(*v5 + *v6);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {

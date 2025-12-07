@@ -21,83 +21,80 @@
 
 - (void)setDestinations:(id)destinations
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   destinationsCopy = destinations;
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(destinationsCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = destinationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        dictionaryRepresentation = [*(*(&v13 + 1) + 8 * v10) dictionaryRepresentation];
+        dictionaryRepresentation = [*(*(&v12 + 1) + 8 * v10) dictionaryRepresentation];
         [v5 addObject:dictionaryRepresentation];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(STCoreTransportPayload *)self managedObjectOriginal_setDestinations:v5];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)destinations
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   managedObjectOriginal_destinations = [(STCoreTransportPayload *)self managedObjectOriginal_destinations];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(managedObjectOriginal_destinations, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = managedObjectOriginal_destinations;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = objc_opt_new();
-        [v10 updateWithDictionaryRepresentation:{v9, v13}];
+        [v10 updateWithDictionaryRepresentation:{v9, v12}];
         [v3 addObject:v10];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

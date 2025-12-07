@@ -149,7 +149,7 @@
 
 void __91__WFTopHitItemContextualAction_disambiguationEntriesForCollection_limit_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   os_unfair_lock_lock((*(*(a1 + 48) + 8) + 32));
@@ -168,11 +168,11 @@ void __91__WFTopHitItemContextualAction_disambiguationEntriesForCollection_limit
       v10 = NSStringFromClass(*(a1 + 64));
       v11 = *(a1 + 32);
       *buf = 136315650;
-      v15 = "+[WFTopHitItemContextualAction disambiguationEntriesForCollection:limit:completionHandler:]_block_invoke";
-      v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v11;
+      v14 = "+[WFTopHitItemContextualAction disambiguationEntriesForCollection:limit:completionHandler:]_block_invoke";
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
       _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_FAULT, "%s Unexpected double completion in disambiguationEntriesForCollection for class: %@, collection: %@", buf, 0x20u);
     }
   }
@@ -184,8 +184,6 @@ void __91__WFTopHitItemContextualAction_disambiguationEntriesForCollection_limit
   }
 
   v7[2](v7);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)availableCollectionIdentifiers
@@ -197,16 +195,14 @@ void __91__WFTopHitItemContextualAction_disambiguationEntriesForCollection_limit
 
 + (id)supportedBundleIdentifiers
 {
-  v6[5] = *MEMORY[0x1E69E9840];
-  v6[0] = @"com.apple.shortcuts";
-  v6[1] = @"com.apple.mobilephone";
-  v6[2] = @"com.apple.facetime";
-  v6[3] = @"com.apple.Music";
-  v6[4] = @"com.apple.podcasts";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:5];
+  v5[5] = *MEMORY[0x1E69E9840];
+  v5[0] = @"com.apple.shortcuts";
+  v5[1] = @"com.apple.mobilephone";
+  v5[2] = @"com.apple.facetime";
+  v5[3] = @"com.apple.Music";
+  v5[4] = @"com.apple.podcasts";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
   v3 = [v2 if_objectsPassingTest:&__block_literal_global_15778];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -339,7 +335,7 @@ void __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_
 
 void __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_completion___block_invoke_6(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -347,12 +343,12 @@ void __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_
   {
     if ([v8 count])
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_completion___block_invoke_7;
-      v20[3] = &unk_1E7B02000;
-      v21 = v7;
-      v10 = [v8 if_map:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_completion___block_invoke_7;
+      v19[3] = &unk_1E7B02000;
+      v20 = v7;
+      v10 = [v8 if_map:v19];
       (*(*(a1 + 32) + 16))();
     }
 
@@ -366,8 +362,8 @@ void __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_
       v16 = [(WFAppIntentBasedTopHitContextualAction *)v12 initWithAction:v7 appBundleIdentifier:@"com.apple.springboard" extensionBundleIdentifier:0 authenticationPolicy:0 associatedAppBundleIdentifier:@"com.apple.camera" parameterValue:0 displayString:v13 title:v14 subtitle:v15 primaryColor:12 icon:v11 accessoryIcon:0 namedQueryInfo:0];
 
       v17 = *(a1 + 32);
-      v22[0] = v16;
-      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+      v21[0] = v16;
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
       (*(v17 + 16))(v17, v18, 0);
     }
   }
@@ -376,24 +372,22 @@ void __83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_
   {
     (*(*(a1 + 32) + 16))();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 WFAppIntentBasedTopHitContextualAction *__83__WFTopHitItemContextualAction_getTopHitContextualActionsForType_limit_completion___block_invoke_7(uint64_t a1, void *a2)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v26[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v25 = [v4 actionWithParameters:v5];
+  v25[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v24 = [v4 actionWithParameters:v5];
 
-  v22 = [WFAppIntentBasedTopHitContextualAction alloc];
-  v24 = WFLocalizedString(@"Open Camera");
+  v21 = [WFAppIntentBasedTopHitContextualAction alloc];
+  v23 = WFLocalizedString(@"Open Camera");
   v6 = WFLocalizedString(@"Open Camera");
-  v23 = [v3 value];
-  v7 = [v23 displayRepresentation];
+  v22 = [v3 value];
+  v7 = [v22 displayRepresentation];
   v8 = [v7 title];
   v9 = [v8 localizedStringWithPluralizationNumber:&unk_1F2931320 forLocaleIdentifier:0];
   v10 = [v3 value];
@@ -454,9 +448,7 @@ WFAppIntentBasedTopHitContextualAction *__83__WFTopHitItemContextualAction_getTo
   }
 
   v18 = [[WFContextualActionIcon alloc] initWithSystemName:v15];
-  v19 = [(WFAppIntentBasedTopHitContextualAction *)v22 initWithAction:v25 appBundleIdentifier:@"com.apple.springboard" extensionBundleIdentifier:0 authenticationPolicy:0 associatedAppBundleIdentifier:@"com.apple.camera" parameterValue:v3 displayString:v24 title:v6 subtitle:v9 primaryColor:12 icon:v18 accessoryIcon:0 namedQueryInfo:0];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [(WFAppIntentBasedTopHitContextualAction *)v21 initWithAction:v24 appBundleIdentifier:@"com.apple.springboard" extensionBundleIdentifier:0 authenticationPolicy:0 associatedAppBundleIdentifier:@"com.apple.camera" parameterValue:v3 displayString:v23 title:v6 subtitle:v9 primaryColor:12 icon:v18 accessoryIcon:0 namedQueryInfo:0];
 
   return v19;
 }

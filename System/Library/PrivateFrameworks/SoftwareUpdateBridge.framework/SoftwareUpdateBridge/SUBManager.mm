@@ -112,10 +112,7 @@
 
 uint64_t __22__SUBManager_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -144,7 +141,7 @@ uint64_t __22__SUBManager_delegate__block_invoke(uint64_t a1)
 
 void __31__SUBManager__serverConnection__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   if (!v2)
   {
@@ -152,39 +149,38 @@ void __31__SUBManager__serverConnection__block_invoke(uint64_t a1)
     objc_storeStrong((*(a1 + 32) + 24), mach_service);
     objc_initWeak(&location, *(a1 + 32));
     v4 = *(*(a1 + 32) + 24);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __31__SUBManager__serverConnection__block_invoke_2;
-    v10[3] = &unk_279CA7870;
-    objc_copyWeak(&v13, &location);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __31__SUBManager__serverConnection__block_invoke_2;
+    v9[3] = &unk_279CA7870;
+    objc_copyWeak(&v12, &location);
     v5 = mach_service;
     v6 = *(a1 + 40);
-    v11 = v5;
-    v12 = v6;
-    xpc_connection_set_event_handler(v4, v10);
+    v10 = v5;
+    v11 = v6;
+    xpc_connection_set_event_handler(v4, v9);
     xpc_connection_activate(*(*(a1 + 32) + 24));
     v7 = softwareupdatebridge_log;
     if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(*(a1 + 32) + 24);
       *buf = 134217984;
-      v16 = v8;
+      v15 = v8;
       _os_log_impl(&dword_26AB06000, v7, OS_LOG_TYPE_DEFAULT, "activated server connection: %p", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(&location);
 
     v2 = *(*(a1 + 32) + 24);
   }
 
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -199,8 +195,8 @@ void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
         v12 = *MEMORY[0x277D86400];
         v13 = v10;
         *buf = 134218242;
-        v23 = v11;
-        v24 = 2082;
+        v22 = v11;
+        v23 = 2082;
         string = xpc_dictionary_get_string(v3, v12);
         _os_log_impl(&dword_26AB06000, v13, OS_LOG_TYPE_DEFAULT, "XPC error on server connection (%p): %{public}s", buf, 0x16u);
       }
@@ -208,13 +204,13 @@ void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
       if (v3 == MEMORY[0x277D863F8])
       {
         v14 = [WeakRetained queue];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __31__SUBManager__serverConnection__block_invoke_290;
-        v19[3] = &unk_279CA7848;
-        v21 = *(a1 + 40);
-        v20 = WeakRetained;
-        dispatch_async(v14, v19);
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __31__SUBManager__serverConnection__block_invoke_290;
+        v18[3] = &unk_279CA7848;
+        v20 = *(a1 + 40);
+        v19 = WeakRetained;
+        dispatch_async(v14, v18);
       }
     }
 
@@ -268,8 +264,8 @@ void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
         {
           v17 = *(*(*(a1 + 40) + 8) + 40);
           *buf = 136446466;
-          v23 = v15;
-          v24 = 2048;
+          v22 = v15;
+          v23 = 2048;
           string = v17;
           _os_log_impl(&dword_26AB06000, v16, OS_LOG_TYPE_DEFAULT, "unhandled message type %{public}s on server connection %p", buf, 0x16u);
         }
@@ -287,8 +283,8 @@ void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
         {
           v9 = *(*(*(a1 + 40) + 8) + 40);
           *buf = 136446466;
-          v23 = v7;
-          v24 = 2048;
+          v22 = v7;
+          v23 = 2048;
           string = v9;
           _os_log_impl(&dword_26AB06000, v8, OS_LOG_TYPE_DEFAULT, "unexpected message %{public}s on connection %p", buf, 0x16u);
         }
@@ -297,8 +293,6 @@ void __31__SUBManager__serverConnection__block_invoke_2(uint64_t a1, void *a2)
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__SUBManager__serverConnection__block_invoke_290(uint64_t a1)
@@ -483,7 +477,7 @@ LABEL_15:
 
 - (void)_forwardInstallationAwaitingUserInteraction:(id)interaction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = SUBMessageDescriptorKey;
   interactionCopy = interaction;
   v6 = objc_opt_class();
@@ -497,9 +491,9 @@ LABEL_15:
   {
     if (v11)
     {
-      v13 = 136446210;
-      v14 = SUBMessageTypePresentingAlertOnGizmo;
-      _os_log_impl(&dword_26AB06000, v10, OS_LOG_TYPE_DEFAULT, "Delegate found to handle %{public}s notification", &v13, 0xCu);
+      v12 = 136446210;
+      v13 = SUBMessageTypePresentingAlertOnGizmo;
+      _os_log_impl(&dword_26AB06000, v10, OS_LOG_TYPE_DEFAULT, "Delegate found to handle %{public}s notification", &v12, 0xCu);
     }
 
     [delegate manager:self installationAwaitingUserInteraction:v7];
@@ -507,12 +501,10 @@ LABEL_15:
 
   else if (v11)
   {
-    v13 = 136446210;
-    v14 = SUBMessageTypePresentingAlertOnGizmo;
-    _os_log_impl(&dword_26AB06000, v10, OS_LOG_TYPE_DEFAULT, "No delegate currently responds to %{public}s notification", &v13, 0xCu);
+    v12 = 136446210;
+    v13 = SUBMessageTypePresentingAlertOnGizmo;
+    _os_log_impl(&dword_26AB06000, v10, OS_LOG_TYPE_DEFAULT, "No delegate currently responds to %{public}s notification", &v12, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)managerState:(id)state
@@ -867,7 +859,7 @@ void __37__SUBManager_purgeUpdate_completion___block_invoke(uint64_t a1, void *a
 
 - (void)setUserInstallRequestTypeForUpdate:(id)update userInstallRequestType:(int64_t)type completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   completionCopy = completion;
   v10 = softwareupdatebridge_log;
@@ -875,7 +867,7 @@ void __37__SUBManager_purgeUpdate_completion___block_invoke(uint64_t a1, void *a
   {
     v11 = v10;
     *buf = 136446210;
-    v22 = SUBStringForUserInstallRequestType(type);
+    v21 = SUBStringForUserInstallRequestType(type);
     _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, "Request Type: %{public}s", buf, 0xCu);
   }
 
@@ -883,23 +875,21 @@ void __37__SUBManager_purgeUpdate_completion___block_invoke(uint64_t a1, void *a
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = updateCopy;
+    v21 = updateCopy;
     _os_log_impl(&dword_26AB06000, v12, OS_LOG_TYPE_DEFAULT, "Descriptor(setUserInstallRequestTypeForUpdate): %{public}@", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke;
-  v16[3] = &unk_279CA7938;
-  v19 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke;
+  v15[3] = &unk_279CA7938;
+  v18 = completionCopy;
   typeCopy = type;
-  v17 = updateCopy;
+  v16 = updateCopy;
   selfCopy = self;
   v13 = updateCopy;
   v14 = completionCopy;
-  [(SUBManager *)self supportsInstallTonightWithCompletion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(SUBManager *)self supportsInstallTonightWithCompletion:v15];
 }
 
 void __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke(uint64_t a1, void *a2, int a3)
@@ -917,15 +907,15 @@ void __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_
       SUBIPCEncodeObject(v7, v8, v9);
 
       v10 = [*(a1 + 40) _serverConnection];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke_2;
-      v14[3] = &unk_279CA7910;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke_2;
+      v13[3] = &unk_279CA7910;
       v11 = *(a1 + 48);
       v12 = *(a1 + 56);
-      v15 = v11;
-      v16 = v12;
-      xpc_connection_send_message_with_reply(v10, v7, 0, v14);
+      v14 = v11;
+      v15 = v12;
+      xpc_connection_send_message_with_reply(v10, v7, 0, v13);
     }
 
     else
@@ -936,7 +926,6 @@ void __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_
       }
 
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"SUBError" code:39 userInfo:0];
-      v13 = *(a1 + 56);
       (*(*(a1 + 48) + 16))();
     }
 
@@ -954,7 +943,7 @@ LABEL_9:
 
 void __83__SUBManager_setUserInstallRequestTypeForUpdate_userInstallRequestType_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x26D6678D0]();
   if (v4 == MEMORY[0x277D86480])
@@ -989,37 +978,35 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v15 = SUBMessageErrorKey;
-  v16 = objc_opt_class();
-  v13 = SUBIPCDecodeObjectForKey(v3, v15, v16);
-  v17 = SUBMessageUserInstallRequestTypeKey;
-  v18 = objc_opt_class();
-  v19 = SUBIPCDecodeObjectForKey(v3, v17, v18);
-  v20 = [v19 integerValue];
+  v14 = SUBMessageErrorKey;
+  v15 = objc_opt_class();
+  v13 = SUBIPCDecodeObjectForKey(v3, v14, v15);
+  v16 = SUBMessageUserInstallRequestTypeKey;
+  v17 = objc_opt_class();
+  v18 = SUBIPCDecodeObjectForKey(v3, v16, v17);
+  v19 = [v18 integerValue];
 
-  v21 = softwareupdatebridge_log;
+  v20 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = v21;
+    v21 = v20;
     *buf = 136446210;
-    v26 = SUBStringForUserInstallRequestType(v20);
-    _os_log_impl(&dword_26AB06000, v22, OS_LOG_TYPE_DEFAULT, "Decoded request type: %{public}s", buf, 0xCu);
+    v25 = SUBStringForUserInstallRequestType(v19);
+    _os_log_impl(&dword_26AB06000, v21, OS_LOG_TYPE_DEFAULT, "Decoded request type: %{public}s", buf, 0xCu);
   }
 
-  v23 = *(a1 + 32);
-  if (v23)
+  v22 = *(a1 + 32);
+  if (v22)
   {
-    (*(v23 + 16))(v23, v13, v20);
+    (*(v22 + 16))(v22, v13, v19);
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)adoptSimulationFileOfName:(id)name
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v5, SUBMessageTypeKey, SUBMessageTypeSetSimulationFile);
@@ -1038,11 +1025,11 @@ LABEL_10:
     {
       if (v12)
       {
-        v25 = 138412290;
-        v26 = nameCopy;
+        v24 = 138412290;
+        v25 = nameCopy;
         v13 = "[AdoptSimulationFile]: Got unexpected response when trying to adopt simulation file of name %@";
 LABEL_7:
-        _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, v13, &v25, 0xCu);
+        _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, v13, &v24, 0xCu);
         goto LABEL_8;
       }
 
@@ -1051,9 +1038,9 @@ LABEL_7:
 
     if (v12)
     {
-      v25 = 138412290;
-      v26 = nameCopy;
-      _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, "[AdoptSimulationFile]: Parsing response to adopt simulation file(%@) request", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = nameCopy;
+      _os_log_impl(&dword_26AB06000, v11, OS_LOG_TYPE_DEFAULT, "[AdoptSimulationFile]: Parsing response to adopt simulation file(%@) request", &v24, 0xCu);
     }
 
     v15 = SUBMessageErrorKey;
@@ -1066,22 +1053,22 @@ LABEL_7:
     {
       if (v19)
       {
-        v25 = 138412546;
-        v26 = nameCopy;
-        v27 = 2112;
-        v28 = v17;
+        v24 = 138412546;
+        v25 = nameCopy;
+        v26 = 2112;
+        v27 = v17;
         v20 = "[AdoptSimulationFile]: Got error while trying to adopt simulation file %@: %@";
         v21 = v18;
         v22 = 22;
 LABEL_16:
-        _os_log_impl(&dword_26AB06000, v21, OS_LOG_TYPE_DEFAULT, v20, &v25, v22);
+        _os_log_impl(&dword_26AB06000, v21, OS_LOG_TYPE_DEFAULT, v20, &v24, v22);
       }
     }
 
     else if (v19)
     {
-      v25 = 138412290;
-      v26 = nameCopy;
+      v24 = 138412290;
+      v25 = nameCopy;
       v20 = "[AdoptSimulationFile]: Successfully adopted simulation file %@";
       v21 = v18;
       v22 = 12;
@@ -1094,8 +1081,8 @@ LABEL_16:
   v11 = softwareupdatebridge_log;
   if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = nameCopy;
+    v24 = 138412290;
+    v25 = nameCopy;
     v13 = "[AdoptSimulationFile]: Got XPC error while trying to adopt simulation file of name %@";
     goto LABEL_7;
   }
@@ -1104,7 +1091,6 @@ LABEL_8:
   v14 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

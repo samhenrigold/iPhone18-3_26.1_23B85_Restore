@@ -110,7 +110,6 @@
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldShowSafetyScreenForAccount:(id)account
@@ -217,7 +216,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v24 & 1;
 }
 
@@ -232,7 +230,6 @@
   v6 = [v4 BOOLValue] & 1;
   objc_storeStrong(&v4, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 

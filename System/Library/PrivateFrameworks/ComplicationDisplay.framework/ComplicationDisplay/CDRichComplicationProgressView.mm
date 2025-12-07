@@ -1,6 +1,7 @@
 @interface CDRichComplicationProgressView
 - (CLKMonochromeFilterProvider)filterProvider;
 - (id)backgroundColorForView:(id)view;
+- (id)colorForView:(id)view accented:(BOOL)accented;
 - (id)filterForView:(id)view style:(int64_t)style;
 - (id)filterForView:(id)view style:(int64_t)style fraction:(double)fraction;
 - (id)filtersForView:(id)view style:(int64_t)style;
@@ -28,13 +29,13 @@
 
 - (id)initForFamily:(int64_t)family device:(id)device backgroundShapeView:(id)view foregroundShapeView:(id)shapeView
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   viewCopy = view;
   shapeViewCopy = shapeView;
-  v27.receiver = self;
-  v27.super_class = CDRichComplicationProgressView;
-  v14 = [(CDRichComplicationProgressView *)&v27 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v26.receiver = self;
+  v26.super_class = CDRichComplicationProgressView;
+  v14 = [(CDRichComplicationProgressView *)&v26 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v15 = v14;
   if (v14)
   {
@@ -55,10 +56,10 @@
     -[CAShapeLayer setFillColor:](v18, "setFillColor:", [whiteColor CGColor]);
 
     v20 = v15->_ringLayer;
-    v28 = @"position";
+    v27 = @"position";
     null = [MEMORY[0x277CBEB68] null];
-    v29[0] = null;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v28[0] = null;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     [(CAShapeLayer *)v20 setActions:v22];
 
     objc_storeStrong(&v15->_foregroundView, shapeView);
@@ -74,7 +75,6 @@
     [(CDRichComplicationProgressView *)v15 _applyStyle];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -94,33 +94,32 @@
 
 - (void)layoutSubviews
 {
-  v14.receiver = self;
-  v14.super_class = CDRichComplicationProgressView;
-  [(CDRichComplicationProgressView *)&v14 layoutSubviews];
+  v13.receiver = self;
+  v13.super_class = CDRichComplicationProgressView;
+  [(CDRichComplicationProgressView *)&v13 layoutSubviews];
   [(CDRichComplicationProgressView *)self bounds];
   [(CDRichComplicationShapeView *)self->_backgroundView setFrame:?];
   [(CDRichComplicationProgressView *)self bounds];
   [(CDRichComplicationShapeView *)self->_foregroundView setFrame:?];
   [(CDRichComplicationProgressView *)self bounds];
-  Width = CGRectGetWidth(v15);
+  Width = CGRectGetWidth(v14);
   [(CDRichComplicationProgressView *)self bounds];
-  Height = CGRectGetHeight(v16);
+  Height = CGRectGetHeight(v15);
   [(CAShapeLayer *)self->_ringLayer setBounds:0.0, 0.0, Width + Width, Height + Height];
   [(CDRichComplicationProgressView *)self _updateRingShape];
   progress = self->_progress;
   *&progress = progress;
   [(CDRichComplicationShapeView *)self->_backgroundView pointAtProgress:progress];
-  v6 = *(MEMORY[0x277CBF348] + 8);
-  v8 = v7;
-  v10 = v9;
-  [(CAShapeLayer *)self->_ringLayer setPosition:v9, v7, *MEMORY[0x277CBF348]];
+  v7 = v6;
+  v9 = v8;
+  [(CAShapeLayer *)self->_ringLayer setPosition:v8, v6, *MEMORY[0x277CBF348]];
   [(CDRichComplicationShapeView *)self->_foregroundView _shapeLineWidth];
-  v12 = v11 * 0.5;
-  [(UIView *)self->_indicatorView setBounds:0.0, 0.0, v12 + v12, v12 + v12];
+  v11 = v10 * 0.5;
+  [(UIView *)self->_indicatorView setBounds:0.0, 0.0, v11 + v11, v11 + v11];
   layer = [(UIView *)self->_indicatorView layer];
-  [layer setCornerRadius:v12];
+  [layer setCornerRadius:v11];
 
-  [(UIView *)self->_indicatorView setCenter:v10, v8];
+  [(UIView *)self->_indicatorView setCenter:v9, v7];
 }
 
 - (void)setGradientColors:(id)colors
@@ -380,13 +379,12 @@ LABEL_7:
 
 - (void)_updateRingShape
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "const LayoutConstants _LayoutConstants(CLKDevice *__strong, CLKComplicationFamily)";
-  v5 = 2048;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "const LayoutConstants _LayoutConstants(CLKDevice *__strong, CLKComplicationFamily)";
+  v4 = 2048;
   selfCopy = self;
-  _os_log_error_impl(&dword_243D74000, a2, OS_LOG_TYPE_ERROR, "Unhandled complication family in %s constants: %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_243D74000, a2, OS_LOG_TYPE_ERROR, "Unhandled complication family in %s constants: %ld", &v2, 0x16u);
 }
 
 - (void)setShowHolePunch:(BOOL)punch
@@ -464,6 +462,16 @@ LABEL_7:
   v7 = [filterProvider filterForView:self style:style];
 
   return v7;
+}
+
+- (id)colorForView:(id)view accented:(BOOL)accented
+{
+  accentedCopy = accented;
+  viewCopy = view;
+  filterProvider = [(CDRichComplicationProgressView *)self filterProvider];
+  v8 = [filterProvider colorForView:viewCopy accented:accentedCopy];
+
+  return v8;
 }
 
 - (id)interpolatedColorForView:(id)view

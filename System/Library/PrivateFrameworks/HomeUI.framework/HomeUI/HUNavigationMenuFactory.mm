@@ -25,7 +25,7 @@
   sub_20CF6D734(homeCopy, room, delegate, elements);
 
   swift_unknownObjectRelease();
-  sub_20CECF940(0, &unk_28111FFC0);
+  sub_20CECF940(0, &unk_28111FFC0, 0x277D75720);
   v12 = sub_20D567A58();
 
   return v12;

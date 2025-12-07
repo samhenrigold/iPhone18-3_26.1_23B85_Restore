@@ -10,6 +10,7 @@
 - (void)setDisableRequestTimeouts:(id)timeouts;
 - (void)setEnableCacheBuster:(id)buster;
 - (void)setSimulateExpiredToken:(id)token;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VSDeveloperSettingsViewController_iOS
@@ -44,6 +45,20 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = VSDeveloperSettingsViewController_iOS;
+  [(VSDeveloperSettingsViewController_iOS *)&v6 viewWillAppear:appear];
+  settingsFacade = [(VSDeveloperSettingsViewController_iOS *)self settingsFacade];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_50D4;
+  v5[3] = &unk_C6E0;
+  v5[4] = self;
+  [settingsFacade fetchDeveloperSettingsWithCompletionHandler:v5];
 }
 
 - (void)dealloc

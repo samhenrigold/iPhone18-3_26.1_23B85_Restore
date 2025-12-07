@@ -704,19 +704,19 @@ uint64_t __56__PKSharedPassSharesController_shareForShareIdentifier___block_invo
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (BOOL)sharingEnabled
@@ -2008,9 +2008,9 @@ uint64_t __49__PKSharedPassSharesController_canAllowResharing__block_invoke(uint
     goto LABEL_16;
   }
 
-  v8 = [(__CFString *)identifierCopy isEqualToString:@"com.apple.UIKit.activity.Message"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
 
-  if (v8)
+  if (isEqualToString)
   {
 LABEL_110:
     if (PKSharingUseIMessageExtension())
@@ -2039,7 +2039,7 @@ LABEL_12:
   v10 = v9;
   if (v9)
   {
-    v11 = [(__CFString *)v9 isEqualToString:@"com.apple.UIKit.activity.AirDrop"];
+    v11 = objc_msgSend_isEqualToString_(v9);
 
     if (contactCopy)
     {
@@ -2552,9 +2552,9 @@ LABEL_23:
               goto LABEL_22;
             }
 
-            v15 = [v12 isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-            if (!v15)
+            if (!isEqualToString)
             {
               v12 = 0;
 LABEL_22:

@@ -7,6 +7,7 @@
 - (id)blobAtColumn:(unint64_t)column;
 - (id)columnNameAtColumn:(unint64_t)column;
 - (id)dateAtColumn:(unint64_t)column;
+- (id)generateError:(int)error method:(id)method;
 - (id)objectAtColumn:(unint64_t)column;
 - (id)stepWithError:(id *)error;
 - (id)textAtColumn:(unint64_t)column;
@@ -203,6 +204,27 @@ LABEL_10:
   stmt = [(KTSDBStmt *)self stmt];
 
   sqlite3_bind_null(stmt, columnCopy + 1);
+}
+
+- (id)generateError:(int)error method:(id)method
+{
+  v4 = *&error;
+  methodCopy = method;
+  v7 = [(KTSDBStmt *)self db];
+  v8 = sqlite3_errmsg([v7 db]);
+
+  v14[0] = NSLocalizedDescriptionKey;
+  v9 = [NSString stringWithFormat:@"%@: %s", methodCopy, v8];
+
+  v14[1] = @"sqliteCode";
+  v15[0] = v9;
+  v10 = [NSNumber numberWithInt:v4];
+  v15[1] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+
+  v12 = [NSError errorWithDomain:@"KTSDBObjcError" code:1 userInfo:v11];
+
+  return v12;
 }
 
 - (BOOL)steps:(id)steps error:(id *)error

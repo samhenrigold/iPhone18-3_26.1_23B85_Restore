@@ -12,7 +12,7 @@
   selfCopy = self;
   MathExpressionEvaluationResult.strokes.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8CHStroke_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8CHStroke_pMd, &_sSo8CHStroke_pMR);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

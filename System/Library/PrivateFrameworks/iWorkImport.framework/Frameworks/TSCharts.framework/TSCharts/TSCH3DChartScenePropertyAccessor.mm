@@ -125,7 +125,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value3(v14, v9, v10, v11, v12);
+    objc_msgSend_value3(v14, v10, v11, v12);
   }
 
   else
@@ -134,9 +134,9 @@
     *(v3 + 8) = dword_2812EE5F8;
   }
 
-  result.var2 = v9;
   result.var0 = v13;
   result.var1 = *(&v13 + 4);
+  result.var2 = v9;
   return result;
 }
 
@@ -151,22 +151,22 @@
 - (tvec3<float>)originalRotation
 {
   WeakRetained = objc_loadWeakRetained(&self->super._scene);
-  v14 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.originalRotation");
+  v13 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.originalRotation");
 
-  if (v14)
+  if (v13)
   {
-    objc_msgSend_value3(v14, v8, v9, v10, v11);
+    objc_msgSend_value3(v13, v8, v9, v10);
   }
 
   else
   {
 
-    v12 = objc_msgSend_rotation(self, v8, v9, v10, v11);
+    v11 = objc_msgSend_rotation(self, v8, v9, v10);
   }
 
-  result.var0 = v12;
-  result.var1 = *(&v12 + 4);
-  result.var2 = v13;
+  result.var0 = v11;
+  result.var1 = *(&v11 + 4);
+  result.var2 = v12;
   return result;
 }
 
@@ -181,22 +181,22 @@
 - (tvec3<float>)cachedRotation
 {
   WeakRetained = objc_loadWeakRetained(&self->super._scene);
-  v14 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.cachedRotation");
+  v13 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.cachedRotation");
 
-  if (v14)
+  if (v13)
   {
-    objc_msgSend_value3(v14, v8, v9, v10, v11);
+    objc_msgSend_value3(v13, v8, v9, v10);
   }
 
   else
   {
 
-    v12 = objc_msgSend_rotation(self, v8, v9, v10, v11);
+    v11 = objc_msgSend_rotation(self, v8, v9, v10);
   }
 
-  result.var0 = v12;
-  result.var1 = *(&v12 + 4);
-  result.var2 = v13;
+  result.var0 = v11;
+  result.var1 = *(&v11 + 4);
+  result.var2 = v12;
   return result;
 }
 
@@ -217,7 +217,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value4(v14, v9, v10, v11, v12);
+    objc_msgSend_value4(v14, v10, v11, v12);
   }
 
   else
@@ -249,7 +249,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value4(v14, v9, v10, v11, v12);
+    objc_msgSend_value4(v14, v10, v11, v12);
   }
 
   else
@@ -281,7 +281,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value3(v14, v9, v10, v11, v12);
+    objc_msgSend_value3(v14, v10, v11, v12);
   }
 
   else
@@ -290,9 +290,9 @@
     *(v3 + 8) = dword_2812EE628;
   }
 
-  result.var2 = v9;
   result.var0 = v13;
   result.var1 = *(&v13 + 4);
+  result.var2 = v9;
   return result;
 }
 
@@ -313,7 +313,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value3(v14, v9, v10, v11, v12);
+    objc_msgSend_value3(v14, v10, v11, v12);
   }
 
   else
@@ -322,9 +322,9 @@
     *(v3 + 8) = dword_2812EE638;
   }
 
-  result.var2 = v9;
   result.var0 = v13;
   result.var1 = *(&v13 + 4);
+  result.var2 = v9;
   return result;
 }
 
@@ -345,7 +345,7 @@
   v13 = v14;
   if (v14)
   {
-    objc_msgSend_value3(v14, v9, v10, v11, v12);
+    objc_msgSend_value3(v14, v10, v11, v12);
   }
 
   else
@@ -354,9 +354,9 @@
     *(v3 + 8) = dword_2812EE648;
   }
 
-  result.var2 = v9;
   result.var0 = v13;
   result.var1 = *(&v13 + 4);
+  result.var2 = v9;
   return result;
 }
 
@@ -371,23 +371,23 @@
 - (tvec4<float>)originalInfoChartScale
 {
   WeakRetained = objc_loadWeakRetained(&self->super._scene);
-  v14 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.originalInfoChartScale");
+  v13 = objc_msgSend_propertiesForType_(WeakRetained, v4, v5, v6, v7, @"TSCH3DChartScenePropertyAccessor.originalInfoChartScale");
 
-  if (v14)
+  if (v13)
   {
-    objc_msgSend_value4(v14, v8, v9, v10, v11);
+    objc_msgSend_value4(v13, v8, v9, v10);
   }
 
   else
   {
 
-    v12 = objc_msgSend_infoChartScale(self, v8, v9, v10, v11);
+    v11 = objc_msgSend_infoChartScale(self, v8, v9, v10);
   }
 
-  result.var2 = v13;
-  result.var3 = *(&v13 + 4);
-  result.var0 = v12;
-  result.var1 = *(&v12 + 4);
+  result.var2 = v12;
+  result.var3 = *(&v12 + 4);
+  result.var0 = v11;
+  result.var1 = *(&v11 + 4);
   return result;
 }
 
@@ -459,232 +459,232 @@
 - (tvec3<float>)stageXYCenter
 {
   v7 = v2;
-  objc_msgSend_stageScale(self, a2, v3, v4, v5);
-  v10 = objc_msgSend_stageOffset(self, v8, v12, 0.0000305175853, v9);
-  *v7 = vadd_f32(vmul_f32(*&v12, 0x3F0000003F000000), *&v12);
-  v7[1].f32[0] = v13 + 0.0;
-  result.var0 = v10;
-  result.var1 = *(&v10 + 4);
-  result.var2 = v11;
+  objc_msgSend_stageScale(self, v3, v4, v5, a2);
+  v9 = objc_msgSend_stageOffset(self, v11, 0.0000305175853, v8);
+  *v7 = vadd_f32(vmul_f32(*&v11, 0x3F0000003F000000), *&v11);
+  v7[1].f32[0] = v12 + 0.0;
+  result.var0 = v9;
+  result.var1 = *(&v9 + 4);
+  result.var2 = v10;
   return result;
 }
 
 - (tmat4x4<float>)stageTransform
 {
-  v30 = 0;
-  v31 = 0;
-  v34 = xmmword_2764D5F20;
-  objc_msgSend_adjustedInfoChartScale(self, a3, 0.0, v3, v4);
-  v32 = v29[0].i64[0];
-  v33 = v29[0].i32[2];
-  objc_msgSend_stageXYCenter(self, v7, COERCE_DOUBLE(__PAIR64__(v29[0].u32[1], v29[0].u32[2])), v8, v9);
-  v35 = v29[0].i64[0];
-  v36 = v29[0].i32[2];
-  v37 = 1;
-  sub_27616AF8C(&v30, v29, v10);
-  objc_msgSend_stageOffset(self, v11, v12, v13, v14);
-  v21 = 1065353216;
+  v28 = 0;
+  v29 = 0;
+  v32 = xmmword_2764D5F20;
+  objc_msgSend_adjustedInfoChartScale(self, 0.0, v3, v4, a3);
+  v30 = v27[0].i64[0];
+  v31 = v27[0].i32[2];
+  objc_msgSend_stageXYCenter(self, COERCE_DOUBLE(__PAIR64__(v27[0].u32[1], v27[0].u32[2])), v7, v8);
+  v33 = v27[0].i64[0];
+  v34 = v27[0].i32[2];
+  v35 = 1;
+  sub_27616AF8C(&v28, v27, v9);
+  objc_msgSend_stageOffset(self, v10, v11, v12);
+  v19 = 1065353216;
+  v21 = 0;
+  v20 = 0;
+  v22 = 1065353216;
   v23 = 0;
-  v22 = 0;
-  v24 = 1065353216;
-  v25 = 0;
-  v26 = 0;
-  v27 = 1065353216;
-  *v15.f32 = v19;
-  *&v15.u32[2] = vmul_f32(v19, 0);
-  *v16.f32 = vrev64_s32(*&v15.u32[2]);
-  v16.i32[3] = 0;
-  v17 = vaddq_f32(v15, vdupq_lane_s64(v16.i64[0], 0));
-  v15.i32[3] = v20;
-  v17.i32[3] = vmulq_f32(v15, v16).i32[3];
-  v28 = vaddq_f32(vaddq_f32(vzip2q_s32(vtrn2q_s32(v17, v15), vrev64q_s32(v17)), v17), xmmword_2764D5F20);
-  sub_2761558A0(v29, &v21, retstr);
+  v24 = 0;
+  v25 = 1065353216;
+  *v13.f32 = v17;
+  *&v13.u32[2] = vmul_f32(v17, 0);
+  *v14.f32 = vrev64_s32(*&v13.u32[2]);
+  v14.i32[3] = 0;
+  v15 = vaddq_f32(v13, vdupq_lane_s64(v14.i64[0], 0));
+  v13.i32[3] = v18;
+  v15.i32[3] = vmulq_f32(v13, v14).i32[3];
+  v26 = vaddq_f32(vaddq_f32(vzip2q_s32(vtrn2q_s32(v15, v13), vrev64q_s32(v15)), v15), xmmword_2764D5F20);
+  sub_2761558A0(v27, &v19, retstr);
   return result;
 }
 
 - (tmat4x4<float>)unitTransform
 {
-  objc_msgSend_stageTransform(self, a3, v3, v4, v5);
-  result = objc_msgSend_stageScale(self, v8, v9, v10, v11);
-  v13 = vmulq_n_f32(v19, v16);
-  retstr->value[0] = vmulq_n_f32(v18, v15);
-  retstr->value[1] = v13;
-  v14 = v21;
-  retstr->value[2] = vmulq_n_f32(v20, v17);
-  retstr->value[3] = v14;
+  objc_msgSend_stageTransform(self, v3, v4, v5, a3);
+  result = objc_msgSend_stageScale(self, v8, v9, v10);
+  v12 = vmulq_n_f32(v18, v15);
+  retstr->value[0] = vmulq_n_f32(v17, v14);
+  retstr->value[1] = v12;
+  v13 = v20;
+  retstr->value[2] = vmulq_n_f32(v19, v16);
+  retstr->value[3] = v13;
   return result;
 }
 
 - (tmat4x4<float>)transform
 {
-  objc_msgSend_stageXYCenter(self, a3, v3, v4, v5);
+  objc_msgSend_stageXYCenter(self, v3, v4, v5, a3);
   retstr->value[0].var0.var0 = 1.0;
   *&retstr->value[0].var3.var0 = 0;
   *&retstr->value[0].var1.var0 = 0;
   retstr->value[1].var1.var0 = 1.0;
   *&retstr->value[1].var2.var0 = 0;
   *&retstr->value[2].var0.var0 = 0;
-  *v8.f32 = v71;
-  *&v8.u32[2] = vmul_f32(v71, 0);
+  *v8.f32 = v70;
+  *&v8.u32[2] = vmul_f32(v70, 0);
   *v9.f32 = vrev64_s32(*&v8.u32[2]);
   v9.i32[3] = 0;
   v10 = vaddq_f32(v8, vdupq_lane_s64(v9.i64[0], 0));
-  v8.f32[3] = v72;
+  v8.f32[3] = v71;
   *&retstr->value[2].var2.var0 = 1065353216;
   v10.i32[3] = vmulq_f32(v8, v9).i32[3];
   v11 = vaddq_f32(vaddq_f32(vzip2q_s32(vtrn2q_s32(v10, v8), vrev64q_s32(v10)), v10), xmmword_2764D5F20);
   retstr->value[3] = v11;
-  objc_msgSend_rotation(self, v12, *v11.i64, 0.0, *v10.i64);
-  v13 = __sincosf_stret(v69 * 0.017453);
-  v14 = (1.0 - v13.__cosval) * 0.0;
-  v15 = v13.__cosval + (1.0 - v13.__cosval);
-  v16 = (v14 + 0.0) + (v13.__sinval * 0.0);
-  v17 = (v14 + 0.0) + (v13.__sinval * -0.0);
-  v18 = v14 + 0.0;
-  v19 = v17;
-  v20 = v13.__cosval + (v14 * 0.0);
-  v21 = (v14 * 0.0) + 0.0;
-  v22 = v13.__sinval + v21;
-  v23 = v18 + (v13.__sinval * 0.0);
-  v24 = v21 - v13.__sinval;
+  objc_msgSend_rotation(self, *v11.i64, 0.0, *v10.i64);
+  v12 = __sincosf_stret(v68 * 0.017453);
+  v13 = (1.0 - v12.__cosval) * 0.0;
+  v14 = v12.__cosval + (1.0 - v12.__cosval);
+  v15 = (v13 + 0.0) + (v12.__sinval * 0.0);
+  v16 = (v13 + 0.0) + (v12.__sinval * -0.0);
+  v17 = v13 + 0.0;
+  v18 = v16;
+  v19 = v12.__cosval + (v13 * 0.0);
+  v20 = (v13 * 0.0) + 0.0;
+  v21 = v12.__sinval + v20;
+  v22 = v17 + (v12.__sinval * 0.0);
+  v23 = v20 - v12.__sinval;
+  v24 = v14 * 0.0;
   v25 = v15 * 0.0;
-  v26 = v16 * 0.0;
-  v27 = v15 + (v16 * 0.0);
-  v28 = v25 + v16;
-  v29 = v25 + v26;
-  v61 = (v17 * 0.0) + v27;
-  *&v62 = v28 + (v17 * 0.0);
-  *(&v62 + 1) = v17 + v29;
-  *&v63 = (v17 * 0.0) + v29;
-  v30 = (v20 * 0.0) + (v17 * 0.0);
-  *(&v63 + 1) = ((v20 * 0.0) + v19) + (v22 * 0.0);
-  v64 = (v22 * 0.0) + (v20 + (v19 * 0.0));
-  *&v65 = v22 + v30;
-  *(&v65 + 1) = (v22 * 0.0) + v30;
-  v31 = (v23 * 0.0) + (v24 * 0.0);
-  *&v66 = (v20 * 0.0) + (v23 + (v24 * 0.0));
-  *(&v66 + 1) = (v20 * 0.0) + (v24 + (v23 * 0.0));
-  *&v67 = v20 + v31;
-  *(&v67 + 1) = (v20 * 0.0) + v31;
-  v68 = xmmword_2764D5F20;
-  sub_2761558A0(retstr, &v61, &v73);
-  v32 = v74;
-  retstr->value[0] = v73;
-  retstr->value[1] = v32;
-  v33 = v76;
-  retstr->value[2] = v75;
-  retstr->value[3] = v33;
-  v34 = __sincosf_stret(v70 * 0.017453);
-  v35 = (1.0 - v34.__cosval) * 0.0;
-  v36 = v34.__cosval + (v35 * 0.0);
-  v37 = v35 + 0.0;
-  v38 = (v35 + 0.0) + (v34.__sinval * 0.0);
-  v39 = (v35 * 0.0) + 0.0;
-  v40 = v39 - v34.__sinval;
-  v41 = ((1.0 - v34.__cosval) * 0.0) + 0.0;
-  v42 = v41 + (v34.__sinval * -0.0);
-  v43 = v34.__cosval + (1.0 - v34.__cosval);
-  v44 = v41 + (v34.__sinval * 0.0);
-  v45 = v34.__sinval + v39;
-  v46 = v37 + (v34.__sinval * -0.0);
-  v47 = (v36 * 0.0) + (v38 * 0.0);
-  v61 = (v40 * 0.0) + (v36 + (v38 * 0.0));
-  *&v62 = ((v36 * 0.0) + v38) + (v40 * 0.0);
-  *(&v62 + 1) = v40 + v47;
-  *&v63 = (v40 * 0.0) + v47;
-  v48 = (v43 * 0.0) + (v42 * 0.0);
-  *(&v63 + 1) = ((v43 * 0.0) + v42) + (v44 * 0.0);
-  v64 = (v44 * 0.0) + (v43 + (v42 * 0.0));
-  *&v65 = v44 + v48;
-  *(&v65 + 1) = (v44 * 0.0) + v48;
+  v26 = v14 + (v15 * 0.0);
+  v27 = v24 + v15;
+  v28 = v24 + v25;
+  v60 = (v16 * 0.0) + v26;
+  *&v61 = v27 + (v16 * 0.0);
+  *(&v61 + 1) = v16 + v28;
+  *&v62 = (v16 * 0.0) + v28;
+  v29 = (v19 * 0.0) + (v16 * 0.0);
+  *(&v62 + 1) = ((v19 * 0.0) + v18) + (v21 * 0.0);
+  v63 = (v21 * 0.0) + (v19 + (v18 * 0.0));
+  *&v64 = v21 + v29;
+  *(&v64 + 1) = (v21 * 0.0) + v29;
+  v30 = (v22 * 0.0) + (v23 * 0.0);
+  *&v65 = (v19 * 0.0) + (v22 + (v23 * 0.0));
+  *(&v65 + 1) = (v19 * 0.0) + (v23 + (v22 * 0.0));
+  *&v66 = v19 + v30;
+  *(&v66 + 1) = (v19 * 0.0) + v30;
+  v67 = xmmword_2764D5F20;
+  sub_2761558A0(retstr, &v60, &v72);
+  v31 = v73;
+  retstr->value[0] = v72;
+  retstr->value[1] = v31;
+  v32 = v75;
+  retstr->value[2] = v74;
+  retstr->value[3] = v32;
+  v33 = __sincosf_stret(v69 * 0.017453);
+  v34 = (1.0 - v33.__cosval) * 0.0;
+  v35 = v33.__cosval + (v34 * 0.0);
+  v36 = v34 + 0.0;
+  v37 = (v34 + 0.0) + (v33.__sinval * 0.0);
+  v38 = (v34 * 0.0) + 0.0;
+  v39 = v38 - v33.__sinval;
+  v40 = ((1.0 - v33.__cosval) * 0.0) + 0.0;
+  v41 = v40 + (v33.__sinval * -0.0);
+  v42 = v33.__cosval + (1.0 - v33.__cosval);
+  v43 = v40 + (v33.__sinval * 0.0);
+  v44 = v33.__sinval + v38;
+  v45 = v36 + (v33.__sinval * -0.0);
+  v46 = (v35 * 0.0) + (v37 * 0.0);
+  v60 = (v39 * 0.0) + (v35 + (v37 * 0.0));
+  *&v61 = ((v35 * 0.0) + v37) + (v39 * 0.0);
+  *(&v61 + 1) = v39 + v46;
+  *&v62 = (v39 * 0.0) + v46;
+  v47 = (v42 * 0.0) + (v41 * 0.0);
+  *(&v62 + 1) = ((v42 * 0.0) + v41) + (v43 * 0.0);
+  v63 = (v43 * 0.0) + (v42 + (v41 * 0.0));
+  *&v64 = v43 + v47;
+  *(&v64 + 1) = (v43 * 0.0) + v47;
+  v48 = v44 * 0.0;
   v49 = v45 * 0.0;
-  v50 = v46 * 0.0;
-  v51 = v45 + (v46 * 0.0);
-  v52 = v46 + v49;
-  v53 = v49 + v50;
-  *&v66 = (v36 * 0.0) + v51;
-  *(&v66 + 1) = (v36 * 0.0) + v52;
-  *&v67 = v36 + v53;
-  *(&v67 + 1) = (v36 * 0.0) + v53;
-  v68 = xmmword_2764D5F20;
-  sub_2761558A0(retstr, &v61, &v73);
-  v54 = v74;
-  retstr->value[0] = v73;
-  retstr->value[1] = v54;
-  v55 = v76;
-  retstr->value[2] = v75;
-  retstr->value[3] = v55;
-  v55.var0.var0 = v72 * -0.0;
-  v56 = vmul_f32(v71, 0x8000000080000000);
-  v57 = vadd_f32(vsub_f32(vrev64_s32(v56), v71), vdup_lane_s32(*&v55.var0.var0, 0));
-  v61 = 1.0;
+  v50 = v44 + (v45 * 0.0);
+  v51 = v45 + v48;
+  v52 = v48 + v49;
+  *&v65 = (v35 * 0.0) + v50;
+  *(&v65 + 1) = (v35 * 0.0) + v51;
+  *&v66 = v35 + v52;
+  *(&v66 + 1) = (v35 * 0.0) + v52;
+  v67 = xmmword_2764D5F20;
+  sub_2761558A0(retstr, &v60, &v72);
+  v53 = v73;
+  retstr->value[0] = v72;
+  retstr->value[1] = v53;
+  v54 = v75;
+  retstr->value[2] = v74;
+  retstr->value[3] = v54;
+  v54.var0.var0 = v71 * -0.0;
+  v55 = vmul_f32(v70, 0x8000000080000000);
+  v56 = vadd_f32(vsub_f32(vrev64_s32(v55), v70), vdup_lane_s32(*&v54.var0.var0, 0));
+  v60 = 1.0;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v64 = 1.0;
-  v66 = 0;
+  v63 = 1.0;
   v65 = 0;
-  v56.f32[0] = vaddv_f32(v56);
-  v67 = 1065353216;
-  *&v68 = vadd_f32(v57, 0);
-  *(&v68 + 2) = (v56.f32[0] - v72) + 0.0;
-  *(&v68 + 3) = (v56.f32[0] + (v72 * -0.0)) + 1.0;
-  sub_2761558A0(retstr, &v61, &v73);
-  v59 = v74;
-  retstr->value[0] = v73;
-  retstr->value[1] = v59;
-  v60 = v76;
-  retstr->value[2] = v75;
-  retstr->value[3] = v60;
+  v64 = 0;
+  v55.f32[0] = vaddv_f32(v55);
+  v66 = 1065353216;
+  *&v67 = vadd_f32(v56, 0);
+  *(&v67 + 2) = (v55.f32[0] - v71) + 0.0;
+  *(&v67 + 3) = (v55.f32[0] + (v71 * -0.0)) + 1.0;
+  sub_2761558A0(retstr, &v60, &v72);
+  v58 = v73;
+  retstr->value[0] = v72;
+  retstr->value[1] = v58;
+  v59 = v75;
+  retstr->value[2] = v74;
+  retstr->value[3] = v59;
   return result;
 }
 
 - (tmat4x4<float>)constantDepthStageTransform
 {
-  v36 = 0;
-  v37 = 0;
-  v40 = xmmword_2764D5F20;
-  objc_msgSend_adjustedInfoChartScale(self, a3, 0.0, v3, v4);
+  v34 = 0;
+  v35 = 0;
+  v38 = xmmword_2764D5F20;
+  objc_msgSend_adjustedInfoChartScale(self, 0.0, v3, v4, a3);
   objc_msgSend_constantDepthFactor(self, v7, v8, v9, v10);
-  v35 = LODWORD(v11);
-  v38 = v34;
-  v39 = LODWORD(v11);
-  objc_msgSend_stageXYCenter(self, v12, v11, v34, v13);
-  v41 = v33[0].i64[0];
-  v42 = v33[0].i32[2];
-  v43 = 1;
-  sub_27616AF8C(&v36, v33, v14);
-  objc_msgSend_stageOffset(self, v15, v16, v17, v18);
-  v25 = 1065353216;
+  v33 = LODWORD(v11);
+  v36 = v32;
+  v37 = LODWORD(v11);
+  objc_msgSend_stageXYCenter(self, v11, v32, v12);
+  v39 = v31[0].i64[0];
+  v40 = v31[0].i32[2];
+  v41 = 1;
+  sub_27616AF8C(&v34, v31, v13);
+  objc_msgSend_stageOffset(self, v14, v15, v16);
+  v23 = 1065353216;
+  v25 = 0;
+  v24 = 0;
+  v26 = 1065353216;
   v27 = 0;
-  v26 = 0;
-  v28 = 1065353216;
-  v29 = 0;
-  v30 = 0;
-  v31 = 1065353216;
-  *v19.f32 = v23;
-  *&v19.u32[2] = vmul_f32(v23, 0);
-  *v20.f32 = vrev64_s32(*&v19.u32[2]);
-  v20.i32[3] = 0;
-  v21 = vaddq_f32(v19, vdupq_lane_s64(v20.i64[0], 0));
-  v19.i32[3] = v24;
-  v21.i32[3] = vmulq_f32(v19, v20).i32[3];
-  v32 = vaddq_f32(vaddq_f32(vzip2q_s32(vtrn2q_s32(v21, v19), vrev64q_s32(v21)), v21), xmmword_2764D5F20);
-  sub_2761558A0(v33, &v25, retstr);
+  v28 = 0;
+  v29 = 1065353216;
+  *v17.f32 = v21;
+  *&v17.u32[2] = vmul_f32(v21, 0);
+  *v18.f32 = vrev64_s32(*&v17.u32[2]);
+  v18.i32[3] = 0;
+  v19 = vaddq_f32(v17, vdupq_lane_s64(v18.i64[0], 0));
+  v17.i32[3] = v22;
+  v19.i32[3] = vmulq_f32(v17, v18).i32[3];
+  v30 = vaddq_f32(vaddq_f32(vzip2q_s32(vtrn2q_s32(v19, v17), vrev64q_s32(v19)), v19), xmmword_2764D5F20);
+  sub_2761558A0(v31, &v23, retstr);
   return result;
 }
 
 - (tmat4x4<float>)globalUnitTransform
 {
-  objc_msgSend_transform(self, a3, v3, v4, v5);
-  objc_msgSend_unitTransform(self, v8, v9, v10, v11);
-  sub_2761558A0(v14, &v13, retstr);
+  objc_msgSend_transform(self, v3, v4, v5, a3);
+  objc_msgSend_unitTransform(self, v8, v9, v10);
+  sub_2761558A0(v13, &v12, retstr);
   return result;
 }
 
 - (tvec3<float>)initialInfoChartScaleVec3
 {
   v6 = v2;
-  v7 = objc_msgSend_initialInfoChartScale(self, a2, v3, v4, v5);
+  v7 = objc_msgSend_initialInfoChartScale(self, v3, v4, v5, a2);
   *v6 = v9;
   *(v6 + 8) = v10;
   result.var0 = v7;
@@ -696,7 +696,7 @@
 - (void)setInitialInfoChartScaleVec3:(tvec3<float>)vec3
 {
   v6 = *&vec3.var0.var0;
-  objc_msgSend_initialInfoChartScale(self, a2, v3, v4, v5, *&vec3.var0.var0, *&vec3.var2.var0);
+  objc_msgSend_initialInfoChartScale(self, v3, v4, v5, a2, *&vec3.var0.var0, *&vec3.var2.var0);
   *&v8 = *v6;
   DWORD2(v8) = *(v6 + 8);
   HIDWORD(v8) = v12;
@@ -707,7 +707,7 @@
 - (tvec3<float>)infoChartScaleVec3
 {
   v6 = v2;
-  v7 = objc_msgSend_infoChartScale(self, a2, v3, v4, v5);
+  v7 = objc_msgSend_infoChartScale(self, v3, v4, v5, a2);
   *v6 = v9;
   *(v6 + 8) = v10;
   result.var0 = v7;
@@ -719,7 +719,7 @@
 - (void)setInfoChartScaleVec3:(tvec3<float>)vec3
 {
   v6 = *&vec3.var0.var0;
-  objc_msgSend_infoChartScale(self, a2, v3, v4, v5, *&vec3.var0.var0, *&vec3.var2.var0);
+  objc_msgSend_infoChartScale(self, v3, v4, v5, a2, *&vec3.var0.var0, *&vec3.var2.var0);
   *&v8 = *v6;
   DWORD2(v8) = *(v6 + 8);
   HIDWORD(v8) = v12;
@@ -729,7 +729,7 @@
 
 - (void)updateInfoChartScaleUsingConstantDepth
 {
-  objc_msgSend_infoChartScale(self, a2, v2, v3, v4);
+  objc_msgSend_infoChartScale(self, v2, v3, v4, a2);
   objc_msgSend_constantDepthFactor(self, v6, v7, v8, v9);
   v17 = LODWORD(v10);
   v13 = v16;
@@ -740,14 +740,14 @@
 
 - (void)resetInfoChartScale
 {
-  objc_msgSend_initialInfoChartScale(self, a2, v2, v3, v4);
+  objc_msgSend_initialInfoChartScale(self, v2, v3, v4, a2);
   v10 = v9;
   objc_msgSend_setInfoChartScale_(self, v6, *&v9, v7, v8, &v10);
 }
 
 - (float)depthToWidthRatio
 {
-  objc_msgSend_adjustedInfoChartScale(self, a2, v2, v3, v4);
+  objc_msgSend_adjustedInfoChartScale(self, v2, v3, v4, a2);
   isHorizontal = objc_msgSend_isHorizontal(self, v6, v7, v8, v9);
   return sub_2761565A8(v12, isHorizontal);
 }
@@ -770,7 +770,7 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
   }
 
-  objc_msgSend_adjustedInfoChartScale(self, v12, v13, v14, v15);
+  objc_msgSend_adjustedInfoChartScale(self, v13, v14, v15);
   v31 = objc_loadWeakRetained(&self->super._scene);
   objc_msgSend_chartMinZForScene_(v11, v32, v33, v34, v35, v31);
   v37 = sub_276156548(v36, v40);
@@ -860,7 +860,7 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
   }
 
-  objc_msgSend_infoChartScaleVec3(self, v12, v13, v14, v15);
+  objc_msgSend_infoChartScaleVec3(self, v13, v14, v15);
   v32 = objc_loadWeakRetained(&self->super._scene);
   if (v11)
   {

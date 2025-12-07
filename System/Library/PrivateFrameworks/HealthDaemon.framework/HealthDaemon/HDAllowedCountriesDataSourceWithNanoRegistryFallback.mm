@@ -1,8 +1,8 @@
 @interface HDAllowedCountriesDataSourceWithNanoRegistryFallback
 - (HDAllowedCountriesDataSourceWithNanoRegistryFallback)initWithDaemon:(id)daemon allowedCountriesDataSource:(id)source availableRegionsDevicePropertyName:(id)name loggingCategory:(id)category shouldReturnLocalAvailabilityForNilDeviceRegions:(BOOL)regions;
 - (HKCountrySet)activeRemoteCountrySet;
-- (id)_nanoRegistryCountryListForDevice:(uint64_t)device;
 - (id)remoteCountrySetForDevice:(id)device;
+- (void)_nanoRegistryCountryListForDevice:(void *)device;
 @end
 
 @implementation HDAllowedCountriesDataSourceWithNanoRegistryFallback
@@ -34,7 +34,7 @@
 
 - (HKCountrySet)activeRemoteCountrySet
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   activeRemoteCountrySet = [(HDAllowedCountriesDataSource *)self->_allowedCountriesDataSource activeRemoteCountrySet];
   v4 = activeRemoteCountrySet;
   if (activeRemoteCountrySet)
@@ -56,28 +56,26 @@
       loggingCategory = self->_loggingCategory;
       if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
+        v9 = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] No active paired device found", &v10, 0xCu);
+        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] No active paired device found", &v9, 0xCu);
       }
 
       v5 = 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
-- (id)_nanoRegistryCountryListForDevice:(uint64_t)device
+- (void)_nanoRegistryCountryListForDevice:(void *)device
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (device)
   {
-    v5 = [v3 valueForProperty:*(device + 24)];
+    v5 = [v3 valueForProperty:device[3]];
     if (v5)
     {
       localCountrySet = [objc_alloc(MEMORY[0x277CCD260]) initWithDictionaryRepresentation:v5 provenance:2];
@@ -86,14 +84,14 @@
     else
     {
       _HKInitializeLogging();
-      v7 = *(device + 32);
+      v7 = device[4];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543618;
+        v10 = 138543618;
         deviceCopy2 = device;
-        v13 = 2114;
-        v14 = v4;
-        _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nil available regions found for paired device %{public}@", &v11, 0x16u);
+        v12 = 2114;
+        v13 = v4;
+        _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nil available regions found for paired device %{public}@", &v10, 0x16u);
       }
 
       if (*(device + 40) != 1)
@@ -103,14 +101,14 @@
       }
 
       _HKInitializeLogging();
-      v8 = *(device + 32);
+      v8 = device[4];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543618;
+        v10 = 138543618;
         deviceCopy2 = device;
-        v13 = 2114;
-        v14 = v4;
-        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v11, 0x16u);
+        v12 = 2114;
+        v13 = v4;
+        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v10, 0x16u);
       }
 
       localCountrySet = [device localCountrySet];
@@ -119,8 +117,6 @@
     device = localCountrySet;
 LABEL_11:
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return device;
 }

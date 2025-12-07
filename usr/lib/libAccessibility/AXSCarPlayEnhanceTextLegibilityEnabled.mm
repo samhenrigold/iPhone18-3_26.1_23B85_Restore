@@ -3,7 +3,7 @@
 
 @implementation AXSCarPlayEnhanceTextLegibilityEnabled
 
-uint64_t ___AXSCarPlayEnhanceTextLegibilityEnabled_block_invoke()
+void *___AXSCarPlayEnhanceTextLegibilityEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

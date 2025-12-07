@@ -18,7 +18,7 @@
   v4 = [(HMIVideoCommandBuffer *)&v11 init];
   if (v4)
   {
-    v5 = [[HMITimeIntervalAverage alloc] initWithMaxCapacity:32];
+    v5 = [[HMITimeIntervalAverage alloc] initWithMaxCapacity:?];
     v6 = *(v4 + 9);
     *(v4 + 9) = v5;
 
@@ -59,7 +59,8 @@
     while ([(HMIVideoCommandBuffer *)self isFull]);
   }
 
-  [(HMIVideoCommandBuffer *)self setSize:[(HMIVideoCommandBuffer *)self size]+ TotalSampleSize];
+  [(HMIVideoCommandBuffer *)self size];
+  [(HMIVideoCommandBuffer *)self setSize:?];
   CFRetain(buffer);
   date = [MEMORY[0x277CBEAA8] date];
   delegateQueue = [(HMIVideoCommandBuffer *)self delegateQueue];
@@ -82,25 +83,27 @@ void __44__HMIVideoCommandBuffer_handleSampleBuffer___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) sampleBufferDelay];
   v3 = [MEMORY[0x277CBEAA8] date];
-  [v3 timeIntervalSinceDate:*(a1 + 40)];
+  [v3 timeIntervalSinceDate:?];
   [v2 addValue:?];
 
   v4 = [*(a1 + 32) delegate];
-  [v4 buffer:*(a1 + 32) willHandleSampleBuffer:*(a1 + 48)];
+  [v4 buffer:? willHandleSampleBuffer:?];
 
   CFRelease(*(a1 + 48));
   v5 = [*(a1 + 32) condition];
   [v5 lock];
 
-  [*(a1 + 32) setSize:{objc_msgSend(*(a1 + 32), "size") - *(a1 + 56)}];
+  v6 = *(a1 + 32);
+  [v6 size];
+  [v6 setSize:?];
   if (([*(a1 + 32) isFull] & 1) == 0)
   {
-    v6 = [*(a1 + 32) condition];
-    [v6 signal];
+    v7 = [*(a1 + 32) condition];
+    [v7 signal];
   }
 
-  v7 = [*(a1 + 32) condition];
-  [v7 unlock];
+  v8 = [*(a1 + 32) condition];
+  [v8 unlock];
 }
 
 - (void)flushAsync
@@ -116,8 +119,8 @@ void __44__HMIVideoCommandBuffer_handleSampleBuffer___block_invoke(uint64_t a1)
 
 void __35__HMIVideoCommandBuffer_flushAsync__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) delegate];
-  [v2 bufferWillFlush:*(a1 + 32)];
+  v1 = [*(a1 + 32) delegate];
+  [v1 bufferWillFlush:?];
 }
 
 - (void)flush
@@ -133,8 +136,8 @@ void __35__HMIVideoCommandBuffer_flushAsync__block_invoke(uint64_t a1)
 
 void __30__HMIVideoCommandBuffer_flush__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) delegate];
-  [v2 bufferWillFlush:*(a1 + 32)];
+  v1 = [*(a1 + 32) delegate];
+  [v1 bufferWillFlush:?];
 }
 
 - (void)handleBlock:(id)block

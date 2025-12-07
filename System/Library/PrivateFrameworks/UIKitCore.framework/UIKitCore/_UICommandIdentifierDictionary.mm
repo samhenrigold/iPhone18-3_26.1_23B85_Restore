@@ -223,7 +223,7 @@ LABEL_11:
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [(_UISelectorDictionary *)self->_actionDictionary isEqual:equalCopy[1]])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_isEqual_(self->_actionDictionary))
   {
     v5 = [(NSMutableDictionary *)self->_actionPropertyListDictionary isEqualToDictionary:equalCopy[2]];
   }

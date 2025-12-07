@@ -14,27 +14,26 @@
 - (void)isIntelligenceEnabledWithCompletionHandler:(id)handler
 {
   v5 = sub_ED0C(&qword_30030, "&w");
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
-  v12 = sub_193D0();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  __chkstk_darwin(v5 - 8, v6);
+  v8 = &v15 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
+  *(v10 + 24) = self;
+  v11 = sub_193D0();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_1D100;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_1D100;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_1D1C0;
-  v14[5] = v13;
+  v13[4] = &unk_1D1C0;
+  v13[5] = v12;
   selfCopy = self;
-  sub_17E1C(0, 0, v9, &unk_1D110, v14);
+  sub_17E1C(0, 0, v8, &unk_1D110, v13);
 }
 
 - (void)applyStashedIsIntelligenceEnabled:(BOOL)enabled
@@ -95,7 +94,7 @@
   v5 = sub_191C0();
   v7 = v6;
 
-  _s13BuddyMigrator25IntelligenceStateProviderC42applyStashedNotificationOnboardingDefaultsyy10Foundation4DataVF_0();
+  _s13BuddyMigrator25IntelligenceStateProviderC42applyStashedNotificationOnboardingDefaultsyy10Foundation4DataVF_0(v5, v7);
   sub_ED78(v5, v7);
 }
 
@@ -111,20 +110,18 @@
   sub_ED0C(&qword_2FF60, &qword_1D078);
   v9 = sub_191D0();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 72);
-  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_1D050;
-  (*(v10 + 104))(v13 + v12, enum case for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason.notOptedIn(_:), v9);
-  v14 = sub_D8E4(v13, v8);
+  v11 = (*(v10 + 80) + 32) & ~*(v10 + 80);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_1D050;
+  (*(v10 + 104))(v12 + v11, enum case for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason.notOptedIn(_:), v9);
+  v13 = sub_D8E4(v12, v8);
 
   swift_setDeallocating();
-  v15 = *(v13 + 16);
   swift_arrayDestroy();
   swift_deallocClassInstance();
-  v16 = v14[2];
+  v14 = v13[2];
 
-  return v16 == 0;
+  return v14 == 0;
 }
 
 - (_TtC13BuddyMigrator25IntelligenceStateProvider)init

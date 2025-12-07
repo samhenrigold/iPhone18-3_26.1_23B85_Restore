@@ -157,32 +157,31 @@ LABEL_8:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_stringValues;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -191,7 +190,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    sectionDataType = self->_sectionDataType;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -203,7 +201,6 @@ LABEL_10:
       }
 
 LABEL_16:
-      timestamp = self->_timestamp;
       PBDataWriterWriteDoubleField();
       if ((*&self->_has & 8) == 0)
       {
@@ -219,7 +216,6 @@ LABEL_16:
     goto LABEL_10;
   }
 
-  version = self->_version;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -231,13 +227,10 @@ LABEL_11:
   if ((has & 8) != 0)
   {
 LABEL_12:
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -310,32 +303,32 @@ LABEL_10:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = self->_stringValues;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) copyWithZone:{zone, v15}];
+        v11 = [*(*(&v14 + 1) + 8 * i) copyWithZone:{zone, v14}];
         [v5 addStringValues:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -360,7 +353,7 @@ LABEL_16:
       *(v5 + 44) |= 2u;
       if ((*&self->_has & 8) == 0)
       {
-        goto LABEL_13;
+        return v5;
       }
 
       goto LABEL_12;
@@ -388,8 +381,6 @@ LABEL_12:
     *(v5 + 44) |= 8u;
   }
 
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -558,31 +549,31 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = *(fromCopy + 4);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HDCodableSectionData *)self addStringValues:*(*(&v12 + 1) + 8 * i), v12];
+        [(HDCodableSectionData *)self addStringValues:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -636,8 +627,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

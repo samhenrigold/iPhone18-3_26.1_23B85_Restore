@@ -12,7 +12,7 @@
 
 - (BOOL)fileNeedsRepairAtPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   fileManager = [(DMCFileAccessRepairTool *)self fileManager];
   v6 = [fileManager fileExistsAtPath:pathCopy];
@@ -21,34 +21,34 @@
   {
     v7 = [(DMCFileAccessRepairTool *)self fileManagerThinksFileNeedsRepairAtPath:pathCopy];
     v8 = [(DMCFileAccessRepairTool *)self posixThinksFileNeedsRepairAtPath:pathCopy];
+    v10 = v8;
     if (v7 != v8)
     {
-      v9 = DMCLogObjects()[3];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = DMCLogObjects(v8, v9)[3];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v10 = v9;
-        v11 = DMCStringForBool(v7);
-        v12 = DMCStringForBool(v8);
-        v16 = 138543874;
-        v17 = v11;
-        v18 = 2114;
-        v19 = v12;
-        v20 = 2114;
-        v21 = pathCopy;
-        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_INFO, "File Manager (%{public}@) and POSIX (%{public}@) disagree on whether a file (%{public}@) needs repair.", &v16, 0x20u);
+        v12 = v11;
+        v13 = DMCStringForBool(v7);
+        v14 = DMCStringForBool(v10);
+        v17 = 138543874;
+        v18 = v13;
+        v19 = 2114;
+        v20 = v14;
+        v21 = 2114;
+        v22 = pathCopy;
+        _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_INFO, "File Manager (%{public}@) and POSIX (%{public}@) disagree on whether a file (%{public}@) needs repair.", &v17, 0x20u);
       }
     }
 
-    v13 = v7 | v8;
+    v15 = v7 | v10;
   }
 
   else
   {
-    v13 = 0;
+    v15 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v15;
 }
 
 - (BOOL)fileManagerThinksFileNeedsRepairAtPath:(id)path

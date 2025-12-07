@@ -1401,7 +1401,7 @@ LABEL_19:
 
 - (void)layout
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   weekdayLabel = [(EKUIAvailabilityViewController *)self weekdayLabel];
   [weekdayLabel layoutSubviews];
 
@@ -1412,9 +1412,10 @@ LABEL_19:
   window = [view window];
   v7 = EKUIInterfaceOrientationForViewHierarchy(window);
 
-  if (![(EKUIAvailabilityViewController *)self compact])
+  compact = [(EKUIAvailabilityViewController *)self compact];
+  if ((compact & 1) == 0)
   {
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(compact, v9))
     {
       [EKUIAvailabilityParticipantList listWidthForCompact:0 orientation:v7];
     }
@@ -1428,99 +1429,99 @@ LABEL_19:
   }
 
   participantAvailabilityViews = [(EKUIAvailabilityViewController *)self participantAvailabilityViews];
-  v10 = [participantAvailabilityViews count];
+  v12 = [participantAvailabilityViews count];
   [(EKUIAvailabilityViewController *)self rowHeight];
-  v12 = v11 * v10;
+  v14 = v13 * v12;
 
   participantList = [(EKUIAvailabilityViewController *)self participantList];
   [(EKUIAvailabilityViewController *)self rowHeight];
   [participantList setRowHeight:?];
 
   [EKUIAvailabilityParticipantList listWidthForCompact:[(EKUIAvailabilityViewController *)self compact] orientation:v7];
-  v15 = v14;
+  v17 = v16;
   participantList2 = [(EKUIAvailabilityViewController *)self participantList];
-  [participantList2 setContentSize:{v15, v12}];
+  [participantList2 setContentSize:{v17, v14}];
 
   timelineView = [(EKUIAvailabilityViewController *)self timelineView];
   [(EKUIAvailabilityViewController *)self timelineWidth];
   [timelineView setContentWidth:?];
 
   hourLines = [(EKUIAvailabilityViewController *)self hourLines];
-  v57[0] = MEMORY[0x1E69E9820];
-  v57[1] = 3221225472;
-  v57[2] = __40__EKUIAvailabilityViewController_layout__block_invoke;
-  v57[3] = &unk_1E8441518;
-  v57[4] = self;
-  *&v57[5] = v12;
-  [hourLines enumerateObjectsUsingBlock:v57];
+  v59[0] = MEMORY[0x1E69E9820];
+  v59[1] = 3221225472;
+  v59[2] = __40__EKUIAvailabilityViewController_layout__block_invoke;
+  v59[3] = &unk_1E8441518;
+  v59[4] = self;
+  *&v59[5] = v14;
+  [hourLines enumerateObjectsUsingBlock:v59];
 
+  v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
   participantAvailabilityViews2 = [(EKUIAvailabilityViewController *)self participantAvailabilityViews];
-  v20 = [participantAvailabilityViews2 countByEnumeratingWithState:&v53 objects:v59 count:16];
-  if (v20)
+  v22 = [participantAvailabilityViews2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+  if (v22)
   {
-    v21 = v20;
-    v22 = *v54;
-    v23 = 0.0;
+    v23 = v22;
+    v24 = *v56;
+    v25 = 0.0;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v54 != v22)
+        if (*v56 != v24)
         {
           objc_enumerationMutation(participantAvailabilityViews2);
         }
 
-        v25 = *(*(&v53 + 1) + 8 * i);
+        v27 = *(*(&v55 + 1) + 8 * i);
         [(EKUIAvailabilityViewController *)self availableWidth];
-        v27 = v26;
+        v29 = v28;
         [(EKUIAvailabilityViewController *)self rowHeight];
-        [v25 setFrame:{0.0, v23, v27, v28}];
+        [v27 setFrame:{0.0, v25, v29, v30}];
         [(EKUIAvailabilityViewController *)self rowHeight];
-        v23 = v23 + v29;
+        v25 = v25 + v31;
       }
 
-      v21 = [participantAvailabilityViews2 countByEnumeratingWithState:&v53 objects:v59 count:16];
+      v23 = [participantAvailabilityViews2 countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
-    while (v21);
+    while (v23);
   }
 
+  v53 = 0u;
+  v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
   freeSpanViews = [(EKUIAvailabilityViewController *)self freeSpanViews];
-  v31 = [freeSpanViews countByEnumeratingWithState:&v49 objects:v58 count:16];
-  if (v31)
+  v33 = [freeSpanViews countByEnumeratingWithState:&v51 objects:v60 count:16];
+  if (v33)
   {
-    v32 = v31;
-    v33 = *v50;
+    v34 = v33;
+    v35 = *v52;
     do
     {
-      for (j = 0; j != v32; ++j)
+      for (j = 0; j != v34; ++j)
       {
-        if (*v50 != v33)
+        if (*v52 != v35)
         {
           objc_enumerationMutation(freeSpanViews);
         }
 
-        v35 = *(*(&v49 + 1) + 8 * j);
-        startDate = [v35 startDate];
-        endDate = [v35 endDate];
+        v37 = *(*(&v51 + 1) + 8 * j);
+        startDate = [v37 startDate];
+        endDate = [v37 endDate];
         [(EKUIAvailabilityViewController *)self frameForFreeSpanViewAtStart:startDate endDate:endDate duration:0.0];
-        [v35 setFrame:?];
+        [v37 setFrame:?];
 
-        [v35 setNeedsDisplay];
+        [v37 setNeedsDisplay];
       }
 
-      v32 = [freeSpanViews countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v34 = [freeSpanViews countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
-    while (v32);
+    while (v34);
   }
 
   eventTime = [(EKUIAvailabilityViewController *)self eventTime];
@@ -1532,13 +1533,13 @@ LABEL_19:
   [eventTime setFrame:?];
 
   [(EKUIAvailabilityViewController *)self availableWidth];
-  v43 = v42;
+  v45 = v44;
   participantAvailabilityViews3 = [(EKUIAvailabilityViewController *)self participantAvailabilityViews];
-  v45 = [participantAvailabilityViews3 count];
+  v47 = [participantAvailabilityViews3 count];
   [(EKUIAvailabilityViewController *)self rowHeight];
-  v47 = v46 * v45;
+  v49 = v48 * v47;
   scrollView = [(EKUIAvailabilityViewController *)self scrollView];
-  [scrollView setContentSize:{v43, v47}];
+  [scrollView setContentSize:{v45, v49}];
 }
 
 void __40__EKUIAvailabilityViewController_layout__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -2219,7 +2220,7 @@ uint64_t __54__EKUIAvailabilityViewController_mergeSpan_intoSpans___block_invoke
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __57__EKUIAvailabilityViewController_findPossibleEventRanges__block_invoke(uint64_t a1)
+void *__57__EKUIAvailabilityViewController_findPossibleEventRanges__block_invoke(uint64_t a1)
 {
   v29 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) clearFreeSpanViews];
@@ -2384,7 +2385,7 @@ LABEL_10:
 
 - (void)singleTap:(id)tap
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   tapCopy = tap;
   scrollView = [(EKUIAvailabilityViewController *)self scrollView];
   [tapCopy locationInView:scrollView];
@@ -2396,7 +2397,7 @@ LABEL_10:
   [event duration];
   v12 = v9 * (v11 / 3600.0);
 
-  v37 = v12;
+  v41 = v12;
   v13 = v7 - v12 * 0.5;
   v14 = v7 + v12 * 0.5;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -2405,65 +2406,65 @@ LABEL_10:
   aBlock[3] = &unk_1E8441590;
   aBlock[4] = self;
   v15 = _Block_copy(aBlock);
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   freeSpanViews = [(EKUIAvailabilityViewController *)self freeSpanViews];
-  v17 = [freeSpanViews countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v17 = [freeSpanViews countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = v9 * 0.25;
-    v20 = *v39;
+    v20 = *v43;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v39 != v20)
+        if (*v43 != v20)
         {
           objc_enumerationMutation(freeSpanViews);
         }
 
-        v22 = *(*(&v38 + 1) + 8 * i);
+        v22 = *(*(&v42 + 1) + 8 * i);
         [v22 frame];
         v24 = v23;
         [v22 frame];
         v26 = v25;
-        [v22 frame];
-        v28 = v26 + v27;
-        if (v7 > v24 && v7 < v28)
+        frame = [v22 frame];
+        v30 = v26 + v29;
+        if (v7 > v24 && v7 < v30)
         {
-          v30 = v13 - v24 >= 0.0 ? v13 - v24 : -(v13 - v24);
-          v31 = v28 - v14 >= 0.0 ? v28 - v14 : -(v28 - v14);
-          if (v30 < v19 || v31 < v19)
+          v32 = v13 - v24 >= 0.0 ? v13 - v24 : -(v13 - v24);
+          v33 = v30 - v14 >= 0.0 ? v30 - v14 : -(v30 - v14);
+          if (v32 < v19 || v33 < v19)
           {
-            IsLeftToRight = CalTimeDirectionIsLeftToRight();
-            v35.n128_f64[0] = v28 - v37;
+            IsLeftToRight = CalTimeDirectionIsLeftToRight(frame, v28);
+            v39.n128_f64[0] = v30 - v41;
             if (!IsLeftToRight)
             {
-              v35.n128_f64[0] = v28;
+              v39.n128_f64[0] = v30;
             }
 
-            v36 = v37 + v24;
+            v40 = v41 + v24;
             if (IsLeftToRight)
             {
-              v36 = v24;
+              v40 = v24;
             }
 
-            if (v30 <= v31)
+            if (v32 <= v33)
             {
-              v35.n128_f64[0] = v36;
+              v39.n128_f64[0] = v40;
             }
 
-            v15[2](v15, v35, 60.0);
+            v15[2](v15, v39, 60.0);
 
             goto LABEL_34;
           }
         }
       }
 
-      v18 = [freeSpanViews countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v18 = [freeSpanViews countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v18)
       {
         continue;
@@ -2473,68 +2474,68 @@ LABEL_10:
     }
   }
 
-  if (CalTimeDirectionIsLeftToRight())
+  if (CalTimeDirectionIsLeftToRight(v35, v36))
   {
-    v33.n128_f64[0] = v13;
+    v37.n128_f64[0] = v13;
   }
 
   else
   {
-    v33.n128_f64[0] = v14;
+    v37.n128_f64[0] = v14;
   }
 
-  v15[2](v15, v33, 900.0);
+  v15[2](v15, v37, 900.0);
 LABEL_34:
 }
 
-void __44__EKUIAvailabilityViewController_singleTap___block_invoke(uint64_t a1, double a2, double a3)
+void __44__EKUIAvailabilityViewController_singleTap___block_invoke(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  IsLeftToRight = CalTimeDirectionIsLeftToRight();
+  IsLeftToRight = CalTimeDirectionIsLeftToRight(a1, a2);
   [*(a1 + 32) timelineWidth];
   if (!IsLeftToRight)
   {
-    a2 = v7 - a2;
+    a3 = v8 - a3;
     [*(a1 + 32) timelineWidth];
   }
 
-  v8 = floor(a2 / v7 * 86400.0 / a3 + 0.5) * a3;
-  v30 = [MEMORY[0x1E695DEE8] currentCalendar];
-  v9 = [*(a1 + 32) event];
-  v10 = [v9 startDate];
-  v11 = [v30 components:64 fromDate:v10];
+  v9 = floor(a3 / v8 * 86400.0 / a4 + 0.5) * a4;
+  v31 = [MEMORY[0x1E695DEE8] currentCalendar];
+  v10 = [*(a1 + 32) event];
+  v11 = [v10 startDate];
+  v12 = [v31 components:64 fromDate:v11];
 
-  v12 = [*(a1 + 32) event];
-  v13 = [v12 endDateUnadjustedForLegacyClients];
-  v14 = [v30 components:64 fromDate:v13];
+  v13 = [*(a1 + 32) event];
+  v14 = [v13 endDateUnadjustedForLegacyClients];
+  v15 = [v31 components:64 fromDate:v14];
 
-  if (__ROR8__(0xEEEEEEEEEEEEEEEFLL * [v14 minute] + 0x888888888888888, 1) <= 0x888888888888888uLL && objc_msgSend(v11, "minute") <= 9)
+  if (__ROR8__(0xEEEEEEEEEEEEEEEFLL * [v15 minute] + 0x888888888888888, 1) <= 0x888888888888888uLL && objc_msgSend(v12, "minute") <= 9)
   {
-    HIDWORD(v15) = -2023406815 * v8 + 9544368;
-    LODWORD(v15) = HIDWORD(v15);
-    if ((v15 >> 3) <= 0x2468AC)
+    HIDWORD(v16) = -2023406815 * v9 + 9544368;
+    LODWORD(v16) = HIDWORD(v16);
+    if ((v16 >> 3) <= 0x2468AC)
     {
-      v8 = v8 + (60 * [v11 minute]);
+      v9 = v9 + (60 * [v12 minute]);
     }
   }
 
-  v16 = [*(a1 + 32) currentStartDate];
-  v17 = [v16 dateByAddingTimeInterval:v8];
+  v17 = [*(a1 + 32) currentStartDate];
+  v18 = [v17 dateByAddingTimeInterval:v9];
 
-  v18 = [*(a1 + 32) event];
-  v19 = [v18 timeZone];
-  v20 = [*(a1 + 32) currentStartDate];
-  [v19 daylightSavingTimeOffsetForDate:v20];
-  v22 = v21;
+  v19 = [*(a1 + 32) event];
+  v20 = [v19 timeZone];
+  v21 = [*(a1 + 32) currentStartDate];
+  [v20 daylightSavingTimeOffsetForDate:v21];
+  v23 = v22;
 
-  v23 = [*(a1 + 32) event];
-  v24 = [v23 timeZone];
-  [v24 daylightSavingTimeOffsetForDate:v17];
-  v26 = v25;
+  v24 = [*(a1 + 32) event];
+  v25 = [v24 timeZone];
+  [v25 daylightSavingTimeOffsetForDate:v18];
+  v27 = v26;
 
-  v27 = *(a1 + 32);
-  v28 = [v27 currentStartDate];
-  v29 = [v28 dateByAddingTimeInterval:v8 + (v22 - v26)];
-  [v27 updateCurrentEventAtTime:v29];
+  v28 = *(a1 + 32);
+  v29 = [v28 currentStartDate];
+  v30 = [v29 dateByAddingTimeInterval:v9 + (v23 - v27)];
+  [v28 updateCurrentEventAtTime:v30];
 }
 
 - (void)viewPinched:(id)pinched
@@ -2819,16 +2820,16 @@ LABEL_19:
   v9 = v8;
   if (dateCopy)
   {
-    [(EKUIAvailabilityViewController *)self convertDateIntoOffset:dateCopy];
-    v11 = v10;
-    if (CalTimeDirectionIsLeftToRight())
+    v10 = [(EKUIAvailabilityViewController *)self convertDateIntoOffset:dateCopy];
+    v12 = v11;
+    if (CalTimeDirectionIsLeftToRight(v10, v13))
     {
-      v12 = v11 - v9;
+      v14 = v12 - v9;
     }
 
     else
     {
-      v12 = v9 - v11;
+      v14 = v9 - v12;
     }
   }
 
@@ -2836,53 +2837,53 @@ LABEL_19:
   {
     event = [(EKUIAvailabilityViewController *)self event];
     [event duration];
-    v15 = v14 / 86400.0;
+    v17 = v16 / 86400.0;
     [(EKUIAvailabilityViewController *)self timelineWidth];
-    v17 = v16;
-    v12 = v15 * v16;
+    v19 = v18;
+    v14 = v17 * v18;
 
-    IsLeftToRight = CalTimeDirectionIsLeftToRight();
-    v19 = -(v15 * v17);
+    IsLeftToRight = CalTimeDirectionIsLeftToRight(v20, v21);
+    v23 = -(v17 * v19);
     if (IsLeftToRight)
     {
-      v19 = v12;
+      v23 = v14;
     }
 
-    v11 = v9 + v19;
+    v12 = v9 + v23;
   }
 
   +[EKUIAvailabilityRowView padInset];
-  v21 = v20;
-  +[EKUIAvailabilityRowView cornerRadius];
-  if (v12 < v22)
+  v25 = v24;
+  v26 = +[EKUIAvailabilityRowView cornerRadius];
+  if (v14 < v28)
   {
-    +[EKUIAvailabilityRowView cornerRadius];
-    v12 = v23;
+    v26 = +[EKUIAvailabilityRowView cornerRadius];
+    v14 = v29;
   }
 
-  if (CalTimeDirectionIsLeftToRight())
+  if (CalTimeDirectionIsLeftToRight(v26, v27))
   {
-    v24 = v9 + v21;
+    v30 = v9 + v25;
   }
 
   else
   {
-    v24 = v11 - v21;
+    v30 = v12 - v25;
   }
 
   participantAvailabilityViews = [(EKUIAvailabilityViewController *)self participantAvailabilityViews];
-  v26 = [participantAvailabilityViews count];
+  v32 = [participantAvailabilityViews count];
   [(EKUIAvailabilityViewController *)self rowHeight];
-  v28 = v21 * -2.0 + v26 * v27;
+  v34 = v25 * -2.0 + v32 * v33;
 
-  v29 = v24;
-  v30 = v21;
-  v31 = v12 + v21 * -2.0;
-  v32 = v28;
-  result.size.height = v32;
-  result.size.width = v31;
-  result.origin.y = v30;
-  result.origin.x = v29;
+  v35 = v30;
+  v36 = v25;
+  v37 = v14 + v25 * -2.0;
+  v38 = v34;
+  result.size.height = v38;
+  result.size.width = v37;
+  result.origin.y = v36;
+  result.origin.x = v35;
   return result;
 }
 
@@ -2919,15 +2920,15 @@ LABEL_19:
   [offsetCopy timeIntervalSinceDate:currentStartDate2];
   v16 = v15;
 
-  [(EKUIAvailabilityViewController *)self timelineWidth];
-  v18 = (v16 + (v13 - v9)) / 86400.0 * v17;
-  if ((CalTimeDirectionIsLeftToRight() & 1) == 0)
+  timelineWidth = [(EKUIAvailabilityViewController *)self timelineWidth];
+  v19 = (v16 + (v13 - v9)) / 86400.0 * v18;
+  if ((CalTimeDirectionIsLeftToRight(timelineWidth, v20) & 1) == 0)
   {
     [(EKUIAvailabilityViewController *)self timelineWidth];
-    return v19 - v18;
+    return v21 - v19;
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)scrollViewDidScroll:(id)scroll

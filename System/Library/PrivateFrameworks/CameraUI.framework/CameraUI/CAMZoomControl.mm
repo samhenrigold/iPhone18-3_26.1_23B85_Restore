@@ -1176,11 +1176,11 @@ uint64_t __59__CAMZoomControl__setShouldShowZoomDial_animationDuration___block_i
   return [v2 layoutIfNeeded];
 }
 
-uint64_t __59__CAMZoomControl__setShouldShowZoomDial_animationDuration___block_invoke_3(uint64_t result)
+id *__59__CAMZoomControl__setShouldShowZoomDial_animationDuration___block_invoke_3(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _setStartTimeForHideAnimationInProgress:0];
+    return [result[4] _setStartTimeForHideAnimationInProgress:0];
   }
 
   return result;
@@ -1864,7 +1864,7 @@ LABEL_12:
     [touchCopy locationInView:self];
     v12 = v11;
     v14 = v13;
-    [eventCopy timestamp];
+    objc_msgSend_timestamp(eventCopy);
     v16 = v15;
     _isZoomDialEnabled = [(CAMZoomControl *)self _isZoomDialEnabled];
     _shouldShowZoomDial = [(CAMZoomControl *)self _shouldShowZoomDial];
@@ -1972,7 +1972,7 @@ LABEL_12:
   v19 = v18;
   [(CAMZoomControl *)self _previousTouchTime];
   v21 = v20;
-  [eventCopy timestamp];
+  objc_msgSend_timestamp(eventCopy);
   v23 = v22;
   if ([(CAMZoomControl *)self _isZoomDialEnabled])
   {
@@ -2875,7 +2875,7 @@ LABEL_10:
   [(CAMZoomControl *)self _setShouldShowZoomDial:0 animationDuration:1 afterDelay:v13];
 }
 
-uint64_t __66__CAMZoomControl__handleButtonTappedForContinuousModeWithPlatter___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__66__CAMZoomControl__handleButtonTappedForContinuousModeWithPlatter___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 zoomFactor];
   v7 = *(*(a1 + 32) + 8);
@@ -3167,13 +3167,13 @@ void __52__CAMZoomControl__updateSignificantValuesForHaptics__block_invoke(uint6
   }
 }
 
-void __39__CAMZoomControl__updateHapticEpsilons__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __39__CAMZoomControl__updateHapticEpsilons__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   [a2 doubleValue];
   v6 = v5;
   [*(a1 + 32) normalizedValueForZoomFactor:?];
   v8 = v7;
-  v9 = [*(a1 + 40) count] - 1;
+  v9 = ([*(a1 + 40) count] - 1);
   v10 = *(a1 + 56);
   v11 = *(a1 + 32);
   if (v9 == a3)

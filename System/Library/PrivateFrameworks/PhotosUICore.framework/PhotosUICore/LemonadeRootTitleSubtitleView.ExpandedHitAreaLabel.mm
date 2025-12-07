@@ -29,7 +29,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12PhotosUICore29LemonadeRootTitleSubtitleViewP33_5C469E53BEB58F25AAF0461687BE66D120ExpandedHitAreaLabel_horizontalHitAreaExpansion) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12PhotosUICore29LemonadeRootTitleSubtitleViewP33_5C469E53BEB58F25AAF0461687BE66D120ExpandedHitAreaLabel_verticalHitAreaExpansion) = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel();
+  v8.super_class = type metadata accessor for LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel(self, a2);
   return [(LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel *)&v8 initWithFrame:x, y, width, height];
 }
 
@@ -38,7 +38,7 @@
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12PhotosUICore29LemonadeRootTitleSubtitleViewP33_5C469E53BEB58F25AAF0461687BE66D120ExpandedHitAreaLabel_horizontalHitAreaExpansion) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC12PhotosUICore29LemonadeRootTitleSubtitleViewP33_5C469E53BEB58F25AAF0461687BE66D120ExpandedHitAreaLabel_verticalHitAreaExpansion) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel();
+  v7.super_class = type metadata accessor for LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel(self, a2);
   coderCopy = coder;
   v5 = [(LemonadeRootTitleSubtitleView.ExpandedHitAreaLabel *)&v7 initWithCoder:coderCopy];
 

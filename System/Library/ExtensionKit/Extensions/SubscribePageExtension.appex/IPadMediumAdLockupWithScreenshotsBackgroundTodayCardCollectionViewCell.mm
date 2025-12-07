@@ -11,7 +11,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for IPadMediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell();
+  v8.super_class = type metadata accessor for IPadMediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell(0);
   return [(MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell *)&v8 initWithFrame:x, y, width, height];
 }
 

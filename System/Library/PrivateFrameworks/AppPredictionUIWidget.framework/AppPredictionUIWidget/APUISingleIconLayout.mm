@@ -22,30 +22,28 @@
 - (SBIconImageInfo)iconImageInfo
 {
   width = self->_size.width;
-  height = self->_size.height;
-  scale = self->_scale;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v6 = getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr;
-  v13 = getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v4 = getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr;
+  v11 = getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr;
   if (!getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr)
   {
-    v7 = SpringBoardHomeLibrary_0();
-    v11[3] = dlsym(v7, "SBHDefaultIconImageContinuousCornerRadiusForIconSize");
-    getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr = v11[3];
-    v6 = v11[3];
+    v5 = SpringBoardHomeLibrary_0();
+    v9[3] = dlsym(v5, "SBHDefaultIconImageContinuousCornerRadiusForIconSize");
+    getSBHDefaultIconImageContinuousCornerRadiusForIconSizeSymbolLoc_ptr = v9[3];
+    v4 = v9[3];
   }
 
-  _Block_object_dispose(&v10, 8);
-  if (!v6)
+  _Block_object_dispose(&v8, 8);
+  if (!v4)
   {
-    v9 = [APUIAppIconGridLayoutProvider layoutForIconLocation:];
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(v9);
+    v7 = [APUIAppIconGridLayoutProvider layoutForIconLocation:];
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v7);
   }
 
-  v6(width);
+  v4(width);
   return result;
 }
 

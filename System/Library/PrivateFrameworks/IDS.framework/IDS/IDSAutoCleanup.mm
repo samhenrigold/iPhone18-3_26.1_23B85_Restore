@@ -23,11 +23,10 @@
 
 - (void)dealloc
 {
-  accessCount = self->_accessCount;
   (*(self->_cleanupBlock + 2))();
-  v4.receiver = self;
-  v4.super_class = IDSAutoCleanup;
-  [(IDSAutoCleanup *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = IDSAutoCleanup;
+  [(IDSAutoCleanup *)&v3 dealloc];
 }
 
 @end

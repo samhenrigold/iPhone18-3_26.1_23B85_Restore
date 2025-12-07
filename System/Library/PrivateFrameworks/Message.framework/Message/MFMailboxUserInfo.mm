@@ -18,7 +18,7 @@
   MEMORY[0x1EEE9AC00](v9);
   v13 = &v5 - v12;
   v14 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB6E2600, &qword_1B0E9A080) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = MEMORY[0x1EEE9AC00](lCopy);
+  MEMORY[0x1EEE9AC00](lCopy);
   v15 = &v5 - v14;
   MEMORY[0x1E69E5928](v3);
   if (lCopy)

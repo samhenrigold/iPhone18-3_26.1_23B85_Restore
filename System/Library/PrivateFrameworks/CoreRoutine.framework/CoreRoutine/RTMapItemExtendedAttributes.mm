@@ -2,6 +2,7 @@
 + (id)fingerprintLabelTypeToString:(int64_t)string;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToMapItemExtendedAttributes:(id)attributes;
+- (RTMapItemExtendedAttributes)initWithAddressIdentifier:(id)identifier isMe:(BOOL)me wifiConfidence:(double)confidence wifiFingerprintLabelType:(int64_t)type;
 - (RTMapItemExtendedAttributes)initWithCoder:(id)coder;
 - (RTMapItemExtendedAttributes)initWithExtendedAttributesMO:(id)o;
 - (RTMapItemExtendedAttributes)initWithIdentifier:(id)identifier addressIdentifier:(id)addressIdentifier isMe:(BOOL)me wifiConfidence:(double)confidence wifiFingerprintLabelType:(int64_t)type;
@@ -15,29 +16,23 @@
 
 + (id)fingerprintLabelTypeToString:(int64_t)string
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (string >= 3)
+  v9 = *MEMORY[0x1E69E9840];
+  if (string < 3)
   {
-    v4 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v6 = 136315394;
-      v7 = "+[RTMapItemExtendedAttributes fingerprintLabelTypeToString:]";
-      v8 = 1024;
-      v9 = 43;
-      _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "unknown wifi fingerprint label (in %s:%d)", &v6, 0x12u);
-    }
-
-    result = 0;
+    return off_1E80B4C38[string];
   }
 
-  else
+  v4 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    result = off_1E80B4C38[string];
+    v5 = 136315394;
+    v6 = "+[RTMapItemExtendedAttributes fingerprintLabelTypeToString:]";
+    v7 = 1024;
+    v8 = 43;
+    _os_log_error_impl(&dword_1BF1C4000, v4, OS_LOG_TYPE_ERROR, "unknown wifi fingerprint label (in %s:%d)", &v5, 0x12u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (RTMapItemExtendedAttributes)initWithExtendedAttributesMO:(id)o
@@ -68,7 +63,7 @@
 
 - (RTMapItemExtendedAttributes)initWithIdentifier:(id)identifier addressIdentifier:(id)addressIdentifier isMe:(BOOL)me wifiConfidence:(double)confidence wifiFingerprintLabelType:(int64_t)type
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   addressIdentifierCopy = addressIdentifier;
   if (!identifierCopy)
@@ -77,9 +72,9 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
-      v26 = 1024;
-      v27 = 71;
+      v24 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
+      v25 = 1024;
+      v26 = 71;
       _os_log_error_impl(&dword_1BF1C4000, v15, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: identifier (in %s:%d)", buf, 0x12u);
     }
   }
@@ -90,9 +85,9 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
-      v26 = 1024;
-      v27 = 72;
+      v24 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
+      v25 = 1024;
+      v26 = 72;
       _os_log_error_impl(&dword_1BF1C4000, v16, OS_LOG_TYPE_ERROR, "invalid wifi label type (in %s:%d)", buf, 0x12u);
     }
   }
@@ -103,9 +98,9 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
-      v26 = 1024;
-      v27 = 73;
+      v24 = "[RTMapItemExtendedAttributes initWithIdentifier:addressIdentifier:isMe:wifiConfidence:wifiFingerprintLabelType:]";
+      v25 = 1024;
+      v26 = 73;
       _os_log_error_impl(&dword_1BF1C4000, v17, OS_LOG_TYPE_ERROR, "invalid wifiConfidence (in %s:%d)", buf, 0x12u);
     }
   }
@@ -113,9 +108,9 @@
   selfCopy = 0;
   if (identifierCopy && confidence <= 1.0 && confidence >= 0.0 && type <= 2)
   {
-    v23.receiver = self;
-    v23.super_class = RTMapItemExtendedAttributes;
-    v19 = [(RTMapItemExtendedAttributes *)&v23 init];
+    v22.receiver = self;
+    v22.super_class = RTMapItemExtendedAttributes;
+    v19 = [(RTMapItemExtendedAttributes *)&v22 init];
     v20 = v19;
     if (v19)
     {
@@ -130,8 +125,18 @@
     selfCopy = self;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
+}
+
+- (RTMapItemExtendedAttributes)initWithAddressIdentifier:(id)identifier isMe:(BOOL)me wifiConfidence:(double)confidence wifiFingerprintLabelType:(int64_t)type
+{
+  meCopy = me;
+  v10 = MEMORY[0x1E696AFB0];
+  identifierCopy = identifier;
+  uUID = [v10 UUID];
+  v13 = [(RTMapItemExtendedAttributes *)self initWithIdentifier:uUID addressIdentifier:identifierCopy isMe:meCopy wifiConfidence:type wifiFingerprintLabelType:confidence];
+
+  return v13;
 }
 
 - (id)description

@@ -6,7 +6,7 @@ __n64 sub_240222548(uint64_t a1, uint64_t a2)
     v9 = 0;
     v7 = 0u;
     v8 = 0u;
-    sub_240222548(&v7);
+    sub_240222548(&v7, a2);
     result.n64_u64[0] = v7;
     v6 = v8;
     *a1 = v7;
@@ -33,14 +33,14 @@ __n64 sub_240222548(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_240222718(float32x2_t *a1, float *a2)
+void sub_240222718(float32x2_t *a1, float32x2_t *a2)
 {
   v4 = (a1[2].f32[1] - a1[3].f32[1]) * 0.5;
-  *a2 = v4;
+  a2->f32[0] = v4;
   v5 = (a1[3].f32[0] - a1[1].f32[0]) * 0.5;
-  a2[1] = v5;
+  a2->f32[1] = v5;
   v6 = (a1->f32[1] - a1[1].f32[1]) * 0.5;
-  a2[2] = v6;
+  a2[1].f32[0] = v6;
   v7 = a1->f32[0];
   v8 = a1[2].f32[0];
   v9 = a1[4].f32[0];
@@ -53,8 +53,8 @@ void sub_240222718(float32x2_t *a1, float *a2)
     if (v11 > 0.99 || v15)
     {
       v16 = (v12 * ((v12 * (((v12 * 5.0) / 112.0) + 0.075)) + 0.16667)) + 1.0;
-      *a2 = v4 * v16;
-      a2[1] = v5 * v16;
+      a2->f32[0] = v4 * v16;
+      a2->f32[1] = v5 * v16;
     }
 
     else
@@ -66,11 +66,11 @@ void sub_240222718(float32x2_t *a1, float *a2)
       }
 
       v16 = acosf(v11) / sqrtf(v12);
-      *a2 = v4 * v16;
-      a2[1] = v5 * v16;
+      a2->f32[0] = v4 * v16;
+      a2->f32[1] = v5 * v16;
     }
 
-    a2[2] = v6 * v16;
+    a2[1].f32[0] = v6 * v16;
     return;
   }
 
@@ -91,7 +91,7 @@ LABEL_19:
         v33 = -v33;
       }
 
-      a2[2] = v33;
+      a2[1].f32[0] = v33;
       v34.i32[0] = a1[1].i32[0];
       v34.i32[1] = a1[2].i32[1];
       *a2 = vmul_n_f32(vmul_n_f32(vadd_f32(a1[3], v34), v26), 1.0 / v33);
@@ -105,11 +105,11 @@ LABEL_19:
         v27 = -v27;
       }
 
-      a2[1] = v27;
+      a2->f32[1] = v27;
       v28 = 1.0 / v27;
       v29 = a1[3].f32[1] + a1[2].f32[1];
-      *a2 = v28 * (v26 * (a1[1].f32[1] + a1->f32[1]));
-      a2[2] = v28 * (v26 * v29);
+      a2->f32[0] = v28 * (v26 * (a1[1].f32[1] + a1->f32[1]));
+      a2[1].f32[0] = v28 * (v26 * v29);
     }
   }
 
@@ -125,11 +125,11 @@ LABEL_19:
         v30 = -v30;
       }
 
-      a2[2] = v30;
+      a2[1].f32[0] = v30;
       v31 = 1.0 / v30;
       v32 = v31 * (v22 * (a1[3].f32[1] + a1[2].f32[1]));
-      *a2 = v31 * v23;
-      a2[1] = v32;
+      a2->f32[0] = v31 * v23;
+      a2->f32[1] = v32;
     }
 
     else
@@ -140,10 +140,10 @@ LABEL_19:
         v24 = -v24;
       }
 
-      *a2 = v24;
+      a2->f32[0] = v24;
       v25 = 1.0 / v24;
-      a2[1] = v25 * (v22 * (a1[1].f32[1] + a1->f32[1]));
-      a2[2] = v25 * v23;
+      a2->f32[1] = v25 * (v22 * (a1[1].f32[1] + a1->f32[1]));
+      a2[1].f32[0] = v25 * v23;
     }
   }
 }
@@ -295,61 +295,61 @@ void sub_240222FB8()
       Dictionary = cva::DictionaryHandler::getDictionary(v22);
       CFRelease(Dictionary);
       v21 = v22;
-      sub_240224608(&v21, "facekit_enable_multiuser");
-      sub_240224608(&v21, "facekit_enable_recognition");
-      sub_240224608(&v21, "facekit_force_enable_recognition");
-      sub_240224608(&v21, "facekit_enable_tongue");
-      sub_240224608(&v21, "facekit_enable_perspective_warp");
-      sub_240224A54(&v21, "face_selection_offcenter_penalty");
-      sub_240224ECC(&v21, "facekit_filter_historysize");
-      sub_240224ECC(&v21, "gaze_facekit_filter_historysize");
-      sub_240224ECC(&v21, "bbox_facekit_filter_historysize");
-      sub_240224A54(&v21, "facekit_posefilter_translation_smoothing");
-      sub_240224A54(&v21, "facekit_posefilter_rotation_smoothing");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_lowest_threshold");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_low_threshold");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_high_threshold");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_highest_threshold");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_temporal_smoothing");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_prediction_factor");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_min_smoothing");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_brow_multiplier");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_eye_multiplier");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_mouth_multiplier");
-      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_mouth_tongue_multiplier");
-      sub_240224A54(&v21, "facekit_gaze_smoothing_threshold");
-      sub_240224A54(&v21, "facekit_tongue_smoothing_threshold");
-      sub_240224608(&v21, "facekit_symmetrize_blendshapes");
-      sub_240224A54(&v21, "facekit_blendshape_asymmetry_scale");
-      sub_240224A54(&v21, "facekit_blendshape_asymmetry_shift");
-      sub_240224A54(&v21, "face_detection_roll_smoothing_threshold");
-      sub_240224A54(&v21, "face_detection_bbox_smoothing_threshold");
-      sub_240224A54(&v21, "facekit_enlargement_factor");
-      sub_240224A54(&v21, "facekit_failure_threshold");
-      sub_240224A54(&v21, "facekit_failure_threshold");
-      sub_240224A54(&v21, "facekit_maxangle_cara");
-      sub_240224A54(&v21, "facekit_mindistance_for_tracking");
-      sub_240224A54(&v21, "facekit_maxdistance_for_tracking");
-      sub_240224A54(&v21, "facekit_mindistance_for_fitting");
-      sub_240224A54(&v21, "facekit_mindistance_for_fitting_rgbd");
-      sub_240224A54(&v21, "facekit_maxdistance_for_fitting_rgbd");
-      sub_240224A54(&v21, "facekit_maxdistance_for_fitting");
-      sub_240224A54(&v21, "facekit_maxtranslationalvelocity");
-      sub_240224A54(&v21, "facekit_maxtranslationalacceleration");
-      sub_240224A54(&v21, "facekit_maxangularvelocity");
-      sub_240224A54(&v21, "facekit_maxangularacceleration");
-      sub_240224A54(&v21, "max_angle_recognition");
-      sub_240224A54(&v21, "max_translational_velocity_recognition");
-      sub_240224A54(&v21, "max_angular_velocity_recognition");
-      sub_240224A54(&v21, "max_translational_acceleration_recognition");
-      sub_240224A54(&v21, "max_angular_acceleration_recognition");
-      sub_240224A54(&v21, "recognition_failure_threshold");
-      sub_240224608(&v21, "facekit_robusttongueactivation");
-      sub_240224A54(&v21, "facekit_maxangle_tongue");
-      sub_240224A54(&v21, "facekit_maxexpression_tongue");
-      sub_240224ECC(&v21, "facekit_luxlevel_threshold");
-      sub_240224608(&v21, "facekit_use_debug_profile");
+      sub_240224608(&v21, "facekit_enable_multiuser", "enable multi-user tracking", (qword_280C03828 + 105));
+      sub_240224608(&v21, "facekit_enable_recognition", "enable user recognition", (qword_280C03828 + 106));
+      sub_240224608(&v21, "facekit_force_enable_recognition", "force enable user recognition", (qword_280C03828 + 107));
+      sub_240224608(&v21, "facekit_enable_tongue", "enable tongue", (qword_280C03828 + 108));
+      sub_240224608(&v21, "facekit_enable_perspective_warp", "enable perspective warp", (qword_280C03828 + 109));
+      sub_240224A54(&v21, "face_selection_offcenter_penalty", "off-center penalty for face selection", (qword_280C03828 + 112));
+      sub_240224ECC(&v21, "facekit_filter_historysize", "filter history size", (qword_280C03828 + 120));
+      sub_240224ECC(&v21, "gaze_facekit_filter_historysize", "gaze filter history size", (qword_280C03828 + 124));
+      sub_240224ECC(&v21, "bbox_facekit_filter_historysize", "bbox filter history size", (qword_280C03828 + 128));
+      sub_240224A54(&v21, "facekit_posefilter_translation_smoothing", "pose filter translation smoothing", (qword_280C03828 + 132));
+      sub_240224A54(&v21, "facekit_posefilter_rotation_smoothing", "pose filter rotation smoothing", (qword_280C03828 + 136));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing", "blendshape smoothing", (qword_280C03828 + 140));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_lowest_threshold", "blendshape smoothing lowest threshold", (qword_280C03828 + 144));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_low_threshold", "blendshape smoothing low threshold", (qword_280C03828 + 148));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_high_threshold", "blendshape smoothing high threshold", (qword_280C03828 + 152));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_highest_threshold", "blendshape smoothing highest threshold", (qword_280C03828 + 156));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_temporal_smoothing", "blendshape smoothing temporal smoothing", (qword_280C03828 + 160));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_prediction_factor", "blendshape smoothing prediction factor", (qword_280C03828 + 164));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_min_smoothing", "blendshape smoothing min smoothing", (qword_280C03828 + 168));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_brow_multiplier", "blendshape smoothing brow multiplier", (qword_280C03828 + 172));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_eye_multiplier", "blendshape smoothing eye multiplier", (qword_280C03828 + 176));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_mouth_multiplier", "blendshape smoothing mouth multiplier", (qword_280C03828 + 180));
+      sub_240224A54(&v21, "facekit_robust_blendshape_smoothing_mouth_tongue_multiplier", "blendshape smoothing mouth tongue multiplier", (qword_280C03828 + 184));
+      sub_240224A54(&v21, "facekit_gaze_smoothing_threshold", "gaze smoothing scale", (qword_280C03828 + 188));
+      sub_240224A54(&v21, "facekit_tongue_smoothing_threshold", "tongue smoothing scale", (qword_280C03828 + 192));
+      sub_240224608(&v21, "facekit_symmetrize_blendshapes", "symmetrize blendshapes (brows/eyes)", (qword_280C03828 + 196));
+      sub_240224A54(&v21, "facekit_blendshape_asymmetry_scale", "blendshape asymmetry scale", (qword_280C03828 + 200));
+      sub_240224A54(&v21, "facekit_blendshape_asymmetry_shift", "blendshape asymmetry shift", (qword_280C03828 + 204));
+      sub_240224A54(&v21, "face_detection_roll_smoothing_threshold", "face detection roll smoothing", (qword_280C03828 + 216));
+      sub_240224A54(&v21, "face_detection_bbox_smoothing_threshold", "face detection bbox smoothing", (qword_280C03828 + 212));
+      sub_240224A54(&v21, "facekit_enlargement_factor", "enlargement factor", (qword_280C03828 + 208));
+      sub_240224A54(&v21, "facekit_failure_threshold", "failure threshold (base)", qword_280C03828);
+      sub_240224A54(&v21, "facekit_failure_threshold", "failure threshold", (qword_280C03828 + 4));
+      sub_240224A54(&v21, "facekit_maxangle_cara", "max angle for face tracking", (qword_280C03828 + 84));
+      sub_240224A54(&v21, "facekit_mindistance_for_tracking", "min distance for face tracking", (qword_280C03828 + 96));
+      sub_240224A54(&v21, "facekit_maxdistance_for_tracking", "max distance for face tracking", (qword_280C03828 + 100));
+      sub_240224A54(&v21, "facekit_mindistance_for_fitting", "min distance for fitting", (qword_280C03828 + 88));
+      sub_240224A54(&v21, "facekit_mindistance_for_fitting_rgbd", "min distance for rgbd fitting", (qword_280C03828 + 32));
+      sub_240224A54(&v21, "facekit_maxdistance_for_fitting_rgbd", "max distance for rgbd fitting", (qword_280C03828 + 36));
+      sub_240224A54(&v21, "facekit_maxdistance_for_fitting", "max distance for fitting", (qword_280C03828 + 92));
+      sub_240224A54(&v21, "facekit_maxtranslationalvelocity", "max translational velocity for face tracking", (qword_280C03828 + 16));
+      sub_240224A54(&v21, "facekit_maxtranslationalacceleration", "max translational acceleration for face tracking", (qword_280C03828 + 24));
+      sub_240224A54(&v21, "facekit_maxangularvelocity", "max angular velocity for face tracking", (qword_280C03828 + 20));
+      sub_240224A54(&v21, "facekit_maxangularacceleration", "max angular acceleration for face tracking", (qword_280C03828 + 28));
+      sub_240224A54(&v21, "max_angle_recognition", "max angle for recognition", (qword_280C03828 + 60));
+      sub_240224A54(&v21, "max_translational_velocity_recognition", "max translational velocity for recognition", (qword_280C03828 + 64));
+      sub_240224A54(&v21, "max_angular_velocity_recognition", "max angular velocity for recognition", (qword_280C03828 + 68));
+      sub_240224A54(&v21, "max_translational_acceleration_recognition", "max translational acceleration for recognition", (qword_280C03828 + 72));
+      sub_240224A54(&v21, "max_angular_acceleration_recognition", "max angular acceleration for recognition", (qword_280C03828 + 76));
+      sub_240224A54(&v21, "recognition_failure_threshold", "recognition failure threshold", (qword_280C03828 + 80));
+      sub_240224608(&v21, "facekit_robusttongueactivation", "robust tongue activation", (qword_280C03828 + 220));
+      sub_240224A54(&v21, "facekit_maxangle_tongue", "max angle for tongue activation", (qword_280C03828 + 224));
+      sub_240224A54(&v21, "facekit_maxexpression_tongue", "max expression for tongue activation", (qword_280C03828 + 228));
+      sub_240224ECC(&v21, "facekit_luxlevel_threshold", "lux level threshold", (qword_280C03828 + 236));
+      sub_240224608(&v21, "facekit_use_debug_profile", "use debug profile", (qword_280C03828 + 280));
       if (cva::DictionaryHandler::hasKey(v22, "facekit_debug_profile_path"))
       {
         cva::DictionaryHandler::item(v28, v22, "facekit_debug_profile_path");
@@ -357,11 +357,11 @@ void sub_240222FB8()
       }
 
       cva::DictionaryHandler::removeItem(v22, "facekit_debug_profile_path");
-      sub_240224A54(&v21, "face_identity_cluster_detection_range_v4");
-      sub_240224A54(&v21, "face_identity_cluster_radius_v4");
-      sub_240224ECC(&v21, "recognition_update_period");
-      sub_240224608(&v21, "facekit_force_debug_info");
-      sub_240224ECC(&v21, "facekit_postprocessing_kernel_size");
+      sub_240224A54(&v21, "face_identity_cluster_detection_range_v4", "face identity cluster detection range", (qword_280C03828 + 312));
+      sub_240224A54(&v21, "face_identity_cluster_radius_v4", "face identity cluster radius", (qword_280C03828 + 316));
+      sub_240224ECC(&v21, "recognition_update_period", "recognition update period in ms", (qword_280C03828 + 320));
+      sub_240224608(&v21, "facekit_force_debug_info", "force debug info", (qword_280C03828 + 324));
+      sub_240224ECC(&v21, "facekit_postprocessing_kernel_size", "postprocessing kernel size", (qword_280C03828 + 240));
       if (cva::DictionaryHandler::hasKey(v22, "facekit_postprocessing_time_std"))
       {
         cva::DictionaryHandler::item(v28, v22, "facekit_postprocessing_time_std");
@@ -369,12 +369,12 @@ void sub_240222FB8()
       }
 
       cva::DictionaryHandler::removeItem(v22, "facekit_postprocessing_time_std");
-      sub_240224A54(&v21, "facekit_postprocessing_blendshape_std");
-      sub_240224A54(&v21, "facekit_postprocessing_blendshape_brow_multiplier");
-      sub_240224A54(&v21, "facekit_postprocessing_blendshape_eye_multiplier");
-      sub_240224A54(&v21, "facekit_postprocessing_blendshape_mouth_multiplier");
-      sub_240224A54(&v21, "facekit_postprocessing_rotation_std");
-      sub_240224A54(&v21, "facekit_postprocessing_translation_std");
+      sub_240224A54(&v21, "facekit_postprocessing_blendshape_std", "postprocessing blendshapes std", (qword_280C03828 + 256));
+      sub_240224A54(&v21, "facekit_postprocessing_blendshape_brow_multiplier", "postprocessing blendshapes brow multiplier", (qword_280C03828 + 260));
+      sub_240224A54(&v21, "facekit_postprocessing_blendshape_eye_multiplier", "postprocessing blendshapes eye multiplier", (qword_280C03828 + 264));
+      sub_240224A54(&v21, "facekit_postprocessing_blendshape_mouth_multiplier", "postprocessing blendshapes mouth multiplier", (qword_280C03828 + 268));
+      sub_240224A54(&v21, "facekit_postprocessing_rotation_std", "postprocessing rotation std", (qword_280C03828 + 272));
+      sub_240224A54(&v21, "facekit_postprocessing_translation_std", "postprocessing translation std", (qword_280C03828 + 276));
       v5 = cva::DictionaryHandler::getDictionary(v22);
       Count = CFDictionaryGetCount(v5);
       if (Count)
@@ -471,71 +471,71 @@ void sub_240222FB8()
   objc_autoreleasePoolPop(context);
 }
 
-void sub_2402244D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
+void sub_2402244D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, char a53)
 {
   sub_2402254D0(&a53);
   cva::DictionaryHandler::~DictionaryHandler(&a15);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_240224608(cva::DictionaryHandler **a1, const char *a2)
+uint64_t sub_240224608(cva::DictionaryHandler **a1, const char *a2, const char *a3, _BYTE *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = *a1;
   if (cva::DictionaryHandler::hasKey(*a1, a2))
   {
-    cva::DictionaryHandler::item(&v6, v4, a2);
+    cva::DictionaryHandler::item(&v8, v6, a2);
     cva::ItemHandler::getValue<BOOL>();
   }
 
   return cva::DictionaryHandler::removeItem(*a1, a2);
 }
 
-void sub_240224A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240224A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   sub_2402254D0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_240224A54(cva::DictionaryHandler **a1, const char *a2)
+uint64_t sub_240224A54(cva::DictionaryHandler **a1, const char *a2, const char *a3, float *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = *a1;
   if (cva::DictionaryHandler::hasKey(*a1, a2))
   {
-    cva::DictionaryHandler::item(&v6, v4, a2);
+    cva::DictionaryHandler::item(&v8, v6, a2);
     cva::ItemHandler::getValue<float>();
   }
 
   return cva::DictionaryHandler::removeItem(*a1, a2);
 }
 
-void sub_240224E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_240224E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   sub_2402254D0(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_240224ECC(cva::DictionaryHandler **a1, const char *a2)
+uint64_t sub_240224ECC(cva::DictionaryHandler **a1, const char *a2, const char *a3, _DWORD *a4)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4 = *a1;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = *a1;
   if (cva::DictionaryHandler::hasKey(*a1, a2))
   {
-    cva::DictionaryHandler::item(&v6, v4, a2);
+    cva::DictionaryHandler::item(&v8, v6, a2);
     cva::ItemHandler::getValue<int>();
   }
 
   return cva::DictionaryHandler::removeItem(*a1, a2);
 }
 
-void sub_2402252E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2402252E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   sub_2402254D0(va);
   _Unwind_Resume(a1);
@@ -590,9 +590,9 @@ uint64_t sub_2402254D0(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_2402255F0(void *a1)
+uint64_t sub_2402255F0(cva::DictionaryHandler **a1, cva::DictionaryHandler *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   sub_24024BD98(&__p, "resources_facekit/");
   size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -612,11 +612,11 @@ uint64_t sub_2402255F0(void *a1)
     __cxa_guard_release(&qword_280C03A00);
   }
 
-  v3 = qword_280C03978;
+  v4 = qword_280C03978;
   if (os_log_type_enabled(qword_280C03978, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_2401B8000, v3, OS_LOG_TYPE_ERROR, "cannot find resources", buf, 2u);
+    _os_log_error_impl(&dword_2401B8000, v4, OS_LOG_TYPE_ERROR, "cannot find resources", buf, 2u);
   }
 
   *a1 = 0;
@@ -1013,7 +1013,7 @@ LABEL_86:
   v86 = v152 - v77;
   v87 = 126 - 2 * __clz(v86);
   *&v150[0] = a1 + 96;
-  *(&v150[0] + 1) = &v148;
+  *(&v150[0] + 1) = v148;
   if (v152 == v77)
   {
     v88 = 0;
@@ -1138,8 +1138,8 @@ LABEL_162:
   {
     if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 104) - *(a1 + 96)) >> 2))
     {
-      sub_2402546E0(&v148);
-      sub_2402552EC(v150, &v148, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/quad_mesh.cpp", 0x416u, "assert %s failed. triangle_to_part.size() != m_tris_vi.size()%s", "triangle_to_part.size() == m_tris_vi.size()");
+      sub_2402546E0(v148);
+      sub_2402552EC(v150, v148, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/quad_mesh.cpp", 0x416u, "assert %s failed. triangle_to_part.size() != m_tris_vi.size()%s", "triangle_to_part.size() == m_tris_vi.size()", "");
       sub_240256698(v150);
       v110 = v149;
       if (v149 && !atomic_fetch_add(&v149->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -1154,8 +1154,8 @@ LABEL_162:
     if (v86)
     {
       sub_2402546E0(&v146);
-      sub_2402552EC(&v148, &v146, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/quad_mesh.cpp", 0x417u, "assert %s failed. triangle_to_part .size() != order.size()%s", "triangle_to_part.size() == order.size()");
-      sub_240256698(&v148);
+      sub_2402552EC(v148, &v146, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/shrek/libs/alg/geometry/src/three_d/quad_mesh.cpp", 0x417u, "assert %s failed. triangle_to_part .size() != order.size()%s", "triangle_to_part.size() == order.size()", "");
+      sub_240256698(v148);
       v111 = v147;
       if (v147)
       {
@@ -1787,23 +1787,23 @@ LABEL_28:
   return result;
 }
 
-void sub_24022B740(cva::ArrayHandler **a1, uint64_t a2)
+void sub_24022B740(cva::ArrayHandler **a1, uint64_t a2, float a3, float a4, float a5)
 {
-  v3 = cva::ArrayHandler::size(*a1);
-  if (v3 != *(a2 + 16))
+  v7 = cva::ArrayHandler::size(*a1);
+  if (v7 != *(a2 + 16))
   {
-    *(a2 + 16) = v3;
-    if (v3)
+    *(a2 + 16) = v7;
+    if (v7)
     {
-      v4 = v3;
-      if (*(a2 + 8) < v3)
+      v8 = v7;
+      if (*(a2 + 8) < v7)
       {
         free(*a2);
-        v5 = (4 * v4 + 31) & 0x7FFFFFFE0;
+        v9 = (4 * v8 + 31) & 0x7FFFFFFE0;
         *a2 = 0;
-        *(a2 + 8) = v5 >> 2;
+        *(a2 + 8) = v9 >> 2;
         memptr = 0;
-        malloc_type_posix_memalign(&memptr, 0x20uLL, v5, 0xE1AC2527uLL);
+        malloc_type_posix_memalign(&memptr, 0x20uLL, v9, 0xE1AC2527uLL);
         *a2 = memptr;
       }
     }
@@ -1815,18 +1815,20 @@ void sub_24022B740(cva::ArrayHandler **a1, uint64_t a2)
       *(a2 + 8) = 0;
     }
 
-    v3 = *(a2 + 16);
+    v7 = *(a2 + 16);
   }
 
-  if (v3)
+  if (v7)
   {
-    memset_pattern16(*a2, &unk_240270D20, 4 * v3);
+    memset_pattern16(*a2, &unk_240270D20, 4 * v7);
   }
 
-  v7[0] = 0;
-  v7[1] = 0;
-  memptr = v7;
-  sub_24022C1FC();
+  v13[0] = 0;
+  v13[1] = 0;
+  memptr = v13;
+  __p = "browDown_L";
+  v11[0] = a3;
+  sub_24022C1FC(&memptr, &__p);
 }
 
 void *sub_24022C62C(void *result)
@@ -1843,7 +1845,7 @@ void *sub_24022C62C(void *result)
     result = v6;
     if (v5)
     {
-      sub_24022C6E8();
+      sub_24022C6E8(&v7);
     }
   }
 
@@ -1921,12 +1923,12 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   v25 = v8;
   if (v9)
   {
-    [v9 processIncomingExpressions:&v21];
+    objc_msgSend_processIncomingExpressions_(v9);
     LOBYTE(add) = v26;
     if (v26 >= 4)
     {
       sub_2402546E0(&v21);
-      sub_2402552EC(v33, &v21, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+      sub_2402552EC(v33, &v21, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
       sub_240256698(v33);
       v12 = *(v22.i64 + 4);
       if (*(v22.i64 + 4))
@@ -1956,7 +1958,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (*(&v26 + 1) >= 4uLL)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v13 = v32;
     if (v32)
@@ -1975,7 +1977,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (v27 >= 4)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v14 = v32;
     if (v32)
@@ -1994,7 +1996,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (*(&v27 + 1) >= 4uLL)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v15 = v32;
     if (v32)
@@ -2013,7 +2015,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (v28 >= 4)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v16 = v32;
     if (v32)
@@ -2032,7 +2034,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (*(&v28 + 1) >= 4uLL)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v17 = v32;
     if (v32)
@@ -2051,7 +2053,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (v29 >= 4)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v18 = v32;
     if (v32)
@@ -2070,7 +2072,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (*(&v29 + 1) >= 4uLL)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v19 = v32;
     if (v32)
@@ -2089,7 +2091,7 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   if (v30 >= 4)
   {
     sub_2402546E0(&v31);
-    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false");
+    sub_2402552EC(v33, &v31, 0, 0, "[RELEASE ERROR  ]", "/Library/Caches/com.apple.xbs/Sources/AppleCVA/shared/src/modules/avatar/facekit/accessibilityfilter.mm", 0x2Fu, "assert %s failed. activation value not implemented%s", "false", "");
     sub_240256698(v33);
     v20 = v32;
     if (v32)
@@ -2109,10 +2111,10 @@ void sub_240232110(void ***a1, uint64_t a2, uint64_t a3)
   objc_autoreleasePoolPop(v6);
 }
 
-const void *sub_2402327F4(uint64_t a1)
+const void *sub_2402327F4(unsigned __int8 *a1)
 {
   cva::DictionaryHandler::DictionaryHandler(v5);
-  if (*(a1 + 20))
+  if (a1[20])
   {
     cva::DictionaryHandler::DictionaryHandler(v4);
     cva::ItemHandler::createValue<int>();
@@ -2124,7 +2126,7 @@ const void *sub_2402327F4(uint64_t a1)
   return Dictionary;
 }
 
-void sub_240232ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, void *a17)
+void sub_240232ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
 {
   cva::ItemHandler::~ItemHandler(&a17);
   cva::DictionaryHandler::~DictionaryHandler(&a11);
@@ -2232,7 +2234,7 @@ void sub_240232D04(uint64_t a1)
   std::mutex::unlock((a1 + 16));
 }
 
-uint64_t sub_240232DE8(uint64_t a1)
+uint64_t sub_240232DE8(uint64_t a1, void *a2)
 {
   std::mutex::lock((a1 + 16));
   if (*(a1 + 128) != 1)
@@ -2244,7 +2246,7 @@ uint64_t sub_240232DE8(uint64_t a1)
   return 0;
 }
 
-void sub_240232F44(uint64_t a1, void *a2, int a3, uint64_t a4)
+void sub_240232F44(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
 {
   v23.__m_ = (a1 + 16);
   v23.__owns_ = 1;
@@ -2487,11 +2489,11 @@ void sub_2402334E0(uint64_t a1)
 {
   v1 = *(a1 + 8);
   v2 = objc_autoreleasePoolPush();
-  v21 = 0;
   v22 = 0;
-  sub_240232F44(v1 + 40, &v21, 0, 0);
-  v4 = v21;
-  if (v21)
+  v23 = 0;
+  sub_240232F44(v1 + 40, &v22, 0, 0);
+  v4 = v22;
+  if (v22)
   {
     v5 = v3;
   }
@@ -2507,21 +2509,22 @@ void sub_2402334E0(uint64_t a1)
     v6 = *(v1 + 192);
     std::mutex::unlock((v1 + 56));
     kdebug_trace();
-    v20[0] = 0;
-    v20[1] = 0;
+    v21[0] = 0;
+    v21[1] = 0;
     v7 = *(v4 + 48);
     if (v7)
     {
       if (v7 != 1)
       {
-        v17 = sub_2401F0C48();
+        sub_2401F0C48();
+        v18 = v17;
         sub_2401C1DF4(&time);
         os_unfair_lock_unlock(&unk_280C03818);
-        sub_2401C1DF4(v18);
+        sub_2401C1DF4(v19);
         kdebug_trace();
-        sub_2401C1DF4(v20);
-        sub_2401C1DF4(&v21);
-        _Unwind_Resume(v17);
+        sub_2401C1DF4(v21);
+        sub_2401C1DF4(&v22);
+        _Unwind_Resume(v18);
       }
 
       time = *(v4 + 24);
@@ -2532,23 +2535,23 @@ void sub_2402334E0(uint64_t a1)
     {
       kdebug_trace();
       v8 = *v1;
-      v19[0] = v4;
-      v19[1] = v22;
-      if (v22)
+      v20[0] = v4;
+      v20[1] = v23;
+      if (v23)
       {
-        atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
       }
 
-      sub_24020D924(&time, v8, v19);
+      sub_24020D924(&time, v8, v20);
     }
 
     kdebug_trace();
     v9 = *v1;
-    v18[0] = v4;
-    v18[1] = v22;
-    if (v22)
+    v19[0] = v4;
+    v19[1] = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
     }
 
     v10 = *v9;
@@ -2576,11 +2579,11 @@ void sub_2402334E0(uint64_t a1)
     os_unfair_lock_lock(&unk_280C03818);
     time.value = 0;
     *&time.timescale = 0;
-    sub_2402064F0();
+    sub_2402064F0(v20, v4, &time, 0, 0);
   }
 
-  v16 = v22;
-  if (v22 && !atomic_fetch_add((v22 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v16 = v23;
+  if (v23 && !atomic_fetch_add(v23 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v16->__on_zero_shared)(v16);
     std::__shared_weak_count::__release_weak(v16);
@@ -2597,10 +2600,10 @@ uint64_t sub_2402339E0(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t sub_240233A74(_BYTE ****a1, const __CFDictionary *a2)
+uint64_t sub_240233A74(NSObject *a1, const __CFDictionary *a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  if (****a1)
+  if (***a1->isa)
   {
     cva::DictionaryHandler::DictionaryHandler(v4, a2);
     operator new();
@@ -2622,7 +2625,7 @@ uint64_t sub_240233A74(_BYTE ****a1, const __CFDictionary *a2)
   return 0;
 }
 
-void sub_240235950(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, char a15, uint64_t a16, char a17, uint64_t a18, char a19, uint64_t a20, char a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_240235950(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
 {
   cva::ItemHandler::~ItemHandler((v40 - 224));
   CVPixelBufferRelease(v39);
@@ -2668,7 +2671,7 @@ void sub_240235B80(uint64_t a1, cva::DictionaryHandler **a2, CVPixelBufferRef pi
     v22 = 0;
     LODWORD(v18) = CVPixelBufferGetWidth(pixelBuffer);
     HIDWORD(v18) = CVPixelBufferGetHeight(pixelBuffer);
-    if (sub_240236604(*a2))
+    if (sub_240236604(*a2, v19, &v20[4], &v21))
     {
       if (sub_24022B260(buf, pixelBuffer))
       {
@@ -2729,12 +2732,12 @@ LABEL_14:
   *(a1 + 104) = 0;
 }
 
-uint64_t sub_240235E04(cva::DictionaryHandler *a1)
+uint64_t sub_240235E04(cva::DictionaryHandler *a1, _DWORD *a2)
 {
   result = cva::DictionaryHandler::hasKey(a1, @"disparity_invalid_value");
   if (result)
   {
-    cva::DictionaryHandler::item(&v3, a1, @"disparity_invalid_value");
+    cva::DictionaryHandler::item(&v4, a1, @"disparity_invalid_value");
     cva::ItemHandler::getValue<int>();
   }
 
@@ -2953,49 +2956,49 @@ void sub_240236338(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-void sub_240236374(cva::DictionaryHandler *a1, _DWORD *a2)
+void sub_240236374(cva::DictionaryHandler *a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
   cva::DictionaryHandler::DictionaryHandler(a1);
   memptr[3] = 16;
   memptr[0] = 0;
   malloc_type_posix_memalign(memptr, 0x20uLL, 0x40uLL, 0xE1AC2527uLL);
-  v3 = memptr[0];
+  v5 = memptr[0];
   memptr[2] = memptr[0];
   memptr[4] = 0x300000003;
   *memptr[0] = *a2;
-  v3[1] = a2[1];
-  v3[2] = a2[2];
-  v3[3] = a2[3];
-  v3[4] = a2[4];
-  v3[5] = a2[5];
-  v3[6] = a2[6];
-  v3[7] = a2[7];
-  v3[8] = a2[8];
+  v5[1] = a2[1];
+  v5[2] = a2[2];
+  v5[3] = a2[3];
+  v5[4] = a2[4];
+  v5[5] = a2[5];
+  v5[6] = a2[6];
+  v5[7] = a2[7];
+  v5[8] = a2[8];
   cva::ItemHandler::createMatrix<float>();
 }
 
-void sub_2402364A0(cva::DictionaryHandler *a1, _DWORD *a2)
+void sub_2402364A0(cva::DictionaryHandler *a1, _DWORD *a2, _DWORD *a3)
 {
   cva::DictionaryHandler::DictionaryHandler(a1);
   memptr[3] = 16;
   memptr[0] = 0;
   malloc_type_posix_memalign(memptr, 0x20uLL, 0x40uLL, 0xE1AC2527uLL);
-  v3 = memptr[0];
+  v4 = memptr[0];
   memptr[2] = memptr[0];
   memptr[4] = 0x300000003;
   *memptr[0] = *a2;
-  v3[1] = a2[1];
-  v3[2] = a2[2];
-  v3[3] = a2[3];
-  v3[4] = a2[4];
-  v3[5] = a2[5];
-  v3[6] = a2[6];
-  v3[7] = a2[7];
-  v3[8] = a2[8];
+  v4[1] = a2[1];
+  v4[2] = a2[2];
+  v4[3] = a2[3];
+  v4[4] = a2[4];
+  v4[5] = a2[5];
+  v4[6] = a2[6];
+  v4[7] = a2[7];
+  v4[8] = a2[8];
   cva::ItemHandler::createMatrix<float>();
 }
 
-uint64_t sub_240236604(cva::DictionaryHandler *a1)
+uint64_t sub_240236604(cva::DictionaryHandler *a1, _DWORD *a2, _DWORD *a3, _DWORD *a4)
 {
   result = cva::DictionaryHandler::hasKey(a1, @"intrinsics");
   if (result)
@@ -3003,19 +3006,19 @@ uint64_t sub_240236604(cva::DictionaryHandler *a1)
     result = cva::DictionaryHandler::hasKey(a1, @"extrinsics");
     if (result)
     {
-      cva::DictionaryHandler::item(v6, a1, @"extrinsics");
-      cva::ItemHandler::getDictionary(&v7, v6);
-      v4 = v7;
-      v3 = v8;
-      v7 = 0;
-      v8 = 0;
-      cva::ItemHandler::~ItemHandler(v6);
-      if (v4)
+      cva::DictionaryHandler::item(v11, a1, @"extrinsics");
+      cva::ItemHandler::getDictionary(&v12, v11);
+      v9 = v12;
+      v8 = v13;
+      v12 = 0;
+      v13 = 0;
+      cva::ItemHandler::~ItemHandler(v11);
+      if (v9)
       {
-        result = sub_240236798(v4);
+        result = sub_240236798(v9, a3, a4);
         if (result)
         {
-          cva::DictionaryHandler::item(v6, a1, @"intrinsics");
+          cva::DictionaryHandler::item(v11, a1, @"intrinsics");
           cva::ItemHandler::getMatrix<float>();
         }
       }
@@ -3025,14 +3028,14 @@ uint64_t sub_240236604(cva::DictionaryHandler *a1)
         result = 0;
       }
 
-      if (v3)
+      if (v8)
       {
-        if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          v5 = result;
-          (v3->__on_zero_shared)(v3);
-          std::__shared_weak_count::__release_weak(v3);
-          return v5;
+          v10 = result;
+          (v8->__on_zero_shared)(v8);
+          std::__shared_weak_count::__release_weak(v8);
+          return v10;
         }
       }
     }
@@ -3041,7 +3044,7 @@ uint64_t sub_240236604(cva::DictionaryHandler *a1)
   return result;
 }
 
-uint64_t sub_240236798(cva::DictionaryHandler *a1)
+uint64_t sub_240236798(cva::DictionaryHandler *a1, _DWORD *a2, _DWORD *a3)
 {
   result = cva::DictionaryHandler::hasKey(a1, @"rotation");
   if (result)
@@ -3049,7 +3052,7 @@ uint64_t sub_240236798(cva::DictionaryHandler *a1)
     result = cva::DictionaryHandler::hasKey(a1, @"translation");
     if (result)
     {
-      cva::DictionaryHandler::item(&v3, a1, @"rotation");
+      cva::DictionaryHandler::item(&v5, a1, @"rotation");
       cva::ItemHandler::getMatrix<float>();
     }
   }
@@ -3143,7 +3146,7 @@ void sub_240236908(uint64_t a1, unsigned int **a2, uint64_t a3)
 
 void sub_240236AA0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   v6 = *(a3 + 64);
   v5 = *(a3 + 72);
   if (v5)
@@ -3363,22 +3366,22 @@ LABEL_180:
                       }
                     }
 
-                    v158[0] = v6;
-                    v158[1] = v5;
+                    v157[0] = v6;
+                    v157[1] = v5;
                     if (!v5)
                     {
-                      v55 = v158;
+                      v55 = v157;
                       goto LABEL_188;
                     }
 
                     p_shared_owners = &v5->__shared_owners_;
                     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-                    v52 = v158;
+                    v52 = v157;
 LABEL_185:
-                    v154 = sub_2402377E4(a1, v52);
+                    sub_2402377E4(a1, v52);
                     if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
                     {
-                      (v5->__on_zero_shared)(v5, v154);
+                      (v5->__on_zero_shared)(v5);
                       std::__shared_weak_count::__release_weak(v5);
                     }
 
@@ -3386,7 +3389,7 @@ LABEL_185:
                   }
 
                   v120 = (4 * v110 + 31) & 0x7FFFFFFE0;
-                  v155 = v120 >> 2;
+                  v154 = v120 >> 2;
                   memptr = 0;
                   malloc_type_posix_memalign(&memptr, 0x20uLL, v120, 0xE1AC2527uLL);
                   v121 = memptr;
@@ -3453,7 +3456,7 @@ LABEL_185:
 LABEL_170:
                   v144 = *(v6 + 344);
                   *(v6 + 344) = v121;
-                  *(v6 + 352) = v155;
+                  *(v6 + 352) = v154;
                   *(v6 + 360) = v108;
                   *(v6 + 364) = v109;
 LABEL_179:
@@ -3904,17 +3907,17 @@ LABEL_15:
   v27 = *(a1 + 24);
   v28 = *(v27 + 88);
   v29 = *(v27 + 72);
-  v159[0] = v28;
-  v159[1] = v26;
-  v160 = v29;
-  v161 = v28;
-  v162 = 0;
+  v158[0] = v28;
+  v158[1] = v26;
+  v159 = v29;
+  v160 = v28;
+  v161 = 0;
   if (v28 == *(v6 + 176))
   {
 LABEL_31:
-    v167 = v159;
-    v168 = v6 + 136;
-    v169 = 1065353216;
+    v166 = v158;
+    v167 = v6 + 136;
+    v168 = 1065353216;
     sub_2402393DC(v6 + 160, &memptr);
     goto LABEL_38;
   }
@@ -3948,23 +3951,23 @@ LABEL_31:
   }
 
   v32 = (4 * v28 + 31) & 0x7FFFFFFE0;
-  v164 = v32 >> 2;
+  v163 = v32 >> 2;
   memptr = 0;
   malloc_type_posix_memalign(&memptr, 0x20uLL, v32, 0xE1AC2527uLL);
-  v163 = memptr;
-  v165 = v159[0];
-  v167 = v159;
-  v168 = v6 + 136;
-  v169 = 1065353216;
-  sub_2402393DC(&v163, &memptr);
+  v162 = memptr;
+  v164 = v158[0];
+  v166 = v158;
+  v167 = v6 + 136;
+  v168 = 1065353216;
+  sub_2402393DC(&v162, &memptr);
   v33 = *(v6 + 160);
   v34 = *(v6 + 168);
-  v35 = v164;
-  *(v6 + 160) = v163;
+  v35 = v163;
+  *(v6 + 160) = v162;
   *(v6 + 168) = v35;
-  v163 = v33;
-  v164 = v34;
-  *(v6 + 176) = v165;
+  v162 = v33;
+  v163 = v34;
+  *(v6 + 176) = v164;
   free(v33);
 LABEL_38:
   v36 = (v6 + 320);
@@ -4054,8 +4057,8 @@ LABEL_38:
       *(v6 + 280) = *(a2 + 104);
       *(v6 + 296) = v50;
       *v48 = v49;
-      v156 = v6;
-      v157 = v5;
+      v155 = v6;
+      v156 = v5;
       if (!v5)
       {
         goto LABEL_67;
@@ -4075,8 +4078,8 @@ LABEL_38:
       *(v6 + 296) = v54;
       *v48 = v53;
       *(v6 + 312) = 1;
-      v156 = v6;
-      v157 = v5;
+      v155 = v6;
+      v156 = v5;
       if (v5)
       {
         goto LABEL_65;
@@ -4088,19 +4091,19 @@ LABEL_38:
     *(v6 + 312) = 0;
   }
 
-  v156 = v6;
-  v157 = v5;
+  v155 = v6;
+  v156 = v5;
   if (v5)
   {
 LABEL_65:
     p_shared_owners = &v5->__shared_owners_;
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    v52 = &v156;
+    v52 = &v155;
     goto LABEL_185;
   }
 
 LABEL_67:
-  v55 = &v156;
+  v55 = &v155;
 LABEL_188:
   sub_2402377E4(a1, v55);
 LABEL_189:
@@ -4116,7 +4119,7 @@ LABEL_190:
   }
 }
 
-float sub_2402377E4(uint64_t a1, uint64_t *a2)
+void sub_2402377E4(uint64_t a1, uint64_t *a2)
 {
   v4 = *a2;
   v5 = a2[1];
@@ -4198,21 +4201,22 @@ LABEL_13:
   v14 = a2[1];
   v16[0] = v13;
   v16[1] = v14;
-  if (!v14)
+  if (v14)
   {
-    return sub_240237D00(a1, v16);
+    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    v15 = sub_240237D00(a1, v16);
+    if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v14->__on_zero_shared)(v14, v15);
+
+      std::__shared_weak_count::__release_weak(v14);
+    }
   }
 
-  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  result = sub_240237D00(a1, v16);
-  if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  else
   {
-    (v14->__on_zero_shared)(v14, result);
-
-    std::__shared_weak_count::__release_weak(v14);
+    sub_240237D00(a1, v16);
   }
-
-  return result;
 }
 
 uint64_t *sub_240237A0C(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7, int a8)
@@ -5816,7 +5820,7 @@ void *sub_24023A014(void *a1)
   return a1;
 }
 
-uint64_t sub_24023A100(void *a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t sub_24023A100(uint64_t *a1, void *a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v30 = a6;
   kdebug_trace();
@@ -5899,7 +5903,7 @@ uint64_t sub_24023A100(void *a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a
   v24 = &v27;
   v25 = &v30;
   v26 = &v29;
-  sub_24023A570(&v21, buf, 1, &off_278C9E4C8);
+  sub_24023A570(&v21, buf, 1u, &off_278C9E4C8);
   v16 = v21;
   if (!v21)
   {
@@ -5932,7 +5936,7 @@ LABEL_23:
   return kdebug_trace();
 }
 
-uint64_t sub_24023A570(void *a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t sub_24023A570(uint64_t *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v30 = *MEMORY[0x277D85DE8];
   kdebug_trace();
@@ -5976,10 +5980,10 @@ uint64_t sub_24023A570(void *a1, uint64_t a2, int a3, uint64_t a4)
       }
 
       v11 = v27;
-      sub_240253A70(&v26, v27 + 1, a4);
+      sub_240253A70(&v26, v27 + 1, a4, -1);
       if (v26)
       {
-        sub_240253A70(&v25, v11 + 4, &off_278C9E4D8);
+        sub_240253A70(&v25, v11 + 4, &off_278C9E4D8, -1);
         if (v25)
         {
           operator new();
@@ -6112,7 +6116,7 @@ uint64_t sub_24023A570(void *a1, uint64_t a2, int a3, uint64_t a4)
 LABEL_42:
   if (v27)
   {
-    (*(*v27 + 8))(v27);
+    (*(*v27 + 1))(v27);
   }
 
   return kdebug_trace();
@@ -6136,14 +6140,13 @@ void sub_24023AAD8(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-const void **sub_24023AB14(const void **result, void *a2)
+void sub_24023AB14(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -6164,35 +6167,33 @@ const void **sub_24023AB14(const void **result, void *a2)
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[2] = &v6[8 * v8];
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = (v5 - 8);
 }
 
-void *sub_24023ACA8(void *result, void *a2)
+void sub_24023ACA8(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -6211,27 +6212,25 @@ void *sub_24023ACA8(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
-const void **sub_24023AE30(const void **result, void *a2)
+void sub_24023AE30(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -6252,35 +6251,33 @@ const void **sub_24023AE30(const void **result, void *a2)
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[2] = &v6[8 * v8];
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v5 - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = (v5 - 8);
 }
 
-void *sub_24023AFC4(void *result, void *a2)
+void sub_24023AFC4(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -6299,17 +6296,16 @@ void *sub_24023AFC4(void *result, void *a2)
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
+    a1[1] = &v5[8 * v8];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 8;
-  return result;
+  a1[2] = (v4 + 8);
 }
 
 void sub_24023B17C(uint64_t a1, uint64_t ***a2)
@@ -7141,7 +7137,7 @@ void sub_24023BE6C(float32x2_t *a1, uint64_t a2, float32x2_t *a3)
   }
 }
 
-void sub_24023C490(float *a1, uint64_t a2, _DWORD *a3)
+void sub_24023C490(float *a1, uint64_t a2, float *a3)
 {
   if (*a2 > 1)
   {
@@ -7333,34 +7329,31 @@ void sub_24023CA44(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-float *sub_24023CAB8(float *result, float **a2)
+void sub_24023CAB8(float *a1, float **a2)
 {
-  v2 = result;
   v3 = *a2;
-  if (*a2 == result || (v4 = a2[1], v4 == result))
+  if (*a2 == a1 || (v4 = a2[1], v4 == a1))
   {
     v5 = 0;
-    result = sub_24023CAB8(&v5);
-    *v2 = v5;
+    sub_24023CAB8(&v5, a2);
+    *a1 = v5;
   }
 
   else
   {
-    *result = (((*v3 * *v4) + 0.0) + (v3[2] * v4[1])) + (v3[4] * v4[2]);
-    result[1] = (((v3[1] * *v4) + 0.0) + (v3[3] * v4[1])) + (v3[5] * v4[2]);
+    *a1 = (((*v3 * *v4) + 0.0) + (v3[2] * v4[1])) + (v3[4] * v4[2]);
+    a1[1] = (((v3[1] * *v4) + 0.0) + (v3[3] * v4[1])) + (v3[5] * v4[2]);
   }
-
-  return result;
 }
 
-double sub_24023CB5C(uint64_t a1, uint64_t a2)
+double sub_24023CB5C(uint64_t a1, float **a2)
 {
   v3 = *a2;
-  if (*a2 == a1 || (v4 = *(a2 + 8), v5 = *(v4 + 8), &v5[-*(v4 + 20)] == a1))
+  if (*a2 == a1 || (v4 = a2[1], v5 = *(v4 + 1), &v5[-*(v4 + 5)] == a1))
   {
     v10 = 0uLL;
     v11 = 0;
-    sub_24023CB5C(&v10);
+    sub_24023CB5C(&v10, a2);
     result = *&v10;
     *a1 = v10;
     *(a1 + 16) = v11;
@@ -7368,7 +7361,7 @@ double sub_24023CB5C(uint64_t a1, uint64_t a2)
 
   else
   {
-    v6 = *(v4 + 16);
+    v6 = *(v4 + 4);
     *a1 = ((*v3 * *v5) + 0.0) + (v3[2] * v5[1]);
     *(a1 + 4) = ((v3[1] * *v5) + 0.0) + (v3[3] * v5[1]);
     v7 = &v5[v6];
@@ -7383,14 +7376,14 @@ double sub_24023CB5C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-float *sub_24023CC70(float *result, uint64_t a2)
+float *sub_24023CC70(float *result, float **a2)
 {
   v2 = result;
   v3 = *a2;
-  if (*a2 == result || (v4 = *(a2 + 8), v5 = *(v4 + 8), &v5[-*(v4 + 20)] == result))
+  if (*a2 == result || (v4 = a2[1], v5 = *(v4 + 1), &v5[-*(v4 + 5)] == result))
   {
     v6 = 0;
-    result = sub_24023CC70(&v6);
+    result = sub_24023CC70(&v6, a2);
     *v2 = v6;
   }
 
@@ -7761,7 +7754,7 @@ LABEL_84:
           *(v91 + 120) = 0;
           if (*(v91 + 151) < 0)
           {
-            sub_2401F8070(v91 + 128, p_dst, v90);
+            sub_2401F8070((v91 + 128), p_dst, v90);
           }
 
           else if (v87 < 0)
@@ -7867,7 +7860,7 @@ LABEL_107:
       *(v81 + 120) = 0;
       if (*(v81 + 151) < 0)
       {
-        sub_2401F8070(v81 + 128, v79, v80);
+        sub_2401F8070((v81 + 128), v79, v80);
       }
 
       else if (locale_high < 0)
@@ -7902,9 +7895,9 @@ LABEL_104:
   return v95;
 }
 
-void sub_24023D6BC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_24023D6BC(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   sub_2402254D0(va);
 
   _Unwind_Resume(a1);
@@ -8062,9 +8055,9 @@ LABEL_14:
   return MEMORY[0x245CBC9C0](&v17);
 }
 
-void sub_24023DE84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24023DE84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_2402254D0(va);
   _Unwind_Resume(a1);
 }
@@ -8303,13 +8296,13 @@ uint64_t sub_24023E160(uint64_t a1, uint64_t *a2)
   return a1;
 }
 
-float *sub_24023E3D0(float *a1, uint64_t a2)
+uint64_t sub_24023E3D0(float *a1, uint64_t *a2)
 {
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   if (v3 == a1)
   {
     v7 = 0;
-    result = sub_24023E3D0(&v7);
+    result = sub_24023E3D0(&v7, a2);
     *a1 = v7;
   }
 
@@ -8333,7 +8326,7 @@ float *sub_24023E454(float *result, float **a2)
   if (*a2 == result || (v4 = a2[1], v4 == result))
   {
     v5 = 0;
-    result = sub_24023E454(&v5);
+    result = sub_24023E454(&v5, a2);
     *v2 = v5;
   }
 
@@ -8452,7 +8445,7 @@ void sub_24023E694(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-void sub_24023E708()
+void sub_24023E708(uint64_t *a1)
 {
   os_unfair_lock_lock(&unk_280C03948);
   if (!qword_280C03950)
@@ -8479,11 +8472,10 @@ void sub_24023FC1C()
   operator new();
 }
 
-void *sub_240241CB0(void *result, void *a2, uint64_t *a3, unint64_t a4)
+void sub_240241CB0(unint64_t *a1, void *a2, uint64_t *a3, unint64_t a4)
 {
-  v7 = result;
-  v8 = result[1];
-  v9 = result[2];
+  v8 = a1[1];
+  v9 = a1[2];
   v10 = (v9 - v8) >> 3;
   if (v9 == v8)
   {
@@ -8495,8 +8487,8 @@ void *sub_240241CB0(void *result, void *a2, uint64_t *a3, unint64_t a4)
     v11 = 341 * v10 - 1;
   }
 
-  v13 = result[4];
-  v12 = result[5];
+  v13 = a1[4];
+  v12 = a1[5];
   v14 = v12 + v13;
   v15 = v11 - (v12 + v13);
   v16 = a4 >= v15;
@@ -8526,19 +8518,19 @@ void *sub_240241CB0(void *result, void *a2, uint64_t *a3, unint64_t a4)
 
     if (v19 <= v13 / 0x155)
     {
-      for (result[4] = v13 - 341 * v20; v20; --v20)
+      for (a1[4] = v13 - 341 * v20; v20; --v20)
       {
-        v25 = v7[1];
+        v25 = a1[1];
         v38 = *v25;
-        v7[1] = v25 + 1;
-        result = sub_24023AFC4(v7, &v38);
+        a1[1] = (v25 + 1);
+        sub_24023AFC4(a1, &v38);
       }
     }
 
     else
     {
       v21 = v19 - v20;
-      v22 = result[3] - *result;
+      v22 = a1[3] - *a1;
       if (v19 - v20 > (v22 >> 3) - v10)
       {
         v23 = v22 >> 2;
@@ -8567,7 +8559,7 @@ void *sub_240241CB0(void *result, void *a2, uint64_t *a3, unint64_t a4)
 
       if (v21)
       {
-        if (result[3] != result[2])
+        if (a1[3] != a1[2])
         {
           operator new();
         }
@@ -8575,19 +8567,19 @@ void *sub_240241CB0(void *result, void *a2, uint64_t *a3, unint64_t a4)
         operator new();
       }
 
-      for (result[4] = v13 - 341 * v20; v20; --v20)
+      for (a1[4] = v13 - 341 * v20; v20; --v20)
       {
-        v26 = v7[1];
+        v26 = a1[1];
         v38 = *v26;
-        v7[1] = v26 + 1;
-        result = sub_24023AFC4(v7, &v38);
+        a1[1] = (v26 + 1);
+        sub_24023AFC4(a1, &v38);
       }
     }
 
-    v12 = v7[5];
-    v8 = v7[1];
-    v9 = v7[2];
-    v14 = v7[4] + v12;
+    v12 = a1[5];
+    v8 = a1[1];
+    v9 = a1[2];
+    v14 = a1[4] + v12;
   }
 
   v27 = (v8 + 8 * (v14 / 0x155));
@@ -8604,7 +8596,7 @@ LABEL_37:
     v31 = v27;
     if (v28 == v29)
     {
-      return result;
+      return;
     }
 
     goto LABEL_40;
@@ -8626,7 +8618,7 @@ LABEL_33:
     v29 = *v31 + 12 * (340 - (v32 % 0x155));
     if (v28 == v29)
     {
-      return result;
+      return;
     }
   }
 
@@ -8636,7 +8628,7 @@ LABEL_33:
     v29 = *v31 - 4092 * (v30 / 0x155uLL) + 12 * v30;
     if (v28 == v29)
     {
-      return result;
+      return;
     }
   }
 
@@ -8674,11 +8666,11 @@ LABEL_40:
       }
 
       while (v34 != v33);
-      v12 = v7[5];
+      v12 = a1[5];
     }
 
     v12 -= 0x5555555555555555 * ((v33 - v28) >> 2);
-    v7[5] = v12;
+    a1[5] = v12;
     if (v27 == v31)
     {
       break;
@@ -8690,14 +8682,12 @@ LABEL_40:
   }
 
   while (v37 != v29);
-  return result;
 }
 
-void *sub_240242568(void *result, void *a2, int *a3, unint64_t a4)
+void sub_240242568(unint64_t *a1, void *a2, int *a3, unint64_t a4)
 {
-  v7 = result;
-  v8 = result[1];
-  v9 = result[2];
+  v8 = a1[1];
+  v9 = a1[2];
   v10 = v9 - v8;
   if (v9 == v8)
   {
@@ -8709,8 +8699,8 @@ void *sub_240242568(void *result, void *a2, int *a3, unint64_t a4)
     v11 = ((v9 - v8) << 7) - 1;
   }
 
-  v13 = result[4];
-  v12 = result[5];
+  v13 = a1[4];
+  v12 = a1[5];
   v14 = v12 + v13;
   v15 = v11 - (v12 + v13);
   v16 = a4 >= v15;
@@ -8749,19 +8739,19 @@ void *sub_240242568(void *result, void *a2, int *a3, unint64_t a4)
 
     if (v19 <= v13 >> 10)
     {
-      for (result[4] = v13 - (v20 << 10); v20; --v20)
+      for (a1[4] = v13 - (v20 << 10); v20; --v20)
       {
-        v25 = v7[1];
+        v25 = a1[1];
         v38 = *v25;
-        v7[1] = v25 + 1;
-        result = sub_24023AFC4(v7, &v38);
+        a1[1] = (v25 + 1);
+        sub_24023AFC4(a1, &v38);
       }
     }
 
     else
     {
       v21 = v19 - v20;
-      v22 = result[3] - *result;
+      v22 = a1[3] - *a1;
       v23 = v10 >> 3;
       if (v21 > (v22 >> 3) - (v10 >> 3))
       {
@@ -8790,7 +8780,7 @@ void *sub_240242568(void *result, void *a2, int *a3, unint64_t a4)
 
       if (v21)
       {
-        if (result[3] != result[2])
+        if (a1[3] != a1[2])
         {
           operator new();
         }
@@ -8798,19 +8788,19 @@ void *sub_240242568(void *result, void *a2, int *a3, unint64_t a4)
         operator new();
       }
 
-      for (result[4] = v13 - (v20 << 10); v20; --v20)
+      for (a1[4] = v13 - (v20 << 10); v20; --v20)
       {
-        v26 = v7[1];
+        v26 = a1[1];
         v38 = *v26;
-        v7[1] = v26 + 1;
-        result = sub_24023AFC4(v7, &v38);
+        a1[1] = (v26 + 1);
+        sub_24023AFC4(a1, &v38);
       }
     }
 
-    v12 = v7[5];
-    v8 = v7[1];
-    v9 = v7[2];
-    v14 = v7[4] + v12;
+    v12 = a1[5];
+    v8 = a1[1];
+    v9 = a1[2];
+    v14 = a1[4] + v12;
   }
 
   v27 = (v8 + 8 * (v14 >> 10));
@@ -8880,11 +8870,11 @@ LABEL_52:
       }
 
       while (v34 != v33);
-      v12 = v7[5];
+      v12 = a1[5];
     }
 
     v12 += (v33 - v28) >> 2;
-    v7[5] = v12;
+    a1[5] = v12;
     if (v27 == v31)
     {
       break;
@@ -8894,8 +8884,6 @@ LABEL_52:
     ++v27;
     v28 = v37;
   }
-
-  return result;
 }
 
 double sub_240242D50(uint64_t a1, uint64_t a2)
@@ -9365,15 +9353,15 @@ void sub_240243360(std::__shared_weak_count *a1)
   JUMPOUT(0x245CBCA30);
 }
 
-float *sub_2402433D4(float *result, uint64_t a2)
+float *sub_2402433D4(float *result, float **a2)
 {
   v2 = result;
   v3 = *a2;
-  if (*a2 == result || (v4 = *(a2 + 8), v5 = *v4, (*v4 - 4 * *(v4 + 12)) == result))
+  if (*a2 == result || (v4 = a2[1], v5 = *v4, (*v4 - 4 * *(v4 + 3)) == result))
   {
     v7 = 0;
     v6 = 0;
-    result = sub_2402433D4(&v6);
+    result = sub_2402433D4(&v6, a2);
     *v2 = v6;
     *(v2 + 2) = v7;
   }

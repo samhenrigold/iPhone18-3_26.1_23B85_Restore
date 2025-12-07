@@ -1,6 +1,4 @@
 @interface _MDQueryTokenRewrite
-- (NSArray)variations;
-- (NSString)originalToken;
 - (_MDQueryTokenRewrite)initWithOriginalToken:(id)token variations:(id)variations;
 - (void)dealloc;
 - (void)setOriginalToken:(id)token;
@@ -10,52 +8,32 @@
 
 - (_MDQueryTokenRewrite)initWithOriginalToken:(id)token variations:(id)variations
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = _MDQueryTokenRewrite;
-  v6 = [(_MDQueryTokenRewrite *)&v9 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = _MDQueryTokenRewrite;
+  v6 = [(_MDQueryTokenRewrite *)&v8 init];
   if (v6)
   {
     v6->_originalToken = [token copy];
     v6->_variations = [variations copy];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = _MDQueryTokenRewrite;
-  [(_MDQueryTokenRewrite *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (NSString)originalToken
-{
-  result = self->_originalToken;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
+  v3.receiver = self;
+  v3.super_class = _MDQueryTokenRewrite;
+  [(_MDQueryTokenRewrite *)&v3 dealloc];
 }
 
 - (void)setOriginalToken:(id)token
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
 
   objc_setProperty_nonatomic_copy(self, a2, token, 8);
-}
-
-- (NSArray)variations
-{
-  result = self->_variations;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

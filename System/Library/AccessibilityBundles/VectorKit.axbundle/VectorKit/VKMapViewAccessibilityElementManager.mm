@@ -465,13 +465,13 @@ void __131__VKMapViewAccessibilityElementManager__accessibilityElementsForMapVie
   v9 = [v3 isCluster];
   v10 = [v3 isClusterChild];
   IsPointOfInterest = AXVKLabelMarkerIsPointOfInterest(v3);
-  IsVenueButton = AXVKLabelMarkerIsVenueButton(v3);
-  IsRouteEta = AXVKLabelMarkerIsRouteEta(v3);
+  v99 = AXVKLabelMarkerIsVenueButton(v3);
+  v12 = AXVKLabelMarkerIsRouteEta(v3);
   v13 = [v3 isRouteWaypoint];
   v101 = v8 || v6;
   if (*(a1 + 96) != 1)
   {
-    if (!(IsPointOfInterest | v9 | IsRouteEta | v13))
+    if (!(IsPointOfInterest | v9 | v12 | v13))
     {
       v21 = [MEMORY[0x29EDBD6B0] sharedInstance];
       v22 = [v21 ignoreLogging];
@@ -609,7 +609,7 @@ LABEL_56:
             v104 = v60;
           }
 
-          if (IsVenueButton)
+          if (v99)
           {
             v87 = AXVectorKitLocString(@"LOOK_INSIDE");
             v91 = @"__AXStringForVariablesSentinel";
@@ -618,7 +618,7 @@ LABEL_56:
             v104 = v61;
           }
 
-          if (IsRouteEta)
+          if (v12)
           {
             v100 = [v3 routeInfo];
             NSClassFromString(&cfstr_Vkalternaterou.isa);
@@ -651,7 +651,7 @@ LABEL_56:
           [oslog setIsPOI:IsPointOfInterest];
           [oslog setIsTransitStop:v4 == 5];
           [oslog setIsTransitLine:v6];
-          [oslog setIsRouteEta:IsRouteEta];
+          [oslog setIsRouteEta:v12];
           v65 = [v3 locale];
           [oslog setAccessibilityLanguage:v65];
 
@@ -3011,7 +3011,7 @@ void __72__VKMapViewAccessibilityElementManager_accessibilityElementsForMapView_
   return result;
 }
 
-uint64_t __57__VKMapViewAccessibilityElementManager_boundsForMapView___block_invoke(uint64_t a1)
+void *__57__VKMapViewAccessibilityElementManager_boundsForMapView___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) bounds];
   v3 = *(*(a1 + 40) + 8);
@@ -3053,7 +3053,7 @@ uint64_t __57__VKMapViewAccessibilityElementManager_boundsForMapView___block_inv
   return result;
 }
 
-uint64_t __57__VKMapViewAccessibilityElementManager_centerForMapView___block_invoke(uint64_t a1)
+void *__57__VKMapViewAccessibilityElementManager_centerForMapView___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) center];
   v3 = *(*(a1 + 40) + 8);
@@ -3081,7 +3081,7 @@ uint64_t __57__VKMapViewAccessibilityElementManager_centerForMapView___block_inv
   return v4;
 }
 
-uint64_t __62__VKMapViewAccessibilityElementManager_orientationForMapView___block_invoke(uint64_t a1)
+void *__62__VKMapViewAccessibilityElementManager_orientationForMapView___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) orientation];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3107,7 +3107,7 @@ uint64_t __62__VKMapViewAccessibilityElementManager_orientationForMapView___bloc
   return v4;
 }
 
-uint64_t __54__VKMapViewAccessibilityElementManager_yawForMapView___block_invoke(uint64_t a1)
+void *__54__VKMapViewAccessibilityElementManager_yawForMapView___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) yaw];
   *(*(*(a1 + 40) + 8) + 24) = v3;

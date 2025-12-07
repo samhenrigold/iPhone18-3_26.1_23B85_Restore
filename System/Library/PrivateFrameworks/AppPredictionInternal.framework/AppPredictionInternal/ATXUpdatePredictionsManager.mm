@@ -6,6 +6,8 @@
 - (ATXUpdatePredictionsManager)init;
 - (ATXUpdatePredictionsManager)initWithATXServer:(id)server actionProducer:(id)producer updateSources:(id)sources updatePredictionsLogger:(id)logger;
 - (id)_stringArrayFromBoxedConsumerSubTypeArray:(id)array;
+- (id)actionConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes;
+- (id)appConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes;
 - (id)disabledConsumerSubTypes;
 - (id)disabledConsumerSubTypesWithHomeScreenPageConfigs:(id)configs;
 - (id)documentConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes;
@@ -116,155 +118,148 @@ void __45__ATXUpdatePredictionsManager_sharedInstance__block_invoke()
 
 void __77__ATXUpdatePredictionsManager_updateBehavioralPredictionsIfOlderThan_reason___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason:*(a1 + 48)];
-  v4 = [*(a1 + 32) disabledConsumerSubTypes];
-  v5 = [*(a1 + 32) appConsumerSubTypesToUpdateWithRefreshRate:v4 disabledConsumerSubTypes:v3 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
-  v6 = [*(a1 + 32) actionConsumerSubTypesToUpdateWithRefreshRate:v4 disabledConsumerSubTypes:v3 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
-  v7 = __atxlog_handle_default();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v45 = *MEMORY[0x277D85DE8];
+  v2 = [objc_opt_class() shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason:*(a1 + 48)];
+  v3 = [*(a1 + 32) disabledConsumerSubTypes];
+  v4 = [*(a1 + 32) appConsumerSubTypesToUpdateWithRefreshRate:v3 disabledConsumerSubTypes:v2 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
+  v5 = [*(a1 + 32) actionConsumerSubTypesToUpdateWithRefreshRate:v3 disabledConsumerSubTypes:v2 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
+  v6 = __atxlog_handle_default(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v5];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v4];
     *buf = 138543874;
-    v45 = v10;
-    v46 = 2080;
-    v47 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
-    v48 = 2114;
-    v49 = v11;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: app consumerSubTypes to refresh: %{public}@", buf, 0x20u);
+    v40 = v8;
+    v41 = 2080;
+    v42 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
+    v43 = 2114;
+    v44 = v9;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: app consumerSubTypes to refresh: %{public}@", buf, 0x20u);
   }
 
-  v12 = __atxlog_handle_default();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = __atxlog_handle_default(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v16 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v6];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v5];
     *buf = 138543874;
-    v45 = v15;
-    v46 = 2080;
-    v47 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
-    v48 = 2114;
-    v49 = v16;
-    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: action consumerSubTypes to refresh: %{public}@", buf, 0x20u);
+    v40 = v13;
+    v41 = 2080;
+    v42 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
+    v43 = 2114;
+    v44 = v14;
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: action consumerSubTypes to refresh: %{public}@", buf, 0x20u);
   }
 
-  if ([v5 count] || objc_msgSend(v6, "count"))
+  if ([v4 count] || objc_msgSend(v5, "count"))
   {
-    v17 = objc_autoreleasePoolPush();
+    v15 = objc_autoreleasePoolPush();
     [*(a1 + 32) processLockscreenFeedbackNoSync];
+    objc_autoreleasePoolPop(v15);
+    v16 = objc_autoreleasePoolPush();
+    [*(a1 + 32) processHomeScreenFeedbackNoSync];
+    objc_autoreleasePoolPop(v16);
+    v17 = objc_autoreleasePoolPush();
+    [*(a1 + 32) processSpotlightAppFeedbackNoSync];
     objc_autoreleasePoolPop(v17);
     v18 = objc_autoreleasePoolPush();
-    [*(a1 + 32) processHomeScreenFeedbackNoSync];
-    objc_autoreleasePoolPop(v18);
-    v19 = objc_autoreleasePoolPush();
-    [*(a1 + 32) processSpotlightAppFeedbackNoSync];
-    objc_autoreleasePoolPop(v19);
-    v20 = objc_autoreleasePoolPush();
     [*(a1 + 32) processAppDirectoryFeedbackNoSync];
-    objc_autoreleasePoolPop(v20);
-    if ([v6 count])
+    objc_autoreleasePoolPop(v18);
+    if ([v5 count])
     {
-      v21 = objc_autoreleasePoolPush();
+      v19 = objc_autoreleasePoolPush();
       [*(a1 + 32) processSpotlightActionFeedbackNoSync];
-      objc_autoreleasePoolPop(v21);
+      objc_autoreleasePoolPop(v19);
     }
   }
 
-  v22 = objc_opt_new();
-  if ([v5 count])
+  v20 = objc_opt_new();
+  if ([v4 count])
   {
     [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"Start app predictions"];
-    v23 = objc_autoreleasePoolPush();
-    [*(a1 + 32) refreshAppPredictionsWithConsumerSubTypes:v5 featureCache:v22];
-    v24 = [*(a1 + 32) atxServer];
-    [v24 updateBlendingLayerForAllConsumerSubTypes];
+    v21 = objc_autoreleasePoolPush();
+    [*(a1 + 32) refreshAppPredictionsWithConsumerSubTypes:v4 featureCache:v20];
+    v22 = [*(a1 + 32) atxServer];
+    [v22 updateBlendingLayerForAllConsumerSubTypes];
 
-    objc_autoreleasePoolPop(v23);
+    objc_autoreleasePoolPop(v21);
     [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"End app predictions"];
   }
 
-  if ([v6 count])
+  if ([v5 count])
   {
     [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"Start action predictions"];
-    v25 = objc_autoreleasePoolPush();
-    [*(a1 + 32) refreshActionPredictionsWithConsumerSubTypes:v6 featureCache:v22];
-    v26 = [*(a1 + 32) actionProducer];
-    [v26 updateBlendingLayerForAllConsumerSubTypes];
+    v23 = objc_autoreleasePoolPush();
+    [*(a1 + 32) refreshActionPredictionsWithConsumerSubTypes:v5 featureCache:v20];
+    v24 = [*(a1 + 32) actionProducer];
+    [v24 updateBlendingLayerForAllConsumerSubTypes];
 
-    objc_autoreleasePoolPop(v25);
+    objc_autoreleasePoolPop(v23);
     [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"End action predictions"];
   }
 
   if ([MEMORY[0x277CEBC58] isSpotlightPlusEnabled])
   {
-    v27 = objc_autoreleasePoolPush();
-    v28 = [*(a1 + 32) documentConsumerSubTypesToUpdateWithRefreshRate:v4 disabledConsumerSubTypes:v3 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
-    v29 = __atxlog_handle_document_predictor();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v25 = objc_autoreleasePoolPush();
+    v26 = [*(a1 + 32) documentConsumerSubTypesToUpdateWithRefreshRate:v3 disabledConsumerSubTypes:v2 shouldOverrideRefreshRateForDisabledConsumerSubTypes:*(a1 + 56)];
+    v27 = __atxlog_handle_document_predictor(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = *(a1 + 32);
-      v31 = objc_opt_class();
-      NSStringFromClass(v31);
-      v43 = v27;
-      v33 = v32 = v4;
-      v34 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v28];
+      v28 = objc_opt_class();
+      NSStringFromClass(v28);
+      v38 = v25;
+      v30 = v29 = v3;
+      v31 = [*(a1 + 32) _stringArrayFromBoxedConsumerSubTypeArray:v26];
       *buf = 138543874;
-      v45 = v33;
-      v46 = 2080;
-      v47 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
-      v48 = 2114;
-      v49 = v34;
-      _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: document consumerSubTypes to refresh: %{public}@", buf, 0x20u);
+      v40 = v30;
+      v41 = 2080;
+      v42 = "[ATXUpdatePredictionsManager updateBehavioralPredictionsIfOlderThan:reason:]_block_invoke";
+      v43 = 2114;
+      v44 = v31;
+      _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ - %s: document consumerSubTypes to refresh: %{public}@", buf, 0x20u);
 
-      v4 = v32;
-      v27 = v43;
+      v3 = v29;
+      v25 = v38;
     }
 
-    if ([v28 count])
+    if ([v26 count])
     {
       [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"Start document predictions"];
-      v35 = objc_autoreleasePoolPush();
+      v32 = objc_autoreleasePoolPush();
       [*(a1 + 32) processSpotlightDocumentFeedbackNoSync];
-      objc_autoreleasePoolPop(v35);
-      v36 = objc_autoreleasePoolPush();
-      [*(a1 + 32) refreshDocumentPredictionsWithConsumerSubTypes:v28 featureCache:v22];
-      objc_autoreleasePoolPop(v36);
+      objc_autoreleasePoolPop(v32);
+      v33 = objc_autoreleasePoolPush();
+      [*(a1 + 32) refreshDocumentPredictionsWithConsumerSubTypes:v26 featureCache:v20];
+      objc_autoreleasePoolPop(v33);
       [MEMORY[0x277CEBCF8] logCurrentMemoryFootprint:@"End document predictions"];
     }
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v25);
   }
 
-  [*(a1 + 32) logPredictionUpdatesForBoxedAppConsumerSubTypes:v5 actionConsumerSubTypes:v6 reason:*(a1 + 48)];
-  if ([v5 count] || objc_msgSend(v6, "count"))
+  [*(a1 + 32) logPredictionUpdatesForBoxedAppConsumerSubTypes:v4 actionConsumerSubTypes:v5 reason:*(a1 + 48)];
+  if ([v4 count] || objc_msgSend(v5, "count"))
   {
-    v37 = objc_autoreleasePoolPush();
-    v38 = +[_ATXFeedback sharedInstance];
-    [v38 unloadCachedHistograms];
+    v34 = objc_autoreleasePoolPush();
+    v35 = +[_ATXFeedback sharedInstance];
+    [v35 unloadCachedHistograms];
 
-    v39 = +[ATXActionFeedback sharedInstance];
-    [v39 unloadCachedHistograms];
+    v36 = +[ATXActionFeedback sharedInstance];
+    [v36 unloadCachedHistograms];
 
-    objc_autoreleasePoolPop(v37);
+    objc_autoreleasePoolPop(v34);
   }
 
-  v40 = *(a1 + 40);
-  v41 = objc_opt_self();
-
-  v42 = *MEMORY[0x277D85DE8];
+  v37 = objc_opt_self();
 }
 
 + (BOOL)shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason:(unint64_t)reason
 {
   if (reason >= 0x18)
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(ATXUpdatePredictionsManager *)reason shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason:v5];
@@ -280,6 +275,36 @@ void __77__ATXUpdatePredictionsManager_updateBehavioralPredictionsIfOlderThan_re
   }
 
   return v4 & 1;
+}
+
+- (id)appConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes
+{
+  subTypesCopy = subTypes;
+  typesCopy = types;
+  atxServer = [(ATXUpdatePredictionsManager *)self atxServer];
+  v10 = [atxServer consumerSubTypesToUpdateWithRefreshRate:typesCopy disabledConsumerSubTypes:subTypesCopy shouldOverrideRefreshRateForDisabledConsumerSubTypes:rate];
+
+  return v10;
+}
+
+- (id)actionConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes
+{
+  subTypesCopy = subTypes;
+  typesCopy = types;
+  actionProducer = [(ATXUpdatePredictionsManager *)self actionProducer];
+
+  if (actionProducer)
+  {
+    actionProducer2 = [(ATXUpdatePredictionsManager *)self actionProducer];
+    v11 = [actionProducer2 consumerSubTypesToInvalidateForTTL:typesCopy disabledConsumerSubTypes:subTypesCopy shouldOverrideRefreshRateForDisabledConsumerSubTypes:rate];
+  }
+
+  else
+  {
+    v11 = objc_opt_new();
+  }
+
+  return v11;
 }
 
 - (id)documentConsumerSubTypesToUpdateWithRefreshRate:(double)rate disabledConsumerSubTypes:(id)types shouldOverrideRefreshRateForDisabledConsumerSubTypes:(BOOL)subTypes
@@ -423,34 +448,32 @@ LABEL_25:
       }
     }
 
-    v22 = __atxlog_handle_default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = __atxlog_handle_default(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
       allObjects = [v37 allObjects];
-      v26 = [(ATXUpdatePredictionsManager *)selfCopy _stringArrayFromBoxedConsumerSubTypeArray:allObjects];
+      v27 = [(ATXUpdatePredictionsManager *)selfCopy _stringArrayFromBoxedConsumerSubTypeArray:allObjects];
       *buf = 138412802;
-      v51 = v24;
+      v51 = v25;
       v52 = 2080;
       v53 = "[ATXUpdatePredictionsManager disabledConsumerSubTypesWithHomeScreenPageConfigs:]";
       v54 = 2112;
-      v55 = v26;
-      _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "%@ - %s: %@", buf, 0x20u);
+      v55 = v27;
+      _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "%@ - %s: %@", buf, 0x20u);
     }
 
-    v27 = [v37 copy];
+    v28 = [v37 copy];
     configsCopy = v31;
   }
 
   else
   {
-    v27 = [MEMORY[0x277CBEB98] set];
+    v28 = [MEMORY[0x277CBEB98] set];
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v28;
 }
 
 + (id)homeScreenPageConfigs
@@ -472,7 +495,7 @@ LABEL_25:
 
   if (!v6)
   {
-    v7 = __atxlog_handle_default();
+    v7 = __atxlog_handle_default(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       +[(ATXUpdatePredictionsManager *)v5];
@@ -582,22 +605,19 @@ LABEL_25:
 
 void __62__ATXUpdatePredictionsManager_processLockscreenFeedbackNoSync__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - finished processing lockscreen feedback with error: %@", &v9, 0x16u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - finished processing lockscreen feedback with error: %@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processHomeScreenFeedbackNoSync
@@ -629,22 +649,19 @@ void __62__ATXUpdatePredictionsManager_processLockscreenFeedbackNoSync__block_in
 
 void __62__ATXUpdatePredictionsManager_processHomeScreenFeedbackNoSync__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - finished processing homescreen feedback with error: %@", &v9, 0x16u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - finished processing homescreen feedback with error: %@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSpotlightAppFeedbackNoSync
@@ -676,22 +693,19 @@ void __62__ATXUpdatePredictionsManager_processHomeScreenFeedbackNoSync__block_in
 
 void __64__ATXUpdatePredictionsManager_processSpotlightAppFeedbackNoSync__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - finished processing spotlight app feedback with error: %@", &v9, 0x16u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - finished processing spotlight app feedback with error: %@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSpotlightActionFeedbackNoSync
@@ -723,22 +737,19 @@ void __64__ATXUpdatePredictionsManager_processSpotlightAppFeedbackNoSync__block_
 
 void __67__ATXUpdatePredictionsManager_processSpotlightActionFeedbackNoSync__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - finished processing spotlight action feedback with error: %@", &v9, 0x16u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - finished processing spotlight action feedback with error: %@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAppDirectoryFeedbackNoSync
@@ -770,38 +781,34 @@ void __67__ATXUpdatePredictionsManager_processSpotlightActionFeedbackNoSync__blo
 
 void __64__ATXUpdatePredictionsManager_processAppDirectoryFeedbackNoSync__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_feedback();
+  v4 = __atxlog_handle_feedback(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "Got app directory feedback: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_INFO, "Got app directory feedback: %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) handleNewFeedbackResult:v3];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ATXUpdatePredictionsManager_processAppDirectoryFeedbackNoSync__block_invoke_81(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = __atxlog_handle_default(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - finished processing app directory feedback with error: %@", &v9, 0x16u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "%@ - finished processing app directory feedback with error: %@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logPredictionUpdatesForBoxedAppConsumerSubTypes:(id)types actionConsumerSubTypes:(id)subTypes reason:(unint64_t)reason
@@ -820,61 +827,58 @@ void __64__ATXUpdatePredictionsManager_processAppDirectoryFeedbackNoSync__block_
 
 - (id)_stringArrayFromBoxedConsumerSubTypeArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        unsignedIntegerValue = [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue];
         v11 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:unsignedIntegerValue];
         [v4 addObject:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (void)shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason called with invalid ATXUpdatePredictionsReason value of %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "shouldOverrideRefreshRateForDisabledConsumerSubTypesForReason called with invalid ATXUpdatePredictionsReason value of %lu", &v2, 0xCu);
 }
 
 + (void)homeScreenPageConfigs
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unable to fetch HomeScreen Page Configs with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unable to fetch HomeScreen Page Configs with error: %@", &v2, 0xCu);
 }
 
 @end

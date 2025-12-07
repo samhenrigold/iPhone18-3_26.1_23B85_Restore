@@ -78,7 +78,6 @@ void ___CFMachPortCreateWithPort4_block_invoke_2(uint64_t a1)
   }
 
   os_unfair_lock_unlock(&__CFAllMachPortsLock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

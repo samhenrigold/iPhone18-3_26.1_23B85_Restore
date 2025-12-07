@@ -412,9 +412,9 @@ uint64_t __57__SUUIImageDeckView_reloadWithViewElement_width_context___block_inv
 void __46__SUUIImageDeckView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v7 = [a2 itmlID];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([*(a1 + 40) count] > a3)
     {

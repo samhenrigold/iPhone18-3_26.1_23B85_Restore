@@ -132,31 +132,7 @@
 - (BOOL)shouldIgnoreTrigger:(id)trigger withState:(id)state
 {
   triggerCopy = trigger;
-  stateCopy = state;
-  if (([triggerCopy isEqualToString:@"com.apple.duetactivityscheduler.energybudgetpolicy.status"] & 1) == 0 && !objc_msgSend(triggerCopy, "isEqualToString:", @"com.apple.duetactivityscheduler.pluggedinpolicy.ispluggedin"))
-  {
-    goto LABEL_6;
-  }
-
-  [(_DASEnergyBudgetPolicy *)self updateSystemConstraintsWithContext:stateCopy];
-  v8 = [_DASEnergyBudgetPolicy budgetIsPositive:stateCopy];
-  v9 = +[_DASPLLogger sharedInstance];
-  [v9 reportNewStatus:v8 forTrigger:off_10020ACC0];
-
-  v10 = +[_CDContextQueries keyPathForPluginStatus];
-  v11 = [stateCopy objectForKeyedSubscript:v10];
-  bOOLValue = [v11 BOOLValue];
-
-  if (![triggerCopy isEqualToString:@"com.apple.duetactivityscheduler.energybudgetpolicy.status"] || !v8 || bOOLValue)
-  {
-    v13 = [triggerCopy isEqualToString:@"com.apple.duetactivityscheduler.pluggedinpolicy.ispluggedin"] ^ 1 | v8 | bOOLValue ^ 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v13 = 0;
-  }
+  v13 = (([triggerCopy isEqualToString:@"com.apple.duetactivityscheduler.energybudgetpolicy.status"] & 1) != 0 || objc_msgSend(triggerCopy, "isEqualToString:", @"com.apple.duetactivityscheduler.pluggedinpolicy.ispluggedin")) && ((-[_DASEnergyBudgetPolicy updateSystemConstraintsWithContext:](self, "updateSystemConstraintsWithContext:", v7), v8 = +[_DASEnergyBudgetPolicy budgetIsPositive:](_DASEnergyBudgetPolicy, "budgetIsPositive:", v7), +[_DASPLLogger sharedInstance](_DASPLLogger, "sharedInstance"), v9 = v7 = state;
 
   return v13;
 }

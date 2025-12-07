@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100010400();
+  sub_100010400(selfCopy);
 }
 
 - (_TtC15Diagnostic_600438MicrophoneTestEvaluatingViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

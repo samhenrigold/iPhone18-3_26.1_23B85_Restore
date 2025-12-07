@@ -177,31 +177,29 @@ LABEL_6:
 - (BOOL)isEqualToPersistedChannelIdentity:(id)identity
 {
   identityCopy = identity;
-  applicationIdentifier = self->_applicationIdentifier;
   applicationIdentifier = [identityCopy applicationIdentifier];
   if (TUObjectsAreEqualOrNil())
   {
-    bundleIdentifier = self->_bundleIdentifier;
     bundleIdentifier = [identityCopy bundleIdentifier];
     if (TUObjectsAreEqualOrNil())
     {
       channelUUID = self->_channelUUID;
       channelUUID = [identityCopy channelUUID];
-      v11 = [(NSUUID *)channelUUID isEqual:channelUUID];
+      v9 = [(NSUUID *)channelUUID isEqual:channelUUID];
     }
 
     else
     {
-      v11 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 + (id)unarchivedObjectClasses

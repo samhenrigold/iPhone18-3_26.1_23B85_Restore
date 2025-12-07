@@ -46,7 +46,7 @@
   dataclassesCopy = dataclasses;
   accountCopy = account;
   completionCopy = completion;
-  v10 = _AALogSystem();
+  v10 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [AASignInOperationHelper signInAccount:v10 enablingDataclasses:? completion:?];
@@ -78,7 +78,7 @@
   accountCopy = account;
   actionsCopy = actions;
   completionCopy = completion;
-  v11 = _AALogSystem();
+  v11 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [AASignInOperationHelper signInAccount:v11 withDataclassActions:? completion:?];
@@ -98,7 +98,7 @@
 - (void)_refreshEnabledDataclassesForAccount:(id)account
 {
   accountCopy = account;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(accountCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(AASignInOperationHelper *)accountCopy _refreshEnabledDataclassesForAccount:v4];
@@ -117,11 +117,10 @@
 
 - (void)_refreshEnabledDataclassesForAccount:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Refreshing enabled dataclasses for account: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Refreshing enabled dataclasses for account: %@", &v2, 0xCu);
 }
 
 @end

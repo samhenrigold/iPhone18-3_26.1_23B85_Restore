@@ -21,12 +21,4 @@
   }
 }
 
-- (void)setNotificationSentDate:()AFibBurdenNotificationManagerAdherence .cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@] Failed to write notification last sent date due to error %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

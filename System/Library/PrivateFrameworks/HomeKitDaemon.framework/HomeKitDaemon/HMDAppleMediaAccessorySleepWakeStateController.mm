@@ -34,7 +34,7 @@
 
 - (void)_handleFetchSleepWakeStateMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dataSource = [(HMDAppleMediaAccessorySleepWakeStateController *)&self->super.super.isa dataSource];
   v6 = [dataSource deviceForAppleMediaAccessorySleepWakeStateController:self];
@@ -52,7 +52,7 @@
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v13;
+        v23 = v13;
         v14 = "%{public}@Unsupported attempt to fetch sleep wake state on a non TVOS device";
 LABEL_12:
         _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
@@ -63,7 +63,7 @@ LABEL_12:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v13;
+      v23 = v13;
       v14 = "%{public}@Unsupported attempt to fetch sleep wake state on a non ATV device";
       goto LABEL_12;
     }
@@ -84,7 +84,7 @@ LABEL_12:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v18;
+      v23 = v18;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot relay remote fetch sleep wake message twice", buf, 0xCu);
     }
 
@@ -95,18 +95,16 @@ LABEL_12:
 
   else
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeStateMessage___block_invoke;
-    v21[3] = &unk_278688DF8;
-    v22 = messageCopy;
-    [(HMDAppleMediaAccessorySleepWakeStateController *)self fetchSleepWakeStateWithCompletion:v21];
-    v7 = v22;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeStateMessage___block_invoke;
+    v20[3] = &unk_278688DF8;
+    v21 = messageCopy;
+    [(HMDAppleMediaAccessorySleepWakeStateController *)self fetchSleepWakeStateWithCompletion:v20];
+    v7 = v21;
   }
 
 LABEL_14:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataSource
@@ -122,31 +120,28 @@ LABEL_14:
 
 void __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeStateMessage___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a3)
   {
-    v4 = *MEMORY[0x277D85DE8];
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v5 respondWithError:?];
+    [v4 respondWithError:?];
   }
 
   else
   {
-    v9 = *MEMORY[0x277CCFD48];
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-    v10[0] = v6;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
-    [v3 respondWithPayload:v7];
-
-    v8 = *MEMORY[0x277D85DE8];
+    v7 = *MEMORY[0x277CCFD48];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    [v3 respondWithPayload:v6];
   }
 }
 
 - (void)fetchSleepWakeStateWithCompletion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dataSource = [(HMDAppleMediaAccessorySleepWakeStateController *)&self->super.super.isa dataSource];
   v6 = [dataSource deviceForAppleMediaAccessorySleepWakeStateController:self];
@@ -190,8 +185,8 @@ void __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeS
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageToDevice___block_invoke;
-      v37 = &unk_278689DC0;
-      v38 = selfCopy;
+      v36 = &unk_278689DC0;
+      v37 = selfCopy;
       [v21 setResponseHandler:buf];
       isCurrentDevice = [v17 isCurrentDevice];
 
@@ -208,20 +203,20 @@ void __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeS
       v12 = &unk_22A586000;
     }
 
-    v31 = MEMORY[0x277D85DD0];
-    v32 = v12[441];
-    v24 = v32;
-    v33 = __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStateWithCompletion___block_invoke;
-    v34 = &unk_278688DA8;
+    v30 = MEMORY[0x277D85DD0];
+    v31 = v12[441];
+    v24 = v31;
+    v32 = __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStateWithCompletion___block_invoke;
+    v33 = &unk_278688DA8;
     v25 = completionCopy;
-    v35 = v25;
-    v26 = [(NAFuture *)v7 addSuccessBlock:&v31];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = v24;
-    v29[2] = __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStateWithCompletion___block_invoke_2;
-    v29[3] = &unk_278688DD0;
-    v30 = v25;
-    v27 = [(NAFuture *)v7 addFailureBlock:v29];
+    v34 = v25;
+    v26 = [(NAFuture *)v7 addSuccessBlock:&v30];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = v24;
+    v28[2] = __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStateWithCompletion___block_invoke_2;
+    v28[3] = &unk_278688DD0;
+    v29 = v25;
+    v27 = [(NAFuture *)v7 addFailureBlock:v28];
   }
 
   else
@@ -241,8 +236,6 @@ void __84__HMDAppleMediaAccessorySleepWakeStateController__handleFetchSleepWakeS
     v7 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     (*(completionCopy + 2))(completionCopy, 0, v7);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -261,7 +254,7 @@ uint64_t __84__HMDAppleMediaAccessorySleepWakeStateController_fetchSleepWakeStat
 
 void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageToDevice___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -280,11 +273,11 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = v5;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching sleep wake state failed with error: %@", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v14;
+      v23 = 2112;
+      v24 = v5;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Fetching sleep wake state failed with error: %@", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -307,11 +300,11 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = 0;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Fetching sleep wake state failed, missing sleep wake state key: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = 0;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Fetching sleep wake state failed, missing sleep wake state key: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -319,13 +312,11 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
       [v8 finishWithError:v20];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithHome:(id)home messageDispatcher:(id)dispatcher workQueue:(id)queue
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if (self)
   {
@@ -335,11 +326,11 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
 
     v11 = homeCopy;
     v12 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v22[0] = v12;
+    v21[0] = v12;
     v13 = [HMDUserMessagePolicy userMessagePolicyWithHome:v11 userPrivilege:0 remoteAccessRequired:1];
 
-    v22[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
 
     WeakRetained = objc_loadWeakRetained(&self->_dataSource);
     v16 = [WeakRetained currentDeviceProductInfoForAppleMediaAccessorySleepWakeStateController:self];
@@ -354,8 +345,6 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
 
     [objc_getProperty(self v17];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessorySleepWakeStateController)initWithAccessoryUUID:(id)d dataSource:(id)source
@@ -369,7 +358,7 @@ void __80__HMDAppleMediaAccessorySleepWakeStateController__sendSleepWakeMessageT
   if (v8)
   {
     v8->_lock._os_unfair_lock_opaque = 0;
-    v10 = [dCopy copy];
+    v10 = objc_msgSend_copy(dCopy);
     accessoryUUID = v9->_accessoryUUID;
     v9->_accessoryUUID = v10;
 

@@ -21,7 +21,7 @@
   }
 
   v5 = sub_11A1C(v3, v4);
-  sub_E650(v3);
+  sub_E650(v3, v4);
   return v5;
 }
 

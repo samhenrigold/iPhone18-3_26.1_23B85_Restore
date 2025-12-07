@@ -20,7 +20,7 @@
   {
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -58,8 +58,7 @@
 
 - (void)populateBundleIdentifierForConnection:(id)connection
 {
-  [connection processIdentifier];
-  v6 = GCBundleWithPID();
+  v6 = GCBundleWithPID([connection processIdentifier]);
   bundleIdentifier = [v6 bundleIdentifier];
   bundleIdentifier = self->_bundleIdentifier;
   self->_bundleIdentifier = bundleIdentifier;
@@ -74,38 +73,39 @@
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2050000000;
-    v19 = 0;
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __37___GCIPCRemoteProcess_addConnection___block_invoke;
-    v15[3] = &unk_1E8419AF8;
-    v15[4] = selfCopy;
-    v15[5] = &v16;
-    v15[6] = connectionCopy;
-    v15[7] = a2;
-    v9 = [connectionCopy addInvalidationHandler:v15];
-    v10 = v9;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2050000000;
+    v21 = 0;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __37___GCIPCRemoteProcess_addConnection___block_invoke;
+    v17[3] = &unk_1E8419AF8;
+    v17[4] = selfCopy;
+    v17[5] = &v18;
+    v17[6] = connectionCopy;
+    v17[7] = a2;
+    v9 = [connectionCopy addInvalidationHandler:v17];
+    v11 = v9;
     if (v9)
     {
-      v17[3] = v9;
-      if (gc_isInternalBuild())
+      v19[3] = v9;
+      isInternalBuild = gc_isInternalBuild(v9, v10);
+      if (isInternalBuild)
       {
-        v14 = getGCLogger();
-        [_GCIPCRemoteProcess addConnection:v14];
+        v16 = getGCLogger(isInternalBuild);
+        [(_GCIPCRemoteProcess *)v16 addConnection:selfCopy, connectionCopy];
       }
 
       connections = [(_GCIPCRemoteProcess *)selfCopy connections];
-      v12 = [connections arrayByAddingObject:connectionCopy];
-      [(_GCIPCRemoteProcess *)selfCopy setConnections:v12];
+      v14 = [connections arrayByAddingObject:connectionCopy];
+      [(_GCIPCRemoteProcess *)selfCopy setConnections:v14];
 
       connectionInvalidationRegistrations = [(_GCIPCRemoteProcess *)selfCopy connectionInvalidationRegistrations];
-      [connectionInvalidationRegistrations addObject:v10];
+      [connectionInvalidationRegistrations addObject:v11];
     }
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v18, 8);
     objc_sync_exit(selfCopy);
   }
 
@@ -119,10 +119,10 @@
 - (BOOL)isEqualToProcess:(id)process
 {
   processCopy = process;
-  [(_GCIPCRemoteProcess *)self auditToken];
+  objc_msgSend_auditToken(self);
   if (processCopy)
   {
-    [processCopy auditToken];
+    objc_msgSend_auditToken(processCopy);
   }
 
   else
@@ -155,15 +155,16 @@
   return v6;
 }
 
-- (void)addConnection:(NSObject *)a1 .cold.1(NSObject *a1)
+- (void)addConnection:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_INFO))
   {
-    OUTLINED_FUNCTION_0_12(&dword_1D2CD5000, v2, v3, "%@ adding connection: %@", v4, v5, v6, v7, 2u);
+    *v12 = 138412546;
+    *&v12[4] = a2;
+    *&v12[12] = 2112;
+    *&v12[14] = a3;
+    OUTLINED_FUNCTION_0_12(&dword_1D2CD5000, v6, v7, "%@ adding connection: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

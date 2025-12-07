@@ -1,5 +1,6 @@
 @interface WFLinkSnippetEnvironmentDialogResponse
 - (WFLinkSnippetEnvironmentDialogResponse)initWithBSXPCCoder:(id)coder;
+- (WFLinkSnippetEnvironmentDialogResponse)initWithCancelled:(BOOL)cancelled;
 - (WFLinkSnippetEnvironmentDialogResponse)initWithCoder:(id)coder;
 - (WFLinkSnippetEnvironmentDialogResponse)initWithEnvironment:(id)environment;
 - (void)encodeWithBSXPCCoder:(id)coder;
@@ -62,6 +63,13 @@
   }
 
   return v5;
+}
+
+- (WFLinkSnippetEnvironmentDialogResponse)initWithCancelled:(BOOL)cancelled
+{
+  v4.receiver = self;
+  v4.super_class = WFLinkSnippetEnvironmentDialogResponse;
+  return [(WFDialogResponse *)&v4 initWithCancelled:cancelled];
 }
 
 - (WFLinkSnippetEnvironmentDialogResponse)initWithEnvironment:(id)environment

@@ -3,6 +3,7 @@
 - (BOOL)_accessibilityHandleNavigationControllerDidEndTransition;
 - (id)loadSpecifiersFromPlistName:(id)name target:(id)target;
 - (void)highlightSpecifierWithID:(id)d;
+- (void)reloadSpecifierAtIndex:(int)index animated:(BOOL)animated;
 @end
 
 @implementation PSListControllerAccessibility
@@ -68,17 +69,14 @@ void __68__PSListControllerAccessibility_loadSpecifiersFromPlistName_target___bl
 
 uint64_t __58__PSListControllerAccessibility_highlightSpecifierWithID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) specifierForID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) specifierForID:*(a1 + 40)];
 
   return MEMORY[0x2A1C71028]();
 }
 
 - (BOOL)_accessibilityHandleNavigationControllerDidEndTransition
 {
-  v32[2] = *MEMORY[0x29EDCA608];
+  v31[2] = *MEMORY[0x29EDCA608];
   if (UIAccessibilityIsVoiceOverRunning())
   {
     v3 = [*MEMORY[0x29EDC8008] _accessibilityValueForKey:@"applicationDidBecomeActiveDate"];
@@ -114,55 +112,55 @@ uint64_t __58__PSListControllerAccessibility_highlightSpecifierWithID___block_in
             v11 = superview;
             if (!superview)
             {
-              goto LABEL_11;
+              return 0;
             }
           }
 
-          v17 = v12;
-          if ([v17 isCollapsed])
+          v16 = v12;
+          if ([v16 isCollapsed])
           {
             v14 = 0;
 LABEL_35:
 
-            goto LABEL_12;
+            return v14;
           }
 
           objc_opt_class();
-          v18 = [(PSListControllerAccessibility *)self safeValueForKey:@"parentViewController"];
-          v19 = __UIAccessibilityCastAsClass();
+          v17 = [(PSListControllerAccessibility *)self safeValueForKey:@"parentViewController"];
+          v18 = __UIAccessibilityCastAsClass();
 
-          navigationBar = [v19 navigationBar];
+          navigationBar = [v18 navigationBar];
           defaultVoiceOverOptions = [MEMORY[0x29EDC7328] defaultVoiceOverOptions];
-          v22 = [navigationBar _accessibilityLeafDescendantsWithOptions:defaultVoiceOverOptions];
-          firstObject = [v22 firstObject];
+          v21 = [navigationBar _accessibilityLeafDescendantsWithOptions:defaultVoiceOverOptions];
+          firstObject = [v21 firstObject];
 
           if (firstObject)
           {
 LABEL_16:
-            v24 = *MEMORY[0x29EDC7F10];
-            v32[0] = *MEMORY[0x29EDBDB28];
-            v32[1] = firstObject;
-            v25 = [MEMORY[0x29EDB8D80] arrayWithObjects:v32 count:2];
-            UIAccessibilityPostNotification(v24, v25);
+            v23 = *MEMORY[0x29EDC7F10];
+            v31[0] = *MEMORY[0x29EDBDB28];
+            v31[1] = firstObject;
+            v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v31 count:2];
+            UIAccessibilityPostNotification(v23, v24);
 
             v14 = 1;
-            v26 = firstObject;
+            v25 = firstObject;
 LABEL_33:
 
             goto LABEL_34;
           }
 
-          v26 = [(PSListControllerAccessibility *)self safeValueForKey:@"_table"];
-          if ([v26 _accessibilityHasOrderedChildren])
+          v25 = [(PSListControllerAccessibility *)self safeValueForKey:@"_table"];
+          if ([v25 _accessibilityHasOrderedChildren])
           {
-            accessibilityElementCount = [v26 accessibilityElementCount];
+            accessibilityElementCount = [v25 accessibilityElementCount];
             if (accessibilityElementCount >= 1)
             {
-              v28 = accessibilityElementCount;
-              v29 = 0;
+              v27 = accessibilityElementCount;
+              v28 = 0;
               while (1)
               {
-                firstObject = [v26 accessibilityElementAtIndex:v29];
+                firstObject = [v25 accessibilityElementAtIndex:v28];
                 if (firstObject)
                 {
                   do
@@ -177,21 +175,21 @@ LABEL_33:
                       break;
                     }
 
-                    v30 = [firstObject accessibilityElementAtIndex:0];
+                    v29 = [firstObject accessibilityElementAtIndex:0];
 
-                    firstObject = v30;
+                    firstObject = v29;
                   }
 
-                  while (v30);
+                  while (v29);
                 }
 
                 [firstObject accessibilityFrame];
-                if (v31 > 1.0)
+                if (v30 > 1.0)
                 {
                   break;
                 }
 
-                if (++v29 == v28)
+                if (++v28 == v27)
                 {
                   goto LABEL_32;
                 }
@@ -213,9 +211,9 @@ LABEL_34:
 
           else
           {
-            if ([v26 isAccessibilityOpaqueElementProvider])
+            if ([v25 isAccessibilityOpaqueElementProvider])
             {
-              firstObject = [v26 _accessibilityFirstOpaqueElement];
+              firstObject = [v25 _accessibilityFirstOpaqueElement];
               goto LABEL_29;
             }
 
@@ -230,11 +228,20 @@ LABEL_32:
     }
   }
 
-LABEL_11:
-  v14 = 0;
-LABEL_12:
-  v15 = *MEMORY[0x29EDCA608];
-  return v14;
+  return 0;
+}
+
+- (void)reloadSpecifierAtIndex:(int)index animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = PSListControllerAccessibility;
+  [(PSListControllerAccessibility *)&v6 reloadSpecifierAtIndex:*&index animated:animated];
+  v5 = [(PSListControllerAccessibility *)self safeValueForKey:@"_specifiers"];
+
+  if (v5)
+  {
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+  }
 }
 
 @end

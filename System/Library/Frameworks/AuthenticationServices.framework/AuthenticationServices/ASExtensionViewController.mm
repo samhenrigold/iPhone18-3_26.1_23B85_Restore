@@ -71,15 +71,15 @@ void __65___ASExtensionViewController__beginRequestWithConnectionHandler___block
   [WeakRetained _extensionRequestDidFinish:a2];
 }
 
-void __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3(uint64_t a1)
+void __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3_cold_1(v2, v3);
+      __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3_cold_1(v3, v4);
     }
 
     [*(a1 + 48) _requestDidFailWithError:*(a1 + 32) completion:0];
@@ -87,9 +87,9 @@ void __65___ASExtensionViewController__beginRequestWithConnectionHandler___block
 
   else
   {
-    v5 = [*(*(a1 + 48) + 1024) _extensionContextForUUID:*(a1 + 56)];
-    [v5 setDelegate:*(a1 + 48)];
-    v4 = [*(*(a1 + 48) + 1024) _as_auxiliaryRemoteObjectWithRequestID:*(a1 + 56)];
+    v6 = [*(*(a1 + 48) + 1024) _extensionContextForUUID:*(a1 + 56)];
+    [v6 setDelegate:*(a1 + 48)];
+    v5 = [*(*(a1 + 48) + 1024) _as_auxiliaryRemoteObjectWithRequestID:*(a1 + 56)];
     (*(*(a1 + 64) + 16))();
     [*(a1 + 48) _setRemoteViewController:*(a1 + 40)];
   }
@@ -134,15 +134,15 @@ void __67___ASExtensionViewController__beginNonUIRequest_connectionHandler___blo
   [WeakRetained _extensionRequestDidFinish:a2];
 }
 
-void __67___ASExtensionViewController__beginNonUIRequest_connectionHandler___block_invoke_3(uint64_t a1)
+void __67___ASExtensionViewController__beginNonUIRequest_connectionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3_cold_1(v2, v3);
+      __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3_cold_1(v3, v4);
     }
 
     [*(a1 + 48) _requestDidFailWithError:0 completion:0];
@@ -150,13 +150,13 @@ void __67___ASExtensionViewController__beginNonUIRequest_connectionHandler___blo
 
   else
   {
-    v4 = [*(*(a1 + 48) + 1024) _extensionContextForUUID:*(a1 + 56)];
-    v5 = *(a1 + 48);
-    v6 = *(v5 + 1000);
-    *(v5 + 1000) = v4;
+    v5 = [*(*(a1 + 48) + 1024) _extensionContextForUUID:*(a1 + 56)];
+    v6 = *(a1 + 48);
+    v7 = *(v6 + 1000);
+    *(v6 + 1000) = v5;
 
     [*(*(a1 + 48) + 1000) setDelegate:?];
-    v7 = [*(*(a1 + 48) + 1024) _as_auxiliaryRemoteObjectWithRequestID:*(a1 + 56)];
+    v8 = [*(*(a1 + 48) + 1024) _as_auxiliaryRemoteObjectWithRequestID:*(a1 + 56)];
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -166,13 +166,13 @@ uint64_t __85___ASExtensionViewController_prepareToCancelRequestWithHostContext_
   [*(a1 + 32) _invalidateNonUIRequestTimerIfNeeded];
   v2 = *(a1 + 32);
   v3 = *(v2 + 1000);
-  if (v3 && *(a1 + 40) == v3 && (v4 = [*(a1 + 48) safari_matchesErrorDomain:@"ASExtensionErrorDomain" andCode:100], v2 = *(a1 + 32), v4) && *(v2 + 1016) == 1)
+  if (v3 && *(a1 + 40) == v3 && (v5 = [*(a1 + 48) safari_matchesErrorDomain:@"ASExtensionErrorDomain" andCode:100], v2 = *(a1 + 32), v5) && *(v2 + 1016) == 1)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v2, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1B1C8D000, v5, OS_LOG_TYPE_DEFAULT, "Extension requires user interaction - re-running with UI", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1B1C8D000, v6, OS_LOG_TYPE_DEFAULT, "Extension requires user interaction - re-running with UI", v10, 2u);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -181,22 +181,21 @@ uint64_t __85___ASExtensionViewController_prepareToCancelRequestWithHostContext_
 
   else
   {
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
 
-    return [v2 _requestDidFailWithError:v7 completion:v8];
+    return [v2 _requestDidFailWithError:v8 completion:v9];
   }
 }
 
 void __65___ASExtensionViewController__beginRequestWithConnectionHandler___block_invoke_3_cold_1(void **a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get remote view controller: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get remote view controller: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

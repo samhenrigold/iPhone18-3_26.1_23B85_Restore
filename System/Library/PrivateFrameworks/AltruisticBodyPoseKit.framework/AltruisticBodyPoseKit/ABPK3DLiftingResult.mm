@@ -60,13 +60,13 @@
   v17 = 0;
   v18 = 0;
   v16 = 0;
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v16, v8, v8 + 16 * v7, v7);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&v16, v8, &v8[v7], v7);
   __p = 0;
   v14 = 0;
   v15 = 0;
   if (v6)
   {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, v6, v6 + 16 * v7, v7);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPKS1_S7_EEvT_T0_m(&__p, v6, &v6[v7], v7);
   }
 
   v11 = [(ABPK3DLiftingResult *)self initWithJoints:&v16 rawNetworkOutputs:&__p referenceDetectionResult:v10];

@@ -8,22 +8,23 @@
 
 + (BOOL)isInternalVolume:(id)volume
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   existing = 0;
-  bzero(&v22, 0x878uLL);
-  if (!statfs([volumeCopy fileSystemRepresentation], &v22))
+  bzero(&v23, 0x878uLL);
+  if (!statfs([volumeCopy fileSystemRepresentation], &v23))
   {
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v22.f_mntfromname];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", v23.f_mntfromname];
     v7 = [v6 componentsSeparatedByString:@"/dev/"];
     v5 = [v7 objectAtIndex:1];
 
     LODWORD(v6) = *MEMORY[0x277CD2898];
     v8 = IOBSDNameMatching(*MEMORY[0x277CD2898], 0, [v5 UTF8String]);
-    if (IOServiceGetMatchingServices(v6, v8, &existing))
+    MatchingServices = IOServiceGetMatchingServices(v6, v8, &existing);
+    if (MatchingServices)
     {
-      v9 = SALog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = SALog(MatchingServices);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         +[SAVolumeSizer isInternalVolume:];
       }
@@ -34,50 +35,51 @@
     v13 = IOIteratorNext(existing);
     if (!v13)
     {
-      v20 = SALog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = SALog(v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         +[SAVolumeSizer isInternalVolume:];
       }
 
-      v10 = 0;
+      v11 = 0;
       goto LABEL_25;
     }
 
     v14 = v13;
     v15 = IORegistryEntrySearchCFProperty(v13, "IOService", @"Protocol Characteristics", *MEMORY[0x277CBECE8], 3u);
-    if (v15 && (TypeID = CFDictionaryGetTypeID(), TypeID == CFGetTypeID(v15)))
+    v16 = v15;
+    if (v15 && (TypeID = CFDictionaryGetTypeID(), v15 = CFGetTypeID(v16), TypeID == v15))
     {
-      Value = CFDictionaryGetValue(v15, @"Physical Interconnect Location");
+      Value = CFDictionaryGetValue(v16, @"Physical Interconnect Location");
       if (Value)
       {
-        v18 = CFStringCompare(Value, @"Internal", 0) == kCFCompareEqualTo;
+        v19 = CFStringCompare(Value, @"Internal", 0) == kCFCompareEqualTo;
       }
 
       else
       {
-        v18 = 0;
+        v19 = 0;
       }
     }
 
     else
     {
-      v19 = SALog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = SALog(v15);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         +[SAVolumeSizer isInternalVolume:];
       }
 
-      v18 = 0;
-      v10 = 0;
-      if (!v15)
+      v19 = 0;
+      v11 = 0;
+      if (!v16)
       {
         goto LABEL_24;
       }
     }
 
-    CFRelease(v15);
-    v10 = v18;
+    CFRelease(v16);
+    v11 = v19;
 LABEL_24:
     IOObjectRelease(v14);
 LABEL_25:
@@ -85,19 +87,18 @@ LABEL_25:
     goto LABEL_9;
   }
 
-  v4 = *__error();
-  v5 = SALog();
+  v4 = __error();
+  v5 = SALog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [SAVolumeSizer isInternalVolume:volumeCopy];
   }
 
 LABEL_8:
-  v10 = 0;
+  v11 = 0;
 LABEL_9:
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 + (void)computeSizeOfVolumeAtURL:(id)l options:(unint64_t)options completionHandler:(id)handler
@@ -105,13 +106,14 @@ LABEL_9:
   v69[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
-  if ([SAVolumeSizer isInternalVolume:lCopy])
+  v9 = [SAVolumeSizer isInternalVolume:lCopy];
+  if (v9)
   {
     v64 = 0;
     v65 = &v64;
     v66 = 0x2020000000;
     v67 = 1;
-    v9 = objc_opt_new();
+    v10 = objc_opt_new();
     v58 = 0;
     v59 = &v58;
     v60 = 0x3032000000;
@@ -123,21 +125,21 @@ LABEL_9:
     v55[2] = __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke;
     v55[3] = &unk_279CD6C80;
     v57 = &v58;
-    v10 = v9;
-    v56 = v10;
-    v11 = [SADaemonXPC newWithInvalidationHandler:v55];
-    v12 = v59[5];
-    v59[5] = v11;
-
+    v11 = v10;
+    v56 = v11;
+    v12 = [SADaemonXPC newWithInvalidationHandler:v55];
     v13 = v59[5];
+    v59[5] = v12;
+
+    v14 = v59[5];
     v52[0] = MEMORY[0x277D85DD0];
     v52[1] = 3221225472;
     v52[2] = __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_68;
     v52[3] = &unk_279CD6C80;
     v54 = &v58;
-    v14 = v10;
-    v53 = v14;
-    v15 = [v13 remoteObjectProxyWithErrorHandler:v52];
+    v15 = v11;
+    v53 = v15;
+    v16 = [v14 remoteObjectProxyWithErrorHandler:v52];
     v48 = 0;
     v49 = &v48;
     v50 = 0x2020000000;
@@ -156,7 +158,7 @@ LABEL_9:
     v37[1] = v37;
     v37[2] = 0x2020000000;
     v37[3] = 0;
-    [v14 enter];
+    [v15 enter];
     v31[0] = MEMORY[0x277D85DD0];
     v31[1] = 3221225472;
     v31[2] = __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_69;
@@ -165,14 +167,14 @@ LABEL_9:
     v34 = &v44;
     v35 = &v38;
     v36 = &v64;
-    v16 = v14;
-    v32 = v16;
-    [v15 computeSizeOfVolumeAtURL:lCopy options:options completionHandler:v31];
-    [v16 wait:{dispatch_time(0, 60000000000)}];
+    v17 = v15;
+    v32 = v17;
+    [v16 computeSizeOfVolumeAtURL:lCopy options:options completionHandler:v31];
+    [v17 wait:{dispatch_time(0, 60000000000)}];
     if ((options & 3) != 0)
     {
       *(v65 + 24) = 1;
-      [v16 enter];
+      [v17 enter];
       v25[0] = MEMORY[0x277D85DD0];
       v25[1] = 3221225472;
       v25[2] = __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2;
@@ -181,17 +183,17 @@ LABEL_9:
       v28 = &v48;
       v29 = &v38;
       v30 = &v64;
-      v17 = v16;
-      v26 = v17;
-      [v15 getPurgeableInfo:lCopy options:options reply:v25];
-      [v17 wait:{dispatch_time(0, 60000000000)}];
+      v18 = v17;
+      v26 = v18;
+      [v16 getPurgeableInfo:lCopy options:options reply:v25];
+      [v18 wait:{dispatch_time(0, 60000000000)}];
     }
 
     if (*(v65 + 24) == 1)
     {
-      v18 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
-      v19 = v39[5];
-      v39[5] = v18;
+      v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:60 userInfo:0];
+      v20 = v39[5];
+      v39[5] = v19;
     }
 
     [v59[5] invalidate];
@@ -209,27 +211,25 @@ LABEL_9:
 
   else
   {
-    v20 = SALog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = SALog(v9);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [SAVolumeSizer computeSizeOfVolumeAtURL:lCopy options:? completionHandler:?];
     }
 
-    v21 = MEMORY[0x277CCA9B8];
+    v22 = MEMORY[0x277CCA9B8];
     v68 = *MEMORY[0x277CCA470];
     v69[0] = @"Non internal URL";
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
-    v23 = [v21 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v22];
-    handlerCopy[2](handlerCopy, 0, 0, v23);
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:&v68 count:1];
+    v24 = [v22 errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v23];
+    handlerCopy[2](handlerCopy, 0, 0, v24);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SALog();
+  v4 = SALog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_cold_1(v3);
@@ -242,7 +242,7 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_68(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SALog();
+  v4 = SALog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_68_cold_1(v3);
@@ -275,8 +275,8 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
   v7 = v6;
   if (!a2 || v6)
   {
-    v16 = SALog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = SALog(v6);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_1(v7);
     }
@@ -288,7 +288,7 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
   else
   {
     v8 = [a2 objectForKeyedSubscript:@"CACHE_DELETE_TOTAL_AVAILABLE"];
-    v9 = SALog();
+    v9 = SALog(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_2(v8, v9);
@@ -296,23 +296,24 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
 
     if ([v8 unsignedLongLongValue])
     {
-      *(*(*(a1 + 40) + 8) + 24) = [v8 longLongValue];
-      v10 = *(*(a1 + 48) + 8);
-      v11 = *(v10 + 24);
-      v12 = *(*(*(a1 + 40) + 8) + 24);
-      v13 = v11 >= v12;
-      v14 = v11 - v12;
-      if (v13)
+      v10 = [v8 longLongValue];
+      *(*(*(a1 + 40) + 8) + 24) = v10;
+      v11 = *(*(a1 + 48) + 8);
+      v12 = *(v11 + 24);
+      v13 = *(*(*(a1 + 40) + 8) + 24);
+      v14 = v12 >= v13;
+      v15 = v12 - v13;
+      if (v14)
       {
-        *(v10 + 24) = v14;
+        *(v11 + 24) = v15;
       }
 
       else
       {
-        v15 = SALog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = SALog(v10);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_3(a1 + 40, a1 + 48, v15);
+          __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_3(a1 + 40, a1 + 48, v16);
         }
       }
     }
@@ -329,7 +330,7 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
   v7 = handlerCopy;
   if (!lCopy)
   {
-    v8 = SALog();
+    v8 = SALog(handlerCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[SAVolumeSizer computeSizeOfVolumeAtURL:completionHandler:];
@@ -340,7 +341,7 @@ void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___bl
 
   if (!handlerCopy)
   {
-    v8 = SALog();
+    v8 = SALog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[SAVolumeSizer computeSizeOfVolumeAtURL:completionHandler:];
@@ -357,123 +358,85 @@ LABEL_9:
 
 + (void)isInternalVolume:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 fileSystemRepresentation];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isInternalVolume:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isInternalVolume:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)isInternalVolume:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)computeSizeOfVolumeAtURL:(void *)a1 options:completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 absoluteString];
+  v6 = [a1 absoluteString];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 description];
+  v6 = [a1 description];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_68_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 description];
+  v6 = [a1 description];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_2(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = 136315906;
-  v4 = "+[SAVolumeSizer computeSizeOfVolumeAtURL:options:completionHandler:]_block_invoke_2";
-  v5 = 2112;
-  v6 = @"/private/var";
-  v7 = 2112;
-  v8 = @"CACHE_DELETE_TOTAL_AVAILABLE";
-  v9 = 2112;
-  v10 = a1;
-  _os_log_debug_impl(&dword_26B26B000, a2, OS_LOG_TYPE_DEBUG, "%s: Volume %@, %@ %@", &v3, 0x2Au);
-  v2 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = 136315906;
+  v3 = "+[SAVolumeSizer computeSizeOfVolumeAtURL:options:completionHandler:]_block_invoke_2";
+  v4 = 2112;
+  v5 = @"/private/var";
+  v6 = 2112;
+  v7 = @"CACHE_DELETE_TOTAL_AVAILABLE";
+  v8 = 2112;
+  v9 = a1;
+  _os_log_debug_impl(&dword_26B26B000, a2, OS_LOG_TYPE_DEBUG, "%s: Volume %@, %@ %@", &v2, 0x2Au);
 }
 
 void __68__SAVolumeSizer_computeSizeOfVolumeAtURL_options_completionHandler___block_invoke_2_cold_3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(*(*a1 + 8) + 24);
   v4 = *(*(*a2 + 8) + 24);
-  v6 = 134218240;
-  v7 = v3;
-  v8 = 2048;
-  v9 = v4;
-  _os_log_error_impl(&dword_26B26B000, log, OS_LOG_TYPE_ERROR, "Purgeable size %llu is larger than used size %llu, ignoring", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)computeSizeOfVolumeAtURL:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)computeSizeOfVolumeAtURL:completionHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = v3;
+  v7 = 2048;
+  v8 = v4;
+  _os_log_error_impl(&dword_26B26B000, log, OS_LOG_TYPE_ERROR, "Purgeable size %llu is larger than used size %llu, ignoring", &v5, 0x16u);
 }
 
 @end

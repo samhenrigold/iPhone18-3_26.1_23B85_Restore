@@ -17,7 +17,7 @@
 
 - (id)startTaskWithRequest:(id)request delegate:(id)delegate completion:(id)completion
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   delegateCopy = delegate;
   completionCopy = completion;
@@ -44,7 +44,7 @@
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v64 = requestCopy;
+    v63 = requestCopy;
     _os_log_impl(&dword_269079000, v19, OS_LOG_TYPE_INFO, "SpeakRequest: %@", buf, 0xCu);
   }
 
@@ -64,7 +64,7 @@
       {
         requestIdentifer = [requestCopy requestIdentifer];
         *buf = 138412290;
-        v64 = requestIdentifer;
+        v63 = requestIdentifer;
         _os_log_impl(&dword_269079000, v25, OS_LOG_TYPE_INFO, "Found request in cache: %@", buf, 0xCu);
       }
 
@@ -75,10 +75,10 @@
         block[1] = 3221225472;
         block[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke_2;
         block[3] = &unk_279C4C350;
-        v28 = &v59;
-        v29 = &v58;
-        v58 = 0;
-        v59 = completionCopy;
+        v28 = &v58;
+        v29 = &v57;
+        v57 = 0;
+        v58 = completionCopy;
         dispatch_async(cacheTaskQueue, block);
         v30 = 0;
       }
@@ -88,16 +88,16 @@
         v47 = [[SFSSCacheTask alloc] initWithRequest:requestCopy];
         [(SFSpeechSynthesisTask *)v47 setDelegate:delegateCopy];
         v48 = self->_cacheTaskQueue;
-        v60[0] = MEMORY[0x277D85DD0];
-        v60[1] = 3221225472;
-        v60[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke;
-        v60[3] = &unk_279C4C350;
-        v28 = &v61;
+        v59[0] = MEMORY[0x277D85DD0];
+        v59[1] = 3221225472;
+        v59[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke;
+        v59[3] = &unk_279C4C350;
+        v28 = &v60;
         v30 = v47;
-        v61 = v30;
-        v29 = &v62;
-        v62 = completionCopy;
-        dispatch_async(v48, v60);
+        v60 = v30;
+        v29 = &v61;
+        v61 = completionCopy;
+        dispatch_async(v48, v59);
       }
 
       v46 = v30;
@@ -132,16 +132,16 @@
     v39 = [[SFSSDeviceTTSTask alloc] initWithRequest:requestCopy];
     [(SFSpeechSynthesisTask *)v39 setDelegate:delegateCopy];
     deviceTaskQueue = self->_deviceTaskQueue;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke_4;
-    v51[3] = &unk_279C4C350;
-    v41 = &v52;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke_4;
+    v50[3] = &unk_279C4C350;
+    v41 = &v51;
     v42 = v39;
-    v52 = v42;
-    v43 = &v53;
-    v53 = completionCopy;
-    v44 = v51;
+    v51 = v42;
+    v43 = &v52;
+    v52 = completionCopy;
+    v44 = v50;
   }
 
   else
@@ -149,24 +149,22 @@
     v45 = [[SFSSServerTTSTask alloc] initWithRequest:requestCopy];
     [(SFSpeechSynthesisTask *)v45 setDelegate:delegateCopy];
     deviceTaskQueue = self->_serverTaskQueue;
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke_3;
-    v54[3] = &unk_279C4C350;
-    v41 = &v55;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_invoke_3;
+    v53[3] = &unk_279C4C350;
+    v41 = &v54;
     v42 = v45;
-    v55 = v42;
-    v43 = &v56;
-    v56 = completionCopy;
-    v44 = v54;
+    v54 = v42;
+    v43 = &v55;
+    v55 = completionCopy;
+    v44 = v53;
   }
 
   dispatch_async(deviceTaskQueue, v44);
 
   v46 = v42;
 LABEL_20:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v46;
 }
@@ -189,20 +187,20 @@ void __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_
 
 - (SFSpeechSynthesizer)initWithVoice:(id)voice
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   voiceCopy = voice;
   v6 = SFSSGetLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     name = [voiceCopy name];
     *buf = 138412290;
-    v21 = name;
+    v20 = name;
     _os_log_impl(&dword_269079000, v6, OS_LOG_TYPE_INFO, "Init Synthesizer with voice: %@", buf, 0xCu);
   }
 
-  v19.receiver = self;
-  v19.super_class = SFSpeechSynthesizer;
-  v8 = [(SFSpeechSynthesizer *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = SFSpeechSynthesizer;
+  v8 = [(SFSpeechSynthesizer *)&v18 init];
   v9 = v8;
   if (v8)
   {
@@ -221,7 +219,6 @@ void __64__SFSpeechSynthesizer_startTaskWithRequest_delegate_completion___block_
     v9->_cacheTaskQueue = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

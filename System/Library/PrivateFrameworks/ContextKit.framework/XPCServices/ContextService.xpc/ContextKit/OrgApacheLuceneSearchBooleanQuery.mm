@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchBooleanQuery
 - (BOOL)isEqual:(id)equal;
 - (id)clone;
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean;
 - (id)getClauses;
 - (id)iterator;
 - (id)rewriteWithOrgApacheLuceneIndexIndexReader:(id)reader;
@@ -22,6 +23,20 @@
   }
 
   return [v3 iterator];
+}
+
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  selfCopy = self;
+  if (!boolean)
+  {
+    self = sub_1000E41B8(self);
+  }
+
+  v7 = new_OrgApacheLuceneSearchBooleanWeight_initWithOrgApacheLuceneSearchBooleanQuery_withOrgApacheLuceneSearchIndexSearcher_withBoolean_withBoolean_(self, searcher, booleanCopy, *(&selfCopy->super.boost_ + 5));
+
+  return v7;
 }
 
 - (id)rewriteWithOrgApacheLuceneIndexIndexReader:(id)reader
@@ -175,43 +190,43 @@ LABEL_28:
   [(OrgApacheLuceneSearchQuery *)self getBoost];
   if (v6 == 1.0 && [(OrgApacheLuceneSearchBooleanQuery *)self getMinimumNumberShouldMatch]< 1)
   {
-    v21 = 0;
+    v23 = 0;
   }
 
   else
   {
     -[JavaLangStringBuilder appendWithNSString:](v5, "appendWithNSString:", @"(");
-    v21 = 1;
+    v23 = 1;
   }
 
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v7 = [(OrgApacheLuceneSearchBooleanQuery *)self countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [(OrgApacheLuceneSearchBooleanQuery *)self countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v24;
+    v10 = *v26;
     do
     {
       v11 = 0;
-      v22 = v9 + v8;
+      v24 = v9 + v8;
       do
       {
-        if (*v24 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(self);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         if (!v12)
         {
           goto LABEL_28;
         }
 
-        getOccur = [*(*(&v23 + 1) + 8 * v11) getOccur];
+        getOccur = [*(*(&v25 + 1) + 8 * v11) getOccur];
         if (!getOccur)
         {
           goto LABEL_28;
@@ -262,14 +277,14 @@ LABEL_28:
       }
 
       while (v8 != v11);
-      v8 = [(OrgApacheLuceneSearchBooleanQuery *)self countByEnumeratingWithState:&v23 objects:v27 count:16];
-      v9 = v22;
+      v8 = [(OrgApacheLuceneSearchBooleanQuery *)self countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = v24;
     }
 
     while (v8);
   }
 
-  if (v21)
+  if (v23)
   {
     [(JavaLangStringBuilder *)v5 appendWithNSString:@""]);
   }
@@ -283,8 +298,8 @@ LABEL_28:
   [(OrgApacheLuceneSearchQuery *)self getBoost];
   if (v18 != 1.0)
   {
-    [(OrgApacheLuceneSearchQuery *)self getBoost];
-    [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v19)];
+    getBoost = [(OrgApacheLuceneSearchQuery *)self getBoost];
+    [(JavaLangStringBuilder *)v5 appendWithNSString:OrgApacheLuceneUtilToStringUtils_boostWithFloat_(v21, getBoost, v20)];
   }
 
   return [(JavaLangStringBuilder *)v5 description];
@@ -332,16 +347,16 @@ LABEL_28:
 
 - (unint64_t)hash
 {
-  v8.receiver = self;
-  v8.super_class = OrgApacheLuceneSearchBooleanQuery;
-  v3 = [(OrgApacheLuceneSearchQuery *)&v8 hash];
-  v9[0] = JavaLangBoolean_valueOfWithBoolean_(*(&self->super.boost_ + 5));
+  v10.receiver = self;
+  v10.super_class = OrgApacheLuceneSearchBooleanQuery;
+  v3 = [(OrgApacheLuceneSearchQuery *)&v10 hash];
+  v11[0] = JavaLangBoolean_valueOfWithBoolean_(*(&self->super.boost_ + 5));
   v4 = JavaLangInteger_valueOfWithInt_(*&self->mutable__);
   v5 = *&self->minimumNumberShouldMatch_;
-  v9[1] = v4;
-  v9[2] = v5;
-  v6 = [IOSObjectArray arrayWithObjects:v9 count:3 type:NSObject_class_()];
-  return (OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v6) - v3 + 32 * v3);
+  v11[1] = v4;
+  v11[2] = v5;
+  v7 = [IOSObjectArray arrayWithObjects:v11 count:3 type:NSObject_class_(v4, v6)];
+  return (OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v7, v8) - v3 + 32 * v3);
 }
 
 - (id)getClauses
@@ -352,9 +367,10 @@ LABEL_28:
     JreThrowNullPointerException();
   }
 
-  v3 = +[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", [*&self->minimumNumberShouldMatch_ size], OrgApacheLuceneSearchBooleanClause_class_());
+  v3 = [*&self->minimumNumberShouldMatch_ size];
+  v5 = [IOSObjectArray arrayWithLength:v3 type:OrgApacheLuceneSearchBooleanClause_class_(v3, v4)];
 
-  return [v2 toArrayWithNSObjectArray:v3];
+  return [v2 toArrayWithNSObjectArray:v5];
 }
 
 - (id)clone

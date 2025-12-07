@@ -34,7 +34,7 @@
 uint64_t __61__MTKTextureLoaderASTCHelper_isASTCHDRData_is3DBlocks_error___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, _BYTE *a5)
 {
   v6 = result;
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   if ((a4 & 0xF) == 0)
   {
     *(*(*(result + 32) + 8) + 24) = -1;
@@ -45,13 +45,13 @@ uint64_t __61__MTKTextureLoaderASTCHelper_isASTCHDRData_is3DBlocks_error___block
   {
     v7 = 0;
     v8 = 16;
-    v50 = a2;
-    v51 = a4;
+    v49 = a2;
+    v50 = a4;
     while (1)
     {
       v9 = *(a2 + v7);
       v7 = v8;
-      v60 = v9;
+      v59 = v9;
       v10 = v9 | ((BYTE1(v9) & 7) << 8);
       if ((v9 | ((BYTE1(v9) & 7) << 8) & 0x1FF) == 0x1FC)
       {
@@ -66,10 +66,10 @@ uint64_t __61__MTKTextureLoaderASTCHelper_isASTCHDRData_is3DBlocks_error___block
         v11 = (BYTE1(v9) >> 3) & 3;
         if (!v11)
         {
-          v22 = ((BYTE1(v9) | (BYTE2(v60) << 8)) >> 5) & 0xF;
+          v22 = ((BYTE1(v9) | (BYTE2(v59) << 8)) >> 5) & 0xF;
           v24 = v22 == 15;
           v23 = (1 << v22) & 0xC88C;
-          v24 = !v24 && (((BYTE1(v9) | (BYTE2(v60) << 8)) >> 5) & 0xF) == 15 || v23 == 0;
+          v24 = !v24 && (((BYTE1(v9) | (BYTE2(v59) << 8)) >> 5) & 0xF) == 15 || v23 == 0;
           if (v24)
           {
             goto LABEL_80;
@@ -81,10 +81,10 @@ LABEL_20:
           goto LABEL_80;
         }
 
-        v12 = BYTE3(v60);
-        if ((((BYTE2(v60) | (BYTE3(v60) << 8)) >> 7) & 3) == 0)
+        v12 = BYTE3(v59);
+        if ((((BYTE2(v59) | (BYTE3(v59) << 8)) >> 7) & 3) == 0)
         {
-          if (((1 << ((BYTE3(v60) >> 1) & 0xF)) & 0xC88C) == 0)
+          if (((1 << ((BYTE3(v59) >> 1) & 0xF)) & 0xC88C) == 0)
           {
             goto LABEL_80;
           }
@@ -92,7 +92,7 @@ LABEL_20:
           goto LABEL_20;
         }
 
-        v52 = ((BYTE2(v60) | (BYTE3(v60) << 8)) >> 7) & 3;
+        v51 = ((BYTE2(v59) | (BYTE3(v59) << 8)) >> 7) & 3;
         v13 = (BYTE1(v9) & 7) << 8;
         v14 = v13 >> 9;
         v15 = (v13 >> 9) & 1;
@@ -302,40 +302,40 @@ LABEL_20:
 LABEL_83:
           *(*(*(v6 + 32) + 8) + 24) = -1;
           *a5 = 1;
-          break;
+          return result;
         }
 
-        v53[0] = (v12 & 2) != 0;
-        v53[1] = (v12 & 4) != 0;
+        v52[0] = (v12 & 2) != 0;
+        v52[1] = (v12 & 4) != 0;
         if (v11 == 3)
         {
-          v54 = (v12 & 8) != 0;
-          v55 = (v12 & 0x10) != 0;
-          v56 = (*(&v60 | ((120 - result) >> 3)) >> ((120 - result) & 7)) & 3;
-          v57 = (*(&v60 | ((122 - result) >> 3)) >> ((122 - result) & 7)) & 3;
-          v58 = (*(&v60 | ((124 - result) >> 3)) >> ((124 - result) & 7)) & 3;
-          v43 = &v59;
+          v53 = (v12 & 8) != 0;
+          v54 = (v12 & 0x10) != 0;
+          v55 = (*(&v59 | ((120 - result) >> 3)) >> ((120 - result) & 7)) & 3;
+          v56 = (*(&v59 | ((122 - result) >> 3)) >> ((122 - result) & 7)) & 3;
+          v57 = (*(&v59 | ((124 - result) >> 3)) >> ((124 - result) & 7)) & 3;
+          v43 = &v58;
         }
 
         else if (v11 == 2)
         {
-          v54 = (v12 & 8) != 0;
-          v56 = (v12 >> 4) & 1 | (2 * ((*(&v60 | ((123 - result) >> 3)) >> ((123 - result) & 7)) & 1));
-          v57 = (*(&v60 | ((124 - result) >> 3)) >> ((124 - result) & 7)) & 3;
-          v43 = &v58;
+          v53 = (v12 & 8) != 0;
+          v55 = (v12 >> 4) & 1 | (2 * ((*(&v59 | ((123 - result) >> 3)) >> ((123 - result) & 7)) & 1));
+          v56 = (*(&v59 | ((124 - result) >> 3)) >> ((124 - result) & 7)) & 3;
+          v43 = &v57;
         }
 
         else
         {
-          v56 = (v12 >> 3) & 3;
-          v43 = &v57;
+          v55 = (v12 >> 3) & 3;
+          v43 = &v56;
         }
 
         v44 = 0;
-        *v43 = (*(&v60 | ((126 - result) >> 3)) >> ((126 - result) & 7)) & 3;
+        *v43 = (*(&v59 | ((126 - result) >> 3)) >> ((126 - result) & 7)) & 3;
         do
         {
-          v45 = (*(&v56 + v44) + 4 * (v52 + 63 + v53[v44]));
+          v45 = (*(&v55 + v44) + 4 * (v51 + 63 + v52[v44]));
           v46 = v45 > 0xF;
           v47 = (1 << v45) & 0xC88C;
           if (!v46 && v47 != 0)
@@ -348,8 +348,8 @@ LABEL_83:
         }
 
         while (v11 + 1 != v44);
-        a2 = v50;
-        a4 = v51;
+        a2 = v49;
+        a4 = v50;
       }
 
 LABEL_80:
@@ -362,11 +362,10 @@ LABEL_80:
         }
       }
 
-      break;
+      return result;
     }
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return result;
 }
 

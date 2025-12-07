@@ -77,7 +77,7 @@
 
 - (APClientState)initWithCoder:(id)coder
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(APClientState *)self init];
   if (v5)
@@ -103,69 +103,68 @@
     effectivelyLockedAppBundleIdentifiers = v5->_effectivelyLockedAppBundleIdentifiers;
     v5->_effectivelyLockedAppBundleIdentifiers = v19;
 
-    v45 = 0u;
-    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v21 = v5->_hiddenAppBundleIdentifiers;
-    v51[0] = v5->_lockedAppBundleIdentifiers;
-    v51[1] = v21;
-    v51[2] = v5->_effectivelyLockedAppBundleIdentifiers;
-    obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
-    v22 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v49[0] = v5->_lockedAppBundleIdentifiers;
+    v49[1] = v21;
+    v49[2] = v5->_effectivelyLockedAppBundleIdentifiers;
+    obj = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:3];
+    v22 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v44;
-      v42 = *MEMORY[0x1E696A250];
-      v39 = *v44;
+      v24 = *v42;
+      v40 = *MEMORY[0x1E696A250];
+      v37 = *v42;
       do
       {
         v25 = 0;
-        v40 = v23;
+        v38 = v23;
         do
         {
-          if (*v44 != v24)
+          if (*v42 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v43 + 1) + 8 * v25);
+          v26 = *(*(&v41 + 1) + 8 * v25);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             v27 = v5;
             v28 = coderCopy;
             v29 = v26;
+            v45 = 0u;
+            v46 = 0u;
             v47 = 0u;
             v48 = 0u;
-            v49 = 0u;
-            v50 = 0u;
             v30 = v29;
-            v31 = [v30 countByEnumeratingWithState:&v47 objects:v53 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v45 objects:v51 count:16];
             if (v31)
             {
               v32 = v31;
-              v33 = *v48;
+              v33 = *v46;
               while (2)
               {
                 v34 = 0;
                 do
                 {
-                  if (*v48 != v33)
+                  if (*v46 != v33)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  v35 = *(*(&v47 + 1) + 8 * v34);
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
 
                     coderCopy = v28;
                     v5 = v27;
-                    v24 = v39;
-                    v23 = v40;
+                    v24 = v37;
+                    v23 = v38;
                     goto LABEL_19;
                   }
 
@@ -173,7 +172,7 @@
                 }
 
                 while (v32 != v34);
-                v32 = [v30 countByEnumeratingWithState:&v47 objects:v53 count:16];
+                v32 = [v30 countByEnumeratingWithState:&v45 objects:v51 count:16];
                 if (v32)
                 {
                   continue;
@@ -185,16 +184,16 @@
 
             coderCopy = v28;
             v5 = v27;
-            v24 = v39;
-            v23 = v40;
+            v24 = v37;
+            v23 = v38;
           }
 
           else
           {
 
 LABEL_19:
-            v36 = _APMakeNSError(v42, 4864, "[APClientState initWithCoder:]", 86, 0);
-            [coderCopy failWithError:v36];
+            v35 = _APMakeNSError(v40, 4864, "[APClientState initWithCoder:]", 86, 0);
+            [coderCopy failWithError:v35];
 
             v5 = 0;
           }
@@ -203,14 +202,13 @@ LABEL_19:
         }
 
         while (v25 != v23);
-        v23 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v23 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
       }
 
       while (v23);
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -1,4 +1,5 @@
 @interface FMDRequestQueueCheck
+- (FMDRequestQueueCheck)initWithAccount:(id)account shutdownActivityPending:(BOOL)pending;
 - (id)requestBody;
 @end
 
@@ -16,6 +17,21 @@
   }
 
   return requestBody;
+}
+
+- (FMDRequestQueueCheck)initWithAccount:(id)account shutdownActivityPending:(BOOL)pending
+{
+  pendingCopy = pending;
+  v8.receiver = self;
+  v8.super_class = FMDRequestQueueCheck;
+  v5 = [(FMDRequest *)&v8 initWithAccount:account];
+  v6 = v5;
+  if (v5)
+  {
+    [(FMDRequestQueueCheck *)v5 setShutdownActivityPending:pendingCopy];
+  }
+
+  return v6;
 }
 
 @end

@@ -526,7 +526,7 @@ LABEL_94:
   v73 = __nwlog_obj();
   *buf = 136446210;
   v84 = "[NWRemoteConnectionActor receiveRemoteCommand:]";
-  v74 = _os_log_send_and_compose_impl();
+  v74 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v73, 16, "%{public}s called with null commandData", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v80 = 0;
@@ -1008,7 +1008,7 @@ void __53__NWRemoteConnectionActor_scheduleReadsOnConnection___block_invoke_36(u
   v30 = __nwlog_obj();
   *buf = 136446210;
   v45 = "[NWRemoteConnectionActor updateEndpointsForBrowser:]";
-  v31 = _os_log_send_and_compose_impl();
+  v31 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v30, 16, "%{public}s called with null wrapper", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v41 = 0;
@@ -1096,7 +1096,7 @@ LABEL_20:
     v20 = __nwlog_obj();
     *buf = 136446210;
     v34 = "[NWRemoteConnectionActor sendData:forConnection:]";
-    v21 = _os_log_send_and_compose_impl();
+    v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v20, 16, "%{public}s called with null data", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v30 = 0;
@@ -1221,7 +1221,7 @@ LABEL_37:
   v25 = __nwlog_obj();
   *buf = 136446210;
   v34 = "[NWRemoteConnectionActor sendData:forConnection:]";
-  v21 = _os_log_send_and_compose_impl();
+  v21 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null wrapper", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v30 = 0;
@@ -1431,7 +1431,7 @@ LABEL_8:
   v29 = __nwlog_obj();
   *buf = 136446210;
   v40 = "[NWRemoteConnectionActor updatePathForConnection:]";
-  v30 = _os_log_send_and_compose_impl();
+  v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s called with null wrapper", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v36 = 0;
@@ -1535,7 +1535,7 @@ LABEL_27:
     v17 = __nwlog_obj();
     *buf = 136446210;
     v30 = "[NWRemoteConnectionActor initWithDelegate:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -1614,7 +1614,7 @@ LABEL_38:
   v12 = __nwlog_obj();
   *buf = 136446210;
   v30 = "[NWRemoteConnectionActor initWithDelegate:]";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null delegate", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v27 = 0;

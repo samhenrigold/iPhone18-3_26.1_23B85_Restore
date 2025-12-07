@@ -17,7 +17,7 @@
 - (BlastDoorWatchBackground)watchBackground
 {
   v2 = self + OBJC_IVAR___BlastDoorBackground_background;
-  v3 = type metadata accessor for Background();
+  v3 = type metadata accessor for Background(0);
   sub_2140A6810(&v2[*(v3 + 20)], v9);
   v4 = type metadata accessor for _ObjCWatchBackgroundWrapper();
   v5 = objc_allocWithZone(v4);

@@ -1,4 +1,5 @@
 @interface FSFCurareEvaluationFeature
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (FSFCurareEvaluationFeature)initWithContent:(id)content dataVersion:(unsigned int)version;
 - (FSFCurareEvaluationFeature)initWithContentJson:(id)json dataVersion:(unsigned int)version;
 - (FSFCurareEvaluationFeature)initWithData:(id)data dataVersion:(unsigned int)version;
@@ -83,6 +84,15 @@
   }
 
   return selfCopy;
+}
+
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[FSFCurareEvaluationFeature alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
 }
 
 - (id)content

@@ -5,7 +5,6 @@
 
 void __28___ANEDeviceInfo_aneSubType__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   if (a2 <= 159)
   {
     if (a2 <= 63)
@@ -68,18 +67,17 @@ LABEL_32:
     if (a2 != 64 && a2 != 96)
     {
 LABEL_46:
-      v6 = +[_ANEDeviceInfo aneSubType]::aneSubtypeStr;
+      v5 = +[_ANEDeviceInfo aneSubType]::aneSubtypeStr;
       +[_ANEDeviceInfo aneSubType]::aneSubtypeStr = @"h15";
 
-      v7 = +[_ANELog framework];
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = +[_ANELog framework];
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(*(a1 + 32));
         objc_claimAutoreleasedReturnValue();
         __28___ANEDeviceInfo_aneSubType__block_invoke_cold_1();
       }
 
-      v8 = *MEMORY[0x1E69E9840];
       return;
     }
 
@@ -164,7 +162,6 @@ LABEL_31:
 
 LABEL_43:
   +[_ANEDeviceInfo aneSubType]::aneSubtypeStr = v4;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __35___ANEDeviceInfo_aneSubTypeVariant__block_invoke(uint64_t a1, uint64_t a2)

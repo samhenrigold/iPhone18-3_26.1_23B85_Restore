@@ -8,6 +8,7 @@
 - (int64_t)_configurationVersion;
 - (void)_httpResponse:(id)response session:(id)session;
 - (void)_resetConfigurationForStorefrontChangeIfNeeded;
+- (void)_runCompletionHandlerWithSuccess:(BOOL)success data:(id)data;
 - (void)_sendCoreAnalyticsWithUpdateStatus:(int64_t)status version:(int64_t)version;
 - (void)cancelRequest;
 - (void)requestConfigurationWithCompletionHandler:(id)handler;
@@ -106,9 +107,68 @@ LABEL_8:
   dispatch_async(v4, block);
 }
 
+- (void)_runCompletionHandlerWithSuccess:(BOOL)success data:(id)data
+{
+  successCopy = success;
+  v22 = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  v9 = objc_msgSend_completionHandler(self, v7, v8);
+  v10 = APLogForCategory();
+  v11 = v10;
+  if (v9)
+  {
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = @"Error";
+      if (successCopy)
+      {
+        v12 = @"Succes";
+      }
+
+      v20 = 138412290;
+      v21 = v12;
+      _os_log_impl(&dword_1CA1CE000, v11, OS_LOG_TYPE_DEFAULT, "Running completion handler with: %@.", &v20, 0xCu);
+    }
+
+    if ((v9)[2](v9, successCopy, dataCopy))
+    {
+      v15 = objc_msgSend_storefrontValidator(self, v13, v14);
+      objc_msgSend_saveStorefront(v15, v16, v17);
+    }
+
+    else
+    {
+      v15 = APLogForCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_1CA1CE000, v15, OS_LOG_TYPE_ERROR, "Error: Configuration processing failed.", &v20, 2u);
+      }
+    }
+
+    objc_msgSend_setCompletionHandler_(self, v19, 0);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v18 = @"Error";
+      if (successCopy)
+      {
+        v18 = @"Succes";
+      }
+
+      v20 = 138412290;
+      v21 = v18;
+      _os_log_impl(&dword_1CA1CE000, v11, OS_LOG_TYPE_ERROR, "Error: completionHandler is nil when trying to run with: %@.", &v20, 0xCu);
+    }
+  }
+}
+
 - (void)_httpResponse:(id)response session:(id)session
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v8 = objc_msgSend_valid(responseCopy, v6, v7);
   v9 = APLogForCategory();
@@ -119,11 +179,11 @@ LABEL_8:
     {
       v24 = objc_msgSend_responseStatusCode(responseCopy, v22, v23);
       v27 = objc_msgSend_responseError(responseCopy, v25, v26);
-      *v36 = 134218242;
-      *&v36[4] = v24;
-      *&v36[12] = 2114;
-      *&v36[14] = v27;
-      _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_ERROR, "Received error request. Status Code: %ld Error: %{public}@", v36, 0x16u);
+      *v35 = 134218242;
+      *&v35[4] = v24;
+      *&v35[12] = 2114;
+      *&v35[14] = v27;
+      _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_ERROR, "Received error request. Status Code: %ld Error: %{public}@", v35, 0x16u);
     }
 
     v30 = objc_msgSend__configurationVersion(self, v28, v29);
@@ -133,8 +193,8 @@ LABEL_8:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    *v36 = 0;
-    _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_INFO, "Received response from server.", v36, 2u);
+    *v35 = 0;
+    _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_INFO, "Received response from server.", v35, 2u);
   }
 
   if (objc_msgSend_responseStatusCode(responseCopy, v11, v12) != 200)
@@ -150,8 +210,8 @@ LABEL_16:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v34 = objc_msgSend__configurationVersion(self, v32, v33);
-      *v36 = 134217984;
-      *&v36[4] = v34;
+      *v35 = 134217984;
+      *&v35[4] = v34;
       v18 = "Configuration system up to date version %lu.";
       v19 = v17;
       v20 = OS_LOG_TYPE_DEFAULT;
@@ -170,13 +230,13 @@ LABEL_15:
     v17 = APLogForCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      *v36 = 0;
+      *v35 = 0;
       v18 = "Error: Response empty, no config file.";
       v19 = v17;
       v20 = OS_LOG_TYPE_ERROR;
       v21 = 2;
 LABEL_14:
-      _os_log_impl(&dword_1CA1CE000, v19, v20, v18, v36, v21);
+      _os_log_impl(&dword_1CA1CE000, v19, v20, v18, v35, v21);
       goto LABEL_15;
     }
 
@@ -184,37 +244,39 @@ LABEL_14:
   }
 
 LABEL_17:
-  objc_msgSend__runCompletionHandlerWithSuccess_data_(self, v15, v8, v16, *v36);
-
-  v35 = *MEMORY[0x1E69E9840];
+  objc_msgSend__runCompletionHandlerWithSuccess_data_(self, v15, v8, v16, *v35, *&v35[8]);
 }
 
 - (BOOL)_testingFlag
 {
-  if (!objc_msgSend_isAppleInternalInstall(MEMORY[0x1E69861D0], a2, v2))
+  result = 0;
+  if (objc_msgSend_isAppleInternalInstall(MEMORY[0x1E69861D0], a2, v2))
   {
-    return 0;
+    v3 = objc_alloc(MEMORY[0x1E695E000]);
+    v5 = objc_msgSend_initWithSuiteName_(v3, v4, *MEMORY[0x1E6986180]);
+    v7 = objc_msgSend_objectForKey_(v5, v6, @"APConfigurationSystem.testEnvironment");
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v10 = v7;
+      v13 = objc_msgSend_BOOLValue(v10, v11, v12);
+    }
+
+    else
+    {
+      v10 = MEMORY[0x1E695E110];
+      v13 = objc_msgSend_BOOLValue(MEMORY[0x1E695E110], v8, v9);
+    }
+
+    v14 = v13;
+
+    if (v14)
+    {
+      return 1;
+    }
   }
 
-  v3 = objc_alloc(MEMORY[0x1E695E000]);
-  v5 = objc_msgSend_initWithSuiteName_(v3, v4, *MEMORY[0x1E6986180]);
-  v7 = objc_msgSend_objectForKey_(v5, v6, @"APConfigurationSystem.testEnvironment");
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v10 = v7;
-    v13 = objc_msgSend_BOOLValue(v10, v11, v12);
-  }
-
-  else
-  {
-    v10 = MEMORY[0x1E695E110];
-    v13 = objc_msgSend_BOOLValue(MEMORY[0x1E695E110], v8, v9);
-  }
-
-  v14 = v13;
-
-  return (v14 & 1) != 0;
+  return result;
 }
 
 - (int64_t)_configurationVersion
@@ -273,22 +335,21 @@ LABEL_17:
 
 - (void)_sendCoreAnalyticsWithUpdateStatus:(int64_t)status version:(int64_t)version
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  v19[0] = @"ClientConfigVersion";
+  v19[3] = *MEMORY[0x1E69E9840];
+  v18[0] = @"ClientConfigVersion";
   v6 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], a2, version);
-  v20[0] = v6;
-  v19[1] = @"StatusCode";
+  v19[0] = v6;
+  v18[1] = @"StatusCode";
   v8 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v7, status);
-  v20[1] = v8;
-  v19[2] = @"TestingFlag";
+  v19[1] = v8;
+  v18[2] = @"TestingFlag";
   v9 = MEMORY[0x1E696AD98];
   v12 = objc_msgSend__testingFlag(self, v10, v11);
   v14 = objc_msgSend_numberWithBool_(v9, v13, v12);
-  v20[2] = v14;
-  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v20, v19, 3);
+  v19[2] = v14;
+  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v19, v18, 3);
 
   objc_msgSend_sendEvent_customPayload_(MEMORY[0x1E6986188], v17, @"ConfigurationSystemRequest", v16);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_configurationServerURL
@@ -328,10 +389,10 @@ LABEL_17:
 
 - (BOOL)_mockConfigurationServerResponseIfNeeded
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!objc_msgSend_isAppleInternalInstall(MEMORY[0x1E69861D0], a2, v2))
   {
-    goto LABEL_7;
+    return 0;
   }
 
   v4 = objc_alloc(MEMORY[0x1E695E000]);
@@ -340,25 +401,21 @@ LABEL_17:
   if (!objc_msgSend_length(v8, v9, v10))
   {
 
-LABEL_7:
-    v14 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   v11 = APLogForCategory();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v18 = 138412290;
-    v19 = v8;
-    _os_log_impl(&dword_1CA1CE000, v11, OS_LOG_TYPE_INFO, "Using canned data: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v8;
+    _os_log_impl(&dword_1CA1CE000, v11, OS_LOG_TYPE_INFO, "Using canned data: %@", &v17, 0xCu);
   }
 
   v13 = objc_msgSend_dataWithContentsOfFile_(MEMORY[0x1E695DEF0], v12, v8);
   v14 = 1;
   objc_msgSend__runCompletionHandlerWithSuccess_data_(self, v15, 1, v13);
 
-LABEL_8:
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

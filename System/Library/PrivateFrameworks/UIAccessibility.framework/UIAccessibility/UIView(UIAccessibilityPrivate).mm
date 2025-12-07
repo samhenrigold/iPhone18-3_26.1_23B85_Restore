@@ -4,12 +4,12 @@
 - (id)_accessibilityComputedLabelForNavigationBarWithAssociatedBarButtonItem:()UIAccessibilityPrivate;
 - (id)_accessibleNonSupplementarySubviews;
 - (id)_accessibleSubviews:()UIAccessibilityPrivate;
-- (uint64_t)_accessibilityViewIsActive;
 - (uint64_t)_accessibilityViewIsVisibleIgnoringAXOverrides:()UIAccessibilityPrivate;
 - (uint64_t)_accessibilityViewIsVisibleIgnoringAXOverrides:()UIAccessibilityPrivate stoppingBeforeContainer:;
 - (uint64_t)_accessibleSubviews;
 - (void)_accessibilitySetFrameExpansion:()UIAccessibilityPrivate;
 - (void)_accessibilitySetViewIsVisible:()UIAccessibilityPrivate;
+- (void)_accessibilityViewIsActive;
 @end
 
 @implementation UIView(UIAccessibilityPrivate)
@@ -29,7 +29,7 @@
   [self _accessibilitySetRetainedValue:v2 forKey:@"AXFrameSizeExpansion"];
 }
 
-- (uint64_t)_accessibilityViewIsActive
+- (void)_accessibilityViewIsActive
 {
   result = [self _accessibilityViewIsVisible];
   if (result)

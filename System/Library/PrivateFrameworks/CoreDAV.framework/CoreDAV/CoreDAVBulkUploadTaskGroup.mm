@@ -90,7 +90,7 @@
 
 - (Class)multiPutTaskClass
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v5 = [v3 logHandleForAccountInfoProvider:WeakRetained];
@@ -100,60 +100,59 @@
     v6 = v5;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "multiPutTaskClass to be implemented by subclass %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "multiPutTaskClass to be implemented by subclass %{public}@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)_sendNextBatch
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if ([(NSMutableDictionary *)self->_remainingUUIDsToAddActions count]|| [(NSMutableDictionary *)self->_remainingHREFsToModDeleteActions count])
   {
-    v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v54 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v52 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v65 = 0u;
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
-    v70 = 0u;
     obj = [(NSMutableDictionary *)self->_remainingHREFsToModDeleteActions allKeys];
-    v3 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+    v3 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
     if (v3)
     {
       v4 = 0;
       v5 = 0;
-      v6 = *v68;
-      v46 = *v68;
+      v6 = *v66;
+      v44 = *v66;
       while (2)
       {
         v7 = 0;
         v8 = v5++;
-        v44 = v8 + v3;
-        v52 = v3;
+        v42 = v8 + v3;
+        v50 = v3;
         do
         {
-          if (*v68 != v6)
+          if (*v66 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v67 + 1) + 8 * v7);
+          v9 = *(*(&v65 + 1) + 8 * v7);
           v10 = [(NSMutableDictionary *)self->_remainingHREFsToModDeleteActions objectForKey:v9];
           if ([v10 action] == 1)
           {
             [v10 context];
-            v11 = v50 = v4;
+            v11 = v48 = v4;
             dataPayload = [v11 dataPayload];
             v13 = [dataPayload length];
 
-            v6 = v46;
-            v4 = v50;
+            v6 = v44;
+            v4 = v48;
           }
 
           else
@@ -180,16 +179,16 @@
             goto LABEL_23;
           }
 
-          [v54 setObject:v10 forKey:v9];
+          [v52 setObject:v10 forKey:v9];
 
           ++v7;
           ++v5;
         }
 
-        while (v52 != v7);
-        v3 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+        while (v50 != v7);
+        v3 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
         v17 = 0;
-        v5 = v44;
+        v5 = v42;
         if (v3)
         {
           continue;
@@ -207,31 +206,31 @@
     }
 
 LABEL_23:
-    v45 = v5;
+    v43 = v5;
 
-    v65 = 0u;
-    v66 = 0u;
     v63 = 0u;
     v64 = 0u;
-    allKeys = [v54 allKeys];
-    v19 = [allKeys countByEnumeratingWithState:&v63 objects:v73 count:16];
+    v61 = 0u;
+    v62 = 0u;
+    allKeys = [v52 allKeys];
+    v19 = [allKeys countByEnumeratingWithState:&v61 objects:v71 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v64;
+      v21 = *v62;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v64 != v21)
+          if (*v62 != v21)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [(NSMutableDictionary *)self->_remainingHREFsToModDeleteActions removeObjectForKey:*(*(&v63 + 1) + 8 * i)];
+          [(NSMutableDictionary *)self->_remainingHREFsToModDeleteActions removeObjectForKey:*(*(&v61 + 1) + 8 * i)];
         }
 
-        v20 = [allKeys countByEnumeratingWithState:&v63 objects:v73 count:16];
+        v20 = [allKeys countByEnumeratingWithState:&v61 objects:v71 count:16];
       }
 
       while (v20);
@@ -239,29 +238,29 @@ LABEL_23:
 
     if ((v17 & 1) == 0)
     {
-      v61 = 0u;
-      v62 = 0u;
       v59 = 0u;
       v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       obja = [(NSMutableDictionary *)self->_remainingUUIDsToAddActions allKeys];
-      v53 = [obja countByEnumeratingWithState:&v59 objects:v72 count:16];
-      if (v53)
+      v51 = [obja countByEnumeratingWithState:&v57 objects:v70 count:16];
+      if (v51)
       {
-        v51 = *v60;
+        v49 = *v58;
         while (2)
         {
           v23 = 0;
-          v24 = v45 + 1;
-          v45 += v53;
+          v24 = v43 + 1;
+          v43 += v51;
           do
           {
             v25 = v4;
-            if (*v60 != v51)
+            if (*v58 != v49)
             {
               objc_enumerationMutation(obja);
             }
 
-            v26 = *(*(&v59 + 1) + 8 * v23);
+            v26 = *(*(&v57 + 1) + 8 * v23);
             v27 = [(NSMutableDictionary *)self->_remainingUUIDsToAddActions objectForKey:v26];
             context = [v27 context];
             dataPayload2 = [context dataPayload];
@@ -284,15 +283,15 @@ LABEL_23:
               goto LABEL_47;
             }
 
-            [v49 setObject:v27 forKey:v26];
+            [v47 setObject:v27 forKey:v26];
 
             ++v23;
             ++v24;
           }
 
-          while (v53 != v23);
-          v53 = [obja countByEnumeratingWithState:&v59 objects:v72 count:16];
-          if (v53)
+          while (v51 != v23);
+          v51 = [obja countByEnumeratingWithState:&v57 objects:v70 count:16];
+          if (v51)
           {
             continue;
           }
@@ -304,29 +303,29 @@ LABEL_23:
 LABEL_47:
     }
 
-    v57 = 0u;
-    v58 = 0u;
     v55 = 0u;
     v56 = 0u;
-    allKeys2 = [v49 allKeys];
-    v35 = [allKeys2 countByEnumeratingWithState:&v55 objects:v71 count:16];
+    v53 = 0u;
+    v54 = 0u;
+    allKeys2 = [v47 allKeys];
+    v35 = [allKeys2 countByEnumeratingWithState:&v53 objects:v69 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v56;
+      v37 = *v54;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v56 != v37)
+          if (*v54 != v37)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          [(NSMutableDictionary *)self->_remainingUUIDsToAddActions removeObjectForKey:*(*(&v55 + 1) + 8 * j)];
+          [(NSMutableDictionary *)self->_remainingUUIDsToAddActions removeObjectForKey:*(*(&v53 + 1) + 8 * j)];
         }
 
-        v36 = [allKeys2 countByEnumeratingWithState:&v55 objects:v71 count:16];
+        v36 = [allKeys2 countByEnumeratingWithState:&v53 objects:v69 count:16];
       }
 
       while (v36);
@@ -341,14 +340,11 @@ LABEL_47:
     [v39 setTimeoutInterval:self->super._timeoutInterval];
     v41 = objc_loadWeakRetained(&self->super._taskManager);
     [v41 submitQueuedCoreDAVTask:v39];
-
-    v42 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     self->_validCTag = 1;
-    v43 = *MEMORY[0x277D85DE8];
 
     [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:0];
   }
@@ -356,7 +352,7 @@ LABEL_47:
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   [(NSMutableSet *)self->super._outstandingTasks removeObject:taskCopy];
@@ -372,13 +368,13 @@ LABEL_47:
     {
       uuidToHREF = [v8 uuidToHREF];
       hrefToETag = [v8 hrefToETag];
-      v40 = 138412802;
-      v41 = uuidToHREF;
-      v42 = 2112;
-      v43 = hrefToETag;
-      v44 = 2112;
-      v45 = errorCopy;
-      _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "MultiPutTask finished.  uuidToHREF %@\nhrefToETAG %@\nerror %@", &v40, 0x20u);
+      v39 = 138412802;
+      v40 = uuidToHREF;
+      v41 = 2112;
+      v42 = hrefToETag;
+      v43 = 2112;
+      v44 = errorCopy;
+      _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "MultiPutTask finished.  uuidToHREF %@\nhrefToETAG %@\nerror %@", &v39, 0x20u);
     }
   }
 
@@ -421,8 +417,8 @@ LABEL_47:
 
         if (v31 && os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v40) = 0;
-          _os_log_impl(&dword_2452FB000, v31, OS_LOG_TYPE_INFO, "MultiPutTask told that our ctag was out of date.  Bailing on the group", &v40, 2u);
+          LOWORD(v39) = 0;
+          _os_log_impl(&dword_2452FB000, v31, OS_LOG_TYPE_INFO, "MultiPutTask told that our ctag was out of date.  Bailing on the group", &v39, 2u);
         }
 
         self->_validCTag = 0;
@@ -453,8 +449,8 @@ LABEL_47:
 
       if (v37 && os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v40) = 0;
-        _os_log_impl(&dword_2452FB000, v37, OS_LOG_TYPE_INFO, "Got no updated ctag from the server, bailing on the group", &v40, 2u);
+        LOWORD(v39) = 0;
+        _os_log_impl(&dword_2452FB000, v37, OS_LOG_TYPE_INFO, "Got no updated ctag from the server, bailing on the group", &v39, 2u);
       }
 
       self->_validCTag = 0;
@@ -462,8 +458,6 @@ LABEL_47:
       [(CoreDAVTaskGroup *)self bailWithError:v38];
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 @end

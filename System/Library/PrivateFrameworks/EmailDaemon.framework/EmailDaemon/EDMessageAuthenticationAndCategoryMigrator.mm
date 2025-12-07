@@ -81,14 +81,14 @@ void __49__EDMessageAuthenticationAndCategoryMigrator_log__block_invoke(uint64_t
 
 - (void)startMigrationWithProgressHandler:(id)handler cancelationToken:(id)token completion:(id)completion
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   tokenCopy = token;
   completionCopy = completion;
   categoryPersistence = [(EDMessageAuthenticationAndCategoryMigrator *)self categoryPersistence];
   currentCategorizationVersion = [categoryPersistence currentCategorizationVersion];
 
-  v29 = [EDMessageCategorizer queryForMessagesToCategorizeForVersion:currentCategorizationVersion];
+  v28 = [EDMessageCategorizer queryForMessagesToCategorizeForVersion:currentCategorizationVersion];
   promise = [MEMORY[0x1E699B868] promise];
   v11 = +[EDMessageAuthenticationAndCategoryMigrator log];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -98,13 +98,13 @@ void __49__EDMessageAuthenticationAndCategoryMigrator_log__block_invoke(uint64_t
   }
 
   reason = [(EDMessageAuthenticationAndCategoryMigrator *)self reason];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke;
-  v34[3] = &unk_1E8253788;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke;
+  v33[3] = &unk_1E8253788;
   v13 = promise;
-  v35 = v13;
-  [EDCategoryMigrator migrateCategoryForQuery:v29 cancelationToken:tokenCopy reason:reason progressHandler:handlerCopy completion:v34];
+  v34 = v13;
+  [EDCategoryMigrator migrateCategoryForQuery:v28 cancelationToken:tokenCopy reason:reason progressHandler:handlerCopy completion:v33];
   v14 = +[EDMessageAuthenticationStateMigrator queryForInboxMessagesToAuthenticate];
   promise2 = [MEMORY[0x1E699B868] promise];
   v16 = +[EDMessageAuthenticationAndCategoryMigrator log];
@@ -115,31 +115,29 @@ void __49__EDMessageAuthenticationAndCategoryMigrator_log__block_invoke(uint64_t
   }
 
   authenticationStateMigrator = [(EDMessageAuthenticationAndCategoryMigrator *)self authenticationStateMigrator];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke_12;
-  v32[3] = &unk_1E8253788;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke_12;
+  v31[3] = &unk_1E8253788;
   v18 = promise2;
-  v33 = v18;
-  [authenticationStateMigrator migrateMessageAuthenticationStateForQuery:v14 cancelationToken:tokenCopy completion:v32];
+  v32 = v18;
+  [authenticationStateMigrator migrateMessageAuthenticationStateForQuery:v14 cancelationToken:tokenCopy completion:v31];
 
   v19 = MEMORY[0x1E699B7C8];
   future = [v13 future];
-  v37[0] = future;
+  v36[0] = future;
   future2 = [v18 future];
-  v37[1] = future2;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+  v36[1] = future2;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
   v23 = [v19 join:v22];
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke_15;
-  v30[3] = &unk_1E8251B48;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke_15;
+  v29[3] = &unk_1E8251B48;
   v24 = completionCopy;
-  v31 = v24;
-  [v23 always:v30];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v30 = v24;
+  [v23 always:v29];
 }
 
 void __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithProgressHandler_cancelationToken_completion___block_invoke(uint64_t a1)
@@ -209,7 +207,6 @@ uint64_t __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithPro
   completionCopy = completion;
   if (_os_feature_enabled_impl())
   {
-    contentProtectionQueue = self->_contentProtectionQueue;
     EFRegisterContentProtectionObserver();
     objc_initWeak(&location, self);
     backgroundMessageMigrationQueue = self->_backgroundMessageMigrationQueue;
@@ -217,13 +214,13 @@ uint64_t __108__EDMessageAuthenticationAndCategoryMigrator_startMigrationWithPro
     block[1] = 3221225472;
     block[2] = __123__EDMessageAuthenticationAndCategoryMigrator_startMigrationIfNecessaryWithCategorizationQuery_cancelationToken_completion___block_invoke;
     block[3] = &unk_1E82537B0;
-    objc_copyWeak(&v17, &location);
-    v14 = queryCopy;
-    v15 = tokenCopy;
-    v16 = completionCopy;
+    objc_copyWeak(&v16, &location);
+    v13 = queryCopy;
+    v14 = tokenCopy;
+    v15 = completionCopy;
     dispatch_async(backgroundMessageMigrationQueue, block);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 }

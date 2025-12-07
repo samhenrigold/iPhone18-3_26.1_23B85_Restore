@@ -286,22 +286,22 @@ void __72__SKUISettingsDocumentViewController_tableView_didSelectRowAtIndexPath_
 
 - (void)loadView
 {
-  v5 = objc_alloc_init(SKUISettingsDocumentView);
-  [(SKUISettingsDocumentView *)v5 setDelegate:self];
+  v6 = objc_alloc_init(SKUISettingsDocumentView);
+  [(SKUISettingsDocumentView *)v6 setDelegate:self];
   _tableView = [(SKUISettingsDocumentViewController *)self _tableView];
-  if (storeShouldReverseLayoutDirection())
+  if (storeShouldReverseLayoutDirection(_tableView, v4))
   {
-    v4 = 4;
+    v5 = 4;
   }
 
   else
   {
-    v4 = 3;
+    v5 = 3;
   }
 
-  [_tableView setSemanticContentAttribute:v4];
-  [(SKUISettingsDocumentView *)v5 addSubview:_tableView];
-  [(SKUISettingsDocumentViewController *)self setView:v5];
+  [_tableView setSemanticContentAttribute:v5];
+  [(SKUISettingsDocumentView *)v6 addSubview:_tableView];
+  [(SKUISettingsDocumentViewController *)self setView:v6];
 }
 
 - (void)viewDidAppear:(BOOL)appear

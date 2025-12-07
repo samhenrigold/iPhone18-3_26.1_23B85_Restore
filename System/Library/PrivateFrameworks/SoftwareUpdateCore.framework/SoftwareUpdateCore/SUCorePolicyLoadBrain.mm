@@ -1,6 +1,7 @@
 @interface SUCorePolicyLoadBrain
 - (BOOL)isEqual:(id)equal;
 - (SUCorePolicyLoadBrain)initWithCoder:(id)coder;
+- (SUCorePolicyLoadBrain)initWithSkipPhaseSet:(BOOL)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)summary;
@@ -10,9 +11,23 @@
 
 @implementation SUCorePolicyLoadBrain
 
+- (SUCorePolicyLoadBrain)initWithSkipPhaseSet:(BOOL)set
+{
+  setCopy = set;
+  v7.receiver = self;
+  v7.super_class = SUCorePolicyLoadBrain;
+  v4 = [(SUCorePolicyLoadBrain *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SUCorePolicyLoadBrain *)v4 backToDefaultsWithSkipPhaseSet:setCopy];
+  }
+
+  return v5;
+}
+
 - (void)backToDefaultsWithSkipPhaseSet:(BOOL)set
 {
-  additionalOptions = self->_additionalOptions;
   self->_specifiedFields = 0;
   self->_additionalOptions = 0;
   *&self->_allowsCellular = 0;

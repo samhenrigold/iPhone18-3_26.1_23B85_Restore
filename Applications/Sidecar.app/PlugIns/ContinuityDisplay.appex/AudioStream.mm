@@ -12,7 +12,7 @@
   streamCopy = stream;
   selfCopy = self;
   errorCopy = error;
-  AudioStream.stream(_:didStart:error:)(stream, start);
+  AudioStream.stream(_:didStart:error:)(stream, start, error);
 }
 
 - (void)stream:(id)stream didPause:(BOOL)pause error:(id)error

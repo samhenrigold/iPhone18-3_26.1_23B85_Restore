@@ -43,7 +43,7 @@
 
 id __38__SGModelAsset_vocabWithTrieFilename___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[SGModelAsset asset];
   v3 = [v2 filesystemPathForAssetDataRelativePath:*(a1 + 32)];
 
@@ -56,16 +56,14 @@ id __38__SGModelAsset_vocabWithTrieFilename___block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error finding model trie path for %@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error finding model trie path for %@", &v7, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -91,7 +89,7 @@ id __38__SGModelAsset_vocabWithTrieFilename___block_invoke(uint64_t a1)
 
 id __44__SGModelAsset_dictionaryWithPlistFilename___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = +[SGModelAsset asset];
   v3 = [v2 filesystemPathForAssetDataRelativePath:*(a1 + 32)];
 
@@ -104,16 +102,14 @@ id __44__SGModelAsset_dictionaryWithPlistFilename___block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error finding model plist path for %@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error finding model plist path for %@", &v7, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -181,7 +177,7 @@ id __44__SGModelAsset_dictionaryWithPlistFilename___block_invoke(uint64_t a1)
 
 + (void)_invokeOnUpdateBlock
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (setup_onceToken != -1)
   {
     dispatch_once(&setup_onceToken, &__block_literal_global_9);
@@ -190,35 +186,33 @@ id __44__SGModelAsset_dictionaryWithPlistFilename___block_invoke(uint64_t a1)
   [_lock lock];
   v2 = [_updateBlocks copy];
   [_lock unlock];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        (*(*(*(&v9 + 1) + 8 * i) + 16))(*(*(&v9 + 1) + 8 * i));
+        (*(*(*(&v8 + 1) + 8 * i) + 16))(*(*(&v8 + 1) + 8 * i));
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)registerOnUpdateBlock:(id)block

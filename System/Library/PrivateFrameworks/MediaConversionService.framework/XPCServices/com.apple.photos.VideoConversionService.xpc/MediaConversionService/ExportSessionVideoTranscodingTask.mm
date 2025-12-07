@@ -42,7 +42,7 @@
   v8 = asset;
   if (asset)
   {
-    [asset duration];
+    objc_msgSend_duration(asset);
   }
 
   else
@@ -161,7 +161,7 @@
     [v6 addObject:AVMetadataIdentifier3GPUserDataDescription];
   }
 
-  v55 = v14;
+  v54 = v14;
   v15 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataIncludeAccessibilityDescriptionKey"];
   bOOLValue3 = [v15 BOOLValue];
 
@@ -172,21 +172,21 @@
     [v6 addObject:AVMetadataCommonKeyAccessibilityDescription];
   }
 
-  v57 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataKeywordsKey"];
-  if (v57)
+  v56 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataKeywordsKey"];
+  if (v56)
   {
     [v6 addObject:AVMetadataIdentifierQuickTimeMetadataKeywords];
   }
 
-  v56 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataContentCreationDateKey"];
-  if (v56)
+  v55 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataContentCreationDateKey"];
+  if (v55)
   {
     [v6 addObject:AVMetadataCommonIdentifierCreationDate];
     [v6 addObject:AVMetadataIdentifierQuickTimeUserDataCreationDate];
     [v6 addObject:AVMetadataIdentifierQuickTimeMetadataCreationDate];
   }
 
-  v53 = v18;
+  v52 = v18;
   v19 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataTitleKey"];
   if (v19)
   {
@@ -194,31 +194,31 @@
   }
 
   v20 = +[NSMutableArray array];
-  v58 = v19;
-  v54 = v10;
+  v57 = v19;
+  v53 = v10;
   if ([metadata count])
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
-    v52 = metadata;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
+    v51 = metadata;
     v21 = metadata;
-    v22 = [v21 countByEnumeratingWithState:&v63 objects:v68 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v62 objects:v67 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v64;
+      v24 = *v63;
       do
       {
         for (i = 0; i != v23; i = i + 1)
         {
-          if (*v64 != v24)
+          if (*v63 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v63 + 1) + 8 * i);
+          v26 = *(*(&v62 + 1) + 8 * i);
           identifier = [v26 identifier];
           v28 = [v6 containsObject:identifier];
 
@@ -228,15 +228,15 @@
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v63 objects:v68 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v62 objects:v67 count:16];
       }
 
       while (v23);
     }
 
-    metadata = v52;
-    v10 = v54;
-    v19 = v58;
+    metadata = v51;
+    v10 = v53;
+    v19 = v57;
   }
 
   if (v10)
@@ -250,31 +250,30 @@
     [v30 setLocale:v31];
 
     [v20 addObject:v30];
-    v19 = v58;
+    v19 = v57;
   }
 
-  if ([v57 count])
+  if ([v56 count])
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
-    v32 = v57;
-    v33 = [v32 countByEnumeratingWithState:&v59 objects:v67 count:16];
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v32 = v56;
+    v33 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v60;
+      v35 = *v59;
 LABEL_32:
       v36 = 0;
       while (1)
       {
-        if (*v60 != v35)
+        if (*v59 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = *(*(&v59 + 1) + 8 * v36);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -283,7 +282,7 @@ LABEL_32:
 
         if (v34 == ++v36)
         {
-          v34 = [v32 countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
           if (v34)
           {
             goto LABEL_32;
@@ -299,68 +298,68 @@ LABEL_32:
 LABEL_38:
 
       v32 = [v32 componentsJoinedByString:{@", "}];
-      v38 = +[AVMutableMetadataItem metadataItem];
-      [v38 setIdentifier:AVMetadataIdentifierQuickTimeMetadataKeywords];
-      [v38 setValue:v32];
-      [v20 addObject:v38];
+      v37 = +[AVMutableMetadataItem metadataItem];
+      [v37 setIdentifier:AVMetadataIdentifierQuickTimeMetadataKeywords];
+      [v37 setValue:v32];
+      [v20 addObject:v37];
     }
 
-    v10 = v54;
-    v19 = v58;
-  }
-
-  if (v56)
-  {
-    v39 = +[AVMutableMetadataItem metadataItem];
-    [v39 setKeySpace:AVMetadataKeySpaceCommon];
-    [v39 setKey:AVMetadataCommonKeyCreationDate];
-    videoDateFormatter = [objc_opt_class() videoDateFormatter];
-    v41 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataContentCreationDateTimeZoneOffsetKey"];
-    v42 = v41;
-    if (v41)
-    {
-      v43 = +[NSTimeZone timeZoneForSecondsFromGMT:](NSTimeZone, "timeZoneForSecondsFromGMT:", [v41 integerValue]);
-      [videoDateFormatter setTimeZone:v43];
-    }
-
-    v44 = [videoDateFormatter stringFromDate:v56];
-    [v39 setValue:v44];
-    [v20 addObject:v39];
-
-    v19 = v58;
-  }
-
-  if (v19)
-  {
-    v45 = +[AVMutableMetadataItem metadataItem];
-    [v45 setIdentifier:AVMetadataIdentifierQuickTimeMetadataTitle];
-    [v45 setValue:v19];
-    [v20 addObject:v45];
+    v10 = v53;
+    v19 = v57;
   }
 
   if (v55)
   {
+    v38 = +[AVMutableMetadataItem metadataItem];
+    [v38 setKeySpace:AVMetadataKeySpaceCommon];
+    [v38 setKey:AVMetadataCommonKeyCreationDate];
+    videoDateFormatter = [objc_opt_class() videoDateFormatter];
+    v40 = [options objectForKeyedSubscript:@"PAMediaConversionServiceOptionAVMetadataContentCreationDateTimeZoneOffsetKey"];
+    v41 = v40;
+    if (v40)
+    {
+      v42 = +[NSTimeZone timeZoneForSecondsFromGMT:](NSTimeZone, "timeZoneForSecondsFromGMT:", [v40 integerValue]);
+      [videoDateFormatter setTimeZone:v42];
+    }
+
+    v43 = [videoDateFormatter stringFromDate:v55];
+    [v38 setValue:v43];
+    [v20 addObject:v38];
+
+    v19 = v57;
+  }
+
+  if (v19)
+  {
+    v44 = +[AVMutableMetadataItem metadataItem];
+    [v44 setIdentifier:AVMetadataIdentifierQuickTimeMetadataTitle];
+    [v44 setValue:v19];
+    [v20 addObject:v44];
+  }
+
+  if (v54)
+  {
+    v45 = +[AVMutableMetadataItem metadataItem];
+    [v45 setKeySpace:AVMetadataKeySpaceCommon];
+    [v45 setKey:AVMetadataCommonKeyDescription];
+    [v45 setValue:v54];
+    [v20 addObject:v45];
+  }
+
+  if (v52)
+  {
     v46 = +[AVMutableMetadataItem metadataItem];
     [v46 setKeySpace:AVMetadataKeySpaceCommon];
-    [v46 setKey:AVMetadataCommonKeyDescription];
-    [v46 setValue:v55];
+    [v46 setKey:AVMetadataCommonKeyAccessibilityDescription];
+    [v46 setValue:v52];
     [v20 addObject:v46];
   }
 
-  if (v53)
-  {
-    v47 = +[AVMutableMetadataItem metadataItem];
-    [v47 setKeySpace:AVMetadataKeySpaceCommon];
-    [v47 setKey:AVMetadataCommonKeyAccessibilityDescription];
-    [v47 setValue:v53];
-    [v20 addObject:v47];
-  }
+  v47 = objc_opt_class();
+  v48 = [v20 copy];
+  v49 = [v47 metadataItemsByApplyingSignatureMetadataFromOptions:options toMetadataItems:v48];
 
-  v48 = objc_opt_class();
-  v49 = [v20 copy];
-  v50 = [v48 metadataItemsByApplyingSignatureMetadataFromOptions:options toMetadataItems:v49];
-
-  return v50;
+  return v49;
 }
 
 - (void)addOutputMetadataFromOptionsAndInputAsset:(id)asset toExportSession:(id)session
@@ -462,7 +461,7 @@ LABEL_38:
           memset(buf, 0, sizeof(buf));
           if (v14)
           {
-            [v14 timeRange];
+            objc_msgSend_timeRange(v14);
           }
 
           *v39 = *buf;
@@ -770,7 +769,7 @@ LABEL_29:
     v20 = v41[5];
     if (v20)
     {
-      [v20 duration];
+      objc_msgSend_duration(v20);
     }
 
     else

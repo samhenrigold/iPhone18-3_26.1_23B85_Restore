@@ -787,29 +787,29 @@ LABEL_16:
 
 + (id)px_systemPhotoLibrary
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   px_deprecated_appPhotoLibrary = [objc_opt_class() px_deprecated_appPhotoLibrary];
   if (([px_deprecated_appPhotoLibrary isSystemPhotoLibrary] & 1) == 0)
   {
-    v1 = objc_alloc(MEMORY[0x1E69789A8]);
+    v2 = objc_alloc(MEMORY[0x1E69789A8]);
     systemPhotoLibraryURL = [MEMORY[0x1E69789A8] systemPhotoLibraryURL];
-    v3 = [v1 initWithPhotoLibraryURL:systemPhotoLibraryURL];
+    v4 = [v2 initWithPhotoLibraryURL:systemPhotoLibraryURL];
 
-    v7 = 0;
-    LOBYTE(systemPhotoLibraryURL) = [v3 openAndWaitWithUpgrade:0 error:&v7];
-    v4 = v7;
+    v8 = 0;
+    LOBYTE(systemPhotoLibraryURL) = [v4 openAndWaitWithUpgrade:0 error:&v8];
+    v5 = v8;
     if ((systemPhotoLibraryURL & 1) == 0)
     {
-      v5 = PLUIGetLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = PLUIGetLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v9 = v4;
-        _os_log_impl(&dword_1A3C1C000, v5, OS_LOG_TYPE_ERROR, "Unable to open photo library: %@", buf, 0xCu);
+        v10 = v5;
+        _os_log_impl(&dword_1A3C1C000, v6, OS_LOG_TYPE_ERROR, "Unable to open photo library: %@", buf, 0xCu);
       }
     }
 
-    px_deprecated_appPhotoLibrary = v3;
+    px_deprecated_appPhotoLibrary = v4;
   }
 
   return px_deprecated_appPhotoLibrary;

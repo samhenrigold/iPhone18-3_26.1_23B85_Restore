@@ -198,31 +198,31 @@ LABEL_30:
 
 - (unint64_t)hash
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = self->_matchingIdentifiers;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 = [*(*(&v22 + 1) + 8 * i) hash] - v6 + 32 * v6;
+        v6 = [*(*(&v21 + 1) + 8 * i) hash] - v6 + 32 * v6;
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -241,11 +241,10 @@ LABEL_30:
   domain = self->_domain;
   v15 = [(NSString *)self->_targetBundleIdentifier hash];
   v16 = [(NSString *)self->_context hash];
-  v17 = *MEMORY[0x1E69E9840];
-  v18 = v11 - (v10 + v9) + 32 * (v10 + v9);
-  v19 = v13 - (v12 - v18 + 32 * v18) + 32 * (v12 - v18 + 32 * v18);
-  v20 = v15 - (domain - v19 + 32 * v19) + 32 * (domain - v19 + 32 * v19);
-  return self->_onlyQueryMostRelevantContacts - (v16 - v20 + 32 * v20) + 32 * (v16 - v20 + 32 * v20);
+  v17 = v11 - (v10 + v9) + 32 * (v10 + v9);
+  v18 = v13 - (v12 - v17 + 32 * v17) + 32 * (v12 - v17 + 32 * v17);
+  v19 = v15 - (domain - v18 + 32 * v18) + 32 * (domain - v18 + 32 * v18);
+  return self->_onlyQueryMostRelevantContacts - (v16 - v19 + 32 * v19) + 32 * (v16 - v19 + 32 * v19);
 }
 
 - (void)encodeWithCoder:(id)coder

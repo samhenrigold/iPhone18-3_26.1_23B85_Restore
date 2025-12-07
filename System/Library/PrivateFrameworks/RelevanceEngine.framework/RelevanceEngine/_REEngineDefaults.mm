@@ -25,40 +25,39 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_registeredPaths;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v6++) context:REPreferenceContext];
+        [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v6++) context:REPreferenceContext];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  v8.receiver = self;
-  v8.super_class = _REEngineDefaults;
-  [(_REEngineDefaults *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = _REEngineDefaults;
+  [(_REEngineDefaults *)&v7 dealloc];
 }
 
 - (BOOL)_BOOLValueForKey:(id)key set:(BOOL *)set

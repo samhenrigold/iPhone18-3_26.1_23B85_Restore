@@ -27,35 +27,33 @@
 
 - (id)eventDictionaryDescription
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   if (self->_score)
   {
-    v12[0] = @"position";
+    v11[0] = @"position";
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_itemPosition];
-    v13[0] = v3;
-    v12[1] = @"lastVisitedTimeInterval";
+    v12[0] = v3;
+    v11[1] = @"lastVisitedTimeInterval";
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:descriptionForTimeInterval(self->_lastVisitedDate)];
-    v12[2] = @"score";
+    v11[2] = @"score";
     score = self->_score;
-    v13[1] = v4;
-    v13[2] = score;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v12[1] = v4;
+    v12[2] = score;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
   }
 
   else
   {
-    v10[0] = @"position";
+    v9[0] = @"position";
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_itemPosition];
-    v10[1] = @"lastVisitedTimeInterval";
-    v11[0] = v3;
+    v9[1] = @"lastVisitedTimeInterval";
+    v10[0] = v3;
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:descriptionForTimeInterval(self->_lastVisitedDate)];
-    v11[1] = v4;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+    v10[1] = v4;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   }
 
   v7 = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

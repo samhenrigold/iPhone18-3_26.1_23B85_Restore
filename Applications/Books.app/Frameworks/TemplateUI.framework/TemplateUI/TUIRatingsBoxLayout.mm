@@ -29,7 +29,7 @@
   p_intrinsicContentSize = &self->_intrinsicContentSize;
   if (CGSizeZero.width == self->_intrinsicContentSize.width && height == self->_intrinsicContentSize.height)
   {
-    v7 = [(TUILayout *)self box:CGSizeZero.width];
+    v7 = objc_msgSend_box(self, a2, CGSizeZero.width, height);
     +[TUIRatingsBox imageSizeForSize:](TUIRatingsBox, "imageSizeForSize:", [v7 size]);
     p_intrinsicContentSize->width = v5;
     p_intrinsicContentSize->height = v6;
@@ -45,7 +45,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  [(TUIRatingsBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   width = self->_intrinsicContentSize.width;
   if (width <= -3.40282347e38)
   {
@@ -68,7 +68,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  [(TUIRatingsBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   height = self->_intrinsicContentSize.height;
   if (height <= -3.40282347e38)
   {
@@ -91,7 +91,7 @@
 
 - (double)computeIntrinsicAspectRatio
 {
-  [(TUIRatingsBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a2);
   width = self->_intrinsicContentSize.width;
   result = 1.0;
   if (width > 0.0)

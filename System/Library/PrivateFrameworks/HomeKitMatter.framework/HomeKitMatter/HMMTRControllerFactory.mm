@@ -14,15 +14,62 @@
 - (id)wrapperWithName:(id)name startupParams:(id)params entityIdentifier:(id)identifier;
 - (void)_removeGetter:(id)getter;
 - (void)_restartMatterControllerFactory;
+- (void)_revokeAvailable:(BOOL)available;
+- (void)_setEnabled:(BOOL)enabled;
 - (void)enableNormalOperationWithToken:(id)token;
 - (void)restartNormalOperation;
 @end
 
 @implementation HMMTRControllerFactory
 
+- (void)_revokeAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  controllerWrappers = [(HMMTRControllerFactory *)self controllerWrappers];
+  v6 = [controllerWrappers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v15;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v15 != v8)
+        {
+          objc_enumerationMutation(controllerWrappers);
+        }
+
+        v10 = *(*(&v14 + 1) + 8 * v9);
+        mtrPluginDeviceControllerRegistry = [(HMMTRControllerFactory *)self mtrPluginDeviceControllerRegistry];
+        cachedDeviceController = [v10 cachedDeviceController];
+        [mtrPluginDeviceControllerRegistry removeDeviceController:cachedDeviceController];
+
+        cachedDeviceController2 = [v10 cachedDeviceController];
+        [cachedDeviceController2 shutdown];
+
+        [v10 setCachedDeviceController:0];
+        [v10 _revokeAvailable:availableCopy];
+        ++v9;
+      }
+
+      while (v7 != v9);
+      v7 = [controllerWrappers countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v7);
+  }
+}
+
 - (id)_createControllerUsingOwnStorageWithStartupParams:(id)params
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   controllerParams2 = [paramsCopy controllerParams2];
   v6 = objc_autoreleasePoolPush();
@@ -33,16 +80,16 @@
     v9 = HMFGetLogIdentifier();
     fabricID = [paramsCopy fabricID];
     *buf = 138543618;
-    v21 = v9;
-    v22 = 2112;
-    v23 = fabricID;
+    v20 = v9;
+    v21 = 2112;
+    v22 = fabricID;
     _os_log_impl(&dword_22AEAE000, v8, OS_LOG_TYPE_INFO, "%{public}@Creating controller that uses own storage for fabric ID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v19 = 0;
-  v11 = [objc_alloc(MEMORY[0x277CD5318]) initWithParameters:controllerParams2 error:&v19];
-  v12 = v19;
+  v18 = 0;
+  v11 = [objc_alloc(MEMORY[0x277CD5318]) initWithParameters:controllerParams2 error:&v18];
+  v12 = v18;
   if (!v11)
   {
     v13 = objc_autoreleasePoolPush();
@@ -52,23 +99,21 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v12;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v12;
       _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create controller: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_createControllerUsingCommonStorageWithStartupParams:(id)params
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   controllerParams = [paramsCopy controllerParams];
   v6 = objc_autoreleasePoolPush();
@@ -79,17 +124,17 @@
     v9 = HMFGetLogIdentifier();
     fabricID = [paramsCopy fabricID];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = fabricID;
+    v24 = v9;
+    v25 = 2112;
+    v26 = fabricID;
     _os_log_impl(&dword_22AEAE000, v8, OS_LOG_TYPE_INFO, "%{public}@Creating controller that uses common storage for fabric ID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   sharedDeviceControllerFactory = [(HMMTRControllerFactory *)selfCopy sharedDeviceControllerFactory];
-  v23 = 0;
-  v12 = [sharedDeviceControllerFactory createControllerOnExistingFabric:controllerParams error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v12 = [sharedDeviceControllerFactory createControllerOnExistingFabric:controllerParams error:&v22];
+  v13 = v22;
   v14 = v13;
   if (v12)
   {
@@ -98,9 +143,9 @@
 
   else
   {
-    v22 = v13;
-    v12 = [sharedDeviceControllerFactory createControllerOnNewFabric:controllerParams error:&v22];
-    v15 = v22;
+    v21 = v13;
+    v12 = [sharedDeviceControllerFactory createControllerOnNewFabric:controllerParams error:&v21];
+    v15 = v21;
 
     if (!v12)
     {
@@ -111,9 +156,9 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v25 = v19;
-        v26 = 2112;
-        v27 = v15;
+        v24 = v19;
+        v25 = 2112;
+        v26 = v15;
         _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Failed to create controller: %@", buf, 0x16u);
       }
 
@@ -121,8 +166,6 @@
       v12 = 0;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -146,7 +189,7 @@
 
 - (void)_removeGetter:(id)getter
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   getterCopy = getter;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -154,11 +197,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = getterCopy;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing controller wrapper: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = getterCopy;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing controller wrapper: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -172,13 +215,11 @@
   {
     [(HMMTRControllerFactory *)selfCopy _restartMatterControllerFactory];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createControllerForGetter:(id)getter
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   getterCopy = getter;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -186,14 +227,13 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    enabled = selfCopy->_enabled;
-    v10 = HMFBooleanToString();
+    v9 = HMFBooleanToString();
     *buf = 138543874;
-    v39 = v8;
+    v37 = v8;
+    v38 = 2112;
+    v39 = getterCopy;
     v40 = 2112;
-    v41 = getterCopy;
-    v42 = 2112;
-    v43 = v10;
+    v41 = v9;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Creating controller for %@ in enabled state: %@", buf, 0x20u);
   }
 
@@ -206,15 +246,15 @@
     }
 
     startupParams = [getterCopy startupParams];
-    v12 = [(HMMTRControllerFactory *)selfCopy _createControllerWithStartupParams:startupParams];
-    [getterCopy setCachedDeviceController:v12];
+    v11 = [(HMMTRControllerFactory *)selfCopy _createControllerWithStartupParams:startupParams];
+    [getterCopy setCachedDeviceController:v11];
 
-    v13 = objc_autoreleasePoolPush();
-    v14 = selfCopy;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v12 = objc_autoreleasePoolPush();
+    v13 = selfCopy;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = HMFGetLogIdentifier();
+      v15 = HMFGetLogIdentifier();
       name = [getterCopy name];
       cachedDeviceController = [getterCopy cachedDeviceController];
       controllerNodeID = [cachedDeviceController controllerNodeID];
@@ -222,48 +262,48 @@
       fabricID = [startupParams2 fabricID];
       entityIdentifier = [getterCopy entityIdentifier];
       *buf = 138544386;
-      v39 = v16;
+      v37 = v15;
+      v38 = 2112;
+      v39 = name;
       v40 = 2112;
-      v41 = name;
+      v41 = controllerNodeID;
       v42 = 2112;
-      v43 = controllerNodeID;
+      v43 = fabricID;
       v44 = 2112;
-      v45 = fabricID;
-      v46 = 2112;
-      v47 = entityIdentifier;
-      _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@Started Matter controller '%@' with Node ID %@ on fabric ID %@, entity id %@", buf, 0x34u);
+      v45 = entityIdentifier;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Started Matter controller '%@' with Node ID %@ on fabric ID %@, entity id %@", buf, 0x34u);
     }
 
-    objc_autoreleasePoolPop(v13);
+    objc_autoreleasePoolPop(v12);
     cachedDeviceController2 = [getterCopy cachedDeviceController];
 
     if (cachedDeviceController2)
     {
-      mtrPluginDeviceControllerRegistry = [(HMMTRControllerFactory *)v14 mtrPluginDeviceControllerRegistry];
+      mtrPluginDeviceControllerRegistry = [(HMMTRControllerFactory *)v13 mtrPluginDeviceControllerRegistry];
       if (mtrPluginDeviceControllerRegistry)
       {
         entityIdentifier2 = [getterCopy entityIdentifier];
 
         if (entityIdentifier2)
         {
-          v25 = objc_autoreleasePoolPush();
-          v26 = v14;
-          v27 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v24 = objc_autoreleasePoolPush();
+          v25 = v13;
+          v26 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            v28 = HMFGetLogIdentifier();
+            v27 = HMFGetLogIdentifier();
             entityIdentifier3 = [getterCopy entityIdentifier];
             *buf = 138543618;
-            v39 = v28;
-            v40 = 2112;
-            v41 = entityIdentifier3;
-            _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Registering new device controller entityIdentifier: %@", buf, 0x16u);
+            v37 = v27;
+            v38 = 2112;
+            v39 = entityIdentifier3;
+            _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_DEBUG, "%{public}@Registering new device controller entityIdentifier: %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v25);
-          v30 = objc_opt_respondsToSelector();
+          objc_autoreleasePoolPop(v24);
+          v29 = objc_opt_respondsToSelector();
           cachedDeviceController3 = [getterCopy cachedDeviceController];
-          if (v30)
+          if (v29)
           {
             entityIdentifier4 = [getterCopy entityIdentifier];
             [mtrPluginDeviceControllerRegistry addDeviceController:cachedDeviceController3 forEntityWithIdentifier:entityIdentifier4];
@@ -276,7 +316,7 @@
         }
       }
 
-      mtrPluginSharedInstance = [(HMMTRControllerFactory *)v14 mtrPluginSharedInstance];
+      mtrPluginSharedInstance = [(HMMTRControllerFactory *)v13 mtrPluginSharedInstance];
       [mtrPluginSharedInstance start];
     }
 
@@ -288,14 +328,12 @@
     cachedDeviceController4 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
   return cachedDeviceController4;
 }
 
 - (void)_restartMatterControllerFactory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([(HMMTRControllerFactory *)self usesCommonStorage])
   {
     v3 = objc_autoreleasePoolPush();
@@ -305,7 +343,7 @@
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v6;
+      v18 = v6;
       _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Restarting controller factory", buf, 0xCu);
     }
 
@@ -316,9 +354,9 @@
     [storage clear];
 
     factoryParams = [(HMMTRControllerFactory *)selfCopy factoryParams];
-    v17 = 0;
-    v10 = [sharedDeviceControllerFactory startControllerFactory:factoryParams error:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [sharedDeviceControllerFactory startControllerFactory:factoryParams error:&v16];
+    v11 = v16;
 
     if (v10)
     {
@@ -334,17 +372,15 @@
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v11;
+        v18 = v15;
+        v19 = 2112;
+        v20 = v11;
         _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to start: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mtrPluginSharedInstance
@@ -379,7 +415,7 @@
 
 - (void)enableNormalOperationWithToken:(id)token
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -401,29 +437,27 @@
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v6;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_INFO, "%{public}@Enabling normal operation with token %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   workQueue = [(HMMTRControllerFactory *)selfCopy workQueue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke;
-  v14[3] = &unk_2786EF328;
-  v14[4] = selfCopy;
-  v15 = v6;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke;
+  v13[3] = &unk_2786EF328;
+  v13[4] = selfCopy;
+  v14 = v6;
   v12 = v6;
-  dispatch_async(workQueue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue, v13);
 }
 
 void __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) disablingTokens];
   [v2 removeObject:*(a1 + 40)];
 
@@ -442,20 +476,19 @@ void __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke(
   {
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 40);
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Voted normal operation with token %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Voted normal operation with token %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_disableNormalOperation:(BOOL)operation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (!isFeatureMatterRVCEnabled() || operation)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -466,24 +499,24 @@ void __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke(
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v14;
-      v24 = 2112;
-      v25 = uUID;
+      v22 = v14;
+      v23 = 2112;
+      v24 = uUID;
       _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Disabling normal operation with token %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     workQueue = [(HMMTRControllerFactory *)selfCopy workQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __50__HMMTRControllerFactory__disableNormalOperation___block_invoke;
-    v20[3] = &unk_2786EF328;
-    v20[4] = selfCopy;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __50__HMMTRControllerFactory__disableNormalOperation___block_invoke;
+    v19[3] = &unk_2786EF328;
+    v19[4] = selfCopy;
     v16 = uUID;
-    v21 = v16;
-    dispatch_async(workQueue, v20);
+    v20 = v16;
+    dispatch_async(workQueue, v19);
 
-    v17 = v21;
+    v17 = v20;
     v9 = v16;
   }
 
@@ -496,7 +529,7 @@ void __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke(
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v8;
+      v22 = v8;
       _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Disable controller factory operation ignored", buf, 0xCu);
     }
 
@@ -504,14 +537,12 @@ void __57__HMMTRControllerFactory_enableNormalOperationWithToken___block_invoke(
     v9 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) disablingTokens];
   [v2 addObject:*(a1 + 40)];
 
@@ -523,15 +554,14 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Disabled normal operation with token %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Disabled normal operation with token %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restartNormalOperation
@@ -542,7 +572,7 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
 
 - (id)stackStorageWithStartupParams:(id)params operationalKeyPairTLV:(id)v
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   vCopy = v;
   v8 = objc_autoreleasePoolPush();
@@ -553,8 +583,8 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
     *&buf[4] = v11;
-    v30 = 2112;
-    v31 = paramsCopy;
+    v29 = 2112;
+    v30 = paramsCopy;
     _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_INFO, "%{public}@Dumping stack storage for params: %@", buf, 0x16u);
   }
 
@@ -573,13 +603,13 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
   v19 = [v17 convertX509Certificate:operationalCertificate];
   [dictionary setObject:v19 forKeyedSubscript:@"f/1/n"];
 
-  v27 = 0x12C1384002515;
-  v28 = 24;
+  v26 = 0x12C1384002515;
+  v27 = 24;
   vendorID = [paramsCopy vendorID];
   LOWORD(operationalCertificate) = [vendorID unsignedShortValue];
 
-  *(&v27 + 3) = operationalCertificate;
-  v21 = [MEMORY[0x277CBEA90] dataWithBytes:&v27 length:9];
+  *(&v26 + 3) = operationalCertificate;
+  v21 = [MEMORY[0x277CBEA90] dataWithBytes:&v26 length:9];
   [dictionary setObject:v21 forKeyedSubscript:@"f/1/m"];
 
   [dictionary setObject:vCopy forKeyedSubscript:@"f/1/o"];
@@ -588,18 +618,16 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
   v22 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:10];
   [dictionary setObject:v22 forKeyedSubscript:@"g/fidx"];
 
-  v26 = 0x1829625600002615;
-  v23 = [MEMORY[0x277CBEA90] dataWithBytes:&v26 length:8];
+  v25 = 0x1829625600002615;
+  v23 = [MEMORY[0x277CBEA90] dataWithBytes:&v25 length:8];
   [dictionary setObject:v23 forKeyedSubscript:@"g/lkgt"];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (id)wrapperWithName:(id)name startupParams:(id)params entityIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   paramsCopy = params;
   identifierCopy = identifier;
@@ -608,14 +636,14 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
   v13 = [(HMMTRControllerWrapper *)v11 initWithWorkQueue:workQueue factory:self startupParams:paramsCopy name:nameCopy entityIdentifier:identifierCopy];
 
   workQueue2 = [(HMMTRControllerFactory *)self workQueue];
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __73__HMMTRControllerFactory_wrapperWithName_startupParams_entityIdentifier___block_invoke;
-  v28 = &unk_2786EF328;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __73__HMMTRControllerFactory_wrapperWithName_startupParams_entityIdentifier___block_invoke;
+  v27 = &unk_2786EF328;
   selfCopy = self;
   v15 = v13;
-  v30 = v15;
-  dispatch_sync(workQueue2, &v25);
+  v29 = v15;
+  dispatch_sync(workQueue2, &v24);
 
   v16 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -625,19 +653,18 @@ void __50__HMMTRControllerFactory__disableNormalOperation___block_invoke(uint64_
     v19 = HMFGetLogIdentifier();
     fabricID = [paramsCopy fabricID];
     *buf = 138543874;
-    v32 = v19;
-    v33 = 2112;
-    v34 = v15;
-    v35 = 2112;
-    v36 = fabricID;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v15;
+    v34 = 2112;
+    v35 = fabricID;
     _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@New controller wrapper %@ for fabric ID %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v21 = v30;
+  v21 = v29;
   v22 = v15;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -725,6 +752,44 @@ void __73__HMMTRControllerFactory_wrapperWithName_startupParams_entityIdentifier
   return selfCopy;
 }
 
+- (void)_setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = HMFBooleanToString();
+    v10 = HMFBooleanToString();
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v10;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@enabled: %@ -> %@", &v12, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  if (selfCopy->_enabled != enabledCopy)
+  {
+    selfCopy->_enabled = enabledCopy;
+    [(HMMTRControllerFactory *)selfCopy _revokeAvailable:enabledCopy];
+    if (!enabledCopy)
+    {
+      if ([(HMMTRControllerFactory *)selfCopy usesCommonStorage])
+      {
+        sharedDeviceControllerFactory = [(HMMTRControllerFactory *)selfCopy sharedDeviceControllerFactory];
+        [sharedDeviceControllerFactory stopControllerFactory];
+        [(HMMTRControllerFactory *)selfCopy setMatterFactoryRunning:0];
+      }
+    }
+  }
+}
+
 + (id)logCategory
 {
   if (logCategory__hmf_once_t34 != -1)
@@ -739,10 +804,11 @@ void __73__HMMTRControllerFactory_wrapperWithName_startupParams_entityIdentifier
 
 uint64_t __37__HMMTRControllerFactory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v35 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v35;
+  logCategory__hmf_once_v35 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)factoryParamsWithCommonStorage

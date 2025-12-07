@@ -1,541 +1,4 @@
-uint64_t *std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>,0>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4)
-{
-  v7 = result;
-  v8 = *a2;
-  v9 = *a3;
-  if (*a2 >= *result)
-  {
-    if (v9 < v8)
-    {
-      result = std::swap[abi:nn200100]<FIK::MoCapBone>(a2, a3);
-      if (*a2 < *v7)
-      {
-        result = v7;
-        v10 = a2;
-        goto LABEL_9;
-      }
-    }
-  }
-
-  else
-  {
-    if (v9 < v8)
-    {
-LABEL_5:
-      v10 = a3;
-LABEL_9:
-      result = std::swap[abi:nn200100]<FIK::MoCapBone>(result, v10);
-      goto LABEL_10;
-    }
-
-    result = std::swap[abi:nn200100]<FIK::MoCapBone>(result, a2);
-    if (*a3 < *a2)
-    {
-      result = a2;
-      goto LABEL_5;
-    }
-  }
-
-LABEL_10:
-  if (*a4 < *a3)
-  {
-    result = std::swap[abi:nn200100]<FIK::MoCapBone>(a3, a4);
-    if (*a3 < *a2)
-    {
-      result = std::swap[abi:nn200100]<FIK::MoCapBone>(a2, a3);
-      if (*a2 < *v7)
-      {
-
-        return std::swap[abi:nn200100]<FIK::MoCapBone>(v7, a2);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>,FIK::IKArrayIterator<FIK::MoCapBone>>(uint64_t result, uint64_t *a2, uint64_t *a3)
-{
-  v3 = a2 - result;
-  if (a2 != result)
-  {
-    v5 = a2;
-    v6 = result;
-    if (v3 >= 545)
-    {
-      v7 = (0xF0F0F0F0F0F0F0F1 * (v3 >> 5) - 2) >> 1;
-      v8 = v7 + 1;
-      v9 = (result + 544 * v7);
-      do
-      {
-        v9 -= 68;
-        --v8;
-      }
-
-      while (v8);
-    }
-
-    if (v5 != a3)
-    {
-      v10 = v5;
-      do
-      {
-        if (*v10 < *v6)
-        {
-          std::swap[abi:nn200100]<FIK::MoCapBone>(v10, v6);
-        }
-
-        v10 += 68;
-      }
-
-      while (v10 != a3);
-    }
-
-    if (v3 >= 545)
-    {
-      v11 = 0xF0F0F0F0F0F0F0F1 * (v3 >> 5);
-      do
-      {
-        v80 = *v6;
-        IKString::IKString(v81, (v6 + 8), *(v6 + 24));
-        IKString::IKString(&v83, (v6 + 32), *(v6 + 48));
-        v12 = *(v6 + 80);
-        v86 = *(v6 + 64);
-        v87 = v12;
-        v13 = *(v6 + 96);
-        v14 = *(v6 + 112);
-        v90 = *(v6 + 128);
-        v88 = v13;
-        v89 = v14;
-        v15 = *(v6 + 160);
-        v91 = *(v6 + 144);
-        v92 = v15;
-        v16 = *(v6 + 192);
-        v93 = *(v6 + 176);
-        v94 = v16;
-        v17 = *(v6 + 224);
-        v95 = *(v6 + 208);
-        v96 = v17;
-        v97 = *(v6 + 240);
-        IKString::IKString(&v98, (v6 + 256), *(v6 + 272));
-        v18 = 0;
-        v101 = *(v6 + 280);
-        v19 = *(v6 + 304);
-        v102 = *(v6 + 288);
-        v20 = *(v6 + 336);
-        v104 = *(v6 + 320);
-        v103 = v19;
-        v105 = v20;
-        v21 = *(v6 + 352);
-        v107 = *(v6 + 368);
-        v106 = v21;
-        v108 = *(v6 + 384);
-        v22 = *(v6 + 416);
-        v109 = *(v6 + 400);
-        *(v6 + 416) = 0;
-        *(v6 + 424) = 0;
-        v23 = *(v6 + 432);
-        v24 = *(v6 + 448);
-        *(v6 + 432) = 0;
-        v110 = v22;
-        v111 = v23;
-        v112 = v24;
-        v113 = *(v6 + 464);
-        v114 = *(v6 + 480);
-        v25 = *(v6 + 512);
-        v115 = *(v6 + 496);
-        v116 = v25;
-        v26 = v6;
-        v117 = *(v6 + 528);
-        do
-        {
-          v27 = v26 + 544 * v18 + 544;
-          v28 = (2 * v18) | 1;
-          v29 = 2 * v18 + 2;
-          if (v29 < v11 && *v27 < *(v27 + 544))
-          {
-            v27 += 544;
-            v28 = v29;
-          }
-
-          *v26 = *v27;
-          IKString::operator=((v26 + 8), v27 + 8);
-          IKString::operator=((v26 + 32), v27 + 32);
-          *(v26 + 64) = *(v27 + 64);
-          *(v26 + 80) = *(v27 + 80);
-          v31 = *(v27 + 96);
-          v30 = *(v27 + 112);
-          *(v26 + 128) = *(v27 + 128);
-          *(v26 + 96) = v31;
-          *(v26 + 112) = v30;
-          *(v26 + 144) = *(v27 + 144);
-          *(v26 + 160) = *(v27 + 160);
-          *(v26 + 176) = *(v27 + 176);
-          *(v26 + 192) = *(v27 + 192);
-          *(v26 + 208) = *(v27 + 208);
-          *(v26 + 224) = *(v27 + 224);
-          *(v26 + 240) = *(v27 + 240);
-          IKString::operator=((v26 + 256), v27 + 256);
-          *(v26 + 280) = *(v27 + 280);
-          *(v26 + 288) = *(v27 + 288);
-          *(v26 + 304) = *(v27 + 304);
-          *(v26 + 320) = *(v27 + 320);
-          *(v26 + 336) = *(v27 + 336);
-          v32 = *(v27 + 368);
-          *(v26 + 352) = *(v27 + 352);
-          *(v26 + 368) = v32;
-          *(v26 + 384) = *(v27 + 384);
-          *(v26 + 400) = *(v27 + 400);
-          FIK::IKArray<IKString>::operator=((v26 + 416), (v27 + 416));
-          *(v26 + 448) = *(v27 + 448);
-          *(v26 + 464) = *(v27 + 464);
-          *(v26 + 480) = *(v27 + 480);
-          *(v26 + 496) = *(v27 + 496);
-          *(v26 + 512) = *(v27 + 512);
-          *(v26 + 528) = *(v27 + 528);
-          v26 = v27;
-          v18 = v28;
-        }
-
-        while (v28 <= ((v11 - 2) >> 1));
-        v33 = v5 - 68;
-        if (v27 == v5 - 68)
-        {
-          *v27 = v80;
-          IKString::operator=((v27 + 8), v81);
-          IKString::operator=((v27 + 32), &v83);
-          *(v27 + 64) = v86;
-          *(v27 + 80) = v87;
-          v73 = v88;
-          v72 = v89;
-          *(v27 + 128) = v90;
-          *(v27 + 96) = v73;
-          *(v27 + 112) = v72;
-          *(v27 + 144) = v91;
-          *(v27 + 160) = v92;
-          *(v27 + 176) = v93;
-          *(v27 + 192) = v94;
-          *(v27 + 208) = v95;
-          *(v27 + 224) = v96;
-          *(v27 + 240) = v97;
-          IKString::operator=((v27 + 256), &v98);
-          *(v27 + 280) = v101;
-          *(v27 + 288) = v102;
-          *(v27 + 304) = v103;
-          *(v27 + 320) = v104;
-          *(v27 + 336) = v105;
-          v74 = v107;
-          *(v27 + 352) = v106;
-          *(v27 + 368) = v74;
-          *(v27 + 384) = v108;
-          *(v27 + 400) = v109;
-          v75 = v110;
-          v76 = v111;
-          v110 = 0uLL;
-          *&v111 = 0;
-          v77 = *(v27 + 416);
-          v78 = *(v27 + 432);
-          *(v27 + 416) = v75;
-          *(v27 + 432) = v76;
-          v118 = v77;
-          v119 = v78;
-          FIK::IKArray<IKString>::~IKArray(&v118);
-          *(v27 + 448) = v112;
-          *(v27 + 464) = v113;
-          *(v27 + 480) = v114;
-          *(v27 + 496) = v115;
-          *(v27 + 512) = v116;
-          *(v27 + 528) = v117;
-        }
-
-        else
-        {
-          *v27 = *v33;
-          IKString::operator=((v27 + 8), (v5 - 67));
-          IKString::operator=((v27 + 32), (v5 - 64));
-          *(v27 + 64) = *(v5 - 30);
-          *(v27 + 80) = *(v5 - 29);
-          v35 = *(v5 - 28);
-          v34 = *(v5 - 27);
-          *(v27 + 128) = *(v5 - 52);
-          *(v27 + 96) = v35;
-          *(v27 + 112) = v34;
-          *(v27 + 144) = *(v5 - 25);
-          *(v27 + 160) = *(v5 - 24);
-          *(v27 + 176) = *(v5 - 23);
-          *(v27 + 192) = *(v5 - 22);
-          *(v27 + 208) = *(v5 - 21);
-          *(v27 + 224) = *(v5 - 20);
-          *(v27 + 240) = *(v5 - 19);
-          IKString::operator=((v27 + 256), (v5 - 36));
-          *(v27 + 280) = *(v5 - 66);
-          *(v27 + 288) = *(v5 - 16);
-          *(v27 + 304) = *(v5 - 15);
-          *(v27 + 320) = *(v5 - 14);
-          *(v27 + 336) = *(v5 - 13);
-          v36 = *(v5 - 22);
-          *(v27 + 352) = *(v5 - 12);
-          *(v27 + 368) = v36;
-          *(v27 + 384) = *(v5 - 20);
-          *(v27 + 400) = *(v5 - 9);
-          FIK::IKArray<IKString>::operator=((v27 + 416), v5 - 8);
-          *(v27 + 448) = *(v5 - 6);
-          *(v27 + 464) = *(v5 - 5);
-          *(v27 + 480) = *(v5 - 8);
-          *(v27 + 496) = *(v5 - 3);
-          *(v27 + 512) = *(v5 - 2);
-          *(v27 + 528) = *(v5 - 1);
-          *v33 = v80;
-          IKString::operator=(v5 - 67, v81);
-          IKString::operator=(v5 - 64, &v83);
-          *(v5 - 30) = v86;
-          *(v5 - 29) = v87;
-          v38 = v88;
-          v37 = v89;
-          *(v5 - 52) = v90;
-          *(v5 - 28) = v38;
-          *(v5 - 27) = v37;
-          *(v5 - 25) = v91;
-          *(v5 - 24) = v92;
-          *(v5 - 23) = v93;
-          *(v5 - 22) = v94;
-          *(v5 - 21) = v95;
-          *(v5 - 20) = v96;
-          *(v5 - 19) = v97;
-          IKString::operator=(v5 - 36, &v98);
-          *(v5 - 66) = v101;
-          *(v5 - 16) = v102;
-          *(v5 - 15) = v103;
-          *(v5 - 14) = v104;
-          *(v5 - 13) = v105;
-          v39 = v107;
-          *(v5 - 12) = v106;
-          *(v5 - 22) = v39;
-          *(v5 - 20) = v108;
-          *(v5 - 9) = v109;
-          v40 = v110;
-          v110 = 0uLL;
-          v41 = *(v5 - 16);
-          *(v5 - 16) = v40;
-          *&v118 = v41;
-          v42 = *(v5 - 15);
-          *(v5 - 15) = *(&v40 + 1);
-          v43 = v111;
-          *&v111 = 0;
-          *(&v118 + 1) = v42;
-          v44 = *(v5 - 7);
-          *(v5 - 7) = v43;
-          v119 = v44;
-          FIK::IKArray<IKString>::~IKArray(&v118);
-          *(v5 - 6) = v112;
-          *(v5 - 5) = v113;
-          *(v5 - 8) = v114;
-          *(v5 - 3) = v115;
-          *(v5 - 2) = v116;
-          *(v5 - 1) = v117;
-          v45 = v27 - v6 + 544;
-          if (v45 >= 545)
-          {
-            v46 = (-2 - 0xF0F0F0F0F0F0F0FLL * (v45 >> 5)) >> 1;
-            v47 = v6 + 544 * v46;
-            if (*v47 < *v27)
-            {
-              *&v118 = *v27;
-              IKString::IKString(&v118 + 1, (v27 + 8), *(v27 + 24));
-              IKString::IKString(&v120, (v27 + 32), *(v27 + 48));
-              v48 = *(v27 + 80);
-              v123 = *(v27 + 64);
-              v124 = v48;
-              v49 = *(v27 + 96);
-              v50 = *(v27 + 112);
-              v127 = *(v27 + 128);
-              v125 = v49;
-              v126 = v50;
-              v51 = *(v27 + 160);
-              v128 = *(v27 + 144);
-              v129 = v51;
-              v52 = *(v27 + 192);
-              v130 = *(v27 + 176);
-              v131 = v52;
-              v53 = *(v27 + 224);
-              v132 = *(v27 + 208);
-              v133 = v53;
-              v134 = *(v27 + 240);
-              IKString::IKString(&v135, (v27 + 256), *(v27 + 272));
-              v138 = *(v27 + 280);
-              v54 = *(v27 + 304);
-              v139 = *(v27 + 288);
-              v55 = *(v27 + 336);
-              v141 = *(v27 + 320);
-              v140 = v54;
-              v142 = v55;
-              v56 = *(v27 + 352);
-              v144 = *(v27 + 368);
-              v143 = v56;
-              v145 = *(v27 + 384);
-              v57 = *(v27 + 416);
-              v146 = *(v27 + 400);
-              *(v27 + 416) = 0;
-              *(v27 + 424) = 0;
-              v58 = *(v27 + 432);
-              v59 = *(v27 + 448);
-              *(v27 + 432) = 0;
-              v147 = v57;
-              v148 = v58;
-              v149 = v59;
-              v150 = *(v27 + 464);
-              v151 = *(v27 + 480);
-              v60 = *(v27 + 512);
-              v152 = *(v27 + 496);
-              v153 = v60;
-              v154 = *(v27 + 528);
-              do
-              {
-                v61 = v47;
-                *v27 = *v47;
-                IKString::operator=((v27 + 8), v47 + 8);
-                IKString::operator=((v27 + 32), v47 + 32);
-                *(v27 + 64) = *(v47 + 64);
-                *(v27 + 80) = *(v47 + 80);
-                v63 = *(v47 + 96);
-                v62 = *(v47 + 112);
-                *(v27 + 128) = *(v47 + 128);
-                *(v27 + 96) = v63;
-                *(v27 + 112) = v62;
-                *(v27 + 144) = *(v47 + 144);
-                *(v27 + 160) = *(v47 + 160);
-                *(v27 + 176) = *(v47 + 176);
-                *(v27 + 192) = *(v47 + 192);
-                *(v27 + 208) = *(v47 + 208);
-                *(v27 + 224) = *(v47 + 224);
-                *(v27 + 240) = *(v47 + 240);
-                IKString::operator=((v27 + 256), v47 + 256);
-                *(v27 + 280) = *(v47 + 280);
-                *(v27 + 288) = *(v47 + 288);
-                *(v27 + 304) = *(v47 + 304);
-                *(v27 + 320) = *(v47 + 320);
-                *(v27 + 336) = *(v47 + 336);
-                v64 = *(v47 + 368);
-                *(v27 + 352) = *(v47 + 352);
-                *(v27 + 368) = v64;
-                *(v27 + 384) = *(v47 + 384);
-                *(v27 + 400) = *(v47 + 400);
-                FIK::IKArray<IKString>::operator=((v27 + 416), (v47 + 416));
-                *(v27 + 448) = *(v47 + 448);
-                *(v27 + 464) = *(v47 + 464);
-                *(v27 + 480) = *(v47 + 480);
-                *(v27 + 496) = *(v47 + 496);
-                *(v27 + 512) = *(v47 + 512);
-                *(v27 + 528) = *(v47 + 528);
-                if (!v46)
-                {
-                  break;
-                }
-
-                v46 = (v46 - 1) / 2;
-                v47 = v6 + 544 * v46;
-                v27 = v61;
-              }
-
-              while (*v47 < v118);
-              *v61 = v118;
-              IKString::operator=((v61 + 8), &v118 + 8);
-              IKString::operator=((v61 + 32), &v120);
-              *(v61 + 64) = v123;
-              *(v61 + 80) = v124;
-              v66 = v125;
-              v65 = v126;
-              *(v61 + 128) = v127;
-              *(v61 + 96) = v66;
-              *(v61 + 112) = v65;
-              *(v61 + 144) = v128;
-              *(v61 + 160) = v129;
-              *(v61 + 176) = v130;
-              *(v61 + 192) = v131;
-              *(v61 + 208) = v132;
-              *(v61 + 224) = v133;
-              *(v61 + 240) = v134;
-              IKString::operator=((v61 + 256), &v135);
-              *(v61 + 280) = v138;
-              *(v61 + 288) = v139;
-              *(v61 + 304) = v140;
-              *(v61 + 320) = v141;
-              *(v61 + 336) = v142;
-              v67 = v144;
-              *(v61 + 352) = v143;
-              *(v61 + 368) = v67;
-              *(v61 + 384) = v145;
-              *(v61 + 400) = v146;
-              v68 = v147;
-              v69 = v148;
-              v147 = 0uLL;
-              *&v148 = 0;
-              v70 = *(v61 + 416);
-              v71 = *(v61 + 432);
-              *(v61 + 416) = v68;
-              *(v61 + 432) = v69;
-              v155[0] = v70;
-              v155[1] = v71;
-              FIK::IKArray<IKString>::~IKArray(v155);
-              *(v61 + 448) = v149;
-              *(v61 + 464) = v150;
-              *(v61 + 480) = v151;
-              *(v61 + 496) = v152;
-              *(v61 + 512) = v153;
-              *(v61 + 528) = v154;
-              FIK::IKArray<IKString>::~IKArray(&v147);
-              if (v136)
-              {
-                (*(*v137 + 24))(v137, v135, 0, 8);
-                v135 = 0;
-                v136 = 0;
-              }
-
-              if (v121)
-              {
-                (*(*v122 + 24))(v122, v120, 0, 8);
-                v120 = 0;
-                v121 = 0;
-              }
-
-              if (v119)
-              {
-                (*(**(&v119 + 1) + 24))(*(&v119 + 1), *(&v118 + 1), 0, 8);
-              }
-            }
-          }
-        }
-
-        result = FIK::IKArray<IKString>::~IKArray(&v110);
-        if (v99)
-        {
-          result = (*(*v100 + 24))(v100, v98, 0, 8);
-          v98 = 0;
-          v99 = 0;
-        }
-
-        v5 -= 68;
-        if (v84)
-        {
-          result = (*(*v85 + 24))(v85, v83, 0, 8);
-          v83 = 0;
-          v84 = 0;
-        }
-
-        if (v81[1])
-        {
-          result = (*(*v82 + 24))(v82, v81[0], 0, 8);
-        }
-      }
-
-      while (v11-- > 2);
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>>(uint64_t *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>>(char **a1, char **a2)
 {
   v3 = a1;
   v4 = 0xF0F0F0F0F0F0F0F1 * ((a2 - a1) >> 5);
@@ -683,14 +146,14 @@ LABEL_35:
     if (*v17 < v20)
     {
       v46 = *v17;
-      IKString::IKString(v47, v17 + 1, v17[3]);
-      IKString::IKString(&v49, v13 + 4, v13[6]);
+      IKString::IKString(v47, v17 + 1, *(v17 + 3));
+      IKString::IKString(&v49, v13 + 4, *(v13 + 6));
       v21 = *(v13 + 5);
       v52 = *(v13 + 4);
       v53 = v21;
       v22 = *(v13 + 6);
       v23 = *(v13 + 7);
-      v56 = v13[16];
+      v56 = *(v13 + 16);
       v54 = v22;
       v55 = v23;
       v24 = *(v13 + 10);
@@ -703,8 +166,8 @@ LABEL_35:
       v61 = *(v13 + 13);
       v62 = v26;
       v63 = *(v13 + 15);
-      IKString::IKString(&v64, v13 + 32, v13[34]);
-      v67 = *(v13 + 70);
+      IKString::IKString(&v64, v13 + 32, *(v13 + 34));
+      v67 = v13[70];
       v27 = *(v13 + 19);
       v68 = *(v13 + 18);
       v28 = *(v13 + 21);
@@ -712,21 +175,21 @@ LABEL_35:
       v69 = v27;
       v71 = v28;
       v29 = *(v13 + 22);
-      v73 = v13[46];
+      v73 = *(v13 + 46);
       v72 = v29;
-      v74 = v13[48];
+      v74 = *(v13 + 48);
       v30 = *(v13 + 26);
       v75 = *(v13 + 25);
-      v13[52] = 0;
-      v13[53] = 0;
+      *(v13 + 52) = 0;
+      *(v13 + 53) = 0;
       v31 = *(v13 + 27);
       v32 = *(v13 + 28);
-      v13[54] = 0;
+      *(v13 + 54) = 0;
       v76 = v30;
       v77 = v31;
       v78 = v32;
       v79 = *(v13 + 29);
-      v80 = v13[60];
+      v80 = *(v13 + 60);
       v33 = *(v13 + 32);
       v81 = *(v13 + 31);
       v82 = v33;
@@ -852,20 +315,20 @@ LABEL_43:
 
       if (++v19 == 8)
       {
-        return v13 + 68 == a2;
+        return v13 + 136 == a2;
       }
     }
 
-    v17 = v13 + 68;
+    v17 = v13 + 136;
     v18 += 544;
-    if (v13 + 68 == a2)
+    if (v13 + 136 == a2)
     {
       return 1;
     }
   }
 }
 
-uint64_t std::swap[abi:nn200100]<FIK::MoCapBone>(uint64_t *a1, uint64_t *a2)
+uint64_t std::swap[abi:nn200100]<FIK::MoCapBone>(char **a1, char **a2)
 {
   v35 = *a1;
   IKString::IKString(v36, a1 + 1, a1[3]);
@@ -1025,7 +488,7 @@ uint64_t std::swap[abi:nn200100]<FIK::MoCapBone>(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>>(uint64_t result, uint64_t a2, void *a3)
+uint64_t std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_0 &,FIK::IKArrayIterator<FIK::MoCapBone>>(uint64_t result, uint64_t a2, char **a3)
 {
   v5 = a2 - 2;
   if (a2 >= 2)
@@ -1263,8 +726,8 @@ uint64_t std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::reorderRig
   v6 = result;
 LABEL_2:
   v7 = a2 - 12;
-  v108 = a2 - 36;
-  v109 = a2 - 24;
+  v108 = (a2 - 36);
+  v109 = (a2 - 24);
   v8 = v6;
   while (1)
   {
@@ -1282,7 +745,7 @@ LABEL_2:
       if (v10 == 2)
       {
         v62 = *(a2 - 24);
-        v61 = a2 - 12;
+        v61 = (a2 - 12);
         if (v62 >= *v6)
         {
           return result;
@@ -1300,19 +763,19 @@ LABEL_119:
 
     if (v10 == 3)
     {
-      v63 = *(v6 + 96);
+      v63 = *(v6 + 24);
       v65 = *(a2 - 24);
-      v61 = a2 - 12;
+      v61 = (a2 - 12);
       v64 = v65;
       if (v63 >= *v6)
       {
         if (v64 < v63)
         {
-          result = std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 96), v61);
-          if (*(v6 + 96) < *v6)
+          result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6 + 12, v61);
+          if (*(v6 + 24) < *v6)
           {
             v60 = v6;
-            v59 = (v6 + 96);
+            v59 = (v6 + 12);
             return std::swap[abi:nn200100]<FIK::RigBoneBase>(v60, v59);
           }
         }
@@ -1325,10 +788,10 @@ LABEL_119:
           goto LABEL_118;
         }
 
-        result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6, (v6 + 96));
-        if (*v61 < *(v6 + 96))
+        result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6, v6 + 12);
+        if (*v61 < *(v6 + 24))
         {
-          v60 = (v6 + 96);
+          v60 = (v6 + 12);
           goto LABEL_119;
         }
       }
@@ -1352,39 +815,39 @@ LABEL_10:
       {
         if (v6 != a2)
         {
-          v66 = (v6 + 96);
-          if ((v6 + 96) != a2)
+          v66 = (v6 + 12);
+          if (v6 + 12 != a2)
           {
             v67 = 0;
             v68 = v6;
             do
             {
               v69 = v66;
-              if (*(v68 + 96) < *v68)
+              if (*(v68 + 24) < *v68)
               {
                 v119 = *v66;
-                IKString::IKString(&v120, (v68 + 104), *(v68 + 120));
-                IKString::IKString(&v123, (v68 + 128), *(v68 + 144));
-                v70 = *(v68 + 176);
-                v126 = *(v68 + 160);
+                IKString::IKString(&v120, v68 + 13, v68[15]);
+                IKString::IKString(&v123, v68 + 16, v68[18]);
+                v70 = *(v68 + 11);
+                v126 = *(v68 + 10);
                 v127 = v70;
                 v71 = v67;
                 while (1)
                 {
-                  v72 = v6 + v71;
+                  v72 = (v6 + v71);
                   *(v6 + v71 + 96) = *(v6 + v71);
                   IKString::operator=((v6 + v71 + 104), v6 + v71 + 8);
-                  IKString::operator=((v72 + 128), v72 + 32);
+                  IKString::operator=(v72 + 16, (v72 + 4));
                   v73 = *(v6 + v71 + 80);
-                  *(v72 + 160) = *(v72 + 64);
-                  *(v72 + 176) = v73;
+                  *(v72 + 10) = *(v72 + 4);
+                  *(v72 + 11) = v73;
                   if (!v71)
                   {
                     break;
                   }
 
                   v71 -= 96;
-                  if (v119 >= *(v72 - 96))
+                  if (v119 >= *(v72 - 24))
                   {
                     v74 = v6 + v71 + 96;
                     goto LABEL_132;
@@ -1394,10 +857,10 @@ LABEL_10:
                 v74 = v6;
 LABEL_132:
                 *v74 = v119;
-                IKString::operator=((v72 + 8), &v120);
-                result = IKString::operator=((v72 + 32), &v123);
+                IKString::operator=(v72 + 1, &v120);
+                result = IKString::operator=(v72 + 4, &v123);
                 *(v74 + 64) = v126;
-                *(v72 + 80) = v127;
+                *(v72 + 5) = v127;
                 if (v124)
                 {
                   result = (*(*v125 + 24))(v125, v123, 0, 8);
@@ -1423,40 +886,40 @@ LABEL_132:
 
       else if (v6 != a2)
       {
-        v101 = (v6 + 96);
-        if ((v6 + 96) != a2)
+        v101 = (v6 + 12);
+        if (v6 + 12 != a2)
         {
-          v102 = v6 - 96;
+          v102 = v6 - 12;
           do
           {
             v103 = v101;
-            if (*(v6 + 96) < *v6)
+            if (*(v6 + 24) < *v6)
             {
               v119 = *v101;
-              IKString::IKString(&v120, (v6 + 104), *(v6 + 120));
-              IKString::IKString(&v123, (v6 + 128), *(v6 + 144));
-              v104 = *(v6 + 176);
-              v126 = *(v6 + 160);
+              IKString::IKString(&v120, v6 + 13, v6[15]);
+              IKString::IKString(&v123, v6 + 16, v6[18]);
+              v104 = *(v6 + 11);
+              v126 = *(v6 + 10);
               v127 = v104;
               v105 = v102;
               do
               {
-                *(v105 + 192) = *(v105 + 96);
-                IKString::operator=((v105 + 200), v105 + 104);
-                IKString::operator=((v105 + 224), v105 + 128);
-                v106 = *(v105 + 176);
-                *(v105 + 256) = *(v105 + 160);
-                *(v105 + 272) = v106;
+                v105[24] = v105[12];
+                IKString::operator=(v105 + 25, (v105 + 13));
+                IKString::operator=(v105 + 28, (v105 + 16));
+                v106 = *(v105 + 11);
+                *(v105 + 16) = *(v105 + 10);
+                *(v105 + 17) = v106;
                 v107 = *v105;
-                v105 -= 96;
+                v105 -= 12;
               }
 
               while (v119 < v107);
-              *(v105 + 192) = v119;
-              IKString::operator=((v105 + 200), &v120);
-              result = IKString::operator=((v105 + 224), &v123);
-              *(v105 + 256) = v126;
-              *(v105 + 272) = v127;
+              v105[24] = v119;
+              IKString::operator=(v105 + 25, &v120);
+              result = IKString::operator=(v105 + 28, &v123);
+              *(v105 + 16) = v126;
+              *(v105 + 17) = v127;
               if (v124)
               {
                 result = (*(*v125 + 24))(v125, v123, 0, 8);
@@ -1470,8 +933,8 @@ LABEL_132:
               }
             }
 
-            v101 = v103 + 12;
-            v102 += 96;
+            v101 = (v103 + 12);
+            v102 += 12;
             v6 = v103;
           }
 
@@ -1494,7 +957,7 @@ LABEL_132:
           if (v75 >= v76)
           {
             v78 = (2 * v76) | 1;
-            v79 = v6 + 96 * v78;
+            v79 = &v6[12 * v78];
             if (2 * v76 + 2 >= v10)
             {
               v80 = *v79;
@@ -1503,43 +966,43 @@ LABEL_132:
             else
             {
               v80 = *v79;
-              v81 = *(v79 + 96);
+              v81 = *(v79 + 24);
               if (*v79 <= v81)
               {
-                v80 = *(v79 + 96);
+                v80 = *(v79 + 24);
               }
 
               if (*v79 < v81)
               {
-                v79 += 96;
+                v79 += 12;
                 v78 = 2 * v77 + 2;
               }
             }
 
-            v82 = v6 + 96 * v77;
+            v82 = &v6[12 * v77];
             if (v80 >= *v82)
             {
               v119 = *v82;
-              IKString::IKString(&v120, (v82 + 8), *(v82 + 24));
-              IKString::IKString(&v123, (v82 + 32), *(v82 + 48));
-              v83 = *(v82 + 80);
-              v126 = *(v82 + 64);
+              IKString::IKString(&v120, v82 + 1, v82[3]);
+              IKString::IKString(&v123, v82 + 4, v82[6]);
+              v83 = *(v82 + 5);
+              v126 = *(v82 + 4);
               v127 = v83;
               do
               {
                 v84 = v82;
                 v82 = v79;
                 *v84 = *v79;
-                IKString::operator=((v84 + 8), v79 + 8);
-                IKString::operator=((v84 + 32), v79 + 32);
-                *(v84 + 64) = *(v79 + 64);
-                *(v84 + 80) = *(v79 + 80);
+                IKString::operator=(v84 + 1, (v79 + 1));
+                IKString::operator=(v84 + 4, (v79 + 4));
+                *(v84 + 4) = *(v79 + 4);
+                *(v84 + 5) = *(v79 + 5);
                 if (v75 < v78)
                 {
                   break;
                 }
 
-                v79 = v6 + 96 * ((2 * v78) | 1);
+                v79 = &v6[12 * ((2 * v78) | 1)];
                 if (2 * v78 + 2 >= v10)
                 {
                   v85 = *v79;
@@ -1549,10 +1012,10 @@ LABEL_132:
                 else
                 {
                   v85 = *v79;
-                  v86 = *(v79 + 96);
+                  v86 = *(v79 + 24);
                   if (*v79 <= v86)
                   {
-                    v85 = *(v79 + 96);
+                    v85 = *(v79 + 24);
                   }
 
                   if (*v79 >= v86)
@@ -1562,7 +1025,7 @@ LABEL_132:
 
                   else
                   {
-                    v79 += 96;
+                    v79 += 12;
                     v78 = 2 * v78 + 2;
                   }
                 }
@@ -1570,10 +1033,10 @@ LABEL_132:
 
               while (v85 >= v119);
               *v82 = v119;
-              IKString::operator=((v82 + 8), &v120);
-              IKString::operator=((v82 + 32), &v123);
-              *(v82 + 64) = v126;
-              *(v82 + 80) = v127;
+              IKString::operator=(v82 + 1, &v120);
+              IKString::operator=(v82 + 4, &v123);
+              *(v82 + 4) = v126;
+              *(v82 + 5) = v127;
               if (v124)
               {
                 (*(*v125 + 24))(v125, v123, 0, 8);
@@ -1596,11 +1059,11 @@ LABEL_132:
         do
         {
           v111 = *v6;
-          IKString::IKString(v112, (v6 + 8), *(v6 + 24));
-          IKString::IKString(&v114, (v6 + 32), *(v6 + 48));
+          IKString::IKString(v112, v6 + 1, v6[3]);
+          IKString::IKString(&v114, v6 + 4, v6[6]);
           v88 = 0;
-          v89 = *(v6 + 80);
-          v117 = *(v6 + 64);
+          v89 = *(v6 + 5);
+          v117 = *(v6 + 4);
           v118 = v89;
           v90 = v6;
           do
@@ -1650,7 +1113,7 @@ LABEL_132:
             if (v95 >= 97)
             {
               v96 = (-2 - 0x5555555555555555 * (v95 >> 5)) >> 1;
-              v97 = v6 + 96 * v96;
+              v97 = &v6[12 * v96];
               if (*v97 < *v91)
               {
                 v119 = *v91;
@@ -1663,17 +1126,17 @@ LABEL_132:
                 {
                   v99 = v97;
                   *v91 = *v97;
-                  IKString::operator=((v91 + 8), v97 + 8);
-                  IKString::operator=((v91 + 32), v97 + 32);
-                  *(v91 + 64) = *(v97 + 64);
-                  *(v91 + 80) = *(v97 + 80);
+                  IKString::operator=((v91 + 8), (v97 + 1));
+                  IKString::operator=((v91 + 32), (v97 + 4));
+                  *(v91 + 64) = *(v97 + 4);
+                  *(v91 + 80) = *(v97 + 5);
                   if (!v96)
                   {
                     break;
                   }
 
                   v96 = (v96 - 1) / 2;
-                  v97 = v6 + 96 * v96;
+                  v97 = &v6[12 * v96];
                   v91 = v99;
                 }
 
@@ -1720,34 +1183,34 @@ LABEL_132:
     }
 
     v12 = v10 >> 1;
-    v13 = (v6 + 96 * (v10 >> 1));
+    v13 = &v6[12 * (v10 >> 1)];
     v14 = *v7;
     if (v10 >= 0x81)
     {
       v15 = *v13;
       if (*v13 >= *v6)
       {
-        if (v14 >= v15 || (std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 96 * (v10 >> 1)), a2 - 12), *v13 >= *v6))
+        if (v14 >= v15 || (std::swap[abi:nn200100]<FIK::RigBoneBase>(&v6[12 * (v10 >> 1)], a2 - 12), *v13 >= *v6))
         {
 LABEL_27:
-          v21 = v6 + 96 * v12;
-          v24 = *(v21 - 96);
-          v23 = (v21 - 96);
+          v21 = &v6[12 * v12];
+          v24 = *(v21 - 24);
+          v23 = (v21 - 12);
           v22 = v24;
           v25 = *v109;
-          if (v24 >= *(v6 + 96))
+          if (v24 >= *(v6 + 24))
           {
-            if (v25 >= v22 || (std::swap[abi:nn200100]<FIK::RigBoneBase>(v23, v109), *v23 >= *(v6 + 96)))
+            if (v25 >= v22 || (std::swap[abi:nn200100]<FIK::RigBoneBase>(v23, v109), *v23 >= *(v6 + 24)))
             {
 LABEL_39:
-              v28 = v6 + 96 * v12;
-              v31 = *(v28 + 96);
-              v30 = (v28 + 96);
+              v28 = &v6[12 * v12];
+              v31 = *(v28 + 24);
+              v30 = (v28 + 12);
               v29 = v31;
               v32 = *v108;
-              if (v31 >= *(v6 + 192))
+              if (v31 >= *(v6 + 48))
               {
-                if (v32 >= v29 || (std::swap[abi:nn200100]<FIK::RigBoneBase>(v30, v108), *v30 >= *(v6 + 192)))
+                if (v32 >= v29 || (std::swap[abi:nn200100]<FIK::RigBoneBase>(v30, v108), *v30 >= *(v6 + 48)))
                 {
 LABEL_48:
                   v35 = *v13;
@@ -1759,14 +1222,14 @@ LABEL_48:
                       goto LABEL_57;
                     }
 
-                    std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 96 * (v10 >> 1)), v30);
+                    std::swap[abi:nn200100]<FIK::RigBoneBase>(&v6[12 * (v10 >> 1)], v30);
                     if (*v13 >= *v23)
                     {
                       goto LABEL_57;
                     }
 
                     v37 = v23;
-                    v38 = (v6 + 96 * (v10 >> 1));
+                    v38 = &v6[12 * (v10 >> 1)];
                   }
 
                   else
@@ -1774,16 +1237,16 @@ LABEL_48:
                     v37 = v23;
                     if (v36 >= v35)
                     {
-                      std::swap[abi:nn200100]<FIK::RigBoneBase>(v23, (v6 + 96 * (v10 >> 1)));
+                      std::swap[abi:nn200100]<FIK::RigBoneBase>(v23, &v6[12 * (v10 >> 1)]);
                       if (*v30 >= *v13)
                       {
 LABEL_57:
                         v19 = v6;
-                        v20 = (v6 + 96 * (v10 >> 1));
+                        v20 = &v6[12 * (v10 >> 1)];
                         goto LABEL_58;
                       }
 
-                      v37 = (v6 + 96 * (v10 >> 1));
+                      v37 = &v6[12 * (v10 >> 1)];
                     }
 
                     v38 = v30;
@@ -1793,13 +1256,13 @@ LABEL_57:
                   goto LABEL_57;
                 }
 
-                v33 = (v6 + 192);
+                v33 = (v6 + 24);
                 v34 = v30;
               }
 
               else
               {
-                v33 = (v6 + 192);
+                v33 = (v6 + 24);
                 if (v32 >= v29)
                 {
                   std::swap[abi:nn200100]<FIK::RigBoneBase>(v33, v30);
@@ -1811,20 +1274,20 @@ LABEL_57:
                   v33 = v30;
                 }
 
-                v34 = a2 - 36;
+                v34 = (a2 - 36);
               }
 
               std::swap[abi:nn200100]<FIK::RigBoneBase>(v33, v34);
               goto LABEL_48;
             }
 
-            v26 = (v6 + 96);
+            v26 = (v6 + 12);
             v27 = v23;
           }
 
           else
           {
-            v26 = (v6 + 96);
+            v26 = (v6 + 12);
             if (v25 >= v22)
             {
               std::swap[abi:nn200100]<FIK::RigBoneBase>(v26, v23);
@@ -1836,7 +1299,7 @@ LABEL_57:
               v26 = v23;
             }
 
-            v27 = a2 - 24;
+            v27 = (a2 - 24);
           }
 
           std::swap[abi:nn200100]<FIK::RigBoneBase>(v26, v27);
@@ -1844,7 +1307,7 @@ LABEL_57:
         }
 
         v16 = v6;
-        v17 = (v6 + 96 * (v10 >> 1));
+        v17 = &v6[12 * (v10 >> 1)];
       }
 
       else
@@ -1852,16 +1315,16 @@ LABEL_57:
         v16 = v6;
         if (v14 >= v15)
         {
-          std::swap[abi:nn200100]<FIK::RigBoneBase>(v6, (v6 + 96 * (v10 >> 1)));
+          std::swap[abi:nn200100]<FIK::RigBoneBase>(v6, &v6[12 * (v10 >> 1)]);
           if (*v7 >= *v13)
           {
             goto LABEL_27;
           }
 
-          v16 = (v6 + 96 * (v10 >> 1));
+          v16 = &v6[12 * (v10 >> 1)];
         }
 
-        v17 = a2 - 12;
+        v17 = (a2 - 12);
       }
 
       std::swap[abi:nn200100]<FIK::RigBoneBase>(v16, v17);
@@ -1882,13 +1345,13 @@ LABEL_57:
         goto LABEL_59;
       }
 
-      v19 = (v6 + 96 * (v10 >> 1));
+      v19 = &v6[12 * (v10 >> 1)];
       v20 = v6;
     }
 
     else
     {
-      v19 = (v6 + 96 * (v10 >> 1));
+      v19 = &v6[12 * (v10 >> 1)];
       if (v14 >= v18)
       {
         std::swap[abi:nn200100]<FIK::RigBoneBase>(v19, v6);
@@ -1900,32 +1363,32 @@ LABEL_57:
         v19 = v6;
       }
 
-      v20 = a2 - 12;
+      v20 = (a2 - 12);
     }
 
 LABEL_58:
     std::swap[abi:nn200100]<FIK::RigBoneBase>(v19, v20);
 LABEL_59:
     --a3;
-    if ((a4 & 1) != 0 || *(v6 - 96) < *v6)
+    if ((a4 & 1) != 0 || *(v6 - 24) < *v6)
     {
       v119 = *v6;
-      IKString::IKString(&v120, (v6 + 8), *(v6 + 24));
-      IKString::IKString(&v123, (v6 + 32), *(v6 + 48));
+      IKString::IKString(&v120, v6 + 1, v6[3]);
+      IKString::IKString(&v123, v6 + 4, v6[6]);
       v39 = 0;
-      v40 = *(v6 + 80);
-      v126 = *(v6 + 64);
+      v40 = *(v6 + 5);
+      v126 = *(v6 + 4);
       v127 = v40;
       do
       {
-        v41 = *(v6 + v39 + 96);
-        v39 += 96;
+        v41 = v6[v39 + 12];
+        v39 += 12;
       }
 
       while (v41 < v119);
-      v42 = v6 + v39;
+      v42 = &v6[v39];
       v43 = a2;
-      if (v39 == 96)
+      if (v39 == 12)
       {
         v43 = a2;
         do
@@ -1953,7 +1416,7 @@ LABEL_59:
         while (v44 >= v119);
       }
 
-      v8 = v6 + v39;
+      v8 = &v6[v39];
       if (v42 < v43)
       {
         v46 = v43;
@@ -1979,13 +1442,13 @@ LABEL_59:
         while (v8 < v46);
       }
 
-      if (v8 - 96 != v6)
+      if ((v8 - 96) != v6)
       {
         *v6 = *(v8 - 96);
-        IKString::operator=((v6 + 8), v8 - 88);
-        IKString::operator=((v6 + 32), v8 - 64);
-        *(v6 + 64) = *(v8 - 32);
-        *(v6 + 80) = *(v8 - 16);
+        IKString::operator=(v6 + 1, v8 - 88);
+        IKString::operator=(v6 + 4, v8 - 64);
+        *(v6 + 4) = *(v8 - 32);
+        *(v6 + 5) = *(v8 - 16);
       }
 
       *(v8 - 96) = v119;
@@ -2031,14 +1494,14 @@ LABEL_84:
     else
     {
       v119 = *v6;
-      IKString::IKString(&v120, (v6 + 8), *(v6 + 24));
-      IKString::IKString(&v123, (v6 + 32), *(v6 + 48));
-      v50 = *(v6 + 80);
-      v126 = *(v6 + 64);
+      IKString::IKString(&v120, v6 + 1, v6[3]);
+      IKString::IKString(&v123, v6 + 4, v6[6]);
+      v50 = *(v6 + 5);
+      v126 = *(v6 + 4);
       v127 = v50;
       if (v119 >= *v7)
       {
-        v52 = v6 + 96;
+        v52 = (v6 + 12);
         do
         {
           v8 = v52;
@@ -2097,13 +1560,13 @@ LABEL_84:
         while (v119 < v56);
       }
 
-      if (v8 - 96 != v6)
+      if ((v8 - 96) != v6)
       {
         *v6 = *(v8 - 96);
-        IKString::operator=((v6 + 8), v8 - 88);
-        IKString::operator=((v6 + 32), v8 - 64);
-        *(v6 + 64) = *(v8 - 32);
-        *(v6 + 80) = *(v8 - 16);
+        IKString::operator=(v6 + 1, v8 - 88);
+        IKString::operator=(v6 + 4, v8 - 64);
+        *(v6 + 4) = *(v8 - 32);
+        *(v6 + 5) = *(v8 - 16);
       }
 
       *(v8 - 96) = v119;
@@ -2129,19 +1592,19 @@ LABEL_85:
   }
 
   v58 = *(a2 - 24);
-  v57 = a2 - 12;
-  if (v58 < *(v6 + 288))
+  v57 = (a2 - 12);
+  if (v58 < *(v6 + 72))
   {
-    result = std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 288), v57);
-    if (*(v6 + 288) < *(v6 + 192))
+    result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6 + 36, v57);
+    if (*(v6 + 72) < *(v6 + 48))
     {
-      result = std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 192), (v6 + 288));
-      if (*(v6 + 192) < *(v6 + 96))
+      result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6 + 24, v6 + 36);
+      if (*(v6 + 48) < *(v6 + 24))
       {
-        result = std::swap[abi:nn200100]<FIK::RigBoneBase>((v6 + 96), (v6 + 192));
-        if (*(v6 + 96) < *v6)
+        result = std::swap[abi:nn200100]<FIK::RigBoneBase>(v6 + 12, v6 + 24);
+        if (*(v6 + 24) < *v6)
         {
-          v59 = (v6 + 96);
+          v59 = (v6 + 12);
           v60 = v6;
           return std::swap[abi:nn200100]<FIK::RigBoneBase>(v60, v59);
         }
@@ -2152,7 +1615,7 @@ LABEL_85:
   return result;
 }
 
-uint64_t *std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_1 &,FIK::IKArrayIterator<FIK::RigBoneBase>,0>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4)
+uint64_t *std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_1 &,FIK::IKArrayIterator<FIK::RigBoneBase>,0>(uint64_t *result, char **a2, char **a3, char **a4)
 {
   v7 = result;
   v8 = *a2;
@@ -2208,7 +1671,7 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_1 &,FIK::IKArrayIterator<FIK::RigBoneBase>>(uint64_t *a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anonymous namespace::reorderRigBones(FIK::MoCapRig &)::$_1 &,FIK::IKArrayIterator<FIK::RigBoneBase>>(_DWORD *a1, char *a2)
 {
   v3 = a1;
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 5);
@@ -2217,8 +1680,8 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anony
     switch(v4)
     {
       case 3:
-        v10 = *(a1 + 24);
-        v5 = a2 - 12;
+        v10 = a1[24];
+        v5 = (a2 - 96);
         v11 = *(a2 - 24);
         if (v10 >= *a1)
         {
@@ -2228,25 +1691,25 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,anony
           }
 
           std::swap[abi:nn200100]<FIK::RigBoneBase>(a1 + 12, v5);
-          if (*(v3 + 24) >= *v3)
+          if (v3[24] >= *v3)
           {
             return 1;
           }
 
           a1 = v3;
-          v9 = v3 + 12;
+          v9 = (v3 + 24);
           goto LABEL_17;
         }
 
         if (v11 >= v10)
         {
           std::swap[abi:nn200100]<FIK::RigBoneBase>(a1, a1 + 12);
-          if (*v5 >= *(v3 + 24))
+          if (*v5 >= v3[24])
           {
             return 1;
           }
 
-          a1 = v3 + 12;
+          a1 = v3 + 24;
         }
 
 LABEL_16:
@@ -2257,33 +1720,33 @@ LABEL_17:
       case 4:
         return 1;
       case 5:
-        v6 = a1 + 36;
+        v6 = a1 + 72;
         v8 = *(a2 - 24);
-        v7 = a2 - 12;
-        if (v8 >= *(v3 + 72))
+        v7 = (a2 - 96);
+        if (v8 >= v3[72])
         {
           return 1;
         }
 
         std::swap[abi:nn200100]<FIK::RigBoneBase>(v3 + 36, v7);
-        if (*v6 >= *(v3 + 48))
+        if (*v6 >= v3[48])
         {
           return 1;
         }
 
         std::swap[abi:nn200100]<FIK::RigBoneBase>(v3 + 24, v3 + 36);
-        if (*(v3 + 48) >= *(v3 + 24))
+        if (v3[48] >= v3[24])
         {
           return 1;
         }
 
         std::swap[abi:nn200100]<FIK::RigBoneBase>(v3 + 12, v3 + 24);
-        if (*(v3 + 24) >= *v3)
+        if (v3[24] >= *v3)
         {
           return 1;
         }
 
-        v9 = v3 + 12;
+        v9 = (v3 + 24);
         a1 = v3;
         goto LABEL_17;
     }
@@ -2298,7 +1761,7 @@ LABEL_17:
 
     if (v4 == 2)
     {
-      v5 = a2 - 12;
+      v5 = (a2 - 96);
       if (*(a2 - 24) >= *a1)
       {
         return 1;
@@ -2308,41 +1771,41 @@ LABEL_17:
     }
   }
 
-  v13 = a1 + 24;
-  v12 = *(a1 + 48);
-  v14 = *(a1 + 24);
+  v13 = a1 + 48;
+  v12 = a1[48];
+  v14 = a1[24];
   if (v14 < *a1)
   {
     if (v12 >= v14)
     {
       std::swap[abi:nn200100]<FIK::RigBoneBase>(a1, a1 + 12);
-      if (*(v3 + 48) >= *(v3 + 24))
+      if (v3[48] >= v3[24])
       {
         goto LABEL_31;
       }
 
-      a1 = v3 + 12;
+      a1 = v3 + 24;
     }
 
-    v15 = v3 + 24;
+    v15 = (v3 + 48);
     goto LABEL_30;
   }
 
   if (v12 < v14)
   {
     std::swap[abi:nn200100]<FIK::RigBoneBase>(a1 + 12, a1 + 24);
-    if (*(v3 + 24) < *v3)
+    if (v3[24] < *v3)
     {
       a1 = v3;
-      v15 = v3 + 12;
+      v15 = (v3 + 24);
 LABEL_30:
       std::swap[abi:nn200100]<FIK::RigBoneBase>(a1, v15);
     }
   }
 
 LABEL_31:
-  v16 = v3 + 36;
-  if (v3 + 36 == a2)
+  v16 = v3 + 72;
+  if (v3 + 72 == a2)
   {
     return 1;
   }
@@ -2356,8 +1819,8 @@ LABEL_31:
     if (*v16 < v19)
     {
       v26 = *v16;
-      IKString::IKString(v27, v16 + 1, v16[3]);
-      IKString::IKString(&v29, v13 + 4, v13[6]);
+      IKString::IKString(v27, v16 + 1, *(v16 + 3));
+      IKString::IKString(&v29, v13 + 4, *(v13 + 6));
       v20 = *(v13 + 5);
       v32 = *(v13 + 4);
       v33 = v20;
@@ -2405,20 +1868,20 @@ LABEL_39:
 
       if (++v18 == 8)
       {
-        return v13 + 12 == a2;
+        return v13 + 24 == a2;
       }
     }
 
-    v16 = v13 + 12;
+    v16 = v13 + 24;
     v17 += 96;
-    if (v13 + 12 == a2)
+    if (v13 + 24 == a2)
     {
       return 1;
     }
   }
 }
 
-uint64_t *std::swap[abi:nn200100]<FIK::RigBoneBase>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::swap[abi:nn200100]<FIK::RigBoneBase>(char **a1, char **a2)
 {
   v7 = *a1;
   IKString::IKString(v8, a1 + 1, a1[3]);
@@ -2565,7 +2028,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV3@<X0>(ikinema::rig *this@<X0>, ui
   *(a2 + 108) = 0x3F80000000000000;
   *(a2 + 116) = 256;
   *(a2 + 120) = 1117782016;
-  FIK::IKArray<FIK::MoCapTask>::reserve(a2 + 176, 0xBuLL);
+  FIK::IKArray<FIK::MoCapTask>::reserve((a2 + 176), 0xBuLL);
   v5 = *(a2 + 16);
   v144 = 0u;
   v145 = v5;
@@ -2600,7 +2063,8 @@ uint64_t ikinema::rig::generate_EnrollmentRigV3@<X0>(ikinema::rig *this@<X0>, ui
   if (*&v163[3])
   {
     (*(*v164 + 24))(v164, *&v163[1], 0, 8);
-    *&v163[1] = 0uLL;
+    *&v163[1] = 0;
+    *&v163[3] = 0;
   }
 
   if (v147)
@@ -3402,7 +2866,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV3@<X0>(ikinema::rig *this@<X0>, ui
   *(v44 - 48) = 0u;
   *(v44 - 32) = xmmword_245A01E80;
   *(v44 - 16) = v143;
-  FIK::IKArray<FIK::MoCapBone>::reserve(a2 + 208, 0x15uLL);
+  FIK::IKArray<FIK::MoCapBone>::reserve((a2 + 208), 0x15uLL);
   FIK::MoCapBone::MoCapBone(&v144, *(a2 + 16));
   FIK::IKArray<FIK::MoCapBone>::push_back<FIK::MoCapBone,void>((a2 + 208), &v144);
   FIK::IKArray<IKString>::~IKArray(v174);
@@ -4553,7 +4017,7 @@ uint64_t ikinema::rig::generate_EnrollmentRigV3@<X0>(ikinema::rig *this@<X0>, ui
   *(v111 - 208) = xmmword_245A01E80;
   IKString::assign((v111 - 288), "right_hand_joint", 0x10);
   *(v111 - 264) = -1;
-  FIK::IKArray<FIK::RigBoneBase>::reserve(a2 + 240, 0xBuLL);
+  FIK::IKArray<FIK::RigBoneBase>::reserve((a2 + 240), 0xBuLL);
   v114 = *(a2 + 16);
   v144 = 0xFFFFFFFFFFFFFFFFLL;
   v145 = 0;
@@ -4891,10 +4355,11 @@ uint64_t ikinema::rig::generate_EnrollmentRigV3@<X0>(ikinema::rig *this@<X0>, ui
 
 double CoreIKACPPenetrationConstraint::setPlaneDefinition(CoreIKConstraint *a1, __n128 *a2, __n128 *a3)
 {
-  v5 = CoreIKConstraint::interface(a1);
+  CoreIKConstraint::interface(a1);
+  v6 = v5;
   FIK::FloorLevel::FloorTask::setPlanePosition(v5, a2);
 
-  *&result = FIK::FloorLevel::FloorTask::setPlaneNormal(v5, a3).n128_u64[0];
+  *&result = FIK::FloorLevel::FloorTask::setPlaneNormal(v6, a3).n128_u64[0];
   return result;
 }
 
@@ -4954,35 +4419,34 @@ void *CoreIKACPSolver::despatchGetOutputParentName(FIK::AnimNode **this, uint64_
   }
 }
 
-uint64_t CoreIKACPSolver::despatchGetConstraint(FIK *a1, char *a2)
+void CoreIKACPSolver::despatchGetConstraint(FIK *a1, char *a2)
 {
   v4 = *(a1 + 1);
-  v17 = 0;
   v18 = 0;
-  v19 = FIK::defaultAllocator(a1);
+  v19 = 0;
+  v20 = FIK::defaultAllocator(a1);
   v5 = strlen(a2);
-  IKString::assign(&v17, a2, v5);
-  TaskIndex = FIK::AnimNode::GetTaskIndex(v4, &v17);
-  if (v18)
+  IKString::assign(&v18, a2, v5);
+  TaskIndex = FIK::AnimNode::GetTaskIndex(v4, &v18);
+  v8 = TaskIndex;
+  if (v19)
   {
-    (*(*v19 + 3))(v19, v17, 0, 8);
+    TaskIndex = (*(*v20 + 3))(v20, v18, 0, 8);
   }
 
-  if ((TaskIndex & 0x80000000) != 0)
+  if ((v8 & 0x80000000) != 0)
   {
-    v9 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = ikinemaLogObject(TaskIndex, v7)[1];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      CoreIKACPSolver::despatchGetConstraint(v9, v10, v11, v12, v13, v14, v15, v16);
+      CoreIKACPSolver::despatchGetConstraint(v10, v11, v12, v13, v14, v15, v16, v17);
     }
-
-    return 0;
   }
 
   else
   {
-    v7 = (*(**(a1 + 1) + 48))(*(a1 + 1), TaskIndex);
-    return CoreIKConstraint::interface(v7);
+    v9 = (*(**(a1 + 1) + 48))(*(a1 + 1), v8);
+    CoreIKConstraint::interface(v9);
   }
 }
 
@@ -4993,7 +4457,7 @@ void *CoreIKACPSlidingSolver::CoreIKACPSlidingSolver(void *a1)
   a1[3] = v2;
   *a1 = &unk_28589C6F8;
   a1[1] = v2;
-  FIK::FeetSliding::FeetSliding();
+  FIK::FeetSliding::FeetSliding(v2);
   return a1;
 }
 
@@ -5004,7 +4468,7 @@ void *CoreIKACPFilteringSolver::CoreIKACPFilteringSolver(void *a1)
   a1[3] = v2;
   *a1 = &unk_28589C7A8;
   a1[1] = v2;
-  FIK::FilterNode::FilterNode();
+  FIK::FilterNode::FilterNode(v2);
   return a1;
 }
 
@@ -5022,32 +4486,33 @@ void *CoreIKACPPenetrationSolver::CoreIKACPPenetrationSolver(void *a1)
   a1[3] = v2;
   *a1 = &unk_28589C858;
   a1[1] = v2;
-  FIK::FloorLevel::FloorLevel();
+  FIK::FloorLevel::FloorLevel(v2);
   return a1;
 }
 
 uint64_t CoreIKACPPenetrationSolver::getConstraint(uint64_t a1, char *a2)
 {
-  v15 = 0;
-  v16 = 0;
-  v17 = FIK::defaultAllocator(a1);
+  v17 = 0;
+  v18 = 0;
+  v19 = FIK::defaultAllocator(a1);
   v4 = strlen(a2);
-  IKString::assign(&v15, a2, v4);
-  TaskIndex = FIK::AnimNode::GetTaskIndex(a1 + 32, &v15);
-  if (v16)
+  IKString::assign(&v17, a2, v4);
+  TaskIndex = FIK::AnimNode::GetTaskIndex(a1 + 32, &v17);
+  v7 = TaskIndex;
+  if (v18)
   {
-    (*(*v17 + 3))(v17, v15, 0, 8);
+    TaskIndex = (*(*v19 + 3))(v19, v17, 0, 8);
   }
 
-  if ((TaskIndex & 0x80000000) == 0)
+  if ((v7 & 0x80000000) == 0)
   {
-    return FIK::FloorLevel::GetTaskInstance((a1 + 32), TaskIndex);
+    return FIK::FloorLevel::GetTaskInstance((a1 + 32), v7);
   }
 
-  v7 = ikinemaLogObject()[1];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v9 = ikinemaLogObject(TaskIndex, v6)[1];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    CoreIKACPPenetrationSolver::getConstraint(v7, v8, v9, v10, v11, v12, v13, v14);
+    CoreIKACPPenetrationSolver::getConstraint(v9, v10, v11, v12, v13, v14, v15, v16);
   }
 
   return 0;
@@ -5055,17 +4520,17 @@ uint64_t CoreIKACPPenetrationSolver::getConstraint(uint64_t a1, char *a2)
 
 unint64_t CoreIKACPPenetrationSolver::getConstraint(CoreIKACPPenetrationSolver *this, unint64_t a2)
 {
-  v2 = FIK::FloorLevel::constraintByIndex((this + 32), a2);
-  if (!v2)
+  v3 = FIK::FloorLevel::constraintByIndex((this + 32), a2);
+  if (!v3)
   {
-    v3 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ikinemaLogObject(0, v2)[1];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      CoreIKACPPenetrationSolver::getConstraint(v3, v4, v5, v6, v7, v8, v9, v10);
+      CoreIKACPPenetrationSolver::getConstraint(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  return v2;
+  return v3;
 }
 
 void CoreIKACPSlidingSolver::~CoreIKACPSlidingSolver(CoreIKACPSlidingSolver *this)
@@ -5173,42 +4638,42 @@ uint64_t CoreIKSolverInsertAlgorithm(uint64_t a1, unint64_t a2, _OWORD *a3)
   v5 = (*(*a1 + 80))(a1);
   if (v5)
   {
-    v6 = v5;
-    v7 = a3[1];
-    v13[0] = *a3;
-    v13[1] = v7;
-    v13[2] = a3[2];
-    ikinema::UserAlgorithm::create(v13, &v14);
-    inserted = FIK::AnimNode::insertAlgorithmBefore(v6, a2, &v14);
+    v7 = v5;
+    v8 = a3[1];
+    v14[0] = *a3;
+    v14[1] = v8;
+    v14[2] = a3[2];
+    ikinema::UserAlgorithm::create(v14, &v15);
+    inserted = FIK::AnimNode::insertAlgorithmBefore(v7, a2, &v15);
     if (inserted > 4)
     {
-      v9 = 3;
+      v10 = 3;
     }
 
     else
     {
-      v9 = dword_245A04B70[inserted];
+      v10 = dword_245A04B70[inserted];
     }
 
-    if (v14)
+    if (v15)
     {
-      (*(*v14 + 8))(v14);
-      FIK::FIKFree(v14, v11);
+      (*(*v15 + 8))(v15);
+      FIK::FIKFree(v15, v12);
     }
   }
 
   else
   {
-    v10 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = ikinemaLogObject(0, v6)[1];
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      CoreIKSolverInsertAlgorithm_cold_1(v10);
+      CoreIKSolverInsertAlgorithm_cold_1(v11);
     }
 
     return 1;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t CoreIKSolverRemoveAlgorithm(uint64_t a1, unint64_t a2)
@@ -5216,8 +4681,8 @@ uint64_t CoreIKSolverRemoveAlgorithm(uint64_t a1, unint64_t a2)
   v3 = (*(*a1 + 80))(a1);
   if (v3)
   {
-    v4 = v3;
-    if (FIK::AnimNode::algorithmCount(v3) > a2 && (FIK::AnimNode::removeAlgorithmAt(v4, a2) & 1) != 0)
+    v5 = v3;
+    if (FIK::AnimNode::algorithmCount(v3) > a2 && (FIK::AnimNode::removeAlgorithmAt(v5, a2) & 1) != 0)
     {
       return 0;
     }
@@ -5230,10 +4695,10 @@ uint64_t CoreIKSolverRemoveAlgorithm(uint64_t a1, unint64_t a2)
 
   else
   {
-    v6 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = ikinemaLogObject(0, v4)[1];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      CoreIKSolverRemoveAlgorithm_cold_1(v6);
+      CoreIKSolverRemoveAlgorithm_cold_1(v7);
     }
 
     return 1;
@@ -5278,7 +4743,7 @@ uint64_t CoreIKBufferKeyFor(FIK *a1, unint64_t a2, int a3, uint64_t a4)
   return v4;
 }
 
-uint64_t *ikinema::BufferDescriptor::create<float>@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+char **ikinema::BufferDescriptor::create<float>@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = *(MEMORY[0x277D827B0] + 8);
   if (v8 < 0)
@@ -5314,7 +4779,7 @@ uint64_t *ikinema::BufferDescriptor::create<float>@<X0>(FIK *a1@<X0>, unint64_t 
   return result;
 }
 
-uint64_t *_ZN7ikinema16BufferDescriptor6createIDv3_fEES0_NSt3__117basic_string_viewIcNS3_11char_traitsIcEEEEm@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+char **_ZN7ikinema16BufferDescriptor6createIDv3_fEES0_NSt3__117basic_string_viewIcNS3_11char_traitsIcEEEEm@<X0>(FIK *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = 0x8000000245A04B68;
   if ((0x8000000245A04B68 & 0x8000000000000000) != 0)
@@ -5447,154 +4912,152 @@ uint64_t CoreIKBufferGetType(uint64_t a1)
   }
 }
 
-uint64_t ikinema::Buffer::arrayView<float const>(void *a1)
+uint64_t ikinema::Buffer::arrayView<float const>(uint64_t a1, uint64_t a2)
 {
-  v2 = *(MEMORY[0x277D827B0] + 8);
-  if (v2 < 0)
+  v3 = *(MEMORY[0x277D827B0] + 8);
+  if (v3 < 0)
   {
-    v3 = (v2 & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
+    v4 = (v3 & 0x7FFFFFFFFFFFFFFFLL);
+    v5 = 5381;
     do
     {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
+      v3 = v5;
+      v6 = *v4++;
+      v5 = (33 * v5) ^ v6;
     }
 
-    while (v5);
+    while (v6);
   }
 
-  if (a1[6] != v2)
+  if (*(a1 + 48) != v3)
   {
-    ikinema::Buffer::arrayView<float const>();
+    ikinema::Buffer::arrayView<float const>(a1, a2);
   }
 
-  result = a1[8];
-  v7 = a1[5];
-  return result;
+  return *(a1 + 64);
 }
 
-uint64_t _ZN7ikinema6Buffer9arrayViewIKDv3_fEEN3FIK11IKArrayViewIT_EEv(void *a1)
 {
-  v2 = 0x8000000245A04B68;
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "arrayView", "(m_descriptor.containsType<std::remove_cv_t<RequestedType>>()) Wrong type requested from buffer.");
+}
+
+uint64_t _ZN7ikinema6Buffer9arrayViewIKDv3_fEEN3FIK11IKArrayViewIT_EEv(uint64_t a1, uint64_t a2)
+{
+  v3 = 0x8000000245A04B68;
   if ((0x8000000245A04B68 & 0x8000000000000000) != 0)
   {
-    v3 = (0x8000000245A04B68 & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
+    v4 = (0x8000000245A04B68 & 0x7FFFFFFFFFFFFFFFLL);
+    v5 = 5381;
     do
     {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
+      v3 = v5;
+      v6 = *v4++;
+      v5 = (33 * v5) ^ v6;
     }
 
-    while (v5);
+    while (v6);
   }
 
-  if (a1[6] != v2)
+  if (*(a1 + 48) != v3)
   {
-    ikinema::Buffer::arrayView<float const>();
+    ikinema::Buffer::arrayView<float const>(a1, a2);
   }
 
-  result = a1[8];
-  v7 = a1[5];
-  return result;
+  return *(a1 + 64);
 }
 
-uint64_t ikinema::Buffer::arrayView<FIK::Transform const>(void *a1)
+uint64_t ikinema::Buffer::arrayView<FIK::Transform const>(uint64_t a1, uint64_t a2)
 {
-  v2 = "N3FIK9TransformE";
+  v3 = "N3FIK9TransformE";
   if (("N3FIK9TransformE" & 0x8000000000000000) != 0)
   {
-    v3 = ("N3FIK9TransformE" & 0x7FFFFFFFFFFFFFFFLL);
-    v4 = 5381;
+    v4 = ("N3FIK9TransformE" & 0x7FFFFFFFFFFFFFFFLL);
+    v5 = 5381;
     do
     {
-      v2 = v4;
-      v5 = *v3++;
-      v4 = (33 * v4) ^ v5;
+      v3 = v5;
+      v6 = *v4++;
+      v5 = (33 * v5) ^ v6;
     }
 
-    while (v5);
+    while (v6);
   }
 
-  if (a1[6] != v2)
+  if (*(a1 + 48) != v3)
   {
-    ikinema::Buffer::arrayView<float const>();
+    ikinema::Buffer::arrayView<float const>(a1, a2);
   }
 
-  result = a1[8];
-  v7 = a1[5];
-  return result;
+  return *(a1 + 64);
 }
 
-uint64_t CoreIKGetJoints(uint64_t a1)
+void CoreIKGetJoints(uint64_t a1)
 {
   v1 = (*(*a1 + 88))(a1);
 
-  return CoreIKConstraint::interface(v1);
+  CoreIKConstraint::interface(v1);
 }
 
-uint64_t CoreIKGetConstraints(uint64_t a1)
+void CoreIKGetConstraints(uint64_t a1)
 {
   v1 = (*(*a1 + 96))(a1);
 
-  return CoreIKConstraint::interface(v1);
+  CoreIKConstraint::interface(v1);
 }
 
 void *CoreIK::IKSolverRetarget::IKSolverRetarget(void *a1)
 {
   *a1 = &unk_28589C968;
-  v2 = FIK::RetargetingNode::RetargetingNode(a1 + 2);
+  v2 = FIK::RetargetingNode::RetargetingNode((a1 + 2));
   a1[226] = v2;
   a1[227] = v2;
   return a1;
 }
 
-uint64_t CoreIK::IKSolverRetarget::despatchGetConstraint(uint64_t a1, const void *a2, size_t a3)
+void CoreIK::IKSolverRetarget::despatchGetConstraint(uint64_t a1, const void *a2, size_t a3)
 {
   Rig = FIK::AnimNode::GetRig((a1 + 16));
   v7 = FIK::RetargetingNode::constraintsCount((a1 + 16));
   if (v7)
   {
-    v8 = v7;
-    v9 = 0;
-    v10 = (*(Rig + 192) + 8);
+    v9 = v7;
+    v10 = 0;
+    v11 = (*(Rig + 192) + 8);
     while (1)
     {
-      if (a3 == *v10)
+      if (a3 == *v11)
       {
-        v11 = *(v10 - 1);
-        v12 = a3 ? *(v10 - 1) : &unk_245A04BAE;
-        if (!memcmp(a2, v12, a3))
+        v12 = a3 ? *(v11 - 1) : &unk_245A04BAE;
+        v7 = memcmp(a2, v12, a3);
+        if (!v7)
         {
           break;
         }
       }
 
-      ++v9;
-      v10 += 32;
-      if (v8 == v9)
+      ++v10;
+      v11 += 32;
+      if (v9 == v10)
       {
         goto LABEL_9;
       }
     }
 
-    v15 = FIK::RetargetingNode::constraintByIndex((a1 + 16), v9);
+    v14 = FIK::RetargetingNode::constraintByIndex((a1 + 16), v10);
 
-    return CoreIKConstraint::interface(v15);
+    CoreIKConstraint::interface(v14);
   }
 
   else
   {
 LABEL_9:
-    v13 = ikinemaLogObject()[1];
+    v13 = ikinemaLogObject(v7, v8)[1];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       CoreIK::IKSolverRetarget::despatchGetConstraint(v13);
     }
-
-    return 0;
   }
 }
 
@@ -5711,9 +5174,8 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2(uint64_t a1, float a2)
   v8 = v7;
   v9 = v2;
   v77 = *MEMORY[0x277D85DE8];
-  v10 = *(v2 + 64);
-  v11 = kdebug_trace();
-  EnrollmentRigV2 = ikinema::rig::generate_EnrollmentRigV2(v11, &v40);
+  v10 = kdebug_trace();
+  EnrollmentRigV2 = ikinema::rig::generate_EnrollmentRigV2(v10, &v40);
   getUserDefaultLoggerPath(EnrollmentRigV2, &v37);
   IKString::IKString(&v57, &v40, v42);
   *v60 = *v43;
@@ -5723,16 +5185,16 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2(uint64_t a1, float a2)
   *&v60[9] = *&v43[9];
   v63 = v46;
   v64 = v47;
-  v13 = v48;
+  v12 = v48;
   v48 = 0u;
-  v65[0] = v13;
+  v65[0] = v12;
   v65[1] = v49;
-  v14 = v50;
+  v13 = v50;
   v50 = 0u;
-  v66[0] = v14;
+  v66[0] = v13;
   v66[1] = v51;
-  v15 = v52;
-  v16 = v53;
+  v14 = v52;
+  v15 = v53;
   v52 = 0u;
   v60[11] = v43[11];
   *(v62 + 3) = *(v45 + 3);
@@ -5741,78 +5203,78 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2(uint64_t a1, float a2)
   *&v49 = 0;
   *&v51 = 0;
   *&v53 = 0;
-  v67[0] = v15;
-  v67[1] = v16;
+  v67[0] = v14;
+  v67[1] = v15;
   v67[2] = v54;
   v67[3] = v55;
   v68 = v56;
-  v17 = *v9;
-  v18 = *(v9 + 8);
+  v16 = *v9;
+  v17 = *(v9 + 8);
   v32 = *(v9 + 16);
-  v19 = *(v9 + 40);
-  v20 = *(v9 + 48);
-  v21 = *(v9 + 56);
+  v18 = *(v9 + 40);
+  v19 = *(v9 + 48);
+  v20 = *(v9 + 56);
   v33 = *(v9 + 32);
-  v34 = v20;
-  v35 = v19;
-  v36 = v20;
-  v22 = *(v9 + 64);
-  v30[0] = v21;
-  v30[1] = v22;
+  v34 = v19;
+  v35 = v18;
+  v36 = v19;
+  v21 = *(v9 + 64);
+  *&v30 = v20;
+  *(&v30 + 1) = v21;
   if (v38)
   {
-    v23 = v37;
+    v22 = v37;
   }
 
   else
   {
-    v23 = &unk_245A04BAE;
+    v22 = &unk_245A04BAE;
   }
 
   v31 = 1;
-  FIK::EnrollmentPoseSolver::EnrollmentPoseSolver(v69, &v57, v17, v18, &v32, v30, v23);
+  FIK::EnrollmentPoseSolver::EnrollmentPoseSolver(v69, &v57, v16, v17, &v32, &v30, v22, v38);
   FIK::IKArray<FIK::RigBoneBase>::~IKArray(v67);
   FIK::IKArray<FIK::MoCapBone>::~IKArray(v66);
-  FIK::IKArray<FIK::MoCapTask>::~IKArray(v65);
+  v23 = FIK::IKArray<FIK::MoCapTask>::~IKArray(v65);
   if (v58)
   {
-    (*(*v59 + 24))(v59, v57, 0, 8);
+    v23 = (*(*v59 + 24))(v59, v57, 0, 8);
     v57 = 0;
     v58 = 0;
   }
 
   if (v4 == -1)
   {
-    v27 = *ikinemaLogObject();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = *ikinemaLogObject(v23, v24);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2_cold_1(v27);
+      CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2_cold_1(v28);
     }
 
-    v26 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v24 = FIK::EnrollmentPoseSolver::solve(v69, v8, v6, v4);
-    if (v24 == 1)
+    v25 = FIK::EnrollmentPoseSolver::solve(v69, v8, v6, v4);
+    if (v25 == 1)
     {
-      v25 = 2;
+      v26 = 2;
     }
 
     else
     {
-      v25 = 1;
+      v26 = 1;
     }
 
-    if (v24)
+    if (v25)
     {
-      v26 = v25;
+      v27 = v26;
     }
 
     else
     {
-      v26 = 0;
+      v27 = 0;
     }
   }
 
@@ -5851,94 +5313,79 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2(uint64_t a1, float a2)
   }
 
   kdebug_trace();
-  v28 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v27;
 }
 
-CFIndex CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3(const char **a1, __int128 *a2, unint64_t a3, int a4, const char **a5, float *a6, FIK *a7, unint64_t a8, __n128 a9, __n128 a10)
+CFIndex CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3(EnrollmentPoseSolverV4UserDefaults *a1, __int128 *a2, unint64_t a3, uint64_t a4, const char **a5, float *a6, FIK *a7, unint64_t a8, __n128 a9, __n128 a10)
 {
-  v94[225] = *MEMORY[0x277D85DE8];
-  if (EnrollmentPoseSolverV4UserDefaults::solverVersion(a1) == 4)
+  v96[225] = *MEMORY[0x277D85DE8];
+  v18 = EnrollmentPoseSolverV4UserDefaults::solverVersion(a1);
+  if (v18 == 4)
   {
-    v18 = *MEMORY[0x277D85DE8];
 
     return CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
   }
 
   else
   {
-    v20 = *ikinemaLogObject();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-    if (v21)
+    v21 = *ikinemaLogObject(v18, v19);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v22)
     {
       *buf = 136315138;
-      v87 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3";
-      _os_log_impl(&dword_245976000, v20, OS_LOG_TYPE_DEFAULT, "%s: CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3() called.", buf, 0xCu);
+      v89 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3";
+      _os_log_impl(&dword_245976000, v21, OS_LOG_TYPE_DEFAULT, "%s: CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3() called.", buf, 0xCu);
     }
 
-    EnrollmentRigV3 = ikinema::rig::generate_EnrollmentRigV3(v21, &v81);
-    getUserDefaultLoggerPath(EnrollmentRigV3, &v77);
-    if (v78)
+    EnrollmentRigV3 = ikinema::rig::generate_EnrollmentRigV3(v22, &v83);
+    getUserDefaultLoggerPath(EnrollmentRigV3, &v79);
+    if (v80)
     {
-      v23 = v77;
+      v24 = v79;
     }
 
     else
     {
-      v23 = &unk_245A04BAE;
+      v24 = &unk_245A04BAE;
     }
 
-    FIK::EnrollmentPoseSolverV2::EnrollmentPoseSolverV2(buf, &v81, v23);
-    if (v78)
+    FIK::EnrollmentPoseSolverV2::EnrollmentPoseSolverV2(buf, &v83, v24, v80);
+    if (v80)
     {
-      (*(*v79 + 24))(v79, v77, 0, 8);
+      (*(*v81 + 24))(v81, v79, 0, 8);
     }
 
-    FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v85);
-    FIK::IKArray<FIK::MoCapBone>::~IKArray(&v84);
-    FIK::IKArray<FIK::MoCapTask>::~IKArray(&v83);
-    if (v81.i64[1])
+    FIK::IKArray<FIK::RigBoneBase>::~IKArray(&v87);
+    FIK::IKArray<FIK::MoCapBone>::~IKArray(&v86);
+    FIK::IKArray<FIK::MoCapTask>::~IKArray(&v85);
+    if (v83.i64[1])
     {
-      (*(*v82.n128_u64[0] + 24))(v82.n128_u64[0], v81.i64[0], 0, 8);
+      (*(*v84.i64[0] + 24))(v84.i64[0], v83.i64[0], 0, 8);
     }
 
-    if (v93)
+    if (v95)
     {
       FIK::Enrollment::SourceAndTargetDataLogger::exportOriginalSources(&__p, a1, a3, a2, a3);
       FIK::Enrollment::SourceAndTargetDataLogger::exportEnrollmentData(&__p, a5, a8, a6);
-      v24 = a9;
-      v24.n128_u32[3] = 0;
-      v81 = v24;
-      v82 = a10;
-      FIK::Enrollment::SourceAndTargetDataLogger::exportAtlasData(&__p, &v81);
+      v25 = a9;
+      v25.n128_u32[3] = 0;
+      v83 = v25;
+      v84 = a10;
+      FIK::Enrollment::SourceAndTargetDataLogger::exportAtlasData(&__p, &v83);
     }
 
-    if (FIK::EnrollmentPoseSolverV2::inputsAreValidGivenRig(buf, a1, a3, a5, a8))
+    valid = FIK::EnrollmentPoseSolverV2::inputsAreValidGivenRig(buf, a1, a3, a5, a8);
+    if (valid)
     {
-      FIK::EnrollmentPoseSolverV2::getRigToInputSourceMap(buf, a1, a3, &v77);
-      FIK::EnrollmentHelpers::extractTransformsFromPositionsArray(a2, v79, v77, &v74);
-      FIK::EnrollmentPoseSolverV2::getRigToInputTargetMap(buf, a5, a8, &v71);
-      FIK::EnrollmentHelpers::extractElementsAccordingToMap<FIK::Transform>(a7, v72, v71, &v69);
-      FIK::EnrollmentHelpers::extractElementsAccordingToMap<float>(a6, v72, v71, &v66);
-      if (v69)
+      FIK::EnrollmentPoseSolverV2::getRigToInputSourceMap(buf, a1, a3, &v79);
+      FIK::EnrollmentHelpers::extractTransformsFromPositionsArray(a2, v81, v79, &v76);
+      FIK::EnrollmentPoseSolverV2::getRigToInputTargetMap(buf, a5, a8, &v73);
+      FIK::EnrollmentHelpers::extractElementsAccordingToMap<FIK::Transform>(a7, v74, v73, &v71);
+      FIK::EnrollmentHelpers::extractElementsAccordingToMap<float>(a6, v74, v73, &v68);
+      if (v71)
       {
-        v25 = v70;
-        v26 = 32 * v69;
-        v27 = vdupq_n_s32(0x42C80000u);
-        do
-        {
-          *v25 = vmulq_f32(*v25, v27);
-          v25 += 2;
-          v26 -= 32;
-        }
-
-        while (v26);
-      }
-
-      if (v74)
-      {
-        v28 = v75;
-        v29 = 32 * v74;
+        v28 = v72;
+        v29 = 32 * v71;
         v30 = vdupq_n_s32(0x42C80000u);
         do
         {
@@ -5950,207 +5397,221 @@ CFIndex CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3(const char **a1, __int128
         while (v29);
       }
 
-      v31 = v67;
-      v32 = v66;
-      if (v66)
+      if (v76)
       {
-        v33 = 4 * v66;
-        v34 = v67;
+        v31 = v77;
+        v32 = 32 * v76;
+        v33 = vdupq_n_s32(0x42C80000u);
         do
         {
-          *v34 = *v34 * 100.0;
-          ++v34;
-          v33 -= 4;
+          *v31 = vmulq_f32(*v31, v33);
+          v31 += 2;
+          v32 -= 32;
         }
 
-        while (v33);
+        while (v32);
       }
 
-      FIK::EnrollmentPoseSolverV2::setTargetBoneLengths(buf, v31, v32);
-      v35 = &v75[2 * v88];
-      v62 = vmulq_f32(a9, vdupq_n_s32(0x42C80000u));
-      *v35 = v62;
-      v35[1] = a10;
-      FIK::EnrollmentPoseSolverV2::computeVirtualHips(buf, v75, &v81);
-      f32 = v75[2 * *buf].f32;
-      *f32 = v81;
-      f32[1] = v82;
-      FIK::EnrollmentPoseSolverV2::computeVirtualLeftWrist(buf, v75, v67, &v64);
-      v37 = v75[2 * v89].f32;
-      *v37 = v64;
-      v37[1] = v65;
-      FIK::EnrollmentPoseSolverV2::computeVirtualRightWrist(buf, v75, v67, &v64);
-      v38 = v75[2 * v90].f32;
+      v34 = v69;
+      v35 = v68;
+      if (v68)
+      {
+        v36 = 4 * v68;
+        v37 = v69;
+        do
+        {
+          *v37 = *v37 * 100.0;
+          ++v37;
+          v36 -= 4;
+        }
+
+        while (v36);
+      }
+
+      FIK::EnrollmentPoseSolverV2::setTargetBoneLengths(buf, v34, v35);
+      v38 = &v77[2 * v90];
+      v64 = vmulq_f32(a9, vdupq_n_s32(0x42C80000u));
       *v38 = v64;
-      v38[1] = v65;
-      v39 = FIK::EnrollmentPoseSolverV2::solve(buf, v75, v74, v70, v69);
-      Rig = FIK::AnimNode::GetRig(v94);
-      FIK::PoseConverter::PoseConverter<FIK::MoCapBone>(&v81, *(Rig + 224), *(Rig + 208), v70);
-      FIK::PoseConverter::getGlobalTransforms(&v81, &v64);
-      v41 = v70;
-      v42 = v64;
-      v43 = v65;
-      v64 = 0uLL;
-      *&v65 = 0;
-      v69 = v42;
-      v70 = v43;
-      if (v41)
+      v38[1] = a10;
+      FIK::EnrollmentPoseSolverV2::computeVirtualHips(buf, v77, &v83);
+      v39 = &v77[2 * *buf];
+      *v39 = v83;
+      v39[1] = v84;
+      FIK::EnrollmentPoseSolverV2::computeVirtualLeftWrist(buf, v77, v69, &v66);
+      f32 = v77[2 * v91].f32;
+      *f32 = v66;
+      f32[1] = v67;
+      FIK::EnrollmentPoseSolverV2::computeVirtualRightWrist(buf, v77, v69, &v66);
+      v41 = v77[2 * v92].f32;
+      *v41 = v66;
+      v41[1] = v67;
+      v42 = FIK::EnrollmentPoseSolverV2::solve(buf, v77, v76, v72, v71);
+      Rig = FIK::AnimNode::GetRig(v96);
+      FIK::PoseConverter::PoseConverter<FIK::MoCapBone>(&v83, *(Rig + 224), *(Rig + 208), v72);
+      FIK::PoseConverter::getGlobalTransforms(&v83, &v66);
+      v44 = v72;
+      v45 = v66;
+      v46 = v67;
+      v66 = 0uLL;
+      *&v67 = 0;
+      v71 = v45;
+      v72 = v46;
+      if (v44)
       {
-        (*(**(&v41 + 1) + 24))(*(&v41 + 1), v41, 0, 8);
-        *&v64 = 0;
-        if (v65)
+        (*(**(&v44 + 1) + 24))(*(&v44 + 1), v44, 0, 8);
+        *&v66 = 0;
+        if (v67)
         {
-          (*(**(&v65 + 1) + 24))(*(&v65 + 1), v65, 0, 8);
+          (*(**(&v67 + 1) + 24))(*(&v67 + 1), v67, 0, 8);
         }
       }
 
-      FIK::PoseConverter::~PoseConverter(&v81);
-      v81 = vsubq_f32(v62, *(v70 + 32 * v91));
-      FIK::EnrollmentHelpers::addOffsetToPose(v70, v69, &v81);
-      v44 = v70;
-      if (v69)
+      FIK::PoseConverter::~PoseConverter(&v83);
+      v83 = vsubq_f32(v64, *(v72 + 32 * v93));
+      FIK::EnrollmentHelpers::addOffsetToPose(v72, v71, &v83);
+      v47 = v72;
+      if (v71)
       {
-        v45 = 32 * v69;
-        v46 = vdupq_n_s32(0x3C23D70Au);
+        v48 = 32 * v71;
+        v49 = vdupq_n_s32(0x3C23D70Au);
         do
         {
-          *v44 = vmulq_f32(*v44, v46);
-          v44 += 2;
-          v45 -= 32;
+          *v47 = vmulq_f32(*v47, v49);
+          v47 += 2;
+          v48 -= 32;
         }
 
-        while (v45);
-        v44 = v70;
-        v47 = v69;
+        while (v48);
+        v47 = v72;
+        v50 = v71;
       }
 
       else
       {
-        v47 = 0;
+        v50 = 0;
       }
 
-      FIK::EnrollmentHelpers::writeElementsToArray(v44, v47, v72, v71, a7);
-      if (v93 == 1)
+      FIK::EnrollmentHelpers::writeElementsToArray(v47, v50, v74, v73, a7);
+      if (v95 == 1)
       {
-        v51 = FIK::defaultAllocator(v50);
-        v81 = 0uLL;
-        v82.n128_u64[0] = 0;
-        v82.n128_u64[1] = v51;
-        FIK::IKArray<FIK::Segment *>::reserve(&v81, v74);
-        v52 = FIK::AnimNode::GetRig(v94);
-        v53 = *(v52 + 240);
-        if (v53)
+        v54 = FIK::defaultAllocator(v53);
+        v83 = 0uLL;
+        v84.i64[0] = 0;
+        v84.i64[1] = v54;
+        FIK::IKArray<FIK::Segment *>::reserve(&v83, v76);
+        v55 = FIK::AnimNode::GetRig(v96);
+        v56 = *(v55 + 240);
+        if (v56)
         {
-          v54 = (*(v52 + 256) + 16);
-          v55 = 96 * v53;
+          v57 = (*(v55 + 256) + 16);
+          v58 = 96 * v56;
           do
           {
-            if (*v54)
+            if (*v57)
             {
-              v56 = *(v54 - 1);
+              v59 = *(v57 - 1);
             }
 
             else
             {
-              v56 = &unk_245A04BAE;
+              v59 = &unk_245A04BAE;
             }
 
-            FIK::IKArray<FIK::Segment *>::reserve(&v81, v81.i64[0] + 1);
-            v57 = v81.i64[0];
-            *(v82.n128_u64[0] + 8 * v81.i64[0]) = v56;
-            v81.i64[0] = v57 + 1;
-            v54 += 12;
-            v55 -= 96;
+            FIK::IKArray<FIK::Segment *>::reserve(&v83, v83.i64[0] + 1);
+            v60 = v83.i64[0];
+            *(v84.i64[0] + 8 * v83.i64[0]) = v59;
+            v83.i64[0] = v60 + 1;
+            v57 += 12;
+            v58 -= 96;
           }
 
-          while (v55);
+          while (v58);
         }
 
-        if ((v93 & 1) == 0)
+        if ((v95 & 1) == 0)
         {
-          v60 = std::__throw_bad_optional_access[abi:nn200100]();
-          return EnrollmentPoseSolverV4UserDefaults::solverVersion(v60);
+          v62 = std::__throw_bad_optional_access[abi:nn200100]();
+          return EnrollmentPoseSolverV4UserDefaults::solverVersion(v62);
         }
 
-        FIK::Enrollment::SourceAndTargetDataLogger::exportProcessedSources(&__p, v82.n128_u64[0], v81.i64[0], v75, v74);
+        FIK::Enrollment::SourceAndTargetDataLogger::exportProcessedSources(&__p, v84.i64[0], v83.i64[0], v77, v76);
         FIK::Enrollment::SourceAndTargetDataLogger::exportTargets(&__p, a5, a8, a7, a8);
-        v81.i64[0] = 0;
-        if (v82.n128_u64[0])
+        v83.i64[0] = 0;
+        if (v84.i64[0])
         {
-          (*(*v82.n128_u64[1] + 24))(v82.n128_u64[1], v82.n128_u64[0], 0, 8);
+          (*(*v84.i64[1] + 24))(v84.i64[1], v84.i64[0], 0, 8);
         }
       }
 
-      if (v39 == 1)
+      if (v42 == 1)
       {
-        v58 = 2;
+        v61 = 2;
       }
 
       else
       {
-        v58 = 1;
+        v61 = 1;
       }
 
-      if (v39)
+      if (v42)
       {
-        v49 = v58;
+        v52 = v61;
       }
 
       else
       {
-        v49 = 0;
+        v52 = 0;
       }
 
-      v66 = 0;
-      if (v67)
+      v68 = 0;
+      if (v69)
       {
-        (*(*v68 + 24))(v68, v67, 0, 8);
+        (*(*v70 + 24))(v70, v69, 0, 8);
       }
 
-      *&v69 = 0;
-      if (v70)
-      {
-        (*(**(&v70 + 1) + 24))(*(&v70 + 1), v70, 0, 8);
-      }
-
-      v71 = 0;
+      *&v71 = 0;
       if (v72)
       {
-        (*(*v73 + 24))(v73, v72, 0, 8);
+        (*(**(&v72 + 1) + 24))(*(&v72 + 1), v72, 0, 8);
       }
 
-      v74 = 0;
-      if (v75)
+      v73 = 0;
+      if (v74)
       {
-        (*(*v76 + 24))(v76, v75, 0, 8);
+        (*(*v75 + 24))(v75, v74, 0, 8);
       }
 
-      v77 = 0;
-      if (v79)
+      v76 = 0;
+      if (v77)
       {
-        (*(*v80 + 24))(v80, v79, 0, 8);
+        (*(*v78 + 24))(v78, v77, 0, 8);
+      }
+
+      v79 = 0;
+      if (v81)
+      {
+        (*(*v82 + 24))(v82, v81, 0, 8);
       }
     }
 
     else
     {
-      v48 = ikinemaLogObject()[2];
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v51 = ikinemaLogObject(valid, v27)[2];
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3_cold_1(v48);
+        CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3_cold_1(v51);
       }
 
-      v49 = 1;
+      v52 = 1;
     }
 
-    FIK::RetargetingNode::~RetargetingNode(v94);
-    if (v93 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    FIK::RetargetingNode::~RetargetingNode(v96);
+    if (v95 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    v59 = *MEMORY[0x277D85DE8];
-    return v49;
+    return v52;
   }
 }
 
@@ -6177,20 +5638,19 @@ CFIndex EnrollmentPoseSolverV4UserDefaults::solverVersion(EnrollmentPoseSolverV4
   return result;
 }
 
-uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4(const char **a1, __int128 *a2, unint64_t a3, int a4, const char **a5, float *a6, uint64_t a7, unint64_t a8, __n128 a9, __n128 a10)
+uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4(const char **a1, __int128 *a2, unint64_t a3, uint64_t a4, const char **a5, float *a6, uint64_t a7, unint64_t a8, __n128 a9, __n128 a10)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v18 = *ikinemaLogObject();
+  v14 = a4;
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = *ikinemaLogObject(a1, a2);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v24 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4";
+    v23 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4";
     _os_log_impl(&dword_245976000, v18, OS_LOG_TYPE_DEFAULT, "%s: CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4() called.", buf, 0xCu);
   }
 
-  result = CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, 0.15, 0.1, 0.17453, -0.17453);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(a1, a2, a3, v14, a5, a6, a7, a8, a9, a10, 0.15, 0.1, 0.17453, -0.17453);
 }
 
 void getUserDefaultLoggerPath(FIK *a1@<X0>, void *a2@<X8>)
@@ -6271,40 +5731,49 @@ void *FIK::EnrollmentHelpers::extractElementsAccordingToMap<float>@<X0>(FIK *a1@
   return result;
 }
 
-void getDefaultTargetLength(void *__s2, size_t __n)
+float getDefaultTargetLength(void *__s2, size_t __n)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = &dword_278E8A828;
   v5 = 96;
-  while (*(v4 - 1) != __n || memcmp(*(v4 - 2), __s2, __n))
+  while (1)
   {
+    if (*(v4 - 1) == __n)
+    {
+      v6 = memcmp(*(v4 - 2), __s2, __n);
+      if (!v6)
+      {
+        break;
+      }
+    }
+
     v4 += 6;
     v5 -= 24;
     if (!v5)
     {
-      goto LABEL_9;
+      return 0.0;
     }
   }
 
-  v6 = *ikinemaLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v9 = *ikinemaLogObject(v6, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "getDefaultTargetLength";
-    v11 = 2080;
-    v12 = __s2;
-    _os_log_impl(&dword_245976000, v6, OS_LOG_TYPE_DEFAULT, "%s: The target length for %s is zero! Using default length...", &v9, 0x16u);
+    v10 = 136315394;
+    v11 = "getDefaultTargetLength";
+    v12 = 2080;
+    v13 = __s2;
+    _os_log_impl(&dword_245976000, v9, OS_LOG_TYPE_DEFAULT, "%s: The target length for %s is zero! Using default length...", &v10, 0x16u);
   }
 
-  v7 = *v4;
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
+  return *v4;
 }
 
 uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(const char **a1, __int128 *a2, unint64_t a3, int a4, const char **a5, float *a6, uint64_t a7, unint64_t a8, __n128 a9, __n128 a10, float a11, float a12, float a13, float a14)
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v25 = *ikinemaLogObject();
+  v23 = a2;
+  v24 = a1;
+  v75 = *MEMORY[0x277D85DE8];
+  v25 = *ikinemaLogObject(a1, a2);
   v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
   if (v26)
   {
@@ -6313,34 +5782,34 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(const char **a1, __int
     _os_log_impl(&dword_245976000, v25, OS_LOG_TYPE_DEFAULT, "%s: CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex() called.", buf, 0xCu);
   }
 
-  v72[0] = 0;
-  v72[1] = 0;
-  v73 = 0;
-  v74 = FIK::defaultAllocator(v26);
-  v69[0] = 0;
-  v69[1] = 0;
-  v70 = 0;
-  v71 = FIK::defaultAllocator(v74);
-  FIK::IKArray<FIK::Transform>::reserve(v72, a3);
-  v27 = FIK::IKArray<FIK::Enrollment::RaySource>::reserve(v69, a8);
+  v71[0] = 0;
+  v71[1] = 0;
+  v72 = 0;
+  v73 = FIK::defaultAllocator(v26);
+  v68[0] = 0;
+  v68[1] = 0;
+  v69 = 0;
+  v70 = FIK::defaultAllocator(v73);
+  FIK::IKArray<FIK::Transform>::reserve(v71, a3);
+  v27 = FIK::IKArray<FIK::Enrollment::RaySource>::reserve(v68, a8);
   if (a3)
   {
-    v28 = v72[0];
+    v28 = v71[0];
     do
     {
-      v30 = *a1++;
+      v30 = *v24++;
       v29 = v30;
       v31 = strlen(v30);
-      v32 = *a2++;
+      v32 = *v23++;
       v33 = v32;
       HIDWORD(v33) = 0;
-      v60 = v33;
-      v27 = FIK::IKArray<FIK::Transform>::reserve(v72, v28 + 1);
-      v34 = &v73[2 * v72[0]];
+      v59 = v33;
+      v27 = FIK::IKArray<FIK::Transform>::reserve(v71, v28 + 1);
+      v34 = &v72[2 * v71[0]];
       *v34 = v29;
       *(v34 + 1) = v31;
-      v34[1] = v60;
-      v28 = ++v72[0];
+      v34[1] = v59;
+      v28 = ++v71[0];
       --a3;
     }
 
@@ -6349,53 +5818,52 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(const char **a1, __int
 
   for (; a8; --a8)
   {
-    v35 = *a6;
+    DefaultTargetLength = *a6;
     if (*a6 == 0.0)
     {
       v36 = strlen(*a5);
-      getDefaultTargetLength(*a5, v36);
-      v35 = v37;
+      DefaultTargetLength = getDefaultTargetLength(*a5, v36);
     }
 
-    v38 = *a5++;
-    v39 = strlen(v38);
-    v27 = FIK::IKArray<FIK::Enrollment::RaySource>::reserve(v69, v69[0] + 1);
-    v40 = v70 + 24 * v69[0];
-    *v40 = v38;
-    *(v40 + 1) = v39;
-    *(v40 + 4) = v35;
-    ++v69[0];
+    v37 = *a5++;
+    v38 = strlen(v37);
+    v27 = FIK::IKArray<FIK::Enrollment::RaySource>::reserve(v68, v68[0] + 1);
+    v39 = v69 + 24 * v68[0];
+    *v39 = v37;
+    *(v39 + 1) = v38;
+    *(v39 + 4) = DefaultTargetLength;
+    ++v68[0];
     ++a6;
   }
 
-  getUserDefaultLoggerPath(v27, &v66);
-  v42 = a9;
-  v42.n128_u32[3] = 0;
-  v61 = v42;
-  v62 = a10;
-  v43 = v66;
-  if (!v67)
+  getUserDefaultLoggerPath(v27, &v65);
+  v41 = a9;
+  v41.n128_u32[3] = 0;
+  v60 = v41;
+  v61 = a10;
+  v42 = v65;
+  if (!v66)
   {
-    v43 = &unk_245A04BAE;
+    v42 = &unk_245A04BAE;
   }
 
-  FIK::EnrollmentPoseSolverV4::EnrollmentPoseSolverV4(buf, v73, v72[0], v70, v69[0], &v61, a4, 100.0, v41, v43, v67);
+  FIK::EnrollmentPoseSolverV4::EnrollmentPoseSolverV4(buf, v72, v71[0], v69, v68[0], &v60, a4, 100.0, v40, v42, v66);
   if (a11 <= 0.0 || a12 <= 0.0)
   {
+    v60.n128_u8[0] = 0;
     v61.n128_u8[0] = 0;
-    v62.n128_u8[0] = 0;
   }
 
   else
   {
-    v61.n128_u64[0] = __PAIR64__(LODWORD(a12), LODWORD(a11));
-    v61.n128_u64[1] = __PAIR64__(LODWORD(a14), LODWORD(a13));
-    v62.n128_u8[0] = 1;
+    v60.n128_u64[0] = __PAIR64__(LODWORD(a12), LODWORD(a11));
+    v60.n128_u64[1] = __PAIR64__(LODWORD(a14), LODWORD(a13));
+    v61.n128_u8[0] = 1;
   }
 
-  FIK::EnrollmentPoseSolverV4::setNeckCurving(buf, &v61);
+  FIK::EnrollmentPoseSolverV4::setNeckCurving(buf, &v60);
   FIK::EnrollmentPoseSolverV4::logInput(buf);
-  v44 = FIK::EnrollmentPoseSolverV4::solve(buf);
+  v44 = FIK::EnrollmentPoseSolverV4::solve(buf, v43);
   FIK::EnrollmentPoseSolverV4::logOutput(buf);
   if (v44 == 2)
   {
@@ -6404,13 +5872,13 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(const char **a1, __int
 
   else
   {
-    FIK::EnrollmentPoseSolverV4::outputTargetJointPoses(buf, &v61);
-    v46 = v64;
-    if (v63)
+    FIK::EnrollmentPoseSolverV4::outputTargetJointPoses(buf, &v60);
+    v46 = v63;
+    if (v62)
     {
-      v47 = v62.n128_u64[0];
-      v48 = 4 * v63;
-      v49 = v64;
+      v47 = v61.n128_u64[0];
+      v48 = 4 * v62;
+      v49 = v63;
       do
       {
         v50 = *v49++;
@@ -6445,38 +5913,37 @@ uint64_t CoreIKEnrollmentPoseSolveForDataWithHeadPoseV4Ex(const char **a1, __int
       v45 = 0;
     }
 
-    v63 = 0;
+    v62 = 0;
     if (v46)
     {
-      (*(*v65 + 24))(v65, v46, 0, 8);
+      (*(*v64 + 24))(v64, v46, 0, 8);
     }
 
-    v61.n128_u64[0] = 0;
-    if (v62.n128_u64[0])
+    v60.n128_u64[0] = 0;
+    if (v61.n128_u64[0])
     {
-      (*(*v62.n128_u64[1] + 24))(v62.n128_u64[1], v62.n128_u64[0], 0, 8);
+      (*(*v61.n128_u64[1] + 24))(v61.n128_u64[1], v61.n128_u64[0], 0, 8);
     }
   }
 
   FIK::EnrollmentPoseSolverV4::~EnrollmentPoseSolverV4(buf);
-  if (v67)
+  if (v66)
   {
-    (*(*v68 + 24))(v68, v66, 0, 8);
+    (*(*v67 + 24))(v67, v65, 0, 8);
   }
 
-  v69[0] = 0;
-  if (v70)
+  v68[0] = 0;
+  if (v69)
   {
-    (*(*v71 + 3))(v71, v70, 0, 8);
+    (*(*v70 + 3))(v70, v69, 0, 8);
   }
 
-  v72[0] = 0;
-  if (v73)
+  v71[0] = 0;
+  if (v72)
   {
-    (*(*v74 + 24))(v74, v73, 0, 8);
+    (*(*v73 + 24))(v73, v72, 0, 8);
   }
 
-  v55 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -6539,7 +6006,7 @@ void *CoreIKCreateAltruisticSolverInstance(ikinema::processedRigs *a1)
   v34[11] = *MEMORY[0x277D85DE8];
   BPERigObject = ikinema::processedRigs::getBPERigObject(a1, v30);
   v2 = FIK::defaultAllocator(BPERigObject);
-  v3 = FIK::Allocator::create<CoreIK::IKSolverRetarget,FIK::MoCapRig const&>(v2);
+  v3 = FIK::Allocator::create<CoreIK::IKSolverRetarget,FIK::MoCapRig const&>(v2, v30);
   v4 = v3;
   if (!v3)
   {
@@ -6590,7 +6057,7 @@ void *CoreIKCreateAltruisticSolverInstance(ikinema::processedRigs *a1)
   {
     v12 = "(false) Algorithm Insert Failed.";
 LABEL_22:
-    CoreIKCreateAltruisticSolverInstance_cold_1(v12);
+    CoreIKCreateAltruisticSolverInstance_cold_1(v12, v9);
     goto LABEL_14;
   }
 
@@ -6605,7 +6072,7 @@ LABEL_14:
   if (v26)
   {
     (*(*v26 + 8))(v26);
-    FIK::FIKFree(v26, v9);
+    FIK::FIKFree(v26, v10);
   }
 
   v27 = 0;
@@ -6623,7 +6090,6 @@ LABEL_18:
     (*(*v31 + 24))(v31, v30[0], 0, 8);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -6657,32 +6123,32 @@ uint64_t CoreIKSolveModelSpaceSource(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
 uint64_t CoreIKJointCollectionSize(CoreIKConstraint *a1)
 {
-  v1 = CoreIKConstraint::interface(a1);
+  CoreIKConstraint::interface(a1);
 
   return ikinema::JointCollection::elementCount(v1);
 }
 
-uint64_t CoreIKJointCollectionGet(CoreIKConstraint *a1, unint64_t a2)
+void CoreIKJointCollectionGet(CoreIKConstraint *a1, unint64_t a2)
 {
-  v3 = CoreIKConstraint::interface(a1);
+  CoreIKConstraint::interface(a1);
   v4 = ikinema::JointCollection::element(v3, a2);
 
-  return CoreIKConstraint::interface(v4);
+  CoreIKConstraint::interface(v4);
 }
 
 uint64_t CoreIKConstraintCollectionSize(CoreIKConstraint *a1)
 {
-  v1 = CoreIKConstraint::interface(a1);
+  CoreIKConstraint::interface(a1);
 
   return ikinema::ConstraintCollection::elementCount(v1);
 }
 
-uint64_t CoreIKConstraintCollectionGet(CoreIKConstraint *a1)
+void CoreIKConstraintCollectionGet(CoreIKConstraint *a1)
 {
-  v1 = CoreIKConstraint::interface(a1);
+  CoreIKConstraint::interface(a1);
   v2 = ikinema::ConstraintCollection::element(v1);
 
-  return CoreIKConstraint::interface(v2);
+  CoreIKConstraint::interface(v2);
 }
 
 uint64_t CoreIKSolverAddAlgorithm_UseRotationFromSource(uint64_t a1, uint64_t a2, void *a3, unint64_t a4)
@@ -6690,41 +6156,41 @@ uint64_t CoreIKSolverAddAlgorithm_UseRotationFromSource(uint64_t a1, uint64_t a2
   v7 = (*(*a1 + 80))(a1);
   if (v7)
   {
-    v8 = v7;
+    v9 = v7;
     Rig = FIK::AnimNode::GetRig(v7);
-    v10 = (*(*v8 + 64))(v8);
-    ikinema::SourceRotatesDependentsAlgorithm::create(Rig, a2, a3, a4, v10, &v16);
-    inserted = FIK::AnimNode::insertAlgorithmBefore(v8, 0, &v16);
-    v12 = translateResult(inserted);
-    if (v16)
+    v11 = (*(*v9 + 64))(v9);
+    ikinema::SourceRotatesDependentsAlgorithm::create(Rig, a2, a3, a4, v11, &v17);
+    inserted = FIK::AnimNode::insertAlgorithmBefore(v9, 0, &v17);
+    v13 = translateResult(inserted);
+    if (v17)
     {
-      (*(*v16 + 8))(v16);
-      FIK::FIKFree(v16, v13);
+      (*(*v17 + 8))(v17);
+      FIK::FIKFree(v17, v14);
     }
   }
 
   else
   {
-    v14 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = ikinemaLogObject(0, v8)[1];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      CoreIKSolverAddAlgorithm_UseRotationFromSource_cold_1(v14);
+      CoreIKSolverAddAlgorithm_UseRotationFromSource_cold_1(v15);
     }
 
     return 3;
   }
 
-  return v12;
+  return v13;
 }
 
-uint64_t CoreIKGenericSolverCreate(FIK *a1)
+uint64_t CoreIKGenericSolverCreate(FIK *a1, uint64_t a2)
 {
   if (*(a1 + 88))
   {
-    v1 = ikinemaLogObject()[2];
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = ikinemaLogObject(a1, a2)[2];
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      CoreIKGenericSolverCreate_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
+      CoreIKGenericSolverCreate_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
     }
 
     return 0;
@@ -6732,18 +6198,18 @@ uint64_t CoreIKGenericSolverCreate(FIK *a1)
 
   else
   {
-    v10 = FIK::defaultAllocator(a1);
+    v12 = FIK::defaultAllocator(a1);
 
-    return FIK::Allocator::create<FIK::GenericSolver,FIK::GameRig const&>(v10);
+    return FIK::Allocator::create<FIK::GenericSolver,FIK::GameRig const&>(v12, a1 + 16);
   }
 }
 
-uint64_t FIK::Allocator::create<FIK::GenericSolver,FIK::GameRig const&>(uint64_t a1)
+uint64_t FIK::Allocator::create<FIK::GenericSolver,FIK::GameRig const&>(uint64_t a1, uint64_t a2)
 {
   result = (*(*a1 + 16))(a1, 544, 16);
   if (result)
   {
-    return FIK::GenericSolver::GenericSolver(result);
+    return FIK::GenericSolver::GenericSolver(result, a2);
   }
 
   return result;
@@ -6770,11 +6236,11 @@ uint64_t FIK::Allocator::destroy<FIK::GenericSolver>(uint64_t result, void (***a
   return result;
 }
 
-uint64_t CoreIKGenericSolverGetJoint(FIK::IKSolver **a1, unsigned int a2)
+void CoreIKGenericSolverGetJoint(FIK::IKSolver **a1, unsigned int a2)
 {
   Segment = FIK::GenericSolver::GetSegment(a1, a2);
 
-  return CoreIKConstraint::interface(Segment);
+  CoreIKConstraint::interface(Segment);
 }
 
 uint64_t CoreIKGenericSolverGetJointNames(FIK::GenericSolver *a1, uint64_t a2)
@@ -6831,14 +6297,6 @@ uint64_t CoreIKGenericConstraintSetTargetParameters(uint64_t a1, __n128 a2, __n1
   v6[0] = a2;
   v6[1] = a3;
   return FIK::RTGameTask::SetTargetParams(a1, v6, a4, a5);
-}
-
-float CoreIKGenericConstraintGetTargetBlendWeights(FIK::RTGameTask *a1)
-{
-  Alphas = FIK::RTGameTask::GetAlphas(a1);
-  result = *Alphas;
-  v3 = *(Alphas + 4);
-  return result;
 }
 
 uint64_t CoreIKGenericConstraintSetTranslationTargetBlendWeight(uint64_t a1, float a2)
@@ -7028,24 +6486,25 @@ uint64_t CoreIKGenericConstraintGetUseModelSpaceLookAtAxis(uint64_t a1)
 
 uint64_t CoreIKGenericSolverSolve(FIK::GenericSolver *a1, uint64_t a2, uint64_t a3)
 {
-  v15[0] = a2;
-  v15[1] = a3;
-  if (FIK::GenericSolver::GetNumBones(a1) == a3)
+  v18[0] = a2;
+  v18[1] = a3;
+  NumBones = FIK::GenericSolver::GetNumBones(a1);
+  if (NumBones == a3)
   {
-    v4 = (*(*a1 + 32))(a1, v15);
-    if (v4 == 1)
+    v7 = (*(*a1 + 32))(a1, v18);
+    if (v7 == 1)
     {
-      v5 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v5 = 1;
+      v8 = 1;
     }
 
-    if (v4)
+    if (v7)
     {
-      return v5;
+      return v8;
     }
 
     else
@@ -7056,17 +6515,17 @@ uint64_t CoreIKGenericSolverSolve(FIK::GenericSolver *a1, uint64_t a2, uint64_t 
 
   else
   {
-    v7 = ikinemaLogObject()[1];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = ikinemaLogObject(NumBones, v6)[1];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      CoreIKGenericSolverSolve_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+      CoreIKGenericSolverSolve_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
     return 1;
   }
 }
 
-void *CoreIKGenericSolverGetConstraintTargetName(FIK::GenericSolver *a1, unsigned int a2)
+void *CoreIKGenericSolverGetConstraintTargetName(FIK::GenericSolver *a1, signed int a2)
 {
   TaskInstancePtr = FIK::GenericSolver::GetTaskInstancePtr(a1, a2);
   if (TaskInstancePtr)
@@ -7079,10 +6538,10 @@ void *CoreIKGenericSolverGetConstraintTargetName(FIK::GenericSolver *a1, unsigne
 
   else
   {
-    v4 = ikinemaLogObject()[2];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ikinemaLogObject(0, v3)[2];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      CoreIKGenericSolverGetConstraintTargetName_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      CoreIKGenericSolverGetConstraintTargetName_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
@@ -7093,40 +6552,39 @@ double CoreIKGenericSolverGetTargetRestPose(uint64_t a1, unint64_t a2)
 {
   if (*(a1 + 400) <= a2)
   {
-    v5 = ikinemaLogObject()[2];
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    *&v3 = 0;
-    if (v6)
+    v3 = ikinemaLogObject(a1, a2)[2];
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    *&v2 = 0;
+    if (v4)
     {
-      CoreIKGenericSolverGetTargetRestPose_cold_1(v5, v7, v8, v9, v10, v11, v12, v13);
-      *&v3 = 0;
+      CoreIKGenericSolverGetTargetRestPose_cold_1(v3, v5, v6, v7, v8, v9, v10, v11);
+      *&v2 = 0;
     }
   }
 
   else
   {
-    v2 = *(a1 + 416) + (a2 << 8);
-    v3 = *(v2 + 64);
-    v4 = *(v2 + 80);
+    v2 = *(*(a1 + 416) + (a2 << 8) + 64);
   }
 
-  return *&v3;
+  return *&v2;
 }
 
 uint64_t CoreIKGenericSolverGetConstraintIndex(uint64_t a1, char *__s)
 {
   v4 = strlen(__s);
   v5 = FIK::IKRigUtils::GetTaskIndexByBoneName<FIK::GameRig>(__s, v4, a1 + 192);
+  v7 = v5;
   if (v5 == -1)
   {
-    v6 = ikinemaLogObject()[2];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = ikinemaLogObject(v5, v6)[2];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      CoreIKGenericSolverGetConstraintIndex_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      CoreIKGenericSolverGetConstraintIndex_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  return v5;
+  return v7;
 }
 
 float CoreIKGenericSolverGetRetargetingGain(FIK::GenericSolver *a1)
@@ -7213,7 +6671,7 @@ uint64_t CoreIKSolver::destroy(CoreIKSolver *this, CoreIKSolver *a2)
   v2 = this;
   if (!this)
   {
-    this = CoreIKSolver::destroy();
+    this = CoreIKSolver::destroy(0, a2);
   }
 
   v3 = FIK::defaultAllocator(this);
@@ -7221,77 +6679,77 @@ uint64_t CoreIKSolver::destroy(CoreIKSolver *this, CoreIKSolver *a2)
   return FIK::Allocator::destroy<CoreIKACPPenetrationSolver>(v3, v2);
 }
 
-uint64_t FIK::Segment::setLimits()
+uint64_t FIK::Segment::setLimits(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "setLimits", "(axis <= 3) There are 4 valid axes");
+  return ikinemaAssertHandler(v2, 0, "setLimits", "(axis <= 3) There are 4 valid axes");
 }
 
-uint64_t FIK::Segment::setRotationAxis()
+uint64_t FIK::Segment::setRotationAxis(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "setRotationAxis", "(rotation_axis <= 3) There are 4 valid axes");
+  return ikinemaAssertHandler(v2, 0, "setRotationAxis", "(rotation_axis <= 3) There are 4 valid axes");
 }
 
-uint64_t FIK::Segment::setProjectionAxis()
+uint64_t FIK::Segment::setProjectionAxis(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "setProjectionAxis", "(projection_axis <= 2) There are only 3 valid axes");
+  return ikinemaAssertHandler(v2, 0, "setProjectionAxis", "(projection_axis <= 2) There are only 3 valid axes");
 }
 
-uint64_t FIK::RangeInCircularSpace::expandLeftBy()
+uint64_t FIK::RangeInCircularSpace::expandLeftBy(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "expandLeftBy", "(amount >= 0.0f) Must expand range by a non-negative amount.");
+  return ikinemaAssertHandler(v2, 0, "expandLeftBy", "(amount >= 0.0f) Must expand range by a non-negative amount.");
 }
 
-uint64_t FIK::RangeInCircularSpace::expandRightBy()
+uint64_t FIK::RangeInCircularSpace::expandRightBy(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "expandRightBy", "(amount >= 0.0f) Must expand range by a non-negative amount.");
+  return ikinemaAssertHandler(v2, 0, "expandRightBy", "(amount >= 0.0f) Must expand range by a non-negative amount.");
 }
 
-uint64_t FIK::EulerLimitsChecker::EulerLimitsChecker()
+uint64_t FIK::EulerLimitsChecker::EulerLimitsChecker(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "EulerLimitsChecker", "(std::min({forwardAxis, leftAxis, upAxis}) == 0) Axis indices must be within [0, 2].");
-}
-
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "EulerLimitsChecker", "(std::max({forwardAxis, leftAxis, upAxis}) == 2) Axis indices must be within [0, 2].");
+  return ikinemaAssertHandler(v2, 0, "EulerLimitsChecker", "(std::min({forwardAxis, leftAxis, upAxis}) == 0) Axis indices must be within [0, 2].");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "EulerLimitsChecker", "(forwardAxis != leftAxis) All axes must be unique.");
+  return ikinemaAssertHandler(v2, 0, "EulerLimitsChecker", "(std::max({forwardAxis, leftAxis, upAxis}) == 2) Axis indices must be within [0, 2].");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "EulerLimitsChecker", "(forwardAxis != upAxis) All axes must be unique.");
+  return ikinemaAssertHandler(v2, 0, "EulerLimitsChecker", "(forwardAxis != leftAxis) All axes must be unique.");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "EulerLimitsChecker", "(leftAxis != upAxis) All axes must be unique.");
+  return ikinemaAssertHandler(v2, 0, "EulerLimitsChecker", "(forwardAxis != upAxis) All axes must be unique.");
 }
 
-uint64_t IKString::allocateStringBuffer()
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "allocateStringBuffer", "(buffer) Unable to allocate memory for string.");
+  return ikinemaAssertHandler(v2, 0, "EulerLimitsChecker", "(leftAxis != upAxis) All axes must be unique.");
+}
+
+uint64_t IKString::allocateStringBuffer(uint64_t a1, uint64_t a2)
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "allocateStringBuffer", "(buffer) Unable to allocate memory for string.");
 }
 
 BOOL FIK::Solver::CheckSolve(FIK::Solver *this, float *a2, float *a3)
@@ -7342,51 +6800,49 @@ LABEL_5:
   }
 }
 
-void FIK::Solver::solve(_BYTE *a1)
+void FIK::Solver::solve(_BYTE *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = ikinemaLogObject()[1];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = ikinemaLogObject(a1, a2)[1];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = 136315138;
     v5 = "solve";
-    _os_log_error_impl(&dword_245976000, v2, OS_LOG_TYPE_ERROR, "%s: Bad solver tuning detected.", &v4, 0xCu);
+    _os_log_error_impl(&dword_245976000, v3, OS_LOG_TYPE_ERROR, "%s: Bad solver tuning detected.", &v4, 0xCu);
   }
 
   *a1 = 0;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void ikinemaLogObject()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     qword_27EE32D28 = os_log_create("com.apple.coreik", "general");
     qword_27EE32D30 = os_log_create("com.apple.coreik", "solver");
     qword_27EE32D38 = os_log_create("com.apple.coreik", "rig");
     qword_27EE32D40 = os_log_create("com.apple.coreik", "fusion");
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void FIK::IKSolver::solve(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "autoTuneBasedOnStability";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Invalid solver input detected.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "autoTuneBasedOnStability";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Invalid solver input detected.", &v1, 0xCu);
 }
 
-void FIK::SetMemoryRoutines()
+void FIK::SetMemoryRoutines(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "SetMemoryRoutines", "(false) Dynamic memory routines must always be in pairs");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "SetMemoryRoutines", "(false) Dynamic memory routines must always be in pairs");
   __break(1u);
 }
 
-uint64_t rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::Accept<rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>>(unsigned int *a1, _BYTE *a2)
+uint64_t rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::Accept<rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>>(unsigned int *a1, uint64_t **a2)
 {
   v4 = *(a1 + 11);
   switch(v4 & 7)
@@ -7418,19 +6874,19 @@ LABEL_26:
         goto LABEL_51;
       }
 
-      v9 = *(a1 + 1) + 24;
+      v9 = (*(a1 + 1) + 24);
       while (1)
       {
-        v10 = (*(v9 - 2) & 0x1000) != 0 ? (v9 - 24) : *(v9 - 16);
-        v11 = (*(v9 - 2) & 0x1000) != 0 ? 21 - *(v9 - 3) : *(v9 - 24);
+        v10 = (*(v9 - 1) & 0x1000) != 0 ? (v9 - 6) : *(v9 - 2);
+        v11 = (*(v9 - 1) & 0x1000) != 0 ? 21 - *(v9 - 3) : *(v9 - 6);
         rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::PrettyPrefix(a2);
         if (!rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(a2, v10, v11) || (rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>>::Accept<rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>>(v9, a2) & 1) == 0)
         {
           break;
         }
 
-        v9 += 48;
-        if (v9 - 24 == *(a1 + 1) + 48 * *a1)
+        v9 += 12;
+        if (v9 - 6 == (*(a1 + 1) + 48 * *a1))
         {
 LABEL_51:
 
@@ -7522,10 +6978,10 @@ LABEL_51:
       return 0;
     }
 
-    v6 += 24;
+    v6 += 6;
   }
 
-  while (v6 != *(a1 + 1) + 24 * *a1);
+  while (v6 != (*(a1 + 1) + 24 * *a1));
 LABEL_48:
 
   return rapidjson::PrettyWriter<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::EndArray(a2);
@@ -7609,7 +7065,7 @@ uint64_t rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FI
     v7 = **a2;
     if (v7 == (*a2)[2] || !*v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
@@ -7633,17 +7089,16 @@ uint64_t rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FI
         goto LABEL_8;
       }
 
-      v10 = 2;
+      v9 = 2;
     }
 
-    v11 = v7 - v6[1];
-    *(a1 + 48) = v10;
-    *(a1 + 56) = v11;
+    v10 = v7 - v6[1];
+    *(a1 + 48) = v9;
+    *(a1 + 56) = v10;
   }
 
 LABEL_8:
   result = *(a1 + 48);
-  v9 = *(a1 + 56);
   *(a1 + 24) = *(a1 + 16);
   return result;
 }
@@ -8109,7 +7564,7 @@ void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::R
         return;
       }
 
-      rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
+      rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2);
       if (*(a1 + 48))
       {
         return;
@@ -8183,7 +7638,7 @@ void rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::R
         v9 = 1;
         do
         {
-          rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2, a3);
+          rapidjson::GenericReader<rapidjson::UTF8<char>,rapidjson::UTF8<char>,FIK::RapidJsonAllocator>::ParseValue<0u,rapidjson::EncodedInputStream<rapidjson::UTF8<char>,rapidjson::MemoryStream>,rapidjson::GenericDocument<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocator<FIK::RapidJsonAllocator>,FIK::RapidJsonAllocator>>(a1, a2);
           if (*(a1 + 48))
           {
             break;
@@ -8686,7 +8141,7 @@ LABEL_142:
       goto LABEL_125;
     }
 
-    v31 = (v7 + 1);
+    v31 = v7 + 1;
     *v4 = v7 + 1;
     v32 = *v7 - 48;
     if (v30)
@@ -8700,8 +8155,8 @@ LABEL_142:
             break;
           }
 
-          v33 = (v31 + 1);
-          *v4 = (v31 + 1);
+          v33 = v31 + 1;
+          *v4 = v31 + 1;
           v32 = *v31 + 10 * v32 - 48;
           if (v32 > (v25 + 2147483639) / 10 && v33 != v6)
           {
@@ -8729,7 +8184,7 @@ LABEL_142:
     {
       while (v31 != v6 && *v31 - 48 <= 9)
       {
-        *v4 = (v31 + 1);
+        *v4 = v31 + 1;
         v32 = *v31++ + 10 * v32 - 48;
         if (v32 > 308 - v25)
         {
@@ -8805,11 +8260,10 @@ LABEL_126:
 
 void FIK::IKRigUtils::updateSourceIndices(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "updateSourceIndices";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Invalid source name for constraint detected.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "updateSourceIndices";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Invalid source name for constraint detected.", &v1, 0xCu);
 }
 
 _BYTE *rapidjson::Writer<rapidjson::GenericStringBuffer<rapidjson::UTF8<char>,rapidjson::CrtAllocator>,rapidjson::UTF8<char>,rapidjson::UTF8<char>,rapidjson::CrtAllocator,0u>::WriteString(_BYTE *result, uint64_t a2, char a3, unsigned __int8 a4)
@@ -8851,95 +8305,92 @@ void rapidjson::GenericValue<rapidjson::UTF8<char>,rapidjson::MemoryPoolAllocato
 
 void FIK::EnrollmentPoseSolver::EnrollmentPoseSolver(os_log_t log, float a2, float a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "verifyRigAssumptions";
-  v6 = 2048;
-  v7 = a2;
-  v8 = 2048;
-  v9 = a3;
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Detected offset between hips and head (X: %.4f, Z: %.4f)", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "verifyRigAssumptions";
+  v5 = 2048;
+  v6 = a2;
+  v7 = 2048;
+  v8 = a3;
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Detected offset between hips and head (X: %.4f, Z: %.4f)", &v3, 0x20u);
 }
 
-uint64_t FIK::EnrollmentPoseSolver::EnrollmentPoseSolver()
+uint64_t FIK::EnrollmentPoseSolver::EnrollmentPoseSolver(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "verifyRigAssumptions", "(atlasSourceIndex != kInvalidRigIndex) Missing Atlas source in rig");
-}
-
-{
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "verifyRigAssumptions", "(isIdentityTransform(atlasTaskOffset)) Detected non-zero offset on top of the Atlas source");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "verifyRigAssumptions", "(atlasSourceIndex != kInvalidRigIndex) Missing Atlas source in rig");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "verifyRigAssumptions", "(isIdentityTransform(rig.source_transform)) Detected non-identity source transform");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "verifyRigAssumptions", "(isIdentityTransform(atlasTaskOffset)) Detected non-zero offset on top of the Atlas source");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "verifyRigAssumptions", "(isSourceScale100) Detected wrong source scale");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "verifyRigAssumptions", "(isIdentityTransform(rig.source_transform)) Detected non-identity source transform");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "EnrollmentPoseSolver", "(cameraCount != 0) No camera data passed to solver");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "verifyRigAssumptions", "(isSourceScale100) Detected wrong source scale");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "EnrollmentPoseSolver", "(hasLiftedData) No sources with lifted data passed to solver");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "EnrollmentPoseSolver", "(cameraCount != 0) No camera data passed to solver");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "EnrollmentPoseSolver", "(m_solverNode.jointsCount() == jointDefinitions.size()) Input joint definitions count does not match the solver joints count.");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "EnrollmentPoseSolver", "(hasLiftedData) No sources with lifted data passed to solver");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "EnrollmentPoseSolver", "(m_dataProcessor.rigAtlasSourceIndex() != kInvalidRigIndex) The head pose must be present as a source.");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "EnrollmentPoseSolver", "(m_solverNode.jointsCount() == jointDefinitions.size()) Input joint definitions count does not match the solver joints count.");
+}
+
+{
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "EnrollmentPoseSolver", "(m_dataProcessor.rigAtlasSourceIndex() != kInvalidRigIndex) The head pose must be present as a source.");
 }
 
 void FIK::EnrollmentPoseSolver::setupPreprocessingSources(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "setupPreprocessingSources";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Failed to setup virtual hips compensation", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "setupPreprocessingSources";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Failed to setup virtual hips compensation", &v1, 0xCu);
 }
 
-uint64_t FIK::EnrollmentPoseSolver::updateTaskWeights()
+uint64_t FIK::EnrollmentPoseSolver::updateTaskWeights(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "updateTaskWeights", "(sourcesValidity.size() == rig.sources.size()) Source validity array does not match rig sources count");
+  return ikinemaAssertHandler(v2, 0, "updateTaskWeights", "(sourcesValidity.size() == rig.sources.size()) Source validity array does not match rig sources count");
 }
 
-uint64_t FIK::Enrollment::VirtualSourceController::Descriptor::addDependentSource()
+uint64_t FIK::Enrollment::VirtualSourceController::Descriptor::addDependentSource(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "addDependentSource", "(!dependentSources.back().empty()) Undefined dependent source name.");
+  return ikinemaAssertHandler(v2, 0, "addDependentSource", "(!dependentSources.back().empty()) Undefined dependent source name.");
 }
 
 void FIK::EnrollmentPoseSolverV2::inputsAreValidGivenRig(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "inputsAreValidGivenRig";
-  v5 = 2080;
-  v6 = a1;
-  _os_log_error_impl(&dword_245976000, a2, OS_LOG_TYPE_ERROR, "%s: Rig joint: %s not found in input sources.", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "inputsAreValidGivenRig";
+  v4 = 2080;
+  v5 = a1;
+  _os_log_error_impl(&dword_245976000, a2, OS_LOG_TYPE_ERROR, "%s: Rig joint: %s not found in input sources.", &v2, 0x16u);
 }
 
 void FIK::EnrollmentPoseSolverV2::inputsAreValidGivenRig(void *a1, void **a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*a1)
   {
     v3 = *a2;
@@ -8950,54 +8401,45 @@ void FIK::EnrollmentPoseSolverV2::inputsAreValidGivenRig(void *a1, void **a2, os
     v3 = &unk_245A04BAE;
   }
 
-  v5 = 136315394;
-  v6 = "inputsAreValidGivenRig";
-  v7 = 2080;
-  v8 = v3;
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Rig joint: %s not found in input targets.", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "inputsAreValidGivenRig";
+  v6 = 2080;
+  v7 = v3;
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Rig joint: %s not found in input targets.", &v4, 0x16u);
 }
 
-uint64_t FIK::Enrollment::VirtualSourceController::Descriptor::Descriptor()
+uint64_t FIK::Enrollment::VirtualSourceController::Descriptor::Descriptor(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "Descriptor", "(!controlSource.empty()) Undefined controlling source name.");
-}
-
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "Descriptor", "(!correctionSource.empty()) Undefined correcting source name.");
+  return ikinemaAssertHandler(v2, 0, "Descriptor", "(!controlSource.empty()) Undefined controlling source name.");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "Descriptor", "(!hipsSource.empty()) Undefined hips source name.");
+  return ikinemaAssertHandler(v2, 0, "Descriptor", "(!correctionSource.empty()) Undefined correcting source name.");
 }
 
-uint64_t ikinema::Buffer::arrayView<FIK::Transform>()
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "arrayView", "(m_descriptor.containsType<std::remove_cv_t<RequestedType>>()) Wrong type requested from buffer.");
+  return ikinemaAssertHandler(v2, 0, "Descriptor", "(!hipsSource.empty()) Undefined hips source name.");
 }
 
 void FIK::EnrollmentPoseSolverV4::areAllRequiredJointsProvided(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "areAllRequiredJointsProvided";
-  v5 = 2080;
-  v6 = a1;
-  _os_log_error_impl(&dword_245976000, a2, OS_LOG_TYPE_ERROR, "%s: Rig joint %s not found in input sources.", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "areAllRequiredJointsProvided";
+  v4 = 2080;
+  v5 = a1;
+  _os_log_error_impl(&dword_245976000, a2, OS_LOG_TYPE_ERROR, "%s: Rig joint %s not found in input sources.", &v2, 0x16u);
 }
 
 void FIK::EnrollmentPoseSolverV4::areAllRequiredJointsProvided(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 336) + 544 * a2;
   if (*(v3 + 16))
   {
@@ -9009,284 +8451,282 @@ void FIK::EnrollmentPoseSolverV4::areAllRequiredJointsProvided(uint64_t a1, uint
     v4 = &unk_245A04BAE;
   }
 
-  v6 = 136315394;
-  v7 = "areAllRequiredJointsProvided";
-  v8 = 2080;
-  v9 = v4;
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Rig joint %s not found in input targets.", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315394;
+  v6 = "areAllRequiredJointsProvided";
+  v7 = 2080;
+  v8 = v4;
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Rig joint %s not found in input targets.", &v5, 0x16u);
 }
 
-uint64_t FIK::EnrollmentPoseSolverV4::dbgPrintInputs()
+uint64_t FIK::EnrollmentPoseSolverV4::dbgPrintInputs(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "dbgPrintInputs", "(!m_rigInputData.empty()) dbgPrintInputs() can be called only after setRigInputData() has been called.");
+  return ikinemaAssertHandler(v2, 0, "dbgPrintInputs", "(!m_rigInputData.empty()) dbgPrintInputs() can be called only after setRigInputData() has been called.");
 }
 
-uint64_t FIK::EnrollmentPoseSolverV4::rigParentJointIndex()
+uint64_t FIK::EnrollmentPoseSolverV4::rigParentJointIndex(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "rigParentJointIndex", "(parentJointIndex != FIK::kInvalidRigIndex) Parent joint not found in the rig.");
+  return ikinemaAssertHandler(v2, 0, "rigParentJointIndex", "(parentJointIndex != FIK::kInvalidRigIndex) Parent joint not found in the rig.");
 }
 
-uint64_t FIK::EnrollmentPoseSolverV4::RigJointIndices::RigJointIndices()
+uint64_t FIK::EnrollmentPoseSolverV4::RigJointIndices::RigJointIndices(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kHips != FIK::kInvalidRigIndex) Hips not included in rig");
-}
-
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kSpine6 != FIK::kInvalidRigIndex) Spine 6 not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kHips != FIK::kInvalidRigIndex) Hips not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kSpine7 != FIK::kInvalidRigIndex) Spine 7 not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kSpine6 != FIK::kInvalidRigIndex) Spine 6 not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kLeftShoulder != FIK::kInvalidRigIndex) Left shoulder not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kSpine7 != FIK::kInvalidRigIndex) Spine 7 not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kLeftArm != FIK::kInvalidRigIndex) Left arm not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kLeftShoulder != FIK::kInvalidRigIndex) Left shoulder not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kLeftForearm != FIK::kInvalidRigIndex) Left forearm not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kLeftArm != FIK::kInvalidRigIndex) Left arm not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kLeftHand != FIK::kInvalidRigIndex) Left hand not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kLeftForearm != FIK::kInvalidRigIndex) Left forearm not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kRightShoulder != FIK::kInvalidRigIndex) Right shoulder not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kLeftHand != FIK::kInvalidRigIndex) Left hand not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kRightArm != FIK::kInvalidRigIndex) Right arm not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kRightShoulder != FIK::kInvalidRigIndex) Right shoulder not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kRightForearm != FIK::kInvalidRigIndex) Right forearm not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kRightArm != FIK::kInvalidRigIndex) Right arm not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kRightHand != FIK::kInvalidRigIndex) Right hand not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kRightForearm != FIK::kInvalidRigIndex) Right forearm not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kNeck1 != FIK::kInvalidRigIndex) Neck 1 joint not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kRightHand != FIK::kInvalidRigIndex) Right hand not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kNeck2 != FIK::kInvalidRigIndex) Neck 2 joint not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kNeck1 != FIK::kInvalidRigIndex) Neck 1 joint not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kNeck3 != FIK::kInvalidRigIndex) Neck 3 joint not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kNeck2 != FIK::kInvalidRigIndex) Neck 2 joint not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kNeck4 != FIK::kInvalidRigIndex) Neck 4 joint not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kNeck3 != FIK::kInvalidRigIndex) Neck 3 joint not included in rig");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "RigJointIndices", "(kHead != FIK::kInvalidRigIndex) Head joint not included in rig");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kNeck4 != FIK::kInvalidRigIndex) Neck 4 joint not included in rig");
 }
 
-uint64_t FIK::RTBalanceTask::ConvertTargetWorldToSolver()
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "ConvertTargetWorldToSolver", "(SolverTaskPtr != nullptr) The task must be existing");
+  return ikinemaAssertHandler(v2, 0, "RigJointIndices", "(kHead != FIK::kInvalidRigIndex) Head joint not included in rig");
 }
 
-void FIK::TargetSmoothing::smooth()
+uint64_t FIK::RTBalanceTask::ConvertTargetWorldToSolver(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "smooth", "(false) Unhandled target smoothing mode was used");
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "ConvertTargetWorldToSolver", "(SolverTaskPtr != nullptr) The task must be existing");
+}
+
+void FIK::TargetSmoothing::smooth(uint64_t a1, uint64_t a2)
+{
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "smooth", "(false) Unhandled target smoothing mode was used");
   __break(1u);
 }
 
-void FIK::estimateBoneRotationFromVelocity()
+void FIK::estimateBoneRotationFromVelocity(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "estimateBoneRotationFromVelocity", "(false) Unsupported axis.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "estimateBoneRotationFromVelocity", "(false) Unsupported axis.");
   __break(1u);
 }
 
 void ikinema::DoSolveAlgorithmImpl::process(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "process";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Solve has failed.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "process";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Solve has failed.", &v1, 0xCu);
 }
 
 void FIK::EnrollmentHelpers::verifyRigEnrolment(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Armspan length out of expected range.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Armspan length out of expected range.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left forearm length out of expected range.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left forearm length out of expected range.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right forearm length out of expected range.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right forearm length out of expected range.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left arm length out of expected range.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left arm length out of expected range.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right arm length out of expected range.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right arm length out of expected range.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Forearms asymmetry detected.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Forearms asymmetry detected.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Arms asymmetry detected.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Arms asymmetry detected.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left arm asymmetry detected.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Left arm asymmetry detected.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right arm asymmetry detected.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Right arm asymmetry detected.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Neck length vs shoulder width ratio is irregular.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "verifyRigEnrolment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Neck length vs shoulder width ratio is irregular.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t FIK::Enrollment::LiftedSource::LiftedSource()
+uint64_t FIK::Enrollment::LiftedSource::LiftedSource(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "LiftedSource", "(detectionIndex != kInvalidRigIndex) Linking rig source to enrollment keypoint failed");
-}
-
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "LiftedSource", "(cameraIndex != kInvalidRigIndex) Linking rig source to enrollment keypoint failed");
-}
-
-uint64_t FIK::Enrollment::VirtualSourceHierarchy::VirtualSourceHierarchy()
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "VirtualSourceHierarchy", "(rootSourceIndex != kInvalidRigIndex) Failed to find source in solver sources.");
+  return ikinemaAssertHandler(v2, 0, "LiftedSource", "(detectionIndex != kInvalidRigIndex) Linking rig source to enrollment keypoint failed");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "VirtualSourceHierarchy", "(sourceIndex != kInvalidRigIndex) Failed to find source in solver sources.");
+  return ikinemaAssertHandler(v2, 0, "LiftedSource", "(cameraIndex != kInvalidRigIndex) Linking rig source to enrollment keypoint failed");
 }
 
-uint64_t FIK::Enrollment::VirtualSourceController::VirtualSourceController()
+uint64_t FIK::Enrollment::VirtualSourceHierarchy::VirtualSourceHierarchy(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "VirtualSourceController", "(m_controlSourceIndex != kInvalidRigIndex) Failed to find controling source in solver sources.");
-}
+  v2 = *ikinemaLogObject(a1, a2);
 
-{
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "VirtualSourceController", "(m_correctionSourceIndex != kInvalidRigIndex) Failed to find corrective source in solver sources.");
+  return ikinemaAssertHandler(v2, 0, "VirtualSourceHierarchy", "(rootSourceIndex != kInvalidRigIndex) Failed to find source in solver sources.");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "VirtualSourceController", "(depSourceIndex != kInvalidRigIndex) Failed to find dependent source in solver sources.");
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "VirtualSourceHierarchy", "(sourceIndex != kInvalidRigIndex) Failed to find source in solver sources.");
 }
 
-uint64_t FIK::Enrollment::getBonePoseInSourceSpace()
+uint64_t FIK::Enrollment::VirtualSourceController::VirtualSourceController(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "getBonePoseInSourceSpace", "(boneIndex != kInvalidRigIndex) The given source is not driving a bone!");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "VirtualSourceController", "(m_controlSourceIndex != kInvalidRigIndex) Failed to find controling source in solver sources.");
 }
 
-uint64_t FIK::Enrollment::VirtualSourceController::updateDependents()
 {
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "checkAndCorrectPose", "(initialGuessDistance > 0) Initial guess was on top of the reference.");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "VirtualSourceController", "(m_correctionSourceIndex != kInvalidRigIndex) Failed to find corrective source in solver sources.");
 }
 
-uint64_t FIK::GenericSolver::GenericSolver()
 {
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 1, "GenericSolver", "(GetNumBones() > 0) The solver must contain bones");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "VirtualSourceController", "(depSourceIndex != kInvalidRigIndex) Failed to find dependent source in solver sources.");
 }
 
-uint64_t FIK::GenericSolver::ConfigureSegments()
+uint64_t FIK::Enrollment::getBonePoseInSourceSpace(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "ConfigureSegments", "(PoseView.size() == Solver->numSegments()) Input pose must match solver skeleton");
+  return ikinemaAssertHandler(v2, 0, "getBonePoseInSourceSpace", "(boneIndex != kInvalidRigIndex) The given source is not driving a bone!");
+}
+
+uint64_t FIK::Enrollment::VirtualSourceController::updateDependents(uint64_t a1, uint64_t a2)
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "checkAndCorrectPose", "(initialGuessDistance > 0) Initial guess was on top of the reference.");
+}
+
+uint64_t FIK::GenericSolver::GenericSolver(uint64_t a1, uint64_t a2)
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 1, "GenericSolver", "(GetNumBones() > 0) The solver must contain bones");
+}
+
+uint64_t FIK::GenericSolver::ConfigureSegments(uint64_t a1, uint64_t a2)
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "ConfigureSegments", "(PoseView.size() == Solver->numSegments()) Input pose must match solver skeleton");
 }
 
 void FIK::GenericSolver::extractEstimatedPose(uint8_t *buf, void *a2, os_log_t log)
@@ -9296,1090 +8736,1041 @@ void FIK::GenericSolver::extractEstimatedPose(uint8_t *buf, void *a2, os_log_t l
   _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: No corresponding task in estimation solver. Cannot set esimtated pose.", buf, 0xCu);
 }
 
-uint64_t FIK::GenericSolver::Solve()
+uint64_t FIK::GenericSolver::Solve(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "Solve", "(poseView.size() == GetNumBones()) Input animation must match solver skeleton");
+  return ikinemaAssertHandler(v2, 0, "Solve", "(poseView.size() == GetNumBones()) Input animation must match solver skeleton");
 }
 
 void FIK::GenericSolver::Solve(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "Solve";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Estimation solver auto-tune failed.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "Solve";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Estimation solver auto-tune failed.", &v1, 0xCu);
 }
 
-uint64_t FIK::GenericSolver::SetBoneProperties()
+uint64_t FIK::GenericSolver::SetBoneProperties(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "SetBoneProperties", "(IKRigUtils::IsValidBoneIndex(boneIndex, IKinemaRig)) Bone index must be valid");
+  return ikinemaAssertHandler(v2, 0, "SetBoneProperties", "(IKRigUtils::IsValidBoneIndex(boneIndex, IKinemaRig)) Bone index must be valid");
 }
 
-uint64_t FIK::Enrollment::Exporter::appendPoseToFile()
+uint64_t FIK::Enrollment::Exporter::appendPoseToFile(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "appendPoseToFile", "(m_hasHeaders) setup function not called.");
+  return ikinemaAssertHandler(v2, 0, "appendPoseToFile", "(m_hasHeaders) setup function not called.");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "appendPoseToFile", "(m_fieldCount == pose.size()) Header/pose size mismatch");
+  return ikinemaAssertHandler(v2, 0, "appendPoseToFile", "(m_fieldCount == pose.size()) Header/pose size mismatch");
 }
 
 void FIK::Enrollment::DataLogger::DataLogger(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing task target data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DataLogger";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing task target data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing solved pose data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "DataLogger";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing solved pose data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t FIK::Enrollment::createPath()
+uint64_t FIK::Enrollment::createPath(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "createPath", "(!pathToCreate.empty()) Unable to create empty path");
+  return ikinemaAssertHandler(v2, 0, "createPath", "(!pathToCreate.empty()) Unable to create empty path");
 }
 
 void FIK::Enrollment::DataLogger::exportSources(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing raw source data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportSources";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing raw source data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t FIK::Enrollment::SourceExporter::exportSourceData()
+uint64_t FIK::Enrollment::SourceExporter::exportSourceData(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "exportSourceData", "(m_fieldCount == (cameraCount * sourceCount)) Header/pose size mismatch");
+  return ikinemaAssertHandler(v2, 0, "exportSourceData", "(m_fieldCount == (cameraCount * sourceCount)) Header/pose size mismatch");
 }
 
 void FIK::Enrollment::DataLogger::exportEnrollment(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing bone lengths data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportEnrollment";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing bone lengths data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void FIK::Enrollment::DataLogger::exportComputedSources(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing computed source data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportComputedSources";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing computed source data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void FIK::Enrollment::SourceAndTargetDataLogger::exportOriginalSources(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing input source data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportOriginalSources";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing input source data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void FIK::Enrollment::SourceAndTargetDataLogger::exportToFile(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for exporting pose data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportToFile";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for exporting pose data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void FIK::Enrollment::SourceAndTargetDataLogger::exportEnrollmentData(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing bone lengths data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportEnrollmentData";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing bone lengths data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void FIK::Enrollment::SourceAndTargetDataLogger::exportAtlasData(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing atlas data", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "exportAtlasData";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to open file for writing atlas data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t FIK::RetargetingNode::solveInternal()
+uint64_t FIK::RetargetingNode::solveInternal(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "solveInternal", "(m_algorithmsAreValidated) The algorithm pipeline is not valid.");
+  return ikinemaAssertHandler(v2, 0, "solveInternal", "(m_algorithmsAreValidated) The algorithm pipeline is not valid.");
 }
 
-uint64_t FIK::RetargetingNode::adjustTaskOffset()
+uint64_t FIK::RetargetingNode::adjustTaskOffset(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "adjustTaskOffset", "(taskIndex != kInvalidRigIndex && taskIndex < Rig.tasks_.size()) Invalide task index");
+  return ikinemaAssertHandler(v2, 0, "adjustTaskOffset", "(taskIndex != kInvalidRigIndex && taskIndex < Rig.tasks_.size()) Invalide task index");
 }
 
-uint64_t ikinema::Buffer::create()
+uint64_t ikinema::Buffer::create(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "create", "(memoryBlock) Unable to allocate memory for buffer.");
+  return ikinemaAssertHandler(v2, 0, "create", "(memoryBlock) Unable to allocate memory for buffer.");
 }
 
-void FIK::GameRigBuilder::createGameRig()
+void FIK::GameRigBuilder::createGameRig(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "makeTask", "(false) No default task for associated joint type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "makeTask", "(false) No default task for associated joint type.");
   __break(1u);
 }
 
-uint64_t FIK::PoseConverter::GetGlobalTransform()
+uint64_t FIK::PoseConverter::GetGlobalTransform(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "GetGlobalTransform", "(Index < Pose.size()) Index must be valid");
+  return ikinemaAssertHandler(v2, 0, "GetGlobalTransform", "(Index < Pose.size()) Index must be valid");
 }
 
-uint64_t FIK::anonymous namespace::getGlobalJointPosition<FIK::BipedIdentifiers::Joint>()
+uint64_t FIK::anonymous namespace::getGlobalJointPosition<FIK::BipedIdentifiers::Joint>(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getGlobalJointTransform", "(jointIndex != -1) Joint not found");
+  return ikinemaAssertHandler(v2, 0, "getGlobalJointTransform", "(jointIndex != -1) Joint not found");
 }
 
-uint64_t FIK::AnimNode::updateSolverBoneLengths()
+uint64_t FIK::AnimNode::updateSolverBoneLengths(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "updateSolverBoneLengths", "(jointsCount() == newLengths.size()) Invalid size for the joint lengths array.");
+  return ikinemaAssertHandler(v2, 0, "updateSolverBoneLengths", "(jointsCount() == newLengths.size()) Invalid size for the joint lengths array.");
 }
 
-void FIK::AnimNode::updateSolverBoneLengths()
+void FIK::AnimNode::updateSolverBoneLengths(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "updateSolverBoneLengths", "(joint != nullptr) Joint not found.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "updateSolverBoneLengths", "(joint != nullptr) Joint not found.");
   __break(1u);
 }
 
-uint64_t FIK::RTGameTask::SetLookAtTarget()
+uint64_t FIK::RTGameTask::SetLookAtTarget(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "SetLookAtTarget", "(is_look_at_) Task must be a look-at one");
+  return ikinemaAssertHandler(v2, 0, "SetLookAtTarget", "(is_look_at_) Task must be a look-at one");
 }
 
-uint64_t FIK::RTGameTask::SetLookAtTargetParams(_BYTE *a1)
+uint64_t FIK::RTGameTask::SetLookAtTargetParams(_BYTE *a1, uint64_t a2)
 {
-  v2 = ikinemaLogObject();
-  result = ikinemaAssertHandler(*v2, 0, "SetLookAtTargetParams", "(is_look_at_) Task must be a look-at one");
+  v3 = ikinemaLogObject(a1, a2);
+  result = ikinemaAssertHandler(*v3, 0, "SetLookAtTargetParams", "(is_look_at_) Task must be a look-at one");
   if ((*a1 & 1) == 0)
   {
-    v4 = *ikinemaLogObject();
+    v6 = *ikinemaLogObject(result, v5);
 
-    return ikinemaAssertHandler(v4, 0, "SetLookAtTarget", "(is_look_at_) Task must be a look-at one");
+    return ikinemaAssertHandler(v6, 0, "SetLookAtTarget", "(is_look_at_) Task must be a look-at one");
   }
 
   return result;
 }
 
-uint64_t FIK::RTGameTask::SetImpactPointAndNormal()
+uint64_t FIK::RTGameTask::SetImpactPointAndNormal(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "SetImpactPointAndNormal", "(is_raytrace_) Task must be configured as ray casting");
+  return ikinemaAssertHandler(v2, 0, "SetImpactPointAndNormal", "(is_raytrace_) Task must be configured as ray casting");
 }
 
-uint64_t FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>()
+uint64_t FIK::IKRigUtils::GetAnimTarget<FIK::GameRig>(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "GetAnimTarget", "(IsValidBoneIndex(BoneIndex, IKinemaRig)) Check if index is valid");
+  return ikinemaAssertHandler(v2, 0, "GetAnimTarget", "(IsValidBoneIndex(BoneIndex, IKinemaRig)) Check if index is valid");
 }
 
-uint64_t FIK::RTGameTask::ConvertTargetSpace()
+uint64_t FIK::RTGameTask::ConvertTargetSpace(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "ConvertTargetSpace", "(!Utils::ContainsNaN(WorldToSolver)) Invalid space transform provided");
+  return ikinemaAssertHandler(v2, 0, "ConvertTargetSpace", "(!Utils::ContainsNaN(WorldToSolver)) Invalid space transform provided");
 }
 
-uint64_t FIK::RTGameTask::GenerateVRTarget()
+uint64_t FIK::RTGameTask::GenerateVRTarget(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "GenerateVRTarget", "(!Utils::ContainsNaN(Target)) Invalid task target");
+  return ikinemaAssertHandler(v2, 0, "GenerateVRTarget", "(!Utils::ContainsNaN(Target)) Invalid task target");
 }
 
-void FIK::RTGameTask::DoAlphaBlend()
+void FIK::RTGameTask::DoAlphaBlend(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "DoAlphaBlend", "(false) Unhandled target blend type was used.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "DoAlphaBlend", "(false) Unhandled target blend type was used.");
   __break(1u);
 }
 
-uint64_t FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint()
+uint64_t FIK::Enrollment::FrameAdaptor::getRayDirectionForJoint(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getRayDirectionForJoint", "(rayLength != 0) Ray length is equal to zero");
+  return ikinemaAssertHandler(v2, 0, "getRayDirectionForJoint", "(rayLength != 0) Ray length is equal to zero");
 }
 
-void FIK::Enrollment::SourceDefinition::cameraIndexForName()
+void FIK::Enrollment::SourceDefinition::cameraIndexForName(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "cameraNameToID", "(false) Unknown camera name passed to convertion method");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "cameraNameToID", "(false) Unknown camera name passed to convertion method");
   __break(1u);
 }
 
-uint64_t FIK::Enrollment::DataPreprocessor::generateSolverSources()
+uint64_t FIK::Enrollment::DataPreprocessor::generateSolverSources(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "generateSolverSources", "(frameSet.version() == ApiVersion::v2) Unexpected API version");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "generateSolverSources", "(frameSet.version() == ApiVersion::v2) Unexpected API version");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "generateSolverSources", "(m_rigAtlasSourceIndex != kInvalidRigIndex) The head pose must be present as a source.");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "generateSolverSources", "(m_rigAtlasSourceIndex != kInvalidRigIndex) The head pose must be present as a source.");
 }
 
 {
-  v0 = ikinemaLogObject();
-  return ikinemaAssertHandler(*v0, 0, "generateSolverSources", "(headPose.has_value()) Unable to produce valid pose with missing head pose.");
+  v2 = ikinemaLogObject(a1, a2);
+  return ikinemaAssertHandler(*v2, 0, "generateSolverSources", "(headPose.has_value()) Unable to produce valid pose with missing head pose.");
 }
 
 void CoreIKConstraint::setTarget(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set target on a constraint that does not constrain position or orientation", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setTarget";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set target on a constraint that does not constrain position or orientation", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setTargetTranslation(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set position target on a constraint that does not constrain position", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setTargetTranslation";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set position target on a constraint that does not constrain position", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setTargetOrientation(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set orientation target on a constraint that does not constrain orientation", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setTargetOrientation";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Can't set orientation target on a constraint that does not constrain orientation", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getOrientationEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getOrientationEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setOrientationEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setOrientationEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionAsPole(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionAsPole";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionAsPole(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionAsPole";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionDoFEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionDoFEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionDoFEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionDoFEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getOrientationDoFEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getOrientationDoFEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setOrientationDoFEnabled(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setOrientationDoFEnabled";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionDepth(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionDepth";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionDepth(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionDepth";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getOrientationDepth(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getOrientationDepth";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setOrientationDepth(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setOrientationDepth";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionWeight(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionWeight";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionWeight(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionWeight";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getOrientationWeight(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getOrientationWeight";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setOrientationWeight(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setOrientationWeight";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getPositionPrecision(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getPositionPrecision";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setPositionPrecision(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setPositionPrecision";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::getOrientationPrecision(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getOrientationPrecision";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKConstraint::setOrientationPrecision(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setOrientationPrecision";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint has no task.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKFootPlacementSolverCreate_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CoreIKFootPlacementSolverCreate";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Incompatible/invalid rig instance used to create FootPlacementSolver.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CoreIKFootPlacementSolverCreate";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Incompatible/invalid rig instance used to create FootPlacementSolver.", &v1, 0xCu);
 }
 
 void ikinema::loadRigFromString(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig with invalid type.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadRigFromString";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig with invalid type.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void ikinema::loadRigFromString()
+void ikinema::loadRigFromString(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "loadRigFromString", "(false) We must have handled all rig errors by this point.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "loadRigFromString", "(false) We must have handled all rig errors by this point.");
   __break(1u);
 }
 
 void logRigFromStringError(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "logRigFromStringError";
-  _os_log_fault_impl(&dword_245976000, log, OS_LOG_TYPE_FAULT, "%s: Loading a rig from string returned No such file error.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "logRigFromStringError";
+  _os_log_fault_impl(&dword_245976000, log, OS_LOG_TYPE_FAULT, "%s: Loading a rig from string returned No such file error.", &v1, 0xCu);
 }
 
 void logRigFromStringError(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from an empty string.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "logRigFromStringError";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from an empty string.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to parse a rig from string.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "logRigFromStringError";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to parse a rig from string.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ikinema::loadRigFromFile(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to parse a rig from file contents.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "logRigFromFileError";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Unable to parse a rig from file contents.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from invalid file path.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "logRigFromFileError";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from invalid file path.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from an empty file.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "logRigFromFileError";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Trying to load a rig from an empty file.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void ikinema::loadRigFromFile()
+void ikinema::loadRigFromFile(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "logRigFromFileError", "(false) This function must not handle success.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "logRigFromFileError", "(false) This function must not handle success.");
   __break(1u);
 }
 
-uint64_t CoreIKRig::createEmpty()
+uint64_t CoreIKRig::createEmpty(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "createEmpty", "(result) Out-of-memory is a non-recoverable condition.");
+  return ikinemaAssertHandler(v2, 0, "createEmpty", "(result) Out-of-memory is a non-recoverable condition.");
 }
 
-uint64_t CoreIKRig::createFromJson()
+uint64_t CoreIKRig::createFromJson(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "createFromJson", "(result) Out-of-memory is a non-recoverable condition.");
+  return ikinemaAssertHandler(v2, 0, "createFromJson", "(result) Out-of-memory is a non-recoverable condition.");
 }
 
-uint64_t CoreIKRig::createFromFile()
+uint64_t CoreIKRig::createFromFile(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "createFromFile", "(result) Out-of-memory is a non-recoverable condition.");
+  return ikinemaAssertHandler(v2, 0, "createFromFile", "(result) Out-of-memory is a non-recoverable condition.");
 }
 
-uint64_t CoreIKRig::destroy()
+uint64_t CoreIKRig::destroy(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "destroy", "(rig != nullptr) Can't destroy null object.");
+  return ikinemaAssertHandler(v2, 0, "destroy", "(rig != nullptr) Can't destroy null object.");
 }
 
-void CoreIKRig::sourceJointCount()
+void CoreIKRig::sourceJointCount(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "sourceJointCount", "(false) Unhandled rig type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "sourceJointCount", "(false) Unhandled rig type.");
   __break(1u);
 }
 
-void CoreIKRig::targetJointCount()
+void CoreIKRig::targetJointCount(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "targetJointCount", "(false) Unhandled rig type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "targetJointCount", "(false) Unhandled rig type.");
   __break(1u);
 }
 
 void CoreIKRig::sourceJointName(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid source joint index.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "sourceJointName";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid source joint index.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void CoreIKRig::sourceJointName()
+void CoreIKRig::sourceJointName(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "sourceJointName", "(false) Unhandled rig type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "sourceJointName", "(false) Unhandled rig type.");
   __break(1u);
 }
 
 void CoreIKRig::targetJointName(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid target joint index.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "targetJointName";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid target joint index.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void CoreIKRig::targetJointName()
+void CoreIKRig::targetJointName(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "targetJointName", "(false) Unhandled rig type");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "targetJointName", "(false) Unhandled rig type");
   __break(1u);
 }
 
 void CoreIKRig::sourceJointParentName(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid source joint index.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "sourceJointParentName";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid source joint index.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void CoreIKRig::sourceJointParentName()
+void CoreIKRig::sourceJointParentName(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "sourceJointParentName", "(false) Unhandled rig type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "sourceJointParentName", "(false) Unhandled rig type.");
   __break(1u);
 }
 
 void CoreIKRig::targetJointParentName(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid target joint index.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "targetJointParentName";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Invalid target joint index.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void CoreIKRig::targetJointParentName()
+void CoreIKRig::targetJointParentName(uint64_t a1, uint64_t a2)
 {
-  v0 = ikinemaLogObject();
-  ikinemaAssertHandler(*v0, 0, "targetJointParentName", "(false) Unhandled rig type.");
+  v2 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v2, 0, "targetJointParentName", "(false) Unhandled rig type.");
   __break(1u);
 }
 
 void CoreIKRig::getSourceTransform(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getSourceTransform";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::setSourceTransform(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setSourceTransform";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::getRigidBodySolve(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getRigidBodySolve";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::setRigidBodySolve(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setRigidBodySolve";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::getSourceScale(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getSourceScale";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::setSourceScale(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setSourceScale";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKRig::updateConstraintWithSettings()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void getMoCapTask<std::variant<FIK::GameRig,FIK::MoCapRig> const>(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getMoCapTask";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getMoCapTask<std::variant<FIK::GameRig,FIK::MoCapRig> const>()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void CoreIKRig::removeConstraint()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void CoreIKRig::removeJoint(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = a1 + (a2 << 8);
-  if (*(v2 + 16))
-  {
-    v3 = *(v2 + 8);
-  }
-
-  v7 = 136315394;
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_245976000, v4, v5, "%s: Cannot remove. Joint is not a leaf: %s", v7, v8);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = a1 + 544 * a2;
-  if (*(v2 + 16))
-  {
-    v3 = *(v2 + 8);
-  }
-
-  v7 = 136315394;
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_245976000, v4, v5, "%s: Cannot remove. Joint is not a leaf: %s", v7, v8);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void CoreIKRig::removeJoint()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_4(&dword_245976000, v0, v1, "%s: Cannot remove. Joint is not a leaf: %s", v2, v3);
+}
+
+{
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+}
+
+{
+  v2 = 136315394;
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_4(&dword_245976000, v0, v1, "%s: Cannot remove. Joint is not a leaf: %s", v2, v3);
 }
 
 void getMoCapBone<std::variant<FIK::GameRig,FIK::MoCapRig> const>(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getMoCapBone";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Rig must be of type kCoreIKSolverTypePoseRetarget", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void getMoCapBone<std::variant<FIK::GameRig,FIK::MoCapRig> const>()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void validateRigHierarchy<FIK::GameRig>(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Multiple constraints have the same target.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "multipleConstraintsWithSameTarget";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Multiple constraints have the same target.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIK::createSolverObject<CoreIK::IKSolverGeneric>(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The requested solver type can't be created from this rig", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSolverObject";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The requested solver type can't be created from this rig", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t CoreIKConstraintGetName_cold_1()
+uint64_t CoreIKConstraintGetName_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKConstraintGetName", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKConstraintGetName", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKConstraintGetBoneName_cold_1()
+uint64_t CoreIKConstraintGetBoneName_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKConstraintGetBoneName", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKConstraintGetBoneName", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKConstraintGetOffset_cold_1()
+uint64_t CoreIKConstraintGetOffset_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKConstraintGetOffset", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKConstraintGetOffset", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKConstraintSetOffset_cold_1()
+uint64_t CoreIKConstraintSetOffset_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKConstraintSetOffset", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKConstraintSetOffset", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKGetConstraintTarget_cold_1()
+uint64_t CoreIKGetConstraintTarget_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKGetConstraintTarget", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKGetConstraintTarget", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKSetConstraintTarget_cold_1()
+uint64_t CoreIKSetConstraintTarget_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKSetConstraintTarget", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKSetConstraintTarget", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKSetConstraintTargetTranslation_cold_1()
+uint64_t CoreIKSetConstraintTargetTranslation_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKSetConstraintTargetTranslation", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKSetConstraintTargetTranslation", "(constraint) A null constraint pointer was used.");
 }
 
-uint64_t CoreIKSetConstraintTargetOrientation_cold_1()
+uint64_t CoreIKSetConstraintTargetOrientation_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKSetConstraintTargetOrientation", "(constraint) A null constraint pointer was used.");
+  return ikinemaAssertHandler(v2, 0, "CoreIKSetConstraintTargetOrientation", "(constraint) A null constraint pointer was used.");
 }
 
 void std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:nn200100]<std::__variant_detail::__visitation::__variant::__value_visitor<CoreIKRigConstraintPositionAsPoleEnabled::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,FIK::GameRig,std::__variant_detail::_Trait::MoCapRig> &>(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint name not in rig", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "operator()";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Constraint name not in rig", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKSolver::setInputScale(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "setInputScale";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Trying to set invalid input scale", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "setInputScale";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Trying to set invalid input scale", &v1, 0xCu);
 }
 
 void CoreIKSolver::setOutputScale(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "setOutputScale";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Trying to set invalid output scale", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "setOutputScale";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Trying to set invalid output scale", &v1, 0xCu);
 }
 
-uint64_t CoreIKDestroyACPPenetrationSolver_cold_1()
+uint64_t CoreIKDestroyACPPenetrationSolver_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKDestroyACPPenetrationSolver", "(solver != nullptr) Can't destroy null object");
+  return ikinemaAssertHandler(v2, 0, "CoreIKDestroyACPPenetrationSolver", "(solver != nullptr) Can't destroy null object");
 }
 
 void CoreIKACPPenetrationSolverGetTargetRestPose_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No target joint at input targetIndex in rig.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKACPPenetrationSolverGetTargetRestPose";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No target joint at input targetIndex in rig.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t CoreIKDestroyACPFilteringSolver_cold_1()
+uint64_t CoreIKDestroyACPFilteringSolver_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKDestroyACPFilteringSolver", "(solver != nullptr) Can't destroy null object");
+  return ikinemaAssertHandler(v2, 0, "CoreIKDestroyACPFilteringSolver", "(solver != nullptr) Can't destroy null object");
 }
 
-uint64_t CoreIKDestroyACPSlidingSolver_cold_1()
+uint64_t CoreIKDestroyACPSlidingSolver_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "CoreIKDestroyACPSlidingSolver", "(solver != nullptr) Can't destroy null object");
+  return ikinemaAssertHandler(v2, 0, "CoreIKDestroyACPSlidingSolver", "(solver != nullptr) Can't destroy null object");
 }
 
 void CoreIK::IKSolverGeneric::despatchGetConstraint(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with the given name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchGetConstraint";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with the given name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t CoreIK::IKSolverGeneric::despatchSolve()
+uint64_t CoreIK::IKSolverGeneric::despatchSolve(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "despatchSolve", "(sourcePose.size() == targetPoseLocal.size()) Generic solver expects same source and target sizes");
+  return ikinemaAssertHandler(v2, 0, "despatchSolve", "(sourcePose.size() == targetPoseLocal.size()) Generic solver expects same source and target sizes");
 }
 
 void CoreIKSolver::despatchSetInputScale(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Setting of input scale is not supported by this solver", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchSetInputScale";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Setting of input scale is not supported by this solver", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKSolver::despatchSetOutputScale(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Setting of output scale is not supported by this solver", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchSetOutputScale";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Setting of output scale is not supported by this solver", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKSolver::despatchGetConstraintCount(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Getting constraint count is not supported by this solver", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchGetConstraintCount";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Getting constraint count is not supported by this solver", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKSolver::despatchGetTaskTargetsDebug(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Getting task targets is not supported by this solver", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchGetTaskTargetsDebug";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Getting task targets is not supported by this solver", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t ikinema::processedRigs::getBPERigObject(_BYTE *a1)
+void ikinema::processedRigs::getBPERigObject(_BYTE *a1, uint64_t a2)
 {
-  v2 = ikinemaLogObject();
-  result = ikinemaAssertHandler(*v2, 0, "getBPERigObject", "(rig && std::holds_alternative<FIK::MoCapRig>(rig.value())) Failed to load mocap rig");
+  v3 = ikinemaLogObject(a1, a2);
+  ikinemaAssertHandler(*v3, 0, "getBPERigObject", "(rig && std::holds_alternative<FIK::MoCapRig>(rig.value())) Failed to load mocap rig");
   if ((*a1 & 1) == 0)
   {
-    v4 = std::__throw_bad_optional_access[abi:nn200100]();
-    return ikinema::processedRigs::getBPERigObject(v4);
+    std::__throw_bad_optional_access[abi:nn200100]();
+    ikinema::processedRigs::getBPERigObject();
   }
-
-  return result;
 }
 
 void ikinema::processedRigs::getBPERigObject()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_245976000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown target joint %s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_245976000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown target joint %s", v1, 0x16u);
 }
 
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_245976000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown source joint %s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_245976000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown source joint %s", v1, 0x16u);
 }
 
-uint64_t anonymous namespace::getSourceIndex()
+uint64_t anonymous namespace::getSourceIndex(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getSourceIndex", "(ind != FIK::kInvalidRigIndex) Source does not exist in ARRigInputJoints");
+  return ikinemaAssertHandler(v2, 0, "getSourceIndex", "(ind != FIK::kInvalidRigIndex) Source does not exist in ARRigInputJoints");
 }
 
-uint64_t anonymous namespace::getSourceParent()
+uint64_t anonymous namespace::getSourceParent(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getSourceParent", "(ind != FIK::kInvalidRigIndex) Source does not exist in ARRigInputJoints");
+  return ikinemaAssertHandler(v2, 0, "getSourceParent", "(ind != FIK::kInvalidRigIndex) Source does not exist in ARRigInputJoints");
 }
 
-uint64_t anonymous namespace::getDistanceBetween()
+uint64_t anonymous namespace::getDistanceBetween(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getDistanceBetween", "(baseInd != FIK::kInvalidRigIndex) Base must exist in ARRigOutputJoints");
-}
-
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "getDistanceBetween", "(tipInd != FIK::kInvalidRigIndex) Tip must exist in ARRigOutputJoints");
-}
-
-uint64_t anonymous namespace::getCumulativeBoneLengthBetween()
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "getCumulativeBoneLengthBetween", "(baseInd != FIK::kInvalidRigIndex) Base must exist in ARRigOutputJoints");
+  return ikinemaAssertHandler(v2, 0, "getDistanceBetween", "(baseInd != FIK::kInvalidRigIndex) Base must exist in ARRigOutputJoints");
 }
 
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "getCumulativeBoneLengthBetween", "(tipInd != FIK::kInvalidRigIndex) Tip must exist in ARRigOutputJoints");
+  return ikinemaAssertHandler(v2, 0, "getDistanceBetween", "(tipInd != FIK::kInvalidRigIndex) Tip must exist in ARRigOutputJoints");
+}
+
+uint64_t anonymous namespace::getCumulativeBoneLengthBetween(uint64_t a1, uint64_t a2)
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "getCumulativeBoneLengthBetween", "(baseInd != FIK::kInvalidRigIndex) Base must exist in ARRigOutputJoints");
+}
+
+{
+  v2 = *ikinemaLogObject(a1, a2);
+
+  return ikinemaAssertHandler(v2, 0, "getCumulativeBoneLengthBetween", "(tipInd != FIK::kInvalidRigIndex) Tip must exist in ARRigOutputJoints");
 }
 
 void CoreIKACPSolver::despatchGetConstraint(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not containt a constraint with the given name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "despatchGetConstraint";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not containt a constraint with the given name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKACPPenetrationSolver::getConstraint(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with the given name", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getConstraint";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with the given name", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with given index.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getConstraint";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: The solver does not contain a constraint with given index.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKSolverInsertAlgorithm_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CoreIKSolverInsertAlgorithm";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't add an algorithm to a non-composable solver", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CoreIKSolverInsertAlgorithm";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't add an algorithm to a non-composable solver", &v1, 0xCu);
 }
 
 void CoreIKSolverRemoveAlgorithm_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CoreIKSolverRemoveAlgorithm";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't remove an algorithm from a non-composable solver", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ikinema::Buffer::arrayView<float const>()
-{
-  v0 = *ikinemaLogObject();
-
-  return ikinemaAssertHandler(v0, 0, "arrayView", "(m_descriptor.containsType<std::remove_cv_t<RequestedType>>()) Wrong type requested from buffer.");
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CoreIKSolverRemoveAlgorithm";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't remove an algorithm from a non-composable solver", &v1, 0xCu);
 }
 
 void CoreIK::IKSolverRetarget::despatchGetConstraint(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "despatchGetConstraint";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: The solver does not contain a constraint with the given name", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "despatchGetConstraint";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: The solver does not contain a constraint with the given name", &v1, 0xCu);
 }
 
 void CoreIKEnrollmentPoseSolveForDataWithHeadPoseV2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "solveForData";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Solving all frames at once is only allowed in debug builds.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "solveForData";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Solving all frames at once is only allowed in debug builds.", &v1, 0xCu);
 }
 
 void CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Enrollment Solve: Inputs do not contain all source and/or targets defined in the rig.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CoreIKEnrollmentPoseSolveForDataWithHeadPoseV3";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Enrollment Solve: Inputs do not contain all source and/or targets defined in the rig.", &v1, 0xCu);
 }
 
 void CoreIKSolverAddAlgorithm_UseRotationFromSource_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CoreIKSolverAddAlgorithm_UseRotationFromSource";
-  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't add an algorithm to a non-composable solver", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CoreIKSolverAddAlgorithm_UseRotationFromSource";
+  _os_log_error_impl(&dword_245976000, log, OS_LOG_TYPE_ERROR, "%s: Can't add an algorithm to a non-composable solver", &v1, 0xCu);
 }
 
 void CoreIKGenericSolverCreate_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Incompatible/invalid rig instance used to create GenericSolver.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKGenericSolverCreate";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Incompatible/invalid rig instance used to create GenericSolver.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKGenericSolverSolve_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Incorrectly sized pose passed to the solve function.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKGenericSolverSolve";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Incorrectly sized pose passed to the solve function.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKGenericSolverGetConstraintTargetName_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No constraint at given constraintIndex", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKGenericSolverGetConstraintTargetName";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No constraint at given constraintIndex", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKGenericSolverGetTargetRestPose_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Input target index is out of bounds", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKGenericSolverGetTargetRestPose";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: Input target index is out of bounds", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CoreIKGenericSolverGetConstraintIndex_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No constraint for input target name in rig.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CoreIKGenericSolverGetConstraintIndex";
+  OUTLINED_FUNCTION_0(&dword_245976000, a1, a3, "%s: No constraint for input target name in rig.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-uint64_t CoreIKSolver::destroy()
+uint64_t CoreIKSolver::destroy(uint64_t a1, uint64_t a2)
 {
-  v0 = *ikinemaLogObject();
+  v2 = *ikinemaLogObject(a1, a2);
 
-  return ikinemaAssertHandler(v0, 0, "destroy", "(solver != nullptr) Can't destroy a null object");
+  return ikinemaAssertHandler(v2, 0, "destroy", "(solver != nullptr) Can't destroy a null object");
 }
 
 uint64_t std::filebuf::basic_filebuf()

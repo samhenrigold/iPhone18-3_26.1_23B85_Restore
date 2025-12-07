@@ -356,9 +356,9 @@ LABEL_17:
   return v6;
 }
 
-uint64_t __39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
+void *__39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v1 = qword_280B122B0;
   qword_280B122B0 = v0;
@@ -367,49 +367,49 @@ uint64_t __39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
   v3 = _MergedGlobals_5;
   _MergedGlobals_5 = v2;
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  result = [&unk_282C2CA90 countByEnumeratingWithState:&v45 objects:v50 count:16];
-  v33 = result;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  result = [&unk_282C2CA90 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v32 = result;
   if (result)
   {
-    v32 = *v46;
+    v31 = *v45;
     do
     {
       v5 = 0;
       do
       {
-        if (*v46 != v32)
+        if (*v45 != v31)
         {
           objc_enumerationMutation(&unk_282C2CA90);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * v5);
-        v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v14 = *(*(&v44 + 1) + 8 * v5);
+        v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v40 = 0u;
         v41 = 0u;
         v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        v34 = v14;
+        v33 = v14;
         obj = [v14 objectAtIndexedSubscript:3];
-        v40 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
-        v35 = v5;
-        if (v40)
+        v39 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v34 = v5;
+        if (v39)
         {
-          v38 = *v42;
+          v37 = *v41;
           do
           {
             v15 = 0;
             do
             {
-              if (*v42 != v38)
+              if (*v41 != v37)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v41 + 1) + 8 * v15);
+              v18 = *(*(&v40 + 1) + 8 * v15);
               v19 = [DDUIPhysicalUnit alloc];
               v20 = [v18 objectAtIndexedSubscript:0];
               v21 = [v18 objectAtIndexedSubscript:1];
@@ -418,8 +418,8 @@ uint64_t __39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
               v24 = 1;
               if (v23 >= 6)
               {
-                v37 = [v18 objectAtIndexedSubscript:5];
-                v24 = [v37 unsignedIntegerValue];
+                v36 = [v18 objectAtIndexedSubscript:5];
+                v24 = [v36 unsignedIntegerValue];
               }
 
               v25 = [v18 objectAtIndexedSubscript:3];
@@ -433,7 +433,7 @@ uint64_t __39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
               {
               }
 
-              [v39 addObject:v30];
+              [v38 addObject:v30];
               v16 = qword_280B122B0;
               v17 = [(DDUIPhysicalUnit *)v30 identifier];
               [v16 setObject:v30 forKeyedSubscript:v17];
@@ -441,36 +441,35 @@ uint64_t __39__DDUIPhysicalUnit_unitWithIdentifier___block_invoke()
               ++v15;
             }
 
-            while (v40 != v15);
-            v40 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+            while (v39 != v15);
+            v39 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
           }
 
-          while (v40);
+          while (v39);
         }
 
         v6 = [DDUIPhysicalUnitGroup alloc];
-        v7 = [v34 objectAtIndexedSubscript:0];
-        v8 = [v34 objectAtIndexedSubscript:1];
+        v7 = [v33 objectAtIndexedSubscript:0];
+        v8 = [v33 objectAtIndexedSubscript:1];
         v9 = [v8 BOOLValue];
-        v10 = [v34 objectAtIndexedSubscript:2];
-        v11 = [(DDUIPhysicalUnitGroup *)v6 initWithName:v7 units:v39 restricted:v9 symbol:v10];
+        v10 = [v33 objectAtIndexedSubscript:2];
+        v11 = [(DDUIPhysicalUnitGroup *)v6 initWithName:v7 units:v38 restricted:v9 symbol:v10];
 
         v12 = _MergedGlobals_5;
         v13 = [(DDUIPhysicalUnitGroup *)v11 name];
         [v12 setObject:v11 forKeyedSubscript:v13];
 
-        v5 = v35 + 1;
+        v5 = v34 + 1;
       }
 
-      while (v35 + 1 != v33);
-      result = [&unk_282C2CA90 countByEnumeratingWithState:&v45 objects:v50 count:16];
-      v33 = result;
+      while ((v34 + 1) != v32);
+      result = [&unk_282C2CA90 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v32 = result;
     }
 
     while (result);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return result;
 }
 

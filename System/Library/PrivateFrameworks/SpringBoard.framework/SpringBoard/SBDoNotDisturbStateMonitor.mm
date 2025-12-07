@@ -59,11 +59,11 @@ void __44__SBDoNotDisturbStateMonitor_sharedInstance__block_invoke()
   return v3;
 }
 
-uint64_t __34__SBDoNotDisturbStateMonitor_init__block_invoke(uint64_t result, uint64_t a2)
+id *__34__SBDoNotDisturbStateMonitor_init__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _noteNewDNDState:a2];
+    return [result[4] _noteNewDNDState:a2];
   }
 
   return result;

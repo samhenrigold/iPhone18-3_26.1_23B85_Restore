@@ -22,120 +22,121 @@
 
 - (APClientInfoUI)init
 {
-  v14.receiver = self;
-  v14.super_class = APClientInfoUI;
-  v2 = [(APClientInfoUI *)&v14 init];
-  if (v2)
+  v39.receiver = self;
+  v39.super_class = APClientInfoUI;
+  v4 = [(APClientInfoUI *)&v39 init];
+  if (v4)
   {
-    currentDevice = [MEMORY[0x277D75418] currentDevice];
-    -[APClientInfo setInterfaceIdiom:](v2, "setInterfaceIdiom:", [currentDevice userInterfaceIdiom]);
+    v5 = objc_msgSend_currentDevice(MEMORY[0x277D75418], v2, v3);
+    v8 = objc_msgSend_userInterfaceIdiom(v5, v6, v7);
+    objc_msgSend_setInterfaceIdiom_(v4, v9, v8);
 
-    v4 = MEMORY[0x277CCABB0];
-    mainScreen = [MEMORY[0x277D759A0] mainScreen];
-    [mainScreen scale];
-    v6 = [v4 numberWithDouble:?];
-    [(APClientInfo *)v2 setScale:v6];
+    v10 = MEMORY[0x277CCABB0];
+    v13 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v11, v12);
+    objc_msgSend_scale(v13, v14, v15);
+    v18 = objc_msgSend_numberWithDouble_(v10, v16, v17);
+    objc_msgSend_setScale_(v4, v19, v18);
 
-    mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
-    [mainScreen2 bounds];
-    v9 = v8;
-    v11 = v10;
+    v22 = objc_msgSend_mainScreen(MEMORY[0x277D759A0], v20, v21);
+    objc_msgSend_bounds(v22, v23, v24);
+    v26 = v25;
+    v28 = v27;
 
-    [(APClientInfo *)v2 setScreenWidth:v9];
-    [(APClientInfo *)v2 setScreenHeight:v11];
-    [(APClientInfoUI *)v2 orientationChanged:0];
-    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v2 selector:sel_orientationChanged_ name:*MEMORY[0x277D76878] object:0];
+    objc_msgSend_setScreenWidth_(v4, v29, v26);
+    objc_msgSend_setScreenHeight_(v4, v30, v28);
+    objc_msgSend_orientationChanged_(v4, v31, 0);
+    v34 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], v32, v33);
+    objc_msgSend_addObserver_selector_name_object_(v34, v35, v4, sel_orientationChanged_, *MEMORY[0x277D76878], 0);
 
-    [(APClientInfo *)v2 updateActiveClientInfo];
+    objc_msgSend_updateActiveClientInfo(v4, v36, v37);
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)keyboards
 {
-  if ([MEMORY[0x277CCACC8] isMainThread])
+  if (objc_msgSend_isMainThread(MEMORY[0x277CCACC8], a2, v2))
   {
-    mEMORY[0x277D75688] = [MEMORY[0x277D75688] sharedInputModeController];
-    normalizedEnabledInputModeIdentifiers = [mEMORY[0x277D75688] normalizedEnabledInputModeIdentifiers];
+    v6 = objc_msgSend_sharedInputModeController(MEMORY[0x277D75688], v4, v5);
+    v9 = objc_msgSend_normalizedEnabledInputModeIdentifiers(v6, v7, v8);
     userKeyboards = self->_userKeyboards;
-    self->_userKeyboards = normalizedEnabledInputModeIdentifiers;
+    self->_userKeyboards = v9;
 
-    v6 = self->_userKeyboards;
+    v11 = self->_userKeyboards;
   }
 
   else
   {
     objc_initWeak(&location, self);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = sub_23E74BEAC;
-    v10[3] = &unk_278C5A208;
-    objc_copyWeak(&v11, &location);
-    dispatch_async(MEMORY[0x277D85CD0], v10);
-    v7 = self->_userKeyboards;
-    if (v7)
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_23E74BEAC;
+    v15[3] = &unk_278C5A208;
+    objc_copyWeak(&v16, &location);
+    dispatch_async(MEMORY[0x277D85CD0], v15);
+    v12 = self->_userKeyboards;
+    if (v12)
     {
-      v8 = v7;
+      v13 = v12;
     }
 
     else
     {
-      v8 = objc_alloc_init(MEMORY[0x277CBEA60]);
+      v13 = objc_alloc_init(MEMORY[0x277CBEA60]);
     }
 
-    v6 = v8;
-    objc_destroyWeak(&v11);
+    v11 = v13;
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
-  return v6;
+  return v11;
 }
 
 - (void)dealloc
 {
-  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter removeObserver:self];
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x277CCAB98], a2, v2);
+  objc_msgSend_removeObserver_(v4, v5, self);
 
-  v4.receiver = self;
-  v4.super_class = APClientInfoUI;
-  [(APClientInfoUI *)&v4 dealloc];
+  v6.receiver = self;
+  v6.super_class = APClientInfoUI;
+  [(APClientInfoUI *)&v6 dealloc];
 }
 
 - (void)orientationChanged:(id)changed
 {
   changedCopy = changed;
-  object = [changedCopy object];
+  v6 = objc_msgSend_object(changedCopy, v4, v5);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    object2 = [changedCopy object];
-    orientation = [object2 orientation];
-    if ((orientation - 1) >= 4)
+    v10 = objc_msgSend_object(changedCopy, v8, v9);
+    v13 = objc_msgSend_orientation(v10, v11, v12);
+    if ((v13 - 1) >= 4)
     {
-      v8 = -1;
+      v14 = -1;
     }
 
     else
     {
-      v8 = orientation - 1;
+      v14 = v13 - 1;
     }
   }
 
   else
   {
-    v8 = -1;
+    v14 = -1;
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  [(APClientInfo *)selfCopy setOrientation:v8];
+  objc_msgSend_setOrientation_(selfCopy, v16, v14);
   objc_sync_exit(selfCopy);
 
-  [(APClientInfo *)selfCopy updateActiveClientInfo];
+  objc_msgSend_updateActiveClientInfo(selfCopy, v17, v18);
 }
 
 @end

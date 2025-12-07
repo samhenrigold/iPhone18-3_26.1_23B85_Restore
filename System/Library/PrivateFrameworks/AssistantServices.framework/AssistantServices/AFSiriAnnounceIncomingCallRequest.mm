@@ -7,16 +7,16 @@
 
 - (void)performRequestWithCompletion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     call = self->_call;
     *buf = 136315394;
-    v31 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
-    v32 = 2112;
-    v33 = call;
+    v30 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
+    v31 = 2112;
+    v32 = call;
     _os_log_debug_impl(&dword_1912FE000, v5, OS_LOG_TYPE_DEBUG, "%s %@", buf, 0x16u);
     if (!completionCopy)
     {
@@ -32,21 +32,21 @@
   if (+[AFFeatureFlags isAnnounceTelephonyEnabled])
   {
     v6 = self->_call;
-    v27 = 0;
-    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v27];
-    v8 = v27;
+    v26 = 0;
+    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v26];
+    v8 = v26;
     if (v8 || !v7)
     {
       v17 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
       {
-        v21 = self->_call;
+        v20 = self->_call;
         *buf = 136315650;
-        v31 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
-        v32 = 2112;
-        v33 = v21;
-        v34 = 2112;
-        v35 = v8;
+        v30 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
+        v31 = 2112;
+        v32 = v20;
+        v33 = 2112;
+        v34 = v8;
         _os_log_error_impl(&dword_1912FE000, v17, OS_LOG_TYPE_ERROR, "%s Failed to serialize call %@: %@", buf, 0x20u);
       }
 
@@ -71,11 +71,11 @@
       {
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
         {
-          v23 = self->_call;
+          v22 = self->_call;
           *buf = 136315394;
-          v31 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
-          v32 = 2112;
-          v33 = v23;
+          v30 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
+          v31 = 2112;
+          v32 = v22;
           _os_log_debug_impl(&dword_1912FE000, v15, OS_LOG_TYPE_DEBUG, "%s Sending xpc message for %@", buf, 0x16u);
         }
 
@@ -83,20 +83,20 @@
         handler[1] = 3221225472;
         handler[2] = __66__AFSiriAnnounceIncomingCallRequest_performRequestWithCompletion___block_invoke;
         handler[3] = &unk_1E7348638;
-        v26 = completionCopy;
-        v25 = v14;
-        xpc_connection_send_message_with_reply(v25, v12, 0, handler);
+        v25 = completionCopy;
+        v24 = v14;
+        xpc_connection_send_message_with_reply(v24, v12, 0, handler);
       }
 
       else
       {
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
         {
-          v22 = self->_call;
+          v21 = self->_call;
           *buf = 136315394;
-          v31 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
-          v32 = 2112;
-          v33 = v22;
+          v30 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
+          v31 = 2112;
+          v32 = v21;
           _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, "%s Unable to send xpc message for %@", buf, 0x16u);
         }
 
@@ -119,7 +119,7 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
+      v30 = "[AFSiriAnnounceIncomingCallRequest performRequestWithCompletion:]";
       _os_log_error_impl(&dword_1912FE000, v16, OS_LOG_TYPE_ERROR, "%s Announce Telephony is not enabled, rejecting request", buf, 0xCu);
     }
 
@@ -127,8 +127,6 @@
   }
 
 LABEL_24:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AFSiriAnnounceIncomingCallRequest_performRequestWithCompletion___block_invoke(uint64_t a1, xpc_object_t xdict)

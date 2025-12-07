@@ -31,63 +31,64 @@
 
 - (void)donateHeroAppPredictions:(id)predictions
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __46__ATXHeroAppManager_donateHeroAppPredictions___block_invoke;
-  v17[3] = &unk_278598D10;
-  v17[4] = self;
-  v3 = [predictions _pas_filteredArrayWithTest:v17];
-  v4 = __atxlog_handle_hero();
+  v23 = *MEMORY[0x277D85DE8];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __46__ATXHeroAppManager_donateHeroAppPredictions___block_invoke;
+  v20[3] = &unk_278598D10;
+  v20[4] = self;
+  v3 = [predictions _pas_filteredArrayWithTest:v20];
+  v4 = __atxlog_handle_hero(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 count];
     *buf = 134217984;
-    v19 = *&v5;
+    v22 = *&v5;
     _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Left with %lu predictions after removing predictions based on feedback.", buf, 0xCu);
   }
 
-  if ([v3 count])
+  v6 = [v3 count];
+  if (v6)
   {
-    v6 = [MEMORY[0x277CBEAA8] now];
+    v7 = [MEMORY[0x277CBEAA8] now];
     mEMORY[0x277D41BF8] = [MEMORY[0x277D41BF8] sharedInstance];
     getCurrentPreciseLocation = [mEMORY[0x277D41BF8] getCurrentPreciseLocation];
 
-    v9 = __atxlog_handle_hero();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_hero(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      [v6 timeIntervalSinceNow];
+      [v7 timeIntervalSinceNow];
       *buf = 134217984;
-      v19 = -v10;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", buf, 0xCu);
+      v22 = -v12;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Took %f seconds to fetch precise location", buf, 0xCu);
     }
 
     if (getCurrentPreciseLocation)
     {
-      v11 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:v3 currentLocation:getCurrentPreciseLocation];
+      v14 = [ATXHeroDataServerHelper inRadiusPredictionsFrom:v3 currentLocation:getCurrentPreciseLocation];
 
-      v3 = __atxlog_handle_hero();
+      v3 = __atxlog_handle_hero(v15);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [v11 count];
+        v16 = [v14 count];
         *buf = 134217984;
-        v19 = *&v12;
+        v22 = *&v16;
         _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Left with %lu predictions after removing predictions based on gps location.", buf, 0xCu);
       }
     }
 
     else
     {
-      v13 = __atxlog_handle_hero();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_hero(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [ATXHeroAppManager donateHeroAppPredictions:v13];
+        [ATXHeroAppManager donateHeroAppPredictions:v17];
       }
 
-      v11 = objc_opt_new();
+      v14 = objc_opt_new();
     }
 
-    v3 = v11;
+    v3 = v14;
   }
 
   else
@@ -95,17 +96,16 @@
     getCurrentPreciseLocation = 0;
   }
 
-  v14 = __atxlog_handle_hero();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v18 = __atxlog_handle_hero(v6);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [v3 description];
+    v19 = [v3 description];
     *buf = 138412290;
-    v19 = *&v15;
-    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "Sending hero app predictions to blending layer. Predictions: %@", buf, 0xCu);
+    v22 = *&v19;
+    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Sending hero app predictions to blending layer. Predictions: %@", buf, 0xCu);
   }
 
   [ATXHeroAppBlendingUpdater updateBlendingLayerWithHeroAppPredictions:v3 currentLocation:getCurrentPreciseLocation];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

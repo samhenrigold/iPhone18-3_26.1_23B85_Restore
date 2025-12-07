@@ -286,21 +286,20 @@ void __89__CNAutocompleteSearchObservableProvider_observableWithWrappedSearchPro
   if (v4)
   {
     v5 = [*(a1 + 40) fetchRequest];
-    v6 = *(a1 + 32);
-    v7 = CNObserverCancelableCompletionHandler();
-    v8 = [v4 executeRequest:v5 completionHandler:v7];
+    v6 = CNObserverCancelableCompletionHandler();
+    v7 = [v4 executeRequest:v5 completionHandler:v6];
 
-    if (v8)
+    if (v7)
     {
-      [v3 addCancelable:v8];
+      [v3 addCancelable:v7];
     }
 
     else
     {
-      v9 = *(a1 + 48);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = *(a1 + 48);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __89__CNAutocompleteSearchObservableProvider_observableWithWrappedSearchProviderGetter_name___block_invoke_2_cold_1(a1, v9);
+        __89__CNAutocompleteSearchObservableProvider_observableWithWrappedSearchProviderGetter_name___block_invoke_2_cold_1(a1, v8);
       }
     }
   }
@@ -313,12 +312,11 @@ void __89__CNAutocompleteSearchObservableProvider_observableWithWrappedSearchPro
 
 void __89__CNAutocompleteSearchObservableProvider_observableWithWrappedSearchProviderGetter_name___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_2155FE000, a2, OS_LOG_TYPE_ERROR, "searchToken (%{public}@) cannot be nil", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_2155FE000, a2, OS_LOG_TYPE_ERROR, "searchToken (%{public}@) cannot be nil", &v3, 0xCu);
 }
 
 @end

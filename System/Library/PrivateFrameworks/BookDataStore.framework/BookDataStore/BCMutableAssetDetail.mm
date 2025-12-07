@@ -17,7 +17,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E4708F6C();
@@ -121,7 +121,7 @@ LABEL_7:
 
     else
     {
-      v41 = BDSCloudKitLog();
+      v41 = BDSCloudKitLog(0);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         sub_1E4708DF0();
@@ -139,7 +139,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    v8 = BDSCloudKitLog();
+    v8 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E4708FA0();
@@ -273,24 +273,24 @@ LABEL_7:
 
 - (void)setReadingProgressHighWaterMark:(float)mark
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   readingProgressHighWaterMark = self->_readingProgressHighWaterMark;
   if (readingProgressHighWaterMark >= mark)
   {
     if (readingProgressHighWaterMark > mark)
     {
-      v6 = BDSCloudKitLog();
+      v6 = BDSCloudKitLog(self);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         assetID = [(BCMutableAssetDetail *)self assetID];
         v8 = self->_readingProgressHighWaterMark;
-        v10 = 138412802;
-        v11 = assetID;
-        v12 = 2048;
-        v13 = v8;
-        v14 = 2048;
+        v9 = 138412802;
+        v10 = assetID;
+        v11 = 2048;
+        v12 = v8;
+        v13 = 2048;
         markCopy = mark;
-        _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_INFO, "BCMutableAssetDetail %@ attempt to move readingProgressHighWaterMark backwards from %f to %f", &v10, 0x20u);
+        _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_INFO, "BCMutableAssetDetail %@ attempt to move readingProgressHighWaterMark backwards from %f to %f", &v9, 0x20u);
       }
     }
   }
@@ -299,8 +299,6 @@ LABEL_7:
   {
     self->_readingProgressHighWaterMark = mark;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)configuredRecordFromAttributes

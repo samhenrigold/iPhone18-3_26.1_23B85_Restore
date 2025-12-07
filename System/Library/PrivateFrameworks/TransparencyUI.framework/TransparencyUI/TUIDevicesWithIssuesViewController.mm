@@ -1,6 +1,7 @@
 @interface TUIDevicesWithIssuesViewController
 - (TUIDevicesWithIssuesViewController)initWithAccountManager:(id)manager devicesWithIssuesIdentifiers:(id)identifiers;
 - (id)specifiers;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)specifierProvider:(id)provider didFinishLoadingSpecifier:(id)specifier;
 - (void)specifierProvider:(id)provider showViewController:(id)controller;
 - (void)specifierProvider:(id)provider willBeginLoadingSpecifier:(id)specifier;
@@ -30,10 +31,10 @@
 
 - (void)viewDidLoad
 {
-  v32[4] = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = TUIDevicesWithIssuesViewController;
-  [(TUIDevicesWithIssuesViewController *)&v31 viewDidLoad];
+  v31[4] = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = TUIDevicesWithIssuesViewController;
+  [(TUIDevicesWithIssuesViewController *)&v30 viewDidLoad];
   clearColor = [MEMORY[0x277D75348] clearColor];
   view = [(TUIDevicesWithIssuesViewController *)self view];
   [view setBackgroundColor:clearColor];
@@ -52,29 +53,29 @@
   [*(&self->super.super.super.super.super.isa + v5) setBackgroundColor:clearColor2];
 
   [*(&self->super.super.super.super.super.isa + v5) setTranslatesAutoresizingMaskIntoConstraints:0];
-  v23 = MEMORY[0x277CCAAD0];
+  v22 = MEMORY[0x277CCAAD0];
   leadingAnchor = [*(&self->super.super.super.super.super.isa + v5) leadingAnchor];
   view2 = [(TUIDevicesWithIssuesViewController *)self view];
   leadingAnchor2 = [view2 leadingAnchor];
-  v27 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v32[0] = v27;
+  v26 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v31[0] = v26;
   trailingAnchor = [*(&self->super.super.super.super.super.isa + v5) trailingAnchor];
   view3 = [(TUIDevicesWithIssuesViewController *)self view];
   trailingAnchor2 = [view3 trailingAnchor];
-  v22 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v32[1] = v22;
+  v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v31[1] = v21;
   topAnchor = [*(&self->super.super.super.super.super.isa + v5) topAnchor];
   view4 = [(TUIDevicesWithIssuesViewController *)self view];
   topAnchor2 = [view4 topAnchor];
   v10 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[2] = v10;
+  v31[2] = v10;
   bottomAnchor = [*(&self->super.super.super.super.super.isa + v5) bottomAnchor];
   view5 = [(TUIDevicesWithIssuesViewController *)self view];
   bottomAnchor2 = [view5 bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
-  [v23 activateConstraints:v15];
+  v31[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
+  [v22 activateConstraints:v15];
 
   heightAnchor = [*(&self->super.super.super.super.super.isa + v5) heightAnchor];
   [*(&self->super.super.super.super.super.isa + v5) contentSize];
@@ -83,7 +84,6 @@
   self->_tableViewHeightConstraint = v18;
 
   [(NSLayoutConstraint *)self->_tableViewHeightConstraint setActive:1];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
@@ -207,6 +207,38 @@ uint64_t __82__TUIDevicesWithIssuesViewController_specifierProvider_didFinishLoa
   TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_16 = os_log_create("com.apple.Transparency", "ui");
 
   return MEMORY[0x2821F96F8]();
+}
+
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v14 = *MEMORY[0x277D85DE8];
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
+  if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_16 != -1)
+  {
+    [TUIDevicesWithIssuesViewController reloadSpecifiersForProvider:oldSpecifiers:animated:];
+  }
+
+  v10 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_16;
+  if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_16, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 138412290;
+    v13 = providerCopy;
+    _os_log_impl(&dword_26F50B000, v10, OS_LOG_TYPE_DEBUG, "Reloading specifiers for provider %@", &v12, 0xCu);
+  }
+
+  if ([specifiersCopy count])
+  {
+    specifiers = [providerCopy specifiers];
+    [(TUIDevicesWithIssuesViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:specifiers animated:animatedCopy];
+  }
+
+  else
+  {
+    [(TUIDevicesWithIssuesViewController *)self reloadSpecifiers];
+  }
 }
 
 uint64_t __89__TUIDevicesWithIssuesViewController_reloadSpecifiersForProvider_oldSpecifiers_animated___block_invoke()

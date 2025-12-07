@@ -11,7 +11,6 @@
 
 uint64_t __38__MTAppIntentsProvider_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();

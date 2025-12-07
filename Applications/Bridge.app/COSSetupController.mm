@@ -113,15 +113,17 @@
     v2 = LiveActivityServiceDebugUtils.debugCallback.unsafeMutableAddressor();
     swift_beginAccess();
     v3 = *v2;
+    v4 = v2[1];
     *v2 = sub_10014606C;
     v2[1] = 0;
-    sub_10000D74C(v3);
-    v4 = LiveActivityServiceDebugUtils.debugEndedCallback.unsafeMutableAddressor();
+    sub_10000D74C(v3, v4);
+    v5 = LiveActivityServiceDebugUtils.debugEndedCallback.unsafeMutableAddressor();
     swift_beginAccess();
-    v5 = *v4;
-    *v4 = sub_100146158;
-    v4[1] = 0;
-    sub_10000D74C(v5);
+    v6 = *v5;
+    v7 = v5[1];
+    *v5 = sub_100146158;
+    v5[1] = 0;
+    sub_10000D74C(v6, v7);
   }
 }
 
@@ -2193,7 +2195,7 @@ LABEL_19:
 
   LOBYTE(controllerNeedsToRun) = 1;
 LABEL_21:
-  if ([(COSSetupController *)self expressMode])
+  if ([(COSSetupController *)self expressMode:*v24])
   {
     if (objc_opt_respondsToSelector())
     {
@@ -3199,7 +3201,7 @@ LABEL_8:
   }
 
   v10 = [(COSBuddyNavigationController *)self->_navigationController popViewControllerAnimated:animatedCopy];
-  [(NSMutableArray *)self->_buddyControllers removeObject:lastObject];
+  objc_msgSend_removeObject_(self->_buddyControllers);
 }
 
 - (void)showBusyIndicator:(BOOL)indicator
@@ -3979,9 +3981,9 @@ LABEL_11:
 
 + (BOOL)isLiveActivityFeatureEnabled
 {
-  v5 = &type metadata for FeatureFlags;
-  v6 = sub_100144D98();
-  v4[0] = 0;
+  v4[3] = &type metadata for FeatureFlags;
+  v4[4] = sub_100144D98();
+  LOBYTE(v4[0]) = 0;
   v2 = isFeatureEnabled(_:)();
   sub_10014A63C(v4);
   return v2 & 1;
@@ -3989,9 +3991,9 @@ LABEL_11:
 
 - (BOOL)areLiveActivitiesAllowed
 {
-  v8 = &type metadata for FeatureFlags;
-  v9 = sub_100144D98();
-  v7[0] = 0;
+  v7[3] = &type metadata for FeatureFlags;
+  v7[4] = sub_100144D98();
+  LOBYTE(v7[0]) = 0;
   selfCopy = self;
   v4 = isFeatureEnabled(_:)();
   sub_10014A63C(v7);
@@ -4007,7 +4009,7 @@ LABEL_11:
 - (BOOL)doesLiveActivityProviderRequiresPairSyncNotifications
 {
   selfCopy = self;
-  v3 = sub_100144F0C(&qword_1002BC550);
+  v3 = sub_100144F0C(&qword_1002BC550, &off_100265A80);
 
   return v3 & 1;
 }
@@ -4042,10 +4044,12 @@ LABEL_11:
 
 - (void)updateLiveActivityWithTitle:(id)title subtitle:(id)subtitle
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
+  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = v9;
   selfCopy = self;
-  sub_100145C64();
+  sub_100145C64(v5, v7, v8, v10);
 }
 
 - (void)endLiveActivityWithEndStatus:(int64_t)status
@@ -4057,7 +4061,7 @@ LABEL_11:
 - (void)endLiveActivityIfNeeded
 {
   selfCopy = self;
-  if (sub_100144F0C(&qword_1002BC558))
+  if (sub_100144F0C(&qword_1002BC558, off_100265A68))
   {
     [(COSSetupController *)selfCopy endLiveActivityWithEndStatus:1];
   }
@@ -4066,7 +4070,7 @@ LABEL_11:
 - (void)updateActivityAndRegenerateImages
 {
   selfCopy = self;
-  sub_1001461D4();
+  sub_1001461D4(selfCopy);
 }
 
 @end

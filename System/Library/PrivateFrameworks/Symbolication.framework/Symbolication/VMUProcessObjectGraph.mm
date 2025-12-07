@@ -1,7 +1,10 @@
 @interface VMUProcessObjectGraph
++ (id)createWithTask:(unsigned int)task error:(id *)error;
 - ($938B03310D06493B2963E5A84CB75A7E)autoreleasePoolOffsets;
 - (BOOL)is64bit;
 - (BOOL)nodeDetailIsAutoreleasePoolContentPage:(id)page;
+- (BOOL)nodeIsAutoreleasePoolContentPage:(unsigned int)page;
+- (BOOL)resymbolicateWithDsymPath:(id)path libraryNames:(id)names all:(BOOL)all progress:(id)progress showDebugInfo:(BOOL)info error:(id *)error;
 - (NSString)binaryImagesDescription;
 - (NSString)processDescriptionString;
 - (NSString)processName;
@@ -15,12 +18,22 @@
 - (_VMURange)rangeForSymbolName:(id)name inRegion:(id)region;
 - (_VMURange)regionSymbolRangeContainingAddress:(unint64_t)address;
 - (id)_descriptionForRegionAddress:(unint64_t)address withOffset:(unint64_t)offset showSegment:(BOOL)segment;
+- (id)_detailedNodeOffsetDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode alignmentSpacing:(unsigned int)spacing;
 - (id)binarySectionNameForAddress:(unint64_t)address;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)labelForNode:(unsigned int)node;
 - (id)leakedNodesGraph;
+- (id)nodeDescription:(unsigned int)description;
+- (id)nodeDescription:(unsigned int)description withDestinationNode:(unsigned int)node referenceInfo:(id *)info;
+- (id)nodeDescription:(unsigned int)description withOffset:(unint64_t)offset showLabel:(BOOL)label;
+- (id)nodeOffsetDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode;
+- (id)referenceDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode alignmentSpacing:(unsigned int)spacing;
 - (id)regionSymbolNameForAddress:(unint64_t)address;
 - (id)sampleBacktracesString;
+- (id)shortLabelForNode:(unsigned int)node;
+- (id)shortNodeDescription:(unsigned int)description;
 - (id)vmuVMRegionForAddress:(unint64_t)address;
+- (id)vmuVMRegionForNode:(unsigned int)node;
 - (id)zoneNameForIndex:(unsigned int)index;
 - (unint64_t)ledgerValueForKey:(id)key keyExists:(BOOL *)exists;
 - (unsigned)enumerateReferencesFromDataRegion:(id)region atGlobalSymbol:(id)symbol withBlock:(id)block;
@@ -28,6 +41,7 @@
 - (unsigned)nodeReferencedFromDataRegion:(id)region byGlobalSymbol:(id)symbol;
 - (void)_deriveObjcClassStructureRanges;
 - (void)_generateSymbolStoreFromExistingGraph;
+- (void)_renameWithNodeMap:(unsigned int *)map nodeNamespace:(unsigned int)namespace edgeMap:(unsigned int *)edgeMap edgeNamespace:(unsigned int)edgeNamespace;
 - (void)_reorderLabelsWithNodeNameMap:(unsigned int *)map;
 - (void)archiveDictionaryRepresentation:(id)representation options:(unint64_t)options;
 - (void)copyUserMarked;
@@ -49,26 +63,43 @@
 
 @implementation VMUProcessObjectGraph
 
++ (id)createWithTask:(unsigned int)task error:(id *)error
+{
+  v4 = [[VMUTaskMemoryScanner alloc] initFullyWithTask:*&task error:error];
+  v5 = v4;
+  if (v4)
+  {
+    processSnapshotGraph = [v4 processSnapshotGraph];
+  }
+
+  else
+  {
+    processSnapshotGraph = 0;
+  }
+
+  return processSnapshotGraph;
+}
+
 - (VMUProcessObjectGraph)initWithPid:(int)pid nodes:(_VMUBlockNode *)nodes nodeCount:zoneNames:classInfoMap:regions:pthreadOffsets:userMarked:autoreleasePoolOffsets:
 {
   v8 = v7;
   v9 = v6;
   v10 = v5;
   v11 = v4;
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   v15 = v5;
-  v37 = v9;
+  v36 = v9;
   v16 = v8;
-  v36 = v42;
-  v39.receiver = self;
-  v39.super_class = VMUProcessObjectGraph;
-  v17 = [(VMUObjectGraph *)&v39 initWithNodesNoCopy:nodes nodeCount:v11];
+  v35 = v41;
+  v38.receiver = self;
+  v38.super_class = VMUProcessObjectGraph;
+  v17 = [(VMUObjectGraph *)&v38 initWithNodesNoCopy:nodes nodeCount:v11];
   v18 = v17;
   if (v17)
   {
-    v38.receiver = v17;
-    v38.super_class = VMUProcessObjectGraph;
-    [(VMUObjectGraph *)&v38 setIndexedClassInfos:v37];
+    v37.receiver = v17;
+    v37.super_class = VMUProcessObjectGraph;
+    [(VMUObjectGraph *)&v37 setIndexedClassInfos:v36];
     *(&v18->super._referencingCount + 1) = pid;
     LODWORD(v18->_scanner) = *MEMORY[0x1E69E9AC8];
     HIDWORD(v18->_scanner) = *MEMORY[0x1E69E9AB0];
@@ -87,17 +118,17 @@
     binarySectionNameRanges = v18->_binarySectionNameRanges;
     v18->_binarySectionNameRanges = v23;
 
-    objc_storeStrong(&v18->_gotObjcClassStructureRanges, v42);
-    v40[0] = @"parentPageOffset";
-    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v44[1]];
-    v41[0] = v25;
-    v40[1] = @"firstEntryOffset";
-    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v44[2]];
-    v41[1] = v26;
-    v40[2] = @"childPageOffset";
-    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v44[6]];
-    v41[2] = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:3];
+    objc_storeStrong(&v18->_gotObjcClassStructureRanges, v41);
+    v39[0] = @"parentPageOffset";
+    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v43[1]];
+    v40[0] = v25;
+    v39[1] = @"firstEntryOffset";
+    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v43[2]];
+    v40[1] = v26;
+    v39[2] = @"childPageOffset";
+    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v43[6]];
+    v40[2] = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:3];
     pthreadOffsets = v18->_pthreadOffsets;
     v18->_pthreadOffsets = v28;
 
@@ -106,16 +137,15 @@
     v18->_symbolStore = v30;
 
     LODWORD(v18->_physicalFootprintPeak) = 0;
-    if (v43)
+    if (v42)
     {
-      v32 = ((*v43 + 7) >> 3) + 4;
+      v32 = ((*v42 + 7) >> 3) + 4;
       v33 = malloc_type_malloc(v32, 0xEE1F7B8EuLL);
-      memcpy(v33, v43, v32);
+      memcpy(v33, v42, v32);
       v18->_autoreleasePoolOffsets = v33;
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -135,12 +165,12 @@
 
 - (VMUProcessObjectGraph)initWithArchived:(id)archived version:(int64_t)version options:(unint64_t)options diskLogs:(id)logs error:(id *)error
 {
-  v171[3] = *MEMORY[0x1E69E9840];
+  v170[3] = *MEMORY[0x1E69E9840];
   archivedCopy = archived;
   logsCopy = logs;
-  v169.receiver = self;
-  v169.super_class = VMUProcessObjectGraph;
-  v14 = [(VMUObjectGraph *)&v169 initWithArchived:archivedCopy version:version options:options diskLogs:logsCopy error:error];
+  v168.receiver = self;
+  v168.super_class = VMUProcessObjectGraph;
+  v14 = [(VMUObjectGraph *)&v168 initWithArchived:archivedCopy version:version options:options diskLogs:logsCopy error:error];
   if (!v14)
   {
 LABEL_97:
@@ -148,8 +178,8 @@ LABEL_97:
     goto LABEL_98;
   }
 
-  v156 = logsCopy;
-  v168 = 0;
+  v155 = logsCopy;
+  v167 = 0;
   if (error)
   {
     errorCopy = error;
@@ -157,7 +187,7 @@ LABEL_97:
 
   else
   {
-    errorCopy = &v168;
+    errorCopy = &v167;
   }
 
   v16 = [archivedCopy objectForKeyedSubscript:@"processGraphInfo"];
@@ -260,7 +290,7 @@ LABEL_61:
     }
 
     v54 = v53;
-    v153 = archivedCopy;
+    v152 = archivedCopy;
     if (kVMUPrintArchivingTiming == 1)
     {
       fprintf(*MEMORY[0x1E69E9848], "[srcAddressToExtraAutoreleaseCountDict] Count: %u\n\n", v53);
@@ -294,7 +324,7 @@ LABEL_61:
         }
       }
 
-      archivedCopy = v153;
+      archivedCopy = v152;
       goto LABEL_61;
     }
 
@@ -302,17 +332,17 @@ LABEL_17:
     v61 = *(v14 + 49);
     *(v14 + 49) = v55;
 
-    archivedCopy = v153;
+    archivedCopy = v152;
   }
 
-  v154 = archivedCopy;
+  v153 = archivedCopy;
   v62 = [v16 objectForKeyedSubscript:@"VMUVMRegionCurrentVersion"];
   integerValue = [v62 integerValue];
 
   if (integerValue > [objc_opt_class() version] || !v14[58])
   {
     v67 = 0;
-    v152 = 0;
+    v151 = 0;
     v14[58] = 0;
 LABEL_68:
     v98 = [v16 objectForKey:@"autoreleasePoolOffsets"];
@@ -327,7 +357,7 @@ LABEL_68:
 
     else
     {
-      v170[0] = @"parentPageOffset";
+      v169[0] = @"parentPageOffset";
       v102 = MEMORY[0x1E696AD98];
       if ([v14 is64bit])
       {
@@ -340,8 +370,8 @@ LABEL_68:
       }
 
       v99 = [v102 numberWithUnsignedInt:v103];
-      v171[0] = v99;
-      v170[1] = @"firstEntryOffset";
+      v170[0] = v99;
+      v169[1] = @"firstEntryOffset";
       v104 = MEMORY[0x1E696AD98];
       if ([v14 is64bit])
       {
@@ -354,8 +384,8 @@ LABEL_68:
       }
 
       v101 = [v104 numberWithUnsignedInt:v105];
-      v171[1] = v101;
-      v170[2] = @"childPageOffset";
+      v170[1] = v101;
+      v169[2] = @"childPageOffset";
       v106 = MEMORY[0x1E696AD98];
       if ([v14 is64bit])
       {
@@ -368,8 +398,8 @@ LABEL_68:
       }
 
       v108 = [v106 numberWithUnsignedInt:v107];
-      v171[2] = v108;
-      v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v171 forKeys:v170 count:3];
+      v170[2] = v108;
+      v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v170 forKeys:v169 count:3];
       v110 = *(v14 + 41);
       *(v14 + 41) = v109;
     }
@@ -446,7 +476,7 @@ LABEL_68:
     if (v131)
     {
       [v131 setGraph:v14];
-      [*(v14 + 43) setDiskLogs:v156];
+      [*(v14 + 43) setDiskLogs:v155];
       indexedClassInfos = [v14 indexedClassInfos];
       hasClassInfosDerivedFromStackBacktraces = [indexedClassInfos hasClassInfosDerivedFromStackBacktraces];
 
@@ -454,18 +484,18 @@ LABEL_68:
       {
         v134 = *(v14 + 43);
         indexedClassInfos2 = [v14 indexedClassInfos];
-        v159[0] = MEMORY[0x1E69E9820];
-        v159[1] = 3221225472;
-        v159[2] = __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error___block_invoke_2;
-        v159[3] = &unk_1E8277A38;
+        v158[0] = MEMORY[0x1E69E9820];
+        v158[1] = 3221225472;
+        v158[2] = __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error___block_invoke_2;
+        v158[3] = &unk_1E8277A38;
         v136 = v14;
-        v160 = v136;
-        [v134 identifyNonObjectsUsingStackBacktraces:v136 classInfoMap:indexedClassInfos2 classInfoSetterBlock:v159];
+        v159 = v136;
+        [v134 identifyNonObjectsUsingStackBacktraces:v136 classInfoMap:indexedClassInfos2 classInfoSetterBlock:v158];
 
         indexedClassInfos3 = [v136 indexedClassInfos];
-        v158.receiver = v136;
-        v158.super_class = VMUProcessObjectGraph;
-        [(VMUObjectGraph *)&v158 setIndexedClassInfos:indexedClassInfos3];
+        v157.receiver = v136;
+        v157.super_class = VMUProcessObjectGraph;
+        [(VMUObjectGraph *)&v157 setIndexedClassInfos:indexedClassInfos3];
       }
     }
 
@@ -484,13 +514,13 @@ LABEL_68:
     v146 = *(v14 + 56);
     *(v14 + 56) = v145;
 
-    archivedCopy = v154;
-    logsCopy = v156;
+    archivedCopy = v153;
+    logsCopy = v155;
     goto LABEL_97;
   }
 
   v64 = [v16 objectForKeyedSubscript:@"regionData"];
-  v150 = [VMUDirectedGraph _copyUnarchived:v64 length:0 options:optionsCopy];
+  v149 = [VMUDirectedGraph _copyUnarchived:v64 length:0 options:optionsCopy];
 
   if (kVMUPrintArchivingTiming == 1)
   {
@@ -509,14 +539,14 @@ LABEL_68:
     }
   }
 
-  v151 = v51;
-  v149 = v65;
-  v155 = [[VMUSimpleDeserializer alloc] initWithData:v65];
+  v150 = v51;
+  v148 = v65;
+  v154 = [[VMUSimpleDeserializer alloc] initWithData:v65];
   v67 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v14[58]];
   if (!v14[58])
   {
 LABEL_29:
-    free(v150);
+    free(v149);
     v72 = [v16 objectForKeyedSubscript:@"regionDataExtra"];
     v73 = optionsCopy;
     v74 = [VMUDirectedGraph _copyUnarchived:v72 length:0 options:optionsCopy];
@@ -581,7 +611,7 @@ LABEL_29:
     v83 = [v16 objectForKeyedSubscript:@"exclaveFlagData"];
     v84 = [VMUDirectedGraph _copyUnarchived:v83 length:0 options:v73];
 
-    v51 = v151;
+    v51 = v150;
     if (v84)
     {
       if (kVMUPrintArchivingTiming == 1)
@@ -619,37 +649,37 @@ LABEL_29:
       if (v94)
       {
         v95 = v94;
-        v164[0] = MEMORY[0x1E69E9820];
-        v164[1] = 3221225472;
-        v164[2] = __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error___block_invoke;
-        v164[3] = &unk_1E82798A0;
+        v163[0] = MEMORY[0x1E69E9820];
+        v163[1] = 3221225472;
+        v163[2] = __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error___block_invoke;
+        v163[3] = &unk_1E82798A0;
         v96 = v14;
-        v165 = v96;
+        v164 = v96;
         v97 = v95;
-        v166 = v97;
-        v167 = v89;
-        [v96 reverseEnumerateNodesWithBlock:v164];
+        v165 = v97;
+        v166 = v89;
+        [v96 reverseEnumerateNodesWithBlock:v163];
         [v96 removeMarkedNodes:v89];
-        v152 = v97;
+        v151 = v97;
         [v67 removeObject:v97];
       }
 
       else
       {
-        v152 = 0;
+        v151 = 0;
       }
 
-      v91 = v149;
+      v91 = v148;
     }
 
     else
     {
       v90 = [v14 nodeNamespaceSize] - 1;
+      v160 = 0;
       v161 = 0;
       v162 = 0;
-      v163 = 0;
-      [v14 nodeDetails:v90];
-      v91 = v149;
+      objc_msgSend_nodeDetails_(v14);
+      v91 = v148;
       if (VMUGraphNodeType_IsVMRegion(0))
       {
         v92 = [v14 vmuVMRegionForNode:v90];
@@ -664,7 +694,7 @@ LABEL_29:
         }
       }
 
-      v152 = 0;
+      v151 = 0;
     }
 
     free(v89);
@@ -673,10 +703,10 @@ LABEL_29:
   }
 
   v68 = 0;
-  v69 = v150;
+  v69 = v149;
   while (1)
   {
-    v70 = [[VMUVMRegion alloc] initWithVMRegionData:v69 encodedVersion:integerValue simpleSerializer:v155 error:errorCopy];
+    v70 = [[VMUVMRegion alloc] initWithVMRegionData:v69 encodedVersion:integerValue simpleSerializer:v154 error:errorCopy];
     v71 = v70;
     if (*errorCopy)
     {
@@ -696,7 +726,6 @@ LABEL_29:
   v93 = 0;
 LABEL_98:
 
-  v147 = *MEMORY[0x1E69E9840];
   return v93;
 }
 
@@ -767,9 +796,9 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
     }
   }
 
-  v161.receiver = self;
-  v161.super_class = VMUProcessObjectGraph;
-  [(VMUObjectGraph *)&v161 archiveDictionaryRepresentation:representationCopy options:options];
+  v160.receiver = self;
+  v160.super_class = VMUProcessObjectGraph;
+  [(VMUObjectGraph *)&v160 archiveDictionaryRepresentation:representationCopy options:options];
   v16 = self->_stackLogReader;
   if (v16)
   {
@@ -877,13 +906,13 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
     v41 = objc_opt_new();
     [v41 serialize32:{objc_msgSend(*&self->_objectContentLevel, "count")}];
     v42 = *&self->_objectContentLevel;
-    v159[0] = MEMORY[0x1E69E9820];
-    v159[1] = 3221225472;
-    v159[2] = __65__VMUProcessObjectGraph_archiveDictionaryRepresentation_options___block_invoke;
-    v159[3] = &unk_1E82798C8;
+    v158[0] = MEMORY[0x1E69E9820];
+    v158[1] = 3221225472;
+    v158[2] = __65__VMUProcessObjectGraph_archiveDictionaryRepresentation_options___block_invoke;
+    v158[3] = &unk_1E82798C8;
     v43 = v41;
-    v160 = v43;
-    [v42 enumerateKeysAndObjectsUsingBlock:v159];
+    v159 = v43;
+    [v42 enumerateKeysAndObjectsUsingBlock:v158];
     copyContiguousData = [v43 copyContiguousData];
     v45 = [VMUDirectedGraph _archivedObject:copyContiguousData options:options];
     [dictionary setObject:v45 forKeyedSubscript:@"srcAddressToExtraAutoreleaseCountDict"];
@@ -948,7 +977,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
     v56 = objc_opt_new();
     v57 = malloc_type_calloc(LODWORD(self->_regions) << 7, 1uLL, 0x145F532AuLL);
     v58 = v57;
-    v158 = v57;
+    v157 = v57;
     if (LODWORD(self->_regions))
     {
       v59 = 0;
@@ -965,7 +994,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
 
       while (v59 < regions_low);
       v63 = regions_low << 7;
-      v58 = v158;
+      v58 = v157;
       optionsCopy6 = options;
       v27 = 0x1E8277000;
     }
@@ -985,7 +1014,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
 
     v65 = malloc_type_malloc(16 * LODWORD(self->_regions), 0x1000040451B5BE8uLL);
     v66 = v65;
-    v157 = v65;
+    v156 = v65;
     if (LODWORD(self->_regions))
     {
       v67 = 0;
@@ -1004,7 +1033,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
       v71 = 16 * v70;
       optionsCopy6 = options;
       v27 = 0x1E8277000;
-      v66 = v157;
+      v66 = v156;
     }
 
     else
@@ -1022,7 +1051,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
 
     v73 = malloc_type_calloc(2 * LODWORD(self->_regions), 1uLL, 0x4678D00CuLL);
     v74 = v73;
-    v156 = v73;
+    v155 = v73;
     if (LODWORD(self->_regions))
     {
       v75 = representationCopy;
@@ -1043,7 +1072,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
       representationCopy = v75;
       optionsCopy6 = options;
       v27 = 0x1E8277000;
-      v74 = v156;
+      v74 = v155;
     }
 
     else
@@ -1070,7 +1099,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
         v85 = v84;
         if (LODWORD(self->_regions))
         {
-          v155 = representationCopy;
+          v154 = representationCopy;
           v86 = 0;
           v87 = v84;
           do
@@ -1085,7 +1114,7 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
 
           while (v86 < v89);
           v90 = 4 * v89;
-          representationCopy = v155;
+          representationCopy = v154;
           optionsCopy6 = options;
         }
 
@@ -1117,9 +1146,9 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
     v94 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(objc_opt_class(), "version")}];
     [dictionary setObject:v94 forKeyedSubscript:@"VMUVMRegionCurrentVersion"];
 
-    free(v158);
     free(v157);
     free(v156);
+    free(v155);
   }
 
   v95 = self->_stackLogReader;
@@ -1335,86 +1364,85 @@ id __73__VMUProcessObjectGraph_initWithArchived_version_options_diskLogs_error__
       }
     }
 
-    v136 = (self->_autoreleasePoolOffsets->super.isa + 7) >> 3;
-    v137 = [VMUDirectedGraph _archivedBytes:"_archivedBytes:length:options:" length:? options:?];
-    [dictionary setObject:v137 forKeyedSubscript:@"userMarked"];
+    v136 = [VMUDirectedGraph _archivedBytes:"_archivedBytes:length:options:" length:? options:?];
+    [dictionary setObject:v136 forKeyedSubscript:@"userMarked"];
 
-    v138 = self->_stackLogReader;
-    if (v138)
+    v137 = self->_stackLogReader;
+    if (v137)
     {
-      signpostID22 = [(VMUGraphStackLogReader *)v138 signpostID];
-      v138 = self->_stackLogReader;
+      signpostID22 = [(VMUGraphStackLogReader *)v137 signpostID];
+      v137 = self->_stackLogReader;
       if (signpostID22)
       {
-        logHandle14 = [(VMUGraphStackLogReader *)v138 logHandle];
+        logHandle14 = [(VMUGraphStackLogReader *)v137 logHandle];
         signpostID23 = [(VMUGraphStackLogReader *)self->_stackLogReader signpostID];
         if ((signpostID23 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v142 = signpostID23;
+          v141 = signpostID23;
           if (os_signpost_enabled(logHandle14))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle14, OS_SIGNPOST_INTERVAL_END, v142, "VMUProcessObjectGraph", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle14, OS_SIGNPOST_INTERVAL_END, v141, "VMUProcessObjectGraph", "", buf, 2u);
           }
         }
 
-        v138 = self->_stackLogReader;
+        v137 = self->_stackLogReader;
       }
     }
 
-    [(VMUGraphStackLogReader *)v138 endEvent:"VMUProcessObjectGraph"];
+    [(VMUGraphStackLogReader *)v137 endEvent:"VMUProcessObjectGraph"];
   }
 
   userMarked = self->_userMarked;
   if (userMarked)
   {
-    v144 = [VMUDirectedGraph _archivedObject:userMarked options:optionsCopy6];
-    [dictionary setObject:v144 forKeyedSubscript:@"stackLogReader"];
+    v143 = [VMUDirectedGraph _archivedObject:userMarked options:optionsCopy6];
+    [dictionary setObject:v143 forKeyedSubscript:@"stackLogReader"];
   }
 
-  v145 = *&self->_hasClassInfosDerivedFromStackBacktraces;
-  if (v145)
+  v144 = *&self->_hasClassInfosDerivedFromStackBacktraces;
+  if (v144)
   {
-    v146 = [VMUDirectedGraph _archivedObject:v145 options:optionsCopy6];
-    [dictionary setObject:v146 forKeyedSubscript:@"backtraces"];
+    v145 = [VMUDirectedGraph _archivedObject:v144 options:optionsCopy6];
+    [dictionary setObject:v145 forKeyedSubscript:@"backtraces"];
   }
 
   backtraces = self->_backtraces;
   if (backtraces)
   {
-    v148 = [VMUDirectedGraph _archivedObject:backtraces options:optionsCopy6];
-    [dictionary setObject:v148 forKeyedSubscript:@"symbolStore"];
+    v147 = [VMUDirectedGraph _archivedObject:backtraces options:optionsCopy6];
+    [dictionary setObject:v147 forKeyedSubscript:@"symbolStore"];
   }
 
-  v149 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[VMUProcessObjectGraph idleExitStatus](self, "idleExitStatus")}];
-  [dictionary setObject:v149 forKeyedSubscript:@"idleExitStatus"];
+  v148 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[VMUProcessObjectGraph idleExitStatus](self, "idleExitStatus")}];
+  [dictionary setObject:v148 forKeyedSubscript:@"idleExitStatus"];
 
   [dictionary setObject:self->_serializationOptions forKeyedSubscript:@"ledger"];
   [representationCopy setObject:dictionary forKeyedSubscript:@"processGraphInfo"];
-  v150 = self->_stackLogReader;
-  if (v150)
+  v149 = self->_stackLogReader;
+  if (v149)
   {
-    signpostID24 = [(VMUGraphStackLogReader *)v150 signpostID];
-    v150 = self->_stackLogReader;
+    signpostID24 = [(VMUGraphStackLogReader *)v149 signpostID];
+    v149 = self->_stackLogReader;
     if (signpostID24)
     {
-      logHandle15 = [(VMUGraphStackLogReader *)v150 logHandle];
+      logHandle15 = [(VMUGraphStackLogReader *)v149 logHandle];
       signpostID25 = [(VMUGraphStackLogReader *)self->_stackLogReader signpostID];
       if ((signpostID25 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v154 = signpostID25;
+        v153 = signpostID25;
         if (os_signpost_enabled(logHandle15))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle15, OS_SIGNPOST_INTERVAL_END, v154, "VMUProcessObjectGraph", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C679D000, logHandle15, OS_SIGNPOST_INTERVAL_END, v153, "VMUProcessObjectGraph", "", buf, 2u);
         }
       }
 
-      v150 = self->_stackLogReader;
+      v149 = self->_stackLogReader;
     }
   }
 
-  [(VMUGraphStackLogReader *)v150 endEvent:"VMUProcessObjectGraph"];
+  [(VMUGraphStackLogReader *)v149 endEvent:"VMUProcessObjectGraph"];
 }
 
 uint64_t __65__VMUProcessObjectGraph_archiveDictionaryRepresentation_options___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1593,19 +1621,19 @@ void __56__VMUProcessObjectGraph__deriveObjcClassStructureRanges__block_invoke(u
   if (nameCopy && regionCopy)
   {
     backtraces = self->_backtraces;
-    if (!backtraces || (-[NSArray symbolicator](backtraces, "symbolicator"), (CSIsNull() & 1) != 0) || (-[NSArray symbolicator](self->_backtraces, "symbolicator"), v12 = v8[1], CSSymbolicatorGetSymbolWithAddressAtTime(), (CSIsNull() & 1) != 0) || (v13 = [nameCopy UTF8String], Name = CSSymbolGetName(), strcmp(v13, Name)) || (Range = CSSymbolGetRange(), Range == 0x7FFFFFFFFFFFFFFFLL))
+    if (!backtraces || (-[NSArray symbolicator](backtraces, "symbolicator"), (CSIsNull() & 1) != 0) || (-[NSArray symbolicator](self->_backtraces, "symbolicator"), CSSymbolicatorGetSymbolWithAddressAtTime(), (CSIsNull() & 1) != 0) || (v12 = [nameCopy UTF8String], Name = CSSymbolGetName(), strcmp(v12, Name)) || (Range = CSSymbolGetRange(), Range == 0x7FFFFFFFFFFFFFFFLL))
     {
       Range = [(VMURangeToStringMap *)self->_binarySectionNameRanges rangeForString:nameCopy startingAtAddress:v8[1]];
     }
 
     v10 = Range;
-    v9 = v16;
+    v9 = v15;
   }
 
-  v17 = v10;
-  v18 = v9;
-  result.length = v18;
-  result.location = v17;
+  v16 = v10;
+  v17 = v9;
+  result.length = v17;
+  result.location = v16;
   return result;
 }
 
@@ -1727,6 +1755,39 @@ void *__84__VMUProcessObjectGraph_enumerateReferencesFromDataRegion_atGlobalSymb
   return self;
 }
 
+- (id)labelForNode:(unsigned int)node
+{
+  v3 = *&node;
+  if (([(VMUProcessObjectGraph *)self objectContentLevelForNodeLabels]& 0xFFFFFFFE) == 2)
+  {
+    v5 = [(VMUSymbolStore *)self->_symbolStore stringForNode:v3];
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+- (id)shortLabelForNode:(unsigned int)node
+{
+  v3 = [(VMUProcessObjectGraph *)self labelForNode:*&node];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = shortenString(v3);
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
 - (VMUClassInfoMap)realizedClasses
 {
   v4.receiver = self;
@@ -1801,6 +1862,76 @@ void *__84__VMUProcessObjectGraph_enumerateReferencesFromDataRegion_atGlobalSymb
 
   symbolStore = self->_symbolStore;
   self->_symbolStore = v5;
+}
+
+- (void)_renameWithNodeMap:(unsigned int *)map nodeNamespace:(unsigned int)namespace edgeMap:(unsigned int *)edgeMap edgeNamespace:(unsigned int)edgeNamespace
+{
+  v6 = *&edgeNamespace;
+  v8 = *&namespace;
+  [(VMUProcessObjectGraph *)self _reorderLabelsWithNodeNameMap:?];
+  if (self->_autoreleasePoolOffsets)
+  {
+    edgeMapCopy = edgeMap;
+    v11 = malloc_type_calloc(1uLL, ((v8 + 7) >> 3) + 4, 0xB2EC2458uLL);
+    v22 = v8;
+    LODWORD(v11->super.isa) = v8;
+    autoreleasePoolOffsets = self->_autoreleasePoolOffsets;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v26 = __80__VMUProcessObjectGraph__renameWithNodeMap_nodeNamespace_edgeMap_edgeNamespace___block_invoke;
+    v27 = &__block_descriptor_48_e8_v12__0I8l;
+    v21 = v11;
+    v28 = v11;
+    mapCopy = map;
+    v13 = v25;
+    isa = autoreleasePoolOffsets->super.isa;
+    v15 = &autoreleasePoolOffsets->super.isa + 4;
+    v14 = isa;
+    if (isa)
+    {
+      v17 = 0;
+      do
+      {
+        v18 = v17 >> 3;
+        v19 = v15[v18];
+        v20 = v17;
+        if (v15[v18])
+        {
+          do
+          {
+            if (v19)
+            {
+              v26(v13, v20);
+            }
+
+            if (v19 < 2)
+            {
+              break;
+            }
+
+            v20 = (v20 + 1);
+            v19 >>= 1;
+          }
+
+          while (v20 < v14);
+        }
+
+        v17 = (v17 + 8);
+      }
+
+      while (v17 < v14);
+    }
+
+    free(self->_autoreleasePoolOffsets);
+    self->_autoreleasePoolOffsets = v21;
+    v6 = v6;
+    edgeMap = edgeMapCopy;
+    v8 = v22;
+  }
+
+  v24.receiver = self;
+  v24.super_class = VMUProcessObjectGraph;
+  [(VMUObjectGraph *)&v24 _renameWithNodeMap:map nodeNamespace:v8 edgeMap:edgeMap edgeNamespace:v6, v21];
 }
 
 uint64_t __80__VMUProcessObjectGraph__renameWithNodeMap_nodeNamespace_edgeMap_edgeNamespace___block_invoke(uint64_t result, unsigned int a2)
@@ -2151,6 +2282,359 @@ LABEL_15:
   return v5;
 }
 
+- (id)vmuVMRegionForNode:(unsigned int)node
+{
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= node)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    objc_msgSend_nodeDetails_(self);
+    v4 = [(VMUProcessObjectGraph *)self vmuVMRegionForAddress:v6];
+  }
+
+  return v4;
+}
+
+- (id)shortNodeDescription:(unsigned int)description
+{
+  v3 = *&description;
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= description || (objc_msgSend_nodeDetails_(self), !VMUGraphNodeType_IsVMRegion(0)))
+  {
+    v13 = 0;
+    goto LABEL_13;
+  }
+
+  v5 = [(VMUProcessObjectGraph *)self vmuVMRegionForNode:v3];
+  v6 = v5;
+  if (v5)
+  {
+    path = [v5 path];
+    v8 = [path hasPrefix:@"/"];
+
+    if (v8)
+    {
+      string = [MEMORY[0x1E696AD60] string];
+      path2 = [v6 path];
+      lastPathComponent = [path2 lastPathComponent];
+      [(__CFString *)string appendFormat:@"%@ ", lastPathComponent];
+
+      type = [v6 type];
+      [(__CFString *)string appendString:type];
+    }
+
+    else
+    {
+      if (![v6 isStack])
+      {
+        string = [v6 type];
+        goto LABEL_12;
+      }
+
+      v14 = MEMORY[0x1E696AEC0];
+      type = [v6 path];
+      string = [v14 stringWithFormat:@"Stack %@", type];
+    }
+  }
+
+  else
+  {
+    string = @"Unknown";
+  }
+
+LABEL_12:
+  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VM: %@", string];
+
+LABEL_13:
+
+  return v13;
+}
+
+- (id)nodeDescription:(unsigned int)description
+{
+  v3 = *&description;
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= description)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = [(VMUProcessObjectGraph *)self nodeDescription:v3 withOffset:0 showLabel:1];
+  }
+
+  return v5;
+}
+
+- (id)nodeDescription:(unsigned int)description withOffset:(unint64_t)offset showLabel:(BOOL)label
+{
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= description)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    objc_msgSend_nodeDetails_(self);
+    if (VMUGraphNodeType_IsVMRegion(0))
+    {
+      v9 = MEMORY[0x1E696AEC0];
+      v10 = [VMUVMRegionIdentifier descriptionForRange:offset inSortedRegions:1 options:self->_machAbsolute, 513];
+      v8 = [v9 stringWithFormat:@"VM: %@", v10, v12];
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    objc_autoreleasePoolPop(v7);
+  }
+
+  return v8;
+}
+
+- (id)nodeDescription:(unsigned int)description withDestinationNode:(unsigned int)node referenceInfo:(id *)info
+{
+  v6 = *&node;
+  v7 = *&description;
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= description)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    objc_msgSend_nodeDetails_(self);
+    if (VMUGraphNodeType_IsVMRegion(0))
+    {
+      8193 = [VMUVMRegionIdentifier descriptionForRange:info->var0 + v18 inSortedRegions:1 options:self->_machAbsolute, 8193];
+      if ([8193 hasPrefix:@"__DATA "])
+      {
+        v10 = [8193 substringFromIndex:7];
+
+        8193 = v10;
+      }
+
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Region %@", 8193];
+    }
+
+    else
+    {
+      v11 = [(VMUProcessObjectGraph *)self nodeDescription:v7];
+    }
+
+    v16 = *&info->var0;
+    var2 = info->var2;
+    v13 = [(VMUProcessObjectGraph *)self _detailedNodeOffsetDescription:&v16 withSourceNode:v7 destinationNode:v6 alignmentSpacing:0];
+    v12 = [v11 stringByAppendingFormat:@" %@", v13];
+
+    if (info->var2)
+    {
+      v14 = [v12 stringByAppendingFormat:@" --> offset %llu", info->var2];
+
+      v12 = v14;
+    }
+  }
+
+  return v12;
+}
+
+- (id)nodeOffsetDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode
+{
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= node)
+  {
+    v7 = 0;
+    goto LABEL_16;
+  }
+
+  objc_msgSend_nodeDetails_(self);
+  if (VMUGraphNodeType_IsVMRegion(0))
+  {
+    v7 = [(VMUProcessObjectGraph *)self _descriptionForRegionAddress:0 withOffset:description->var0 showSegment:0];
+    goto LABEL_16;
+  }
+
+  ivarName = [0 ivarName];
+  v9 = [ivarName length];
+
+  if (v9)
+  {
+    v10 = [0 fullIvarNameAtOffset:{LODWORD(description->var0) - objc_msgSend(0, "offset")}];
+  }
+
+  else
+  {
+    genericInfo = [0 genericInfo];
+    if (genericInfo)
+    {
+      v12 = genericInfo;
+      var0 = description->var0;
+      instanceSize = [0 instanceSize];
+
+      if (var0 < instanceSize)
+      {
+        objc_msgSend_nodeDetails_(self);
+        className = [0 className];
+        v16 = [className containsString:@"BlockVariable"];
+        v17 = @"[capture]";
+        if (v16)
+        {
+          v17 = @"__block [capture]";
+        }
+
+        v7 = v17;
+
+        goto LABEL_15;
+      }
+    }
+
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+%llu bytes", description->var0];
+  }
+
+  v7 = v10;
+LABEL_15:
+
+LABEL_16:
+
+  return v7;
+}
+
+- (id)_detailedNodeOffsetDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode alignmentSpacing:(unsigned int)spacing
+{
+  v33 = *MEMORY[0x1E69E9840];
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= node)
+  {
+    v9 = 0;
+    goto LABEL_18;
+  }
+
+  objc_msgSend_nodeDetails_(self);
+  v9 = [MEMORY[0x1E696AD60] stringWithCapacity:200];
+  __s[0] = 0;
+  if (VMUGraphNodeType_IsVMRegion(0))
+  {
+    v10 = [(VMUProcessObjectGraph *)self _descriptionForRegionAddress:0 withOffset:description->var0 showSegment:1];
+    [v9 appendString:v10];
+  }
+
+  else
+  {
+    v12 = VMUScanTypeKeywordDescription(description->var1);
+    v13 = "";
+    if (v12 && *v12)
+    {
+      v13 = " ";
+    }
+
+    [v9 appendFormat:@"%+6lld: %s%s", description->var0, v12, v13];
+    v10 = 0;
+    ivarName = [0 ivarName];
+    v15 = [ivarName length];
+
+    if (v15)
+    {
+      v11 = [0 fullIvarNameAtOffset:{LODWORD(description->var0) - objc_msgSend(0, "offset")}];
+      [0 instanceSize];
+      goto LABEL_12;
+    }
+
+    genericInfo = [0 genericInfo];
+    if (genericInfo)
+    {
+      v23 = genericInfo;
+      var0 = description->var0;
+      instanceSize = [0 instanceSize];
+
+      if (var0 < instanceSize)
+      {
+        *__str = 0;
+        v30 = 0;
+        v31 = 0;
+        objc_msgSend_nodeDetails_(self);
+        className = [0 className];
+        v27 = [className containsString:@"BlockVariable"];
+        v28 = @"[capture]";
+        if (v27)
+        {
+          v28 = @"__block [capture]";
+        }
+
+        v11 = v28;
+
+        goto LABEL_12;
+      }
+    }
+  }
+
+  v11 = &stru_1F461F9C8;
+LABEL_12:
+
+  snprintf(__str, 0x20uLL, "%#llx", description->var0);
+  v16 = [v9 length];
+  v17 = strlen(__str);
+  v18 = v17 + [(__CFString *)v11 length]+ strlen(__s) + v16;
+  v19 = spacing - v18;
+  if (spacing < v18)
+  {
+    v19 = 0;
+  }
+
+  if (v18 >= spacing)
+  {
+    v20 = 1;
+  }
+
+  else
+  {
+    v20 = v19;
+  }
+
+  [v9 appendFormat:@"%@%s%*s%s", v11, __s, v20, "", __str];
+
+LABEL_18:
+
+  return v9;
+}
+
+- (id)referenceDescription:(id *)description withSourceNode:(unsigned int)node destinationNode:(unsigned int)destinationNode alignmentSpacing:(unsigned int)spacing
+{
+  v6 = *&spacing;
+  v7 = *&destinationNode;
+  v8 = *&node;
+  if ([(VMUDirectedGraph *)self nodeNamespaceSize]<= node || [(VMUDirectedGraph *)self nodeNamespaceSize]<= v7)
+  {
+    v14 = 0;
+  }
+
+  else
+  {
+    v16 = *&description->var0;
+    var2 = description->var2;
+    v11 = [(VMUProcessObjectGraph *)self _detailedNodeOffsetDescription:&v16 withSourceNode:v8 destinationNode:v7 alignmentSpacing:v6];
+    v12 = [(VMUProcessObjectGraph *)self nodeDescription:v7];
+    if (description->var2)
+    {
+      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld bytes into %@", description->var2, v12];
+
+      v12 = v13;
+    }
+
+    v14 = [v11 stringByAppendingFormat:@" --> %@", v12];
+  }
+
+  return v14;
+}
+
 - (void)refineTypesWithOverlay:(id)overlay
 {
   v3.receiver = self;
@@ -2234,15 +2718,16 @@ LABEL_15:
   _Block_object_dispose(v22, 8);
 }
 
-void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block_invoke(void *result, unsigned int *a2, unsigned int a3)
+void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block_invoke(void *result, char *a2, unsigned int a3)
 {
   if (a3)
   {
+    v3 = a2;
     v4 = result;
     v5 = a3;
     do
     {
-      if (*a2 <= 0xFFFFFFFA)
+      if (*v3 <= 0xFFFFFFFA)
       {
         ++*(*(v4[5] + 8) + 24);
         v12 = 0;
@@ -2251,13 +2736,13 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
         result = v4[4];
         if (result)
         {
-          result = [result _rawReferenceInfoWithName:*a2];
+          result = objc_msgSend__rawReferenceInfoWithName_(result, a2, *v3);
         }
 
         if ((*(v4 + 92) & 1) == 0 && (v4[8] & v12) != 0)
         {
           v6 = v4[9];
-          v7 = *a2;
+          v7 = *v3;
           if (*v6 > v7)
           {
             *(v6 + (v7 >> 3) + 4) |= 1 << (v7 & 7);
@@ -2270,7 +2755,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
         if (((*(v4 + 22) >> v13) & 1) == 0)
         {
           v8 = v4[9];
-          v9 = *a2;
+          v9 = *v3;
           if (*v8 > v9)
           {
             *(v8 + (v9 >> 3) + 4) |= 1 << (v9 & 7);
@@ -2284,8 +2769,8 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
         {
           if (!v14)
           {
-            v11 = a2[2];
-            if (a2[1] != v11 && *v10 > v11)
+            v11 = v3[2];
+            if (v3[1] != v11 && *v10 > v11)
             {
               *(v10 + (v11 >> 3) + 4) |= 1 << (v11 & 7);
             }
@@ -2293,7 +2778,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
         }
       }
 
-      a2 += 3;
+      v3 += 3;
       --v5;
     }
 
@@ -2303,7 +2788,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
   return result;
 }
 
-void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block_invoke_2(void *result, unsigned int *a2, unsigned int a3)
+void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block_invoke_2(void *result, const char *a2, unsigned int a3)
 {
   if (a3)
   {
@@ -2314,7 +2799,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
       if (*a2 <= 0xFFFFFFFA)
       {
         v6 = v4[7];
-        v7 = a2[2];
+        v7 = *(a2 + 2);
         if (*v6 > v7 && ((*(v6 + (v7 >> 3) + 4) >> (v7 & 7)) & 1) != 0)
         {
           v10 = 0;
@@ -2323,7 +2808,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
           result = v4[4];
           if (result)
           {
-            result = [result _rawReferenceInfoWithName:?];
+            result = objc_msgSend__rawReferenceInfoWithName_(result);
             if (v12)
             {
               v8 = v4[8];
@@ -2340,7 +2825,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
         }
       }
 
-      a2 += 3;
+      a2 += 12;
       --v5;
     }
 
@@ -2494,7 +2979,7 @@ void *__64__VMUProcessObjectGraph_refineEdges_withOptions_markingInvalid___block
               {
                 if (v45)
                 {
-                  v60(v39, v46 - 1);
+                  v60(v39, (v46 - 1));
                 }
 
                 if (v45 < 2)
@@ -2581,7 +3066,7 @@ void *__67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options___bl
 
 uint64_t __67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  result = VMUIsOwningReference([*(a1 + 32) scanTypeOfReferenceWithName:a2]);
+  result = VMUIsOwningReference([*(a1 + 32) scanTypeOfReferenceWithName:{a2, a4, a5}]);
   if (result)
   {
     v9 = *(a1 + 48);
@@ -2599,12 +3084,12 @@ uint64_t __67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options__
   return result;
 }
 
-uint64_t __67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options___block_invoke_3(uint64_t a1, uint64_t a2)
+uint64_t __67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options___block_invoke_3(uint64_t a1, const char *a2)
 {
   result = *(a1 + 32);
   if (result)
   {
-    result = [result nodeDetails:a2];
+    result = objc_msgSend_nodeDetails_(result, a2, a2);
   }
 
   if ((*(a1 + 48) & 1) == 0)
@@ -2653,6 +3138,16 @@ uint64_t __67__VMUProcessObjectGraph_markReachableNodesFromRoots_inMap_options__
   free(v5);
 
   return v11;
+}
+
+- (BOOL)nodeIsAutoreleasePoolContentPage:(unsigned int)page
+{
+  v7 = 0uLL;
+  v8 = 0;
+  objc_msgSend_nodeDetails_(self, a2, *&page);
+  v5 = v7;
+  v6 = v8;
+  return [(VMUProcessObjectGraph *)self nodeDetailIsAutoreleasePoolContentPage:&v5];
 }
 
 - ($938B03310D06493B2963E5A84CB75A7E)autoreleasePoolOffsets
@@ -2708,14 +3203,14 @@ uint64_t __40__VMUProcessObjectGraph_removeWeakEdges__block_invoke(uint64_t a1, 
   return [*(a1 + 32) removeMarkedEdges:a2];
 }
 
-void *__40__VMUProcessObjectGraph_removeWeakEdges__block_invoke_2(uint64_t a1, uint64_t a2)
+void *__40__VMUProcessObjectGraph_removeWeakEdges__block_invoke_2(uint64_t a1, const char *a2)
 {
   v2 = a2;
   v7 = 0;
   v8 = 0;
   v9 = 0;
   result = *(a1 + 32);
-  if (!result || ((result = [result referenceInfoWithName:a2], (v8 - 1) <= 1) ? (v5 = v9 == 0) : (v5 = 0), !v5))
+  if (!result || ((result = objc_msgSend_referenceInfoWithName_(result, a2, a2), (v8 - 1) <= 1) ? (v5 = v9 == 0) : (v5 = 0), !v5))
   {
     v6 = *(a1 + 40);
     if (*v6 > v2)
@@ -2826,34 +3321,53 @@ id __67__VMUProcessObjectGraph_resymbolicateNonObjectsUsingStackBacktrace__block
   return objc_msgSendSuper2(&v4, sel_setClassInfoIndex_forNode_, a3, a2);
 }
 
+- (BOOL)resymbolicateWithDsymPath:(id)path libraryNames:(id)names all:(BOOL)all progress:(id)progress showDebugInfo:(BOOL)info error:(id *)error
+{
+  infoCopy = info;
+  allCopy = all;
+  pathCopy = path;
+  namesCopy = names;
+  progressCopy = progress;
+  backtraces = self->_backtraces;
+  if (!backtraces)
+  {
+    [(VMUProcessObjectGraph *)self _generateSymbolStoreFromExistingGraph];
+    backtraces = self->_backtraces;
+  }
+
+  v18 = [(NSArray *)backtraces resymbolicateWithDsymPath:pathCopy libraryNames:namesCopy all:allCopy progress:progressCopy showDebugInfo:infoCopy error:error];
+
+  return v18;
+}
+
 - (_CSArchitecture)parseMacOSArchitectureFromProcessDescription
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   processName = self->_processName;
   newlineCharacterSet = [MEMORY[0x1E696AB08] newlineCharacterSet];
   v5 = [(NSString *)processName componentsSeparatedByCharactersInSet:newlineCharacterSet];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        if ([v11 hasPrefix:{@"Code Type", v18}])
+        v11 = *(*(&v17 + 1) + 8 * i);
+        if ([v11 hasPrefix:{@"Code Type", v17}])
         {
           if ([v11 containsString:@"X86-64"])
           {
@@ -2884,7 +3398,7 @@ id __67__VMUProcessObjectGraph_resymbolicateNonObjectsUsingStackBacktrace__block
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -2897,7 +3411,6 @@ id __67__VMUProcessObjectGraph_resymbolicateNonObjectsUsingStackBacktrace__block
   v12 = 0;
 LABEL_19:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -2914,58 +3427,58 @@ LABEL_19:
 
 - (void)_generateSymbolStoreFromExistingGraph
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [VMUProcessDescription symbolicatorFromBinaryImagesDescription:self->_executablePath withArchitecture:[(VMUProcessObjectGraph *)self parseMacOSArchitectureFromProcessDescription]];
   v5 = [[VMUSymbolStore alloc] initWithSymbolicator:v3 debugTimer:v4, 0];
   objc_storeStrong(&self->_backtraces, v5);
   [(NSArray *)self->_backtraces setGraph:self];
   binarySectionNameRanges = self->_binarySectionNameRanges;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __62__VMUProcessObjectGraph__generateSymbolStoreFromExistingGraph__block_invoke;
-  v20[3] = &unk_1E8279AF0;
-  v20[4] = self;
-  [(VMURangeToStringMap *)binarySectionNameRanges enumerateHexAddressesInStrings:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __62__VMUProcessObjectGraph__generateSymbolStoreFromExistingGraph__block_invoke;
+  v19[3] = &unk_1E8279AF0;
+  v19[4] = self;
+  [(VMURangeToStringMap *)binarySectionNameRanges enumerateHexAddressesInStrings:v19];
   [(VMUProcessObjectGraph *)self parseAddressesFromNodeLabelsIntoSymbolStore];
   userMarked = self->_userMarked;
   if (userMarked)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __62__VMUProcessObjectGraph__generateSymbolStoreFromExistingGraph__block_invoke_2;
-    v19[3] = &unk_1E8279AF0;
-    v19[4] = self;
-    [userMarked enumerateUniquingTable:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __62__VMUProcessObjectGraph__generateSymbolStoreFromExistingGraph__block_invoke_2;
+    v18[3] = &unk_1E8279AF0;
+    v18[4] = self;
+    [userMarked enumerateUniquingTable:v18];
   }
 
   v8 = *&self->_hasClassInfosDerivedFromStackBacktraces;
   if (v8)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [(NSArray *)self->_backtraces addBacktrace:*(*(&v15 + 1) + 8 * v13++) origin:0, v15];
+          [(NSArray *)self->_backtraces addBacktrace:*(*(&v14 + 1) + 8 * v13++) origin:0, v14];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
       while (v11);
@@ -2973,8 +3486,6 @@ LABEL_19:
   }
 
   CSRelease();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (VMUTaskMemoryScanner)scanner

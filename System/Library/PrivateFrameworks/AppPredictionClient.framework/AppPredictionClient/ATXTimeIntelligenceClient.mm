@@ -57,22 +57,22 @@
   return v2;
 }
 
-void __33__ATXTimeIntelligenceClient_init__block_invoke()
+void __33__ATXTimeIntelligenceClient_init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_time_intelligence();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_time_intelligence(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __33__ATXTimeIntelligenceClient_init__block_invoke_cold_1(v0);
+    __33__ATXTimeIntelligenceClient_init__block_invoke_cold_1(v1);
   }
 }
 
-void __33__ATXTimeIntelligenceClient_init__block_invoke_2()
+void __33__ATXTimeIntelligenceClient_init__block_invoke_2(uint64_t a1)
 {
-  v0 = __atxlog_handle_time_intelligence();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = __atxlog_handle_time_intelligence(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BF549000, v0, OS_LOG_TYPE_INFO, "ATXTimeIntelligenceClient: invalidation handler called", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1BF549000, v1, OS_LOG_TYPE_INFO, "ATXTimeIntelligenceClient: invalidation handler called", v2, 2u);
   }
 }
 
@@ -161,7 +161,7 @@ uint64_t __71__ATXTimeIntelligenceClient_dataSourcesDidUpdateWithCompletionHandl
 void __73__ATXTimeIntelligenceClient_predictedTimelineWithDate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_time_intelligence();
+  v4 = __atxlog_handle_time_intelligence(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__ATXTimeIntelligenceClient_predictedTimelineWithDate_completionHandler___block_invoke_cold_1(v3);
@@ -189,7 +189,7 @@ void __73__ATXTimeIntelligenceClient_predictedTimelineWithDate_completionHandler
 void __86__ATXTimeIntelligenceClient_predictedDailyOverviewWithDate_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_time_intelligence();
+  v4 = __atxlog_handle_time_intelligence(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__ATXTimeIntelligenceClient_predictedTimelineWithDate_completionHandler___block_invoke_cold_1(v3);
@@ -217,7 +217,7 @@ void __86__ATXTimeIntelligenceClient_predictedDailyOverviewWithDate_options_comp
 void __89__ATXTimeIntelligenceClient_predictedFreeMomentsWithDateRange_options_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_time_intelligence();
+  v4 = __atxlog_handle_time_intelligence(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __89__ATXTimeIntelligenceClient_predictedFreeMomentsWithDateRange_options_completionHandler___block_invoke_cold_1(v3, v4);
@@ -467,7 +467,9 @@ void __89__ATXTimeIntelligenceClient_predictedFreeMomentsWithDateRange_options_c
 void __73__ATXTimeIntelligenceClient_predictedTimelineWithDate_completionHandler___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "ATXTimeIntelligenceClient: XPC failed: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "ATXTimeIntelligenceClient: XPC failed: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __89__ATXTimeIntelligenceClient_predictedFreeMomentsWithDateRange_options_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)

@@ -50,10 +50,9 @@ uint64_t __69__TUIAccountKeySpecifierButtonCell_refreshCellContentsWithSpecifier
 
 - (void)refreshCellContentsWithSpecifier:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -106,8 +106,8 @@ LABEL_7:
   v19 = [v4 actionWithTitle:v18 handler:v26];
   [v5 setDismissAction:v19];
   [(EKEventDetailSuggestedLocationCell *)self setBanner:v5];
-  contentView = [(EKEventDetailSuggestedLocationCell *)self contentView];
-  [contentView addSubview:v5];
+  v20 = objc_msgSend_contentView(self);
+  [v20 addSubview:v5];
 
   [v5 setTranslatesAutoresizingMaskIntoConstraints:0];
   v21 = _NSDictionaryOfVariableBindings(&cfstr_Bannerview.isa, v5, 0);

@@ -58,7 +58,7 @@
 
 - (void)loadView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -251,11 +251,11 @@
 
     if (isKindOfClass)
     {
-      v7 = sub_100004F84();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100004F84(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Dismiss Carplay Alert UI", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Dismiss Carplay Alert UI", v9, 2u);
       }
 
       [(PHCarPlayMainInCallViewController *)self setShowingStickyAlert:0];
@@ -291,7 +291,7 @@
 
 - (void)updateButtonsViewState
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     failedCall = [(PHCarPlayMainInCallViewController *)self failedCall];
@@ -641,7 +641,7 @@ LABEL_29:
 
 - (void)dealloc
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -774,93 +774,93 @@ LABEL_29:
   callsCopy = calls;
   phoneCallsCopy = phoneCalls;
   callCopy = call;
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(callCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v140 = callsCopy;
-    v141 = 2112;
-    v142 = phoneCallsCopy;
-    v143 = 2112;
-    v144 = callCopy;
+    v150 = callsCopy;
+    v151 = 2112;
+    v152 = phoneCallsCopy;
+    v153 = 2112;
+    v154 = callCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "-- CarPlay: Set primary phone calls: %@. \nConference phone calls: %@. \nIncoming phone call: %@", buf, 0x20u);
   }
 
-  v11 = sub_100004F84();
+  v12 = sub_100004F84(v11);
   selfCopy = self;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     primaryCalls = [(PHCarPlayMainInCallViewController *)self primaryCalls];
     conferenceParticipants = [(PHCarPlayMainInCallViewController *)selfCopy conferenceParticipants];
     incomingCall = [(PHCarPlayMainInCallViewController *)selfCopy incomingCall];
     *buf = 138412802;
-    v140 = primaryCalls;
-    v141 = 2112;
-    v142 = conferenceParticipants;
-    v143 = 2112;
-    v144 = incomingCall;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "-- CarPlay: Existing primary phone calls: %@. \nConference phone calls: %@. \nIncoming phone call: %@", buf, 0x20u);
+    v150 = primaryCalls;
+    v151 = 2112;
+    v152 = conferenceParticipants;
+    v153 = 2112;
+    v154 = incomingCall;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "-- CarPlay: Existing primary phone calls: %@. \nConference phone calls: %@. \nIncoming phone call: %@", buf, 0x20u);
 
     self = selfCopy;
   }
 
-  v110 = callCopy;
+  v120 = callCopy;
 
   if (([(PHCarPlayMainInCallViewController *)self isViewLoaded]& 1) == 0)
   {
     [(PHCarPlayMainInCallViewController *)self loadView];
   }
 
-  v132 = 0u;
-  v133 = 0u;
-  v130 = 0u;
-  v131 = 0u;
-  v15 = callsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v130 objects:v138 count:16];
-  if (v16)
+  v142 = 0u;
+  v143 = 0u;
+  v140 = 0u;
+  v141 = 0u;
+  v16 = callsCopy;
+  v17 = [v16 countByEnumeratingWithState:&v140 objects:v148 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v131;
+    v18 = v17;
+    v19 = *v141;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v131 != v18)
+        if (*v141 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v130 + 1) + 8 * i);
-        if ([v20 originatingUIType] == 10)
+        v21 = *(*(&v140 + 1) + 8 * i);
+        if ([v21 originatingUIType] == 10)
         {
-          v21 = +[TUCallCenter sharedInstance];
-          routeController = [v21 routeController];
+          v22 = +[TUCallCenter sharedInstance];
+          routeController = [v22 routeController];
           pickedRoute = [routeController pickedRoute];
           isSpeaker = [pickedRoute isSpeaker];
 
           if ((isSpeaker & 1) == 0)
           {
-            v37 = +[TUCallCenter sharedInstance];
-            routeController2 = [v37 routeController];
+            v40 = +[TUCallCenter sharedInstance];
+            routeController2 = [v40 routeController];
             routeForSpeakerEnable = [routeController2 routeForSpeakerEnable];
 
             if (!routeForSpeakerEnable)
             {
-              v34 = sub_100004F84();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v37 = sub_100004F84(v42);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                sub_100257384(&v128, v129, v34);
+                sub_100257384(&v138, v139, v37);
               }
 
               goto LABEL_27;
             }
 
-            v39 = +[TUCallCenter sharedInstance];
-            routeController3 = [v39 routeController];
+            v43 = +[TUCallCenter sharedInstance];
+            routeController3 = [v43 routeController];
             [routeController3 pickRoute:routeForSpeakerEnable];
 
-            v34 = sub_100004F84();
-            if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v37 = sub_100004F84(v45);
+            if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
 LABEL_27:
 
@@ -868,259 +868,260 @@ LABEL_27:
             }
 
             *buf = 0;
-            v35 = v34;
-            v36 = "-- CarPlay: Routing audio back to speaker";
+            v38 = v37;
+            v39 = "-- CarPlay: Routing audio back to speaker";
 LABEL_26:
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 2u);
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, v39, buf, 2u);
             goto LABEL_27;
           }
         }
 
-        if ([v20 originatingUIType] == 12)
+        if ([v21 originatingUIType] == 12)
         {
-          v25 = +[TUCallCenter sharedInstance];
-          routeController4 = [v25 routeController];
+          v26 = +[TUCallCenter sharedInstance];
+          routeController4 = [v26 routeController];
           pickedRoute2 = [routeController4 pickedRoute];
           isReceiver = [pickedRoute2 isReceiver];
 
           if ((isReceiver & 1) == 0)
           {
-            v29 = +[TUCallCenter sharedInstance];
-            routeController5 = [v29 routeController];
+            v30 = +[TUCallCenter sharedInstance];
+            routeController5 = [v30 routeController];
             routeForSpeakerEnable = [routeController5 routeForSpeakerDisable];
 
             if (routeForSpeakerEnable)
             {
-              v32 = +[TUCallCenter sharedInstance];
-              routeController6 = [v32 routeController];
+              v34 = +[TUCallCenter sharedInstance];
+              routeController6 = [v34 routeController];
               [routeController6 pickRoute:routeForSpeakerEnable];
 
-              v34 = sub_100004F84();
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+              v37 = sub_100004F84(v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                v35 = v34;
-                v36 = "-- CarPlay: Routing audio back to receiver";
+                v38 = v37;
+                v39 = "-- CarPlay: Routing audio back to receiver";
                 goto LABEL_26;
               }
 
               goto LABEL_27;
             }
 
-            v34 = sub_100004F84();
-            if (!os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v37 = sub_100004F84(v33);
+            if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_27;
             }
 
             *buf = 0;
-            v35 = v34;
-            v36 = "[WARN] -- CarPlay: Could not find available route to pick for speaker disable";
+            v38 = v37;
+            v39 = "[WARN] -- CarPlay: Could not find available route to pick for speaker disable";
             goto LABEL_26;
           }
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v130 objects:v138 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v140 objects:v148 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  v41 = [(PHCarPlayMainInCallViewController *)selfCopy __sanitizedPrimaryPhoneCallOrdering:v15];
+  v46 = [(PHCarPlayMainInCallViewController *)selfCopy __sanitizedPrimaryPhoneCallOrdering:v16];
 
   primaryCalls2 = [(PHCarPlayMainInCallViewController *)selfCopy primaryCalls];
   conferenceParticipants2 = [(PHCarPlayMainInCallViewController *)selfCopy conferenceParticipants];
   incomingCall2 = [(PHCarPlayMainInCallViewController *)selfCopy incomingCall];
-  if (([primaryCalls2 isEqualToArray:v41] & 1) == 0 && v41 | primaryCalls2 || (objc_msgSend(conferenceParticipants2, "isEqualToArray:", phoneCallsCopy) & 1) == 0 && phoneCallsCopy | conferenceParticipants2 || incomingCall2 != callCopy && callCopy | incomingCall2)
+  if (([primaryCalls2 isEqualToArray:v46] & 1) == 0 && v46 | primaryCalls2 || (v50 = objc_msgSend(conferenceParticipants2, "isEqualToArray:", phoneCallsCopy), (v50 & 1) == 0) && phoneCallsCopy | conferenceParticipants2 || incomingCall2 != callCopy && callCopy | incomingCall2)
   {
-    v108 = primaryCalls2;
-    v109 = incomingCall2;
-    v45 = +[NSMutableArray array];
-    v46 = +[NSMutableArray array];
-    v124 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v127 = 0u;
-    v107 = v41;
-    v47 = v41;
-    v48 = [v47 countByEnumeratingWithState:&v124 objects:v137 count:16];
-    if (v48)
+    v118 = primaryCalls2;
+    v119 = incomingCall2;
+    v51 = +[NSMutableArray array];
+    v52 = +[NSMutableArray array];
+    v134 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    v137 = 0u;
+    v117 = v46;
+    v53 = v46;
+    v54 = [v53 countByEnumeratingWithState:&v134 objects:v147 count:16];
+    if (v54)
     {
-      v49 = v48;
-      v50 = *v125;
+      v55 = v54;
+      v56 = *v135;
       do
       {
-        for (j = 0; j != v49; j = j + 1)
+        for (j = 0; j != v55; j = j + 1)
         {
-          if (*v125 != v50)
+          if (*v135 != v56)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v53);
           }
 
-          v52 = *(*(&v124 + 1) + 8 * j);
+          v58 = *(*(&v134 + 1) + 8 * j);
           primaryCalls3 = [(PHCarPlayMainInCallViewController *)selfCopy primaryCalls];
-          v54 = [primaryCalls3 containsObject:v52];
+          v60 = [primaryCalls3 containsObject:v58];
 
-          if ((v54 & 1) == 0)
+          if ((v60 & 1) == 0)
           {
-            [v45 addObject:v52];
+            [v51 addObject:v58];
           }
         }
 
-        v49 = [v47 countByEnumeratingWithState:&v124 objects:v137 count:16];
+        v55 = [v53 countByEnumeratingWithState:&v134 objects:v147 count:16];
       }
 
-      while (v49);
+      while (v55);
     }
 
-    v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
-    v121 = 0u;
+    v132 = 0u;
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
     primaryCalls4 = [(PHCarPlayMainInCallViewController *)selfCopy primaryCalls];
-    v56 = [primaryCalls4 countByEnumeratingWithState:&v120 objects:v136 count:16];
-    if (v56)
+    v62 = [primaryCalls4 countByEnumeratingWithState:&v130 objects:v146 count:16];
+    if (v62)
     {
-      v57 = v56;
-      v58 = *v121;
+      v63 = v62;
+      v64 = *v131;
       do
       {
-        for (k = 0; k != v57; k = k + 1)
+        for (k = 0; k != v63; k = k + 1)
         {
-          if (*v121 != v58)
+          if (*v131 != v64)
           {
             objc_enumerationMutation(primaryCalls4);
           }
 
-          v60 = *(*(&v120 + 1) + 8 * k);
-          if (([v47 containsObject:v60] & 1) == 0)
+          v66 = *(*(&v130 + 1) + 8 * k);
+          if (([v53 containsObject:v66] & 1) == 0)
           {
-            [v46 addObject:v60];
+            [v52 addObject:v66];
           }
         }
 
-        v57 = [primaryCalls4 countByEnumeratingWithState:&v120 objects:v136 count:16];
-      }
-
-      while (v57);
-    }
-
-    v118 = 0u;
-    v119 = 0u;
-    v117 = 0u;
-    v116 = 0u;
-    conferenceParticipants3 = [(PHCarPlayMainInCallViewController *)selfCopy conferenceParticipants];
-    v62 = [conferenceParticipants3 countByEnumeratingWithState:&v116 objects:v135 count:16];
-    if (v62)
-    {
-      v63 = v62;
-      v64 = *v117;
-      do
-      {
-        for (m = 0; m != v63; m = m + 1)
-        {
-          if (*v117 != v64)
-          {
-            objc_enumerationMutation(conferenceParticipants3);
-          }
-
-          v66 = *(*(&v116 + 1) + 8 * m);
-          v67 = [phoneCallsCopy arrayByAddingObjectsFromArray:v47];
-          v68 = [v67 containsObject:v66];
-
-          if ((v68 & 1) == 0 && ([v46 containsObject:v66] & 1) == 0)
-          {
-            [v46 addObject:v66];
-          }
-        }
-
-        v63 = [conferenceParticipants3 countByEnumeratingWithState:&v116 objects:v135 count:16];
+        v63 = [primaryCalls4 countByEnumeratingWithState:&v130 objects:v146 count:16];
       }
 
       while (v63);
     }
 
-    v69 = selfCopy;
-    [(PHCarPlayMainInCallViewController *)selfCopy setPrimaryCalls:v47];
-    [(PHCarPlayMainInCallViewController *)selfCopy setConferenceParticipants:phoneCallsCopy];
-    callCopy = v110;
-    [(PHCarPlayMainInCallViewController *)selfCopy setIncomingCall:v110];
-    if ([(PHCarPlayMainInCallViewController *)selfCopy currentCallStateWarrantsCallWaitingMode]&& ![(PHCarPlayMainInCallViewController *)selfCopy currentMode])
+    v128 = 0u;
+    v129 = 0u;
+    v127 = 0u;
+    v126 = 0u;
+    conferenceParticipants3 = [(PHCarPlayMainInCallViewController *)selfCopy conferenceParticipants];
+    v68 = [conferenceParticipants3 countByEnumeratingWithState:&v126 objects:v145 count:16];
+    if (v68)
     {
-      v76 = sub_100004F84();
-      primaryCalls2 = v108;
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      v69 = v68;
+      v70 = *v127;
+      do
+      {
+        for (m = 0; m != v69; m = m + 1)
+        {
+          if (*v127 != v70)
+          {
+            objc_enumerationMutation(conferenceParticipants3);
+          }
+
+          v72 = *(*(&v126 + 1) + 8 * m);
+          v73 = [phoneCallsCopy arrayByAddingObjectsFromArray:v53];
+          v74 = [v73 containsObject:v72];
+
+          if ((v74 & 1) == 0 && ([v52 containsObject:v72] & 1) == 0)
+          {
+            [v52 addObject:v72];
+          }
+        }
+
+        v69 = [conferenceParticipants3 countByEnumeratingWithState:&v126 objects:v145 count:16];
+      }
+
+      while (v69);
+    }
+
+    v75 = selfCopy;
+    [(PHCarPlayMainInCallViewController *)selfCopy setPrimaryCalls:v53];
+    [(PHCarPlayMainInCallViewController *)selfCopy setConferenceParticipants:phoneCallsCopy];
+    callCopy = v120;
+    [(PHCarPlayMainInCallViewController *)selfCopy setIncomingCall:v120];
+    if ([(PHCarPlayMainInCallViewController *)selfCopy currentCallStateWarrantsCallWaitingMode]&& (v76 = [(PHCarPlayMainInCallViewController *)selfCopy currentMode], !v76))
+    {
+      v85 = sub_100004F84(v76);
+      primaryCalls2 = v118;
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "- call waiting - snapping to call waiting mode", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "- call waiting - snapping to call waiting mode", buf, 2u);
       }
 
       view = [(PHCarPlayMainInCallViewController *)selfCopy view];
       superview = [view superview];
-      v115[0] = _NSConcreteStackBlock;
-      v115[1] = 3221225472;
-      v115[2] = sub_10014A978;
-      v115[3] = &unk_100356988;
-      v115[4] = selfCopy;
-      v114[0] = _NSConcreteStackBlock;
-      v114[1] = 3221225472;
-      v114[2] = sub_10014AA34;
-      v114[3] = &unk_1003569B0;
-      v114[4] = selfCopy;
-      [UIView transitionWithView:superview duration:1048704 options:v115 animations:v114 completion:0.5];
+      v125[0] = _NSConcreteStackBlock;
+      v125[1] = 3221225472;
+      v125[2] = sub_10014A978;
+      v125[3] = &unk_100356988;
+      v125[4] = selfCopy;
+      v124[0] = _NSConcreteStackBlock;
+      v124[1] = 3221225472;
+      v124[2] = sub_10014AA34;
+      v124[3] = &unk_1003569B0;
+      v124[4] = selfCopy;
+      [UIView transitionWithView:superview duration:1048704 options:v125 animations:v124 completion:0.5];
 
-      v69 = selfCopy;
+      v75 = selfCopy;
     }
 
     else
     {
-      primaryCalls2 = v108;
-      if ([(PHCarPlayMainInCallViewController *)selfCopy currentMode]== 1)
+      currentMode = [(PHCarPlayMainInCallViewController *)selfCopy currentMode];
+      primaryCalls2 = v118;
+      if (currentMode == 1)
       {
-        v70 = sub_100004F84();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        v78 = sub_100004F84(currentMode);
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "- in call waiting and the call state changed...", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "- in call waiting and the call state changed...", buf, 2u);
         }
 
         incomingCall3 = [(PHCarPlayMainInCallViewController *)selfCopy incomingCall];
-        v41 = v107;
+        v46 = v117;
         if (incomingCall3)
         {
         }
 
-        else if (!v109 || (-[PHCarPlayMainInCallViewController primaryCalls](selfCopy, "primaryCalls"), v78 = objc_claimAutoreleasedReturnValue(), v79 = [v78 containsObject:v109], v78, (v79 & 1) == 0))
+        else if (!v119 || (-[PHCarPlayMainInCallViewController primaryCalls](selfCopy, "primaryCalls"), v87 = objc_claimAutoreleasedReturnValue(), v88 = [v87 containsObject:v119], v87, (v88 & 1) == 0))
         {
-          v80 = sub_100004F84();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+          v89 = sub_100004F84(incomingCall3);
+          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "- ... it was the incoming phone call which went away", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "- ... it was the incoming phone call which went away", buf, 2u);
           }
 
           view2 = [(PHCarPlayMainInCallViewController *)selfCopy view];
           superview2 = [view2 superview];
-          v113[0] = _NSConcreteStackBlock;
-          v113[1] = 3221225472;
-          v113[2] = sub_10014AA48;
-          v113[3] = &unk_100356988;
-          v113[4] = selfCopy;
-          [UIView transitionWithView:superview2 duration:2097280 options:v113 animations:0 completion:0.5];
+          v123[0] = _NSConcreteStackBlock;
+          v123[1] = 3221225472;
+          v123[2] = sub_10014AA48;
+          v123[3] = &unk_100356988;
+          v123[4] = selfCopy;
+          [UIView transitionWithView:superview2 duration:2097280 options:v123 animations:0 completion:0.5];
 
-          v69 = selfCopy;
+          v75 = selfCopy;
         }
 
-        primaryCalls5 = [(PHCarPlayMainInCallViewController *)v69 primaryCalls];
-        if ([primaryCalls5 containsObject:v109])
+        primaryCalls5 = [(PHCarPlayMainInCallViewController *)v75 primaryCalls];
+        if ([primaryCalls5 containsObject:v119])
         {
-          primaryCalls6 = [(PHCarPlayMainInCallViewController *)v69 primaryCalls];
-          v85 = [primaryCalls6 count];
-          v86 = [v108 count];
+          primaryCalls6 = [(PHCarPlayMainInCallViewController *)v75 primaryCalls];
+          v94 = [primaryCalls6 count];
+          v95 = [v118 count];
 
-          v69 = selfCopy;
-          if (v85 == v86)
+          v75 = selfCopy;
+          if (v94 == v95)
           {
             [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
           }
@@ -1130,20 +1131,20 @@ LABEL_26:
         {
         }
 
-        primaryCalls7 = [(PHCarPlayMainInCallViewController *)v69 primaryCalls];
-        if (([primaryCalls7 containsObject:v109] & 1) == 0)
+        primaryCalls7 = [(PHCarPlayMainInCallViewController *)v75 primaryCalls];
+        if (([primaryCalls7 containsObject:v119] & 1) == 0)
         {
           goto LABEL_115;
         }
 
-        primaryCalls8 = [(PHCarPlayMainInCallViewController *)v69 primaryCalls];
-        v89 = [primaryCalls8 count];
-        v90 = [v108 count];
+        primaryCalls8 = [(PHCarPlayMainInCallViewController *)v75 primaryCalls];
+        v98 = [primaryCalls8 count];
+        v99 = [v118 count];
 
-        v91 = v89 > v90;
-        primaryCalls2 = v108;
-        v69 = selfCopy;
-        if (!v91)
+        v100 = v98 > v99;
+        primaryCalls2 = v118;
+        v75 = selfCopy;
+        if (!v100)
         {
           goto LABEL_120;
         }
@@ -1152,15 +1153,15 @@ LABEL_26:
         primaryCalls7 = [(PHCarPlayMainInCallViewController *)selfCopy galleryView];
         primaryCalls9 = [(PHCarPlayMainInCallViewController *)selfCopy primaryCalls];
         galleryView2 = primaryCalls9;
-        if (v109)
+        if (v119)
         {
-          v134 = v109;
-          lastObject2 = [NSArray arrayWithObjects:&v134 count:1];
-          v95 = [galleryView2 arrayByExcludingObjectsInArray:lastObject2];
-          lastObject = [v95 lastObject];
+          v144 = v119;
+          lastObject2 = [NSArray arrayWithObjects:&v144 count:1];
+          v104 = [galleryView2 arrayByExcludingObjectsInArray:lastObject2];
+          lastObject = [v104 lastObject];
           [primaryCalls7 addPrimaryPhoneCall:lastObject animated:1];
 
-          v69 = selfCopy;
+          v75 = selfCopy;
         }
 
         else
@@ -1172,49 +1173,50 @@ LABEL_26:
 LABEL_114:
 LABEL_115:
 
-        primaryCalls2 = v108;
+        primaryCalls2 = v118;
 LABEL_120:
-        [(PHCarPlayMainInCallViewController *)v69 updateButtonsViewState];
+        [(PHCarPlayMainInCallViewController *)v75 updateButtonsViewState];
 
-        conferenceParticipants2 = v106;
-        incomingCall2 = v109;
+        conferenceParticipants2 = v116;
+        incomingCall2 = v119;
         goto LABEL_121;
       }
 
-      if ([v108 count] || !objc_msgSend(v47, "count"))
+      if ([v118 count] || (v106 = objc_msgSend(v53, "count")) == 0)
       {
-        if ([v108 count] == 1 && -[NSObject count](v45, "count") == 1 && !objc_msgSend(v46, "count"))
+        if ([v118 count] == 1 && -[NSObject count](v51, "count") == 1 && !objc_msgSend(v52, "count"))
         {
-          v102 = sub_100004F84();
-          if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+          v113 = sub_100004F84(0);
+          if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v102, OS_LOG_TYPE_DEFAULT, "- addition of new call", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "- addition of new call", buf, 2u);
           }
 
           [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
           view = [(PHCarPlayMainInCallViewController *)selfCopy galleryView];
-          lastObject3 = [v45 lastObject];
+          lastObject3 = [v51 lastObject];
           [view addPrimaryPhoneCall:lastObject3 animated:1];
         }
 
         else
         {
-          lastObject4 = [v46 lastObject];
-          v73 = [phoneCallsCopy containsObject:lastObject4];
+          lastObject4 = [v52 lastObject];
+          v81 = [phoneCallsCopy containsObject:lastObject4];
 
-          if (!v73)
+          if (!v81)
           {
-            if ([v46 count] != 1)
+            if ([v52 count] != 1)
             {
-              if ([v47 count] || (v104 = objc_msgSend(phoneCallsCopy, "count"), v110) || v104 || !v109)
+              v110 = [v53 count];
+              if (v110 || (v110 = [phoneCallsCopy count], v120) || v110 || !v119)
               {
-                v100 = sub_100004F84();
-                v41 = v107;
-                if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+                v111 = sub_100004F84(v110);
+                v46 = v117;
+                if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "- catch-all reload", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v111, OS_LOG_TYPE_DEFAULT, "- catch-all reload", buf, 2u);
                 }
 
                 [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
@@ -1224,12 +1226,12 @@ LABEL_120:
 
               else
               {
-                v105 = sub_100004F84();
-                v41 = v107;
-                if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
+                v115 = sub_100004F84(0);
+                v46 = v117;
+                if (os_log_type_enabled(v115, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_DEFAULT, "- incoming call was declined, we'll leave the UI as it is to animate out", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v115, OS_LOG_TYPE_DEFAULT, "- incoming call was declined, we'll leave the UI as it is to animate out", buf, 2u);
                 }
 
                 [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
@@ -1238,16 +1240,16 @@ LABEL_120:
               goto LABEL_120;
             }
 
-            v98 = sub_100004F84();
-            if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+            v108 = sub_100004F84(1);
+            if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "- removed calls contains an object, ending it", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "- removed calls contains an object, ending it", buf, 2u);
             }
 
             [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
-            primaryCalls7 = [v46 lastObject];
-            v41 = v107;
+            primaryCalls7 = [v52 lastObject];
+            v46 = v117;
             if ([primaryCalls7 disconnectedReason] == 14)
             {
               [(PHCarPlayMainInCallViewController *)selfCopy setFailedCall:primaryCalls7];
@@ -1267,11 +1269,11 @@ LABEL_120:
             goto LABEL_114;
           }
 
-          v74 = sub_100004F84();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+          v83 = sub_100004F84(v82);
+          if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "- a removed call became a conference participant, merging", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "- a removed call became a conference participant, merging", buf, 2u);
           }
 
           [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
@@ -1282,11 +1284,11 @@ LABEL_120:
 
       else
       {
-        v97 = sub_100004F84();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+        v107 = sub_100004F84(v106);
+        if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v97, OS_LOG_TYPE_DEFAULT, "- initial call, reloading view", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "- initial call, reloading view", buf, 2u);
         }
 
         [(PHCarPlayMainInCallViewController *)selfCopy setCurrentMode:0];
@@ -1295,15 +1297,15 @@ LABEL_120:
       }
     }
 
-    v41 = v107;
+    v46 = v117;
     goto LABEL_120;
   }
 
-  v45 = sub_100004F84();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+  v51 = sub_100004F84(v50);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "-- CarPlay: No change to the phone calls, returning early.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "-- CarPlay: No change to the phone calls, returning early.", buf, 2u);
   }
 
 LABEL_121:
@@ -1669,11 +1671,11 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requesting delegate for dismissal since there are no held calls", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Requesting delegate for dismissal since there are no held calls", buf, 2u);
     }
 
     delegate = [(PHCarPlayMainInCallViewController *)self delegate];
@@ -1703,10 +1705,10 @@ LABEL_11:
     frontmostAudioOrVideoCall = [callContainer3 callWithStatus:2];
 
     callContainer4 = [(PHCarPlayMainInCallViewController *)self callContainer];
-    v15 = [callContainer4 callWithStatus:1];
+    v16 = [callContainer4 callWithStatus:1];
 
     callCenter2 = [(PHCarPlayMainInCallViewController *)self callCenter];
-    [callCenter2 groupCall:frontmostAudioOrVideoCall withOtherCall:v15];
+    [callCenter2 groupCall:frontmostAudioOrVideoCall withOtherCall:v16];
 
     goto LABEL_11;
   }
@@ -1757,15 +1759,15 @@ LABEL_20:
     {
       if ([incomingCall3 isVideo])
       {
-        v24 = 4;
+        v25 = 4;
       }
 
       else
       {
-        v24 = 0;
+        v25 = 0;
       }
 
-      [(PHCarPlayMainInCallViewController *)self answerIncomingCallWithBehavior:v24];
+      [(PHCarPlayMainInCallViewController *)self answerIncomingCallWithBehavior:v25];
       goto LABEL_16;
     }
 
@@ -1778,8 +1780,8 @@ LABEL_20:
       {
         callCenter3 = +[TUCallCenter sharedInstance];
         delegate = [(PHCarPlayMainInCallViewController *)self incomingCall];
-        v39 = [callCenter3 activeConversationForCall:delegate];
-        [(PHCarPlayMainInCallViewController *)self answerIncomingConversation:v39];
+        v41 = [callCenter3 activeConversationForCall:delegate];
+        [(PHCarPlayMainInCallViewController *)self answerIncomingConversation:v41];
 
         goto LABEL_8;
       }
@@ -1789,7 +1791,7 @@ LABEL_20:
     {
     }
 
-    callCenter4 = sub_100004F84();
+    callCenter4 = sub_100004F84(v40);
     if (os_log_type_enabled(callCenter4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1819,45 +1821,45 @@ LABEL_20:
     replyWithMessageStore = [(PHCarPlayMainInCallViewController *)self replyWithMessageStore];
     callCenter3 = [replyWithMessageStore cannedReplyActionSheetOptions];
 
-    v29 = +[NSBundle mainBundle];
-    v30 = [v29 localizedStringForKey:@"CARPLAY_REPLY_WITH_MESSAGE_TITLE" value:&stru_100361FD0 table:@"PHCarPlay"];
-    delegate = [UIAlertController _alertControllerWithTitle:v30 message:0];
+    v30 = +[NSBundle mainBundle];
+    v31 = [v30 localizedStringForKey:@"CARPLAY_REPLY_WITH_MESSAGE_TITLE" value:&stru_100361FD0 table:@"PHCarPlay"];
+    delegate = [UIAlertController _alertControllerWithTitle:v31 message:0];
 
     [delegate setPreferredStyle:0];
     [delegate setModalPresentationStyle:7];
-    v31 = +[NSBundle mainBundle];
-    v32 = [v31 localizedStringForKey:@"CARPLAY_REPLY_TEXT_MESSAGE_TITLE" value:&stru_100361FD0 table:@"PHCarPlay"];
+    v32 = +[NSBundle mainBundle];
+    v33 = [v32 localizedStringForKey:@"CARPLAY_REPLY_TEXT_MESSAGE_TITLE" value:&stru_100361FD0 table:@"PHCarPlay"];
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = sub_10014C08C;
+    v54[3] = &unk_100356988;
+    v54[4] = self;
+    [delegate _addActionWithTitle:v33 style:0 handler:v54];
+
+    v34 = [callCenter3 objectAtIndexedSubscript:0];
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_10014C110;
+    v53[3] = &unk_100356988;
+    v53[4] = self;
+    [delegate _addActionWithTitle:v34 style:0 handler:v53];
+
+    v35 = [callCenter3 objectAtIndexedSubscript:1];
     v52[0] = _NSConcreteStackBlock;
     v52[1] = 3221225472;
-    v52[2] = sub_10014C08C;
+    v52[2] = sub_10014C194;
     v52[3] = &unk_100356988;
     v52[4] = self;
-    [delegate _addActionWithTitle:v32 style:0 handler:v52];
+    [delegate _addActionWithTitle:v35 style:0 handler:v52];
 
-    v33 = [callCenter3 objectAtIndexedSubscript:0];
+    v36 = TelephonyUIBundle();
+    v37 = [v36 localizedStringForKey:@"CANCEL" value:&stru_100361FD0 table:@"General"];
     v51[0] = _NSConcreteStackBlock;
     v51[1] = 3221225472;
-    v51[2] = sub_10014C110;
+    v51[2] = sub_10014C218;
     v51[3] = &unk_100356988;
     v51[4] = self;
-    [delegate _addActionWithTitle:v33 style:0 handler:v51];
-
-    v34 = [callCenter3 objectAtIndexedSubscript:1];
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_10014C194;
-    v50[3] = &unk_100356988;
-    v50[4] = self;
-    [delegate _addActionWithTitle:v34 style:0 handler:v50];
-
-    v35 = TelephonyUIBundle();
-    v36 = [v35 localizedStringForKey:@"CANCEL" value:&stru_100361FD0 table:@"General"];
-    v49[0] = _NSConcreteStackBlock;
-    v49[1] = 3221225472;
-    v49[2] = sub_10014C218;
-    v49[3] = &unk_100356988;
-    v49[4] = self;
-    [delegate _addActionWithTitle:v36 style:1 handler:v49];
+    [delegate _addActionWithTitle:v37 style:1 handler:v51];
 
     [(PHCarPlayMainInCallViewController *)self presentViewController:delegate animated:1 completion:0];
     goto LABEL_8;
@@ -1882,23 +1884,23 @@ LABEL_31:
   if ([tappedCopy inCallButtonType] == 11)
   {
     selfCopy3 = self;
-    v41 = 0;
+    v43 = 0;
 LABEL_50:
-    [(PHCarPlayMainInCallViewController *)selfCopy3 answerIncomingCallWithBehavior:v41];
+    [(PHCarPlayMainInCallViewController *)selfCopy3 answerIncomingCallWithBehavior:v43];
     goto LABEL_17;
   }
 
   if ([tappedCopy inCallButtonType] == 12)
   {
     selfCopy3 = self;
-    v41 = 2;
+    v43 = 2;
     goto LABEL_50;
   }
 
   if ([tappedCopy inCallButtonType] == 13)
   {
     selfCopy3 = self;
-    v41 = 1;
+    v43 = 1;
     goto LABEL_50;
   }
 
@@ -1914,7 +1916,7 @@ LABEL_50:
     callCenter5 = [(PHCarPlayMainInCallViewController *)self callCenter];
     failedCall = [(PHCarPlayMainInCallViewController *)self failedCall];
     dialRequestForRedial = [failedCall dialRequestForRedial];
-    v45 = [callCenter5 dialWithRequest:dialRequestForRedial];
+    v47 = [callCenter5 dialWithRequest:dialRequestForRedial];
 
     [(PHCarPlayMainInCallViewController *)self setFailedCall:0];
     callCenter4 = [(PHCarPlayMainInCallViewController *)self galleryView];
@@ -2075,7 +2077,7 @@ LABEL_17:
 - (void)limitedUIChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2094,15 +2096,14 @@ LABEL_17:
 
 - (void)_handleAlertButtonPressed
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "CarPlay alert button pressed", buf, 2u);
   }
 
-  [(PHCarPlayMainInCallViewController *)self _presentAlertForEmergencyCallFailure];
-  v4 = sub_100004F84();
+  v4 = sub_100004F84([(PHCarPlayMainInCallViewController *)self _presentAlertForEmergencyCallFailure]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -2157,7 +2158,7 @@ LABEL_17:
 
 - (void)shouldPlaySound
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2171,23 +2172,24 @@ LABEL_17:
 - (void)shouldCallAgain
 {
   _shouldPresentAlertUI = [(PHCarPlayMainInCallViewController *)self _shouldPresentAlertUI];
-  v4 = sub_100004F84();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = _shouldPresentAlertUI;
+  v5 = sub_100004F84(_shouldPresentAlertUI);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     failedCall = [(PHCarPlayMainInCallViewController *)self failedCall];
     uniqueProxyIdentifier = [failedCall uniqueProxyIdentifier];
     emergencyCallBeforePresentingStickyAlert = [(PHCarPlayMainInCallViewController *)self emergencyCallBeforePresentingStickyAlert];
     uniqueProxyIdentifier2 = [emergencyCallBeforePresentingStickyAlert uniqueProxyIdentifier];
-    v19[0] = 67109634;
-    v19[1] = _shouldPresentAlertUI;
-    v20 = 2112;
-    v21 = uniqueProxyIdentifier;
-    v22 = 2112;
-    v23 = uniqueProxyIdentifier2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Carplay call again button pressed, shouldReconnect: %d failedCall: %@ emergencyCallBeforePresentingStickyAlert: %@", v19, 0x1Cu);
+    v20[0] = 67109634;
+    v20[1] = v4;
+    v21 = 2112;
+    v22 = uniqueProxyIdentifier;
+    v23 = 2112;
+    v24 = uniqueProxyIdentifier2;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Carplay call again button pressed, shouldReconnect: %d failedCall: %@ emergencyCallBeforePresentingStickyAlert: %@", v20, 0x1Cu);
   }
 
-  if (_shouldPresentAlertUI)
+  if (v4)
   {
     primaryCalls = [(PHCarPlayMainInCallViewController *)self primaryCalls];
     firstObject = [primaryCalls firstObject];
@@ -2222,7 +2224,7 @@ LABEL_8:
 
     callCenter = [firstObject dialRequestForRedial];
     callCenter2 = [(PHCarPlayMainInCallViewController *)self callCenter];
-    v17 = [callCenter2 dialWithRequest:callCenter];
+    v18 = [callCenter2 dialWithRequest:callCenter];
 
     [(PHCarPlayMainInCallViewController *)self setFailedCall:0];
     [(PHCarPlayMainInCallViewController *)self setEmergencyCallBeforePresentingStickyAlert:0];

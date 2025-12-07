@@ -1,6 +1,7 @@
 @interface VSSpeechSpeakTask
 - (OS_dispatch_queue)taskAuxiliaryQueue;
 - (VSSpeechServiceDelegate)delegate;
+- (VSSpeechSpeakTask)init;
 - (VSSpeechSpeakTask)initWithRequest:(id)request;
 - (id)_fetchVoiceAsset_NoRetry;
 - (id)audioPowerProvider;
@@ -20,6 +21,7 @@
 - (void)resumePlayback;
 - (void)setObserverForWordTimings:(id)timings;
 - (void)speakCachedAudio;
+- (void)startPlaybackServiceWithAudioSessionID:(unsigned int)d;
 - (void)synthesizeAndSpeak;
 - (void)waitUntilAudioFinished;
 @end
@@ -43,7 +45,7 @@
 
 - (void)reportTimingInfo
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegate = [(VSSpeechSpeakTask *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -52,19 +54,17 @@
     delegate2 = [(VSSpeechSpeakTask *)self delegate];
     request = [(VSSpeechSpeakTask *)self request];
     timingInfos = [(VSSpeechSpeakTask *)self timingInfos];
-    [delegate2 speechRequest:request didReceiveTimingInfo:timingInfos];
+    [delegate2 speechRequest:? didReceiveTimingInfo:?];
 
     v8 = VSGetLogDefault();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      v11 = 134217984;
+      v10 = 134217984;
       requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
-      _os_log_debug_impl(&dword_2727E4000, v8, OS_LOG_TYPE_DEBUG, "Task %llu reported word time info", &v11, 0xCu);
+      _os_log_debug_impl(&dword_2727E4000, v8, OS_LOG_TYPE_DEBUG, "Task %llu reported word time info", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObserverForWordTimings:(id)timings
@@ -77,12 +77,9 @@
   {
     objc_initWeak(&location, self);
     playbackService = [(VSSpeechSpeakTask *)self playbackService];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke;
-    v8[3] = &unk_279E4B9C0;
+    v8 = MEMORY[0x277D85DD0];
     objc_copyWeak(&v9, &location);
-    [playbackService setBoundaryTimeObserverForTimingInfos:timingsCopy usingBlock:v8];
+    [playbackService setBoundaryTimeObserverForTimingInfos:v8 usingBlock:{3221225472, __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke, &unk_279E4B9C0}];
 
     objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
@@ -91,30 +88,30 @@
 
 void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
   {
     v5 = [WeakRetained delegate];
     v6 = [v4 request];
-    v7 = [v9 textRange];
-    [v5 speechRequest:v6 didStartWithMark:1 forRange:{v7, v8}];
+    [v7 textRange];
+    [v5 speechRequest:? didStartWithMark:? forRange:?];
   }
 }
 
 - (void)reportSpeechStart
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
   speechBeginTimestamp = [instrumentMetrics speechBeginTimestamp];
 
   if (!speechBeginTimestamp)
   {
     kdebug_trace();
-    v5 = mach_absolute_time();
+    mach_absolute_time();
     instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics2 setSpeechBeginTimestamp:v5];
+    [instrumentMetrics2 setSpeechBeginTimestamp:?];
 
     delegate = [(VSSpeechSpeakTask *)self delegate];
     LOBYTE(instrumentMetrics2) = objc_opt_respondsToSelector();
@@ -123,50 +120,47 @@ void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a
     {
       delegate2 = [(VSSpeechSpeakTask *)self delegate];
       request = [(VSSpeechSpeakTask *)self request];
-      [delegate2 speechRequestDidStart:request];
+      [delegate2 speechRequestDidStart:?];
 
-      v10 = VSGetLogDefault();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = VSGetLogDefault();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
         *buf = 134217984;
         requestCreatedTimestamp = [instrumentMetrics3 requestCreatedTimestamp];
-        _os_log_debug_impl(&dword_2727E4000, v10, OS_LOG_TYPE_DEBUG, "Task %llu started speaking", buf, 0xCu);
+        _os_log_debug_impl(&dword_2727E4000, v9, OS_LOG_TYPE_DEBUG, "Task %llu started speaking", buf, 0xCu);
       }
     }
 
     siriInstrumentation = [(VSSpeechSpeakTask *)self siriInstrumentation];
     instrumentMetrics4 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    sourceOfTTS = [instrumentMetrics4 sourceOfTTS];
+    [instrumentMetrics4 sourceOfTTS];
     instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     [instrumentMetrics5 timeToSpeakLatency];
-    v14 = v13;
     playbackService = [(VSSpeechSpeakTask *)self playbackService];
     outputRouteInfo = [playbackService outputRouteInfo];
     voiceSelection = [(VSSpeechSpeakTask *)self voiceSelection];
     voiceData = [voiceSelection voiceData];
-    type = [voiceData type];
+    [voiceData type];
     voiceSelection2 = [(VSSpeechSpeakTask *)self voiceSelection];
     voiceData2 = [voiceSelection2 voiceData];
-    footprint = [voiceData2 footprint];
+    [voiceData2 footprint];
     voiceSelection3 = [(VSSpeechSpeakTask *)self voiceSelection];
     voiceData3 = [voiceSelection3 voiceData];
     contentVersion = [voiceData3 contentVersion];
-    unsignedIntegerValue = [contentVersion unsignedIntegerValue];
+    [contentVersion unsignedIntegerValue];
     voiceResource = [(VSSpeechSpeakTask *)self voiceResource];
     contentVersion2 = [voiceResource contentVersion];
-    unsignedIntegerValue2 = [contentVersion2 unsignedIntegerValue];
+    [contentVersion2 unsignedIntegerValue];
     request2 = [(VSSpeechSpeakTask *)self request];
-    LOBYTE(v25) = [request2 shouldWhisper];
-    [siriInstrumentation instrumentSpeechStartedWithSource:sourceOfTTS customerPerceivedLatency:outputRouteInfo audioOutputRoute:type voiceType:footprint voiceFootprint:unsignedIntegerValue voiceVersion:unsignedIntegerValue2 resourceVersion:v14 isWhisper:v25];
+    LOBYTE(v18) = [request2 shouldWhisper];
+    [siriInstrumentation instrumentSpeechStartedWithSource:v18 customerPerceivedLatency:? audioOutputRoute:? voiceType:? voiceFootprint:? voiceVersion:? resourceVersion:? isWhisper:?];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportFinish
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   delegate = [(VSSpeechSpeakTask *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -174,34 +168,34 @@ void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a
   {
     delegate2 = [(VSSpeechSpeakTask *)self delegate];
     request = [(VSSpeechSpeakTask *)self request];
-    isCancelled = [(VSSpeechSpeakTask *)self isCancelled];
+    [(VSSpeechSpeakTask *)self isCancelled];
     phonemes = [(VSSpeechSpeakTask *)self phonemes];
-    v9 = [phonemes componentsJoinedByString:@" "];
+    v8 = [phonemes componentsJoinedByString:?];
     error = [(VSSpeechSpeakTask *)self error];
-    [delegate2 speechRequest:request didStopWithSuccess:isCancelled ^ 1u phonemesSpoken:v9 error:error];
+    [delegate2 speechRequest:? didStopWithSuccess:? phonemesSpoken:? error:?];
 
-    v11 = VSGetLogDefault();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v10 = VSGetLogDefault();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
       requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
       error2 = [(VSSpeechSpeakTask *)self error];
       *buf = 134218242;
-      v60 = requestCreatedTimestamp;
-      v61 = 2112;
-      v62 = error2;
-      _os_log_debug_impl(&dword_2727E4000, v11, OS_LOG_TYPE_DEBUG, "Task %llu reported finish, error: %@", buf, 0x16u);
+      v50 = requestCreatedTimestamp;
+      v51 = 2112;
+      v52 = error2;
+      _os_log_debug_impl(&dword_2727E4000, v10, OS_LOG_TYPE_DEBUG, "Task %llu reported finish, error: %@", buf, 0x16u);
     }
   }
 
-  v12 = MEMORY[0x277D79918];
+  v11 = MEMORY[0x277D79918];
   instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [v12 reportInstrumentMetrics:instrumentMetrics2];
+  [v11 reportInstrumentMetrics:?];
 
   error3 = [(VSSpeechSpeakTask *)self error];
   if (error3)
   {
-    v15 = error3;
+    v14 = error3;
     error4 = [(VSSpeechSpeakTask *)self error];
     if ([error4 code] == 400)
     {
@@ -215,12 +209,12 @@ void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a
       if (code != 501)
       {
         siriInstrumentation = [(VSSpeechSpeakTask *)self siriInstrumentation];
-        v45 = MEMORY[0x277CCABB0];
+        v37 = MEMORY[0x277CCABB0];
         error6 = [(VSSpeechSpeakTask *)self error];
-        v47 = [v45 numberWithInteger:{objc_msgSend(error6, "code")}];
-        v58 = v47;
-        v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
-        [siriInstrumentation instrumentSpeechFailedWithErrorCodes:v48];
+        [error6 code];
+        v48 = [v37 numberWithInteger:?];
+        v39 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+        [siriInstrumentation instrumentSpeechFailedWithErrorCodes:?];
 
         goto LABEL_21;
       }
@@ -233,7 +227,7 @@ void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a
   firstObject = [languages firstObject];
   request2 = [(VSSpeechSpeakTask *)self request];
   languageCode = [request2 languageCode];
-  if (![firstObject isEqualToString:languageCode])
+  if (![firstObject isEqualToString:?])
   {
 
     goto LABEL_14;
@@ -247,30 +241,30 @@ void __47__VSSpeechSpeakTask_setObserverForWordTimings___block_invoke(uint64_t a
     goto LABEL_16;
   }
 
-  v56 = voiceName;
+  v46 = voiceName;
   request4 = [(VSSpeechSpeakTask *)self request];
   voiceName2 = [request4 voiceName];
   voiceSelection2 = [(VSSpeechSpeakTask *)self voiceSelection];
   [voiceSelection2 voiceData];
-  v28 = v54 = request3;
-  name = [v28 name];
-  v57 = [voiceName2 isEqualToString:name];
+  v27 = v44 = request3;
+  name = [v27 name];
+  v47 = [voiceName2 isEqualToString:?];
 
-  if ((v57 & 1) == 0)
+  if ((v47 & 1) == 0)
   {
 LABEL_14:
     voiceSelection = [(VSSpeechSpeakTask *)self siriInstrumentation];
     voiceData = [(VSSpeechSpeakTask *)self voiceSelection];
     languages = [voiceData voiceData];
     firstObject = [(VSSpeechSpeakTask *)self voiceResource];
-    [voiceSelection instrumentVoiceFallbackOccurredWithVoice:languages resource:firstObject];
+    [voiceSelection instrumentVoiceFallbackOccurredWithVoice:? resource:?];
 LABEL_16:
   }
 
-  isCancelled2 = [(VSSpeechSpeakTask *)self isCancelled];
+  isCancelled = [(VSSpeechSpeakTask *)self isCancelled];
   siriInstrumentation2 = [(VSSpeechSpeakTask *)self siriInstrumentation];
   siriInstrumentation = siriInstrumentation2;
-  if (isCancelled2)
+  if (isCancelled)
   {
     [siriInstrumentation2 instrumentSpeechCancelled];
   }
@@ -279,27 +273,23 @@ LABEL_16:
   {
     instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     [instrumentMetrics3 audioDuration];
-    v35 = v34;
     instrumentMetrics4 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     [instrumentMetrics4 ttsSynthesisLatency];
-    v38 = v37;
     instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     [instrumentMetrics5 cappedRealTimeFactor];
-    v41 = v40;
     instrumentMetrics6 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    promptCount = [instrumentMetrics6 promptCount];
+    [instrumentMetrics6 promptCount];
     instrumentMetrics7 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [siriInstrumentation instrumentSpeechEndedWithAudioDuration:promptCount synthesisLatency:objc_msgSend(instrumentMetrics7 realTimeFactor:"errorCode") promptCount:v35 errorCode:{v38, v41}];
+    [instrumentMetrics7 errorCode];
+    [siriInstrumentation instrumentSpeechEndedWithAudioDuration:? synthesisLatency:? realTimeFactor:? promptCount:? errorCode:?];
   }
 
 LABEL_21:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportInstrumentMetrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   delegate = [(VSSpeechSpeakTask *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -311,43 +301,43 @@ LABEL_21:
       instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
       requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
       instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      v17 = 134218242;
-      v18 = requestCreatedTimestamp;
-      v19 = 2112;
-      v20 = instrumentMetrics2;
-      _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_DEFAULT, "Device task %llu: Instrument metric: %@", &v17, 0x16u);
+      v16 = 134218242;
+      v17 = requestCreatedTimestamp;
+      v18 = 2112;
+      v19 = instrumentMetrics2;
+      _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_DEFAULT, "Device task %llu: Instrument metric: %@", &v16, 0x16u);
     }
 
     delegate2 = [(VSSpeechSpeakTask *)self delegate];
     request = [(VSSpeechSpeakTask *)self request];
     instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [delegate2 speechRequest:request didReportInstrumentMetrics:instrumentMetrics3];
+    [delegate2 speechRequest:? didReportInstrumentMetrics:?];
 
     v12 = +[VSDiagnosticService defaultService];
     instrumentMetrics4 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     dictionaryMetrics = [instrumentMetrics4 dictionaryMetrics];
     instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [v12 dumpInstrumentMetrics:dictionaryMetrics withTimestamp:{objc_msgSend(instrumentMetrics5, "requestCreatedTimestamp")}];
+    [instrumentMetrics5 requestCreatedTimestamp];
+    [v12 dumpInstrumentMetrics:? withTimestamp:?];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synthesizeAndSpeak
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   [(VSSpeechSpeakTask *)self prepareForSynthesis];
   error = [(VSSpeechSpeakTask *)self error];
 
   if (!error)
   {
     request = [(VSSpeechSpeakTask *)self request];
-    -[VSSpeechSpeakTask startPlaybackServiceWithAudioSessionID:](self, "startPlaybackServiceWithAudioSessionID:", [request audioSessionID]);
+    [request audioSessionID];
+    [(VSSpeechSpeakTask *)self startPlaybackServiceWithAudioSessionID:?];
 
-    v68[0] = 0;
-    v68[1] = v68;
-    v68[2] = 0x2020000000;
-    v68[3] = mach_absolute_time();
+    v51[0] = 0;
+    v51[1] = v51;
+    v51[2] = 0x2020000000;
+    v51[3] = mach_absolute_time();
     voiceSelection = [(VSSpeechSpeakTask *)self voiceSelection];
     voiceData = [voiceSelection voiceData];
     v7 = [voiceData type] == 4;
@@ -355,7 +345,7 @@ LABEL_21:
     if (v7)
     {
       v8 = dispatch_semaphore_create(0);
-      [(VSSpeechSpeakTask *)self setNeuralPlaybackSemaphore:v8];
+      [(VSSpeechSpeakTask *)self setNeuralPlaybackSemaphore:?];
 
       taskAuxiliaryQueue = [(VSSpeechSpeakTask *)self taskAuxiliaryQueue];
       block[0] = MEMORY[0x277D85DD0];
@@ -370,78 +360,68 @@ LABEL_21:
 
     if (!error2 && ([(VSSpeechSpeakTask *)self isCancelled]& 1) == 0)
     {
-      v11 = mach_absolute_time();
+      mach_absolute_time();
       instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      [instrumentMetrics setSynthesisBeginTimestamp:v11];
+      [instrumentMetrics setSynthesisBeginTimestamp:?];
 
       array = [MEMORY[0x277CBEB18] array];
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
-      v64 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       request2 = [(VSSpeechSpeakTask *)self request];
       customResourceURLs = [request2 customResourceURLs];
 
-      v16 = [customResourceURLs countByEnumeratingWithState:&v63 objects:v76 count:16];
-      if (v16)
+      v15 = [customResourceURLs countByEnumeratingWithState:? objects:? count:?];
+      if (v15)
       {
-        v17 = *v64;
+        v16 = *v47;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v15; i = (i + 1))
           {
-            if (*v64 != v17)
+            if (*v47 != v16)
             {
               objc_enumerationMutation(customResourceURLs);
             }
 
-            v19 = *(*(&v63 + 1) + 8 * i);
             engine = [(VSSpeechSpeakTask *)self engine];
-            v21 = [engine loadResource:v19 error:0];
+            v19 = [engine loadResource:? error:?];
 
-            if (v21)
+            if (v19)
             {
-              [array addObject:v21];
+              [array addObject:?];
             }
           }
 
-          v16 = [customResourceURLs countByEnumeratingWithState:&v63 objects:v76 count:16];
+          v15 = [customResourceURLs countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v16);
+        while (v15);
       }
 
       engine2 = [(VSSpeechSpeakTask *)self engine];
-      v23 = engine2;
       if (engine2)
       {
-        [engine2 asbd];
-        LODWORD(v24) = DWORD2(v61);
-        v25 = v24;
+        [v44 asbd];
       }
 
       else
       {
-        v62 = 0;
-        v60 = 0u;
-        v61 = 0u;
-        v25 = 0.0;
+        v45 = 0;
+        memset(v44, 0, sizeof(v44));
       }
 
       engine3 = [(VSSpeechSpeakTask *)self engine];
-      v27 = engine3;
       if (engine3)
       {
-        [engine3 asbd];
-        v28 = *&v57;
+        [v42 asbd];
       }
 
       else
       {
-        v59 = 0;
-        v57 = 0u;
-        v58 = 0u;
-        v28 = 0.0;
+        v43 = 0;
+        memset(v42, 0, sizeof(v42));
       }
 
       kdebug_trace();
@@ -449,19 +429,12 @@ LABEL_21:
       request3 = [(VSSpeechSpeakTask *)self request];
       utterance = [request3 utterance];
       request4 = [(VSSpeechSpeakTask *)self request];
-      canLogRequestText = [request4 canLogRequestText];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_45;
-      v56[3] = &unk_279E4B4F8;
-      v56[4] = self;
-      v56[5] = v68;
-      v56[6] = (v28 * v25);
-      v34 = [engine4 synthesizeText:utterance loggable:canLogRequestText callback:v56];
+      [request4 canLogRequestText];
+      v26 = [engine4 synthesizeText:? loggable:? callback:?];
 
-      if (v34)
+      if (v26)
       {
-        [(VSSpeechSpeakTask *)self setError:v34];
+        [(VSSpeechSpeakTask *)self setError:?];
       }
 
       neuralPlaybackSemaphore = [(VSSpeechSpeakTask *)self neuralPlaybackSemaphore];
@@ -472,62 +445,55 @@ LABEL_21:
         dispatch_semaphore_signal(neuralPlaybackSemaphore2);
       }
 
-      v37 = VSGetLogDefault();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v29 = VSGetLogDefault();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         request5 = [(VSSpeechSpeakTask *)self request];
         utterance2 = [request5 utterance];
-        v40 = [utterance2 length];
+        v32 = [utterance2 length];
         streamAudio = [(VSSpeechSpeakTask *)self streamAudio];
         [streamAudio duration];
-        v43 = v42;
+        v35 = v34;
         error3 = [(VSSpeechSpeakTask *)self error];
         *buf = 134218498;
-        v71 = v40;
-        v72 = 2048;
-        v73 = v43;
-        v74 = 2112;
-        v75 = error3;
-        _os_log_impl(&dword_2727E4000, v37, OS_LOG_TYPE_INFO, "SpeakTask done synthesize %lu characters, audio duration %f, error %@", buf, 0x20u);
+        v53 = v32;
+        v54 = 2048;
+        v55 = v35;
+        v56 = 2112;
+        v57 = error3;
+        _os_log_impl(&dword_2727E4000, v29, OS_LOG_TYPE_INFO, "SpeakTask done synthesize %lu characters, audio duration %f, error %@", buf, 0x20u);
       }
 
       notify_post([*MEMORY[0x277D79A18] UTF8String]);
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v45 = array;
-      v46 = [v45 countByEnumeratingWithState:&v52 objects:v69 count:16];
-      if (v46)
+      v37 = array;
+      v38 = [v37 countByEnumeratingWithState:0 objects:? count:?];
+      if (v38)
       {
-        v47 = *v53;
+        v39 = MEMORY[0];
         do
         {
-          for (j = 0; j != v46; ++j)
+          for (j = 0; j != v38; j = (j + 1))
           {
-            if (*v53 != v47)
+            if (MEMORY[0] != v39)
             {
-              objc_enumerationMutation(v45);
+              objc_enumerationMutation(v37);
             }
 
-            v49 = *(*(&v52 + 1) + 8 * j);
             engine5 = [(VSSpeechSpeakTask *)self engine];
-            [engine5 unloadResource:v49];
+            [engine5 unloadResource:?];
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v52 objects:v69 count:16];
+          v38 = [v37 countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v46);
+        while (v38);
       }
 
       [(VSSpeechSpeakTask *)self waitUntilAudioFinished];
     }
 
-    _Block_object_dispose(v68, 8);
+    _Block_object_dispose(v51, 8);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke(uint64_t a1)
@@ -555,160 +521,154 @@ id __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_45(uint64_t a1, void
   v4 = [v3 state];
   if (v4 == 3)
   {
-    v7 = mach_absolute_time();
+    mach_absolute_time();
+    v7 = [*(a1 + 32) instrumentMetrics];
+    [v7 setSynthesisEndTimestamp:?];
+
+    if (([v3 neuralDidFallback] & 1) == 0)
+    {
+      [v3 hasAudioClick];
+    }
+
+    [*(a1 + 32) setSynthesisHasIssue:?];
+    [v3 numOfPromptsTriggered];
     v8 = [*(a1 + 32) instrumentMetrics];
-    [v8 setSynthesisEndTimestamp:v7];
-
-    if ([v3 neuralDidFallback])
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-      v9 = [v3 hasAudioClick];
-    }
-
-    [*(a1 + 32) setSynthesisHasIssue:v9];
-    v10 = [v3 numOfPromptsTriggered];
-    v11 = [*(a1 + 32) instrumentMetrics];
-    [v11 setPromptCount:v10];
+    [v8 setPromptCount:?];
 
     kdebug_trace();
-    v12 = [*(a1 + 32) timingInfos];
+    v9 = [*(a1 + 32) timingInfos];
 
-    if (!v12)
+    if (!v9)
     {
-      v13 = [v3 wordTimingInfos];
-      [*(a1 + 32) setTimingInfos:v13];
+      v10 = [v3 wordTimingInfos];
+      [*(a1 + 32) setTimingInfos:?];
 
-      v14 = MEMORY[0x277D799B8];
-      v15 = [*(a1 + 32) timingInfos];
-      v16 = [*(a1 + 32) request];
-      v17 = [v16 contextInfo];
-      [v14 adjustWordTimingInfo:v15 forContext:v17];
+      v11 = MEMORY[0x277D799B8];
+      v12 = [*(a1 + 32) timingInfos];
+      v13 = [*(a1 + 32) request];
+      v14 = [v13 contextInfo];
+      [v11 adjustWordTimingInfo:? forContext:?];
     }
 
-    v18 = *(a1 + 32);
-    v19 = [v18 timingInfos];
-    [v18 setObserverForWordTimings:v19];
+    v15 = *(a1 + 32);
+    v16 = [v15 timingInfos];
+    [v15 setObserverForWordTimings:?];
 
-    v20 = [v3 phonemes];
-    [*(a1 + 32) setPhonemes:v20];
+    v17 = [v3 phonemes];
+    [*(a1 + 32) setPhonemes:?];
 
     [*(a1 + 32) reportTimingInfo];
-    v21 = [v3 hasAlignmentStall];
-    v22 = [*(a1 + 32) instrumentMetrics];
-    [v22 setNeuralAlignmentStall:v21];
+    [v3 hasAlignmentStall];
+    v18 = [*(a1 + 32) instrumentMetrics];
+    [v18 setNeuralAlignmentStall:?];
 
-    v23 = [v3 hasAudioClick];
-    v24 = [*(a1 + 32) instrumentMetrics];
-    [v24 setNeuralAudioClick:v23];
+    [v3 hasAudioClick];
+    v19 = [*(a1 + 32) instrumentMetrics];
+    [v19 setNeuralAudioClick:?];
 
-    v25 = [v3 neuralDidFallback];
-    v26 = [*(a1 + 32) instrumentMetrics];
-    [v26 setNeuralFallback:v25];
+    [v3 neuralDidFallback];
+    v20 = [*(a1 + 32) instrumentMetrics];
+    [v20 setNeuralFallback:?];
 
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   if (v4 != 2)
   {
-LABEL_11:
+LABEL_10:
     v6 = 0;
-    goto LABEL_15;
+    goto LABEL_14;
   }
 
   v5 = [*(a1 + 32) error];
   if (!v5)
   {
-    v27 = objc_autoreleasePoolPush();
-    v28 = [v3 mutablePCMData];
-    v29 = [*(a1 + 32) voiceBooster];
-    v30 = [v29 processData:v28];
+    v21 = objc_autoreleasePoolPush();
+    v22 = [v3 mutablePCMData];
+    v23 = [*(a1 + 32) voiceBooster];
+    v24 = [v23 processData:?];
 
-    if (v30)
+    if (v24)
     {
-      v6 = v30;
+      v6 = v24;
 
-      objc_autoreleasePoolPop(v27);
-      goto LABEL_14;
+      objc_autoreleasePoolPop(v21);
+      goto LABEL_13;
     }
 
-    v32 = [*(a1 + 32) neuralPlaybackSemaphore];
+    v26 = [*(a1 + 32) neuralPlaybackSemaphore];
 
-    if (v32)
+    if (v26)
     {
-      v33 = mach_absolute_time();
-      v34 = *(*(*(a1 + 40) + 8) + 24);
-      v35 = [v28 length] / *(a1 + 48);
+      v27 = mach_absolute_time();
+      v28 = [v22 length] / *(a1 + 48);
       VSAbsoluteTimeToSecond();
-      *(*(*(a1 + 40) + 8) + 24) = v33;
-      if (v35 / v36 > 1.2)
+      *(*(*(a1 + 40) + 8) + 24) = v27;
+      if (v28 / v29 > 1.2)
       {
-        v37 = [*(a1 + 32) neuralPlaybackSemaphore];
-        dispatch_semaphore_signal(v37);
+        v30 = [*(a1 + 32) neuralPlaybackSemaphore];
+        dispatch_semaphore_signal(v30);
       }
     }
 
-    v38 = [*(a1 + 32) streamAudio];
-    [v38 appendAudioData:v28 packetCount:0 packetDescriptions:0];
+    v31 = [*(a1 + 32) streamAudio];
+    [v31 appendAudioData:? packetCount:? packetDescriptions:?];
 
-    v39 = [*(a1 + 32) taskAuxiliaryQueue];
+    v32 = [*(a1 + 32) taskAuxiliaryQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_2;
     block[3] = &unk_279E4BC28;
     block[4] = *(a1 + 32);
-    v50 = v28;
-    v40 = v28;
-    dispatch_async(v39, block);
+    v43 = v22;
+    v33 = v22;
+    dispatch_async(v32, block);
 
-    objc_autoreleasePoolPop(v27);
-    v41 = [*(a1 + 32) taskAuxiliaryQueue];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_3;
-    v48[3] = &unk_279E4BAC8;
-    v48[4] = *(a1 + 32);
-    dispatch_async(v41, v48);
+    objc_autoreleasePoolPop(v21);
+    v34 = [*(a1 + 32) taskAuxiliaryQueue];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_3;
+    v41[3] = &unk_279E4BAC8;
+    v41[4] = *(a1 + 32);
+    dispatch_async(v34, v41);
 
-    v42 = [*(a1 + 32) timingInfos];
-    if (!v42)
+    v35 = [*(a1 + 32) timingInfos];
+    if (!v35)
     {
-      v43 = objc_alloc(MEMORY[0x277CBEA60]);
-      v44 = [v3 wordTimingInfos];
-      v42 = [v43 initWithArray:v44 copyItems:1];
+      v36 = objc_alloc(MEMORY[0x277CBEA60]);
+      v37 = [v3 wordTimingInfos];
+      v35 = [v36 initWithArray:? copyItems:?];
 
-      v45 = MEMORY[0x277D799B8];
-      v46 = [*(a1 + 32) request];
-      v47 = [v46 contextInfo];
-      [v45 adjustWordTimingInfo:v42 forContext:v47];
+      v38 = MEMORY[0x277D799B8];
+      v39 = [*(a1 + 32) request];
+      v40 = [v39 contextInfo];
+      [v38 adjustWordTimingInfo:? forContext:?];
     }
 
-    [*(a1 + 32) setObserverForWordTimings:v42];
+    [*(a1 + 32) setObserverForWordTimings:?];
 
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   v6 = v5;
-LABEL_14:
+LABEL_13:
 
-LABEL_15:
+LABEL_14:
 
   return v6;
 }
 
 void __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) playbackService];
-  [v2 enqueue:*(a1 + 40) packetCount:0 packetDescriptions:0];
+  v1 = [*(a1 + 32) playbackService];
+  [v1 enqueue:? packetCount:? packetDescriptions:?];
 }
 
 - (void)cancel
 {
-  v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"VoiceServicesErrorDomain" code:400 userInfo:0];
-  [(VSSpeechSpeakTask *)self setError:v3];
+  v3 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+  [(VSSpeechSpeakTask *)self setError:?];
 
   if (([(VSSpeechSpeakTask *)self isExecuting]& 1) != 0 || ([(VSSpeechSpeakTask *)self isCancelled]& 1) != 0 || ([(VSSpeechSpeakTask *)self isFinished]& 1) != 0)
   {
@@ -726,7 +686,7 @@ void __39__VSSpeechSpeakTask_synthesizeAndSpeak__block_invoke_2(uint64_t a1)
   }
 
   engine = [(VSSpeechSpeakTask *)self engine];
-  [engine stopAtMarker:0];
+  [engine stopAtMarker:?];
 
   neuralPlaybackSemaphore = [(VSSpeechSpeakTask *)self neuralPlaybackSemaphore];
 
@@ -753,7 +713,7 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
 
 - (void)main
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   kdebug_trace();
   v3 = VSGetLogDefault();
@@ -768,7 +728,7 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
   cachingService = [(VSSpeechSpeakTask *)self cachingService];
   request = [(VSSpeechSpeakTask *)self request];
   text = [request text];
-  v7 = [cachingService popShortTermCacheForHash:text];
+  v7 = [cachingService popShortTermCacheForHash:?];
 
   if (v7)
   {
@@ -783,51 +743,50 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
     }
 
     instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics2 setIsServerTTS:1];
+    [instrumentMetrics2 setIsServerTTS:?];
 
     instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics3 setIsCacheHitFromMemory:1];
+    [instrumentMetrics3 setIsCacheHitFromMemory:?];
 
     instrumentMetrics4 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics4 setSourceOfTTS:6];
+    [instrumentMetrics4 setSourceOfTTS:?];
 
     voiceKey = [v7 voiceKey];
     instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics5 setVoiceAssetKey:voiceKey];
+    [instrumentMetrics5 setVoiceAssetKey:?];
 
     voiceResourceKey = [v7 voiceResourceKey];
     instrumentMetrics6 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics6 setVoiceResourceAssetKey:voiceResourceKey];
+    [instrumentMetrics6 setVoiceResourceAssetKey:?];
 
     timingInfos = [v7 timingInfos];
-    [(VSSpeechSpeakTask *)self setTimingInfos:timingInfos];
+    [(VSSpeechSpeakTask *)self setTimingInfos:?];
 
     audio = [v7 audio];
     [audio duration];
-    v21 = v20;
     instrumentMetrics7 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics7 setAudioDuration:v21];
+    [instrumentMetrics7 setAudioDuration:?];
 
-    [(VSSpeechSpeakTask *)self setSpeechCache:v7];
+    [(VSSpeechSpeakTask *)self setSpeechCache:?];
   }
 
   else
   {
-    v23 = objc_opt_new();
+    v21 = objc_opt_new();
     request3 = [(VSSpeechSpeakTask *)self request];
     text2 = [request3 text];
     request4 = [(VSSpeechSpeakTask *)self request];
     languageCode = [request4 languageCode];
     request5 = [(VSSpeechSpeakTask *)self request];
     voiceName = [request5 voiceName];
-    v30 = [v23 estimatedTTSWordTimingForText:text2 withLanguage:languageCode voiceName:voiceName];
-    [(VSSpeechSpeakTask *)self setTimingInfos:v30];
+    v28 = [v21 estimatedTTSWordTimingForText:? withLanguage:? voiceName:?];
+    [(VSSpeechSpeakTask *)self setTimingInfos:?];
 
-    v31 = MEMORY[0x277D799B8];
+    v29 = MEMORY[0x277D799B8];
     timingInfos2 = [(VSSpeechSpeakTask *)self timingInfos];
     request6 = [(VSSpeechSpeakTask *)self request];
     contextInfo = [request6 contextInfo];
-    [v31 adjustWordTimingInfo:timingInfos2 forContext:contextInfo];
+    [v29 adjustWordTimingInfo:? forContext:?];
 
     [(VSSpeechSpeakTask *)self fetchVoiceResource];
     [(VSSpeechSpeakTask *)self fetchVoiceAsset];
@@ -836,7 +795,7 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
     if (!error)
     {
       cachingService2 = [(VSSpeechSpeakTask *)self cachingService];
-      [cachingService2 fetchCacheForTask:self];
+      [cachingService2 fetchCacheForTask:?];
     }
   }
 
@@ -861,15 +820,14 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
       {
         streamAudio = [(VSSpeechSpeakTask *)self streamAudio];
         [streamAudio duration];
-        v42 = v41;
         instrumentMetrics8 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-        [instrumentMetrics8 setAudioDuration:v42];
+        [instrumentMetrics8 setAudioDuration:?];
       }
     }
 
-    v44 = mach_absolute_time();
+    mach_absolute_time();
     instrumentMetrics9 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics9 setSpeechEndTimestamp:v44];
+    [instrumentMetrics9 setSpeechEndTimestamp:?];
 
     playbackService = [(VSSpeechSpeakTask *)self playbackService];
     LODWORD(instrumentMetrics9) = [playbackService discontinuedDuringPlayback];
@@ -877,21 +835,19 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
     if (instrumentMetrics9)
     {
       instrumentMetrics10 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      [instrumentMetrics10 setErrorCode:452];
+      [instrumentMetrics10 setErrorCode:?];
     }
 
     instrumentMetrics11 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics11 setIsSpeechRequest:1];
+    [instrumentMetrics11 setIsSpeechRequest:?];
   }
 
   if ([(VSSpeechSpeakTask *)self isCancelled])
   {
-    v49 = MEMORY[0x277CCA9B8];
-    v78 = *MEMORY[0x277CCA460];
-    v79 = @"Speech is cancelled/interrupted.";
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-    v51 = [v49 errorWithDomain:@"VoiceServicesErrorDomain" code:400 userInfo:v50];
-    [(VSSpeechSpeakTask *)self setError:v51];
+    v44 = MEMORY[0x277CCA9B8];
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v46 = [v44 errorWithDomain:? code:? userInfo:?];
+    [(VSSpeechSpeakTask *)self setError:?];
   }
 
   error4 = [(VSSpeechSpeakTask *)self error];
@@ -903,10 +859,10 @@ void __27__VSSpeechSpeakTask_cancel__block_invoke(uint64_t a1)
 
     if (streamAudio2)
     {
-      v54 = +[VSDiagnosticService defaultService];
+      v49 = +[VSDiagnosticService defaultService];
       streamAudio3 = [(VSSpeechSpeakTask *)self streamAudio];
       request7 = [(VSSpeechSpeakTask *)self request];
-      [v54 dumpStreamAudio:streamAudio3 forRequest:request7];
+      [v49 dumpStreamAudio:? forRequest:?];
     }
 
     else
@@ -928,7 +884,7 @@ LABEL_25:
           {
             synthesisHasIssue = [(VSSpeechSpeakTask *)self synthesisHasIssue];
 
-            if (!synthesisHasIssue)
+            if ((synthesisHasIssue & 1) == 0)
             {
               [(VSSpeechSpeakTask *)self enqueueCache];
             }
@@ -946,44 +902,42 @@ LABEL_25:
         if (path)
         {
           streamAudio4 = [(VSSpeechSpeakTask *)self streamAudio];
-          v65 = [streamAudio4 writeWaveToFilePath:path];
+          v60 = [streamAudio4 writeWaveToFilePath:?];
 
-          if ((v65 & 1) == 0)
+          if ((v60 & 1) == 0)
           {
-            v66 = MEMORY[0x277CCA9B8];
-            v76 = *MEMORY[0x277CCA460];
-            v77 = @"writeWaveToFilePath failed.";
-            v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-            v68 = [v66 errorWithDomain:@"VoiceServicesErrorDomain" code:501 userInfo:v67];
-            [(VSSpeechSpeakTask *)self setError:v68];
+            v61 = MEMORY[0x277CCA9B8];
+            v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CCA460] forKeys:@"writeWaveToFilePath failed." count:?];
+            v63 = [v61 errorWithDomain:? code:? userInfo:?];
+            [(VSSpeechSpeakTask *)self setError:?];
           }
         }
 
         instrumentMetrics12 = [(VSSpeechSpeakTask *)self instrumentMetrics];
         errorCode = [instrumentMetrics12 errorCode];
-        v71 = VSSpeakTaskTailSpinDumpInProgress;
+        v66 = VSSpeakTaskTailSpinDumpInProgress;
 
-        if (errorCode == 452 && (v71 & 1) == 0)
+        if (errorCode == 452 && (v66 & 1) == 0)
         {
-          v72 = VSGetLogDefault();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+          v67 = VSGetLogDefault();
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_2727E4000, v72, OS_LOG_TYPE_INFO, "Detected synthesis stall, starting tailspin", buf, 2u);
+            _os_log_impl(&dword_2727E4000, v67, OS_LOG_TYPE_INFO, "Detected synthesis stall, starting tailspin", buf, 2u);
           }
 
           VSSpeakTaskTailSpinDumpInProgress = 1;
-          v73 = +[VSDiagnosticService defaultService];
-          [v73 collectTailspin:&__block_literal_global_273];
+          v68 = +[VSDiagnosticService defaultService];
+          [v68 collectTailspin:?];
         }
 
         goto LABEL_40;
       }
 
-      v54 = +[VSDiagnosticService defaultService];
+      v49 = +[VSDiagnosticService defaultService];
       streamAudio3 = [(VSSpeechSpeakTask *)self compressedAudio];
       request7 = [(VSSpeechSpeakTask *)self request];
-      [v54 dumpCompressedAudio:streamAudio3 forRequest:request7];
+      [v49 dumpCompressedAudio:? forRequest:?];
     }
 
     goto LABEL_25;
@@ -993,26 +947,22 @@ LABEL_40:
   [(VSSpeechSpeakTask *)self reportFinish];
   [(VSSpeechSpeakTask *)self logFinish];
   kdebug_trace();
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
 void __25__VSSpeechSpeakTask_main__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   VSSpeakTaskTailSpinDumpInProgress = 0;
   v5 = VSGetLogDefault();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_INFO, "Finished tail spin, success:%d, file: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_2727E4000, v5, OS_LOG_TYPE_INFO, "Finished tail spin, success:%d, file: %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)taskHash
@@ -1037,7 +987,7 @@ void __25__VSSpeechSpeakTask_main__block_invoke(uint64_t a1, int a2, void *a3)
   contextInfo = [request5 contextInfo];
   request6 = [(VSSpeechSpeakTask *)self request];
   customResourceURLs = [request6 customResourceURLs];
-  v17 = [v22 stringWithFormat:@"%@ %@ %@ %@ %.2f %.2f %.2f %@ %@", @"2", utterance, v3, v4, v6, v9, v12, contextInfo, customResourceURLs];
+  v17 = [v22 stringWithFormat:@"2", utterance, v3, v4, v6, v9, v12, contextInfo, customResourceURLs];
 
   sha256hex = [v17 sha256hex];
 
@@ -1065,11 +1015,11 @@ void __25__VSSpeechSpeakTask_main__block_invoke(uint64_t a1, int a2, void *a3)
 
 - (VSSpeechSpeakTask)initWithRequest:(id)request
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v22.receiver = self;
-  v22.super_class = VSSpeechSpeakTask;
-  v6 = [(VSSpeechSpeakTask *)&v22 init];
+  v20.receiver = self;
+  v20.super_class = VSSpeechSpeakTask;
+  v6 = [(VSSpeechSpeakTask *)&v20 init];
   v7 = v6;
   if (v6)
   {
@@ -1080,58 +1030,64 @@ void __25__VSSpeechSpeakTask_main__block_invoke(uint64_t a1, int a2, void *a3)
 
     if ([requestCopy requestCreatedTimestamp])
     {
-      requestCreatedTimestamp = [requestCopy requestCreatedTimestamp];
+      [requestCopy requestCreatedTimestamp];
     }
 
     else
     {
-      v11 = VSGetLogDefault();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = VSGetLogDefault();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2727E4000, v11, OS_LOG_TYPE_ERROR, "Using timestamp inside voiced for task", buf, 2u);
+        _os_log_error_impl(&dword_2727E4000, v10, OS_LOG_TYPE_ERROR, "Using timestamp inside voiced for task", buf, 2u);
       }
 
-      requestCreatedTimestamp = mach_absolute_time();
+      mach_absolute_time();
     }
 
-    [(VSInstrumentMetrics *)v7->_instrumentMetrics setRequestCreatedTimestamp:requestCreatedTimestamp];
-    v12 = VSGetLogDefault();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    [(VSInstrumentMetrics *)v7->_instrumentMetrics setRequestCreatedTimestamp:?];
+    v11 = VSGetLogDefault();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      requestCreatedTimestamp2 = [(VSInstrumentMetrics *)v7->_instrumentMetrics requestCreatedTimestamp];
+      requestCreatedTimestamp = [(VSInstrumentMetrics *)v7->_instrumentMetrics requestCreatedTimestamp];
       *buf = 134218240;
-      v24 = requestCreatedTimestamp2;
-      v25 = 2048;
-      v26 = v7;
-      _os_log_impl(&dword_2727E4000, v12, OS_LOG_TYPE_INFO, "Created Task %llu (%p)", buf, 0x16u);
+      v22 = requestCreatedTimestamp;
+      v23 = 2048;
+      v24 = v7;
+      _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_INFO, "Created Task %llu (%p)", buf, 0x16u);
     }
 
     kdebug_trace();
     text = [requestCopy text];
-    [(VSInstrumentMetrics *)v7->_instrumentMetrics setUtterance:text];
+    [(VSInstrumentMetrics *)v7->_instrumentMetrics setUtterance:?];
 
-    -[VSInstrumentMetrics setCanUseServerTTS:](v7->_instrumentMetrics, "setCanUseServerTTS:", [requestCopy canUseServerTTS]);
+    [requestCopy canUseServerTTS];
+    [(VSInstrumentMetrics *)v7->_instrumentMetrics setCanUseServerTTS:?];
     clientBundleIdentifier = [requestCopy clientBundleIdentifier];
-    [(VSInstrumentMetrics *)v7->_instrumentMetrics setClientBundleIdentifier:clientBundleIdentifier];
+    [(VSInstrumentMetrics *)v7->_instrumentMetrics setClientBundleIdentifier:?];
 
-    [(VSInstrumentMetrics *)v7->_instrumentMetrics setSourceOfTTS:1];
-    v16 = +[VSCachingService standardService];
+    [(VSInstrumentMetrics *)v7->_instrumentMetrics setSourceOfTTS:?];
+    v15 = +[VSCachingService standardService];
     cachingService = v7->_cachingService;
-    v7->_cachingService = v16;
+    v7->_cachingService = v15;
 
-    v18 = +[VSPrewarmService sharedService];
+    v17 = +[VSPrewarmService sharedService];
     prewarmService = v7->_prewarmService;
-    v7->_prewarmService = v18;
+    v7->_prewarmService = v17;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
+}
+
+- (VSSpeechSpeakTask)init
+{
+  v2 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
+  objc_exception_throw(v2);
 }
 
 - (void)enqueueCache
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   taskHash = [(VSSpeechSpeakTask *)self taskHash];
   streamAudio = [(VSSpeechSpeakTask *)self streamAudio];
 
@@ -1144,19 +1100,19 @@ void __25__VSSpeechSpeakTask_main__block_invoke(uint64_t a1, int a2, void *a3)
     voiceAssetKey = [instrumentMetrics voiceAssetKey];
     instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     voiceResourceAssetKey = [instrumentMetrics2 voiceResourceAssetKey];
-    [cachingService enqueueCacheWithHash:taskHash streamAudio:streamAudio2 timingInfo:timingInfos voiceKey:voiceAssetKey voiceResourceKey:voiceResourceAssetKey completion:0];
+    [cachingService enqueueCacheWithHash:? streamAudio:? timingInfo:? voiceKey:? voiceResourceKey:? completion:?];
 
     v12 = VSGetLogDefault();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      v22 = 134218242;
+      v21 = 134218242;
       requestCreatedTimestamp = [instrumentMetrics3 requestCreatedTimestamp];
-      v24 = 2112;
-      v25 = taskHash;
+      v23 = 2112;
+      v24 = taskHash;
       v14 = "Cached streamAudio in task %llu with hash %@ in memory";
 LABEL_6:
-      _os_log_impl(&dword_2727E4000, v12, OS_LOG_TYPE_INFO, v14, &v22, 0x16u);
+      _os_log_impl(&dword_2727E4000, v12, OS_LOG_TYPE_INFO, v14, &v21, 0x16u);
     }
   }
 
@@ -1168,27 +1124,25 @@ LABEL_6:
     voiceAssetKey2 = [instrumentMetrics4 voiceAssetKey];
     instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
     voiceResourceAssetKey2 = [instrumentMetrics5 voiceResourceAssetKey];
-    [cachingService enqueueCacheWithHash:taskHash audio:compressedAudio timingInfo:timingInfos2 voiceKey:voiceAssetKey2 voiceResourceKey:voiceResourceAssetKey2 completion:0];
+    [cachingService enqueueCacheWithHash:? audio:? timingInfo:? voiceKey:? voiceResourceKey:? completion:?];
 
     v12 = VSGetLogDefault();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-      v22 = 134218242;
+      v21 = 134218242;
       requestCreatedTimestamp = [instrumentMetrics3 requestCreatedTimestamp];
-      v24 = 2112;
-      v25 = taskHash;
+      v23 = 2112;
+      v24 = taskHash;
       v14 = "Cached audio in task %llu with hash %@ in memory";
       goto LABEL_6;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logFinish
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   error = [(VSSpeechSpeakTask *)self error];
   if (error && (v4 = error, -[VSSpeechSpeakTask error](self, "error"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 code], v5, v4, v6 != 400))
   {
@@ -1199,9 +1153,9 @@ LABEL_6:
       requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
       error2 = [(VSSpeechSpeakTask *)self error];
       *buf = 134218242;
-      v69 = requestCreatedTimestamp;
-      v70 = 2112;
-      v71 = error2;
+      v54 = requestCreatedTimestamp;
+      v55 = 2112;
+      v56 = error2;
       _os_log_error_impl(&dword_2727E4000, voiceData, OS_LOG_TYPE_ERROR, "Error in device task %llu, error: %@", buf, 0x16u);
     }
   }
@@ -1224,7 +1178,7 @@ LABEL_6:
         v12 = @"Cancelled";
       }
 
-      v55 = v12;
+      v41 = v12;
       isSpeaking = [(VSSpeechSpeakTask *)self isSpeaking];
       v14 = @"synthesizing";
       if (isSpeaking)
@@ -1232,122 +1186,75 @@ LABEL_6:
         v14 = @"speaking";
       }
 
-      v54 = v14;
+      v40 = v14;
       request = [(VSSpeechSpeakTask *)self request];
       logUtterance = [request logUtterance];
-      v66[0] = @"voice";
       instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
       voiceAssetKey = [instrumentMetrics3 voiceAssetKey];
-      v60 = voiceAssetKey;
       if (!voiceAssetKey)
       {
         voiceKey = [voiceData voiceKey];
-        v47 = voiceKey;
-        if (voiceKey)
-        {
-          voiceAssetKey = voiceKey;
-        }
-
-        else
-        {
-          voiceAssetKey = @"(null)";
-        }
       }
 
-      v67[0] = voiceAssetKey;
-      v66[1] = @"voice_resource";
-      v17 = [voiceResource key];
-      v59 = v17;
-      if (v17)
-      {
-        v18 = v17;
-      }
-
-      else
-      {
-        v18 = @"(null)";
-      }
-
-      v67[1] = v18;
-      v66[2] = @"rate";
-      v19 = MEMORY[0x277CCABB0];
+      v45 = [voiceResource key];
+      v15 = MEMORY[0x277CCABB0];
       speechCache = [(VSSpeechSpeakTask *)self speechCache];
       if (speechCache)
       {
-        request2 = [(VSSpeechSpeakTask *)self request];
-        [request2 rate];
+        [(VSSpeechSpeakTask *)self request];
       }
 
       else
       {
-        request2 = [(VSSpeechSpeakTask *)self engine];
-        [request2 rate];
-        v20 = v24;
+        [(VSSpeechSpeakTask *)self engine];
       }
-
-      v53 = [v19 numberWithDouble:v20];
-      v67[2] = v53;
-      v66[3] = @"pitch";
-      v25 = MEMORY[0x277CCABB0];
+      v43 = ;
+      [v43 rate];
+      v39 = [v15 numberWithDouble:?];
+      v19 = MEMORY[0x277CCABB0];
       speechCache2 = [(VSSpeechSpeakTask *)self speechCache];
       if (speechCache2)
       {
-        request3 = [(VSSpeechSpeakTask *)self request];
-        [request3 pitch];
+        [(VSSpeechSpeakTask *)self request];
       }
 
       else
       {
-        request3 = [(VSSpeechSpeakTask *)self engine];
-        [request3 pitch];
-        v26 = v27;
+        [(VSSpeechSpeakTask *)self engine];
       }
-
-      v50 = [v25 numberWithDouble:v26];
-      v67[3] = v50;
-      v66[4] = @"volume";
-      v28 = MEMORY[0x277CCABB0];
+      v37 = ;
+      [v37 pitch];
+      v36 = [v19 numberWithDouble:?];
+      v20 = MEMORY[0x277CCABB0];
       speechCache3 = [(VSSpeechSpeakTask *)self speechCache];
-      v64 = voiceResource;
+      v50 = voiceResource;
       if (speechCache3)
       {
-        request4 = [(VSSpeechSpeakTask *)self request];
-        [request4 volume];
+        [(VSSpeechSpeakTask *)self request];
       }
 
       else
       {
-        request4 = [(VSSpeechSpeakTask *)self engine];
-        [request4 volume];
-        v29 = v30;
+        [(VSSpeechSpeakTask *)self engine];
       }
-
-      v31 = [v28 numberWithDouble:v29];
-      v67[4] = v31;
-      v66[5] = @"isEager";
-      v32 = MEMORY[0x277CCABB0];
+      v34 = ;
+      [v34 volume];
+      v21 = [v20 numberWithDouble:?];
+      v22 = MEMORY[0x277CCABB0];
       isSpeaking2 = [(VSSpeechSpeakTask *)self isSpeaking];
       if (isSpeaking2)
       {
         instrumentMetrics4 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-        v34 = [instrumentMetrics4 eagerRequestCreatedTimestampDiffs] > 0;
+        [instrumentMetrics4 eagerRequestCreatedTimestampDiffs];
       }
 
-      else
-      {
-        v34 = 0;
-      }
-
-      v35 = [v32 numberWithInt:v34];
-      v67[5] = v35;
-      v66[6] = @"neuralIssue";
-      v36 = MEMORY[0x277CCABB0];
+      v24 = [v22 numberWithInt:?];
+      v25 = MEMORY[0x277CCABB0];
       instrumentMetrics5 = [(VSSpeechSpeakTask *)self instrumentMetrics];
       neuralAlignmentStall = [instrumentMetrics5 neuralAlignmentStall];
       if (neuralAlignmentStall)
       {
-        v39 = 0;
-        neuralFallback = 1;
+        v28 = 0;
       }
 
       else
@@ -1355,34 +1262,32 @@ LABEL_6:
         instrumentMetrics6 = [(VSSpeechSpeakTask *)self instrumentMetrics];
         if ([instrumentMetrics6 neuralAudioClick])
         {
-          v39 = 0;
-          neuralFallback = 1;
+          v28 = 0;
         }
 
         else
         {
           instrumentMetrics7 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-          neuralFallback = [instrumentMetrics7 neuralFallback];
-          v39 = 1;
+          [instrumentMetrics7 neuralFallback];
+          v28 = 1;
         }
       }
 
-      v41 = [v36 numberWithInt:neuralFallback];
-      v67[6] = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:7];
+      v52 = [v25 numberWithInt:?];
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
       *buf = 134219010;
-      v69 = requestCreatedTimestamp2;
-      v70 = 2112;
-      v71 = v55;
-      v72 = 2112;
-      v73 = v54;
-      v74 = 2112;
-      v75 = logUtterance;
-      v76 = 2114;
-      v77 = v42;
+      v54 = requestCreatedTimestamp2;
+      v55 = 2112;
+      v56 = v41;
+      v57 = 2112;
+      v58 = v40;
+      v59 = 2112;
+      v60 = logUtterance;
+      v61 = 2114;
+      v62 = v29;
       _os_log_impl(&dword_2727E4000, v10, OS_LOG_TYPE_DEFAULT, "Device task %llu: %@ %@ utterance: '%@', %{public}@", buf, 0x34u);
 
-      if (v39)
+      if (v28)
       {
       }
 
@@ -1394,74 +1299,68 @@ LABEL_6:
       {
       }
 
-      voiceResource = v64;
-      if (!v60)
+      voiceResource = v50;
+      if (!voiceAssetKey)
       {
       }
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchVoiceAsset_NoRetry
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
   request = [(VSSpeechSpeakTask *)self request];
   languageCode = [request languageCode];
   request2 = [(VSSpeechSpeakTask *)self request];
   voiceName = [request2 voiceName];
   request3 = [(VSSpeechSpeakTask *)self request];
-  voiceType = [request3 voiceType];
+  [request3 voiceType];
   request4 = [(VSSpeechSpeakTask *)self request];
-  gender = [request4 gender];
+  [request4 gender];
   request5 = [(VSSpeechSpeakTask *)self request];
-  v12 = [mEMORY[0x277D79950] selectVoiceForLang:languageCode name:voiceName type:voiceType gender:gender footprint:{objc_msgSend(request5, "footprint")}];
+  [request5 footprint];
+  v10 = [mEMORY[0x277D79950] selectVoiceForLang:? name:? type:? gender:? footprint:?];
 
-  if (!v12)
+  if (!v10)
   {
-    v21 = VSGetLogDefault();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v17 = VSGetLogDefault();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_2727E4000, v21, OS_LOG_TYPE_ERROR, "No voice available", buf, 2u);
+      _os_log_error_impl(&dword_2727E4000, v17, OS_LOG_TYPE_ERROR, "No voice available", buf, 2u);
     }
 
-    v17 = MEMORY[0x277CCA9B8];
-    v44 = *MEMORY[0x277CCA450];
-    v45[0] = @"No voice available";
-    v18 = MEMORY[0x277CBEAC0];
-    v19 = v45;
-    v20 = &v44;
+    v15 = MEMORY[0x277CCA9B8];
+    v36 = *MEMORY[0x277CCA450];
+    v37 = @"No voice available";
+    v16 = MEMORY[0x277CBEAC0];
     goto LABEL_10;
   }
 
   request6 = [(VSSpeechSpeakTask *)self request];
   if ([request6 disableCompactVoiceFallback])
   {
-    voiceData = [v12 voiceData];
+    voiceData = [v10 voiceData];
     footprint = [voiceData footprint];
 
     if (footprint == 1)
     {
-      v16 = VSGetLogDefault();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v14 = VSGetLogDefault();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_2727E4000, v16, OS_LOG_TYPE_ERROR, "Compact voice is explicitly disabled.", buf, 2u);
+        _os_log_error_impl(&dword_2727E4000, v14, OS_LOG_TYPE_ERROR, "Compact voice is explicitly disabled.", buf, 2u);
       }
 
-      v17 = MEMORY[0x277CCA9B8];
-      v42 = *MEMORY[0x277CCA450];
-      v43 = @"Compact voice is explicitly disabled.";
-      v18 = MEMORY[0x277CBEAC0];
-      v19 = &v43;
-      v20 = &v42;
+      v15 = MEMORY[0x277CCA9B8];
+      v34 = *MEMORY[0x277CCA450];
+      v35 = @"Compact voice is explicitly disabled.";
+      v16 = MEMORY[0x277CBEAC0];
 LABEL_10:
-      v22 = [v18 dictionaryWithObjects:v19 forKeys:v20 count:1];
-      v23 = v17;
-      v24 = 401;
+      v18 = [v16 dictionaryWithObjects:? forKeys:? count:?];
+      v19 = v15;
       goto LABEL_17;
     }
   }
@@ -1471,50 +1370,46 @@ LABEL_10:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  voicePath = [v12 voicePath];
-  v27 = [defaultManager fileExistsAtPath:voicePath];
+  voicePath = [v10 voicePath];
+  v22 = [defaultManager fileExistsAtPath:?];
 
-  if (v27)
+  if (v22)
   {
-    [(VSSpeechSpeakTask *)self setVoiceSelection:v12];
+    [(VSSpeechSpeakTask *)self setVoiceSelection:?];
     voiceSelection = [(VSSpeechSpeakTask *)self voiceSelection];
-    v29 = [voiceSelection key];
+    v24 = [voiceSelection key];
     instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics setVoiceAssetKey:v29];
+    [instrumentMetrics setVoiceAssetKey:?];
 
-    v31 = 0;
+    v26 = 0;
     goto LABEL_18;
   }
 
-  v32 = VSGetLogDefault();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+  v27 = VSGetLogDefault();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    voicePath2 = [v12 voicePath];
+    voicePath2 = [v10 voicePath];
     *buf = 138412290;
-    v41 = voicePath2;
-    _os_log_error_impl(&dword_2727E4000, v32, OS_LOG_TYPE_ERROR, "Voice is deleted at path '%@'", buf, 0xCu);
+    v33 = voicePath2;
+    _os_log_error_impl(&dword_2727E4000, v27, OS_LOG_TYPE_ERROR, "Voice is deleted at path '%@'", buf, 0xCu);
   }
 
-  v33 = MEMORY[0x277CCA9B8];
-  v38 = *MEMORY[0x277CCA450];
-  v39 = @"Voice is deleted already.";
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-  v23 = v33;
-  v24 = 402;
+  v28 = MEMORY[0x277CCA9B8];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v19 = v28;
 LABEL_17:
-  v31 = [v23 errorWithDomain:@"VoiceServicesErrorDomain" code:v24 userInfo:v22];
+  v26 = [v19 errorWithDomain:? code:? userInfo:?];
 
 LABEL_18:
-  v34 = *MEMORY[0x277D85DE8];
 
-  return v31;
+  return v26;
 }
 
 - (void)fetchVoiceAsset
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _fetchVoiceAsset_NoRetry = [(VSSpeechSpeakTask *)self _fetchVoiceAsset_NoRetry];
-  [(VSSpeechSpeakTask *)self setError:_fetchVoiceAsset_NoRetry];
+  [(VSSpeechSpeakTask *)self setError:?];
 
   error = [(VSSpeechSpeakTask *)self error];
   if (error)
@@ -1529,15 +1424,15 @@ LABEL_18:
       v8 = VSGetLogDefault();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_2727E4000, v8, OS_LOG_TYPE_INFO, "Reset MobileAsset query cache and retry selecting voice", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_2727E4000, v8, OS_LOG_TYPE_INFO, "Reset MobileAsset query cache and retry selecting voice", &v16, 2u);
       }
 
       mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
       [mEMORY[0x277D79950] resetCache];
 
       _fetchVoiceAsset_NoRetry2 = [(VSSpeechSpeakTask *)self _fetchVoiceAsset_NoRetry];
-      [(VSSpeechSpeakTask *)self setError:_fetchVoiceAsset_NoRetry2];
+      [(VSSpeechSpeakTask *)self setError:?];
     }
   }
 
@@ -1548,14 +1443,12 @@ LABEL_18:
     requestCreatedTimestamp = [instrumentMetrics requestCreatedTimestamp];
     voiceSelection = [(VSSpeechSpeakTask *)self voiceSelection];
     voiceData = [voiceSelection voiceData];
-    v17 = 134218242;
-    v18 = requestCreatedTimestamp;
-    v19 = 2112;
-    v20 = voiceData;
-    _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_INFO, "Task %llu fetched voice %@", &v17, 0x16u);
+    v16 = 134218242;
+    v17 = requestCreatedTimestamp;
+    v18 = 2112;
+    v19 = voiceData;
+    _os_log_impl(&dword_2727E4000, v11, OS_LOG_TYPE_INFO, "Task %llu fetched voice %@", &v16, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchVoiceResource
@@ -1563,13 +1456,13 @@ LABEL_18:
   mEMORY[0x277D79950] = [MEMORY[0x277D79950] sharedManager];
   request = [(VSSpeechSpeakTask *)self request];
   languageCode = [request languageCode];
-  v6 = [mEMORY[0x277D79950] selectVoiceResourceAssetForLanguage:languageCode];
-  [(VSSpeechSpeakTask *)self setVoiceResource:v6];
+  v6 = [mEMORY[0x277D79950] selectVoiceResourceAssetForLanguage:?];
+  [(VSSpeechSpeakTask *)self setVoiceResource:?];
 
   voiceResource = [(VSSpeechSpeakTask *)self voiceResource];
   v7 = [voiceResource key];
   instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [instrumentMetrics setVoiceResourceAssetKey:v7];
+  [instrumentMetrics setVoiceResourceAssetKey:?];
 }
 
 - (void)resumePlayback
@@ -1629,7 +1522,127 @@ void __45__VSSpeechSpeakTask_Utilities__pausePlayback__block_invoke(uint64_t a1)
   {
     playbackService2 = [(VSSpeechSpeakTask *)self playbackService];
     error2 = [playbackService2 error];
-    [(VSSpeechSpeakTask *)self setError:error2];
+    [(VSSpeechSpeakTask *)self setError:?];
+  }
+}
+
+- (void)startPlaybackServiceWithAudioSessionID:(unsigned int)d
+{
+  v36 = *MEMORY[0x277D85DE8];
+  playbackService = [(VSSpeechSpeakTask *)self playbackService];
+
+  if (playbackService)
+  {
+    v5 = VSGetLogDefault();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_debug_impl(&dword_2727E4000, v5, OS_LOG_TYPE_DEBUG, "playbackService is initialized already.", buf, 2u);
+    }
+  }
+
+  else
+  {
+    kdebug_trace();
+    v6 = [VSAudioPlaybackService alloc];
+    streamAudio = [(VSSpeechSpeakTask *)self streamAudio];
+    if (streamAudio)
+    {
+      [(VSSpeechSpeakTask *)self streamAudio];
+    }
+
+    else
+    {
+      [(VSSpeechSpeakTask *)self compressedAudio];
+    }
+    v8 = ;
+    if (v8)
+    {
+      [(uint8_t *)buf asbd];
+    }
+
+    else
+    {
+      v33 = 0;
+      v32 = 0u;
+      *buf = 0u;
+    }
+
+    request = [(VSSpeechSpeakTask *)self request];
+    accessoryID = [request accessoryID];
+    v11 = [VSAudioPlaybackService initWithAudioSessionID:v6 asbd:"initWithAudioSessionID:asbd:useAVSBAR:" useAVSBAR:?];
+    [(VSSpeechSpeakTask *)self setPlaybackService:?];
+
+    playbackService2 = [(VSSpeechSpeakTask *)self playbackService];
+    outputRouteInfo = [playbackService2 outputRouteInfo];
+    audioRouteName = [outputRouteInfo audioRouteName];
+    instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
+    [instrumentMetrics setAudioOutputRoute:?];
+
+    playbackService3 = [(VSSpeechSpeakTask *)self playbackService];
+
+    if (playbackService3)
+    {
+      taskAuxiliaryQueue = [(VSSpeechSpeakTask *)self taskAuxiliaryQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID___block_invoke;
+      block[3] = &unk_279E4BAC8;
+      block[4] = self;
+      dispatch_async(taskAuxiliaryQueue, block);
+
+      streamAudio2 = [(VSSpeechSpeakTask *)self streamAudio];
+      [streamAudio2 duration];
+      v20 = v19;
+
+      if (v20 <= 0.0)
+      {
+        compressedAudio = [(VSSpeechSpeakTask *)self compressedAudio];
+        [compressedAudio duration];
+        v28 = v27;
+
+        if (v28 <= 0.0)
+        {
+          return;
+        }
+
+        taskAuxiliaryQueue2 = [(VSSpeechSpeakTask *)self taskAuxiliaryQueue];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID___block_invoke_3;
+        v29[3] = &unk_279E4BAC8;
+        v29[4] = self;
+        dispatch_async(taskAuxiliaryQueue2, v29);
+      }
+
+      else
+      {
+        taskAuxiliaryQueue2 = [(VSSpeechSpeakTask *)self streamAudio];
+        v29[5] = MEMORY[0x277D85DD0];
+        v29[6] = 3221225472;
+        v29[7] = __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID___block_invoke_32;
+        v29[8] = &unk_279E4BB18;
+        v29[9] = self;
+        [taskAuxiliaryQueue2 enumerateAudioWithBlock:?];
+      }
+    }
+
+    else
+    {
+      v22 = VSGetLogDefault();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_error_impl(&dword_2727E4000, v22, OS_LOG_TYPE_ERROR, "Can't create VSAudioPlaybackService", buf, 2u);
+      }
+
+      v23 = MEMORY[0x277CCA9B8];
+      v34 = *MEMORY[0x277CCA470];
+      v35 = @"Can't create VSAudioPlaybackService";
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v25 = [v23 errorWithDomain:? code:? userInfo:?];
+      [(VSSpeechSpeakTask *)self setError:?];
+    }
   }
 }
 
@@ -1651,24 +1664,24 @@ void __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID__
       v4 = VSGetLogDefault();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        *v11 = 0;
-        _os_log_debug_impl(&dword_2727E4000, v4, OS_LOG_TYPE_DEBUG, "Starting AudioQueue", v11, 2u);
+        *v9 = 0;
+        _os_log_debug_impl(&dword_2727E4000, v4, OS_LOG_TYPE_DEBUG, "Starting AudioQueue", v9, 2u);
       }
 
-      v5 = mach_absolute_time();
-      v6 = [*(a1 + 32) playbackService];
-      v7 = [v6 start];
-      [*(a1 + 32) setError:v7];
+      mach_absolute_time();
+      v5 = [*(a1 + 32) playbackService];
+      v6 = [v5 start];
+      [*(a1 + 32) setError:?];
 
-      v8 = mach_absolute_time() - v5;
-      v9 = [*(a1 + 32) instrumentMetrics];
-      [v9 setAudioStartTimestampDiffs:v8];
+      mach_absolute_time();
+      v7 = [*(a1 + 32) instrumentMetrics];
+      [v7 setAudioStartTimestampDiffs:?];
 
       kdebug_trace();
       if ([*(a1 + 32) isCancelled])
       {
-        v10 = [*(a1 + 32) playbackService];
-        [v10 stop];
+        v8 = [*(a1 + 32) playbackService];
+        [v8 stop];
       }
     }
   }
@@ -1694,42 +1707,43 @@ void __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID__
 
 void __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID___block_invoke_3(uint64_t a1)
 {
-  v8 = [*(a1 + 32) playbackService];
+  v7 = [*(a1 + 32) playbackService];
   v2 = [*(a1 + 32) compressedAudio];
   v3 = [v2 audioData];
   v4 = [*(a1 + 32) compressedAudio];
-  v5 = [v4 packetCount];
-  v6 = [*(a1 + 32) compressedAudio];
-  v7 = [v6 packetDescriptions];
-  [v8 enqueue:v3 packetCount:v5 packetDescriptions:v7];
+  [v4 packetCount];
+  v5 = [*(a1 + 32) compressedAudio];
+  v6 = [v5 packetDescriptions];
+  [v7 enqueue:? packetCount:? packetDescriptions:?];
 }
 
 void __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) playbackService];
-  [v2 enqueue:*(a1 + 40) packetCount:*(a1 + 56) packetDescriptions:*(a1 + 48)];
+  v1 = [*(a1 + 32) playbackService];
+  [v1 enqueue:? packetCount:? packetDescriptions:?];
 }
 
 - (void)speakCachedAudio
 {
-  v3 = mach_absolute_time();
+  mach_absolute_time();
   instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [instrumentMetrics setSynthesisBeginTimestamp:v3];
+  [instrumentMetrics setSynthesisBeginTimestamp:?];
 
   instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  synthesisBeginTimestamp = [instrumentMetrics2 synthesisBeginTimestamp];
+  [instrumentMetrics2 synthesisBeginTimestamp];
   instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [instrumentMetrics3 setSynthesisEndTimestamp:synthesisBeginTimestamp];
+  [instrumentMetrics3 setSynthesisEndTimestamp:?];
 
   speechCache = [(VSSpeechSpeakTask *)self speechCache];
   audio = [speechCache audio];
-  [(VSSpeechSpeakTask *)self setCompressedAudio:audio];
+  [(VSSpeechSpeakTask *)self setCompressedAudio:?];
 
   timingInfos = [speechCache timingInfos];
-  [(VSSpeechSpeakTask *)self setTimingInfos:timingInfos];
+  [(VSSpeechSpeakTask *)self setTimingInfos:?];
 
   request = [(VSSpeechSpeakTask *)self request];
-  -[VSSpeechSpeakTask startPlaybackServiceWithAudioSessionID:](self, "startPlaybackServiceWithAudioSessionID:", [request audioSessionID]);
+  [request audioSessionID];
+  [(VSSpeechSpeakTask *)self startPlaybackServiceWithAudioSessionID:?];
 
   taskAuxiliaryQueue = [(VSSpeechSpeakTask *)self taskAuxiliaryQueue];
   dispatch_sync(taskAuxiliaryQueue, &__block_literal_global_3375);
@@ -1742,156 +1756,137 @@ void __71__VSSpeechSpeakTask_Utilities__startPlaybackServiceWithAudioSessionID__
     {
       [(VSSpeechSpeakTask *)self reportSpeechStart];
       timingInfos2 = [speechCache timingInfos];
-      [(VSSpeechSpeakTask *)self setObserverForWordTimings:timingInfos2];
+      [(VSSpeechSpeakTask *)self setObserverForWordTimings:?];
 
       playbackService = [(VSSpeechSpeakTask *)self playbackService];
       [playbackService flushAndStop];
 
       playbackService2 = [(VSSpeechSpeakTask *)self playbackService];
       error2 = [playbackService2 error];
-      [(VSSpeechSpeakTask *)self setError:error2];
+      [(VSSpeechSpeakTask *)self setError:?];
     }
   }
 }
 
 - (void)prepareForSynthesis
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   instrumentMetrics = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [instrumentMetrics setSourceOfTTS:1];
+  [instrumentMetrics setSourceOfTTS:?];
 
   v4 = +[VSSiriServerConfiguration defaultConfig];
   experimentIdentifier = [v4 experimentIdentifier];
   instrumentMetrics2 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-  [instrumentMetrics2 setExperimentIdentifier:experimentIdentifier];
+  [instrumentMetrics2 setExperimentIdentifier:?];
 
   prewarmService = [(VSSpeechSpeakTask *)self prewarmService];
   voiceSelection = [(VSSpeechSpeakTask *)self voiceSelection];
   voiceResource = [(VSSpeechSpeakTask *)self voiceResource];
-  v10 = [prewarmService cachedEngineForVoice:voiceSelection resources:voiceResource];
+  v10 = [prewarmService cachedEngineForVoice:? resources:?];
 
   if (v10)
   {
     v11 = v10;
-    goto LABEL_4;
   }
 
-  prewarmService2 = [(VSSpeechSpeakTask *)self prewarmService];
-  voiceSelection2 = [(VSSpeechSpeakTask *)self voiceSelection];
-  voiceResource2 = [(VSSpeechSpeakTask *)self voiceResource];
-  v11 = [prewarmService2 loadEngineForVoice:voiceSelection2 resources:voiceResource2];
-
-  if (v11)
+  else
   {
-LABEL_4:
-    instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
-    [instrumentMetrics3 setIsWarmStart:v10 != 0];
+    prewarmService2 = [(VSSpeechSpeakTask *)self prewarmService];
+    voiceSelection2 = [(VSSpeechSpeakTask *)self voiceSelection];
+    voiceResource2 = [(VSSpeechSpeakTask *)self voiceResource];
+    v11 = [prewarmService2 loadEngineForVoice:? resources:?];
 
-    v16 = [VSStreamAudioData alloc];
-    [v11 asbd];
-    v17 = [(VSStreamAudioData *)v16 initWithASBD:buf];
-    [(VSSpeechSpeakTask *)self setStreamAudio:v17];
-
-    request = [(VSSpeechSpeakTask *)self request];
-    [request volume];
-    if (v19 == 0.0)
+    if (!v11)
     {
-      voiceResource3 = [(VSSpeechSpeakTask *)self voiceResource];
-      [voiceResource3 volume];
-      if (v21 == 0.0)
-      {
-        [v11 volume];
-      }
+      v35 = MEMORY[0x277CCA9B8];
+      v49 = *MEMORY[0x277CCA470];
+      v50 = @"Can't create VSSpeechEngine";
+      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+      v37 = [v35 errorWithDomain:? code:? userInfo:?];
+      [(VSSpeechSpeakTask *)self setError:?];
 
-      [v11 setVolume:?];
+      v11 = 0;
+      goto LABEL_28;
+    }
+  }
+
+  instrumentMetrics3 = [(VSSpeechSpeakTask *)self instrumentMetrics];
+  [instrumentMetrics3 setIsWarmStart:?];
+
+  v16 = [VSStreamAudioData alloc];
+  [(uint8_t *)buf asbd];
+  v17 = [(VSStreamAudioData *)v16 initWithASBD:?];
+  [(VSSpeechSpeakTask *)self setStreamAudio:?];
+
+  request = [(VSSpeechSpeakTask *)self request];
+  [request volume];
+  if (v19 == 0.0)
+  {
+    voiceResource3 = [(VSSpeechSpeakTask *)self voiceResource];
+    [voiceResource3 volume];
+    if (v21 == 0.0)
+    {
+      [v11 volume];
     }
 
-    else
+    [v11 setVolume:?];
+  }
+
+  else
+  {
+    [v11 setVolume:?];
+  }
+
+  request2 = [(VSSpeechSpeakTask *)self request];
+  [request2 pitch];
+  if (v23 == 0.0)
+  {
+    voiceResource4 = [(VSSpeechSpeakTask *)self voiceResource];
+    [voiceResource4 pitch];
+    if (v25 == 0.0)
     {
-      *&v19 = v19;
-      [v11 setVolume:v19];
+      [v11 pitch];
     }
 
-    request2 = [(VSSpeechSpeakTask *)self request];
-    [request2 pitch];
-    if (v23 == 0.0)
-    {
-      voiceResource4 = [(VSSpeechSpeakTask *)self voiceResource];
-      [voiceResource4 pitch];
-      if (v25 == 0.0)
-      {
-        [v11 pitch];
-      }
+    [v11 setPitch:?];
+  }
 
-      [v11 setPitch:?];
+  else
+  {
+    [v11 setPitch:?];
+  }
+
+  request3 = [(VSSpeechSpeakTask *)self request];
+  [request3 rate];
+  if (v27 == 0.0)
+  {
+    voiceResource5 = [(VSSpeechSpeakTask *)self voiceResource];
+    [voiceResource5 rate];
+    if (v29 == 0.0)
+    {
+      [v11 rate];
     }
 
-    else
-    {
-      *&v23 = v23;
-      [v11 setPitch:v23];
-    }
+    [v11 setRate:?];
+  }
 
-    request3 = [(VSSpeechSpeakTask *)self request];
-    [request3 rate];
-    if (v27 == 0.0)
-    {
-      voiceResource5 = [(VSSpeechSpeakTask *)self voiceResource];
-      [voiceResource5 rate];
-      if (v29 == 0.0)
-      {
-        [v11 rate];
-      }
+  else
+  {
+    [v11 setRate:?];
+  }
 
-      [v11 setRate:?];
-    }
+  request4 = [(VSSpeechSpeakTask *)self request];
+  powerProfile = [request4 powerProfile];
 
-    else
-    {
-      *&v27 = v27;
-      [v11 setRate:v27];
-    }
-
-    request4 = [(VSSpeechSpeakTask *)self request];
-    powerProfile = [request4 powerProfile];
-
-    if (powerProfile)
-    {
-      goto LABEL_29;
-    }
-
+  if (!powerProfile)
+  {
     v32 = objc_alloc_init(MEMORY[0x277CEF350]);
-    v50 = 0;
-    v33 = [v32 currentPowerPolicyWithError:&v50];
-    v34 = v50;
+    v46 = 0;
+    v33 = [v32 currentPowerPolicyWithError:?];
+    v34 = 0;
     if (v33)
     {
-      [v33 ttsPolicy];
-      if (v49 <= 2)
-      {
-        powerProfile = qword_272832710[v49];
-LABEL_28:
-
-LABEL_29:
-        [v11 setPowerProfile:powerProfile];
-        v39 = [VSVoiceBooster alloc];
-        [v11 asbd];
-        v40 = -[VSVoiceBooster initWithStreamDescription:pcmBufferSize:](v39, "initWithStreamDescription:pcmBufferSize:", buf, [v11 pcmBufferSize]);
-        [(VSSpeechSpeakTask *)self setVoiceBooster:v40];
-
-        voiceSelection3 = [(VSSpeechSpeakTask *)self voiceSelection];
-        voiceData = [voiceSelection3 voiceData];
-        request5 = [(VSSpeechSpeakTask *)self request];
-        [request5 volume];
-        [voiceData gainDecibelWithVolume:?];
-        v45 = v44;
-        voiceBooster = [(VSSpeechSpeakTask *)self voiceBooster];
-        LODWORD(v47) = v45;
-        [voiceBooster setVoiceBoostGainDecibels:v47];
-
-        [(VSSpeechSpeakTask *)self setEngine:v11];
-        goto LABEL_30;
-      }
+      [v45 ttsPolicy];
     }
 
     else
@@ -1900,26 +1895,29 @@ LABEL_29:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v52 = v34;
+        v48 = v34;
         _os_log_error_impl(&dword_2727E4000, v38, OS_LOG_TYPE_ERROR, "Unable to get power policy from Siri, error: %@", buf, 0xCu);
       }
     }
-
-    powerProfile = 0;
-    goto LABEL_28;
   }
 
-  v35 = MEMORY[0x277CCA9B8];
-  v53 = *MEMORY[0x277CCA470];
-  v54[0] = @"Can't create VSSpeechEngine";
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
-  v37 = [v35 errorWithDomain:@"VoiceServicesErrorDomain" code:0 userInfo:v36];
-  [(VSSpeechSpeakTask *)self setError:v37];
+  [v11 setPowerProfile:?];
+  v39 = [VSVoiceBooster alloc];
+  [(uint8_t *)buf asbd];
+  [v11 pcmBufferSize];
+  v40 = [VSVoiceBooster initWithStreamDescription:v39 pcmBufferSize:"initWithStreamDescription:pcmBufferSize:"];
+  [(VSSpeechSpeakTask *)self setVoiceBooster:?];
 
-  v11 = 0;
-LABEL_30:
+  voiceSelection3 = [(VSSpeechSpeakTask *)self voiceSelection];
+  voiceData = [voiceSelection3 voiceData];
+  request5 = [(VSSpeechSpeakTask *)self request];
+  [request5 volume];
+  [voiceData gainDecibelWithVolume:?];
+  voiceBooster = [(VSSpeechSpeakTask *)self voiceBooster];
+  [voiceBooster setVoiceBoostGainDecibels:?];
 
-  v48 = *MEMORY[0x277D85DE8];
+  [(VSSpeechSpeakTask *)self setEngine:?];
+LABEL_28:
 }
 
 @end

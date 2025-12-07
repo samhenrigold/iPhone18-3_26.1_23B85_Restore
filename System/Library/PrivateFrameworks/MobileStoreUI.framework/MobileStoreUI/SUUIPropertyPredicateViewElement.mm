@@ -34,27 +34,27 @@
     if ([v16 length])
     {
       v17 = v16;
-      if ([v17 isEqualToString:@"not-equal"])
+      if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = 1;
       }
 
-      else if ([v17 isEqualToString:@"greater-than"])
+      else if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = 2;
       }
 
-      else if ([v17 isEqualToString:@"greater-than-or-equal"])
+      else if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = 3;
       }
 
-      else if ([v17 isEqualToString:@"less-than"])
+      else if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = 4;
       }
 
-      else if ([v17 isEqualToString:@"less-than-or-equal"])
+      else if (objc_msgSend_isEqualToString_(v17))
       {
         v18 = 5;
       }

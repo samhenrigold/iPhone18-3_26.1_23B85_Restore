@@ -80,13 +80,11 @@ void __73__NLSessionTrackerRingCache_prewarmMetalBackgroundObjectsWithCompletion
   objc_storeStrong(location, 0);
   v7 = MTLCreateSystemDefaultDevice();
   v32 = [v7 newCommandQueueWithMaxCommandBufferCount:?];
-  MEMORY[0x277D82BD8](v7);
   v31 = [v32 commandBuffer];
   v30 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:80 width:1 height:1 mipmapped:0];
   [v30 setUsage:4];
   v8 = [v32 device];
   v29 = [v8 newTextureWithDescriptor:v30];
-  MEMORY[0x277D82BD8](v8);
   v28 = [MEMORY[0x277CD6F50] renderPassDescriptor];
   v10 = [v28 colorAttachments];
   v9 = [v10 objectAtIndexedSubscript:?];

@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_24A01C870();
+  sub_24A01C870(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews

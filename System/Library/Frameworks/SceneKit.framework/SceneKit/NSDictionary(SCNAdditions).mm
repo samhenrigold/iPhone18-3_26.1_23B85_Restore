@@ -1,7 +1,7 @@
 @interface NSDictionary(SCNAdditions)
 - (float)SCNVector3Value;
 - (float)SCNVector4Value;
-- (uint64_t)SCNMatrix4Value;
+- (void)SCNMatrix4Value;
 @end
 
 @implementation NSDictionary(SCNAdditions)
@@ -25,7 +25,7 @@
   return v3;
 }
 
-- (uint64_t)SCNMatrix4Value
+- (void)SCNMatrix4Value
 {
   [objc_msgSend(self valueForKey:{@"m11", "floatValue"}];
   *a2 = v4;

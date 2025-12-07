@@ -10,7 +10,6 @@ uint64_t sub_100000C84(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -18,7 +17,7 @@ uint64_t sub_100000C84(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-void (*sub_100000D0C(uint64_t *a1))(void *a1)
+uint64_t (*sub_100000D0C(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -45,19 +44,18 @@ void sub_100000D98(void *a1)
   free(v1);
 }
 
-void sub_100000DE4(kern_return_t a1, uint64_t a2, void *a3)
+void sub_100000DE4(kern_return_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v6 = type metadata accessor for String.Encoding();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v8 = type metadata accessor for String.Encoding();
+  v9 = *(v8 - 8);
   __chkstk_darwin();
-  v10 = v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = String._bridgeToObjectiveC()();
+  v11 = v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = String._bridgeToObjectiveC()();
   static String.Encoding.utf8.getter();
-  v12 = String.data(using:allowLossyConversion:)();
-  v14 = v13;
-  (*(v7 + 8))(v10, v6);
-  if (v14 >> 60 == 15)
+  v13 = String.data(using:allowLossyConversion:)();
+  v15 = v14;
+  (*(v9 + 8))(v11, v8);
+  if (v15 >> 60 == 15)
   {
     __break(1u);
   }
@@ -65,8 +63,8 @@ void sub_100000DE4(kern_return_t a1, uint64_t a2, void *a3)
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    sub_100001048(v12, v14);
-    a1 = IORegistryEntrySetCFProperty(a1, v11, isa);
+    sub_100001048(v13, v15);
+    a1 = IORegistryEntrySetCFProperty(a1, v12, isa);
 
     if (!a1)
     {
@@ -74,56 +72,54 @@ void sub_100000DE4(kern_return_t a1, uint64_t a2, void *a3)
     }
   }
 
-  v25[0] = 0;
-  v25[1] = 0xE000000000000000;
-  v16 = a1;
+  v26[0] = 0;
+  v26[1] = 0xE000000000000000;
+  v17 = a1;
   _StringGuts.grow(_:)(28);
 
-  strcpy(v25, "could not set ");
-  HIBYTE(v25[1]) = -18;
-  v17._countAndFlagsBits = a2;
-  v17._object = a3;
-  String.append(_:)(v17);
-  v18._countAndFlagsBits = 0x76206D6172766E20;
-  v18._object = 0xEC000000203A7261;
+  strcpy(v26, "could not set ");
+  HIBYTE(v26[1]) = -18;
+  v18._countAndFlagsBits = a2;
+  v18._object = a3;
   String.append(_:)(v18);
-  v20 = v25[0];
-  v19 = v25[1];
-  if (!mach_error_string(v16))
+  v19._countAndFlagsBits = 0x76206D6172766E20;
+  v19._object = 0xEC000000203A7261;
+  String.append(_:)(v19);
+  v21 = v26[0];
+  v20 = v26[1];
+  if (!mach_error_string(v17))
   {
     __break(1u);
   }
 
-  v21 = String.init(cString:)();
-  v23 = v22;
-  v25[0] = v20;
-  v25[1] = v19;
+  v22 = String.init(cString:)();
+  v24 = v23;
+  v26[0] = v21;
+  v26[1] = v20;
 
-  v24._countAndFlagsBits = v21;
-  v24._object = v23;
-  String.append(_:)(v24);
+  v25._countAndFlagsBits = v22;
+  v25._object = v24;
+  String.append(_:)(v25);
 
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
 
-uint64_t sub_100001048(uint64_t a1, unint64_t a2)
+void sub_100001048(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_10000105C(a1, a2);
+    sub_10000105C(a1, a2);
   }
-
-  return a1;
 }
 
-uint64_t sub_10000105C(uint64_t a1, unint64_t a2)
+void sub_10000105C(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -134,10 +130,10 @@ uint64_t sub_1000010B0()
   if (v0)
   {
     v1 = v0;
-    sub_100000DE4(v0, 0xD00000000000003ALL, 0x80000001000028A0);
+    sub_100000DE4(v0, 0xD00000000000003ALL, 0x80000001000028A0, 0x722D656369766564, 0xEF797265766F6365);
     sub_100000C84(&qword_100008000, &qword_100002640);
     Option.wrappedValue.getter();
-    sub_100000DE4(v1, 0xD00000000000001BLL, 0x80000001000028E0);
+    sub_100000DE4(v1, 0xD00000000000001BLL, 0x80000001000028E0, v3, v4);
   }
 
   else
@@ -151,12 +147,12 @@ uint64_t sub_1000010B0()
 
 uint64_t sub_1000011D8()
 {
-  type metadata accessor for Devicerecoverytool();
-  sub_100001E9C(&qword_100008018);
+  type metadata accessor for Devicerecoverytool(0);
+  sub_100001E9C(&qword_100008018, &unk_100002660);
   return static ParsableCommand.main()();
 }
 
-uint64_t type metadata accessor for Devicerecoverytool()
+uint64_t type metadata accessor for Devicerecoverytool(uint64_t a1)
 {
   result = qword_100008260;
   if (!qword_100008260)
@@ -174,7 +170,7 @@ Swift::Int sub_100001280()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_1000012EC()
+Swift::Int sub_1000012EC(uint64_t a1)
 {
   Hasher.init(_seed:)();
   Hasher._combine(_:)(0);
@@ -214,57 +210,54 @@ uint64_t sub_100001434(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_100001470@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100001470@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v30 = a2;
+  v22 = a2;
   v3 = sub_100000C84(&qword_100008000, &qword_100002640);
-  v28 = *(v3 - 8);
-  v4 = (*(v28 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v20 = *(v3 - 8);
   __chkstk_darwin();
-  v31 = &v28 - v5;
-  v6 = sub_100000C84(&qword_100008020, &qword_100002658);
-  v29 = *(v6 - 8);
-  v7 = (*(v29 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v23 = &v20 - v4;
+  v5 = sub_100000C84(&qword_100008020, &qword_100002658);
+  v21 = *(v5 - 8);
   __chkstk_darwin();
-  v9 = &v28 - v8;
-  v10 = *(*(type metadata accessor for SingleValueParsingStrategy() - 8) + 64);
+  v7 = &v20 - v6;
+  type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin();
-  v11 = *(*(type metadata accessor for NameSpecification() - 8) + 64);
+  type metadata accessor for NameSpecification();
   __chkstk_darwin();
-  v12 = (*(*(sub_100000C84(&qword_100008008, &qword_100002648) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100000C84(&qword_100008008, &qword_100002648);
   __chkstk_darwin();
-  v14 = &v28 - v13;
-  v15 = (*(*(sub_100000C84(&qword_100008010, &qword_100002650) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v9 = &v20 - v8;
+  sub_100000C84(&qword_100008010, &qword_100002650);
   __chkstk_darwin();
-  v17 = &v28 - v16;
-  v18 = *(*(type metadata accessor for Devicerecoverytool() - 8) + 64);
+  v11 = &v20 - v10;
+  type metadata accessor for Devicerecoverytool(0);
   __chkstk_darwin();
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for ArgumentHelp();
-  (*(*(v21 - 8) + 56))(v17, 1, 1, v21);
-  v22 = type metadata accessor for CompletionKind();
-  (*(*(v22 - 8) + 56))(v14, 1, 1, v22);
+  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for ArgumentHelp();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = type metadata accessor for CompletionKind();
+  (*(*(v15 - 8) + 56))(v9, 1, 1, v15);
   static NameSpecification.long.getter();
   static SingleValueParsingStrategy.next.getter();
   Option<A>.init(name:parsing:help:completion:)();
-  v23 = a1[4];
   sub_1000018B0(a1, a1[3]);
   sub_1000018F4();
-  v24 = v32;
+  v16 = v24;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v24)
+  if (!v16)
   {
-    v25 = v28;
-    v26 = v30;
+    v17 = v20;
+    v18 = v22;
     sub_1000019F0();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v29 + 8))(v9, v6);
-    (*(v25 + 40))(v20, v31, v3);
-    sub_100001A9C(v20, v26);
+    (*(v21 + 8))(v7, v5);
+    (*(v17 + 40))(v13, v23, v3);
+    sub_100001A9C(v13, v18);
   }
 
   sub_100001948(a1);
-  return sub_100001994(v20);
+  return sub_100001994(v13);
 }
 
 void *sub_1000018B0(void *result, uint64_t a2)
@@ -289,20 +282,22 @@ unint64_t sub_1000018F4()
   return result;
 }
 
-uint64_t sub_100001948(uint64_t *a1)
+uint64_t sub_100001948(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100001994(uint64_t a1)
 {
-  v2 = type metadata accessor for Devicerecoverytool();
+  v2 = type metadata accessor for Devicerecoverytool(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -325,7 +320,6 @@ uint64_t sub_100001A54(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -335,27 +329,27 @@ uint64_t sub_100001A54(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_100001A9C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for Devicerecoverytool();
+  v4 = type metadata accessor for Devicerecoverytool(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_100001B04()
 {
-  v0 = *(*(type metadata accessor for SingleValueParsingStrategy() - 8) + 64);
+  type metadata accessor for SingleValueParsingStrategy();
   __chkstk_darwin();
-  v1 = *(*(type metadata accessor for NameSpecification() - 8) + 64);
+  type metadata accessor for NameSpecification();
   __chkstk_darwin();
-  v2 = (*(*(sub_100000C84(&qword_100008008, &qword_100002648) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100000C84(&qword_100008008, &qword_100002648);
   __chkstk_darwin();
-  v4 = &v11 - v3;
-  v5 = (*(*(sub_100000C84(&qword_100008010, &qword_100002650) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v1 = &v7 - v0;
+  sub_100000C84(&qword_100008010, &qword_100002650);
   __chkstk_darwin();
-  v7 = &v11 - v6;
-  v8 = type metadata accessor for ArgumentHelp();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = type metadata accessor for CompletionKind();
-  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v3 = &v7 - v2;
+  v4 = type metadata accessor for ArgumentHelp();
+  (*(*(v4 - 8) + 56))(v3, 1, 1, v4);
+  v5 = type metadata accessor for CompletionKind();
+  (*(*(v5 - 8) + 56))(v1, 1, 1, v5);
   static NameSpecification.long.getter();
   static SingleValueParsingStrategy.next.getter();
   return Option<A>.init(name:parsing:help:completion:)();
@@ -371,18 +365,18 @@ uint64_t sub_100001D10@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  type metadata accessor for Devicerecoverytool();
-  sub_100001E9C(&qword_100008018);
+  type metadata accessor for Devicerecoverytool(0);
+  sub_100001E9C(&qword_100008018, &unk_100002660);
   static ParsableCommand.main()();
   return 0;
 }
 
-uint64_t sub_100001E9C(unint64_t *a1)
+uint64_t sub_100001E9C(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for Devicerecoverytool();
+    type metadata accessor for Devicerecoverytool(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -406,10 +400,10 @@ uint64_t sub_100001F80(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-void sub_100001FFC()
+void sub_100001FFC(uint64_t a1)
 {
   sub_100002068();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }

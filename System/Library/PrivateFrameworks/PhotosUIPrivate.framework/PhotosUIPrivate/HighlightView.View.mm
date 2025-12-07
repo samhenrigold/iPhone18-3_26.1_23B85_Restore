@@ -17,7 +17,7 @@
   selfCopy = self;
   sub_1B3727B1C(viewCopy);
 
-  sub_1B3710718(0, &unk_1EB851C40);
+  sub_1B3710718(0, &unk_1EB851C40, 0x1E69DC628);
   v6 = sub_1B3C9C778();
 
   return v6;

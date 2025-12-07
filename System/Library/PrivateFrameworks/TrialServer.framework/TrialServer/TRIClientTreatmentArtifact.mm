@@ -15,14 +15,14 @@
 
 - (BOOL)isValidWithTreatmentId:(id)id
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = objc_autoreleasePoolPush();
   v7 = MEMORY[0x277D73AF0];
   encodedTreatmentDefinition = [(TRIClientTreatmentArtifact *)self encodedTreatmentDefinition];
-  v26 = 0;
-  v9 = [v7 parseFromData:encodedTreatmentDefinition error:&v26];
-  v10 = v26;
+  v25 = 0;
+  v9 = [v7 parseFromData:encodedTreatmentDefinition error:&v25];
+  v10 = v25;
 
   if (v9)
   {
@@ -55,12 +55,12 @@ LABEL_18:
             goto LABEL_13;
           }
 
-          v24 = TRILogCategory_Server();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v23 = TRILogCategory_Server();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v28 = idCopy;
-            _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Invalid treatment record signature with id %@", buf, 0xCu);
+            v27 = idCopy;
+            _os_log_error_impl(&dword_26F567000, v23, OS_LOG_TYPE_ERROR, "Invalid treatment record signature with id %@", buf, 0xCu);
           }
         }
 
@@ -87,7 +87,7 @@ LABEL_20:
     if (os_log_type_enabled(publicCertificate, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v10;
+      v27 = v10;
       v19 = "Unable to parse TRIClientTreatment from encoded definition: %@";
       v20 = publicCertificate;
       v21 = 12;
@@ -99,7 +99,6 @@ LABEL_20:
 LABEL_13:
 
   objc_autoreleasePoolPop(v6);
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -198,60 +197,8 @@ LABEL_4:
 {
   artifactCopy = artifact;
   v5 = artifactCopy;
-  if (!artifactCopy)
+  if (!artifactCopy || (v6 = self->_encodedTreatmentDefinition == 0, [artifactCopy encodedTreatmentDefinition], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (encodedTreatmentDefinition = self->_encodedTreatmentDefinition) != 0 && (objc_msgSend(v5, "encodedTreatmentDefinition"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSData isEqual:](encodedTreatmentDefinition, "isEqual:", v10), v10, !v11) || (v12 = self->_encodedTreatmentDefinitionSignature == 0, objc_msgSend(v5, "encodedTreatmentDefinitionSignature"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (encodedTreatmentDefinitionSignature = self->_encodedTreatmentDefinitionSignature) != 0 && (objc_msgSend(v5, "encodedTreatmentDefinitionSignature"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](encodedTreatmentDefinitionSignature, "isEqual:", v16), v16, !v17) || (v18 = self->_publicCertificate == 0, objc_msgSend(v5, "publicCertificate"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_encodedTreatmentDefinition == 0;
-  encodedTreatmentDefinition = [artifactCopy encodedTreatmentDefinition];
-  v8 = encodedTreatmentDefinition != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  encodedTreatmentDefinition = self->_encodedTreatmentDefinition;
-  if (encodedTreatmentDefinition)
-  {
-    encodedTreatmentDefinition2 = [v5 encodedTreatmentDefinition];
-    v11 = [(NSData *)encodedTreatmentDefinition isEqual:encodedTreatmentDefinition2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_encodedTreatmentDefinitionSignature == 0;
-  encodedTreatmentDefinitionSignature = [v5 encodedTreatmentDefinitionSignature];
-  v14 = encodedTreatmentDefinitionSignature != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  encodedTreatmentDefinitionSignature = self->_encodedTreatmentDefinitionSignature;
-  if (encodedTreatmentDefinitionSignature)
-  {
-    encodedTreatmentDefinitionSignature2 = [v5 encodedTreatmentDefinitionSignature];
-    v17 = [(NSString *)encodedTreatmentDefinitionSignature isEqual:encodedTreatmentDefinitionSignature2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_publicCertificate == 0;
-  publicCertificate = [v5 publicCertificate];
-  v20 = publicCertificate != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -260,8 +207,8 @@ LABEL_11:
     publicCertificate = self->_publicCertificate;
     if (publicCertificate)
     {
-      publicCertificate2 = [v5 publicCertificate];
-      v23 = [(NSData *)publicCertificate isEqual:publicCertificate2];
+      publicCertificate = [v5 publicCertificate];
+      v23 = [(NSData *)publicCertificate isEqual:publicCertificate];
     }
 
     else

@@ -1,5 +1,7 @@
 @interface PGGraphPetIdentityProcessor
 + (id)fetchInterestingEligiblePetsForWallpaperWithWorkingContext:(id)context curationContext:(id)curationContext;
++ (id)fetchPetPersonsWithDetectionType:(signed __int16)type photoLibrary:(id)library;
++ (id)fetchPetPersonsWithNoKeyFaceAndDetectionType:(signed __int16)type photoLibrary:(id)library;
 - (PGGraph)graph;
 - (PGGraphPetIdentityProcessor)initWithDetectionType:(signed __int16)type photoLibrary:(id)library graph:(id)graph loggingConnection:(id)connection cache:(id)cache;
 - (PHPhotoLibrary)photoLibrary;
@@ -56,32 +58,32 @@
 
 + (id)fetchInterestingEligiblePetsForWallpaperWithWorkingContext:(id)context curationContext:(id)curationContext
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   curationContextCopy = curationContext;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__4845;
-  v43 = __Block_byref_object_dispose__4846;
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke;
-  v38[3] = &unk_27888A5C0;
-  v38[4] = &v39;
-  [contextCopy performSynchronousConcurrentGraphReadUsingBlock:v38];
-  v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"localIdentifier", v40[5]];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__4845;
+  v42 = __Block_byref_object_dispose__4846;
+  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke;
+  v37[3] = &unk_27888A5C0;
+  v37[4] = &v38;
+  [contextCopy performSynchronousConcurrentGraphReadUsingBlock:v37];
+  v7 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K IN %@", @"localIdentifier", v39[5]];
   v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == %d", @"type", 1];
   photoLibrary = [contextCopy photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
   [librarySpecificFetchOptions setIncludedDetectionTypes:&unk_2844854C0];
-  if ([v40[5] count])
+  if ([v39[5] count])
   {
     v11 = MEMORY[0x277CCA920];
-    v45[0] = v7;
-    v45[1] = v8;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = v7;
+    v44[1] = v8;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     v13 = [v11 orPredicateWithSubpredicates:v12];
     [librarySpecificFetchOptions setPredicate:v13];
   }
@@ -94,36 +96,36 @@
   v14 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions];
   if ([v14 count])
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__4845;
-    v36 = __Block_byref_object_dispose__4846;
-    v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke_269;
-    v31[3] = &unk_2788800B8;
-    v31[4] = &v32;
-    [v14 enumerateObjectsUsingBlock:v31];
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__4845;
+    v35 = __Block_byref_object_dispose__4846;
+    v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke_269;
+    v30[3] = &unk_2788800B8;
+    v30[4] = &v31;
+    [v14 enumerateObjectsUsingBlock:v30];
     userFeedbackCalculator = [curationContextCopy userFeedbackCalculator];
-    allKeys = [v33[5] allKeys];
+    allKeys = [v32[5] allKeys];
     v17 = [userFeedbackCalculator userFeedbackTypeByPersonUUIDForPersonUUIDs:allKeys];
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__4845;
-    v29 = __Block_byref_object_dispose__4846;
-    v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke_2;
-    v24[3] = &unk_27887F768;
-    v24[4] = &v32;
-    v24[5] = &v25;
-    [v17 enumerateKeysAndObjectsUsingBlock:v24];
-    v18 = [v26[5] count];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__4845;
+    v28 = __Block_byref_object_dispose__4846;
+    v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke_2;
+    v23[3] = &unk_27887F768;
+    v23[4] = &v31;
+    v23[5] = &v24;
+    [v17 enumerateKeysAndObjectsUsingBlock:v23];
+    v18 = [v25[5] count];
     if (v18 == [v14 count])
     {
       v19 = v14;
@@ -132,13 +134,13 @@
     else
     {
       v21 = objc_alloc(MEMORY[0x277CD9888]);
-      v19 = [v21 initWithExistingFetchResult:v14 filteredObjectIDs:v26[5]];
+      v19 = [v21 initWithExistingFetchResult:v14 filteredObjectIDs:v25[5]];
     }
 
     v20 = v19;
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
@@ -146,8 +148,7 @@
     v20 = v14;
   }
 
-  _Block_object_dispose(&v39, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 
   return v20;
 }
@@ -196,7 +197,7 @@ void __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaper
 
 void __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaperWithWorkingContext_curationContext___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([a3 unsignedIntValue] - 4 <= 0xFFFFFFFD)
   {
@@ -216,14 +217,51 @@ void __106__PGGraphPetIdentityProcessor_fetchInterestingEligiblePetsForWallpaper
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = v5;
-        _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "Unable to find pet for UUID %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v5;
+        _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "Unable to find pet for UUID %@", &v12, 0xCu);
       }
     }
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
++ (id)fetchPetPersonsWithNoKeyFaceAndDetectionType:(signed __int16)type photoLibrary:(id)library
+{
+  typeCopy = type;
+  v11[1] = *MEMORY[0x277D85DE8];
+  librarySpecificFetchOptions = [library librarySpecificFetchOptions];
+  v6 = [MEMORY[0x277CCABB0] numberWithShort:typeCopy];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  [librarySpecificFetchOptions setIncludedDetectionTypes:v7];
+
+  [librarySpecificFetchOptions setMinimumVerifiedFaceCount:0];
+  [librarySpecificFetchOptions setMinimumUnverifiedFaceCount:0];
+  [librarySpecificFetchOptions setIncludeTorsoOnlyPerson:1];
+  v8 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K = nil", @"keyFace"];
+  [librarySpecificFetchOptions setInternalPredicate:v8];
+
+  v9 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions];
+
+  return v9;
+}
+
++ (id)fetchPetPersonsWithDetectionType:(signed __int16)type photoLibrary:(id)library
+{
+  typeCopy = type;
+  v10[1] = *MEMORY[0x277D85DE8];
+  librarySpecificFetchOptions = [library librarySpecificFetchOptions];
+  v6 = [MEMORY[0x277CCABB0] numberWithShort:typeCopy];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  [librarySpecificFetchOptions setIncludedDetectionTypes:v7];
+
+  [librarySpecificFetchOptions setMinimumVerifiedFaceCount:0];
+  [librarySpecificFetchOptions setMinimumUnverifiedFaceCount:0];
+  [librarySpecificFetchOptions setIncludeTorsoOnlyPerson:1];
+  v8 = [MEMORY[0x277CD9938] fetchPersonsWithOptions:librarySpecificFetchOptions];
+
+  return v8;
 }
 
 @end

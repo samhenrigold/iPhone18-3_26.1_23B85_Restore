@@ -9,7 +9,7 @@
 
 - (id)writeMessageToWriter:(id)writer error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   writerCopy = writer;
   v7 = objc_alloc_init(WFREPBAceCommandRequestResponse);
   originatingRequestIdentifier = [(WFRemoteExecutionAceCommandRequestResponse *)self originatingRequestIdentifier];
@@ -17,9 +17,9 @@
 
   v9 = MEMORY[0x1E696ACC8];
   aceCommandResponseDictionary = [(WFRemoteExecutionAceCommandRequestResponse *)self aceCommandResponseDictionary];
-  v29 = 0;
-  v11 = [v9 archivedDataWithRootObject:aceCommandResponseDictionary requiringSecureCoding:1 error:&v29];
-  v12 = v29;
+  v28 = 0;
+  v11 = [v9 archivedDataWithRootObject:aceCommandResponseDictionary requiringSecureCoding:1 error:&v28];
+  v12 = v28;
 
   if ([v11 length])
   {
@@ -59,9 +59,9 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v31 = "[WFRemoteExecutionAceCommandRequestResponse writeMessageToWriter:error:]";
-      v32 = 2114;
-      v33 = v12;
+      v30 = "[WFRemoteExecutionAceCommandRequestResponse writeMessageToWriter:error:]";
+      v31 = 2114;
+      v32 = v12;
       _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s Unable to write ace command response dictionary as data: %{public}@", buf, 0x16u);
     }
 
@@ -78,22 +78,20 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return immutableData;
 }
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v8 = [[v6 alloc] initWithData:dataCopy];
 
   v9 = objc_alloc_init(WFREPBAceCommandRequestResponse);
-  v53 = 0;
-  v10 = [(PBCodable *)v9 readFrom:v8 error:&v53];
-  v11 = v53;
+  v52 = 0;
+  v10 = [(PBCodable *)v9 readFrom:v8 error:&v52];
+  v11 = v52;
   if (v10)
   {
     originatingRequestIdentifier = [(WFREPBAceCommandRequestResponse *)v9 originatingRequestIdentifier];
@@ -105,9 +103,9 @@
     v16 = objc_opt_class();
     v17 = objc_opt_class();
     v18 = [v15 setWithObjects:{v16, v17, objc_opt_class(), 0}];
-    v52 = 0;
-    v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v18 fromData:aceCommandResponseData error:&v52];
-    v20 = v52;
+    v51 = 0;
+    v19 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v18 fromData:aceCommandResponseData error:&v51];
+    v20 = v51;
     v21 = v19 != 0;
     if (!v19)
     {
@@ -115,9 +113,9 @@
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v55 = "[WFRemoteExecutionAceCommandRequestResponse readMessageFromData:error:]";
-        v56 = 2114;
-        v57 = v20;
+        v54 = "[WFRemoteExecutionAceCommandRequestResponse readMessageFromData:error:]";
+        v55 = 2114;
+        v56 = v20;
         _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_FAULT, "%s Unable to unarchive ace command response dictionary from protobuf: %{public}@", buf, 0x16u);
       }
 
@@ -140,11 +138,11 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v49 = v20;
-    v51 = aceCommandResponseData;
+    v48 = v20;
+    v50 = aceCommandResponseData;
     error2 = [(WFREPBAceCommandRequestResponse *)v9 error];
     localizedFailureReason = [error2 localizedFailureReason];
-    v50 = v18;
+    v49 = v18;
     if (localizedFailureReason)
     {
     }
@@ -166,9 +164,9 @@ LABEL_21:
         error = self->_error;
         self->_error = v45;
 
-        v18 = v50;
-        aceCommandResponseData = v51;
-        v20 = v49;
+        v18 = v49;
+        aceCommandResponseData = v50;
+        v20 = v48;
         v21 = v19 != 0;
         goto LABEL_22;
       }
@@ -203,9 +201,9 @@ LABEL_21:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v55 = "[WFRemoteExecutionAceCommandRequestResponse readMessageFromData:error:]";
-    v56 = 2114;
-    v57 = v11;
+    v54 = "[WFRemoteExecutionAceCommandRequestResponse readMessageFromData:error:]";
+    v55 = 2114;
+    v56 = v11;
     _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s Failed to read ace command request response protobuf, %{public}@", buf, 0x16u);
   }
 
@@ -223,7 +221,6 @@ LABEL_21:
 
 LABEL_23:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

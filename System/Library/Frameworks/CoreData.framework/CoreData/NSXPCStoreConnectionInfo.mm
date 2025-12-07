@@ -47,7 +47,7 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSXPCStoreServerConnectionInfo: \n\tentitlements = %@ ;\n\tcoordinator = %@ ;\n\tuserInfo = %@>", self->_entitlements, -[NSXPCStoreServerPerConnectionCache coordinator](self->_cache, "coordinator"), self->_userInfo];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_entitlements, [(NSXPCStoreServerPerConnectionCache *)self->_cache coordinator], self->_userInfo);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -63,10 +63,10 @@
 
 - (id)initForToken:(id *)token entitlementNames:(id)names cache:(id)cache
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = NSXPCStoreConnectionInfo;
-  v8 = [(NSXPCStoreConnectionInfo *)&v24 init];
+  v25 = *MEMORY[0x1E69E9840];
+  v23.receiver = self;
+  v23.super_class = NSXPCStoreConnectionInfo;
+  v8 = [(NSXPCStoreConnectionInfo *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -100,7 +100,7 @@ LABEL_5:
 LABEL_14:
         CFRelease(v15);
         v9[2] = cache;
-        goto LABEL_15;
+        return v9;
       }
 
       v17 = objc_autoreleasePoolPush();
@@ -139,8 +139,6 @@ LABEL_17:
     goto LABEL_5;
   }
 
-LABEL_15:
-  v21 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

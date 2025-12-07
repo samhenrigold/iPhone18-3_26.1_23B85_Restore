@@ -272,12 +272,12 @@ void __53___UIKeyboardStateManager_updateDefaultsWithResults___block_invoke_3(ui
       if ([v11 containsObject:v12])
       {
         v16 = [v12 identifier];
-        v17 = [v15 isEqualToString:v16];
+        isEqualToString = objc_msgSend_isEqualToString_(v15);
       }
 
       else
       {
-        v17 = 0;
+        isEqualToString = 0;
       }
 
       v18 = [v10 inputModeContextIdentifier];
@@ -295,7 +295,7 @@ void __53___UIKeyboardStateManager_updateDefaultsWithResults___block_invoke_3(ui
 
       if (!v20 || (v19 & 1) != 0)
       {
-        if ((v17 | v19))
+        if ((isEqualToString | v19))
         {
           v23 = [v10 identifiersFromInputModes:v11];
           UIKeyboardSetActiveInputModes(v23);
@@ -313,9 +313,9 @@ void __53___UIKeyboardStateManager_updateDefaultsWithResults___block_invoke_3(ui
         if ((UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL) == 1)
         {
           v21 = [v10 currentInputMode];
-          v22 = [v21 isEqual:v12];
+          isEqual = objc_msgSend_isEqual_(v21);
 
-          if ((v22 & 1) == 0)
+          if ((isEqual & 1) == 0)
           {
             [*(a1 + 32) syncInputManagerToKeyboardState];
           }
@@ -416,7 +416,7 @@ void __95___UIKeyboardStateManager_setKeyboardInputMode_userInitiated_updateIndi
 {
   v2 = *(a1 + 32);
   v3 = UIKeyboardGetCurrentInputMode();
-  LODWORD(v2) = [v2 isEqualToString:v3];
+  LODWORD(v2) = objc_msgSend_isEqualToString_(v2);
 
   if (v2)
   {
@@ -784,7 +784,7 @@ void __43___UIKeyboardStateManager__setSuggestions___block_invoke(uint64_t a1, v
   if ([v6 length])
   {
     v7 = [*(a1 + 32) length];
-    if (!v7 || (v8 = *(a1 + 32), [v18 searchText], v3 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v8, "isEqualToString:", v3) & 1) != 0))
+    if (!v7 || (v8 = *(a1 + 32), [v18 searchText], v3 = objc_claimAutoreleasedReturnValue(), (objc_msgSend_isEqualToString_(v8) & 1) != 0))
     {
       if ((*(a1 + 80) & 1) != 0 || (v11 = *(a1 + 40)) == 0)
       {
@@ -797,13 +797,13 @@ void __43___UIKeyboardStateManager__setSuggestions___block_invoke(uint64_t a1, v
       {
         v12 = [v11 candidate];
         v13 = [v18 inputText];
-        v14 = [v12 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
         if (v7)
         {
         }
 
-        if (v14)
+        if (isEqualToString)
         {
           goto LABEL_6;
         }
@@ -1025,7 +1025,7 @@ void __50___UIKeyboardStateManager_shouldAllowRepeatEvent___block_invoke()
   qword_1ED49D070 = v4;
 }
 
-uint64_t __79___UIKeyboardStateManager_handleKeyCommand_repeatOkay_beforePublicKeyCommands___block_invoke(uint64_t a1)
+void *__79___UIKeyboardStateManager_handleKeyCommand_repeatOkay_beforePublicKeyCommands___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) handleKeyCommand:*(a1 + 40) repeatOkay:*(a1 + 56) options:*(a1 + 64)];
   *(*(*(a1 + 48) + 8) + 24) = result != 0;
@@ -1650,7 +1650,7 @@ void __52___UIKeyboardStateManager_updateForChangedSelection__block_invoke()
   qword_1ED49D0C0 = v0;
 }
 
-uint64_t __52___UIKeyboardStateManager_updateForChangedSelection__block_invoke_3(uint64_t a1, uint64_t a2)
+void *__52___UIKeyboardStateManager_updateForChangedSelection__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   *(*(a1 + 32) + 121) = 1;
   result = [*(a1 + 32) updateForChangedSelectionWithExecutionContext:a2];
@@ -1713,7 +1713,7 @@ void __46___UIKeyboardStateManager_selectionDidChange___block_invoke()
   qword_1ED49D0D0 = v0;
 }
 
-uint64_t __46___UIKeyboardStateManager_selectionDidChange___block_invoke_3(uint64_t a1, uint64_t a2)
+void *__46___UIKeyboardStateManager_selectionDidChange___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   *(*(a1 + 32) + 328) = 0;
   *(*(a1 + 32) + 121) = 1;
@@ -1729,7 +1729,7 @@ void __46___UIKeyboardStateManager_selectionDidChange___block_invoke_4()
   qword_1ED49D0E0 = v0;
 }
 
-uint64_t __46___UIKeyboardStateManager_selectionDidChange___block_invoke_6(uint64_t a1, uint64_t a2)
+void *__46___UIKeyboardStateManager_selectionDidChange___block_invoke_6(uint64_t a1, uint64_t a2)
 {
   *(*(a1 + 32) + 520) = 1;
   result = [*(a1 + 32) updateForChangedSelectionWithExecutionContext:a2];
@@ -2060,9 +2060,9 @@ LABEL_7:
 
 LABEL_29:
   v42 = UIKeyboardGetCurrentInputMode();
-  v43 = [v18 isEqualToString:v42];
+  isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-  if (v43)
+  if (isEqualToString)
   {
     [*(a1 + 40) syncKeyboardToConfiguration:v9];
   }
@@ -2230,9 +2230,9 @@ void __58___UIKeyboardStateManager_performKeyboardOutput_userInfo___block_invoke
       v9 = [v13 acceptedCandidate];
       v10 = [v9 candidate];
       v11 = [v13 textToCommit];
-      v12 = [v10 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if (v12)
+      if (isEqualToString)
       {
         [v13 setTextToCommit:0];
       }
@@ -3046,10 +3046,10 @@ void __50___UIKeyboardStateManager_supportsGenmojiCreation__block_invoke()
     if (isKindOfClass)
     {
       v4 = [v6 objectForKey:@"NSExtensionPointIdentifier"];
-      v5 = [v4 isEqualToString:@"com.apple.usernotifications.content-extension"];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
 
       v2 = v6;
-      if (v5)
+      if (isEqualToString)
       {
         byte_1ED49CF3C = 1;
       }
@@ -3133,7 +3133,7 @@ void __87___UIKeyboardStateManager__handleKeyInputMethodCommandForEvent_canHandl
   qword_1ED49D220 = v0;
 }
 
-uint64_t __87___UIKeyboardStateManager__handleKeyInputMethodCommandForEvent_canHandleAppKeyCommand___block_invoke_3(uint64_t a1, uint64_t a2)
+void *__87___UIKeyboardStateManager__handleKeyInputMethodCommandForEvent_canHandleAppKeyCommand___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   v4 = *(v3 + 516);
@@ -3877,7 +3877,7 @@ void __103___UIKeyboardStateManager_acceptAutocorrectionWithCompletionHandler_re
   }
 }
 
-uint64_t __103___UIKeyboardStateManager_acceptAutocorrectionWithCompletionHandler_requestedByRemoteInputDestination___block_invoke_3(uint64_t a1)
+void *__103___UIKeyboardStateManager_acceptAutocorrectionWithCompletionHandler_requestedByRemoteInputDestination___block_invoke_3(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [v2 autocorrectionController];
@@ -3943,7 +3943,7 @@ LABEL_12:
     result = *(a1 + 40);
     if (result)
     {
-      v14 = *(result + 16);
+      v14 = result[2];
 
       return v14();
     }
@@ -4325,7 +4325,7 @@ void __65___UIKeyboardStateManager_acceptPredictiveInput_appendSeparator___block
   qword_1ED49D380 = v0;
 }
 
-uint64_t __65___UIKeyboardStateManager_acceptPredictiveInput_appendSeparator___block_invoke_8(uint64_t a1, void *a2)
+void *__65___UIKeyboardStateManager_acceptPredictiveInput_appendSeparator___block_invoke_8(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 48);
   v4 = a2;
@@ -4373,7 +4373,7 @@ void __40___UIKeyboardStateManager_textAccepted___block_invoke_3(uint64_t a1, vo
   v6 = a2;
   v4 = +[UIKeyboardInputModeController sharedInputModeController];
   v5 = [v4 currentInputMode];
-  LODWORD(v3) = [v3 isEqual:v5];
+  LODWORD(v3) = objc_msgSend_isEqual_(v3);
 
   if (v3)
   {
@@ -4536,19 +4536,19 @@ uint64_t __52___UIKeyboardStateManager_acceptCandidate_forInput___block_invoke(u
 {
   v3 = a2;
   v4 = [MEMORY[0x1E695DFB0] null];
-  if ([v3 isEqual:v4])
+  if (objc_msgSend_isEqual_(v3))
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
     v6 = [v3 candidate];
     v7 = [*(a1 + 32) candidate];
-    v5 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 void __58___UIKeyboardStateManager_acceptCurrentCandidateForInput___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -4867,16 +4867,16 @@ void __60___UIKeyboardStateManager_pushAutocorrections_requestToken___block_invo
       v17 = MEMORY[0x1E696B098];
       v18 = [a1[4] delegate];
       v19 = [v17 valueWithPointer:v18];
-      v20 = [v16 isEqual:v19];
+      isEqual = objc_msgSend_isEqual_(v16);
     }
 
     else
     {
-      v20 = 0;
+      isEqual = 0;
     }
 
     v8 = a1[6];
-    if (v20)
+    if (isEqual)
     {
       goto LABEL_15;
     }
@@ -4937,9 +4937,9 @@ LABEL_24:
   }
 
   v27 = _UIMainBundleIdentifier();
-  v28 = [v27 isEqualToString:@"com.apple.ConnectSSO.App-SSO"];
+  isEqualToString = objc_msgSend_isEqualToString_(v27);
 
-  if (v28)
+  if (isEqualToString)
   {
     v29 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
     v30 = [v29 responder];
@@ -4953,7 +4953,7 @@ LABEL_24:
 
     v31 = v22 ? v22[121] : 0;
     v32 = v31;
-    v33 = [v32 isEqualToString:@"com.apple.SafariViewService"];
+    v33 = objc_msgSend_isEqualToString_(v32);
 
     if (!v33)
     {
@@ -5014,7 +5014,7 @@ LABEL_25:
 LABEL_31:
 }
 
-uint64_t __60___UIKeyboardStateManager_pushAutocorrections_requestToken___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60___UIKeyboardStateManager_pushAutocorrections_requestToken___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 candidateProperty];
   if ((result & 0x80) != 0)
@@ -5872,7 +5872,7 @@ void __76___UIKeyboardStateManager_handleKeyWithString_forKeyEvent_executionCont
       v9 = [*(a1 + 32) inlineTextCompletionController];
       v10 = [v9 presentingTextCompletionAsMarkedText];
 
-      if (![v14 length] || (objc_msgSend(*(a1 + 32), "_markedText"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", v14), v11, (v12 & 1) == 0))
+      if (![v14 length] || (objc_msgSend(*(a1 + 32), "_markedText"), v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v11), v11, (isEqualToString & 1) == 0))
       {
         *(*(a1 + 32) + 517) = 1;
         v13 = [*(a1 + 32) inputDelegateManager];

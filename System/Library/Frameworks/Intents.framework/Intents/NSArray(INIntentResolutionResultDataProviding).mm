@@ -8,44 +8,44 @@
 
 - (void)transformResolutionResultForIntent:()INIntentResolutionResultDataProviding intentSlotDescription:withOptionsProvider:completion:
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v28 = a3;
-  v27 = a4;
-  v26 = a5;
-  v24 = a6;
+  v38 = *MEMORY[0x1E69E9840];
+  v27 = a3;
+  v26 = a4;
+  v25 = a5;
+  v23 = a6;
   v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(self, "count")}];
   v11 = objc_alloc_init(MEMORY[0x1E696ADC8]);
   [v11 setMaxConcurrentOperationCount:1];
   [v11 setSuspended:1];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = self;
-  v12 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v35;
+    v15 = *v34;
     do
     {
       v16 = 0;
       v17 = v14;
       do
       {
-        if (*v35 != v15)
+        if (*v34 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [[INResolutionResultTransformationOperation alloc] initWithResult:*(*(&v34 + 1) + 8 * v16) intent:v28 intentSlotDescription:v27 optionsProvider:v26];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __138__NSArray_INIntentResolutionResultDataProviding__transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke;
-        v32[3] = &unk_1E7284088;
-        v33 = v10;
-        [(INResolutionResultTransformationOperation *)v14 setReturnBlock:v32];
+        v14 = [[INResolutionResultTransformationOperation alloc] initWithResult:*(*(&v33 + 1) + 8 * v16) intent:v27 intentSlotDescription:v26 optionsProvider:v25];
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __138__NSArray_INIntentResolutionResultDataProviding__transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke;
+        v31[3] = &unk_1E7284088;
+        v32 = v10;
+        [(INResolutionResultTransformationOperation *)v14 setReturnBlock:v31];
         if (v17)
         {
           [(INResolutionResultTransformationOperation *)v14 addDependency:v17];
@@ -58,7 +58,7 @@
       }
 
       while (v13 != v16);
-      v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v13);
@@ -70,15 +70,15 @@
   }
 
   v18 = MEMORY[0x1E696AAE0];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __138__NSArray_INIntentResolutionResultDataProviding__transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke_2;
-  v29[3] = &unk_1E7287140;
-  v30 = v10;
-  v31 = v24;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __138__NSArray_INIntentResolutionResultDataProviding__transformResolutionResultForIntent_intentSlotDescription_withOptionsProvider_completion___block_invoke_2;
+  v28[3] = &unk_1E7287140;
+  v29 = v10;
+  v30 = v23;
   v19 = v10;
-  v20 = v24;
-  v21 = [v18 blockOperationWithBlock:v29];
+  v20 = v23;
+  v21 = [v18 blockOperationWithBlock:v28];
   v22 = v21;
   if (v14)
   {
@@ -87,58 +87,54 @@
 
   [v11 addOperation:v22];
   [v11 setSuspended:0];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_JSONDictionaryRepresentationForIntent:()INIntentResolutionResultDataProviding parameterName:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
-  v10 = [selfCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v10 = [selfCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v14 = [*(*(&v19 + 1) + 8 * i) _JSONDictionaryRepresentationForIntent:v6 parameterName:{v7, v19}];
+        v14 = [*(*(&v18 + 1) + 8 * i) _JSONDictionaryRepresentationForIntent:v6 parameterName:{v7, v18}];
         [v8 addObject:v14];
       }
 
-      v11 = [selfCopy countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v11 = [selfCopy countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v11);
   }
 
-  v23 = @"resolutionResults";
+  v22 = @"resolutionResults";
   v15 = [v8 copy];
-  v24 = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v23 = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
 
   return v16;
 }
 
 - (id)resolutionResultDataForIntent:()INIntentResolutionResultDataProviding intentSlotDescription:error:
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   facadePropertyName = [v9 facadePropertyName];
@@ -155,30 +151,30 @@
   v13 = [v11 count];
   if ([self count] || !v13)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     selfCopy = self;
-    v21 = [selfCopy countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v21 = [selfCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v33;
+      v23 = *v32;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v23)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(selfCopy);
           }
 
-          v25 = [*(*(&v32 + 1) + 8 * i) _buildIntentSlotResolutionResultWithIntentSlotDescription:v9];
+          v25 = [*(*(&v31 + 1) + 8 * i) _buildIntentSlotResolutionResultWithIntentSlotDescription:v9];
           [(_INPBIntentSlotResolutionMulticardinalResult *)v12 addResolutionResults:v25];
         }
 
-        v22 = [selfCopy countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v22 = [selfCopy countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v22);
@@ -198,28 +194,28 @@
     goto LABEL_7;
   }
 
-  v29 = v14;
+  v28 = v14;
   facadePropertyName2 = [v9 facadePropertyName];
-  v31 = [v8 description];
+  v30 = [v8 description];
   *buf = 136315650;
-  v40 = "[NSArray(INIntentResolutionResultDataProviding) resolutionResultDataForIntent:intentSlotDescription:error:]";
-  v41 = 2114;
-  v42 = facadePropertyName2;
-  v43 = 2114;
-  v44 = v31;
-  _os_log_error_impl(&dword_18E991000, v29, OS_LOG_TYPE_ERROR, "%s There should be at least 1 resolution result returned for the .%{public}@ property of %{public}@, since there was at least 1 input value.", buf, 0x20u);
+  v39 = "[NSArray(INIntentResolutionResultDataProviding) resolutionResultDataForIntent:intentSlotDescription:error:]";
+  v40 = 2114;
+  v41 = facadePropertyName2;
+  v42 = 2114;
+  v43 = v30;
+  _os_log_error_impl(&dword_18E991000, v28, OS_LOG_TYPE_ERROR, "%s There should be at least 1 resolution result returned for the .%{public}@ property of %{public}@, since there was at least 1 input value.", buf, 0x20u);
 
   if (a5)
   {
 LABEL_7:
     v15 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A578];
+    v36 = *MEMORY[0x1E696A578];
     v16 = MEMORY[0x1E696AEC0];
     selfCopy = [v9 facadePropertyName];
     v18 = [v8 description];
     v19 = [v16 stringWithFormat:@"There should be at least 1 resolution result returned for the .%@ property of %@, since there was at least 1 input value.", selfCopy, v18];
-    v38 = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v37 = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     *a5 = [v15 errorWithDomain:@"INIntentResolutionResultErrorDomain" code:1000 userInfo:v20];
 
 LABEL_15:
@@ -227,8 +223,6 @@ LABEL_15:
 
 LABEL_16:
   data = [(_INPBIntentSlotResolutionMulticardinalResult *)v12 data];
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return data;
 }

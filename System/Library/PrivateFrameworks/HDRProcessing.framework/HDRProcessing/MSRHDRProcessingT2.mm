@@ -118,9 +118,9 @@
 
 - (void)setupMSRMappingTableWithMetadata:(id *)metadata
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = metadata->var0 + 8;
-  v22 = (1 << (LOBYTE(metadata->var0) + 8));
+  v21 = (1 << (LOBYTE(metadata->var0) + 8));
   v6 = malloc_type_malloc(6 << (LOBYTE(metadata->var0) + 8), 0x1000040BDFB0063uLL);
   v7 = malloc_type_calloc(0x2CuLL, 4uLL, 0x100004052888210uLL);
   v9 = v7;
@@ -151,7 +151,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v26 = WORD1(v11);
+        v25 = WORD1(v11);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: polyBuf && mmrCoefBuf warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingT2.mm at line 164\n", buf, 0xCu);
       }
 
@@ -170,7 +170,7 @@
   v14 = MEMORY[0x277D86220];
   v15 = 276;
   *&v8 = 134217984;
-  v21 = v8;
+  v20 = v8;
   do
   {
     v16 = *(&metadata->var0 + v15);
@@ -190,8 +190,8 @@
 
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v21;
-          v26 = WORD1(v17);
+          *buf = v20;
+          v25 = WORD1(v17);
           _os_log_impl(&dword_250836000, v14, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: metadata->mapping_idc[0][0][cmp][0] == 0 || metadata->mapping_idc[0][0][cmp][0] == 1 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingT2.mm at line 167\n", buf, 0xCu);
         }
 
@@ -225,8 +225,8 @@
 
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v21;
-            v26 = WORD1(v18);
+            *buf = v20;
+            v25 = WORD1(v18);
             _os_log_impl(&dword_250836000, v14, OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: cmp != 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/MSR/MSRHDRProcessingT2.mm at line 182\n", buf, 0xCu);
           }
 
@@ -240,19 +240,19 @@
         }
       }
 
-      createMmrTableForComponent(metadata, v12, v24, v23, &v9[v13 & 0xFFFFFFFE]);
-      [(MSRHDRProcessingT2 *)self updateMmrTableForComponent:v12 mmrClipValMin:v24 mmrClipValMax:v23 mmrCoeff:&v9[v13 & 0xFFFFFFFE]];
+      createMmrTableForComponent(metadata, v12, v23, v22, &v9[v13 & 0xFFFFFFFE]);
+      [(MSRHDRProcessingT2 *)self updateMmrTableForComponent:v12 mmrClipValMin:v23 mmrClipValMax:v22 mmrCoeff:&v9[v13 & 0xFFFFFFFE]];
       v19 = 0;
     }
 
     else
     {
       createPolynomialTableForComponent(metadata, v12, v6 + 2 * (v12 << v5));
-      [(MSRHDRProcessingT2 *)self updatePolynomialTablesForComponent:v6 Component:v12 TableSize:v22];
+      [(MSRHDRProcessingT2 *)self updatePolynomialTablesForComponent:v6 Component:v12 TableSize:v21];
       v19 = 1;
     }
 
-    [(MSRHDRProcessingT2 *)self updateMmrReshapeChromaForComponent:v12++ mmrReshapeChroma:v19, v21];
+    [(MSRHDRProcessingT2 *)self updateMmrReshapeChromaForComponent:v12++ mmrReshapeChroma:v19, v20];
     v13 += 22;
     v15 += 36;
   }
@@ -260,7 +260,6 @@
   while (v12 != 3);
   free(v9);
   free(v6);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

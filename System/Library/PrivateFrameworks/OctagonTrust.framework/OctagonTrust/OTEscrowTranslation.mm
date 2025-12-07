@@ -166,11 +166,9 @@ LABEL_10:
     [dictionary setObject:label forKeyedSubscript:{**(v18 + 3880), Helper_x8__kSecureBackupRecordLabelKey}];
 
     [dictionaryCopy recordStatus];
-    Helper_x8__kSecureBackupRecordStatusKey = gotLoadHelper_x8__kSecureBackupRecordStatusKey(v19);
-    v22 = **(v21 + 3888);
-    [dictionary setObject:Helper_x8__kSecureBackupRecordStatusKey forKeyedSubscript:?];
-    v23 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedLongLong:{objc_msgSend(dictionaryCopy, "silentAttemptAllowed")}];
-    [dictionary setObject:v23 forKeyedSubscript:@"silentAttemptAllowed"];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupRecordStatusKey(v19) forKeyedSubscript:?];
+    v20 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedLongLong:{objc_msgSend(dictionaryCopy, "silentAttemptAllowed")}];
+    [dictionary setObject:v20 forKeyedSubscript:@"silentAttemptAllowed"];
 
     federationId = [dictionaryCopy federationId];
     [dictionary setObject:federationId forKeyedSubscript:@"FEDERATIONID"];
@@ -179,20 +177,20 @@ LABEL_10:
     [dictionary setObject:expectedFederationId forKeyedSubscript:@"EXPECTEDFEDERATIONID"];
 
     recordId = [dictionaryCopy recordId];
-    Helper_x8__kSecureBackupRecordIDKey = gotLoadHelper_x8__kSecureBackupRecordIDKey(v27);
-    [dictionary setObject:recordId forKeyedSubscript:{**(v29 + 3872), Helper_x8__kSecureBackupRecordIDKey}];
+    Helper_x8__kSecureBackupRecordIDKey = gotLoadHelper_x8__kSecureBackupRecordIDKey(v24);
+    [dictionary setObject:recordId forKeyedSubscript:{**(v26 + 3872), Helper_x8__kSecureBackupRecordIDKey}];
 
     serialNumber = [dictionaryCopy serialNumber];
-    Helper_x8__kSecureBackupPeerInfoSerialNumberKey = gotLoadHelper_x8__kSecureBackupPeerInfoSerialNumberKey(v31);
-    [dictionary setObject:serialNumber forKeyedSubscript:{**(v33 + 3864), Helper_x8__kSecureBackupPeerInfoSerialNumberKey}];
+    Helper_x8__kSecureBackupPeerInfoSerialNumberKey = gotLoadHelper_x8__kSecureBackupPeerInfoSerialNumberKey(v28);
+    [dictionary setObject:serialNumber forKeyedSubscript:{**(v30 + 3864), Helper_x8__kSecureBackupPeerInfoSerialNumberKey}];
 
-    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(dictionaryCopy, "coolOffEnd")}];
-    Helper_x8__kSecureBackupCoolOffEndKey = gotLoadHelper_x8__kSecureBackupCoolOffEndKey(v35);
-    [dictionary setObject:v34 forKeyedSubscript:{**(v37 + 3688), Helper_x8__kSecureBackupCoolOffEndKey}];
+    v31 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(dictionaryCopy, "coolOffEnd")}];
+    Helper_x8__kSecureBackupCoolOffEndKey = gotLoadHelper_x8__kSecureBackupCoolOffEndKey(v32);
+    [dictionary setObject:v31 forKeyedSubscript:{**(v34 + 3688), Helper_x8__kSecureBackupCoolOffEndKey}];
 
-    v38 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(dictionaryCopy, "recoveryStatus")}];
-    Helper_x8__kSecureBackupRecoveryStatusKey = gotLoadHelper_x8__kSecureBackupRecoveryStatusKey(v39);
-    [dictionary setObject:v38 forKeyedSubscript:{**(v41 + 3904), Helper_x8__kSecureBackupRecoveryStatusKey}];
+    v35 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(dictionaryCopy, "recoveryStatus")}];
+    Helper_x8__kSecureBackupRecoveryStatusKey = gotLoadHelper_x8__kSecureBackupRecoveryStatusKey(v36);
+    [dictionary setObject:v35 forKeyedSubscript:{**(v38 + 3904), Helper_x8__kSecureBackupRecoveryStatusKey}];
   }
 
   else
@@ -582,33 +580,21 @@ LABEL_10:
     [dictionary setObject:recoverySecret forKeyedSubscript:{**(v8 + 3848), Helper_x8__kSecureBackupPassphraseKey}];
 
     [dictionaryCopy useCachedSecret];
-    Helper_x8__kSecureBackupUseCachedPassphraseKey = gotLoadHelper_x8__kSecureBackupUseCachedPassphraseKey(v9);
-    v12 = **(v11 + 3968);
-    [dictionary setObject:Helper_x8__kSecureBackupUseCachedPassphraseKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupUseCachedPassphraseKey(v9) forKeyedSubscript:?];
     recoveryKey = [dictionaryCopy recoveryKey];
-    Helper_x8__kSecureBackupRecoveryKeyKey = gotLoadHelper_x8__kSecureBackupRecoveryKeyKey(v14);
-    [dictionary setObject:recoveryKey forKeyedSubscript:{**(v16 + 3896), Helper_x8__kSecureBackupRecoveryKeyKey}];
+    Helper_x8__kSecureBackupRecoveryKeyKey = gotLoadHelper_x8__kSecureBackupRecoveryKeyKey(v11);
+    [dictionary setObject:recoveryKey forKeyedSubscript:{**(v13 + 3896), Helper_x8__kSecureBackupRecoveryKeyKey}];
 
     [dictionaryCopy usePreviouslyCachedRecoveryKey];
-    Helper_x8__kSecureBackupUsesRecoveryKeyKey = gotLoadHelper_x8__kSecureBackupUsesRecoveryKeyKey(v17);
-    v20 = **(v19 + 4000);
-    [dictionary setObject:Helper_x8__kSecureBackupUsesRecoveryKeyKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupUsesRecoveryKeyKey(v14) forKeyedSubscript:?];
     [dictionaryCopy silentRecoveryAttempt];
-    Helper_x8__kSecureBackupSilentRecoveryAttemptKey = gotLoadHelper_x8__kSecureBackupSilentRecoveryAttemptKey(v21);
-    v24 = **(v23 + 3936);
-    [dictionary setObject:Helper_x8__kSecureBackupSilentRecoveryAttemptKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupSilentRecoveryAttemptKey(v15) forKeyedSubscript:?];
     [dictionaryCopy containsIcdpData];
-    Helper_x8__kSecureBackupContainsiCDPDataKey = gotLoadHelper_x8__kSecureBackupContainsiCDPDataKey(v25);
-    v28 = **(v27 + 3672);
-    [dictionary setObject:Helper_x8__kSecureBackupContainsiCDPDataKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupContainsiCDPDataKey(v16) forKeyedSubscript:?];
     [dictionaryCopy usesMultipleIcsc];
-    Helper_x8__kSecureBackupUsesMultipleiCSCKey = gotLoadHelper_x8__kSecureBackupUsesMultipleiCSCKey(v29);
-    v32 = **(v31 + 3984);
-    [dictionary setObject:Helper_x8__kSecureBackupUsesMultipleiCSCKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupUsesMultipleiCSCKey(v17) forKeyedSubscript:?];
     [dictionaryCopy nonViableRepair];
-    Helper_x8__kSecureBackupNonViableRepairKey = gotLoadHelper_x8__kSecureBackupNonViableRepairKey(v33);
-    v36 = **(v35 + 3824);
-    [dictionary setObject:Helper_x8__kSecureBackupNonViableRepairKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupNonViableRepairKey(v18) forKeyedSubscript:?];
   }
 
   else
@@ -743,13 +729,9 @@ LABEL_10:
     }
 
     [dictionaryCopy fmipRecovery];
-    Helper_x8__kSecureBackupFMiPRecoveryKey = gotLoadHelper_x8__kSecureBackupFMiPRecoveryKey(v47);
-    v50 = **(v49 + 3744);
-    [dictionary setObject:Helper_x8__kSecureBackupFMiPRecoveryKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupFMiPRecoveryKey(v47) forKeyedSubscript:?];
     [dictionaryCopy idmsRecovery];
-    Helper_x8__kSecureBackupIDMSRecoveryKey = gotLoadHelper_x8__kSecureBackupIDMSRecoveryKey(v51);
-    v54 = **(v53 + 3792);
-    [dictionary setObject:Helper_x8__kSecureBackupIDMSRecoveryKey forKeyedSubscript:?];
+    [dictionary setObject:gotLoadHelper_x8__kSecureBackupIDMSRecoveryKey(v48) forKeyedSubscript:?];
   }
 
   else

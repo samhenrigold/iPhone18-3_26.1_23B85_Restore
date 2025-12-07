@@ -5,6 +5,7 @@
 - (void)didSendAnnouncementReplyforNotificationPayload:(id)payload;
 - (void)updateViewConstraints;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HomeUtilNotificationViewController
@@ -14,6 +15,15 @@
   v2.receiver = self;
   v2.super_class = HomeUtilNotificationViewController;
   [(HomeUtilNotificationViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HomeUtilNotificationViewController;
+  [(HomeUtilNotificationViewController *)&v5 viewWillDisappear:disappear];
+  announcementsBrowserViewController = [(HomeUtilNotificationViewController *)self announcementsBrowserViewController];
+  [announcementsBrowserViewController tearDownAudioActivity];
 }
 
 - (void)updateViewConstraints

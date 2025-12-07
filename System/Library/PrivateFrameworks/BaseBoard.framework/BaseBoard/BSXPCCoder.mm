@@ -788,7 +788,7 @@ BOOL __50__BSXPCCoder__appendXPCObject_withName_toBuilder___block_invoke_3(uint6
   return xpc_array_apply(v1, v3);
 }
 
-uint64_t __50__BSXPCCoder__appendXPCObject_withName_toBuilder___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __50__BSXPCCoder__appendXPCObject_withName_toBuilder___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = *(a1 + 32);
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", a2];

@@ -1,4 +1,5 @@
 @interface MLCComparisonLayer
++ (MLCComparisonLayer)layerWithOperation:(MLCComparisonOperation)operation;
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (MLCComparisonLayer)initWithOperation:(int)operation;
 - (id)description;
@@ -7,6 +8,13 @@
 @end
 
 @implementation MLCComparisonLayer
+
++ (MLCComparisonLayer)layerWithOperation:(MLCComparisonOperation)operation
+{
+  v3 = [[self alloc] initWithOperation:*&operation];
+
+  return v3;
+}
 
 - (MLCComparisonLayer)initWithOperation:(int)operation
 {
@@ -179,22 +187,16 @@ LABEL_30:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = NSStringFromSelector(a1);
+  v6 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

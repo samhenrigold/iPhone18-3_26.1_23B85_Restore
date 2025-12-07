@@ -90,18 +90,18 @@
 
 - (id)decodedNameString
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v2 = self->_name;
   if ([(NSString *)v2 length])
   {
     v3 = [(NSString *)v2 dataUsingEncoding:4];
     v4 = *MEMORY[0x277D740C8];
     v5 = *MEMORY[0x277D74080];
-    v12[0] = *MEMORY[0x277D74090];
-    v12[1] = v5;
-    v13[0] = v4;
-    v13[1] = &unk_28647D170;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x277D74090];
+    v11[1] = v5;
+    v12[0] = v4;
+    v12[1] = &unk_28647D170;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v7 = [objc_alloc(MEMORY[0x277CCA898]) initWithData:v3 options:v6 documentAttributes:0 error:0];
     string = [v7 string];
 
@@ -112,8 +112,6 @@
       v2 = string2;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

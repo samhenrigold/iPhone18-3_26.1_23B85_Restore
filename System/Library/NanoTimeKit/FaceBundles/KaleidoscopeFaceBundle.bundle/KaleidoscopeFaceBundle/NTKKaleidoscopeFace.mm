@@ -147,13 +147,6 @@ LABEL_10:
 {
   if (mode == 12)
   {
-    v5 = &off_244B8;
-    if (!exists)
-    {
-      v5 = off_244B0;
-    }
-
-    v6 = *v5;
     v4 = objc_opt_class();
   }
 
@@ -173,23 +166,13 @@ LABEL_10:
 - (id)_resourceDirectorySnapshotKey
 {
   resourceDirectory = [(NTKKaleidoscopeFace *)self resourceDirectory];
-  if (!resourceDirectory)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = resourceDirectory;
-  v5 = +[NSFileManager defaultManager];
-  resourceDirectory2 = [(NTKKaleidoscopeFace *)self resourceDirectory];
-  v7 = [v5 fileExistsAtPath:resourceDirectory2];
-
-  if (v7)
+  if (resourceDirectory && (v4 = resourceDirectory, +[NSFileManager defaultManager](NSFileManager, "defaultManager"), v5 = objc_claimAutoreleasedReturnValue(), -[NTKKaleidoscopeFace resourceDirectory](self, "resourceDirectory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 fileExistsAtPath:v6], v6, v5, v4, v7))
   {
     cachedResourceDirectorySnapshotKey = self->_cachedResourceDirectorySnapshotKey;
     if (!cachedResourceDirectorySnapshotKey)
     {
-      resourceDirectory3 = [(NTKKaleidoscopeFace *)self resourceDirectory];
-      v10 = [NTKPhotosReader readerForResourceDirectory:resourceDirectory3];
+      resourceDirectory2 = [(NTKKaleidoscopeFace *)self resourceDirectory];
+      v10 = [NTKPhotosReader readerForResourceDirectory:resourceDirectory2];
 
       if ([v10 count])
       {
@@ -207,7 +190,6 @@ LABEL_10:
 
   else
   {
-LABEL_8:
     v15 = self->_cachedResourceDirectorySnapshotKey;
     self->_cachedResourceDirectorySnapshotKey = 0;
 

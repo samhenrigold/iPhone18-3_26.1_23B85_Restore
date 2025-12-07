@@ -223,7 +223,7 @@
 
 - (void)adjustMinMaxForDataRangeInAnalysis:(id)analysis
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   analysisCopy = analysis;
   objc_msgSend_min(analysisCopy, v5, v6, v7, v8);
   v10 = v9;
@@ -231,22 +231,22 @@
   v15 = v14;
   if (objc_msgSend_supportsReferenceLines(self, v16, v14, v17, v18))
   {
-    v101 = analysisCopy;
-    v104 = 0u;
-    v105 = 0u;
-    v102 = 0u;
+    v100 = analysisCopy;
     v103 = 0u;
+    v104 = 0u;
+    v101 = 0u;
+    v102 = 0u;
     v23 = objc_msgSend_referenceLines(self, v19, 0.0, v21, v22);
-    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, v25, v26, v27, &v102, v106, 16);
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, v25, v26, v27, &v101, v105, 16);
     if (v28)
     {
       v29 = v28;
-      v30 = *v103;
+      v30 = *v102;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v103 != v30)
+          if (*v102 != v30)
           {
             objc_enumerationMutation(v23);
           }
@@ -272,13 +272,13 @@
           }
         }
 
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v48, v49, v50, v51, &v102, v106, 16);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v48, v49, v50, v51, &v101, v105, 16);
       }
 
       while (v29);
     }
 
-    analysisCopy = v101;
+    analysisCopy = v100;
   }
 
   v52 = v10 - v15;
@@ -290,20 +290,21 @@
   v74 = v69;
   if (v59)
   {
-    objc_msgSend_doubleValue(v59, v70, v71, v72.n128_f64[0], v73);
-    v15 = v71;
+    objc_msgSend_doubleValue(v59, v70, v71.n128_f64[0], v72.n128_f64[0], v73);
+    v15 = v71.n128_f64[0];
   }
 
   else if (v69 >= 1)
   {
+    v71.n128_f64[0] = v15;
     v72.n128_f64[0] = v53;
-    v80 = sub_27628B250(v64, v70, v15, v72, v73);
-    v15 = v80;
+    v80.n128_f64[0] = sub_27628B250(v64, v71, v72, v70, v73);
+    v15 = v80.n128_f64[0];
     if (v64 != 2)
     {
-      if (v80 < 0.0)
+      if (v80.n128_f64[0] < 0.0)
       {
-        if (v52 == 0.0 || (v80 = fabs(v80 * 0.165), v53 > v80))
+        if (v52 == 0.0 || (v80.n128_f64[0] = fabs(v80.n128_f64[0] * 0.165), v53 > v80.n128_f64[0]))
         {
           v15 = 0.0;
         }
@@ -311,8 +312,9 @@
 
       if (!v54)
       {
+        v80.n128_f64[0] = v10;
         v81.n128_f64[0] = v53;
-        v10 = sub_27628B14C(v64, v79, v10, v81, v82);
+        v10 = sub_27628B14C(v64, v80, v81, v79, v82);
         if (v10 > 0.0 && (v53 > v15 * 0.165 || v52 == 0.0))
         {
           objc_msgSend_setMin_(analysisCopy, v70, 0.0, v72.n128_f64[0], v73);
@@ -322,18 +324,18 @@
         goto LABEL_21;
       }
 
-      objc_msgSend_doubleValue(v54, v79, v80, v81.n128_f64[0], v82);
-      if (v71 >= v15)
+      objc_msgSend_doubleValue(v54, v79, v80.n128_f64[0], v81.n128_f64[0], v82);
+      if (v71.n128_f64[0] >= v15)
       {
-        objc_msgSend_doubleValue(v54, v70, v71, v72.n128_f64[0], v73);
-        v90 = fmin(v53, 10.0);
-        v15 = v90 + v91;
-        objc_msgSend_doubleValue(v54, v92, v91, v90, v93);
+        objc_msgSend_doubleValue(v54, v70, v71.n128_f64[0], v72.n128_f64[0], v73);
+        v89 = fmin(v53, 10.0);
+        v15 = v89 + v90;
+        objc_msgSend_doubleValue(v54, v91, v90, v89, v92);
         goto LABEL_20;
       }
 
 LABEL_19:
-      objc_msgSend_doubleValue(v54, v70, v71, v72.n128_f64[0], v73);
+      objc_msgSend_doubleValue(v54, v70, v71.n128_f64[0], v72.n128_f64[0], v73);
 LABEL_20:
       v10 = v75;
       goto LABEL_21;
@@ -341,22 +343,22 @@ LABEL_20:
 
     if (v54)
     {
-      objc_msgSend_doubleValue(v54, v79, v80, v81.n128_f64[0], v82);
-      if (v71 >= v15)
+      objc_msgSend_doubleValue(v54, v79, v80.n128_f64[0], v81.n128_f64[0], v82);
+      if (v71.n128_f64[0] >= v15)
       {
-        objc_msgSend_doubleValue(v54, v70, v71, v72.n128_f64[0], v73);
+        objc_msgSend_doubleValue(v54, v70, v71.n128_f64[0], v72.n128_f64[0], v73);
         v83.n128_f64[0] = v53;
-        v71 = sub_27628B250(2, v84, v85, v83, v86);
-        v15 = v71;
+        v71.n128_f64[0] = sub_27628B250(2, v85, v83, v84, v86);
+        v15 = v71.n128_f64[0];
       }
 
       goto LABEL_19;
     }
 
-    v89 = v10;
+    v80.n128_f64[0] = v10;
 LABEL_50:
     v81.n128_f64[0] = v53;
-    v75 = sub_27628B14C(2, v79, v89, v81, v82);
+    v75 = sub_27628B14C(2, v80, v81, v79, v82);
     goto LABEL_20;
   }
 
@@ -370,8 +372,9 @@ LABEL_50:
     goto LABEL_21;
   }
 
+  v71.n128_f64[0] = v10;
   v72.n128_f64[0] = v53;
-  v87 = sub_27628B14C(v64, v70, v10, v72, v73);
+  v87 = sub_27628B14C(v64, v71, v72, v70, v73);
   v10 = v87;
   if (v64 == 2)
   {
@@ -400,11 +403,11 @@ LABEL_50:
     if (v59)
     {
       objc_msgSend_doubleValue(v59, v70, 0.0, v72.n128_f64[0], v73);
-      if (v95 <= v10)
+      if (v94 <= v10)
       {
-        objc_msgSend_doubleValue(v59, v70, v95, v72.n128_f64[0], v73);
-        v96 = fmin(v53, 10.0);
-        objc_msgSend_setMin_(analysisCopy, v98, v97 - v96, v96, v99);
+        objc_msgSend_doubleValue(v59, v70, v94, v72.n128_f64[0], v73);
+        v95 = fmin(v53, 10.0);
+        objc_msgSend_setMin_(analysisCopy, v97, v96 - v95, v95, v98);
         goto LABEL_22;
       }
     }
@@ -1048,12 +1051,12 @@ LABEL_14:
   selfCopy = self;
   if (maxValue > values)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], value, maxValue, values, v6, "[TSCHChartValueAxis p_axisDescFromMinValue:maxValue:userValues:]");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartValueAxis.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v19, v20, v21, v22, v13, v18, 737, 0, "Values are not correct");
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], value, maxValue, values, v6, "[TSCHChartValueAxis p_axisDescFromMinValue:maxValue:userValues:]");
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, v14, v15, v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartValueAxis.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v18, v19, v20, v21, v12, v17, 737, 0, "Values are not correct");
 
-    self = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+    self = objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
   }
 
   *&retstr->var0 = 0u;
@@ -1077,7 +1080,7 @@ LABEL_14:
 
   else
   {
-    self = objc_msgSend_p_axisDescFromMinValue_maxValue_userValues_(selfCopy, value, -values, -maxValue, v6, a6);
+    self = objc_msgSend_p_axisDescFromMinValue_maxValue_userValues_(selfCopy, -values, -maxValue, v6);
     *&retstr->var0 = vnegq_f64(vextq_s8(*&retstr->var0, *&retstr->var0, 8uLL));
   }
 
@@ -1099,7 +1102,7 @@ LABEL_14:
     v26 = objc_msgSend_userMin(self, v22, v23, v24, v25);
     objc_msgSend_doubleValue(v26, v27, v28, v29, v30);
     v12 = v31;
-    v76 = v31;
+    v75 = v31;
 
     v32 = 1;
   }
@@ -1131,47 +1134,47 @@ LABEL_14:
 
   objc_msgSend_axisInterceptPosition(self, v34, v35, v36, v37);
   v49 = v48;
-  v76 = v12 - v48;
+  v75 = v12 - v48;
   v50 = v12 - v48;
   v51 = v17 - v48;
-  v75 = v51;
+  v74 = v51;
   v52 = MEMORY[0x277CBEBF8];
   if ((*&v50 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&v51 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
   {
-    objc_msgSend_p_includeZeroWithMinValue_maxValue_userValues_(self, v45, v51, v46, v47, &v76, &v75, v44);
-    v54 = v76;
-    if ((*&v76 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+    objc_msgSend_p_includeZeroWithMinValue_maxValue_userValues_(self, v45, v51, v46, v47, &v75, &v74, v44);
+    v53 = v75;
+    if ((*&v75 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
     {
-      v55 = v75;
-      if ((*&v75 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
+      v54 = v74;
+      if ((*&v74 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
       {
-        if (v75 >= v76)
+        if (v74 >= v75)
         {
-          v56 = v75;
-          v55 = v76;
+          v55 = v74;
+          v54 = v75;
         }
 
         else
         {
-          v75 = v76;
-          v76 = v55;
-          v56 = v54;
+          v74 = v75;
+          v75 = v54;
+          v55 = v53;
         }
 
-        objc_msgSend_p_axisDescFromMinValue_maxValue_userValues_(self, v53, v55, v56, 0.0, v44, 0);
-        v52 = objc_msgSend_array(MEMORY[0x277CBEB18], v57, v58, v59, v60);
-        v62 = 0;
+        objc_msgSend_p_axisDescFromMinValue_maxValue_userValues_(self, v54, v55, 0.0, 0);
+        v52 = objc_msgSend_array(MEMORY[0x277CBEB18], v56, v57, v58, v59);
+        v61 = 0;
         do
         {
-          v63 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v61, v49 + v74 + v62 * 0.0, v74, 0.0);
-          objc_msgSend_addObject_(v52, v64, v65, v66, v67, v63);
+          v62 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v60, v49 + v73 + v61 * 0.0, v73, 0.0);
+          objc_msgSend_addObject_(v52, v63, v64, v65, v66, v62);
 
-          ++v62;
+          ++v61;
         }
 
-        while (!v62);
-        objc_msgSend_setMin_(analysisCopy, v61, v49 + v74, v68, v69);
-        objc_msgSend_setMax_(analysisCopy, v70, v49 + 0.0, v71, v72);
+        while (!v61);
+        objc_msgSend_setMin_(analysisCopy, v60, v49 + v73, v67, v68);
+        objc_msgSend_setMax_(analysisCopy, v69, v49 + 0.0, v70, v71);
       }
     }
   }

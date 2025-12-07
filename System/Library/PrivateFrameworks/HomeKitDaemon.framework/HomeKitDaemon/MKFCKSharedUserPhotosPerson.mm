@@ -17,7 +17,7 @@
   photoLibraryPersonUUID = [(MKFCKSharedUserPhotosPerson *)self photoLibraryPersonUUID];
   [v5 setExternalPersonUUID:photoLibraryPersonUUID];
 
-  v8 = [v5 copy];
+  v8 = objc_msgSend_copy(v5);
 
   return v8;
 }

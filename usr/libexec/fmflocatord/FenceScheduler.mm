@@ -80,30 +80,30 @@
     +[FenceScheduler alarmStream];
     +[FenceScheduler timerIdentifier];
     xpc_set_event();
-    v7 = xpc_dictionary_create(0, 0, 0);
+    v8 = xpc_dictionary_create(0, 0, 0);
     [v6 timeIntervalSinceNow];
-    v9 = v8;
-    v10 = time(0);
-    xpc_dictionary_set_date(v7, "Date", ((ceil(v9) + v10) * 1000000000.0));
-    xpc_dictionary_set_BOOL(v7, "UserVisible", 1);
+    v10 = v9;
+    v11 = time(0);
+    xpc_dictionary_set_date(v8, "Date", ((ceil(v10) + v11) * 1000000000.0));
+    xpc_dictionary_set_BOOL(v8, "UserVisible", 1);
     +[FenceScheduler alarmStream];
     +[FenceScheduler timerIdentifier];
     xpc_set_event();
   }
 
-  v11 = sub_10001BBF0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10001BBF0(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     schedules2 = [(FenceScheduler *)self schedules];
-    v13 = 136315906;
-    v14 = "[FenceScheduler _updateScheduleTimer]";
-    v15 = 2112;
+    v14 = 136315906;
+    v15 = "[FenceScheduler _updateScheduleTimer]";
+    v16 = 2112;
     selfCopy = self;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = schedules2;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s: %@ fireDate: %@ schedules: %@", &v13, 0x2Au);
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = schedules2;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: %@ fireDate: %@ schedules: %@", &v14, 0x2Au);
   }
 }
 

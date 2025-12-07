@@ -391,7 +391,7 @@ void __54__PREditor_presentedViewControllerDismissalWillBegin___block_invoke(uin
 
 - (void)_preferencesDidUpdateFrom:(id)from to:(id)to
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   v8 = [toCopy adaptiveTimeMode] == 2 && !-[PREditor isComplicationRowAtBottom](self, "isComplicationRowAtBottom") && -[PREditor isComplicationsRowConfigured](self, "isComplicationsRowConfigured");
@@ -416,82 +416,84 @@ void __54__PREditor_presentedViewControllerDismissalWillBegin___block_invoke(uin
   v22 = v21;
   v24 = v23;
   v26 = v25;
-  v54.origin.x = v12;
-  v54.origin.y = v14;
-  v54.size.width = v16;
-  v54.size.height = v18;
-  v57.origin.x = v20;
-  v57.origin.y = v22;
-  v57.size.width = v24;
-  v57.size.height = v26;
-  v27 = CGRectEqualToRect(v54, v57);
+  v56.origin.x = v12;
+  v56.origin.y = v14;
+  v56.size.width = v16;
+  v56.size.height = v18;
+  v59.origin.x = v20;
+  v59.origin.y = v22;
+  v59.size.width = v24;
+  v59.size.height = v26;
+  v27 = CGRectEqualToRect(v56, v59);
+  v28 = v27;
   if (!v27)
   {
-    v28 = PRLogEditing();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = PRLogEditing(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v55.origin.x = v12;
-      v55.origin.y = v14;
-      v55.size.width = v16;
-      v55.size.height = v18;
-      v29 = NSStringFromCGRect(v55);
-      v56.origin.x = v20;
-      v56.origin.y = v22;
-      v56.size.width = v24;
-      v56.size.height = v26;
-      v30 = NSStringFromCGRect(v56);
+      v57.origin.x = v12;
+      v57.origin.y = v14;
+      v57.size.width = v16;
+      v57.size.height = v18;
+      v30 = NSStringFromCGRect(v57);
+      v58.origin.x = v20;
+      v58.origin.y = v22;
+      v58.size.width = v24;
+      v58.size.height = v26;
+      v31 = NSStringFromCGRect(v58);
       *buf = 138412546;
-      v50 = v29;
-      v51 = 2112;
       v52 = v30;
-      _os_log_impl(&dword_1A8AA7000, v28, OS_LOG_TYPE_DEFAULT, "Preferred salient content rectangle changed. Old = %@  New = %@", buf, 0x16u);
+      v53 = 2112;
+      v54 = v31;
+      _os_log_impl(&dword_1A8AA7000, v29, OS_LOG_TYPE_DEFAULT, "Preferred salient content rectangle changed. Old = %@  New = %@", buf, 0x16u);
     }
   }
 
   adaptiveTimeMode = [fromCopy adaptiveTimeMode];
   adaptiveTimeMode2 = [toCopy adaptiveTimeMode];
-  v33 = v27;
+  v34 = adaptiveTimeMode2;
+  v35 = v28;
   if (adaptiveTimeMode != adaptiveTimeMode2)
   {
-    v34 = PRLogEditing();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v36 = PRLogEditing(adaptiveTimeMode2);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v50 = adaptiveTimeMode;
-      v51 = 2048;
-      v52 = adaptiveTimeMode2;
-      _os_log_impl(&dword_1A8AA7000, v34, OS_LOG_TYPE_DEFAULT, "Adaptive time mode preference changed. Old = %lu  New = %lu", buf, 0x16u);
+      v52 = adaptiveTimeMode;
+      v53 = 2048;
+      v54 = v34;
+      _os_log_impl(&dword_1A8AA7000, v36, OS_LOG_TYPE_DEFAULT, "Adaptive time mode preference changed. Old = %lu  New = %lu", buf, 0x16u);
     }
 
-    v33 = 0;
+    v35 = 0;
   }
 
-  if (((v33 | v8 | isAdaptiveTimeHeightUserConfigured) & 1) == 0)
+  if (((v35 | v8 | isAdaptiveTimeHeightUserConfigured) & 1) == 0)
   {
-    v39 = MEMORY[0x1E69E9820];
-    v40 = 3221225472;
-    v41 = __41__PREditor__preferencesDidUpdateFrom_to___block_invoke;
-    v42 = &unk_1E7843BB8;
-    v43 = toCopy;
+    v41 = MEMORY[0x1E69E9820];
+    v42 = 3221225472;
+    v43 = __41__PREditor__preferencesDidUpdateFrom_to___block_invoke;
+    v44 = &unk_1E7843BB8;
+    v45 = toCopy;
     selfCopy = self;
-    v45 = v20;
-    v46 = v22;
-    v47 = v24;
-    v48 = v26;
-    v35 = MEMORY[0x1AC574C60](&v39);
-    v36 = v35;
-    if (v27)
+    v47 = v20;
+    v48 = v22;
+    v49 = v24;
+    v50 = v26;
+    v37 = MEMORY[0x1AC574C60](&v41);
+    v38 = v37;
+    if (v28)
     {
-      [MEMORY[0x1E69DD250] animateWithDuration:v35 animations:{0.3, v39, v40, v41, v42}];
+      [MEMORY[0x1E69DD250] animateWithDuration:v37 animations:{0.3, v41, v42, v43, v44}];
     }
 
     else
     {
-      (*(v35 + 16))(v35);
+      (*(v37 + 16))(v37);
     }
   }
 
-  if (adaptiveTimeMode != adaptiveTimeMode2)
+  if (adaptiveTimeMode != v34)
   {
     rootViewController = [(PREditor *)self rootViewController];
     [rootViewController updateForChangedAdaptiveTimeMode];
@@ -1031,7 +1033,7 @@ id __50__PREditor__contentLuminanceValuesForCurrentLooks__block_invoke(uint64_t 
   v4 = [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook objectForKey:look];
   if (!v4)
   {
-    v5 = PRLogEditing();
+    v5 = PRLogEditing(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       defaultTitleStyleConfigurationPerLook = self->_defaultTitleStyleConfigurationPerLook;
@@ -1707,7 +1709,7 @@ double __186__PREditor__presentFontAndContentStylePickerWithPrompt_titleStyleCon
   configuredProperties = [(PREditor *)self configuredProperties];
   currentLook = [(PREditor *)self currentLook];
   v4 = [(PREditor *)self defaultTitleStyleConfigurationForLook:?];
-  v57 = configuredProperties;
+  v58 = configuredProperties;
   titleStyleConfiguration = [configuredProperties titleStyleConfiguration];
   v6 = [titleStyleConfiguration copy];
 
@@ -1717,9 +1719,9 @@ double __186__PREditor__presentFontAndContentStylePickerWithPrompt_titleStyleCon
   }
 
   v7 = [(PREditor *)self delegateSafeForCallbackType:3];
-  v59 = v4;
-  v60 = v6;
-  v55 = v7;
+  v60 = v4;
+  v61 = v6;
+  v56 = v7;
   if (!v7)
   {
     goto LABEL_10;
@@ -1728,161 +1730,166 @@ double __186__PREditor__presentFontAndContentStylePickerWithPrompt_titleStyleCon
   v8 = v7;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    if ((objc_opt_respondsToSelector() & 1) != 0 && ![v8 editorShouldAllowUserToAdjustTimeColor:self])
+    if (objc_opt_respondsToSelector())
     {
-      goto LABEL_15;
+      v9 = [v8 editorShouldAllowUserToAdjustTimeColor:self];
+      if (!v9)
+      {
+        goto LABEL_15;
+      }
     }
 
 LABEL_10:
-    v9 = [(PREditor *)self delegateSafeForCallbackType:3];
+    v10 = [(PREditor *)self delegateSafeForCallbackType:3];
     if (objc_opt_respondsToSelector())
     {
-      v10 = [v9 titleContentStylePickerConfigurationForEditor:self];
+      v11 = [v10 titleContentStylePickerConfigurationForEditor:self];
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v11 = [v9 timeColorPickerConfigurationForEditor:self];
-        selectedColor = [v11 selectedColor];
+        v12 = [v10 timeColorPickerConfigurationForEditor:self];
+        selectedColor = [v12 selectedColor];
         contentStyle = [selectedColor contentStyle];
 
-        v58 = v11;
-        colorPalette = [v11 colorPalette];
-        v53 = colorPalette;
+        v59 = v12;
+        colorPalette = [v12 colorPalette];
+        v54 = colorPalette;
         if (colorPalette)
         {
-          v14 = colorPalette;
+          v15 = colorPalette;
           colors = [colorPalette colors];
           posterRole = [(PREditor *)self posterRole];
-          v17 = [PRPosterTitleStyleConfiguration defaultTitleContentStyleAdditionsForRole:posterRole];
+          v18 = [PRPosterTitleStyleConfiguration defaultTitleContentStyleAdditionsForRole:posterRole];
 
-          v18 = [colors bs_map:&__block_literal_global_16];
-          v19 = [v17 arrayByAddingObjectsFromArray:v18];
+          v19 = [colors bs_map:&__block_literal_global_16];
+          v20 = [v18 arrayByAddingObjectsFromArray:v19];
 
-          v20 = [PREditorContentStylePalette alloc];
+          v21 = [PREditorContentStylePalette alloc];
           posterRole2 = [(PREditor *)self posterRole];
-          localizedName = [v14 localizedName];
-          v23 = [(PREditorContentStylePalette *)v20 initWithContentStyles:v19 context:2 role:posterRole2 localizedName:localizedName defaultPalette:0];
+          localizedName = [v15 localizedName];
+          v24 = [(PREditorContentStylePalette *)v21 initWithContentStyles:v20 context:2 role:posterRole2 localizedName:localizedName defaultPalette:0];
         }
 
         else
         {
-          v23 = 0;
+          v24 = 0;
         }
 
-        colorWellDisplayMode = [v58 colorWellDisplayMode];
+        colorWellDisplayMode = [v59 colorWellDisplayMode];
         if (colorWellDisplayMode == 2)
         {
-          v26 = 2;
+          v27 = 2;
         }
 
         else
         {
-          v26 = colorWellDisplayMode == 1;
+          v27 = colorWellDisplayMode == 1;
         }
 
-        v27 = [PREditorContentStylePickerConfiguration alloc];
-        identifier = [v58 identifier];
-        prompt = [v58 prompt];
-        v30 = v23;
-        v10 = [(PREditorContentStylePickerConfiguration *)v27 initWithIdentifier:identifier prompt:prompt selectedStyle:contentStyle stylePalette:v23 colorWellDisplayMode:v26];
+        v28 = [PREditorContentStylePickerConfiguration alloc];
+        identifier = [v59 identifier];
+        prompt = [v59 prompt];
+        v31 = v24;
+        v11 = [(PREditorContentStylePickerConfiguration *)v28 initWithIdentifier:identifier prompt:prompt selectedStyle:contentStyle stylePalette:v24 colorWellDisplayMode:v27];
 
-        -[PREditorContentStylePickerConfiguration setShowsSuggestedContentStyleItem:](v10, "setShowsSuggestedContentStyleItem:", [v58 showsSuggestedColorItem]);
-        v4 = v59;
-        v6 = v60;
+        -[PREditorContentStylePickerConfiguration setShowsSuggestedContentStyleItem:](v11, "setShowsSuggestedContentStyleItem:", [v59 showsSuggestedColorItem]);
+        v4 = v60;
+        v6 = v61;
         goto LABEL_23;
       }
 
-      v10 = objc_alloc_init(PREditorContentStylePickerConfiguration);
-      [(PREditorContentStylePickerConfiguration *)v10 setColorWellDisplayMode:1];
+      v11 = objc_alloc_init(PREditorContentStylePickerConfiguration);
+      [(PREditorContentStylePickerConfiguration *)v11 setColorWellDisplayMode:1];
     }
 
-    v58 = 0;
+    v59 = 0;
 LABEL_23:
-    [(PREditorContentStylePickerConfiguration *)v10 setForTitleStylePicker:1];
+    [(PREditorContentStylePickerConfiguration *)v11 setForTitleStylePicker:1];
     posterRole3 = [(PREditor *)self posterRole];
-    v32 = [v6 effectiveTitleContentStyleForRole:posterRole3];
+    v33 = [v6 effectiveTitleContentStyleForRole:posterRole3];
 
-    [(PREditorContentStylePickerConfiguration *)v10 setSelectedStyle:v32];
-    if ([v32 conformsToProtocol:&unk_1F1C8ED30])
+    [(PREditorContentStylePickerConfiguration *)v11 setSelectedStyle:v33];
+    if ([v33 conformsToProtocol:&unk_1F1C8ED30])
     {
-      if ([v32 supportsGlassAppearance])
+      if ([v33 supportsGlassAppearance])
       {
-        v33 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v33 = 2;
+        v34 = 2;
       }
     }
 
     else
     {
-      v33 = 0;
+      v34 = 0;
     }
 
     titleContentStyle = [v4 titleContentStyle];
-    if (titleContentStyle && [(PREditorContentStylePickerConfiguration *)v10 showsSuggestedContentStyleItem])
+    if (titleContentStyle && [(PREditorContentStylePickerConfiguration *)v11 showsSuggestedContentStyleItem])
     {
       if ([titleContentStyle conformsToProtocol:&unk_1F1C8ED30])
       {
-        v35 = [titleContentStyle copyWithPreferredMaterial:v33];
+        v36 = [titleContentStyle copyWithPreferredMaterial:v34];
 
-        titleContentStyle = v35;
+        titleContentStyle = v36;
       }
 
-      [(PREditorContentStylePickerConfiguration *)v10 setSuggestedStyle:titleContentStyle];
+      [(PREditorContentStylePickerConfiguration *)v11 setSuggestedStyle:titleContentStyle];
     }
 
-    stylePalette = [(PREditorContentStylePickerConfiguration *)v10 stylePalette];
+    stylePalette = [(PREditorContentStylePickerConfiguration *)v11 stylePalette];
 
     if (stylePalette)
     {
-      stylePalette2 = [(PREditorContentStylePickerConfiguration *)v10 stylePalette];
-      v38 = [stylePalette2 withPreferredMaterialType:v33];
-      [(PREditorContentStylePickerConfiguration *)v10 setStylePalette:v38];
+      stylePalette2 = [(PREditorContentStylePickerConfiguration *)v11 stylePalette];
+      v39 = [stylePalette2 withPreferredMaterialType:v34];
+      [(PREditorContentStylePickerConfiguration *)v11 setStylePalette:v39];
     }
 
     else
     {
       role = [(PFServerPosterPath *)self->_sourceContents role];
-      stylePalette2 = [PREditorContentStylePalette defaultPaletteForContext:2 preferredMaterialType:v33 role:role];
+      stylePalette2 = [PREditorContentStylePalette defaultPaletteForContext:2 preferredMaterialType:v34 role:role];
 
-      [(PREditorContentStylePickerConfiguration *)v10 setStylePalette:stylePalette2];
-      [(PREditorContentStylePickerConfiguration *)v10 setIdentifier:@"timeEditor"];
+      [(PREditorContentStylePickerConfiguration *)v11 setStylePalette:stylePalette2];
+      [(PREditorContentStylePickerConfiguration *)v11 setIdentifier:@"timeEditor"];
     }
 
-    v24 = @"EDIT_TIME_PROMPT";
+    v25 = @"EDIT_TIME_PROMPT";
     goto LABEL_37;
   }
 
-  if ([v8 editorShouldAllowUserToAdjustTitleContentStyle:self])
+  v9 = [v8 editorShouldAllowUserToAdjustTitleContentStyle:self];
+  if (v9)
   {
     goto LABEL_10;
   }
 
 LABEL_15:
-  v58 = 0;
-  v10 = 0;
-  v24 = @"EDIT_TIME_PROMPT_FONT_ONLY";
+  v59 = 0;
+  v11 = 0;
+  v25 = @"EDIT_TIME_PROMPT_FONT_ONLY";
 LABEL_37:
-  v40 = PRBundle();
-  v41 = [v40 localizedStringForKey:v24 value:&stru_1F1C13D90 table:@"PosterKit"];
+  v41 = PRBundle(v9);
+  v42 = [v41 localizedStringForKey:v25 value:&stru_1F1C13D90 table:@"PosterKit"];
 
   rootViewController = [(PREditor *)self rootViewController];
   titlePopoverLayoutGuide = [rootViewController titlePopoverLayoutGuide];
 
   if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
   {
-    v44 = 8;
+    v45 = 8;
   }
 
   else
   {
-    v44 = 4;
+    v45 = 4;
   }
 
   rootViewController2 = [(PREditor *)self rootViewController];
@@ -1893,26 +1900,26 @@ LABEL_37:
 
   if ((interfaceOrientation - 1) < 2)
   {
-    v50 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v50 = v44;
+    v51 = v45;
   }
 
   objc_initWeak(&location, self);
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-  v52 = [currentDevice userInterfaceIdiom] == 1;
-  v61[0] = MEMORY[0x1E69E9820];
-  v61[1] = 3221225472;
-  v61[2] = __34__PREditor_presentTimeStyleEditor__block_invoke_2;
-  v61[3] = &unk_1E7843D18;
-  objc_copyWeak(&v62, &location);
-  [(PREditor *)self _presentFontAndContentStylePickerWithPrompt:v41 titleStyleConfiguration:v60 contentStylePickerConfiguration:v10 usingPopoverPresentation:v52 popoverSourceItem:titlePopoverLayoutGuide popoverDirection:v50 changeHandler:v61];
+  v53 = [currentDevice userInterfaceIdiom] == 1;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __34__PREditor_presentTimeStyleEditor__block_invoke_2;
+  v62[3] = &unk_1E7843D18;
+  objc_copyWeak(&v63, &location);
+  [(PREditor *)self _presentFontAndContentStylePickerWithPrompt:v42 titleStyleConfiguration:v61 contentStylePickerConfiguration:v11 usingPopoverPresentation:v53 popoverSourceItem:titlePopoverLayoutGuide popoverDirection:v51 changeHandler:v62];
 
   [(PREditor *)self setEditingFocusActive:1];
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v63);
   objc_destroyWeak(&location);
 }
 
@@ -2078,8 +2085,8 @@ void __34__PREditor_presentTimeStyleEditor__block_invoke_2(uint64_t a1, void *a2
 
 - (void)requestDismissalWithAction:(int64_t)action
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v5 = PRLogEditing();
+  v17 = *MEMORY[0x1E69E9840];
+  v5 = PRLogEditing(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"accept";
@@ -2094,9 +2101,9 @@ void __34__PREditor_presentTimeStyleEditor__block_invoke_2(uint64_t a1, void *a2
     }
 
     v7 = v6;
-    v13 = 138543362;
-    v14 = v7;
-    _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Requesting dismissal with action '%{public}@'", &v13, 0xCu);
+    v15 = 138543362;
+    v16 = v7;
+    _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Requesting dismissal with action '%{public}@'", &v15, 0xCu);
   }
 
   if (action != 1)
@@ -2105,20 +2112,25 @@ void __34__PREditor_presentTimeStyleEditor__block_invoke_2(uint64_t a1, void *a2
     goto LABEL_13;
   }
 
-  if ([(PREditor *)self status]== 2)
+  status = [(PREditor *)self status];
+  if (status == 2)
   {
     rootViewController = [(PREditor *)self rootViewController];
     scrollView = [(PREditor *)self delegateSafeForCallbackType:3];
-    if ((objc_opt_respondsToSelector() & 1) != 0 && ([scrollView editorShouldBeginFinalization:self] & 1) == 0)
+    if (objc_opt_respondsToSelector())
     {
-      v10 = PRLogEditing();
-      if (os_log_type_enabled(&v10->super.super, OS_LOG_TYPE_DEFAULT))
+      v11 = [scrollView editorShouldBeginFinalization:self];
+      if ((v11 & 1) == 0)
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_1A8AA7000, &v10->super.super, OS_LOG_TYPE_DEFAULT, "Canceling dismissal due to delegate", &v13, 2u);
-      }
+        v12 = PRLogEditing(v11);
+        if (os_log_type_enabled(&v12->super.super, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_1A8AA7000, &v12->super.super, OS_LOG_TYPE_DEFAULT, "Canceling dismissal due to delegate", &v15, 2u);
+        }
 
-      goto LABEL_14;
+        goto LABEL_14;
+      }
     }
 
 LABEL_13:
@@ -2127,20 +2139,20 @@ LABEL_13:
     [scrollView setUserInteractionEnabled:0];
     [rootViewController setIgnoresScrolling:1];
     [rootViewController forciblyFinishLookTransition];
-    v10 = [[PREditingRequestDismissalAction alloc] initWithUserAcceptedChanges:action == 1 completion:0];
+    v12 = [[PREditingRequestDismissalAction alloc] initWithUserAcceptedChanges:action == 1 completion:0];
     _FBSScene = [(UIWindowScene *)self->_scene _FBSScene];
-    v12 = [MEMORY[0x1E695DFD8] setWithObject:v10];
-    [_FBSScene sendActions:v12];
+    v14 = [MEMORY[0x1E695DFD8] setWithObject:v12];
+    [_FBSScene sendActions:v14];
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  rootViewController = PRLogEditing();
+  rootViewController = PRLogEditing(status);
   if (os_log_type_enabled(rootViewController, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_1A8AA7000, rootViewController, OS_LOG_TYPE_DEFAULT, "Ignoring request to dismiss and accept changes because the UI is not running", &v13, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_1A8AA7000, rootViewController, OS_LOG_TYPE_DEFAULT, "Ignoring request to dismiss and accept changes because the UI is not running", &v15, 2u);
   }
 
 LABEL_15:
@@ -2192,11 +2204,11 @@ LABEL_15:
       rootViewController = [remoteViewControllerPresentationWindow2 rootViewController];
     }
 
-    v7 = PRLogEditing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PRLogEditing(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1A8AA7000, v7, OS_LOG_TYPE_DEFAULT, "will present view controller remotely", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1A8AA7000, v8, OS_LOG_TYPE_DEFAULT, "will present view controller remotely", v10, 2u);
     }
   }
 
@@ -2260,7 +2272,7 @@ void __37__PREditor_didPresentViewController___block_invoke(id *a1)
   RenderId = CALayerGetRenderId();
 
   v23 = [[PREditingRequestRemoteViewControllerPresentationAction alloc] initWithSourceLayerRenderId:RenderId sourceContextId:v20 presentedViewScreenRect:v13, v15, v17, v19];
-  v24 = PRLogEditing();
+  v24 = PRLogEditing(v23);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     v34.origin.x = v13;
@@ -2590,7 +2602,7 @@ id __34__PREditor_setEditingFocusActive___block_invoke_2(uint64_t a1, void *a2)
   }
 }
 
-uint64_t __39__PREditor_setComplicationRowAtBottom___block_invoke(uint64_t a1)
+void *__39__PREditor_setComplicationRowAtBottom___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isTimeMaxYRollBackCapable];
   if (result)
@@ -2604,7 +2616,7 @@ uint64_t __39__PREditor_setComplicationRowAtBottom___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __39__PREditor_setComplicationRowAtBottom___block_invoke_2(uint64_t a1)
+void *__39__PREditor_setComplicationRowAtBottom___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isDepthEffectRollBackCapable];
   if (result)
@@ -2672,57 +2684,57 @@ void __39__PREditor_setComplicationRowAtBottom___block_invoke_4(uint64_t a1)
 
 - (UIMenu)depthEffectMenu
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   depthEffectMenu = self->_depthEffectMenu;
   if (!depthEffectMenu)
   {
     rootViewController = [(PREditor *)self rootViewController];
     v5 = [rootViewController imageForDepthEffectActionTopLevelAction:0];
-    objc_initWeak(&location, self);
-    v6 = MEMORY[0x1E69DC628];
-    v7 = PRBundle();
-    v8 = [v7 localizedStringForKey:@"DEPTH_EFFECT_ON" value:&stru_1F1C13D90 table:@"PosterKit"];
+    inited = objc_initWeak(&location, self);
+    v7 = MEMORY[0x1E69DC628];
+    v8 = PRBundle(inited);
+    v9 = [v8 localizedStringForKey:@"DEPTH_EFFECT_ON" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __27__PREditor_depthEffectMenu__block_invoke;
+    v32[3] = &unk_1E7843E40;
+    v32[4] = self;
+    objc_copyWeak(&v33, &location);
+    v10 = [v7 actionWithTitle:v9 image:0 identifier:0 handler:v32];
+
+    v11 = MEMORY[0x1E69DC628];
+    v13 = PRBundle(v12);
+    v14 = [v13 localizedStringForKey:@"DEPTH_EFFECT_OFF" value:&stru_1F1C13D90 table:@"PosterKit"];
     v30[0] = MEMORY[0x1E69E9820];
     v30[1] = 3221225472;
-    v30[2] = __27__PREditor_depthEffectMenu__block_invoke;
+    v30[2] = __27__PREditor_depthEffectMenu__block_invoke_2;
     v30[3] = &unk_1E7843E40;
     v30[4] = self;
     objc_copyWeak(&v31, &location);
-    v9 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v30];
+    v15 = [v11 actionWithTitle:v14 image:0 identifier:0 handler:v30];
 
-    v10 = MEMORY[0x1E69DC628];
-    v11 = PRBundle();
-    v12 = [v11 localizedStringForKey:@"DEPTH_EFFECT_OFF" value:&stru_1F1C13D90 table:@"PosterKit"];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __27__PREditor_depthEffectMenu__block_invoke_2;
-    v28[3] = &unk_1E7843E40;
-    v28[4] = self;
-    objc_copyWeak(&v29, &location);
-    v13 = [v10 actionWithTitle:v12 image:0 identifier:0 handler:v28];
-
-    v14 = MEMORY[0x1E69DC928];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __27__PREditor_depthEffectMenu__block_invoke_3;
-    v25[3] = &unk_1E7843E68;
-    v25[4] = self;
-    v15 = v9;
-    v26 = v15;
-    v16 = v13;
-    v27 = v16;
-    v17 = [v14 elementWithUncachedProvider:v25];
-    v18 = MEMORY[0x1E69DCC60];
-    v19 = PREditorDepthEffectActionIdentifier;
-    v33[0] = v17;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
-    v21 = [v18 menuWithTitle:&stru_1F1C13D90 image:v5 identifier:v19 options:0 children:v20];
-    v23 = self->_depthEffectMenu;
+    v16 = MEMORY[0x1E69DC928];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __27__PREditor_depthEffectMenu__block_invoke_3;
+    v27[3] = &unk_1E7843E68;
+    v27[4] = self;
+    v17 = v10;
+    v28 = v17;
+    v18 = v15;
+    v29 = v18;
+    v19 = [v16 elementWithUncachedProvider:v27];
+    v20 = MEMORY[0x1E69DCC60];
+    v21 = PREditorDepthEffectActionIdentifier;
+    v35[0] = v19;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+    v23 = [v20 menuWithTitle:&stru_1F1C13D90 image:v5 identifier:v21 options:0 children:v22];
+    v25 = self->_depthEffectMenu;
     p_depthEffectMenu = &self->_depthEffectMenu;
-    *p_depthEffectMenu = v21;
+    *p_depthEffectMenu = v23;
 
-    objc_destroyWeak(&v29);
     objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
 
     depthEffectMenu = *p_depthEffectMenu;
@@ -2747,18 +2759,18 @@ void __27__PREditor_depthEffectMenu__block_invoke_2(uint64_t a1)
 
 void __27__PREditor_depthEffectMenu__block_invoke_3(id *a1, void *a2)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = a1[4];
   v4 = a2;
   LODWORD(v3) = [v3 isDepthEffectDisallowed];
   v5 = [a1[4] isDepthEffectDisallowedForReason:@"complications"];
-  [a1[5] setAttributes:v3];
-  v6 = a1[5];
+  v6 = [a1[5] setAttributes:v3];
+  v7 = a1[5];
   if (v5)
   {
-    v7 = PRBundle();
-    v8 = [v7 localizedStringForKey:@"DEPTH_EFFECT_DISALLOWED" value:&stru_1F1C13D90 table:@"PosterKit"];
-    [v6 setSubtitle:v8];
+    v8 = PRBundle(v6);
+    v9 = [v8 localizedStringForKey:@"DEPTH_EFFECT_DISALLOWED" value:&stru_1F1C13D90 table:@"PosterKit"];
+    [v7 setSubtitle:v9];
   }
 
   else
@@ -2766,14 +2778,14 @@ void __27__PREditor_depthEffectMenu__block_invoke_3(id *a1, void *a2)
     [a1[5] setSubtitle:0];
   }
 
-  v9 = [a1[4] isDepthEffectEnabled];
-  [a1[5] setState:v9];
-  [a1[6] setState:v9 ^ 1];
-  v10 = a1[5];
-  v12[0] = a1[6];
-  v12[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-  v4[2](v4, v11);
+  v10 = [a1[4] isDepthEffectEnabled];
+  [a1[5] setState:v10];
+  [a1[6] setState:v10 ^ 1];
+  v11 = a1[5];
+  v13[0] = a1[6];
+  v13[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v4[2](v4, v12);
 }
 
 - (void)toggleDepthEffect
@@ -2819,23 +2831,24 @@ void __27__PREditor_depthEffectMenu__block_invoke_3(id *a1, void *a2)
     if (!togglingMotionEffectsAction)
     {
       areMotionEffectsDisabled = [(PREditor *)self areMotionEffectsDisabled];
-      v6 = PRBundle();
-      v7 = [v6 localizedStringForKey:@"MOTION_EFFECTS" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v6 = areMotionEffectsDisabled;
+      v7 = PRBundle(areMotionEffectsDisabled);
+      v8 = [v7 localizedStringForKey:@"MOTION_EFFECTS" value:&stru_1F1C13D90 table:@"PosterKit"];
 
       objc_initWeak(&location, self);
-      v8 = MEMORY[0x1E69DC628];
-      v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"gyroscope"];
-      v13 = MEMORY[0x1E69E9820];
-      v14 = 3221225472;
-      v15 = __39__PREditor_togglingMotionEffectsAction__block_invoke;
-      v16 = &unk_1E7843448;
-      objc_copyWeak(&v17, &location);
-      v10 = [v8 actionWithTitle:v7 image:v9 identifier:@"PREditor.ToggleMotionEffects" handler:&v13];
-      v11 = self->_togglingMotionEffectsAction;
-      self->_togglingMotionEffectsAction = v10;
+      v9 = MEMORY[0x1E69DC628];
+      v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"gyroscope"];
+      v14 = MEMORY[0x1E69E9820];
+      v15 = 3221225472;
+      v16 = __39__PREditor_togglingMotionEffectsAction__block_invoke;
+      v17 = &unk_1E7843448;
+      objc_copyWeak(&v18, &location);
+      v11 = [v9 actionWithTitle:v8 image:v10 identifier:@"PREditor.ToggleMotionEffects" handler:&v14];
+      v12 = self->_togglingMotionEffectsAction;
+      self->_togglingMotionEffectsAction = v11;
 
-      [(UIAction *)self->_togglingMotionEffectsAction setState:!areMotionEffectsDisabled, v13, v14, v15, v16];
-      objc_destroyWeak(&v17);
+      [(UIAction *)self->_togglingMotionEffectsAction setState:v6 ^ 1u, v14, v15, v16, v17];
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
 
       togglingMotionEffectsAction = self->_togglingMotionEffectsAction;
@@ -2885,23 +2898,24 @@ void __39__PREditor_togglingMotionEffectsAction__block_invoke(uint64_t a1)
   if (!togglingPerspectiveZoomAction)
   {
     isPerspectiveZoomEnabled = [(PREditor *)self isPerspectiveZoomEnabled];
-    v5 = PRBundle();
-    v6 = [v5 localizedStringForKey:@"PERSPECTIVE_ZOOM" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v5 = isPerspectiveZoomEnabled;
+    v6 = PRBundle(isPerspectiveZoomEnabled);
+    v7 = [v6 localizedStringForKey:@"PERSPECTIVE_ZOOM" value:&stru_1F1C13D90 table:@"PosterKit"];
 
     objc_initWeak(&location, self);
-    v7 = MEMORY[0x1E69DC628];
-    v8 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"perspective"];
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __41__PREditor_togglingPerspectiveZoomAction__block_invoke;
-    v15 = &unk_1E7843448;
-    objc_copyWeak(&v16, &location);
-    v9 = [v7 actionWithTitle:v6 image:v8 identifier:@"PREditor.ToggleParallax" handler:&v12];
-    v10 = self->_togglingPerspectiveZoomAction;
-    self->_togglingPerspectiveZoomAction = v9;
+    v8 = MEMORY[0x1E69DC628];
+    v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"perspective"];
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __41__PREditor_togglingPerspectiveZoomAction__block_invoke;
+    v16 = &unk_1E7843448;
+    objc_copyWeak(&v17, &location);
+    v10 = [v8 actionWithTitle:v7 image:v9 identifier:@"PREditor.ToggleParallax" handler:&v13];
+    v11 = self->_togglingPerspectiveZoomAction;
+    self->_togglingPerspectiveZoomAction = v10;
 
-    [(UIAction *)self->_togglingPerspectiveZoomAction setState:isPerspectiveZoomEnabled, v12, v13, v14, v15];
-    objc_destroyWeak(&v16);
+    [(UIAction *)self->_togglingPerspectiveZoomAction setState:v5, v13, v14, v15, v16];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
 
     togglingPerspectiveZoomAction = self->_togglingPerspectiveZoomAction;
@@ -2918,71 +2932,71 @@ void __41__PREditor_togglingPerspectiveZoomAction__block_invoke(uint64_t a1)
 
 - (UIMenu)appearanceMenu
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   appearanceMenu = self->_appearanceMenu;
   if (!appearanceMenu)
   {
-    v4 = PRBundle();
-    v30 = [v4 localizedStringForKey:@"APPEARANCE" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v4 = PRBundle(0);
+    v33 = [v4 localizedStringForKey:@"APPEARANCE" value:&stru_1F1C13D90 table:@"PosterKit"];
 
-    v29 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"appearance"];
-    objc_initWeak(&location, self);
-    v5 = MEMORY[0x1E69DC628];
-    v6 = PRBundle();
-    v7 = [v6 localizedStringForKey:@"AUTOMATIC" value:&stru_1F1C13D90 table:@"PosterKit"];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __26__PREditor_appearanceMenu__block_invoke;
-    v39[3] = &unk_1E7843448;
-    objc_copyWeak(&v40, &location);
-    v8 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v39];
+    v32 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"appearance"];
+    inited = objc_initWeak(&location, self);
+    v6 = MEMORY[0x1E69DC628];
+    v7 = PRBundle(inited);
+    v8 = [v7 localizedStringForKey:@"AUTOMATIC" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __26__PREditor_appearanceMenu__block_invoke;
+    v42[3] = &unk_1E7843448;
+    objc_copyWeak(&v43, &location);
+    v9 = [v6 actionWithTitle:v8 image:0 identifier:0 handler:v42];
 
-    v9 = MEMORY[0x1E69DC628];
-    v10 = PRBundle();
-    v11 = [v10 localizedStringForKey:@"LIGHT" value:&stru_1F1C13D90 table:@"PosterKit"];
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __26__PREditor_appearanceMenu__block_invoke_2;
-    v37[3] = &unk_1E7843448;
-    objc_copyWeak(&v38, &location);
-    v12 = [v9 actionWithTitle:v11 image:0 identifier:0 handler:v37];
+    v10 = MEMORY[0x1E69DC628];
+    v12 = PRBundle(v11);
+    v13 = [v12 localizedStringForKey:@"LIGHT" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __26__PREditor_appearanceMenu__block_invoke_2;
+    v40[3] = &unk_1E7843448;
+    objc_copyWeak(&v41, &location);
+    v14 = [v10 actionWithTitle:v13 image:0 identifier:0 handler:v40];
 
-    v13 = MEMORY[0x1E69DC628];
-    v14 = PRBundle();
-    v15 = [v14 localizedStringForKey:@"DARK" value:&stru_1F1C13D90 table:@"PosterKit"];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __26__PREditor_appearanceMenu__block_invoke_3;
-    v35[3] = &unk_1E7843448;
-    objc_copyWeak(&v36, &location);
-    v16 = [v13 actionWithTitle:v15 image:0 identifier:0 handler:v35];
+    v15 = MEMORY[0x1E69DC628];
+    v17 = PRBundle(v16);
+    v18 = [v17 localizedStringForKey:@"DARK" value:&stru_1F1C13D90 table:@"PosterKit"];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __26__PREditor_appearanceMenu__block_invoke_3;
+    v38[3] = &unk_1E7843448;
+    objc_copyWeak(&v39, &location);
+    v19 = [v15 actionWithTitle:v18 image:0 identifier:0 handler:v38];
 
-    v17 = MEMORY[0x1E69DC928];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __26__PREditor_appearanceMenu__block_invoke_4;
-    v31[3] = &unk_1E7843E90;
-    v31[4] = self;
-    v18 = v8;
-    v32 = v18;
-    v19 = v12;
-    v33 = v19;
-    v20 = v16;
-    v34 = v20;
-    v21 = [v17 elementWithUncachedProvider:v31];
-    v22 = MEMORY[0x1E69DCC60];
-    v23 = PREditorAppearanceMenuIdentifier;
-    v42[0] = v21;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
-    v25 = [v22 menuWithTitle:v30 image:v29 identifier:v23 options:0 children:v24];
-    v27 = self->_appearanceMenu;
+    v20 = MEMORY[0x1E69DC928];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __26__PREditor_appearanceMenu__block_invoke_4;
+    v34[3] = &unk_1E7843E90;
+    v34[4] = self;
+    v21 = v9;
+    v35 = v21;
+    v22 = v14;
+    v36 = v22;
+    v23 = v19;
+    v37 = v23;
+    v24 = [v20 elementWithUncachedProvider:v34];
+    v25 = MEMORY[0x1E69DCC60];
+    v26 = PREditorAppearanceMenuIdentifier;
+    v45[0] = v24;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+    v28 = [v25 menuWithTitle:v33 image:v32 identifier:v26 options:0 children:v27];
+    v30 = self->_appearanceMenu;
     p_appearanceMenu = &self->_appearanceMenu;
-    *p_appearanceMenu = v25;
+    *p_appearanceMenu = v28;
 
-    objc_destroyWeak(&v36);
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v41);
 
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v43);
     objc_destroyWeak(&location);
 
     appearanceMenu = *p_appearanceMenu;
@@ -3258,7 +3272,7 @@ LABEL_15:
 
 - (void)_refreshDefaultTitleStyleConfigurationsForLooks:(id)looks luminanceForLooks:(id)forLooks initialLook:(id)look configuredTitleStyleConfiguration:(id)configuration
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   looksCopy = looks;
   forLooksCopy = forLooks;
   lookCopy = look;
@@ -3268,30 +3282,30 @@ LABEL_15:
 
   if (v14)
   {
-    v15 = [(PREditor *)self shouldApplyTitleStyleAcrossAllLooksFromConfiguredTitleStyleConfiguration:configurationCopy];
+    v16 = [(PREditor *)self shouldApplyTitleStyleAcrossAllLooksFromConfiguredTitleStyleConfiguration:configurationCopy];
     shouldIgnorePreviouslyConfiguredTitleStyleConfiguration = [(PREditor *)self shouldIgnorePreviouslyConfiguredTitleStyleConfiguration];
-    v45 = [(PREditor *)self delegateSafeForCallbackType:3];
-    if (v45)
+    v46 = [(PREditor *)self delegateSafeForCallbackType:3];
+    if (v46)
     {
-      v48 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v49 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
     }
 
     else
     {
-      v48 = 0;
+      v49 = 0;
     }
 
-    v51 = [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook mutableCopy];
+    v52 = [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook mutableCopy];
     defaultTitleStyleConfigurationPerLook = self->_defaultTitleStyleConfigurationPerLook;
-    v20 = PRLogEditing();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+    v21 = PRLogEditing(v52);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
     if (defaultTitleStyleConfigurationPerLook)
     {
-      if (v21)
+      if (v22)
       {
         *buf = 134217984;
-        v60 = [looksCopy count];
-        _os_log_impl(&dword_1A8AA7000, v20, OS_LOG_TYPE_INFO, "Rebuilding _defaultTitleStyleConfigurationPerLook for %lu looks", buf, 0xCu);
+        v61 = [looksCopy count];
+        _os_log_impl(&dword_1A8AA7000, v21, OS_LOG_TYPE_INFO, "Rebuilding _defaultTitleStyleConfigurationPerLook for %lu looks", buf, 0xCu);
       }
 
       [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook removeAllObjects];
@@ -3299,125 +3313,125 @@ LABEL_15:
 
     else
     {
-      if (v21)
+      if (v22)
       {
         *buf = 134217984;
-        v60 = [looksCopy count];
-        _os_log_impl(&dword_1A8AA7000, v20, OS_LOG_TYPE_INFO, "Building _defaultTitleStyleConfigurationPerLook for %lu looks", buf, 0xCu);
+        v61 = [looksCopy count];
+        _os_log_impl(&dword_1A8AA7000, v21, OS_LOG_TYPE_INFO, "Building _defaultTitleStyleConfigurationPerLook for %lu looks", buf, 0xCu);
       }
 
-      v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v23 = self->_defaultTitleStyleConfigurationPerLook;
-      self->_defaultTitleStyleConfigurationPerLook = v22;
+      v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v24 = self->_defaultTitleStyleConfigurationPerLook;
+      self->_defaultTitleStyleConfigurationPerLook = v23;
     }
 
-    v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v47 = looksCopy;
+    v56 = 0u;
+    v48 = looksCopy;
     obj = looksCopy;
-    v24 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-    if (v24)
+    v25 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+    if (v25)
     {
-      v25 = v24;
-      v52 = *v55;
-      v50 = v15 || shouldIgnorePreviouslyConfiguredTitleStyleConfiguration;
-      v26 = lookCopy;
+      v26 = v25;
+      v53 = *v56;
+      v51 = v16 || shouldIgnorePreviouslyConfiguredTitleStyleConfiguration;
+      v27 = lookCopy;
       do
       {
-        v27 = 0;
+        v28 = 0;
         do
         {
-          if (*v55 != v52)
+          if (*v56 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v54 + 1) + 8 * v27);
-          v29 = [forLooksCopy objectForKeyedSubscript:v28];
-          [v29 doubleValue];
-          v31 = v30;
+          v29 = *(*(&v55 + 1) + 8 * v28);
+          v30 = [forLooksCopy objectForKeyedSubscript:v29];
+          [v30 doubleValue];
+          v32 = v31;
 
-          if (!lookCopy || (configurationCopy == 0) | (([v28 isEqual:lookCopy] & 1) == 0) | v50)
+          if (!lookCopy || (configurationCopy == 0) | (([v29 isEqual:lookCopy] & 1) == 0) | v51)
           {
-            v32 = [v51 objectForKey:v28];
-            if (v32 && (!configurationCopy || [configurationCopy isEqual:v32]))
+            v33 = [v52 objectForKey:v29];
+            if (v33 && (!configurationCopy || [configurationCopy isEqual:v33]))
             {
-              v33 = v32;
+              v34 = v33;
               goto LABEL_25;
             }
 
-            initialTimeFontConfiguration = [v28 initialTimeFontConfiguration];
+            initialTimeFontConfiguration = [v29 initialTimeFontConfiguration];
             if (initialTimeFontConfiguration)
             {
 
               goto LABEL_28;
             }
 
-            initialTitleColor = [v28 initialTitleColor];
+            initialTitleColor = [v29 initialTitleColor];
 
             if (!configurationCopy || initialTitleColor)
             {
 LABEL_28:
               timeNumberingSystem = [configurationCopy timeNumberingSystem];
-              v34 = [v28 titleStyleConfigurationWithExtensionBundle:v48 luminance:timeNumberingSystem timeNumberingSystem:v31];
+              v35 = [v29 titleStyleConfigurationWithExtensionBundle:v49 luminance:timeNumberingSystem timeNumberingSystem:v32];
             }
 
             else
             {
-              v33 = configurationCopy;
+              v34 = configurationCopy;
 LABEL_25:
-              v34 = v33;
+              v35 = v34;
             }
 
             goto LABEL_31;
           }
 
-          v34 = configurationCopy;
+          v35 = configurationCopy;
 LABEL_31:
-          v37 = [v34 mutableCopy];
-          timeFontConfiguration = [v34 timeFontConfiguration];
-          v39 = [(PREditor *)self _selectableTimeFontConfigurationForProposedTimeFontConfiguration:timeFontConfiguration];
-          [v37 setTimeFontConfiguration:v39];
+          v38 = [v35 mutableCopy];
+          timeFontConfiguration = [v35 timeFontConfiguration];
+          v40 = [(PREditor *)self _selectableTimeFontConfigurationForProposedTimeFontConfiguration:timeFontConfiguration];
+          [v38 setTimeFontConfiguration:v40];
 
-          groupName = [v37 groupName];
+          groupName = [v38 groupName];
 
           if (!groupName)
           {
-            groupName2 = [v28 groupName];
-            [v37 setGroupName:groupName2];
+            groupName2 = [v29 groupName];
+            [v38 setGroupName:groupName2];
           }
 
-          [v37 setContentsLuminance:v31];
-          v42 = [v37 copy];
+          [v38 setContentsLuminance:v32];
+          v43 = [v38 copy];
 
-          [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook setObject:v42 forKey:v28];
-          ++v27;
-          lookCopy = v26;
+          [(NSMutableDictionary *)self->_defaultTitleStyleConfigurationPerLook setObject:v43 forKey:v29];
+          ++v28;
+          lookCopy = v27;
         }
 
-        while (v25 != v27);
-        v44 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
-        v25 = v44;
+        while (v26 != v28);
+        v45 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+        v26 = v45;
       }
 
-      while (v44);
+      while (v45);
     }
 
-    v17 = v46;
-    looksCopy = v47;
+    v18 = v47;
+    looksCopy = v48;
   }
 
   else
   {
-    v17 = PRLogEditing();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = PRLogEditing(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       posterRole2 = [(PREditor *)self posterRole];
       *buf = 138543362;
-      v60 = posterRole2;
-      _os_log_impl(&dword_1A8AA7000, v17, OS_LOG_TYPE_DEFAULT, "Role %{public}@ does not support title style configurations, not populating the defaults", buf, 0xCu);
+      v61 = posterRole2;
+      _os_log_impl(&dword_1A8AA7000, v18, OS_LOG_TYPE_DEFAULT, "Role %{public}@ does not support title style configurations, not populating the defaults", buf, 0xCu);
     }
   }
 }
@@ -3763,7 +3777,7 @@ uint64_t __35__PREditor__refetchLooksAndBuildUI__block_invoke(uint64_t a1, void 
 
 - (id)_acquireModalPresentationAssertionForReason:(id)reason
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (!self->_modalPresentationAssertions)
   {
@@ -3776,30 +3790,30 @@ uint64_t __35__PREditor__refetchLooksAndBuildUI__block_invoke(uint64_t a1, void 
   v7 = objc_alloc(MEMORY[0x1E698E778]);
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __56__PREditor__acquireModalPresentationAssertionForReason___block_invoke;
-  v15[3] = &unk_1E7843F98;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __56__PREditor__acquireModalPresentationAssertionForReason___block_invoke;
+  v16[3] = &unk_1E7843F98;
   v10 = reasonCopy;
-  v16 = v10;
-  objc_copyWeak(&v17, &location);
-  v11 = [v7 initWithIdentifier:uUIDString forReason:v10 invalidationBlock:v15];
+  v17 = v10;
+  objc_copyWeak(&v18, &location);
+  v11 = [v7 initWithIdentifier:uUIDString forReason:v10 invalidationBlock:v16];
 
-  v12 = PRLogEditing();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PRLogEditing(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v20 = v10;
-    v21 = 2048;
-    v22 = v11;
-    _os_log_impl(&dword_1A8AA7000, v12, OS_LOG_TYPE_DEFAULT, "Acquiring modal presentation assertion for reason %{public}@, assertion %p", buf, 0x16u);
+    v21 = v10;
+    v22 = 2048;
+    v23 = v11;
+    _os_log_impl(&dword_1A8AA7000, v13, OS_LOG_TYPE_DEFAULT, "Acquiring modal presentation assertion for reason %{public}@, assertion %p", buf, 0x16u);
   }
 
   modalPresentationAssertions = [(PREditor *)self modalPresentationAssertions];
   [modalPresentationAssertions addObject:v11];
 
   [(PREditor *)self _updatePresentingModalViewController];
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
 
   objc_destroyWeak(&location);
 
@@ -3810,7 +3824,7 @@ void __56__PREditor__acquireModalPresentationAssertionForReason___block_invoke(u
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PRLogEditing();
+  v4 = PRLogEditing(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -4203,17 +4217,18 @@ void __74__PREditor__updateConfiguredProperties_forPreferredTimeMaxY_orientation
 {
   _FBSScene = [(UIWindowScene *)self->_scene _FBSScene];
   hostHandle = [_FBSScene hostHandle];
-  auditToken = [hostHandle auditToken];
-  v5 = [auditToken pid];
+  v4 = objc_msgSend_auditToken(hostHandle);
+  v5 = [v4 pid];
 
   v6 = [MEMORY[0x1E69C75E0] identifierWithPid:v5];
-  v11 = 0;
-  v7 = [MEMORY[0x1E69C75D0] handleForIdentifier:v6 error:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [MEMORY[0x1E69C75D0] handleForIdentifier:v6 error:&v12];
+  v8 = v12;
+  v9 = v8;
   if (v8)
   {
-    v9 = PRLogEditing();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PRLogEditing(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PREditor _hostProcessHandle];
     }
@@ -4339,7 +4354,7 @@ LABEL_4:
 {
   v8 = *MEMORY[0x1E69E9840];
   notificationName = [action notificationName];
-  v4 = PRLogEditing();
+  v4 = PRLogEditing(notificationName);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -4423,7 +4438,7 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
   }
 
   v13 = optionsCopy;
-  v14 = PRLogEditing();
+  v14 = PRLogEditing(optionsCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *v22 = 0;
@@ -4475,7 +4490,7 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
   if (!self->_disconnected)
   {
     self->_disconnected = 1;
-    v4 = PRLogEditing();
+    v4 = PRLogEditing(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -4483,8 +4498,7 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
     }
 
     v5 = [(PREditor *)self delegateSafeForCallbackType:0];
-    [v5 editorDidInvalidate:self];
-    v6 = PRLogEditing();
+    v6 = PRLogEditing([v5 editorDidInvalidate:self]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -4572,7 +4586,7 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
   diffCopy = diff;
   settingsCopy = settings;
   contextCopy = context;
-  v158 = settingsCopy;
+  v160 = settingsCopy;
   v16 = objc_opt_new();
   if (-[PREditor _editorDynamicRotationIsActive](self, "_editorDynamicRotationIsActive") && ([contextCopy animationSettings], v17 = objc_claimAutoreleasedReturnValue(), v17, v17))
   {
@@ -4591,18 +4605,18 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
 
   [v16 setAnimationSettings:animationSettings2];
 
-  v157 = contextCopy;
+  v159 = contextCopy;
   actions = [contextCopy actions];
   allObjects = [actions allObjects];
   [v16 setActions:allObjects];
 
   settings = [sSceneCopy settings];
-  if (!(diffCopy | v158))
+  if (!(diffCopy | v160))
   {
     diffCopy = [MEMORY[0x1E699FC30] diffFromSettings:0 toSettings:settings];
   }
 
-  v155 = v16;
+  v157 = v16;
   rootViewController = [(PREditor *)self rootViewController];
   pr_usesEditingLayout = [settings pr_usesEditingLayout];
   pui_isComplicationRowConfigured = [settings pui_isComplicationRowConfigured];
@@ -4623,13 +4637,13 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
   v47 = v46;
   pr_focusedQuickActionElementPosition = [settings pr_focusedQuickActionElementPosition];
   pr_userInterfaceStyleLuminanceThreshold = [settings pr_userInterfaceStyleLuminanceThreshold];
-  v144 = sSceneCopy;
-  v156 = diffCopy;
-  v150 = pui_isComplicationRowConfigured;
-  v151 = pr_usesEditingLayout;
-  v148 = pui_isComplicationRowAtBottom;
-  v149 = pui_isComplicationSidebarConfigured;
-  v147 = pr_focusedComplicationElement;
+  v146 = sSceneCopy;
+  v158 = diffCopy;
+  v152 = pui_isComplicationRowConfigured;
+  v153 = pr_usesEditingLayout;
+  v150 = pui_isComplicationRowAtBottom;
+  v151 = pui_isComplicationSidebarConfigured;
+  v149 = pr_focusedComplicationElement;
   if (diffCopy)
   {
     pui_posterContents = [settings pui_posterContents];
@@ -4640,41 +4654,41 @@ void __58__PREditor_handleRenderingServiceEndpointDidChangeAction___block_invoke
 LABEL_22:
       role = [(PRPosterConfiguration *)self->_targetConfig role];
       posterRole = [(PREditor *)self posterRole];
-      v69 = [posterRole isEqual:role];
+      v70 = [posterRole isEqual:role];
 
-      if ((v69 & 1) == 0)
+      if ((v70 & 1) == 0)
       {
         [(PREditor *)self setPosterRole:role];
       }
 
-      v137 = role;
+      v139 = role;
       scene = self->_scene;
-      v71 = objc_opt_class();
+      v72 = objc_opt_class();
       sceneCopy = scene;
-      if (v71)
+      if (v72)
       {
         if (objc_opt_isKindOfClass())
         {
-          v73 = sceneCopy;
+          v74 = sceneCopy;
         }
 
         else
         {
-          v73 = 0;
+          v74 = 0;
         }
       }
 
       else
       {
-        v73 = 0;
+        v74 = 0;
       }
 
-      v145 = v69 ^ 1;
-      v74 = v73;
+      v147 = v70 ^ 1;
+      v75 = v74;
 
-      traitCollection = [(UIWindowScene *)v74 traitCollection];
+      traitCollection = [(UIWindowScene *)v75 traitCollection];
 
-      v76 = [settings mutableCopy];
+      v77 = [settings mutableCopy];
       if ([(PREditor *)self _editorDynamicRotationIsActive])
       {
         interfaceOrientation = [(UIWindow *)self->_window interfaceOrientation];
@@ -4685,19 +4699,19 @@ LABEL_22:
         interfaceOrientation = 1;
       }
 
-      v138 = v47;
-      v139 = v45;
-      v140 = v43;
-      v141 = v41;
-      [v76 pui_setDeviceOrientation:interfaceOrientation];
-      v78 = [PRPosterEnvironmentImpl alloc];
+      v140 = v47;
+      v141 = v45;
+      v142 = v43;
+      v143 = v41;
+      [v77 pui_setDeviceOrientation:interfaceOrientation];
+      v79 = [PRPosterEnvironmentImpl alloc];
       targetConfig = self->_targetConfig;
       extensionBundleURL = [(PREditor *)self extensionBundleURL];
-      v81 = [(PRPosterEnvironmentImpl *)v78 initWithSceneSettings:v76 traitCollection:traitCollection targetConfig:targetConfig extensionBundleURL:extensionBundleURL];
+      v82 = [(PRPosterEnvironmentImpl *)v79 initWithSceneSettings:v77 traitCollection:traitCollection targetConfig:targetConfig extensionBundleURL:extensionBundleURL];
       environment = self->_environment;
-      self->_environment = v81;
+      self->_environment = v82;
 
-      [v155 setSettingsDiff:diffCopy];
+      [v157 setSettingsDiff:diffCopy];
       preferences = self->_preferences;
       clientSettings = [sSceneCopy clientSettings];
       [(PRPosterPreferencesImpl *)preferences setInitialValuesFromSettings:clientSettings];
@@ -4707,17 +4721,17 @@ LABEL_22:
       -[PREditor setInlineComplicationConfigured:](self, "setInlineComplicationConfigured:", [settings pui_isInlineComplicationConfigured]);
       -[PREditor setAlternateDateEnabled:](self, "setAlternateDateEnabled:", [settings pr_isAlternateDateEnabled]);
       pr_editingVariant = [settings pr_editingVariant];
-      v86 = v145;
+      v87 = v147;
       if (pr_editingVariant != [(PREditor *)self variant])
       {
         [(PREditor *)self setVariant:pr_editingVariant];
-        v86 = (v158 == 0) | v145;
+        v87 = (v160 == 0) | v147;
       }
 
-      v87 = v39;
-      v88 = v37;
-      v89 = v35;
-      v90 = v33;
+      v88 = v39;
+      v89 = v37;
+      v90 = v35;
+      v91 = v33;
       pr_editingContext = [settings pr_editingContext];
       if (pr_editingContext != [(PREditor *)self editingContext])
       {
@@ -4725,41 +4739,41 @@ LABEL_22:
       }
 
       [settings pr_leadingTopButtonFrame];
-      v93 = v92;
-      v95 = v94;
-      v97 = v96;
-      v99 = v98;
+      v94 = v93;
+      v96 = v95;
+      v98 = v97;
+      v100 = v99;
       [(PREditor *)self leadingTopButtonFrame];
-      v164.origin.x = v100;
-      v164.origin.y = v101;
-      v164.size.width = v102;
-      v164.size.height = v103;
-      v162.origin.x = v93;
-      v162.origin.y = v95;
-      v162.size.width = v97;
-      v162.size.height = v99;
-      if (!CGRectEqualToRect(v162, v164))
+      v166.origin.x = v101;
+      v166.origin.y = v102;
+      v166.size.width = v103;
+      v166.size.height = v104;
+      v164.origin.x = v94;
+      v164.origin.y = v96;
+      v164.size.width = v98;
+      v164.size.height = v100;
+      if (!CGRectEqualToRect(v164, v166))
       {
-        [(PREditor *)self setLeadingTopButtonFrame:v93, v95, v97, v99];
+        [(PREditor *)self setLeadingTopButtonFrame:v94, v96, v98, v100];
       }
 
       [settings pr_trailingTopButtonFrame];
-      v105 = v104;
-      v107 = v106;
-      v109 = v108;
-      v111 = v110;
+      v106 = v105;
+      v108 = v107;
+      v110 = v109;
+      v112 = v111;
       [(PREditor *)self trailingTopButtonFrame];
-      v165.origin.x = v112;
-      v165.origin.y = v113;
-      v165.size.width = v114;
-      v165.size.height = v115;
-      v163.origin.x = v105;
-      v163.origin.y = v107;
-      v163.size.width = v109;
-      v163.size.height = v111;
-      if (!CGRectEqualToRect(v163, v165))
+      v167.origin.x = v113;
+      v167.origin.y = v114;
+      v167.size.width = v115;
+      v167.size.height = v116;
+      v165.origin.x = v106;
+      v165.origin.y = v108;
+      v165.size.width = v110;
+      v165.size.height = v112;
+      if (!CGRectEqualToRect(v165, v167))
       {
-        [(PREditor *)self setTrailingTopButtonFrame:v105, v107, v109, v111];
+        [(PREditor *)self setTrailingTopButtonFrame:v106, v108, v110, v112];
       }
 
       pr_isDepthEffectDisallowed = [settings pr_isDepthEffectDisallowed];
@@ -4774,25 +4788,25 @@ LABEL_22:
       if (pr_areComplicationsDisallowed != [(PREditor *)self areComplicationsDisallowed])
       {
         [(PREditor *)self setComplicationsDisallowed:pr_areComplicationsDisallowed];
-        v86 = 1;
+        v87 = 1;
       }
 
       displayConfiguration = [settings displayConfiguration];
       displayConfiguration2 = [(PREditor *)self displayConfiguration];
-      v120 = [displayConfiguration2 isEqual:displayConfiguration];
+      v121 = [displayConfiguration2 isEqual:displayConfiguration];
 
-      if ((v120 & 1) == 0)
+      if ((v121 & 1) == 0)
       {
         [(PREditor *)self setDisplayConfiguration:displayConfiguration];
       }
 
       pr_injectedEditingSettings = [settings pr_injectedEditingSettings];
-      if ([v156 pui_inspect:20777])
+      if ([v158 pui_inspect:20777])
       {
         [(PREditor *)self updateEditorWithInjectedEditingSettings:pr_injectedEditingSettings];
       }
 
-      if (v86)
+      if (v87)
       {
         [(PREditor *)self _rebuildRootViewController];
       }
@@ -4800,15 +4814,15 @@ LABEL_22:
       pr_areControlsHidden = [settings pr_areControlsHidden];
       [(PREditor *)self setTitleString:pr_titleString];
       [(PREditor *)self setOverrideDate:pr_overrideDate];
-      [(PREditor *)self setHorizontalTitleBoundingRect:v90, v89, v88, v87];
-      [(PREditor *)self setVerticalTitleBoundingRect:v141, v140, v139, v138];
+      [(PREditor *)self setHorizontalTitleBoundingRect:v91, v90, v89, v88];
+      [(PREditor *)self setVerticalTitleBoundingRect:v143, v142, v141, v140];
       [(PREditor *)self setUserInterfaceStyleLuminanceThreshold:pr_userInterfaceStyleLuminanceThreshold];
-      [(PREditor *)self setUsesEditingLayout:v151];
+      [(PREditor *)self setUsesEditingLayout:v153];
       [(PREditor *)self setControlsHidden:pr_areControlsHidden];
-      [(PREditor *)self setFocusedComplicationElement:v147];
-      [(PREditor *)self setComplicationsRowConfigured:v150];
-      [(PREditor *)self setComplicationSidebarConfigured:v149];
-      [(PREditor *)self setComplicationRowAtBottom:v148];
+      [(PREditor *)self setFocusedComplicationElement:v149];
+      [(PREditor *)self setComplicationsRowConfigured:v152];
+      [(PREditor *)self setComplicationSidebarConfigured:v151];
+      [(PREditor *)self setComplicationRowAtBottom:v150];
       [(PREditor *)self setFocusedQuickActionPosition:pr_focusedQuickActionElementPosition];
       rootViewController2 = [(PREditor *)self rootViewController];
       pr_posterHostedContentSettings = [settings pr_posterHostedContentSettings];
@@ -4833,14 +4847,15 @@ LABEL_22:
     self->_targetConfig = v57;
 
     v59 = self->_sourceContents;
-    v161[0] = 0;
-    v60 = [(PFServerPosterPath *)v59 loadUserInfoWithError:v161];
-    v61 = v161[0];
+    v163[0] = 0;
+    v60 = [(PFServerPosterPath *)v59 loadUserInfoWithError:v163];
+    v61 = v163[0];
+    v62 = v61;
     if (v61)
     {
-      v62 = sSceneCopy;
-      v63 = PRLogEditing();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v63 = sSceneCopy;
+      v64 = PRLogEditing(v61);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
         [PREditor _performActionsForUIScene:withUpdatedFBSScene:settingsDiff:fromSettings:transitionContext:lifecycleActionType:];
       }
@@ -4852,71 +4867,72 @@ LABEL_22:
       {
 LABEL_21:
 
-        diffCopy = v156;
+        diffCopy = v158;
         goto LABEL_22;
       }
 
-      v62 = sSceneCopy;
-      v64 = self->_targetConfig;
-      v160 = 0;
-      [(PRMutablePosterConfiguration *)v64 storeUserInfo:v60 error:&v160];
-      v63 = v160;
-      v65 = PRLogEditing();
-      v66 = v65;
-      if (v63)
+      v63 = sSceneCopy;
+      v65 = self->_targetConfig;
+      v162 = 0;
+      [(PRMutablePosterConfiguration *)v65 storeUserInfo:v60 error:&v162];
+      v64 = v162;
+      v66 = PRLogEditing(v64);
+      v67 = v66;
+      if (v64)
       {
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           [PREditor _performActionsForUIScene:withUpdatedFBSScene:settingsDiff:fromSettings:transitionContext:lifecycleActionType:];
         }
       }
 
-      else if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A8AA7000, v66, OS_LOG_TYPE_DEFAULT, "Successfully migrated source user info to target user info.", buf, 2u);
+        _os_log_impl(&dword_1A8AA7000, v67, OS_LOG_TYPE_DEFAULT, "Successfully migrated source user info to target user info.", buf, 2u);
       }
     }
 
-    sSceneCopy = v62;
+    sSceneCopy = v63;
     goto LABEL_21;
   }
 
 LABEL_51:
-  if (v158)
+  if (v160)
   {
-    v125 = 2;
+    v126 = 2;
   }
 
   else
   {
-    v125 = 1;
+    v126 = 1;
   }
 
-  v126 = [(PREditor *)self delegateSafeForCallbackType:v125];
-  v127 = [(PREditor *)self delegateSafeForCallbackType:2];
-  v128 = [(PREditor *)self delegateSafeForCallbackType:1];
-  v129 = self->_environment;
-  v130 = self->_window;
-  v142 = v128;
-  v131 = v129;
-  v132 = rootViewController;
-  v133 = v155;
-  v134 = v127;
-  v135 = v126;
+  v127 = [(PREditor *)self delegateSafeForCallbackType:v126];
+  v128 = [(PREditor *)self delegateSafeForCallbackType:2];
+  v129 = [(PREditor *)self delegateSafeForCallbackType:1];
+  v130 = self->_environment;
+  v131 = self->_window;
+  v144 = v129;
+  v132 = v130;
+  v133 = rootViewController;
+  v134 = v157;
+  v135 = v128;
+  v136 = v127;
   _UISceneSettingsDiffActionPerformChangesWithTransitionContext();
-  if (!v158)
+  if (!v160)
   {
-    [v144 updateClientSettingsWithBlock:&__block_literal_global_409];
+    [v146 updateClientSettingsWithBlock:&__block_literal_global_409];
   }
 
-  if ([settings pui_isInvalidated])
+  pui_isInvalidated = [settings pui_isInvalidated];
+  if (pui_isInvalidated)
   {
-    v136 = PRLogEditing();
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
+    v138 = PRLogEditing(pui_isInvalidated);
+    if (os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A8AA7000, v136, OS_LOG_TYPE_DEFAULT, "faking sceneDidDisconnect for pui_isInvalidated", buf, 2u);
+      _os_log_impl(&dword_1A8AA7000, v138, OS_LOG_TYPE_DEFAULT, "faking sceneDidDisconnect for pui_isInvalidated", buf, 2u);
     }
 
     [(PREditor *)self sceneDidDisconnect:self->_scene];
@@ -4925,7 +4941,7 @@ LABEL_51:
 
 void __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_fromSettings_transitionContext_lifecycleActionType___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   if (*(a1 + 120) != 1)
   {
     if ([*(a1 + 64) isDisconnected])
@@ -4941,12 +4957,12 @@ void __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_
     else if (*(a1 + 124) == 1)
     {
       [*(a1 + 32) leadingTopButtonFrame];
-      v45 = v44;
-      v47 = v46;
-      v49 = v48;
-      v51 = v50;
+      v46 = v45;
+      v48 = v47;
+      v50 = v49;
+      v52 = v51;
       [*(a1 + 32) trailingTopButtonFrame];
-      [*(a1 + 64) updateTopButtonsLayoutWithLeadingTopButtonFrame:v45 trailingTopButtonFrame:{v47, v49, v51, v52, v53, v54, v55}];
+      [*(a1 + 64) updateTopButtonsLayoutWithLeadingTopButtonFrame:v46 trailingTopButtonFrame:{v48, v50, v52, v53, v54, v55, v56}];
     }
 
     v3 = [*(a1 + 32) areControlsHidden];
@@ -4963,197 +4979,196 @@ void __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_
 
     if (v4)
     {
-      v5 = PRLogEditing();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = PRLogEditing(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "Sending environment update to delegate", buf, 2u);
+        _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "Sending environment update to delegate", buf, 2u);
       }
 
-      v6 = *(a1 + 32);
-      v7 = *(v6 + 80);
-      if (v7)
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 80);
+      if (v8)
       {
-        [*(v6 + 152) deviceMotionUpdateInterval];
-        [v7 setDeviceMotionUpdateInterval:?];
-        v6 = *(a1 + 32);
+        [*(v7 + 152) deviceMotionUpdateInterval];
+        [v8 setDeviceMotionUpdateInterval:?];
+        v7 = *(a1 + 32);
       }
 
-      [*(a1 + 80) editor:v6 didUpdateEnvironment:*(a1 + 56) withTransition:*(a1 + 72)];
+      [*(a1 + 80) editor:v7 didUpdateEnvironment:*(a1 + 56) withTransition:*(a1 + 72)];
     }
 
-    v68 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v8 = [*(a1 + 72) actions];
-    v9 = [v8 countByEnumeratingWithState:&v66 objects:v71 count:16];
-    if (!v9)
+    v68 = 0u;
+    v9 = [*(a1 + 72) actions];
+    v10 = [v9 countByEnumeratingWithState:&v67 objects:v72 count:16];
+    if (!v10)
     {
 LABEL_55:
 
       return;
     }
 
-    v10 = v9;
-    v11 = *v67;
-    v56 = v63;
-    v57 = *v67;
-    v58 = v8;
+    v11 = v10;
+    v12 = *v68;
+    v57 = v64;
+    v58 = *v68;
+    v59 = v9;
 LABEL_19:
-    v12 = 0;
+    v13 = 0;
     while (1)
     {
-      if (*v67 != v11)
+      if (*v68 != v12)
       {
-        objc_enumerationMutation(v8);
+        objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v66 + 1) + 8 * v12);
+      v14 = *(*(&v67 + 1) + 8 * v13);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v24 = objc_opt_self();
+        v25 = objc_opt_self();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          [*(a1 + 32) handleNotificationForwardAction:v13];
+          [*(a1 + 32) handleNotificationForwardAction:v14];
         }
 
         else
         {
-          v26 = objc_opt_self();
-          v27 = objc_opt_isKindOfClass();
+          v27 = objc_opt_self();
+          v28 = objc_opt_isKindOfClass();
 
-          if (v27)
+          if (v28)
           {
-            v28 = *(a1 + 32);
-            v29 = objc_opt_class();
-            v30 = v13;
-            if (v29)
+            v29 = *(a1 + 32);
+            v30 = objc_opt_class();
+            v31 = v14;
+            if (v30)
             {
               if (objc_opt_isKindOfClass())
               {
-                v31 = v30;
+                v32 = v31;
               }
 
               else
               {
-                v31 = 0;
+                v32 = 0;
               }
             }
 
             else
             {
-              v31 = 0;
+              v32 = 0;
             }
 
-            v36 = v31;
+            v37 = v32;
 
-            [v28 handleRenderingServiceEndpointDidChangeAction:v36];
+            [v29 handleRenderingServiceEndpointDidChangeAction:v37];
           }
         }
 
         goto LABEL_53;
       }
 
-      v14 = v13;
-      if ([v14 userAcceptedChanges])
+      v15 = v14;
+      if ([v15 userAcceptedChanges])
       {
         if (*(a1 + 88))
         {
-          v15 = [*(a1 + 32) configuredProperties];
-          v16 = [*(a1 + 32) currentLook];
-          v17 = [*(a1 + 32) effectiveTitleStyleConfigurationForLook:v16];
-          v59 = v17;
-          if (v15)
+          v16 = [*(a1 + 32) configuredProperties];
+          v17 = [*(a1 + 32) currentLook];
+          v18 = [*(a1 + 32) effectiveTitleStyleConfigurationForLook:v17];
+          v60 = v18;
+          if (v16)
           {
-            v18 = v17;
-            v19 = [v15 titleStyleConfiguration];
+            v19 = v18;
+            v20 = [v16 titleStyleConfiguration];
 
-            if (v19)
+            if (v20)
             {
-              v20 = [v15 titleStyleConfiguration];
-              v21 = [v18 isVisiblyEqualToTitleStyleConfiguration:v20];
+              v21 = [v16 titleStyleConfiguration];
+              v22 = [v19 isVisiblyEqualToTitleStyleConfiguration:v21];
 
-              if ((v21 & 1) == 0)
+              if ((v22 & 1) == 0)
               {
-                v22 = [v15 mutableCopy];
-                [v22 setTitleStyleConfiguration:v18];
-                v23 = [v22 copy];
+                v23 = [v16 mutableCopy];
+                [v23 setTitleStyleConfiguration:v19];
+                v24 = [v23 copy];
                 goto LABEL_48;
               }
 
 LABEL_49:
-              v38 = [*(a1 + 56) targetConfiguredProperties];
-              [*(a1 + 32) _applyStylePropertiesFromConfiguredProperties:v15 toConfiguredProperties:v38 forLook:v16];
-              v39 = [*(a1 + 32) homeScreenConfigurationWithPosterProvidedColorConfigurations];
-              [v38 setHomeScreenConfiguration:v39];
-              [*(a1 + 32) _finalizeAdaptiveTimeParameters:v38];
-              v40 = PRLogEditing();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+              v39 = [*(a1 + 56) targetConfiguredProperties];
+              [*(a1 + 32) _applyStylePropertiesFromConfiguredProperties:v16 toConfiguredProperties:v39 forLook:v17];
+              v40 = [*(a1 + 32) homeScreenConfigurationWithPosterProvidedColorConfigurations];
+              [v39 setHomeScreenConfiguration:v40];
+              v41 = PRLogEditing([*(a1 + 32) _finalizeAdaptiveTimeParameters:v39]);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1A8AA7000, v40, OS_LOG_TYPE_DEFAULT, "Sending finalize to delegate", buf, 2u);
+                _os_log_impl(&dword_1A8AA7000, v41, OS_LOG_TYPE_DEFAULT, "Sending finalize to delegate", buf, 2u);
               }
 
-              v41 = *(a1 + 32);
-              v62[0] = MEMORY[0x1E69E9820];
-              v62[1] = 3221225472;
-              v63[0] = __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_fromSettings_transitionContext_lifecycleActionType___block_invoke_403;
-              v63[1] = &unk_1E7843D40;
-              v63[2] = v14;
-              v42 = *(a1 + 48);
-              v64 = *(a1 + 56);
-              v65 = v38;
-              v43 = v38;
-              [v42 editor:v41 finalizeWithCompletion:v62];
+              v42 = *(a1 + 32);
+              v63[0] = MEMORY[0x1E69E9820];
+              v63[1] = 3221225472;
+              v64[0] = __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_fromSettings_transitionContext_lifecycleActionType___block_invoke_403;
+              v64[1] = &unk_1E7843D40;
+              v64[2] = v15;
+              v43 = *(a1 + 48);
+              v65 = *(a1 + 56);
+              v66 = v39;
+              v44 = v39;
+              [v43 editor:v42 finalizeWithCompletion:v63];
               [*(a1 + 32) setStatus:3];
 
-              v11 = v57;
-              v8 = v58;
+              v12 = v58;
+              v9 = v59;
               goto LABEL_52;
             }
 
-            v22 = [v15 mutableCopy];
-            v37 = [*(a1 + 32) defaultTitleStyleConfigurationForLook:v16];
-            [v22 setTitleStyleConfiguration:v37];
-            v23 = [v22 copy];
+            v23 = [v16 mutableCopy];
+            v38 = [*(a1 + 32) defaultTitleStyleConfigurationForLook:v17];
+            [v23 setTitleStyleConfiguration:v38];
+            v24 = [v23 copy];
 
-            v15 = v37;
+            v16 = v38;
           }
 
           else
           {
-            v22 = *(*(a1 + 32) + 64);
-            v15 = [*(a1 + 32) defaultTitleStyleConfigurationForLook:v16];
-            if (v22)
+            v23 = *(*(a1 + 32) + 64);
+            v16 = [*(a1 + 32) defaultTitleStyleConfigurationForLook:v17];
+            if (v23)
             {
-              v33 = [PRPosterColorVariationsConfiguration alloc];
-              v34 = [v22 dictionaryRepresentation];
-              v35 = -[PRPosterColorVariationsConfiguration initWithVariationStorage:version:](v33, "initWithVariationStorage:version:", v34, [objc_opt_class() version]);
+              v34 = [PRPosterColorVariationsConfiguration alloc];
+              v35 = [v23 dictionaryRepresentation];
+              v36 = -[PRPosterColorVariationsConfiguration initWithVariationStorage:version:](v34, "initWithVariationStorage:version:", v35, [objc_opt_class() version]);
             }
 
             else
             {
-              v35 = 0;
+              v36 = 0;
             }
 
-            v23 = [[PRPosterConfiguredProperties alloc] initWithTitleStyleConfiguration:v15 focusConfiguration:0 complicationLayout:0 renderingConfiguration:0 homeScreenConfiguration:0 colorVariationsConfiguration:v35 quickActionsConfiguration:0 suggestionMetadata:0 otherMetadata:0 userInfo:0, v56];
+            v24 = [[PRPosterConfiguredProperties alloc] initWithTitleStyleConfiguration:v16 focusConfiguration:0 complicationLayout:0 renderingConfiguration:0 homeScreenConfiguration:0 colorVariationsConfiguration:v36 quickActionsConfiguration:0 suggestionMetadata:0 otherMetadata:0 userInfo:0, v57];
           }
 
 LABEL_48:
 
-          v15 = v23;
+          v16 = v24;
           goto LABEL_49;
         }
 
         [MEMORY[0x1E69DB878] pr_clearCachesForInvalidation];
-        v32 = PRSLogPosterContents();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = PRSLogPosterContents();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_fromSettings_transitionContext_lifecycleActionType___block_invoke_cold_1(&v60, v61, v32);
+          __122__PREditor__performActionsForUIScene_withUpdatedFBSScene_settingsDiff_fromSettings_transitionContext_lifecycleActionType___block_invoke_cold_1(&v61, v62, v33);
         }
       }
 
@@ -5162,15 +5177,15 @@ LABEL_48:
         [MEMORY[0x1E69DB878] pr_clearCachesForInvalidation];
       }
 
-      [v14 invalidate];
+      [v15 invalidate];
 LABEL_52:
       [*(a1 + 64) disconnect];
 
 LABEL_53:
-      if (v10 == ++v12)
+      if (v11 == ++v13)
       {
-        v10 = [v8 countByEnumeratingWithState:&v66 objects:v71 count:16];
-        if (!v10)
+        v11 = [v9 countByEnumeratingWithState:&v67 objects:v72 count:16];
+        if (!v11)
         {
           goto LABEL_55;
         }
@@ -5681,7 +5696,7 @@ uint64_t __52__PREditor_updateEditorWithInjectedEditingSettings___block_invoke_3
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -5728,7 +5743,7 @@ uint64_t __52__PREditor_updateEditorWithInjectedEditingSettings___block_invoke_3
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];
@@ -5746,7 +5761,7 @@ uint64_t __52__PREditor_updateEditorWithInjectedEditingSettings___block_invoke_3
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_1();
-    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_1_4(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
   }
 
   [v2 UTF8String];

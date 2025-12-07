@@ -1761,9 +1761,10 @@ LABEL_49:
 {
   if (result)
   {
+    v4 = a2;
     v7 = result;
     children = [result children];
-    match = [(CROutputRegion *)v7 _indexOfNearestRegionToPoint:children regions:a2 returnFirstMatch:0 distance:point, match];
+    match = [(CROutputRegion *)v7 _indexOfNearestRegionToPoint:children regions:v4 returnFirstMatch:0 distance:point, match];
 
     return match;
   }

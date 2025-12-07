@@ -32,6 +32,7 @@
 
 - (void)start
 {
+  v9 = *MEMORY[0x1E69E9840];
   if ([(AVOperation *)self evaluateDependenciesAndMarkAsExecuting])
   {
     v3 = objc_alloc_init(AVFigRoutingContextCommandOutputDeviceConfigurationModification);

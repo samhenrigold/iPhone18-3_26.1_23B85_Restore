@@ -16,6 +16,7 @@
 - (UIButton)retryMatchOperationButton;
 - (UIView)nextStateButtonContainer;
 - (double)percentOfPillsCompleted;
+- (id)_escapeHatchTitleForState:(int)state;
 - (id)_nextStateButtonTitleForState:(int)state subState:(int)subState;
 - (id)currentOperationHandler;
 - (id)getEnrollview;
@@ -25,6 +26,9 @@
 - (void)_handleEnrollStateOnAppear;
 - (void)_handleGlassesSkipAction;
 - (void)_logRemovePeriocularFailure:(id)failure;
+- (void)_setState:(int)state animated:(BOOL)animated completion:(id)completion;
+- (void)_setSubstate:(int)substate animated:(BOOL)animated;
+- (void)_setSuspended:(BOOL)suspended;
 - (void)_setupUI;
 - (void)_updateDebugLabel;
 - (void)_updateLeftBarButtonItem;
@@ -50,6 +54,8 @@
 - (void)navigateToMidFlowPeriocularSplashScreenWithPrepareAction:(id)action completionAction:(id)completionAction;
 - (void)nextStateButtonPressed:(id)pressed;
 - (void)pearlEnrollControllerCompleted;
+- (void)prepareBottomContainerForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing;
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing;
 - (void)primeWithExternalizedAuthContext:(id)context;
 - (void)primeWithPasscode:(id)passcode;
 - (void)refreshEscapeHatchForCurrentState;
@@ -57,9 +63,16 @@
 - (void)restartEnroll;
 - (void)retryPressed;
 - (void)returnToEnroll;
+- (void)setCustomDetailString:(id)string forState:(int)state;
+- (void)setCustomInstructionString:(id)string forState:(int)state;
+- (void)setEnrollMovieViewHidden:(BOOL)hidden;
 - (void)setEnrollmentConfiguration:(unint64_t)configuration;
 - (void)setExistingIdentity:(id)identity;
+- (void)setInBuddy:(BOOL)buddy;
+- (void)setInSheet:(BOOL)sheet;
+- (void)setState:(int)state animated:(BOOL)animated afterDelay:(double)delay;
 - (void)setStatus:(id)status;
+- (void)setSubstate:(int)substate animated:(BOOL)animated afterDelay:(double)delay;
 - (void)setupDebugLabel;
 - (void)setupDebugUITraits;
 - (void)showMaskAndGlassesTutorialWithCompletion:(id)completion;
@@ -70,8 +83,10 @@
 - (void)transitionToSuccessFromPeriocularSplash;
 - (void)updateButtonsVisibility;
 - (void)updatePeriocularEnrollmentSettings:(id)settings;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willResignActive:(id)active;
 @end
 
@@ -79,18 +94,19 @@
 
 - (void)nextStateButtonPressed:(id)pressed
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   nextStateButton = [(BKUIPearlEnrollViewController *)self nextStateButton];
   [nextStateButton setEnabled:0];
 
-  if ([(BKUIPearlEnrollViewController *)self state]== 2)
+  state = [(BKUIPearlEnrollViewController *)self state];
+  if (state == 2)
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(state);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Next state button pressed, startEnroll...", buf, 2u);
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Next state button pressed, startEnroll...", buf, 2u);
     }
 
     currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
@@ -124,9 +140,9 @@
       {
         if (![(BKUIPearlEnrollViewController *)self inBuddy])
         {
-          v38 = objc_alloc_init(getBYFlowSkipControllerClass());
-          v39 = getBYFlowSkipIdentifierFaceID();
-          [v38 didCompleteFlow:v39];
+          v43 = objc_alloc_init(getBYFlowSkipControllerClass());
+          v44 = getBYFlowSkipIdentifierFaceID();
+          [v43 didCompleteFlow:v44];
         }
 
         objc_initWeak(buf, self);
@@ -134,14 +150,14 @@
         aBlock[1] = 3221225472;
         aBlock[2] = __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke_4;
         aBlock[3] = &unk_278D09B20;
-        objc_copyWeak(&v50, buf);
+        objc_copyWeak(&v55, buf);
         aBlock[4] = self;
-        v40 = _Block_copy(aBlock);
+        v45 = _Block_copy(aBlock);
         bioStreamEventHelper = [(BKUIPearlEnrollViewController *)self bioStreamEventHelper];
         [bioStreamEventHelper sendSuccessfulEnrollEvent];
 
-        [(BKUIPearlEnrollViewController *)self updatePeriocularEnrollmentSettings:v40];
-        objc_destroyWeak(&v50);
+        [(BKUIPearlEnrollViewController *)self updatePeriocularEnrollmentSettings:v45];
+        objc_destroyWeak(&v55);
         objc_destroyWeak(buf);
       }
 
@@ -175,35 +191,35 @@ LABEL_23:
     currentOperationHandler7 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
     supportsPeriocularEnrollment2 = [currentOperationHandler7 supportsPeriocularEnrollment];
 
-    v26 = _BKUILoggingFacility();
-    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+    v30 = _BKUILoggingFacility(v29);
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
     if (supportsPeriocularEnrollment2)
     {
-      if (v27)
+      if (v31)
       {
         *buf = 0;
-        _os_log_impl(&dword_241B0A000, v26, OS_LOG_TYPE_DEFAULT, "Button Pressed match then start second phase enrollment ...", buf, 2u);
+        _os_log_impl(&dword_241B0A000, v30, OS_LOG_TYPE_DEFAULT, "Button Pressed match then start second phase enrollment ...", buf, 2u);
       }
 
       objc_initWeak(buf, self);
       currentOperationHandler8 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke_3;
-      v51[3] = &unk_278D09950;
-      objc_copyWeak(&v52, buf);
-      [currentOperationHandler8 matchUserForSecondPhaseEnrollmentWithCompletionAction:v51];
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke_3;
+      v56[3] = &unk_278D09950;
+      objc_copyWeak(&v57, buf);
+      [currentOperationHandler8 matchUserForSecondPhaseEnrollmentWithCompletionAction:v56];
 
-      objc_destroyWeak(&v52);
+      objc_destroyWeak(&v57);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      if (v27)
+      if (v31)
       {
         *buf = 0;
-        _os_log_impl(&dword_241B0A000, v26, OS_LOG_TYPE_DEFAULT, "Button Pressed start second phase enrollment ...", buf, 2u);
+        _os_log_impl(&dword_241B0A000, v30, OS_LOG_TYPE_DEFAULT, "Button Pressed start second phase enrollment ...", buf, 2u);
       }
 
       [(BKUIPearlEnrollViewController *)self setState:7 animated:1];
@@ -227,54 +243,54 @@ LABEL_23:
       if (enrollOperation2)
       {
         currentOperationHandler12 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-        v54 = 0;
-        v17 = [currentOperationHandler12 completeCurrentEnrollOperationWithError:&v54];
-        v18 = v54;
+        v59 = 0;
+        v19 = [currentOperationHandler12 completeCurrentEnrollOperationWithError:&v59];
+        v20 = v59;
 
-        v19 = _BKUILoggingFacility();
-        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-        if (v17)
+        v22 = _BKUILoggingFacility(v21);
+        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+        if (v19)
         {
-          if (v20)
+          if (v23)
           {
             *buf = 0;
-            _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "Enroll marked as completed by partial capture!", buf, 2u);
+            _os_log_impl(&dword_241B0A000, v22, OS_LOG_TYPE_DEFAULT, "Enroll marked as completed by partial capture!", buf, 2u);
           }
         }
 
         else
         {
-          if (v20)
+          if (v23)
           {
             *buf = 138412290;
-            v58 = v18;
-            _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "Failed to complete enroll: %@", buf, 0xCu);
+            v63 = v20;
+            _os_log_impl(&dword_241B0A000, v22, OS_LOG_TYPE_DEFAULT, "Failed to complete enroll: %@", buf, 0xCu);
           }
 
-          v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to complete enroll for partial capture: %@", v18];
-          [(BKUIPearlEnrollViewController *)self setStatus:v48];
+          v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to complete enroll for partial capture: %@", v20];
+          [(BKUIPearlEnrollViewController *)self setStatus:v53];
         }
       }
 
       else
       {
-        v42 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+        v47 = _BKUILoggingFacility(v17);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_241B0A000, v42, OS_LOG_TYPE_DEFAULT, "Enroll marked subsequent enrollment as completed by partial capture, starting match operation for Glasses Enrollment.", buf, 2u);
+          _os_log_impl(&dword_241B0A000, v47, OS_LOG_TYPE_DEFAULT, "Enroll marked subsequent enrollment as completed by partial capture, starting match operation for Glasses Enrollment.", buf, 2u);
         }
 
         objc_initWeak(buf, self);
         currentOperationHandler13 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-        v55[0] = MEMORY[0x277D85DD0];
-        v55[1] = 3221225472;
-        v55[2] = __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke;
-        v55[3] = &unk_278D09950;
-        objc_copyWeak(&v56, buf);
-        [currentOperationHandler13 matchUserForSecondPhaseEnrollmentWithCompletionAction:v55];
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke;
+        v60[3] = &unk_278D09950;
+        objc_copyWeak(&v61, buf);
+        [currentOperationHandler13 matchUserForSecondPhaseEnrollmentWithCompletionAction:v60];
 
-        objc_destroyWeak(&v56);
+        objc_destroyWeak(&v61);
         objc_destroyWeak(buf);
       }
 
@@ -287,11 +303,11 @@ LABEL_23:
   }
 
   currentOperationHandler14 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-  v53 = 0;
-  v30 = [currentOperationHandler14 completeCurrentEnrollOperationWithError:&v53];
-  v31 = v53;
+  v58 = 0;
+  v34 = [currentOperationHandler14 completeCurrentEnrollOperationWithError:&v58];
+  v35 = v58;
 
-  if (v30)
+  if (v34)
   {
     currentOperationHandler15 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
     if ([currentOperationHandler15 enrollmentType] != 1)
@@ -299,11 +315,11 @@ LABEL_23:
 LABEL_34:
 
 LABEL_35:
-      v34 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v40 = _BKUILoggingFacility(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241B0A000, v34, OS_LOG_TYPE_DEFAULT, "Enroll marked as completed by partial capture!", buf, 2u);
+        _os_log_impl(&dword_241B0A000, v40, OS_LOG_TYPE_DEFAULT, "Enroll marked as completed by partial capture!", buf, 2u);
       }
 
       goto LABEL_44;
@@ -316,18 +332,18 @@ LABEL_35:
       goto LABEL_34;
     }
 
-    v44 = [(BKUIPearlEnrollViewController *)self enrollmentConfiguration]== 0;
+    v49 = [(BKUIPearlEnrollViewController *)self enrollmentConfiguration]== 0;
 
-    if (v44)
+    if (v49)
     {
       goto LABEL_35;
     }
 
-    v45 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v50 = _BKUILoggingFacility(v39);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241B0A000, v45, OS_LOG_TYPE_DEFAULT, "Enroll marked initial enrollment as completed by partial capture navigate to mid flow Periocular Enable Splash Pane.", buf, 2u);
+      _os_log_impl(&dword_241B0A000, v50, OS_LOG_TYPE_DEFAULT, "Enroll marked initial enrollment as completed by partial capture navigate to mid flow Periocular Enable Splash Pane.", buf, 2u);
     }
 
     [(BKUIPearlEnrollViewController *)self navigateToMidFlowPeriocularSplashScreenWithPrepareAction:0 completionAction:0];
@@ -335,21 +351,19 @@ LABEL_35:
 
   else
   {
-    v35 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v41 = _BKUILoggingFacility(v36);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = v31;
-      _os_log_impl(&dword_241B0A000, v35, OS_LOG_TYPE_DEFAULT, "Failed to complete enroll: %@", buf, 0xCu);
+      v63 = v35;
+      _os_log_impl(&dword_241B0A000, v41, OS_LOG_TYPE_DEFAULT, "Failed to complete enroll: %@", buf, 0xCu);
     }
 
-    v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to complete enroll for partial capture: %@", v31];
-    [(BKUIPearlEnrollViewController *)self setStatus:v36];
+    v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to complete enroll for partial capture: %@", v35];
+    [(BKUIPearlEnrollViewController *)self setStatus:v42];
   }
 
 LABEL_44:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke(uint64_t a1)
@@ -365,14 +379,14 @@ void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateBu
 
 void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 134217984;
-    v5 = [WeakRetained enrollmentConfiguration];
-    _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "Button Pressed matched second phase enrollment started ... setting UI to Match enrollment config: %li", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = [WeakRetained enrollmentConfiguration];
+    _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "Button Pressed matched second phase enrollment started ... setting UI to Match enrollment config: %li", &v3, 0xCu);
   }
 
   if ([WeakRetained isFinalEnrollment])
@@ -381,8 +395,6 @@ void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateBu
   }
 
   [WeakRetained setState:3 animated:1];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateButtonPressed___block_invoke_4(uint64_t a1)
@@ -422,18 +434,18 @@ void __84__BKUIPearlEnrollViewController_ButtonActionWithNavigation__nextStateBu
 {
   settingsCopy = settings;
   currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-  v16 = 0;
   v17 = 0;
-  v6 = [currentOperationHandler getAuthContextForCredentialError:&v17 authContext:&v16];
-  v7 = v17;
-  v8 = v16;
+  v18 = 0;
+  v6 = [currentOperationHandler getAuthContextForCredentialError:&v18 authContext:&v17];
+  v7 = v18;
+  v8 = v17;
 
   if (v7)
   {
-    v9 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _BKUILoggingFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(BKUIPearlEnrollViewController(ButtonActionWithNavigation) *)v7 updatePeriocularEnrollmentSettings:v8, v9];
+      [(BKUIPearlEnrollViewController(ButtonActionWithNavigation) *)v7 updatePeriocularEnrollmentSettings:v8, v10];
     }
   }
 
@@ -500,34 +512,34 @@ LABEL_13:
 
 void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke(uint64_t a1)
 {
-  v59[4] = *MEMORY[0x277D85DE8];
+  v58[4] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, *(a1 + 32));
   v2 = [BKUIPeriocularEnableSplashViewController alloc];
   v3 = [*(a1 + 32) inBuddy];
   v4 = [*(a1 + 32) currentOperationHandler];
   v5 = [v4 device];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_2;
-  v55[3] = &unk_278D09B98;
-  v55[4] = *(a1 + 32);
-  objc_copyWeak(&v57, &location);
-  v56 = *(a1 + 40);
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_2_30;
-  v53[3] = &unk_278D09950;
-  objc_copyWeak(&v54, &location);
-  v6 = [(BKUIPeriocularEnableSplashViewController *)v2 initInBuddy:v3 bkDevice:v5 upsell:0 withEndEnrollmentActionPrimary:v55 enrollmentActionSecondary:v53];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_2;
+  v54[3] = &unk_278D09B98;
+  v54[4] = *(a1 + 32);
+  objc_copyWeak(&v56, &location);
+  v55 = *(a1 + 40);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_2_30;
+  v52[3] = &unk_278D09950;
+  objc_copyWeak(&v53, &location);
+  v6 = [(BKUIPeriocularEnableSplashViewController *)v2 initInBuddy:v3 bkDevice:v5 upsell:0 withEndEnrollmentActionPrimary:v54 enrollmentActionSecondary:v52];
   [*(a1 + 32) setMidFlowPeriocularSplashController:v6];
 
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_3_31;
-  v51[3] = &unk_278D09950;
-  objc_copyWeak(&v52, &location);
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_3_31;
+  v50[3] = &unk_278D09950;
+  objc_copyWeak(&v51, &location);
   v7 = [*(a1 + 32) midFlowPeriocularSplashController];
-  [v7 setUserSkippedAction:v51];
+  [v7 setUserSkippedAction:v50];
 
   v8 = [*(a1 + 32) parentViewController];
   v9 = [*(a1 + 32) midFlowPeriocularSplashController];
@@ -543,31 +555,31 @@ void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateTo
   v15 = [v14 view];
   [v13 addSubview:v15];
 
-  v29 = MEMORY[0x277CCAAD0];
-  v49 = [*(a1 + 32) midFlowPeriocularSplashController];
-  v48 = [v49 view];
-  v45 = [v48 leadingAnchor];
-  v47 = [*(a1 + 32) delegate];
-  v46 = [v47 containerView];
-  v44 = [v46 leadingAnchor];
-  v43 = [v45 constraintEqualToAnchor:v44];
-  v59[0] = v43;
-  v42 = [*(a1 + 32) midFlowPeriocularSplashController];
-  v41 = [v42 view];
-  v38 = [v41 trailingAnchor];
-  v40 = [*(a1 + 32) delegate];
-  v39 = [v40 containerView];
-  v37 = [v39 trailingAnchor];
-  v36 = [v38 constraintEqualToAnchor:v37];
-  v59[1] = v36;
-  v35 = [*(a1 + 32) midFlowPeriocularSplashController];
-  v34 = [v35 view];
-  v31 = [v34 topAnchor];
-  v33 = [*(a1 + 32) delegate];
-  v32 = [v33 containerView];
-  v30 = [v32 topAnchor];
-  v16 = [v31 constraintEqualToAnchor:v30];
-  v59[2] = v16;
+  v28 = MEMORY[0x277CCAAD0];
+  v48 = [*(a1 + 32) midFlowPeriocularSplashController];
+  v47 = [v48 view];
+  v44 = [v47 leadingAnchor];
+  v46 = [*(a1 + 32) delegate];
+  v45 = [v46 containerView];
+  v43 = [v45 leadingAnchor];
+  v42 = [v44 constraintEqualToAnchor:v43];
+  v58[0] = v42;
+  v41 = [*(a1 + 32) midFlowPeriocularSplashController];
+  v40 = [v41 view];
+  v37 = [v40 trailingAnchor];
+  v39 = [*(a1 + 32) delegate];
+  v38 = [v39 containerView];
+  v36 = [v38 trailingAnchor];
+  v35 = [v37 constraintEqualToAnchor:v36];
+  v58[1] = v35;
+  v34 = [*(a1 + 32) midFlowPeriocularSplashController];
+  v33 = [v34 view];
+  v30 = [v33 topAnchor];
+  v32 = [*(a1 + 32) delegate];
+  v31 = [v32 containerView];
+  v29 = [v31 topAnchor];
+  v16 = [v30 constraintEqualToAnchor:v29];
+  v58[2] = v16;
   v17 = [*(a1 + 32) midFlowPeriocularSplashController];
   v18 = [v17 view];
   v19 = [v18 bottomAnchor];
@@ -575,9 +587,9 @@ void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateTo
   v21 = [v20 containerView];
   v22 = [v21 bottomAnchor];
   v23 = [v19 constraintEqualToAnchor:v22];
-  v59[3] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:4];
-  [v29 activateConstraints:v24];
+  v58[3] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:4];
+  [v28 activateConstraints:v24];
 
   v25 = *(a1 + 48);
   if (v25)
@@ -587,19 +599,18 @@ void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateTo
 
   v26 = +[BKUIPearlEnrollAnimationManager sharedManager];
   v27 = [*(a1 + 32) midFlowPeriocularSplashController];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_4;
-  v50[3] = &unk_278D09978;
-  v50[4] = *(a1 + 32);
-  [v26 transitionTo:v27 completion:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_4;
+  v49[3] = &unk_278D09978;
+  v49[4] = *(a1 + 32);
+  [v26 transitionTo:v27 completion:v49];
 
-  objc_destroyWeak(&v52);
-  objc_destroyWeak(&v54);
+  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v53);
 
-  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v56);
   objc_destroyWeak(&location);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_2(uint64_t a1)
@@ -622,40 +633,41 @@ void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateTo
 void __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_3(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  if (([WeakRetained midFlowPeriocularSplashShowing] & 1) == 0)
+  v3 = [WeakRetained midFlowPeriocularSplashShowing];
+  if ((v3 & 1) == 0)
   {
-    v3 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = _BKUILoggingFacility(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_3_cold_1(v3);
+      __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_3_cold_1(v4);
     }
   }
 
-  v4 = [WeakRetained midFlowPeriocularSplashController];
-  v5 = [v4 view];
-  v6 = [v5 layer];
-  [v6 removeAllAnimations];
+  v5 = [WeakRetained midFlowPeriocularSplashController];
+  v6 = [v5 view];
+  v7 = [v6 layer];
+  [v7 removeAllAnimations];
 
   [MEMORY[0x277CD9FF0] flush];
-  v7 = [WeakRetained delegate];
-  v8 = [v7 containerView];
-  v9 = [WeakRetained view];
-  [v8 bringSubviewToFront:v9];
-
+  v8 = [WeakRetained delegate];
+  v9 = [v8 containerView];
   v10 = [WeakRetained view];
-  [v10 setOrigin:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
+  [v9 bringSubviewToFront:v10];
 
-  v11 = +[BKUIPearlEnrollAnimationManager sharedManager];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_29;
-  v14[3] = &unk_278D09B48;
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  v14[4] = WeakRetained;
-  v14[5] = v12;
-  v15 = v13;
-  [v11 transitionTo:WeakRetained completion:v14];
+  v11 = [WeakRetained view];
+  [v11 setOrigin:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
+
+  v12 = +[BKUIPearlEnrollAnimationManager sharedManager];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_29;
+  v15[3] = &unk_278D09B48;
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  v15[4] = WeakRetained;
+  v15[5] = v13;
+  v16 = v14;
+  [v12 transitionTo:WeakRetained completion:v15];
 }
 
 uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__navigateToMidFlowPeriocularSplashScreenWithPrepareAction_completionAction___block_invoke_29(uint64_t a1)
@@ -710,58 +722,58 @@ uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__naviga
 
 - (void)escapeHatchButtonPressed
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if ([(BKUIPearlEnrollViewController *)self showGlassesSkipUI])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(BKUIPearlEnrollViewController *)self _handleGlassesSkipAction];
   }
 
-  else
+  else if (-[BKUIPearlEnrollViewController state](self, "state") == 3 && (-[BKUIPearlEnrollViewController currentOperationHandler](self, "currentOperationHandler"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 shouldShowRetryUI], v3, v4))
   {
-    if (-[BKUIPearlEnrollViewController state](self, "state") == 3 && (-[BKUIPearlEnrollViewController currentOperationHandler](self, "currentOperationHandler"), v4 = objc_claimAutoreleasedReturnValue(), v5 = [v4 shouldShowRetryUI], v4, v5))
+    v6 = _BKUILoggingFacility(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(buf) = 0;
-        _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed escape hatch during match operation fail, showing retry UI ... user skipped", &buf, 2u);
-      }
-
-      [(BKUIPearlEnrollViewController *)self _cancelEnrollOperationForEscapeHatchButtonTap];
-      objc_initWeak(&buf, self);
-      currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-      device = [currentOperationHandler device];
-      currentOperationHandler2 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-      identity = [currentOperationHandler2 identity];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke;
-      v46[3] = &unk_278D09BE8;
-      objc_copyWeak(&v47, &buf);
-      [device removePeriocularEnrollmentsFromIdentity:identity removeAll:1 reply:v46];
-
-      objc_destroyWeak(&v47);
-      objc_destroyWeak(&buf);
+      LOWORD(buf) = 0;
+      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed escape hatch during match operation fail, showing retry UI ... user skipped", &buf, 2u);
     }
 
-    else if ([objc_opt_class() _shouldShowEscapeHatchForState:-[BKUIPearlEnrollViewController state](self inBuddy:{"state"), -[BKUIPearlEnrollViewController inBuddy](self, "inBuddy")}])
+    [(BKUIPearlEnrollViewController *)self _cancelEnrollOperationForEscapeHatchButtonTap];
+    objc_initWeak(&buf, self);
+    currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    device = [currentOperationHandler device];
+    currentOperationHandler2 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    identity = [currentOperationHandler2 identity];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke;
+    v48[3] = &unk_278D09BE8;
+    objc_copyWeak(&v49, &buf);
+    [device removePeriocularEnrollmentsFromIdentity:identity removeAll:1 reply:v48];
+
+    objc_destroyWeak(&v49);
+    objc_destroyWeak(&buf);
+  }
+
+  else
+  {
+    v11 = [objc_opt_class() _shouldShowEscapeHatchForState:-[BKUIPearlEnrollViewController state](self inBuddy:{"state"), -[BKUIPearlEnrollViewController inBuddy](self, "inBuddy")}];
+    if (v11)
     {
-      v11 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _BKUILoggingFacility(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed escape hatch", &buf, 2u);
+        _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed escape hatch", &buf, 2u);
       }
 
       currentOperationHandler3 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-      v13 = [currentOperationHandler3 enrollmentType] == 1;
+      v14 = [currentOperationHandler3 enrollmentType] == 1;
 
-      if (v13)
+      if (v14)
       {
-        v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:-2 userInfo:0];
-        [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v14];
+        v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:-2 userInfo:0];
+        [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v15];
       }
 
       else
@@ -776,14 +788,14 @@ uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__naviga
           device2 = [currentOperationHandler5 device];
           currentOperationHandler6 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
           identity2 = [currentOperationHandler6 identity];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_36;
-          v44[3] = &unk_278D09BE8;
-          objc_copyWeak(&v45, &buf);
-          [device2 removePeriocularEnrollmentsFromIdentity:identity2 removeAll:1 reply:v44];
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_36;
+          v46[3] = &unk_278D09BE8;
+          objc_copyWeak(&v47, &buf);
+          [device2 removePeriocularEnrollmentsFromIdentity:identity2 removeAll:1 reply:v46];
 
-          objc_destroyWeak(&v45);
+          objc_destroyWeak(&v47);
           objc_destroyWeak(&buf);
         }
 
@@ -795,26 +807,26 @@ uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__naviga
           [enrollOperation setDelegate:0];
 
           currentOperationHandler8 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-          v48 = currentOperationHandler8;
-          v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
-          v33 = [v32 mutableCopy];
-          [(BKUIPearlEnrollViewController *)self setOperationHandlers:v33];
+          v50 = currentOperationHandler8;
+          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+          v36 = [v35 mutableCopy];
+          [(BKUIPearlEnrollViewController *)self setOperationHandlers:v36];
 
           objc_initWeak(&buf, self);
           currentOperationHandler9 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
           device3 = [currentOperationHandler9 device];
           currentOperationHandler10 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
           identity3 = [currentOperationHandler10 identity];
-          v41[0] = MEMORY[0x277D85DD0];
-          v41[1] = 3221225472;
-          v41[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_3;
-          v41[3] = &unk_278D09C10;
-          objc_copyWeak(&v43, &buf);
-          v38 = currentOperationHandler8;
-          v42 = v38;
-          [device3 removePeriocularEnrollmentsFromIdentity:identity3 removeAll:1 reply:v41];
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_3;
+          v43[3] = &unk_278D09C10;
+          objc_copyWeak(&v45, &buf);
+          v41 = currentOperationHandler8;
+          v44 = v41;
+          [device3 removePeriocularEnrollmentsFromIdentity:identity3 removeAll:1 reply:v43];
 
-          objc_destroyWeak(&v43);
+          objc_destroyWeak(&v45);
           objc_destroyWeak(&buf);
         }
       }
@@ -822,20 +834,20 @@ uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__naviga
 
     else
     {
-      v15 = objc_opt_class();
+      v16 = objc_opt_class();
       state = [(BKUIPearlEnrollViewController *)self state];
       currentOperationHandler11 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
       poseStatus = [currentOperationHandler11 poseStatus];
-      LODWORD(v15) = [v15 _shouldShowAccessibilityOptionForState:state poseStatus:poseStatus];
+      LODWORD(v16) = [v16 _shouldShowAccessibilityOptionForState:state poseStatus:poseStatus];
 
-      if (v15)
+      if (v16)
       {
-        v19 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = _BKUILoggingFacility(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf) = 67109120;
           HIDWORD(buf) = [(BKUIPearlEnrollViewController *)self state];
-          _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed accessibility escape hatch, state = %i", &buf, 8u);
+          _os_log_impl(&dword_241B0A000, v21, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Pressed accessibility escape hatch, state = %i", &buf, 8u);
         }
 
         [(BKUIPearlEnrollViewController *)self setState:9 animated:1];
@@ -848,24 +860,22 @@ uint64_t __135__BKUIPearlEnrollViewController_ButtonActionWithNavigation__naviga
 
         if (supportsPeriocularEnrollment)
         {
-          v22 = _BKUILoggingFacility();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v25 = _BKUILoggingFacility(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf) = 0;
-            _os_log_impl(&dword_241B0A000, v22, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Enroll has completed, but we do have Periocular enrollment support!", &buf, 2u);
+            _os_log_impl(&dword_241B0A000, v25, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Enroll has completed, but we do have Periocular enrollment support!", &buf, 2u);
           }
 
-          v40[0] = MEMORY[0x277D85DD0];
-          v40[1] = 3221225472;
-          v40[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_38;
-          v40[3] = &unk_278D09978;
-          v40[4] = self;
-          [(BKUIPearlEnrollViewController *)self updatePeriocularEnrollmentSettings:v40];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_38;
+          v42[3] = &unk_278D09978;
+          v42[4] = self;
+          [(BKUIPearlEnrollViewController *)self updatePeriocularEnrollmentSettings:v42];
         }
       }
     }
-
-    v39 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -969,13 +979,13 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatch
   [WeakRetained enrollOperation:v2 finishedWithIdentity:v3 animateImmediately:1];
 }
 
-void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_38(uint64_t a1)
+void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatchButtonPressed__block_invoke_38(uint64_t a1, uint64_t a2)
 {
-  v2 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _BKUILoggingFacility(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "BKUIPearl: updatePeriocularEnrollmentSettings: endEnrollAction completion invoked", buf, 2u);
+    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "BKUIPearl: updatePeriocularEnrollmentSettings: endEnrollAction completion invoked", buf, 2u);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -984,24 +994,22 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatch
   block[3] = &unk_278D09978;
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v3 = [*(a1 + 32) parentViewController];
-  [v3 startInternalGlassesFlow];
+  v4 = [*(a1 + 32) parentViewController];
+  [v4 startInternalGlassesFlow];
 }
 
 - (void)_logRemovePeriocularFailure:(id)failure
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility(failureCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     localizedDescription = [failureCopy localizedDescription];
-    v7 = 138412290;
-    v8 = localizedDescription;
-    _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "removePeriocularEnrollmentsFromIdentity unsucesful %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = localizedDescription;
+    _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "removePeriocularEnrollmentsFromIdentity unsucesful %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelEnrollOperationForEscapeHatchButtonTap
@@ -1062,7 +1070,8 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatch
 
 - (void)_handleGlassesSkipAction
 {
-  if ([(BKUIPearlEnrollViewController *)self state]== 3)
+  state = [(BKUIPearlEnrollViewController *)self state];
+  if (state == 3)
   {
     currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
     if ([currentOperationHandler shouldShowRetryUI])
@@ -1072,14 +1081,14 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatch
 
       if (glassesEnforcementError)
       {
-        v6 = _BKUILoggingFacility();
-        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = _BKUILoggingFacility(state);
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_10;
         }
 
         LOWORD(buf[0]) = 0;
-        v7 = "Pressed escape hatch during glasses enforcement error in BKUIPearlEnrollStateNeedsPositioning, showing retry UI ... user skip tapped";
+        v8 = "Pressed escape hatch during glasses enforcement error in BKUIPearlEnrollStateNeedsPositioning, showing retry UI ... user skip tapped";
         goto LABEL_9;
       }
     }
@@ -1089,16 +1098,16 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation__escapeHatch
     }
   }
 
-  v6 = _BKUILoggingFacility();
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _BKUILoggingFacility(state);
+  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_10;
   }
 
   LOWORD(buf[0]) = 0;
-  v7 = "Pressed escape hatch during upsell in BKUIPearlEnrollStateSubsequentScanComplete, showing retry UI ... user skip tapped";
+  v8 = "Pressed escape hatch during upsell in BKUIPearlEnrollStateSubsequentScanComplete, showing retry UI ... user skip tapped";
 LABEL_9:
-  _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+  _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
 LABEL_10:
 
   currentOperationHandler3 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
@@ -1108,57 +1117,57 @@ LABEL_10:
   objc_initWeak(buf, self);
   if ([(BKUIPearlEnrollViewController *)self enrollmentConfiguration]== 4)
   {
-    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    [v10 localizedStringForKey:@"DYNAMIC_MATCH_GLASSES_ENROLL_SKIP_ALERT_BODY" value:&stru_2853BB280 table:@"Pearl-periocular"];
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    [v11 localizedStringForKey:@"DYNAMIC_MATCH_GLASSES_ENROLL_SKIP_ALERT_BODY" value:&stru_2853BB280 table:@"Pearl-periocular"];
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    [v10 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_BODY" value:&stru_2853BB280 table:@"Pearl-periocular"];
+    v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    [v11 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_BODY" value:&stru_2853BB280 table:@"Pearl-periocular"];
   }
-  v11 = ;
+  v12 = ;
 
-  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v13 = [v12 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_TITLE" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  v14 = [BKUIAlertController alertControllerWithTitle:v13 message:v11 preferredStyle:1];
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v14 = [v13 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_TITLE" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  v15 = [BKUIAlertController alertControllerWithTitle:v14 message:v12 preferredStyle:1];
 
-  v15 = MEMORY[0x277D750F8];
-  v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v17 = [v16 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_SKIP_ACTION" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke;
-  v25[3] = &unk_278D09C38;
-  v25[4] = self;
-  objc_copyWeak(&v26, buf);
-  v18 = [v15 actionWithTitle:v17 style:0 handler:v25];
+  v16 = MEMORY[0x277D750F8];
+  v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v18 = [v17 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_SKIP_ACTION" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke;
+  v26[3] = &unk_278D09C38;
+  v26[4] = self;
+  objc_copyWeak(&v27, buf);
+  v19 = [v16 actionWithTitle:v18 style:0 handler:v26];
 
-  v19 = MEMORY[0x277D750F8];
-  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v21 = [v20 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_DONT_SKIP_ACTION" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke_3;
-  v23[3] = &unk_278D09C60;
-  objc_copyWeak(&v24, buf);
-  v22 = [v19 actionWithTitle:v21 style:1 handler:v23];
-  [v14 addAction:v22];
+  v20 = MEMORY[0x277D750F8];
+  v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v22 = [v21 localizedStringForKey:@"GLASSES_ENROLL_SKIP_ALERT_DONT_SKIP_ACTION" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke_3;
+  v24[3] = &unk_278D09C60;
+  objc_copyWeak(&v25, buf);
+  v23 = [v20 actionWithTitle:v22 style:1 handler:v24];
+  [v15 addAction:v23];
 
-  [v14 bkui_addPreferredAction:v18];
-  [(BKUIPearlEnrollViewController *)self presentViewController:v14 animated:1 completion:0];
-  objc_destroyWeak(&v24);
+  [v15 bkui_addPreferredAction:v19];
+  [(BKUIPearlEnrollViewController *)self presentViewController:v15 animated:1 completion:0];
+  objc_destroyWeak(&v25);
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
 }
 
 void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentOperationHandler];
   v3 = [*(a1 + 32) enrollmentConfiguration];
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3 == 4)
   {
@@ -1181,8 +1190,8 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlas
       _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Pressed escape hatch during during upsell for normal enrollment, user confirmed skip", buf, 2u);
     }
 
-    v22[0] = v2;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v2;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v9 = [v8 mutableCopy];
     [*(a1 + 32) setOperationHandlers:v9];
 
@@ -1205,18 +1214,16 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlas
     }
 
     v16 = dispatch_time(0, v15);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke_52;
-    v18[3] = &unk_278D09B20;
-    objc_copyWeak(&v20, (a1 + 40));
-    v19 = v2;
-    dispatch_after(v16, MEMORY[0x277D85CD0], v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke_52;
+    v17[3] = &unk_278D09B20;
+    objc_copyWeak(&v19, (a1 + 40));
+    v18 = v2;
+    dispatch_after(v16, MEMORY[0x277D85CD0], v17);
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlassesSkipAction__block_invoke_52(uint64_t a1)
@@ -1310,7 +1317,7 @@ void __85__BKUIPearlEnrollViewController_ButtonActionWithNavigation___handleGlas
 
 void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1318,8 +1325,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke(ui
   }
 
   v3 = objc_alloc_init(BKUIPearlAudioSession);
-  [*(a1 + 32) cacheAudioSession:v3];
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility([*(a1 + 32) cacheAudioSession:v3]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1331,7 +1337,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke(ui
 
 void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_6(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1339,7 +1345,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_6(
   }
 
   v3 = objc_alloc_init(BKUIPearlVideoCaptureSession);
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1360,7 +1366,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_6(
 
 void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_8(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1368,8 +1374,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_8(
   }
 
   [*(a1 + 32) startCapture];
-  [*(a1 + 40) cacheVideoCaptureSession:*(a1 + 32)];
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility([*(a1 + 40) cacheVideoCaptureSession:*(a1 + 32)]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1381,7 +1386,7 @@ void __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_8(
 
 uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invoke_9(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1399,11 +1404,11 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
 
 - (BKUIPearlEnrollViewController)initWithPreloadedState:(id)state
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   stateCopy = state;
-  v25.receiver = self;
-  v25.super_class = BKUIPearlEnrollViewController;
-  v6 = [(BKUIPearlEnrollViewController *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = BKUIPearlEnrollViewController;
+  v6 = [(BKUIPearlEnrollViewController *)&v24 init];
   v7 = v6;
   if (v6)
   {
@@ -1432,8 +1437,8 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
     [defaultCenter3 addObserver:v7 selector:sel_didEnterBackground_ name:*MEMORY[0x277D76660] object:0];
 
     v17 = [[BKUIFaceIDEnrollOperationsHandler alloc] initWithBKPearlEnrollmentType:1];
-    v26[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     v19 = [v18 mutableCopy];
     operationHandlers = v7->_operationHandlers;
     v7->_operationHandlers = v19;
@@ -1443,7 +1448,6 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
     v7->_workItemsManager = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1494,7 +1498,7 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
 
 - (void)cleanupEnrollView
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1529,14 +1533,14 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
 
 - (void)endEnrollFlowWithError:(id)error
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = _BKUILoggingFacility();
+  v5 = _BKUILoggingFacility(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     localizedDescription = [errorCopy localizedDescription];
     *buf = 138412290;
-    v50 = localizedDescription;
+    v49 = localizedDescription;
     _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Pearl: end enroll flow with error %@", buf, 0xCu);
   }
 
@@ -1570,7 +1574,7 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
     v13 = [v12 localizedStringForKey:@"ENROLL_FAILED_GENERIC" value:&stru_2853BB280 table:@"Pearl-periocular"];
 
     domain3 = [errorCopy domain];
-    v44 = inBuddy;
+    v43 = inBuddy;
     if (([domain3 isEqualToString:@"com.apple.biometrickitui.biokit"] & 1) == 0)
     {
 
@@ -1599,7 +1603,7 @@ uint64_t __55__BKUIPearlEnrollViewController_preloadWithCompletion___block_invok
           v29 = @"ENROLL_FAILED_INTERLOCKED_MESSAGE_BUDDY";
         }
 
-        v43 = v27;
+        v42 = v27;
 LABEL_34:
         v21 = v29;
         v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -1610,7 +1614,7 @@ LABEL_34:
 
         if (userInterfaceIdiom != 1)
         {
-          v13 = v43;
+          v13 = v42;
           goto LABEL_38;
         }
 
@@ -1618,7 +1622,7 @@ LABEL_34:
         v20 = [v35 localizedStringForKey:v21 value:&stru_2853BB280 table:@"Pearl-j3xx"];
 
         v19 = v35;
-        v13 = v43;
+        v13 = v42;
 LABEL_36:
 
         v19 = v20;
@@ -1627,14 +1631,14 @@ LABEL_38:
         v37 = MEMORY[0x277D750F8];
         v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         v39 = [v38 localizedStringForKey:@"OK" value:&stru_2853BB280 table:@"Pearl-periocular"];
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke;
-        v45[3] = &unk_278D0A550;
-        v48 = v44;
-        v46 = errorCopy;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke;
+        v44[3] = &unk_278D0A550;
+        v47 = v43;
+        v45 = errorCopy;
         selfCopy = self;
-        [v37 actionWithTitle:v39 style:0 handler:v45];
+        [v37 actionWithTitle:v39 style:0 handler:v44];
         v41 = v40 = v13;
         [v36 addAction:v41];
 
@@ -1642,7 +1646,7 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v43 = v13;
+      v42 = v13;
       inBuddy3 = [(BKUIPearlEnrollViewController *)self inBuddy];
       v29 = @"ENROLL_FAILED_TOO_COLD_SETTINGS";
       v31 = @"ENROLL_FAILED_TOO_COLD_BUDDY";
@@ -1660,7 +1664,7 @@ LABEL_38:
 
           v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
           v20 = [v19 localizedStringForKey:@"ENROLL_FAILED_DIFFERENT_FACE_MESSAGE" value:&stru_2853BB280 table:@"Pearl-periocular"];
-          v44 = 0;
+          v43 = 0;
           v21 = 0;
           v13 = v18;
           goto LABEL_36;
@@ -1694,7 +1698,7 @@ LABEL_18:
         goto LABEL_36;
       }
 
-      v43 = v13;
+      v42 = v13;
       inBuddy3 = [(BKUIPearlEnrollViewController *)self inBuddy];
       v29 = @"ENROLL_FAILED_TOO_HOT_SETTINGS";
       v31 = @"ENROLL_FAILED_TOO_HOT_BUDDY";
@@ -1710,13 +1714,11 @@ LABEL_18:
 
   [(BKUIPearlEnrollViewController *)self _endEnrollFlowWithError:errorCopy];
 LABEL_39:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = v4;
@@ -1725,9 +1727,9 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
     v6 = MEMORY[0x277CCA9B8];
     if (v4)
     {
-      v10 = *MEMORY[0x277CCA7E8];
-      v11[0] = v4;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x277CCA7E8];
+      v10[0] = v4;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
@@ -1748,8 +1750,6 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
   }
 
   [*(a1 + 40) _endEnrollFlowWithError:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traceAnalyticsForEndEnrollFlowWithError:(id)error
@@ -1796,11 +1796,11 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
 
   if (isActive)
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Pearl: Resuming enroll due to become active", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Pearl: Resuming enroll due to become active", v8, 2u);
     }
 
     [(BKUIPearlEnrollViewController *)self _setSuspended:0];
@@ -1814,11 +1814,11 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
 
   if (isActive)
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Pearl: Suspending enroll due to resign active", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Pearl: Suspending enroll due to resign active", v8, 2u);
     }
 
     [(BKUIPearlEnrollViewController *)self _setSuspended:1];
@@ -1827,7 +1827,7 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
 
 - (void)didEnterBackground:(id)background
 {
-  v4 = _BKUILoggingFacility();
+  v4 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1839,20 +1839,20 @@ void __56__BKUIPearlEnrollViewController_endEnrollFlowWithError___block_invoke(u
   {
 
 LABEL_5:
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Pearl: Ending enroll due to enter background", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Pearl: Ending enroll due to enter background", v18, 2u);
     }
 
     if ([(BKUIPearlEnrollViewController *)self hasPeriocularIdentityEnrolled]&& [(BKUIPearlEnrollViewController *)self enrollmentConfiguration]== 4 && [(BKUIPearlEnrollViewController *)self inBuddy])
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v8 = -2;
+      v8 = MEMORY[0x277CCA9B8];
+      v9 = -2;
 LABEL_13:
-      v10 = [v7 errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:v8 userInfo:0];
-      [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v10];
+      v11 = [v8 errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:v9 userInfo:0];
+      [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v11];
 
       return;
     }
@@ -1861,8 +1861,8 @@ LABEL_13:
     [operationHandlers enumerateObjectsUsingBlock:&__block_literal_global_8];
 LABEL_12:
 
-    v7 = MEMORY[0x277CCA9B8];
-    v8 = -1;
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = -1;
     goto LABEL_13;
   }
 
@@ -1883,22 +1883,47 @@ LABEL_12:
     }
   }
 
-  if (![(BKUIPearlEnrollViewController *)self inBuddy])
+  inBuddy = [(BKUIPearlEnrollViewController *)self inBuddy];
+  if ((inBuddy & 1) == 0)
   {
-    operationHandlers = _BKUILoggingFacility();
+    operationHandlers = _BKUILoggingFacility(inBuddy);
     if (os_log_type_enabled(operationHandlers, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_241B0A000, operationHandlers, OS_LOG_TYPE_DEFAULT, "Pearl: Ending enroll due to enter background in Settings", v15, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_241B0A000, operationHandlers, OS_LOG_TYPE_DEFAULT, "Pearl: Ending enroll due to enter background in Settings", v17, 2u);
     }
 
     goto LABEL_12;
   }
 }
 
+- (void)_setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = _BKUILoggingFacility(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = suspendedCopy;
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Pearl: Set suspended: %i", v8, 8u);
+  }
+
+  self->_suspended = suspendedCopy;
+  [(NSTimer *)self->_substateDelayTimer invalidate];
+  if (self->_state >= 3u)
+  {
+    enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
+    [enrollView setSuspended:suspendedCopy];
+  }
+
+  currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+  [currentOperationHandler setSuspend:suspendedCopy];
+}
+
 - (void)dealloc
 {
-  v3 = _BKUILoggingFacility();
+  v3 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1916,6 +1941,54 @@ LABEL_12:
   v6.receiver = self;
   v6.super_class = BKUIPearlEnrollViewController;
   [(BKUIPearlEnrollViewController *)&v6 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = BKUIPearlEnrollViewController;
+  [(BKUIPearlEnrollViewController *)&v9 viewWillAppear:appear];
+  navigationController = [(BKUIPearlEnrollViewController *)self navigationController];
+  navigationBar = [navigationController navigationBar];
+  [navigationBar setBarStyle:1];
+
+  view = [(BKUIPearlEnrollViewController *)self view];
+  [view layoutIfNeeded];
+
+  [(BKUIPearlEnrollViewController *)self _handleEnrollStateOnAppear];
+  audioManager = [(BKUIPearlEnrollViewController *)self audioManager];
+  [audioManager setupSound];
+
+  audioManager2 = [(BKUIPearlEnrollViewController *)self audioManager];
+  [audioManager2 setUpHaptics];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = _BKUILoggingFacility(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "PearlEnrollVC: viewDidDisappear", buf, 2u);
+  }
+
+  v11.receiver = self;
+  v11.super_class = BKUIPearlEnrollViewController;
+  [(BKUIPearlEnrollViewController *)&v11 viewDidDisappear:disappearCopy];
+  currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+  [currentOperationHandler cancelCurrentEnrollmentOperationIfUnfinished];
+
+  enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
+  [enrollView didDisappear];
+
+  if ([(BKUIPearlEnrollViewController *)self inBuddy])
+  {
+    v8 = +[BKUIStyle sharedStyle];
+    parentViewController = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationController = [parentViewController navigationController];
+    [v8 applyThemeToNavigationController:navigationController];
+  }
 }
 
 - (void)forceDarkBackground:(BOOL)background animated:(BOOL)animated
@@ -1944,7 +2017,7 @@ LABEL_12:
 
     backgroundCopy = background;
     v10[4] = self;
-    [(UIView *)v9 bkui_animateWithDuration:v10 animations:?];
+    [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v10 animations:v9];
   }
 }
 
@@ -1998,17 +2071,25 @@ void __62__BKUIPearlEnrollViewController_forceDarkBackground_animated___block_in
   [*(a1 + 32) setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)setInSheet:(BOOL)sheet
+{
+  sheetCopy = sheet;
+  self->_inSheet = sheet;
+  getEnrollview = [(BKUIPearlEnrollViewController *)self getEnrollview];
+  [getEnrollview setInSheet:sheetCopy];
+}
+
 - (void)viewDidLoad
 {
   v13[4] = *MEMORY[0x277D85DE8];
   v12.receiver = self;
   v12.super_class = BKUIPearlEnrollViewController;
-  [(BKUIPearlEnrollViewController *)&v12 viewDidLoad];
-  v3 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  viewDidLoad = [(BKUIPearlEnrollViewController *)&v12 viewDidLoad];
+  v4 = _BKUILoggingFacility(viewDidLoad);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&dword_241B0A000, v3, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Setting up enrollVC", &buf, 2u);
+    _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Setting up enrollVC", &buf, 2u);
   }
 
   [(BKUIPearlEnrollViewController *)self _setupUI];
@@ -2016,8 +2097,8 @@ void __62__BKUIPearlEnrollViewController_forceDarkBackground_animated___block_in
   [enrollView setDelegate:self];
 
   [(BKUIPearlEnrollViewController *)self setupDebugLabel];
-  v5 = [[BioStreamsEventHelper alloc] initWithBKDeviceType:2 inBuddy:[(BKUIPearlEnrollViewController *)self inBuddy]];
-  [(BKUIPearlEnrollViewController *)self setBioStreamEventHelper:v5];
+  v6 = [[BioStreamsEventHelper alloc] initWithBKDeviceType:2 inBuddy:[(BKUIPearlEnrollViewController *)self inBuddy]];
+  [(BKUIPearlEnrollViewController *)self setBioStreamEventHelper:v6];
 
   [(BKUIPearlEnrollViewController *)self setEnrollmentAlreadyHasExistingPeriocularTemplate:[(BKUIPearlEnrollViewController *)self hasPeriocularIdentityEnrolled]];
   objc_initWeak(&buf, self);
@@ -2025,18 +2106,17 @@ void __62__BKUIPearlEnrollViewController_forceDarkBackground_animated___block_in
   v13[1] = objc_opt_class();
   v13[2] = objc_opt_class();
   v13[3] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke;
   v9[3] = &unk_278D09928;
   objc_copyWeak(&v10, &buf);
-  v7 = [(BKUIPearlEnrollViewController *)self registerForTraitChanges:v6 withHandler:v9];
-  [(BKUIPearlEnrollViewController *)self setTraitChangeRegistration:v7];
+  v8 = [(BKUIPearlEnrollViewController *)self registerForTraitChanges:v7 withHandler:v9];
+  [(BKUIPearlEnrollViewController *)self setTraitChangeRegistration:v8];
 
   objc_destroyWeak(&v10);
   objc_destroyWeak(&buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -2077,7 +2157,7 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
 
 - (void)_setupUI
 {
-  v137[2] = *MEMORY[0x277D85DE8];
+  v136[2] = *MEMORY[0x277D85DE8];
   v3 = [BKUIPearlEnrollView alloc];
   acquireCachedVideoCaptureSession = [(BKUIPearlEnrollControllerPreloadedState *)self->_preloadedState acquireCachedVideoCaptureSession];
   v5 = [(BKUIPearlEnrollView *)v3 initWithVideoCaptureSession:acquireCachedVideoCaptureSession inSheet:[(BKUIPearlEnrollViewController *)self inSheet] squareNeedsPositionLayout:0];
@@ -2146,9 +2226,9 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
 
   v32 = [BKUIPearlEnrollViewBottomContainer alloc];
   inBuddy = self->_inBuddy;
-  v134 = v29;
+  v133 = v29;
   v34 = [[BKUIContainerScrollView alloc] initWithFrame:v29 buttonTray:0.0, 0.0, v25, v28];
-  v133 = v30;
+  v132 = v30;
   v35 = [[BKUIContainerScrollView alloc] initWithFrame:v30 buttonTray:0.0, 0.0, v25, v28];
   v36 = [(BKUIPearlEnrollViewBottomContainer *)v32 initWithFrame:inBuddy inBuddy:v34 scrollView:v35 overlapScrollView:self delegate:0 squareNeedsPositionLayout:0.0, 0.0, v25, v28];
   [(BKUIPearlEnrollViewController *)self setBottomContainer:v36];
@@ -2203,7 +2283,7 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
     view8 = [(BKUIPearlEnrollViewController *)self view];
     [view8 addLayoutGuide:v59];
 
-    v130 = v59;
+    v129 = v59;
     topAnchor3 = [v59 topAnchor];
     view9 = [(BKUIPearlEnrollViewController *)self view];
     topAnchor4 = [view9 topAnchor];
@@ -2230,34 +2310,34 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
     view12 = [(BKUIPearlEnrollViewController *)self view];
     topAnchor8 = [view12 topAnchor];
     v80 = [topAnchor7 constraintEqualToAnchor:topAnchor8];
-    v137[0] = v80;
-    v137[1] = v51;
+    v136[0] = v80;
+    v136[1] = v51;
     v81 = v51;
-    v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
+    v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:2];
     v83 = v74;
     v39 = 0x277CBE000uLL;
     [v83 activateConstraints:v82];
   }
 
-  v122 = MEMORY[0x277CCAAD0];
+  v121 = MEMORY[0x277CCAAD0];
   enrollViewHeightConstraint = [(BKUIPearlEnrollViewController *)self enrollViewHeightConstraint];
-  v136[0] = enrollViewHeightConstraint;
+  v135[0] = enrollViewHeightConstraint;
   enrollViewTopConstraint = [(BKUIPearlEnrollViewController *)self enrollViewTopConstraint];
-  v136[1] = enrollViewTopConstraint;
+  v135[1] = enrollViewTopConstraint;
   enrollView8 = [(BKUIPearlEnrollViewController *)self enrollView];
   widthAnchor2 = [enrollView8 widthAnchor];
   view13 = [(BKUIPearlEnrollViewController *)self view];
   widthAnchor3 = [view13 widthAnchor];
   v86 = [widthAnchor2 constraintEqualToAnchor:widthAnchor3];
-  v136[2] = v86;
+  v135[2] = v86;
   enrollView9 = [(BKUIPearlEnrollViewController *)self enrollView];
   centerXAnchor = [enrollView9 centerXAnchor];
   view14 = [(BKUIPearlEnrollViewController *)self view];
   centerXAnchor2 = [view14 centerXAnchor];
   v91 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v136[3] = v91;
-  v92 = [*(v39 + 2656) arrayWithObjects:v136 count:4];
-  [v122 activateConstraints:v92];
+  v135[3] = v91;
+  v92 = [*(v39 + 2656) arrayWithObjects:v135 count:4];
+  [v121 activateConstraints:v92];
 
   currentDevice3 = [MEMORY[0x277D75418] currentDevice];
   LODWORD(widthAnchor3) = [currentDevice3 bkui_IsInternalInstall];
@@ -2299,27 +2379,27 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
     [bottomAnchor setActive:1];
   }
 
-  v120 = MEMORY[0x277CCAAD0];
+  v119 = MEMORY[0x277CCAAD0];
   bottomContainer9 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   bottomAnchor2 = [bottomContainer9 bottomAnchor];
   view17 = [(BKUIPearlEnrollViewController *)self view];
   bottomAnchor3 = [view17 bottomAnchor];
-  v123 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v135[0] = v123;
+  v122 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v134[0] = v122;
   bottomContainer10 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   leadingAnchor = [bottomContainer10 leadingAnchor];
   view18 = [(BKUIPearlEnrollViewController *)self view];
   leadingAnchor2 = [view18 leadingAnchor];
   v109 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v135[1] = v109;
+  v134[1] = v109;
   bottomContainer11 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   trailingAnchor = [bottomContainer11 trailingAnchor];
   view19 = [(BKUIPearlEnrollViewController *)self view];
   trailingAnchor2 = [view19 trailingAnchor];
   v114 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v135[2] = v114;
-  v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v135 count:3];
-  [v120 activateConstraints:v115];
+  v134[2] = v114;
+  v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v134 count:3];
+  [v119 activateConstraints:v115];
 
   bottomContainer12 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   [bottomContainer12 setupInitialUI];
@@ -2330,7 +2410,6 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
   [buttonTray updateButtonLayout];
 
   [(BKUIPearlEnrollViewController *)self setupDebugUITraits];
-  v118 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupDebugUITraits
@@ -2400,103 +2479,101 @@ void __44__BKUIPearlEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
 
 - (void)_updateLeftBarButtonItem
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   state = self->_state;
-  if (state != 9)
+  if (state == 9)
   {
-    if (state > 2)
-    {
-      if (state == 10)
-      {
-        parentViewController = [(BKUIPearlEnrollViewController *)self parentViewController];
-        navigationItem = [parentViewController navigationItem];
-        [navigationItem setLeftBarButtonItem:0];
+    v4 = objc_alloc(MEMORY[0x277D751E0]);
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v5 localizedStringForKey:@"BACK" value:&stru_2853BB280 table:@"Pearl-periocular"];
+    parentViewController3 = [v4 initWithTitle:v6 style:0 target:self action:sel_returnToEnroll];
 
-        parentViewController2 = [(BKUIPearlEnrollViewController *)self parentViewController];
-        navigationItem2 = [parentViewController2 navigationItem];
-        [navigationItem2 setHidesBackButton:1];
-        goto LABEL_3;
-      }
+    [parentViewController3 _setShowsBackButtonIndicator:1];
+    parentViewController = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem = [parentViewController navigationItem];
+    [navigationItem setLeftBarButtonItem:parentViewController3];
 
-      v20 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
-      {
-        v21 = self->_state;
-        LODWORD(buf) = 67109120;
-        HIDWORD(buf) = v21;
-        _os_log_impl(&dword_241B0A000, v20, OS_LOG_TYPE_DEFAULT, "NavBar: updating for state %i: X", &buf, 8u);
-      }
+LABEL_3:
 
-      parentViewController3 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem3 = [parentViewController3 navigationItem];
-      [navigationItem3 setBackAction:0];
-
-      parentViewController4 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem4 = [parentViewController4 navigationItem];
-      [navigationItem4 setBackBarButtonItem:0];
-
-      parentViewController5 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem5 = [parentViewController5 navigationItem];
-      [navigationItem5 setHidesBackButton:1];
-
-      v28 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_cancelEnroll];
-      parentViewController6 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem6 = [parentViewController6 navigationItem];
-      [navigationItem6 setLeftBarButtonItem:v28];
-    }
-
-    else
-    {
-      v10 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-      {
-        v11 = self->_state;
-        LODWORD(buf) = 67109120;
-        HIDWORD(buf) = v11;
-        _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "NavBar: updating for state %i: <", &buf, 8u);
-      }
-
-      parentViewController7 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem7 = [parentViewController7 navigationItem];
-      [navigationItem7 setLeftBarButtonItem:0];
-
-      objc_initWeak(&buf, self);
-      parentViewController8 = [(BKUIPearlEnrollViewController *)self parentViewController];
-      navigationItem8 = [parentViewController8 navigationItem];
-      v16 = MEMORY[0x277D750C8];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __57__BKUIPearlEnrollViewController__updateLeftBarButtonItem__block_invoke;
-      v33[3] = &unk_278D0A598;
-      objc_copyWeak(&v34, &buf);
-      v17 = [v16 actionWithHandler:v33];
-      [navigationItem8 setBackAction:v17];
-
-      objc_destroyWeak(&v34);
-      objc_destroyWeak(&buf);
-    }
-
-    v31 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v4 = objc_alloc(MEMORY[0x277D751E0]);
-  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"BACK" value:&stru_2853BB280 table:@"Pearl-periocular"];
-  parentViewController2 = [v4 initWithTitle:v6 style:0 target:self action:sel_returnToEnroll];
+  if (state > 2)
+  {
+    if (state == 10)
+    {
+      parentViewController2 = [(BKUIPearlEnrollViewController *)self parentViewController];
+      navigationItem2 = [parentViewController2 navigationItem];
+      [navigationItem2 setLeftBarButtonItem:0];
 
-  [parentViewController2 _setShowsBackButtonIndicator:1];
-  navigationItem2 = [(BKUIPearlEnrollViewController *)self parentViewController];
-  v7NavigationItem = [navigationItem2 navigationItem];
-  [v7NavigationItem setLeftBarButtonItem:parentViewController2];
+      parentViewController3 = [(BKUIPearlEnrollViewController *)self parentViewController];
+      parentViewController = [parentViewController3 navigationItem];
+      [parentViewController setHidesBackButton:1];
+      goto LABEL_3;
+    }
 
-LABEL_3:
-  v9 = *MEMORY[0x277D85DE8];
+    v19 = _BKUILoggingFacility(self);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = self->_state;
+      LODWORD(buf) = 67109120;
+      HIDWORD(buf) = v20;
+      _os_log_impl(&dword_241B0A000, v19, OS_LOG_TYPE_DEFAULT, "NavBar: updating for state %i: X", &buf, 8u);
+    }
+
+    parentViewController4 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem3 = [parentViewController4 navigationItem];
+    [navigationItem3 setBackAction:0];
+
+    parentViewController5 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem4 = [parentViewController5 navigationItem];
+    [navigationItem4 setBackBarButtonItem:0];
+
+    parentViewController6 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem5 = [parentViewController6 navigationItem];
+    [navigationItem5 setHidesBackButton:1];
+
+    v27 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_cancelEnroll];
+    parentViewController7 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem6 = [parentViewController7 navigationItem];
+    [navigationItem6 setLeftBarButtonItem:v27];
+  }
+
+  else
+  {
+    v9 = _BKUILoggingFacility(self);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = self->_state;
+      LODWORD(buf) = 67109120;
+      HIDWORD(buf) = v10;
+      _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "NavBar: updating for state %i: <", &buf, 8u);
+    }
+
+    parentViewController8 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem7 = [parentViewController8 navigationItem];
+    [navigationItem7 setLeftBarButtonItem:0];
+
+    objc_initWeak(&buf, self);
+    parentViewController9 = [(BKUIPearlEnrollViewController *)self parentViewController];
+    navigationItem8 = [parentViewController9 navigationItem];
+    v15 = MEMORY[0x277D750C8];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __57__BKUIPearlEnrollViewController__updateLeftBarButtonItem__block_invoke;
+    v31[3] = &unk_278D0A598;
+    objc_copyWeak(&v32, &buf);
+    v16 = [v15 actionWithHandler:v31];
+    [navigationItem8 setBackAction:v16];
+
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&buf);
+  }
 }
 
 void __57__BKUIPearlEnrollViewController__updateLeftBarButtonItem__block_invoke(uint64_t a1)
 {
-  v2 = _BKUILoggingFacility();
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2686,6 +2763,352 @@ LABEL_42:
   return v9;
 }
 
+- (id)_escapeHatchTitleForState:(int)state
+{
+  v3 = *&state;
+  if (self->_state == 9)
+  {
+    currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    if ([currentOperationHandler glassesFound])
+    {
+      currentOperationHandler2 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        currentOperationHandler3 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+        enrollOperation = [currentOperationHandler3 enrollOperation];
+        v9 = enrollOperation == 0;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (v3 == 3)
+  {
+    currentOperationHandler4 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    if ([currentOperationHandler4 shouldShowRetryUI])
+    {
+      currentOperationHandler5 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+      glassesEnforcementError = [currentOperationHandler5 glassesEnforcementError];
+
+      if (glassesEnforcementError)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else
+    {
+    }
+
+    currentOperationHandler6 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    shouldShowRetryUI = [currentOperationHandler6 shouldShowRetryUI];
+
+    if (shouldShowRetryUI)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  if ([objc_opt_class() _shouldShowEscapeHatchForState:v3 inBuddy:{-[BKUIPearlEnrollViewController inBuddy](self, "inBuddy")}])
+  {
+LABEL_17:
+    v15 = @"SET_UP_LATER_IN_SETTINGS";
+LABEL_28:
+    v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v23 = [v22 localizedStringForKey:v15 value:&stru_2853BB280 table:@"Pearl-periocular"];
+
+    goto LABEL_29;
+  }
+
+  v16 = objc_opt_class();
+  currentOperationHandler7 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+  poseStatus = [currentOperationHandler7 poseStatus];
+  if ([v16 _shouldShowAccessibilityOptionForState:v3 poseStatus:poseStatus])
+  {
+    currentOperationHandler8 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    [currentOperationHandler8 bioKitCompletionPercentage];
+    v21 = v20;
+
+    if (v21 < 1.0)
+    {
+      v15 = @"GLASSES_ENROLL_SKIP";
+    }
+
+    else
+    {
+      v15 = @"ACCESSIBILITY_OPTIONS";
+    }
+
+    if (v21 >= 1.0 || v9)
+    {
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+
+    if (v9)
+    {
+LABEL_27:
+      v15 = @"GLASSES_ENROLL_SKIP";
+      goto LABEL_28;
+    }
+  }
+
+  if (v3 == 8 && [(BKUIPearlEnrollViewController *)self substate]== 15)
+  {
+    goto LABEL_27;
+  }
+
+  if ([(BKUIPearlEnrollViewController *)self state]== 10)
+  {
+    currentOperationHandler9 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    showAddGlassesButton = [currentOperationHandler9 showAddGlassesButton];
+
+    if (showAddGlassesButton)
+    {
+      v15 = @"ADD_GLASSES";
+      goto LABEL_28;
+    }
+  }
+
+  v23 = 0;
+LABEL_29:
+
+  return v23;
+}
+
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing
+{
+  v8 = *&state;
+  v34[1] = *MEMORY[0x277D85DE8];
+  [(BKUIPearlEnrollViewController *)self prepareBottomContainerForAnimationToState:*&state fromState:*&fromState subState:*&subState advancing:advancing];
+  if (fromState == 8 || fromState == 6)
+  {
+    currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    if (([currentOperationHandler isEnrollmentAugmentationOnly] & 1) == 0)
+    {
+      [(BKUIPearlEnrollViewController *)self state];
+    }
+  }
+
+  if (fromState == 8 || fromState == 6)
+  {
+  }
+
+  v10 = [(BKUIPearlEnrollViewController *)self _nextStateButtonTitleForState:v8];
+  if (v10)
+  {
+    nextStateButton = [(BKUIPearlEnrollViewController *)self nextStateButton];
+    [nextStateButton setTitle:v10 forState:0];
+
+    nextStateButton2 = [(BKUIPearlEnrollViewController *)self nextStateButton];
+    v13 = nextStateButton2;
+    if (v8 == 10)
+    {
+      v14 = @"Done";
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    [nextStateButton2 setAccessibilityIdentifier:v14];
+  }
+
+  escapeHatchButton = [(BKUIPearlEnrollViewController *)self escapeHatchButton];
+  v16 = [(BKUIPearlEnrollViewController *)self _escapeHatchTitleForState:self->_state];
+  [escapeHatchButton setTitle:v16 forState:0];
+
+  nextStateButton3 = [(BKUIPearlEnrollViewController *)self nextStateButton];
+  v34[0] = nextStateButton3;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v19 = [v18 mutableCopy];
+
+  escapeHatchButton2 = [(BKUIPearlEnrollViewController *)self escapeHatchButton];
+
+  if (escapeHatchButton2)
+  {
+    escapeHatchButton3 = [(BKUIPearlEnrollViewController *)self escapeHatchButton];
+    [v19 addObject:escapeHatchButton3];
+  }
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v22 = v19;
+  v23 = [v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v23)
+  {
+    v24 = v23;
+    v25 = *v30;
+    do
+    {
+      for (i = 0; i != v24; ++i)
+      {
+        if (*v30 != v25)
+        {
+          objc_enumerationMutation(v22);
+        }
+
+        v27 = *(*(&v29 + 1) + 8 * i);
+        [v27 setNeedsLayout];
+        [v27 layoutIfNeeded];
+      }
+
+      v24 = [v22 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    }
+
+    while (v24);
+  }
+
+  view = [(BKUIPearlEnrollViewController *)self view];
+  [view setNeedsLayout];
+}
+
+- (void)prepareBottomContainerForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing
+{
+  advancingCopy = advancing;
+  v7 = *&subState;
+  v8 = *&fromState;
+  v9 = *&state;
+  bottomContainer = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  view = [(BKUIPearlEnrollViewController *)self view];
+  [bottomContainer prepareForAnimationToState:v9 fromState:v8 subState:v7 advancing:advancingCopy parentView:view];
+}
+
+- (void)_setState:(int)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v6 = *&state;
+  v33 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v9 = _BKUILoggingFacility(completionCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 67109120;
+    HIDWORD(buf) = v6;
+    _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Set state %i", &buf, 8u);
+  }
+
+  if (self->_state != v6)
+  {
+    v10 = dispatch_group_create();
+    self->_previousState = self->_state;
+    [(BKUIPearlEnrollViewController *)self willChangeValueForKey:@"state"];
+    self->_state = v6;
+    [(BKUIPearlEnrollViewController *)self didChangeValueForKey:@"state"];
+    date = [MEMORY[0x277CBEAA8] date];
+    stateStart = self->_stateStart;
+    self->_stateStart = date;
+
+    objc_initWeak(&buf, self);
+    dispatch_group_enter(v10);
+    enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
+    enrollView2 = [(BKUIPearlEnrollViewController *)self enrollView];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __63__BKUIPearlEnrollViewController__setState_animated_completion___block_invoke;
+    v27[3] = &unk_278D0A5C0;
+    v31 = v6;
+    objc_copyWeak(&v30, &buf);
+    v15 = enrollView;
+    v28 = v15;
+    v16 = v10;
+    v29 = v16;
+    [enrollView2 setState:v6 completion:v27];
+
+    if (v6 != 3 || self->_previousState == 8)
+    {
+      self->_substate = 0;
+    }
+
+    self->_substatePending = 0;
+    [(NSTimer *)self->_substateDelayTimer invalidate];
+    [(BKUIPearlEnrollViewController *)self prepareForAnimationToState:v6 fromState:self->_previousState];
+    if (animatedCopy)
+    {
+      self->_animatingState = 1;
+    }
+
+    [(BKUIPearlEnrollViewController *)self _updateLeftBarButtonItem];
+    if (v6 != 3 || self->_previousState == 4)
+    {
+      audioManager = [(BKUIPearlEnrollViewController *)self audioManager];
+      [audioManager triggerSoundHapticForTransitionToState:v6 fromState:self->_previousState];
+    }
+
+    dispatch_group_enter(v16);
+    v18 = MEMORY[0x277D75D18];
+    if (animatedCopy)
+    {
+      v19 = 0.3;
+    }
+
+    else
+    {
+      v19 = 0.0;
+    }
+
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __63__BKUIPearlEnrollViewController__setState_animated_completion___block_invoke_2;
+    v26[3] = &unk_278D09978;
+    v26[4] = self;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __63__BKUIPearlEnrollViewController__setState_animated_completion___block_invoke_3;
+    v24[3] = &unk_278D0A5E8;
+    v24[4] = self;
+    v20 = v16;
+    v25 = v20;
+    [(UIView *)v18 bkui_animateWithDuration:v26 delay:v24 options:v19 animations:0.15 completion:?];
+    if (v6 == 10)
+    {
+      [(BKUIPearlEnrollViewController *)self forceDarkBackground:0 animated:1];
+      if (!+[BKUIUtils containerEnrollmentStyleEnabled])
+      {
+        enrollView3 = [(BKUIPearlEnrollViewController *)self enrollView];
+        [enrollView3 postEnrollDeActivate];
+      }
+
+      [(BKUIPearlEnrollViewController *)self animateToSuccessCompletionLayout:[(BKUIPearlEnrollViewController *)self interfaceOrientation]];
+    }
+
+    if (completionCopy)
+    {
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __63__BKUIPearlEnrollViewController__setState_animated_completion___block_invoke_4;
+      block[3] = &unk_278D09E98;
+      block[4] = self;
+      v23 = completionCopy;
+      dispatch_group_notify(v20, MEMORY[0x277D85CD0], block);
+    }
+
+    objc_destroyWeak(&v30);
+    objc_destroyWeak(&buf);
+  }
+}
+
 void __63__BKUIPearlEnrollViewController__setState_animated_completion___block_invoke(uint64_t a1)
 {
   if (*(a1 + 56) == 1)
@@ -2740,6 +3163,87 @@ uint64_t __63__BKUIPearlEnrollViewController__setState_animated_completion___blo
   return result;
 }
 
+- (void)_setSubstate:(int)substate animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = *&substate;
+  v29 = *MEMORY[0x277D85DE8];
+  v7 = _BKUILoggingFacility(self);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v28 = v5;
+    _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "BKUIPearl: Set substate %i", buf, 8u);
+  }
+
+  self->_pendingSubstate = 0;
+  self->_substatePending = 0;
+  if ((v5 & 0xFFFFFFFE) == 0xE)
+  {
+    v8 = 1;
+  }
+
+  else
+  {
+    if (v5)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      v9 = self->_state == 8;
+    }
+
+    v8 = v9;
+  }
+
+  substate = self->_substate;
+  if (substate != v5 && !self->_suspended)
+  {
+    state = self->_state;
+    v12 = state > 7;
+    v13 = (1 << state) & 0xB8;
+    v14 = v12 || v13 == 0;
+    if (!v14 || v8 != 0)
+    {
+      self->_substate = v5;
+      enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
+      [enrollView setNudgesPaused:self->_substate != 0];
+
+      audioManager = [(BKUIPearlEnrollViewController *)self audioManager];
+      [audioManager triggerSoundHapticForTransitionToSubstate:v5 fromSubstate:substate];
+
+      instructionView = [(BKUIPearlEnrollViewController *)self instructionView];
+      v19 = MEMORY[0x277D75D18];
+      if (animatedCopy)
+      {
+        v20 = 0.15;
+      }
+
+      else
+      {
+        v20 = 0.0;
+      }
+
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __55__BKUIPearlEnrollViewController__setSubstate_animated___block_invoke;
+      v25[3] = &unk_278D09978;
+      v26 = instructionView;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __55__BKUIPearlEnrollViewController__setSubstate_animated___block_invoke_2;
+      v22[3] = &unk_278D0A610;
+      v24 = animatedCopy;
+      v22[4] = self;
+      v23 = v26;
+      v21 = v26;
+      [(UIView *)v19 bkui_animateWithDuration:v25 animations:v22 completion:v20];
+    }
+  }
+}
+
 void __55__BKUIPearlEnrollViewController__setSubstate_animated___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) bottomContainer];
@@ -2764,6 +3268,122 @@ void __55__BKUIPearlEnrollViewController__setSubstate_animated___block_invoke_2(
   [(UIView *)v3 bkui_animateWithDuration:v6 animations:0 completion:v4];
   v5 = [*(a1 + 32) view];
   [v5 setNeedsLayout];
+}
+
+- (void)setSubstate:(int)substate animated:(BOOL)animated afterDelay:(double)delay
+{
+  animatedCopy = animated;
+  v7 = *&substate;
+  v20 = *MEMORY[0x277D85DE8];
+  if (self->_substatePending)
+  {
+    v9 = 1088;
+  }
+
+  else
+  {
+    v9 = 1120;
+  }
+
+  if (*(&self->super.super.super.isa + v9) != substate)
+  {
+    v10 = _BKUILoggingFacility(self);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134218240;
+      delayCopy = delay;
+      v18 = 1024;
+      v19 = v7;
+      _os_log_impl(&dword_241B0A000, v10, OS_LOG_TYPE_DEFAULT, "Invalidating current substate timer and waiting %f to go to %u", buf, 0x12u);
+    }
+
+    self->_pendingSubstate = v7;
+    self->_substatePending = 1;
+    [(NSTimer *)self->_substateDelayTimer invalidate];
+    if (delay == 0.0)
+    {
+      [(BKUIPearlEnrollViewController *)self _setSubstate:v7 animated:animatedCopy];
+    }
+
+    else
+    {
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __65__BKUIPearlEnrollViewController_setSubstate_animated_afterDelay___block_invoke;
+      v13[3] = &unk_278D0A638;
+      v13[4] = self;
+      v14 = v7;
+      v15 = animatedCopy;
+      v11 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:v13 block:delay];
+      substateDelayTimer = self->_substateDelayTimer;
+      self->_substateDelayTimer = v11;
+    }
+  }
+}
+
+- (void)setState:(int)state animated:(BOOL)animated afterDelay:(double)delay
+{
+  animatedCopy = animated;
+  v7 = *&state;
+  v33 = *MEMORY[0x277D85DE8];
+  delegate = [(BKUIPearlEnrollViewController *)self delegate];
+  v10 = objc_opt_respondsToSelector();
+
+  if (v10)
+  {
+    v12 = _BKUILoggingFacility(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109120;
+      *&buf[4] = v7;
+      _os_log_impl(&dword_241B0A000, v12, OS_LOG_TYPE_DEFAULT, "EnrollVC: Informing delegate - enroll state changed to: %i", buf, 8u);
+    }
+
+    delegate2 = [(BKUIPearlEnrollViewController *)self delegate];
+    [delegate2 pearlEnrollViewControllerStateChanged:v7];
+  }
+
+  state = self->_state;
+  if (state)
+  {
+    *buf = 0;
+    v30 = buf;
+    v31 = 0x2020000000;
+    stateCopy = state;
+    objc_initWeak(&location, self);
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_invoke;
+    aBlock[3] = &unk_278D0A660;
+    aBlock[4] = self;
+    v26 = v7;
+    v27 = animatedCopy;
+    objc_copyWeak(&v25, &location);
+    v15 = _Block_copy(aBlock);
+    workItemsManager = [(BKUIPearlEnrollViewController *)self workItemsManager];
+    v17 = *(v30 + 6);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_invoke_3;
+    v19[3] = &unk_278D0A6B0;
+    objc_copyWeak(v22, &location);
+    v23 = v7;
+    v22[1] = *&delay;
+    v21 = buf;
+    v18 = v15;
+    v20 = v18;
+    [workItemsManager submitWorkItemFor:v7 startState:v17 work:v19];
+
+    objc_destroyWeak(v22);
+    objc_destroyWeak(&v25);
+    objc_destroyWeak(&location);
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    [(BKUIPearlEnrollViewController *)self _setState:v7 animated:animatedCopy completion:0];
+  }
 }
 
 void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_invoke(uint64_t a1)
@@ -2836,45 +3456,39 @@ void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_in
 
 void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_invoke_4(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 1116);
   v4 = *(*(a1 + 48) + 8);
   if (v3 == *(v4 + 24))
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 40) + 16);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(*(a1 + 40) + 16);
 
-    v6();
+    v5();
   }
 
   else if (*(a1 + 56) == 5)
   {
     *(v4 + 24) = v3;
-    v8 = *(a1 + 40);
-    (*(*(a1 + 40) + 16))();
-    v9 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v6 = (*(*(a1 + 40) + 16))();
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 56);
-      v11 = *(*(*(a1 + 48) + 8) + 24);
-      v15[0] = 67109376;
-      v15[1] = v10;
-      v16 = 1024;
-      v17 = v11;
-      _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring state-startingState mismatch and moving to BKUIPearlEnrollStateInitialScanInProgress targetState:%i, startState:%i", v15, 0xEu);
+      v8 = *(a1 + 56);
+      v9 = *(*(*(a1 + 48) + 8) + 24);
+      v11[0] = 67109376;
+      v11[1] = v8;
+      v12 = 1024;
+      v13 = v9;
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Ignoring state-startingState mismatch and moving to BKUIPearlEnrollStateInitialScanInProgress targetState:%i, startState:%i", v11, 0xEu);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = *(v2 + 1056);
-    v14 = *MEMORY[0x277D85DE8];
+    v10 = *(v2 + 1056);
 
-    dispatch_semaphore_signal(v13);
+    dispatch_semaphore_signal(v10);
   }
 }
 
@@ -2923,12 +3537,12 @@ void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_in
 
       if ((v7 & 1) == 0)
       {
-        v8 = _BKUILoggingFacility();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _BKUILoggingFacility(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v12 = progressString;
-          _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "Status update: %@", buf, 0xCu);
+          _os_log_impl(&dword_241B0A000, v9, OS_LOG_TYPE_DEFAULT, "Status update: %@", buf, 0xCu);
         }
 
         [(UILabel *)self->_debugLabel setText:progressString];
@@ -2937,8 +3551,6 @@ void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_in
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStatus:(id)status
@@ -2970,6 +3582,43 @@ void __62__BKUIPearlEnrollViewController_setState_animated_afterDelay___block_in
   v4 = v3;
 
   return v4;
+}
+
+- (void)setInBuddy:(BOOL)buddy
+{
+  buddyCopy = buddy;
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  operationHandlers = [(BKUIPearlEnrollViewController *)self operationHandlers];
+  v6 = [operationHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(operationHandlers);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) setInbuddy:buddyCopy];
+      }
+
+      while (v7 != v9);
+      v7 = [operationHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+
+  self->_inBuddy = buddyCopy;
 }
 
 - (void)enrollView:(id)view willNudgeInDirection:(unint64_t)direction nudgeCount:(unint64_t)count
@@ -3033,6 +3682,22 @@ LABEL_8:
   }
 }
 
+- (void)setCustomInstructionString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  bottomContainer = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  [bottomContainer setCustomInstructionString:stringCopy forState:v4];
+}
+
+- (void)setCustomDetailString:(id)string forState:(int)state
+{
+  v4 = *&state;
+  stringCopy = string;
+  bottomContainer = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  [bottomContainer setCustomDetailString:stringCopy forState:v4];
+}
+
 - (void)didReachSmallNudgePeakForEnrollView:(id)view
 {
   audioManager = [(BKUIPearlEnrollViewController *)self audioManager];
@@ -3045,6 +3710,13 @@ LABEL_8:
   [audioManager playHaptic:17239 withDelay:0.0];
 }
 
+- (void)setEnrollMovieViewHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
+  [enrollView setMovieViewHidden:hiddenCopy];
+}
+
 - (void)cancelEnrollForRotationIfNeeded:(int64_t)needed
 {
   v12 = *MEMORY[0x277D85DE8];
@@ -3055,13 +3727,13 @@ LABEL_8:
   {
     if ((needed - 1) <= 2)
     {
-      v7 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = _BKUILoggingFacility(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v10 = 134217984;
         neededCopy3 = needed;
 LABEL_8:
-        _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "cancelEnrollForRotationIfNeeded: cancelling now for orientation: %ld", &v10, 0xCu);
+        _os_log_impl(&dword_241B0A000, v8, OS_LOG_TYPE_DEFAULT, "cancelEnrollForRotationIfNeeded: cancelling now for orientation: %ld", &v10, 0xCu);
         goto LABEL_9;
       }
 
@@ -3071,8 +3743,8 @@ LABEL_8:
 
   else if ((needed - 2) <= 2)
   {
-    v7 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _BKUILoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
       neededCopy3 = needed;
@@ -3086,7 +3758,7 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  currentOperationHandler = _BKUILoggingFacility();
+  currentOperationHandler = _BKUILoggingFacility(v7);
   if (os_log_type_enabled(currentOperationHandler, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 134217984;
@@ -3095,19 +3767,17 @@ LABEL_9:
   }
 
 LABEL_12:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)animateWithOrientation:(int64_t)orientation
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = _BKUILoggingFacility();
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = _BKUILoggingFacility(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     orientationCopy = orientation;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "animateWithOrientation: will cancelEnrollForRotationIfNeeded with orientation: %lu", &v7, 0xCu);
+    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "animateWithOrientation: will cancelEnrollForRotationIfNeeded with orientation: %lu", &v6, 0xCu);
   }
 
   [(BKUIPearlEnrollViewController *)self cancelEnrollForRotationIfNeeded:orientation];
@@ -3115,8 +3785,6 @@ LABEL_12:
   {
     [(BKUIPearlEnrollViewController *)self animateToSuccessCompletionLayout:orientation];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)animateToSuccessCompletionLayout:(int64_t)layout
@@ -3208,7 +3876,7 @@ LABEL_11:
 
 - (void)transitionToSuccessFromPeriocularSplash
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   midFlowPeriocularSplashController = [(BKUIPearlEnrollViewController *)self midFlowPeriocularSplashController];
   if (!midFlowPeriocularSplashController)
   {
@@ -3216,8 +3884,8 @@ LABEL_11:
   }
 
   currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
-  v12[0] = currentOperationHandler;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = currentOperationHandler;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v6 = [v5 mutableCopy];
   [(BKUIPearlEnrollViewController *)self setOperationHandlers:v6];
 
@@ -3232,8 +3900,6 @@ LABEL_11:
   block[3] = &unk_278D09978;
   block[4] = self;
   dispatch_after(v9, MEMORY[0x277D85CD0], block);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __72__BKUIPearlEnrollViewController_transitionToSuccessFromPeriocularSplash__block_invoke(uint64_t a1)
@@ -3324,33 +3990,34 @@ uint64_t __72__BKUIPearlEnrollViewController_transitionToSuccessFromPeriocularSp
 
 - (void)cancelEnroll
 {
-  if ([(BKUIPearlEnrollViewController *)self inBuddyGlassesFollowUp])
+  inBuddyGlassesFollowUp = [(BKUIPearlEnrollViewController *)self inBuddyGlassesFollowUp];
+  if (inBuddyGlassesFollowUp)
   {
     delegate = [(BKUIPearlEnrollViewController *)self delegate];
     [delegate pearlEnrollViewController:self finishedEnrollWithError:0];
 
-    v4 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = _BKUILoggingFacility(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_241B0A000, v4, OS_LOG_TYPE_DEFAULT, "Pearl: Moving forward in buddy making current followup enrollment as skip. User has already enrolled Pearl + Perioular + Glasses", buf, 2u);
+      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Pearl: Moving forward in buddy making current followup enrollment as skip. User has already enrolled Pearl + Perioular + Glasses", buf, 2u);
     }
   }
 
   else
   {
-    v5 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(inBuddyGlassesFollowUp);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Pearl: cancelEnroll", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Pearl: cancelEnroll", v9, 2u);
     }
 
     currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
     [currentOperationHandler cancelEnroll];
 
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:-1 userInfo:0];
-    [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v4];
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.biometrickitui.pearl_enroll" code:-1 userInfo:0];
+    [(BKUIPearlEnrollViewController *)self endEnrollFlowWithError:v6];
   }
 }
 
@@ -3446,7 +4113,7 @@ uint64_t __74__BKUIPearlEnrollViewController_showMaskAndGlassesTutorialWithCompl
   }
 }
 
-uint64_t __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke(uint64_t a1)
+void __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) prepareForAnimationToState:8 fromState:7 subState:15 advancing:1];
   *(*(a1 + 32) + 1120) = 15;
@@ -3458,17 +4125,17 @@ uint64_t __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke(uint6
   v5 = [*(a1 + 32) _escapeHatchTitleForState:*(*(a1 + 32) + 1116)];
   [v4 setTitle:v5 forState:0];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_2;
-  v8[3] = &unk_278D09978;
-  v9 = *(a1 + 32);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
-  v7[2] = __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_3;
-  v7[3] = &unk_278D099C0;
-  v7[4] = v9;
-  return [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v8 delay:v7 options:0.3 animations:0.15 completion:?];
+  v7[2] = __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_2;
+  v7[3] = &unk_278D09978;
+  v8 = *(a1 + 32);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_3;
+  v6[3] = &unk_278D099C0;
+  v6[4] = v8;
+  [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v7 delay:v6 options:0.3 animations:0.15 completion:?];
 }
 
 uint64_t __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_3(uint64_t a1)
@@ -3552,18 +4219,18 @@ uint64_t __48__BKUIPearlEnrollViewController_removeGlassesUI__block_invoke_3(uin
 
 void __89__BKUIPearlEnrollViewController_enrollOperation_finishedWithIdentity_animateImmediately___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = _BKUILoggingFacility();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = _BKUILoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [*(a1 + 40) getEnrollview];
     [v4 percentOfPillsCompleted];
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2048;
-    v14 = v5;
-    _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "Finished with identity: %@, UI complete = %f", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v3;
+    v12 = 2048;
+    v13 = v5;
+    _os_log_impl(&dword_241B0A000, v2, OS_LOG_TYPE_DEFAULT, "Finished with identity: %@, UI complete = %f", &v10, 0x16u);
   }
 
   [*(a1 + 40) setStatus:@"Enroll completed"];
@@ -3591,8 +4258,6 @@ void __89__BKUIPearlEnrollViewController_enrollOperation_finishedWithIdentity_an
   [*(a1 + 40) setState:10 animated:1 afterDelay:v8];
   v9 = [*(a1 + 40) view];
   [v9 setNeedsLayout];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isFinalEnrollment
@@ -3630,26 +4295,25 @@ void __89__BKUIPearlEnrollViewController_enrollOperation_finishedWithIdentity_an
 
   if (v5)
   {
-    v6 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _BKUILoggingFacility(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v13 = v5;
-      _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "BKUIPearl:hasPeriocularIdentityEnrolled Error fetching indentity :%@", buf, 0xCu);
+      _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "BKUIPearl:hasPeriocularIdentityEnrolled Error fetching indentity :%@", buf, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_196];
-    v8 = [v4 filteredArrayUsingPredicate:v6];
-    v7 = [v8 count] != 0;
+    v7 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_196];
+    v9 = [v4 filteredArrayUsingPredicate:v7];
+    v8 = [v9 count] != 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (BOOL)showGlassesSkipUI

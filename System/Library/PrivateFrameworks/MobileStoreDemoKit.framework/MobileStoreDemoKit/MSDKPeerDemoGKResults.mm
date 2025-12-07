@@ -1,10 +1,28 @@
 @interface MSDKPeerDemoGKResults
 - (MSDKPeerDemoGKResults)initWithCoder:(id)coder;
+- (MSDKPeerDemoGKResults)initWithEnrollmentResult:(BOOL)result andResidualErrors:(id)errors;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MSDKPeerDemoGKResults
+
+- (MSDKPeerDemoGKResults)initWithEnrollmentResult:(BOOL)result andResidualErrors:(id)errors
+{
+  resultCopy = result;
+  errorsCopy = errors;
+  v10.receiver = self;
+  v10.super_class = MSDKPeerDemoGKResults;
+  v7 = [(MSDKPeerDemoGKResults *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(MSDKPeerDemoGKResults *)v7 setEnrollmentResult:resultCopy];
+    [(MSDKPeerDemoGKResults *)v8 setResidualErrors:errorsCopy];
+  }
+
+  return v8;
+}
 
 - (id)description
 {

@@ -158,31 +158,31 @@
 
 - (NSPersistentStore)localStore
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   persistentContainer = [(STPersistenceController *)self persistentContainer];
   persistentStoreCoordinator = [persistentContainer persistentStoreCoordinator];
   persistentStores = [persistentStoreCoordinator persistentStores];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v6 = persistentStores;
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v31 != v9)
+      if (*v30 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v30 + 1) + 8 * v10);
+      v11 = *(*(&v29 + 1) + 8 * v10);
       configurationName = [v11 configurationName];
       v13 = [configurationName isEqualToString:@"Local"];
 
@@ -193,7 +193,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -217,26 +217,26 @@ LABEL_9:
   }
 
   [(STPersistenceController *)self _logAboutMissingStoreName:v6];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
+        v20 = *(*(&v25 + 1) + 8 * i);
         v21 = [v20 URL];
         lastPathComponent = [v21 lastPathComponent];
         v23 = [lastPathComponent containsString:@"Local"];
@@ -248,7 +248,7 @@ LABEL_9:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v17)
       {
         continue;
@@ -262,38 +262,37 @@ LABEL_9:
 LABEL_21:
 
 LABEL_22:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (NSPersistentStore)cloudStore
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   persistentContainer = [(STPersistenceController *)self persistentContainer];
   persistentStoreCoordinator = [persistentContainer persistentStoreCoordinator];
   persistentStores = [persistentStoreCoordinator persistentStores];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v6 = persistentStores;
-  v7 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v31 != v9)
+      if (*v30 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v30 + 1) + 8 * v10);
+      v11 = *(*(&v29 + 1) + 8 * v10);
       configurationName = [v11 configurationName];
       v13 = [configurationName isEqualToString:@"Cloud"];
 
@@ -304,7 +303,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -328,26 +327,26 @@ LABEL_9:
   }
 
   [(STPersistenceController *)self _logAboutMissingStoreName:v6];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v15 = v6;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v27;
+    v18 = *v26;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v18)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
+        v20 = *(*(&v25 + 1) + 8 * i);
         v21 = [v20 URL];
         lastPathComponent = [v21 lastPathComponent];
         v23 = [lastPathComponent containsString:@"Cloud"];
@@ -359,7 +358,7 @@ LABEL_9:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v17)
       {
         continue;
@@ -373,7 +372,6 @@ LABEL_9:
 LABEL_21:
 
 LABEL_22:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -493,19 +491,17 @@ void __53__STPersistenceController__logAboutMissingStoreName___block_invoke(uint
 
 void __53__STPersistenceController__logAboutMissingStoreName___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [v4 valueForKey:@"configurationName"];
   v6 = [*(a1 + 32) valueForKey:@"metadata"];
-  v8 = 138412802;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Unexpectedly missing store configuration names.\nStores: %@\nNames: %@\nMeta: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Unexpectedly missing store configuration names.\nStores: %@\nNames: %@\nMeta: %@", &v7, 0x20u);
 }
 
 @end

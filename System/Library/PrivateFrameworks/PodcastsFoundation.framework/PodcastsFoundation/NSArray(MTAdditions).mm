@@ -12,134 +12,131 @@
 
 - (id)mt_compactMap:()MTAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = v4[2](v4, *(*(&v15 + 1) + 8 * i));
+        v11 = v4[2](v4, *(*(&v14 + 1) + 8 * i));
         if (v11)
         {
-          [v5 addObject:{v11, v15}];
+          [v5 addObject:{v11, v14}];
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)mt_filter:()MTAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (v4[2](v4, v11))
         {
-          [v5 addObject:{v11, v15}];
+          [v5 addObject:{v11, v14}];
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [v5 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)filter:()MTAdditions compactMap:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   selfCopy = self;
-  v10 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         if (v6[2](v6, v14))
         {
           v15 = v7[2](v7, v14);
           if (v15)
           {
-            [v8 addObject:{v15, v19}];
+            [v8 addObject:{v15, v18}];
           }
         }
       }
 
-      v11 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v16 = [v8 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

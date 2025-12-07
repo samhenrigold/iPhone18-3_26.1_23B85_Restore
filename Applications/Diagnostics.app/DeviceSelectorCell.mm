@@ -11,7 +11,7 @@
 - (BOOL)isSelected
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DeviceSelectorCell();
+  v3.super_class = type metadata accessor for DeviceSelectorCell(0);
   return [(DeviceSelectorCell *)&v3 isSelected];
 }
 
@@ -19,7 +19,7 @@
 {
   selectedCopy = selected;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DeviceSelectorCell();
+  v6.super_class = type metadata accessor for DeviceSelectorCell(0);
   v4 = v6.receiver;
   [(DeviceSelectorCell *)&v6 setSelected:selectedCopy];
   if ([v4 isSelected])
@@ -62,6 +62,7 @@
   if (v7)
   {
     v10 = String._bridgeToObjectiveC()();
+    v7, v11, v12, v13, v14, v15, v16, v17;
   }
 
   else
@@ -69,11 +70,11 @@
     v10 = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for DeviceSelectorCell();
-  v11 = [(BaseTableViewCell *)&v13 initWithStyle:style reuseIdentifier:v10];
+  v20.receiver = self;
+  v20.super_class = type metadata accessor for DeviceSelectorCell(0);
+  v18 = [(BaseTableViewCell *)&v20 initWithStyle:style reuseIdentifier:v10];
 
-  return v11;
+  return v18;
 }
 
 - (_TtC11Diagnostics18DeviceSelectorCell)initWithCoder:(id)coder
@@ -84,7 +85,7 @@
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics18DeviceSelectorCell_targetDeviceView) = 0;
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC11Diagnostics18DeviceSelectorCell_isDisabled) = 0;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for DeviceSelectorCell();
+  v10.super_class = type metadata accessor for DeviceSelectorCell(0);
   coderCopy = coder;
   v8 = [(BaseTableViewCell *)&v10 initWithCoder:coderCopy];
 

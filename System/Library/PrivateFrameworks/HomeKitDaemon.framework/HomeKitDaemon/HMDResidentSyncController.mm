@@ -52,11 +52,11 @@ LABEL_9:
 
 - (id)decodeToken:(id)token error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v17 = 0;
-  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:tokenCopy error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:tokenCopy error:&v16];
+  v8 = v16;
   if (v7)
   {
     v9 = v7;
@@ -71,9 +71,9 @@ LABEL_9:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v8;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode change token: %{public}@", buf, 0x16u);
     }
 
@@ -85,18 +85,16 @@ LABEL_9:
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)encodeToken:(id)token error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v17 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:tokenCopy requiringSecureCoding:1 error:&v16];
+  v8 = v16;
   if (v7)
   {
     v9 = v7;
@@ -111,9 +109,9 @@ LABEL_9:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v8;
+      v18 = v13;
+      v19 = 2114;
+      v20 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode change token: %{public}@", buf, 0x16u);
     }
 
@@ -124,8 +122,6 @@ LABEL_9:
       *error = v8;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

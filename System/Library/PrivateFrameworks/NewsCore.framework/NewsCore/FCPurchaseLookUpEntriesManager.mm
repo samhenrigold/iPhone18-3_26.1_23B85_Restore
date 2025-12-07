@@ -22,89 +22,88 @@
 
 - (id)initWithLocalStore:(id *)store
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (store)
   {
-    v32.receiver = store;
-    v32.super_class = FCPurchaseLookUpEntriesManager;
-    v5 = objc_msgSendSuper2(&v32, sel_init);
+    v30.receiver = store;
+    v30.super_class = FCPurchaseLookUpEntriesManager;
+    v5 = objc_msgSendSuper2(&v30, sel_init);
     store = v5;
     if (v5)
     {
-      v30 = v4;
+      v28 = v4;
       objc_storeStrong(v5 + 1, a2);
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       v7 = store[2];
       store[2] = dictionary;
 
-      v35 = 0u;
-      v36 = 0u;
       v33 = 0u;
       v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       allKeys = [store[1] allKeys];
-      v9 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v34;
+        v11 = *v32;
         v12 = 0x1E695D000uLL;
         v13 = @"pl-";
         do
         {
           v14 = 0;
-          v31 = v10;
+          v29 = v10;
           do
           {
-            if (*v34 != v11)
+            if (*v32 != v11)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v15 = *(*(&v33 + 1) + 8 * v14);
-            v16 = *(v12 + 3872);
+            v15 = *(*(&v31 + 1) + 8 * v14);
             objc_opt_class();
-            v17 = [store[1] objectForKey:v15];
-            if (v17)
+            v16 = [store[1] objectForKey:v15];
+            if (v16)
             {
               if (objc_opt_isKindOfClass())
               {
-                v18 = v17;
+                v17 = v16;
               }
 
               else
               {
-                v18 = 0;
+                v17 = 0;
               }
             }
 
             else
             {
-              v18 = 0;
+              v17 = 0;
             }
 
-            v19 = v18;
+            v18 = v17;
 
-            if (v19 && [v15 hasPrefix:v13])
+            if (v18 && [v15 hasPrefix:v13])
             {
-              v20 = [[FCPurchaseLookUpEntry alloc] initWithEntryID:v15 dictionaryRepresentation:v19];
-              if (v20)
+              v19 = [[FCPurchaseLookUpEntry alloc] initWithEntryID:v15 dictionaryRepresentation:v18];
+              if (v19)
               {
-                v21 = store[2];
-                [(FCPurchaseLookUpEntry *)v20 tagID];
-                v22 = v11;
+                v20 = store[2];
+                [(FCPurchaseLookUpEntry *)v19 tagID];
+                v21 = v11;
                 storeCopy = store;
-                v24 = v12;
-                v25 = allKeys;
-                v27 = v26 = v13;
-                [v21 setObject:v20 forKey:v27];
+                v23 = v12;
+                v24 = allKeys;
+                v26 = v25 = v13;
+                [v20 setObject:v19 forKey:v26];
 
-                v13 = v26;
-                allKeys = v25;
-                v12 = v24;
+                v13 = v25;
+                allKeys = v24;
+                v12 = v23;
                 store = storeCopy;
-                v11 = v22;
-                v10 = v31;
+                v11 = v21;
+                v10 = v29;
               }
             }
 
@@ -112,17 +111,16 @@
           }
 
           while (v10 != v14);
-          v10 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v10 = [allKeys countByEnumeratingWithState:&v31 objects:v35 count:16];
         }
 
         while (v10);
       }
 
-      v4 = v30;
+      v4 = v28;
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return store;
 }
 

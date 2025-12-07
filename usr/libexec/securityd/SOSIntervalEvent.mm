@@ -46,10 +46,8 @@
 
 - (void)followup
 {
-  earliestDate = self->_earliestDate;
-  latestDate = self->_latestDate;
-  v5 = SOSCreateRandomDateBetweenNowPlus();
-  [(NSUserDefaults *)self->_defaults setValue:v5 forKey:self->_dateDescription];
+  v3 = SOSCreateRandomDateBetweenNowPlus();
+  [(NSUserDefaults *)self->_defaults setValue:v3 forKey:self->_dateDescription];
 }
 
 - (BOOL)checkDate

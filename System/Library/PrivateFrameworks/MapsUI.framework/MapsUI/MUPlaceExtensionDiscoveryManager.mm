@@ -35,7 +35,7 @@
 
 void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExtensionGroups_usingAppIdentifiers_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -44,7 +44,7 @@ void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExte
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v45 = v6;
+      v44 = v6;
       _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_ERROR, "Failed to discover the extension with error %@", buf, 0xCu);
     }
 
@@ -53,54 +53,54 @@ void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExte
 
   else if ([v5 count])
   {
-    v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     if (WeakRetained)
     {
-      v31 = a1;
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
+      v30 = a1;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v8 = *(a1 + 32);
-      v9 = [v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v39;
+        v11 = *v38;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v39 != v11)
+            if (*v38 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v38 + 1) + 8 * i);
+            v13 = *(*(&v37 + 1) + 8 * i);
+            v33 = 0u;
             v34 = 0u;
             v35 = 0u;
             v36 = 0u;
-            v37 = 0u;
             v14 = v5;
-            v15 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
             if (v15)
             {
               v16 = v15;
-              v17 = *v35;
+              v17 = *v34;
               do
               {
                 for (j = 0; j != v16; ++j)
                 {
-                  if (*v35 != v17)
+                  if (*v34 != v17)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  [v13 addExtensionIfMatchedAppIdentifier:{*(*(&v34 + 1) + 8 * j), v31}];
+                  [v13 addExtensionIfMatchedAppIdentifier:{*(*(&v33 + 1) + 8 * j), v30}];
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+                v16 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
               }
 
               while (v16);
@@ -109,23 +109,23 @@ void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExte
             v19 = [v13 bestExtensionToUse];
             if (v19)
             {
-              [v33 addObject:v19];
+              [v32 addObject:v19];
               v20 = WeakRetained[3];
               v21 = [v19 _containingAppIdentifer];
               [v20 setObject:v19 forKey:v21];
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
         while (v10);
       }
 
-      if ([v33 count])
+      if ([v32 count])
       {
-        v22 = *(v31 + 40);
-        v23 = [*(v31 + 32) copy];
+        v22 = *(v30 + 40);
+        v23 = [*(v30 + 32) copy];
         (*(v22 + 16))(v22, v23, 0);
       }
 
@@ -142,7 +142,7 @@ void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExte
         v29 = GEOErrorDomain();
         v23 = [v28 errorWithDomain:v29 code:-8 userInfo:0];
 
-        (*(*(v31 + 40) + 16))(*(v31 + 40), 0, v23);
+        (*(*(v30 + 40) + 16))(*(v30 + 40), 0, v23);
       }
 
       v6 = 0;
@@ -162,8 +162,6 @@ void __114__MUPlaceExtensionDiscoveryManager__performExtensionDiscoveryUsingExte
     v26 = [*(a1 + 32) copy];
     (*(v25 + 16))(v25, v26, 0);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadAppLockupExtensionGroupsUsingAppIdentifiers:(id)identifiers options:(id)options completion:(id)completion
@@ -388,32 +386,32 @@ void __98__MUPlaceExtensionDiscoveryManager_performExtensionDiscoveryWithOptions
 
 - (id)discoveryResultForDataItem:(id)item
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   appBundleIdentifier = [itemCopy appBundleIdentifier];
   v6 = [appBundleIdentifier length];
 
   if (v6)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = self->_extensionDiscoveryResults;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           vendorIdentifier = [v11 vendorIdentifier];
           vendorIdentifier2 = [itemCopy vendorIdentifier];
           v14 = [vendorIdentifier isEqual:vendorIdentifier2];
@@ -425,7 +423,7 @@ void __98__MUPlaceExtensionDiscoveryManager_performExtensionDiscoveryWithOptions
           }
         }
 
-        v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -443,19 +441,17 @@ LABEL_12:
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (MUPlaceExtensionDiscoveryManager)initWithExtensionDataItems:(id)items amsResultProvider:(id)provider
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   providerCopy = provider;
-  v30.receiver = self;
-  v30.super_class = MUPlaceExtensionDiscoveryManager;
-  v9 = [(MUPlaceExtensionDiscoveryManager *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = MUPlaceExtensionDiscoveryManager;
+  v9 = [(MUPlaceExtensionDiscoveryManager *)&v29 init];
   v10 = v9;
   if (v9)
   {
@@ -469,40 +465,39 @@ LABEL_12:
     v10->_vendorIdsByAppIds = v13;
 
     objc_storeStrong(&v10->_amsResultProvider, provider);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v15 = itemsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v27;
+      v18 = *v26;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v27 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v26 + 1) + 8 * i);
+          v20 = *(*(&v25 + 1) + 8 * i);
           vendorIdentifier = [v20 vendorIdentifier];
           v22 = v10->_vendorIdsByAppIds;
           appBundleIdentifier = [v20 appBundleIdentifier];
           [(NSMutableDictionary *)v22 setObject:vendorIdentifier forKeyedSubscript:appBundleIdentifier];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v17);
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

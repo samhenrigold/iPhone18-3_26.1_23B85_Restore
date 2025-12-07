@@ -87,19 +87,13 @@
       v29 = v10;
       AXPerformSafeBlock();
       v14 = v35[4];
-      if (v14 != *v11)
-      {
-        goto LABEL_6;
-      }
-
-      if (v35[5] == v11[1])
+      if (v14 == *v11 && v35[5] == v11[1])
       {
         v15 = 1;
       }
 
       else
       {
-LABEL_6:
         v16 = v31[3];
         v8 = v14 + v16;
         v15 = v16 < 0.0;

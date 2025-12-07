@@ -41,7 +41,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  result = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  result = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   *(result + 2) = self->_nanosecondsSinceEpoch;
   *(result + 3) = self->_grandmasterIdentity;
   *(result + 6) = self->_localPortNumber;
@@ -54,7 +54,8 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (([equalCopy isMemberOfClass:objc_opt_class()] & 1) != 0 || -[TSgPTPTime isMemberOfClass:](self, "isMemberOfClass:", objc_opt_class()))
+  objc_opt_class();
+  if (([equalCopy isMemberOfClass:?] & 1) != 0 || (objc_opt_class(), -[TSgPTPTime isMemberOfClass:](self, "isMemberOfClass:")))
   {
     nanosecondsSinceEpoch = [(TSgPTPTime *)self nanosecondsSinceEpoch];
     v6 = nanosecondsSinceEpoch == [equalCopy nanosecondsSinceEpoch];
@@ -105,7 +106,7 @@
     v10 = @"NO";
   }
 
-  return [v3 stringWithFormat:@"gPTP Time %llu.%09u GM 0x%016llx.%hu PTP timescale:%@ time traceable:%@ frequency traceable:%@", seconds, nanoseconds, grandmasterIdentity, localPortNumber, v8, v9, v10];
+  return [v3 stringWithFormat:seconds, nanoseconds, grandmasterIdentity, localPortNumber, v8, v9, v10];
 }
 
 @end

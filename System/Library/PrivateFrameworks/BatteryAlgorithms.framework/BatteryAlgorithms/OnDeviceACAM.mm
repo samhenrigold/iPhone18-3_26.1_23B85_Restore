@@ -41,14 +41,14 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
 
 - (int)freshInitWithData:(id)data
 {
-  v65[35] = *MEMORY[0x277D85DE8];
+  v63[35] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v47 = [dataCopy objectForKey:@"smcData"];
   v5 = [dataCopy objectForKey:@"sbcStreamData"];
   v6 = [dataCopy objectForKey:@"obcStreamData"];
   v46 = [dataCopy objectForKey:@"dailyStreamData"];
   model = [(OnDeviceACAM *)self model];
-  ACAMSerialization::Deserialization::setSMCKeyDataFromDictionary(v65, model + 937, v47, 100.0);
+  ACAMSerialization::Deserialization::setSMCKeyDataFromDictionary(v63, model + 937, v47, 100.0);
   null = [MEMORY[0x277CBEB68] null];
   if (([v5 isEqual:null] & 1) == 0 && objc_msgSend(v5, "count"))
   {
@@ -63,26 +63,26 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
         if (!v12)
         {
           __p = 0;
-          v59 = 0;
-          v60 = 0;
+          v57 = 0;
+          v58 = 0;
           std::vector<AugmentedBatteryHealthLib::ACAMDailyData>::reserve(&__p, [v6 count]);
           for (i = 0; i < [v6 count]; ++i)
           {
             v14 = [v6 objectAtIndex:i];
             if (ACAMSerialization::Deserialization::setOBCDataFromDictionary(&v48, v14))
             {
-              v15 = v59;
-              if (v59 >= v60)
+              v15 = v57;
+              if (v57 >= v58)
               {
-                v17 = (v59 - __p) >> 4;
+                v17 = (v57 - __p) >> 4;
                 v18 = v17 + 1;
                 if ((v17 + 1) >> 60)
                 {
                   std::vector<double>::__throw_length_error[abi:ne200100]();
                 }
 
-                v19 = v60 - __p;
-                if ((v60 - __p) >> 3 > v18)
+                v19 = v58 - __p;
+                if ((v58 - __p) >> 3 > v18)
                 {
                   v18 = v19 >> 3;
                 }
@@ -105,12 +105,12 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
                 v21 = (16 * v17);
                 *v21 = v48;
                 v16 = 16 * v17 + 16;
-                v22 = (16 * v17 - (v59 - __p));
-                memcpy(v21 - (v59 - __p), __p, v59 - __p);
+                v22 = (16 * v17 - (v57 - __p));
+                memcpy(v21 - (v57 - __p), __p, v57 - __p);
                 v23 = __p;
                 __p = v22;
-                v59 = v16;
-                v60 = 0;
+                v57 = v16;
+                v58 = 0;
                 if (v23)
                 {
                   operator delete(v23);
@@ -119,43 +119,43 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
 
               else
               {
-                *v59 = v48;
+                *v57 = v48;
                 v16 = (v15 + 16);
               }
 
-              v59 = v16;
+              v57 = v16;
             }
           }
 
-          *&v62 = __p;
-          *(&v62 + 1) = (v59 - __p) >> 4;
+          *&v60 = __p;
+          *(&v60 + 1) = (v57 - __p) >> 4;
           __src = 0;
-          v56 = 0;
-          v57 = 0;
+          v54 = 0;
+          v55 = 0;
           std::vector<AugmentedBatteryHealthLib::DailyData>::reserve(&__src, [v5 count]);
           for (j = 0; j < [v5 count]; ++j)
           {
             v25 = [v5 objectAtIndex:j];
             if (ACAMSerialization::Deserialization::setSBCDataFromDictionary(&v48, v25))
             {
-              v26 = v56;
-              if (v56 >= v57)
+              v26 = v54;
+              if (v54 >= v55)
               {
                 v30 = __src;
-                v31 = v56 - __src;
-                v32 = 0xCCCCCCCCCCCCCCCDLL * ((v56 - __src) >> 3);
+                v31 = v54 - __src;
+                v32 = 0xCCCCCCCCCCCCCCCDLL * ((v54 - __src) >> 3);
                 v33 = v32 + 1;
                 if (v32 + 1 > 0x666666666666666)
                 {
                   std::vector<double>::__throw_length_error[abi:ne200100]();
                 }
 
-                if (0x999999999999999ALL * ((v57 - __src) >> 3) > v33)
+                if (0x999999999999999ALL * ((v55 - __src) >> 3) > v33)
                 {
-                  v33 = 0x999999999999999ALL * ((v57 - __src) >> 3);
+                  v33 = 0x999999999999999ALL * ((v55 - __src) >> 3);
                 }
 
-                if (0xCCCCCCCCCCCCCCCDLL * ((v57 - __src) >> 3) >= 0x333333333333333)
+                if (0xCCCCCCCCCCCCCCCDLL * ((v55 - __src) >> 3) >= 0x333333333333333)
                 {
                   v33 = 0x666666666666666;
                 }
@@ -165,7 +165,7 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
                   std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>(&__src, v33);
                 }
 
-                v34 = 8 * ((v56 - __src) >> 3);
+                v34 = 8 * ((v54 - __src) >> 3);
                 v35 = v48;
                 v36 = v49;
                 *(v34 + 32) = v50;
@@ -176,8 +176,8 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
                 memcpy((v34 - v31), v30, v31);
                 v38 = __src;
                 __src = v37;
-                v56 = v29;
-                v57 = 0;
+                v54 = v29;
+                v55 = 0;
                 if (v38)
                 {
                   operator delete(v38);
@@ -188,20 +188,20 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
               {
                 v27 = v48;
                 v28 = v49;
-                *(v56 + 32) = v50;
+                *(v54 + 32) = v50;
                 *v26 = v27;
                 v26[1] = v28;
                 v29 = v26 + 40;
               }
 
-              v56 = v29;
+              v54 = v29;
             }
           }
 
-          *&v61 = __src;
-          *(&v61 + 1) = 0xCCCCCCCCCCCCCCCDLL * ((v56 - __src) >> 3);
+          *&v59 = __src;
+          *(&v59 + 1) = 0xCCCCCCCCCCCCCCCDLL * ((v54 - __src) >> 3);
           v39 = [v46 objectAtIndexedSubscript:0];
-          ACAMSerialization::Deserialization::setDailyDataFromDictionary(&v63, model + 937, v39, 100.0);
+          ACAMSerialization::Deserialization::setDailyDataFromDictionary(&v61, model + 937, v39, 100.0);
 
           [(OnDeviceACAM *)self multiLog:@"Performing BDC-based initialization."];
           runTimeOptions = [(OnDeviceACAM *)self runTimeOptions];
@@ -210,29 +210,27 @@ uint64_t __34__OnDeviceACAM_algorithmWithData___block_invoke(uint64_t a1)
 
           if (v42)
           {
-            v52 = 0;
-            v53 = 0;
-            v54 = 0;
+            memset(v52, 0, sizeof(v52));
             model2 = [(OnDeviceACAM *)self model];
-            v48 = v61;
-            v49 = v62;
-            v50 = v63;
-            v51 = v64;
-            ACAM::init(model2, &v48);
+            v48 = v59;
+            v49 = v60;
+            v50 = v61;
+            v51 = v62;
+            ACAM::init(model2, &v48, v52);
           }
 
           model3 = [(OnDeviceACAM *)self model];
-          v48 = v61;
-          v49 = v62;
-          v50 = v63;
-          v51 = v64;
-          ACAM::init(model3, &v48);
+          v48 = v59;
+          v49 = v60;
+          v50 = v61;
+          v51 = v62;
+          ACAM::init(model3, &v48, 0);
         }
 
 LABEL_9:
         [(OnDeviceACAM *)self multiLog:@"BDC Data is not present. Performing fallback initialization"];
         model4 = [(OnDeviceACAM *)self model];
-        ACAM::init(model4, v65[3], v65[1], v65[0]);
+        ACAM::init(model4, v63[3], v63[1], v63[0]);
       }
     }
   }
@@ -1057,7 +1055,7 @@ LABEL_9:
     {
       v53 = [v69 objectForKeyedSubscript:@"AlgoChemID"];
       v54 = [v49 objectForKeyedSubscript:v53];
-      BACore::CommonSerialization::getCppStringFromNSString(v54, &v75);
+      BACore::CommonSerialization::getCppStringFromNSString(&v75, v54);
       if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v76.__r_.__value_.__l.__data_);
@@ -1092,7 +1090,7 @@ LABEL_9:
   }
 
   v8 = *(v7 + 40);
-  if (v34 < 0)
+  if (v36 < 0)
   {
     operator delete(__p[0]);
     if (!v8)
@@ -1126,7 +1124,7 @@ LABEL_7:
   }
 
   v17 = *(v16 + 40);
-  if (v34 < 0)
+  if (v36 < 0)
   {
     operator delete(__p[0]);
     if (!v17)
@@ -1147,42 +1145,42 @@ LABEL_12:
     bdcOutputBuffer2 = [(OnDeviceACAM *)self bdcOutputBuffer];
     v21 = [bdcOutputBuffer2 objectForKeyedSubscript:@"Daily"];
     model2 = [(OnDeviceACAM *)self model];
-    v26 = ACAMSerialization::Serialization::createBDCDailyFromACAM(model2, v23, a4, v24, v25);
-    [v21 addObject:v26];
+    v28 = ACAMSerialization::Serialization::createBDCDailyFromACAM(model2, v23, a4, v26, v27, v24, v25);
+    [v21 addObject:v28];
 
     *([(OnDeviceACAM *)self model]+ 37940) = 0;
   }
 
 LABEL_13:
   std::string::basic_string[abi:ne200100]<0>(__p, "Weekly");
-  v27 = std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(buffer, __p);
-  if (!v27)
+  v29 = std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(buffer, __p);
+  if (!v29)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v28 = *(v27 + 40);
-  if ((v34 & 0x80000000) == 0)
+  v30 = *(v29 + 40);
+  if ((v36 & 0x80000000) == 0)
   {
-    if (!*(v27 + 40))
+    if (!*(v29 + 40))
     {
       return;
     }
 
 LABEL_18:
-    v29 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
+    v31 = [MEMORY[0x277CCABB0] numberWithDouble:a4];
     lastBDCOutputTimestamp3 = [(OnDeviceACAM *)self lastBDCOutputTimestamp];
-    [lastBDCOutputTimestamp3 setObject:v29 forKeyedSubscript:@"Weekly"];
+    [lastBDCOutputTimestamp3 setObject:v31 forKeyedSubscript:@"Weekly"];
 
     [(OnDeviceACAM *)self bdcOutputBuffer];
     [objc_claimAutoreleasedReturnValue() objectForKeyedSubscript:@"Weekly"];
     objc_claimAutoreleasedReturnValue();
     model3 = [(OnDeviceACAM *)self model];
-    ACAMSerialization::Serialization::createBDCWeeklyFromACAM(model3, v32, a4);
+    ACAMSerialization::Serialization::createBDCWeeklyFromACAM(model3, v34, a4);
   }
 
   operator delete(__p[0]);
-  if (v28)
+  if (v30)
   {
     goto LABEL_18;
   }
@@ -1190,77 +1188,77 @@ LABEL_18:
 
 - (int)runWithData:(id)data
 {
-  v156 = *MEMORY[0x277D85DE8];
+  v159 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v112 = [dataCopy objectForKey:@"amaStreamData"];
-  v108 = [dataCopy objectForKey:@"smcData"];
-  ACAMSerialization::Deserialization::setSMCKeyDataFromDictionary(v139, ([(OnDeviceACAM *)self model]+ 7496), v108, 100.0);
-  v4 = [v112 count];
+  v115 = [dataCopy objectForKey:@"amaStreamData"];
+  v111 = [dataCopy objectForKey:@"smcData"];
+  ACAMSerialization::Deserialization::setSMCKeyDataFromDictionary(v142, ([(OnDeviceACAM *)self model]+ 7496), v111, 100.0);
+  v4 = [v115 count];
   [(OnDeviceACAM *)self multiLog:@"%lu 1Hz data received ", v4];
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  std::string::basic_string[abi:ne200100]<0>(v141, "SBC");
-  v122[1] = 0;
-  *&v123 = 0;
-  v122[0] = &v122[1];
-  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(&v150, v141, v122);
-  std::string::basic_string[abi:ne200100]<0>(v132, "Daily");
-  v130 = 0;
-  v131 = 0;
-  v129 = &v130;
-  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(v153, v132, &v129);
+  v139 = 0;
+  v140 = 0;
+  v141 = 0;
+  std::string::basic_string[abi:ne200100]<0>(v144, "SBC");
+  v125[1] = 0;
+  *&v126 = 0;
+  v125[0] = &v125[1];
+  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(&v153, v144, v125);
+  std::string::basic_string[abi:ne200100]<0>(v135, "Daily");
+  v133 = 0;
+  v134 = 0;
+  v132 = &v133;
+  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(v156, v135, &v132);
   std::string::basic_string[abi:ne200100]<0>(__p, "Weekly");
-  v126[0] = 0;
-  v126[1] = 0;
-  v125 = v126;
-  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(v155, __p, &v125);
-  std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(v134, &v150, 3);
+  v129[0] = 0;
+  v129[1] = 0;
+  v128 = v129;
+  std::pair<std::string const,std::set<unsigned long>>::pair[abi:ne200100]<true,0>(v158, __p, &v128);
+  std::unordered_map<std::string,std::set<unsigned long>>::unordered_map(v137, &v153, 3);
   for (i = 0; i != -144; i -= 48)
   {
-    std::__tree<unsigned long>::destroy(&v155[i / 0x18 + 1], v155[1].__r_.__value_.__r.__words[i / 8 + 1]);
-    if (SHIBYTE(v155[0].__r_.__value_.__r.__words[i / 8 + 2]) < 0)
+    std::__tree<unsigned long>::destroy(&v158[i / 0x18 + 1], v158[1].__r_.__value_.__r.__words[i / 8 + 1]);
+    if (SHIBYTE(v158[0].__r_.__value_.__r.__words[i / 8 + 2]) < 0)
     {
-      operator delete(v155[i / 0x18].__r_.__value_.__l.__data_);
+      operator delete(v158[i / 0x18].__r_.__value_.__l.__data_);
     }
   }
 
-  std::__tree<unsigned long>::destroy(&v125, v126[0]);
-  if (v128 < 0)
+  std::__tree<unsigned long>::destroy(&v128, v129[0]);
+  if (v131 < 0)
   {
     operator delete(__p[0]);
   }
 
-  std::__tree<unsigned long>::destroy(&v129, v130);
-  if (v133 < 0)
+  std::__tree<unsigned long>::destroy(&v132, v133);
+  if (v136 < 0)
   {
-    operator delete(v132[0]);
+    operator delete(v135[0]);
   }
 
-  std::__tree<unsigned long>::destroy(v122, v122[1]);
-  if (v142 < 0)
+  std::__tree<unsigned long>::destroy(v125, v125[1]);
+  if (v145 < 0)
   {
-    operator delete(v141[0]);
+    operator delete(v144[0]);
   }
 
-  v110 = v4;
+  v113 = v4;
   model = [(OnDeviceACAM *)self model];
   if (v4)
   {
-    v116 = 0;
-    v118 = 0;
+    v119 = 0;
+    v121 = 0;
     v7 = 0;
     v8 = model[4644];
-    v109 = 0;
+    v112 = 0;
     v9 = -1.0;
     v10 = 1;
     v11 = -1.0;
     do
     {
-      v114 = [v112 objectAtIndexedSubscript:v7];
-      v12 = ACAMSerialization::Deserialization::setSmartBatteryDataFromDictionary(v122, v114);
+      v117 = [v115 objectAtIndexedSubscript:v7];
+      v12 = ACAMSerialization::Deserialization::setSmartBatteryDataFromDictionary(v125, v117);
       v13 = v12;
-      if (v124 > v8)
+      if (v127 > v8)
       {
         v14 = v12;
       }
@@ -1270,37 +1268,37 @@ LABEL_18:
         v14 = 0;
       }
 
-      v113 = v14;
+      v116 = v14;
       if (v14)
       {
-        if (!v109)
+        if (!v112)
         {
-          v9 = v124;
+          v9 = v127;
         }
 
-        if (!__CFADD__(v109++, 1))
+        if (!__CFADD__(v112++, 1))
         {
-          v11 = v124;
+          v11 = v127;
         }
 
         if (v10)
         {
-          v150 = 0uLL;
-          *&v151 = 0;
-          std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](&v136, &v150);
-          if (v150)
+          v153 = 0uLL;
+          *&v154 = 0;
+          std::vector<std::vector<SmartBatteryData>>::push_back[abi:ne200100](&v139, &v153);
+          if (v153)
           {
-            *(&v150 + 1) = v150;
-            operator delete(v150);
+            *(&v153 + 1) = v153;
+            operator delete(v153);
           }
         }
 
-        v16 = v137;
-        v17 = *(v137 - 16);
-        v18 = *(v137 - 8);
+        v16 = v140;
+        v17 = *(v140 - 2);
+        v18 = *(v140 - 1);
         if (v17 >= v18)
         {
-          v22 = *(v137 - 24);
+          v22 = *(v140 - 3);
           v23 = 0xCCCCCCCCCCCCCCCDLL * ((v17 - v22) >> 3);
           v24 = v23 + 1;
           if (v23 + 1 > 0x666666666666666)
@@ -1326,24 +1324,24 @@ LABEL_18:
 
           if (v26)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>(v137 - 24, v26);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<AugmentedBatteryHealthLib::DailyData>>((v140 - 3), v26);
           }
 
           v27 = 40 * v23;
-          v28 = *v122;
-          v29 = v123;
-          *(v27 + 32) = v124;
+          v28 = *v125;
+          v29 = v126;
+          *(v27 + 32) = v127;
           *v27 = v28;
           *(v27 + 16) = v29;
           v21 = 40 * v23 + 40;
-          v30 = *(v16 - 24);
-          v31 = *(v16 - 16) - v30;
+          v30 = *(v16 - 3);
+          v31 = *(v16 - 2) - v30;
           v32 = 40 * v23 - v31;
           memcpy((v27 - v31), v30, v31);
-          v33 = *(v16 - 24);
-          *(v16 - 24) = v32;
-          *(v16 - 16) = v21;
-          *(v16 - 8) = 0;
+          v33 = *(v16 - 3);
+          *(v16 - 3) = v32;
+          *(v16 - 2) = v21;
+          *(v16 - 1) = 0;
           if (v33)
           {
             operator delete(v33);
@@ -1352,62 +1350,62 @@ LABEL_18:
 
         else
         {
-          v19 = *v122;
-          v20 = v123;
-          *(v17 + 32) = v124;
+          v19 = *v125;
+          v20 = v126;
+          *(v17 + 32) = v127;
           *v17 = v19;
           *(v17 + 16) = v20;
           v21 = v17 + 40;
         }
 
-        *(v16 - 16) = v21;
+        *(v16 - 2) = v21;
         lastBDCOutputTimestamp = [(OnDeviceACAM *)self lastBDCOutputTimestamp];
-        v111 = v112;
-        v132[0] = (-1 - 0x5555555555555555 * ((v137 - v136) >> 3));
-        std::string::basic_string[abi:ne200100]<0>(&v150, "SBC");
-        *(&v151 + 1) = 0x4072C00000000000;
-        std::string::basic_string[abi:ne200100]<0>(v152, "Daily");
-        *&v153[8] = 0x40F5180000000000;
-        std::string::basic_string[abi:ne200100]<0>(&v153[16], "Weekly");
-        v154 = 0x4122750000000000;
-        std::unordered_map<std::string,double>::unordered_map(v141, &v150, 3);
+        v114 = v115;
+        v135[0] = (-1 - 0x5555555555555555 * (v140 - v139));
+        std::string::basic_string[abi:ne200100]<0>(&v153, "SBC");
+        *(&v154 + 1) = 0x4072C00000000000;
+        std::string::basic_string[abi:ne200100]<0>(v155, "Daily");
+        *&v156[8] = 0x40F5180000000000;
+        std::string::basic_string[abi:ne200100]<0>(&v156[16], "Weekly");
+        v157 = 0x4122750000000000;
+        std::unordered_map<std::string,double>::unordered_map(v144, &v153, 3);
         for (j = 0; j != -96; j -= 32)
         {
-          if (v153[j + 39] < 0)
+          if (v156[j + 39] < 0)
           {
-            operator delete(*&v153[j + 16]);
+            operator delete(*&v156[j + 16]);
           }
         }
 
-        v35 = [v111 objectAtIndexedSubscript:v7];
+        v35 = [v114 objectAtIndexedSubscript:v7];
         v36 = [v35 objectForKeyedSubscript:@"Timestamp"];
         [v36 doubleValue];
         v38 = v37;
 
-        v39 = v135;
-        if (v135)
+        v39 = v138;
+        if (v138)
         {
           v10 = 0;
           do
           {
             if (*(v39 + 39) < 0)
             {
-              std::string::__init_copy_ctor_external(&v150, v39[2], v39[3]);
+              std::string::__init_copy_ctor_external(&v153, v39[2], v39[3]);
             }
 
             else
             {
-              v150 = *(v39 + 1);
-              *&v151 = v39[4];
+              v153 = *(v39 + 1);
+              *&v154 = v39[4];
             }
 
             v40 = MEMORY[0x277CCACA8];
-            v41 = SBYTE7(v151);
-            v42 = v150;
+            v41 = SBYTE7(v154);
+            v42 = v153;
             defaultCStringEncoding = [MEMORY[0x277CCACA8] defaultCStringEncoding];
             if (v41 >= 0)
             {
-              v44 = &v150;
+              v44 = &v153;
             }
 
             else
@@ -1443,7 +1441,7 @@ LABEL_18:
                 while (v49);
               }
 
-              v50 = *(*(v136 + 24 * v48[4] + 8) - 8);
+              v50 = *(v139[3 * v48[4] + 1] - 8);
             }
 
             else
@@ -1453,7 +1451,7 @@ LABEL_18:
               v50 = v52;
             }
 
-            v53 = std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(v141, &v150);
+            v53 = std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::find<std::string>(v144, &v153);
             if (!v53)
             {
               std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1461,13 +1459,13 @@ LABEL_18:
 
             if (v38 - v50 > *(v53 + 5))
             {
-              std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>((v39 + 5), v132);
+              std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>((v39 + 5), v135, v135);
               v10 = 1;
             }
 
-            if (SBYTE7(v151) < 0)
+            if (SBYTE7(v154) < 0)
             {
-              operator delete(v150);
+              operator delete(v153);
             }
 
             v39 = *v39;
@@ -1481,27 +1479,27 @@ LABEL_18:
           v10 = 0;
         }
 
-        std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(v141);
+        std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(v144);
       }
 
-      v118 += v13 ^ 1;
-      v116 += v13 ^ v113;
+      v121 += v13 ^ 1;
+      v119 += v13 ^ v116;
       ++v7;
     }
 
-    while (v7 != v110);
+    while (v7 != v113);
   }
 
   else
   {
-    v109 = 0;
-    v116 = 0;
-    v118 = 0;
+    v112 = 0;
+    v119 = 0;
+    v121 = 0;
     v11 = -1.0;
     v9 = -1.0;
   }
 
-  [(OnDeviceACAM *)self multiLog:@"%lu valid 1Hz data found out of %lu.\n- %lu are invalid records\n- %lu have overlapping timestamp with SBC\n- %lu chunks identified\n", v109, v110, v118, v116, 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3)];
+  [(OnDeviceACAM *)self multiLog:@"%lu valid 1Hz data found out of %lu.\n- %lu are invalid records\n- %lu have overlapping timestamp with SBC\n- %lu chunks identified\n", v112, v113, v121, v119, 0xAAAAAAAAAAAAAAABLL * (v140 - v139)];
   [(OnDeviceACAM *)self multiLog:@"Running OnDeviceACAM"];
   runTimeOptions = [(OnDeviceACAM *)self runTimeOptions];
   v55 = [runTimeOptions objectForKeyedSubscript:@"SaveDebugInfo"];
@@ -1510,20 +1508,20 @@ LABEL_18:
   if (v56)
   {
     debugLogBuffer = [(OnDeviceACAM *)self debugLogBuffer];
-    v59 = OnDeviceACAMUtility::createDebugLogItem(@"SMC Key for Running OnDeviceACAM", v108, v58);
+    v59 = OnDeviceACAMUtility::createDebugLogItem(@"SMC Key for Running OnDeviceACAM", v111, v58);
     [debugLogBuffer addObject:v59];
   }
 
-  if (v137 == v136)
+  if (v140 == v139)
   {
-    goto LABEL_108;
+    goto LABEL_111;
   }
 
   v60 = 0;
   do
   {
-    std::string::basic_string[abi:ne200100]<0>(v122, "SBC");
-    v61 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, v122);
+    std::string::basic_string[abi:ne200100]<0>(v125, "SBC");
+    v61 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, v125);
     if (!v61)
     {
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1546,10 +1544,10 @@ LABEL_18:
 
     v64 = 0;
 LABEL_79:
-    std::string::basic_string[abi:ne200100]<0>(&v150, "SBC");
-    BYTE8(v151) = v64;
-    std::string::basic_string[abi:ne200100]<0>(v132, "Daily");
-    v65 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, v132);
+    std::string::basic_string[abi:ne200100]<0>(&v153, "SBC");
+    BYTE8(v154) = v64;
+    std::string::basic_string[abi:ne200100]<0>(v135, "Daily");
+    v65 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, v135);
     if (!v65)
     {
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1587,10 +1585,10 @@ LABEL_84:
 
     v68 = 1;
 LABEL_87:
-    std::string::basic_string[abi:ne200100]<0>(v152, "Daily");
-    v153[8] = v68;
-    std::string::basic_string[abi:ne200100]<0>(&v129, "Weekly");
-    v69 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, &v129);
+    std::string::basic_string[abi:ne200100]<0>(v155, "Daily");
+    v156[8] = v68;
+    std::string::basic_string[abi:ne200100]<0>(&v132, "Weekly");
+    v69 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, &v132);
     if (!v69)
     {
       std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -1613,162 +1611,172 @@ LABEL_87:
 
     v72 = 0;
 LABEL_95:
-    std::string::basic_string[abi:ne200100]<0>(&v153[16], "Weekly");
-    LOBYTE(v154) = v72;
-    std::unordered_map<std::string,BOOL>::unordered_map(v141, &v150, 3);
+    std::string::basic_string[abi:ne200100]<0>(&v156[16], "Weekly");
+    LOBYTE(v157) = v72;
+    std::unordered_map<std::string,BOOL>::unordered_map(v144, &v153, 3);
     for (n = 0; n != -96; n -= 32)
     {
-      if (v153[n + 39] < 0)
+      if (v156[n + 39] < 0)
       {
-        operator delete(*&v153[n + 16]);
+        operator delete(*&v156[n + 16]);
       }
     }
 
-    if (SHIBYTE(v131) < 0)
+    if (SHIBYTE(v134) < 0)
     {
-      operator delete(v129);
+      operator delete(v132);
     }
 
-    if (v133 < 0)
+    if (v136 < 0)
     {
-      operator delete(v132[0]);
+      operator delete(v135[0]);
     }
 
-    if (SBYTE7(v123) < 0)
+    if (SBYTE7(v126) < 0)
     {
-      operator delete(v122[0]);
+      operator delete(v125[0]);
     }
 
-    v122[0] = 0;
-    v122[1] = 0;
-    *&v123 = 0;
+    v125[0] = 0;
+    v125[1] = 0;
+    *&v126 = 0;
     runTimeOptions2 = [(OnDeviceACAM *)self runTimeOptions];
     v75 = [runTimeOptions2 objectForKeyedSubscript:@"SaveDebugInfo"];
-    [v75 isEqual:MEMORY[0x277CBEC38]];
+    v76 = [v75 isEqual:MEMORY[0x277CBEC38]];
 
     model2 = [(OnDeviceACAM *)self model];
-    v77 = v136 + 24 * v60;
-    v78 = *v77;
-    v79 = 0xCCCCCCCCCCCCCCCDLL * ((*(v77 + 8) - *v77) >> 3);
-    v150 = v139[0];
-    v151 = v139[1];
-    v152[0] = v140;
-    ACAM::runOnce(model2, v78, v79, &v150);
-    v80 = v122[0];
-    if (v122[0])
+    if (v76)
+    {
+      v78 = v125;
+    }
+
+    else
+    {
+      v78 = 0;
+    }
+
+    v79 = &v139[3 * v60];
+    v80 = *v79;
+    v81 = 0xCCCCCCCCCCCCCCCDLL * ((v79[1] - *v79) >> 3);
+    v153 = v142[0];
+    v154 = v142[1];
+    v155[0] = v143;
+    ACAM::runOnce(model2, v80, v81, &v153, v78);
+    v82 = v125[0];
+    if (v125[0])
     {
       do
       {
-        v81 = [MEMORY[0x277CCACA8] stringWithFormat:@"Running result: intermediate state #%lu", 1];
-        saveSnapshotIntoDebugBuffer(self, v80, v81);
+        v83 = [MEMORY[0x277CCACA8] stringWithFormat:@"Running result: intermediate state #%lu", 1];
+        saveSnapshotIntoDebugBuffer(self, v82, v83);
 
-        v80 = *(v80 + 107);
+        v82 = *(v82 + 107);
       }
 
-      while (v80);
+      while (v82);
     }
 
-    [(OnDeviceACAM *)self addToBdcOutputBuffer:v141];
-    simpleList<ACAMPersistentStates>::clear(v122);
-    std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(v141);
+    [(OnDeviceACAM *)self addToBdcOutputBuffer:v144];
+    simpleList<ACAMPersistentStates>::clear(v125);
+    std::__hash_table<std::__hash_value_type<std::string,double>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,double>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,double>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,double>>>::~__hash_table(v144);
     ++v60;
   }
 
-  while (v60 < 0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3));
-LABEL_108:
+  while (v60 < 0xAAAAAAAAAAAAAAABLL * (v140 - v139));
+LABEL_111:
   [(OnDeviceACAM *)self multiLog:@"Finished"];
   model3 = [(OnDeviceACAM *)self model];
-  v119 = ACAMSerialization::Serialization::createBDCDailyFromACAM(model3, v83, v11, v84, v85);
-  v149[0] = v108;
-  v148[0] = @"rawSmcKey";
-  v148[1] = @"parsedTeq";
-  v86 = [MEMORY[0x277CCABB0] numberWithDouble:*v139];
-  v149[1] = v86;
-  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v149 forKeys:v148 count:2];
+  v122 = ACAMSerialization::Serialization::createBDCDailyFromACAM(model3, v85, v11, v88, v89, v86, v87);
+  v152[0] = v111;
+  v151[0] = @"rawSmcKey";
+  v151[1] = @"parsedTeq";
+  v90 = [MEMORY[0x277CCABB0] numberWithDouble:*v142];
+  v152[1] = v90;
+  v124 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:2];
 
-  v146[0] = @"validDataCount";
-  v115 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v109];
-  v147[0] = v115;
-  v146[1] = @"totalDataCount";
-  v117 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v110];
-  v147[1] = v117;
-  v146[2] = @"numSubChunks";
-  v87 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:0xAAAAAAAAAAAAAAABLL * ((v137 - v136) >> 3)];
-  v147[2] = v87;
-  v146[3] = @"amaInterval";
-  v88 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-  v145[0] = v88;
-  v89 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
-  v145[1] = v89;
-  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:2];
-  v147[3] = v90;
-  v146[4] = @"numBdcTriggers";
-  v143[0] = @"SBC";
-  v91 = MEMORY[0x277CCABB0];
-  std::string::basic_string[abi:ne200100]<0>(&v150, "SBC");
-  v92 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, &v150);
-  if (!v92)
+  v149[0] = @"validDataCount";
+  v118 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v112];
+  v150[0] = v118;
+  v149[1] = @"totalDataCount";
+  v120 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v113];
+  v150[1] = v120;
+  v149[2] = @"numSubChunks";
+  v91 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:0xAAAAAAAAAAAAAAABLL * (v140 - v139)];
+  v150[2] = v91;
+  v149[3] = @"amaInterval";
+  v92 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
+  v148[0] = v92;
+  v93 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
+  v148[1] = v93;
+  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:v148 count:2];
+  v150[3] = v94;
+  v149[4] = @"numBdcTriggers";
+  v146[0] = @"SBC";
+  v95 = MEMORY[0x277CCABB0];
+  std::string::basic_string[abi:ne200100]<0>(&v153, "SBC");
+  v96 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, &v153);
+  if (!v96)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v93 = [v91 numberWithUnsignedLong:v92[7]];
-  v144[0] = v93;
-  v143[1] = @"Daily";
-  v94 = MEMORY[0x277CCABB0];
-  std::string::basic_string[abi:ne200100]<0>(v141, "Daily");
-  v95 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, v141);
-  if (!v95)
+  v97 = [v95 numberWithUnsignedLong:v96[7]];
+  v147[0] = v97;
+  v146[1] = @"Daily";
+  v98 = MEMORY[0x277CCABB0];
+  std::string::basic_string[abi:ne200100]<0>(v144, "Daily");
+  v99 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, v144);
+  if (!v99)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v96 = [v94 numberWithUnsignedLong:v95[7]];
-  v144[1] = v96;
-  v143[2] = @"Weekly";
-  v97 = MEMORY[0x277CCABB0];
-  std::string::basic_string[abi:ne200100]<0>(v122, "Weekly");
-  v98 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v134, v122);
-  if (!v98)
+  v100 = [v98 numberWithUnsignedLong:v99[7]];
+  v147[1] = v100;
+  v146[2] = @"Weekly";
+  v101 = MEMORY[0x277CCABB0];
+  std::string::basic_string[abi:ne200100]<0>(v125, "Weekly");
+  v102 = std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::find<std::string>(v137, v125);
+  if (!v102)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v99 = [v97 numberWithUnsignedLong:v98[7]];
-  v144[2] = v99;
-  v100 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:3];
-  v147[4] = v100;
-  v147[5] = v121;
-  v146[5] = @"smcKeyInputs";
-  v146[6] = @"postRunningSnapshot";
-  v147[6] = v119;
-  v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:7];
+  v103 = [v101 numberWithUnsignedLong:v102[7]];
+  v147[2] = v103;
+  v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:3];
+  v150[4] = v104;
+  v150[5] = v124;
+  v149[5] = @"smcKeyInputs";
+  v149[6] = @"postRunningSnapshot";
+  v150[6] = v122;
+  v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:7];
 
-  if (SBYTE7(v123) < 0)
+  if (SBYTE7(v126) < 0)
   {
-    operator delete(v122[0]);
+    operator delete(v125[0]);
   }
 
-  if (v142 < 0)
+  if (v145 < 0)
   {
-    operator delete(v141[0]);
+    operator delete(v144[0]);
   }
 
-  if (SBYTE7(v151) < 0)
+  if (SBYTE7(v154) < 0)
   {
-    operator delete(v150);
+    operator delete(v153);
   }
 
   [(OnDeviceACAM *)self multiLog:@"Writing currentRunningInfo"];
   runningInfo = [(OnDeviceACAM *)self runningInfo];
-  [runningInfo addObject:v101];
+  [runningInfo addObject:v105];
   while (1)
   {
 
     runningInfo2 = [(OnDeviceACAM *)self runningInfo];
-    v104 = [runningInfo2 count] > 0xA;
+    v108 = [runningInfo2 count] > 0xA;
 
-    if (!v104)
+    if (!v108)
     {
       break;
     }
@@ -1779,31 +1787,30 @@ LABEL_108:
 
   [(OnDeviceACAM *)self multiLog:@"Finished currentRunningInfo"];
 
-  std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::~__hash_table(v134);
-  *&v150 = &v136;
-  std::vector<std::vector<SmartBatteryData>>::__destroy_vector::operator()[abi:ne200100](&v150);
+  std::__hash_table<std::__hash_value_type<std::string,std::set<unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::set<unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::set<unsigned long>>>>::~__hash_table(v137);
+  *&v153 = &v139;
+  std::vector<std::vector<SmartBatteryData>>::__destroy_vector::operator()[abi:ne200100](&v153);
 
-  v105 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)output
 {
-  v62[4] = *MEMORY[0x277D85DE8];
-  v41 = 0;
-  v47 = 0;
+  v64[4] = *MEMORY[0x277D85DE8];
+  v43 = 0;
   v49 = 0;
-  v48 = 0;
-  v42 = 0u;
-  v43 = 0u;
+  v51 = 0;
+  v50 = 0;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0;
-  v50 = 2;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0;
+  v52 = 2;
   __p = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  ACAMPersistentStates::retrieve(v40, [(OnDeviceACAM *)self model]);
+  v54 = 0u;
+  v55 = 0u;
+  ACAMPersistentStates::retrieve(v42, [(OnDeviceACAM *)self model]);
   runTimeOptions = [(OnDeviceACAM *)self runTimeOptions];
   v4 = [runTimeOptions objectForKeyedSubscript:@"SaveDebugInfo"];
   v5 = [v4 isEqual:MEMORY[0x277CBEC38]];
@@ -1813,111 +1820,109 @@ LABEL_108:
     [(OnDeviceACAM *)self multiLog:@"Persistent state is generated"];
   }
 
-  v61[0] = @"savedAlgoState";
-  v55[0] = @"kSavedAlgoStateOnDeviceACAMInterface";
+  v63[0] = @"savedAlgoState";
+  v57[0] = @"kSavedAlgoStateOnDeviceACAMInterface";
   lastBDCOutputTimestamp = [(OnDeviceACAM *)self lastBDCOutputTimestamp];
-  v55[1] = @"kSavedAlgoStateOnDeviceACAMCoreAlgo";
-  v35 = lastBDCOutputTimestamp;
-  v57 = ACAMSerialization::Serialization::createDiskStateFromPersistentState(v40, v6);
-  v55[2] = @"kSavedAlgoStateOnDeviceACAMDebugLog";
-  v34 = v57;
+  v57[1] = @"kSavedAlgoStateOnDeviceACAMCoreAlgo";
+  v37 = lastBDCOutputTimestamp;
+  v59 = ACAMSerialization::Serialization::createDiskStateFromPersistentState(v42, v6);
+  v57[2] = @"kSavedAlgoStateOnDeviceACAMDebugLog";
+  v36 = v59;
   debugLogBuffer = [(OnDeviceACAM *)self debugLogBuffer];
-  v58 = deep_copy_object(debugLogBuffer);
-  v55[3] = @"kSavedAlgoStateOnDeviceACAMRunningInfo";
-  v32 = v58;
+  v60 = deep_copy_object(debugLogBuffer);
+  v57[3] = @"kSavedAlgoStateOnDeviceACAMRunningInfo";
+  v34 = v60;
   runningInfo = [(OnDeviceACAM *)self runningInfo];
   v8 = deep_copy_object(runningInfo);
-  v59 = v8;
-  v55[4] = @"kSavedAlgoStateOnDeviceACAMFreshInitInfo";
+  v61 = v8;
+  v57[4] = @"kSavedAlgoStateOnDeviceACAMFreshInitInfo";
   freshInitInfo = [(OnDeviceACAM *)self freshInitInfo];
   v10 = deep_copy_object(freshInitInfo);
-  v60 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&lastBDCOutputTimestamp forKeys:v55 count:5];
-  v62[0] = v11;
-  v61[1] = @"kBDCOutputData";
+  v62 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&lastBDCOutputTimestamp forKeys:v57 count:5];
+  v64[0] = v11;
+  v63[1] = @"kBDCOutputData";
   bdcOutputBuffer = [(OnDeviceACAM *)self bdcOutputBuffer];
   v13 = deep_copy_object(bdcOutputBuffer);
-  v62[1] = v13;
-  v62[2] = MEMORY[0x277CBEC10];
-  v61[2] = @"kPowerLogData";
-  v61[3] = @"kCoreAnalyticsData";
+  v64[1] = v13;
+  v64[2] = MEMORY[0x277CBEC10];
+  v63[2] = @"kPowerLogData";
+  v63[3] = @"kCoreAnalyticsData";
   model = [(OnDeviceACAM *)self model];
-  v18 = ACAMSerialization::Serialization::createCoreAnalyticsFromACAM(model, v15, v16, v17);
-  v62[3] = v18;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:4];
+  v21 = ACAMSerialization::Serialization::createCoreAnalyticsFromACAM(model, v15, v18, v19, v20, v16, v17);
+  v64[3] = v21;
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:4];
 
   debugLogBuffer2 = [(OnDeviceACAM *)self debugLogBuffer];
   [debugLogBuffer2 removeAllObjects];
 
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
   bdcOutputBuffer2 = [(OnDeviceACAM *)self bdcOutputBuffer];
-  v21 = [bdcOutputBuffer2 countByEnumeratingWithState:&v36 objects:v54 count:16];
-  if (v21)
+  v24 = [bdcOutputBuffer2 countByEnumeratingWithState:&v38 objects:v56 count:16];
+  if (v24)
   {
-    v22 = *v37;
+    v25 = *v39;
     do
     {
-      for (i = 0; i != v21; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v37 != v22)
+        if (*v39 != v25)
         {
           objc_enumerationMutation(bdcOutputBuffer2);
         }
 
-        v24 = *(*(&v36 + 1) + 8 * i);
+        v27 = *(*(&v38 + 1) + 8 * i);
         bdcOutputBuffer3 = [(OnDeviceACAM *)self bdcOutputBuffer];
-        v26 = [bdcOutputBuffer3 objectForKey:v24];
-        [v26 removeAllObjects];
+        v29 = [bdcOutputBuffer3 objectForKey:v27];
+        [v29 removeAllObjects];
       }
 
-      v21 = [bdcOutputBuffer2 countByEnumeratingWithState:&v36 objects:v54 count:16];
+      v24 = [bdcOutputBuffer2 countByEnumeratingWithState:&v38 objects:v56 count:16];
     }
 
-    while (v21);
+    while (v24);
   }
 
-  v27 = *(&v52 + 1);
-  if (*(&v52 + 1))
+  v30 = *(&v54 + 1);
+  if (*(&v54 + 1))
   {
     do
     {
-      v28 = *(v27 + 48);
+      v31 = *(v30 + 48);
       MEMORY[0x245CF6740]();
-      v27 = v28;
+      v30 = v31;
     }
 
-    while (v28);
+    while (v31);
   }
 
-  *(&v52 + 1) = 0;
-  v53 = 0uLL;
-  if (SBYTE7(v52) < 0)
+  *(&v54 + 1) = 0;
+  v55 = 0uLL;
+  if (SBYTE7(v54) < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v49) < 0)
+  if (SHIBYTE(v51) < 0)
   {
-    operator delete(v47);
+    operator delete(v49);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v33;
 }
 
 - (void)multiLog:(id)log
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   logCopy = log;
   v5 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v5 setDateFormat:@"YYYY-MM-dd HH:m:s.SSS"];
   v6 = [MEMORY[0x277CBEAA8] now];
   v7 = [v5 stringFromDate:v6];
-  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:logCopy arguments:&v30];
+  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:logCopy arguments:&v29];
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@] %@", v7, v8];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -1933,17 +1938,17 @@ LABEL_108:
 
   if (v13)
   {
-    BACore::CommonSerialization::getCppStringFromNSString(v9, &buf);
-    v14 = (v28 & 0x80u) == 0 ? &buf : buf;
-    v15 = (v28 & 0x80u) == 0 ? v28 : *(&buf + 1);
+    BACore::CommonSerialization::getCppStringFromNSString(&buf, v9);
+    v14 = (v27 & 0x80u) == 0 ? &buf : buf;
+    v15 = (v27 & 0x80u) == 0 ? v27 : *(&buf + 1);
     v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x277D82678], v14, v15);
     std::ios_base::getloc((v16 + *(*v16 - 24)));
-    v17 = std::locale::use_facet(&v26, MEMORY[0x277D82680]);
+    v17 = std::locale::use_facet(&v25, MEMORY[0x277D82680]);
     (v17->__vftable[2].~facet_0)(v17, 10);
-    std::locale::~locale(&v26);
+    std::locale::~locale(&v25);
     std::ostream::put();
     std::ostream::flush();
-    if (v28 < 0)
+    if (v27 < 0)
     {
       operator delete(buf);
     }
@@ -1960,8 +1965,6 @@ LABEL_108:
     v24 = OnDeviceACAMUtility::createDebugLogItem(v9, null, v23);
     [(NSMutableArray *)debugLogBuffer addObject:v24];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -73,7 +73,7 @@ LABEL_6:
       v23 = 0u;
       v24 = 0u;
       v22 = 0u;
-      __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke(&v22, v12);
+      __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke(&v22, v12, 0);
     }
   }
 
@@ -81,7 +81,7 @@ LABEL_6:
   v23 = 0u;
   v24 = 0u;
   v22 = 0u;
-  __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke(&v22, v11);
+  __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke(&v22, v11, 1);
 }
 
 void __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelper__adjustGeometries_styles_infos_spriteIndexRange_appearing___block_invoke_3(uint64_t a1, void *a2, unsigned int a3)
@@ -95,7 +95,7 @@ void __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelpe
     if (v8)
     {
 LABEL_3:
-      [v8 spriteSnapshotForAssetWithIdentifier:v5];
+      objc_msgSend_spriteSnapshotForAssetWithIdentifier_(v8);
     }
   }
 
@@ -145,7 +145,7 @@ void __131__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelpe
     v11 = *(a1 + 32);
     if (v11)
     {
-      [v11 spriteSnapshotForAssetWithIdentifier:v5];
+      objc_msgSend_spriteSnapshotForAssetWithIdentifier_(v11);
     }
   }
 
@@ -293,7 +293,7 @@ BOOL __119__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelpe
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 spriteSnapshotForAssetWithIdentifier:v3];
+    objc_msgSend_spriteSnapshotForAssetWithIdentifier_(v4);
     v6 = 0;
     v5 = 0;
     v8 = 0;
@@ -331,7 +331,7 @@ void __119__PXCuratedLibraryLayoutZoomLevelChangeToOrFromAllPhotosAnimationHelpe
     v4 = *(a1 + 32);
     if (v4)
     {
-      [v4 spriteSnapshotForAssetWithIdentifier:v3];
+      objc_msgSend_spriteSnapshotForAssetWithIdentifier_(v4);
       v6 = 0;
       v5 = 0;
       v8 = 0;

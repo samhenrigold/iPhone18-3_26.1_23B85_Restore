@@ -16,27 +16,27 @@
 
 - (FCNotificationArticleHeadline)initWithArticlePayload:(id)payload sourceChannel:(id)channel assetManager:(id)manager
 {
-  v144 = *MEMORY[0x1E69E9840];
+  v143 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   channelCopy = channel;
   managerCopy = manager;
   if (!payloadCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v129 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articlePayload"];
+    v128 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "articlePayload"];
     *buf = 136315906;
-    v137 = "[FCNotificationArticleHeadline initWithArticlePayload:sourceChannel:assetManager:]";
-    v138 = 2080;
-    v139 = "FCNotificationArticleHeadline.m";
-    v140 = 1024;
-    v141 = 136;
-    v142 = 2114;
-    v143 = v129;
+    v136 = "[FCNotificationArticleHeadline initWithArticlePayload:sourceChannel:assetManager:]";
+    v137 = 2080;
+    v138 = "FCNotificationArticleHeadline.m";
+    v139 = 1024;
+    v140 = 136;
+    v141 = 2114;
+    v142 = v128;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v135.receiver = self;
-  v135.super_class = FCNotificationArticleHeadline;
-  v12 = [(FCHeadline *)&v135 init];
+  v134.receiver = self;
+  v134.super_class = FCNotificationArticleHeadline;
+  v12 = [(FCHeadline *)&v134 init];
   v13 = v12;
   if (!v12)
   {
@@ -48,8 +48,8 @@
   v14 = [payloadCopy objectForKeyedSubscript:@"aid"];
   if (v14 || [0 length])
   {
-    v133 = channelCopy;
-    v134 = managerCopy;
+    v132 = channelCopy;
+    v133 = managerCopy;
     if (channelCopy)
     {
       v15 = [channelCopy copy];
@@ -63,7 +63,7 @@
 
     else
     {
-      v131 = v14;
+      v130 = v14;
       sourceName = [payloadCopy objectForKeyedSubscript:@"cid"];
       v19 = [payloadCopy objectForKeyedSubscript:@"pn"];
       v20 = [payloadCopy objectForKeyedSubscript:@"pl2"];
@@ -82,7 +82,7 @@
       if ([v21 length])
       {
         v26 = [MEMORY[0x1E695DFF8] URLWithString:v21];
-        v27 = [v134 assetHandleForURL:v26 lifetimeHint:0];
+        v27 = [v133 assetHandleForURL:v26 lifetimeHint:0];
       }
 
       else
@@ -109,8 +109,8 @@
       v30 = v13->_sourceName;
       v13->_sourceName = v19;
 
-      managerCopy = v134;
-      v14 = v131;
+      managerCopy = v133;
+      v14 = v130;
     }
 
     objc_storeStrong(&v13->_identifier, v14);
@@ -188,7 +188,7 @@
     v60 = [payloadCopy objectForKeyedSubscript:@"tn2"];
     v61 = [(FCNotificationArticleHeadline *)v13 generateThumbnailAssetHandleForUrlString:v60 withAssetManager:managerCopy];
 
-    v132 = v61;
+    v131 = v61;
     v62 = [FCHeadlineThumbnail headlineThumbnailWithAssetHandle:v61 thumbnailSize:v59, v58];
     thumbnail = v13->_thumbnail;
     v13->_thumbnail = v62;
@@ -374,20 +374,20 @@
 
     if (v13->_videoURL && [(FCNotificationArticleHeadline *)v13 contentType]!= 2 && v13->_videoURL && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v130 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The videoURL field should only be set for flint articles"];
+      v129 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The videoURL field should only be set for flint articles"];
       *buf = 136315906;
-      v137 = "[FCNotificationArticleHeadline initWithArticlePayload:sourceChannel:assetManager:]";
-      v138 = 2080;
-      v139 = "FCNotificationArticleHeadline.m";
-      v140 = 1024;
-      v141 = 278;
-      v142 = 2114;
-      v143 = v130;
+      v136 = "[FCNotificationArticleHeadline initWithArticlePayload:sourceChannel:assetManager:]";
+      v137 = 2080;
+      v138 = "FCNotificationArticleHeadline.m";
+      v139 = 1024;
+      v140 = 278;
+      v141 = 2114;
+      v142 = v129;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    channelCopy = v133;
-    managerCopy = v134;
+    channelCopy = v132;
+    managerCopy = v133;
 LABEL_49:
     v25 = v13;
     goto LABEL_50;
@@ -403,26 +403,25 @@ LABEL_49:
   v25 = 0;
 LABEL_50:
 
-  v127 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
 - (id)contentWithContext:(id)context
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if ([(FCNotificationArticleHeadline *)self contentType]!= 2)
   {
     v22 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v25 = v22;
+      v24 = v22;
       contentType = [(FCNotificationArticleHeadline *)self contentType];
       articleID = [(FCNotificationArticleHeadline *)self articleID];
-      v28 = 134218242;
-      v29 = contentType;
-      v30 = 2114;
-      v31 = articleID;
-      _os_log_error_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_ERROR, "Invalid content type: %lu for article ID: %{public}@", &v28, 0x16u);
+      v27 = 134218242;
+      v28 = contentType;
+      v29 = 2114;
+      v30 = articleID;
+      _os_log_error_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_ERROR, "Invalid content type: %lu for article ID: %{public}@", &v27, 0x16u);
     }
 
     goto LABEL_10;
@@ -450,11 +449,11 @@ LABEL_10:
       v10 = @"without";
     }
 
-    v28 = 138543618;
-    v29 = articleID2;
-    v30 = 2114;
-    v31 = v10;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Creating content for article %{public}@ %{public}@ prefetched ANF JSON", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = articleID2;
+    v29 = 2114;
+    v30 = v10;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Creating content for article %{public}@ %{public}@ prefetched ANF JSON", &v27, 0x16u);
   }
 
   flintDocumentUrlString2 = [(FCNotificationArticleHeadline *)self flintDocumentUrlString];
@@ -472,7 +471,6 @@ LABEL_10:
   v21 = [(FCArticleContent *)v19 initWithArticleID:articleID4 anfContent:v18];
 
 LABEL_11:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -578,29 +576,29 @@ LABEL_11:
 
 - (void)enumerateTopicCohortsWithBlock:(id)block
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = [(FCNotificationArticleHeadline *)self topicCohortScoresCTRs];
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = objc_alloc_init(MEMORY[0x1E69B6CA0]);
         v11 = objc_alloc_init(MEMORY[0x1E69B6C98]);
         [v9 doubleValue];
@@ -611,7 +609,7 @@ LABEL_11:
         [v4 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -624,15 +622,13 @@ LABEL_11:
   if (v13 == v14)
   {
     topicIDs2 = [(FCNotificationArticleHeadline *)self topicIDs];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __64__FCNotificationArticleHeadline_enumerateTopicCohortsWithBlock___block_invoke;
-    v19[3] = &unk_1E7C38900;
-    v20 = blockCopy;
-    [topicIDs2 fc_enumerateSideBySideWithArray:v4 reverse:0 block:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __64__FCNotificationArticleHeadline_enumerateTopicCohortsWithBlock___block_invoke;
+    v18[3] = &unk_1E7C38900;
+    v19 = blockCopy;
+    [topicIDs2 fc_enumerateSideBySideWithArray:v4 reverse:0 block:v18];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (CGRect)thumbnailFocalFrame

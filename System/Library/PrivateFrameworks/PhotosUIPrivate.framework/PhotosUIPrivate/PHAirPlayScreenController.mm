@@ -1127,9 +1127,11 @@ void __71__PHAirPlayScreenController__updateSecondDisplayModeWithCurrentContent_
 
 uint64_t __43__PHAirPlayScreenController_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedController = objc_alloc_init(PHAirPlayScreenController);
+  v0 = objc_alloc_init(PHAirPlayScreenController);
+  v1 = sharedInstance_sharedController;
+  sharedInstance_sharedController = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

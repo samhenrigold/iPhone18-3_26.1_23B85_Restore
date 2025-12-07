@@ -15,7 +15,7 @@
 
 - (id)_respondToActions:(id)actions forFBSScene:(id)scene inUIScene:(id)iScene fromTransitionContext:(id)context
 {
-  sub_188A34624(0, &qword_1ED48FD98);
+  sub_188A34624(0, &qword_1ED48FD98, 0x1E698E5F0);
   sub_188D06B5C();
   v7 = sub_18A4A77A8();
   iSceneCopy = iScene;
@@ -28,7 +28,7 @@
 
 - (id)_launchOptionsFromActions:(id)actions forFBSScene:(id)scene uiSceneSession:(id)session transitionContext:(id)context
 {
-  sub_188A34624(0, &qword_1ED48FD98);
+  sub_188A34624(0, &qword_1ED48FD98, 0x1E698E5F0);
   sub_188D06B5C();
   v7 = sub_18A4A77A8();
   v8 = objc_allocWithZone(_UISceneConnectionOptionsContext);

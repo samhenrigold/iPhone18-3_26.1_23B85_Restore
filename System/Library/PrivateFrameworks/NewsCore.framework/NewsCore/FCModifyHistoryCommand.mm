@@ -1,8 +1,27 @@
 @interface FCModifyHistoryCommand
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
+- (FCModifyHistoryCommand)initWithHistoryItems:(id)items merge:(BOOL)merge;
 @end
 
 @implementation FCModifyHistoryCommand
+
+- (FCModifyHistoryCommand)initWithHistoryItems:(id)items merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  itemsCopy = items;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __53__FCModifyHistoryCommand_initWithHistoryItems_merge___block_invoke;
+  aBlock[3] = &unk_1E7C3B578;
+  v13 = itemsCopy;
+  v7 = itemsCopy;
+  v8 = _Block_copy(aBlock);
+  v11.receiver = self;
+  v11.super_class = FCModifyHistoryCommand;
+  v9 = [(FCModifyRecordsCommand *)&v11 initWithLocalRecordsGenerator:v8 merge:mergeCopy];
+
+  return v9;
+}
 
 id __53__FCModifyHistoryCommand_initWithHistoryItems_merge___block_invoke(uint64_t a1)
 {

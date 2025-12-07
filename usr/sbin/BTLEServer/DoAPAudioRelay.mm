@@ -110,9 +110,9 @@
     [v3 setValue:identifier2 forKey:@"kMsgArgIdentifier"];
   }
 
-  if ([(DoAPAudioRelay *)self codec])
+  if (objc_msgSend_codec(self))
   {
-    v10 = [NSNumber numberWithUnsignedChar:[(DoAPAudioRelay *)self codec]];
+    v10 = [NSNumber numberWithUnsignedChar:objc_msgSend_codec(self)];
     [v3 setValue:v10 forKey:@"kMsgCodecType"];
   }
 

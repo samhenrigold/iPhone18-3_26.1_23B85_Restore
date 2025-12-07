@@ -1,4 +1,5 @@
 @interface TSTransferFlow
++ (void)needsToRunUsingMessageSession:(id)session transferablePlanOnSource:(BOOL)source completion:(id)completion;
 - (TSTransferFlow)init;
 - (TSTransferFlow)initWithSession:(id)session hasTransferablePlan:(BOOL)plan isStandaloneProximityTransfer:(BOOL)transfer transferBackPlan:(id)backPlan sourceOSVersion:(id)version isPostMigrationFlow:(BOOL)flow isUsingPreSharedKey:(BOOL)key;
 - (id)_createIntroViewControllerWithIneligiblePlans:(id)plans;
@@ -8,6 +9,7 @@
 - (void)_maybeClearFirstViewControllerCallback;
 - (void)_maybePresentFirstViewController:(id)controller firstViewControllerCallback:(id)callback;
 - (void)_saveSimsetupD2dInfo:(id)info;
+- (void)_updateSourceProxCardState:(BOOL)state;
 - (void)dealloc;
 - (void)firstViewController;
 - (void)firstViewController:(id)controller;
@@ -119,9 +121,37 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
   [(TSTransferFlow *)&v4 dealloc];
 }
 
++ (void)needsToRunUsingMessageSession:(id)session transferablePlanOnSource:(BOOL)source completion:(id)completion
+{
+  sourceCopy = source;
+  sessionCopy = session;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    if (+[TSUtilities hasCellularBaseband])
+    {
+      v9 = +[TSTransferFlowModel sharedInstance];
+      [v9 clearCache];
+
+      v10 = +[TSTransferFlowModel sharedInstance];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __84__TSTransferFlow_needsToRunUsingMessageSession_transferablePlanOnSource_completion___block_invoke;
+      v11[3] = &unk_279B45618;
+      v12 = completionCopy;
+      [v10 arePlansAvailable:sessionCopy transferablePlanOnSource:sourceCopy bootstrapOnly:1 sourceOSVersion:0 isPostMigrationFlow:0 isUsingPreSharedKey:0 completion:v11];
+    }
+
+    else
+    {
+      (*(completionCopy + 2))(completionCopy, 0);
+    }
+  }
+}
+
 - (id)firstViewController
 {
-  v3 = _TSLogDomain();
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     [(TSTransferFlow *)v3 firstViewController];
@@ -135,7 +165,7 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
 
 - (id)_firstViewController:(id)controller
 {
-  v146 = *MEMORY[0x277D85DE8];
+  v149 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   transferPlans = [(TSTransferFlowModel *)self->_model transferPlans];
   filteredPlansForTransferableBucket = [transferPlans filteredPlansForTransferableBucket];
@@ -151,74 +181,81 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
 
   filteredPlansForVisitStoreBucket = [filteredPlansForTransferableBucket filteredPlansForVisitStoreBucket];
   filteredPlansForVisitStoreBucket2 = [filteredPlansForSoftwareUpdateBucket filteredPlansForVisitStoreBucket];
-  v8 = _TSLogDomain();
+  v8 = _TSLogDomain(filteredPlansForVisitStoreBucket2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219522;
-    *v136 = [filteredPlansForTransferableBucket count];
-    *&v136[8] = 2048;
-    *v137 = [filteredPlansForVisitStoreBucket count];
-    *&v137[8] = 2048;
-    *&v137[10] = [filteredPlansForSoftwareUpdateBucket count];
-    v138 = 2048;
-    v139 = [filteredPlansForVisitStoreBucket2 count];
-    v140 = 2048;
-    v141 = [filteredPlansForQRCodeBucket count];
-    v142 = 2048;
-    v143 = [filteredPlansForNonInstallableBucket count];
-    v144 = 2080;
-    v145 = "[TSTransferFlow _firstViewController:]";
+    *v139 = [filteredPlansForTransferableBucket count];
+    *&v139[8] = 2048;
+    *v140 = [filteredPlansForVisitStoreBucket count];
+    *&v140[8] = 2048;
+    *&v140[10] = [filteredPlansForSoftwareUpdateBucket count];
+    v141 = 2048;
+    v142 = [filteredPlansForVisitStoreBucket2 count];
+    v143 = 2048;
+    v144 = [filteredPlansForQRCodeBucket count];
+    v145 = 2048;
+    v146 = [filteredPlansForNonInstallableBucket count];
+    v147 = 2080;
+    v148 = "[TSTransferFlow _firstViewController:]";
     _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "transferable:%lu (store:%lu), software update:%lu (store:%lu), qrcode:%lu, non install:%lu @%s", buf, 0x48u);
   }
 
-  v9 = _TSLogDomain();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _TSLogDomain(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     pendingInstallItems = [controllerCopy pendingInstallItems];
     plans = [pendingInstallItems plans];
-    v12 = [plans count];
+    v13 = [plans count];
     shouldShowCarrierSetupPane = [controllerCopy shouldShowCarrierSetupPane];
     *buf = 134218498;
-    *v136 = v12;
-    *&v136[8] = 1024;
-    *v137 = shouldShowCarrierSetupPane;
-    *&v137[4] = 2080;
-    *&v137[6] = "[TSTransferFlow _firstViewController:]";
-    _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "als:%lu, soda:%{BOOL}d @%s", buf, 0x1Cu);
+    *v139 = v13;
+    *&v139[8] = 1024;
+    *v140 = shouldShowCarrierSetupPane;
+    *&v140[4] = 2080;
+    *&v140[6] = "[TSTransferFlow _firstViewController:]";
+    _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "als:%lu, soda:%{BOOL}d @%s", buf, 0x1Cu);
   }
 
-  v14 = _TSLogDomain();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = _TSLogDomain(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     transferItems = [(TSTransferFlowModel *)self->_model transferItems];
-    v16 = [transferItems count];
+    v18 = [transferItems count];
     requireStoreVisitItems = [(TSTransferFlowModel *)self->_model requireStoreVisitItems];
-    v18 = [requireStoreVisitItems count];
+    v20 = [requireStoreVisitItems count];
     transferIneligibleItems = [(TSTransferFlowModel *)self->_model transferIneligibleItems];
-    v20 = [transferIneligibleItems count];
+    v22 = [transferIneligibleItems count];
     *buf = 134218754;
-    *v136 = v16;
-    *&v136[8] = 2048;
-    *v137 = v18;
-    *&v137[8] = 2048;
-    *&v137[10] = v20;
-    v138 = 2080;
-    v139 = "[TSTransferFlow _firstViewController:]";
-    _os_log_impl(&dword_262AA8000, v14, OS_LOG_TYPE_DEFAULT, "transfer plans: %lu, store visit:%lu, ineligible: %lu @%s", buf, 0x2Au);
+    *v139 = v18;
+    *&v139[8] = 2048;
+    *v140 = v20;
+    *&v140[8] = 2048;
+    *&v140[10] = v22;
+    v141 = 2080;
+    v142 = "[TSTransferFlow _firstViewController:]";
+    _os_log_impl(&dword_262AA8000, v16, OS_LOG_TYPE_DEFAULT, "transfer plans: %lu, store visit:%lu, ineligible: %lu @%s", buf, 0x2Au);
   }
 
-  if (+[TSUtilities isPad](TSUtilities, "isPad") && +[TSUtilities isGreenTeaCapable](TSUtilities, "isGreenTeaCapable") && +[TSUtilities inBuddy])
+  if (+[TSUtilities isPad])
   {
-    v21 = _TSLogDomain();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (+[TSUtilities isGreenTeaCapable])
     {
-      *buf = 136315138;
-      *v136 = "[TSTransferFlow _firstViewController:]";
-      _os_log_impl(&dword_262AA8000, v21, OS_LOG_TYPE_DEFAULT, "Skip for greentea ipad in buddy @%s", buf, 0xCu);
-    }
+      v23 = +[TSUtilities inBuddy];
+      if (v23)
+      {
+        v24 = _TSLogDomain(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          *v139 = "[TSTransferFlow _firstViewController:]";
+          _os_log_impl(&dword_262AA8000, v24, OS_LOG_TYPE_DEFAULT, "Skip for greentea ipad in buddy @%s", buf, 0xCu);
+        }
 
-    v22 = 0;
-    goto LABEL_23;
+        v25 = 0;
+        goto LABEL_23;
+      }
+    }
   }
 
   transferItems2 = [controllerCopy transferItems];
@@ -227,12 +264,12 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
 
   if ([controllerCopy shouldShowTransferredPane])
   {
-    v25 = [TSTransferredViewController alloc];
-    v26 = [(NSArray *)self->_transferItems objectAtIndex:0];
-    v22 = [(TSTransferredViewController *)v25 initWithTransferredPlan:v26];
+    v28 = [TSTransferredViewController alloc];
+    v29 = [(NSArray *)self->_transferItems objectAtIndex:0];
+    v25 = [(TSTransferredViewController *)v28 initWithTransferredPlan:v29];
 
-    [(SSVisitStoreViewController *)v22 setDelegate:self];
-    [(TSSIMSetupFlow *)self setTopViewController:v22];
+    [(SSVisitStoreViewController *)v25 setDelegate:self];
+    [(TSSIMSetupFlow *)self setTopViewController:v25];
     goto LABEL_23;
   }
 
@@ -242,64 +279,64 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
 
   self->_isActivationPolicyMismatch = [controllerCopy isActivationPolicyMismatch];
   self->_isDualeSIMCapablityLoss = [controllerCopy isDualeSIMCapablityLoss];
-  v29 = [filteredPlansForTransferableBucket count];
+  v32 = [filteredPlansForTransferableBucket count];
   plans2 = [(CTDisplayPlanList *)self->_pendingInstallItems plans];
-  v31 = [plans2 count];
+  v34 = [plans2 count];
   carrierSetupItems = [controllerCopy carrierSetupItems];
   plans3 = [carrierSetupItems plans];
-  v34 = [plans3 count];
+  v37 = [plans3 count];
 
-  v35 = v31 + v29 + v34;
-  if (!v35)
+  v38 = v34 + v32 + v37;
+  if (!v38)
   {
     if (self->_isStandaloneProximityTransfer || ![filteredPlansForQRCodeBucket count])
     {
       if ([filteredPlansForSoftwareUpdateBucket count] || self->_isStandaloneProximityTransfer)
       {
-        v48 = [TSNoPlanForTransferViewController alloc];
+        v50 = [TSNoPlanForTransferViewController alloc];
         transferPlans5 = [(TSTransferFlowModel *)self->_model transferPlans];
-        v22 = [(TSNoPlanForTransferViewController *)v48 initWithPlans:transferPlans5 showOtherOptions:0 isStartOverNeeded:self->_isStandaloneProximityTransfer];
+        v25 = [(TSNoPlanForTransferViewController *)v50 initWithPlans:transferPlans5 showOtherOptions:0 isStartOverNeeded:self->_isStandaloneProximityTransfer];
 
         goto LABEL_18;
       }
 
-      v85 = +[TSUtilities isWifiAvailable];
-      v86 = +[TSCellularPlanManagerCache sharedInstance];
-      planItems = [v86 planItems];
-      v88 = [planItems count];
+      v87 = +[TSUtilities isWifiAvailable];
+      v88 = +[TSCellularPlanManagerCache sharedInstance];
+      planItems = [v88 planItems];
+      v90 = [planItems count];
 
-      v89 = +[TSCoreTelephonyClientCache sharedInstance];
-      usingBootstrapDataService = [v89 usingBootstrapDataService];
+      v91 = +[TSCoreTelephonyClientCache sharedInstance];
+      usingBootstrapDataService = [v91 usingBootstrapDataService];
 
-      v91 = _TSLogDomain();
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+      v94 = _TSLogDomain(v93);
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109890;
-        *v136 = v85;
-        *&v136[4] = 1024;
-        *&v136[6] = v88 != 0;
-        *v137 = 1024;
-        *&v137[2] = usingBootstrapDataService;
-        *&v137[6] = 2080;
-        *&v137[8] = "[TSTransferFlow _firstViewController:]";
-        _os_log_impl(&dword_262AA8000, v91, OS_LOG_TYPE_DEFAULT, "isWiFi:%d, hasPlans:%d, usingBootstrap:%d @%s", buf, 0x1Eu);
+        *v139 = v87;
+        *&v139[4] = 1024;
+        *&v139[6] = v90 != 0;
+        *v140 = 1024;
+        *&v140[2] = usingBootstrapDataService;
+        *&v140[6] = 2080;
+        *&v140[8] = "[TSTransferFlow _firstViewController:]";
+        _os_log_impl(&dword_262AA8000, v94, OS_LOG_TYPE_DEFAULT, "isWiFi:%d, hasPlans:%d, usingBootstrap:%d @%s", buf, 0x1Eu);
       }
 
-      if (v85 || v88 != 0 || ((usingBootstrapDataService ^ 1) & 1) != 0)
+      if (v87 || v90 != 0 || ((usingBootstrapDataService ^ 1) & 1) != 0)
       {
         goto LABEL_19;
       }
 
-      v47 = [(TSTransferFlow *)self _createIntroViewControllerWithIneligiblePlans:0];
+      v49 = [(TSTransferFlow *)self _createIntroViewControllerWithIneligiblePlans:0];
     }
 
     else
     {
-      v47 = [(TSTransferFlow *)self _createIntroViewControllerWithIneligiblePlans:filteredPlansForQRCodeBucket];
+      v49 = [(TSTransferFlow *)self _createIntroViewControllerWithIneligiblePlans:filteredPlansForQRCodeBucket];
     }
 
-    v22 = v47;
-    if (v47)
+    v25 = v49;
+    if (v49)
     {
       goto LABEL_20;
     }
@@ -309,15 +346,15 @@ void __157__TSTransferFlow_initWithSession_hasTransferablePlan_isStandaloneProxi
 
   if ([filteredPlansForQRCodeBucket count])
   {
-    v36 = [TSMultiPlanIntermediateViewController alloc];
+    v39 = [TSMultiPlanIntermediateViewController alloc];
     pendingInstallItems3 = [controllerCopy pendingInstallItems];
     plans4 = [pendingInstallItems3 plans];
     transferPlans6 = [controllerCopy transferPlans];
     carrierSetupItems2 = [controllerCopy carrierSetupItems];
     plans5 = [carrierSetupItems2 plans];
-    BYTE1(v110) = 1;
-    LOBYTE(v110) = self->_isStandaloneProximityTransfer;
-    v22 = [(TSMultiPlanIntermediateViewController *)v36 initWithPendingInstallPlans:plans4 transferPlans:transferPlans6 carrierSetupPlans:plans5 showQRCodeOption:self->_isPostMigrationFlow | (v110 == 0) showOtherOptions:0 isShowingFilteredPlans:0 isStandaloneProximityFlow:v110 isHiddenPlanSelectable:?];
+    BYTE1(v113) = 1;
+    LOBYTE(v113) = self->_isStandaloneProximityTransfer;
+    v25 = [(TSMultiPlanIntermediateViewController *)v39 initWithPendingInstallPlans:plans4 transferPlans:transferPlans6 carrierSetupPlans:plans5 showQRCodeOption:self->_isPostMigrationFlow | (v113 == 0) showOtherOptions:0 isShowingFilteredPlans:0 isStandaloneProximityFlow:v113 isHiddenPlanSelectable:?];
 
     goto LABEL_18;
   }
@@ -334,70 +371,70 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    v53 = +[TSUtilities inBuddy];
+    v55 = +[TSUtilities inBuddy];
 
-    if (v53)
+    if (v55)
     {
-      v129 = 0u;
+      v132 = 0u;
+      v133 = 0u;
       v130 = 0u;
-      v127 = 0u;
-      v128 = 0u;
+      v131 = 0u;
       plans7 = [(CTDisplayPlanList *)self->_pendingInstallItems plans];
-      v55 = [plans7 countByEnumeratingWithState:&v127 objects:v134 count:16];
-      if (v55)
+      v57 = [plans7 countByEnumeratingWithState:&v130 objects:v137 count:16];
+      if (v57)
       {
-        v56 = *v128;
+        v58 = *v131;
         do
         {
-          for (i = 0; i != v55; ++i)
+          for (i = 0; i != v57; ++i)
           {
-            if (*v128 != v56)
+            if (*v131 != v58)
             {
               objc_enumerationMutation(plans7);
             }
 
-            v58 = *(*(&v127 + 1) + 8 * i);
-            [array addObject:v58];
-            plan = [v58 plan];
+            v60 = *(*(&v130 + 1) + 8 * i);
+            [array addObject:v60];
+            plan = [v60 plan];
             [array2 addObject:plan];
           }
 
-          v55 = [plans7 countByEnumeratingWithState:&v127 objects:v134 count:16];
+          v57 = [plans7 countByEnumeratingWithState:&v130 objects:v137 count:16];
         }
 
-        while (v55);
+        while (v57);
       }
 
-      v125 = 0u;
+      v128 = 0u;
+      v129 = 0u;
       v126 = 0u;
-      v123 = 0u;
-      v124 = 0u;
+      v127 = 0u;
       carrierSetupItems3 = [controllerCopy carrierSetupItems];
       plans6 = [carrierSetupItems3 plans];
 
-      v61 = [plans6 countByEnumeratingWithState:&v123 objects:v133 count:16];
-      if (v61)
+      v63 = [plans6 countByEnumeratingWithState:&v126 objects:v136 count:16];
+      if (v63)
       {
-        v62 = *v124;
+        v64 = *v127;
         do
         {
-          for (j = 0; j != v61; ++j)
+          for (j = 0; j != v63; ++j)
           {
-            if (*v124 != v62)
+            if (*v127 != v64)
             {
               objc_enumerationMutation(plans6);
             }
 
-            v64 = *(*(&v123 + 1) + 8 * j);
-            [array addObject:v64];
-            plan2 = [v64 plan];
+            v66 = *(*(&v126 + 1) + 8 * j);
+            [array addObject:v66];
+            plan2 = [v66 plan];
             [array2 addObject:plan2];
           }
 
-          v61 = [plans6 countByEnumeratingWithState:&v123 objects:v133 count:16];
+          v63 = [plans6 countByEnumeratingWithState:&v126 objects:v136 count:16];
         }
 
-        while (v61);
+        while (v63);
       }
 
       goto LABEL_51;
@@ -407,20 +444,20 @@ LABEL_51:
 LABEL_52:
   if (+[TSUtilities isPad](TSUtilities, "isPad") || !+[TSUtilities inBuddy](TSUtilities, "inBuddy") || [array2 count] < 2)
   {
-    v71 = [filteredPlansForNonInstallableBucket count];
-    if ((v71 + v35 + [filteredPlansForSoftwareUpdateBucket count]) < 2)
+    v73 = [filteredPlansForNonInstallableBucket count];
+    if ((v73 + v38 + [filteredPlansForSoftwareUpdateBucket count]) < 2)
     {
       pendingInstallItems4 = [controllerCopy pendingInstallItems];
       plans8 = [pendingInstallItems4 plans];
-      v74 = [plans8 count] == 1;
+      v76 = [plans8 count] == 1;
 
-      if (v74)
+      if (v76)
       {
-        v75 = [TSSinglePlanTransferViewController alloc];
+        v77 = [TSSinglePlanTransferViewController alloc];
         pendingInstallItems5 = [controllerCopy pendingInstallItems];
         plans9 = [pendingInstallItems5 plans];
-        v78 = [plans9 objectAtIndexedSubscript:0];
-        v22 = [(TSSinglePlanTransferViewController *)v75 initWithPendingInstallPlan:v78];
+        v80 = [plans9 objectAtIndexedSubscript:0];
+        v25 = [(TSSinglePlanTransferViewController *)v77 initWithPendingInstallPlan:v80];
 
         goto LABEL_66;
       }
@@ -429,37 +466,37 @@ LABEL_52:
       {
         if ([filteredPlansForTransferableBucket count] == 1)
         {
-          v92 = [(NSArray *)self->_transferItems objectAtIndexedSubscript:0];
-          v93 = [v92 objectForKeyedSubscript:@"planItem"];
+          v95 = [(NSArray *)self->_transferItems objectAtIndexedSubscript:0];
+          v96 = [v95 objectForKeyedSubscript:@"planItem"];
 
-          v112 = [TSSinglePlanTransferViewController alloc];
-          v94 = [(NSArray *)self->_transferItems objectAtIndexedSubscript:0];
-          isPhysical = [v93 isPhysical];
-          isTransferIneligiblePlan = [v93 isTransferIneligiblePlan];
-          v97 = +[TSUtilities inBuddy];
+          v115 = [TSSinglePlanTransferViewController alloc];
+          v97 = [(NSArray *)self->_transferItems objectAtIndexedSubscript:0];
+          isPhysical = [v96 isPhysical];
+          isTransferIneligiblePlan = [v96 isTransferIneligiblePlan];
+          v100 = +[TSUtilities inBuddy];
           isStandaloneProximityTransfer = self->_isStandaloneProximityTransfer;
           phoneNumber = [self->_transferBackPlan phoneNumber];
-          LOBYTE(v111) = 0;
-          LOBYTE(v110) = isStandaloneProximityTransfer;
-          v22 = [(TSSinglePlanTransferViewController *)v112 initWithTransferPlan:v94 isPhysical:isPhysical isIneligible:isTransferIneligiblePlan inBuddy:v97 confirmCellularPlanTransfer:0 showOtherOptions:0 isStandaloneProximityFlow:v110 transferBackPhoneNumber:phoneNumber isShowingFilteredPlans:v111];
+          LOBYTE(v114) = 0;
+          LOBYTE(v113) = isStandaloneProximityTransfer;
+          v25 = [(TSSinglePlanTransferViewController *)v115 initWithTransferPlan:v97 isPhysical:isPhysical isIneligible:isTransferIneligiblePlan inBuddy:v100 confirmCellularPlanTransfer:0 showOtherOptions:0 isStandaloneProximityFlow:v113 transferBackPhoneNumber:phoneNumber isShowingFilteredPlans:v114];
         }
 
         else
         {
           carrierSetupItems4 = [controllerCopy carrierSetupItems];
           plans10 = [carrierSetupItems4 plans];
-          v102 = [plans10 count] == 1;
+          v105 = [plans10 count] == 1;
 
-          if (v102)
+          if (v105)
           {
-            v103 = [TSBuddyMLViewController alloc];
+            v106 = [TSBuddyMLViewController alloc];
             carrierSetupItems5 = [controllerCopy carrierSetupItems];
             plans11 = [carrierSetupItems5 plans];
-            v106 = [plans11 objectAtIndexedSubscript:0];
-            plan3 = [v106 plan];
+            v109 = [plans11 objectAtIndexedSubscript:0];
+            plan3 = [v109 plan];
             websheetUrl = [controllerCopy websheetUrl];
             postdata = [controllerCopy postdata];
-            v22 = [(TSBuddyMLViewController *)v103 initWithCTPlan:plan3 websheetURL:websheetUrl postdata:postdata];
+            v25 = [(TSBuddyMLViewController *)v106 initWithCTPlan:plan3 websheetURL:websheetUrl postdata:postdata];
 
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
@@ -471,7 +508,7 @@ LABEL_52:
 
           else
           {
-            v22 = 0;
+            v25 = 0;
           }
         }
 
@@ -479,79 +516,76 @@ LABEL_52:
       }
     }
 
-    else if ([filteredPlansForVisitStoreBucket count] != v35)
+    else if ([filteredPlansForVisitStoreBucket count] != v38)
     {
-      v79 = [TSMultiPlanIntermediateViewController alloc];
+      v81 = [TSMultiPlanIntermediateViewController alloc];
       pendingInstallItems6 = [controllerCopy pendingInstallItems];
       plans12 = [pendingInstallItems6 plans];
       transferPlans7 = [controllerCopy transferPlans];
       carrierSetupItems6 = [controllerCopy carrierSetupItems];
       plans13 = [carrierSetupItems6 plans];
-      BYTE1(v110) = 1;
-      LOBYTE(v110) = self->_isStandaloneProximityTransfer;
-      v22 = [(TSMultiPlanIntermediateViewController *)v79 initWithPendingInstallPlans:plans12 transferPlans:transferPlans7 carrierSetupPlans:plans13 showQRCodeOption:self->_isPostMigrationFlow | (v110 == 0) showOtherOptions:0 isShowingFilteredPlans:0 isStandaloneProximityFlow:v110 isHiddenPlanSelectable:?];
+      BYTE1(v113) = 1;
+      LOBYTE(v113) = self->_isStandaloneProximityTransfer;
+      v25 = [(TSMultiPlanIntermediateViewController *)v81 initWithPendingInstallPlans:plans12 transferPlans:transferPlans7 carrierSetupPlans:plans13 showQRCodeOption:self->_isPostMigrationFlow | (v113 == 0) showOtherOptions:0 isShowingFilteredPlans:0 isStandaloneProximityFlow:v113 isHiddenPlanSelectable:?];
 
       goto LABEL_66;
     }
 
-    v22 = [[SSVisitStoreViewController alloc] initWithPlans:filteredPlansForVisitStoreBucket showOtherOption:0];
+    v25 = [[SSVisitStoreViewController alloc] initWithPlans:filteredPlansForVisitStoreBucket showOtherOption:0];
     goto LABEL_66;
   }
 
-  v66 = [TSSubFlowViewController alloc];
-  v131[0] = @"FlowTypeKey";
-  v131[1] = @"Plans";
-  v132[0] = &unk_287583BB0;
-  v132[1] = array;
-  v131[2] = @"ConfirmCellularPlanTransfer";
-  v132[2] = MEMORY[0x277CBEC28];
-  v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v132 forKeys:v131 count:3];
+  v68 = [TSSubFlowViewController alloc];
+  v134[0] = @"FlowTypeKey";
+  v134[1] = @"Plans";
+  v135[0] = &unk_287583BB0;
+  v135[1] = array;
+  v134[2] = @"ConfirmCellularPlanTransfer";
+  v135[2] = MEMORY[0x277CBEC28];
+  v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v135 forKeys:v134 count:3];
   navigationController = [(TSSIMSetupFlow *)self navigationController];
-  v22 = [(TSSubFlowViewController *)v66 initWithOptions:v67 navigationController:navigationController delegate:self];
+  v25 = [(TSSubFlowViewController *)v68 initWithOptions:v69 navigationController:navigationController delegate:self];
 
   objc_initWeak(buf, self);
   ctClient = self->_ctClient;
-  v70 = [objc_alloc(MEMORY[0x277CC36F0]) initWithPlans:array2];
-  v121[0] = MEMORY[0x277D85DD0];
-  v121[1] = 3221225472;
-  v121[2] = __39__TSTransferFlow__firstViewController___block_invoke;
-  v121[3] = &unk_279B44828;
-  objc_copyWeak(&v122, buf);
-  [(CoreTelephonyClient *)ctClient installMultiplePlans:v70 completionHandler:v121];
+  v72 = [objc_alloc(MEMORY[0x277CC36F0]) initWithPlans:array2];
+  v124[0] = MEMORY[0x277D85DD0];
+  v124[1] = 3221225472;
+  v124[2] = __39__TSTransferFlow__firstViewController___block_invoke;
+  v124[3] = &unk_279B44828;
+  objc_copyWeak(&v125, buf);
+  [(CoreTelephonyClient *)ctClient installMultiplePlans:v72 completionHandler:v124];
 
-  objc_destroyWeak(&v122);
+  objc_destroyWeak(&v125);
   objc_destroyWeak(buf);
 LABEL_66:
 
 LABEL_18:
-  if (!v22)
+  if (!v25)
   {
 LABEL_19:
-    v42 = self->_ctClient;
+    v45 = self->_ctClient;
     self->_ctClient = 0;
 
-    v22 = 0;
+    v25 = 0;
   }
 
 LABEL_20:
-  [(TSTransferFlow *)self _saveSimsetupD2dInfo:controllerCopy];
-  v43 = _TSLogDomain();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v46 = _TSLogDomain([(TSTransferFlow *)self _saveSimsetupD2dInfo:controllerCopy]);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
-    v44 = objc_opt_class();
+    v47 = objc_opt_class();
     *buf = 138412546;
-    *v136 = v44;
-    *&v136[8] = 2080;
-    *v137 = "[TSTransferFlow _firstViewController:]";
-    _os_log_impl(&dword_262AA8000, v43, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", buf, 0x16u);
+    *v139 = v47;
+    *&v139[8] = 2080;
+    *v140 = "[TSTransferFlow _firstViewController:]";
+    _os_log_impl(&dword_262AA8000, v46, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", buf, 0x16u);
   }
 
-  [(TSSIMSetupFlow *)self setTopViewController:v22];
+  [(TSSIMSetupFlow *)self setTopViewController:v25];
 LABEL_23:
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v25;
 }
 
 void __39__TSTransferFlow__firstViewController___block_invoke(uint64_t a1, void *a2)
@@ -561,7 +595,7 @@ void __39__TSTransferFlow__firstViewController___block_invoke(uint64_t a1, void 
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __39__TSTransferFlow__firstViewController___block_invoke_cold_1();
@@ -609,38 +643,39 @@ void __39__TSTransferFlow__firstViewController___block_invoke(uint64_t a1, void 
 {
   controllerCopy = controller;
   callbackCopy = callback;
+  v8 = callbackCopy;
   if (controllerCopy)
   {
     [(TSSIMSetupFlow *)self setTopViewController:controllerCopy];
     objc_initWeak(&location, self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke;
-    v16[3] = &unk_279B451F8;
-    objc_copyWeak(&v19, &location);
-    v18 = callbackCopy;
-    v17 = controllerCopy;
-    [(TSSIMSetupFlow *)self maybePrepareNextDisplayViewController:v17 completion:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke;
+    v17[3] = &unk_279B451F8;
+    objc_copyWeak(&v20, &location);
+    v19 = v8;
+    v18 = controllerCopy;
+    [(TSSIMSetupFlow *)self maybePrepareNextDisplayViewController:v18 completion:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v8 = _TSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _TSLogDomain(callbackCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(TSTransferFlow *)v8 _maybePresentFirstViewController:v9 firstViewControllerCallback:v10, v11, v12, v13, v14, v15];
+      [(TSTransferFlow *)v9 _maybePresentFirstViewController:v10 firstViewControllerCallback:v11, v12, v13, v14, v15, v16];
     }
 
-    (*(callbackCopy + 2))(callbackCopy, 0);
+    v8[2](v8, 0);
   }
 }
 
 void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -648,16 +683,16 @@ void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCa
   {
     if (v3)
     {
-      v6 = _TSLogDomain();
+      v6 = _TSLogDomain(WeakRetained);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412802;
-        v22 = objc_opt_class();
-        v23 = 2048;
-        v24 = v3;
-        v25 = 2080;
-        v26 = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "present first view : %@(%p) @%s", &v21, 0x20u);
+        v20 = 138412802;
+        v21 = objc_opt_class();
+        v22 = 2048;
+        v23 = v3;
+        v24 = 2080;
+        v25 = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+        _os_log_impl(&dword_262AA8000, v6, OS_LOG_TYPE_DEFAULT, "present first view : %@(%p) @%s", &v20, 0x20u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -666,23 +701,22 @@ void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCa
     else
     {
       v7 = [WeakRetained nextViewControllerFrom:*(a1 + 32)];
-      v8 = _TSLogDomain();
+      v8 = _TSLogDomain(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v10 = objc_opt_class();
-        v11 = *(a1 + 32);
-        v21 = 138413314;
-        v22 = v10;
-        v23 = 2048;
-        v24 = v11;
-        v25 = 2112;
-        v26 = objc_opt_class();
-        v27 = 2048;
-        v28 = v7;
-        v29 = 2080;
-        v30 = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
-        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "cur : %@(%p), next: %@(%p) @%s", &v21, 0x34u);
+        v9 = objc_opt_class();
+        v10 = *(a1 + 32);
+        v20 = 138413314;
+        v21 = v9;
+        v22 = 2048;
+        v23 = v10;
+        v24 = 2112;
+        v25 = objc_opt_class();
+        v26 = 2048;
+        v27 = v7;
+        v28 = 2080;
+        v29 = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+        _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "cur : %@(%p), next: %@(%p) @%s", &v20, 0x34u);
       }
 
       if (v7)
@@ -692,7 +726,7 @@ void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCa
 
       else
       {
-        v12 = _TSLogDomain();
+        v12 = _TSLogDomain(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -702,8 +736,6 @@ void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCa
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startOverWithFirstViewController:(id)controller
@@ -783,7 +815,7 @@ void __51__TSTransferFlow_startOverWithFirstViewController___block_invoke_2(uint
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v134[10] = *MEMORY[0x277D85DE8];
+  v133[10] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -803,9 +835,9 @@ void __51__TSTransferFlow_startOverWithFirstViewController___block_invoke_2(uint
       v13 = +[TSUtilities inBuddy];
       isStandaloneProximityTransfer = self->_isStandaloneProximityTransfer;
       phoneNumber = [self->_transferBackPlan phoneNumber];
-      LOBYTE(v105) = 0;
-      LOBYTE(v104) = isStandaloneProximityTransfer;
-      v16 = [(TSSinglePlanTransferViewController *)v9 initWithTransferPlan:selectedPlan isPhysical:isPhysical isIneligible:isTransferIneligiblePlan inBuddy:v13 confirmCellularPlanTransfer:0 showOtherOptions:0 isStandaloneProximityFlow:v104 transferBackPhoneNumber:phoneNumber isShowingFilteredPlans:v105];
+      LOBYTE(v104) = 0;
+      LOBYTE(v103) = isStandaloneProximityTransfer;
+      v16 = [(TSSinglePlanTransferViewController *)v9 initWithTransferPlan:selectedPlan isPhysical:isPhysical isIneligible:isTransferIneligiblePlan inBuddy:v13 confirmCellularPlanTransfer:0 showOtherOptions:0 isStandaloneProximityFlow:v103 transferBackPhoneNumber:phoneNumber isShowingFilteredPlans:v104];
 
       goto LABEL_32;
     }
@@ -817,10 +849,10 @@ void __51__TSTransferFlow_startOverWithFirstViewController___block_invoke_2(uint
     pendingInstallItems = [(TSTransferFlowModel *)self->_model pendingInstallItems];
     carrierSetupItems = [(TSTransferFlowModel *)self->_model carrierSetupItems];
     v31 = self->_isStandaloneProximityTransfer;
-    BYTE2(v104) = ![(TSTransferFlowModel *)self->_model isFlexPolicyOn];
-    BYTE1(v104) = v31;
-    LOBYTE(v104) = 0;
-    v16 = [TSTransferListViewController initWithTransferPlans:v26 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:transferPlans2 isDualeSIMCapabilityLoss:0 pendingInstallItems:isActivationPolicyMismatch carrierSetupItems:isDualeSIMCapablityLoss showOtherOptions:pendingInstallItems isStandaloneProximityFlow:carrierSetupItems allowsMultiSelection:v104];
+    BYTE2(v103) = ![(TSTransferFlowModel *)self->_model isFlexPolicyOn];
+    BYTE1(v103) = v31;
+    LOBYTE(v103) = 0;
+    v16 = [TSTransferListViewController initWithTransferPlans:v26 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:transferPlans2 isDualeSIMCapabilityLoss:0 pendingInstallItems:isActivationPolicyMismatch carrierSetupItems:isDualeSIMCapablityLoss showOtherOptions:pendingInstallItems isStandaloneProximityFlow:carrierSetupItems allowsMultiSelection:v103];
 
 LABEL_33:
     goto LABEL_34;
@@ -843,41 +875,41 @@ LABEL_33:
 
         if (([transferPlans2 isSkipButtonTapped] & 1) == 0)
         {
-          v62 = [TSSubFlowViewController alloc];
-          v133[0] = @"FlowTypeKey";
-          v133[1] = @"SkipActivatingPane";
-          v63 = MEMORY[0x277CBEC38];
-          v134[0] = &unk_287583BB0;
-          v134[1] = MEMORY[0x277CBEC38];
-          v133[2] = @"DelayStartActivatingTimer";
+          v61 = [TSSubFlowViewController alloc];
+          v132[0] = @"FlowTypeKey";
+          v132[1] = @"SkipActivatingPane";
+          v62 = MEMORY[0x277CBEC38];
+          v133[0] = &unk_287583BB0;
+          v133[1] = MEMORY[0x277CBEC38];
+          v132[2] = @"DelayStartActivatingTimer";
           installingTransferPlan = [transferPlans2 installingTransferPlan];
-          v65 = &unk_287583BE0;
+          v64 = &unk_287583BE0;
           if (installingTransferPlan)
           {
-            v65 = &unk_287583BC8;
+            v64 = &unk_287583BC8;
           }
 
-          v134[2] = v65;
-          v133[3] = @"TransferBackPlan";
+          v133[2] = v64;
+          v132[3] = @"TransferBackPlan";
           transferBackPlan = self->_transferBackPlan;
-          v113 = transferBackPlan;
+          v112 = transferBackPlan;
           if (!transferBackPlan)
           {
             transferBackPlan = [MEMORY[0x277CBEB68] null];
           }
 
-          v106 = transferBackPlan;
-          v134[3] = transferBackPlan;
-          v133[4] = @"PlanSetupTypeKey";
+          v105 = transferBackPlan;
+          v133[3] = transferBackPlan;
+          v132[4] = @"PlanSetupTypeKey";
           installingTransferPlan2 = [transferPlans2 installingTransferPlan];
-          v68 = &unk_287583C10;
+          v67 = &unk_287583C10;
           if (installingTransferPlan2)
           {
-            v68 = &unk_287583BF8;
+            v67 = &unk_287583BF8;
           }
 
-          v134[4] = v68;
-          v133[5] = @"CarrierNameKey";
+          v133[4] = v67;
+          v132[5] = @"CarrierNameKey";
           carrierNameForSelectedItem = [transferPlans2 carrierNameForSelectedItem];
           if (carrierNameForSelectedItem)
           {
@@ -889,14 +921,14 @@ LABEL_33:
             [MEMORY[0x277CBEB68] null];
           }
 
-          v110 = v118 = selectedPlan;
-          v134[5] = v110;
-          v134[6] = v63;
-          v133[6] = @"MaybeShowConfirmationCodePaneKey";
-          v133[7] = @"Plan";
+          v109 = v117 = selectedPlan;
+          v133[5] = v109;
+          v133[6] = v62;
+          v132[6] = @"MaybeShowConfirmationCodePaneKey";
+          v132[7] = @"Plan";
           selectedPlan2 = [transferPlans2 selectedPlan];
-          v134[7] = selectedPlan2;
-          v133[8] = @"MessageSessionKey";
+          v133[7] = selectedPlan2;
+          v132[8] = @"MessageSessionKey";
           session = self->_session;
           null = session;
           if (!session)
@@ -904,8 +936,8 @@ LABEL_33:
             null = [MEMORY[0x277CBEB68] null];
           }
 
-          v134[8] = null;
-          v133[9] = @"SourceOSVersion";
+          v133[8] = null;
+          v132[9] = @"SourceOSVersion";
           sourceOSVersion = self->_sourceOSVersion;
           null2 = sourceOSVersion;
           if (!sourceOSVersion)
@@ -913,10 +945,10 @@ LABEL_33:
             null2 = [MEMORY[0x277CBEB68] null];
           }
 
-          v134[9] = null2;
-          v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v134 forKeys:v133 count:10];
+          v133[9] = null2;
+          v89 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v133 forKeys:v132 count:10];
           navigationController = [(TSSIMSetupFlow *)self navigationController];
-          v16 = [(TSSubFlowViewController *)v62 initWithOptions:v90 navigationController:navigationController delegate:self];
+          v16 = [(TSSubFlowViewController *)v61 initWithOptions:v89 navigationController:navigationController delegate:self];
 
           if (!sourceOSVersion)
           {
@@ -926,8 +958,8 @@ LABEL_33:
           {
           }
 
-          selectedPlan = v118;
-          if (!v113)
+          selectedPlan = v117;
+          if (!v112)
           {
           }
 
@@ -941,7 +973,7 @@ LABEL_33:
 
     v17 = [TSBuddyMLViewController alloc];
     [(TSTransferFlowModel *)self->_model carrierSetupItems];
-    v115 = transferPlans2;
+    v114 = transferPlans2;
     v18 = fromCopy;
     v20 = v19 = selectedPlan;
     plans = [v20 plans];
@@ -953,7 +985,7 @@ LABEL_33:
 
     selectedPlan = v19;
     fromCopy = v18;
-    transferPlans2 = v115;
+    transferPlans2 = v114;
 LABEL_32:
 
     goto LABEL_33;
@@ -965,7 +997,7 @@ LABEL_32:
     transferPlans2 = fromCopy;
     if ([transferPlans2 isTransferListCellTapped])
     {
-      v116 = transferPlans2;
+      v115 = transferPlans2;
       transferPlans3 = [(TSTransferFlowModel *)self->_model transferPlans];
       filteredPlansForTransferableBucket = [transferPlans3 filteredPlansForTransferableBucket];
 
@@ -973,7 +1005,7 @@ LABEL_32:
       transferPlans4 = [(TSTransferFlowModel *)self->_model transferPlans];
       filteredPlansForSoftwareUpdateBucket = [transferPlans4 filteredPlansForSoftwareUpdateBucket];
 
-      v112 = filteredPlansForTransferableBucket;
+      v111 = filteredPlansForTransferableBucket;
       v37 = [filteredPlansForTransferableBucket count];
       plans2 = [(CTDisplayPlanList *)self->_pendingInstallItems plans];
       v39 = [plans2 count] + v37;
@@ -985,17 +1017,17 @@ LABEL_32:
       {
         if (![filteredPlansForVisitStoreBucket count])
         {
-          v108 = [TSTransferListViewController alloc];
+          v107 = [TSTransferListViewController alloc];
           transferPlans5 = [(TSTransferFlowModel *)self->_model transferPlans];
-          v107 = self->_isActivationPolicyMismatch;
-          v77 = self->_isDualeSIMCapablityLoss;
+          v106 = self->_isActivationPolicyMismatch;
+          v76 = self->_isDualeSIMCapablityLoss;
           pendingInstallItems = self->_pendingInstallItems;
           carrierSetupItems3 = [(TSTransferFlowModel *)self->_model carrierSetupItems];
-          v80 = self->_isStandaloneProximityTransfer;
-          BYTE2(v104) = ![(TSTransferFlowModel *)self->_model isFlexPolicyOn];
-          BYTE1(v104) = v80;
-          LOBYTE(v104) = 0;
-          v16 = [TSTransferListViewController initWithTransferPlans:v108 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:transferPlans5 isDualeSIMCapabilityLoss:0 pendingInstallItems:v107 carrierSetupItems:v77 showOtherOptions:pendingInstallItems isStandaloneProximityFlow:carrierSetupItems3 allowsMultiSelection:v104];
+          v79 = self->_isStandaloneProximityTransfer;
+          BYTE2(v103) = ![(TSTransferFlowModel *)self->_model isFlexPolicyOn];
+          BYTE1(v103) = v79;
+          LOBYTE(v103) = 0;
+          v16 = [TSTransferListViewController initWithTransferPlans:v107 confirmCellularPlanTransfer:"initWithTransferPlans:confirmCellularPlanTransfer:isActivationPolicyMismatch:isDualeSIMCapabilityLoss:pendingInstallItems:carrierSetupItems:showOtherOptions:isStandaloneProximityFlow:allowsMultiSelection:" isActivationPolicyMismatch:transferPlans5 isDualeSIMCapabilityLoss:0 pendingInstallItems:v106 carrierSetupItems:v76 showOtherOptions:pendingInstallItems isStandaloneProximityFlow:carrierSetupItems3 allowsMultiSelection:v103];
 
           goto LABEL_69;
         }
@@ -1019,9 +1051,9 @@ LABEL_69:
       }
 
 LABEL_70:
-      transferPlans2 = v116;
+      transferPlans2 = v115;
 
-      v81 = v112;
+      v80 = v111;
 LABEL_71:
 
       goto LABEL_33;
@@ -1032,11 +1064,11 @@ LABEL_71:
       transferIneligibleItems = [(TSTransferFlowModel *)self->_model transferIneligibleItems];
       filteredPlansForQRCodeBucket = [transferIneligibleItems filteredPlansForQRCodeBucket];
 
-      v131[0] = @"FlowTypeKey";
-      v131[1] = @"IsFirstViewKey";
-      v132[0] = &unk_287583C28;
-      v132[1] = MEMORY[0x277CBEC28];
-      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v132 forKeys:v131 count:2];
+      v130[0] = @"FlowTypeKey";
+      v130[1] = @"IsFirstViewKey";
+      v131[0] = &unk_287583C28;
+      v131[1] = MEMORY[0x277CBEC28];
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v131 forKeys:v130 count:2];
       plans4 = [v47 mutableCopy];
 
       if ([filteredPlansForQRCodeBucket count])
@@ -1063,43 +1095,43 @@ LABEL_71:
 
     if (([transferPlans2 isCarrierDirectAuthItemSelected] & 1) == 0)
     {
-      if (_os_feature_enabled_impl() && ([transferPlans2 selectedPlans], v69 = objc_claimAutoreleasedReturnValue(), v69, v69))
+      if (_os_feature_enabled_impl() && ([transferPlans2 selectedPlans], v68 = objc_claimAutoreleasedReturnValue(), v68, v68))
       {
-        v70 = [TSSubFlowViewController alloc];
-        v130[0] = &unk_287583BB0;
-        v129[0] = @"FlowTypeKey";
-        v129[1] = @"Plans";
+        v69 = [TSSubFlowViewController alloc];
+        v129[0] = &unk_287583BB0;
+        v128[0] = @"FlowTypeKey";
+        v128[1] = @"Plans";
         selectedPlans = [transferPlans2 selectedPlans];
-        v130[1] = selectedPlans;
-        v130[2] = MEMORY[0x277CBEC28];
-        v129[2] = @"ConfirmCellularPlanTransfer";
-        v129[3] = @"MessageSessionKey";
-        v71 = self->_session;
-        null3 = v71;
-        if (!v71)
+        v129[1] = selectedPlans;
+        v129[2] = MEMORY[0x277CBEC28];
+        v128[2] = @"ConfirmCellularPlanTransfer";
+        v128[3] = @"MessageSessionKey";
+        v70 = self->_session;
+        null3 = v70;
+        if (!v70)
         {
           null3 = [MEMORY[0x277CBEB68] null];
         }
 
-        v130[3] = null3;
-        v129[4] = @"SourceOSVersion";
-        v73 = self->_sourceOSVersion;
-        null4 = v73;
-        if (!v73)
+        v129[3] = null3;
+        v128[4] = @"SourceOSVersion";
+        v72 = self->_sourceOSVersion;
+        null4 = v72;
+        if (!v72)
         {
           null4 = [MEMORY[0x277CBEB68] null];
         }
 
-        v130[4] = null4;
-        v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v130 forKeys:v129 count:5];
+        v129[4] = null4;
+        v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v129 forKeys:v128 count:5];
         navigationController2 = [(TSSIMSetupFlow *)self navigationController];
-        v16 = [(TSSubFlowViewController *)v70 initWithOptions:v75 navigationController:navigationController2 delegate:self];
+        v16 = [(TSSubFlowViewController *)v69 initWithOptions:v74 navigationController:navigationController2 delegate:self];
 
-        if (!v73)
+        if (!v72)
         {
         }
 
-        if (!v71)
+        if (!v70)
         {
         }
       }
@@ -1108,43 +1140,43 @@ LABEL_71:
       {
         if ([transferPlans2 isCarrierSetupItemSelected])
         {
-          v82 = [TSBuddyMLViewController alloc];
+          v81 = [TSBuddyMLViewController alloc];
           filteredPlansForQRCodeBucket = [(TSTransferFlowModel *)self->_model carrierSetupItems];
           plans4 = [filteredPlansForQRCodeBucket plans];
           navigationController5 = [plans4 objectAtIndexedSubscript:0];
           plan2 = [navigationController5 plan];
           websheetUrl2 = [(TSTransferFlowModel *)self->_model websheetUrl];
           postdata2 = [(TSTransferFlowModel *)self->_model postdata];
-          v16 = [(TSBuddyMLViewController *)v82 initWithCTPlan:plan2 websheetURL:websheetUrl2 postdata:postdata2];
+          v16 = [(TSBuddyMLViewController *)v81 initWithCTPlan:plan2 websheetURL:websheetUrl2 postdata:postdata2];
 
           goto LABEL_25;
         }
 
-        v92 = [TSSubFlowViewController alloc];
-        v127[0] = @"FlowTypeKey";
-        v127[1] = @"SkipActivatingPane";
-        v93 = MEMORY[0x277CBEC38];
-        v128[0] = &unk_287583BB0;
-        v128[1] = MEMORY[0x277CBEC38];
-        v127[2] = @"DelayStartActivatingTimer";
+        v91 = [TSSubFlowViewController alloc];
+        v126[0] = @"FlowTypeKey";
+        v126[1] = @"SkipActivatingPane";
+        v92 = MEMORY[0x277CBEC38];
+        v127[0] = &unk_287583BB0;
+        v127[1] = MEMORY[0x277CBEC38];
+        v126[2] = @"DelayStartActivatingTimer";
         installingTransferPlan3 = [transferPlans2 installingTransferPlan];
-        v95 = &unk_287583BE0;
+        v94 = &unk_287583BE0;
         if (installingTransferPlan3)
         {
-          v95 = &unk_287583BC8;
+          v94 = &unk_287583BC8;
         }
 
-        v128[2] = v95;
-        v127[3] = @"PlanSetupTypeKey";
+        v127[2] = v94;
+        v126[3] = @"PlanSetupTypeKey";
         installingTransferPlan4 = [transferPlans2 installingTransferPlan];
-        v97 = &unk_287583C10;
+        v96 = &unk_287583C10;
         if (installingTransferPlan4)
         {
-          v97 = &unk_287583BF8;
+          v96 = &unk_287583BF8;
         }
 
-        v128[3] = v97;
-        v127[4] = @"CarrierNameKey";
+        v127[3] = v96;
+        v126[4] = @"CarrierNameKey";
         selectedPlans = [transferPlans2 carrierNameForSelectedItem];
         if (selectedPlans)
         {
@@ -1155,42 +1187,42 @@ LABEL_71:
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v114 = ;
-        v128[4] = v114;
-        v128[5] = v93;
-        v127[5] = @"MaybeShowConfirmationCodePaneKey";
-        v127[6] = @"MessageSessionKey";
-        v98 = self->_session;
-        null5 = v98;
-        if (!v98)
+        v113 = ;
+        v127[4] = v113;
+        v127[5] = v92;
+        v126[5] = @"MaybeShowConfirmationCodePaneKey";
+        v126[6] = @"MessageSessionKey";
+        v97 = self->_session;
+        null5 = v97;
+        if (!v97)
         {
           null5 = [MEMORY[0x277CBEB68] null];
         }
 
-        v128[6] = null5;
-        v127[7] = @"SourceOSVersion";
-        v100 = self->_sourceOSVersion;
-        null6 = v100;
-        if (!v100)
+        v127[6] = null5;
+        v126[7] = @"SourceOSVersion";
+        v99 = self->_sourceOSVersion;
+        null6 = v99;
+        if (!v99)
         {
           null6 = [MEMORY[0x277CBEB68] null];
         }
 
-        v128[7] = null6;
-        v102 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v128 forKeys:v127 count:8];
+        v127[7] = null6;
+        v101 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v127 forKeys:v126 count:8];
         navigationController3 = [(TSSIMSetupFlow *)self navigationController];
-        v16 = [(TSSubFlowViewController *)v92 initWithOptions:v102 navigationController:navigationController3 delegate:self];
+        v16 = [(TSSubFlowViewController *)v91 initWithOptions:v101 navigationController:navigationController3 delegate:self];
 
-        if (!v100)
+        if (!v99)
         {
         }
 
-        if (!v98)
+        if (!v97)
         {
         }
       }
 
-      v81 = selectedPlans;
+      v80 = selectedPlans;
       goto LABEL_71;
     }
 
@@ -1201,13 +1233,13 @@ LABEL_71:
   if (objc_opt_isKindOfClass())
   {
     v51 = [TSSubFlowViewController alloc];
-    v125[0] = @"FlowTypeKey";
-    v125[1] = @"SkipActivatingPane";
-    v126[0] = &unk_287583BB0;
-    v126[1] = MEMORY[0x277CBEC28];
-    v125[2] = @"PlanSetupTypeKey";
-    v126[2] = &unk_287583C40;
-    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:3];
+    v124[0] = @"FlowTypeKey";
+    v124[1] = @"SkipActivatingPane";
+    v125[0] = &unk_287583BB0;
+    v125[1] = MEMORY[0x277CBEC28];
+    v124[2] = @"PlanSetupTypeKey";
+    v125[2] = &unk_287583C40;
+    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:v124 count:3];
     navigationController4 = [(TSSIMSetupFlow *)self navigationController];
     v16 = [(TSSubFlowViewController *)v51 initWithOptions:v52 navigationController:navigationController4 delegate:self];
 
@@ -1231,23 +1263,23 @@ LABEL_34:
     transferPlans2 = fromCopy;
     if ([transferPlans2 isScanButtonTapped])
     {
-      v123[0] = @"FlowTypeKey";
-      v123[1] = @"IsFirstViewKey";
-      v124[0] = &unk_287583C28;
-      v124[1] = MEMORY[0x277CBEC28];
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:v123 count:2];
-      filteredPlansForQRCodeBucket = [v57 mutableCopy];
+      v122[0] = @"FlowTypeKey";
+      v122[1] = @"IsFirstViewKey";
+      v123[0] = &unk_287583C28;
+      v123[1] = MEMORY[0x277CBEC28];
+      v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:2];
+      filteredPlansForQRCodeBucket = [v56 mutableCopy];
 
       transferPlans6 = [(TSTransferFlowModel *)self->_model transferPlans];
-      v59 = [transferPlans6 count];
+      v58 = [transferPlans6 count];
 
-      if (v59)
+      if (v58)
       {
         transferPlans7 = [(TSTransferFlowModel *)self->_model transferPlans];
         [filteredPlansForQRCodeBucket setObject:transferPlans7 forKeyedSubscript:@"Plans"];
       }
 
-      v61 = [TSSubFlowViewController alloc];
+      v60 = [TSSubFlowViewController alloc];
     }
 
     else
@@ -1255,12 +1287,12 @@ LABEL_34:
       if ([transferPlans2 isProximityTransferButtonTapped])
       {
         v49 = [TSSubFlowViewController alloc];
-        v121[0] = @"FlowTypeKey";
+        v120[0] = @"FlowTypeKey";
         filteredPlansForQRCodeBucket = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:10002];
-        v121[1] = @"IsClientKey";
-        v122[0] = filteredPlansForQRCodeBucket;
-        v122[1] = MEMORY[0x277CBEC28];
-        plans4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:v121 count:2];
+        v120[1] = @"IsClientKey";
+        v121[0] = filteredPlansForQRCodeBucket;
+        v121[1] = MEMORY[0x277CBEC28];
+        plans4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:2];
 LABEL_24:
         navigationController5 = [(TSSIMSetupFlow *)self navigationController];
         v16 = [(TSSubFlowViewController *)v49 initWithOptions:plans4 navigationController:navigationController5 delegate:self];
@@ -1277,16 +1309,16 @@ LABEL_42:
         goto LABEL_33;
       }
 
-      v61 = [TSSubFlowViewController alloc];
-      v119[0] = @"FlowTypeKey";
-      v119[1] = @"IsSourceKey";
-      v120[0] = &unk_287583C58;
-      v120[1] = MEMORY[0x277CBEC28];
-      filteredPlansForQRCodeBucket = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:2];
+      v60 = [TSSubFlowViewController alloc];
+      v118[0] = @"FlowTypeKey";
+      v118[1] = @"IsSourceKey";
+      v119[0] = &unk_287583C58;
+      v119[1] = MEMORY[0x277CBEC28];
+      filteredPlansForQRCodeBucket = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:2];
     }
 
     plans4 = [(TSSIMSetupFlow *)self navigationController];
-    v16 = [(TSSubFlowViewController *)v61 initWithOptions:filteredPlansForQRCodeBucket navigationController:plans4 delegate:self];
+    v16 = [(TSSubFlowViewController *)v60 initWithOptions:filteredPlansForQRCodeBucket navigationController:plans4 delegate:self];
     goto LABEL_26;
   }
 
@@ -1296,8 +1328,6 @@ LABEL_35:
 
   v16 = 0;
 LABEL_36:
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -1360,16 +1390,16 @@ LABEL_7:
 
 - (void)transferEventUpdate:(id)update
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = updateCopy;
-    v10 = 2080;
-    v11 = "[TSTransferFlow transferEventUpdate:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "transfer event : %@ @%s", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = updateCopy;
+    v9 = 2080;
+    v10 = "[TSTransferFlow transferEventUpdate:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "transfer event : %@ @%s", &v7, 0x16u);
   }
 
   v6 = [updateCopy objectForKey:@"UpdateProxCardVisibility"];
@@ -1381,8 +1411,6 @@ LABEL_7:
       -[TSTransferFlow _updateSourceProxCardState:](self, "_updateSourceProxCardState:", [v6 BOOLValue]);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDidTapCancel
@@ -1436,6 +1464,47 @@ LABEL_5:
   [(TSSIMSetupFlow *)&v24 userDidTapCancel];
 }
 
+- (void)_updateSourceProxCardState:(BOOL)state
+{
+  stateCopy = state;
+  v16 = *MEMORY[0x277D85DE8];
+  rootFlow = [(TSSIMSetupFlow *)self rootFlow];
+  delegate = [rootFlow delegate];
+
+  v8 = _TSLogDomain(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 138412546;
+    v13 = delegate;
+    v14 = 2080;
+    v15 = "[TSTransferFlow _updateSourceProxCardState:]";
+    _os_log_impl(&dword_262AA8000, v8, OS_LOG_TYPE_DEFAULT, "root flow delegate: %@ @%s", &v12, 0x16u);
+  }
+
+  v9 = objc_opt_respondsToSelector();
+  if (v9)
+  {
+    v10 = _TSLogDomain(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = @"hiding";
+      if (stateCopy)
+      {
+        v11 = @"showing";
+      }
+
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2080;
+      v15 = "[TSTransferFlow _updateSourceProxCardState:]";
+      _os_log_impl(&dword_262AA8000, v10, OS_LOG_TYPE_DEFAULT, "%@ prox card on source device @%s", &v12, 0x16u);
+    }
+
+    self->_isSourceProxCardVisible = stateCopy;
+    [(__CFString *)delegate updateSourceProxCardState:stateCopy];
+  }
+}
+
 - (void)_saveSimsetupD2dInfo:(id)info
 {
   infoCopy = info;
@@ -1451,34 +1520,32 @@ LABEL_5:
 
 - (void)firstViewController
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSTransferFlow firstViewController]";
-  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]unimplemented, please use async version @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSTransferFlow firstViewController]";
+  _os_log_fault_impl(&dword_262AA8000, log, OS_LOG_TYPE_FAULT, "[F]unimplemented, please use async version @%s", &v1, 0xCu);
 }
 
 void __39__TSTransferFlow__firstViewController___block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTransferFlow _firstViewController:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]installMultiplePlans failed with error: %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTransferFlow _firstViewController:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]installMultiplePlans failed with error: %@ @%s", v1, 0x16u);
 }
 
 - (void)_maybePresentFirstViewController:(uint64_t)a3 firstViewControllerCallback:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__TSTransferFlow__maybePresentFirstViewController_firstViewControllerCallback___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present!!! @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSTransferFlow _maybePresentFirstViewController:firstViewControllerCallback:]_block_invoke";
+  OUTLINED_FUNCTION_0_0(&dword_262AA8000, a1, a3, "[E]nothing to present!!! @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

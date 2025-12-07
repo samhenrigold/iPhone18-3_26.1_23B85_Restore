@@ -42,7 +42,7 @@
 
 void __83__HMDCameraProfileSettingsCoreDataAdapter_updateDerivedPropertiesModel_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessoryUUID];
   v3 = [HMCContext findHAPAccessoryWithModelID:v2];
 
@@ -56,9 +56,9 @@ void __83__HMDCameraProfileSettingsCoreDataAdapter_updateDerivedPropertiesModel_
       v13 = HMFGetLogIdentifier();
       v14 = [*(a1 + 32) hapAccessoryUUID];
       *buf = 138543618;
-      v37 = v13;
-      v38 = 2112;
-      v39 = v14;
+      v36 = v13;
+      v37 = 2112;
+      v38 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not find the HAP accessory with model id: %@", buf, 0x16u);
     }
 
@@ -86,9 +86,9 @@ void __83__HMDCameraProfileSettingsCoreDataAdapter_updateDerivedPropertiesModel_
     {
 LABEL_12:
       v17 = *(a1 + 48);
-      v35 = 0;
-      v18 = [v17 save:&v35];
-      v15 = v35;
+      v34 = 0;
+      v18 = [v17 save:&v34];
+      v15 = v34;
       v19 = objc_autoreleasePoolPush();
       v20 = *(a1 + 32);
       v21 = HMFGetOSLogHandle();
@@ -99,7 +99,7 @@ LABEL_12:
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v37 = v23;
+          v36 = v23;
           v24 = "%{public}@Successfully updated Core Data with derived properties model";
           v25 = v22;
           v26 = OS_LOG_TYPE_INFO;
@@ -113,9 +113,9 @@ LABEL_17:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v23;
-        v38 = 2112;
-        v39 = v15;
+        v36 = v23;
+        v37 = 2112;
+        v38 = v15;
         v24 = "%{public}@Failed to update Core Data with derived properties model, error: %@";
         v25 = v22;
         v26 = OS_LOG_TYPE_ERROR;
@@ -151,27 +151,25 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v30 = objc_autoreleasePoolPush();
-  v31 = *(a1 + 32);
-  v32 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v29 = objc_autoreleasePoolPush();
+  v30 = *(a1 + 32);
+  v31 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v33 = HMFGetLogIdentifier();
+    v32 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v33;
-    _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Not updating Core Data with derived properties model because nothing changed", buf, 0xCu);
+    v36 = v32;
+    _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Not updating Core Data with derived properties model because nothing changed", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v30);
-  v34 = *(a1 + 56);
-  if (v34)
+  objc_autoreleasePoolPop(v29);
+  v33 = *(a1 + 56);
+  if (v33)
   {
-    (*(v34 + 16))(v34, 0);
+    (*(v33 + 16))(v33, 0);
   }
 
 LABEL_22:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCameraProfileSettingsModel:(id)model completion:(id)completion
@@ -198,7 +196,7 @@ LABEL_22:
 
 void __87__HMDCameraProfileSettingsCoreDataAdapter_updateCameraProfileSettingsModel_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessoryUUID];
   v3 = [HMCContext findHAPAccessoryWithModelID:v2];
 
@@ -212,9 +210,9 @@ void __87__HMDCameraProfileSettingsCoreDataAdapter_updateCameraProfileSettingsMo
       v13 = HMFGetLogIdentifier();
       v14 = [*(a1 + 32) hapAccessoryUUID];
       *buf = 138543618;
-      v37 = v13;
-      v38 = 2112;
-      v39 = v14;
+      v36 = v13;
+      v37 = 2112;
+      v38 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not find the HAP accessory with model id: %@", buf, 0x16u);
     }
 
@@ -256,9 +254,9 @@ void __87__HMDCameraProfileSettingsCoreDataAdapter_updateCameraProfileSettingsMo
     {
 LABEL_16:
       v17 = *(a1 + 48);
-      v35 = 0;
-      v18 = [v17 save:&v35];
-      v15 = v35;
+      v34 = 0;
+      v18 = [v17 save:&v34];
+      v15 = v34;
       v19 = objc_autoreleasePoolPush();
       v20 = *(a1 + 32);
       v21 = HMFGetOSLogHandle();
@@ -269,7 +267,7 @@ LABEL_16:
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v37 = v23;
+          v36 = v23;
           v24 = "%{public}@Successfully updated Core Data with settings model";
           v25 = v22;
           v26 = OS_LOG_TYPE_INFO;
@@ -283,9 +281,9 @@ LABEL_21:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v23;
-        v38 = 2112;
-        v39 = v15;
+        v36 = v23;
+        v37 = 2112;
+        v38 = v15;
         v24 = "%{public}@Failed to update Core Data with settings model, error: %@";
         v25 = v22;
         v26 = OS_LOG_TYPE_ERROR;
@@ -321,27 +319,25 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v30 = objc_autoreleasePoolPush();
-  v31 = *(a1 + 32);
-  v32 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v29 = objc_autoreleasePoolPush();
+  v30 = *(a1 + 32);
+  v31 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v33 = HMFGetLogIdentifier();
+    v32 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v33;
-    _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Not updating Core Data with settings model because nothing changed", buf, 0xCu);
+    v36 = v32;
+    _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Not updating Core Data with settings model because nothing changed", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v30);
-  v34 = *(a1 + 56);
-  if (v34)
+  objc_autoreleasePoolPop(v29);
+  v33 = *(a1 + 56);
+  if (v33)
   {
-    (*(v34 + 16))(v34, 0);
+    (*(v33 + 16))(v33, 0);
   }
 
 LABEL_26:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchDerivedPropertiesModelWithError:(id *)error
@@ -389,7 +385,7 @@ LABEL_26:
 
 void __80__HMDCameraProfileSettingsCoreDataAdapter_fetchDerivedPropertiesModelWithError___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessoryUUID];
   v3 = [HMCContext findHAPAccessoryWithModelID:v2];
 
@@ -420,25 +416,25 @@ LABEL_5:
       goto LABEL_9;
     }
 
-    v23 = [v3 cameraCurrentAccessModeChangeDate];
+    v22 = [v3 cameraCurrentAccessModeChangeDate];
 
-    if (v23)
+    if (v22)
     {
       goto LABEL_5;
     }
 
-    v24 = objc_autoreleasePoolPush();
-    v25 = *(a1 + 32);
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v23 = objc_autoreleasePoolPush();
+    v24 = *(a1 + 32);
+    v25 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v27 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v27;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Derived properties do not exist yet on accessory", &v28, 0xCu);
+      v26 = HMFGetLogIdentifier();
+      v27 = 138543362;
+      v28 = v26;
+      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Derived properties do not exist yet on accessory", &v27, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v24);
+    objc_autoreleasePoolPop(v23);
   }
 
   else
@@ -450,11 +446,11 @@ LABEL_5:
     {
       v17 = HMFGetLogIdentifier();
       v18 = [*(a1 + 32) hapAccessoryUUID];
-      v28 = 138543618;
-      v29 = v17;
-      v30 = 2112;
-      v31 = v18;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Did not find the accessory with model id: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v17;
+      v29 = 2112;
+      v30 = v18;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Did not find the accessory with model id: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -465,8 +461,6 @@ LABEL_5:
   }
 
 LABEL_9:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchCameraProfileSettingsModelWithError:(id *)error
@@ -514,7 +508,7 @@ LABEL_9:
 
 void __84__HMDCameraProfileSettingsCoreDataAdapter_fetchCameraProfileSettingsModelWithError___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hapAccessoryUUID];
   v3 = [HMCContext findHAPAccessoryWithModelID:v2];
 
@@ -568,18 +562,18 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    v27 = objc_autoreleasePoolPush();
-    v28 = *(a1 + 32);
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v26 = objc_autoreleasePoolPush();
+    v27 = *(a1 + 32);
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v30 = HMFGetLogIdentifier();
-      v31 = 138543362;
-      v32 = v30;
-      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Camera profile settings do not exist yet on accessory", &v31, 0xCu);
+      v29 = HMFGetLogIdentifier();
+      v30 = 138543362;
+      v31 = v29;
+      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Camera profile settings do not exist yet on accessory", &v30, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v26);
   }
 
   else
@@ -591,11 +585,11 @@ LABEL_8:
     {
       v8 = HMFGetLogIdentifier();
       v9 = [*(a1 + 32) hapAccessoryUUID];
-      v31 = 138543618;
-      v32 = v8;
-      v33 = 2112;
-      v34 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Did not find the HAP accessory with model id: %@", &v31, 0x16u);
+      v30 = 138543618;
+      v31 = v8;
+      v32 = 2112;
+      v33 = v9;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Did not find the HAP accessory with model id: %@", &v30, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -606,8 +600,6 @@ LABEL_8:
   }
 
 LABEL_13:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraProfileSettingsCoreDataAdapter)initWithHAPAccessoryUUID:(id)d homeUUID:(id)iD cameraProfileSettingsModelID:(id)modelID derivedPropertiesModelID:(id)propertiesModelID
@@ -673,10 +665,9 @@ LABEL_11:
 
 void __54__HMDCameraProfileSettingsCoreDataAdapter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_230676;
-  logCategory__hmf_once_v15_230676 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_230676;
+  logCategory__hmf_once_v15_230676 = v0;
 }
 
 @end

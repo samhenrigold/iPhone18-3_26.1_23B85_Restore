@@ -123,7 +123,7 @@
 
 - (void)updateWithSessionState:(id)state
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if (self->_uniqueRouteID)
   {
@@ -137,9 +137,9 @@
     p_super = MNGetMNServerSessionStateInfoLog();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
+      v12 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_DEFAULT, "Updating session state from unknown source: %@", &v13, 0xCu);
+      _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_DEFAULT, "Updating session state from unknown source: %@", &v12, 0xCu);
     }
   }
 
@@ -147,28 +147,26 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: _uniqueRouteID != nil", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: _uniqueRouteID != nil", &v12, 2u);
     }
 
-    v10 = MNGetMNServerSessionStateInfoLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = MNGetMNServerSessionStateInfoLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Updating server session state requires an existing route. The next directions or ETAU request will likely fail.", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "Updating server session state requires an existing route. The next directions or ETAU request will likely fail.", &v12, 2u);
     }
 
     sessionState = self->_sessionState;
     self->_sessionState = 0;
 
-    v12 = self->_directionsResponseID;
+    v11 = self->_directionsResponseID;
     self->_directionsResponseID = 0;
 
     p_super = &self->_etauResponseID->super;
     self->_etauResponseID = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDisplayedBannerID:(id)d withEventInfo:(id)info
@@ -212,7 +210,7 @@ LABEL_7:
 
 - (void)updateWithETAUResponse:(id)response
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v5 = responseCopy;
   if (self->_uniqueRouteID)
@@ -225,7 +223,7 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      LOWORD(v21) = 0;
+      LOWORD(v20) = 0;
       v12 = "Trying to update server session state with a nil ETAU response. Ignoring, but the next directions or ETAU request may fail.";
       v13 = p_super;
       v14 = OS_LOG_TYPE_ERROR;
@@ -249,14 +247,14 @@ LABEL_7:
       p_super = MNGetMNServerSessionStateInfoLog();
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
+        v20 = 138412290;
         selfCopy = self;
         v12 = "Updating session state from ETAU response: %@";
         v13 = p_super;
         v14 = OS_LOG_TYPE_DEFAULT;
         v15 = 12;
 LABEL_6:
-        _os_log_impl(&dword_1D311E000, v13, v14, v12, &v21, v15);
+        _os_log_impl(&dword_1D311E000, v13, v14, v12, &v20, v15);
       }
     }
 
@@ -266,9 +264,9 @@ LABEL_6:
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         formattedText = [v5 formattedText];
-        v21 = 138412290;
+        v20 = 138412290;
         selfCopy = formattedText;
-        _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_ERROR, "ETAU response has no session state. This is probably a server error. Full ETAU response: %@", &v21, 0xCu);
+        _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_ERROR, "ETAU response has no session state. This is probably a server error. Full ETAU response: %@", &v20, 0xCu);
       }
     }
   }
@@ -277,21 +275,21 @@ LABEL_6:
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: _uniqueRouteID != nil", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: _uniqueRouteID != nil", &v20, 2u);
     }
 
-    v17 = MNGetMNServerSessionStateInfoLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = MNGetMNServerSessionStateInfoLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_1D311E000, v17, OS_LOG_TYPE_ERROR, "Server session state can only be updated from an ETAU response if there is already an existing route. The next directions or ETAU request will likely fail.", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_ERROR, "Server session state can only be updated from an ETAU response if there is already an existing route. The next directions or ETAU request will likely fail.", &v20, 2u);
     }
 
-    v18 = self->_sessionState;
+    v17 = self->_sessionState;
     self->_sessionState = 0;
 
-    v19 = self->_directionsResponseID;
+    v18 = self->_directionsResponseID;
     self->_directionsResponseID = 0;
 
     p_super = &self->_etauResponseID->super;
@@ -299,13 +297,11 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithRoute:(id)route
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   v5 = routeCopy;
   if (routeCopy)
@@ -359,9 +355,9 @@ LABEL_7:
     p_super = MNGetMNServerSessionStateInfoLog();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 138412290;
+      v28 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_DEFAULT, "Updating session state with route: %@", &v29, 0xCu);
+      _os_log_impl(&dword_1D311E000, p_super, OS_LOG_TYPE_DEFAULT, "Updating session state with route: %@", &v28, 0xCu);
     }
 
     goto LABEL_9;
@@ -369,21 +365,21 @@ LABEL_7:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    LOWORD(v29) = 0;
-    _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: route != nil", &v29, 2u);
+    LOWORD(v28) = 0;
+    _os_log_fault_impl(&dword_1D311E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Assertion failed: route != nil", &v28, 2u);
   }
 
-  v25 = MNGetMNServerSessionStateInfoLog();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v24 = MNGetMNServerSessionStateInfoLog();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v29) = 0;
-    _os_log_impl(&dword_1D311E000, v25, OS_LOG_TYPE_ERROR, "Server session state can't be updated with a nil route. The next directions or ETAU request will likely fail.", &v29, 2u);
+    LOWORD(v28) = 0;
+    _os_log_impl(&dword_1D311E000, v24, OS_LOG_TYPE_ERROR, "Server session state can't be updated with a nil route. The next directions or ETAU request will likely fail.", &v28, 2u);
   }
 
-  v26 = self->_sessionState;
+  v25 = self->_sessionState;
   self->_sessionState = 0;
 
-  v27 = self->_uniqueRouteID;
+  v26 = self->_uniqueRouteID;
   self->_uniqueRouteID = 0;
 
   directionsResponseID = self->_directionsResponseID;
@@ -392,8 +388,6 @@ LABEL_7:
   p_super = &self->_etauResponseID->super;
   self->_etauResponseID = 0;
 LABEL_9:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

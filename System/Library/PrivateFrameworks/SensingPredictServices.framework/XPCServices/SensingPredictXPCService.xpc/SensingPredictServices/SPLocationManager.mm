@@ -7,6 +7,7 @@
 - (void)_startPollingForLocationCategory;
 - (void)_stopMonitoringVisits;
 - (void)_stopPollingForLocationCategory;
+- (void)_updateLocationCategory:(unsigned __int8)category;
 - (void)_updateLocationCategoryWithBestPlaceInferenceIdentifier:(id)identifier;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didVisit:(id)visit;
@@ -68,7 +69,7 @@
 
   if (dword_100015DA0 <= 30 && (dword_100015DA0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100009820(v3);
+    sub_100009820();
   }
 
   return v3;
@@ -255,7 +256,7 @@ LABEL_50:
 LABEL_51:
   if (dword_100015DA0 <= 30 && (dword_100015DA0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100009870(v8);
+    sub_100009870();
   }
 
   return v8;
@@ -263,7 +264,6 @@ LABEL_51:
 
 - (void)_requestPlaceInference
 {
-  locationManager = self->_locationManager;
   if (objc_opt_respondsToSelector())
   {
     if (dword_100015DA0 <= 30 && (dword_100015DA0 != -1 || _LogCategory_Initialize()))
@@ -271,13 +271,13 @@ LABEL_51:
       sub_1000098E0();
     }
 
-    v4 = self->_locationManager;
-    v5[0] = _NSConcreteStackBlock;
-    v5[1] = 3221225472;
-    v5[2] = sub_100002AB8;
-    v5[3] = &unk_1000106C0;
-    v5[4] = self;
-    [(CLLocationManager *)v4 _fetchPlaceInferencesWithFidelityPolicy:0 handler:v5];
+    locationManager = self->_locationManager;
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_100002AB8;
+    v4[3] = &unk_1000106C0;
+    v4[4] = self;
+    [(CLLocationManager *)locationManager _fetchPlaceInferencesWithFidelityPolicy:0 handler:v4];
   }
 
   else if (dword_100015DA0 <= 90 && (dword_100015DA0 != -1 || _LogCategory_Initialize()))
@@ -393,6 +393,19 @@ LABEL_51:
     }
 
     self->_pollingLocation = 0;
+  }
+}
+
+- (void)_updateLocationCategory:(unsigned __int8)category
+{
+  if (self->_currentLocationCategory != category)
+  {
+    self->_currentLocationCategory = category;
+    locationCategoryChangedHandler = self->_locationCategoryChangedHandler;
+    if (locationCategoryChangedHandler)
+    {
+      locationCategoryChangedHandler[2](locationCategoryChangedHandler, category);
+    }
   }
 }
 

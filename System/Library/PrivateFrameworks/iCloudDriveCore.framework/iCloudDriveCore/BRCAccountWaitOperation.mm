@@ -17,9 +17,9 @@
 - (BRCAccountWaitOperation)initWithCKContainer:(id)container
 {
   containerCopy = container;
-  v46.receiver = self;
-  v46.super_class = BRCAccountWaitOperation;
-  v6 = [(_BRCOperation *)&v46 initWithName:@"account-waiter"];
+  v43.receiver = self;
+  v43.super_class = BRCAccountWaitOperation;
+  v6 = [(_BRCOperation *)&v43 initWithName:@"account-waiter"];
   v7 = v6;
   if (v6)
   {
@@ -39,13 +39,13 @@
 
     objc_initWeak(&location, v7);
     v15 = v7->_source;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __47__BRCAccountWaitOperation_initWithCKContainer___block_invoke;
-    v43[3] = &unk_2784FF400;
-    objc_copyWeak(&v44, &location);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __47__BRCAccountWaitOperation_initWithCKContainer___block_invoke;
+    v40[3] = &unk_2784FF400;
+    objc_copyWeak(&v41, &location);
     v16 = v15;
-    v17 = v43;
+    v17 = v40;
     v18 = v16;
     v19 = v17;
     v20 = v19;
@@ -60,14 +60,14 @@
     dispatch_source_set_event_handler(v18, v23);
 
     v24 = v7->_source;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __47__BRCAccountWaitOperation_initWithCKContainer___block_invoke_2;
-    v41[3] = &unk_2784FF450;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __47__BRCAccountWaitOperation_initWithCKContainer___block_invoke_2;
+    v38[3] = &unk_2784FF450;
     v25 = v7;
-    v42 = v25;
+    v39 = v25;
     v26 = v24;
-    v27 = v41;
+    v27 = v38;
     v28 = v27;
     if (*v21)
     {
@@ -86,19 +86,16 @@
     v25->_refetchPacerQueue = v32;
 
     [v8 accountWaiterRefreshPacerDelay];
-    v34 = v25->_refetchPacerQueue;
-    v35 = br_pacer_create();
+    v34 = br_pacer_create();
     refetchPacer = v25->_refetchPacer;
-    v25->_refetchPacer = v35;
+    v25->_refetchPacer = v34;
 
-    v37 = v25->_refetchPacer;
-    objc_copyWeak(&v40, &location);
+    objc_copyWeak(&v37, &location);
     br_pacer_set_event_handler();
-    v38 = v25->_refetchPacer;
     br_pacer_resume();
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v37);
 
-    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
   }
 
@@ -237,78 +234,115 @@ LABEL_14:
 
 - (void)_accountChangeHandler
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] ┣%llx waiting for account status%@");
-  v4 = *MEMORY[0x277D85DE8];
+  callbackQueue = [(_BRCOperation *)self callbackQueue];
+  dispatch_assert_queue_V2(callbackQueue);
+
+  if (![(_BRCOperation *)self finishIfCancelled])
+  {
+    memset(v17, 0, sizeof(v17));
+    __brc_create_section(0, "[BRCAccountWaitOperation _accountChangeHandler]", 133, 0, v17);
+    v4 = brc_bread_crumbs();
+    v5 = brc_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCAccountWaitOperation _accountChangeHandler];
+    }
+
+    v13 = 0uLL;
+    v14 = 0;
+    __brc_create_section(0, "[BRCAccountWaitOperation _accountChangeHandler]", 134, 0, &v13);
+    v6 = brc_bread_crumbs();
+    v7 = brc_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCAccountWaitOperation _accountChangeHandler];
+    }
+
+    v15 = v13;
+    v16 = v14;
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    dispatch_suspend(selfCopy->_source);
+    selfCopy->_resumed = 0;
+    objc_sync_exit(selfCopy);
+
+    br_pacer_pretend_event_handler_fired();
+    ckContainer = selfCopy->_ckContainer;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke;
+    v10[3] = &unk_2785010C8;
+    v11 = v15;
+    v12 = v16;
+    v10[4] = selfCopy;
+    [(CKContainer *)ckContainer accountStatusWithCompletionHandler:v10];
+    __brc_leave_section(v17);
+  }
 }
 
 void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v23 = *(a1 + 40);
-  v24 = *(a1 + 56);
+  v22 = *(a1 + 40);
+  v23 = *(a1 + 56);
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *block = 134218498;
-    *&block[4] = v23;
+    *&block[4] = v22;
     *&block[12] = 2048;
     *&block[14] = a2;
     *&block[22] = 2112;
-    v28 = v6;
+    v27 = v6;
     _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx got status %ld%@", block, 0x20u);
   }
 
   v8 = [*(a1 + 32) callbackQueue];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31;
-  v20[3] = &unk_2785010A0;
-  v20[4] = *(a1 + 32);
-  v22 = a2;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31;
+  v19[3] = &unk_2785010A0;
+  v19[4] = *(a1 + 32);
+  v21 = a2;
   v9 = v5;
-  v21 = v9;
+  v20 = v9;
   v10 = v8;
-  v11 = v20;
+  v11 = v19;
   v12 = objc_autoreleasePoolPush();
-  v25 = 0uLL;
-  v26 = 0;
-  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v25);
+  v24 = 0uLL;
+  v25 = 0;
+  __brc_create_section(0, "dispatch_async_with_logs", 283, 0, &v24);
   v13 = brc_bread_crumbs();
   v14 = brc_default_log();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v18 = v25;
+    v17 = v24;
     label = dispatch_queue_get_label(v10);
     *block = 134218498;
-    *&block[4] = v18;
+    *&block[4] = v17;
     *&block[12] = 2080;
     *&block[14] = label;
     *&block[22] = 2112;
-    v28 = v13;
+    v27 = v13;
     _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx dispatching to %s%@", block, 0x20u);
   }
 
+  v30 = v24;
   v31 = v25;
-  v32 = v26;
   *block = MEMORY[0x277D85DD0];
   *&block[8] = 3221225472;
   *&block[16] = __dispatch_async_with_logs_block_invoke_3;
-  v28 = &unk_2784FF568;
+  v27 = &unk_2784FF568;
   v15 = v10;
-  v29 = v15;
+  v28 = v15;
   v16 = v11;
-  v30 = v16;
+  v29 = v16;
   dispatch_async(v15, block);
 
   objc_autoreleasePoolPop(v12);
-  __brc_leave_section(&v23);
-
-  v17 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v22);
 }
 
 void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31(uint64_t a1)
@@ -358,7 +392,6 @@ void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31(uint64
 
 LABEL_20:
 
-        v13 = *(*(a1 + 32) + 552);
         br_pacer_signal_at_most_after_min_interval();
         return;
     }
@@ -397,17 +430,17 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v14 = brc_bread_crumbs();
-  v15 = brc_default_log();
-  if (os_log_type_enabled(v15, 0x90u))
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, 0x90u))
   {
-    __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_4(a1);
+    __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_4();
   }
 
   dispatch_suspend(*(*(a1 + 32) + 504));
-  v16 = *(a1 + 32);
-  v17 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  [v16 completedWithResult:v17 error:*(a1 + 40)];
+  v15 = *(a1 + 32);
+  v16 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
+  [v15 completedWithResult:v16 error:*(a1 + 40)];
 }
 
 - (void)start
@@ -435,73 +468,29 @@ LABEL_10:
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  refetchPacer = self->_refetchPacer;
   errorCopy = error;
   resultCopy = result;
   br_pacer_cancel();
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277CBBF00] object:0];
 
-  v10.receiver = self;
-  v10.super_class = BRCAccountWaitOperation;
-  [(_BRCOperation *)&v10 finishWithResult:resultCopy error:errorCopy];
+  v9.receiver = self;
+  v9.super_class = BRCAccountWaitOperation;
+  [(_BRCOperation *)&v9 finishWithResult:resultCopy error:errorCopy];
 }
 
-void __47__BRCAccountWaitOperation_initWithCKContainer___block_invoke_3_cold_1()
+void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Simulating an account did change to refresh the CK account status%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Account is temporarily unavailable, let's wait for a notification from CloudKit%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Account is restricted let's wait for a notification from CloudKit%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] No account loaded yet, let's wait for the account notification from CloudKit%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_4(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(&dword_223E7A000, v2, 0x90u, "[ERROR] Error when asking CloudKit about the account status: %@%@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Error when asking CloudKit about the account status: %@%@", v1, 0x16u);
 }
 
 void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unknown account status%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void __48__BRCAccountWaitOperation__accountChangeHandler__block_invoke_31_cold_6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Account is now available%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unknown account status%@", v1, 0xCu);
 }
 
 @end

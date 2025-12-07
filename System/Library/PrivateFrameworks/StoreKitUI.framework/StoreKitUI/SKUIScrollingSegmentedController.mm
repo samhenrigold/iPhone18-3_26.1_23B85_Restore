@@ -231,9 +231,9 @@ SKUIStandardInteractiveDividerView *__47__SKUIScrollingSegmentedController_viewD
 
 - (void)viewDidLayoutSubviews
 {
-  v32.receiver = self;
-  v32.super_class = SKUIScrollingSegmentedController;
-  [(SKUIScrollingSegmentedController *)&v32 viewDidLayoutSubviews];
+  v34.receiver = self;
+  v34.super_class = SKUIScrollingSegmentedController;
+  [(SKUIScrollingSegmentedController *)&v34 viewDidLayoutSubviews];
   view = [(SKUIScrollingSegmentedController *)self view];
   [view setPreservesSuperviewLayoutMargins:1];
   [view bounds];
@@ -281,11 +281,11 @@ SKUIStandardInteractiveDividerView *__47__SKUIScrollingSegmentedController_viewD
     [collectionViewLayout2 invalidateLayoutWithContext:v22];
   }
 
-  v33.origin.x = v5;
-  v33.origin.y = v7;
-  v33.size.width = v9;
-  v33.size.height = v11;
-  v24 = CGRectGetWidth(v33);
+  v35.origin.x = v5;
+  v35.origin.y = v7;
+  v35.size.width = v9;
+  v35.size.height = v11;
+  v24 = CGRectGetWidth(v35);
   if (v24 >= 2.0)
   {
     v25 = v24;
@@ -296,11 +296,11 @@ SKUIStandardInteractiveDividerView *__47__SKUIScrollingSegmentedController_viewD
     v25 = 2.0;
   }
 
-  v34.origin.x = v5;
-  v34.origin.y = v7;
-  v34.size.width = v25;
-  v34.size.height = v11;
-  Height = CGRectGetHeight(v34);
+  v36.origin.x = v5;
+  v36.origin.y = v7;
+  v36.size.width = v25;
+  v36.size.height = v11;
+  Height = CGRectGetHeight(v36);
   if (Height >= 2.0)
   {
     v27 = Height;
@@ -311,13 +311,13 @@ SKUIStandardInteractiveDividerView *__47__SKUIScrollingSegmentedController_viewD
     v27 = 2.0;
   }
 
-  [(SKUIScrollingSegmentedControllerCollectionView *)self->_contentCollectionView setFrame:v5, v7, v25, v27];
+  v28 = [(SKUIScrollingSegmentedControllerCollectionView *)self->_contentCollectionView setFrame:v5, v7, v25, v27];
   if (v18)
   {
-    v28 = SKUIMPUFoundationFramework();
-    v29 = SKUIWeakLinkedSymbolForString("MPUFloatEqualToFloat", v28);
+    v30 = SKUIMPUFoundationFramework(v28, v29);
+    v31 = SKUIWeakLinkedSymbolForString("MPUFloatEqualToFloat", v30);
     contentOffset = [(SKUIScrollingSegmentedControllerCollectionView *)self->_contentCollectionView contentOffset];
-    if ((v29(contentOffset, v15, v31) & 1) == 0)
+    if ((v31(contentOffset, v15, v33) & 1) == 0)
     {
       [(SKUIScrollingSegmentedControllerCollectionView *)self->_contentCollectionView setContentOffset:v15, v14];
     }
@@ -930,9 +930,9 @@ void __55__SKUIScrollingSegmentedController_setViewControllers___block_invoke(ui
   v8 = [(NSArray *)self->_viewControllers objectAtIndex:index];
   title = [v8 title];
   title2 = [controllerCopy title];
-  v11 = [title isEqualToString:title2];
+  isEqualToString = objc_msgSend_isEqualToString_(title);
 
-  if (v11)
+  if (isEqualToString)
   {
     v12 = [(NSArray *)self->_viewControllers count];
     v14[0] = MEMORY[0x277D85DD0];

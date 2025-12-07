@@ -14,8 +14,7 @@
   v7 = *(bytes + 8);
   v8 = v5;
   v9 = v6;
-  v13 = [(SUThreeLineTrackCellConfigurationAccessibility *)self safeValueForKey:@"_accessibilityVideoIconString"];
-  v12 = *bytes;
+  v12 = [(SUThreeLineTrackCellConfigurationAccessibility *)self safeValueForKey:@"_accessibilityVideoIconString"];
   v10 = __UIAXStringForVariables();
 
   return v10;

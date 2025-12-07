@@ -20,28 +20,27 @@ void *sub_100001C9C@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 void sub_100001CDC(uint64_t a1)
 {
   v2 = [objc_opt_self() standardUserDefaults];
-  sub_100001E6C(a1, v11);
-  v3 = v12;
-  if (v12)
+  sub_100001E6C(a1, v10);
+  v3 = v11;
+  if (v11)
   {
-    v4 = sub_100001F24(v11, v12);
+    v4 = sub_100001F24(v10, v11);
     v5 = *(v3 - 8);
-    v6 = *(v5 + 64);
     __chkstk_darwin(v4, v4);
-    v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v5 + 16))(v8);
-    v9 = sub_100007564();
-    (*(v5 + 8))(v8, v3);
-    sub_100001F68(v11);
+    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v5 + 16))(v7);
+    v8 = sub_100007564();
+    (*(v5 + 8))(v7, v3);
+    sub_100001F68(v10);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v10 = sub_1000074D4();
-  [v2 setValue:v9 forKey:v10];
+  v9 = sub_1000074D4();
+  [v2 setValue:v8 forKey:v9];
 
   swift_unknownObjectRelease();
 }
@@ -58,7 +57,6 @@ uint64_t sub_100001EDC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -76,15 +74,17 @@ void *sub_100001F24(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100001F68(uint64_t *a1)
+uint64_t sub_100001F68(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_100001FB4(void *a1, unsigned __int8 a2)
@@ -154,7 +154,7 @@ id sub_100002168(uint64_t a1)
   v5.super.isa = v4;
   v13._countAndFlagsBits = 0;
   v13._object = 0xE000000000000000;
-  sub_1000073B4(v11, v12, v5, v13, v10);
+  sub_1000073B4(v11, v12, v5, v13, 0, v10);
 
   v6 = sub_1000074D4();
 
@@ -203,15 +203,13 @@ unint64_t sub_1000023C8()
   if (*(v0 + OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController____lazy_storage___onboardingImageAssetName + 8))
   {
     v2 = *v1;
-    v3 = *(v0 + OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController____lazy_storage___onboardingImageAssetName + 8);
   }
 
   else
   {
     v2 = sub_100002440();
-    v4 = v1[1];
     *v1 = v2;
-    v1[1] = v5;
+    v1[1] = v3;
   }
 
   return v2;
@@ -274,7 +272,7 @@ id sub_100002510()
   v10.super.isa = v9;
   v24._countAndFlagsBits = 0;
   v24._object = 0xE000000000000000;
-  sub_1000073B4(v20, v22, v10, v24, v17);
+  sub_1000073B4(v20, v22, v10, v24, 0, v17);
 
   v11 = sub_1000074D4();
 
@@ -287,7 +285,7 @@ id sub_100002510()
   v13.super.isa = v12;
   v25._countAndFlagsBits = 0;
   v25._object = 0xE000000000000000;
-  sub_1000073B4(v21, v23, v13, v25, v18);
+  sub_1000073B4(v21, v23, v13, v25, 0, v18);
 
   v14 = sub_1000074D4();
 
@@ -296,51 +294,51 @@ id sub_100002510()
   return v15;
 }
 
-void sub_100002854()
+void sub_100002854(uint64_t a1, uint64_t a2)
 {
-  v14.receiver = v0;
-  v14.super_class = type metadata accessor for SharePlayWelcomeViewController();
-  objc_msgSendSuper2(&v14, "viewWillLayoutSubviews");
-  [v0 availableContentViewHeight];
-  v2 = v1;
-  v3 = sub_1000022E8();
-  [v3 frame];
-  v5 = v4;
+  v16.receiver = v2;
+  v16.super_class = type metadata accessor for SharePlayWelcomeViewController();
+  objc_msgSendSuper2(&v16, "viewWillLayoutSubviews");
+  [v2 availableContentViewHeight];
+  v4 = v3;
+  v5 = sub_1000022E8();
+  [v5 frame];
+  v7 = v6;
 
-  if (v5 <= v2)
+  if (v7 <= v4)
   {
-    v6 = OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint;
-    v7 = *&v0[OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint];
-    if (v7)
+    v8 = OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint;
+    v9 = *&v2[OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint];
+    if (v9)
     {
-      [*&v0[OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint] constant];
-      v9 = v8;
+      [*&v2[OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_contentViewHeightConstraint] constant];
+      v11 = v10;
     }
 
     else
     {
-      v9 = 0.0;
+      v11 = 0.0;
     }
 
-    [v0 availableContentViewHeight];
-    if (v7)
+    [v2 availableContentViewHeight];
+    if (v9)
     {
-      v11 = v9 == v10;
+      v13 = v11 == v12;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    if (!v11)
+    if (!v13)
     {
-      v12 = *&v0[v6];
-      if (v12)
+      v14 = *&v2[v8];
+      if (v14)
       {
-        v13 = v12;
-        [v0 availableContentViewHeight];
-        [v13 setConstant:?];
+        v15 = v14;
+        [v2 availableContentViewHeight];
+        [v15 setConstant:?];
       }
     }
   }
@@ -394,17 +392,17 @@ uint64_t sub_100002C50()
 {
   v1 = OBJC_IVAR____TtC18RemotePeoplePicker30SharePlayWelcomeViewController_delegate;
   swift_beginAccess();
-  sub_1000031AC(v0 + v1, v5);
-  if (!v6)
+  sub_1000031AC(v0 + v1, v4);
+  if (!v5)
   {
-    return sub_1000032CC(v5, &qword_100010D60, &unk_100008310);
+    return sub_1000032CC(v4, &qword_100010D60, &unk_100008310);
   }
 
-  sub_10000321C(v5, v4);
-  sub_1000032CC(v5, &qword_100010D60, &unk_100008310);
-  v2 = *sub_100001F24(v4, v4[3]);
+  sub_10000321C(v4, v3);
+  sub_1000032CC(v4, &qword_100010D60, &unk_100008310);
+  sub_100001F24(v3, v3[3]);
   sub_1000063D0();
-  return sub_100001F68(v4);
+  return sub_100001F68(v3);
 }
 
 id sub_100002D48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -483,11 +481,11 @@ id sub_100002F24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, u
   return v14;
 }
 
-id sub_1000030C4()
+id sub_1000030C4(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SharePlayWelcomeViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for SharePlayWelcomeViewController();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_1000031AC(uint64_t a1, uint64_t a2)
@@ -552,11 +550,11 @@ void PeoplePickerShellViewController.connection.setter(void *a1)
     v11 = sub_100006194(v7, v9, 1);
     if (v11)
     {
-      v17 = v11;
+      v18 = v11;
 
-      v16 = sub_1000042A8();
+      v17 = sub_1000042A8();
       swift_getObjectType();
-      v18 = [v17 localizedName];
+      v19 = [v18 localizedName];
       sub_1000074E4();
 
       sub_100007494();
@@ -564,25 +562,25 @@ void PeoplePickerShellViewController.connection.setter(void *a1)
 
     else
     {
-      sub_100007514();
+      v12 = sub_100007514();
       sub_100001EDC(&qword_100010D78, &qword_100008350);
-      v12 = swift_allocObject();
-      *(v12 + 16) = xmmword_100008320;
-      v13 = sub_1000073D4();
-      v15 = v14;
+      v13 = swift_allocObject();
+      *(v13 + 16) = xmmword_100008320;
+      v14 = sub_1000073D4();
+      v16 = v15;
 
-      *(v12 + 56) = &type metadata for String;
-      *(v12 + 64) = sub_100006270();
-      *(v12 + 32) = v13;
-      *(v12 + 40) = v15;
+      *(v13 + 56) = &type metadata for String;
+      *(v13 + 64) = sub_100006270();
+      *(v13 + 32) = v14;
+      *(v13 + 40) = v16;
       sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-      v16 = sub_100007544();
-      sub_1000074C4();
+      v17 = sub_100007544();
+      sub_1000074C4("Couldn't get applicationRecord for bundleID: %@", 47, 2, &_mh_execute_header, v17, v12, v13);
     }
   }
 }
 
-void (*PeoplePickerShellViewController.connection.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*PeoplePickerShellViewController.connection.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -602,7 +600,7 @@ void (*PeoplePickerShellViewController.connection.modify(uint64_t *a1))(void **a
   return sub_1000035F4;
 }
 
-void sub_1000035F4(void **a1, char a2)
+void sub_1000035F4(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -618,10 +616,9 @@ void sub_1000035F4(void **a1, char a2)
       v10 = sub_100006194(v6, v8, 1);
       if (v10)
       {
-        v16 = v3[3];
         v17 = v10;
 
-        v15 = sub_1000042A8();
+        v16 = sub_1000042A8();
         swift_getObjectType();
         v18 = [v17 localizedName];
         sub_1000074E4();
@@ -631,20 +628,20 @@ void sub_1000035F4(void **a1, char a2)
 
       else
       {
-        sub_100007514();
+        v11 = sub_100007514();
         sub_100001EDC(&qword_100010D78, &qword_100008350);
-        v11 = swift_allocObject();
-        *(v11 + 16) = xmmword_100008320;
-        v12 = sub_1000073D4();
-        v14 = v13;
+        v12 = swift_allocObject();
+        *(v12 + 16) = xmmword_100008320;
+        v13 = sub_1000073D4();
+        v15 = v14;
 
-        *(v11 + 56) = &type metadata for String;
-        *(v11 + 64) = sub_100006270();
-        *(v11 + 32) = v12;
-        *(v11 + 40) = v14;
+        *(v12 + 56) = &type metadata for String;
+        *(v12 + 64) = sub_100006270();
+        *(v12 + 32) = v13;
+        *(v12 + 40) = v15;
         sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-        v15 = sub_100007544();
-        sub_1000074C4();
+        v16 = sub_100007544();
+        sub_1000074C4("Couldn't get applicationRecord for bundleID: %@", 47, 2, &_mh_execute_header, v16, v11, v12);
       }
     }
   }
@@ -652,19 +649,10 @@ void sub_1000035F4(void **a1, char a2)
   free(v3);
 }
 
-uint64_t PeoplePickerShellViewController.extensionViewController.getter()
-{
-  v1 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-  return swift_unknownObjectRetain();
-}
-
 uint64_t PeoplePickerShellViewController.extensionViewController.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
   return swift_unknownObjectRelease();
 }
@@ -778,8 +766,7 @@ LABEL_12:
       v8 = v3;
     }
 
-    v12 = v2[4];
-    v13 = sub_1000042A8();
+    v12 = sub_1000042A8();
     swift_getObjectType();
     sub_100007474();
 
@@ -805,8 +792,7 @@ LABEL_12:
   if ((v11 & 1) == 0)
   {
 LABEL_15:
-    v14 = v2[4];
-    v15 = sub_1000042A8();
+    v13 = sub_1000042A8();
     swift_getObjectType();
     sub_100007474();
 
@@ -835,95 +821,94 @@ void sub_100003D10(void (*a1)(void *), uint64_t a2)
   if (v6)
   {
     v7 = v6;
-    sub_100007524();
+    v8 = sub_100007524();
     sub_100001EDC(&qword_100010D78, &qword_100008350);
-    v8 = swift_allocObject();
-    *(v8 + 16) = xmmword_100008320;
-    *(v8 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
-    *(v8 + 64) = sub_100006EE8();
-    *(v8 + 32) = v7;
+    v9 = swift_allocObject();
+    *(v9 + 16) = xmmword_100008320;
+    *(v9 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
+    *(v9 + 64) = sub_100006EE8();
+    *(v9 + 32) = v7;
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v9 = v7;
-    v10 = sub_100007544();
-    sub_1000074C4();
+    v10 = v7;
+    v11 = sub_100007544();
+    sub_1000074C4("Not requesting activity, activity already provided activity: %@", 63, 2, &_mh_execute_header, v11, v8, v9);
 
-    v11 = v9;
+    v12 = v10;
     a1(v6);
   }
 
   else
   {
-    v12 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v13 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v13 = *(v2 + v12);
-    if (v13)
+    v14 = *(v2 + v13);
+    if (v14)
     {
-      v14 = objc_opt_self();
-      v15 = swift_allocObject();
+      v15 = objc_opt_self();
+      v16 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v27 = sub_10000738C;
-      v28 = v15;
-      v23 = _NSConcreteStackBlock;
-      v24 = 1107296256;
-      v25 = sub_100004128;
-      v26 = &unk_10000C888;
-      v16 = _Block_copy(&v23);
+      v29 = sub_10000738C;
+      v30 = v16;
+      v25 = _NSConcreteStackBlock;
+      v26 = 1107296256;
+      v27 = sub_100004128;
+      v28 = &unk_10000C888;
+      v17 = _Block_copy(&v25);
       swift_unknownObjectRetain();
 
-      v17 = [v14 scheduledTimerWithTimeInterval:0 repeats:v16 block:1.0];
-      _Block_release(v16);
-      v18 = swift_allocObject();
-      swift_unknownObjectWeakInit();
+      v18 = [v15 scheduledTimerWithTimeInterval:0 repeats:v17 block:1.0];
+      _Block_release(v17);
       v19 = swift_allocObject();
-      v19[2] = v18;
-      v19[3] = v17;
-      v19[4] = a1;
-      v19[5] = a2;
-      v27 = sub_100007348;
-      v28 = v19;
-      v23 = _NSConcreteStackBlock;
-      v24 = 1107296256;
-      v25 = sub_10000423C;
-      v26 = &unk_10000C8D8;
-      v20 = _Block_copy(&v23);
-      v21 = v17;
+      swift_unknownObjectWeakInit();
+      v20 = swift_allocObject();
+      v20[2] = v19;
+      v20[3] = v18;
+      v20[4] = a1;
+      v20[5] = a2;
+      v29 = sub_100007348;
+      v30 = v20;
+      v25 = _NSConcreteStackBlock;
+      v26 = 1107296256;
+      v27 = sub_10000423C;
+      v28 = &unk_10000C8D8;
+      v21 = _Block_copy(&v25);
+      v22 = v18;
 
-      [v13 requestActivity:v20];
-      _Block_release(v20);
+      [v14 requestActivity:v21];
+      _Block_release(v21);
       swift_unknownObjectRelease();
     }
 
     else
     {
-      sub_100007514();
+      v23 = sub_100007514();
       sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-      v22 = sub_100007544();
-      sub_1000074C4();
+      v24 = sub_100007544();
+      sub_1000074C4("No valid extensionViewController, can't populate activity", 57, 2, &_mh_execute_header, v24, v23, &_swiftEmptyArrayStorage);
 
       a1(0);
     }
   }
 }
 
-void sub_1000040C0()
+void sub_1000040C0(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = sub_100004728();
-    [v2 startAnimating];
+    v3 = Strong;
+    v4 = sub_100004728();
+    [v4 startAnimating];
   }
 }
 
 void sub_100004128(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 void sub_100004190(uint64_t a1, uint64_t a2, void *a3, void (*a4)(uint64_t))
@@ -943,58 +928,55 @@ void sub_100004190(uint64_t a1, uint64_t a2, void *a3, void (*a4)(uint64_t))
 
 void sub_10000423C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 id sub_1000042A8()
 {
   v1 = sub_1000073F4();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1, v4);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController;
-  v8 = *(v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController);
-  if (v8)
+  __chkstk_darwin(v1, v3);
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController;
+  v7 = *(v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController);
+  if (v7)
   {
-    v9 = *(v7 + 8);
-    v10 = *(v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController);
+    v8 = *(v0 + OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___peoplePickerViewController);
   }
 
   else
   {
-    (*(v2 + 104))(v6, enum case for PeoplePickerStyle.sharePlay(_:), v1);
-    v11 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_activity;
+    (*(v2 + 104))(v5, enum case for PeoplePickerStyle.sharePlay(_:), v1);
+    v9 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_activity;
     swift_beginAccess();
-    v12 = *(v0 + v11);
-    v13 = sub_1000074B4();
-    v15 = v14;
+    v10 = *(v0 + v9);
+    v11 = sub_1000074B4();
+    v13 = v12;
 
-    (*(v2 + 8))(v6, v1);
+    (*(v2 + 8))(v5, v1);
     swift_getObjectType();
-    v16 = [v13 navigationItem];
-    [v16 setHidesBackButton:1];
+    v14 = [v11 navigationItem];
+    [v14 setHidesBackButton:1];
 
     sub_1000072D8();
     swift_unknownObjectRetain();
     sub_1000074A4();
-    v17 = *v7;
-    *v7 = v13;
-    *(v7 + 8) = v15;
-    v10 = v13;
+    v15 = *v6;
+    *v6 = v11;
+    *(v6 + 8) = v13;
+    v8 = v11;
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  v18 = v8;
-  return v10;
+  v16 = v7;
+  return v8;
 }
 
-id sub_1000044A0()
+char *sub_1000044A0()
 {
   v1 = v0;
   v2 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController____lazy_storage___sharePlayWelcomeViewController;
@@ -1115,11 +1097,9 @@ uint64_t sub_1000047A0()
 
   else
   {
-    v3 = v0;
     sub_100007444();
     v2 = sub_100007434();
-    v4 = *(v0 + v1);
-    *(v3 + v1) = v2;
+    *(v0 + v1) = v2;
   }
 
   return v2;
@@ -1307,11 +1287,11 @@ id PeoplePickerShellViewController.init(coder:)(void *a1)
   return v4;
 }
 
-id PeoplePickerShellViewController.__deallocating_deinit()
+id PeoplePickerShellViewController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PeoplePickerShellViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for PeoplePickerShellViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void *sub_100004EB4()
@@ -1328,17 +1308,16 @@ uint64_t (*sub_100004F28(uint64_t **a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
-    v3 = swift_coroFrameAlloc();
+    v2 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v3 = malloc(0x28uLL);
+    v2 = malloc(0x28uLL);
   }
 
-  *a1 = v3;
-  v4 = *v1;
-  v3[4] = PeoplePickerShellViewController.connection.modify(v3);
+  *a1 = v2;
+  v2[4] = PeoplePickerShellViewController.connection.modify(v2);
   return sub_100004F9C;
 }
 
@@ -1356,17 +1335,16 @@ uint64_t (*sub_100005014(uint64_t **a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
-    v3 = swift_coroFrameAlloc();
+    v2 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v3 = malloc(0x28uLL);
+    v2 = malloc(0x28uLL);
   }
 
-  *a1 = v3;
-  v4 = *v1;
-  v3[4] = PeoplePickerShellViewController.activity.modify(v3);
+  *a1 = v2;
+  v2[4] = PeoplePickerShellViewController.activity.modify(v2);
   return sub_100007380;
 }
 
@@ -1378,36 +1356,18 @@ void sub_100005088(void *a1)
   free(v1);
 }
 
-uint64_t sub_1000050D0()
-{
-  v1 = *v0;
-  v2 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
-  swift_beginAccess();
-  v3 = *(v1 + v2);
-  return swift_unknownObjectRetain();
-}
-
 uint64_t sub_10000511C(uint64_t a1)
 {
   v3 = *v1;
   v4 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
   swift_beginAccess();
-  v5 = *(v3 + v4);
   *(v3 + v4) = a1;
   return swift_unknownObjectRelease();
 }
 
-uint64_t (*sub_100005178())()
+void sub_1000051DC(uint64_t a1)
 {
-  v1 = *v0;
-  swift_beginAccess();
-  return j_j__swift_endAccess;
-}
-
-void sub_1000051DC()
-{
-  v1 = *v0;
-  v2 = sub_1000042A8();
+  v1 = sub_1000042A8();
   swift_getObjectType();
 
   sub_100007484();
@@ -1428,31 +1388,30 @@ uint64_t PeoplePickerShellViewController.peoplePickerInvited(_:withVideo:button:
 {
   v10 = sub_100001EDC(&qword_100010DD0, &qword_100008358);
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10 - 8, v13);
-  v15 = &v21 - v14;
-  sub_1000062E8(a5, &v21 - v14);
-  v16 = (*(v11 + 80) + 48) & ~*(v11 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = v5;
-  *(v17 + 24) = a1;
-  *(v17 + 32) = a2;
-  *(v17 + 40) = a4;
-  sub_10000635C(v15, v17 + v16);
-  v18 = a4;
-  v19 = v5;
+  __chkstk_darwin(v10 - 8, v12);
+  v14 = &v20 - v13;
+  sub_1000062E8(a5, &v20 - v13);
+  v15 = (*(v11 + 80) + 48) & ~*(v11 + 80);
+  v16 = swift_allocObject();
+  *(v16 + 16) = v5;
+  *(v16 + 24) = a1;
+  *(v16 + 32) = a2;
+  *(v16 + 40) = a4;
+  sub_10000635C(v14, v16 + v15);
+  v17 = a4;
+  v18 = v5;
 
-  sub_100003D10(sub_1000063CC, v17);
+  sub_100003D10(sub_1000063CC, v16);
 }
 
-id sub_1000053EC(uint64_t a1, uint64_t a2)
+id sub_1000053EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   sub_1000047A0();
   sub_100007424();
 
-  v3 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+  v7 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
   swift_beginAccess();
-  result = *(a2 + v3);
+  result = *(a2 + v7);
   if (result)
   {
     return [result dismissViewControllerWithSuccess:1];
@@ -1495,15 +1454,15 @@ void sub_10000551C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, NSString a5)
   [a3 presentViewController:v9 animated:1 completion:0];
 }
 
-id PeoplePickerShellViewController.peoplePickerRequestedDialCall(using:video:contact:handle:senderIdentity:ttyType:)()
+id PeoplePickerShellViewController.peoplePickerRequestedDialCall(using:video:contact:handle:senderIdentity:ttyType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v1 = v0;
+  v7 = v6;
   sub_1000047A0();
   sub_100007404();
 
-  v2 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+  v8 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
   swift_beginAccess();
-  result = *(v1 + v2);
+  result = *(v7 + v8);
   if (result)
   {
     return [result dismissViewControllerWithSuccess:1];
@@ -1524,7 +1483,7 @@ uint64_t PeoplePickerShellViewController.peoplePickerSentInvitation(with:facetim
   v11 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_activity;
   swift_beginAccess();
   v12 = *&v4[v11];
-  v45 = a1;
+  v47 = a1;
   if (v12)
   {
     v13 = v4;
@@ -1534,117 +1493,117 @@ uint64_t PeoplePickerShellViewController.peoplePickerSentInvitation(with:facetim
     v15 = v13;
     v16 = v14;
     v17 = v12;
-    sub_100007524();
+    v18 = sub_100007524();
     sub_100001EDC(&qword_100010D78, &qword_100008350);
-    v18 = swift_allocObject();
-    *(v18 + 16) = xmmword_100008320;
-    *(v18 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
-    *(v18 + 64) = sub_100006EE8();
-    *(v18 + 32) = v17;
+    v19 = swift_allocObject();
+    *(v19 + 16) = xmmword_100008320;
+    *(v19 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
+    *(v19 + 64) = sub_100006EE8();
+    *(v19 + 32) = v17;
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v19 = v17;
-    v20 = sub_100007544();
-    sub_1000074C4();
+    v20 = v17;
+    v21 = sub_100007544();
+    sub_1000074C4("Not requesting activity, activity already provided activity: %@", 63, 2, &_mh_execute_header, v21, v18, v19);
 
-    v21 = v19;
+    v22 = v20;
     sub_1000047A0();
     sub_100007414();
 
-    v22 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v23 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v23 = *&v15[v22];
-    if (v23)
+    v24 = *&v15[v23];
+    if (v24)
     {
-      [v23 dismissViewControllerWithSuccess:1];
+      [v24 dismissViewControllerWithSuccess:1];
     }
   }
 
   else
   {
-    v25 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v26 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v26 = *&v4[v25];
-    if (v26)
+    v27 = *&v4[v26];
+    if (v27)
     {
-      v44 = objc_opt_self();
-      v27 = swift_allocObject();
+      v46 = objc_opt_self();
+      v28 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v50 = sub_100006EBC;
-      v51 = v27;
+      v52 = sub_100006EBC;
+      v53 = v28;
       aBlock = _NSConcreteStackBlock;
-      v47 = 1107296256;
-      v48 = sub_100004128;
-      v49 = &unk_10000C698;
-      v28 = _Block_copy(&aBlock);
-      v29 = v5;
-      v30 = a1;
+      v49 = 1107296256;
+      v50 = sub_100004128;
+      v51 = &unk_10000C698;
+      v29 = _Block_copy(&aBlock);
+      v30 = v5;
+      v31 = a1;
       swift_bridgeObjectRetain_n();
       swift_bridgeObjectRetain_n();
-      v31 = v29;
       v32 = v30;
+      v33 = v31;
       swift_unknownObjectRetain();
 
-      v33 = [v44 scheduledTimerWithTimeInterval:0 repeats:v28 block:1.0];
-      _Block_release(v28);
-      v34 = swift_allocObject();
-      swift_unknownObjectWeakInit();
+      v34 = [v46 scheduledTimerWithTimeInterval:0 repeats:v29 block:1.0];
+      _Block_release(v29);
       v35 = swift_allocObject();
-      v35[2] = v34;
-      v35[3] = v33;
-      v35[4] = sub_100006E80;
-      v35[5] = v10;
-      v50 = sub_100006EDC;
-      v51 = v35;
+      swift_unknownObjectWeakInit();
+      v36 = swift_allocObject();
+      v36[2] = v35;
+      v36[3] = v34;
+      v36[4] = sub_100006E80;
+      v36[5] = v10;
+      v52 = sub_100006EDC;
+      v53 = v36;
       aBlock = _NSConcreteStackBlock;
-      v47 = 1107296256;
-      v48 = sub_10000423C;
-      v49 = &unk_10000C6E8;
-      v36 = _Block_copy(&aBlock);
-      v37 = v33;
+      v49 = 1107296256;
+      v50 = sub_10000423C;
+      v51 = &unk_10000C6E8;
+      v37 = _Block_copy(&aBlock);
+      v38 = v34;
 
-      v24 = v45;
+      v25 = v47;
 
-      [v26 requestActivity:v36];
-      _Block_release(v36);
+      [v27 requestActivity:v37];
+      _Block_release(v37);
 
       swift_unknownObjectRelease();
 
       goto LABEL_8;
     }
 
-    v39 = v5;
-    v40 = a1;
+    v40 = v5;
+    v41 = a1;
     swift_bridgeObjectRetain_n();
     swift_bridgeObjectRetain_n();
-    v39;
-    v41 = v40;
-    sub_100007514();
+    v40;
+    v42 = v41;
+    v43 = sub_100007514();
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v42 = sub_100007544();
-    sub_1000074C4();
+    v44 = sub_100007544();
+    sub_1000074C4("No valid extensionViewController, can't populate activity", 57, 2, &_mh_execute_header, v44, v43, &_swiftEmptyArrayStorage);
 
     sub_1000047A0();
     sub_100007414();
 
-    v43 = *&v5[v25];
-    if (v43)
+    v45 = *&v5[v26];
+    if (v45)
     {
-      [v43 dismissViewControllerWithSuccess:1];
+      [v45 dismissViewControllerWithSuccess:1];
     }
   }
 
-  v24 = v45;
+  v25 = v47;
 LABEL_8:
 }
 
-id sub_100005CB0(uint64_t a1, uint64_t a2)
+id sub_100005CB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   sub_1000047A0();
   sub_100007414();
 
-  v3 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+  v7 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
   swift_beginAccess();
-  result = *(a2 + v3);
+  result = *(a2 + v7);
   if (result)
   {
     return [result dismissViewControllerWithSuccess:1];
@@ -1657,54 +1616,54 @@ uint64_t sub_100005D6C(uint64_t a1, char a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v10 = sub_100001EDC(&qword_100010DD0, &qword_100008358);
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10 - 8, v13);
-  v15 = &v21 - v14;
-  sub_1000062E8(a5, &v21 - v14);
-  v16 = (*(v11 + 80) + 48) & ~*(v11 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = v5;
-  *(v17 + 24) = a1;
-  *(v17 + 32) = a2;
-  *(v17 + 40) = a4;
-  sub_10000635C(v15, v17 + v16);
-  v18 = a4;
-  v19 = v5;
+  __chkstk_darwin(v10 - 8, v12);
+  v14 = &v20 - v13;
+  sub_1000062E8(a5, &v20 - v13);
+  v15 = (*(v11 + 80) + 48) & ~*(v11 + 80);
+  v16 = swift_allocObject();
+  *(v16 + 16) = v5;
+  *(v16 + 24) = a1;
+  *(v16 + 32) = a2;
+  *(v16 + 40) = a4;
+  sub_10000635C(v14, v16 + v15);
+  v17 = a4;
+  v18 = v5;
 
-  sub_100003D10(sub_100007384, v17);
+  sub_100003D10(sub_100007384, v16);
 }
 
-uint64_t sub_100005EB4(void *a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t sub_100005EB4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a4;
   v9 = v4;
   v10 = a1;
 
-  sub_10000697C(v9, v9, v10, a2, a3, a4);
+  sub_10000697C(v9, v9, v10, a2, a3, v5);
 }
 
 id PeoplePickerShellViewController.messageComposeViewController(_:didFinishWith:)(void *a1, uint64_t a2)
 {
   v3 = v2;
-  sub_100007524();
+  v6 = sub_100007524();
   if (a2)
   {
     sub_100001EDC(&qword_100010D78, &qword_100008350);
-    v6 = swift_allocObject();
-    *(v6 + 16) = xmmword_100008320;
+    v7 = swift_allocObject();
+    *(v7 + 16) = xmmword_100008320;
     type metadata accessor for MessageComposeResult();
-    v7 = sub_1000074F4();
-    v9 = v8;
-    *(v6 + 56) = &type metadata for String;
-    *(v6 + 64) = sub_100006270();
-    *(v6 + 32) = v7;
-    *(v6 + 40) = v9;
+    v8 = sub_1000074F4();
+    v10 = v9;
+    *(v7 + 56) = &type metadata for String;
+    *(v7 + 64) = sub_100006270();
+    *(v7 + 32) = v8;
+    *(v7 + 40) = v10;
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v10 = sub_100007544();
-    sub_1000074C4();
+    v11 = sub_100007544();
+    sub_1000074C4("Dismissing viewController because we received result: %@", 56, 2, &_mh_execute_header, v11, v6, v7);
 
-    v11 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v12 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    result = *(v3 + v11);
+    result = *(v3 + v12);
     if (result)
     {
       return [result dismissViewControllerWithSuccess:a2 == 1];
@@ -1714,8 +1673,8 @@ id PeoplePickerShellViewController.messageComposeViewController(_:didFinishWith:
   else
   {
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v13 = sub_100007544();
-    sub_1000074C4();
+    v14 = sub_100007544();
+    sub_1000074C4("Not dismissing ViewController because user cancelled Messages compose view", 74, 2, &_mh_execute_header, v14, v6, &_swiftEmptyArrayStorage);
 
     return [a1 dismissViewControllerAnimated:1 completion:0];
   }
@@ -1809,65 +1768,65 @@ void sub_100006520(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
 
     v13 = v12;
 
-    v31 = a3;
-    sub_100007524();
+    v33 = a3;
+    v14 = sub_100007524();
     sub_100001EDC(&qword_100010D78, &qword_100008350);
-    v14 = swift_allocObject();
-    *(v14 + 16) = xmmword_100008320;
-    *(v14 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
-    *(v14 + 64) = sub_100006EE8();
-    *(v14 + 32) = v13;
+    v15 = swift_allocObject();
+    *(v15 + 16) = xmmword_100008320;
+    *(v15 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
+    *(v15 + 64) = sub_100006EE8();
+    *(v15 + 32) = v13;
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v15 = v13;
-    v16 = sub_100007544();
-    sub_1000074C4();
+    v16 = v13;
+    v17 = sub_100007544();
+    sub_1000074C4("Not requesting activity, activity already provided activity: %@", 63, 2, &_mh_execute_header, v17, v14, v15);
 
-    v17 = v15;
-    sub_10000551C(v12, a2, v31, a4, a5);
+    v18 = v16;
+    sub_10000551C(v12, a2, v33, a4, a5);
   }
 
   else
   {
-    v18 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v19 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v19 = *(a1 + v18);
-    if (v19)
+    v20 = *(a1 + v19);
+    if (v20)
     {
-      v20 = objc_opt_self();
-      v21 = swift_allocObject();
+      v21 = objc_opt_self();
+      v22 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v36 = sub_10000738C;
-      v37 = v21;
+      v38 = sub_10000738C;
+      v39 = v22;
       aBlock = _NSConcreteStackBlock;
-      v33 = 1107296256;
-      v34 = sub_100004128;
-      v35 = &unk_10000C810;
-      v22 = _Block_copy(&aBlock);
+      v35 = 1107296256;
+      v36 = sub_100004128;
+      v37 = &unk_10000C810;
+      v23 = _Block_copy(&aBlock);
 
       swift_unknownObjectRetain();
 
-      v23 = a3;
+      v24 = a3;
 
-      v24 = [v20 scheduledTimerWithTimeInterval:0 repeats:v22 block:1.0];
-      _Block_release(v22);
-      v25 = swift_allocObject();
-      swift_unknownObjectWeakInit();
+      v25 = [v21 scheduledTimerWithTimeInterval:0 repeats:v23 block:1.0];
+      _Block_release(v23);
       v26 = swift_allocObject();
-      v26[2] = v25;
-      v26[3] = v24;
-      v26[4] = sub_100007270;
-      v26[5] = v10;
-      v36 = sub_100007348;
-      v37 = v26;
+      swift_unknownObjectWeakInit();
+      v27 = swift_allocObject();
+      v27[2] = v26;
+      v27[3] = v25;
+      v27[4] = sub_100007270;
+      v27[5] = v10;
+      v38 = sub_100007348;
+      v39 = v27;
       aBlock = _NSConcreteStackBlock;
-      v33 = 1107296256;
-      v34 = sub_10000423C;
-      v35 = &unk_10000C860;
-      v27 = _Block_copy(&aBlock);
-      v28 = v24;
+      v35 = 1107296256;
+      v36 = sub_10000423C;
+      v37 = &unk_10000C860;
+      v28 = _Block_copy(&aBlock);
+      v29 = v25;
 
-      [v19 requestActivity:v27];
-      _Block_release(v27);
+      [v20 requestActivity:v28];
+      _Block_release(v28);
 
       swift_unknownObjectRelease();
     }
@@ -1875,13 +1834,13 @@ void sub_100006520(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
     else
     {
 
-      v29 = a3;
-      sub_100007514();
+      v30 = a3;
+      v31 = sub_100007514();
       sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-      v30 = sub_100007544();
-      sub_1000074C4();
+      v32 = sub_100007544();
+      sub_1000074C4("No valid extensionViewController, can't populate activity", 57, 2, &_mh_execute_header, v32, v31, &_swiftEmptyArrayStorage);
 
-      sub_10000551C(0, a2, v29, a4, a5);
+      sub_10000551C(0, a2, v30, a4, a5);
     }
   }
 }
@@ -1903,96 +1862,96 @@ void sub_10000697C(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, ch
     a3;
 
     v16 = v14;
-    sub_100007524();
+    v17 = sub_100007524();
     sub_100001EDC(&qword_100010D78, &qword_100008350);
-    v17 = swift_allocObject();
-    *(v17 + 16) = xmmword_100008320;
-    *(v17 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
-    *(v17 + 64) = sub_100006EE8();
-    *(v17 + 32) = v16;
+    v18 = swift_allocObject();
+    *(v18 + 16) = xmmword_100008320;
+    *(v18 + 56) = sub_100006FE0(0, &qword_100010DA0, TUConversationActivity_ptr);
+    *(v18 + 64) = sub_100006EE8();
+    *(v18 + 32) = v16;
     sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-    v18 = v16;
-    v19 = sub_100007544();
-    sub_1000074C4();
+    v19 = v16;
+    v20 = sub_100007544();
+    sub_1000074C4("Not requesting activity, activity already provided activity: %@", 63, 2, &_mh_execute_header, v20, v17, v18);
 
-    v20 = v18;
+    v21 = v19;
     sub_1000047A0();
     sub_100007414();
 
-    v21 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v22 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v22 = *&v15[v21];
-    if (v22)
+    v23 = *&v15[v22];
+    if (v23)
     {
-      [v22 dismissViewControllerWithSuccess:1];
+      [v23 dismissViewControllerWithSuccess:1];
     }
   }
 
   else
   {
-    v23 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+    v24 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
     swift_beginAccess();
-    v24 = *(a1 + v23);
-    if (v24)
+    v25 = *(a1 + v24);
+    if (v25)
     {
-      v39 = objc_opt_self();
-      v25 = swift_allocObject();
+      v41 = objc_opt_self();
+      v26 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v44 = sub_10000738C;
-      v45 = v25;
+      v46 = sub_10000738C;
+      v47 = v26;
       aBlock = _NSConcreteStackBlock;
-      v41 = 1107296256;
-      v42 = sub_100004128;
-      v43 = &unk_10000C770;
-      v26 = _Block_copy(&aBlock);
-      v27 = a2;
-      v28 = a3;
+      v43 = 1107296256;
+      v44 = sub_100004128;
+      v45 = &unk_10000C770;
+      v27 = _Block_copy(&aBlock);
+      v28 = a2;
+      v29 = a3;
 
       swift_unknownObjectRetain();
 
-      v29 = [v39 scheduledTimerWithTimeInterval:0 repeats:v26 block:1.0];
-      _Block_release(v26);
-      v30 = swift_allocObject();
-      swift_unknownObjectWeakInit();
+      v30 = [v41 scheduledTimerWithTimeInterval:0 repeats:v27 block:1.0];
+      _Block_release(v27);
       v31 = swift_allocObject();
-      v31[2] = v30;
-      v31[3] = v29;
-      v31[4] = sub_100007388;
-      v31[5] = v12;
-      v44 = sub_100007348;
-      v45 = v31;
+      swift_unknownObjectWeakInit();
+      v32 = swift_allocObject();
+      v32[2] = v31;
+      v32[3] = v30;
+      v32[4] = sub_100007388;
+      v32[5] = v12;
+      v46 = sub_100007348;
+      v47 = v32;
       aBlock = _NSConcreteStackBlock;
-      v41 = 1107296256;
-      v42 = sub_10000423C;
-      v43 = &unk_10000C7C0;
-      v32 = _Block_copy(&aBlock);
-      v33 = v29;
+      v43 = 1107296256;
+      v44 = sub_10000423C;
+      v45 = &unk_10000C7C0;
+      v33 = _Block_copy(&aBlock);
+      v34 = v30;
 
-      [v24 requestActivity:v32];
-      _Block_release(v32);
+      [v25 requestActivity:v33];
+      _Block_release(v33);
 
       swift_unknownObjectRelease();
     }
 
     else
     {
-      v34 = a2;
-      v35 = a3;
+      v35 = a2;
+      v36 = a3;
 
-      sub_100007514();
+      v37 = sub_100007514();
       sub_100006FE0(0, &qword_100010D88, OS_os_log_ptr);
-      v36 = sub_100007544();
-      sub_1000074C4();
+      v38 = sub_100007544();
+      sub_1000074C4("No valid extensionViewController, can't populate activity", 57, 2, &_mh_execute_header, v38, v37, &_swiftEmptyArrayStorage);
 
       sub_1000047A0();
       sub_100007414();
 
-      v37 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
+      v39 = OBJC_IVAR____TtC18RemotePeoplePicker31PeoplePickerShellViewController_extensionViewController;
       swift_beginAccess();
-      v38 = *&v34[v37];
-      if (v38)
+      v40 = *&v35[v39];
+      if (v40)
       {
-        [v38 dismissViewControllerWithSuccess:1];
+        [v40 dismissViewControllerWithSuccess:1];
       }
     }
   }
@@ -2049,12 +2008,11 @@ id sub_100006FD0(id result)
   return result;
 }
 
-uint64_t sub_100006FE0(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100006FE0(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2070,13 +2028,11 @@ uint64_t sub_100007028()
   v3 = (v2 + 48) & ~v2;
   v4 = *(v1 + 64);
 
-  v5 = *(v0 + 24);
-
-  v6 = sub_1000073E4();
-  v7 = *(v6 - 8);
-  if (!(*(v7 + 48))(v0 + v3, 1, v6))
+  v5 = sub_1000073E4();
+  v6 = *(v5 - 8);
+  if (!(*(v6 + 48))(v0 + v3, 1, v5))
   {
-    (*(v7 + 8))(v0 + v3, v6);
+    (*(v6 + 8))(v0 + v3, v5);
   }
 
   return _swift_deallocObject(v0, v3 + v4, v2 | 7);
@@ -2084,31 +2040,20 @@ uint64_t sub_100007028()
 
 id sub_100007158(uint64_t a1)
 {
-  v3 = *(*(sub_100001EDC(&qword_100010DD0, &qword_100008358) - 8) + 80);
+  v3 = *(sub_100001EDC(&qword_100010DD0, &qword_100008358) - 8);
   v4 = *(v1 + 16);
   v5 = *(v1 + 24);
   v6 = *(v1 + 32);
   v7 = *(v1 + 40);
+  v8 = v1 + ((*(v3 + 80) + 48) & ~*(v3 + 80));
 
-  return sub_1000053EC(a1, v4);
+  return sub_1000053EC(a1, v4, v5, v6, v7, v8);
 }
 
 uint64_t sub_1000071E0()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 49, 7);
-}
-
-id sub_100007230(uint64_t a1)
-{
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 32);
-  v4 = *(v1 + 40);
-  v5 = *(v1 + 48);
-  return sub_100005CB0(a1, *(v1 + 16));
 }
 
 uint64_t sub_10000727C(void (*a1)(void))

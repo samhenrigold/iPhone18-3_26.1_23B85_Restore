@@ -94,22 +94,21 @@ LABEL_13:
 
 void __104__RBRequestManager__finishLaunchRequestAfterAssertionAcquisition_requestor_identifier_error_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v13 = a2;
+  v12 = a2;
   v7 = a3;
   v8 = a4;
   v9 = *(a1 + 32);
-  if (v13)
+  if (v12)
   {
     v10 = [*(a1 + 32) assertionWithIdentifier:*(a1 + 40)];
     [v10 setLaunchAssertion:0];
-    v11 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v12 = [*(a1 + 48) identifier];
-    [v9 invalidateAssertionFromOriginator:v12 withIdentifier:*(a1 + 40)];
+    v11 = [*(a1 + 48) identifier];
+    [v9 invalidateAssertionFromOriginator:v11 withIdentifier:*(a1 + 40)];
 
     (*(*(a1 + 56) + 16))();
   }
@@ -157,7 +156,7 @@ void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invo
 
 - (void)executeLaunchRequest:(id)request euid:(unsigned int)euid requestor:(id)requestor entitlements:(id)entitlements completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   requestorCopy = requestor;
   entitlementsCopy = entitlements;
@@ -173,9 +172,9 @@ void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invo
     {
       identityString = [appID identityString];
       *buf = 138543618;
-      v36 = identityString;
-      v37 = 2114;
-      v38 = v17;
+      v35 = identityString;
+      v36 = 2114;
+      v37 = v17;
       _os_log_impl(&dword_262485000, v18, OS_LOG_TYPE_INFO, "Resolved identity for launch request for %{public}@ to %{public}@", buf, 0x16u);
     }
 
@@ -186,9 +185,9 @@ void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invo
     }
   }
 
-  v34 = requestCopy;
+  v33 = requestCopy;
   v21 = [(RBRequestManager *)self _checkAndAdjustLaunchRequest:requestorCopy requestor:entitlementsCopy entitlements:?];
-  v22 = v34;
+  v22 = v33;
 
   if (v21)
   {
@@ -203,16 +202,16 @@ void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invo
     {
       v25 = MEMORY[0x277D47038];
       v26 = +[RBConnectionClient sharedLaunchWorkloop];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_completion___block_invoke;
-      v29[3] = &unk_279B33DC0;
-      v29[4] = self;
-      v30 = v22;
-      v31 = context3;
-      v32 = requestorCopy;
-      v33 = completionCopy;
-      [v25 handoffContextOnQueue:v26 block:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_completion___block_invoke;
+      v28[3] = &unk_279B33DC0;
+      v28[4] = self;
+      v29 = v22;
+      v30 = context3;
+      v31 = requestorCopy;
+      v32 = completionCopy;
+      [v25 handoffContextOnQueue:v26 block:v28];
     }
   }
 
@@ -227,13 +226,11 @@ void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invo
     context3 = [MEMORY[0x277CCA9B8] rbs_errorClientNotAuthorized];
     (*(completionCopy + 2))(completionCopy, 0, 0, 0, context3);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) processManager];
   if (v2)
   {
@@ -246,42 +243,40 @@ void __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_com
       v7 = [*(a1 + 48) explanation];
       v8 = *(a1 + 56);
       *buf = 138543874;
-      v20 = v6;
-      v21 = 2114;
-      v22 = v7;
-      v23 = 2114;
-      v24 = v8;
+      v19 = v6;
+      v20 = 2114;
+      v21 = v7;
+      v22 = 2114;
+      v23 = v8;
       _os_log_impl(&dword_262485000, v3, OS_LOG_TYPE_DEFAULT, "Executing launch request for %{public}@ (%{public}@) from requestor: %{public}@", buf, 0x20u);
     }
 
     v9 = *(a1 + 40);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_completion___block_invoke_26;
-    v15[3] = &unk_279B33D98;
-    v16 = *(a1 + 64);
-    [v2 executeLaunchRequest:v9 withCompletion:v15];
-    v10 = v16;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __80__RBRequestManager_executeLaunchRequest_euid_requestor_entitlements_completion___block_invoke_26;
+    v14[3] = &unk_279B33D98;
+    v15 = *(a1 + 64);
+    [v2 executeLaunchRequest:v9 withCompletion:v14];
+    v10 = v15;
   }
 
   else
   {
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277D47088];
-    v17 = *MEMORY[0x277CCA470];
-    v18 = @"Unable to execute launch request";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA470];
+    v17 = @"Unable to execute launch request";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v10 = [v11 errorWithDomain:v12 code:5 userInfo:v13];
 
     (*(*(a1 + 64) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_checkExtensionLaunchFromRequstor:(id *)requstor AndAdjustRequest:
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (!self)
   {
@@ -336,19 +331,19 @@ LABEL_32:
     if ((objc_opt_isKindOfClass() & 1) != 0 && _os_feature_enabled_impl())
     {
       extensionIdentity = [identity extensionIdentity];
-      v57 = 0;
-      v16 = [extensionIdentity launchdJobDescriptorFor:identity error:&v57];
-      v17 = v57;
+      v56 = 0;
+      v16 = [extensionIdentity launchdJobDescriptorFor:identity error:&v56];
+      v17 = v56;
       jobProperties = [v16 jobProperties];
       executableURL = [v16 executableURL];
       v14 = 0;
       if (jobProperties && executableURL)
       {
         requstorCopy = requstor;
-        v52 = executableURL;
-        v53 = jobProperties;
+        v51 = executableURL;
+        v52 = jobProperties;
         clientRestriction = [v16 clientRestriction];
-        v51 = [RBDomainRestriction domainRestrictionForDictionary:"domainRestrictionForDictionary:withError:" withError:?];
+        v50 = [RBDomainRestriction domainRestrictionForDictionary:"domainRestrictionForDictionary:withError:" withError:?];
         v20 = +[RBAssertionDescriptorValidatorContext context];
         processManager = [*(self + 8) processManager];
         v22 = [processManager processForIdentity:identity];
@@ -358,7 +353,7 @@ LABEL_32:
         targetProcess = [v20 targetProcess];
         [entitlementManager entitlementsForProcess:targetProcess];
         objc_claimAutoreleasedReturnValue();
-        v54 = v16;
+        v53 = v16;
         [OUTLINED_FUNCTION_5_4() setTargetEntitlements:?];
 
         targetProcess2 = [v20 targetProcess];
@@ -377,28 +372,28 @@ LABEL_32:
         objc_claimAutoreleasedReturnValue();
         [OUTLINED_FUNCTION_5_4() setOriginatorProperties:?];
 
-        v16 = v54;
-        v30 = v51;
-        v56 = v17;
-        v14 = [v51 allowsContext:v20 withError:&v56];
-        v31 = v56;
+        v16 = v53;
+        v30 = v50;
+        v55 = v17;
+        v14 = [v50 allowsContext:v20 withError:&v55];
+        v31 = v55;
 
         if (v14)
         {
-          attributes = [v54 attributes];
+          attributes = [v53 attributes];
           attributes2 = [context attributes];
 
-          v48 = v31;
+          v47 = v31;
           if (attributes2)
           {
             attributes3 = [context attributes];
 
-            v46 = attributes3;
+            v45 = attributes3;
           }
 
           else
           {
-            v46 = attributes;
+            v45 = attributes;
           }
 
           v40 = MEMORY[0x277D46EB0];
@@ -420,39 +415,39 @@ LABEL_32:
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() setExplanation:?];
 
-          [v42 setAttributes:v47];
+          [v42 setAttributes:v46];
           [identity uuid];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() setOneShotUUID:?];
 
-          v16 = v54;
-          [v54 launchRequestEndpointIdentifiers];
+          v16 = v53;
+          [v53 launchRequestEndpointIdentifiers];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() setLaunchRequestIdentifierToMachNameMap:?];
 
-          [v54 managedEndpointLaunchIdentifiers];
+          [v53 managedEndpointLaunchIdentifiers];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() setManagedEndpointLaunchIdentifiers:?];
 
-          [v54 bundleIdentifier];
+          [v53 bundleIdentifier];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() setBundleIdentifier:?];
 
-          [v52 path];
+          [v51 path];
           objc_claimAutoreleasedReturnValue();
           [OUTLINED_FUNCTION_0_17() _setOverrideExecutablePath:?];
 
-          [v42 setLaunchdJobProperties:v53];
-          v30 = v51;
-          [v42 setClientRestriction:v51];
+          [v42 setLaunchdJobProperties:v52];
+          v30 = v50;
+          [v42 setClientRestriction:v50];
           *requstorCopy = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v42];
 
-          v31 = v48;
+          v31 = v47;
         }
 
         v17 = v31;
-        executableURL = v52;
-        jobProperties = v53;
+        executableURL = v51;
+        jobProperties = v52;
       }
     }
 
@@ -490,9 +485,9 @@ LABEL_32:
       [OUTLINED_FUNCTION_1_18() setRequiredExistingProcess:?];
 
       extensionDataProvider = [*(self + 8) extensionDataProvider];
-      v55 = 0;
-      v14 = [extensionDataProvider configureLaunchContext:extensionIdentity error:&v55];
-      v37 = v55;
+      v54 = 0;
+      v14 = [extensionDataProvider configureLaunchContext:extensionIdentity error:&v54];
+      v37 = v54;
 
       if (v14)
       {
@@ -517,8 +512,8 @@ LABEL_32:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_7_4();
-          v59 = v39;
-          v60 = v37;
+          v58 = v39;
+          v59 = v37;
           _os_log_impl(&dword_262485000, v38, OS_LOG_TYPE_DEFAULT, "Extension launch from %{public}@ for %{public}@ failed with error %{public}@", buf, 0x20u);
         }
       }
@@ -531,7 +526,6 @@ LABEL_32:
 LABEL_33:
 
 LABEL_34:
-  v44 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -544,31 +538,8 @@ LABEL_34:
 
   context = [*a2 context];
   identity = [context identity];
-  if ([identity osServiceType] == 3)
+  if ([identity osServiceType] == 3 || objc_msgSend(identity, "isApplication") && (objc_msgSend(identity, "embeddedApplicationIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v8, v8) && (objc_msgSend(identity, "embeddedApplicationIdentifier"), objc_claimAutoreleasedReturnValue(), objc_msgSend(OUTLINED_FUNCTION_2_10(), "applicationProxyForIdentifier:"), v9 = objc_claimAutoreleasedReturnValue(), v2, v2 = objc_msgSend(v9, "rb_hasEntitlementDomain:", 64), v9, v2))
   {
-    goto LABEL_3;
-  }
-
-  if (![identity isApplication])
-  {
-    goto LABEL_7;
-  }
-
-  embeddedApplicationIdentifier = [identity embeddedApplicationIdentifier];
-
-  if (!embeddedApplicationIdentifier)
-  {
-    goto LABEL_7;
-  }
-
-  [identity embeddedApplicationIdentifier];
-  objc_claimAutoreleasedReturnValue();
-  v9 = [OUTLINED_FUNCTION_2_10() applicationProxyForIdentifier:?];
-
-  v2 = [v9 rb_hasEntitlementDomain:64];
-  if (v2)
-  {
-LABEL_3:
     [context identity];
     objc_claimAutoreleasedReturnValue();
     v6 = [OUTLINED_FUNCTION_2_10() contextWithIdentity:?];
@@ -595,7 +566,6 @@ LABEL_3:
 
   else
   {
-LABEL_7:
     v7 = 0;
   }
 
@@ -604,7 +574,7 @@ LABEL_7:
 
 - (void)_finishLaunchRequestAfterAssertionAcquisition:(void *)acquisition requestor:(void *)requestor identifier:(void *)identifier error:(void *)error completion:
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v11 = a2;
   acquisitionCopy = acquisition;
   requestorCopy = requestor;
@@ -617,11 +587,11 @@ LABEL_7:
       v16 = MEMORY[0x277CCA9B8];
       v17 = *MEMORY[0x277D47088];
       v18 = *MEMORY[0x277CCA7E8];
-      v40[0] = *MEMORY[0x277CCA470];
-      v40[1] = v18;
-      v41[0] = @"Unable to execute launch request";
-      v41[1] = identifierCopy;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
+      v39[0] = *MEMORY[0x277CCA470];
+      v39[1] = v18;
+      v40[0] = @"Unable to execute launch request";
+      v40[1] = identifierCopy;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
       v20 = [v16 errorWithDomain:v17 code:5 userInfo:v19];
 
       v21 = OUTLINED_FUNCTION_4_6();
@@ -636,14 +606,14 @@ LABEL_7:
       if (processManager)
       {
         OUTLINED_FUNCTION_0_1();
-        v33 = 3221225472;
-        v34 = __104__RBRequestManager__finishLaunchRequestAfterAssertionAcquisition_requestor_identifier_error_completion___block_invoke;
-        v35 = &unk_279B33D20;
-        v36 = assertionManager;
-        v37 = requestorCopy;
-        v39 = errorCopy;
-        v38 = acquisitionCopy;
-        [processManager executeLaunchRequest:v11 withCompletion:v32];
+        v32 = 3221225472;
+        v33 = __104__RBRequestManager__finishLaunchRequestAfterAssertionAcquisition_requestor_identifier_error_completion___block_invoke;
+        v34 = &unk_279B33D20;
+        v35 = assertionManager;
+        v36 = requestorCopy;
+        v38 = errorCopy;
+        v37 = acquisitionCopy;
+        [processManager executeLaunchRequest:v11 withCompletion:v31];
 
         identifierCopy = 0;
       }
@@ -652,9 +622,9 @@ LABEL_7:
       {
         v25 = MEMORY[0x277CCA9B8];
         v26 = *MEMORY[0x277D47088];
-        v42 = *MEMORY[0x277CCA470];
-        v43[0] = @"Unable to execute launch request";
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+        v41 = *MEMORY[0x277CCA470];
+        v42[0] = @"Unable to execute launch request";
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
         identifierCopy = [v25 errorWithDomain:v26 code:5 userInfo:v27];
 
         identifier = [acquisitionCopy identifier];
@@ -665,8 +635,6 @@ LABEL_7:
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createAcquisitionContext:(void *)context requestor:(void *)requestor assertionIdentifier:(int)identifier isAbstractTarget:
@@ -785,26 +753,24 @@ void __76__RBRequestManager__executeLaunchRequestWithAssertion_requestor_complet
 
 void __60__RBRequestManager_acquireDroppedLaunchAssertion_requestor___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v6 = 138412802;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  v10 = 2114;
-  v11 = a2;
-  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Error acquiring launch assertion for target: %@: identifier %{public}@ error: <%{public}@>", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412802;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  v9 = 2114;
+  v10 = a2;
+  _os_log_error_impl(&dword_262485000, log, OS_LOG_TYPE_ERROR, "Error acquiring launch assertion for target: %@: identifier %{public}@ error: <%{public}@>", &v5, 0x20u);
 }
 
 - (void)executeLaunchRequest:(uint64_t)a1 euid:(NSObject *)a2 requestor:entitlements:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Rejecting launch request because %{public}@ is not entitled to launch processes", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_262485000, a2, OS_LOG_TYPE_ERROR, "Rejecting launch request because %{public}@ is not entitled to launch processes", &v2, 0xCu);
 }
 
 @end

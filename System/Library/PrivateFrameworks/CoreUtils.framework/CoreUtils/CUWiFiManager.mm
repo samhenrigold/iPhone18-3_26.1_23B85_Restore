@@ -83,7 +83,7 @@
           v6 = "Connected";
 LABEL_48:
           v18 = CUPrintFlags(_wifiFlagsUncached, byte_191FFA1B8, 1);
-          LogPrintF_safe(ucat, "[CUWiFiManager _wifiStateChanged]", 0xAu, "WiFi state unchanged: %s, flags=%@", v14, v15, v16, v17, v6);
+          LogPrintF_safe(ucat, "[CUWiFiManager _wifiStateChanged]", 10, "WiFi state unchanged: %s, flags=%@", v14, v15, v16, v17, v6);
 
           return;
       }
@@ -281,7 +281,7 @@ LABEL_35:
     }
 
     v23 = CUPrintFlags(_wifiFlagsUncached, byte_191FFA1B8, 1);
-    LogPrintF_safe(ucat, "[CUWiFiManager _wifiJoinNotification:status:reason:]", 0x1Eu, "WiFi Join notification: status=%@, state=%s, flags=%@, reason=%@", v12, v13, v14, v15, statusCopy);
+    LogPrintF_safe(ucat, "[CUWiFiManager _wifiJoinNotification:status:reason:]", 30, "WiFi Join notification: status=%@, state=%s, flags=%@, reason=%@", v12, v13, v14, v15, statusCopy);
   }
 
 LABEL_6:
@@ -409,7 +409,7 @@ LABEL_40:
     {
 LABEL_3:
       type = [v5 type];
-      LogPrintF_safe(ucat, "[CUWiFiManager _wifiHandleEvent:]", 0x1Eu, "WiFi event:type=%ld", v7, v8, v9, v10, type);
+      LogPrintF_safe(ucat, "[CUWiFiManager _wifiHandleEvent:]", 30, "WiFi event:type=%ld", v7, v8, v9, v10, type);
       goto LABEL_5;
     }
 
@@ -595,7 +595,7 @@ LABEL_38:
     }
 
     v8 = [(NSArray *)self->_trafficPeersCurrent count];
-    LogPrintF(ucat, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "Traffic registration stop: %d peers\n", v9, v10, v11, v12, v8);
+    LogPrintF(ucat, "[CUWiFiManager _wifiEnsureStopped]", 30, "Traffic registration stop: %d peers\n", v9, v10, v11, v12, v8);
     goto LABEL_7;
   }
 
@@ -618,7 +618,7 @@ LABEL_27:
       v21 = self->_ucat;
     }
 
-    LogPrintF(v21, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "WiFiDeviceClient critical monitor stopped\n", v2, v3, v4, v5, v32);
+    LogPrintF(v21, "[CUWiFiManager _wifiEnsureStopped]", 30, "WiFiDeviceClient critical monitor stopped\n", v2, v3, v4, v5, v32);
   }
 
 LABEL_41:
@@ -656,7 +656,7 @@ LABEL_44:
         v22 = self->_ucat;
       }
 
-      LogPrintF(v22, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "WiFi state monitor stopped\n", v2, v3, v4, v5, v32);
+      LogPrintF(v22, "[CUWiFiManager _wifiEnsureStopped]", 30, "WiFi state monitor stopped\n", v2, v3, v4, v5, v32);
     }
   }
 
@@ -678,7 +678,7 @@ LABEL_51:
       if (v24->var0 != -1)
       {
 LABEL_56:
-        LogPrintF(v24, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "WiFiDeviceClient stopped\n", v2, v3, v4, v5, v32);
+        LogPrintF(v24, "[CUWiFiManager _wifiEnsureStopped]", 30, "WiFiDeviceClient stopped\n", v2, v3, v4, v5, v32);
         goto LABEL_58;
       }
 
@@ -714,7 +714,7 @@ LABEL_58:
       if (v26->var0 != -1)
       {
 LABEL_63:
-        LogPrintF(v26, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "WiFiManagerClient stopped\n", v2, v3, v4, v5, v32);
+        LogPrintF(v26, "[CUWiFiManager _wifiEnsureStopped]", 30, "WiFiManagerClient stopped\n", v2, v3, v4, v5, v32);
         goto LABEL_65;
       }
 
@@ -742,7 +742,7 @@ LABEL_65:
         v27 = self->_ucat;
       }
 
-      LogPrintF(v27, "[CUWiFiManager _wifiEnsureStopped]", 0x1Eu, "WiFi monitoring stopped\n", v2, v3, v4, v5, v32);
+      LogPrintF(v27, "[CUWiFiManager _wifiEnsureStopped]", 30, "WiFi monitoring stopped\n", v2, v3, v4, v5, v32);
     }
 
 LABEL_70:
@@ -780,7 +780,7 @@ LABEL_70:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFi start monitoring\n", v2, v3, v4, v5, v44);
+      LogPrintF(ucat, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFi start monitoring\n", v2, v3, v4, v5, v45);
     }
 
 LABEL_6:
@@ -789,12 +789,12 @@ LABEL_6:
     self->_wifiRetrier = v8;
 
     [(CURetrier *)self->_wifiRetrier setDispatchQueue:self->_dispatchQueue];
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = __35__CUWiFiManager__wifiEnsureStarted__block_invoke;
-    v48[3] = &unk_1E73A4F68;
-    v48[4] = self;
-    [(CURetrier *)self->_wifiRetrier setActionHandler:v48];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __35__CUWiFiManager__wifiEnsureStarted__block_invoke;
+    v49[3] = &unk_1E73A4F68;
+    v49[4] = self;
+    [(CURetrier *)self->_wifiRetrier setActionHandler:v49];
     [(CURetrier *)self->_wifiRetrier setStartTime:CFAbsoluteTimeGetCurrent()];
   }
 
@@ -816,7 +816,7 @@ LABEL_6:
     if (v11->var0 != -1)
     {
 LABEL_11:
-      LogPrintF(v11, "[CUWiFiManager _wifiEnsureStarted]", 0x3Cu, "### WiFiManagerClientCreate failed\n", v2, v3, v4, v5, v44);
+      LogPrintF(v11, "[CUWiFiManager _wifiEnsureStarted]", 60, "### WiFiManagerClientCreate failed\n", v2, v3, v4, v5, v45);
       goto LABEL_13;
     }
 
@@ -865,7 +865,7 @@ LABEL_22:
       v15 = self->_ucat;
     }
 
-    LogPrintF(v15, "[CUWiFiManager _wifiEnsureStarted]", 0x3Cu, "### WiFiManagerClientCopyDevices failed: %@\n", v2, v3, v4, v5, v13);
+    LogPrintF(v15, "[CUWiFiManager _wifiEnsureStarted]", 60, "### WiFiManagerClientCopyDevices failed: %@\n", v2, v3, v4, v5, v13);
     goto LABEL_22;
   }
 
@@ -895,7 +895,7 @@ LABEL_24:
         v17 = self->_ucat;
       }
 
-      LogPrintF(v17, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFiDeviceClient critical monitor started\n", v2, v3, v4, v5, v44);
+      LogPrintF(v17, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFiDeviceClient critical monitor started\n", v2, v3, v4, v5, v45);
     }
 
 LABEL_39:
@@ -925,7 +925,7 @@ LABEL_39:
     v16 = self->_ucat;
   }
 
-  LogPrintF(v16, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFiDeviceClient critical monitor stopped\n", v2, v3, v4, v5, v44);
+  LogPrintF(v16, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFiDeviceClient critical monitor stopped\n", v2, v3, v4, v5, v45);
 LABEL_35:
   if (self->_wifiDevice)
   {
@@ -956,7 +956,7 @@ LABEL_40:
           v22 = self->_ucat;
         }
 
-        LogPrintF(v22, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFiManagerClient started\n", v18, v19, v20, v21, v44);
+        LogPrintF(v22, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFiManagerClient started\n", v18, v19, v20, v21, v45);
       }
     }
   }
@@ -974,7 +974,7 @@ LABEL_46:
         if (v27->var0 != -1)
         {
 LABEL_50:
-          LogPrintF(v27, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFiDeviceClient started\n", v23, v24, v25, v26, v44);
+          LogPrintF(v27, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFiDeviceClient started\n", v23, v24, v25, v26, v45);
           goto LABEL_52;
         }
 
@@ -1013,23 +1013,23 @@ LABEL_63:
 
     self->_wifiStateMonitorSetup = 0;
     self->_wifiState = 0;
-    v43 = self->_ucat;
-    if (v43->var0 > 30)
+    v44 = self->_ucat;
+    if (v44->var0 > 30)
     {
       goto LABEL_80;
     }
 
-    if (v43->var0 == -1)
+    if (v44->var0 == -1)
     {
-      if (!_LogCategory_Initialize(v43, 0x1Eu))
+      if (!_LogCategory_Initialize(v44, 0x1Eu))
       {
         goto LABEL_80;
       }
 
-      v43 = self->_ucat;
+      v44 = self->_ucat;
     }
 
-    LogPrintF(v43, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFi state monitor stopped\n", v39, v40, v41, v42, v44);
+    LogPrintF(v44, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFi state monitor stopped\n", v40, v41, v42, v43, v45);
     goto LABEL_80;
   }
 
@@ -1047,20 +1047,20 @@ LABEL_63:
   WiFiDeviceClientRegisterUserJoinNotificationCallback();
   WiFiDeviceClientRegisterBssidChangeCallback();
   WiFiDeviceClientRegisterHostApStateChangedCallback();
-  WiFiDeviceClientRegisterPowerCallback();
-  v29 = objc_alloc_init(getCWFInterfaceClass[0]());
-  v30 = self->_wifiInterface;
-  self->_wifiInterface = v29;
+  v29 = WiFiDeviceClientRegisterPowerCallback();
+  v30 = objc_alloc_init(getCWFInterfaceClass(v29));
+  v31 = self->_wifiInterface;
+  self->_wifiInterface = v30;
 
   [(CWFInterface *)self->_wifiInterface setTargetQueue:self->_dispatchQueue];
   [(CWFInterface *)self->_wifiInterface activate];
   objc_initWeak(&location, self);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __35__CUWiFiManager__wifiEnsureStarted__block_invoke_2;
-  v45[3] = &unk_1E73A4318;
-  objc_copyWeak(&v46, &location);
-  [(CWFInterface *)self->_wifiInterface setEventHandler:v45];
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __35__CUWiFiManager__wifiEnsureStarted__block_invoke_2;
+  v46[3] = &unk_1E73A4318;
+  objc_copyWeak(&v47, &location);
+  [(CWFInterface *)self->_wifiInterface setEventHandler:v46];
   [(CWFInterface *)self->_wifiInterface startMonitoringEventType:12 error:0];
   [(CWFInterface *)self->_wifiInterface startMonitoringEventType:13 error:0];
   [(CWFInterface *)self->_wifiInterface startMonitoringEventType:2 error:0];
@@ -1068,26 +1068,26 @@ LABEL_63:
   self->_wifiFlags = [(CUWiFiManager *)self _wifiFlagsUncached];
   wifiState = [(CUWiFiManager *)self _wifiStateUncached];
   self->_wifiState = wifiState;
-  v36 = self->_ucat;
-  if (v36->var0 > 30)
+  v37 = self->_ucat;
+  if (v37->var0 > 30)
   {
     goto LABEL_79;
   }
 
-  if (v36->var0 != -1)
+  if (v37->var0 != -1)
   {
 LABEL_57:
     if (wifiState <= 19)
     {
       if (!wifiState)
       {
-        v37 = "Unknown";
+        v38 = "Unknown";
         goto LABEL_78;
       }
 
       if (wifiState == 10)
       {
-        v37 = "Off";
+        v38 = "Off";
         goto LABEL_78;
       }
     }
@@ -1097,32 +1097,32 @@ LABEL_57:
       switch(wifiState)
       {
         case 20:
-          v37 = "NotConnected";
+          v38 = "NotConnected";
           goto LABEL_78;
         case 30:
-          v37 = "Connecting";
+          v38 = "Connecting";
           goto LABEL_78;
         case 40:
-          v37 = "Connected";
+          v38 = "Connected";
 LABEL_78:
-          LogPrintF(v36, "[CUWiFiManager _wifiEnsureStarted]", 0x1Eu, "WiFi state monitor started, %s, %#{flags}\n", v31, v32, v33, v34, v37);
+          LogPrintF(v37, "[CUWiFiManager _wifiEnsureStarted]", 30, "WiFi state monitor started, %s, %#{flags}\n", v32, v33, v34, v35, v38);
           goto LABEL_79;
       }
     }
 
-    v37 = "?";
+    v38 = "?";
     goto LABEL_78;
   }
 
-  if (_LogCategory_Initialize(v36, 0x1Eu))
+  if (_LogCategory_Initialize(v37, 0x1Eu))
   {
-    v36 = self->_ucat;
+    v37 = self->_ucat;
     wifiState = self->_wifiState;
     goto LABEL_57;
   }
 
 LABEL_79:
-  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v47);
   objc_destroyWeak(&location);
 LABEL_80:
   if (!self->_wifiDeviceSetup)
@@ -1174,7 +1174,7 @@ void __35__CUWiFiManager__wifiEnsureStarted__block_invoke_2(uint64_t a1, void *a
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUWiFiManager _updateWiFiState]", 0x1Eu, "Flags changed: %#{flags} -> %#{flags}\n", v2, v3, v4, v5, wifiFlags);
+    LogPrintF(ucat, "[CUWiFiManager _updateWiFiState]", 30, "Flags changed: %#{flags} -> %#{flags}\n", v2, v3, v4, v5, wifiFlags);
   }
 
 LABEL_18:
@@ -1208,7 +1208,7 @@ LABEL_5:
           v9 = "yes";
         }
 
-        LogPrintF(ucat, "[CUWiFiManager _updateWakeOnWireless]", 0x1Eu, "WakeOnWireless: %s -> %s\n", v2, v3, v4, v5, v9);
+        LogPrintF(ucat, "[CUWiFiManager _updateWakeOnWireless]", 30, "WakeOnWireless: %s -> %s\n", v2, v3, v4, v5, v9);
         goto LABEL_10;
       }
 
@@ -1480,7 +1480,7 @@ LABEL_65:
     {
 LABEL_69:
       v70 = NSPrintF("%{error}", v13, v14, v15, v16, v17, v18, v19, errorCopy);
-      LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeerStatusUpdated:isAvailable:error:]", 0x1Eu, "P2P state monitor update: service=%@, isAvailable=%s, error=%@, trafficFlags=0x%X", v65, v66, v67, v68, v71);
+      LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeerStatusUpdated:isAvailable:error:]", 30, "P2P state monitor update: service=%@, isAvailable=%s, error=%@, trafficFlags=0x%X", v65, v66, v67, v68, v71);
 
       goto LABEL_71;
     }
@@ -1738,7 +1738,7 @@ LABEL_71:
         }
 
         v55 = NSPrintF("%##@", v45, v46, v47, v48, v49, v50, v51, v41);
-        LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeerStatusMonitor]", 0x1Eu, "P2P state monitor start: services=%@", v56, v57, v58, v59, v55);
+        LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeerStatusMonitor]", 30, "P2P state monitor start: services=%@", v56, v57, v58, v59, v55);
 
 LABEL_72:
         objc_storeStrong(&self->_wifiP2PStateServices, v3);
@@ -1746,7 +1746,7 @@ LABEL_72:
         wifiP2PStateMonitor = self->_wifiP2PStateMonitor;
         self->_wifiP2PStateMonitor = 0;
 
-        v61 = objc_alloc_init(getWiFiP2PAWDLStateMonitorClass[0]());
+        v61 = objc_alloc_init(getWiFiP2PAWDLStateMonitorClass());
         v62 = self->_wifiP2PStateMonitor;
         self->_wifiP2PStateMonitor = v61;
 
@@ -1814,7 +1814,7 @@ LABEL_86:
       if (v53->var0 != -1)
       {
 LABEL_65:
-        LogPrintF(v53, "[CUWiFiManager _updateTrafficPeerStatusMonitor]", 0x1Eu, "P2P state monitor stop", v36, v37, v38, v39, v73);
+        LogPrintF(v53, "[CUWiFiManager _updateTrafficPeerStatusMonitor]", 30, "P2P state monitor stop", v36, v37, v38, v39, v73);
         selfCopy7 = self;
         goto LABEL_83;
       }
@@ -2128,7 +2128,7 @@ LABEL_22:
           ucat = selfCopy->_ucat;
         }
 
-        LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeersWithService:]", 0x5Au, "### Traffic register failed: '%@', %#m\n", v51, v52, v53, v54, v62);
+        LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeersWithService:]", 90, "### Traffic register failed: '%@', %#m\n", v51, v52, v53, v54, v62);
       }
     }
 
@@ -2145,7 +2145,7 @@ LABEL_22:
       }
 
       [(NSArray *)v42 count];
-      LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeersWithService:]", 0x1Eu, "Traffic registered: '%@', %d peers\n", v58, v59, v60, v61, v62);
+      LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeersWithService:]", 30, "Traffic registered: '%@', %d peers\n", v58, v59, v60, v61, v62);
     }
 
 LABEL_82:
@@ -2168,7 +2168,7 @@ LABEL_82:
       v9 = self->_ucat;
     }
 
-    LogPrintF(v9, "[CUWiFiManager _updateTrafficPeersWithService:]", 0x5Au, "### Bad service flag: 0x%X\n", v5, v6, v7, v8, v3);
+    LogPrintF(v9, "[CUWiFiManager _updateTrafficPeersWithService:]", 90, "### Bad service flag: 0x%X\n", v5, v6, v7, v8, v3);
   }
 
 LABEL_83:
@@ -2373,7 +2373,7 @@ LABEL_42:
 
     v4 = [(NSArray *)self->_trafficPeersCurrent count];
     [(NSArray *)self->_trafficPeers count];
-    LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeers]", 0x1Eu, "Traffic registration update: %d -> %d peers\n", v5, v6, v7, v8, v4);
+    LogPrintF(ucat, "[CUWiFiManager _updateTrafficPeers]", 30, "Traffic registration update: %d -> %d peers\n", v5, v6, v7, v8, v4);
     goto LABEL_7;
   }
 }
@@ -2402,7 +2402,7 @@ LABEL_5:
         v9 = "yes";
       }
 
-      LogPrintF(ucat, "[CUWiFiManager _updateInfraDisabled]", 0x1Eu, "InfraDisabled: %s -> %s\n", v2, v3, v4, v5, v9);
+      LogPrintF(ucat, "[CUWiFiManager _updateInfraDisabled]", 30, "InfraDisabled: %s -> %s\n", v2, v3, v4, v5, v9);
       goto LABEL_10;
     }
 
@@ -2524,7 +2524,7 @@ _BYTE *__31__CUWiFiManager_performUpdate___block_invoke_2(uint64_t a1)
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUWiFiManager _invalidated]", 0x3Cu, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v18);
+        LogPrintF(ucat, "[CUWiFiManager _invalidated]", 60, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v18);
         goto LABEL_7;
       }
 
@@ -2569,7 +2569,7 @@ LABEL_7:
       v17 = self->_ucat;
     }
 
-    LogPrintF(v17, "[CUWiFiManager _invalidated]", 0x1Eu, "Invalidated\n", v13, v14, v15, v16, v20);
+    LogPrintF(v17, "[CUWiFiManager _invalidated]", 30, "Invalidated\n", v13, v14, v15, v16, v20);
   }
 }
 
@@ -2584,9 +2584,9 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __27__CUWiFiManager_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__27__CUWiFiManager_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 10))
   {
     return result;
@@ -2595,14 +2595,14 @@ uint64_t __27__CUWiFiManager_invalidate__block_invoke(uint64_t result, uint64_t 
   v16 = v8;
   v11 = result;
   *(v10 + 10) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[2];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -2611,13 +2611,13 @@ uint64_t __27__CUWiFiManager_invalidate__block_invoke(uint64_t result, uint64_t 
       v13 = v12[2];
     }
 
-    LogPrintF(v13, "[CUWiFiManager invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUWiFiManager invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
   [v12 _wifiEnsureStopped];
-  v15 = *(v11 + 32);
+  v15 = v11[4];
 
   return [v15 _invalidated];
 }
@@ -2700,7 +2700,7 @@ uint64_t __40__CUWiFiManager_activateWithCompletion___block_invoke(uint64_t a1, 
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUWiFiManager activateWithCompletion:]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CUWiFiManager activateWithCompletion:]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

@@ -41,17 +41,20 @@
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v8 = 0;
-  message = self->_message;
-  NSAppendPrintF_safe();
-  v3 = v8;
+  v11 = 0;
+  NSAppendPrintF_safe(&v11, "Text Message: ");
+  v3 = v11;
+  v10 = v3;
+  NSAppendPrintF_safe(&v10, "%@,\n", self->_message);
+  v4 = v10;
 
   embeddedURLs = self->_embeddedURLs;
-  NSAppendPrintF_safe();
-  v4 = v3;
+  v9 = v4;
+  NSAppendPrintF_safe(&v9, "URLs: %@, ", embeddedURLs);
+  v5 = v9;
+  v6 = v9;
 
-  return v3;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

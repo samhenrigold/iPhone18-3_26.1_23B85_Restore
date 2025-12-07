@@ -166,23 +166,22 @@ id __79__PUTrimToolControllerAccessibility__accessibilityLoadAccessibilityInform
   [v11 _setAccessibilityTraitsBlock:v19];
 }
 
-double __84__PUTrimToolControllerAccessibility_focusTimeline_presentAction_locationInTimeline___block_invoke(uint64_t a1)
+double __84__PUTrimToolControllerAccessibility_focusTimeline_presentAction_locationInTimeline___block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) keyTime];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_keyTime(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 
-id __84__PUTrimToolControllerAccessibility_focusTimeline_presentAction_locationInTimeline___block_invoke_2(uint64_t a1)
+id __84__PUTrimToolControllerAccessibility_focusTimeline_presentAction_locationInTimeline___block_invoke_2()
 {
-  v2 = accessibilityPULocalizedString(@"delete.focus");
-  v5 = *(a1 + 32);
-  v3 = __UIAXStringForVariables();
+  v0 = accessibilityPULocalizedString(@"delete.focus");
+  v1 = __UIAXStringForVariables();
 
-  return v3;
+  return v1;
 }
 
 - (void)_handleScrubberTimelineOverlayButton:(id)button

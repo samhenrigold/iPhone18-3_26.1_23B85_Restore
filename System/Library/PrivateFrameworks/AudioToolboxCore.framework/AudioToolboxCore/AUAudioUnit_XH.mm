@@ -1,4 +1,5 @@
 @interface AUAudioUnit_XH
++ (void)instantiateWithExtension:(id)extension componentDescription:(AudioComponentDescription *)description instance:(OpaqueAudioComponentInstance *)instance options:(unsigned int)options completionHandler:(id)handler;
 - (id)speechSynthesisOutputMetadataBlock;
 - (void)_internalInitWithExtension:(id)extension componentDescription:(AudioComponentDescription *)description instance:(OpaqueAudioComponentInstance *)instance completion:(id)completion;
 - (void)_open:(id)_open completion:(id)completion;
@@ -19,7 +20,7 @@
 - (void)setSpeechSynthesisOutputMetadataBlock:(id)block
 {
   blockCopy = block;
-  [(AUAudioUnit *)self componentDescription];
+  objc_msgSend_componentDescription(self);
   if (v7 == 1635087216)
   {
     v5 = _Block_copy(blockCopy);
@@ -178,6 +179,57 @@
 
   objc_destroyWeak(&v31);
   objc_destroyWeak(&location);
+}
+
++ (void)instantiateWithExtension:(id)extension componentDescription:(AudioComponentDescription *)description instance:(OpaqueAudioComponentInstance *)instance options:(unsigned int)options completionHandler:(id)handler
+{
+  v8 = *&options;
+  extensionCopy = extension;
+  handlerCopy = handler;
+  v13 = objc_alloc(objc_opt_class());
+  v24 = *description;
+  v23 = 0;
+  v14 = [v13 initWithComponentDescription:&v24 options:v8 error:&v23];
+  v15 = v23;
+  v16 = v15;
+  if (v14)
+  {
+    v17 = v15 == 0;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (v17)
+  {
+    if ([v14 isMemberOfClass:objc_opt_class()])
+    {
+      v18 = objc_initWeak(&location, v14);
+      v24 = *description;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __99__AUAudioUnit_XH_instantiateWithExtension_componentDescription_instance_options_completionHandler___block_invoke;
+      v19[3] = &unk_1E72C13E8;
+      v20 = handlerCopy;
+      objc_copyWeak(&v21, &location);
+      [v14 _internalInitWithExtension:extensionCopy componentDescription:&v24 instance:instance completion:v19];
+
+      objc_destroyWeak(&v21);
+      objc_destroyWeak(&location);
+    }
+
+    else
+    {
+      (*(handlerCopy + 2))(handlerCopy, v14, 0);
+    }
+  }
+
+  else
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, v15);
+  }
 }
 
 @end

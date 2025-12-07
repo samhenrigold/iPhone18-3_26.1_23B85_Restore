@@ -10,28 +10,28 @@
 {
   visualSearchProperties = [self visualSearchProperties];
   algorithmVersion = [visualSearchProperties algorithmVersion];
-  if (algorithmVersion >= VCPPhotosVisualSearchAlgorithmVersion())
+  if (algorithmVersion >= VCPPhotosVisualSearchAlgorithmVersion(algorithmVersion, v4))
   {
     adjustmentVersion = [visualSearchProperties adjustmentVersion];
     if (adjustmentVersion)
     {
       adjustmentVersion2 = [visualSearchProperties adjustmentVersion];
       adjustmentVersion3 = [self adjustmentVersion];
-      v4 = [adjustmentVersion2 isEqualToDate:adjustmentVersion3] ^ 1;
+      v5 = [adjustmentVersion2 isEqualToDate:adjustmentVersion3] ^ 1;
     }
 
     else
     {
-      v4 = 1;
+      v5 = 1;
     }
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)vcp_needsStickerGatingProcessing

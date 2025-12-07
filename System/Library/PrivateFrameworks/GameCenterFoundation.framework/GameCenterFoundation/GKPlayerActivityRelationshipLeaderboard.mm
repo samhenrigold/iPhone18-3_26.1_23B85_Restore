@@ -25,35 +25,33 @@
 
 void __66__GKPlayerActivityRelationshipLeaderboard_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v9.receiver = *(a1 + 32);
-  v9.super_class = &OBJC_METACLASS___GKPlayerActivityRelationshipLeaderboard;
-  v1 = objc_msgSendSuper2(&v9, sel_secureCodedPropertyKeys);
+  v10[2] = *MEMORY[0x277D85DE8];
+  v8.receiver = *(a1 + 32);
+  v8.super_class = &OBJC_METACLASS___GKPlayerActivityRelationshipLeaderboard;
+  v1 = objc_msgSendSuper2(&v8, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v10[0] = @"scores";
+  v9[0] = @"scores";
   v3 = MEMORY[0x277CBEB98];
   v4 = objc_opt_class();
   v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
-  v10[1] = @"leaderboardInternal";
-  v11[0] = v5;
-  v11[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"leaderboardInternal";
+  v10[0] = v5;
+  v10[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v2 addEntriesFromDictionary:v6];
 
   v7 = secureCodedPropertyKeys_sSecureCodedKeys_526;
   secureCodedPropertyKeys_sSecureCodedKeys_526 = v2;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (GKPlayerActivityRelationshipLeaderboard)initWithDictionary:(id)dictionary
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v33.receiver = self;
-  v33.super_class = GKPlayerActivityRelationshipLeaderboard;
-  v5 = [(GKPlayerActivityRelationshipBase *)&v33 initWithDictionary:dictionaryCopy];
+  v32.receiver = self;
+  v32.super_class = GKPlayerActivityRelationshipLeaderboard;
+  v5 = [(GKPlayerActivityRelationshipBase *)&v32 initWithDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"type"];
@@ -71,32 +69,32 @@ void __66__GKPlayerActivityRelationshipLeaderboard_secureCodedPropertyKeys__bloc
 
     v8 = [dictionaryCopy objectForKeyedSubscript:@"scores"];
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v29 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           v16 = [GKPlayerActivityRelationshipLeaderboardScore alloc];
-          v17 = [(GKPlayerActivityRelationshipLeaderboardScore *)v16 initWithDictionary:v15, v29];
+          v17 = [(GKPlayerActivityRelationshipLeaderboardScore *)v16 initWithDictionary:v15, v28];
           [v9 addObject:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v12);
@@ -133,10 +131,9 @@ void __66__GKPlayerActivityRelationshipLeaderboard_secureCodedPropertyKeys__bloc
       [v18 setType:0];
     }
 
-    [(GKPlayerActivityRelationshipLeaderboard *)v5 setLeaderboardInternal:v18, v29];
+    [(GKPlayerActivityRelationshipLeaderboard *)v5 setLeaderboardInternal:v18, v28];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

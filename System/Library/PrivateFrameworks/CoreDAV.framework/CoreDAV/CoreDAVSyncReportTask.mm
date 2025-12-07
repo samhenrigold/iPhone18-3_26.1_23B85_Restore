@@ -50,7 +50,7 @@
 
 - (id)requestBody
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertiesToFind = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
   if (propertiesToFind && (v4 = propertiesToFind, -[CoreDAVPropertyFindBaseTask propertiesToFind](self, "propertiesToFind"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v4, v6))
   {
@@ -64,32 +64,32 @@
     }
 
     [(CoreDAVXMLData *)v7 startElement:@"prop" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     propertiesToFind2 = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
-    v10 = [propertiesToFind2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [propertiesToFind2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(propertiesToFind2);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           name = [v14 name];
           nameSpace = [v14 nameSpace];
           [(CoreDAVXMLData *)v7 appendElement:name inNamespace:nameSpace withStringContent:0 withAttributeNamesAndValues:0];
         }
 
-        v11 = [propertiesToFind2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [propertiesToFind2 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -105,41 +105,39 @@
     data = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
 - (id)notFoundHREFs
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   multiStatus = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
   responses = [multiStatus responses];
 
-  v6 = [responses countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v6 = [responses countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v30;
+    v9 = *v29;
     v10 = 0x278E30000uLL;
     *&v7 = 138412290;
-    v27 = v7;
-    v28 = responses;
+    v26 = v7;
+    v27 = responses;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(responses);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         status = [v12 status];
         payloadAsString = [status payloadAsString];
         v15 = [payloadAsString CDVIsHTTPStatusLineWithStatusCode:404];
@@ -165,25 +163,23 @@
               [firstHref2 payloadAsString];
               v22 = v3;
               v24 = v23 = v10;
-              *buf = v27;
-              v34 = v24;
+              *buf = v26;
+              v33 = v24;
               _os_log_impl(&dword_2452FB000, v20, OS_LOG_TYPE_ERROR, "The server gave us an invalid URL. Ignoring it. %@", buf, 0xCu);
 
               v10 = v23;
               v3 = v22;
-              responses = v28;
+              responses = v27;
             }
           }
         }
       }
 
-      v8 = [responses countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v8 = [responses countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -223,7 +219,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(CoreDAVPropertyFindBaseTask *)self updateMultiStatusFromResponse];
   multiStatus = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
@@ -231,28 +227,28 @@
   nextSyncToken = self->_nextSyncToken;
   self->_nextSyncToken = syncToken;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   multiStatus2 = [(CoreDAVPropertyFindBaseTask *)self multiStatus];
   responses = [multiStatus2 responses];
 
-  v10 = [responses countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [responses countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
-    v26 = errorCopy;
-    v11 = *v29;
+    v25 = errorCopy;
+    v11 = *v28;
     while (2)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(responses);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         firstHref = [v13 firstHref];
         payloadAsFullURL = [firstHref payloadAsFullURL];
         v16 = [(CoreDAVTask *)self url];
@@ -265,7 +261,7 @@
         }
       }
 
-      v10 = [responses countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v10 = [responses countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v10)
       {
         continue;
@@ -275,7 +271,7 @@
     }
 
 LABEL_11:
-    errorCopy = v26;
+    errorCopy = v25;
   }
 
   errorItem = [v10 errorItem];
@@ -291,11 +287,9 @@ LABEL_11:
   validSyncToken2 = [rootError validSyncToken];
   self->_wasInvalidSyncToken |= validSyncToken2 != 0;
 
-  v27.receiver = self;
-  v27.super_class = CoreDAVSyncReportTask;
-  [(CoreDAVPropertyFindBaseTask *)&v27 finishCoreDAVTaskWithError:errorCopy];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = CoreDAVSyncReportTask;
+  [(CoreDAVPropertyFindBaseTask *)&v26 finishCoreDAVTaskWithError:errorCopy];
 }
 
 @end

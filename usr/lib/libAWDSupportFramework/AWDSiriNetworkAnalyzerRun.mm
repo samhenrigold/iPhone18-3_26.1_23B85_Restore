@@ -390,7 +390,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -410,7 +409,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  interface = self->_interface;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -425,7 +423,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  isUserRequest = self->_isUserRequest;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -440,7 +437,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  analyzingSuccessfulRetry = self->_analyzingSuccessfulRetry;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -455,7 +451,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  wwanPreferred = self->_wwanPreferred;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -470,7 +465,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  sendBufferBytesRemaining = self->_sendBufferBytesRemaining;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -485,7 +479,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  knownURLLoadDuration = self->_knownURLLoadDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -500,7 +493,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  siriURLLoadDuration = self->_siriURLLoadDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -515,7 +507,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  siriSaltURLLoadDuration = self->_siriSaltURLLoadDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -530,7 +521,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  gatewayStatus = self->_gatewayStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -542,7 +532,6 @@ LABEL_12:
     }
 
 LABEL_26:
-    gatewayPingsSent = self->_gatewayPingsSent;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -553,7 +542,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  gatewayPingDuration = self->_gatewayPingDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) != 0)
@@ -568,7 +556,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  gatewayPingsDropped = self->_gatewayPingsDropped;
 
   PBDataWriterWriteUint32Field();
 }
@@ -991,7 +978,6 @@ LABEL_14:
       goto LABEL_75;
     }
 
-    v8 = *(equal + 69);
     if (self->_isUserRequest)
     {
       if ((*(equal + 69) & 1) == 0)
@@ -1018,7 +1004,6 @@ LABEL_14:
       goto LABEL_75;
     }
 
-    v9 = *(equal + 68);
     if (self->_analyzingSuccessfulRetry)
     {
       if ((*(equal + 68) & 1) == 0)
@@ -1042,7 +1027,6 @@ LABEL_14:
   {
     if ((*(equal + 36) & 0x1000) != 0)
     {
-      v10 = *(equal + 70);
       if (self->_wwanPreferred)
       {
         if ((*(equal + 70) & 1) == 0)

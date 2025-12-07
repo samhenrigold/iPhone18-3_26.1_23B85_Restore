@@ -40,7 +40,7 @@
   return result;
 }
 
-uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke_4(uint64_t a1, void *a2, _BYTE *a3)
+void *__48__NSTextViewportLayoutController_layoutViewport__block_invoke_4(uint64_t a1, void *a2, _BYTE *a3)
 {
   v49 = *MEMORY[0x1E69E9840];
   [a2 layoutPoint];
@@ -205,7 +205,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__48__NSTextViewportLayoutController_layoutViewport__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [objc_msgSend(a2 "representedRange")];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -617,7 +617,7 @@ LABEL_57:
   }
 }
 
-uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
+void *__48__NSTextViewportLayoutController_layoutViewport__block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
 {
   *(*(*(a1 + 32) + 8) + 40) = [objc_msgSend(a2 "representedRange")];
   v6 = *(*(*(a1 + 40) + 8) + 24);
@@ -658,7 +658,7 @@ uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke_3(uin
   }
 }
 
-uint64_t __63__NSTextViewportLayoutController_flushesCachedViewportElements__block_invoke()
+void *__63__NSTextViewportLayoutController_flushesCachedViewportElements__block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x1E695E000] "standardUserDefaults")];
   flushesCachedViewportElements_flushesCachedViewportElements = result ^ 1;
@@ -915,9 +915,9 @@ uint64_t __91__NSTextViewportLayoutController_enumerateViewportElementsFromLocat
   return v4 & 1;
 }
 
-uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke_2(uint64_t result, void *a2, _BYTE *a3)
+double *__48__NSTextViewportLayoutController_layoutViewport__block_invoke_2(double *result, void *a2, _BYTE *a3)
 {
-  if (*(*(*(result + 32) + 8) + 40) <= *(result + 56))
+  if (*(*(*(result + 4) + 8) + 40) <= result[7])
   {
     *a3 = 1;
   }
@@ -926,9 +926,9 @@ uint64_t __48__NSTextViewportLayoutController_layoutViewport__block_invoke_2(uin
   {
     v4 = result;
     [a2 layoutSize];
-    *(*(*(v4 + 32) + 8) + 40) = *(*(*(v4 + 32) + 8) + 40) - v5;
+    *(*(*(v4 + 4) + 8) + 40) = *(*(*(v4 + 4) + 8) + 40) - v5;
     result = [objc_msgSend(a2 "representedRange")];
-    *(*(*(v4 + 40) + 8) + 40) = result;
+    *(*(*(v4 + 5) + 8) + 40) = result;
   }
 
   return result;

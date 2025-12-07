@@ -579,7 +579,7 @@ LABEL_10:
   v6 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else

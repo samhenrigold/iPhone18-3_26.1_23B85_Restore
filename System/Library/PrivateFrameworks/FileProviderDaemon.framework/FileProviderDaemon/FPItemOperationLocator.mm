@@ -25,15 +25,13 @@ void __69__FPItemOperationLocator_Daemon__annotateWithPersonaSandboxIfNeeded___b
 
 void __69__FPItemOperationLocator_Daemon__annotateWithPersonaSandboxIfNeeded___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 32) asFPItem];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] can't get url for item %@, %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1CEFC7000, a3, OS_LOG_TYPE_ERROR, "[ERROR] can't get url for item %@, %@", &v6, 0x16u);
 }
 
 @end

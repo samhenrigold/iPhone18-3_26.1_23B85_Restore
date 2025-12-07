@@ -27,7 +27,7 @@
   }
 }
 
-void __81__PXGAssetsRectDiagnosticsProvider_enumerateRectDiagnosticsForLayout_usingBlock___block_invoke(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
+void __81__PXGAssetsRectDiagnosticsProvider_enumerateRectDiagnosticsForLayout_usingBlock___block_invoke(uint64_t a1, unsigned int a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   if (*(a6 + 1) == 2)
   {

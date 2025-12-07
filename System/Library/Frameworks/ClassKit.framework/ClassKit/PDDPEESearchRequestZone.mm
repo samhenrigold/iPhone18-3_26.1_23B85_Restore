@@ -1,5 +1,6 @@
 @interface PDDPEESearchRequestZone
 - (BOOL)isEqual:(id)equal;
+- (id)compareOptionsAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,86 @@
   {
     return 0;
   }
+}
+
+- (id)compareOptionsAsString:(int)string
+{
+  if (string > 7)
+  {
+    if (string > 127)
+    {
+      if (string == 128)
+      {
+        v4 = @"SC_OPTIONS_DIACRITIC_INSENSITIVE";
+
+        return v4;
+      }
+
+      if (string == 256)
+      {
+        v4 = @"SC_OPTIONS_WIDTH_INSENSITIVE";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 8)
+      {
+        v4 = @"SC_OPTIONS_ANCHORED";
+
+        return v4;
+      }
+
+      if (string == 64)
+      {
+        v4 = @"SC_OPTIONS_NUMERIC";
+
+        return v4;
+      }
+    }
+
+LABEL_36:
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"SC_OPTIONS_LITERAL";
+
+      return v4;
+    }
+
+    if (string == 4)
+    {
+      v4 = @"SC_OPTIONS_BACKWARDS";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SC_OPTIONS_CASE_INSENSITIVE";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  v4 = @"SC_OPTIONS_NONE";
+
+  return v4;
 }
 
 - (int)StringAsCompareOptions:(id)options
@@ -192,30 +273,29 @@ LABEL_29:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_requestZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_filterQuery)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_keyword)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    compareOptions = self->_compareOptions;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -380,7 +460,7 @@ LABEL_7:
       goto LABEL_13;
     }
 
-    [(PDDPSearchQuery *)filterQuery mergeFrom:?];
+    filterQuery = [(PDDPSearchQuery *)filterQuery mergeFrom:?];
   }
 
   else
@@ -390,14 +470,14 @@ LABEL_7:
       goto LABEL_13;
     }
 
-    [(PDDPEESearchRequestZone *)self setFilterQuery:?];
+    filterQuery = [(PDDPEESearchRequestZone *)self setFilterQuery:?];
   }
 
   fromCopy = v9;
 LABEL_13:
   if (*(fromCopy + 3))
   {
-    [(PDDPEESearchRequestZone *)self setKeyword:?];
+    filterQuery = [(PDDPEESearchRequestZone *)self setKeyword:?];
     fromCopy = v9;
   }
 
@@ -407,7 +487,7 @@ LABEL_13:
     *&self->_has |= 1u;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(filterQuery, fromCopy);
 }
 
 @end

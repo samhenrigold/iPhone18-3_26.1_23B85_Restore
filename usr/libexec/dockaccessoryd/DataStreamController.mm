@@ -36,6 +36,7 @@
 - (void)openStreamSocketWithApplicationProtocol:(id)protocol completion:(id)completion;
 - (void)readRequiredTransportCharacteristicsIfNeededWithCompletion:(id)completion;
 - (void)removeBulkSendListener:(id)listener;
+- (void)sendTargetControlWhoAmIWithIdentifier:(unsigned int)identifier;
 - (void)timerDidFire:(id)fire;
 @end
 
@@ -133,7 +134,7 @@
     if (v10)
     {
       selfCopy = self;
-      v33 = sub_10007FAA0();
+      v33 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         v34 = sub_10007FAFC(selfCopy);
@@ -206,7 +207,7 @@
                 else
                 {
                   selfCopy2 = self;
-                  v26 = sub_10007FAA0();
+                  v26 = sub_10007FAA0(selfCopy2);
                   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
                   {
                     v27 = sub_10007FAFC(selfCopy2);
@@ -234,7 +235,7 @@
   else
   {
     selfCopy3 = self;
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(selfCopy3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v28 = sub_10007FAFC(selfCopy3);
@@ -296,7 +297,7 @@ LABEL_11:
     if ([v10 count])
     {
       selfCopy = self;
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v13 = sub_10007FAFC(selfCopy);
@@ -342,7 +343,7 @@ LABEL_12:
   [(DataStreamController *)self _isDataStreamConfigurationValid];
   [(DataStreamController *)self canAcceptBulkSendListeners];
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -415,7 +416,7 @@ LABEL_12:
     v14 = v13;
 
     selfCopy = self;
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(selfCopy);
     v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
     if (v14)
     {
@@ -455,7 +456,7 @@ LABEL_17:
   setupInProgress = [(DataStreamController *)self setupInProgress];
 
   selfCopy2 = self;
-  v21 = sub_10007FAA0();
+  v21 = sub_10007FAA0(selfCopy2);
   v22 = v21;
   if (setupInProgress)
   {
@@ -503,7 +504,7 @@ LABEL_18:
       v17 = [setupInProgress2 removeBulkSendListener:listenerCopy];
 
       selfCopy2 = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy2);
       v18 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
       if (v17)
       {
@@ -535,7 +536,7 @@ LABEL_18:
     else
     {
       selfCopy2 = self;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(selfCopy2);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         goto LABEL_22;
@@ -571,7 +572,7 @@ LABEL_21:
   v10 = v9;
 
   selfCopy3 = self;
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(selfCopy3);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (!v10)
   {
@@ -599,6 +600,38 @@ LABEL_22:
 
   accessory = [(DataStreamController *)self accessory];
   [listenerCopy accessoryDidCloseDataStream:accessory];
+}
+
+- (void)sendTargetControlWhoAmIWithIdentifier:(unsigned int)identifier
+{
+  v3 = *&identifier;
+  defaultDataStream = [(DataStreamController *)self defaultDataStream];
+
+  selfCopy = self;
+  protocolDelegateHandle = sub_10007FAA0(selfCopy);
+  v8 = os_log_type_enabled(protocolDelegateHandle, OS_LOG_TYPE_INFO);
+  if (defaultDataStream)
+  {
+    if (v8)
+    {
+      v9 = sub_10007FAFC(selfCopy);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&_mh_execute_header, protocolDelegateHandle, OS_LOG_TYPE_INFO, "%{public}@Data Stream sending target-control whoami message", &v11, 0xCu);
+    }
+
+    selfCopy = [(DataStreamController *)selfCopy defaultDataStream];
+    protocolDelegateHandle = [(DataStreamController *)selfCopy protocolDelegateHandle];
+    [DataStreamTargetControlProtocol sendTargetControlWhoAmIWithIdentifier:v3 dataStreamProtocolDelegate:protocolDelegateHandle];
+  }
+
+  else if (v8)
+  {
+    v10 = sub_10007FAFC(selfCopy);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&_mh_execute_header, protocolDelegateHandle, OS_LOG_TYPE_INFO, "%{public}@Data Stream not running; dropping target-control whoami message", &v11, 0xCu);
+  }
 }
 
 - (void)openStreamSocketWithApplicationProtocol:(id)protocol completion:(id)completion
@@ -743,7 +776,7 @@ LABEL_22:
   selfCopy = self;
   completionCopy = completion;
   protocolCopy = protocol;
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = sub_10007FAFC(selfCopy);
@@ -772,7 +805,7 @@ LABEL_22:
   if (![(DataStreamController *)self _isDataStreamConfigurationValid])
   {
     selfCopy = self;
-    v4 = sub_10007FAA0();
+    v4 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = sub_10007FAFC(selfCopy);
@@ -792,7 +825,7 @@ LABEL_22:
   if (setupInProgress)
   {
     selfCopy = self;
-    transferManagementService = sub_10007FAA0();
+    transferManagementService = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(transferManagementService, OS_LOG_TYPE_DEBUG))
     {
       setupInProgress3 = sub_10007FAFC(selfCopy);
@@ -829,7 +862,7 @@ LABEL_11:
     else
     {
       selfCopy2 = self;
-      v9 = sub_10007FAA0();
+      v9 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = sub_10007FAFC(selfCopy2);
@@ -853,7 +886,7 @@ LABEL_11:
   if (setupInProgress != operationCopy)
   {
     selfCopy = self;
-    v9 = sub_10007FAA0();
+    v9 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = sub_10007FAFC(selfCopy);
@@ -881,7 +914,7 @@ LABEL_9:
   }
 
   selfCopy2 = self;
-  v12 = sub_10007FAA0();
+  v12 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = sub_10007FAFC(selfCopy2);
@@ -924,7 +957,7 @@ LABEL_10:
   else
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = sub_10007FAFC(selfCopy);
@@ -944,7 +977,7 @@ LABEL_10:
   if (setupInProgress == operationCopy)
   {
     selfCopy = self;
-    v10 = sub_10007FAA0();
+    v10 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = sub_10007FAFC(selfCopy);
@@ -964,7 +997,7 @@ LABEL_10:
   setupInProgress = [(DataStreamController *)self setupInProgress];
 
   selfCopy = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
   if (setupInProgress)
   {
@@ -1029,7 +1062,7 @@ LABEL_10:
 {
   errorCopy = error;
   selfCopy = self;
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = sub_10007FAFC(selfCopy);
@@ -1046,7 +1079,7 @@ LABEL_10:
 - (void)dataStreamDidClose:(id)close
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -1061,7 +1094,7 @@ LABEL_10:
 - (void)dataStreamDidOpen:(id)open
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -1076,7 +1109,7 @@ LABEL_10:
 - (void)dataStreamDidReceiveRawFrame:(id)frame
 {
   selfCopy = self;
-  v4 = sub_10007FAA0();
+  v4 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = sub_10007FAFC(selfCopy);
@@ -1151,7 +1184,7 @@ LABEL_10:
 
   [(DataStreamController *)self _stopIdleTimer];
   selfCopy = self;
-  v5 = sub_10007FAA0();
+  v5 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = sub_10007FAFC(selfCopy);
@@ -1201,7 +1234,7 @@ LABEL_10:
   if (idleTimer)
   {
     selfCopy = self;
-    v6 = sub_10007FAA0();
+    v6 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = sub_10007FAFC(selfCopy);
@@ -1228,7 +1261,7 @@ LABEL_10:
   if (idleTimer == fireCopy)
   {
     selfCopy = self;
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = sub_10007FAFC(selfCopy);

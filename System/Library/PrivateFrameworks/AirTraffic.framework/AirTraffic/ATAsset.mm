@@ -59,32 +59,32 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
 
 - (id)_variantDescription
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v4 = string;
   if (self->_variantOptions)
   {
     [string appendString:@"{"];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = [(NSDictionary *)self->_variantOptions allKeys];
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = *v19;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v19 + 1) + 8 * i);
+          v9 = *(*(&v18 + 1) + 8 * i);
           if ([v4 length] >= 2)
           {
             [v4 appendString:{@", "}];
@@ -106,7 +106,7 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v6);
@@ -121,7 +121,6 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
   }
 
   [v4 appendString:v15];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -586,16 +585,16 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
 {
   if (MSVDeviceIsWatch() && (MSVDeviceOSIsInternalInstall() & 1) == 0)
   {
-    v11.receiver = self;
-    v11.super_class = ATAsset;
-    v8 = [(ATAsset *)&v11 description];
+    v10.receiver = self;
+    v10.super_class = ATAsset;
+    v7 = [(ATAsset *)&v10 description];
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = ATAsset;
-    v3 = [(ATAsset *)&v10 description];
+    v9.receiver = self;
+    v9.super_class = ATAsset;
+    v3 = [(ATAsset *)&v9 description];
     v4 = v3;
     if (self->_isRestore)
     {
@@ -613,27 +612,26 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
       v6 = @"Download";
     }
 
-    identifier = self->_identifier;
-    v8 = [v3 stringByAppendingFormat:@"[%@%@, %@, id=%@, %@]", v5, v6, self->_dataclass, identifier, self->_prettyName];
+    v7 = [v3 stringByAppendingFormat:@"[%@%@, %@, id=%@, %@]", v5, v6, self->_dataclass, self->_identifier, self->_prettyName];
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)description
 {
   if (MSVDeviceIsWatch() && (MSVDeviceOSIsInternalInstall() & 1) == 0)
   {
-    v19.receiver = self;
-    v19.super_class = ATAsset;
-    v14 = [(ATAsset *)&v19 description];
+    v18.receiver = self;
+    v18.super_class = ATAsset;
+    v13 = [(ATAsset *)&v18 description];
   }
 
   else
   {
-    v18.receiver = self;
-    v18.super_class = ATAsset;
-    v3 = [(ATAsset *)&v18 description];
+    v17.receiver = self;
+    v17.super_class = ATAsset;
+    v3 = [(ATAsset *)&v17 description];
     if (self->_isRestore)
     {
       v4 = @"Restore ";
@@ -644,7 +642,7 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
       v4 = @"Sync ";
     }
 
-    v17 = v4;
+    v16 = v4;
     if (self->_isDownload)
     {
       v5 = @"Download";
@@ -655,7 +653,7 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
       v5 = @"Upload";
     }
 
-    v16 = *&self->_dataclass;
+    v15 = *&self->_dataclass;
     identifier = self->_identifier;
     syncID = [(ATStoreInfo *)self->_storeInfo syncID];
     adamID = [(ATStoreInfo *)self->_storeInfo adamID];
@@ -663,11 +661,10 @@ uint64_t __37__ATAsset__ATAssetTypeFromDataClass___block_invoke()
     longLongValue = [(NSNumber *)self->_downloadSourceContainerId longLongValue];
     endpointType = [(ATStoreInfo *)self->_storeInfo endpointType];
     _variantDescription = [(ATAsset *)self _variantDescription];
-    downloadPauseReason = self->_downloadPauseReason;
-    v14 = [v3 stringByAppendingFormat:@"[%@%@, %@, %@, id=%@, syncid=%@, adamID=%@, sagaID=%@, downloadSourceContainerId=%lld, endpointType=%@, var=%@, path=%@, pid=%lld, bypassStore=%d, prioritized=%d, foreground=%d, installOnly=%d, allowDownloadOnConstrainedNetwork=%d, downloadPauseReason=%d, %@]", v17, v5, v16, identifier, syncID, adamID, sagaID, longLongValue, endpointType, _variantDescription, self->_localPath, self->_storePID, self->_bypassStore, self->_isPrioritized, self->_isForeground, self->_installOnly, self->_allowDownloadOnConstrainedNetwork, downloadPauseReason, self->_prettyName];
+    v13 = [v3 stringByAppendingFormat:@"[%@%@, %@, %@, id=%@, syncid=%@, adamID=%@, sagaID=%@, downloadSourceContainerId=%lld, endpointType=%@, var=%@, path=%@, pid=%lld, bypassStore=%d, prioritized=%d, foreground=%d, installOnly=%d, allowDownloadOnConstrainedNetwork=%d, downloadPauseReason=%d, %@]", v16, v5, v15, identifier, syncID, adamID, sagaID, longLongValue, endpointType, _variantDescription, self->_localPath, self->_storePID, self->_bypassStore, self->_isPrioritized, self->_isForeground, self->_installOnly, self->_allowDownloadOnConstrainedNetwork, self->_downloadPauseReason, self->_prettyName];
   }
 
-  return v14;
+  return v13;
 }
 
 + (id)assetWithSerializedAsset:(id)asset

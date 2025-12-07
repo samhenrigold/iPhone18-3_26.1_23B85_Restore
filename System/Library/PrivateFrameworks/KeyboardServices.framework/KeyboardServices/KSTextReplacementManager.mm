@@ -32,11 +32,11 @@ void __60___KSTextReplacementManager_pushAllLocalRecordsOnceIfNeeded__block_invo
   }
 }
 
-uint64_t __60___KSTextReplacementManager_pushAllLocalRecordsOnceIfNeeded__block_invoke_2(uint64_t result, int a2)
+id *__60___KSTextReplacementManager_pushAllLocalRecordsOnceIfNeeded__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setBool:1 forKey:@"KSDidPushAllLocalRecordsOnce-2"];
+    return [result[4] setBool:1 forKey:@"KSDidPushAllLocalRecordsOnce-2"];
   }
 
   return result;

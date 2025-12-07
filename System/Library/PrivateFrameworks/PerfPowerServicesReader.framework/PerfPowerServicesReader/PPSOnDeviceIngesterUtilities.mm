@@ -32,48 +32,48 @@
 
 + (id)allDataSourcesForSubsystem:(id)subsystem category:(id)category
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   subsystemCopy = subsystem;
   categoryCopy = category;
   v7 = objc_autoreleasePoolPush();
   v8 = [MEMORY[0x277D3A120] getMetadataForSubsystem:subsystemCopy category:categoryCopy];
   if ([v8 count])
   {
-    v27 = v7;
-    v28 = categoryCopy;
-    v29 = subsystemCopy;
+    v26 = v7;
+    v27 = categoryCopy;
+    v28 = subsystemCopy;
     v9 = objc_opt_new();
     firstObject = [v8 firstObject];
     v11 = [PPSDataIngesterCommonUtilities dataSourceForMetricDefinition:firstObject];
 
     [v9 addObject:v11];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v26 = v8;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v25 = v8;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (!v13)
     {
       goto LABEL_16;
     }
 
     v14 = v13;
-    v15 = *v32;
+    v15 = *v31;
     v16 = 0x277CCA000uLL;
-    v30 = v9;
+    v29 = v9;
     while (1)
     {
       v17 = 0;
       do
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * v17);
+        v18 = *(*(&v30 + 1) + 8 * v17);
         if ([v18 auxiliaryType] == 2)
         {
           v19 = [*(v16 + 3240) stringWithFormat:@"%@_Dynamic", v11];
@@ -91,7 +91,7 @@ LABEL_9:
           v19 = [v20 stringWithFormat:@"%@_Array_%@", v11, v22];
 
           v16 = v21;
-          v9 = v30;
+          v9 = v29;
           goto LABEL_9;
         }
 
@@ -100,16 +100,16 @@ LABEL_12:
       }
 
       while (v14 != v17);
-      v23 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v23 = [v12 countByEnumeratingWithState:&v30 objects:v34 count:16];
       v14 = v23;
       if (!v23)
       {
 LABEL_16:
 
-        categoryCopy = v28;
-        subsystemCopy = v29;
-        v8 = v26;
-        v7 = v27;
+        categoryCopy = v27;
+        subsystemCopy = v28;
+        v8 = v25;
+        v7 = v26;
         goto LABEL_18;
       }
     }
@@ -119,7 +119,6 @@ LABEL_16:
 LABEL_18:
 
   objc_autoreleasePoolPop(v7);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

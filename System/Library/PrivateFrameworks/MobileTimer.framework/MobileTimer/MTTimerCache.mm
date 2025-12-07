@@ -1,6 +1,7 @@
 @interface MTTimerCache
 - (BOOL)_isUpdateNeeded;
 - (MTTimerCache)initWithUpdateBlock:(id)block;
+- (void)_getCachedTimersWithCompletion:(id)completion doSynchronous:(BOOL)synchronous;
 - (void)_withLock:(id)lock;
 - (void)markNeedsUpdate;
 @end
@@ -68,6 +69,60 @@
   v2[3] = &unk_1E7B0C9D8;
   v2[4] = self;
   [(MTTimerCache *)self _withLock:v2];
+}
+
+- (void)_getCachedTimersWithCompletion:(id)completion doSynchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  completionCopy = completion;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__9;
+  v24 = __Block_byref_object_dispose__9;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__9;
+  v18 = __Block_byref_object_dispose__9;
+  v19 = 0;
+  if ([(MTTimerCache *)self _isUpdateNeeded])
+  {
+    v7 = MTLogForCategory(4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [MTAlarmCache _getCachedAlarmsWithCompletion:v7 doSynchronous:?];
+    }
+
+    updateBlock = self->_updateBlock;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61__MTTimerCache__getCachedTimersWithCompletion_doSynchronous___block_invoke;
+    v10[3] = &unk_1E7B0EF20;
+    v10[4] = self;
+    v12 = &v20;
+    v13 = &v14;
+    v11 = completionCopy;
+    updateBlock[2](updateBlock, v10, synchronousCopy);
+  }
+
+  else if (completionCopy)
+  {
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__MTTimerCache__getCachedTimersWithCompletion_doSynchronous___block_invoke_2;
+    v9[3] = &unk_1E7B0D9D0;
+    v9[4] = self;
+    v9[5] = &v20;
+    v9[6] = &v14;
+    [(MTTimerCache *)self _withLock:v9];
+    (*(completionCopy + 2))(completionCopy, v21[5], v15[5], 0);
+  }
+
+  _Block_object_dispose(&v14, 8);
+
+  _Block_object_dispose(&v20, 8);
 }
 
 void __61__MTTimerCache__getCachedTimersWithCompletion_doSynchronous___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -141,14 +196,13 @@ void __61__MTTimerCache__getCachedTimersWithCompletion_doSynchronous___block_inv
 
 void __61__MTTimerCache__getCachedTimersWithCompletion_doSynchronous___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ - Error getting timers: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ - Error getting timers: %{public}@", &v4, 0x16u);
 }
 
 @end

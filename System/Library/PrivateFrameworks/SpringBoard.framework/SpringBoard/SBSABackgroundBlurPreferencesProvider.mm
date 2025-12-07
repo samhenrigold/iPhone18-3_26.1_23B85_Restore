@@ -123,7 +123,7 @@
 
 void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke(uint64_t a1, void *a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -151,7 +151,7 @@ void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_
 
     if (!v7)
     {
-      __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_1(a1);
+      __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
     }
   }
 
@@ -160,7 +160,7 @@ void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_
     v7 = 0;
   }
 
-  v78 = v7;
+  v79 = v7;
   v8 = v3;
 
   v9 = [*(a1 + 40) elementContexts];
@@ -188,12 +188,12 @@ void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_
   v20 = [objc_opt_class() settings];
   v21 = [v20 backgroundBlurEnabled];
 
-  v80 = a1;
+  v81 = a1;
   v22 = [*(a1 + 40) isClearModeEnabled];
-  v81 = v15;
+  v82 = v15;
   [v15 bounds];
   v27 = 0;
-  v76 = v10;
+  v77 = v10;
   if (v17)
   {
     v28 = v8;
@@ -208,201 +208,201 @@ void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_
     v28 = v8;
   }
 
-  v29 = v81;
-  [v81 center];
+  v29 = v82;
+  [v82 center];
   SBUnintegralizedRectCenteredAboutPoint();
   v30 = ~v27;
-  [objc_opt_class() frameForVariableBlurUnderContainerViewWithFrame:(v27 & 1) == 0 offscreen:*(v80 + 40) context:{v31, v32, v33, v34}];
+  [objc_opt_class() frameForVariableBlurUnderContainerViewWithFrame:(v27 & 1) == 0 offscreen:*(v81 + 40) context:{v31, v32, v33, v34}];
   v36 = v35;
   v38 = v37;
   v40 = v39;
   v42 = v41;
   v43 = objc_alloc_init(SBSABackgroundBlurDescription);
   v44 = [SBSAInterfaceElementPropertyIdentity alloc];
-  v75 = v43;
+  v76 = v43;
   v45 = [(SBSABackgroundBlurDescription *)v43 interfaceElementIdentifier];
   obj = [(SBSAInterfaceElementPropertyIdentity *)v44 initWithAssociatedInterfaceElementIdentifier:v45 andProperty:@"blurFrame"];
 
-  v46 = v80;
+  v46 = v81;
   v47 = [SBSAInterfaceElementPropertyIdentity alloc];
-  v48 = [v81 interfaceElementIdentifier];
-  v82 = [(SBSAInterfaceElementPropertyIdentity *)v47 initWithAssociatedInterfaceElementIdentifier:v48 andProperty:@"bounds"];
+  v48 = [v82 interfaceElementIdentifier];
+  v83 = [(SBSAInterfaceElementPropertyIdentity *)v47 initWithAssociatedInterfaceElementIdentifier:v48 andProperty:@"bounds"];
 
-  v49 = *(v80 + 32);
-  v50 = v78;
-  v77 = v28;
+  v50 = *(v81 + 32);
+  v51 = v79;
+  v78 = v28;
   if (v30)
   {
-    v53 = *(v49 + 32);
-    if (v53 == 1)
+    v54 = *(v50 + 32);
+    if (v54 == 1)
     {
-      if (*(v49 + 40))
+      if (*(v50 + 40))
       {
-        v85 = 0u;
         v86 = 0u;
-        v83 = 0u;
+        v87 = 0u;
         v84 = 0u;
-        v54 = [*(v80 + 40) animatedTransitionResults];
-        v55 = [v54 countByEnumeratingWithState:&v83 objects:v90 count:16];
-        if (v55)
+        v85 = 0u;
+        v55 = [*(v81 + 40) animatedTransitionResults];
+        v56 = [v55 countByEnumeratingWithState:&v84 objects:v91 count:16];
+        if (v56)
         {
-          v56 = v55;
-          v57 = *v84;
-          v53 = 1;
+          v57 = v56;
+          v58 = *v85;
+          v54 = 1;
           do
           {
-            for (i = 0; i != v56; ++i)
+            for (i = 0; i != v57; ++i)
             {
-              if (*v84 != v57)
+              if (*v85 != v58)
               {
-                objc_enumerationMutation(v54);
+                objc_enumerationMutation(v55);
               }
 
-              v59 = *(*(&v83 + 1) + 8 * i);
-              v60 = [v59 associatedInterfaceElementPropertyIdentity];
-              v61 = [v60 isEqual:*(*v19 + 40)];
+              v60 = *(*(&v84 + 1) + 8 * i);
+              v61 = [v60 associatedInterfaceElementPropertyIdentity];
+              v62 = [v61 isEqual:*(*v19 + 40)];
 
-              if (v61 && [v59 finished])
+              if (v62 && [v60 finished])
               {
-                v62 = *(*v19 + 40);
+                v63 = *(*v19 + 40);
                 *(*v19 + 40) = 0;
 
-                v53 = 0;
+                v54 = 0;
               }
             }
 
-            v56 = [v54 countByEnumeratingWithState:&v83 objects:v90 count:16];
+            v57 = [v55 countByEnumeratingWithState:&v84 objects:v91 count:16];
           }
 
-          while (v56);
+          while (v57);
         }
 
         else
         {
-          v53 = 1;
+          v54 = 1;
         }
 
-        v52 = 0;
-        v50 = v78;
-        v46 = v80;
-        v29 = v81;
+        v53 = 0;
+        v51 = v79;
+        v46 = v81;
+        v29 = v82;
       }
 
       else
       {
-        v52 = 0;
-        v53 = 1;
-        v29 = v81;
+        v53 = 0;
+        v54 = 1;
+        v29 = v82;
       }
     }
 
-    else if (v53 == 2)
+    else if (v54 == 2)
     {
-      objc_storeStrong((v49 + 40), obj);
-      v52 = 1;
+      objc_storeStrong((v50 + 40), obj);
       v53 = 1;
+      v54 = 1;
     }
 
     else
     {
-      v52 = 0;
+      v53 = 0;
     }
   }
 
   else
   {
-    v51 = *(v49 + 40);
-    *(v49 + 40) = 0;
+    v52 = *(v50 + 40);
+    *(v50 + 40) = 0;
 
-    v52 = 0;
-    v53 = 2;
+    v53 = 0;
+    v54 = 2;
   }
 
-  if (v53 != *(*v19 + 32))
+  if (v54 != *(*v19 + 32))
   {
-    v63 = SBLogSystemApertureController();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v64 = SBLogSystemApertureController(v49);
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
-      v64 = *(*v19 + 32);
-      if (v64 == 1)
+      v65 = *(*v19 + 32);
+      if (v65 == 1)
       {
-        v65 = @"visible-pending-milestone";
+        v66 = @"visible-pending-milestone";
       }
 
       else
       {
-        v65 = @"hidden";
+        v66 = @"hidden";
       }
 
-      if (v64 == 2)
+      if (v65 == 2)
       {
-        v66 = @"visible";
+        v67 = @"visible";
       }
 
       else
       {
-        v66 = v65;
+        v67 = v66;
       }
 
-      v67 = v66;
-      if (v53 == 1)
+      v68 = v67;
+      if (v54 == 1)
       {
-        v68 = @"visible-pending-milestone";
+        v69 = @"visible-pending-milestone";
       }
 
       else
       {
-        v68 = @"hidden";
+        v69 = @"hidden";
       }
 
-      if (v53 == 2)
+      if (v54 == 2)
       {
-        v68 = @"visible";
+        v69 = @"visible";
       }
 
-      v46 = v80;
-      v29 = v81;
-      v69 = v68;
+      v46 = v81;
+      v29 = v82;
+      v70 = v69;
       *buf = 138543618;
-      *&buf[4] = v67;
-      v88 = 2114;
-      v89 = v69;
-      _os_log_impl(&dword_21ED4E000, v63, OS_LOG_TYPE_DEFAULT, "Background Blur: Updating background blur visibility: (%{public}@) -> (%{public}@)", buf, 0x16u);
+      *&buf[4] = v68;
+      v89 = 2114;
+      v90 = v70;
+      _os_log_impl(&dword_21ED4E000, v64, OS_LOG_TYPE_DEFAULT, "Background Blur: Updating background blur visibility: (%{public}@) -> (%{public}@)", buf, 0x16u);
     }
 
-    *(*v19 + 32) = v53;
+    *(*v19 + 32) = v54;
   }
 
-  v70 = [*(*(*(v46 + 48) + 8) + 40) effectiveAnimatedTransitionDescriptionForProperty:v82];
-  if (v70)
+  v71 = [*(*(*(v46 + 48) + 8) + 40) effectiveAnimatedTransitionDescriptionForProperty:v83];
+  if (v71)
   {
-    v71 = obj;
-    if (v52)
+    v72 = obj;
+    if (v53)
     {
-      v72 = [MEMORY[0x277CBEB98] setWithObject:0x28336F620];
+      v73 = [MEMORY[0x277CBEB98] setWithObject:0x28336F620];
     }
 
     else
     {
-      v72 = 0;
+      v73 = 0;
     }
 
-    [v50 associateAnimatedTransitionDescriptionOfProperty:v82 withProperty:obj withMilestones:v72];
+    [v51 associateAnimatedTransitionDescriptionOfProperty:v83 withProperty:obj withMilestones:v73];
     goto LABEL_60;
   }
 
-  v71 = obj;
-  if (v52)
+  v72 = obj;
+  if (v53)
   {
     __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_2(v46, v19, buf);
-    v72 = *buf;
+    v73 = *buf;
 LABEL_60:
   }
 
-  v73 = [(SBSABackgroundBlurDescription *)v75 copyBySettingBlurHidden:*(*v19 + 32) == 0];
+  v74 = [(SBSABackgroundBlurDescription *)v76 copyBySettingBlurHidden:*(*v19 + 32) == 0];
 
-  v74 = [v73 copyBySettingBlurFrame:{v36, v38, v40, v42}];
-  [v50 setBackgroundBlurDescription:v74];
+  v75 = [v74 copyBySettingBlurFrame:{v36, v38, v40, v42}];
+  [v51 setBackgroundBlurDescription:v75];
 }
 
 + (CGRect)frameForVariableBlurUnderContainerViewWithFrame:(CGRect)frame offscreen:(BOOL)offscreen context:(id)context
@@ -455,15 +455,15 @@ LABEL_60:
   [v8 handleFailureInMethod:a2 object:a3 file:@"SBSABackgroundBlurPreferencesProvider.m" lineNumber:39 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
-void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1)
+void __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
-  v4 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v2 object:v3 file:@"SBSABackgroundBlurPreferencesProvider.m" lineNumber:43 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(a1 + 56);
+  v4 = *(a1 + 32);
+  v5 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v3 object:v4 file:@"SBSABackgroundBlurPreferencesProvider.m" lineNumber:43 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
 uint64_t __64__SBSABackgroundBlurPreferencesProvider_preferencesFromContext___block_invoke_cold_2(uint64_t a1, void *a2, void *a3)

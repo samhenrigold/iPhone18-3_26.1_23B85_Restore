@@ -84,7 +84,7 @@
 {
   transaction = self->_transaction;
   self->_transaction = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, transaction);
 }
 
 - (SYService)service

@@ -87,7 +87,7 @@ void __29__PPEventStorage_clearCaches__block_invoke(uint64_t a1, void *a2)
   return v7 & 1;
 }
 
-uint64_t __59__PPEventStorage_shouldIgnoreEventsOnCalendarWithObjectID___block_invoke(void *a1, void *a2)
+void *__59__PPEventStorage_shouldIgnoreEventsOnCalendarWithObjectID___block_invoke(void *a1, void *a2)
 {
   v3 = a2[4];
   if (!v3)
@@ -149,7 +149,7 @@ uint64_t __32__PPEventStorage__loadCalendars__block_invoke(uint64_t a1)
 
 void __32__PPEventStorage__loadCalendars__block_invoke_2(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_events_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -161,19 +161,19 @@ void __32__PPEventStorage__loadCalendars__block_invoke_2(void *a1, void *a2)
   v5 = [v3 ekStore];
   if (!v5)
   {
-    v24 = [MEMORY[0x277CCA890] currentHandler];
-    [v24 handleFailureInMethod:a1[6] object:a1[4] file:@"PPEventStorage.m" lineNumber:583 description:{@"Invalid parameter not satisfying: %@", @"[guardedData ekStore]"}];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:a1[6] object:a1[4] file:@"PPEventStorage.m" lineNumber:583 description:{@"Invalid parameter not satisfying: %@", @"[guardedData ekStore]"}];
   }
 
   v6 = [v3 ekStore];
   v7 = [v6 calendarsForEntityType:0];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __32__PPEventStorage__loadCalendars__block_invoke_88;
-  v25[3] = &unk_278976848;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __32__PPEventStorage__loadCalendars__block_invoke_88;
+  v24[3] = &unk_278976848;
   v8 = v3;
-  v26 = v8;
-  v9 = [v7 _pas_filteredArrayWithTest:v25];
+  v25 = v8;
+  v9 = [v7 _pas_filteredArrayWithTest:v24];
   v10 = *(a1[5] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
@@ -196,13 +196,11 @@ void __32__PPEventStorage__loadCalendars__block_invoke_2(void *a1, void *a2)
     v21 = [*(*(a1[5] + 8) + 40) count];
     v22 = *(*(a1[5] + 8) + 40);
     *buf = 134218243;
-    v28 = v21;
-    v29 = 2113;
-    v30 = v22;
+    v27 = v21;
+    v28 = 2113;
+    v29 = v22;
     _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "PPEventStorage: will use %tu calendars: %{private}@", buf, 0x16u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__PPEventStorage__loadCalendars__block_invoke_88(uint64_t a1, void *a2)
@@ -357,32 +355,32 @@ LABEL_8:
 
 void __38__PPEventStorage_eventWithExternalID___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [a2 ekStore];
   v4 = [v3 calendarItemsWithExternalIdentifier:*(a1 + 32)];
 
   if ([v4 count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -391,7 +389,7 @@ void __38__PPEventStorage_eventWithExternalID___block_invoke(uint64_t a1, void *
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v7)
         {
           continue;
@@ -403,8 +401,6 @@ void __38__PPEventStorage_eventWithExternalID___block_invoke(uint64_t a1, void *
 
 LABEL_12:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateEventsFromEKObjectIDs:(void *)ds expandingRecurrencesInRange:(char)range withFiltering:(void *)filtering usingBlock:
@@ -433,30 +429,30 @@ LABEL_12:
 
 void __102__PPEventStorage_enumerateEventsFromEKObjectIDs_expandingRecurrencesInRange_withFiltering_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v84 = 0;
+  v83 = 0;
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v79 objects:v90 count:16];
   if (v5)
   {
     v6 = v5;
-    v79 = *v81;
+    v78 = *v80;
     do
     {
       v7 = 0;
       do
       {
-        if (*v81 != v79)
+        if (*v80 != v78)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v80 + 1) + 8 * v7);
+        v8 = *(*(&v79 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = objc_autoreleasePoolPush();
         v11 = [v3 ekStore];
@@ -469,7 +465,7 @@ void __102__PPEventStorage_enumerateEventsFromEKObjectIDs_expandingRecurrencesIn
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v86 = v8;
+            v85 = v8;
             v22 = v21;
             v23 = "PPEventStorage: objectID %@ no longer exists, probably deleted";
             goto LABEL_35;
@@ -487,9 +483,9 @@ LABEL_25:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412547;
-            v86 = v8;
-            v87 = 2117;
-            v88 = v12;
+            v85 = v8;
+            v86 = 2117;
+            v87 = v12;
             _os_log_fault_impl(&dword_23224A000, v21, OS_LOG_TYPE_FAULT, "PPEventStorage: saw non-ekevent: %@ %{sensitive}@", buf, 0x16u);
           }
 
@@ -503,7 +499,7 @@ LABEL_25:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v86 = v8;
+            v85 = v8;
             v22 = v21;
             v23 = "PPEventStorage: objectID %@ has no startDate and/or endDate, probably deleted";
 LABEL_35:
@@ -520,16 +516,16 @@ LABEL_35:
           {
             v26 = [v12 startDate];
             [v12 title];
-            v27 = v77 = v4;
+            v27 = v76 = v4;
             *buf = 138412803;
-            v86 = v8;
-            v87 = 2113;
-            v88 = v26;
-            v89 = 2117;
-            v90 = v27;
+            v85 = v8;
+            v86 = 2113;
+            v87 = v26;
+            v88 = 2117;
+            v89 = v27;
             _os_log_debug_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEBUG, "PPEventStorage: enumerateEventsFromEKObjectIDs skipping objectID %@ because shouldIngestEvent returned NO: %{private}@ %{sensitive}@", buf, 0x20u);
 
-            v4 = v77;
+            v4 = v76;
           }
 
           goto LABEL_25;
@@ -537,28 +533,28 @@ LABEL_35:
 
         if (*(a1 + 48) && ([v12 isDetached] & 1) == 0 && (objc_msgSend(v12, "hasRecurrenceRules") & 1) != 0)
         {
-          v63 = objc_autoreleasePoolPush();
+          v62 = objc_autoreleasePoolPush();
           v16 = pp_default_log_handle();
-          v76 = v4;
+          v75 = v4;
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             v57 = [v12 startDate];
             v58 = [v12 title];
             *buf = 138412803;
-            v86 = v8;
-            v87 = 2113;
-            v88 = v57;
-            v89 = 2117;
-            v90 = v58;
+            v85 = v8;
+            v86 = 2113;
+            v87 = v57;
+            v88 = 2117;
+            v89 = v58;
             _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "PPEventStorage: enumerateEventsFromEKObjectIDs will expand recurrences for objectID %@: %{private}@ %{sensitive}@", buf, 0x20u);
 
-            v4 = v76;
+            v4 = v75;
           }
 
           (*(*(a1 + 64) + 16))();
-          if (v84 == 1)
+          if (v83 == 1)
           {
-            objc_autoreleasePoolPop(v63);
+            objc_autoreleasePoolPop(v62);
 LABEL_71:
 
             objc_autoreleasePoolPop(v9);
@@ -578,7 +574,7 @@ LABEL_71:
             v20 = [MEMORY[0x277CBEB98] set];
           }
 
-          v71 = v20;
+          v70 = v20;
 
           objc_autoreleasePoolPop(v17);
           context = objc_autoreleasePoolPush();
@@ -599,15 +595,15 @@ LABEL_71:
 
           objc_autoreleasePoolPop(context);
           v33 = objc_autoreleasePoolPush();
-          contexta = [v71 setByAddingObjectsFromSet:v32];
+          contexta = [v70 setByAddingObjectsFromSet:v32];
           objc_autoreleasePoolPop(v33);
 
           v34 = [v12 startCalendarDate];
           v35 = [v12 recurrenceRules];
           v36 = [v12 persistentObject];
-          v70 = v35;
-          v72 = v34;
-          v65 = v36;
+          v69 = v35;
+          v71 = v34;
+          v64 = v36;
           if (v35)
           {
             v37 = v36 == 0;
@@ -619,45 +615,45 @@ LABEL_71:
           }
 
           v38 = v37;
-          v62 = v38;
+          v61 = v38;
           if (v37)
           {
             v39 = pp_default_log_handle();
-            v4 = v76;
+            v4 = v75;
             if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
             {
               goto LABEL_66;
             }
 
             *buf = 138412290;
-            v86 = v8;
+            v85 = v8;
             v40 = v39;
             v41 = "PPEventStorage: objectID %@ has lost its recurrenceRules and/or persistentObject, probably deleted";
           }
 
           else
           {
-            v4 = v76;
+            v4 = v75;
             if (v34)
             {
               v39 = [*(a1 + 48) startDate];
-              if ((v84 & 1) == 0)
+              if ((v83 & 1) == 0)
               {
                 v42 = 0;
-                v64 = a1;
-                v61 = v3;
+                v63 = a1;
+                v60 = v3;
                 while (1)
                 {
                   v43 = v39;
                   v44 = v42;
                   v45 = objc_autoreleasePoolPush();
-                  v67 = *(a1 + 56);
-                  v69 = v45;
+                  v66 = *(a1 + 56);
+                  v68 = v45;
                   v46 = MEMORY[0x277CF7860];
                   v47 = [MEMORY[0x277CBEBB0] calendarTimeZone];
                   v48 = [v46 calendarDateWithDate:v43 timeZone:v47];
-                  v66 = v44;
-                  v39 = [v67 nextOccurrenceDateWithEKRecurrences:v70 forCalendarItem:v12 exceptionDates:contexta initialDate:v72 afterDate:v48 inclusive:v44 == 0];
+                  v65 = v44;
+                  v39 = [v66 nextOccurrenceDateWithEKRecurrences:v69 forCalendarItem:v12 exceptionDates:contexta initialDate:v71 afterDate:v48 inclusive:v44 == 0];
 
                   if (!v39 || ![*(a1 + 48) containsDate:v39])
                   {
@@ -667,39 +663,39 @@ LABEL_71:
                   v49 = [v12 startDate];
                   v50 = [v39 isEqual:v49];
 
-                  v3 = v61;
+                  v3 = v60;
                   if ((v50 & 1) == 0)
                   {
                     v51 = objc_autoreleasePoolPush();
-                    v52 = [objc_alloc(MEMORY[0x277CC5A28]) initWithPersistentObject:v65 occurrenceDate:v39];
+                    v52 = [objc_alloc(MEMORY[0x277CC5A28]) initWithPersistentObject:v64 occurrenceDate:v39];
                     objc_autoreleasePoolPop(v51);
                     v53 = pp_default_log_handle();
                     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
                     {
                       v54 = [v52 startDate];
                       [v52 title];
-                      v55 = v68 = v52;
+                      v55 = v67 = v52;
                       *buf = 138412803;
-                      v86 = v8;
-                      v87 = 2113;
-                      v88 = v54;
-                      v89 = 2117;
-                      v90 = v55;
+                      v85 = v8;
+                      v86 = 2113;
+                      v87 = v54;
+                      v88 = 2117;
+                      v89 = v55;
                       _os_log_debug_impl(&dword_23224A000, v53, OS_LOG_TYPE_DEBUG, "PPEventStorage: enumerateEventsFromEKObjectIDs object ID %@ calling block for occurrence: %{private}@ %{sensitive}@", buf, 0x20u);
 
-                      v52 = v68;
+                      v52 = v67;
                     }
 
-                    (*(*(v64 + 64) + 16))();
+                    (*(*(v63 + 64) + 16))();
                   }
 
-                  objc_autoreleasePoolPop(v69);
-                  a1 = v64;
-                  v4 = v76;
-                  if (v66 <= 0x12)
+                  objc_autoreleasePoolPop(v68);
+                  a1 = v63;
+                  v4 = v75;
+                  if (v65 <= 0x12)
                   {
-                    v42 = v66 + 1;
-                    if ((v84 & 1) == 0)
+                    v42 = v65 + 1;
+                    if ((v83 & 1) == 0)
                     {
                       continue;
                     }
@@ -708,15 +704,15 @@ LABEL_71:
                   goto LABEL_66;
                 }
 
-                v3 = v61;
-                v4 = v76;
-                objc_autoreleasePoolPop(v69);
+                v3 = v60;
+                v4 = v75;
+                objc_autoreleasePoolPop(v68);
               }
 
 LABEL_66:
 
-              objc_autoreleasePoolPop(v63);
-              if (v62)
+              objc_autoreleasePoolPop(v62);
+              if (v61)
               {
                 goto LABEL_27;
               }
@@ -731,7 +727,7 @@ LABEL_66:
             }
 
             *buf = 138412290;
-            v86 = v8;
+            v85 = v8;
             v40 = v39;
             v41 = "PPEventStorage: enumerateEventsFromEKObjectIDs cancelled expanding recurrences for objectID %@ (startCalendarDate was nil)";
           }
@@ -746,22 +742,22 @@ LABEL_66:
         {
           contextb = [v12 startDate];
           [v12 title];
-          v56 = v78 = v4;
+          v56 = v77 = v4;
           *buf = 138412803;
-          v86 = v8;
-          v87 = 2113;
-          v88 = contextb;
-          v89 = 2117;
-          v90 = v56;
+          v85 = v8;
+          v86 = 2113;
+          v87 = contextb;
+          v88 = 2117;
+          v89 = v56;
           _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "PPEventStorage: enumerateEventsFromEKObjectIDs calling block for objectID %@ without recurrence expansion: %{private}@ %{sensitive}@", buf, 0x20u);
 
-          v4 = v78;
+          v4 = v77;
         }
 
         (*(*(a1 + 64) + 16))();
         objc_autoreleasePoolPop(v24);
 LABEL_26:
-        if (v84 == 1)
+        if (v83 == 1)
         {
           goto LABEL_71;
         }
@@ -773,7 +769,7 @@ LABEL_27:
       }
 
       while (v7 != v6);
-      v59 = [v4 countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v59 = [v4 countByEnumeratingWithState:&v79 objects:v90 count:16];
       v6 = v59;
     }
 
@@ -781,8 +777,6 @@ LABEL_27:
   }
 
 LABEL_72:
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resolveEventFromEKChange:(id)change
@@ -1016,7 +1010,7 @@ void __34__PPEventStorage_nlEventsInRange___block_invoke_2(void *a1, void *a2)
 {
   length = range.length;
   location = range.location;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v8 = objc_opt_new();
   v9 = pp_events_log_handle();
@@ -1035,13 +1029,13 @@ void __34__PPEventStorage_nlEventsInRange___block_invoke_2(void *a1, void *a2)
     if (v14)
     {
       v15 = v14;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __49__PPEventStorage_suggestedEventsInRange_ekStore___block_invoke_55;
-      v22[3] = &unk_2789766C0;
-      v22[4] = self;
-      v23 = v8;
-      [storeCopy enumerateEventsMatchingPredicate:v15 usingBlock:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __49__PPEventStorage_suggestedEventsInRange_ekStore___block_invoke_55;
+      v21[3] = &unk_2789766C0;
+      v21[4] = self;
+      v22 = v8;
+      [storeCopy enumerateEventsMatchingPredicate:v15 usingBlock:v21];
 
       goto LABEL_10;
     }
@@ -1050,9 +1044,9 @@ void __34__PPEventStorage_nlEventsInRange___block_invoke_2(void *a1, void *a2)
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v29 = location;
-      v30 = 2048;
-      v31 = length;
+      v28 = location;
+      v29 = 2048;
+      v30 = length;
       _os_log_error_impl(&dword_23224A000, v19, OS_LOG_TYPE_ERROR, "PPEventStorage: EventKit returned a nil predicate for Events range: (%tu, %tu)", buf, 0x16u);
     }
 
@@ -1081,15 +1075,15 @@ LABEL_18:
   }
 
   v12 = predicateForEventsCreatedFromSuggestion;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __49__PPEventStorage_suggestedEventsInRange_ekStore___block_invoke;
-  v24[3] = &unk_278976698;
-  v26 = location;
-  v27 = length;
-  v25 = v8;
-  [storeCopy enumerateEventsMatchingPredicate:v12 usingBlock:v24];
-  v13 = v25;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __49__PPEventStorage_suggestedEventsInRange_ekStore___block_invoke;
+  v23[3] = &unk_278976698;
+  v25 = location;
+  v26 = length;
+  v24 = v8;
+  [storeCopy enumerateEventsMatchingPredicate:v12 usingBlock:v23];
+  v13 = v24;
 LABEL_10:
 
   v16 = [v8 sortedArrayUsingSelector:sel_compareStartDateWithEvent_];
@@ -1102,8 +1096,6 @@ LABEL_10:
 
   v18 = v17;
 LABEL_19:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1148,72 +1140,72 @@ void __49__PPEventStorage_suggestedEventsInRange_ekStore___block_invoke_55(uint6
 {
   length = range.length;
   location = range.location;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__18014;
-  v37 = __Block_byref_object_dispose__18015;
-  v38 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke;
-  v32[3] = &unk_278976620;
-  v32[6] = location;
-  v32[7] = length;
-  v32[4] = self;
-  v32[5] = &v33;
-  [(PPEventStorage *)self runBlockWithPurgerDisabled:v32];
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__18014;
+  v36 = __Block_byref_object_dispose__18015;
+  v37 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke;
+  v31[3] = &unk_278976620;
+  v31[6] = location;
+  v31[7] = length;
+  v31[4] = self;
+  v31[5] = &v32;
+  [(PPEventStorage *)self runBlockWithPurgerDisabled:v31];
   [(PPEventStorage *)self attemptToPurgeImmediately];
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:location];
   v8 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v7 duration:length];
 
-  v18 = [v34[5] count];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v17 = [v33[5] count];
   v29 = 0u;
-  v9 = v34[5];
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v39 count:16];
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v9 = v33[5];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
   if (v10)
   {
-    v11 = *v29;
+    v11 = *v28;
 LABEL_3:
     v12 = 0;
-    v13 = v18;
-    v18 -= v10;
+    v13 = v17;
+    v17 -= v10;
     while (1)
     {
-      if (*v29 != v11)
+      if (*v28 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v28 + 1) + 8 * v12);
+      v14 = *(*(&v27 + 1) + 8 * v12);
       v15 = objc_autoreleasePoolPush();
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = 0;
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_3;
-      v20[3] = &unk_278976670;
-      v20[4] = self;
-      v20[5] = v14;
-      v21 = v8;
-      v22 = blockCopy;
-      v23 = &v24;
-      [(PPEventStorage *)self runBlockWithPurgerDisabled:v20];
+      v23 = 0;
+      v24 = &v23;
+      v25 = 0x2020000000;
+      v26 = 0;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_3;
+      v19[3] = &unk_278976670;
+      v19[4] = self;
+      v19[5] = v14;
+      v20 = v8;
+      v21 = blockCopy;
+      v22 = &v23;
+      [(PPEventStorage *)self runBlockWithPurgerDisabled:v19];
       if (!(v13 % 0xA))
       {
         [(PPEventStorage *)self attemptToPurgeImmediately];
       }
 
-      v16 = *(v25 + 24);
+      v16 = *(v24 + 24);
 
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
       objc_autoreleasePoolPop(v15);
       if (v16)
       {
@@ -1224,7 +1216,7 @@ LABEL_3:
       --v13;
       if (v10 == v12)
       {
-        v10 = [v9 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v27 objects:v38 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -1235,83 +1227,50 @@ LABEL_3:
     }
   }
 
-  _Block_object_dispose(&v33, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 }
 
-void __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke(void *a1)
+void __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke(void *a1, uint64_t a2)
 {
   v42 = *MEMORY[0x277D85DE8];
-  v2 = a1[4];
-  if (!v2)
+  v3 = a1[4];
+  if (v3 && (v4 = a1[6], v5 = a1[7], v29 = 0, v30 = &v29, v31 = 0x3032000000, v32 = __Block_byref_object_copy__18014, v33 = __Block_byref_object_dispose__18015, v34 = 0, [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v4], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", (v4 + v5)), v7 = objc_claimAutoreleasedReturnValue(), v8 = *(v3 + 16), *buf = MEMORY[0x277D85DD0], *&buf[8] = 3221225472, *&buf[16] = __59__PPEventStorage__predicateForRange_loadDefaultProperties___block_invoke, v36 = &unk_278976900, v40 = &v29, v9 = v6, v37 = v9, v10 = v7, v38 = v10, v39 = v3, v41 = 0, objc_msgSend(v8, "runWithLockAcquired:", buf), v11 = v30[5], v38, v37, v10, v9, _Block_object_dispose(&v29, 8), v34, v11))
   {
-    goto LABEL_4;
-  }
-
-  v3 = a1[6];
-  v4 = a1[7];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__18014;
-  v33 = __Block_byref_object_dispose__18015;
-  v34 = 0;
-  v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v3];
-  v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:(v3 + v4)];
-  v7 = *(v2 + 16);
-  *buf = MEMORY[0x277D85DD0];
-  *&buf[8] = 3221225472;
-  *&buf[16] = __59__PPEventStorage__predicateForRange_loadDefaultProperties___block_invoke;
-  v36 = &unk_278976900;
-  v40 = &v29;
-  v8 = v5;
-  v37 = v8;
-  v9 = v6;
-  v38 = v9;
-  v39 = v2;
-  v41 = 0;
-  [v7 runWithLockAcquired:buf];
-  v10 = v30[5];
-
-  _Block_object_dispose(&v29, 8);
-  if (v10)
-  {
-    v11 = objc_opt_new();
+    v12 = objc_opt_new();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     v36 = __Block_byref_object_copy__18014;
     v37 = __Block_byref_object_dispose__18015;
     v38 = 0;
-    v12 = *(a1[4] + 16);
+    v13 = *(a1[4] + 16);
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
     v28[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_51;
     v28[3] = &unk_2789765F8;
     v28[4] = buf;
-    [v12 runWithLockAcquired:v28];
-    v13 = *(*&buf[8] + 40);
+    [v13 runWithLockAcquired:v28];
+    v14 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
 
     v23 = MEMORY[0x277D85DD0];
     v24 = 3221225472;
     v25 = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_2;
     v26 = &unk_278979168;
-    v27 = v11;
-    v14 = v11;
-    [v13 enumerateEventsMatchingPredicate:v10 usingBlock:&v23];
+    v27 = v12;
+    v15 = v12;
+    [v14 enumerateEventsMatchingPredicate:v11 usingBlock:&v23];
 
-    v15 = [v14 array];
-    v16 = *(a1[5] + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v16 = [v15 array];
+    v17 = *(a1[5] + 8);
+    v18 = *(v17 + 40);
+    *(v17 + 40) = v16;
   }
 
   else
   {
-LABEL_4:
-    v18 = pp_events_log_handle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = pp_events_log_handle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v21 = a1[6];
       v22 = a1[7];
@@ -1319,40 +1278,36 @@ LABEL_4:
       *&buf[4] = v21;
       *&buf[12] = 2048;
       *&buf[14] = v22;
-      _os_log_error_impl(&dword_23224A000, v18, OS_LOG_TYPE_ERROR, "PPEventStorage: EventKit returned a nil predicate for Events range: (%tu, %tu)", buf, 0x16u);
+      _os_log_error_impl(&dword_23224A000, v19, OS_LOG_TYPE_ERROR, "PPEventStorage: EventKit returned a nil predicate for Events range: (%tu, %tu)", buf, 0x16u);
     }
 
-    v10 = 0;
-    v19 = *(a1[5] + 8);
-    v14 = *(v19 + 40);
-    *(v19 + 40) = MEMORY[0x277CBEBF8];
+    v11 = 0;
+    v20 = *(a1[5] + 8);
+    v15 = *(v20 + 40);
+    *(v20 + 40) = MEMORY[0x277CBEBF8];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_3(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v15[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v4 = *(a1 + 48);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_4;
-  v10[3] = &unk_278976648;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_4;
+  v9[3] = &unk_278976648;
   v5 = v4;
   v6 = *(a1 + 32);
-  v11 = v5;
-  v12 = v6;
+  v10 = v5;
+  v11 = v6;
   v7 = *(a1 + 56);
   v8 = *(a1 + 64);
-  v13 = v7;
-  v14 = v8;
-  [(PPEventStorage *)v2 enumerateEventsFromEKObjectIDs:v3 expandingRecurrencesInRange:v5 withFiltering:0 usingBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v12 = v7;
+  v13 = v8;
+  [(PPEventStorage *)v2 enumerateEventsFromEKObjectIDs:v3 expandingRecurrencesInRange:v5 withFiltering:0 usingBlock:v9];
 }
 
 void __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_4(void *a1, void *a2, _BYTE *a3)
@@ -1382,10 +1337,7 @@ void __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_4(voi
 
 uint64_t __52__PPEventStorage_enumerateEventsInRange_usingBlock___block_invoke_51(uint64_t a1, void *a2)
 {
-  v3 = [a2 ekStore];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 ekStore];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1510,7 +1462,7 @@ void __38__PPEventStorage_eventWithIdentifier___block_invoke(uint64_t a1, void *
   [(_PASLock *)self->_lock runWithLockAcquired:&__block_literal_global_44];
 }
 
-uint64_t __45__PPEventStorage_runBlockWithPurgerDisabled___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__45__PPEventStorage_runBlockWithPurgerDisabled___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40) - 1;
   *(a2 + 40) = v2;
@@ -1522,7 +1474,7 @@ uint64_t __45__PPEventStorage_runBlockWithPurgerDisabled___block_invoke_2(uint64
   return result;
 }
 
-uint64_t __45__PPEventStorage_runBlockWithPurgerDisabled___block_invoke(uint64_t a1, uint64_t a2)
+void *__45__PPEventStorage_runBlockWithPurgerDisabled___block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a2 + 40) = v2 + 1;

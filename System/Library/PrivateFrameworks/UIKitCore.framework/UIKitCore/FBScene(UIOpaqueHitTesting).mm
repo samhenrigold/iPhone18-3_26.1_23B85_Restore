@@ -1,6 +1,6 @@
 @interface FBScene(UIOpaqueHitTesting)
 - (uint64_t)ui_hitTestsAsOpaque;
-- (uint64_t)ui_setHitTestsAsOpaque:()UIOpaqueHitTesting;
+- (void)ui_setHitTestsAsOpaque:()UIOpaqueHitTesting;
 @end
 
 @implementation FBScene(UIOpaqueHitTesting)
@@ -12,7 +12,7 @@
   return [self conformsToExtension:v2];
 }
 
-- (uint64_t)ui_setHitTestsAsOpaque:()UIOpaqueHitTesting
+- (void)ui_setHitTestsAsOpaque:()UIOpaqueHitTesting
 {
   result = [self ui_hitTestsAsOpaque];
   if (result != a3)

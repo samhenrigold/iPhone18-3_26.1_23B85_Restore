@@ -23,7 +23,7 @@
     v13 = 2048;
     codeCopy = code;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Logging event for AppleCare: [backup, %@, %lu]", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Logging event for AppleCare: [backup, %@, %lu]", v6, code);
   }
 
   v10[0] = @"backup";

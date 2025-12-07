@@ -3,7 +3,7 @@
 
 @implementation AXSAppleTVRemoteForceLiveTVButtons
 
-uint64_t ___AXSAppleTVRemoteForceLiveTVButtons_block_invoke()
+void *___AXSAppleTVRemoteForceLiveTVButtons_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

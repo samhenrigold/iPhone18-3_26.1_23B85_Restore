@@ -1158,19 +1158,19 @@ LABEL_5:
 
 - (void)_setUpCookieStoragePolicyForDataStore:(id)store
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   httpCookieStore = [storeCopy httpCookieStore];
   [httpCookieStore sf_applySafariCookieStoragePolicy];
 
-  [(WKPreferences *)self->_wkPreferences sf_applySafariStorageBlockingPolicy];
-  v6 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  sf_applySafariStorageBlockingPolicy = [(WKPreferences *)self->_wkPreferences sf_applySafariStorageBlockingPolicy];
+  v8 = WBS_LOG_CHANNEL_PREFIXSVCPrivacy(sf_applySafariStorageBlockingPolicy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     mEMORY[0x1E695AC00] = [MEMORY[0x1E695AC00] sharedHTTPCookieStorage];
-    v8 = 134217984;
+    v10 = 134217984;
     cookieAcceptPolicy = [mEMORY[0x1E695AC00] cookieAcceptPolicy];
-    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Set cookie storage policy to %ld", &v8, 0xCu);
+    _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Set cookie storage policy to %ld", &v10, 0xCu);
   }
 }
 
@@ -2528,7 +2528,7 @@ LABEL_19:
 
 - (void)setConfiguration:(id)configuration
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   objc_storeStrong(&self->_configuration, configuration);
   [(_SFBrowserContentViewController *)self _updateModalInPresentation];
@@ -2540,18 +2540,20 @@ LABEL_19:
   v8 = activityButton;
   if (activityButton)
   {
-    if ([activityButton _fieldsAreValid])
+    _fieldsAreValid = [activityButton _fieldsAreValid];
+    if (_fieldsAreValid)
     {
       extensionIdentifier = [v8 extensionIdentifier];
-      v18 = 0;
-      v10 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:extensionIdentifier error:&v18];
-      v11 = v18;
-      if (v11 || !v10)
+      v23 = 0;
+      v12 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:extensionIdentifier error:&v23];
+      v13 = v23;
+      v15 = v13;
+      if (v13 || !v12)
       {
-        _hostAppBundleId = WBS_LOG_CHANNEL_PREFIXExtensions();
+        _hostAppBundleId = WBS_LOG_CHANNEL_PREFIXExtensions(v13, v14);
         if (os_log_type_enabled(_hostAppBundleId, OS_LOG_TYPE_ERROR))
         {
-          safari_privacyPreservingDescription = [v11 safari_privacyPreservingDescription];
+          safari_privacyPreservingDescription = [v15 safari_privacyPreservingDescription];
           [(_SFBrowserContentViewController *)extensionIdentifier setConfiguration:safari_privacyPreservingDescription, buf, _hostAppBundleId];
         }
       }
@@ -2559,20 +2561,20 @@ LABEL_19:
       else
       {
         _hostAppBundleId = [(_SFBrowserContentViewController *)self _hostAppBundleId];
-        v13 = [(UIApplicationExtensionActivity *)[_SFApplicationExtensionActivity alloc] initWithApplicationExtension:v10];
-        v14 = [(_SFApplicationExtensionActivity *)v13 validateExtensionHasSameContainerAsHostApp:_hostAppBundleId];
-        self->_customActivityButtonIsValid = v14;
-        if (v14)
+        v17 = [(UIApplicationExtensionActivity *)[_SFApplicationExtensionActivity alloc] initWithApplicationExtension:v12];
+        v18 = [(_SFApplicationExtensionActivity *)v17 validateExtensionHasSameContainerAsHostApp:_hostAppBundleId];
+        self->_customActivityButtonIsValid = v18;
+        if (v18)
         {
-          objc_storeStrong(&self->_customButtonUIActivity, v13);
+          objc_storeStrong(&self->_customButtonUIActivity, v17);
         }
 
         else
         {
-          v17 = WBS_LOG_CHANNEL_PREFIXExtensions();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = WBS_LOG_CHANNEL_PREFIXExtensions(v18, v19);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            [(_SFBrowserContentViewController *)extensionIdentifier setConfiguration:_hostAppBundleId, v17];
+            [(_SFBrowserContentViewController *)extensionIdentifier setConfiguration:_hostAppBundleId, v22];
           }
         }
       }
@@ -2580,8 +2582,8 @@ LABEL_19:
 
     else
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXExtensions();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXExtensions(_fieldsAreValid, v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [_SFBrowserContentViewController setConfiguration:];
       }
@@ -3009,11 +3011,11 @@ LABEL_10:
 - (void)addTrustedEventAttribution:(id)attribution
 {
   attributionCopy = attribution;
-  v5 = WBS_LOG_CHANNEL_PREFIXEventAttribution();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = WBS_LOG_CHANNEL_PREFIXEventAttribution(attributionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Giving valid UIEventAttribution to WebKit", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_INFO, "Giving valid UIEventAttribution to WebKit", v9, 2u);
   }
 
   webView = [(_SFBrowserContentViewController *)self webView];
@@ -4629,59 +4631,61 @@ LABEL_19:
 
 - (void)webViewController:(id)controller decidePolicyForNavigationAction:(id)action decisionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   actionCopy = action;
   handlerCopy = handler;
   targetFrame = [actionCopy targetFrame];
-  if (targetFrame && ([actionCopy targetFrame], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isMainFrame"), v12, targetFrame, !v13))
+  v13 = targetFrame;
+  if (targetFrame && ([actionCopy targetFrame], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isMainFrame"), v14, v13, !v15))
   {
-    v18 = 0;
+    v22 = 0;
   }
 
   else
   {
     ++self->_concurrentNavigationActionPolicyDecisions;
-    v14 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = WBS_LOG_CHANNEL_PREFIXPageLoading(targetFrame, v12);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+    if (v17)
     {
       concurrentNavigationActionPolicyDecisions = self->_concurrentNavigationActionPolicyDecisions;
       *buf = 134218240;
       selfCopy = self;
-      v28 = 2048;
-      v29 = concurrentNavigationActionPolicyDecisions;
-      _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_INFO, "(%p) Concurrent navigation action policy decisions: %zd", buf, 0x16u);
+      v32 = 2048;
+      v33 = concurrentNavigationActionPolicyDecisions;
+      _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_INFO, "(%p) Concurrent navigation action policy decisions: %zd", buf, 0x16u);
     }
 
     if (self->_concurrentNavigationActionPolicyDecisions >= 21)
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXPageLoading(v17, v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [_SFBrowserContentViewController webViewController:v16 decidePolicyForNavigationAction:? decisionHandler:?];
+        [_SFBrowserContentViewController webViewController:v20 decidePolicyForNavigationAction:? decisionHandler:?];
       }
 
       webView = [controllerCopy webView];
       [webView _killWebContentProcessAndResetState];
     }
 
-    v18 = 1;
+    v22 = 1;
   }
 
   objc_initWeak(buf, self);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __101___SFBrowserContentViewController_webViewController_decidePolicyForNavigationAction_decisionHandler___block_invoke;
-  v21[3] = &unk_1E8494E78;
-  objc_copyWeak(&v24, buf);
-  v19 = actionCopy;
-  v22 = v19;
-  v20 = handlerCopy;
-  v23 = v20;
-  v25 = v18;
-  [(_SFBrowserContentViewController *)self _internalWebViewController:controllerCopy decidePolicyForNavigationAction:v19 decisionHandler:v21];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __101___SFBrowserContentViewController_webViewController_decidePolicyForNavigationAction_decisionHandler___block_invoke;
+  v25[3] = &unk_1E8494E78;
+  objc_copyWeak(&v28, buf);
+  v23 = actionCopy;
+  v26 = v23;
+  v24 = handlerCopy;
+  v27 = v24;
+  v29 = v22;
+  [(_SFBrowserContentViewController *)self _internalWebViewController:controllerCopy decidePolicyForNavigationAction:v23 decisionHandler:v25];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
 }
 
@@ -5667,39 +5671,40 @@ LABEL_11:
 
 - (BOOL)webViewControllerShouldAutofillESimInformation:(id)information
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   informationCopy = information;
-  v22 = 0u;
-  v23 = 0u;
-  [(_SFBrowserContentViewController *)self _hostAuditToken];
-  v24 = 0u;
-  v25 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  objc_msgSend__hostAuditToken(self);
+  v30 = 0u;
+  v31 = 0u;
   v5 = WBSAuditTokenValueArrayForEntitlement();
   if ([v5 containsObject:@"public-cellular-plan"])
   {
-    v24 = v22;
-    v25 = v23;
-    v21 = 0;
-    v6 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:&v24 error:&v21];
-    v7 = v21;
+    v30 = v28;
+    v31 = v29;
+    v27 = 0;
+    v6 = [MEMORY[0x1E6963620] bundleRecordForAuditToken:&v30 error:&v27];
+    v7 = v27;
+    v9 = v7;
     if (v6)
     {
       bundleIdentifier = [v6 bundleIdentifier];
       if (([bundleIdentifier isEqualToString:@"com.apple.Preferences"]& 1) != 0)
       {
 LABEL_4:
-        v9 = 1;
+        v11 = 1;
 LABEL_20:
 
         goto LABEL_21;
       }
 
       bundleIdentifier2 = [v6 bundleIdentifier];
-      v11 = [bundleIdentifier2 isEqualToString:@"com.apple.sfapp"];
+      v13 = [bundleIdentifier2 isEqualToString:@"com.apple.sfapp"];
 
-      if (v11)
+      if (v13)
       {
-        v9 = 1;
+        v11 = 1;
 LABEL_21:
 
         goto LABEL_22;
@@ -5707,27 +5712,28 @@ LABEL_21:
 
       bundleIdentifier = [objc_alloc(MEMORY[0x1E69650A0]) initWithQueue:0];
 
-      if (objc_opt_respondsToSelector())
+      v14 = objc_opt_respondsToSelector();
+      if (v14)
       {
         webView = [informationCopy webView];
-        v13 = [webView URL];
-        host = [v13 host];
+        v17 = [webView URL];
+        host = [v17 host];
         bundleIdentifier3 = [v6 bundleIdentifier];
-        v20 = 0;
-        v16 = [bundleIdentifier isAutofilleSIMIdAllowedForDomain:host clientBundleIdentifier:bundleIdentifier3 error:&v20];
-        v7 = v20;
+        v26 = 0;
+        v20 = [bundleIdentifier isAutofilleSIMIdAllowedForDomain:host clientBundleIdentifier:bundleIdentifier3 error:&v26];
+        v9 = v26;
 
-        if (v16)
+        if (v20)
         {
           goto LABEL_4;
         }
 
-        if (v7)
+        if (v9)
         {
-          v17 = WBS_LOG_CHANNEL_PREFIXESim();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v23 = WBS_LOG_CHANNEL_PREFIXESim(v21, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [v7 safari_privacyPreservingDescription];
+            [v9 safari_privacyPreservingDescription];
             objc_claimAutoreleasedReturnValue();
             [_SFBrowserContentViewController webViewControllerShouldAutofillESimInformation:];
           }
@@ -5736,35 +5742,35 @@ LABEL_21:
 
       else
       {
-        v18 = WBS_LOG_CHANNEL_PREFIXESim();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v24 = WBS_LOG_CHANNEL_PREFIXESim(v14, v15);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           [_SFBrowserContentViewController webViewControllerShouldAutofillESimInformation:];
         }
 
-        v7 = 0;
+        v9 = 0;
       }
     }
 
     else
     {
-      bundleIdentifier = WBS_LOG_CHANNEL_PREFIXESim();
+      bundleIdentifier = WBS_LOG_CHANNEL_PREFIXESim(v7, v8);
       if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_ERROR))
       {
-        [v7 safari_privacyPreservingDescription];
+        [v9 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
         [_SFBrowserContentViewController webViewControllerShouldAutofillESimInformation:];
       }
     }
 
-    v9 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_22:
 
-  return v9;
+  return v11;
 }
 
 - (void)webViewControllerDidUpdateUnderPageBackgroundColor:(id)color
@@ -5951,11 +5957,11 @@ LABEL_22:
 - (void)linkPreviewHelper:(id)helper commitPreviewViewControllerForAction:(int64_t)action withTabOrder:(int64_t)order
 {
   helperCopy = helper;
-  v7 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WBS_LOG_CHANNEL_PREFIXUserInteraction(helperCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16[0]) = 0;
-    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Committing link preview of webpage link", v16, 2u);
+    LOWORD(v17[0]) = 0;
+    _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Committing link preview of webpage link", v17, 2u);
   }
 
   [(_SFBrowserContentViewController *)self _invalidatePreviewCloseTimer];
@@ -5974,11 +5980,11 @@ LABEL_22:
   UIRectGetCenter();
   [webView setCenter:?];
 
-  v14 = *(MEMORY[0x1E695EFD0] + 16);
-  v16[0] = *MEMORY[0x1E695EFD0];
-  v16[1] = v14;
-  v16[2] = *(MEMORY[0x1E695EFD0] + 32);
-  [webView setTransform:v16];
+  v15 = *(MEMORY[0x1E695EFD0] + 16);
+  v17[0] = *MEMORY[0x1E695EFD0];
+  v17[1] = v15;
+  v17[2] = *(MEMORY[0x1E695EFD0] + 32);
+  [webView setTransform:v17];
   [webView _setAllowsMediaDocumentInlinePlayback:0];
   _unreachableURL = [webView _unreachableURL];
 
@@ -6993,8 +6999,8 @@ LABEL_12:
 
       if (!webView)
       {
-        v38 = WBS_LOG_CHANNEL_PREFIXDownloads();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v42 = WBS_LOG_CHANNEL_PREFIXDownloads(v25, v26);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
           [_SFBrowserContentViewController _showDownload:];
         }
@@ -7006,12 +7012,12 @@ LABEL_12:
       mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
       lastPathComponent = [fileDownloadPath lastPathComponent];
       bundleIdentifierForProfileInstallation = [(_SFBrowserContentViewController *)self bundleIdentifierForProfileInstallation];
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __49___SFBrowserContentViewController__showDownload___block_invoke_365;
-      v41[3] = &unk_1E8495008;
-      v41[4] = self;
-      [mEMORY[0x1E69ADFB8] queueFileDataForAcceptance:webView originalFileName:lastPathComponent forBundleID:bundleIdentifierForProfileInstallation completion:v41];
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __49___SFBrowserContentViewController__showDownload___block_invoke_365;
+      v45[3] = &unk_1E8495008;
+      v45[4] = self;
+      [mEMORY[0x1E69ADFB8] queueFileDataForAcceptance:webView originalFileName:lastPathComponent forBundleID:bundleIdentifierForProfileInstallation completion:v45];
 
       goto LABEL_31;
     }
@@ -7020,8 +7026,8 @@ LABEL_12:
     {
       mEMORY[0x1E69C8810] = [MEMORY[0x1E69C8810] sharedLogger];
       mimeType = [downloadCopy mimeType];
-      v36 = [downloadCopy uti];
-      [mEMORY[0x1E69C8810] _sf_didBeginDownloadWithMIMEType:mimeType uti:v36 downloadType:0 promptType:0 browserPersona:{-[_SFBrowserContentViewController _persona](self, "_persona")}];
+      v40 = [downloadCopy uti];
+      [mEMORY[0x1E69C8810] _sf_didBeginDownloadWithMIMEType:mimeType uti:v40 downloadType:0 promptType:0 browserPersona:{-[_SFBrowserContentViewController _persona](self, "_persona")}];
 
       objc_storeStrong(&self->_downloadToShowInQuickLook, download);
       quickLookDocument = [downloadCopy quickLookDocument];
@@ -7047,33 +7053,33 @@ LABEL_12:
       v18 = v17;
       if (v17 && ([v17 conformsToType:*MEMORY[0x1E69831A0]] & 1) != 0)
       {
-        v51 = 0;
-        v52 = &v51;
-        v53 = 0x2050000000;
+        v55 = 0;
+        v56 = &v55;
+        v57 = 0x2050000000;
         v19 = getPKPassesXPCContainerClass(void)::softClass;
-        v54 = getPKPassesXPCContainerClass(void)::softClass;
+        v58 = getPKPassesXPCContainerClass(void)::softClass;
         if (!getPKPassesXPCContainerClass(void)::softClass)
         {
-          v46 = MEMORY[0x1E69E9820];
-          v47 = 3221225472;
-          v48 = ___ZL28getPKPassesXPCContainerClassv_block_invoke;
-          v49 = &unk_1E848F7D0;
-          v50 = &v51;
-          ___ZL28getPKPassesXPCContainerClassv_block_invoke(&v46);
-          v19 = v52[3];
+          v50 = MEMORY[0x1E69E9820];
+          v51 = 3221225472;
+          v52 = ___ZL28getPKPassesXPCContainerClassv_block_invoke;
+          v53 = &unk_1E848F7D0;
+          v54 = &v55;
+          ___ZL28getPKPassesXPCContainerClassv_block_invoke(&v50);
+          v19 = v56[3];
         }
 
         v20 = v19;
-        _Block_object_dispose(&v51, 8);
+        _Block_object_dispose(&v55, 8);
         v21 = [[v19 alloc] initWithFileURL:v15];
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __49___SFBrowserContentViewController__showDownload___block_invoke;
-        v43[3] = &unk_1E8494FE0;
-        v44 = v14;
-        [v21 unarchivePassesWithBlock:v43];
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __49___SFBrowserContentViewController__showDownload___block_invoke;
+        v47[3] = &unk_1E8494FE0;
+        v48 = v14;
+        [v21 unarchivePassesWithBlock:v47];
         v22 = 0;
-        v23 = v44;
+        v23 = v48;
 LABEL_42:
 
         if (![v14 count] || v22)
@@ -7096,27 +7102,27 @@ LABEL_42:
     }
 
     v21 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v15];
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2050000000;
-    v39 = getPKPassClass(void)::softClass;
-    v54 = getPKPassClass(void)::softClass;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2050000000;
+    v43 = getPKPassClass(void)::softClass;
+    v58 = getPKPassClass(void)::softClass;
     if (!getPKPassClass(void)::softClass)
     {
-      v46 = MEMORY[0x1E69E9820];
-      v47 = 3221225472;
-      v48 = ___ZL14getPKPassClassv_block_invoke;
-      v49 = &unk_1E848F7D0;
-      v50 = &v51;
-      ___ZL14getPKPassClassv_block_invoke(&v46);
-      v39 = v52[3];
+      v50 = MEMORY[0x1E69E9820];
+      v51 = 3221225472;
+      v52 = ___ZL14getPKPassClassv_block_invoke;
+      v53 = &unk_1E848F7D0;
+      v54 = &v55;
+      ___ZL14getPKPassClassv_block_invoke(&v50);
+      v43 = v56[3];
     }
 
-    v40 = v39;
-    _Block_object_dispose(&v51, 8);
-    v45 = 0;
-    v23 = [v39 createWithData:v21 warnings:0 error:&v45];
-    v22 = v45;
+    v44 = v43;
+    _Block_object_dispose(&v55, 8);
+    v49 = 0;
+    v23 = [v43 createWithData:v21 warnings:0 error:&v49];
+    v22 = v49;
     [v14 safari_addObjectUnlessNil:v23];
     goto LABEL_42;
   }
@@ -7140,32 +7146,32 @@ LABEL_42:
       goto LABEL_33;
     }
 
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2050000000;
-    v32 = getCLKWatchFaceLibraryClass(void)::softClass;
-    v54 = getCLKWatchFaceLibraryClass(void)::softClass;
+    v55 = 0;
+    v56 = &v55;
+    v57 = 0x2050000000;
+    v36 = getCLKWatchFaceLibraryClass(void)::softClass;
+    v58 = getCLKWatchFaceLibraryClass(void)::softClass;
     if (!getCLKWatchFaceLibraryClass(void)::softClass)
     {
-      v46 = MEMORY[0x1E69E9820];
-      v47 = 3221225472;
-      v48 = ___ZL27getCLKWatchFaceLibraryClassv_block_invoke;
-      v49 = &unk_1E848F7D0;
-      v50 = &v51;
-      ___ZL27getCLKWatchFaceLibraryClassv_block_invoke(&v46);
-      v32 = v52[3];
+      v50 = MEMORY[0x1E69E9820];
+      v51 = 3221225472;
+      v52 = ___ZL27getCLKWatchFaceLibraryClassv_block_invoke;
+      v53 = &unk_1E848F7D0;
+      v54 = &v55;
+      ___ZL27getCLKWatchFaceLibraryClassv_block_invoke(&v50);
+      v36 = v56[3];
     }
 
-    v33 = v32;
-    _Block_object_dispose(&v51, 8);
-    webView = objc_alloc_init(v32);
+    v37 = v36;
+    _Block_object_dispose(&v55, 8);
+    webView = objc_alloc_init(v36);
     mEMORY[0x1E69ADFB8] = [MEMORY[0x1E695DFF8] fileURLWithPath:fileDownloadPath isDirectory:0];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __49___SFBrowserContentViewController__showDownload___block_invoke_362;
-    v42[3] = &unk_1E84906D0;
-    v42[4] = self;
-    [(_SFContactPreviewViewController *)webView _addWatchFaceAtURL:mEMORY[0x1E69ADFB8] shouldValidate:0 completionHandler:v42];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __49___SFBrowserContentViewController__showDownload___block_invoke_362;
+    v46[3] = &unk_1E84906D0;
+    v46[4] = self;
+    [(_SFContactPreviewViewController *)webView _addWatchFaceAtURL:mEMORY[0x1E69ADFB8] shouldValidate:0 completionHandler:v46];
 LABEL_31:
 
 LABEL_32:
@@ -7193,12 +7199,12 @@ LABEL_32:
   }
 
   sourceURL2 = [downloadCopy sourceURL];
-  v29 = [(_SFBrowserContentViewController *)self _showICSControllerForPath:fileDownloadPath sourceURL:sourceURL2];
+  v31 = [(_SFBrowserContentViewController *)self _showICSControllerForPath:fileDownloadPath sourceURL:sourceURL2];
 
-  if (!v29)
+  if (!v31)
   {
-    v30 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = WBS_LOG_CHANNEL_PREFIXDownloads(v32, v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [_SFBrowserContentViewController _showDownload:];
     }
@@ -7750,7 +7756,7 @@ LABEL_16:
 
 - (void)_updateUserActivitySoon
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXContinuity();
+  v3 = WBS_LOG_CHANNEL_PREFIXContinuity(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_SFBrowserContentViewController _updateUserActivitySoon];
@@ -7794,7 +7800,7 @@ LABEL_16:
 
 - (void)_updateUserActivity
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   if ([(_SFBrowserContentViewController *)self _persona]== 1 && ![(SFSafariViewControllerConfiguration *)self->_configuration _isEphemeral])
   {
     webView = [(_SFBrowserContentViewController *)self webView];
@@ -7816,33 +7822,34 @@ LABEL_16:
 
     v10 = [v9 URL];
 
-    if ([v10 safari_isHTTPFamilyURL])
+    safari_isHTTPFamilyURL = [v10 safari_isHTTPFamilyURL];
+    if (safari_isHTTPFamilyURL)
     {
       _hostAppBundleId = [(_SFBrowserContentViewController *)self _hostAppBundleId];
       if (_hostAppBundleId)
       {
-        v19 = @"UAProxiedBundleIdentifier";
+        v23 = @"UAProxiedBundleIdentifier";
         _hostAppBundleId2 = [(_SFBrowserContentViewController *)self _hostAppBundleId];
-        v20[0] = _hostAppBundleId2;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+        v24[0] = _hostAppBundleId2;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
 
-      v15 = objc_alloc(MEMORY[0x1E69636A8]);
-      v16 = [v15 _initWithUserActivityType:*MEMORY[0x1E696AA68] dynamicActivityType:0 options:v13];
-      [v16 setWebpageURL:v10];
-      [v16 setTitle:title];
+      v17 = objc_alloc(MEMORY[0x1E69636A8]);
+      v18 = [v17 _initWithUserActivityType:*MEMORY[0x1E696AA68] dynamicActivityType:0 options:v15];
+      [v18 setWebpageURL:v10];
+      [v18 setTitle:title];
       dictionaryRepresentationForUserActivityUserInfo = [v7 dictionaryRepresentationForUserActivityUserInfo];
-      [v16 setUserInfo:dictionaryRepresentationForUserActivityUserInfo];
+      [v18 setUserInfo:dictionaryRepresentationForUserActivityUserInfo];
 
-      [(_SFBrowserContentViewController *)self setUserActivity:v16];
-      [v16 becomeCurrent];
-      v18 = WBS_LOG_CHANNEL_PREFIXContinuity();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      [(_SFBrowserContentViewController *)self setUserActivity:v18];
+      becomeCurrent = [v18 becomeCurrent];
+      v22 = WBS_LOG_CHANNEL_PREFIXContinuity(becomeCurrent, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [_SFBrowserContentViewController _updateUserActivity];
       }
@@ -7850,8 +7857,8 @@ LABEL_16:
 
     else
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXContinuity();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXContinuity(safari_isHTTPFamilyURL, v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [_SFBrowserContentViewController _updateUserActivity];
       }
@@ -7863,7 +7870,7 @@ LABEL_16:
 
 - (void)_invalidateUserActivity
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXContinuity();
+  v3 = WBS_LOG_CHANNEL_PREFIXContinuity(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_SFBrowserContentViewController _invalidateUserActivity];

@@ -238,33 +238,33 @@
 
 - (id)createWedgeLayoutInfos
 {
-  v249 = *MEMORY[0x277D85DE8];
-  v197 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3, v4);
+  v248 = *MEMORY[0x277D85DE8];
+  v196 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3, v4);
   v10 = objc_msgSend_array(MEMORY[0x277CBEB18], v6, v7, v8, v9);
   v15 = objc_msgSend_model(self, v11, v12, v13, v14);
   v20 = objc_msgSend_seriesList(v15, v16, v17, v18, v19);
 
-  v242 = 0u;
-  v243 = 0u;
-  v240 = 0u;
   v241 = 0u;
-  v196 = v20;
+  v242 = 0u;
+  v239 = 0u;
+  v240 = 0u;
+  v195 = v20;
   v24 = objc_msgSend_reverseObjectEnumerator(v20, v21, 0.0, v22, v23);
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, v26, v27, v28, &v240, v248, 16);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, v26, v27, v28, &v239, v247, 16);
   if (v29)
   {
     v34 = v29;
-    v35 = *v241;
+    v35 = *v240;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v241 != v35)
+        if (*v240 != v35)
         {
           objc_enumerationMutation(v24);
         }
 
-        v37 = *(*(&v240 + 1) + 8 * i);
+        v37 = *(*(&v239 + 1) + 8 * i);
         v38 = objc_msgSend_model(self, v30, v31, v32, v33);
         v43 = objc_msgSend_seriesIndex(v37, v39, v40, v41, v42);
         v48 = objc_msgSend_pieSeriesModelCacheForSeries_(v38, v44, v45, v46, v47, v43);
@@ -272,34 +272,34 @@
         objc_msgSend_insertObject_atIndex_(v10, v49, v50, v51, v52, v48, 0);
       }
 
-      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v30, v31, v32, v33, &v240, v248, 16);
+      v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v30, v31, v32, v33, &v239, v247, 16);
     }
 
     while (v34);
   }
 
-  v238 = 0u;
-  v239 = 0u;
-  v236 = 0u;
   v237 = 0u;
+  v238 = 0u;
+  v235 = 0u;
+  v236 = 0u;
   obj = v10;
-  v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v53, v54, v55, v56, &v236, v247, 16);
+  v57 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v53, v54, v55, v56, &v235, v246, 16);
   if (v57)
   {
     v62 = v57;
-    v63 = *v237;
-    v198 = *v237;
+    v63 = *v236;
+    v197 = *v236;
     do
     {
       v64 = 0;
       do
       {
-        if (*v237 != v63)
+        if (*v236 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v65 = *(*(&v236 + 1) + 8 * v64);
+        v65 = *(*(&v235 + 1) + 8 * v64);
         if (objc_msgSend_shouldRenderLabel(v65, v58, v59, v60, v61))
         {
           v66 = objc_msgSend_seriesIndex(v65, v58, v59, v60, v61);
@@ -308,136 +308,136 @@
 
           v81 = objc_msgSend_intValueForProperty_defaultValue_(v76, v77, v78, v79, v80, 1181, 0);
           v86 = objc_msgSend_intValueForProperty_defaultValue_(v76, v82, v83, v84, v85, 1178, 0);
-          v89 = *(MEMORY[0x277CBF2C0] + 16);
-          *&v235.a = *MEMORY[0x277CBF2C0];
-          *&v235.c = v89;
-          *&v235.tx = *(MEMORY[0x277CBF2C0] + 32);
+          v88 = *(MEMORY[0x277CBF2C0] + 16);
+          *&v234.a = *MEMORY[0x277CBF2C0];
+          *&v234.c = v88;
+          *&v234.tx = *(MEMORY[0x277CBF2C0] + 32);
           if (v81)
           {
-            v90 = v86 == 0;
+            v89 = v86 == 0;
           }
 
           else
           {
-            v90 = 1;
+            v89 = 1;
           }
 
-          if (!v90)
+          if (!v89)
           {
+            v232 = 0u;
             v233 = 0u;
-            v234 = 0u;
+            v230 = 0;
             v231 = 0;
-            v232 = 0;
-            v230 = 0u;
-            memset(&v229, 0, sizeof(v229));
+            v229 = 0u;
+            memset(&v228, 0, sizeof(v228));
+            v226 = 0u;
             v227 = 0u;
-            v228 = 0u;
+            v224 = 0;
             v225 = 0;
-            v226 = 0;
-            v224 = 0u;
-            memset(&v223, 0, sizeof(v223));
-            objc_msgSend_labelGeometriesForRenderingLabelsForSeriesModelCache_topLabelType_bottomLabelType_(self, v87, 0.0, *&v89, v88, v65, 0, 1);
-            v222 = v223;
-            v103 = v225;
-            y = v225.y;
-            x = v225.x;
-            v104 = v226;
-            height = v226.height;
-            width = v226.width;
-            v214 = *&v227;
-            v215 = v224;
-            v213 = *(&v227 + 1);
-            v211 = *(&v224 + 1);
-            v105 = v228;
-            *&v216 = v105 >> 64;
-            *&v212 = v105;
-            v107 = objc_msgSend_labelStringForType_seriesModelCache_(self, v106, *(&v228 + 1), *&v224, *(&v224 + 1), 0, v65);
+            v223 = 0u;
+            memset(&v222, 0, sizeof(v222));
+            objc_msgSend_labelGeometriesForRenderingLabelsForSeriesModelCache_topLabelType_bottomLabelType_(self, 0.0, *&v88, v87);
             v221 = v222;
-            v251.origin = v103;
-            v251.size = v104;
-            v252 = CGRectApplyAffineTransform(v251, &v221);
-            v108 = v252.origin.x;
-            v109 = v252.origin.y;
-            v110 = v252.size.width;
-            v111 = v252.size.height;
-            v221 = v229;
-            v112 = v231;
-            v113 = v232;
-            v199 = v232.height;
-            v200 = v231.x;
-            v208 = *&v233;
-            v209 = v230;
-            v207 = *(&v233 + 1);
-            v205 = *(&v230 + 1);
-            v114 = v234;
-            *&v210 = v114 >> 64;
-            *&v206 = v114;
-            v116 = objc_msgSend_labelStringForType_seriesModelCache_(self, v115, *(&v234 + 1), *&v230, v252.size.width, 1, v65);
+            v102 = v224;
+            y = v224.y;
+            x = v224.x;
+            v103 = v225;
+            height = v225.height;
+            width = v225.width;
+            v213 = *&v226;
+            v214 = v223;
+            v212 = *(&v226 + 1);
+            v210 = *(&v223 + 1);
+            v104 = v227;
+            *&v215 = v104 >> 64;
+            *&v211 = v104;
+            v106 = objc_msgSend_labelStringForType_seriesModelCache_(self, v105, *(&v227 + 1), *&v223, *(&v223 + 1), 0, v65);
             v220 = v221;
-            v253.origin = v112;
-            v253.size = v113;
-            v254 = CGRectApplyAffineTransform(v253, &v220);
-            v117 = v254.origin.x;
-            v118 = v254.origin.y;
-            v256.size.width = v254.size.width;
-            v256.size.height = v254.size.height;
-            v254.origin.x = v108;
-            v254.origin.y = v109;
-            v254.size.width = v110;
-            v254.size.height = v111;
-            v256.origin.x = v117;
-            v256.origin.y = v118;
-            v255 = CGRectUnion(v254, v256);
-            v119 = v255.origin.x;
-            v120 = v255.origin.y;
-            TSUSubtractPoints();
-            memset(&v220, 0, sizeof(v220));
-            CGAffineTransformMakeTranslation(&v220, v121, v122);
+            v250.origin = v102;
+            v250.size = v103;
+            v251 = CGRectApplyAffineTransform(v250, &v220);
+            v107 = v251.origin.x;
+            v108 = v251.origin.y;
+            v109 = v251.size.width;
+            v110 = v251.size.height;
+            v220 = v228;
+            v111 = v230;
+            v112 = v231;
+            v198 = v231.height;
+            v199 = v230.x;
+            v207 = *&v232;
+            v208 = v229;
+            v206 = *(&v232 + 1);
+            v204 = *(&v229 + 1);
+            v113 = v233;
+            *&v209 = v113 >> 64;
+            *&v205 = v113;
+            v115 = objc_msgSend_labelStringForType_seriesModelCache_(self, v114, *(&v233 + 1), *&v229, v251.size.width, 1, v65);
+            v219 = v220;
+            v252.origin = v111;
+            v252.size = v112;
+            v253 = CGRectApplyAffineTransform(v252, &v219);
+            v116 = v253.origin.x;
+            v117 = v253.origin.y;
+            v255.size.width = v253.size.width;
+            v255.size.height = v253.size.height;
+            v253.origin.x = v107;
+            v253.origin.y = v108;
+            v253.size.width = v109;
+            v253.size.height = v110;
+            v255.origin.x = v116;
+            v255.origin.y = v117;
+            v254 = CGRectUnion(v253, v255);
+            v118 = v254.origin.x;
+            v119 = v254.origin.y;
             TSUSubtractPoints();
             memset(&v219, 0, sizeof(v219));
-            CGAffineTransformMakeTranslation(&v219, v123, v124);
-            v125 = [TSCHChartPieLabel alloc];
-            v218 = v220;
-            v127 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v125, v126, x, y, width, &v218, v107, height, v214, v213, v212, v216, v215, v211);
-            v128 = [TSCHChartPieLabel alloc];
-            v218 = v219;
-            v130 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v128, v129, v200, v112.y, v113.width, &v218, v116, v199, v208, v207, v206, v210, v209, v205);
-            v246[0] = v127;
-            v246[1] = v130;
-            v135 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v131, v132, v133, v134, v246, 2);
-            CGAffineTransformMakeTranslation(&v235, v119, v120);
+            CGAffineTransformMakeTranslation(&v219, v120, v121);
+            TSUSubtractPoints();
+            memset(&v218, 0, sizeof(v218));
+            CGAffineTransformMakeTranslation(&v218, v122, v123);
+            v124 = [TSCHChartPieLabel alloc];
+            v217 = v219;
+            v126 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v124, v125, x, y, width, &v217, v106, height, v213, v212, v211, v215, v214, v210);
+            v127 = [TSCHChartPieLabel alloc];
+            v217 = v218;
+            v129 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v127, v128, v199, v111.y, v112.width, &v217, v115, v198, v207, v206, v205, v209, v208, v204);
+            v245[0] = v126;
+            v245[1] = v129;
+            v134 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v130, v131, v132, v133, v245, 2);
+            CGAffineTransformMakeTranslation(&v234, v118, v119);
 
-            if (!v135)
+            if (!v134)
             {
 LABEL_22:
-              v140 = MEMORY[0x277D81150];
-              v141 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v136, v137, v138, v139, "[TSCHChartRadialBodyLayoutItem createWedgeLayoutInfos]");
-              v146 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v142, v143, v144, v145, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v140, v147, v148, v149, v150, v141, v146, 198, 0, "Invalid array value");
+              v139 = MEMORY[0x277D81150];
+              v140 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v135, v136, v137, v138, "[TSCHChartRadialBodyLayoutItem createWedgeLayoutInfos]");
+              v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v141, v142, v143, v144, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v139, v146, v147, v148, v149, v140, v145, 198, 0, "Invalid array value");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v151, v152, v153, v154);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v150, v151, v152, v153);
             }
 
 LABEL_23:
-            v223 = v235;
-            if (CGAffineTransformIsIdentity(&v223))
+            v222 = v234;
+            if (CGAffineTransformIsIdentity(&v222))
             {
-              v159 = MEMORY[0x277D81150];
-              v160 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v155, v156, v157, v158, "[TSCHChartRadialBodyLayoutItem createWedgeLayoutInfos]");
-              v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v161, v162, v163, v164, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
-              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v159, v166, v167, v168, v169, v160, v165, 199, 0, "Invalid transform value");
+              v158 = MEMORY[0x277D81150];
+              v159 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v154, v155, v156, v157, "[TSCHChartRadialBodyLayoutItem createWedgeLayoutInfos]");
+              v164 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v160, v161, v162, v163, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
+              objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v158, v165, v166, v167, v168, v159, v164, 199, 0, "Invalid transform value");
 
-              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v170, v171, v172, v173);
+              objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v169, v170, v171, v172);
             }
 
-            v223 = v235;
-            v175 = objc_msgSend_defaultPieWedgeLayoutInfoForSeriesModelCache_pieLabels_combinedLabelTransform_(self, v155, v235.tx, v235.c, v158, v65, v135, &v223);
-            if (v175)
+            v222 = v234;
+            v174 = objc_msgSend_defaultPieWedgeLayoutInfoForSeriesModelCache_pieLabels_combinedLabelTransform_(self, v154, v234.tx, v234.c, v157, v65, v134, &v222);
+            if (v174)
             {
-              objc_msgSend_addObject_(v197, v174, v176, v177, v178, v175);
+              objc_msgSend_addObject_(v196, v173, v175, v176, v177, v174);
             }
 
-            v63 = v198;
+            v63 = v197;
 LABEL_28:
 
             goto LABEL_29;
@@ -445,21 +445,21 @@ LABEL_28:
 
           if (v81)
           {
+            v226 = 0u;
             v227 = 0u;
-            v228 = 0u;
+            v224 = 0;
             v225 = 0;
-            v226 = 0;
-            v224 = 0u;
-            memset(&v223, 0, sizeof(v223));
-            objc_msgSend_labelGeometryForRenderingLabelForSeriesModelCache_labelType_(self, v87, 0.0, *&v89, v88, v65, 1);
-            v95 = objc_msgSend_labelStringForType_seriesModelCache_(self, v91, v92, v93, v94, 1, v65);
+            v223 = 0u;
             memset(&v222, 0, sizeof(v222));
-            CGAffineTransformMakeTranslation(&v222, 0.0, 0.0);
-            v96 = [TSCHChartPieLabel alloc];
-            v221 = v222;
-            v98 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v96, v97, v225.x, v225.y, v226.width, &v221, v95, v226.height, v227, v228, v224);
-            v245 = v98;
-            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v99, v100, v101, v102, &v245, 1);
+            objc_msgSend_labelGeometryForRenderingLabelForSeriesModelCache_labelType_(self, 0.0, *&v88, v87);
+            v94 = objc_msgSend_labelStringForType_seriesModelCache_(self, v90, v91, v92, v93, 1, v65);
+            memset(&v221, 0, sizeof(v221));
+            CGAffineTransformMakeTranslation(&v221, 0.0, 0.0);
+            v95 = [TSCHChartPieLabel alloc];
+            v220 = v221;
+            v97 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v95, v96, v224.x, v224.y, v225.width, &v220, v94, v225.height, v226, v227, v223);
+            v244 = v97;
+            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v98, v99, v100, v101, &v244, 1);
           }
 
           else
@@ -469,26 +469,26 @@ LABEL_28:
               goto LABEL_28;
             }
 
+            v226 = 0u;
             v227 = 0u;
-            v228 = 0u;
+            v224 = 0;
             v225 = 0;
-            v226 = 0;
-            v224 = 0u;
-            memset(&v223, 0, sizeof(v223));
-            objc_msgSend_labelGeometryForRenderingLabelForSeriesModelCache_labelType_(self, v87, 0.0, *&v89, v88, v65, 0);
-            v95 = objc_msgSend_labelStringForType_seriesModelCache_(self, v179, v180, v181, v182, 0, v65);
+            v223 = 0u;
             memset(&v222, 0, sizeof(v222));
-            CGAffineTransformMakeTranslation(&v222, 0.0, 0.0);
-            v183 = [TSCHChartPieLabel alloc];
-            v221 = v222;
-            v98 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v183, v184, v225.x, v225.y, v226.width, &v221, v95, v226.height, v227, v228, v224);
-            v244 = v98;
-            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v185, v186, v187, v188, &v244, 1);
+            objc_msgSend_labelGeometryForRenderingLabelForSeriesModelCache_labelType_(self, 0.0, *&v88, v87);
+            v94 = objc_msgSend_labelStringForType_seriesModelCache_(self, v178, v179, v180, v181, 0, v65);
+            memset(&v221, 0, sizeof(v221));
+            CGAffineTransformMakeTranslation(&v221, 0.0, 0.0);
+            v182 = [TSCHChartPieLabel alloc];
+            v220 = v221;
+            v97 = objc_msgSend_initWithRect_erasableFrame_size_transform_title_(v182, v183, v224.x, v224.y, v225.width, &v220, v94, v225.height, v226, v227, v223);
+            v243 = v97;
+            objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v184, v185, v186, v187, &v243, 1);
           }
-          v135 = ;
-          v235 = v223;
+          v134 = ;
+          v234 = v222;
 
-          if (!v135)
+          if (!v134)
           {
             goto LABEL_22;
           }
@@ -501,16 +501,16 @@ LABEL_29:
       }
 
       while (v62 != v64);
-      v189 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v58, v59, v60, v61, &v236, v247, 16);
-      v62 = v189;
+      v188 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v58, v59, v60, v61, &v235, v246, 16);
+      v62 = v188;
     }
 
-    while (v189);
+    while (v188);
   }
 
-  v194 = objc_msgSend_copy(v197, v190, v191, v192, v193);
+  v193 = objc_msgSend_copy(v196, v189, v190, v191, v192);
 
-  return v194;
+  return v193;
 }
 
 - (id)optimizedWedgeLayoutInfoPlacementForWedgeLayoutInfos:(id)infos
@@ -634,23 +634,23 @@ LABEL_22:
   v66 = v50 * v65;
   v71 = objc_msgSend_sharedInteriorWrappingText(TSCHText, v67, v68, v69, v70);
   v75 = objc_msgSend_placeTitleAtCenterPropertiesForWrapWidth_(TSCHTextLayoutProperties, v72, v66, v73, v74);
-  v90 = 0u;
-  memset(&v89, 0, sizeof(v89));
-  objc_msgSend_initializeTextLayoutResults(TSCHText, v76, 0.0, v77, v78);
-  objc_msgSend_measureText_paragraphStyle_wrapWidth_outErasableFrame_layoutProperties_outTextLayoutResults_(v71, v79, v66, v80, v81, v11, v31, 0, v75, &v89);
-  width = v82;
-  height = v84;
-  size = v89.size;
-  if (!CGRectIsNull(v89))
+  v89 = 0u;
+  memset(&v88, 0, sizeof(v88));
+  objc_msgSend_initializeTextLayoutResults(TSCHText, 0.0, v76, v77);
+  objc_msgSend_measureText_paragraphStyle_wrapWidth_outErasableFrame_layoutProperties_outTextLayoutResults_(v71, v78, v66, v79, v80, v11, v31, 0, v75, &v88);
+  width = v81;
+  height = v83;
+  size = v88.size;
+  if (!CGRectIsNull(v88))
   {
     height = size.height;
     width = size.width;
   }
 
-  v87 = width;
-  v88 = height;
-  result.height = v88;
-  result.width = v87;
+  v86 = width;
+  v87 = height;
+  result.height = v87;
+  result.width = v86;
   return result;
 }
 
@@ -713,41 +713,41 @@ LABEL_22:
 
 - (void)p_collectMaxRatio:(double *)ratio maxLabelOverhang:(double *)overhang maxWedgeExplosion:(float *)explosion maxComboExplosion:(float *)comboExplosion
 {
-  v140 = *MEMORY[0x277D85DE8];
-  v132 = objc_msgSend_model(self, a2, v6, v7, v8);
-  v14 = objc_msgSend_seriesList(v132, v10, v11, v12, v13);
+  v139 = *MEMORY[0x277D85DE8];
+  v131 = objc_msgSend_model(self, a2, v6, v7, v8);
+  v14 = objc_msgSend_seriesList(v131, v10, v11, v12, v13);
   x = *MEMORY[0x277CBF3A0];
   y = *(MEMORY[0x277CBF3A0] + 8);
   width = *(MEMORY[0x277CBF3A0] + 16);
   height = *(MEMORY[0x277CBF3A0] + 24);
+  v134 = 0u;
   v135 = 0u;
   v136 = 0u;
   v137 = 0u;
-  v138 = 0u;
-  v124 = v14;
+  v123 = v14;
   obj = objc_msgSend_reverseObjectEnumerator(v14, v19, 0.0, v20, v21);
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, v23, v24, v25, &v135, v139, 16);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v22, v23, v24, v25, &v134, v138, 16);
   if (v26)
   {
     v29 = v26;
-    v30 = *v136;
+    v30 = *v135;
     v31 = *MEMORY[0x277CBF348];
-    v130 = 0.0;
-    v32 = 0.0;
     v129 = 0.0;
+    v32 = 0.0;
+    v128 = 0.0;
     v33 = 0.0;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v136 != v30)
+        if (*v135 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v135 + 1) + 8 * i);
+        v35 = *(*(&v134 + 1) + 8 * i);
         v36 = objc_msgSend_seriesIndex(v35, v27, v32, v31, v28);
-        v41 = objc_msgSend_pieSeriesModelCacheForSeries_(v132, v37, v38, v39, v40, v36);
+        v41 = objc_msgSend_pieSeriesModelCacheForSeries_(v131, v37, v38, v39, v40, v36);
         v46 = objc_msgSend_wedgeLayoutInfosInChartCoordinateSpaceForSeriesIndex(self, v42, v43, v44, v45);
         v51 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v47, v48, v49, v50, v36);
         v56 = objc_msgSend_objectForKeyedSubscript_(v46, v52, v53, v54, v55, v51);
@@ -776,79 +776,79 @@ LABEL_22:
           if (objc_msgSend_length(v62, v71, v72, v73, v74))
           {
             v78 = *(MEMORY[0x277CBF398] + 16);
-            v134.origin = *MEMORY[0x277CBF398];
-            v134.size = v78;
-            v79 = objc_msgSend_sharedText(TSCHText, v76, v134.origin.x, v78.width, v77);
+            v133.origin = *MEMORY[0x277CBF398];
+            v133.size = v78;
+            v79 = objc_msgSend_sharedText(TSCHText, v76, v133.origin.x, v78.width, v77);
             v84 = objc_msgSend_paragraphStyle(v41, v80, v81, v82, v83);
-            objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v79, v85, v86, v87, v88, v62, v84, &v134);
+            objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v79, v85, v86, v87, v88, v62, v84, &v133);
 
             if (v56)
             {
               objc_msgSend_combinedLabelErasableFrameInChartCoordinateSpace(v56, v89, v90, v91, v92);
-              v134.origin.x = v93;
-              v134.origin.y = v94;
-              v134.size.width = v95;
-              v134.size.height = v96;
+              v133.origin.x = v93;
+              v133.origin.y = v94;
+              v133.size.width = v95;
+              v133.size.height = v96;
               objc_msgSend_combinedLabelRectInChartCoordinateSpace(v56, v97, v93, v94, v95);
             }
 
-            if ((TSUNearlyEqualSizes() & 1) == 0 && !CGRectIsNull(v134))
+            if ((TSUNearlyEqualSizes() & 1) == 0 && !CGRectIsNull(v133))
             {
               objc_msgSend_normalizedLabelDistanceFromWedgeTipForSeries_(self, v98, v99, v100, v101, v35);
               r1 = height;
               v103 = v102;
-              objc_msgSend_layoutSettings(self, v104, v102, v105, v106);
-              v109 = 0.0;
-              if (!v133)
+              objc_msgSend_layoutSettings(self, v102, v104, v105);
+              v108 = 0.0;
+              if (!v132)
               {
-                v109 = v103;
+                v108 = v103;
               }
 
-              v110 = v109 + v75;
-              v111 = v130;
-              v112 = v130;
-              if (v110 > v130)
+              v109 = v108 + v75;
+              v110 = v129;
+              v111 = v129;
+              if (v109 > v129)
               {
-                v111 = v110;
+                v110 = v109;
               }
 
-              v130 = v111;
-              *&v108 = v110;
-              objc_msgSend_midAngle(v41, v107, v110, v112, v108);
-              v114 = __sincos_stret(v113);
-              v115 = fabs(v114.__cosval);
-              if (v129 >= v115)
+              v129 = v110;
+              *&v107 = v109;
+              objc_msgSend_midAngle(v41, v106, v109, v111, v107);
+              v113 = __sincos_stret(v112);
+              v114 = fabs(v113.__cosval);
+              if (v128 >= v114)
               {
-                v115 = v129;
+                v114 = v128;
               }
 
-              v116 = fabs(v114.__sinval);
-              if (v115 >= v116)
+              v115 = fabs(v113.__sinval);
+              if (v114 >= v115)
               {
-                v116 = v115;
+                v115 = v114;
               }
 
-              v129 = v116;
+              v128 = v115;
               TSURectWithCenterAndSize();
-              v145.origin.x = v117;
-              v145.origin.y = v118;
-              v145.size.width = v119;
-              v145.size.height = v120;
-              v141.origin.x = x;
-              v141.origin.y = y;
-              v141.size.width = width;
-              v141.size.height = r1;
-              v142 = CGRectUnion(v141, v145);
-              x = v142.origin.x;
-              y = v142.origin.y;
-              width = v142.size.width;
-              height = v142.size.height;
+              v144.origin.x = v116;
+              v144.origin.y = v117;
+              v144.size.width = v118;
+              v144.size.height = v119;
+              v140.origin.x = x;
+              v140.origin.y = y;
+              v140.size.width = width;
+              v140.size.height = r1;
+              v141 = CGRectUnion(v140, v144);
+              x = v141.origin.x;
+              y = v141.origin.y;
+              width = v141.size.width;
+              height = v141.size.height;
             }
           }
         }
       }
 
-      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, v32, v31, v28, &v135, v139, 16);
+      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v27, v32, v31, v28, &v134, v138, 16);
     }
 
     while (v29);
@@ -856,34 +856,34 @@ LABEL_22:
 
   else
   {
-    v130 = 0.0;
     v129 = 0.0;
+    v128 = 0.0;
     v33 = 0.0;
   }
 
+  v142.origin.x = x;
+  v142.origin.y = y;
+  v142.size.width = width;
+  v142.size.height = height;
+  v120 = CGRectGetWidth(v142);
   v143.origin.x = x;
   v143.origin.y = y;
   v143.size.width = width;
   v143.size.height = height;
-  v121 = CGRectGetWidth(v143);
-  v144.origin.x = x;
-  v144.origin.y = y;
-  v144.size.width = width;
-  v144.size.height = height;
-  v122 = CGRectGetHeight(v144);
-  if (v121 >= v122)
+  v121 = CGRectGetHeight(v143);
+  if (v120 >= v121)
   {
-    v122 = v121;
+    v121 = v120;
   }
 
   if (ratio)
   {
-    *ratio = v129;
+    *ratio = v128;
   }
 
   if (overhang)
   {
-    *overhang = v122 * 0.5;
+    *overhang = v121 * 0.5;
   }
 
   if (explosion)
@@ -893,7 +893,7 @@ LABEL_22:
 
   if (comboExplosion)
   {
-    *comboExplosion = v130;
+    *comboExplosion = v129;
   }
 }
 
@@ -992,28 +992,28 @@ LABEL_22:
   objc_msgSend_layoutRect(self, a2, v2, v3, v4);
   v7 = v6;
   v9 = v8;
-  objc_msgSend_layoutSettings(self, v10, v11, v12, v6);
-  if (v30)
+  objc_msgSend_layoutSettings(self, v10, v11, v6);
+  if (v29)
   {
-    objc_msgSend_createWedgeLayoutInfos(self, v13, v14, v15, v16);
+    objc_msgSend_createWedgeLayoutInfos(self, v12, v13, v14, v15);
   }
 
   else
   {
-    objc_msgSend_createAndOptimallyPlaceWedgeLayoutInfos(self, v13, v14, v15, v16);
+    objc_msgSend_createAndOptimallyPlaceWedgeLayoutInfos(self, v12, v13, v14, v15);
   }
-  v17 = ;
-  v22 = objc_msgSend_copy(v17, v18, v19, v20, v21);
+  v16 = ;
+  v21 = objc_msgSend_copy(v16, v17, v18, v19, v20);
   wedgeLayoutInfosInLocalSpace = self->_wedgeLayoutInfosInLocalSpace;
-  self->_wedgeLayoutInfosInLocalSpace = v22;
+  self->_wedgeLayoutInfosInLocalSpace = v21;
 
-  objc_msgSend_overhangSizeForBodySize_(self, v24, v7, v9, v25);
+  objc_msgSend_overhangSizeForBodySize_(self, v23, v7, v9, v24);
   TSUCenterOfRect();
   TSURectWithCenterAndSize();
-  result.size.height = v29;
-  result.size.width = v28;
-  result.origin.y = v27;
-  result.origin.x = v26;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 
@@ -1301,78 +1301,78 @@ LABEL_22:
   }
 
   v28 = *(MEMORY[0x277CBF398] + 16);
-  v115 = *MEMORY[0x277CBF398];
-  v116 = v28;
-  v108 = *MEMORY[0x277CBF398];
+  v114 = *MEMORY[0x277CBF398];
+  v115 = v28;
+  v107 = *MEMORY[0x277CBF398];
   v29 = (MEMORY[0x277CBF398] + 8);
-  v105 = *(MEMORY[0x277CBF398] + 16);
-  v104 = *(MEMORY[0x277CBF398] + 24);
-  v106 = *MEMORY[0x277CBF3A8];
+  v104 = *(MEMORY[0x277CBF398] + 16);
+  v103 = *(MEMORY[0x277CBF398] + 24);
+  v105 = *MEMORY[0x277CBF3A8];
   v30 = (MEMORY[0x277CBF3A8] + 8);
-  v102 = *(MEMORY[0x277CBF2C0] + 16);
-  v103 = *MEMORY[0x277CBF2C0];
-  *&v114.a = *MEMORY[0x277CBF2C0];
-  *&v114.c = v102;
-  v101 = *(MEMORY[0x277CBF2C0] + 32);
-  *&v114.tx = v101;
-  v112 = v115;
-  v113 = v28;
-  v31 = objc_msgSend_model(self, v8, v115.x, v28.width, *&v101);
+  v101 = *(MEMORY[0x277CBF2C0] + 16);
+  v102 = *MEMORY[0x277CBF2C0];
+  *&v113.a = *MEMORY[0x277CBF2C0];
+  *&v113.c = v101;
+  v100 = *(MEMORY[0x277CBF2C0] + 32);
+  *&v113.tx = v100;
+  v111 = v114;
+  v112 = v28;
+  v31 = objc_msgSend_model(self, v8, v114.x, v28.width, *&v100);
   v36 = objc_msgSend_seriesIndex(typeCopy, v32, v33, v34, v35);
   v41 = objc_msgSend_seriesAtIndex_(v31, v37, v38, v39, v40, v36);
-  v46.width = v106;
-  v47.x = v108;
+  v46.width = v105;
+  v47.x = v107;
   v45 = v41;
   v46.height = *v30;
   v47.y = *v29;
   if (typeCopy)
   {
-    v107 = v46;
-    v109 = v47;
+    v106 = v46;
+    v108 = v47;
     shouldRenderLabel = objc_msgSend_shouldRenderLabel(typeCopy, v42, v43, v44, v47.x);
-    v46 = v107;
-    v47 = v109;
+    v46 = v106;
+    v47 = v108;
     if (shouldRenderLabel)
     {
-      v52 = objc_msgSend_defaultPieWedgeElementForSeriesModelCache_(self, v49, v50, v51, v109.x, typeCopy, v107.width);
+      v52 = objc_msgSend_defaultPieWedgeElementForSeriesModelCache_(self, v49, v50, v51, v108.x, typeCopy, v106.width);
       v57 = objc_msgSend_sharedText(TSCHText, v53, v54, v55, v56);
       v62 = objc_msgSend_labelStringForType_(typeCopy, v58, v59, v60, v61, a5);
       v67 = objc_msgSend_paragraphStyle(typeCopy, v63, v64, v65, v66);
-      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v57, v68, v69, v70, v71, v62, v67, &v112);
-      v104 = v73;
-      v105 = v72;
+      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v57, v68, v69, v70, v71, v62, v67, &v111);
+      v103 = v73;
+      v104 = v72;
 
       v78 = objc_msgSend_chartInfo(self, v74, v75, v76, v77);
       LODWORD(v57) = objc_msgSend_intValueForProperty_defaultValue_(v78, v79, v80, v81, v82, 1081, 1);
 
       v87 = objc_msgSend_intValueForProperty_defaultValue_(v45, v83, v84, v85, v86, 1138, 2);
-      objc_msgSend_layoutSettings(self, v88, v89, v90, v91);
-      v95 = v57 == 1 && v87 != 0;
-      objc_msgSend_defaultLabelRectForLabelWithSize_bended_(v52, v92, v105, v104, v93, v95 & (v111 ^ 1u));
-      *&v110.a = v103;
-      *&v110.c = v102;
-      *&v110.tx = v101;
-      CGAffineTransformTranslate(&v114, &v110, v96, v97);
+      objc_msgSend_layoutSettings(self, v88, v89, v90);
+      v94 = v57 == 1 && v87 != 0;
+      objc_msgSend_defaultLabelRectForLabelWithSize_bended_(v52, v91, v104, v103, v92, v94 & (v110 ^ 1u));
+      *&v109.a = v102;
+      *&v109.c = v101;
+      *&v109.tx = v100;
+      CGAffineTransformTranslate(&v113, &v109, v95, v96);
+      v114 = v111;
       v115 = v112;
-      v116 = v113;
 
-      v46.width = v105;
-      v46.height = v104;
+      v46.width = v104;
+      v46.height = v103;
       v47 = 0;
     }
   }
 
-  v98 = *&v114.c;
-  *&retstr->var0.a = *&v114.a;
-  *&retstr->var0.c = v98;
-  *&retstr->var0.tx = *&v114.tx;
+  v97 = *&v113.c;
+  *&retstr->var0.a = *&v113.a;
+  *&retstr->var0.c = v97;
+  *&retstr->var0.tx = *&v113.tx;
   retstr->var1 = v46;
   retstr->var2.origin = v47;
-  retstr->var2.size.width = v105;
-  retstr->var2.size.height = v104;
-  v99 = v116;
-  retstr->var3.origin = v115;
-  retstr->var3.size = v99;
+  retstr->var2.size.width = v104;
+  retstr->var2.size.height = v103;
+  v98 = v115;
+  retstr->var3.origin = v114;
+  retstr->var3.size = v98;
 
   return result;
 }
@@ -1401,88 +1401,87 @@ LABEL_22:
   }
 
   v45 = *(MEMORY[0x277CBF398] + 16);
-  v167 = *MEMORY[0x277CBF398];
-  v168 = v45;
-  v156 = *MEMORY[0x277CBF398];
+  v159 = *MEMORY[0x277CBF398];
+  v160 = v45;
+  v149 = *MEMORY[0x277CBF398];
   v46 = (MEMORY[0x277CBF398] + 8);
   v47 = *(MEMORY[0x277CBF398] + 16);
   v48 = *(MEMORY[0x277CBF398] + 24);
-  v154 = *MEMORY[0x277CBF3A8];
-  v152 = *(MEMORY[0x277CBF3A8] + 8);
+  v147 = *MEMORY[0x277CBF3A8];
+  v145 = *(MEMORY[0x277CBF3A8] + 8);
   v49 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v166.a = *MEMORY[0x277CBF2C0];
-  *&v166.c = v49;
-  *&v166.tx = *(MEMORY[0x277CBF2C0] + 32);
-  v164 = v167;
-  v165 = v45;
-  v162 = v167;
-  v163 = v45;
-  *&v161.a = *&v166.a;
-  *&v161.c = v49;
-  *&v161.tx = *&v166.tx;
-  v159 = v167;
-  v160 = v45;
-  v50 = objc_msgSend_model(self, v10, v167.x, v45.width, v166.a);
+  *&v158.a = *MEMORY[0x277CBF2C0];
+  *&v158.c = v49;
+  *&v158.tx = *(MEMORY[0x277CBF2C0] + 32);
+  v156 = v159;
+  v157 = v45;
+  v154 = v159;
+  v155 = v45;
+  *&v153.a = *&v158.a;
+  *&v153.c = v49;
+  *&v153.tx = *&v158.tx;
+  v151 = v159;
+  v152 = v45;
+  v50 = objc_msgSend_model(self, v10, v159.x, v45.width, v158.a);
   v55 = objc_msgSend_seriesIndex(typeCopy, v51, v52, v53, v54);
   v60 = objc_msgSend_seriesAtIndex_(v50, v56, v57, v58, v59, v55);
-  v65 = v152;
-  v64 = v154;
+  v65 = v145;
+  v64 = v147;
   v66 = v60;
-  v67.width = v154;
-  v67.height = v152;
-  v68.x = v156;
+  v67.width = v147;
+  v67.height = v145;
+  v68.x = v149;
   v68.y = *v46;
-  v157 = v68;
+  v150 = v68;
   if (typeCopy)
   {
-    v150 = v67;
+    v143 = v67;
     shouldRenderLabel = objc_msgSend_shouldRenderLabel(typeCopy, v61, v68.x, v62, v63);
-    v67 = v150;
-    v65 = v152;
-    v64 = v154;
+    v67 = v143;
+    v65 = v145;
+    v64 = v147;
     v73 = v48;
     v74 = v47;
     if (shouldRenderLabel)
     {
-      v151 = objc_msgSend_defaultPieWedgeElementForSeriesModelCache_(self, v70, v71, v72, v48, typeCopy, v47, v150.width, v154, v152);
+      v144 = objc_msgSend_defaultPieWedgeElementForSeriesModelCache_(self, v70, v71, v72, v48, typeCopy, v47, v143.width, v147, v145);
       v79 = objc_msgSend_sharedText(TSCHText, v75, v76, v77, v78);
       v84 = objc_msgSend_labelStringForType_(typeCopy, v80, v81, v82, v83, labelType);
       v89 = objc_msgSend_paragraphStyle(typeCopy, v85, v86, v87, v88);
-      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v79, v90, v91, v92, v93, v84, v89, &v164);
-      v153 = v95;
-      v155 = v94;
+      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v79, v90, v91, v92, v93, v84, v89, &v156);
+      v146 = v95;
+      v148 = v94;
 
       v100 = objc_msgSend_sharedText(TSCHText, v96, v97, v98, v99);
       v105 = objc_msgSend_labelStringForType_(typeCopy, v101, v102, v103, v104, a6);
       v110 = objc_msgSend_paragraphStyle(typeCopy, v106, v107, v108, v109);
-      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v100, v111, v112, v113, v114, v105, v110, &v159);
+      objc_msgSend_measureText_paragraphStyle_outErasableFrame_(v100, v111, v112, v113, v114, v105, v110, &v151);
       v47 = v115;
       v48 = v116;
 
-      v121 = objc_msgSend_intValueForProperty_defaultValue_(v66, v117, v118, v119, v120, 1183, 0);
-      v126 = objc_msgSend_chartInfo(self, v122, v123, v124, v125);
-      v131 = objc_msgSend_intValueForProperty_defaultValue_(v126, v127, v128, v129, v130, 1081, 1);
+      objc_msgSend_intValueForProperty_defaultValue_(v66, v117, v118, v119, v120, 1183, 0);
+      v125 = objc_msgSend_chartInfo(self, v121, v122, v123, v124);
+      objc_msgSend_intValueForProperty_defaultValue_(v125, v126, v127, v128, v129, 1081, 1);
 
-      v136 = objc_msgSend_intValueForProperty_defaultValue_(v66, v132, v133, v134, v135, 1138, 2);
-      objc_msgSend_layoutSettings(self, v137, v138, v139, v140);
-      v157 = 0;
-      if (v151)
+      objc_msgSend_intValueForProperty_defaultValue_(v66, v130, v131, v132, v133, 1138, 2);
+      objc_msgSend_layoutSettings(self, v134, v135, v136);
+      v150 = 0;
+      if (v144)
       {
-        v143 = v131 == 1 && v136 != 0;
-        objc_msgSend_labelRectsForFirstLabelWithSize_secondLabelSize_stacked_stackedLabelCenterAlign_placeToTheSideOfPieChart_(v151, v141, v155, v153, v47, v121 != 0, v143 & (v158 ^ 1) ^ 1u, v48);
+        objc_msgSend_labelRectsForFirstLabelWithSize_secondLabelSize_stacked_stackedLabelCenterAlign_placeToTheSideOfPieChart_(v144, v148, v146, v47, v48);
       }
 
-      CGAffineTransformMakeTranslation(&v166, 0.0, 0.0);
-      v167 = v164;
-      v168 = v165;
-      CGAffineTransformMakeTranslation(&v161, 0.0, 0.0);
-      v162 = v159;
-      v163 = v160;
+      CGAffineTransformMakeTranslation(&v158, 0.0, 0.0);
+      v159 = v156;
+      v160 = v157;
+      CGAffineTransformMakeTranslation(&v153, 0.0, 0.0);
+      v154 = v151;
+      v155 = v152;
 
-      v73 = v153;
-      v74 = v155;
-      v67.width = v155;
-      v67.height = v153;
+      v73 = v146;
+      v74 = v148;
+      v67.width = v148;
+      v67.height = v146;
       v64 = v47;
       v65 = v48;
     }
@@ -1494,30 +1493,30 @@ LABEL_22:
     v74 = v47;
   }
 
-  v144 = *&v166.c;
-  *&retstr->var0.var0.a = *&v166.a;
-  *&retstr->var0.var0.c = v144;
-  v145 = v167;
-  *&retstr->var0.var0.tx = *&v166.tx;
+  v137 = *&v158.c;
+  *&retstr->var0.var0.a = *&v158.a;
+  *&retstr->var0.var0.c = v137;
+  v138 = v159;
+  *&retstr->var0.var0.tx = *&v158.tx;
   retstr->var0.var1 = v67;
-  retstr->var0.var2.origin = v157;
+  retstr->var0.var2.origin = v150;
   retstr->var0.var2.size.width = v74;
   retstr->var0.var2.size.height = v73;
-  v146 = v168;
-  retstr->var0.var3.origin = v145;
-  retstr->var0.var3.size = v146;
-  v147 = *&v161.tx;
-  *&retstr->var1.var0.c = *&v161.c;
-  *&retstr->var1.var0.tx = v147;
-  *&retstr->var1.var0.a = *&v161.a;
+  v139 = v160;
+  retstr->var0.var3.origin = v138;
+  retstr->var0.var3.size = v139;
+  v140 = *&v153.tx;
+  *&retstr->var1.var0.c = *&v153.c;
+  *&retstr->var1.var0.tx = v140;
+  *&retstr->var1.var0.a = *&v153.a;
   retstr->var1.var1.width = v64;
   retstr->var1.var1.height = v65;
-  retstr->var1.var2.origin = v157;
+  retstr->var1.var2.origin = v150;
   retstr->var1.var2.size.width = v47;
   retstr->var1.var2.size.height = v48;
-  v148 = v163;
-  retstr->var1.var3.origin = v162;
-  retstr->var1.var3.size = v148;
+  v141 = v155;
+  retstr->var1.var3.origin = v154;
+  retstr->var1.var3.size = v141;
 
   return result;
 }
@@ -1589,7 +1588,7 @@ LABEL_22:
   *&retstr->c = v21;
   v22 = *(v20 + 32);
   *&retstr->tx = v22;
-  v84 = v15;
+  v83 = v15;
   v25 = objc_msgSend_pathLayoutRelative(v15, v23, *&v22, *&v21, v24);
   if (!v25)
   {
@@ -1617,62 +1616,62 @@ LABEL_8:
   v37 = objc_msgSend_pieSeriesModelCacheForSeries_(v32, v33, v34, v35, v36, size);
 
   v42 = objc_msgSend_seriesShadow(v37, v38, v39, v40, v41);
-  if (!objc_msgSend_hasShadow_(TSCHStyleUtilities, v43, v44, v45, v46, v42) || (objc_msgSend_opacity(v42, v47, v48, v49, v50), v52 <= 0.0))
+  if (!objc_msgSend_hasShadow_(TSCHStyleUtilities, v43, v44, v45, v46, v42) || (objc_msgSend_opacity(v42, v47, v48, v49, v50), v51 <= 0.0))
   {
     TSURectWithSize();
 LABEL_16:
-    v60 = v73;
-    v62 = v74;
-    v64 = v75;
-    v66 = v76;
+    v59 = v72;
+    v61 = v73;
+    v63 = v74;
+    v65 = v75;
     goto LABEL_17;
   }
 
-  objc_msgSend_offset(v42, v51, v52, v53, v54);
-  if (v56 > 0.0)
+  objc_msgSend_offset(v42, v51, v52, v53);
+  if (v55 > 0.0)
   {
     TSURectWithSize();
-    v60 = v59;
-    v62 = v61;
-    v64 = v63;
-    v66 = v65;
-    objc_msgSend_shadowBoundsForRect_(v42, v67, v59, v61, v63, v65);
+    v59 = v58;
+    v61 = v60;
+    v63 = v62;
+    v65 = v64;
+    objc_msgSend_shadowBoundsForRect_(v42, v66, v58, v60, v62, v64);
 LABEL_21:
-    v90.origin.x = v68;
-    v90.origin.y = v69;
-    v90.size.width = v70;
-    v90.size.height = v71;
-    v89.origin.x = v60;
-    v89.origin.y = v62;
-    v89.size.width = v64;
-    v89.size.height = v66;
-    *&v73 = CGRectUnion(v89, v90);
+    v89.origin.x = v67;
+    v89.origin.y = v68;
+    v89.size.width = v69;
+    v89.size.height = v70;
+    v88.origin.x = v59;
+    v88.origin.y = v61;
+    v88.size.width = v63;
+    v88.size.height = v65;
+    *&v72 = CGRectUnion(v88, v89);
     goto LABEL_16;
   }
 
-  objc_msgSend_radius(v42, v55, v56, v57, v58);
-  v78 = v77;
+  objc_msgSend_radius(v42, v54, v55, v56, v57);
+  v77 = v76;
   TSURectWithSize();
-  v60 = v80;
-  v62 = v81;
-  v64 = v82;
-  v66 = v83;
-  if (v78 > 0.0)
+  v59 = v79;
+  v61 = v80;
+  v63 = v81;
+  v65 = v82;
+  if (v77 > 0.0)
   {
-    objc_msgSend_shadowBoundsForRect_(v42, v79, v80, v81, v82, v83);
+    objc_msgSend_shadowBoundsForRect_(v42, v78, v79, v80, v81, v82);
     goto LABEL_21;
   }
 
 LABEL_17:
-  v87.origin.x = v60;
-  v87.origin.y = v62;
-  v87.size.width = v64;
-  v87.size.height = v66;
-  v88 = CGRectInset(v87, -1.0, -1.0);
-  x = v88.origin.x;
-  y = v88.origin.y;
-  v18 = v88.size.width;
-  v19 = v88.size.height;
+  v86.origin.x = v59;
+  v86.origin.y = v61;
+  v86.size.width = v63;
+  v86.size.height = v65;
+  v87 = CGRectInset(v86, -1.0, -1.0);
+  x = v87.origin.x;
+  y = v87.origin.y;
+  v18 = v87.size.width;
+  v19 = v87.size.height;
 
   if (rect)
   {
@@ -1755,7 +1754,7 @@ LABEL_10:
 
     if (!objc_msgSend_shouldRenderLabel(v25, v46, v47, v48, v49) || !objc_msgSend_intValueForProperty_defaultValue_(v30, v50, v51, v52, v53, 1138, 2))
     {
-      v93 = 0;
+      v92 = 0;
 LABEL_26:
 
       goto LABEL_27;
@@ -1777,29 +1776,29 @@ LABEL_26:
 
     v76 = v75;
     LODWORD(v75) = objc_msgSend_calloutLineEndpointPastStartpoint_(v75, v77, v78, v79, v80, v45);
-    objc_msgSend_layoutSettings(self, v81, v82, v83, v84);
+    objc_msgSend_layoutSettings(self, v81, v82, v83);
     if (!v75)
     {
-      v93 = 0;
+      v92 = 0;
 LABEL_25:
 
       goto LABEL_26;
     }
 
-    v93 = 0;
-    if (!objc_msgSend_combinedLabelOutsideWedge(v45, v85, v86, v87, v88) || (v136 & 1) != 0)
+    v92 = 0;
+    if (!objc_msgSend_combinedLabelOutsideWedge(v45, v84, v85, v86, v87) || (v135 & 1) != 0)
     {
       goto LABEL_25;
     }
 
-    v94 = objc_msgSend_objectValueForProperty_(v30, v89, v90, v91, v92, 1132);
-    v130 = objc_msgSend_objectValueForProperty_(v30, v95, v96, v97, v98, 1131);
-    v131 = v94;
-    started = objc_msgSend_calloutLineRenderAmount_startLineEnd_endLineEnd_stroke_(v76, v99, v100, v101, v102, v45, v94);
-    v93 = started;
+    v93 = objc_msgSend_objectValueForProperty_(v30, v88, v89, v90, v91, 1132);
+    v129 = objc_msgSend_objectValueForProperty_(v30, v94, v95, v96, v97, 1131);
+    v130 = v93;
+    started = objc_msgSend_calloutLineRenderAmount_startLineEnd_endLineEnd_stroke_(v76, v98, v99, v100, v101, v45, v93);
+    v92 = started;
     if (started > 1)
     {
-      v108 = outStrokeCopy;
+      v107 = outStrokeCopy;
       if (started == 2)
       {
         pathCopy2 = path;
@@ -1810,24 +1809,24 @@ LABEL_25:
       {
         pathCopy2 = path;
         endPathCopy = endPath;
-        v111 = v130;
+        v110 = v129;
 LABEL_23:
-        v129 = v108;
-        v127 = v131;
-        *&v105 = scale;
-        v93 = objc_msgSend_newCalloutLinePaths_startLineEnd_outStartLineEndPath_endLineEnd_outEndLineEndPath_stroke_outStroke_context_contextScale_(v76, v104, v105, v106, v107, v45, v131, pathCopy2, v111, endPathCopy, strokeCopy, v129, contextCopy);
+        v128 = v107;
+        v126 = v130;
+        *&v104 = scale;
+        v92 = objc_msgSend_newCalloutLinePaths_startLineEnd_outStartLineEndPath_endLineEnd_outEndLineEndPath_stroke_outStroke_context_contextScale_(v76, v103, v104, v105, v106, v45, v130, pathCopy2, v110, endPathCopy, strokeCopy, v128, contextCopy);
         goto LABEL_24;
       }
     }
 
     else
     {
-      v108 = outStrokeCopy;
+      v107 = outStrokeCopy;
       if (!started)
       {
 LABEL_20:
-        v111 = v130;
-        v127 = v131;
+        v110 = v129;
+        v126 = v130;
 LABEL_24:
 
         goto LABEL_25;
@@ -1836,32 +1835,32 @@ LABEL_24:
       if (started == 1)
       {
 
-        v131 = 0;
+        v130 = 0;
         pathCopy2 = 0;
 LABEL_22:
 
         endPathCopy = 0;
-        v111 = 0;
+        v110 = 0;
         goto LABEL_23;
       }
     }
 
-    v112 = MEMORY[0x277D81150];
-    v135 = v76;
-    v113 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v104, v105, v106, v107, "[TSCHChartRadialBodyLayoutItem newPathsForRenderingCalloutLineForSeries:outStartLineEndPath:outEndLineEndPath:stroke:outStroke:context:contextScale:]");
-    v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v114, v115, v116, v117, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v112, v119, v120, v121, v122, v113, v118, 789, 0, "Unexpected value for chart line rendering: %ld", v93);
+    v111 = MEMORY[0x277D81150];
+    v134 = v76;
+    v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, v104, v105, v106, "[TSCHChartRadialBodyLayoutItem newPathsForRenderingCalloutLineForSeries:outStartLineEndPath:outEndLineEndPath:stroke:outStroke:context:contextScale:]");
+    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, v114, v115, v116, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartRadialBodyLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v111, v118, v119, v120, v121, v112, v117, 789, 0, "Unexpected value for chart line rendering: %ld", v92);
 
-    v76 = v135;
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v123, v124, v125, v126);
-    v93 = 0;
+    v76 = v134;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v122, v123, v124, v125);
+    v92 = 0;
     goto LABEL_20;
   }
 
-  v93 = 0;
+  v92 = 0;
 LABEL_27:
 
-  return v93;
+  return v92;
 }
 
 - (CGRect)calloutLineBoundingBoxForSeries:(unint64_t)series
@@ -1900,7 +1899,7 @@ LABEL_27:
       objc_msgSend_appendBezierPath_(v37, v45, v46, v47, v48, v30);
     }
 
-    objc_msgSend_bounds(v37, v45, v46, v47, v48);
+    objc_msgSend_bounds(v37, v46, v47, v48);
     v50 = v49;
     v52 = v51;
     v54 = v53;

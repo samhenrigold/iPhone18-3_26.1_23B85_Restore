@@ -10,7 +10,7 @@
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   oldAccountCopy = oldAccount;
@@ -36,9 +36,9 @@
     v15 = _CDPLogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = oldAccountCopy;
-      _os_log_impl(&dword_29C8A1000, v15, OS_LOG_TYPE_DEFAULT, "Primary iCloud account deletion detected, clearing follow ups for %@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = oldAccountCopy;
+      _os_log_impl(&dword_29C8A1000, v15, OS_LOG_TYPE_DEFAULT, "Primary iCloud account deletion detected, clearing follow ups for %@", &v27, 0xCu);
     }
 
     v16 = objc_alloc_init(MEMORY[0x29EDC0DD0]);
@@ -46,15 +46,13 @@
     v18 = _CDPLogSystem();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v28) = 0;
-      _os_log_impl(&dword_29C8A1000, v18, OS_LOG_TYPE_DEFAULT, "Primary iCloud account deletion detected, post local walrus state change notification.", &v28, 2u);
+      LOWORD(v27) = 0;
+      _os_log_impl(&dword_29C8A1000, v18, OS_LOG_TYPE_DEFAULT, "Primary iCloud account deletion detected, post local walrus state change notification.", &v27, 2u);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, @"_CDPWalrusStateChangeDarwinNotification", 0, 0, 1u);
   }
-
-  v27 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_clearFollowUpsOnAccountDeletionWithController:(id)controller
@@ -136,7 +134,7 @@
 
 - (void)_processAppleAcocuntChange:(id)change
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   changeCopy = change;
   v6 = objc_msgSend_accountType(changeCopy, v4, v5);
   v9 = objc_msgSend_identifier(v6, v7, v8);
@@ -164,9 +162,9 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 141558274;
-        v28 = 1752392040;
-        v29 = 2112;
-        v30 = v14;
+        v27 = 1752392040;
+        v28 = 2112;
+        v29 = v14;
         _os_log_impl(&dword_29C8A1000, v23, OS_LOG_TYPE_DEFAULT, "Updating keychain sync state in response to dataclass changes for %{mask.hash}@", buf, 0x16u);
       }
 
@@ -179,8 +177,6 @@
       sub_29C8A2620(v14, v23);
     }
   }
-
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 @end

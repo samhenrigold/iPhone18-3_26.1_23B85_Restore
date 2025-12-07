@@ -120,7 +120,7 @@
   {
     if (self)
     {
-      result = [(GLKEffectPropertyTransform *)self invModelviewMatrix];
+      result = objc_msgSend_invModelviewMatrix(self);
     }
 
     else
@@ -211,7 +211,7 @@
       normalMatrixLoc = self->_normalMatrixLoc;
       if (normalMatrixLoc != -1)
       {
-        [(GLKEffectPropertyTransform *)self normalMatrix];
+        objc_msgSend_normalMatrix(self);
         glUniformMatrix3fv(normalMatrixLoc, 1, 0, value);
       }
 
@@ -221,7 +221,7 @@
     if (([(GLKEffectProperty *)self dirtyUniforms]& 0x40000000000) != 0)
     {
       mvpMatrixLoc = self->_mvpMatrixLoc;
-      [(GLKEffectPropertyTransform *)self mvpMatrix];
+      objc_msgSend_mvpMatrix(self);
       glUniformMatrix4fv(mvpMatrixLoc, 1, 0, &v5);
     }
 

@@ -79,7 +79,7 @@ void __61__HMDHAPAccessoryReaderWriter__completionHandlerWithContext___block_inv
 
 void __61__HMDHAPAccessoryReaderWriter__completionHandlerWithContext___block_invoke_2(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   dispatch_assert_queue_V2(*(a1 + 32));
@@ -105,17 +105,17 @@ void __61__HMDHAPAccessoryReaderWriter__completionHandlerWithContext___block_inv
       v20 = [*(a1 + 40) tracker];
       v21 = [v20 pendingTasks];
       v22 = [v19 numberWithUnsignedInteger:{objc_msgSend(v21, "count")}];
-      v29 = 138544386;
-      v30 = v15;
-      v31 = 2114;
-      v32 = v16;
-      v33 = 2114;
-      v34 = v8;
-      v35 = 2048;
-      v36 = v18;
-      v37 = 2114;
-      v38 = v22;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Done sending all responses with error: %{public}@. Execution Time: %.3fs. Remaining Tasks: %{public}@", &v29, 0x34u);
+      v28 = 138544386;
+      v29 = v15;
+      v30 = 2114;
+      v31 = v16;
+      v32 = 2114;
+      v33 = v8;
+      v34 = 2048;
+      v35 = v18;
+      v36 = 2114;
+      v37 = v22;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Done sending all responses with error: %{public}@. Execution Time: %.3fs. Remaining Tasks: %{public}@", &v28, 0x34u);
 
 LABEL_6:
     }
@@ -134,26 +134,25 @@ LABEL_6:
       [*(a1 + 48) executionTimeInterval];
       v26 = v25;
       v27 = [*(a1 + 48) debugDescription];
-      v29 = 138544642;
-      v30 = v15;
-      v31 = 2112;
-      v32 = v23;
-      v33 = 2112;
-      v34 = v24;
-      v35 = 2112;
-      v36 = v8;
-      v37 = 2048;
-      v38 = v26;
-      v39 = 2112;
-      v40 = v27;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Done sending multi-part response(s)[%@] with error: %@. Execution Time: %.3fs. %@", &v29, 0x3Eu);
+      v28 = 138544642;
+      v29 = v15;
+      v30 = 2112;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v24;
+      v34 = 2112;
+      v35 = v8;
+      v36 = 2048;
+      v37 = v26;
+      v38 = 2112;
+      v39 = v27;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@[%@] Done sending multi-part response(s)[%@] with error: %@. Execution Time: %.3fs. %@", &v28, 0x3Eu);
 
       goto LABEL_6;
     }
   }
 
   objc_autoreleasePoolPop(v12);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isPrimaryResidentDevice
@@ -190,7 +189,7 @@ LABEL_6:
 
 - (void)submitWriteRequests:(id)requests sourceType:(unint64_t)type biomeSource:(unint64_t)source requestMessage:(id)message
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   messageCopy = message;
   v13 = MEMORY[0x277CCABB0];
@@ -213,104 +212,63 @@ LABEL_6:
   {
     v26 = HMFGetLogIdentifier();
     [messageCopy shortDescription];
-    v38 = v15;
-    v27 = v39 = requestsCopy;
+    v37 = v15;
+    v27 = v38 = requestsCopy;
     v28 = MEMORY[0x277CCABB0];
     [(HMDHAPAccessoryReaderWriter *)selfCopy tracker];
-    v29 = v37 = v23;
+    v29 = v36 = v23;
     [v29 pendingTasks];
-    v30 = v36 = v21;
+    v30 = v35 = v21;
     v31 = [v28 numberWithUnsignedInteger:{objc_msgSend(v30, "count")}];
     v32 = MEMORY[0x277CCABB0];
     [messageCopy timeout];
     v33 = [v32 numberWithDouble:?];
     *buf = 138544386;
-    v41 = v26;
-    v42 = 2114;
-    v43 = v22;
-    v44 = 2114;
-    v45 = v27;
-    v46 = 2114;
-    v47 = v31;
-    v48 = 2114;
-    v49 = v33;
+    v40 = v26;
+    v41 = 2114;
+    v42 = v22;
+    v43 = 2114;
+    v44 = v27;
+    v45 = 2114;
+    v46 = v31;
+    v47 = 2114;
+    v48 = v33;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Executing with request: %{public}@. Current Tasks: %{public}@. Request Timeout %{public}@", buf, 0x34u);
 
-    requestsCopy = v39;
-    v21 = v36;
+    requestsCopy = v38;
+    v21 = v35;
 
-    v23 = v37;
-    v15 = v38;
+    v23 = v36;
+    v15 = v37;
   }
 
   objc_autoreleasePoolPop(v23);
   tracker2 = [(HMDHAPAccessoryReaderWriter *)selfCopy tracker];
   [tracker2 executeTask:v22];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_defaultTaskForCurrentDeviceWithContext:(id)context requests:(id)requests
 {
   contextCopy = context;
   requestsCopy = requests;
-  operationType = [contextCopy operationType];
+  [contextCopy operationType];
   requestMessage = [contextCopy requestMessage];
-  v10 = [(HMDHAPAccessoryReaderWriter *)self _cannotForwardMessage:requestMessage];
+  v9 = [(HMDHAPAccessoryReaderWriter *)self _cannotForwardMessage:requestMessage];
 
-  v11 = [(HMDHAPAccessoryReaderWriter *)self _completionHandlerWithContext:contextCopy];
-  if (v10)
+  v10 = [(HMDHAPAccessoryReaderWriter *)self _completionHandlerWithContext:contextCopy];
+  if (v9 || !-[HMDHAPAccessoryReaderWriter _isNotResidentDevice](self, "_isNotResidentDevice") && (!-[HMDHAPAccessoryReaderWriter _isSecondaryResidentDevice](self, "_isSecondaryResidentDevice") || ([contextCopy requestMessage], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isRemote"), v12, (v13 & 1) != 0)) && (!-[HMDHAPAccessoryReaderWriter _isPrimaryResidentDevice](self, "_isPrimaryResidentDevice") || (-[HMDHAPAccessoryReaderWriter dataSource](self, "dataSource"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isWholeHomeBluetoothSupported"), v14, (v15 & 1) != 0)) || (v11 = objc_opt_class()) == 0)
   {
-    goto LABEL_12;
+    v11 = objc_opt_class();
   }
 
-  if (-[HMDHAPAccessoryReaderWriter _isNotResidentDevice](self, "_isNotResidentDevice") || -[HMDHAPAccessoryReaderWriter _isSecondaryResidentDevice](self, "_isSecondaryResidentDevice") && ([contextCopy requestMessage], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isRemote"), v16, (v17 & 1) == 0))
-  {
-    v12 = off_27971A108;
-    v13 = off_27971A100;
-  }
+  v16 = [[v11 alloc] initWithContext:contextCopy requests:requestsCopy completion:v10];
 
-  else
-  {
-    if (!-[HMDHAPAccessoryReaderWriter _isPrimaryResidentDevice](self, "_isPrimaryResidentDevice") || (-[HMDHAPAccessoryReaderWriter dataSource](self, "dataSource"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v18 isWholeHomeBluetoothSupported], v18, (v19 & 1) != 0))
-    {
-LABEL_12:
-      v20 = off_27971A0E0;
-      if (operationType)
-      {
-        v20 = off_27971A0E8;
-      }
-
-      v21 = *v20;
-      v15 = objc_opt_class();
-      goto LABEL_15;
-    }
-
-    v12 = off_27971A0F8;
-    v13 = off_27971A0F0;
-  }
-
-  if (!operationType)
-  {
-    v12 = v13;
-  }
-
-  v14 = *v12;
-  v15 = objc_opt_class();
-  if (!v15)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_15:
-  v22 = [[v15 alloc] initWithContext:contextCopy requests:requestsCopy completion:v11];
-
-  return v22;
+  return v16;
 }
 
 - (void)submitReadRequests:(id)requests sourceType:(unint64_t)type requestMessage:(id)message
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   messageCopy = message;
   v11 = MEMORY[0x277CCABB0];
@@ -333,46 +291,44 @@ LABEL_15:
   {
     v24 = HMFGetLogIdentifier();
     [messageCopy shortDescription];
-    v36 = v13;
-    v25 = v37 = requestsCopy;
+    v35 = v13;
+    v25 = v36 = requestsCopy;
     v26 = MEMORY[0x277CCABB0];
     [(HMDHAPAccessoryReaderWriter *)selfCopy tracker];
-    v27 = v35 = v21;
+    v27 = v34 = v21;
     [v27 pendingTasks];
-    v28 = v34 = v19;
+    v28 = v33 = v19;
     v29 = [v26 numberWithUnsignedInteger:{objc_msgSend(v28, "count")}];
     v30 = MEMORY[0x277CCABB0];
     [messageCopy timeout];
     v31 = [v30 numberWithDouble:?];
     *buf = 138544386;
-    v39 = v24;
-    v40 = 2114;
-    v41 = v20;
-    v42 = 2114;
-    v43 = v25;
-    v44 = 2114;
-    v45 = v29;
-    v46 = 2114;
-    v47 = v31;
+    v38 = v24;
+    v39 = 2114;
+    v40 = v20;
+    v41 = 2114;
+    v42 = v25;
+    v43 = 2114;
+    v44 = v29;
+    v45 = 2114;
+    v46 = v31;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Executing with request: %{public}@. Current Tasks: %{public}@. Request Timeout %{public}@", buf, 0x34u);
 
-    requestsCopy = v37;
-    v19 = v34;
+    requestsCopy = v36;
+    v19 = v33;
 
-    v21 = v35;
-    v13 = v36;
+    v21 = v34;
+    v13 = v35;
   }
 
   objc_autoreleasePoolPop(v21);
   tracker2 = [(HMDHAPAccessoryReaderWriter *)selfCopy tracker];
   [tracker2 executeTask:v20];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRequestExpiryForMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = messageCopy;
   if (messageCopy)
@@ -400,48 +356,46 @@ LABEL_15:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v21 = 138543618;
-          v22 = v19;
-          v23 = 2048;
-          v24 = v15;
-          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Not updating request expiry of %0.4f at reader writer", &v21, 0x16u);
+          v20 = 138543618;
+          v21 = v19;
+          v22 = 2048;
+          v23 = v15;
+          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Not updating request expiry of %0.4f at reader writer", &v20, 0x16u);
         }
 
         objc_autoreleasePoolPop(v16);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemotelyUpdatedCharacteristicsMessage:(id)message
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [messageCopy stringForKey:@"kRequestIdentifierKey"];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   tracker = [(HMDHAPAccessoryReaderWriter *)self tracker];
   pendingRemoteTasks = [tracker pendingRemoteTasks];
 
-  v8 = [pendingRemoteTasks countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [pendingRemoteTasks countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(pendingRemoteTasks);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         if ([v12 supportsMultiPartResponse])
         {
           if (([v12 allResponsesReceived] & 1) == 0)
@@ -462,13 +416,11 @@ LABEL_15:
         }
       }
 
-      v9 = [pendingRemoteTasks countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [pendingRemoteTasks countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHAPAccessoryReaderWriter)initWithHome:(id)home dataSource:(id)source
@@ -514,12 +466,11 @@ LABEL_15:
 
 uint64_t __42__HMDHAPAccessoryReaderWriter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v51_189895;
-  logCategory__hmf_once_v51_189895 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v51_189895;
+  logCategory__hmf_once_v51_189895 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

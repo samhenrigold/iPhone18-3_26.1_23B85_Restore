@@ -2,6 +2,7 @@
 - (NSArray)activities;
 - (id)activityForShareSheetActivityType:(id)type;
 - (id)activityForUIActivityType:(id)type;
+- (void)activities;
 @end
 
 @implementation SKUIShareTemplateViewElement
@@ -77,7 +78,7 @@ void __42__SKUIShareTemplateViewElement_activities__block_invoke(uint64_t a1, vo
 
         v17 = *(*(&v20 + 1) + 8 * i);
         activityType = [v17 activityType];
-        if ([activityType isEqualToString:typeCopy])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v14 = v17;
 
@@ -140,14 +141,14 @@ LABEL_15:
 
         v20 = *(*(&v27 + 1) + 8 * i);
         activityType = [v20 activityType];
-        if ([activityType isEqualToString:@"*"])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v22 = v20;
 
           v17 = v22;
         }
 
-        if ([activityType isEqualToString:v13])
+        if (objc_msgSend_isEqualToString_(activityType))
         {
           v23 = v20;
 
@@ -186,6 +187,24 @@ LABEL_19:
   v25 = v24;
 
   return v24;
+}
+
+- (void)activities
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShareTemplateViewElement activities]";
+}
+
+- (void)activityForShareSheetActivityType:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShareTemplateViewElement activityForShareSheetActivityType:]";
+}
+
+- (void)activityForUIActivityType:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIShareTemplateViewElement activityForUIActivityType:]";
 }
 
 @end

@@ -25,6 +25,7 @@
 - (void)intercomWithOptions:(id)options;
 - (void)isDeviceStereoFollower:(id)follower;
 - (void)obliterate:(id)obliterate;
+- (void)playTone:(unsigned int)tone;
 - (void)reboot:(id)reboot;
 - (void)removeProfileByIdentifier:(id)identifier completion:(id)completion;
 - (void)render:(id)render;
@@ -33,14 +34,19 @@
 - (void)resetUserDefault:(id)default;
 - (void)sendButtonCommand:(id)command;
 - (void)sendLEDCommand:(id)command;
+- (void)setBootSpinner:(BOOL)spinner;
+- (void)setDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options;
 - (void)setFeatureFlags:(id)flags;
 - (void)setHomeUpdateState:(int64_t)state;
 - (void)setLEDContents:(id)contents;
 - (void)setTuningInfoOnBox:(id)box at:(id)at withValue:(float)value;
 - (void)setUserDefaults:(id)defaults withValue:(id)value;
 - (void)setVolume:(float)volume;
+- (void)setWifiEnabled:(BOOL)enabled;
 - (void)siriSay:(id)say;
+- (void)stopTone:(unsigned int)tone;
 - (void)suScanForSoftwareUpdate;
+- (void)sysdiagnoseHasStarted:(BOOL)started;
 - (void)triggerWiFiCoreCapture:(id)capture;
 @end
 
@@ -48,23 +54,21 @@
 
 - (void)removeProfileByIdentifier:(id)identifier completion:(id)completion
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   identifierCopy = identifier;
   client = [(SBSRemoteDeviceSender *)self client];
-  v15 = @"identifier";
-  v16[0] = identifierCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"identifier";
+  v15[0] = identifierCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __62__SBSRemoteDeviceSender_removeProfileByIdentifier_completion___block_invoke;
-  v13[3] = &unk_279CD5338;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __62__SBSRemoteDeviceSender_removeProfileByIdentifier_completion___block_invoke;
+  v12[3] = &unk_279CD5338;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [client sendRequestID:@"com.apple.sbs.RemoveProfileByIdentifier" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [client sendRequestID:@"com.apple.sbs.RemoveProfileByIdentifier" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v12];
 }
 
 void __62__SBSRemoteDeviceSender_removeProfileByIdentifier_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -86,23 +90,21 @@ void __62__SBSRemoteDeviceSender_removeProfileByIdentifier_completion___block_in
 
 - (void)installProfileData:(id)data completion:(id)completion
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dataCopy = data;
   client = [(SBSRemoteDeviceSender *)self client];
-  v15 = @"profileData";
-  v16[0] = dataCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"profileData";
+  v15[0] = dataCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __55__SBSRemoteDeviceSender_installProfileData_completion___block_invoke;
-  v13[3] = &unk_279CD5338;
-  v14 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __55__SBSRemoteDeviceSender_installProfileData_completion___block_invoke;
+  v12[3] = &unk_279CD5338;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [client sendRequestID:@"com.apple.sbs.InstallProfileData" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [client sendRequestID:@"com.apple.sbs.InstallProfileData" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v12];
 }
 
 void __55__SBSRemoteDeviceSender_installProfileData_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -155,24 +157,22 @@ void __46__SBSRemoteDeviceSender_getInstalledProfiles___block_invoke(uint64_t a1
 
 - (void)getPowerEstimateForInterval:(float)interval reply:(id)reply
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   client = [(SBSRemoteDeviceSender *)self client];
-  v16 = @"interval";
+  v15 = @"interval";
   *&v8 = interval;
   v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-  v17[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __59__SBSRemoteDeviceSender_getPowerEstimateForInterval_reply___block_invoke;
-  v14[3] = &unk_279CD5338;
-  v15 = replyCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __59__SBSRemoteDeviceSender_getPowerEstimateForInterval_reply___block_invoke;
+  v13[3] = &unk_279CD5338;
+  v14 = replyCopy;
   v12 = replyCopy;
-  [client sendRequestID:@"com.apple.sbs.GetPowerEstimateForInterval" request:v10 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [client sendRequestID:@"com.apple.sbs.GetPowerEstimateForInterval" request:v10 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v13];
 }
 
 void __59__SBSRemoteDeviceSender_getPowerEstimateForInterval_reply___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -230,85 +230,79 @@ void __53__SBSRemoteDeviceSender_getAllSyncedAlarmsAndTimers___block_invoke(uint
 
 - (void)intercomWithOptions:(id)options
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"options";
-  v10[0] = optionsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"options";
+  v9[0] = optionsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.Intercom" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_159];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SBSRemoteDeviceSender_intercomWithOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)identifyWithOptions:(id)options
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"options";
-  v10[0] = optionsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"options";
+  v9[0] = optionsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.Identify" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_157];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __45__SBSRemoteDeviceSender_identifyWithOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)obliterate:(id)obliterate
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   obliterateCopy = obliterate;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"options";
-  v10[0] = obliterateCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"options";
+  v9[0] = obliterateCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.Obliterate" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_155];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __36__SBSRemoteDeviceSender_obliterate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -323,40 +317,38 @@ void __46__SBSRemoteDeviceSender_requestDeferredReboot__block_invoke(uint64_t a1
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)reboot:(id)reboot
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   rebootCopy = reboot;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"options";
-  v10[0] = rebootCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"options";
+  v9[0] = rebootCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.SystemReboot" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_151];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__SBSRemoteDeviceSender_reboot___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -367,16 +359,29 @@ void __32__SBSRemoteDeviceSender_reboot___block_invoke(uint64_t a1, uint64_t a2,
   (*(sysdiagnose + 2))(sysdiagnoseCopy, v5, 0);
 }
 
+- (void)sysdiagnoseHasStarted:(BOOL)started
+{
+  startedCopy = started;
+  v10[1] = *MEMORY[0x277D85DE8];
+  client = [(SBSRemoteDeviceSender *)self client];
+  v9 = @"started";
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:startedCopy];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.SysdiagnoseSysdiagnoseHasStarted" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_145];
+}
+
 void __47__SBSRemoteDeviceSender_sysdiagnoseHasStarted___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -410,133 +415,144 @@ void __48__SBSRemoteDeviceSender_isDeviceStereoFollower___block_invoke(uint64_t 
   }
 }
 
+- (void)setDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options
+{
+  leaderCopy = leader;
+  v12[2] = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
+  client = [(SBSRemoteDeviceSender *)self client];
+  v11[0] = @"enabled";
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:leaderCopy];
+  v11[1] = @"withOptions";
+  v12[0] = v8;
+  v12[1] = optionsCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.StereoLeaderRoleSetDeviceAsStereoLeader" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_137];
+}
+
 void __61__SBSRemoteDeviceSender_setDeviceAsStereoLeader_withOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)handoffCompleteWithHandoffType:(unint64_t)type
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"handoffType";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"handoffType";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.kSBSProximityHandoffUICompleteKey" request:v5 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_123];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SBSRemoteDeviceSender_handoffCompleteWithHandoffType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingKs_0.isa, a4);
+    NSLog(&cfstr_ErrorSendingKs_0.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_Ksbsproximityh_0.isa);
+    NSLog(&cfstr_Ksbsproximityh_0.isa, a2, a3);
   }
 }
 
 - (void)handoffCancelWithHandoffType:(unint64_t)type
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"handoffType";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"handoffType";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.kSBSProximityHandoffUICancelKey" request:v5 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_115];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SBSRemoteDeviceSender_handoffCancelWithHandoffType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingKs.isa, a4);
+    NSLog(&cfstr_ErrorSendingKs.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_Ksbsproximityh.isa);
+    NSLog(&cfstr_Ksbsproximityh.isa, a2, a3);
   }
 }
 
 - (void)handoffUpdateIntensity:(float)intensity handoffType:(unint64_t)type
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"handoffType";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"handoffType";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-  v13[1] = @"intensity";
-  v14[0] = v6;
+  v12[1] = @"intensity";
+  v13[0] = v6;
   *&v7 = intensity;
   v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.kSBSProximityHandoffUIUpdateIntensityKey" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_107];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SBSRemoteDeviceSender_handoffUpdateIntensity_handoffType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingPr_1.isa, a4);
+    NSLog(&cfstr_ErrorSendingPr_1.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_Proximityhando_2.isa);
+    NSLog(&cfstr_Proximityhando_2.isa, a2, a3);
   }
 }
 
 - (void)handoffStartWithArtworkColors:(id)colors handoffType:(unint64_t)type
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   data = [colors data];
   v7 = data;
   if (data)
   {
-    v19[0] = @"artworkColors";
-    v19[1] = @"handoffType";
-    v20[0] = data;
+    v18[0] = @"artworkColors";
+    v18[1] = @"handoffType";
+    v19[0] = data;
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    v20[1] = v8;
+    v19[1] = v8;
     v9 = MEMORY[0x277CBEAC0];
-    v10 = v20;
-    v11 = v19;
+    v10 = v19;
+    v11 = v18;
     v12 = 2;
   }
 
   else
   {
-    v17 = @"handoffType";
+    v16 = @"handoffType";
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-    v18 = v8;
+    v17 = v8;
     v9 = MEMORY[0x277CBEAC0];
-    v10 = &v18;
-    v11 = &v17;
+    v10 = &v17;
+    v11 = &v16;
     v12 = 1;
   }
 
@@ -545,48 +561,44 @@ void __60__SBSRemoteDeviceSender_handoffUpdateIntensity_handoffType___block_invo
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.kSBSProximityHandoffUIStartWithArtworkColorsKey" request:v13 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_99];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SBSRemoteDeviceSender_handoffStartWithArtworkColors_handoffType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingPr_0.isa, a4);
+    NSLog(&cfstr_ErrorSendingPr_0.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_Proximityhando_1.isa);
+    NSLog(&cfstr_Proximityhando_1.isa, a2, a3);
   }
 }
 
 - (void)handoffStartWithHandoffType:(unint64_t)type
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"handoffType";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"handoffType";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.kSBSProximityHandoffUIStartKey" request:v5 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_91];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SBSRemoteDeviceSender_handoffStartWithHandoffType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingPr.isa, a4);
+    NSLog(&cfstr_ErrorSendingPr.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_Proximityhando_0.isa);
+    NSLog(&cfstr_Proximityhando_0.isa, a2, a3);
   }
 }
 
@@ -602,40 +614,38 @@ void __32__SBSRemoteDeviceSender_render___block_invoke(uint64_t a1, uint64_t a2,
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setVolume:(float)volume
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   client = [(SBSRemoteDeviceSender *)self client];
-  v11 = @"volume";
+  v10 = @"volume";
   *&v6 = volume;
   v7 = [MEMORY[0x277CCABB0] numberWithFloat:v6];
-  v12[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetVolume" request:v8 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_84];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SBSRemoteDeviceSender_setVolume___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -683,96 +693,90 @@ void __48__SBSRemoteDeviceSender_suScanForSoftwareUpdate__block_invoke(uint64_t 
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)siriSay:(id)say
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   sayCopy = say;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"phrase";
-  v10[0] = sayCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"phrase";
+  v9[0] = sayCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSiriSay" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_77];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __33__SBSRemoteDeviceSender_siriSay___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setLEDContents:(id)contents
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"LEDContents";
-  v10[0] = contentsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"LEDContents";
+  v9[0] = contentsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetLEDContents" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_72];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SBSRemoteDeviceSender_setLEDContents___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setFeatureFlags:(id)flags
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   flagsCopy = flags;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"featureFlags";
-  v10[0] = flagsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"featureFlags";
+  v9[0] = flagsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetFeatureFlags" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_67];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SBSRemoteDeviceSender_setFeatureFlags___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -810,29 +814,27 @@ void __41__SBSRemoteDeviceSender_getFeatureFlags___block_invoke(uint64_t a1, voi
 
 - (void)disassociateNetworkWithName:(id)name
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = nameCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = nameCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoDisassociateNetworkWithName" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_62];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SBSRemoteDeviceSender_disassociateNetworkWithName___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -847,38 +849,64 @@ void __51__SBSRemoteDeviceSender_disassociateCurrentNetwork__block_invoke(uint64
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
+}
+
+- (void)setWifiEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v10[1] = *MEMORY[0x277D85DE8];
+  client = [(SBSRemoteDeviceSender *)self client];
+  v9 = @"defaultKey";
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.DebugInfoSetWifiEnabled" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_58];
 }
 
 void __40__SBSRemoteDeviceSender_setWifiEnabled___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
+}
+
+- (void)setBootSpinner:(BOOL)spinner
+{
+  spinnerCopy = spinner;
+  v10[1] = *MEMORY[0x277D85DE8];
+  client = [(SBSRemoteDeviceSender *)self client];
+  v9 = @"defaultKey";
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:spinnerCopy];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.DebugInfoSetBootSpinner" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_56];
 }
 
 void __40__SBSRemoteDeviceSender_setBootSpinner___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -893,179 +921,167 @@ void __42__SBSRemoteDeviceSender_clearHomeSWUpdate__block_invoke(uint64_t a1, ui
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setHomeUpdateState:(int64_t)state
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   client = [(SBSRemoteDeviceSender *)self client];
-  v10 = @"state";
+  v9 = @"state";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:state];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetHomeUpdateState" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_52];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SBSRemoteDeviceSender_setHomeUpdateState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)injectSWUpdateToHome:(id)home
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = homeCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = homeCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoInjectSWUpdateToHome" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_47];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SBSRemoteDeviceSender_injectSWUpdateToHome___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)sendButtonCommand:(id)command
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = commandCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = commandCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSendButtonCommand" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_45];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SBSRemoteDeviceSender_sendButtonCommand___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)triggerWiFiCoreCapture:(id)capture
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   captureCopy = capture;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = captureCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = captureCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.TriggerWiFiCoreCapture" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_43];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SBSRemoteDeviceSender_triggerWiFiCoreCapture___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)sendLEDCommand:(id)command
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = commandCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = commandCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSendLEDCommand" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_41];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__SBSRemoteDeviceSender_sendLEDCommand___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)resetUserDefault:(id)default
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   defaultCopy = default;
   client = [(SBSRemoteDeviceSender *)self client];
-  v9 = @"defaultKey";
-  v10[0] = defaultCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = @"defaultKey";
+  v9[0] = defaultCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoResetUserDefault" request:v6 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_39];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SBSRemoteDeviceSender_resetUserDefault___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -1080,43 +1096,41 @@ void __45__SBSRemoteDeviceSender_resetAllUserDefaults__block_invoke(uint64_t a1,
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setUserDefaults:(id)defaults withValue:(id)value
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   defaultsCopy = defaults;
   client = [(SBSRemoteDeviceSender *)self client];
-  v12[0] = @"defaultKey";
-  v12[1] = @"withValue";
-  v13[0] = defaultsCopy;
-  v13[1] = valueCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"defaultKey";
+  v11[1] = @"withValue";
+  v12[0] = defaultsCopy;
+  v12[1] = valueCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetUserDefaults" request:v9 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_35];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SBSRemoteDeviceSender_setUserDefaults_withValue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -1152,64 +1166,88 @@ void __41__SBSRemoteDeviceSender_getUserDefaults___block_invoke(uint64_t a1, voi
   }
 }
 
+- (void)stopTone:(unsigned int)tone
+{
+  v3 = *&tone;
+  v10[1] = *MEMORY[0x277D85DE8];
+  client = [(SBSRemoteDeviceSender *)self client];
+  v9 = @"tone";
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.DebugInfoStopTone" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_30];
+}
+
 void __34__SBSRemoteDeviceSender_stopTone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
+}
+
+- (void)playTone:(unsigned int)tone
+{
+  v3 = *&tone;
+  v10[1] = *MEMORY[0x277D85DE8];
+  client = [(SBSRemoteDeviceSender *)self client];
+  v9 = @"tone";
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v3];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  destinationID = [(SBSRemoteDeviceSender *)self destinationID];
+  [client sendRequestID:@"com.apple.sbs.DebugInfoPlayTone" request:v7 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_28];
 }
 
 void __34__SBSRemoteDeviceSender_playTone___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
 - (void)setTuningInfoOnBox:(id)box at:(id)at withValue:(float)value
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   atCopy = at;
   boxCopy = box;
   client = [(SBSRemoteDeviceSender *)self client];
-  v16[0] = @"box";
-  v16[1] = @"at";
-  v17[0] = boxCopy;
-  v17[1] = atCopy;
-  v16[2] = @"withValue";
+  v15[0] = @"box";
+  v15[1] = @"at";
+  v16[0] = boxCopy;
+  v16[1] = atCopy;
+  v15[2] = @"withValue";
   *&v11 = value;
   v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
-  v17[2] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
   [client sendRequestID:@"com.apple.sbs.DebugInfoSetTuningInfoOnBox" request:v13 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:&__block_literal_global_863];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SBSRemoteDeviceSender_setTuningInfoOnBox_at_withValue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(&cfstr_ErrorSendingRe.isa, a4);
+    NSLog(&cfstr_ErrorSendingRe.isa, a2, a3, a4);
   }
 
   else
   {
-    NSLog(&cfstr_CompanionSentC.isa);
+    NSLog(&cfstr_CompanionSentC.isa, a2, a3);
   }
 }
 
@@ -1279,14 +1317,14 @@ void __36__SBSRemoteDeviceSender_getLEDInfo___block_invoke(uint64_t a1, void *a2
 
 - (void)getSelectDebugInfo:(id)info reply:(id)reply
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   replyCopy = reply;
   if (infoCopy)
   {
-    v15 = @"keys";
-    v16[0] = infoCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"keys";
+    v15[0] = infoCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
   else
@@ -1296,15 +1334,13 @@ void __36__SBSRemoteDeviceSender_getLEDInfo___block_invoke(uint64_t a1, void *a2
 
   client = [(SBSRemoteDeviceSender *)self client];
   destinationID = [(SBSRemoteDeviceSender *)self destinationID];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __50__SBSRemoteDeviceSender_getSelectDebugInfo_reply___block_invoke;
-  v13[3] = &unk_279CD5338;
-  v14 = replyCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __50__SBSRemoteDeviceSender_getSelectDebugInfo_reply___block_invoke;
+  v12[3] = &unk_279CD5338;
+  v13 = replyCopy;
   v11 = replyCopy;
-  [client sendRequestID:@"com.apple.sbs.DebugInfoGetSelectDebugInfo" request:v8 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [client sendRequestID:@"com.apple.sbs.DebugInfoGetSelectDebugInfo" request:v8 destinationID:destinationID options:MEMORY[0x277CBEC10] responseHandler:v12];
 }
 
 void __50__SBSRemoteDeviceSender_getSelectDebugInfo_reply___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -1398,7 +1434,7 @@ void __41__SBSRemoteDeviceSender_getAllDebugInfo___block_invoke(uint64_t a1, voi
 
 void __40__SBSRemoteDeviceSender_initWithDevice___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _SBSLoggingFacility();
   v5 = v4;
@@ -1406,20 +1442,19 @@ void __40__SBSRemoteDeviceSender_initWithDevice___block_invoke(uint64_t a1, void
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Error activating companion link client '%@'", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Error activating companion link client '%@'", &v6, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "companion link client activated succcessfully", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "companion link client activated succcessfully", &v6, 2u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

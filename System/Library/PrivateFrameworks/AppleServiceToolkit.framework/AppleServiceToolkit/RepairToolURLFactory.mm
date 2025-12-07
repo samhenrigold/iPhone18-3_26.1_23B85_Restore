@@ -23,7 +23,7 @@
 
 - (id)urlRequest
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestItems = [(RepairToolURLFactory *)self requestItems];
   v4 = [requestItems count];
   currentIndex = [(RepairToolURLFactory *)self currentIndex];
@@ -37,7 +37,7 @@
     destination = [v8 destination];
     v11 = [v9 URLWithString:destination];
 
-    v24 = v11;
+    v23 = v11;
     v6 = [MEMORY[0x277CCAB70] requestWithURL:v11];
     [v6 setHTTPMethod:@"POST"];
     token = [v8 token];
@@ -46,32 +46,32 @@
     encryptionKey = [v8 encryptionKey];
     [v6 setValue:encryptionKey forHTTPHeaderField:@"X-Apple-Encrypted-key"];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     extraHeaders = [v8 extraHeaders];
-    v15 = [extraHeaders countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v15 = [extraHeaders countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v26;
+      v17 = *v25;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v26 != v17)
+          if (*v25 != v17)
           {
             objc_enumerationMutation(extraHeaders);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
+          v19 = *(*(&v24 + 1) + 8 * i);
           extraHeaders2 = [v8 extraHeaders];
           v21 = [extraHeaders2 objectForKeyedSubscript:v19];
           [v6 setValue:v21 forHTTPHeaderField:v19];
         }
 
-        v16 = [extraHeaders countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v16 = [extraHeaders countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v16);
@@ -84,8 +84,6 @@
   {
     v6 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

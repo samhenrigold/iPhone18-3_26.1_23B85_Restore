@@ -72,7 +72,8 @@ void __57__MFAddressConcatenator_defaultRecipientListConcatenator__block_invoke(
   {
     if (indexCopy)
     {
-      v17 = indexCopy[2](indexCopy, v15);
+      blockCopy = indexCopy[2](indexCopy, v15);
+      v17 = blockCopy;
       if (!v15)
       {
         goto LABEL_9;
@@ -90,7 +91,7 @@ void __57__MFAddressConcatenator_defaultRecipientListConcatenator__block_invoke(
 
     if (!v17)
     {
-      v17 = MFLocalizedAddressSeparator();
+      v17 = MFLocalizedAddressSeparator(blockCopy);
     }
 
 LABEL_9:
@@ -124,7 +125,7 @@ LABEL_9:
     v20 = _Block_copy(aBlock);
     v21 = v43[2](v43, v15);
     v22 = (v20)[2](v20, v21, selfCopy->_andNMoreFormat);
-    v23 = v45[2](v45, v22, v61[5]);
+    v23 = (v45)[2](v45, v22, v61[5]);
     v24 = v23;
     if (v23)
     {

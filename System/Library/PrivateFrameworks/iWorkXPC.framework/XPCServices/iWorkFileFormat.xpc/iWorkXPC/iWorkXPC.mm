@@ -8,10 +8,11 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void sub_100002140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_100002140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -24,23 +25,27 @@ uint64_t sub_100002188(uint64_t result, uint64_t a2)
 
 void sub_1000021A0(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000021E4(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000023EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000023EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -52,11 +57,12 @@ void sub_100002724(id a1)
   qword_1001EA9C0 = v1;
 }
 
-void sub_100002AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_100002AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 184), 8);
-  _Block_object_dispose((v32 - 152), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 184), 8);
+  _Block_object_dispose((v31 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -163,51 +169,65 @@ LABEL_10:
 
 void sub_100003110(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003154(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003398(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003D0C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003D50(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003D94(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003DD8(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100003F58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, objc_super a13)
@@ -219,9 +239,11 @@ void sub_100003F58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100003FA0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004104(uint64_t a1)
@@ -237,33 +259,41 @@ void sub_100004104(uint64_t a1)
 
 void sub_100004438(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000447C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004A10(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004A54(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100004C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100004C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -286,44 +316,56 @@ void sub_100004C5C(uint64_t a1, void *a2)
 
 void sub_100005250(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000056AC(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100005CEC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100005D30(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006154(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006198(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006434(uint64_t a1, void *a2)
@@ -338,7 +380,7 @@ void sub_100006434(uint64_t a1, void *a2)
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3);
 }
 
-void sub_100006614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100006614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -354,67 +396,83 @@ void sub_100006644(uint64_t a1, void *a2)
 
 void sub_10000694C(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006C5C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100006F40(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100007354(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100007784(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000077C8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100007900(id a1)
 {
-  TSUDocumentLifecycleCat_log_t = TSULogCreateCategory("TSUDocumentLifecycleCat");
+  v1 = TSULogCreateCategory("TSUDocumentLifecycleCat");
+  v2 = TSUDocumentLifecycleCat_log_t;
+  TSUDocumentLifecycleCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100007C0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100007C0C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPSnappyReadChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 void sub_100007E88(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_100007ECC(uint64_t result, uint64_t a2)
@@ -468,71 +526,90 @@ void sub_100007EE4(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
 void sub_1000084D4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100008518(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000855C(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000085A0(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100008728(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000876C(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100008954(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100008998(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000089E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000089E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100008C10(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100008DBC(_Unwind_Exception *a1)
@@ -542,12 +619,12 @@ void sub_100008DBC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100008E54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100008E54(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = TSPAVAssetResourceLoaderDelegate;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -628,7 +705,7 @@ void sub_100009314(uint64_t a1, void *a2)
   }
 }
 
-void sub_100009788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_100009788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -637,9 +714,11 @@ void sub_100009788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_100009824(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_100009868(uint64_t result, uint64_t a2)
@@ -651,9 +730,11 @@ uint64_t sub_100009868(uint64_t result, uint64_t a2)
 
 void sub_100009880(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000098C4(uint64_t a1, int a2, void *a3, void *a4)
@@ -716,7 +797,7 @@ LABEL_7:
 LABEL_8:
 }
 
-void sub_100009E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_100009E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -732,9 +813,11 @@ uint64_t sub_100009E9C(uint64_t result, uint64_t a2)
 
 void sub_100009EB4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100009EF8(uint64_t a1, void *a2)
@@ -810,12 +893,14 @@ void sub_10000A18C(_Unwind_Exception *a1)
 
 void sub_10000A1F4(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10000A4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_10000A4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -825,9 +910,11 @@ void sub_10000A4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10000A560(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000A5A4(void *a1, void *a2)
@@ -853,22 +940,21 @@ void sub_10000A5A4(void *a1, void *a2)
     v10 = TSUDefaultCat_log_t;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(*(a1[6] + 8) + 40);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = [*(*(a1[6] + 8) + 40) domain];
-      v15 = [*(*(a1[6] + 8) + 40) code];
-      v16 = *(*(a1[6] + 8) + 40);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = [*(*(a1[6] + 8) + 40) domain];
+      v14 = [*(*(a1[6] + 8) + 40) code];
+      v15 = *(*(a1[6] + 8) + 40);
       *buf = 138413314;
-      v19 = v4;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 2048;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v16;
+      v18 = v4;
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v13;
+      v23 = 2048;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v15;
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Can't read %@. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x34u);
     }
   }
@@ -876,16 +962,20 @@ void sub_10000A5A4(void *a1, void *a2)
 
 void sub_10000A7E4(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000AC08(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10000AC4C(uint64_t a1)
@@ -917,9 +1007,11 @@ uint64_t sub_10000AC4C(uint64_t a1)
 
 void sub_10000AD74(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000ADB8(uint64_t a1, void *a2)
@@ -1038,23 +1130,29 @@ LABEL_22:
 
 void sub_10000B228(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000B26C(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000B598(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000B5DC(void *a1, void *a2)
@@ -1089,7 +1187,7 @@ void sub_10000B5DC(void *a1, void *a2)
   }
 }
 
-void sub_10000B948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_10000B948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -1110,7 +1208,7 @@ void sub_10000B994(void *a1, void *a2)
   *(v7 + 40) = v6;
 }
 
-void sub_10000BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1127,9 +1225,9 @@ void sub_10000BBA8(uint64_t a1, void *a2)
   *(v5 + 40) = v4;
 }
 
-void sub_10000BD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_10000BD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1182,29 +1280,36 @@ void sub_10000BF10(_Unwind_Exception *a1)
 
 void sub_10000BF64(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000C3C0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10000C414(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000C414(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x2Cu);
 }
 
 void sub_10000C608(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000C800(void *a1)
@@ -1281,7 +1386,7 @@ BOOL sub_10000DEA8(id a1, NSString *a2, int64_t a3, NSDictionary *a4)
   return v8;
 }
 
-void sub_10000E0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000E0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1397,7 +1502,7 @@ void sub_10000E5DC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000E6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000E6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1435,7 +1540,7 @@ void sub_10000E874(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000E978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000E978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1455,7 +1560,7 @@ void sub_10000E998(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, BOOL *a5)
   *a5 = *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
-void sub_10000EB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000EB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1475,7 +1580,7 @@ void sub_10000EB78(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, BOOL *a5)
   *a5 = *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
-void sub_10000ED38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000ED38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1549,7 +1654,7 @@ void sub_10000F02C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_10000F140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000F140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1569,7 +1674,7 @@ void sub_10000F160(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, BOOL *a5)
   *a5 = *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
-void sub_10000F320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000F320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1589,7 +1694,7 @@ void sub_10000F340(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, BOOL *a5)
   *a5 = *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
-void sub_10000F4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000F4F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1609,7 +1714,7 @@ void sub_10000F510(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, BOOL *a5)
   *a5 = *(*(*(a1 + 32) + 8) + 40) != 0;
 }
 
-void sub_10000F6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_10000F6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1638,99 +1743,125 @@ void sub_10000FB28(_Unwind_Exception *a1)
 
 void sub_10000FFA8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100010124(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000102A0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000104A4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100010794(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100010C24(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100010C68(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100010E0C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100011034(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100011284(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000116F0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100011734(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100011778(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100011824(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100011824(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSPCryptoReadChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1744,7 +1875,7 @@ uint64_t sub_10001193C(NSObject *a1, unsigned int a2, int a3, void *a4, void *a5
     v80 = &v79;
     v81 = 0x2020000000;
     v82 = 1;
-    v12 = &a1[4];
+    v12 = a1 + 4;
     v13 = *(a1[4].isa + 4);
     if (v13)
     {
@@ -1767,8 +1898,8 @@ uint64_t sub_10001193C(NSObject *a1, unsigned int a2, int a3, void *a4, void *a5
 
     v18 = size - v17;
     subrange = dispatch_data_create_subrange(v15, size - v17, v17);
-    v20 = *(*v12 + 32);
-    *(*v12 + 32) = subrange;
+    v20 = *(v12->isa + 4);
+    *(v12->isa + 4) = subrange;
 
     v9 = dispatch_data_create_subrange(v15, 0, v18);
     v21 = dispatch_data_get_size(v9);
@@ -1776,7 +1907,7 @@ uint64_t sub_10001193C(NSObject *a1, unsigned int a2, int a3, void *a4, void *a5
     {
       v22 = &_dispatch_data_empty;
       v23 = &_dispatch_data_empty;
-      v24 = *(*v12 + 56);
+      v24 = *(v12->isa + 7);
       if (!v24)
       {
         goto LABEL_57;
@@ -1816,7 +1947,7 @@ uint64_t sub_10001193C(NSObject *a1, unsigned int a2, int a3, void *a4, void *a5
       {
 LABEL_18:
         dataOutMoved = 0;
-        v30 = CCCryptorFinal(*(*v12 + 56), v27, v26, &dataOutMoved);
+        v30 = CCCryptorFinal(*(v12->isa + 7), v27, v26, &dataOutMoved);
         *(v80 + 24) = v30 == 0;
         if (v30)
         {
@@ -1843,7 +1974,7 @@ LABEL_18:
           v22 = dispatch_data_create(v27, dataOutMoved, 0, _dispatch_data_destructor_free);
 
 LABEL_57:
-          if (*(*v12 + 64) != 16)
+          if (*(v12->isa + 8) != 16)
           {
             +[TSUAssertionHandler _atomicIncrementAssertCount];
             if (TSUAssertCat_init_token != -1)
@@ -1853,12 +1984,12 @@ LABEL_57:
 
             if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
             {
-              sub_100151728(&a1[4]);
+              sub_100151728();
             }
 
             v53 = [NSString stringWithUTF8String:"[TSPCryptoReadChannel readWithHandler:]_block_invoke"];
             v54 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoReadChannel.mm"];
-            [TSUAssertionHandler handleFailureInFunction:v53 file:v54 lineNumber:143 isFatal:0 description:"Failed to read and discard the initial random block; only read %zu bytes", *(*v12 + 64)];
+            [TSUAssertionHandler handleFailureInFunction:v53 file:v54 lineNumber:143 isFatal:0 description:"Failed to read and discard the initial random block; only read %zu bytes", *(v12->isa + 8)];
 
             +[TSUAssertionHandler logBacktraceThrottled];
           }
@@ -1897,7 +2028,7 @@ LABEL_35:
         applier[1] = 3221225472;
         applier[2] = sub_100012738;
         applier[3] = &unk_1001C5EC0;
-        applier[4] = *v12;
+        applier[4] = v12->isa;
         applier[5] = &v79;
         applier[7] = v33;
         applier[8] = v35;
@@ -1905,10 +2036,10 @@ LABEL_35:
         dispatch_data_apply(v9, applier);
         if (v80[3])
         {
-          v40 = *(*v12 + 64);
+          v40 = *(v12->isa + 8);
           v41 = p_dataOutMoved;
           v42 = 16 - v40 >= p_dataOutMoved[3] ? p_dataOutMoved[3] : 16 - v40;
-          *(*v12 + 64) = v42 + v40;
+          *(v12->isa + 8) = v42 + v40;
           v43 = v41[3];
           if (v43 != v42 || a3)
           {
@@ -1916,7 +2047,7 @@ LABEL_35:
             {
               v73 = 0;
               dataa = v36;
-              v44 = CCCryptorGetOutputLength(*(*v12 + 56), 0, 1);
+              v44 = CCCryptorGetOutputLength(*(v12->isa + 7), 0, 1);
               v45 = v44;
               v68 = a1;
               if (!v44)
@@ -1950,7 +2081,7 @@ LABEL_35:
               if (v80[3])
               {
 LABEL_49:
-                v49 = CCCryptorFinal(*(*v12 + 56), v46, v45, &v73);
+                v49 = CCCryptorFinal(*(v12->isa + 7), v46, v45, &v73);
                 *(v80 + 24) = v49 == 0;
                 if (v49)
                 {
@@ -1982,7 +2113,7 @@ LABEL_65:
               }
 
               v67 = v46;
-              v56 = *(*v12 + 64);
+              v56 = *(v12->isa + 8);
               if (16 - v56 >= v73)
               {
                 v57 = v73;
@@ -1993,8 +2124,8 @@ LABEL_65:
                 v57 = 16 - v56;
               }
 
-              *(*v12 + 64) = v57 + v56;
-              if (*(*v12 + 64) != 16)
+              *(v12->isa + 8) = v57 + v56;
+              if (*(v12->isa + 8) != 16)
               {
                 +[TSUAssertionHandler _atomicIncrementAssertCount];
                 if (TSUAssertCat_init_token != -1)
@@ -2004,12 +2135,12 @@ LABEL_65:
 
                 if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
                 {
-                  sub_1001514E4(v12);
+                  sub_1001514E4();
                 }
 
                 v58 = [NSString stringWithUTF8String:"[TSPCryptoReadChannel readWithHandler:]_block_invoke"];
                 v59 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoReadChannel.mm"];
-                [TSUAssertionHandler handleFailureInFunction:v58 file:v59 lineNumber:229 isFatal:0 description:"Failed to read and discard the initial random block; only read %zu bytes", *(*v12 + 64)];
+                [TSUAssertionHandler handleFailureInFunction:v58 file:v59 lineNumber:229 isFatal:0 description:"Failed to read and discard the initial random block; only read %zu bytes", *(v12->isa + 8)];
 
                 +[TSUAssertionHandler logBacktraceThrottled];
               }
@@ -2047,11 +2178,11 @@ LABEL_65:
                 (*(v68[5].isa + 2))();
               }
 
-              v63 = *(*v12 + 56);
+              v63 = *(v12->isa + 7);
               if (v63)
               {
                 CCCryptorRelease(v63);
-                *(*v12 + 56) = 0;
+                *(v12->isa + 7) = 0;
               }
             }
 
@@ -2117,43 +2248,53 @@ LABEL_89:
   return v11 & 1;
 }
 
-void sub_1000124D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1000124D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v34 - 136), 8);
+  va_start(va, a29);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 136), 8);
 
   _Unwind_Resume(a1);
 }
 
 void sub_100012628(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001266C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000126B0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000126F4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_100012738(void *a1, void *a2, uint64_t a3, char *a4, unint64_t a5)
+uint64_t sub_100012738(void *a1, void *a2, uint64_t a3, char *a4, size_t a5)
 {
   v31 = a2;
   while (a5)
@@ -2272,44 +2413,56 @@ uint64_t sub_100012738(void *a1, void *a2, uint64_t a3, char *a4, unint64_t a5)
 
 void sub_100012BD0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012C14(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012C58(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012C9C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012CE0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012F28(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100012F6C(uint64_t a1, int a2, void *a3, void *a4)
@@ -2406,38 +2559,47 @@ LABEL_29:
   }
 }
 
-void sub_1000132A0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000132A0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x22u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x22u);
 }
 
 void sub_1000134E4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000138C0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100013904(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100013B4C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 intptr_t sub_100013B90(uint64_t a1)
@@ -2450,36 +2612,44 @@ intptr_t sub_100013B90(uint64_t a1)
 
 void sub_10001417C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000141C0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014204(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014248(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000142E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1000142E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TSPCryptoComponentWriteChannel;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2499,10 +2669,10 @@ uint64_t sub_10001438C(uint64_t a1, void *a2, uint64_t a3, char *a4, unint64_t a
       sub_100151D88();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Tried to write data when already closed.", v25, v26, v27, v28, v29, v30, v31, "[TSPCryptoComponentWriteChannel _writeData:isDecryptedData:]_block_invoke");
-    v32 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _writeData:isDecryptedData:]_block_invoke"];
-    v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v32 file:v33 lineNumber:170 isFatal:1 description:"Tried to write data when already closed."];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Tried to write data when already closed.", "[TSPCryptoComponentWriteChannel _writeData:isDecryptedData:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 170);
+    v25 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _writeData:isDecryptedData:]_block_invoke"];
+    v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:170 isFatal:1 description:"Tried to write data when already closed."];
 
     TSUCrashBreakpoint();
     abort();
@@ -2549,7 +2719,7 @@ uint64_t sub_10001438C(uint64_t a1, void *a2, uint64_t a3, char *a4, unint64_t a
       v14 = [*(v12 + 16) preferredBlockSize];
       if (a5 >= v13 - 16)
       {
-        v15 = (v13 - 16);
+        v15 = v13 - 16;
       }
 
       else
@@ -2617,9 +2787,11 @@ LABEL_24:
 
 void sub_100014684(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id obj)
@@ -2631,37 +2803,47 @@ void sub_100014748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_100014E60(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014EA4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014EE8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014F2C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100014F70(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100015010(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2673,40 +2855,50 @@ void sub_100015010(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 
 void sub_1000156AC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000159B4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000162CC(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100016310(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100016354(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100016480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100016480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -2722,72 +2914,92 @@ uint64_t sub_1000164A0(uint64_t result, uint64_t a2)
 
 void sub_100016718(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100016B90(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100016D70(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000173F8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001743C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100017480(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000174C4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000176A0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100017984(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100017CA8(id a1)
 {
-  TSUCollaborationManagerCat_log_t = TSULogCreateCategory("TSUCollaborationManagerCat");
+  v1 = TSULogCreateCategory("TSUCollaborationManagerCat");
+  v2 = TSUCollaborationManagerCat_log_t;
+  TSUCollaborationManagerCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100017D88(_Unwind_Exception *a1, int a2)
@@ -2815,9 +3027,11 @@ void sub_100017D88(_Unwind_Exception *a1, int a2)
 
 void sub_100017E2C(id a1)
 {
-  TSUCollaborationManagerCat_log_t = TSULogCreateCategory("TSUCollaborationManagerCat");
+  v1 = TSULogCreateCategory("TSUCollaborationManagerCat");
+  v2 = TSUCollaborationManagerCat_log_t;
+  TSUCollaborationManagerCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100017EBC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2829,16 +3043,18 @@ void sub_100017EBC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
 
 void sub_100018354(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000185A0(id a1)
 {
-  v55 = 0;
-  v1 = [NSRegularExpression regularExpressionWithPattern:@"Index\\/OperationStorage.*\\.iwa" options:0 error:&v55];
-  v2 = v55;
+  v37 = 0;
+  v1 = [NSRegularExpression regularExpressionWithPattern:@"Index\\/OperationStorage.*\\.iwa" options:0 error:&v37];
+  v2 = v37;
   v3 = v2;
   if (!v1)
   {
@@ -2856,129 +3072,131 @@ void sub_1000185A0(id a1)
       v12 = [v3 domain];
       v13 = [v3 code];
       *buf = 67110914;
-      v58 = v8;
-      v59 = 2082;
-      v60 = "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke";
-      v61 = 2082;
-      v62 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm";
-      v63 = 1024;
-      v64 = 156;
-      v65 = 2114;
-      v66 = v11;
-      v67 = 2114;
-      v68 = v12;
-      v69 = 2048;
-      v70 = v13;
-      v71 = 2112;
-      v72 = v3;
+      v40 = v8;
+      v41 = 2082;
+      v42 = "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke";
+      v43 = 2082;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm";
+      v45 = 1024;
+      v46 = 156;
+      v47 = 2114;
+      v48 = v11;
+      v49 = 2114;
+      v50 = v12;
+      v51 = 2048;
+      v52 = v13;
+      v53 = 2112;
+      v54 = v3;
       _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x4Au);
     }
 
     v14 = objc_opt_class();
     v15 = NSStringFromClass(v14);
     v16 = [v3 domain];
-    v52 = [v3 code];
-    v50 = v16;
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v17, v18, v19, v20, v21, v22, v23, "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm", 156, v15, v16, [v3 code], v3);
 
-    v24 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
-    v25 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm"];
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
-    v28 = [v3 domain];
-    +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v24, v25, 156, 1, "Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v27, v28, [v3 code], v3, v50, v52, v3);
+    v17 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
+    v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm"];
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v21 = [v3 domain];
+    +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v17, v18, 156, 1, "Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v20, v21, [v3 code], v3);
 
     TSUCrashBreakpoint();
 LABEL_14:
     abort();
   }
 
-  v54 = 0;
-  v4 = [NSRegularExpression regularExpressionWithPattern:@"Index\\/ActivityStream.*\\.iwa" options:0 error:&v54];
-  v5 = v54;
+  v36 = 0;
+  v4 = [NSRegularExpression regularExpressionWithPattern:@"Index\\/ActivityStream.*\\.iwa" options:0 error:&v36];
+  v5 = v36;
   if (!v4)
   {
-    v29 = +[TSUAssertionHandler _atomicIncrementAssertCount];
+    v22 = +[TSUAssertionHandler _atomicIncrementAssertCount];
     if (TSUAssertCat_init_token != -1)
     {
       sub_1001529E8();
     }
 
-    v30 = TSUAssertCat_log_t;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v23 = TSUAssertCat_log_t;
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = [v5 domain];
-      v34 = [v5 code];
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = [v5 domain];
+      v27 = [v5 code];
       *buf = 67110914;
-      v58 = v29;
-      v59 = 2082;
-      v60 = "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke";
-      v61 = 2082;
-      v62 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm";
-      v63 = 1024;
-      v64 = 160;
-      v65 = 2114;
-      v66 = v32;
-      v67 = 2114;
-      v68 = v33;
-      v69 = 2048;
-      v70 = v34;
-      v71 = 2112;
-      v72 = v5;
-      _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x4Au);
+      v40 = v22;
+      v41 = 2082;
+      v42 = "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke";
+      v43 = 2082;
+      v44 = "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm";
+      v45 = 1024;
+      v46 = 160;
+      v47 = 2114;
+      v48 = v25;
+      v49 = 2114;
+      v50 = v26;
+      v51 = 2048;
+      v52 = v27;
+      v53 = 2112;
+      v54 = v5;
+      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x4Au);
     }
 
-    v35 = objc_opt_class();
-    v36 = NSStringFromClass(v35);
-    v37 = [v5 domain];
-    v53 = [v5 code];
-    v51 = v37;
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v38, v39, v40, v41, v42, v43, v44, "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
+    v30 = [v5 domain];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm", 160, v29, v30, [v5 code], v5);
 
-    v45 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
-    v46 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm"];
-    v47 = objc_opt_class();
-    v48 = NSStringFromClass(v47);
-    v49 = [v5 domain];
-    +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v45, v46, 160, 1, "Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v48, v49, [v5 code], v5, v51, v53, v5);
+    v31 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[TSPPackageConverter regularRexpressionsForCachedCollaborationData]_block_invoke");
+    v32 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm"];
+    v33 = objc_opt_class();
+    v34 = NSStringFromClass(v33);
+    v35 = [v5 domain];
+    +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v31, v32, 160, 1, "Failed to create regular expression with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", v34, v35, [v5 code], v5);
 
     TSUCrashBreakpoint();
     goto LABEL_14;
   }
 
-  v56[0] = v1;
-  v56[1] = v4;
-  v6 = [NSArray arrayWithObjects:v56 count:2];
+  v38[0] = v1;
+  v38[1] = v4;
+  v6 = [NSArray arrayWithObjects:v38 count:2];
   v7 = qword_1001EA9E0;
   qword_1001EA9E0 = v6;
 }
 
 void sub_100018C14(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100018C58(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100018F18(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000191C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
+void sub_1000191C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3054,21 +3272,25 @@ BOOL sub_10001982C(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, vo
 
 void sub_100019AD4(id a1)
 {
-  qword_1001EA9F0 = [@"Index" stringByAppendingString:@"/"];
+  v1 = [@"Index" stringByAppendingString:@"/"];
+  v2 = qword_1001EA9F0;
+  qword_1001EA9F0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100019B88(id a1)
 {
-  qword_1001EAA00 = [@"Data" stringByAppendingString:@"/"];
+  v1 = [@"Data" stringByAppendingString:@"/"];
+  v2 = qword_1001EAA00;
+  qword_1001EAA00 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100019C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100019C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3245,30 +3467,38 @@ void sub_10001A090(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
 void sub_10001A504(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001AEF0(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001AF34(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001AF78(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 int64_t sub_10001B7E4(id a1, NSURL *a2, NSURL *a3)
@@ -3293,23 +3523,29 @@ int64_t sub_10001B7E4(id a1, NSURL *a2, NSURL *a3)
 
 void sub_10001BC50(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001C468(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001C4AC(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001C4F0(uint64_t a1, void *a2)
@@ -3357,16 +3593,20 @@ void sub_10001C4F0(uint64_t a1, void *a2)
 
 void sub_10001C6C4(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001C998(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001CDE8(uint64_t a1, void *a2, void *a3)
@@ -3399,16 +3639,20 @@ void sub_10001CDE8(uint64_t a1, void *a2, void *a3)
 
 void sub_10001CF64(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001CFA8(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001CFEC(id a1, NSError *a2)
@@ -3456,9 +3700,11 @@ void sub_10001CFEC(id a1, NSError *a2)
 
 void sub_10001D1C0(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001D75C(_Unwind_Exception *a1)
@@ -3480,9 +3726,11 @@ void sub_10001D7D4(uint64_t a1, void *a2)
 
 void sub_10001D8D4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001D918(uint64_t a1, void *a2)
@@ -3638,7 +3886,7 @@ LABEL_25:
     v19 = a1[5];
     if (!v19)
     {
-      (v18)[2](v18, v3);
+      v18[2](v18, v3);
       goto LABEL_27;
     }
 
@@ -3659,23 +3907,29 @@ LABEL_27:
 
 void sub_10001E150(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001E194(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001E1D8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001E21C(void *a1)
@@ -3720,51 +3974,65 @@ void sub_10001E21C(void *a1)
 
 void sub_10001EC84(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001ECC8(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001ED0C(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001F278(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001F2BC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001F300(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001F750(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001F794(uint64_t a1, uint64_t a2, void *a3)
@@ -3778,51 +4046,65 @@ void sub_10001F794(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_10001F7FC(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001FEF4(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10001FF38(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100020478(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000204BC(id a1)
 {
-  UnsafePointer = TSULogCreateCategory("TSPPersistenceLogCat");
+  v1 = TSULogCreateCategory("TSPPersistenceLogCat");
+  v2 = UnsafePointer;
+  UnsafePointer = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000207C4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100020B5C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100020CA0(id *a1)
@@ -3881,123 +4163,145 @@ LABEL_10:
 
 void sub_100021170(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100021368(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100021564(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100021A0C(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100022518(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100022800(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100022A88(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100022D98(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100022DDC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100023224(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002369C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void *sub_1000236E0(uint64_t a1, uint64_t *a2)
+void *sub_1000236E0(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_1000237AC(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_1000237AC(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4023,12 +4327,12 @@ uint64_t *sub_100023804(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4042,22 +4346,22 @@ uint64_t *sub_100023804(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4091,13 +4395,13 @@ uint64_t *sub_100023804(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4152,9 +4456,11 @@ void sub_1000239A0(uint64_t a1, void *a2)
 
 void sub_100023C78(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100023F80(uint64_t a1, void *a2)
@@ -4179,16 +4485,20 @@ void sub_100023F80(uint64_t a1, void *a2)
 
 void sub_100024004(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100024208(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10002424C(uint64_t a1)
@@ -4204,9 +4514,11 @@ uint64_t sub_10002424C(uint64_t a1)
 
 void sub_100024544(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002473C(uint64_t a1)
@@ -4236,8 +4548,7 @@ void sub_100024870(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
   v8 = a4;
   v9 = *(*(a1 + 48) + 8);
-  v10 = *(v9 + 24);
-  v11 = v8;
+  v10 = v8;
   if (!v8 || !*(v9 + 24))
   {
     if (!*(v9 + 24))
@@ -4250,7 +4561,7 @@ void sub_100024870(uint64_t a1, int a2, uint64_t a3, void *a4)
 
   *(v9 + 24) = 0;
   objc_storeStrong((*(a1 + 32) + 24), a4);
-  v8 = v11;
+  v8 = v10;
   if (*(*(*(a1 + 48) + 8) + 24))
   {
 LABEL_6:
@@ -4262,15 +4573,17 @@ LABEL_7:
   {
     dispatch_resume(*(*(a1 + 32) + 8));
     dispatch_semaphore_signal(*(a1 + 40));
-    v8 = v11;
+    v8 = v10;
   }
 }
 
 void sub_100024B74(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100024C14(void *a1)
@@ -4282,23 +4595,29 @@ void sub_100024C14(void *a1)
 
 void sub_100024F04(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000257F8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100025D84(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_100025EB8(uint64_t result, uint64_t a2)
@@ -4315,7 +4634,7 @@ uint64_t sub_100025ED0(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = WeakRetained;
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v4);
 }
 
 void sub_100026024(uint64_t a1)
@@ -4384,33 +4703,41 @@ id sub_100026208(uint64_t a1, uint64_t a2)
 
 void sub_1000264A0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000264E4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100026650(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100026C34(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100026D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100026D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -4427,8 +4754,7 @@ uint64_t sub_100026E38(uint64_t a1)
     v2 = *(a1 + 32);
 LABEL_4:
     [v2 reloadZipArchiveIfNeededWithURLImpl:0 isLazyLoading:(v3 >> 1) & 1 forceReload:0 error:0];
-    v4 = *(*(a1 + 32) + 24);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
     goto LABEL_5;
   }
 
@@ -4437,13 +4763,13 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 LABEL_5:
 
-  return v5();
+  return v4();
 }
 
-void sub_100027110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
+void sub_100027110(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -4465,15 +4791,15 @@ void sub_10002716C(uint64_t a1, void *a2)
   if (v7)
   {
     v8 = *(a1 + 32);
-    v40[0] = _NSConcreteStackBlock;
-    v40[1] = 3221225472;
-    v40[2] = sub_1000277F4;
-    v40[3] = &unk_1001C6FD8;
-    v41 = v7;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_1000277F4;
+    v38[3] = &unk_1001C6FD8;
+    v39 = v7;
     v9 = *(*(a1 + 40) + 8);
-    v39 = *(v9 + 40);
-    v10 = [v8 newDocumentPropertiesWithURL:v3 zipProvider:v40 error:&v39];
-    objc_storeStrong((v9 + 40), v39);
+    v37 = *(v9 + 40);
+    v10 = [v8 newDocumentPropertiesWithURL:v3 zipProvider:v38 error:&v37];
+    objc_storeStrong((v9 + 40), v37);
     if (!v10)
     {
       if ((*(a1 + 64) & 1) == 0)
@@ -4486,22 +4812,21 @@ void sub_10002716C(uint64_t a1, void *a2)
         v18 = TSUDefaultCat_log_t;
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v33 = *(*(*(a1 + 40) + 8) + 40);
-          v34 = objc_opt_class();
-          v35 = NSStringFromClass(v34);
-          v36 = [*(*(*(a1 + 40) + 8) + 40) domain];
-          v37 = [*(*(*(a1 + 40) + 8) + 40) code];
-          v38 = *(*(*(a1 + 40) + 8) + 40);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
+          v34 = [*(*(*(a1 + 40) + 8) + 40) domain];
+          v35 = [*(*(*(a1 + 40) + 8) + 40) code];
+          v36 = *(*(*(a1 + 40) + 8) + 40);
           *buf = 138413314;
-          v44 = v3;
+          v42 = v3;
+          v43 = 2114;
+          v44 = v33;
           v45 = 2114;
-          v46 = v35;
-          v47 = 2114;
-          v48 = v36;
-          v49 = 2048;
-          v50 = v37;
-          v51 = 2112;
-          v52 = v38;
+          v46 = v34;
+          v47 = 2048;
+          v48 = v35;
+          v49 = 2112;
+          v50 = v36;
           _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to read document properties for URL: %@. errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x34u);
         }
       }
@@ -4604,20 +4929,19 @@ LABEL_35:
     v26 = TSUDefaultCat_log_t;
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v27 = *(*(*(a1 + 40) + 8) + 40);
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
-      v30 = [*(*(*(a1 + 40) + 8) + 40) domain];
-      v31 = [*(*(*(a1 + 40) + 8) + 40) code];
-      v32 = *(*(*(a1 + 40) + 8) + 40);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = [*(*(*(a1 + 40) + 8) + 40) domain];
+      v30 = [*(*(*(a1 + 40) + 8) + 40) code];
+      v31 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138544130;
+      v42 = v28;
+      v43 = 2114;
       v44 = v29;
-      v45 = 2114;
+      v45 = 2048;
       v46 = v30;
-      v47 = 2048;
+      v47 = 2112;
       v48 = v31;
-      v49 = 2112;
-      v50 = v32;
       _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to reload document zip archive with error: errorClass=%{public}@, domain=%{public}@, code=%zd (%@) ", buf, 0x2Au);
     }
 
@@ -4629,30 +4953,38 @@ LABEL_36:
 
 void sub_1000277FC(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100027840(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100027884(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000278C8(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_1000279D0(uint64_t a1)
@@ -4681,156 +5013,200 @@ void sub_100027C40(uint64_t a1, void *a2)
 
 void sub_100028060(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000280A4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002851C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100028560(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100028934(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100028978(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000289BC(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100028A00(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000290A4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000290E8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002912C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100029170(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000291B4(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000295D8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002997C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100029F20(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002A1D8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002A4AC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002A790(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002AA64(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002AD4C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002B06C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002B3F0(uint64_t a1, int a2, void *a3, void *a4)
@@ -4865,9 +5241,11 @@ void sub_10002B854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10002B89C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 BOOL sub_10002B978(uint64_t a1)
@@ -4886,10 +5264,10 @@ BOOL sub_10002B978(uint64_t a1)
       sub_1001549F0();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed", v4, v5, v6, v7, v8, v9, v10, "[TSPSnappyComponentWriteChannel writeData:]_block_invoke");
-    v11 = [NSString stringWithUTF8String:"[TSPSnappyComponentWriteChannel writeData:]_block_invoke"];
-    v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:37 isFatal:1 description:"Already closed"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed", "[TSPSnappyComponentWriteChannel writeData:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm", 37);
+    v4 = [NSString stringWithUTF8String:"[TSPSnappyComponentWriteChannel writeData:]_block_invoke"];
+    v5 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:37 isFatal:1 description:"Already closed"];
 
     TSUCrashBreakpoint();
     abort();
@@ -4906,12 +5284,14 @@ BOOL sub_10002B978(uint64_t a1)
 
 void sub_10002BB04(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_10002BB48(uint64_t a1, void *a2, uint64_t a3, char *a4, unint64_t a5)
+uint64_t sub_10002BB48(uint64_t a1, void *a2, uint64_t a3, char *a4, size_t a5)
 {
   for (i = a2; a5; a5 -= v11)
   {
@@ -4930,10 +5310,10 @@ uint64_t sub_10002BB48(uint64_t a1, void *a2, uint64_t a3, char *a4, unint64_t a
         sub_100154A8C();
       }
 
-      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Invalid uncompressed length.", v14, v15, v16, v17, v18, v19, v20, "[TSPSnappyComponentWriteChannel writeData:]_block_invoke");
-      v21 = [NSString stringWithUTF8String:"[TSPSnappyComponentWriteChannel writeData:]_block_invoke"];
-      v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm"];
-      [TSUAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:44 isFatal:1 description:"Invalid uncompressed length."];
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Invalid uncompressed length.", "[TSPSnappyComponentWriteChannel writeData:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm", 44);
+      v14 = [NSString stringWithUTF8String:"[TSPSnappyComponentWriteChannel writeData:]_block_invoke"];
+      v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyComponentWriteChannel.mm"];
+      [TSUAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:44 isFatal:1 description:"Invalid uncompressed length."];
 
       TSUCrashBreakpoint();
       abort();
@@ -4965,18 +5345,20 @@ uint64_t sub_10002BB48(uint64_t a1, void *a2, uint64_t a3, char *a4, unint64_t a
 
 void sub_10002BD24(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10002BE70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10002BE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v3 = v2;
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v4 = v3;
 
   snappy::UncheckedByteArraySink::~UncheckedByteArraySink(va);
   snappy::ByteArraySource::~ByteArraySource(va1);
@@ -5004,21 +5386,23 @@ void sub_10002BF10(uint64_t a1)
 
 void sub_10002C62C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-id sub_10002CA60()
+id sub_10002CA60(uint64_t a1)
 {
   if (qword_1001EAA38 != -1)
   {
     sub_100154BC4();
   }
 
-  v1 = qword_1001EAA30;
+  v2 = qword_1001EAA30;
 
-  return v1;
+  return v2;
 }
 
 id sub_10002CEBC(uint64_t a1, void *a2, uint64_t a3)
@@ -5039,44 +5423,56 @@ void sub_10002D370(_Unwind_Exception *a1)
 
 void sub_10002D5A4(id a1)
 {
-  TSUDefaultCat_log_t = TSULogCreateCategory("TSUDefaultCat");
+  v1 = TSULogCreateCategory("TSUDefaultCat");
+  v2 = TSUDefaultCat_log_t;
+  TSUDefaultCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002D84C(id a1)
 {
-  qword_1001EAA10 = [@"Metadata" stringByAppendingPathComponent:@"Properties.plist"];
+  v1 = [@"Metadata" stringByAppendingPathComponent:@"Properties.plist"];
+  v2 = qword_1001EAA10;
+  qword_1001EAA10 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002D8DC(id a1)
 {
-  qword_1001EAA20 = [@"Metadata" stringByAppendingPathComponent:@"DocumentIdentifier"];
+  v1 = [@"Metadata" stringByAppendingPathComponent:@"DocumentIdentifier"];
+  v2 = qword_1001EAA20;
+  qword_1001EAA20 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002DD7C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002DDC0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002E0CC(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002E508(id a1)
@@ -5102,23 +5498,29 @@ void sub_10002E928(_Unwind_Exception *a1)
 
 void sub_10002EB24(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002ECE0(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002EE24(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t UnsafePointer(void *a1, void *a2)
@@ -5230,9 +5632,11 @@ TSPMutableCryptoInfoInternal *UnsafePointer(void *a1, uint64_t a2)
 
 void sub_10002F24C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002F290(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -5425,7 +5829,7 @@ LABEL_7:
         v7 = v18;
       }
 
-      v13 = google::protobuf::internal::UnknownFieldParse(v8, v12, v7);
+      v13 = google::protobuf::internal::UnknownFieldParse(v8, v12, v7, a3);
     }
 
     v18 = v13;
@@ -5521,19 +5925,18 @@ char *TSP::DatabaseData::ByteSizeLong(TSP::DataReference **this)
   }
 }
 
-void TSP::DatabaseData::MergeFrom(TSP::DatabaseData *this, char **lpsrc)
+void TSP::DatabaseData::MergeFrom(TSP::DatabaseData *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    TSP::DatabaseData::MergeFrom(this, v5, v6);
+    TSP::DatabaseData::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -5580,7 +5983,7 @@ void *TSP::DatabaseData::MergeFrom(void *this, const TSP::DatabaseData *a2, uint
   return this;
 }
 
-void TSP::DatabaseData::CopyFrom(char **this, char **a2, uint64_t a3)
+void TSP::DatabaseData::CopyFrom(const google::protobuf::Message *this, const google::protobuf::Message *a2, uint64_t a3)
 {
   if (a2 != this)
   {
@@ -5603,7 +6006,7 @@ uint64_t TSP::DatabaseData::IsInitialized(TSP::DataReference **this)
   }
 }
 
-uint64_t *sub_10002FA70(uint64_t *result, google::protobuf::Arena **a2, uint64_t a3)
+uint64_t *sub_10002FA70(uint64_t *result, unint64_t *a2, uint64_t a3)
 {
   v3 = result;
   v4 = *a2;
@@ -5625,14 +6028,6 @@ uint64_t *sub_10002FA70(uint64_t *result, google::protobuf::Arena **a2, uint64_t
 LABEL_6:
 
   return sub_10003163C(v3, v5, a3);
-}
-
-uint64_t TSP::DatabaseData::GetMetadata(TSP::DatabaseData *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_TSPDatabaseMessages_2eproto, 0);
-  result = *off_1001E8EB0;
-  v2 = off_1001E8EB0[1];
-  return result;
 }
 
 uint64_t TSP::DatabaseDataArchive::DatabaseDataArchive(uint64_t a1, uint64_t a2)
@@ -5872,7 +6267,7 @@ LABEL_47:
                 v8 = v38;
               }
 
-              v20 = google::protobuf::internal::UnknownFieldParse(v9, v30, v8);
+              v20 = google::protobuf::internal::UnknownFieldParse(v9, v30, v8, a3);
               goto LABEL_54;
             }
 
@@ -6269,7 +6664,7 @@ LABEL_10:
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v8 & 0xFFFFFFFFFFFFFFFELL) + 8), v4, a3, v4);
 }
 
-unsigned __int8 *sub_100030384(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void **a3, unsigned __int8 *a4)
+char *sub_100030384(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void ***a3, unsigned __int8 *a4)
 {
   v4 = *(a3 + 23);
   if ((v4 & 0x8000000000000000) == 0 || (v4 = a3[1], v4 <= 127))
@@ -6351,7 +6746,7 @@ LABEL_18:
   return google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(a1, a2, a3, a4);
 }
 
-unint64_t TSP::DatabaseDataArchive::RequiredFieldsByteSizeFallback(TSP::DatabaseDataArchive *this)
+uint64_t TSP::DatabaseDataArchive::RequiredFieldsByteSizeFallback(TSP::DatabaseDataArchive *this)
 {
   v1 = *(this + 4);
   if ((v1 & 2) != 0)
@@ -6460,19 +6855,18 @@ LABEL_15:
   }
 }
 
-void TSP::DatabaseDataArchive::MergeFrom(std::string *this, char **lpsrc)
+void TSP::DatabaseDataArchive::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    TSP::DatabaseDataArchive::MergeFrom(this, v5, v6);
+    TSP::DatabaseDataArchive::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -6603,7 +6997,7 @@ LABEL_28:
   return this;
 }
 
-void TSP::DatabaseDataArchive::CopyFrom(char **this, char **a2, uint64_t a3)
+void TSP::DatabaseDataArchive::CopyFrom(const google::protobuf::Message *this, const google::protobuf::Message *a2, uint64_t a3)
 {
   if (a2 != this)
   {
@@ -6632,14 +7026,6 @@ uint64_t TSP::DatabaseDataArchive::IsInitialized(TSP::DatabaseDataArchive *this)
     return 1;
   }
 
-  return result;
-}
-
-uint64_t TSP::DatabaseDataArchive::GetMetadata(TSP::DatabaseDataArchive *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_TSPDatabaseMessages_2eproto, 0);
-  result = off_1001E8EB0[2];
-  v2 = off_1001E8EB0[3];
   return result;
 }
 
@@ -6810,7 +7196,7 @@ LABEL_23:
       v7 = v22;
     }
 
-    v14 = google::protobuf::internal::UnknownFieldParse(v8, v13, v7);
+    v14 = google::protobuf::internal::UnknownFieldParse(v8, v13, v7, a3);
 LABEL_31:
     v22 = v14;
     if (!v14)
@@ -6923,7 +7309,7 @@ const google::protobuf::UnknownFieldSet *TSP::DatabaseImageDataArchive::_Interna
   return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v17 & 0xFFFFFFFFFFFFFFFELL) + 8), a2, a3, a4);
 }
 
-char *TSP::DatabaseImageDataArchive::RequiredFieldsByteSizeFallback(TSP::DatabaseImageDataArchive *this)
+uint64_t TSP::DatabaseImageDataArchive::RequiredFieldsByteSizeFallback(TSP::DatabaseImageDataArchive *this)
 {
   v2 = *(this + 4);
   if (v2)
@@ -6999,19 +7385,18 @@ char *TSP::DatabaseImageDataArchive::ByteSizeLong(TSP::DatabaseDataArchive **thi
   }
 }
 
-void TSP::DatabaseImageDataArchive::MergeFrom(std::string *this, char **lpsrc)
+void TSP::DatabaseImageDataArchive::MergeFrom(std::string *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    TSP::DatabaseImageDataArchive::MergeFrom(this, v5, v6);
+    TSP::DatabaseImageDataArchive::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
@@ -7067,7 +7452,7 @@ std::string *TSP::DatabaseImageDataArchive::MergeFrom(std::string *this, const T
   return this;
 }
 
-void TSP::DatabaseImageDataArchive::CopyFrom(char **this, char **a2, uint64_t a3)
+void TSP::DatabaseImageDataArchive::CopyFrom(const google::protobuf::Message *this, const google::protobuf::Message *a2, uint64_t a3)
 {
   if (a2 != this)
   {
@@ -7090,14 +7475,6 @@ BOOL TSP::DatabaseImageDataArchive::IsInitialized(TSP::DatabaseImageDataArchive 
     }
   }
 
-  return result;
-}
-
-uint64_t TSP::DatabaseImageDataArchive::GetMetadata(TSP::DatabaseImageDataArchive *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_TSPDatabaseMessages_2eproto, 0);
-  result = off_1001E8EB0[4];
-  v2 = off_1001E8EB0[5];
   return result;
 }
 
@@ -7133,7 +7510,7 @@ void *sub_1000312A4(google::protobuf::Arena *a1)
   return sub_100031830(a1);
 }
 
-uint64_t sub_1000313B0(uint64_t a1, void *a2, int a3)
+uint64_t sub_1000313B0(uint64_t a1, uint64_t *a2, int a3)
 {
   if (*a2 >= *a1)
   {
@@ -7162,7 +7539,7 @@ uint64_t sub_1000313B0(uint64_t a1, void *a2, int a3)
   return v3 & 1;
 }
 
-void *sub_100031428(google::protobuf::Arena **a1, uint64_t a2, uint64_t a3)
+void *sub_100031428(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = *a1;
   if (*a1)
@@ -7171,7 +7548,7 @@ void *sub_100031428(google::protobuf::Arena **a1, uint64_t a2, uint64_t a3)
   }
 
   sub_100031470(v4, a2, a3);
-  *a1 = (v5 | 1);
+  *a1 = v5 | 1;
   *v5 = v4;
   return (v5 + 8);
 }
@@ -7231,7 +7608,7 @@ void sub_10003153C(uint64_t a1)
   }
 }
 
-void *sub_1000315A0(google::protobuf::Arena **a1, const google::protobuf::UnknownFieldSet *a2, uint64_t a3)
+void *sub_1000315A0(unint64_t *a1, const google::protobuf::UnknownFieldSet *a2, uint64_t a3)
 {
   if (*a1)
   {
@@ -7246,7 +7623,7 @@ void *sub_1000315A0(google::protobuf::Arena **a1, const google::protobuf::Unknow
   return google::protobuf::UnknownFieldSet::MergeFrom(v4, a2);
 }
 
-google::protobuf::UnknownFieldSet *sub_1000315EC(google::protobuf::Arena **a1, uint64_t a2, uint64_t a3)
+google::protobuf::UnknownFieldSet *sub_1000315EC(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1)
   {
@@ -7267,7 +7644,7 @@ google::protobuf::UnknownFieldSet *sub_1000315EC(google::protobuf::Arena **a1, u
   return result;
 }
 
-uint64_t *sub_10003163C(google::protobuf::Arena **a1, uint64_t *a2, uint64_t a3)
+uint64_t *sub_10003163C(unint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1)
   {
@@ -7492,16 +7869,20 @@ uint64_t TSP::SnappySource::Peek(TSP::SnappySource *this, unint64_t *a2)
 
 void sub_100031C90(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100031CD4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void TSP::SnappySource::SetOffset(TSP::SnappySource *this, unint64_t a2)
@@ -7648,51 +8029,65 @@ unint64_t UnsafePointer(void *a1)
 
 void sub_1000322D8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10003231C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100032360(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000323A4(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000323E8(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10003242C(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100032470(id a1)
 {
-  TSUAssertCat_log_t = TSULogCreateCategory("TSUAssertCat");
+  v1 = TSULogCreateCategory("TSUAssertCat");
+  v2 = TSUAssertCat_log_t;
+  TSUAssertCat_log_t = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_1000324F8(google::protobuf::Arena *this, uint64_t a2)
@@ -7706,10 +8101,11 @@ uint64_t sub_1000324F8(google::protobuf::Arena *this, uint64_t a2)
   return google::protobuf::Arena::AllocateAlignedNoHook(this, v3 & 0xFFFFFFFFFFFFFFF8);
 }
 
-void sub_100032560(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100032560(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x22u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x22u);
 }
 
 BOOL sub_100032580()
@@ -8039,18 +8435,18 @@ google::protobuf::UnknownFieldSet *TSP::ArchiveInfo::Clear(google::protobuf::Unk
     }
 
     while (v4);
-    *(v3 + 32) = 0;
+    *(v3 + 8) = 0;
   }
 
   if ((*(v3 + 16) & 3) != 0)
   {
     *(v3 + 56) = 0;
-    *(v3 + 48) = 0;
+    *(v3 + 6) = 0;
   }
 
   v8 = *(v3 + 8);
   v7 = v3 + 8;
-  *(v7 + 8) = 0;
+  *(v7 + 2) = 0;
   if (v8)
   {
 
@@ -8163,7 +8559,7 @@ LABEL_13:
               v8 = v35;
             }
 
-            v35 = google::protobuf::internal::UnknownFieldParse(v9, v15, v8);
+            v35 = google::protobuf::internal::UnknownFieldParse(v9, v15, v8, a3);
             if (!v35)
             {
 LABEL_54:
@@ -8280,29 +8676,29 @@ LABEL_2:
   return v35;
 }
 
-unint64_t sub_100033784(google::protobuf::internal **a1)
+const char *sub_100033784(google::protobuf::internal **a1, uint64_t a2, unsigned int a3)
 {
-  v2 = *a1;
-  v3 = *a1;
-  v6 = *v3;
-  v4 = (v3 + 1);
-  v5 = v6;
-  if ((v6 & 0x8000000000000000) != 0)
+  v4 = *a1;
+  v5 = *a1;
+  v8 = *v5;
+  v6 = (v5 + 1);
+  v7 = v8;
+  if ((v8 & 0x8000000000000000) != 0)
   {
-    v5 = (*v4 << 7) + v5 - 128;
-    if (*v4 < 0)
+    v7 = (*v6 << 7) + v7 - 128;
+    if (*v6 < 0)
     {
-      v4 = google::protobuf::internal::VarintParseSlow64(v2, v5);
+      v6 = google::protobuf::internal::VarintParseSlow64(v4, v7);
     }
 
     else
     {
-      v4 = (v2 + 2);
+      v6 = (v4 + 2);
     }
   }
 
-  *a1 = v4;
-  return v5;
+  *a1 = v6;
+  return v7;
 }
 
 const google::protobuf::UnknownFieldSet *TSP::ArchiveInfo::_InternalSerialize(TSP::ArchiveInfo *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
@@ -8480,23 +8876,22 @@ char *TSP::ArchiveInfo::ByteSizeLong(TSP::ArchiveInfo *this)
   }
 }
 
-void TSP::ArchiveInfo::MergeFrom(google::protobuf::Arena **this, char **lpsrc)
+void TSP::ArchiveInfo::MergeFrom(TSP::ArchiveInfo *this, const google::protobuf::Message *lpsrc)
 {
-  v4 = **lpsrc;
-  if (v5)
+  if (v4)
   {
 
-    TSP::ArchiveInfo::MergeFrom(this, v5, v6);
+    TSP::ArchiveInfo::MergeFrom(this, v4, v5);
   }
 
   else
   {
 
-    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v6);
+    google::protobuf::internal::ReflectionOps::Merge(lpsrc, this, v5);
   }
 }
 
-google::protobuf::Arena **TSP::ArchiveInfo::MergeFrom(google::protobuf::Arena **this, const TSP::ArchiveInfo *a2, uint64_t a3)
+void *TSP::ArchiveInfo::MergeFrom(void *this, const TSP::ArchiveInfo *a2, uint64_t a3)
 {
   v4 = this;
   v5 = *(a2 + 1);
@@ -8510,7 +8905,7 @@ google::protobuf::Arena **TSP::ArchiveInfo::MergeFrom(google::protobuf::Arena **
   {
     v7 = *(a2 + 5);
     v8 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v4 + 3), *(a2 + 8));
-    this = sub_1000494F8(v4 + 3, v8, v7 + 8, v6, *v4[5] - *(v4 + 8));
+    this = sub_1000494F8(v4 + 3, v8, (v7 + 8), v6, *v4[5] - *(v4 + 8));
     v9 = *(v4 + 8) + v6;
     *(v4 + 8) = v9;
     v10 = v4[5];
@@ -8539,7 +8934,7 @@ google::protobuf::Arena **TSP::ArchiveInfo::MergeFrom(google::protobuf::Arena **
   return this;
 }
 
-void TSP::ArchiveInfo::CopyFrom(char **this, char **a2, uint64_t a3)
+void TSP::ArchiveInfo::CopyFrom(google::protobuf::UnknownFieldSet *this, const google::protobuf::Message *a2, uint64_t a3)
 {
   if (a2 != this)
   {
@@ -8580,14 +8975,6 @@ BOOL sub_100033C80(uint64_t a1)
   }
 
   while (v1-- >= 2);
-  return result;
-}
-
-uint64_t TSP::ArchiveInfo::GetMetadata(TSP::ArchiveInfo *this)
-{
-  google::protobuf::internal::AssignDescriptors(&descriptor_table_TSPArchiveMessages_2eproto, 0);
-  result = *off_1001E92E8;
-  v2 = off_1001E92E8[1];
   return result;
 }
 
@@ -8872,7 +9259,7 @@ LABEL_116:
 
               if (v9 == 16)
               {
-                LODWORD(v55) = sub_10003465C(&v54);
+                LODWORD(v55) = sub_10003465C(&v54, v5, v8);
                 v49 = (a1 + 24);
 LABEL_98:
                 google::protobuf::RepeatedField<unsigned int>::Add(v49, &v55);
@@ -8930,7 +9317,7 @@ LABEL_98:
               {
                 if (v9 == 40)
                 {
-                  v55 = sub_100033784(&v54);
+                  v55 = sub_100033784(&v54, v5, v8);
                   v50 = (a1 + 72);
                   goto LABEL_101;
                 }
@@ -9079,7 +9466,7 @@ LABEL_41:
 
               if (v9 == 88)
               {
-                LODWORD(v55) = sub_10003465C(&v54);
+                LODWORD(v55) = sub_10003465C(&v54, v5, v8);
                 v49 = (a1 + 168);
                 goto LABEL_98;
               }
@@ -9119,7 +9506,7 @@ LABEL_104:
               v8 = v54;
             }
 
-            v14 = google::protobuf::internal::UnknownFieldParse(v9, v53, v8);
+            v14 = google::protobuf::internal::UnknownFieldParse(v9, v53, v8, a3);
             goto LABEL_111;
           }
 
@@ -9184,7 +9571,7 @@ LABEL_60:
           {
             if (v9 == 48)
             {
-              v55 = sub_100033784(&v54);
+              v55 = sub_100033784(&v54, v5, v8);
               v50 = (a1 + 96);
 LABEL_101:
               google::protobuf::RepeatedField<unsigned long long>::Add(v50, &v55);
@@ -9216,7 +9603,7 @@ LABEL_102:
 
             if (v9 == 64)
             {
-              LODWORD(v55) = sub_10003465C(&v54);
+              LODWORD(v55) = sub_10003465C(&v54, v5, v8);
               v49 = (a1 + 120);
               goto LABEL_98;
             }
@@ -9273,347 +9660,4 @@ LABEL_6:
 LABEL_2:
   *(a1 + 16) |= v6;
   return v54;
-}
-
-unint64_t sub_10003465C(google::protobuf::internal **a1)
-{
-  v2 = *a1;
-  v3 = *a1;
-  v5 = *v3;
-  v4 = v3 + 1;
-  v6 = v5;
-  if (v5 < 0)
-  {
-    v6 = v6 + (*v4 << 7) - 128;
-    if (*v4 < 0)
-    {
-      v4 = google::protobuf::internal::VarintParseSlow32(v2, v6);
-    }
-
-    else
-    {
-      v4 = v2 + 2;
-    }
-  }
-
-  *a1 = v4;
-  return v6;
-}
-
-const google::protobuf::UnknownFieldSet *TSP::MessageInfo::_InternalSerialize(TSP::MessageInfo *this, google::protobuf::UnknownFieldSet *a2, google::protobuf::io::EpsCopyOutputStream *a3)
-{
-  v4 = a2;
-  v6 = *(this + 4);
-  if ((v6 & 2) != 0)
-  {
-    if (*a3 <= a2)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    }
-
-    v7 = *(this + 50);
-    *v4 = 8;
-    if (v7 > 0x7F)
-    {
-      v4[1] = v7 | 0x80;
-      v8 = v7 >> 7;
-      if (v7 >> 14)
-      {
-        v4 += 3;
-        do
-        {
-          *(v4 - 1) = v8 | 0x80;
-          v9 = v8 >> 7;
-          ++v4;
-          v10 = v8 >> 14;
-          v8 >>= 7;
-        }
-
-        while (v10);
-        *(v4 - 1) = v9;
-      }
-
-      else
-      {
-        v4[2] = v8;
-        v4 += 3;
-      }
-    }
-
-    else
-    {
-      v4[1] = v7;
-      v4 += 2;
-    }
-  }
-
-  v11 = *(this + 10);
-  if (v11 >= 1)
-  {
-    v4 = sub_1000496C0(a3, 2, this + 6, v11, v4, google::protobuf::io::EpsCopyOutputStream::Encode32);
-  }
-
-  if ((v6 & 4) != 0)
-  {
-    if (*a3 <= v4)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-    }
-
-    v12 = *(this + 51);
-    *v4 = 24;
-    if (v12 > 0x7F)
-    {
-      v4[1] = v12 | 0x80;
-      v13 = v12 >> 7;
-      if (v12 >> 14)
-      {
-        v4 += 3;
-        do
-        {
-          *(v4 - 1) = v13 | 0x80;
-          v14 = v13 >> 7;
-          ++v4;
-          v15 = v13 >> 14;
-          v13 >>= 7;
-        }
-
-        while (v15);
-        *(v4 - 1) = v14;
-      }
-
-      else
-      {
-        v4[2] = v13;
-        v4 += 3;
-      }
-    }
-
-    else
-    {
-      v4[1] = v12;
-      v4 += 2;
-    }
-  }
-
-  v16 = *(this + 14);
-  if (v16)
-  {
-    for (i = 0; i != v16; ++i)
-    {
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v18 = *(*(this + 8) + 8 * i + 8);
-      *v4 = 34;
-      v19 = *(v18 + 5);
-      if (v19 > 0x7F)
-      {
-        v4[1] = v19 | 0x80;
-        v21 = v19 >> 7;
-        if (v19 >> 14)
-        {
-          v20 = v4 + 3;
-          do
-          {
-            *(v20 - 1) = v21 | 0x80;
-            v22 = v21 >> 7;
-            ++v20;
-            v23 = v21 >> 14;
-            v21 >>= 7;
-          }
-
-          while (v23);
-          *(v20 - 1) = v22;
-        }
-
-        else
-        {
-          v4[2] = v21;
-          v20 = v4 + 3;
-        }
-      }
-
-      else
-      {
-        v4[1] = v19;
-        v20 = v4 + 2;
-      }
-
-      v4 = TSP::FieldInfo::_InternalSerialize(v18, v20, a3);
-    }
-  }
-
-  v24 = *(this + 22);
-  if (v24 > 0)
-  {
-    v4 = sub_100049868(a3, 5, this + 18, v24, v4, google::protobuf::io::EpsCopyOutputStream::Encode64);
-  }
-
-  v25 = *(this + 28);
-  if (v25 >= 1)
-  {
-    v4 = sub_100049868(a3, 6, this + 24, v25, v4, google::protobuf::io::EpsCopyOutputStream::Encode64);
-  }
-
-  if ((v6 & 8) != 0)
-  {
-    if (*a3 <= v4)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-    }
-
-    v26 = *(this + 52);
-    *v4 = 56;
-    if (v26 > 0x7F)
-    {
-      v4[1] = v26 | 0x80;
-      v27 = v26 >> 7;
-      if (v26 >> 14)
-      {
-        v4 += 3;
-        do
-        {
-          *(v4 - 1) = v27 | 0x80;
-          v28 = v27 >> 7;
-          ++v4;
-          v29 = v27 >> 14;
-          v27 >>= 7;
-        }
-
-        while (v29);
-        *(v4 - 1) = v28;
-      }
-
-      else
-      {
-        v4[2] = v27;
-        v4 += 3;
-      }
-    }
-
-    else
-    {
-      v4[1] = v26;
-      v4 += 2;
-    }
-  }
-
-  v30 = *(this + 34);
-  if (v30 >= 1)
-  {
-    v4 = sub_1000496C0(a3, 8, this + 30, v30, v4, google::protobuf::io::EpsCopyOutputStream::Encode32);
-  }
-
-  if (v6)
-  {
-    if (*a3 <= v4)
-    {
-      v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-    }
-
-    v31 = *(this + 24);
-    *v4 = 74;
-    v32 = *(v31 + 9);
-    if (v32 > 0x7F)
-    {
-      v4[1] = v32 | 0x80;
-      v34 = v32 >> 7;
-      if (v32 >> 14)
-      {
-        v33 = (v4 + 3);
-        do
-        {
-          *(v33 - 1) = v34 | 0x80;
-          v35 = v34 >> 7;
-          v33 = (v33 + 1);
-          v36 = v34 >> 14;
-          v34 >>= 7;
-        }
-
-        while (v36);
-        *(v33 - 1) = v35;
-      }
-
-      else
-      {
-        v4[2] = v34;
-        v33 = (v4 + 3);
-      }
-    }
-
-    else
-    {
-      v4[1] = v32;
-      v33 = (v4 + 2);
-    }
-
-    v4 = TSP::FieldPath::_InternalSerialize(v31, v33, a3);
-  }
-
-  v37 = *(this + 38);
-  if (v37)
-  {
-    for (j = 0; j != v37; ++j)
-    {
-      if (*a3 <= v4)
-      {
-        v4 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, v4);
-      }
-
-      v39 = *(*(this + 20) + 8 * j + 8);
-      *v4 = 82;
-      v40 = *(v39 + 9);
-      if (v40 > 0x7F)
-      {
-        v4[1] = v40 | 0x80;
-        v42 = v40 >> 7;
-        if (v40 >> 14)
-        {
-          v41 = (v4 + 3);
-          do
-          {
-            *(v41 - 1) = v42 | 0x80;
-            v43 = v42 >> 7;
-            v41 = (v41 + 1);
-            v44 = v42 >> 14;
-            v42 >>= 7;
-          }
-
-          while (v44);
-          *(v41 - 1) = v43;
-        }
-
-        else
-        {
-          v4[2] = v42;
-          v41 = (v4 + 3);
-        }
-      }
-
-      else
-      {
-        v4[1] = v40;
-        v41 = (v4 + 2);
-      }
-
-      v4 = TSP::FieldPath::_InternalSerialize(v39, v41, a3);
-    }
-  }
-
-  v45 = *(this + 46);
-  if (v45 > 0)
-  {
-    v4 = sub_1000496C0(a3, 11, this + 42, v45, v4, google::protobuf::io::EpsCopyOutputStream::Encode32);
-  }
-
-  v46 = *(this + 1);
-  if ((v46 & 1) == 0)
-  {
-    return v4;
-  }
-
-  return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v46 & 0xFFFFFFFFFFFFFFFELL) + 8), v4, a3, v45);
 }

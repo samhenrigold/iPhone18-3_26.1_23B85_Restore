@@ -39,10 +39,10 @@ LABEL_7:
 
 - (NEBitVector)initWithBitMap:(char *)map bitmapSize:(unsigned int)size bitCount:(unsigned int)count
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = NEBitVector;
-  v8 = [(NEBitVector *)&v13 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = NEBitVector;
+  v8 = [(NEBitVector *)&v12 init];
   v9 = v8;
   if (v8)
   {
@@ -59,13 +59,12 @@ LABEL_7:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v9;
+        v14 = v9;
         _os_log_error_impl(&dword_1C0DA5000, v10, OS_LOG_TYPE_ERROR, "%@ - initWithBitMap: Invalid params", buf, 0xCu);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

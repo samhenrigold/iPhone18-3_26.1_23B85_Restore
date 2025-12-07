@@ -8,6 +8,9 @@
 + (id)newErrorRetryClickEvent;
 + (void)newErrorPageEvent;
 + (void)newErrorRetryClickEvent;
++ (void)shouldLogTimingMetrics;
++ (void)showEventNotifications;
++ (void)trackAllEvents;
 @end
 
 @implementation SKUIMetricsUtilities
@@ -153,6 +156,36 @@ uint64_t __38__SKUIMetricsUtilities_trackAllEvents__block_invoke()
   [v2 setActionType:@"retry"];
   [v2 setTargetType:*MEMORY[0x277D6A4D0]];
   return v2;
+}
+
++ (void)showEventNotifications
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMetricsUtilities showEventNotifications]";
+}
+
++ (void)trackAllEvents
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMetricsUtilities trackAllEvents]";
+}
+
++ (void)shouldLogTimingMetrics
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMetricsUtilities shouldLogTimingMetrics]";
+}
+
++ (void)timeIntervalFromJSTime:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMetricsUtilities timeIntervalFromJSTime:]";
+}
+
++ (void)jsTimeFromTimeInterval:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIMetricsUtilities jsTimeFromTimeInterval:]";
 }
 
 + (void)newErrorPageEvent

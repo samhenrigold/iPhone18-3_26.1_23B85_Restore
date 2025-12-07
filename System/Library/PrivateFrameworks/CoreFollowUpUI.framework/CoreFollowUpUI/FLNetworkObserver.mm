@@ -152,29 +152,29 @@ void __38__FLNetworkObserver__startPathMonitor__block_invoke(uint64_t a1, void *
 
 - (void)_networkReachabilityDidChange
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_invocationByObserver allValues];
-  v3 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = MEMORY[0x277D85CD0];
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __50__FLNetworkObserver__networkReachabilityDidChange__block_invoke;
@@ -185,13 +185,11 @@ void __38__FLNetworkObserver__startPathMonitor__block_invoke(uint64_t a1, void *
       }
 
       while (v4 != v7);
-      v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isNetworkReachable

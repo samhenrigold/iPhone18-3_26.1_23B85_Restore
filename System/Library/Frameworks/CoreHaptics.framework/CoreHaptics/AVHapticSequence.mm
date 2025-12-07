@@ -14,6 +14,7 @@
 - (BOOL)resumeAtTime:(double)time error:(id *)error;
 - (BOOL)seekToTime:(double)time error:(id *)error;
 - (BOOL)setLoopLength:(float)length error:(id *)error;
+- (BOOL)setLoopingEnabled:(BOOL)enabled error:(id *)error;
 - (BOOL)setParameter:(unint64_t)parameter value:(float)value channel:(unint64_t)channel atTime:(double)time error:(id *)error;
 - (BOOL)setVolume:(float)volume atTime:(double)time error:(id *)error;
 - (BOOL)stopAtTime:(double)time error:(id *)error;
@@ -29,7 +30,7 @@
 
 - (AVHapticSequence)initWithData:(id)data player:(id)player error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   playerCopy = player;
   if (kAVHCScope)
@@ -58,54 +59,54 @@
     *&buf[28] = 2048;
     *&buf[30] = dataCopy;
     *&buf[38] = 2048;
-    v31 = playerCopy;
+    v30 = playerCopy;
     _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: starting init with data %p, player %p", buf, 0x30u);
   }
 
 LABEL_8:
-  v29.receiver = self;
-  v29.super_class = AVHapticSequence;
-  v12 = [(AVHapticSequence *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = AVHapticSequence;
+  v12 = [(AVHapticSequence *)&v28 init];
   v13 = v12;
   if (v12)
   {
     if (playerCopy)
     {
       [(AVHapticSequence *)v12 setPlayer:playerCopy];
-      v25 = 0;
-      v26 = &v25;
-      v27 = 0x2020000000;
-      v28 = 0xFFFFFFFFLL;
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2020000000;
       v24 = 0;
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x2020000000;
+      v25 = &v24;
+      v26 = 0x2020000000;
+      v27 = 0xFFFFFFFFLL;
       v20 = 0;
+      v21 = &v20;
+      v22 = 0x2020000000;
+      v23 = 0;
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v19 = 0;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
       *&buf[24] = __Block_byref_object_copy__4;
       *&buf[32] = __Block_byref_object_dispose__4;
-      v31 = 0;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __46__AVHapticSequence_initWithData_player_error___block_invoke;
-      v16[3] = &unk_2781C93F8;
-      v16[4] = &v25;
-      v16[5] = &v21;
-      v16[6] = &v17;
-      v16[7] = buf;
-      if ([playerCopy loadAndPrepareHapticSequenceFromData:dataCopy reply:v16])
+      v30 = 0;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __46__AVHapticSequence_initWithData_player_error___block_invoke;
+      v15[3] = &unk_2781C93F8;
+      v15[4] = &v24;
+      v15[5] = &v20;
+      v15[6] = &v16;
+      v15[7] = buf;
+      if ([playerCopy loadAndPrepareHapticSequenceFromData:dataCopy reply:v15])
       {
-        [(AVHapticSequence *)v13 setSeqID:v26[3]];
+        [(AVHapticSequence *)v13 setSeqID:v25[3]];
         [(AVHapticSequence *)v13 setLastStartTime:-1.0];
         *&v13->_loopIsEnabled = 0;
         v13->_playbackRate = 1.0;
-        *&v13->_duration = v22[3];
-        v13->_channelCount = v18[3];
+        *&v13->_duration = v21[3];
+        v13->_channelCount = v17[3];
         v13->_activeChannel = 0;
         if (!error)
         {
@@ -122,9 +123,9 @@ LABEL_8:
 LABEL_18:
           _Block_object_dispose(buf, 8);
 
-          _Block_object_dispose(&v17, 8);
-          _Block_object_dispose(&v21, 8);
-          _Block_object_dispose(&v25, 8);
+          _Block_object_dispose(&v16, 8);
+          _Block_object_dispose(&v20, 8);
+          _Block_object_dispose(&v24, 8);
           goto LABEL_19;
         }
       }
@@ -143,13 +144,12 @@ LABEL_18:
 
 LABEL_19:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __46__AVHapticSequence_initWithData_player_error___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4, double a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = a4;
   if (kAVHCScope)
   {
@@ -168,19 +168,19 @@ void __46__AVHapticSequence_initWithData_player_error___block_invoke(void *a1, u
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136316418;
-    v16 = "AVHapticPlayer.mm";
-    v17 = 1024;
-    v18 = 886;
-    v19 = 2080;
-    v20 = "[AVHapticSequence initWithData:player:error:]_block_invoke";
-    v21 = 1024;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a3;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithData: reply block for hapticPlayer loadAndPrepareHapticSequenceFromData: replyID: %u, replyChannelCount: %u, replyError: %@", &v15, 0x32u);
+    v14 = 136316418;
+    v15 = "AVHapticPlayer.mm";
+    v16 = 1024;
+    v17 = 886;
+    v18 = 2080;
+    v19 = "[AVHapticSequence initWithData:player:error:]_block_invoke";
+    v20 = 1024;
+    v21 = a2;
+    v22 = 1024;
+    v23 = a3;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithData: reply block for hapticPlayer loadAndPrepareHapticSequenceFromData: replyID: %u, replyChannelCount: %u, replyError: %@", &v14, 0x32u);
   }
 
 LABEL_8:
@@ -190,13 +190,11 @@ LABEL_8:
   v12 = *(a1[7] + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v9;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (AVHapticSequence)initWithEvents:(id)events player:(id)player error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   playerCopy = player;
   if (kAVHCScope)
@@ -226,47 +224,47 @@ LABEL_8:
   }
 
 LABEL_8:
-  v29.receiver = self;
-  v29.super_class = AVHapticSequence;
-  v12 = [(AVHapticSequence *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = AVHapticSequence;
+  v12 = [(AVHapticSequence *)&v28 init];
   v13 = v12;
   if (v12)
   {
     [(AVHapticSequence *)v12 setPlayer:playerCopy];
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0xFFFFFFFFLL;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
     v24 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0xFFFFFFFFLL;
     v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     *&buf[24] = __Block_byref_object_copy__4;
-    v31 = __Block_byref_object_dispose__4;
-    v32 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __48__AVHapticSequence_initWithEvents_player_error___block_invoke;
-    v16[3] = &unk_2781C93F8;
-    v16[4] = &v25;
-    v16[5] = &v21;
-    v16[6] = &v17;
-    v16[7] = buf;
-    if ([playerCopy loadAndPrepareHapticSequenceFromEvents:eventsCopy reply:v16])
+    v30 = __Block_byref_object_dispose__4;
+    v31 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __48__AVHapticSequence_initWithEvents_player_error___block_invoke;
+    v15[3] = &unk_2781C93F8;
+    v15[4] = &v24;
+    v15[5] = &v20;
+    v15[6] = &v16;
+    v15[7] = buf;
+    if ([playerCopy loadAndPrepareHapticSequenceFromEvents:eventsCopy reply:v15])
     {
-      [(AVHapticSequence *)v13 setSeqID:v26[3]];
+      [(AVHapticSequence *)v13 setSeqID:v25[3]];
       [(AVHapticSequence *)v13 setLastStartTime:-1.0];
       *&v13->_loopIsEnabled = 0;
       v13->_playbackRate = 1.0;
-      *&v13->_duration = v22[3];
-      v13->_channelCount = v18[3];
+      *&v13->_duration = v21[3];
+      v13->_channelCount = v17[3];
       v13->_activeChannel = 0;
       if (!error)
       {
@@ -283,9 +281,9 @@ LABEL_8:
 LABEL_14:
         _Block_object_dispose(buf, 8);
 
-        _Block_object_dispose(&v17, 8);
-        _Block_object_dispose(&v21, 8);
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v16, 8);
+        _Block_object_dispose(&v20, 8);
+        _Block_object_dispose(&v24, 8);
         goto LABEL_15;
       }
     }
@@ -296,13 +294,12 @@ LABEL_14:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __48__AVHapticSequence_initWithEvents_player_error___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4, double a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = a4;
   if (kAVHCScope)
   {
@@ -321,19 +318,19 @@ void __48__AVHapticSequence_initWithEvents_player_error___block_invoke(void *a1,
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136316418;
-    v16 = "AVHapticPlayer.mm";
-    v17 = 1024;
-    v18 = 928;
-    v19 = 2080;
-    v20 = "[AVHapticSequence initWithEvents:player:error:]_block_invoke";
-    v21 = 1024;
-    v22 = a2;
-    v23 = 1024;
-    v24 = a3;
-    v25 = 2112;
-    v26 = v9;
-    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithEvents: reply block for hapticPlayer loadAndPrepareHapticSequenceFromEvents: replyID: %u, replyChannelCount: %u, replyError: %@", &v15, 0x32u);
+    v14 = 136316418;
+    v15 = "AVHapticPlayer.mm";
+    v16 = 1024;
+    v17 = 928;
+    v18 = 2080;
+    v19 = "[AVHapticSequence initWithEvents:player:error:]_block_invoke";
+    v20 = 1024;
+    v21 = a2;
+    v22 = 1024;
+    v23 = a3;
+    v24 = 2112;
+    v25 = v9;
+    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithEvents: reply block for hapticPlayer loadAndPrepareHapticSequenceFromEvents: replyID: %u, replyChannelCount: %u, replyError: %@", &v14, 0x32u);
   }
 
 LABEL_8:
@@ -343,13 +340,11 @@ LABEL_8:
   v12 = *(a1[7] + 8);
   v13 = *(v12 + 40);
   *(v12 + 40) = v9;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (AVHapticSequence)initWithDictionary:(id)dictionary player:(id)player error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   playerCopy = player;
   if (kAVHCScope)
@@ -379,32 +374,32 @@ LABEL_8:
   }
 
 LABEL_8:
-  v21.receiver = self;
-  v21.super_class = AVHapticSequence;
-  v12 = [(AVHapticSequence *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = AVHapticSequence;
+  v12 = [(AVHapticSequence *)&v20 init];
   v13 = v12;
   if (v12)
   {
     [(AVHapticSequence *)v12 setPlayer:playerCopy];
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0xFFFFFFFFLL;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0xFFFFFFFFLL;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     *&buf[24] = __Block_byref_object_copy__4;
-    v23 = __Block_byref_object_dispose__4;
-    v24 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __52__AVHapticSequence_initWithDictionary_player_error___block_invoke;
-    v16[3] = &unk_2781C9380;
-    v16[4] = &v17;
-    v16[5] = buf;
-    if ([playerCopy loadAndPrepareHapticSequenceFromVibePattern:dictionaryCopy reply:v16])
+    v22 = __Block_byref_object_dispose__4;
+    v23 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __52__AVHapticSequence_initWithDictionary_player_error___block_invoke;
+    v15[3] = &unk_2781C9380;
+    v15[4] = &v16;
+    v15[5] = buf;
+    if ([playerCopy loadAndPrepareHapticSequenceFromVibePattern:dictionaryCopy reply:v15])
     {
-      [(AVHapticSequence *)v13 setSeqID:v18[3]];
+      [(AVHapticSequence *)v13 setSeqID:v17[3]];
       [(AVHapticSequence *)v13 setLastStartTime:-1.0];
       *&v13->_loopIsEnabled = 0;
       v13->_playbackRate = 1.0;
@@ -425,7 +420,7 @@ LABEL_8:
 LABEL_14:
         _Block_object_dispose(buf, 8);
 
-        _Block_object_dispose(&v17, 8);
+        _Block_object_dispose(&v16, 8);
         goto LABEL_15;
       }
     }
@@ -436,13 +431,12 @@ LABEL_14:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __52__AVHapticSequence_initWithDictionary_player_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (kAVHCScope)
   {
@@ -461,17 +455,17 @@ void __52__AVHapticSequence_initWithDictionary_player_error___block_invoke(uint6
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136316162;
-    v12 = "AVHapticPlayer.mm";
-    v13 = 1024;
-    v14 = 968;
-    v15 = 2080;
-    v16 = "[AVHapticSequence initWithDictionary:player:error:]_block_invoke";
-    v17 = 1024;
-    v18 = a2;
-    v19 = 2112;
-    v20 = v5;
-    _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithDictionary: reply block for hapticPlayer loadAndPrepareHapticSequenceFromVibePattern: replyID: %u, replyError: %@", &v11, 0x2Cu);
+    v10 = 136316162;
+    v11 = "AVHapticPlayer.mm";
+    v12 = 1024;
+    v13 = 968;
+    v14 = 2080;
+    v15 = "[AVHapticSequence initWithDictionary:player:error:]_block_invoke";
+    v16 = 1024;
+    v17 = a2;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithDictionary: reply block for hapticPlayer loadAndPrepareHapticSequenceFromVibePattern: replyID: %u, replyError: %@", &v10, 0x2Cu);
   }
 
 LABEL_8:
@@ -479,13 +473,11 @@ LABEL_8:
   v8 = *(*(a1 + 40) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v5;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v3 = *kAVHCScope;
@@ -507,14 +499,14 @@ LABEL_8:
     player = [(AVHapticSequence *)self player];
     client = [player client];
     *buf = 136316162;
-    v15 = "AVHapticPlayer.mm";
-    v16 = 1024;
-    v17 = 994;
-    v18 = 2080;
-    v19 = "[AVHapticSequence dealloc]";
-    v20 = 2048;
+    v14 = "AVHapticPlayer.mm";
+    v15 = 1024;
+    v16 = 994;
+    v17 = 2080;
+    v18 = "[AVHapticSequence dealloc]";
+    v19 = 2048;
     selfCopy = self;
-    v22 = 2048;
+    v21 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d %s: dealloc seq %p, clientID: 0x%lx", buf, 0x30u);
   }
@@ -544,11 +536,11 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v15 = "AVHapticPlayer.mm";
-      v16 = 1024;
-      v17 = 996;
-      v18 = 2080;
-      v19 = "[AVHapticSequence dealloc]";
+      v14 = "AVHapticPlayer.mm";
+      v15 = 1024;
+      v16 = 996;
+      v17 = 2080;
+      v18 = "[AVHapticSequence dealloc]";
       _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Destroying a sequence that is still looping!  Disabling loop.", buf, 0x1Cu);
     }
 
@@ -560,15 +552,14 @@ LABEL_17:
   [player3 detachHapticSequence:self->_seqID];
 
   self->_seqID = -1;
-  v13.receiver = self;
-  v13.super_class = AVHapticSequence;
-  [(AVHapticSequence *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = AVHapticSequence;
+  [(AVHapticSequence *)&v12 dealloc];
 }
 
 - (void)setEventBehavior:(unint64_t)behavior
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v5 = *kAVHCScope;
@@ -589,85 +580,107 @@ LABEL_17:
   {
     player = [(AVHapticSequence *)self player];
     client = [player client];
-    v18 = 136316418;
-    v19 = "AVHapticPlayer.mm";
-    v20 = 1024;
-    v21 = 1011;
-    v22 = 2080;
-    v23 = "[AVHapticSequence setEventBehavior:]";
-    v24 = 2048;
+    v17 = 136316418;
+    v18 = "AVHapticPlayer.mm";
+    v19 = 1024;
+    v20 = 1011;
+    v21 = 2080;
+    v22 = "[AVHapticSequence setEventBehavior:]";
+    v23 = 2048;
     clientID = [client clientID];
-    v26 = 1024;
+    v25 = 1024;
     seqID = [(AVHapticSequence *)self seqID];
-    v28 = 1024;
+    v27 = 1024;
     behaviorCopy = behavior;
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: clientID: 0x%lx seqID: %u behavior: %u", &v18, 0x32u);
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: clientID: 0x%lx seqID: %u behavior: %u", &v17, 0x32u);
   }
 
 LABEL_8:
-  if (self->_eventBehavior != behavior)
+  if (self->_eventBehavior == behavior)
   {
-    if (behavior > 7)
+    return;
+  }
+
+  if (behavior > 7)
+  {
+    if (kAVHCScope)
     {
-      if (kAVHCScope)
+      v15 = *kAVHCScope;
+      if (!v15)
       {
-        v15 = *kAVHCScope;
-        if (!v15)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        v15 = MEMORY[0x277D86220];
-        v16 = MEMORY[0x277D86220];
-      }
-
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        v18 = 136315906;
-        v19 = "AVHapticPlayer.mm";
-        v20 = 1024;
-        v21 = 1014;
-        v22 = 2080;
-        v23 = "[AVHapticSequence setEventBehavior:]";
-        v24 = 1024;
-        LODWORD(clientID) = behavior;
-        _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Illegal event behavior: %u", &v18, 0x22u);
+        return;
       }
     }
 
     else
     {
-      if (![(AVHapticSequence *)self channelCount])
-      {
-        goto LABEL_14;
-      }
+      v15 = MEMORY[0x277D86220];
+      v16 = MEMORY[0x277D86220];
+    }
 
-      v10 = 0;
-      v11 = 1;
-      do
-      {
-        player2 = [(AVHapticSequence *)self player];
-        client2 = [player2 client];
-        v14 = [client2 setSequenceEventBehavior:-[AVHapticSequence seqID](self behavior:"seqID") channel:{behavior, v10}];
-
-        v11 &= v14;
-        ++v10;
-      }
-
-      while (v10 < [(AVHapticSequence *)self channelCount]);
-      if (v11)
-      {
-LABEL_14:
-        self->_eventBehavior = behavior;
-      }
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v17 = 136315906;
+      v18 = "AVHapticPlayer.mm";
+      v19 = 1024;
+      v20 = 1014;
+      v21 = 2080;
+      v22 = "[AVHapticSequence setEventBehavior:]";
+      v23 = 1024;
+      LODWORD(clientID) = behavior;
+      _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Illegal event behavior: %u", &v17, 0x22u);
     }
   }
 
-LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
+  else
+  {
+    if (![(AVHapticSequence *)self channelCount])
+    {
+      goto LABEL_14;
+    }
+
+    v10 = 0;
+    v11 = 1;
+    do
+    {
+      player2 = [(AVHapticSequence *)self player];
+      client2 = [player2 client];
+      v14 = [client2 setSequenceEventBehavior:-[AVHapticSequence seqID](self behavior:"seqID") channel:{behavior, v10}];
+
+      v11 &= v14;
+      ++v10;
+    }
+
+    while (v10 < [(AVHapticSequence *)self channelCount]);
+    if (v11)
+    {
+LABEL_14:
+      self->_eventBehavior = behavior;
+    }
+  }
+}
+
+- (BOOL)setLoopingEnabled:(BOOL)enabled error:(id *)error
+{
+  if (self->_seqID == -1)
+  {
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 1032, "[AVHapticSequence setLoopingEnabled:error:]", "_seqID != kInvalidSequenceID", -4812, error);
+  }
+
+  else
+  {
+    enabledCopy = enabled;
+    player = [(AVHapticSequence *)self player];
+    v8 = [player enableSequenceLooping:self->_seqID enable:enabledCopy error:error];
+
+    if (v8)
+    {
+      self->_loopIsEnabled = enabledCopy;
+      return 1;
+    }
+  }
+
+  return 0;
 }
 
 - (void)setCompletionHandler:(id)handler
@@ -725,7 +738,7 @@ LABEL_22:
 
 - (BOOL)prepareToPlayAndReturnError:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -748,15 +761,15 @@ LABEL_22:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v23 = 136315906;
-    v24 = "AVHapticPlayer.mm";
-    v25 = 1024;
-    v26 = 1089;
-    v27 = 2080;
-    v28 = "[AVHapticSequence prepareToPlayAndReturnError:]";
-    v29 = 2048;
+    v22 = 136315906;
+    v23 = "AVHapticPlayer.mm";
+    v24 = 1024;
+    v25 = 1089;
+    v26 = 2080;
+    v27 = "[AVHapticSequence prepareToPlayAndReturnError:]";
+    v28 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: prepare to play seq: clientID: 0x%lx", &v23, 0x26u);
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: prepare to play seq: clientID: 0x%lx", &v22, 0x26u);
   }
 
 LABEL_8:
@@ -809,13 +822,12 @@ LABEL_16:
 LABEL_19:
   objc_sync_exit(selfCopy);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16 & v20;
 }
 
 - (BOOL)playAtTime:(double)time offset:(double)offset error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -842,25 +854,25 @@ LABEL_19:
     clientID = [client clientID];
     playbackRate = selfCopy->_playbackRate;
     isMuted = selfCopy->_isMuted;
-    *v50 = 136317186;
-    *&v50[4] = "AVHapticPlayer.mm";
-    *&v50[12] = 1024;
-    *&v50[14] = 1108;
-    v51 = 2080;
-    v52 = "[AVHapticSequence playAtTime:offset:error:]";
-    v53 = 1024;
-    v54 = seqID;
-    v55 = 2048;
-    *v56 = clientID;
-    *&v56[8] = 2048;
-    *&v56[10] = time;
-    v57 = 2048;
+    *v49 = 136317186;
+    *&v49[4] = "AVHapticPlayer.mm";
+    *&v49[12] = 1024;
+    *&v49[14] = 1108;
+    v50 = 2080;
+    v51 = "[AVHapticSequence playAtTime:offset:error:]";
+    v52 = 1024;
+    v53 = seqID;
+    v54 = 2048;
+    *v55 = clientID;
+    *&v55[8] = 2048;
+    *&v55[10] = time;
+    v56 = 2048;
     offsetCopy = offset;
-    v59 = 2048;
-    v60 = playbackRate;
-    v61 = 1024;
-    v62 = isMuted;
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: play seq %u: clientID: 0x%lx time: %.3f offsetTime: %.3f playback rate: %.1f muted: %d", v50, 0x50u);
+    v58 = 2048;
+    v59 = playbackRate;
+    v60 = 1024;
+    v61 = isMuted;
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: play seq %u: clientID: 0x%lx time: %.3f offsetTime: %.3f playback rate: %.1f muted: %d", v49, 0x50u);
   }
 
 LABEL_8:
@@ -930,7 +942,7 @@ LABEL_23:
   if (!kAVHCScope)
   {
     v28 = MEMORY[0x277D86220];
-    v36 = MEMORY[0x277D86220];
+    v35 = MEMORY[0x277D86220];
     goto LABEL_26;
   }
 
@@ -938,71 +950,71 @@ LABEL_23:
   if (v28)
   {
 LABEL_26:
-    v37 = v28;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v36 = v28;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       seqID2 = [(AVHapticSequence *)selfCopy seqID];
       activeChannel = [(AVHapticSequence *)selfCopy activeChannel];
-      v40 = "";
-      v41 = selfCopy->_isMuted;
-      *&v50[4] = "AVHapticPlayer.mm";
-      *v50 = 136316418;
-      *&v50[12] = 1024;
-      if (v41)
+      v39 = "";
+      v40 = selfCopy->_isMuted;
+      *&v49[4] = "AVHapticPlayer.mm";
+      *v49 = 136316418;
+      *&v49[12] = 1024;
+      if (v40)
       {
-        v40 = "but sequence was muted";
+        v39 = "but sequence was muted";
       }
 
-      *&v50[14] = 1120;
-      v51 = 2080;
-      v52 = "[AVHapticSequence playAtTime:offset:error:]";
-      v53 = 1024;
-      v54 = seqID2;
-      v55 = 1024;
-      *v56 = activeChannel;
-      *&v56[4] = 2080;
-      *&v56[6] = v40;
-      _os_log_impl(&dword_21569A000, v37, OS_LOG_TYPE_INFO, "%25s:%-5d %s: soloing sequence ID: %u track %u %s", v50, 0x32u);
+      *&v49[14] = 1120;
+      v50 = 2080;
+      v51 = "[AVHapticSequence playAtTime:offset:error:]";
+      v52 = 1024;
+      v53 = seqID2;
+      v54 = 1024;
+      *v55 = activeChannel;
+      *&v55[4] = 2080;
+      *&v55[6] = v39;
+      _os_log_impl(&dword_21569A000, v36, OS_LOG_TYPE_INFO, "%25s:%-5d %s: soloing sequence ID: %u track %u %s", v49, 0x32u);
     }
   }
 
-  channelCount = [(AVHapticSequence *)selfCopy channelCount];
-  if (channelCount - 1 >= 0)
+  v41 = [(AVHapticSequence *)selfCopy channelCount:*v49];
+  if (v41 - 1 >= 0)
   {
     do
     {
-      --channelCount;
-      v43 = 1.0;
+      --v41;
+      v42 = 1.0;
       if (!selfCopy->_isMuted)
       {
-        if (channelCount == [(AVHapticSequence *)selfCopy activeChannel])
+        if (v41 == [(AVHapticSequence *)selfCopy activeChannel])
         {
-          v43 = 0.0;
+          v42 = 0.0;
         }
 
         else
         {
-          v43 = 1.0;
+          v42 = 1.0;
         }
       }
 
       player6 = [(AVHapticSequence *)selfCopy player];
-      *&v45 = v43;
-      [player6 setSequenceChannelParam:selfCopy->_seqID atTime:channelCount channel:1014 param:error value:time error:v45];
+      *&v44 = v42;
+      [player6 setSequenceChannelParam:selfCopy->_seqID atTime:v41 channel:1014 param:error value:time error:v44];
 
       player7 = [(AVHapticSequence *)selfCopy player];
-      *&v47 = v43;
-      [player7 setSequenceChannelParam:selfCopy->_seqID atTime:channelCount channel:2014 param:error value:time error:v47];
+      *&v46 = v42;
+      [player7 setSequenceChannelParam:selfCopy->_seqID atTime:v41 channel:2014 param:error value:time error:v46];
     }
 
-    while (channelCount > 0);
+    while (v41 > 0);
   }
 
 LABEL_37:
   player8 = [(AVHapticSequence *)selfCopy player];
-  v49 = [player8 playHapticSequence:selfCopy->_seqID atTime:time offset:offset];
+  v48 = [player8 playHapticSequence:selfCopy->_seqID atTime:time offset:offset];
 
-  if (v49)
+  if (v48)
   {
     [(AVHapticSequence *)selfCopy setLastStartTime:time];
     v32 = 1;
@@ -1018,13 +1030,12 @@ LABEL_37:
 LABEL_24:
   objc_sync_exit(selfCopy);
 
-  v34 = *MEMORY[0x277D85DE8];
   return v32 & v33;
 }
 
 - (BOOL)stopAtTime:(double)time error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1047,17 +1058,17 @@ LABEL_24:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v27 = 136316162;
-    v28 = "AVHapticPlayer.mm";
-    v29 = 1024;
-    v30 = 1140;
-    v31 = 2080;
-    v32 = "[AVHapticSequence stopAtTime:error:]";
-    v33 = 2048;
+    v26 = 136316162;
+    v27 = "AVHapticPlayer.mm";
+    v28 = 1024;
+    v29 = 1140;
+    v30 = 2080;
+    v31 = "[AVHapticSequence stopAtTime:error:]";
+    v32 = 2048;
     clientID = [client clientID];
-    v35 = 2048;
+    v34 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: stop seq: clientID: 0x%lx time: %.3f", &v27, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: stop seq: clientID: 0x%lx time: %.3f", &v26, 0x30u);
   }
 
 LABEL_8:
@@ -1121,13 +1132,12 @@ LABEL_19:
 LABEL_20:
   objc_sync_exit(selfCopy);
 
-  v25 = *MEMORY[0x277D85DE8];
   return error & v21;
 }
 
 - (BOOL)pauseAtTime:(double)time error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1150,17 +1160,17 @@ LABEL_20:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v27 = 136316162;
-    v28 = "AVHapticPlayer.mm";
-    v29 = 1024;
-    v30 = 1158;
-    v31 = 2080;
-    v32 = "[AVHapticSequence pauseAtTime:error:]";
-    v33 = 2048;
+    v26 = 136316162;
+    v27 = "AVHapticPlayer.mm";
+    v28 = 1024;
+    v29 = 1158;
+    v30 = 2080;
+    v31 = "[AVHapticSequence pauseAtTime:error:]";
+    v32 = 2048;
     clientID = [client clientID];
-    v35 = 2048;
+    v34 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: pause seq: clientID: 0x%lx time: %.3f", &v27, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: pause seq: clientID: 0x%lx time: %.3f", &v26, 0x30u);
   }
 
 LABEL_8:
@@ -1216,13 +1226,12 @@ LABEL_17:
 LABEL_18:
   objc_sync_exit(selfCopy);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)resumeAtTime:(double)time error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1245,17 +1254,17 @@ LABEL_18:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v27 = 136316162;
-    v28 = "AVHapticPlayer.mm";
-    v29 = 1024;
-    v30 = 1173;
-    v31 = 2080;
-    v32 = "[AVHapticSequence resumeAtTime:error:]";
-    v33 = 2048;
+    v26 = 136316162;
+    v27 = "AVHapticPlayer.mm";
+    v28 = 1024;
+    v29 = 1173;
+    v30 = 2080;
+    v31 = "[AVHapticSequence resumeAtTime:error:]";
+    v32 = 2048;
     clientID = [client clientID];
-    v35 = 2048;
+    v34 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: resume seq: clientID: 0x%lx time: %.3f", &v27, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: resume seq: clientID: 0x%lx time: %.3f", &v26, 0x30u);
   }
 
 LABEL_8:
@@ -1311,13 +1320,12 @@ LABEL_17:
 LABEL_18:
   objc_sync_exit(selfCopy);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)seekToTime:(double)time error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1340,15 +1348,15 @@ LABEL_18:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v27 = 136315906;
-    v28 = "AVHapticPlayer.mm";
-    v29 = 1024;
-    v30 = 1188;
-    v31 = 2080;
-    v32 = "[AVHapticSequence seekToTime:error:]";
-    v33 = 2048;
+    v26 = 136315906;
+    v27 = "AVHapticPlayer.mm";
+    v28 = 1024;
+    v29 = 1188;
+    v30 = 2080;
+    v31 = "[AVHapticSequence seekToTime:error:]";
+    v32 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: seek seq: clientID: 0x%lx time: NOW", &v27, 0x26u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: seek seq: clientID: 0x%lx time: NOW", &v26, 0x26u);
   }
 
 LABEL_8:
@@ -1404,13 +1412,12 @@ LABEL_17:
 LABEL_18:
   objc_sync_exit(selfCopy);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)resetAtTime:(double)time error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1433,17 +1440,17 @@ LABEL_18:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v24 = 136316162;
-    v25 = "AVHapticPlayer.mm";
-    v26 = 1024;
-    v27 = 1205;
-    v28 = 2080;
-    v29 = "[AVHapticSequence resetAtTime:error:]";
-    v30 = 2048;
+    v23 = 136316162;
+    v24 = "AVHapticPlayer.mm";
+    v25 = 1024;
+    v26 = 1205;
+    v27 = 2080;
+    v28 = "[AVHapticSequence resetAtTime:error:]";
+    v29 = 2048;
     clientID = [client clientID];
-    v32 = 2048;
+    v31 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: reset parameters on seq: clientID: 0x%lx time: %.3f ", &v24, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: reset parameters on seq: clientID: 0x%lx time: %.3f ", &v23, 0x30u);
   }
 
 LABEL_8:
@@ -1487,13 +1494,12 @@ LABEL_15:
 LABEL_16:
   objc_sync_exit(selfCopy);
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)setParameter:(unint64_t)parameter value:(float)value channel:(unint64_t)channel atTime:(double)time error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1516,23 +1522,23 @@ LABEL_16:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v34 = 136316930;
-    v35 = "AVHapticPlayer.mm";
-    v36 = 1024;
-    v37 = 1219;
-    v38 = 2080;
-    v39 = "[AVHapticSequence setParameter:value:channel:atTime:error:]";
-    v40 = 2048;
+    v33 = 136316930;
+    v34 = "AVHapticPlayer.mm";
+    v35 = 1024;
+    v36 = 1219;
+    v37 = 2080;
+    v38 = "[AVHapticSequence setParameter:value:channel:atTime:error:]";
+    v39 = 2048;
     clientID = [client clientID];
-    v42 = 1024;
+    v41 = 1024;
     parameterCopy = parameter;
-    v44 = 2048;
+    v43 = 2048;
     valueCopy = value;
-    v46 = 1024;
+    v45 = 1024;
     channelCopy = channel;
-    v48 = 2048;
+    v47 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: set param on seq: clientID: 0x%lx type: %u value: %.2f channelIndex: %u atTime: %.3f", &v34, 0x46u);
+    _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: set param on seq: clientID: 0x%lx type: %u value: %.2f channelIndex: %u atTime: %.3f", &v33, 0x46u);
   }
 
 LABEL_8:
@@ -1597,13 +1603,12 @@ LABEL_19:
 LABEL_20:
   objc_sync_exit(selfCopy);
 
-  v32 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (BOOL)cancelAndReturnError:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1626,15 +1631,15 @@ LABEL_20:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v25 = 136315906;
-    v26 = "AVHapticPlayer.mm";
-    v27 = 1024;
-    v28 = 1234;
-    v29 = 2080;
-    v30 = "[AVHapticSequence cancelAndReturnError:]";
-    v31 = 2048;
+    v24 = 136315906;
+    v25 = "AVHapticPlayer.mm";
+    v26 = 1024;
+    v27 = 1234;
+    v28 = 2080;
+    v29 = "[AVHapticSequence cancelAndReturnError:]";
+    v30 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: cancel seq: clientID: 0x%lx", &v25, 0x26u);
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: cancel seq: clientID: 0x%lx", &v24, 0x26u);
   }
 
 LABEL_8:
@@ -1690,13 +1695,12 @@ LABEL_17:
 LABEL_18:
   objc_sync_exit(selfCopy);
 
-  v23 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)activateChannelByIndex:(unint64_t)index atTime:(double)time error:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1722,23 +1726,23 @@ LABEL_18:
     client = [player client];
     clientID = [client clientID];
     isMuted = selfCopy->_isMuted;
-    v46 = 136316930;
-    v47 = "AVHapticPlayer.mm";
-    v48 = 1024;
-    v49 = 1250;
-    v50 = 2080;
-    v51 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
-    v52 = 1024;
-    *v53 = seqID;
-    *&v53[4] = 2048;
-    *&v53[6] = clientID;
-    v54 = 2048;
+    v45 = 136316930;
+    v46 = "AVHapticPlayer.mm";
+    v47 = 1024;
+    v48 = 1250;
+    v49 = 2080;
+    v50 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
+    v51 = 1024;
+    *v52 = seqID;
+    *&v52[4] = 2048;
+    *&v52[6] = clientID;
+    v53 = 2048;
     timeCopy = time;
-    v56 = 1024;
+    v55 = 1024;
     indexCopy = index;
-    v58 = 1024;
-    v59 = isMuted;
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: activating seqID %u track index: clientID: 0x%lx time: %.3f index: %u muted: %d", &v46, 0x42u);
+    v57 = 1024;
+    v58 = isMuted;
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: activating seqID %u track index: clientID: 0x%lx time: %.3f index: %u muted: %d", &v45, 0x42u);
   }
 
 LABEL_8:
@@ -1800,8 +1804,8 @@ LABEL_42:
   {
     if (kAVHCScope)
     {
-      v38 = *kAVHCScope;
-      if (!v38)
+      v37 = *kAVHCScope;
+      if (!v37)
       {
         goto LABEL_42;
       }
@@ -1809,19 +1813,19 @@ LABEL_42:
 
     else
     {
-      v38 = MEMORY[0x277D86220];
-      v45 = MEMORY[0x277D86220];
+      v37 = MEMORY[0x277D86220];
+      v44 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = 136315650;
-      v47 = "AVHapticPlayer.mm";
-      v48 = 1024;
-      v49 = 1270;
-      v50 = 2080;
-      v51 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
-      _os_log_impl(&dword_21569A000, v38, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Associated player is not running - action delayed until sequence start", &v46, 0x1Cu);
+      v45 = 136315650;
+      v46 = "AVHapticPlayer.mm";
+      v47 = 1024;
+      v48 = 1270;
+      v49 = 2080;
+      v50 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
+      _os_log_impl(&dword_21569A000, v37, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Associated player is not running - action delayed until sequence start", &v45, 0x1Cu);
     }
 
     goto LABEL_42;
@@ -1843,58 +1847,57 @@ LABEL_42:
       v31 = v30;
       if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = 136315906;
-        v47 = "AVHapticPlayer.mm";
-        v48 = 1024;
-        v49 = 1262;
-        v50 = 2080;
-        v51 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
-        v52 = 2048;
-        *v53 = timeCopy2;
-        _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: request pushed out to pending play request at time %.3f", &v46, 0x26u);
+        v45 = 136315906;
+        v46 = "AVHapticPlayer.mm";
+        v47 = 1024;
+        v48 = 1262;
+        v49 = 2080;
+        v50 = "[AVHapticSequence activateChannelByIndex:atTime:error:]";
+        v51 = 2048;
+        *v52 = timeCopy2;
+        _os_log_impl(&dword_21569A000, v31, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: request pushed out to pending play request at time %.3f", &v45, 0x26u);
       }
     }
   }
 
-  v39 = 0;
+  v38 = 0;
   v35 = 1;
-  while (v39 < [(AVHapticSequence *)selfCopy channelCount])
+  while (v38 < [(AVHapticSequence *)selfCopy channelCount])
   {
-    v40 = 1.0;
+    v39 = 1.0;
     if (!selfCopy->_isMuted)
     {
-      if (v39 == [(AVHapticSequence *)selfCopy activeChannel])
+      if (v38 == [(AVHapticSequence *)selfCopy activeChannel])
       {
-        v40 = 0.0;
+        v39 = 0.0;
       }
 
       else
       {
-        v40 = 1.0;
+        v39 = 1.0;
       }
     }
 
     player5 = [(AVHapticSequence *)selfCopy player];
-    *&v42 = v40;
-    [player5 setSequenceChannelParam:selfCopy->_seqID atTime:v39 channel:1014 param:error value:timeCopy2 error:v42];
+    *&v41 = v39;
+    [player5 setSequenceChannelParam:selfCopy->_seqID atTime:v38 channel:1014 param:error value:timeCopy2 error:v41];
 
     player6 = [(AVHapticSequence *)selfCopy player];
-    *&v44 = v40;
-    v35 = [player6 setSequenceChannelParam:selfCopy->_seqID atTime:v39 channel:2014 param:error value:timeCopy2 error:v44];
+    *&v43 = v39;
+    v35 = [player6 setSequenceChannelParam:selfCopy->_seqID atTime:v38 channel:2014 param:error value:timeCopy2 error:v43];
 
-    ++v39;
+    ++v38;
   }
 
 LABEL_26:
   objc_sync_exit(selfCopy);
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35 & 1;
 }
 
 - (BOOL)setVolume:(float)volume atTime:(double)time error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1917,19 +1920,19 @@ LABEL_26:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v30 = 136316418;
-    v31 = "AVHapticPlayer.mm";
-    v32 = 1024;
-    v33 = 1283;
-    v34 = 2080;
-    v35 = "[AVHapticSequence setVolume:atTime:error:]";
-    v36 = 2048;
+    v29 = 136316418;
+    v30 = "AVHapticPlayer.mm";
+    v31 = 1024;
+    v32 = 1283;
+    v33 = 2080;
+    v34 = "[AVHapticSequence setVolume:atTime:error:]";
+    v35 = 2048;
     clientID = [client clientID];
-    v38 = 2048;
+    v37 = 2048;
     timeCopy = time;
-    v40 = 2048;
+    v39 = 2048;
     volumeCopy = volume;
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: set volume on seq: clientID: 0x%lx time: %.3f volume: %.3f", &v30, 0x3Au);
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: set volume on seq: clientID: 0x%lx time: %.3f volume: %.3f", &v29, 0x3Au);
   }
 
 LABEL_8:
@@ -1982,13 +1985,12 @@ LABEL_18:
 LABEL_19:
   objc_sync_exit(selfCopy);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (BOOL)earlyUnduckAudioAtTime:(double)time error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -2011,17 +2013,17 @@ LABEL_19:
   {
     player = [(AVHapticSequence *)selfCopy player];
     client = [player client];
-    v24 = 136316162;
-    v25 = "AVHapticPlayer.mm";
-    v26 = 1024;
-    v27 = 1299;
-    v28 = 2080;
-    v29 = "[AVHapticSequence earlyUnduckAudioAtTime:error:]";
-    v30 = 2048;
+    v23 = 136316162;
+    v24 = "AVHapticPlayer.mm";
+    v25 = 1024;
+    v26 = 1299;
+    v27 = 2080;
+    v28 = "[AVHapticSequence earlyUnduckAudioAtTime:error:]";
+    v29 = 2048;
     clientID = [client clientID];
-    v32 = 2048;
+    v31 = 2048;
     timeCopy = time;
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: early unduck audio on seq: clientID: 0x%lx time: %.3f", &v24, 0x30u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: early unduck audio on seq: clientID: 0x%lx time: %.3f", &v23, 0x30u);
   }
 
 LABEL_8:
@@ -2065,7 +2067,6 @@ LABEL_15:
 LABEL_16:
   objc_sync_exit(selfCopy);
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

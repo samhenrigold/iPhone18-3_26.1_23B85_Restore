@@ -10,7 +10,7 @@
 {
   *(&self->super.isa + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation21DSPeopleSharedResouce_dsFriends) = &_swiftEmptyArrayStorage;
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DSPeopleSharedResouce();
+  v3.super_class = type metadata accessor for DSPeopleSharedResouce(self, a2);
   return [(DSPeopleSharedResouce *)&v3 init];
 }
 
@@ -18,12 +18,12 @@
 {
   v2 = *(&self->super.isa + OBJC_IVAR____TtC29FindMyPeopleDigitalSeparation21DSPeopleSharedResouce_dsFriends);
   selfCopy = self;
-  sub_7C84(v2);
+  sub_7C84(v2, v4);
 
   sub_5BC4(&unk_11A30, &qword_9430);
-  v4.super.isa = sub_7FF4().super.isa;
+  v5.super.isa = sub_7FF4().super.isa;
 
-  return v4.super.isa;
+  return v5.super.isa;
 }
 
 - (NSString)displayName

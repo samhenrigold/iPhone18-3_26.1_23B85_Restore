@@ -590,8 +590,8 @@ LABEL_12:
     }
   }
 
-  synchronizePhotosDatabaseForProcessedAssets = [(MADFullAnalysisResultsSynchronizationTask *)self synchronizePhotosDatabaseForProcessedAssets];
-  if (!synchronizePhotosDatabaseForProcessedAssets && MediaAnalysisLogLevel() >= 6)
+  v5 = [(MADFullAnalysisResultsSynchronizationTask *)self synchronizePhotosDatabaseForProcessedAssets:*v10];
+  if (!v5 && MediaAnalysisLogLevel() >= 6)
   {
     v6 = VCPLogToOSLogType[6];
     if (os_log_type_enabled(&_os_log_default, v6))
@@ -604,7 +604,7 @@ LABEL_12:
     }
   }
 
-  return synchronizePhotosDatabaseForProcessedAssets;
+  return v5;
 }
 
 @end

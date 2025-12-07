@@ -3,7 +3,7 @@
 
 @implementation SecItemUpdateTokenItemsForAccessGroups
 
-uint64_t ___SecItemUpdateTokenItemsForAccessGroups_block_invoke(uint64_t a1, CFTypeRef *a2)
+uint64_t ___SecItemUpdateTokenItemsForAccessGroups_block_invoke(uint64_t a1, CFErrorRef *a2)
 {
   v2 = a1;
   if (*(a1 + 32))
@@ -30,27 +30,7 @@ uint64_t ___SecItemUpdateTokenItemsForAccessGroups_block_invoke(uint64_t a1, CFT
         v12 = 1;
       }
 
-      if (v12)
-      {
-        goto LABEL_14;
-      }
-
-      v13 = v11;
-      v49 = v4;
-      v14 = v2;
-      v15 = v7;
-      v16 = v6;
-      v17 = v5;
-      v18 = Mutable;
-      TypeID = CFDataGetTypeID();
-      v12 = TypeID == CFGetTypeID(Value);
-      Mutable = v18;
-      v5 = v17;
-      v6 = v16;
-      v7 = v15;
-      v2 = v14;
-      v4 = v49;
-      if (v12)
+      if (!v12 && (v13 = v11, v49 = v4, v14 = v2, v15 = v7, v16 = v6, v17 = v5, v18 = Mutable, TypeID = CFDataGetTypeID(), v12 = TypeID == CFGetTypeID(Value), Mutable = v18, v5 = v17, v6 = v16, v7 = v15, v2 = v14, v4 = v49, v12))
       {
         v24 = SecTokenItemValueCreate(v10, Value, v13, a2, v20, v21, v22, v23);
         if (!v24)
@@ -81,7 +61,6 @@ uint64_t ___SecItemUpdateTokenItemsForAccessGroups_block_invoke(uint64_t a1, CFT
 
       else
       {
-LABEL_14:
         CFArrayAppendValue(Mutable, ValueAtIndex);
       }
 

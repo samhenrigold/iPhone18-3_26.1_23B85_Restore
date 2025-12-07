@@ -184,7 +184,7 @@
   selfCopy = self;
   v4(v6);
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)performCreateFolderWithSelection:(id)selection
@@ -212,7 +212,7 @@
 {
   nowCopy = now;
   selfCopy = self;
-  specialized DOCItemCollectionViewController.performDeleteNow(_:)();
+  specialized DOCItemCollectionViewController.performDeleteNow(_:)(MEMORY[0x277D05F90]);
 }
 
 - (void)performMoveHere:(id)here
@@ -276,7 +276,7 @@ LABEL_7:
 {
   favoriteCopy = favorite;
   selfCopy = self;
-  specialized DOCItemCollectionViewController.performDeleteNow(_:)();
+  specialized DOCItemCollectionViewController.performDeleteNow(_:)(MEMORY[0x277D05FB0]);
 }
 
 - (void)performAddFolderToDock:(id)dock
@@ -325,14 +325,14 @@ LABEL_7:
 {
   shareCopy = share;
   selfCopy = self;
-  specialized DOCItemCollectionViewController.performDeleteNow(_:)();
+  specialized DOCItemCollectionViewController.performDeleteNow(_:)(MEMORY[0x277D06048]);
 }
 
 - (void)performGetInfo:(id)info
 {
   infoCopy = info;
   selfCopy = self;
-  specialized DOCItemCollectionViewController.performDeleteNow(_:)();
+  specialized DOCItemCollectionViewController.performDeleteNow(_:)(MEMORY[0x277D05FC0]);
 }
 
 - (void)performDismiss:(id)dismiss
@@ -349,7 +349,7 @@ LABEL_7:
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -386,7 +386,7 @@ LABEL_7:
 
   v8 = DOCItemCollectionViewController.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8 & 1;
 }
 
@@ -489,7 +489,7 @@ LABEL_7:
   selfCopy = self;
   DOCItemCollectionViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18UIFocusEnvironment_pMd, &_sSo18UIFocusEnvironment_pMR);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -613,7 +613,7 @@ LABEL_7:
 - (void)_doc_performLiveResizeSkippedWork
 {
   selfCopy = self;
-  DOCItemCollectionViewController._doc_performLiveResizeSkippedWork()();
+  DOCItemCollectionViewController._doc_performLiveResizeSkippedWork()(v2);
 }
 
 - (void)effectiveAppearanceDidChange:(id)change
@@ -720,7 +720,7 @@ LABEL_7:
   {
   }
 
-  outlined destroy of CharacterSet?(v13, &_sypSgMd);
+  outlined destroy of CharacterSet?(v13, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)moveHere:(id)here
@@ -741,7 +741,7 @@ LABEL_7:
 
   DOCItemCollectionViewController.moveHere(_:)();
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)createFolder:(id)folder
@@ -762,7 +762,7 @@ LABEL_7:
 
   (*((*MEMORY[0x277D85000] & *self->_TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_opaque) + 0x1550))(0, 1);
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (id)providerForDeferredMenuElement:(id)element
@@ -1016,7 +1016,7 @@ LABEL_7:
   scrollCopy = scroll;
   selfCopy = self;
   v7 = v5();
-  if (v7 && (v8 = v7, type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIScrollView), v9 = scrollCopy, v10 = static NSObject.== infix(_:_:)(), v8, v9, (v10 & 1) != 0))
+  if (v7 && (v8 = v7, type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIScrollView, 0x277D759D8), v9 = scrollCopy, v10 = static NSObject.== infix(_:_:)(), v8, v9, (v10 & 1) != 0))
   {
     DOCItemCollectionViewController.resetButtons()();
   }
@@ -1074,7 +1074,7 @@ LABEL_7:
 
 - (id)_collectionView:(id)view typeSelectStringForItemAtIndexPath:(id)path
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v20 - v9;
   if (path)
@@ -1095,7 +1095,7 @@ LABEL_7:
   v15 = specialized DOCItemCollectionViewController._collectionView(_:typeSelectStringForItemAt:)(v10);
   v17 = v16;
 
-  outlined destroy of CharacterSet?(v10, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v10, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   if (v17)
   {
     v18 = MEMORY[0x24C1FAD20](v15, v17);
@@ -1111,7 +1111,7 @@ LABEL_7:
 
 - (void)_collectionView:(id)view updateTypeSelectResultForCell:(id)cell atIndexPath:(id)path withItemResult:(id)result animator:(id)animator
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v12 - 8, v13);
   v15 = &v22 - v14;
   if (path)
@@ -1135,7 +1135,7 @@ LABEL_7:
   specialized DOCItemCollectionViewController._collectionView(_:updateTypeSelectResultFor:at:with:animator:)(cell, v15, result);
 
   swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v15, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v15, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 }
 
 - (BOOL)collectionView:(id)view canPerformPrimaryActionForItemAtIndexPath:(id)path
@@ -1172,7 +1172,7 @@ LABEL_7:
   selfCopy = self;
   DOCItemCollectionViewController._multitaskingDragExclusionRects()();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSValue, 0x277CCAE60);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -1203,7 +1203,7 @@ LABEL_7:
 
   v18 = specialized DOCItemCollectionViewController.collectionView(_:canPerformAction:forItemAt:withSender:)(v13);
 
-  outlined destroy of CharacterSet?(v20, &_sypSgMd);
+  outlined destroy of CharacterSet?(v20, &_sypSgMd, &_sypSgMR);
   (*(v10 + 8))(v13, v9);
   return v18 & 1;
 }
@@ -1238,7 +1238,7 @@ LABEL_7:
     memset(v12, 0, sizeof(v12));
   }
 
-  outlined destroy of CharacterSet?(v12, &_sypSgMd);
+  outlined destroy of CharacterSet?(v12, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)collectionView:(id)view didEndDisplayingCell:(id)cell forItemAtIndexPath:(id)path
@@ -1337,7 +1337,7 @@ LABEL_7:
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v17 - v7;
   viewCopy = view;
@@ -1390,7 +1390,7 @@ LABEL_7:
   viewCopy = view;
   configurationCopy = configuration;
   selfCopy = self;
-  v16 = DOCItemCollectionViewController.collectionView(_:contextMenuConfiguration:highlightPreviewForItemAt:)(viewCopy);
+  v16 = DOCItemCollectionViewController.collectionView(_:contextMenuConfiguration:highlightPreviewForItemAt:)(viewCopy, configurationCopy);
 
   (*(v9 + 8))(v12, v8);
 
@@ -1529,7 +1529,7 @@ LABEL_7:
 - (void)revealWithNodes:(id)nodes selectEvenIfVisible:(BOOL)visible completionBlock:(id)block
 {
   v7 = _Block_copy(block);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = swift_allocObject();
   *(v9 + 16) = v7;
@@ -1699,7 +1699,7 @@ LABEL_7:
 
   swift_unknownObjectRelease();
   (*(v9 + 8))(v12, v8);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem, 0x277D75470);
   v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v15.super.isa;
@@ -1719,7 +1719,7 @@ LABEL_7:
 
   swift_unknownObjectRelease();
   (*(v10 + 8))(v13, v9);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem, 0x277D75470);
   v16.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v16.super.isa;
@@ -1785,7 +1785,7 @@ LABEL_7:
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v19 - v11;
   if (path)
@@ -1807,7 +1807,7 @@ LABEL_7:
   v17 = DOCItemCollectionViewController.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)(viewCopy, update, v12);
 
   swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 
   return v17;
 }
@@ -1850,7 +1850,7 @@ LABEL_7:
 
 - (int64_t)_collectionView:(id)view dataOwnerForDragSession:(id)session atIndexPath:(id)path
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v11, v12);
@@ -1868,7 +1868,7 @@ LABEL_7:
     (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
   }
 
-  outlined init with copy of DOCGridLayout.Spec?(v14, v10, &_s10Foundation9IndexPathVSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(v14, v10, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   type metadata accessor for IndexPath();
   v16 = *(v15 - 8);
   result = (*(v16 + 48))(v10, 1, v15);
@@ -1899,7 +1899,7 @@ LABEL_7:
       v20 = 0;
     }
 
-    outlined destroy of CharacterSet?(v14, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v14, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
     return v20;
   }
 
@@ -1908,7 +1908,7 @@ LABEL_7:
 
 - (int64_t)_collectionView:(id)view dataOwnerForDropSession:(id)session withDestinationIndexPath:(id)path
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v19 - v11;
   if (path)
@@ -1930,7 +1930,7 @@ LABEL_7:
   v17 = DOCItemCollectionViewController._collectionView(_:dataOwnerFor:withDestinationIndexPath:)(view, session, v12);
 
   swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v12, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   return v17;
 }
 
@@ -2015,7 +2015,7 @@ LABEL_7:
 
 - (void)pressesChanged:(id)changed withEvent:(id)event
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPress);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPress, 0x277D758B8);
   lazy protocol witness table accessor for type UIPress and conformance NSObject();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -2041,7 +2041,7 @@ LABEL_7:
 
 - (void)pressesCancelled:(id)cancelled withEvent:(id)event
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPress);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPress, 0x277D758B8);
   lazy protocol witness table accessor for type UIPress and conformance NSObject();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -2083,7 +2083,7 @@ LABEL_7:
 
   (*((*MEMORY[0x277D85000] & *self->_TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_opaque) + 0x1548))(v6);
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)displayInfoForCurrentItem:(id)item
@@ -2104,7 +2104,7 @@ LABEL_7:
 
   DOCItemCollectionViewController.displayInfoForCurrentItem(_:)(v6);
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (_TtP26DocumentManagerExecutables27DOCScannedDocumentReceiving_)doc_documentScannerReceivingTarget

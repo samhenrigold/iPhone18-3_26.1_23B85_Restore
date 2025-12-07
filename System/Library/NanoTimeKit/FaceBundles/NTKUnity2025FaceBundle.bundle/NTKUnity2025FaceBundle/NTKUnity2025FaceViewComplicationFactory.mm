@@ -18,38 +18,38 @@
 
 - (id)initForDevice:(id)device
 {
-  v9.receiver = self;
-  v9.super_class = NTKUnity2025FaceViewComplicationFactory;
-  v3 = [(NTKFaceViewComplicationFactory *)&v9 initForDevice:device];
-  v4 = v3;
+  v11.receiver = self;
+  v11.super_class = NTKUnity2025FaceViewComplicationFactory;
+  v3 = [(NTKFaceViewComplicationFactory *)&v11 initForDevice:device];
+  v6 = v3;
   if (v3)
   {
-    v5 = v3 + 10;
-    device = [v3 device];
-    *v5 = sub_23C09C5B4(device, device);
-    *(v4 + 11) = v7;
+    v7 = v3 + 10;
+    v8 = objc_msgSend_device(v3, v4, v5);
+    *v7 = sub_23C09C5B4(v8, v8);
+    *(v6 + 11) = v9;
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)keylineViewForComplicationSlot:(id)slot
 {
   v3 = MEMORY[0x277D2C0D0];
-  device = [(NTKFaceViewComplicationFactory *)self device];
-  v5 = [v3 keylineViewForDevice:device wide:0 expanded:1];
+  v4 = objc_msgSend_device(self, a2, slot);
+  v6 = objc_msgSend_keylineViewForDevice_wide_expanded_(v3, v5, v4, 0, 1);
 
-  return v5;
+  return v6;
 }
 
 - (void)loadLayoutRulesForFaceView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
-  [(NTKFaceViewComplicationFactory *)self device];
-  v8 = v7 = viewCopy;
-  v5 = v8;
-  v6 = viewCopy;
+  objc_msgSend_bounds(viewCopy, v5, v6);
+  objc_msgSend_device(self, v7, v8);
+  v12 = v11 = viewCopy;
+  v9 = v12;
+  v10 = viewCopy;
   NTKEnumerateComplicationStates();
 }
 
@@ -58,10 +58,11 @@
   v8 = MEMORY[0x277D2C0D0];
   viewCopy = view;
   slotCopy = slot;
-  v11 = [v8 viewWithLegacyComplicationType:{objc_msgSend(complication, "complicationType")}];
-  [viewCopy _configureComplicationView:v11 forSlot:slotCopy];
+  v13 = objc_msgSend_complicationType(complication, v11, v12);
+  v15 = objc_msgSend_viewWithLegacyComplicationType_(v8, v14, v13);
+  objc_msgSend__configureComplicationView_forSlot_(viewCopy, v16, v15, slotCopy);
 
-  return v11;
+  return v15;
 }
 
 - (void)configureComplicationView:(id)view forSlot:(id)slot faceView:(id)faceView
@@ -72,14 +73,14 @@
   if (objc_opt_isKindOfClass())
   {
     v9 = viewCopy;
-    v10 = 0;
-    if ([(NTKUnity2025FaceViewComplicationFactory *)self _convertCircularSlot:slotCopy toPosition:&v10])
+    v15 = 0;
+    if (objc_msgSend__convertCircularSlot_toPosition_(self, v10, slotCopy, &v15))
     {
-      [v9 setPosition:v10];
+      objc_msgSend_setPosition_(v9, v11, v15);
     }
 
-    [(NTKFaceViewComplicationFactory *)self alpha];
-    [v9 setAlpha:?];
+    objc_msgSend_alpha(self, v11, v12);
+    objc_msgSend_setAlpha_(v9, v13, v14);
   }
 }
 
@@ -87,33 +88,33 @@
 {
   slotCopy = slot;
   viewCopy = view;
-  faceView = [(NTKUnity2025FaceViewComplicationFactory *)self faceView];
-  [(NTKUnity2025FaceViewComplicationFactory *)self configureComplicationView:viewCopy forSlot:slotCopy faceView:faceView];
+  v11 = objc_msgSend_faceView(self, v8, v9);
+  objc_msgSend_configureComplicationView_forSlot_faceView_(self, v10, viewCopy, slotCopy, v11);
 }
 
 - (int64_t)legacyLayoutOverrideforComplicationType:(unint64_t)type slot:(id)slot
 {
   slotCopy = slot;
-  faceView = [(NTKUnity2025FaceViewComplicationFactory *)self faceView];
-  v8 = [(NTKFaceViewComplicationFactory *)self legacyLayoutOverrideforComplicationType:type slot:slotCopy faceView:faceView];
+  v9 = objc_msgSend_faceView(self, v7, v8);
+  v11 = objc_msgSend_legacyLayoutOverrideforComplicationType_slot_faceView_(self, v10, type, slotCopy, v9);
 
-  return v8;
+  return v11;
 }
 
 - (void)loadLayoutRules
 {
-  faceView = [(NTKUnity2025FaceViewComplicationFactory *)self faceView];
-  [(NTKUnity2025FaceViewComplicationFactory *)self loadLayoutRulesForFaceView:faceView];
+  v5 = objc_msgSend_faceView(self, a2, v2);
+  objc_msgSend_loadLayoutRulesForFaceView_(self, v4, v5);
 }
 
 - (id)newLegacyViewForComplication:(id)complication family:(int64_t)family slot:(id)slot
 {
   slotCopy = slot;
   complicationCopy = complication;
-  faceView = [(NTKUnity2025FaceViewComplicationFactory *)self faceView];
-  v11 = [(NTKUnity2025FaceViewComplicationFactory *)self newLegacyViewForComplication:complicationCopy family:family slot:slotCopy faceView:faceView];
+  v12 = objc_msgSend_faceView(self, v10, v11);
+  v14 = objc_msgSend_newLegacyViewForComplication_family_slot_faceView_(self, v13, complicationCopy, family, slotCopy, v12);
 
-  return v11;
+  return v14;
 }
 
 - (CGPoint)_circularComplicationCenterForSlot:(id)slot inFaceBounds:(CGRect)bounds
@@ -125,49 +126,49 @@
   slotCopy = slot;
   v10 = MEMORY[0x23EEC6400](x, y, width, height);
   v12 = v11;
-  if ([slotCopy isEqualToString:*MEMORY[0x277D2BF08]])
+  if (objc_msgSend_isEqualToString_(slotCopy, v13, *MEMORY[0x277D2BF08]))
   {
     v10 = v10 - self->_circularComplicationDistanceFromCenter.x;
     v12 = v12 - self->_circularComplicationDistanceFromCenter.y;
   }
 
-  else if ([slotCopy isEqualToString:*MEMORY[0x277D2BEE8]])
+  else if (objc_msgSend_isEqualToString_(slotCopy, v14, *MEMORY[0x277D2BEE8]))
   {
     v10 = v10 + self->_circularComplicationDistanceFromCenter.x;
     v12 = v12 + self->_circularComplicationDistanceFromCenter.y;
   }
 
-  v13 = v10;
-  v14 = v12;
-  result.y = v14;
-  result.x = v13;
+  v15 = v10;
+  v16 = v12;
+  result.y = v16;
+  result.x = v15;
   return result;
 }
 
 - (BOOL)_convertCircularSlot:(id)slot toPosition:(int64_t *)position
 {
   slotCopy = slot;
-  if ([slotCopy isEqualToString:*MEMORY[0x277D2BF08]])
+  if (objc_msgSend_isEqualToString_(slotCopy, v6, *MEMORY[0x277D2BF08]))
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    if (![slotCopy isEqualToString:*MEMORY[0x277D2BEE8]])
+    if (!objc_msgSend_isEqualToString_(slotCopy, v7, *MEMORY[0x277D2BEE8]))
     {
-      v7 = 0;
+      v9 = 0;
       goto LABEL_7;
     }
 
-    v6 = 1;
+    v8 = 1;
   }
 
-  *position = v6;
-  v7 = 1;
+  *position = v8;
+  v9 = 1;
 LABEL_7:
 
-  return v7;
+  return v9;
 }
 
 - (CGPoint)circularComplicationDistanceFromCenter

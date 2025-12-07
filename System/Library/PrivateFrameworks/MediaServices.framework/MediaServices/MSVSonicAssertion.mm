@@ -127,7 +127,7 @@ LABEL_5:
 
 void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&__assertionLock_5803);
   if (*(a1 + 32) == __assertionInvalidationNonce_5808 && !__assertionCount_5804 && __assertion_5809 != 0)
   {
@@ -136,9 +136,9 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
       v3 = os_log_create("com.apple.amp.MediaServices", "Default");
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = __assertion_5809;
-        _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Invalidating RBSAssertion %p] Timeout", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = __assertion_5809;
+        _os_log_impl(&dword_1AC81F000, v3, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Invalidating RBSAssertion %p] Timeout", &v7, 0xCu);
       }
     }
 
@@ -151,9 +151,9 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
       v5 = os_log_create("com.apple.amp.MediaServices", "Default");
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 134217984;
-        v9 = __transaction;
-        _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Releasing os_transaction %p Timeout", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = __transaction;
+        _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Releasing os_transaction %p Timeout", &v7, 0xCu);
       }
 
       v6 = __transaction;
@@ -162,16 +162,15 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
   }
 
   os_unfair_lock_unlock(&__assertionLock_5803);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (MSVSonicAssertion)initWithName:(id)name
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v41.receiver = self;
-  v41.super_class = MSVSonicAssertion;
-  v5 = [(MSVSonicAssertion *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = MSVSonicAssertion;
+  v5 = [(MSVSonicAssertion *)&v40 init];
   if (!v5)
   {
     goto LABEL_37;
@@ -198,8 +197,8 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
 
   currentProcess = [MEMORY[0x1E69C7640] currentProcess];
   v13 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.sonic.backgroundtask" name:@"SonicBackgroundTask"];
-  v46[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+  v45[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
 
   v15 = [objc_alloc(MEMORY[0x1E69C7548]) initWithExplanation:nameCopy target:currentProcess attributes:v14];
   v16 = __assertion_5809;
@@ -209,9 +208,9 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
   [date2 timeIntervalSince1970];
   __assertionCreatedTime = v18;
 
-  v40 = 0;
-  v19 = [__assertion_5809 acquireWithError:&v40];
-  v20 = v40;
+  v39 = 0;
+  v19 = [__assertion_5809 acquireWithError:&v39];
+  v20 = v39;
   v21 = os_log_create("com.apple.amp.MediaServices", "Default");
   v22 = v21;
   if (v20)
@@ -219,9 +218,9 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      v43 = __assertion_5809;
-      v44 = 2114;
-      v45 = v20;
+      v42 = __assertion_5809;
+      v43 = 2114;
+      v44 = v20;
       _os_log_impl(&dword_1AC81F000, v22, OS_LOG_TYPE_ERROR, "[MSVSonicAssertion] Failed to acquire RBSAssertion %p error=%{public}@", buf, 0x16u);
     }
   }
@@ -231,7 +230,7 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v43 = __assertion_5809;
+      v42 = __assertion_5809;
       _os_log_impl(&dword_1AC81F000, v22, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Acquired RBSAssertion %p", buf, 0xCu);
     }
 
@@ -250,7 +249,7 @@ void __31__MSVSonicAssertion_invalidate__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v43 = v7;
+        v42 = v7;
         _os_log_impl(&dword_1AC81F000, v25, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Invalidating existing RBSAssertion %p", buf, 0xCu);
       }
     }
@@ -296,7 +295,7 @@ LABEL_18:
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v43 = __transaction;
+        v42 = __transaction;
         _os_log_impl(&dword_1AC81F000, v31, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Created os_transaction %p", buf, 0xCu);
       }
     }
@@ -322,7 +321,7 @@ LABEL_18:
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v43 = __transaction;
+        v42 = __transaction;
         _os_log_impl(&dword_1AC81F000, v33, OS_LOG_TYPE_DEFAULT, "[MSVSonicAssertion] Releasing os_transaction %p", buf, 0xCu);
       }
 
@@ -352,7 +351,6 @@ LABEL_37:
   v37 = v5;
 LABEL_39:
 
-  v38 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

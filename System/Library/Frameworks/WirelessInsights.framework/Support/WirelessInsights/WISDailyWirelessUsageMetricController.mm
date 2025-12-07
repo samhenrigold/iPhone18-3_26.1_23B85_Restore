@@ -6,6 +6,7 @@
 - (void)dataStatusChangedFor:(id)for to:(id)to;
 - (void)dealloc;
 - (void)handleABMServerStateChangedWithState:(id)state;
+- (void)handleAirplaneModeStatusChangedTo:(BOOL)to;
 - (void)handleBasebandBootStateChangeWithState:(id)state;
 - (void)handleChargingStateUpdate;
 - (void)handleDataIconChangedTo:(id)to;
@@ -16,6 +17,7 @@
 - (void)handleUpdate:(id)update forKey:(int)key withState:(id)state;
 - (void)radioStateChangedTo:(int)to;
 - (void)registrationStatusChangedFor:(id)for to:(id)to;
+- (void)resetAtTimestamp:(unint64_t)timestamp isBootup:(BOOL)bootup;
 - (void)submitEventAndReset;
 - (void)triggerMetric;
 - (void)updateCurrentDataContext;
@@ -184,6 +186,50 @@ LABEL_15:
 LABEL_28:
 }
 
+- (void)handleAirplaneModeStatusChangedTo:(BOOL)to
+{
+  toCopy = to;
+  if ([(WISDailyWirelessUsageMetricController *)self isAirplaneModeActive]== to)
+  {
+    return;
+  }
+
+  [(WISDailyWirelessUsageMetricController *)self setNumAirplaneModeToggles:[(WISDailyWirelessUsageMetricController *)self numAirplaneModeToggles]+ 1];
+  [(WISDailyWirelessUsageMetricController *)self setIsAirplaneModeActive:toCopy];
+  v5 = *(qword_1002DBE98 + 48);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1002038A0(self, v5);
+    if (!toCopy)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_6:
+    [(WISDailyWirelessUsageMetricController *)self updateDurationFieldFor:@"outOfService" isNowActive:toCopy ^ 1];
+    return;
+  }
+
+  if (toCopy)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_4:
+  currentRegistrationState = [(WISDailyWirelessUsageMetricController *)self currentRegistrationState];
+  if (currentRegistrationState)
+  {
+    v7 = currentRegistrationState;
+    currentRegistrationState2 = [(WISDailyWirelessUsageMetricController *)self currentRegistrationState];
+    v9 = [WISTelephonyUtils isRegistrationDisplayStatusOutOfService:currentRegistrationState2];
+
+    if (v9)
+    {
+      goto LABEL_6;
+    }
+  }
+}
+
 - (void)radioStateChangedTo:(int)to
 {
   [(WISDailyWirelessUsageMetricController *)self updateDurationFieldFor:@"basebandOnline" isNowActive:to == 0];
@@ -202,22 +248,13 @@ LABEL_28:
   forCopy = for;
   toCopy = to;
   currentDataContextUUID = [(WISDailyWirelessUsageMetricController *)self currentDataContextUUID];
-  if (!currentDataContextUUID)
-  {
-    goto LABEL_14;
-  }
-
-  uuid = [forCopy uuid];
-  currentDataContextUUID2 = [(WISDailyWirelessUsageMetricController *)self currentDataContextUUID];
-  v11 = [uuid isEqual:currentDataContextUUID2];
-
-  if (v11)
+  if (currentDataContextUUID && ([forCopy uuid], v9 = objc_claimAutoreleasedReturnValue(), -[WISDailyWirelessUsageMetricController currentDataContextUUID](self, "currentDataContextUUID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, currentDataContextUUID, (v11 & 1) != 0))
   {
     v12 = *(qword_1002DBE98 + 48);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      uuid2 = [forCopy uuid];
-      sub_100203950(uuid2, toCopy, v14, v12);
+      uuid = [forCopy uuid];
+      sub_100203950(uuid, toCopy, v14, v12);
     }
 
     [(WISDailyWirelessUsageMetricController *)self setCurrentRegistrationState:toCopy];
@@ -238,15 +275,11 @@ LABEL_28:
     }
   }
 
-  else
+  else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
   {
-LABEL_14:
-    if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
-    {
-      [forCopy uuid];
-      objc_claimAutoreleasedReturnValue();
-      sub_1002039F0();
-    }
+    [forCopy uuid];
+    objc_claimAutoreleasedReturnValue();
+    sub_1002039F0();
   }
 }
 
@@ -255,16 +288,7 @@ LABEL_14:
   forCopy = for;
   toCopy = to;
   currentDataContextUUID = [(WISDailyWirelessUsageMetricController *)self currentDataContextUUID];
-  if (!currentDataContextUUID)
-  {
-    goto LABEL_13;
-  }
-
-  uuid = [forCopy uuid];
-  currentDataContextUUID2 = [(WISDailyWirelessUsageMetricController *)self currentDataContextUUID];
-  v11 = [uuid isEqual:currentDataContextUUID2];
-
-  if (v11)
+  if (currentDataContextUUID && ([forCopy uuid], v9 = objc_claimAutoreleasedReturnValue(), -[WISDailyWirelessUsageMetricController currentDataContextUUID](self, "currentDataContextUUID"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, currentDataContextUUID, (v11 & 1) != 0))
   {
     if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
     {
@@ -286,15 +310,11 @@ LABEL_14:
     [(WISDailyWirelessUsageMetricController *)self setIsFR2Active:(dataBearerSoMask >> 3) & 1];
   }
 
-  else
+  else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
   {
-LABEL_13:
-    if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
-    {
-      [forCopy uuid];
-      objc_claimAutoreleasedReturnValue();
-      sub_100203AB8();
-    }
+    [forCopy uuid];
+    objc_claimAutoreleasedReturnValue();
+    sub_100203AB8();
   }
 }
 
@@ -665,11 +685,10 @@ LABEL_13:
   [(WISDailyWirelessUsageMetricController *)self setCurrentRegistrationState:0];
   ctRelay = [(WISDailyWirelessUsageMetricController *)self ctRelay];
   coreTelephonyClient = [ctRelay coreTelephonyClient];
-  v12 = 0;
-  v5 = [coreTelephonyClient getCurrentDataSubscriptionContextSync:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [coreTelephonyClient getCurrentDataSubscriptionContextSync:&v11];
+  v6 = v11;
 
-  v7 = *(qword_1002DBE98 + 48);
   if (v6 || !v5)
   {
     if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_ERROR))
@@ -689,11 +708,11 @@ LABEL_13:
     [(WISDailyWirelessUsageMetricController *)self setCurrentDataContextUUID:uuid];
 
     ctRelay2 = [(WISDailyWirelessUsageMetricController *)self ctRelay];
-    v11 = 0;
-    v10 = [ctRelay2 copyCTRegistrationStatus:v5 error:&v11];
-    v6 = v11;
+    v10 = 0;
+    v9 = [ctRelay2 copyCTRegistrationStatus:v5 error:&v10];
+    v6 = v10;
 
-    if (v6 || !v10)
+    if (v6 || !v9)
     {
       if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_ERROR))
       {
@@ -703,7 +722,7 @@ LABEL_13:
 
     else
     {
-      [(WISDailyWirelessUsageMetricController *)self setCurrentRegistrationState:v10];
+      [(WISDailyWirelessUsageMetricController *)self setCurrentRegistrationState:v9];
     }
   }
 }
@@ -825,6 +844,23 @@ LABEL_13:
 
     [(WISDailyWirelessUsageMetricController *)self resetAtTimestamp:v3 isBootup:0];
   }
+}
+
+- (void)resetAtTimestamp:(unint64_t)timestamp isBootup:(BOOL)bootup
+{
+  bootupCopy = bootup;
+  [(WISDailyWirelessUsageMetricController *)self setStartTimestamp:timestamp];
+  [(WISDailyWirelessUsageMetricController *)self setNumBasebandMTBFCrashes:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumBasebandCrashes:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumCommCenterCrashes:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumAirplaneModeToggles:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumConnectedCalls:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumConnectedTelephonyCalls:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumCellularRATIconChanges:0];
+  [(WISDailyWirelessUsageMetricController *)self setNumCellularSignalBarChanges:0];
+  [(WISDailyWirelessUsageMetricController *)self setDidSeeFR2:[(WISDailyWirelessUsageMetricController *)self isFR2Active]];
+
+  [(WISDailyWirelessUsageMetricController *)self setIsFirstMetricAfterBootup:bootupCopy];
 }
 
 - (void)triggerMetric

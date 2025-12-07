@@ -176,7 +176,7 @@
 
   if (v3)
   {
-    sub_1000CE6B8(&qword_101917C60);
+    sub_1000CE6B8(&qword_101917C60, &unk_1011F7C20);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -192,7 +192,7 @@
 {
   if (strings)
   {
-    sub_1000CE6B8(&qword_101917C60);
+    sub_1000CE6B8(&qword_101917C60, &unk_1011F7C20);
     v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -209,12 +209,12 @@
 
 - (id)leafPersonalizedAutocompleteItems
 {
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1011E47B0;
   *(v3 + 32) = self;
   selfCopy = self;
-  sub_1000CE6B8(&qword_101917C58);
+  sub_1000CE6B8(&qword_101917C58, &qword_1011F7C18);
   v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;

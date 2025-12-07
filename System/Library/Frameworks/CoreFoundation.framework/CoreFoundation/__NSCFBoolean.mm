@@ -28,7 +28,7 @@
 {
   if ((self & 0x8000000000000000) == 0)
   {
-    _CFNonObjCRelease();
+    _CFNonObjCRelease(self);
   }
 }
 

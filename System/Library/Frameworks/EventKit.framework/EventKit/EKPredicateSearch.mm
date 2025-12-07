@@ -8,7 +8,9 @@
 - (id)startWithCompletion:(id)completion queue:(id)queue;
 - (void)_createOSActivity;
 - (void)_startActivityWithCompletion:(id)completion synchronous:(BOOL)synchronous queue:(id)queue;
+- (void)_startActualWithCompletion:(id)completion synchronous:(BOOL)synchronous queue:(id)queue;
 - (void)_startFetchObjectIDsActivityWithCompletion:(id)completion synchronous:(BOOL)synchronous queue:(id)queue;
+- (void)_startProcessingWithCompletion:(id)completion synchronous:(BOOL)synchronous processor:(id)processor queue:(id)queue;
 - (void)cancel;
 - (void)filterSkippedReminders:(id)reminders;
 - (void)signpostEndWithError:(int)error count:(unint64_t)count;
@@ -40,184 +42,165 @@
 - (id)_createOSActivity
 {
   p_predicate = &self->_predicate;
-  predicate = self->_predicate;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = "CADEventPredicate";
+    v3 = "CADEventPredicate";
   }
 
   else
   {
-    v5 = *p_predicate;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = "CADNotifiableEventsPredicate";
+      v3 = "CADNotifiableEventsPredicate";
     }
 
     else
     {
-      v6 = *p_predicate;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v4 = "CADEventsForAssistantSearchPredicate";
+        v3 = "CADEventsForAssistantSearchPredicate";
       }
 
       else
       {
-        v7 = *p_predicate;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v4 = "CADNotificationCenterVisibleEventsPredicate";
+          v3 = "CADNotificationCenterVisibleEventsPredicate";
         }
 
         else
         {
-          v8 = *p_predicate;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v4 = "CADUnacknowledgedEventsPredicate";
+            v3 = "CADUnacknowledgedEventsPredicate";
           }
 
           else
           {
-            v9 = *p_predicate;
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v4 = "CADUnalertedEventsPredicate";
+              v3 = "CADUnalertedEventsPredicate";
             }
 
             else
             {
-              v10 = *p_predicate;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v4 = "CADRespondedEventsPredicate";
+                v3 = "CADRespondedEventsPredicate";
               }
 
               else
               {
-                v11 = *p_predicate;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v4 = "CADUpcomingEventsPredicate";
+                  v3 = "CADUpcomingEventsPredicate";
                 }
 
                 else
                 {
-                  v12 = *p_predicate;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v4 = "EKMasterEventsPredicate";
+                    v3 = "EKMasterEventsPredicate";
                   }
 
                   else
                   {
-                    v13 = *p_predicate;
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v4 = "EKScheduleAgentClientEventsPredicate";
+                      v3 = "EKScheduleAgentClientEventsPredicate";
                     }
 
                     else
                     {
-                      v14 = *p_predicate;
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v4 = "CADTravelEventsPredicate";
+                        v3 = "CADTravelEventsPredicate";
                       }
 
                       else
                       {
-                        v15 = *p_predicate;
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v4 = "CADUpNextEventsPredicate";
+                          v3 = "CADUpNextEventsPredicate";
                         }
 
                         else
                         {
-                          v16 = *p_predicate;
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v4 = "CADContactEventsPredicate";
+                            v3 = "CADContactEventsPredicate";
                           }
 
                           else
                           {
-                            v17 = *p_predicate;
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v4 = "CADEventCreatedFromSuggestionPredicate";
+                              v3 = "CADEventCreatedFromSuggestionPredicate";
                             }
 
                             else
                             {
-                              v18 = *p_predicate;
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                v4 = "CADCalendarItemsWithExternalIdentifierPredicate";
+                                v3 = "CADCalendarItemsWithExternalIdentifierPredicate";
                               }
 
                               else
                               {
-                                v19 = *p_predicate;
                                 objc_opt_class();
                                 if (objc_opt_isKindOfClass())
                                 {
-                                  v4 = "CADPropertySearchPredicate";
+                                  v3 = "CADPropertySearchPredicate";
                                 }
 
                                 else
                                 {
-                                  v20 = *p_predicate;
                                   objc_opt_class();
                                   if (objc_opt_isKindOfClass())
                                   {
-                                    v4 = "CADEventTimeWindowPredicate";
+                                    v3 = "CADEventTimeWindowPredicate";
                                   }
 
                                   else
                                   {
-                                    v21 = *p_predicate;
                                     objc_opt_class();
                                     if (objc_opt_isKindOfClass())
                                     {
-                                      v4 = "CADNaturalLanguageSuggestedEventsSearchPredicate";
+                                      v3 = "CADNaturalLanguageSuggestedEventsSearchPredicate";
                                     }
 
                                     else
                                     {
-                                      v22 = *p_predicate;
                                       objc_opt_class();
                                       if (objc_opt_isKindOfClass())
                                       {
-                                        v4 = "CADEventsForConferenceURLPredicate";
+                                        v3 = "CADEventsForConferenceURLPredicate";
                                       }
 
                                       else
                                       {
-                                        v23 = EKLogHandle;
+                                        v4 = EKLogHandle;
                                         if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
                                         {
                                           [(EKPredicateSearch *)p_predicate _createOSActivity];
                                         }
 
-                                        v4 = "Unknown Predicate Search";
+                                        v3 = "Unknown Predicate Search";
                                       }
                                     }
                                   }
@@ -238,44 +221,39 @@
     }
   }
 
-  v24 = _os_activity_create(&dword_1A805E000, v4, MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  v5 = _os_activity_create(&dword_1A805E000, v3, MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
 
-  return v24;
+  return v5;
 }
 
 - (void)signpostStart
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = +[EKPredicateSearch signpostHandle];
   v4 = os_signpost_id_make_with_pointer(v3, self);
 
+  v5 = objc_opt_respondsToSelector();
   predicate = self->_predicate;
-  v6 = objc_opt_respondsToSelector();
-  v7 = self->_predicate;
-  if (v6)
+  if (v5)
   {
-    v15 = +[EKPredicateSearch signpostHandle];
-    [NSPredicate beginSignpostWithHandle:v7 signpostID:"beginSignpostWithHandle:signpostID:"];
-    v8 = *MEMORY[0x1E69E9840];
+    v11 = +[EKPredicateSearch signpostHandle];
+    [NSPredicate beginSignpostWithHandle:"beginSignpostWithHandle:signpostID:" signpostID:?];
   }
 
   else
   {
     predicateFormat = [(NSPredicate *)self->_predicate predicateFormat];
-    v10 = +[EKPredicateSearch signpostHandle];
-    v11 = v10;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v8 = +[EKPredicateSearch signpostHandle];
+    v9 = v8;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
-      v12 = self->_predicate;
       *buf = 138412546;
-      v17 = objc_opt_class();
-      v18 = 2112;
-      v19 = predicateFormat;
-      v13 = v17;
-      _os_signpost_emit_with_name_impl(&dword_1A805E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v4, "EKPredicateSearch", "predicateClass=%@; predicateFormat=%@", buf, 0x16u);
+      v13 = objc_opt_class();
+      v14 = 2112;
+      v15 = predicateFormat;
+      v10 = v13;
+      _os_signpost_emit_with_name_impl(&dword_1A805E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v4, "EKPredicateSearch", "predicateClass=%@; predicateFormat=%@", buf, 0x16u);
     }
-
-    v14 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -322,9 +300,11 @@
 
 uint64_t __35__EKPredicateSearch_signpostHandle__block_invoke()
 {
-  signpostHandle_signpostHandle = os_log_create(ekSubSystem, "EKPredicateSearch");
+  v0 = os_log_create(ekSubSystem, "EKPredicateSearch");
+  v1 = signpostHandle_signpostHandle;
+  signpostHandle_signpostHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (EKPredicateSearch)initWithEntityClass:(Class)class predicate:(id)predicate store:(id)store
@@ -347,7 +327,7 @@ uint64_t __35__EKPredicateSearch_signpostHandle__block_invoke()
 
 - (void)signpostEndWithError:(int)error count:(unint64_t)count
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v7 = +[EKPredicateSearch signpostHandle];
   v8 = os_signpost_id_make_with_pointer(v7, self);
 
@@ -355,14 +335,12 @@ uint64_t __35__EKPredicateSearch_signpostHandle__block_invoke()
   v10 = v9;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
-    v12[0] = 67109376;
-    v12[1] = error;
-    v13 = 2048;
+    v11[0] = 67109376;
+    v11[1] = error;
+    v12 = 2048;
     countCopy = count;
-    _os_signpost_emit_with_name_impl(&dword_1A805E000, v10, OS_SIGNPOST_INTERVAL_END, v8, "EKPredicateSearch", "error=%i; foundItems=%lu", v12, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_1A805E000, v10, OS_SIGNPOST_INTERVAL_END, v8, "EKPredicateSearch", "error=%i; foundItems=%lu", v11, 0x12u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startActivityWithCompletion:(id)completion synchronous:(BOOL)synchronous queue:(id)queue
@@ -421,6 +399,73 @@ uint64_t __82__EKPredicateSearch__startFetchObjectIDsActivityWithCompletion_sync
   v5 = *(a1 + 32);
 
   return [v5 _fetchObjectIDsActualWithCompletion:v2 synchronous:v4 queue:v3];
+}
+
+- (void)_startProcessingWithCompletion:(id)completion synchronous:(BOOL)synchronous processor:(id)processor queue:(id)queue
+{
+  synchronousCopy = synchronous;
+  completionCopy = completion;
+  processorCopy = processor;
+  queueCopy = queue;
+  unsignedIntValue = [self->_cancellationToken unsignedIntValue];
+  entityClass = self->_entityClass;
+  if (entityClass == objc_opt_class())
+  {
+    v17 = 2;
+  }
+
+  else
+  {
+    v15 = self->_entityClass;
+    if (v15 == objc_opt_class())
+    {
+      v17 = 3;
+    }
+
+    else
+    {
+      v16 = self->_entityClass;
+      if (v16 == objc_opt_class())
+      {
+        v17 = 101;
+      }
+
+      else
+      {
+        [MEMORY[0x1E695DF30] raise:@"Unknown entity type" format:{@"Didn't recognize entity class %@", self->_entityClass}];
+        v17 = 0xFFFFFFFFLL;
+      }
+    }
+  }
+
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __80__EKPredicateSearch__startProcessingWithCompletion_synchronous_processor_queue___block_invoke;
+  aBlock[3] = &unk_1E77FE710;
+  aBlock[4] = self;
+  v18 = completionCopy;
+  v27 = v18;
+  v30 = synchronousCopy;
+  v19 = processorCopy;
+  v28 = v19;
+  v20 = queueCopy;
+  v26 = v20;
+  v29 = unsignedIntValue;
+  v21 = _Block_copy(aBlock);
+  connection = [(EKEventStore *)self->_store connection];
+  v23 = connection;
+  if (synchronousCopy)
+  {
+    [connection CADOperationProxySync];
+  }
+
+  else
+  {
+    [connection CADOperationProxy];
+  }
+  v24 = ;
+
+  [v24 CADDatabaseFetchCalendarItemsWithPredicate:self->_predicate entityType:v17 fetchIdentifier:unsignedIntValue synchronous:synchronousCopy reply:v21];
 }
 
 void __80__EKPredicateSearch__startProcessingWithCompletion_synchronous_processor_queue___block_invoke(uint64_t a1, int a2, void *a3)
@@ -486,22 +531,22 @@ LABEL_12:
 
 void __80__EKPredicateSearch__startProcessingWithCompletion_synchronous_processor_queue___block_invoke_60(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v18;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v22 != v5)
+      if (*v18 != v5)
       {
         objc_enumerationMutation(v2);
       }
@@ -511,12 +556,10 @@ LABEL_3:
         break;
       }
 
-      v7 = *(*(&v21 + 1) + 8 * v6);
-      v8 = *(a1 + 48);
       (*(*(a1 + 56) + 16))(*(a1 + 56));
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -527,43 +570,39 @@ LABEL_3:
     }
   }
 
-  v9 = [*(*(a1 + 40) + 32) eventAccessLevel];
-  v10 = [MEMORY[0x1E6992F30] isProgramSDKAtLeast:0x7E60901FFFFFFFFLL];
-  v11 = v9 != 2 || v10 == 0;
-  if (!v11 && [*(*(a1 + 40) + 24) conformsToProtocol:&unk_1F1B9F2B8])
+  v7 = [*(*(a1 + 40) + 32) eventAccessLevel];
+  v8 = [MEMORY[0x1E6992F30] isProgramSDKAtLeast:0x7E60901FFFFFFFFLL];
+  v9 = v7 != 2 || v8 == 0;
+  if (!v9 && [*(*(a1 + 40) + 24) conformsToProtocol:&unk_1F1B9F2B8])
   {
-    v12 = *(a1 + 40);
-    v13 = *(v12 + 32);
-    v14 = *(v12 + 24);
-    v15 = [v13 objectsPendingCommit];
-    v16 = [*(*(a1 + 40) + 32) deletedObjectIDsPendingCommit];
-    [v14 expandWithObjectsPendingCommit:v15 deletedObjectIDs:v16 andResultArray:*(a1 + 48)];
+    v10 = *(a1 + 40);
+    v11 = *(v10 + 32);
+    v12 = *(v10 + 24);
+    v13 = [v11 objectsPendingCommit];
+    v14 = [*(*(a1 + 40) + 32) deletedObjectIDsPendingCommit];
+    [v12 expandWithObjectsPendingCommit:v13 deletedObjectIDs:v14 andResultArray:*(a1 + 48)];
   }
 
   [*(a1 + 40) filterSkippedReminders:*(a1 + 48)];
   [*(a1 + 40) signpostEndWithError:*(a1 + 72) count:{objc_msgSend(*(a1 + 48), "count")}];
-  v17 = *(a1 + 40);
-  if ((*(v17 + 49) & 1) == 0)
+  v15 = *(a1 + 40);
+  if ((*(v15 + 49) & 1) == 0)
   {
-    v18 = *(a1 + 48);
     (*(*(a1 + 64) + 16))();
-    v17 = *(a1 + 40);
+    v15 = *(a1 + 40);
   }
 
-  v19 = [*(v17 + 32) connection];
-  [v19 removeCancellableRemoteOperation:*(a1 + 76)];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = [*(v15 + 32) connection];
+  [v16 removeCancellableRemoteOperation:*(a1 + 76)];
 }
 
 - (void)filterSkippedReminders:(id)reminders
 {
   remindersCopy = reminders;
-  predicate = self->_predicate;
   if ((objc_opt_respondsToSelector() & 1) != 0 && [(NSPredicate *)self->_predicate excludeSkippedReminders]&& [(EKEventStore *)self->_store showsIntegrations])
   {
-    v5 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_72];
-    [remindersCopy filterUsingPredicate:v5];
+    v4 = [MEMORY[0x1E696AE18] predicateWithBlock:&__block_literal_global_72];
+    [remindersCopy filterUsingPredicate:v4];
   }
 }
 
@@ -582,6 +621,23 @@ void __75__EKPredicateSearch__fetchObjectIDsActualWithCompletion_synchronous_que
   v6 = [EKObjectID objectIDWithCADObjectID:v5];
 
   [v4 addObject:v6];
+}
+
+- (void)_startActualWithCompletion:(id)completion synchronous:(BOOL)synchronous queue:(id)queue
+{
+  synchronousCopy = synchronous;
+  predicate = self->_predicate;
+  queueCopy = queue;
+  completionCopy = completion;
+  defaultPropertiesToLoad = [(NSPredicate *)predicate defaultPropertiesToLoad];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __66__EKPredicateSearch__startActualWithCompletion_synchronous_queue___block_invoke;
+  v13[3] = &unk_1E77FE778;
+  v13[4] = self;
+  v14 = defaultPropertiesToLoad;
+  v12 = defaultPropertiesToLoad;
+  [(EKPredicateSearch *)self _startProcessingWithCompletion:completionCopy synchronous:synchronousCopy processor:v13 queue:queueCopy];
 }
 
 void __66__EKPredicateSearch__startActualWithCompletion_synchronous_queue___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -683,44 +739,37 @@ LABEL_14:
 
 - (void)_createOSActivity
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *self;
-  v3 = a2;
-  v6 = 138412290;
-  v7 = objc_opt_class();
-  v4 = v7;
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Unexpected predicate class: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1A805E000, v2, OS_LOG_TYPE_ERROR, "Unexpected predicate class: %@", &v4, 0xCu);
 }
 
 void __80__EKPredicateSearch__startProcessingWithCompletion_synchronous_processor_queue___block_invoke_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 52) + 1;
-  v5[0] = 67109632;
-  v5[1] = a2;
-  v6 = 1024;
-  v7 = v3;
-  v8 = 1024;
-  v9 = 3;
-  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Error (%d) in reply block for CADDatabaseFetchCalendarItemsWithPredicate attempt %d/%d", v5, 0x14u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109632;
+  v4[1] = a2;
+  v5 = 1024;
+  v6 = v3;
+  v7 = 1024;
+  v8 = 3;
+  _os_log_error_impl(&dword_1A805E000, log, OS_LOG_TYPE_ERROR, "Error (%d) in reply block for CADDatabaseFetchCalendarItemsWithPredicate attempt %d/%d", v4, 0x14u);
 }
 
 void __66__EKPredicateSearch__startActualWithCompletion_synchronous_queue___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = *(*a1 + 24);
-  v5 = a2;
-  v8 = 138412546;
-  v9 = objc_opt_class();
-  v10 = 2112;
-  v11 = a3;
-  v6 = v9;
-  _os_log_error_impl(&dword_1A805E000, v5, OS_LOG_TYPE_ERROR, "%@: failed to register result object with objectID: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v6 = 138412546;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_1A805E000, v4, OS_LOG_TYPE_ERROR, "%@: failed to register result object with objectID: %@", &v6, 0x16u);
 }
 
 @end

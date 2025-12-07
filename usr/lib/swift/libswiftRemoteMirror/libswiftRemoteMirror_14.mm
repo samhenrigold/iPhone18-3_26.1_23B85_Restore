@@ -1,4 +1,4 @@
-void swift::reflection::EnumTypeInfoBuilder::addCase(uint64_t *a1, uint64_t a2)
+void swift::reflection::EnumTypeInfoBuilder::addCase(__int128 **a1, uint64_t a2)
 {
   {
     if ((*(a2 + 23) & 0x80000000) == 0)
@@ -44,7 +44,7 @@ LABEL_6:
     v5 = v10;
     *(v3 + 40) = v11;
     *(v3 + 24) = v5;
-    a1[4] = v3 + 48;
+    a1[4] = (v3 + 48);
   }
 }
 
@@ -164,20 +164,20 @@ uint64_t swift::getEnumTagCounts(swift *this, int a2, unsigned int a3)
   return v4 | v3;
 }
 
-uint64_t swift::reflection::EmptyEnumTypeInfo::EmptyEnumTypeInfo(uint64_t result, void *a2)
+uint64_t swift::reflection::EmptyEnumTypeInfo::EmptyEnumTypeInfo(uint64_t a1, __int128 **a2)
 {
-  *(result + 8) = xmmword_DAAA0;
-  *(result + 24) = 0;
-  *(result + 28) = 1;
-  *result = &off_E1578;
-  *(result + 32) = 0;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = xmmword_DAAA0;
+  *(a1 + 24) = 0;
+  *(a1 + 28) = 1;
+  *a1 = &off_E1578;
+  *(a1 + 32) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v2 - *a2) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v2 - *a2) < 0x555555555555556)
     {
       operator new();
     }
@@ -185,8 +185,8 @@ uint64_t swift::reflection::EmptyEnumTypeInfo::EmptyEnumTypeInfo(uint64_t result
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E1540;
-  return result;
+  *a1 = &off_E1540;
+  return a1;
 }
 
 void swift::reflection::EmptyEnumTypeInfo::getSpareBits(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -281,33 +281,32 @@ void swift::reflection::EmptyEnumTypeInfo::~EmptyEnumTypeInfo(swift::reflection:
   operator delete();
 }
 
-uint64_t swift::reflection::UnsupportedEnumTypeInfo::UnsupportedEnumTypeInfo(uint64_t result, int a2, int a3, int a4, int a5, char a6, int a7, void *a8)
+uint64_t swift::reflection::UnsupportedEnumTypeInfo::UnsupportedEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, char a6, int a7, __int128 **a8)
 {
-  *(result + 8) = 4;
-  *(result + 12) = a2;
-  *(result + 16) = a3;
-  *(result + 20) = a4;
-  *(result + 24) = a5;
-  *(result + 28) = a6;
-  *result = &off_E1578;
-  *(result + 32) = a7;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = 4;
+  *(a1 + 12) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 20) = a4;
+  *(a1 + 24) = a5;
+  *(a1 + 28) = a6;
+  *a1 = &off_E1578;
+  *(a1 + 32) = a7;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v8 = a8[1];
   if (v8 != *a8)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v8 - *a8) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v8 - *a8) < 0x555555555555556)
     {
-      v9 = v8 - *a8;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E15B0;
-  return result;
+  *a1 = &off_E15B0;
+  return a1;
 }
 
 void swift::reflection::UnsupportedEnumTypeInfo::getSpareBits(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -402,30 +401,29 @@ void swift::reflection::UnsupportedEnumTypeInfo::~UnsupportedEnumTypeInfo(swift:
   operator delete();
 }
 
-uint64_t swift::reflection::TrivialEnumTypeInfo::TrivialEnumTypeInfo(uint64_t result, int a2, void *a3)
+uint64_t swift::reflection::TrivialEnumTypeInfo::TrivialEnumTypeInfo(uint64_t a1, int a2, __int128 **a3)
 {
-  *(result + 8) = xmmword_DAAA0;
-  *(result + 24) = 0;
-  *(result + 28) = 1;
-  *result = &off_E1578;
-  *(result + 32) = a2;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = xmmword_DAAA0;
+  *(a1 + 24) = 0;
+  *(a1 + 28) = 1;
+  *a1 = &off_E1578;
+  *(a1 + 32) = a2;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v3 = a3[1];
   if (v3 != *a3)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v3 - *a3) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v3 - *a3) < 0x555555555555556)
     {
-      v4 = v3 - *a3;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E15E8;
-  return result;
+  *a1 = &off_E15E8;
+  return a1;
 }
 
 void swift::reflection::TrivialEnumTypeInfo::getSpareBits(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -520,33 +518,32 @@ void swift::reflection::TrivialEnumTypeInfo::~TrivialEnumTypeInfo(swift::reflect
   operator delete();
 }
 
-uint64_t swift::reflection::NoPayloadEnumTypeInfo::NoPayloadEnumTypeInfo(uint64_t result, int a2, int a3, int a4, int a5, int a6, void *a7)
+uint64_t swift::reflection::NoPayloadEnumTypeInfo::NoPayloadEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, int a6, __int128 **a7)
 {
-  *(result + 8) = 4;
-  *(result + 12) = a2;
-  *(result + 16) = a3;
-  *(result + 20) = a4;
-  *(result + 24) = a5;
-  *(result + 28) = 1;
-  *result = &off_E1578;
-  *(result + 32) = a6;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = 4;
+  *(a1 + 12) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 20) = a4;
+  *(a1 + 24) = a5;
+  *(a1 + 28) = 1;
+  *a1 = &off_E1578;
+  *(a1 + 32) = a6;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v7 = a7[1];
   if (v7 != *a7)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v7 - *a7) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v7 - *a7) < 0x555555555555556)
     {
-      v8 = v7 - *a7;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E1620;
-  return result;
+  *a1 = &off_E1620;
+  return a1;
 }
 
 uint64_t swift::reflection::NoPayloadEnumTypeInfo::readExtraInhabitantIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5)
@@ -773,36 +770,35 @@ uint64_t swift::reflection::NoPayloadEnumTypeInfo::projectEnumValue(uint64_t a1,
   return result;
 }
 
-uint64_t swift::reflection::SinglePayloadEnumTypeInfo::SinglePayloadEnumTypeInfo(uint64_t result, int a2, int a3, int a4, int a5, char a6, int a7, void *a8)
+uint64_t swift::reflection::SinglePayloadEnumTypeInfo::SinglePayloadEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, char a6, int a7, __int128 **a8)
 {
-  *(result + 8) = 4;
-  *(result + 12) = a2;
-  *(result + 16) = a3;
-  *(result + 20) = a4;
-  *(result + 24) = a5;
-  *(result + 28) = a6;
-  *result = &off_E1578;
-  *(result + 32) = a7;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = 4;
+  *(a1 + 12) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 20) = a4;
+  *(a1 + 24) = a5;
+  *(a1 + 28) = a6;
+  *a1 = &off_E1578;
+  *(a1 + 32) = a7;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v8 = a8[1];
   if (v8 != *a8)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v8 - *a8) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v8 - *a8) < 0x555555555555556)
     {
-      v9 = v8 - *a8;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E1658;
-  return result;
+  *a1 = &off_E1658;
+  return a1;
 }
 
-uint64_t swift::reflection::SinglePayloadEnumTypeInfo::readExtraInhabitantIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5)
+uint64_t swift::reflection::SinglePayloadEnumTypeInfo::readExtraInhabitantIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5)
 {
   v7 = *(a1 + 40);
   if (*(v7 + 23) < 0)
@@ -843,7 +839,7 @@ uint64_t swift::reflection::SinglePayloadEnumTypeInfo::readExtraInhabitantIndex(
         goto LABEL_5;
       }
 
-      if (*a5 < v17 || *a5 < 0)
+      if (*a5 < v17 || (*a5 & 0x80000000) != 0)
       {
         v18 = -1;
       }
@@ -1204,34 +1200,33 @@ LABEL_26:
   return v23;
 }
 
-uint64_t swift::reflection::TaggedMultiPayloadEnumTypeInfo::TaggedMultiPayloadEnumTypeInfo(uint64_t result, int a2, int a3, int a4, int a5, char a6, void *a7, int a8)
+uint64_t swift::reflection::TaggedMultiPayloadEnumTypeInfo::TaggedMultiPayloadEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, char a6, __int128 **a7, int a8)
 {
-  *(result + 8) = 4;
-  *(result + 12) = a2;
-  *(result + 16) = a3;
-  *(result + 20) = a4;
-  *(result + 24) = a5;
-  *(result + 28) = a6;
-  *result = &off_E1578;
-  *(result + 32) = 2;
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 40) = 0;
+  *(a1 + 8) = 4;
+  *(a1 + 12) = a2;
+  *(a1 + 16) = a3;
+  *(a1 + 20) = a4;
+  *(a1 + 24) = a5;
+  *(a1 + 28) = a6;
+  *a1 = &off_E1578;
+  *(a1 + 32) = 2;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0;
   v8 = a7[1];
   if (v8 != *a7)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v8 - *a7) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v8 - *a7) < 0x555555555555556)
     {
-      v9 = v8 - *a7;
       operator new();
     }
 
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  *result = &off_E1690;
-  *(result + 64) = a8;
-  return result;
+  *a1 = &off_E1690;
+  *(a1 + 64) = a8;
+  return a1;
 }
 
 uint64_t swift::reflection::TaggedMultiPayloadEnumTypeInfo::readExtraInhabitantIndex(swift::reflection::EnumTypeInfo *this, uint64_t a2, uint64_t a3, unsigned __int8 a4, int *a5)
@@ -1568,7 +1563,7 @@ uint64_t swift::reflection::EnumTypeInfo::getNumPayloadCases(swift::reflection::
   return 0;
 }
 
-uint64_t swift::reflection::MultiPayloadEnumTypeInfo::MultiPayloadEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, char a6, void *a7, const void **a8, int a9)
+uint64_t swift::reflection::MultiPayloadEnumTypeInfo::MultiPayloadEnumTypeInfo(uint64_t a1, int a2, int a3, int a4, int a5, char a6, __int128 **a7, const void **a8, int a9)
 {
   *(a1 + 8) = 4;
   *(a1 + 12) = a2;
@@ -1584,9 +1579,8 @@ uint64_t swift::reflection::MultiPayloadEnumTypeInfo::MultiPayloadEnumTypeInfo(u
   v11 = a7[1];
   if (v11 != *a7)
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v11 - *a7) >> 4) < 0x555555555555556)
+    if (0xAAAAAAAAAAAAAAABLL * (v11 - *a7) < 0x555555555555556)
     {
-      v12 = v11 - *a7;
       operator new();
     }
 
@@ -1594,12 +1588,12 @@ uint64_t swift::reflection::MultiPayloadEnumTypeInfo::MultiPayloadEnumTypeInfo(u
   }
 
   *a1 = &off_E16C8;
-  v13 = *a8;
-  *(a1 + 64) = v13;
+  v12 = *a8;
+  *(a1 + 64) = v12;
   *(a1 + 72) = 0;
-  v14 = malloc_type_malloc(v13, 0x100004077774924uLL);
-  *(a1 + 72) = v14;
-  memcpy(v14, a8[1], *(a1 + 64));
+  v13 = malloc_type_malloc(v12, 0x100004077774924uLL);
+  *(a1 + 72) = v13;
+  memcpy(v13, a8[1], *(a1 + 64));
   *(a1 + 80) = a9;
   return a1;
 }
@@ -1649,7 +1643,7 @@ uint64_t swift::reflection::MultiPayloadEnumTypeInfo::readExtraInhabitantIndex(s
     while (v11 != v10);
   }
 
-  swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(this, &size);
+  swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(&size, this);
   if (!size)
   {
     v16 = 0;
@@ -2039,98 +2033,98 @@ LABEL_91:
 
 void swift::reflection::MultiPayloadEnumTypeInfo::getSpareBits(const void **this@<X0>, uint64_t a2@<X8>)
 {
-  v6 = *(this + 16);
-  *a2 = v6;
-  v7 = malloc_type_malloc(v6, 0x100004077774924uLL);
-  *(a2 + 8) = v7;
-  memcpy(v7, this[9], v6);
-  swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(this, &v25);
-  v8 = v26;
-  if (v6 && v25)
+  v4 = *(this + 16);
+  *a2 = v4;
+  v5 = malloc_type_malloc(v4, 0x100004077774924uLL);
+  *(a2 + 8) = v5;
+  memcpy(v5, this[9], v4);
+  swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(&v23, this);
+  v6 = v24;
+  if (v4 && v23)
   {
-    if (v6 >= v25)
+    if (v4 >= v23)
     {
-      v9 = v25;
+      v7 = v23;
     }
 
     else
     {
-      v9 = v6;
+      v7 = v4;
     }
 
-    if (v9 < 8 || (v7 < (v26 + v9) ? (v10 = v26 >= &v7->i8[v9]) : (v10 = 1), !v10))
+    if (v7 < 8 || (v5 < (v24 + v7) ? (v8 = v24 >= &v5->i8[v7]) : (v8 = 1), !v8))
     {
-      v11 = 0;
+      v9 = 0;
       goto LABEL_15;
     }
 
-    if (v9 >= 0x20)
+    if (v7 >= 0x20)
     {
-      v11 = v9 & 0xFFFFFFE0;
-      v16 = (v26 + 16);
-      v17 = v7 + 1;
-      v18 = v11;
+      v9 = v7 & 0xFFFFFFE0;
+      v14 = (v24 + 16);
+      v15 = v5 + 1;
+      v16 = v9;
       do
       {
-        v19 = vbicq_s8(*v17, *v16);
-        v17[-1] = vbicq_s8(v17[-1], v16[-1]);
-        *v17 = v19;
-        v16 += 2;
-        v17 += 2;
-        v18 -= 32;
+        v17 = vbicq_s8(*v15, *v14);
+        v15[-1] = vbicq_s8(v15[-1], v14[-1]);
+        *v15 = v17;
+        v14 += 2;
+        v15 += 2;
+        v16 -= 32;
       }
 
-      while (v18);
-      if (v11 == v9)
+      while (v16);
+      if (v9 == v7)
       {
         goto LABEL_17;
       }
 
-      if ((v9 & 0x18) == 0)
+      if ((v7 & 0x18) == 0)
       {
 LABEL_15:
-        v12 = &v7->i8[v11];
-        v13 = v9 - v11;
-        v14 = &v8[v11];
+        v10 = &v5->i8[v9];
+        v11 = v7 - v9;
+        v12 = &v6[v9];
         do
         {
-          v15 = *v14++;
-          *v12++ &= ~v15;
-          --v13;
+          v13 = *v12++;
+          *v10++ &= ~v13;
+          --v11;
         }
 
-        while (v13);
+        while (v11);
         goto LABEL_17;
       }
     }
 
     else
     {
-      v11 = 0;
+      v9 = 0;
     }
 
-    v20 = v11;
-    v11 = v9 & 0xFFFFFFF8;
-    v21 = &v8[v20];
-    v22 = &v7->i8[v20];
-    v23 = v20 - v11;
+    v18 = v9;
+    v9 = v7 & 0xFFFFFFF8;
+    v19 = &v6[v18];
+    v20 = &v5->i8[v18];
+    v21 = v18 - v9;
     do
     {
-      v24 = *v21++;
-      *v22 = vbic_s8(*v22, v24);
-      ++v22;
-      v23 += 8;
+      v22 = *v19++;
+      *v20 = vbic_s8(*v20, v22);
+      ++v20;
+      v21 += 8;
     }
 
-    while (v23);
-    if (v11 != v9)
+    while (v21);
+    if (v9 != v7)
     {
       goto LABEL_15;
     }
   }
 
 LABEL_17:
-  free(v8);
+  free(v6);
 }
 
 void swift::reflection::MultiPayloadEnumTypeInfo::~MultiPayloadEnumTypeInfo(void **this)
@@ -2245,7 +2239,7 @@ BOOL swift::reflection::MultiPayloadEnumTypeInfo::projectEnumValue(swift::reflec
   v64 = 0;
   if (v12 == v15 || ((v16 = v15 - v12, v16 >= 4) ? (v17 = 4) : (v17 = v16), (*(*a2 + 32))(a2, a3 + v12, a4, &v64, v17)))
   {
-    swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(this, &v65);
+    swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask(&v65, this);
     if (!LODWORD(v65.__r_.__value_.__l.__data_))
     {
       v63 = 0;
@@ -2488,7 +2482,7 @@ LABEL_67:
   return 0;
 }
 
-unsigned int *swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask@<X0>(swift::reflection::MultiPayloadEnumTypeInfo *this@<X0>, uint64_t a2@<X8>)
+unsigned int *swift::reflection::MultiPayloadEnumTypeInfo::getMultiPayloadTagBitsMask@<X0>(unsigned int *__return_ptr a1@<X8>, swift::reflection::MultiPayloadEnumTypeInfo *this@<X0>)
 {
   v4 = *(this + 20);
   v5 = v4 - 1;
@@ -2626,9 +2620,9 @@ LABEL_25:
 
 LABEL_27:
   v28 = *(this + 16);
-  *a2 = v28;
+  *a1 = v28;
   v29 = malloc_type_malloc(v28, 0x100004077774924uLL);
-  *(a2 + 8) = v29;
+  *(a1 + 1) = v29;
   memcpy(v29, *(this + 9), v28);
   v30 = *(this + 5);
   v31 = *(this + 6);
@@ -2675,7 +2669,7 @@ LABEL_27:
 
   if (v28 > v32)
   {
-    *a2 = v32;
+    *a1 = v32;
   }
 
   v35 = 32 - __clz(v5);
@@ -2689,14 +2683,14 @@ LABEL_27:
     v36 = 0;
   }
 
-  return swift::reflection::BitMask::keepOnlyMostSignificantBits(a2, v36);
+  return swift::reflection::BitMask::keepOnlyMostSignificantBits(a1, v36);
 }
 
 uint64_t swift::reflection::BitMask::readMaskedInteger<unsigned int>(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
-  (*(*a2 + 24))(&v18, a2, a3, a4, *a1);
-  v7 = v18;
-  if (v18)
+  (*(*a2 + 24))(&v22, a2, a3, a4, *a1);
+  v7 = v22;
+  if (v22)
   {
     v8 = *a1;
     if (v8)
@@ -2704,7 +2698,7 @@ uint64_t swift::reflection::BitMask::readMaskedInteger<unsigned int>(unsigned in
       v9 = 0;
       v10 = *(a1 + 1);
       v11 = 1;
-      v12 = v18;
+      v12 = v22;
       while (1)
       {
         v14 = *v10++;
@@ -2831,25 +2825,25 @@ LABEL_4:
     v9 = 0;
 LABEL_26:
     *a5 = v9;
-    v18 = 0;
-    v21 = v7;
-    if (!v20)
+    v22 = 0;
+    v25 = v7;
+    if (!v24)
     {
-      v17 = std::__throw_bad_function_call[abi:nn200100]();
-      return swift::reflection::BitMask::readMaskedInteger<unsigned long long>(v17);
+      std::__throw_bad_function_call[abi:nn200100]();
+      return swift::reflection::BitMask::readMaskedInteger<unsigned long long>(v17, v18, v19, v20, v21);
     }
 
-    (*(*v20 + 48))(v20, &v21);
+    (*(*v24 + 48))(v24, &v25);
   }
 
-  if (v20 == &v19)
+  if (v24 == &v23)
   {
-    (*(*v20 + 32))(v20);
+    (*(*v24 + 32))(v24);
   }
 
-  else if (v20)
+  else if (v24)
   {
-    (*(*v20 + 40))(v20);
+    (*(*v24 + 40))(v24);
   }
 
   return v7 != 0;
@@ -3069,7 +3063,7 @@ LABEL_47:
     v28 = v7;
     if (!v27)
     {
-      v23 = std::__throw_bad_function_call[abi:nn200100]();
+      std::__throw_bad_function_call[abi:nn200100]();
       swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(v23, v24);
       return;
     }
@@ -3123,7 +3117,7 @@ void swift::reflection::ExistentialTypeInfoBuilder::addProtocolComposition(swift
 
     else
     {
-      swift::reflection::TypeRefBuilder::getFieldDescriptor(**this, v7, &v14);
+      swift::reflection::TypeRefBuilder::getFieldDescriptor(&v14, **this, v7);
       v9 = v14;
       if (v14)
       {
@@ -3159,7 +3153,7 @@ LABEL_18:
   }
 }
 
-uint64_t swift::reflection::ExistentialTypeInfoBuilder::build(uint64_t a1, uint64_t a2)
+char *swift::reflection::ExistentialTypeInfoBuilder::build(uint64_t a1, uint64_t a2)
 {
   swift::reflection::ExistentialTypeInfoBuilder::examineProtocols(a1);
   if (*(a1 + 56))
@@ -3278,8 +3272,8 @@ LABEL_15:
         goto LABEL_43;
       }
 
-      v13 = *(result + 16);
-      v14 = ((v13 + v30 - 1) & -v13) + 3 * *(result + 12);
+      v13 = *(result + 4);
+      v14 = ((v13 + v30 - 1) & -v13) + 3 * *(result + 3);
       if (HIDWORD(v30) > v13)
       {
         v13 = HIDWORD(v30);
@@ -3428,7 +3422,7 @@ LABEL_9:
         goto LABEL_12;
       }
 
-      swift::reflection::TypeRefBuilder::getFieldDescriptor(**v1, *v3, &v23);
+      swift::reflection::TypeRefBuilder::getFieldDescriptor(&v23, **v1, *v3);
       this = v23;
       if (v23)
       {
@@ -3452,7 +3446,7 @@ LABEL_26:
         {
           if (v10 == 4)
           {
-            ++*(v1 + 13);
+            ++*(v1 + 52);
           }
 
           else
@@ -3462,8 +3456,8 @@ LABEL_26:
               goto LABEL_40;
             }
 
-            *(v1 + 10) = 1;
-            ++*(v1 + 13);
+            *(v1 + 40) = 1;
+            ++*(v1 + 52);
             v13 = swift::reflection::TypeRefBuilder::lookupSuperclass(**v1, v6);
             if (v13)
             {
@@ -3475,7 +3469,7 @@ LABEL_26:
                 {
                   if (!*(TypeInfo + 36))
                   {
-                    *(v1 + 11) = 0;
+                    *(v1 + 44) = 0;
                   }
                 }
 
@@ -3916,7 +3910,7 @@ uint64_t swift::reflection::ExistentialTypeInfoBuilder::buildMetatype(uint64_t a
   return result;
 }
 
-uint64_t swift::reflection::LowerType::rebuildStorageTypeInfo(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *swift::reflection::LowerType::rebuildStorageTypeInfo(uint64_t *a1, char *a2, uint64_t a3)
 {
   if (!a2)
   {
@@ -3927,19 +3921,19 @@ uint64_t swift::reflection::LowerType::rebuildStorageTypeInfo(uint64_t *a1, uint
   v6 = a3 - 1;
   while (1)
   {
-    v7 = *(v4 + 8);
+    v7 = *(v4 + 2);
     if (v7 != 4)
     {
       break;
     }
 
-    if (*(v4 + 32) != 1)
+    if (*(v4 + 8) != 1)
     {
       return 0;
     }
 
-    v8 = *(v4 + 40);
-    if (*(v4 + 48) - v8 != 96)
+    v8 = *(v4 + 5);
+    if (*(v4 + 6) - v8 != 96)
     {
       return 0;
     }
@@ -3957,7 +3951,7 @@ uint64_t swift::reflection::LowerType::rebuildStorageTypeInfo(uint64_t *a1, uint
 
     else
     {
-      v10 = *(v4 + 40);
+      v10 = *(v4 + 5);
       if (v9 != 4)
       {
         return 0;
@@ -4003,22 +3997,20 @@ uint64_t swift::reflection::LowerType::rebuildStorageTypeInfo(uint64_t *a1, uint
 
   if (v7 == 1)
   {
-    if (*(v4 + 32) != 5)
+    if (*(v4 + 8) != 5)
     {
       return 0;
     }
 
-    v17 = *(v4 + 28);
+    v17 = v4[28];
     __p = 0;
-    v43 = 0;
-    v44 = 0;
-    v18 = *(v4 + 40);
-    v19 = *(v4 + 48);
+    v41 = 0;
+    v42 = 0;
+    v18 = *(v4 + 5);
+    v19 = *(v4 + 6);
     if (v18 == v19)
     {
 LABEL_60:
-      v37 = *a1;
-      v38 = *(v4 + 12);
       operator new();
     }
 
@@ -4030,8 +4022,8 @@ LABEL_60:
         v24 = *(v18 + 8);
         if (v24 != 6)
         {
-          v23 = v43;
-          if (v43 < v44)
+          v23 = v41;
+          if (v41 < v42)
           {
             goto LABEL_58;
           }
@@ -4047,8 +4039,8 @@ LABEL_60:
         v22 = v18;
         if (v21 != 6)
         {
-          v23 = v43;
-          if (v43 < v44)
+          v23 = v41;
+          if (v41 < v42)
           {
             goto LABEL_46;
           }
@@ -4062,31 +4054,31 @@ LABEL_60:
       if (v25 == 1701470831 && v26 == 29795)
       {
         v29 = swift::reflection::LowerType::rebuildStorageTypeInfo(a1, *(v18 + 40), a3);
-        v30 = *(v29 + 28);
+        v30 = v29[28];
         v31 = v17 != 0;
         if (*(v18 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v39, *v18, *(v18 + 8));
+          std::string::__init_copy_ctor_external(&v37, *v18, *(v18 + 8));
         }
 
         else
         {
           v32 = *v18;
-          v39.__r_.__value_.__r.__words[2] = *(v18 + 16);
-          *&v39.__r_.__value_.__l.__data_ = v32;
+          v37.__r_.__value_.__r.__words[2] = *(v18 + 16);
+          *&v37.__r_.__value_.__l.__data_ = v32;
         }
 
-        LODWORD(v40) = *(v18 + 24);
-        DWORD1(v40) = -1;
-        *(&v40 + 1) = *(v18 + 32);
-        v41 = v29;
-        v33 = v43;
-        if (v43 >= v44)
+        LODWORD(v38) = *(v18 + 24);
+        DWORD1(v38) = -1;
+        *(&v38 + 1) = *(v18 + 32);
+        v39 = v29;
+        v33 = v41;
+        if (v41 >= v42)
         {
-          v43 = std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo>(&__p, &v39);
-          if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+          v41 = std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo>(&__p, &v37);
+          if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v39.__r_.__value_.__l.__data_);
+            operator delete(v37.__r_.__value_.__l.__data_);
           }
 
           v17 = v31 & v30;
@@ -4094,22 +4086,22 @@ LABEL_60:
 
         else
         {
-          v34 = *&v39.__r_.__value_.__l.__data_;
-          *(v43 + 16) = *(&v39.__r_.__value_.__l + 2);
+          v34 = *&v37.__r_.__value_.__l.__data_;
+          *(v41 + 16) = *(&v37.__r_.__value_.__l + 2);
           *v33 = v34;
-          memset(&v39, 0, sizeof(v39));
-          v35 = v41;
-          *(v33 + 24) = v40;
+          memset(&v37, 0, sizeof(v37));
+          v35 = v39;
+          *(v33 + 24) = v38;
           *(v33 + 40) = v35;
-          v43 = v33 + 48;
+          v41 = v33 + 48;
           v17 = v31 & v30;
         }
 
         goto LABEL_33;
       }
 
-      v23 = v43;
-      if (v43 < v44)
+      v23 = v41;
+      if (v41 < v42)
       {
         if (v21 < 0)
         {
@@ -4136,7 +4128,7 @@ LABEL_46:
 LABEL_31:
       v20 = std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo const&>(&__p, v18);
 LABEL_32:
-      v43 = v20;
+      v41 = v20;
 LABEL_33:
       v18 += 48;
       if (v18 == v19)
@@ -4152,25 +4144,25 @@ LABEL_33:
   }
 
   v15 = *a1;
-  v16 = *(v4 + 36);
+  v16 = *(v4 + 9);
 
   return swift::reflection::TypeConverter::getReferenceTypeInfo(v15, a3, v16);
 }
 
-uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo const&>(uint64_t *a1, uint64_t a2)
+unint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swift::reflection::FieldInfo const&>(__int128 **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4) + 1;
+  v2 = 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1) + 1;
   if (v2 > 0x555555555555555)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v2)
+  if (0x5555555555555556 * (a1[2] - *a1) > v2)
   {
-    v2 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
+    v2 = 0x5555555555555556 * (a1[2] - *a1);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x2AAAAAAAAAAAAAALL)
   {
     v5 = 0x555555555555555;
   }
@@ -4190,7 +4182,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = 16 * ((a1[1] - *a1) >> 4);
+  v6 = 16 * (a1[1] - *a1);
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(v6, *a2, *(a2 + 8));
@@ -4207,7 +4199,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
   v7 = v6 + 48;
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = &(*a1)[v6 / 0x10] - v9;
   if (*a1 != v9)
   {
     v11 = *a1;
@@ -4235,7 +4227,7 @@ uint64_t std::vector<swift::reflection::FieldInfo>::__emplace_back_slow_path<swi
         operator delete(*v8);
       }
 
-      v8 += 48;
+      v8 += 3;
     }
 
     while (v8 != v9);
@@ -4407,9 +4399,9 @@ LABEL_9:
   return result;
 }
 
-uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>@<X0>(uint64_t result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>::try_emplace<__swift::__runtime::llvm::detail::DenseSetEmpty&>@<X0>(uint64_t *result@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = *(result + 16);
+  v4 = *(result + 4);
   if (v4)
   {
     v5 = *result;
@@ -4465,14 +4457,14 @@ LABEL_3:
   }
 
   v18 = v8;
-  v11 = *(result + 8);
+  v11 = *(result + 2);
   if (4 * v11 + 4 >= 3 * v4)
   {
     v4 *= 2;
     goto LABEL_24;
   }
 
-  if (v4 + ~v11 - *(result + 12) <= v4 >> 3)
+  if (v4 + ~v11 - *(result + 3) <= v4 >> 3)
   {
 LABEL_24:
     v16 = result;
@@ -4481,19 +4473,19 @@ LABEL_24:
     __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::detail::DenseSetEmpty,__swift::__runtime::llvm::DenseMapInfo<swift::reflection::TypeRef const*>,__swift::__runtime::llvm::detail::DenseSetPair<swift::reflection::TypeRef const*>>::LookupBucketFor<swift::reflection::TypeRef const*>(v16, a2, &v18);
     result = v16;
     a3 = v17;
-    v11 = *(v16 + 8);
+    v11 = *(v16 + 2);
     v8 = v18;
   }
 
-  *(result + 8) = v11 + 1;
+  *(result + 2) = v11 + 1;
   if (*v8 != -4096)
   {
-    --*(result + 12);
+    --*(result + 3);
   }
 
   *v8 = *a2;
   v5 = *result;
-  v4 = *(result + 16);
+  v4 = *(result + 4);
   v10 = 1;
 LABEL_10:
   *a3 = v8;
@@ -4744,22 +4736,22 @@ void *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<
   if (4 * v4 + 4 >= 3 * v5)
   {
     v5 *= 2;
-    goto LABEL_8;
   }
 
-  if (v5 + ~v4 - *(a1 + 3) <= v5 >> 3)
+  else if (v5 + ~v4 - *(a1 + 3) > v5 >> 3)
   {
-LABEL_8:
-    v7 = a1;
-    __swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>::grow(a1, v5);
-    v9 = 0;
-    __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>,std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>::LookupBucketFor<std::pair<swift::reflection::TypeRef const*,void *>>(v7, a3, &v9);
-    a1 = v7;
-    a4 = v9;
+    goto LABEL_3;
   }
 
+  v7 = a1;
+  __swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>::grow(a1, v5);
+  v9 = 0;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>,std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,swift::reflection::TypeInfo const*>>::LookupBucketFor<std::pair<swift::reflection::TypeRef const*,void *>>(v7, a3, &v9);
+  a1 = v7;
+  a4 = v9;
+LABEL_3:
   ++*(a1 + 2);
-  if (*a4 != -4096 || a4[1] != -4096)
+  if (*a4 != __PAIR128__(-4096, -4096))
   {
     --*(a1 + 3);
   }
@@ -4916,22 +4908,22 @@ void *__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<
   if (4 * v4 + 4 >= 3 * v5)
   {
     v5 *= 2;
-    goto LABEL_8;
   }
 
-  if (v5 + ~v4 - *(a1 + 3) <= v5 >> 3)
+  else if (v5 + ~v4 - *(a1 + 3) > v5 >> 3)
   {
-LABEL_8:
-    v7 = a1;
-    __swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>::grow(a1, v5);
-    v9 = 0;
-    __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>,std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>::LookupBucketFor<std::pair<swift::reflection::TypeRef const*,void *>>(v7, a3, &v9);
-    a1 = v7;
-    a4 = v9;
+    goto LABEL_3;
   }
 
+  v7 = a1;
+  __swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>::grow(a1, v5);
+  v9 = 0;
+  __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>,std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>,__swift::__runtime::llvm::DenseMapInfo<std::pair<swift::reflection::TypeRef const*,void *>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<swift::reflection::TypeRef const*,void *>,std::pair<char const*,swift::reflection::TypeRef const*>>>::LookupBucketFor<std::pair<swift::reflection::TypeRef const*,void *>>(v7, a3, &v9);
+  a1 = v7;
+  a4 = v9;
+LABEL_3:
   ++*(a1 + 2);
-  if (*a4 != -4096 || a4[1] != -4096)
+  if (*a4 != __PAIR128__(-4096, -4096))
   {
     --*(a1 + 3);
   }
@@ -5102,11 +5094,10 @@ void *swift::reflection::TypeRef::dump(uint64_t a1, void *a2, int a3)
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a2, "\n", 1);
 }
 
-void *swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(void *result, uint64_t a2)
+void swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(PrintTypeRef *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = result;
     switch(*(a2 + 8))
     {
       case 0:
@@ -5120,62 +5111,73 @@ void *swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(void *result, 
         PrintTypeRef::visitBoundGenericTypeRef(result, a2);
       case 3:
 
-        return PrintTypeRef::visitTupleTypeRef(result, a2);
+        PrintTypeRef::visitTupleTypeRef(result, a2);
+        return;
       case 4:
 
-        return PrintTypeRef::visitFunctionTypeRef(result, a2);
+        PrintTypeRef::visitFunctionTypeRef(result, a2);
+        return;
       case 5:
 
-        return PrintTypeRef::visitProtocolCompositionTypeRef(result, a2);
+        PrintTypeRef::visitProtocolCompositionTypeRef(result, a2);
+        return;
       case 6:
 
         PrintTypeRef::visitConstrainedExistentialTypeRef(result, a2);
       case 7:
 
-        return PrintTypeRef::visitMetatypeTypeRef(result, a2);
+        PrintTypeRef::visitMetatypeTypeRef(result, a2);
+        return;
       case 8:
         v3 = a2;
         v18 = 20;
         strcpy(__p, "existential_metatype");
         for (i = *(result + 2); i; --i)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         v6 = 20;
         goto LABEL_77;
       case 9:
 
-        return PrintTypeRef::visitGenericTypeParameterTypeRef(result, a2);
+        PrintTypeRef::visitGenericTypeParameterTypeRef(result, a2);
+        return;
       case 0xA:
 
-        return PrintTypeRef::visitDependentMemberTypeRef(result, a2);
+        PrintTypeRef::visitDependentMemberTypeRef(result, a2);
+        return;
       case 0xB:
 
-        return PrintTypeRef::visitForeignClassTypeRef(result, a2);
+        PrintTypeRef::visitForeignClassTypeRef(result, a2);
+        return;
       case 0xC:
 
-        return PrintTypeRef::visitObjCClassTypeRef(result, a2);
+        PrintTypeRef::visitObjCClassTypeRef(result, a2);
+        return;
       case 0xD:
 
-        return PrintTypeRef::visitObjCProtocolTypeRef(result, a2);
+        PrintTypeRef::visitObjCProtocolTypeRef(result, a2);
+        return;
       case 0xE:
 
-        return PrintTypeRef::visitOpaqueTypeRef(result, a2);
+        PrintTypeRef::visitOpaqueTypeRef(result, a2);
+        return;
       case 0xF:
 
-        return PrintTypeRef::visitOpaqueArchetypeTypeRef(result, a2);
+        PrintTypeRef::visitOpaqueArchetypeTypeRef(result, a2);
+        return;
       case 0x10:
         v3 = a2;
         v18 = 12;
         strcpy(__p, "weak_storage");
         for (j = *(result + 2); j; --j)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         v6 = 12;
         goto LABEL_77;
       case 0x11:
@@ -5184,10 +5186,10 @@ void *swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(void *result, 
         strcpy(__p, "unowned_storage");
         for (k = *(result + 2); k; --k)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         v6 = 15;
         goto LABEL_77;
       case 0x12:
@@ -5196,10 +5198,10 @@ void *swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(void *result, 
         strcpy(__p, "unmanaged_storage");
         for (m = *(result + 2); m; --m)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         v6 = 17;
         goto LABEL_77;
       case 0x13:
@@ -5208,10 +5210,10 @@ void *swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(void *result, 
         strcpy(__p, "sil_box");
         for (n = *(result + 2); n; --n)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         v6 = 7;
 LABEL_77:
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, __p, v6);
@@ -5221,23 +5223,25 @@ LABEL_77:
         }
 
         v14 = *(v3 + 16);
-        v15 = *v2;
+        v15 = *result;
         goto LABEL_80;
       case 0x14:
 
-        return PrintTypeRef::visitSILBoxTypeWithLayoutTypeRef(result, a2);
+        PrintTypeRef::visitSILBoxTypeWithLayoutTypeRef(result, a2);
+        return;
       case 0x15:
 
-        return PrintTypeRef::visitIntegerTypeRef(result, a2);
+        PrintTypeRef::visitIntegerTypeRef(result, a2);
+        return;
       case 0x16:
         v18 = 19;
         strcpy(__p, "builtin_fixed_array");
         for (ii = *(result + 2); ii; --ii)
         {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, " ", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, " ", 1);
         }
 
-        v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "(", 1);
+        v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "(", 1);
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, __p, 19);
         if (v18 < 0)
         {
@@ -5245,36 +5249,34 @@ LABEL_77:
         }
 
         v13 = *(a2 + 16);
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, "\n", 1);
-        *(v2 + 2) += 2;
-        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(v2, v13);
-        *(v2 + 2) -= 2;
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, "\n", 1);
+        *(result + 2) += 2;
+        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(result, v13);
+        *(result + 2) -= 2;
         v14 = *(a2 + 24);
-        v15 = *v2;
+        v15 = *result;
 LABEL_80:
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, "\n", 1);
-        *(v2 + 2) += 2;
-        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(v2, v14);
-        *(v2 + 2) -= 2;
-        result = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*v2, ")", 1);
+        *(result + 2) += 2;
+        swift::reflection::TypeRefVisitor<PrintTypeRef,void>::visit(result, v14);
+        *(result + 2) -= 2;
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*result, ")", 1);
         break;
       case 0x17:
 
-        result = PrintTypeRef::visitPackTypeRef(result, a2);
+        PrintTypeRef::visitPackTypeRef(result, a2);
         break;
       case 0x18:
 
-        result = PrintTypeRef::visitPackExpansionTypeRef(result, a2);
+        PrintTypeRef::visitPackExpansionTypeRef(result, a2);
         break;
       default:
-        return result;
+        return;
     }
   }
-
-  return result;
 }
 
-unsigned int *swift::reflection::TypeRef::getDemangling(swift::reflection::TypeRef *this, swift::Demangle::__runtime::Demangler *a2)
+swift::Demangle::__runtime *swift::reflection::TypeRef::getDemangling(swift::reflection::TypeRef *this, swift::Demangle::__runtime::Demangler *a2)
 {
   v8 = a2;
   v2 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(&v8, this);
@@ -5299,7 +5301,7 @@ void swift::reflection::TypeRef::mangle(swift::reflection::TypeRef *this@<X0>, s
     swift::Demangle::__runtime::Node::addChild(Node, v7, a2, v11, v12);
     v13 = swift::Demangle::__runtime::NodeFactory::createNode(a2, 101);
     swift::Demangle::__runtime::Node::addChild(v13, v7, a2, v14, v15);
-    swift::Demangle::__runtime::mangleNode();
+    swift::Demangle::__runtime::mangleNode(v13, 0);
     if (v17)
     {
       v16 = 0;
@@ -5615,7 +5617,7 @@ void swift::reflection::TypeRef::getSubstMap(swift::reflection::TypeRef *this@<X
     v5 = *(this + 5);
     if (v5)
     {
-      (swift::reflection::TypeRef::getSubstMap)(v5);
+      swift::reflection::TypeRef::getSubstMap(v5, a2);
     }
 
     else
@@ -5770,7 +5772,7 @@ LABEL_22:
 LABEL_47:
   if (v6)
   {
-    swift::reflection::TypeRef::getSubstMap(&v43, v6);
+    swift::reflection::TypeRef::getSubstMap(v6, &v43);
     v31 = v46;
     if (v46)
     {
@@ -5981,7 +5983,7 @@ uint64_t swift::reflection::NominalTypeTrait::isAlias(swift::reflection::Nominal
   return swift::Demangle::__runtime::isAlias(this, v3);
 }
 
-const swift::reflection::FunctionTypeRef *swift::reflection::TypeRef::subst(uint64_t a1, uint64_t a2, uint64_t a3)
+const swift::reflection::TupleTypeRef *swift::reflection::TypeRef::subst(_DWORD *a1, uint64_t a2, uint64_t a3)
 {
   __swift::__runtime::llvm::deallocate_buffer(0, 0, 8uLL);
   v6 = *(a3 + 16);
@@ -6068,11 +6070,11 @@ const swift::reflection::FunctionTypeRef *swift::reflection::TypeRef::subst(uint
   return v23;
 }
 
-const swift::reflection::FunctionTypeRef *swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(uint64_t a1, uint64_t a2)
+const swift::reflection::TupleTypeRef *swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(uint64_t a1, _DWORD *a2)
 {
   if (a2)
   {
-    switch(*(a2 + 8))
+    switch(a2[2])
     {
       case 0:
       case 5:
@@ -6085,17 +6087,16 @@ const swift::reflection::FunctionTypeRef *swift::reflection::TypeRefVisitor<Type
       case 0x15:
         return a2;
       case 1:
-        if (!*(a2 + 40))
+        if (!*(a2 + 5))
         {
           return a2;
         }
 
         v6 = *a1;
         v7 = a2;
-        v8 = *(a2 + 40);
-        v9 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
+        v8 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 5));
 
-        return swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(v6, v7 + 16, v9);
+        return swift::reflection::NominalTypeRef::create<swift::reflection::TypeRefBuilder>(v6, v7 + 16, v8);
       case 2:
 
         return TypeRefSubstitution::visitBoundGenericTypeRef(a1, a2);
@@ -6109,63 +6110,62 @@ const swift::reflection::FunctionTypeRef *swift::reflection::TypeRefVisitor<Type
 
         return TypeRefSubstitution::visitConstrainedExistentialTypeRef(a1, a2);
       case 7:
-        v41[0] = 0;
-        v41[1] = 0;
-        v42 = 0;
-        v40 = v41;
+        v33[0] = 0;
+        v33[1] = 0;
+        v34 = 0;
+        v32 = v33;
         v4 = a2;
-        v5 = swift::reflection::TypeRefVisitor<TypeRefIsConcrete,BOOL>::visit(&v40, a2);
-        __swift::__runtime::llvm::deallocate_buffer(v41[0], (16 * v42), 8uLL);
+        v5 = swift::reflection::TypeRefVisitor<TypeRefIsConcrete,BOOL>::visit(&v32, a2);
+        __swift::__runtime::llvm::deallocate_buffer(v33[0], (16 * v34), 8uLL);
         if (v5)
         {
           return v4;
         }
 
-        v37 = *a1;
-        v38 = *(v4 + 16);
-        v39 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-        v17 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(v37, v39, 1);
+        v30 = *a1;
+        v31 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(v4 + 16));
+        v16 = swift::reflection::MetatypeTypeRef::create<swift::reflection::TypeRefBuilder>(v30, v31, 1);
         goto LABEL_58;
       case 9:
-        v10 = a2;
-        v40 = *(a2 + 12);
-        v41[0] = 0;
-        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>((a1 + 8), &v40, v41))
+        v9 = a2;
+        v32 = *(a2 + 3);
+        v33[0] = 0;
+        if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>((a1 + 8), &v32, v33))
         {
-          a2 = v10;
-          if (v41[0] == (*(a1 + 8) + 16 * *(a1 + 24)))
+          a2 = v9;
+          if (v33[0] == (*(a1 + 8) + 16 * *(a1 + 24)))
           {
             return a2;
           }
 
-          v12 = *(v41[0] + 1);
-          v13 = *(a1 + 40);
-          if (*(a1 + 32) != v13)
+          v11 = *(v33[0] + 1);
+          v12 = *(a1 + 40);
+          if (*(a1 + 32) != v12)
           {
-            if (*(v12 + 8) != 23 || v12 == 0)
+            if (*(v11 + 8) != 23 || v11 == 0)
             {
               return 0;
             }
 
-            v15 = *(v13 - 4);
-            v16 = *(v12 + 16);
-            if (v15 >= (*(v12 + 24) - v16) >> 3)
+            v14 = *(v12 - 4);
+            v15 = *(v11 + 16);
+            if (v14 >= (*(v11 + 24) - v15) >> 3)
             {
               return 0;
             }
 
-            v12 = *(v16 + 8 * v15);
+            v11 = *(v15 + 8 * v14);
           }
 
-          v41[0] = *a1;
-          v17 = swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(v41, v12);
+          v33[0] = *a1;
+          v16 = swift::reflection::TypeRefVisitor<ThickenMetatype,swift::reflection::TypeRef const*>::visit(v33, v11);
 LABEL_58:
-          a2 = v17;
+          a2 = v16;
         }
 
         else
         {
-          a2 = v10;
+          a2 = v9;
         }
 
         break;
@@ -6176,38 +6176,32 @@ LABEL_58:
 
         return TypeRefSubstitution::visitOpaqueArchetypeTypeRef(a1, a2);
       case 0x10:
-        v24 = *a1;
-        v25 = *(a2 + 16);
-        v26 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-
-        return swift::reflection::WeakStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v24, v26);
-      case 0x11:
-        v34 = *a1;
-        v35 = *(a2 + 16);
-        v36 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-
-        return swift::reflection::UnownedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v34, v36);
-      case 0x12:
-        v18 = *a1;
-        v19 = *(a2 + 16);
-        v20 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-
-        return swift::reflection::UnmanagedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v18, v20);
-      case 0x13:
         v21 = *a1;
-        v22 = *(a2 + 16);
-        v23 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
+        v22 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 2));
 
-        return swift::reflection::SILBoxTypeRef::create<swift::reflection::TypeRefBuilder>(v21, v23);
+        return swift::reflection::WeakStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v21, v22);
+      case 0x11:
+        v28 = *a1;
+        v29 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 2));
+
+        return swift::reflection::UnownedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v28, v29);
+      case 0x12:
+        v17 = *a1;
+        v18 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 2));
+
+        return swift::reflection::UnmanagedStorageTypeRef::create<swift::reflection::TypeRefBuilder>(v17, v18);
+      case 0x13:
+        v19 = *a1;
+        v20 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 2));
+
+        return swift::reflection::SILBoxTypeRef::create<swift::reflection::TypeRefBuilder>(v19, v20);
       case 0x16:
-        v27 = *a1;
-        v28 = *(a2 + 16);
-        v30 = a2;
-        v31 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
-        v32 = *(v30 + 24);
-        v33 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1);
+        v23 = *a1;
+        v25 = a2;
+        v26 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(a2 + 2));
+        v27 = swift::reflection::TypeRefVisitor<TypeRefSubstitution,swift::reflection::TypeRef const*>::visit(a1, *(v25 + 24));
 
-        return swift::reflection::BuiltinFixedArrayTypeRef::create<swift::reflection::TypeRefBuilder>(v27, v31, v33);
+        return swift::reflection::BuiltinFixedArrayTypeRef::create<swift::reflection::TypeRefBuilder>(v23, v26, v27);
       case 0x17:
 
         return TypeRefSubstitution::visitPackTypeRef(a1, a2);
@@ -6258,11 +6252,9 @@ LABEL_2:
 
         if (v12 == v13)
         {
-          v15 = (a3 + 16);
-          v16 = v11 >= 0 ? (v4 + 16) : *(v4 + 16);
-          v17 = *v15;
-          v18 = (v14 >= 0 ? a3 + 16 : *v15);
-          if (!memcmp(v16, v18, v12))
+          v15 = v11 >= 0 ? (v4 + 16) : *(v4 + 16);
+          v16 = v14 >= 0 ? (a3 + 16) : *(a3 + 16);
+          if (!memcmp(v15, v16, v12))
           {
             if (v9)
             {
@@ -6289,30 +6281,30 @@ LABEL_3:
   {
     if (!v7 && v6 == 3 && a3 && *(a3 + 8) == 3)
     {
-      v36 = *(v4 + 24) - *(v4 + 16);
-      if (v36 == *(a3 + 24) - *(a3 + 16))
+      v32 = *(v4 + 24) - *(v4 + 16);
+      if (v32 == *(a3 + 24) - *(a3 + 16))
       {
-        if ((v36 & 0x7FFFFFFF8) != 0)
+        if ((v32 & 0x7FFFFFFF8) != 0)
         {
-          v37 = 0;
-          v38 = (v36 >> 3) - 1;
+          v33 = 0;
+          v34 = (v32 >> 3) - 1;
           do
           {
-            result = swift::reflection::TypeRef::deriveSubstitutions(a1, *(*(v4 + 16) + 8 * v37), *(*(a3 + 16) + 8 * v37));
+            result = swift::reflection::TypeRef::deriveSubstitutions(a1, *(*(v4 + 16) + 8 * v33), *(*(a3 + 16) + 8 * v33));
             if (result)
             {
-              v39 = v38 == v37;
+              v35 = v34 == v33;
             }
 
             else
             {
-              v39 = 1;
+              v35 = 1;
             }
 
-            ++v37;
+            ++v33;
           }
 
-          while (!v39);
+          while (!v35);
           return result;
         }
 
@@ -6326,24 +6318,24 @@ LABEL_3:
     {
       if (a3 && *(a3 + 8) == 4)
       {
-        v35 = *(v4 + 16);
-        v34 = *(v4 + 24);
-        if (v34 == v35)
+        v31 = *(v4 + 16);
+        v30 = *(v4 + 24);
+        if (v30 == v31)
         {
-          v42 = *(a3 + 16);
-          v41 = *(a3 + 24);
-          if (v41 == v42)
+          v38 = *(a3 + 16);
+          v37 = *(a3 + 24);
+          if (v37 == v38)
           {
             return swift::reflection::TypeRef::deriveSubstitutions(a1, *(v4 + 40), *(a3 + 40));
           }
 
-          if (((v41 - v42) & 0x8000000000000000) == 0)
+          if (((v37 - v38) & 0x8000000000000000) == 0)
           {
             operator new();
           }
         }
 
-        else if (((v34 - v35) & 0x8000000000000000) == 0)
+        else if (((v30 - v31) & 0x8000000000000000) == 0)
         {
           operator new();
         }
@@ -6368,15 +6360,15 @@ LABEL_3:
           return v4 == a3;
         }
 
-        v44 = *(v4 + 12);
-        v43 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::find(a1, &v44);
-        if (*a1 + 16 * *(a1 + 16) == v43)
+        v40 = *(v4 + 12);
+        v39 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::find(a1, &v40);
+        if (*a1 + 16 * *(a1 + 16) == v39)
         {
-          *(__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::FindAndConstruct(a1, &v44) + 1) = a3;
+          *(__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::FindAndConstruct(a1, &v40) + 1) = a3;
           return 1;
         }
 
-        return *(v43 + 8) == a3;
+        return *(v39 + 8) == a3;
       }
 
       if (!a3)
@@ -6416,97 +6408,93 @@ LABEL_3:
     return v4 == a3;
   }
 
-  v20 = *(v4 + 40);
-  v21 = *(a3 + 40);
-  if ((v20 != 0) == (v21 == 0))
+  v18 = *(v4 + 40);
+  v19 = *(a3 + 40);
+  if ((v18 != 0) == (v19 == 0))
   {
     return 0;
   }
 
-  v22 = *(v4 + 39);
-  if (v22 >= 0)
+  v20 = *(v4 + 39);
+  if (v20 >= 0)
   {
-    v23 = *(v4 + 39);
+    v21 = *(v4 + 39);
   }
 
   else
   {
-    v23 = *(v4 + 24);
+    v21 = *(v4 + 24);
   }
 
-  v24 = *(a3 + 39);
-  v25 = v24;
-  if ((v24 & 0x80u) != 0)
+  v22 = *(a3 + 39);
+  v23 = v22;
+  if ((v22 & 0x80u) != 0)
   {
-    v24 = *(a3 + 24);
+    v22 = *(a3 + 24);
   }
 
-  if (v23 != v24)
-  {
-    return 0;
-  }
-
-  v26 = (a3 + 16);
-  v27 = v22 >= 0 ? (v4 + 16) : *(v4 + 16);
-  v28 = *v26;
-  v29 = (v25 >= 0 ? a3 + 16 : *v26);
-  if (memcmp(v27, v29, v23))
+  if (v21 != v22)
   {
     return 0;
   }
 
-  v30 = *(v4 + 56) - *(v4 + 48);
-  if (v30 != *(a3 + 56) - *(a3 + 48))
+  v24 = v20 >= 0 ? (v4 + 16) : *(v4 + 16);
+  v25 = v23 >= 0 ? (a3 + 16) : *(a3 + 16);
+  if (memcmp(v24, v25, v21))
   {
     return 0;
   }
 
-  if (v20)
+  v26 = *(v4 + 56) - *(v4 + 48);
+  if (v26 != *(a3 + 56) - *(a3 + 48))
   {
-    result = swift::reflection::TypeRef::deriveSubstitutions(a1, v20, v21);
+    return 0;
+  }
+
+  if (v18)
+  {
+    result = swift::reflection::TypeRef::deriveSubstitutions(a1, v18, v19);
     if (!result)
     {
       return result;
     }
 
-    v30 = *(v4 + 56) - *(v4 + 48);
+    v26 = *(v4 + 56) - *(v4 + 48);
   }
 
-  if ((v30 & 0x7FFFFFFF8) == 0)
+  if ((v26 & 0x7FFFFFFF8) == 0)
   {
     return 1;
   }
 
-  v31 = 0;
-  v32 = (v30 >> 3) - 1;
+  v27 = 0;
+  v28 = (v26 >> 3) - 1;
   do
   {
-    result = swift::reflection::TypeRef::deriveSubstitutions(a1, *(*(v4 + 48) + 8 * v31), *(*(a3 + 48) + 8 * v31));
+    result = swift::reflection::TypeRef::deriveSubstitutions(a1, *(*(v4 + 48) + 8 * v27), *(*(a3 + 48) + 8 * v27));
     if (result)
     {
-      v33 = v32 == v31;
+      v29 = v28 == v27;
     }
 
     else
     {
-      v33 = 1;
+      v29 = 1;
     }
 
-    ++v31;
+    ++v27;
   }
 
-  while (!v33);
+  while (!v29);
   return result;
 }
 
 uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::find(uint64_t a1, _DWORD *a2)
 {
-  v6 = 0;
-  v3 = __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>(a1, a2, &v6);
-  v4 = *a1;
-  if (v3)
+  v4 = 0;
+  if (__swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseMap<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>,std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*,__swift::__runtime::llvm::DenseMapInfo<std::pair<unsigned int,unsigned int>>,__swift::__runtime::llvm::detail::DenseMapPair<std::pair<unsigned int,unsigned int>,swift::reflection::TypeRef const*>>::LookupBucketFor<std::pair<unsigned int,unsigned int>>(a1, a2, &v4))
   {
-    return v6;
+    return v4;
   }
 
   else
@@ -6515,7 +6503,7 @@ uint64_t __swift::__runtime::llvm::DenseMapBase<__swift::__runtime::llvm::DenseM
   }
 }
 
-unsigned int *swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(DemanglingForTypeRef *a1, uint64_t *a2)
+swift::Demangle::__runtime *swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(DemanglingForTypeRef *a1, const swift::reflection::BuiltinTypeRef *a2)
 {
   if (!a2)
   {
@@ -6615,13 +6603,13 @@ unsigned int *swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Dema
 LABEL_66:
       Node = swift::Demangle::__runtime::NodeFactory::createNode(v5, v7);
 LABEL_67:
-      v37 = v6[2];
+      v36 = *(v6 + 2);
       goto LABEL_73;
     case 0x14:
 
       return DemanglingForTypeRef::visitSILBoxTypeWithLayoutTypeRef(a1, a2);
     case 0x15:
-      v25 = a2[2];
+      v25 = *(a2 + 2);
       v26 = *a1;
       if (v25 >= 0)
       {
@@ -6649,39 +6637,38 @@ LABEL_67:
 LABEL_63:
       Node = swift::Demangle::__runtime::NodeFactory::createNode(v18, v20);
       v28 = v19;
-      v29 = v19[2];
-      v30 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1);
-      if (v30)
+      v29 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1, *(v19 + 2));
+      if (v29)
       {
-        v33 = v30;
-        v34 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
-        swift::Demangle::__runtime::Node::addChild(v34, v33, *a1, v35, v36);
+        v32 = v29;
+        v33 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
+        swift::Demangle::__runtime::Node::addChild(v33, v32, *a1, v34, v35);
       }
 
       else
       {
-        v34 = 0;
+        v33 = 0;
       }
 
-      swift::Demangle::__runtime::Node::addChild(Node, v34, *a1, v31, v32);
-      v38 = v28[3];
+      swift::Demangle::__runtime::Node::addChild(Node, v33, *a1, v30, v31);
+      v36 = *(v28 + 3);
 LABEL_73:
-      v39 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1);
-      if (v39)
+      v37 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1, v36);
+      if (v37)
       {
-        v40 = v39;
-        v41 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
-        swift::Demangle::__runtime::Node::addChild(v41, v40, *a1, v42, v43);
+        v38 = v37;
+        v39 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
+        swift::Demangle::__runtime::Node::addChild(v39, v38, *a1, v40, v41);
       }
 
       else
       {
-        v41 = 0;
+        v39 = 0;
       }
 
       v16 = *a1;
       v17 = Node;
-      v13 = v41;
+      v13 = v39;
 LABEL_77:
       swift::Demangle::__runtime::Node::addChild(v17, v13, v16, v14, v15);
       break;
@@ -6757,7 +6744,7 @@ LABEL_12:
   return v8;
 }
 
-unsigned int *DemanglingForTypeRef::visitNominalTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::NominalTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitNominalTypeRef(DemanglingForTypeRef *this, const swift::reflection::NominalTypeRef *a2)
 {
   v4 = a2 + 16;
   v5 = *(a2 + 39);
@@ -6783,11 +6770,11 @@ unsigned int *DemanglingForTypeRef::visitNominalTypeRef(swift::Demangle::__runti
   }
 
   v9 = *this;
-  v28 = 0;
-  v10 = swift::Demangle::__runtime::Demangler::demangleType(v9, v6, v8, v27);
-  if (v28 == v27)
+  v29 = 0;
+  v10 = swift::Demangle::__runtime::Demangler::demangleType(v9, v6, v8, v28);
+  if (v29 == v28)
   {
-    (*(*v28 + 32))(v28);
+    (*(*v29 + 32))(v29);
     if (!v10)
     {
       return 0;
@@ -6796,9 +6783,9 @@ unsigned int *DemanglingForTypeRef::visitNominalTypeRef(swift::Demangle::__runti
 
   else
   {
-    if (v28)
+    if (v29)
     {
-      (*(*v28 + 40))();
+      (*(*v29 + 40))();
     }
 
     if (!v10)
@@ -6834,20 +6821,21 @@ LABEL_19:
     return v10;
   }
 
-  if (!*(a2 + 5))
-  {
-    return v10;
-  }
-
-  v13 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
+  v13 = *(a2 + 5);
   if (!v13)
   {
     return v10;
   }
 
-  v14 = v13;
+  v14 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, v13);
+  if (!v14)
+  {
+    return v10;
+  }
+
+  v15 = v14;
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-  swift::Demangle::__runtime::Node::addChild(Node, v14, *this, v16, v17);
+  swift::Demangle::__runtime::Node::addChild(Node, v15, *this, v17, v18);
   if (!Node)
   {
     return v10;
@@ -6855,15 +6843,15 @@ LABEL_19:
 
   if (*(Node + 16) == 243)
   {
-    v18 = *(Node + 18);
-    if ((v18 - 1) < 2)
+    v19 = *(Node + 18);
+    if ((v19 - 1) < 2)
     {
 LABEL_30:
       Node = *Node;
       goto LABEL_31;
     }
 
-    if (v18 == 5 && *(Node + 8))
+    if (v19 == 5 && *(Node + 8))
     {
       Node = *Node;
       goto LABEL_30;
@@ -6871,27 +6859,27 @@ LABEL_30:
   }
 
 LABEL_31:
-  v19 = swift::Demangle::__runtime::NodeFactory::createNode(*this, *(v10 + 16));
-  swift::Demangle::__runtime::Node::addChild(v19, Node, *this, v20, v21);
-  v24 = *(v10 + 18);
-  if (v24 != 2)
+  v20 = swift::Demangle::__runtime::NodeFactory::createNode(*this, *(v10 + 16));
+  swift::Demangle::__runtime::Node::addChild(v20, Node, *this, v21, v22);
+  v25 = *(v10 + 18);
+  if (v25 != 2)
   {
-    if (v24 != 5 || *(v10 + 8) < 2u)
+    if (v25 != 5 || *(v10 + 8) < 2u)
     {
-      v25 = 0;
+      v26 = 0;
       goto LABEL_39;
     }
 
     v10 = *v10;
   }
 
-  v25 = *(v10 + 8);
+  v26 = *(v10 + 8);
 LABEL_39:
-  swift::Demangle::__runtime::Node::addChild(v19, v25, *this, v22, v23);
-  return v19;
+  swift::Demangle::__runtime::Node::addChild(v20, v26, *this, v23, v24);
+  return v20;
 }
 
-unsigned int *DemanglingForTypeRef::visitBoundGenericTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::BoundGenericTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitBoundGenericTypeRef(DemanglingForTypeRef *this, const swift::reflection::BoundGenericTypeRef *a2)
 {
   v4 = a2 + 16;
   v5 = *(a2 + 39);
@@ -6905,187 +6893,186 @@ unsigned int *DemanglingForTypeRef::visitBoundGenericTypeRef(swift::Demangle::__
     v6 = *(a2 + 2);
   }
 
-  v7 = *(a2 + 3);
   if (v5 >= 0)
   {
-    v8 = *(a2 + 39);
+    v7 = *(a2 + 39);
   }
 
   else
   {
-    v8 = *(a2 + 3);
+    v7 = *(a2 + 3);
   }
 
-  if (swift::Demangle::__runtime::isStruct(v6, v8))
+  if (swift::Demangle::__runtime::isStruct(v6, v7))
   {
-    v9 = 15;
+    v8 = 15;
   }
 
   else
   {
-    v10 = *(a2 + 39);
-    if (v10 >= 0)
+    v9 = *(a2 + 39);
+    if (v9 >= 0)
     {
-      v11 = v4;
+      v10 = v4;
     }
 
     else
     {
-      v11 = *(a2 + 2);
+      v10 = *(a2 + 2);
     }
 
-    if (v10 >= 0)
+    if (v9 >= 0)
+    {
+      v11 = *(a2 + 39);
+    }
+
+    else
+    {
+      v11 = *(a2 + 3);
+    }
+
+    if (swift::Demangle::__runtime::isEnum(v10, v11))
+    {
+      v8 = 14;
+    }
+
+    else
     {
       v12 = *(a2 + 39);
-    }
-
-    else
-    {
-      v12 = *(a2 + 3);
-    }
-
-    if (swift::Demangle::__runtime::isEnum(v11, v12))
-    {
-      v9 = 14;
-    }
-
-    else
-    {
-      v13 = *(a2 + 39);
-      if (v13 >= 0)
+      if (v12 >= 0)
       {
-        v14 = v4;
+        v13 = v4;
       }
 
       else
       {
-        v14 = *(a2 + 2);
+        v13 = *(a2 + 2);
       }
 
-      if (v13 >= 0)
+      if (v12 >= 0)
       {
-        v15 = *(a2 + 39);
-      }
-
-      else
-      {
-        v15 = *(a2 + 3);
-      }
-
-      if (swift::Demangle::__runtime::isClass(v14, v15))
-      {
-        v9 = 13;
+        v14 = *(a2 + 39);
       }
 
       else
       {
-        v9 = 17;
+        v14 = *(a2 + 3);
+      }
+
+      if (swift::Demangle::__runtime::isClass(v13, v14))
+      {
+        v8 = 13;
+      }
+
+      else
+      {
+        v8 = 17;
       }
     }
   }
 
-  v16 = *this;
-  v17 = *(a2 + 39);
-  if (v17 >= 0)
+  v15 = *this;
+  v16 = *(a2 + 39);
+  if (v16 >= 0)
   {
-    v18 = v4;
+    v17 = v4;
   }
 
   else
   {
-    v18 = *(a2 + 2);
+    v17 = *(a2 + 2);
   }
 
-  if (v17 >= 0)
+  if (v16 >= 0)
   {
-    v19 = *(a2 + 39);
+    v18 = *(a2 + 39);
   }
 
   else
   {
-    v19 = *(a2 + 3);
+    v18 = *(a2 + 3);
   }
 
-  v56 = 0;
-  v20 = swift::Demangle::__runtime::Demangler::demangleType(v16, v18, v19, v55);
-  if (v56 == v55)
+  v55 = 0;
+  v19 = swift::Demangle::__runtime::Demangler::demangleType(v15, v17, v18, v54);
+  if (v55 == v54)
   {
-    (*(*v56 + 32))(v56);
+    (*(*v55 + 32))(v55);
   }
 
-  else if (v56)
+  else if (v55)
   {
-    (*(*v56 + 40))();
+    (*(*v55 + 40))();
   }
 
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 246);
-  v22 = *(a2 + 6);
-  v23 = *(a2 + 7);
-  while (v22 != v23)
+  v21 = *(a2 + 6);
+  v22 = *(a2 + 7);
+  while (v21 != v22)
   {
-    v30 = *v22;
-    v31 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v31)
+    v29 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *v21);
+    if (v29)
     {
-      v24 = v31;
-      v25 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-      swift::Demangle::__runtime::Node::addChild(v25, v24, *this, v26, v27);
+      v23 = v29;
+      v24 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+      swift::Demangle::__runtime::Node::addChild(v24, v23, *this, v25, v26);
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
-    swift::Demangle::__runtime::Node::addChild(Node, v25, *this, v28, v29);
-    ++v22;
+    swift::Demangle::__runtime::Node::addChild(Node, v24, *this, v27, v28);
+    ++v21;
   }
 
-  v32 = swift::Demangle::__runtime::NodeFactory::createNode(*this, v9);
-  swift::Demangle::__runtime::Node::addChild(v32, v20, *this, v33, v34);
-  swift::Demangle::__runtime::Node::addChild(v32, Node, *this, v35, v36);
-  if (!*(a2 + 5))
+  v30 = swift::Demangle::__runtime::NodeFactory::createNode(*this, v8);
+  swift::Demangle::__runtime::Node::addChild(v30, v19, *this, v31, v32);
+  swift::Demangle::__runtime::Node::addChild(v30, Node, *this, v33, v34);
+  v35 = *(a2 + 5);
+  if (!v35)
   {
-    return v32;
+    return v30;
   }
 
-  v37 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-  if (!v37)
+  v36 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, v35);
+  if (!v36)
   {
-    return v32;
+    return v30;
   }
 
-  v38 = v37;
-  v39 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-  swift::Demangle::__runtime::Node::addChild(v39, v38, *this, v40, v41);
-  if (!v39)
+  v37 = v36;
+  v38 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+  swift::Demangle::__runtime::Node::addChild(v38, v37, *this, v39, v40);
+  if (!v38)
   {
-    return v32;
+    return v30;
   }
 
-  v42 = *(v39 + 18);
-  if ((v42 - 1) >= 2 && (v42 != 5 || !*(v39 + 8)))
+  v41 = *(v38 + 18);
+  if ((v41 - 1) >= 2 && (v41 != 5 || !*(v38 + 8)))
   {
-    return v32;
+    return v30;
   }
 
-  if (*(v39 + 16) != 243)
+  if (*(v38 + 16) != 243)
   {
-    return v32;
+    return v30;
   }
 
-  v43 = *(v20 + 18);
-  v44 = v43 - 1;
-  if ((v43 - 1) >= 2 && (v43 != 5 || !*(v20 + 8)))
+  v42 = *(v19 + 18);
+  v43 = v42 - 1;
+  if ((v42 - 1) >= 2 && (v42 != 5 || !*(v19 + 8)))
   {
-    return v32;
+    return v30;
   }
 
-  if ((v42 - 1) < 2)
+  if ((v41 - 1) < 2)
   {
 LABEL_56:
-    v45 = *v39;
-    if (v44 < 2)
+    v44 = *v38;
+    if (v43 < 2)
     {
       goto LABEL_62;
     }
@@ -7093,52 +7080,52 @@ LABEL_56:
     goto LABEL_59;
   }
 
-  if (v42 == 5 && *(v39 + 8))
+  if (v41 == 5 && *(v38 + 8))
   {
-    v39 = *v39;
+    v38 = *v38;
     goto LABEL_56;
   }
 
-  v45 = 0;
-  if (v44 < 2)
+  v44 = 0;
+  if (v43 < 2)
   {
     goto LABEL_62;
   }
 
 LABEL_59:
-  if (v43 != 5 || !*(v20 + 8))
+  if (v42 != 5 || !*(v19 + 8))
   {
-    v46 = 0;
+    v45 = 0;
     goto LABEL_64;
   }
 
-  v20 = *v20;
+  v19 = *v19;
 LABEL_62:
-  v46 = *v20;
+  v45 = *v19;
 LABEL_64:
-  v47 = *(v46 + 18);
-  v48 = v46;
-  if (v47 == 2)
+  v46 = *(v45 + 18);
+  v47 = v45;
+  if (v46 == 2)
   {
 LABEL_68:
-    v49 = *(v48 + 8);
-    swift::Demangle::__runtime::Node::removeChildAt(v46, 1u);
-    swift::Demangle::__runtime::Node::removeChildAt(v46, 0);
-    swift::Demangle::__runtime::Node::addChild(v46, v45, *this, v50, v51);
-    swift::Demangle::__runtime::Node::addChild(v46, v49, *this, v52, v53);
-    return v32;
+    v48 = *(v47 + 8);
+    swift::Demangle::__runtime::Node::removeChildAt(v45, 1u);
+    swift::Demangle::__runtime::Node::removeChildAt(v45, 0);
+    swift::Demangle::__runtime::Node::addChild(v45, v44, *this, v49, v50);
+    swift::Demangle::__runtime::Node::addChild(v45, v48, *this, v51, v52);
+    return v30;
   }
 
-  if (v47 == 5 && *(v46 + 8) == 2)
+  if (v46 == 5 && *(v45 + 8) == 2)
   {
-    v48 = *v46;
+    v47 = *v45;
     goto LABEL_68;
   }
 
-  return v32;
+  return v30;
 }
 
-unsigned int *DemanglingForTypeRef::visitTupleTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::TupleTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitTupleTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::TupleTypeRef *a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 234);
   v4 = *(a2 + 5);
@@ -7161,44 +7148,44 @@ unsigned int *DemanglingForTypeRef::visitTupleTypeRef(swift::Demangle::__runtime
     v10 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 235);
     if (*(v6 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v37, *v6, *(v6 + 1));
+      std::string::__init_copy_ctor_external(&v36, *v6, *(v6 + 1));
     }
 
     else
     {
       v11 = *v6;
-      v37.__r_.__value_.__r.__words[2] = *(v6 + 2);
-      *&v37.__r_.__value_.__l.__data_ = v11;
+      v36.__r_.__value_.__r.__words[2] = *(v6 + 2);
+      *&v36.__r_.__value_.__l.__data_ = v11;
     }
 
-    if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v37.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v37.__r_.__value_.__l.__size_;
+      size = v36.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
       v13 = *this;
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v14 = &v37;
+        v14 = &v36;
       }
 
       else
       {
-        v14 = v37.__r_.__value_.__r.__words[0];
+        v14 = v36.__r_.__value_.__r.__words[0];
       }
 
-      v15 = *(v13 + 1);
+      v15 = v13[1];
       v16 = &v15[size];
       if (v15)
       {
-        v17 = v16 > *(v13 + 2);
+        v17 = v16 > v13[2];
       }
 
       else
@@ -7208,48 +7195,47 @@ unsigned int *DemanglingForTypeRef::visitTupleTypeRef(swift::Demangle::__runtime
 
       if (v17)
       {
-        v18 = 2 * *(v13 + 4);
+        v18 = 2 * v13[4];
         if (v18 <= size + 1)
         {
           v18 = size + 1;
         }
 
-        *(v13 + 4) = v18;
+        v13[4] = v18;
         v19 = v18 + 8;
         v20 = malloc_type_malloc(v18 + 8, 0x2004093837F09uLL);
         v21 = v20 + v19;
-        *v20 = *(v13 + 3);
+        *v20 = v13[3];
         v15 = (v20 + 1);
-        *(v13 + 2) = v21;
-        *(v13 + 3) = v20;
+        v13[2] = v21;
+        v13[3] = v20;
         v16 = v20 + size + 8;
       }
 
-      *(v13 + 1) = v16;
+      v13[1] = v16;
       memmove(v15, v14, size);
       NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v13, 236, v15, size);
       swift::Demangle::__runtime::Node::addChild(v10, NodeWithAllocatedText, *this, v23, v24);
     }
 
-    v25 = *v8;
-    v26 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v26)
+    v25 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *v8);
+    if (v25)
     {
-      v29 = v26;
-      v30 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-      swift::Demangle::__runtime::Node::addChild(v30, v29, *this, v31, v32);
+      v28 = v25;
+      v29 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+      swift::Demangle::__runtime::Node::addChild(v29, v28, *this, v30, v31);
     }
 
     else
     {
-      v30 = 0;
+      v29 = 0;
     }
 
-    swift::Demangle::__runtime::Node::addChild(v10, v30, *this, v27, v28);
-    swift::Demangle::__runtime::Node::addChild(Node, v10, *this, v33, v34);
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    swift::Demangle::__runtime::Node::addChild(v10, v29, *this, v26, v27);
+    swift::Demangle::__runtime::Node::addChild(Node, v10, *this, v32, v33);
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v37.__r_.__value_.__l.__data_);
+      operator delete(v36.__r_.__value_.__l.__data_);
     }
 
     v6 = (v6 + 24);
@@ -7259,7 +7245,7 @@ unsigned int *DemanglingForTypeRef::visitTupleTypeRef(swift::Demangle::__runtime
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitFunctionTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::FunctionTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitFunctionTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::FunctionTypeRef *a2)
 {
   v4 = *(a2 + 6);
   if (BYTE2(v4) == 3)
@@ -7328,41 +7314,41 @@ LABEL_42:
     Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 234);
     if (v118)
     {
-      v39 = v117;
-      v40 = (v117 + 16 * v118);
+      v38 = v117;
+      v39 = (v117 + 16 * v118);
       do
       {
-        v45 = *v39;
-        v46 = *(v39 + 8);
-        v49 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 235);
-        if (v46 == 1)
+        v44 = *v38;
+        v45 = *(v38 + 8);
+        v48 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 235);
+        if (v45 == 1)
         {
-          v50 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 289);
-          swift::Demangle::__runtime::Node::addChild(v49, v50, *this, v51, v52);
+          v49 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 289);
+          swift::Demangle::__runtime::Node::addChild(v48, v49, *this, v50, v51);
         }
 
-        v53 = *this;
-        if (*(v45 + 8) == 243)
+        v52 = *this;
+        if (*(v44 + 8) == 243)
         {
-          v41 = v49;
-          v42 = v45;
+          v40 = v48;
+          v41 = v44;
         }
 
         else
         {
-          v54 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-          swift::Demangle::__runtime::Node::addChild(v54, v45, *this, v55, v56);
-          v53 = *this;
-          v41 = v49;
-          v42 = v54;
+          v53 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+          swift::Demangle::__runtime::Node::addChild(v53, v44, *this, v54, v55);
+          v52 = *this;
+          v40 = v48;
+          v41 = v53;
         }
 
-        swift::Demangle::__runtime::Node::addChild(v41, v42, v53, v47, v48);
-        swift::Demangle::__runtime::Node::addChild(Node, v49, *this, v43, v44);
-        v39 += 2;
+        swift::Demangle::__runtime::Node::addChild(v40, v41, v52, v46, v47);
+        swift::Demangle::__runtime::Node::addChild(Node, v48, *this, v42, v43);
+        v38 += 2;
       }
 
-      while (v39 != v40);
+      while (v38 != v39);
     }
 
     goto LABEL_50;
@@ -7371,38 +7357,37 @@ LABEL_42:
   do
   {
     v13 = *(v11 + 24);
-    v14 = *(v11 + 16);
-    v15 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v15)
+    v14 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *(v11 + 16));
+    if (v14)
     {
-      v16 = v15;
-      v17 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-      swift::Demangle::__runtime::Node::addChild(v17, v16, *this, v18, v19);
+      v15 = v14;
+      v16 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+      swift::Demangle::__runtime::Node::addChild(v16, v15, *this, v17, v18);
       if ((v13 & 0x200) == 0)
       {
         goto LABEL_22;
       }
 
 LABEL_21:
-      v20 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 340);
-      swift::Demangle::__runtime::Node::addChild(v20, v17, *this, v21, v22);
-      v17 = v20;
+      v19 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 340);
+      swift::Demangle::__runtime::Node::addChild(v19, v16, *this, v20, v21);
+      v16 = v19;
       goto LABEL_22;
     }
 
-    v17 = 0;
+    v16 = 0;
     if ((v13 & 0x200) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_22:
-    v23 = (v13 & 0x7F) - 1;
-    if (v23 <= 2)
+    v22 = (v13 & 0x7F) - 1;
+    if (v22 <= 2)
     {
-      v30 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 0xDC00DB0080uLL >> (16 * (v23 & 0xF)));
-      swift::Demangle::__runtime::Node::addChild(v30, v17, *this, v31, v32);
-      v17 = v30;
+      v29 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 0xDC00DB0080uLL >> (16 * (v22 & 0xF)));
+      swift::Demangle::__runtime::Node::addChild(v29, v16, *this, v30, v31);
+      v16 = v29;
       if ((v13 & 0x400) == 0)
       {
 LABEL_24:
@@ -7412,9 +7397,9 @@ LABEL_24:
         }
 
 LABEL_25:
-        v24 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 134);
-        swift::Demangle::__runtime::Node::addChild(v24, v17, *this, v25, v26);
-        v17 = v24;
+        v23 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 134);
+        swift::Demangle::__runtime::Node::addChild(v23, v16, *this, v24, v25);
+        v16 = v23;
         goto LABEL_26;
       }
     }
@@ -7424,89 +7409,89 @@ LABEL_25:
       goto LABEL_24;
     }
 
-    v33 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 132);
-    swift::Demangle::__runtime::Node::addChild(v33, v17, *this, v34, v35);
-    v17 = v33;
+    v32 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 132);
+    swift::Demangle::__runtime::Node::addChild(v32, v16, *this, v33, v34);
+    v16 = v32;
     if ((v13 & 0x800) != 0)
     {
       goto LABEL_25;
     }
 
 LABEL_26:
-    v27 = v118;
+    v26 = v118;
     if (v118 >= HIDWORD(v118))
     {
       __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(&v117, v119, v118 + 1, 16);
-      v27 = v118;
+      v26 = v118;
     }
 
     v10 = v10 & 0xFFFFFFFFFFFFFF00 | (v13 >> 7) & 1;
-    v28 = (v117 + 16 * v27);
-    *v28 = v17;
-    v28[1] = v10;
-    v29 = v118;
+    v27 = (v117 + 16 * v26);
+    *v27 = v16;
+    v27[1] = v10;
+    v28 = v118;
     LODWORD(v118) = v118 + 1;
     v11 += 32;
   }
 
   while (v11 != v12);
-  if (v29 || (*(v117 + 8) & 1) != 0)
+  if (v28 || (*(v117 + 8) & 1) != 0)
   {
     goto LABEL_42;
   }
 
   Node = *v117;
-  v37 = *(*v117 + 16);
-  if (v37 == 243)
+  v36 = *(*v117 + 16);
+  if (v36 == 243)
   {
-    v38 = *v117;
-    if (*(Node + 18) - 1 >= 2)
+    v37 = *v117;
+    if (Node[18] - 1 >= 2)
     {
-      v38 = *Node;
+      v37 = *Node;
     }
 
-    v37 = *(*v38 + 16);
+    v36 = *(*v37 + 16);
   }
 
-  if (v37 == 234)
+  if (v36 == 234)
   {
     goto LABEL_42;
   }
 
 LABEL_50:
-  v57 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 3);
-  v58 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-  swift::Demangle::__runtime::Node::addChild(v58, Node, *this, v59, v60);
-  swift::Demangle::__runtime::Node::addChild(v57, v58, *this, v61, v62);
-  v63 = *(a2 + 5);
-  v64 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-  if (v64)
+  v56 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 3);
+  v57 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+  swift::Demangle::__runtime::Node::addChild(v57, Node, *this, v58, v59);
+  swift::Demangle::__runtime::Node::addChild(v56, v57, *this, v60, v61);
+  v62 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *(a2 + 5));
+  if (v62)
   {
-    v65 = v64;
-    v66 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-    swift::Demangle::__runtime::Node::addChild(v66, v65, *this, v67, v68);
+    v63 = v62;
+    v64 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+    swift::Demangle::__runtime::Node::addChild(v64, v63, *this, v65, v66);
   }
 
   else
   {
-    v66 = 0;
+    v64 = 0;
   }
 
-  v69 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 218);
-  swift::Demangle::__runtime::Node::addChild(v69, v66, *this, v70, v71);
-  v74 = swift::Demangle::__runtime::NodeFactory::createNode(*this, v9);
+  v67 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 218);
+  swift::Demangle::__runtime::Node::addChild(v67, v64, *this, v68, v69);
+  v72 = swift::Demangle::__runtime::NodeFactory::createNode(*this, v9);
   if ((*(a2 + 56) & 0x10) != 0)
   {
-    v75 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 137);
-    swift::Demangle::__runtime::Node::addChild(v74, v75, *this, v76, v77);
+    v73 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 137);
+    swift::Demangle::__runtime::Node::addChild(v72, v73, *this, v74, v75);
   }
 
-  if (!*(a2 + 9))
+  v76 = *(a2 + 9);
+  if (!v76)
   {
     if ((*(a2 + 14) & 0xE) == 4)
     {
-      v86 = *this;
-      v87 = 136;
+      v85 = *this;
+      v86 = 136;
     }
 
     else
@@ -7516,84 +7501,85 @@ LABEL_50:
         goto LABEL_66;
       }
 
-      v86 = *this;
-      v87 = 135;
+      v85 = *this;
+      v86 = 135;
     }
 
-    v78 = swift::Demangle::__runtime::NodeFactory::createNode(v86, v87);
+    v77 = swift::Demangle::__runtime::NodeFactory::createNode(v85, v86);
     goto LABEL_65;
   }
 
-  v78 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 69);
-  v79 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-  if (v79)
+  v77 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 69);
+  v78 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, v76);
+  if (v78)
   {
-    v82 = v79;
-    v83 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-    swift::Demangle::__runtime::Node::addChild(v83, v82, *this, v84, v85);
+    v81 = v78;
+    v82 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+    swift::Demangle::__runtime::Node::addChild(v82, v81, *this, v83, v84);
   }
 
   else
   {
-    v83 = 0;
+    v82 = 0;
   }
 
-  swift::Demangle::__runtime::Node::addChild(v78, v83, *this, v80, v81);
+  swift::Demangle::__runtime::Node::addChild(v77, v82, *this, v79, v80);
 LABEL_65:
-  swift::Demangle::__runtime::Node::addChild(v74, v78, *this, v88, v89);
+  swift::Demangle::__runtime::Node::addChild(v72, v77, *this, v87, v88);
 LABEL_66:
-  v90 = *(a2 + 6);
-  if ((v90 & 0x8000000) != 0)
+  v89 = *(a2 + 6);
+  if ((v89 & 0x8000000) != 0)
   {
-    v98 = *(a2 + 8) - 1;
-    if (v98 > 3)
+    v97 = *(a2 + 8) - 1;
+    if (v97 > 3)
     {
-      v99 = 0;
+      v98 = 0;
     }
 
     else
     {
-      v99 = qword_DAB00[v98];
+      v98 = qword_DAB00[v97];
     }
 
-    v100 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 70, v99);
-    swift::Demangle::__runtime::Node::addChild(v74, v100, *this, v101, v102);
+    v99 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 70, v98);
+    swift::Demangle::__runtime::Node::addChild(v72, v99, *this, v100, v101);
     if ((*(a2 + 6) & 0x1000000) != 0)
     {
       goto LABEL_78;
     }
 
 LABEL_68:
-    v91 = *(a2 + 6);
-    if ((v91 & 0x40000000) == 0)
+    v90 = *(a2 + 6);
+    if ((v90 & 0x40000000) == 0)
     {
       goto LABEL_69;
     }
 
 LABEL_85:
     v114 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 68);
-    swift::Demangle::__runtime::Node::addChild(v74, v114, *this, v115, v116);
+    swift::Demangle::__runtime::Node::addChild(v72, v114, *this, v115, v116);
     if ((*(a2 + 6) & 0x20000000) != 0)
     {
 LABEL_70:
-      v92 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 284);
-      swift::Demangle::__runtime::Node::addChild(v74, v92, *this, v93, v94);
+      v91 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 284);
+      swift::Demangle::__runtime::Node::addChild(v72, v91, *this, v92, v93);
     }
   }
 
   else
   {
-    if ((v90 & 0x1000000) == 0)
+    if ((v89 & 0x1000000) == 0)
     {
       goto LABEL_68;
     }
 
 LABEL_78:
+    v102 = *(a2 + 10);
     v103 = *this;
-    if (*(a2 + 10))
+    if (v102)
     {
       v104 = swift::Demangle::__runtime::NodeFactory::createNode(v103, 286);
-      v105 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
+      v105 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, v102);
       if (v105)
       {
         v108 = v105;
@@ -7614,42 +7600,41 @@ LABEL_78:
       v104 = swift::Demangle::__runtime::NodeFactory::createNode(v103, 285);
     }
 
-    swift::Demangle::__runtime::Node::addChild(v74, v104, *this, v112, v113);
-    v91 = *(a2 + 6);
-    if ((v91 & 0x40000000) != 0)
+    swift::Demangle::__runtime::Node::addChild(v72, v104, *this, v112, v113);
+    v90 = *(a2 + 6);
+    if ((v90 & 0x40000000) != 0)
     {
       goto LABEL_85;
     }
 
 LABEL_69:
-    if ((v91 & 0x20000000) != 0)
+    if ((v90 & 0x20000000) != 0)
     {
       goto LABEL_70;
     }
   }
 
-  swift::Demangle::__runtime::Node::addChild(v74, v57, *this, v72, v73);
-  swift::Demangle::__runtime::Node::addChild(v74, v69, *this, v95, v96);
+  swift::Demangle::__runtime::Node::addChild(v72, v56, *this, v70, v71);
+  swift::Demangle::__runtime::Node::addChild(v72, v67, *this, v94, v95);
   if (v117 != v119)
   {
     free(v117);
   }
 
-  return v74;
+  return v72;
 }
 
-unsigned int *DemanglingForTypeRef::visitProtocolCompositionTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ProtocolCompositionTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitProtocolCompositionTypeRef(DemanglingForTypeRef *this, const swift::reflection::ProtocolCompositionTypeRef *a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 246);
   v5 = *(a2 + 2);
   v6 = *(a2 + 3);
   while (v5 != v6)
   {
-    v13 = *v5;
-    v14 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v14)
+    v13 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *v5);
+    if (v13)
     {
-      v7 = v14;
+      v7 = v13;
       v8 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
       swift::Demangle::__runtime::Node::addChild(v8, v7, *this, v9, v10);
     }
@@ -7663,13 +7648,14 @@ unsigned int *DemanglingForTypeRef::visitProtocolCompositionTypeRef(swift::Deman
     ++v5;
   }
 
-  v15 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 200);
-  swift::Demangle::__runtime::Node::addChild(v15, Node, *this, v16, v17);
-  if (*(a2 + 5))
+  v14 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 200);
+  swift::Demangle::__runtime::Node::addChild(v14, Node, *this, v15, v16);
+  v17 = *(a2 + 5);
+  if (v17)
   {
     v18 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 201);
-    swift::Demangle::__runtime::Node::addChild(v18, v15, *this, v19, v20);
-    v21 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
+    swift::Demangle::__runtime::Node::addChild(v18, v14, *this, v19, v20);
+    v21 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, v17);
     if (v21)
     {
       v24 = v21;
@@ -7691,212 +7677,210 @@ unsigned int *DemanglingForTypeRef::visitProtocolCompositionTypeRef(swift::Deman
   {
     if (*(a2 + 48) != 1)
     {
-      return v15;
+      return v14;
     }
 
     v28 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 202);
     v18 = v28;
     v29 = *this;
-    v30 = v15;
+    v30 = v14;
   }
 
   swift::Demangle::__runtime::Node::addChild(v28, v30, v29, v22, v23);
   return v18;
 }
 
-unsigned int *DemanglingForTypeRef::visitConstrainedExistentialTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ConstrainedExistentialTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitConstrainedExistentialTypeRef(DemanglingForTypeRef *this, uint64_t **a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 85);
-  v5 = *(a2 + 2);
-  v6 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-  if (v6)
+  v5 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, a2[2]);
+  if (v5)
   {
-    v9 = v6;
-    v10 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-    swift::Demangle::__runtime::Node::addChild(v10, v9, *this, v11, v12);
+    v8 = v5;
+    v9 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+    swift::Demangle::__runtime::Node::addChild(v9, v8, *this, v10, v11);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v10, *this, v7, v8);
-  v15 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 86);
-  v17 = *(a2 + 3);
-  v16 = *(a2 + 4);
-  while (v17 != v16)
+  swift::Demangle::__runtime::Node::addChild(Node, v9, *this, v6, v7);
+  v14 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 86);
+  v16 = a2[3];
+  v15 = a2[4];
+  while (v16 != v15)
   {
-    v18 = *v17++;
-    v23 = v18;
-    v19 = DemanglingForTypeRef::visitTypeRefRequirement(this, &v23);
-    swift::Demangle::__runtime::Node::addChild(v15, v19, *this, v20, v21);
+    v17 = *v16;
+    v16 += 2;
+    v22 = v17;
+    v18 = DemanglingForTypeRef::visitTypeRefRequirement(this, &v22);
+    swift::Demangle::__runtime::Node::addChild(v14, v18, *this, v19, v20);
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v15, *this, v13, v14);
+  swift::Demangle::__runtime::Node::addChild(Node, v14, *this, v12, v13);
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitDependentMemberTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::DependentMemberTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitDependentMemberTypeRef(DemanglingForTypeRef *this, const swift::reflection::DependentMemberTypeRef *a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 46);
-  v5 = *(a2 + 5);
-  v6 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-  if (v6)
+  v5 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *(a2 + 5));
+  if (v5)
   {
-    v9 = v6;
-    v10 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-    swift::Demangle::__runtime::Node::addChild(v10, v9, *this, v11, v12);
+    v8 = v5;
+    v9 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+    swift::Demangle::__runtime::Node::addChild(v9, v8, *this, v10, v11);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v10, *this, v7, v8);
-  v13 = *this;
-  v14 = *(a2 + 39);
-  if (v14 >= 0)
+  swift::Demangle::__runtime::Node::addChild(Node, v9, *this, v6, v7);
+  v12 = *this;
+  v13 = *(a2 + 39);
+  if (v13 >= 0)
   {
-    v15 = a2 + 16;
-  }
-
-  else
-  {
-    v15 = *(a2 + 2);
-  }
-
-  v16 = *(a2 + 3);
-  if (v14 >= 0)
-  {
-    v17 = *(a2 + 39);
+    v14 = a2 + 16;
   }
 
   else
   {
-    v17 = *(a2 + 3);
+    v14 = *(a2 + 2);
   }
 
-  if (v17)
+  if (v13 >= 0)
   {
-    v18 = *(v13 + 1);
-    v19 = &v18[v17];
+    v15 = *(a2 + 39);
+  }
+
+  else
+  {
+    v15 = *(a2 + 3);
+  }
+
+  if (v15)
+  {
+    v16 = v12[1];
+    v17 = &v16[v15];
+    if (v16)
+    {
+      v18 = v17 > v12[2];
+    }
+
+    else
+    {
+      v18 = 1;
+    }
+
     if (v18)
     {
-      v20 = v19 > *(v13 + 2);
-    }
-
-    else
-    {
-      v20 = 1;
-    }
-
-    if (v20)
-    {
-      v21 = 2 * *(v13 + 4);
-      if (v21 <= v17 + 1)
+      v19 = 2 * v12[4];
+      if (v19 <= v15 + 1)
       {
-        v21 = v17 + 1;
+        v19 = v15 + 1;
       }
 
-      *(v13 + 4) = v21;
-      v22 = v21 + 8;
-      v23 = malloc_type_malloc(v21 + 8, 0x2004093837F09uLL);
-      v24 = v23 + v22;
-      *v23 = *(v13 + 3);
-      v18 = (v23 + 1);
-      *(v13 + 2) = v24;
-      *(v13 + 3) = v23;
-      v19 = v23 + v17 + 8;
+      v12[4] = v19;
+      v20 = v19 + 8;
+      v21 = malloc_type_malloc(v19 + 8, 0x2004093837F09uLL);
+      v22 = v21 + v20;
+      *v21 = v12[3];
+      v16 = (v21 + 1);
+      v12[2] = v22;
+      v12[3] = v21;
+      v17 = v21 + v15 + 8;
     }
 
-    *(v13 + 1) = v19;
-    memmove(v18, v15, v17);
+    v12[1] = v17;
+    memmove(v16, v14, v15);
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
-  NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v13, 103, v18, v17);
+  NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v12, 103, v16, v15);
   if (*(a2 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v44, *(a2 + 6), *(a2 + 7));
+    std::string::__init_copy_ctor_external(&v42, *(a2 + 6), *(a2 + 7));
   }
 
   else
   {
-    v44 = *(a2 + 2);
+    v42 = *(a2 + 2);
   }
 
-  size = HIBYTE(v44.__r_.__value_.__r.__words[2]);
-  if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v44.__r_.__value_.__l.__size_;
+    size = v42.__r_.__value_.__l.__size_;
   }
 
-  v29 = *this;
+  v27 = *this;
   if (size)
   {
-    v30 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 36);
-    swift::Demangle::__runtime::Node::addChild(v30, NodeWithAllocatedText, *this, v31, v32);
-    v33 = *this;
-    if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v28 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 36);
+    swift::Demangle::__runtime::Node::addChild(v28, NodeWithAllocatedText, *this, v29, v30);
+    v31 = *this;
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v34 = &v44;
+      v32 = &v42;
     }
 
     else
     {
-      v34 = v44.__r_.__value_.__r.__words[0];
+      v32 = v42.__r_.__value_.__r.__words[0];
     }
 
-    if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v35 = SHIBYTE(v44.__r_.__value_.__r.__words[2]);
+      v33 = SHIBYTE(v42.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v35 = v44.__r_.__value_.__l.__size_;
+      v33 = v42.__r_.__value_.__l.__size_;
     }
 
-    v43 = 0;
-    v38 = swift::Demangle::__runtime::Demangler::demangleType(v33, v34, v35, v42);
-    if (v43 == v42)
+    v41 = 0;
+    v36 = swift::Demangle::__runtime::Demangler::demangleType(v31, v32, v33, v40);
+    if (v41 == v40)
     {
-      (*(*v43 + 32))(v43);
+      (*(*v41 + 32))(v41);
     }
 
-    else if (v43)
+    else if (v41)
     {
-      (*(*v43 + 40))();
+      (*(*v41 + 40))();
     }
 
-    swift::Demangle::__runtime::Node::addChild(v30, v38, *this, v36, v37);
-    v29 = *this;
-    v39 = Node;
-    v40 = v30;
+    swift::Demangle::__runtime::Node::addChild(v28, v36, *this, v34, v35);
+    v27 = *this;
+    v37 = Node;
+    v38 = v28;
   }
 
   else
   {
-    v39 = Node;
-    v40 = NodeWithAllocatedText;
+    v37 = Node;
+    v38 = NodeWithAllocatedText;
   }
 
-  swift::Demangle::__runtime::Node::addChild(v39, v40, v29, v25, v26);
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  swift::Demangle::__runtime::Node::addChild(v37, v38, v27, v23, v24);
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitObjCClassTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ObjCClassTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitObjCClassTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ObjCClassTypeRef *a2)
 {
   v4 = *this;
   v5 = *(*this + 1);
@@ -7913,23 +7897,23 @@ unsigned int *DemanglingForTypeRef::visitObjCClassTypeRef(swift::Demangle::__run
 
   if (v7)
   {
-    v8 = 2 * *(v4 + 4);
+    v8 = 2 * v4[4];
     if (v8 <= 4)
     {
       v8 = 4;
     }
 
-    *(v4 + 4) = v8;
+    v4[4] = v8;
     v9 = v8 + 8;
     v10 = malloc_type_malloc(v8 + 8, 0x2004093837F09uLL);
     v5 = (v10 + 1);
-    *v10 = *(v4 + 3);
+    *v10 = v4[3];
     v6 = v10 + 11;
-    *(v4 + 2) = v10 + v9;
-    *(v4 + 3) = v10;
+    v4[2] = v10 + v9;
+    v4[3] = v10;
   }
 
-  *(v4 + 1) = v6;
+  v4[1] = v6;
   *(v5 + 2) = 67;
   *v5 = 24415;
   NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v4, 163, v5, 3);
@@ -7950,65 +7934,64 @@ unsigned int *DemanglingForTypeRef::visitObjCClassTypeRef(swift::Demangle::__run
     v20 = v16;
   }
 
-  v21 = v17[1];
   if (v19 >= 0)
   {
-    v22 = *(v17 + 23);
+    v21 = *(v17 + 23);
   }
 
   else
   {
-    v22 = v17[1];
+    v21 = v17[1];
   }
 
-  if (v22)
+  if (v21)
   {
-    v23 = *(v15 + 1);
-    v24 = &v23[v22];
-    if (v23)
+    v22 = *(v15 + 1);
+    v23 = &v22[v21];
+    if (v22)
     {
-      v25 = v24 > *(v15 + 2);
+      v24 = v23 > *(v15 + 2);
     }
 
     else
     {
-      v25 = 1;
+      v24 = 1;
     }
 
-    if (v25)
+    if (v24)
     {
-      v26 = 2 * *(v15 + 4);
-      if (v26 <= v22 + 1)
+      v25 = 2 * *(v15 + 4);
+      if (v25 <= v21 + 1)
       {
-        v26 = v22 + 1;
+        v25 = v21 + 1;
       }
 
-      *(v15 + 4) = v26;
-      v27 = v26 + 8;
-      v28 = malloc_type_malloc(v26 + 8, 0x2004093837F09uLL);
-      v29 = v28 + v27;
-      *v28 = *(v15 + 3);
-      v23 = (v28 + 1);
-      *(v15 + 2) = v29;
-      *(v15 + 3) = v28;
-      v24 = v28 + v22 + 8;
+      *(v15 + 4) = v25;
+      v26 = v25 + 8;
+      v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
+      v28 = v27 + v26;
+      *v27 = *(v15 + 3);
+      v22 = (v27 + 1);
+      *(v15 + 2) = v28;
+      *(v15 + 3) = v27;
+      v23 = v27 + v21 + 8;
     }
 
-    *(v15 + 1) = v24;
-    memmove(v23, v20, v22);
+    *(v15 + 1) = v23;
+    memmove(v22, v20, v21);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v30 = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v15, 103, v23, v22);
-  swift::Demangle::__runtime::Node::addChild(Node, v30, *this, v31, v32);
+  v29 = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v15, 103, v22, v21);
+  swift::Demangle::__runtime::Node::addChild(Node, v29, *this, v30, v31);
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitObjCProtocolTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ObjCProtocolTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitObjCProtocolTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::ObjCProtocolTypeRef *a2)
 {
   v4 = *this;
   v5 = *(*this + 1);
@@ -8025,23 +8008,23 @@ unsigned int *DemanglingForTypeRef::visitObjCProtocolTypeRef(swift::Demangle::__
 
   if (v7)
   {
-    v8 = 2 * *(v4 + 4);
+    v8 = 2 * v4[4];
     if (v8 <= 4)
     {
       v8 = 4;
     }
 
-    *(v4 + 4) = v8;
+    v4[4] = v8;
     v9 = v8 + 8;
     v10 = malloc_type_malloc(v8 + 8, 0x2004093837F09uLL);
     v5 = (v10 + 1);
-    *v10 = *(v4 + 3);
+    *v10 = v4[3];
     v6 = v10 + 11;
-    *(v4 + 2) = v10 + v9;
-    *(v4 + 3) = v10;
+    v4[2] = v10 + v9;
+    v4[3] = v10;
   }
 
-  *(v4 + 1) = v6;
+  v4[1] = v6;
   *(v5 + 2) = 67;
   *v5 = 24415;
   NodeWithAllocatedText = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v4, 163, v5, 3);
@@ -8062,65 +8045,64 @@ unsigned int *DemanglingForTypeRef::visitObjCProtocolTypeRef(swift::Demangle::__
     v20 = v16;
   }
 
-  v21 = v17[1];
   if (v19 >= 0)
   {
-    v22 = *(v17 + 23);
+    v21 = *(v17 + 23);
   }
 
   else
   {
-    v22 = v17[1];
+    v21 = v17[1];
   }
 
-  if (v22)
+  if (v21)
   {
-    v23 = *(v15 + 1);
-    v24 = &v23[v22];
-    if (v23)
+    v22 = *(v15 + 1);
+    v23 = &v22[v21];
+    if (v22)
     {
-      v25 = v24 > *(v15 + 2);
+      v24 = v23 > *(v15 + 2);
     }
 
     else
     {
-      v25 = 1;
+      v24 = 1;
     }
 
-    if (v25)
+    if (v24)
     {
-      v26 = 2 * *(v15 + 4);
-      if (v26 <= v22 + 1)
+      v25 = 2 * *(v15 + 4);
+      if (v25 <= v21 + 1)
       {
-        v26 = v22 + 1;
+        v25 = v21 + 1;
       }
 
-      *(v15 + 4) = v26;
-      v27 = v26 + 8;
-      v28 = malloc_type_malloc(v26 + 8, 0x2004093837F09uLL);
-      v29 = v28 + v27;
-      *v28 = *(v15 + 3);
-      v23 = (v28 + 1);
-      *(v15 + 2) = v29;
-      *(v15 + 3) = v28;
-      v24 = v28 + v22 + 8;
+      *(v15 + 4) = v25;
+      v26 = v25 + 8;
+      v27 = malloc_type_malloc(v25 + 8, 0x2004093837F09uLL);
+      v28 = v27 + v26;
+      *v27 = *(v15 + 3);
+      v22 = (v27 + 1);
+      *(v15 + 2) = v28;
+      *(v15 + 3) = v27;
+      v23 = v27 + v21 + 8;
     }
 
-    *(v15 + 1) = v24;
-    memmove(v23, v20, v22);
+    *(v15 + 1) = v23;
+    memmove(v22, v20, v21);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  v30 = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v15, 103, v23, v22);
-  swift::Demangle::__runtime::Node::addChild(Node, v30, *this, v31, v32);
+  v29 = swift::Demangle::__runtime::NodeFactory::createNodeWithAllocatedText(v15, 103, v22, v21);
+  swift::Demangle::__runtime::Node::addChild(Node, v29, *this, v30, v31);
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitOpaqueArchetypeTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::OpaqueArchetypeTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitOpaqueArchetypeTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::OpaqueArchetypeTypeRef *a2)
 {
   v4 = *this;
   v5 = a2 + 16;
@@ -8146,11 +8128,11 @@ unsigned int *DemanglingForTypeRef::visitOpaqueArchetypeTypeRef(swift::Demangle:
     v9 = v8;
   }
 
-  v37 = 0;
-  v10 = swift::Demangle::__runtime::Demangler::demangleType(v4, v7, v9, v36);
-  if (v37 == v36)
+  v36 = 0;
+  v10 = swift::Demangle::__runtime::Demangler::demangleType(v4, v7, v9, v35);
+  if (v36 == v35)
   {
-    (*(*v37 + 32))(v37);
+    (*(*v36 + 32))(v36);
     if (!v10)
     {
       return 0;
@@ -8159,9 +8141,9 @@ unsigned int *DemanglingForTypeRef::visitOpaqueArchetypeTypeRef(swift::Demangle:
 
   else
   {
-    if (v37)
+    if (v36)
     {
-      (*(*v37 + 40))();
+      (*(*v36 + 40))();
     }
 
     if (!v10)
@@ -8177,11 +8159,11 @@ unsigned int *DemanglingForTypeRef::visitOpaqueArchetypeTypeRef(swift::Demangle:
   if (v12 == v13)
   {
 LABEL_20:
-    v28 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 314);
-    swift::Demangle::__runtime::Node::addChild(v28, v10, *this, v29, v30);
-    swift::Demangle::__runtime::Node::addChild(v28, Node, *this, v31, v32);
-    swift::Demangle::__runtime::Node::addChild(v28, v11, *this, v33, v34);
-    return v28;
+    v27 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 314);
+    swift::Demangle::__runtime::Node::addChild(v27, v10, *this, v28, v29);
+    swift::Demangle::__runtime::Node::addChild(v27, Node, *this, v30, v31);
+    swift::Demangle::__runtime::Node::addChild(v27, v11, *this, v32, v33);
+    return v27;
   }
 
   else
@@ -8208,22 +8190,21 @@ LABEL_19:
     v19 = 8 * v14;
     while (1)
     {
-      v20 = *v15;
-      result = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
+      result = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *v15);
       if (!result)
       {
         break;
       }
 
-      v22 = result;
-      v23 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-      swift::Demangle::__runtime::Node::addChild(v23, v22, *this, v24, v25);
-      if (!v23)
+      v21 = result;
+      v22 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+      swift::Demangle::__runtime::Node::addChild(v22, v21, *this, v23, v24);
+      if (!v22)
       {
         return 0;
       }
 
-      swift::Demangle::__runtime::Node::addChild(v18, v23, *this, v26, v27);
+      swift::Demangle::__runtime::Node::addChild(v18, v22, *this, v25, v26);
       ++v15;
       v19 -= 8;
       if (!v19)
@@ -8236,7 +8217,7 @@ LABEL_19:
   return result;
 }
 
-unsigned int *DemanglingForTypeRef::visitSILBoxTypeWithLayoutTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::SILBoxTypeWithLayoutTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitSILBoxTypeWithLayoutTypeRef(DemanglingForTypeRef *this, const swift::reflection::SILBoxTypeWithLayoutTypeRef *a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 222);
   v7 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 223);
@@ -8254,11 +8235,10 @@ unsigned int *DemanglingForTypeRef::visitSILBoxTypeWithLayoutTypeRef(swift::Dema
     }
 
     v19 = swift::Demangle::__runtime::NodeFactory::createNode(*this, v18);
-    v20 = *v8;
-    v21 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v21)
+    v20 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, (*v8 & 0xFFFFFFFFFFFFFFF8));
+    if (v20)
     {
-      v10 = v21;
+      v10 = v20;
       v11 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
       swift::Demangle::__runtime::Node::addChild(v11, v10, *this, v12, v13);
     }
@@ -8273,98 +8253,96 @@ unsigned int *DemanglingForTypeRef::visitSILBoxTypeWithLayoutTypeRef(swift::Dema
   }
 
   swift::Demangle::__runtime::Node::addChild(Node, v7, *this, v5, v6);
-  v24 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 44);
-  v25 = *(a2 + 5);
-  v26 = *(a2 + 6);
-  if (v25 != v26)
+  v23 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 44);
+  v24 = *(a2 + 5);
+  v25 = *(a2 + 6);
+  if (v24 != v25)
   {
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
     do
     {
-      v29 = *v25;
-      if (*(*v25 + 8) == 9 && v29 != 0)
+      v28 = *v24;
+      if (*(*v24 + 8) == 9 && v28 != 0)
       {
-        if (*(v29 + 12) > v27)
+        if (*(v28 + 12) > v26)
         {
-          v31 = *this;
-          for (j = v28; ; j = 0)
+          v30 = *this;
+          for (j = v27; ; j = 0)
           {
-            v33 = swift::Demangle::__runtime::NodeFactory::createNode(v31, 38, j);
-            swift::Demangle::__runtime::Node::addChild(v24, v33, *this, v34, v35);
-            if (*(v29 + 12) <= ++v27)
+            v32 = swift::Demangle::__runtime::NodeFactory::createNode(v30, 38, j);
+            swift::Demangle::__runtime::Node::addChild(v23, v32, *this, v33, v34);
+            if (*(v28 + 12) <= ++v26)
             {
               break;
             }
 
-            v31 = *this;
+            v30 = *this;
           }
 
-          v28 = 0;
+          v27 = 0;
         }
 
-        ++v28;
+        ++v27;
       }
 
-      v25 += 2;
+      v24 += 2;
     }
 
-    while (v25 != v26);
+    while (v24 != v25);
   }
 
-  v36 = *(a2 + 8);
-  v37 = *(a2 + 9);
-  while (v36 != v37)
+  v35 = *(a2 + 8);
+  v36 = *(a2 + 9);
+  while (v35 != v36)
   {
-    v38 = DemanglingForTypeRef::visitTypeRefRequirement(this, v36);
-    if (v38)
+    v37 = DemanglingForTypeRef::visitTypeRefRequirement(this, v35);
+    if (v37)
     {
-      swift::Demangle::__runtime::Node::addChild(v24, v38, *this, v22, v23);
+      swift::Demangle::__runtime::Node::addChild(v23, v37, *this, v21, v22);
     }
 
-    v36 += 2;
+    v35 += 16;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v24, *this, v22, v23);
-  v41 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 246);
-  v42 = *(a2 + 5);
-  v43 = *(a2 + 6);
-  while (v42 != v43)
+  swift::Demangle::__runtime::Node::addChild(Node, v23, *this, v21, v22);
+  v40 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 246);
+  v41 = *(a2 + 5);
+  v42 = *(a2 + 6);
+  while (v41 != v42)
   {
-    v50 = *(v42 + 8);
-    v51 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v51)
+    v49 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *(v41 + 8));
+    if (v49)
     {
-      v44 = v51;
-      v45 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
-      swift::Demangle::__runtime::Node::addChild(v45, v44, *this, v46, v47);
+      v43 = v49;
+      v44 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
+      swift::Demangle::__runtime::Node::addChild(v44, v43, *this, v45, v46);
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
-    swift::Demangle::__runtime::Node::addChild(v41, v45, *this, v48, v49);
-    v42 += 16;
+    swift::Demangle::__runtime::Node::addChild(v40, v44, *this, v47, v48);
+    v41 += 16;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v41, *this, v39, v40);
+  swift::Demangle::__runtime::Node::addChild(Node, v40, *this, v38, v39);
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitPackTypeRef(swift::Demangle::__runtime::NodeFactory **this, const swift::reflection::PackTypeRef *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitPackTypeRef(DemanglingForTypeRef *this, const swift::reflection::PackTypeRef *a2)
 {
   Node = swift::Demangle::__runtime::NodeFactory::createNode(*this, 237);
   v5 = *(a2 + 2);
   v6 = *(a2 + 3);
   while (v5 != v6)
   {
-    v13 = *v5;
-    v14 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this);
-    if (v14)
+    v13 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(this, *v5);
+    if (v13)
     {
-      v7 = v14;
+      v7 = v13;
       v8 = swift::Demangle::__runtime::NodeFactory::createNode(*this, 243);
       swift::Demangle::__runtime::Node::addChild(v8, v7, *this, v9, v10);
     }
@@ -8381,7 +8359,7 @@ unsigned int *DemanglingForTypeRef::visitPackTypeRef(swift::Demangle::__runtime:
   return Node;
 }
 
-unsigned int *DemanglingForTypeRef::visitTypeRefRequirement(swift::Demangle::__runtime::NodeFactory **a1, uint64_t *a2)
+swift::Demangle::__runtime *DemanglingForTypeRef::visitTypeRefRequirement(DemanglingForTypeRef *a1, uint64_t a2)
 {
   if ((*a2 & 7) == 2)
   {
@@ -8401,344 +8379,62 @@ unsigned int *DemanglingForTypeRef::visitTypeRefRequirement(swift::Demangle::__r
   }
 
   Node = swift::Demangle::__runtime::NodeFactory::createNode(v4, v5);
-  v7 = *a2;
-  v8 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1);
-  if (v8)
+  v7 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1, (*a2 & 0xFFFFFFFFFFFFFFF8));
+  if (v7)
   {
-    v11 = v8;
-    v12 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
-    swift::Demangle::__runtime::Node::addChild(v12, v11, *a1, v13, v14);
+    v10 = v7;
+    v11 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
+    swift::Demangle::__runtime::Node::addChild(v11, v10, *a1, v12, v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v12, *a1, v9, v10);
-  v15 = a2[1];
-  v16 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1);
-  if (v16)
+  swift::Demangle::__runtime::Node::addChild(Node, v11, *a1, v8, v9);
+  v14 = swift::reflection::TypeRefVisitor<DemanglingForTypeRef,swift::Demangle::__runtime::Node *>::visit(a1, *(a2 + 8));
+  if (v14)
   {
-    v19 = v16;
-    v20 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
-    swift::Demangle::__runtime::Node::addChild(v20, v19, *a1, v21, v22);
+    v17 = v14;
+    v18 = swift::Demangle::__runtime::NodeFactory::createNode(*a1, 243);
+    swift::Demangle::__runtime::Node::addChild(v18, v17, *a1, v19, v20);
   }
 
   else
   {
-    v20 = 0;
+    v18 = 0;
   }
 
-  swift::Demangle::__runtime::Node::addChild(Node, v20, *a1, v17, v18);
+  swift::Demangle::__runtime::Node::addChild(Node, v18, *a1, v15, v16);
   return Node;
 }
 
 void PrintTypeRef::visitBuiltinTypeRef(PrintTypeRef *this, const swift::reflection::BuiltinTypeRef *a2)
 {
-  v24 = 7;
-  strcpy(v23, "builtin");
+  v7 = 7;
+  strcpy(v6, "builtin");
   for (i = *(this + 2); i; --i)
   {
     std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
   }
 
-  v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, v23, 7);
-  if (v24 < 0)
+  v4 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v4, v6, 7);
+  if (v7 < 0)
   {
-    operator delete(v23[0]);
+    operator delete(v6[0]);
   }
 
-  v13 = 0;
-  v14 = 0x101010101010101;
-  v15 = 1;
-  v16 = 0x101010100000000;
-  v17 = 1;
-  v18 = 256;
-  v19 = 1;
-  v20 = 0;
-  v21 = 0;
-  v22[0] = off_E0BC8;
-  v22[1] = swift::Demangle::__runtime::genericParameterName;
-  v22[3] = v22;
-  v9 = *(a2 + 2);
-  v8 = (a2 + 16);
-  v7 = v9;
-  v10 = *(v8 + 23);
-  if (v10 >= 0)
-  {
-    v11 = v8;
-  }
-
-  else
-  {
-    v11 = v7;
-  }
-
-  if (v10 >= 0)
-  {
-    v12 = *(v8 + 23);
-  }
-
-  else
-  {
-    v12 = *(v8 + 1);
-  }
-
-  swift::Demangle::__runtime::demangleTypeAsString(v11, v12, &v13, v6);
+  v5[0] = off_E0BC8;
+  v5[1] = swift::Demangle::__runtime::genericParameterName;
+  v5[3] = v5;
+  swift::Demangle::__runtime::demangleTypeAsString();
 }
 
 void PrintTypeRef::visitNominalTypeRef(PrintTypeRef *this, const swift::reflection::NominalTypeRef *a2)
 {
   v4 = a2 + 16;
-  v5 = *(a2 + 39);
-  if (v5 >= 0)
-  {
-    v6 = (a2 + 16);
-  }
-
-  else
-  {
-    v6 = *(a2 + 2);
-  }
-
-  v7 = *(a2 + 3);
-  if (v5 >= 0)
-  {
-    v8 = *(a2 + 39);
-  }
-
-  else
-  {
-    v8 = *(a2 + 3);
-  }
-
-  if (swift::Demangle::__runtime::isStruct(v6, v8))
-  {
-    v57 = 6;
-    strcpy(v56, "struct");
-    for (i = *(this + 2); i; --i)
-    {
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-    }
-
-    v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v56, 6);
-    if (v57 < 0)
-    {
-      v12 = *v56;
-LABEL_34:
-      operator delete(v12);
-    }
-  }
-
-  else
-  {
-    v13 = *(a2 + 39);
-    if (v13 >= 0)
-    {
-      v14 = v4;
-    }
-
-    else
-    {
-      v14 = *(a2 + 2);
-    }
-
-    if (v13 >= 0)
-    {
-      v15 = *(a2 + 39);
-    }
-
-    else
-    {
-      v15 = *(a2 + 3);
-    }
-
-    if (swift::Demangle::__runtime::isEnum(v14, v15))
-    {
-      v55 = 4;
-      strcpy(v54, "enum");
-      for (j = *(this + 2); j; --j)
-      {
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-      }
-
-      v17 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, v54, 4);
-      if (v55 < 0)
-      {
-        v12 = *v54;
-        goto LABEL_34;
-      }
-    }
-
-    else
-    {
-      v18 = *(a2 + 39);
-      if (v18 >= 0)
-      {
-        v19 = v4;
-      }
-
-      else
-      {
-        v19 = *(a2 + 2);
-      }
-
-      if (v18 >= 0)
-      {
-        v20 = *(a2 + 39);
-      }
-
-      else
-      {
-        v20 = *(a2 + 3);
-      }
-
-      if (swift::Demangle::__runtime::isClass(v19, v20))
-      {
-        v53 = 5;
-        strcpy(v52, "class");
-        for (k = *(this + 2); k; --k)
-        {
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-        }
-
-        v22 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, v52, 5);
-        if (v53 < 0)
-        {
-          v12 = *v52;
-          goto LABEL_34;
-        }
-      }
-
-      else
-      {
-        v23 = *(a2 + 39);
-        if (v23 >= 0)
-        {
-          v24 = v4;
-        }
-
-        else
-        {
-          v24 = *(a2 + 2);
-        }
-
-        if (v23 >= 0)
-        {
-          v25 = *(a2 + 39);
-        }
-
-        else
-        {
-          v25 = *(a2 + 3);
-        }
-
-        if (swift::Demangle::__runtime::isProtocol(v24, v25))
-        {
-          v51 = 8;
-          strcpy(v50, "protocol");
-          for (m = *(this + 2); m; --m)
-          {
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-          }
-
-          v27 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, v50, 8);
-          if (v51 < 0)
-          {
-            operator delete(v50[0]);
-          }
-
-          v6 = swift::Demangle::__runtime::dropSwiftManglingPrefix(v6, v8);
-          v8 = v28;
-        }
-
-        else
-        {
-          v29 = *(a2 + 39);
-          if (v29 >= 0)
-          {
-            v30 = v4;
-          }
-
-          else
-          {
-            v30 = *(a2 + 2);
-          }
-
-          if (v29 >= 0)
-          {
-            v31 = *(a2 + 39);
-          }
-
-          else
-          {
-            v31 = *(a2 + 3);
-          }
-
-          if (swift::Demangle::__runtime::isAlias(v30, v31))
-          {
-            v49 = 5;
-            strcpy(v48, "alias");
-            for (n = *(this + 2); n; --n)
-            {
-              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-            }
-
-            v33 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v33, v48, 5);
-            if (v49 < 0)
-            {
-              v12 = *v48;
-              goto LABEL_34;
-            }
-          }
-
-          else
-          {
-            v47 = 7;
-            strcpy(v46, "nominal");
-            for (ii = *(this + 2); ii; --ii)
-            {
-              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
-            }
-
-            v35 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v35, v46, 7);
-            if (v47 < 0)
-            {
-              v12 = *v46;
-              goto LABEL_34;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  v36 = 0;
-  v37 = 0x101010101010101;
-  v38 = 1;
-  v39 = 0x101010100000000;
-  v40 = 1;
-  v41 = 256;
-  v42 = 1;
-  v43 = 0;
-  v44 = 0;
-  v45[0] = off_E0BC8;
-  v45[1] = swift::Demangle::__runtime::genericParameterName;
-  v45[3] = v45;
-  swift::Demangle::__runtime::demangleTypeAsString(v6, v8, &v36, v11);
-}
-
-void PrintTypeRef::visitBoundGenericTypeRef(PrintTypeRef *this, const swift::reflection::BoundGenericTypeRef *a2)
-{
-  v4 = (a2 + 16);
   v5 = *(a2 + 39);
   if (v5 >= 0)
   {
@@ -8750,72 +8446,307 @@ void PrintTypeRef::visitBoundGenericTypeRef(PrintTypeRef *this, const swift::ref
     v6 = *(a2 + 2);
   }
 
-  v7 = *(a2 + 3);
   if (v5 >= 0)
   {
-    v8 = *(a2 + 39);
+    v7 = *(a2 + 39);
   }
 
   else
   {
-    v8 = *(a2 + 3);
+    v7 = *(a2 + 3);
   }
 
-  if (swift::Demangle::__runtime::isStruct(v6, v8))
+  if (swift::Demangle::__runtime::isStruct(v6, v7))
   {
-    v42[23] = 20;
-    strcpy(v42, "bound_generic_struct");
+    v45 = 6;
+    strcpy(v44, "struct");
     for (i = *(this + 2); i; --i)
     {
       std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
     }
 
-    v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-    v11 = v42;
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v10, v42, 20);
-    if (v42[23] < 0)
+    v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v9, v44, 6);
+    if (v45 < 0)
     {
-LABEL_11:
-      operator delete(*v11);
+      v10 = *v44;
+LABEL_34:
+      operator delete(v10);
     }
   }
 
   else
   {
-    v16 = *(a2 + 39);
-    if (v16 >= 0)
+    v11 = *(a2 + 39);
+    if (v11 >= 0)
     {
-      v17 = v4;
+      v12 = v4;
     }
 
     else
     {
-      v17 = *(a2 + 2);
+      v12 = *(a2 + 2);
     }
 
-    if (v16 >= 0)
+    if (v11 >= 0)
     {
-      v18 = *(a2 + 39);
+      v13 = *(a2 + 39);
     }
 
     else
     {
-      v18 = *(a2 + 3);
+      v13 = *(a2 + 3);
     }
 
-    if (swift::Demangle::__runtime::isEnum(v17, v18))
+    if (swift::Demangle::__runtime::isEnum(v12, v13))
     {
-      v41[23] = 18;
-      strcpy(v41, "bound_generic_enum");
+      v43 = 4;
+      strcpy(v42, "enum");
       for (j = *(this + 2); j; --j)
       {
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
       }
 
-      v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-      v11 = v41;
-      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, v41, 18);
-      if (v41[23] < 0)
+      v15 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, v42, 4);
+      if (v43 < 0)
+      {
+        v10 = *v42;
+        goto LABEL_34;
+      }
+    }
+
+    else
+    {
+      v16 = *(a2 + 39);
+      if (v16 >= 0)
+      {
+        v17 = v4;
+      }
+
+      else
+      {
+        v17 = *(a2 + 2);
+      }
+
+      if (v16 >= 0)
+      {
+        v18 = *(a2 + 39);
+      }
+
+      else
+      {
+        v18 = *(a2 + 3);
+      }
+
+      if (swift::Demangle::__runtime::isClass(v17, v18))
+      {
+        v41 = 5;
+        strcpy(v40, "class");
+        for (k = *(this + 2); k; --k)
+        {
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+        }
+
+        v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, v40, 5);
+        if (v41 < 0)
+        {
+          v10 = *v40;
+          goto LABEL_34;
+        }
+      }
+
+      else
+      {
+        v21 = *(a2 + 39);
+        if (v21 >= 0)
+        {
+          v22 = v4;
+        }
+
+        else
+        {
+          v22 = *(a2 + 2);
+        }
+
+        if (v21 >= 0)
+        {
+          v23 = *(a2 + 39);
+        }
+
+        else
+        {
+          v23 = *(a2 + 3);
+        }
+
+        if (swift::Demangle::__runtime::isProtocol(v22, v23))
+        {
+          v39 = 8;
+          strcpy(v38, "protocol");
+          for (m = *(this + 2); m; --m)
+          {
+            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+          }
+
+          v25 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+          std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, v38, 8);
+          if (v39 < 0)
+          {
+            operator delete(v38[0]);
+          }
+
+          swift::Demangle::__runtime::dropSwiftManglingPrefix(v6, v7);
+        }
+
+        else
+        {
+          v26 = *(a2 + 39);
+          if (v26 >= 0)
+          {
+            v27 = v4;
+          }
+
+          else
+          {
+            v27 = *(a2 + 2);
+          }
+
+          if (v26 >= 0)
+          {
+            v28 = *(a2 + 39);
+          }
+
+          else
+          {
+            v28 = *(a2 + 3);
+          }
+
+          if (swift::Demangle::__runtime::isAlias(v27, v28))
+          {
+            v37 = 5;
+            strcpy(v36, "alias");
+            for (n = *(this + 2); n; --n)
+            {
+              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+            }
+
+            v30 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v30, v36, 5);
+            if (v37 < 0)
+            {
+              v10 = *v36;
+              goto LABEL_34;
+            }
+          }
+
+          else
+          {
+            v35 = 7;
+            strcpy(v34, "nominal");
+            for (ii = *(this + 2); ii; --ii)
+            {
+              std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+            }
+
+            v32 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+            std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v32, v34, 7);
+            if (v35 < 0)
+            {
+              v10 = *v34;
+              goto LABEL_34;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  v33[0] = off_E0BC8;
+  v33[1] = swift::Demangle::__runtime::genericParameterName;
+  v33[3] = v33;
+  swift::Demangle::__runtime::demangleTypeAsString();
+}
+
+void PrintTypeRef::visitBoundGenericTypeRef(PrintTypeRef *this, const swift::reflection::BoundGenericTypeRef *a2)
+{
+  v4 = a2 + 16;
+  v5 = *(a2 + 39);
+  if (v5 >= 0)
+  {
+    v6 = a2 + 16;
+  }
+
+  else
+  {
+    v6 = *(a2 + 2);
+  }
+
+  if (v5 >= 0)
+  {
+    v7 = *(a2 + 39);
+  }
+
+  else
+  {
+    v7 = *(a2 + 3);
+  }
+
+  if (swift::Demangle::__runtime::isStruct(v6, v7))
+  {
+    v37[23] = 20;
+    strcpy(v37, "bound_generic_struct");
+    for (i = *(this + 2); i; --i)
+    {
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+    }
+
+    v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+    v10 = v37;
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v9, v37, 20);
+    if (v37[23] < 0)
+    {
+LABEL_11:
+      operator delete(*v10);
+    }
+  }
+
+  else
+  {
+    v11 = *(a2 + 39);
+    if (v11 >= 0)
+    {
+      v12 = v4;
+    }
+
+    else
+    {
+      v12 = *(a2 + 2);
+    }
+
+    if (v11 >= 0)
+    {
+      v13 = *(a2 + 39);
+    }
+
+    else
+    {
+      v13 = *(a2 + 3);
+    }
+
+    if (swift::Demangle::__runtime::isEnum(v12, v13))
+    {
+      v36[23] = 18;
+      strcpy(v36, "bound_generic_enum");
+      for (j = *(this + 2); j; --j)
+      {
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+      }
+
+      v15 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+      v10 = v36;
+      std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, v36, 18);
+      if (v36[23] < 0)
       {
         goto LABEL_11;
       }
@@ -8823,40 +8754,40 @@ LABEL_11:
 
     else
     {
-      v21 = *(a2 + 39);
-      if (v21 >= 0)
+      v16 = *(a2 + 39);
+      if (v16 >= 0)
       {
-        v22 = v4;
+        v17 = v4;
       }
 
       else
       {
-        v22 = *(a2 + 2);
+        v17 = *(a2 + 2);
       }
 
-      if (v21 >= 0)
+      if (v16 >= 0)
       {
-        v23 = *(a2 + 39);
+        v18 = *(a2 + 39);
       }
 
       else
       {
-        v23 = *(a2 + 3);
+        v18 = *(a2 + 3);
       }
 
-      if (swift::Demangle::__runtime::isClass(v22, v23))
+      if (swift::Demangle::__runtime::isClass(v17, v18))
       {
-        v40[23] = 19;
-        strcpy(v40, "bound_generic_class");
+        v35[23] = 19;
+        strcpy(v35, "bound_generic_class");
         for (k = *(this + 2); k; --k)
         {
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
         }
 
-        v25 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-        v11 = v40;
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v25, v40, 19);
-        if (v40[23] < 0)
+        v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+        v10 = v35;
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v20, v35, 19);
+        if (v35[23] < 0)
         {
           goto LABEL_11;
         }
@@ -8864,17 +8795,17 @@ LABEL_11:
 
       else
       {
-        v39 = 13;
-        strcpy(v38, "bound_generic");
+        v34 = 13;
+        strcpy(v33, "bound_generic");
         for (m = *(this + 2); m; --m)
         {
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
         }
 
-        v27 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
-        v11 = v38;
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v27, v38, 13);
-        if (v39 < 0)
+        v22 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+        v10 = v33;
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, v33, 13);
+        if (v34 < 0)
         {
           goto LABEL_11;
         }
@@ -8882,45 +8813,24 @@ LABEL_11:
     }
   }
 
-  v28 = 0;
-  v29 = 0x101010101010101;
-  v30 = 1;
-  v31 = 0x101010100000000;
-  v32 = 1;
-  v33 = 256;
-  v34 = 1;
-  v35 = 0;
-  v36 = 0;
-  v37[0] = off_E0BC8;
-  v37[1] = swift::Demangle::__runtime::genericParameterName;
-  v37[3] = v37;
-  v13 = *(a2 + 39);
-  if (v13 >= 0)
-  {
-    v14 = v4;
-  }
-
-  else
-  {
-    v14 = *(a2 + 2);
-  }
-
-  if (v13 >= 0)
-  {
-    v15 = *(a2 + 39);
-  }
-
-  else
-  {
-    v15 = *(a2 + 3);
-  }
-
-  swift::Demangle::__runtime::demangleTypeAsString(v14, v15, &v28, v12);
+  v23 = 0;
+  v24 = 0x101010101010101;
+  v25 = 1;
+  v26 = 0x101010100000000;
+  v27 = 1;
+  v28 = 256;
+  v29 = 1;
+  v30 = 0;
+  v31 = 0;
+  v32[0] = off_E0BC8;
+  v32[1] = swift::Demangle::__runtime::genericParameterName;
+  v32[3] = v32;
+  swift::Demangle::__runtime::demangleTypeAsString();
 }
 
-void *PrintTypeRef::visitTupleTypeRef(PrintTypeRef *this, const swift::reflection::TupleTypeRef *a2)
+void PrintTypeRef::visitTupleTypeRef(PrintTypeRef *this, const swift::reflection::TupleTypeRef *a2)
 {
-  v10 = 5;
+  v9 = 5;
   strcpy(__p, "tuple");
   for (i = *(this + 2); i; --i)
   {
@@ -8929,7 +8839,7 @@ void *PrintTypeRef::visitTupleTypeRef(PrintTypeRef *this, const swift::reflectio
 
   v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
   std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, __p, 5);
-  if (v10 < 0)
+  if (v9 < 0)
   {
     operator delete(__p[0]);
   }
@@ -8946,7 +8856,7 @@ void *PrintTypeRef::visitTupleTypeRef(PrintTypeRef *this, const swift::reflectio
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
 }
 
 void *PrintTypeRef::visitFunctionTypeRef(PrintTypeRef *this, const swift::reflection::FunctionTypeRef *a2)
@@ -9837,6 +9747,72 @@ LABEL_19:
   if (v10 < 0)
   {
     goto LABEL_19;
+  }
+
+  return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
+}
+
+void *PrintTypeRef::visitForeignClassTypeRef(PrintTypeRef *this, const swift::reflection::ForeignClassTypeRef *a2)
+{
+  v12 = 7;
+  strcpy(__p, "foreign");
+  for (i = *(this + 2); i; --i)
+  {
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, " ", 1);
+  }
+
+  v5 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, "(", 1);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v5, __p, 7);
+  if (v12 < 0)
+  {
+    operator delete(__p[0]);
+    v6 = *(a2 + 39);
+    if ((v6 & 0x80000000) == 0)
+    {
+LABEL_5:
+      if (v6)
+      {
+        v10 = 4;
+        strcpy(v9, "name");
+        v8 = *(a2 + 16);
+        goto LABEL_10;
+      }
+
+      return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
+    }
+  }
+
+  else
+  {
+    v6 = *(a2 + 39);
+    if ((v6 & 0x80000000) == 0)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  if (*(a2 + 3))
+  {
+    v10 = 4;
+    strcpy(v9, "name");
+    std::string::__init_copy_ctor_external(&v8, *(a2 + 2), *(a2 + 3));
+LABEL_10:
+    PrintMetadataSource::printField(this, v9, &v8);
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v8.__r_.__value_.__l.__data_);
+      if ((v10 & 0x80000000) == 0)
+      {
+        return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
+      }
+    }
+
+    else if ((v10 & 0x80000000) == 0)
+    {
+      return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);
+    }
+
+    operator delete(v9[0]);
   }
 
   return std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(*this, ")", 1);

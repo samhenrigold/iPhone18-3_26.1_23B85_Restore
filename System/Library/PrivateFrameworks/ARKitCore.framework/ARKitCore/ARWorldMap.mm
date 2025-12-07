@@ -50,129 +50,129 @@
 
 - (NSObject)extractReferenceObjectWithTransform:(__n128)transform center:(float64x2_t)center extent:(__n128)extent error:(float32x4_t)error
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v11 = objc_opt_new();
   [self referenceOriginTransform];
-  v87 = __invert_f4(v86);
+  v88 = __invert_f4(v87);
   v12 = 0;
   *buf = a2;
   *&buf[16] = transform;
   centerCopy = center;
   extentCopy = extent;
-  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
   do
   {
-    *(&v77 + v12) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v87.columns[0], COERCE_FLOAT(*&buf[v12])), v87.columns[1], *&buf[v12], 1), v87.columns[2], *&buf[v12], 2), v87.columns[3], *&buf[v12], 3);
+    *(&v78 + v12) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v88.columns[0], COERCE_FLOAT(*&buf[v12])), v88.columns[1], *&buf[v12], 1), v88.columns[2], *&buf[v12], 2), v88.columns[3], *&buf[v12], 3);
     v12 += 16;
   }
 
   while (v12 != 64);
-  v68 = v77;
-  *v13.f32 = ARInnerScaleFromMatrix(v77, v78);
-  v59 = v13;
-  *v14.i64 = ARNormalizedTransform(v68);
-  v73 = v15;
-  v75 = v14;
-  v69 = v17;
-  v71 = v16;
+  v69 = v78;
+  *v13.f32 = ARInnerScaleFromMatrix(v78, v79);
+  v60 = v13;
+  *v14.i64 = ARNormalizedTransform(v69);
+  v74 = v15;
+  v76 = v14;
+  v70 = v17;
+  v72 = v16;
   *v18.i64 = ARRenderingToVisionCoordinateTransform();
   v22 = 0;
-  *buf = v75;
-  *&buf[16] = v73;
-  centerCopy = v71;
-  extentCopy = v69;
-  v77 = 0u;
+  *buf = v76;
+  *&buf[16] = v74;
+  centerCopy = v72;
+  extentCopy = v70;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
   do
   {
-    *(&v77 + v22) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*&buf[v22])), v19, *&buf[v22], 1), v20, *&buf[v22], 2), v21, *&buf[v22], 3);
+    *(&v78 + v22) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v18, COERCE_FLOAT(*&buf[v22])), v19, *&buf[v22], 1), v20, *&buf[v22], 2), v21, *&buf[v22], 3);
     v22 += 16;
   }
 
   while (v22 != 64);
-  v55 = v78;
-  v57 = v77;
-  v51 = v80;
-  v53 = v79;
+  v56 = v79;
+  v58 = v78;
+  v52 = v81;
+  v54 = v80;
   *&v23 = ARVisionToRenderingCoordinateTransform();
   v24 = 0;
   *buf = v23;
   *&buf[16] = v25;
   centerCopy = v26;
   extentCopy = v27;
-  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
   do
   {
-    *(&v77 + v24) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v57, COERCE_FLOAT(*&buf[v24])), v55, *&buf[v24], 1), v53, *&buf[v24], 2), v51, *&buf[v24], 3);
+    *(&v78 + v24) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v58, COERCE_FLOAT(*&buf[v24])), v56, *&buf[v24], 1), v54, *&buf[v24], 2), v52, *&buf[v24], 3);
     v24 += 16;
   }
 
   while (v24 != 64);
-  v56 = v79;
-  v58 = v80;
-  v52 = v77;
-  v54 = v78;
+  v57 = v80;
+  v59 = v81;
+  v53 = v78;
+  v55 = v79;
   v28.i64[0] = 0x3F0000003F000000;
   v28.i64[1] = 0x3F0000003F000000;
   v29 = vmulq_f32(a7, v28);
-  v61 = vmulq_f32(vsubq_f32(error, v29), v59);
-  v65 = vmulq_f32(vaddq_f32(error, v29), v59);
+  v62 = vmulq_f32(vsubq_f32(error, v29), v60);
+  v66 = vmulq_f32(vaddq_f32(error, v29), v60);
   *v30.i64 = ARRenderingToVisionCoordinateTransform();
-  v62 = vaddq_f32(v33, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v61.f32[0]), v31, *v61.f32, 1), v32, v61, 2));
+  v63 = vaddq_f32(v33, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v62.f32[0]), v31, *v62.f32, 1), v32, v62, 2));
   *v34.i64 = ARRenderingToVisionCoordinateTransform();
-  v38 = vaddq_f32(v37, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, v65.f32[0]), v35, *v65.f32, 1), v36, v65, 2));
-  v39 = vdivq_f32(v62, vdupq_laneq_s32(v62, 3));
+  v38 = vaddq_f32(v37, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, v66.f32[0]), v35, *v66.f32, 1), v36, v66, 2));
+  v39 = vdivq_f32(v63, vdupq_laneq_s32(v63, 3));
   v40 = vdivq_f32(v38, vdupq_laneq_s32(v38, 3));
   v39.i32[3] = 0;
   v40.i32[3] = 0;
-  v63 = vminnmq_f32(v39, v40);
-  v66 = vmaxnmq_f32(v39, v40);
+  v64 = vminnmq_f32(v39, v40);
+  v67 = vmaxnmq_f32(v39, v40);
   trackingData = [self trackingData];
-  *buf = *v63.i32;
-  *&buf[8] = vcvtq_f64_f32(*&vextq_s8(v63, v63, 4uLL));
-  *&buf[24] = *v66.i32;
-  centerCopy = vcvtq_f64_f32(*&vextq_s8(v66, v66, 4uLL));
+  *buf = *v64.i32;
+  *&buf[8] = vcvtq_f64_f32(*&vextq_s8(v64, v64, 4uLL));
+  *&buf[24] = *v67.i32;
+  centerCopy = vcvtq_f64_f32(*&vextq_s8(v67, v67, 4uLL));
   v42 = CV3DVIOExtractObjectMap();
 
   if (v42)
   {
-    v43 = _ARLogGeneral_29();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v44 = _ARLogGeneral_29(v43);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v44 = objc_opt_class();
-      v45 = NSStringFromClass(v44);
-      v46 = NSStringFromCV3DVIOReturn(v42);
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
+      v47 = NSStringFromCV3DVIOReturn(v42);
       *buf = 138543874;
-      *&buf[4] = v45;
+      *&buf[4] = v46;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2114;
-      *&buf[24] = v46;
-      _os_log_impl(&dword_1C241C000, v43, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error extracting reference object: %{public}@", buf, 0x20u);
+      *&buf[24] = v47;
+      _os_log_impl(&dword_1C241C000, v44, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error extracting reference object: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v47 = [ARReferenceObject alloc];
-    v88.columns[1] = v73;
-    v88.columns[0] = v75;
-    v88.columns[3] = v69;
-    v88.columns[2] = v71;
-    v89 = __invert_f4(v88);
-    v43 = [(ARReferenceObject *)v47 initWithTrackingData:v11 referenceOriginTransform:*v89.columns[0].i64, *v89.columns[1].i64, *v89.columns[2].i64, *v89.columns[3].i64];
-    rawFeaturePoints = [v43 rawFeaturePoints];
-    v49 = [rawFeaturePoints count];
+    v48 = [ARReferenceObject alloc];
+    v89.columns[1] = v74;
+    v89.columns[0] = v76;
+    v89.columns[3] = v70;
+    v89.columns[2] = v72;
+    v90 = __invert_f4(v89);
+    v44 = [(ARReferenceObject *)v48 initWithTrackingData:v11 referenceOriginTransform:*v90.columns[0].i64, *v90.columns[1].i64, *v90.columns[2].i64, *v90.columns[3].i64];
+    rawFeaturePoints = [v44 rawFeaturePoints];
+    v50 = [rawFeaturePoints count];
 
-    if (v49 >= 0x33)
+    if (v50 >= 0x33)
     {
 
       goto LABEL_15;
@@ -182,17 +182,17 @@
   if (a9)
   {
     ARErrorWithCodeAndUserInfo(400, 0);
-    *a9 = v43 = 0;
+    *a9 = v44 = 0;
   }
 
   else
   {
-    v43 = 0;
+    v44 = 0;
   }
 
 LABEL_15:
 
-  return v43;
+  return v44;
 }
 
 - (unint64_t)hash
@@ -347,7 +347,7 @@ LABEL_15:
 
 - (ARWorldMap)initWithCoder:(id)coder
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"version"];
   if (v5 >= 4)
@@ -355,18 +355,18 @@ LABEL_15:
     v6 = ARErrorWithCodeAndUserInfo(302, 0);
     [coderCopy failWithError:v6];
 
-    v7 = _ARLogGeneral_29();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ARLogGeneral_29(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543874;
-      v27 = v9;
-      v28 = 2048;
-      selfCopy2 = self;
+      v29 = v10;
       v30 = 2048;
-      v31 = v5;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading map: Unsupported map version (%ld)", buf, 0x20u);
+      selfCopy2 = self;
+      v32 = 2048;
+      v33 = v5;
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading map: Unsupported map version (%ld)", buf, 0x20u);
     }
 
 LABEL_14:
@@ -374,56 +374,56 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"trackingData"];
-  if (!v7)
+  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"trackingData"];
+  if (!v8)
   {
-    v21 = ARErrorWithCodeAndUserInfo(302, 0);
-    [coderCopy failWithError:v21];
+    v22 = ARErrorWithCodeAndUserInfo(302, 0);
+    [coderCopy failWithError:v22];
 
-    v22 = _ARLogGeneral_29();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = _ARLogGeneral_29(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138543618;
-      v27 = v24;
-      v28 = 2048;
+      v29 = v26;
+      v30 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading map: Malformed map data", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v24, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Error loading map: Malformed map data", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
   [coderCopy ar_decodeMatrix4x4ForKey:@"referenceOriginTransform"];
-  v10 = [(ARWorldMap *)self initWithTrackingData:v7 referenceOriginTransform:?];
-  v11 = v10;
-  if (v10)
+  v11 = [(ARWorldMap *)self initWithTrackingData:v8 referenceOriginTransform:?];
+  v12 = v11;
+  if (v11)
   {
-    v10->_version = v5;
-    v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"surfaceData"];
-    surfaceData = v11->_surfaceData;
-    v11->_surfaceData = v12;
+    v11->_version = v5;
+    v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"surfaceData"];
+    surfaceData = v12->_surfaceData;
+    v12->_surfaceData = v13;
 
-    v14 = MEMORY[0x1E695DFD8];
-    v15 = objc_opt_class();
-    v16 = [v14 setWithObjects:{v15, objc_opt_class(), 0}];
-    v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"anchors"];
-    v18 = v17;
-    if (v17)
+    v15 = MEMORY[0x1E695DFD8];
+    v16 = objc_opt_class();
+    v17 = [v15 setWithObjects:{v16, objc_opt_class(), 0}];
+    v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"anchors"];
+    v19 = v18;
+    if (v18)
     {
-      v19 = v17;
+      v20 = v18;
     }
 
     else
     {
-      v19 = MEMORY[0x1E695E0F0];
+      v20 = MEMORY[0x1E695E0F0];
     }
 
-    objc_storeStrong(&v11->_anchors, v19);
+    objc_storeStrong(&v12->_anchors, v20);
   }
 
-  self = v11;
+  self = v12;
   selfCopy3 = self;
 LABEL_15:
 
@@ -445,7 +445,7 @@ LABEL_15:
     }
 
     v12 = ARShouldUseLogTypeError_internalOSVersion_37;
-    v13 = _ARLogGeneral_29();
+    v13 = _ARLogGeneral_29(v10);
     v14 = v13;
     if (v12 == 1)
     {
@@ -494,7 +494,7 @@ LABEL_17:
   v14 = [[ARPointCloud alloc] initWithPointData:v9];
   if (![(ARPointCloud *)v14 count])
   {
-    v28 = _ARLogGeneral_29();
+    v28 = _ARLogGeneral_29(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = objc_opt_class();
@@ -534,66 +534,66 @@ LABEL_18:
 
 + (__n64)boundsForTrackingData:(uint64_t)data
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v2 = CV3DVIOGetMapBounds();
-  if (!v2)
+  v32 = *MEMORY[0x1E69E9840];
+  v4 = CV3DVIOGetMapBounds();
+  if (!v4)
   {
-    v3.f64[0] = 0.0;
-    v4.f64[0] = 0.0;
+    v5.f64[0] = 0.0;
+    v6.f64[0] = 0.0;
     __asm { FMOV            V6.2D, #0.5 }
 
-    v20 = vmulq_f64(vaddq_f64(v3, v4), _Q6).f64[0];
-    v21 = COERCE_DOUBLE(*&vmulq_f64(vaddq_f64(0, 0), _Q6).f64[1]);
-    result.n64_f32[0] = -v21;
-    *&v20 = v20;
-    result.n64_u32[1] = LODWORD(v20);
+    v22 = vmulq_f64(vaddq_f64(v5, v6), _Q6).f64[0];
+    v23 = COERCE_DOUBLE(*&vmulq_f64(vaddq_f64(0, 0), _Q6).f64[1]);
+    result.n64_f32[0] = -v23;
+    *&v22 = v22;
+    result.n64_u32[1] = LODWORD(v22);
     return result;
   }
 
-  v5 = v2;
+  v7 = v4;
   if (ARShouldUseLogTypeError_onceToken_37 != -1)
   {
     +[ARWorldMap boundsForTrackingData:];
   }
 
-  v6 = ARShouldUseLogTypeError_internalOSVersion_37;
-  v7 = _ARLogGeneral_29();
-  v8 = v7;
-  if (v6 == 1)
+  v8 = ARShouldUseLogTypeError_internalOSVersion_37;
+  v9 = _ARLogGeneral_29(v4);
+  v10 = v9;
+  if (v8 == 1)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = NSStringFromCV3DVIOReturn(v5);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = NSStringFromCV3DVIOReturn(v7);
       *buf = 138543874;
-      v25 = v10;
-      v26 = 2048;
-      dataCopy2 = data;
-      v28 = 2114;
-      v29 = v11;
-      v12 = "%{public}@ <%p>: Failed to parse bounds: %{public}@";
-      v13 = v8;
-      v14 = OS_LOG_TYPE_ERROR;
+      v27 = v12;
+      v28 = 2048;
+      selfCopy2 = self;
+      v30 = 2114;
+      v31 = v13;
+      v14 = "%{public}@ <%p>: Failed to parse bounds: %{public}@";
+      v15 = v10;
+      v16 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 0x20u);
+      _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v23 = objc_opt_class();
-    v10 = NSStringFromClass(v23);
-    v11 = NSStringFromCV3DVIOReturn(v5);
+    v25 = objc_opt_class();
+    v12 = NSStringFromClass(v25);
+    v13 = NSStringFromCV3DVIOReturn(v7);
     *buf = 138543874;
-    v25 = v10;
-    v26 = 2048;
-    dataCopy2 = data;
-    v28 = 2114;
-    v29 = v11;
-    v12 = "Error: %{public}@ <%p>: Failed to parse bounds: %{public}@";
-    v13 = v8;
-    v14 = OS_LOG_TYPE_INFO;
+    v27 = v12;
+    v28 = 2048;
+    selfCopy2 = self;
+    v30 = 2114;
+    v31 = v13;
+    v14 = "Error: %{public}@ <%p>: Failed to parse bounds: %{public}@";
+    v15 = v10;
+    v16 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
@@ -602,21 +602,22 @@ LABEL_10:
 
 + (NSObject)keyframesForTrackingData:(double)data withFeaturePoints:(double)points referenceOriginTransform:(double)transform
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v10 = a7;
   v11 = a8;
-  v48 = 0;
   v49 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v50 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
   v12 = CV3DVIOCreateKeyframesFromMap();
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v41 = __82__ARWorldMap_keyframesForTrackingData_withFeaturePoints_referenceOriginTransform___block_invoke;
-  v42 = &unk_1E817D868;
-  v43 = &v45;
-  v44 = v49;
+  v13 = v12;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v42 = __82__ARWorldMap_keyframesForTrackingData_withFeaturePoints_referenceOriginTransform___block_invoke;
+  v43 = &unk_1E817D868;
+  v44 = &v46;
+  v45 = v50;
   if (v12)
   {
     if (ARShouldUseLogTypeError_onceToken_37 != -1)
@@ -624,99 +625,99 @@ LABEL_10:
       +[ARWorldMap boundsForTrackingData:];
     }
 
-    v13 = ARShouldUseLogTypeError_internalOSVersion_37;
-    v14 = _ARLogGeneral_29();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError_internalOSVersion_37;
+    v15 = _ARLogGeneral_29(v12);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = NSStringFromCV3DVIOReturn(v12);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
+        v19 = NSStringFromCV3DVIOReturn(v13);
         *buf = 138543874;
-        *&buf[4] = v17;
+        *&buf[4] = v18;
         *&buf[12] = 2048;
         *&buf[14] = self;
         *&buf[22] = 2114;
-        *&buf[24] = v18;
-        _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to parse keyframes: %{public}@", buf, 0x20u);
+        *&buf[24] = v19;
+        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to parse keyframes: %{public}@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
-      v34 = NSStringFromCV3DVIOReturn(v12);
+      v33 = objc_opt_class();
+      v34 = NSStringFromClass(v33);
+      v35 = NSStringFromCV3DVIOReturn(v13);
       *buf = 138543874;
-      *&buf[4] = v33;
+      *&buf[4] = v34;
       *&buf[12] = 2048;
       *&buf[14] = self;
       *&buf[22] = 2114;
-      *&buf[24] = v34;
-      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to parse keyframes: %{public}@", buf, 0x20u);
+      *&buf[24] = v35;
+      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to parse keyframes: %{public}@", buf, 0x20u);
     }
   }
 
   else
   {
-    v15 = objc_opt_new();
-    if (v49)
+    v16 = objc_opt_new();
+    if (v50)
     {
-      v19 = 0;
-      for (i = 0; i < v49; ++i)
+      v20 = 0;
+      for (i = 0; i < v50; ++i)
       {
-        v60 = 0;
-        v58 = 0u;
+        v61 = 0;
         v59 = 0u;
-        v56 = 0u;
+        v60 = 0u;
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
-        v52 = 0u;
+        v56 = 0u;
         v53 = 0u;
+        v54 = 0u;
         *&buf[16] = 0u;
-        v51 = 0u;
+        v52 = 0u;
         *buf = 0u;
-        v21 = (v46[3] + v19);
-        v22 = *v21;
-        v23 = v21[1];
-        v24 = v21[2];
-        v52 = v21[3];
-        *&buf[16] = v23;
-        v51 = v24;
-        v25 = v21[7];
-        v27 = v21[4];
-        v26 = v21[5];
-        v55 = v21[6];
-        v56 = v25;
-        v53 = v27;
-        v54 = v26;
-        v29 = v21[9];
-        v28 = v21[10];
-        v30 = v21[8];
-        v60 = *(v21 + 22);
-        v58 = v29;
-        v59 = v28;
-        v57 = v30;
-        *buf = v22;
+        v22 = (v47[3] + v20);
+        v23 = *v22;
+        v24 = v22[1];
+        v25 = v22[2];
+        v53 = v22[3];
+        *&buf[16] = v24;
+        v52 = v25;
+        v26 = v22[7];
+        v28 = v22[4];
+        v27 = v22[5];
+        v56 = v22[6];
+        v57 = v26;
+        v54 = v28;
+        v55 = v27;
+        v30 = v22[9];
+        v29 = v22[10];
+        v31 = v22[8];
+        v61 = *(v22 + 22);
+        v59 = v30;
+        v60 = v29;
+        v58 = v31;
+        *buf = v23;
         transform = [[ARKeyFrame alloc] initWithKeyframeData:buf featurePoints:v11 referenceOriginTransform:a2, data, points, transform];
-        [v15 addObject:transform];
+        [v16 addObject:transform];
 
-        v19 += 184;
+        v20 += 184;
       }
     }
   }
 
-  v41(v40);
-  _Block_object_dispose(&v45, 8);
-  if (v12)
+  v42(v41);
+  _Block_object_dispose(&v46, 8);
+  if (v13)
   {
-    v15 = objc_opt_new();
+    v16 = objc_opt_new();
   }
 
-  return v15;
+  return v16;
 }
 
 @end

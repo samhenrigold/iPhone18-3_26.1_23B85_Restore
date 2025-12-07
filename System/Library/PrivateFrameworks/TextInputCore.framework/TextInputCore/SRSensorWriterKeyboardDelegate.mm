@@ -6,7 +6,7 @@
 
 - (id)classNameForSensorIdentifier:(id)identifier
 {
-  if ([identifier isEqualToString:@"com.apple.SensorKit.keyboardMetrics"])
+  if (objc_msgSend_isEqualToString_(identifier, a2, @"com.apple.SensorKit.keyboardMetrics"))
   {
     return @"SRKeyboardMetrics";
   }

@@ -3,72 +3,72 @@
 
 @implementation SFFormAutoFillController
 
-id __54___SFFormAutoFillController_initWithWebView_delegate___block_invoke(uint64_t a1)
+id __54___SFFormAutoFillController_initWithWebView_delegate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v3 = metadataClasses();
-  v4 = [v3 setByAddingObjectsFromSet:v2];
+  v3 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  v5 = metadataClasses(v3, v4);
+  v6 = [v5 setByAddingObjectsFromSet:v3];
 
-  v5 = [MEMORY[0x1E69853F8] remoteObjectInterfaceWithProtocol:&unk_1F5072D20];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 24);
-  *(v6 + 24) = v5;
+  v7 = [MEMORY[0x1E69853F8] remoteObjectInterfaceWithProtocol:&unk_1F5072D20];
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 24);
+  *(v8 + 24) = v7;
 
-  v8 = *(*(a1 + 32) + 24);
-  v9 = MEMORY[0x1E695DFD8];
-  v10 = objc_opt_class();
-  v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-  [v8 setClasses:v11 forSelector:sel_didCollectURLsForPreFilling_atURL_inFrame_ argumentIndex:0 ofReply:0];
+  v10 = *(*(a1 + 32) + 24);
+  v11 = MEMORY[0x1E695DFD8];
+  v12 = objc_opt_class();
+  v13 = [v11 setWithObjects:{v12, objc_opt_class(), 0}];
+  [v10 setClasses:v13 forSelector:sel_didCollectURLsForPreFilling_atURL_inFrame_ argumentIndex:0 ofReply:0];
 
-  [*(*(a1 + 32) + 24) setClasses:v4 forSelector:sel_didCollectFormMetadataForPreFilling_atURL_ argumentIndex:0 ofReply:0];
-  [*(*(a1 + 32) + 24) setClasses:v4 forSelector:sel_didCollectFormMetadataForPageLevelAutoFill_atURL_ argumentIndex:0 ofReply:0];
-  v12 = *(*(a1 + 32) + 24);
-  v13 = metadataClasses();
-  [v12 setClasses:v13 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:0 ofReply:0];
+  [*(*(a1 + 32) + 24) setClasses:v6 forSelector:sel_didCollectFormMetadataForPreFilling_atURL_ argumentIndex:0 ofReply:0];
+  v14 = [*(*(a1 + 32) + 24) setClasses:v6 forSelector:sel_didCollectFormMetadataForPageLevelAutoFill_atURL_ argumentIndex:0 ofReply:0];
+  v15 = *(*(a1 + 32) + 24);
+  v17 = metadataClasses(v14, v16);
+  [v15 setClasses:v17 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:0 ofReply:0];
 
-  v14 = *(*(a1 + 32) + 24);
-  v15 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v14 setClasses:v15 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:1 ofReply:0];
-
-  [*(*(a1 + 32) + 24) setClasses:v2 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:2 ofReply:0];
-  v16 = *(*(a1 + 32) + 24);
-  v17 = metadataClasses();
-  [v16 setClasses:v17 forSelector:sel_didFillGeneratedPasswordInForm_inFrame_ argumentIndex:0 ofReply:0];
-
-  [*(*(a1 + 32) + 24) setClasses:v2 forSelector:sel_didFillGeneratedPasswordInForm_inFrame_ argumentIndex:1 ofReply:0];
-  [*(*(a1 + 32) + 24) setClasses:v2 forSelector:sel_willNavigateFrame_withUnsubmittedForm_ argumentIndex:0 ofReply:0];
   v18 = *(*(a1 + 32) + 24);
-  v19 = metadataClasses();
-  [v18 setClasses:v19 forSelector:sel_willNavigateFrame_withUnsubmittedForm_ argumentIndex:1 ofReply:0];
+  v19 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v18 setClasses:v19 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:1 ofReply:0];
 
-  v20 = *(*(a1 + 32) + 24);
-  v21 = metadataClasses();
-  [v20 setClasses:v21 forSelector:sel_didUpdateUnsubmittedForm_inFrame_ argumentIndex:0 ofReply:0];
+  v20 = [*(*(a1 + 32) + 24) setClasses:v3 forSelector:sel_textDidChangeInTextField_inForm_inFrame_ argumentIndex:2 ofReply:0];
+  v21 = *(*(a1 + 32) + 24);
+  v23 = metadataClasses(v20, v22);
+  [v21 setClasses:v23 forSelector:sel_didFillGeneratedPasswordInForm_inFrame_ argumentIndex:0 ofReply:0];
 
-  [*(*(a1 + 32) + 24) setClasses:v2 forSelector:sel_didUpdateUnsubmittedForm_inFrame_ argumentIndex:1 ofReply:0];
-  v22 = *(*(a1 + 32) + 24);
-  v23 = metadataClasses();
-  [v22 setClasses:v23 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:0 ofReply:0];
+  [*(*(a1 + 32) + 24) setClasses:v3 forSelector:sel_didFillGeneratedPasswordInForm_inFrame_ argumentIndex:1 ofReply:0];
+  v24 = [*(*(a1 + 32) + 24) setClasses:v3 forSelector:sel_willNavigateFrame_withUnsubmittedForm_ argumentIndex:0 ofReply:0];
+  v25 = *(*(a1 + 32) + 24);
+  v27 = metadataClasses(v24, v26);
+  [v25 setClasses:v27 forSelector:sel_willNavigateFrame_withUnsubmittedForm_ argumentIndex:1 ofReply:0];
 
-  v24 = *(*(a1 + 32) + 24);
-  v25 = metadataClasses();
-  v26 = [v25 setByAddingObjectsFromSet:v2];
-  [v24 setClasses:v26 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:1 ofReply:0];
+  v28 = *(*(a1 + 32) + 24);
+  v31 = metadataClasses(v29, v30);
+  [v28 setClasses:v31 forSelector:sel_didUpdateUnsubmittedForm_inFrame_ argumentIndex:0 ofReply:0];
 
-  [*(*(a1 + 32) + 24) setClasses:v2 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:2 ofReply:0];
-  v27 = [*(a1 + 40) _remoteObjectRegistry];
-  [v27 registerExportedObject:*(a1 + 32) interface:*(*(a1 + 32) + 24)];
-  v28 = [MEMORY[0x1E69853F8] remoteObjectInterfaceWithProtocol:&unk_1F50755C0];
-  v29 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  [v28 setClasses:v29 forSelector:sel_getMetadataForTextField_inFrame_atURL_completionHandler_ argumentIndex:0 ofReply:1];
+  v32 = [*(*(a1 + 32) + 24) setClasses:v3 forSelector:sel_didUpdateUnsubmittedForm_inFrame_ argumentIndex:1 ofReply:0];
+  v33 = *(*(a1 + 32) + 24);
+  v35 = metadataClasses(v32, v34);
+  [v33 setClasses:v35 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:0 ofReply:0];
 
-  v30 = metadataClasses();
-  [v28 setClasses:v30 forSelector:sel_getMetadataForTextField_inFrame_atURL_completionHandler_ argumentIndex:1 ofReply:1];
+  v36 = *(*(a1 + 32) + 24);
+  v39 = metadataClasses(v37, v38);
+  v40 = [v39 setByAddingObjectsFromSet:v3];
+  [v36 setClasses:v40 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:1 ofReply:0];
 
-  [v28 setClasses:v4 forSelector:sel_collectAllFormsMetadataWithRequestType_completionHandler_ argumentIndex:0 ofReply:1];
-  v31 = [v27 remoteObjectProxyWithInterface:v28];
+  [*(*(a1 + 32) + 24) setClasses:v3 forSelector:sel_didRemoveAutomaticStrongPasswordInForm_inputSessionUserObject_inFrame_ argumentIndex:2 ofReply:0];
+  v41 = [*(a1 + 40) _remoteObjectRegistry];
+  [v41 registerExportedObject:*(a1 + 32) interface:*(*(a1 + 32) + 24)];
+  v42 = [MEMORY[0x1E69853F8] remoteObjectInterfaceWithProtocol:&unk_1F50755C0];
+  v43 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  [v42 setClasses:v43 forSelector:sel_getMetadataForTextField_inFrame_atURL_completionHandler_ argumentIndex:0 ofReply:1];
 
-  return v31;
+  v46 = metadataClasses(v44, v45);
+  [v42 setClasses:v46 forSelector:sel_getMetadataForTextField_inFrame_atURL_completionHandler_ argumentIndex:1 ofReply:1];
+
+  [v42 setClasses:v6 forSelector:sel_collectAllFormsMetadataWithRequestType_completionHandler_ argumentIndex:0 ofReply:1];
+  v47 = [v41 remoteObjectProxyWithInterface:v42];
+
+  return v47;
 }
 
 void __137___SFFormAutoFillController_autoFillFormInFrame_withValues_setAutoFilled_focusFieldAfterFilling_fieldToFocus_fieldsToObscure_submitForm___block_invoke(uint64_t a1, void *a2, char a3)
@@ -580,48 +580,49 @@ void __87___SFFormAutoFillController__authenticateForAutoFillForHighLevelDomain_
 
 void __71___SFFormAutoFillController_didCollectFormMetadataForPreFilling_atURL___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v17 = 0;
-  v5 = [v4 metadataOfBestFormForStreamlinedLogin:v3 autoFillFrameHandle:&v17];
-  v6 = v17;
+  v20 = 0;
+  v5 = [v4 metadataOfBestFormForStreamlinedLogin:v3 autoFillFrameHandle:&v20];
+  v6 = v20;
   if (v5 && ([*(a1 + 32) mayPreFillInFrame:v6] & 1) != 0)
   {
-    v7 = [v5 bestControlForStreamlinedLoginFocus];
-    if (v7)
+    v8 = [v5 bestControlForStreamlinedLoginFocus];
+    if (v8)
     {
-      if ([MEMORY[0x1E69C8880] isAutoFillDrivenByUIProcess])
+      v9 = [MEMORY[0x1E69C8880] isAutoFillDrivenByUIProcess];
+      if (v9)
       {
-        v8 = [[_SFFormAutoFillInputSession alloc] initForStreamlinedLoginWithControlMetadata:v7 formMetadata:v5 frameHandle:v6];
-        v9 = *(a1 + 40);
-        v10 = *(v9 + 168);
-        *(v9 + 168) = v8;
+        v11 = [[_SFFormAutoFillInputSession alloc] initForStreamlinedLoginWithControlMetadata:v8 formMetadata:v5 frameHandle:v6];
+        v12 = *(a1 + 40);
+        v13 = *(v12 + 168);
+        *(v12 + 168) = v11;
       }
 
-      v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(*(a1 + 40) + 168);
-        v13 = [v7 uniqueID];
+        v15 = *(*(a1 + 40) + 168);
+        v16 = [v8 uniqueID];
         *buf = 134218242;
-        v19 = v12;
-        v20 = 2112;
-        v21 = v13;
-        _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "%p Beginning new input session for Streamlined Login in control %@", buf, 0x16u);
+        v22 = v15;
+        v23 = 2112;
+        v24 = v16;
+        _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "%p Beginning new input session for Streamlined Login in control %@", buf, 0x16u);
       }
 
-      v14 = *(*(a1 + 40) + 32);
-      v15 = [v7 uniqueID];
-      [v14 focusControlForStreamlinedLogin:v15 inFrame:v6];
+      v17 = *(*(a1 + 40) + 32);
+      v18 = [v8 uniqueID];
+      [v17 focusControlForStreamlinedLogin:v18 inFrame:v6];
     }
 
     else
     {
-      v16 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v19 = WBS_LOG_CHANNEL_PREFIXAutoFill(0, v7);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        __71___SFFormAutoFillController_didCollectFormMetadataForPreFilling_atURL___block_invoke_2_cold_1(v16);
+        __71___SFFormAutoFillController_didCollectFormMetadataForPreFilling_atURL___block_invoke_2_cold_1(v19);
       }
     }
   }
@@ -1277,19 +1278,19 @@ void __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNo
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNotification___block_invoke_2(uint64_t a1)
+void __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNotification___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) == 2)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "Scheduling account saved notification", v9, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "Scheduling account saved notification", v12, 2u);
     }
 
-    v3 = [MEMORY[0x1E69C89C0] sharedNotificationManager];
-    [v3 schedulePasswordSavedNotificationForSavedAccount:*(a1 + 40) completionHandler:&__block_literal_global_292];
+    v4 = [MEMORY[0x1E69C89C0] sharedNotificationManager];
+    [v4 schedulePasswordSavedNotificationForSavedAccount:*(a1 + 40) completionHandler:&__block_literal_global_292];
 
     [*(a1 + 32) _dismissKeyboardAndSimulateCarriageReturnKeyEvents:0];
     *(*(a1 + 32) + 289) = 1;
@@ -1297,23 +1298,24 @@ void __83___SFFormAutoFillController_handleDidSaveAccountWithGeneratedPasswordNo
 
   else
   {
-    v4 = [*(a1 + 32) _customInputViewFromAutoFillInputSession];
-    if (v4)
+    v5 = [*(a1 + 32) _customInputViewFromAutoFillInputSession];
+    v7 = v5;
+    if (v5)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v8 = WBS_LOG_CHANNEL_PREFIXAutoFill(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Transitioning AutoFill view to Strong Password Saved view", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_DEFAULT, "Transitioning AutoFill view to Strong Password Saved view", buf, 2u);
       }
 
-      v6 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:2];
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 272);
-      *(v7 + 272) = v6;
+      v9 = [objc_alloc(MEMORY[0x1E69BC7D8]) initWithMode:2];
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 272);
+      *(v10 + 272) = v9;
 
       [*(*(a1 + 32) + 272) setDelegate:?];
-      [v4 replaceContentsOfViewWithStrongPasswordIntroductionViewController:*(*(a1 + 32) + 272)];
+      [v7 replaceContentsOfViewWithStrongPasswordIntroductionViewController:*(*(a1 + 32) + 272)];
     }
   }
 }

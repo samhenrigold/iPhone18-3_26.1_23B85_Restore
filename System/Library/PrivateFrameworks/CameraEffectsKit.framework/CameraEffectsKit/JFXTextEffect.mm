@@ -128,7 +128,7 @@
   v3 = [(objc_super *)a2 description];
   effectID = [self effectID];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v5, v6, "The font for '%@-%@' is not localized and there is no Default Text.", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_2(&dword_242A3B000, v5, v6, "The font for '%@-%@' is not localized and there is no Default Text.", v7, v8, v9, v10);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -422,9 +422,6 @@
 
 - (PVCGPointQuad)textCornersAtIndex:(SEL)index time:(unint64_t)time forcePosterFrame:(id *)frame includeDropShadow:(BOOL)shadow scale:(BOOL)scale relativeTo:(CGPoint)to basisOrigin:(CGRect)origin
 {
-  v10 = *&a10;
-  scaleCopy = scale;
-  shadowCopy = shadow;
   height = origin.size.height;
   width = origin.size.width;
   y = to.y;
@@ -434,12 +431,10 @@
   retstr->a = 0u;
   retstr->b = 0u;
   renderEffect = [(JFXEffect *)self renderEffect];
-  v21 = renderEffect;
+  v18 = renderEffect;
   if (renderEffect)
   {
-    v26 = *&frame->var0;
-    var3 = frame->var3;
-    [renderEffect textCornersAtTime:&v26 index:time forcePosterFrame:shadowCopy includeDropShadow:scaleCopy scale:v10 viewSize:x viewOrigin:{y, width, height}];
+    objc_msgSend_textCornersAtTime_index_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(renderEffect, x, y, width, height, frame->var0, *&frame->var1, frame->var3);
   }
 
   else
@@ -450,7 +445,7 @@
     retstr->b = 0u;
   }
 
-  if (v10 == 1)
+  if (a10 == 1)
   {
     c = retstr->c;
     a = retstr->a;
@@ -503,43 +498,40 @@
 
 - (int64_t)textHitTest:(CGPoint)test time:(id *)time relativeTo:(CGRect)to basisOrigin:(int)origin
 {
-  v6 = *&origin;
   height = to.size.height;
   width = to.size.width;
   y = to.origin.y;
   x = to.origin.x;
-  v12 = test.y;
-  v13 = test.x;
+  v11 = test.y;
+  v12 = test.x;
   strings = [(JFXTextEffect *)self strings];
-  v16 = [strings count];
+  v15 = [strings count];
 
-  if (v16 < 1)
+  if (v15 < 1)
   {
     return -1;
   }
 
-  v17 = 0;
+  v16 = 0;
   while (1)
   {
-    memset(&v19[1], 0, sizeof(PVCGPointQuad));
-    v19[0].a = *&time->var0;
-    *&v19[0].b.x = time->var3;
-    [(JFXTextEffect *)self textCornersAtIndex:v17 time:v19 forcePosterFrame:0 includeDropShadow:1 scale:v6 relativeTo:1.0 basisOrigin:1.0, x, y, width, height];
-    v19[0] = v19[1];
-    v20.x = v13;
-    v20.y = v12;
-    if (pv_is_CGPoint_in_quad(v20, v19))
+    memset(&v18[1], 0, sizeof(PVCGPointQuad));
+    objc_msgSend_textCornersAtIndex_time_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, 1.0, 1.0, x, y, width, height, time->var0, *&time->var1, time->var3);
+    v18[0] = v18[1];
+    v19.x = v12;
+    v19.y = v11;
+    if (pv_is_CGPoint_in_quad(v19, v18))
     {
       break;
     }
 
-    if (v16 == ++v17)
+    if (v15 == ++v16)
     {
       return -1;
     }
   }
 
-  return v17;
+  return v16;
 }
 
 - (void)beginTextEditing

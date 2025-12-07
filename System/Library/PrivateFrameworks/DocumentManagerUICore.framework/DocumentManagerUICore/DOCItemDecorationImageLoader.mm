@@ -1,4 +1,5 @@
 @interface DOCItemDecorationImageLoader
++ (id)itemAccessDecorationForType:(int64_t)type size:(CGSize)size scale:(double)scale prepare:(BOOL)prepare;
 + (id)typeForItemAccessType:(int64_t)type;
 + (id)vendorBadgeDecorationForType:(id)type size:(CGSize)size scale:(double)scale prepare:(BOOL)prepare;
 @end
@@ -30,12 +31,23 @@ LABEL_9:
   return v4;
 }
 
++ (id)itemAccessDecorationForType:(int64_t)type size:(CGSize)size scale:(double)scale prepare:(BOOL)prepare
+{
+  prepareCopy = prepare;
+  height = size.height;
+  width = size.width;
+  v11 = [self typeForItemAccessType:type];
+  v12 = [self vendorBadgeDecorationForType:v11 size:prepareCopy scale:width prepare:{height, scale}];
+
+  return v12;
+}
+
 + (id)vendorBadgeDecorationForType:(id)type size:(CGSize)size scale:(double)scale prepare:(BOOL)prepare
 {
   prepareCopy = prepare;
   height = size.height;
   width = size.width;
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277D1B1C8];
   typeCopy = type;
   v12 = [[v10 alloc] initWithSize:width scale:{height, scale}];
@@ -43,16 +55,14 @@ LABEL_9:
 
   if (prepareCopy)
   {
-    v20[0] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     [v13 prepareImagesForDescriptors:v14];
   }
 
   v15 = [v13 imageForDescriptor:v12];
   cGImage = [v15 CGImage];
   v17 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:cGImage];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

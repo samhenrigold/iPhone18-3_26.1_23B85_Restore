@@ -336,7 +336,7 @@ LABEL_12:
 
 - (id)bestSpokenName
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   waypointCategory = [self waypointCategory];
   contactSpokenName = 0;
   if (waypointCategory <= 6)
@@ -380,13 +380,13 @@ LABEL_10:
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315650;
-      v10 = "[GEOComposedWaypoint(MNExtras) bestSpokenName]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedWaypoint+MNExtras.m";
-      v13 = 1024;
-      v14 = 87;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v9, 0x1Cu);
+      v8 = 136315650;
+      v9 = "[GEOComposedWaypoint(MNExtras) bestSpokenName]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedWaypoint+MNExtras.m";
+      v12 = 1024;
+      v13 = 87;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v8, 0x1Cu);
     }
 
     _spokenPlaceName = [self navAnnouncementName];
@@ -397,14 +397,13 @@ LABEL_10:
 LABEL_14:
   contactSpokenName = _spokenPlaceName;
 LABEL_15:
-  v7 = *MEMORY[0x1E69E9840];
 
   return contactSpokenName;
 }
 
 - (id)bestDisplayName:()MNExtras
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   waypointCategory = [self waypointCategory];
   if (waypointCategory > 0xC)
   {
@@ -434,16 +433,16 @@ LABEL_3:
 LABEL_11:
     if (!waypointCategory)
     {
-      v9 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315650;
-        v11 = "[GEOComposedWaypoint(MNExtras) bestDisplayName:]";
-        v12 = 2080;
-        v13 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedWaypoint+MNExtras.m";
-        v14 = 1024;
-        v15 = 56;
-        _os_log_impl(&dword_1D311E000, v9, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v10, 0x1Cu);
+        v9 = 136315650;
+        v10 = "[GEOComposedWaypoint(MNExtras) bestDisplayName:]";
+        v11 = 2080;
+        v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/GEOComposedWaypoint+MNExtras.m";
+        v13 = 1024;
+        v14 = 56;
+        _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v9, 0x1Cu);
       }
 
       goto LABEL_3;
@@ -453,7 +452,6 @@ LABEL_11:
   }
 
 LABEL_6:
-  v7 = *MEMORY[0x1E69E9840];
 
   return navDisplayName;
 }

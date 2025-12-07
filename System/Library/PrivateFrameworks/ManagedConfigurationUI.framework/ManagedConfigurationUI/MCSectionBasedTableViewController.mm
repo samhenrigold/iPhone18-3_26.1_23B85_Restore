@@ -51,28 +51,28 @@
 
 - (void)_registerCellClass
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   sectionControllers = [(MCSectionBasedTableViewController *)self sectionControllers];
-  v4 = [sectionControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [sectionControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(sectionControllers);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         sectionBasedTableView = [(MCSectionBasedTableViewController *)self sectionBasedTableView];
         tableView = [sectionBasedTableView tableView];
         [v8 registerCellClassWithTableView:tableView];
@@ -81,7 +81,7 @@
       }
 
       while (v5 != v7);
-      v5 = [sectionControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [sectionControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -90,8 +90,6 @@
   sectionBasedTableView2 = [(MCSectionBasedTableViewController *)self sectionBasedTableView];
   tableView2 = [sectionBasedTableView2 tableView];
   [tableView2 registerClass:objc_opt_class() forHeaderFooterViewReuseIdentifier:@"sectionHeader"];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view

@@ -103,9 +103,9 @@
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = PKCreditBalanceCell;
-  [(PKDashboardCollectionViewCell *)&v22 layoutSubviews];
+  v57.receiver = self;
+  v57.super_class = PKCreditBalanceCell;
+  [(PKDashboardCollectionViewCell *)&v57 layoutSubviews];
   v3 = 8.0;
   if (!self->_isCompactUI)
   {
@@ -140,32 +140,54 @@
   v14 = v8 - v13;
   [(PKCreditBalanceCell *)self _shouldReverseLayoutDirection];
   memset(&slice, 0, sizeof(slice));
-  v20.size.width = v12;
-  v20.size.height = v14;
+  v55.size.width = v12;
+  v55.size.height = v14;
   [(UILabel *)self->_labelBalance sizeThatFits:v12, v14, *&v10, *&v11];
-  v16 = v15 + 0.0;
-  v23.origin.x = v10;
-  v23.origin.y = v11;
-  v23.size.width = v12;
-  v23.size.height = v14;
-  CGRectDivide(v23, &slice, &v20, v16, CGRectMinYEdge);
+  v16 = *&v15;
+  v18 = fmin(v12, v17);
+  v19 = v15 + 0.0;
+  v58.origin.x = v10;
+  v58.origin.y = v11;
+  v58.size.width = v12;
+  v58.size.height = v14;
+  CGRectDivide(v58, &slice, &v55, v19, CGRectMinYEdge);
   labelBalance = self->_labelBalance;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v21 = PKContentAlignmentMake();
+  v22.n128_u64[0] = *&slice.origin.x;
+  v23.n128_u64[0] = *&slice.origin.y;
+  v24.n128_u64[0] = *&slice.size.width;
+  v25.n128_u64[0] = *&slice.size.height;
+  v26.n128_f64[0] = v18;
+  v27.n128_u64[0] = v16;
+  PKSizeAlignedInRect(v21, v26, v27, v22, v23, v24, v25, v28);
   [(UILabel *)labelBalance setFrame:?];
-  [(UILabel *)self->_labelAmount sizeThatFits:v20.size.width, v20.size.height];
-  v24 = v20;
-  CGRectDivide(v20, &slice, &v20, v24.origin.y + 0.0, CGRectMinYEdge);
+  [(UILabel *)self->_labelAmount sizeThatFits:v55.size.width, v55.size.height];
+  v30 = *&v29;
+  v32 = fmin(v55.size.width, v31);
+  CGRectDivide(v55, &slice, &v55, v29 + 0.0, CGRectMinYEdge);
   labelAmount = self->_labelAmount;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v34 = PKContentAlignmentMake();
+  v35.n128_u64[0] = *&slice.origin.x;
+  v36.n128_u64[0] = *&slice.origin.y;
+  v37.n128_u64[0] = *&slice.size.width;
+  v38.n128_u64[0] = *&slice.size.height;
+  v39.n128_f64[0] = v32;
+  v40.n128_u64[0] = v30;
+  PKSizeAlignedInRect(v34, v39, v40, v35, v36, v37, v38, v41);
   [(UILabel *)labelAmount setFrame:?];
-  [(UILabel *)self->_labelCreditAvailable sizeThatFits:v20.size.width, v20.size.height];
-  v25 = v20;
-  CGRectDivide(v20, &slice, &v20, v25.origin.y + 0.0, CGRectMinYEdge);
+  [(UILabel *)self->_labelCreditAvailable sizeThatFits:v55.size.width, v55.size.height];
+  v43 = *&v42;
+  v45 = fmin(v55.size.width, v44);
+  CGRectDivide(v55, &slice, &v55, v42 + 0.0, CGRectMinYEdge);
   labelCreditAvailable = self->_labelCreditAvailable;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v47 = PKContentAlignmentMake();
+  v48.n128_u64[0] = *&slice.origin.x;
+  v49.n128_u64[0] = *&slice.origin.y;
+  v50.n128_u64[0] = *&slice.size.width;
+  v51.n128_u64[0] = *&slice.size.height;
+  v52.n128_f64[0] = v45;
+  v53.n128_u64[0] = v43;
+  PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
   [(UILabel *)labelCreditAvailable setFrame:?];
 }
 

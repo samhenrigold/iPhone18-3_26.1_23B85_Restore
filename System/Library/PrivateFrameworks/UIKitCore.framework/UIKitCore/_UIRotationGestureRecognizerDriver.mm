@@ -1,7 +1,7 @@
 @interface _UIRotationGestureRecognizerDriver
 - (_UIRotationGestureRecognizerDriver)init;
-- (uint64_t)_setPostRecognitionWeight:(uint64_t)result;
-- (uint64_t)_setPreRecognitionWeight:(uint64_t)result;
+- (float)_setPostRecognitionWeight:(float *)result;
+- (float)_setPreRecognitionWeight:(float *)result;
 - (uint64_t)setRotation:(uint64_t)result;
 - (void)reset;
 - (void)touchesBegan:(id)began withEvent:(id)event;
@@ -114,16 +114,16 @@
   return result;
 }
 
-- (uint64_t)_setPreRecognitionWeight:(uint64_t)result
+- (float)_setPreRecognitionWeight:(float *)result
 {
   if (result)
   {
     v2 = result;
-    if (*(result + 112) != a2)
+    if (result[28] != a2)
     {
       v3 = a2;
-      *(result + 112) = v3;
-      v4 = *(result + 96);
+      result[28] = v3;
+      v4 = *(result + 12);
       if (([result state] - 1) >= 2)
       {
         v5 = &OBJC_IVAR____UIRotationGestureRecognizerDriver__preRecognitionWeight;
@@ -143,16 +143,16 @@
   return result;
 }
 
-- (uint64_t)_setPostRecognitionWeight:(uint64_t)result
+- (float)_setPostRecognitionWeight:(float *)result
 {
   if (result)
   {
     v2 = result;
-    if (*(result + 116) != a2)
+    if (result[29] != a2)
     {
       v3 = a2;
-      *(result + 116) = v3;
-      v4 = *(result + 96);
+      result[29] = v3;
+      v4 = *(result + 12);
       if (([result state] - 1) >= 2)
       {
         v5 = &OBJC_IVAR____UIRotationGestureRecognizerDriver__preRecognitionWeight;

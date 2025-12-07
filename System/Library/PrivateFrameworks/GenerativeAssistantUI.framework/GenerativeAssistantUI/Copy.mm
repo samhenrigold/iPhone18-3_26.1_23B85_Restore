@@ -10,20 +10,20 @@
 - (NSString)activityTitle
 {
   selfCopy = self;
-  sub_24FEC90AC();
-  v4 = v3;
+  sub_24FEC90AC(v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_24FEDE1C4();
+    v6 = sub_24FEDE1C4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)canPerformWithActivityItems:(id)items

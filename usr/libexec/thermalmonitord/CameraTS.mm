@@ -3,6 +3,15 @@
 - (__CFString)copyFieldCurrentValueForIndex:(int)index;
 - (__CFString)copyHeaderForIndex:(int)index;
 - (void)dealloc;
+- (void)enableFrontIRCameraNotifications:(int)notifications;
+- (void)enableFrontRigelDieNotifications:(int)notifications;
+- (void)enableFrontRomeoNTCNotifications:(int)notifications;
+- (void)enableRearCameraJasperNotifications:(int)notifications;
+- (void)enableRearCameraSuperWideNotifications:(int)notifications;
+- (void)enableRearCameraTeleNotifications:(int)notifications;
+- (void)handleStateChangeNotification:(int)notification temperatureSensorIndex:(int)index;
+- (void)handleTemperatureChangeNotification:(int)notification temperatureSensorIndex:(int)index;
+- (void)updateSensor:(int)sensor temperature:(unint64_t)temperature;
 @end
 
 @implementation CameraTS
@@ -79,6 +88,144 @@
   return v7;
 }
 
+- (void)enableRearCameraTeleNotifications:(int)notifications
+{
+  [(CameraTS *)self setRearCameraTeleSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000B790;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.backtelecamerapower", &self->_rearCameraTeleStateToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000B800;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.backtelesensortemperature", &self->_rearCameraTeleTemperatureToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
+- (void)enableRearCameraSuperWideNotifications:(int)notifications
+{
+  [(CameraTS *)self setRearCameraSuperWideSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000B9A8;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.backsuperwidecamerapower", &self->_rearCameraSuperWideStateToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000BA18;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.backsuperwidetemperature", &self->_rearCameraSuperWideTemperatureToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
+- (void)enableRearCameraJasperNotifications:(int)notifications
+{
+  [(CameraTS *)self setRearCameraJasperSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000BBC0;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.backtofsensorpower", &self->_rearCameraJasperStateToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000BC30;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.backtofsensortemperature", &self->_rearCameraJasperTemperatureToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
+- (void)enableFrontIRCameraNotifications:(int)notifications
+{
+  [(CameraTS *)self setFrontIRCameraSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000BDD8;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.frontirsensortemperature", &self->_frontIRCameraSensorTemperatureToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000BE24;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.frontirsensorpower", &self->_frontCameraStateToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
+- (void)enableFrontRomeoNTCNotifications:(int)notifications
+{
+  [(CameraTS *)self setFrontRomeoNTCSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000BFCC;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.frontirprojector.ntctempactive", &self->_frontRomeoNTCTemperatureActiveToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000C018;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.frontirsensorpower", &self->_frontCameraStateToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
+- (void)enableFrontRigelDieNotifications:(int)notifications
+{
+  [(CameraTS *)self setFrontRigelDieSensorIdx:*&notifications];
+  objc_initWeak(&location, self);
+  cameraQueue = self->_cameraQueue;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000C1C0;
+  v8[3] = &unk_100085100;
+  objc_copyWeak(&v9, &location);
+  sub_1000333D4("com.apple.isp.frontirprojector.dietempactive", &self->_frontRigelDieTemperatureActiveToken, cameraQueue, v8);
+  v5 = self->_cameraQueue;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000C20C;
+  v6[3] = &unk_100085100;
+  objc_copyWeak(&v7, &location);
+  sub_1000333D4("com.apple.isp.frontcamerapower", &self->_frontCameraStateToken, v5, v6);
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v9);
+  objc_destroyWeak(&location);
+}
+
 - (void)dealloc
 {
   notify_cancel(self->_rearCameraTeleStateToken);
@@ -91,6 +238,53 @@
   v3.receiver = self;
   v3.super_class = CameraTS;
   [(CameraTS *)&v3 dealloc];
+}
+
+- (void)updateSensor:(int)sensor temperature:(unint64_t)temperature
+{
+  if (sensor < 0)
+  {
+    v6 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+    {
+      sub_100050A64(sensor, v6);
+    }
+  }
+
+  else
+  {
+    if (100 * temperature <= -12800)
+    {
+      v5 = 4294954496;
+    }
+
+    else
+    {
+      v5 = (100 * temperature);
+    }
+
+    sub_10000533C(*&sensor, v5);
+  }
+}
+
+- (void)handleStateChangeNotification:(int)notification temperatureSensorIndex:(int)index
+{
+  v4 = *&index;
+  state64 = 0;
+  if (!notify_get_state(notification, &state64) && !state64)
+  {
+    [(CameraTS *)self updateSensor:v4 temperature:0];
+  }
+}
+
+- (void)handleTemperatureChangeNotification:(int)notification temperatureSensorIndex:(int)index
+{
+  v4 = *&index;
+  state64 = 0;
+  if (!notify_get_state(notification, &state64))
+  {
+    [(CameraTS *)self updateSensor:v4 temperature:state64];
+  }
 }
 
 - (__CFString)copyHeaderForIndex:(int)index

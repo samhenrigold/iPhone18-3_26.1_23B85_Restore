@@ -7,46 +7,47 @@
 
 - (void)CA_interpolateValue:()CAAnimatableValue byFraction:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [self CA_CGAffineTransformValue];
+    objc_msgSend_CA_CGAffineTransformValue(self, a2, a3, a4);
   }
 
   else
   {
-    v16 = 0u;
     v17 = 0u;
-    v15 = 0u;
+    v18 = 0u;
+    v16 = 0u;
   }
 
-  v18[0] = v15;
-  v18[1] = v16;
-  v18[2] = v17;
-  if (a4)
+  v19[0] = v16;
+  v19[1] = v17;
+  v19[2] = v18;
+  if (a3)
   {
-    [a4 CA_CGAffineTransformValue];
+    objc_msgSend_CA_CGAffineTransformValue(a3);
   }
 
   else
   {
-    v10 = 0u;
     v11 = 0u;
-    v9 = 0u;
+    v12 = 0u;
+    v10 = 0u;
   }
 
-  v13 = 0u;
   v14 = 0u;
-  v12 = 0u;
-  v15 = v9;
+  v15 = 0u;
+  v13 = 0u;
   v16 = v10;
   v17 = v11;
-  transform = [MEMORY[0x1E696AA98] transform];
-  v9 = v12;
+  v18 = v12;
+  *&v7 = *&CA::Mat2Impl::mat2_mix(&v13, v19, &v16, a4, a5);
+  v8 = objc_msgSend_transform(MEMORY[0x1E696AA98], v7);
   v10 = v13;
   v11 = v14;
-  [transform setTransformStruct:&v9];
-  return transform;
+  v12 = v15;
+  [v8 setTransformStruct:&v10];
+  return v8;
 }
 
 - (void)CA_addValue:()CAAnimatableValue multipliedBy:
@@ -54,14 +55,14 @@
   v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [self CA_CGAffineTransformValue];
+    objc_msgSend_CA_CGAffineTransformValue(self, a2);
     v18 = *v25;
     v19 = *&v25[16];
     v20 = v26;
     if (a3)
     {
 LABEL_3:
-      [a3 CA_CGAffineTransformValue];
+      objc_msgSend_CA_CGAffineTransformValue(a3);
       goto LABEL_6;
     }
   }
@@ -111,12 +112,12 @@ LABEL_6:
   v16 = vmlaq_n_f64(vmulq_n_f64(v18, *&v25[16]), v19, *&v25[24]);
   v17 = vmlaq_n_f64(vmulq_n_f64(v18, *v25), v19, *&v25[8]);
   v21 = vmlaq_n_f64(vmlaq_n_f64(v20, v18, v26.f64[0]), v19, v26.f64[1]);
-  transform = [MEMORY[0x1E696AA98] transform];
+  v14 = objc_msgSend_transform(MEMORY[0x1E696AA98]);
   v22 = v17;
   v23 = v16;
   v24 = v21;
-  [transform setTransformStruct:&v22];
-  return transform;
+  [v14 setTransformStruct:&v22];
+  return v14;
 }
 
 @end

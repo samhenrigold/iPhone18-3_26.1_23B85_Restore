@@ -11,7 +11,7 @@
   v5 = type metadata accessor for ItemLayoutContext();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC8AppStore38ProductEditorsChoiceCollectionViewCell_editorsChoiceView;
-  type metadata accessor for ProductEditorsChoiceView();
+  type metadata accessor for ProductEditorsChoiceView(0);
   *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

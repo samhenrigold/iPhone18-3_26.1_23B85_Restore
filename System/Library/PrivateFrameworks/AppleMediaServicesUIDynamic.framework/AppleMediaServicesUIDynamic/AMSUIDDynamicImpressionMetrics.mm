@@ -31,7 +31,7 @@
 
 - (AMSUIDDynamicImpressionMetricsIdentifier)identifier
 {
-  v2 = DynamicImpressionMetrics.identifier.getter();
+  v2 = DynamicImpressionMetrics.identifier.getter(self);
 
   return v2;
 }

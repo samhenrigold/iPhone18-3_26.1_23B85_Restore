@@ -1,16 +1,20 @@
 void sub_E88(uint64_t a1, char a2)
 {
-  if ((a2 & 1) != 0 && [*(a1 + 32) captiveOutageWaitingForUserActivity])
+  if (a2)
   {
-    v2 = nplog_obj();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = [*(a1 + 32) captiveOutageWaitingForUserActivity];
+    if (v2)
     {
-      *v4 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "[active user] outage notification is pending, launching NSP", v4, 2u);
-    }
+      v3 = nplog_obj(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      {
+        *v5 = 0;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "[active user] outage notification is pending, launching NSP", v5, 2u);
+      }
 
-    v3 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-    [v3 launchOwner];
+      v4 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+      [v4 launchOwner];
+    }
   }
 }
 
@@ -39,12 +43,13 @@ void sub_4A90(uint64_t a1)
 {
   if (*(a1 + 32) == 1)
   {
-    if (mach_timebase_info(&dword_17DF8))
+    v1 = mach_timebase_info(&dword_17DF8);
+    if (v1)
     {
-      v1 = nplog_obj();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      v2 = nplog_obj(v1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        sub_AAAC(v1);
+        sub_AAAC(v2);
       }
     }
 
@@ -92,16 +97,16 @@ void *create_timestamps()
   return result;
 }
 
-id NPGetInternalQueue()
+id NPGetInternalQueue(uint64_t a1)
 {
   if (qword_17E08 != -1)
   {
     sub_AAF0();
   }
 
-  v1 = qword_17E00;
+  v2 = qword_17E00;
 
-  return v1;
+  return v2;
 }
 
 void sub_4BF0(id a1)
@@ -247,9 +252,9 @@ id sub_58B0(uint64_t a1, unint64_t a2)
   return v4;
 }
 
-void sub_5CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -319,19 +324,19 @@ void sub_61F0(uint64_t a1)
   {
     out_token = -1;
     v3 = dispatch_get_global_queue(0, 0);
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_6350;
-    v6[3] = &unk_14918;
-    v6[4] = *(a1 + 32);
-    v4 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v3, v6);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_6350;
+    v7[3] = &unk_14918;
+    v7[4] = *(a1 + 32);
+    v4 = notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v3, v7);
 
     if (v4)
     {
-      v5 = nplog_obj();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = nplog_obj(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_AC74(v5);
+        sub_AC74(v6);
       }
     }
 
@@ -349,7 +354,7 @@ void sub_61F0(uint64_t a1)
 
 id sub_6350(uint64_t a1)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -382,7 +387,7 @@ void sub_64D8(uint64_t a1, uint64_t a2, void *a3)
 
 id sub_6770(uint64_t a1)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -397,14 +402,14 @@ id sub_6770(uint64_t a1)
 
 id sub_6B14(uint64_t a1)
 {
-  kdebug_trace();
-  v2 = nplog_obj();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v2 = kdebug_trace();
+  v3 = nplog_obj(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "File Handle Maintainer got a readable event on a file handle: %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "File Handle Maintainer got a readable event on a file handle: %@", &v6, 0xCu);
   }
 
   [*(a1 + 40) cancelFileHandleReaderSources];
@@ -424,16 +429,16 @@ uint64_t sub_6CA0(uint64_t a1, void *a2)
   return 1;
 }
 
-id nplog_obj()
+id nplog_obj(uint64_t a1)
 {
   if (qword_17E30 != -1)
   {
     sub_AD54();
   }
 
-  v1 = qword_17E28;
+  v2 = qword_17E28;
 
-  return v1;
+  return v2;
 }
 
 void sub_6F10(id a1)
@@ -443,16 +448,16 @@ void sub_6F10(id a1)
   _objc_release_x1();
 }
 
-id nplog_large_obj()
+id nplog_large_obj(uint64_t a1)
 {
   if (qword_17E40 != -1)
   {
     sub_AD68();
   }
 
-  v1 = qword_17E38;
+  v2 = qword_17E38;
 
-  return v1;
+  return v2;
 }
 
 void sub_6F98(id a1)
@@ -505,7 +510,7 @@ void nsp_print_backtrace()
     v4 = v1;
     do
     {
-      v5 = nplog_obj();
+      v5 = nplog_obj(v1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         v6 = *v4;
@@ -533,7 +538,7 @@ void sub_717C(id a1)
 
 void sub_73B0(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -546,7 +551,7 @@ void sub_73B0(id a1, NSTimer *a2)
 
 void sub_762C(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -559,7 +564,7 @@ void sub_762C(id a1, NSTimer *a2)
 
 void sub_78A8(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -572,7 +577,7 @@ void sub_78A8(id a1, NSTimer *a2)
 
 void sub_7B24(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -585,7 +590,7 @@ void sub_7B24(id a1, NSTimer *a2)
 
 void sub_7DA0(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -598,7 +603,7 @@ void sub_7DA0(id a1, NSTimer *a2)
 
 void sub_801C(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -611,7 +616,7 @@ void sub_801C(id a1, NSTimer *a2)
 
 void sub_8298(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -624,7 +629,7 @@ void sub_8298(id a1, NSTimer *a2)
 
 void sub_8514(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -637,7 +642,7 @@ void sub_8514(id a1, NSTimer *a2)
 
 void sub_8790(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -650,7 +655,7 @@ void sub_8790(id a1, NSTimer *a2)
 
 void sub_8A0C(id a1, NSTimer *a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -663,7 +668,7 @@ void sub_8A0C(id a1, NSTimer *a2)
 
 void sub_8C0C(uint64_t a1)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -684,8 +689,8 @@ void sub_8DEC(id a1)
 
   if (v2)
   {
-    v3 = nplog_obj();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = nplog_obj(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_B020();
     }
@@ -694,7 +699,7 @@ void sub_8DEC(id a1)
 
 void sub_8E7C(id a1, int a2)
 {
-  v2 = nplog_obj();
+  v2 = nplog_obj(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -708,12 +713,11 @@ void sub_8E7C(id a1, int a2)
 void sub_8F88(uint64_t a1)
 {
   v2 = dispatch_get_global_queue(0, 0);
-  v4 = *(a1 + 32);
-  [v4 setUserActivityNotificationHandle:IOPMScheduleUserActivityLevelNotification()];
+  [*(a1 + 32) setUserActivityNotificationHandle:IOPMScheduleUserActivityLevelNotification()];
 
   if (![*(a1 + 32) userActivityNotificationHandle])
   {
-    v3 = nplog_obj();
+    v3 = nplog_obj(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_B054();
@@ -721,17 +725,17 @@ void sub_8F88(uint64_t a1)
   }
 }
 
-void sub_929C()
+void sub_929C(uint64_t a1)
 {
-  v0 = nplog_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = nplog_obj(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_0, v0, OS_LOG_TYPE_INFO, "dynamic store changed", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_0, v1, OS_LOG_TYPE_INFO, "dynamic store changed", v3, 2u);
   }
 
-  v1 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
-  [v1 launchOwner];
+  v2 = +[NSPUserEventAgentFileHandleMaintainer sharedEventAgentMaintainer];
+  [v2 launchOwner];
 }
 
 void NPUserEventAgentModuleInit()
@@ -749,16 +753,18 @@ void sub_A7D0(uint64_t a1, uint64_t a2, void *a3)
   [v6 handleProviderAction:a1 token:a2 event:v5];
 }
 
-void sub_A84C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_A84C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_A874(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_A874(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_A9EC(os_log_t log, double a2)
@@ -795,21 +801,21 @@ void sub_B088()
 {
   Error = SCCopyLastError();
   sub_A894();
-  sub_A874(&dword_0, v1, v2, "Failed to update the dynamic store notification keys: %@", v3, v4, v5, v6, v7);
+  sub_A874(&dword_0, v1, v2, "Failed to update the dynamic store notification keys: %@", v3, v4, v5, v6);
 }
 
 void sub_B108()
 {
   Error = SCCopyLastError();
   sub_A894();
-  sub_A874(&dword_0, v1, v2, "Failed to set dynamic store dispatch queue: %@", v3, v4, v5, v6, v7);
+  sub_A874(&dword_0, v1, v2, "Failed to set dynamic store dispatch queue: %@", v3, v4, v5, v6);
 }
 
 void sub_B188()
 {
   Error = SCCopyLastError();
   sub_A894();
-  sub_A874(&dword_0, v1, v2, "Failed to create dynamic store: %@", v3, v4, v5, v6, v7);
+  sub_A874(&dword_0, v1, v2, "Failed to create dynamic store: %@", v3, v4, v5, v6);
 }
 
 Boolean CFCalendarDecomposeAbsoluteTime(CFCalendarRef calendar, CFAbsoluteTime at, const char *componentDesc, ...)

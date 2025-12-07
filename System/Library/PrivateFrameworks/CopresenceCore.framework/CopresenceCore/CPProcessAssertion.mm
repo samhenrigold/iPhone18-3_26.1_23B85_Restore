@@ -28,27 +28,26 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_processAssertion)
   {
-    v3 = CPDefaultLog();
+    v3 = CPDefaultLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       bundleIdentifier = [(CPProcessAssertion *)self bundleIdentifier];
       *buf = 136315394;
-      v8 = "[CPProcessAssertion dealloc]";
-      v9 = 2112;
-      v10 = bundleIdentifier;
+      v7 = "[CPProcessAssertion dealloc]";
+      v8 = 2112;
+      v9 = bundleIdentifier;
       _os_log_impl(&dword_1AEB26000, v3, OS_LOG_TYPE_INFO, "%s Invalidating process assertion for %@", buf, 0x16u);
     }
 
     [(BKSProcessAssertion *)self->_processAssertion invalidate];
   }
 
-  v6.receiver = self;
-  v6.super_class = CPProcessAssertion;
-  [(CPProcessAssertion *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CPProcessAssertion;
+  [(CPProcessAssertion *)&v5 dealloc];
 }
 
 - (void)acquireWithCompletionHandler:(id)handler

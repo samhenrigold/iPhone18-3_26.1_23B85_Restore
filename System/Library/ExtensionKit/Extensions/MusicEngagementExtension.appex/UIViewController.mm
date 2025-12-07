@@ -23,7 +23,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  specialized UIViewController.playActivityFeatureNameSourceViewController.setter(controller, &one-time initialization token for playActivityFeatureNameSourceViewController, &static AssociatedKeys.playActivityFeatureNameSourceViewController);
+  specialized UIViewController.playActivityFeatureNameSourceViewController.setter(controller, &one-time initialization token for playActivityFeatureNameSourceViewController, &static AssociatedKeys.playActivityFeatureNameSourceViewController, one-time initialization function for playActivityFeatureNameSourceViewController);
 }
 
 - (NSData)playActivityForwardedRecommendationData
@@ -89,7 +89,7 @@
 
 - (id)playActivityFeatureNamesWithSourceChildViewController:(id)controller
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1004F2400;
   selfCopy = self;
@@ -121,7 +121,7 @@
   completePlayActivityFeatureNames = [(UIViewController *)selfCopy completePlayActivityFeatureNames];
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
   lazy protocol witness table accessor for type [String] and conformance [A]();
   lazy protocol witness table accessor for type String and conformance String();
   Sequence<>.joined(separator:)();

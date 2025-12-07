@@ -1,3 +1,258 @@
+void sub_29A2C2308(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2C2344(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2C2448(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2C2484(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2C2588(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2C25C4(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2C26C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2C2704(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_29A2C2808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 - 41) < 0)
+  {
+    operator delete(*(v17 - 64));
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_29A2C2844(uint64_t a1@<X8>)
+{
+  *&v12 = *MEMORY[0x29EDCA608];
+  sub_29A008E78(__p, "Unsupported type for comparison");
+  if (v6 >= 0)
+  {
+    v4 = __p;
+  }
+
+  else
+  {
+    v4 = __p[0];
+  }
+
+  pxrInternal__aapl__pxrReserved__::TfStringPrintf("%s: %s", v2, v3, "geq", v4);
+  v7 = 0uLL;
+  v8 = 0;
+  sub_29A280C48(&v7, &v10, &v12, 1uLL);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v7;
+  *(a1 + 32) = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  sub_29A012C90(&v9);
+  if (v11 < 0)
+  {
+    operator delete(v10);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
 void sub_29A2C2948(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (*(v17 - 41) < 0)
@@ -64,7 +319,7 @@ void sub_29A2C2A88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL sub_29A2C2AC4@<W0>(uint64_t *a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+BOOL sub_29A2C2AC4@<W0>(uint64_t **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *a1;
   v6 = *(v5 + 8);
@@ -4452,7 +4707,7 @@ void sub_29A2C9504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-char *sub_29A2C9540(char **a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5)
+char *sub_29A2C9540(char **a1, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -4460,10 +4715,10 @@ char *sub_29A2C9540(char **a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t 
     v7 = a3;
     v10 = a1[1];
     v9 = a1[2];
-    if ((0xAAAAAAAAAAAAAAABLL * (&v9[-v10] >> 3)) >= a5)
+    if ((0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 3)) >= a5)
     {
-      v18 = v10 - a2;
-      if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 3)) >= a5)
+      v18 = &v10[-a2];
+      if ((0xAAAAAAAAAAAAAAABLL * (&v10[-a2] >> 3)) >= a5)
       {
         v20 = 3 * a5;
         sub_29A095A18(a1, a2, a1[1], a2 + 24 * a5);
@@ -4472,14 +4727,14 @@ char *sub_29A2C9540(char **a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t 
 
       else
       {
-        a1[1] = sub_29A2C974C(a1, (v18 + a3), a4, a1[1]);
+        a1[1] = sub_29A2C974C(a1, (a3 + v18), a4, a1[1]);
         if (v18 < 1)
         {
           return v5;
         }
 
         sub_29A095A18(a1, v5, v10, v5 + 24 * a5);
-        v19 = (v18 + v7);
+        v19 = (v7 + v18);
       }
 
       sub_29A2C97CC(v35, v7, v19, v5);
@@ -4531,20 +4786,20 @@ char *sub_29A2C9540(char **a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t 
     do
     {
       v27 = *v7;
-      *(v26 + 2) = *(v7 + 16);
+      *(v26 + 2) = *(v7 + 2);
       *v26 = v27;
       v26 += 24;
-      *(v7 + 8) = 0;
-      *(v7 + 16) = 0;
+      *(v7 + 1) = 0;
+      *(v7 + 2) = 0;
       *v7 = 0;
-      v7 += 24;
+      v7 = (v7 + 24);
       v25 -= 24;
     }
 
     while (v25);
-    memcpy(v24, v5, a1[1] - v5);
+    memcpy(v24, v5, &a1[1][-v5]);
     v28 = *a1;
-    v29 = &v24[a1[1] - v5];
+    v29 = &a1[1][v24 - v5];
     a1[1] = v5;
     v30 = v5 - v28;
     v31 = &v21[-(v5 - v28)];
@@ -4581,8 +4836,7 @@ uint64_t sub_29A2C974C(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
       *(v4 + 16) = *(a2 + 2);
       *v4 = v5;
       v4 += 24;
-      *(a2 + 1) = 0;
-      *(a2 + 2) = 0;
+      *(a2 + 8) = 0uLL;
       *a2 = 0;
       a2 = (a2 + 24);
     }
@@ -6027,18 +6281,18 @@ uint64_t sub_29A2CAE9C(uint64_t a1)
   return 0;
 }
 
-void sub_29A2CAEEC(uint64_t a1)
+void sub_29A2CAEEC(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
+  v1 = a1[1];
   if ((v1 & 4) != 0)
   {
     (*((v1 & 0xFFFFFFFFFFFFFFF8) + 168))();
   }
 
-  sub_29A2CB9DC(&v2);
+  sub_29A2CB9DC(v2);
 }
 
-uint64_t sub_29A2CAF40(pxrInternal__aapl__pxrReserved__::VtValue *a1, unsigned __int8 a2)
+uint64_t sub_29A2CAF40(pxrInternal__aapl__pxrReserved__::VtValue *a1, char a2)
 {
   v5 = a2;
   if (!*(a1 + 1))
@@ -6058,7 +6312,7 @@ uint64_t sub_29A2CAF40(pxrInternal__aapl__pxrReserved__::VtValue *a1, unsigned _
   return result;
 }
 
-uint64_t sub_29A2CAFDC(uint64_t a1, unint64_t a2, unsigned __int8 *a3)
+uint64_t sub_29A2CAFDC(uint64_t a1, size_t a2, unsigned __int8 *a3)
 {
   *(a1 + 32) = 0;
   *a1 = 0u;
@@ -6117,7 +6371,7 @@ uint64_t sub_29A2CB120(pxrInternal__aapl__pxrReserved__::VtValue *a1)
   }
 }
 
-void sub_29A2CB158(uint64_t *a1, _BYTE **a2)
+void sub_29A2CB158(uint64_t *a1, void *a2)
 {
   v3 = sub_29A2CB204(a1);
   v4 = *(v3 + 16);
@@ -6147,17 +6401,17 @@ uint64_t sub_29A2CB204(uint64_t *a1)
   return sub_29A20CF10(a1);
 }
 
-void sub_29A2CB240(uint64_t *a1, _BYTE *a2)
+void sub_29A2CB240(uint64_t *result, _BYTE *a2)
 {
-  if (!*(a1 + 2))
+  if (!*(result + 2))
   {
-    v3 = *a1;
-    if (a1[3])
+    v3 = *result;
+    if (result[3])
     {
       goto LABEL_13;
     }
 
-    v4 = a1[4];
+    v4 = result[4];
     if (!v4)
     {
       goto LABEL_10;
@@ -6169,12 +6423,12 @@ void sub_29A2CB240(uint64_t *a1, _BYTE *a2)
       goto LABEL_13;
     }
 
-    v4 = a1[4];
+    v4 = result[4];
     if (v4)
     {
-      if (a1[3])
+      if (result[3])
       {
-        v6 = a1;
+        v6 = result;
       }
 
       else
@@ -6194,7 +6448,7 @@ LABEL_10:
     if (v3 != v7)
     {
       *(v4 + v3) = *a2;
-      ++*a1;
+      ++*result;
       return;
     }
 
@@ -6260,7 +6514,7 @@ void sub_29A2CB490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   sub_299FEDEEC(exception_object);
 }
 
-void sub_29A2CB4C8(uint64_t *a1, void **a2)
+void sub_29A2CB4C8(uint64_t *a1, void *a2)
 {
   v3 = sub_29A2CB574(a1);
   v4 = *(v3 + 16);
@@ -6290,17 +6544,17 @@ uint64_t sub_29A2CB574(uint64_t *a1)
   return sub_29A20FD2C(a1);
 }
 
-void sub_29A2CB5B0(uint64_t *a1, void *a2)
+void sub_29A2CB5B0(uint64_t *result, void *a2)
 {
-  if (!*(a1 + 2))
+  if (!*(result + 2))
   {
-    v3 = *a1;
-    if (a1[3])
+    v3 = *result;
+    if (result[3])
     {
       goto LABEL_13;
     }
 
-    v4 = a1[4];
+    v4 = result[4];
     if (!v4)
     {
       goto LABEL_10;
@@ -6312,12 +6566,12 @@ void sub_29A2CB5B0(uint64_t *a1, void *a2)
       goto LABEL_13;
     }
 
-    v4 = a1[4];
+    v4 = result[4];
     if (v4)
     {
-      if (a1[3])
+      if (result[3])
       {
-        v6 = a1;
+        v6 = result;
       }
 
       else
@@ -6337,7 +6591,7 @@ LABEL_10:
     if (v3 != v7)
     {
       *(v4 + 8 * v3) = *a2;
-      ++*a1;
+      ++*result;
       return;
     }
 
@@ -6402,7 +6656,7 @@ void sub_29A2CB7FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   sub_299FEDEEC(exception_object);
 }
 
-void sub_29A2CB834(uint64_t *a1, uint64_t *a2)
+void sub_29A2CB834(uint64_t *a1, __int128 **a2)
 {
   v3 = sub_29A2CB8E0(a1);
   v4 = *(v3 + 16);
@@ -6432,17 +6686,17 @@ uint64_t sub_29A2CB8E0(uint64_t *a1)
   return sub_29A213E8C(a1);
 }
 
-void sub_29A2CB91C(uint64_t a1, uint64_t a2)
+void sub_29A2CB91C(uint64_t result, __int128 *a2)
 {
-  if (!*(a1 + 8))
+  if (!*(result + 8))
   {
-    v3 = *a1;
-    if (*(a1 + 24))
+    v3 = *result;
+    if (*(result + 24))
     {
       goto LABEL_13;
     }
 
-    v4 = *(a1 + 32);
+    v4 = *(result + 32);
     if (!v4)
     {
       goto LABEL_10;
@@ -6454,12 +6708,12 @@ void sub_29A2CB91C(uint64_t a1, uint64_t a2)
       goto LABEL_13;
     }
 
-    v4 = *(a1 + 32);
+    v4 = *(result + 32);
     if (v4)
     {
-      if (*(a1 + 24))
+      if (*(result + 24))
       {
-        v6 = a1;
+        v6 = result;
       }
 
       else
@@ -6480,17 +6734,17 @@ LABEL_10:
     {
       v8 = *a2;
       v9 = v4 + 24 * v3;
-      *(v9 + 16) = *(a2 + 16);
+      *(v9 + 16) = *(a2 + 2);
       *v9 = v8;
-      *(a2 + 8) = 0;
-      *(a2 + 16) = 0;
+      *(a2 + 1) = 0;
+      *(a2 + 2) = 0;
       *a2 = 0;
-      ++*a1;
+      ++*result;
       return;
     }
 
 LABEL_13:
-    sub_29B295734(a1, v3, a2);
+    sub_29B295734(result, v3, a2);
   }
 
   sub_29B2956C8();
@@ -7550,7 +7804,7 @@ void sub_29A2CD038(pxrInternal__aapl__pxrReserved__::VtValue **a1@<X0>, size_t *
       v14 = v8;
     }
 
-    *a3 = v14 != &v12[v11];
+    *a3 = v14 != (v12 + v11);
     *(a3 + 8) = &unk_2A20443C3;
     *(a3 + 16) = 0;
     *(a3 + 24) = 0;
@@ -7838,13 +8092,13 @@ void sub_29A2CD6A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A2CD6BC(pxrInternal__aapl__pxrReserved__::VtValue **a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+void sub_29A2CD6BC(const void ****a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   if (sub_29A1EFC10(*a1))
   {
     v6 = a2[4];
     v7 = v6 + 24 * *a2;
-    v8 = *(*a1 + 1);
+    v8 = (*a1)[1];
     if ((v8 & 4) != 0)
     {
       v9 = (*((v8 & 0xFFFFFFFFFFFFFFF8) + 168))();
@@ -9512,247 +9766,4 @@ void sub_29A2CFB50(uint64_t a1@<X8>)
   {
     operator delete(__p[0]);
   }
-}
-
-void sub_29A2CFBA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFBC0(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFC14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFC30(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFC84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFCA0(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFCF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFD10(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFD64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFD80(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFDD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFDF0(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
-{
-  v4 = (*a2 & (*a1 >> 63)) + *a1;
-  if (v4 < 0 || v4 >= *a2)
-  {
-    sub_29A008E78(__p, "Index out of range");
-    sub_29A2CE868(__p, v5, v6, a3);
-    if (v8 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  else
-  {
-    *a3 = *(a2[4] + v4);
-    *(a3 + 8) = &unk_2A20443C3;
-    *(a3 + 16) = 0;
-    *(a3 + 24) = 0;
-    *(a3 + 32) = 0;
-  }
-}
-
-void sub_29A2CFE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFEA0(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFEF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFF10(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFF64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFF80(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2CFFD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2CFFF0(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2D0044(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29A2D0060(uint64_t a1@<X8>)
-{
-  sub_29A008E78(__p, "Only supported for lists or strings");
-  sub_29A2CE868(__p, v2, v3, a1);
-  if (v5 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_29A2D00B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
 }

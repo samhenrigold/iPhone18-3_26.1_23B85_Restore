@@ -54,7 +54,7 @@ id __36__CXCallDirectoryStoreMigrator_init__block_invoke(uint64_t a1, uint64_t a
 
 - (id)_performMigrationsStartingAtSchemaVersion:(int64_t)version error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v7 = objc_alloc_init(CXCallDirectoryStoreMigrationResult);
   [(CXCallDirectoryStoreMigrationResult *)v7 setStartingSchemaVersion:version];
   [(CXCallDirectoryStoreMigrationResult *)v7 setEndingSchemaVersion:5];
@@ -79,17 +79,17 @@ id __36__CXCallDirectoryStoreMigrator_init__block_invoke(uint64_t a1, uint64_t a
       goto LABEL_30;
     }
 
-    v12 = CXDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = CXDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v52 = p_super;
-      _os_log_impl(&dword_1B47F3000, v12, OS_LOG_TYPE_DEFAULT, "Successfully removed DB at URL %@", buf, 0xCu);
+      v53 = p_super;
+      _os_log_impl(&dword_1B47F3000, v13, OS_LOG_TYPE_DEFAULT, "Successfully removed DB at URL %@", buf, 0xCu);
     }
 
     storeCreationBlock = [(CXCallDirectoryStoreMigrator *)self storeCreationBlock];
-    v14 = (storeCreationBlock)[2](storeCreationBlock, error);
-    [(CXCallDirectoryStoreMigrator *)self setStore:v14];
+    v15 = (storeCreationBlock)[2](storeCreationBlock, error);
+    [(CXCallDirectoryStoreMigrator *)self setStore:v15];
 
     store2 = [(CXCallDirectoryStoreMigrator *)self store];
 
@@ -113,29 +113,29 @@ LABEL_14:
       if (([p_super containsObject:@"state"]& 1) != 0)
       {
 LABEL_18:
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke;
-        v50[3] = &unk_1E7C070F0;
-        v50[4] = self;
-        v28 = MEMORY[0x1B8C78C60](v50);
+        v51[0] = MEMORY[0x1E69E9820];
+        v51[1] = 3221225472;
+        v51[2] = __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke;
+        v51[3] = &unk_1E7C070F0;
+        v51[4] = self;
+        v29 = MEMORY[0x1B8C78C60](v51);
         store4 = [(CXCallDirectoryStoreMigrator *)self store];
         database2 = [store4 database];
-        v31 = [database2 selectSQL:@"SELECT id withBindings:bundle_id FROM Extension" expectedColumnCount:MEMORY[0x1E695E0F0] resultRowHandler:2 error:{v28, error}];
+        v32 = [database2 selectSQL:@"SELECT id withBindings:bundle_id FROM Extension" expectedColumnCount:MEMORY[0x1E695E0F0] resultRowHandler:2 error:{v29, error}];
 
-        if (v31 && (-[CXCallDirectoryStoreMigrator store](self, "store"), v32 = objc_claimAutoreleasedReturnValue(), [v32 database], v33 = objc_claimAutoreleasedReturnValue(), v34 = objc_msgSend(v33, "executeSQL:withBindings:error:", @"UPDATE SchemaVersion SET version = ?", &unk_1F2CA5FA8, error), v33, v32, (v34 & 1) != 0))
+        if (v32 && (-[CXCallDirectoryStoreMigrator store](self, "store"), v33 = objc_claimAutoreleasedReturnValue(), [v33 database], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "executeSQL:withBindings:error:", @"UPDATE SchemaVersion SET version = ?", &unk_1F2CA5FA8, error), v34, v33, (v35 & 1) != 0))
         {
-          v35 = 1;
+          v36 = 1;
         }
 
         else
         {
 
-          v35 = 0;
+          v36 = 0;
           v7 = 0;
         }
 
-        if (!v35)
+        if (!v36)
         {
           goto LABEL_31;
         }
@@ -143,12 +143,12 @@ LABEL_18:
         goto LABEL_24;
       }
 
-      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ALTER TABLE Extension ADD COLUMN state INTEGER NOT NULL DEFAULT %ld", 1];
+      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ALTER TABLE Extension ADD COLUMN state INTEGER NOT NULL DEFAULT %ld", 1];
       store5 = [(CXCallDirectoryStoreMigrator *)self store];
       database3 = [store5 database];
-      v27 = [database3 executeSQL:v24 error:error];
+      v28 = [database3 executeSQL:v25 error:error];
 
-      if (v27)
+      if (v28)
       {
 
         goto LABEL_18;
@@ -157,7 +157,7 @@ LABEL_18:
 
     else
     {
-      v24 = v7;
+      v25 = v7;
     }
 
     goto LABEL_37;
@@ -192,9 +192,9 @@ LABEL_24:
   {
     store7 = [(CXCallDirectoryStoreMigrator *)self store];
     database5 = [store7 database];
-    v40 = [database5 executeSQL:@"ALTER TABLE Extension ADD COLUMN state_last_modified REAL NOT NULL DEFAULT 0.0" error:error];
+    v41 = [database5 executeSQL:@"ALTER TABLE Extension ADD COLUMN state_last_modified REAL NOT NULL DEFAULT 0.0" error:error];
 
-    if (!v40)
+    if (!v41)
     {
       goto LABEL_30;
     }
@@ -202,18 +202,18 @@ LABEL_24:
 
   store8 = [(CXCallDirectoryStoreMigrator *)self store];
   database6 = [store8 database];
-  v43 = [database6 executeSQL:@"UPDATE Extension SET state_last_modified = ((julianday('now') - 2440587.5)*86400.0)" error:error];
+  v44 = [database6 executeSQL:@"UPDATE Extension SET state_last_modified = ((julianday('now') - 2440587.5)*86400.0)" error:error];
 
-  if (!v43)
+  if (!v44)
   {
     goto LABEL_30;
   }
 
   store9 = [(CXCallDirectoryStoreMigrator *)self store];
   database7 = [store9 database];
-  v46 = [database7 executeSQL:@"UPDATE SchemaVersion SET version = ?" withBindings:&unk_1F2CA5FC0 error:error];
+  v47 = [database7 executeSQL:@"UPDATE SchemaVersion SET version = ?" withBindings:&unk_1F2CA5FC0 error:error];
 
-  if ((v46 & 1) == 0)
+  if ((v47 & 1) == 0)
   {
     goto LABEL_30;
   }
@@ -221,9 +221,9 @@ LABEL_24:
 LABEL_11:
   store10 = [(CXCallDirectoryStoreMigrator *)self store];
   database8 = [store10 database];
-  v18 = [database8 executeSQL:@"CREATE INDEX idx_PhoneNumberIdentificationEntry_FK_Label ON PhoneNumberIdentificationEntry(label_id)" error:error];
+  v19 = [database8 executeSQL:@"CREATE INDEX idx_PhoneNumberIdentificationEntry_FK_Label ON PhoneNumberIdentificationEntry(label_id)" error:error];
 
-  if (!v18 || (-[CXCallDirectoryStoreMigrator store](self, "store"), v19 = objc_claimAutoreleasedReturnValue(), [v19 database], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "executeSQL:withBindings:error:", @"UPDATE SchemaVersion SET version = ?", &unk_1F2CA5FD8, error), v20, v19, !v21))
+  if (!v19 || (-[CXCallDirectoryStoreMigrator store](self, "store"), v20 = objc_claimAutoreleasedReturnValue(), [v20 database], v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "executeSQL:withBindings:error:", @"UPDATE SchemaVersion SET version = ?", &unk_1F2CA5FD8, error), v21, v20, !v22))
   {
     p_super = &v7->super;
 LABEL_37:
@@ -237,13 +237,14 @@ LABEL_31:
   if (v7)
   {
     startingSchemaVersion = [(CXCallDirectoryStoreMigrationResult *)v7 startingSchemaVersion];
-    if (startingSchemaVersion < [(CXCallDirectoryStoreMigrationResult *)v7 endingSchemaVersion])
+    endingSchemaVersion = [(CXCallDirectoryStoreMigrationResult *)v7 endingSchemaVersion];
+    if (startingSchemaVersion < endingSchemaVersion)
     {
-      p_super = CXDefaultLog();
+      p_super = CXDefaultLog(endingSchemaVersion);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v52 = 5;
+        v53 = 5;
         _os_log_impl(&dword_1B47F3000, p_super, OS_LOG_TYPE_DEFAULT, "Successfully migrated to schema version %ld", buf, 0xCu);
       }
 
@@ -252,14 +253,13 @@ LABEL_31:
   }
 
 LABEL_39:
-  v48 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 void __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke(uint64_t a1, void *a2)
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v4 longLongValue];
@@ -267,51 +267,51 @@ void __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersio
   v6 = [v3 objectAtIndexedSubscript:1];
 
   v7 = [*(a1 + 32) retrieveExtensionBlock];
-  v19 = 0;
-  v8 = (v7)[2](v7, v6, &v19);
-  v9 = v19;
+  v20 = 0;
+  v8 = (v7)[2](v7, v6, &v20);
+  v9 = v20;
 
   if (!v8)
   {
-    v16 = CXDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = CXDefaultLog(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke_cold_1(v6, v9, v16);
+      __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke_cold_1(v6, v9, v18);
     }
 
-    v15 = v9;
+    v16 = v9;
     goto LABEL_9;
   }
 
   if ([v8 isEnabledViaPlugInKit])
   {
-    v10 = [*(a1 + 32) store];
-    v11 = [v10 database];
-    v26[0] = &unk_1F2CA5F48;
-    v12 = [MEMORY[0x1E696AD98] numberWithLongLong:v5];
-    v26[1] = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
-    v18 = v9;
-    v14 = [v11 executeSQL:@"UPDATE Extension SET state = ? WHERE (id = ?)" withBindings:v13 error:&v18];
-    v15 = v18;
+    v11 = [*(a1 + 32) store];
+    v12 = [v11 database];
+    v27[0] = &unk_1F2CA5F48;
+    v13 = [MEMORY[0x1E696AD98] numberWithLongLong:v5];
+    v27[1] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+    v19 = v9;
+    v15 = [v12 executeSQL:@"UPDATE Extension SET state = ? WHERE (id = ?)" withBindings:v14 error:&v19];
+    v16 = v19;
 
-    if (v14)
+    if (v15)
     {
 LABEL_10:
-      v9 = v15;
+      v9 = v16;
       goto LABEL_11;
     }
 
-    v16 = CXDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = CXDefaultLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v21 = v6;
-      v22 = 2048;
-      v23 = v5;
-      v24 = 2112;
-      v25 = v15;
-      _os_log_error_impl(&dword_1B47F3000, v16, OS_LOG_TYPE_ERROR, "Error setting state to Enabled for extension with identifier '%@' (ID %lld): %@", buf, 0x20u);
+      v22 = v6;
+      v23 = 2048;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_error_impl(&dword_1B47F3000, v18, OS_LOG_TYPE_ERROR, "Error setting state to Enabled for extension with identifier '%@' (ID %lld): %@", buf, 0x20u);
     }
 
 LABEL_9:
@@ -320,19 +320,16 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __80__CXCallDirectoryStoreMigrator__performMigrationsStartingAtSchemaVersion_error___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B47F3000, log, OS_LOG_TYPE_ERROR, "Error retrieving NSExtension with identifier '%@': %@. Not migrating enabled status", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B47F3000, log, OS_LOG_TYPE_ERROR, "Error retrieving NSExtension with identifier '%@': %@. Not migrating enabled status", &v3, 0x16u);
 }
 
 @end

@@ -64,16 +64,15 @@
 
 uint64_t __73__HKSPAccumulator_initWithInterval_updateBlock_scheduler_mutexGenerator___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
   (*(*(a1 + 40) + 16))();
-  v3 = *(*(a1 + 32) + 24);
+  v2 = *(*(a1 + 32) + 24);
 
-  return [v3 removeAllObjects];
+  return [v2 removeAllObjects];
 }
 
 - (void)accumulateValue:(id)value
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (value)
   {
     valueCopy = value;
@@ -81,10 +80,8 @@ uint64_t __73__HKSPAccumulator_initWithInterval_updateBlock_scheduler_mutexGener
     valueCopy2 = value;
     v6 = [v4 arrayWithObjects:&valueCopy count:1];
 
-    [(HKSPAccumulator *)self accumulateValues:v6, valueCopy, v9];
+    [(HKSPAccumulator *)self accumulateValues:v6, valueCopy, v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accumulateValues:(id)values

@@ -101,9 +101,9 @@
   v25 = MEMORY[0x277CCACA8];
   identifier = self->_identifier;
   launchdName = self->_launchdName;
-  v26 = getDateFormatter();
+  v26 = getDateFormatter(self);
   v24 = [v26 stringFromDate:self->_startTime];
-  v3 = getDateFormatter();
+  v3 = getDateFormatter(v24);
   v4 = [v3 stringFromDate:self->_endTime];
   [(NSNumber *)self->_value doubleValue];
   v6 = v5;

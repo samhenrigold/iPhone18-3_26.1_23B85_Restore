@@ -42,17 +42,15 @@
 
 - (id)commandLineOptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-t [seconds]" description:@"Set the time interval between irrelevant data retrieved handlers"];
-  v10[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
-  v9.receiver = self;
-  v9.super_class = NullCodecConfiguration;
-  commandLineOptions = [(AUPasscodeCodecConfiguration *)&v9 commandLineOptions];
+  v8.receiver = self;
+  v8.super_class = NullCodecConfiguration;
+  commandLineOptions = [(AUPasscodeCodecConfiguration *)&v8 commandLineOptions];
   v6 = [commandLineOptions arrayByAddingObjectsFromArray:v4];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

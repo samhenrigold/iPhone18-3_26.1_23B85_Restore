@@ -39,17 +39,17 @@
 - (SSDownloadManagerAppShim)initWithManagerOptions:(id)options
 {
   optionsCopy = options;
-  v12.receiver = self;
-  v12.super_class = SSDownloadManagerAppShim;
-  v5 = [(SSDownloadManager *)&v12 initWithManagerOptions:optionsCopy];
+  v13.receiver = self;
+  v13.super_class = SSDownloadManagerAppShim;
+  v5 = [(SSDownloadManager *)&v13 initWithManagerOptions:optionsCopy];
   v6 = v5;
   if (v5)
   {
     v7 = [(SSDownloadManagerAppShim *)v5 __app_convertOptions:optionsCopy];
-    v8 = SSVAppstoreDaemonFramework();
-    v9 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdjobmanager.isa v8))];
+    v9 = SSVAppstoreDaemonFramework(v7, v8);
+    v10 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdjobmanager.isa v9))];
     jobManager = v6->_jobManager;
-    v6->_jobManager = v9;
+    v6->_jobManager = v10;
 
     [(ASDJobManager *)v6->_jobManager addJobObserver:v6];
   }
@@ -616,15 +616,15 @@ void __67__SSDownloadManagerAppShim__pauseDownloads_forced_completionBlock___blo
 - (id)__app_convertOptions:(id)options
 {
   optionsCopy = options;
-  v4 = SSVAppstoreDaemonFramework();
-  SSVWeakLinkedClassForString(&cfstr_Asdjobmanagero.isa, v4);
-  v5 = objc_opt_new();
-  [v5 setShouldFilterExternalOriginatedDownloads:{objc_msgSend(optionsCopy, "shouldFilterExternalOriginatedDownloads")}];
+  v5 = SSVAppstoreDaemonFramework(optionsCopy, v4);
+  SSVWeakLinkedClassForString(&cfstr_Asdjobmanagero.isa, v5);
+  v6 = objc_opt_new();
+  [v6 setShouldFilterExternalOriginatedDownloads:{objc_msgSend(optionsCopy, "shouldFilterExternalOriginatedDownloads")}];
   persistenceIdentifier = [optionsCopy persistenceIdentifier];
 
-  [v5 setPersistenceIdentifier:persistenceIdentifier];
+  [v6 setPersistenceIdentifier:persistenceIdentifier];
 
-  return v5;
+  return v6;
 }
 
 - (id)__app_downloadsForJobs:(id)jobs
@@ -926,19 +926,19 @@ void __79__SSDownloadManagerAppShim___app_insertDownloads_before_after_completio
 {
   blockCopy = block;
   manifestCopy = manifest;
-  v8 = SSVAppstoreDaemonFramework();
-  v9 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdinstallmani.isa v8))];
+  v9 = SSVAppstoreDaemonFramework(manifestCopy, v8);
+  v10 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdinstallmani.isa v9))];
 
-  v10 = SSVAppstoreDaemonFramework();
-  v11 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdinstallmani_0.isa v10))];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __66__SSDownloadManagerAppShim___app_installManifest_completionBlock___block_invoke;
-  v13[3] = &unk_1E84B3E20;
-  v13[4] = self;
-  v14 = blockCopy;
-  v12 = blockCopy;
-  [v11 startWithCompletionBlock:v13];
+  v13 = SSVAppstoreDaemonFramework(v11, v12);
+  v14 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdinstallmani_0.isa v13))];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __66__SSDownloadManagerAppShim___app_installManifest_completionBlock___block_invoke;
+  v16[3] = &unk_1E84B3E20;
+  v16[4] = self;
+  v17 = blockCopy;
+  v15 = blockCopy;
+  [v14 startWithCompletionBlock:v16];
 }
 
 - (id)__app_newAssetWithDownloadAsset:(id)asset assetType:(id)type
@@ -946,153 +946,153 @@ void __79__SSDownloadManagerAppShim___app_insertDownloads_before_after_completio
   assetCopy = asset;
   typeCopy = type;
   _localValues = [assetCopy _localValues];
-  v8 = SSVAppstoreDaemonFramework();
-  v9 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Asdjobasset.isa, v8));
-  v10 = [_localValues objectForKeyedSubscript:@"e"];
+  v9 = SSVAppstoreDaemonFramework(_localValues, v8);
+  v10 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Asdjobasset.isa, v9));
+  v11 = [_localValues objectForKeyedSubscript:@"e"];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v12 = v10;
-  if ((isKindOfClass & 1) != 0 || ([v9 assetType], v13 = objc_claimAutoreleasedReturnValue(), v13, v12 = typeCopy, !v13))
+  v13 = v11;
+  if ((isKindOfClass & 1) != 0 || ([v10 assetType], v14 = objc_claimAutoreleasedReturnValue(), v14, v13 = typeCopy, !v14))
   {
-    [v9 setAssetType:v12];
+    [v10 setAssetType:v13];
   }
 
-  v14 = [_localValues objectForKeyedSubscript:@"c"];
+  v15 = [_localValues objectForKeyedSubscript:@"c"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setAssetURL:v14];
+    [v10 setAssetURL:v15];
   }
 
-  v15 = [_localValues objectForKeyedSubscript:@"3"];
+  v16 = [_localValues objectForKeyedSubscript:@"3"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setBytesTotal:v15];
+    [v10 setBytesTotal:v16];
   }
 
-  v16 = [_localValues objectForKeyedSubscript:@"m"];
+  v17 = [_localValues objectForKeyedSubscript:@"m"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setExpectedDiskspace:v16];
+    [v10 setExpectedDiskspace:v17];
   }
 
-  v17 = [_localValues objectForKeyedSubscript:@"0"];
+  v18 = [_localValues objectForKeyedSubscript:@"0"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setHashArrayData:v17];
+    [v10 setHashArrayData:v18];
   }
 
-  v18 = [_localValues objectForKeyedSubscript:@"o"];
+  v19 = [_localValues objectForKeyedSubscript:@"o"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setHashType:v18];
+    [v10 setHashType:v19];
   }
 
-  v19 = [_localValues objectForKeyedSubscript:@"1"];
+  v20 = [_localValues objectForKeyedSubscript:@"1"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setNumberOfBytesToHash:v19];
+    [v10 setNumberOfBytesToHash:v20];
   }
 
-  v20 = [_localValues objectForKeyedSubscript:@"B"];
+  v21 = [_localValues objectForKeyedSubscript:@"B"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setSinfs:v20];
+    [v10 setSinfs:v21];
   }
 
-  v21 = [_localValues objectForKeyedSubscript:@"q"];
+  v22 = [_localValues objectForKeyedSubscript:@"q"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setDPInfo:v21];
+    [v10 setDPInfo:v22];
   }
 
-  v22 = [_localValues objectForKeyedSubscript:@"x"];
+  v23 = [_localValues objectForKeyedSubscript:@"x"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v9 setInitialODRSize:v22];
+    [v10 setInitialODRSize:v23];
   }
 
-  v23 = [_localValues objectForKeyedSubscript:@"l"];
+  v24 = [_localValues objectForKeyedSubscript:@"l"];
 
   if (objc_opt_respondsToSelector())
   {
-    [v9 setIsLocallyCacheable:{objc_msgSend(v23, "BOOLValue")}];
+    [v10 setIsLocallyCacheable:{objc_msgSend(v24, "BOOLValue")}];
   }
 
-  v24 = [_localValues objectForKeyedSubscript:@"9"];
+  v25 = [_localValues objectForKeyedSubscript:@"9"];
 
   if (objc_opt_respondsToSelector())
   {
-    [v9 setIsExternal:{objc_msgSend(v24, "BOOLValue")}];
+    [v10 setIsExternal:{objc_msgSend(v25, "BOOLValue")}];
   }
 
-  v25 = [_localValues objectForKeyedSubscript:@"k"];
+  v26 = [_localValues objectForKeyedSubscript:@"k"];
 
   if (objc_opt_respondsToSelector())
   {
-    [v9 setIsZipStreamable:{objc_msgSend(v25, "BOOLValue")}];
+    [v10 setIsZipStreamable:{objc_msgSend(v26, "BOOLValue")}];
   }
 
   _localProperties = [assetCopy _localProperties];
-  v27 = _localProperties;
+  v28 = _localProperties;
   if (_localProperties)
   {
-    v28 = [_localProperties URL];
-    absoluteString = [v28 absoluteString];
+    v29 = [_localProperties URL];
+    absoluteString = [v29 absoluteString];
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v9 setAssetURL:absoluteString];
+      [v10 setAssetURL:absoluteString];
     }
   }
 
   else
   {
-    absoluteString = v25;
+    absoluteString = v26;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)__app_newActivityWithDownload:(id)download
 {
   downloadCopy = download;
-  v5 = SSVAppstoreDaemonFramework();
-  v6 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Asdjobactivity.isa, v5));
-  [(SSDownloadManagerAppShim *)self __app_setPropertiesForActivity:v6 withDownload:downloadCopy];
-  v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v6 = SSVAppstoreDaemonFramework(downloadCopy, v5);
+  v7 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Asdjobactivity.isa, v6));
+  [(SSDownloadManagerAppShim *)self __app_setPropertiesForActivity:v7 withDownload:downloadCopy];
+  v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   _localAssets = [downloadCopy _localAssets];
 
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __58__SSDownloadManagerAppShim___app_newActivityWithDownload___block_invoke;
-  v14 = &unk_1E84B3E48;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __58__SSDownloadManagerAppShim___app_newActivityWithDownload___block_invoke;
+  v15 = &unk_1E84B3E48;
   selfCopy = self;
-  v16 = v7;
-  v9 = v7;
-  [_localAssets enumerateKeysAndObjectsUsingBlock:&v11];
+  v17 = v8;
+  v10 = v8;
+  [_localAssets enumerateKeysAndObjectsUsingBlock:&v12];
 
-  [v6 setAssets:{v9, v11, v12, v13, v14, selfCopy}];
+  [v7 setAssets:{v10, v12, v13, v14, v15, selfCopy}];
 
-  return v6;
+  return v7;
 }
 
 void __58__SSDownloadManagerAppShim___app_newActivityWithDownload___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1138,7 +1138,7 @@ void __58__SSDownloadManagerAppShim___app_newActivityWithDownload___block_invoke
 
 - (id)__app_newManifestWithType:(int64_t)type
 {
-  v4 = SSVAppstoreDaemonFramework();
+  v4 = SSVAppstoreDaemonFramework(self, a2);
   v5 = [objc_alloc(SSVWeakLinkedClassForString(&cfstr_Asdjobmanifest.isa v4))];
 
   return v5;

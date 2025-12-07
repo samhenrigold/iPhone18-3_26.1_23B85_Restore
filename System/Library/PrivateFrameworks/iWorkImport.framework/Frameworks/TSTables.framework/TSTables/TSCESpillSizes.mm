@@ -35,74 +35,74 @@
   if (size == 0x100000001)
   {
 
-    objc_msgSend_clearSpillSizeForCell_(self, a2, cell, 0x100000001, v4);
+    objc_msgSend_clearSpillSizeForCell_(self, a2, cell, 0x100000001);
   }
 
   else
   {
-    v22.row = cell->row;
-    v22.column = cell->column;
-    v8 = objc_msgSend_spillSizeForCell_(self, a2, &v22, *&size, v4);
-    if (v8 != 0x100000001)
+    v21.row = cell->row;
+    v21.column = cell->column;
+    v7 = objc_msgSend_spillSizeForCell_(self, a2, &v21, *&size);
+    if (v7 != 0x100000001)
     {
-      v21.origin = *cell;
-      v21.size = v8;
-      v9 = TSUCellRect::columns(&v21);
-      v11 = v10;
-      v12 = TSUCellRect::rows(&v21);
-      sub_2215C3428(&self->_spilledToCoords, v9, v11, v12, v13);
+      v20.origin = *cell;
+      v20.size = v7;
+      v8 = TSUCellRect::columns(&v20);
+      v10 = v9;
+      v11 = TSUCellRect::rows(&v20);
+      sub_2215C3428(&self->_spilledToCoords, v8, v10, v11, v12);
     }
 
-    v21.origin = &v22;
-    sub_221486FA4(&self->_spillSizeForCell.__table_.__bucket_list_.__ptr_, &v22)[3] = size;
-    v21.origin = *cell;
-    v21.size = size;
-    v14 = TSUCellRect::columns(&v21);
-    v16 = v15;
-    v17 = TSUCellRect::rows(&v21);
-    sub_2215C32FC(&self->_spilledToCoords, v14, v16, v17, v18);
+    v20.origin = &v21;
+    sub_221486FA4(&self->_spillSizeForCell.__table_.__bucket_list_.__ptr_, &v21, &unk_2217E1E0A, &v20)[3] = size;
+    v20.origin = *cell;
+    v20.size = size;
+    v13 = TSUCellRect::columns(&v20);
+    v15 = v14;
+    v16 = TSUCellRect::rows(&v20);
+    sub_2215C32FC(&self->_spilledToCoords, v13, v15, v16, v17);
     p_verticalSpills = &self->_verticalSpills;
     if (*&size >> 33)
     {
-      TSCECellCoordSet::addCellCoord(p_verticalSpills, &v22);
+      TSCECellCoordSet::addCellCoord(p_verticalSpills, &v21);
     }
 
     else
     {
-      TSCECellCoordSet::removeCellCoord(p_verticalSpills, &v22);
+      TSCECellCoordSet::removeCellCoord(p_verticalSpills, &v21);
     }
 
     p_horizontalSpills = &self->_horizontalSpills;
     if ((size.var0 & 0xFFFFFFFE) != 0)
     {
-      TSCECellCoordSet::addCellCoord(p_horizontalSpills, &v22);
+      TSCECellCoordSet::addCellCoord(p_horizontalSpills, &v21);
     }
 
     else
     {
-      TSCECellCoordSet::removeCellCoord(p_horizontalSpills, &v22);
+      TSCECellCoordSet::removeCellCoord(p_horizontalSpills, &v21);
     }
   }
 }
 
 - (void)clearSpillSizeForCell:(const TSUCellCoord *)cell
 {
-  v14.row = cell->row;
-  v14.column = cell->column;
-  v7 = objc_msgSend_spillSizeForCell_(self, a2, &v14, v3, v4);
-  if (v7 != 0x100000001)
+  v13.row = cell->row;
+  v13.column = cell->column;
+  v6 = objc_msgSend_spillSizeForCell_(self, a2, &v13, v3);
+  if (v6 != 0x100000001)
   {
-    v13.origin = *cell;
-    v13.size = v7;
-    v8 = TSUCellRect::columns(&v13);
-    v10 = v9;
-    v11 = TSUCellRect::rows(&v13);
-    sub_2215C3428(&self->_spilledToCoords, v8, v10, v11, v12);
+    v12.origin = *cell;
+    v12.size = v6;
+    v7 = TSUCellRect::columns(&v12);
+    v9 = v8;
+    v10 = TSUCellRect::rows(&v12);
+    sub_2215C3428(&self->_spilledToCoords, v7, v9, v10, v11);
   }
 
-  sub_2214136D8(&self->_spillSizeForCell.__table_.__bucket_list_.__ptr_, &v14);
-  TSCECellCoordSet::removeCellCoord(&self->_verticalSpills, &v14);
-  TSCECellCoordSet::removeCellCoord(&self->_horizontalSpills, &v14);
+  sub_2214136D8(&self->_spillSizeForCell.__table_.__bucket_list_.__ptr_, &v13);
+  TSCECellCoordSet::removeCellCoord(&self->_verticalSpills, &v13);
+  TSCECellCoordSet::removeCellCoord(&self->_horizontalSpills, &v13);
 }
 
 - ($85CD2974BE96D4886BB301820D1C36C2)spillSizeForCell:(const TSUCellCoord *)cell
@@ -438,22 +438,22 @@ LABEL_55:
 
 - (id)description
 {
-  v6 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3);
   for (i = self->_spillSizeForCell.__table_.__first_node_.__next_; i; i = *i)
   {
-    v8 = NSStringFromTSUCellCoord();
-    v9 = TSUColumnRowSizeDescriptionNxM();
-    objc_msgSend_appendFormat_(v6, v10, @"  %@ -> %@\n", v11, v12, v8, v9);
+    v7 = NSStringFromTSUCellCoord();
+    v8 = TSUColumnRowSizeDescriptionNxM();
+    objc_msgSend_appendFormat_(v5, v9, @"  %@ -> %@\n", v10, v7, v8);
   }
 
-  return v6;
+  return v5;
 }
 
 - (TSKUIDStruct)ownerUID
 {
-  v4 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2, v3);
-  result._upper = v5;
-  result._lower = v4;
+  v3 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2);
+  result._upper = v4;
+  result._lower = v3;
   return result;
 }
 
@@ -466,7 +466,7 @@ LABEL_55:
     do
     {
       v7 = *(*(archive + 4) + v6);
-      v13 = 0;
+      v12 = 0;
       if (*(v7 + 24))
       {
         v8 = *(v7 + 24);
@@ -477,7 +477,7 @@ LABEL_55:
         v8 = &TSCE::_CellCoordinateArchive_default_instance_;
       }
 
-      v13 = sub_2212697C0(v8);
+      v12 = sub_2212697C0(v8);
       if (*(v7 + 32))
       {
         v9 = *(v7 + 32);
@@ -489,7 +489,7 @@ LABEL_55:
       }
 
       v10 = sub_2212698F4(v9);
-      objc_msgSend_replaceSpillSizeForCell_spillSize_(self, v11, &v13, v10, v12);
+      objc_msgSend_replaceSpillSizeForCell_spillSize_(self, v11, &v12, v10);
       v6 += 8;
       --v3;
     }

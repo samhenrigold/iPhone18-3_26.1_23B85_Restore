@@ -25,26 +25,26 @@
     if (unk_1EBE27900)
     {
       atomic_fetch_add_explicit((unk_1EBE27900 + 8), 1uLL, memory_order_relaxed);
-      v19 = v4;
+      v18 = v4;
       atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v18 = v3;
-    [(USOSerializedGraph *)self toCppUsoGraph:&v18 withError:0];
-    if (v19)
+    v17[19] = v3;
+    objc_msgSend_toCppUsoGraph_withError_(self);
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
     std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-    if (v20)
+    if (v19)
     {
-      siri::ontology::UsoGraph::prettyPrint(v20, &v13);
+      siri::ontology::UsoGraph::prettyPrint(v19, &v13);
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, "", 0);
@@ -80,8 +80,8 @@
     v14 = MEMORY[0x1E69E5538] + 16;
     std::locale::~locale(v15);
     std::ostream::~ostream();
-    MEMORY[0x1C68DE150](&v17);
-    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v20);
+    MEMORY[0x1C68DE150](v17);
+    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v19);
     if (v4)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -506,25 +506,24 @@ LABEL_43:
     switch(v7)
     {
       case 3:
-        v19 = *node->var0;
-        if (!v20)
+        if (!v17)
         {
           __cxa_bad_cast();
         }
 
-        v21 = v20;
-        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v20[3] + 36)];
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v21 + 13));
-        if (v41 == 1)
+        v18 = v17;
+        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v17[3] + 36)];
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v18 + 13));
+        if (v36 == 1)
         {
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          v22 = MEMORY[0x1E696AEC0];
-          std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v21 + 13));
-          if ((v41 & 1) == 0)
+          v19 = MEMORY[0x1E696AEC0];
+          std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&__p, (v18 + 13));
+          if ((v36 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
@@ -539,10 +538,10 @@ LABEL_43:
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          v24 = [v22 stringWithUTF8String:p_p];
-          [(USOSerializedGraphNode *)v6 setStringPayload:v24];
+          v21 = [v19 stringWithUTF8String:p_p];
+          [(USOSerializedGraphNode *)v6 setStringPayload:v21];
 
-          if (v41 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+          if (v36 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
@@ -550,51 +549,49 @@ LABEL_43:
 
         goto LABEL_45;
       case 4:
-        v36 = *node->var0;
-        if (!v37)
+        if (!v32)
         {
           __cxa_bad_cast();
         }
 
-        v38 = v37;
-        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v37[3] + 36)];
-        if ((v38[14] & 1) == 0)
+        v33 = v32;
+        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v32[3] + 36)];
+        if ((v33[14] & 1) == 0)
         {
           goto LABEL_45;
         }
 
-        v14 = [MEMORY[0x1E696AD98] numberWithLongLong:v38[13]];
-        [(USOSerializedGraphNode *)v6 setIntegerPayload:v14];
+        v13 = [MEMORY[0x1E696AD98] numberWithLongLong:v33[13]];
+        [(USOSerializedGraphNode *)v6 setIntegerPayload:v13];
         goto LABEL_44;
       case 5:
-        v15 = *node->var0;
-        if (!v16)
+        if (!v14)
         {
           __cxa_bad_cast();
         }
 
-        v17 = v16;
-        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v16[3] + 36)];
-        v18 = v17[3];
-        if (*(v18 + 36))
+        v15 = v14;
+        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v14[3] + 36)];
+        v16 = v15[3];
+        if (*(v16 + 36))
         {
           goto LABEL_45;
         }
 
-        v12 = MEMORY[0x1E696AEC0];
-        v13 = (v18 + 8);
-        if (*(v18 + 31) < 0)
+        v11 = MEMORY[0x1E696AEC0];
+        v12 = (v16 + 8);
+        if (*(v16 + 31) < 0)
         {
-          v13 = *v13;
+          v12 = *v12;
         }
 
 LABEL_9:
-        v14 = [v12 stringWithUTF8String:v13];
-        [(USOSerializedGraphNode *)v6 setEntityLabel:v14];
+        v13 = [v11 stringWithUTF8String:v12];
+        [(USOSerializedGraphNode *)v6 setEntityLabel:v13];
 LABEL_44:
 
 LABEL_45:
-        v26 = v6;
+        v23 = v6;
         goto LABEL_46;
     }
   }
@@ -606,66 +603,64 @@ LABEL_45:
       case 0:
         goto LABEL_5;
       case 1:
-        v27 = *node->var0;
-        if (!v28)
+        if (!v24)
         {
           __cxa_bad_cast();
         }
 
-        v29 = v28;
-        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v28[3] + 36)];
-        v30 = v29[3];
-        if (!*(v30 + 36))
+        v25 = v24;
+        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v24[3] + 36)];
+        v26 = v25[3];
+        if (!*(v26 + 36))
         {
-          v31 = (v30 + 8);
-          if (*(v30 + 31) < 0)
+          v27 = (v26 + 8);
+          if (*(v26 + 31) < 0)
           {
-            v31 = *v31;
+            v27 = *v27;
           }
 
-          v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v31];
-          [(USOSerializedGraphNode *)v6 setEntityLabel:v32];
+          v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v27];
+          [(USOSerializedGraphNode *)v6 setEntityLabel:v28];
         }
 
-        v33 = [MEMORY[0x1E696AD98] numberWithInt:*(v29[13] + 36)];
-        [(USOSerializedGraphNode *)v6 setUsoVerbId:v33];
+        v29 = [MEMORY[0x1E696AD98] numberWithInt:*(v25[13] + 36)];
+        [(USOSerializedGraphNode *)v6 setUsoVerbId:v29];
 
-        v34 = v29[13];
-        if (*(v34 + 36))
+        v30 = v25[13];
+        if (*(v30 + 36))
         {
           goto LABEL_45;
         }
 
-        v35 = (v34 + 8);
-        if (*(v34 + 31) < 0)
+        v31 = (v30 + 8);
+        if (*(v30 + 31) < 0)
         {
-          v35 = *v35;
+          v31 = *v31;
         }
 
-        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v35];
-        [(USOSerializedGraphNode *)v6 setVerbLabel:v14];
+        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v31];
+        [(USOSerializedGraphNode *)v6 setVerbLabel:v13];
         goto LABEL_44;
       case 2:
 LABEL_5:
-        v8 = *node->var0;
-        if (!v9)
+        if (!v8)
         {
           __cxa_bad_cast();
         }
 
-        v10 = v9;
-        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v9[3] + 36)];
-        v11 = v10[3];
-        if (*(v11 + 36))
+        v9 = v8;
+        [(USOSerializedGraphNode *)v6 setUsoElementId:*(v8[3] + 36)];
+        v10 = v9[3];
+        if (*(v10 + 36))
         {
           goto LABEL_45;
         }
 
-        v12 = MEMORY[0x1E696AEC0];
-        v13 = (v11 + 8);
-        if (*(v11 + 31) < 0)
+        v11 = MEMORY[0x1E696AEC0];
+        v12 = (v10 + 8);
+        if (*(v10 + 31) < 0)
         {
-          v13 = *v13;
+          v12 = *v12;
         }
 
         goto LABEL_9;
@@ -674,39 +669,48 @@ LABEL_5:
 
   if (error)
   {
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Unknown UsoGraphNode" forKey:*MEMORY[0x1E696A578]];
-    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"USOSerializedGraphErrorDomain" code:4 userInfo:v25];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Unknown UsoGraphNode" forKey:*MEMORY[0x1E696A578]];
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:@"USOSerializedGraphErrorDomain" code:4 userInfo:v22];
   }
 
-  v26 = 0;
+  v23 = 0;
 LABEL_46:
 
-  return v26;
+  return v23;
 }
 
 - (id)getUtteranceAlignmentsIfExists:(const UsoGraphNode *)exists nodeIndex:(unint64_t)index
 {
-  v5 = *exists->var0;
-  if (!v6 || (v7 = v6, v6[7] == v6[8]))
+  if (!v5 || (v6 = v5, v5[7] == v5[8]))
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    siri::ontology::UsoUtteranceAlignment::getSpans(*v7[7], &v18);
+    v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    siri::ontology::UsoUtteranceAlignment::getSpans(&v17, *v6[7]);
+    v8 = v17;
     v9 = v18;
-    v10 = v19;
-    if (v18 != v19)
+    if (v17 != v18)
     {
-      v11 = v18;
+      v10 = v17;
       do
       {
-        v12 = *v11;
-        if (*(*v11 + 20) == 1)
+        v11 = *v10;
+        if (*(*v10 + 20) == 1)
         {
-          v13 = v12[4];
+          v12 = v11[4];
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+        if (*(v11 + 28) == 1)
+        {
+          v13 = v11[6];
         }
 
         else
@@ -714,140 +718,140 @@ LABEL_46:
           v13 = 0;
         }
 
-        if (*(v12 + 28) == 1)
-        {
-          v14 = v12[6];
-        }
+        v14 = [[USOSerializedUtteranceSpan alloc] initWithStartIndex:**v10 endIndex:(*v10)[1] startUnicodeScalarIndex:(*v10)[2] endUnicodeScalarIndex:(*v10)[3] startMilliSeconds:v12 endMilliSeconds:v13];
+        [v7 addObject:v14];
 
-        else
-        {
-          v14 = 0;
-        }
-
-        v15 = [[USOSerializedUtteranceSpan alloc] initWithStartIndex:**v11 endIndex:(*v11)[1] startUnicodeScalarIndex:(*v11)[2] endUnicodeScalarIndex:(*v11)[3] startMilliSeconds:v13 endMilliSeconds:v14];
-        [v8 addObject:v15];
-
-        ++v11;
+        ++v10;
       }
 
-      while (v11 != v10);
+      while (v10 != v9);
     }
 
-    if (v9)
+    if (v8)
     {
-      operator delete(v9);
+      operator delete(v8);
     }
 
-    v16 = [[USOSerializedUtteranceAlignment alloc] initWithNodeIndex:index asrHypothesisIndex:**v7[7] spans:v8];
+    v15 = [[USOSerializedUtteranceAlignment alloc] initWithNodeIndex:index asrHypothesisIndex:**v6[7] spans:v7];
   }
 
-  return v16;
+  return v15;
 }
 
 - (id)getIdentifiersIfExists:(const UsoGraphNode *)exists nodeIndex:(unint64_t)index
 {
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v5 = *exists->var0;
-  if (v6)
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (v5)
   {
-    siri::ontology::UsoEntityNode::getIdentifiers(v6, &v35);
-    __p = v35;
-    v30 = v36;
-    if (v35 != v36)
+    siri::ontology::UsoEntityNode::getIdentifiers(&v34, v5);
+    __p = v34;
+    v29 = v35;
+    if (v34 != v35)
     {
+      v6 = 0x1E696A000uLL;
       v7 = 0x1E696A000uLL;
-      v8 = 0x1E696A000uLL;
-      v9 = v35;
+      v8 = v34;
       do
       {
-        v10 = *(v7 + 3776);
-        v11 = *v9;
-        if (SHIBYTE((*v9)->__r_.__value_.__r.__words[2]) < 0)
+        v9 = *(v6 + 3776);
+        v10 = *v8;
+        if (SHIBYTE((*v8)->__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v33, v11->__r_.__value_.__l.__data_, v11->__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v32, v10->__r_.__value_.__l.__data_, v10->__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v12 = *&v11->__r_.__value_.__l.__data_;
-          v33.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-          *&v33.__r_.__value_.__l.__data_ = v12;
+          v11 = *&v10->__r_.__value_.__l.__data_;
+          v32.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+          *&v32.__r_.__value_.__l.__data_ = v11;
         }
 
-        if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v13 = &v33;
-        }
-
-        else
-        {
-          v13 = v33.__r_.__value_.__r.__words[0];
-        }
-
-        v14 = [v10 stringWithUTF8String:v13];
-        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v33.__r_.__value_.__l.__data_);
-        }
-
-        v15 = *(v7 + 3776);
-        v16 = *v9;
-        if (SHIBYTE((*v9)[1].__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v33, v16[1].__r_.__value_.__l.__data_, v16[1].__r_.__value_.__l.__size_);
+          v12 = &v32;
         }
 
         else
         {
-          v33 = v16[1];
+          v12 = v32.__r_.__value_.__r.__words[0];
         }
 
-        if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        v13 = [v9 stringWithUTF8String:v12];
+        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
         {
-          v17 = &v33;
+          operator delete(v32.__r_.__value_.__l.__data_);
+        }
+
+        v14 = *(v6 + 3776);
+        v15 = *v8;
+        if (SHIBYTE((*v8)[1].__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v32, v15[1].__r_.__value_.__l.__data_, v15[1].__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v17 = v33.__r_.__value_.__r.__words[0];
+          v32 = v15[1];
         }
 
-        v18 = [v15 stringWithUTF8String:v17];
-        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          operator delete(v33.__r_.__value_.__l.__data_);
+          v16 = &v32;
         }
 
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v33, &(*v9)[2]);
-        if (v34 == 1)
+        else
         {
-          if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v16 = v32.__r_.__value_.__r.__words[0];
+        }
+
+        v17 = [v14 stringWithUTF8String:v16];
+        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v32.__r_.__value_.__l.__data_);
+        }
+
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v32, &(*v8)[2]);
+        if (v33 == 1)
+        {
+          if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v19 = &v33;
+            v18 = &v32;
           }
 
           else
           {
-            v19 = v33.__r_.__value_.__r.__words[0];
+            v18 = v32.__r_.__value_.__r.__words[0];
           }
 
-          v20 = [*(v7 + 3776) stringWithUTF8String:v19];
-          if ((v34 & 1) != 0 && SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+          v19 = [*(v6 + 3776) stringWithUTF8String:v18];
+          if ((v33 & 1) != 0 && SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v33.__r_.__value_.__l.__data_);
+            operator delete(v32.__r_.__value_.__l.__data_);
           }
         }
 
         else
         {
-          v20 = 0;
+          v19 = 0;
         }
 
-        v21 = *v9;
-        if ((*v9)[3].__r_.__value_.__r.__words[2])
+        v20 = *v8;
+        if ((*v8)[3].__r_.__value_.__r.__words[2])
         {
-          v22 = [*(v8 + 3480) numberWithDouble:*&v21[3].__r_.__value_.__l.__size_];
-          v21 = *v9;
+          v21 = [*(v7 + 3480) numberWithDouble:*&v20[3].__r_.__value_.__l.__size_];
+          v20 = *v8;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        if ((v20[4].__r_.__value_.__r.__words[0] & 0x100000000) != 0)
+        {
+          v22 = [*(v7 + 3480) numberWithInt:?];
+          v20 = *v8;
         }
 
         else
@@ -855,10 +859,10 @@ LABEL_46:
           v22 = 0;
         }
 
-        if ((v21[4].__r_.__value_.__r.__words[0] & 0x100000000) != 0)
+        if ((v20[4].__r_.__value_.__l.__size_ & 0x100000000) != 0)
         {
-          v23 = [*(v8 + 3480) numberWithInt:?];
-          v21 = *v9;
+          v23 = [*(v7 + 3480) numberWithUnsignedInt:?];
+          v20 = *v8;
         }
 
         else
@@ -866,37 +870,26 @@ LABEL_46:
           v23 = 0;
         }
 
-        if ((v21[4].__r_.__value_.__l.__size_ & 0x100000000) != 0)
+        v24 = v6;
+        if ((v20[4].__r_.__value_.__r.__words[2] & 0x100000000) != 0)
         {
-          v24 = [*(v8 + 3480) numberWithUnsignedInt:?];
-          v21 = *v9;
+          v25 = [*(v7 + 3480) numberWithUnsignedInt:?];
         }
 
         else
         {
-          v24 = 0;
+          v25 = 0;
         }
 
-        v25 = v7;
-        if ((v21[4].__r_.__value_.__r.__words[2] & 0x100000000) != 0)
-        {
-          v26 = [*(v8 + 3480) numberWithUnsignedInt:?];
-        }
+        v26 = [[USOSerializedIdentifier alloc] initWithNodeIndex:index value:v13 appBundleId:v17 namespaceString:v19 probability:v21 sourceComponent:v22 groupIndex:v23 interpretationGroup:v25];
+        [v31 addObject:v26];
 
-        else
-        {
-          v26 = 0;
-        }
-
-        v27 = [[USOSerializedIdentifier alloc] initWithNodeIndex:index value:v14 appBundleId:v18 namespaceString:v20 probability:v22 sourceComponent:v23 groupIndex:v24 interpretationGroup:v26];
-        [v32 addObject:v27];
-
-        ++v9;
-        v7 = v25;
-        v8 = 0x1E696A000;
+        ++v8;
+        v6 = v24;
+        v7 = 0x1E696A000;
       }
 
-      while (v9 != v30);
+      while (v8 != v29);
     }
 
     if (__p)
@@ -905,7 +898,7 @@ LABEL_46:
     }
   }
 
-  return v32;
+  return v31;
 }
 
 - (USOSerializedGraph)initWithNodes:(id)nodes edges:(id)edges identifiers:(id)identifiers alignments:(id)alignments

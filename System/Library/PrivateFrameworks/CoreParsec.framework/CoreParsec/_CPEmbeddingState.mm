@@ -105,25 +105,21 @@ LABEL_17:
   toCopy = to;
   if ([(_CPEmbeddingState *)self queryStatus])
   {
-    queryStatus = self->_queryStatus;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPEmbeddingState *)self hasQueryEmbedding])
   {
-    hasQueryEmbedding = self->_hasQueryEmbedding;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPEmbeddingState *)self hasEmbeddingResults])
   {
-    hasEmbeddingResults = self->_hasEmbeddingResults;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPEmbeddingState *)self hasResults])
   {
-    hasResults = self->_hasResults;
     PBDataWriterWriteBOOLField();
   }
 
@@ -137,25 +133,21 @@ LABEL_17:
 
   if ([(_CPEmbeddingState *)self hasSuppressedResults])
   {
-    hasSuppressedResults = self->_hasSuppressedResults;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPEmbeddingState *)self hasKeywordResults])
   {
-    hasKeywordResults = self->_hasKeywordResults;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPEmbeddingState *)self hasHybridResults])
   {
-    hasHybridResults = self->_hasHybridResults;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPEmbeddingState *)self hasMetadataResults])
   {
-    hasMetadataResults = self->_hasMetadataResults;
     PBDataWriterWriteBOOLField();
   }
 }

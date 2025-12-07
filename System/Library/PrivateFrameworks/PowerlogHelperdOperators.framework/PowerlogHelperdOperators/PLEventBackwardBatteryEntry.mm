@@ -110,29 +110,30 @@ void __67__PLEventBackwardBatteryEntry_populateCellWOMForEntry_withRawData___blo
 
     if ([v7 count] >= 2)
     {
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_invoke;
-      v10[3] = &unk_279A5E4A8;
-      v11 = entryCopy;
-      [v7 enumerateObjectsUsingBlock:v10];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_invoke;
+      v11[3] = &unk_279A5E4A8;
+      v12 = entryCopy;
+      [v7 enumerateObjectsUsingBlock:v11];
     }
   }
 
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [entryCopy setObject:v7 forKeyedSubscript:@"WeightedRa"];
     }
 
     else
     {
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PLLogCommon(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [PLEventBackwardBatteryEntry populatewRaForEntry:v7 withRawData:v9];
+        [PLEventBackwardBatteryEntry populatewRaForEntry:v7 withRawData:v10];
       }
     }
   }
@@ -269,13 +270,11 @@ void __63__PLEventBackwardBatteryEntry_populatewRaForEntry_withRawData___block_i
 
 + (void)populatewRaForEntry:(uint64_t)a1 withRawData:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [objc_opt_class() className];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "unknown wRa format: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_25EE51000, a2, OS_LOG_TYPE_ERROR, "unknown wRa format: %@", &v4, 0xCu);
 }
 
 @end

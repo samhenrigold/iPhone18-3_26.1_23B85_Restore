@@ -91,15 +91,15 @@
 - (void)handleTPSPhonebookControllerSubscriptionDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSPhonebookLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSPhonebookLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = objc_opt_class();
-    v11 = 2112;
-    v12 = notificationCopy;
-    v6 = v10;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = objc_opt_class();
+    v12 = 2112;
+    v13 = notificationCopy;
+    v7 = v11;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v10, 0x16u);
   }
 
   parentListController = [(TPSPhonebookBundleController *)self parentListController];

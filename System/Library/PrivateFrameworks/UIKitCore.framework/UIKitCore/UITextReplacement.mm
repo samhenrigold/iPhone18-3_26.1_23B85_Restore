@@ -53,7 +53,7 @@
 {
   menuTitle = self->_menuTitle;
   v3 = _UINSLocalizedStringWithDefaultValue(@"No Replacements Found", @"No Replacements Found");
-  LOBYTE(menuTitle) = [(NSString *)menuTitle isEqualToString:v3];
+  LOBYTE(menuTitle) = objc_msgSend_isEqualToString_(menuTitle);
 
   return menuTitle;
 }

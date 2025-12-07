@@ -44,112 +44,112 @@
 
 - (id)_resolvePlistPath
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   localeIdentifier = [(TESLocalizedPListLoader *)self localeIdentifier];
   v4 = [localeIdentifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
 
-  v5 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = emf_logging_get_default_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     localeIdentifier2 = [(TESLocalizedPListLoader *)self localeIdentifier];
     LODWORD(buf) = 138543362;
     *(&buf + 4) = localeIdentifier2;
-    _os_log_impl(&dword_1AF04E000, v5, OS_LOG_TYPE_INFO, "Loading Text Effects plist file for locale '%{public}@'", &buf, 0xCu);
+    _os_log_impl(&dword_1AF04E000, v6, OS_LOG_TYPE_INFO, "Loading Text Effects plist file for locale '%{public}@'", &buf, 0xCu);
   }
 
-  v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v8 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v31 = 0x3032000000;
-  v32 = __Block_byref_object_copy__1;
-  v33 = __Block_byref_object_dispose__1;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__1;
+  v36 = __Block_byref_object_dispose__1;
   resourceName = [(TESLocalizedPListLoader *)self resourceName];
-  v34 = [v7 URLForResource:resourceName withExtension:@"plist" subdirectory:0 localization:v4];
+  v37 = [v8 URLForResource:resourceName withExtension:@"plist" subdirectory:0 localization:v4];
 
-  v9 = *(*(&buf + 1) + 40);
-  if (!v9)
+  v10 = *(*(&buf + 1) + 40);
+  if (!v10)
   {
-    v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v4];
-    languageIdentifier = [v10 languageIdentifier];
+    v11 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v4];
+    languageIdentifier = [v11 languageIdentifier];
 
-    if (([(__CFString *)languageIdentifier isEqualToString:@"nb-NO"]& 1) != 0 || [(__CFString *)languageIdentifier isEqualToString:@"nn"])
+    if (([(__CFString *)languageIdentifier isEqualToString:@"nb-NO"]& 1) != 0 || (v13 = [(__CFString *)languageIdentifier isEqualToString:@"nn"], v13))
     {
 
       languageIdentifier = @"no";
     }
 
-    v12 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = emf_logging_get_default_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       localeIdentifier3 = [(TESLocalizedPListLoader *)self localeIdentifier];
-      *v26 = 138543618;
-      v27 = localeIdentifier3;
-      v28 = 2114;
-      v29 = languageIdentifier;
-      _os_log_impl(&dword_1AF04E000, v12, OS_LOG_TYPE_INFO, "No Text Effects plist file found for locale identifier '%{public}@'; attempting to load data associated with the normalized locale identifier '%{public}@'.", v26, 0x16u);
+      *v29 = 138543618;
+      v30 = localeIdentifier3;
+      v31 = 2114;
+      v32 = languageIdentifier;
+      _os_log_impl(&dword_1AF04E000, v14, OS_LOG_TYPE_INFO, "No Text Effects plist file found for locale identifier '%{public}@'; attempting to load data associated with the normalized locale identifier '%{public}@'.", v29, 0x16u);
     }
 
     resourceName2 = [(TESLocalizedPListLoader *)self resourceName];
-    v15 = [v7 URLForResource:resourceName2 withExtension:@"plist" subdirectory:0 localization:languageIdentifier];
-    v16 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v15;
+    v17 = [v8 URLForResource:resourceName2 withExtension:@"plist" subdirectory:0 localization:languageIdentifier];
+    v18 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v17;
 
-    v9 = *(*(&buf + 1) + 40);
-    if (!v9)
+    v10 = *(*(&buf + 1) + 40);
+    if (!v10)
     {
-      v17 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v20 = emf_logging_get_default_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         localeIdentifier4 = [(TESLocalizedPListLoader *)self localeIdentifier];
-        *v26 = 138543362;
-        v27 = localeIdentifier4;
-        _os_log_impl(&dword_1AF04E000, v17, OS_LOG_TYPE_INFO, "No Text Effects plist found for locale identifier '%{public}@'; attempting to load a fallback language.", v26, 0xCu);
+        *v29 = 138543362;
+        v30 = localeIdentifier4;
+        _os_log_impl(&dword_1AF04E000, v20, OS_LOG_TYPE_INFO, "No Text Effects plist found for locale identifier '%{public}@'; attempting to load a fallback language.", v29, 0xCu);
       }
 
-      v19 = MEMORY[0x1E695DF58];
+      v22 = MEMORY[0x1E695DF58];
       localeIdentifier5 = [(TESLocalizedPListLoader *)self localeIdentifier];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke;
-      v23[3] = &unk_1E7A5F6A0;
-      v23[4] = self;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke;
+      v26[3] = &unk_1E7A5F6A0;
+      v26[4] = self;
       p_buf = &buf;
-      v24 = v7;
-      [v19 _enumerateLanguageFallbackGraphForLocaleIdentifier:localeIdentifier5 usingBlock:v23];
+      v27 = v8;
+      [v22 _enumerateLanguageFallbackGraphForLocaleIdentifier:localeIdentifier5 usingBlock:v26];
 
-      v9 = *(*(&buf + 1) + 40);
+      v10 = *(*(&buf + 1) + 40);
     }
   }
 
-  v21 = v9;
+  v24 = v10;
   _Block_object_dispose(&buf, 8);
 
-  return v21;
+  return v24;
 }
 
 void __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [*(a1 + 32) localeIdentifier];
   v7 = [v6 isEqualToString:v5];
 
   if ((v7 & 1) == 0)
   {
-    v8 = emf_logging_get_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = emf_logging_get_default_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v14 = 138543362;
-      v15 = v5;
-      _os_log_impl(&dword_1AF04E000, v8, OS_LOG_TYPE_INFO, "Loading Text Effects plist file for language fallback '%{public}@'", &v14, 0xCu);
+      v15 = 138543362;
+      v16 = v5;
+      _os_log_impl(&dword_1AF04E000, v9, OS_LOG_TYPE_INFO, "Loading Text Effects plist file for language fallback '%{public}@'", &v15, 0xCu);
     }
 
-    v9 = *(a1 + 40);
-    v10 = [*(a1 + 32) resourceName];
-    v11 = [v9 URLForResource:v10 withExtension:@"plist" subdirectory:0 localization:v5];
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 32) resourceName];
+    v12 = [v10 URLForResource:v11 withExtension:@"plist" subdirectory:0 localization:v5];
+    v13 = *(*(a1 + 48) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = v12;
 
     if (*(*(*(a1 + 48) + 8) + 40))
     {
@@ -160,98 +160,102 @@ void __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke(uint64_t a1, 
 
 - (id)_loadItems
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   plistPath = [(TESLocalizedPListLoader *)self plistPath];
   if (plistPath)
   {
-    v22 = 0;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:plistPath error:&v22];
-    v5 = v22;
+    v26 = 0;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:plistPath error:&v26];
+    v5 = v26;
+    v6 = v5;
     if (v5)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = v4 == 0;
+      v7 = v4 == 0;
     }
 
-    if (v6 || ![v4 count])
+    if (v7 || (v5 = [v4 count]) == 0)
     {
-      v7 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = emf_logging_get_default_log(v5);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         absoluteString = [plistPath absoluteString];
         localeIdentifier = [(TESLocalizedPListLoader *)self localeIdentifier];
-        localizedDescription = [v5 localizedDescription];
+        localizedDescription = [v6 localizedDescription];
         *buf = 138543874;
-        v24 = absoluteString;
-        v25 = 2114;
-        v26 = localeIdentifier;
-        v27 = 2114;
-        v28 = localizedDescription;
-        _os_log_error_impl(&dword_1AF04E000, v7, OS_LOG_TYPE_ERROR, "Text Effects plist at path '%{public}@' for locale '%{public}@' could not be read with error: '%{public}@", buf, 0x20u);
+        v28 = absoluteString;
+        v29 = 2114;
+        v30 = localeIdentifier;
+        v31 = 2114;
+        v32 = localizedDescription;
+        _os_log_error_impl(&dword_1AF04E000, v9, OS_LOG_TYPE_ERROR, "Text Effects plist at path '%{public}@' for locale '%{public}@' could not be read with error: '%{public}@", buf, 0x20u);
       }
 
-      v15 = 0;
+      v18 = 0;
       goto LABEL_27;
     }
 
-    v7 = [v4 objectForKeyedSubscript:@"metadata"];
-    if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    v8 = [v4 objectForKeyedSubscript:@"metadata"];
+    v9 = v8;
+    if (v8 && (objc_opt_class(), v8 = objc_opt_isKindOfClass(), (v8 & 1) != 0))
     {
-      v8 = [v7 objectForKeyedSubscript:@"schemaVersion"];
-      if (v8)
+      v10 = [v9 objectForKeyedSubscript:@"schemaVersion"];
+      if (v10)
       {
-        v9 = v8;
+        v11 = v10;
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 unsignedLongValue]== 1)
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 unsignedLongValue]== 1)
         {
-          v10 = [v4 objectForKeyedSubscript:@"triggers"];
-          if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+          isKindOfClass = [v4 objectForKeyedSubscript:@"triggers"];
+          v13 = isKindOfClass;
+          if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
           {
-            v11 = emf_logging_get_default_log();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+            v14 = emf_logging_get_default_log(isKindOfClass);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
               absoluteString2 = [plistPath absoluteString];
               localeIdentifier2 = [(TESLocalizedPListLoader *)self localeIdentifier];
-              v14 = [v10 count];
+              v17 = [v13 count];
               *buf = 138543874;
-              v24 = absoluteString2;
-              v25 = 2114;
-              v26 = localeIdentifier2;
-              v27 = 2048;
-              v28 = v14;
-              _os_log_impl(&dword_1AF04E000, v11, OS_LOG_TYPE_INFO, "Loaded Text Effects plist '%{public}@' for locale '%{public}@' (%lu entries)", buf, 0x20u);
+              v28 = absoluteString2;
+              v29 = 2114;
+              v30 = localeIdentifier2;
+              v31 = 2048;
+              v32 = v17;
+              _os_log_impl(&dword_1AF04E000, v14, OS_LOG_TYPE_INFO, "Loaded Text Effects plist '%{public}@' for locale '%{public}@' (%lu entries)", buf, 0x20u);
             }
 
-            v15 = v10;
+            v18 = v13;
           }
 
           else
           {
-            v21 = emf_logging_get_default_log();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v25 = emf_logging_get_default_log(isKindOfClass);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               [(TESLocalizedPListLoader *)plistPath _loadItems];
             }
 
-            v15 = 0;
+            v18 = 0;
           }
 
           goto LABEL_26;
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v20 = objc_opt_isKindOfClass();
+        if ((v20 & 1) == 0)
         {
 
-          v9 = &unk_1F24DF3A0;
+          v11 = &unk_1F24DF3A0;
         }
 
-        v17 = emf_logging_get_default_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v21 = emf_logging_get_default_log(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           [(TESLocalizedPListLoader *)plistPath _loadItems];
         }
@@ -259,8 +263,8 @@ void __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke(uint64_t a1, 
 
       else
       {
-        v9 = emf_logging_get_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = emf_logging_get_default_log(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [(TESLocalizedPListLoader *)plistPath _loadItems];
         }
@@ -269,30 +273,30 @@ void __44__TESLocalizedPListLoader__resolvePlistPath__block_invoke(uint64_t a1, 
 
     else
     {
-      v9 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = emf_logging_get_default_log(v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(TESLocalizedPListLoader *)plistPath _loadItems];
       }
     }
 
-    v15 = 0;
+    v18 = 0;
 LABEL_26:
 
 LABEL_27:
     goto LABEL_28;
   }
 
-  v5 = emf_logging_get_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = emf_logging_get_default_log(0);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(TESLocalizedPListLoader *)self _loadItems];
   }
 
-  v15 = 0;
+  v18 = 0;
 LABEL_28:
 
-  return v15;
+  return v18;
 }
 
 - (void)_loadItems

@@ -64,9 +64,11 @@
 
 uint64_t __44__CFXEffectPickerViewController_viewDidLoad__block_invoke()
 {
-  s_effectLoadingSemaphore = dispatch_semaphore_create(2);
+  v0 = dispatch_semaphore_create(2);
+  v1 = s_effectLoadingSemaphore;
+  s_effectLoadingSemaphore = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -146,7 +148,7 @@ void __84__CFXEffectPickerViewController_viewWillTransitionToSize_withTransition
   }
 }
 
-uint64_t __47__CFXEffectPickerViewController_setEffectType___block_invoke(uint64_t a1)
+void *__47__CFXEffectPickerViewController_setEffectType___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) CFX_createPickerViewForEffectType:*(a1 + 40)];
   [*(a1 + 32) setPickerView:v2];
@@ -601,8 +603,8 @@ uint64_t __108__CFXEffectPickerViewController_effectPickerView_effectAtIndex_for
   {
     [effectCopy setRenderSize:{width, height}];
     renderEffect = [effectCopy renderEffect];
-    v16 = *kDefaultEffectPreviewAnimationRange;
-    [renderEffect setEffectRange:&v16];
+    v12 = *kDefaultEffectPreviewAnimationRange;
+    [renderEffect setEffectRange:&v12];
 
     [effectCopy setForceRenderAtPosterFrame:1];
     if ([effectCopy type] == 2)
@@ -619,18 +621,14 @@ uint64_t __108__CFXEffectPickerViewController_effectPickerView_effectAtIndex_for
     v10 = v9;
     if (v9)
     {
-      v13 = *MEMORY[0x277CC08F0];
-      *&v16.a = *MEMORY[0x277CC08F0];
-      v11 = *(MEMORY[0x277CC08F0] + 16);
-      v16.c = v11;
-      [v9 applyScaleToFitFrame:&v16 withComponentTime:0.0 relativeRect:{0.0, width, height, 0.0, 0.0, width, height}];
+      *&v12.a = *MEMORY[0x277CC08F0];
+      v12.c = *(MEMORY[0x277CC08F0] + 16);
+      [v9 applyScaleToFitFrame:&v12 withComponentTime:0.0 relativeRect:{0.0, width, height, 0.0, 0.0, width, height}];
       [v10 pickerScale];
-      if (v12 != 1.0)
+      if (v11 != 1.0)
       {
-        CGAffineTransformMakeScale(&v16, v12, v12);
-        v14 = v13;
-        v15 = v11;
-        [v10 addTransform:&v16 withComponentTime:&v14 relativeTo:1 basisOrigin:{0.0, 0.0, width, height}];
+        CGAffineTransformMakeScale(&v12, v11, v11);
+        objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(v10, 0.0, 0.0, width, height);
       }
     }
   }

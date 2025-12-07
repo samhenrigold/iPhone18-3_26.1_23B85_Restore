@@ -48,7 +48,7 @@
   v12 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWConcrete_nw_ws_request init]";
-  v13 = _os_log_send_and_compose_impl();
+  v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;

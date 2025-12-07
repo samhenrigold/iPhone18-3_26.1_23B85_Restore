@@ -18,18 +18,18 @@
 
 - (BOOL)startServerWithExpectedPasscodeHash:(id)hash advertisedDeviceName:(id)name advertisedDeviceModel:(id)model
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   nameCopy = name;
   modelCopy = model;
   objc_storeStrong(&self->_expectedPasscodeHash, hash);
   objc_storeStrong(&self->_advertisedDeviceName, name);
   objc_storeStrong(&self->_advertisedDeviceModel, model);
-  v23 = MEMORY[0x277CBE558];
-  v24 = MEMORY[0x277CBE550];
-  v20 = xmmword_2874775B0;
-  v21 = *off_2874775C0;
-  v22 = off_2874775D0;
+  v24 = MEMORY[0x277CBE558];
+  v25 = MEMORY[0x277CBE550];
+  v21 = xmmword_2874775B0;
+  v22 = *off_2874775C0;
+  v23 = off_2874775D0;
   v12 = *MEMORY[0x277CBECE8];
   Service = _CFHTTPServerCreateService();
   self->_HTTPServer = Service;
@@ -41,21 +41,22 @@
 
     _CFHTTPServerSetDispatchQueue();
     v16 = _CFHTTPServerCopyProperty();
-    self->_port = [v16 unsignedShortValue:v20];
-    self->_HTTPServerConnections = CFDictionaryCreateMutable(v12, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    v17 = RMSLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    self->_port = [v16 unsignedShortValue:v21];
+    Mutable = CFDictionaryCreateMutable(v12, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    self->_HTTPServerConnections = Mutable;
+    v18 = RMSLogger(Mutable);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       port = self->_port;
       *buf = 67109120;
-      v26 = port;
-      _os_log_impl(&dword_261E98000, v17, OS_LOG_TYPE_DEFAULT, "HTTP server for pin-pairing exchange started on port %u", buf, 8u);
+      v27 = port;
+      _os_log_impl(&dword_261E98000, v18, OS_LOG_TYPE_DEFAULT, "HTTP server for pin-pairing exchange started on port %u", buf, 8u);
     }
   }
 
   else
   {
-    v16 = RMSLogger();
+    v16 = RMSLogger(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [RMSPairingServer startServerWithExpectedPasscodeHash:v16 advertisedDeviceName:? advertisedDeviceModel:?];
@@ -67,7 +68,7 @@
 
 - (void)stopServer
 {
-  v3 = RMSLogger();
+  v3 = RMSLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -95,7 +96,7 @@
 
 - (void)handleHTTPServerInvalidated
 {
-  v2 = RMSLogger();
+  v2 = RMSLogger(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -105,7 +106,7 @@
 
 - (void)handleHTTPServerDidReceiveError:(__CFError *)error
 {
-  v5 = RMSLogger();
+  v5 = RMSLogger(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(RMSPairingServer *)error handleHTTPServerDidReceiveError:v5];
@@ -118,7 +119,7 @@
 
 - (void)handleHTTPServerDidOpenConnection:(_CFHTTPServerConnection *)connection
 {
-  v5 = RMSLogger();
+  v5 = RMSLogger(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v6[0]) = 0;
@@ -149,7 +150,7 @@
 
 - (void)handleHTTPServerConnectionInvalidated
 {
-  v2 = RMSLogger();
+  v2 = RMSLogger(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -160,7 +161,7 @@
 - (void)handleHTTPServerConnectionDidReceiveError:(__CFError *)error
 {
   v7 = *MEMORY[0x277D85DE8];
-  v4 = RMSLogger();
+  v4 = RMSLogger(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -226,23 +227,23 @@
 
 - (void)handleHTTPServerConnectionDidReceiveRequest:(_CFHTTPServerRequest *)request
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = _CFHTTPServerRequestCopyProperty();
-  v6 = RMSLogger();
+  v6 = RMSLogger(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "HTTP server received pairing request", buf, 2u);
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __64__RMSPairingServer_handleHTTPServerConnectionDidReceiveRequest___block_invoke;
-  v36[3] = &unk_279B08D60;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __64__RMSPairingServer_handleHTTPServerConnectionDidReceiveRequest___block_invoke;
+  v37[3] = &unk_279B08D60;
   requestCopy = request;
   v7 = v5;
-  v37 = v7;
-  v8 = MEMORY[0x266721590](v36);
+  v38 = v7;
+  v8 = MEMORY[0x266721590](v37);
   v9 = _CFHTTPServerRequestCopyProperty();
   if ([v9 isEqualToString:*MEMORY[0x277CBAD00]])
   {
@@ -266,40 +267,41 @@
 
         v16 = [v15 valueForKey:@"pairingcode"];
         v17 = [v15 valueForKey:@"servicename"];
-        v35 = v16;
-        if ([v17 length] && objc_msgSend(v16, "isEqualToString:", self->_expectedPasscodeHash))
+        v18 = [v17 length];
+        v36 = v16;
+        if (v18 && (v18 = [v16 isEqualToString:self->_expectedPasscodeHash], v18))
         {
-          v34 = v15;
-          v18 = time(0);
-          srandom(v18);
-          v19 = random();
-          v20 = random() | (v19 << 32);
-          v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%.16llX", v20];
+          v35 = v15;
+          v19 = time(0);
+          srandom(v19);
+          v20 = random();
+          v21 = random() | (v20 << 32);
+          v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%.16llX", v21];
           successfulPairingGUID = self->_successfulPairingGUID;
-          self->_successfulPairingGUID = v21;
+          self->_successfulPairingGUID = v22;
 
           objc_storeStrong(&self->_successfulPairingServiceName, v17);
-          v23 = objc_opt_new();
-          [v23 encodeInt64:v20 forCode:1668116583];
-          [v23 encodeString:self->_advertisedDeviceName forCode:1668116077];
-          [v23 encodeString:self->_advertisedDeviceModel forCode:1668117625];
-          data = [v23 data];
-          v25 = objc_opt_new();
+          v24 = objc_opt_new();
+          [v24 encodeInt64:v21 forCode:1668116583];
+          [v24 encodeString:self->_advertisedDeviceName forCode:1668116077];
+          [v24 encodeString:self->_advertisedDeviceModel forCode:1668117625];
+          data = [v24 data];
+          v26 = objc_opt_new();
 
-          [v25 encodeData:data forCode:1668116577];
-          data2 = [v25 data];
-          v26 = RMSLogger();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          [v26 encodeData:data forCode:1668116577];
+          data2 = [v26 data];
+          v27 = RMSLogger(data2);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = self->_successfulPairingGUID;
+            v28 = self->_successfulPairingGUID;
             *buf = 138412546;
-            v40 = v17;
-            v41 = 2112;
-            v42 = v27;
-            _os_log_impl(&dword_261E98000, v26, OS_LOG_TYPE_DEFAULT, "Received successful pairing request from %@; pairing GUID is %@.", buf, 0x16u);
+            v41 = v17;
+            v42 = 2112;
+            v43 = v28;
+            _os_log_impl(&dword_261E98000, v27, OS_LOG_TYPE_DEFAULT, "Received successful pairing request from %@; pairing GUID is %@.", buf, 0x16u);
           }
 
-          v15 = v34;
+          v15 = v35;
           if (data2)
           {
             (v8)[2](v8, 200, data2);
@@ -311,26 +313,26 @@ LABEL_23:
 
         else
         {
-          v28 = RMSLogger();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v29 = RMSLogger(v18);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             expectedPasscodeHash = self->_expectedPasscodeHash;
             *buf = 138412802;
-            v40 = v17;
-            v41 = 2112;
-            v42 = v16;
-            v43 = 2112;
-            v44 = expectedPasscodeHash;
-            _os_log_impl(&dword_261E98000, v28, OS_LOG_TYPE_DEFAULT, "Received unsuccessful pairing request from %@; received passcode hash %@ but expected %@.", buf, 0x20u);
+            v41 = v17;
+            v42 = 2112;
+            v43 = v16;
+            v44 = 2112;
+            v45 = expectedPasscodeHash;
+            _os_log_impl(&dword_261E98000, v29, OS_LOG_TYPE_DEFAULT, "Received unsuccessful pairing request from %@; received passcode hash %@ but expected %@.", buf, 0x20u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          v31 = objc_opt_respondsToSelector();
+          v32 = objc_opt_respondsToSelector();
 
-          if (v31)
+          if (v32)
           {
-            v32 = objc_loadWeakRetained(&self->_delegate);
-            [v32 pairingServer:self didFailToPairWithService:v17];
+            v33 = objc_loadWeakRetained(&self->_delegate);
+            [v33 pairingServer:self didFailToPairWithService:v17];
           }
         }
 
@@ -372,7 +374,7 @@ void __64__RMSPairingServer_handleHTTPServerConnectionDidReceiveRequest___block_
 
 - (void)handleHTTPServerConnectionDidReplyToRequest:(_CFHTTPServerRequest *)request withResponse:(_CFHTTPServerResponse *)response
 {
-  v5 = RMSLogger();
+  v5 = RMSLogger(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -396,7 +398,7 @@ void __64__RMSPairingServer_handleHTTPServerConnectionDidReceiveRequest___block_
 
 - (void)handleHTTPServerConnectionDidFailToReplyToRequest:(_CFHTTPServerRequest *)request withResponse:(_CFHTTPServerResponse *)response
 {
-  v4 = RMSLogger();
+  v4 = RMSLogger(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -10,7 +10,7 @@
   sub_190D57630();
   v6 = sub_190D57180();
   sub_19086E9EC();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920, &unk_190DE8FC0);
   sub_190BF6828();
   v7 = sub_190D56D90();
   v8 = objc_allocWithZone(type metadata accessor for PollDetailsViewController(0));

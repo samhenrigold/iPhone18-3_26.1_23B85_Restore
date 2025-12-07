@@ -349,25 +349,24 @@ id __94__ASAuthorizationPlatformPublicKeyCredentialRegistrationRequest_coreCrede
 - (void)__setPRFSwift:(id)swift
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB7756D0, &qword_1B1D88840);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
+  v7 = &v14 - v6;
   selfCopy = self;
   swiftCopy = swift;
   extensions = [(ASAuthorizationPlatformPublicKeyCredentialRegistrationRequest *)selfCopy extensions];
   if (swiftCopy)
   {
-    v12 = swiftCopy;
+    v11 = swiftCopy;
     sub_1B1D0E548();
 
-    v13 = sub_1B1D7BBFC();
-    (*(*(v13 - 8) + 56))(v8, 0, 1, v13);
+    v12 = sub_1B1D7BBFC();
+    (*(*(v12 - 8) + 56))(v7, 0, 1, v12);
   }
 
   else
   {
-    v14 = sub_1B1D7BBFC();
-    (*(*(v14 - 8) + 56))(v8, 1, 1, v14);
+    v13 = sub_1B1D7BBFC();
+    (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
   }
 
   sub_1B1D7BC1C();

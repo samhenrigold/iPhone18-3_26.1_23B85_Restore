@@ -18,7 +18,7 @@
   v11.receiver = self;
   v11.super_class = type metadata accessor for FolderComposerJoinCell();
   height = [(FolderComposerJoinCell *)&v11 initWithFrame:x, y, width, height];
-  sub_1000054A4(0, &qword_1006BDAB0);
+  sub_1000054A4(0, &qword_1006BDAB0, UITraitCollection_ptr);
   v9 = height;
   static UITraitCollection.traitsAffectingSizeAndColor.getter();
   UIView.registerForTraitChanges(_:action:)();

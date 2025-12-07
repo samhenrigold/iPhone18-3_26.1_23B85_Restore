@@ -370,15 +370,15 @@
 
 - (id)featureHandles
 {
-  v13 = *MEMORY[0x1E69E9840];
-  (*(*self->_labelMarker.__ptr_ + 552))(&v12.__shared_owners_);
+  v15 = *MEMORY[0x1E69E9840];
+  (*(*self->_labelMarker.__ptr_ + 552))(&v13);
   v2 = objc_alloc(MEMORY[0x1E695DF70]);
-  v3 = [v2 initWithCapacity:0x8E38E38E38E38E39 * ((v12.__shared_weak_owners_ - v12.__shared_owners_) >> 3)];
-  shared_owners = v12.__shared_owners_;
-  for (i = v12.__shared_weak_owners_; shared_owners != i; shared_owners += 72)
+  v3 = [v2 initWithCapacity:0x8E38E38E38E38E39 * ((v14 - v13) >> 3)];
+  v4 = v13;
+  for (i = v14; v4 != i; v4 += 72)
   {
     v6 = [VKMarkerFeatureHandle alloc];
-    v7 = *shared_owners;
+    v7 = *v4;
     if (v7 > 0x1B)
     {
       v8 = 0;
@@ -389,7 +389,7 @@
       v8 = dword_1B33B3E30[v7];
     }
 
-    v9 = [(VKMarkerFeatureHandle *)v6 initWithMarkerHandle:shared_owners featureType:v8];
+    v9 = [(VKMarkerFeatureHandle *)v6 initWithMarkerHandle:v4 featureType:v8];
     if (v9)
     {
       [v3 addObject:v9];
@@ -398,7 +398,7 @@
 
   v10 = [MEMORY[0x1E695DEC8] arrayWithArray:v3];
 
-  v12.__vftable = &v12.__shared_owners_;
+  v12 = &v13;
   std::vector<md::MarkerFeatureHandle,geo::allocator_adapter<md::MarkerFeatureHandle,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v12);
 
   return v10;
@@ -495,9 +495,9 @@
 
 - (Box<double,)_bounds
 {
-  [(VKLabelMarker *)self coordinate];
+  objc_msgSend_coordinate(self, a2);
   v4 = v3;
-  [(VKLabelMarker *)self coordinate];
+  objc_msgSend_coordinate(self);
   v6 = v5;
   v7 = tan(v4 * 0.00872664626 + 0.785398163);
   v8 = log(v7);
@@ -592,7 +592,7 @@
 
 - (NSArray)iconImageKeys
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   p_labelMarker = &self->_labelMarker;
   if (((*(*self->_labelMarker.__ptr_ + 272))(self->_labelMarker.__ptr_, a2) & 1) != 0 || (*(*p_labelMarker->__ptr_ + 280))(p_labelMarker->__ptr_))
   {
@@ -605,7 +605,7 @@
     }
 
     v5 = objc_alloc(MEMORY[0x1E695DF70]);
-    v6 = [v5 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v23 - v22) >> 3)];
+    v6 = [v5 initWithCapacity:0xAAAAAAAAAAAAAAABLL * (v23 - v22)];
     v7 = v22;
     v8 = v23;
     if (v22 != v23)
@@ -617,11 +617,11 @@
         if (v10)
         {
           md::LabelMarker::acquireDisplayLock(&v24, ptr);
-          if (v24.__vftable)
+          if (v24)
           {
             v11 = *(ptr + 248);
-            v12 = (*&v7->__shared_weak_owners_ / v11);
-            v13 = ((*(&v24.__vftable[37].__on_zero_shared + 1) - *(&v7->__shared_weak_owners_ + 1)) / v11);
+            v12 = (*(v7 + 4) / v11);
+            v13 = ((*(v24 + 375) - *(v7 + 5)) / v11);
           }
 
           else
@@ -630,21 +630,21 @@
             v13 = v9[1];
           }
 
-          if (v25 == 1)
+          if (v27 == 1)
           {
-            std::recursive_mutex::unlock(v24.__shared_weak_owners_);
+            std::recursive_mutex::unlock(v26);
           }
 
-          if (v24.__shared_owners_)
+          if (v25)
           {
-            std::__shared_weak_count::__release_shared[abi:nn200100](v24.__shared_owners_);
+            std::__shared_weak_count::__release_shared[abi:nn200100](v25);
           }
 
           [(VKImageSourceKey *)v10 setImageCenter:v12, v13];
           [v6 addObject:v10];
         }
 
-        ++v7;
+        v7 += 3;
       }
 
       while (v7 != v8);
@@ -657,29 +657,31 @@
       std::__shared_weak_count::__release_shared[abi:nn200100](cntrl);
     }
 
-    v24.__vftable = &v22;
+    v24 = &v22;
     std::vector<md::LabelImageInfo,geo::allocator_adapter<md::LabelImageInfo,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v24);
   }
 
   else
   {
     v15 = p_labelMarker->__ptr_;
-    memset(&v24, 0, sizeof(v24));
-    v25 = *(v15 + 120);
+    v25 = 0;
+    v26 = 0;
+    v24 = 0;
+    v27 = *(v15 + 120);
     std::vector<geo::_retain_ptr<VKImageSourceKey * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>,geo::allocator_adapter<geo::_retain_ptr<VKImageSourceKey * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>,mdm::zone_mallocator>>::__init_with_size[abi:nn200100]<geo::_retain_ptr<VKImageSourceKey * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>*,geo::_retain_ptr<VKImageSourceKey * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>*>(&v24, *(v15 + 12), *(v15 + 13), 0xAAAAAAAAAAAAAAABLL * ((*(v15 + 13) - *(v15 + 12)) >> 3));
     v16 = objc_alloc(MEMORY[0x1E695DF70]);
-    v17 = [v16 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v24.__shared_owners_ - v24.__vftable) >> 3)];
-    v18 = v24.__vftable;
-    shared_owners = v24.__shared_owners_;
-    while (v18 != shared_owners)
+    v17 = [v16 initWithCapacity:0xAAAAAAAAAAAAAAABLL * ((v25 - v24) >> 3)];
+    v18 = v24;
+    v19 = v25;
+    while (v18 != v19)
     {
-      v20 = v18->~__shared_weak_count_0;
+      v20 = v18[1];
       if (v20)
       {
         [v17 addObject:v20];
       }
 
-      v18 = (v18 + 24);
+      v18 += 3;
     }
 
     v14 = [MEMORY[0x1E695DEC8] arrayWithArray:v17];

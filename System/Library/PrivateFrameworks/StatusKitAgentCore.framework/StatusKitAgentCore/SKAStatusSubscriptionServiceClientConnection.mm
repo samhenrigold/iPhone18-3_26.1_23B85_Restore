@@ -67,40 +67,36 @@
 
 void __127__SKAStatusSubscriptionServiceClientConnection_initWithXPCConnection_queue_daemonProtocolDelegate_connectionLifecycleDelegate___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKAStatusSubscriptionServiceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_loadWeakRetained((a1 + 40));
-    v7 = 134217984;
-    v8 = [v4 processIdentifier];
-    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v4 processIdentifier];
+    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld interrupted", &v6, 0xCu);
   }
 
   v5 = [WeakRetained connectionLifecycleDelegate];
   [v5 subscriptionServiceClientConnectionWasInterrupted:WeakRetained];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __127__SKAStatusSubscriptionServiceClientConnection_initWithXPCConnection_queue_daemonProtocolDelegate_connectionLifecycleDelegate___block_invoke_4(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[SKAStatusSubscriptionServiceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_loadWeakRetained((a1 + 40));
-    v7 = 134217984;
-    v8 = [v4 processIdentifier];
-    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [v4 processIdentifier];
+    _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to PID %ld invalidated", &v6, 0xCu);
   }
 
   v5 = [WeakRetained connectionLifecycleDelegate];
   [v5 subscriptionServiceClientConnectionWasInvalidated:WeakRetained];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)asynchronousRemoteDaemonDelegateWithErrorHandler:(id)handler
@@ -159,7 +155,7 @@ void __96__SKAStatusSubscriptionServiceClientConnection_synchronousRemoteDaemonD
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = +[SKAStatusSubscriptionServiceClientConnection logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -169,39 +165,38 @@ void __96__SKAStatusSubscriptionServiceClientConnection_synchronousRemoteDaemonD
   }
 
   [(NSXPCConnection *)self->_xpcConnection invalidate];
-  v5.receiver = self;
-  v5.super_class = SKAStatusSubscriptionServiceClientConnection;
-  [(SKAStatusSubscriptionServiceClientConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SKAStatusSubscriptionServiceClientConnection;
+  [(SKAStatusSubscriptionServiceClientConnection *)&v4 dealloc];
 }
 
 + (BOOL)clientIsEntitledForAtLeastOneSubscriptionServiceType:(id)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = [typeCopy sk_stringArrayValueForEntitlement:@"com.apple.StatusKit.subscribe.types"];
-  v17 = [v4 count];
+  v16 = [v4 count];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         if ((ValidateClientIsInAllowlistForServiceName() & 1) == 0)
         {
           v11 = +[SKAStatusSubscriptionServiceClientConnection logger];
@@ -209,9 +204,9 @@ void __96__SKAStatusSubscriptionServiceClientConnection_synchronousRemoteDaemonD
           {
             processIdentifier = [typeCopy processIdentifier];
             *buf = 134218242;
-            v23 = processIdentifier;
-            v24 = 2112;
-            v25 = v10;
+            v22 = processIdentifier;
+            v23 = 2112;
+            v24 = v10;
             _os_log_fault_impl(&dword_220099000, v11, OS_LOG_TYPE_FAULT, "XPC connection from PID %ld is attempting to use StatusKit for an unknown status type identifier: %@. This will result in a connection rejection in the future.", buf, 0x16u);
           }
         }
@@ -220,29 +215,28 @@ void __96__SKAStatusSubscriptionServiceClientConnection_synchronousRemoteDaemonD
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  if (v17 || ([typeCopy sk_BOOLeanValueForEntitlement:@"com.apple.StatusKit.subscribe.allTypes"] & 1) != 0)
+  if (v16 || ([typeCopy sk_BOOLeanValueForEntitlement:@"com.apple.StatusKit.subscribe.allTypes"] & 1) != 0)
   {
     v13 = 1;
   }
 
   else
   {
-    v16 = +[SKAStatusSubscriptionServiceClientConnection logger];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = +[SKAStatusSubscriptionServiceClientConnection logger];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [SKAStatusPublishingServiceClientConnection clientIsEntitledForAtLeastOnePublishingServiceType:v16];
+      [SKAStatusPublishingServiceClientConnection clientIsEntitledForAtLeastOnePublishingServiceType:v15];
     }
 
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -307,9 +301,9 @@ uint64_t __54__SKAStatusSubscriptionServiceClientConnection_logger__block_invoke
 
 + (void)_connection:(uint64_t)a3 isEntitledForSubscriptionWithStatusTypeIdentifier:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Client is not entitled to subscription information for status of type %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Client is not entitled to subscription information for status of type %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

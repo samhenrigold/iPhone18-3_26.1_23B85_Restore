@@ -297,14 +297,14 @@ LABEL_35:
 
 - (OS_dispatch_data)serializedData
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   ptr = self->_archiveInfo.__ptr_;
   if (!ptr)
   {
     goto LABEL_18;
   }
 
-  v27 = 5;
+  v26 = 5;
   v6 = sub_2769DF300(ptr, a2, v2, v3);
   if (HIDWORD(v6))
   {
@@ -318,19 +318,19 @@ LABEL_35:
   }
 
   v8 = v6;
-  if (!sub_2769BB3A8(&v27, v6))
+  if (!sub_2769BB3A8(&v26, v6))
   {
 LABEL_17:
     ptr = 0;
     goto LABEL_18;
   }
 
-  sub_276A0160C(v26, v27);
-  google::protobuf::io::CodedOutputStream::CodedOutputStream(v28, v26, 1);
-  v9 = v29;
-  if (v28[0] <= v29)
+  sub_276A0160C(v25, v26);
+  google::protobuf::io::CodedOutputStream::CodedOutputStream(v27, v25, 1);
+  v9 = v28;
+  if (v27[0] <= v28)
   {
-    v9 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v28, v29);
+    v9 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v27, v28);
   }
 
   if (v8 > 0x7F)
@@ -366,11 +366,11 @@ LABEL_17:
     v10 = v9 + 1;
   }
 
-  v29 = v10;
-  v29 = (*(ptr->isa + 12))(ptr);
-  google::protobuf::io::CodedOutputStream::~CodedOutputStream(v28);
-  ptr = sub_276A016D0(v26, v14);
-  sub_276A01610(v26);
+  v28 = v10;
+  v28 = (*(ptr->isa + 12))(ptr);
+  google::protobuf::io::CodedOutputStream::~CodedOutputStream(v27);
+  ptr = sub_276A016D0(v25, v14);
+  sub_276A01610(v25);
   if (ptr)
   {
     messagesData = self->_messagesData;
@@ -383,7 +383,6 @@ LABEL_17:
   }
 
 LABEL_18:
-  v24 = *MEMORY[0x277D85DE8];
 
   return ptr;
 }

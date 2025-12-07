@@ -361,7 +361,7 @@ void __67__SKUIHorizontalLockupView_showPreviewProgressWithStatus_animated___blo
   return reason;
 }
 
-uint64_t __75__SKUIHorizontalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__75__SKUIHorizontalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -1494,9 +1494,9 @@ LABEL_21:
 
         v10 = *(*(&v15 + 1) + 8 * i);
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = [(NSMapTable *)self->_viewElementViews objectForKey:v10];
           goto LABEL_11;
@@ -1803,32 +1803,32 @@ LABEL_10:
 
 void __42__SKUIHorizontalLockupView_layoutSubviews__block_invoke_3(uint64_t a1, void *a2, unint64_t a3)
 {
-  v75 = a2;
+  v81 = a2;
   v5 = [*(*(a1 + 32) + 584) objectForKey:?];
-  [v5 frame];
-  v7 = v6;
+  v6 = [v5 frame];
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  v14 = *(a1 + 88);
-  if (v14 > 3)
+  v15 = v14;
+  v16 = *(a1 + 88);
+  if (v16 > 3)
   {
-    if (v14 != 4)
+    if (v16 != 4)
     {
-      if (v14 == 5)
+      if (v16 == 5)
       {
         if (*(*(*(a1 + 64) + 8) + 24) != 1)
         {
           goto LABEL_62;
         }
 
-        v7 = *(*(a1 + 32) + 456);
+        v9 = *(*(a1 + 32) + 456);
       }
 
-      else if (v14 == 6)
+      else if (v16 == 6)
       {
-        v22 = *(*(a1 + 72) + 8);
-        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22[4], v22[5], v22[6], v22[7], *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136));
+        v24 = *(*(a1 + 72) + 8);
+        SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v24[4], v24[5], v24[6], v24[7], *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136), v6, v7);
         [v5 setFrame:?];
         goto LABEL_62;
       }
@@ -1838,72 +1838,72 @@ void __42__SKUIHorizontalLockupView_layoutSubviews__block_invoke_3(uint64_t a1, 
 
 LABEL_21:
     UIRoundToViewScale();
-    v7 = v30;
+    v9 = v32;
     goto LABEL_26;
   }
 
-  if ((v14 - 1) < 2)
+  if ((v16 - 1) < 2)
   {
-    v23 = [v75 style];
-    v24 = [v23 elementPosition];
+    v25 = [v81 style];
+    v26 = [v25 elementPosition];
 
-    if (v24 == 7 || v24 == 1)
+    if (v26 == 7 || v26 == 1)
     {
-      v25 = [v75 style];
-      [v25 elementPadding];
-      v27 = v26;
+      v27 = [v81 style];
+      [v27 elementPadding];
+      v29 = v28;
     }
 
     else
     {
-      v27 = *(MEMORY[0x277D768C8] + 24);
+      v29 = *(MEMORY[0x277D768C8] + 24);
     }
 
-    v7 = *(*(*(a1 + 56) + 8) + 24) + *(a1 + 96) - v11 - v27;
+    v9 = *(*(*(a1 + 56) + 8) + 24) + *(a1 + 96) - v13 - v29;
     goto LABEL_26;
   }
 
-  if (!v14)
+  if (!v16)
   {
-    v28 = [*(*(a1 + 32) + 496) columns];
-    v29 = [v28 count];
+    v30 = [*(*(a1 + 32) + 496) columns];
+    v31 = [v30 count];
 
-    v7 = *(*(*(a1 + 56) + 8) + 24);
-    if (v29 > 1)
+    v9 = *(*(*(a1 + 56) + 8) + 24);
+    if (v31 > 1)
     {
       goto LABEL_26;
     }
 
     [*(a1 + 32) bounds];
-    CGRectGetWidth(v80);
+    CGRectGetWidth(v86);
     goto LABEL_21;
   }
 
-  if (v14 == 3)
+  if (v16 == 3)
   {
-    v15 = *(*(*(a1 + 56) + 8) + 24);
+    v17 = *(*(*(a1 + 56) + 8) + 24);
     [*(*(a1 + 32) + 496) metadataColumnEdgeInsets];
-    v7 = v15 + v16;
+    v9 = v17 + v18;
     if (a3)
     {
-      v17 = [*(a1 + 40) objectAtIndexedSubscript:a3 - 1];
+      v19 = [*(a1 + 40) objectAtIndexedSubscript:a3 - 1];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = [*(*(a1 + 32) + 584) objectForKey:v17];
-        [v18 frame];
-        v7 = v7 + CGRectGetWidth(v77) + 5.0;
-        [v18 frame];
-        v19 = CGRectGetWidth(v78) + 5.0;
-        v79.origin.x = v7;
-        v79.origin.y = v9;
-        v79.size.width = v11;
-        v79.size.height = v13;
-        v20 = v19 + CGRectGetWidth(v79);
-        v21 = *(a1 + 96);
-        if (v20 > v21)
+        v20 = [*(*(a1 + 32) + 584) objectForKey:v19];
+        [v20 frame];
+        v9 = v9 + CGRectGetWidth(v83) + 5.0;
+        [v20 frame];
+        v21 = CGRectGetWidth(v84) + 5.0;
+        v85.origin.x = v9;
+        v85.origin.y = v11;
+        v85.size.width = v13;
+        v85.size.height = v15;
+        v22 = v21 + CGRectGetWidth(v85);
+        v23 = *(a1 + 96);
+        if (v22 > v23)
         {
-          v11 = v11 - (v20 - v21);
+          v13 = v13 - (v22 - v23);
         }
       }
 
@@ -1911,7 +1911,7 @@ LABEL_21:
     }
 
 LABEL_28:
-    v31 = 1;
+    v33 = 1;
     goto LABEL_29;
   }
 
@@ -1922,179 +1922,180 @@ LABEL_26:
   }
 
 LABEL_27:
-  [*(*(a1 + 32) + 496) topPaddingForViewElement:v75];
-  v31 = 0;
-  *(*(*(a1 + 80) + 8) + 24) = v32 + *(*(*(a1 + 80) + 8) + 24);
+  [*(*(a1 + 32) + 496) topPaddingForViewElement:v81];
+  v33 = 0;
+  *(*(*(a1 + 80) + 8) + 24) = v34 + *(*(*(a1 + 80) + 8) + 24);
 LABEL_29:
   if (*(a1 + 88) == 3 && *(a1 + 144) - 1 == a3)
   {
-    v33 = [v75 style];
-    v34 = [v33 elementPosition];
+    v35 = [v81 style];
+    v36 = [v35 elementPosition];
 
-    if ([*(*(a1 + 32) + 504) lockupViewType] != 6 || v34)
+    if ([*(*(a1 + 32) + 504) lockupViewType] != 6 || v36)
     {
-      if (v34 == 3)
+      if (v36 == 3)
       {
 LABEL_37:
-        v37 = *(a1 + 32);
-        v38 = *(a1 + 136) - *(v37 + 464);
-        [*(v37 + 496) metadataColumnEdgeInsets];
-        v40 = v38 - v39;
-        v81.origin.x = v7;
-        v81.origin.y = v9;
-        v81.size.width = v11;
-        v81.size.height = v13;
-        *(*(*(a1 + 80) + 8) + 24) = v40 - CGRectGetHeight(v81);
+        v39 = *(a1 + 32);
+        v40 = *(a1 + 136) - *(v39 + 464);
+        [*(v39 + 496) metadataColumnEdgeInsets];
+        v42 = v40 - v41;
+        v87.origin.x = v9;
+        v87.origin.y = v11;
+        v87.size.width = v13;
+        v87.size.height = v15;
+        *(*(*(a1 + 80) + 8) + 24) = v42 - CGRectGetHeight(v87);
       }
     }
 
     else
     {
-      v35 = [v75 elementName];
-      v36 = [v35 isEqualToString:@"description"];
+      v37 = [v81 elementName];
+      isEqualToString = objc_msgSend_isEqualToString_(v37);
 
-      if (a3 > 2 || (v36 & 1) != 0)
+      if (a3 > 2 || (isEqualToString & 1) != 0)
       {
         goto LABEL_37;
       }
     }
   }
 
-  v41 = [v75 style];
-  v42 = [v41 elementPosition];
+  v43 = [v81 style];
+  v44 = [v43 elementPosition];
 
-  v43 = *(a1 + 88);
-  if (v43 == 1 && v42)
+  v45 = *(a1 + 88);
+  if (v45 == 1 && v44)
   {
     if (*(a1 + 144) == 1)
     {
       UIRoundToViewScale();
-      v45 = v44;
+      v47 = v46;
       goto LABEL_52;
     }
   }
 
-  else if (v43 != 1)
+  else if (v45 != 1)
   {
     goto LABEL_51;
   }
 
-  if (v42 <= 9)
+  if (v44 <= 9)
   {
-    if (((1 << v42) & 0xC4) == 0)
+    if (((1 << v44) & 0xC4) == 0)
     {
-      if (((1 << v42) & 0x308) == 0 || a3 + 1 != *(a1 + 144))
+      if (((1 << v44) & 0x308) == 0 || a3 + 1 != *(a1 + 144))
       {
         goto LABEL_51;
       }
 
-      v46 = [v75 style];
-      [v46 elementPadding];
-      v48 = v47;
+      v48 = [v81 style];
+      [v48 elementPadding];
+      v50 = v49;
 
-      v49 = CGRectGetMaxY(*(a1 + 112)) - *(*(a1 + 32) + 464);
-      v82.origin.x = v7;
-      v82.origin.y = v9;
-      v82.size.width = v11;
-      v82.size.height = v13;
-      v50 = v49 - CGRectGetHeight(v82) - v48;
+      v51 = CGRectGetMaxY(*(a1 + 112)) - *(*(a1 + 32) + 464);
+      v88.origin.x = v9;
+      v88.origin.y = v11;
+      v88.size.width = v13;
+      v88.size.height = v15;
+      v52 = v51 - CGRectGetHeight(v88) - v50;
       goto LABEL_50;
     }
 
-    if (v31)
+    if (v33)
     {
-      v51 = [v75 style];
-      [v51 elementPadding];
-      v53 = v52;
+      v53 = [v81 style];
+      [v53 elementPadding];
+      v55 = v54;
 
-      v50 = v53 + CGRectGetMinY(*(a1 + 112)) + *(*(a1 + 32) + 448);
+      v52 = v55 + CGRectGetMinY(*(a1 + 112)) + *(*(a1 + 32) + 448);
 LABEL_50:
-      *(*(*(a1 + 80) + 8) + 24) = v50;
+      *(*(*(a1 + 80) + 8) + 24) = v52;
     }
   }
 
 LABEL_51:
-  v45 = *(*(*(a1 + 80) + 8) + 24);
+  v47 = *(*(*(a1 + 80) + 8) + 24);
 LABEL_52:
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && v42 == 7)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && v44 == 7)
   {
-    v83.origin.x = v7;
-    v83.origin.y = v45;
-    v83.size.width = v11;
-    v83.size.height = v13;
-    v54 = CGRectGetHeight(v83) * 0.5;
-    v45 = -floorf(v54);
-    v55 = [v75 style];
-    [v55 elementPadding];
-    v57 = v56;
+    v89.origin.x = v9;
+    v89.origin.y = v47;
+    v89.size.width = v13;
+    v89.size.height = v15;
+    v58 = CGRectGetHeight(v89) * 0.5;
+    v47 = -floorf(v58);
+    v59 = [v81 style];
+    [v59 elementPadding];
+    v61 = v60;
 
-    v58 = *(a1 + 128);
-    v84.origin.x = v7;
-    v84.origin.y = v45;
-    v84.size.width = v11;
-    v84.size.height = v13;
-    v59 = v57 + CGRectGetWidth(v84);
-    v7 = v58 - floorf(v59);
+    v62 = *(a1 + 128);
+    v90.origin.x = v9;
+    v90.origin.y = v47;
+    v90.size.width = v13;
+    v90.size.height = v15;
+    v63 = v61 + CGRectGetWidth(v90);
+    v9 = v62 - floorf(v63);
   }
 
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v7, v45, v11, v13, *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136));
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v9, v47, v13, v15, *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136), isKindOfClass, v57);
   [v5 setFrame:?];
   if (*(a1 + 88) != 3 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v85.origin.x = v7;
-    v85.origin.y = v45;
-    v85.size.width = v11;
-    v85.size.height = v13;
-    MaxY = CGRectGetMaxY(v85);
-    [*(*(a1 + 32) + 496) bottomPaddingForViewElement:v75];
-    *(*(*(a1 + 80) + 8) + 24) = MaxY + v61;
+    v91.origin.x = v9;
+    v91.origin.y = v47;
+    v91.size.width = v13;
+    v91.size.height = v15;
+    MaxY = CGRectGetMaxY(v91);
+    [*(*(a1 + 32) + 496) bottomPaddingForViewElement:v81];
+    *(*(*(a1 + 80) + 8) + 24) = MaxY + v65;
   }
 
   if (objc_opt_respondsToSelector())
   {
-    v86.origin.x = v7;
-    v86.origin.y = v45;
-    v86.size.width = v11;
-    v86.size.height = v13;
-    v62 = -CGRectGetMinY(v86);
-    v87.origin.x = v7;
-    v87.origin.y = v45;
-    v87.size.width = v11;
-    v87.size.height = v13;
-    Width = CGRectGetWidth(v87);
-    v64 = 0.0;
+    v92.origin.x = v9;
+    v92.origin.y = v47;
+    v92.size.width = v13;
+    v92.size.height = v15;
+    v66 = -CGRectGetMinY(v92);
+    v93.origin.x = v9;
+    v93.origin.y = v47;
+    v93.size.width = v13;
+    v93.size.height = v15;
+    Width = CGRectGetWidth(v93);
+    v68 = 0.0;
     if (Width < 44.0)
     {
-      v88.origin.x = v7;
-      v88.origin.y = v45;
-      v88.size.width = v11;
-      v88.size.height = v13;
-      v64 = (CGRectGetWidth(v88) + -44.0) * 0.5;
+      v94.origin.x = v9;
+      v94.origin.y = v47;
+      v94.size.width = v13;
+      v94.size.height = v15;
+      v68 = (CGRectGetWidth(v94) + -44.0) * 0.5;
     }
 
-    [v5 setHitRectInsets:{v62, v64, v62, v64}];
+    [v5 setHitRectInsets:{v66, v68, v66, v68}];
   }
 
 LABEL_62:
   if (v5 == *(a1 + 48))
   {
-    v65 = *(a1 + 32);
-    v66 = *(v65 + 544);
-    if (v66)
+    v69 = *(a1 + 32);
+    v70 = *(v69 + 544);
+    if (v70)
     {
-      [*(v65 + 544) frame];
-      v68 = v67;
-      v70 = v69;
-      UIRoundToViewScale();
+      [*(v69 + 544) frame];
       v72 = v71;
+      v74 = v73;
       UIRoundToViewScale();
-      v73 = *(*(a1 + 32) + 544);
-      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v72, v74, v68, v70, *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136));
-      [v73 setFrame:?];
+      v76 = v75;
+      v77 = UIRoundToViewScale();
+      v78 = *(*(a1 + 32) + 544);
+      SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v76, v80, v72, v74, *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136), v77, v79);
+      [v78 setFrame:?];
     }
 
-    [v5 setHidden:v66 != 0];
+    [v5 setHidden:v70 != 0];
   }
 }
 
@@ -2202,7 +2203,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __41__SKUIHorizontalLockupView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
+void *__41__SKUIHorizontalLockupView_sizeThatFits___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 40);
   result = [a2 size];
@@ -2261,20 +2262,20 @@ uint64_t __41__SKUIHorizontalLockupView_sizeThatFits___block_invoke(uint64_t a1,
   {
     transitionCopy = transition;
     [transitionCopy frame];
-    x = v15.origin.x;
-    y = v15.origin.y;
-    MaxX = CGRectGetMaxX(v15);
-    [transitionCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
-    v9 = v8;
-    v11 = v10;
-    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-    v13 = MaxX - v9;
+    x = v17.origin.x;
+    y = v17.origin.y;
+    MaxX = CGRectGetMaxX(v17);
+    v8 = [transitionCopy sizeThatFits:{*(MEMORY[0x277CBF390] + 16), *(MEMORY[0x277CBF390] + 24)}];
+    v10 = v9;
+    v12 = v11;
+    ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v8, v13);
+    v15 = MaxX - v10;
     if (ShouldReverseLayoutDirection)
     {
-      v13 = x;
+      v15 = x;
     }
 
-    [transitionCopy setFrame:{v13, y, v9, v11}];
+    [transitionCopy setFrame:{v15, y, v10, v12}];
     [(SKUIHorizontalLockupView *)self _layoutConfirmationGradientRelativeToItemOfferView:transitionCopy alpha:1.0];
   }
 
@@ -2366,7 +2367,7 @@ uint64_t __57__SKUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_inv
   }
 }
 
-uint64_t __57__SKUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
+void *__57__SKUIHorizontalLockupView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) playState];
   if (result != 5)
@@ -3692,6 +3693,24 @@ LABEL_11:
   return v12;
 }
 
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIHorizontalLockupView initWithFrame:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupView sizeThatFitsWidth:viewElement:context:]";
+}
+
 + (void)_attributedStringForButton:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
@@ -3699,11 +3718,29 @@ LABEL_11:
   v1 = "+[SKUIHorizontalLockupView _attributedStringForButton:context:]";
 }
 
++ (void)_attributedStringForLabel:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupView _attributedStringForLabel:context:]";
+}
+
 + (void)_attributedStringForOrdinal:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIHorizontalLockupView _attributedStringForOrdinal:context:]";
+}
+
++ (void)_requestLayoutForViewElements:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupView _requestLayoutForViewElements:width:context:]";
+}
+
++ (void)_usesEditorialLayoutForLabelViewElement:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalLockupView _usesEditorialLayoutForLabelViewElement:]";
 }
 
 @end

@@ -57,84 +57,82 @@
 
 - (id)buildPayload
 {
-  v39[3] = *MEMORY[0x277D85DE8];
-  v38[0] = @"result";
+  v38[3] = *MEMORY[0x277D85DE8];
+  v37[0] = @"result";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation result](self, "result")}];
-  v39[0] = v3;
-  v38[1] = @"biometryType";
+  v38[0] = v3;
+  v37[1] = @"biometryType";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation biometryType](self, "biometryType")}];
-  v39[1] = v4;
-  v38[2] = @"authenticationTypes";
+  v38[1] = v4;
+  v37[2] = @"authenticationTypes";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation authenticationTypes](self, "authenticationTypes")}];
-  v39[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
+  v38[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
   v7 = [v6 mutableCopy];
 
   if ([(LAAnalyticsEvaluation *)self policy]>= 1)
   {
-    v36 = @"policy";
+    v35 = @"policy";
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation policy](self, "policy")}];
-    v37 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v36 = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
     [v7 addEntriesFromDictionary:v9];
   }
 
   if ([(LAAnalyticsEvaluation *)self biometryStarted])
   {
-    v34[0] = @"biometryAttempts";
+    v33[0] = @"biometryAttempts";
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation biometryAttempts](self, "biometryAttempts")}];
-    v35[0] = v10;
-    v34[1] = @"biometryFailures";
+    v34[0] = v10;
+    v33[1] = @"biometryFailures";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation biometryFailures](self, "biometryFailures")}];
-    v35[1] = v11;
-    v34[2] = @"biometryNoMatches";
+    v34[1] = v11;
+    v33[2] = @"biometryNoMatches";
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation biometryNoMatches](self, "biometryNoMatches")}];
-    v35[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
+    v34[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
     [v7 addEntriesFromDictionary:v13];
   }
 
   if ([(LAAnalyticsEvaluation *)self biometryStarted]|| [(LAAnalyticsEvaluation *)self biometryResult])
   {
-    v32 = @"biometryResult";
+    v31 = @"biometryResult";
     v14 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation biometryResult](self, "biometryResult")}];
-    v33 = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     [v7 addEntriesFromDictionary:v15];
   }
 
   continuity = self->_continuity;
   if (continuity)
   {
-    v30 = @"continuity";
+    v29 = @"continuity";
     v17 = [MEMORY[0x277CCABB0] numberWithInt:continuity == 1];
-    v31 = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v30 = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     [v7 addEntriesFromDictionary:v18];
   }
 
   if ([(LAAnalyticsEvaluation *)self passcodeStarted])
   {
-    v28[0] = @"passcodeAttempts";
+    v27[0] = @"passcodeAttempts";
     v19 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation passcodeAttempts](self, "passcodeAttempts")}];
-    v28[1] = @"passcodeFailures";
-    v29[0] = v19;
+    v27[1] = @"passcodeFailures";
+    v28[0] = v19;
     v20 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation passcodeFailures](self, "passcodeFailures")}];
-    v29[1] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
     [v7 addEntriesFromDictionary:v21];
   }
 
   if ([(LAAnalyticsEvaluation *)self passcodeStarted]|| [(LAAnalyticsEvaluation *)self passcodeResult])
   {
-    v26 = @"passcodeResult";
+    v25 = @"passcodeResult";
     v22 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsEvaluation passcodeResult](self, "passcodeResult")}];
-    v27 = v22;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v22;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     [v7 addEntriesFromDictionary:v23];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -157,7 +155,7 @@
 - (void)_authenticationStartedForEvent:(int64_t)event continuity:(BOOL)continuity
 {
   continuityCopy = continuity;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (event == 7)
   {
 LABEL_4:
@@ -178,34 +176,34 @@ LABEL_4:
   if (![(LAAnalyticsEvaluation *)self passcodeStarted])
   {
     self->_passcodeStarted = 1;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v8 = +[LAAnalyticsPasscodeFallbackPeriod activePersistentInstances];
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v9)
+    v7 = +[LAAnalyticsPasscodeFallbackPeriod activePersistentInstances];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
     {
-      v10 = v9;
-      v11 = *v16;
+      v9 = v8;
+      v10 = *v15;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v10)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           request = [(LAAnalyticsEvaluation *)self request];
-          [v13 passcodePresentedWithEvaluationRequest:request biometryAttempts:{-[LAAnalyticsEvaluation biometryAttempts](self, "biometryAttempts")}];
+          [v12 passcodePresentedWithEvaluationRequest:request biometryAttempts:{-[LAAnalyticsEvaluation biometryAttempts](self, "biometryAttempts")}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
   }
 
@@ -215,8 +213,6 @@ LABEL_5:
     self->_continuity = 1;
     self->_continuityEvent = event;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticationAttempt:(int64_t)attempt event:(int64_t)event
@@ -275,63 +271,61 @@ LABEL_6:
 
 - (void)_biometryAttempt:(int64_t)attempt
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   ++self->_biometryAttempts;
   if ((attempt - 2) < 2)
   {
     v4 = 88;
-    goto LABEL_6;
+LABEL_6:
+    ++*(&self->super.super.isa + v4);
+    return;
   }
 
   if (attempt)
   {
-    if (attempt == 1)
+    if (attempt != 1)
     {
-      ++self->_biometryFailures;
-      v4 = 96;
-LABEL_6:
-      ++*(&self->super.super.isa + v4);
+      return;
     }
+
+    ++self->_biometryFailures;
+    v4 = 96;
+    goto LABEL_6;
   }
 
-  else
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v5 = +[LAAnalyticsPasscodeFallbackPeriod activePersistentInstances];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v5 = +[LAAnalyticsPasscodeFallbackPeriod activePersistentInstances];
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    v7 = v6;
+    v8 = *v13;
+    do
     {
-      v7 = v6;
-      v8 = *v14;
+      v9 = 0;
       do
       {
-        v9 = 0;
-        do
+        if (*v13 != v8)
         {
-          if (*v14 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v10 = *(*(&v13 + 1) + 8 * v9);
-          request = [(LAAnalyticsEvaluation *)self request];
-          [v10 biometrySucceededWithEvaluationRequest:request];
-
-          ++v9;
+          objc_enumerationMutation(v5);
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v10 = *(*(&v12 + 1) + 8 * v9);
+        request = [(LAAnalyticsEvaluation *)self request];
+        [v10 biometrySucceededWithEvaluationRequest:request];
+
+        ++v9;
       }
 
-      while (v7);
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
-  }
 
-  v12 = *MEMORY[0x277D85DE8];
+    while (v7);
+  }
 }
 
 - (void)_passcodeAccepted:(BOOL)accepted

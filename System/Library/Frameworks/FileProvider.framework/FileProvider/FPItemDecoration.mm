@@ -81,14 +81,16 @@ void __30__FPItemDecoration_initialize__block_invoke(uint64_t a1)
 
 uint64_t __36__FPItemDecoration__decorationCache__block_invoke()
 {
-  _decorationCache_cache = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = _decorationCache_cache;
+  _decorationCache_cache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)_invalidateCache
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   _decorationCache = [selfCopy _decorationCache];
@@ -102,63 +104,61 @@ uint64_t __36__FPItemDecoration__decorationCache__block_invoke()
   v8 = fp_current_or_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = v5;
-    _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] Invalidating decoration cache for %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] Invalidating decoration cache for %@", &v9, 0xCu);
   }
 
   [_decorationCache removeObjectsForKeys:v5];
   objc_sync_exit(selfCopy);
 
   +[FPItemCollection refreshActiveCollectionsForDecorationChange];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_loadDecorationsFromPlist:(id)plist bundleIdentifier:(id)identifier bundle:(__CFBundle *)bundle
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentifier_bundle___block_invoke;
-  v25[3] = &unk_1E793A830;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentifier_bundle___block_invoke;
+  v24[3] = &unk_1E793A830;
   v8 = identifierCopy;
-  v26 = v8;
+  v25 = v8;
   bundleCopy = bundle;
-  v9 = [plist fp_map:v25];
+  v9 = [plist fp_map:v24];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         decorationIdentifier = [v16 decorationIdentifier];
         [dictionary setObject:v16 forKeyedSubscript:decorationIdentifier];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
     while (v13);
   }
 
   v18 = [dictionary copy];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -250,12 +250,12 @@ FPItemDecoration *__70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentif
 
 - (FPItemDecoration)initWithPlistEntry:(id)entry bundle:(__CFBundle *)bundle bundleIdentifier:(id)identifier
 {
-  v45[4] = *MEMORY[0x1E69E9840];
+  v44[4] = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   identifierCopy = identifier;
-  v36.receiver = self;
-  v36.super_class = FPItemDecoration;
-  v10 = [(FPItemDecoration *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = FPItemDecoration;
+  v10 = [(FPItemDecoration *)&v35 init];
   v11 = v10;
   if (!v10)
   {
@@ -314,11 +314,11 @@ FPItemDecoration *__70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentif
   type = v11->_type;
   v11->_type = v13;
 
-  v45[0] = @"Badge";
-  v45[1] = @"Sharing";
-  v45[2] = @"FolderBadge";
-  v45[3] = @"FolderStatus";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:4];
+  v44[0] = @"Badge";
+  v44[1] = @"Sharing";
+  v44[2] = @"FolderBadge";
+  v44[3] = @"FolderStatus";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:4];
   if (([(NSString *)v13 containsObject:v11->_type]& 1) != 0)
   {
     v15 = [entryCopy objectForKey:@"Label"];
@@ -331,20 +331,20 @@ FPItemDecoration *__70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentif
       parentDependingKeys = [(FPItemDecoration *)v11 parentDependingKeys];
       styleDependingKeys = [(FPItemDecoration *)v11 styleDependingKeys];
       keyPaths = [(FPStringFormat *)v11->_labelTitle keyPaths];
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke;
-      v34[3] = &unk_1E793A858;
-      v35 = parentDependingKeys;
-      v31 = parentDependingKeys;
-      v24 = [keyPaths fp_filter:v34];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke_2;
-      v32[3] = &unk_1E793A858;
-      v33 = styleDependingKeys;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke;
+      v33[3] = &unk_1E793A858;
+      v34 = parentDependingKeys;
+      v30 = parentDependingKeys;
+      v24 = [keyPaths fp_filter:v33];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke_2;
+      v31[3] = &unk_1E793A858;
+      v32 = styleDependingKeys;
       v25 = styleDependingKeys;
-      v26 = [keyPaths fp_filter:v32];
+      v26 = [keyPaths fp_filter:v31];
       v11->_dependsOnParent = [v24 count] != 0;
       v11->_dependsOnStyle = v26 != 0;
 
@@ -353,8 +353,8 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v30 = fp_current_or_default_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = fp_current_or_default_log();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [FPItemDecoration initWithPlistEntry:bundle:bundleIdentifier:];
     }
@@ -365,16 +365,16 @@ LABEL_14:
   v15 = fp_current_or_default_log();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v29 = v11->_type;
-    v30 = [(NSString *)v13 componentsJoinedByString:@", "];
+    v28 = v11->_type;
+    v29 = [(NSString *)v13 componentsJoinedByString:@", "];
     *buf = 138413058;
-    v38 = @"NSFileProviderDecorations";
-    v39 = 2112;
-    v40 = identifierCopy;
-    v41 = 2112;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v30;
+    v37 = @"NSFileProviderDecorations";
+    v38 = 2112;
+    v39 = identifierCopy;
+    v40 = 2112;
+    v41 = v28;
+    v42 = 2112;
+    v43 = v29;
     _os_log_error_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_ERROR, "[ERROR] Malformed entry in %@ of bundle %@: type is %@. Valid types are (%@)", buf, 0x2Au);
 LABEL_22:
   }
@@ -384,40 +384,39 @@ LABEL_9:
   v16 = 0;
 LABEL_15:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 uint64_t __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([v3 hasPrefix:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([v3 hasPrefix:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -429,40 +428,39 @@ uint64_t __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___blo
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([v3 containsString:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([v3 containsString:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           v5 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -474,17 +472,16 @@ uint64_t __63__FPItemDecoration_initWithPlistEntry_bundle_bundleIdentifier___blo
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)labelWithItem:(id)item error:(id *)error style:(unint64_t)style
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  v17 = @"item";
+  v17[1] = *MEMORY[0x1E69E9840];
+  v16 = @"item";
   v8 = [_FPItemDecorationValueResolver resolverForItem:item style:style];
-  v18[0] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   if (self->_dependsOnParent)
   {
@@ -497,37 +494,35 @@ LABEL_11:
 
   v14 = [(FPStringFormat *)self->_labelTitle evaluateWithValuesByName:v9 error:error];
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)labelWithInfo:(id)info error:(id *)error style:(unint64_t)style
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   if ([infoCopy count])
   {
     v9 = [_FPItemDecorationFallbackLookup alloc];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __46__FPItemDecoration_labelWithInfo_error_style___block_invoke;
-    v20[3] = &__block_descriptor_40_e16__16__0__FPItem_8l;
-    v20[4] = style;
-    v10 = [infoCopy fp_map:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __46__FPItemDecoration_labelWithInfo_error_style___block_invoke;
+    v19[3] = &__block_descriptor_40_e16__16__0__FPItem_8l;
+    v19[4] = style;
+    v10 = [infoCopy fp_map:v19];
     v11 = [(_FPItemDecorationFallbackLookup *)v9 initWithItems:v10];
 
-    v21[0] = @"item";
+    v20[0] = @"item";
     firstObject = [infoCopy firstObject];
     v13 = [_FPItemDecorationValueResolver resolverForItem:firstObject style:style];
-    v22[0] = v13;
-    v21[1] = @"rootItem";
+    v21[0] = v13;
+    v20[1] = @"rootItem";
     lastObject = [infoCopy lastObject];
     v15 = [_FPItemDecorationValueResolver resolverForItem:lastObject style:style];
-    v21[2] = @"parentItem";
-    v22[1] = v15;
-    v22[2] = v11;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+    v20[2] = @"parentItem";
+    v21[1] = v15;
+    v21[2] = v11;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
     v17 = [(FPStringFormat *)self->_labelTitle evaluateWithValuesByName:v16 error:error];
   }
@@ -537,19 +532,17 @@ LABEL_11:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)labelsWithInfo:(id)info error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   array = [MEMORY[0x1E695DF70] array];
   dependsOnStyle = self->_dependsOnStyle;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   if (dependsOnStyle)
   {
     v9 = &unk_1F1FC9B48;
@@ -560,30 +553,30 @@ LABEL_11:
     v9 = &unk_1F1FC9B30;
   }
 
+  v19 = 0uLL;
   v20 = 0uLL;
-  v21 = 0uLL;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = -[FPItemDecoration labelWithInfo:error:style:](self, "labelWithInfo:error:style:", infoCopy, error, [*(*(&v18 + 1) + 8 * i) unsignedIntegerValue]);
+        v14 = -[FPItemDecoration labelWithInfo:error:style:](self, "labelWithInfo:error:style:", infoCopy, error, [*(*(&v17 + 1) + 8 * i) unsignedIntegerValue]);
         if (v14)
         {
           [array addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -599,19 +592,17 @@ LABEL_11:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)labelsWithItem:(id)item error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   array = [MEMORY[0x1E695DF70] array];
   dependsOnStyle = self->_dependsOnStyle;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   if (dependsOnStyle)
   {
     v9 = &unk_1F1FC9B78;
@@ -622,26 +613,26 @@ LABEL_11:
     v9 = &unk_1F1FC9B60;
   }
 
+  v24 = 0uLL;
   v25 = 0uLL;
-  v26 = 0uLL;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
-        v22 = 0;
-        v15 = -[FPItemDecoration labelWithItem:error:style:](self, "labelWithItem:error:style:", itemCopy, &v22, [v14 unsignedIntegerValue]);
-        v16 = v22;
+        v14 = *(*(&v22 + 1) + 8 * i);
+        v21 = 0;
+        v15 = -[FPItemDecoration labelWithItem:error:style:](self, "labelWithItem:error:style:", itemCopy, &v21, [v14 unsignedIntegerValue]);
+        v16 = v21;
         v17 = v16;
         if (v15)
         {
@@ -655,7 +646,7 @@ LABEL_11:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -670,8 +661,6 @@ LABEL_11:
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -693,18 +682,17 @@ void __58__FPItemDecoration_folderStatusForItem_completionHandler___block_invoke
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v9 = 0;
-    v7 = [v6 labelWithInfo:a2 error:&v9];
-    v8 = v9;
+    v5 = *(a1 + 32);
+    v8 = 0;
+    v6 = [v5 labelWithInfo:a2 error:&v8];
+    v7 = v8;
     (*(*(a1 + 40) + 16))();
   }
 }
@@ -721,7 +709,7 @@ void __58__FPItemDecoration_folderStatusForItem_completionHandler___block_invoke
 
 + (id)infoForItem:(id)item parentInfo:(id)info
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   infoCopy = info;
   objc_opt_class();
@@ -730,74 +718,64 @@ void __58__FPItemDecoration_folderStatusForItem_completionHandler___block_invoke
     [FPItemDecoration infoForItem:a2 parentInfo:self];
   }
 
-  v13[0] = itemCopy;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = itemCopy;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [v9 arrayByAddingObjectsFromArray:infoCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 void __70__FPItemDecoration__loadDecorationsFromPlist_bundleIdentifier_bundle___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412546;
-  v5 = @"NSFileProviderDecorations";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Malformed entry in %@ entry of bundle %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = @"NSFileProviderDecorations";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Malformed entry in %@ entry of bundle %@", &v3, 0x16u);
 }
 
 - (void)initWithPlistEntry:bundle:bundleIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   objc_opt_class();
+  v9 = 138413314;
   OUTLINED_FUNCTION_1_5();
   v2 = OUTLINED_FUNCTION_0_5(v1);
-  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, v9);
 }
 
 - (void)initWithPlistEntry:bundle:bundleIdentifier:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   objc_opt_class();
+  v9 = 138413314;
   OUTLINED_FUNCTION_1_5();
   v2 = OUTLINED_FUNCTION_0_5(v1);
-  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, v9);
 }
 
 - (void)initWithPlistEntry:bundle:bundleIdentifier:.cold.3()
 {
   OUTLINED_FUNCTION_3();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = objc_opt_class();
   objc_opt_class();
+  v9 = 138413314;
   OUTLINED_FUNCTION_1_5();
   v2 = OUTLINED_FUNCTION_0_5(v1);
-  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_3(&dword_1AAAE1000, v3, v4, "[ERROR] Malformed entry in %@ of bundle %@: object for key %@ should have class %@, but has %@", v5, v6, v7, v8, v9);
 }
 
 - (void)initWithPlistEntry:bundle:bundleIdentifier:.cold.4()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 138412546;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 138412546;
   OUTLINED_FUNCTION_1_5();
-  v4 = v0;
-  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Malformed entry in %@ of bundle %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1AAAE1000, v1, OS_LOG_TYPE_ERROR, "[ERROR] Malformed entry in %@ of bundle %@", v2, 0x16u);
 }
 
 + (void)infoForItem:(uint64_t)a1 parentInfo:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

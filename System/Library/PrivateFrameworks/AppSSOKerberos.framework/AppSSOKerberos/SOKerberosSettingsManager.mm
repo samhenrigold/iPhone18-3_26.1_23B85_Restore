@@ -17,16 +17,16 @@
 - (void)saveKerberosValuesForProfile:(id)profile
 {
   profileCopy = profile;
-  v4 = SO_LOG_SOKerberosSettingsManager();
+  v4 = SO_LOG_SOKerberosSettingsManager(profileCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SOKerberosSettingsManager saveKerberosValuesForProfile:];
   }
 
   realm = [profileCopy realm];
-  v36 = 0;
-  v6 = [SOKerberosHeimdalPluginSettings retrieveCurrentSettingsForRealm:realm error:&v36];
-  v7 = v36;
+  v39 = 0;
+  v6 = [SOKerberosHeimdalPluginSettings retrieveCurrentSettingsForRealm:realm error:&v39];
+  v7 = v39;
 
   if (!v6)
   {
@@ -53,7 +53,7 @@
 
   if (!v18)
   {
-    preferredKDCs2 = SO_LOG_SOKerberosSettingsManager();
+    preferredKDCs2 = SO_LOG_SOKerberosSettingsManager(v19);
     if (os_log_type_enabled(preferredKDCs2, OS_LOG_TYPE_ERROR))
     {
       [(SOKerberosSettingsManager *)profileCopy saveKerberosValuesForProfile:preferredKDCs2];
@@ -71,9 +71,9 @@
 
   domainRealmMapping = [(SOKerberosHeimdalPluginSettings *)v6 domainRealmMapping];
   domainRealmMapping2 = [(SOKerberosExtensionData *)v18 domainRealmMapping];
-  v22 = [domainRealmMapping isEqualToDictionary:domainRealmMapping2];
+  v23 = [domainRealmMapping isEqualToDictionary:domainRealmMapping2];
 
-  if ((v22 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
     domainRealmMapping3 = [(SOKerberosExtensionData *)v18 domainRealmMapping];
     [(SOKerberosHeimdalPluginSettings *)v6 setDomainRealmMapping:domainRealmMapping3];
@@ -96,34 +96,34 @@
 
   kdcs = [(SOKerberosHeimdalPluginSettings *)v6 kdcs];
   preferredKDCs = [(SOKerberosExtensionData *)v18 preferredKDCs];
-  v28 = [kdcs isEqualToArray:preferredKDCs];
+  v29 = [kdcs isEqualToArray:preferredKDCs];
 
-  if ((v28 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
     preferredKDCs2 = [(SOKerberosExtensionData *)v18 preferredKDCs];
-    v30 = [preferredKDCs2 copy];
-    [(SOKerberosHeimdalPluginSettings *)v6 setKdcs:v30];
+    v32 = [preferredKDCs2 copy];
+    [(SOKerberosHeimdalPluginSettings *)v6 setKdcs:v32];
 
     v15 = 1;
 LABEL_20:
   }
 
-  v31 = SO_LOG_SOKerberosSettingsManager();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+  v33 = SO_LOG_SOKerberosSettingsManager(v30);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    [(SOKerberosSettingsManager *)v15 saveKerberosValuesForProfile:v31];
+    [(SOKerberosSettingsManager *)v15 saveKerberosValuesForProfile:v33];
   }
 
   if (v15)
   {
-    v35 = v7;
-    v32 = [(SOKerberosHeimdalPluginSettings *)v6 saveWithError:&v35];
-    v33 = v35;
+    v38 = v7;
+    v34 = [(SOKerberosHeimdalPluginSettings *)v6 saveWithError:&v38];
+    v35 = v38;
 
-    if (!v32)
+    if (!v34)
     {
-      v34 = SO_LOG_SOKerberosSettingsManager();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v37 = SO_LOG_SOKerberosSettingsManager(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [SOKerberosSettingsManager saveKerberosValuesForProfile:];
       }
@@ -132,14 +132,14 @@ LABEL_20:
 
   else
   {
-    v33 = v7;
+    v35 = v7;
   }
 }
 
 - (BOOL)createKerberosSettingsCache
 {
   v15 = *MEMORY[0x277D85DE8];
-  v3 = SO_LOG_SOKerberosSettingsManager();
+  v3 = SO_LOG_SOKerberosSettingsManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -154,61 +154,55 @@ LABEL_20:
   v10 = 0;
   v5 = [SOKerberosHeimdalPluginSettings createSettingCacheEntryIfNeededWithError:&v10];
   v6 = v10;
+  v7 = v6;
   if (!v5)
   {
-    v7 = SO_LOG_SOKerberosSettingsManager();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SO_LOG_SOKerberosSettingsManager(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SOKerberosSettingsManager createKerberosSettingsCache];
     }
   }
 
   objc_sync_exit(selfCopy2);
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)saveKerberosValuesForProfile:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "Saving values for profile: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24006C000, v0, OS_LOG_TYPE_DEBUG, "Saving values for profile: %@", v1, 0xCu);
 }
 
 - (void)saveKerberosValuesForProfile:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 extensionData];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "error deserializing extension data: %{private}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, a2, OS_LOG_TYPE_ERROR, "error deserializing extension data: %{private}@", v4, 0xCu);
 }
 
 - (void)saveKerberosValuesForProfile:(char)a1 .cold.3(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "need to save: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_24006C000, a2, OS_LOG_TYPE_DEBUG, "need to save: %d", v2, 8u);
 }
 
 - (void)saveKerberosValuesForProfile:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "error when saving plugin settings: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "error when saving plugin settings: %@", v1, 0xCu);
 }
 
 - (void)createKerberosSettingsCache
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "error when creating settings cache: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24006C000, v0, OS_LOG_TYPE_ERROR, "error when creating settings cache: %@", v1, 0xCu);
 }
 
 @end

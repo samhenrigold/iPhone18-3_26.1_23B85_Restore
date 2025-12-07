@@ -6,92 +6,91 @@
 
 - (WPStorageAccessPromptQuirksData)initWithQuirks:(id)quirks
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   quirksCopy = quirks;
-  v30.receiver = self;
-  v30.super_class = WPStorageAccessPromptQuirksData;
-  v15 = [(WPStorageAccessPromptQuirksData *)&v30 init];
-  if (v15)
+  v31.receiver = self;
+  v31.super_class = WPStorageAccessPromptQuirksData;
+  v16 = [(WPStorageAccessPromptQuirksData *)&v31 init];
+  if (v16)
   {
-    v13 = quirksCopy;
-    v27 = 0;
-    v28[0] = &v27;
-    v28[1] = 0x2020000000;
-    v29 = 0;
+    v14 = quirksCopy;
+    v28 = 0;
+    v29[0] = &v28;
+    v29[1] = 0x2020000000;
+    v30 = 0;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      *(v28[0] + 24) = 0x7FFFFFFF;
+      *(v29[0] + 24) = 0x7FFFFFFF;
       quirksCopy = [MEMORY[0x277CBEA60] array];
     }
 
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__0;
-    v25 = __Block_byref_object_dispose__0;
-    v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(quirksCopy, "count", quirksCopy)}];
-    v17 = 0u;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__0;
+    v26 = __Block_byref_object_dispose__0;
+    v27 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(quirksCopy, "count", quirksCopy)}];
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    quirksCopy = v14;
-    v5 = [quirksCopy countByEnumeratingWithState:&v17 objects:v31 count:16];
+    v21 = 0u;
+    quirksCopy = v15;
+    v5 = [quirksCopy countByEnumeratingWithState:&v18 objects:v32 count:16];
     if (v5)
     {
-      v6 = *v18;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v18 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(quirksCopy);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16[0] = MEMORY[0x277D85DD0];
-            v16[1] = 3221225472;
-            v16[2] = __50__WPStorageAccessPromptQuirksData_initWithQuirks___block_invoke;
-            v16[3] = &unk_279EAF520;
-            v16[4] = &v27;
-            v16[5] = &v21;
-            [v8 enumerateKeysAndObjectsUsingBlock:v16];
+            v17[0] = MEMORY[0x277D85DD0];
+            v17[1] = 3221225472;
+            v17[2] = __50__WPStorageAccessPromptQuirksData_initWithQuirks___block_invoke;
+            v17[3] = &unk_279EAF520;
+            v17[4] = &v28;
+            v17[5] = &v22;
+            [v8 enumerateKeysAndObjectsUsingBlock:v17];
           }
 
           else
           {
-            ++*(v28[0] + 24);
+            ++*(v29[0] + 24);
           }
         }
 
-        v5 = [quirksCopy countByEnumeratingWithState:&v17 objects:v31 count:16];
+        v5 = [quirksCopy countByEnumeratingWithState:&v18 objects:v32 count:16];
       }
 
       while (v5);
     }
 
-    objc_storeStrong(&v15->_quirks, v22[5]);
-    if (*(v28[0] + 24))
+    objc_storeStrong(&v16->_quirks, v23[5]);
+    if (*(v29[0] + 24))
     {
-      v9 = WPOSLogServer();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WPOSLogServer(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(WPStorageAccessPromptQuirksData *)v28 initWithQuirks:v9];
+        [(WPStorageAccessPromptQuirksData *)v29 initWithQuirks:v11];
       }
     }
 
-    v10 = v15;
-    _Block_object_dispose(&v21, 8);
+    v12 = v16;
+    _Block_object_dispose(&v22, 8);
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v28, 8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 void __50__WPStorageAccessPromptQuirksData_initWithQuirks___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -121,12 +120,11 @@ void __50__WPStorageAccessPromptQuirksData_initWithQuirks___block_invoke(uint64_
 
 - (void)initWithQuirks:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 24);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "WPStorageAccessPromptQuirksData initWithQuirks: skipped %d entries due to malformed entries", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_273D20000, a2, OS_LOG_TYPE_ERROR, "WPStorageAccessPromptQuirksData initWithQuirks: skipped %d entries due to malformed entries", v3, 8u);
 }
 
 @end

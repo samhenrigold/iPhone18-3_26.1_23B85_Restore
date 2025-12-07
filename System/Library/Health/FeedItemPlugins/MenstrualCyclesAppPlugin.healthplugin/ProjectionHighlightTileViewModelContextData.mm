@@ -16,9 +16,10 @@
 - (_TtC24MenstrualCyclesAppPlugin43ProjectionHighlightTileViewModelContextData)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_29DF2A8BC();
+  sub_29DF2A8BC();
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (_TtC24MenstrualCyclesAppPlugin43ProjectionHighlightTileViewModelContextData)init

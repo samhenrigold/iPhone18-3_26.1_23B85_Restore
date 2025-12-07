@@ -37,10 +37,10 @@
 
 - (RSNonUniformHeightEstimation)init
 {
-  v27.__r_.__value_.__r.__words[0] = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = RSNonUniformHeightEstimation;
-  v2 = [(RSNonUniformHeightEstimation *)&v24 init];
+  v26.__r_.__value_.__r.__words[0] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = RSNonUniformHeightEstimation;
+  v2 = [(RSNonUniformHeightEstimation *)&v23 init];
   v3 = v2;
   if (v2)
   {
@@ -66,26 +66,26 @@
     operator new();
   }
 
-  v23 = v15;
+  v22 = v15;
   if (v15)
   {
-    memmove(&v22, v14, v15);
+    memmove(&v21, v14, v15);
   }
 
-  *(&v22 + v16) = 0;
+  *(&v21 + v16) = 0;
   sub_2621D0F64(&__p, "height_image");
-  sub_262328608(&v3->_height_estimator._inputs_name, &__p, &v26, 1uLL);
+  sub_262328608(&v3->_height_estimator._inputs_name, &__p, &v25, 1uLL);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   sub_2621D0F64(&__p, "406");
-  sub_2621D0F64(&v26, "417");
-  sub_262328608(&v3->_height_estimator._outputs_name, &__p, &v27, 2uLL);
+  sub_2621D0F64(&v25, "417");
+  sub_262328608(&v3->_height_estimator._outputs_name, &__p, &v26, 2uLL);
   for (i = 0; i != -6; i -= 3)
   {
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[i + 2]) < 0)
     {
       operator delete(*(&__p + i * 8 + 24));
     }
@@ -95,13 +95,12 @@
   height_model_input = v3->_height_estimator._height_model_input;
   v3->_height_estimator._height_model_input = v18;
 
-  (*(v3->_height_estimator._vptr$HeightCoreBase + 2))(&v3->_height_estimator, &v22);
-  if (v23 < 0)
+  (*(v3->_height_estimator._vptr$HeightCoreBase + 2))(&v3->_height_estimator, &v21);
+  if (v22 < 0)
   {
-    operator delete(v22);
+    operator delete(v21);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

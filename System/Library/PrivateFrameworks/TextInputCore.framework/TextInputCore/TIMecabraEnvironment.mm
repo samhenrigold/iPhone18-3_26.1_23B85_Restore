@@ -23,6 +23,7 @@
 - (NSString)leftDocumentContext;
 - (NSString)rightDocumentContext;
 - (TIKeyboardLayout)baseLayout;
+- (TIMecabraEnvironment)initWithMecabraEngine:(__Mecabra *)engine language:(int)language;
 - (_NSRange)leftDocumentContextCorrespondingToCandidatesRange;
 - (_NSRange)rightDocumentContextCorrespondingToCandidatesRange;
 - (id)_longestWubiCodeForCharacter:(id)character;
@@ -52,10 +53,14 @@
 - (void)setAppContext:(id)context;
 - (void)setCandidateIndex:(int64_t)index;
 - (void)setGeometryModel:(void *)model modelData:(__CFArray *)data;
+- (void)setInTypeToSiriMode:(BOOL)mode;
 - (void)setKeyboardLayout:(id)layout;
 - (void)setLeftDocumentContext:(id)context;
 - (void)setLeftDocumentContextInternal:(id)internal;
+- (void)setPrivateMode:(BOOL)mode;
 - (void)setRightDocumentContext:(id)context;
+- (void)setShuangpinType:(int)type;
+- (void)setTextContentType:(int)type;
 - (void)updateCursorPosition;
 @end
 
@@ -81,7 +86,7 @@
 
 - (NSArray)rightCandidateSurfaces
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   environmentCandidates = [mecabraContextWrapper environmentCandidates];
 
@@ -91,26 +96,26 @@
   v8 = [v5 setWithArray:contextCandidates];
 
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v10 = environmentCandidates;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        if (([v8 containsObject:{*(*(&v18 + 1) + 8 * i), v18}] & 1) == 0)
+        if (([v8 containsObject:{*(*(&v17 + 1) + 8 * i), v17}] & 1) == 0)
         {
           v15 = MecabraCandidateGetSurface();
           if (v15)
@@ -120,13 +125,11 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -150,18 +153,18 @@
 
 - (NSDictionary)environmentDebuggingInformation
 {
-  v33[8] = *MEMORY[0x277D85DE8];
-  v32[0] = @"TIMecabraEnvironmentCandidateIndex";
+  v32[8] = *MEMORY[0x277D85DE8];
+  v31[0] = @"TIMecabraEnvironmentCandidateIndex";
   v3 = MEMORY[0x277CCABB0];
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
-  v30 = [v3 numberWithUnsignedInteger:{objc_msgSend(mecabraContextWrapper, "candidateIndex")}];
-  v33[0] = v30;
-  v32[1] = @"TIMecabraEnvironmentPositionWithinCandidate";
+  v29 = [v3 numberWithUnsignedInteger:{objc_msgSend(mecabraContextWrapper, "candidateIndex")}];
+  v32[0] = v29;
+  v31[1] = @"TIMecabraEnvironmentPositionWithinCandidate";
   v4 = MEMORY[0x277CCABB0];
   mecabraContextWrapper2 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   v5 = [v4 numberWithUnsignedInteger:{objc_msgSend(mecabraContextWrapper2, "candidateInternalIndex")}];
-  v33[1] = v5;
-  v32[2] = @"TIMecabraEnvironmentContextCandidateSurfaces";
+  v32[1] = v5;
+  v31[2] = @"TIMecabraEnvironmentContextCandidateSurfaces";
   contextCandidateSurfaces = [(TIMecabraEnvironment *)self contextCandidateSurfaces];
   v7 = contextCandidateSurfaces;
   v8 = MEMORY[0x277CBEBF8];
@@ -175,8 +178,8 @@
     v9 = MEMORY[0x277CBEBF8];
   }
 
-  v33[2] = v9;
-  v32[3] = @"TIMecabraEnvironmentInlineCandidateSurfaces";
+  v32[2] = v9;
+  v31[3] = @"TIMecabraEnvironmentInlineCandidateSurfaces";
   inlineCandidateSurfaces = [(TIMecabraEnvironment *)self inlineCandidateSurfaces];
   v11 = inlineCandidateSurfaces;
   if (inlineCandidateSurfaces)
@@ -189,8 +192,8 @@
     v12 = v8;
   }
 
-  v33[3] = v12;
-  v32[4] = @"TIMecabraEnvironmentRightCandidateSurfaces";
+  v32[3] = v12;
+  v31[4] = @"TIMecabraEnvironmentRightCandidateSurfaces";
   rightCandidateSurfaces = [(TIMecabraEnvironment *)self rightCandidateSurfaces];
   v14 = rightCandidateSurfaces;
   if (rightCandidateSurfaces)
@@ -203,8 +206,8 @@
     v15 = v8;
   }
 
-  v33[4] = v15;
-  v32[5] = @"TIMecabraEnvironmentLeftContext";
+  v32[4] = v15;
+  v31[5] = @"TIMecabraEnvironmentLeftContext";
   leftDocumentContext = [(TIMecabraEnvironment *)self leftDocumentContext];
   v17 = leftDocumentContext;
   if (leftDocumentContext)
@@ -217,8 +220,8 @@
     v18 = &stru_283FDFAF8;
   }
 
-  v33[5] = v18;
-  v32[6] = @"TIMecabraEnvironmentRightContext";
+  v32[5] = v18;
+  v31[6] = @"TIMecabraEnvironmentRightContext";
   rightDocumentContext = [(TIMecabraEnvironment *)self rightDocumentContext];
   v20 = rightDocumentContext;
   if (rightDocumentContext)
@@ -231,8 +234,8 @@
     v21 = &stru_283FDFAF8;
   }
 
-  v33[6] = v21;
-  v32[7] = @"TIMecabraEnvironmentTemporaryCandidates";
+  v32[6] = v21;
+  v31[7] = @"TIMecabraEnvironmentTemporaryCandidates";
   mecabraContextWrapper3 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   temporaryCandidates = [mecabraContextWrapper3 temporaryCandidates];
   v24 = temporaryCandidates;
@@ -246,10 +249,8 @@
     v25 = v8;
   }
 
-  v33[7] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:8];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v32[7] = v25;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:8];
 
   return v26;
 }
@@ -278,6 +279,13 @@
   }
 
   return findSupplementalLexiconCandidatesSurroundingCursor;
+}
+
+- (void)setPrivateMode:(BOOL)mode
+{
+  modeCopy = mode;
+  mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
+  [mecabraContextWrapper setPrivateMode:modeCopy];
 }
 
 - (void)declareEndOfSentence
@@ -370,7 +378,7 @@
 
 - (id)contactNameWubiCodePairsForFirstName:(id)name lastName:(id)lastName
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lastNameCopy = lastName;
   nameCopy = name;
   if ([nameCopy _containsIdeographicCharacters])
@@ -418,27 +426,27 @@
     }
 
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{2 * objc_msgSend(v13, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v24 + 1) + 8 * i);
-          v21 = [(TIMecabraEnvironment *)self _wubiCodeForWord:v20, v24];
+          v20 = *(*(&v23 + 1) + 8 * i);
+          v21 = [(TIMecabraEnvironment *)self _wubiCodeForWord:v20, v23];
           if ([v21 length] == 4)
           {
             [v12 addObject:v20];
@@ -446,14 +454,12 @@
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v17);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -563,30 +569,30 @@ LABEL_20:
 
 - (id)_longestWubiCodeForCharacter:(id)character
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   characterCopy = character;
   [(TIMecabraEnvironment *)self mecabra];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = MecabraCreateWubixingCodesFromSurface();
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
+      v11 = *(*(&v15 + 1) + 8 * v10);
       v12 = [v11 length];
       if (v12 > [v8 length])
       {
@@ -602,7 +608,7 @@ LABEL_3:
 
       if (v7 == ++v10)
       {
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -618,14 +624,12 @@ LABEL_3:
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)wubiAnnotationForCandidate:(id)candidate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   [(TIMecabraEnvironment *)self mecabra];
   WubixingCodesFromSurface = MecabraCreateWubixingCodesFromSurface();
@@ -636,27 +640,27 @@ LABEL_3:
 
   else
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v8 = [WubixingCodesFromSurface subarrayWithRange:{1, objc_msgSend(WubixingCodesFromSurface, "count") - 1}];
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v23;
+      v12 = *v22;
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v13);
+        v14 = *(*(&v21 + 1) + 8 * v13);
         v15 = [v14 length];
         if (v15 > [v11 length])
         {
@@ -672,7 +676,7 @@ LABEL_5:
 
         if (v10 == ++v13)
         {
-          v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v10)
           {
             goto LABEL_5;
@@ -693,9 +697,14 @@ LABEL_5:
     firstObject = [v18 stringWithFormat:@"%@, %@", v19, v11];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return firstObject;
+}
+
+- (void)setShuangpinType:(int)type
+{
+  v3 = *&type;
+  mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
+  [mecabraContextWrapper setShuangpinType:v3];
 }
 
 - (void)setAppContext:(id)context
@@ -715,6 +724,13 @@ LABEL_5:
 
     [(TIMecabraEnvironment *)self completelyCommitInlineCandidate:v5];
   }
+}
+
+- (void)setInTypeToSiriMode:(BOOL)mode
+{
+  modeCopy = mode;
+  mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
+  [mecabraContextWrapper setInTypeToSiriMode:modeCopy];
 }
 
 - (void)setKeyboardLayout:(id)layout
@@ -740,22 +756,22 @@ LABEL_5:
   _Block_object_dispose(&v8, 8);
 }
 
-void __42__TIMecabraEnvironment_setKeyboardLayout___block_invoke(uint64_t a1, uint64_t a2)
+void __42__TIMecabraEnvironment_setKeyboardLayout___block_invoke(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6)
 {
   if (a2)
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:{a2, a3, a4, a5, a6}];
   }
 
   else
   {
-    v3 = &stru_283FDFAF8;
+    v7 = &stru_283FDFAF8;
   }
 
-  v5 = v3;
-  if ([(__CFString *)v3 length]== 1)
+  v9 = v7;
+  if ([(__CFString *)v7 length]== 1)
   {
-    [(__CFString *)v5 _firstChar];
+    [(__CFString *)v9 _firstChar];
     LayoutKey = MecabraCreateLayoutKey();
     [*(*(*(a1 + 32) + 8) + 40) addObject:LayoutKey];
     CFRelease(LayoutKey);
@@ -807,7 +823,7 @@ void __42__TIMecabraEnvironment_setKeyboardLayout___block_invoke(uint64_t a1, ui
 - (TIKeyboardLayout)baseLayout
 {
   selfCopy = self;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   baseLayout = self->_baseLayout;
   if (!baseLayout)
   {
@@ -838,10 +854,10 @@ LABEL_30:
       v9 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v7];
       if (v9)
       {
+        v48 = 0;
         v49 = 0;
-        v50 = 0;
-        v10 = [MEMORY[0x277CCAC58] propertyListWithData:v9 options:0 format:&v50 error:&v49];
-        v11 = v49;
+        v10 = [MEMORY[0x277CCAC58] propertyListWithData:v9 options:0 format:&v49 error:&v48];
+        v11 = v48;
         if (v11)
         {
           if (TICanLogMessageAtLevel_onceToken != -1)
@@ -854,7 +870,7 @@ LABEL_30:
           {
             v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Error loading continuous_path_base_layout.plist : %@", "-[TIMecabraEnvironment baseLayout]", v11];
             *buf = 138412290;
-            v52 = v13;
+            v51 = v13;
             _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -867,30 +883,30 @@ LABEL_30:
           v18 = selfCopy->_baseLayout;
           selfCopy->_baseLayout = v17;
 
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
           v46 = 0u;
-          v44 = v10;
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          v43 = v10;
           v12 = [v10 objectForKeyedSubscript:@"keys"];
-          v19 = [v12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+          v19 = [v12 countByEnumeratingWithState:&v44 objects:v52 count:16];
           if (v19)
           {
             v20 = v19;
-            v41 = v9;
-            v42 = v8;
-            v43 = v4;
-            v21 = *v46;
+            v40 = v9;
+            v41 = v8;
+            v42 = v4;
+            v21 = *v45;
             do
             {
               for (i = 0; i != v20; ++i)
               {
-                if (*v46 != v21)
+                if (*v45 != v21)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v23 = *(*(&v45 + 1) + 8 * i);
+                v23 = *(*(&v44 + 1) + 8 * i);
                 v24 = [v23 objectForKeyedSubscript:@"string"];
                 if ([v24 length] == 1)
                 {
@@ -917,16 +933,16 @@ LABEL_30:
                 }
               }
 
-              v20 = [v12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+              v20 = [v12 countByEnumeratingWithState:&v44 objects:v52 count:16];
             }
 
             while (v20);
-            v8 = v42;
-            v4 = v43;
-            v9 = v41;
+            v8 = v41;
+            v4 = v42;
+            v9 = v40;
           }
 
-          v10 = v44;
+          v10 = v43;
         }
       }
 
@@ -942,7 +958,7 @@ LABEL_30:
         {
           v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Error loading continuous_path_base_layout.plist", "-[TIMecabraEnvironment baseLayout]"];
           *buf = 138412290;
-          v52 = v14;
+          v51 = v14;
           _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -952,14 +968,36 @@ LABEL_30:
   }
 
 LABEL_31:
-  v39 = *MEMORY[0x277D85DE8];
 
   return baseLayout;
 }
 
+- (TIMecabraEnvironment)initWithMecabraEngine:(__Mecabra *)engine language:(int)language
+{
+  v4 = *&language;
+  v11.receiver = self;
+  v11.super_class = TIMecabraEnvironment;
+  v6 = [(TIMecabraEnvironment *)&v11 init];
+  if (v6)
+  {
+    v7 = [[TIMecabraEnvironmentContextWrapper alloc] initWithMecabraEngine:engine language:v4];
+    mecabraContextWrapper = v6->_mecabraContextWrapper;
+    v6->_mecabraContextWrapper = v7;
+
+    v6->_mecabraLanguage = v4;
+    v6->_shouldAdjustOnAnalyze = 1;
+    baseLayout = [(TIMecabraEnvironment *)v6 baseLayout];
+    [(TIMecabraEnvironment *)v6 setKeyboardLayout:baseLayout];
+
+    [(TIMecabraEnvironment *)v6 setCanSuggestSupplementalItems:1];
+  }
+
+  return v6;
+}
+
 - (void)adjustEnvironment:(int64_t)environment
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   environmentCandidates = [mecabraContextWrapper environmentCandidates];
   v7 = [environmentCandidates count];
@@ -1006,32 +1044,32 @@ LABEL_18:
 
     if (v18)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       mecabraContextWrapper2 = [(TIMecabraEnvironment *)self candidatesToDelete];
-      v19 = [mecabraContextWrapper2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v19 = [mecabraContextWrapper2 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v29;
+        v21 = *v28;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v29 != v21)
+            if (*v28 != v21)
             {
               objc_enumerationMutation(mecabraContextWrapper2);
             }
 
-            v23 = *(*(&v28 + 1) + 8 * i);
+            v23 = *(*(&v27 + 1) + 8 * i);
             mecabraContextWrapper5 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
             environmentCandidates4 = [mecabraContextWrapper5 environmentCandidates];
             [environmentCandidates4 removeObjectIdenticalTo:v23];
           }
 
-          v20 = [mecabraContextWrapper2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v20 = [mecabraContextWrapper2 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v20);
@@ -1039,24 +1077,23 @@ LABEL_18:
 
       goto LABEL_18;
     }
+  }
+
+  else
+  {
+    if (documentContextIsEmpty)
+    {
+      return;
+    }
+
+    [(TIMecabraEnvironment *)self createNewCandidatesFromDocumentContext];
+  }
 
 LABEL_19:
-    [(TIMecabraEnvironment *)self compareDocumentAndEnvironmentCandidates];
-    [(TIMecabraEnvironment *)self updateCursorPosition];
-    mecabraContextWrapper6 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
-    [mecabraContextWrapper6 syncEnvironmentAndContextCandidates];
-
-    goto LABEL_20;
-  }
-
-  if (!documentContextIsEmpty)
-  {
-    [(TIMecabraEnvironment *)self createNewCandidatesFromDocumentContext];
-    goto LABEL_19;
-  }
-
-LABEL_20:
-  v27 = *MEMORY[0x277D85DE8];
+  [(TIMecabraEnvironment *)self compareDocumentAndEnvironmentCandidates];
+  [(TIMecabraEnvironment *)self updateCursorPosition];
+  mecabraContextWrapper6 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
+  [mecabraContextWrapper6 syncEnvironmentAndContextCandidates];
 }
 
 - (void)compareDocumentAndEnvironmentCandidates
@@ -1173,20 +1210,8 @@ LABEL_12:
     {
     }
 
-    if (self->_mecabraLanguage != 4)
+    if (self->_mecabraLanguage != 4 || (v22 = @" ", -[__CFString stringByAppendingString:](v9, "stringByAppendingString:", @" "), v23 = objc_claimAutoreleasedReturnValue(), -[TIMecabraEnvironment leftDocumentContext](self, "leftDocumentContext"), v24 = objc_claimAutoreleasedReturnValue(), [v24 normalizeSmartQuotedStringOnlySingleQuote], v25 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v23), v25, v24, v23, (isEqualToString & 1) == 0))
     {
-      goto LABEL_18;
-    }
-
-    v22 = @" ";
-    v23 = [(__CFString *)v9 stringByAppendingString:@" "];
-    leftDocumentContext = [(TIMecabraEnvironment *)self leftDocumentContext];
-    normalizeSmartQuotedStringOnlySingleQuote = [leftDocumentContext normalizeSmartQuotedStringOnlySingleQuote];
-    v26 = [v23 isEqualToString:normalizeSmartQuotedStringOnlySingleQuote];
-
-    if ((v26 & 1) == 0)
-    {
-LABEL_18:
       leftDocumentContextCorrespondingToCandidates2 = [(TIMecabraEnvironment *)self leftDocumentContextCorrespondingToCandidates];
       v27 = [(__CFString *)leftDocumentContextCorrespondingToCandidates2 rangeOfString:v9];
       v29 = v28;
@@ -1205,9 +1230,9 @@ LABEL_18:
           leftDocumentContextCorrespondingToCandidates2 = [leftDocumentContextCorrespondingToCandidates4 substringWithRange:{v30, leftDocumentContextCorrespondingToCandidates2}];
         }
 
-        leftDocumentContext2 = [(TIMecabraEnvironment *)self leftDocumentContext];
+        leftDocumentContext = [(TIMecabraEnvironment *)self leftDocumentContext];
         leftDocumentContextCorrespondingToCandidates5 = [(TIMecabraEnvironment *)self leftDocumentContextCorrespondingToCandidates];
-        v36 = [leftDocumentContext2 TI_hasTruePrefix:leftDocumentContextCorrespondingToCandidates5];
+        v36 = [leftDocumentContext TI_hasTruePrefix:leftDocumentContextCorrespondingToCandidates5];
 
         if ((v36 & 1) == 0)
         {
@@ -1221,9 +1246,9 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        leftDocumentContext3 = [(TIMecabraEnvironment *)self leftDocumentContext];
+        leftDocumentContext2 = [(TIMecabraEnvironment *)self leftDocumentContext];
         leftDocumentContextCorrespondingToCandidates6 = [(TIMecabraEnvironment *)self leftDocumentContextCorrespondingToCandidates];
-        v22 = [leftDocumentContext3 substringFromIndex:{objc_msgSend(leftDocumentContextCorrespondingToCandidates6, "length")}];
+        v22 = [leftDocumentContext2 substringFromIndex:{objc_msgSend(leftDocumentContextCorrespondingToCandidates6, "length")}];
 
         if (v22)
         {
@@ -1339,9 +1364,9 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  leftDocumentContext4 = [(TIMecabraEnvironment *)self leftDocumentContext];
+  leftDocumentContext3 = [(TIMecabraEnvironment *)self leftDocumentContext];
   rightDocumentContext4 = [(TIMecabraEnvironment *)self rightDocumentContext];
-  v6 = [leftDocumentContext4 stringByAppendingString:rightDocumentContext4];
+  v6 = [leftDocumentContext3 stringByAppendingString:rightDocumentContext4];
   v7 = v6;
   if (v6)
   {
@@ -1460,7 +1485,7 @@ LABEL_47:
 
 - (void)analyzeCandidateContextWithSplit:(BOOL)split
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   candidatesToDelete = [(TIMecabraEnvironment *)self candidatesToDelete];
   [candidatesToDelete removeAllObjects];
 
@@ -1474,42 +1499,42 @@ LABEL_47:
   v10 = v9;
   rightDocumentContextCorrespondingToCandidatesRange = [(TIMecabraEnvironment *)self rightDocumentContextCorrespondingToCandidatesRange];
   v12 = v11;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   selfCopy = self;
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   environmentCandidates = [mecabraContextWrapper environmentCandidates];
 
   obj = environmentCandidates;
-  v15 = [environmentCandidates countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v15 = [environmentCandidates countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v15)
   {
     v16 = v15;
     v17 = 0;
-    v18 = *v39;
-    v34 = leftDocumentContextCorrespondingToCandidatesRange + v10;
+    v18 = *v38;
+    v33 = leftDocumentContextCorrespondingToCandidatesRange + v10;
     v19 = leftDocumentContextCorrespondingToCandidatesRange + v10 != rightDocumentContextCorrespondingToCandidatesRange || split;
-    v32 = v12 + v10 + leftDocumentContextCorrespondingToCandidatesRange;
-    v33 = rightDocumentContextCorrespondingToCandidatesRange + v12;
+    v31 = v12 + v10 + leftDocumentContextCorrespondingToCandidatesRange;
+    v32 = rightDocumentContextCorrespondingToCandidatesRange + v12;
     do
     {
       for (i = 0; i != v16; ++i)
       {
         v21 = v17;
-        if (*v39 != v18)
+        if (*v38 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v38 + 1) + 8 * i);
+        v22 = *(*(&v37 + 1) + 8 * i);
         v23 = MecabraCandidateGetSurface();
         v17 += [v23 length];
         if (v19)
         {
-          v25 = leftDocumentContextCorrespondingToCandidatesRange <= v21 && v34 >= v17;
-          v27 = rightDocumentContextCorrespondingToCandidatesRange <= v21 && v33 >= v17;
+          v25 = leftDocumentContextCorrespondingToCandidatesRange <= v21 && v33 >= v17;
+          v27 = rightDocumentContextCorrespondingToCandidatesRange <= v21 && v32 >= v17;
           if (!v25 && !v27)
           {
 LABEL_30:
@@ -1528,28 +1553,26 @@ LABEL_30:
             candidatesToDelete2 = [(TIMecabraEnvironment *)selfCopy candidatesRightOfCaret];
 LABEL_31:
             v30 = candidatesToDelete2;
-            [candidatesToDelete2 addObject:{v22, v32}];
+            [candidatesToDelete2 addObject:{v22, v31}];
           }
         }
 
-        else if (leftDocumentContextCorrespondingToCandidatesRange > v21 || v32 < v17)
+        else if (leftDocumentContextCorrespondingToCandidatesRange > v21 || v31 < v17)
         {
           goto LABEL_30;
         }
       }
 
-      v16 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v16 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v16);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCursorPosition
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
   environmentCandidateStrings = [mecabraContextWrapper environmentCandidateStrings];
 
@@ -1568,12 +1591,12 @@ LABEL_31:
     goto LABEL_17;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = environmentCandidateStrings;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v9)
   {
     goto LABEL_16;
@@ -1582,20 +1605,20 @@ LABEL_31:
   v10 = v9;
   v11 = 0;
   v12 = 0;
-  v13 = *v27;
-  v25 = environmentCandidateStrings;
+  v13 = *v26;
+  v24 = environmentCandidateStrings;
   while (2)
   {
     v14 = 0;
-    v24 = v11 + v10;
+    v23 = v11 + v10;
     do
     {
-      if (*v27 != v13)
+      if (*v26 != v13)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v26 + 1) + 8 * v14);
+      v15 = *(*(&v25 + 1) + 8 * v14);
       v16 = [v15 length] + v12;
       if (v16 == [leftDocumentContextCorrespondingToCandidates length])
       {
@@ -1607,7 +1630,7 @@ LABEL_15:
         mecabraContextWrapper5 = [(TIMecabraEnvironment *)self mecabraContextWrapper];
         [mecabraContextWrapper5 setCandidateInternalIndex:v20];
 
-        environmentCandidateStrings = v25;
+        environmentCandidateStrings = v24;
         goto LABEL_16;
       }
 
@@ -1626,9 +1649,9 @@ LABEL_15:
     }
 
     while (v10 != v14);
-    v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    v11 = v24;
-    environmentCandidateStrings = v25;
+    v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = v23;
+    environmentCandidateStrings = v24;
     if (v10)
     {
       continue;
@@ -1640,7 +1663,6 @@ LABEL_15:
 LABEL_16:
 
 LABEL_17:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)documentContextIsEmpty
@@ -1719,6 +1741,13 @@ LABEL_17:
   return candidatesLeftOfCaret;
 }
 
+- (void)setTextContentType:(int)type
+{
+  v3 = *&type;
+  mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
+  [mecabraContextWrapper setTextContentType:v3];
+}
+
 - (int)textContentType
 {
   mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
@@ -1741,7 +1770,7 @@ LABEL_17:
   }
 
   v8 = v5;
-  if (![(NSString *)self->_rightDocumentContext isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_rightDocumentContext) & 1) == 0)
   {
     v6 = [(__CFString *)v8 copy];
     rightDocumentContext = self->_rightDocumentContext;
@@ -1766,10 +1795,12 @@ LABEL_17:
   p_leftDocumentContext = &self->_leftDocumentContext;
   if (leftDocumentContext != v5)
   {
+    v8 = v5;
     objc_storeStrong(p_leftDocumentContext, v5);
+    v5 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](internalCopy, v5);
 }
 
 - (void)setLeftDocumentContext:(id)context
@@ -1786,7 +1817,7 @@ LABEL_17:
   }
 
   v8 = v5;
-  if (![(NSString *)self->_leftDocumentContext isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_leftDocumentContext) & 1) == 0)
   {
     mecabraContextWrapper = [(TIMecabraEnvironment *)self mecabraContextWrapper];
     v7 = [mecabraContextWrapper contextString:v8 forRightContext:0];
@@ -1867,7 +1898,7 @@ LABEL_15:
 
 + (void)loadMobileAssetContentsForInputModes:(id)modes assetContentTypes:(id)types onQueue:(id)queue withCompletionBlock:(id)block
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   modesCopy = modes;
   typesCopy = types;
   queueCopy = queue;
@@ -1875,90 +1906,90 @@ LABEL_15:
   v12 = blockCopy;
   if (queueCopy)
   {
-    v55 = blockCopy;
-    v56 = queueCopy;
+    v54 = blockCopy;
+    v55 = queueCopy;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v69 = [MEMORY[0x277CBEB58] set];
+    v68 = [MEMORY[0x277CBEB58] set];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v82 = 0u;
     v83 = 0u;
     v84 = 0u;
     v85 = 0u;
-    v86 = 0u;
-    v57 = modesCopy;
+    v56 = modesCopy;
     obj = modesCopy;
-    v61 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
-    if (v61)
+    v60 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
+    if (v60)
     {
-      v59 = *v84;
+      v58 = *v83;
       v14 = *MEMORY[0x277D03FF8];
       do
       {
         v15 = 0;
         do
         {
-          if (*v84 != v59)
+          if (*v83 != v58)
           {
             objc_enumerationMutation(obj);
           }
 
-          v62 = v15;
-          v65 = *(*(&v83 + 1) + 8 * v15);
+          v61 = v15;
+          v64 = *(*(&v82 + 1) + 8 * v15);
+          v78 = 0u;
           v79 = 0u;
           v80 = 0u;
           v81 = 0u;
-          v82 = 0u;
-          v63 = typesCopy;
-          v66 = [v63 countByEnumeratingWithState:&v79 objects:v90 count:16];
-          if (v66)
+          v62 = typesCopy;
+          v65 = [v62 countByEnumeratingWithState:&v78 objects:v89 count:16];
+          if (v65)
           {
-            v64 = *v80;
+            v63 = *v79;
             do
             {
               v16 = 0;
               do
               {
-                if (*v80 != v64)
+                if (*v79 != v63)
                 {
-                  objc_enumerationMutation(v63);
+                  objc_enumerationMutation(v62);
                 }
 
-                v67 = v16;
-                v17 = *(*(&v79 + 1) + 8 * v16);
-                normalizedIdentifier = [v65 normalizedIdentifier];
+                v66 = v16;
+                v17 = *(*(&v78 + 1) + 8 * v16);
+                normalizedIdentifier = [v64 normalizedIdentifier];
                 v19 = [normalizedIdentifier hasPrefix:@"zh"];
 
                 v20 = +[TIAssetManager sharedAssetManager];
-                v21 = [v20 ddsAssetContentItemsWithContentType:v17 inputMode:v65 filteredWithRegion:v19];
+                v21 = [v20 ddsAssetContentItemsWithContentType:v17 inputMode:v64 filteredWithRegion:v19];
 
-                v77 = 0u;
-                v78 = 0u;
-                v75 = 0u;
                 v76 = 0u;
+                v77 = 0u;
+                v74 = 0u;
+                v75 = 0u;
                 v22 = v21;
-                v23 = [v22 countByEnumeratingWithState:&v75 objects:v89 count:16];
+                v23 = [v22 countByEnumeratingWithState:&v74 objects:v88 count:16];
                 if (v23)
                 {
                   v24 = v23;
-                  v25 = *v76;
+                  v25 = *v75;
                   do
                   {
                     for (i = 0; i != v24; ++i)
                     {
-                      if (*v76 != v25)
+                      if (*v75 != v25)
                       {
                         objc_enumerationMutation(v22);
                       }
 
-                      v27 = *(*(&v75 + 1) + 8 * i);
+                      v27 = *(*(&v74 + 1) + 8 * i);
                       contents = [v27 contents];
                       v29 = [contents objectForKeyedSubscript:v14];
 
                       if ([v29 count])
                       {
                         type = [v27 type];
-                        v31 = [type isEqualToString:@"LanguageModel"];
+                        isEqualToString = objc_msgSend_isEqualToString_(type);
 
-                        if (v31)
+                        if (isEqualToString)
                         {
                           v32 = [dictionary2 objectForKeyedSubscript:v29];
 
@@ -1996,34 +2027,34 @@ LABEL_15:
                         uRLByDeletingLastPathComponent = [path2 URLByDeletingLastPathComponent];
                         v36URLByDeletingLastPathComponent = [uRLByDeletingLastPathComponent URLByDeletingLastPathComponent];
 
-                        [v69 addObject:v36URLByDeletingLastPathComponent];
+                        [v68 addObject:v36URLByDeletingLastPathComponent];
                       }
                     }
 
-                    v24 = [v22 countByEnumeratingWithState:&v75 objects:v89 count:16];
+                    v24 = [v22 countByEnumeratingWithState:&v74 objects:v88 count:16];
                   }
 
                   while (v24);
                 }
 
-                v16 = v67 + 1;
+                v16 = v66 + 1;
               }
 
-              while (v67 + 1 != v66);
-              v66 = [v63 countByEnumeratingWithState:&v79 objects:v90 count:16];
+              while (v66 + 1 != v65);
+              v65 = [v62 countByEnumeratingWithState:&v78 objects:v89 count:16];
             }
 
-            while (v66);
+            while (v65);
           }
 
-          v15 = v62 + 1;
+          v15 = v61 + 1;
         }
 
-        while (v62 + 1 != v61);
-        v61 = [obj countByEnumeratingWithState:&v83 objects:v91 count:16];
+        while (v61 + 1 != v60);
+        v60 = [obj countByEnumeratingWithState:&v82 objects:v90 count:16];
       }
 
-      while (v61);
+      while (v60);
     }
 
     v42 = TIAssetsOSLogFacility();
@@ -2031,134 +2062,132 @@ LABEL_15:
     {
       v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s DDS regionalAsset (%@)", "+[TIMecabraEnvironment loadMobileAssetContentsForInputModes:assetContentTypes:onQueue:withCompletionBlock:]", dictionary];
       *buf = 138412290;
-      v88 = v43;
+      v87 = v43;
       _os_log_impl(&dword_22CA55000, v42, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
     v44 = TIAssetsOSLogFacility();
     if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s DDS nonRegionalAsset (%@)", "+[TIMecabraEnvironment loadMobileAssetContentsForInputModes:assetContentTypes:onQueue:withCompletionBlock:]", v69];
+      v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s DDS nonRegionalAsset (%@)", "+[TIMecabraEnvironment loadMobileAssetContentsForInputModes:assetContentTypes:onQueue:withCompletionBlock:]", v68];
       *buf = 138412290;
-      v88 = v45;
+      v87 = v45;
       _os_log_impl(&dword_22CA55000, v44, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
     v46 = dictionary;
-    v47 = v69;
+    v47 = v68;
     v48 = TIAssetsOSLogFacility();
     if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
     {
-      v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s sending to mecabra : regional assets %@ : non regional assets %@", "+[TIMecabraEnvironment loadMobileAssetContentsForInputModes:assetContentTypes:onQueue:withCompletionBlock:]", v46, v47];
+      v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s sending to mecabra : regional assets %@ : non regional assets %@", "+[TIMecabraEnvironment loadMobileAssetContentsForInputModes:assetContentTypes:onQueue:withCompletionBlock:]", v46, v47];
       *buf = 138412290;
-      v88 = v54;
+      v87 = v53;
       _os_log_debug_impl(&dword_22CA55000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __107__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetContentTypes_onQueue_withCompletionBlock___block_invoke;
-    v70[3] = &unk_278732940;
-    v71 = v46;
-    v72 = dictionary2;
-    v73 = v47;
-    v12 = v55;
-    v74 = v55;
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __107__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetContentTypes_onQueue_withCompletionBlock___block_invoke;
+    v69[3] = &unk_278732940;
+    v70 = v46;
+    v71 = dictionary2;
+    v72 = v47;
+    v12 = v54;
+    v73 = v54;
     v49 = v47;
     v50 = dictionary2;
     v51 = v46;
-    v52 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:v70];
-    queueCopy = v56;
-    [v56 addOperation:v52];
+    v52 = [(NSBlockOperation *)TINoncancellableBlockOperation blockOperationWithBlock:v69];
+    queueCopy = v55;
+    [v55 addOperation:v52];
 
-    modesCopy = v57;
+    modesCopy = v56;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void __107__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetContentTypes_onQueue_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v3 = [*(a1 + 32) allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v30;
+    v6 = *v29;
     do
     {
       v7 = 0;
       do
       {
-        if (*v30 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * v7);
-        v36[0] = *MEMORY[0x277D82A40];
+        v8 = *(*(&v28 + 1) + 8 * v7);
+        v35[0] = *MEMORY[0x277D82A40];
         v9 = [v8 description];
-        v37[0] = v9;
-        v36[1] = *MEMORY[0x277D82A38];
+        v36[0] = v9;
+        v35[1] = *MEMORY[0x277D82A38];
         v10 = [*(a1 + 32) objectForKeyedSubscript:v8];
-        v37[1] = v10;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+        v36[1] = v10;
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
         [v2 addObject:v11];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v5);
   }
 
-  v24 = v2;
+  v23 = v2;
 
   v12 = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v13 = [*(a1 + 40) allKeys];
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v26;
+    v16 = *v25;
     do
     {
       v17 = 0;
       do
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v25 + 1) + 8 * v17);
-        v33[0] = *MEMORY[0x277D82A40];
+        v18 = *(*(&v24 + 1) + 8 * v17);
+        v32[0] = *MEMORY[0x277D82A40];
         v19 = [v18 description];
-        v34[0] = v19;
-        v33[1] = *MEMORY[0x277D82A38];
+        v33[0] = v19;
+        v32[1] = *MEMORY[0x277D82A38];
         v20 = [*(a1 + 40) objectForKeyedSubscript:v18];
-        v34[1] = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+        v33[1] = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
         [v12 addObject:v21];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v15);
@@ -2166,8 +2195,6 @@ void __107__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetConte
 
   v22 = [*(a1 + 48) allObjects];
   (*(*(a1 + 56) + 16))();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadMobileAssetContentsForInputModes:(id)modes assetContentTypes:(id)types inMecabra:(__Mecabra *)mecabra onQueue:(id)queue
@@ -2182,31 +2209,26 @@ void __107__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetConte
 
 void __97__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetContentTypes_inMecabra_onQueue___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v10 = a4;
-  v7 = a3;
+  v6 = a4;
+  v5 = a3;
   MecabraSetAssetDataItemsForType();
-  v8 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 
-  v9 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 }
 
 + (void)loadMobileAssetContentsForInputModes:(id)modes onQueue:(id)queue withCompletionBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = @"Lexicon";
-  v15 = @"LexiconDelta";
-  v16 = @"LanguageModel";
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = @"Lexicon";
+  v14 = @"LexiconDelta";
+  v15 = @"LanguageModel";
   v8 = MEMORY[0x277CBEA60];
   blockCopy = block;
   queueCopy = queue;
   modesCopy = modes;
-  v12 = [v8 arrayWithObjects:&v14 count:3];
-  [self loadMobileAssetContentsForInputModes:modesCopy assetContentTypes:v12 onQueue:queueCopy withCompletionBlock:{blockCopy, v14, v15, v16, v17}];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [v8 arrayWithObjects:&v13 count:3];
+  [self loadMobileAssetContentsForInputModes:modesCopy assetContentTypes:v12 onQueue:queueCopy withCompletionBlock:{blockCopy, v13, v14, v15, v16}];
 }
 
 + (void)loadMobileAssetContentsForInputModes:(id)modes inMecabra:(__Mecabra *)mecabra onQueue:(id)queue
@@ -2221,20 +2243,17 @@ void __97__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_assetConten
 
 void __79__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_inMecabra_onQueue___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v10 = a4;
-  v7 = a3;
+  v6 = a4;
+  v5 = a3;
   MecabraSetAssetDataItemsForType();
-  v8 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 
-  v9 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 }
 
 + (void)removeMobileAssetListener:(id)listener
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (listener)
   {
     v3 = MEMORY[0x277CCAB98];
@@ -2245,16 +2264,14 @@ void __79__TIMecabraEnvironment_loadMobileAssetContentsForInputModes_inMecabra_o
     v6 = TIAssetsOSLogFacility();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v8 = MEMORY[0x277CCACA8];
+      v7 = MEMORY[0x277CCACA8];
       callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-      v10 = [v8 stringWithFormat:@"%s %@", "+[TIMecabraEnvironment removeMobileAssetListener:]", callStackSymbols];
+      v9 = [v7 stringWithFormat:@"%s %@", "+[TIMecabraEnvironment removeMobileAssetListener:]", callStackSymbols];
       *buf = 138412290;
-      v12 = v10;
+      v11 = v9;
       _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)loadMobileAssetContentsWhenMobileAssetChangesForCHRecognizer:(id)recognizer inputModes:(id)modes onQueue:(id)queue oldMobileAssetChangeListener:(id)listener
@@ -2303,12 +2320,11 @@ void __133__TIMecabraEnvironment_loadMobileAssetContentsWhenMobileAssetChangesFo
 
 void __133__TIMecabraEnvironment_loadMobileAssetContentsWhenMobileAssetChangesForCHRecognizer_inputModes_onQueue_oldMobileAssetChangeListener___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v7 = a2;
+  v6 = a2;
   v5 = a3;
-  v6 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    [*(a1 + 32) performSelector:sel_updateMecabraWithRegionalOTAAssets_nonRegionalOTAAssets_ withObject:v7 withObject:v5];
+    [*(a1 + 32) performSelector:sel_updateMecabraWithRegionalOTAAssets_nonRegionalOTAAssets_ withObject:v6 withObject:v5];
   }
 }
 
@@ -2358,14 +2374,11 @@ void *__128__TIMecabraEnvironment_loadMobileAssetContentsWhenMobileAssetChangesF
 
 void __128__TIMecabraEnvironment_loadMobileAssetContentsWhenMobileAssetChangesForMecabra_inputModes_onQueue_oldMobileAssetChangeListener___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v6 = *(a1 + 32);
-  v10 = a4;
-  v7 = a3;
+  v6 = a4;
+  v5 = a3;
   MecabraSetAssetDataItemsForType();
-  v8 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 
-  v9 = *(a1 + 32);
   MecabraSetAssetDataItemsForType();
 }
 

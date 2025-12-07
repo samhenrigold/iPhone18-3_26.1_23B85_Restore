@@ -28,7 +28,9 @@
 - (void)updateTraitCollectionDependents;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BRFileProviderUIExtension
@@ -309,6 +311,18 @@
   [NSLayoutConstraint activateConstraints:v80];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BRFileProviderUIExtension;
+  [(BRFileProviderUIExtension *)&v4 viewWillAppear:appear];
+  [(BRFileProviderUIExtension *)self refreshMode];
+  if ([(BRFileProviderUIExtension *)self didInitializeText])
+  {
+    [(BRFileProviderUIExtension *)self updateText];
+  }
+}
+
 - (void)viewDidLayoutSubviews
 {
   v3.receiver = self;
@@ -337,6 +351,17 @@
   [(BRFileProviderUIExtension *)self updateText];
 
   [(BRFileProviderUIExtension *)self updateContentLayoutAllowingAnimation:0];
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = BRFileProviderUIExtension;
+  [(BRFileProviderUIExtension *)&v6 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  if (window)
+  {
+    [(BRFileProviderUIExtension *)self updateTraitCollectionDependents];
+  }
 }
 
 - (void)traitCollectionDidChange:(id)change

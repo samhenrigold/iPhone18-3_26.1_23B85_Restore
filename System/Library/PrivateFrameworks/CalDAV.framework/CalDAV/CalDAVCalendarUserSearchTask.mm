@@ -28,28 +28,28 @@
 
 + (BOOL)tokensAreLegal:(id)legal
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   legalCopy = legal;
-  v4 = [legalCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [legalCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = 0;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(legalCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         v5 += [v9 length];
         v6 |= [v9 length] > 1;
         if ((v6 & 1) != 0 && v5 > 2)
@@ -59,7 +59,7 @@
         }
       }
 
-      v4 = [legalCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [legalCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -71,13 +71,12 @@
 
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)extraAttributes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   searchType = [(CalDAVCalendarUserSearchTask *)self searchType];
   if (searchType > 2)
   {
@@ -126,64 +125,61 @@ LABEL_18:
     v9 = v8;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
-      v14 = objc_opt_class();
-      v10 = v14;
-      _os_log_impl(&dword_242742000, v9, OS_LOG_TYPE_ERROR, "%{public}@ shouldn't be created finding nothing. Finding all instead.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v10 = v13;
+      _os_log_impl(&dword_242742000, v9, OS_LOG_TYPE_ERROR, "%{public}@ shouldn't be created finding nothing. Finding all instead.", &v12, 0xCu);
     }
   }
 
   searchType = 0;
 LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 
   return searchType;
 }
 
 - (id)searchItems
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   searchStrings = [(CalDAVCalendarUserSearchTask *)self searchStrings];
-  v5 = [searchStrings countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [searchStrings countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     v8 = *MEMORY[0x277CFDE90];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(searchStrings);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [objc_alloc(MEMORY[0x277CFDBE0]) initWithNameSpace:v8 andName:@"search-token"];
         [v11 setPayloadAsString:v10];
         [v3 addObject:v11];
       }
 
-      v6 = [searchStrings countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [searchStrings countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)requestBody
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   propertiesToFind = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
   data = [propertiesToFind count];
 
@@ -194,29 +190,29 @@ LABEL_19:
     extraAttributes = [(CalDAVCalendarUserSearchTask *)self extraAttributes];
     [v5 startElement:@"calendarserver-principal-search" inNamespace:v6 withAttributes:extraAttributes];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     searchItems = [(CalDAVCalendarUserSearchTask *)self searchItems];
-    v9 = [searchItems countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v9 = [searchItems countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(searchItems);
           }
 
-          [*(*(&v32 + 1) + 8 * i) write:v5];
+          [*(*(&v31 + 1) + 8 * i) write:v5];
         }
 
-        v10 = [searchItems countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v10 = [searchItems countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v10);
@@ -236,32 +232,32 @@ LABEL_19:
     v16 = *MEMORY[0x277CFDFC8];
     v17 = *MEMORY[0x277CFDEF8];
     [v5 startElement:*MEMORY[0x277CFDFC8] inNamespace:*MEMORY[0x277CFDEF8] withAttributeNamesAndValues:0];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     propertiesToFind2 = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
-    v19 = [propertiesToFind2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v19 = [propertiesToFind2 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v29;
+      v21 = *v28;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v29 != v21)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(propertiesToFind2);
           }
 
-          v23 = *(*(&v28 + 1) + 8 * j);
+          v23 = *(*(&v27 + 1) + 8 * j);
           name = [v23 name];
           nameSpace = [v23 nameSpace];
           [v5 appendElement:name inNamespace:nameSpace withStringContent:0 withAttributeNamesAndValues:0];
         }
 
-        v20 = [propertiesToFind2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v20 = [propertiesToFind2 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v20);
@@ -271,8 +267,6 @@ LABEL_19:
     [v5 endElement:@"calendarserver-principal-search" inNamespace:v6];
     data = [v5 data];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return data;
 }

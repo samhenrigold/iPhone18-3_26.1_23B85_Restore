@@ -1,8 +1,8 @@
 @interface CALayer
 + (void)cancelAnimation:(uint64_t)animation;
 - (float)displayHeadroom;
-- (uint64_t)kitScreen;
-- (uint64_t)observeDisplayHeadroomChanges:(uint64_t)result;
+- (void)kitScreen;
+- (void)observeDisplayHeadroomChanges:(void *)result;
 - (void)scheduleAnimation:(double)animation atTime:(float)time maxVelocityInPixels:;
 @end
 
@@ -13,7 +13,7 @@
   v3 = objc_opt_self();
 }
 
-- (uint64_t)observeDisplayHeadroomChanges:(uint64_t)result
+- (void)observeDisplayHeadroomChanges:(void *)result
 {
   if (result)
   {
@@ -38,7 +38,7 @@
   }
 }
 
-- (uint64_t)kitScreen
+- (void)kitScreen
 {
   if (result)
   {

@@ -36,7 +36,7 @@
     {
       if (a3 == 92)
       {
-        return @"\\\\"";
+        return @"\\\";
       }
 
       goto LABEL_11;
@@ -134,7 +134,7 @@ LABEL_11:
 {
   v13 = 0;
   v14 = 0;
-  strcpy(v12, "\r\n;,\\"");
+  strcpy(v12, "\r\n;,\");
   v2 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:self];
   [v2 setCharactersToBeSkipped:0];
   v3 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v12)}];

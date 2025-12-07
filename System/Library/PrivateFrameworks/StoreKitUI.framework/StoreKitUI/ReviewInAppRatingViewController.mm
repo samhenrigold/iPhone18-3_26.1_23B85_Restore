@@ -44,8 +44,8 @@ LABEL_3:
 LABEL_6:
   iconCopy = icon;
   v23 = sub_215EC38A8(v13, v15, v16, v18, iconCopy, submitCopy, visionCopy, v20, v19, v12, v21);
-  sub_215BB174C(v12);
-  sub_215BB174C(v20);
+  sub_215BB174C(v12, v21);
+  sub_215BB174C(v20, v19);
 
   return v23;
 }

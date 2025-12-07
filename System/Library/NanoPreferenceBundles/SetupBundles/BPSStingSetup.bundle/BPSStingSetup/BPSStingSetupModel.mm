@@ -68,12 +68,12 @@
 LABEL_11:
   v16 = [(__CFString *)v6 stringByAppendingString:v13];
 
-  v17 = bps_setup_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = bps_setup_log(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = v16;
-    _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Using: %@ for action button animation", &v19, 0xCu);
+    v20 = 138412290;
+    v21 = v16;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Using: %@ for action button animation", &v20, 0xCu);
   }
 
   return v16;
@@ -165,37 +165,37 @@ LABEL_8:
 
 - (id)defaultSetupActionItems
 {
-  v24 = objc_opt_new();
+  v25 = objc_opt_new();
   v3 = +[NRPairedDeviceRegistry sharedInstance];
   v4 = +[NRPairedDeviceRegistry activeDeviceSelectorBlock];
   v5 = [v3 getAllDevicesWithArchivedAltAccountDevicesMatching:v4];
   firstObject = [v5 firstObject];
 
-  v23 = firstObject;
+  v24 = firstObject;
   v7 = [firstObject valueForProperty:NRDevicePropertyIsAltAccount];
   bOOLValue = [v7 BOOLValue];
 
   v9 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.compass" allowPlaceholder:0 error:0];
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
   v10 = self->_defaultSetupActionItems;
-  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v26 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v26 + 1) + 8 * i);
         actionType = [v15 actionType];
         integerValue = [actionType integerValue];
 
@@ -205,35 +205,36 @@ LABEL_8:
           [v15 setActionType:v18];
         }
 
-        if ([(BPSStingSetupModel *)self _shouldShowItem:v15 isTinker:bOOLValue compassInstalled:v9 != 0])
+        v19 = [(BPSStingSetupModel *)self _shouldShowItem:v15 isTinker:bOOLValue compassInstalled:v9 != 0];
+        if (v19)
         {
-          [v24 addObject:v15];
+          [v25 addObject:v15];
         }
 
         else
         {
-          v19 = bps_setup_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = bps_setup_log(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             title = [v15 title];
             *buf = 136315394;
-            v30 = "[BPSStingSetupModel defaultSetupActionItems]";
-            v31 = 2112;
-            v32 = title;
-            _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "%s: Not adding %@ to sting tile list", buf, 0x16u);
+            v31 = "[BPSStingSetupModel defaultSetupActionItems]";
+            v32 = 2112;
+            v33 = title;
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "%s: Not adding %@ to sting tile list", buf, 0x16u);
           }
         }
       }
 
-      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v12);
   }
 
-  v21 = [v24 copy];
+  v22 = [v25 copy];
 
-  return v21;
+  return v22;
 }
 
 @end

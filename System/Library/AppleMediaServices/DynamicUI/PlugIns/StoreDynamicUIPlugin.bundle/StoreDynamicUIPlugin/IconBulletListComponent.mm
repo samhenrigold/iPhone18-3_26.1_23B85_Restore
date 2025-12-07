@@ -15,22 +15,24 @@
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)size withHorizontalFittingPriority:(float)priority verticalFittingPriority:(float)fittingPriority
 {
+  height = size.height;
+  width = size.width;
   selfCopy = self;
-  sub_B5578();
-  v7 = v6;
-  v9 = v8;
+  sub_B5578(width, height, priority, fittingPriority);
+  v11 = v10;
+  v13 = v12;
 
-  v10 = v7;
-  v11 = v9;
-  result.height = v11;
-  result.width = v10;
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_B5894();
+  sub_B5894(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

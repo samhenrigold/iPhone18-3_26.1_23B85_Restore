@@ -43,35 +43,35 @@
 
 + (id)peerOfConnection:(uint64_t)connection
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if (!v2)
   {
-    v19 = v3;
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"connection"];
+    v18 = v3;
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"connection"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(sel_peerOfConnection_);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      *v25 = 138544642;
-      *&v25[4] = v21;
-      *&v25[12] = 2114;
-      *&v25[14] = v23;
-      v26 = 2048;
-      v27 = v19;
-      v28 = 2114;
-      v29 = @"BSXPCServiceConnectionPeer.m";
-      v30 = 1024;
-      v31 = 57;
-      v32 = 2114;
-      v33 = v20;
-      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v25, 0x3Au);
+      v20 = NSStringFromSelector(sel_peerOfConnection_);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      *v24 = 138544642;
+      *&v24[4] = v20;
+      *&v24[12] = 2114;
+      *&v24[14] = v22;
+      v25 = 2048;
+      v26 = v18;
+      v27 = 2114;
+      v28 = @"BSXPCServiceConnectionPeer.m";
+      v29 = 1024;
+      v30 = 57;
+      v31 = 2114;
+      v32 = v19;
+      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v24, 0x3Au);
     }
 
-    v24 = v20;
-    [v20 UTF8String];
+    v23 = v19;
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A84826CLL);
@@ -83,9 +83,9 @@
     v8 = BSServiceXPCLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 138412290;
-      *&v25[4] = v2;
-      _os_log_error_impl(&dword_19A821000, v8, OS_LOG_TYPE_ERROR, "Unable to create a peer for a connection with no PID: %@", v25, 0xCu);
+      *v24 = 138412290;
+      *&v24[4] = v2;
+      _os_log_error_impl(&dword_19A821000, v8, OS_LOG_TYPE_ERROR, "Unable to create a peer for a connection with no PID: %@", v24, 0xCu);
     }
 
     v7 = 0;
@@ -111,9 +111,9 @@
       v10 = v2;
       if (v9)
       {
-        *v25 = v9;
-        *&v25[8] = BSXPCServiceConnectionPeer;
-        v7 = objc_msgSendSuper2(v25, sel_init);
+        *v24 = v9;
+        *&v24[8] = BSXPCServiceConnectionPeer;
+        v7 = objc_msgSendSuper2(v24, sel_init);
         if (v7)
         {
           v11 = [MEMORY[0x1E698E740] processHandleForXPCConnection:v10];
@@ -147,8 +147,6 @@
 
     os_unfair_lock_unlock(&_MergedGlobals_6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

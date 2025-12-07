@@ -33,13 +33,13 @@
 
 - (void)_setupContent
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = VTUILogContextFacility;
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = 136315138;
-    v38 = "[VTUIProximityEnrollmentLanguageOptionsView _setupContent]";
-    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v37, 0xCu);
+    v36 = 136315138;
+    v37 = "[VTUIProximityEnrollmentLanguageOptionsView _setupContent]";
+    _os_log_impl(&dword_2728BC000, v3, OS_LOG_TYPE_DEFAULT, "%s Setup content", &v36, 0xCu);
   }
 
   v4 = objc_alloc_init(VTUIProximityContainerView);
@@ -129,14 +129,13 @@
   [titleLabel setNumberOfLines:0];
 
   [(UIView *)self->_footerView addSubview:self->_continueButton];
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupConstraintsToSize:(CGSize)size
 {
   height = size.height;
   width = size.width;
-  v156[3] = *MEMORY[0x277D85DE8];
+  v155[3] = *MEMORY[0x277D85DE8];
   safeAreaLayoutGuide = [(VTUIProximityEnrollmentLanguageOptionsView *)self safeAreaLayoutGuide];
   array = [MEMORY[0x277CBEB18] array];
   height = [(VTUIProximityView *)self _shouldUsePhoneLandscapeLayoutForSize:width, height];
@@ -144,30 +143,30 @@
   isDeviceIPad = [v9 isDeviceIPad];
 
   containerView = self->_containerView;
-  v145 = array;
-  v141 = height;
-  v135 = safeAreaLayoutGuide;
+  v144 = array;
+  v140 = height;
+  v134 = safeAreaLayoutGuide;
   if (isDeviceIPad)
   {
     centerYAnchor = [(VTUIProximityContainerView *)containerView centerYAnchor];
     centerYAnchor2 = [safeAreaLayoutGuide centerYAnchor];
     v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v156[0] = v13;
+    v155[0] = v13;
     centerXAnchor = [(VTUIProximityContainerView *)self->_containerView centerXAnchor];
     centerXAnchor2 = [safeAreaLayoutGuide centerXAnchor];
     v16 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v156[1] = v16;
+    v155[1] = v16;
     widthAnchor = [(VTUIProximityContainerView *)self->_containerView widthAnchor];
     [(VTUIStyle *)self->_vtStyle proxViewMaxWidth];
     v18 = [widthAnchor constraintEqualToConstant:?];
-    v156[2] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v156 count:3];
-    [v145 addObjectsFromArray:v19];
+    v155[2] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v155 count:3];
+    [v144 addObjectsFromArray:v19];
 
-    array = v145;
-    v20 = v141;
+    array = v144;
+    v20 = v140;
 
-    if (!v141)
+    if (!v140)
     {
       goto LABEL_8;
     }
@@ -181,8 +180,8 @@ LABEL_6:
   bottomAnchor2 = [(VTUIProximityEnrollmentLanguageOptionsView *)self bottomAnchor];
   [(VTUIStyle *)self->_vtStyle proxContainerHorizontalVerticalPadding];
   v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-v23];
-  v155 = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v155 count:1];
+  v154 = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v154 count:1];
   [array addObjectsFromArray:v25];
 
   v26 = self->_containerView;
@@ -191,15 +190,15 @@ LABEL_6:
     centerXAnchor3 = [(VTUIProximityContainerView *)v26 centerXAnchor];
     centerXAnchor4 = [safeAreaLayoutGuide centerXAnchor];
     v29 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v154[0] = v29;
+    v153[0] = v29;
     widthAnchor2 = [(VTUIProximityContainerView *)self->_containerView widthAnchor];
     [(VTUIStyle *)self->_vtStyle proxViewMaxWidthPhoneLandscape];
     v31 = [widthAnchor2 constraintEqualToConstant:?];
-    v154[1] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v154 count:2];
+    v153[1] = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v153 count:2];
     [array addObjectsFromArray:v32];
 
-    v20 = v141;
+    v20 = v140;
     goto LABEL_6;
   }
 
@@ -207,16 +206,16 @@ LABEL_6:
   leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
   [(VTUIStyle *)self->_vtStyle proxContainerHorizontalVerticalPadding];
   v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:?];
-  v153[0] = v35;
+  v152[0] = v35;
   trailingAnchor = [(VTUIProximityContainerView *)self->_containerView trailingAnchor];
   trailingAnchor2 = [safeAreaLayoutGuide trailingAnchor];
   [(VTUIStyle *)self->_vtStyle proxContainerHorizontalVerticalPadding];
   v39 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v38];
-  v153[1] = v39;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v153 count:2];
+  v152[1] = v39;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v152 count:2];
   [array addObjectsFromArray:v40];
 
-  v20 = v141;
+  v20 = v140;
 LABEL_8:
   [(VTUIStyle *)self->_vtStyle proxViewHeight];
 LABEL_9:
@@ -224,7 +223,7 @@ LABEL_9:
   heightAnchor = [(VTUIProximityContainerView *)self->_containerView heightAnchor];
   v43 = [heightAnchor constraintEqualToConstant:v41];
 
-  v134 = v43;
+  v133 = v43;
   [array addObject:v43];
   safeAreaLayoutGuide2 = [(VTUIProximityContainerView *)self->_containerView safeAreaLayoutGuide];
   vtStyle = self->_vtStyle;
@@ -243,42 +242,42 @@ LABEL_9:
   topAnchor = [safeAreaLayoutGuide2 topAnchor];
   [(VTUIStyle *)self->_vtStyle proxTitleFirstBaselineFromTop];
   v47 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor constant:?];
-  v152[0] = v47;
+  v151[0] = v47;
   leadingAnchor3 = [(UILabel *)self->_titleLabel leadingAnchor];
   leadingAnchor4 = [safeAreaLayoutGuide2 leadingAnchor];
   [(VTUIStyle *)self->_vtStyle proxLeading];
   v50 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:?];
-  v152[1] = v50;
+  v151[1] = v50;
   trailingAnchor3 = [(UILabel *)self->_titleLabel trailingAnchor];
   trailingAnchor4 = [safeAreaLayoutGuide2 trailingAnchor];
   v53 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-v46];
-  v152[2] = v53;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v152 count:3];
-  [v145 addObjectsFromArray:v54];
+  v151[2] = v53;
+  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v151 count:3];
+  [v144 addObjectsFromArray:v54];
 
   centerYAnchor3 = [(UIButton *)self->_dismissButton centerYAnchor];
   topAnchor2 = [safeAreaLayoutGuide2 topAnchor];
   [(VTUIStyle *)self->_vtStyle proxTrainingDismissButtonVerticalPaddingTop];
   v55 = [centerYAnchor3 constraintEqualToAnchor:topAnchor2 constant:?];
-  v151[0] = v55;
+  v150[0] = v55;
   centerXAnchor5 = [(UIButton *)self->_dismissButton centerXAnchor];
   trailingAnchor5 = [safeAreaLayoutGuide2 trailingAnchor];
   [(VTUIStyle *)self->_vtStyle proxTrainingDismissButtonHorizontalPadding];
   v58 = [centerXAnchor5 constraintEqualToAnchor:trailingAnchor5 constant:?];
-  v151[1] = v58;
+  v150[1] = v58;
   widthAnchor3 = [(UIButton *)self->_dismissButton widthAnchor];
   [(VTUIStyle *)self->_vtStyle proxTrainingDismissButtonWidthOrHeight];
   v60 = [widthAnchor3 constraintEqualToConstant:?];
-  v151[2] = v60;
+  v150[2] = v60;
   heightAnchor2 = [(UIButton *)self->_dismissButton heightAnchor];
   [(VTUIStyle *)self->_vtStyle proxTrainingDismissButtonWidthOrHeight];
   v62 = [heightAnchor2 constraintEqualToConstant:?];
-  v151[3] = v62;
-  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v151 count:4];
-  [v145 addObjectsFromArray:v63];
+  v150[3] = v62;
+  v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v150 count:4];
+  [v144 addObjectsFromArray:v63];
 
   v64 = self->_vtStyle;
-  if (v141)
+  if (v140)
   {
     [(VTUIStyle *)v64 proxViewLanguageOptionsHeightPhoneLandscape];
   }
@@ -291,58 +290,58 @@ LABEL_9:
   v66 = v65;
   leadingAnchor5 = [(UIView *)self->_languagesView leadingAnchor];
   leadingAnchor6 = [(VTUIProximityContainerView *)self->_containerView leadingAnchor];
-  v122 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v150[0] = v122;
+  v121 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+  v149[0] = v121;
   trailingAnchor6 = [(UIView *)self->_languagesView trailingAnchor];
   trailingAnchor7 = [(VTUIProximityContainerView *)self->_containerView trailingAnchor];
   v68 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7];
-  v150[1] = v68;
+  v149[1] = v68;
   centerYAnchor4 = [(UIPickerView *)self->_languagesPickerView centerYAnchor];
   centerYAnchor5 = [(VTUIProximityContainerView *)self->_containerView centerYAnchor];
   v71 = [centerYAnchor4 constraintEqualToAnchor:centerYAnchor5];
-  v150[2] = v71;
+  v149[2] = v71;
   heightAnchor3 = [(UIView *)self->_languagesView heightAnchor];
   v73 = [heightAnchor3 constraintEqualToConstant:v66];
-  v150[3] = v73;
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v150 count:4];
-  [v145 addObjectsFromArray:v74];
+  v149[3] = v73;
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v149 count:4];
+  [v144 addObjectsFromArray:v74];
 
   centerXAnchor6 = [(UIPickerView *)self->_languagesPickerView centerXAnchor];
   centerXAnchor7 = [(UIView *)self->_languagesView centerXAnchor];
   v76 = [centerXAnchor6 constraintEqualToAnchor:centerXAnchor7];
-  v149[0] = v76;
+  v148[0] = v76;
   centerYAnchor6 = [(UIPickerView *)self->_languagesPickerView centerYAnchor];
   centerYAnchor7 = [(UIView *)self->_languagesView centerYAnchor];
   v79 = [centerYAnchor6 constraintEqualToAnchor:centerYAnchor7];
-  v149[1] = v79;
+  v148[1] = v79;
   heightAnchor4 = [(UIPickerView *)self->_languagesPickerView heightAnchor];
   heightAnchor5 = [(UIView *)self->_languagesView heightAnchor];
   v82 = [heightAnchor4 constraintEqualToAnchor:heightAnchor5];
-  v149[2] = v82;
-  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v149 count:3];
-  [v145 addObjectsFromArray:v83];
+  v148[2] = v82;
+  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v148 count:3];
+  [v144 addObjectsFromArray:v83];
 
   topAnchor3 = [(UIView *)self->_footerView topAnchor];
   bottomAnchor3 = [(UIPickerView *)self->_languagesPickerView bottomAnchor];
-  v123 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3];
-  v148[0] = v123;
+  v122 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3];
+  v147[0] = v122;
   bottomAnchor4 = [(UIView *)self->_footerView bottomAnchor];
   bottomAnchor5 = [safeAreaLayoutGuide2 bottomAnchor];
   v85 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v148[1] = v85;
+  v147[1] = v85;
   leadingAnchor7 = [(UIView *)self->_footerView leadingAnchor];
   leadingAnchor8 = [safeAreaLayoutGuide2 leadingAnchor];
   v88 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
-  v148[2] = v88;
+  v147[2] = v88;
   trailingAnchor8 = [(UIView *)self->_footerView trailingAnchor];
   trailingAnchor9 = [safeAreaLayoutGuide2 trailingAnchor];
   v91 = [trailingAnchor8 constraintEqualToAnchor:trailingAnchor9];
-  v148[3] = v91;
-  v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v148 count:4];
-  [v145 addObjectsFromArray:v92];
+  v147[3] = v91;
+  v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:4];
+  [v144 addObjectsFromArray:v92];
 
   v93 = self->_vtStyle;
-  if (v141)
+  if (v140)
   {
     [(VTUIStyle *)v93 proxLeadingLandscape];
     v95 = v94;
@@ -359,46 +358,44 @@ LABEL_9:
   v98 = v96;
   heightAnchor6 = [(VTUIButton *)self->_continueButton heightAnchor];
   [(VTUIStyle *)self->_vtStyle proxPrimaryButtonHeight];
-  v133 = [heightAnchor6 constraintEqualToConstant:?];
-  v147[0] = v133;
+  v132 = [heightAnchor6 constraintEqualToConstant:?];
+  v146[0] = v132;
   leadingAnchor9 = [(VTUIButton *)self->_continueButton leadingAnchor];
   leadingAnchor10 = [(UIView *)self->_footerView leadingAnchor];
-  v121 = [leadingAnchor9 constraintEqualToAnchor:leadingAnchor10 constant:v95];
-  v147[1] = v121;
+  v120 = [leadingAnchor9 constraintEqualToAnchor:leadingAnchor10 constant:v95];
+  v146[1] = v120;
   trailingAnchor10 = [(VTUIButton *)self->_continueButton trailingAnchor];
   trailingAnchor11 = [(UIView *)self->_footerView trailingAnchor];
   v101 = [trailingAnchor10 constraintEqualToAnchor:trailingAnchor11 constant:-v98];
-  v147[2] = v101;
+  v146[2] = v101;
   bottomAnchor6 = [(VTUIButton *)self->_continueButton bottomAnchor];
   bottomAnchor7 = [(VTUIProximityContainerView *)self->_containerView bottomAnchor];
   [(VTUIStyle *)self->_vtStyle proxPaddingFromBottom];
   v105 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7 constant:-v104];
-  v147[3] = v105;
-  v106 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:4];
-  [v145 addObjectsFromArray:v106];
+  v146[3] = v105;
+  v106 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:4];
+  [v144 addObjectsFromArray:v106];
 
   leadingAnchor11 = [(UILabel *)self->_settingsLabel leadingAnchor];
   leadingAnchor12 = [(UIView *)self->_footerView leadingAnchor];
   v107 = [leadingAnchor11 constraintEqualToAnchor:leadingAnchor12];
-  v146[0] = v107;
+  v145[0] = v107;
   trailingAnchor12 = [(UILabel *)self->_settingsLabel trailingAnchor];
   trailingAnchor13 = [(UIView *)self->_footerView trailingAnchor];
   v110 = [trailingAnchor12 constraintEqualToAnchor:trailingAnchor13];
-  v146[1] = v110;
+  v145[1] = v110;
   bottomAnchor8 = [(UILabel *)self->_settingsLabel bottomAnchor];
   topAnchor4 = [(VTUIButton *)self->_continueButton topAnchor];
   [(VTUIStyle *)self->_vtStyle proxSettingsLabelBottomMargin];
   v114 = [bottomAnchor8 constraintEqualToAnchor:topAnchor4 constant:-v113];
-  v146[2] = v114;
-  v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:3];
-  [v145 addObjectsFromArray:v115];
+  v145[2] = v114;
+  v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:3];
+  [v144 addObjectsFromArray:v115];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v145];
-  v116 = [MEMORY[0x277CBEA60] arrayWithArray:v145];
+  [MEMORY[0x277CCAAD0] activateConstraints:v144];
+  v116 = [MEMORY[0x277CBEA60] arrayWithArray:v144];
   viewConstraints = self->_viewConstraints;
   self->_viewConstraints = v116;
-
-  v118 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pickerView:(id)view titleForRow:(int64_t)row forComponent:(int64_t)component

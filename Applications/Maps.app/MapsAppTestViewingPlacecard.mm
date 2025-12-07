@@ -10,8 +10,8 @@
   testCoordinator = [(MapsAppTest *)self testCoordinator];
   [testCoordinator pptTestMaximizePlaceCardAnimated:1];
 
-  options = [(MapsAppTest *)self options];
-  v5 = [options objectForKeyedSubscript:@"duration"];
+  v4 = objc_msgSend_options(self);
+  v5 = [v4 objectForKeyedSubscript:@"duration"];
   [v5 doubleValue];
   v7 = v6;
 

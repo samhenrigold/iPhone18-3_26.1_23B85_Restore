@@ -22,34 +22,34 @@
 {
   v2 = qword_100099380;
   selfCopy = self;
-  v4 = selfCopy;
+  v5 = selfCopy;
   if (v2 != -1)
   {
     selfCopy = swift_once();
   }
 
-  __chkstk_darwin(selfCopy);
-  sub_100017538(&qword_1000995E8);
+  __chkstk_darwin(selfCopy, v4);
+  sub_100017538(&qword_1000995E8, &qword_100078E80);
   sub_100060A7C();
 
-  return v6;
+  return v7;
 }
 
 - (MPVoicemailManagerProtocol)voicemailManager
 {
   v2 = qword_100099380;
   selfCopy = self;
-  v4 = selfCopy;
+  v5 = selfCopy;
   if (v2 != -1)
   {
     selfCopy = swift_once();
   }
 
-  __chkstk_darwin(selfCopy);
-  sub_100017538(&qword_1000995D8);
+  __chkstk_darwin(selfCopy, v4);
+  sub_100017538(&qword_1000995D8, &qword_100078E78);
   sub_100060A7C();
 
-  return v6;
+  return v7;
 }
 
 @end

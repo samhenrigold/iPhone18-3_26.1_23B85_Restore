@@ -7,11 +7,11 @@
 - (PKPassEntitlementsComposer)initWithRedeemableSharedEntitlements:(id)entitlements predefinedSharedEntitlements:(id)sharedEntitlements;
 - (PKPassEntitlementsComposerPredefinedSelectionEntry)activePredefinedSelectionEntry;
 - (id)_allPossibleCapabilitySetsForView:(id)view;
+- (id)_initWithSharedEntitlements:(void *)entitlements availableEntitlements:(void *)availableEntitlements predefinedSharedEntitlements:(unsigned __int8)sharedEntitlements editable:(unsigned __int8)editable isMyEntitlements:;
 - (id)addPredefinedSharedEntitlementSelection:(id)selection;
 - (id)localizedSelectedEntitlementSummaryForAccessType:(int64_t)type;
 - (id)viewFor:(id)for;
 - (id)viewForEnabledEntitlements;
-- (unsigned)_initWithSharedEntitlements:(void *)entitlements availableEntitlements:(void *)availableEntitlements predefinedSharedEntitlements:(unsigned __int8)sharedEntitlements editable:(unsigned __int8)editable isMyEntitlements:;
 - (void)_rootEntryNodeDidSetEnabled:(id)enabled;
 - (void)setPossiblePredefinedSharedEntitlementSelection:(id)selection;
 @end
@@ -213,7 +213,7 @@ LABEL_23:
   return v26;
 }
 
-- (unsigned)_initWithSharedEntitlements:(void *)entitlements availableEntitlements:(void *)availableEntitlements predefinedSharedEntitlements:(unsigned __int8)sharedEntitlements editable:(unsigned __int8)editable isMyEntitlements:
+- (id)_initWithSharedEntitlements:(void *)entitlements availableEntitlements:(void *)availableEntitlements predefinedSharedEntitlements:(unsigned __int8)sharedEntitlements editable:(unsigned __int8)editable isMyEntitlements:
 {
   v182 = *MEMORY[0x1E69E9840];
   v11 = a2;
@@ -232,31 +232,31 @@ LABEL_23:
   {
     v123 = v11;
     v15 = [v11 copy];
-    v16 = *(v14 + 1);
-    *(v14 + 1) = v15;
+    v16 = v14[1];
+    v14[1] = v15;
 
     v122 = entitlementsCopy;
     v17 = [entitlementsCopy copy];
-    v18 = *(v14 + 2);
-    *(v14 + 2) = v17;
+    v18 = v14[2];
+    v14[2] = v17;
 
     sharedEntitlementsCopy = sharedEntitlements;
-    v14[97] = sharedEntitlements;
-    v14[96] = editable;
+    *(v14 + 97) = sharedEntitlements;
+    *(v14 + 96) = editable;
     v19 = +[PKPassEntitlementCapabilitySet predefinedSets];
-    v20 = *(v14 + 6);
-    *(v14 + 6) = v19;
+    v20 = v14[6];
+    v14[6] = v19;
 
-    v135 = [*(v14 + 1) pk_indexDictionaryByApplyingBlock:&__block_literal_global_289_0];
-    v21 = [*(v14 + 2) pk_indexDictionaryByApplyingBlock:&__block_literal_global_292];
+    v135 = [v14[1] pk_indexDictionaryByApplyingBlock:&__block_literal_global_289_0];
+    v21 = [v14[2] pk_indexDictionaryByApplyingBlock:&__block_literal_global_292];
     v137 = [v21 mutableCopy];
 
-    v129 = [*(v14 + 2) mutableCopy];
+    v129 = [v14[2] mutableCopy];
     v170 = 0u;
     v171 = 0u;
     v172 = 0u;
     v173 = 0u;
-    v22 = *(v14 + 1);
+    v22 = v14[1];
     v23 = [v22 countByEnumeratingWithState:&v170 objects:v181 count:16];
     if (v23)
     {
@@ -290,14 +290,14 @@ LABEL_23:
     }
 
     v31 = [v129 copy];
-    v32 = *(v14 + 2);
-    *(v14 + 2) = v31;
+    v32 = v14[2];
+    v14[2] = v31;
 
     v168 = 0u;
     v169 = 0u;
     v166 = 0u;
     v167 = 0u;
-    v33 = *(v14 + 1);
+    v33 = v14[1];
     v34 = [v33 countByEnumeratingWithState:&v166 objects:v180 count:16];
     if (v34)
     {
@@ -343,7 +343,7 @@ LABEL_29:
             v165 = 0u;
             v162 = 0u;
             v163 = 0u;
-            v44 = *(v14 + 1);
+            v44 = v14[1];
             v45 = [v44 countByEnumeratingWithState:&v162 objects:v179 count:16];
             v124 = availableEntitlementsCopy;
             v125 = v36;
@@ -434,25 +434,25 @@ LABEL_31:
 LABEL_62:
 
                   v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                  v68 = *(v14 + 10);
-                  *(v14 + 10) = v67;
+                  v68 = v14[10];
+                  v14[10] = v67;
 
                   v69 = [[PKPassEntitlementsComposerEntryNode alloc] initWithIdentifier:@"Global" parentEntitlementComposer:v14];
-                  v70 = *(v14 + 7);
-                  *(v14 + 7) = v69;
+                  v70 = v14[7];
+                  v14[7] = v69;
 
-                  [*(v14 + 7) setTimeConfiguration:v36];
-                  [*(v14 + 10) addObject:*(v14 + 7)];
+                  [v14[7] setTimeConfiguration:v36];
+                  [v14[10] addObject:v14[7]];
                   pk_createStrongPointerPersonalityToStrongObjects = [MEMORY[0x1E696AD18] pk_createStrongPointerPersonalityToStrongObjects];
-                  v72 = *(v14 + 8);
-                  *(v14 + 8) = pk_createStrongPointerPersonalityToStrongObjects;
+                  v72 = v14[8];
+                  v14[8] = pk_createStrongPointerPersonalityToStrongObjects;
 
                   v133 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   v160 = 0u;
                   v161 = 0u;
                   v158 = 0u;
                   v159 = 0u;
-                  obj = *(v14 + 2);
+                  obj = v14[2];
                   v73 = [obj countByEnumeratingWithState:&v158 objects:v178 count:16];
                   if (v73)
                   {
@@ -470,7 +470,7 @@ LABEL_62:
                         v76 = *(*(&v158 + 1) + 8 * k);
                         entitlementIdentifier2 = [v76 entitlementIdentifier];
                         v78 = [v135 objectForKeyedSubscript:entitlementIdentifier2];
-                        if (v78 || v14[97] == 1)
+                        if (v78 || *(v14 + 97) == 1)
                         {
                           v79 = [[PKPassEntitlementsComposerEntry alloc] initWithDisplayableEntitlement:v76 parentEntitlementComposer:v14];
                           v80 = v78;
@@ -495,7 +495,7 @@ LABEL_62:
 
                           [v133 addObject:v79];
                           v84 = [[PKPassEntitlementsComposerEntitlementEntryNode alloc] initWithDisplayableEntitlement:v76 sharedEntitlement:v80 parentEntitlementComposer:v14];
-                          [(PKPassEntitlementsComposerEntryNode *)v84 setParent:*(v14 + 7)];
+                          [(PKPassEntitlementsComposerEntryNode *)v84 setParent:v14[7]];
                           [(PKPassEntitlementsComposerEntryNode *)v84 setEnabled:v78 != 0];
                           if (v131)
                           {
@@ -520,10 +520,10 @@ LABEL_62:
                             }
                           }
 
-                          children = [*(v14 + 7) children];
+                          children = [v14[7] children];
                           [children addObject:v84];
 
-                          [*(v14 + 8) setObject:v84 forKey:v79];
+                          [v14[8] setObject:v84 forKey:v79];
                         }
                       }
 
@@ -535,14 +535,14 @@ LABEL_62:
 
                   if (v132)
                   {
-                    v88 = [*(v14 + 1) count];
-                    v89 = *(v14 + 7);
+                    v88 = [v14[1] count];
+                    v89 = v14[7];
                     if (v88)
                     {
                       [v89 setShareability:v126];
-                      [*(v14 + 7) setVisibility:v127];
-                      [*(v14 + 7) setManageability:v128];
-                      [*(v14 + 7) setIntraAccountSharingEnabled:v120 == 1];
+                      [v14[7] setVisibility:v127];
+                      [v14[7] setManageability:v128];
+                      [v14[7] setIntraAccountSharingEnabled:v120 == 1];
                     }
 
                     else
@@ -553,19 +553,19 @@ LABEL_62:
 
                   v90 = [v133 copy];
                   v91 = [v90 sortedArrayUsingComparator:&__block_literal_global_302];
-                  v92 = *(v14 + 4);
-                  *(v14 + 4) = v91;
+                  v92 = v14[4];
+                  v14[4] = v91;
 
                   v93 = [v133 pk_indexDictionaryByApplyingBlock:&__block_literal_global_305_0];
-                  v94 = *(v14 + 3);
-                  *(v14 + 3) = v93;
+                  v94 = v14[3];
+                  v14[3] = v93;
 
-                  *(v14 + 11) = [v133 count];
+                  v14[11] = [v133 count];
                   v154 = 0u;
                   v155 = 0u;
                   v156 = 0u;
                   v157 = 0u;
-                  v95 = *(v14 + 10);
+                  v95 = v14[10];
                   v96 = [v95 countByEnumeratingWithState:&v154 objects:v177 count:16];
                   if (v96)
                   {
@@ -580,7 +580,7 @@ LABEL_62:
                           objc_enumerationMutation(v95);
                         }
 
-                        [*(*(&v154 + 1) + 8 * m) setEditable:v14[97]];
+                        [*(*(&v154 + 1) + 8 * m) setEditable:*(v14 + 97)];
                       }
 
                       v97 = [v95 countByEnumeratingWithState:&v154 objects:v177 count:16];
@@ -590,12 +590,12 @@ LABEL_62:
                   }
 
                   composeSharedEntitlements = [v14 composeSharedEntitlements];
-                  v14[97] = 1;
+                  *(v14 + 97) = 1;
                   v149 = 0u;
                   v150 = 0u;
                   v151 = 0u;
                   v152 = 0u;
-                  v100 = *(v14 + 10);
+                  v100 = v14[10];
                   v101 = [v100 countByEnumeratingWithState:&v149 objects:v176 count:16];
                   if (v101)
                   {
@@ -670,12 +670,12 @@ LABEL_62:
 
 LABEL_111:
 
-                  v14[97] = sharedEntitlementsCopy;
+                  *(v14 + 97) = sharedEntitlementsCopy;
                   v139 = 0u;
                   v140 = 0u;
                   v141 = 0u;
                   v142 = 0u;
-                  v114 = *(v14 + 10);
+                  v114 = v14[10];
                   v115 = [v114 countByEnumeratingWithState:&v139 objects:v174 count:16];
                   entitlementsCopy = v122;
                   if (v115)
@@ -691,7 +691,7 @@ LABEL_111:
                           objc_enumerationMutation(v114);
                         }
 
-                        [*(*(&v139 + 1) + 8 * jj) setEditable:v14[97]];
+                        [*(*(&v139 + 1) + 8 * jj) setEditable:*(v14 + 97)];
                       }
 
                       v116 = [v114 countByEnumeratingWithState:&v139 objects:v174 count:16];
@@ -822,7 +822,7 @@ uint64_t __135__PKPassEntitlementsComposer__initWithSharedEntitlements_available
   v8 = v7;
   if (v6 == v7)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -839,12 +839,12 @@ uint64_t __135__PKPassEntitlementsComposer__initWithSharedEntitlements_available
 
     if (v9)
     {
-      v10 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v10 = [v6 isEqualToString:v7];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
     }
   }
 
@@ -858,7 +858,7 @@ uint64_t __135__PKPassEntitlementsComposer__initWithSharedEntitlements_available
     v11 = [*(a1 + 32) hasCanonicallyEquivalentRoleToPassSharedEntitlement:v3];
   }
 
-  return v10 & v11;
+  return isEqualToString & v11;
 }
 
 uint64_t __55__PKPassEntitlementsComposer__createEntitlementEntries__block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1351,9 +1351,9 @@ LABEL_10:
 
   else
   {
-    v10 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v10)
+    if (isEqualToString)
     {
       goto LABEL_10;
     }
@@ -1454,9 +1454,9 @@ LABEL_30:
 
           if (@"carKeyEntitlementTemplateV2" && v17)
           {
-            v19 = [(__CFString *)v17 isEqualToString:@"carKeyEntitlementTemplateV2"];
+            isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-            if (v19)
+            if (isEqualToString)
             {
               goto LABEL_30;
             }

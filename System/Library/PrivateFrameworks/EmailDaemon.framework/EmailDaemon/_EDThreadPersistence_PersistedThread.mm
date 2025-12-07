@@ -278,52 +278,50 @@ LABEL_14:
 
 - (void)addKeyPathsForDisplayMessageChangeToKeyPaths:(id)paths
 {
-  v7[3] = *MEMORY[0x1E69E9840];
+  v6[3] = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   v4 = *MEMORY[0x1E699A9A8];
-  v7[0] = *MEMORY[0x1E699A9A0];
-  v7[1] = v4;
-  v7[2] = *MEMORY[0x1E699A890];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[0] = *MEMORY[0x1E699A9A0];
+  v6[1] = v4;
+  v6[2] = *MEMORY[0x1E699A890];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   [pathsCopy ef_addAbsentObjectsFromArrayAccordingToEquals:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)addMailboxes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [(_EDThreadPersistence_PersistedThread *)self _mailboxDatabaseIDsForWrappedMessages];
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v3 = v19 = 0u;
+  v17 = 0u;
+  v3 = v18 = 0u;
   obj = v3;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
-  v15 = v4 != 0;
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v14 = v4 != 0;
   if (v4)
   {
     v5 = 0;
-    v6 = *v19;
+    v6 = *v18;
     v7 = *MEMORY[0x1E699A728];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         sqlHelper = [(_EDThreadPersistence_PersistedThread *)self sqlHelper];
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke;
-        v17[3] = &unk_1E8250CF8;
-        v17[4] = self;
-        v17[5] = v9;
-        v11 = [sqlHelper executeUpsertSQL:@"INSERT OR IGNORE INTO thread_mailboxes (thread bindings:mailbox) VALUES (:thread errorHandler:{:mailbox);", v17, &__block_literal_global_272}];
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __52___EDThreadPersistence_PersistedThread_addMailboxes__block_invoke;
+        v16[3] = &unk_1E8250CF8;
+        v16[4] = self;
+        v16[5] = v9;
+        v11 = [sqlHelper executeUpsertSQL:@"INSERT OR IGNORE INTO thread_mailboxes (thread bindings:mailbox) VALUES (:thread errorHandler:{:mailbox);", v16, &__block_literal_global_272}];
 
         if (v11)
         {
@@ -341,57 +339,56 @@ LABEL_14:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v4);
 
     if (v5 < 1)
     {
-      v15 = 0;
+      v14 = 0;
       goto LABEL_18;
     }
 
     v3 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      [(_EDThreadPersistence_PersistedThread *)v22 addMailboxes];
+      [(_EDThreadPersistence_PersistedThread *)v21 addMailboxes];
     }
   }
 
 LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v14;
 }
 
 - (id)_mailboxDatabaseIDsForWrappedMessages
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   wrappedMessages = [(_EDThreadPersistence_PersistedThread *)self wrappedMessages];
-  v5 = [wrappedMessages countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [wrappedMessages countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(wrappedMessages);
         }
 
-        message = [*(*(&v16 + 1) + 8 * i) message];
+        message = [*(*(&v15 + 1) + 8 * i) message];
         mailboxObjectIDs = [message mailboxObjectIDs];
         [v3 addObjectsFromArray:mailboxObjectIDs];
       }
 
-      v5 = [wrappedMessages countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [wrappedMessages countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -401,8 +398,6 @@ LABEL_18:
   mailboxPersistence = [messagePersistence mailboxPersistence];
   v12 = [mailboxPersistence mailboxDatabaseIDsForMailboxObjectIDs:v3 createIfNecessary:0];
   allObjects = [v12 allObjects];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return allObjects;
 }
@@ -490,31 +485,30 @@ LABEL_18:
 
 - (BOOL)addSenders:(id)senders
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke;
-  v8[3] = &unk_1E8258BC8;
-  v8[4] = self;
-  v9 = @"INSERT INTO thread_senders( thread,   address,   date) VALUES( :thread,   :address,   :date) ON CONFLICT (thread, address) DO UPDATE SET   date = max(date, excluded.date) ;";
-  v10 = &v11;
-  [senders enumerateKeysAndObjectsUsingBlock:v8];
-  v4 = *(v12 + 6);
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __51___EDThreadPersistence_PersistedThread_addSenders___block_invoke;
+  v7[3] = &unk_1E8258BC8;
+  v7[4] = self;
+  v8 = @"INSERT INTO thread_senders( thread,   address,   date) VALUES( :thread,   :address,   :date) ON CONFLICT (thread, address) DO UPDATE SET   date = max(date, excluded.date) ;";
+  v9 = &v10;
+  [senders enumerateKeysAndObjectsUsingBlock:v7];
+  v4 = *(v11 + 6);
   if (v4 >= 1)
   {
     v5 = +[EDThreadPersistence log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [(_EDThreadPersistence_PersistedThread *)v15 addSenders:[(_EDThreadPersistence_PersistedThread *)self threadDatabaseID]];
+      [(_EDThreadPersistence_PersistedThread *)v14 addSenders:[(_EDThreadPersistence_PersistedThread *)self threadDatabaseID]];
     }
   }
 
-  _Block_object_dispose(&v11, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
   return v4 > 0;
 }
 
@@ -657,42 +651,42 @@ LABEL_18:
 
 - (BOOL)addRecipients:(id)recipients ofType:(unint64_t)type
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   recipientsCopy = recipients;
   if ([recipientsCopy count])
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_invoke;
-    v14[3] = &unk_1E8258C38;
-    v14[5] = &v15;
-    v14[6] = type;
-    v14[4] = self;
-    [recipientsCopy enumerateKeysAndObjectsUsingBlock:v14];
-    v7 = *(v16 + 6);
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __61___EDThreadPersistence_PersistedThread_addRecipients_ofType___block_invoke;
+    v13[3] = &unk_1E8258C38;
+    v13[5] = &v14;
+    v13[6] = type;
+    v13[4] = self;
+    [recipientsCopy enumerateKeysAndObjectsUsingBlock:v13];
+    v7 = *(v15 + 6);
     v8 = v7 > 0;
     if (v7 >= 1)
     {
       v9 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *(v16 + 6);
+        v11 = *(v15 + 6);
         threadDatabaseID = [(_EDThreadPersistence_PersistedThread *)self threadDatabaseID];
         *buf = 67109632;
-        v20 = v12;
-        v21 = 1024;
+        v19 = v11;
+        v20 = 1024;
         typeCopy = type;
-        v23 = 2048;
-        v24 = threadDatabaseID;
+        v22 = 2048;
+        v23 = threadDatabaseID;
         _os_log_debug_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEBUG, "Added/updated %u type %u recipient(s) for thread DB ID %lld.", buf, 0x18u);
       }
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
   }
 
   else
@@ -700,13 +694,12 @@ LABEL_18:
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)_ensureTempMessagesView
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = 1;
   if (!self->_didCreateTempMessagesView)
   {
@@ -717,23 +710,23 @@ LABEL_18:
       v2 = 0;
 LABEL_24:
       objc_autoreleasePoolPop(v4);
-      goto LABEL_25;
+      return v2;
     }
 
     array = [MEMORY[0x1E695DF70] array];
     sqlHelper = [(_EDThreadPersistence_PersistedThread *)self sqlHelper];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke;
-    v26[3] = &unk_1E8250D20;
-    v26[4] = self;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke_357;
-    v24[3] = &unk_1E8250300;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke;
+    v25[3] = &unk_1E8250D20;
+    v25[4] = self;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __63___EDThreadPersistence_PersistedThread__ensureTempMessagesView__block_invoke_357;
+    v23[3] = &unk_1E8250300;
     v7 = array;
-    v25 = v7;
-    v8 = [sqlHelper executeSelectSQL:@"SELECT ROWID FROM temp_thread_scope_message WHERE (conversation_id = :conversation_id)" bindings:v26 errorHandler:&__block_literal_global_356 rowHandler:v24];
+    v24 = v7;
+    v8 = [sqlHelper executeSelectSQL:@"SELECT ROWID FROM temp_thread_scope_message WHERE (conversation_id = :conversation_id)" bindings:v25 errorHandler:&__block_literal_global_356 rowHandler:v23];
 
     if ([v7 count])
     {
@@ -758,14 +751,14 @@ LABEL_24:
       v15 = +[EDThreadPersistence log];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v22 = [v7 count];
+        v21 = [v7 count];
         threadDatabaseID = [(_EDThreadPersistence_PersistedThread *)self threadDatabaseID];
         *buf = 67109634;
-        v28 = v22;
-        v29 = 2114;
-        v30 = v9;
-        v31 = 2048;
-        v32 = threadDatabaseID;
+        v27 = v21;
+        v28 = 2114;
+        v29 = v9;
+        v30 = 2048;
+        v31 = threadDatabaseID;
         _os_log_debug_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEBUG, "Found %u rows {%{public}@} for thread DB ID %lld.", buf, 0x1Cu);
       }
     }
@@ -805,8 +798,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

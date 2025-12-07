@@ -23,41 +23,41 @@
   if (v23)
   {
     objc_storeStrong(&v23->_detectedObjectsInfo, info);
-    [(CinematicFramingSessionInputMetadata *)v24 _parseDetectedObjectsInfoWithFilteredFaceIDs:dsCopy filteredBodyIDs:iDsCopy];
+    v25 = [(CinematicFramingSessionInputMetadata *)v24 _parseDetectedObjectsInfoWithFilteredFaceIDs:dsCopy filteredBodyIDs:iDsCopy];
     v24->_calibrationDistortionCoefficientsSupported = supported;
     v24->_calibrationValidMaxRadiusSupported = radiusSupported;
     if (dataCopy)
     {
-      v25 = [(CinematicFramingSessionInputMetadata *)v24 _validateCalibrationDictionary:dataCopy];
+      v26 = [(CinematicFramingSessionInputMetadata *)v24 _validateCalibrationDictionary:dataCopy];
       calibrationDictionary = v24->_calibrationDictionary;
-      v24->_calibrationDictionary = v25;
+      v24->_calibrationDictionary = v26;
     }
 
     if (!v24->_calibrationDictionary)
     {
       if (d == 1906)
       {
-        v27 = defaultCalibrationDictionaryForPictou();
+        v28 = defaultCalibrationDictionaryForPictou(v25);
       }
 
       else
       {
         if (d != 1556)
         {
-          v31 = 0;
+          v32 = 0;
           goto LABEL_12;
         }
 
-        v27 = defaultCalibrationDictionaryForPennsylvania();
+        v28 = defaultCalibrationDictionaryForPennsylvania(v25);
       }
 
-      v28 = v24->_calibrationDictionary;
-      v24->_calibrationDictionary = v27;
+      v29 = v24->_calibrationDictionary;
+      v24->_calibrationDictionary = v28;
     }
 
-    v29 = *&timestamp->var0;
+    v30 = *&timestamp->var0;
     v24->_timestamp.epoch = timestamp->var3;
-    *&v24->_timestamp.value = v29;
+    *&v24->_timestamp.value = v30;
     v24->_aspectRatio = ratio;
     v24->_sensorID = d;
     v24->_additionalCameraRotation = 0.0;
@@ -68,10 +68,10 @@
     *&v24->_hasDeviceToCameraSpaceTransform = 256;
   }
 
-  v31 = v24;
+  v32 = v24;
 LABEL_12:
 
-  return v31;
+  return v32;
 }
 
 - (CinematicFramingSessionInputMetadata)initWithDetectedObjectsInfo:(id)info calibrationData:(id)data timestamp:(id *)timestamp aspectRatio:(float)ratio sensorID:(int)d filteredFaceIDs:(id)ds filteredBodyIDs:(id)iDs
@@ -328,7 +328,7 @@ LABEL_25:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_3();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v18, v19, v20, v21, v22, v23, v24);
   }
 
   if (self->_calibrationDistortionCoefficientsSupported)
@@ -338,7 +338,7 @@ LABEL_25:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_3();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v18, v19, v20, v21, v22, v23, v24);
     }
 
     v9 = [v5 objectForKeyedSubscript:@"InverseLensDistortionCoefficients"];
@@ -346,7 +346,7 @@ LABEL_25:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_3();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 
@@ -390,7 +390,7 @@ LABEL_14:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_3();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 

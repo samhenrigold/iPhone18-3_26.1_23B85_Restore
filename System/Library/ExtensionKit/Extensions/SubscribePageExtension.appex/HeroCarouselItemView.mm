@@ -13,11 +13,11 @@
   {
     selfCopy = self;
     preferredFocusEnvironments = [v2 preferredFocusEnvironments];
-    sub_10000C518(&unk_100940730);
+    sub_10000C518(&unk_100940730, qword_1007CCC00);
     sub_1007532A4();
   }
 
-  sub_10000C518(&unk_100940730);
+  sub_10000C518(&unk_100940730, qword_1007CCC00);
   v5.super.isa = sub_100753294().super.isa;
 
   return v5.super.isa;

@@ -96,7 +96,7 @@
   v5 = representationCopy;
   if (representationCopy)
   {
-    v6 = [representationCopy objectForKey:@"aceVersion"];
+    v6 = objc_msgSend_objectForKey_(representationCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -108,7 +108,7 @@
       v30 = 0;
     }
 
-    v8 = [v5 objectForKey:@"assistantIdentifier"];
+    v8 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -120,7 +120,7 @@
       v29 = 0;
     }
 
-    v9 = [v5 objectForKey:@"buildVersion"];
+    v9 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -132,7 +132,7 @@
       v28 = 0;
     }
 
-    v10 = [v5 objectForKey:@"productType"];
+    v10 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -144,7 +144,7 @@
       v27 = 0;
     }
 
-    v11 = [v5 objectForKey:@"sharedUserIdentifier"];
+    v11 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -156,7 +156,7 @@
       v26 = 0;
     }
 
-    v12 = [v5 objectForKey:@"userAssignedDeviceName"];
+    v12 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -168,7 +168,7 @@
       v13 = 0;
     }
 
-    v14 = [v5 objectForKey:@"userInterfaceIdiom"];
+    v14 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -180,7 +180,7 @@
       v15 = 0;
     }
 
-    v16 = [v5 objectForKey:@"isLocationSharingDevice"];
+    v16 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -192,7 +192,7 @@
       v17 = 0;
     }
 
-    v18 = [v5 objectForKey:@"homeAccessoryInfo"];
+    v18 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -204,7 +204,7 @@
       v19 = 0;
     }
 
-    v20 = [v5 objectForKey:@"isSiriCloudSyncEnabled"];
+    v20 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -216,7 +216,7 @@
       v21 = 0;
     }
 
-    v22 = [v5 objectForKey:@"myriadTrialTreatment"];
+    v22 = objc_msgSend_objectForKey_(v5);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {

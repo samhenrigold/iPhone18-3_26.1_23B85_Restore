@@ -115,9 +115,9 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v10.receiver = self;
-  v10.super_class = CKStickerDetailViewController;
-  [(CKStickerDetailViewController *)&v10 viewDidLayoutSubviews];
+  v11.receiver = self;
+  v11.super_class = CKStickerDetailViewController;
+  [(CKStickerDetailViewController *)&v11 viewDidLayoutSubviews];
   tableView = [(CKStickerDetailViewController *)self tableView];
   view = [(CKStickerDetailViewController *)self view];
   [view bounds];
@@ -126,26 +126,26 @@
   stickerDetailsItemType = self->_stickerDetailsItemType;
   if (stickerDetailsItemType == 1)
   {
-    v6 = @"EMOJI_DETAILS_NAVIGATION_BAR_TITLE";
+    v7 = @"EMOJI_DETAILS_NAVIGATION_BAR_TITLE";
   }
 
   else
   {
     if (stickerDetailsItemType)
     {
-      v8 = 0;
+      v9 = 0;
       goto LABEL_7;
     }
 
-    v6 = @"STICKER_TITLE";
+    v7 = @"STICKER_TITLE";
   }
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = CKFrameworkBundle(v5);
+  v9 = [v8 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_7:
   navigationItem = [(CKStickerDetailViewController *)self navigationItem];
-  [navigationItem setTitle:v8];
+  [navigationItem setTitle:v9];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -331,7 +331,7 @@ LABEL_7:
 {
   pathCopy = path;
   v5 = MEMORY[0x1E69DC8E8];
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(pathCopy);
   v7 = [v6 localizedStringForKey:@"DELETE" value:&stru_1F04268F8 table:@"ChatKit"];
   v12 = MEMORY[0x1E69E9820];
   v13 = 3221225472;
@@ -533,7 +533,7 @@ void __59__CKStickerDetailViewController__indexPathForTransferGUID___block_invok
   {
     if (v11)
     {
-      v14 = CKFrameworkBundle();
+      v14 = CKFrameworkBundle(v12);
       v15 = v14;
       v16 = @"GENMOJI";
     }
@@ -544,7 +544,8 @@ void __59__CKStickerDetailViewController__indexPathForTransferGUID___block_invok
       {
         if (![localizedName length])
         {
-          if ([v6 length])
+          v17 = [v6 length];
+          if (v17)
           {
             goto LABEL_6;
           }
@@ -557,23 +558,24 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v14 = CKFrameworkBundle();
+      v14 = CKFrameworkBundle(v12);
       v15 = v14;
       v16 = @"EMOJI";
     }
 
 LABEL_13:
-    v17 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+    v18 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
 
     goto LABEL_17;
   }
 
   if (![v6 length])
   {
-    if (![localizedName length])
+    v17 = [localizedName length];
+    if (!v17)
     {
 LABEL_12:
-      v14 = CKFrameworkBundle();
+      v14 = CKFrameworkBundle(v17);
       v15 = v14;
       v16 = @"GENERIC_STICKERS_APP_SHORT_TITLE";
       goto LABEL_13;
@@ -585,10 +587,10 @@ LABEL_12:
 LABEL_6:
   v13 = v6;
 LABEL_16:
-  v17 = v13;
+  v18 = v13;
 LABEL_17:
 
-  return v17;
+  return v18;
 }
 
 - (CKStickerDetailViewControllerDelegate)delegate

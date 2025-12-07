@@ -10,7 +10,7 @@
 {
   v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v7 = SBLogWebClip();
+  v7 = SBLogWebClip(identifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
@@ -47,7 +47,7 @@
 {
   v14 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = SBLogWebClip();
+  v5 = SBLogWebClip(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -123,7 +123,7 @@ void __55__SBSWebClipService__setupAndActivateServiceConnection__block_invoke_2(
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogWebClip();
+  v4 = SBLogWebClip(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -139,7 +139,7 @@ void __55__SBSWebClipService__setupAndActivateServiceConnection__block_invoke_17
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogWebClip();
+  v4 = SBLogWebClip(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -155,7 +155,7 @@ void __55__SBSWebClipService__setupAndActivateServiceConnection__block_invoke_18
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogWebClip();
+  v4 = SBLogWebClip(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);

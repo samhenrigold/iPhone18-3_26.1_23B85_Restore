@@ -22,7 +22,7 @@
     [(CKDetailsMacChangeGroupNameCell *)v4 setChangeNameLabel:v10];
 
     changeNameLabel = [(CKDetailsMacChangeGroupNameCell *)v4 changeNameLabel];
-    v12 = CKFrameworkBundle();
+    v12 = CKFrameworkBundle(changeNameLabel);
     v13 = [v12 localizedStringForKey:@"CHANGE_GROUP_NAME_AND_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
     [changeNameLabel setText:v13];
 

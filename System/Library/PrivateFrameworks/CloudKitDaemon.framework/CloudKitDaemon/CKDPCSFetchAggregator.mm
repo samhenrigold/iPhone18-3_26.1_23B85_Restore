@@ -85,7 +85,7 @@
 
 - (void)_lockedFetchesAreReady
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v147 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_opQueue(self, a2, v2);
   dispatch_assert_queue_V2(v4);
 
@@ -99,39 +99,39 @@
   v7 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v107 = v7;
-    v110 = objc_msgSend_runningFetches(self, v108, v109);
-    v113 = objc_msgSend_queuedFetches(self, v111, v112);
+    v106 = v7;
+    v109 = objc_msgSend_runningFetches(self, v107, v108);
+    v112 = objc_msgSend_queuedFetches(self, v110, v111);
     *buf = 138412546;
-    v145 = v110;
-    v146 = 2112;
-    v147 = v113;
-    _os_log_debug_impl(&dword_22506F000, v107, OS_LOG_TYPE_DEBUG, "Cleaning up finished fetches and starting pending fetches. Running fetches are %@ and pending fetches are %@", buf, 0x16u);
+    v144 = v109;
+    v145 = 2112;
+    v146 = v112;
+    _os_log_debug_impl(&dword_22506F000, v106, OS_LOG_TYPE_DEBUG, "Cleaning up finished fetches and starting pending fetches. Running fetches are %@ and pending fetches are %@", buf, 0x16u);
   }
 
-  v137 = 0u;
-  v138 = 0u;
-  v135 = 0u;
   v136 = 0u;
+  v137 = 0u;
+  v134 = 0u;
+  v135 = 0u;
   v10 = objc_msgSend_runningFetches(self, v8, v9);
   v13 = objc_msgSend_mutableCopy(v10, v11, v12);
 
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v135, v143, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v134, v142, 16);
   if (v15)
   {
     v18 = v15;
-    v19 = *v136;
+    v19 = *v135;
     do
     {
       v20 = 0;
       do
       {
-        if (*v136 != v19)
+        if (*v135 != v19)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v135 + 1) + 8 * v20);
+        v21 = *(*(&v134 + 1) + 8 * v20);
         if (objc_msgSend_isFinished(v21, v16, v17))
         {
           if (*v5 != -1)
@@ -143,7 +143,7 @@
           if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v145 = v21;
+            v144 = v21;
             _os_log_debug_impl(&dword_22506F000, v22, OS_LOG_TYPE_DEBUG, "Fetch %@ is finished. Removing it now.", buf, 0xCu);
           }
 
@@ -155,57 +155,57 @@
       }
 
       while (v18 != v20);
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v135, v143, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v134, v142, 16);
     }
 
     while (v18);
   }
 
-  v115 = objc_opt_new();
+  v114 = objc_opt_new();
+  v130 = 0u;
   v131 = 0u;
   v132 = 0u;
   v133 = 0u;
-  v134 = 0u;
   obj = objc_msgSend_queuedFetches(self, v27, v28);
-  v118 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v131, v142, 16);
-  if (v118)
+  v117 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v130, v141, 16);
+  if (v117)
   {
-    v117 = *v132;
+    v116 = *v131;
     *&v32 = 138412290;
-    v114 = v32;
+    v113 = v32;
     do
     {
       v33 = 0;
       do
       {
-        if (*v132 != v117)
+        if (*v131 != v116)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v131 + 1) + 8 * v33);
+        v34 = *(*(&v130 + 1) + 8 * v33);
+        v126 = 0u;
         v127 = 0u;
         v128 = 0u;
         v129 = 0u;
-        v130 = 0u;
-        v35 = objc_msgSend_runningFetches(self, v30, v31, v114);
-        v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v127, v141, 16);
+        v35 = objc_msgSend_runningFetches(self, v30, v31, v113);
+        v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v36, &v126, v140, 16);
         if (v37)
         {
           v39 = v37;
           v40 = v6;
           v41 = v5;
-          v42 = *v128;
+          v42 = *v127;
 LABEL_25:
           v43 = 0;
           while (1)
           {
-            if (*v128 != v42)
+            if (*v127 != v42)
             {
               objc_enumerationMutation(v35);
             }
 
-            v44 = *(*(&v127 + 1) + 8 * v43);
+            v44 = *(*(&v126 + 1) + 8 * v43);
             if (objc_msgSend_canBeUsedForPendingFetch_(v44, v38, v34))
             {
               objc_opt_class();
@@ -217,7 +217,7 @@ LABEL_25:
 
             if (v39 == ++v43)
             {
-              v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v127, v141, 16);
+              v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v38, &v126, v140, 16);
               if (v39)
               {
                 goto LABEL_25;
@@ -240,8 +240,8 @@ LABEL_25:
           v46 = *v40;
           if (os_log_type_enabled(*v40, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v114;
-            v145 = v34;
+            *buf = v113;
+            v144 = v34;
             _os_log_debug_impl(&dword_22506F000, v46, OS_LOG_TYPE_DEBUG, "Holding queued fetch %@ because an equivalent fetch is already running", buf, 0xCu);
           }
 
@@ -249,33 +249,33 @@ LABEL_25:
 
           if ((objc_msgSend_skipQueuedFetchCycleDetection(self, v48, v49) & 1) == 0)
           {
-            v125 = 0u;
-            v126 = 0u;
-            v123 = 0u;
             v124 = 0u;
+            v125 = 0u;
+            v122 = 0u;
+            v123 = 0u;
             v35 = objc_msgSend_runningFetches(self, v50, v51);
-            v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v52, &v123, v140, 16);
+            v53 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v52, &v122, v139, 16);
             if (v53)
             {
               v55 = v53;
-              v56 = *v124;
+              v56 = *v123;
 LABEL_40:
               v57 = 0;
               while (1)
               {
-                if (*v124 != v56)
+                if (*v123 != v56)
                 {
                   objc_enumerationMutation(v35);
                 }
 
-                if (objc_msgSend_dependentOperationListContainsRunningFetch_(v34, v54, *(*(&v123 + 1) + 8 * v57)))
+                if (objc_msgSend_dependentOperationListContainsRunningFetch_(v34, v54, *(*(&v122 + 1) + 8 * v57)))
                 {
                   break;
                 }
 
                 if (v55 == ++v57)
                 {
-                  v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v54, &v123, v140, 16);
+                  v55 = objc_msgSend_countByEnumeratingWithState_objects_count_(v35, v54, &v122, v139, 16);
                   v6 = v40;
                   if (v55)
                   {
@@ -296,8 +296,8 @@ LABEL_40:
               v74 = *v40;
               if (os_log_type_enabled(*v40, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v114;
-                v145 = v34;
+                *buf = v113;
+                v144 = v34;
                 v72 = v74;
                 v73 = "Firing queued fetch %@ immediately since a running fetch is waiting on it";
                 goto LABEL_69;
@@ -333,8 +333,8 @@ LABEL_46:
           v71 = *v6;
           if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v114;
-            v145 = v34;
+            *buf = v113;
+            v144 = v34;
             v72 = v71;
             v73 = "Firing queued fetch %@ immediately since its been waiting too long";
 LABEL_69:
@@ -361,15 +361,15 @@ LABEL_57:
             v79 = &stru_28385ED00;
           }
 
-          v145 = v79;
-          v146 = 2112;
-          v147 = v34;
+          v144 = v79;
+          v145 = 2112;
+          v146 = v34;
           _os_log_debug_impl(&dword_22506F000, v75, OS_LOG_TYPE_DEBUG, "Fetch is %{public}@ready to fire: %@", buf, 0x16u);
           if (v45)
           {
 LABEL_61:
             objc_msgSend_setEquivalentRunningFetch_(v34, v76, 0);
-            objc_msgSend_addObject_(v115, v78, v34);
+            objc_msgSend_addObject_(v114, v78, v34);
             goto LABEL_66;
           }
         }
@@ -384,34 +384,34 @@ LABEL_66:
         ++v33;
       }
 
-      while (v33 != v118);
-      v80 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v131, v142, 16);
-      v118 = v80;
+      while (v33 != v117);
+      v80 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v130, v141, 16);
+      v117 = v80;
     }
 
     while (v80);
   }
 
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
   v120 = 0u;
-  v81 = v115;
-  v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v81, v82, &v119, v139, 16);
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v81 = v114;
+  v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v81, v82, &v118, v138, 16);
   if (v83)
   {
     v86 = v83;
-    v87 = *v120;
+    v87 = *v119;
     do
     {
       for (i = 0; i != v86; ++i)
       {
-        if (*v120 != v87)
+        if (*v119 != v87)
         {
           objc_enumerationMutation(v81);
         }
 
-        v89 = *(*(&v119 + 1) + 8 * i);
+        v89 = *(*(&v118 + 1) + 8 * i);
         v90 = objc_msgSend_runningFetches(self, v84, v85);
         objc_msgSend_addObject_(v90, v91, v89);
 
@@ -421,7 +421,7 @@ LABEL_66:
         objc_msgSend_start(v89, v96, v97);
       }
 
-      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v81, v84, &v119, v139, 16);
+      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v81, v84, &v118, v138, 16);
     }
 
     while (v86);
@@ -434,8 +434,6 @@ LABEL_66:
   {
     objc_msgSend__lockedTearDownFetchTimer(self, v104, v105);
   }
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lockedTearDownFetchTimer
@@ -453,7 +451,7 @@ LABEL_66:
 
 - (void)_lockedRescheduleFetchTimer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   objc_msgSend__lockedTearDownFetchTimer(self, a2, v2);
   v6 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], v4, v5);
   objc_msgSend_maximumQueuedFetchWaitTime(v6, v7, v8);
@@ -482,7 +480,7 @@ LABEL_66:
   handler[1] = 3221225472;
   handler[2] = sub_2252864C4;
   handler[3] = &unk_278547098;
-  objc_copyWeak(&v28, &location);
+  objc_copyWeak(&v27, &location);
   dispatch_source_set_event_handler(v17, handler);
 
   v20 = objc_msgSend_timerSource(self, v18, v19);
@@ -493,14 +491,13 @@ LABEL_66:
   v25 = objc_msgSend_timerSource(self, v23, v24);
   dispatch_resume(v25);
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lockedGetQueuedFetchForOperation:(id)operation ofClass:(Class)class
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   val = self;
   v9 = objc_msgSend_opQueue(self, v7, v8);
@@ -517,25 +514,25 @@ LABEL_66:
     }
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v15 = objc_msgSend_queuedFetches(self, v10, v11);
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v56, v63, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v55, v62, 16);
   if (v18)
   {
-    v19 = *v57;
+    v19 = *v56;
 LABEL_6:
     v20 = 0;
     while (1)
     {
-      if (*v57 != v19)
+      if (*v56 != v19)
       {
         objc_enumerationMutation(v15);
       }
 
-      v21 = *(*(&v56 + 1) + 8 * v20);
+      v21 = *(*(&v55 + 1) + 8 * v20);
       if (objc_msgSend_canBeUsedForOperation_(v21, v17, operationCopy))
       {
         if (objc_opt_isKindOfClass())
@@ -558,7 +555,7 @@ LABEL_6:
 
       if (v18 == ++v20)
       {
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v56, v63, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v55, v62, 16);
         if (v18)
         {
           goto LABEL_6;
@@ -576,13 +573,13 @@ LABEL_6:
     v27 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v49 = v27;
-      v52 = objc_msgSend_operationID(operationCopy, v50, v51);
+      v48 = v27;
+      v51 = objc_msgSend_operationID(operationCopy, v49, v50);
       *location = 138412546;
       *&location[4] = v21;
-      v61 = 2114;
-      v62 = v52;
-      _os_log_debug_impl(&dword_22506F000, v49, OS_LOG_TYPE_DEBUG, "Re-using fetch request %@ for operation %{public}@", location, 0x16u);
+      v60 = 2114;
+      v61 = v51;
+      _os_log_debug_impl(&dword_22506F000, v48, OS_LOG_TYPE_DEBUG, "Re-using fetch request %@ for operation %{public}@", location, 0x16u);
     }
 
     v28 = v21;
@@ -606,11 +603,11 @@ LABEL_15:
   v29 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v45 = v29;
-    v48 = objc_msgSend_operationID(operationCopy, v46, v47);
+    v44 = v29;
+    v47 = objc_msgSend_operationID(operationCopy, v45, v46);
     *location = 138543362;
-    *&location[4] = v48;
-    _os_log_debug_impl(&dword_22506F000, v45, OS_LOG_TYPE_DEBUG, "Creating a new fetch request for operation %{public}@", location, 0xCu);
+    *&location[4] = v47;
+    _os_log_debug_impl(&dword_22506F000, v44, OS_LOG_TYPE_DEBUG, "Creating a new fetch request for operation %{public}@", location, 0xCu);
   }
 
   v30 = [class alloc];
@@ -619,20 +616,18 @@ LABEL_15:
   v28 = objc_msgSend_initWithOperation_container_operationQueue_(v30, v37, operationCopy, v33, v36);
 
   objc_initWeak(location, val);
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = sub_22528698C;
-  v54[3] = &unk_278547098;
-  objc_copyWeak(&v55, location);
-  objc_msgSend_setCompletionHandler_(v28, v38, v54);
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = sub_22528698C;
+  v53[3] = &unk_278547098;
+  objc_copyWeak(&v54, location);
+  objc_msgSend_setCompletionHandler_(v28, v38, v53);
   v41 = objc_msgSend_queuedFetches(val, v39, v40);
   objc_msgSend_addObject_(v41, v42, v28);
 
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v54);
   objc_destroyWeak(location);
 LABEL_26:
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

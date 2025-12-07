@@ -40,7 +40,7 @@ void __AMFDRCopyDeviceKeys_block_invoke()
   v0 = IOServiceMatching("IOAESAccelerator");
   if (!v0)
   {
-    goto LABEL_35;
+    goto LABEL_58;
   }
 
   v1 = v0;
@@ -49,7 +49,7 @@ void __AMFDRCopyDeviceKeys_block_invoke()
   if (!MatchingService)
   {
     CFRelease(v1);
-    goto LABEL_35;
+    goto LABEL_58;
   }
 
   v3 = MatchingService;
@@ -59,9 +59,9 @@ void __AMFDRCopyDeviceKeys_block_invoke()
   v4 = connect[0];
   if (!connect[0])
   {
-LABEL_35:
+LABEL_58:
     AMFDRCopyDeviceKeys_error = 6;
-    goto LABEL_20;
+    return;
   }
 
   v5 = CryptoBufferAllocate();
@@ -87,140 +87,192 @@ LABEL_35:
       *&connect[9] = 0x8000000000;
       connect[19] = 2105;
       v9 = IOConnectCallStructMethod(v4, 1u, connect, 0x58uLL, connect, outputStructCnt);
+      v10 = "kIOReturnVMError";
       switch(v9)
       {
         case -536870212:
+          v10 = "kIOReturnError";
+          goto LABEL_41;
         case -536870211:
+          v10 = "kIOReturnNoMemory";
+          goto LABEL_41;
         case -536870210:
+          v10 = "kIOReturnNoResources";
+          goto LABEL_41;
         case -536870209:
+          v10 = "kIOReturnIPCError";
+          goto LABEL_41;
         case -536870208:
+          v10 = "kIOReturnNoDevice";
+          goto LABEL_41;
         case -536870207:
+          v10 = "kIOReturnNotPrivileged";
+          goto LABEL_41;
         case -536870206:
+          v10 = "kIOReturnBadArgument";
+          goto LABEL_41;
         case -536870205:
+          v10 = "kIOReturnLockedRead";
+          goto LABEL_41;
         case -536870204:
+          v10 = "kIOReturnLockedWrite";
+          goto LABEL_41;
         case -536870203:
+          v10 = "kIOReturnExclusiveAccess";
+          goto LABEL_41;
         case -536870202:
+          v10 = "kIOReturnBadMessageID";
+          goto LABEL_41;
         case -536870201:
+          v10 = "kIOReturnUnsupported";
+          goto LABEL_41;
         case -536870200:
+          goto LABEL_41;
         case -536870199:
+          v10 = "kIOReturnInternalError";
+          goto LABEL_41;
         case -536870198:
+          v10 = "kIOReturnIOError";
+          goto LABEL_41;
         case -536870197:
+          goto LABEL_18;
         case -536870196:
+          v10 = "kIOReturnCannotLock";
+          goto LABEL_41;
         case -536870195:
+          v10 = "kIOReturnNotOpen";
+          goto LABEL_41;
         case -536870194:
+          v10 = "kIOReturnNotReadable";
+          goto LABEL_41;
         case -536870193:
+          v10 = "kIOReturnNotWritable";
+          goto LABEL_41;
         case -536870192:
+          v10 = "kIOReturnNotAligned";
+          goto LABEL_41;
         case -536870191:
+          v10 = "kIOReturnBadMedia";
+          goto LABEL_41;
         case -536870190:
+          v10 = "kIOReturnStillOpen";
+          goto LABEL_41;
         case -536870189:
+          v10 = "kIOReturnRLDError";
+          goto LABEL_41;
         case -536870188:
-          goto LABEL_17;
+          v10 = "kIOReturnDMAError";
+          goto LABEL_41;
         default:
-          if (v9)
+          if (!v9)
           {
-LABEL_17:
-            AMSupportLogInternal();
-            v17 = 6;
-            goto LABEL_18;
-          }
-
-          AMSupportLogInternal();
-          memset(connect, 170, 2132);
-          if (!ccrng() || (strcpy(outputStructCnt, "pseudo_ccrng_allocate"), key_deterministic = ccrsa_generate_key_deterministic(), AMSupportLogInternal(), key_deterministic))
-          {
-            v20 = 0;
-            v17 = 6;
-            goto LABEL_29;
-          }
-
-          v11 = ccrsa_export_priv_size();
-          v12 = malloc_type_malloc(v11, 0x32DBDD2FuLL);
-          v13 = ccrsa_ctx_public();
-          v14 = MEMORY[0x223DB8D50](v13);
-          v15 = malloc_type_malloc(v14, 0x198A2AD3uLL);
-          v16 = v15;
-          if (v12 && v15)
-          {
-            if (ccrsa_export_priv())
+            AMSupportLogInternal(7, "CryptoAcceleratorEncrypt", "perform aes => %d (%s)", 0, "kIOReturnSuccess");
+            memset(connect, 170, 2132);
+            if (!ccrng() || (strcpy(outputStructCnt, "pseudo_ccrng_allocate"), key_deterministic = ccrsa_generate_key_deterministic(), AMSupportLogInternal(7, "CryptoGenerateRSAKeys", "ccrsa_generate_key_deterministic() -> %d", key_deterministic), key_deterministic))
             {
-              goto LABEL_37;
-            }
-
-            ccrsa_ctx_public();
-            if (ccrsa_export_pub())
-            {
-              goto LABEL_37;
-            }
-
-            if (AMSupportDigestSha1())
-            {
-              AMSupportLogInternal();
-            }
-
-            else
-            {
-              AMSupportLogDumpMemory();
-            }
-
-            if (AMSupportRsaCreatePemFromData())
-            {
-LABEL_37:
               v20 = 0;
-              v17 = 6;
+              v18 = 6;
+LABEL_52:
+              if ((v20 & 1) == 0)
+              {
+                if (AMFDRCopyDeviceKeys_pubKey)
+                {
+                  CFRelease(AMFDRCopyDeviceKeys_pubKey);
+                  AMFDRCopyDeviceKeys_pubKey = 0;
+                }
+
+                if (AMFDRCopyDeviceKeys_privKey)
+                {
+                  CFRelease(AMFDRCopyDeviceKeys_privKey);
+                  AMFDRCopyDeviceKeys_privKey = 0;
+                }
+              }
+
+              goto LABEL_42;
             }
 
-            else
+            v12 = ccrsa_export_priv_size();
+            v13 = malloc_type_malloc(v12, 0x32DBDD2FuLL);
+            v14 = ccrsa_ctx_public();
+            v15 = MEMORY[0x223DB8D50](v14);
+            v16 = malloc_type_malloc(v15, 0x198A2AD3uLL);
+            v17 = v16;
+            if (v13 && v16)
             {
-              v19 = *MEMORY[0x277CBECE8];
-              AMFDRCopyDeviceKeys_privKey = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
-              if (AMFDRCopyDeviceKeys_privKey && (AMSupportLogInternal(), (AMFDRCopyDeviceKeys_pubKey = CFDataCreate(v19, v16, v14)) != 0))
+              if (ccrsa_export_priv())
               {
-                AMSupportLogInternal();
-                v17 = 0;
-                v20 = 1;
+                goto LABEL_60;
+              }
+
+              ccrsa_ctx_public();
+              if (ccrsa_export_pub())
+              {
+                goto LABEL_60;
+              }
+
+              if (AMSupportDigestSha1())
+              {
+                AMSupportLogInternal(3, "CryptoGenerateRSAKeys", "Failed to compute digest of RSA Public Key");
               }
 
               else
               {
+                AMSupportLogDumpMemory();
+              }
+
+              if (AMSupportRsaCreatePemFromData())
+              {
+LABEL_60:
                 v20 = 0;
-                v17 = 2;
+                v18 = 6;
+              }
+
+              else
+              {
+                v19 = *MEMORY[0x277CBECE8];
+                AMFDRCopyDeviceKeys_privKey = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
+                if (AMFDRCopyDeviceKeys_privKey && (AMSupportLogInternal(6, "CryptoGenerateRSAKeys", "SecKeyCreateRSAPrivateKey -> %p", &AMFDRCopyDeviceKeys_privKey), (AMFDRCopyDeviceKeys_pubKey = CFDataCreate(v19, v17, v15)) != 0))
+                {
+                  AMSupportLogInternal(6, "CryptoGenerateRSAKeys", "SecKeyCreateRSAPublicKey -> %p", &AMFDRCopyDeviceKeys_pubKey);
+                  v18 = 0;
+                  v20 = 1;
+                }
+
+                else
+                {
+                  v20 = 0;
+                  v18 = 2;
+                }
               }
             }
 
-            goto LABEL_26;
-          }
-
-          v20 = 0;
-          v17 = 2;
-          if (v12)
-          {
-LABEL_26:
-            free(v12);
-          }
-
-          if (v16)
-          {
-            free(v16);
-          }
-
-LABEL_29:
-          if ((v20 & 1) == 0)
-          {
-            if (AMFDRCopyDeviceKeys_pubKey)
+            else
             {
-              CFRelease(AMFDRCopyDeviceKeys_pubKey);
-              AMFDRCopyDeviceKeys_pubKey = 0;
+              v20 = 0;
+              v18 = 2;
+              if (!v13)
+              {
+LABEL_50:
+                if (v17)
+                {
+                  free(v17);
+                }
+
+                goto LABEL_52;
+              }
             }
 
-            if (AMFDRCopyDeviceKeys_privKey)
-            {
-              CFRelease(AMFDRCopyDeviceKeys_privKey);
-              AMFDRCopyDeviceKeys_privKey = 0;
-            }
+            free(v13);
+            goto LABEL_50;
           }
 
 LABEL_18:
-          AMFDRCopyDeviceKeys_error = v17;
+          v10 = "unknown";
+LABEL_41:
+          AMSupportLogInternal(7, "CryptoAcceleratorEncrypt", "perform aes => %d (%s)", v9, v10);
+          v18 = 6;
+LABEL_42:
+          AMFDRCopyDeviceKeys_error = v18;
           IOServiceClose(v4);
           free(v8);
           break;
@@ -241,9 +293,6 @@ LABEL_18:
     AMFDRCopyDeviceKeys_error = 2;
     IOServiceClose(v4);
   }
-
-LABEL_20:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void *CryptoBufferAllocate()
@@ -263,135 +312,149 @@ void *CryptoBufferAllocate()
 
 void *_AMFDRDeviceRefKeyCreateInternal(const __CFAllocator *a1, CFDataRef theData)
 {
+  v27 = 0;
   v25 = 0;
-  v23 = 0;
   length = 0;
+  v23 = 0;
+  v24 = 0;
   v21 = 0;
   v22 = 0;
-  v19 = 0;
-  v20 = 0;
-  v18 = 1;
+  v20 = 1;
   if (theData)
   {
     CFDataGetBytePtr(theData);
     CFDataGetLength(theData);
-    if (aks_ref_key_create_with_blob())
+    v4 = aks_ref_key_create_with_blob();
+    if (v4)
     {
-      AMSupportLogInternal();
-      v4 = 0;
-      v10 = 0;
+      AMSupportLogInternal(3, "_AMFDRDeviceRefKeyCreateInternal", "aks_ref_key_create_with_blob failed : %d", v4);
       v5 = 0;
-      goto LABEL_48;
+      v12 = 0;
+      v6 = 0;
+      goto LABEL_50;
     }
 
-    v4 = 0;
     v5 = 0;
+    v6 = 0;
     goto LABEL_13;
   }
 
-  v6 = MGCopyAnswer();
-  v5 = v6;
-  if (!v6)
+  v7 = MGCopyAnswer();
+  v6 = v7;
+  if (!v7)
   {
-    _AMFDRDeviceRefKeyCreateInternal_cold_8();
+    _AMFDRDeviceRefKeyCreateInternal_cold_8(0);
 LABEL_44:
-    v4 = 0;
-    goto LABEL_47;
+    v5 = 0;
+    goto LABEL_49;
   }
 
-  v7 = CFGetTypeID(v6);
-  if (v7 != CFBooleanGetTypeID())
+  v8 = CFGetTypeID(v7);
+  TypeID = CFBooleanGetTypeID();
+  if (v8 != TypeID)
   {
-    _AMFDRDeviceRefKeyCreateInternal_cold_1();
+    _AMFDRDeviceRefKeyCreateInternal_cold_1(TypeID);
     goto LABEL_44;
   }
 
-  if (CFBooleanGetValue(v5))
+  if (CFBooleanGetValue(v6))
   {
-    v8 = 5;
+    v10 = 5;
   }
 
   else
   {
-    v8 = 4;
+    v10 = 4;
   }
 
-  v9 = aks_params_create(0);
-  v4 = v9;
-  v19 = v9;
-  if (!v9)
+  v11 = aks_params_create(0, 0);
+  v5 = v11;
+  v21 = v11;
+  if (!v11)
   {
-    _AMFDRDeviceRefKeyCreateInternal_cold_7();
-    goto LABEL_47;
+    _AMFDRDeviceRefKeyCreateInternal_cold_7(0);
+    goto LABEL_49;
   }
 
-  if (aks_params_set_number(v9, 9, &v18) || aks_params_get_der(v4, &v21, &v20) || aks_ref_key_create(0xFFFFFFFFLL, 13, v8, v21, v20, &v23))
+  if (aks_params_set_number(v11, 9, &v20))
   {
-    goto LABEL_46;
+    AMSupportLogInternal(3, "_AMFDRDeviceRefKeyCreateInternal", "aks_params_set_number failed : %d");
+    goto LABEL_49;
+  }
+
+  if (aks_params_get_der(v5, &v23, &v22))
+  {
+    AMSupportLogInternal(3, "_AMFDRDeviceRefKeyCreateInternal", "aks_params_get_der failed : %d");
+    goto LABEL_49;
+  }
+
+  if (aks_ref_key_create(0xFFFFFFFFLL, 13, v10, v23, v22, &v25))
+  {
+    AMSupportLogInternal(3, "_AMFDRDeviceRefKeyCreateInternal", "aks_ref_key_create failed : %d");
+    goto LABEL_49;
   }
 
 LABEL_13:
-  if (!v23)
-  {
-    _AMFDRDeviceRefKeyCreateInternal_cold_6();
-LABEL_47:
-    v10 = 0;
-    goto LABEL_48;
-  }
-
-  if (aks_sik_attest(v23, v21, v20, &v25, &length))
-  {
-LABEL_46:
-    AMSupportLogInternal();
-    goto LABEL_47;
-  }
-
   if (!v25)
   {
+    _AMFDRDeviceRefKeyCreateInternal_cold_6();
+LABEL_49:
+    v12 = 0;
+    goto LABEL_50;
+  }
+
+  if (aks_sik_attest(v25, v23, v22, &v27, &length))
+  {
+    AMSupportLogInternal(3, "_AMFDRDeviceRefKeyCreateInternal", "aks_sik_attest failed : %d");
+    goto LABEL_49;
+  }
+
+  if (!v27)
+  {
     _AMFDRDeviceRefKeyCreateInternal_cold_5();
-    goto LABEL_47;
+    goto LABEL_49;
   }
 
   if (!length)
   {
     _AMFDRDeviceRefKeyCreateInternal_cold_4();
-    goto LABEL_47;
-  }
-
-  v10 = CFDataCreate(a1, v25, length);
-  if (!v10)
-  {
-    _AMFDRDeviceRefKeyCreateInternal_cold_3();
-LABEL_48:
-    v12 = 0;
     goto LABEL_49;
   }
 
-  public_key = aks_ref_key_get_public_key(v23, &v22);
-  if (!public_key || !v22)
+  v12 = CFDataCreate(a1, v27, length);
+  if (!v12)
   {
-    goto LABEL_48;
+    _AMFDRDeviceRefKeyCreateInternal_cold_3();
+LABEL_50:
+    v14 = 0;
+    goto LABEL_51;
   }
 
-  v12 = CFDataCreate(*MEMORY[0x277CBECE8], public_key, v22);
-  if (v12)
+  public_key = aks_ref_key_get_public_key(v25, &v24);
+  if (!public_key || !v24)
+  {
+    goto LABEL_50;
+  }
+
+  v14 = CFDataCreate(*MEMORY[0x277CBECE8], public_key, v24);
+  if (v14)
   {
     pthread_once(&_AMFDRDeviceRefKeyClassInitializeOnce, _AMFDRDeviceRefKeyClassInitialize);
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v14 = Instance;
+      v16 = Instance;
       Instance[2] = 0;
       Instance[3] = 0;
       Instance[4] = 0;
-      v15 = CFRetain(v10);
-      v16 = v23;
-      v14[2] = v15;
-      v14[3] = v16;
-      v23 = 0;
-      v14[4] = v12;
-      v12 = 0;
-      if (!v4)
+      v17 = CFRetain(v12);
+      v18 = v25;
+      v16[2] = v17;
+      v16[3] = v18;
+      v25 = 0;
+      v16[4] = v14;
+      v14 = 0;
+      if (!v5)
       {
         goto LABEL_24;
       }
@@ -405,47 +468,47 @@ LABEL_48:
     _AMFDRDeviceRefKeyCreateInternal_cold_2();
   }
 
-LABEL_49:
-  if (v23)
+LABEL_51:
+  if (v25)
   {
-    aks_ref_key_free(&v23);
+    aks_ref_key_free(&v25);
   }
 
-  v14 = 0;
-  if (v4)
+  v16 = 0;
+  if (v5)
   {
 LABEL_23:
-    aks_params_free(&v19);
+    aks_params_free(&v21);
   }
 
 LABEL_24:
+  if (v14)
+  {
+    CFRelease(v14);
+  }
+
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
   if (v12)
   {
     CFRelease(v12);
   }
 
-  if (v5)
+  if (v27)
   {
-    CFRelease(v5);
+    free(v27);
+    v27 = 0;
   }
 
-  if (v10)
+  if (v23)
   {
-    CFRelease(v10);
+    free(v23);
   }
 
-  if (v25)
-  {
-    free(v25);
-    v25 = 0;
-  }
-
-  if (v21)
-  {
-    free(v21);
-  }
-
-  return v14;
+  return v16;
 }
 
 void *AMFDRDeviceRefKeyCreateWithData(const __CFAllocator *a1, const __CFData *a2)
@@ -458,7 +521,7 @@ void *AMFDRDeviceRefKeyCreateWithData(const __CFAllocator *a1, const __CFData *a
 
   else
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRDeviceRefKeyCreateWithData", "refKeyBlob is NULL", v2, v3);
     return 0;
   }
 }
@@ -474,59 +537,60 @@ uint64_t AMFDRDeviceRefKeySign(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, 
   v19 = 0;
   if (!a1)
   {
-    AMFDRDeviceRefKeySign_cold_10();
+    AMFDRDeviceRefKeySign_cold_10(0);
 LABEL_21:
-    v13 = 1;
+    v14 = 1;
     goto LABEL_13;
   }
 
   if (!a2)
   {
-    AMFDRDeviceRefKeySign_cold_9();
+    AMFDRDeviceRefKeySign_cold_9(a1);
     goto LABEL_21;
   }
 
   if (!a3)
   {
-    AMFDRDeviceRefKeySign_cold_8();
+    AMFDRDeviceRefKeySign_cold_8(a1);
     goto LABEL_21;
   }
 
   if (!a4)
   {
-    AMFDRDeviceRefKeySign_cold_7();
+    AMFDRDeviceRefKeySign_cold_7(a1);
     goto LABEL_21;
   }
 
   if (!a5)
   {
-    AMFDRDeviceRefKeySign_cold_6();
+    AMFDRDeviceRefKeySign_cold_6(a1);
     goto LABEL_21;
   }
 
   ccsha256_di();
   ccdigest();
-  if (aks_ref_key_sign(*(a1 + 24), 0, 0, v20, 32, &v19, &v18, v9, v16, 0, v18, v19, v20[0], v20[1], v21, *(&v21 + 1), v22, v23, v24, v25, v26, v27))
+  v10 = aks_ref_key_sign(*(a1 + 24), 0, 0, v20, 32, &v19, &v18, v9, v16, 0, v18, v19, v20[0], v20[1], v21, *(&v21 + 1), v22, v23, v24, v25, v26, v27);
+  if (v10)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRDeviceRefKeySign", "aks_ref_key_sign failed: %d", v10);
   }
 
   else if (v19)
   {
     if (v18)
     {
-      v10 = ccder_decode_tl();
-      if (v10)
+      v11 = ccder_decode_tl();
+      if (v11)
       {
-        v11 = v10;
+        v12 = v11;
         if (size)
         {
-          v12 = malloc_type_malloc(size, 0xC355CAAuLL);
-          *a4 = v12;
-          if (v12)
+          v13 = malloc_type_malloc(size, 0xC355CAAuLL);
+          *a4 = v13;
+          if (v13)
           {
-            memcpy(v12, v11, size);
-            v13 = 0;
+            memcpy(v13, v12, size);
+            v14 = 0;
             *a5 = size;
             goto LABEL_13;
           }
@@ -557,43 +621,42 @@ LABEL_21:
     AMFDRDeviceRefKeySign_cold_5();
   }
 
-  v13 = 6;
+  v14 = 6;
 LABEL_13:
   if (v19)
   {
     free(v19);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 CFTypeRef AMFDRDeviceRefKeyCopyAttestation(uint64_t a1)
 {
   if (!a1)
   {
-    AMFDRDeviceRefKeyCopyAttestation_cold_2();
+    AMFDRDeviceRefKeyCopyAttestation_cold_2(0);
     return 0;
   }
 
   v1 = *(a1 + 16);
   if (!v1)
   {
-    AMFDRDeviceRefKeyCopyAttestation_cold_1();
+    AMFDRDeviceRefKeyCopyAttestation_cold_1(0);
     return 0;
   }
 
   return CFRetain(v1);
 }
 
-uint64_t AMFDRDeviceRefKeyGetPublicKey(uint64_t a1)
+uint64_t AMFDRDeviceRefKeyGetPublicKey(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     return *(a1 + 32);
   }
 
-  AMFDRDeviceRefKeyGetPublicKey_cold_1();
+  AMFDRDeviceRefKeyGetPublicKey_cold_1(a1);
   return 0;
 }
 
@@ -602,14 +665,14 @@ CFDataRef AMFDRDeviceRefKeyCopyKeyBlob(uint64_t a1)
   length = 0;
   if (!a1)
   {
-    AMFDRDeviceRefKeyCopyKeyBlob_cold_4();
+    AMFDRDeviceRefKeyCopyKeyBlob_cold_4(0);
     return 0;
   }
 
   v1 = *(a1 + 24);
   if (!v1)
   {
-    AMFDRDeviceRefKeyCopyKeyBlob_cold_3();
+    AMFDRDeviceRefKeyCopyKeyBlob_cold_3(0);
     return 0;
   }
 
@@ -681,32 +744,32 @@ __CFString *_AMFDRDeviceRefKeyCopyFormattingDescription(uint64_t a1)
   return v3;
 }
 
-CFDataRef AMFDRCryptoCreateCsr(uint64_t a1, const __CFString *a2)
+CFDataRef AMFDRCryptoCreateCsr(const __CFData *a1, const __CFString *a2)
 {
   PemFromData = a1;
-  v20 = 0;
+  v21 = 0;
   cf = 0;
   theData = 0;
   if (!a1)
   {
-    AMFDRCryptoCreateCsr_cold_8();
+    AMFDRCryptoCreateCsr_cold_8(0);
+    goto LABEL_26;
+  }
+
+  if (AMFDRCryptoGetCryptoVersion(a1, 2u, &v21))
+  {
+    AMFDRCryptoCreateCsr_cold_1();
     goto LABEL_25;
   }
 
-  if (AMFDRCryptoGetCryptoVersion(a1, 2u, &v20))
+  if ((v21 & 0x10000) != 0)
   {
-    AMFDRCryptoCreateCsr_cold_1();
-    goto LABEL_24;
-  }
-
-  if ((v20 & 0x10000) != 0)
-  {
-    v13 = *(PemFromData + 17);
-    if (*v13 >= 0x29uLL && (v14 = v13[5]) != 0)
+    v14 = *(PemFromData + 17);
+    if (*v14 >= 0x29uLL && (v15 = v14[5]) != 0)
     {
-      v12 = v14(PemFromData, *(PemFromData + 18));
-      cf = v12;
-      if (v12)
+      v13 = v15(PemFromData, *(PemFromData + 18));
+      cf = v13;
+      if (v13)
       {
         goto LABEL_19;
       }
@@ -718,9 +781,9 @@ CFDataRef AMFDRCryptoCreateCsr(uint64_t a1, const __CFString *a2)
     }
 
     AMFDRCryptoCreateCsr_cold_2();
-LABEL_24:
+LABEL_25:
     PemFromData = 0;
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   PrivateKey = AMFDRCryptoGetPrivateKey(PemFromData);
@@ -736,28 +799,36 @@ LABEL_24:
   }
 
   v7 = *(PemFromData + 17);
-  if (*v7 < 0x51uLL || (v8 = v7[10]) == 0 || v8(PemFromData, &cf, &theData, *(PemFromData + 18)))
+  if (*v7 < 0x51uLL || (v8 = v7[10]) == 0)
   {
-    AMSupportLogInternal();
+    v9 = 9;
     goto LABEL_24;
+  }
+
+  v9 = v8(PemFromData, &cf, &theData, *(PemFromData + 18));
+  if (v9)
+  {
+LABEL_24:
+    AMSupportLogInternal(3, "AMFDRCryptoCreateCsr", "AMFDRCopyDeviceKeys() returned error %d", v9);
+    goto LABEL_25;
   }
 
   v5 = theData;
   if (!theData)
   {
-LABEL_33:
+LABEL_34:
     AMFDRCryptoCreateCsr_cold_7();
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
 LABEL_10:
-  v9 = CFGetTypeID(v5);
-  if (v9 != CFDataGetTypeID())
+  v10 = CFGetTypeID(v5);
+  if (v10 != CFDataGetTypeID())
   {
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
-  v10 = cf;
+  v11 = cf;
   if (!cf)
   {
     CFDataGetBytePtr(theData);
@@ -765,43 +836,43 @@ LABEL_10:
     if (AMSupportRsaCreatePublicKeyFromPrivateKeyPEMBuffer())
     {
       AMFDRCryptoCreateCsr_cold_3();
-      goto LABEL_24;
+      goto LABEL_25;
     }
 
-    v10 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
-    cf = v10;
-    if (!v10)
+    v11 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
+    cf = v11;
+    if (!v11)
     {
-      goto LABEL_34;
+      goto LABEL_35;
     }
   }
 
-  v11 = CFGetTypeID(v10);
-  if (v11 != CFDataGetTypeID())
+  v12 = CFGetTypeID(v11);
+  if (v12 != CFDataGetTypeID())
   {
-LABEL_34:
+LABEL_35:
     AMFDRCryptoCreateCsr_cold_6();
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
-  v12 = cf;
+  v13 = cf;
 LABEL_19:
-  SignedCsr = AMFDRCryptoCreateSignedCsr(PemFromData, v20, a2, v12, AMFDRCryptoCreateCsrSignature, PemFromData);
+  SignedCsr = AMFDRCryptoCreateSignedCsr(PemFromData, v21, a2, v13, AMFDRCryptoCreateCsrSignature, PemFromData);
   if (!SignedCsr)
   {
     AMFDRCryptoCreateCsr_cold_5();
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
-  v16 = SignedCsr;
+  v17 = SignedCsr;
   PemFromData = AMFDRCryptoCreatePemFromData(SignedCsr, 1);
   if (!PemFromData)
   {
     AMFDRCryptoCreateCsr_cold_4();
   }
 
-  CFRelease(v16);
-LABEL_25:
+  CFRelease(v17);
+LABEL_26:
   if (cf)
   {
     CFRelease(cf);
@@ -811,36 +882,36 @@ LABEL_25:
   return PemFromData;
 }
 
-uint64_t AMFDRCryptoCreateDataSignature(int a1, uint64_t a2, uint64_t a3, void **a4, void *a5, CFTypeRef cf)
+uint64_t AMFDRCryptoCreateDataSignature(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, void *a5, CFTypeRef cf)
 {
-  v23 = 0;
   v24 = 0;
-  if (!cf || (v12 = CFGetTypeID(cf), v12 != AMFDRGetTypeID()))
+  v25 = 0;
+  if (!cf || (v11 = a1, v12 = CFGetTypeID(cf), a1 = AMFDRGetTypeID(), v12 != a1))
   {
-    AMFDRCryptoCreateDataSignature_cold_8();
-    goto LABEL_34;
+    AMFDRCryptoCreateDataSignature_cold_8(a1);
+    goto LABEL_35;
   }
 
   if (!a2 || !a3)
   {
-    AMFDRCryptoCreateDataSignature_cold_7();
-    goto LABEL_34;
+    AMFDRCryptoCreateDataSignature_cold_7(a1);
+    goto LABEL_35;
   }
 
   if (!a4 || !a5)
   {
-    AMFDRCryptoCreateDataSignature_cold_6();
-    goto LABEL_34;
+    AMFDRCryptoCreateDataSignature_cold_6(a1);
+    goto LABEL_35;
   }
 
   v13 = 103;
-  if (a1 != 66050 && a1 != 66562)
+  if (v11 != 66050 && v11 != 66562)
   {
     PrivateKey = AMFDRCryptoGetPrivateKey(cf);
-    if (!PrivateKey || (v15 = PrivateKey, v16 = CFGetTypeID(PrivateKey), v16 != CFDataGetTypeID()))
+    if (!PrivateKey || (v15 = PrivateKey, v16 = CFGetTypeID(PrivateKey), PrivateKey = CFDataGetTypeID(), v16 != PrivateKey))
     {
-      AMFDRCryptoCreateDataSignature_cold_5();
-      goto LABEL_34;
+      AMFDRCryptoCreateDataSignature_cold_5(PrivateKey);
+      goto LABEL_35;
     }
 
     CFDataGetBytePtr(v15);
@@ -849,37 +920,37 @@ uint64_t AMFDRCryptoCreateDataSignature(int a1, uint64_t a2, uint64_t a3, void *
     if (PrivateKeyFromPEMBuffer)
     {
       v18 = PrivateKeyFromPEMBuffer;
-      AMSupportLogInternal();
-      goto LABEL_27;
+      AMSupportLogInternal(3, "AMFDRCryptoCreateDataSignature", "AMSupportRsaCreatePrivateKeyFromPEMBuffer failed: %d", PrivateKeyFromPEMBuffer);
+      goto LABEL_28;
     }
 
     v13 = 0;
   }
 
   v18 = 105;
-  if (a1 > 66049)
+  if (v11 > 66049)
   {
-    if (a1 == 66050 || a1 == 66562)
+    if (v11 != 66050 && v11 != 66562)
     {
-      v19 = *(cf + 17);
-      if (*v19 < 0x39uLL || (v20 = v19[7]) == 0 || v20(cf, a2, a3, &v24, &v23, *(cf + 18)))
-      {
-        AMSupportLogInternal();
-        v18 = v13;
-      }
+      goto LABEL_28;
+    }
 
-      else
+    v19 = *(cf + 17);
+    if (*v19 >= 0x39uLL && (v20 = v19[7]) != 0)
+    {
+      v21 = v20(cf, a2, a3, &v25, &v24, *(cf + 18));
+      if (!v21)
       {
         v18 = v13;
-        if (v24)
+        if (v25)
         {
-          v21 = v23;
-          if (v23)
+          v22 = v24;
+          if (v24)
           {
-            *a4 = v24;
-            v24 = 0;
+            *a4 = v25;
+            v25 = 0;
             v18 = 100;
-            *a5 = v21;
+            *a5 = v22;
             return v18;
           }
 
@@ -890,38 +961,49 @@ uint64_t AMFDRCryptoCreateDataSignature(int a1, uint64_t a2, uint64_t a3, void *
         {
           AMFDRCryptoCreateDataSignature_cold_2();
         }
+
+        goto LABEL_28;
       }
     }
+
+    else
+    {
+      v21 = 9;
+    }
+
+    AMSupportLogInternal(3, "AMFDRCryptoCreateDataSignature", "RefKeySign failed: %d", v21);
+    v18 = v13;
+    goto LABEL_28;
   }
 
-  else if (a1 == 257 || a1 == 513 || a1 == 1025)
+  if (v11 == 257 || v11 == 513 || v11 == 1025)
   {
     AMFDRCryptoCreateDataSignature_cold_4();
-LABEL_34:
+LABEL_35:
     v18 = 103;
   }
 
-LABEL_27:
-  if (v24)
+LABEL_28:
+  if (v25)
   {
-    free(v24);
-    v24 = 0;
+    free(v25);
+    v25 = 0;
   }
 
   return v18;
 }
 
-uint64_t AMFDRCryptoCreateLocalSignedDataSignature(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t AMFDRCryptoCreateLocalSignedDataSignature(uint64_t a1, uint64_t a2, uint64_t a3, void **a4, void *a5)
 {
   if (!a2 || !a3)
   {
-    AMFDRCryptoCreateLocalSignedDataSignature_cold_6();
+    AMFDRCryptoCreateLocalSignedDataSignature_cold_6(a1);
     return 103;
   }
 
   if (!a4 || !a5)
   {
-    AMFDRCryptoCreateLocalSignedDataSignature_cold_5();
+    AMFDRCryptoCreateLocalSignedDataSignature_cold_5(a1);
     return 103;
   }
 
@@ -938,11 +1020,11 @@ uint64_t AMFDRCryptoCreateLocalSignedDataSignature(char a1, uint64_t a2, uint64_
   }
 
   v6 = DataFromPem;
-  AMSupportLogInternal();
+  AMSupportLogInternal(3, "AMFDRCryptoCreateLocalSignedDataSignature", "failed to convert PEM to DER: %d", DataFromPem);
   return v6;
 }
 
-uint64_t AMFDRCreateEcDsaSignature(int a1)
+uint64_t AMFDRCreateEcDsaSignature(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a1 == 66562)
   {
@@ -970,7 +1052,7 @@ uint64_t AMFDRCreateEcDsaSignature(int a1)
   }
 }
 
-uint64_t AMFDRCryptoCreateLocalSignedCertificateData(char a1, void *a2, _DWORD *a3)
+uint64_t AMFDRCryptoCreateLocalSignedCertificateData(uint64_t a1, void *a2, _DWORD *a3)
 {
   if (a2)
   {
@@ -1003,18 +1085,18 @@ uint64_t AMFDRCryptoCreateLocalSignedCertificateData(char a1, void *a2, _DWORD *
         return result;
       }
 
-      AMFDRCryptoCreateLocalSignedCertificateData_cold_1();
+      AMFDRCryptoCreateLocalSignedCertificateData_cold_1(0);
     }
 
     else
     {
-      AMFDRCryptoCreateLocalSignedCertificateData_cold_2();
+      AMFDRCryptoCreateLocalSignedCertificateData_cold_2(a1);
     }
   }
 
   else
   {
-    AMFDRCryptoCreateLocalSignedCertificateData_cold_3();
+    AMFDRCryptoCreateLocalSignedCertificateData_cold_3(a1);
   }
 
   return 199;
@@ -1022,13 +1104,13 @@ uint64_t AMFDRCryptoCreateLocalSignedCertificateData(char a1, void *a2, _DWORD *
 
 uint64_t AMFDRCryptoCopyAttestation(void *a1)
 {
-  if (!a1 || (v2 = CFGetTypeID(a1), v2 != AMFDRGetTypeID()))
+  if (!a1 || (v1 = a1, v2 = CFGetTypeID(a1), a1 = AMFDRGetTypeID(), v2 != a1))
   {
-    AMFDRCryptoCopyAttestation_cold_1();
+    AMFDRCryptoCopyAttestation_cold_1(a1);
     return 0;
   }
 
-  v3 = a1[17];
+  v3 = v1[17];
   if (*v3 < 0x31uLL)
   {
     return 0;
@@ -1040,20 +1122,20 @@ uint64_t AMFDRCryptoCopyAttestation(void *a1)
     return 0;
   }
 
-  v5 = a1[18];
+  v5 = v1[18];
 
-  return v4(a1, v5);
+  return v4(v1, v5);
 }
 
 uint64_t AMFDRCryptoCopyRefKeyPub(void *a1)
 {
-  if (!a1 || (v2 = CFGetTypeID(a1), v2 != AMFDRGetTypeID()))
+  if (!a1 || (v1 = a1, v2 = CFGetTypeID(a1), a1 = AMFDRGetTypeID(), v2 != a1))
   {
-    AMFDRCryptoCopyRefKeyPub_cold_1();
+    AMFDRCryptoCopyRefKeyPub_cold_1(a1);
     return 0;
   }
 
-  v3 = a1[17];
+  v3 = v1[17];
   if (*v3 < 0x29uLL)
   {
     return 0;
@@ -1065,12 +1147,12 @@ uint64_t AMFDRCryptoCopyRefKeyPub(void *a1)
     return 0;
   }
 
-  v5 = a1[18];
+  v5 = v1[18];
 
-  return v4(a1, v5);
+  return v4(v1, v5);
 }
 
-BOOL AMFDRDigestMd5(uint64_t a1)
+BOOL AMFDRDigestMd5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -1080,30 +1162,30 @@ BOOL AMFDRDigestMd5(uint64_t a1)
 
   else
   {
-    AMFDRDigestMd5_cold_1();
+    AMFDRDigestMd5_cold_1(0);
   }
 
   return a1 != 0;
 }
 
-uint64_t OUTLINED_FUNCTION_2()
+uint64_t OUTLINED_FUNCTION_2(uint64_t a1)
 {
 
   return ccdigest();
 }
 
-unint64_t _FDREncodeLength(unint64_t result, unsigned int a2)
+_BYTE *_FDREncodeLength(_BYTE *result, unsigned int a2)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     if (a2 > 0x7F)
     {
       v3 = 0;
-      v6[0] = 0;
+      v5[0] = 0;
       do
       {
-        *(v6 + v3++) = a2;
+        *(v5 + v3++) = a2;
         v4 = a2 > 0xFF;
         a2 >>= 8;
       }
@@ -1113,10 +1195,10 @@ unint64_t _FDREncodeLength(unint64_t result, unsigned int a2)
       if ((v3 - 1) <= 6)
       {
         *result = v3 | 0x80;
-        v2 = (result + 1);
+        v2 = result + 1;
         do
         {
-          *v2++ = *(&v6[-1] + v3-- + 7);
+          *v2++ = *(&v5[-1] + v3-- + 7);
         }
 
         while (v3);
@@ -1129,14 +1211,13 @@ unint64_t _FDREncodeLength(unint64_t result, unsigned int a2)
       LODWORD(v2) = result + 1;
     }
 
-    result = (v2 - result);
+    return (v2 - result);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t FDREncoderAddSequenceProperty(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t FDREncoderAddSequenceProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1 || !a2 || !a3 && a4 || !DEREncoderCreate())
   {
@@ -1144,28 +1225,35 @@ uint64_t FDREncoderAddSequenceProperty(uint64_t a1, uint64_t a2, uint64_t a3, in
     return 3;
   }
 
-  if (DEREncoderAddDataNoCopy() || a3 && DEREncoderAddDataNoCopy())
+  if (DEREncoderAddDataNoCopy())
   {
-    AMSupportLogInternal();
-    goto LABEL_17;
-  }
-
-  if (DEREncoderAddSequenceFromEncoder())
-  {
-    FDREncoderAddSequenceProperty_cold_1();
+    AMSupportLogInternal(3, "FDREncoderAddSequenceProperty", "failed to add %s string");
 LABEL_17:
-    v5 = 3;
-    AMSupportLogInternal();
+    v6 = 3;
+    AMSupportLogInternal(3, "FDREncoderAddSequenceProperty", "%s failed to create DER file", "FDREncoderAddSequenceProperty");
     goto LABEL_11;
   }
 
-  v5 = 0;
+  if (a3 && DEREncoderAddDataNoCopy())
+  {
+    AMSupportLogInternal(3, "FDREncoderAddSequenceProperty", "failed to add %s data");
+    goto LABEL_17;
+  }
+
+  v5 = DEREncoderAddSequenceFromEncoder();
+  if (v5)
+  {
+    FDREncoderAddSequenceProperty_cold_1(v5);
+    goto LABEL_17;
+  }
+
+  v6 = 0;
 LABEL_11:
   DEREncoderDestroy();
-  return v5;
+  return v6;
 }
 
-uint64_t FDREncodeCreateSignedManifest()
+uint64_t FDREncodeCreateSignedManifest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, void **a7, _DWORD *a8)
 {
   if (AMSupportRsaCreateDataFromPem())
   {
@@ -1173,16 +1261,20 @@ uint64_t FDREncodeCreateSignedManifest()
     return 3;
   }
 
-  else if (Img4EncodeCreateManifest() == 100)
-  {
-    FDREncodeCreateSignedManifest_cold_2();
-    return 10;
-  }
-
   else
   {
-    AMSupportLogInternal();
-    return 16;
+    Manifest = Img4EncodeCreateManifest();
+    if (Manifest == 100)
+    {
+      FDREncodeCreateSignedManifest_cold_2();
+      return 10;
+    }
+
+    else
+    {
+      AMSupportLogInternal(3, "FDREncodeCreateSignedManifest", "Img4EncodeCreateManifest failed %d", Manifest);
+      return 16;
+    }
   }
 }
 
@@ -1256,15 +1348,14 @@ LABEL_33:
     }
   }
 
-  v9 = *(a3 + 28) == 0;
   v8 = Img4EncodeItemPropertyBool();
   if (v8 != 100)
   {
     goto LABEL_28;
   }
 
-  v10 = *(a3 + 48);
-  if (!v10 || !*v10)
+  v9 = *(a3 + 48);
+  if (!v9 || !*v9)
   {
 LABEL_26:
     v8 = Img4EncodeItemEnd();
@@ -1278,43 +1369,38 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v11 = 0;
+  v10 = 0;
   while (1)
   {
-    v12 = *(*(v10 + 4) + 4 * v11);
-    if (!v12)
+    v11 = *(*(v9 + 4) + 4 * v10);
+    if (!v11)
     {
-      v16 = *(*(v10 + 1) + 4 * v11);
-      v17 = *(*(v10 + 2) + 8 * v11);
-      v18 = *(*(v10 + 3) + 4 * v11);
-      v15 = Img4EncodeItemPropertyData();
+      v12 = Img4EncodeItemPropertyData();
       goto LABEL_24;
     }
 
-    if (v12 != 1)
+    if (v11 != 1)
     {
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "_FDREncodeAddManifestProperties", "unsupported encode type");
       goto LABEL_31;
     }
 
-    if (*(*(v10 + 3) + 4 * v11) != 8)
+    if (*(*(v9 + 3) + 4 * v10) != 8)
     {
       break;
     }
 
-    v13 = *(*(v10 + 1) + 4 * v11);
-    v14 = **(*(v10 + 2) + 8 * v11);
-    v15 = Img4EncodeItemPropertyInt64();
+    v12 = Img4EncodeItemPropertyInt64();
 LABEL_24:
-    v3 = v15;
-    if (v15 != 100)
+    v3 = v12;
+    if (v12 != 100)
     {
       goto LABEL_29;
     }
 
-    ++v11;
-    v10 = *(a3 + 48);
-    if (v11 >= *v10)
+    ++v10;
+    v9 = *(a3 + 48);
+    if (v10 >= *v9)
     {
       goto LABEL_26;
     }
@@ -1343,79 +1429,59 @@ uint64_t _FDREncodeAddObjectProperties(uint64_t a1, uint64_t a2, uint64_t a3)
         while (1)
         {
           v7 = *(a3 + 40);
-          v8 = v7 + v6;
-          v9 = *(v7 + v6 + 44);
-          v10 = Img4EncodeItemBegin();
-          if (v10 != 100)
+          v8 = Img4EncodeItemBegin();
+          if (v8 != 100)
           {
             break;
           }
 
-          v11 = *(v8 + 44);
-          v12 = *(v8 - 16);
-          v13 = *(v8 - 8);
-          v10 = Img4EncodeItemPropertyData();
-          if (v10 != 100)
+          v8 = Img4EncodeItemPropertyData();
+          if (v8 != 100)
           {
             break;
           }
 
-          v14 = *(v8 + 44);
-          v15 = *(v8 - 48);
-          v16 = v7 + v6;
-          v17 = *(v7 + v6 - 40);
-          v10 = Img4EncodeItemPropertyData();
-          if (v10 != 100)
+          v8 = Img4EncodeItemPropertyData();
+          if (v8 != 100)
           {
             break;
           }
 
-          v18 = *(v8 + 44);
-          v19 = *(v16 - 32);
-          v20 = *(v16 - 24);
-          v10 = Img4EncodeItemPropertyData();
-          if (v10 != 100)
+          v8 = Img4EncodeItemPropertyData();
+          if (v8 != 100)
           {
             break;
           }
 
           if (*(v7 + v6))
           {
-            v21 = *(v8 + 44);
-            v22 = *(v7 + v6 + 8);
-            v10 = Img4EncodeItemPropertyData();
-            if (v10 != 100)
+            v8 = Img4EncodeItemPropertyData();
+            if (v8 != 100)
             {
               break;
             }
           }
 
-          v23 = v7 + v6;
           if (*(v7 + v6 + 16))
           {
-            v24 = *(v8 + 44);
-            v25 = *(v23 + 24);
-            v10 = Img4EncodeItemPropertyData();
-            if (v10 != 100)
+            v8 = Img4EncodeItemPropertyData();
+            if (v8 != 100)
             {
               break;
             }
           }
 
-          if (*(v23 + 32))
+          if (*(v7 + v6 + 32))
           {
-            v26 = *(v8 + 44);
-            v27 = *(v7 + v6 + 40);
-            v10 = Img4EncodeItemPropertyData();
-            if (v10 != 100)
+            v8 = Img4EncodeItemPropertyData();
+            if (v8 != 100)
             {
               break;
             }
           }
 
-          v28 = *(v8 + 44);
-          v10 = Img4EncodeItemEnd();
-          if (v10 != 100)
+          v8 = Img4EncodeItemEnd();
+          if (v8 != 100)
           {
             break;
           }
@@ -1428,8 +1494,8 @@ uint64_t _FDREncodeAddObjectProperties(uint64_t a1, uint64_t a2, uint64_t a3)
           }
         }
 
-        v3 = v10;
-        AMSupportLogInternal();
+        v3 = v8;
+        AMSupportLogInternal(3, "_FDREncodeAddObjectProperties", "FDREncodeManifestObject failed");
       }
 
       else
@@ -1441,7 +1507,7 @@ LABEL_20:
 
     else
     {
-      _FDREncodeAddObjectProperties_cold_1();
+      _FDREncodeAddObjectProperties_cold_1(a1);
     }
   }
 
@@ -1449,225 +1515,268 @@ LABEL_20:
   return v3;
 }
 
-uint64_t FDREncodeCreateSignedData(uint64_t *a1, uint64_t a2, char *a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+uint64_t FDREncodeCreateSignedData(uint64_t a1, uint64_t a2, char *a3, int a4, uint64_t a5, int a6, uint64_t a7, int a8, uint64_t a9, int a10, uint64_t a11, unsigned int a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v52 = 0;
-  v51 = 0;
-  v50 = 0;
-  v49 = 0;
-  v48 = 0;
-  v47 = 0;
-  v45 = 0;
-  v46 = 0;
-  v44 = 0;
-  v19 = a1[3];
-  v43 = 0;
-  v42 = 0;
-  v41 = 0;
+  v72 = 0;
+  v71 = 0;
+  v70 = 0;
+  v69 = 0;
+  v68 = 0;
+  v67 = 0;
+  v65 = 0;
+  v66 = 0;
+  v64 = 0;
+  v24 = *(a1 + 24);
+  v63 = 0;
+  v62 = 0;
+  v61 = 0;
   *__dst = 0;
-  v39 = 0;
-  memset(v38, 170, sizeof(v38));
-  *&v20 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v37[17] = v20;
-  v37[18] = v20;
-  v37[15] = v20;
-  v37[16] = v20;
-  v37[13] = v20;
-  v37[14] = v20;
-  v37[11] = v20;
-  v37[12] = v20;
-  v37[9] = v20;
-  v37[10] = v20;
-  v37[7] = v20;
-  v37[8] = v20;
-  v37[5] = v20;
-  v37[6] = v20;
-  v37[3] = v20;
-  v37[4] = v20;
-  v37[1] = v20;
-  v37[2] = v20;
-  v37[0] = v20;
-  v36 = v37;
-  v21 = malloc_type_calloc(1uLL, 0x30uLL, 0x100004077774924uLL);
-  if (!v21)
+  v59 = 0;
+  memset(v58, 170, sizeof(v58));
+  *&v25 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v57[17] = v25;
+  v57[18] = v25;
+  v57[15] = v25;
+  v57[16] = v25;
+  v57[13] = v25;
+  v57[14] = v25;
+  v57[11] = v25;
+  v57[12] = v25;
+  v57[9] = v25;
+  v57[10] = v25;
+  v57[7] = v25;
+  v57[8] = v25;
+  v57[5] = v25;
+  v57[6] = v25;
+  v57[3] = v25;
+  v57[4] = v25;
+  v57[1] = v25;
+  v57[2] = v25;
+  v57[0] = v25;
+  v56 = v57;
+  v26 = malloc_type_calloc(1uLL, 0x30uLL, 0x100004077774924uLL);
+  if (!v26)
   {
-    AMSupportLogInternal();
-    v23 = 2;
-    goto LABEL_9;
+    AMSupportLogInternal(3, "FDREncodeCreateSignedData", "Failed to allocation digest buffer");
+    v27 = 2;
+    goto LABEL_11;
   }
 
   if (a4 != 4)
   {
-    AMSupportLogInternal();
-    v23 = 199;
-    goto LABEL_9;
+    AMSupportLogInternal(3, "FDREncodeCreateSignedData", "dataClassLength is %d, unexpected...", a4);
+    v27 = 199;
+    goto LABEL_11;
   }
 
   strncpy(__dst, a3, 4uLL);
-  v22 = *a1;
   if (Img4EncodeCreatePayload() != 100)
   {
-    goto LABEL_8;
+    AMSupportLogInternal(3, "FDREncodeCreateSignedData", "Img4EncodeCreatePayload failed %d");
+    goto LABEL_10;
   }
 
-  if (!v52 || !v51)
+  if (!v72 || !v71)
   {
-    goto LABEL_6;
+    AMSupportLogInternal(3, "FDREncodeCreateSignedData", "Img4EncodeCreatePayload returned an empty payload");
+LABEL_7:
+    v27 = 10;
+    goto LABEL_11;
   }
 
-  v23 = _FDREncodeDigestCompute(v52, v51, v21, *a1[2], a1[2]);
-  if (!v23)
+  v27 = _FDREncodeDigestCompute(v72, v71, v26, **(a1 + 16), *(a1 + 16));
+  if (!v27)
   {
-    v25 = AMFDREncodeProducerIDBegin(&v39);
-    if (v25)
+    v29 = AMFDREncodeProducerIDBegin(&v59);
+    if (v29)
     {
-      v23 = v25;
-      AMSupportLogInternal();
-      goto LABEL_9;
+      v27 = v29;
+      AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDREncodeProducerIDBegin failed %d", v29);
+      goto LABEL_11;
     }
 
-    v26 = a1[5];
-    if (!v26)
+    v30 = *(a1 + 40);
+    if (!v30)
     {
       FDREncodeCreateSignedData_cold_3();
-      goto LABEL_38;
+      goto LABEL_40;
     }
 
-    v27 = v26(&v43, &v42, a2);
-    if (!v27)
+    v31 = v30(&v63, &v62, a2);
+    if (!v31)
     {
-      if (!v43 || !v42)
+      if (!v63 || !v62)
       {
         FDREncodeCreateSignedData_cold_2();
-        goto LABEL_38;
+        goto LABEL_40;
       }
 
       DataFromPem = AMSupportRsaCreateDataFromPem();
       if (DataFromPem)
       {
-        v23 = DataFromPem;
-LABEL_33:
-        AMSupportLogInternal();
-        goto LABEL_9;
+        v27 = DataFromPem;
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMSupportX509CreateDerCertFromPEM failed %d");
+        goto LABEL_11;
       }
 
-      if (AMFDRDecodeIterateCertChainBegin(v38, v46, v45) || (AMFDRDecodeIterateCertChainNext(v38, &v36), v29))
+      if (AMFDRDecodeIterateCertChainBegin(v58, v66, v65))
       {
-        AMSupportLogInternal();
-LABEL_38:
-        v23 = 0;
-        goto LABEL_9;
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDRDecodeIterateCertChainBegin failed %d");
+LABEL_40:
+        v27 = 0;
+        goto LABEL_11;
       }
 
-      while (v36)
+      AMFDRDecodeIterateCertChainNext(v58, &v56, &v64);
+      if (v33)
       {
-        v30 = AMFDREncodeProducerIDAddDigestFromData(&v39, v19, *(v36 + 18), *(v36 + 38));
-        if (v30 || (v30 = AMFDREncodeProducerIDAddDigestFromData(&v39, v19, *(v36 + 32), *(v36 + 66)), v30))
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDRDecodeIterateCertChainNext failed %d");
+        goto LABEL_40;
+      }
+
+      while (v56)
+      {
+        v34 = AMFDREncodeProducerIDAddDigestFromData(&v59, v24, *(v56 + 18), *(v56 + 38));
+        if (v34 || (v34 = AMFDREncodeProducerIDAddDigestFromData(&v59, v24, *(v56 + 32), *(v56 + 66)), v34))
         {
-          v23 = v30;
-          goto LABEL_33;
+          v27 = v34;
+          AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDREncodeProducerIDAddDigestFromData failed %d");
+          goto LABEL_11;
         }
 
-        v23 = AMFDREncodeProducerIDAddDigestFromData(&v39, v19, *(v36 + 34), *(v36 + 70));
-        if (v23)
+        v35 = AMFDREncodeProducerIDAddDigestFromData(&v59, v24, *(v56 + 34), *(v56 + 70));
+        v27 = v35;
+        if (v35)
         {
-          AMSupportLogInternal();
+          AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDREncodeProducerIDAddDigestFromData failed %d", v35);
         }
 
-        AMFDRDecodeIterateCertChainNext(v38, &v36);
-        if (v31)
+        AMFDRDecodeIterateCertChainNext(v58, &v56, &v64);
+        if (v36)
         {
-          goto LABEL_33;
+          AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDRDecodeIterateCertChainNext failed %d");
+          goto LABEL_11;
         }
       }
 
-      v32 = AMFDREncodeProducerIDEnd(&v39);
-      if (v32)
+      v37 = AMFDREncodeProducerIDEnd(&v59);
+      if (v37)
       {
-        v23 = v32;
-        goto LABEL_33;
+        v27 = v37;
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "AMFDREncodeProducerIDEnd failed %d");
+        goto LABEL_11;
       }
 
-      v35 = *a1[2];
-      AMFDRTagsStringToTag(a3);
-      v33 = *(a1 + 2);
-      v34 = a1[4];
-      if (!FDREncodeCreateSignedManifest())
+      *&v38 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v38 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v48 = -1431655766;
+      v50 = v38;
+      v51 = v38;
+      v46[0] = a3;
+      v46[1] = 0xAAAAAAAA00000004;
+      v46[2] = a5;
+      v47 = a6;
+      v49 = v26;
+      v39 = *(a1 + 16);
+      v52 = 0xAAAAAAAAAAAAAAAALL;
+      LODWORD(v50) = *v39;
+      *(&v50 + 1) = v68;
+      LODWORD(v51) = v67;
+      *(&v51 + 1) = a7;
+      LODWORD(v52) = a8;
+      v53 = a9;
+      v54 = a10;
+      v55 = AMFDRTagsStringToTag(a3);
+      v40[0] = 0;
+      v40[1] = 0xAAAAAAAA00000000;
+      v40[2] = v68;
+      v42 = -1431655766;
+      v41 = v67;
+      LOBYTE(v42) = a13;
+      v43 = 1;
+      v44 = v46;
+      v45 = a14;
+      if (FDREncodeCreateSignedManifest(*(a1 + 8), *(a1 + 32), a2, v63, v62, v40, &v70, &v69))
       {
-        if (v50 && v49)
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "FDREncodeCreateSignedManifest failed %d");
+      }
+
+      else
+      {
+        if (!v70 || !v69)
         {
-          if (Img4EncodeStitchManifest() != 100)
+          AMSupportLogInternal(3, "FDREncodeCreateSignedData", "FDREncodeCreateSignedManifest returned an empty manifest");
+          goto LABEL_7;
+        }
+
+        if (Img4EncodeStitchManifest() == 100)
+        {
+          if (!a15 || !a16)
           {
-            goto LABEL_8;
+            AMSupportLogInternal(3, "FDREncodeCreateSignedData", "Img4EncodeStitchManifest returned empty data");
+            goto LABEL_7;
           }
 
-          if (a14 && a15)
-          {
-            goto LABEL_38;
-          }
+          goto LABEL_40;
         }
 
-LABEL_6:
-        AMSupportLogInternal();
-        v23 = 10;
-        goto LABEL_9;
+        AMSupportLogInternal(3, "FDREncodeCreateSignedData", "Img4EncodeStitchManifest failed %d");
       }
 
-LABEL_8:
-      AMSupportLogInternal();
-      v23 = 16;
-      goto LABEL_9;
+LABEL_10:
+      v27 = 16;
+      goto LABEL_11;
     }
 
-    v23 = v27;
+    v27 = v31;
     FDREncodeCreateSignedData_cold_1();
   }
 
-LABEL_9:
-  if (v52)
+LABEL_11:
+  if (v72)
   {
-    free(v52);
-    v52 = 0;
+    free(v72);
+    v72 = 0;
   }
 
-  if (v50)
+  if (v70)
   {
-    free(v50);
+    free(v70);
   }
 
-  if (v48)
+  if (v68)
   {
-    free(v48);
-    v48 = 0;
+    free(v68);
+    v68 = 0;
   }
 
-  if (v46)
+  if (v66)
   {
-    free(v46);
-    v46 = 0;
+    free(v66);
+    v66 = 0;
   }
 
-  if (v21)
+  if (v26)
   {
-    free(v21);
+    free(v26);
   }
 
-  if (v43)
+  if (v63)
   {
-    free(v43);
-    v43 = 0;
+    free(v63);
+    v63 = 0;
   }
 
-  if (v39)
+  if (v59)
   {
-    AMFDREncodeProducerIDEnd(&v39);
+    AMFDREncodeProducerIDEnd(&v59);
   }
 
-  return v23;
+  return v27;
 }
 
-void AMFDREncodeMultiRequestDestroy(uint64_t **a1)
+void AMFDREncodeMultiRequestDestroy(uint64_t a1)
 {
   if (a1)
   {
@@ -1676,7 +1785,6 @@ void AMFDREncodeMultiRequestDestroy(uint64_t **a1)
     {
       if (*v2)
       {
-        v3 = *v2;
         DEREncoderDestroy();
         **a1 = 0;
         v2 = *a1;
@@ -1684,13 +1792,12 @@ void AMFDREncodeMultiRequestDestroy(uint64_t **a1)
 
       if (v2[1])
       {
-        v4 = v2[1];
         DEREncoderDestroy();
-        (*a1)[1] = 0;
+        *(*a1 + 8) = 0;
         v2 = *a1;
       }
 
-      if (!v2[2] || (v5 = v2[2], DEREncoderDestroy(), (*a1)[2] = 0, (v2 = *a1) != 0))
+      if (!v2[2] || (DEREncoderDestroy(), *(*a1 + 16) = 0, (v2 = *a1) != 0))
       {
         free(v2);
       }
@@ -1700,41 +1807,43 @@ void AMFDREncodeMultiRequestDestroy(uint64_t **a1)
   }
 }
 
-uint64_t AMFDREncodeMultiResponseBegin(uint64_t a1)
+uint64_t AMFDREncodeMultiResponseBegin(uint64_t a1, char a2)
 {
-  v2 = malloc_type_calloc(1uLL, 0x18uLL, 0x20040960023A9uLL);
-  *a1 = v2;
-  if (!v2)
+  v3 = malloc_type_calloc(1uLL, 0x18uLL, 0x20040960023A9uLL);
+  *a1 = v3;
+  if (!v3)
   {
-    AMFDREncodeMultiResponseBegin_cold_5();
+    AMFDREncodeMultiResponseBegin_cold_5(0);
     return 2;
   }
 
-  **a1 = DEREncoderCreate();
+  v4 = DEREncoderCreate();
+  **a1 = v4;
   if (!**a1)
   {
-    AMFDREncodeMultiResponseBegin_cold_4();
+    AMFDREncodeMultiResponseBegin_cold_4(v4);
     return 2;
   }
 
-  *(*a1 + 8) = DEREncoderCreate();
+  v5 = DEREncoderCreate();
+  *(*a1 + 8) = v5;
   if (!*(*a1 + 8))
   {
-    AMFDREncodeMultiResponseBegin_cold_3();
+    AMFDREncodeMultiResponseBegin_cold_3(v5);
     return 2;
   }
 
-  *(*a1 + 16) = DEREncoderCreate();
+  v6 = DEREncoderCreate();
+  *(*a1 + 16) = v6;
   if (!*(*a1 + 16))
   {
-    AMFDREncodeMultiResponseBegin_cold_2();
+    AMFDREncodeMultiResponseBegin_cold_2(v6);
     return 2;
   }
 
-  v3 = *(*a1 + 8);
-  v4 = DEREncoderAddData();
+  v7 = DEREncoderAddData();
   result = 0;
-  if (v4)
+  if (v7)
   {
     AMFDREncodeMultiResponseBegin_cold_1();
     return 3;
@@ -1747,23 +1856,34 @@ uint64_t AMFDREncodeMetadataBegin(void *a1)
 {
   v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
   *a1 = v2;
-  if (!v2 || (v3 = DEREncoderCreate(), result = 0, (**a1 = v3) == 0))
+  if (!v2)
   {
-    AMFDREncodeMetadataBegin_cold_1();
+    v5 = "metadataContext is NULL";
+LABEL_6:
+    AMFDREncodeMetadataBegin_cold_1(v5);
     return 2;
+  }
+
+  v3 = DEREncoderCreate();
+  result = 0;
+  **a1 = v3;
+  if (!**a1)
+  {
+    v5 = "failed to allocate sequenceEncoder";
+    goto LABEL_6;
   }
 
   return result;
 }
 
-void AMFDREncodeMetadataDestroy(uint64_t **a1)
+void AMFDREncodeMetadataDestroy(void **a1)
 {
   if (a1)
   {
     v2 = *a1;
     if (v2)
     {
-      if (!*v2 || (v3 = *v2, DEREncoderDestroy(), **a1 = 0, (v2 = *a1) != 0))
+      if (!*v2 || (DEREncoderDestroy(), **a1 = 0, (v2 = *a1) != 0))
       {
         free(v2);
       }
@@ -1777,10 +1897,21 @@ uint64_t AMFDREncodeMetaPropertyBegin(void *a1)
 {
   v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
   *a1 = v2;
-  if (!v2 || (v3 = DEREncoderCreate(), result = 0, (**a1 = v3) == 0))
+  if (!v2)
   {
-    AMFDREncodeMetaPropertyBegin_cold_1();
+    v5 = "metaContext is NULL";
+LABEL_6:
+    AMFDREncodeMetaPropertyBegin_cold_1(v5);
     return 2;
+  }
+
+  v3 = DEREncoderCreate();
+  result = 0;
+  **a1 = v3;
+  if (!**a1)
+  {
+    v5 = "failed to allocate sequenceEncoder";
+    goto LABEL_6;
   }
 
   return result;
@@ -1792,7 +1923,7 @@ uint64_t _FDREncodeCreateDataFromOid(char *a1, void *a2, _DWORD *a3)
   v6 = malloc_type_malloc(0x100uLL, 0x234C02C2uLL);
   if (!v6)
   {
-    _FDREncodeCreateDataFromOid_cold_3();
+    _FDREncodeCreateDataFromOid_cold_3(0);
     return 2;
   }
 
@@ -1801,7 +1932,7 @@ uint64_t _FDREncodeCreateDataFromOid(char *a1, void *a2, _DWORD *a3)
   v9 = malloc_type_malloc(v8 + 1, 0xB814BFBuLL);
   if (!v9)
   {
-    _FDREncodeCreateDataFromOid_cold_2();
+    _FDREncodeCreateDataFromOid_cold_2(0);
     v23 = 2;
     goto LABEL_24;
   }
@@ -1816,7 +1947,9 @@ LABEL_20:
     v23 = 0;
     *a2 = v7;
     *a3 = v14;
-    goto LABEL_21;
+LABEL_21:
+    free(v9);
+    return v23;
   }
 
   v12 = v11;
@@ -1826,11 +1959,21 @@ LABEL_20:
   {
     *__error() = 0;
     v15 = strtoul(v12, 0, 10);
-    if (*__error() || HIDWORD(v15))
+    if (*__error())
     {
+      v26 = v12;
+      v25 = "invalid oid sub-identifier %s";
+LABEL_28:
       v23 = 3;
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "_FDREncodeCreateDataFromOid", v25, v26, __lasts);
       goto LABEL_24;
+    }
+
+    if (HIDWORD(v15))
+    {
+      v26 = v15;
+      v25 = "oid sub-identifier %ul too long";
+      goto LABEL_28;
     }
 
     if (!v13)
@@ -1892,261 +2035,266 @@ LABEL_24:
   free(v7);
   if (v9)
   {
-LABEL_21:
-    free(v9);
+    goto LABEL_21;
   }
 
   return v23;
 }
 
-uint64_t AMFDREncodeCertificateRequestCreateUnsginedData(uint64_t **a1, const void *a2, unsigned int a3, char *a4, char *a5, void *a6, _DWORD *a7)
+uint64_t AMFDREncodeCertificateRequestCreateUnsginedData(void **a1, const void *a2, uint64_t a3, char *a4, char *a5, void **a6, _DWORD *a7)
 {
   v7 = 0;
-  v34 = 2;
-  v33 = 0;
-  v32 = 0;
-  v30 = 1;
-  if (a1 && a2 && a3 && a4 && a6)
+  v31 = 2;
+  v30 = 0;
+  v29 = 0;
+  v27 = 1;
+  if (a1)
   {
-    v11 = 0;
-    v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    if (!a7)
+    if (a2)
     {
-      goto LABEL_58;
-    }
-
-    v14 = DEREncoderCreate();
-    if (!v14)
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_18();
-      v7 = 0;
-      v11 = 0;
-      v12 = 0;
-      v13 = 0;
-      goto LABEL_73;
-    }
-
-    v13 = DEREncoderCreate();
-    if (!v13)
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_17();
-      v7 = 0;
-      v11 = 0;
-      v12 = 0;
-      goto LABEL_73;
-    }
-
-    v12 = DEREncoderCreate();
-    if (!v12)
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_16();
-      v7 = 0;
-      v11 = 0;
-      goto LABEL_73;
-    }
-
-    v11 = DEREncoderCreate();
-    if (!v11)
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_15();
-      v7 = 0;
-      goto LABEL_73;
-    }
-
-    v7 = DEREncoderCreate();
-    if (!v7)
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_14();
-      goto LABEL_73;
-    }
-
-    if (DEREncoderAddDataNoCopy())
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_1();
-      goto LABEL_56;
-    }
-
-    v17 = **a1;
-    if (DEREncoderAddSequenceFromEncoder())
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_2();
-      goto LABEL_56;
-    }
-
-    v18 = _FDREncodeCreateDataFromOid(a4, &v33, &v32);
-    v19 = v33;
-    if (v18)
-    {
-      goto LABEL_75;
-    }
-
-    if (DEREncoderAddData())
-    {
-      goto LABEL_74;
-    }
-
-    if (v19)
-    {
-      free(v19);
-      v33 = 0;
-    }
-
-    if (a5)
-    {
-      v20 = _FDREncodeCreateDataFromOid(a5, &v33, &v32);
-      v19 = v33;
-      if (v20)
+      v9 = a3;
+      if (a3)
       {
-        goto LABEL_75;
-      }
-
-      if (DEREncoderAddData())
-      {
-        goto LABEL_74;
-      }
-
-      if (v19)
-      {
-        free(v19);
-        v33 = 0;
-      }
-    }
-
-    else if (DEREncoderAddDataNoCopy())
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_3();
-      goto LABEL_56;
-    }
-
-    if (DEREncoderAddSequenceFromEncoder())
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_4();
-    }
-
-    else if (AMFDREncodeAddBitString(v12, a2, a3))
-    {
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_5();
-    }
-
-    else
-    {
-      if (!DEREncoderAddSequenceFromEncoder())
-      {
-        DEREncoderDestroy();
-        v13 = DEREncoderCreate();
-        if (v13)
+        if (a4 && a6)
         {
-          v21 = _FDREncodeCreateDataFromOid("1.2.840.113549.1.9.14", &v33, &v32);
-          v19 = v33;
-          if (v21)
+          v11 = 0;
+          v12 = 0;
+          v13 = 0;
+          v14 = 0;
+          if (!a7)
           {
-            goto LABEL_75;
+            goto LABEL_58;
           }
 
-          if (!DEREncoderAddData())
+          v14 = DEREncoderCreate();
+          if (!v14)
           {
-            if (v19)
-            {
-              free(v19);
-              v33 = 0;
-            }
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_18(0);
+            v7 = 0;
+            v11 = 0;
+            v12 = 0;
+            v13 = 0;
+            goto LABEL_73;
+          }
 
-            v22 = (*a1)[1];
-            v36 = 0;
-            v35 = 0;
-            if (!v22)
-            {
-              goto LABEL_55;
-            }
+          v13 = DEREncoderCreate();
+          if (!v13)
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_17(0);
+            v7 = 0;
+            v11 = 0;
+            v12 = 0;
+            goto LABEL_73;
+          }
 
-            EncodedBuffer = DEREncoderCreateEncodedBuffer();
-            if (!EncodedBuffer)
-            {
-              EncodedBuffer = DEREncoderAddData();
-            }
+          v12 = DEREncoderCreate();
+          if (!v12)
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_16(0);
+            v7 = 0;
+            v11 = 0;
+            goto LABEL_73;
+          }
 
-            if (v35)
-            {
-              free(v35);
-            }
+          v11 = DEREncoderCreate();
+          if (!v11)
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_15(0);
+            v7 = 0;
+            goto LABEL_73;
+          }
 
-            if (EncodedBuffer)
-            {
-LABEL_55:
-              AMFDREncodeCertificateRequestCreateUnsginedData_cold_12();
-            }
+          v7 = DEREncoderCreate();
+          if (!v7)
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_14(0);
+            goto LABEL_73;
+          }
 
-            else if (DEREncoderAddSetFromEncoder())
-            {
-              AMFDREncodeCertificateRequestCreateUnsginedData_cold_7();
-            }
+          if (DEREncoderAddDataNoCopy())
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_1();
+            goto LABEL_56;
+          }
 
-            else if (DEREncoderAddSequenceFromEncoder())
-            {
-              AMFDREncodeCertificateRequestCreateUnsginedData_cold_8();
-            }
+          if (DEREncoderAddSequenceFromEncoder())
+          {
+            AMFDREncodeCertificateRequestCreateUnsginedData_cold_2();
+            goto LABEL_56;
+          }
 
-            else if (DEREncoderAddDataFromEncoder())
+          v17 = _FDREncodeCreateDataFromOid(a4, &v30, &v29);
+          v18 = v30;
+          if (!v17)
+          {
+            if (DEREncoderAddData())
             {
-              AMFDREncodeCertificateRequestCreateUnsginedData_cold_9();
+              AMSupportLogInternal(3, "AMFDREncodeCertificateRequestCreateUnsginedData", "failed to add pubkeyOid");
             }
 
             else
             {
-              v24 = (*a1)[2];
-              if (DEREncoderAddSequenceFromEncoder())
+              if (v18)
               {
-                AMFDREncodeCertificateRequestCreateUnsginedData_cold_10();
+                free(v18);
+                v30 = 0;
               }
 
-              else
+              if (!a5)
               {
-                v25 = (*a1)[2];
-                if (!DEREncoderCreateEncodedBuffer())
+                if (DEREncoderAddDataNoCopy())
                 {
-                  v26 = 0;
-                  *a6 = 0;
-                  *a7 = 0;
-LABEL_43:
-                  DEREncoderDestroy();
-                  goto LABEL_44;
+                  AMFDREncodeCertificateRequestCreateUnsginedData_cold_3();
+                  goto LABEL_56;
                 }
 
-                AMFDREncodeCertificateRequestCreateUnsginedData_cold_11();
+LABEL_23:
+                if (DEREncoderAddSequenceFromEncoder())
+                {
+                  AMFDREncodeCertificateRequestCreateUnsginedData_cold_4();
+                }
+
+                else if (AMFDREncodeAddBitString(v12, a2, v9))
+                {
+                  AMFDREncodeCertificateRequestCreateUnsginedData_cold_5();
+                }
+
+                else
+                {
+                  if (!DEREncoderAddSequenceFromEncoder())
+                  {
+                    DEREncoderDestroy();
+                    v13 = DEREncoderCreate();
+                    if (v13)
+                    {
+                      v20 = _FDREncodeCreateDataFromOid("1.2.840.113549.1.9.14", &v30, &v29);
+                      v18 = v30;
+                      if (!v20)
+                      {
+                        if (!DEREncoderAddData())
+                        {
+                          if (v18)
+                          {
+                            free(v18);
+                            v30 = 0;
+                          }
+
+                          v21 = (*a1)[1];
+                          v33 = 0;
+                          v32 = 0;
+                          if (!v21)
+                          {
+                            goto LABEL_55;
+                          }
+
+                          EncodedBuffer = DEREncoderCreateEncodedBuffer();
+                          if (!EncodedBuffer)
+                          {
+                            EncodedBuffer = DEREncoderAddData();
+                          }
+
+                          if (v32)
+                          {
+                            free(v32);
+                          }
+
+                          if (EncodedBuffer)
+                          {
+LABEL_55:
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_12();
+                          }
+
+                          else if (DEREncoderAddSetFromEncoder())
+                          {
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_7();
+                          }
+
+                          else if (DEREncoderAddSequenceFromEncoder())
+                          {
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_8();
+                          }
+
+                          else if (DEREncoderAddDataFromEncoder())
+                          {
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_9();
+                          }
+
+                          else if (DEREncoderAddSequenceFromEncoder())
+                          {
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_10();
+                          }
+
+                          else
+                          {
+                            if (!DEREncoderCreateEncodedBuffer())
+                            {
+                              v23 = 0;
+                              *a6 = 0;
+                              *a7 = 0;
+LABEL_43:
+                              DEREncoderDestroy();
+                              goto LABEL_44;
+                            }
+
+                            AMFDREncodeCertificateRequestCreateUnsginedData_cold_11();
+                          }
+
+                          goto LABEL_56;
+                        }
+
+                        AMSupportLogInternal(3, "AMFDREncodeCertificateRequestCreateUnsginedData", "failed to add data to pubkeyOid");
+                      }
+
+                      goto LABEL_76;
+                    }
+
+                    AMFDREncodeCertificateRequestCreateUnsginedData_cold_13();
+LABEL_73:
+                    v25 = 2;
+                    goto LABEL_57;
+                  }
+
+                  AMFDREncodeCertificateRequestCreateUnsginedData_cold_6();
+                }
+
+LABEL_56:
+                v25 = 3;
+LABEL_57:
+                v27 = v25;
+                goto LABEL_58;
+              }
+
+              v19 = _FDREncodeCreateDataFromOid(a5, &v30, &v29);
+              v18 = v30;
+              if (!v19)
+              {
+                if (!DEREncoderAddData())
+                {
+                  if (v18)
+                  {
+                    free(v18);
+                    v30 = 0;
+                  }
+
+                  goto LABEL_23;
+                }
+
+                AMSupportLogInternal(3, "AMFDREncodeCertificateRequestCreateUnsginedData", "failed to add pubkeyOidParams");
               }
             }
-
-            goto LABEL_56;
           }
 
-LABEL_74:
-          AMSupportLogInternal();
-LABEL_75:
-          if (v19)
+LABEL_76:
+          if (v18)
           {
-            free(v19);
-            v33 = 0;
+            free(v18);
+            v30 = 0;
           }
 
           goto LABEL_56;
         }
-
-        AMFDREncodeCertificateRequestCreateUnsginedData_cold_13();
-LABEL_73:
-        v28 = 2;
-        goto LABEL_57;
       }
-
-      AMFDREncodeCertificateRequestCreateUnsginedData_cold_6();
     }
-
-LABEL_56:
-    v28 = 3;
-LABEL_57:
-    v30 = v28;
-    goto LABEL_58;
   }
 
   v11 = 0;
@@ -2154,7 +2302,7 @@ LABEL_57:
   v13 = 0;
   v14 = 0;
 LABEL_58:
-  v26 = v30;
+  v23 = v27;
   if (v14)
   {
     goto LABEL_43;
@@ -2181,16 +2329,17 @@ LABEL_44:
     DEREncoderDestroy();
   }
 
-  return v26;
+  return v23;
 }
 
-uint64_t AMFDREncodeCertificateRequestEnd(uint64_t **a1, const void *a2, unsigned int a3, char *a4, char *a5, char a6, void *a7, _DWORD *a8)
+uint64_t AMFDREncodeCertificateRequestEnd(uint64_t a1, const void *a2, uint64_t a3, char *a4, char *a5, int a6, void **a7, _DWORD *a8)
 {
   v9 = 0;
-  v26 = 0;
-  v25 = 0;
+  v28 = 0;
+  v27 = 0;
+  HIDWORD(v26) = 0;
   v10 = 1;
-  if (!a1 || !a2 || !a3 || !a4 || !a7)
+  if (!a1 || !a2 || (v12 = a3) == 0 || !a4 || !a7)
   {
     v16 = 0;
     goto LABEL_43;
@@ -2202,10 +2351,11 @@ uint64_t AMFDREncodeCertificateRequestEnd(uint64_t **a1, const void *a2, unsigne
     goto LABEL_43;
   }
 
+  LODWORD(v26) = a6;
   v16 = DEREncoderCreate();
   if (!v16)
   {
-    AMFDREncodeCertificateRequestEnd_cold_7();
+    AMFDREncodeCertificateRequestEnd_cold_7(0);
     v9 = 0;
 LABEL_33:
     v10 = 2;
@@ -2215,12 +2365,12 @@ LABEL_33:
   v9 = DEREncoderCreate();
   if (!v9)
   {
-    AMFDREncodeCertificateRequestEnd_cold_6();
+    AMFDREncodeCertificateRequestEnd_cold_6(0);
     goto LABEL_33;
   }
 
-  v18 = _FDREncodeCreateDataFromOid(a4, &v26, &v25);
-  v19 = v26;
+  v18 = _FDREncodeCreateDataFromOid(a4, &v28, &v27);
+  v19 = v28;
   if (v18)
   {
     goto LABEL_40;
@@ -2228,89 +2378,98 @@ LABEL_33:
 
   if (DEREncoderAddData())
   {
-    goto LABEL_39;
-  }
-
-  if (v19)
-  {
-    free(v19);
-    v26 = 0;
-  }
-
-  if (a5)
-  {
-    v20 = _FDREncodeCreateDataFromOid(a5, &v26, &v25);
-    v19 = v26;
-    if (v20)
-    {
-      goto LABEL_40;
-    }
-
-    if (!DEREncoderAddData())
-    {
-      if (v19)
-      {
-        free(v19);
-        v26 = 0;
-      }
-
-LABEL_18:
-      v21 = (*a1)[2];
-      if (DEREncoderAddSequenceFromEncoder())
-      {
-        AMFDREncodeCertificateRequestEnd_cold_2();
-      }
-
-      else if (AMFDREncodeAddBitString((*a1)[2], a2, a3))
-      {
-        AMFDREncodeCertificateRequestEnd_cold_3();
-      }
-
-      else
-      {
-        v22 = (*a1)[2];
-        if (DEREncoderAddSequenceFromEncoder())
-        {
-          AMFDREncodeCertificateRequestEnd_cold_4();
-        }
-
-        else
-        {
-          if (!DEREncoderCreateEncodedBuffer())
-          {
-            v10 = 0;
-            *a7 = 0;
-            *a8 = 0;
-LABEL_23:
-            DEREncoderDestroy();
-            goto LABEL_24;
-          }
-
-          AMFDREncodeCertificateRequestEnd_cold_5();
-        }
-      }
-
-      goto LABEL_42;
-    }
-
-LABEL_39:
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDREncodeCertificateRequestEnd", "failed to add signatureOid", v26);
 LABEL_40:
     if (v19)
     {
       free(v19);
-      v26 = 0;
+      v28 = 0;
     }
 
     goto LABEL_42;
   }
 
-  if ((a6 & 1) != 0 || !DEREncoderAddDataNoCopy())
+  if (v19)
+  {
+    free(v19);
+    v28 = 0;
+  }
+
+  if (a5)
+  {
+    v20 = _FDREncodeCreateDataFromOid(a5, &v28, &v27);
+    v19 = v28;
+    if (!v20)
+    {
+      if (!DEREncoderAddData())
+      {
+        if (v19)
+        {
+          free(v19);
+          v28 = 0;
+        }
+
+LABEL_18:
+        v21 = DEREncoderAddSequenceFromEncoder();
+        if (v21)
+        {
+          AMFDREncodeCertificateRequestEnd_cold_2(v21);
+        }
+
+        else
+        {
+          v22 = AMFDREncodeAddBitString(*(*a1 + 16), a2, v12);
+          if (v22)
+          {
+            AMFDREncodeCertificateRequestEnd_cold_3(v22);
+          }
+
+          else
+          {
+            v23 = DEREncoderAddSequenceFromEncoder();
+            if (v23)
+            {
+              AMFDREncodeCertificateRequestEnd_cold_4(v23);
+            }
+
+            else
+            {
+              if (!DEREncoderCreateEncodedBuffer())
+              {
+                v10 = 0;
+                *a7 = 0;
+                *a8 = 0;
+LABEL_23:
+                DEREncoderDestroy();
+                goto LABEL_24;
+              }
+
+              AMFDREncodeCertificateRequestEnd_cold_5();
+            }
+          }
+        }
+
+        goto LABEL_42;
+      }
+
+      AMSupportLogInternal(3, "AMFDREncodeCertificateRequestEnd", "failed to add signatureOidParams", v26);
+    }
+
+    goto LABEL_40;
+  }
+
+  if (v26)
   {
     goto LABEL_18;
   }
 
-  AMFDREncodeCertificateRequestEnd_cold_1();
+  v25 = DEREncoderAddDataNoCopy();
+  if (!v25)
+  {
+    goto LABEL_18;
+  }
+
+  AMFDREncodeCertificateRequestEnd_cold_1(v25);
 LABEL_42:
   v10 = 3;
 LABEL_43:
@@ -2329,7 +2488,7 @@ LABEL_24:
   return v10;
 }
 
-uint64_t AMFDREncodeCreatePayloadAndDigest(uint64_t *a1, const char *a2, int a3, uint64_t a4, uint64_t a5, void **a6, unsigned int *a7, void *a8, _DWORD *a9)
+uint64_t AMFDREncodeCreatePayloadAndDigest(uint64_t a1, const char *a2, int a3, uint64_t a4, uint64_t a5, void **a6, unsigned int *a7, void *a8, _DWORD *a9)
 {
   v22 = 0;
   v21 = 0;
@@ -2341,55 +2500,61 @@ uint64_t AMFDREncodeCreatePayloadAndDigest(uint64_t *a1, const char *a2, int a3,
     if (a3 == 4)
     {
       strncpy(__dst, a2, 4uLL);
-      v16 = *a1;
-      if (Img4EncodeCreatePayload() == 100)
+      Payload = Img4EncodeCreatePayload();
+      if (Payload == 100)
       {
-        if (v22 && v21 && !_FDREncodeDigestCompute(v22, v21, v15, *a1[2], a1[2]))
+        if (!v22 || !v21)
         {
-          if (a6 && a7)
-          {
-            *a6 = v22;
-            *a7 = v21;
-            v22 = 0;
-          }
-
-          v17 = 0;
-          if (a8 && a9)
-          {
-            v17 = 0;
-            *a8 = v15;
-            *a9 = *a1[2];
-            v15 = 0;
-          }
+          AMSupportLogInternal(3, "AMFDREncodeCreatePayloadAndDigest", "Img4EncodeCreatePayload returned an empty payload");
+LABEL_7:
+          v17 = 10;
+          goto LABEL_10;
         }
 
-        else
+        if (_FDREncodeDigestCompute(v22, v21, v15, **(a1 + 16), *(a1 + 16)))
         {
-          AMSupportLogInternal();
-          v17 = 10;
+          AMSupportLogInternal(3, "AMFDREncodeCreatePayloadAndDigest", "failed to compute digest %d");
+          goto LABEL_7;
+        }
+
+        if (a6 && a7)
+        {
+          *a6 = v22;
+          *a7 = v21;
+          v22 = 0;
+        }
+
+        v17 = 0;
+        if (a8 && a9)
+        {
+          v17 = 0;
+          *a8 = v15;
+          *a9 = **(a1 + 16);
+          v15 = 0;
         }
       }
 
       else
       {
-        AMSupportLogInternal();
+        AMSupportLogInternal(3, "AMFDREncodeCreatePayloadAndDigest", "Img4EncodeCreatePayload failed %d", Payload);
         v17 = 16;
       }
     }
 
     else
     {
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "AMFDREncodeCreatePayloadAndDigest", "dataClassLength is %d, unexpected...", a3);
       v17 = 199;
     }
   }
 
   else
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDREncodeCreatePayloadAndDigest", "Failed to allocation digest buffer");
     v17 = 2;
   }
 
+LABEL_10:
   if (v22)
   {
     free(v22);
@@ -2405,28 +2570,32 @@ uint64_t AMFDREncodeCreatePayloadAndDigest(uint64_t *a1, const char *a2, int a3,
 
 uint64_t AMFDREncodeRepairConfigurationBegin(void *a1)
 {
-  if (!a1)
+  if (a1)
+  {
+    v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
+    *a1 = v2;
+    if (v2)
+    {
+      v3 = 0;
+      **a1 = DEREncoderCreate();
+      if (!**a1)
+      {
+        v3 = 2;
+        AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationBegin", "failed to allocate sequenceEncoder");
+      }
+    }
+
+    else
+    {
+      v3 = 2;
+      AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationBegin", "*repairConfigurationContext is NULL");
+    }
+  }
+
+  else
   {
     v3 = 1;
-LABEL_8:
-    AMSupportLogInternal();
-    return v3;
-  }
-
-  v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
-  *a1 = v2;
-  if (!v2)
-  {
-    v3 = 2;
-    goto LABEL_8;
-  }
-
-  v3 = 0;
-  **a1 = DEREncoderCreate();
-  if (!**a1)
-  {
-    v3 = 2;
-    goto LABEL_8;
+    AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationBegin", "repairConfigurationContext is NULL");
   }
 
   return v3;
@@ -2434,39 +2603,41 @@ LABEL_8:
 
 uint64_t AMFDREncodeRepairConfigurationAddSequence(uint64_t **a1, uint64_t **a2)
 {
-  if ((_AMFDREncodeIsRepairConfigurationContextValid(a1) & 1) == 0)
+  IsRepairConfigurationContextValid = _AMFDREncodeIsRepairConfigurationContextValid(a1);
+  if ((IsRepairConfigurationContextValid & 1) == 0)
   {
-    AMFDREncodeRepairConfigurationAddSequence_cold_1();
+    AMFDREncodeRepairConfigurationAddSequence_cold_1(IsRepairConfigurationContextValid);
     return 1;
   }
 
-  v4 = **a1;
-  if ((_AMFDREncodeIsRepairConfigurationContextValid(a2) & 1) == 0)
+  v5 = **a1;
+  v6 = _AMFDREncodeIsRepairConfigurationContextValid(a2);
+  if ((v6 & 1) == 0)
   {
-    AMFDREncodeRepairConfigurationAddSequence_cold_2();
+    AMFDREncodeRepairConfigurationAddSequence_cold_2(v6);
     return 1;
   }
 
   if (a1 == a2)
   {
-    v7 = DEREncoderCreate();
-    if (!v7)
+    v8 = DEREncoderCreate();
+    if (!v8)
     {
-      AMFDREncodeRepairConfigurationAddSequence_cold_4();
+      AMFDREncodeRepairConfigurationAddSequence_cold_4(0);
       return 2;
     }
 
-    v8 = v7;
+    v9 = v8;
     if (DEREncoderAddSequenceFromEncoder())
     {
-      DEREncoderDestroy();
+      result = DEREncoderDestroy();
 LABEL_17:
-      AMFDREncodeRepairConfigurationAddSequence_cold_3();
+      AMFDREncodeRepairConfigurationAddSequence_cold_3(result);
       return 3;
     }
 
-    **a2 = v8;
-    if (v4)
+    **a2 = v9;
+    if (v5)
     {
       DEREncoderDestroy();
     }
@@ -2476,7 +2647,6 @@ LABEL_17:
 
   else
   {
-    v5 = **a2;
     result = DEREncoderAddSequenceFromEncoder();
     if (result)
     {
@@ -2487,48 +2657,67 @@ LABEL_17:
   return result;
 }
 
-uint64_t _AMFDREncodeIsRepairConfigurationContextValid(void *a1)
+uint64_t _AMFDREncodeIsRepairConfigurationContextValid(void **a1)
 {
-  if (a1 && *a1 && **a1)
+  if (a1)
   {
-    return 1;
+    if (*a1)
+    {
+      if (**a1)
+      {
+        return 1;
+      }
+
+      v2 = "repairConfigurationContext sequenceEncoder is NULL";
+    }
+
+    else
+    {
+      v2 = "*repairConfigurationContext is NULL";
+    }
   }
 
-  _AMFDREncodeIsRepairConfigurationContextValid_cold_1();
+  else
+  {
+    v2 = "repairConfigurationContext is NULL";
+  }
+
+  _AMFDREncodeIsRepairConfigurationContextValid_cold_1(v2);
   return 0;
 }
 
-uint64_t AMFDREncodeRepairConfigurationAddSequenceWithKey(uint64_t **a1)
+uint64_t AMFDREncodeRepairConfigurationAddSequenceWithKey(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  if ((_AMFDREncodeIsRepairConfigurationContextValid(a1) & 1) == 0)
+  IsRepairConfigurationContextValid = _AMFDREncodeIsRepairConfigurationContextValid(a1);
+  if ((IsRepairConfigurationContextValid & 1) == 0)
   {
-    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_1();
+    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_1(IsRepairConfigurationContextValid);
     return 1;
   }
 
-  v2 = **a1;
-  v3 = DEREncoderCreate();
-  if (!v3)
+  v5 = **a1;
+  v6 = DEREncoderCreate();
+  if (!v6)
   {
-    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_4();
+    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_4(0);
     return 2;
   }
 
-  v4 = v3;
+  v7 = v6;
   if (DEREncoderAddDataNoCopy())
   {
-    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_2();
+    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_2(v7);
     return 3;
   }
 
   if (DEREncoderAddSequenceFromEncoder())
   {
-    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_3();
+    AMFDREncodeRepairConfigurationAddSequenceWithKey_cold_3(v7);
     return 3;
   }
 
-  **a1 = v4;
-  if (v2)
+  **a1 = v7;
+  if (v5)
   {
     DEREncoderDestroy();
   }
@@ -2536,37 +2725,38 @@ uint64_t AMFDREncodeRepairConfigurationAddSequenceWithKey(uint64_t **a1)
   return 0;
 }
 
-uint64_t AMFDREncodeRepairConfigurationAddSetWithKey(uint64_t **a1)
+uint64_t AMFDREncodeRepairConfigurationAddSetWithKey(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  if ((_AMFDREncodeIsRepairConfigurationContextValid(a1) & 1) == 0)
+  IsRepairConfigurationContextValid = _AMFDREncodeIsRepairConfigurationContextValid(a1);
+  if ((IsRepairConfigurationContextValid & 1) == 0)
   {
-    AMFDREncodeRepairConfigurationAddSetWithKey_cold_1();
+    AMFDREncodeRepairConfigurationAddSetWithKey_cold_1(IsRepairConfigurationContextValid);
     return 1;
   }
 
-  v2 = **a1;
-  v3 = DEREncoderCreate();
-  if (!v3)
+  v5 = **a1;
+  v6 = DEREncoderCreate();
+  if (!v6)
   {
-    AMFDREncodeRepairConfigurationAddSetWithKey_cold_4();
+    AMFDREncodeRepairConfigurationAddSetWithKey_cold_4(0);
     return 2;
   }
 
-  v4 = v3;
+  v7 = v6;
   if (DEREncoderAddDataNoCopy())
   {
-    AMFDREncodeRepairConfigurationAddSetWithKey_cold_2();
+    AMFDREncodeRepairConfigurationAddSetWithKey_cold_2(v7);
     return 3;
   }
 
   if (DEREncoderAddSetFromEncoder())
   {
-    AMFDREncodeRepairConfigurationAddSetWithKey_cold_3();
+    AMFDREncodeRepairConfigurationAddSetWithKey_cold_3(v7);
     return 3;
   }
 
-  **a1 = v4;
-  if (v2)
+  **a1 = v7;
+  if (v5)
   {
     DEREncoderDestroy();
   }
@@ -2574,114 +2764,121 @@ uint64_t AMFDREncodeRepairConfigurationAddSetWithKey(uint64_t **a1)
   return 0;
 }
 
-uint64_t AMFDREncodeRepairConfigurationAddData(uint64_t **a1, int a2, unsigned int *a3, int a4)
+uint64_t AMFDREncodeRepairConfigurationAddData(uint64_t **a1, unsigned int a2, unsigned int *a3, uint64_t a4)
 {
-  if ((_AMFDREncodeIsRepairConfigurationContextValid(a1) & 1) == 0)
+  v4 = a4;
+  IsRepairConfigurationContextValid = _AMFDREncodeIsRepairConfigurationContextValid(a1);
+  if ((IsRepairConfigurationContextValid & 1) == 0)
   {
-    AMFDREncodeRepairConfigurationAddData_cold_1();
+    AMFDREncodeRepairConfigurationAddData_cold_1(IsRepairConfigurationContextValid);
     return 1;
   }
 
-  if (!a4)
+  if (!v4)
   {
-    AMFDREncodeRepairConfigurationAddData_cold_3();
+    AMFDREncodeRepairConfigurationAddData_cold_3(IsRepairConfigurationContextValid);
     return 1;
   }
 
   if (!a3)
   {
-    AMFDREncodeRepairConfigurationAddData_cold_2();
+    AMFDREncodeRepairConfigurationAddData_cold_2(IsRepairConfigurationContextValid);
     return 1;
   }
 
-  if (a2 > 1)
+  if (a2 <= 1)
   {
-    if (a2 == 2)
+    if (a2 <= 1)
     {
-      v14 = **a1;
-      goto LABEL_15;
+      goto LABEL_12;
     }
 
+    goto LABEL_10;
+  }
+
+  if (a2 != 2)
+  {
     if (a2 == 3)
     {
-      v9 = *a3;
-      v10 = **a1;
-      v11 = DEREncoderAddUInt32();
-      goto LABEL_16;
+      v8 = DEREncoderAddUInt32();
+      goto LABEL_13;
     }
 
-LABEL_11:
-    AMSupportLogInternal();
+LABEL_10:
+    AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationAddData", "unknown repairConfigurationDataType %d", a2);
     return 1;
   }
 
-  if (!a2)
-  {
-    v13 = **a1;
-    goto LABEL_15;
-  }
-
-  if (a2 != 1)
-  {
-    goto LABEL_11;
-  }
-
-  v8 = **a1;
-LABEL_15:
-  v11 = DEREncoderAddData();
-LABEL_16:
-  if (!v11)
+LABEL_12:
+  v8 = DEREncoderAddData();
+LABEL_13:
+  if (!v8)
   {
     return 0;
   }
 
-  v12 = 3;
-  AMSupportLogInternal();
-  return v12;
+  v11 = a2;
+  v9 = 3;
+  AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationAddData", "failed to add value to collection sequenceEncoder for type %d", v11);
+  return v9;
 }
 
-uint64_t AMFDREncodeRepairConfigurationEnd(uint64_t **a1, void *a2, _DWORD *a3)
+uint64_t AMFDREncodeRepairConfigurationEnd(void **a1, void *a2, _DWORD *a3)
 {
-  if (!_AMFDREncodeIsRepairConfigurationContextValid(a1))
+  if (_AMFDREncodeIsRepairConfigurationContextValid(a1))
   {
-    v7 = 1;
-LABEL_15:
-    AMSupportLogInternal();
-    return v7;
+    if (a2)
+    {
+      if (a3)
+      {
+        if (DEREncoderCreateEncodedBuffer())
+        {
+          v5 = 3;
+          AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "failed to create encoded buffer");
+        }
+
+        else if (*a2)
+        {
+          if (*a3)
+          {
+            return 0;
+          }
+
+          else
+          {
+            v5 = 199;
+            AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "*outdataLength is 0");
+          }
+        }
+
+        else
+        {
+          v5 = 199;
+          AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "*outData is NULL");
+        }
+      }
+
+      else
+      {
+        v5 = 1;
+        AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "outdataLength is NULL");
+      }
+    }
+
+    else
+    {
+      v5 = 1;
+      AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "outData is NULL");
+    }
   }
 
-  if (!a2)
+  else
   {
-    v7 = 1;
-    goto LABEL_15;
+    v5 = 1;
+    AMSupportLogInternal(3, "AMFDREncodeRepairConfigurationEnd", "repairConfigurationContextSrc is invalid");
   }
 
-  if (!a3)
-  {
-    v7 = 1;
-    goto LABEL_15;
-  }
-
-  v6 = **a1;
-  if (DEREncoderCreateEncodedBuffer())
-  {
-    v7 = 3;
-    goto LABEL_15;
-  }
-
-  if (!*a2)
-  {
-    v7 = 199;
-    goto LABEL_15;
-  }
-
-  if (!*a3)
-  {
-    v7 = 199;
-    goto LABEL_15;
-  }
-
-  return 0;
+  return v5;
 }
 
 uint64_t AMFDREncodeMultiCombinedDataPayloadBegin(void *a1)
@@ -2689,8 +2886,8 @@ uint64_t AMFDREncodeMultiCombinedDataPayloadBegin(void *a1)
   if (!a1)
   {
     v3 = 199;
-LABEL_9:
-    AMSupportLogInternal();
+LABEL_7:
+    AMSupportLogInternal(3, "AMFDREncodeMultiCombinedDataPayloadBegin", "multiCombinedDataPayloadContext is NULL");
     return v3;
   }
 
@@ -2699,7 +2896,7 @@ LABEL_9:
   if (!v2)
   {
     v3 = 2;
-    goto LABEL_9;
+    goto LABEL_7;
   }
 
   v3 = 0;
@@ -2707,7 +2904,7 @@ LABEL_9:
   if (!**a1)
   {
     v3 = 2;
-    goto LABEL_9;
+    AMSupportLogInternal(3, "AMFDREncodeMultiCombinedDataPayloadBegin", "failed to allocate recordsEncoder");
   }
 
   return v3;
@@ -2715,38 +2912,35 @@ LABEL_9:
 
 uint64_t AMFDREncodeSubCCDigestsBegin(void *a1)
 {
-  if (!a1)
+  if (a1)
+  {
+    v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
+    *a1 = v2;
+    if (v2)
+    {
+      v3 = 0;
+      **a1 = DEREncoderCreate();
+      if (!**a1)
+      {
+        v3 = 2;
+        AMSupportLogInternal(3, "AMFDREncodeSubCCDigestsBegin", "failed to allocate recordsEncoder");
+      }
+    }
+
+    else
+    {
+      v3 = 2;
+      AMSupportLogInternal(3, "AMFDREncodeSubCCDigestsBegin", "subCCDigestsContext is NULL");
+    }
+  }
+
+  else
   {
     v3 = 199;
-LABEL_8:
-    AMSupportLogInternal();
-    return v3;
-  }
-
-  v2 = malloc_type_calloc(1uLL, 8uLL, 0x2004093837F09uLL);
-  *a1 = v2;
-  if (!v2)
-  {
-    v3 = 2;
-    goto LABEL_8;
-  }
-
-  v3 = 0;
-  **a1 = DEREncoderCreate();
-  if (!**a1)
-  {
-    v3 = 2;
-    goto LABEL_8;
+    AMSupportLogInternal(3, "AMFDREncodeSubCCDigestsBegin", "multiCombinedDataPayloadContext is NULL");
   }
 
   return v3;
-}
-
-uint64_t OUTLINED_FUNCTION_5(uint64_t result)
-{
-  **v1 = result;
-  v2 = **v1;
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_8()
@@ -2755,7 +2949,7 @@ uint64_t OUTLINED_FUNCTION_8()
   return DEREncoderCreateEncodedBuffer();
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+uint64_t OUTLINED_FUNCTION_9(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return DEREncoderAddDataNoCopy();
@@ -2769,58 +2963,51 @@ uint64_t OUTLINED_FUNCTION_10()
 
 uint64_t OUTLINED_FUNCTION_12()
 {
-  v2 = **v0;
 
   return DEREncoderAddSequenceFromEncoder();
 }
 
-uint64_t OUTLINED_FUNCTION_20()
+uint64_t OUTLINED_FUNCTION_20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
 
   return DEREncoderAddDataNoCopy();
 }
 
-uint64_t OUTLINED_FUNCTION_21()
+uint64_t OUTLINED_FUNCTION_21(uint64_t a1, uint64_t a2, const char *a3)
 {
 
-  return AMSupportLogInternal();
+  return AMSupportLogInternal(3, a2, a3);
 }
 
-uint64_t OUTLINED_FUNCTION_22()
+uint64_t OUTLINED_FUNCTION_22(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return DEREncoderAddDataNoCopy();
 }
 
-uint64_t OUTLINED_FUNCTION_24(uint64_t result)
+uint64_t OUTLINED_FUNCTION_29(uint64_t a1)
 {
-  *(*v1 + 8) = result;
-  v2 = *(*v1 + 8);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_29()
-{
-  v2 = **v0;
 
   return DEREncoderAddSetFromEncoder();
 }
 
-uint64_t AMFDRErrorPushInternal(uint64_t a1, CFIndex a2, const __CFNumber *a3, const void *a4, const void *a5, const void *a6, const void *a7, const void *a8, void *value, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, CFStringRef format, char a17)
+uint64_t AMFDRErrorPushInternal(uint64_t a1, CFIndex a2, const __CFNumber *a3, const void *a4, const void *a5, const void *a6, const void *a7, const void *a8, void *value, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, CFStringRef format, ...)
 {
-  v22 = a3;
+  va_start(va, format);
+  v21 = a3;
   valuePtr = a3;
-  v25 = *MEMORY[0x277CBECE8];
-  v26 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, format, &a17);
-  if (v26)
+  v24 = *MEMORY[0x277CBECE8];
+  v25 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, format, va);
+  v26 = v25;
+  if (v25)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRCreateError", "%s: %@: code=%ld", a15, v25, a2);
   }
 
   if (!a1)
   {
     v28 = 0;
-    v22 = 0;
+    v21 = 0;
     if (!v26)
     {
       goto LABEL_39;
@@ -2830,11 +3017,11 @@ uint64_t AMFDRErrorPushInternal(uint64_t a1, CFIndex a2, const __CFNumber *a3, c
   }
 
   code = a2;
-  Mutable = CFDictionaryCreateMutable(v25, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  Mutable = CFDictionaryCreateMutable(v24, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v28 = Mutable;
   if (!Mutable)
   {
-    v22 = 0;
+    v21 = 0;
     a1 = 0;
     if (!v26)
     {
@@ -2851,13 +3038,13 @@ LABEL_38:
     CFDictionaryAddValue(Mutable, *MEMORY[0x277CBEE30], v26);
   }
 
-  if (v22)
+  if (v21)
   {
-    v22 = CFNumberCreate(v25, kCFNumberSInt64Type, &valuePtr);
-    if (v22)
+    v21 = CFNumberCreate(v24, kCFNumberSInt64Type, &valuePtr);
+    if (v21)
     {
-      AMSupportLogInternal();
-      CFDictionaryAddValue(v28, @"AMFDRTrustError", v22);
+      AMSupportLogInternal(3, "AMFDRCreateError", "trustError=0x%016llX", valuePtr);
+      CFDictionaryAddValue(v28, @"AMFDRTrustError", v21);
     }
   }
 
@@ -2926,7 +3113,7 @@ LABEL_38:
     }
   }
 
-  *a1 = CFErrorCreate(v25, @"AMFDRError", code, v28);
+  *a1 = CFErrorCreate(v24, @"AMFDRError", code, v28);
   a1 = 1;
   if (v26)
   {
@@ -2939,33 +3126,33 @@ LABEL_39:
     CFRelease(v28);
   }
 
-  if (v22)
+  if (v21)
   {
-    CFRelease(v22);
+    CFRelease(v21);
   }
 
   return a1;
 }
 
-uint64_t _AMFDRClassInitialize()
+void _AMFDRClassInitialize()
 {
   _AMFDRTypeID = _CFRuntimeRegisterClass();
 
-  return AMFDRCryptoInit();
+  AMFDRCryptoInit();
 }
 
 void *AMFDRCreateWithImplementation(const __CFAllocator *a1, CFDictionaryRef theDict, void *a3, uint64_t a4)
 {
   if (!theDict)
   {
-    AMFDRCreateWithImplementation_cold_2();
+    AMFDRCreateWithImplementation_cold_2(a1);
     return 0;
   }
 
   MutableCopy = CFDictionaryCreateMutableCopy(a1, 0, theDict);
   if (!MutableCopy)
   {
-    AMFDRCreateWithImplementation_cold_1();
+    AMFDRCreateWithImplementation_cold_1(0);
     return 0;
   }
 
@@ -3011,19 +3198,32 @@ void *AMFDRCreateWithImplementation(const __CFAllocator *a1, CFDictionaryRef the
         {
           if (v11[14] || (v14 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]), (v11[14] = v14) != 0))
           {
-            if (v11[16])
+            if (!v11[16])
             {
-              goto LABEL_20;
-            }
-
-            Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-            v11[16] = Mutable;
-            if (Mutable)
-            {
-              goto LABEL_20;
+              Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+              v11[16] = Mutable;
+              if (!Mutable)
+              {
+                AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "amfdr->subCCDigestDict is NULL");
+              }
             }
           }
+
+          else
+          {
+            AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "amfdr->digestDict is NULL");
+          }
         }
+
+        else
+        {
+          AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "amfdr->asidDict is NULL");
+        }
+      }
+
+      else
+      {
+        AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "amfdr->infoDict is NULL");
       }
     }
 
@@ -3031,11 +3231,15 @@ void *AMFDRCreateWithImplementation(const __CFAllocator *a1, CFDictionaryRef the
     {
       CFRelease(v11);
       v11 = 0;
+      AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "_AMFDRSetOptions failed");
     }
   }
 
-  AMSupportLogInternal();
-LABEL_20:
+  else
+  {
+    AMSupportLogInternal(3, "AMFDRCreateWithImplementation", "amfdr is NULL");
+  }
+
   CFRelease(v9);
   return v11;
 }
@@ -3044,13 +3248,13 @@ uint64_t AMFDRSetOptions(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    AMFDRSetOptions_cold_3();
+    AMFDRSetOptions_cold_3(0);
     return 0;
   }
 
   if (!cf)
   {
-    AMFDRSetOptions_cold_2();
+    AMFDRSetOptions_cold_2(a1);
     return 0;
   }
 
@@ -3104,7 +3308,7 @@ LABEL_17:
       *(a1 + 80) = Mutable;
       if (!Mutable)
       {
-        AMFDRSetOptions_cold_1();
+        AMFDRSetOptions_cold_1(0);
         return 0;
       }
     }
@@ -3138,14 +3342,14 @@ void *AMFDRCreateTypeWithOptions(CFAllocatorRef allocator, const void *a2, const
 
     else
     {
-      AMFDRCreateTypeWithOptions_cold_1();
+      AMFDRCreateTypeWithOptions_cold_1(0);
       v7 = 0;
     }
   }
 
   else
   {
-    AMFDRCreateTypeWithOptions_cold_2();
+    AMFDRCreateTypeWithOptions_cold_2(allocator);
     v7 = 0;
   }
 
@@ -3153,16 +3357,16 @@ void *AMFDRCreateTypeWithOptions(CFAllocatorRef allocator, const void *a2, const
   return v7;
 }
 
-uint64_t AMFDRSetOption(CFDictionaryRef *cf, const void *a2, const __CFString *a3)
+uint64_t AMFDRSetOption(uint64_t cf, const void *a2, const __CFString *a3)
 {
   if (cf)
   {
-    if (cf[2])
+    if (*(cf + 16))
     {
       if (a2)
       {
         v6 = CFGetAllocator(cf);
-        MutableCopy = CFDictionaryCreateMutableCopy(v6, 0, cf[2]);
+        MutableCopy = CFDictionaryCreateMutableCopy(v6, 0, *(cf + 16));
         v8 = MutableCopy;
         if (MutableCopy)
         {
@@ -3170,16 +3374,16 @@ uint64_t AMFDRSetOption(CFDictionaryRef *cf, const void *a2, const __CFString *a
           {
             if (CFEqual(a2, @"Permissions"))
             {
-              Value = CFDictionaryGetValue(cf[2], @"Permissions");
+              Value = CFDictionaryGetValue(*(cf + 16), @"Permissions");
               if (Value)
               {
                 if (CFStringCompare(a3, Value, 0))
                 {
-                  v10 = cf[4];
+                  v10 = *(cf + 32);
                   if (v10)
                   {
                     CFRelease(v10);
-                    cf[4] = 0;
+                    *(cf + 32) = 0;
                   }
                 }
               }
@@ -3193,52 +3397,54 @@ uint64_t AMFDRSetOption(CFDictionaryRef *cf, const void *a2, const __CFString *a
             CFDictionaryRemoveValue(MutableCopy, a2);
           }
 
-          if (AMFDRSetOptions(cf, v8))
+          v11 = AMFDRSetOptions(cf, v8);
+          if (v11)
           {
-            if (CFEqual(a2, @"PrivateKey"))
+            v12 = CFEqual(a2, @"PrivateKey");
+            if (v12)
             {
-              v11 = &kAMFDRPlatformImplementationStation;
-              if (cf[17] == &kAMFDRPlatformImplementationStation)
+              v13 = &kAMFDRPlatformImplementationStation;
+              if (*(cf + 136) == &kAMFDRPlatformImplementationStation)
               {
                 if (off_2835AD490[0])
                 {
-                  v12 = cf[18];
-                  if (v12)
+                  v14 = *(cf + 144);
+                  if (v14)
                   {
-                    (off_2835AD490[0])(v12);
-                    cf[18] = 0;
-                    v11 = cf[17];
+                    (off_2835AD490[0])(v14);
+                    *(cf + 144) = 0;
+                    v13 = *(cf + 136);
                   }
                 }
 
-                v13 = *(v11 + 2);
-                if (v13)
+                v15 = v13[2];
+                if (v15)
                 {
-                  v14 = v13(0);
+                  v16 = v15(0);
                 }
 
                 else
                 {
-                  v14 = 0;
+                  v16 = 0;
                 }
 
-                cf[18] = v14;
+                *(cf + 144) = v16;
                 AMFDRCryptoGetPrivateKey(cf);
               }
 
               else
               {
-                AMFDRSetOption_cold_2();
+                AMFDRSetOption_cold_2(v12);
               }
             }
 
             else if (CFEqual(a2, @"Certificate"))
             {
-              v15 = cf[4];
-              if (v15)
+              v17 = *(cf + 32);
+              if (v17)
               {
-                CFRelease(v15);
-                cf[4] = 0;
+                CFRelease(v17);
+                *(cf + 32) = 0;
               }
 
               AMFDRCryptoGetCert(cf);
@@ -3247,31 +3453,31 @@ uint64_t AMFDRSetOption(CFDictionaryRef *cf, const void *a2, const __CFString *a
 
           else
           {
-            AMFDRSetOption_cold_1();
+            AMFDRSetOption_cold_1(v11);
           }
         }
 
         else
         {
-          AMFDRSetOption_cold_3();
+          AMFDRSetOption_cold_3(0);
         }
       }
 
       else
       {
-        AMFDRSetOption_cold_4();
+        AMFDRSetOption_cold_4(cf);
       }
     }
 
     else
     {
-      AMFDRSetOption_cold_5();
+      AMFDRSetOption_cold_5(cf);
     }
   }
 
   else
   {
-    AMFDRSetOption_cold_6();
+    AMFDRSetOption_cold_6(0);
   }
 
   return AMSupportSafeRelease();
@@ -3283,69 +3489,72 @@ uint64_t AMFDRLoadMemoryStoreFromFile(uint64_t a1)
   theDict = 0;
   if (!a1)
   {
-    AMFDRLoadMemoryStoreFromFile_cold_3();
+    AMFDRLoadMemoryStoreFromFile_cold_3(0);
     goto LABEL_15;
   }
 
   v2 = *(a1 + 16);
   if (!v2)
   {
-    AMFDRLoadMemoryStoreFromFile_cold_2();
+    AMFDRLoadMemoryStoreFromFile_cold_2(0);
 LABEL_19:
     v1 = 0;
     goto LABEL_15;
   }
 
-  if (!CFDictionaryGetValue(v2, @"MemoryStoreURL"))
+  Value = CFDictionaryGetValue(v2, @"MemoryStoreURL");
+  if (!Value)
   {
-    AMFDRLoadMemoryStoreFromFile_cold_1();
+    AMFDRLoadMemoryStoreFromFile_cold_1(0);
     goto LABEL_19;
   }
 
-  v3 = *MEMORY[0x277CBECE8];
+  v4 = Value;
+  v5 = *MEMORY[0x277CBECE8];
   URLFromString = AMSupportCreateURLFromString();
-  v5 = URLFromString;
+  v7 = URLFromString;
   if (!URLFromString)
   {
-    goto LABEL_20;
+    AMSupportLogInternal(3, "AMFDRLoadMemoryStoreFromFile", "Unable convert %@ path to URL.", v4);
+    goto LABEL_23;
   }
 
-  v9 = 0;
-  if (MEMORY[0x223DB7EB0](URLFromString, &v9))
+  v11 = 0;
+  if (MEMORY[0x223DB7EB0](URLFromString, &v11))
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v9 == 1;
+    v8 = v11 == 1;
   }
 
-  if (v6)
+  if (v8)
   {
-    if (MEMORY[0x223DB7E10](v3, &theDict, v5))
+    if (MEMORY[0x223DB7E10](v5, &theDict, v7))
     {
-      v7 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v7 = theDict == 0;
+      v9 = theDict == 0;
     }
 
-    if (!v7)
+    if (!v9)
     {
       v1 = AMFDRSetMemoryStore(v1, theDict);
       goto LABEL_15;
     }
 
-LABEL_20:
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRLoadMemoryStoreFromFile", "Unable to load memoryStore data from %@", v4);
+LABEL_23:
     v1 = 0;
     goto LABEL_15;
   }
 
-  AMSupportLogInternal();
+  AMSupportLogInternal(6, "AMFDRLoadMemoryStoreFromFile", "%@ doesn't exist, assuming fresh device.", v4);
   v1 = 1;
 LABEL_15:
   AMSupportSafeRelease();
@@ -3377,19 +3586,19 @@ void AMFDRSetAssemblyIdentifierToVerify(uint64_t a1, void *key, const __CFString
 
       else
       {
-        AMFDRSetAssemblyIdentifierToVerify_cold_1();
+        AMFDRSetAssemblyIdentifierToVerify_cold_1(v4);
       }
     }
 
     else
     {
-      AMFDRSetAssemblyIdentifierToVerify_cold_2();
+      AMFDRSetAssemblyIdentifierToVerify_cold_2(0);
     }
   }
 
   else
   {
-    AMFDRSetAssemblyIdentifierToVerify_cold_3();
+    AMFDRSetAssemblyIdentifierToVerify_cold_3(0);
   }
 }
 
@@ -3397,20 +3606,20 @@ const void *AMFDRGetAssemblyIDToVerify(uint64_t a1, const void *a2)
 {
   if (!a1)
   {
-    AMFDRGetAssemblyIDToVerify_cold_3();
+    AMFDRGetAssemblyIDToVerify_cold_3(0);
     return 0;
   }
 
   v2 = *(a1 + 104);
   if (!v2)
   {
-    AMFDRGetAssemblyIDToVerify_cold_2();
+    AMFDRGetAssemblyIDToVerify_cold_2(0);
     return 0;
   }
 
   if (!a2)
   {
-    AMFDRGetAssemblyIDToVerify_cold_1();
+    AMFDRGetAssemblyIDToVerify_cold_1(v2);
     return 0;
   }
 
@@ -3441,19 +3650,19 @@ void AMFDRSetSubCCDigestsToVerify(uint64_t a1, void *key, const void *a3)
 
       else
       {
-        AMFDRSetSubCCDigestsToVerify_cold_1();
+        AMFDRSetSubCCDigestsToVerify_cold_1(v4);
       }
     }
 
     else
     {
-      AMFDRSetSubCCDigestsToVerify_cold_2();
+      AMFDRSetSubCCDigestsToVerify_cold_2(0);
     }
   }
 
   else
   {
-    AMFDRSetSubCCDigestsToVerify_cold_3();
+    AMFDRSetSubCCDigestsToVerify_cold_3(0);
   }
 }
 
@@ -3461,49 +3670,49 @@ const void *AMFDRGetSubCCDigestsToVerify(uint64_t a1, const void *a2)
 {
   if (!a1)
   {
-    AMFDRGetSubCCDigestsToVerify_cold_3();
+    AMFDRGetSubCCDigestsToVerify_cold_3(0);
     return 0;
   }
 
   v2 = *(a1 + 128);
   if (!v2)
   {
-    AMFDRGetSubCCDigestsToVerify_cold_2();
+    AMFDRGetSubCCDigestsToVerify_cold_2(0);
     return 0;
   }
 
   if (!a2)
   {
-    AMFDRGetSubCCDigestsToVerify_cold_1();
+    AMFDRGetSubCCDigestsToVerify_cold_1(v2);
     return 0;
   }
 
   return CFDictionaryGetValue(v2, a2);
 }
 
-uint64_t AMFDRGetOptions(uint64_t a1)
+uint64_t AMFDRGetOptions(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     return *(a1 + 16);
   }
 
-  AMFDRGetOptions_cold_1();
+  AMFDRGetOptions_cold_1(a1);
   return 0;
 }
 
-uint64_t AMFDRGetInfo(uint64_t a1)
+uint64_t AMFDRGetInfo(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     return *(a1 + 72);
   }
 
-  AMFDRGetInfo_cold_1();
+  AMFDRGetInfo_cold_1(a1);
   return 0;
 }
 
-uint64_t AMFDRGetCert(uint64_t a1)
+uint64_t AMFDRGetCert(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -3519,20 +3728,20 @@ void AMFDRIncrementStat(CFMutableDictionaryRef *a1, void *key)
   valuePtr = 0;
   if (!a1)
   {
-    AMFDRIncrementStat_cold_5();
+    AMFDRIncrementStat_cold_5(0);
     return;
   }
 
   v3 = a1[9];
   if (!v3)
   {
-    AMFDRIncrementStat_cold_4();
+    AMFDRIncrementStat_cold_4(0);
     return;
   }
 
   if (!key)
   {
-    AMFDRIncrementStat_cold_3();
+    AMFDRIncrementStat_cold_3(v3);
     return;
   }
 
@@ -3595,19 +3804,19 @@ void AMFDRSetStat(CFMutableDictionaryRef *cf, const void *a2, uint64_t a3)
 
       else
       {
-        AMFDRSetStat_cold_2();
+        AMFDRSetStat_cold_2(cf);
       }
     }
 
     else
     {
-      AMFDRSetStat_cold_3();
+      AMFDRSetStat_cold_3(cf);
     }
   }
 
   else
   {
-    AMFDRSetStat_cold_4();
+    AMFDRSetStat_cold_4(0);
   }
 }
 
@@ -3633,42 +3842,42 @@ void AMFDRCopyStatString(CFMutableDictionaryRef *cf, const void *a2, const __CFS
 
           else
           {
-            AMFDRCopyStatString_cold_1();
+            AMFDRCopyStatString_cold_1(0);
           }
         }
 
         else
         {
-          AMFDRCopyStatString_cold_2();
+          AMFDRCopyStatString_cold_2(cf);
         }
       }
 
       else
       {
-        AMFDRCopyStatString_cold_3();
+        AMFDRCopyStatString_cold_3(cf);
       }
     }
 
     else
     {
-      AMFDRCopyStatString_cold_4();
+      AMFDRCopyStatString_cold_4(cf);
     }
   }
 
   else
   {
-    AMFDRCopyStatString_cold_5();
+    AMFDRCopyStatString_cold_5(0);
   }
 }
 
-uint64_t AMFDRGetMemoryStore(uint64_t a1)
+uint64_t AMFDRGetMemoryStore(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
     return *(a1 + 80);
   }
 
-  AMFDRGetMemoryStore_cold_1();
+  AMFDRGetMemoryStore_cold_1(a1);
   return 0;
 }
 
@@ -3676,79 +3885,95 @@ uint64_t AMFDRFlushMemoryStoreToFile(uint64_t a1)
 {
   if (!a1)
   {
-    AMFDRFlushMemoryStoreToFile_cold_5();
+    AMFDRFlushMemoryStoreToFile_cold_5(0);
 LABEL_16:
-    Value = 0;
+    v4 = 0;
     goto LABEL_8;
   }
 
   v2 = *(a1 + 16);
   if (!v2)
   {
-    AMFDRFlushMemoryStoreToFile_cold_4();
+    AMFDRFlushMemoryStoreToFile_cold_4(0);
     goto LABEL_16;
   }
 
   Value = CFDictionaryGetValue(v2, @"MemoryStoreURL");
+  v4 = Value;
   if (!Value)
   {
-    AMFDRFlushMemoryStoreToFile_cold_3();
+    AMFDRFlushMemoryStoreToFile_cold_3(0);
     goto LABEL_8;
   }
 
   if (!*(a1 + 80))
   {
-    AMFDRFlushMemoryStoreToFile_cold_2();
+    AMFDRFlushMemoryStoreToFile_cold_2(Value);
     goto LABEL_16;
   }
 
-  v4 = *MEMORY[0x277CBECE8];
   if (!AMSupportCreateURLFromString())
   {
-    AMFDRFlushMemoryStoreToFile_cold_1();
+    AMFDRFlushMemoryStoreToFile_cold_1(0);
     goto LABEL_16;
   }
 
-  if (AMSupportWriteDictionarytoFileURL())
+  v5 = AMSupportWriteDictionarytoFileURL();
+  if (v5)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRFlushMemoryStoreToFile", "Unable to commit FDR memoryStore data to disk.  Error %d", v5);
     goto LABEL_16;
   }
 
-  AMSupportLogInternal();
-  Value = 1;
+  AMSupportLogInternal(6, "AMFDRFlushMemoryStoreToFile", "Flushed memoryStore to %@", v4);
+  v4 = 1;
 LABEL_8:
   AMSupportSafeRelease();
-  return Value;
+  return v4;
 }
 
 uint64_t AMFDRSetMemoryStore(uint64_t a1, CFDictionaryRef theDict)
 {
-  if (a1 && theDict)
+  if (a1)
   {
-    v4 = *(a1 + 80);
-    if (v4)
+    if (theDict)
     {
-      CFDictionaryGetCount(v4);
-      AMSupportLogInternal();
-      v5 = *(a1 + 80);
-      if (v5)
+      v4 = *(a1 + 80);
+      if (v4)
       {
-        CFRelease(v5);
+        Count = CFDictionaryGetCount(v4);
+        AMSupportLogInternal(4, "AMFDRSetMemoryStore", "Setting memoryStore on top of existing store with %d items.", Count);
+        v6 = *(a1 + 80);
+        if (v6)
+        {
+          CFRelease(v6);
+        }
+
+        *(a1 + 80) = 0;
       }
 
-      *(a1 + 80) = 0;
+      MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, theDict);
+      *(a1 + 80) = MutableCopy;
+      if (MutableCopy)
+      {
+        return 1;
+      }
+
+      v9 = "Failed to allocate amfdr->memoryStore copy.";
     }
 
-    MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x277CBECE8], 0, theDict);
-    *(a1 + 80) = MutableCopy;
-    if (MutableCopy)
+    else
     {
-      return 1;
+      v9 = "memoryStore is NULL";
     }
   }
 
-  AMFDRSetMemoryStore_cold_1();
+  else
+  {
+    v9 = "amfdr is NULL";
+  }
+
+  AMFDRSetMemoryStore_cold_1(v9);
   return 0;
 }
 
@@ -3759,12 +3984,12 @@ uint64_t AMFDRClearMemoryStore(uint64_t a1)
     v2 = *(a1 + 80);
     if (v2)
     {
-      CFDictionaryGetCount(v2);
-      AMSupportLogInternal();
-      v3 = *(a1 + 80);
-      if (v3)
+      Count = CFDictionaryGetCount(v2);
+      AMSupportLogInternal(4, "AMFDRClearMemoryStore", "Erasing memorystore with %d items.", Count);
+      v4 = *(a1 + 80);
+      if (v4)
       {
-        CFRelease(v3);
+        CFRelease(v4);
       }
 
       *(a1 + 80) = 0;
@@ -3776,15 +4001,23 @@ uint64_t AMFDRClearMemoryStore(uint64_t a1)
     {
       return 1;
     }
+
+    v7 = "Failed to allocate amfdr->memoryStore.";
   }
 
-  AMFDRClearMemoryStore_cold_1();
+  else
+  {
+    v7 = "amfdr is NULL";
+  }
+
+  AMFDRClearMemoryStore_cold_1(v7);
   return 0;
 }
 
 uint64_t AMFDRSetCopyMGOverrideCallback(uint64_t a1, uint64_t a2)
 {
-  if (AMFDREntitlementIsEntitled(@"com.apple.libFDR.AllowIdentifierOverride"))
+  v4 = AMFDREntitlementIsEntitled(@"com.apple.libFDR.AllowIdentifierOverride");
+  if (v4)
   {
     if (a1)
     {
@@ -3792,12 +4025,12 @@ uint64_t AMFDRSetCopyMGOverrideCallback(uint64_t a1, uint64_t a2)
       return 1;
     }
 
-    AMFDRSetCopyMGOverrideCallback_cold_2();
+    AMFDRSetCopyMGOverrideCallback_cold_2(v4);
   }
 
   else
   {
-    AMFDRSetCopyMGOverrideCallback_cold_1();
+    AMFDRSetCopyMGOverrideCallback_cold_1(v4);
   }
 
   return 0;
@@ -3816,7 +4049,7 @@ uint64_t AMFDRCopyClientId(uint64_t a1)
   }
 }
 
-uint64_t AMFDRCopyCertifyClientId(void *a1)
+const void *AMFDRCopyCertifyClientId(void *a1)
 {
   if (!a1)
   {
@@ -3856,63 +4089,67 @@ CFStringRef AMFDRCopyCertifyClientIdSik(void *a1)
 {
   if (!a1)
   {
-    goto LABEL_14;
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "amfdr is NULL");
+    goto LABEL_21;
   }
 
   v2 = a1[2];
-  if (v2 && (Value = CFDictionaryGetValue(v2, @"CertifySikPub")) != 0)
-  {
-    v4 = Value;
-    v5 = CFGetTypeID(Value);
-    if (v5 != CFDataGetTypeID())
-    {
-      goto LABEL_14;
-    }
-
-    v6 = CFGetAllocator(a1);
-    BytePtr = CFDataGetBytePtr(v4);
-    Length = CFDataGetLength(v4);
-    SikPubDigestIfNecessary = AMFDRDataCreateSikPubDigestIfNecessary(v6, BytePtr, Length);
-    if (!SikPubDigestIfNecessary)
-    {
-      goto LABEL_14;
-    }
-
-    v10 = CFGetAllocator(a1);
-    v11 = AMFDRCreateInstanceString(v10, SikPubDigestIfNecessary);
-    if (!v11)
-    {
-      goto LABEL_14;
-    }
-
-    v12 = v11;
-  }
-
-  else
+  if (!v2 || (Value = CFDictionaryGetValue(v2, @"CertifySikPub")) == 0)
   {
     SikPub = AMFDRCryptoGetSikPub(a1);
-    if (!SikPub)
+    if (SikPub)
     {
-LABEL_14:
-      AMSupportLogInternal();
-      v17 = 0;
-      goto LABEL_13;
+      v12 = SikPub;
+      goto LABEL_10;
     }
 
-    v12 = SikPub;
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "sikPub is NULL");
+LABEL_21:
+    v17 = 0;
+    goto LABEL_13;
   }
 
+  v4 = Value;
+  v5 = CFGetTypeID(Value);
+  if (v5 != CFDataGetTypeID())
+  {
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "sikData is in malformed format");
+    goto LABEL_21;
+  }
+
+  v6 = CFGetAllocator(a1);
+  BytePtr = CFDataGetBytePtr(v4);
+  Length = CFDataGetLength(v4);
+  SikPubDigestIfNecessary = AMFDRDataCreateSikPubDigestIfNecessary(v6, BytePtr, Length);
+  if (!SikPubDigestIfNecessary)
+  {
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "sikDigest is NULL");
+    goto LABEL_21;
+  }
+
+  v10 = CFGetAllocator(a1);
+  v11 = AMFDRCreateInstanceString(v10, SikPubDigestIfNecessary);
+  if (!v11)
+  {
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "sikDigestString is NULL");
+    goto LABEL_21;
+  }
+
+  v12 = v11;
+LABEL_10:
   v14 = AMFDRCopyCertifyClientId(a1);
   if (!v14)
   {
-    goto LABEL_14;
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "clientId is NULL");
+    goto LABEL_21;
   }
 
   v15 = CFGetAllocator(a1);
   v16 = CFStringCreateWithFormat(v15, 0, @"sik-%@-%@", v14, v12);
   if (!v16)
   {
-    goto LABEL_14;
+    AMSupportLogInternal(3, "AMFDRCopyCertifyClientIdSik", "inst is NULL");
+    goto LABEL_21;
   }
 
   v17 = v16;
@@ -4031,13 +4268,13 @@ BOOL AMFDRSetSsoCreateServiceTicketCallback(uint64_t a1, uint64_t a2, uint64_t a
 
   else
   {
-    AMFDRSetSsoCreateServiceTicketCallback_cold_1();
+    AMFDRSetSsoCreateServiceTicketCallback_cold_1(0);
   }
 
   return a1 != 0;
 }
 
-BOOL AMFDROptionsGetBooleanValue(uint64_t a1, const void *a2, uint64_t a3)
+uint64_t AMFDROptionsGetBooleanValue(uint64_t a1, const void *a2, uint64_t a3)
 {
   v4 = *(a1 + 16);
   if (v4)
@@ -4061,13 +4298,13 @@ uint64_t _CFDictionaryAddDictionary(__CFDictionary *a1, CFDictionaryRef theDict)
 {
   if (!theDict)
   {
-    _CFDictionaryAddDictionary_cold_2();
+    _CFDictionaryAddDictionary_cold_2(a1);
     return 0;
   }
 
   if (!a1)
   {
-    _CFDictionaryAddDictionary_cold_1();
+    _CFDictionaryAddDictionary_cold_1(0);
     return 0;
   }
 
@@ -4125,7 +4362,7 @@ uint64_t AMFDRRegisterModuleChallengeCallback(void *a1, CFStringRef theString2, 
         }
 
         *(v6 + 8) = a3;
-        AMSupportLogInternal();
+        AMSupportLogInternal(6, "AMFDRRegisterModuleChallengeCallback", "dataClass:%@ already exists, callback is updated", theString2);
         return 1;
       }
 
@@ -4151,19 +4388,19 @@ LABEL_6:
 
       else
       {
-        AMFDRRegisterModuleChallengeCallback_cold_2();
+        AMFDRRegisterModuleChallengeCallback_cold_2(0);
       }
     }
 
     else
     {
-      AMFDRRegisterModuleChallengeCallback_cold_3();
+      AMFDRRegisterModuleChallengeCallback_cold_3(a1);
     }
   }
 
   else
   {
-    AMFDRRegisterModuleChallengeCallback_cold_4();
+    AMFDRRegisterModuleChallengeCallback_cold_4(a1);
   }
 
   return 0;
@@ -4288,7 +4525,7 @@ LABEL_28:
     return 0;
   }
 
-  if ((AMFDRDataAppendPermissionsString(a1, 5u, a2, a3, PermissionsString) & 1) == 0)
+  if ((AMFDRDataAppendPermissionsString(a1, 5, a2, a3, PermissionsString) & 1) == 0)
   {
     AMFDRCreateRecoveryPermissions_cold_6();
     goto LABEL_27;
@@ -4302,19 +4539,19 @@ unint64_t AMFDRSetDigest(CFTypeRef cf, uint64_t a2, uint64_t a3, const void *a4)
   v4 = cf;
   if (!cf)
   {
-    AMFDRSetDigest_cold_5();
+    AMFDRSetDigest_cold_5(0);
     return v4;
   }
 
   if (!a2)
   {
-    AMFDRSetDigest_cold_4();
+    AMFDRSetDigest_cold_4(cf);
     return 0;
   }
 
   if (!a3)
   {
-    AMFDRSetDigest_cold_3();
+    AMFDRSetDigest_cold_3(cf);
     return 0;
   }
 
@@ -4322,7 +4559,7 @@ unint64_t AMFDRSetDigest(CFTypeRef cf, uint64_t a2, uint64_t a3, const void *a4)
   FullKey = AMFDRDataLocalCreateFullKey(v8, a2, a3);
   if (!FullKey)
   {
-    AMFDRSetDigest_cold_2();
+    AMFDRSetDigest_cold_2(0);
     return 0;
   }
 
@@ -4344,22 +4581,23 @@ unint64_t AMFDRSetDigest(CFTypeRef cf, uint64_t a2, uint64_t a3, const void *a4)
 
   else
   {
-    AMFDRSetDigest_cold_1();
+    AMFDRSetDigest_cold_1(0);
   }
 
   CFRelease(v10);
   return v4;
 }
 
-BOOL AMFDRCreateDataSignature(CFTypeRef cf, int a2, uint64_t a3, uint64_t a4, void **a5, void *a6)
+BOOL AMFDRCreateDataSignature(CFTypeRef cf, uint64_t a2, uint64_t a3, uint64_t a4, void **a5, void *a6)
 {
   DataSignature = AMFDRCryptoCreateDataSignature(a2, a3, a4, a5, a6, cf);
+  v7 = DataSignature;
   if (DataSignature != 100)
   {
-    AMFDRCreateDataSignature_cold_1();
+    AMFDRCreateDataSignature_cold_1(DataSignature);
   }
 
-  return DataSignature == 100;
+  return v7 == 100;
 }
 
 void *AMFDRGetSikOverride(void *cf, uint64_t a2, uint64_t a3)
@@ -4377,7 +4615,7 @@ void *AMFDRGetSikOverride(void *cf, uint64_t a2, uint64_t a3)
 
   if (!a2 || !a3)
   {
-    AMFDRGetSikOverride_cold_2();
+    AMFDRGetSikOverride_cold_2(cf);
     return 0;
   }
 
@@ -4385,7 +4623,7 @@ void *AMFDRGetSikOverride(void *cf, uint64_t a2, uint64_t a3)
   FullKey = AMFDRDataLocalCreateFullKey(v6, a2, a3);
   if (!FullKey)
   {
-    AMFDRGetSikOverride_cold_1();
+    AMFDRGetSikOverride_cold_1(0);
     return 0;
   }
 
@@ -4459,20 +4697,20 @@ uint64_t AMFDRAddMinimalManifestPropertyItemsToVerify(uint64_t a1, CFTypeRef cf)
   v2 = a1;
   if (!a1)
   {
-    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_8();
+    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_8(0);
     v11 = 0;
     goto LABEL_39;
   }
 
   if (!*(a1 + 16))
   {
-    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_7();
+    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_7(a1);
     goto LABEL_49;
   }
 
-  if (!cf || (v4 = CFGetTypeID(cf), v4 != CFDictionaryGetTypeID()) || CFDictionaryGetCount(cf) <= 0)
+  if (!cf || (v4 = CFGetTypeID(cf), a1 = CFDictionaryGetTypeID(), v4 != a1) || (a1 = CFDictionaryGetCount(cf), a1 <= 0))
   {
-    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_6();
+    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_6(a1);
 LABEL_49:
     v11 = 0;
 LABEL_43:
@@ -4496,7 +4734,7 @@ LABEL_43:
   v11 = MutableCopy;
   if (!MutableCopy)
   {
-    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_5();
+    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_5(0);
     goto LABEL_43;
   }
 
@@ -4506,7 +4744,7 @@ LABEL_43:
   v15 = v14;
   if (!v13 || !v14)
   {
-    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_4();
+    AMFDRAddMinimalManifestPropertyItemsToVerify_cold_4(v14);
     goto LABEL_43;
   }
 
@@ -4514,89 +4752,89 @@ LABEL_43:
   if (Count >= 1)
   {
     v16 = 0;
-    v36 = Count;
-    v37 = v11;
+    v35 = Count;
+    v36 = v11;
     do
     {
-      v17 = v13[v16];
-      if (!v17 || (v18 = CFGetTypeID(v17), v18 != CFStringGetTypeID()) || (v19 = v15[v16]) == 0 || (v20 = CFGetTypeID(v19), v20 != CFArrayGetTypeID()))
+      TypeID = v13[v16];
+      if (!TypeID || (v18 = CFGetTypeID(TypeID), TypeID = CFStringGetTypeID(), v18 != TypeID) || (TypeID = v15[v16]) == 0 || (v19 = CFGetTypeID(TypeID), TypeID = CFArrayGetTypeID(), v19 != TypeID))
       {
-        AMFDRAddMinimalManifestPropertyItemsToVerify_cold_3();
+        AMFDRAddMinimalManifestPropertyItemsToVerify_cold_3(TypeID);
         goto LABEL_43;
       }
 
-      v21 = v15[v16];
+      v20 = v15[v16];
       if (CFDictionaryContainsKey(v11, v13[v16]))
       {
-        v22 = CFDictionaryGetValue(v11, v13[v16]);
-        if (!v22 || (v23 = v22, v24 = CFGetTypeID(v22), v24 != CFArrayGetTypeID()))
+        v21 = CFDictionaryGetValue(v11, v13[v16]);
+        if (!v21 || (v22 = v21, v23 = CFGetTypeID(v21), v21 = CFArrayGetTypeID(), v23 != v21))
         {
-          AMFDRAddMinimalManifestPropertyItemsToVerify_cold_2();
+          AMFDRAddMinimalManifestPropertyItemsToVerify_cold_2(v21);
           goto LABEL_43;
         }
 
-        v25 = CFGetAllocator(v2);
-        v26 = CFArrayCreateMutableCopy(v25, 0, v23);
-        if (!v26)
+        v24 = CFGetAllocator(v2);
+        v25 = CFArrayCreateMutableCopy(v24, 0, v22);
+        if (!v25)
         {
-          AMFDRAddMinimalManifestPropertyItemsToVerify_cold_1();
+          AMFDRAddMinimalManifestPropertyItemsToVerify_cold_1(0);
           goto LABEL_43;
         }
 
-        v27 = v26;
-        if (CFArrayGetCount(v21) >= 1)
+        v26 = v25;
+        if (CFArrayGetCount(v20) >= 1)
         {
-          v28 = v15;
-          v29 = v2;
-          v30 = 0;
+          v27 = v15;
+          v28 = v2;
+          v29 = 0;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v21, v30);
+            ValueAtIndex = CFArrayGetValueAtIndex(v20, v29);
             if (ValueAtIndex)
             {
-              v32 = ValueAtIndex;
-              v33 = CFGetTypeID(ValueAtIndex);
-              if (v33 == CFStringGetTypeID())
+              v31 = ValueAtIndex;
+              v32 = CFGetTypeID(ValueAtIndex);
+              if (v32 == CFStringGetTypeID())
               {
-                v38.length = CFArrayGetCount(v23);
-                v38.location = 0;
-                if (!CFArrayContainsValue(v23, v38, v32))
+                v37.length = CFArrayGetCount(v22);
+                v37.location = 0;
+                if (!CFArrayContainsValue(v22, v37, v31))
                 {
-                  CFArrayAppendValue(v27, v32);
+                  CFArrayAppendValue(v26, v31);
                 }
               }
             }
 
-            ++v30;
+            ++v29;
           }
 
-          while (v30 < CFArrayGetCount(v21));
-          v2 = v29;
-          v15 = v28;
-          Count = v36;
-          v11 = v37;
+          while (v29 < CFArrayGetCount(v20));
+          v2 = v28;
+          v15 = v27;
+          Count = v35;
+          v11 = v36;
         }
       }
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
 
-      if (v27)
+      if (v26)
       {
-        v34 = v27;
+        v33 = v26;
       }
 
       else
       {
-        v34 = v21;
+        v33 = v20;
       }
 
-      CFDictionarySetValue(v11, v13[v16], v34);
-      if (v27)
+      CFDictionarySetValue(v11, v13[v16], v33);
+      if (v26)
       {
-        CFRelease(v27);
+        CFRelease(v26);
       }
 
       ++v16;
@@ -4680,9 +4918,8 @@ CFTypeRef AMFDRCreateCopyWithOptionsOverride(uint64_t a1, const __CFDictionary *
   v26[1] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    AMFDRCreateCopyWithOptionsOverride_cold_3();
-    v23 = 0;
-    goto LABEL_42;
+    AMFDRCreateCopyWithOptionsOverride_cold_3(0);
+    return 0;
   }
 
   v4 = CFGetAllocator(a1);
@@ -4798,7 +5035,8 @@ LABEL_21:
       CFRetain(v22);
     }
 
-    if (AMFDRPlatformSetImplementation(v5, *(a1 + 136), *(a1 + 144)))
+    v23 = AMFDRPlatformSetImplementation(v5, *(a1 + 136), *(a1 + 144));
+    if (v23)
     {
       if (a2)
       {
@@ -4806,18 +5044,18 @@ LABEL_21:
         CFDictionaryApplyFunction(a2, _AMFDRSetCFDictionaryOptionCallback, v26);
       }
 
-      v23 = CFRetain(v5);
+      v24 = CFRetain(v5);
     }
 
     else
     {
-      AMFDRCreateCopyWithOptionsOverride_cold_2();
-      v23 = 0;
+      AMFDRCreateCopyWithOptionsOverride_cold_2(v23);
+      v24 = 0;
     }
 
 LABEL_41:
     CFRelease(v5);
-    goto LABEL_42;
+    return v24;
   }
 
   while (AMFDRRegisterModuleChallengeCallback(v5, *v14, *(v14 + 8)))
@@ -4829,15 +5067,13 @@ LABEL_41:
     }
   }
 
-  v23 = 0;
+  v24 = 0;
   if (!AMFDRCreateCopyWithOptionsOverride_cold_1(v14, v5))
   {
     goto LABEL_41;
   }
 
-LABEL_42:
-  v24 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
 }
 
 double _AMFDRFinalize(void *a1)
@@ -4964,19 +5200,19 @@ CFStringRef _AMFDRCopyFormattingDescription(uint64_t a1)
 uint64_t OUTLINED_FUNCTION_1_1@<X0>(uint64_t a1@<X0>, const __CFString *a2@<X8>, void *value, uint64_t a4, void *a5, uint64_t a6, __int128 a7, uint64_t a8, uint64_t a9, char a10)
 {
 
-  return AMFDRErrorPushInternal(a1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v10, a2, a10);
+  return AMFDRErrorPushInternal(a1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v10, a2);
 }
 
 uint64_t OUTLINED_FUNCTION_2_1(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *value, uint64_t a10, void *a11, uint64_t a12, __int128 a13, uint64_t a14, const __CFString *a15, char a16)
 {
 
-  return AMFDRErrorPushInternal(a1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, a14, a15, a16);
+  return AMFDRErrorPushInternal(a1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, a14, a15);
 }
 
 uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, CFIndex a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, const __CFString *a16, char a17)
 {
 
-  return AMFDRErrorPushInternal(a1, a2, 0, 0, 0, 0, 0, 0, a9, a10, a11, a12, a13, a14, a15, a16, a17);
+  return AMFDRErrorPushInternal(a1, a2, 0, 0, 0, 0, 0, 0, a9, a10, a11, a12, a13, a14, a15, a16);
 }
 
 __SecTask *AMFDREntitlementIsEntitled(const __CFString *a1)
@@ -4991,37 +5227,45 @@ __SecTask *AMFDREntitlementIsEntitled(const __CFString *a1)
 
   v4 = SecTaskCopyValueForEntitlement(v2, a1, &error);
   v5 = v4;
+  v6 = error;
   if (error)
   {
-    v6 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v6 = v4 == 0;
+    v7 = v4 == 0;
   }
 
-  if (v6 || (v7 = CFGetTypeID(v4), v7 != CFBooleanGetTypeID()))
+  if (v7)
   {
-    AMSupportLogInternal();
+LABEL_9:
+    AMSupportLogInternal(3, "AMFDREntitlementIsEntitled", "BOOLean entitlement query error, result: %@, error: %@", v5, v6);
     CFRelease(v3);
-    v8 = 0;
+    v9 = 0;
     v3 = 0;
     if (!v5)
     {
-      goto LABEL_10;
+      goto LABEL_11;
     }
+
+    goto LABEL_10;
   }
 
-  else
+  v8 = CFGetTypeID(v4);
+  if (v8 != CFBooleanGetTypeID())
   {
-    v8 = CFBooleanGetValue(v5) != 0;
-    CFRelease(v3);
+    v6 = error;
+    goto LABEL_9;
   }
 
-  CFRelease(v5);
-  v3 = v8;
+  v9 = CFBooleanGetValue(v5) != 0;
+  CFRelease(v3);
 LABEL_10:
+  CFRelease(v5);
+  v3 = v9;
+LABEL_11:
   if (error)
   {
     CFRelease(error);
@@ -5032,78 +5276,74 @@ LABEL_10:
 
 CFTypeRef AMFDRPlatformCopyDefaultClientIdByInterface(const void *a1)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v16[0] = "en0";
-  v16[1] = "en1";
-  v16[2] = "en2";
-  v16[3] = "en3";
+  v15[4] = *MEMORY[0x277D85DE8];
+  v15[0] = "en0";
+  v15[1] = "en1";
+  v15[2] = "en2";
+  v15[3] = "en3";
   if (!a1)
   {
-    AMFDRPlatformCopyDefaultClientIdByInterface_cold_2();
-LABEL_22:
-    v12 = 0;
-    goto LABEL_18;
+    AMFDRPlatformCopyDefaultClientIdByInterface_cold_2(0);
+    return 0;
   }
 
   for (i = 0; i != 4; ++i)
   {
-    v3 = strlen(v16[i]);
-    v4 = _CopyClientIdForAdapter(a1, v16[i], v3);
-    if (v4)
+    v3 = v15[i];
+    v4 = strlen(v3);
+    v5 = _CopyClientIdForAdapter(a1, v3, v4);
+    if (v5)
     {
-      v12 = v4;
-      AMSupportLogInternal();
-      goto LABEL_18;
+      v13 = v5;
+      AMSupportLogInternal(6, "AMFDRPlatformCopyDefaultClientIdByInterface", "found clientid %@ for adapter %s", v5, v3);
+      return v13;
     }
   }
 
-  v5 = if_nameindex();
-  if (!v5)
+  v6 = if_nameindex();
+  if (!v6)
   {
-    AMFDRPlatformCopyDefaultClientIdByInterface_cold_1();
-    goto LABEL_22;
+    AMFDRPlatformCopyDefaultClientIdByInterface_cold_1(0);
+    return 0;
   }
 
-  v6 = v5;
-  if_name = v5->if_name;
+  v7 = v6;
+  if_name = v6->if_name;
   if (if_name)
   {
-    p_if_name = &v5[1].if_name;
+    p_if_name = &v6[1].if_name;
     do
     {
       if (*if_name == 108 && if_name[1] == 111 && if_name[2] == 48)
       {
-        AMSupportLogInternal();
+        AMSupportLogInternal(7, "AMFDRPlatformCopyDefaultClientIdByInterface", "if_nameindex: skipping %s", if_name);
       }
 
       else
       {
-        v10 = strlen(if_name);
-        v11 = _CopyClientIdForAdapter(a1, if_name, v10);
-        if (v11)
+        v11 = strlen(if_name);
+        v12 = _CopyClientIdForAdapter(a1, if_name, v11);
+        if (v12)
         {
-          v12 = v11;
-          v15 = *(p_if_name - 2);
-          AMSupportLogInternal();
+          v13 = v12;
+          AMSupportLogInternal(6, "AMFDRPlatformCopyDefaultClientIdByInterface", "if_nameindex: found clientid %@ for adapter %s", v12, *(p_if_name - 2));
           goto LABEL_17;
         }
       }
 
-      v9 = *p_if_name;
+      v10 = *p_if_name;
       p_if_name += 2;
-      if_name = v9;
+      if_name = v10;
     }
 
-    while (v9);
+    while (v10);
   }
 
-  AMSupportLogInternal();
-  v12 = 0;
+  AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultClientIdByInterface", "Failed to find adapter for clientid.");
+  v13 = 0;
 LABEL_17:
-  MEMORY[0x223DB8F10](v6);
-LABEL_18:
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  MEMORY[0x223DB8F10](v7);
+  return v13;
 }
 
 uint64_t AMFDRPlatformCopyDefaultClientIdByECID()
@@ -5140,14 +5380,14 @@ uint64_t AMFDRPlatformCopyDefaultClientIdByECID()
 
       else
       {
-        AMSupportLogInternal();
+        AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultClientIdByECID", "Could not combine '%@' and '%@'", v5, v1);
         v9 = 0;
       }
 
       goto LABEL_7;
     }
 
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultClientIdByECID", "Could not get chipid string for identifier '%@'", v5);
     v9 = 0;
   }
 
@@ -5185,10 +5425,25 @@ CFURLRef AMFDRPlatformCopyDefaultDataStoragePath()
   if (MEMORY[0x282221230])
   {
     v0 = malloc_type_calloc(1uLL, 0x400uLL, 0x6647E971uLL);
-    if (!v0 || lookupPathForPersistentData() || (v1 = strlen(v0), (v2 = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x277CBECE8], v0, v1, 0)) == 0))
+    if (!v0)
+    {
+      AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultDataStoragePath", "failed to allocate path");
+      goto LABEL_14;
+    }
+
+    if (lookupPathForPersistentData())
+    {
+      AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultDataStoragePath", "failed to lookup local fdr store path");
+      goto LABEL_14;
+    }
+
+    v1 = strlen(v0);
+    v2 = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x277CBECE8], v0, v1, 0);
+    if (!v2)
     {
 LABEL_11:
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "AMFDRPlatformCopyDefaultDataStoragePath", "Unable to create defaultPath");
+LABEL_14:
       v2 = 0;
     }
   }
@@ -5231,10 +5486,22 @@ void *AMFDRDataUtilitiesCreateStringWithBytesNoCopy(const __CFAllocator *a1, con
   {
     if (a3 && a4)
     {
-      if (!a2 || CFDataGetBytePtr(a2) > a3 || (BytePtr = CFDataGetBytePtr(a2), &a3[a4] > &BytePtr[CFDataGetLength(a2)]) || a5 == -1)
+      if (!a2)
       {
-        AMSupportLogInternal();
-        goto LABEL_18;
+        AMSupportLogInternal(3, "AMFDRDataUtilitiesCreateStringWithBytesNoCopy", "data is NULL");
+        goto LABEL_20;
+      }
+
+      if (CFDataGetBytePtr(a2) > a3 || (BytePtr = CFDataGetBytePtr(a2), &a3[a4] > &BytePtr[CFDataGetLength(a2)]))
+      {
+        AMSupportLogInternal(3, "AMFDRDataUtilitiesCreateStringWithBytesNoCopy", "bytes not in binary range of data");
+        goto LABEL_20;
+      }
+
+      if (a5 == -1)
+      {
+        AMSupportLogInternal(3, "AMFDRDataUtilitiesCreateStringWithBytesNoCopy", "invalid encoding: %@", 0xFFFFFFFFLL);
+        goto LABEL_20;
       }
 
       v14 = CFRetain(a2);
@@ -5260,12 +5527,12 @@ void *AMFDRDataUtilitiesCreateStringWithBytesNoCopy(const __CFAllocator *a1, con
       goto LABEL_15;
     }
 
-LABEL_18:
+LABEL_20:
     v19 = 0;
     goto LABEL_16;
   }
 
-  AMSupportLogInternal();
+  AMSupportLogInternal(6, "AMFDRDataUtilitiesCreateStringWithBytesNoCopy", "NSString is not respond to initWithBytesNoCopy on this device, falling back to CFStringCreateWithBytes");
   v18 = CFStringCreateWithBytes(a1, a3, a4, a5, a6);
 LABEL_15:
   v19 = v18;
@@ -5275,9 +5542,9 @@ LABEL_16:
   return v19;
 }
 
-void sub_2224C1B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2224C1B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5291,10 +5558,16 @@ CFTypeRef AMFDRDataUtilitiesCreateDataWithBytesNoCopy(const __CFData *a1, unint6
   v17 = 0;
   if (a2 && a3)
   {
-    if (!a1 || CFDataGetBytePtr(a1) > a2 || (BytePtr = CFDataGetBytePtr(a1), a2 + a3 > &BytePtr[CFDataGetLength(a1)]))
+    if (!a1)
     {
-      AMSupportLogInternal();
-      goto LABEL_11;
+      AMSupportLogInternal(3, "AMFDRDataUtilitiesCreateDataWithBytesNoCopy", "data is NULL");
+      goto LABEL_12;
+    }
+
+    if (CFDataGetBytePtr(a1) > a2 || (BytePtr = CFDataGetBytePtr(a1), a2 + a3 > &BytePtr[CFDataGetLength(a1)]))
+    {
+      AMSupportLogInternal(3, "AMFDRDataUtilitiesCreateDataWithBytesNoCopy", "bytes not in binary range of data");
+      goto LABEL_12;
     }
 
     v8 = CFRetain(a1);
@@ -5315,26 +5588,26 @@ CFTypeRef AMFDRDataUtilitiesCreateDataWithBytesNoCopy(const __CFData *a1, unint6
 
   if (!v10)
   {
-LABEL_11:
+LABEL_12:
     v11 = 0;
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v11 = CFRetain(v10);
-LABEL_12:
+LABEL_13:
   _Block_object_dispose(&v14, 8);
   objc_autoreleasePoolPop(v6);
   return v11;
 }
 
-void sub_2224C1CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2224C1CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __isStringInitWithBytesNoCopyAvailable_block_invoke()
+void *__isStringInitWithBytesNoCopyAvailable_block_invoke()
 {
   result = [MEMORY[0x277CCACA8] instancesRespondToSelector:sel_initWithBytesNoCopy_length_encoding_deallocator_];
   isStringInitWithBytesNoCopyAvailable_available = result;
@@ -5396,17 +5669,18 @@ LABEL_21:
       {
         v9 = Length;
         v10 = 0;
+        v11 = "Instance '%@' contains illegal character or illegal length";
         do
         {
           CharacterAtIndex = CFStringGetCharacterAtIndex(cf, v10);
           if ((CharacterAtIndex - 48) >= 0xA && (CharacterAtIndex & 0xFFFFFFDF) - 65 >= 0x1A)
           {
-            v13 = 0;
-            while (CharacterAtIndex != asc_22254ACFD[v13])
+            v14 = 0;
+            while (CharacterAtIndex != asc_22254ACFD[v14])
             {
-              if (++v13 == 4)
+              if (++v14 == 4)
               {
-                goto LABEL_41;
+                goto LABEL_42;
               }
             }
           }
@@ -5418,34 +5692,41 @@ LABEL_21:
         goto LABEL_21;
       }
 
-      AMSupportLogInternal();
+      AMSupportLogInternal(3, "_AMFDRStringInstanceIsValid", "instance %@ has unsupported length", cf);
     }
 
-    goto LABEL_41;
+    AMSupportLogInternal(3, "AMFDRDataCreateString", "Instance '%@' contains illegal character or illegal length", cf);
+    return 0;
   }
 
-  v14 = CFGetTypeID(cf);
-  if (v14 != CFDataGetTypeID())
+  v15 = CFGetTypeID(cf);
+  if (v15 != CFDataGetTypeID())
   {
-    v16 = CFGetTypeID(cf);
-    if (v16 == CFBooleanGetTypeID())
+    v17 = CFGetTypeID(cf);
+    if (v17 == CFBooleanGetTypeID())
     {
       if (*MEMORY[0x277CBED28] == cf)
       {
-        v17 = "1";
+        v18 = "1";
       }
 
       else
       {
-        v17 = "0";
+        v18 = "0";
       }
 
-      return CFStringCreateWithFormat(a1, 0, @"%s", v17);
+      return CFStringCreateWithFormat(a1, 0, @"%s", v18);
     }
 
-    v18 = CFGetTypeID(cf);
-    if (v18 == CFNumberGetTypeID() && !CFNumberIsFloatType(cf))
+    v19 = CFGetTypeID(cf);
+    if (v19 == CFNumberGetTypeID())
     {
+      if (CFNumberIsFloatType(cf))
+      {
+        AMSupportLogInternal(3, "AMFDRDataCreateString", "Floating point identifier '%@' is not supported", cf);
+        return 0;
+      }
+
       ByteSize = CFNumberGetByteSize(cf);
       if (ByteSize <= 4)
       {
@@ -5455,15 +5736,15 @@ LABEL_21:
           goto LABEL_33;
         }
 
-        goto LABEL_47;
+        goto LABEL_48;
       }
 
       if (ByteSize == 8)
       {
-        v21 = 0xAAAAAAAAAAAAAAAALL;
-        if (CFNumberGetValue(cf, kCFNumberLongLongType, &v21))
+        v22 = 0xAAAAAAAAAAAAAAAALL;
+        if (CFNumberGetValue(cf, kCFNumberLongLongType, &v22))
         {
-          if (HIDWORD(v21))
+          if (HIDWORD(v22))
           {
             result = AMSupportCopyHexStringFromUInt64();
             goto LABEL_34;
@@ -5472,15 +5753,15 @@ LABEL_21:
 LABEL_33:
           result = AMSupportCopyHexStringFromUInt32();
 LABEL_34:
-          v20 = 1;
+          v21 = 1;
           goto LABEL_35;
         }
 
-LABEL_47:
-        result = AMSupportLogInternal();
-        v20 = 4;
+LABEL_48:
+        result = AMSupportLogInternal(3, "AMFDRDataCreateString", "Could not convert identifier '%@' to primitive", cf);
+        v21 = 4;
 LABEL_35:
-        if (v20 != 4)
+        if (v21 != 4)
         {
           return result;
         }
@@ -5489,8 +5770,9 @@ LABEL_35:
       }
     }
 
-LABEL_41:
-    AMSupportLogInternal();
+    v11 = "Object '%@' has unsupported type and cannot be formatted as identifier";
+LABEL_42:
+    AMSupportLogInternal(3, "AMFDRDataCreateString", v11, cf);
     return 0;
   }
 
@@ -5507,7 +5789,7 @@ const __CFString *AMFDRDataCreateSikInstanceString(const __CFAllocator *a1, uint
 
   else
   {
-    AMFDRDataCreateSikInstanceString_cold_1();
+    AMFDRDataCreateSikInstanceString_cold_1(0);
     SikInstanceStringInternal = 0;
   }
 
@@ -5520,13 +5802,13 @@ const __CFString *AMFDRDataCreateSikInstanceStringInternal(__CFString *cf, uint6
   v3 = cf;
   if (!cf)
   {
-    AMFDRDataCreateSikInstanceStringInternal_cold_4();
+    AMFDRDataCreateSikInstanceStringInternal_cold_4(0);
     goto LABEL_9;
   }
 
   if (!a3)
   {
-    AMFDRDataCreateSikInstanceStringInternal_cold_3();
+    AMFDRDataCreateSikInstanceStringInternal_cold_3(cf);
 LABEL_15:
     v3 = 0;
     goto LABEL_9;
@@ -5537,7 +5819,7 @@ LABEL_15:
     SikPub = AMFDRCryptoGetSikPub(v3);
     if (!SikPub)
     {
-      AMFDRDataCreateSikInstanceStringInternal_cold_2();
+      AMFDRDataCreateSikInstanceStringInternal_cold_2(0);
       v3 = 0;
       goto LABEL_9;
     }
@@ -5549,13 +5831,13 @@ LABEL_15:
   v9 = v8;
   if (!v8)
   {
-    AMFDRDataCreateSikInstanceStringInternal_cold_1();
+    AMFDRDataCreateSikInstanceStringInternal_cold_1(0);
     goto LABEL_15;
   }
 
   if (CFStringGetLength(v8) >= 211)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRDataCreateSikInstanceStringInternal", "sik instance %@ is too long", v9);
     goto LABEL_15;
   }
 
@@ -5569,7 +5851,7 @@ const __CFString *AMFDRDataCreateInstanceString(__CFString *a1, uint64_t a2, con
 {
   if (a3)
   {
-    if (AMFDRDataInstanceUseSikFormat(a1))
+    if (AMFDRDataInstanceUseSikFormat(a1, a2))
     {
 
       return AMFDRDataCreateSikInstanceStringInternal(a1, a2, a3);
@@ -5584,23 +5866,23 @@ const __CFString *AMFDRDataCreateInstanceString(__CFString *a1, uint64_t a2, con
 
   else
   {
-    AMFDRDataCreateInstanceString_cold_1();
+    AMFDRDataCreateInstanceString_cold_1(a1);
     return 0;
   }
 }
 
-BOOL AMFDRDataInstanceUseSikFormat(uint64_t a1)
+BOOL AMFDRDataInstanceUseSikFormat(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return AMFDRSealingMapGetFDRDataVersionForDeviceInternal(0) == 2;
   }
 
-  v2 = *(*(a1 + 136) + 8);
-  if ((v2 & 8) != 0)
+  v3 = *(*(a1 + 136) + 8);
+  if ((v3 & 8) != 0)
   {
-    v3 = 1;
-    if ((v2 & 2) != 0)
+    v4 = 1;
+    if ((v3 & 2) != 0)
     {
       return 0;
     }
@@ -5608,17 +5890,17 @@ BOOL AMFDRDataInstanceUseSikFormat(uint64_t a1)
 
   else
   {
-    v3 = AMFDRSealingMapGetFDRDataVersionForDeviceInternal(a1) == 2;
+    v4 = AMFDRSealingMapGetFDRDataVersionForDeviceInternal(a1) == 2;
     if ((*(*(a1 + 136) + 8) & 2) != 0)
     {
       return 0;
     }
   }
 
-  v4 = AMFDRGetOptions(a1);
-  if (v4)
+  v5 = AMFDRGetOptions(a1, a2);
+  if (v5)
   {
-    Value = CFDictionaryGetValue(v4, @"UseSikDataInstance");
+    Value = CFDictionaryGetValue(v5, @"UseSikDataInstance");
     if (Value)
     {
       return CFBooleanGetValue(Value) != 0;
@@ -5627,13 +5909,13 @@ BOOL AMFDRDataInstanceUseSikFormat(uint64_t a1)
 
   else
   {
-    AMFDRDataInstanceUseSikFormat_cold_1();
+    AMFDRDataInstanceUseSikFormat_cold_1(0);
   }
 
-  return v3;
+  return v4;
 }
 
-const __CFString *AMFDRDataCreatePermissionsString(__CFString *cf, unsigned int a2, const __CFString *a3, const __CFString *a4)
+const __CFString *AMFDRDataCreatePermissionsString(__CFString *cf, uint64_t a2, const __CFString *a3, const __CFString *a4)
 {
   v4 = a4;
   if (a4)
@@ -5652,14 +5934,15 @@ const __CFString *AMFDRDataCreatePermissionsString(__CFString *cf, unsigned int 
     if (Mutable)
     {
       v10 = Mutable;
-      if (AMFDRDataAppendPermissionsString(cf, a2, a3, v4, Mutable))
+      appended = AMFDRDataAppendPermissionsString(cf, a2, a3, v4, Mutable);
+      if (appended)
       {
         v4 = CFRetain(v10);
       }
 
       else
       {
-        AMFDRDataCreatePermissionsString_cold_1();
+        AMFDRDataCreatePermissionsString_cold_1(appended);
         v4 = 0;
       }
 
@@ -5668,24 +5951,24 @@ const __CFString *AMFDRDataCreatePermissionsString(__CFString *cf, unsigned int 
 
     else
     {
-      AMFDRDataCreatePermissionsString_cold_2();
+      AMFDRDataCreatePermissionsString_cold_2(0);
       return 0;
     }
   }
 
   else
   {
-    AMFDRDataCreatePermissionsString_cold_3();
+    AMFDRDataCreatePermissionsString_cold_3(cf);
   }
 
   return v4;
 }
 
-uint64_t AMFDRDataAppendPermissionsString(__CFString *cf, unsigned int a2, const __CFString *a3, const __CFString *a4, __CFString *a5)
+uint64_t AMFDRDataAppendPermissionsString(__CFString *cf, uint64_t a2, const __CFString *a3, const __CFString *a4, __CFString *a5)
 {
   if (!a4)
   {
-    AMFDRDataAppendPermissionsString_cold_6();
+    AMFDRDataAppendPermissionsString_cold_6(cf);
     return 0;
   }
 
@@ -5699,10 +5982,10 @@ uint64_t AMFDRDataAppendPermissionsString(__CFString *cf, unsigned int a2, const
     InstanceString = AMFDRDataCreateInstanceString(cf, a3, a4);
     if (InstanceString)
     {
-      v12 = InstanceString;
+      v13 = InstanceString;
       if ((AMFDRAppendPermissionsString(a2, a3, InstanceString, a5) & 1) == 0)
       {
-        AMSupportLogInternal();
+        AMSupportLogInternal(3, "AMFDRDataAppendPermissionsString", "AMFDRAppendPermissionsString with %@ failed", a2);
         goto LABEL_21;
       }
 
@@ -5718,73 +6001,77 @@ LABEL_7:
     SikInstanceStringInternal = AMFDRDataCreateSikInstanceStringInternal(cf, a3, a4);
     if (SikInstanceStringInternal)
     {
-      v12 = SikInstanceStringInternal;
-      if ((AMFDRAppendPermissionsString(1u, a3, SikInstanceStringInternal, a5) & 1) == 0)
+      v13 = SikInstanceStringInternal;
+      v14 = AMFDRAppendPermissionsString(1, a3, SikInstanceStringInternal, a5);
+      if ((v14 & 1) == 0)
       {
-        AMFDRDataAppendPermissionsString_cold_1();
+        AMFDRDataAppendPermissionsString_cold_1(v14);
         goto LABEL_21;
       }
 
-      if ((AMFDRAppendPermissionsString(0, a3, a4, a5) & 1) == 0)
+      v15 = AMFDRAppendPermissionsString(0, a3, a4, a5);
+      if ((v15 & 1) == 0)
       {
-        AMFDRDataAppendPermissionsString_cold_2();
+        AMFDRDataAppendPermissionsString_cold_2(v15);
 LABEL_21:
-        v10 = 0;
+        v11 = 0;
         goto LABEL_14;
       }
 
 LABEL_13:
-      v10 = 1;
+      v11 = 1;
 LABEL_14:
-      CFRelease(v12);
-      return v10;
+      CFRelease(v13);
+      return v11;
     }
 
 LABEL_17:
-    AMFDRDataAppendPermissionsString_cold_3();
+    AMFDRDataAppendPermissionsString_cold_3(0);
     return 0;
   }
 
-  if ((AMFDRAppendPermissionsString(8u, a3, a4, a5) & 1) == 0)
+  v10 = AMFDRAppendPermissionsString(8, a3, a4, a5);
+  if ((v10 & 1) == 0)
   {
-    AMFDRDataAppendPermissionsString_cold_4();
+    AMFDRDataAppendPermissionsString_cold_4(v10);
     return 0;
   }
 
   return 1;
 }
 
-const __CFString *AMFDRCreatePermissionsString(const __CFAllocator *a1, unsigned int a2, const __CFString *a3, const __CFString *a4)
+const __CFString *AMFDRCreatePermissionsString(const __CFAllocator *a1, uint64_t a2, const __CFString *a3, const __CFString *a4)
 {
   if (!a3)
   {
-    AMFDRCreatePermissionsString_cold_4();
+    AMFDRCreatePermissionsString_cold_4(a1);
     return 0;
   }
 
   v4 = a4;
   if (!a4)
   {
-    AMFDRCreatePermissionsString_cold_3();
+    AMFDRCreatePermissionsString_cold_3(a1);
     return v4;
   }
 
   Mutable = CFStringCreateMutable(a1, 0);
   if (!Mutable)
   {
-    AMFDRCreatePermissionsString_cold_2();
+    AMFDRCreatePermissionsString_cold_2(0);
     return 0;
   }
 
   v8 = Mutable;
-  if (AMFDRAppendPermissionsString(a2, a3, v4, Mutable))
+  v9 = AMFDRAppendPermissionsString(a2, a3, v4, Mutable);
+  if (v9)
   {
     v4 = CFRetain(v8);
   }
 
   else
   {
-    AMFDRCreatePermissionsString_cold_1();
+    AMFDRCreatePermissionsString_cold_1(v9);
     v4 = 0;
   }
 
@@ -5792,46 +6079,47 @@ const __CFString *AMFDRCreatePermissionsString(const __CFAllocator *a1, unsigned
   return v4;
 }
 
-uint64_t AMFDRAppendPermissionsString(unsigned int a1, CFStringRef theString, const __CFString *a3, __CFString *a4)
+uint64_t AMFDRAppendPermissionsString(uint64_t a1, CFStringRef theString, const __CFString *a3, __CFString *a4)
 {
   if (!theString)
   {
-    AMFDRAppendPermissionsString_cold_5();
+    AMFDRAppendPermissionsString_cold_5(a1);
     return 0;
   }
 
   if (!a3)
   {
-    AMFDRAppendPermissionsString_cold_4();
+    AMFDRAppendPermissionsString_cold_4(a1);
     return 0;
   }
 
   if (!a4)
   {
-    AMFDRAppendPermissionsString_cold_3();
+    AMFDRAppendPermissionsString_cold_3(a1);
     return 0;
   }
 
+  v6 = a1;
   if (a1 >= 0xF || ((0x7BFFu >> a1) & 1) == 0)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "AMFDRAppendPermissionsString", "unknown action type: %d", a1);
     return 0;
   }
 
   v8 = off_2784AECA0[a1];
   if (!CFStringGetLength(theString))
   {
-    AMFDRAppendPermissionsString_cold_2();
+    AMFDRAppendPermissionsString_cold_2(0);
     return 0;
   }
 
   if (!CFStringGetLength(a3))
   {
-    AMFDRAppendPermissionsString_cold_1();
+    AMFDRAppendPermissionsString_cold_1(0);
     return 0;
   }
 
-  if (a1 == 13)
+  if (v6 == 13)
   {
     Length = CFStringGetLength(a4);
     v12 = @";%@/Mothership";
@@ -5840,7 +6128,7 @@ uint64_t AMFDRAppendPermissionsString(unsigned int a1, CFStringRef theString, co
 
   else
   {
-    if (a1 != 7 || CFStringCompare(theString, @"*", 0) || CFStringCompare(a3, @"*", 0))
+    if (v6 != 7 || CFStringCompare(theString, @"*", 0) || CFStringCompare(a3, @"*", 0))
     {
       if (CFStringGetLength(a4))
       {

@@ -56,7 +56,7 @@
 
 - (void)acceptRelayResponse:(id)response playerID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dCopy = d;
   v8 = os_log_GKGeneral;
@@ -68,11 +68,11 @@
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = dCopy;
-    v14 = 2112;
-    v15 = responseCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Accept relay response for playerID: %@ - response: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = dCopy;
+    v13 = 2112;
+    v14 = responseCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Accept relay response for playerID: %@ - response: %@", &v11, 0x16u);
   }
 
   if ([(GKViceroyRelay *)self shouldStartRelayForPlayerID:dCopy])
@@ -80,8 +80,6 @@
     v10 = [(GKViceroyRelay *)self initiateRelayInfoFromServerResponse:responseCopy forPlayerID:dCopy];
     [(GKViceroyRelay *)self initiateRelayConnectionForPlayerID:dCopy connectionContext:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRelayPushData:(id)data onlyIfPreemptive:(BOOL)preemptive
@@ -124,7 +122,7 @@ LABEL_9:
 
 - (void)preemptRelay:(id)relay
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   relayCopy = relay;
   v5 = os_log_GKGeneral;
   if (!os_log_GKGeneral)
@@ -135,9 +133,9 @@ LABEL_9:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = relayCopy;
-    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Preempt relay for playerID:%@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = relayCopy;
+    _os_log_impl(&dword_227904000, v5, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Preempt relay for playerID:%@", &v9, 0xCu);
   }
 
   if ([(GKViceroyRelay *)self shouldStartRelayForPlayerID:relayCopy])
@@ -147,8 +145,6 @@ LABEL_9:
 
     [(GKViceroyRelay *)self requestRelayInitiateForPlayerID:relayCopy connectionContext:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveRelayPushNotification:(id)notification
@@ -174,46 +170,51 @@ LABEL_9:
 uint64_t __42__GKViceroyRelay_didReceiveRelayPushData___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v8 = v3;
-    v4 = [*(a1 + 32) objectForKey:@"c"];
-    v5 = [v4 integerValue];
+    v9 = v3;
+    v5 = [*(a1 + 32) objectForKey:@"c"];
+    v6 = [v5 integerValue];
 
-    if (v5 != 2)
+    v4 = v9;
+    if (v6 != 2)
     {
-      if (v5 == 6)
+      if (v6 == 6)
       {
-        v6 = [*(a1 + 40) updateRelayInfoFromPush:*(a1 + 32) forPlayerID:v8];
-        if ([v6 hasInitRelayInfo])
+        v7 = [*(a1 + 40) updateRelayInfoFromPush:*(a1 + 32) forPlayerID:v9];
+        if ([v7 hasInitRelayInfo])
         {
-          [*(a1 + 40) updateRelayConnectionForPlayerID:v8 connectionContext:v6];
+          [*(a1 + 40) updateRelayConnectionForPlayerID:v9 connectionContext:v7];
         }
 
 LABEL_9:
 
+        v4 = v9;
         goto LABEL_10;
       }
 
-      if (v5 != 5)
+      if (v6 != 5)
       {
         goto LABEL_10;
       }
     }
 
-    if (![*(a1 + 40) shouldStartRelayForPlayerID:v8])
+    v3 = [*(a1 + 40) shouldStartRelayForPlayerID:v9];
+    v4 = v9;
+    if (!v3)
     {
       goto LABEL_10;
     }
 
-    v6 = [*(a1 + 40) initiateRelayInfoFromPush:*(a1 + 32) forPlayerID:v8];
-    [*(a1 + 40) initiateRelayConnectionForPlayerID:v8 connectionContext:v6];
+    v7 = [*(a1 + 40) initiateRelayInfoFromPush:*(a1 + 32) forPlayerID:v9];
+    [*(a1 + 40) initiateRelayConnectionForPlayerID:v9 connectionContext:v7];
     goto LABEL_9;
   }
 
 LABEL_10:
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)sessionDidInitiateOrUpdateRelay:(id)relay playerID:(id)d
@@ -311,7 +312,7 @@ LABEL_10:
 
 - (void)relayDidInitiateConnection:(id)connection forPlayerID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dCopy = d;
   if ([(GKViceroyRelay *)self shouldStartRelayForPlayerID:dCopy])
@@ -333,18 +334,16 @@ LABEL_10:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = dCopy;
-      _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Not starting relay for playerID: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = dCopy;
+      _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Not starting relay for playerID: %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestRelayInitiateForPlayerID:(id)d connectionContext:(id)context
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   info = [contextCopy info];
@@ -362,11 +361,11 @@ LABEL_10:
   {
     v13 = v11;
     *buf = 138412802;
-    v38 = dCopy;
-    v39 = 1024;
+    v37 = dCopy;
+    v38 = 1024;
     connected = [contextCopy connected];
-    v41 = 1024;
-    v42 = bOOLValue;
+    v40 = 1024;
+    v41 = bOOLValue;
     _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Request relayInit for playerID: %@ connected: %d missingClientData: %d", buf, 0x18u);
   }
 
@@ -419,16 +418,14 @@ LABEL_10:
     }
 
     daemonProxy = [(GKViceroyRelay *)self daemonProxy];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___block_invoke;
-    v35[3] = &unk_2785DD608;
-    v35[4] = self;
-    v36 = dCopy;
-    [daemonProxy initiateRelayRequest:dictionary completionHandler:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___block_invoke;
+    v34[3] = &unk_2785DD608;
+    v34[4] = self;
+    v35 = dCopy;
+    [daemonProxy initiateRelayRequest:dictionary completionHandler:v34];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -470,7 +467,7 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
 - (id)initiateRelayInfoFromPush:(id)push forPlayerID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pushCopy = push;
   dCopy = d;
   v8 = os_log_GKGeneral;
@@ -482,11 +479,11 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138412546;
-    v29 = dCopy;
-    v30 = 2112;
-    v31 = pushCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got initRelay info from push for playerID: %@ - userInfo: %@", &v28, 0x16u);
+    v27 = 138412546;
+    v28 = dCopy;
+    v29 = 2112;
+    v30 = pushCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got initRelay info from push for playerID: %@ - userInfo: %@", &v27, 0x16u);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -522,14 +519,12 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
   matchDataDelegate = [(GKViceroyRelay *)self matchDataDelegate];
   v25 = [matchDataDelegate updateConnectionInfo:dictionary forPlayerID:dCopy];
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (void)initiateRelayResponse:(id)response playerID:(id)d
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dCopy = d;
   v8 = os_log_GKGeneral;
@@ -541,22 +536,20 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412546;
-    v13 = dCopy;
-    v14 = 2112;
-    v15 = responseCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Initiate relay response for playerID: %@ - response: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = dCopy;
+    v13 = 2112;
+    v14 = responseCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Initiate relay response for playerID: %@ - response: %@", &v11, 0x16u);
   }
 
   v10 = [(GKViceroyRelay *)self initiateRelayInfoFromServerResponse:responseCopy forPlayerID:dCopy];
   [(GKViceroyRelay *)self initiateRelayConnectionForPlayerID:dCopy connectionContext:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initiateRelayInfoFromServerResponse:(id)response forPlayerID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dCopy = d;
   v8 = os_log_GKGeneral;
@@ -568,11 +561,11 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412546;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = responseCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got initiateRelay info for playerID: %@ - from response: %@", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = responseCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got initiateRelay info for playerID: %@ - from response: %@", &v22, 0x16u);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -603,14 +596,12 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
   matchDataDelegate = [(GKViceroyRelay *)self matchDataDelegate];
   v20 = [matchDataDelegate updateConnectionInfo:dictionary forPlayerID:dCopy];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (void)initiateRelayConnectionForPlayerID:(id)d connectionContext:(id)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v8 = os_log_GKGeneral;
@@ -623,11 +614,11 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = v8;
-    v34 = 138412546;
-    v35 = dCopy;
-    v36 = 1024;
-    LODWORD(v37) = [contextCopy connected];
-    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Initiate relay connection for player: %@ connected: %d", &v34, 0x12u);
+    v33 = 138412546;
+    v34 = dCopy;
+    v35 = 1024;
+    LODWORD(v36) = [contextCopy connected];
+    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Initiate relay connection for player: %@ connected: %d", &v33, 0x12u);
   }
 
   if ([contextCopy connected])
@@ -674,11 +665,11 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 138412546;
-      v35 = dCopy;
-      v36 = 2112;
-      v37 = dictionary;
-      _os_log_impl(&dword_227904000, v28, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] initiateRelayWithParticipant for playerID: %@ - with relayInfo: %@", &v34, 0x16u);
+      v33 = 138412546;
+      v34 = dCopy;
+      v35 = 2112;
+      v36 = dictionary;
+      _os_log_impl(&dword_227904000, v28, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] initiateRelayWithParticipant for playerID: %@ - with relayInfo: %@", &v33, 0x16u);
     }
 
     connection = [(GKViceroyRelay *)self connection];
@@ -692,8 +683,6 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
       [(GKViceroyRelay *)self updateRelayConnectionForPlayerID:dCopy connectionContext:contextCopy];
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relayDidUpdateConnection:(id)connection forPlayerID:(id)d
@@ -708,7 +697,7 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
 - (id)updateRelayInfoFromPush:(id)push forPlayerID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pushCopy = push;
   dCopy = d;
   v8 = os_log_GKGeneral;
@@ -720,11 +709,11 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 138412546;
-    v28 = dCopy;
-    v29 = 2112;
-    v30 = pushCopy;
-    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got updateRelay info for playerID: %@ - userInfo: %@", &v27, 0x16u);
+    v26 = 138412546;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = pushCopy;
+    _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Got updateRelay info for playerID: %@ - userInfo: %@", &v26, 0x16u);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -758,14 +747,13 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
   v24 = [matchDataDelegate updateConnectionInfo:dictionary forPlayerID:dCopy];
 
   [v24 setHasUpdateRelayInfo:1];
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (void)requestRelayUpdateForPlayerID:(id)d connectionContext:(id)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v8 = os_log_GKGeneral;
@@ -779,8 +767,8 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
   {
     v10 = v8;
     *buf = 138412546;
-    v47 = dCopy;
-    v48 = 1024;
+    v46 = dCopy;
+    v47 = 1024;
     connected = [contextCopy connected];
     _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Request relayUpdate for playerID: %@ connected: %d", buf, 0x12u);
   }
@@ -854,25 +842,23 @@ void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___bl
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v47 = dCopy;
+      v46 = dCopy;
       _os_log_impl(&dword_227904000, v40, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Calling update relay request for playerID: %@", buf, 0xCu);
     }
 
     daemonProxy = [(GKViceroyRelay *)self daemonProxy];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___block_invoke;
-    v44[3] = &unk_2785DD630;
-    v45 = dCopy;
-    [daemonProxy updateRelayRequest:dictionary completionHandler:v44];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___block_invoke;
+    v43[3] = &unk_2785DD630;
+    v44 = dCopy;
+    [daemonProxy updateRelayRequest:dictionary completionHandler:v43];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = os_log_GKGeneral;
@@ -901,18 +887,16 @@ void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___bloc
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v11;
-      _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] updateRelayRequest succeeded for playerID: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v11;
+      _os_log_impl(&dword_227904000, v7, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] updateRelayRequest succeeded for playerID: %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRelayConnectionForPlayerID:(id)d connectionContext:(id)context
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
   v8 = os_log_GKGeneral;
@@ -925,11 +909,11 @@ void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___bloc
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = v8;
-    v36 = 138412546;
-    v37 = dCopy;
-    v38 = 1024;
-    LODWORD(v39) = [contextCopy connected];
-    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Update relay connection for playerID: %@ connected: %d", &v36, 0x12u);
+    v35 = 138412546;
+    v36 = dCopy;
+    v37 = 1024;
+    LODWORD(v38) = [contextCopy connected];
+    _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] Update relay connection for playerID: %@ connected: %d", &v35, 0x12u);
   }
 
   if ([contextCopy connected])
@@ -980,11 +964,11 @@ void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___bloc
 
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = 138412546;
-      v37 = dCopy;
-      v38 = 2112;
-      v39 = dictionary;
-      _os_log_impl(&dword_227904000, v30, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] updateRelayConnectionForPlayer for playerID: %@ - with relayInfo: %@", &v36, 0x16u);
+      v35 = 138412546;
+      v36 = dCopy;
+      v37 = 2112;
+      v38 = dictionary;
+      _os_log_impl(&dword_227904000, v30, OS_LOG_TYPE_DEFAULT, "[GKViceroyRelay] updateRelayConnectionForPlayer for playerID: %@ - with relayInfo: %@", &v35, 0x16u);
     }
 
     connection = [(GKViceroyRelay *)self connection];
@@ -992,8 +976,6 @@ void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___bloc
     v34 = [info10 objectForKeyedSubscript:@"peer-blob"];
     [connection updateRelayWithParticipant:dCopy withConnectionData:v34 withRelayInfo:dictionary didInitiate:0];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataFromBase64String:(id)string
@@ -1021,20 +1003,18 @@ void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___bloc
 
 void __68__GKViceroyRelay_requestRelayInitiateForPlayerID_connectionContext___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyRelay] initiateRelayRequest returned an error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyRelay] initiateRelayRequest returned an error: %@", &v2, 0xCu);
 }
 
 void __66__GKViceroyRelay_requestRelayUpdateForPlayerID_connectionContext___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyRelay] updateRelayRequest error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "[GKViceroyRelay] updateRelayRequest error: %@", &v2, 0xCu);
 }
 
 @end

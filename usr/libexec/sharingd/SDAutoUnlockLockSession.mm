@@ -44,9 +44,11 @@
 - (void)notifyDelegateWithError:(id)error;
 - (void)removeObservers;
 - (void)restartConfirmationTimer:(unint64_t)timer error:(id)error;
+- (void)sendAWDLInfoData:(id)data type:(unsigned __int16)type completionHandler:(id)handler;
 - (void)sendAuthPromptImageDataIfReady:(id)ready;
 - (void)sendAuthPromptRequestWithImageHash:(id)hash appName:(id)name;
 - (void)sendKeyExchangeResponseWithData:(id)data;
+- (void)sendUnlockConfirmation:(BOOL)confirmation withError:(id)error suppressNotification:(BOOL)notification;
 - (void)setAttemptPrewarmed:(BOOL)prewarmed;
 - (void)setChosenDevice:(BOOL)device;
 - (void)setDoNotPostUnlockConfirmation:(BOOL)confirmation;
@@ -91,7 +93,7 @@
 
     if (v17)
     {
-      [v17 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v17);
     }
 
     else
@@ -311,16 +313,16 @@ LABEL_11:
 {
   if (![(SDAutoUnlockLockSession *)self lockedKeyBag]&& ![(SDAutoUnlockLockSession *)self otherProviderCancel])
   {
-    v4 = +[SDStatusMonitor sharedMonitor];
-    if ([v4 deviceKeyBagUnlocked] && -[SDAutoUnlockLockSession deviceWasLocked](self, "deviceWasLocked"))
+    v5 = +[SDStatusMonitor sharedMonitor];
+    if ([v5 deviceKeyBagUnlocked] && -[SDAutoUnlockLockSession deviceWasLocked](self, "deviceWasLocked"))
     {
       aksSuccess = [(SDAutoUnlockAuthSession *)self aksSuccess];
 
       if (aksSuccess)
       {
-        [(SDAutoUnlockLockSession *)self setLockedKeyBag:1];
+        v4 = [(SDAutoUnlockLockSession *)self setLockedKeyBag:1];
 
-        sub_10005C2E8();
+        sub_10005C2E8(v4);
       }
     }
 
@@ -1119,8 +1121,8 @@ LABEL_14:
 - (BOOL)handleFoundBLEDevice:(id)device
 {
   deviceCopy = device;
-  v5 = sub_1001116AC(deviceCopy);
-  LOBYTE(self) = [(SDAutoUnlockLockSession *)self handleFoundBLEDevice:deviceCopy available:v5 lockedOnWrist:sub_10011170C(deviceCopy)];
+  v6 = sub_1001116AC(deviceCopy, v5);
+  LOBYTE(self) = [(SDAutoUnlockLockSession *)self handleFoundBLEDevice:deviceCopy available:v6 lockedOnWrist:sub_10011170C(deviceCopy, v7)];
 
   return self;
 }
@@ -1297,16 +1299,16 @@ LABEL_20:
     {
       v10 = sub_10005CDC0(v8);
       *buf = 138412290;
-      v18 = v10;
+      v19 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Peer not available %@", buf, 0xCu);
     }
 
-    v11 = sub_10010F87C();
-    v12 = SFAutoUnlockErrorDomain;
-    v15 = NSLocalizedDescriptionKey;
-    v16 = v11;
-    v13 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v7 = [NSError errorWithDomain:v12 code:128 userInfo:v13];
+    v12 = sub_10010F87C(v8, v11);
+    v13 = SFAutoUnlockErrorDomain;
+    v16 = NSLocalizedDescriptionKey;
+    v17 = v12;
+    v14 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v7 = [NSError errorWithDomain:v13 code:128 userInfo:v14];
   }
 
   return v7;
@@ -2751,6 +2753,57 @@ LABEL_25:
   }
 }
 
+- (void)sendAWDLInfoData:(id)data type:(unsigned __int16)type completionHandler:(id)handler
+{
+  typeCopy = type;
+  dataCopy = data;
+  handlerCopy = handler;
+  v10 = +[SDAutoUnlockAKSManager sharedManager];
+  localDeviceID = [v10 localDeviceID];
+
+  if (localDeviceID)
+  {
+    v12 = [(SDAutoUnlockPairingSession *)self wrapPayload:dataCopy withType:typeCopy useProxy:[(SDAutoUnlockLockSession *)self useProxy] senderID:localDeviceID];
+    v13 = auto_unlock_log();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      bleDevice = [(SDAutoUnlockAuthSession *)self bleDevice];
+      *buf = 67109120;
+      useBTPipe = [bleDevice useBTPipe];
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Sending with useBTPipe %d", buf, 8u);
+    }
+
+    bleDevice2 = [(SDAutoUnlockAuthSession *)self bleDevice];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100279AF4;
+    v19[3] = &unk_1008D6750;
+    v19[4] = self;
+    v20 = handlerCopy;
+    [(SDAutoUnlockAuthSession *)self sendData:v12 bleDevice:bleDevice2 completionHandler:v19];
+
+    goto LABEL_9;
+  }
+
+  v16 = auto_unlock_log();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    sub_10027BF48();
+  }
+
+  if (handlerCopy)
+  {
+    v17 = SFAutoUnlockErrorDomain;
+    v21 = NSLocalizedDescriptionKey;
+    v22 = @"Missing local IDS ID";
+    v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v18 = [NSError errorWithDomain:v17 code:194 userInfo:v12];
+    (*(handlerCopy + 2))(handlerCopy, v18);
+
+LABEL_9:
+  }
+}
+
 - (void)sendAuthPromptRequestWithImageHash:(id)hash appName:(id)name
 {
   hashCopy = hash;
@@ -3081,6 +3134,88 @@ LABEL_25:
   v6[4] = self;
   notificationCopy = notification;
   dispatch_async(sessionQueue, v6);
+}
+
+- (void)sendUnlockConfirmation:(BOOL)confirmation withError:(id)error suppressNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  confirmationCopy = confirmation;
+  errorCopy = error;
+  if ([(SDAutoUnlockLockSession *)self connected]|| [(SDAutoUnlockLockSession *)self receivedAWDLInfo]|| [(SDAutoUnlockLockSession *)self receivedAuthPromptResponse])
+  {
+    if ([(SDAutoUnlockLockSession *)self sendingConfirmation])
+    {
+      v9 = auto_unlock_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Already sending confirmation", buf, 2u);
+      }
+    }
+
+    else
+    {
+      [(SDAutoUnlockLockSession *)self setSendingConfirmation:1];
+      v10 = objc_opt_new();
+      [v10 setVersion:1];
+      [v10 setSuccess:confirmationCopy];
+      [v10 setSupportsACK:{-[SDAutoUnlockLockSession supportsConfirmationACK](self, "supportsConfirmationACK")}];
+      [v10 setSuppressNotification:notificationCopy];
+      v11 = objc_opt_new();
+      [(SDAutoUnlockLockSession *)self setConfirmationSendDate:v11];
+
+      v12 = auto_unlock_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Sending SDUnlockSessionConfirmation", buf, 2u);
+      }
+
+      v13 = SFAutoUnlockErrorDomain;
+      v27 = NSLocalizedDescriptionKey;
+      v28 = @"Confirmation failed";
+      v14 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v15 = [NSError errorWithDomain:v13 code:136 userInfo:v14];
+
+      data = [v10 data];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_10027AB98;
+      v22[3] = &unk_1008CDFB8;
+      v17 = errorCopy;
+      v23 = v17;
+      selfCopy = self;
+      v25 = v15;
+      v18 = v15;
+      [(SDAutoUnlockAuthSession *)self sendData:data type:10 completionHandler:v22];
+
+      [(SDAutoUnlockPairingSession *)self invalidateResponseTimer];
+      v19 = sub_1001F0530(5.0);
+      if (v17)
+      {
+        v20 = v17;
+      }
+
+      else
+      {
+        v20 = v18;
+      }
+
+      [(SDAutoUnlockLockSession *)self restartConfirmationTimer:v19 error:v20];
+    }
+  }
+
+  else
+  {
+    v21 = auto_unlock_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Never connected, skipping confirmation", buf, 2u);
+    }
+
+    [(SDAutoUnlockLockSession *)self notifyDelegateWithError:errorCopy];
+  }
 }
 
 @end

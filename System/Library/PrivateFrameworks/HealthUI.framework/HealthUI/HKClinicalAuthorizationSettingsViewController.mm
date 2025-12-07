@@ -499,7 +499,7 @@ void __76__HKClinicalAuthorizationSettingsViewController_reloadAuthorizationSett
   return v5;
 }
 
-uint64_t __77__HKClinicalAuthorizationSettingsViewController__tableViewSectionForSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__77__HKClinicalAuthorizationSettingsViewController__tableViewSectionForSection___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 integerValue];
   if (result == *(a1 + 40))

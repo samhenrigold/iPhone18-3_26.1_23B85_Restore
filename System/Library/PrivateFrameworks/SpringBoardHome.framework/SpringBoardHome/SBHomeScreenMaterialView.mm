@@ -300,7 +300,7 @@
   v29.receiver = self;
   v29.super_class = SBHomeScreenMaterialView;
   [(SBHomeScreenMaterialView *)&v29 layoutSubviews];
-  [(SBHomeScreenMaterialView *)self bounds];
+  objc_msgSend_bounds(self);
   [(SBHomeScreenMaterialView *)self backgroundInsets];
   UIRectIntegralWithScale();
   x = v30.origin.x;

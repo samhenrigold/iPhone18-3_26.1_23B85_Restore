@@ -51,8 +51,10 @@
 - (void)setBrickViewCollapsed:(BOOL)collapsed;
 - (void)setImageViewCollapsed:(BOOL)collapsed;
 - (void)setLayoutType:(unint64_t)type;
+- (void)setSelectionToNote:(id)note folder:(id)folder prefersSystemPaper:(BOOL)paper;
 - (void)setUpForLayoutType:(unint64_t)type;
 - (void)showActivityIndicator;
+- (void)showPlaceholderText:(BOOL)text;
 - (void)showSaveButton;
 - (void)tabKeyPressed:(id)pressed;
 - (void)textViewDidBeginEditing:(id)editing;
@@ -62,9 +64,12 @@
 - (void)updateTextViewsForContentSizeChangeIfNecessary;
 - (void)updateTitleFooter;
 - (void)updateTitleViewHeightConstraint;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewSafeAreaInsetsDidChange;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ICSEMainViewController
@@ -366,6 +371,80 @@
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v27.receiver = self;
+  v27.super_class = ICSEMainViewController;
+  [(ICSEMainViewController *)&v27 viewDidAppear:appear];
+  accounts = [(ICSEMainViewController *)self accounts];
+  if (!accounts || (v5 = accounts, -[ICSEMainViewController accounts](self, "accounts"), accounts3 = objc_claimAutoreleasedReturnValue(), v7 = [accounts3 count], accounts3, v5, !v7))
+  {
+    IsAppleAccountBrandingEnabled = ICInternalSettingsIsAppleAccountBrandingEnabled();
+    v9 = +[NSBundle mainBundle];
+    v10 = v9;
+    if (IsAppleAccountBrandingEnabled)
+    {
+      v11 = @"To share to a note, you’ll need to go to Notes and upgrade your Apple Account.";
+    }
+
+    else
+    {
+      v11 = @"To share to a note, you’ll need to go to Notes and upgrade your iCloud account.";
+    }
+
+    v12 = [v9 localizedStringForKey:v11 value:&stru_1000F6F48 table:0];
+
+    v13 = +[NSBundle mainBundle];
+    v14 = [v13 localizedStringForKey:@"Upgrade Your Notes" value:&stru_1000F6F48 table:0];
+    accounts3 = [UIAlertController alertControllerWithTitle:v14 message:v12 preferredStyle:1];
+
+    v15 = +[NSBundle mainBundle];
+    v16 = [v15 localizedStringForKey:@"Cancel" value:&stru_1000F6F48 table:0];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100022A04;
+    v26[3] = &unk_1000F22B0;
+    v26[4] = self;
+    v17 = [UIAlertAction actionWithTitle:v16 style:1 handler:v26];
+
+    v18 = +[NSBundle mainBundle];
+    v19 = [v18 localizedStringForKey:@"Go to Notes" value:&stru_1000F6F48 table:0];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100022A0C;
+    v25[3] = &unk_1000F22B0;
+    v25[4] = self;
+    v20 = [UIAlertAction actionWithTitle:v19 style:0 handler:v25];
+
+    [accounts3 addAction:v20];
+    [accounts3 addAction:v17];
+    [(ICSEMainViewController *)self presentViewController:accounts3 animated:1 completion:0];
+  }
+
+  accounts2 = [(ICSEMainViewController *)self accounts];
+  if (accounts2)
+  {
+    accounts3 = [(ICSEMainViewController *)self accounts];
+    v22 = [accounts3 count] != 0;
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  titleViewContainer = [(ICSEMainViewController *)self titleViewContainer];
+  [titleViewContainer setUserInteractionEnabled:v22];
+
+  if (accounts2)
+  {
+  }
+
+  UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, 0);
+  v24 = +[NSNotificationCenter defaultCenter];
+  [v24 addObserver:self selector:"extensionHostDidBecomeActive:" name:NSExtensionHostDidBecomeActiveNotification object:0];
+}
+
 - (void)viewDidLayoutSubviews
 {
   v8.receiver = self;
@@ -386,6 +465,30 @@
   {
     scrollViewResizer2 = [(ICSEMainViewController *)self scrollViewResizer];
     [scrollViewResizer2 startAutoResizing];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = ICSEMainViewController;
+  [(ICSEMainViewController *)&v6 viewWillDisappear:disappear];
+  scrollViewResizer = [(ICSEMainViewController *)self scrollViewResizer];
+  [scrollViewResizer stopAutoResizing];
+
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 removeObserver:self name:NSExtensionHostDidBecomeActiveNotification object:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ICSEMainViewController;
+  [(ICSEMainViewController *)&v4 viewDidDisappear:disappear];
+  if (![(ICSEMainViewController *)self isSaving])
+  {
+    [(ICSEMainViewController *)self cleanupTemporaryNewNoteIfNecesary];
+    [(ICSEMainViewController *)self cleanupTemporaryImageFilesIfNecessary];
   }
 }
 
@@ -1215,6 +1318,77 @@ LABEL_174:
   {
     return 1;
   }
+}
+
+- (void)setSelectionToNote:(id)note folder:(id)folder prefersSystemPaper:(BOOL)paper
+{
+  paperCopy = paper;
+  noteCopy = note;
+  folderCopy = folder;
+  if (![(ICSEMainViewController *)self canShareToNote:noteCopy])
+  {
+
+    noteCopy = 0;
+  }
+
+  if ([(ICSEMainViewController *)self canShareToFolder:folderCopy])
+  {
+    [(ICSEMainViewController *)self setSelectedNote:noteCopy];
+    v9 = noteCopy;
+    if (!noteCopy)
+    {
+      if (folderCopy)
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+
+    [(ICSEMainViewController *)self setSelectedNote:noteCopy];
+    if (!noteCopy)
+    {
+LABEL_10:
+      folderCopy = +[ICNoteContext sharedContext];
+      managedObjectContext = [folderCopy managedObjectContext];
+      v12 = [ICAccount defaultAccountInContext:managedObjectContext];
+      defaultFolder = [v12 defaultFolder];
+
+      goto LABEL_11;
+    }
+
+    folderCopy = 0;
+    v9 = noteCopy;
+  }
+
+  defaultFolder = [v9 folder];
+LABEL_11:
+
+  folderCopy = defaultFolder;
+LABEL_12:
+  [(ICSEMainViewController *)self setSelectedFolder:folderCopy];
+  [(ICSEMainViewController *)self setPrefersSystemPaper:paperCopy];
+  accounts = [(ICSEMainViewController *)self accounts];
+
+  if (!accounts)
+  {
+    [ICAssert handleFailedAssertWithCondition:"((self.accounts) != nil)" functionName:"[ICSEMainViewController setSelectionToNote:folder:prefersSystemPaper:]" simulateCrash:1 showAlert:0 format:@"Expected non-nil value for '%s'", "self.accounts"];
+  }
+
+  titleView = [(ICSEMainViewController *)self titleView];
+  accounts2 = [(ICSEMainViewController *)self accounts];
+  [titleView setNote:noteCopy folder:folderCopy hasMultipleAccounts:{objc_msgSend(accounts2, "count") > 1}];
+
+  [(ICSEMainViewController *)self updateTitleFooter];
+  identifier = [noteCopy identifier];
+  [(ICSEMainViewController *)self setLastSelectedNoteIdentifier:identifier];
+
+  identifier2 = [folderCopy identifier];
+  [(ICSEMainViewController *)self setLastSelectedFolderIdentifier:identifier2];
 }
 
 - (NSAttributedString)textBefore
@@ -2058,18 +2232,19 @@ LABEL_5:
 
 - (void)updateTitleViewHeightConstraint
 {
-  if (ICAccessibilityAccessibilityLargerTextSizesEnabled())
+  v3 = ICAccessibilityAccessibilityLargerTextSizesEnabled();
+  if (v3)
   {
-    v3 = 88.0;
+    v5 = 88.0;
   }
 
   else
   {
-    v3 = sub_1000032EC();
+    v5 = sub_1000032EC(v3, v4);
   }
 
   titleViewMinHeightConstraint = [(ICSEMainViewController *)self titleViewMinHeightConstraint];
-  [titleViewMinHeightConstraint setConstant:v3];
+  [titleViewMinHeightConstraint setConstant:v5];
 }
 
 - (void)updateBrickContainerHeightConstraint
@@ -2204,6 +2379,44 @@ LABEL_9:
   rootViewController = [containerViewController rootViewController];
 
   return rootViewController;
+}
+
+- (void)showPlaceholderText:(BOOL)text
+{
+  textCopy = text;
+  if ([(ICSEMainViewController *)self isShowingPlaceholderText]!= text)
+  {
+    [(ICSEMainViewController *)self setShowingPlaceholderText:textCopy];
+    v10 = +[UIColor labelColor];
+    if ([(ICSEMainViewController *)self isShowingPlaceholderText])
+    {
+      v5 = +[NSBundle mainBundle];
+      v6 = [v5 localizedStringForKey:@"Add text to your note…" value:&stru_1000F6F48 table:0];
+      topTextView = [(ICSEMainViewController *)self topTextView];
+      [topTextView setText:v6];
+
+      if ((+[UIDevice ic_isVision]& 1) != 0)
+      {
+        +[UIColor secondaryLabelColor];
+      }
+
+      else
+      {
+        +[UIColor tertiaryLabelColor];
+      }
+
+      v10 = topTextView2 = v10;
+    }
+
+    else
+    {
+      topTextView2 = [(ICSEMainViewController *)self topTextView];
+      [topTextView2 setText:&stru_1000F6F48];
+    }
+
+    topTextView3 = [(ICSEMainViewController *)self topTextView];
+    [topTextView3 setTextColor:v10];
+  }
 }
 
 - (void)updateTextViewsForContentSizeChangeIfNecessary

@@ -15,7 +15,7 @@
   }
 
   *a3 = 4277006349;
-  [self getUUIDBytes:a3 + 1];
+  [self getUUIDBytes:{a3 + 1, a4}];
   return 1;
 }
 

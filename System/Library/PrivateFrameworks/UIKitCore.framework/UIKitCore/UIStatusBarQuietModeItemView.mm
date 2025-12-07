@@ -77,7 +77,7 @@
     [mainScreen scale];
     _UIGraphicsBeginImageContextWithOptions(0, 0, 14.0, 14.0, v8);
 
-    v9 = +[UIColor blackColor];
+    v9 = objc_msgSend_blackColor(UIColor);
     [v9 setFill];
 
     v35.origin.x = 0.0;

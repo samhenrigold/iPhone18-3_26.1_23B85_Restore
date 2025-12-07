@@ -8,78 +8,77 @@
 
 - (void)initWithEventStreams:(void *)streams
 {
-  v32[4] = *MEMORY[0x1E69E9840];
+  v31[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (streams)
   {
-    v26.receiver = streams;
-    v26.super_class = _CDEventStreamsRegister;
-    v4 = objc_msgSendSuper2(&v26, sel_init);
+    v25.receiver = streams;
+    v25.super_class = _CDEventStreamsRegister;
+    v4 = objc_msgSendSuper2(&v25, sel_init);
     streams = v4;
     if (v4)
     {
-      v21 = v4;
+      v20 = v4;
       if (!v3)
       {
         v5 = +[_DKSystemEventStreams deviceActivityLevelStream];
-        v32[0] = v5;
+        v31[0] = v5;
         v6 = +[_DKSystemEventStreams appInFocusStream];
-        v32[1] = v6;
+        v31[1] = v6;
         v7 = +[_DKSystemEventStreams watchNearbyStream];
-        v32[2] = v7;
+        v31[2] = v7;
         v8 = +[_DKSystemEventStreams defaultPairedDeviceNearbyStream];
-        v32[3] = v8;
-        v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
+        v31[3] = v8;
+        v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
       }
 
       v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v3 = v3;
-      v10 = [v3 countByEnumeratingWithState:&v22 objects:v31 count:16];
+      v10 = [v3 countByEnumeratingWithState:&v21 objects:v30 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(v3);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * i);
+            v14 = *(*(&v21 + 1) + 8 * i);
             [v9 addObject:v14];
             v15 = +[_CDLogging dataCollectionChannel];
             if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               name = [v14 name];
               *buf = 138412546;
-              v28 = @"enabled";
-              v29 = 2112;
-              v30 = name;
+              v27 = @"enabled";
+              v28 = 2112;
+              v29 = name;
               _os_log_impl(&dword_191750000, v15, OS_LOG_TYPE_INFO, "Data collection %@ for stream %@", buf, 0x16u);
             }
           }
 
-          v11 = [v3 countByEnumeratingWithState:&v22 objects:v31 count:16];
+          v11 = [v3 countByEnumeratingWithState:&v21 objects:v30 count:16];
         }
 
         while (v11);
       }
 
       v17 = [v9 copy];
-      streams = v21;
-      v18 = v21[1];
-      v21[1] = v17;
+      streams = v20;
+      v18 = v20[1];
+      v20[1] = v17;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return streams;
 }
 
@@ -141,32 +140,32 @@ LABEL_11:
 - (id)getEventHandlerDictForStreams
 {
   selfCopy = self;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v3 = selfCopy[1];
-    v4 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v18;
+      v7 = *v17;
       *&v5 = 138412290;
-      v16 = v5;
+      v15 = v5;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           name = [v9 name];
           v11 = [(_CDEventStreamsRegister *)selfCopy getEventHandler:name];
 
@@ -182,14 +181,14 @@ LABEL_11:
             if (os_log_type_enabled(name2, OS_LOG_TYPE_DEBUG))
             {
               name3 = [v9 name];
-              *buf = v16;
-              v22 = name3;
+              *buf = v15;
+              v21 = name3;
               _os_log_debug_impl(&dword_191750000, name2, OS_LOG_TYPE_DEBUG, "Event handler for %@ not defined in getEventHandler method", buf, 0xCu);
             }
           }
         }
 
-        v6 = [v3 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v6 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v6);
@@ -197,8 +196,6 @@ LABEL_11:
 
     selfCopy = [v2 copy];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

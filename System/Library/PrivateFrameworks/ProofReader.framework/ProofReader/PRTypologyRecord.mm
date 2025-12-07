@@ -141,7 +141,7 @@ dispatch_queue_t __185__PRTypologyRecord_openTypologyRecordWithString_range_lang
   return result;
 }
 
-unint64_t __185__PRTypologyRecord_openTypologyRecordWithString_range_languageObject_languages_topLanguages_autocorrect_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue___block_invoke_2(uint64_t a1)
+void *__185__PRTypologyRecord_openTypologyRecordWithString_range_languageObject_languages_topLanguages_autocorrect_initialCapitalize_autocapitalize_keyEventArray_appIdentifier_selectedRangeValue___block_invoke_2(uint64_t a1)
 {
   [_typologyRecords addObject:*(a1 + 32)];
   for (result = [_typologyRecords count]; result > _numTypologyRecords; result = objc_msgSend(_typologyRecords, "count"))
@@ -215,7 +215,7 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
 
 - (id)dictionaryRepresentation
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   string = self->_string;
@@ -229,8 +229,8 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
   selectedRangeValue = self->_selectedRangeValue;
   if (selectedRangeValue)
   {
-    v39.location = [(NSValue *)selectedRangeValue rangeValue];
-    [v4 setObject:NSStringFromRange(v39) forKey:@"SelectedRange"];
+    v38.location = [(NSValue *)selectedRangeValue rangeValue];
+    [v4 setObject:NSStringFromRange(v38) forKey:@"SelectedRange"];
   }
 
   langObj = self->_langObj;
@@ -270,29 +270,29 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
   if (typologyCorrections && [(NSMutableArray *)typologyCorrections count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v14 = self->_typologyCorrections;
-    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v33;
+      v17 = *v32;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v33 != v17)
+          if (*v32 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [array addObject:{objc_msgSend(*(*(&v32 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [array addObject:{objc_msgSend(*(*(&v31 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v16);
@@ -305,29 +305,29 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
   if (typologyCandidates && [(NSMutableArray *)typologyCandidates count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v21 = self->_typologyCandidates;
-    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v29;
+      v24 = *v28;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v29 != v24)
+          if (*v28 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          [array2 addObject:{objc_msgSend(*(*(&v28 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [array2 addObject:{objc_msgSend(*(*(&v27 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v23);
@@ -341,7 +341,6 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
     [v4 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithDouble:", self->_closeTime - self->_openTime), @"Time"}];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -363,7 +362,7 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
     if (!v3)
     {
       v4 = array;
-      v5 = [_NSSpellingDictDirectoryPath2() stringByAppendingPathComponent:@"typology.plist"];
+      v5 = [(NSString *)_NSSpellingDictDirectoryPath2() stringByAppendingPathComponent:@"typology.plist"];
       v8 = 0;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -385,41 +384,41 @@ id __41__PRTypologyRecord_currentTypologyRecord__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__PRTypologyRecord_writeTypologyRecords__block_invoke(uint64_t a1)
+void *__40__PRTypologyRecord_writeTypologyRecords__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = _typologyRecords;
-  result = [_typologyRecords countByEnumeratingWithState:&v8 objects:v12 count:16];
+  result = [_typologyRecords countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(a1 + 32) addObject:{objc_msgSend(*(*(&v8 + 1) + 8 * v6++), "dictionaryRepresentation")}];
+        [*(a1 + 32) addObject:{objc_msgSend(*(*(&v7 + 1) + 8 * v6), "dictionaryRepresentation")}];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       v4 = result;
     }
 
     while (result);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -459,7 +458,7 @@ uint64_t __40__PRTypologyRecord_writeTypologyRecords__block_invoke(uint64_t a1)
   }
 }
 
-unint64_t __44__PRTypologyRecord_setTypologyRecordsLimit___block_invoke()
+void *__44__PRTypologyRecord_setTypologyRecordsLimit___block_invoke()
 {
   for (result = [_typologyRecords count]; result > _numTypologyRecords; result = objc_msgSend(_typologyRecords, "count"))
   {

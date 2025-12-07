@@ -12,7 +12,7 @@
   v53[4] = *MEMORY[0x277D85DE8];
   v47.receiver = self;
   v47.super_class = JFXFaceTrackedEffectTransform;
-  v24 = [(JFXFaceTrackedEffectTransform *)&v47 init];
+  v24 = [(JFXFaceTrackedEffectTransform *)&v47 init:a11];
   v25 = v24;
   if (v24)
   {

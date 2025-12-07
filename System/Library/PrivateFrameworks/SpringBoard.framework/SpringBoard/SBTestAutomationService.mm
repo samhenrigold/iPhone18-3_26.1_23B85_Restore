@@ -193,25 +193,26 @@ void __82__SBTestAutomationService_systemServiceServer_clearAllUserNotifications
 void __71__SBTestAutomationService_systemServiceServer_client_setAlertsEnabled___block_invoke(uint64_t a1)
 {
   v2 = +[SBAlertItemsController sharedInstance];
+  v3 = v2;
   if (*(a1 + 32) == 1)
   {
-    v3 = SBLogAlertItems();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogAlertItems(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] Removing all pending alert items and super-modal items from the SBAlertItemsController", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] Removing all pending alert items and super-modal items from the SBAlertItemsController", v6, 2u);
     }
 
-    [v2 _clearAllQueuedAlertItems];
+    [v3 _clearAllQueuedAlertItems];
   }
 
-  [v2 setForceAlertsToPend:(*(a1 + 32) & 1) == 0 forReason:@"SBTestAutomationService client request"];
+  [v3 setForceAlertsToPend:(*(a1 + 32) & 1) == 0 forReason:@"SBTestAutomationService client request"];
   if ((*(a1 + 32) & 1) == 0)
   {
-    v4 = [v2 visibleAlertItem];
-    if (v4)
+    v5 = [v3 visibleAlertItem];
+    if (v5)
     {
-      [v2 deactivateAlertItem:v4];
+      [v3 deactivateAlertItem:v5];
     }
   }
 }
@@ -563,24 +564,24 @@ void __98__SBTestAutomationService_systemServiceServer_client_port_acquireAssert
   BSDispatchMain();
 }
 
-uint64_t __98__SBTestAutomationService_systemServiceServer_client_port_acquireAssertionForReachabilityEnabled___block_invoke_4(uint64_t a1)
+uint64_t __98__SBTestAutomationService_systemServiceServer_client_port_acquireAssertionForReachabilityEnabled___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = @"disabling";
+    v4 = *(a1 + 32);
+    v5 = @"disabling";
     if (*(a1 + 48))
     {
-      v4 = @"enabling";
+      v5 = @"enabling";
     }
 
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] client %@ invalidated; relinquishing reachability %@ assertion.", &v6, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] client %@ invalidated; relinquishing reachability %@ assertion.", &v7, 0x16u);
   }
 
   return [*(a1 + 40) invalidate];
@@ -763,13 +764,13 @@ void __80__SBTestAutomationService_systemServiceServer_client_resetToHomeScreenA
   [v2 setCurrentPageIndex:*(a1 + 40) animated:*(a1 + 48) completion:&__block_literal_global_87_0];
 }
 
-void __80__SBTestAutomationService_systemServiceServer_client_resetToHomeScreenAnimated___block_invoke_6()
+void __80__SBTestAutomationService_systemServiceServer_client_resetToHomeScreenAnimated___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = SBLogCommon();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] Successfully reset SpringBoard to the home screen!", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] Successfully reset SpringBoard to the home screen!", v3, 2u);
   }
 }
 
@@ -1087,19 +1088,19 @@ void __98__SBTestAutomationService_systemServiceServer_client_port_acquireHUDHid
   BSDispatchMain();
 }
 
-uint64_t __98__SBTestAutomationService_systemServiceServer_client_port_acquireHUDHiddenAssertionForIdentifier___block_invoke_2(uint64_t a1)
+uint64_t __98__SBTestAutomationService_systemServiceServer_client_port_acquireHUDHiddenAssertionForIdentifier___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] client %@ invalidated; relinquishing an assertion to hide HUDs with identifier %@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "[SBTestAutomationService] client %@ invalidated; relinquishing an assertion to hide HUDs with identifier %@", &v7, 0x16u);
   }
 
   return [*(a1 + 48) invalidate];
@@ -1548,13 +1549,13 @@ void __83__SBTestAutomationService_systemServiceServer_client_setChamoisPrefersS
   }
 }
 
-uint64_t __86__SBTestAutomationService_systemServiceServer_client_getDeviceSupportsSystemAperture___block_invoke(uint64_t a1)
+uint64_t __86__SBTestAutomationService_systemServiceServer_client_getDeviceSupportsSystemAperture___block_invoke(SBFluidSwitcherViewController *a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = SBSIsSystemApertureAvailable();
-  v3 = *(v1 + 16);
+  tabBarItem = a1->super._tabBarItem;
+  v3 = SBSIsSystemApertureAvailable();
+  isa = tabBarItem[2].super.super.isa;
 
-  return v3(v1, v2);
+  return isa(tabBarItem, v3);
 }
 
 - (void)systemServiceServer:(id)server client:(id)client setSpringBoardAnimationFrameRecordingForUpdateTypes:(unint64_t)types

@@ -44,8 +44,8 @@
   identifier = [sessionCopy identifier];
   [(NSMutableDictionary *)sessions setObject:sessionCopy forKey:identifier];
 
-  v7 = _EXDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _EXDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [_EXSceneSessionManager addSession:];
   }
@@ -64,8 +64,7 @@
 {
   identifierCopy = identifier;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  [(NSMutableDictionary *)self->__sessions removeObjectForKey:identifierCopy];
-  v5 = _EXDefaultLog();
+  v5 = _EXDefaultLog([(NSMutableDictionary *)self->__sessions removeObjectForKey:identifierCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_EXSceneSessionManager removeSessionForIdentifier:];
@@ -78,22 +77,6 @@
   sessions = self->__sessions;
 
   return [(NSMutableDictionary *)sessions allValues];
-}
-
-- (void)addSession:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "%{public}@ Added session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeSessionForIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1847D1000, v0, v1, "%{public}@ removed session with identifier: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

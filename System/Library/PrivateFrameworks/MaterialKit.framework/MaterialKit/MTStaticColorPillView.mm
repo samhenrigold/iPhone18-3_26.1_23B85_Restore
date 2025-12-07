@@ -28,7 +28,8 @@
     v6 = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     layer = [(MTStaticColorPillView *)v4 layer];
-    [layer setContents:{objc_msgSend(v6, "CGImage")}];
+    [v6 CGImage];
+    [layer setContents:?];
   }
 
   return v4;
@@ -37,11 +38,11 @@
 - (id)backgroundColor:(id)color
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTStaticColorPillView.m" lineNumber:34 description:{@"cannot call %s use pillColor instead", "-[MTStaticColorPillView backgroundColor:]"}];
+  [currentHandler handleFailureInMethod:"-[MTStaticColorPillView backgroundColor:]" object:? file:? lineNumber:? description:?];
 
-  v8.receiver = self;
-  v8.super_class = MTStaticColorPillView;
-  backgroundColor = [(MTStaticColorPillView *)&v8 backgroundColor];
+  v7.receiver = self;
+  v7.super_class = MTStaticColorPillView;
+  backgroundColor = [(MTStaticColorPillView *)&v7 backgroundColor];
 
   return backgroundColor;
 }
@@ -49,12 +50,12 @@
 - (void)setBackgroundColor:(id)color
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
-  [currentHandler handleFailureInMethod:a2 object:self file:@"MTStaticColorPillView.m" lineNumber:39 description:{@"cannot call %s use setPillColor: instead", "-[MTStaticColorPillView setBackgroundColor:]"}];
+  [currentHandler handleFailureInMethod:"-[MTStaticColorPillView setBackgroundColor:]" object:? file:? lineNumber:? description:?];
 
   clearColor = [MEMORY[0x277D75348] clearColor];
-  v7.receiver = self;
-  v7.super_class = MTStaticColorPillView;
-  [(MTStaticColorPillView *)&v7 setBackgroundColor:clearColor];
+  v6.receiver = self;
+  v6.super_class = MTStaticColorPillView;
+  [(MTStaticColorPillView *)&v6 setBackgroundColor:clearColor];
 }
 
 - (void)setPillColor:(id)color
@@ -65,7 +66,8 @@
     v7 = colorCopy;
     objc_storeStrong(&self->_pillColor, color);
     layer = [(MTStaticColorPillView *)self layer];
-    [layer setContentsMultiplyColor:{-[UIColor CGColor](self->_pillColor, "CGColor")}];
+    [(UIColor *)self->_pillColor CGColor];
+    [layer setContentsMultiplyColor:?];
 
     colorCopy = v7;
   }

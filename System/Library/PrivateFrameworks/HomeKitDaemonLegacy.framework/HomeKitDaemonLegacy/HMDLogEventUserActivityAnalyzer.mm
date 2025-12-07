@@ -1152,20 +1152,18 @@ LABEL_21:
 
 uint64_t __46__HMDLogEventUserActivityAnalyzer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v25_48032;
-  logCategory__hmf_once_v25_48032 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v25_48032;
+  logCategory__hmf_once_v25_48032 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDLogEventUserActivityAnalyzerRequestGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDLogEventUserActivityAnalyzerRequestGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

@@ -1,4 +1,5 @@
 @interface UICollectionViewUpdateItem
+- (BOOL)isNOOP;
 - (NSString)description;
 - (UICollectionViewUpdateItem)initWithAction:(int64_t)action forIndexPath:(id)path;
 - (UICollectionViewUpdateItem)initWithInitialIndexPath:(id)path finalIndexPath:(id)indexPath updateAction:(int64_t)action;
@@ -12,7 +13,6 @@
 - (uint64_t)_finalIndexPathEqualToUpdateItem:(uint64_t)item;
 - (uint64_t)_initialIndexPathEqualToUpdateItem:(uint64_t)item;
 - (uint64_t)isEqualToUpdate:(void *)update;
-- (uint64_t)isNOOP;
 - (void)_indexPath;
 - (void)_setNewIndexPath:(uint64_t)path;
 - (void)initWithOldIndexPath:(void *)path newIndexPath:;
@@ -647,7 +647,7 @@ LABEL_25:
   return v5;
 }
 
-- (uint64_t)isNOOP
+- (BOOL)isNOOP
 {
   if (result)
   {

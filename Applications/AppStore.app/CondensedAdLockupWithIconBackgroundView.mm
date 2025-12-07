@@ -9,12 +9,12 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10003A6CC();
+  sub_10003A6CC(selfCopy, v2);
 }
 
 - (NSArray)accessibilityElements
 {
-  sub_10002849C(&qword_1009701B0);
+  sub_10002849C(&qword_1009701B0, qword_1007B1800);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1007B10D0;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore39CondensedAdLockupWithIconBackgroundView_lockupView);

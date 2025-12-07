@@ -24,9 +24,9 @@
 - (ApprovalRequest)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v178.receiver = self;
-  v178.super_class = ApprovalRequest;
-  v5 = [(ApprovalRequest *)&v178 init];
+  v172.receiver = self;
+  v172.super_class = ApprovalRequest;
+  v5 = [(ApprovalRequest *)&v172 init];
 
   if (!v5)
   {
@@ -45,57 +45,56 @@
     v7 = 0;
   }
 
-  v177 = v7;
+  v171 = v7;
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"ageRatingValue"];
-  v9 = &APCustomError_ptr;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v10 = v8;
+    v9 = v8;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v176 = v10;
+  v170 = v9;
 
-  v11 = [dictionaryCopy objectForKeyedSubscript:@"approverDSID"];
+  v10 = [dictionaryCopy objectForKeyedSubscript:@"approverDSID"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = v11;
+    v11 = v10;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v175 = v12;
+  v169 = v11;
 
-  v13 = [dictionaryCopy objectForKeyedSubscript:@"canSendViaMessages"];
+  v12 = [dictionaryCopy objectForKeyedSubscript:@"canSendViaMessages"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  bOOLValue = [v15 BOOLValue];
-  v16 = [dictionaryCopy objectForKeyedSubscript:@"createdTimeInterval"];
+  bOOLValue = [v14 BOOLValue];
+  v15 = [dictionaryCopy objectForKeyedSubscript:@"createdTimeInterval"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = v16;
+    v16 = v15;
   }
 
   else
@@ -103,41 +102,41 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v16 doubleValue];
-      v17 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+      [v15 doubleValue];
+      v16 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
     {
-      v18 = +[APLogConfig sharedConfig];
-      if (!v18)
+      v17 = +[APLogConfig sharedConfig];
+      if (!v17)
       {
-        v18 = +[APLogConfig sharedConfig];
+        v17 = +[APLogConfig sharedConfig];
       }
 
-      oSLogObject = [v18 OSLogObject];
+      oSLogObject = [v17 OSLogObject];
       if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v20 = objc_opt_class();
-        v21 = NSStringFromClass(v20);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
         *buf = 138543618;
-        v180 = @"createdTimeInterval";
-        v181 = 2114;
-        v182 = v21;
+        v174 = @"createdTimeInterval";
+        v175 = 2114;
+        v176 = v20;
         _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_FAULT, "Unexpected type for key %{public}@. Expected NSDate or NSNumber, got %{public}@.", buf, 0x16u);
       }
 
-      v17 = 0;
+      v16 = 0;
     }
   }
 
-  v174 = v17;
+  v168 = v16;
 
-  v22 = [dictionaryCopy objectForKeyedSubscript:@"modifiedTimeInterval"];
+  v21 = [dictionaryCopy objectForKeyedSubscript:@"modifiedTimeInterval"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = v22;
+    v22 = v21;
   }
 
   else
@@ -145,217 +144,222 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v22 doubleValue];
-      v23 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+      [v21 doubleValue];
+      v22 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
   }
 
-  obj = v23;
-  v162 = v23;
+  obj = v22;
+  v156 = v22;
 
-  v24 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
+  v23 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v25 = v24;
+    v24 = v23;
   }
 
   else
   {
-    v26 = +[APLogConfig sharedConfig];
-    if (!v26)
+    v25 = +[APLogConfig sharedConfig];
+    if (!v25)
     {
-      v26 = +[APLogConfig sharedConfig];
+      v25 = +[APLogConfig sharedConfig];
     }
 
-    oSLogObject2 = [v26 OSLogObject];
+    oSLogObject2 = [v25 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_FAULT))
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       *buf = 138543874;
-      v180 = @"identifier";
-      v181 = 2114;
-      v182 = v29;
-      v183 = 2114;
-      v184 = v31;
+      v174 = @"identifier";
+      v175 = 2114;
+      v176 = v28;
+      v177 = 2114;
+      v178 = v30;
       _os_log_impl(&_mh_execute_header, oSLogObject2, OS_LOG_TYPE_FAULT, "Unexpected type for key %{public}@. Expected %{public}@, got %{public}@.", buf, 0x20u);
-
-      v9 = &APCustomError_ptr;
     }
 
-    v25 = 0;
+    v24 = 0;
   }
 
-  v173 = v25;
+  v167 = v24;
 
-  v32 = [dictionaryCopy objectForKeyedSubscript:@"uniqueIdentifier"];
+  v31 = [dictionaryCopy objectForKeyedSubscript:@"uniqueIdentifier"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v33 = v32;
+    v32 = v31;
   }
 
   else
   {
-    v34 = +[APLogConfig sharedConfig];
-    if (!v34)
+    v33 = +[APLogConfig sharedConfig];
+    if (!v33)
     {
-      v34 = +[APLogConfig sharedConfig];
+      v33 = +[APLogConfig sharedConfig];
     }
 
-    oSLogObject3 = [v34 OSLogObject];
+    oSLogObject3 = [v33 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_FAULT))
     {
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      v38 = objc_opt_class();
-      v39 = NSStringFromClass(v38);
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
       *buf = 138543874;
-      v180 = @"uniqueIdentifier";
-      v181 = 2114;
-      v182 = v37;
-      v183 = 2114;
-      v184 = v39;
+      v174 = @"uniqueIdentifier";
+      v175 = 2114;
+      v176 = v36;
+      v177 = 2114;
+      v178 = v38;
       _os_log_impl(&_mh_execute_header, oSLogObject3, OS_LOG_TYPE_FAULT, "Unexpected type for key %{public}@. Expected %{public}@, got %{public}@.", buf, 0x20u);
-
-      v9 = &APCustomError_ptr;
     }
 
-    v33 = 0;
+    v32 = 0;
   }
 
-  v172 = v33;
+  v166 = v32;
 
-  v40 = [dictionaryCopy objectForKeyedSubscript:@"isException"];
-  v41 = v9[325];
+  v39 = [dictionaryCopy objectForKeyedSubscript:@"isException"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v42 = v40;
+    v40 = v39;
   }
 
   else
   {
-    v43 = +[APLogConfig sharedConfig];
-    if (!v43)
+    v41 = +[APLogConfig sharedConfig];
+    if (!v41)
     {
-      v43 = +[APLogConfig sharedConfig];
+      v41 = +[APLogConfig sharedConfig];
     }
 
-    oSLogObject4 = [v43 OSLogObject];
+    oSLogObject4 = [v41 OSLogObject];
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_FAULT))
     {
-      v45 = v9[325];
-      v46 = objc_opt_class();
-      v47 = NSStringFromClass(v46);
-      v48 = objc_opt_class();
-      v49 = NSStringFromClass(v48);
+      v43 = objc_opt_class();
+      v44 = NSStringFromClass(v43);
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
       *buf = 138543874;
-      v180 = @"isException";
-      v181 = 2114;
-      v182 = v47;
-      v183 = 2114;
-      v184 = v49;
+      v174 = @"isException";
+      v175 = 2114;
+      v176 = v44;
+      v177 = 2114;
+      v178 = v46;
       _os_log_impl(&_mh_execute_header, oSLogObject4, OS_LOG_TYPE_FAULT, "Unexpected type for key %{public}@. Expected %{public}@, got %{public}@.", buf, 0x20u);
-
-      v9 = &APCustomError_ptr;
     }
 
-    v42 = 0;
+    v40 = 0;
   }
 
-  v171 = v42;
+  v165 = v40;
 
-  v50 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
+  v47 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v51 = v50;
+    v48 = v47;
   }
 
   else
   {
-    v51 = 0;
+    v48 = 0;
   }
 
-  v170 = v51;
+  v164 = v48;
 
-  v52 = [dictionaryCopy objectForKeyedSubscript:@"itemDescription"];
+  v49 = [dictionaryCopy objectForKeyedSubscript:@"itemDescription"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v53 = v52;
+    v50 = v49;
   }
 
   else
   {
-    v53 = 0;
+    v50 = 0;
   }
 
-  v169 = v53;
+  v163 = v50;
 
-  v54 = [dictionaryCopy objectForKeyedSubscript:@"itemTitle"];
+  v51 = [dictionaryCopy objectForKeyedSubscript:@"itemTitle"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v55 = v54;
+    v52 = v51;
   }
 
   else
   {
-    v55 = 0;
+    v52 = 0;
   }
 
-  v168 = v55;
+  v162 = v52;
 
-  v56 = [dictionaryCopy objectForKeyedSubscript:@"itemIdentifier"];
+  v53 = [dictionaryCopy objectForKeyedSubscript:@"itemIdentifier"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v57 = v56;
+    v54 = v53;
   }
 
   else
   {
-    v58 = +[APLogConfig sharedConfig];
-    if (!v58)
+    v55 = +[APLogConfig sharedConfig];
+    if (!v55)
     {
-      v58 = +[APLogConfig sharedConfig];
+      v55 = +[APLogConfig sharedConfig];
     }
 
-    oSLogObject5 = [v58 OSLogObject];
+    oSLogObject5 = [v55 OSLogObject];
     if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_FAULT))
     {
-      v60 = objc_opt_class();
-      v61 = NSStringFromClass(v60);
-      v62 = objc_opt_class();
-      v63 = NSStringFromClass(v62);
+      v57 = objc_opt_class();
+      v58 = NSStringFromClass(v57);
+      v59 = objc_opt_class();
+      v60 = NSStringFromClass(v59);
       *buf = 138543874;
-      v180 = @"itemIdentifier";
-      v181 = 2114;
-      v182 = v61;
-      v183 = 2114;
-      v184 = v63;
+      v174 = @"itemIdentifier";
+      v175 = 2114;
+      v176 = v58;
+      v177 = 2114;
+      v178 = v60;
       _os_log_impl(&_mh_execute_header, oSLogObject5, OS_LOG_TYPE_FAULT, "Unexpected type for key %{public}@. Expected %{public}@, got %{public}@.", buf, 0x20u);
-
-      v9 = &APCustomError_ptr;
     }
 
-    v57 = 0;
+    v54 = 0;
   }
 
-  v167 = v57;
+  v161 = v54;
 
-  v64 = [RequestLocalizations alloc];
-  v65 = [dictionaryCopy objectForKeyedSubscript:@"localizations"];
+  v61 = [RequestLocalizations alloc];
+  v62 = [dictionaryCopy objectForKeyedSubscript:@"localizations"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v63 = v62;
+  }
+
+  else
+  {
+    v63 = 0;
+  }
+
+  v64 = v63;
+
+  v160 = [(RequestLocalizations *)v61 initWithDictionary:v64];
+  v65 = [dictionaryCopy objectForKeyedSubscript:@"offerName"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -367,55 +371,77 @@
     v66 = 0;
   }
 
-  v67 = v66;
+  v159 = v66;
 
-  v166 = [(RequestLocalizations *)v64 initWithDictionary:v67];
-  v68 = [dictionaryCopy objectForKeyedSubscript:@"offerName"];
+  v67 = [dictionaryCopy objectForKeyedSubscript:@"metricsID"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v69 = v68;
+    v68 = v67;
   }
 
   else
   {
-    v69 = 0;
+    v68 = 0;
   }
 
-  v165 = v69;
+  v151 = v68;
+  v153 = v68;
 
-  v70 = [dictionaryCopy objectForKeyedSubscript:@"metricsID"];
+  v69 = [dictionaryCopy objectForKeyedSubscript:@"mocked"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v71 = v70;
+    v70 = v69;
   }
 
   else
   {
-    v71 = 0;
+    v70 = 0;
   }
 
-  v157 = v71;
-  v159 = v71;
+  v71 = v70;
 
-  v72 = [dictionaryCopy objectForKeyedSubscript:@"mocked"];
-  v73 = v9[325];
+  bOOLValue2 = [v71 BOOLValue];
+  v72 = [dictionaryCopy objectForKeyedSubscript:@"previewURL"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v74 = v72;
+    v73 = v72;
   }
 
   else
   {
-    v74 = 0;
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v73 = [NSURL URLWithString:v72];
+    }
+
+    else
+    {
+      v73 = 0;
+    }
   }
 
-  v75 = v74;
+  v148 = v73;
+  v152 = v73;
 
-  bOOLValue2 = [v75 BOOLValue];
-  v76 = [dictionaryCopy objectForKeyedSubscript:@"previewURL"];
+  v74 = [dictionaryCopy objectForKeyedSubscript:@"productType"];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v75 = v74;
+  }
+
+  else
+  {
+    v75 = 0;
+  }
+
+  v158 = v75;
+
+  v76 = [dictionaryCopy objectForKeyedSubscript:@"productTypeName"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -424,22 +450,12 @@
 
   else
   {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v77 = [NSURL URLWithString:v76];
-    }
-
-    else
-    {
-      v77 = 0;
-    }
+    v77 = 0;
   }
 
-  v154 = v77;
-  v158 = v77;
+  v157 = v77;
 
-  v78 = [dictionaryCopy objectForKeyedSubscript:@"productType"];
+  v78 = [dictionaryCopy objectForKeyedSubscript:@"productURL"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -448,140 +464,110 @@
 
   else
   {
-    v79 = 0;
-  }
-
-  v164 = v79;
-
-  v80 = [dictionaryCopy objectForKeyedSubscript:@"productTypeName"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v81 = v80;
-  }
-
-  else
-  {
-    v81 = 0;
-  }
-
-  v163 = v81;
-
-  v82 = [dictionaryCopy objectForKeyedSubscript:@"productURL"];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v83 = v82;
-  }
-
-  else
-  {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v84 = 0;
+      v80 = 0;
       goto LABEL_94;
     }
 
-    v83 = [NSURL URLWithString:v82];
+    v79 = [NSURL URLWithString:v78];
   }
 
-  v84 = v83;
+  v80 = v79;
 LABEL_94:
-  v156 = v84;
+  v150 = v80;
 
-  v85 = [dictionaryCopy objectForKeyedSubscript:@"requesterDSID"];
+  v81 = [dictionaryCopy objectForKeyedSubscript:@"requesterDSID"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v86 = v85;
+    v82 = v81;
   }
 
   else
   {
-    v86 = 0;
+    v82 = 0;
   }
 
-  v87 = v86;
+  v83 = v82;
 
-  v88 = [dictionaryCopy objectForKeyedSubscript:@"requesterName"];
+  v84 = [dictionaryCopy objectForKeyedSubscript:@"requesterName"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v89 = v88;
+    v85 = v84;
   }
 
   else
   {
-    v89 = 0;
+    v85 = 0;
   }
 
-  v90 = v89;
+  v86 = v85;
 
-  v91 = [dictionaryCopy objectForKeyedSubscript:@"starRating"];
-  v92 = v9[325];
+  v87 = [dictionaryCopy objectForKeyedSubscript:@"starRating"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v93 = v91;
+    v88 = v87;
   }
 
   else
   {
-    v93 = 0;
+    v88 = 0;
   }
 
-  v153 = v93;
+  v147 = v88;
 
-  v94 = [dictionaryCopy objectForKeyedSubscript:@"status"];
-  v95 = v9[325];
+  v89 = [dictionaryCopy objectForKeyedSubscript:@"status"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v96 = v94;
+    v90 = v89;
   }
 
   else
   {
-    v96 = 0;
+    v90 = 0;
   }
 
-  v97 = v96;
+  v91 = v90;
 
-  integerValue = [v97 integerValue];
-  v99 = [dictionaryCopy objectForKeyedSubscript:@"suppressClientResume"];
+  integerValue = [v91 integerValue];
+  v93 = [dictionaryCopy objectForKeyedSubscript:@"suppressClientResume"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v100 = v99;
+    v94 = v93;
   }
 
   else
   {
-    v100 = 0;
+    v94 = 0;
   }
 
-  v101 = v100;
+  v95 = v94;
 
-  bOOLValue3 = [v101 BOOLValue];
-  v103 = [v177 copy];
+  bOOLValue3 = [v95 BOOLValue];
+  v97 = [v171 copy];
   ageRating = v5->_ageRating;
-  v5->_ageRating = v103;
+  v5->_ageRating = v97;
 
-  v105 = [v176 copy];
+  v99 = [v170 copy];
   ageRatingValue = v5->_ageRatingValue;
-  v5->_ageRatingValue = v105;
+  v5->_ageRatingValue = v99;
 
-  v107 = [v175 copy];
+  v101 = [v169 copy];
   approverDSID = v5->_approverDSID;
-  v5->_approverDSID = v107;
+  v5->_approverDSID = v101;
 
   v5->_canSendViaMessages = bOOLValue;
-  if (v174)
+  if (v168)
   {
-    v109 = v174;
+    v103 = v168;
     createdDate = v5->_createdDate;
-    v5->_createdDate = v109;
+    v5->_createdDate = v103;
   }
 
   else
@@ -591,147 +577,147 @@ LABEL_94:
   }
 
   objc_storeStrong(&v5->_modifiedDate, obj);
-  v111 = [v173 copy];
-  v112 = v111;
-  if (v111)
+  v105 = [v167 copy];
+  v106 = v105;
+  if (v105)
   {
-    v113 = v111;
+    v107 = v105;
   }
 
   else
   {
-    v113 = &stru_100057158;
+    v107 = &stru_100057158;
   }
 
-  objc_storeStrong(&v5->_requestIdentifier, v113);
+  objc_storeStrong(&v5->_requestIdentifier, v107);
 
-  v114 = [v172 copy];
-  v115 = v114;
-  if (v114)
+  v108 = [v166 copy];
+  v109 = v108;
+  if (v108)
   {
-    v116 = v114;
+    v110 = v108;
   }
 
   else
   {
-    v116 = &stru_100057158;
+    v110 = &stru_100057158;
   }
 
-  objc_storeStrong(&v5->_uniqueIdentifier, v116);
+  objc_storeStrong(&v5->_uniqueIdentifier, v110);
 
-  v5->_isException = [v171 BOOLValue];
-  v117 = [v170 copy];
+  v5->_isException = [v165 BOOLValue];
+  v111 = [v164 copy];
   itemBundleID = v5->_itemBundleID;
-  v5->_itemBundleID = v117;
+  v5->_itemBundleID = v111;
 
-  v119 = [v169 copy];
+  v113 = [v163 copy];
   itemDescription = v5->_itemDescription;
-  v5->_itemDescription = v119;
+  v5->_itemDescription = v113;
 
-  v121 = [v168 copy];
+  v115 = [v162 copy];
   itemTitle = v5->_itemTitle;
-  v5->_itemTitle = v121;
+  v5->_itemTitle = v115;
 
-  v123 = [v167 copy];
-  v124 = v123;
-  if (v123)
+  v117 = [v161 copy];
+  v118 = v117;
+  if (v117)
   {
-    v125 = v123;
+    v119 = v117;
   }
 
   else
   {
-    v125 = &stru_100057158;
+    v119 = &stru_100057158;
   }
 
-  objc_storeStrong(&v5->_itemIdentifier, v125);
+  objc_storeStrong(&v5->_itemIdentifier, v119);
 
-  objc_storeStrong(&v5->_localizations, v166);
-  objc_storeStrong(&v5->_metricsID, v157);
+  objc_storeStrong(&v5->_localizations, v160);
+  objc_storeStrong(&v5->_metricsID, v151);
   v5->_mocked = bOOLValue2;
-  v126 = [v165 copy];
+  v120 = [v159 copy];
   offerName = v5->_offerName;
-  v5->_offerName = v126;
+  v5->_offerName = v120;
 
-  objc_storeStrong(&v5->_previewURL, v154);
-  v128 = [v164 copy];
+  objc_storeStrong(&v5->_previewURL, v148);
+  v122 = [v158 copy];
   productType = v5->_productType;
-  v5->_productType = v128;
+  v5->_productType = v122;
 
-  v130 = [v163 copy];
+  v124 = [v157 copy];
   productTypeName = v5->_productTypeName;
-  v5->_productTypeName = v130;
+  v5->_productTypeName = v124;
 
-  objc_storeStrong(&v5->_productURL, v84);
-  v132 = [v87 copy];
+  objc_storeStrong(&v5->_productURL, v80);
+  v126 = [v83 copy];
   requesterDSID = v5->_requesterDSID;
-  v5->_requesterDSID = v132;
+  v5->_requesterDSID = v126;
 
-  v134 = [v90 copy];
+  v128 = [v86 copy];
   requesterName = v5->_requesterName;
-  v5->_requesterName = v134;
+  v5->_requesterName = v128;
 
-  objc_storeStrong(&v5->_starRating, v93);
+  objc_storeStrong(&v5->_starRating, v88);
   v5->_status = integerValue;
   v5->_suppressClientResume = bOOLValue3;
-  v136 = [dictionaryCopy objectForKeyedSubscript:@"requestString"];
+  v130 = [dictionaryCopy objectForKeyedSubscript:@"requestString"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v137 = v136;
+    v131 = v130;
   }
 
   else
   {
-    v137 = 0;
+    v131 = 0;
   }
 
-  v138 = v137;
+  v132 = v131;
 
-  v139 = [v138 copy];
+  v133 = [v132 copy];
   requestString = v5->_requestString;
-  v5->_requestString = v139;
+  v5->_requestString = v133;
 
-  v141 = [dictionaryCopy objectForKeyedSubscript:@"requestSummary"];
+  v135 = [dictionaryCopy objectForKeyedSubscript:@"requestSummary"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v142 = v141;
+    v136 = v135;
   }
 
   else
   {
-    v142 = 0;
+    v136 = 0;
   }
 
-  v143 = v142;
+  v137 = v136;
 
-  v144 = [v143 copy];
+  v138 = [v137 copy];
   requestSummary = v5->_requestSummary;
-  v5->_requestSummary = v144;
+  v5->_requestSummary = v138;
 
-  v146 = [dictionaryCopy objectForKeyedSubscript:@"priceSummary"];
+  v140 = [dictionaryCopy objectForKeyedSubscript:@"priceSummary"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v147 = v146;
+    v141 = v140;
   }
 
   else
   {
-    v147 = 0;
+    v141 = 0;
   }
 
-  v148 = v147;
+  v142 = v141;
 
-  v149 = [v148 copy];
+  v143 = [v142 copy];
   priceSummary = v5->_priceSummary;
-  v5->_priceSummary = v149;
+  v5->_priceSummary = v143;
 
 LABEL_131:
-  v151 = v5;
+  v145 = v5;
 
-  return v151;
+  return v145;
 }
 
 - (ApprovalRequest)initWithApproverDSID:(id)d createdDate:(id)date modifiedDate:(id)modifiedDate requestIdentifier:(id)identifier uniqueIdentifier:(id)uniqueIdentifier canSendViaMessages:(BOOL)messages isException:(BOOL)exception itemBundleID:(id)self0 itemDescription:(id)self1 itemIdentifier:(id)self2 itemTitle:(id)self3 localizations:(id)self4 offerName:(id)self5 mocked:(BOOL)self6 previewURL:(id)self7 productType:(id)self8 productTypeName:(id)self9 productURL:(id)rL requesterName:(id)requesterName requesterDSID:(id)sID requestInfo:(id)info requestString:(id)string requestSummary:(id)summary priceSummary:(id)priceSummary status:(int64_t)status

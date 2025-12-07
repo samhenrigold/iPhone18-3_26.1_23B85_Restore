@@ -8,9 +8,6 @@
 
 - (id)getPresentationData
 {
-  v10 = *(&self->super.isa + OBJC_IVAR____TtC16CryptoKitPrivate22ARCPresentationWrapper_presentation);
-  v11 = *&self->presentation[OBJC_IVAR____TtC16CryptoKitPrivate22ARCPresentationWrapper_presentation + 8];
-  v12 = *&self->presentation[OBJC_IVAR____TtC16CryptoKitPrivate22ARCPresentationWrapper_presentation + 24];
   v2 = *&self->presentation[OBJC_IVAR____TtC16CryptoKitPrivate22ARCPresentationWrapper_ciphersuite + 16];
   v3 = *&self->presentation[OBJC_IVAR____TtC16CryptoKitPrivate22ARCPresentationWrapper_ciphersuite + 24];
   selfCopy = self;

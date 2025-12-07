@@ -18,13 +18,13 @@ void __108___UIContextMenuCascadedHierarchyLayout_performLayoutForComputingPrefe
   if (*(a1 + 72) == 1)
   {
     v15 = *(a1 + 32);
-    v147 = [v3 menu];
+    v147 = objc_msgSend_menu(v3);
     v16 = [v147 metadata];
-    rect = [v3 menu];
+    rect = objc_msgSend_menu(v3);
     v17 = [rect metadata];
-    v141 = [v3 menu];
+    v141 = objc_msgSend_menu(v3);
     v135 = [v141 metadata];
-    v139 = [v3 menu];
+    v139 = objc_msgSend_menu(v3);
     if (([v139 options] & 0x100) != 0)
     {
       if (_UIApplicationProcessIsSpringBoard() & 1) != 0 || (_UIApplicationProcessIsUIKitester())

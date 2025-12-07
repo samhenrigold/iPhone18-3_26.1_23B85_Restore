@@ -367,7 +367,7 @@
       v39 = v31;
       if (WeakRetained)
       {
-        [WeakRetained windowControlsLayoutForApplicationSceneViewController:self];
+        objc_msgSend_windowControlsLayoutForApplicationSceneViewController_(WeakRetained);
       }
 
       else
@@ -1092,7 +1092,7 @@ uint64_t __63__SBDeviceApplicationSceneViewController__updateStatusBarState__blo
     [(NSMutableArray *)activeOverlayViewProviders addObject:providerCopy];
     _sceneView = [(SBSceneViewController *)self _sceneView];
     overlayView = [overlayViewController overlayView];
-    v11 = [(NSMutableArray *)self->_overlayViewProviders containsObject:providerCopy];
+    v11 = objc_msgSend_containsObject_(self->_overlayViewProviders);
     [overlayViewController beginAppearanceTransition:1 animated:v11];
     [(SBDeviceApplicationSceneViewController *)self addChildViewController:overlayViewController];
     [_sceneView addOverlayView:overlayView withPriority:{objc_msgSend(providerCopy, "priority")}];
@@ -1109,7 +1109,7 @@ uint64_t __63__SBDeviceApplicationSceneViewController__updateStatusBarState__blo
 - (void)deactivateOverlayForViewProvider:(id)provider
 {
   providerCopy = provider;
-  if ([(NSMutableArray *)self->_activeOverlayViewProviders containsObject:providerCopy])
+  if (objc_msgSend_containsObject_(self->_activeOverlayViewProviders))
   {
     overlayViewController = [providerCopy overlayViewController];
     v7[0] = MEMORY[0x277D85DD0];
@@ -1229,7 +1229,7 @@ LABEL_7:
 - (void)overlayViewProviderNeedsStatusBarAppearanceUpdate:(id)update
 {
   updateCopy = update;
-  if ([(NSMutableArray *)self->_activeOverlayViewProviders containsObject:?])
+  if (objc_msgSend_containsObject_(self->_activeOverlayViewProviders))
   {
     [(SBDeviceApplicationSceneViewController *)self _updateStatusBarAppearanceForOverlayProvider:updateCopy];
   }

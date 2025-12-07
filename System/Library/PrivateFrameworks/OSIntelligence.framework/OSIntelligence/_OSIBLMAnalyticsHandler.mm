@@ -12,6 +12,7 @@
 - (void)cancelTask;
 - (void)extractAndReportMetrics;
 - (void)recordAnalyticsFeatureState:(int64_t)state forCategory:(id)category;
+- (void)recordAutoLPMState:(BOOL)state;
 - (void)recordFeatureNotificationState:(int64_t)state;
 - (void)recordFeatureState:(int64_t)state;
 - (void)recordIBLMFirstUserNotificationResponse:(int64_t)response;
@@ -77,32 +78,46 @@
 
 - (void)submitTask
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [objc_alloc(MEMORY[0x277CF07D8]) initWithIdentifier:@"com.apple.osintelligence.iblm.dailyAnalytics"];
+  [v3 setPriority:2];
+  [v3 setInterval:86400.0];
+  [v3 setMinDurationBetweenInstances:43200.0];
+  mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
+  v7 = 0;
+  v5 = [mEMORY[0x277CF0810] submitTaskRequest:v3 error:&v7];
+  v6 = v7;
+
+  if ((v5 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  {
+    [_OSIBLMAnalyticsHandler submitTask];
+  }
 }
 
 - (void)cancelTask
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
+  v6 = 0;
+  v4 = [mEMORY[0x277CF0810] cancelTaskRequestWithIdentifier:@"com.apple.osintelligence.iblm.dailyAnalytics" error:&v6];
+  v5 = v6;
+
+  if ((v4 & 1) == 0 && os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
+  {
+    [_OSIBLMAnalyticsHandler cancelTask];
+  }
 }
 
 - (PPSTelemetryIdentifier)ppsIDForSubsystem:(id)subsystem category:(id)category
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   subsystemCopy = subsystem;
   categoryCopy = category;
   categoryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", subsystemCopy, categoryCopy];
   v9 = [(NSMutableDictionary *)self->_subsystemToPPSID objectForKeyedSubscript:categoryCopy];
-  v15 = 0;
+  v14 = 0;
   if (v9)
   {
     v10 = v9;
-    [v9 getValue:&v15 size:8];
+    [v9 getValue:&v14 size:8];
 LABEL_7:
 
     goto LABEL_8;
@@ -112,14 +127,14 @@ LABEL_7:
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v17 = categoryCopy;
+    v16 = categoryCopy;
     _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_INFO, "Creating PPS ID for %@", buf, 0xCu);
   }
 
-  v15 = PPSCreateTelemetryIdentifier();
-  if (v15)
+  v14 = PPSCreateTelemetryIdentifier();
+  if (v14)
   {
-    v10 = [MEMORY[0x277CCAE60] value:&v15 withObjCType:"^{PPSTelemetryIdentifier=}"];
+    v10 = [MEMORY[0x277CCAE60] value:&v14 withObjCType:"^{PPSTelemetryIdentifier=}"];
     [(NSMutableDictionary *)self->_subsystemToPPSID setObject:v10 forKeyedSubscript:categoryCopy];
     goto LABEL_7;
   }
@@ -130,9 +145,8 @@ LABEL_7:
   }
 
 LABEL_8:
-  v12 = v15;
+  v12 = v14;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -414,14 +428,14 @@ LABEL_8:
 
 - (void)extractAndReportMetrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
   v4 = objc_opt_new();
   v5 = [(_OSIBLMAnalyticsHandler *)self historicalDrainDataForDate:v3];
   [v4 addEntriesFromDictionary:v5];
   v6 = [(_OSIBLMAnalyticsHandler *)self historicalEngagementDataForDate:v3];
   [v4 addEntriesFromDictionary:v6];
-  v18 = [(_OSIBLMAnalyticsHandler *)self featureEngagementMetricsFromDrainData:v5 engagementData:v6];
+  v17 = [(_OSIBLMAnalyticsHandler *)self featureEngagementMetricsFromDrainData:v5 engagementData:v6];
   [v4 addEntriesFromDictionary:?];
   v7 = [(_OSIBLMAnalyticsHandler *)self historicalPluggedInDataForDate:v3];
   [v4 addEntriesFromDictionary:v7];
@@ -444,11 +458,9 @@ LABEL_8:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v15;
+    v19 = v15;
     _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Sending IBLM CA event: %@", buf, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reportDailyFeatureState
@@ -627,6 +639,25 @@ LABEL_6:
   [(_OSIBLMAnalyticsHandler *)self sendDataToPPS:v8 subsystem:@"OSIPrediction" category:categoryCopy];
 }
 
+- (void)recordAutoLPMState:(BOOL)state
+{
+  stateCopy = state;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = objc_opt_new();
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  [v5 setObject:v6 forKeyedSubscript:@"didEngageAutoLPM"];
+
+  v7 = v5;
+  AnalyticsSendEventLazy();
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Sending IBLM CA event: %@", buf, 0xCu);
+  }
+}
+
 + (int64_t)currentBatteryLevel
 {
   userContext = [MEMORY[0x277CFE318] userContext];
@@ -642,7 +673,7 @@ LABEL_6:
 
 - (void)recordIBLMFirstUserNotificationResponse:(int64_t)response
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{+[_OSIBLMAnalyticsHandler currentBatteryLevel](_OSIBLMAnalyticsHandler, "currentBatteryLevel")}];
   [v5 setObject:v6 forKeyedSubscript:@"batteryLevel"];
@@ -656,16 +687,14 @@ LABEL_6:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Sending IBLM User Notification CA event: %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordIBLMFirstUserNotificationTrigger:(int64_t)trigger
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{+[_OSIBLMAnalyticsHandler currentBatteryLevel](_OSIBLMAnalyticsHandler, "currentBatteryLevel")}];
   [v5 setObject:v6 forKeyedSubscript:@"batteryLevel"];
@@ -679,20 +708,16 @@ LABEL_6:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Sending IBLM User Notification CA event: %@", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordFeatureState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

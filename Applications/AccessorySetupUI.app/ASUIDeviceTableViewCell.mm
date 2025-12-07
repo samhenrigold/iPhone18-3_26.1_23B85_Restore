@@ -2,6 +2,7 @@
 - (_TtC16AccessorySetupUI23ASUIDeviceTableViewCell)initWithCoder:(id)coder;
 - (_TtC16AccessorySetupUI23ASUIDeviceTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)awakeFromNib;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation ASUIDeviceTableViewCell
@@ -13,26 +14,37 @@
   [(ASUIDeviceTableViewCell *)&v2 awakeFromNib];
 }
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  selectedCopy = selected;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for ASUIDeviceTableViewCell();
+  [(ASUIDeviceTableViewCell *)&v6 setSelected:selectedCopy animated:animatedCopy];
+}
+
 - (_TtC16AccessorySetupUI23ASUIDeviceTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
   if (identifier)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
     *(&self->super.super.super.super.isa + OBJC_IVAR____TtC16AccessorySetupUI23ASUIDeviceTableViewCell_device) = 0;
-    v6 = String._bridgeToObjectiveC()();
+    v8 = String._bridgeToObjectiveC()();
+    v7, v9, v10, v11, v12, v13, v14, v15;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
     *(&self->super.super.super.super.isa + OBJC_IVAR____TtC16AccessorySetupUI23ASUIDeviceTableViewCell_device) = 0;
   }
 
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for ASUIDeviceTableViewCell();
-  v7 = [(ASUIDeviceTableViewCell *)&v9 initWithStyle:style reuseIdentifier:v6];
+  v18.receiver = self;
+  v18.super_class = type metadata accessor for ASUIDeviceTableViewCell();
+  v16 = [(ASUIDeviceTableViewCell *)&v18 initWithStyle:style reuseIdentifier:v8];
 
-  return v7;
+  return v16;
 }
 
 - (_TtC16AccessorySetupUI23ASUIDeviceTableViewCell)initWithCoder:(id)coder

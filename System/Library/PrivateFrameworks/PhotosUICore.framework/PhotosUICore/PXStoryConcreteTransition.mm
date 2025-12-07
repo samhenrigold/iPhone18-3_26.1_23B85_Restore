@@ -77,7 +77,7 @@
   }
 
   v20 = v19;
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self);
   time = v23;
   v21 = [v15 initWithFormat:@"<%@: %p; %@, t=%0.1f%@>", v17, self, v20, CMTimeGetSeconds(&time), v14];
 
@@ -117,13 +117,13 @@
 
 - (double)progress
 {
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self, a2);
   time = v5;
   Seconds = CMTimeGetSeconds(&time);
   result = 1.0;
   if (Seconds > 0.0)
   {
-    [(PXStoryAnimation *)self time];
+    objc_msgSend_time(self, 1.0);
     time = v5;
     CMTimeGetSeconds(&time);
     PXClamp();
@@ -233,7 +233,7 @@
   v7.receiver = self;
   v7.super_class = PXStoryConcreteTransition;
   [(PXStoryAnimation *)&v7 timeDidChange];
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self);
   clipLayouts = [(PXStoryConcreteTransition *)self clipLayouts];
 
   if (clipLayouts)
@@ -253,7 +253,7 @@
     }
   }
 
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   memset(&time1, 0, sizeof(time1));
   time2 = v6;
   v5 = CMTimeCompare(&time1, &time2);

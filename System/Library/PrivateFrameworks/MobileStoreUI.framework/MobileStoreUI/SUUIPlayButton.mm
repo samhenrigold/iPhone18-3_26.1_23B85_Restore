@@ -257,7 +257,7 @@
 
     else
     {
-      [statusCopy currentTime];
+      objc_msgSend_currentTime(statusCopy);
       v10 = v11 / v9;
       *&v10 = v10;
     }

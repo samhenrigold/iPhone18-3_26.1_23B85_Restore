@@ -5,6 +5,8 @@
 - (void)showPINEntryUIWithFlags:(unsigned int)flags;
 - (void)showPINEntryUIWithFlags:(unsigned int)flags inThrottleSeconds:(float)seconds;
 - (void)tryPin:(id)pin;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FBAPinPairingViewController
@@ -18,6 +20,41 @@
   v3 = +[UIColor systemBackgroundColor];
   view = [(FBAPinPairingViewController *)self view];
   [view setBackgroundColor:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = FBAPinPairingViewController;
+  [(FBAPinPairingViewController *)&v12 viewWillAppear:appear];
+  if ([(FBAPinPairingViewController *)self context]== 1)
+  {
+    v4 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:1 target:self action:"didCancel"];
+    navigationItem = [(FBAPinPairingViewController *)self navigationItem];
+    [navigationItem setLeftBarButtonItem:v4];
+  }
+
+  self->_failCount = 0;
+  objc_initWeak(&location, self);
+  v6 = _NSConcreteStackBlock;
+  v7 = 3221225472;
+  v8 = sub_100030530;
+  v9 = &unk_1000DF738;
+  objc_copyWeak(&v10, &location);
+  [(FBAPINEntryView *)self->_pinEntryView setTextChangedHandler:&v6];
+  [(FBAPINEntryView *)self->_pinEntryView becomeFirstResponder:v6];
+  [(FBAPinPairingViewController *)self showPINEntryUIWithFlags:2];
+  objc_destroyWeak(&v10);
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(FBAPINEntryView *)self->_pinEntryView setTextChangedHandler:0];
+  v5.receiver = self;
+  v5.super_class = FBAPinPairingViewController;
+  [(FBAPinPairingViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)didCancel

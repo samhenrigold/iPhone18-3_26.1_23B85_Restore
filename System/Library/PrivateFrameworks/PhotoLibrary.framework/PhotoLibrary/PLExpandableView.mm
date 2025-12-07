@@ -459,7 +459,7 @@ LABEL_7:
   memset(&v43, 0, sizeof(v43));
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
     v24 = v40;
   }
 

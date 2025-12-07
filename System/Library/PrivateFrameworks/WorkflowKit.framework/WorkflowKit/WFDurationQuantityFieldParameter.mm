@@ -75,7 +75,7 @@
 {
   unitCopy = unit;
   magnitudeCopy = magnitude;
-  if ([unitCopy isEqualToString:@"sec"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     v8 = @"seconds";
 LABEL_11:
@@ -86,38 +86,38 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ([unitCopy isEqualToString:@"min"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     v8 = @"minutes";
     goto LABEL_11;
   }
 
-  if ([unitCopy isEqualToString:@"hr"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     v8 = @"hours";
     goto LABEL_11;
   }
 
   v8 = @"days";
-  if ([unitCopy isEqualToString:@"days"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     goto LABEL_11;
   }
 
   v8 = @"weeks";
-  if ([unitCopy isEqualToString:@"weeks"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     goto LABEL_11;
   }
 
   v8 = @"months";
-  if ([unitCopy isEqualToString:@"months"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     goto LABEL_11;
   }
 
   v8 = @"years";
-  if ([unitCopy isEqualToString:@"years"])
+  if (objc_msgSend_isEqualToString_(unitCopy))
   {
     goto LABEL_11;
   }
@@ -245,10 +245,10 @@ LABEL_9:
 
 - (WFDurationQuantityFieldParameter)initWithDefinition:(id)definition
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = WFDurationQuantityFieldParameter;
-  v3 = [(WFQuantityFieldParameter *)&v11 initWithDefinition:definition];
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = WFDurationQuantityFieldParameter;
+  v3 = [(WFQuantityFieldParameter *)&v10 initWithDefinition:definition];
   v4 = v3;
   if (v3)
   {
@@ -257,24 +257,23 @@ LABEL_9:
 
     if (!v6)
     {
-      v12[0] = @"sec";
-      v12[1] = @"min";
-      v12[2] = @"hr";
-      v12[3] = @"days";
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:4];
+      v11[0] = @"sec";
+      v11[1] = @"min";
+      v11[2] = @"hr";
+      v11[3] = @"days";
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:4];
       [(WFQuantityFieldParameter *)v4 setPossibleUnits:v7];
     }
 
     v8 = v4;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (id)stateForDuration:(double)duration possibleUnits:(id)units
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   unitsCopy = units;
   date = [MEMORY[0x1E695DF00] date];
   v8 = [date dateByAddingTimeInterval:duration];
@@ -283,33 +282,33 @@ LABEL_9:
   v11 = [currentCalendar components:v9 fromDate:date toDate:v8 options:0];
 
   firstObject = [unitsCopy firstObject];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v13 = unitsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v14)
   {
     v15 = v14;
-    v30 = v8;
-    v16 = *v32;
+    v29 = v8;
+    v16 = *v31;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v32 != v16)
+        if (*v31 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
+        v18 = *(*(&v30 + 1) + 8 * i);
         v19 = [objc_opt_class() calendarUnitFromUnitString:v18];
         if ([v11 valueForComponent:v19])
         {
           currentCalendar2 = [MEMORY[0x1E695DEE8] currentCalendar];
-          v8 = v30;
-          v22 = [currentCalendar2 components:v19 fromDate:date toDate:v30 options:0];
+          v8 = v29;
+          v22 = [currentCalendar2 components:v19 fromDate:date toDate:v29 options:0];
 
           v20 = [v22 valueForComponent:v19];
           v23 = v18;
@@ -319,7 +318,7 @@ LABEL_9:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v15)
       {
         continue;
@@ -329,7 +328,7 @@ LABEL_9:
     }
 
     v20 = 0;
-    v8 = v30;
+    v8 = v29;
   }
 
   else
@@ -345,45 +344,43 @@ LABEL_12:
   v26 = [[WFNumberStringSubstitutableState alloc] initWithValue:stringValue];
   v27 = [[WFQuantityParameterState alloc] initWithMagnitudeState:v26 unitString:firstObject];
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 + (unint64_t)calendarUnitFromUnitString:(id)string
 {
   stringCopy = string;
-  if ([stringCopy isEqualToString:@"sec"])
+  if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 128;
   }
 
-  else if ([stringCopy isEqualToString:@"min"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 64;
   }
 
-  else if ([stringCopy isEqualToString:@"hr"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 32;
   }
 
-  else if ([stringCopy isEqualToString:@"days"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 16;
   }
 
-  else if ([stringCopy isEqualToString:@"weeks"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 0x2000;
   }
 
-  else if ([stringCopy isEqualToString:@"months"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 8;
   }
 
-  else if ([stringCopy isEqualToString:@"years"])
+  else if (objc_msgSend_isEqualToString_(stringCopy))
   {
     v4 = 4;
   }
@@ -407,65 +404,65 @@ LABEL_12:
 
 + (unint64_t)possibleCalendarUnitsForUnits:(id)units
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   unitsCopy = units;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [unitsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [unitsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(unitsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v9 isEqualToString:@"sec"])
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x80uLL;
         }
 
-        else if ([v9 isEqualToString:@"min"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x40uLL;
         }
 
-        else if ([v9 isEqualToString:@"hr"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x20uLL;
         }
 
-        else if ([v9 isEqualToString:@"days"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x10uLL;
         }
 
-        else if ([v9 isEqualToString:@"weeks"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 0x2000uLL;
         }
 
-        else if ([v9 isEqualToString:@"months"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 8uLL;
         }
 
-        else if ([v9 isEqualToString:@"years"])
+        else if (objc_msgSend_isEqualToString_(v9))
         {
           v6 |= 4uLL;
         }
       }
 
-      v5 = [unitsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [unitsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -476,7 +473,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

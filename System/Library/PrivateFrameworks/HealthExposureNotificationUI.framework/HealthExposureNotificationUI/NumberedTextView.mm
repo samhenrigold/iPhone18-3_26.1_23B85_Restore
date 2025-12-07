@@ -11,28 +11,24 @@
 {
   if (*(self + OBJC_IVAR____TtC28HealthExposureNotificationUI16NumberedTextView_title + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC28HealthExposureNotificationUI16NumberedTextView_title);
-    v3 = *(self + OBJC_IVAR____TtC28HealthExposureNotificationUI16NumberedTextView_title + 8);
 
-    v4 = sub_251703134();
+    v2 = sub_251703134();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)details
 {
-  v2 = *(self + OBJC_IVAR____TtC28HealthExposureNotificationUI16NumberedTextView_details);
-  v3 = *(self + OBJC_IVAR____TtC28HealthExposureNotificationUI16NumberedTextView_details + 8);
 
-  v4 = sub_251703134();
+  v2 = sub_251703134();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC28HealthExposureNotificationUI16NumberedTextView)initWithCoder:(id)coder

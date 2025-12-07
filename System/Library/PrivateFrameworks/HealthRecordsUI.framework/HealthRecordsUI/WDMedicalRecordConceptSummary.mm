@@ -548,7 +548,7 @@ void __81__WDMedicalRecordConceptSummary__displayItemsForGenericMedicalRecord_co
   _Block_object_dispose(&v25, 8);
 }
 
-void __74__WDMedicalRecordConceptSummary__updatePlacementForDisplayItems_ofRecord___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __74__WDMedicalRecordConceptSummary__updatePlacementForDisplayItems_ofRecord___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = a2;
   if (!a3)
@@ -556,7 +556,7 @@ void __74__WDMedicalRecordConceptSummary__updatePlacementForDisplayItems_ofRecor
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
-  if ([*(a1 + 32) count] - 1 == a3)
+  if (([*(a1 + 32) count] - 1) == a3)
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
   }

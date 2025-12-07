@@ -26,13 +26,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_3E7D4();
+  sub_3E7D4(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_3E858();
+  sub_3E858(selfCopy);
 }
 
 - (_TtC19CoreDynamicUIPlugin19ErrorViewController)initWithNibName:(id)name bundle:(id)bundle

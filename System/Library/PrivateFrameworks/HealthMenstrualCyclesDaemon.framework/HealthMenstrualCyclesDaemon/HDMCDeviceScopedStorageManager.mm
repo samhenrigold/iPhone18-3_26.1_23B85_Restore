@@ -44,52 +44,52 @@
 
 - (id)_updateLocalDeviceValuesNowWithError:(id *)error
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   v5 = [HDMCDeviceInfo localDeviceInfoWithSettingsManager:self->_settingsManager];
-  v29[0] = @"DayStreamProcessorAlgorithmVersion";
+  v28[0] = @"DayStreamProcessorAlgorithmVersion";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "dayStreamProcessorAlgorithmVersion")}];
-  v30[0] = v6;
-  v29[1] = @"MenstruationNotificationsEnabled";
+  v29[0] = v6;
+  v28[1] = @"MenstruationNotificationsEnabled";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "menstruationNotificationsEnabled")}];
-  v30[1] = v7;
-  v29[2] = @"FertileWindowNotificationsEnabled";
+  v29[1] = v7;
+  v28[2] = @"FertileWindowNotificationsEnabled";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "fertileWindowNotificationsEnabled")}];
-  v30[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v29[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
 
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__6;
-  v23 = __Block_byref_object_dispose__6;
   v24 = 0;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __71__HDMCDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke;
-  v18[3] = &unk_27865AF20;
-  v18[4] = self;
-  v18[5] = &v25;
-  v18[6] = &v19;
-  [v9 enumerateKeysAndObjectsUsingBlock:v18];
-  if (v26[3])
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __71__HDMCDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke;
+  v17[3] = &unk_27865AF20;
+  v17[4] = self;
+  v17[5] = &v24;
+  v17[6] = &v18;
+  [v9 enumerateKeysAndObjectsUsingBlock:v17];
+  if (v25[3])
   {
     observers = self->_observers;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __71__HDMCDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke_2;
-    v17[3] = &unk_27865AF48;
-    v17[4] = self;
-    [(HKObserverSet *)observers notifyObservers:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __71__HDMCDeviceScopedStorageManager__updateLocalDeviceValuesNowWithError___block_invoke_2;
+    v16[3] = &unk_27865AF48;
+    v16[4] = self;
+    [(HKObserverSet *)observers notifyObservers:v16];
     v11 = v5;
   }
 
   else
   {
-    v12 = v20[5];
+    v12 = v19[5];
     v13 = v12;
     if (v12)
     {
@@ -108,10 +108,9 @@
     v11 = 0;
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 
   return v11;
 }
@@ -232,7 +231,7 @@ id __62__HDMCDeviceScopedStorageManager_accountDevicesInfoWithError___block_invo
 
 - (void)settingsManagerDidUpdateNotificationSettings:(id)settings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = MEMORY[0x277CCC2E8];
   v5 = *MEMORY[0x277CCC2E8];
@@ -240,14 +239,14 @@ id __62__HDMCDeviceScopedStorageManager_accountDevicesInfoWithError___block_invo
   {
     v6 = v5;
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v7 = v14;
+    v13 = objc_opt_class();
+    v7 = v13;
     _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notification Settings update, updating device-scoped storage", buf, 0xCu);
   }
 
-  v12 = 0;
-  v8 = [(HDMCDeviceScopedStorageManager *)self updateLocalDeviceValuesNowWithError:&v12];
-  v9 = v12;
+  v11 = 0;
+  v8 = [(HDMCDeviceScopedStorageManager *)self updateLocalDeviceValuesNowWithError:&v11];
+  v9 = v11;
   if (!v8)
   {
     _HKInitializeLogging();
@@ -257,22 +256,18 @@ id __62__HDMCDeviceScopedStorageManager_accountDevicesInfoWithError___block_invo
       [(HDMCDeviceScopedStorageManager *)v10 settingsManagerDidUpdateNotificationSettings:v9];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsManagerDidUpdateNotificationSettings:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error updating device-scoped storage after notification settings update %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Error updating device-scoped storage after notification settings update %{public}@", &v6, 0x16u);
 }
 
 @end

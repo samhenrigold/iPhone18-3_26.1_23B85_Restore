@@ -31,7 +31,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_100357444(width, height);
+  sub_100357444(selfCopy, v5, width, height);
 }
 
 - (_TtC7Journal26LocationListCollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout
@@ -50,7 +50,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10035F334();
+  sub_10035F334(v9);
 
   (*(v7 + 8))(v9, v6);
 }

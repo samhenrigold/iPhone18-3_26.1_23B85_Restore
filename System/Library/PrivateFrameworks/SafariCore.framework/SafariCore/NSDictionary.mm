@@ -44,7 +44,7 @@ void __72__NSDictionary_SafariCoreExtras__safari_dictionaryByRemovingNullObjects
   }
 }
 
-uint64_t __56__NSDictionary_SafariCoreExtras__safari_containsObject___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__56__NSDictionary_SafariCoreExtras__safari_containsObject___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isEqual:*(a1 + 32)];
   if (result)

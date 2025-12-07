@@ -43,7 +43,7 @@
 
 - (id)replyCacheDeleteDictionaryWithCDInfo:(id)info amount:(unint64_t)amount
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB38];
   infoCopy = info;
   v8 = objc_alloc_init(v6);
@@ -59,47 +59,46 @@
     v10 = @"/private/var";
   }
 
-  if ([(NSString *)self->logArchivePath hasPrefix:v10])
+  v11 = [(NSString *)self->logArchivePath hasPrefix:v10];
+  if (v11)
   {
     [(__CFString *)v8 setObject:v10 forKeyedSubscript:@"CACHE_DELETE_VOLUME"];
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:amount];
-    [(__CFString *)v8 setObject:v11 forKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:amount];
+    [(__CFString *)v8 setObject:v12 forKeyedSubscript:@"CACHE_DELETE_AMOUNT"];
 
-    v12 = storageLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = storageLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412290;
-      v19 = v8;
-      _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_DEBUG, "CacheDelete given back: %@", &v18, 0xCu);
+      v19 = 138412290;
+      v20 = v8;
+      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "CacheDelete given back: %@", &v19, 0xCu);
     }
 
-    v13 = v8;
+    v15 = v8;
   }
 
   else
   {
-    v14 = storageLogHandle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = storageLogHandle(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       logArchivePath = self->logArchivePath;
-      v18 = 138412546;
-      v19 = v10;
-      v20 = 2112;
-      v21 = logArchivePath;
-      _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "CacheDelete volume %@ and target path incompatible: %@", &v18, 0x16u);
+      v19 = 138412546;
+      v20 = v10;
+      v21 = 2112;
+      v22 = logArchivePath;
+      _os_log_impl(&dword_241804000, v16, OS_LOG_TYPE_INFO, "CacheDelete volume %@ and target path incompatible: %@", &v19, 0x16u);
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v15;
 }
 
 - (id)cacheDeletePeriodicWithInfo:(__CFDictionary *)info
 {
-  v5 = storageLogHandle();
+  v5 = storageLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -120,64 +119,61 @@
 
     if (autoBugCaptureEnabled)
     {
-      v11 = storageLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = storageLogHandle(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_241804000, v11, OS_LOG_TYPE_ERROR, "CacheDelete cacheDeletePERIODICWithInfo. ABC is enabled but storageManager is nil", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "CacheDelete cacheDeletePERIODICWithInfo. ABC is enabled but storageManager is nil", v15, 2u);
       }
     }
 
     performPeriodicPurge = 0;
   }
 
-  v12 = [(AutoBugCaptureCacheDelete *)self replyCacheDeleteDictionaryWithCDInfo:info amount:performPeriodicPurge];
+  v13 = [(AutoBugCaptureCacheDelete *)self replyCacheDeleteDictionaryWithCDInfo:info amount:performPeriodicPurge];
 
-  return v12;
+  return v13;
 }
 
 - (void)registerCallbacks:(const char *)callbacks
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:callbacks];
   v5 = CacheDeleteRegisterInfoCallbacks();
-  if (v5 < 0)
+  if ((v5 & 0x80000000) != 0)
   {
     v6 = v5;
-    v7 = storageLogHandle();
+    v7 = storageLogHandle(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       selfCopy = self;
-      v11 = 1024;
-      v12 = v6;
+      v10 = 1024;
+      v11 = v6;
       _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Failed to register with CacheDelete: %p, %d", buf, 0x12u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initCacheDeletePurgeMonitor
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  logArchivePath = self->logArchivePath;
+  v10[1] = *MEMORY[0x277D85DE8];
   CacheDeleteInitPurgeMarker();
   CFStringCreateWithCString(*MEMORY[0x277CBECE8], [(NSString *)self->logArchivePath fileSystemRepresentation], 0x8000100u);
-  v12[0] = self->logArchivePath;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-  v4 = CacheDeleteRegisterPurgeNotification();
-  if (v4)
+  v10[0] = self->logArchivePath;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v3 = CacheDeleteRegisterPurgeNotification();
+  if (v3)
   {
-    v5 = v4;
-    v6 = storageLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = v3;
+    v5 = storageLogHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       selfCopy = self;
-      v10 = 1024;
-      v11 = v5;
-      _os_log_impl(&dword_241804000, v6, OS_LOG_TYPE_ERROR, "Failed to register Purge Notification CacheDelete: %p, %d", buf, 0x12u);
+      v8 = 1024;
+      v9 = v4;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "Failed to register Purge Notification CacheDelete: %p, %d", buf, 0x12u);
     }
   }
 
@@ -185,57 +181,48 @@
   {
     CacheDeleteEnumerateRemovedFiles();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __56__AutoBugCaptureCacheDelete_initCacheDeletePurgeMonitor__block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  return CacheDeleteEnumerateRemovedFiles();
 }
 
 - (void)processPurgedFilesForCDEvents:(id)events
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if (![eventsCopy count])
   {
     goto LABEL_20;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = eventsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (!v6)
   {
     goto LABEL_19;
   }
 
   v7 = v6;
-  v8 = *v22;
-  v20 = eventsCopy;
+  v8 = *v21;
+  v19 = eventsCopy;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v22 != v8)
+      if (*v21 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v21 + 1) + 8 * i);
+      v10 = *(*(&v20 + 1) + 8 * i);
       v11 = [v10 objectForKeyedSubscript:@"rescan"];
 
       if (v11)
       {
         [(DiagnosticStorageManager *)self->_storageManager cleanupCasesAfterACentralizedCacheDeletePurgeEvent:0];
 LABEL_18:
-        eventsCopy = v20;
+        eventsCopy = v19;
         goto LABEL_19;
       }
 
@@ -268,8 +255,8 @@ LABEL_18:
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    eventsCopy = v20;
+    v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    eventsCopy = v19;
     if (v7)
     {
       continue;
@@ -281,7 +268,6 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

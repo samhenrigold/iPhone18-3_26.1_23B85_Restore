@@ -58,7 +58,7 @@
 
 - (void)beginAnimatingActivityIndicator
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   [(MUPunchoutView *)self _updateLabelsWithAlpha:0.0];
   [(MUPunchoutView *)self addSubview:self->_spinner];
   [(UIActivityIndicatorView *)self->_spinner startAnimating];
@@ -66,15 +66,13 @@
   centerXAnchor = [(UIActivityIndicatorView *)self->_spinner centerXAnchor];
   centerXAnchor2 = [(MUPunchoutView *)self centerXAnchor];
   v6 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v12[0] = v6;
+  v11[0] = v6;
   centerYAnchor = [(UIActivityIndicatorView *)self->_spinner centerYAnchor];
   centerYAnchor2 = [(MUPunchoutView *)self centerYAnchor];
   v9 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v12[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   [v3 activateConstraints:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (CGSize)intrinsicContentSize
@@ -88,7 +86,7 @@
 
 - (id)_attributedStringFromSymbol
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   symbolName = [(MUPunchoutViewModel *)self->_viewModel symbolName];
   v4 = [symbolName length];
 
@@ -110,78 +108,75 @@
   v9 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v8];
   v10 = [v9 mutableCopy];
 
-  v17 = *MEMORY[0x1E69DB648];
+  v16 = *MEMORY[0x1E69DB648];
   v11 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD10]];
   v12 = [v11 _mapkit_fontWithWeight:*MEMORY[0x1E69DB970]];
-  v18[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   [v10 addAttributes:v13 range:{0, objc_msgSend(v10, "length")}];
 
   v14 = [v10 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 - (void)_setupConstraints
 {
-  v45[1] = *MEMORY[0x1E69E9840];
-  v30 = MEMORY[0x1E696ACD8];
-  v42 = [[MUEdgeLayout alloc] initWithItem:self->_menuButton container:self];
-  v45[0] = v42;
-  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  v44[1] = *MEMORY[0x1E69E9840];
+  v29 = MEMORY[0x1E696ACD8];
+  v41 = [[MUEdgeLayout alloc] initWithItem:self->_menuButton container:self];
+  v44[0] = v41;
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
   centerYAnchor = [(UILayoutGuide *)self->_layoutGuide centerYAnchor];
   centerYAnchor2 = [(MUPunchoutView *)self centerYAnchor];
-  v39 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v44[0] = v39;
+  v38 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v43[0] = v38;
   leadingAnchor = [(UILayoutGuide *)self->_layoutGuide leadingAnchor];
   leadingAnchor2 = [(MUPunchoutView *)self leadingAnchor];
-  v36 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v44[1] = v36;
+  v35 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  v43[1] = v35;
   trailingAnchor = [(UILayoutGuide *)self->_layoutGuide trailingAnchor];
   trailingAnchor2 = [(MUPunchoutView *)self trailingAnchor];
-  v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
-  v44[2] = v33;
+  v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-16.0];
+  v43[2] = v32;
   topAnchor = [(UILayoutGuide *)self->_layoutGuide topAnchor];
   topAnchor2 = [(MUPunchoutView *)self topAnchor];
-  v29 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v44[3] = v29;
+  v28 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+  v43[3] = v28;
   bottomAnchor = [(UILayoutGuide *)self->_layoutGuide bottomAnchor];
   bottomAnchor2 = [(MUPunchoutView *)self bottomAnchor];
-  v26 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v44[4] = v26;
+  v25 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+  v43[4] = v25;
   leadingAnchor3 = [(MULabelViewProtocol *)self->_moreOnLabel leadingAnchor];
   leadingAnchor4 = [(UILayoutGuide *)self->_layoutGuide leadingAnchor];
-  v23 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v44[5] = v23;
+  v22 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v43[5] = v22;
   topAnchor3 = [(MULabelViewProtocol *)self->_moreOnLabel topAnchor];
   topAnchor4 = [(UILayoutGuide *)self->_layoutGuide topAnchor];
-  v20 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v44[6] = v20;
+  v19 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v43[6] = v19;
   trailingAnchor3 = [(MULabelViewProtocol *)self->_moreOnLabel trailingAnchor];
   trailingAnchor4 = [(UILayoutGuide *)self->_layoutGuide trailingAnchor];
-  v17 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v44[7] = v17;
+  v16 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v43[7] = v16;
   bottomAnchor3 = [(MULabelViewProtocol *)self->_moreOnLabel bottomAnchor];
   topAnchor5 = [(UILabel *)self->_vendorNameLabel topAnchor];
-  v14 = [bottomAnchor3 constraintEqualToAnchor:topAnchor5 constant:-5.0];
-  v44[8] = v14;
+  v13 = [bottomAnchor3 constraintEqualToAnchor:topAnchor5 constant:-5.0];
+  v43[8] = v13;
   leadingAnchor5 = [(UILabel *)self->_vendorNameLabel leadingAnchor];
   leadingAnchor6 = [(MULabelViewProtocol *)self->_moreOnLabel leadingAnchor];
   v5 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-  v44[9] = v5;
+  v43[9] = v5;
   trailingAnchor5 = [(UILabel *)self->_vendorNameLabel trailingAnchor];
   trailingAnchor6 = [(MULabelViewProtocol *)self->_moreOnLabel trailingAnchor];
   v8 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-  v44[10] = v8;
+  v43[10] = v8;
   bottomAnchor4 = [(UILabel *)self->_vendorNameLabel bottomAnchor];
   bottomAnchor5 = [(UILayoutGuide *)self->_layoutGuide bottomAnchor];
   v11 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-  v44[11] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:12];
-  [v30 _mapsui_activateLayouts:v43 constraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v43[11] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:12];
+  [v29 _mapsui_activateLayouts:v42 constraints:v12];
 }
 
 - (void)_setupSubviews

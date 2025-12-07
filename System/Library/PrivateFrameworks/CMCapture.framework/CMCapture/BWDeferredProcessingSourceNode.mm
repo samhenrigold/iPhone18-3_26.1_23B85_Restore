@@ -179,9 +179,9 @@ _BYTE *__40__BWDeferredProcessingSourceNode_start___block_invoke(uint64_t a1)
   return 1;
 }
 
-uint64_t __39__BWDeferredProcessingSourceNode_stop___block_invoke(uint64_t result)
+void *__39__BWDeferredProcessingSourceNode_stop___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 144) == 1)
   {
     *(v1 + 144) = 0;
@@ -189,7 +189,7 @@ uint64_t __39__BWDeferredProcessingSourceNode_stop___block_invoke(uint64_t resul
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    v2 = [*(result + 32) outputs];
+    v2 = [*(result + 4) outputs];
     result = [v2 countByEnumeratingWithState:&v7 objects:v6 count:16];
     if (result)
     {
@@ -205,7 +205,8 @@ uint64_t __39__BWDeferredProcessingSourceNode_stop___block_invoke(uint64_t resul
             objc_enumerationMutation(v2);
           }
 
-          [*(*(&v7 + 1) + 8 * v5++) markEndOfLiveOutput];
+          [*(*(&v7 + 1) + 8 * v5) markEndOfLiveOutput];
+          v5 = v5 + 1;
         }
 
         while (v3 != v5);
@@ -234,11 +235,11 @@ uint64_t __39__BWDeferredProcessingSourceNode_stop___block_invoke(uint64_t resul
   dispatch_sync(emitSamplesDispatchQueue, block);
 }
 
-uint64_t __48__BWDeferredProcessingSourceNode_processBuffer___block_invoke(uint64_t result)
+id *__48__BWDeferredProcessingSourceNode_processBuffer___block_invoke(id *result)
 {
-  if (*(*(result + 32) + 144) == 1)
+  if (*(result[4] + 144) == 1)
   {
-    return [*(result + 40) emitSampleBuffer:*(result + 48)];
+    return [result[5] emitSampleBuffer:result[6]];
   }
 
   return result;

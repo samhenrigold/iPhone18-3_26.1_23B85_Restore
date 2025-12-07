@@ -18,7 +18,7 @@
     {
       v8 = resourceCopy;
       cloudLocalState = [(PLValidatedExternalCloudResource *)self cloudLocalState];
-      if (cloudLocalState != [v8 cloudLocalState] || (v10 = -[PLValidatedExternalCloudResource cplType](self, "cplType"), v10 != objc_msgSend(v8, "cplType")) || (v11 = -[PLValidatedExternalCloudResource sourceCplType](self, "sourceCplType"), v11 != objc_msgSend(v8, "sourceCplType")) || (-[PLValidatedExternalCloudResource fingerprint](self, "fingerprint"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "fingerprint"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, !v14))
+      if (cloudLocalState != [v8 cloudLocalState] || (v10 = -[PLValidatedExternalCloudResource cplType](self, "cplType"), v10 != objc_msgSend(v8, "cplType")) || (v11 = -[PLValidatedExternalCloudResource sourceCplType](self, "sourceCplType"), v11 != objc_msgSend(v8, "sourceCplType")) || (-[PLValidatedExternalCloudResource fingerprint](self, "fingerprint"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "fingerprint"), v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v12), v13, v12, !isEqualToString))
       {
         v6 = 0;
 LABEL_14:
@@ -31,7 +31,7 @@ LABEL_14:
       {
         stableHash2 = [(PLValidatedExternalCloudResource *)self stableHash];
         stableHash3 = [v8 stableHash];
-        v6 = [stableHash2 isEqualToString:stableHash3];
+        v6 = objc_msgSend_isEqualToString_(stableHash2);
 
         if (stableHash)
         {

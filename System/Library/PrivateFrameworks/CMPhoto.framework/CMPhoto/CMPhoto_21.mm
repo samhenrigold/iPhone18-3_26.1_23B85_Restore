@@ -55,7 +55,7 @@ __CFArray *CMPhotoArrayCreateDeepCopy(const __CFAllocator *a1, int a2, const __C
     {
       v8 = v7;
       OUTLINED_FUNCTION_11_10();
-      CFArrayGetValues(v9, v24, v8);
+      CFArrayGetValues(v9, v28, v8);
       if (Count >= 1)
       {
         v10 = v8;
@@ -70,8 +70,8 @@ __CFArray *CMPhotoArrayCreateDeepCopy(const __CFAllocator *a1, int a2, const __C
           v12 = CFGetTypeID(*v10);
           if (v12 == CFArrayGetTypeID())
           {
-            v21 = OUTLINED_FUNCTION_10_1();
-            DeepCopy = CMPhotoArrayCreateDeepCopy(v21);
+            v23 = OUTLINED_FUNCTION_10_1();
+            DeepCopy = CMPhotoArrayCreateDeepCopy(v23, v24, v25);
             if (DeepCopy)
             {
               goto LABEL_19;
@@ -112,16 +112,16 @@ LABEL_14:
         }
 
         v19 = OUTLINED_FUNCTION_10_1();
-        DeepCopy = CMPhotoDictionaryCreateDeepCopy(v19);
+        DeepCopy = CMPhotoDictionaryCreateDeepCopy(v19, v20, v21);
         if (!DeepCopy)
         {
           goto LABEL_14;
         }
 
 LABEL_19:
-        v22 = DeepCopy;
+        v26 = DeepCopy;
         CFArrayAppendValue(Mutable, DeepCopy);
-        CFRelease(v22);
+        CFRelease(v26);
         goto LABEL_14;
       }
 
@@ -707,14 +707,14 @@ uint64_t CMPhotoExifDetectTIFFHeaderOffset_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
-uint64_t CMPhotoCompressionSessionGetDerivedCodecForImage(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, _DWORD *a7)
+uint64_t CMPhotoCompressionSessionGetDerivedCodecForImage(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, int *a7)
 {
-  v20 = a5;
+  v22 = a5;
   if (a3 < 0)
   {
     if (!a2)
@@ -722,37 +722,37 @@ uint64_t CMPhotoCompressionSessionGetDerivedCodecForImage(uint64_t *a1, int a2, 
       goto LABEL_14;
     }
 
-    result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a4, 0, &v20);
+    result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a4, 0, &v22);
     goto LABEL_13;
   }
 
   switch(a2)
   {
     case 2:
-      v13 = OUTLINED_FUNCTION_7_11();
-      v16 = 2;
+      v14 = OUTLINED_FUNCTION_7_11();
+      v17 = 2;
 LABEL_11:
-      result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v13, v14, v16, 0, v15);
+      result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v14, v15, v17, 0, v16);
       if (result == -16993)
       {
-        v17 = OUTLINED_FUNCTION_7_11();
-        result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v17, v18, 0, 0, v19);
+        v18 = OUTLINED_FUNCTION_7_11();
+        result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v18, v19, 0, 0, v20);
       }
 
       goto LABEL_13;
     case 1:
-      v13 = OUTLINED_FUNCTION_7_11();
-      v16 = 1;
+      v14 = OUTLINED_FUNCTION_7_11();
+      v17 = 1;
       goto LABEL_11;
     case 0:
-      v9 = OUTLINED_FUNCTION_7_11();
-      result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v9, v10, 0, 0, v11);
+      v10 = OUTLINED_FUNCTION_7_11();
+      result = CMPhotoHEIFFileWriterGetPropertiesForSequence(v10, v11, 0, 0, v12);
       if (result == -16993)
       {
-        v20 = a5;
+        v22 = a5;
 LABEL_14:
         result = 0;
-        *a7 = v20;
+        *a7 = v22;
         return result;
       }
 
@@ -765,9 +765,9 @@ LABEL_13:
       goto LABEL_14;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950306, "<<<< CMPhotoCompressionSessionUtilities >>>>", 404, v7);
 }
 
 uint64_t CMPhotoCompressionSessionParseOptions(uint64_t a1, const __CFDictionary *a2, int a3, int a4, uint64_t a5, double a6, double a7, double a8, double a9)
@@ -889,7 +889,7 @@ uint64_t CMPhotoCompressionSessionParseOptions(uint64_t a1, const __CFDictionary
 LABEL_16:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_17();
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     }
   }
 
@@ -930,110 +930,130 @@ LABEL_25:
   {
     v26 = CFDictionaryGetValue(a2, @"ExtrinsicsPosition");
     *(a5 + 216) = v26;
-    if (!v26 || (v27 = CFGetTypeID(v26), v27 == CFArrayGetTypeID()) && (v28 = *(a5 + 216)) != 0 && CFArrayGetCount(v28) == 3)
+    if (!v26)
     {
-      v29 = CFDictionaryGetValue(a2, @"ExtrinsicsRotation");
-      *(a5 + 224) = v29;
-      if (!v29 || (v30 = CFGetTypeID(v29), v30 == CFArrayGetTypeID()) && (v31 = *(a5 + 224)) != 0 && CFArrayGetCount(v31) == 9)
-      {
-        if (*(a5 + 216) || *(a5 + 224))
-        {
-          CMPhotoCFDictionaryGetBooleanIfPresent();
-        }
+      goto LABEL_32;
+    }
 
-        v32 = CFDictionaryGetValue(a2, @"IntrinsicsMatrix");
-        *v11 = v32;
-        if (!v32 || (v33 = CFGetTypeID(v32), v33 == CFArrayGetTypeID()) && *v11 && CFArrayGetCount(*v11) == 9)
+    v27 = CFGetTypeID(v26);
+    if (v27 != CFArrayGetTypeID())
+    {
+LABEL_75:
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_0_17();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    }
+
+    v28 = *(a5 + 216);
+    if (v28)
+    {
+      if (CFArrayGetCount(v28) == 3)
+      {
+LABEL_32:
+        v29 = CFDictionaryGetValue(a2, @"ExtrinsicsRotation");
+        *(a5 + 224) = v29;
+        if (!v29 || (v30 = CFGetTypeID(v29), v30 == CFArrayGetTypeID()) && (v31 = *(a5 + 224)) != 0 && CFArrayGetCount(v31) == 9)
         {
-          if (*(a5 + 216) || *(a5 + 224) || *v11)
+          if (*(a5 + 216) || *(a5 + 224))
           {
             CMPhotoCFDictionaryGetBooleanIfPresent();
           }
 
-          CMPhotoCFDictionaryGetIntIfPresent();
-          if (*v45 < 6)
+          v32 = CFDictionaryGetValue(a2, @"IntrinsicsMatrix");
+          *v11 = v32;
+          if (!v32)
           {
+LABEL_43:
+            if (*(a5 + 216) || *(a5 + 224) || *v11)
+            {
+              CMPhotoCFDictionaryGetBooleanIfPresent();
+            }
+
             CMPhotoCFDictionaryGetIntIfPresent();
-            if ((*(v11 + 32) - 16) > 0xFFFFFFEE)
+            if (*v45 < 6)
             {
               CMPhotoCFDictionaryGetIntIfPresent();
-              if ((*v44 - 256) > 0xFFFFFEFE)
+              if ((*(v11 + 32) - 16) > 0xFFFFFFEE)
               {
-                CMPhotoCFDictionaryGetBooleanIfPresent();
-                CMPhotoCFDictionaryGetBooleanIfPresent();
-                CMPhotoCFDictionaryGetBooleanIfPresent();
                 CMPhotoCFDictionaryGetIntIfPresent();
-                CMPhotoCFDictionaryGetBooleanIfPresent();
-                *(v11 - 135) = CMPhotoGetEvenScalingModeDefault(1, *(v11 - 135));
-                if (*v42)
+                if ((*v44 - 256) > 0xFFFFFEFE)
                 {
                   CMPhotoCFDictionaryGetBooleanIfPresent();
-                }
-
-                CMPhotoCFDictionaryGetIntIfPresent();
-                if (!a4 || *v22 > 0)
-                {
                   CMPhotoCFDictionaryGetBooleanIfPresent();
-                  *(a5 + 65) = CMPhotoCFDictionaryGetBooleanIfPresent();
-                  v34 = CFDictionaryGetValue(a2, @"AuxiliaryImagePreserveValue");
-                  *(a5 + 296) = v34;
-                  if (!v34 || (v35 = CFGetTypeID(v34), v35 == CFNumberGetTypeID()))
+                  CMPhotoCFDictionaryGetBooleanIfPresent();
+                  CMPhotoCFDictionaryGetIntIfPresent();
+                  CMPhotoCFDictionaryGetBooleanIfPresent();
+                  *(v11 - 135) = CMPhotoGetEvenScalingModeDefault(1, *(v11 - 135));
+                  if (*v42)
                   {
                     CMPhotoCFDictionaryGetBooleanIfPresent();
-                    if (CMPhotoCFDictionaryGetBooleanIfPresent())
-                    {
-                      *(a5 + 36) = 1;
-                    }
+                  }
 
+                  CMPhotoCFDictionaryGetIntIfPresent();
+                  if (!a4 || *v22 > 0)
+                  {
                     CMPhotoCFDictionaryGetBooleanIfPresent();
-                    if (a3 != 2 || !CFDictionaryGetValue(a2, @"Subsampling") && !CFDictionaryGetValue(a2, @"BitDepth"))
+                    *(a5 + 65) = CMPhotoCFDictionaryGetBooleanIfPresent();
+                    v34 = CFDictionaryGetValue(a2, @"AuxiliaryImagePreserveValue");
+                    *(a5 + 296) = v34;
+                    if (!v34 || (v35 = CFGetTypeID(v34), v35 == CFNumberGetTypeID()))
                     {
                       CMPhotoCFDictionaryGetBooleanIfPresent();
+                      if (CMPhotoCFDictionaryGetBooleanIfPresent())
+                      {
+                        *(a5 + 36) = 1;
+                      }
+
                       CMPhotoCFDictionaryGetBooleanIfPresent();
-                      *(a5 + 255) = CFDictionaryContainsKey(a2, @"IncludeThumbnailWithOptions");
-                      v36 = CFDictionaryContainsKey(a2, @"IncludeAlphaAuxiliaryImageWithOptions");
-                      *(a5 + 256) = v36;
-                      if (!*(a5 + 255) || !v36)
+                      if (a3 != 2 || !CFDictionaryGetValue(a2, @"Subsampling") && !CFDictionaryGetValue(a2, @"BitDepth"))
                       {
                         CMPhotoCFDictionaryGetBooleanIfPresent();
-                        v37 = CFDictionaryGetValue(a2, @"QualityControllerType");
-                        *(a5 + 16) = v37;
-                        *(a5 + 8) = v37 != 0;
-                        *(a5 + 24) = CFDictionaryGetValue(a2, @"QualityControllerParameters");
-                        *(a5 + 304) = CFDictionaryGetValue(a2, @"CustomMinimumSourceAlignment");
-                        *(a5 + 264) = CFDictionaryGetValue(a2, @"UseCodecSessionPool");
-                        *(a5 + 272) = CFDictionaryGetValue(a2, @"Priority");
-                        *(a5 + 56) = CFDictionaryGetValue(a2, @"UsePixelsOutsideCrop");
-                        *(a5 + 281) = FigCFDictionaryGetBooleanIfPresent();
-                        v38 = CFDictionaryGetValue(a2, @"UseXMPContentEncoding");
-                        *(a5 + 40) = v38;
-                        if (v38)
-                        {
-                          v39 = CFGetTypeID(v38);
-                          if (v39 != CFStringGetTypeID())
-                          {
-                            return 4294950306;
-                          }
-                        }
-
                         CMPhotoCFDictionaryGetBooleanIfPresent();
-                        if (!CMPhotoCFDictionaryGetLongIfPresent() || (*(v11 + 112) & 0x8000000000000000) == 0)
+                        *(a5 + 255) = CFDictionaryContainsKey(a2, @"IncludeThumbnailWithOptions");
+                        v36 = CFDictionaryContainsKey(a2, @"IncludeAlphaAuxiliaryImageWithOptions");
+                        *(a5 + 256) = v36;
+                        if (!*(a5 + 255) || !v36)
                         {
-                          rect.origin.x = 0.0;
-                          ValueIfPresent = CFDictionaryGetValueIfPresent(a2, @"ReconstructionPixelBufferHandler", &rect);
-                          if (!ValueIfPresent)
+                          CMPhotoCFDictionaryGetBooleanIfPresent();
+                          v37 = CFDictionaryGetValue(a2, @"QualityControllerType");
+                          *(a5 + 16) = v37;
+                          *(a5 + 8) = v37 != 0;
+                          *(a5 + 24) = CFDictionaryGetValue(a2, @"QualityControllerParameters");
+                          *(a5 + 304) = CFDictionaryGetValue(a2, @"CustomMinimumSourceAlignment");
+                          *(a5 + 264) = CFDictionaryGetValue(a2, @"UseCodecSessionPool");
+                          *(a5 + 272) = CFDictionaryGetValue(a2, @"Priority");
+                          *(a5 + 56) = CFDictionaryGetValue(a2, @"UsePixelsOutsideCrop");
+                          *(a5 + 281) = FigCFDictionaryGetBooleanIfPresent();
+                          v38 = CFDictionaryGetValue(a2, @"UseXMPContentEncoding");
+                          *(a5 + 40) = v38;
+                          if (v38)
                           {
-LABEL_71:
-                            CMPhotoCFDictionaryGetSizeIfPresent(a2, @"BitDepth", (a5 + 344));
-                            CMPhotoCFDictionaryGetInt32IfPresent();
-                            return 0;
+                            v39 = CFGetTypeID(v38);
+                            if (v39 != CFStringGetTypeID())
+                            {
+                              return 4294950306;
+                            }
                           }
 
-                          *(a5 + 328) = ValueIfPresent;
-                          if (*(a5 + 252) && *v41 == 1752589105)
+                          CMPhotoCFDictionaryGetBooleanIfPresent();
+                          if (!CMPhotoCFDictionaryGetLongIfPresent() || (*(v11 + 112) & 0x8000000000000000) == 0)
                           {
-                            *(a5 + 336) = _Block_copy(*&rect.origin.x);
-                            goto LABEL_71;
+                            rect.origin.x = 0.0;
+                            ValueIfPresent = CFDictionaryGetValueIfPresent(a2, @"ReconstructionPixelBufferHandler", &rect);
+                            if (!ValueIfPresent)
+                            {
+LABEL_71:
+                              CMPhotoCFDictionaryGetSizeIfPresent(a2, @"BitDepth", (a5 + 344));
+                              CMPhotoCFDictionaryGetInt32IfPresent();
+                              return 0;
+                            }
+
+                            *(a5 + 328) = ValueIfPresent;
+                            if (*(a5 + 252) && *v41 == 1752589105)
+                            {
+                              *(a5 + 336) = _Block_copy(*&rect.origin.x);
+                              goto LABEL_71;
+                            }
                           }
                         }
                       }
@@ -1042,14 +1062,28 @@ LABEL_71:
                 }
               }
             }
+
+            goto LABEL_88;
+          }
+
+          v33 = CFGetTypeID(v32);
+          if (v33 == CFArrayGetTypeID())
+          {
+            if (*v11 && CFArrayGetCount(*v11) == 9)
+            {
+              goto LABEL_43;
+            }
+
+            goto LABEL_75;
           }
         }
       }
     }
 
+LABEL_88:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_17();
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
   }
 
   return result;
@@ -1223,12 +1257,12 @@ LABEL_39:
   return v8;
 }
 
-uint64_t CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling(uint64_t a1, int a2, uint64_t a3, const __CFDictionary *a4, int a5, double a6, double a7, double a8, double a9, uint64_t a10, int a11, int a12, char a13, char a14, int a15, int a16, _DWORD *a17, unint64_t *a18, uint64_t a19, _BYTE *a20)
+uint64_t CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling(void *a1, int a2, uint64_t a3, const __CFDictionary *a4, int a5, uint64_t a6, int a7, int a8, double a9, double a10, double a11, double a12, char a13, char a14, int a15, int a16, _DWORD *a17, unint64_t *a18, uint64_t a19, _BYTE *a20)
 {
-  v63 = 0uLL;
-  v61 = a2 == 2 && a5 == 4 && FigCFEqual() != 0;
-  v31 = vcvtad_u64_f64(a8);
-  v32 = vcvtad_u64_f64(a9);
+  v66 = 0uLL;
+  v64 = a2 == 2 && a5 == 4 && FigCFEqual() != 0;
+  v31 = vcvtad_u64_f64(a11);
+  v32 = vcvtad_u64_f64(a12);
   *a20 = 0;
   v33 = *a17;
   if (v33 < 1)
@@ -1249,7 +1283,7 @@ uint64_t CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling(uint64_t a1
   v59 = v34 > v33;
   v35 = v34 != v33;
   v36 = v59;
-  if (!a11)
+  if (!a7)
   {
     v35 = v36;
   }
@@ -1257,7 +1291,7 @@ uint64_t CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling(uint64_t a1
   *a20 = v35;
   if (v35)
   {
-    CMPhotoPixelBufferConstrainSizeToMaxSideLength(v31, v32, *a17, 0, 0, a11, a12, a18, 0, 0);
+    CMPhotoPixelBufferConstrainSizeToMaxSideLength(v31, v32, *a17, 0, 0, a7, a8, a18, 0, 0);
   }
 
   else
@@ -1270,24 +1304,24 @@ LABEL_18:
   v37 = a2 == 2 && a5 == 3;
   if (v37 && !a14)
   {
-    result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a3, &v63, 0);
+    result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a3, &v66, 0);
     if (result)
     {
       return result;
     }
 
-    v40 = *(&v63 + 1);
-    v39 = v63;
+    v40 = *(&v66 + 1);
+    v39 = v66;
     v41 = a18[1];
-    if (v63 != *a18 || *(&v63 + 1) != v41)
+    if (v66 != *a18 || *(&v66 + 1) != v41)
     {
-      v43 = v63 - *a18;
+      v43 = v66 - *a18;
       if (v43 < 0)
       {
-        v43 = *a18 - v63;
+        v43 = *a18 - v66;
       }
 
-      v44 = DWORD2(v63) - v41;
+      v44 = DWORD2(v66) - v41;
       if (v44 < 0)
       {
         v44 = -v44;
@@ -1309,8 +1343,8 @@ LABEL_18:
 
   if (!a4 || (result = CMPhotoGetTilingOption(a4, *a18, a18[1], a16, a15, a19, (a19 + 1), (a19 + 24), (a19 + 40)), !result))
   {
-    v47 = round(a6);
-    v48 = round(a7);
+    v47 = round(a9);
+    v48 = round(a10);
     if (*a19)
     {
       v49 = *(a19 + 1);
@@ -1322,14 +1356,14 @@ LABEL_18:
       goto LABEL_77;
     }
 
-    if (v61)
+    if (v64)
     {
-      if (v63 == 0)
+      if (v66 == 0)
       {
         if (!a14)
         {
-          v50 = &v63;
-          result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a3, &v63, 0);
+          v50 = &v66;
+          result = CMPhotoHEIFFileWriterGetPropertiesForImage(*a1, a3, &v66, 0);
           if (result)
           {
             return result;
@@ -1338,10 +1372,10 @@ LABEL_18:
           goto LABEL_55;
         }
 
-        v63 = *(a1 + 88);
+        v66 = *(a1 + 11);
       }
 
-      v50 = &v63;
+      v50 = &v66;
     }
 
     else
@@ -1372,8 +1406,8 @@ LABEL_55:
 
       else
       {
-        v54 = *a18 == v63 && a18[1] == *(&v63 + 1);
-        v55 = v54 || v61;
+        v54 = *a18 == v66 && a18[1] == *(&v66 + 1);
+        v55 = v54 || v64;
       }
 
       v49 = v55;
@@ -1439,7 +1473,7 @@ LABEL_82:
         {
           fig_log_get_emitter();
           OUTLINED_FUNCTION_2_16();
-          return FigSignalErrorAtGM();
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v61, v62, v63);
         }
       }
 
@@ -1464,131 +1498,139 @@ LABEL_77:
 uint64_t CMPhotoCompressionSessionCopyReaderTilesToWriter(uint64_t a1, const __CFAllocator *a2, uint64_t a3, CFIndex a4)
 {
   keys[1] = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = 0;
-  v46 = 0;
-  v8 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v8)
+  v50 = 0;
+  v51 = 0;
+  v49 = 0;
+  v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v9)
   {
     goto LABEL_42;
   }
 
-  v9 = v8(a1, &v48);
-  if (v9)
+  v10 = v9(a1, &v51);
+  if (v10)
   {
-    goto LABEL_54;
+    goto LABEL_55;
   }
 
   CMBaseObject = FigPictureTileCursorServiceGetCMBaseObject();
-  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v11)
+  v12 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v12)
   {
     goto LABEL_42;
   }
 
-  v9 = v11(CMBaseObject, *MEMORY[0x1E69723D0], a2, &v46);
-  if (v9)
+  v10 = v12(CMBaseObject, *MEMORY[0x1E69723D0], a2, &v49);
+  if (v10)
   {
-LABEL_54:
-    v31 = v9;
+LABEL_55:
+    v32 = v10;
     goto LABEL_43;
   }
 
   size.width = 0.0;
   size.height = 0.0;
-  if (!CGSizeMakeWithDictionaryRepresentation(v46, &size) || (v12 = vcvtad_u64_f64(size.height)) == 0 || (v13 = vcvtad_u64_f64(size.width)) == 0)
+  if (!CGSizeMakeWithDictionaryRepresentation(v49, &size))
   {
-    fig_log_get_emitter();
-    v9 = FigSignalErrorAtGM();
-    goto LABEL_54;
+    emitter = fig_log_get_emitter();
+    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950195, "<<<< CMPhotoCompressionSessionUtilities >>>>", 1197, v4);
+    goto LABEL_55;
   }
 
-  v14 = v48;
-  v15 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-  if (!v15)
+  v13 = vcvtad_u64_f64(size.height);
+  if (!v13 || (v14 = vcvtad_u64_f64(size.width)) == 0)
+  {
+    v35 = fig_log_get_emitter();
+    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35, 4294950195, "<<<< CMPhotoCompressionSessionUtilities >>>>", 1200, v4);
+    goto LABEL_55;
+  }
+
+  v15 = v51;
+  v16 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v16)
   {
 LABEL_42:
-    v31 = 4294954514;
+    v32 = 4294954514;
     goto LABEL_43;
   }
 
-  v9 = v15(v14, &v47);
-  if (v9)
+  v10 = v16(v15, &v50);
+  if (v10)
   {
-    goto LABEL_54;
+    goto LABEL_55;
   }
 
-  v43 = 0;
-  v44 = 0;
-  v16 = v47;
-  v17 = *(*(CMBaseObjectGetVTable() + 16) + 32);
-  if (!v17)
+  v46 = 0;
+  v47 = 0;
+  v17 = v50;
+  v18 = *(*(CMBaseObjectGetVTable() + 16) + 32);
+  if (!v18)
   {
     goto LABEL_42;
   }
 
-  v9 = v17(v16, &v43, &v44);
-  if (v9)
+  v10 = v18(v17, &v46, &v47);
+  if (v10)
   {
-    goto LABEL_54;
+    goto LABEL_55;
   }
 
-  v18 = *MEMORY[0x1E6972228];
-  v19 = *MEMORY[0x1E695E480];
-  v33 = *MEMORY[0x1E6972398];
+  v19 = *MEMORY[0x1E6972228];
+  v20 = *MEMORY[0x1E695E480];
+  v36 = *MEMORY[0x1E6972398];
   do
   {
     cf = 0;
     theBuffer = 0;
     formatDescription = 0;
     sampleBufferOut = 0;
-    v37 = 0;
-    v38 = 0;
-    v36 = 0;
-    v43 /= v13;
-    v44 /= v12;
-    v51.x = v43;
-    v51.y = v44;
-    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v51);
-    v21 = DictionaryRepresentation;
+    v40 = 0;
+    v41 = 0;
+    v39 = 0;
+    v46 /= v14;
+    v47 /= v13;
+    v54.x = v46;
+    v54.y = v47;
+    DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v54);
+    v22 = DictionaryRepresentation;
     if (!DictionaryRepresentation)
     {
-      v22 = 0;
+      v23 = 0;
 LABEL_41:
-      v30 = -16991;
+      v31 = -16991;
       goto LABEL_26;
     }
 
     values = DictionaryRepresentation;
-    keys[0] = v18;
-    v22 = CFDictionaryCreate(v19, keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    if (!v22)
+    keys[0] = v19;
+    v23 = CFDictionaryCreate(v20, keys, &values, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    if (!v23)
     {
       goto LABEL_41;
     }
 
-    v23 = FigPictureTileCursorGetCMBaseObject();
-    v24 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v24)
+    v24 = FigPictureTileCursorGetCMBaseObject();
+    v25 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v25)
     {
-      v25 = v24(v23, v33, a2, &formatDescription);
-      if (v25)
+      v26 = v25(v24, v36, a2, &formatDescription);
+      if (v26)
       {
         goto LABEL_24;
       }
 
-      v26 = v47;
-      v27 = *(*(CMBaseObjectGetVTable() + 16) + 40);
-      if (v27)
+      v27 = v50;
+      v28 = *(*(CMBaseObjectGetVTable() + 16) + 40);
+      if (v28)
       {
-        v25 = v27(v26, &v36, &v38, &v37, &cf, 0);
-        if (v25)
+        v26 = v28(v27, &v39, &v41, &v40, &cf, 0);
+        if (v26)
         {
           goto LABEL_24;
         }
 
-        v25 = CMPhotoPictureReaderCreateContiguousBlockBufferFromChunks(a2, v36, v38, v37, cf, 0, 0, &theBuffer);
-        if (v25)
+        v26 = CMPhotoPictureReaderCreateContiguousBlockBufferFromChunks(a2, v39, v41, v40, cf, 0, 0, &theBuffer);
+        if (v26)
         {
           goto LABEL_24;
         }
@@ -1598,37 +1640,37 @@ LABEL_41:
         sampleTimingArray.presentationTimeStamp = **&MEMORY[0x1E6960CC0];
         sampleTimingArray.decodeTimeStamp = sampleTimingArray.presentationTimeStamp;
         sampleSizeArray = CMBlockBufferGetDataLength(theBuffer);
-        v25 = CMSampleBufferCreate(a2, theBuffer, 1u, 0, 0, formatDescription, 1, 1, &sampleTimingArray, 1, &sampleSizeArray, &sampleBufferOut);
-        if (v25)
+        v26 = CMSampleBufferCreate(a2, theBuffer, 1u, 0, 0, formatDescription, 1, 1, &sampleTimingArray, 1, &sampleSizeArray, &sampleBufferOut);
+        if (v26)
         {
           goto LABEL_24;
         }
 
-        v25 = CMPhotoHEIFFileWriterAddSampleBufferToImage(a3, v22, a4, sampleBufferOut);
-        if (v25)
+        v26 = CMPhotoHEIFFileWriterAddSampleBufferToImage(a3, v23, a4, sampleBufferOut);
+        if (v26)
         {
           goto LABEL_24;
         }
 
-        v28 = v47;
-        v29 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-        if (v29)
+        v29 = v50;
+        v30 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+        if (v30)
         {
-          v25 = v29(v28, &v43, &v44);
+          v26 = v30(v29, &v46, &v47);
 LABEL_24:
-          v30 = v25;
+          v31 = v26;
           goto LABEL_26;
         }
       }
     }
 
-    v30 = -12782;
+    v31 = -12782;
 LABEL_26:
-    free(v38);
-    free(v37);
-    if (v21)
+    free(v41);
+    free(v40);
+    if (v22)
     {
-      CFRelease(v21);
+      CFRelease(v22);
     }
 
     if (cf)
@@ -1651,40 +1693,40 @@ LABEL_26:
       CFRelease(sampleBufferOut);
     }
 
-    if (v22)
+    if (v23)
     {
-      CFRelease(v22);
+      CFRelease(v23);
     }
   }
 
-  while (!v30);
-  if (v30 == -17171)
+  while (!v31);
+  if (v31 == -17171)
   {
-    v31 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v31 = v30;
+    v32 = v31;
   }
 
 LABEL_43:
-  if (v47)
+  if (v50)
   {
-    CFRelease(v47);
+    CFRelease(v50);
   }
 
-  if (v46)
+  if (v49)
   {
-    CFRelease(v46);
+    CFRelease(v49);
   }
 
-  if (v48)
+  if (v51)
   {
-    CFRelease(v48);
+    CFRelease(v51);
   }
 
-  return v31;
+  return v32;
 }
 
 uint64_t CMPhotoCompressionSessionCopyMainAndAuxImageSamplesIfNeeded(uint64_t a1)
@@ -1942,48 +1984,49 @@ uint64_t CMPhotoCompressionSessionCreateAuxTypeProperties(int a1, const __CFDict
 
     cf = 0;
     *bytes = 0u;
-    v123 = 0u;
+    v137 = 0u;
     v9 = CMPhotoPixelBufferGetAlphaMode(a3) == 1;
     v10 = *MEMORY[0x1E695E480];
     Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+    v18 = Mutable;
     if (Mutable)
     {
-      v12 = OUTLINED_FUNCTION_15_9();
-      if (!v12)
+      v19 = OUTLINED_FUNCTION_15_9(Mutable, v12, v13, v14, v15, v16, v17);
+      if (!v19)
       {
-        v13 = CMPhotoBitStreamWriteInit(bytes, cf, 0);
-        v21 = OUTLINED_FUNCTION_8_12(v13, v14, v15, v16, v17, v18, v19, v20, v111, v116, bytes[0]);
-        v12 = CMPhotoBitStreamWriteBits(v21, v22, 1u);
-        if (!v12)
+        v20 = CMPhotoBitStreamWriteInit(bytes, cf, 0);
+        v28 = OUTLINED_FUNCTION_8_12(v20, v21, v22, v23, v24, v25, v26, v27, v125, v130, bytes[0]);
+        v19 = CMPhotoBitStreamWriteBits(v28, v29, 1u);
+        if (!v19)
         {
-          v12 = CMPhotoBitStreamWriteBits(bytes, v9, 3u);
-          if (!v12)
+          v19 = CMPhotoBitStreamWriteBits(bytes, v9, 3u);
+          if (!v19)
           {
-            v30 = OUTLINED_FUNCTION_8_12(v12, v23, v24, v25, v26, v27, v28, v29, v112, v117, bytes[0]);
-            v12 = CMPhotoBitStreamWriteBits(v30, v31, 3u);
-            if (!v12)
+            v37 = OUTLINED_FUNCTION_8_12(v19, v30, v31, v32, v33, v34, v35, v36, v126, v131, bytes[0]);
+            v19 = CMPhotoBitStreamWriteBits(v37, v38, 3u);
+            if (!v19)
             {
-              v39 = OUTLINED_FUNCTION_8_12(v12, v32, v33, v34, v35, v36, v37, v38, v113, v118, bytes[0]);
-              v12 = CMPhotoBitStreamWriteBits(v39, v40, 8u);
-              if (!v12)
+              v46 = OUTLINED_FUNCTION_8_12(v19, v39, v40, v41, v42, v43, v44, v45, v127, v132, bytes[0]);
+              v19 = CMPhotoBitStreamWriteBits(v46, v47, 8u);
+              if (!v19)
               {
-                v12 = CMPhotoBitStreamWriteBits(bytes, 255, 8u);
-                if (!v12)
+                v19 = CMPhotoBitStreamWriteBits(bytes, 255, 8u);
+                if (!v19)
                 {
-                  v48 = OUTLINED_FUNCTION_8_12(v12, v41, v42, v43, v44, v45, v46, v47, v114, v119, bytes[0]);
-                  v12 = CMPhotoBitStreamWriteBits(v48, v49, 1u);
-                  if (!v12)
+                  v55 = OUTLINED_FUNCTION_8_12(v19, v48, v49, v50, v51, v52, v53, v54, v128, v133, bytes[0]);
+                  v19 = CMPhotoBitStreamWriteBits(v55, v56, 1u);
+                  if (!v19)
                   {
-                    v57 = OUTLINED_FUNCTION_8_12(v12, v50, v51, v52, v53, v54, v55, v56, v115, v120, bytes[0]);
-                    v12 = CMPhotoBitStreamWriteBits(v57, v58, 1u);
-                    if (!v12)
+                    v64 = OUTLINED_FUNCTION_8_12(v19, v57, v58, v59, v60, v61, v62, v63, v129, v134, bytes[0]);
+                    v19 = CMPhotoBitStreamWriteBits(v64, v65, 1u);
+                    if (!v19)
                     {
-                      v59 = CMPhotoBitStreamWriteFlush(bytes);
-                      if (!v59)
+                      v66 = CMPhotoBitStreamWriteFlush(bytes);
+                      if (!v66)
                       {
-                        v60 = -91;
-                        v61 = Mutable;
-                        Mutable = 0;
+                        v67 = -91;
+                        v68 = v18;
+                        v18 = 0;
                         goto LABEL_41;
                       }
 
@@ -1998,10 +2041,10 @@ uint64_t CMPhotoCompressionSessionCreateAuxTypeProperties(int a1, const __CFDict
       }
 
 LABEL_56:
-      v59 = v12;
+      v66 = v19;
 LABEL_57:
-      v61 = 0;
-      v60 = 0;
+      v68 = 0;
+      v67 = 0;
       goto LABEL_41;
     }
 
@@ -2010,20 +2053,21 @@ LABEL_57:
 
   cf = 0;
   *bytes = 0u;
-  v123 = 0u;
+  v137 = 0u;
   v10 = *MEMORY[0x1E695E480];
-  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-  if (!Mutable)
+  v69 = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  v18 = v69;
+  if (!v69)
   {
 LABEL_59:
-    v61 = 0;
-    v60 = 0;
-    v59 = 4294950305;
+    v68 = 0;
+    v67 = 0;
+    v66 = 4294950305;
     goto LABEL_41;
   }
 
-  v12 = OUTLINED_FUNCTION_15_9();
-  if (v12)
+  v19 = OUTLINED_FUNCTION_15_9(v69, v70, v71, v72, v73, v74, v75);
+  if (v19)
   {
     goto LABEL_56;
   }
@@ -2031,83 +2075,83 @@ LABEL_59:
   CMPhotoBitStreamWriteInit(bytes, cf, 0);
   if (a1 == 1)
   {
-    v62 = 1;
+    v76 = 1;
   }
 
   else
   {
-    v62 = 2;
+    v76 = 2;
   }
 
-  if (a2 && (v63 = CFDictionaryContainsKey(a2, @"FloatMaxValue"), !v63))
+  if (a2 && (v77 = CFDictionaryContainsKey(a2, @"FloatMaxValue"), !v77))
   {
-    v92 = OUTLINED_FUNCTION_8_12(v63, v64, v65, v66, v67, v68, v69, v70, v111, 0, bytes[0]);
-    CMPhotoBitStreamWriteBits(v92, v93, 4u);
-    CMPhotoBitStreamWriteExpGolomb(bytes, v62);
+    v106 = OUTLINED_FUNCTION_8_12(v77, v78, v79, v80, v81, v82, v83, v84, v125, 0, bytes[0]);
+    CMPhotoBitStreamWriteBits(v106, v107, 4u);
+    CMPhotoBitStreamWriteExpGolomb(bytes, v76);
   }
 
   else
   {
     if (!FigCFDictionaryGetFloatIfPresent() || (FloatIfPresent = FigCFDictionaryGetFloatIfPresent(), !FloatIfPresent))
     {
-      v61 = 0;
-      v60 = 0;
-      v59 = 4294950304;
+      v68 = 0;
+      v67 = 0;
+      v66 = 4294950304;
       goto LABEL_41;
     }
 
     if (a1 == 2)
     {
-      v79 = 2;
-      v80 = CMPhotoBitStreamWriteBits(bytes, 3, 2u);
-      v88 = OUTLINED_FUNCTION_8_12(v80, v81, v82, v83, v84, v85, v86, v87, v111, 0, bytes[0]);
-      CMPhotoBitStreamWriteBits(v88, v89, 2u);
+      v93 = 2;
+      v94 = CMPhotoBitStreamWriteBits(bytes, 3, 2u);
+      v102 = OUTLINED_FUNCTION_8_12(v94, v95, v96, v97, v98, v99, v100, v101, v125, 0, bytes[0]);
+      CMPhotoBitStreamWriteBits(v102, v103, 2u);
     }
 
     else
     {
-      v90 = OUTLINED_FUNCTION_8_12(FloatIfPresent, v72, v73, v74, v75, v76, v77, v78, v111, 0, bytes[0]);
-      CMPhotoBitStreamWriteBits(v90, v91, 2u);
+      v104 = OUTLINED_FUNCTION_8_12(FloatIfPresent, v86, v87, v88, v89, v90, v91, v92, v125, 0, bytes[0]);
+      CMPhotoBitStreamWriteBits(v104, v105, 2u);
       CMPhotoBitStreamWriteBits(bytes, 3, 2u);
       CMPhotoBitStreamWriteExpGolomb(bytes, 1);
-      v79 = 0;
+      v93 = 0;
     }
 
-    CMPhotoBitStreamWriteExpGolomb(bytes, v79);
-    _writeDepthRepInfoElement(bytes, *&v121);
-    _writeDepthRepInfoElement(bytes, *(&v121 + 1));
+    CMPhotoBitStreamWriteExpGolomb(bytes, v93);
+    _writeDepthRepInfoElement(bytes, *&v135);
+    _writeDepthRepInfoElement(bytes, *(&v135 + 1));
   }
 
-  v94 = CMPhotoBitStreamWriteFlush(bytes);
-  if (v94)
+  v108 = CMPhotoBitStreamWriteFlush(bytes);
+  if (v108)
   {
-    v61 = 0;
-  }
-
-  else
-  {
-    v61 = Mutable;
-  }
-
-  if (v94)
-  {
-    v60 = 0;
+    v68 = 0;
   }
 
   else
   {
-    v60 = -79;
+    v68 = v18;
   }
 
-  if (v94)
+  if (v108)
   {
-    v59 = v94;
+    v67 = 0;
   }
 
   else
   {
-    Mutable = 0;
-    v59 = 0;
+    v67 = -79;
+  }
+
+  if (v108)
+  {
+    v66 = v108;
+  }
+
+  else
+  {
+    v18 = 0;
+    v66 = 0;
   }
 
 LABEL_41:
@@ -2116,57 +2160,57 @@ LABEL_41:
     CFRelease(cf);
   }
 
-  if (Mutable)
+  if (v18)
   {
-    CFRelease(Mutable);
+    CFRelease(v18);
   }
 
-  if (!v59)
+  if (!v66)
   {
-    if (v61)
+    if (v68)
     {
-      Length = CFDataGetLength(v61);
-      v96 = CFDataCreateMutable(v10, 0);
-      if (!v96)
+      Length = CFDataGetLength(v68);
+      v110 = CFDataCreateMutable(v10, 0);
+      if (!v110)
       {
-        v59 = 4294950305;
+        v66 = 4294950305;
         goto LABEL_53;
       }
 
-      v97 = v96;
-      v98 = Length + Length / 0xFF;
-      *bytes = bswap32(v98 + 8);
-      CFDataAppendBytes(v96, bytes, 4);
-      *bytes = bswap32(v98 + 4);
-      v99 = OUTLINED_FUNCTION_13_10();
-      CFDataAppendBytes(v99, v100, 4);
+      v111 = v110;
+      v112 = Length + Length / 0xFF;
+      *bytes = bswap32(v112 + 8);
+      CFDataAppendBytes(v110, bytes, 4);
+      *bytes = bswap32(v112 + 4);
+      v113 = OUTLINED_FUNCTION_13_10();
+      CFDataAppendBytes(v113, v114, 4);
       *bytes = 334;
-      v101 = OUTLINED_FUNCTION_13_10();
-      CFDataAppendBytes(v101, v102, 2);
-      bytes[0] = v60;
-      v103 = OUTLINED_FUNCTION_13_10();
-      CFDataAppendBytes(v103, v104, 1);
+      v115 = OUTLINED_FUNCTION_13_10();
+      CFDataAppendBytes(v115, v116, 2);
+      bytes[0] = v67;
+      v117 = OUTLINED_FUNCTION_13_10();
+      CFDataAppendBytes(v117, v118, 1);
       bytes[0] = -1;
       if (Length >= 0xFF)
       {
-        v105 = Length / 0xFF;
+        v119 = Length / 0xFF;
         do
         {
-          v106 = OUTLINED_FUNCTION_13_10();
-          CFDataAppendBytes(v106, v107, 1);
-          --v105;
+          v120 = OUTLINED_FUNCTION_13_10();
+          CFDataAppendBytes(v120, v121, 1);
+          --v119;
         }
 
-        while (v105);
+        while (v119);
       }
 
       LOBYTE(cf) = Length + Length / 0xFF;
-      CFDataAppendBytes(v97, &cf, 1);
-      BytePtr = CFDataGetBytePtr(v61);
-      v109 = CFDataGetLength(v61);
-      CFDataAppendBytes(v97, BytePtr, v109);
-      v59 = 0;
-      *a5 = v97;
+      CFDataAppendBytes(v111, &cf, 1);
+      BytePtr = CFDataGetBytePtr(v68);
+      v123 = CFDataGetLength(v68);
+      CFDataAppendBytes(v111, BytePtr, v123);
+      v66 = 0;
+      *a5 = v111;
       goto LABEL_52;
     }
 
@@ -2174,22 +2218,22 @@ LABEL_41:
   }
 
 LABEL_52:
-  if (v61)
+  if (v68)
   {
 LABEL_53:
-    CFRelease(v61);
+    CFRelease(v68);
   }
 
-  return v59;
+  return v66;
 }
 
-uint64_t CMPhotoCompressionSessionCreatePixelBufferForEncoding(uint64_t a1, void *a2, __CFDictionary *a3, int a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10, uint64_t a11, _OWORD *a12, __CFDictionary *a13, void *a14)
+uint64_t CMPhotoCompressionSessionCreatePixelBufferForEncoding(uint64_t a1, void *a2, __CFDictionary *a3, int a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, unint64_t a10, uint64_t a11, _OWORD *a12, __CFDictionary *a13, void *a14)
 {
   v18 = a3;
   IsFullRange = v15;
   v22 = a9;
-  v92 = 0;
-  v93 = 0;
+  v94 = 0;
+  v95[0] = 0;
   v23 = a10;
   v24 = vcvtd_n_f64_u64(a9, 1uLL);
   cf = 0;
@@ -2216,7 +2260,12 @@ uint64_t CMPhotoCompressionSessionCreatePixelBufferForEncoding(uint64_t a1, void
       goto LABEL_11;
     }
 
-    goto LABEL_107;
+    emitter = fig_log_get_emitter();
+    v64 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950297, "<<<< CMPhotoCompressionSessionUtilities >>>>", 1680, v15);
+LABEL_108:
+    v56 = v64;
+    OUTLINED_FUNCTION_3_12();
+    goto LABEL_53;
   }
 
   if (!v28)
@@ -2259,8 +2308,8 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    v84 = v36;
-    v85 = v37;
+    v86 = v36;
+    v87 = v37;
     theDict = v33;
     if (!v35)
     {
@@ -2268,16 +2317,16 @@ LABEL_45:
       PaddedPixelBufferAndClearPadding = CMPhotoRemovePixelBufferCLAP(a2);
       if (!PaddedPixelBufferAndClearPadding)
       {
-        v38 = v85.u64[0];
-        v39 = v85.u64[1];
-        PaddedPixelBufferAndClearPadding = CMPhotoSetPixelBufferCLAPFromRect(a2, 0, 1, 0.0, 0.0, v85.u64[0], v85.u64[1]);
+        v38 = v87.u64[0];
+        v39 = v87.u64[1];
+        PaddedPixelBufferAndClearPadding = CMPhotoSetPixelBufferCLAPFromRect(a2, 0, 1, 0.0, 0.0, v87.u64[0], v87.u64[1]);
         if (!PaddedPixelBufferAndClearPadding)
         {
           CFDictionarySetValue(theDict, @"UsePixelsOutsideCrop", *MEMORY[0x1E695E4D0]);
           v51.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(a2);
           OUTLINED_FUNCTION_9_14(v51, v52, v53, v54);
-          v36 = v84;
-          v37 = v85;
+          v36 = v86;
+          v37 = v87;
           goto LABEL_48;
         }
       }
@@ -2287,7 +2336,7 @@ LABEL_109:
       goto LABEL_53;
     }
 
-    v81 = v31;
+    v83 = v31;
     v48 = v34;
     PaddedPixelBufferAndClearPadding = CMPhotoCompressionSessionCreatePaddedPixelBufferAndClearPadding(*(v31 + 24), v34, v36.u64[0], v36.u64[1], 2uLL, 2uLL, *(a6 + 280), &cf);
     if (PaddedPixelBufferAndClearPadding)
@@ -2329,7 +2378,7 @@ LABEL_109:
         CFDictionarySetValue(v18, @"DestinationSizeDictionary", IsFullRange);
       }
 
-      PaddedPixelBufferAndClearPadding = CMPhotoScaleAndRotateSessionTransformImage(*(v81 + 32), a2, v18, &cf);
+      PaddedPixelBufferAndClearPadding = CMPhotoScaleAndRotateSessionTransformImage(*(v83 + 32), a2, v18, &cf);
       if (PaddedPixelBufferAndClearPadding)
       {
         goto LABEL_109;
@@ -2354,7 +2403,7 @@ LABEL_112:
   {
     if (!a5)
     {
-      v83 = 0;
+      v85 = 0;
       goto LABEL_72;
     }
 
@@ -2372,13 +2421,9 @@ LABEL_69:
 
   if (!*(a6 + 64))
   {
-LABEL_107:
-    fig_log_get_emitter();
-    v64 = FigSignalErrorAtGM();
-LABEL_108:
-    v56 = v64;
-    OUTLINED_FUNCTION_3_12();
-    goto LABEL_53;
+    v82 = fig_log_get_emitter();
+    v64 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v82, 4294951825, "<<<< CMPhotoCompressionSessionUtilities >>>>", 1689, v15);
+    goto LABEL_108;
   }
 
   if (a5)
@@ -2400,17 +2445,17 @@ LABEL_108:
 
     v45 = a1;
     v46 = a7;
-    YUVPixelBufferWithDithering = CMPhotoCreateYUVPixelBufferWithDithering(a2, *(a1 + 24), a7, &v93);
+    YUVPixelBufferWithDithering = CMPhotoCreateYUVPixelBufferWithDithering(a2, *(a1 + 24), a7, v95);
     if (*MEMORY[0x1E695FF58] == 1)
     {
       OUTLINED_FUNCTION_6();
       kdebug_trace();
     }
 
-    v83 = YUVPixelBufferWithDithering != 0;
+    v85 = YUVPixelBufferWithDithering != 0;
     if (!YUVPixelBufferWithDithering)
     {
-      a2 = v93;
+      a2 = v95[0];
     }
 
     v27 = a13;
@@ -2421,11 +2466,11 @@ LABEL_108:
 
   else
   {
-    v83 = 1;
+    v85 = 1;
   }
 
 LABEL_72:
-  v86 = a5;
+  v88 = a5;
   theDicta = v27;
   v58 = a1;
   if (*(a6 + 81))
@@ -2452,8 +2497,8 @@ LABEL_72:
     DictionaryRepresentation = IsFullRange;
   }
 
-  v89 = 0;
-  v90 = 0;
+  v91 = 0;
+  v92 = 0;
   v61 = a7;
   if (v18)
   {
@@ -2465,21 +2510,21 @@ LABEL_72:
     v62 = 0;
   }
 
-  CMPhotoPixelBufferConstrainSizeToMaxSideLength(a9, a10, *(a6 + 68), 0, 0, *(a6 + 72), v62, &v89, 0, 0);
-  v82 = *(a6 + 280) != 0;
+  CMPhotoPixelBufferConstrainSizeToMaxSideLength(a9, a10, *(a6 + 68), 0, 0, *(a6 + 72), v62, &v91, 0, 0);
+  v84 = *(a6 + 280) != 0;
   v63 = v61;
   if (!*(a6 + 280))
   {
-    v64 = CMPhotoCompressionSessionCreatePaddedPixelBufferAndClearPadding(*(v58 + 24), v61, v89, v90, DictionaryRepresentation, IsFullRange, 0, &v92);
+    v64 = CMPhotoCompressionSessionCreatePaddedPixelBufferAndClearPadding(*(v58 + 24), v61, v91, v92, DictionaryRepresentation, IsFullRange, 0, &v94);
     if (v64)
     {
       goto LABEL_108;
     }
 
     CFDictionarySetValue(theDicta, @"UsePixelsOutsideCrop", *MEMORY[0x1E695E4D0]);
-    v65 = v89;
-    v66 = v90;
-    v64 = CMPhotoPropagateBayerPatternIfNeeded(a2, v92);
+    v65 = v91;
+    v66 = v92;
+    v64 = CMPhotoPropagateBayerPatternIfNeeded(a2, v94);
     if (v64)
     {
       goto LABEL_108;
@@ -2506,7 +2551,7 @@ LABEL_72:
   DictionaryRepresentation = CMPhotoGetChromaSubsamplingFromPixelFormat(v69);
   PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
   v74 = CMPhotoPixelFormatContainsRGB(PixelFormatType);
-  v75 = !v83;
+  v75 = !v85;
   if (v18)
   {
     v75 = 1;
@@ -2514,7 +2559,7 @@ LABEL_72:
 
   if ((v75 & 1) == 0 && *(a6 + 33) && DictionaryRepresentation == 1 && IsFullRange && v74)
   {
-    v56 = CMPhotoPixelBufferConvertRGBToYCbCrIdentityMatrix(*(v58 + 24), 1, a2, &v92);
+    v56 = CMPhotoPixelBufferConvertRGBToYCbCrIdentityMatrix(*(v58 + 24), 1, a2, &v94);
     OUTLINED_FUNCTION_3_12();
   }
 
@@ -2539,9 +2584,9 @@ LABEL_72:
       CFDictionarySetValue(v18, @"SourceCropRectDictionary", DictionaryRepresentation);
     }
 
-    v94.width = v40;
-    v94.height = v23;
-    IsFullRange = CGSizeCreateDictionaryRepresentation(v94);
+    v96.width = v40;
+    v96.height = v23;
+    IsFullRange = CGSizeCreateDictionaryRepresentation(v96);
     if (IsFullRange)
     {
       CFDictionarySetValue(v18, @"DestinationSizeDictionary", IsFullRange);
@@ -2553,7 +2598,7 @@ LABEL_72:
       CFDictionarySetValue(v18, @"DestinationColorTripletDictionary", v22);
     }
 
-    v56 = CMPhotoScaleAndRotateSessionTransformImage(*(v58 + 32), a2, v18, &v92);
+    v56 = CMPhotoScaleAndRotateSessionTransformImage(*(v58 + 32), a2, v18, &v94);
   }
 
   if (*MEMORY[0x1E695FF58] == 1)
@@ -2564,14 +2609,14 @@ LABEL_72:
 
   if (!v56)
   {
-    a2 = v92;
-    v77.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(v92);
+    a2 = v94;
+    v77.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(v94);
     OUTLINED_FUNCTION_9_14(v77, v78, v79, v80);
     v33 = theDicta;
     v31 = v58;
     v34 = v72;
-    v32 = v86;
-    v35 = v82;
+    v32 = v88;
+    v35 = v84;
     goto LABEL_12;
   }
 
@@ -2581,14 +2626,14 @@ LABEL_53:
     CFRelease(cf);
   }
 
-  if (v92)
+  if (v94)
   {
-    CFRelease(v92);
+    CFRelease(v94);
   }
 
-  if (v93)
+  if (v95[0])
   {
-    CFRelease(v93);
+    CFRelease(v95[0]);
   }
 
   if (v18)
@@ -2616,58 +2661,59 @@ LABEL_53:
 
 uint64_t CMPhotoCompressionSessionAddHEIFItemIfNeeded(void *a1, int a2, unsigned int a3, const opaqueCMFormatDescription *a4, uint64_t a5, const void *a6, const void *a7, int a8, uint64_t a9, char a10, CFIndex a11, unsigned __int8 a12, uint64_t a13, unsigned int a14, uint64_t a15, char a16, char a17, char a18, CFIndex *a19)
 {
-  v24 = CFGetAllocator(a1);
-  Mutable = CFDictionaryCreateMutable(v24, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  LODWORD(v68) = a3;
+  v25 = CFGetAllocator(a1);
+  Mutable = CFDictionaryCreateMutable(v25, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
     return 4294950305;
   }
 
-  v26 = Mutable;
+  v27 = Mutable;
   if (!*(a15 + 1))
   {
-    v29 = 0;
+    v30 = 0;
     goto LABEL_9;
   }
 
   if (!*(a15 + 2))
   {
-    v63.width = *(a15 + 24);
-    v63.height = *(a15 + 32);
-    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v63);
+    v77.width = *(a15 + 24);
+    v77.height = *(a15 + 32);
+    DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v77);
     if (!DictionaryRepresentation)
     {
-      v55 = 4294950305;
-      goto LABEL_70;
+      v60 = 4294950305;
+      goto LABEL_69;
     }
 
-    v29 = DictionaryRepresentation;
-    CFDictionarySetValue(v26, *MEMORY[0x1E6972220], DictionaryRepresentation);
+    v30 = DictionaryRepresentation;
+    CFDictionarySetValue(v27, *MEMORY[0x1E6972220], DictionaryRepresentation);
 LABEL_9:
-    v60 = 0;
+    v67 = 0;
     goto LABEL_10;
   }
 
   if (!cmpweak_exists_kFigPictureCollectionWriterOption_OverlayItemCount())
   {
-    v55 = 4294950297;
-LABEL_70:
-    v56 = v26;
-LABEL_58:
-    CFRelease(v56);
-    return v55;
+    v60 = 4294950297;
+LABEL_69:
+    v61 = v27;
+LABEL_57:
+    CFRelease(v61);
+    return v60;
   }
 
   Int16 = CMPhotoCFNumberCreateInt16(*(a15 + 64) * *(a15 + 56));
-  v28 = cmpweak_kFigPictureCollectionWriterOption_OverlayItemCount();
-  v60 = Int16;
-  CFDictionarySetValue(v26, v28, Int16);
-  v29 = 0;
+  v29 = cmpweak_kFigPictureCollectionWriterOption_OverlayItemCount();
+  v67 = Int16;
+  CFDictionarySetValue(v27, v29, Int16);
+  v30 = 0;
 LABEL_10:
-  v31 = MEMORY[0x1E695E4D0];
+  v32 = MEMORY[0x1E695E4D0];
   if (!a2 && a10)
   {
-    CFDictionarySetValue(v26, *MEMORY[0x1E6972210], *MEMORY[0x1E695E4D0]);
+    CFDictionarySetValue(v27, *MEMORY[0x1E6972210], *MEMORY[0x1E695E4D0]);
   }
 
   if (a18)
@@ -2677,43 +2723,43 @@ LABEL_10:
 LABEL_34:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_12();
-      v32 = FigSignalErrorAtGM();
-LABEL_60:
-      v55 = v32;
-      v39 = 0;
-      goto LABEL_52;
+      v33 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+LABEL_59:
+      v60 = v33;
+      v40 = 0;
+      goto LABEL_51;
     }
 
-    CFDictionarySetValue(v26, *MEMORY[0x1E69721D0], *MEMORY[0x1E695E4C0]);
+    CFDictionarySetValue(v27, *MEMORY[0x1E69721D0], *MEMORY[0x1E695E4C0]);
   }
 
-  v32 = CMPhotoCFDictionarySetInt(v26, *MEMORY[0x1E6972218], *(a9 + 4));
-  if (v32)
+  v33 = CMPhotoCFDictionarySetInt(v27, *MEMORY[0x1E6972218], *(a9 + 4));
+  if (v33)
   {
-    goto LABEL_60;
+    goto LABEL_59;
   }
 
-  v33 = *(a9 + 8);
-  if (v33 != -1)
+  v34 = *(a9 + 8);
+  if (v34 != -1)
   {
-    v32 = CMPhotoCFDictionarySetInt(v26, *MEMORY[0x1E69721E0], v33);
-    if (v32)
+    v33 = CMPhotoCFDictionarySetInt(v27, *MEMORY[0x1E69721E0], v34);
+    if (v33)
     {
-      goto LABEL_60;
+      goto LABEL_59;
     }
   }
 
   if (a17)
   {
-    CFDictionarySetValue(v26, *MEMORY[0x1E69721B8], *v31);
+    CFDictionarySetValue(v27, *MEMORY[0x1E69721B8], *v32);
   }
 
   if (a7)
   {
-    CFDictionarySetValue(v26, *MEMORY[0x1E69721C8], a7);
+    CFDictionarySetValue(v27, *MEMORY[0x1E69721C8], a7);
     if (a6)
     {
-      CFDictionarySetValue(v26, *MEMORY[0x1E69721C0], a6);
+      CFDictionarySetValue(v27, *MEMORY[0x1E69721C0], a6);
     }
   }
 
@@ -2724,7 +2770,7 @@ LABEL_60:
       if (a14 == 1278226736)
       {
         OUTLINED_FUNCTION_12_10();
-        if (v34)
+        if (v35)
         {
           BitDepthForPixelFormat = 16;
         }
@@ -2740,12 +2786,12 @@ LABEL_60:
 LABEL_35:
       BitDepthForPixelFormat = 16;
 LABEL_36:
-      v37 = 1;
+      v38 = 1;
       goto LABEL_37;
     }
 
     OUTLINED_FUNCTION_12_10();
-    if (v34)
+    if (v35)
     {
       goto LABEL_35;
     }
@@ -2753,89 +2799,89 @@ LABEL_36:
     goto LABEL_34;
   }
 
-  v36 = CMPhotoGetChromaSubsamplingFromPixelFormat(a14) & 0xFFFFFFFE;
+  v37 = CMPhotoGetChromaSubsamplingFromPixelFormat(a14) & 0xFFFFFFFE;
   BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(a14);
-  if (v36 == 6)
+  if (v37 == 6)
   {
-    v37 = 1;
+    v38 = 1;
   }
 
   else
   {
-    v37 = 3;
+    v38 = 3;
   }
 
 LABEL_37:
-  valuePtr = BitDepthForPixelFormat;
-  v38 = *MEMORY[0x1E695E480];
-  v39 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  if (!v39)
+  HIBYTE(v68) = BitDepthForPixelFormat;
+  v39 = *MEMORY[0x1E695E480];
+  v40 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+  if (!v40)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_12();
+    v43 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     goto LABEL_50;
   }
 
-  v40 = CFNumberCreate(v38, kCFNumberCharType, &valuePtr);
-  if (v40)
+  v41 = CFNumberCreate(v39, kCFNumberCharType, &v68 + 7);
+  if (v41)
   {
-    v41 = v40;
+    v42 = v41;
     do
     {
-      CFArrayAppendValue(v39, v41);
-      --v37;
+      CFArrayAppendValue(v40, v42);
+      --v38;
     }
 
-    while (v37);
-    CFRelease(v41);
+    while (v38);
+    CFRelease(v42);
   }
 
-  CFDictionaryAddValue(v26, *MEMORY[0x1E6972208], v39);
-  CMPhotoCFDictionarySetBoolean(v26, @"ReserveImageHandle", a12);
+  CFDictionaryAddValue(v27, *MEMORY[0x1E6972208], v40);
+  CMPhotoCFDictionarySetBoolean(v27, @"ReserveImageHandle", a12);
   if (a2 == 2)
   {
-    v49 = OUTLINED_FUNCTION_11_11();
-    v42 = CMPhotoHEIFFileWriterAddAuxiliaryImageToImage(v49, v50, v51, v52, v53, v54);
-    goto LABEL_51;
+    v52 = OUTLINED_FUNCTION_11_11();
+    CMPhotoHEIFFileWriterAddAuxiliaryImageToImage(v52, v53, v54, v55, v56, v57, v58, v59, v64, SHIDWORD(v64), v19, a5, a4, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+    goto LABEL_50;
   }
 
   if (a2 == 1)
   {
-    v43 = OUTLINED_FUNCTION_11_11();
-    v42 = CMPhotoHEIFFileWriterAddThumbnailToImage(v43, v44, v45, v46, v47, v48);
-    goto LABEL_51;
+    v44 = OUTLINED_FUNCTION_11_11();
+    CMPhotoHEIFFileWriterAddThumbnailToImage(v44, v45, v46, v47, v48, v49, v50, v51, v64, SHIDWORD(v64), v19, a5, a4, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+    goto LABEL_50;
   }
 
   if (a2)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_12();
-LABEL_50:
-    v42 = FigSignalErrorAtGM();
-    goto LABEL_51;
+    v43 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    goto LABEL_50;
   }
 
   if (a16)
   {
-    v42 = CMPhotoHEIFFileWriterAddImageToSequence(a1[11], v26, 1, a13, a3, a4, a19);
+    v43 = CMPhotoHEIFFileWriterAddImageToSequence(a1[11], v27, 1, a13, v68, a4, a19);
+LABEL_50:
+    v60 = v43;
 LABEL_51:
-    v55 = v42;
-LABEL_52:
-    v56 = v60;
-    goto LABEL_53;
+    v61 = v67;
+    goto LABEL_52;
   }
 
-  v58 = a1[11];
+  v63 = a1[11];
   if (a11 == -1)
   {
-    v42 = CMPhotoHEIFFileWriterAddImageToCollection(v58, v26, a3, a4, a19);
-    goto LABEL_51;
+    v43 = CMPhotoHEIFFileWriterAddImageToCollection(v63, v27, v68, a4);
+    goto LABEL_50;
   }
 
-  v56 = v60;
-  if (CMPhotoHEIFFileWriterCompareReservedImageHandleWithOptions(v58, v26, a3, a4, a11))
+  v61 = v67;
+  if (CMPhotoHEIFFileWriterCompareReservedImageHandleWithOptions(v63, v27, v68, a4, a11))
   {
-    v55 = 0;
+    v60 = 0;
     *a19 = a11;
   }
 
@@ -2843,27 +2889,27 @@ LABEL_52:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_12();
-    v55 = FigSignalErrorAtGM();
+    v60 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v64, v19, a5);
   }
 
-LABEL_53:
-  CFRelease(v26);
-  if (v29)
+LABEL_52:
+  CFRelease(v27);
+  if (v30)
   {
-    CFRelease(v29);
+    CFRelease(v30);
   }
 
-  if (v39)
+  if (v40)
   {
-    CFRelease(v39);
+    CFRelease(v40);
   }
 
-  if (v56)
+  if (v61)
   {
-    goto LABEL_58;
+    goto LABEL_57;
   }
 
-  return v55;
+  return v60;
 }
 
 const void *CMPhotoCompressionSessionDisposeCompressionPluginsForSequenceAsyncEncoding(uint64_t a1)
@@ -2899,9 +2945,9 @@ const void *CMPhotoCompressionSessionDisposeCompressionPluginsForSequenceAsyncEn
   return result;
 }
 
-uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(const void **a1, CFDictionaryRef theDict, int a3, int a4, __CFDictionary **a5, CVPixelBufferRef *a6, void *a7, CFTypeRef *a8, _BYTE *a9)
+uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(const void **a1, CFDictionaryRef theDict, int a3, _BOOL4 a4, __CFDictionary **a5, CVPixelBufferRef *a6, void *a7, CFTypeRef *a8, _BYTE *a9)
 {
-  v59 = 0;
+  v62 = 0;
   if (!a6 || !*a6)
   {
     return 4294950306;
@@ -2923,14 +2969,14 @@ uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(co
       }
     }
 
-    v56 = v18;
+    v59 = v18;
     LODWORD(value) = 0;
     IntIfPresent = FigCFDictionaryGetIntIfPresent();
     v22 = 0;
     v23 = CFDictionaryGetValue(theDict, @"AuxiliaryImageCustomTypeURN");
     if (v23)
     {
-      v54 = a3;
+      v56 = a3;
       v24 = v23;
       v25 = a4;
       v26 = a5;
@@ -2939,7 +2985,7 @@ uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(co
       v29 = CFGetTypeID(v23);
       v36 = v29 == CFStringGetTypeID();
       v23 = v24;
-      a3 = v54;
+      a3 = v56;
       a8 = v28;
       a7 = v27;
       a5 = v26;
@@ -2957,7 +3003,7 @@ uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(co
 
   else
   {
-    v56 = 0;
+    v59 = 0;
     v23 = 0;
     v22 = 0;
     v30 = 1;
@@ -2968,11 +3014,11 @@ uint64_t CMPhotoCompressionSessionCreateEncodeOptionsAndBufferForJPEGAuxImage(co
 LABEL_6:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_16();
-    v53 = FigSignalErrorAtGM();
+    v53 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     goto LABEL_83;
   }
 
-  v55 = v23;
+  v58 = v23;
   v31 = a1;
   CFGetAllocator(a1);
   MutableCopy = FigCFDictionaryCreateMutableCopy();
@@ -2984,7 +3030,7 @@ LABEL_6:
     if (v30)
     {
       v36 = PixelFormatType == 1278226742 || PixelFormatType == 1278226736;
-      v22 = v36 || v56 != 0;
+      v22 = v36 || v59 != 0;
       cf = 0;
       value = 0;
       v38 = CMPhotoQualityControllerCopyDefaultControllerForAuxiliaryImage(1785750887, v22, &value, &cf);
@@ -3010,11 +3056,11 @@ LABEL_6:
       }
     }
 
-    if (v56 && (v22 & 1) == 0)
+    if (v59 && (v22 & 1) == 0)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_2_16();
-      v38 = FigSignalErrorAtGM();
+      v38 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v54, v55, v57);
     }
 
     else
@@ -3053,7 +3099,7 @@ LABEL_6:
         v52 = 8;
       }
 
-      v38 = CMPhotoCreateCompressionCompatiblePixelBuffer(*a6, v31[3], v52, v56, 1, &value, &v59);
+      v38 = CMPhotoCreateCompressionCompatiblePixelBuffer(*a6, v31[3], v52, v59, 1, &value, &v62);
       if (!v38)
       {
         if (*a6)
@@ -3078,12 +3124,12 @@ LABEL_96:
         if (!a5)
         {
 LABEL_73:
-          v50 = v55;
+          v50 = v58;
           if (a7)
           {
-            if (v55)
+            if (v58)
             {
-              v50 = CFRetain(v55);
+              v50 = CFRetain(v58);
             }
 
             *a7 = v50;
@@ -3091,8 +3137,8 @@ LABEL_73:
 
           if (a8)
           {
-            *a8 = v59;
-            v59 = 0;
+            *a8 = v62;
+            v62 = 0;
           }
 
           if (a9)
@@ -3125,9 +3171,9 @@ LABEL_82:
 
   v53 = 4294950305;
 LABEL_83:
-  if (v59)
+  if (v62)
   {
-    CFRelease(v59);
+    CFRelease(v62);
   }
 
   return v53;
@@ -3186,7 +3232,7 @@ uint64_t CMPhotoCompressionSessionVerifyOptions_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -3195,7 +3241,7 @@ uint64_t CMPhotoCompressionSessionVerifyOptions_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -3204,7 +3250,7 @@ uint64_t CMPhotoCompressionSessionVerifyOptions_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -3213,7 +3259,7 @@ uint64_t CMPhotoCompressionSessionCreatePaddedPixelBufferAndClearPadding_cold_1(
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -3266,7 +3312,7 @@ LABEL_11:
     }
 
     fig_log_get_emitter();
-    v11 = FigSignalErrorAtGM();
+    v11 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, v14, v15);
     goto LABEL_11;
   }
 
@@ -3276,7 +3322,7 @@ LABEL_8:
   return v11;
 }
 
-uint64_t CMPhotoJPEGEncodeSessionCreateJPEGSbufFromBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t CMPhotoJPEGEncodeSessionCreateJPEGSbufFromBuffer(uint64_t a1, void *a2, const __CFDictionary *a3, void *a4, opaqueCMSampleBuffer **a5)
 {
   if (!a1)
   {
@@ -3308,86 +3354,86 @@ LABEL_7:
   return JPEGSbufFromBuffer;
 }
 
-uint64_t CMPhotoUnifiedJPEGDecoderCreateClone(uint64_t a1, uint64_t a2, void *a3)
+uint64_t CMPhotoUnifiedJPEGDecoderCreateClone(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v5 = *a1;
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  v11 = *(a1 + 24);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  v21 = 0;
-  v14 = CMPhotoUnifiedJPEGDecoderCreate(v5, v6, v9, v10, v7, v11, v12, v13, v8, &v21);
-  v15 = v21;
-  if (v14)
+  v6 = *a1;
+  v7 = *(a1 + 8);
+  v8 = *(a1 + 16);
+  v9 = *(a1 + 48);
+  v10 = *(a1 + 56);
+  v11 = *(a1 + 64);
+  v12 = *(a1 + 24);
+  v13 = *(a1 + 32);
+  v14 = *(a1 + 40);
+  v24 = 0;
+  v15 = CMPhotoUnifiedJPEGDecoderCreate(v6, v7, v10, v11, v8, v12, v13, v14, v9, &v24);
+  v16 = v24;
+  if (v15)
   {
-    v19 = v14;
+    v20 = v15;
     goto LABEL_10;
   }
 
-  SWDecoderIfNeeded = _createSWDecoderIfNeeded(v21, 0);
+  SWDecoderIfNeeded = _createSWDecoderIfNeeded(v24, 0, a2);
   if (SWDecoderIfNeeded)
   {
-    v19 = SWDecoderIfNeeded;
-    v15 = v21;
+    v20 = SWDecoderIfNeeded;
+    v16 = v24;
     goto LABEL_10;
   }
 
   if (*(a1 + 72))
   {
-    v22 = 16;
-    v23 = 1;
+    v25 = 16;
+    v26 = 1;
     ra_table_sz = applejpeg_decode_get_ra_table_sz();
     if (ra_table_sz < 1)
     {
-      v17 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v17 = malloc_type_malloc(ra_table_sz, 0x9E904CE4uLL);
-      if (!v17 || !applejpeg_decode_dump_ra_table() && !applejpeg_decode_set_ra_table())
+      v18 = malloc_type_malloc(ra_table_sz, 0x9E904CE4uLL);
+      if (!v18 || !applejpeg_decode_dump_ra_table() && !applejpeg_decode_set_ra_table())
       {
         goto LABEL_9;
       }
     }
 
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, v23, v24);
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
 LABEL_9:
-  free(v17);
-  v15 = 0;
-  v19 = 0;
-  *a3 = v21;
-  v21 = 0;
+  free(v18);
+  v16 = 0;
+  v20 = 0;
+  *a3 = v24;
+  v24 = 0;
 LABEL_10:
-  CMPhotoUnifiedJPEGDecoderDestroy(v15);
-  return v19;
+  CMPhotoUnifiedJPEGDecoderDestroy(v16);
+  return v20;
 }
 
-uint64_t _createSWDecoderIfNeeded(uint64_t a1, int a2)
+uint64_t _createSWDecoderIfNeeded(uint64_t a1, int a2, uint64_t a3)
 {
   dataPointerOut = 0;
-  v30 = 0;
+  v32 = 0;
   if (*(a1 + 72))
   {
     DataWrappingIOSurface = 0;
-    v17 = 0;
+    v19 = 0;
     goto LABEL_45;
   }
 
-  v4 = *(a1 + 48);
-  switch(v4)
+  v6 = *(a1 + 48);
+  switch(v6)
   {
     case 1:
       DataWrappingIOSurface = *(a1 + 88);
@@ -3400,92 +3446,92 @@ LABEL_12:
       dataPointerOut = CFDataGetBytePtr(DataWrappingIOSurface);
       Length = CFDataGetLength(DataWrappingIOSurface);
       DataWrappingIOSurface = 0;
-      v30 = Length;
+      v32 = Length;
       IsRangeContiguous = 1;
 LABEL_13:
-      v10 = _applejpeg_read_stream;
+      v12 = _applejpeg_read_stream;
       goto LABEL_24;
     case 2:
-      v6 = *(a1 + 40);
+      v8 = *(a1 + 40);
       DataWrappingIOSurface = OUTLINED_FUNCTION_7_12();
       if (!DataWrappingIOSurface)
       {
 LABEL_55:
-        v17 = 4294950305;
+        v19 = 4294950305;
         goto LABEL_45;
       }
 
-      if (v6)
+      if (v8)
       {
-        v7 = CFRetain(v6);
+        v9 = CFRetain(v8);
       }
 
       else
       {
-        v7 = 0;
+        v9 = 0;
       }
 
-      *DataWrappingIOSurface = v7;
-      DataLength = CMBlockBufferGetDataLength(v6);
+      *DataWrappingIOSurface = v9;
+      DataLength = CMBlockBufferGetDataLength(v8);
       *(DataWrappingIOSurface + 5) = DataLength;
       IsRangeContiguous = CMBlockBufferIsRangeContiguous(*(a1 + 40), 0, DataLength);
-      DataPointer = CMBlockBufferGetDataPointer(*(a1 + 40), 0, &v30, 0, &dataPointerOut);
-      v10 = _applejpeg_read_bbuf;
+      DataPointer = CMBlockBufferGetDataPointer(*(a1 + 40), 0, &v32, 0, &dataPointerOut);
+      v12 = _applejpeg_read_bbuf;
       if (DataPointer)
       {
-        v17 = DataPointer;
+        v19 = DataPointer;
         goto LABEL_45;
       }
 
 LABEL_24:
-      v20 = v10;
+      v22 = v12;
       OUTLINED_FUNCTION_9_1();
-      if (v21)
+      if (v23)
       {
         kdebug_trace();
       }
 
-      v22 = applejpeg_decode_create();
+      v24 = applejpeg_decode_create();
       OUTLINED_FUNCTION_9_1();
-      if (v21)
+      if (v23)
       {
-        OUTLINED_FUNCTION_4();
+        OUTLINED_FUNCTION_4(822280202, a3);
       }
 
       applejpeg_decode_set_parse_option_use_first_sof();
       OUTLINED_FUNCTION_9_1();
-      if (v21)
+      if (v23)
       {
         kdebug_trace();
       }
 
       if (IsRangeContiguous)
       {
-        v23 = applejpeg_decode_open_mem();
+        v25 = applejpeg_decode_open_mem();
       }
 
       else
       {
-        v28[0] = v20;
-        v28[1] = 0;
-        v28[2] = _applejpeg_skip_0;
-        v28[3] = _applejpeg_rewind_0;
-        v28[4] = DataWrappingIOSurface;
-        v28[5] = 0;
-        v28[6] = *(DataWrappingIOSurface + 5);
-        v23 = applejpeg_decode_open_file();
+        v30[0] = v22;
+        v30[1] = 0;
+        v30[2] = _applejpeg_skip_0;
+        v30[3] = _applejpeg_rewind_0;
+        v30[4] = DataWrappingIOSurface;
+        v30[5] = 0;
+        v30[6] = *(DataWrappingIOSurface + 5);
+        v25 = applejpeg_decode_open_file();
       }
 
-      v24 = v23;
+      v26 = v25;
       OUTLINED_FUNCTION_9_1();
-      if (v21)
+      if (v23)
       {
         kdebug_trace();
       }
 
-      if (v24)
+      if (v26)
       {
-        image_info = v24;
+        image_info = v26;
       }
 
       else
@@ -3501,14 +3547,14 @@ LABEL_24:
             applejpeg_decode_build_index();
           }
 
-          v17 = 0;
-          *(a1 + 72) = v22;
+          v19 = 0;
+          *(a1 + 72) = v24;
           *(a1 + 80) = DataWrappingIOSurface;
           goto LABEL_44;
         }
       }
 
-      v17 = CMPhotoAppleJPEGErrorToCMPhotoError(image_info);
+      v19 = CMPhotoAppleJPEGErrorToCMPhotoError(image_info);
       goto LABEL_45;
     case 4:
       DataWrappingIOSurface = CMPhotoCreateDataWrappingIOSurface(*(a1 + 8), *(a1 + 40), 0, 0);
@@ -3521,67 +3567,67 @@ LABEL_24:
       goto LABEL_12;
   }
 
-  v12 = *(a1 + 16);
-  v11 = *(a1 + 24);
-  v13 = *(a1 + 32);
+  v14 = *(a1 + 16);
+  v13 = *(a1 + 24);
+  v15 = *(a1 + 32);
   DataWrappingIOSurface = OUTLINED_FUNCTION_7_12();
   if (!DataWrappingIOSurface)
   {
-    v17 = 4294950305;
+    v19 = 4294950305;
     goto LABEL_21;
   }
 
-  v28[0] = 0;
-  v14 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (!v14)
+  v30[0] = 0;
+  v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (!v16)
   {
-    v17 = 4294954514;
+    v19 = 4294954514;
     goto LABEL_21;
   }
 
-  v15 = v14(v12, v11, v28);
-  if (v15)
+  v17 = v16(v14, v13, v30);
+  if (v17)
   {
-    v17 = v15;
+    v19 = v17;
     goto LABEL_21;
   }
 
-  v16 = v28[0];
-  if (v11 | v13)
+  v18 = v30[0];
+  if (v13 | v15)
   {
-    v16 = v13;
-    if (v28[0] < v13)
+    v18 = v15;
+    if (v30[0] < v15)
     {
-      v17 = 4294950194;
+      v19 = 4294950194;
       goto LABEL_21;
     }
 
 LABEL_48:
-    if (v12)
+    if (v14)
     {
-      v27 = CFRetain(v12);
+      v29 = CFRetain(v14);
     }
 
     else
     {
-      v27 = 0;
+      v29 = 0;
     }
 
-    *(DataWrappingIOSurface + 1) = v27;
-    *(DataWrappingIOSurface + 2) = v11;
-    *(DataWrappingIOSurface + 3) = v16;
-    *(DataWrappingIOSurface + 5) = v16;
+    *(DataWrappingIOSurface + 1) = v29;
+    *(DataWrappingIOSurface + 2) = v13;
+    *(DataWrappingIOSurface + 3) = v18;
+    *(DataWrappingIOSurface + 5) = v18;
     InputWrapper_destroy(0);
     IsRangeContiguous = 0;
     goto LABEL_13;
   }
 
-  if ((v28[0] & 0x8000000000000000) == 0)
+  if ((v30[0] & 0x8000000000000000) == 0)
   {
     goto LABEL_48;
   }
 
-  v17 = 4294950190;
+  v19 = 4294950190;
 LABEL_21:
   InputWrapper_destroy(DataWrappingIOSurface);
 LABEL_44:
@@ -3589,7 +3635,7 @@ LABEL_44:
 LABEL_45:
   applejpeg_decode_destroy();
   InputWrapper_destroy(DataWrappingIOSurface);
-  return v17;
+  return v19;
 }
 
 uint64_t _applejpeg_read_bbuf(char *a1, uint64_t a2, uint64_t a3)
@@ -3699,11 +3745,11 @@ uint64_t _applejpeg_skip_0(int a1, uint64_t a2)
     return 0xFFFFFFFFLL;
   }
 
-  v2 = *(a2 + 32) + a1;
-  if (v2 >= *(a2 + 40))
+  v5 = *(a2 + 32) + a1;
+  if (v5 >= *(a2 + 40))
   {
     fig_log_get_emitter();
-    if (FigSignalErrorAtGM())
+    if (FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v2, v4))
     {
       return 0xFFFFFFFFLL;
     }
@@ -3717,7 +3763,7 @@ uint64_t _applejpeg_skip_0(int a1, uint64_t a2)
   else
   {
     result = 0;
-    *(a2 + 32) = v2;
+    *(a2 + 32) = v5;
   }
 
   return result;
@@ -3816,24 +3862,24 @@ LABEL_96:
           break;
         }
 
-        v50 = CFGetTypeID(v18);
-        if (v50 == CFArrayGetTypeID())
+        v51 = CFGetTypeID(v18);
+        if (v51 == CFArrayGetTypeID())
         {
           Count = CFArrayGetCount(v18);
           if ((Count & 0xFFFFFFFFFFFFFFFELL) == 2)
           {
-            v52 = Count;
+            v53 = Count;
             OUTLINED_FUNCTION_2_18();
-            v55 = malloc_type_malloc(v53, v54);
-            *&__src[96] = v55;
-            if (v55)
+            v56 = malloc_type_malloc(v54, v55);
+            *&__src[96] = v56;
+            if (v56)
             {
-              v22 = v55;
-              v56 = v55 + 8;
-              *&__src[72] = v55;
-              *&__src[80] = v55 + 8;
-              v57 = &v55[8 * (v52 == 3) + 8];
-              *&__src[88] = v57;
+              v22 = v56;
+              v57 = v56 + 8;
+              *&__src[72] = v56;
+              *&__src[80] = v56 + 8;
+              v58 = &v56[8 * (v53 == 3) + 8];
+              *&__src[88] = v58;
               ValueAtIndex = CFArrayGetValueAtIndex(v18, 0);
               v25 = _copyQTableFromData(ValueAtIndex, v22);
               if (v25)
@@ -3841,20 +3887,20 @@ LABEL_96:
                 goto LABEL_71;
               }
 
-              v59 = CFArrayGetValueAtIndex(v18, 1);
-              v25 = _copyQTableFromData(v59, v56);
+              v60 = CFArrayGetValueAtIndex(v18, 1);
+              v25 = _copyQTableFromData(v60, v57);
               if (v25)
               {
                 goto LABEL_71;
               }
 
-              if (v52 != 3)
+              if (v53 != 3)
               {
                 goto LABEL_16;
               }
 
               v23 = CFArrayGetValueAtIndex(v18, 2);
-              v24 = v57;
+              v24 = v58;
 LABEL_15:
               v25 = _copyQTableFromData(v23, v24);
               if (v25)
@@ -3904,7 +3950,7 @@ LABEL_20:
 LABEL_83:
         OUTLINED_FUNCTION_1_16();
         OUTLINED_FUNCTION_2();
-        v25 = FigSignalErrorAtGM();
+        v25 = FigSignalErrorAtGM(v61);
         if (v25)
         {
           goto LABEL_71;
@@ -3993,7 +4039,7 @@ LABEL_89:
           OUTLINED_FUNCTION_2();
         }
 
-        v41 = FigSignalErrorAtGM();
+        v41 = FigSignalErrorAtGM(v50);
 LABEL_74:
         v10 = v41;
         if (v41)
@@ -4007,17 +4053,17 @@ LABEL_74:
         *&__src[40] = 0;
         goto LABEL_84;
       case 10:
-        v64 = 0.85;
-        v62 = 0;
+        v67 = 0.85;
+        v65 = 0;
         valuePtr = 0;
         if (cf && (v42 = CFGetTypeID(cf), v42 == CFDictionaryGetTypeID()))
         {
-          if (CMPhotoCFDictionaryGetSizeIfPresent(cf, @"ByteBudget", &v62))
+          if (CMPhotoCFDictionaryGetSizeIfPresent(cf, @"ByteBudget", &v65))
           {
             Value = CFDictionaryGetValue(cf, @"ByteBudgetHint");
             if (!Value)
             {
-              v48 = v62;
+              v48 = v65;
               v46 = 0.85;
 LABEL_69:
               *&__src[48] = v48;
@@ -4028,11 +4074,11 @@ LABEL_69:
             v45 = CFGetTypeID(Value);
             if (v45 == CFDictionaryGetTypeID() && CMPhotoCFDictionaryGetSizeIfPresent(v44, @"ByteBudgetHint_Size", &valuePtr) && CMPhotoCFDictionaryGetFloatIfPresent())
             {
-              v46 = v64;
-              if (v64 > 0.0 && v64 <= 1.0)
+              v46 = v67;
+              if (v67 > 0.0 && v67 <= 1.0)
               {
-                v48 = v62;
-                if (v62 >= valuePtr)
+                v48 = v65;
+                if (v65 >= valuePtr)
                 {
                   if (a8 == 2)
                   {
@@ -4044,7 +4090,7 @@ LABEL_69:
                     v49 = &_relativeSizeSW;
                   }
 
-                  v46 = _estimateNewQuality(valuePtr, v62, v49, 0, v64);
+                  v46 = _estimateNewQuality(valuePtr, v65, v49, 0, v67);
                 }
 
                 goto LABEL_69;
@@ -4062,9 +4108,9 @@ LABEL_69:
           OUTLINED_FUNCTION_2();
         }
 
-        v10 = FigSignalErrorAtGM();
-        v46 = v64;
-        *&__src[48] = v62;
+        v10 = FigSignalErrorAtGM(v63);
+        v46 = v67;
+        *&__src[48] = v65;
         if (v10)
         {
           break;
@@ -4133,7 +4179,7 @@ uint64_t _parseQualityParameters_QValue_float(uint64_t a1, float a2)
 uint64_t CMPhotoJPEGQualityControllerDecrementQuality(float *__src, void *a2)
 {
   v2 = 4294950306;
-  memset(v11, 0, 104);
+  memset(v12, 0, 104);
   if (__src && a2)
   {
     v5 = 0;
@@ -4148,58 +4194,60 @@ uint64_t CMPhotoJPEGQualityControllerDecrementQuality(float *__src, void *a2)
     if (!v5)
     {
       OUTLINED_FUNCTION_4_0();
+      v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950190, "(Fig)", 831);
       goto LABEL_13;
     }
 
 LABEL_8:
-    memcpy(v11, __src, 0x60uLL);
-    *&v11[6] = 0;
+    memcpy(v12, __src, 0x60uLL);
+    *&v12[6] = 0;
     v6 = *(__src + 8);
     if (v6)
     {
       v6 = CFRetain(v6);
     }
 
-    *&v11[4] = v6;
+    *&v12[4] = v6;
     v7 = *(__src + 8);
     if (v7 > 0xA || ((1 << v7) & 0x418) == 0)
     {
       OUTLINED_FUNCTION_4_0();
+      v8 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950302, "(Fig)", 846);
 LABEL_13:
-      v2 = FigSignalErrorAtGM();
+      v2 = v8;
       goto LABEL_14;
     }
 
-    v9 = v5 - 3;
+    v10 = v5 - 3;
     if (v5 == 20)
     {
-      v9 = 19;
+      v10 = 19;
     }
 
-    if (v9 >= 1)
+    if (v10 >= 1)
     {
-      v10 = 1.0;
-      if (v9 <= 0x13)
+      v11 = 1.0;
+      if (v10 <= 0x13)
       {
-        v10 = (_jpegQualityLevels[v9 - 1] + _jpegQualityLevels[v9]) * 0.5;
+        v11 = (_jpegQualityLevels[v10 - 1] + _jpegQualityLevels[v10]) * 0.5;
       }
     }
 
     else
     {
-      v10 = 0.01;
+      v11 = 0.01;
     }
 
-    v2 = _parseQualityParameters_QValue_float(v11, v10);
+    v2 = _parseQualityParameters_QValue_float(v12, v11);
     if (!v2)
     {
-      memcpy(a2, v11, 0x68uLL);
-      memset(v11, 0, 104);
+      memcpy(a2, v12, 0x68uLL);
+      memset(v12, 0, 104);
     }
   }
 
 LABEL_14:
-  CMPhotoJPEGQualitySettingsReleaseStorage(v11);
+  CMPhotoJPEGQualitySettingsReleaseStorage(v12);
   return v2;
 }
 
@@ -4225,8 +4273,9 @@ uint64_t CMPhotoJPEGQualityControllerDecrementByteBudgetQualityGivenSize(void *_
   if (!(v9 * 8))
   {
     OUTLINED_FUNCTION_4_0();
+    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950190, "(Fig)", 883);
 LABEL_21:
-    v4 = FigSignalErrorAtGM();
+    v4 = v16;
     goto LABEL_18;
   }
 
@@ -4251,11 +4300,12 @@ LABEL_10:
     v12 = &_relativeSizeSW;
   }
 
-  v16 = 0;
-  v13 = _estimateNewQuality(a2, *(__src + 6), v12, &v16, v10);
-  if (!v16)
+  v17 = 0;
+  v13 = _estimateNewQuality(a2, *(__src + 6), v12, &v17, v10);
+  if (!v17)
   {
     OUTLINED_FUNCTION_4_0();
+    v16 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950190, "(Fig)", 907);
     goto LABEL_21;
   }
 
@@ -4278,7 +4328,7 @@ uint64_t _copyJPEGQTablesForQValue(uint64_t a1, uint64_t a2, float a3)
   {
     OUTLINED_FUNCTION_2();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM(v10);
   }
 
   else
@@ -4306,7 +4356,7 @@ uint64_t _copyJPEGQTablesForQValue(uint64_t a1, uint64_t a2, float a3)
 uint64_t _copyQTableFromData_cold_1(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
@@ -4329,36 +4379,52 @@ uint64_t _getImageIdentifierForIndex(uint64_t a1, uint64_t a2, uint64_t a3)
   return v4(v3);
 }
 
-uint64_t _createThumbnailImageForIndex_0(uint64_t a1, int a2, int a3, CFDictionaryRef theDict, uint64_t a5, CFTypeRef *a6)
+uint64_t _createThumbnailImageForIndex_0(uint64_t a1, uint64_t a2, uint64_t a3, CFDictionaryRef theDict, uint64_t a5, CFTypeRef *a6)
 {
-  v14 = 0;
+  cf = 0;
+  v17 = 0;
+  v15 = 0;
   if (theDict && CFDictionaryContainsKey(theDict, @"UseProvidedPixelBuffer"))
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_19();
-    return FigSignalErrorAtGM();
+    v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, 0, 0);
+    goto LABEL_14;
   }
 
   _copySubImageReaderForIndex();
   if (v10)
   {
-    return v10;
+LABEL_14:
+    v12 = v10;
+    goto LABEL_6;
   }
 
-  _decodeImage_1(a1, 0, 0, -1, theDict, 0, a5, 0, &v14);
+  _decodeImage_1(a1, 0, 0, -1, theDict, 0, a5, 0, &v17);
   v12 = v11;
   if (v11)
   {
-    if (v14)
+    if (v17)
     {
-      CFRelease(v14);
+      CFRelease(v17);
     }
   }
 
   else
   {
-    *a6 = v14;
-    v14 = 0;
+    *a6 = v17;
+    v17 = 0;
+  }
+
+LABEL_6:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  if (v15)
+  {
+    CFRelease(v15);
   }
 
   return v12;
@@ -4456,7 +4522,7 @@ LABEL_30:
           goto LABEL_18;
         }
 
-        AuxiliaryImageTypeFromURN = CMPhotoGetAuxiliaryImageTypeFromURN();
+        AuxiliaryImageTypeFromURN = CMPhotoGetAuxiliaryImageTypeFromURN(v30);
         goto LABEL_12;
       }
     }
@@ -4590,8 +4656,9 @@ uint64_t _copyAuxiliaryFormatInfoForIndex(uint64_t a1, uint64_t a2, uint64_t a3,
   return _copyAuxiliaryImageMetadataFromCacheForIndex(v4, v5, v6, v7, v8, 0, v9, 0);
 }
 
-uint64_t _createAuxiliaryImageForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, int a5, CGImageRef *a6)
+uint64_t _createAuxiliaryImageForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, CGImageRef *a6)
 {
+  v9 = a5;
   OUTLINED_FUNCTION_54_0();
   v12 = v11;
   v14 = CMPhotoDecompressionContainerCheckForbiddenAuxOptions(v13, 0);
@@ -4626,7 +4693,7 @@ uint64_t _createAuxiliaryImageForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3, 
 
   else
   {
-    return _decodeAuxiliaryImage(v12, 0, 0, v7, v6, a4, 0, a5, a6);
+    return _decodeAuxiliaryImage(v12, 0, 0, v7, v6, a4, 0, v9, a6);
   }
 }
 
@@ -4915,7 +4982,7 @@ uint64_t _getOriginalPixelFormatForIndex(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t _copyImageIsRGBForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = 0;
+  v22 = 0;
   cf = 0;
   if (!a3)
   {
@@ -4923,23 +4990,23 @@ uint64_t _copyImageIsRGBForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   OUTLINED_FUNCTION_71_0();
-  v6 = *(*(OUTLINED_FUNCTION_118() + 16) + 16);
-  if (v6)
+  v7 = *(*(OUTLINED_FUNCTION_118(v6) + 16) + 16);
+  if (v7)
   {
-    v7 = v6(v5, v4, &v21, 0);
-    if (v7)
+    v8 = v7(v5, v4, &v22, 0);
+    if (v8)
     {
-      v17 = v7;
+      v18 = v8;
     }
 
     else
     {
       OUTLINED_FUNCTION_10_15();
       OUTLINED_FUNCTION_31_0();
-      v16 = _copyColorInfoForItem(v8, v9, v10, v11, v12, v13, v14, v15, 0, &cf, 0, 0, 0);
-      if (!v16 || (v17 = v16, OUTLINED_FUNCTION_67_0(), v18))
+      v17 = _copyColorInfoForItem(v9, v10, v11, v12, v13, v14, v15, v16, 0, &cf, 0, 0, 0);
+      if (!v17 || (v18 = v17, OUTLINED_FUNCTION_67_0(), v19))
       {
-        v17 = 0;
+        v18 = 0;
         *v3 = FigCFEqual();
       }
     }
@@ -4947,7 +5014,7 @@ uint64_t _copyImageIsRGBForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v17 = 4294954514;
+    v18 = 4294954514;
   }
 
   if (cf)
@@ -4955,12 +5022,12 @@ uint64_t _copyImageIsRGBForIndex_1(uint64_t a1, uint64_t a2, uint64_t a3)
     CFRelease(cf);
   }
 
-  if (v21)
+  if (v22)
   {
-    CFRelease(v21);
+    CFRelease(v22);
   }
 
-  return v17;
+  return v18;
 }
 
 uint64_t _copyColorSpaceForIndex_1(uint64_t a1, uint64_t a2, CFTypeRef *a3)
@@ -4970,7 +5037,7 @@ uint64_t _copyColorSpaceForIndex_1(uint64_t a1, uint64_t a2, CFTypeRef *a3)
     return 0;
   }
 
-  if (!*(*(OUTLINED_FUNCTION_118() + 16) + 16))
+  if (!*(*(OUTLINED_FUNCTION_118(a1) + 16) + 16))
   {
     return 4294954514;
   }
@@ -4997,31 +5064,31 @@ uint64_t _copyColorSpaceForIndex_1(uint64_t a1, uint64_t a2, CFTypeRef *a3)
   }
 }
 
-uint64_t _readAlphaInfoSEIPayload()
+uint64_t _readAlphaInfoSEIPayload(uint64_t a1)
 {
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
+  v8 = 0;
   v7 = 0;
   v6 = 0;
   v5 = 0;
-  v4 = 0;
   Bytes = FigByteStreamCreateWithCFData();
-  if (Bytes || (CMPhotoBitStreamReadInit(v8, v9, 1), Bytes = CMPhotoBitStreamReadBytes(v8, 4, &v7 + 1), Bytes) || (Bytes = CMPhotoBitStreamReadBytes(v8, 4, &v7), Bytes) || (Bytes = CMPhotoBitStreamReadBytes(v8, 2, &v6), Bytes) || (v1 = (v6 >> 9) & 0x3F, v6 = (v6 >> 9) & 0x3F, v1 == 39) && (Bytes = CMPhotoBitStreamReadVariableLengthEntry(), Bytes))
+  if (Bytes || (CMPhotoBitStreamReadInit(v9, v10, 1), Bytes = CMPhotoBitStreamReadBytes(v9, 4, &v8 + 1), Bytes) || (Bytes = CMPhotoBitStreamReadBytes(v9, 4, &v8), Bytes) || (Bytes = CMPhotoBitStreamReadBytes(v9, 2, &v7), Bytes) || (v2 = (v7 >> 9) & 0x3F, v7 = (v7 >> 9) & 0x3F, v2 == 39) && (Bytes = CMPhotoBitStreamReadVariableLengthEntry(), Bytes))
   {
-    v3 = Bytes;
+    v4 = Bytes;
   }
 
   else
   {
-    v3 = 4294950194;
+    v4 = 4294950194;
   }
 
-  if (v9)
+  if (v10)
   {
-    CFRelease(v9);
+    CFRelease(v10);
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t _parseFormatInfoXMPMetadataForIndex()
@@ -5120,7 +5187,7 @@ LABEL_15:
   return v11;
 }
 
-uint64_t _fillEdgesIfNeeded(__CVBuffer *a1, uint64_t a2, int a3)
+uint64_t _fillEdgesIfNeeded(__CVBuffer *a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 72) == 0)
   {
@@ -5160,22 +5227,21 @@ uint64_t _fillEdgesIfNeeded(__CVBuffer *a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t _transferToCanvas(uint64_t a1, unsigned int a2, int a3, int a4, int a5, unsigned int a6, uint64_t a7, CVPixelBufferRef pixelBuffer, uint64_t a9, int a10, unint64_t *a11, __CVBuffer *a12, uint64_t a13, uint64_t a14)
+uint64_t _transferToCanvas(uint64_t a1, unsigned int a2, int a3, int a4, int a5, int a6, uint64_t a7, CVPixelBufferRef pixelBuffer, uint64_t a9, int a10, unint64_t *a11, __CVBuffer *a12, uint64_t a13, uint64_t a14)
 {
   v14 = pixelBuffer;
   v16 = a12;
-  v17 = a10;
   v70 = 0;
   v71 = 0;
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-  v19 = CVPixelBufferGetPixelFormatType(v16);
-  v20 = v19;
+  v18 = CVPixelBufferGetPixelFormatType(v16);
+  v19 = v18;
   DictionaryRepresentation = *(a9 + 1);
-  v23 = a10 != 1 && DictionaryRepresentation != 0;
+  v22 = a10 != 1 && DictionaryRepresentation != 0;
   size = *(a9 + 88) != 0;
   if (*(a9 + 40) == 0)
   {
-    v24 = *(a9 + 56) != 0;
+    v23 = *(a9 + 56) != 0;
     if (!a7)
     {
       goto LABEL_19;
@@ -5184,23 +5250,28 @@ uint64_t _transferToCanvas(uint64_t a1, unsigned int a2, int a3, int a4, int a5,
 
   else
   {
-    v24 = 1;
+    v23 = 1;
     if (!a7)
     {
       goto LABEL_19;
     }
   }
 
-  v25 = PixelFormatType == a7 || v19 == PixelFormatType;
-  if (!v25 && (CMPhotoGetFullRangeForPixelFormat(PixelFormatType) == a7 || CMPhotoGetFullRangeForPixelFormat(a7) == PixelFormatType) && !CMPhotoCreateOtherRangePixelBufferWithBacking(v14))
+  v24 = PixelFormatType == a7 || v18 == PixelFormatType;
+  if (!v24 && (CMPhotoGetFullRangeForPixelFormat(PixelFormatType) == a7 || CMPhotoGetFullRangeForPixelFormat(a7) == PixelFormatType) && !CMPhotoCreateOtherRangePixelBufferWithBacking(v14))
   {
     v14 = v70;
   }
 
 LABEL_19:
-  if (!DictionaryRepresentation)
+  if (DictionaryRepresentation)
   {
-    v17 = 1;
+    v25 = a10;
+  }
+
+  else
+  {
+    v25 = 1;
   }
 
   v26 = OUTLINED_FUNCTION_64_0();
@@ -5210,15 +5281,15 @@ LABEL_19:
     v56 = v28;
     OUTLINED_FUNCTION_30_2();
     v35 = 0;
-    goto LABEL_71;
+    goto LABEL_72;
   }
 
   DictionaryRepresentation = a13;
   v29 = a14;
   v61 = a13;
-  if (v20 != PixelFormatType && (v20 != 1815491698 ? (v30 = v20 == 1815162994) : (v30 = 1), v30))
+  if (v19 != PixelFormatType && (v19 != 1815491698 ? (v30 = v19 == 1815162994) : (v30 = 1), v30))
   {
-    v24 = a6;
+    v23 = a6;
     v31 = a5;
     if (_l64r_insertionWorkaroundEnabled_onceToken != -1)
     {
@@ -5232,28 +5303,28 @@ LABEL_19:
   else
   {
     v32 = 0;
-    v33 = v20 != PixelFormatType || v23;
-    if (((v33 | size) & v24 & 1) == 0)
+    v33 = v19 != PixelFormatType || v22;
+    if (((v33 | size) & v23 & 1) == 0)
     {
-      LODWORD(v24) = 0;
-      v20 = 0;
+      LODWORD(v23) = 0;
+      v19 = 0;
       DictionaryRepresentation = 0;
       v35 = 0;
       LODWORD(PixelFormatType) = a2;
-      goto LABEL_50;
+      goto LABEL_51;
     }
 
-    v24 = a6;
+    v23 = a6;
     PixelFormatType = a2;
     v31 = a5;
   }
 
-  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, v24, a3, a4, v31);
+  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, v23, a3, a4, v31);
   v35 = ScaleAndRotateOptionsWithHWIfNeeded;
   if (!ScaleAndRotateOptionsWithHWIfNeeded)
   {
     OUTLINED_FUNCTION_30_2();
-    goto LABEL_93;
+    goto LABEL_94;
   }
 
   if (*(a9 + 114))
@@ -5261,17 +5332,17 @@ LABEL_19:
     CMPhotoCFDictionarySetBoolean(ScaleAndRotateOptionsWithHWIfNeeded, @"PreferLowMemory", *(a9 + 114));
   }
 
-  v24 = v32;
+  v23 = v32;
   if (size)
   {
     *__dst = 0uLL;
-    v36 = CMPhotoFlipSizeIfNeeded(v17, *(a9 + 88), *(a9 + 96), __dst);
+    v36 = CMPhotoFlipSizeIfNeeded(v25, *(a9 + 88), *(a9 + 96), __dst);
     if (v36)
     {
-LABEL_89:
+LABEL_90:
       v56 = v36;
       OUTLINED_FUNCTION_30_2();
-      goto LABEL_71;
+      goto LABEL_72;
     }
 
     v37 = vcvtq_f64_u64(*__dst);
@@ -5284,37 +5355,37 @@ LABEL_89:
 
   sizea = v37;
   memcpy(__dst, a9, sizeof(__dst));
-  v36 = _fillEdgesIfNeeded(v14, __dst, v17);
+  v36 = _fillEdgesIfNeeded(v14, __dst, v25);
   if (v36)
   {
-    goto LABEL_89;
+    goto LABEL_90;
   }
 
   CMPhotoCFDictionarySetBoolean(v35, @"DestinationBackedByIOSurface", PixelFormatType == 0);
-  CMPhotoCFDictionarySetInt(v35, @"SourceExifOrientation", v17);
-  CMPhotoCFDictionarySetInt(v35, @"DestinationPixelFormat", v20);
+  CMPhotoCFDictionarySetInt(v35, @"SourceExifOrientation", v25);
+  CMPhotoCFDictionarySetInt(v35, @"DestinationPixelFormat", v19);
   DictionaryRepresentation = CMPhotoColorTripletCreateDictionaryRepresentation(DictionaryRepresentation, v29);
   if (DictionaryRepresentation)
   {
     CFDictionarySetValue(v35, @"DestinationColorTripletDictionary", DictionaryRepresentation);
   }
 
-  v20 = CGSizeCreateDictionaryRepresentation(sizea);
-  if (v20)
+  v19 = CGSizeCreateDictionaryRepresentation(sizea);
+  if (v19)
   {
-    CFDictionarySetValue(v35, @"DestinationSizeDictionary", v20);
+    CFDictionarySetValue(v35, @"DestinationSizeDictionary", v19);
   }
 
   v38 = CMPhotoScaleAndRotateSessionTransformImage(a1, v14, v35, &v71);
   if (v38)
   {
-    goto LABEL_88;
+    goto LABEL_89;
   }
 
   v29 = 0;
-  v17 = 1;
+  LODWORD(v25) = 1;
   v14 = v71;
-LABEL_50:
+LABEL_51:
   v67.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(v14);
   v67.f64[1] = v39;
   v68.width = v40;
@@ -5325,11 +5396,11 @@ LABEL_50:
     v38 = CMPhotoApplyCropRectToRect(&v67, v42, v43, v44, v45);
     if (v38)
     {
-LABEL_88:
+LABEL_89:
       v56 = v38;
       PixelFormatType = 0;
-      v24 = 0;
-      goto LABEL_71;
+      v23 = 0;
+      goto LABEL_72;
     }
   }
 
@@ -5341,9 +5412,9 @@ LABEL_88:
     v49 = *(MEMORY[0x1E695F050] + 8);
     v50 = *(MEMORY[0x1E695F050] + 16);
     v51 = *(MEMORY[0x1E695F050] + 24);
-    if (!v24)
+    if (!v23)
     {
-      goto LABEL_59;
+      goto LABEL_60;
     }
   }
 
@@ -5353,9 +5424,9 @@ LABEL_88:
     v49 = a11[1];
     v50 = v46;
     v51 = v47;
-    if (!v24)
+    if (!v23)
     {
-      goto LABEL_59;
+      goto LABEL_60;
     }
   }
 
@@ -5366,12 +5437,12 @@ LABEL_88:
   if (!v54)
   {
     PixelFormatType = 0;
-    v24 = 0;
+    v23 = 0;
     v56 = 0;
-    goto LABEL_71;
+    goto LABEL_72;
   }
 
-LABEL_59:
+LABEL_60:
   if (v35)
   {
     CFRelease(v35);
@@ -5382,15 +5453,15 @@ LABEL_59:
   if (!Mutable)
   {
     PixelFormatType = 0;
-    v24 = 0;
-LABEL_93:
+    v23 = 0;
+LABEL_94:
     v56 = 4294950305;
-    goto LABEL_71;
+    goto LABEL_72;
   }
 
   CMPhotoCFDictionarySetBoolean(Mutable, @"DestinationBackedByIOSurface", PixelFormatType == 0);
   CMPhotoCFDictionarySetBoolean(v35, @"HighSpeed", a6);
-  CMPhotoCFDictionarySetInt(v35, @"SourceExifOrientation", v17);
+  CMPhotoCFDictionarySetInt(v35, @"SourceExifOrientation", v25);
   v72.origin = v67;
   v72.size = v68;
   PixelFormatType = CGRectCreateDictionaryRepresentation(v72);
@@ -5414,14 +5485,14 @@ LABEL_93:
   v73.origin.y = v49;
   v73.size.width = v50;
   v73.size.height = v51;
-  v24 = CGRectCreateDictionaryRepresentation(v73);
-  if (v24)
+  v23 = CGRectCreateDictionaryRepresentation(v73);
+  if (v23)
   {
-    CFDictionarySetValue(v35, @"DestinationCropRectDictionary", v24);
+    CFDictionarySetValue(v35, @"DestinationCropRectDictionary", v23);
   }
 
   v56 = CMPhotoScaleAndRotateSessionTransformImage(a1, v14, v35, &a12);
-LABEL_71:
+LABEL_72:
   if (v70)
   {
     CFRelease(v70);
@@ -5442,9 +5513,9 @@ LABEL_71:
     CFRelease(DictionaryRepresentation);
   }
 
-  if (v20)
+  if (v19)
   {
-    CFRelease(v20);
+    CFRelease(v19);
   }
 
   if (PixelFormatType)
@@ -5452,9 +5523,9 @@ LABEL_71:
     CFRelease(PixelFormatType);
   }
 
-  if (v24)
+  if (v23)
   {
-    CFRelease(v24);
+    CFRelease(v23);
   }
 
   return v56;
@@ -5566,7 +5637,7 @@ uint64_t _copyFlexRangeDetails(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   FlexRangeMetadataDictionary = v17(FigBaseObject, *MEMORY[0x1E69722C8], v15, &cf);
   if (FlexRangeMetadataDictionary)
   {
-    goto LABEL_35;
+    goto LABEL_34;
   }
 
   Value = FigCFDictionaryGetValue();
@@ -5574,9 +5645,8 @@ uint64_t _copyFlexRangeDetails(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_16();
+    FlexRangeMetadataDictionary = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
 LABEL_34:
-    FlexRangeMetadataDictionary = FigSignalErrorAtGM();
-LABEL_35:
     v31 = FlexRangeMetadataDictionary;
     goto LABEL_29;
   }
@@ -5593,6 +5663,7 @@ LABEL_35:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_16();
+    FlexRangeMetadataDictionary = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     goto LABEL_34;
   }
 
@@ -5605,7 +5676,7 @@ LABEL_11:
     FlexRangeMetadataDictionary = CMPhotoParseFlexRangeMetadataDictionary(v28, v29);
     if (FlexRangeMetadataDictionary)
     {
-      goto LABEL_35;
+      goto LABEL_34;
     }
   }
 
@@ -5614,7 +5685,7 @@ LABEL_11:
     FlexRangeMetadataDictionary = CMPhotoCreateFlexRangeMetadataDictionary(v20, v8);
     if (FlexRangeMetadataDictionary)
     {
-      goto LABEL_35;
+      goto LABEL_34;
     }
   }
 
@@ -5671,69 +5742,87 @@ LABEL_29:
 void _copySubImageReaderForIndex()
 {
   OUTLINED_FUNCTION_122();
-  if (v5)
+  cf = 0;
+  v17 = 0;
+  if (!v5)
   {
-    if (v2)
+    goto LABEL_20;
+  }
+
+  if (!v2)
+  {
+    goto LABEL_16;
+  }
+
+  v6 = v3;
+  if ((v4 | v3) < 0)
+  {
+    goto LABEL_16;
+  }
+
+  if (!*(v2 + 48))
+  {
+    fig_log_get_emitter();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 0, v18);
+    goto LABEL_16;
+  }
+
+  OUTLINED_FUNCTION_52_0();
+  v8 = v7;
+  if (*(*(CMBaseObjectGetVTable() + 16) + 16))
+  {
+    v9 = OUTLINED_FUNCTION_4_5();
+    if (!v10(v9, v6))
     {
-      v6 = v3;
-      if (((v4 | v3) & 0x8000000000000000) == 0)
+      v11 = *(CMBaseObjectGetVTable() + 16);
+      if (v8 == 1)
       {
-        if (!*(v2 + 48))
+        if (!*(v11 + 24))
         {
-          fig_log_get_emitter();
-          FigSignalErrorAtGM();
           goto LABEL_16;
         }
 
-        OUTLINED_FUNCTION_52_0();
-        v8 = v7;
-        if (*(*(CMBaseObjectGetVTable() + 16) + 16))
+        v12 = OUTLINED_FUNCTION_21_5();
+        if (v13(v12))
         {
-          v9 = OUTLINED_FUNCTION_4_5();
-          if (!v10(v9, v6))
-          {
-            v11 = *(CMBaseObjectGetVTable() + 16);
-            if (v8 == 1)
-            {
-              if (!*(v11 + 24))
-              {
-                goto LABEL_16;
-              }
+          goto LABEL_16;
+        }
 
-              v12 = OUTLINED_FUNCTION_21_5();
-              if (v13(v12))
-              {
-                goto LABEL_16;
-              }
-            }
+LABEL_13:
+        if (v1)
+        {
+          *v1 = 0;
+          v17 = 0;
+        }
 
-            else
-            {
-              if (!*(v11 + 40))
-              {
-                goto LABEL_16;
-              }
+        *v0 = 0;
+        goto LABEL_18;
+      }
 
-              v14 = OUTLINED_FUNCTION_21_5();
-              if (v15(v14))
-              {
-                goto LABEL_16;
-              }
-            }
-
-            if (v1)
-            {
-              *v1 = 0;
-            }
-
-            *v0 = 0;
-          }
+      if (*(v11 + 40))
+      {
+        v14 = OUTLINED_FUNCTION_21_5();
+        if (!v15(v14))
+        {
+          goto LABEL_13;
         }
       }
     }
   }
 
 LABEL_16:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+LABEL_18:
+  if (v17)
+  {
+    CFRelease(v17);
+  }
+
+LABEL_20:
   OUTLINED_FUNCTION_121();
 }
 
@@ -6538,9 +6627,9 @@ uint64_t _copySubImageBitDepthForIndex(uint64_t a1, uint64_t a2, uint64_t a3, ui
 
 uint64_t _getSubImageEncodedPixelFormatForIndex(void *a1, uint64_t a2, uint64_t a3, int a4, int *a5)
 {
-  v18 = 0;
+  v19 = 0;
   sbuf = 0;
-  v16 = 0;
+  v17 = 0;
   cf = 0;
   if (!a5)
   {
@@ -6550,13 +6639,13 @@ uint64_t _getSubImageEncodedPixelFormatForIndex(void *a1, uint64_t a2, uint64_t 
 
   if (a1[6])
   {
-    v15 = -1;
-    YUVPixelFormatForJPEG = CMPhotoDecompressionContainerInternalToExternalIndexAndCopyAlternateOptions(a1, a2, &v15, 0, &v18);
+    v16 = -1;
+    YUVPixelFormatForJPEG = CMPhotoDecompressionContainerInternalToExternalIndexAndCopyAlternateOptions(a1, a2, &v16, 0, &v19);
     if (!YUVPixelFormatForJPEG)
     {
       if (a4 == 1)
       {
-        YUVPixelFormatForJPEG = CMPhotoDecompressionContainerCopyThumbnailSampleBufferForIndexWithOptions(a1, v15, a3, v18, &sbuf);
+        YUVPixelFormatForJPEG = CMPhotoDecompressionContainerCopyThumbnailSampleBufferForIndexWithOptions(a1, v16, a3, v19, &sbuf);
         if (YUVPixelFormatForJPEG)
         {
           goto LABEL_13;
@@ -6571,7 +6660,7 @@ LABEL_8:
           _copySubImageReaderForIndex();
           if (!YUVPixelFormatForJPEG)
           {
-            YUVPixelFormatForJPEG = CMPhotoPictureReaderGetYUVPixelFormatForJPEG(v16, a5);
+            YUVPixelFormatForJPEG = CMPhotoPictureReaderGetYUVPixelFormatForJPEG(v17, a5);
           }
         }
 
@@ -6583,7 +6672,7 @@ LABEL_8:
         goto LABEL_13;
       }
 
-      YUVPixelFormatForJPEG = CMPhotoDecompressionContainerCopyAuxiliaryImageSampleBufferForIndexWithOptions(a1, v15, a3, v18, &sbuf);
+      YUVPixelFormatForJPEG = CMPhotoDecompressionContainerCopyAuxiliaryImageSampleBufferForIndexWithOptions(a1, v16, a3, v19, &sbuf);
       if (!YUVPixelFormatForJPEG)
       {
         goto LABEL_8;
@@ -6594,7 +6683,7 @@ LABEL_8:
   else
   {
     fig_log_get_emitter();
-    YUVPixelFormatForJPEG = FigSignalErrorAtGM();
+    YUVPixelFormatForJPEG = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v16, v17);
   }
 
 LABEL_13:
@@ -6604,9 +6693,9 @@ LABEL_13:
     CFRelease(cf);
   }
 
-  if (v16)
+  if (v17)
   {
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
 LABEL_17:
@@ -6615,9 +6704,9 @@ LABEL_17:
     CFRelease(sbuf);
   }
 
-  if (v18)
+  if (v19)
   {
-    CFRelease(v18);
+    CFRelease(v19);
   }
 
   return v13;
@@ -6627,7 +6716,7 @@ BOOL _transcodeToJFIF_cold_1(uint64_t a1, _DWORD *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  v3 = FigSignalErrorAtGM();
+  v3 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
   *a2 = v3;
   return v3 == 0;
 }
@@ -6636,7 +6725,7 @@ uint64_t _transcodeToJFIF_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6645,7 +6734,7 @@ uint64_t _transcodeToJFIF_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6654,7 +6743,7 @@ uint64_t _transcodeToJFIF_cold_4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6663,7 +6752,7 @@ uint64_t _verifyPixelInformationFromPictureReader_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6672,7 +6761,7 @@ uint64_t _getLayerReaderAtPosition_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6681,7 +6770,7 @@ uint64_t _getLayerReaderAtPosition_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6690,7 +6779,7 @@ uint64_t _transcodeSourceCallback_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6699,7 +6788,7 @@ uint64_t _transcodeSourceCallback_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6708,7 +6797,7 @@ uint64_t _transcodeSourceCallback_cold_3(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -6717,7 +6806,7 @@ uint64_t TileIterator_reset_cold_1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -7053,14 +7142,14 @@ uint64_t CMPhotoPixelBufferGetVersatileBayerPattern(__CVBuffer *a1)
 
 uint64_t CMPhotoGetRegroupBayerPatternFromBayerPattern_cold_1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t CMPhotoGetRegroupBayerPatternFromBayerPattern_cold_2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -7737,10 +7826,10 @@ LABEL_8:
 
 uint64_t CMPhotoFixedPatternNoiseDecoderRun2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v134 = a5;
-  v136 = a4;
-  v164 = *MEMORY[0x1E69E9840];
-  v157 = 0;
+  v135 = a5;
+  v137 = a4;
+  v165 = *MEMORY[0x1E69E9840];
+  v158 = 0;
   OUTLINED_FUNCTION_12_13();
   if (!v13)
   {
@@ -7748,10 +7837,10 @@ uint64_t CMPhotoFixedPatternNoiseDecoderRun2(uint64_t a1, uint64_t a2, uint64_t 
   }
 
   v14 = v12;
-  v154 = 0u;
-  memset(v155, 0, 30);
-  v162 = 0;
+  v155 = 0u;
+  memset(v156, 0, 30);
   v163 = 0;
+  v164 = 0;
   OUTLINED_FUNCTION_11_13();
   v16 = v15;
   switch(v17)
@@ -7782,30 +7871,30 @@ LABEL_26:
       v96 = *(v14 + 4);
       OUTLINED_FUNCTION_5_15();
       v97 = *(v14 + 18);
-      WORD4(v154) = v97;
-      *(&v154 + 10) = *(v14 + 20);
-      *&v155[6] = *(v14 + 24);
-      *&v155[22] = *(v14 + 40);
+      WORD4(v155) = v97;
+      *(&v155 + 10) = *(v14 + 20);
+      *&v156[6] = *(v14 + 24);
+      *&v156[22] = *(v14 + 40);
       v11 = *(v14 + 52);
-      v162 = 0;
       v163 = 0;
-      bzero(v161, 0xE0uLL);
+      v164 = 0;
+      bzero(v162, 0xE0uLL);
       v35 = 0;
       v98 = *(v14 + 64);
       v99 = llroundf(*(v14 + 60) * 16.0);
-      LODWORD(v158) = __PAIR32__(WORD5(v154), v97);
-      WORD2(v158) = WORD6(v154);
-      *(&v158 + 6) = 276824065;
-      WORD5(v158) = 3024;
-      BYTE12(v158) = 2;
-      v142 = v14;
+      LODWORD(v159) = __PAIR32__(WORD5(v155), v97);
+      WORD2(v159) = WORD6(v155);
+      *(&v159 + 6) = 276824065;
+      WORD5(v159) = 3024;
+      BYTE12(v159) = 2;
+      v143 = v14;
       v6 = v96;
-      *(&v158 + 13) = *(v14 + 48);
-      HIBYTE(v158) = 0;
-      LODWORD(v159) = 4456448;
-      WORD2(v159) = v99;
-      HIWORD(v159) = llroundf(v98 * 16.0);
-      v160 = 0;
+      *(&v159 + 13) = *(v14 + 48);
+      HIBYTE(v159) = 0;
+      LODWORD(v160) = 4456448;
+      WORD2(v160) = v99;
+      HIWORD(v160) = llroundf(v98 * 16.0);
+      v161 = 0;
       goto LABEL_27;
     case 2:
       v24 = OUTLINED_FUNCTION_1_18();
@@ -7817,20 +7906,20 @@ LABEL_26:
 
       v6 = *(v14 + 4);
       OUTLINED_FUNCTION_5_15();
-      *&v155[24] = *(v14 + 50);
-      *&v155[28] = *(v14 + 54);
+      *&v156[24] = *(v14 + 50);
+      *&v156[28] = *(v14 + 54);
       v11 = *(v14 + 60);
-      OUTLINED_FUNCTION_8_15(v27, v28, v29, v30, v31, v32, v33, v34, v130, pixelBuffer, v134, v136, v138, v141, v144, v146, *(v14 + 18), *(v14 + 26), 0, *(v14 + 18), *(v14 + 26), *(v14 + 34), *(v14 + 42), *&v155[24], v156, 0, v158, *(&v158 + 1), v159, *&v160, v161[0]);
+      OUTLINED_FUNCTION_8_15(v27, v28, v29, v30, v31, v32, v33, v34, v131, pixelBuffer, v135, v137, v139, v142, v145, v147, *(v14 + 18), *(v14 + 26), 0, *(v14 + 18), *(v14 + 26), *(v14 + 34), *(v14 + 42), *&v156[24], v157, 0, v159, *(&v159 + 1), v160, *&v161, v162[0]);
       v35 = 0;
-      LOWORD(v158) = v149;
-      v5[1] = v152;
-      v5[2] = v153;
+      LOWORD(v159) = v150;
+      v5[1] = v153;
+      v5[2] = v154;
       OUTLINED_FUNCTION_0_20();
-      *(&v158 + 13) = *(v14 + 56);
-      HIBYTE(v158) = 0;
-      LODWORD(v159) = 4980736;
+      *(&v159 + 13) = *(v14 + 56);
+      HIBYTE(v159) = 0;
+      LODWORD(v160) = 4980736;
       v40 = v39;
-      v142 = v14;
+      v143 = v14;
       v41.i64[0] = *(v14 + 68);
       v42 = (v38 + v40);
       v41.f32[2] = (v36 + v37);
@@ -7850,17 +7939,17 @@ LABEL_27:
       }
 
       OUTLINED_FUNCTION_2_20();
-      OUTLINED_FUNCTION_8_15(v72, v73, v74, v75, v76, v77, v78, v79, v130, pixelBuffer, v134, v136, v138, v141, v144, v146, v148, *(&v148 + 1), 0, 0, *v155, *&v155[8], 0, *&v155[24], v156, 0, v158, *(&v158 + 1), v159, *&v160, v161[0]);
+      OUTLINED_FUNCTION_8_15(v72, v73, v74, v75, v76, v77, v78, v79, v131, pixelBuffer, v135, v137, v139, v142, v145, v147, v149, *(&v149 + 1), 0, 0, *v156, *&v156[8], 0, *&v156[24], v157, 0, v159, *(&v159 + 1), v160, *&v161, v162[0]);
       v35 = 0;
-      *(v5 + 1) = *(&v147 + 2);
+      *(v5 + 1) = *(&v148 + 2);
       OUTLINED_FUNCTION_0_20();
-      *(&v158 + 13) = *(v14 + 58);
-      LODWORD(v159) = 5505024;
-      OUTLINED_FUNCTION_7_14(v80, v81, v82, v83, v84, v85, v86, v87, v131, pixelBuffera, v135, v137, v139, v143, v145, v147, v150);
+      *(&v159 + 13) = *(v14 + 58);
+      LODWORD(v160) = 5505024;
+      OUTLINED_FUNCTION_7_14(v80, v81, v82, v83, v84, v85, v86, v87, v132, pixelBuffera, v136, v138, v140, v144, v146, v148, v151);
       v65 = v88;
       v68 = v89 + v90;
       *v5 = v91;
-      HIBYTE(v158) = 0;
+      HIBYTE(v159) = 0;
       goto LABEL_24;
     case 4:
       v52 = OUTLINED_FUNCTION_1_18();
@@ -7872,21 +7961,21 @@ LABEL_27:
 
       OUTLINED_FUNCTION_2_20();
       v55 = *(v14 + 82);
-      v163 = *(v14 + 90);
-      v162 = v55;
+      v164 = *(v14 + 90);
+      v163 = v55;
       v35 = *(v14 + 92);
-      bzero(v161, 0xE0uLL);
-      LODWORD(v158) = v146;
-      WORD2(v158) = WORD2(v146);
+      bzero(v162, 0xE0uLL);
+      LODWORD(v159) = v147;
+      WORD2(v159) = WORD2(v147);
       OUTLINED_FUNCTION_0_20();
-      *(&v158 + 13) = *(v14 + 58);
-      HIBYTE(v158) = 0;
-      OUTLINED_FUNCTION_7_14(v56, v57, v58, v59, v60, v61, v62, v63, v130, pixelBuffer, v134, v136, v138, v141, v144, v146, v148);
+      *(&v159 + 13) = *(v14 + 58);
+      HIBYTE(v159) = 0;
+      OUTLINED_FUNCTION_7_14(v56, v57, v58, v59, v60, v61, v62, v63, v131, pixelBuffer, v135, v137, v139, v142, v145, v147, v149);
       v65 = v64;
-      LODWORD(v159) = 6553600;
+      LODWORD(v160) = 6553600;
       v68 = v66 + v67;
 LABEL_24:
-      v142 = v14;
+      v143 = v14;
       v92.i64[0] = *(v14 + 68);
       v92.f32[2] = v65;
       v92.f32[3] = v68;
@@ -7902,18 +7991,18 @@ LABEL_24:
 
       v6 = *(v14 + 4);
       v10 = *(v14 + 5);
-      v154 = *(v14 + 14);
-      *v155 = *(v14 + 30);
-      *&v155[16] = *(v14 + 46);
-      *&v155[24] = *(v14 + 54);
-      *&v155[26] = *(v14 + 56);
+      v155 = *(v14 + 14);
+      *v156 = *(v14 + 30);
+      *&v156[16] = *(v14 + 46);
+      *&v156[24] = *(v14 + 54);
+      *&v156[26] = *(v14 + 56);
       v11 = *(v14 + 60);
       v8 = *(v14 + 68);
       v7 = *(v14 + 70);
       v9 = *(v14 + 72);
       v46 = *(v14 + 74);
-      v163 = *(v14 + 82);
-      v162 = v46;
+      v164 = *(v14 + 82);
+      v163 = v46;
       v47 = *(v14 + 12);
       v48 = v14;
       if (v47 >= 8)
@@ -7926,9 +8015,9 @@ LABEL_24:
         v49 = *(v14 + 12);
       }
 
-      v142 = v48;
+      v143 = v48;
       v35 = *(v48 + 84);
-      bzero(&v158, 0x100uLL);
+      bzero(&v159, 0x100uLL);
       if (!v47)
       {
         return 4294950194;
@@ -7937,48 +8026,48 @@ LABEL_24:
       v50 = 0;
       do
       {
-        v51 = &v158 + v50;
-        *v51 = *(v142 + v50 + 92);
-        *(v51 + 2) = *(v142 + v50 + 100);
-        *(v51 + 3) = *(v142 + v50 + 104);
-        *(v51 + 1) = *(v142 + v50 + 108);
+        v51 = &v159 + v50;
+        *v51 = *(v143 + v50 + 92);
+        *(v51 + 2) = *(v143 + v50 + 100);
+        *(v51 + 3) = *(v143 + v50 + 104);
+        *(v51 + 1) = *(v143 + v50 + 108);
         v50 += 32;
       }
 
       while (32 * v49 != v50);
-      if (WORD3(v158) != 1)
+      if (WORD3(v159) != 1)
       {
         return 4294950194;
       }
 
 LABEL_28:
       *v16 = v6;
-      *(v16 + 4) = vmulq_f32(vcvtq_f32_u32(vmovl_u16(*&v154)), vdupq_n_s32(0x37800000u));
+      *(v16 + 4) = vmulq_f32(vcvtq_f32_u32(vmovl_u16(*&v155)), vdupq_n_s32(0x37800000u));
       *(v16 + 1) = v10;
-      *(v16 + 20) = vcvts_n_f32_u32(WORD4(v154), 8uLL);
-      *(v16 + 24) = vcvts_n_f32_u32(WORD5(v154), 8uLL);
-      *(v16 + 28) = vcvts_n_f32_u32(WORD6(v154), 8uLL);
-      v100 = vzip1_s32(v160, *&v155[6]);
+      *(v16 + 20) = vcvts_n_f32_u32(WORD4(v155), 8uLL);
+      *(v16 + 24) = vcvts_n_f32_u32(WORD5(v155), 8uLL);
+      *(v16 + 28) = vcvts_n_f32_u32(WORD6(v155), 8uLL);
+      v100 = vzip1_s32(v161, *&v156[6]);
       v100.i16[1] = v100.i16[0];
       *(v16 + 56) = vmulq_f32(vcvtq_f32_s32(vmovl_s16(v100)), xmmword_1A5ABB510);
-      v101 = v160.i16[1];
-      *(v16 + 72) = vcvts_n_f32_s32(*&v155[10], 6uLL);
-      *(v16 + 76) = vcvts_n_f32_s32(*&v155[12], 6uLL);
-      *(v16 + 80) = vcvtq_f32_s32(vmovl_s16(*&v155[14]));
-      *(v16 + 96) = vcvtq_f32_s32(vmovl_s16(*&v155[22]));
+      v101 = v161.i16[1];
+      *(v16 + 72) = vcvts_n_f32_s32(*&v156[10], 6uLL);
+      *(v16 + 76) = vcvts_n_f32_s32(*&v156[12], 6uLL);
+      *(v16 + 80) = vcvtq_f32_s32(vmovl_s16(*&v156[14]));
+      *(v16 + 96) = vcvtq_f32_s32(vmovl_s16(*&v156[22]));
       *(v16 + 32) = v11;
-      v100.i32[0] = HIDWORD(v159);
+      v100.i32[0] = HIDWORD(v160);
       v100.i16[2] = v101;
       v100.i16[3] = v101;
-      v151 = vdupq_n_s32(0x3D800000u);
-      *(v16 + 40) = vmulq_f32(vcvtq_f32_s32(vmovl_s16(v100)), v151);
+      v152 = vdupq_n_s32(0x3D800000u);
+      *(v16 + 40) = vmulq_f32(vcvtq_f32_s32(vmovl_s16(v100)), v152);
       *(v16 + 112) = vcvts_n_f32_u32(v8, 2uLL);
       *(v16 + 116) = vcvts_n_f32_u32(v7, 2uLL);
       *(v16 + 120) = v9;
-      *(v16 + 122) = v162;
-      *(v16 + 130) = v163;
+      *(v16 + 122) = v163;
+      *(v16 + 130) = v164;
       *(v16 + 132) = v35;
-      if (!v136)
+      if (!v137)
       {
         goto LABEL_46;
       }
@@ -7991,16 +8080,16 @@ LABEL_28:
 
   while (2)
   {
-    v103 = v134 + (v102 << 6);
+    v103 = v135 + (v102 << 6);
     v104 = *(v103 + 36);
     if (*(v103 + 36))
     {
-      v140 = v102;
+      v141 = v102;
       v105 = 0;
       *(v103 + 36) = 0;
       do
       {
-        v106 = &v158 + 2 * v105;
+        v106 = &v159 + 2 * v105;
         if (*(v106 + 3) == v104)
         {
           v107.i32[0] = *v106;
@@ -8009,7 +8098,7 @@ LABEL_28:
           v108 = vcvtq_f32_u32(vmovl_u16(v107));
           v108.i32[3] = vcvtq_f32_s32(vmovl_s16(v107)).i32[3];
           v109 = vmulq_f32(v108, xmmword_1A5ABB520);
-          v110 = vmulq_f32(vcvtq_f32_s32(vmovl_s16(*(v106 + 22))), v151);
+          v110 = vmulq_f32(vcvtq_f32_s32(vmovl_s16(*(v106 + 22))), v152);
           *v103 = v109;
           *(v103 + 16) = v110;
           *(v103 + 32) = vcvts_n_f32_s32(*(v106 + 15), 4uLL);
@@ -8021,7 +8110,7 @@ LABEL_28:
           v112 = *(v103 + 48);
           if (v112 && *(v106 + 8))
           {
-            memcpy(v112, (v142 + *(v106 + 8)), 4 * v111);
+            memcpy(v112, (v143 + *(v106 + 8)), 4 * v111);
           }
 
           v113 = *(v103 + 56);
@@ -8046,7 +8135,7 @@ LABEL_28:
             if (v115)
             {
               v120 = BaseAddress;
-              v121 = (v142 + *(v106 + 9));
+              v121 = (v143 + *(v106 + 9));
               do
               {
                 memcpy(v120, v121, v114);
@@ -8067,51 +8156,52 @@ LABEL_28:
       }
 
       while (v105 != 8);
-      v102 = v140 + 1;
-      if (v140 + 1 != v136)
+      v102 = v141 + 1;
+      if (v141 + 1 != v137)
       {
         continue;
       }
 
 LABEL_46:
-      if (*v157 != 196623)
+      if (*v158 != 196623)
       {
         return 4294950194;
       }
 
-      if (*(v157 + 16) != 1399614808)
+      if (*(v158 + 16) != 1399614808)
       {
         return 4294950194;
       }
 
-      if (*(v157 + 20) != 1278226488)
+      if (*(v158 + 20) != 1278226488)
       {
         return 4294950194;
       }
 
-      v124 = *(v157 + 24);
-      if (*(v157 + 8) != v124)
+      v124 = *(v158 + 24);
+      if (*(v158 + 8) != v124)
       {
         return 4294950194;
       }
 
-      v125 = *(v157 + 26);
-      if (*(v157 + 12) != v125)
+      v125 = *(v158 + 26);
+      if (*(v158 + 12) != v125)
       {
         return 4294950194;
       }
 
+      v126 = *(v158 + 30);
       if (CVPixelBufferGetWidth(pixelBuffer) == v124 && CVPixelBufferGetHeight(pixelBuffer) == v125)
       {
-        v126 = OUTLINED_FUNCTION_22();
-        v23 = CVPixelBufferLockBaseAddress(v126, v127);
+        v127 = OUTLINED_FUNCTION_22();
+        v23 = CVPixelBufferLockBaseAddress(v127, v128);
         if (!v23)
         {
           CVPixelBufferGetBytesPerRow(pixelBuffer);
           CVPixelBufferGetBaseAddress(pixelBuffer);
-          v18 = SlimHrlcDecodeRun_C();
-          v128 = OUTLINED_FUNCTION_22();
-          CVPixelBufferUnlockBaseAddress(v128, v129);
+          v18 = SlimHrlcDecodeRun_C(v126);
+          v129 = OUTLINED_FUNCTION_22();
+          CVPixelBufferUnlockBaseAddress(v129, v130);
           return v18;
         }
 
@@ -8549,9 +8639,9 @@ CFIndex _decodeFrame(uint64_t a1, CMSampleBufferRef sbuf, const __CFDictionary *
   v5 = 0;
   pixelBufferOut = 0;
   blockBufferOut = 0;
-  v118[1] = 0;
-  v119 = 0;
-  v118[0] = 0;
+  v119[1] = 0;
+  v120 = 0;
+  v119[0] = 0;
   pixelFormatType = 0;
   Code = 4294951896;
   error = 0;
@@ -8617,16 +8707,16 @@ LABEL_267:
   {
     Width = CVPixelBufferGetWidth(pixelBufferOut);
     Height = CVPixelBufferGetHeight(pixelBufferOut);
-    v113 = CVPixelBufferGetPixelFormatType(pixelBufferOut);
-    v124 = 0;
+    v114 = CVPixelBufferGetPixelFormatType(pixelBufferOut);
+    v125 = 0;
     valuePtr = 0;
-    if (a3 && CFDictionaryGetValueIfPresent(a3, @"Y", &valuePtr) && CFDictionaryGetValueIfPresent(a3, @"Height", &v124))
+    if (a3 && CFDictionaryGetValueIfPresent(a3, @"Y", &valuePtr) && CFDictionaryGetValueIfPresent(a3, @"Height", &v125))
     {
+      v124 = 0;
       v123 = 0;
-      v122 = 0;
-      CFNumberGetValue(valuePtr, kCFNumberSInt32Type, &v123);
-      CFNumberGetValue(v124, kCFNumberSInt32Type, &v122);
-      v61 = Height >= v122 + v123;
+      CFNumberGetValue(valuePtr, kCFNumberSInt32Type, &v124);
+      CFNumberGetValue(v125, kCFNumberSInt32Type, &v123);
+      v61 = Height >= v123 + v124;
       v59 = Dimensions >> 32;
     }
 
@@ -8636,7 +8726,7 @@ LABEL_267:
       v61 = Height == Dimensions >> 32;
     }
 
-    v99 = v113 == pixelFormatType && Width == Dimensions;
+    v99 = v114 == pixelFormatType && Width == Dimensions;
     if (v99 && v61)
     {
       goto LABEL_12;
@@ -8671,7 +8761,7 @@ LABEL_12:
   }
 
   value = 0;
-  *(*(a1 + 48) + 64) = v119;
+  *(*(a1 + 48) + 64) = v120;
   *(*(a1 + 48) + 112) = 0;
   if (a3 && CFDictionaryGetValueIfPresent(a3, @"Y", &value))
   {
@@ -8702,7 +8792,7 @@ LABEL_12:
     }
   }
 
-  v111 = FormatDescription;
+  v112 = FormatDescription;
   if (!CVPixelBufferIsPlanar(pixelBufferOut))
   {
     *(*(a1 + 48) + 88) = CVPixelBufferGetBaseAddress(pixelBufferOut);
@@ -8732,7 +8822,7 @@ LABEL_12:
         if (v65 != 1650942776 && v65 != 1650943796 && v65 != 1651519798 && v65 != 1651847472 && v65 != 1651925816 && v65 != 1651926376 && v65 != 1652056888 && v65 != 1717855600 && v65 != 1717856627 && v65 != 1734501176 && v65 != 1734505012 && v65 != 1735549492 && v65 != 1735549752 && v65 != 1751410032 && v65 != 1751411059 && v65 != 1815162994 && v65 != 1815491698 && v65 != 1919379252 && v65 != 1919378232)
         {
           fig_log_get_emitter();
-          v110 = FigSignalErrorAtGM();
+          v110 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v111, FormatDescription, Dimensions);
 LABEL_261:
           Code = v110;
           v7 = 0;
@@ -8816,7 +8906,7 @@ LABEL_260:
   if (*(v98 + 32) == 1651519798)
   {
     LODWORD(valuePtr) = 0;
-    RegroupBayerPatternFromBayerPattern = _getVersionFromFormatDescription(v111, &valuePtr);
+    RegroupBayerPatternFromBayerPattern = _getVersionFromFormatDescription(v112, &valuePtr);
     if (RegroupBayerPatternFromBayerPattern)
     {
       goto LABEL_255;
@@ -8830,11 +8920,11 @@ LABEL_260:
     }
   }
 
-  v118[0] = DataLength;
+  v119[0] = DataLength;
   switch(*(a1 + 60))
   {
     case 1:
-      v110 = SlimXDecodeFrame(*(a1 + 48), v118);
+      v110 = SlimXDecodeFrame(*(a1 + 48), v119);
       if (v110)
       {
         goto LABEL_261;
@@ -8842,7 +8932,7 @@ LABEL_260:
 
       break;
     case 2:
-      v110 = YZipDecodeFrame(*(a1 + 48));
+      v110 = YZipDecodeFrame(*(a1 + 48), DataLength);
       if (v110)
       {
         goto LABEL_261;
@@ -8858,7 +8948,7 @@ LABEL_260:
 
       break;
     case 4:
-      v110 = UncompressedDecodeFrame(*(a1 + 48), pixelBufferOut, v118);
+      v110 = UncompressedDecodeFrame(*(a1 + 48), pixelBufferOut, v119);
       if (v110)
       {
         goto LABEL_261;
@@ -8866,7 +8956,7 @@ LABEL_260:
 
       break;
     case 5:
-      v110 = IntcDecodeFrame(pixelBufferOut, *(a1 + 48), v118);
+      v110 = IntcDecodeFrame(pixelBufferOut, *(a1 + 48), v119);
       if (v110)
       {
         goto LABEL_261;
@@ -8874,7 +8964,7 @@ LABEL_260:
 
       break;
     default:
-      v118[0] = SlimDecodeFrame(*(a1 + 48));
+      v119[0] = SlimDecodeFrame(*(a1 + 48));
       break;
   }
 
@@ -8884,10 +8974,10 @@ LABEL_260:
     CVPixelBufferUnlockBaseAddress(pixelBufferOut, 0);
   }
 
-  if (v118[0] + 4 < DataLength && (v101 = v119 + v118[0], *(v119 + v118[0]) == 109) && *(v101 + 1) == 101 && *(v101 + 2) == 116 && *(v101 + 3) == 97)
+  if (v119[0] + 4 < DataLength && (v101 = v120 + v119[0], *(v120 + v119[0]) == 109) && *(v101 + 1) == 101 && *(v101 + 2) == 116 && *(v101 + 3) == 97)
   {
     v102 = *v90;
-    v7 = CFDataCreateWithBytesNoCopy(v102, (v101 + 4), DataLength - v118[0] - 4, *MEMORY[0x1E695E498]);
+    v7 = CFDataCreateWithBytesNoCopy(v102, (v101 + 4), DataLength - v119[0] - 4, *MEMORY[0x1E695E498]);
     if (v7)
     {
       v103 = CFPropertyListCreateWithData(v102, v7, 0, 0, &error);
@@ -9081,12 +9171,12 @@ LABEL_7:
 
 uint64_t _getVersionFromFormatDescription(const opaqueCMFormatDescription *a1, _DWORD *a2)
 {
-  valuePtr = 0;
+  valuePtr[0] = 0;
   Extension = CMFormatDescriptionGetExtension(a1, *MEMORY[0x1E69600A0]);
   if (Extension && (Value = CFDictionaryGetValue(Extension, @"slmC")) != 0 && ((v6 = Value, Length = CFDataGetLength(Value), BytePtr = CFDataGetBytePtr(v6), Length >= 4) ? (v9 = BytePtr == 0) : (v9 = 1), !v9))
   {
     v11 = *BytePtr;
-    valuePtr = v11;
+    valuePtr[0] = v11;
     if (!v11)
     {
       return 4294951893;
@@ -9101,9 +9191,9 @@ uint64_t _getVersionFromFormatDescription(const opaqueCMFormatDescription *a1, _
       return 4294951893;
     }
 
-    CFNumberGetValue(v10, kCFNumberIntType, &valuePtr);
-    v11 = valuePtr;
-    if (!valuePtr)
+    CFNumberGetValue(v10, kCFNumberIntType, valuePtr);
+    v11 = valuePtr[0];
+    if (!valuePtr[0])
     {
       return 4294951893;
     }
@@ -9112,7 +9202,7 @@ uint64_t _getVersionFromFormatDescription(const opaqueCMFormatDescription *a1, _
   if ((v11 & 0xFFFCu) >= 0x64)
   {
     fig_log_get_emitter();
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, v14, valuePtr[1]);
   }
 
   else
@@ -9130,7 +9220,7 @@ uint64_t _getVersionFromFormatDescription(const opaqueCMFormatDescription *a1, _
 uint64_t _startDecoderSession_cold_2(_DWORD *a1)
 {
   fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
@@ -9195,7 +9285,7 @@ uint64_t CMPhotoFloatFromRationalArray(const void *a1, int a2, _DWORD *a3, _DWOR
 
 uint64_t CMPhotoParseFlexRangeMetadataDictionary(const void *a1, void *a2)
 {
-  memset(v42, 0, sizeof(v42));
+  memset(v47, 0, sizeof(v47));
   if (!a1)
   {
     return 4294950306;
@@ -9217,7 +9307,7 @@ uint64_t CMPhotoParseFlexRangeMetadataDictionary(const void *a1, void *a2)
 
   cmpweak_kFigPictureProperty_TonemapBaseHDRHeadroom();
   Value = FigCFDictionaryGetValue();
-  result = OUTLINED_FUNCTION_14_10(Value, v7, v8, v9, v42 + 2);
+  result = OUTLINED_FUNCTION_14_10(Value, v7, v8, v9, v47 + 2);
   if (result)
   {
     return result;
@@ -9225,7 +9315,7 @@ uint64_t CMPhotoParseFlexRangeMetadataDictionary(const void *a1, void *a2)
 
   cmpweak_kFigPictureProperty_TonemapAlternateHDRHeadroom();
   v10 = FigCFDictionaryGetValue();
-  result = OUTLINED_FUNCTION_14_10(v10, v11, v12, v13, (v42 | 0xC));
+  result = OUTLINED_FUNCTION_14_10(v10, v11, v12, v13, (v47 | 0xC));
   if (result)
   {
     return result;
@@ -9245,72 +9335,72 @@ uint64_t CMPhotoParseFlexRangeMetadataDictionary(const void *a1, void *a2)
     return 4294950306;
   }
 
-  LODWORD(v42[1]) = CFArrayGetCount(v15);
-  if ((v42[1] & 0xFFFFFFFD) != 1)
+  LODWORD(v47[1]) = CFArrayGetCount(v15);
+  if ((v47[1] & 0xFFFFFFFD) != 1)
   {
     return 4294950306;
   }
 
   v17 = 0;
-  for (i = &v42[2] + 3; ; ++i)
+  for (i = &v47[2] + 3; ; ++i)
   {
     CFArrayGetValueAtIndex(v15, v17);
-    cmpweak_kFigTonemapChannel_BaseOffset();
-    OUTLINED_FUNCTION_17_7();
+    v19 = cmpweak_kFigTonemapChannel_BaseOffset();
+    OUTLINED_FUNCTION_17_7(v19);
     OUTLINED_FUNCTION_4_14();
-    result = CMPhotoFloatFromRationalArray(v19, v20, v21, v22, v23);
+    result = CMPhotoFloatFromRationalArray(v20, v21, v22, v23, v24);
     if (result)
     {
       break;
     }
 
-    cmpweak_kFigTonemapChannel_AlternateOffset();
-    OUTLINED_FUNCTION_17_7();
+    v25 = cmpweak_kFigTonemapChannel_AlternateOffset();
+    OUTLINED_FUNCTION_17_7(v25);
     OUTLINED_FUNCTION_4_14();
-    result = CMPhotoFloatFromRationalArray(v24, v25, v26, v27, v28);
+    result = CMPhotoFloatFromRationalArray(v26, v27, v28, v29, v30);
     if (result)
     {
       break;
     }
 
-    cmpweak_kFigTonemapChannel_Gamma();
-    v29 = OUTLINED_FUNCTION_17_7();
-    result = OUTLINED_FUNCTION_14_10(v29, v30, v31, v32, i - 6);
+    v31 = cmpweak_kFigTonemapChannel_Gamma();
+    v32 = OUTLINED_FUNCTION_17_7(v31);
+    result = OUTLINED_FUNCTION_14_10(v32, v33, v34, v35, i - 6);
     if (result)
     {
       break;
     }
 
-    cmpweak_kFigTonemapChannel_GainMapMin();
-    OUTLINED_FUNCTION_17_7();
+    v36 = cmpweak_kFigTonemapChannel_GainMapMin();
+    OUTLINED_FUNCTION_17_7(v36);
     OUTLINED_FUNCTION_4_14();
-    result = CMPhotoFloatFromRationalArray(v33, v34, v35, v36, v37);
+    result = CMPhotoFloatFromRationalArray(v37, v38, v39, v40, v41);
     if (result)
     {
       break;
     }
 
-    cmpweak_kFigTonemapChannel_GainMapMax();
-    OUTLINED_FUNCTION_17_7();
+    v42 = cmpweak_kFigTonemapChannel_GainMapMax();
+    OUTLINED_FUNCTION_17_7(v42);
     OUTLINED_FUNCTION_4_14();
-    result = CMPhotoFloatFromRationalArray(v38, v39, v40, v41, i);
+    result = CMPhotoFloatFromRationalArray(v43, v44, v45, v46, i);
     if (result)
     {
       break;
     }
 
-    if (++v17 >= SLODWORD(v42[1]))
+    if (++v17 >= SLODWORD(v47[1]))
     {
-      if (LODWORD(v42[1]) == 1)
+      if (LODWORD(v47[1]) == 1)
       {
-        *(&v42[3] + 12) = vdup_lane_s32(*(&v42[3] + 8), 0);
-        *(&v42[4] + 1) = vdup_lane_s32(*(&v42[4] + 4), 0);
-        *(&v42[1] + 1) = vdup_lane_s32(*(&v42[1] + 4), 0);
-        *(&v42[2] + 4) = vdup_lane_s32(*&v42[2], 0);
-        *&v42[3] = vdup_lane_s32(*(&v42[2] + 12), 0);
+        *(&v47[3] + 12) = vdup_lane_s32(*(&v47[3] + 8), 0);
+        *(&v47[4] + 1) = vdup_lane_s32(*(&v47[4] + 4), 0);
+        *(&v47[1] + 1) = vdup_lane_s32(*(&v47[1] + 4), 0);
+        *(&v47[2] + 4) = vdup_lane_s32(*&v47[2], 0);
+        *&v47[3] = vdup_lane_s32(*(&v47[2] + 12), 0);
       }
 
-      memcpy(a2, v42, 0x50uLL);
+      memcpy(a2, v47, 0x50uLL);
       return 0;
     }
   }
@@ -9445,7 +9535,7 @@ uint64_t CMPhotoCreateFlexRangeMetadataDictionary(uint64_t a1, __CFDictionary **
     Value = FigCFDictionaryGetValue();
     if (Value && (v7 = Value, v8 = CFGetTypeID(Value), v8 == CFArrayGetTypeID()))
     {
-      v16 = a2;
+      v21 = a2;
       Count = CFArrayGetCount(v7);
       v10 = Count << 32;
       v11 = Count;
@@ -9467,36 +9557,36 @@ uint64_t CMPhotoCreateFlexRangeMetadataDictionary(uint64_t a1, __CFDictionary **
         {
           CFArrayGetValueAtIndex(v7, v13);
           v15 = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          cmpweak_kFigTonemapChannel_BaseOffset();
-          if (OUTLINED_FUNCTION_16_5())
+          v16 = cmpweak_kFigTonemapChannel_BaseOffset();
+          if (OUTLINED_FUNCTION_16_5(v16))
           {
             OUTLINED_FUNCTION_11_14();
             FigCFDictionarySetValue();
           }
 
-          cmpweak_kFigTonemapChannel_AlternateOffset();
-          if (OUTLINED_FUNCTION_16_5())
+          v17 = cmpweak_kFigTonemapChannel_AlternateOffset();
+          if (OUTLINED_FUNCTION_16_5(v17))
           {
             OUTLINED_FUNCTION_11_14();
             FigCFDictionarySetValue();
           }
 
-          cmpweak_kFigTonemapChannel_Gamma();
-          if (OUTLINED_FUNCTION_16_5())
+          v18 = cmpweak_kFigTonemapChannel_Gamma();
+          if (OUTLINED_FUNCTION_16_5(v18))
           {
             OUTLINED_FUNCTION_11_14();
             FigCFDictionarySetValue();
           }
 
-          cmpweak_kFigTonemapChannel_GainMapMin();
-          if (OUTLINED_FUNCTION_16_5())
+          v19 = cmpweak_kFigTonemapChannel_GainMapMin();
+          if (OUTLINED_FUNCTION_16_5(v19))
           {
             OUTLINED_FUNCTION_11_14();
             FigCFDictionarySetValue();
           }
 
-          cmpweak_kFigTonemapChannel_GainMapMax();
-          if (OUTLINED_FUNCTION_16_5())
+          v20 = cmpweak_kFigTonemapChannel_GainMapMax();
+          if (OUTLINED_FUNCTION_16_5(v20))
           {
             OUTLINED_FUNCTION_11_14();
             FigCFDictionarySetValue();
@@ -9521,7 +9611,7 @@ uint64_t CMPhotoCreateFlexRangeMetadataDictionary(uint64_t a1, __CFDictionary **
       }
 
       result = 0;
-      *v16 = Mutable;
+      *v21 = Mutable;
     }
 
     else
@@ -9560,98 +9650,98 @@ uint64_t CMPhotoCreateFlexRangeMetadataDictionaryFromParsedMetadata(uint64_t a1,
     FigCFDictionarySetInt32();
     FigCFDictionarySetBoolean();
     OUTLINED_FUNCTION_7_15();
-    v11 = _setRationalForKey(v8, v9, v10);
-    if (v11 || (OUTLINED_FUNCTION_7_15(), v11 = _setRationalForKey(v12, v13, v14), v11))
+    v12 = _setRationalForKey(v8, v9, v10, v11);
+    if (v12 || (OUTLINED_FUNCTION_7_15(), v12 = _setRationalForKey(v13, v14, v15, v16), v12))
     {
-      v37 = v11;
+      v44 = v12;
     }
 
     else
     {
       OUTLINED_FUNCTION_96();
-      v15 = FigCFArrayCreateMutableCopy();
-      if (v15)
+      v17 = FigCFArrayCreateMutableCopy();
+      if (v17)
       {
-        v41 = a1;
-        theArray = v15;
-        v39 = a2;
+        v48 = a1;
+        theArray = v17;
+        v46 = a2;
         theDict = v5;
         if (*(a1 + 16) < 1)
         {
 LABEL_16:
-          v36 = theArray;
+          v43 = theArray;
           CFDictionarySetValue(theDict, @"TonemapChannelMetadata", theArray);
-          v37 = 0;
-          *v39 = theDict;
+          v44 = 0;
+          *v46 = theDict;
           v5 = v7;
         }
 
         else
         {
-          v16 = 0;
-          v17 = a1 + 44;
+          v18 = 0;
+          v19 = a1 + 44;
           while (1)
           {
             OUTLINED_FUNCTION_96();
-            v18 = FigCFDictionaryCreateMutableCopy();
-            if (!v18)
+            v20 = FigCFDictionaryCreateMutableCopy();
+            if (!v20)
             {
               break;
             }
 
-            v19 = v18;
-            CFArrayAppendValue(theArray, v18);
-            CFRelease(v19);
+            v21 = v20;
+            CFArrayAppendValue(theArray, v20);
+            CFRelease(v21);
             OUTLINED_FUNCTION_7_15();
-            v23 = _setRationalForKey(v20, v21, v22);
-            if (v23 || (OUTLINED_FUNCTION_7_15(), v23 = _setRationalForKey(v24, v25, v26), v23) || (OUTLINED_FUNCTION_7_15(), v23 = _setRationalForKey(v27, v28, v29), v23) || (OUTLINED_FUNCTION_7_15(), v23 = _setRationalForKey(v30, v31, v32), v23) || (OUTLINED_FUNCTION_7_15(), v23 = _setRationalForKey(v33, v34, v35), v23))
+            v26 = _setRationalForKey(v22, v23, v24, v25);
+            if (v26 || (OUTLINED_FUNCTION_7_15(), v26 = _setRationalForKey(v27, v28, v29, v30), v26) || (OUTLINED_FUNCTION_7_15(), v26 = _setRationalForKey(v31, v32, v33, v34), v26) || (OUTLINED_FUNCTION_7_15(), v26 = _setRationalForKey(v35, v36, v37, v38), v26) || (OUTLINED_FUNCTION_7_15(), v26 = _setRationalForKey(v39, v40, v41, v42), v26))
             {
-              v37 = v23;
+              v44 = v26;
               goto LABEL_18;
             }
 
-            ++v16;
-            v17 += 4;
-            if (v16 >= *(v41 + 16))
+            ++v18;
+            v19 += 4;
+            if (v18 >= *(v48 + 16))
             {
               goto LABEL_16;
             }
           }
 
-          v37 = 4294950305;
+          v44 = 4294950305;
 LABEL_18:
           CFRelease(v7);
           v5 = theDict;
-          v36 = theArray;
+          v43 = theArray;
         }
 
         goto LABEL_19;
       }
 
-      v37 = 4294950305;
+      v44 = 4294950305;
     }
 
     CFRelease(v7);
-    v36 = 0;
+    v43 = 0;
   }
 
   else
   {
-    v36 = 0;
-    v37 = 4294950305;
+    v43 = 0;
+    v44 = 4294950305;
   }
 
 LABEL_19:
   CFRelease(v5);
-  if (v36)
+  if (v43)
   {
-    CFRelease(v36);
+    CFRelease(v43);
   }
 
-  return v37;
+  return v44;
 }
 
-uint64_t _setRationalForKey(const void *a1, const void *a2, __CFDictionary *a3)
+uint64_t _setRationalForKey(const void *a1, const void *a2, __CFDictionary *a3, float a4)
 {
   OUTLINED_FUNCTION_96();
   MutableCopy = FigCFArrayCreateMutableCopy();
@@ -9660,15 +9750,15 @@ uint64_t _setRationalForKey(const void *a1, const void *a2, __CFDictionary *a3)
     return 4294950305;
   }
 
-  v7 = MutableCopy;
+  v8 = MutableCopy;
   appended = FigCFArrayAppendInt();
   if (!appended)
   {
-    CFArrayAppendValue(v7, a2);
-    CFDictionarySetValue(a3, a1, v7);
+    CFArrayAppendValue(v8, a2);
+    CFDictionarySetValue(a3, a1, v8);
   }
 
-  CFRelease(v7);
+  CFRelease(v8);
   return appended;
 }
 
@@ -9688,20 +9778,19 @@ uint64_t CMPhotoCreateFlexRangeMetadataDictionaryFromBinaryMetadata(const void *
 
   v7 = MutableCopy;
   *buffer = 0;
-  v37 = 0;
+  v40 = 0;
   if (CFDataGetLength(a1) <= 3)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_5_0();
-LABEL_44:
-    v9 = FigSignalErrorAtGM();
-    goto LABEL_45;
+    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
+    goto LABEL_44;
   }
 
-  v39.location = 0;
-  v39.length = 4;
-  CFDataGetBytes(a1, v39, buffer);
-  v37 = 4;
+  v42.location = 0;
+  v42.length = 4;
+  CFDataGetBytes(a1, v42, buffer);
+  v40 = 4;
   v8 = *buffer;
   *buffer = __rev16(*buffer);
   *&buffer[2] = bswap32(*&buffer[2]) >> 16;
@@ -9710,45 +9799,46 @@ LABEL_44:
 LABEL_43:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_5_0();
+    v9 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d");
     goto LABEL_44;
   }
 
   v9 = FigCFDictionarySetUInt32();
   if (v9)
   {
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
   v9 = FigCFDictionarySetUInt32();
   if (v9)
   {
-    goto LABEL_45;
+    goto LABEL_44;
   }
 
   if (!a2)
   {
-    v36 = 0;
+    v39 = 0;
     if (CFDataGetLength(a1) != 4)
     {
-      v40.location = 4;
-      v40.length = 1;
-      CFDataGetBytes(a1, v40, &v36);
-      v37 = 5;
-      v12 = v36;
-      v9 = CMPhotoCFDictionarySetBoolean(v7, @"TonemapBaseColorIsWorkingColor", (v36 >> 6) & 1);
+      v43.location = 4;
+      v43.length = 1;
+      CFDataGetBytes(a1, v43, &v39);
+      v40 = 5;
+      v12 = v39;
+      v9 = CMPhotoCFDictionarySetBoolean(v7, @"TonemapBaseColorIsWorkingColor", (v39 >> 6) & 1);
       if (!v9)
       {
-        v9 = _extractAndSetRationalForKey(a1, 5, 0, @"TonemapBaseHDRHeadroom", v7, &v37);
+        v9 = _extractAndSetRationalForKey(a1, 5, 0, @"TonemapBaseHDRHeadroom", v7, &v40);
         if (!v9)
         {
-          v9 = _extractAndSetRationalForKey(a1, v37, 0, @"TonemapAlternateHDRHeadroom", v7, &v37);
+          v9 = _extractAndSetRationalForKey(a1, v40, 0, @"TonemapAlternateHDRHeadroom", v7, &v40);
           if (!v9)
           {
             CFGetAllocator(a1);
             v13 = FigCFArrayCreateMutableCopy();
             if (v13)
             {
-              theArray = v13;
+              theArraya = v13;
               v14 = 0;
               v11 = 0;
               while (1)
@@ -9767,26 +9857,26 @@ LABEL_43:
 
                 v15 = OUTLINED_FUNCTION_3_17();
                 v19 = _extractAndSetRationalForKey(v15, v16, v17, @"GainMapMin", v11, v18);
-                if (v19 || (v20 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v20, v21, v22, @"GainMapMax", v11, v23), v19) || (v19 = _extractAndSetRationalForKey(a1, v37, 0, @"Gamma", v11, &v37), v19) || (v24 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v24, v25, v26, @"BaseOffset", v11, v27), v19) || (v28 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v28, v29, v30, @"AlternateOffset", v11, v31), v19))
+                if (v19 || (v20 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v20, v21, v22, @"GainMapMax", v11, v23), v19) || (v19 = _extractAndSetRationalForKey(a1, v40, 0, @"Gamma", v11, &v40), v19) || (v24 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v24, v25, v26, @"BaseOffset", v11, v27), v19) || (v28 = OUTLINED_FUNCTION_3_17(), v19 = _extractAndSetRationalForKey(v28, v29, v30, @"AlternateOffset", v11, v31), v19))
                 {
                   v33 = v19;
                   goto LABEL_36;
                 }
 
-                CFArrayAppendValue(theArray, v11);
+                CFArrayAppendValue(theArraya, v11);
                 if (v12 < 0 && v14++ < 2)
                 {
                   continue;
                 }
 
-                v10 = theArray;
-                CFDictionarySetValue(v7, @"TonemapChannelMetadata", theArray);
+                v10 = theArraya;
+                CFDictionarySetValue(v7, @"TonemapChannelMetadata", theArraya);
                 goto LABEL_29;
               }
 
               v33 = 4294950305;
 LABEL_36:
-              v10 = theArray;
+              v10 = theArraya;
             }
 
             else
@@ -9801,7 +9891,7 @@ LABEL_36:
         }
       }
 
-LABEL_45:
+LABEL_44:
       v33 = v9;
       v11 = 0;
       v10 = 0;
@@ -9815,7 +9905,7 @@ LABEL_45:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_5_0();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v35, v36, theArray);
   }
 
   v10 = 0;

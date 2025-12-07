@@ -86,7 +86,7 @@ void __48__PKShapeDrawingTimerHelper_beginStrokeAtPoint___block_invoke(uint64_t 
   v9 = *&inputPoint->var1;
   v11[0] = inputPoint->var0;
   v11[1] = v9;
-  [(PKShapeDrawingController *)shapeDrawingController addStrokePoint:v11 inputPoint:point.x, point.y];
+  [(PKShapeDrawingController *)&shapeDrawingController->super.isa addStrokePoint:v11 inputPoint:point.x, point.y];
   v10 = self->_shapeDrawingController;
   if (v10)
   {

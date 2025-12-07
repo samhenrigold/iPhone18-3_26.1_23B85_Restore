@@ -117,26 +117,25 @@
 
 - (BOOL)nowPlayingApplicationIsPlaying
 {
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x3032000000;
+  v7[3] = sub_1000351FC;
+  v7[4] = sub_100035AB4;
   v8 = 0;
-  v9 = &v8;
-  v10 = 0x3032000000;
-  v11 = sub_1000351FC;
-  v12 = sub_100035AB4;
-  v13 = 0;
   serialQueue = self->_serialQueue;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100170960;
-  v7[3] = &unk_1004B6D30;
-  v7[4] = self;
-  v7[5] = &v8;
-  dispatch_sync(serialQueue, v7);
-  v3 = v9[5];
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100170960;
+  v6[3] = &unk_1004B6D30;
+  v6[4] = self;
+  v6[5] = v7;
+  dispatch_sync(serialQueue, v6);
   MRContentItemGetPlaybackRate();
-  v5 = v4 > 0.00000011921;
-  _Block_object_dispose(&v8, 8);
+  v4 = v3 > 0.00000011921;
+  _Block_object_dispose(v7, 8);
 
-  return v5;
+  return v4;
 }
 
 - (void)_registerNotifications
@@ -176,8 +175,7 @@
 
 - (void)_reloadCachedNowPlayingItem
 {
-  v3 = [[MRPlaybackQueueRequest alloc] initWithRange:{0, 1}];
-  serialQueue = self->_serialQueue;
+  v2 = [[MRPlaybackQueueRequest alloc] initWithRange:{0, 1}];
   MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 

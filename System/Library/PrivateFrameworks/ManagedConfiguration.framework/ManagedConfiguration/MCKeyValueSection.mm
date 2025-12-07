@@ -18,44 +18,43 @@
 
 + (id)sectionWithLocalizedArray:(id)array title:(id)title footer:(id)footer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   titleCopy = title;
   footerCopy = footer;
   v10 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v11 = arrayCopy;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         v17 = [MCKeyValue alloc];
-        v18 = [(MCKeyValue *)v17 initWithLocalizedString:0 localizedKey:v16, v22];
+        v18 = [(MCKeyValue *)v17 initWithLocalizedString:0 localizedKey:v16, v21];
         [v10 addObject:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
 
   v19 = [[MCKeyValueSection alloc] initWithSectionTitle:titleCopy footer:footerCopy keyValues:v10];
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

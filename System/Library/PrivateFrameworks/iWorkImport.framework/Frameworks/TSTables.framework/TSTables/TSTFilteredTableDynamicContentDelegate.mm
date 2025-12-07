@@ -22,19 +22,19 @@
 
 - (BOOL)cell:(id *)cell forCellID:(TSUCellCoord)d
 {
-  v7 = objc_msgSend_newCell(self->_tableInfo, a2, cell, *&d, v4);
-  v12 = sub_2214AAEA8(v7, v8, v9, v10, v11);
-  v14 = objc_msgSend_localizedStringForKey_value_table_(v12, v13, @"No rows match the filter conditions.", &stru_2834BADA0, @"TSTables");
-  objc_msgSend_setStringValue_(v7, v15, v14, v16, v17);
+  v6 = objc_msgSend_newCell(self->_tableInfo, a2, cell, *&d);
+  v10 = sub_2214AAEA8(v6, v7, v8, v9);
+  v12 = objc_msgSend_localizedStringForKey_value_table_(v10, v11, @"No rows match the filter conditions.", &stru_2834BADA0, @"TSTables");
+  objc_msgSend_setStringValue_(v6, v13, v12, v14);
 
-  v22 = objc_msgSend_headerRowCellStyle(self->_tableInfo, v18, v19, v20, v21);
-  objc_msgSend_setCellStyle_(v7, v23, v22, v24, v25);
+  v18 = objc_msgSend_headerRowCellStyle(self->_tableInfo, v15, v16, v17);
+  objc_msgSend_setCellStyle_(v6, v19, v18, v20);
 
-  v30 = objc_msgSend_headerRowTextStyle(self->_tableInfo, v26, v27, v28, v29);
-  objc_msgSend_setTextStyle_(v7, v31, v30, v32, v33);
+  v24 = objc_msgSend_headerRowTextStyle(self->_tableInfo, v21, v22, v23);
+  objc_msgSend_setTextStyle_(v6, v25, v24, v26);
 
-  v34 = v7;
-  *cell = v7;
+  v27 = v6;
+  *cell = v6;
 
   return 1;
 }

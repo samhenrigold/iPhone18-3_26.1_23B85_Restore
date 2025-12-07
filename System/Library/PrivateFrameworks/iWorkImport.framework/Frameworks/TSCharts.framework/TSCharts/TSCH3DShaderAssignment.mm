@@ -45,7 +45,7 @@
     objc_storeStrong(&v15->_assignee, linkage);
     v28[0] = objc_msgSend_declaredScope(v16->_assignee, v17, v18, v19, v20);
     v28[1] = v21;
-    v25 = sub_2761AAAA4(v22, v23, v24, v28, 1);
+    v25 = sub_2761AAAA4(v28, 1, v22, v23, v24);
     v26 = 1;
     if (v28[v25] == 2)
     {
@@ -279,13 +279,13 @@ LABEL_25:
           {
             v270 = objc_msgSend_scope(v51, v207, v208, v209, v210);
             v271 = v215;
-            if (*(&v270 + sub_2761AAAA4(v216, v217, v218, &v270, 2)))
+            if (*(&v270 + sub_2761AAAA4(&v270, 2, v216, v217, v218)))
             {
               if ((objc_msgSend_isVarying_(v51, v219, v220, v221, v222, 2) & 1) == 0)
               {
                 v270 = objc_msgSend_scope(v51, v223, v224, v225, v226);
                 v271 = v227;
-                if (*(&v270 + sub_2761AAAA4(v228, v229, v230, &v270, 2)) != 24)
+                if (*(&v270 + sub_2761AAAA4(&v270, 2, v228, v229, v230)) != 24)
                 {
                   v235 = MEMORY[0x277D81150];
                   v236 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v231, v232, v233, v234, "[TSCH3DShaderAssignment updateDependeesWithPreviousType:]");
@@ -320,7 +320,7 @@ LABEL_27:
           objc_msgSend_addLinkage_(v51, v144, v145, v146, v147, 2);
           v270 = objc_msgSend_scope(v51, v148, v149, v150, v151);
           v271 = v152;
-          v156 = sub_2761AAAA4(v153, v154, v155, &v270, 1);
+          v156 = sub_2761AAAA4(&v270, 1, v153, v154, v155);
           end = self->_dependeeScopes.__end_;
           cap = self->_dependeeScopes.__cap_;
           if (end >= cap)

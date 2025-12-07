@@ -105,7 +105,7 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v26[7] = *MEMORY[0x1E69E9840];
+  v25[7] = *MEMORY[0x1E69E9840];
   if ([(BMCommAppsHoldAssistFedStats *)self hasProtoVersion])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMCommAppsHoldAssistFedStats protoVersion](self, "protoVersion")}];
@@ -131,68 +131,68 @@ LABEL_24:
   v7 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMCommAppsHoldAssistFedStats holdAssistRecommendation](self, "holdAssistRecommendation")}];
   v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMCommAppsHoldAssistFedStats holdAssistObservation](self, "holdAssistObservation")}];
   remotePhoneNumberCountryCode = [(BMCommAppsHoldAssistFedStats *)self remotePhoneNumberCountryCode];
-  v25[0] = @"protoVersion";
+  v24[0] = @"protoVersion";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v26[0] = null;
-  v25[1] = @"remotePhoneNumber";
+  v21 = null;
+  v25[0] = null;
+  v24[1] = @"remotePhoneNumber";
   null2 = remotePhoneNumber;
   if (!remotePhoneNumber)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null2;
-  v26[1] = null2;
-  v25[2] = @"holdDuration";
+  v20 = null2;
+  v25[1] = null2;
+  v24[2] = @"holdDuration";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = v3;
-  v20 = null3;
-  v26[2] = null3;
-  v25[3] = @"holdAssistMLClassification";
+  v23 = v3;
+  v19 = null3;
+  v25[2] = null3;
+  v24[3] = @"holdAssistMLClassification";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = remotePhoneNumber;
-  v26[3] = null4;
-  v25[4] = @"holdAssistRecommendation";
+  v22 = remotePhoneNumber;
+  v25[3] = null4;
+  v24[4] = @"holdAssistRecommendation";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"holdAssistObservation";
+  v25[4] = null5;
+  v24[5] = @"holdAssistObservation";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v25[6] = @"remotePhoneNumberCountryCode";
+  v25[5] = null6;
+  v24[6] = @"remotePhoneNumberCountryCode";
   null7 = remotePhoneNumberCountryCode;
   if (!remotePhoneNumberCountryCode)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null7;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null7;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (remotePhoneNumberCountryCode)
   {
     if (v8)
@@ -230,14 +230,14 @@ LABEL_24:
 
   if (v5)
   {
-    if (v23)
+    if (v22)
     {
       goto LABEL_28;
     }
 
 LABEL_36:
 
-    if (v24)
+    if (v23)
     {
       goto LABEL_29;
     }
@@ -245,13 +245,13 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_36;
   }
 
 LABEL_28:
-  if (v24)
+  if (v23)
   {
     goto LABEL_29;
   }
@@ -259,19 +259,18 @@ LABEL_28:
 LABEL_37:
 
 LABEL_29:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (BMCommAppsHoldAssistFedStats)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v83[1] = *MEMORY[0x1E69E9840];
+  v82[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"protoVersion"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v68 = 0;
+    v67 = 0;
 LABEL_4:
     v7 = [dictionaryCopy objectForKeyedSubscript:@"remotePhoneNumber"];
     if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -289,10 +288,10 @@ LABEL_4:
         v19 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v21 = *MEMORY[0x1E698F240];
-        v80 = *MEMORY[0x1E696A578];
-        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"remotePhoneNumber"];
-        v81 = v67;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+        v79 = *MEMORY[0x1E696A578];
+        v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"remotePhoneNumber"];
+        v80 = v66;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
         v23 = v19;
         v10 = v22;
         v8 = 0;
@@ -310,7 +309,7 @@ LABEL_4:
     }
 
     v9 = [dictionaryCopy objectForKeyedSubscript:@"holdDuration"];
-    v63 = v9;
+    v62 = v9;
     if (v9 && (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -318,7 +317,7 @@ LABEL_4:
       {
         if (!error)
         {
-          v67 = 0;
+          v66 = 0;
           v18 = 0;
           goto LABEL_56;
         }
@@ -326,14 +325,14 @@ LABEL_4:
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v26 = *MEMORY[0x1E698F240];
-        v78 = *MEMORY[0x1E696A578];
+        v77 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"holdDuration"];
-        v79 = v13;
-        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+        v78 = v13;
+        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
         v28 = v24;
-        v10 = v63;
-        v62 = v27;
-        v67 = 0;
+        v10 = v62;
+        v61 = v27;
+        v66 = 0;
         v18 = 0;
         *errorCopy2 = [v28 initWithDomain:v26 code:2 userInfo:?];
 LABEL_55:
@@ -342,16 +341,16 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      v67 = v10;
+      v66 = v10;
     }
 
     else
     {
-      v67 = 0;
+      v66 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"holdAssistMLClassification"];
-    v62 = v11;
+    v61 = v11;
     if (v11 && (v12 = v11, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -369,20 +368,20 @@ LABEL_56:
           {
             v13 = 0;
             v18 = 0;
-            v10 = v63;
+            v10 = v62;
             goto LABEL_55;
           }
 
-          v50 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v51 = *MEMORY[0x1E698F240];
-          v76 = *MEMORY[0x1E696A578];
-          v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"holdAssistMLClassification"];
-          v77 = v66;
-          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-          v52 = [v50 initWithDomain:v51 code:2 userInfo:v44];
+          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v50 = *MEMORY[0x1E698F240];
+          v75 = *MEMORY[0x1E696A578];
+          v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"holdAssistMLClassification"];
+          v76 = v65;
+          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+          v51 = [v49 initWithDomain:v50 code:2 userInfo:v44];
           v13 = 0;
           v18 = 0;
-          *error = v52;
+          *error = v51;
           goto LABEL_53;
         }
 
@@ -398,9 +397,9 @@ LABEL_56:
     }
 
     v29 = [dictionaryCopy objectForKeyedSubscript:@"holdAssistRecommendation"];
-    v60 = v29;
-    v61 = v6;
-    v65 = v8;
+    v59 = v29;
+    v60 = v6;
+    v64 = v8;
     if (v29 && (v30 = v29, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -416,36 +415,36 @@ LABEL_56:
         {
           if (!error)
           {
-            v66 = 0;
+            v65 = 0;
             v18 = 0;
-            v10 = v63;
+            v10 = v62;
             v44 = v30;
             goto LABEL_54;
           }
 
-          v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v54 = *MEMORY[0x1E698F240];
-          v74 = *MEMORY[0x1E696A578];
+          v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v53 = *MEMORY[0x1E698F240];
+          v73 = *MEMORY[0x1E696A578];
           v44 = v30;
-          v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"holdAssistRecommendation"];
-          v75 = v64;
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-          v55 = [v53 initWithDomain:v54 code:2 userInfo:v32];
-          v66 = 0;
+          v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"holdAssistRecommendation"];
+          v74 = v63;
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+          v54 = [v52 initWithDomain:v53 code:2 userInfo:v32];
+          v65 = 0;
           v18 = 0;
-          *error = v55;
+          *error = v54;
           goto LABEL_52;
         }
 
         v31 = [MEMORY[0x1E696AD98] numberWithInt:BMCommAppsHoldAssistFedStatsRecommendationFromString(v30)];
       }
 
-      v66 = v31;
+      v65 = v31;
     }
 
     else
     {
-      v66 = 0;
+      v65 = 0;
     }
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"holdAssistObservation"];
@@ -464,34 +463,34 @@ LABEL_56:
         {
           if (!error)
           {
-            v64 = 0;
+            v63 = 0;
             v18 = 0;
-            v44 = v60;
+            v44 = v59;
             goto LABEL_52;
           }
 
-          v56 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v57 = *MEMORY[0x1E698F240];
-          v72 = *MEMORY[0x1E696A578];
+          v55 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v56 = *MEMORY[0x1E698F240];
+          v71 = *MEMORY[0x1E696A578];
           v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"holdAssistObservation"];
-          v73 = v38;
-          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-          v58 = [v56 initWithDomain:v57 code:2 userInfo:v34];
-          v64 = 0;
+          v72 = v38;
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+          v57 = [v55 initWithDomain:v56 code:2 userInfo:v34];
+          v63 = 0;
           v18 = 0;
-          *error = v58;
+          *error = v57;
           goto LABEL_50;
         }
 
         v33 = [MEMORY[0x1E696AD98] numberWithInt:BMCommAppsHoldAssistFedStatsObservationFromString(v32)];
       }
 
-      v64 = v33;
+      v63 = v33;
     }
 
     else
     {
-      v64 = 0;
+      v63 = 0;
     }
 
     v34 = [dictionaryCopy objectForKeyedSubscript:@"remotePhoneNumberCountryCode"];
@@ -500,16 +499,16 @@ LABEL_56:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v44 = v60;
+        v44 = v59;
         if (error)
         {
-          v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v59 = *MEMORY[0x1E698F240];
-          v70 = *MEMORY[0x1E696A578];
-          v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"remotePhoneNumberCountryCode"];
-          v71 = v48;
-          v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-          *error = [v47 initWithDomain:v59 code:2 userInfo:v49];
+          v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v58 = *MEMORY[0x1E698F240];
+          v69 = *MEMORY[0x1E696A578];
+          v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"remotePhoneNumberCountryCode"];
+          v70 = v47;
+          v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          *error = [v46 initWithDomain:v58 code:2 userInfo:v48];
         }
 
         v38 = 0;
@@ -518,7 +517,7 @@ LABEL_56:
       }
 
       v35 = v7;
-      v37 = v68;
+      v37 = v67;
       selfCopy2 = self;
       v38 = v34;
     }
@@ -526,30 +525,30 @@ LABEL_56:
     else
     {
       v35 = v7;
-      v37 = v68;
+      v37 = v67;
       selfCopy2 = self;
       v38 = 0;
     }
 
     intValue = [v13 intValue];
     v40 = v13;
-    intValue2 = [v66 intValue];
-    intValue3 = [v64 intValue];
-    v68 = v37;
+    intValue2 = [v65 intValue];
+    intValue3 = [v63 intValue];
+    v67 = v37;
     v43 = intValue2;
     v13 = v40;
-    v18 = [(BMCommAppsHoldAssistFedStats *)selfCopy2 initWithProtoVersion:v37 remotePhoneNumber:v65 holdDuration:v67 holdAssistMLClassification:intValue holdAssistRecommendation:v43 holdAssistObservation:intValue3 remotePhoneNumberCountryCode:v38];
+    v18 = [(BMCommAppsHoldAssistFedStats *)selfCopy2 initWithProtoVersion:v37 remotePhoneNumber:v64 holdDuration:v66 holdAssistMLClassification:intValue holdAssistRecommendation:v43 holdAssistObservation:intValue3 remotePhoneNumberCountryCode:v38];
     self = v18;
     v7 = v35;
 LABEL_50:
-    v44 = v60;
+    v44 = v59;
 LABEL_51:
 
 LABEL_52:
-    v6 = v61;
-    v8 = v65;
+    v6 = v60;
+    v8 = v64;
 LABEL_53:
-    v10 = v63;
+    v10 = v62;
 LABEL_54:
 
     goto LABEL_55;
@@ -558,13 +557,13 @@ LABEL_54:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v68 = v6;
+    v67 = v6;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v68 = 0;
+    v67 = 0;
     v18 = 0;
     goto LABEL_58;
   }
@@ -572,17 +571,16 @@ LABEL_54:
   v15 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy3 = error;
   v17 = *MEMORY[0x1E698F240];
-  v82 = *MEMORY[0x1E696A578];
+  v81 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"protoVersion"];
-  v83[0] = v8;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:&v82 count:1];
-  v68 = 0;
+  v82[0] = v8;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+  v67 = 0;
   v18 = 0;
   *errorCopy3 = [v15 initWithDomain:v17 code:2 userInfo:v7];
 LABEL_57:
 
 LABEL_58:
-  v45 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -600,7 +598,6 @@ LABEL_58:
   toCopy = to;
   if (self->_hasProtoVersion)
   {
-    protoVersion = self->_protoVersion;
     PBDataWriterWriteUint32Field();
   }
 
@@ -611,15 +608,11 @@ LABEL_58:
 
   if (self->_hasHoldDuration)
   {
-    holdDuration = self->_holdDuration;
     PBDataWriterWriteUint32Field();
   }
 
-  holdAssistMLClassification = self->_holdAssistMLClassification;
   PBDataWriterWriteUint32Field();
-  holdAssistRecommendation = self->_holdAssistRecommendation;
   PBDataWriterWriteUint32Field();
-  holdAssistObservation = self->_holdAssistObservation;
   PBDataWriterWriteUint32Field();
   if (self->_remotePhoneNumberCountryCode)
   {
@@ -1065,30 +1058,28 @@ LABEL_102:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"protoVersion" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"remotePhoneNumber" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"holdDuration" number:3 type:4 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"holdAssistMLClassification" number:4 type:4 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"holdAssistRecommendation" number:5 type:4 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"holdAssistObservation" number:6 type:4 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"remotePhoneNumberCountryCode" number:7 type:13 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"protoVersion" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"remotePhoneNumber" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"holdDuration" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
@@ -1096,16 +1087,14 @@ LABEL_102:
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"holdAssistRecommendation" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"holdAssistObservation" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"remotePhoneNumberCountryCode" dataType:2 requestOnly:0 fieldNumber:7 protoDataType:13 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }

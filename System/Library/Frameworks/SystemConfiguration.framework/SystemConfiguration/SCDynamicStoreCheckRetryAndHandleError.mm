@@ -5,7 +5,6 @@
 
 uint64_t ____SCDynamicStoreCheckRetryAndHandleError_block_invoke(uint64_t result)
 {
-  v4 = *MEMORY[0x1E69E9840];
   v1 = *(*(result + 32) + 40);
   if (v1)
   {
@@ -14,7 +13,6 @@ uint64_t ____SCDynamicStoreCheckRetryAndHandleError_block_invoke(uint64_t result
     *(*(v2 + 32) + 40) = 0;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 

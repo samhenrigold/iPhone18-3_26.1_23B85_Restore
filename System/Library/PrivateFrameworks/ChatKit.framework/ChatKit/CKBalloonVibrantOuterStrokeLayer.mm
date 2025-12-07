@@ -13,7 +13,7 @@
   swift_unknownObjectRetain();
   sub_190D58140();
   swift_unknownObjectRelease();
-  return sub_190C09F58(&v4);
+  return sub_190C09F58(v4);
 }
 
 - (void)layoutSublayers

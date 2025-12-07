@@ -218,7 +218,7 @@
   v66 = 0u;
   v63 = 0u;
   v64 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   closestXCoordinateRange = [(HKGraphSeries *)self closestXCoordinateRange];
   minValue = [closestXCoordinateRange minValue];
 

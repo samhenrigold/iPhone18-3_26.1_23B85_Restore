@@ -756,7 +756,7 @@ LABEL_19:
       v46 = brc_default_log();
       if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
       {
-        sub_100028B9C(&v57);
+        sub_100028B9C();
       }
 
       *buf = v57;
@@ -873,7 +873,7 @@ LABEL_28:
     v28 = brc_default_log();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      sub_100028B9C(&v35);
+      sub_100028B9C();
     }
 
     *buf = v35;
@@ -1029,7 +1029,7 @@ LABEL_36:
       v44 = brc_default_log();
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
       {
-        sub_100028B9C(&v59);
+        sub_100028B9C();
       }
 
       *buf = v59;
@@ -1821,7 +1821,7 @@ LABEL_12:
         v34 = brc_default_log();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          sub_100028B9C(&v43);
+          sub_100028B9C();
         }
 
         *buf = v43;
@@ -2020,7 +2020,7 @@ LABEL_12:
         v44 = brc_default_log();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          sub_100029134(&v73);
+          sub_100029134();
         }
 
         *buf = v73;
@@ -2096,7 +2096,7 @@ LABEL_27:
     v53 = brc_default_log();
     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
     {
-      sub_100028B9C(&v73);
+      sub_100028B9C();
     }
 
     *buf = v73;

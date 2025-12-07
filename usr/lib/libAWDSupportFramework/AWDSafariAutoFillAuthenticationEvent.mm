@@ -1,8 +1,11 @@
 @interface AWDSafariAutoFillAuthenticationEvent
 - (BOOL)isEqual:(id)equal;
+- (id)categoryAsString:(int)string;
+- (id)clientAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsClient:(id)client;
 - (int)StringAsStatus:(id)status;
@@ -59,6 +62,19 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32C40[string];
+  }
+}
+
 - (int)StringAsCategory:(id)category
 {
   if ([category isEqualToString:@"CREDIT_CARD"])
@@ -112,6 +128,19 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)statusAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32C60[string];
+  }
+}
+
 - (int)StringAsStatus:(id)status
 {
   if ([status isEqualToString:@"SUCCESSFUL_AUTHENTICATION"])
@@ -163,6 +192,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)clientAsString:(int)string
+{
+  if (string >= 9)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32C80[string];
+  }
 }
 
 - (int)StringAsClient:(id)client
@@ -351,7 +393,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -371,7 +412,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  category = self->_category;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -386,7 +426,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  status = self->_status;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -401,12 +440,10 @@ LABEL_5:
   }
 
 LABEL_16:
-  client = self->_client;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    onPageLoad = self->_onPageLoad;
     PBDataWriterWriteBOOLField();
   }
 
@@ -581,7 +618,6 @@ LABEL_7:
     return v5;
   }
 
-  v6 = *(equal + 48);
   if (*&self->_has)
   {
     if ((*(equal + 48) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -638,7 +674,6 @@ LABEL_7:
   {
     if ((*(equal + 48) & 0x10) != 0)
     {
-      v9 = *(equal + 44);
       if (self->_onPageLoad)
       {
         if ((*(equal + 44) & 1) == 0)

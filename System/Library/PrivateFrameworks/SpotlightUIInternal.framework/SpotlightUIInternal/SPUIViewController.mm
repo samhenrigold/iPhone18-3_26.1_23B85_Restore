@@ -6,6 +6,7 @@
 - (id)activeViewController;
 - (id)contentScrollView;
 - (id)forwardingTargetForSelector:(SEL)selector;
+- (void)activateViewController:(id)controller animate:(BOOL)animate;
 - (void)didTapInEmptyRegion;
 @end
 
@@ -54,6 +55,61 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)activateViewController:(id)controller animate:(BOOL)animate
+{
+  animateCopy = animate;
+  controllerCopy = controller;
+  activeViewController = [(SPUIViewController *)self activeViewController];
+  if (activeViewController != controllerCopy)
+  {
+    v8 = MEMORY[0x277D65D40];
+    v9 = *(MEMORY[0x277D65D40] + 40);
+    if (!v9)
+    {
+      SPUIInitLogging();
+      v9 = *(v8 + 40);
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_26B837000, v9, OS_LOG_TYPE_DEFAULT, "activating vc", buf, 2u);
+    }
+
+    [activeViewController removeFromParentViewController];
+    if (controllerCopy)
+    {
+      [(SPUIViewController *)self addChildViewController:controllerCopy];
+      [(SPUIViewController *)self willUpdateActiveViewController];
+      view = [(SPUIViewController *)self view];
+      view2 = [controllerCopy view];
+      [view addSubview:view2];
+
+      v12 = MEMORY[0x277D4C828];
+      view3 = [controllerCopy view];
+      [v12 constrainViewToContainer:view3];
+
+      view4 = [controllerCopy view];
+      [view4 setAlpha:0.0];
+
+      v15 = MEMORY[0x277D4C898];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __53__SPUIViewController_activateViewController_animate___block_invoke;
+      v19[3] = &unk_279D070B8;
+      v20 = controllerCopy;
+      v21 = activeViewController;
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __53__SPUIViewController_activateViewController_animate___block_invoke_2;
+      v16[3] = &unk_279D070B8;
+      v17 = v21;
+      selfCopy = self;
+      [v15 performAnimatableChanges:v19 animated:animateCopy completion:v16];
+    }
+  }
 }
 
 void __53__SPUIViewController_activateViewController_animate___block_invoke(uint64_t a1)

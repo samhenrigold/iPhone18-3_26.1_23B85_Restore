@@ -25,10 +25,12 @@
 - (void)delayedUpdateTimerDidFire:(id)fire;
 - (void)forceLocationManagerAuthorization;
 - (void)forceLocationUpdate;
+- (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)scheduleDelayedUpdate:(double)update;
 - (void)setLocationTrackingActive:(BOOL)active;
+- (void)setLocationTrackingReady:(BOOL)ready activelyTracking:(BOOL)tracking watchKitExtension:(BOOL)extension shouldRequestAuthorization:(BOOL)authorization;
 - (void)setLocationUpdatesEnabled:(BOOL)enabled;
 - (void)updateLocation:(id)location;
 - (void)updateLocationWithNoConditionCheck;
@@ -75,11 +77,11 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
 
 - (WeatherLocationManager)initWithPreferences:(id)preferences
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
-  v20.receiver = self;
-  v20.super_class = WeatherLocationManager;
-  v5 = [(WeatherLocationManager *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = WeatherLocationManager;
+  v5 = [(WeatherLocationManager *)&v19 init];
   if (v5)
   {
     if (preferencesCopy)
@@ -124,14 +126,13 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
         {
           updateInterval = v5->_updateInterval;
           *buf = 134217984;
-          v22 = updateInterval;
+          v21 = updateInterval;
           _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_DEFAULT, "Overriding local weather location update interval via user defaults - %lus", buf, 0xCu);
         }
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -204,19 +205,17 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
 
 - (BOOL)localWeatherAuthorized
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   authorizationStatus = [(WeatherLocationManager *)self authorizationStatus];
   v3 = WALogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = authorizationStatus;
-    _os_log_impl(&dword_272ACF000, v3, OS_LOG_TYPE_DEFAULT, "autorizationStatus %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = authorizationStatus;
+    _os_log_impl(&dword_272ACF000, v3, OS_LOG_TYPE_DEFAULT, "autorizationStatus %d", v5, 8u);
   }
 
-  result = authorizationStatus > 2;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return authorizationStatus > 2;
 }
 
 - (void)askForLocationManagerAuthorization
@@ -254,10 +253,114 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
   return self->_authorizationStatus;
 }
 
+- (void)setLocationTrackingReady:(BOOL)ready activelyTracking:(BOOL)tracking watchKitExtension:(BOOL)extension shouldRequestAuthorization:(BOOL)authorization
+{
+  authorizationCopy = authorization;
+  extensionCopy = extension;
+  trackingCopy = tracking;
+  readyCopy = ready;
+  v31 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = "not ready";
+    if (readyCopy)
+    {
+      v11 = "ready";
+    }
+
+    v29 = 136315138;
+    v30 = v11;
+    _os_log_impl(&dword_272ACF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Setting location tracking %s", &v29, 0xCu);
+  }
+
+  if (readyCopy)
+  {
+    locationManager = [(WeatherLocationManager *)self locationManager];
+
+    if (!locationManager)
+    {
+      delegate = [(WeatherLocationManager *)self delegate];
+
+      if (!delegate)
+      {
+        NSLog(&cfstr_CannotEnableLo.isa);
+      }
+
+      v14 = WALogForCategory(4);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        effectiveBundleIdentifier = [(WeatherLocationManager *)self effectiveBundleIdentifier];
+        v16 = effectiveBundleIdentifier;
+        if (effectiveBundleIdentifier)
+        {
+          v17 = effectiveBundleIdentifier;
+        }
+
+        else
+        {
+          v17 = @"com.apple.weather";
+        }
+
+        v29 = 138412290;
+        v30 = v17;
+        _os_log_impl(&dword_272ACF000, v14, OS_LOG_TYPE_DEFAULT, "Initializing CLLocationManager with %@", &v29, 0xCu);
+      }
+
+      v18 = objc_alloc(MEMORY[0x277CBFC10]);
+      effectiveBundleIdentifier2 = [(WeatherLocationManager *)self effectiveBundleIdentifier];
+      v20 = effectiveBundleIdentifier2;
+      if (effectiveBundleIdentifier2)
+      {
+        v21 = effectiveBundleIdentifier2;
+      }
+
+      else
+      {
+        v21 = @"com.apple.weather";
+      }
+
+      v22 = [v18 initWithEffectiveBundleIdentifier:v21];
+      [(WeatherLocationManager *)self setLocationManager:v22];
+
+      locationManager2 = [(WeatherLocationManager *)self locationManager];
+      [locationManager2 setDelegate:self];
+
+      locationManager3 = [(WeatherLocationManager *)self locationManager];
+      [locationManager3 setDistanceFilter:500.0];
+
+      v25 = *MEMORY[0x277CE4238];
+      locationManager4 = [(WeatherLocationManager *)self locationManager];
+      [locationManager4 setDesiredAccuracy:v25];
+
+      if (authorizationCopy)
+      {
+        locationManager5 = [(WeatherLocationManager *)self locationManager];
+        [locationManager5 requestWhenInUseAuthorization];
+      }
+
+      locationManager6 = [(WeatherLocationManager *)self locationManager];
+      [locationManager6 setIsActuallyAWatchKitExtension:extensionCopy];
+
+      [(WeatherLocationManager *)self setLocationTrackingActive:trackingCopy];
+    }
+  }
+
+  else
+  {
+    [(WeatherLocationManager *)self setLocationTrackingActive:trackingCopy];
+    [(WeatherLocationManager *)self clearLastLocationUpdateTime];
+    [(WeatherLocationManager *)self setAuthorizationStatus:0];
+    [(WeatherLocationManager *)self setLocationUpdatesEnabled:0];
+    [(WeatherLocationManager *)self setLocationManager:0];
+  }
+
+  [(WeatherLocationManager *)self setLocationTrackingIsReady:readyCopy];
+}
+
 - (void)setLocationTrackingActive:(BOOL)active
 {
   activeCopy = active;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = WALogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -267,9 +370,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       v6 = "active";
     }
 
-    v37 = 136315138;
-    v38 = v6;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Setting location tracking %s", &v37, 0xCu);
+    v36 = 136315138;
+    v37 = v6;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "Setting location tracking %s", &v36, 0xCu);
   }
 
   [(WeatherLocationManager *)self cancelDelayedUpdateTimer];
@@ -300,8 +403,8 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       v25 = WALogForCategory(4);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v37) = 0;
-        _os_log_impl(&dword_272ACF000, v25, OS_LOG_TYPE_DEFAULT, "schedule delayed location update", &v37, 2u);
+        LOWORD(v36) = 0;
+        _os_log_impl(&dword_272ACF000, v25, OS_LOG_TYPE_DEFAULT, "schedule delayed location update", &v36, 2u);
       }
 
       [(WeatherLocationManager *)self scheduleDelayedUpdate:[(WeatherLocationManager *)self updateInterval]- v13];
@@ -312,8 +415,8 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       v27 = WALogForCategory(4);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v37) = 0;
-        _os_log_impl(&dword_272ACF000, v27, OS_LOG_TYPE_DEFAULT, "First location update check passed", &v37, 2u);
+        LOWORD(v36) = 0;
+        _os_log_impl(&dword_272ACF000, v27, OS_LOG_TYPE_DEFAULT, "First location update check passed", &v36, 2u);
       }
 
       v28 = WALogForCategory(4);
@@ -321,11 +424,11 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       {
         v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[WeatherLocationManager locationUpdatesEnabled](self, "locationUpdatesEnabled")}];
         locationManager = [(WeatherLocationManager *)self locationManager];
-        v37 = 138412546;
-        v38 = v29;
-        v39 = 2112;
-        v40 = locationManager;
-        _os_log_impl(&dword_272ACF000, v28, OS_LOG_TYPE_DEFAULT, "locationUpdatesEnabled = %@, self.locationManager = %@", &v37, 0x16u);
+        v36 = 138412546;
+        v37 = v29;
+        v38 = 2112;
+        v39 = locationManager;
+        _os_log_impl(&dword_272ACF000, v28, OS_LOG_TYPE_DEFAULT, "locationUpdatesEnabled = %@, self.locationManager = %@", &v36, 0x16u);
       }
 
       if (![(WeatherLocationManager *)self locationUpdatesEnabled])
@@ -337,8 +440,8 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
           v32 = WALogForCategory(4);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v37) = 0;
-            _os_log_impl(&dword_272ACF000, v32, OS_LOG_TYPE_DEFAULT, "LocationUpdatesEnabled=NO", &v37, 2u);
+            LOWORD(v36) = 0;
+            _os_log_impl(&dword_272ACF000, v32, OS_LOG_TYPE_DEFAULT, "LocationUpdatesEnabled=NO", &v36, 2u);
           }
 
           [(WeatherLocationManager *)self oldestAllowedUpdateTime];
@@ -362,16 +465,14 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     v26 = WALogForCategory(4);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v37) = 0;
-      _os_log_impl(&dword_272ACF000, v26, OS_LOG_TYPE_DEFAULT, "Disable location tracking, setting locationUpdatesEnabled=NO", &v37, 2u);
+      LOWORD(v36) = 0;
+      _os_log_impl(&dword_272ACF000, v26, OS_LOG_TYPE_DEFAULT, "Disable location tracking, setting locationUpdatesEnabled=NO", &v36, 2u);
     }
 
     [(WeatherLocationManager *)self setLocationUpdatesEnabled:0];
     [(WeatherLocationManager *)self setOldestAllowedUpdateTime:-1.0];
     [(WeatherLocationManager *)self cancelDelayedUpdateTimer];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLocationWithNoConditionCheck
@@ -473,7 +574,7 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
 
 - (void)scheduleDelayedUpdate:(double)update
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   delayedUpdateTimer = [(WeatherLocationManager *)self delayedUpdateTimer];
 
   if (!delayedUpdateTimer)
@@ -483,9 +584,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v6 stringFromTimeInterval:update];
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Delaying location update for %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Delaying location update for %@", &v12, 0xCu);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -495,8 +596,6 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     v11 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_delayedUpdateTimerDidFire_ selector:0 userInfo:0 repeats:update];
     [(WeatherLocationManager *)self setDelayedUpdateTimer:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDelayedUpdateTimer
@@ -563,16 +662,16 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
 
 - (void)updateLocation:(id)location
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v6 = WALogForCategory(4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = 136315394;
-    v44 = "[WeatherLocationManager updateLocation:]";
-    v45 = 2112;
-    v46 = *&locationCopy;
-    _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "%s %@", &v43, 0x16u);
+    v42 = 136315394;
+    v43 = "[WeatherLocationManager updateLocation:]";
+    v44 = 2112;
+    v45 = *&locationCopy;
+    _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "%s %@", &v42, 0x16u);
   }
 
   if (!locationCopy)
@@ -609,13 +708,13 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       v26 = WALogForCategory(4);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = 134218496;
-        v44 = *&v21;
-        v45 = 2048;
-        v46 = v25;
-        v47 = 2048;
-        v48 = v17;
-        _os_log_impl(&dword_272ACF000, v26, OS_LOG_TYPE_DEFAULT, "Overriding weather location position and accuracy via user defaults - (%f, %f) %fm", &v43, 0x20u);
+        v42 = 134218496;
+        v43 = *&v21;
+        v44 = 2048;
+        v45 = v25;
+        v46 = 2048;
+        v47 = v17;
+        _os_log_impl(&dword_272ACF000, v26, OS_LOG_TYPE_DEFAULT, "Overriding weather location position and accuracy via user defaults - (%f, %f) %fm", &v42, 0x20u);
       }
 
       v27 = objc_alloc(MEMORY[0x277CE41F8]);
@@ -638,9 +737,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       delegate2 = [(WeatherLocationManager *)self delegate];
-      v43 = 138412290;
-      v44 = delegate2;
-      _os_log_impl(&dword_272ACF000, v33, OS_LOG_TYPE_DEFAULT, "Notifying clients of updated location, %@", &v43, 0xCu);
+      v42 = 138412290;
+      v43 = delegate2;
+      _os_log_impl(&dword_272ACF000, v33, OS_LOG_TYPE_DEFAULT, "Notifying clients of updated location, %@", &v42, 0xCu);
     }
 
     delegate3 = [(WeatherLocationManager *)self delegate];
@@ -669,13 +768,11 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
   v40 = *MEMORY[0x277CE4238];
   locationManager = [(WeatherLocationManager *)self locationManager];
   [locationManager setDesiredAccuracy:v40];
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v50[2] = *MEMORY[0x277D85DE8];
+  v49[2] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   locationsCopy = locations;
   if (!self->_locationUpdatesEnabled)
@@ -683,9 +780,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     v8 = WALogForCategory(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v45) = 138412290;
-      *(&v45 + 4) = locationsCopy;
-      _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "Received location update after CL is stopped, ignoring: %@", &v45, 0xCu);
+      LODWORD(v44) = 138412290;
+      *(&v44 + 4) = locationsCopy;
+      _os_log_impl(&dword_272ACF000, v8, OS_LOG_TYPE_DEFAULT, "Received location update after CL is stopped, ignoring: %@", &v44, 0xCu);
     }
 
     goto LABEL_38;
@@ -694,11 +791,11 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
   [(WeatherLocationManager *)self cancelAccuracyFallbackTimer];
   if ([locationsCopy count])
   {
-    v49[0] = @"MANAGER";
-    v49[1] = @"LOCATIONS";
-    v50[0] = managerCopy;
-    v50[1] = locationsCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v48[0] = @"MANAGER";
+    v48[1] = @"LOCATIONS";
+    v49[0] = managerCopy;
+    v49[1] = locationsCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
     lastObject = [locationsCopy lastObject];
     timestamp = [lastObject timestamp];
     [timestamp timeIntervalSince1970];
@@ -707,9 +804,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     v13 = WALogForCategory(4);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v45) = 138412290;
-      *(&v45 + 4) = lastObject;
-      _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "Received location update: %@", &v45, 0xCu);
+      LODWORD(v44) = 138412290;
+      *(&v44 + 4) = lastObject;
+      _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "Received location update: %@", &v44, 0xCu);
     }
 
     locationManager = [(WeatherLocationManager *)self locationManager];
@@ -743,14 +840,14 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
     v27 = WALogForCategory(4);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      *&v45 = __PAIR64__(v16, 67109888);
-      WORD4(v45) = 1024;
-      *(&v45 + 10) = v19 > 0.0;
-      HIWORD(v45) = 1024;
-      v46 = v25 > v26;
-      v47 = 2048;
-      v48 = v23;
-      _os_log_debug_impl(&dword_272ACF000, v27, OS_LOG_TYPE_DEBUG, "accurate: %d, requested: %d, overdue: %d (timeout: %f)", &v45, 0x1Eu);
+      *&v44 = __PAIR64__(v16, 67109888);
+      WORD4(v44) = 1024;
+      *(&v44 + 10) = v19 > 0.0;
+      HIWORD(v44) = 1024;
+      v45 = v25 > v26;
+      v46 = 2048;
+      v47 = v23;
+      _os_log_debug_impl(&dword_272ACF000, v27, OS_LOG_TYPE_DEBUG, "accurate: %d, requested: %d, overdue: %d (timeout: %f)", &v44, 0x1Eu);
     }
 
     v28 = v19 > 0.0 && v16;
@@ -759,9 +856,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       v32 = WALogForCategory(4);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v45) = 138412290;
-        *(&v45 + 4) = lastObject;
-        _os_log_impl(&dword_272ACF000, v32, OS_LOG_TYPE_DEFAULT, "New location meet our criteria: %@, use it", &v45, 0xCu);
+        LODWORD(v44) = 138412290;
+        *(&v44 + 4) = lastObject;
+        _os_log_impl(&dword_272ACF000, v32, OS_LOG_TYPE_DEFAULT, "New location meet our criteria: %@, use it", &v44, 0xCu);
       }
 
       [(WeatherLocationManager *)self updateLocation:v8];
@@ -776,11 +873,11 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       {
         if (v31)
         {
-          LODWORD(v45) = 67109376;
-          DWORD1(v45) = v16;
-          WORD4(v45) = 1024;
-          *(&v45 + 10) = v19 > 0.0;
-          _os_log_impl(&dword_272ACF000, v30, OS_LOG_TYPE_DEFAULT, "Dropping location update - accurate: %d, requested: %d", &v45, 0xEu);
+          LODWORD(v44) = 67109376;
+          DWORD1(v44) = v16;
+          WORD4(v44) = 1024;
+          *(&v44 + 10) = v19 > 0.0;
+          _os_log_impl(&dword_272ACF000, v30, OS_LOG_TYPE_DEFAULT, "Dropping location update - accurate: %d, requested: %d", &v44, 0xEu);
         }
       }
 
@@ -788,9 +885,9 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
       {
         if (v31)
         {
-          LODWORD(v45) = 134217984;
-          *(&v45 + 4) = v23;
-          _os_log_impl(&dword_272ACF000, v30, OS_LOG_TYPE_DEFAULT, "Location update not accurate enough - waiting %fs for better update", &v45, 0xCu);
+          LODWORD(v44) = 134217984;
+          *(&v44 + 4) = v23;
+          _os_log_impl(&dword_272ACF000, v30, OS_LOG_TYPE_DEFAULT, "Location update not accurate enough - waiting %fs for better update", &v44, 0xCu);
         }
 
         [lastObject coordinate];
@@ -806,8 +903,8 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
             v39 = WALogForCategory(4);
             if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v45) = 0;
-              _os_log_impl(&dword_272ACF000, v39, OS_LOG_TYPE_DEFAULT, "Temporarily boosting location accuracy", &v45, 2u);
+              LOWORD(v44) = 0;
+              _os_log_impl(&dword_272ACF000, v39, OS_LOG_TYPE_DEFAULT, "Temporarily boosting location accuracy", &v44, 2u);
             }
 
             v40 = *MEMORY[0x277CE4228];
@@ -816,7 +913,7 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
           }
         }
 
-        v30 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_accuracyFallbackTimerDidFire_ selector:v8 userInfo:0 repeats:{v23, v45}];
+        v30 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:self target:sel_accuracyFallbackTimerDidFire_ selector:v8 userInfo:0 repeats:{v23, v44}];
         [(WeatherLocationManager *)self setAccuracyFallbackTimer:v30];
       }
     }
@@ -832,8 +929,30 @@ void __54__WeatherLocationManager_sharedWeatherLocationManager__block_invoke()
 
 LABEL_38:
   }
+}
 
-  v44 = *MEMORY[0x277D85DE8];
+- (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
+{
+  v4 = *&status;
+  v12 = *MEMORY[0x277D85DE8];
+  managerCopy = manager;
+  v7 = WALogForCategory(4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v11[0] = 67109120;
+    v11[1] = v4;
+    _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Location authorization status is now %d", v11, 8u);
+  }
+
+  [(WeatherLocationManager *)self setAuthorizationStatus:v4];
+  delegate = [(WeatherLocationManager *)self delegate];
+  v9 = objc_opt_respondsToSelector();
+
+  if (v9)
+  {
+    delegate2 = [(WeatherLocationManager *)self delegate];
+    [delegate2 locationManager:managerCopy didChangeAuthorizationStatus:v4];
+  }
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
@@ -849,7 +968,7 @@ LABEL_38:
 - (void)setLocationUpdatesEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(WeatherLocationManager *)self locationUpdatesEnabled]!= enabled)
   {
     v5 = WALogForCategory(4);
@@ -861,9 +980,9 @@ LABEL_38:
         v6 = "Enabling";
       }
 
-      v11 = 136315138;
-      v12 = v6;
-      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "%s location updates", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v6;
+      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "%s location updates", &v10, 0xCu);
     }
 
     v7 = WALogForCategory(4);
@@ -872,8 +991,8 @@ LABEL_38:
     {
       if (v8)
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Start updating location", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Start updating location", &v10, 2u);
       }
 
       locationManager = [(WeatherLocationManager *)self locationManager];
@@ -884,8 +1003,8 @@ LABEL_38:
     {
       if (v8)
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Stop updating location", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Stop updating location", &v10, 2u);
       }
 
       locationManager = [(WeatherLocationManager *)self locationManager];
@@ -894,8 +1013,6 @@ LABEL_38:
 
     self->_locationUpdatesEnabled = enabledCopy;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAccuracyFallbackTimer
@@ -908,7 +1025,7 @@ LABEL_38:
 
 - (id)location
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (-[WeatherLocationManager isInternalBuild](self, "isInternalBuild") && (+[WeatherInternalPreferences sharedInternalPreferences](WeatherInternalPreferences, "sharedInternalPreferences"), v3 = objc_claimAutoreleasedReturnValue(), [v3 objectForKey:@"LocationSimulation"], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "BOOLValue"), v4, v3, v5))
   {
     v6 = +[WeatherInternalPreferences sharedInternalPreferences];
@@ -928,13 +1045,13 @@ LABEL_38:
     v18 = WALogForCategory(4);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 134218496;
-      v29 = v13;
-      v30 = 2048;
-      v31 = v17;
-      v32 = 2048;
-      v33 = v9;
-      _os_log_impl(&dword_272ACF000, v18, OS_LOG_TYPE_DEFAULT, "Overriding location position and accuracy via user defaults - (%f, %f) %fm", &v28, 0x20u);
+      v27 = 134218496;
+      v28 = v13;
+      v29 = 2048;
+      v30 = v17;
+      v31 = 2048;
+      v32 = v9;
+      _os_log_impl(&dword_272ACF000, v18, OS_LOG_TYPE_DEFAULT, "Overriding location position and accuracy via user defaults - (%f, %f) %fm", &v27, 0x20u);
     }
 
     v19 = objc_alloc(MEMORY[0x277CE41F8]);
@@ -949,9 +1066,9 @@ LABEL_38:
     {
       locationManager = [(WeatherLocationManager *)self locationManager];
       location = [locationManager location];
-      v28 = 138412290;
-      v29 = *&location;
-      _os_log_impl(&dword_272ACF000, v22, OS_LOG_TYPE_DEFAULT, "Requested location from location manager, the location saved is:%@", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = *&location;
+      _os_log_impl(&dword_272ACF000, v22, OS_LOG_TYPE_DEFAULT, "Requested location from location manager, the location saved is:%@", &v27, 0xCu);
     }
 
     date = [(WeatherLocationManager *)self locationManager];
@@ -959,8 +1076,6 @@ LABEL_38:
   }
 
   v25 = location2;
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -989,11 +1104,10 @@ LABEL_38:
 
 - (void)locationManager:(uint64_t)a1 didFailWithError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Location manager encountered an error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Location manager encountered an error: %@", &v2, 0xCu);
 }
 
 @end

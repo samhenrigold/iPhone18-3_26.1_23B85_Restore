@@ -4,6 +4,7 @@
 - (_UIColorPickerViewProvidingDelegate)_delegate;
 - (void)_commonInit;
 - (void)_pickerDidFinish;
+- (void)_pickerDidSelectColor:(id)color isVolatile:(BOOL)volatile;
 - (void)_pickerDidShowEyedropperWithSelectionBlock:(id)block dismissBlock:(id)dismissBlock;
 - (void)_setConfiguration:(id)configuration;
 - (void)_updateContentViewConfiguration;
@@ -74,6 +75,15 @@
 {
   _delegate = [(_UIColorPickerContainerViewController *)self _delegate];
   [_delegate _pickerDidFinish];
+}
+
+- (void)_pickerDidSelectColor:(id)color isVolatile:(BOOL)volatile
+{
+  volatileCopy = volatile;
+  colorCopy = color;
+  _delegate = [(_UIColorPickerContainerViewController *)self _delegate];
+  ColorSpace = CGColorGetColorSpace([colorCopy CGColor]);
+  [_delegate _pickerDidSelectColor:colorCopy colorSpace:CGColorSpaceGetName(ColorSpace) isVolatile:volatileCopy];
 }
 
 - (void)_pickerDidShowEyedropperWithSelectionBlock:(id)block dismissBlock:(id)dismissBlock
@@ -192,31 +202,30 @@
   if (self->_contentViewController == container)
   {
     [container preferredContentSize];
-    scrollView = self->_scrollView;
     UISizeRoundToViewScale();
-    if (v5 > 0.0)
+    if (v4 > 0.0)
     {
-      v7 = v6;
-      if (v6 > 0.0)
+      v6 = v5;
+      if (v5 > 0.0)
       {
-        v8 = v5;
+        v7 = v4;
         [(UIScrollView *)self->_scrollView frame];
-        if (v9 > 0.0)
+        if (v8 > 0.0)
         {
           [(UIScrollView *)self->_scrollView frame];
-          if (v10 < v8)
+          if (v9 < v7)
           {
-            v8 = v10;
+            v7 = v9;
           }
         }
 
-        [(UIScrollView *)self->_scrollView setContentSize:v8, v7];
+        [(UIScrollView *)self->_scrollView setContentSize:v7, v6];
         view = [(_UIColorPickerViewProviding *)self->_contentViewController view];
-        [view setFrame:{0.0, 0.0, v8, 10000.0}];
+        [view setFrame:{0.0, 0.0, v7, 10000.0}];
 
-        [(UIView *)self->_touchExtensionView setFrame:0.0, 0.0, v8, 10000.0];
+        [(UIView *)self->_touchExtensionView setFrame:0.0, 0.0, v7, 10000.0];
 
-        [(_UIColorPickerContainerViewController *)self setPreferredContentSize:v8, v7];
+        [(_UIColorPickerContainerViewController *)self setPreferredContentSize:v7, v6];
       }
     }
   }

@@ -1,7 +1,7 @@
 @interface RBAnimationThread
 - (id).cxx_construct;
+- (id)startThread;
 - (uint64_t)initThread;
-- (uint64_t)startThread;
 - (void)dispatchHandlers:(id)handlers;
 - (void)initWithScreen:(void *)screen;
 - (void)thread:(id)thread;
@@ -201,17 +201,17 @@ LABEL_15:
   return v3;
 }
 
-- (uint64_t)startThread
+- (id)startThread
 {
   if (result)
   {
     v1 = result;
     v2 = [objc_alloc(MEMORY[0x1E696AF00]) initWithTarget:result selector:sel_thread_ object:0];
 
-    *(v1 + 8) = v2;
+    v1[1] = v2;
     [v2 setQualityOfService:33];
-    [*(v1 + 8) setName:@"com.apple.renderbox.animation-thread"];
-    v3 = *(v1 + 8);
+    [v1[1] setName:@"com.apple.renderbox.animation-thread"];
+    v3 = v1[1];
 
     return [v3 start];
   }

@@ -35,22 +35,25 @@
 
 - (JUMeasurements)measurementsWithFitting:(CGSize)fitting in:(id)in
 {
+  height = fitting.height;
+  width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_10070A2B0();
-  v8 = v7;
-  v10 = v9;
+  v9.n128_f64[0] = width;
+  v10 = sub_10070A2B0(in, v9, height);
   v12 = v11;
+  v14 = v13;
+  v16 = v15;
   swift_unknownObjectRelease();
 
-  v13 = v6;
-  v14 = v8;
-  v15 = v10;
-  v16 = v12;
-  result.var3 = v16;
-  result.var2 = v15;
-  result.var1 = v14;
-  result.var0 = v13;
+  v17 = v10;
+  v18 = v12;
+  v19 = v14;
+  v20 = v16;
+  result.var3 = v20;
+  result.var2 = v19;
+  result.var1 = v18;
+  result.var0 = v17;
   return result;
 }
 
@@ -59,11 +62,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension17DeveloperLinkView_tapHandler);
   if (v3)
   {
+    v4 = *&self->disclosureImageView[OBJC_IVAR____TtC22SubscribePageExtension17DeveloperLinkView_tapHandler];
     selfCopy = self;
-    v5 = sub_10001B5AC(v3);
-    v3(v5);
+    v6 = sub_10001B5AC(v3, v4);
+    v3(v6);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 }
 

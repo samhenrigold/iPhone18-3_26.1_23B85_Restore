@@ -203,7 +203,7 @@ void __73__HREDerivedActionUtilities_actionTypeForServiceType_characteristicType
 
 + (id)actionTypesForProfile:(id)profile
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   profileCopy = profile;
   v6 = [v4 set];
@@ -215,21 +215,19 @@ void __73__HREDerivedActionUtilities_actionTypeForServiceType_characteristicType
     v8 = MEMORY[0x277CBEB98];
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v17[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v12 = [v8 setWithArray:v11];
 
     v6 = v12;
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__HREDerivedActionUtilities_actionTypesForProfile___block_invoke;
-  v16[3] = &__block_descriptor_40_e18__16__0__NSString_8l;
-  v16[4] = self;
-  v13 = [v6 na_map:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __51__HREDerivedActionUtilities_actionTypesForProfile___block_invoke;
+  v15[3] = &__block_descriptor_40_e18__16__0__NSString_8l;
+  v15[4] = self;
+  v13 = [v6 na_map:v15];
 
   return v13;
 }
@@ -590,7 +588,7 @@ BOOL __79__HREDerivedActionUtilities__derivedActionForMediaProfiles_withExisting
 
 + (id)_derivedActionForCharacteristic:(id)characteristic withExistingValues:(id)values
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   valuesCopy = values;
   v7 = valuesCopy;
@@ -645,39 +643,39 @@ LABEL_22:
       [v17 doubleValue];
       v24 = v23;
       [minimumValue doubleValue];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistingValues___block_invoke_2;
-      v42[3] = &__block_descriptor_48_e18__16__0__NSNumber_8l;
-      v35 = (v24 - v25);
-      v36 = v22;
-      v42[4] = v22;
-      v42[5] = v35;
-      v26 = [v12 na_map:v42];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistingValues___block_invoke_2;
+      v41[3] = &__block_descriptor_48_e18__16__0__NSNumber_8l;
+      v34 = (v24 - v25);
+      v35 = v22;
+      v41[4] = v22;
+      v41[5] = v34;
+      v26 = [v12 na_map:v41];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
-      v27 = [v26 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v39;
+        v29 = *v38;
         v30 = 0.0;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v39 != v29)
+            if (*v38 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            [*(*(&v38 + 1) + 8 * i) doubleValue];
+            [*(*(&v37 + 1) + 8 * i) doubleValue];
             v30 = v30 + v32 / [v26 count];
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v38 objects:v43 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v37 objects:v42 count:16];
         }
 
         while (v28);
@@ -688,14 +686,14 @@ LABEL_22:
         v30 = 0.0;
       }
 
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistingValues___block_invoke_3;
-      v37[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
-      *&v37[4] = v30;
-      if ([v26 na_all:v37])
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistingValues___block_invoke_3;
+      v36[3] = &__block_descriptor_40_e18_B16__0__NSNumber_8l;
+      *&v36[4] = v30;
+      if ([v26 na_all:v36])
       {
-        anyObject = [MEMORY[0x277CCABB0] numberWithInt:(v36 + v30 * v35)];
+        anyObject = [MEMORY[0x277CCABB0] numberWithInt:(v35 + v30 * v34)];
       }
 
       else
@@ -729,7 +727,6 @@ LABEL_23:
 LABEL_24:
 
 LABEL_25:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -794,14 +791,14 @@ BOOL __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistin
 
 + (id)_filterActions:(id)actions withUnmatchedCharacteristicTypes:(id)types
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   typesCopy = types;
   v7 = MEMORY[0x277CBEB98];
   v8 = *MEMORY[0x277CCF748];
-  v23[0] = *MEMORY[0x277CCF9F0];
-  v23[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = *MEMORY[0x277CCF9F0];
+  v22[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v10 = [v7 setWithArray:v9];
 
   if ([typesCopy intersectsSet:v10])
@@ -814,9 +811,9 @@ BOOL __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistin
     v12 = objc_opt_new();
     v13 = MEMORY[0x277CBEB98];
     v14 = *MEMORY[0x277CCFA30];
-    v22[0] = *MEMORY[0x277CCF8D8];
-    v22[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = *MEMORY[0x277CCF8D8];
+    v21[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v16 = [v13 setWithArray:v15];
 
     if ([typesCopy intersectsSet:v16])
@@ -824,16 +821,14 @@ BOOL __80__HREDerivedActionUtilities__derivedActionForCharacteristic_withExistin
       [v12 unionSet:v16];
     }
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __77__HREDerivedActionUtilities__filterActions_withUnmatchedCharacteristicTypes___block_invoke;
-    v20[3] = &unk_2797767E8;
-    v21 = v12;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __77__HREDerivedActionUtilities__filterActions_withUnmatchedCharacteristicTypes___block_invoke;
+    v19[3] = &unk_2797767E8;
+    v20 = v12;
     v17 = v12;
-    v11 = [actionsCopy na_filter:v20];
+    v11 = [actionsCopy na_filter:v19];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -960,19 +955,8 @@ LABEL_9:
 
   v7 = [v6 characteristic];
   v8 = v7;
-  if (!v7)
+  if (!v7 || (v9 = *(a1 + 32), [v7 service], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "accessory"), v11 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = (*(v9 + 16))(v9, v11), v11, v10, !v9))
   {
-    goto LABEL_8;
-  }
-
-  v9 = *(a1 + 32);
-  v10 = [v7 service];
-  v11 = [v10 accessory];
-  LODWORD(v9) = (*(v9 + 16))(v9, v11);
-
-  if (!v9)
-  {
-LABEL_8:
 
     goto LABEL_9;
   }
@@ -1010,14 +994,12 @@ uint64_t __71__HREDerivedActionUtilities__filterActions_withAccessoriesPassingTe
 
 void __45__HREDerivedActionUtilities_serviceTypeAlias__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CD0F40];
-  v4[0] = *MEMORY[0x277CD0E40];
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277CD0F40];
+  v3[0] = *MEMORY[0x277CD0E40];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = qword_27F5F98C8;
   qword_27F5F98C8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)characteristicTypeAlias
@@ -1034,14 +1016,12 @@ void __45__HREDerivedActionUtilities_serviceTypeAlias__block_invoke()
 
 void __52__HREDerivedActionUtilities_characteristicTypeAlias__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277CCF748];
-  v4[0] = *MEMORY[0x277CCF9F0];
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277CCF748];
+  v3[0] = *MEMORY[0x277CCF9F0];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = qword_27F5F98D8;
   qword_27F5F98D8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)actionTypeAlias
@@ -1076,20 +1056,18 @@ void __44__HREDerivedActionUtilities_actionTypeAlias__block_invoke()
 
 void __68__HREDerivedActionUtilities__serviceTypesExtrapolatingFromWholeHome__block_invoke()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0EB0];
-  v7[0] = *MEMORY[0x277CD0E30];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x277CD0E30];
+  v6[1] = v1;
   v2 = *MEMORY[0x277CD0E80];
-  v7[2] = *MEMORY[0x277CD0F58];
-  v7[3] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[2] = *MEMORY[0x277CD0F58];
+  v6[3] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v0 setWithArray:v3];
   v5 = qword_27F5F98F8;
   qword_27F5F98F8 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_serviceTypesExtrapolatingFromZones
@@ -1111,27 +1089,25 @@ void __68__HREDerivedActionUtilities__serviceTypesExtrapolatingFromWholeHome__bl
 
 void __64__HREDerivedActionUtilities__serviceTypesExtrapolatingFromZones__block_invoke(uint64_t a1)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v3 = *MEMORY[0x277CD0F40];
-  v13[0] = *MEMORY[0x277CD0E40];
-  v13[1] = v3;
+  v12[0] = *MEMORY[0x277CD0E40];
+  v12[1] = v3;
   v4 = *MEMORY[0x277CD0F20];
-  v13[2] = *MEMORY[0x277CD0F60];
-  v13[3] = v4;
+  v12[2] = *MEMORY[0x277CD0F60];
+  v12[3] = v4;
   v5 = NSStringFromProtocol(&unk_28666EF10);
-  v13[4] = v5;
+  v12[4] = v5;
   v6 = HRETelevisionProfileType();
-  v13[5] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:6];
+  v12[5] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
   v8 = [v2 setWithArray:v7];
 
   v9 = [*(a1 + 32) _serviceTypesExtrapolatingFromWholeHome];
   v10 = [v9 setByAddingObjectsFromSet:v8];
   v11 = qword_27F5F9908;
   qword_27F5F9908 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

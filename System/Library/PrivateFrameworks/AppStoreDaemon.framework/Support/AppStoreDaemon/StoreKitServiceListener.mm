@@ -126,7 +126,7 @@
                 }
 
                 v46 = sub_100237D58(v52, @"ad-network");
-                v47 = sub_1003A4EE0();
+                v47 = sub_1003A4EE0(InstallAttributionManager);
                 v44 = v51;
                 v43 = v48;
                 sub_1003ABEC4(v47, v51, v50, v46, v48);

@@ -108,10 +108,10 @@
     if (integerValue2 <= 1)
     {
       v14 = off_100325230;
-      goto LABEL_34;
+      goto LABEL_36;
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   if (![v9 BOOLValue] && !v11 && integerValue != 2)
@@ -125,16 +125,21 @@
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -146,25 +151,23 @@
       v55 = 2048;
       v56 = databaseID;
       v19 = v54;
-      LODWORD(v51) = 22;
-      v50 = &v53;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Canceling unrecoverable download after 403 response: %lld", &v53, 22);
 
       if (!v20)
       {
-LABEL_20:
+LABEL_21:
 
         [(ExpiredDownloadRecoveryResponse *)v3 setResult:1];
-        goto LABEL_72;
+        goto LABEL_77;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v53, v51];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       v50 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_20;
+    goto LABEL_21;
   }
 
   if (integerValue2 < 2)
@@ -175,7 +178,7 @@ LABEL_20:
       v14 = &off_100325238;
     }
 
-LABEL_34:
+LABEL_36:
     v21 = [objc_alloc(*v14) initWithDownloadIdentifier:databaseID];
     v27 = +[SSLogConfig sharedDaemonConfig];
     if (!v27)
@@ -186,16 +189,21 @@ LABEL_34:
     shouldLog2 = [v27 shouldLog];
     if ([v27 shouldLogToDisk])
     {
-      v29 = shouldLog2 | 2;
+      LODWORD(v29) = shouldLog2 | 2;
     }
 
     else
     {
-      v29 = shouldLog2;
+      LODWORD(v29) = shouldLog2;
     }
 
     oSLogObject2 = [v27 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v29 = v29;
+    }
+
+    else
     {
       v29 &= 2u;
     }
@@ -209,22 +217,20 @@ LABEL_34:
       v57 = 2112;
       v58 = v21;
       v31 = v54;
-      LODWORD(v51) = 32;
-      v50 = &v53;
-      v32 = _os_log_send_and_compose_impl();
+      v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Refreshing download: %lld using operation: %@", &v53, 32);
 
       if (!v32)
       {
-        goto LABEL_45;
+        goto LABEL_48;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v32 encoding:4, &v53, v51];
+      oSLogObject2 = [NSString stringWithCString:v32 encoding:4];
       free(v32);
       v50 = oSLogObject2;
       SSFileLog();
     }
 
-LABEL_45:
+LABEL_48:
     v52 = 0;
     v33 = [(ExpiredDownloadRecoveryOperation *)self runSubOperation:v21 returningError:&v52];
     oSLogObject5 = v52;
@@ -240,16 +246,21 @@ LABEL_45:
       shouldLog3 = [v35 shouldLog];
       if ([v35 shouldLogToDisk])
       {
-        v37 = shouldLog3 | 2;
+        LODWORD(v37) = shouldLog3 | 2;
       }
 
       else
       {
-        v37 = shouldLog3;
+        LODWORD(v37) = shouldLog3;
       }
 
       oSLogObject3 = [v35 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+      {
+        v37 = v37;
+      }
+
+      else
       {
         v37 &= 2u;
       }
@@ -263,24 +274,23 @@ LABEL_45:
         v56 = databaseID;
         v40 = v39;
         LODWORD(v51) = 22;
-        v50 = &v53;
-        v41 = _os_log_send_and_compose_impl();
+        v41 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Reset download after 403 recovery: %lld", &v53, v51);
 
         if (!v41)
         {
-LABEL_57:
+LABEL_61:
 
           [(ExpiredDownloadRecoveryResponse *)v3 setResult:2];
-          goto LABEL_70;
+          goto LABEL_75;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v41 encoding:4, &v53, v51];
+        oSLogObject3 = [NSString stringWithCString:v41 encoding:4];
         free(v41);
         v50 = oSLogObject3;
         SSFileLog();
       }
 
-      goto LABEL_57;
+      goto LABEL_61;
     }
 
     if (!v34)
@@ -291,16 +301,21 @@ LABEL_57:
     shouldLog4 = [v35 shouldLog];
     if ([v35 shouldLogToDisk])
     {
-      v43 = shouldLog4 | 2;
+      LODWORD(v43) = shouldLog4 | 2;
     }
 
     else
     {
-      v43 = shouldLog4;
+      LODWORD(v43) = shouldLog4;
     }
 
     oSLogObject4 = [v35 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+    {
+      v43 = v43;
+    }
+
+    else
     {
       v43 &= 2u;
     }
@@ -316,27 +331,26 @@ LABEL_57:
       v58 = oSLogObject5;
       v46 = v45;
       LODWORD(v51) = 32;
-      v50 = &v53;
-      v47 = _os_log_send_and_compose_impl();
+      v47 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Recovery failed for download: %lld with error: %@", &v53, v51);
 
       if (!v47)
       {
-LABEL_69:
+LABEL_74:
 
         [(ExpiredDownloadRecoveryResponse *)v3 setError:oSLogObject5];
-        goto LABEL_70;
+        goto LABEL_75;
       }
 
-      oSLogObject4 = [NSString stringWithCString:v47 encoding:4, &v53, v51];
+      oSLogObject4 = [NSString stringWithCString:v47 encoding:4];
       free(v47);
       v50 = oSLogObject4;
       SSFileLog();
     }
 
-    goto LABEL_69;
+    goto LABEL_74;
   }
 
-LABEL_22:
+LABEL_23:
   v21 = +[SSLogConfig sharedDaemonConfig];
   if (!v21)
   {
@@ -346,23 +360,28 @@ LABEL_22:
   shouldLog5 = [v21 shouldLog];
   if ([v21 shouldLogToDisk])
   {
-    v23 = shouldLog5 | 2;
+    LODWORD(v23) = shouldLog5 | 2;
   }
 
   else
   {
-    v23 = shouldLog5;
+    LODWORD(v23) = shouldLog5;
   }
 
   oSLogObject5 = [v21 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = v23;
+  }
+
+  else
   {
     v23 &= 2u;
   }
 
   if (!v23)
   {
-    goto LABEL_70;
+    goto LABEL_75;
   }
 
   v53 = 138412546;
@@ -370,20 +389,18 @@ LABEL_22:
   v55 = 2048;
   v56 = databaseID;
   v25 = v54;
-  LODWORD(v51) = 22;
-  v50 = &v53;
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Skipping recovery after too many attempts: %lld", &v53, 22);
 
   if (v26)
   {
-    oSLogObject5 = [NSString stringWithCString:v26 encoding:4, &v53, v51];
+    oSLogObject5 = [NSString stringWithCString:v26 encoding:4];
     free(v26);
     v50 = oSLogObject5;
     SSFileLog();
-LABEL_70:
+LABEL_75:
   }
 
-LABEL_72:
+LABEL_77:
   outputBlock = [(ExpiredDownloadRecoveryOperation *)self outputBlock];
   v49 = outputBlock;
   if (outputBlock)

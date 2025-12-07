@@ -2280,15 +2280,18 @@ LABEL_8:
   userActionStream = self->_userActionStream;
   if (userActionStream != streamCopy)
   {
+    v9 = streamCopy;
     [(ACTUserActionStreaming *)userActionStream setDelegate:0];
     objc_storeStrong(&self->_userActionStream, stream);
     [(ACTUserActionStreaming *)self->_userActionStream setDelegate:self];
     keyboardController = self->_keyboardController;
     errorGenerator = [(ACTUserActionStreaming *)self->_userActionStream errorGenerator];
     [errorGenerator setKeyboardInfoDelgate:keyboardController];
+
+    streamCopy = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](userActionStream, streamCopy);
 }
 
 - (void)tearDown

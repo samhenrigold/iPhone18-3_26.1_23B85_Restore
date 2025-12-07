@@ -83,7 +83,7 @@
   if (CGColorSpaceUsesITUR_2100TF(ColorSpace))
   {
     v18 = [MEMORY[0x1E695F658] imageWithCGImage:transition];
-    [v18 extent];
+    objc_msgSend_extent(v18);
     v21 = v19 + v20 - (v15 + v16);
     context = [MEMORY[0x1E695F620] context];
     v23 = [context createCGImage:v18 fromRect:*MEMORY[0x1E695F8F8] format:ColorSpace colorSpace:1 deferred:{v14, v21, v9 * Width, v16}];

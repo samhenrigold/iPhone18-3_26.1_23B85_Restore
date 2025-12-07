@@ -1,6 +1,7 @@
 @interface VideosUI_NavigationBarLargeTitleViewLayoutAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)layoutViewsWithOffset:(UIOffset)offset useRestingTitleHeight:(BOOL)height;
 @end
 
 @implementation VideosUI_NavigationBarLargeTitleViewLayoutAccessibility
@@ -36,6 +37,14 @@
     objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
+}
+
+- (void)layoutViewsWithOffset:(UIOffset)offset useRestingTitleHeight:(BOOL)height
+{
+  v5.receiver = self;
+  v5.super_class = VideosUI_NavigationBarLargeTitleViewLayoutAccessibility;
+  [(VideosUI_NavigationBarLargeTitleViewLayoutAccessibility *)&v5 layoutViewsWithOffset:height useRestingTitleHeight:offset.horizontal, offset.vertical];
+  [(VideosUI_NavigationBarLargeTitleViewLayoutAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

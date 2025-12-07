@@ -144,7 +144,7 @@ void __85__REMChangeTracking_lastTransactionTimestampWithManagedObjectContext_af
       v10 = +[REMLog changeTracking];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __85__REMChangeTracking_lastTransactionTimestampWithManagedObjectContext_affectedStores___block_invoke_cold_1(v8, (a1 + 40));
+        __85__REMChangeTracking_lastTransactionTimestampWithManagedObjectContext_affectedStores___block_invoke_cold_1();
       }
     }
   }
@@ -626,18 +626,18 @@ void __45__REMChangeTracking_saveTrackingState_error___block_invoke(void *a1, vo
 - (id)fetchHistoryAfterToken:(id)token error:(id *)error
 {
   tokenCopy = token;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__5;
-  v36 = __Block_byref_object_dispose__5;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__5;
-  v30 = __Block_byref_object_dispose__5;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__5;
+  v35 = __Block_byref_object_dispose__5;
+  v36 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__5;
+  v29 = __Block_byref_object_dispose__5;
+  v30 = 0;
   entityNames = [(REMChangeTracking *)self entityNames];
   if ([entityNames count])
   {
@@ -649,54 +649,52 @@ void __45__REMChangeTracking_saveTrackingState_error___block_invoke(void *a1, vo
     transactionFetchLimit = [(REMChangeTracking *)self transactionFetchLimit];
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke;
-  v20[3] = &unk_1E7508910;
-  v9 = tokenCopy;
-  v21 = v9;
-  selfCopy = self;
-  v23 = &v32;
-  v24 = &v26;
-  v25 = transactionFetchLimit;
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke_3;
-  v19[3] = &unk_1E7507AE0;
-  v19[4] = &v26;
-  [(REMChangeTracking *)self _performChangeTrackingWithReason:@"fetchHistoryAfterToken" block:v20 xpcErrorHandler:v19];
-  v10 = v33[5];
+  v19[2] = __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke;
+  v19[3] = &unk_1E7508910;
+  v9 = tokenCopy;
+  v20 = v9;
+  selfCopy = self;
+  v22 = &v31;
+  v23 = &v25;
+  v24 = transactionFetchLimit;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke_3;
+  v18[3] = &unk_1E7507AE0;
+  v18[4] = &v25;
+  [(REMChangeTracking *)self _performChangeTrackingWithReason:@"fetchHistoryAfterToken" block:v19 xpcErrorHandler:v18];
+  v10 = v32[5];
   transactionAuthorKeysToExclude = [(REMChangeTracking *)self transactionAuthorKeysToExclude];
   allObjects = [transactionAuthorKeysToExclude allObjects];
   [v10 consolidateAndFilterChangesWithTransactionAuthors:allObjects isExclusion:1];
 
-  if (!v33[5])
+  if (!v32[5])
   {
-    if (!v27[5])
+    if (!v26[5])
     {
       v17 = +[REMLog changeTracking];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         [REMChangeTracking fetchHistoryAfterToken:v9 error:v17];
       }
-
-      v18 = v27[5];
     }
 
     v13 = [REMChangeSet errorChangeSetWithError:?];
-    v14 = v33[5];
-    v33[5] = v13;
+    v14 = v32[5];
+    v32[5] = v13;
   }
 
   if (error)
   {
-    *error = v27[5];
+    *error = v26[5];
   }
 
-  v15 = v33[5];
+  v15 = v32[5];
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
   return v15;
 }
@@ -744,18 +742,18 @@ void __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke_2(uint6
 - (id)fetchHistoryAfterDate:(id)date error:(id *)error
 {
   dateCopy = date;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__5;
-  v36 = __Block_byref_object_dispose__5;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__5;
-  v30 = __Block_byref_object_dispose__5;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__5;
+  v35 = __Block_byref_object_dispose__5;
+  v36 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__5;
+  v29 = __Block_byref_object_dispose__5;
+  v30 = 0;
   entityNames = [(REMChangeTracking *)self entityNames];
   if ([entityNames count])
   {
@@ -767,54 +765,52 @@ void __50__REMChangeTracking_fetchHistoryAfterToken_error___block_invoke_2(uint6
     transactionFetchLimit = [(REMChangeTracking *)self transactionFetchLimit];
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __49__REMChangeTracking_fetchHistoryAfterDate_error___block_invoke;
-  v20[3] = &unk_1E7508910;
-  v9 = dateCopy;
-  v21 = v9;
-  selfCopy = self;
-  v23 = &v32;
-  v24 = &v26;
-  v25 = transactionFetchLimit;
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __49__REMChangeTracking_fetchHistoryAfterDate_error___block_invoke_3;
-  v19[3] = &unk_1E7507AE0;
-  v19[4] = &v26;
-  [(REMChangeTracking *)self _performChangeTrackingWithReason:@"fetchHistoryAfterDate" block:v20 xpcErrorHandler:v19];
-  v10 = v33[5];
+  v19[2] = __49__REMChangeTracking_fetchHistoryAfterDate_error___block_invoke;
+  v19[3] = &unk_1E7508910;
+  v9 = dateCopy;
+  v20 = v9;
+  selfCopy = self;
+  v22 = &v31;
+  v23 = &v25;
+  v24 = transactionFetchLimit;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __49__REMChangeTracking_fetchHistoryAfterDate_error___block_invoke_3;
+  v18[3] = &unk_1E7507AE0;
+  v18[4] = &v25;
+  [(REMChangeTracking *)self _performChangeTrackingWithReason:@"fetchHistoryAfterDate" block:v19 xpcErrorHandler:v18];
+  v10 = v32[5];
   transactionAuthorKeysToExclude = [(REMChangeTracking *)self transactionAuthorKeysToExclude];
   allObjects = [transactionAuthorKeysToExclude allObjects];
   [v10 consolidateAndFilterChangesWithTransactionAuthors:allObjects isExclusion:1];
 
-  if (!v33[5])
+  if (!v32[5])
   {
-    if (!v27[5])
+    if (!v26[5])
     {
       v17 = +[REMLog changeTracking];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         [REMChangeTracking fetchHistoryAfterDate:v9 error:v17];
       }
-
-      v18 = v27[5];
     }
 
     v13 = [REMChangeSet errorChangeSetWithError:?];
-    v14 = v33[5];
-    v33[5] = v13;
+    v14 = v32[5];
+    v32[5] = v13;
   }
 
   if (error)
   {
-    *error = v27[5];
+    *error = v26[5];
   }
 
-  v15 = v33[5];
+  v15 = v32[5];
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
   return v15;
 }
@@ -1000,7 +996,7 @@ void __58__REMChangeTracking_persistenceStoreIDForAccountID_error___block_invoke
   v4 = +[REMLog changeTracking];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __58__REMChangeTracking_persistenceStoreIDForAccountID_error___block_invoke_cold_1(v3, a1);
+    __58__REMChangeTracking_persistenceStoreIDForAccountID_error___block_invoke_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -1050,7 +1046,7 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
   v4 = +[REMLog changeTracking];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHandler___block_invoke_cold_1(v3, a1);
+    __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1062,7 +1058,7 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
 - (id)fetchAuxiliaryChangeInfosOfType:(Class)type withChangeObject:(id)object error:(id *)error
 {
   selfCopy = self;
-  v104 = *MEMORY[0x1E69E9840];
+  v103 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   array = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -1081,51 +1077,51 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
   }
 
   cdEntityName = [(objc_class *)type cdEntityName];
-  v89 = 0u;
-  v90 = 0u;
-  v87 = 0u;
   v88 = 0u;
+  v89 = 0u;
+  v86 = 0u;
+  v87 = 0u;
   obj = v5;
-  v61 = [obj countByEnumeratingWithState:&v87 objects:v103 count:16];
-  if (v61)
+  v60 = [obj countByEnumeratingWithState:&v86 objects:v102 count:16];
+  if (v60)
   {
-    v59 = *v88;
+    v58 = *v87;
     do
     {
       v9 = 0;
       do
       {
-        if (*v88 != v59)
+        if (*v87 != v58)
         {
           v10 = v9;
           objc_enumerationMutation(obj);
           v9 = v10;
         }
 
-        v63 = v9;
-        transaction = [*(*(&v87 + 1) + 8 * v9) transaction];
+        v62 = v9;
+        transaction = [*(*(&v86 + 1) + 8 * v9) transaction];
         changes = [transaction changes];
 
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
         v84 = 0u;
+        v85 = 0u;
+        v82 = 0u;
+        v83 = 0u;
         v13 = changes;
-        v14 = [v13 countByEnumeratingWithState:&v83 objects:v102 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v82 objects:v101 count:16];
         if (v14)
         {
-          v15 = *v84;
+          v15 = *v83;
           do
           {
             v16 = 0;
             do
             {
-              if (*v84 != v15)
+              if (*v83 != v15)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v17 = *(*(&v83 + 1) + 8 * v16);
+              v17 = *(*(&v82 + 1) + 8 * v16);
               if (![v17 changeType])
               {
                 changedObjectID = [v17 changedObjectID];
@@ -1150,21 +1146,21 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
             }
 
             while (v14 != v16);
-            v24 = [v13 countByEnumeratingWithState:&v83 objects:v102 count:16];
+            v24 = [v13 countByEnumeratingWithState:&v82 objects:v101 count:16];
             v14 = v24;
           }
 
           while (v24);
         }
 
-        v9 = v63 + 1;
+        v9 = v62 + 1;
       }
 
-      while (v63 + 1 != v61);
-      v61 = [obj countByEnumeratingWithState:&v87 objects:v103 count:16];
+      while (v62 + 1 != v60);
+      v60 = [obj countByEnumeratingWithState:&v86 objects:v102 count:16];
     }
 
-    while (v61);
+    while (v60);
   }
 
   v25 = [REMAuxiliaryChangeInfoFetchResult auxiliaryChangeInfoFetchResultOfType:type];
@@ -1197,75 +1193,75 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v99 = __Block_byref_object_copy__5;
-    v100 = __Block_byref_object_dispose__5;
-    v101 = 0;
-    v77 = 0;
-    v78 = &v77;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy__5;
-    v81 = __Block_byref_object_dispose__5;
-    v82 = 0;
-    v73[0] = MEMORY[0x1E69E9820];
-    v73[1] = 3221225472;
-    v73[2] = __109__REMChangeTracking_REMAuxiliaryChangeInfoAdditions__fetchAuxiliaryChangeInfosOfType_withChangeObject_error___block_invoke;
-    v73[3] = &unk_1E7508870;
-    v29 = array;
-    v74 = v29;
-    v75 = buf;
-    v76 = &v77;
+    v98 = __Block_byref_object_copy__5;
+    v99 = __Block_byref_object_dispose__5;
+    v100 = 0;
+    v76 = 0;
+    v77 = &v76;
+    v78 = 0x3032000000;
+    v79 = __Block_byref_object_copy__5;
+    v80 = __Block_byref_object_dispose__5;
+    v81 = 0;
     v72[0] = MEMORY[0x1E69E9820];
     v72[1] = 3221225472;
-    v72[2] = __109__REMChangeTracking_REMAuxiliaryChangeInfoAdditions__fetchAuxiliaryChangeInfosOfType_withChangeObject_error___block_invoke_3;
-    v72[3] = &unk_1E7507AE0;
-    v72[4] = &v77;
-    [v52 _performChangeTrackingWithReason:@"fetchAuxiliaryChangeInfo" block:v73 xpcErrorHandler:v72];
-    if (v78[5] || !*(*&buf[8] + 40))
+    v72[2] = __109__REMChangeTracking_REMAuxiliaryChangeInfoAdditions__fetchAuxiliaryChangeInfosOfType_withChangeObject_error___block_invoke;
+    v72[3] = &unk_1E7508870;
+    v29 = array;
+    v73 = v29;
+    v74 = buf;
+    v75 = &v76;
+    v71[0] = MEMORY[0x1E69E9820];
+    v71[1] = 3221225472;
+    v71[2] = __109__REMChangeTracking_REMAuxiliaryChangeInfoAdditions__fetchAuxiliaryChangeInfosOfType_withChangeObject_error___block_invoke_3;
+    v71[3] = &unk_1E7507AE0;
+    v71[4] = &v76;
+    [v51 _performChangeTrackingWithReason:@"fetchAuxiliaryChangeInfo" block:v72 xpcErrorHandler:v71];
+    if (v77[5] || !*(*&buf[8] + 40))
     {
       v30 = +[REMLog changeTracking];
       v31 = v25;
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        localizedDescription = [v78[5] localizedDescription];
-        *v92 = 138543874;
-        v93 = localizedDescription;
-        v94 = 2112;
-        v95 = objectCopy;
-        v96 = 2114;
-        v97 = v29;
-        _os_log_error_impl(&dword_19A0DB000, v30, OS_LOG_TYPE_ERROR, "Daemon returned error for auxiliary change info fetch with {error: %{public}@, changeObject: %@, auxChgInfoIds: %{public}@}", v92, 0x20u);
+        localizedDescription = [v77[5] localizedDescription];
+        *v91 = 138543874;
+        v92 = localizedDescription;
+        v93 = 2112;
+        v94 = objectCopy;
+        v95 = 2114;
+        v96 = v29;
+        _os_log_error_impl(&dword_19A0DB000, v30, OS_LOG_TYPE_ERROR, "Daemon returned error for auxiliary change info fetch with {error: %{public}@, changeObject: %@, auxChgInfoIds: %{public}@}", v91, 0x20u);
       }
 
       v32 = v31;
-      v64 = 0;
+      v63 = 0;
     }
 
     else
     {
-      v64 = v25;
-      v57 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v29, "count")}];
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
+      v63 = v25;
+      v56 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v29, "count")}];
       v69 = 0u;
-      v60 = v29;
-      v34 = [v60 countByEnumeratingWithState:&v68 objects:v91 count:16];
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v59 = v29;
+      v34 = [v59 countByEnumeratingWithState:&v67 objects:v90 count:16];
       if (v34)
       {
-        v62 = *v69;
-        v53 = 138412802;
+        v61 = *v68;
+        v52 = 138412802;
         do
         {
           v35 = v34;
           for (i = 0; i != v35; ++i)
           {
-            if (*v69 != v62)
+            if (*v68 != v61)
             {
-              objc_enumerationMutation(v60);
+              objc_enumerationMutation(v59);
             }
 
-            v37 = *(*(&v68 + 1) + 8 * i);
-            v38 = [dictionary objectForKeyedSubscript:{v37, v53}];
+            v37 = *(*(&v67 + 1) + 8 * i);
+            v38 = [dictionary objectForKeyedSubscript:{v37, v52}];
             if (!v38)
             {
               v46 = +[REMLog changeTracking];
@@ -1279,57 +1275,55 @@ void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHand
               [REMChangeTracking(REMAuxiliaryChangeInfoAdditions) fetchAuxiliaryChangeInfosOfType:v47 withChangeObject:? error:?];
             }
 
-            v67 = 0;
-            v40 = [v64 auxiliaryChangeInfoFromData:v39 withObjectID:v37 fromChangeObject:v38 error:&v67];
-            v41 = v67;
-            v42 = v67;
+            v66 = 0;
+            v40 = [v63 auxiliaryChangeInfoFromData:v39 withObjectID:v37 fromChangeObject:v38 error:&v66];
+            v41 = v66;
+            v42 = v66;
             if (v42 || !v40)
             {
               v43 = +[REMLog changeTracking];
               if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
               {
                 localizedDescription2 = [v42 localizedDescription];
-                *v92 = v53;
-                v93 = v38;
-                v94 = 2114;
-                v95 = v37;
-                v96 = 2114;
-                v97 = localizedDescription2;
+                *v91 = v52;
+                v92 = v38;
+                v93 = 2114;
+                v94 = v37;
+                v95 = 2114;
+                v96 = localizedDescription2;
                 v45 = localizedDescription2;
-                _os_log_error_impl(&dword_19A0DB000, v43, OS_LOG_TYPE_ERROR, "Failed to decode one of the change infos data for {changeObject: %@, objectID: %{public}@, decodeError: %{public}@}", v92, 0x20u);
+                _os_log_error_impl(&dword_19A0DB000, v43, OS_LOG_TYPE_ERROR, "Failed to decode one of the change infos data for {changeObject: %@, objectID: %{public}@, decodeError: %{public}@}", v91, 0x20u);
               }
 
-              objc_storeStrong(v78 + 5, v41);
+              objc_storeStrong(v77 + 5, v41);
             }
 
             else
             {
-              [v57 addObject:v40];
+              [v56 addObject:v40];
             }
           }
 
-          v34 = [v60 countByEnumeratingWithState:&v68 objects:v91 count:16];
+          v34 = [v59 countByEnumeratingWithState:&v67 objects:v90 count:16];
         }
 
         while (v34);
       }
 
-      [v64 setAuxiliaryChangeInfos:v57];
-      v32 = v57;
+      [v63 setAuxiliaryChangeInfos:v56];
+      v32 = v56;
     }
 
     if (error)
     {
-      *error = v78[5];
+      *error = v77[5];
     }
 
-    v33 = v64;
+    v33 = v63;
 
-    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v76, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v33;
 }
@@ -1359,62 +1353,38 @@ void __109__REMChangeTracking_REMAuxiliaryChangeInfoAdditions__fetchAuxiliaryCha
   *(v9 + 40) = v6;
 }
 
-void __85__REMChangeTracking_lastTransactionTimestampWithManagedObjectContext_affectedStores___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v3, v4, "+[lastTransactionTimestampWithManagedObjectContext:affectedStores:] Failed to fetch history {error: %{public}@, affectedsStores: %@}");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __85__REMChangeTracking_lastTransactionTimestampWithManagedObjectContext_affectedStores___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "+[lastTransactionTimestampWithManagedObjectContext:affectedStores:] Failed to obtain current PHT token {affectedsStores: %@}", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "+[lastTransactionTimestampWithManagedObjectContext:affectedStores:] Failed to obtain current PHT token {affectedsStores: %@}", &v3, 0xCu);
 }
 
 - (void)fetchHistoryAfterToken:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!error) -- Daemon returned nil result and error for persistentHistoryFetch {token: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!error) -- Daemon returned nil result and error for persistentHistoryFetch {token: %{public}@}", &v2, 0xCu);
 }
 
 - (void)fetchHistoryAfterDate:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!error) -- Daemon returned nil result and error for persistentHistoryFetch {date: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!error) -- Daemon returned nil result and error for persistentHistoryFetch {date: %{public}@}", &v2, 0xCu);
 }
 
 - (void)persistenceStoreIDForAccountID:(NSObject *)a1 error:.cold.1(NSObject *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0_2();
-    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __58__REMChangeTracking_persistenceStoreIDForAccountID_error___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v3, v4, "xpc error while using debug performer {error: %{public}@, store: %@}");
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performChangeTrackingWithReason:(NSObject *)a1 block:xpcErrorHandler:.cold.1(NSObject *a1)
@@ -1424,15 +1394,6 @@ void __58__REMChangeTracking_persistenceStoreIDForAccountID_error___block_invoke
     OUTLINED_FUNCTION_0_2();
     _os_log_fault_impl(v2, v3, v4, v5, v6, 2u);
   }
-}
-
-void __76__REMChangeTracking__performChangeTrackingWithReason_block_xpcErrorHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_6(&dword_19A0DB000, v3, v4, "xpc error while using changeTracking performer {error: %{public}@, store: %@}");
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

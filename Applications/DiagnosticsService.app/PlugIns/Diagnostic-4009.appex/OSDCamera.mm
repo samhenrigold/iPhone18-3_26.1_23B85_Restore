@@ -4,6 +4,8 @@
 - (BOOL)_checkProtocol:(id)protocol obj:(id)obj error:(id *)error;
 - (BOOL)_checkSelector:(SEL)selector error:(id *)error;
 - (BOOL)activate:(id *)activate;
+- (BOOL)enableAgileClocking:(BOOL)clocking error:(id *)error;
+- (BOOL)enableTestPatternPN9:(BOOL)n9 error:(id *)error;
 - (BOOL)implementorActive:(id *)active;
 - (BOOL)isStreaming;
 - (BOOL)setFormatIndex:(id)index error:(id *)error;
@@ -268,6 +270,35 @@
   }
 
   return v6;
+}
+
+- (BOOL)enableTestPatternPN9:(BOOL)n9 error:(id *)error
+{
+  n9Copy = n9;
+  if (![(OSDCamera *)self implementorActive:error]|| ![(OSDCamera *)self _checkProtocol:&OBJC_PROTOCOL____OSDCameraTestInterface error:error])
+  {
+    return 0;
+  }
+
+  cameraImp = [(OSDCamera *)self cameraImp];
+  v8 = [cameraImp enableTestPatternPN9:n9Copy error:error];
+
+  return v8;
+}
+
+- (BOOL)enableAgileClocking:(BOOL)clocking error:(id *)error
+{
+  clockingCopy = clocking;
+  v7 = [(OSDCamera *)self implementorActive:error];
+  if (v7)
+  {
+    cameraImp = [(OSDCamera *)self cameraImp];
+    v9 = [cameraImp enableAgileClocking:clockingCopy error:error];
+
+    LOBYTE(v7) = v9;
+  }
+
+  return v7;
 }
 
 - (id)useMaxAvailableDataRate:(id *)rate

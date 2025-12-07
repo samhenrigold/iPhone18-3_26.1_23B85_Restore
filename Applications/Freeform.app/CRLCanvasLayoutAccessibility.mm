@@ -252,11 +252,11 @@
   [crlaxTarget getCardinalPositionFromType:canvas];
   v7 = v6;
   v9 = v8;
-  v37 = 0;
+  v40 = 0;
   parent = [crlaxTarget parent];
   v11 = objc_opt_class();
-  v12 = __CRLAccessibilityCastAsClass(v11, parent, 1, &v37);
-  if (v37 == 1)
+  v12 = __CRLAccessibilityCastAsClass(v11, parent, 1, &v40);
+  if (v40 == 1)
   {
     goto LABEL_8;
   }
@@ -277,23 +277,24 @@
   v22 = v21;
   v24 = v23;
 
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(v25, v26))
   {
-    if (!sub_10011EF78(v18, v20, v22, v24, v7, v9))
+    v27 = sub_10011EF78(v18, v20, v22, v24, v7, v9);
+    if (!v27)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(v27);
       crlaxRepForLayout2 = [(CRLCanvasLayoutAccessibility *)self crlaxRepForLayout];
-      v40.origin.x = v18;
-      v40.origin.y = v20;
-      v40.size.width = v22;
-      v40.size.height = v24;
-      v27 = NSStringFromCGRect(v40);
-      v38.x = v7;
-      v38.y = v9;
-      v36 = NSStringFromCGPoint(v38);
-      v33 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"The rep %@ has an unscaled canvas frame %@, that does not include the unscaled canvas point %@ for magnet %lu.", v28, v29, v30, v31, v32, crlaxRepForLayout2);
+      v43.origin.x = v18;
+      v43.origin.y = v20;
+      v43.size.width = v22;
+      v43.size.height = v24;
+      v30 = NSStringFromCGRect(v43);
+      v41.x = v7;
+      v41.y = v9;
+      v39 = NSStringFromCGPoint(v41);
+      v36 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"The rep %@ has an unscaled canvas frame %@, that does not include the unscaled canvas point %@ for magnet %lu.", v31, v32, v33, v34, v35, crlaxRepForLayout2);
 
-      if (v33)
+      if (v36)
       {
 LABEL_8:
         abort();
@@ -301,10 +302,10 @@ LABEL_8:
     }
   }
 
-  v34 = v7;
-  v35 = v9;
-  result.y = v35;
-  result.x = v34;
+  v37 = v7;
+  v38 = v9;
+  result.y = v38;
+  result.x = v37;
   return result;
 }
 

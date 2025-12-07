@@ -30,12 +30,12 @@
 {
   readonlyCopy = readonly;
   extensionCopy = extension;
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   lCopy = l;
   classCopy = class;
-  v28.receiver = self;
-  v28.super_class = PBSecurityScopedURLWrapper;
-  v13 = [(PBSecurityScopedURLWrapper *)&v28 init];
+  v26.receiver = self;
+  v26.super_class = PBSecurityScopedURLWrapper;
+  v13 = [(PBSecurityScopedURLWrapper *)&v26 init];
   v14 = v13;
   if (!v13)
   {
@@ -64,18 +64,17 @@
   {
     if (!readonlyCopy)
     {
-      v23 = lCopy;
-      if (v23)
+      v22 = lCopy;
+      if (v22)
       {
         getpid();
-        v24 = *MEMORY[0x277D861D8];
-        path = [v23 path];
+        path = [v22 path];
         [path fileSystemRepresentation];
-        v26 = sandbox_check();
+        v24 = sandbox_check();
 
-        if (v26)
+        if (v24)
         {
-          OnlySandboxExtensionTypeForURL = _bestReadOnlySandboxExtensionTypeForURL(v23);
+          OnlySandboxExtensionTypeForURL = _bestReadOnlySandboxExtensionTypeForURL(v22);
         }
 
         else
@@ -97,9 +96,9 @@
 
   OnlySandboxExtensionTypeForURL = uTF8String;
 LABEL_10:
-  v27 = 0;
-  v17 = _issueSandboxExtension(lCopy, OnlySandboxExtensionTypeForURL, &v27);
-  v18 = v27;
+  v25 = 0;
+  v17 = _issueSandboxExtension(lCopy, OnlySandboxExtensionTypeForURL, &v25);
+  v18 = v25;
   scope = v14->_scope;
   v14->_scope = v17;
 
@@ -109,13 +108,12 @@ LABEL_10:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v30 = v18;
+      v28 = v18;
       _os_log_fault_impl(&dword_25E138000, v20, OS_LOG_TYPE_FAULT, "Could not create sandbox extension. Error: %@", buf, 0xCu);
     }
   }
 
 LABEL_15:
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -124,9 +122,9 @@ LABEL_15:
   wrapperCopy = wrapper;
   if (wrapperCopy)
   {
-    v18.receiver = self;
-    v18.super_class = PBSecurityScopedURLWrapper;
-    v5 = [(PBSecurityScopedURLWrapper *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = PBSecurityScopedURLWrapper;
+    v5 = [(PBSecurityScopedURLWrapper *)&v17 init];
     if (v5)
     {
       v6 = [wrapperCopy url];
@@ -151,7 +149,6 @@ LABEL_15:
 
       else
       {
-        v16 = v5->_url;
         v14 = FPIsFileProviderBookmark() != 0;
       }
 
@@ -216,7 +213,7 @@ LABEL_15:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeBool:self->_readonly forKey:@"readonly"];
   if (!self->_backedByFileProvider)
@@ -254,7 +251,6 @@ LABEL_15:
   fpItem = self->_fpItem;
   if (!fpItem)
   {
-    v12 = self->_url;
     v9 = FPCreateBookmarkableStringFromDocumentURL();
     if (v9)
     {
@@ -268,17 +264,15 @@ LABEL_14:
 
   [coderCopy encodeObject:fpItem forKey:@"FPItem"];
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (PBSecurityScopedURLWrapper)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = PBSecurityScopedURLWrapper;
-  v5 = [(PBSecurityScopedURLWrapper *)&v21 init];
+  v18.receiver = self;
+  v18.super_class = PBSecurityScopedURLWrapper;
+  v5 = [(PBSecurityScopedURLWrapper *)&v18 init];
   if (v5)
   {
     v5->_readonly = [coderCopy decodeBoolForKey:@"readonly"];
@@ -303,25 +297,15 @@ LABEL_15:
           MEMORY[0x25F8ABFB0]();
         }
 
-        if (v9)
+        if (v9 && v16)
         {
-          if (v16)
-          {
-            MEMORY[0x25F8ABFB0](v9, v16);
-          }
-
-          v17 = v5->_url;
-        }
-
-        else
-        {
-          v18 = v5->_url;
+          MEMORY[0x25F8ABFB0](v9, v16);
         }
 
         _CFURLPromiseSetPhysicalURL();
       }
 
-      goto LABEL_16;
+      goto LABEL_14;
     }
 
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"FPItem"];
@@ -338,11 +322,10 @@ LABEL_15:
         v5->_url = v10;
       }
 
-LABEL_16:
+LABEL_14:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

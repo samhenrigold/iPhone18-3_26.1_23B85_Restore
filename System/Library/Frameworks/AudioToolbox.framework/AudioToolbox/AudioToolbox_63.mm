@@ -2097,7 +2097,7 @@ void NeuralRAD::~NeuralRAD(NeuralRAD *this)
   Neuralizer::~Neuralizer(this);
 }
 
-void NeuralRAD::getLayoutAzimuthElevation(_DWORD **a1, AudioChannelLayout *a2, void *a3, const void **a4, int16x4_t a5)
+void NeuralRAD::getLayoutAzimuthElevation(_DWORD **a1, uint64_t *a2, uint64_t *a3, const void **a4, int16x4_t a5)
 {
   GetChannelLayoutSphericalCoordinates(&v36, *a1, a5);
   GetChannelLayoutChannelLabels(&__p, *a1);
@@ -2174,16 +2174,16 @@ void NeuralRAD::getLayoutAzimuthElevation(_DWORD **a1, AudioChannelLayout *a2, v
         }
 
         a4[1] = v17;
-        v26 = *&a2->mNumberChannelDescriptions;
-        v27 = *&a2->mChannelLayoutTag + v11;
-        v28 = v26 - *&a2->mChannelLayoutTag;
+        v26 = a2[1];
+        v27 = *a2 + v11;
+        v28 = v26 - *a2;
         v29 = v12 + v28;
         if (v27 + 4 != v26)
         {
-          memmove((*&a2->mChannelLayoutTag + v11), (v27 + 4), v12 + v28);
+          memmove((*a2 + v11), (v27 + 4), v12 + v28);
         }
 
-        *&a2->mNumberChannelDescriptions = v27 + v29;
+        a2[1] = v27 + v29;
         v30 = a3[1];
         v31 = *a3 + v11;
         v32 = v30 - *a3;
@@ -6387,7 +6387,7 @@ LABEL_9:
   if (v22)
   {
     *(v22 + 48) = v14;
-    std::vector<BOOL>::operator=(v22 + 56, this + 480);
+    std::vector<BOOL>::operator=((v22 + 56), this + 480);
   }
 
   if ((LODWORD(v21) & 0x7FFFFFFFu) > 0x7F7FFFFF || v21 <= *(this + 5))

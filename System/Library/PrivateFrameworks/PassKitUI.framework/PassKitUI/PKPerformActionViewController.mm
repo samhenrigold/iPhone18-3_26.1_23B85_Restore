@@ -457,9 +457,9 @@ LABEL_9:
 
 - (void)viewWillLayoutSubviews
 {
-  v28.receiver = self;
-  v28.super_class = PKPerformActionViewController;
-  [(PKPerformActionViewController *)&v28 viewWillLayoutSubviews];
+  v38.receiver = self;
+  v38.super_class = PKPerformActionViewController;
+  [(PKPerformActionViewController *)&v38 viewWillLayoutSubviews];
   view = [(PKPerformActionViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -473,15 +473,23 @@ LABEL_9:
   y = v7 + v17;
   height = v11 - (v17 + v19);
   memset(&remainder, 0, sizeof(remainder));
-  [(PKPerformActionPassView *)self->_passView sizeThatFits:width, height, 0, 0, 0, 0];
+  memset(&v36, 0, sizeof(v36));
+  [(PKPerformActionPassView *)self->_passView sizeThatFits:width, height];
   v22 = v21;
-  v29.origin.x = x;
-  v29.origin.y = y;
-  v29.size.width = width;
-  v29.size.height = height;
-  CGRectDivide(v29, &v26, &remainder, v22, CGRectMinYEdge);
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v24 = v23;
+  v39.origin.x = x;
+  v39.origin.y = y;
+  v39.size.width = width;
+  v39.size.height = height;
+  CGRectDivide(v39, &v36, &remainder, v24, CGRectMinYEdge);
+  v25 = PKContentAlignmentMake();
+  v27.n128_u64[0] = *&v36.origin.y;
+  v26.n128_u64[0] = *&v36.origin.x;
+  v29.n128_u64[0] = *&v36.size.height;
+  v28.n128_u64[0] = *&v36.size.width;
+  v30.n128_u64[0] = v22;
+  v31.n128_f64[0] = v24;
+  PKSizeAlignedInRect(v25, v30, v31, v26, v27, v28, v29, v32);
   [(PKPerformActionPassView *)self->_passView setFrame:?];
   if (([(PKPerformActionPassView *)self->_passView isHidden]& 1) == 0)
   {
@@ -491,11 +499,11 @@ LABEL_9:
     height = remainder.size.height;
   }
 
-  v23 = v13 + x;
-  v24 = y + 0.0;
-  v25 = width - (v13 + v15);
-  [(PKPerformActionView *)self->_actionView setFrame:v23, v24, v25, height];
-  [(PKPerformActionLoadingView *)self->_loadingView setFrame:v23, v24, v25, height];
+  v33 = v13 + x;
+  v34 = y + 0.0;
+  v35 = width - (v13 + v15);
+  [(PKPerformActionView *)self->_actionView setFrame:v33, v34, v35, height];
+  [(PKPerformActionLoadingView *)self->_loadingView setFrame:v33, v34, v35, height];
 }
 
 - (BOOL)shouldHidePassView

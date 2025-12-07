@@ -12,12 +12,12 @@
 
 - (id)orderedProperties
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v8[0] = @"uuid";
-  v8[1] = @"provenance";
-  v8[2] = @"creation_date";
-  v8[3] = @"external_sync_ids.object_code";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
+  v7[4] = *MEMORY[0x277D85DE8];
+  v7[0] = @"uuid";
+  v7[1] = @"provenance";
+  v7[2] = @"creation_date";
+  v7[3] = @"external_sync_ids.object_code";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
   v4 = v3;
   if (self->_includeAutomaticTimeZones)
   {
@@ -25,8 +25,6 @@
 
     v4 = v5;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -81,35 +79,35 @@
   profile = [(HDEntityEncoder *)self profile];
   metadataManager = [profile metadataManager];
 
-  v10 = [_HDDataEntityEncoder _copyBaseMetadataForRow:?];
-  v11 = [metadataManager metadataForObjectID:d baseMetadata:v10 keyFilter:self->_metadataKeyFilter statement:self->_metadataValueStatement error:error];
+  v11 = [(_HDDataEntityEncoder *)self _copyBaseMetadataForRow:row];
+  v12 = [metadataManager metadataForObjectID:d baseMetadata:v11 keyFilter:self->_metadataKeyFilter statement:self->_metadataValueStatement error:error];
 
-  if (v11)
+  if (v12)
   {
-    v12 = objc_alloc_init(HDCodableHealthObject);
+    v13 = objc_alloc_init(HDCodableHealthObject);
     HDSQLiteColumnWithNameAsDouble();
-    [(HDCodableHealthObject *)v12 setCreationDate:?];
-    v13 = HDSQLiteColumnWithNameAsData();
-    [(HDCodableHealthObject *)v12 setUuid:v13];
+    [(HDCodableHealthObject *)v13 setCreationDate:?];
+    v14 = HDSQLiteColumnWithNameAsData();
+    [(HDCodableHealthObject *)v13 setUuid:v14];
 
     if ((HDSQLiteColumnWithNameIsNull() & 1) == 0)
     {
-      [(HDCodableHealthObject *)v12 setExternalSyncObjectCode:HDSQLiteColumnWithNameAsInt64()];
+      [(HDCodableHealthObject *)v13 setExternalSyncObjectCode:HDSQLiteColumnWithNameAsInt64()];
     }
 
-    if ([v11 count])
+    if ([v12 count])
     {
-      hk_codableMetadata = [v11 hk_codableMetadata];
-      [(HDCodableHealthObject *)v12 setMetadataDictionary:hk_codableMetadata];
+      hk_codableMetadata = [v12 hk_codableMetadata];
+      [(HDCodableHealthObject *)v13 setMetadataDictionary:hk_codableMetadata];
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)_copyBaseMetadataForRow:(uint64_t)row
@@ -119,19 +117,19 @@
     return 0;
   }
 
-  v1 = HDSQLiteColumnWithNameAsString();
-  if ([v1 length])
+  v2 = HDSQLiteColumnWithNameAsString();
+  if ([v2 length])
   {
-    v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    [v2 setObject:v1 forKeyedSubscript:*MEMORY[0x277CCDFB0]];
+    v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    [v3 setObject:v2 forKeyedSubscript:*MEMORY[0x277CCDFB0]];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (id)objectForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
@@ -163,148 +161,148 @@
 
   HDSQLiteColumnWithNameAsDouble();
   [objectCopy _setCreationTimestamp:?];
-  v10 = HDSQLiteColumnWithNameAsUUID();
-  [objectCopy _setUUID:v10];
+  v11 = HDSQLiteColumnWithNameAsUUID();
+  [objectCopy _setUUID:v11];
 
-  v11 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v12 = [(HDDataProvenanceCache *)self->_dataProvenanceCache provenanceWithID:v11];
+  v12 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  v13 = [(HDDataProvenanceCache *)self->_dataProvenanceCache provenanceWithID:v12];
   profile = [(HDEntityEncoder *)self profile];
   dataProvenanceCache = self->_dataProvenanceCache;
   v51 = 0;
-  v15 = [(HDDataProvenanceCache *)dataProvenanceCache sourceRevisionForProvenanceID:v11 dataProvenance:v12 profile:profile error:&v51];
-  v16 = v51;
-  v46 = v15;
-  v47 = v12;
-  if (v15)
+  v16 = [(HDDataProvenanceCache *)dataProvenanceCache sourceRevisionForProvenanceID:v12 dataProvenance:v13 profile:profile error:&v51];
+  v17 = v51;
+  v46 = v16;
+  v47 = v13;
+  if (v16)
   {
     errorCopy = error;
-    [objectCopy _setSourceRevision:v15];
-    deviceID = [v12 deviceID];
+    [objectCopy _setSourceRevision:v16];
+    deviceID = [v13 deviceID];
     if (deviceID)
     {
-      v18 = self->_dataProvenanceCache;
-      v50 = v16;
-      v19 = [(HDDataProvenanceCache *)v18 deviceForPersistentID:deviceID profile:profile error:&v50];
-      v20 = v50;
+      v19 = self->_dataProvenanceCache;
+      v50 = v17;
+      v20 = [(HDDataProvenanceCache *)v19 deviceForPersistentID:deviceID profile:profile error:&v50];
+      v21 = v50;
 
-      if (!v19 && v20)
+      if (!v20 && v21)
       {
         _HKInitializeLogging();
-        v21 = *MEMORY[0x277CCC2A0];
+        v22 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v53 = v20;
-          _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "Expected device not found. %{public}@", buf, 0xCu);
+          v53 = v21;
+          _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Expected device not found. %{public}@", buf, 0xCu);
         }
 
         if (errorCopy)
         {
-          v22 = v20;
-          v23 = 0;
-          *errorCopy = v20;
+          v23 = v21;
+          v24 = 0;
+          *errorCopy = v21;
           goto LABEL_47;
         }
 
         _HKLogDroppedError();
 LABEL_41:
-        v23 = 0;
+        v24 = 0;
         goto LABEL_47;
       }
 
-      [objectCopy _setDevice:v19];
+      [objectCopy _setDevice:v20];
 
-      v12 = v47;
+      v13 = v47;
     }
 
     else
     {
-      v20 = v16;
+      v21 = v17;
     }
 
     if (self->_includeContributorInformation)
     {
-      v26 = self->_dataProvenanceCache;
-      contributorReference = [v12 contributorReference];
-      v49 = v20;
-      v28 = [(HDDataProvenanceCache *)v26 contributorForReference:contributorReference profile:profile error:&v49];
-      v29 = v49;
+      v27 = self->_dataProvenanceCache;
+      contributorReference = [v13 contributorReference];
+      v49 = v21;
+      v29 = [(HDDataProvenanceCache *)v27 contributorForReference:contributorReference profile:profile error:&v49];
+      v30 = v49;
 
-      if (!v28 && v29)
+      if (!v29 && v30)
       {
         _HKInitializeLogging();
-        v30 = *MEMORY[0x277CCC2A0];
+        v31 = *MEMORY[0x277CCC2A0];
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v53 = v29;
-          _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Expected contributor not found. %{public}@", buf, 0xCu);
+          v53 = v30;
+          _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Expected contributor not found. %{public}@", buf, 0xCu);
         }
 
         if (errorCopy)
         {
-          v31 = v29;
-          v23 = 0;
-          *errorCopy = v29;
+          v32 = v30;
+          v24 = 0;
+          *errorCopy = v30;
         }
 
         else
         {
           _HKLogDroppedError();
-          v23 = 0;
+          v24 = 0;
         }
 
-        v20 = v29;
+        v21 = v30;
         goto LABEL_47;
       }
 
-      if (v28)
+      if (v29)
       {
-        [objectCopy _setContributor:v28];
+        [objectCopy _setContributor:v29];
       }
     }
 
     else
     {
-      v29 = v20;
+      v30 = v21;
     }
 
     metadataManager = [profile metadataManager];
-    v33 = [_HDDataEntityEncoder _copyBaseMetadataForRow:?];
+    v34 = [(_HDDataEntityEncoder *)self _copyBaseMetadataForRow:row];
     metadataKeyFilter = self->_metadataKeyFilter;
     metadataValueStatement = self->_metadataValueStatement;
-    v48 = v29;
-    v36 = [metadataManager metadataForObjectID:d baseMetadata:v33 keyFilter:metadataKeyFilter statement:metadataValueStatement error:&v48];
-    v20 = v48;
+    v48 = v30;
+    v37 = [metadataManager metadataForObjectID:d baseMetadata:v34 keyFilter:metadataKeyFilter statement:metadataValueStatement error:&v48];
+    v21 = v48;
 
-    v23 = v36 != 0;
-    if (v36)
+    v24 = v37 != 0;
+    if (v37)
     {
-      if ([v36 count])
+      if ([v37 count])
       {
-        [objectCopy _setMetadata:v36];
+        [objectCopy _setMetadata:v37];
       }
     }
 
     else
     {
       _HKInitializeLogging();
-      v37 = *MEMORY[0x277CCC2A0];
+      v38 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v53 = v20;
-        _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "Error retrieving metadata: %{public}@", buf, 0xCu);
+        v53 = v21;
+        _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "Error retrieving metadata: %{public}@", buf, 0xCu);
       }
 
-      v38 = v20;
-      v39 = v38;
-      if (v38)
+      v39 = v21;
+      v40 = v39;
+      if (v39)
       {
         if (errorCopy)
         {
-          v40 = v38;
-          *errorCopy = v39;
+          v41 = v39;
+          *errorCopy = v40;
         }
 
         else
@@ -318,41 +316,40 @@ LABEL_41:
   else
   {
     _HKInitializeLogging();
-    v24 = *MEMORY[0x277CCC2A0];
+    v25 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v53 = v16;
-      _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "sourceRevision not found. %{public}@", buf, 0xCu);
+      v53 = v17;
+      _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "sourceRevision not found. %{public}@", buf, 0xCu);
     }
 
-    deviceID = v16;
+    deviceID = v17;
     if (!deviceID)
     {
-      v20 = 0;
+      v21 = 0;
       goto LABEL_41;
     }
 
     if (error)
     {
-      v25 = deviceID;
-      v23 = 0;
+      v26 = deviceID;
+      v24 = 0;
       *error = deviceID;
     }
 
     else
     {
       _HKLogDroppedError();
-      v23 = 0;
+      v24 = 0;
     }
 
-    v20 = deviceID;
+    v21 = deviceID;
   }
 
 LABEL_47:
 
-  v41 = *MEMORY[0x277D85DE8];
-  return v23;
+  return v24;
 }
 
 @end

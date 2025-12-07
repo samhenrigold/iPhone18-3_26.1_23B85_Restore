@@ -2,6 +2,7 @@
 + (id)settingSpecifierWithTarget:(id)target set:(SEL)set get:(SEL)get;
 + (id)titleSettingSpecifier;
 - (BOOL)hasCloudNotificationAccounts;
+- (NMCUISpecifierController)initWithListController:(id)controller dataSource:(id)source isTinker:(BOOL)tinker;
 - (PSListController)listController;
 - (id)_cloudNotificationsEnabled:(id)enabled;
 - (id)groupSpecifierForTinker:(BOOL)tinker;
@@ -12,6 +13,25 @@
 @end
 
 @implementation NMCUISpecifierController
+
+- (NMCUISpecifierController)initWithListController:(id)controller dataSource:(id)source isTinker:(BOOL)tinker
+{
+  tinkerCopy = tinker;
+  controllerCopy = controller;
+  sourceCopy = source;
+  v13.receiver = self;
+  v13.super_class = NMCUISpecifierController;
+  v10 = [(NMCUISpecifierController *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(NMCUISpecifierController *)v10 setListController:controllerCopy];
+    [(NMCUISpecifierController *)v11 setDataSource:sourceCopy];
+    [(NMCUISpecifierController *)v11 setIsTinker:tinkerCopy];
+  }
+
+  return v11;
+}
 
 + (id)settingSpecifierWithTarget:(id)target set:(SEL)set get:(SEL)get
 {
@@ -109,7 +129,7 @@ LABEL_7:
 
 - (id)specifiers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dataSource = [(NMCUISpecifierController *)self dataSource];
   showsAlerts = [dataSource showsAlerts];
 
@@ -130,31 +150,31 @@ LABEL_7:
       +[NMCUISpecifierController titleSettingSpecifier];
     }
     v9 = ;
-    v23 = v5;
+    v22 = v5;
     [v5 addObject:v9];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     dataSource2 = [(NMCUISpecifierController *)self dataSource];
     accounts = [dataSource2 accounts];
 
-    v12 = [accounts countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [accounts countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(accounts);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           if ([v16 directPushNotificationsSupported])
           {
             v17 = 0;
@@ -181,7 +201,7 @@ LABEL_17:
           }
         }
 
-        v13 = [accounts countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [accounts countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
@@ -189,14 +209,14 @@ LABEL_17:
 
     if ([v6 count])
     {
-      v20 = v23;
-      v8 = [v23 arrayByAddingObjectsFromArray:v6];
+      v20 = v22;
+      v8 = [v22 arrayByAddingObjectsFromArray:v6];
     }
 
     else
     {
       v8 = MEMORY[0x277CBEBF8];
-      v20 = v23;
+      v20 = v22;
     }
   }
 
@@ -205,47 +225,45 @@ LABEL_17:
     v8 = MEMORY[0x277CBEBF8];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)hasCloudNotificationAccounts
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataSource = [(NMCUISpecifierController *)self dataSource];
   deviceSupportsCloudNotifications = [dataSource deviceSupportsCloudNotifications];
 
   if (deviceSupportsCloudNotifications)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     dataSource2 = [(NMCUISpecifierController *)self dataSource];
     accounts = [dataSource2 accounts];
 
-    v7 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v12;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(accounts);
           }
 
-          if ([NMCUICloudNotificationAccountDataSource accountSupportsNotifications:*(*(&v12 + 1) + 8 * i)])
+          if ([NMCUICloudNotificationAccountDataSource accountSupportsNotifications:*(*(&v11 + 1) + 8 * i)])
           {
             LOBYTE(v7) = 1;
             goto LABEL_13;
           }
         }
 
-        v7 = [accounts countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [accounts countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v7)
         {
           continue;
@@ -263,7 +281,6 @@ LABEL_13:
     LOBYTE(v7) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

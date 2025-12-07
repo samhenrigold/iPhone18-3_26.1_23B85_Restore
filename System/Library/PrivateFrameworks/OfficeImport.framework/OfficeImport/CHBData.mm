@@ -21,7 +21,7 @@
 
     if (!from)
     {
-      v36 = v8;
+      v35 = v8;
       goto LABEL_47;
     }
   }
@@ -48,8 +48,8 @@
 
   if (XlChartLinkedData::hasEnteredData(from))
   {
-    v40 = v14;
-    v41 = stateCopy;
+    v39 = v14;
+    v40 = stateCopy;
     dataValues = [v8 dataValues];
     v18 = *(from + 4);
     fromCopy = from;
@@ -62,7 +62,7 @@
       while (1)
       {
         v23 = *(v18 + 5);
-        CsData::CsData(&v44);
+        CsData::CsData(&v43);
         if ((*(*v23 + 16))(v23))
         {
           break;
@@ -73,46 +73,46 @@
           goto LABEL_16;
         }
 
-        v26 = [CHBString nsStringWithHandlingMultilevelCategoryDataFromOCText:(*(*v23 + 40))(v23) chdFormula:v40 state:v41];
-        if ([(EDValue *)v26 length])
+        v25 = [CHBString nsStringWithHandlingMultilevelCategoryDataFromOCText:(*(*v23 + 40))(v23) chdFormula:v39 state:v40];
+        if ([(EDValue *)v25 length])
         {
-          EDValue::makeWithNSString(v26, &v42);
-          EDValue::operator=(&v44, &v42);
-          EDValue::~EDValue(&v42);
+          EDValue::makeWithNSString(&v41.type, v25);
+          EDValue::operator=(&v43, &v41);
+          EDValue::~EDValue(&v41);
 
           goto LABEL_16;
         }
 
-        v32 = *(v18 + 1);
-        v33 = v18;
-        if (v32)
+        v31 = *(v18 + 1);
+        v32 = v18;
+        if (v31)
         {
           do
           {
-            v34 = v32;
-            v32 = *v32;
+            v33 = v31;
+            v31 = *v31;
           }
 
-          while (v32);
+          while (v31);
         }
 
         else
         {
           do
           {
-            v34 = *(v33 + 2);
-            v35 = *v34 == v33;
-            v33 = v34;
+            v33 = *(v32 + 2);
+            v34 = *v33 == v32;
+            v32 = v33;
           }
 
-          while (!v35);
+          while (!v34);
         }
 
         v20 = *(v18 + 8);
 
-        v18 = v34;
+        v18 = v33;
 LABEL_29:
-        EDValue::~EDValue(&v44);
+        EDValue::~EDValue(&v43);
         if (v18 == v19)
         {
           goto LABEL_40;
@@ -120,19 +120,19 @@ LABEL_29:
       }
 
       v24 = (*(*v23 + 32))(v23);
-      EDValue::makeWithNumber(v24, v25, &v42);
-      EDValue::operator=(&v44, &v42);
-      EDValue::~EDValue(&v42);
+      EDValue::makeWithNumber(&v41.type, v24);
+      EDValue::operator=(&v43, &v41);
+      EDValue::~EDValue(&v41);
 LABEL_16:
-      v27 = v23[4];
-      if (v27 == v22)
+      v26 = v23[4];
+      if (v26 == v22)
       {
-        v28 = v22;
+        v27 = v22;
       }
 
       else
       {
-        v28 = -1;
+        v27 = -1;
       }
 
       if (v21)
@@ -142,41 +142,41 @@ LABEL_16:
 
       else
       {
-        v22 = v28;
+        v22 = v27;
       }
 
-      v43 = *(v18 + 8);
-      v45 = v27;
-      [dataValues addDataPoint:&v43];
-      v29 = *(v18 + 8);
-      if (v29 <= v20)
+      v42 = *(v18 + 8);
+      v44 = v26;
+      [dataValues addDataPoint:&v42];
+      v28 = *(v18 + 8);
+      if (v28 <= v20)
       {
-        v29 = v20;
+        v28 = v20;
       }
 
-      [v8 setDataValueIndexCount:v29 + 1];
+      [v8 setDataValueIndexCount:v28 + 1];
       v20 = *(v18 + 8);
-      v30 = *(v18 + 1);
-      if (v30)
+      v29 = *(v18 + 1);
+      if (v29)
       {
         do
         {
-          v18 = v30;
-          v30 = *v30;
+          v18 = v29;
+          v29 = *v29;
         }
 
-        while (v30);
+        while (v29);
       }
 
       else
       {
         do
         {
-          v31 = v18;
+          v30 = v18;
           v18 = *(v18 + 2);
         }
 
-        while (*v18 != v31);
+        while (*v18 != v30);
       }
 
       v21 = 0;
@@ -187,8 +187,8 @@ LABEL_16:
 LABEL_40:
     [dataValues finishReading];
 
-    v14 = v40;
-    stateCopy = v41;
+    v14 = v39;
+    stateCopy = v40;
     from = fromCopy;
   }
 
@@ -197,26 +197,26 @@ LABEL_40:
     LOWORD(v22) = -1;
   }
 
-  v37 = *(from + 13);
+  v36 = *(from + 13);
   if (*([stateCopy xlReader] + 1344) == 1)
   {
-    if (v37 == 0x8000)
+    if (v36 == 0x8000)
     {
-      LOWORD(v37) = v22;
+      LOWORD(v36) = v22;
     }
 
     else if (*(from + 28) == 1)
     {
-      LOWORD(v37) = v22;
+      LOWORD(v36) = v22;
     }
   }
 
-  [v8 setContentFormatId:v37];
-  v36 = v8;
+  [v8 setContentFormatId:v36];
+  v35 = v8;
 
 LABEL_47:
 
-  return v36;
+  return v35;
 }
 
 @end

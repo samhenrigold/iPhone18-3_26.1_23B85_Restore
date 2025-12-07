@@ -10,11 +10,11 @@
 
 - (BLTSectionConfigurationItem)initWithDictionary:(id)dictionary
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v77.receiver = self;
-  v77.super_class = BLTSectionConfigurationItem;
-  v5 = [(BLTSectionConfigurationItem *)&v77 init];
+  v76.receiver = self;
+  v76.super_class = BLTSectionConfigurationItem;
+  v5 = [(BLTSectionConfigurationItem *)&v76 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"OptOutOfCoordination"];
@@ -70,33 +70,33 @@
     v23 = [dictionaryCopy objectForKeyedSubscript:@"DenyListedCategoriesWithVersion"];
     if (v23)
     {
-      v72 = dictionaryCopy;
+      v71 = dictionaryCopy;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       denyListedCategoriesWithVersion = v5->_denyListedCategoriesWithVersion;
       v5->_denyListedCategoriesWithVersion = dictionary;
 
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
       v74 = 0u;
-      v71 = v23;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v70 = v23;
       v26 = v23;
-      v27 = [v26 countByEnumeratingWithState:&v73 objects:v78 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v72 objects:v77 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v74;
+        v29 = *v73;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v74 != v29)
+            if (*v73 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v73 + 1) + 8 * i);
-            v32 = [v31 objectForKeyedSubscript:{@"Version", v71}];
+            v31 = *(*(&v72 + 1) + 8 * i);
+            v32 = [v31 objectForKeyedSubscript:{@"Version", v70}];
             if (v32)
             {
               v33 = v32;
@@ -112,17 +112,17 @@
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v73 objects:v78 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v72 objects:v77 count:16];
         }
 
         while (v28);
       }
 
-      v23 = v71;
-      dictionaryCopy = v72;
+      v23 = v70;
+      dictionaryCopy = v71;
     }
 
-    v38 = [dictionaryCopy objectForKeyedSubscript:{@"AllowListedCategories", v71}];
+    v38 = [dictionaryCopy objectForKeyedSubscript:{@"AllowListedCategories", v70}];
 
     if (v38)
     {
@@ -237,7 +237,6 @@
     v5->_watchVersionThatUsesAttachmentURL = v67;
   }
 
-  v69 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

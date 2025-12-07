@@ -3,7 +3,7 @@
 
 @implementation AXSZoomSpeakUnderFingerEnabled
 
-uint64_t ___AXSZoomSpeakUnderFingerEnabled_block_invoke()
+void *___AXSZoomSpeakUnderFingerEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

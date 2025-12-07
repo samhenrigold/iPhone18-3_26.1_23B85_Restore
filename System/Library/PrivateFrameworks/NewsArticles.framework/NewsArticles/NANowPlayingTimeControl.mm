@@ -74,10 +74,11 @@
 
   v7 = (self + OBJC_IVAR___NANowPlayingTimeControl_timeDidChangeHandler);
   v8 = *(self + OBJC_IVAR___NANowPlayingTimeControl_timeDidChangeHandler);
+  v9 = *(self + OBJC_IVAR___NANowPlayingTimeControl_timeDidChangeHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1D79AD740(v8);
+  sub_1D79AD740(v8, v9);
 }
 
 - (void)setHidden:(BOOL)hidden

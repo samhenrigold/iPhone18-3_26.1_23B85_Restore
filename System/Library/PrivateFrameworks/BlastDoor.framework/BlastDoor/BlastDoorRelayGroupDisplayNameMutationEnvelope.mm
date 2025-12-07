@@ -8,11 +8,7 @@
 
 - (NSString)description
 {
-  v4 = *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope];
-  v5 = *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope + 8];
-  v6 = *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope + 16];
-  v7 = self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope + 24];
-  sub_21431C5DC(*(&self->super.isa + OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope));
+  sub_21431C5DC(*(&self->super.isa + OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope), *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope], *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope + 8], *&self->relayGroupDisplayNameMutationEnvelope[OBJC_IVAR___BlastDoorRelayGroupDisplayNameMutationEnvelope_relayGroupDisplayNameMutationEnvelope + 16]);
   sub_2146D9608();
   v2 = sub_2146D9588();
 
@@ -37,7 +33,7 @@
     *(v10 + 2) = v5;
     *(v10 + 3) = v4;
     v10[32] = v7;
-    sub_21431C5DC(v3);
+    sub_21431C5DC(v3, v6, v5, v4);
     v13.receiver = v9;
     v13.super_class = v8;
     v11 = [(BlastDoorRelayGroupDisplayNameMutationEnvelope *)&v13 init];

@@ -27,27 +27,27 @@
 
 void __96__MessageAttachmentActionGenerator__saveToCameraRollActionForFutureRepresentations_title_image___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
-    v3 = *v9;
+    v3 = *v8;
     do
     {
       v4 = 0;
       do
       {
-        if (*v9 != v3)
+        if (*v8 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * v4);
+        v5 = *(*(&v7 + 1) + 8 * v4);
         v6 = [MEMORY[0x277D071B8] mainThreadScheduler];
         [v5 onScheduler:v6 addSuccessBlock:&__block_literal_global];
 
@@ -55,13 +55,11 @@ void __96__MessageAttachmentActionGenerator__saveToCameraRollActionForFutureRepr
       }
 
       while (v2 != v4);
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v2);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __96__MessageAttachmentActionGenerator__saveToCameraRollActionForFutureRepresentations_title_image___block_invoke_2(uint64_t a1, void *a2)
@@ -80,32 +78,28 @@ void __96__MessageAttachmentActionGenerator__saveToCameraRollActionForFutureRepr
 
 + (id)saveImageActionForFutureRepresentation:(id)representation
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   representationCopy = representation;
-  v12[0] = representationCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = representationCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v7 = [mainBundle localizedStringForKey:@"SAVE_IMAGE" value:&stru_2826D1AD8 table:@"Main"];
   v8 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6818]];
   v9 = [self _saveToCameraRollActionForFutureRepresentations:v5 title:v7 image:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)saveVideoActionForFutureRepresentation:(id)representation
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   representationCopy = representation;
-  v12[0] = representationCopy;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = representationCopy;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v7 = [mainBundle localizedStringForKey:@"SAVE_VIDEO" value:&stru_2826D1AD8 table:@"Main"];
   v8 = [MEMORY[0x277D755B8] systemImageNamed:*MEMORY[0x277CD6818]];
   v9 = [self _saveToCameraRollActionForFutureRepresentations:v5 title:v7 image:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -248,42 +242,40 @@ void __96__MessageAttachmentActionGenerator__saveToCameraRollActionForFutureRepr
 
 void __234__MessageAttachmentActionGenerator_markupDocumentActionForURL_messageObjectID_mailboxObjectID_subject_senderDisplayName_shouldShowReplyAll_originView_useFullScreenPresentation_contentRepresentationHandlingDelegate_assetViewerManager___block_invoke(uint64_t a1, void *a2)
 {
-  v7[9] = *MEMORY[0x277D85DE8];
+  v6[9] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v7[0] = 0;
+  v6[0] = 0;
   if (!MarkupUILibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __MarkupUILibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v7[7] = 0;
-    v7[8] = 0;
-    v7[6] = "/System/Library/PrivateFrameworks/MarkupUI.framework/MarkupUI";
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __MarkupUILibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v6[7] = 0;
+    v6[8] = 0;
+    v6[6] = "/System/Library/PrivateFrameworks/MarkupUI.framework/MarkupUI";
     MarkupUILibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!MarkupUILibraryCore_frameworkLibrary)
   {
     a1 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *MarkupUILibrary(void)"];
-    [a1 handleFailureInFunction:v6 file:@"MessageActivityViewController.m" lineNumber:33 description:{@"%s", v7[0]}];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *MarkupUILibrary(void)"];
+    [a1 handleFailureInFunction:v5 file:@"MessageActivityViewController.m" lineNumber:33 description:{@"%s", v6[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v4 = v7[0];
-  if (v7[0])
+  v4 = v6[0];
+  if (v6[0])
   {
 LABEL_7:
     free(v4);
   }
 
   [*(a1 + 32) markupURL:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)quicklookActionForAttachmentContext:(id)context alternateAction:(id)action originView:(id)view attachmentRect:(CGRect)rect useFullScreenPresentation:(BOOL)presentation
@@ -325,21 +317,17 @@ id __140__MessageAttachmentActionGenerator_quicklookActionForAttachmentContext_a
     v6 = [MEMORY[0x277D75348] clearColor];
     [v5 setBackgroundColor:v6];
 
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
     UIRectGetCenter();
-    v13 = [objc_alloc(MEMORY[0x277D758E0]) initWithContainer:*(a1 + 40) center:{v11, v12}];
-    v14 = objc_alloc_init(MEMORY[0x277D758D8]);
-    v15 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:v5 parameters:v14 target:v13];
-    [v4 setPreview:v15];
+    v9 = [objc_alloc(MEMORY[0x277D758E0]) initWithContainer:*(a1 + 40) center:{v7, v8}];
+    v10 = objc_alloc_init(MEMORY[0x277D758D8]);
+    v11 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:v5 parameters:v10 target:v9];
+    [v4 setPreview:v11];
 
-    v16 = objc_alloc_init(MEMORY[0x277D75DC0]);
-    v17 = [MEMORY[0x277D75DC8] _largeProminentPlacement];
-    [v16 setPlacement:v17];
+    v12 = objc_alloc_init(MEMORY[0x277D75DC0]);
+    v13 = [MEMORY[0x277D75DC8] _largeProminentPlacement];
+    [v12 setPlacement:v13];
 
-    [v4 setOptions:v16];
+    [v4 setOptions:v12];
   }
 
   return v4;

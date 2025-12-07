@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)langProfileRecreateCodesAsString:(int)string;
+- (id)watermarkDetectionAsString:(int)string;
 - (int)StringAsLangProfileRecreateCodes:(id)codes;
 - (int)StringAsWatermarkDetection:(id)detection;
 - (int)langProfileRecreateCodes;
@@ -60,6 +62,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)langProfileRecreateCodesAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BA40[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLangProfileRecreateCodes:(id)codes
@@ -124,6 +141,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)watermarkDetectionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BA68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsWatermarkDetection:(id)detection
@@ -298,90 +330,85 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_speechId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_sessionId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    returnCode = self->_returnCode;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_returnStr)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_recognitionResult)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    langProfileRecreateCodes = self->_langProfileRecreateCodes;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_audioAnalytics)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    watermarkDetection = self->_watermarkDetection;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    watermarkPeakAverage = self->_watermarkPeakAverage;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_language)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_latnnMitigatorResult)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_requestLocale)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    hasResult = self->_hasResult;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -566,7 +593,6 @@
     }
   }
 
-  v7 = *(equalCopy + 104);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 104) & 4) == 0 || self->_returnCode != *(equalCopy + 16))
@@ -596,7 +622,6 @@
   }
 
   has = self->_has;
-  v11 = *(equalCopy + 104);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 104) & 2) == 0 || self->_langProfileRecreateCodes != *(equalCopy + 6))
@@ -621,7 +646,6 @@
     has = self->_has;
   }
 
-  v13 = *(equalCopy + 104);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 104) & 8) == 0 || self->_watermarkDetection != *(equalCopy + 24))
@@ -672,7 +696,7 @@
     }
   }
 
-  v17 = (*(equalCopy + 104) & 0x10) == 0;
+  v14 = (*(equalCopy + 104) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 104) & 0x10) != 0)
@@ -690,17 +714,17 @@
         goto LABEL_41;
       }
 
-      v17 = 1;
+      v14 = 1;
       goto LABEL_42;
     }
 
 LABEL_41:
-    v17 = 0;
+    v14 = 0;
   }
 
 LABEL_42:
 
-  return v17;
+  return v14;
 }
 
 - (unint64_t)hash

@@ -8,9 +8,9 @@
 
 + (id)naui_prototypeCell
 {
-  v0 = [objc_alloc(objc_opt_class()) initWithStyle:0 reuseIdentifier:0];
+  v2 = [objc_alloc(objc_opt_class()) initWithStyle:0 reuseIdentifier:0];
 
-  return v0;
+  return v2;
 }
 
 + (double)naui_tableRowHeight

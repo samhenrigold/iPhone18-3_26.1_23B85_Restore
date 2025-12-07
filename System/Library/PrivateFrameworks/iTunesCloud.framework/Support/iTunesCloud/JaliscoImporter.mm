@@ -21,7 +21,7 @@
     currentPaginationToken = self->_currentPaginationToken;
     self->_currentPaginationToken = v8;
 
-    _objc_release_x1();
+    _objc_release_x1(v8, currentPaginationToken);
   }
 }
 

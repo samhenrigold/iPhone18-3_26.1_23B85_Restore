@@ -63,7 +63,6 @@
 - (void)invalidateDatabaseAssertionWithCompletion:(id)completion
 {
   v4 = _Block_copy(completion);
-  v5 = *(*&self->HDStandardTaskServer_opaque[OBJC_IVAR____TtC25FitnessIntelligencePlugin27SnapshotContainerTaskServer_snapshotProcessingAssertion] + 40);
   selfCopy = self;
 
   sub_74CC8();
@@ -76,14 +75,13 @@
 - (_TtC25FitnessIntelligencePlugin27SnapshotContainerTaskServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate
 {
   v9 = sub_749B8();
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_74998();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  return SnapshotContainerTaskServer.init(uuid:configuration:client:delegate:)(v12, configuration, clientCopy, delegate);
+  return SnapshotContainerTaskServer.init(uuid:configuration:client:delegate:)(v11, configuration, clientCopy, delegate);
 }
 
 - (void)dealloc

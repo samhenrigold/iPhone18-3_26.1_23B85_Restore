@@ -9,52 +9,72 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    v13 = [objc_opt_class() description];
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
   }
 
-  v5 = self->_passwordType + 1;
-  if (v5 <= 0xA)
+  v21 = v4;
+  if ((level & 0x8000000) != 0)
   {
-    v6 = off_279BB8270[v5];
+    v6 = 0;
   }
 
-  CUAppendF();
-  v7 = v4;
+  else
+  {
+    v20 = 0;
+    v5 = [objc_opt_class() description];
+    CUAppendF(&v20, &v21, "%@", v5);
+    v6 = v20;
+  }
+
+  v19 = v6;
+  v7 = self->_passwordType + 1;
+  if (v7 > 0xA)
+  {
+    v8 = "?";
+  }
+
+  else
+  {
+    v8 = off_279BB8270[v7];
+  }
+
+  CUAppendF(&v19, &v21, "%s", v8);
+  v9 = v19;
 
   if (self->_pairingFlags)
   {
-    v14 = CUPrintFlags32();
-    CUAppendF();
-    v8 = v7;
+    v18 = v9;
+    v10 = CUPrintFlags32();
+    CUAppendF(&v18, &v21, "%@", v10);
+    v11 = v18;
 
-    v7 = v8;
+    v9 = v11;
   }
 
   if (self->_throttleSeconds >= 1)
   {
     throttleSeconds = self->_throttleSeconds;
-    CUAppendF();
-    v9 = v7;
+    v17 = v9;
+    CUAppendF(&v17, &v21, "throttle %d seconds", throttleSeconds);
+    v12 = v17;
 
-    v7 = v9;
+    v9 = v12;
   }
 
-  v10 = &stru_2877689A8;
-  if (v7)
+  v13 = &stru_2877689A8;
+  if (v9)
   {
-    v10 = v7;
+    v13 = v9;
   }
 
-  v11 = v10;
+  v14 = v13;
 
-  return v11;
+  return v14;
 }
 
 - (SKAuthenticationRequestEvent)initWithPasswordType:(int)type pairingFlags:(unsigned int)flags throttleSeconds:(int)seconds

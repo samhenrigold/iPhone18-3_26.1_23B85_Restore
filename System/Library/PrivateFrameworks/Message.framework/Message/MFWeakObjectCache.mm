@@ -158,28 +158,28 @@ LABEL_17:
 
 - (void)removeAllObjects
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   [(NSLock *)self->_lock lock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSMutableDictionary *)self->_dictionary allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        reference = [*(*(&v10 + 1) + 8 * v6) reference];
+        reference = [*(*(&v9 + 1) + 8 * v6) reference];
         v8 = reference;
         if (reference)
         {
@@ -190,7 +190,7 @@ LABEL_17:
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -198,7 +198,6 @@ LABEL_17:
 
   [(NSMutableDictionary *)self->_dictionary removeAllObjects];
   [(NSLock *)self->_lock unlock];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

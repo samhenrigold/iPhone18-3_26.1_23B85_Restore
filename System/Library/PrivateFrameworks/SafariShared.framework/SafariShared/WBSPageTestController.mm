@@ -8,114 +8,115 @@
 - (id)bundleFromNSBundle:(id)bundle
 {
   selfCopy = self;
-  v67 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
-  v51 = objc_alloc_init(WBSPageTestEvaluator);
-  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v48 = bundleCopy;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
+  v56 = objc_alloc_init(WBSPageTestEvaluator);
+  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v53 = bundleCopy;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   infoDictionary = [bundleCopy infoDictionary];
   obj = [infoDictionary safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"TestPages"];
 
-  v43 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
-  if (v43)
+  v48 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+  if (v48)
   {
-    v42 = *v58;
+    v47 = *v63;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v58 != v42)
+        if (*v63 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v49 = *(*(&v57 + 1) + 8 * i);
-        v46 = [v49 safari_stringForKey:{@"WebArchiveFileName", selfCopy}];
+        v54 = *(*(&v62 + 1) + 8 * i);
+        v51 = [v54 safari_stringForKey:{@"WebArchiveFileName", selfCopy}];
         v5 = MEMORY[0x1E695DFF8];
-        bundleURL = [v48 bundleURL];
-        v50 = [v5 URLWithString:v46 relativeToURL:bundleURL];
+        bundleURL = [v53 bundleURL];
+        v55 = [v5 URLWithString:v51 relativeToURL:bundleURL];
 
-        v7 = [v49 safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"Expectations"];
-        v44 = v7;
+        v7 = [v54 safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"Expectations"];
+        v49 = v7;
         if (v7)
         {
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          v52 = v7;
-          v8 = [v52 countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
+          v57 = v7;
+          v8 = [v57 countByEnumeratingWithState:&v58 objects:v70 count:16];
           if (v8)
           {
-            v9 = *v54;
+            v9 = *v59;
             do
             {
               for (j = 0; j != v8; ++j)
               {
-                if (*v54 != v9)
+                if (*v59 != v9)
                 {
-                  objc_enumerationMutation(v52);
+                  objc_enumerationMutation(v57);
                 }
 
-                v11 = *(*(&v53 + 1) + 8 * j);
-                v12 = [v11 safari_stringForKey:@"ExpectedResults"];
-                if (v12)
+                v11 = *(*(&v58 + 1) + 8 * j);
+                v13 = [v11 safari_stringForKey:@"ExpectedResults"];
+                if (v13)
                 {
-                  v13 = [v11 safari_stringForKey:@"Identifier"];
-                  if (v13)
+                  v15 = [v11 safari_stringForKey:@"Identifier"];
+                  if (v15)
                   {
-                    v14 = [v11 safari_stringForKey:@"Condition"];
-                    v15 = [MEMORY[0x1E696AE18] predicateWithFormat:v14];
-                    if ([v15 evaluateWithObject:v51])
+                    v16 = [v11 safari_stringForKey:@"Condition"];
+                    v17 = [MEMORY[0x1E696AE18] predicateWithFormat:v16];
+                    v18 = [v17 evaluateWithObject:v56];
+                    if (v18)
                     {
-                      v16 = [WBSPageTest alloc];
-                      v17 = MEMORY[0x1E695DFF8];
-                      bundleURL2 = [v48 bundleURL];
-                      v19 = [v17 URLWithString:v12 relativeToURL:bundleURL2];
-                      v20 = [(WBSPageTest *)v16 initWithIdentifier:v13 pageURL:v50 expectedResultsURL:v19 dictionary:v49];
-                      [v47 addObject:v20];
+                      v20 = [WBSPageTest alloc];
+                      v21 = MEMORY[0x1E695DFF8];
+                      bundleURL2 = [v53 bundleURL];
+                      v23 = [v21 URLWithString:v13 relativeToURL:bundleURL2];
+                      v24 = [(WBSPageTest *)v20 initWithIdentifier:v15 pageURL:v55 expectedResultsURL:v23 dictionary:v54];
+                      [v52 addObject:v24];
                     }
 
-                    v21 = WBS_LOG_CHANNEL_PREFIXTest();
-                    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+                    v25 = WBS_LOG_CHANNEL_PREFIXTest(v18, v19);
+                    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
                     {
                       *buf = 138543618;
-                      v62 = v12;
-                      v63 = 2114;
-                      v64 = v14;
-                      _os_log_impl(&dword_1BB6F3000, v21, OS_LOG_TYPE_INFO, "Skipping expectation '%{public}@' because the current device didn't meet the condition '%{public}@'", buf, 0x16u);
+                      v67 = v13;
+                      v68 = 2114;
+                      v69 = v16;
+                      _os_log_impl(&dword_1BB6F3000, v25, OS_LOG_TYPE_INFO, "Skipping expectation '%{public}@' because the current device didn't meet the condition '%{public}@'", buf, 0x16u);
                     }
                   }
 
                   else
                   {
-                    v23 = WBS_LOG_CHANNEL_PREFIXTest();
-                    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+                    v27 = WBS_LOG_CHANNEL_PREFIXTest(0, v14);
+                    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138543362;
-                      v62 = v46;
-                      _os_log_error_impl(&dword_1BB6F3000, v23, OS_LOG_TYPE_ERROR, "Test for '%{public}@' is required to specify identifiers", buf, 0xCu);
+                      v67 = v51;
+                      _os_log_error_impl(&dword_1BB6F3000, v27, OS_LOG_TYPE_ERROR, "Test for '%{public}@' is required to specify identifiers", buf, 0xCu);
                     }
                   }
                 }
 
                 else
                 {
-                  v22 = WBS_LOG_CHANNEL_PREFIXTest();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v26 = WBS_LOG_CHANNEL_PREFIXTest(0, v12);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138543362;
-                    v62 = v46;
-                    _os_log_error_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_ERROR, "Test for '%{public}@' is required to specify an expected result files", buf, 0xCu);
+                    v67 = v51;
+                    _os_log_error_impl(&dword_1BB6F3000, v26, OS_LOG_TYPE_ERROR, "Test for '%{public}@' is required to specify an expected result files", buf, 0xCu);
                   }
                 }
               }
 
-              v8 = [v52 countByEnumeratingWithState:&v53 objects:v65 count:16];
+              v8 = [v57 countByEnumeratingWithState:&v58 objects:v70 count:16];
             }
 
             while (v8);
@@ -124,55 +125,55 @@
 
         else
         {
-          v24 = MEMORY[0x1E695DFF8];
-          uRLByDeletingPathExtension = [v50 URLByDeletingPathExtension];
+          v28 = MEMORY[0x1E695DFF8];
+          uRLByDeletingPathExtension = [v55 URLByDeletingPathExtension];
           absoluteString = [uRLByDeletingPathExtension absoluteString];
-          v27 = [absoluteString stringByAppendingString:@"-expected"];
-          v28 = [v24 URLWithString:v27];
+          v31 = [absoluteString stringByAppendingString:@"-expected"];
+          v32 = [v28 URLWithString:v31];
           expectedResultsPathExtension = [(WBSPageTestController *)selfCopy expectedResultsPathExtension];
-          v52 = [v28 URLByAppendingPathExtension:expectedResultsPathExtension];
+          v57 = [v32 URLByAppendingPathExtension:expectedResultsPathExtension];
 
-          v30 = [WBSPageTest alloc];
-          uRLByDeletingPathExtension2 = [v50 URLByDeletingPathExtension];
+          v34 = [WBSPageTest alloc];
+          uRLByDeletingPathExtension2 = [v55 URLByDeletingPathExtension];
           lastPathComponent = [uRLByDeletingPathExtension2 lastPathComponent];
-          v33 = [(WBSPageTest *)v30 initWithIdentifier:lastPathComponent pageURL:v50 expectedResultsURL:v52 dictionary:v49];
-          [v47 addObject:v33];
+          v37 = [(WBSPageTest *)v34 initWithIdentifier:lastPathComponent pageURL:v55 expectedResultsURL:v57 dictionary:v54];
+          [v52 addObject:v37];
         }
       }
 
-      v43 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v48 = [obj countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
-    while (v43);
+    while (v48);
   }
 
-  bundleIdentifier = [v48 bundleIdentifier];
+  bundleIdentifier = [v53 bundleIdentifier];
   if (!bundleIdentifier)
   {
-    bundleURL3 = [v48 bundleURL];
+    bundleURL3 = [v53 bundleURL];
     uRLByDeletingPathExtension3 = [bundleURL3 URLByDeletingPathExtension];
     bundleIdentifier = [uRLByDeletingPathExtension3 lastPathComponent];
   }
 
-  if ([v47 count])
+  if ([v52 count])
   {
-    v37 = [[WBSPageTestBundle alloc] initWithIdentifier:bundleIdentifier tests:v47];
+    v42 = [[WBSPageTestBundle alloc] initWithIdentifier:bundleIdentifier tests:v52];
   }
 
   else
   {
-    v38 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    v43 = WBS_LOG_CHANNEL_PREFIXTest(0, v41);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v62 = bundleIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v38, OS_LOG_TYPE_INFO, "Skipping bundle '%{public}@' because they contained no runnable tests for current device", buf, 0xCu);
+      v67 = bundleIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v43, OS_LOG_TYPE_INFO, "Skipping bundle '%{public}@' because they contained no runnable tests for current device", buf, 0xCu);
     }
 
-    v37 = 0;
+    v42 = 0;
   }
 
-  return v37;
+  return v42;
 }
 
 - (WBSPageTestDelegate)delegate

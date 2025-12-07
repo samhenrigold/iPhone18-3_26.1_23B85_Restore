@@ -1,74 +1,8 @@
-void dispatch::detail::group_notify<abb::router::ClientProxy::handleRegistration_sync(xpc::dict)::$_0>(dispatch_group_s *,dispatch_queue_s *,abb::router::ClientProxy::handleRegistration_sync(xpc::dict)::$_0 &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke(uint64_t *a1)
+void sub_240EC3290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v2 = a1[2];
-  if (!v2)
-  {
-    goto LABEL_10;
-  }
-
-  v3 = *a1;
-  v4 = std::__shared_weak_count::lock(v2);
-  if (!v4)
-  {
-    goto LABEL_10;
-  }
-
-  v5 = v4;
-  if (a1[1])
-  {
-    v6 = *(v3 + 172);
-    if (v6 <= 6)
-    {
-      if (((1 << v6) & 0x75) != 0)
-      {
-        goto LABEL_9;
-      }
-
-      if (v6 == 1)
-      {
-        abb::router::ClientProxy::setStatus_sync(v3, 2u);
-      }
-    }
-
-    abb::router::ClientProxy::sendStatus_sync(v3, 2u);
-  }
-
-LABEL_9:
-  if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
-    v7 = a1;
-    if (!a1)
-    {
-      return;
-    }
-
-    goto LABEL_11;
-  }
-
-LABEL_10:
-  v7 = a1;
-  if (!a1)
-  {
-    return;
-  }
-
-LABEL_11:
-  v8 = v7[2];
-  if (v8)
-  {
-    std::__shared_weak_count::__release_weak(v8);
-  }
-
-  operator delete(v7);
-}
-
-void sub_240EC3290(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1},std::default_delete<abb::router::Gateway::sleep_sync(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -78,26 +12,26 @@ void abb::router::TimerService::create(ctu::DispatchTimerService **a1@<X8>)
 {
   *a1 = 0xAAAAAAAAAAAAAAAALL;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v3 = operator new(0x30uLL);
-  ctu::DispatchTimerService::DispatchTimerService(v3);
-  *v3 = &unk_2852C92D8;
-  *a1 = v3;
+  v2 = operator new(0x30uLL);
+  ctu::DispatchTimerService::DispatchTimerService(v2);
+  *v2 = &unk_2852C92D8;
+  *a1 = v2;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v4 = operator new(0x20uLL);
-  v4[1] = 0;
-  v5 = v4 + 1;
-  *v4 = &unk_2852C9350;
-  v4[2] = 0;
-  v4[3] = v3;
-  a1[1] = v4;
-  v6 = *(v3 + 2);
-  if (!v6)
+  v3 = operator new(0x20uLL);
+  v3[1] = 0;
+  v4 = v3 + 1;
+  *v3 = &unk_2852C9350;
+  v3[2] = 0;
+  v3[3] = v2;
+  a1[1] = v3;
+  v5 = *(v2 + 2);
+  if (!v5)
   {
-    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
-    *(v3 + 1) = v3;
-    *(v3 + 2) = v4;
-    if (atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(v3 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v3 + 2, 1uLL, memory_order_relaxed);
+    *(v2 + 1) = v2;
+    *(v2 + 2) = v3;
+    if (atomic_fetch_add(v4, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_7;
     }
@@ -105,54 +39,54 @@ void abb::router::TimerService::create(ctu::DispatchTimerService **a1@<X8>)
     goto LABEL_6;
   }
 
-  if (v6->__shared_owners_ == -1)
+  if (v5->__shared_owners_ == -1)
   {
-    atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v4 + 2, 1uLL, memory_order_relaxed);
-    *(v3 + 1) = v3;
-    *(v3 + 2) = v4;
-    v7 = v4;
-    std::__shared_weak_count::__release_weak(v6);
-    v4 = v7;
-    if (!atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(v3 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v3 + 2, 1uLL, memory_order_relaxed);
+    *(v2 + 1) = v2;
+    *(v2 + 2) = v3;
+    v6 = v3;
+    std::__shared_weak_count::__release_weak(v5);
+    v3 = v6;
+    if (!atomic_fetch_add(v4, 0xFFFFFFFFFFFFFFFFLL))
     {
 LABEL_6:
-      v8 = v4;
-      (*(*v4 + 16))();
-      std::__shared_weak_count::__release_weak(v8);
+      v7 = v3;
+      (*(*v3 + 16))();
+      std::__shared_weak_count::__release_weak(v7);
     }
   }
 
 LABEL_7:
-  v9 = *a1;
-  v10 = a1[1];
-  if (v10)
+  v8 = *a1;
+  v9 = a1[1];
+  if (v9)
   {
-    atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v11 = *(v9 + 2);
-  if (!v11 || (v12 = *(v9 + 1), (v13 = std::__shared_weak_count::lock(v11)) == 0))
+  v10 = v8[2];
+  if (!v10 || (v11 = v8[1], (v12 = std::__shared_weak_count::lock(v10)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v14 = v13;
-  v15 = operator new(0x10uLL);
-  *v15 = v9;
-  v15[1] = v10;
-  v16 = *(v9 + 3);
-  atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-  v17 = operator new(0x18uLL);
-  *v17 = v15;
-  v17[1] = v12;
-  v17[2] = v14;
-  dispatch_async_f(v16, v17, dispatch::async<void ctu::SharedSynchronizable<ctu::DispatchTimerService>::execute_wrapped<abb::router::TimerService::create(void)::$_0>(abb::router::TimerService::create(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::TimerService::create(void)::$_0,dispatch_queue_s *::default_delete<abb::router::TimerService::create(void)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (!atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v13 = v12;
+  v14 = operator new(0x10uLL);
+  *v14 = v8;
+  v14[1] = v9;
+  v15 = v8[3];
+  atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+  v16 = operator new(0x18uLL);
+  *v16 = v14;
+  v16[1] = v11;
+  v16[2] = v13;
+  dispatch_async_f(v15, v16, dispatch::async<void ctu::SharedSynchronizable<ctu::DispatchTimerService>::execute_wrapped<abb::router::TimerService::create(void)::$_0>(abb::router::TimerService::create(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::TimerService::create(void)::$_0,dispatch_queue_s *::default_delete<abb::router::TimerService::create(void)::$_0>>)::{lambda(void *)#1}::__invoke);
+  if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v14->__on_zero_shared)(v14);
+    (v13->__on_zero_shared)(v13);
 
-    std::__shared_weak_count::__release_weak(v14);
+    std::__shared_weak_count::__release_weak(v13);
   }
 }
 
@@ -215,18 +149,17 @@ uint64_t std::shared_ptr<abb::router::TimerService> ctu::SharedSynchronizable<ct
   return result;
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<ctu::DispatchTimerService>::execute_wrapped<abb::router::TimerService::create(void)::$_0>(abb::router::TimerService::create(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::TimerService::create(void)::$_0,dispatch_queue_s *::default_delete<abb::router::TimerService::create(void)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
+void dispatch::async<void ctu::SharedSynchronizable<ctu::DispatchTimerService>::execute_wrapped<abb::router::TimerService::create(void)::$_0>(abb::router::TimerService::create(void)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::TimerService::create(void)::$_0,dispatch_queue_s *::default_delete<abb::router::TimerService::create(void)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
   v1 = *a1;
-  v2 = **a1;
-  (*(**v1 + 56))();
-  v3 = v1[1];
-  if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  (*(***a1 + 56))();
+  v2 = v1[1];
+  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v3->__on_zero_shared)(v3);
-    std::__shared_weak_count::__release_weak(v3);
+    (v2->__on_zero_shared)(v2);
+    std::__shared_weak_count::__release_weak(v2);
     operator delete(v1);
-    v4 = a1;
+    v3 = a1;
     if (!a1)
     {
       return;
@@ -236,28 +169,29 @@ void dispatch::async<void ctu::SharedSynchronizable<ctu::DispatchTimerService>::
   else
   {
     operator delete(v1);
-    v4 = a1;
+    v3 = a1;
     if (!a1)
     {
       return;
     }
   }
 
-  v5 = v4[2];
-  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v4 = v3[2];
+  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v6 = v4;
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
-    v4 = v6;
+    v5 = v3;
+    (v4->__on_zero_shared)(v4);
+    std::__shared_weak_count::__release_weak(v4);
+    v3 = v5;
   }
 
-  operator delete(v4);
+  operator delete(v3);
 }
 
-void sub_240EC37E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
+void sub_240EC37E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, ...)
 {
-  std::unique_ptr<abb::router::TimerService::create(void)::$_0,std::default_delete<abb::router::TimerService::create(void)::$_0>>::~unique_ptr[abi:ne200100](&a10);
+  va_start(va, a9);
+  std::unique_ptr<abb::router::TimerService::create(void)::$_0,std::default_delete<abb::router::TimerService::create(void)::$_0>>::~unique_ptr[abi:ne200100](va);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -286,7 +220,7 @@ void *std::unique_ptr<abb::router::TimerService::create(void)::$_0,std::default_
   return v1;
 }
 
-void abb::router::Server::create(uint64_t a1@<X1>, void *a2@<X8>)
+void abb::router::Server::create(uint64_t a1@<X1>, std::__shared_weak_count ***a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -319,20 +253,20 @@ void abb::router::Server::create(uint64_t a1@<X1>, void *a2@<X8>)
   *a2 = v4;
   a2[1] = 0xAAAAAAAAAAAAAAAALL;
   v6 = operator new(0x20uLL);
-  v6[1] = 0;
-  v12 = v6 + 1;
-  *v6 = &unk_2852C9458;
-  v6[2] = 0;
-  v6[3] = v4;
+  v6->__shared_owners_ = 0;
+  p_shared_owners = &v6->__shared_owners_;
+  v6->__vftable = &unk_2852C9458;
+  v6->__shared_weak_owners_ = 0;
+  v6[1].__vftable = v4;
   a2[1] = v6;
-  v13 = *(v4 + 2);
+  v13 = v4[2];
   if (!v13)
   {
-    atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v6 + 2, 1uLL, memory_order_relaxed);
-    *(v4 + 1) = v4;
-    *(v4 + 2) = v6;
-    if (atomic_fetch_add(v12, 0xFFFFFFFFFFFFFFFFLL))
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v4[1] = v4;
+    v4[2] = v6;
+    if (atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
       goto LABEL_13;
     }
@@ -342,18 +276,18 @@ void abb::router::Server::create(uint64_t a1@<X1>, void *a2@<X8>)
 
   if (v13->__shared_owners_ == -1)
   {
-    atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(v6 + 2, 1uLL, memory_order_relaxed);
-    *(v4 + 1) = v4;
-    *(v4 + 2) = v6;
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v4[1] = v4;
+    v4[2] = v6;
     v14 = v6;
     std::__shared_weak_count::__release_weak(v13);
     v6 = v14;
-    if (!atomic_fetch_add(v12, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(p_shared_owners, 0xFFFFFFFFFFFFFFFFLL))
     {
 LABEL_12:
       v15 = v6;
-      (*(*v6 + 16))(v6, v7, v8, v9, v10, v11);
+      (v6->__on_zero_shared)(v6, v7, v8, v9, v10, v11);
       std::__shared_weak_count::__release_weak(v15);
     }
   }
@@ -595,8 +529,7 @@ void abb::router::Server::addTransport(uint64_t a1, __int128 *a2)
 {
   v5 = a1;
   v6 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
   block[2] = ___ZNK3ctu20SharedSynchronizableIN3abb6router6ServerEE20execute_wrapped_syncIZNS3_12addTransportENSt3__110shared_ptrINS2_9TransportEEEE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOSB__block_invoke;
@@ -1052,93 +985,90 @@ void abb::router::Server::createXpcLink(abb::router::Server *this@<X0>, void *a2
   }
 }
 
-uint64_t abb::router::Server::registerErrorHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Server::registerErrorHandler(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = *(a2 + 24);
-  if (!result)
+  if (result)
   {
-    goto LABEL_18;
-  }
-
-  if (result == a2)
-  {
-    v14 = v13;
-    (*(*result + 24))(result, v13);
-  }
-
-  else
-  {
-    v14 = *(a2 + 24);
-    *(a2 + 24) = 0;
-  }
-
-  v4 = a1[2];
-  if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
-  {
-    std::__throw_bad_weak_ptr[abi:ne200100]();
-  }
-
-  v7 = v6;
-  v8 = operator new(0x28uLL);
-  v9 = v14;
-  *v8 = a1;
-  if (v9)
-  {
-    if (v9 == v13)
+    if (result == a2)
     {
-      v8[4] = v8 + 1;
-      (*(*v9 + 24))(v9);
+      v13 = v12;
+      (*(*result + 24))(result, v12);
     }
 
     else
     {
-      v8[4] = v9;
-      v14 = 0;
+      v13 = *(a2 + 24);
+      *(a2 + 24) = 0;
     }
-  }
 
-  else
-  {
-    v8[4] = 0;
-  }
-
-  v10 = a1[3];
-  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  v11 = operator new(0x18uLL);
-  *v11 = v8;
-  v11[1] = v5;
-  v11[2] = v7;
-  dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>(abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    result = v14;
-    if (v14 != v13)
+    v4 = a1[2];
+    if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
     {
-      goto LABEL_14;
+      std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-LABEL_17:
-    result = (*(*result + 32))(result);
-    goto LABEL_18;
-  }
+    v7 = v6;
+    v8 = operator new(0x28uLL);
+    v9 = v13;
+    *v8 = a1;
+    if (v9)
+    {
+      if (v9 == v12)
+      {
+        v8[4] = v8 + 1;
+        (*(*v9 + 24))(v9);
+      }
 
-  (v7->__on_zero_shared)(v7);
-  std::__shared_weak_count::__release_weak(v7);
-  result = v14;
-  if (v14 == v13)
-  {
-    goto LABEL_17;
-  }
+      else
+      {
+        v8[4] = v9;
+        v13 = 0;
+      }
+    }
 
+    else
+    {
+      v8[4] = 0;
+    }
+
+    v10 = a1[3];
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = operator new(0x18uLL);
+    *v11 = v8;
+    v11[1] = v5;
+    v11[2] = v7;
+    dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>(abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+    if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      result = v13;
+      if (v13 != v12)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      (v7->__on_zero_shared)(v7);
+      std::__shared_weak_count::__release_weak(v7);
+      result = v13;
+      if (v13 != v12)
+      {
 LABEL_14:
-  if (result)
-  {
-    result = (*(*result + 40))(result);
+        if (result)
+        {
+          return (*(*result + 40))(result);
+        }
+
+        return result;
+      }
+    }
+
+    return (*(*result + 32))(result);
   }
 
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1152,93 +1082,90 @@ void sub_240EC4F70(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Server::registerMetricSummaryHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Server::registerMetricSummaryHandler(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = *(a2 + 24);
-  if (!result)
+  if (result)
   {
-    goto LABEL_18;
-  }
-
-  if (result == a2)
-  {
-    v14 = v13;
-    (*(*result + 24))(result, v13);
-  }
-
-  else
-  {
-    v14 = *(a2 + 24);
-    *(a2 + 24) = 0;
-  }
-
-  v4 = a1[2];
-  if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
-  {
-    std::__throw_bad_weak_ptr[abi:ne200100]();
-  }
-
-  v7 = v6;
-  v8 = operator new(0x28uLL);
-  v9 = v14;
-  *v8 = a1;
-  if (v9)
-  {
-    if (v9 == v13)
+    if (result == a2)
     {
-      v8[4] = v8 + 1;
-      (*(*v9 + 24))(v9);
+      v13 = v12;
+      (*(*result + 24))(result, v12);
     }
 
     else
     {
-      v8[4] = v9;
-      v14 = 0;
+      v13 = *(a2 + 24);
+      *(a2 + 24) = 0;
     }
-  }
 
-  else
-  {
-    v8[4] = 0;
-  }
-
-  v10 = a1[3];
-  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  v11 = operator new(0x18uLL);
-  *v11 = v8;
-  v11[1] = v5;
-  v11[2] = v7;
-  dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    result = v14;
-    if (v14 != v13)
+    v4 = a1[2];
+    if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
     {
-      goto LABEL_14;
+      std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-LABEL_17:
-    result = (*(*result + 32))(result);
-    goto LABEL_18;
-  }
+    v7 = v6;
+    v8 = operator new(0x28uLL);
+    v9 = v13;
+    *v8 = a1;
+    if (v9)
+    {
+      if (v9 == v12)
+      {
+        v8[4] = v8 + 1;
+        (*(*v9 + 24))(v9);
+      }
 
-  (v7->__on_zero_shared)(v7);
-  std::__shared_weak_count::__release_weak(v7);
-  result = v14;
-  if (v14 == v13)
-  {
-    goto LABEL_17;
-  }
+      else
+      {
+        v8[4] = v9;
+        v13 = 0;
+      }
+    }
 
+    else
+    {
+      v8[4] = 0;
+    }
+
+    v10 = a1[3];
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = operator new(0x18uLL);
+    *v11 = v8;
+    v11[1] = v5;
+    v11[2] = v7;
+    dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+    if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      result = v13;
+      if (v13 != v12)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      (v7->__on_zero_shared)(v7);
+      std::__shared_weak_count::__release_weak(v7);
+      result = v13;
+      if (v13 != v12)
+      {
 LABEL_14:
-  if (result)
-  {
-    result = (*(*result + 40))(result);
+        if (result)
+        {
+          return (*(*result + 40))(result);
+        }
+
+        return result;
+      }
+    }
+
+    return (*(*result + 32))(result);
   }
 
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1252,93 +1179,90 @@ void sub_240EC51B4(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Server::registerMetricStreamHandler(void *a1, uint64_t a2)
+_BYTE *abb::router::Server::registerMetricStreamHandler(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = *(a2 + 24);
-  if (!result)
+  if (result)
   {
-    goto LABEL_18;
-  }
-
-  if (result == a2)
-  {
-    v14 = v13;
-    (*(*result + 24))(result, v13);
-  }
-
-  else
-  {
-    v14 = *(a2 + 24);
-    *(a2 + 24) = 0;
-  }
-
-  v4 = a1[2];
-  if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
-  {
-    std::__throw_bad_weak_ptr[abi:ne200100]();
-  }
-
-  v7 = v6;
-  v8 = operator new(0x28uLL);
-  v9 = v14;
-  *v8 = a1;
-  if (v9)
-  {
-    if (v9 == v13)
+    if (result == a2)
     {
-      v8[4] = v8 + 1;
-      (*(*v9 + 24))(v9);
+      v13 = v12;
+      (*(*result + 24))(result, v12);
     }
 
     else
     {
-      v8[4] = v9;
-      v14 = 0;
+      v13 = *(a2 + 24);
+      *(a2 + 24) = 0;
     }
-  }
 
-  else
-  {
-    v8[4] = 0;
-  }
-
-  v10 = a1[3];
-  atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  v11 = operator new(0x18uLL);
-  *v11 = v8;
-  v11[1] = v5;
-  v11[2] = v7;
-  dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
-  if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    result = v14;
-    if (v14 != v13)
+    v4 = a1[2];
+    if (!v4 || (v5 = a1[1], (v6 = std::__shared_weak_count::lock(v4)) == 0))
     {
-      goto LABEL_14;
+      std::__throw_bad_weak_ptr[abi:ne200100]();
     }
 
-LABEL_17:
-    result = (*(*result + 32))(result);
-    goto LABEL_18;
-  }
+    v7 = v6;
+    v8 = operator new(0x28uLL);
+    v9 = v13;
+    *v8 = a1;
+    if (v9)
+    {
+      if (v9 == v12)
+      {
+        v8[4] = v8 + 1;
+        (*(*v9 + 24))(v9);
+      }
 
-  (v7->__on_zero_shared)(v7);
-  std::__shared_weak_count::__release_weak(v7);
-  result = v14;
-  if (v14 == v13)
-  {
-    goto LABEL_17;
-  }
+      else
+      {
+        v8[4] = v9;
+        v13 = 0;
+      }
+    }
 
+    else
+    {
+      v8[4] = 0;
+    }
+
+    v10 = a1[3];
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    v11 = operator new(0x18uLL);
+    *v11 = v8;
+    v11[1] = v5;
+    v11[2] = v7;
+    dispatch_async_f(v10, v11, dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke);
+    if (atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      result = v13;
+      if (v13 != v12)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      (v7->__on_zero_shared)(v7);
+      std::__shared_weak_count::__release_weak(v7);
+      result = v13;
+      if (v13 != v12)
+      {
 LABEL_14:
-  if (result)
-  {
-    result = (*(*result + 40))(result);
+        if (result)
+        {
+          return (*(*result + 40))(result);
+        }
+
+        return result;
+      }
+    }
+
+    return (*(*result + 32))(result);
   }
 
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1355,8 +1279,7 @@ void sub_240EC53F8(_Unwind_Exception *a1, int a2)
 void abb::router::Server::handleClientConnect(void *a1, __int128 *a2)
 {
   v10 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = a1[2];
   if (!v3 || (v4 = a1[1], (v5 = std::__shared_weak_count::lock(v3)) == 0))
   {
@@ -2402,7 +2325,7 @@ void ___ZN8dispatch19async_and_wait_implIRU13block_pointerFNSt3__110shared_ptrIN
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>(abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Server::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *(**a1 + 144);
   v4 = *(*a1 + 32);
@@ -2415,17 +2338,17 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execut
   {
     v4 = (*(*v4 + 16))(v4);
 LABEL_4:
-    v9 = v4;
+    v8 = v4;
     goto LABEL_6;
   }
 
-  v9 = v8;
-  (*(*v4 + 24))(v4, v8);
+  v8 = v7;
+  (*(*v4 + 24))(v4, v7);
 LABEL_6:
-  abb::router::Gateway::registerErrorHandler(v3, v8);
-  if (v9 == v8)
+  abb::router::Gateway::registerErrorHandler(v3, v7);
+  if (v8 == v7)
   {
-    (*(*v9 + 32))(v9);
+    (*(*v8 + 32))(v8);
     v5 = v2[4];
     if (v5 != v2 + 1)
     {
@@ -2444,9 +2367,9 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (v9)
+  if (v8)
   {
-    (*(*v9 + 40))();
+    (*(*v8 + 40))();
   }
 
   v5 = v2[4];
@@ -2475,27 +2398,26 @@ LABEL_16:
 
 LABEL_18:
   operator delete(a1);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EC6BF4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC6BF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC6C10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC6C10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void *);
+  v6 = va_arg(va2, void *);
   std::function<void ()(abb::router::Error,std::string const&)>::~function(va2);
   std::unique_ptr<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0,std::default_delete<abb::router::Gateway::registerErrorHandler(std::function<void ()(abb::router::Error,std::string const&)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
@@ -2504,7 +2426,7 @@ void sub_240EC6C10(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *(**a1 + 144);
   v4 = *(*a1 + 32);
@@ -2517,17 +2439,17 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execut
   {
     v4 = (*(*v4 + 16))(v4);
 LABEL_4:
-    v9 = v4;
+    v8 = v4;
     goto LABEL_6;
   }
 
-  v9 = v8;
-  (*(*v4 + 24))(v4, v8);
+  v8 = v7;
+  (*(*v4 + 24))(v4, v7);
 LABEL_6:
-  abb::router::Gateway::registerMetricSummaryHandler(v3, v8);
-  if (v9 == v8)
+  abb::router::Gateway::registerMetricSummaryHandler(v3, v7);
+  if (v8 == v7)
   {
-    (*(*v9 + 32))(v9);
+    (*(*v8 + 32))(v8);
     v5 = v2[4];
     if (v5 != v2 + 1)
     {
@@ -2546,9 +2468,9 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (v9)
+  if (v8)
   {
-    (*(*v9 + 40))();
+    (*(*v8 + 40))();
   }
 
   v5 = v2[4];
@@ -2577,27 +2499,26 @@ LABEL_16:
 
 LABEL_18:
   operator delete(a1);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EC6E5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC6E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC6E78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC6E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void *);
+  v6 = va_arg(va2, void *);
   std::function<void ()(xpc::dict)>::~function(va2);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
@@ -2606,7 +2527,7 @@ void sub_240EC6E78(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execute_wrapped<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>(abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Server::registerMetricStreamHandler(std::function<void ()(xpc::dict)>)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *(**a1 + 144);
   v4 = *(*a1 + 32);
@@ -2619,17 +2540,17 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execut
   {
     v4 = (*(*v4 + 16))(v4);
 LABEL_4:
-    v9 = v4;
+    v8 = v4;
     goto LABEL_6;
   }
 
-  v9 = v8;
-  (*(*v4 + 24))(v4, v8);
+  v8 = v7;
+  (*(*v4 + 24))(v4, v7);
 LABEL_6:
-  abb::router::Gateway::registerMetricStreamHandler(v3, v8);
-  if (v9 == v8)
+  abb::router::Gateway::registerMetricStreamHandler(v3, v7);
+  if (v8 == v7)
   {
-    (*(*v9 + 32))(v9);
+    (*(*v8 + 32))(v8);
     v5 = v2[4];
     if (v5 != v2 + 1)
     {
@@ -2648,9 +2569,9 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (v9)
+  if (v8)
   {
-    (*(*v9 + 40))();
+    (*(*v8 + 40))();
   }
 
   v5 = v2[4];
@@ -2679,27 +2600,26 @@ LABEL_16:
 
 LABEL_18:
   operator delete(a1);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void sub_240EC70C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC70C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_240EC70E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240EC70E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, void *);
+  v6 = va_arg(va2, void *);
   std::function<void ()(xpc::dict)>::~function(va2);
   std::unique_ptr<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0,std::default_delete<abb::router::Gateway::registerMetricSummaryHandler(std::function<void ()(xpc::dict)>)::$_0>>::~unique_ptr[abi:ne200100](va1);
   std::unique_ptr<void ctu::SharedSynchronizable<abb::router::Agent>::execute_wrapped<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0>(abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&)::{lambda(void)#1},std::default_delete<abb::router::Agent::addClient(std::shared_ptr<abb::router::ClientProxy>)::$_0 &&>>::~unique_ptr[abi:ne200100](va);
@@ -2750,7 +2670,7 @@ void dispatch::async<void ctu::SharedSynchronizable<abb::router::Server>::execut
   v22 = on_zero_shared_weak;
   if (on_zero_shared_weak)
   {
-    atomic_fetch_add_explicit(&on_zero_shared_weak->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(on_zero_shared_weak + 1, 1uLL, memory_order_relaxed);
   }
 
   shared_weak_owners = v1->__shared_weak_owners_;
@@ -3348,14 +3268,6 @@ double abb::router::Message::Message(abb::router::Message *this, std::error_code
   return result;
 }
 
-uint64_t abb::router::Message::getMsgName(abb::router::Message *this)
-{
-  v1 = **(this + 1);
-  v2 = *(v1 + 10);
-  v3 = *(v1 + 9);
-  return mipc::sdk_prop::msgName();
-}
-
 uint64_t abb::router::Message::getRawMsg@<X0>(uint64_t this@<X0>, void *a2@<X8>)
 {
   v2 = *(this + 16);
@@ -3379,12 +3291,9 @@ uint64_t abb::router::Message::isSensitive(abb::router::Message *this)
   v2 = *(this + 1);
   if (v2)
   {
-    v3 = *v2;
-    v4 = *(*v2 + 10);
-    v5 = *(v3 + 9) & 3;
-    v6 = this;
+    v3 = this;
     LOBYTE(v2) = mipc::sdk_prop::msgIsSensitive();
-    this = v6;
+    this = v3;
   }
 
   *(this + 82) = v2;
@@ -3591,208 +3500,203 @@ _BYTE *abb::router::Message::setAllowSleep(_BYTE *this, char a2)
 uint64_t abb::router::Message::infoString(abb::router::Message *this)
 {
   abb::router::Message::generatePrintString(this);
-  if ((*(this + 135) & 0x8000000000000000) == 0)
+  if ((*(this + 135) & 0x8000000000000000) != 0)
+  {
+    return *(this + 14);
+  }
+
+  else
   {
     return this + 112;
   }
-
-  result = *(this + 14);
-  v3 = *(this + 15);
-  return result;
 }
 
 void abb::router::Message::generatePrintString(abb::router::Message *this)
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   if (*(this + 84))
   {
-LABEL_83:
-    v75 = *MEMORY[0x277D85DE8];
     return;
   }
 
   *(this + 84) = 1;
   if (*(this + 1))
   {
-    v99 = 0xAAAAAAAAAAAAAAAALL;
+    v92 = 0xAAAAAAAAAAAAAAAALL;
     *&v2 = 0xAAAAAAAAAAAAAAAALL;
     *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v98[7] = v2;
-    v98[8] = v2;
-    v98[5] = v2;
-    v98[6] = v2;
-    v98[3] = v2;
-    v98[4] = v2;
-    v98[1] = v2;
-    v98[2] = v2;
-    v97 = v2;
-    v98[0] = v2;
-    v95 = v2;
-    v96 = v2;
-    v93 = v2;
-    v94 = v2;
-    v91 = v2;
-    v92 = v2;
+    v91[7] = v2;
+    v91[8] = v2;
+    v91[5] = v2;
+    v91[6] = v2;
+    v91[3] = v2;
+    v91[4] = v2;
+    v91[1] = v2;
+    v91[2] = v2;
     v90 = v2;
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v90);
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v91, "[", 1);
-    v4 = **(this + 1);
-    v5 = *(v4 + 10);
-    v6 = *(v4 + 9);
+    v91[0] = v2;
+    v88 = v2;
+    v89 = v2;
+    v86 = v2;
+    v87 = v2;
+    v84 = v2;
+    v85 = v2;
+    v83 = v2;
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&v83);
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v84, "[", 1);
     mipc::sdk_prop::msgName();
-    if ((SBYTE7(v81) & 0x80u) == 0)
+    if ((SBYTE7(v74) & 0x80u) == 0)
     {
-      v7 = __p;
+      v4 = __p;
     }
 
     else
     {
-      v7 = __p[0];
+      v4 = __p[0];
     }
 
-    if ((SBYTE7(v81) & 0x80u) == 0)
+    if ((SBYTE7(v74) & 0x80u) == 0)
     {
-      v8 = BYTE7(v81);
+      v5 = BYTE7(v74);
     }
 
     else
     {
-      v8 = __p[1];
+      v5 = __p[1];
     }
 
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v7, v8);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "]", 1);
-    *(v10 + *(*v10 - 24) + 8) = *(v10 + *(*v10 - 24) + 8) & 0xFFFFFFB5 | 8;
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, " Msg=0x", 7);
-    v12 = v11;
-    v13 = *v11;
-    v14 = v11 + *(*v11 - 24);
-    if (*(v14 + 36) == -1)
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v4, v5);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "]", 1);
+    *(v7 + *(*v7 - 24) + 8) = *(v7 + *(*v7 - 24) + 8) & 0xFFFFFFB5 | 8;
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " Msg=0x", 7);
+    v9 = v8;
+    v10 = *v8;
+    v11 = v8 + *(*v8 - 24);
+    if (*(v11 + 36) == -1)
     {
-      std::ios_base::getloc((v11 + *(*v11 - 24)));
-      v15 = std::locale::use_facet(&v100, MEMORY[0x277D82680]);
-      v16 = (v15->__vftable[2].~facet_0)(v15, 32);
-      std::locale::~locale(&v100);
-      *(v14 + 36) = v16;
-      v13 = *v12;
+      std::ios_base::getloc((v8 + *(*v8 - 24)));
+      v12 = std::locale::use_facet(&v93, MEMORY[0x277D82680]);
+      v13 = (v12->__vftable[2].~facet_0)(v12, 32);
+      std::locale::~locale(&v93);
+      *(v11 + 36) = v13;
+      v10 = *v9;
     }
 
-    *(v14 + 36) = 48;
-    *(v12 + *(v13 - 24) + 24) = 4;
-    v17 = MEMORY[0x245CD2990](v12, *(**(this + 1) + 10));
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " Client=0x", 10);
-    v19 = v18;
-    v20 = *v18;
-    v21 = v18 + *(*v18 - 24);
-    if (*(v21 + 36) == -1)
+    *(v11 + 36) = 48;
+    *(v9 + *(v10 - 24) + 24) = 4;
+    v14 = MEMORY[0x245CD2990](v9, *(**(this + 1) + 10));
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " Client=0x", 10);
+    v16 = v15;
+    v17 = *v15;
+    v18 = v15 + *(*v15 - 24);
+    if (*(v18 + 36) == -1)
     {
-      std::ios_base::getloc((v18 + *(*v18 - 24)));
-      v22 = std::locale::use_facet(&v100, MEMORY[0x277D82680]);
-      v23 = (v22->__vftable[2].~facet_0)(v22, 32);
-      std::locale::~locale(&v100);
-      *(v21 + 36) = v23;
-      v20 = *v19;
+      std::ios_base::getloc((v15 + *(*v15 - 24)));
+      v19 = std::locale::use_facet(&v93, MEMORY[0x277D82680]);
+      v20 = (v19->__vftable[2].~facet_0)(v19, 32);
+      std::locale::~locale(&v93);
+      *(v18 + 36) = v20;
+      v17 = *v16;
     }
 
-    *(v21 + 36) = 48;
-    *(v19 + *(v20 - 24) + 24) = 2;
-    v24 = MEMORY[0x245CD2990](v19, *(**(this + 1) + 13));
-    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, " Trx=0x", 7);
-    v26 = v25;
-    v27 = *v25;
-    v28 = v25 + *(*v25 - 24);
-    if (*(v28 + 36) == -1)
+    *(v18 + 36) = 48;
+    *(v16 + *(v17 - 24) + 24) = 2;
+    v21 = MEMORY[0x245CD2990](v16, *(**(this + 1) + 13));
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, " Trx=0x", 7);
+    v23 = v22;
+    v24 = *v22;
+    v25 = v22 + *(*v22 - 24);
+    if (*(v25 + 36) == -1)
     {
-      std::ios_base::getloc((v25 + *(*v25 - 24)));
-      v29 = std::locale::use_facet(&v100, MEMORY[0x277D82680]);
-      v30 = (v29->__vftable[2].~facet_0)(v29, 32);
-      std::locale::~locale(&v100);
-      *(v28 + 36) = v30;
-      v27 = *v26;
+      std::ios_base::getloc((v22 + *(*v22 - 24)));
+      v26 = std::locale::use_facet(&v93, MEMORY[0x277D82680]);
+      v27 = (v26->__vftable[2].~facet_0)(v26, 32);
+      std::locale::~locale(&v93);
+      *(v25 + 36) = v27;
+      v24 = *v23;
     }
 
-    *(v28 + 36) = 48;
-    *(v26 + *(v27 - 24) + 24) = 4;
-    MEMORY[0x245CD2990](v26, *(**(this + 1) + 12));
-    if (SBYTE7(v81) < 0)
+    *(v25 + 36) = 48;
+    *(v23 + *(v24 - 24) + 24) = 4;
+    MEMORY[0x245CD2990](v23, *(**(this + 1) + 12));
+    if (SBYTE7(v74) < 0)
     {
       operator delete(__p[0]);
     }
 
-    *&v31 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v31 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v100.__rdbuf_ = 0xAAAAAAAAAAAAAAAALL;
-    v101 = v31;
-    *&v100.__parray_size_ = v31;
-    *&v100.__iarray_cap_ = v31;
-    *&v100.__iarray_ = v31;
-    *&v100.__event_size_ = v31;
-    *&v100.__fn_ = v31;
-    *&v100.__width_ = v31;
-    *&v100.__fmtflags_ = v31;
-    v100.__loc_ = 0;
-    v100.__vftable = (MEMORY[0x277D828C0] + 16);
-    std::ios_base::init(&v100, 0);
-    *&v101 = 0;
-    DWORD2(v101) = -1;
-    v32 = &v90 + *(v90 - 24);
+    *&v28 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v93.__rdbuf_ = 0xAAAAAAAAAAAAAAAALL;
+    v94 = v28;
+    *&v93.__parray_size_ = v28;
+    *&v93.__iarray_cap_ = v28;
+    *&v93.__iarray_ = v28;
+    *&v93.__event_size_ = v28;
+    *&v93.__fn_ = v28;
+    *&v93.__width_ = v28;
+    *&v93.__fmtflags_ = v28;
+    v93.__loc_ = 0;
+    v93.__vftable = (MEMORY[0x277D828C0] + 16);
+    std::ios_base::init(&v93, 0);
+    *&v94 = 0;
+    DWORD2(v94) = -1;
     std::ios::copyfmt();
     if ((*(**(this + 1) + 9) & 3) == 1)
     {
       if (*(this + 16))
       {
-        v33 = *(this + 7);
-        v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v91, " Timeout=", 9);
-        v35 = MEMORY[0x245CD29B0](v34, v33 / 1000);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "s", 1);
+        v29 = *(this + 7);
+        v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v84, " Timeout=", 9);
+        v31 = MEMORY[0x245CD29B0](v30, v29 / 1000);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "s", 1);
       }
 
       if (*(this + 76))
       {
-        v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v91, " ", 1);
-        v37 = *(this + 9);
-        if ((v37 & 0x100000000) == 0)
+        v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v84, " ", 1);
+        v33 = *(this + 9);
+        if ((v33 & 0x100000000) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v38 = v36;
-        if (v37 > 2)
+        v34 = v32;
+        if (v33 > 2)
         {
-          v39 = "???";
+          v35 = "???";
         }
 
         else
         {
-          v39 = off_278CBB378[*(this + 9) & 3];
+          v35 = off_278CBB378[*(this + 9) & 3];
         }
 
-        v46 = strlen(v39);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, v39, v46);
+        v41 = strlen(v35);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v35, v41);
       }
 
-      v47 = *(this + 40);
-      if (v47 & 0x100) != 0 && (v47)
+      v42 = *(this + 40);
+      if (v42 & 0x100) != 0 && (v42)
       {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v91, " allow-sleep", 12);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v84, " allow-sleep", 12);
       }
     }
 
-    v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v91, " [", 2);
-    v49 = MEMORY[0x245CD29A0](v48, *(*(this + 1) + 8) - **(this + 1));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, " bytes]", 7);
-    if ((BYTE8(v97) & 0x10) != 0)
+    v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v84, " [", 2);
+    v44 = MEMORY[0x245CD29A0](v43, *(*(this + 1) + 8) - **(this + 1));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, " bytes]", 7);
+    if ((BYTE8(v90) & 0x10) != 0)
     {
-      v52 = v97;
-      if (v97 < *(&v94 + 1))
+      v47 = v90;
+      if (v90 < *(&v87 + 1))
       {
-        *&v97 = *(&v94 + 1);
-        v52 = *(&v94 + 1);
+        *&v90 = *(&v87 + 1);
+        v47 = *(&v87 + 1);
       }
 
-      v53 = v94;
-      v50 = v52 - v94;
-      if ((v52 - v94) > 0x7FFFFFFFFFFFFFF7)
+      v48 = v87;
+      v45 = v47 - v87;
+      if ((v47 - v87) > 0x7FFFFFFFFFFFFFF7)
       {
         goto LABEL_85;
       }
@@ -3800,130 +3704,130 @@ LABEL_83:
 
     else
     {
-      if ((BYTE8(v97) & 8) == 0)
+      if ((BYTE8(v90) & 8) == 0)
       {
-        v50 = 0;
-        BYTE7(v81) = 0;
-        v51 = __p;
+        v45 = 0;
+        BYTE7(v74) = 0;
+        v46 = __p;
         goto LABEL_53;
       }
 
-      v53 = *(&v92 + 1);
-      v50 = *(&v93 + 1) - *(&v92 + 1);
-      if (*(&v93 + 1) - *(&v92 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+      v48 = *(&v85 + 1);
+      v45 = *(&v86 + 1) - *(&v85 + 1);
+      if (*(&v86 + 1) - *(&v85 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
       {
 LABEL_85:
         std::string::__throw_length_error[abi:ne200100]();
       }
     }
 
-    if (v50 >= 0x17)
+    if (v45 >= 0x17)
     {
-      if ((v50 | 7) == 0x17)
+      if ((v45 | 7) == 0x17)
       {
-        v54 = 25;
+        v49 = 25;
       }
 
       else
       {
-        v54 = (v50 | 7) + 1;
+        v49 = (v45 | 7) + 1;
       }
 
-      v51 = operator new(v54);
-      __p[1] = v50;
-      *&v81 = v54 | 0x8000000000000000;
-      __p[0] = v51;
+      v46 = operator new(v49);
+      __p[1] = v45;
+      *&v74 = v49 | 0x8000000000000000;
+      __p[0] = v46;
     }
 
     else
     {
-      BYTE7(v81) = v50;
-      v51 = __p;
-      if (!v50)
+      BYTE7(v74) = v45;
+      v46 = __p;
+      if (!v45)
       {
 LABEL_53:
-        *(v51 + v50) = 0;
+        *(v46 + v45) = 0;
         if (*(this + 135) < 0)
         {
           operator delete(*(this + 14));
         }
 
         *(this + 7) = *__p;
-        *(this + 16) = v81;
-        v89 = 0xAAAAAAAAAAAAAAAALL;
-        *&v55 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v55 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v88[7] = v55;
-        v88[8] = v55;
-        v88[5] = v55;
-        v88[6] = v55;
-        v88[3] = v55;
-        v88[4] = v55;
-        v88[1] = v55;
-        v88[2] = v55;
-        v87 = v55;
-        v88[0] = v55;
-        *v85 = v55;
-        v86 = v55;
-        v83 = v55;
-        v84 = v55;
-        v81 = v55;
-        v82 = v55;
-        *__p = v55;
+        *(this + 16) = v74;
+        v82 = 0xAAAAAAAAAAAAAAAALL;
+        *&v50 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v50 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v81[7] = v50;
+        v81[8] = v50;
+        v81[5] = v50;
+        v81[6] = v50;
+        v81[3] = v50;
+        v81[4] = v50;
+        v81[1] = v50;
+        v81[2] = v50;
+        v80 = v50;
+        v81[0] = v50;
+        *v78 = v50;
+        v79 = v50;
+        v76 = v50;
+        v77 = v50;
+        v74 = v50;
+        v75 = v50;
+        *__p = v50;
         std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](__p);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v81, "Bin=[", 5);
-        v77 = this;
-        v56 = *(this + 1);
-        v57 = *v56;
-        v58 = v56[1];
-        v59 = *v56 - v58;
-        if (v59)
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "Bin=[", 5);
+        v70 = this;
+        v51 = *(this + 1);
+        v52 = *v51;
+        v53 = v51[1];
+        v54 = *v51 - v53;
+        if (v54)
         {
-          v60 = v59 + 1;
+          v55 = v54 + 1;
           do
           {
-            v61 = v81;
-            v62 = v81;
-            *(&v82 + *(v81 - 24) + 8) = 2;
-            v63 = (&v81 + *(v62 - 24));
-            if (v63[1].__fmtflags_ == -1)
+            v56 = v74;
+            v57 = v74;
+            *(&v75 + *(v74 - 24) + 8) = 2;
+            v58 = (&v74 + *(v57 - 24));
+            if (v58[1].__fmtflags_ == -1)
             {
-              std::ios_base::getloc(v63);
-              v64 = std::locale::use_facet(__dst, MEMORY[0x277D82680]);
-              (v64->__vftable[2].~facet_0)(v64, 32);
+              std::ios_base::getloc(v58);
+              v59 = std::locale::use_facet(__dst, MEMORY[0x277D82680]);
+              (v59->__vftable[2].~facet_0)(v59, 32);
               std::locale::~locale(__dst);
-              v61 = v81;
+              v56 = v74;
             }
 
-            v63[1].__fmtflags_ = 48;
-            *(&v81 + *(v61 - 24) + 8) = *(&v81 + *(v61 - 24) + 8) & 0xFFFFFFB5 | 8;
-            MEMORY[0x245CD2980](&v81, *v57);
-            if (v60)
+            v58[1].__fmtflags_ = 48;
+            *(&v74 + *(v56 - 24) + 8) = *(&v74 + *(v56 - 24) + 8) & 0xFFFFFFB5 | 8;
+            MEMORY[0x245CD2980](&v74, *v52);
+            if (v55)
             {
               LOBYTE(__dst[0].__locale_) = 32;
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v81, __dst, 1);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, __dst, 1);
             }
 
-            ++v57;
-            ++v60;
+            ++v52;
+            ++v55;
           }
 
-          while (v57 != v58);
+          while (v52 != v53);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v81, "]", 1);
-        if ((BYTE8(v87) & 0x10) != 0)
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v74, "]", 1);
+        if ((BYTE8(v80) & 0x10) != 0)
         {
-          v67 = v87;
-          if (v87 < *(&v84 + 1))
+          v62 = v80;
+          if (v80 < *(&v77 + 1))
           {
-            *&v87 = *(&v84 + 1);
-            v67 = *(&v84 + 1);
+            *&v80 = *(&v77 + 1);
+            v62 = *(&v77 + 1);
           }
 
-          v68 = v84;
-          v65 = v67 - v84;
-          if ((v67 - v84) > 0x7FFFFFFFFFFFFFF7)
+          v63 = v77;
+          v60 = v62 - v77;
+          if ((v62 - v77) > 0x7FFFFFFFFFFFFFF7)
           {
             goto LABEL_87;
           }
@@ -3931,98 +3835,98 @@ LABEL_53:
 
         else
         {
-          if ((BYTE8(v87) & 8) == 0)
+          if ((BYTE8(v80) & 8) == 0)
           {
-            v65 = 0;
-            HIBYTE(v79) = 0;
-            v66 = __dst;
+            v60 = 0;
+            HIBYTE(v72) = 0;
+            v61 = __dst;
             goto LABEL_76;
           }
 
-          v68 = *(&v82 + 1);
-          v65 = *(&v83 + 1) - *(&v82 + 1);
-          if (*(&v83 + 1) - *(&v82 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+          v63 = *(&v75 + 1);
+          v60 = *(&v76 + 1) - *(&v75 + 1);
+          if (*(&v76 + 1) - *(&v75 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
           {
 LABEL_87:
             std::string::__throw_length_error[abi:ne200100]();
           }
         }
 
-        if (v65 >= 0x17)
+        if (v60 >= 0x17)
         {
-          if ((v65 | 7) == 0x17)
+          if ((v60 | 7) == 0x17)
           {
-            v69 = 25;
+            v64 = 25;
           }
 
           else
           {
-            v69 = (v65 | 7) + 1;
+            v64 = (v60 | 7) + 1;
           }
 
-          v66 = operator new(v69);
-          __dst[1].__locale_ = v65;
-          v79 = v69 | 0x8000000000000000;
-          __dst[0].__locale_ = v66;
+          v61 = operator new(v64);
+          __dst[1].__locale_ = v60;
+          v72 = v64 | 0x8000000000000000;
+          __dst[0].__locale_ = v61;
         }
 
         else
         {
-          HIBYTE(v79) = v65;
-          v66 = __dst;
-          if (!v65)
+          HIBYTE(v72) = v60;
+          v61 = __dst;
+          if (!v60)
           {
             goto LABEL_76;
           }
         }
 
-        memmove(v66, v68, v65);
+        memmove(v61, v63, v60);
 LABEL_76:
-        *(v66 + v65) = 0;
-        if (*(v77 + 111) < 0)
+        *(v61 + v60) = 0;
+        if (*(v70 + 111) < 0)
         {
-          operator delete(*(v77 + 11));
+          operator delete(*(v70 + 11));
         }
 
-        *(v77 + 88) = *&__dst[0].__locale_;
-        v70 = MEMORY[0x277D82818];
-        *(v77 + 13) = v79;
-        __p[0] = *v70;
-        v71 = __p[0];
-        v72 = *(v70 + 72);
-        v73 = *(v70 + 64);
-        *(__p + *(__p[0] - 3)) = v73;
-        v74 = v72;
-        *&v81 = v72;
-        *(&v81 + 1) = MEMORY[0x277D82878] + 16;
-        if (SHIBYTE(v86) < 0)
+        *(v70 + 88) = *&__dst[0].__locale_;
+        v65 = MEMORY[0x277D82818];
+        *(v70 + 13) = v72;
+        __p[0] = *v65;
+        v66 = __p[0];
+        v67 = *(v65 + 72);
+        v68 = *(v65 + 64);
+        *(__p + *(__p[0] - 3)) = v68;
+        v69 = v67;
+        *&v74 = v67;
+        *(&v74 + 1) = MEMORY[0x277D82878] + 16;
+        if (SHIBYTE(v79) < 0)
         {
-          operator delete(v85[1]);
+          operator delete(v78[1]);
         }
 
-        *(&v81 + 1) = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(&v82);
+        *(&v74 + 1) = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(&v75);
         std::iostream::~basic_iostream();
-        std::ios_base::~ios_base(v88);
-        std::ios_base::~ios_base(&v100);
-        *&v90 = v71;
-        *(&v90 + *(v71 - 3)) = v73;
-        *&v91 = v74;
-        *(&v91 + 1) = MEMORY[0x277D82878] + 16;
-        if (SHIBYTE(v96) < 0)
+        std::ios_base::~ios_base(v81);
+        std::ios_base::~ios_base(&v93);
+        *&v83 = v66;
+        *(&v83 + *(v66 - 3)) = v68;
+        *&v84 = v69;
+        *(&v84 + 1) = MEMORY[0x277D82878] + 16;
+        if (SHIBYTE(v89) < 0)
         {
-          operator delete(*(&v95 + 1));
+          operator delete(*(&v88 + 1));
         }
 
-        *(&v91 + 1) = MEMORY[0x277D82868] + 16;
-        std::locale::~locale(&v92);
+        *(&v84 + 1) = MEMORY[0x277D82868] + 16;
+        std::locale::~locale(&v85);
         std::iostream::~basic_iostream();
-        std::ios_base::~ios_base(v98);
-        goto LABEL_83;
+        std::ios_base::~ios_base(v91);
+        return;
       }
     }
 
-    memmove(v51, v53, v50);
+    memmove(v46, v48, v45);
     goto LABEL_53;
   }
 
@@ -4032,68 +3936,64 @@ LABEL_76:
     *(this + 12) = 0;
     if (*(this + 40) == 1)
     {
-LABEL_26:
-      *__p = *(this + 24);
-      *&v81 = *(this + 5);
-      if ((v81 & 1) == 0)
-      {
-        std::__throw_bad_optional_access[abi:ne200100]();
-      }
-
-      std::error_code::message(&v90, __p);
-      v40 = std::string::insert(&v90, 0, "Error: ", 7uLL);
-      v41 = v40->__r_.__value_.__r.__words[0];
-      v100.__vftable = v40->__r_.__value_.__l.__size_;
-      *(&v100.__vftable + 7) = *(&v40->__r_.__value_.__r.__words[1] + 7);
-      v42 = HIBYTE(v40->__r_.__value_.__r.__words[2]);
-      v40->__r_.__value_.__l.__size_ = 0;
-      v40->__r_.__value_.__r.__words[2] = 0;
-      v40->__r_.__value_.__r.__words[0] = 0;
-      if (*(this + 135) < 0)
-      {
-        operator delete(*(this + 14));
-      }
-
-      v43 = v100.__vftable;
-      *(this + 14) = v41;
-      *(this + 15) = v43;
-      *(this + 127) = *(&v100.__vftable + 7);
-      *(this + 135) = v42;
-      if (SBYTE7(v91) < 0)
-      {
-        operator delete(v90);
-        v44 = *MEMORY[0x277D85DE8];
-        return;
-      }
-
-      goto LABEL_83;
-    }
-  }
-
-  else
-  {
-    *(this + 88) = 0;
-    *(this + 111) = 0;
-    if (*(this + 40) == 1)
-    {
       goto LABEL_26;
     }
+
+LABEL_32:
+    if (*(this + 135) < 0)
+    {
+      *(this + 15) = 15;
+      v40 = *(this + 14);
+    }
+
+    else
+    {
+      v40 = this + 112;
+      *(this + 135) = 15;
+    }
+
+    strcpy(v40, "<Empty message>");
+    return;
   }
 
+  *(this + 88) = 0;
+  *(this + 111) = 0;
+  if (*(this + 40) != 1)
+  {
+    goto LABEL_32;
+  }
+
+LABEL_26:
+  *__p = *(this + 24);
+  *&v74 = *(this + 5);
+  if ((v74 & 1) == 0)
+  {
+    std::__throw_bad_optional_access[abi:ne200100]();
+  }
+
+  std::error_code::message(&v83, __p);
+  v36 = std::string::insert(&v83, 0, "Error: ", 7uLL);
+  v37 = v36->__r_.__value_.__r.__words[0];
+  v93.__vftable = v36->__r_.__value_.__l.__size_;
+  *(&v93.__vftable + 7) = *(&v36->__r_.__value_.__r.__words[1] + 7);
+  v38 = HIBYTE(v36->__r_.__value_.__r.__words[2]);
+  v36->__r_.__value_.__l.__size_ = 0;
+  v36->__r_.__value_.__r.__words[2] = 0;
+  v36->__r_.__value_.__r.__words[0] = 0;
   if (*(this + 135) < 0)
   {
-    *(this + 15) = 15;
-    v45 = *(this + 14);
+    operator delete(*(this + 14));
   }
 
-  else
+  v39 = v93.__vftable;
+  *(this + 14) = v37;
+  *(this + 15) = v39;
+  *(this + 127) = *(&v93.__vftable + 7);
+  *(this + 135) = v38;
+  if (SBYTE7(v84) < 0)
   {
-    v45 = this + 112;
-    *(this + 135) = 15;
+    operator delete(v83);
   }
-
-  strcpy(v45, "<Empty message>");
-  v76 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240EC932C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *__p, uint64_t a55, int a56, __int16 a57, char a58, char a59)
@@ -4119,25 +4019,27 @@ void sub_240EC93F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   JUMPOUT(0x240EC9440);
 }
 
-void sub_240EC942C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_240EC942C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15);
-  std::ios_base::~ios_base((v51 - 256));
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a51);
+  std::ios_base::~ios_base((v50 - 256));
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t abb::router::Message::payloadString(abb::router::Message *this)
 {
   abb::router::Message::generatePrintString(this);
-  if ((*(this + 111) & 0x8000000000000000) == 0)
+  if ((*(this + 111) & 0x8000000000000000) != 0)
+  {
+    return *(this + 11);
+  }
+
+  else
   {
     return this + 88;
   }
-
-  result = *(this + 11);
-  v3 = *(this + 12);
-  return result;
 }
 
 uint64_t abb::router::Message::operator BOOL(uint64_t a1)
@@ -4175,26 +4077,26 @@ void abb::router::MipcServer::create(void *a1@<X8>)
 {
   *a1 = 0xAAAAAAAAAAAAAAAALL;
   a1[1] = 0xAAAAAAAAAAAAAAAALL;
-  v4[23] = 20;
-  strcpy(v4, "com.apple.router.abb");
-  v3 = operator new(0x30uLL);
-  v5 = v3;
-  strcpy(v3, "com.apple.telephony.control-msg.xpc.allow");
-  v6 = xmmword_240EE0410;
-  v7 = xmmword_240EE0420;
+  v3[23] = 20;
+  strcpy(v3, "com.apple.router.abb");
+  v2 = operator new(0x30uLL);
+  v4 = v2;
+  strcpy(v2, "com.apple.telephony.control-msg.xpc.allow");
+  v5 = xmmword_240EE0410;
+  v6 = xmmword_240EE0420;
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v10 = xmmword_240EE0430;
-  v11 = 5;
-  abb::router::MipcServer::create(v4, a1);
+  v9 = xmmword_240EE0430;
+  v10 = 5;
+  abb::router::MipcServer::create(v3, a1);
 
-  operator delete(v3);
+  operator delete(v2);
 }
 
-void abb::router::MipcServer::create(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void abb::router::MipcServer::create(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = 0xAAAAAAAAAAAAAAAALL;
-  *(a2 + 8) = 0xAAAAAAAAAAAAAAAALL;
+  a2[1] = 0xAAAAAAAAAAAAAAAALL;
   if (*(a1 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&v20, *a1, *(a1 + 8));
@@ -4320,11 +4222,12 @@ void sub_240EC99C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_240EC99DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_240EC99DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](&a19);
-  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v19);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va);
+  std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](v18);
   _Unwind_Resume(a1);
 }
 
@@ -4366,9 +4269,9 @@ LABEL_4:
   goto LABEL_5;
 }
 
-void sub_240EC9A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_240EC9A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   abb::router::Config::~Config(va);
   _Unwind_Resume(a1);
 }
@@ -4751,42 +4654,41 @@ void abb::router::Metrics::~Metrics(abb::router::Metrics *this)
   }
 }
 
-uint64_t abb::router::Metrics::registerStreamHandler(uint64_t a1, uint64_t a2)
+void *abb::router::Metrics::registerStreamHandler(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v7 = v6;
-      (*(*v3 + 24))(v3, v6);
+      v6 = v5;
+      (*(*v3 + 24))(v3, v5);
     }
 
     else
     {
-      v7 = (*(*v3 + 16))(v3);
+      v6 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v6, (a1 + 168));
-  result = v7;
-  if (v7 == v6)
+  std::__function::__value_func<void ()(xpc::dict)>::swap[abi:ne200100](v5, (a1 + 168));
+  result = v6;
+  if (v6 == v5)
   {
-    result = (*(*v7 + 32))(v7);
+    return (*(*v6 + 32))(v6);
   }
 
-  else if (v7)
+  if (v6)
   {
-    result = (*(*v7 + 40))();
+    return (*(*v6 + 40))();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5149,7 +5051,7 @@ LABEL_56:
     {
       *(this + 16) = v29 / 1000000000;
       v59[0] = 0xAAAAAAAAAAAAAAAALL;
-      abb::router::Metrics::exportTimeSeriesData(this, v59);
+      abb::router::Metrics::exportTimeSeriesData(v59, this);
       v47 = v59[0];
       if (MEMORY[0x245CD2F50](v59[0]) != MEMORY[0x277D86468])
       {
@@ -5230,9 +5132,9 @@ void sub_240ECAA08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void abb::router::Metrics::exportTimeSeriesData(abb::router::Metrics *this@<X0>, xpc_object_t *a2@<X8>)
+void abb::router::Metrics::exportTimeSeriesData(xpc_object_t *__return_ptr a1@<X8>, abb::router::Metrics *this@<X0>)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = xpc_dictionary_create(0, 0, 0);
   if (v3 || (v3 = xpc_null_create()) != 0)
   {
@@ -5256,7 +5158,7 @@ void abb::router::Metrics::exportTimeSeriesData(abb::router::Metrics *this@<X0>,
 
   xpc_release(v3);
   v5 = *(this + 17);
-  v40 = this;
+  v39 = this;
   v6 = this + 144;
   xdict = v4;
   if (v5 != this + 144)
@@ -5320,36 +5222,36 @@ void abb::router::Metrics::exportTimeSeriesData(abb::router::Metrics *this@<X0>,
 
       object = v10;
       v16 = *(v5 + 8);
-      v47[1] = 0;
-      v47[2] = 6;
-      v47[0] = v16;
+      v46[1] = 0;
+      v46[2] = 6;
+      v46[0] = v16;
       *&v17 = 0xAAAAAAAAAAAAAAAALL;
       *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v52[14] = v17;
-      v52[15] = v17;
-      v52[12] = v17;
-      v52[13] = v17;
-      v52[10] = v17;
-      v52[11] = v17;
-      v52[8] = v17;
-      v52[9] = v17;
-      v52[6] = v17;
-      v52[7] = v17;
-      v52[4] = v17;
-      v52[5] = v17;
-      v52[2] = v17;
-      v52[3] = v17;
-      v52[0] = v17;
-      v52[1] = v17;
-      v48 = v52;
+      v51[14] = v17;
+      v51[15] = v17;
+      v51[12] = v17;
+      v51[13] = v17;
+      v51[10] = v17;
+      v51[11] = v17;
+      v51[8] = v17;
+      v51[9] = v17;
+      v51[6] = v17;
+      v51[7] = v17;
+      v51[4] = v17;
+      v51[5] = v17;
+      v51[2] = v17;
+      v51[3] = v17;
+      v51[0] = v17;
+      v51[1] = v17;
+      v47 = v51;
       *__len = xmmword_240EDCC50;
-      v50 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v51 = 0;
-      __p = v52;
-      v46[0] = 1;
-      v46[1] = v47;
-      v46[2] = 6;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v48, "{:#06x}", 7, v46);
+      v49 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v50 = 0;
+      __p = v51;
+      v45[0] = 1;
+      v45[1] = v46;
+      v45[2] = 6;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v47, "{:#06x}", 7, v45);
       v18 = __len[1];
       if (__len[1] >= 0x7FFFFFFFFFFFFFF8)
       {
@@ -5362,7 +5264,7 @@ void abb::router::Metrics::exportTimeSeriesData(abb::router::Metrics *this@<X0>,
         break;
       }
 
-      HIBYTE(v45) = __len[1];
+      HIBYTE(v44) = __len[1];
       v20 = __dst;
       if (__len[1])
       {
@@ -5371,13 +5273,13 @@ void abb::router::Metrics::exportTimeSeriesData(abb::router::Metrics *this@<X0>,
 
       LOBYTE(__dst[0]) = 0;
       v21 = __p;
-      if (__p != v52)
+      if (__p != v51)
       {
         goto LABEL_27;
       }
 
 LABEL_28:
-      if (v45 >= 0)
+      if (v44 >= 0)
       {
         v22 = __dst;
       }
@@ -5391,7 +5293,7 @@ LABEL_28:
       xpc_dictionary_set_value(xdict, v22, v15);
       v23 = xpc_null_create();
       xpc_release(v15);
-      if (SHIBYTE(v45) < 0)
+      if (SHIBYTE(v44) < 0)
       {
         operator delete(__dst[0]);
       }
@@ -5444,7 +5346,7 @@ LABEL_28:
 
     v20 = operator new(v30);
     __dst[1] = v18;
-    v45 = v30 | 0x8000000000000000;
+    v44 = v30 | 0x8000000000000000;
     __dst[0] = v20;
     v7 = v29;
     v8 = v28;
@@ -5453,7 +5355,7 @@ LABEL_43:
     memmove(v20, v19, v18);
     *(v18 + v20) = 0;
     v21 = __p;
-    if (__p == v52)
+    if (__p == v51)
     {
       goto LABEL_28;
     }
@@ -5466,22 +5368,22 @@ LABEL_27:
 LABEL_45:
   if (!xpc_dictionary_get_count(v4))
   {
-    *a2 = xpc_null_create();
+    *a1 = xpc_null_create();
     goto LABEL_60;
   }
 
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v31 = xpc_dictionary_create(0, 0, 0);
   v32 = v31;
   if (v31)
   {
-    *a2 = v31;
+    *a1 = v31;
   }
 
   else
   {
     v32 = xpc_null_create();
-    *a2 = v32;
+    *a1 = v32;
     if (!v32)
     {
       v33 = xpc_null_create();
@@ -5498,49 +5400,48 @@ LABEL_45:
 
   v33 = xpc_null_create();
 LABEL_54:
-  *a2 = v33;
+  *a1 = v33;
 LABEL_55:
   xpc_release(v32);
   if (!v4)
   {
     v34 = xpc_null_create();
-    v35 = v40;
-    if ((*(v40 + 23) & 0x80000000) == 0)
+    v35 = v39;
+    if ((*(v39 + 23) & 0x80000000) == 0)
     {
       goto LABEL_57;
     }
 
 LABEL_62:
-    v35 = *v40;
+    v35 = *v39;
     goto LABEL_57;
   }
 
   xpc_retain(v4);
   v34 = v4;
-  v35 = v40;
-  if (*(v40 + 23) < 0)
+  v35 = v39;
+  if (*(v39 + 23) < 0)
   {
     goto LABEL_62;
   }
 
 LABEL_57:
-  xpc_dictionary_set_value(*a2, v35, v34);
+  xpc_dictionary_set_value(*a1, v35, v34);
   v36 = xpc_null_create();
   xpc_release(v34);
   xpc_release(v36);
-  v37 = xpc_uint64_create(*(v40 + 16));
+  v37 = xpc_uint64_create(*(v39 + 16));
   if (!v37)
   {
     v37 = xpc_null_create();
   }
 
-  xpc_dictionary_set_value(*a2, "TimePointSeconds", v37);
+  xpc_dictionary_set_value(*a1, "TimePointSeconds", v37);
   v38 = xpc_null_create();
   xpc_release(v37);
   xpc_release(v38);
 LABEL_60:
   xpc_release(v4);
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240ECAF7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, xpc_object_t object, xpc_object_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *__p)
@@ -5585,16 +5486,16 @@ void abb::router::Metrics::resetTimeSeriesData(abb::router::Metrics *this)
   std::__tree<unsigned int>::destroy(&v6, v4);
 }
 
-uint64_t *abb::router::Metrics::getTopMessagesByCount@<X0>(abb::router::Metrics *this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *abb::router::Metrics::getTopMessagesByCount@<X0>(unint64_t a1@<X1>, void *a2@<X8>, uint64_t a3@<X0>)
 {
-  memset(a3, 170, 24);
-  result = std::vector<std::pair<unsigned int,unsigned long>>::vector[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned long>,std::__tree_node<std::__value_type<unsigned int,unsigned long>,void *> *,long>>,0>(a3, *(this + 6), this + 7);
+  memset(a2, 170, 24);
+  result = std::vector<std::pair<unsigned int,unsigned long>>::vector[abi:ne200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<unsigned int,unsigned long>,std::__tree_node<std::__value_type<unsigned int,unsigned long>,void *> *,long>>,0>(a2, *(a3 + 48), (a3 + 56));
   v5 = *result;
   v6 = result[1];
   v7 = (v6 - *result) >> 4;
-  if (v7 >= a2)
+  if (v7 >= a1)
   {
-    v8 = a2;
+    v8 = a1;
   }
 
   else
@@ -5890,9 +5791,9 @@ LABEL_23:
   }
 
 LABEL_24:
-  if (v7 > a2)
+  if (v7 > a1)
   {
-    result[1] = v5 + 16 * a2;
+    result[1] = v5 + 16 * a1;
   }
 
   return result;
@@ -6380,7 +6281,7 @@ void abb::router::Metrics::getTopMessagesByPeakCountRate(abb::router::Metrics *t
         v6 = &v15[16 * v14];
         *v16 = v8;
         *(v16 + 1) = v9;
-        v5 = v16 + 16;
+        v5 = (v16 + 16);
         memcpy(v15, v7, v11);
         if (v7)
         {
@@ -6407,7 +6308,7 @@ LABEL_20:
       else
       {
         *v5 = v8;
-        *(v5 + 1) = v9;
+        *(v5 + 8) = v9;
         v5 += 16;
         v10 = *(v3 + 1);
         if (v10)
@@ -6571,7 +6472,7 @@ LABEL_48:
           v38 = v7;
           do
           {
-            v39 = &v38[2 * v35 + 2];
+            v39 = v38 + 16 * v35 + 16;
             v40 = (2 * v35) | 1;
             v41 = 2 * v35 + 2;
             if (v41 < v23)
@@ -6585,7 +6486,7 @@ LABEL_48:
             }
 
             *v38 = *v39;
-            v38[1] = *(v39 + 8);
+            *(v38 + 8) = *(v39 + 8);
             v38 = v39;
             v35 = v40;
           }
@@ -6611,7 +6512,7 @@ LABEL_48:
             {
               v45 = v44 >> 1;
               v46 = &v7[16 * (v44 >> 1)];
-              v47 = *(v46 + 1);
+              v47 = *(v46 + 8);
               v48 = *(v39 + 8);
               if (v47 > v48)
               {
@@ -6629,7 +6530,7 @@ LABEL_48:
 
                   v45 = (v45 - 1) >> 1;
                   v46 = &v7[16 * v45];
-                  v47 = *(v46 + 1);
+                  v47 = *(v46 + 8);
                 }
 
                 while (v47 > v48);
@@ -6695,7 +6596,7 @@ LABEL_83:
               v63 = v62;
               v62 = v59;
               *v63 = *v59;
-              v63[1] = v61;
+              *(v63 + 8) = v61;
               if (((v23 - 2) >> 1) < v60)
               {
                 break;
@@ -6732,7 +6633,7 @@ LABEL_83:
             }
 
             *v62 = v58;
-            v62[1] = v56;
+            *(v62 + 8) = v56;
           }
         }
       }
@@ -6833,7 +6734,7 @@ void abb::router::Metrics::getTopMessagesByPeakByteRate(abb::router::Metrics *th
         v6 = &v15[16 * v14];
         *v16 = v8;
         *(v16 + 1) = v9;
-        v5 = v16 + 16;
+        v5 = (v16 + 16);
         memcpy(v15, v7, v11);
         if (v7)
         {
@@ -6860,7 +6761,7 @@ LABEL_20:
       else
       {
         *v5 = v8;
-        *(v5 + 1) = v9;
+        *(v5 + 8) = v9;
         v5 += 16;
         v10 = *(v3 + 1);
         if (v10)
@@ -7024,7 +6925,7 @@ LABEL_48:
           v38 = v7;
           do
           {
-            v39 = &v38[2 * v35 + 2];
+            v39 = v38 + 16 * v35 + 16;
             v40 = (2 * v35) | 1;
             v41 = 2 * v35 + 2;
             if (v41 < v23)
@@ -7038,7 +6939,7 @@ LABEL_48:
             }
 
             *v38 = *v39;
-            v38[1] = *(v39 + 8);
+            *(v38 + 8) = *(v39 + 8);
             v38 = v39;
             v35 = v40;
           }
@@ -7064,7 +6965,7 @@ LABEL_48:
             {
               v45 = v44 >> 1;
               v46 = &v7[16 * (v44 >> 1)];
-              v47 = *(v46 + 1);
+              v47 = *(v46 + 8);
               v48 = *(v39 + 8);
               if (v47 > v48)
               {
@@ -7082,7 +6983,7 @@ LABEL_48:
 
                   v45 = (v45 - 1) >> 1;
                   v46 = &v7[16 * v45];
-                  v47 = *(v46 + 1);
+                  v47 = *(v46 + 8);
                 }
 
                 while (v47 > v48);
@@ -7148,7 +7049,7 @@ LABEL_83:
               v63 = v62;
               v62 = v59;
               *v63 = *v59;
-              v63[1] = v61;
+              *(v63 + 8) = v61;
               if (((v23 - 2) >> 1) < v60)
               {
                 break;
@@ -7185,7 +7086,7 @@ LABEL_83:
             }
 
             *v62 = v58;
-            v62[1] = v56;
+            *(v62 + 8) = v56;
           }
         }
       }
@@ -7219,9 +7120,9 @@ void sub_240ECC53C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_object_t *a2@<X8>)
+void abb::router::Metrics::exportSummary(xpc_object_t *__return_ptr a1@<X8>, abb::router::Metrics *this@<X0>)
 {
-  v137 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   v2 = xpc_dictionary_create(0, 0, 0);
   if (v2 || (v2 = xpc_null_create()) != 0)
   {
@@ -7287,10 +7188,10 @@ void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_ob
 
   xpc_release(v7);
   object = v8;
-  abb::router::Metrics::getTopMessagesByCount(this, *(this + 4), &v108);
-  v10 = v108;
-  v9 = v109;
-  if (v108 != v109)
+  abb::router::Metrics::getTopMessagesByCount(*(this + 4), &v106, this);
+  v10 = v106;
+  v9 = v107;
+  if (v106 != v107)
   {
     while (1)
     {
@@ -7301,14 +7202,12 @@ void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_ob
       }
 
       v12 = *v10;
-      v114 = 0;
-      v115 = 6;
-      v112 = 6;
-      v113 = v12;
+      v112 = 0;
+      v113 = 6;
+      v110 = 6;
+      v111 = v12;
       *&v13 = 0xAAAAAAAAAAAAAAAALL;
       *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v134 = v13;
-      v135 = v13;
       v132 = v13;
       v133 = v13;
       v130 = v13;
@@ -7323,14 +7222,16 @@ void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_ob
       v123 = v13;
       v120 = v13;
       v121 = v13;
-      v116 = &v120;
+      v118 = v13;
+      v119 = v13;
+      v114 = &v118;
       *__len = xmmword_240EDCC50;
-      v118 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v119 = 0;
-      __p = &v120;
-      v110 = 1;
-      v111 = &v113;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v116, "{:#06x}", 7, &v110);
+      v116 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v117 = 0;
+      __p = &v118;
+      v108 = 1;
+      v109 = &v111;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v114, "{:#06x}", 7, &v108);
       v14 = __len[1];
       if (__len[1] > 0x7FFFFFFFFFFFFFF7)
       {
@@ -7343,7 +7244,7 @@ void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_ob
         break;
       }
 
-      HIBYTE(v107) = __len[1];
+      HIBYTE(v105) = __len[1];
       p_dst = &__dst;
       if (__len[1])
       {
@@ -7352,13 +7253,13 @@ void abb::router::Metrics::exportSummary(abb::router::Metrics *this@<X0>, xpc_ob
 
       LOBYTE(__dst) = 0;
       v17 = __p;
-      if (__p != &v120)
+      if (__p != &v118)
       {
         goto LABEL_24;
       }
 
 LABEL_25:
-      if (v107 >= 0)
+      if (v105 >= 0)
       {
         v18 = &__dst;
       }
@@ -7371,7 +7272,7 @@ LABEL_25:
       xpc_dictionary_set_value(object, v18, v11);
       v19 = xpc_null_create();
       xpc_release(v11);
-      if (SHIBYTE(v107) < 0)
+      if (SHIBYTE(v105) < 0)
       {
         operator delete(__dst);
       }
@@ -7380,7 +7281,7 @@ LABEL_25:
       v10 += 2;
       if (v10 == v9)
       {
-        v10 = v108;
+        v10 = v106;
         goto LABEL_38;
       }
     }
@@ -7396,14 +7297,14 @@ LABEL_25:
     }
 
     p_dst = operator new(v20);
-    v106 = v14;
-    v107 = v20 | 0x8000000000000000;
+    v104 = v14;
+    v105 = v20 | 0x8000000000000000;
     __dst = p_dst;
 LABEL_36:
     memmove(p_dst, v15, v14);
     *(p_dst + v14) = 0;
     v17 = __p;
-    if (__p == &v120)
+    if (__p == &v118)
     {
       goto LABEL_25;
     }
@@ -7417,7 +7318,7 @@ LABEL_38:
   v21 = object;
   if (v10)
   {
-    v109 = v10;
+    v107 = v10;
     operator delete(v10);
   }
 
@@ -7457,11 +7358,11 @@ LABEL_38:
   }
 
   xpc_release(v23);
-  v103 = v24;
-  abb::router::Metrics::getTopMessagesByBytes(this, *(this + 4), &v108);
-  v26 = v108;
-  v25 = v109;
-  if (v108 != v109)
+  v101 = v24;
+  abb::router::Metrics::getTopMessagesByBytes(this, *(this + 4), &v106);
+  v26 = v106;
+  v25 = v107;
+  if (v106 != v107)
   {
     while (1)
     {
@@ -7472,14 +7373,12 @@ LABEL_38:
       }
 
       v28 = *v26;
-      v114 = 0;
-      v115 = 6;
-      v112 = 6;
-      v113 = v28;
+      v112 = 0;
+      v113 = 6;
+      v110 = 6;
+      v111 = v28;
       *&v29 = 0xAAAAAAAAAAAAAAAALL;
       *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v134 = v29;
-      v135 = v29;
       v132 = v29;
       v133 = v29;
       v130 = v29;
@@ -7494,14 +7393,16 @@ LABEL_38:
       v123 = v29;
       v120 = v29;
       v121 = v29;
-      v116 = &v120;
+      v118 = v29;
+      v119 = v29;
+      v114 = &v118;
       *__len = xmmword_240EDCC50;
-      v118 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v119 = 0;
-      __p = &v120;
-      v110 = 1;
-      v111 = &v113;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v116, "{:#06x}", 7, &v110);
+      v116 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v117 = 0;
+      __p = &v118;
+      v108 = 1;
+      v109 = &v111;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v114, "{:#06x}", 7, &v108);
       v30 = __len[1];
       if (__len[1] > 0x7FFFFFFFFFFFFFF7)
       {
@@ -7514,7 +7415,7 @@ LABEL_38:
         break;
       }
 
-      HIBYTE(v107) = __len[1];
+      HIBYTE(v105) = __len[1];
       v32 = &__dst;
       if (__len[1])
       {
@@ -7523,13 +7424,13 @@ LABEL_38:
 
       LOBYTE(__dst) = 0;
       v33 = __p;
-      if (__p != &v120)
+      if (__p != &v118)
       {
         goto LABEL_56;
       }
 
 LABEL_57:
-      if (v107 >= 0)
+      if (v105 >= 0)
       {
         v34 = &__dst;
       }
@@ -7539,10 +7440,10 @@ LABEL_57:
         v34 = __dst;
       }
 
-      xpc_dictionary_set_value(v103, v34, v27);
+      xpc_dictionary_set_value(v101, v34, v27);
       v35 = xpc_null_create();
       xpc_release(v27);
-      if (SHIBYTE(v107) < 0)
+      if (SHIBYTE(v105) < 0)
       {
         operator delete(__dst);
       }
@@ -7551,8 +7452,8 @@ LABEL_57:
       v26 += 2;
       if (v26 == v25)
       {
-        v26 = v108;
-        v24 = v103;
+        v26 = v106;
+        v24 = v101;
         goto LABEL_70;
       }
     }
@@ -7568,14 +7469,14 @@ LABEL_57:
     }
 
     v32 = operator new(v36);
-    v106 = v30;
-    v107 = v36 | 0x8000000000000000;
+    v104 = v30;
+    v105 = v36 | 0x8000000000000000;
     __dst = v32;
 LABEL_68:
     memmove(v32, v31, v30);
     *(v32 + v30) = 0;
     v33 = __p;
-    if (__p == &v120)
+    if (__p == &v118)
     {
       goto LABEL_57;
     }
@@ -7588,7 +7489,7 @@ LABEL_56:
 LABEL_70:
   if (v26)
   {
-    v109 = v26;
+    v107 = v26;
     operator delete(v26);
   }
 
@@ -7628,11 +7529,11 @@ LABEL_70:
   }
 
   xpc_release(v38);
-  v102 = v39;
-  abb::router::Metrics::getTopMessagesByPeakCountRate(this, *(this + 4), &v108);
-  v41 = v108;
-  v40 = v109;
-  if (v108 != v109)
+  v100 = v39;
+  abb::router::Metrics::getTopMessagesByPeakCountRate(this, *(this + 4), &v106);
+  v41 = v106;
+  v40 = v107;
+  if (v106 != v107)
   {
     while (1)
     {
@@ -7643,14 +7544,12 @@ LABEL_70:
       }
 
       v43 = *v41;
-      v114 = 0;
-      v115 = 6;
-      v112 = 6;
-      v113 = v43;
+      v112 = 0;
+      v113 = 6;
+      v110 = 6;
+      v111 = v43;
       *&v44 = 0xAAAAAAAAAAAAAAAALL;
       *(&v44 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v134 = v44;
-      v135 = v44;
       v132 = v44;
       v133 = v44;
       v130 = v44;
@@ -7665,14 +7564,16 @@ LABEL_70:
       v123 = v44;
       v120 = v44;
       v121 = v44;
-      v116 = &v120;
+      v118 = v44;
+      v119 = v44;
+      v114 = &v118;
       *__len = xmmword_240EDCC50;
-      v118 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v119 = 0;
-      __p = &v120;
-      v110 = 1;
-      v111 = &v113;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v116, "{:#06x}", 7, &v110);
+      v116 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v117 = 0;
+      __p = &v118;
+      v108 = 1;
+      v109 = &v111;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v114, "{:#06x}", 7, &v108);
       v45 = __len[1];
       if (__len[1] > 0x7FFFFFFFFFFFFFF7)
       {
@@ -7685,7 +7586,7 @@ LABEL_70:
         break;
       }
 
-      HIBYTE(v107) = __len[1];
+      HIBYTE(v105) = __len[1];
       v47 = &__dst;
       if (__len[1])
       {
@@ -7694,13 +7595,13 @@ LABEL_70:
 
       LOBYTE(__dst) = 0;
       v48 = __p;
-      if (__p != &v120)
+      if (__p != &v118)
       {
         goto LABEL_88;
       }
 
 LABEL_89:
-      if (v107 >= 0)
+      if (v105 >= 0)
       {
         v49 = &__dst;
       }
@@ -7710,10 +7611,10 @@ LABEL_89:
         v49 = __dst;
       }
 
-      xpc_dictionary_set_value(v102, v49, v42);
+      xpc_dictionary_set_value(v100, v49, v42);
       v50 = xpc_null_create();
       xpc_release(v42);
-      if (SHIBYTE(v107) < 0)
+      if (SHIBYTE(v105) < 0)
       {
         operator delete(__dst);
       }
@@ -7722,8 +7623,8 @@ LABEL_89:
       v41 += 2;
       if (v41 == v40)
       {
-        v41 = v108;
-        v39 = v102;
+        v41 = v106;
+        v39 = v100;
         goto LABEL_102;
       }
     }
@@ -7739,14 +7640,14 @@ LABEL_89:
     }
 
     v47 = operator new(v51);
-    v106 = v45;
-    v107 = v51 | 0x8000000000000000;
+    v104 = v45;
+    v105 = v51 | 0x8000000000000000;
     __dst = v47;
 LABEL_100:
     memmove(v47, v46, v45);
     *(v47 + v45) = 0;
     v48 = __p;
-    if (__p == &v120)
+    if (__p == &v118)
     {
       goto LABEL_89;
     }
@@ -7757,7 +7658,7 @@ LABEL_88:
   }
 
 LABEL_102:
-  v52 = v103;
+  v52 = v101;
   if (v41)
   {
     operator delete(v41);
@@ -7783,28 +7684,28 @@ LABEL_102:
     if (MEMORY[0x245CD2F50](v54) == MEMORY[0x277D86468])
     {
       xpc_retain(v54);
-      v101 = v54;
+      v99 = v54;
     }
 
     else
     {
-      v101 = xpc_null_create();
+      v99 = xpc_null_create();
     }
   }
 
   else
   {
-    v101 = xpc_null_create();
+    v99 = xpc_null_create();
     v54 = 0;
   }
 
   xpc_release(v54);
-  abb::router::Metrics::getTopMessagesByPeakByteRate(this, *(this + 4), &v108);
-  v56 = v108;
-  v55 = v109;
-  if (v108 != v109)
+  abb::router::Metrics::getTopMessagesByPeakByteRate(this, *(this + 4), &v106);
+  v56 = v106;
+  v55 = v107;
+  if (v106 != v107)
   {
-    v57 = v101;
+    v57 = v99;
     while (1)
     {
       v58 = xpc_uint64_create(v56[1]);
@@ -7814,13 +7715,11 @@ LABEL_102:
       }
 
       v59 = *v56;
-      v114 = 0;
-      v115 = 6;
-      v113 = v59;
+      v112 = 0;
+      v113 = 6;
+      v111 = v59;
       *&v60 = 0xAAAAAAAAAAAAAAAALL;
       *(&v60 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v134 = v60;
-      v135 = v60;
       v132 = v60;
       v133 = v60;
       v130 = v60;
@@ -7835,15 +7734,17 @@ LABEL_102:
       v123 = v60;
       v120 = v60;
       v121 = v60;
-      v116 = &v120;
+      v118 = v60;
+      v119 = v60;
+      v114 = &v118;
       *__len = xmmword_240EDCC50;
-      v118 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v119 = 0;
-      __p = &v120;
-      v110 = 1;
-      v111 = &v113;
-      v112 = 6;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v116, "{:#06x}", 7, &v110);
+      v116 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      v117 = 0;
+      __p = &v118;
+      v108 = 1;
+      v109 = &v111;
+      v110 = 6;
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v114, "{:#06x}", 7, &v108);
       v61 = __len[1];
       if (__len[1] > 0x7FFFFFFFFFFFFFF7)
       {
@@ -7856,7 +7757,7 @@ LABEL_102:
         break;
       }
 
-      HIBYTE(v107) = __len[1];
+      HIBYTE(v105) = __len[1];
       v63 = &__dst;
       if (__len[1])
       {
@@ -7865,13 +7766,13 @@ LABEL_102:
 
       LOBYTE(__dst) = 0;
       v64 = __p;
-      if (__p != &v120)
+      if (__p != &v118)
       {
         goto LABEL_121;
       }
 
 LABEL_122:
-      if (v107 >= 0)
+      if (v105 >= 0)
       {
         v65 = &__dst;
       }
@@ -7884,7 +7785,7 @@ LABEL_122:
       xpc_dictionary_set_value(v57, v65, v58);
       v66 = xpc_null_create();
       xpc_release(v58);
-      if (SHIBYTE(v107) < 0)
+      if (SHIBYTE(v105) < 0)
       {
         operator delete(__dst);
       }
@@ -7893,10 +7794,10 @@ LABEL_122:
       v56 += 2;
       if (v56 == v55)
       {
-        v56 = v108;
-        v52 = v103;
-        v68 = v102;
-        if (v108)
+        v56 = v106;
+        v52 = v101;
+        v68 = v100;
+        if (v106)
         {
           goto LABEL_136;
         }
@@ -7916,15 +7817,15 @@ LABEL_122:
     }
 
     v63 = operator new(v67);
-    v106 = v61;
-    v107 = v67 | 0x8000000000000000;
+    v104 = v61;
+    v105 = v67 | 0x8000000000000000;
     __dst = v63;
-    v57 = v101;
+    v57 = v99;
 LABEL_133:
     memmove(v63, v62, v61);
     *(v63 + v61) = 0;
     v64 = __p;
-    if (__p == &v120)
+    if (__p == &v118)
     {
       goto LABEL_122;
     }
@@ -7934,9 +7835,9 @@ LABEL_121:
     goto LABEL_122;
   }
 
-  v57 = v101;
-  v68 = v102;
-  if (v108)
+  v57 = v99;
+  v68 = v100;
+  if (v106)
   {
 LABEL_136:
     operator delete(v56);
@@ -8040,19 +7941,19 @@ LABEL_137:
     }
   }
 
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v80 = xpc_dictionary_create(0, 0, 0);
   v81 = v80;
   v82 = object;
   if (v80)
   {
-    *a2 = v80;
+    *a1 = v80;
   }
 
   else
   {
     v81 = xpc_null_create();
-    *a2 = v81;
+    *a1 = v81;
     if (!v81)
     {
       v86 = xpc_null_create();
@@ -8069,7 +7970,7 @@ LABEL_137:
 
   v86 = xpc_null_create();
 LABEL_169:
-  *a2 = v86;
+  *a1 = v86;
 LABEL_170:
   xpc_release(v81);
   v87 = *(this + 23);
@@ -8093,8 +7994,8 @@ LABEL_170:
   {
     __len[0] = 0;
     __len[1] = 0;
-    v116 = 0;
-    v91 = &v116;
+    v114 = 0;
+    v91 = &v114;
     HIBYTE(__len[1]) = v88 + 8;
     if (!v88)
     {
@@ -8117,25 +8018,24 @@ LABEL_170:
     v91 = operator new(v90);
     __len[0] = v88 + 8;
     __len[1] = v90 | 0x8000000000000000;
-    v116 = v91;
+    v114 = v91;
     v82 = object;
   }
 
-  v92 = *this;
   if (v87 >= 0)
   {
-    v93 = this;
+    v92 = this;
   }
 
   else
   {
-    v93 = *this;
+    v92 = *this;
   }
 
-  memmove(v91, v93, v88);
+  memmove(v91, v92, v88);
 LABEL_184:
   strcpy(v91 + v88, " Summary");
-  v94 = xdict;
+  v93 = xdict;
   if (xdict)
   {
     xpc_retain(xdict);
@@ -8143,34 +8043,33 @@ LABEL_184:
 
   else
   {
-    v94 = xpc_null_create();
+    v93 = xpc_null_create();
   }
 
   if ((__len[1] & 0x8000000000000000) == 0)
   {
-    v95 = &v116;
+    v94 = &v114;
   }
 
   else
   {
-    v95 = v116;
+    v94 = v114;
   }
 
-  xpc_dictionary_set_value(*a2, v95, v94);
-  v96 = xpc_null_create();
-  xpc_release(v94);
-  xpc_release(v96);
+  xpc_dictionary_set_value(*a1, v94, v93);
+  v95 = xpc_null_create();
+  xpc_release(v93);
+  xpc_release(v95);
   if (SHIBYTE(__len[1]) < 0)
   {
-    operator delete(v116);
+    operator delete(v114);
   }
 
-  xpc_release(v101);
+  xpc_release(v99);
   xpc_release(v68);
   xpc_release(v52);
   xpc_release(v82);
   xpc_release(xdict);
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 void sub_240ECD450(_Unwind_Exception *a1, int a2)
@@ -8475,13 +8374,13 @@ void *abb::router::Client::Client(void *a1, char *a2, NSObject **a3, uint64_t *a
   return a1;
 }
 
-void sub_240ECDC4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240ECDC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -8535,26 +8434,26 @@ void abb::router::Client::State::create(char *a1@<X0>, NSObject **a2@<X1>, uint6
   dispatch_release(v12);
 }
 
-void sub_240ECDD9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240ECDD9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va);
-  if (v3)
+  if (v4)
   {
-    dispatch_release(v3);
-    if (!v4)
+    dispatch_release(v4);
+    if (!v5)
     {
 LABEL_3:
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v4)
+  else if (!v5)
   {
     goto LABEL_3;
   }
 
-  operator delete(v2);
+  operator delete(v3);
   _Unwind_Resume(a1);
 }
 
@@ -8706,8 +8605,7 @@ void abb::router::Client::setClientTracker(uint64_t a1, uint64_t a2)
 void abb::router::Client::State::setClientTracker(void *a1, __int128 *a2)
 {
   v10 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3 = a1[2];
   if (!v3 || (v4 = a1[1], (v5 = std::__shared_weak_count::lock(v3)) == 0))
   {
@@ -8735,9 +8633,9 @@ void abb::router::Client::State::setClientTracker(void *a1, __int128 *a2)
 
 void abb::router::Client::sendInternal(abb::router::Client *this, const abb::router::SendProxy *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(this + 1);
-  abb::router::Message::Message(v6, a2 + 16);
+  abb::router::Message::Message(v5, a2 + 16);
   v4 = *(a2 + 22);
   if (!v4)
   {
@@ -8748,26 +8646,25 @@ void abb::router::Client::sendInternal(abb::router::Client *this, const abb::rou
   {
     v4 = (*(*v4 + 16))(v4);
 LABEL_4:
-    v8 = v4;
+    v7 = v4;
     goto LABEL_6;
   }
 
-  v8 = v7;
-  (*(*v4 + 24))(v4, v7);
+  v7 = v6;
+  (*(*v4 + 24))(v4, v6);
 LABEL_6:
-  abb::router::Client::State::send(v3, v6, v7);
-  if (v8 == v7)
+  abb::router::Client::State::send(v3, v5, v6);
+  if (v7 == v6)
   {
-    (*(*v8 + 32))(v8);
+    (*(*v7 + 32))(v7);
   }
 
-  else if (v8)
+  else if (v7)
   {
-    (*(*v8 + 40))(v8);
+    (*(*v7 + 40))(v7);
   }
 
-  abb::router::Message::~Message(v6);
-  v5 = *MEMORY[0x277D85DE8];
+  abb::router::Message::~Message(v5);
 }
 
 void sub_240ECE554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8779,27 +8676,27 @@ void sub_240ECE554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void abb::router::Client::State::send(void *a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  abb::router::Message::Message(v17, a2);
+  v19 = *MEMORY[0x277D85DE8];
+  abb::router::Message::Message(v16, a2);
   v5 = *(a3 + 24);
   if (v5)
   {
     if (v5 == a3)
     {
-      v19 = v18;
-      (*(*v5 + 24))(v5, v18);
+      v18 = v17;
+      (*(*v5 + 24))(v5, v17);
     }
 
     else
     {
-      v19 = *(a3 + 24);
+      v18 = *(a3 + 24);
       *(a3 + 24) = 0;
     }
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
   v6 = a1[2];
@@ -8811,11 +8708,11 @@ void abb::router::Client::State::send(void *a1, uint64_t a2, uint64_t a3)
   v9 = v8;
   v10 = operator new(0xB0uLL);
   *v10 = a1;
-  abb::router::Message::Message((v10 + 1), v17);
-  v11 = v19;
-  if (v19)
+  abb::router::Message::Message((v10 + 1), v16);
+  v11 = v18;
+  if (v18)
   {
-    if (v19 == v18)
+    if (v18 == v17)
     {
       v10[21] = v10 + 18;
       (*(*v11 + 24))(v11);
@@ -8823,8 +8720,8 @@ void abb::router::Client::State::send(void *a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v10[21] = v19;
-      v19 = 0;
+      v10[21] = v18;
+      v18 = 0;
     }
   }
 
@@ -8842,8 +8739,8 @@ void abb::router::Client::State::send(void *a1, uint64_t a2, uint64_t a3)
   dispatch_async_f(v12, v13, dispatch::async<void ctu::SharedSynchronizable<abb::router::Client::State>::execute_wrapped<abb::router::Client::State::send(abb::router::Message,std::function<void ()(abb::router::Message const&)>)::$_0>(abb::router::Client::State::send(abb::router::Message,std::function<void ()(abb::router::Message const&)>)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<abb::router::Client::State::send(abb::router::Message,std::function<void ()(abb::router::Message const&)>)::$_0,std::default_delete<abb::router::Client::State::send(abb::router::Message,std::function<void ()(abb::router::Message const&)>)::$_0>>)::{lambda(void *)#1}::__invoke);
   if (atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    v14 = v19;
-    if (v19 != v18)
+    v14 = v18;
+    if (v18 != v17)
     {
       goto LABEL_15;
     }
@@ -8855,8 +8752,8 @@ LABEL_18:
 
   (v9->__on_zero_shared)(v9);
   std::__shared_weak_count::__release_weak(v9);
-  v14 = v19;
-  if (v19 == v18)
+  v14 = v18;
+  if (v18 == v17)
   {
     goto LABEL_18;
   }
@@ -8868,8 +8765,7 @@ LABEL_15:
   }
 
 LABEL_19:
-  abb::router::Message::~Message(v17);
-  v15 = *MEMORY[0x277D85DE8];
+  abb::router::Message::~Message(v16);
 }
 
 void sub_240ECE7CC(_Unwind_Exception *a1, int a2)
@@ -8937,13 +8833,13 @@ uint64_t abb::router::SyncClient::SyncClient(uint64_t a1, char *a2, uint64_t *a3
   return a1;
 }
 
-void sub_240ECE97C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_240ECE97C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::shared_ptr<abb::router::Agent>::~shared_ptr[abi:ne200100](va);
-  if (v2)
+  if (v3)
   {
-    dispatch_release(v2);
+    dispatch_release(v3);
   }
 
   _Unwind_Resume(a1);
@@ -9544,32 +9440,31 @@ void abb::router::Client::State::connect_sync(abb::router::Client::State *this)
         }
       }
 
-      v6 = **v5;
-      v7 = __dynamic_cast(v5, MEMORY[0x277CECB10], MEMORY[0x277CECB20], 0);
-      if (v7)
+      v6 = __dynamic_cast(v5, MEMORY[0x277CECB10], MEMORY[0x277CECB20], 0);
+      if (v6)
       {
-        v8 = v7;
-        v9 = *(this + 34);
-        v53 = v9;
-        if (v9)
+        v7 = v6;
+        v8 = *(this + 34);
+        v51 = v8;
+        if (v8)
         {
-          atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
 LABEL_15:
-        v15 = *(this + 2);
-        if (!v15 || (v16 = *(this + 1), (v17 = std::__shared_weak_count::lock(v15)) == 0))
+        v13 = *(this + 2);
+        if (!v13 || (v14 = *(this + 1), (v15 = std::__shared_weak_count::lock(v13)) == 0))
         {
           std::__throw_bad_weak_ptr[abi:ne200100]();
         }
 
-        v18 = v17;
-        v19 = this + 48;
-        atomic_fetch_add_explicit(&v17->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-        if (atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v16 = v15;
+        v17 = this + 48;
+        atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+        if (atomic_fetch_add(&v15->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          v20 = (v8 + 40);
-          if (v8 + 40 == v19)
+          v18 = (v7 + 40);
+          if (v7 + 40 == v17)
           {
             goto LABEL_32;
           }
@@ -9577,150 +9472,150 @@ LABEL_15:
 
         else
         {
-          (v17->__on_zero_shared)(v17);
-          std::__shared_weak_count::__release_weak(v18);
-          v20 = (v8 + 40);
-          if (v8 + 40 == v19)
+          (v15->__on_zero_shared)(v15);
+          std::__shared_weak_count::__release_weak(v16);
+          v18 = (v7 + 40);
+          if (v7 + 40 == v17)
           {
             goto LABEL_32;
           }
         }
 
-        v21 = *(this + 71);
-        if (v8[63] < 0)
+        v19 = *(this + 71);
+        if (v7[63] < 0)
         {
-          if (v21 >= 0)
+          if (v19 >= 0)
           {
-            v23 = this + 48;
+            v21 = this + 48;
           }
 
           else
           {
-            v23 = *(this + 6);
+            v21 = *(this + 6);
           }
 
-          if (v21 >= 0)
+          if (v19 >= 0)
           {
-            v24 = *(this + 71);
+            v22 = *(this + 71);
           }
 
           else
           {
-            v24 = *(this + 7);
+            v22 = *(this + 7);
           }
 
-          std::string::__assign_no_alias<false>(v20, v23, v24);
+          std::string::__assign_no_alias<false>(v18, v21, v22);
         }
 
         else if ((*(this + 71) & 0x80) != 0)
         {
-          std::string::__assign_no_alias<true>(v20, *(this + 6), *(this + 7));
+          std::string::__assign_no_alias<true>(v18, *(this + 6), *(this + 7));
         }
 
         else
         {
-          v22 = *v19;
-          v20[2] = *(this + 8);
-          *v20 = v22;
+          v20 = *v17;
+          v18[2] = *(this + 8);
+          *v18 = v20;
         }
 
 LABEL_32:
-        v25 = operator new(0x18uLL);
-        *v25 = &unk_2852C9780;
-        v25[1] = v16;
-        v25[2] = v18;
-        v26 = *(v8 + 4);
-        *(v8 + 4) = v25;
-        if (v26)
+        v23 = operator new(0x18uLL);
+        *v23 = &unk_2852C9780;
+        v23[1] = v14;
+        v23[2] = v16;
+        v24 = *(v7 + 4);
+        *(v7 + 4) = v23;
+        if (v24)
         {
-          (*(*v26 + 8))(v26);
+          (*(*v24 + 8))(v24);
         }
 
-        v27 = v8 + 64;
-        if (v8[87] < 0)
+        v25 = v7 + 64;
+        if (v7[87] < 0)
         {
-          v27 = *v27;
+          v25 = *v25;
         }
 
-        mach_service = xpc_connection_create_mach_service(v27, *(v8 + 11), 2uLL);
+        mach_service = xpc_connection_create_mach_service(v25, *(v7 + 11), 2uLL);
         if (!mach_service)
         {
           mach_service = xpc_null_create();
         }
 
-        v29 = xpc_null_create();
-        v30 = *(v8 + 12);
-        *(v8 + 12) = mach_service;
-        xpc_release(v30);
-        xpc_release(v29);
-        v31 = *(v8 + 12);
-        if (v31)
+        v27 = xpc_null_create();
+        v28 = *(v7 + 12);
+        *(v7 + 12) = mach_service;
+        xpc_release(v28);
+        xpc_release(v27);
+        v29 = *(v7 + 12);
+        if (v29)
         {
-          xpc_retain(*(v8 + 12));
-          v32 = *(this + 3);
-          if (!v32)
+          xpc_retain(*(v7 + 12));
+          v30 = *(this + 3);
+          if (!v30)
           {
 LABEL_41:
-            v34 = *(v8 + 1);
-            v33 = *(v8 + 2);
-            if (!v33 || (v35 = std::__shared_weak_count::lock(v33)) == 0)
+            v32 = *(v7 + 1);
+            v31 = *(v7 + 2);
+            if (!v31 || (v33 = std::__shared_weak_count::lock(v31)) == 0)
             {
               std::__throw_bad_weak_ptr[abi:ne200100]();
             }
 
-            v36 = v35;
-            atomic_fetch_add_explicit(&v35->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-            v62 = v31;
-            if (v31)
+            v34 = v33;
+            atomic_fetch_add_explicit(&v33->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+            v60 = v29;
+            if (v29)
             {
-              xpc_retain(v31);
+              xpc_retain(v29);
             }
 
             else
             {
-              v62 = xpc_null_create();
+              v60 = xpc_null_create();
             }
 
             ctu::XpcClientHelper::setServer_internal();
-            xpc_release(v62);
-            v62 = 0;
-            if (MEMORY[0x245CD2F50](*(v8 + 3)) == MEMORY[0x277D86450])
+            xpc_release(v60);
+            v60 = 0;
+            if (MEMORY[0x245CD2F50](*(v7 + 3)) == MEMORY[0x277D86450])
             {
-              v37 = *(v8 + 3);
+              v35 = *(v7 + 3);
               *buf = MEMORY[0x277D85DD0];
-              v55 = 1174405120;
-              v56 = ___ZN3ctu15XpcClientHelper9setServerIN3abb4link13XpcClientLinkEEEvN3xpc10connectionEN8dispatch5queueENSt3__18weak_ptrIT_EE_block_invoke;
-              v57 = &__block_descriptor_tmp_42;
-              v58 = v8 + 24;
-              v59 = v34;
-              v60 = v36;
-              atomic_fetch_add_explicit(&v36->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-              v61 = v37;
-              xpc_connection_set_event_handler(v37, buf);
-              xpc_connection_set_target_queue(v37, v32);
-              xpc_connection_resume(v37);
-              if (v60)
+              v53 = 1174405120;
+              v54 = ___ZN3ctu15XpcClientHelper9setServerIN3abb4link13XpcClientLinkEEEvN3xpc10connectionEN8dispatch5queueENSt3__18weak_ptrIT_EE_block_invoke;
+              v55 = &__block_descriptor_tmp_42;
+              v56 = v7 + 24;
+              v57 = v32;
+              v58 = v34;
+              atomic_fetch_add_explicit(&v34->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+              v59 = v35;
+              xpc_connection_set_event_handler(v35, buf);
+              xpc_connection_set_target_queue(v35, v30);
+              xpc_connection_resume(v35);
+              if (v58)
               {
-                std::__shared_weak_count::__release_weak(v60);
+                std::__shared_weak_count::__release_weak(v58);
               }
             }
 
-            std::__shared_weak_count::__release_weak(v36);
-            if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            std::__shared_weak_count::__release_weak(v34);
+            if (!atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
-              (v36->__on_zero_shared)(v36);
-              std::__shared_weak_count::__release_weak(v36);
+              (v34->__on_zero_shared)(v34);
+              std::__shared_weak_count::__release_weak(v34);
             }
 
-            if (v32)
+            if (v30)
             {
-              dispatch_release(v32);
+              dispatch_release(v30);
             }
 
-            xpc_release(v31);
+            xpc_release(v29);
             abb::link::XpcClientLink::connectInternal();
-            v38 = v53;
-            if (!v53)
+            v36 = v51;
+            if (!v51)
             {
               goto LABEL_85;
             }
@@ -9731,21 +9626,21 @@ LABEL_41:
 
         else
         {
-          v31 = xpc_null_create();
-          v32 = *(this + 3);
-          if (!v32)
+          v29 = xpc_null_create();
+          v30 = *(this + 3);
+          if (!v30)
           {
             goto LABEL_41;
           }
         }
 
-        dispatch_retain(v32);
+        dispatch_retain(v30);
         goto LABEL_41;
       }
 
 LABEL_14:
-      v8 = 0;
-      v53 = 0;
+      v7 = 0;
+      v51 = 0;
       goto LABEL_15;
     }
 
@@ -9753,8 +9648,8 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_debug_impl(&dword_240E91000, v3, OS_LOG_TYPE_DEBUG, "#D Connecting local link", buf, 2u);
-      v10 = *(this + 33);
-      if (!v10)
+      v9 = *(this + 33);
+      if (!v9)
       {
         goto LABEL_58;
       }
@@ -9762,40 +9657,39 @@ LABEL_14:
 
     else
     {
-      v10 = *(this + 33);
-      if (!v10)
+      v9 = *(this + 33);
+      if (!v9)
       {
         goto LABEL_58;
       }
     }
 
-    v11 = **v10;
-    v12 = __dynamic_cast(v10, MEMORY[0x277CECB10], MEMORY[0x277CECB30], 0);
-    if (v12)
+    v10 = __dynamic_cast(v9, MEMORY[0x277CECB10], MEMORY[0x277CECB30], 0);
+    if (v10)
     {
-      v13 = v12;
-      v14 = *(this + 34);
-      *buf = v12;
-      v55 = v14;
-      if (v14)
+      v11 = v10;
+      v12 = *(this + 34);
+      *buf = v10;
+      v53 = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
       }
 
 LABEL_59:
-      v39 = *(this + 2);
-      if (!v39 || (v40 = *(this + 1), (v41 = std::__shared_weak_count::lock(v39)) == 0))
+      v37 = *(this + 2);
+      if (!v37 || (v38 = *(this + 1), (v39 = std::__shared_weak_count::lock(v37)) == 0))
       {
         std::__throw_bad_weak_ptr[abi:ne200100]();
       }
 
-      v42 = v41;
-      v43 = this + 48;
-      atomic_fetch_add_explicit(&v41->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      if (atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v40 = v39;
+      v41 = this + 48;
+      atomic_fetch_add_explicit(&v39->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      if (atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v44 = (v13 + 64);
-        if (v13 + 64 == v43)
+        v42 = (v11 + 64);
+        if (v11 + 64 == v41)
         {
           goto LABEL_76;
         }
@@ -9803,90 +9697,90 @@ LABEL_59:
 
       else
       {
-        (v41->__on_zero_shared)(v41);
-        std::__shared_weak_count::__release_weak(v42);
-        v44 = (v13 + 64);
-        if (v13 + 64 == v43)
+        (v39->__on_zero_shared)(v39);
+        std::__shared_weak_count::__release_weak(v40);
+        v42 = (v11 + 64);
+        if (v11 + 64 == v41)
         {
           goto LABEL_76;
         }
       }
 
-      v45 = *(this + 71);
-      if (v13[87] < 0)
+      v43 = *(this + 71);
+      if (v11[87] < 0)
       {
-        if (v45 >= 0)
+        if (v43 >= 0)
         {
-          v47 = this + 48;
+          v45 = this + 48;
         }
 
         else
         {
-          v47 = *(this + 6);
+          v45 = *(this + 6);
         }
 
-        if (v45 >= 0)
+        if (v43 >= 0)
         {
-          v48 = *(this + 71);
+          v46 = *(this + 71);
         }
 
         else
         {
-          v48 = *(this + 7);
+          v46 = *(this + 7);
         }
 
-        std::string::__assign_no_alias<false>(v44, v47, v48);
+        std::string::__assign_no_alias<false>(v42, v45, v46);
       }
 
       else if ((*(this + 71) & 0x80) != 0)
       {
-        std::string::__assign_no_alias<true>(v44, *(this + 6), *(this + 7));
+        std::string::__assign_no_alias<true>(v42, *(this + 6), *(this + 7));
       }
 
       else
       {
-        v46 = *v43;
-        v44[2] = *(this + 8);
-        *v44 = v46;
+        v44 = *v41;
+        v42[2] = *(this + 8);
+        *v42 = v44;
       }
 
 LABEL_76:
-      v49 = operator new(0x18uLL);
-      *v49 = &unk_2852C9780;
-      v49[1] = v40;
-      v49[2] = v42;
-      v50 = *(v13 + 7);
-      *(v13 + 7) = v49;
-      if (v50)
+      v47 = operator new(0x18uLL);
+      *v47 = &unk_2852C9780;
+      v47[1] = v38;
+      v47[2] = v40;
+      v48 = *(v11 + 7);
+      *(v11 + 7) = v47;
+      if (v48)
       {
-        (*(*v50 + 8))(v50);
+        (*(*v48 + 8))(v48);
       }
 
-      v51 = *(this + 3);
-      if (v51)
+      v49 = *(this + 3);
+      if (v49)
       {
         dispatch_retain(*(this + 3));
       }
 
-      v52 = *(v13 + 11);
-      *(v13 + 11) = v51;
-      if (v52)
+      v50 = *(v11 + 11);
+      *(v11 + 11) = v49;
+      if (v50)
       {
-        dispatch_release(v52);
+        dispatch_release(v50);
       }
 
       abb::link::LocalClientLink::connectInternal();
-      v38 = v55;
-      if (!v55)
+      v36 = v53;
+      if (!v53)
       {
         goto LABEL_85;
       }
 
 LABEL_83:
-      if (!atomic_fetch_add(&v38->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v36->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v38->__on_zero_shared)(v38);
-        std::__shared_weak_count::__release_weak(v38);
+        (v36->__on_zero_shared)(v36);
+        std::__shared_weak_count::__release_weak(v36);
       }
 
 LABEL_85:
@@ -9895,9 +9789,9 @@ LABEL_85:
     }
 
 LABEL_58:
-    v13 = 0;
+    v11 = 0;
     *buf = 0;
-    v55 = 0;
+    v53 = 0;
     goto LABEL_59;
   }
 }

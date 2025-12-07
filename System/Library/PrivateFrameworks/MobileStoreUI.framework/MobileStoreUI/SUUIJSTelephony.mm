@@ -33,7 +33,7 @@
 
 - (void)dealloc
 {
-  v3 = SUUICoreTelephonyFramework();
+  v3 = SUUICoreTelephonyFramework(self, a2);
   if (self->_telephonyServer)
   {
     v4 = v3;
@@ -66,20 +66,20 @@
     _telephonyServer = [(SUUIJSTelephony *)self _telephonyServer];
     if (_telephonyServer)
     {
-      v4 = _telephonyServer;
-      v5 = SUUICoreTelephonyFramework();
-      v6 = SUUIWeakLinkedSymbolForString("_CTServerConnectionRegisterForNotification", v5);
-      if (v6)
+      v5 = _telephonyServer;
+      v6 = SUUICoreTelephonyFramework(_telephonyServer, v4);
+      v7 = SUUIWeakLinkedSymbolForString("_CTServerConnectionRegisterForNotification", v6);
+      if (v7)
       {
-        v7 = v6;
-        v8 = SUUIWeakLinkedSymbolForString("kCTRegistrationDisplayStatusChangedNotification", v5);
-        v7(v4, *v8);
-        v9 = SUUIWeakLinkedSymbolForString("kCTRegistrationOperatorNameChangedNotification", v5);
-        v7(v4, *v9);
-        v10 = SUUIWeakLinkedSymbolForString("kCTRegistrationStatusChangedNotification", v5);
-        v7(v4, *v10);
-        v11 = SUUIWeakLinkedSymbolForString("kCTSettingPhoneNumberChangedNotification", v5);
-        v7(v4, *v11);
+        v8 = v7;
+        v9 = SUUIWeakLinkedSymbolForString("kCTRegistrationDisplayStatusChangedNotification", v6);
+        v8(v5, *v9);
+        v10 = SUUIWeakLinkedSymbolForString("kCTRegistrationOperatorNameChangedNotification", v6);
+        v8(v5, *v10);
+        v11 = SUUIWeakLinkedSymbolForString("kCTRegistrationStatusChangedNotification", v6);
+        v8(v5, *v11);
+        v12 = SUUIWeakLinkedSymbolForString("kCTSettingPhoneNumberChangedNotification", v6);
+        v8(v5, *v12);
       }
 
       self->_isObserving = 1;
@@ -103,7 +103,7 @@
 
 - (BOOL)isCellularRoaming
 {
-  v2 = SUUICoreTelephonyFramework();
+  v2 = SUUICoreTelephonyFramework(self, a2);
   v3 = SUUIWeakLinkedSymbolForString("CTRegistrationCopyDataStatus", v2);
   if (!v3)
   {
@@ -137,17 +137,17 @@
 
 - (NSString)mobileCountryCode
 {
-  v6 = 0;
+  v7 = 0;
   _telephonyServer = [(SUUIJSTelephony *)self _telephonyServer];
   if (_telephonyServer)
   {
-    v3 = _telephonyServer;
-    v4 = SUUICoreTelephonyFramework();
-    _telephonyServer = SUUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileCountryCode", v4);
+    v4 = _telephonyServer;
+    v5 = SUUICoreTelephonyFramework(_telephonyServer, v3);
+    _telephonyServer = SUUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileCountryCode", v5);
     if (_telephonyServer)
     {
-      (_telephonyServer)(v3, &v6);
-      _telephonyServer = v6;
+      (_telephonyServer)(v4, &v7);
+      _telephonyServer = v7;
     }
   }
 
@@ -156,17 +156,17 @@
 
 - (NSString)mobileNetworkCode
 {
-  v6 = 0;
+  v7 = 0;
   _telephonyServer = [(SUUIJSTelephony *)self _telephonyServer];
   if (_telephonyServer)
   {
-    v3 = _telephonyServer;
-    v4 = SUUICoreTelephonyFramework();
-    _telephonyServer = SUUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileNetworkCode", v4);
+    v4 = _telephonyServer;
+    v5 = SUUICoreTelephonyFramework(_telephonyServer, v3);
+    _telephonyServer = SUUIWeakLinkedSymbolForString("_CTServerConnectionCopyMobileNetworkCode", v5);
     if (_telephonyServer)
     {
-      (_telephonyServer)(v3, &v6);
-      _telephonyServer = v6;
+      (_telephonyServer)(v4, &v7);
+      _telephonyServer = v7;
     }
   }
 
@@ -202,12 +202,12 @@
   v7 = a5;
   v8 = a4;
   textCopy = text;
-  v10 = SUUICoreTelephonyFramework();
-  v11 = SUUIWeakLinkedClassForString(&cfstr_Ctmessagecente.isa, v10);
-  v14 = [SUUIWeakLinkedClassForString(&cfstr_Ctphonenumber.isa v10)];
+  v11 = SUUICoreTelephonyFramework(textCopy, v10);
+  v12 = SUUIWeakLinkedClassForString(&cfstr_Ctmessagecente.isa, v11);
+  v15 = [SUUIWeakLinkedClassForString(&cfstr_Ctphonenumber.isa v11)];
 
-  sharedMessageCenter = [v11 sharedMessageCenter];
-  canonicalFormat = [v14 canonicalFormat];
+  sharedMessageCenter = [v12 sharedMessageCenter];
+  canonicalFormat = [v15 canonicalFormat];
   [sharedMessageCenter sendSMSWithText:textCopy serviceCenter:0 toAddress:canonicalFormat];
 }
 
@@ -215,7 +215,7 @@
 {
   if (!self->_telephonyServer)
   {
-    v3 = SUUICoreTelephonyFramework();
+    v3 = SUUICoreTelephonyFramework(self, a2);
     v4 = SUUIWeakLinkedSymbolForString("_CTServerConnectionCreateWithIdentifier", v3);
     v5 = SUUIWeakLinkedSymbolForString("_CTServerConnectionSetTargetQueue", v3);
     if (v4)

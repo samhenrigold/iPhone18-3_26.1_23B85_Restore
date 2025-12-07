@@ -2,6 +2,8 @@
 - (PSListController)listController;
 - (PSUICarrierSpaceOptInSplashScreen)initWithParent:(id)parent;
 - (void)continueButtonPressed;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PSUICarrierSpaceOptInSplashScreen
@@ -53,15 +55,30 @@
   return v14;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PSUICarrierSpaceOptInSplashScreen;
+  [(PSUICarrierSpaceOptInSplashScreen *)&v4 viewWillAppear:appear];
+  [(OBBoldTrayButton *)self->_continueButton setEnabled:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = PSUICarrierSpaceOptInSplashScreen;
+  [(OBBaseWelcomeController *)&v3 viewWillDisappear:disappear];
+}
+
 - (void)continueButtonPressed
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceOptInSplashScreen *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[PSUICarrierSpaceOptInSplashScreen continueButtonPressed]";
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s splash screen 'Continue' button pressed", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[PSUICarrierSpaceOptInSplashScreen continueButtonPressed]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s splash screen 'Continue' button pressed", &v5, 0xCu);
   }
 
   [(OBBoldTrayButton *)self->_continueButton setEnabled:0];
@@ -70,8 +87,6 @@
   {
     continueButtonAction[2]();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (PSListController)listController

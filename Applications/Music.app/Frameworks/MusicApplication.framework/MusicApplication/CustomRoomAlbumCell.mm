@@ -9,7 +9,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CustomRoomAlbumCell();
+  v7.super_class = type metadata accessor for CustomRoomAlbumCell(0);
   changeCopy = change;
   v5 = v7.receiver;
   [(VerticalLockupCollectionViewCell *)&v7 traitCollectionDidChange:changeCopy];

@@ -10,6 +10,7 @@
 - (void)_checkiCDPStatusNetwork:(BOOL)network withCompletion:(id)completion;
 - (void)_enableCDPWithCompletion:(id)completion;
 - (void)_reauthenticateAndCheckiCDPStatusWithNetwork:(BOOL)network completion:(id)completion;
+- (void)checkiCDPStatusNetwork:(BOOL)network withCompletion:(id)completion;
 - (void)enableCDPWithCompletion:(id)completion;
 - (void)recoverAndSynchronizeKeysWithCompletion:(id)completion;
 - (void)recoverKeysWithCompletion:(id)completion;
@@ -71,16 +72,16 @@
 
 void __47__CDPDPCSController_recoverKeysWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = *(a1 + 32);
     v7 = v6[1];
     v8 = [v6 _contextSetupDictionary];
-    v13 = 0;
-    v9 = [v7 pcsRestoreLocalBackup:v8 error:&v13];
-    v10 = v13;
+    v12 = 0;
+    v9 = [v7 pcsRestoreLocalBackup:v8 error:&v12];
+    v10 = v12;
   }
 
   else
@@ -93,14 +94,13 @@ void __47__CDPDPCSController_recoverKeysWithCompletion___block_invoke(uint64_t a
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "PCS State restored %{BOOL}d with error: %@", buf, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverAndSynchronizeKeysWithCompletion:(id)completion
@@ -125,16 +125,16 @@ void __47__CDPDPCSController_recoverKeysWithCompletion___block_invoke(uint64_t a
 
 void __61__CDPDPCSController_recoverAndSynchronizeKeysWithCompletion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = *(a1 + 32);
     v7 = v6[1];
     v8 = [v6 _contextSetupDictionary];
-    v13 = 0;
-    v9 = [v7 pcsSynchronizeKeysWithInfo:v8 error:&v13];
-    v10 = v13;
+    v12 = 0;
+    v9 = [v7 pcsSynchronizeKeysWithInfo:v8 error:&v12];
+    v10 = v12;
   }
 
   else
@@ -147,14 +147,44 @@ void __61__CDPDPCSController_recoverAndSynchronizeKeysWithCompletion___block_inv
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
     _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "PCS State synchronized %{BOOL}d with error: %@", buf, 0x12u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
+}
+
+- (void)checkiCDPStatusNetwork:(BOOL)network withCompletion:(id)completion
+{
+  networkCopy = network;
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __59__CDPDPCSController_checkiCDPStatusNetwork_withCompletion___block_invoke;
+  aBlock[3] = &unk_278E24B10;
+  v7 = completionCopy;
+  v14 = v7;
+  v8 = _Block_copy(aBlock);
+  passwordEquivToken = [(CDPContext *)self->_context passwordEquivToken];
+
+  if (passwordEquivToken)
+  {
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __59__CDPDPCSController_checkiCDPStatusNetwork_withCompletion___block_invoke_2;
+    v10[3] = &unk_278E24B38;
+    v10[4] = self;
+    v12 = networkCopy;
+    v11 = v8;
+    [(CDPDPCSController *)self _checkiCDPStatusNetwork:networkCopy withCompletion:v10];
+  }
+
+  else
+  {
+    [(CDPDPCSController *)self _reauthenticateAndCheckiCDPStatusWithNetwork:networkCopy completion:v8];
+  }
 }
 
 uint64_t __59__CDPDPCSController_checkiCDPStatusNetwork_withCompletion___block_invoke(uint64_t a1)
@@ -481,13 +511,13 @@ uint64_t __45__CDPDPCSController_enableCDPWithCompletion___block_invoke_17(uint6
 
 - (id)pcsKeysForService:(id)service error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = serviceCopy;
+    v28 = serviceCopy;
     _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Checking PCS identities for service: %@", buf, 0xCu);
   }
 
@@ -544,17 +574,17 @@ LABEL_21:
   if (v11)
   {
     v12 = v11;
-    v26 = *MEMORY[0x277D430D8];
-    v27 = serviceCopy;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277D430D8];
+    v26 = serviceCopy;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v14 = _CDPLogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [CDPDPCSController pcsKeysForService:error:];
     }
 
-    v24 = v8;
-    v25 = v13;
+    v23 = v8;
+    v24 = v13;
     v15 = v13;
     PCSIdentitySetEnumerateIdentities();
     CFRelease(v12);
@@ -576,7 +606,6 @@ LABEL_21:
 LABEL_26:
 
 LABEL_27:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -625,102 +654,58 @@ void __45__CDPDPCSController_pcsKeysForService_error___block_invoke(uint64_t a1,
 
 uint64_t __51__CDPDPCSController__shoudAllowKeyFetchForService___block_invoke()
 {
-  v0 = *MEMORY[0x277D43040];
   _shoudAllowKeyFetchForService__allowedServices = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277D43008], *MEMORY[0x277D43040], *MEMORY[0x277D43070], *MEMORY[0x277D43068], *MEMORY[0x277D43060], *MEMORY[0x277D43080], *MEMORY[0x277D43050], *MEMORY[0x277D43078], *MEMORY[0x277CFD908], *MEMORY[0x277CFD910], 0}];
 
   return MEMORY[0x2821F96F8]();
 }
 
-- (void)_checkiCDPStatusNetwork:withCompletion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_checkiCDPStatusNetwork:(os_log_t)log withCompletion:.cold.2(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "PCSIdentitySetIsICDPNetwork returned isEnabled=%i error=%@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_getOrSetupIdentitySetRef:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "PCSIdentityCreate return NULL with error: %@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_getOrSetupIdentitySetRef:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "PCSIdentitySetup returned NULL with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_24510B000, log, OS_LOG_TYPE_ERROR, "PCSIdentitySetIsICDPNetwork returned isEnabled=%i error=%@", v3, 0x12u);
 }
 
 void __45__CDPDPCSController_enableCDPWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pcsKeysForService:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Fetching keys for %@ is not allowed.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pcsKeysForService:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pcsKeysForService:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pcsKeysForService:(id *)a1 error:(NSObject *)a2 .cold.4(id *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [*a1 description];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to create PCS identity set with error: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to create PCS identity set with error: %@", v4, 0xCu);
 }
 
 void __45__CDPDPCSController_pcsKeysForService_error___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   [*(a1 + 40) count];
-  v4 = *(a1 + 48);
   OUTLINED_FUNCTION_0();
-  v8 = 2112;
-  v9 = v5;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Fetched %lu keys for service %@", v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = v3;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Fetched %lu keys for service %@", v4, 0x16u);
 }
 
 @end

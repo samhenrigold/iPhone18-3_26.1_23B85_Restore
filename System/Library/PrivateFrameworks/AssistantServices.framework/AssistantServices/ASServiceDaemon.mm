@@ -11,8 +11,8 @@
 
 - (void)_setupAccessibility
 {
-  sharedSystemShellSwitcher = [off_100019E10() sharedSystemShellSwitcher];
-  [sharedSystemShellSwitcher signalSiriAvailability];
+  v2 = [off_100019E10(self a2)];
+  [v2 signalSiriAvailability];
 }
 
 - (id)_loadLNDaemonConnectionListener

@@ -303,7 +303,7 @@ LABEL_58:
 LABEL_61:
 }
 
-uint64_t __54__SBIconVisibilityService__visibleIdentifiersChanged___block_invoke_2(void *a1, uint64_t a2)
+void *__54__SBIconVisibilityService__visibleIdentifiersChanged___block_invoke_2(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 8) isIconVisible:a2];
   if (result)

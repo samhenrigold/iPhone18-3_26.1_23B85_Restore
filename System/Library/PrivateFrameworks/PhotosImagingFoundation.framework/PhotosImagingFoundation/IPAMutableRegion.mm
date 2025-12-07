@@ -45,7 +45,7 @@
     v10.b = v13.origin.y;
     v10.c = v13.size.width;
     v10.d = v13.size.height;
-    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v7, &v10);
+    std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v7, &v10, &v10);
   }
 
   if (&v7 != imp)
@@ -75,7 +75,7 @@
       v15[1] = v9;
       v15[2] = v10;
       v15[3] = v11;
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v12, v15);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect>(&v12, v15, v15);
       v6 = *v6;
     }
 
@@ -233,7 +233,7 @@
         v14.f64[1] = v19.origin.y;
         v15.f64[0] = v19.size.width;
         v15.f64[1] = v19.size.height;
-        std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v11, &v14);
+        std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v11, &v14, &v14);
         v4 = *&v4->f64[0];
       }
 
@@ -268,7 +268,7 @@
       v11[1] = v6;
       v12 = v4[3].f64[0];
       v11[0] = vaddq_f64(v11[0], by);
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v8, v11);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v8, v11, v11);
       v4 = *&v4->f64[0];
     }
 
@@ -304,7 +304,7 @@
       v12 = v5[6];
       *v11 = *v11 - x;
       *(v11 + 1) = v6 - (*(v11 + 1) + *(&v7 + 1));
-      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v8, v11);
+      std::__hash_table<PA::RegionRect,PA::RectHash,PA::RectEqualTo,std::allocator<PA::RegionRect>>::__emplace_unique_key_args<PA::RegionRect,PA::RegionRect const&>(&v8, v11, v11);
       v5 = *v5;
     }
 

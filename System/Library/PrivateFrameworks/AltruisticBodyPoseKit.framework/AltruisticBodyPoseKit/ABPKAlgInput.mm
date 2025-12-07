@@ -1,7 +1,6 @@
 @interface ABPKAlgInput
 - (ABPKAlgInput)init;
 - (CGSize)imageResolution;
-- (__n128)imageCameraIntrinsics;
 - (__n128)setImageCameraIntrinsics:(__n128)intrinsics;
 @end
 
@@ -28,14 +27,6 @@
   height = self->_imageResolution.height;
   result.height = height;
   result.width = width;
-  return result;
-}
-
-- (__n128)imageCameraIntrinsics
-{
-  result = *(self + 80);
-  v2 = *(self + 96);
-  v3 = *(self + 112);
   return result;
 }
 

@@ -158,27 +158,7 @@
       v5 = equalCopy;
       phase = [(SUCoreProgress *)self phase];
       phase2 = [(SUCoreProgress *)v5 phase];
-      if (![SUCore stringIsEqual:phase to:phase2])
-      {
-        goto LABEL_13;
-      }
-
-      isStalled = [(SUCoreProgress *)v5 isStalled];
-      if (isStalled != [(SUCoreProgress *)self isStalled])
-      {
-        goto LABEL_13;
-      }
-
-      [(SUCoreProgress *)v5 portionComplete];
-      v10 = v9;
-      [(SUCoreProgress *)self portionComplete];
-      if (v10 != v11)
-      {
-        goto LABEL_13;
-      }
-
-      totalWrittenBytes = [(SUCoreProgress *)v5 totalWrittenBytes];
-      if (totalWrittenBytes == [(SUCoreProgress *)self totalWrittenBytes]&& (v13 = [(SUCoreProgress *)v5 totalExpectedBytes], v13 == [(SUCoreProgress *)self totalExpectedBytes]) && ([(SUCoreProgress *)v5 estimatedTimeRemaining], v15 = v14, [(SUCoreProgress *)self estimatedTimeRemaining], v15 == v16))
+      if ([SUCore stringIsEqual:phase to:phase2]&& (v8 = [(SUCoreProgress *)v5 isStalled], v8 == [(SUCoreProgress *)self isStalled]) && ([(SUCoreProgress *)v5 portionComplete], v10 = v9, [(SUCoreProgress *)self portionComplete], v10 == v11) && (v12 = [(SUCoreProgress *)v5 totalWrittenBytes], v12 == [(SUCoreProgress *)self totalWrittenBytes]) && (v13 = [(SUCoreProgress *)v5 totalExpectedBytes], v13 == [(SUCoreProgress *)self totalExpectedBytes]) && ([(SUCoreProgress *)v5 estimatedTimeRemaining], v15 = v14, [(SUCoreProgress *)self estimatedTimeRemaining], v15 == v16))
       {
         actionText = [(SUCoreProgress *)self actionText];
         actionText2 = [(SUCoreProgress *)v5 actionText];
@@ -197,7 +177,6 @@
 
       else
       {
-LABEL_13:
         v21 = 0;
       }
     }

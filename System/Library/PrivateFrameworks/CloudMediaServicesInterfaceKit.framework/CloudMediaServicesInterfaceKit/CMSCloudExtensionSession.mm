@@ -65,7 +65,7 @@
 {
   if (self->_connected)
   {
-    v4 = _CMSILogingFacility();
+    v4 = _CMSILogingFacility(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(CMSCloudExtensionSession *)a2 setQosClass:v4];
@@ -80,27 +80,25 @@
 
 - (void)setCloseCompletion:(id)completion
 {
-  v4 = MEMORY[0x245D43EE0](completion, a2);
-  closeCompletion = self->_closeCompletion;
-  self->_closeCompletion = v4;
+  self->_closeCompletion = MEMORY[0x245D43EE0](completion, a2);
 
   MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)_updateDynamicHeadersOnRequest:(id)request withDeadline:(id)deadline
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   deadlineCopy = deadline;
   prepareRequestHook = self->_prepareRequestHook;
   if (prepareRequestHook)
   {
-    prepareRequestHook[2](prepareRequestHook, self, requestCopy);
+    prepareRequestHook = prepareRequestHook[2](prepareRequestHook, self, requestCopy);
   }
 
   if (deadlineCopy)
   {
-    [deadlineCopy timeIntervalSinceNow];
+    prepareRequestHook = [deadlineCopy timeIntervalSinceNow];
     timeoutInterval = v9 + 2.0;
   }
 
@@ -112,13 +110,13 @@
   v11 = timeoutInterval;
   if (timeoutInterval < 1.0)
   {
-    v12 = _CMSILogingFacility();
+    v12 = _CMSILogingFacility(prepareRequestHook);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v18 = "[CMSCloudExtensionSession _updateDynamicHeadersOnRequest:withDeadline:]";
-      v19 = 2048;
-      v20 = timeoutInterval;
+      v17 = "[CMSCloudExtensionSession _updateDynamicHeadersOnRequest:withDeadline:]";
+      v18 = 2048;
+      v19 = timeoutInterval;
       _os_log_impl(&dword_2439AD000, v12, OS_LOG_TYPE_DEFAULT, "%s already near or past deadline by %fs", buf, 0x16u);
     }
 
@@ -134,7 +132,6 @@
   [requestCopy setValue:self->_sessionIdentifier forHTTPHeaderField:@"x-applecloudextension-session-id"];
   [requestCopy setValue:self->_authHeader forHTTPHeaderField:@"Authorization"];
 
-  v15 = *MEMORY[0x277D85DE8];
   return timeoutInterval >= 1.0;
 }
 
@@ -244,13 +241,13 @@ LABEL_14:
 
 - (id)_resultsFromData:(id)data inResponse:(id)response error:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = [(CMSCloudExtensionSession *)self _parsedObjectFromData:data inResponse:response error:?];
   v7 = v6;
   if (error && !v6 && *error)
   {
 LABEL_16:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_21;
   }
 
@@ -260,47 +257,46 @@ LABEL_16:
     if (error)
     {
       [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:4 userInfo:0];
-      *error = v14 = 0;
+      *error = v13 = 0;
       goto LABEL_21;
     }
 
     goto LABEL_16;
   }
 
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v16;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (error)
           {
-            *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:4 userInfo:{0, v17}];
+            *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:4 userInfo:{0, v15}];
           }
 
-          v14 = 0;
+          v13 = 0;
           goto LABEL_20;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -310,13 +306,12 @@ LABEL_16:
     }
   }
 
-  v14 = v8;
+  v13 = v8;
 LABEL_20:
 
 LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
 
-  return v14;
+  return v13;
 }
 
 - (void)_connectSession
@@ -372,56 +367,57 @@ LABEL_21:
 
 - (id)_constraintsDefinition
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"shuffledPlayback";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"shuffledPlayback";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:self->_shuffledPlayback];
-  v11[0] = v3;
-  v10[1] = @"updateUserTasteProfile";
+  v10[0] = v3;
+  v9[1] = @"updateUserTasteProfile";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_updateUserTasteProfile];
-  v11[1] = v4;
-  v10[2] = @"allowExplicitContent";
+  v10[1] = v4;
+  v9[2] = @"allowExplicitContent";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_allowExplicitContent];
-  v11[2] = v5;
-  v10[3] = @"maximumQueueSegmentItemCount";
+  v10[2] = v5;
+  v9[3] = @"maximumQueueSegmentItemCount";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1000];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 - (id)_sessionDescriptionWithDeadline:(id)deadline
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v18[6] = *MEMORY[0x277D85DE8];
   deadlineCopy = deadline;
-  v17[0] = self->_sessionIdentifier;
-  v16[0] = @"identifier";
-  v16[1] = @"version";
-  v15 = CMSCloudExtensionSpecVersion();
-  v17[1] = v15;
-  v16[2] = @"constraints";
+  v18[0] = self->_sessionIdentifier;
+  v17[0] = @"identifier";
+  v17[1] = @"version";
+  v16 = CMSCloudExtensionSpecVersion();
+  v18[1] = v16;
+  v17[2] = @"constraints";
   _constraintsDefinition = [(CMSCloudExtensionSession *)self _constraintsDefinition];
-  v17[2] = _constraintsDefinition;
-  v16[3] = @"playerContext";
+  v18[2] = _constraintsDefinition;
+  v17[3] = @"playerContext";
   cmsCoded = [(CMSPlayerContext *)self->_intentPlayerContext cmsCoded];
-  null = cmsCoded;
+  v7 = cmsCoded;
+  v8 = cmsCoded;
   if (!cmsCoded)
   {
-    null = [MEMORY[0x277CBEB68] null];
+    cmsCoded = [MEMORY[0x277CBEB68] null];
+    v8 = cmsCoded;
   }
 
-  v17[3] = null;
-  v16[4] = @"requested";
-  v8 = cmsDateFormatter();
+  v18[3] = v8;
+  v17[4] = @"requested";
+  v9 = cmsDateFormatter(cmsCoded);
   date = [MEMORY[0x277CBEAA8] date];
-  v10 = [v8 stringFromDate:date];
-  v17[4] = v10;
-  v16[5] = @"deadline";
+  v11 = [v9 stringFromDate:date];
+  v12 = v11;
+  v18[4] = v11;
+  v17[5] = @"deadline";
   if (deadlineCopy)
   {
-    self = cmsDateFormatter();
+    self = cmsDateFormatter(v11);
     [(CMSCloudExtensionSession *)self stringFromDate:deadlineCopy];
   }
 
@@ -430,21 +426,19 @@ LABEL_21:
     [MEMORY[0x277CBEB68] null];
   }
   selfCopy = ;
-  v17[5] = selfCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v18[5] = selfCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:6];
   if (deadlineCopy)
   {
 
     selfCopy = self;
   }
 
-  if (!cmsCoded)
+  if (!v7)
   {
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v14;
 }
 
 - (void)_retryRequest:(id)request before:(id)before networkActivity:(id)activity completionHandler:(id)handler
@@ -461,43 +455,44 @@ LABEL_21:
       goto LABEL_8;
     }
 
-    v20 = MEMORY[0x277CCA9B8];
-    v21 = 2;
+    v21 = MEMORY[0x277CCA9B8];
+    v22 = 2;
 LABEL_7:
-    v22 = [v20 errorWithDomain:@"com.apple.cloudextension.errors.session" code:v21 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v22);
+    v23 = [v21 errorWithDomain:@"com.apple.cloudextension.errors.session" code:v22 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v23);
 
     goto LABEL_8;
   }
 
-  if ([(CMSCloudExtensionSession *)self _updateDynamicHeadersOnRequest:requestCopy withDeadline:beforeCopy])
+  v15 = [(CMSCloudExtensionSession *)self _updateDynamicHeadersOnRequest:requestCopy withDeadline:beforeCopy];
+  if (v15)
   {
     allHTTPHeaderFields = [requestCopy allHTTPHeaderFields];
-    v16 = [allHTTPHeaderFields cmsIntegerForKey:@"x-applecloudextension-retry-count" withDefault:0];
+    v17 = [allHTTPHeaderFields cmsIntegerForKey:@"x-applecloudextension-retry-count" withDefault:0];
 
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", (v16 + 1)];
-    [requestCopy setValue:v17 forHTTPHeaderField:@"x-applecloudextension-retry-count"];
+    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", (v17 + 1)];
+    [requestCopy setValue:v18 forHTTPHeaderField:@"x-applecloudextension-retry-count"];
 
     objc_storeStrong(&self->_lastRequest, request);
-    v18 = [(NSURLSession *)self->_session dataTaskWithRequest:requestCopy completionHandler:handlerCopy];
+    v19 = [(NSURLSession *)self->_session dataTaskWithRequest:requestCopy completionHandler:handlerCopy];
     dataTask = self->_dataTask;
-    self->_dataTask = v18;
+    self->_dataTask = v19;
 
     [activityCopy associateWithTask:self->_dataTask];
     [(NSURLSessionDataTask *)self->_dataTask resume];
     goto LABEL_8;
   }
 
-  v23 = _CMSILogingFacility();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = _CMSILogingFacility(v15);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     [CMSCloudExtensionSession _retryRequest:before:networkActivity:completionHandler:];
   }
 
   if (handlerCopy)
   {
-    v20 = MEMORY[0x277CCA9B8];
-    v21 = 10;
+    v21 = MEMORY[0x277CCA9B8];
+    v22 = 10;
     goto LABEL_7;
   }
 
@@ -516,33 +511,33 @@ LABEL_8:
   if (WeakRetained)
   {
     objc_initWeak(&location, self);
-    v15 = objc_loadWeakRetained(&self->_authProvider);
+    v16 = objc_loadWeakRetained(&self->_authProvider);
     sessionIdentifier = self->_sessionIdentifier;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __110__CMSCloudExtensionSession__retryRequestAfterAuthTokenRenewal_parentNetworkActivity_before_completionHandler___block_invoke;
-    v19[3] = &unk_278DDCF90;
-    objc_copyWeak(&v24, &location);
-    v20 = renewalCopy;
-    v21 = beforeCopy;
-    v22 = activityCopy;
-    v23 = handlerCopy;
-    [v15 authRenewalForSessionIdentifier:sessionIdentifier parentNetworkActivity:v22 completion:v19];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __110__CMSCloudExtensionSession__retryRequestAfterAuthTokenRenewal_parentNetworkActivity_before_completionHandler___block_invoke;
+    v20[3] = &unk_278DDCF90;
+    objc_copyWeak(&v25, &location);
+    v21 = renewalCopy;
+    v22 = beforeCopy;
+    v23 = activityCopy;
+    v24 = handlerCopy;
+    [v16 authRenewalForSessionIdentifier:sessionIdentifier parentNetworkActivity:v23 completion:v20];
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v17 = _CMSILogingFacility();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _CMSILogingFacility(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [CMSCloudExtensionSession _retryRequestAfterAuthTokenRenewal:? parentNetworkActivity:? before:? completionHandler:?];
+      [CMSCloudExtensionSession _retryRequestAfterAuthTokenRenewal:parentNetworkActivity:before:completionHandler:];
     }
 
-    v18 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:9 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, 0, v18);
+    v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:9 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v19);
   }
 }
 
@@ -570,11 +565,12 @@ LABEL_14:
   {
     if (!v9)
     {
-      v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:9 userInfo:0];
+      v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:9 userInfo:0];
+      v9 = v14;
     }
 
-    v15 = _CMSILogingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _CMSILogingFacility(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __110__CMSCloudExtensionSession__retryRequestAfterAuthTokenRenewal_parentNetworkActivity_before_completionHandler___block_invoke_cold_1();
     }
@@ -582,14 +578,14 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v14 = _CMSILogingFacility();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _CMSILogingFacility(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v17 = 136315394;
     v18 = "[CMSCloudExtensionSession _retryRequestAfterAuthTokenRenewal:parentNetworkActivity:before:completionHandler:]_block_invoke";
     v19 = 2112;
     v20 = v7;
-    _os_log_impl(&dword_2439AD000, v14, OS_LOG_TYPE_DEFAULT, "%s: session %@ retrieved new authorization", &v17, 0x16u);
+    _os_log_impl(&dword_2439AD000, v15, OS_LOG_TYPE_DEFAULT, "%s: session %@ retrieved new authorization", &v17, 0x16u);
   }
 
   os_unfair_lock_lock(v11 + 4);
@@ -597,8 +593,6 @@ LABEL_14:
   os_unfair_lock_unlock(v11 + 4);
   [v11 _retryRequest:*(a1 + 32) before:*(a1 + 40) networkActivity:*(a1 + 48) completionHandler:*(a1 + 56)];
 LABEL_15:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleURLResponseCode:(int64_t)code error:(id)error before:(id)before request:(id)request networkActivity:(id)activity retryHandler:(id)handler
@@ -611,8 +605,8 @@ LABEL_15:
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v21 = _CMSILogingFacility();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _CMSILogingFacility(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [CMSCloudExtensionSession _handleURLResponseCode:error:before:request:networkActivity:retryHandler:];
     }
@@ -625,8 +619,8 @@ LABEL_15:
 
   if (v20 >= 4)
   {
-    v21 = _CMSILogingFacility();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _CMSILogingFacility(code);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [CMSCloudExtensionSession _handleURLResponseCode:error:before:request:networkActivity:retryHandler:];
     }
@@ -643,9 +637,9 @@ LABEL_17:
   }
 
   domain = [errorCopy domain];
-  v23 = [domain isEqualToString:*MEMORY[0x277CCA738]];
+  v24 = [domain isEqualToString:*MEMORY[0x277CCA738]];
 
-  if (!v23)
+  if (!v24)
   {
     goto LABEL_13;
   }
@@ -664,8 +658,8 @@ LABEL_14:
 LABEL_13:
     if ((code & 0xFFFFFFFFFFFFFFFDLL) != 0x191)
     {
-      v21 = _CMSILogingFacility();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = _CMSILogingFacility(code);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [CMSCloudExtensionSession _handleURLResponseCode:error:before:request:networkActivity:retryHandler:];
       }
@@ -676,11 +670,11 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   v28 = vcvtd_n_f64_s64(v20, 1uLL);
   if (!beforeCopy || ([MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v28], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "compare:", beforeCopy) == -1, v29, v30))
   {
-    v32 = _CMSILogingFacility();
+    v32 = _CMSILogingFacility(inited);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
@@ -713,7 +707,7 @@ LABEL_13:
 
   else
   {
-    v31 = _CMSILogingFacility();
+    v31 = _CMSILogingFacility(inited);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
@@ -731,7 +725,6 @@ LABEL_13:
   objc_destroyWeak(&location);
 LABEL_18:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -743,7 +736,7 @@ void __101__CMSCloudExtensionSession__handleURLResponseCode_error_before_request
 
 - (void)_handleURLResponse:(id)response before:(id)before networkActivity:(id)activity request:(id)request data:(id)data error:(id)error
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   beforeCopy = before;
   activityCopy = activity;
@@ -756,18 +749,18 @@ void __101__CMSCloudExtensionSession__handleURLResponseCode_error_before_request
   v20 = statusCode;
   if (errorCopy || statusCode != 200)
   {
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke;
-    v38[3] = &unk_278DDCFE0;
-    objc_copyWeak(&v42, &location);
-    v39 = beforeCopy;
-    v40 = activityCopy;
-    v41 = requestCopy;
-    v22 = [(CMSCloudExtensionSession *)self _handleURLResponseCode:v20 error:errorCopy before:v39 request:v41 networkActivity:v40 retryHandler:v38];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke;
+    v39[3] = &unk_278DDCFE0;
+    objc_copyWeak(&v43, &location);
+    v40 = beforeCopy;
+    v41 = activityCopy;
+    v42 = requestCopy;
+    v23 = [(CMSCloudExtensionSession *)self _handleURLResponseCode:v20 error:errorCopy before:v40 request:v42 networkActivity:v41 retryHandler:v39];
 
-    objc_destroyWeak(&v42);
-    if (v22)
+    objc_destroyWeak(&v43);
+    if (v23)
     {
       v21 = MEMORY[0x277CBEBF8];
       goto LABEL_16;
@@ -775,12 +768,12 @@ void __101__CMSCloudExtensionSession__handleURLResponseCode_error_before_request
 
     if (!errorCopy)
     {
-      v23 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CCA450];
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Service Error: HTTP statusCode %d", v20];
-      v45[0] = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-      errorCopy = [v23 errorWithDomain:@"com.apple.cloudextension.errors.session" code:14 userInfo:v25];
+      v24 = MEMORY[0x277CCA9B8];
+      v45 = *MEMORY[0x277CCA450];
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Service Error: HTTP statusCode %d", v20];
+      v46[0] = v25;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      errorCopy = [v24 errorWithDomain:@"com.apple.cloudextension.errors.session" code:14 userInfo:v26];
     }
 
     v21 = MEMORY[0x277CBEBF8];
@@ -788,21 +781,22 @@ void __101__CMSCloudExtensionSession__handleURLResponseCode_error_before_request
 
   else
   {
-    v37 = 0;
-    v21 = [(CMSCloudExtensionSession *)self _resultsFromData:dataCopy inResponse:v18 error:&v37];
-    errorCopy = v37;
+    v38 = 0;
+    v21 = [(CMSCloudExtensionSession *)self _resultsFromData:dataCopy inResponse:v18 error:&v38];
+    v22 = v38;
+    errorCopy = v22;
   }
 
-  v26 = _CMSILogingFacility();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = _CMSILogingFacility(v22);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     [CMSCloudExtensionSession _handleURLResponse:before:networkActivity:request:data:error:];
   }
 
   if (errorCopy)
   {
-    v27 = _CMSILogingFacility();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v29 = _CMSILogingFacility(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       [CMSCloudExtensionSession _handleURLResponse:before:networkActivity:request:data:error:];
     }
@@ -812,32 +806,31 @@ void __101__CMSCloudExtensionSession__handleURLResponseCode_error_before_request
     block[1] = 3221225472;
     block[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_108;
     block[3] = &unk_278DDD030;
-    objc_copyWeak(&v36, &location);
+    objc_copyWeak(&v37, &location);
     block[4] = self;
     errorCopy = errorCopy;
-    v35 = errorCopy;
+    v36 = errorCopy;
     dispatch_async(requestDispatch, block);
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v37);
   }
 
   else
   {
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3;
-    v32[3] = &unk_278DDD080;
-    v32[4] = self;
-    objc_copyWeak(&v33, &location);
-    [v21 enumerateObjectsUsingBlock:v32];
-    objc_destroyWeak(&v33);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3;
+    v33[3] = &unk_278DDD080;
+    v33[4] = self;
+    objc_copyWeak(&v34, &location);
+    [v21 enumerateObjectsUsingBlock:v33];
+    objc_destroyWeak(&v34);
     errorCopy = 0;
   }
 
 LABEL_16:
 
   objc_destroyWeak(&location);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -900,7 +893,7 @@ void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_re
 
 void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v59[3] = *MEMORY[0x277D85DE8];
+  v61[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 cmsOptionalDictionaryForKey:@"result"];
   v7 = [v5 cmsOptionalStringForKey:@"method"];
@@ -924,14 +917,14 @@ void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_re
   {
     if (!v11)
     {
-      v59[0] = v10;
-      v58[0] = @"methodName";
-      v58[1] = @"methodIndex";
+      v61[0] = v10;
+      v60[0] = @"methodName";
+      v60[1] = @"methodIndex";
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-      v58[2] = @"reason";
-      v59[1] = v14;
-      v59[2] = @"invalid_result";
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
+      v60[2] = @"reason";
+      v61[1] = v14;
+      v61[2] = @"invalid_result";
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:3];
     }
 
     v13 = 5;
@@ -941,14 +934,14 @@ void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_re
   {
     if (!v11 || ([(__CFString *)v10 isEqualToString:@"ProtocolException"]& 1) == 0)
     {
-      v57[0] = v10;
-      v56[0] = @"methodName";
-      v56[1] = @"methodIndex";
+      v59[0] = v10;
+      v58[0] = @"methodName";
+      v58[1] = @"methodIndex";
       v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-      v56[2] = @"reason";
-      v57[1] = v19;
-      v57[2] = @"invalid_method";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:3];
+      v58[2] = @"reason";
+      v59[1] = v19;
+      v59[2] = @"invalid_method";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:3];
       v13 = 6;
       goto LABEL_30;
     }
@@ -992,9 +985,9 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      v39 = [@"invalid_method" isEqualToString:v18];
+      v41 = [@"invalid_method" isEqualToString:v18];
 
-      if (v39)
+      if (v41)
       {
         goto LABEL_27;
       }
@@ -1004,16 +997,16 @@ LABEL_31:
     {
     }
 
-    v55[0] = v10;
-    v54[0] = @"methodName";
-    v54[1] = @"methodIndex";
+    v57[0] = v10;
+    v56[0] = @"methodName";
+    v56[1] = @"methodIndex";
     v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-    v55[1] = v19;
-    v55[2] = @"invalid_exception";
-    v54[2] = @"reason";
-    v54[3] = @"x-originalException";
-    v55[3] = v15;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
+    v57[1] = v19;
+    v57[2] = @"invalid_exception";
+    v56[2] = @"reason";
+    v56[3] = @"x-originalException";
+    v57[3] = v15;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:4];
     v11 = v15;
     v15 = v13 = 7;
     goto LABEL_30;
@@ -1024,24 +1017,24 @@ LABEL_32:
   v21 = v20;
   if (v20)
   {
-    [v20 cmsDoubleForKey:@"duration" withDefault:NAN];
-    v23 = v22;
-    v24 = _CMSILogingFacility();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v22 = [v20 cmsDoubleForKey:@"duration" withDefault:NAN];
+    v24 = v23;
+    v25 = _CMSILogingFacility(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_1();
     }
 
-    v25 = *(*(a1 + 32) + 184);
-    v26 = [MEMORY[0x277CCABB0] numberWithDouble:v23];
-    [v25 setObject:v26 forKey:v10];
+    v26 = *(*(a1 + 32) + 184);
+    v27 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
+    [v26 setObject:v27 forKey:v10];
 
-    *(*(a1 + 32) + 192) = v23 + *(*(a1 + 32) + 192);
+    *(*(a1 + 32) + 192) = v24 + *(*(a1 + 32) + 192);
   }
 
   if (!v11)
   {
-    v29 = 0;
+    v30 = 0;
     if (!v12)
     {
       goto LABEL_45;
@@ -1050,103 +1043,99 @@ LABEL_32:
     goto LABEL_42;
   }
 
-  v27 = @"<No debug string>";
+  v28 = @"<No debug string>";
   if (v12)
   {
-    v27 = v12;
+    v28 = v12;
   }
 
-  v52[0] = @"com.apple.cloudextension.errors.session.debug";
-  v52[1] = @"com.apple.cloudextension.errors.session.exception";
-  v53[0] = v27;
-  v53[1] = v11;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
-  v29 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:v13 userInfo:v28];
+  v54[0] = @"com.apple.cloudextension.errors.session.debug";
+  v54[1] = @"com.apple.cloudextension.errors.session.exception";
+  v55[0] = v28;
+  v55[1] = v11;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
+  v30 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.cloudextension.errors.session" code:v13 userInfo:v29];
 
   if (v12)
   {
 LABEL_42:
-    v30 = _CMSILogingFacility();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v31 = _CMSILogingFacility(v20);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v38 = *(*(a1 + 32) + 88);
+      v40 = *(*(a1 + 32) + 88);
       *buf = 138412802;
-      v47 = v38;
-      v48 = 2112;
-      v49 = v10;
+      v49 = v40;
       v50 = 2112;
-      v51 = v12;
-      _os_log_debug_impl(&dword_2439AD000, v30, OS_LOG_TYPE_DEBUG, "Debug URL for %@:%@: %@", buf, 0x20u);
+      v51 = v10;
+      v52 = 2112;
+      v53 = v12;
+      _os_log_debug_impl(&dword_2439AD000, v31, OS_LOG_TYPE_DEBUG, "Debug URL for %@:%@: %@", buf, 0x20u);
     }
   }
 
 LABEL_45:
   os_unfair_lock_lock((*(a1 + 32) + 16));
-  v31 = [*(*(a1 + 32) + 152) objectForKey:v10];
-  if (v31)
+  v32 = [*(*(a1 + 32) + 152) objectForKey:v10];
+  if (v32)
   {
   }
 
   else
   {
-    v32 = [*(*(a1 + 32) + 160) objectForKey:v10];
+    v34 = [*(*(a1 + 32) + 160) objectForKey:v10];
 
-    if (!v32)
+    if (!v34)
     {
       goto LABEL_51;
     }
   }
 
-  v33 = _CMSILogingFacility();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v35 = _CMSILogingFacility(v33);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_2();
   }
 
 LABEL_51:
-  v34 = [*(*(a1 + 32) + 176) objectForKeyedSubscript:v10];
-  if (v34)
+  v36 = [*(*(a1 + 32) + 176) objectForKeyedSubscript:v10];
+  v37 = v36;
+  if (v36)
   {
-    v35 = _CMSILogingFacility();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v38 = _CMSILogingFacility(v36);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_3();
     }
 
     [*(*(a1 + 32) + 176) removeObjectForKey:v10];
-    v36 = *(*(a1 + 32) + 24);
+    v39 = *(*(a1 + 32) + 24);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_143;
     block[3] = &unk_278DDD058;
-    objc_copyWeak(&v45, (a1 + 40));
-    v44 = v34;
-    v41 = v10;
-    v42 = v6;
-    v43 = v29;
-    dispatch_async(v36, block);
+    objc_copyWeak(&v47, (a1 + 40));
+    v46 = v37;
+    v43 = v10;
+    v44 = v6;
+    v45 = v30;
+    dispatch_async(v39, block);
 
-    objc_destroyWeak(&v45);
+    objc_destroyWeak(&v47);
   }
 
   else
   {
     [*(*(a1 + 32) + 152) setObject:v6 forKeyedSubscript:v10];
-    [*(*(a1 + 32) + 160) setObject:v29 forKeyedSubscript:v10];
+    [*(*(a1 + 32) + 160) setObject:v30 forKeyedSubscript:v10];
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 16));
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_143(uint64_t a1)
 {
   if (objc_loadWeakRetained((a1 + 64)))
   {
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 
@@ -1212,36 +1201,36 @@ uint64_t __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivit
         {
           v28 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:self->_timeoutInterval];
           requestQueue = [(CMSCloudExtensionSession *)self requestQueue];
-          v19 = [requestQueue count];
+          v18 = [requestQueue count];
 
           requestQueue2 = [(CMSCloudExtensionSession *)self requestQueue];
-          if (v19)
+          if (v18)
           {
             v34[0] = @"method";
             v34[1] = @"params";
             v35[0] = methodCopy;
             v35[1] = paramsCopy;
-            v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
-            [requestQueue2 addObject:v21];
+            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+            [requestQueue2 addObject:v20];
           }
 
           else
           {
             v36[0] = @"session";
-            v21 = [(CMSCloudExtensionSession *)self _sessionDescriptionWithDeadline:v28];
-            v37[0] = v21;
+            v20 = [(CMSCloudExtensionSession *)self _sessionDescriptionWithDeadline:v28];
+            v37[0] = v20;
             v37[1] = methodCopy;
             v36[1] = @"method";
             v36[2] = @"params";
             v37[2] = paramsCopy;
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
-            [requestQueue2 addObject:v22];
+            v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
+            [requestQueue2 addObject:v21];
           }
 
-          v23 = _CMSILogingFacility();
+          v23 = _CMSILogingFacility(v22);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
-            [CMSCloudExtensionSession performMethod:? withParams:? networkActivity:? completion:?];
+            [CMSCloudExtensionSession performMethod:withParams:networkActivity:completion:];
           }
 
           if (completionCopy)
@@ -1291,8 +1280,6 @@ uint64_t __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivit
     completionCopy[2](completionCopy, self, methodCopy, 0, v15);
 LABEL_13:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke(uint64_t a1)
@@ -1308,62 +1295,62 @@ void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_com
   v6 = MEMORY[0x245D43EE0](*(a1 + 64));
   [*(*(a1 + 32) + 176) setObject:v6 forKeyedSubscript:*(a1 + 40)];
 
-  v7 = _CMSILogingFacility();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _CMSILogingFacility(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_cold_1();
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 48);
-  v30 = 0;
-  v10 = [v8 _requestForMethods:v2 before:v9 error:&v30];
-  v11 = v30;
-  if (v10)
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  v31 = 0;
+  v11 = [v9 _requestForMethods:v2 before:v10 error:&v31];
+  v12 = v31;
+  if (v11)
   {
-    objc_storeStrong((*(a1 + 32) + 40), v10);
+    objc_storeStrong((*(a1 + 32) + 40), v11);
     objc_initWeak(&location, *(a1 + 32));
-    v12 = *(*(a1 + 32) + 144);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_2;
-    v20[3] = &unk_278DDCFE0;
-    objc_copyWeak(&v24, &location);
-    v21 = *(a1 + 48);
-    v22 = *(a1 + 56);
-    v23 = v10;
-    v13 = [v12 dataTaskWithRequest:v23 completionHandler:v20];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 48);
-    *(v14 + 48) = v13;
+    v13 = *(*(a1 + 32) + 144);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_2;
+    v21[3] = &unk_278DDCFE0;
+    objc_copyWeak(&v25, &location);
+    v22 = *(a1 + 48);
+    v23 = *(a1 + 56);
+    v24 = v11;
+    v14 = [v13 dataTaskWithRequest:v24 completionHandler:v21];
+    v15 = *(a1 + 32);
+    v16 = *(v15 + 48);
+    *(v15 + 48) = v14;
 
     [*(a1 + 56) associateWithTask:*(*(a1 + 32) + 48)];
     [*(*(a1 + 32) + 48) resume];
     os_unfair_lock_unlock((*(a1 + 32) + 16));
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v16 = *(a1 + 64);
-    if (v16)
+    v17 = *(a1 + 64);
+    if (v17)
     {
-      (*(v16 + 16))(v16, *(a1 + 32), *(a1 + 40), 0, v11);
+      (*(v17 + 16))(v17, *(a1 + 32), *(a1 + 40), 0, v12);
     }
 
-    v17 = [*(*(a1 + 32) + 176) copy];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_153;
-    v26[3] = &unk_278DDD0A8;
-    v18 = *(a1 + 32);
-    v27 = v17;
+    v18 = [*(*(a1 + 32) + 176) copy];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_153;
+    v27[3] = &unk_278DDD0A8;
+    v19 = *(a1 + 32);
     v28 = v18;
-    v29 = v11;
-    v19 = v17;
-    [v2 enumerateObjectsUsingBlock:v26];
+    v29 = v19;
+    v30 = v12;
+    v20 = v18;
+    [v2 enumerateObjectsUsingBlock:v27];
     os_unfair_lock_unlock((*(a1 + 32) + 16));
   }
 }
@@ -1394,31 +1381,29 @@ void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_com
 
 - (id)_queuePlayMediaForActivity:(id)activity
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  v12[0] = self->_sessionIdentifier;
-  v11[0] = @"identifier";
-  v11[1] = @"version";
+  v11[0] = self->_sessionIdentifier;
+  v10[0] = @"identifier";
+  v10[1] = @"version";
   v5 = CMSCloudExtensionSpecVersion();
-  v12[1] = v5;
-  v11[2] = @"userActivity";
+  v11[1] = v5;
+  v10[2] = @"userActivity";
   null = activityCopy;
   if (!activityCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v12[2] = null;
-  v11[3] = @"constraints";
+  v11[2] = null;
+  v10[3] = @"constraints";
   _constraintsDefinition = [(CMSCloudExtensionSession *)self _constraintsDefinition];
-  v12[3] = _constraintsDefinition;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v11[3] = _constraintsDefinition;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   if (!activityCopy)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1487,7 +1472,7 @@ void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_com
 
   else
   {
-    v21 = _CMSILogingFacility();
+    v21 = _CMSILogingFacility(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [CMSCloudExtensionSession requestQueueForActivity:networkActivity:completion:];
@@ -1500,7 +1485,7 @@ void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_com
 
 void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1510,11 +1495,11 @@ void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_comp
   {
     if ((*(WeakRetained + 32) & 1) == 0)
     {
-      v12 = _CMSILogingFacility();
+      v12 = _CMSILogingFacility(WeakRetained);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v21 = "[CMSCloudExtensionSession requestQueueForActivity:networkActivity:completion:]_block_invoke";
+        v20 = "[CMSCloudExtensionSession requestQueueForActivity:networkActivity:completion:]_block_invoke";
         _os_log_impl(&dword_2439AD000, v12, OS_LOG_TYPE_DEFAULT, "%s no longer connected, discarding response", buf, 0xCu);
       }
 
@@ -1544,16 +1529,14 @@ void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_comp
 
     else
     {
-      v19 = 0;
-      v16 = [v11 _parsedObjectFromData:v7 inResponse:v14 error:&v19];
-      v9 = v19;
+      v18 = 0;
+      v16 = [v11 _parsedObjectFromData:v7 inResponse:v14 error:&v18];
+      v9 = v18;
       v17 = cmsSafeDictionary(v16);
 
       (*(*(a1 + 32) + 16))();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_completion___block_invoke_158(uint64_t a1)
@@ -1576,7 +1559,7 @@ void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_comp
 
 void __79__CMSCloudExtensionSession_requestQueueForActivity_networkActivity_completion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1596,9 +1579,9 @@ LABEL_10:
     v13 = MEMORY[0x277CCA9B8];
     if (v9)
     {
-      v16 = *MEMORY[0x277CCA7E8];
-      v17[0] = v9;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x277CCA7E8];
+      v16[0] = v9;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     }
 
     else
@@ -1616,8 +1599,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getQueueSegmentFromURL:(id)l referrer:(id)referrer networkActivity:(id)activity completion:(id)completion
@@ -1686,7 +1667,7 @@ LABEL_11:
 
   else
   {
-    v24 = _CMSILogingFacility();
+    v24 = _CMSILogingFacility(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [CMSCloudExtensionSession getQueueSegmentFromURL:referrer:networkActivity:completion:];
@@ -1699,7 +1680,7 @@ LABEL_11:
 
 void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActivity_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1709,11 +1690,11 @@ void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActiv
   {
     if ((*(WeakRetained + 32) & 1) == 0)
     {
-      v12 = _CMSILogingFacility();
+      v12 = _CMSILogingFacility(WeakRetained);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v21 = "[CMSCloudExtensionSession getQueueSegmentFromURL:referrer:networkActivity:completion:]_block_invoke";
+        v20 = "[CMSCloudExtensionSession getQueueSegmentFromURL:referrer:networkActivity:completion:]_block_invoke";
         _os_log_impl(&dword_2439AD000, v12, OS_LOG_TYPE_DEFAULT, "%s no longer connected, discarding response", buf, 0xCu);
       }
 
@@ -1743,16 +1724,14 @@ void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActiv
 
     else
     {
-      v19 = 0;
-      v16 = [v11 _parsedObjectFromData:v7 inResponse:v14 error:&v19];
-      v9 = v19;
+      v18 = 0;
+      v16 = [v11 _parsedObjectFromData:v7 inResponse:v14 error:&v18];
+      v9 = v18;
       v17 = cmsSafeDictionary(v16);
 
       (*(*(a1 + 32) + 16))();
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActivity_completion___block_invoke_163(id *a1)
@@ -1794,7 +1773,7 @@ void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActiv
   updateCopy = update;
   completionCopy = completion;
   v8 = [(CMSCloudExtensionConfiguration *)self->_config configForEndpoint:@"queues/updateActivity"];
-  v9 = _CMSILogingFacility();
+  v9 = _CMSILogingFacility(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v8)
   {
@@ -1873,7 +1852,7 @@ void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActiv
 
     else
     {
-      v25 = _CMSILogingFacility();
+      v25 = _CMSILogingFacility(0);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [CMSCloudExtensionSession _performActivityUpdate:completion:];
@@ -1898,7 +1877,7 @@ void __87__CMSCloudExtensionSession_getQueueSegmentFromURL_referrer_networkActiv
 
 void __62__CMSCloudExtensionSession__performActivityUpdate_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1908,11 +1887,11 @@ void __62__CMSCloudExtensionSession__performActivityUpdate_completion___block_in
   {
     if ((*(WeakRetained + 32) & 1) == 0)
     {
-      v12 = _CMSILogingFacility();
+      v12 = _CMSILogingFacility(WeakRetained);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v21 = "[CMSCloudExtensionSession _performActivityUpdate:completion:]_block_invoke";
+        v20 = "[CMSCloudExtensionSession _performActivityUpdate:completion:]_block_invoke";
         _os_log_impl(&dword_2439AD000, v12, OS_LOG_TYPE_DEFAULT, "%s no longer connected, discarding queues/activityUpdate response", buf, 0xCu);
       }
 
@@ -1928,9 +1907,9 @@ void __62__CMSCloudExtensionSession__performActivityUpdate_completion___block_in
     {
       if (v7 && !v9)
       {
-        v19 = 0;
-        v14 = [v11 _parsedObjectFromData:v7 inResponse:v8 error:&v19];
-        v9 = v19;
+        v18 = 0;
+        v14 = [v11 _parsedObjectFromData:v7 inResponse:v8 error:&v18];
+        v9 = v18;
         v15 = cmsSafeDictionary(v14);
 
         v16 = [v15 cmsOptionalDictionaryForKey:@"queue"];
@@ -1952,8 +1931,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __62__CMSCloudExtensionSession__performActivityUpdate_completion___block_invoke_167(id *a1)
@@ -2083,7 +2060,7 @@ void __62__CMSCloudExtensionSession__performActivityUpdate_completion___block_in
 
     else
     {
-      v29 = _CMSILogingFacility();
+      v29 = _CMSILogingFacility(0);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         [CMSCloudExtensionSession publishContentFailure:forActivity:whilePlaying:previousContentURL:nextContentURL:networkActivity:completion:];
@@ -2102,7 +2079,7 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v28 = _CMSILogingFacility();
+  v28 = _CMSILogingFacility(0);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
     [CMSCloudExtensionSession publishContentFailure:forActivity:whilePlaying:previousContentURL:nextContentURL:networkActivity:completion:];
@@ -2214,7 +2191,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v12 = _CMSILogingFacility();
+  v12 = _CMSILogingFacility(handlerCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [CMSCloudExtensionSession getAlbumArtDataFromURL:networkActivity:completionHandler:];
@@ -2421,14 +2398,12 @@ uint64_t __65__CMSCloudExtensionSession_URLSession_didBecomeInvalidWithError___b
   *(v12 + 24) = 0;
 
   os_unfair_lock_unlock((*(a1 + 32) + 16));
-  v14 = *(a1 + 32);
-  result = *(v14 + 72);
+  result = *(*(a1 + 32) + 72);
   if (result)
   {
-    v16 = *(v14 + 56);
-    v17 = *(result + 16);
+    v15 = *(result + 16);
 
-    return v17();
+    return v15();
   }
 
   return result;
@@ -2438,7 +2413,7 @@ uint64_t __65__CMSCloudExtensionSession_URLSession_didBecomeInvalidWithError___b
 {
   activityCopy = activity;
   handlerCopy = handler;
-  v8 = _CMSILogingFacility();
+  v8 = _CMSILogingFacility(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [CMSCloudExtensionSession getFairplayCertificateUsingNetworkActivity:completionHandler:];
@@ -2538,7 +2513,7 @@ void __89__CMSCloudExtensionSession_getFairplayCertificateUsingNetworkActivity_c
   dictionaryCopy = dictionary;
   activityCopy = activity;
   handlerCopy = handler;
-  v22 = _CMSILogingFacility();
+  v22 = _CMSILogingFacility(handlerCopy);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     [CMSCloudExtensionSession getContentProtectionKeyForAssetIdentifier:usingKeySystem:andKeyRequest:playerContext:userActivityDictionary:networkActivity:completionHandler:];
@@ -2573,7 +2548,7 @@ void __89__CMSCloudExtensionSession_getFairplayCertificateUsingNetworkActivity_c
 
 void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_usingKeySystem_andKeyRequest_playerContext_userActivityDictionary_networkActivity_completionHandler___block_invoke(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2583,28 +2558,28 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
     v6 = [v5 mutableCopy];
 
     v7 = [*(a1 + 32) base64EncodedStringWithOptions:0];
-    v31 = *MEMORY[0x277CE5D20];
-    v32[0] = @"ContentKeySystemFairPlayStreaming";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CE5D20];
+    v31[0] = @"ContentKeySystemFairPlayStreaming";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v9 = [v8 objectForKey:*(a1 + 40)];
     if (v9)
     {
-      v25 = v4;
-      v29[0] = @"version";
+      v24 = v4;
+      v28[0] = @"version";
       v10 = CMSCloudExtensionSpecVersion();
-      v30[0] = v10;
-      v30[1] = v9;
-      v29[1] = @"keySystem";
-      v29[2] = @"assetIdentifier";
-      v29[3] = @"keyRequest";
-      v29[4] = @"context";
+      v29[0] = v10;
+      v29[1] = v9;
+      v28[1] = @"keySystem";
+      v28[2] = @"assetIdentifier";
+      v28[3] = @"keyRequest";
+      v28[4] = @"context";
       v11 = *(a1 + 56);
-      v30[2] = *(a1 + 48);
-      v30[3] = v7;
-      v24 = v7;
+      v29[2] = *(a1 + 48);
+      v29[3] = v7;
+      v23 = v7;
       v12 = [v11 cmsCoded];
-      v30[4] = v12;
-      v29[5] = @"userActivity";
+      v29[4] = v12;
+      v28[5] = @"userActivity";
       v13 = *(a1 + 64);
       v14 = v13;
       if (!v13)
@@ -2612,15 +2587,15 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
         v14 = [MEMORY[0x277CBEB68] null];
       }
 
-      v30[5] = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+      v29[5] = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
       if (!v13)
       {
       }
 
-      v28 = 0;
-      v16 = CreateDataWithSerializedJSON(v15, &v28);
-      v17 = v28;
+      v27 = 0;
+      v16 = CreateDataWithSerializedJSON(v15, &v27);
+      v17 = v27;
       if (v16)
       {
         [v6 setHTTPMethod:@"POST"];
@@ -2628,14 +2603,14 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
         [v6 setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [v6 setHTTPBody:v16];
         v18 = v3[18];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_usingKeySystem_andKeyRequest_playerContext_userActivityDictionary_networkActivity_completionHandler___block_invoke_2;
-        v26[3] = &unk_278DDD198;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_usingKeySystem_andKeyRequest_playerContext_userActivityDictionary_networkActivity_completionHandler___block_invoke_2;
+        v25[3] = &unk_278DDD198;
         v19 = *(a1 + 80);
-        v26[4] = v3;
-        v27 = v19;
-        v20 = [v18 dataTaskWithRequest:v6 completionHandler:v26];
+        v25[4] = v3;
+        v26 = v19;
+        v20 = [v18 dataTaskWithRequest:v6 completionHandler:v25];
         [*(a1 + 72) associateWithTask:v20];
         [v20 resume];
       }
@@ -2648,9 +2623,9 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
         v17 = v22;
       }
 
-      v4 = v25;
+      v4 = v24;
 
-      v7 = v24;
+      v7 = v23;
     }
 
     else
@@ -2660,8 +2635,6 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
       (*(v21 + 16))(v21, 0, 0, v15);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_usingKeySystem_andKeyRequest_playerContext_userActivityDictionary_networkActivity_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -2705,215 +2678,117 @@ void __170__CMSCloudExtensionSession_getContentProtectionKeyForAssetIdentifier_u
 
 - (void)setQosClass:(const char *)a1 .cold.1(const char *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "%@: already connected, can't change qosClass", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_retryRequest:before:networkActivity:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_retryRequestAfterAuthTokenRenewal:(uint64_t)a1 parentNetworkActivity:before:completionHandler:.cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 88);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "%@: already connected, can't change qosClass", v4, 0xCu);
 }
 
 void __110__CMSCloudExtensionSession__retryRequestAfterAuthTokenRenewal_parentNetworkActivity_before_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleURLResponseCode:error:before:request:networkActivity:retryHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleURLResponseCode:error:before:request:networkActivity:retryHandler:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleURLResponseCode:error:before:request:networkActivity:retryHandler:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleURLResponse:before:networkActivity:request:data:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_2439AD000, v1, OS_LOG_TYPE_DEBUG, "methodResponses: %@ error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_2439AD000, v1, OS_LOG_TYPE_DEBUG, "methodResponses: %@ error: %@", v2, 0x16u);
 }
 
 - (void)_handleURLResponse:before:networkActivity:request:data:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __89__CMSCloudExtensionSession__handleURLResponse_before_networkActivity_request_data_error___block_invoke_3_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)performMethod:(uint64_t)a1 withParams:networkActivity:completion:.cold.1(uint64_t a1)
+- (void)performMethod:withParams:networkActivity:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 168);
-  *(a1 + 33);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __80__CMSCloudExtensionSession_performMethod_withParams_networkActivity_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestQueueForActivity:networkActivity:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getQueueSegmentFromURL:referrer:networkActivity:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActivityUpdate:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_performActivityUpdate:completion:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActivityUpdate:completion:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)publishContentFailure:forActivity:whilePlaying:previousContentURL:nextContentURL:networkActivity:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishContentFailure:forActivity:whilePlaying:previousContentURL:nextContentURL:networkActivity:completion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAlbumArtDataFromURL:networkActivity:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getFairplayCertificateUsingNetworkActivity:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getContentProtectionKeyForAssetIdentifier:usingKeySystem:andKeyRequest:playerContext:userActivityDictionary:networkActivity:completionHandler:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

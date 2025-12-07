@@ -129,7 +129,7 @@ LABEL_6:
   return v5;
 }
 
-uint64_t __29__SUScriptSection_badgeValue__block_invoke(uint64_t a1)
+void *__29__SUScriptSection_badgeValue__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 32) "clientInterface")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -182,7 +182,7 @@ uint64_t __29__SUScriptSection_badgeValue__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __33__SUScriptSection_viewController__block_invoke(uint64_t a1)
+void *__33__SUScriptSection_viewController__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(objc_msgSend(objc_msgSend(*(a1 + 32) "clientInterface")];
   *(*(*(a1 + 40) + 8) + 40) = result;

@@ -26,8 +26,8 @@
 
 + ($1FF454C5B48E436092D281DABF654916)badge
 {
-  v2 = PhoneBadgeKnownZero[0];
-  v3 = PhoneBadgeKnownZero[1];
+  v2 = PhoneBadgeKnownZero.n128_u64[0];
+  v3 = PhoneBadgeKnownZero.n128_u64[1];
   result.var1 = v3;
   result.var0 = v2;
   return result;
@@ -362,7 +362,7 @@ LABEL_11:
 
     if ([controllerCopy status] == 1)
     {
-      [controllerCopy duration];
+      objc_msgSend_duration(controllerCopy);
       v11 = v10;
       playerControlsView2 = [v7 playerControlsView];
       [playerControlsView2 setDuration:v11];

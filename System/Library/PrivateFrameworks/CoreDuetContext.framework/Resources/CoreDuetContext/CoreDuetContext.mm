@@ -99,9 +99,9 @@ void sub_1000014A8(id a1)
   _objc_release_x1();
 }
 
-void sub_1000019AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000019AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -116,19 +116,19 @@ void sub_100001DF4(_Unwind_Exception *a1)
 
 void sub_100001E48(uint64_t a1, uint64_t a2)
 {
-  v4 = +[_CDLogging knowledgeChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v2 = +[_CDLogging knowledgeChannel];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002AB0(a2, a1);
+    sub_100002AB0();
   }
 }
 
 void sub_100001EAC(uint64_t a1, uint64_t a2)
 {
-  v4 = +[_CDLogging interactionChannel];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v2 = +[_CDLogging interactionChannel];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_100002B38(a2, a1);
+    sub_100002B38();
   }
 }
 
@@ -184,7 +184,7 @@ void sub_100002088(uint64_t a1)
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        sub_100002C7C(a1);
+        sub_100002C7C();
       }
     }
 
@@ -252,7 +252,6 @@ void sub_100002500()
 
 uint64_t sub_1000025D0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C968 = result;
   return result;
@@ -312,36 +311,20 @@ void sub_100002A30(void *a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_100002AB0(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  sub_1000026A4();
-  sub_1000026C4(&_mh_execute_header, v3, v4, "%s save events %@");
-}
-
-void sub_100002B38(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  sub_1000026A4();
-  sub_1000026C4(&_mh_execute_header, v3, v4, "%s save interactions %@");
-}
-
 void sub_100002BC0(uint64_t a1)
 {
-  v2 = [*(a1 + 32) eventStreamProperties];
-  v3 = [v2 name];
-  v4 = *(a1 + 40);
+  v1 = [*(a1 + 32) eventStreamProperties];
+  v2 = [v1 name];
   sub_1000026B8();
   sub_100002694();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_100002C7C(uint64_t a1)
+void sub_100002C7C()
 {
-  v1 = *(a1 + 32);
   sub_1000026A4();
-  v5 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Error deleting historical events from the %@ monitor: %@", v4, 0x16u);
+  v3 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Error deleting historical events from the %@ monitor: %@", v2, 0x16u);
 }
 
 void sub_100002CFC(uint64_t a1)

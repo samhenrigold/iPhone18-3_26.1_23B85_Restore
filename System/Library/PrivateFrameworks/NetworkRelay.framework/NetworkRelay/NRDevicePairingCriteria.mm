@@ -74,41 +74,41 @@
 
 - (NRDevicePairingCriteria)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = NRDevicePairingCriteria;
-  v5 = [(NRDevicePairingCriteria *)&v26 init];
+  v22.receiver = self;
+  v22.super_class = NRDevicePairingCriteria;
+  v5 = [(NRDevicePairingCriteria *)&v22 init];
   if (!v5)
   {
-    v12 = nrCopyLogObj_1529();
+    v11 = nrCopyLogObj_1529();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v13 = v12;
-      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_7;
       }
     }
 
-    v15 = nrCopyLogObj_1529();
-    _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v16, v17, v18, v19, v20, "");
+    v14 = nrCopyLogObj_1529();
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDevicePairingCriteria initWithCoder:]"", 60);
 
 LABEL_7:
-    v21 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v21, v22);
-    v23 = *__error();
-    v24 = _os_log_pack_fill();
-    *v24 = 136446210;
-    *(v24 + 4) = "[NRDevicePairingCriteria initWithCoder:]";
-    v25 = nrCopyLogObj_1529();
-    _NRLogAbortWithPack(v25);
+    v15 = _os_log_pack_size();
+    v17 = &v21 - ((MEMORY[0x28223BE20](v15, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = __error();
+    v19 = _os_log_pack_fill(v17, v15, *v18, &dword_25B98C000, "%{public}s [super init] failed");
+    *v19 = 136446210;
+    *(v19 + 4) = "[NRDevicePairingCriteria initWithCoder:]";
+    v20 = nrCopyLogObj_1529();
+    _NRLogAbortWithPack(v20, v17);
   }
 
   v6 = v5;
@@ -126,7 +126,6 @@ LABEL_7:
   [(NRDevicePairingCriteria *)v6 setServiceUUID:v9];
 
   -[NRDevicePairingCriteria setBluetoothRole:](v6, "setBluetoothRole:", [coderCopy decodeInt64ForKey:@"bluetoothRole"]);
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

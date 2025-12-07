@@ -44,7 +44,7 @@ void __59__HFShortcutActionBuilder_containedAccessoryRepresentables__block_invok
 
 - (id)validationError
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   action = [(HFActionBuilder *)self action];
   if (objc_opt_isKindOfClass())
@@ -60,13 +60,11 @@ void __59__HFShortcutActionBuilder_containedAccessoryRepresentables__block_invok
   v5 = 0;
   if (!v4)
   {
-    v9 = @"HFActionBuilderFailureReason";
-    v10[0] = @"Shortcut action builder has invalid shortcut action";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"HFActionBuilderFailureReason";
+    v9[0] = @"Shortcut action builder has invalid shortcut action";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D2C8B8] code:2 userInfo:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

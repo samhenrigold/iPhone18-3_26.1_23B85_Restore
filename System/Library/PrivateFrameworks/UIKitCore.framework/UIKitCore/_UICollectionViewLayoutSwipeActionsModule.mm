@@ -632,7 +632,7 @@ LABEL_17:
     [swipedView bounds];
     v14 = [(UIView *)v13 initWithFrame:?];
 
-    v15 = +[UIColor blackColor];
+    v15 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v14 setBackgroundColor:v15];
 
     [(UIView *)swipedView _setSafeMaskView:v14];
@@ -1261,7 +1261,7 @@ LABEL_33:
 
   _content = [(_UILabelConfiguration *)v35 _content];
   v18 = _content;
-  if (_content == @"UICollectionViewListLayoutElementKindSwipeActions" || _content && (v19 = [(__CFString *)_content isEqual:@"UICollectionViewListLayoutElementKindSwipeActions"], v18, v19))
+  if (_content == @"UICollectionViewListLayoutElementKindSwipeActions" || _content && (isEqual = objc_msgSend_isEqual_(_content), v18, isEqual))
   {
     if (disappearingCopy)
     {
@@ -1319,7 +1319,7 @@ LABEL_33:
 
   if (v20 && @"UICollectionViewListLayoutElementKindBottomSeparator")
   {
-    v22 = [(__CFString *)v20 isEqual:@"UICollectionViewListLayoutElementKindBottomSeparator"];
+    v22 = objc_msgSend_isEqual_(v20);
 
     if (v22)
     {
@@ -1369,7 +1369,7 @@ LABEL_29:
       goto LABEL_43;
     }
 
-    v32 = [(__CFString *)v30 isEqual:@"UICollectionViewListLayoutElementKindTopSeparator"];
+    v32 = objc_msgSend_isEqual_(v30);
   }
 
   if (v32 && v10)
@@ -1522,9 +1522,9 @@ LABEL_33:
         {
           indexPathBeforeUpdate = [v18 indexPathBeforeUpdate];
           indexPath2 = [v14 indexPath];
-          v23 = [indexPathBeforeUpdate isEqual:indexPath2];
+          isEqual = objc_msgSend_isEqual_(indexPathBeforeUpdate);
 
-          if (v23)
+          if (isEqual)
           {
             v56 = [v12 count] == 1;
             v15 = 1;

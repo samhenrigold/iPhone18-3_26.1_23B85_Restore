@@ -25,23 +25,24 @@
 
 - (id)urlRequest
 {
-  v29[1] = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = AAAppleIDSettingsRequest;
-  urlRequest = [(AARequest *)&v28 urlRequest];
+  v30[1] = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = AAAppleIDSettingsRequest;
+  urlRequest = [(AARequest *)&v29 urlRequest];
   v4 = [urlRequest mutableCopy];
 
   [v4 setHTTPMethod:@"GET"];
   grandSlamAccount = self->_grandSlamAccount;
   if (!grandSlamAccount)
   {
-    if ([(AAAppleIDSettingsRequest *)self forceGSToken])
+    forceGSToken = [(AAAppleIDSettingsRequest *)self forceGSToken];
+    if (forceGSToken)
     {
-      v6 = _AALogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _AALogSystem(forceGSToken);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "GrandSlam signing will fail because no GS account was provided.", buf, 2u);
+        _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "GrandSlam signing will fail because no GS account was provided.", buf, 2u);
       }
 
       goto LABEL_12;
@@ -53,50 +54,52 @@
   aida_dsid = [(ACAccount *)grandSlamAccount aida_dsid];
   [v4 aa_addDeviceProvisioningInfoHeadersWithDSID:aida_dsid];
 
-  v6 = [(ACAccountStore *)self->_store credentialForAccount:self->_grandSlamAccount serviceID:@"com.apple.gs.appleid.auth"];
+  v7 = [(ACAccountStore *)self->_store credentialForAccount:self->_grandSlamAccount serviceID:@"com.apple.gs.appleid.auth"];
   *buf = 0;
-  v23 = buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__8;
-  v26 = __Block_byref_object_dispose__8;
-  token = [v6 token];
-  if (!*(v23 + 5) && [(AAAppleIDSettingsRequest *)self forceGSToken])
+  v24 = buf;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__8;
+  v27 = __Block_byref_object_dispose__8;
+  token = [v7 token];
+  if (!*(v24 + 5))
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    forceGSToken2 = [(AAAppleIDSettingsRequest *)self forceGSToken];
+    if (forceGSToken2)
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Could not get GS auth on first try. Will need to prompt for password", v21, 2u);
+      v10 = _AALogSystem(forceGSToken2);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        *v22 = 0;
+        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Could not get GS auth on first try. Will need to prompt for password", v22, 2u);
+      }
+
+      v11 = dispatch_semaphore_create(0);
+      store = self->_store;
+      v13 = self->_grandSlamAccount;
+      v30[0] = @"com.apple.gs.appleid.auth";
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __38__AAAppleIDSettingsRequest_urlRequest__block_invoke;
+      v19[3] = &unk_1E7C9C508;
+      v19[4] = self;
+      v21 = buf;
+      v15 = v11;
+      v20 = v15;
+      [(ACAccountStore *)store renewCredentialsForAccount:v13 services:v14 completion:v19];
+
+      dispatch_semaphore_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
     }
-
-    v9 = dispatch_semaphore_create(0);
-    store = self->_store;
-    v11 = self->_grandSlamAccount;
-    v29[0] = @"com.apple.gs.appleid.auth";
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __38__AAAppleIDSettingsRequest_urlRequest__block_invoke;
-    v18[3] = &unk_1E7C9C508;
-    v18[4] = self;
-    v20 = buf;
-    v13 = v9;
-    v19 = v13;
-    [(ACAccountStore *)store renewCredentialsForAccount:v11 services:v12 completion:v18];
-
-    dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
   }
 
   aida_alternateDSID = [(ACAccount *)self->_grandSlamAccount aida_alternateDSID];
-  [v4 aa_addGrandslamAuthorizationHeaderWithAltDSID:aida_alternateDSID grandslamToken:*(v23 + 5)];
+  [v4 aa_addGrandslamAuthorizationHeaderWithAltDSID:aida_alternateDSID grandslamToken:*(v24 + 5)];
 
-  v15 = +[AADeviceInfo udid];
-  [v4 addValue:v15 forHTTPHeaderField:@"X-AppleID-Device-Udid"];
+  v17 = +[AADeviceInfo udid];
+  [v4 addValue:v17 forHTTPHeaderField:@"X-AppleID-Device-Udid"];
 
   _Block_object_dispose(buf, 8);
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -105,30 +108,30 @@ void __38__AAAppleIDSettingsRequest_urlRequest__block_invoke(uint64_t a1, uint64
 {
   v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AALogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 134218242;
       v12 = a2;
       v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "No way to sign request with GS token because renewal of GS credential failed: %ld, %@", &v11, 0x16u);
+      v14 = v6;
+      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "No way to sign request with GS token because renewal of GS credential failed: %ld, %@", &v11, 0x16u);
     }
   }
 
   else
   {
-    v6 = [*(*(a1 + 32) + 64) credentialForAccount:*(*(a1 + 32) + 80) serviceID:@"com.apple.gs.appleid.auth"];
-    v7 = [v6 token];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v7 = [*(*(a1 + 32) + 64) credentialForAccount:*(*(a1 + 32) + 80) serviceID:@"com.apple.gs.appleid.auth"];
+    v8 = [v7 token];
+    v9 = *(*(a1 + 48) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

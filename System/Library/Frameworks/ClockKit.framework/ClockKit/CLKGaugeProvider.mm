@@ -67,30 +67,30 @@
 
 - (BOOL)needsTimerUpdates
 {
-  objc_opt_class();
-  CLKRequestConcreteImplementation(self);
+  v4 = objc_opt_class();
+  CLKRequestConcreteImplementation(self, a2, v4);
   return 0;
 }
 
 - (double)progressFractionForNow:(id)now
 {
-  objc_opt_class();
-  CLKRequestConcreteImplementation(self);
+  v5 = objc_opt_class();
+  CLKRequestConcreteImplementation(self, a2, v5);
   return 0.0;
 }
 
 - (id)startUpdatesWithHandler:(id)handler
 {
-  objc_opt_class();
-  CLKRequestConcreteImplementation(self);
+  v5 = objc_opt_class();
+  CLKRequestConcreteImplementation(self, a2, v5);
   return &unk_284A340E0;
 }
 
 - (void)stopUpdatesForToken:(id)token
 {
-  objc_opt_class();
+  v5 = objc_opt_class();
 
-  CLKRequestConcreteImplementation(self);
+  CLKRequestConcreteImplementation(self, a2, v5);
 }
 
 - (BOOL)isEqual:(id)equal

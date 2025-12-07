@@ -1,4 +1,4 @@
-uint64_t IncrementNumericSuffix(char *__s, unint64_t a2, uint64_t a3, int a4, void *a5)
+uint64_t IncrementNumericSuffix(char *__s, size_t a2, uint64_t a3, int a4, void *a5)
 {
   v8 = a2;
   if (a4)
@@ -330,7 +330,7 @@ uint64_t GestaltSetDomain(const void *a1)
   return pthread_mutex_unlock(&gGestaltLock);
 }
 
-void *GestaltSetHook(void *result, uint64_t a2)
+uint64_t (*GestaltSetHook(uint64_t (*result)(void, void, void, void), uint64_t a2))(void, void, void, void)
 {
   gGestaltHook_f = result;
   gGestaltHook_ctx = a2;
@@ -354,7 +354,7 @@ char *GestaltGetCString(const void *a1, uint64_t a2, char *a3, size_t a4, int *a
   return a3;
 }
 
-const char *GestaltGetData(const void *a1, uint64_t a2, const char *a3, unint64_t a4, void *a5, int *a6)
+char *GestaltGetData(const void *a1, uint64_t a2, char *a3, unint64_t a4, uint64_t *a5, int *a6)
 {
   v10 = GestaltCopyAnswer(a1, a2, a6);
   if (v10)
@@ -590,7 +590,7 @@ LABEL_5:
             InterfaceMACAddress = GetInterfaceMACAddress("en0", bytes);
             if (InterfaceMACAddress && gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
             {
-              LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Set computer name, get en0 failed: %#m", v23, v24, v25, v26, InterfaceMACAddress);
+              LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Set computer name, get en0 failed: %#m", v23, v24, v25, v26, InterfaceMACAddress);
             }
 
             v28.i32[0] = *(bytes + 1);
@@ -603,7 +603,7 @@ LABEL_5:
                 v35 = Int64;
                 if (gLogCategory_CUMisc <= 50 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x32u)))
                 {
-                  LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x32u, "Computer name address: existing=0x%012lX", v31, v32, v33, v34, v35);
+                  LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 50, "Computer name address: existing=0x%012lX", v31, v32, v33, v34, v35);
                 }
 
                 LOBYTE(bytes[0]) = BYTE5(v35);
@@ -621,7 +621,7 @@ LABEL_5:
                 CFPrefs_SetInt64(0, @"CUSystemNameAddress", v36);
                 if (gLogCategory_CUMisc <= 50 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x32u)))
                 {
-                  LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x32u, "Computer name address: generated=0x%012lX", v37, v38, v39, v40, v36);
+                  LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 50, "Computer name address: generated=0x%012lX", v37, v38, v39, v40, v36);
                 }
               }
             }
@@ -644,7 +644,7 @@ LABEL_5:
           if (gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
           {
             SCError();
-            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Set hostname %@' failed: %#m\n", v41, v42, v43, v44, a2);
+            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Set hostname %@' failed: %#m\n", v41, v42, v43, v44, a2);
           }
 
           if (!v12)
@@ -658,7 +658,7 @@ LABEL_5:
           if (gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
           {
             SCError();
-            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Set locale hostname %@' failed: %#m\n", v45, v46, v47, v48, a2);
+            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Set locale hostname %@' failed: %#m\n", v45, v46, v47, v48, a2);
           }
 
           if (!v12)
@@ -676,7 +676,7 @@ LABEL_5:
       if (gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
       {
         SCError();
-        LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Set computer name %@' failed: %#m\n", v19, v20, v21, v22, a1);
+        LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Set computer name %@' failed: %#m\n", v19, v20, v21, v22, a1);
       }
 
       v12 = SCError();
@@ -705,7 +705,7 @@ LABEL_65:
           if (gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
           {
             v49 = SCError();
-            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Commit name changes failed: %#m\n", v50, v51, v52, v53, v49);
+            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Commit name changes failed: %#m\n", v50, v51, v52, v53, v49);
           }
 
           if (!v12)
@@ -719,7 +719,7 @@ LABEL_65:
           if (gLogCategory_CUMisc <= 60 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu)))
           {
             v54 = SCError();
-            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Apply name changes failed: %#m\n", v55, v56, v57, v58, v54);
+            LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Apply name changes failed: %#m\n", v55, v56, v57, v58, v54);
           }
 
           if (!v12)
@@ -744,7 +744,7 @@ LABEL_65:
 
       if (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x3Cu))
       {
-        LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x3Cu, "### Convert name to local hostname failed %@'\n", v8, v9, v10, v11, a1);
+        LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 60, "### Convert name to local hostname failed %@'\n", v8, v9, v10, v11, a1);
       }
     }
 
@@ -753,7 +753,7 @@ LABEL_65:
 LABEL_61:
     if (gLogCategory_CUMisc <= 30 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x1Eu, "Setting system name '%@', hostname '%@', flags %#{flags}", v8, v9, v10, v11, a1);
+      LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 30, "Setting system name '%@', hostname '%@', flags %#{flags}", v8, v9, v10, v11, a1);
     }
 
     goto LABEL_65;
@@ -771,7 +771,7 @@ LABEL_61:
 
   if (gLogCategory_CUMisc <= 30 && (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 0x1Eu, "### Create prefs to set name failed: %#m\n", v15, v16, v17, v18, v12);
+    LogPrintF(&gLogCategory_CUMisc, "OSStatus CUSetSystemName(CFStringRef, CFStringRef _Nullable, CUSystemNameFlags)", 30, "### Create prefs to set name failed: %#m\n", v15, v16, v17, v18, v12);
   }
 
   return v12;
@@ -830,7 +830,7 @@ uint64_t BigIntegerFromInt()
   return v0;
 }
 
-uint64_t BigIntegerToCstr(uint64_t a1, uint64_t a2)
+uint64_t BigIntegerToCstr(uint64_t a1, uint64_t *a2)
 {
   v3 = CCBigNumBitCount();
   v4 = v3 + 7;
@@ -864,34 +864,34 @@ void BigIntegerToCstrEx(uint64_t a1, const void **a2, int a3)
   }
 }
 
-uint64_t TUInitialize(int a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TUInitialize(int a1, char **a2)
 {
-  v8 = MEMORY[0x1E69E9858];
+  v2 = MEMORY[0x1E69E9858];
   if (a1 >= 1)
   {
-    v11 = *a2;
-    v12 = strrchr(*a2, 47);
-    v13 = (v12 ? v12 + 1 : v11);
-    gTUProgramName = v13;
+    v5 = *a2;
+    v6 = strrchr(*a2, 47);
+    v7 = (v6 ? v6 + 1 : v5);
+    gTUProgramName = v7;
     if (a1 != 1)
     {
-      v24 = 1;
+      v18 = 1;
       do
       {
-        v25 = v24 + 1;
-        v26 = a2[v24];
-        if (!strcasecmp(v26, "--BATS"))
+        v19 = v18 + 1;
+        v20 = a2[v18];
+        if (!strcasecmp(v20, "--BATS"))
         {
-          if (v25 >= a1)
+          if (v19 >= a1)
           {
             goto LABEL_133;
           }
 
-          v24 += 2;
-          v33 = a2[v25];
-          if (strnicmpx(v33, -1, "true") && strnicmpx(v33, -1, "yes") && strnicmpx(v33, -1, "y") && strnicmpx(v33, -1, "on") && strnicmpx(v33, -1, "1"))
+          v18 += 2;
+          v21 = a2[v19];
+          if (strnicmpx(v21, -1, "true") && strnicmpx(v21, -1, "yes") && strnicmpx(v21, -1, "y") && strnicmpx(v21, -1, "on") && strnicmpx(v21, -1, "1"))
           {
-            if (strnicmpx(v33, -1, "false") && strnicmpx(v33, -1, "no") && strnicmpx(v33, -1, "n") && strnicmpx(v33, -1, "off") && strnicmpx(v33, -1, "0"))
+            if (strnicmpx(v21, -1, "false") && strnicmpx(v21, -1, "no") && strnicmpx(v21, -1, "n") && strnicmpx(v21, -1, "off") && strnicmpx(v21, -1, "0"))
             {
               goto LABEL_132;
             }
@@ -905,18 +905,18 @@ uint64_t TUInitialize(int a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, 
           }
         }
 
-        else if (!strcasecmp(v26, "--BreakOnFail"))
+        else if (!strcasecmp(v20, "--BreakOnFail"))
         {
-          if (v25 >= a1)
+          if (v19 >= a1)
           {
             goto LABEL_133;
           }
 
-          v24 += 2;
-          v34 = a2[v25];
-          if (strnicmpx(v34, -1, "true") && strnicmpx(v34, -1, "yes") && strnicmpx(v34, -1, "y") && strnicmpx(v34, -1, "on") && strnicmpx(v34, -1, "1"))
+          v18 += 2;
+          v22 = a2[v19];
+          if (strnicmpx(v22, -1, "true") && strnicmpx(v22, -1, "yes") && strnicmpx(v22, -1, "y") && strnicmpx(v22, -1, "on") && strnicmpx(v22, -1, "1"))
           {
-            if (strnicmpx(v34, -1, "false") && strnicmpx(v34, -1, "no") && strnicmpx(v34, -1, "n") && strnicmpx(v34, -1, "off") && strnicmpx(v34, -1, "0"))
+            if (strnicmpx(v22, -1, "false") && strnicmpx(v22, -1, "no") && strnicmpx(v22, -1, "n") && strnicmpx(v22, -1, "off") && strnicmpx(v22, -1, "0"))
             {
               goto LABEL_132;
             }
@@ -932,39 +932,39 @@ uint64_t TUInitialize(int a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
         else
         {
-          if (!strcasecmp(v26, "--ConvertTURtoJUnit"))
+          if (!strcasecmp(v20, "--ConvertTURtoJUnit"))
           {
-            if (v25 >= a1)
+            if (v19 >= a1)
             {
-              FPrintF(*v8, "#=error: '%s' option requires an input path argument\n", v27, v28, v29, v30, v31, v32, v26);
+              FPrintF(*v2, "#=error: '%s' option requires an input path argument\n");
             }
 
             else
             {
-              if (v24 + 2 < a1)
+              if (v18 + 2 < a1)
               {
-                v43 = TUConvertToJUnit(a2[v25], a2[v24 + 2]) != 0;
-                exit(v43);
+                v30 = TUConvertToJUnit(a2[v19], a2[v18 + 2]) != 0;
+                exit(v30);
               }
 
-              FPrintF(*v8, "#=error: '%s' option requires an output path argument\n", v27, v28, v29, v30, v31, v32, v26);
+              FPrintF(*v2, "#=error: '%s' option requires an output path argument\n");
             }
 
             exit(1);
           }
 
-          if (!strcasecmp(v26, "--DontRunLeaks"))
+          if (!strcasecmp(v20, "--DontRunLeaks"))
           {
-            if (v25 >= a1)
+            if (v19 >= a1)
             {
               goto LABEL_133;
             }
 
-            v24 += 2;
-            v35 = a2[v25];
-            if (strnicmpx(v35, -1, "true") && strnicmpx(v35, -1, "yes") && strnicmpx(v35, -1, "y") && strnicmpx(v35, -1, "on") && strnicmpx(v35, -1, "1"))
+            v18 += 2;
+            v23 = a2[v19];
+            if (strnicmpx(v23, -1, "true") && strnicmpx(v23, -1, "yes") && strnicmpx(v23, -1, "y") && strnicmpx(v23, -1, "on") && strnicmpx(v23, -1, "1"))
             {
-              if (strnicmpx(v35, -1, "false") && strnicmpx(v35, -1, "no") && strnicmpx(v35, -1, "n") && strnicmpx(v35, -1, "off") && strnicmpx(v35, -1, "0"))
+              if (strnicmpx(v23, -1, "false") && strnicmpx(v23, -1, "no") && strnicmpx(v23, -1, "n") && strnicmpx(v23, -1, "off") && strnicmpx(v23, -1, "0"))
               {
                 goto LABEL_132;
               }
@@ -978,21 +978,21 @@ uint64_t TUInitialize(int a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, 
             }
           }
 
-          else if (!strcasecmp(v26, "--ExcludeNonTestUtilsTests"))
+          else if (!strcasecmp(v20, "--ExcludeNonTestUtilsTests"))
           {
-            if (v25 >= a1)
+            if (v19 >= a1)
             {
               goto LABEL_133;
             }
 
-            v24 += 2;
-            v36 = a2[v25];
-            if (!strnicmpx(v36, -1, "true") || !strnicmpx(v36, -1, "yes") || !strnicmpx(v36, -1, "y") || !strnicmpx(v36, -1, "on") || !strnicmpx(v36, -1, "1"))
+            v18 += 2;
+            v24 = a2[v19];
+            if (!strnicmpx(v24, -1, "true") || !strnicmpx(v24, -1, "yes") || !strnicmpx(v24, -1, "y") || !strnicmpx(v24, -1, "on") || !strnicmpx(v24, -1, "1"))
             {
               goto LABEL_91;
             }
 
-            if (strnicmpx(v36, -1, "false") && strnicmpx(v36, -1, "no") && strnicmpx(v36, -1, "n") && strnicmpx(v36, -1, "off") && strnicmpx(v36, -1, "0"))
+            if (strnicmpx(v24, -1, "false") && strnicmpx(v24, -1, "no") && strnicmpx(v24, -1, "n") && strnicmpx(v24, -1, "off") && strnicmpx(v24, -1, "0"))
             {
               goto LABEL_132;
             }
@@ -1002,103 +1002,102 @@ uint64_t TUInitialize(int a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, 
 
           else
           {
-            if (!strcasecmp(v26, "--ExcludedTests"))
+            if (!strcasecmp(v20, "--ExcludedTests"))
             {
-              if (v25 >= a1)
+              if (v19 >= a1)
               {
                 goto LABEL_133;
               }
 
-              v24 += 2;
-              gTUExcludedTests = a2[v25];
+              v18 += 2;
+              gTUExcludedTests = a2[v19];
 LABEL_91:
               gTUExcludeNonTestUtilsTests = 1;
               continue;
             }
 
-            if (!strcasecmp(v26, "--Filter"))
+            if (!strcasecmp(v20, "--Filter"))
             {
-              if (v25 >= a1)
+              if (v19 >= a1)
               {
                 goto LABEL_133;
               }
 
-              v24 += 2;
-              gTUFilter = a2[v25];
+              v18 += 2;
+              gTUFilter = a2[v19];
               goto LABEL_91;
             }
 
-            if (!strcasecmp(v26, "--JUnitXMLOutputPath"))
+            if (!strcasecmp(v20, "--JUnitXMLOutputPath"))
             {
-              if (v25 >= a1)
+              if (v19 >= a1)
               {
                 goto LABEL_133;
               }
 
-              v24 += 2;
-              gTUJUnitXMLOutputPath = a2[v25];
+              v18 += 2;
+              gTUJUnitXMLOutputPath = a2[v19];
             }
 
-            else if (!strcasecmp(v26, "--Level"))
+            else if (!strcasecmp(v20, "--Level"))
             {
-              if (v25 >= a1)
+              if (v19 >= a1)
               {
                 goto LABEL_133;
               }
 
-              v24 += 2;
-              v37 = LUStringToLevel(a2[v25]);
-              if (v37 == -1)
+              v18 += 2;
+              v25 = LUStringToLevel(a2[v19]);
+              if (v25 == -1)
               {
                 goto LABEL_132;
               }
 
-              gTULogLevel = v37;
+              gTULogLevel = v25;
             }
 
             else
             {
-              if (!strcasecmp(v26, "--LogControl"))
+              if (!strcasecmp(v20, "--LogControl"))
               {
-                if (v25 < a1)
+                if (v19 < a1)
                 {
-                  v24 += 2;
-                  v38 = a2[v25];
-                  if (LogControl(v38))
+                  v18 += 2;
+                  if (LogControl(a2[v19]))
                   {
-                    FPrintF(*v8, "#=error: LogControl( %s) failed: %#m\n", a3, a4, a5, a6, a7, a8, v38);
+                    FPrintF(*v2, "#=error: LogControl( %s) failed: %#m\n");
                   }
 
                   continue;
                 }
 
 LABEL_133:
-                FPrintF(*v8, "#=error: '%s' option requires an argument\n", a3, a4, a5, a6, a7, a8, v26);
+                FPrintF(*v2, "#=error: '%s' option requires an argument\n");
                 goto LABEL_134;
               }
 
-              if (!strcasecmp(v26, "--OutputPath"))
+              if (!strcasecmp(v20, "--OutputPath"))
               {
-                if (v25 < a1)
+                if (v19 < a1)
                 {
-                  v24 += 2;
-                  v39 = a2[v25];
-                  v40 = fopen(v39, "w");
-                  if (v40 || *__error() && !*__error())
+                  v18 += 2;
+                  v26 = a2[v19];
+                  v27 = fopen(v26, "w");
+                  if (v27 || *__error() && !*__error())
                   {
                     if (gTUOutputFile && fclose(gTUOutputFile) && *__error())
                     {
                       __error();
                     }
 
-                    gTUOutputFile = v40;
-                    gTUOutputFilePtr = v40;
-                    gTUOutputPath = v39;
+                    gTUOutputFile = v27;
+                    gTUOutputFilePtr = v27;
+                    gTUOutputPath = v26;
                   }
 
                   else
                   {
-                    FPrintF(*v8, "#=error: Open output path '%s' failed: %#m\n", a3, a4, a5, a6, a7, a8, v39);
+                    FPrintF(*v2, "#=error: Open output path '%s' failed: %#m\n");
                   }
 
                   continue;
@@ -1107,67 +1106,67 @@ LABEL_133:
                 goto LABEL_133;
               }
 
-              if (!strcasecmp(v26, "--Qualifier"))
+              if (!strcasecmp(v20, "--Qualifier"))
               {
-                if (v25 >= a1)
+                if (v19 >= a1)
                 {
                   goto LABEL_133;
                 }
 
-                v24 += 2;
-                gTUQualifier = a2[v25];
+                v18 += 2;
+                gTUQualifier = a2[v19];
               }
 
               else
               {
-                if (strcasecmp(v26, "--StopOnFirstFail"))
+                if (strcasecmp(v20, "--StopOnFirstFail"))
                 {
-                  if (strcasecmp(v26, "--UserMode"))
+                  if (strcasecmp(v20, "--UserMode"))
                   {
-                    FPrintF(*v8, "#=error: unknown option '%s'\n", a3, a4, a5, a6, a7, a8, v26);
+                    FPrintF(*v2, "#=error: unknown option '%s'\n");
 LABEL_134:
-                    ++v24;
+                    ++v18;
                     continue;
                   }
 
-                  if (v25 >= a1)
+                  if (v19 >= a1)
                   {
                     goto LABEL_133;
                   }
 
-                  v24 += 2;
-                  v42 = a2[v25];
-                  if (!strnicmpx(v42, -1, "true") || !strnicmpx(v42, -1, "yes") || !strnicmpx(v42, -1, "y") || !strnicmpx(v42, -1, "on") || !strnicmpx(v42, -1, "1"))
+                  v18 += 2;
+                  v29 = a2[v19];
+                  if (!strnicmpx(v29, -1, "true") || !strnicmpx(v29, -1, "yes") || !strnicmpx(v29, -1, "y") || !strnicmpx(v29, -1, "on") || !strnicmpx(v29, -1, "1"))
                   {
                     gTUUserMode = 1;
                     continue;
                   }
 
-                  if (!strnicmpx(v42, -1, "false") || !strnicmpx(v42, -1, "no") || !strnicmpx(v42, -1, "n") || !strnicmpx(v42, -1, "off") || !strnicmpx(v42, -1, "0"))
+                  if (!strnicmpx(v29, -1, "false") || !strnicmpx(v29, -1, "no") || !strnicmpx(v29, -1, "n") || !strnicmpx(v29, -1, "off") || !strnicmpx(v29, -1, "0"))
                   {
                     gTUUserMode = 0;
                     continue;
                   }
 
 LABEL_132:
-                  FPrintF(*v8, "#=error: '%s' option bad argument '%s'\n", a3, a4, a5, a6, a7, a8, v26);
+                  FPrintF(*v2, "#=error: '%s' option bad argument '%s'\n");
                   continue;
                 }
 
-                if (v25 >= a1)
+                if (v19 >= a1)
                 {
                   goto LABEL_133;
                 }
 
-                v24 += 2;
-                v41 = a2[v25];
-                if (!strnicmpx(v41, -1, "true") || !strnicmpx(v41, -1, "yes") || !strnicmpx(v41, -1, "y") || !strnicmpx(v41, -1, "on") || !strnicmpx(v41, -1, "1"))
+                v18 += 2;
+                v28 = a2[v19];
+                if (!strnicmpx(v28, -1, "true") || !strnicmpx(v28, -1, "yes") || !strnicmpx(v28, -1, "y") || !strnicmpx(v28, -1, "on") || !strnicmpx(v28, -1, "1"))
                 {
                   gTUStopOnFirstFail = 0;
                   continue;
                 }
 
-                if (strnicmpx(v41, -1, "false") && strnicmpx(v41, -1, "no") && strnicmpx(v41, -1, "n") && strnicmpx(v41, -1, "off") && strnicmpx(v41, -1, "0"))
+                if (strnicmpx(v28, -1, "false") && strnicmpx(v28, -1, "no") && strnicmpx(v28, -1, "n") && strnicmpx(v28, -1, "off") && strnicmpx(v28, -1, "0"))
                 {
                   goto LABEL_132;
                 }
@@ -1179,7 +1178,7 @@ LABEL_132:
         }
       }
 
-      while (v24 < a1);
+      while (v18 < a1);
     }
   }
 
@@ -1190,37 +1189,37 @@ LABEL_132:
 
   if (gTUOutputPath)
   {
-    v14 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v14 = gTUJUnitXMLOutputPath == 0;
+    v8 = gTUJUnitXMLOutputPath == 0;
   }
 
-  if (!v14)
+  if (!v8)
   {
-    FPrintF(*v8, "#=error: --JUnitXMLOutputPath specified when not using a TU file\n", a3, a4, a5, a6, a7, a8, v44);
+    FPrintF(*v2, "#=error: --JUnitXMLOutputPath specified when not using a TU file\n");
   }
 
-  v15 = gTUOutputFilePtr;
+  v9 = gTUOutputFilePtr;
   if (!gTUOutputFilePtr)
   {
-    v15 = *v8;
-    gTUOutputFilePtr = *v8;
+    v9 = *v2;
+    gTUOutputFilePtr = *v2;
   }
 
-  setvbuf(v15, 0, 1, 0x400uLL);
+  setvbuf(v9, 0, 1, 0x400uLL);
   setvbuf(*MEMORY[0x1E69E9848], 0, 1, 0x400uLL);
-  setvbuf(*v8, 0, 1, 0x400uLL);
+  setvbuf(*v2, 0, 1, 0x400uLL);
   if (gTUBATSMode == 1)
   {
-    _TUPrintF("[TOOL] %s\n\n", v16, v17, v18, v19, v20, v21, v22, gTUProgramName);
+    _TUPrintF("[TOOL] %s\n\n", v10, v11, v12, v13, v14, v15, v16, gTUProgramName);
   }
 
   else if (!gTUUserMode)
   {
-    _TUPrintF("T=\n", v16, v17, v18, v19, v20, v21, v22, v44);
+    _TUPrintF("T=\n", v10, v11, v12, v13, v14, v15, v16, v31);
   }
 
   gTUTotalPasses = 0;
@@ -1232,7 +1231,7 @@ LABEL_132:
 
 uint64_t TUConvertToJUnit(uint64_t a1, uint64_t a2)
 {
-  v123 = 0;
+  v101 = 0;
   if (*a1 == 45 && !*(a1 + 1))
   {
     v2 = 0;
@@ -1247,14 +1246,14 @@ uint64_t TUConvertToJUnit(uint64_t a1, uint64_t a2)
     {
       if (!*__error())
       {
-        v10 = 4294960596;
-        goto LABEL_188;
+        v4 = 4294960596;
+        goto LABEL_189;
       }
 
-      v10 = *__error();
-      if (v10)
+      v4 = *__error();
+      if (v4)
       {
-        goto LABEL_188;
+        goto LABEL_189;
       }
 
       v2 = 0;
@@ -1262,57 +1261,57 @@ uint64_t TUConvertToJUnit(uint64_t a1, uint64_t a2)
     }
   }
 
-  v116 = v2;
+  v94 = v2;
   cf = 0;
-  v121 = 0;
+  v99 = 0;
   theArray = 0;
   LODWORD(Mutable) = 0;
   theDict = 0;
-  v12 = 0;
-  v13 = 0;
-  v14 = MEMORY[0x1E695E9C0];
+  v6 = 0;
+  v7 = 0;
+  v8 = MEMORY[0x1E695E9C0];
   while (1)
   {
-    v15 = fcopyline(v3, &v123, 0);
-    if (v15)
+    v9 = fcopyline(v3, &v101, 0);
+    if (v9)
     {
       break;
     }
 
     if (Mutable)
     {
-      v10 = 4294960560;
+      v4 = 4294960560;
       LODWORD(Mutable) = 1;
       goto LABEL_71;
     }
 
-    v16 = v123;
-    v17 = *v123;
-    if (!*v123 || *(v123 + 1) != 61)
+    v10 = v101;
+    v11 = *v101;
+    if (!*v101 || *(v101 + 1) != 61)
     {
       LODWORD(Mutable) = 0;
 LABEL_76:
-      v10 = 4294960554;
+      v4 = 4294960554;
       goto LABEL_71;
     }
 
     LODWORD(Mutable) = 0;
-    v129 = 0;
-    v130 = 0;
-    v131[0] = 0;
-    v127 = 0;
-    v128 = 0;
-    v126 = 0;
-    v124 = 0;
-    v125 = 0;
-    HIDWORD(v19) = v17 - 84;
-    LODWORD(v19) = v17 - 84;
-    v18 = v19 >> 1;
-    if (v18 > 13)
+    v107 = 0;
+    v108 = 0;
+    v109[0] = 0;
+    v105 = 0;
+    v106 = 0;
+    v104 = 0;
+    v102 = 0;
+    v103 = 0;
+    HIDWORD(v13) = v11 - 84;
+    LODWORD(v13) = v11 - 84;
+    v12 = v13 >> 1;
+    if (v12 > 13)
     {
-      if (v18 > 15)
+      if (v12 > 15)
       {
-        if (v18 == 16)
+        if (v12 == 16)
         {
           if (!theArray)
           {
@@ -1320,7 +1319,7 @@ LABEL_78:
             theArray = 0;
             LODWORD(Mutable) = 0;
 LABEL_95:
-            v10 = 4294960551;
+            v4 = 4294960551;
             goto LABEL_71;
           }
 
@@ -1328,7 +1327,7 @@ LABEL_95:
           {
 LABEL_79:
             LODWORD(Mutable) = 0;
-            v10 = 4294960575;
+            v4 = 4294960575;
             goto LABEL_71;
           }
 
@@ -1338,19 +1337,19 @@ LABEL_79:
             goto LABEL_98;
           }
 
-          if (!*(v16 + 2))
+          if (!*(v10 + 2))
           {
             LODWORD(Mutable) = 0;
-            v10 = 4294960552;
+            v4 = 4294960552;
             goto LABEL_71;
           }
 
-          CFDictionarySetCString(theDict, @"name", v16 + 2, -1);
+          CFDictionarySetCString(theDict, @"name", v10 + 2, -1);
           CFArrayAppendValue(theArray, theDict);
           LODWORD(Mutable) = 0;
         }
 
-        else if (v18 == 19)
+        else if (v12 == 19)
         {
           if (!theArray)
           {
@@ -1374,26 +1373,26 @@ LABEL_79:
 
           theDict = 0;
           cf = 0;
-          v12 = 0;
-          v13 = 0;
+          v6 = 0;
+          v7 = 0;
         }
 
         goto LABEL_70;
       }
 
-      if (v18 == 14)
+      if (v12 == 14)
       {
-        if (theDict && v12)
+        if (theDict && v6)
         {
 LABEL_80:
           LODWORD(Mutable) = 0;
-          v10 = 4294960560;
+          v4 = 4294960560;
 LABEL_83:
-          v12 = 1;
+          v6 = 1;
           goto LABEL_71;
         }
 
-        appended = _TUConvertToJUnitParseAssertion(v123 + 2, &v130, &v128, &v127, &v126, &v125, &v124);
+        appended = _TUConvertToJUnitParseAssertion(v101 + 2, &v108, &v106, &v105, &v104, &v103, &v102);
 LABEL_64:
         LODWORD(Mutable) = 0;
         if (!appended)
@@ -1401,31 +1400,30 @@ LABEL_64:
           goto LABEL_70;
         }
 
-        v10 = appended;
+        v4 = appended;
         goto LABEL_71;
       }
 
-      if (v12)
+      if (v6)
       {
         LODWORD(Mutable) = 0;
-        v10 = 4294960566;
+        v4 = 4294960566;
         goto LABEL_83;
       }
 
-      if (sscanf(v123 + 2, "%u/%u", &v129 + 4, &v129) != 2)
+      if (sscanf(v101 + 2, "%u/%u", &v107 + 4, &v107) != 2)
       {
         LODWORD(Mutable) = 0;
-        v12 = 0;
+        v6 = 0;
         goto LABEL_76;
       }
 
-      v4 = HIDWORD(v129);
-      if (HIDWORD(v129) > v129)
+      if (HIDWORD(v107) > v107)
       {
         LODWORD(Mutable) = 0;
-        v12 = 0;
+        v6 = 0;
 LABEL_92:
-        v10 = 4294960586;
+        v4 = 4294960586;
         goto LABEL_71;
       }
 
@@ -1433,40 +1431,40 @@ LABEL_92:
       if (!theDict)
       {
         theDict = 0;
-        v12 = 0;
+        v6 = 0;
         goto LABEL_95;
       }
 
-      v20 = CFDictionarySetInt64(theDict, @"passes", HIDWORD(v129));
-      if (v20)
+      v14 = CFDictionarySetInt64(theDict, @"passes", HIDWORD(v107));
+      if (v14)
       {
-        v10 = v20;
+        v4 = v14;
         LODWORD(Mutable) = 0;
-        v12 = 0;
+        v6 = 0;
       }
 
       else
       {
-        v25 = CFDictionarySetInt64(theDict, @"total", v129);
+        v24 = CFDictionarySetInt64(theDict, @"total", v107);
         LODWORD(Mutable) = 0;
-        if (!v25)
+        if (!v24)
         {
-          v12 = 1;
+          v6 = 1;
           goto LABEL_70;
         }
 
-        v10 = v25;
-        v12 = 0;
+        v4 = v24;
+        v6 = 0;
       }
     }
 
     else
     {
-      if (v18 <= 7)
+      if (v12 <= 7)
       {
-        if (v18)
+        if (v12)
         {
-          if (v18 == 3)
+          if (v12 == 3)
           {
             if (!theArray)
             {
@@ -1476,7 +1474,7 @@ LABEL_92:
             if (theDict)
             {
               LODWORD(Mutable) = 0;
-              v10 = 4294960560;
+              v4 = 4294960560;
               goto LABEL_71;
             }
 
@@ -1493,7 +1491,7 @@ LABEL_92:
           }
 
           LODWORD(Mutable) = 0;
-          theArray = CFArrayCreateMutable(0, 0, v14);
+          theArray = CFArrayCreateMutable(0, 0, v8);
           if (!theArray)
           {
             theArray = 0;
@@ -1504,17 +1502,17 @@ LABEL_92:
         goto LABEL_70;
       }
 
-      if (v18 != 8)
+      if (v12 != 8)
       {
-        if (v18 != 9)
+        if (v12 != 9)
         {
           goto LABEL_70;
         }
 
-        Mutable = v121;
+        Mutable = v99;
         if (theDict)
         {
-          if (v12)
+          if (v6)
           {
             goto LABEL_80;
           }
@@ -1522,11 +1520,11 @@ LABEL_92:
           Mutable = cf;
           if (!cf)
           {
-            Mutable = CFArrayCreateMutable(0, 0, v14);
+            Mutable = CFArrayCreateMutable(0, 0, v8);
             if (!Mutable)
             {
               cf = 0;
-              v12 = 0;
+              v6 = 0;
               goto LABEL_99;
             }
 
@@ -1535,41 +1533,46 @@ LABEL_92:
           }
         }
 
-        else if (!v121)
+        else if (!v99)
         {
-          v23 = CFArrayCreateMutable(0, 0, v14);
-          if (!v23)
+          v17 = CFArrayCreateMutable(0, 0, v8);
+          if (!v17)
           {
-            v121 = 0;
+            v99 = 0;
 LABEL_98:
             LODWORD(Mutable) = 0;
             theDict = 0;
 LABEL_99:
-            v10 = 4294960568;
+            v4 = 4294960568;
             goto LABEL_71;
           }
 
-          v121 = v23;
-          Mutable = v23;
+          v99 = v17;
+          Mutable = v17;
         }
 
-        v24 = _TUConvertToJUnitParseAssertion(v16 + 2, &v130, &v128, &v127, &v126, &v125, &v124);
-        if (v24)
+        v18 = _TUConvertToJUnitParseAssertion(v10 + 2, &v108, &v106, &v105, &v104, &v103, &v102);
+        if (v18)
         {
-          v10 = v24;
+          v4 = v18;
           LODWORD(Mutable) = 0;
           goto LABEL_71;
         }
 
-        appended = CFPropertyListAppendFormatted(0, Mutable, "{%kO=%.*s%kO=%.*s%kO=%.*s}", v5, v6, v7, v8, v9, @"type");
+        v90 = v102;
+        v91 = v103;
+        v88 = v105;
+        v89 = @"detail";
+        v87 = v104;
+        appended = CFPropertyListAppendFormatted(0, Mutable, "{%kO=%.*s%kO=%.*s%kO=%.*s}", v19, v20, v21, v22, v23, @"type");
         goto LABEL_64;
       }
 
-      if (v13)
+      if (v7)
       {
         LODWORD(Mutable) = 0;
-        v10 = 4294960566;
-        v13 = 1;
+        v4 = 4294960566;
+        v7 = 1;
         goto LABEL_71;
       }
 
@@ -1577,401 +1580,413 @@ LABEL_99:
       {
         LODWORD(Mutable) = 0;
         theDict = 0;
-        v13 = 0;
+        v7 = 0;
         goto LABEL_95;
       }
 
-      if (sscanf(v123 + 2, "%lfs", v131) != 1)
+      if (sscanf(v101 + 2, "%lfs", v109) != 1)
       {
         LODWORD(Mutable) = 0;
-        v13 = 0;
+        v7 = 0;
         goto LABEL_76;
       }
 
-      if (*v131 < 0.0)
+      if (*v109 < 0.0)
       {
         LODWORD(Mutable) = 0;
-        v13 = 0;
+        v7 = 0;
         goto LABEL_92;
       }
 
-      v22 = CFDictionarySetDouble(theDict, @"duration", *v131);
+      v16 = CFDictionarySetDouble(theDict, @"duration", *v109);
       LODWORD(Mutable) = 0;
-      if (!v22)
+      if (!v16)
       {
-        v13 = 1;
+        v7 = 1;
 LABEL_70:
-        v10 = 0;
+        v4 = 0;
         goto LABEL_71;
       }
 
-      v10 = v22;
-      v13 = 0;
+      v4 = v16;
+      v7 = 0;
     }
 
 LABEL_71:
-    if (v123)
+    if (v101)
     {
-      free(v123);
-      v123 = 0;
+      free(v101);
+      v101 = 0;
     }
 
-    if (v10)
+    if (v4)
     {
-      goto LABEL_175;
+      goto LABEL_176;
     }
   }
 
-  if (v15 != -6752)
+  if (v9 != -6752)
   {
-    v10 = 4294960550;
-    goto LABEL_175;
+    v4 = 4294960550;
+    goto LABEL_176;
   }
 
   if (!Mutable)
   {
-    v10 = 4294960560;
-    goto LABEL_175;
+    v4 = 4294960560;
+    goto LABEL_176;
   }
 
-  LODWORD(v128) = 0;
-  v130 = 0;
-  v131[0] = 0;
+  LODWORD(v106) = 0;
+  v108 = 0;
+  v109[0] = 0;
   if (*a2 == 45 && !*(a2 + 1))
   {
-    v29 = 0;
-    v28 = *MEMORY[0x1E69E9858];
-    v27 = theArray;
+    v28 = 0;
+    v27 = *MEMORY[0x1E69E9858];
+    v26 = theArray;
     goto LABEL_110;
   }
 
-  v26 = fopen(a2, "w");
-  v27 = theArray;
-  if (v26)
+  v25 = fopen(a2, "w");
+  v26 = theArray;
+  if (v25)
   {
-    v28 = v26;
-    LODWORD(v128) = 0;
-    v29 = v26;
+    v27 = v25;
+    LODWORD(v106) = 0;
+    v28 = v25;
     goto LABEL_110;
   }
 
   if (!*__error())
   {
-    v29 = 0;
-    LODWORD(v128) = -6700;
-    goto LABEL_166;
+    v28 = 0;
+    LODWORD(v106) = -6700;
+    goto LABEL_167;
   }
 
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  LODWORD(v128) = *__error();
-  if (!v128)
+  LODWORD(v106) = *__error();
+  if (!v106)
   {
 LABEL_110:
-    FPrintF(v28, "<?xml version=1.0 encoding=UTF-8 ?>\n", v4, v5, v6, v7, v8, v9, v109);
-    FPrintF(v28, "<testsuites>\n", v30, v31, v32, v33, v34, v35, v110);
-    v36 = 0.0;
-    v114 = v29;
-    if (v27)
+    FPrintF(v27, "<?xml version=1.0 encoding=UTF-8 ?>\n");
+    FPrintF(v27, "<testsuites>\n");
+    v29 = 0.0;
+    v92 = v28;
+    if (v26)
     {
-      Count = CFArrayGetCount(v27);
+      Count = CFArrayGetCount(v26);
       if (Count >= 1)
       {
-        v37 = 0;
-        LODWORD(v38) = 0;
-        v39 = 0;
+        v30 = 0;
+        v31 = 0;
+        v32 = 0;
         while (1)
         {
           TypeID = CFDictionaryGetTypeID();
-          TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v27, v37, TypeID, &v128);
-          if (v128)
+          TypedValueAtIndex = CFArrayGetTypedValueAtIndex(v26, v30, TypeID, &v106);
+          if (v106)
           {
             break;
           }
 
-          v42 = TypedValueAtIndex;
-          Int64Ranged = CFDictionaryGetInt64Ranged(TypedValueAtIndex, @"total", 0, 0xFFFFFFFFLL, &v128);
-          if (v128)
+          v35 = TypedValueAtIndex;
+          Int64Ranged = CFDictionaryGetInt64Ranged(TypedValueAtIndex, @"total", 0, 0xFFFFFFFFLL, &v106);
+          if (v106)
           {
             break;
           }
 
-          v44 = Int64Ranged;
-          v38 = Int64Ranged ? (v38 + 1) : v38;
-          v45 = CFDictionaryGetInt64Ranged(v42, @"passes", 0, 0xFFFFFFFFLL, &v128);
-          if (v128)
+          v37 = Int64Ranged;
+          if (Int64Ranged)
+          {
+            ++v31;
+          }
+
+          v38 = CFDictionaryGetInt64Ranged(v35, @"passes", 0, 0xFFFFFFFFLL, &v106);
+          if (v106)
           {
             break;
           }
 
-          v46 = v45;
-          Double = CFDictionaryGetDouble(v42, @"duration", &v128);
-          if (v128)
+          v39 = v38;
+          Double = CFDictionaryGetDouble(v35, @"duration", &v106);
+          if (v106)
           {
             break;
           }
 
-          if (v44 != v46)
+          if (v37 != v39)
           {
-            ++v39;
+            ++v32;
           }
 
-          v36 = v36 + Double;
-          ++v37;
-          v27 = theArray;
-          if (Count == v37)
+          v29 = v29 + Double;
+          ++v30;
+          v26 = theArray;
+          if (Count == v30)
           {
-            v48 = 1;
-            goto LABEL_127;
+            v41 = 1;
+            goto LABEL_126;
           }
         }
 
-LABEL_165:
-        v29 = v114;
-        goto LABEL_166;
+LABEL_166:
+        v28 = v92;
+        goto LABEL_167;
       }
 
-      v48 = 0;
+      v41 = 0;
     }
 
     else
     {
-      v48 = 0;
+      v41 = 0;
       Count = 0;
     }
 
-    v38 = 0;
-LABEL_127:
-    if (v121)
+    v32 = 0;
+    v31 = 0;
+LABEL_126:
+    v42 = v99;
+    if (v99)
     {
-      CFArrayGetCount(v121);
+      v42 = CFArrayGetCount(v99);
     }
 
-    FPrintF(v28, "\t<testsuite name=AllTests tests=%u failures=%u time=%f>\n", v4, v5, v6, v7, v8, v9, v38);
-    if (v48)
+    FPrintF(v27, "\t<testsuite name=AllTests tests=%u failures=%u time=%f>\n", v31, v42 + v32, v29);
+    if (v41)
     {
-      v49 = 0;
+      v43 = 0;
       while (1)
       {
-        v50 = CFDictionaryGetTypeID();
-        v51 = CFArrayGetTypedValueAtIndex(v27, v49, v50, &v128);
-        if (v128)
+        v44 = CFDictionaryGetTypeID();
+        v45 = CFArrayGetTypedValueAtIndex(v26, v43, v44, &v106);
+        if (v106)
         {
           break;
         }
 
-        v52 = v51;
-        v53 = CFStringGetTypeID();
-        TypedValue = CFDictionaryGetTypedValue(v52, @"name", v53, &v128);
-        if (v128)
+        v46 = v45;
+        v47 = CFStringGetTypeID();
+        TypedValue = CFDictionaryGetTypedValue(v46, @"name", v47, &v106);
+        if (v106)
         {
           break;
         }
 
-        v55 = TypedValue;
-        v56 = CFDictionaryGetInt64Ranged(v52, @"total", 0, 0xFFFFFFFFLL, &v128);
-        if (v128)
+        v49 = TypedValue;
+        v50 = CFDictionaryGetInt64Ranged(v46, @"total", 0, 0xFFFFFFFFLL, &v106);
+        if (v106)
         {
           break;
         }
 
-        v57 = v56;
-        v58 = CFDictionaryGetInt64Ranged(v52, @"passes", 0, 0xFFFFFFFFLL, &v128);
-        if (v128)
+        v51 = v50;
+        v52 = CFDictionaryGetInt64Ranged(v46, @"passes", 0, 0xFFFFFFFFLL, &v106);
+        if (v106)
         {
           break;
         }
 
-        v59 = v58;
-        CFDictionaryGetDouble(v52, @"duration", &v128);
-        if (v128)
+        v53 = v52;
+        v54 = CFDictionaryGetDouble(v46, @"duration", &v106);
+        if (v106)
         {
           break;
         }
 
-        FPrintF(v28, "\t\t<testcase name=%@ classname=%@ time=%f%s>\n", v4, v5, v6, v7, v8, v9, v55);
-        v60 = CFArrayGetTypeID();
-        v61 = CFDictionaryGetTypedValue(v52, @"failures", v60, 0);
-        if ((v57 != v59) != (v61 != 0))
+        v55 = "/";
+        if (v51 != v53)
         {
-          LODWORD(v128) = -6762;
-          goto LABEL_165;
+          v55 = "";
         }
 
-        v62 = v61;
-        if (v61)
+        FPrintF(v27, "\t\t<testcase name=%@ classname=%@ time=%f%s>\n", v49, v49, *&v54, v55, v87, v88, v89, v90, v91);
+        v56 = CFArrayGetTypeID();
+        v57 = CFDictionaryGetTypedValue(v46, @"failures", v56, 0);
+        if ((v51 != v53) != (v57 != 0))
         {
-          v63 = CFArrayGetCount(v61);
-          if (v63 >= 1)
+          LODWORD(v106) = -6762;
+          goto LABEL_166;
+        }
+
+        v58 = v57;
+        if (v57)
+        {
+          v59 = CFArrayGetCount(v57);
+          if (v59 >= 1)
           {
-            v64 = v63;
-            v65 = 0;
+            v60 = v59;
+            v61 = 0;
             do
             {
-              v66 = CFDictionaryGetTypeID();
-              v67 = CFArrayGetTypedValueAtIndex(v62, v65, v66, &v128);
-              if (v128)
+              v62 = CFDictionaryGetTypeID();
+              v63 = CFArrayGetTypedValueAtIndex(v58, v61, v62, &v106);
+              if (v106)
               {
-                goto LABEL_165;
+                goto LABEL_166;
               }
 
-              v68 = v67;
-              v69 = CFStringGetTypeID();
-              v70 = CFDictionaryGetTypedValue(v68, @"type", v69, &v128);
-              if (v128)
+              v64 = v63;
+              v65 = CFStringGetTypeID();
+              v66 = CFDictionaryGetTypedValue(v64, @"type", v65, &v106);
+              if (v106)
               {
-                goto LABEL_165;
+                goto LABEL_166;
+              }
+
+              v67 = v66;
+              v68 = CFDictionaryCopyCString(v64, @"message", &v106);
+              if (v106)
+              {
+                goto LABEL_166;
+              }
+
+              v69 = v68;
+              LODWORD(v106) = XMLEscapeCopy(v68, v109);
+              free(v69);
+              if (v106)
+              {
+                goto LABEL_166;
+              }
+
+              v70 = CFDictionaryCopyCString(v64, @"detail", &v106);
+              if (v106)
+              {
+                goto LABEL_166;
               }
 
               v71 = v70;
-              v72 = CFDictionaryCopyCString(v68, @"message", &v128);
-              if (v128)
+              LODWORD(v106) = XMLEscapeCopy(v70, &v108);
+              free(v71);
+              if (v106)
               {
-                goto LABEL_165;
+                goto LABEL_166;
               }
 
-              v73 = v72;
-              LODWORD(v128) = XMLEscapeCopy(v72, v131);
-              free(v73);
-              if (v128)
+              v72 = v108;
+              v73 = v109[0];
+              FPrintF(v27, "\t\t\t<failure type=%@ message=%s>%s</failure>\n", v67, v109[0], v108);
+              if (v73)
               {
-                goto LABEL_165;
+                free(v73);
+                v109[0] = 0;
               }
 
-              v74 = CFDictionaryCopyCString(v68, @"detail", &v128);
-              if (v128)
+              if (v72)
               {
-                goto LABEL_165;
-              }
-
-              v75 = v74;
-              LODWORD(v128) = XMLEscapeCopy(v74, &v130);
-              free(v75);
-              if (v128)
-              {
-                goto LABEL_165;
-              }
-
-              v76 = v130;
-              v77 = v131[0];
-              FPrintF(v28, "\t\t\t<failure type=%@ message=%s>%s</failure>\n", v4, v5, v6, v7, v8, v9, v71);
-              if (v77)
-              {
-                free(v77);
-                v131[0] = 0;
-              }
-
-              if (v76)
-              {
-                free(v76);
-                v130 = 0;
+                free(v72);
+                v108 = 0;
               }
             }
 
-            while (v64 != ++v65);
+            while (v60 != ++v61);
           }
         }
 
-        v27 = theArray;
-        if (v57 != v59)
+        v26 = theArray;
+        if (v51 != v53)
         {
-          FPrintF(v28, "\t\t</testcase>\n", v4, v5, v6, v7, v8, v9, v111);
+          FPrintF(v27, "\t\t</testcase>\n");
         }
 
-        if (++v49 == Count)
+        if (++v43 == Count)
         {
-          goto LABEL_154;
+          goto LABEL_155;
         }
       }
     }
 
     else
     {
-LABEL_154:
-      if (v121 && (v78 = CFArrayGetCount(v121), v78 >= 1))
+LABEL_155:
+      if (v99 && (v74 = CFArrayGetCount(v99), v74 >= 1))
       {
-        v79 = v78;
-        v80 = 0;
+        v75 = v74;
+        v76 = 0;
         while (1)
         {
-          v81 = CFDictionaryGetTypeID();
-          v82 = CFArrayGetTypedValueAtIndex(v121, v80, v81, &v128);
-          if (v128)
+          v77 = CFDictionaryGetTypeID();
+          v78 = CFArrayGetTypedValueAtIndex(v99, v76, v77, &v106);
+          if (v106)
           {
             break;
           }
 
-          v83 = v82;
-          v84 = CFStringGetTypeID();
-          v85 = CFDictionaryGetTypedValue(v83, @"type", v84, &v128);
-          if (v128)
+          v79 = v78;
+          v80 = CFStringGetTypeID();
+          v81 = CFDictionaryGetTypedValue(v79, @"type", v80, &v106);
+          if (v106)
           {
             break;
           }
 
-          v86 = v85;
-          v87 = CFDictionaryCopyCString(v83, @"message", &v128);
-          if (v128)
+          v82 = v81;
+          v83 = CFDictionaryCopyCString(v79, @"message", &v106);
+          if (v106)
           {
             break;
           }
 
-          v88 = v87;
-          LODWORD(v128) = XMLEscapeCopy(v87, v131);
-          free(v88);
-          if (v128)
+          v84 = v83;
+          LODWORD(v106) = XMLEscapeCopy(v83, v109);
+          free(v84);
+          if (v106)
           {
             break;
           }
 
-          FPrintF(v28, "\t\t<testcase name=global.%@ classname=global.%@>\n", v4, v5, v6, v7, v8, v9, v86);
-          v89 = v131[0];
-          FPrintF(v28, "\t\t\t<failure type=%@ message=%s/>\n", v90, v91, v92, v93, v94, v95, v86);
-          FPrintF(v28, "\t\t</testcase>\n", v96, v97, v98, v99, v100, v101, v112);
-          if (v89)
+          FPrintF(v27, "\t\t<testcase name=global.%@ classname=global.%@>\n", v82, v82);
+          v85 = v109[0];
+          FPrintF(v27, "\t\t\t<failure type=%@ message=%s/>\n", v82, v109[0], v108);
+          FPrintF(v27, "\t\t</testcase>\n");
+          if (v85)
           {
-            free(v89);
-            v131[0] = 0;
+            free(v85);
+            v109[0] = 0;
           }
 
-          if (v79 == ++v80)
+          if (v75 == ++v76)
           {
-            goto LABEL_164;
+            goto LABEL_165;
           }
         }
       }
 
       else
       {
-LABEL_164:
-        FPrintF(v28, "\t</testsuite>\n", v4, v5, v6, v7, v8, v9, v111);
-        FPrintF(v28, "</testsuites>\n", v102, v103, v104, v105, v106, v107, v113);
-        LODWORD(v128) = 0;
+LABEL_165:
+        FPrintF(v27, "\t</testsuite>\n");
+        FPrintF(v27, "</testsuites>\n");
+        LODWORD(v106) = 0;
       }
     }
 
-    goto LABEL_165;
+    goto LABEL_166;
   }
 
-LABEL_166:
-  if (v131[0])
+LABEL_167:
+  if (v109[0])
   {
-    free(v131[0]);
+    free(v109[0]);
   }
 
-  if (v130)
+  if (v108)
   {
-    free(v130);
+    free(v108);
   }
 
-  if (v29 && fclose(v29) && *__error())
+  if (v28 && fclose(v28) && *__error())
   {
     __error();
   }
 
-  v10 = v128;
-LABEL_175:
-  if (v116 && fclose(v116) && *__error())
+  v4 = v106;
+LABEL_176:
+  if (v94 && fclose(v94) && *__error())
   {
     __error();
   }
@@ -1981,9 +1996,9 @@ LABEL_175:
     CFRelease(theArray);
   }
 
-  if (v121)
+  if (v99)
   {
-    CFRelease(v121);
+    CFRelease(v99);
   }
 
   if (theDict)
@@ -1996,27 +2011,27 @@ LABEL_175:
     CFRelease(cf);
   }
 
-  if (v10)
+  if (v4)
   {
-LABEL_188:
-    FPrintF(*MEMORY[0x1E69E9858], "#=error: Convert TestUtils '%s' to JUnit '%s' failed: %#m\n", v4, v5, v6, v7, v8, v9, a1);
+LABEL_189:
+    FPrintF(*MEMORY[0x1E69E9858], "#=error: Convert TestUtils '%s' to JUnit '%s' failed: %#m\n", a1, a2);
   }
 
-  return v10;
+  return v4;
 }
 
-uint64_t _TUPrintFCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _TUPrintFCallback(const char *a1, uint64_t a2)
 {
   if (a2)
   {
     if (gTUOutputFilePtr)
     {
-      FPrintF(gTUOutputFilePtr, "%.*s", a3, a4, a5, a6, a7, a8, a2);
+      FPrintF(gTUOutputFilePtr, "%.*s", a2, a1);
     }
 
     if (!gTUUserMode && (gTUBATSMode & 1) == 0)
     {
-      FPrintF(*MEMORY[0x1E69E9848], "%.*s", a3, a4, a5, a6, a7, a8, a2);
+      FPrintF(*MEMORY[0x1E69E9848], "%.*s", a2, a1);
     }
   }
 
@@ -2106,17 +2121,17 @@ LABEL_27:
 
 void TUFinalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   if (gTUDontRunLeaks)
   {
     goto LABEL_64;
   }
 
   v8 = gTUBreakOnFail;
-  v66 = 0;
+  v62 = 0;
   if (gTUBATSMode == 1)
   {
-    _TUPrintF("[BEGIN] Leaks\n", a2, a3, a4, a5, a6, a7, a8, v64);
+    _TUPrintF("[BEGIN] Leaks\n", a2, a3, a4, a5, a6, a7, a8, v60);
   }
 
   v9 = mach_absolute_time();
@@ -2140,21 +2155,21 @@ void TUFinalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
     }
 
 LABEL_31:
-    v26 = mach_absolute_time() - v9;
+    v22 = mach_absolute_time() - v9;
 LABEL_37:
     atomic_fetch_add(&gTUTotalFailures, 1u);
     if ((gTUUserMode != 0) | gTUBATSMode & 1)
     {
-      v28 = "### Leaks: FAILED: ";
+      v24 = "### Leaks: FAILED: ";
     }
 
     else
     {
-      v28 = "f=leaks:";
+      v24 = "f=leaks:";
     }
 
-    _TUPrintF(v28, a2, a3, a4, a5, a6, a7, a8, v64);
-    v27 = 0;
+    _TUPrintF(v24, a2, a3, a4, a5, a6, a7, a8, v60);
+    v23 = 0;
     goto LABEL_41;
   }
 
@@ -2206,7 +2221,7 @@ LABEL_29:
     }
 
 LABEL_120:
-    v25 = 0;
+    v21 = 0;
     goto LABEL_34;
   }
 
@@ -2252,7 +2267,7 @@ LABEL_28:
   {
     v12 = 0;
 LABEL_33:
-    v25 = 1;
+    v21 = 1;
     goto LABEL_34;
   }
 
@@ -2260,7 +2275,7 @@ LABEL_18:
   if (gTULogLevel > 50)
   {
 LABEL_25:
-    v25 = 0;
+    v21 = 0;
     v12 = 0;
     goto LABEL_34;
   }
@@ -2271,14 +2286,14 @@ LABEL_25:
 LABEL_22:
     while (1)
     {
-      v20 = fcopyline(v19, &v66, 0);
+      v20 = fcopyline(v19, &v62, 0);
       if (v20)
       {
         break;
       }
 
-      TULogF(v20, 50, "Leaks: ", "%s", v21, v22, v23, v24, v66);
-      free(v66);
+      TULogF(v20, 50, "Leaks: ", "%s", v62);
+      free(v62);
     }
 
     fclose(v19);
@@ -2296,12 +2311,12 @@ LABEL_22:
     goto LABEL_120;
   }
 
-  v25 = 0;
+  v21 = 0;
   v12 = 4294960596;
 LABEL_34:
   remove(__filename, v15);
-  v26 = mach_absolute_time() - v9;
-  if ((v25 & 1) == 0)
+  v22 = mach_absolute_time() - v9;
+  if ((v21 & 1) == 0)
   {
     goto LABEL_37;
   }
@@ -2310,46 +2325,46 @@ LABEL_34:
   {
     if ((gTUUserMode != 0) | gTUBATSMode & 1)
     {
-      v50 = "Leaks: passed";
+      v46 = "Leaks: passed";
     }
 
     else
     {
-      v50 = "p=leaks:";
+      v46 = "p=leaks:";
     }
 
-    _TUPrintF(v50, a2, a3, a4, a5, a6, a7, a8, v64);
-    v27 = 1;
+    _TUPrintF(v46, a2, a3, a4, a5, a6, a7, a8, v60);
+    v23 = 1;
     if (gTUUserMode)
     {
 LABEL_47:
       if (v12)
       {
-        _TUPrintF(", %#m", v29, v30, v31, v32, v33, v34, v35, v12);
+        _TUPrintF(", %#m", v25, v26, v27, v28, v29, v30, v31, v12);
       }
 
-      _TUPrintF("\n", v29, v30, v31, v32, v33, v34, v35, v65);
+      _TUPrintF("\n", v25, v26, v27, v28, v29, v30, v31, v61);
       goto LABEL_50;
     }
 
 LABEL_41:
-    v36 = "/Library/Caches/com.apple.xbs/Sources/CoreUtils/CoreUtils/TestUtils.c";
+    v32 = "/Library/Caches/com.apple.xbs/Sources/CoreUtils/CoreUtils/TestUtils.c";
     for (i = "Library/Caches/com.apple.xbs/Sources/CoreUtils/CoreUtils/TestUtils.c"; ; ++i)
     {
       if (*(i - 1) == 47)
       {
-        v36 = i;
+        v32 = i;
       }
 
       else if (!*(i - 1))
       {
-        _TUPrintF("%s:%ld, %###s()", v29, v30, v31, v32, v33, v34, v35, v36);
+        _TUPrintF("%s:%ld, %###s()", v25, v26, v27, v28, v29, v30, v31, v32);
         goto LABEL_47;
       }
     }
   }
 
-  v27 = 1;
+  v23 = 1;
 LABEL_50:
   if (gTUBATSMode == 1)
   {
@@ -2358,32 +2373,32 @@ LABEL_50:
       dispatch_once_f(&sUpTicksToSecondsOnce, &sUpTicksToSecondsMultiplier, _UpTicksToSecondsInit);
     }
 
-    _TUPrintF("# %.6f seconds\n", a2, a3, a4, a5, a6, a7, a8, COERCE__INT64(*&sUpTicksToSecondsMultiplier * v26));
-    v45 = "[FAIL]";
-    if (v27)
+    _TUPrintF("# %.6f seconds\n", a2, a3, a4, a5, a6, a7, a8, COERCE__INT64(*&sUpTicksToSecondsMultiplier * v22));
+    v41 = "[FAIL]";
+    if (v23)
     {
-      v45 = "[PASS]";
+      v41 = "[PASS]";
     }
 
-    _TUPrintF("%s Leaks\n\n", v38, v39, v40, v41, v42, v43, v44, v45);
+    _TUPrintF("%s Leaks\n\n", v34, v35, v36, v37, v38, v39, v40, v41);
   }
 
   if (gTUXCTestFailer)
   {
-    v46 = v27;
+    v42 = v23;
   }
 
   else
   {
-    v46 = 1;
+    v42 = 1;
   }
 
-  if ((v46 & 1) == 0)
+  if ((v42 & 1) == 0)
   {
     (*(gTUXCTestFailer + 16))();
   }
 
-  if (((v27 | v8) & 1) == 0 && DebugIsDebuggerPresent())
+  if (((v23 | v8) & 1) == 0 && DebugIsDebuggerPresent())
   {
     __debugbreak();
   }
@@ -2391,38 +2406,38 @@ LABEL_50:
 LABEL_64:
   if (gTUBATSMode == 1)
   {
-    _TUPrintF("[SUMMARY]\n", a2, a3, a4, a5, a6, a7, a8, v64);
-    v47 = gTUBATSMode;
+    _TUPrintF("[SUMMARY]\n", a2, a3, a4, a5, a6, a7, a8, v60);
+    v43 = gTUBATSMode;
   }
 
   else
   {
-    v47 = 0;
+    v43 = 0;
   }
 
   if (gTUUserMode)
   {
-    v48 = 0;
+    v44 = 0;
   }
 
   else
   {
-    v48 = v47 == 0;
+    v44 = v43 == 0;
   }
 
-  if (!v48)
+  if (!v44)
   {
     if (gTUTotalFailures)
     {
-      v49 = gTUTotalExpectedTests;
+      v45 = gTUTotalExpectedTests;
       goto LABEL_74;
     }
 
-    v49 = gTUTotalExpectedTests;
+    v45 = gTUTotalExpectedTests;
     if (gTUTotalPasses < gTUTotalExpectedTests)
     {
 LABEL_74:
-      if (v49 < 1)
+      if (v45 < 1)
       {
         _TUPrintF("### %d tests failed, %d tests passed\n", a2, a3, a4, a5, a6, a7, a8, gTUTotalFailures);
       }
@@ -2437,31 +2452,31 @@ LABEL_74:
 
     if (gTUUserMode)
     {
-      _TUPrintF("\n", a2, a3, a4, a5, a6, a7, a8, v64);
+      _TUPrintF("\n", a2, a3, a4, a5, a6, a7, a8, v60);
     }
 
-    v51 = gTUSuitePasses;
+    v47 = gTUSuitePasses;
     mach_absolute_time();
     if (sUpTicksToSecondsOnce != -1)
     {
       dispatch_once_f(&sUpTicksToSecondsOnce, &sUpTicksToSecondsMultiplier, _UpTicksToSecondsInit);
     }
 
-    _TUPrintF("All %d suites, %d tests passed (%.6f seconds)\n", v52, v53, v54, v55, v56, v57, v58, v51);
+    _TUPrintF("All %d suites, %d tests passed (%.6f seconds)\n", v48, v49, v50, v51, v52, v53, v54, v47);
   }
 
 LABEL_87:
-  v59 = (gTUTotalFailures + gTUTotalPasses);
-  if (gTUTotalFailures + gTUTotalPasses && (!gTUTotalExpectedTests || v59 == gTUTotalExpectedTests))
+  v55 = (gTUTotalFailures + gTUTotalPasses);
+  if (gTUTotalFailures + gTUTotalPasses && (!gTUTotalExpectedTests || v55 == gTUTotalExpectedTests))
   {
     if (gTULogLevel <= 30)
     {
       if (gTUUserMode || gTUBATSMode)
       {
-        _TUPrintF("Total tests matched expected: %d total tests\n", a2, a3, a4, a5, a6, a7, a8, v59);
+        _TUPrintF("Total tests matched expected: %d total tests\n", a2, a3, a4, a5, a6, a7, a8, v55);
       }
 
-      _TUPrintF("p=total:%d/%d\n", a2, a3, a4, a5, a6, a7, a8, v59);
+      _TUPrintF("p=total:%d/%d\n", a2, a3, a4, a5, a6, a7, a8, v55);
     }
   }
 
@@ -2469,21 +2484,21 @@ LABEL_87:
   {
     if ((gTUUserMode != 0) | gTUBATSMode & 1)
     {
-      v60 = "### Total tests mismatch: %d actual vs %d expected\n";
+      v56 = "### Total tests mismatch: %d actual vs %d expected\n";
     }
 
     else
     {
-      v60 = "f=total:%d/%d\n";
+      v56 = "f=total:%d/%d\n";
     }
 
-    _TUPrintF(v60, a2, a3, a4, a5, a6, a7, a8, v59);
+    _TUPrintF(v56, a2, a3, a4, a5, a6, a7, a8, v55);
     atomic_fetch_add(&gTUTotalFailures, 1u);
   }
 
   if (!gTUUserMode && (gTUBATSMode & 1) == 0)
   {
-    _TUPrintF("Z=\n", a2, a3, a4, a5, a6, a7, a8, v64);
+    _TUPrintF("Z=\n", a2, a3, a4, a5, a6, a7, a8, v60);
   }
 
   if (gTUOutputFilePtr)
@@ -2509,90 +2524,91 @@ LABEL_87:
     TUConvertToJUnit(gTUOutputPath, gTUJUnitXMLOutputPath);
   }
 
-  v61 = gTUXCTestFailer;
+  v57 = gTUXCTestFailer;
   gTUXCTestFailer = 0;
 
-  v63 = gTUTotalPasses < 1 || gTUTotalFailures != 0;
-  gTUExitCode = v63;
+  v59 = gTUTotalPasses < 1 || gTUTotalFailures != 0;
+  gTUExitCode = v59;
 }
 
-uint64_t TULogF(uint64_t a1, int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t TULogF(uint64_t a1, int a2, const char *a3, char *a4, ...)
 {
+  va_start(va, a4);
   if (gTULogLevel <= a2)
   {
-    v13[2] = v9;
-    v13[3] = v10;
-    v11 = "";
+    v8[2] = v4;
+    v8[3] = v5;
+    v6 = "";
     if (a3)
     {
-      v11 = a3;
+      v6 = a3;
     }
 
-    v13[0] = v11;
-    v13[1] = 0;
-    return VCPrintF(_TULogPrintFCallback, v13, a4, &a9);
+    v8[0] = v6;
+    v8[1] = 0;
+    return VCPrintF(_TULogPrintFCallback, v8, a4, va);
   }
 
   return result;
 }
 
-uint64_t _TULogPrintFCallback(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _TULogPrintFCallback(const char *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 >= 1)
   {
-    v9 = a1;
-    v10 = &a1[a2];
+    v4 = a1;
+    v5 = &a1[a2];
     do
     {
       if (!*(a3 + 8))
       {
-        v11 = "";
+        v6 = "";
         if (!gTUUserMode)
         {
-          v11 = "#=";
+          v6 = "#=";
         }
 
-        FPrintF(gTUOutputFilePtr, "%s%s", a3, a4, a5, a6, a7, a8, v11);
+        FPrintF(gTUOutputFilePtr, "%s%s", v6, *a3);
         *(a3 + 8) = 1;
       }
 
-      v12 = v9;
-      v13 = v9;
-      if (v9 >= v10)
+      v7 = v4;
+      v8 = v4;
+      if (v4 >= v5)
       {
 LABEL_12:
-        FPrintF(gTUOutputFilePtr, "%.*s", a3, a4, a5, a6, a7, a8, v12 - v9);
-        v9 = v13;
+        FPrintF(gTUOutputFilePtr, "%.*s", v7 - v4, v4);
+        v4 = v8;
       }
 
       else
       {
-        v14 = v10 - v9;
-        v15 = v9;
-        while (*v15 != 10)
+        v9 = v5 - v4;
+        v10 = v4;
+        while (*v10 != 10)
         {
-          ++v15;
-          if (!--v14)
+          ++v10;
+          if (!--v9)
           {
-            v12 = v10;
-            v13 = v10;
+            v7 = v5;
+            v8 = v5;
             goto LABEL_12;
           }
         }
 
-        FPrintF(gTUOutputFilePtr, "%.*s", a3, a4, a5, a6, a7, a8, v15 - v9);
-        v9 = v15 + 1;
-        FPrintF(gTUOutputFilePtr, "\n", v16, v17, v18, v19, v20, v21, v24);
+        FPrintF(gTUOutputFilePtr, "%.*s", v10 - v4, v4);
+        v4 = v10 + 1;
+        FPrintF(gTUOutputFilePtr, "\n");
         *(a3 + 8) = 0;
       }
     }
 
-    while (v9 < v10);
+    while (v4 < v5);
   }
 
   if (!a2 && *(a3 + 8))
   {
-    FPrintF(gTUOutputFilePtr, "\n", a3, a4, a5, a6, a7, a8, v23);
+    FPrintF(gTUOutputFilePtr, "\n");
     *(a3 + 8) = 0;
   }
 
@@ -3222,7 +3238,7 @@ LABEL_41:
   return v19;
 }
 
-uint64_t TULogV(uint64_t a1, int a2, const char *a3, uint64_t a4, uint64_t a5)
+uint64_t TULogV(uint64_t a1, int a2, const char *a3, unsigned __int8 *a4, uint64_t a5)
 {
   v5 = "";
   if (a3)
@@ -3567,7 +3583,7 @@ uint64_t TUTestStateSetObject(uint64_t result, const void *a2, const void *a3)
   return result;
 }
 
-int64_t TUTestStateGetSInt32(uint64_t a1, const void *a2, _DWORD *a3)
+uint64_t TUTestStateGetSInt32(uint64_t a1, const void *a2, int *a3)
 {
   v9 = 0;
   if (!a1 || !a2 || !*(a1 + 16) || (v6 = *(a1 + 88)) == 0)
@@ -5138,7 +5154,7 @@ LABEL_24:
   return result;
 }
 
-void *TLV8CopyCoalesced(unsigned __int8 *a1, unsigned __int8 *a2, int a3, size_t *a4, int *a5)
+void *TLV8CopyCoalesced(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, size_t *a4, int *a5)
 {
   v15 = 0;
   __src = 0;
@@ -5192,7 +5208,7 @@ LABEL_9:
   return v8;
 }
 
-uint64_t TLV8GetOrCopyCoalesced(unsigned __int8 *a1, unsigned __int8 *a2, int a3, void *a4, size_t *a5, void *a6, unsigned __int8 **a7)
+uint64_t TLV8GetOrCopyCoalesced(unsigned __int8 *a1, unsigned __int8 *a2, int a3, unsigned __int8 **a4, size_t *a5, void *a6, unsigned __int8 **a7)
 {
   do
   {
@@ -5838,7 +5854,7 @@ LABEL_17:
   return v18;
 }
 
-uint64_t URLGetNextVariable(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, void *a4, void *a5, void *a6, unsigned __int8 **a7)
+uint64_t URLGetNextVariable(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 **a3, void *a4, unint64_t *a5, void *a6, unsigned __int8 **a7)
 {
   if (a1 >= a2)
   {
@@ -5907,7 +5923,7 @@ uint64_t URLGetNextVariable(unsigned __int8 *a1, unsigned __int8 *a2, unsigned _
   *a3 = a1;
   *a4 = v8 - a1;
   *a5 = v10;
-  *a6 = v11 - v10;
+  *a6 = &v11[-v10];
   *a7 = v14;
   return v15;
 }
@@ -6094,7 +6110,7 @@ uint64_t UUIDGetPerSystemHost(const char *a1, uint64_t a2, uuid_t a3)
       v11 = v6;
       if (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x5Au))
       {
-        LogPrintF(&gLogCategory_CUMisc, "void UUIDGetPerSystemHost(const void *, size_t, void *)", 0x5Au, "### gethostuuid failed for per-system host UUID: %#m\n", v7, v8, v9, v10, v11);
+        LogPrintF(&gLogCategory_CUMisc, "void UUIDGetPerSystemHost(const void *, size_t, void *)", 90, "### gethostuuid failed for per-system host UUID: %#m\n", v7, v8, v9, v10, v11);
       }
     }
 
@@ -6129,7 +6145,7 @@ uint64_t UUIDGetPerUserHost(uint64_t a1, uint64_t a2, uint64_t a3)
       v9 = v4;
       if (gLogCategory_CUMisc != -1 || _LogCategory_Initialize(&gLogCategory_CUMisc, 0x5Au))
       {
-        LogPrintF(&gLogCategory_CUMisc, "void UUIDGetPerUserHost(const void *, size_t, void *)", 0x5Au, "### gethostuuid failed for per-user host UUID: %#m\n", v5, v6, v7, v8, v9);
+        LogPrintF(&gLogCategory_CUMisc, "void UUIDGetPerUserHost(const void *, size_t, void *)", 90, "### gethostuuid failed for per-user host UUID: %#m\n", v5, v6, v7, v8, v9);
       }
     }
 
@@ -6257,7 +6273,7 @@ uint64_t WiFiManagerCreate(void *a1)
   return v5;
 }
 
-uint64_t WiFiManagerDoApple80211(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t WiFiManagerDoApple80211(char *a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a5;
   v25 = 0;
@@ -6269,7 +6285,7 @@ uint64_t WiFiManagerDoApple80211(uint64_t a1, int a2, int a3, uint64_t a4, uint6
       v13 = "set";
     }
 
-    LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 0x1Eu, "WiFiManagerDoApple80211: %s, ioc 0x%X, len %zu", a5, a6, a7, a8, v13);
+    LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 30, "WiFiManagerDoApple80211: %s, ioc 0x%X, len %zu", a5, a6, a7, a8, v13);
   }
 
   if (a1)
@@ -6297,28 +6313,28 @@ LABEL_21:
     goto LABEL_39;
   }
 
-  if (!*(a1 + 152) && (v20 = Apple80211Open(), v20))
+  if (!*(a1 + 19) && (v20 = Apple80211Open(), v20))
   {
     v22 = v20;
     if (gLogCategory_WiFiManagerCore <= 60 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 0x3Cu, "### Open failed: %#m", v16, v17, v18, v19, v22);
+      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 60, "### Open failed: %#m", v16, v17, v18, v19, v22);
     }
   }
 
   else
   {
-    if (*(a1 + 160))
+    if (a1[160])
     {
       goto LABEL_16;
     }
 
-    if (!*(a1 + 168))
+    if (!*(a1 + 21))
     {
       if (gLogCategory_WiFiManagerCore <= 60 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu)))
       {
         v22 = 4294960596;
-        LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 0x3Cu, "### No ifname: %#m", v16, v17, v18, v19, 4294960596);
+        LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 60, "### No ifname: %#m", v16, v17, v18, v19, 4294960596);
         goto LABEL_39;
       }
 
@@ -6328,11 +6344,11 @@ LABEL_21:
     v21 = Apple80211BindToInterface();
     if (!v21)
     {
-      *(a1 + 160) = 1;
+      a1[160] = 1;
 LABEL_16:
-      *(a1 + 128) = a3;
-      *(a1 + 136) = v8;
-      *(a1 + 144) = a4;
+      *(a1 + 32) = a3;
+      *(a1 + 34) = v8;
+      *(a1 + 18) = a4;
       if (a2)
       {
         if (Apple80211RawGet())
@@ -6362,7 +6378,7 @@ LABEL_38:
     v22 = v21;
     if (gLogCategory_WiFiManagerCore <= 60 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 0x3Cu, "### Bind failed: '%@', %#m", v16, v17, v18, v19, *(a1 + 168));
+      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 60, "### Bind failed: '%@', %#m", v16, v17, v18, v19, *(a1 + 21));
     }
   }
 
@@ -6380,7 +6396,7 @@ LABEL_39:
       v23 = "set";
     }
 
-    LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 0x5Au, "### WiFiManagerDoApple80211 failed: %s, ioc 0x%X, len %zu, error %#m", v16, v17, v18, v19, v23);
+    LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiManagerDoApple80211(CUWiFiManagerRef, int, int, void *, size_t)", 90, "### WiFiManagerDoApple80211 failed: %s, ioc 0x%X, len %zu, error %#m", v16, v17, v18, v19, v23);
   }
 
   return v22;
@@ -6445,7 +6461,7 @@ LABEL_14:
         v23 = @"*";
       }
 
-      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus _WiFiManagerEnsureInitialized(CUWiFiManagerRef)", 0x1Eu, "### Init interface not found (%@)\n", v6, v7, v8, v9, v23);
+      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus _WiFiManagerEnsureInitialized(CUWiFiManagerRef)", 30, "### Init interface not found (%@)\n", v6, v7, v8, v9, v23);
     }
 
     v2 = 4294960569;
@@ -6483,7 +6499,7 @@ LABEL_17:
     *(a1 + 168) = CFRetain(v4);
     if (gLogCategory_WiFiManagerCore <= 30 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus _WiFiManagerEnsureInitialized(CUWiFiManagerRef)", 0x1Eu, "Initialized for %@ (%.6a)\n", v18, v19, v20, v21, v4);
+      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus _WiFiManagerEnsureInitialized(CUWiFiManagerRef)", 30, "Initialized for %@ (%.6a)\n", v18, v19, v20, v21, v4);
     }
 
     v2 = 0;
@@ -6508,7 +6524,7 @@ LABEL_32:
   return v2;
 }
 
-unint64_t WiFiManagerGetInt64(uint64_t a1, const void *a2, uint64_t a3, int *a4)
+unint64_t WiFiManagerGetInt64(char *a1, const void *a2, uint64_t a3, int *a4)
 {
   v6 = a1;
   v7 = 0;
@@ -6530,7 +6546,7 @@ unint64_t WiFiManagerGetInt64(uint64_t a1, const void *a2, uint64_t a3, int *a4)
   {
     if (CFEqual(a2, @"channel"))
     {
-      if (*(v6 + 96))
+      if (v6[96])
       {
         v8 = 132;
       }
@@ -6651,7 +6667,7 @@ LABEL_38:
       {
         if (gLogCategory_WiFiManagerCore <= 60 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu)))
         {
-          LogPrintF(&gLogCategory_WiFiManagerCore, "CFTypeRef WiFiManagerCopyProperty(CUWiFiManagerRef, CFStringRef, CFTypeRef, OSStatus *)", 0x3Cu, "### Get of unknown property '%@'\n", v30, v31, v32, v33, a2);
+          LogPrintF(&gLogCategory_WiFiManagerCore, "CFTypeRef WiFiManagerCopyProperty(CUWiFiManagerRef, CFStringRef, CFTypeRef, OSStatus *)", 60, "### Get of unknown property '%@'\n", v30, v31, v32, v33, a2);
         }
 
 LABEL_56:
@@ -6671,7 +6687,7 @@ LABEL_56:
       goto LABEL_38;
     }
 
-    if (!*(v6 + 96) || !*(v6 + 103))
+    if (!v6[96] || !v6[103])
     {
       v28 = WiFiDeviceClientCopyProperty();
       if (v28)
@@ -6845,20 +6861,20 @@ uint64_t WiFiJoinNetworkEx(const __CFDictionary *a1, void *a2, void *a3)
 uint64_t WiFiJoinNetwork(const void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
-  *v26 = a4;
+  *v27 = a4;
   *bytes = a3;
-  v25 = 0;
+  v26 = 0;
   v8 = logger_14418();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v24 = 0;
-    _os_log_impl(&dword_191EAF000, v8, OS_LOG_TYPE_DEFAULT, "WiFiJoinNetwork start", v24, 2u);
+    *v25 = 0;
+    _os_log_impl(&dword_191EAF000, v8, OS_LOG_TYPE_DEFAULT, "WiFiJoinNetwork start", v25, 2u);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    v25 = -6728;
+    v26 = -6728;
     goto LABEL_34;
   }
 
@@ -6866,11 +6882,11 @@ uint64_t WiFiJoinNetwork(const void *a1, void *a2, uint64_t a3, uint64_t a4)
   CFDictionarySetValue(Mutable, @"options", a1);
   if (!CFDictionaryGetValue(a1, @"platformNetwork"))
   {
-    v23 = -6705;
+    v24 = -6705;
 LABEL_39:
-    v25 = v23;
+    v26 = v24;
 LABEL_40:
-    v20 = v10;
+    v21 = v10;
     goto LABEL_33;
   }
 
@@ -6879,15 +6895,15 @@ LABEL_40:
     WiFiNetworkSetDirectedState();
   }
 
-  CFDictionaryGetInt64(a1, @"networkEventType", &v25);
-  if (!v25)
+  Int64 = CFDictionaryGetInt64(a1, @"networkEventType", &v26);
+  if (!v26)
   {
-    WiFiManagerClientSetNetworkAddReason();
+    Int64 = WiFiManagerClientSetNetworkAddReason();
   }
 
-  if (getkWiFiNetworkShareableEAPConfig() && CFDictionaryGetValue(a1, @"eapConfig"))
+  if (getkWiFiNetworkShareableEAPConfig(Int64) && CFDictionaryGetValue(a1, @"eapConfig"))
   {
-    getkWiFiNetworkShareableEAPConfig();
+    (getkWiFiNetworkShareableEAPConfig)();
     WiFiNetworkSetProperty();
   }
 
@@ -6900,10 +6916,10 @@ LABEL_40:
   TypeID = CFStringGetTypeID();
   if (CFDictionaryGetTypedValue(a1, @"password", TypeID, 0))
   {
-    v12 = WiFiNetworkSetPassword();
-    v13 = v12 ? 0 : -6700;
-    v25 = v13;
-    if (!v12)
+    v13 = WiFiNetworkSetPassword();
+    v14 = v13 ? 0 : -6700;
+    v26 = v14;
+    if (!v13)
     {
       goto LABEL_40;
     }
@@ -6915,26 +6931,26 @@ LABEL_40:
     CFDictionarySetValue(v10, @"persistent", Value);
   }
 
-  v15 = WiFiManagerClientCreate();
-  if (!v15)
+  v16 = WiFiManagerClientCreate();
+  if (!v16)
   {
-    v23 = -6700;
+    v24 = -6700;
     goto LABEL_39;
   }
 
-  v16 = v15;
+  v17 = v16;
   CFRunLoopGetMain();
   WiFiManagerClientScheduleWithRunLoop();
-  CFDictionarySetValue(v10, @"platformManager", v16);
-  v17 = WiFiManagerClientCopyDevices();
-  v18 = v17;
-  if (!v17 || CFArrayGetCount(v17) <= 0)
+  CFDictionarySetValue(v10, @"platformManager", v17);
+  v18 = WiFiManagerClientCopyDevices();
+  v19 = v18;
+  if (!v18 || CFArrayGetCount(v18) <= 0)
   {
-    v25 = -6727;
+    v26 = -6727;
     goto LABEL_29;
   }
 
-  ValueAtIndex = CFArrayGetValueAtIndex(v18, 0);
+  ValueAtIndex = CFArrayGetValueAtIndex(v19, 0);
   CFDictionarySetValue(v10, @"platformDevice", ValueAtIndex);
   if (v7)
   {
@@ -6944,18 +6960,18 @@ LABEL_40:
   if (a3)
   {
     CFDictionarySetData(v10, @"callback", bytes, 8);
-    CFDictionarySetData(v10, @"context", v26, 8);
+    CFDictionarySetData(v10, @"context", v27, 8);
   }
 
-  v25 = WiFiDeviceClientAssociateAsync();
-  if (v25)
+  v26 = WiFiDeviceClientAssociateAsync();
+  if (v26)
   {
 LABEL_29:
     CFRelease(v10);
     CFRunLoopGetMain();
     WiFiManagerClientUnscheduleFromRunLoop();
-    CFRelease(v16);
-    if (!v18)
+    CFRelease(v17);
+    if (!v19)
     {
       goto LABEL_34;
     }
@@ -6963,15 +6979,15 @@ LABEL_29:
     goto LABEL_32;
   }
 
-  CFRelease(v16);
+  CFRelease(v17);
 LABEL_32:
-  v20 = v18;
+  v21 = v19;
 LABEL_33:
-  CFRelease(v20);
+  CFRelease(v21);
 LABEL_34:
-  v21 = v25;
+  v22 = v26;
 
-  return v21;
+  return v22;
 }
 
 id logger_14418()
@@ -7034,7 +7050,7 @@ void _WiFiJoinNetworkCB(int a1, uint64_t a2, int a3, uint64_t a4, CFDictionaryRe
         else
         {
           Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          _WiFiDictionaryAddNetworkAdditionalInfo(Mutable);
+          _WiFiDictionaryAddNetworkAdditionalInfo(Mutable, a2);
           v14 = Mutable;
         }
       }
@@ -7123,78 +7139,78 @@ LABEL_33:
   CFRelease(theDict);
 }
 
-void _WiFiDictionaryAddNetworkAdditionalInfo(__CFDictionary *a1)
+void _WiFiDictionaryAddNetworkAdditionalInfo(__CFDictionary *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Property = WiFiNetworkGetProperty();
   if (Property)
   {
     CFDictionarySetValue(a1, @"cca", Property);
   }
 
-  v3 = WiFiNetworkGetProperty();
-  if (v3)
-  {
-    v8 = 0;
-    v7 = 0;
-    CFGetHardwareAddress(v3, &v7, 6uLL, 0);
-    v10 = 0;
-    *__str = 0;
-    snprintf(__str, 0xAuLL, "%02X:%02X:%02X", v7, BYTE1(v7), BYTE2(v7));
-    CFDictionarySetCString(a1, @"oui", __str, -1);
-  }
-
   v4 = WiFiNetworkGetProperty();
   if (v4)
   {
-    CFDictionarySetValue(a1, @"channel", v4);
+    v9 = 0;
+    v8 = 0;
+    CFGetHardwareAddress(v4, &v8, 6uLL, 0);
+    v11 = 0;
+    *__str = 0;
+    snprintf(__str, 0xAuLL, "%02X:%02X:%02X", v8, BYTE1(v8), BYTE2(v8));
+    CFDictionarySetCString(a1, @"oui", __str, -1);
+  }
+
+  v5 = WiFiNetworkGetProperty();
+  if (v5)
+  {
+    CFDictionarySetValue(a1, @"channel", v5);
   }
 
   if (WiFiNetworkIsEAP() && WiFiNetworkIsSAE())
   {
-    v5 = "SAE-EAP";
+    v6 = "SAE-EAP";
   }
 
   else if (WiFiNetworkIsSAE())
   {
-    v5 = "SAE";
+    v6 = "SAE";
   }
 
   else if (WiFiNetworkIsEAP() && WiFiNetworkIsWPA())
   {
-    v5 = "WPA-EAP";
+    v6 = "WPA-EAP";
   }
 
   else if (WiFiNetworkIsWPA())
   {
-    v5 = "WPA";
+    v6 = "WPA";
   }
 
   else if (WiFiNetworkIsEAP())
   {
-    v5 = "EAP";
+    v6 = "EAP";
   }
 
   else if (WiFiNetworkIsWEP())
   {
-    v5 = "WEP";
+    v6 = "WEP";
   }
 
   else if (WiFiNetworkIsOpen())
   {
-    v5 = "Open";
+    v6 = "Open";
   }
 
   else
   {
-    v5 = "Unknown";
+    v6 = "Unknown";
   }
 
-  CFDictionarySetCString(a1, @"securityStr", v5, -1);
-  v6 = WiFiNetworkGetProperty();
-  if (v6)
+  CFDictionarySetCString(a1, @"securityStr", v6, -1);
+  v7 = WiFiNetworkGetProperty();
+  if (v7)
   {
-    CFDictionarySetValue(a1, @"rssi", v6);
+    CFDictionarySetValue(a1, @"rssi", v7);
   }
 }
 
@@ -7278,8 +7294,9 @@ void _WiFiJoinNetwork_bCallBack(uint64_t a1, void (**a2)(void, void))
   a2[2](a2, a1);
 }
 
-__CFDictionary *WiFiCopyCurrentNetworkInfoEx(char a1, int *a2)
+CFMutableDictionaryRef WiFiCopyCurrentNetworkInfoEx(uint64_t a1, int *a2)
 {
+  v3 = a1;
   v4 = WiFiManagerClientCreate();
   if (!v4)
   {
@@ -7314,7 +7331,7 @@ __CFDictionary *WiFiCopyCurrentNetworkInfoEx(char a1, int *a2)
         if (v9)
         {
           v10 = v9;
-          _WiFiDictionaryAddNetworkInfo(Mutable, a1, v9);
+          _WiFiDictionaryAddNetworkInfo(Mutable, v3, v9);
           CFRelease(v10);
         }
 
@@ -7349,7 +7366,7 @@ LABEL_10:
 
 void _WiFiDictionaryAddNetworkInfo(__CFDictionary *a1, char a2, const void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   Channel = WiFiNetworkGetChannel();
   if (Channel)
   {
@@ -7440,8 +7457,8 @@ void _WiFiDictionaryAddNetworkInfo(__CFDictionary *a1, char a2, const void *a3)
 
   if (MobileWiFiLibrary_sLib && dlsym(MobileWiFiLibrary_sLib, "WiFiNetworkGetShareableStatus"))
   {
-    v18 = (softLinkWiFiNetworkGetShareableStatus[0])(a3);
-    CFDictionarySetInt64(a1, @"shareableStatus", v18);
+    ShareableStatus = softLinkWiFiNetworkGetShareableStatus(a3);
+    CFDictionarySetInt64(a1, @"shareableStatus", ShareableStatus);
   }
 
   if ((a2 & 3) != 0)
@@ -7451,10 +7468,10 @@ void _WiFiDictionaryAddNetworkInfo(__CFDictionary *a1, char a2, const void *a3)
     {
       v20 = v19;
       CFDictionarySetValue(a1, @"password", v19);
-      if ((a2 & 2) != 0 && !WPAHashPSK(SSIDData, v20, bytes, v25))
+      if ((a2 & 2) != 0 && !WPAHashPSK(SSIDData, v20, bytes, v27))
       {
         CFDictionarySetData(a1, @"psk", bytes, 32);
-        CFDictionarySetCString(a1, @"pskStr", v25, -1);
+        CFDictionarySetCString(a1, @"pskStr", v27, -1);
       }
 
       CFRelease(v20);
@@ -7475,28 +7492,29 @@ void _WiFiDictionaryAddNetworkInfo(__CFDictionary *a1, char a2, const void *a3)
   CFDictionarySetValue(a1, @"platformNetwork", a3);
   if (IsEAP)
   {
-    if (getkWiFiNetworkShareableEAPConfig())
+    v24 = getkWiFiNetworkShareableEAPConfig(v23);
+    if (v24)
     {
-      getkWiFiNetworkShareableEAPConfig();
-      v23 = WiFiNetworkGetProperty();
-      if (v23)
+      getkWiFiNetworkShareableEAPConfig(v24);
+      v25 = WiFiNetworkGetProperty();
+      if (v25)
       {
-        CFDictionarySetValue(a1, @"eapConfig", v23);
+        CFDictionarySetValue(a1, @"eapConfig", v25);
       }
     }
 
     if (getkWiFiNetworkShareableEAPTrustExceptions())
     {
       getkWiFiNetworkShareableEAPTrustExceptions();
-      v24 = WiFiNetworkGetProperty();
-      if (v24)
+      v26 = WiFiNetworkGetProperty();
+      if (v26)
       {
-        CFDictionarySetValue(a1, @"eapTrustExceptions", v24);
+        CFDictionarySetValue(a1, @"eapTrustExceptions", v26);
       }
     }
   }
 
-  _WiFiDictionaryAddNetworkAdditionalInfo(a1);
+  _WiFiDictionaryAddNetworkAdditionalInfo(a1, a3);
 }
 
 uint64_t WPAHashPSK(const __CFString *a1, CFStringRef theString, _OWORD *a3, _BYTE *a4)
@@ -7592,9 +7610,9 @@ uint64_t initWiFiNetworkGetShareableStatus(uint64_t a1)
   }
 
   v2 = dlsym(MobileWiFiLibrary_sLib, "WiFiNetworkGetShareableStatus");
-  softLinkWiFiNetworkGetShareableStatus[0] = v2;
+  softLinkWiFiNetworkGetShareableStatus = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 __CFDictionary *WiFiCopyNetworkInfo(const __CFDictionary *a1, char a2, int *a3)
@@ -7684,7 +7702,7 @@ LABEL_9:
   {
     if (gLogCategory_WiFiManagerCore <= 60 && (gLogCategory_WiFiManagerCore != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_WiFiManagerCore, "CFDictionaryRef WiFiCopyNetworkInfo(CFDictionaryRef, WiFiNetworkInfoFlags, OSStatus *)", 0x3Cu, "### WiFiManagerClientCreate failed\n", v7, v8, v9, v10, v26);
+      LogPrintF(&gLogCategory_WiFiManagerCore, "CFDictionaryRef WiFiCopyNetworkInfo(CFDictionaryRef, WiFiNetworkInfoFlags, OSStatus *)", 60, "### WiFiManagerClientCreate failed\n", v7, v8, v9, v10, v26);
     }
 
     v22 = 0;
@@ -8001,7 +8019,7 @@ LABEL_45:
               v57 = v13[706];
               if (v57 <= 30 && (v57 != -1 || _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x1Eu)))
               {
-                LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiScan(CFDictionaryRef, __strong dispatch_queue_t, WiFiScanCompletion_f, void *)", 0x1Eu, "WiFi scan starting\n", v52, v53, v54, v55, v64);
+                LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiScan(CFDictionaryRef, __strong dispatch_queue_t, WiFiScanCompletion_f, void *)", 30, "WiFi scan starting\n", v52, v53, v54, v55, v64);
               }
 
               v71 = WiFiDeviceClientScanAsync();
@@ -8088,7 +8106,7 @@ LABEL_57:
   {
     if (v59 != -1 || (v60 = _LogCategory_Initialize(&gLogCategory_WiFiManagerCore, 0x3Cu), v58 = v71, v60))
     {
-      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiScan(CFDictionaryRef, __strong dispatch_queue_t, WiFiScanCompletion_f, void *)", 0x3Cu, "### WiFi scan failed: %#m\n", v9, v10, v11, v12, v58);
+      LogPrintF(&gLogCategory_WiFiManagerCore, "OSStatus WiFiScan(CFDictionaryRef, __strong dispatch_queue_t, WiFiScanCompletion_f, void *)", 60, "### WiFi scan failed: %#m\n", v9, v10, v11, v12, v58);
       v58 = v71;
     }
   }
@@ -8120,7 +8138,7 @@ void _WiFiScanCallback(int a1, const __CFArray *a2, int a3, CFDictionaryRef theD
       Count = 0;
     }
 
-    LogPrintF(&gLogCategory_WiFiManagerCore, "void _WiFiScanCallback(WiFiDeviceClientRef, CFArrayRef, WiFiError, void *)", 0x1Eu, "WiFi scan completed: %ld results, %.3f seconds, %#m\n", v7, v8, v9, v10, Count);
+    LogPrintF(&gLogCategory_WiFiManagerCore, "void _WiFiScanCallback(WiFiDeviceClientRef, CFArrayRef, WiFiError, void *)", 30, "WiFi scan completed: %ld results, %.3f seconds, %#m\n", v7, v8, v9, v10, Count);
   }
 
   v15 = 0;
@@ -8314,7 +8332,7 @@ LABEL_21:
   return started;
 }
 
-void _WiFiSWAPStartCallBack(int a1, int a2, void *value, int a4, CFMutableDictionaryRef theDict)
+void _WiFiSWAPStartCallBack(uint64_t a1, int a2, void *value, int a4, CFMutableDictionaryRef theDict)
 {
   v14 = 0;
   v13 = 0;
@@ -8391,7 +8409,7 @@ void _WiFiSWAPStopCallBack(int a1, int a2, int a3, CFDictionaryRef theDict)
   CFRelease(theDict);
 }
 
-uint64_t WiFiSWAPStop(__CFDictionary *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t WiFiSWAPStop(const __CFDictionary *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
   v12 = a4;
@@ -8486,7 +8504,7 @@ void xpc_connection_send_message_with_reply_f(_xpc_connection_s *a1, void *a2, N
   xpc_connection_send_message_with_reply(a1, a2, a3, v5);
 }
 
-uint64_t xpc_dictionary_copy_cf_object(void *a1, const char *a2, int *a3)
+xpc_object_t xpc_dictionary_copy_cf_object(void *a1, const char *a2, int *a3)
 {
   result = xpc_dictionary_get_value(a1, a2);
   if (!result)
@@ -8520,22 +8538,23 @@ LABEL_6:
   return result;
 }
 
-uint64_t xpc_dictionary_set_cf_object(void *a1, const char *a2)
+uint64_t xpc_dictionary_set_cf_object(void *a1, const char *a2, uint64_t a3)
 {
-  v4 = _CFXPCCreateXPCObjectFromCFObject();
-  if (!v4)
+  v5 = _CFXPCCreateXPCObjectFromCFObject();
+  if (!v5)
   {
     return 4294960540;
   }
 
-  v5 = v4;
-  xpc_dictionary_set_value(a1, a2, v4);
-  xpc_release(v5);
+  v6 = v5;
+  xpc_dictionary_set_value(a1, a2, v5);
+  xpc_release(v6);
   return 0;
 }
 
-uint64_t xpc_send_message_sync(const char *a1, uint64_t a2, int a3, void *a4, void *a5)
+uint64_t xpc_send_message_sync(const char *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
+  v7 = a3;
   v23 = *MEMORY[0x1E69E9840];
   label = 0;
   asprintf(&label, "xpc_send_message_sync:%s", a1);
@@ -8556,7 +8575,7 @@ uint64_t xpc_send_message_sync(const char *a1, uint64_t a2, int a3, void *a4, vo
   {
     v12 = mach_service;
     xpc_connection_set_event_handler(mach_service, &__block_literal_global_14641);
-    if (a3)
+    if (v7)
     {
       xpc_connection_set_target_uid();
     }

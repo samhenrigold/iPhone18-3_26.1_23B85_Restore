@@ -82,38 +82,36 @@
 
 void __34__HMDTimerTriggerModel_properties__block_invoke(uint64_t a1)
 {
-  v16[6] = *MEMORY[0x277D85DE8];
+  v15[6] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v14.receiver = *(a1 + 32);
-  v14.super_class = &OBJC_METACLASS___HMDTimerTriggerModel;
-  v2 = objc_msgSendSuper2(&v14, sel_properties);
+  v13.receiver = *(a1 + 32);
+  v13.super_class = &OBJC_METACLASS___HMDTimerTriggerModel;
+  v2 = objc_msgSendSuper2(&v13, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_27945;
   properties__properties_27945 = v3;
 
   v5 = properties__properties_27945;
-  v15[0] = @"fireDate";
+  v14[0] = @"fireDate";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[0] = v6;
-  v15[1] = @"fireDateTimeZone";
+  v15[0] = v6;
+  v14[1] = @"fireDateTimeZone";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[1] = v7;
-  v15[2] = @"significantEvent";
+  v15[1] = v7;
+  v14[2] = @"significantEvent";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[2] = v8;
-  v15[3] = @"significantEventOffset";
+  v15[2] = v8;
+  v14[3] = @"significantEventOffset";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[3] = v9;
-  v15[4] = @"fireRepeatInterval";
+  v15[3] = v9;
+  v14[4] = @"fireRepeatInterval";
   v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[4] = v10;
-  v15[5] = @"recurrences";
+  v15[4] = v10;
+  v14[5] = @"recurrences";
   v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v16[5] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
+  v15[5] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
   [v5 addEntriesFromDictionary:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

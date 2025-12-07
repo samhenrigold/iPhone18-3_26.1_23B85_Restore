@@ -8,6 +8,7 @@
 - (BOOL)registeredForMicrophoneActive;
 - (CAFBoolCharacteristic)cameraActiveCharacteristic;
 - (CAFBoolCharacteristic)microphoneActiveCharacteristic;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -139,6 +140,56 @@
   v3 = microphoneActiveCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036100004"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    cameraActiveCharacteristic = [(CAFActivityIndicator *)self cameraActiveCharacteristic];
+    uniqueIdentifier2 = [cameraActiveCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers activityIndicatorService:self didUpdateCameraActive:{-[CAFActivityIndicator cameraActive](self, "cameraActive")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036100005"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  microphoneActiveCharacteristic = [(CAFActivityIndicator *)self microphoneActiveCharacteristic];
+  uniqueIdentifier4 = [microphoneActiveCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers activityIndicatorService:self didUpdateMicrophoneActive:{-[CAFActivityIndicator microphoneActive](self, "microphoneActive")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFActivityIndicator;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForCameraActive

@@ -2,6 +2,7 @@
 + (CODiscoveryRecord)discoveryRecordWithConstituent:(id)constituent rapportIdentifier:(id)identifier IDSIdentifier:(id)sIdentifier peerAddress:(id)address port:(int)port;
 + (CODiscoveryRecord)discoveryRecordWithNode:(id)node;
 + (CODiscoveryRecord)discoveryRecordWithNodeController:(id)controller;
++ (id)_destinationForPeerAddress:(id)address listeningPort:(unsigned __int16)port;
 - (BOOL)hasSameBackingDeviceAs:(id)as;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDiscoveryRecord:(id)record;
@@ -195,7 +196,7 @@ id __87__CODiscoveryRecord__initWithConstituent_rapportIdentifier_IDSIdentifier_
 
 - (CODiscoveryRecord)initWithCoder:(id)coder
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy decodeIntegerForKey:@"version"] == 1)
   {
@@ -210,28 +211,27 @@ id __87__CODiscoveryRecord__initWithConstituent_rapportIdentifier_IDSIdentifier_
     if (objc_opt_isKindOfClass())
     {
       objc_opt_class();
+      v21 = 0u;
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
       v12 = [v11 copy];
-      v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v13)
       {
         v14 = v13;
-        v21 = v7;
-        v22 = v8;
-        v15 = *v24;
+        v19 = v7;
+        v20 = v8;
+        v15 = *v22;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v24 != v15)
+            if (*v22 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v23 + 1) + 8 * i);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
@@ -240,7 +240,7 @@ id __87__CODiscoveryRecord__initWithConstituent_rapportIdentifier_IDSIdentifier_
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v14)
           {
             continue;
@@ -250,8 +250,8 @@ id __87__CODiscoveryRecord__initWithConstituent_rapportIdentifier_IDSIdentifier_
         }
 
 LABEL_16:
-        v7 = v21;
-        v8 = v22;
+        v7 = v19;
+        v8 = v20;
       }
 
       if (!v8)
@@ -272,7 +272,7 @@ LABEL_16:
 
     if (v9 && v10 && v11)
     {
-      v18 = [(CODiscoveryRecord *)self _initWithConstituent:v8 rapportIdentifier:v9 IDSIdentifier:v10 destinations:v11];
+      v17 = [(CODiscoveryRecord *)self _initWithConstituent:v8 rapportIdentifier:v9 IDSIdentifier:v10 destinations:v11];
 LABEL_23:
 
       goto LABEL_24;
@@ -280,15 +280,14 @@ LABEL_23:
 
 LABEL_22:
 
-    v18 = 0;
+    v17 = 0;
     goto LABEL_23;
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_24:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -314,7 +313,7 @@ LABEL_24:
   companionLinkProvider = self->_companionLinkProvider;
   self->_companionLinkProvider = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, companionLinkProvider);
 }
 
 - (id)companionLinkProvider
@@ -326,33 +325,33 @@ LABEL_24:
 
 - (NSUUID)HomeKitIdentifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = self->_HomeKitIdentifier;
   if (!v3)
   {
     iDSIdentifier = [(CODiscoveryRecord *)self IDSIdentifier];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     sourceTransport = [(CODiscoveryRecord *)self sourceTransport];
     client = [sourceTransport client];
     activeDevices = [client activeDevices];
 
-    v3 = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v3 = [activeDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v3)
     {
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v3; i = (i + 1))
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(activeDevices);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           idsDeviceIdentifier = [v10 idsDeviceIdentifier];
           if (idsDeviceIdentifier && ![iDSIdentifier compare:idsDeviceIdentifier options:1])
           {
@@ -365,7 +364,7 @@ LABEL_24:
           }
         }
 
-        v3 = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v3 = [activeDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v3)
         {
           continue;
@@ -377,8 +376,6 @@ LABEL_24:
 
 LABEL_13:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -542,6 +539,29 @@ LABEL_7:
   }
 
   return companionLinkDevice;
+}
+
++ (id)_destinationForPeerAddress:(id)address listeningPort:(unsigned __int16)port
+{
+  portCopy = port;
+  addressCopy = address;
+  v6 = [addressCopy length];
+  portCopy = 0;
+  if (portCopy && v6)
+  {
+    v8 = [addressCopy componentsSeparatedByString:@":"];
+    v9 = [v8 mutableCopy];
+
+    if ([v9 count] >= 2)
+    {
+      [v9 removeLastObject];
+    }
+
+    v10 = [v9 componentsJoinedByString:@":"];
+    portCopy = [v10 stringByAppendingFormat:@":%hu", portCopy];
+  }
+
+  return portCopy;
 }
 
 @end

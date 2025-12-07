@@ -39,9 +39,11 @@
 {
   if (!self->_mutableDictionary)
   {
-    self->_mutableDictionary = [MEMORY[0x1E695DF90] dictionary];
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    mutableDictionary = self->_mutableDictionary;
+    self->_mutableDictionary = dictionary;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](dictionary, mutableDictionary);
   }
 }
 

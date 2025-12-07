@@ -20,6 +20,7 @@
 - (void)setSessionEndDate:(id)date;
 - (void)setSessionStartTimeoutDate:(id)date;
 - (void)setState:(unint64_t)state;
+- (void)setUplinkMuted:(BOOL)muted;
 - (void)startWithCompletionHandler:(id)handler;
 - (void)updateUplinkMuteStatus:(BOOL)status;
 - (void)updateWithSession:(id)session;
@@ -62,18 +63,16 @@
 {
   v11 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  objc_storeWeak(&self->_delegate, delegateCopy);
-  v5 = DILogHandleDropInSession();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = objc_storeWeak(&self->_delegate, delegateCopy);
+  v6 = DILogHandleDropInSession(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;
     v8 = &stru_285D02BA8;
     v9 = 2112;
     v10 = delegateCopy;
-    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
+    _os_log_impl(&dword_249DA7000, v6, OS_LOG_TYPE_DEFAULT, "%@Delegate set to %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -125,28 +124,28 @@
 
 - (void)setState:(unint64_t)state
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v5 = DILogHandleDropInSession();
+  v27 = *MEMORY[0x277D85DE8];
+  v5 = DILogHandleDropInSession(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [DIDropInSession stringForDropInSessionState:state];
     *buf = 138412802;
-    v23 = &stru_285D02BA8;
-    v24 = 2112;
-    v25 = v6;
-    v26 = 2112;
+    v22 = &stru_285D02BA8;
+    v23 = 2112;
+    v24 = v6;
+    v25 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Updating state to %@ for session %@", buf, 0x20u);
   }
 
   lock = [(DIDropInSession *)self lock];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __28__DIDropInSession_setState___block_invoke;
-  v21[3] = &unk_278FB8CC8;
-  v21[4] = self;
-  v21[5] = state;
-  [lock di_synchronize:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __28__DIDropInSession_setState___block_invoke;
+  v20[3] = &unk_278FB8CC8;
+  v20[4] = self;
+  v20[5] = state;
+  [lock di_synchronize:v20];
 
   delegate = [(DIDropInSession *)self delegate];
   v9 = objc_opt_respondsToSelector();
@@ -156,13 +155,13 @@
     connectionManager = [(DIDropInSession *)self connectionManager];
     manager = [connectionManager manager];
     clientQueue = [manager clientQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __28__DIDropInSession_setState___block_invoke_2;
-    v20[3] = &unk_278FB8CC8;
-    v20[4] = self;
-    v20[5] = state;
-    [DIUtilities onQueue:clientQueue block:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __28__DIDropInSession_setState___block_invoke_2;
+    v19[3] = &unk_278FB8CC8;
+    v19[4] = self;
+    v19[5] = state;
+    [DIUtilities onQueue:clientQueue block:v19];
   }
 
   delegate2 = [(DIDropInSession *)self delegate];
@@ -173,64 +172,58 @@
     connectionManager2 = [(DIDropInSession *)self connectionManager];
     manager2 = [connectionManager2 manager];
     clientQueue2 = [manager2 clientQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __28__DIDropInSession_setState___block_invoke_32;
-    v19[3] = &unk_278FB8CC8;
-    v19[4] = self;
-    v19[5] = state;
-    [DIUtilities onQueue:clientQueue2 block:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __28__DIDropInSession_setState___block_invoke_32;
+    v18[3] = &unk_278FB8CC8;
+    v18[4] = self;
+    v18[5] = state;
+    [DIUtilities onQueue:clientQueue2 block:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __28__DIDropInSession_setState___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [DIDropInSession stringForDropInSessionState:*(a1 + 40)];
     v4 = *(a1 + 32);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating state to %@ for session %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating state to %@ for session %@", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 32) delegate];
   [v5 session:*(a1 + 32) didUpdateState:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __28__DIDropInSession_setState___block_invoke_32(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [DIDropInSession stringForDropInSessionState:*(a1 + 40)];
     v4 = *(a1 + 32);
-    v7 = 138413058;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    v13 = 2048;
-    v14 = [v4 stateReason];
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating state to %@ for session %@ with reason %lu", &v7, 0x2Au);
+    v6 = 138413058;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    v12 = 2048;
+    v13 = [v4 stateReason];
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating state to %@ for session %@ with reason %lu", &v6, 0x2Au);
   }
 
   v5 = [*(a1 + 32) delegate];
   [v5 session:*(a1 + 32) didUpdateState:*(a1 + 40) reason:{objc_msgSend(*(a1 + 32), "stateReason")}];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithCompletionHandler:(id)handler
@@ -264,55 +257,52 @@ void __28__DIDropInSession_setState___block_invoke_32(uint64_t a1)
 
 void __46__DIDropInSession_startWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDropInSession();
+  v4 = DILogHandleDropInSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
     *buf = 138412802;
-    v16 = &stru_285D02BA8;
-    v17 = 2112;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v5;
+    v15 = &stru_285D02BA8;
+    v16 = 2112;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to start Session Error = %@, Session = %@", buf, 0x20u);
   }
 
   v6 = [*(a1 + 32) connectionManager];
   v7 = [v6 manager];
   v8 = [v7 clientQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __46__DIDropInSession_startWithCompletionHandler___block_invoke_33;
-  v12[3] = &unk_278FB8CF0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __46__DIDropInSession_startWithCompletionHandler___block_invoke_33;
+  v11[3] = &unk_278FB8CF0;
   v9 = *(a1 + 40);
-  v13 = v3;
-  v14 = v9;
+  v12 = v3;
+  v13 = v9;
   v10 = v3;
-  [DIUtilities onQueue:v8 block:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v8 block:v11];
 }
 
 void __46__DIDropInSession_startWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     [*(a1 + 32) setStateReason:0];
-    [*(a1 + 32) setState:6];
-    v5 = DILogHandleDropInSession();
+    v5 = DILogHandleDropInSession([*(a1 + 32) setState:6]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
       *buf = 138412802;
-      v22 = &stru_285D02BA8;
-      v23 = 2112;
-      v24 = v4;
-      v25 = 2112;
-      v26 = v6;
+      v21 = &stru_285D02BA8;
+      v22 = 2112;
+      v23 = v4;
+      v24 = 2112;
+      v25 = v6;
       v7 = "%@Failed to start Error = %@, Session = %@";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
@@ -324,14 +314,14 @@ LABEL_6:
 
   else
   {
-    v5 = DILogHandleDropInSession();
+    v5 = DILogHandleDropInSession(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
       *buf = 138412546;
-      v22 = &stru_285D02BA8;
-      v23 = 2112;
-      v24 = v11;
+      v21 = &stru_285D02BA8;
+      v22 = 2112;
+      v23 = v11;
       v7 = "%@Started Session %@";
       v8 = v5;
       v9 = OS_LOG_TYPE_DEFAULT;
@@ -343,17 +333,15 @@ LABEL_6:
   v12 = [*(a1 + 32) connectionManager];
   v13 = [v12 manager];
   v14 = [v13 clientQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __46__DIDropInSession_startWithCompletionHandler___block_invoke_35;
-  v18[3] = &unk_278FB8CF0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__DIDropInSession_startWithCompletionHandler___block_invoke_35;
+  v17[3] = &unk_278FB8CF0;
   v15 = *(a1 + 40);
-  v19 = v4;
-  v20 = v15;
+  v18 = v4;
+  v19 = v15;
   v16 = v4;
-  [DIUtilities onQueue:v14 block:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v14 block:v17];
 }
 
 - (void)endWithCompletionHandler:(id)handler
@@ -386,32 +374,30 @@ LABEL_6:
 
 void __44__DIDropInSession_endWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDropInSession();
+  v4 = DILogHandleDropInSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v15 = &stru_285D02BA8;
-    v16 = 2112;
-    v17 = v3;
+    v14 = &stru_285D02BA8;
+    v15 = 2112;
+    v16 = v3;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to End Session %@", buf, 0x16u);
   }
 
   v5 = [*(a1 + 32) connectionManager];
   v6 = [v5 manager];
   v7 = [v6 clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__DIDropInSession_endWithCompletionHandler___block_invoke_37;
-  v11[3] = &unk_278FB8CF0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__DIDropInSession_endWithCompletionHandler___block_invoke_37;
+  v10[3] = &unk_278FB8CF0;
   v8 = *(a1 + 40);
-  v12 = v3;
-  v13 = v8;
+  v11 = v3;
+  v12 = v8;
   v9 = v3;
-  [DIUtilities onQueue:v7 block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v7 block:v10];
 }
 
 void __44__DIDropInSession_endWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -462,32 +448,30 @@ void __44__DIDropInSession_endWithCompletionHandler___block_invoke_2(uint64_t a1
 
 void __53__DIDropInSession_cancelWithError_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = DILogHandleDropInSession();
+  v4 = DILogHandleDropInSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v15 = &stru_285D02BA8;
-    v16 = 2112;
-    v17 = v3;
+    v14 = &stru_285D02BA8;
+    v15 = 2112;
+    v16 = v3;
     _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to cancel session %@", buf, 0x16u);
   }
 
   v5 = [*(a1 + 32) connectionManager];
   v6 = [v5 manager];
   v7 = [v6 clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__DIDropInSession_cancelWithError_completionHandler___block_invoke_38;
-  v11[3] = &unk_278FB8CF0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__DIDropInSession_cancelWithError_completionHandler___block_invoke_38;
+  v10[3] = &unk_278FB8CF0;
   v8 = *(a1 + 40);
-  v12 = v3;
-  v13 = v8;
+  v11 = v3;
+  v12 = v8;
   v9 = v3;
-  [DIUtilities onQueue:v7 block:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [DIUtilities onQueue:v7 block:v10];
 }
 
 void __53__DIDropInSession_cancelWithError_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -509,8 +493,8 @@ void __53__DIDropInSession_cancelWithError_completionHandler___block_invoke_2(ui
 
 - (BOOL)isUplinkMuted
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = DILogHandleDropInSession();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = DILogHandleDropInSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -520,20 +504,19 @@ void __53__DIDropInSession_cancelWithError_completionHandler___block_invoke_2(ui
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   lock = [(DIDropInSession *)self lock];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __32__DIDropInSession_isUplinkMuted__block_invoke;
-  v8[3] = &unk_278FB8DB8;
-  v8[4] = self;
-  v8[5] = &buf;
-  [lock di_synchronize:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __32__DIDropInSession_isUplinkMuted__block_invoke;
+  v7[3] = &unk_278FB8DB8;
+  v7[4] = self;
+  v7[5] = &buf;
+  [lock di_synchronize:v7];
 
   v5 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -576,38 +559,36 @@ void __32__DIDropInSession_isUplinkMuted__block_invoke(uint64_t a1)
 
 void __32__DIDropInSession_isUplinkMuted__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(*(a1 + 32) + 8) + 24) = 0;
-  v4 = DILogHandleDropInSession();
+  v4 = DILogHandleDropInSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412546;
-    v7 = &stru_285D02BA8;
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted for current session %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = &stru_285D02BA8;
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted for current session %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__DIDropInSession_isUplinkMuted__block_invoke_39(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
   if (v5)
   {
-    v8 = DILogHandleDropInSession();
+    v8 = DILogHandleDropInSession(WeakRetained);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412546;
-      v11 = &stru_285D02BA8;
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted for current session %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = &stru_285D02BA8;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_ERROR, "%@Failed to get uplink muted for current session %@", &v9, 0x16u);
     }
   }
 
@@ -616,63 +597,83 @@ void __32__DIDropInSession_isUplinkMuted__block_invoke_39(uint64_t a1, char a2, 
     *(*(*(a1 + 32) + 8) + 24) = a2;
     [WeakRetained setNeedsInitialUplinkMuteStatus:0];
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)setUplinkMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = DILogHandleDropInSession(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v13 = &stru_285D02BA8;
+    v14 = 1024;
+    v15 = mutedCopy;
+    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Setting uplink muted to %d", buf, 0x12u);
+  }
+
+  connectionManager = [(DIDropInSession *)self connectionManager];
+  manager = [connectionManager manager];
+  connection = [manager connection];
+  v9 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __34__DIDropInSession_setUplinkMuted___block_invoke_41;
+  v10[3] = &__block_descriptor_33_e17_v16__0__NSError_8l;
+  v11 = mutedCopy;
+  [v9 setUplinkMutedForCurrentSession:mutedCopy completionHandler:v10];
 }
 
 void __34__DIDropInSession_setUplinkMuted___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = DILogHandleDropInSession();
+  v3 = DILogHandleDropInSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412546;
-    v6 = &stru_285D02BA8;
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set uplink muted %@", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = &stru_285D02BA8;
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Failed to set uplink muted %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __34__DIDropInSession_setUplinkMuted___block_invoke_41(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v4 = DILogHandleDropInSession();
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = DILogHandleDropInSession(a1);
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v12 = 138412546;
-      v13 = &stru_285D02BA8;
-      v14 = 1024;
-      v15 = v6;
+      v11 = 138412546;
+      v12 = &stru_285D02BA8;
+      v13 = 1024;
+      v14 = v6;
       v7 = "%@Failed to set uplink muted to %d";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
 LABEL_6:
-      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v12, 0x12u);
+      _os_log_impl(&dword_249DA7000, v8, v9, v7, &v11, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
-    v12 = 138412546;
-    v13 = &stru_285D02BA8;
-    v14 = 1024;
-    v15 = v10;
+    v11 = 138412546;
+    v12 = &stru_285D02BA8;
+    v13 = 1024;
+    v14 = v10;
     v7 = "%@Uplink muted set to %d";
     v8 = v5;
     v9 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_6;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)participants
@@ -700,10 +701,7 @@ LABEL_6:
 
 uint64_t __31__DIDropInSession_participants__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 16) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -728,14 +726,15 @@ uint64_t __31__DIDropInSession_participants__block_invoke(uint64_t a1)
   [lock di_synchronize:v21];
 
   v6 = [MEMORY[0x277CBEB98] setWithArray:participantsCopy];
-  if ([v23[5] isEqualToSet:v6])
+  v7 = [v23[5] isEqualToSet:v6];
+  if (v7)
   {
-    v7 = DILogHandleDropInSession();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = DILogHandleDropInSession(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v29 = &stru_285D02BA8;
-      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_INFO, "%@No changes in participant list", buf, 0xCu);
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_INFO, "%@No changes in participant list", buf, 0xCu);
     }
   }
 
@@ -747,14 +746,14 @@ uint64_t __31__DIDropInSession_participants__block_invoke(uint64_t a1)
     v19[2] = __35__DIDropInSession_setParticipants___block_invoke_43;
     v19[3] = &unk_278FB8E48;
     v19[4] = self;
-    v9 = participantsCopy;
-    v20 = v9;
+    v10 = participantsCopy;
+    v20 = v10;
     [lock2 di_synchronize:v19];
 
     delegate = [(DIDropInSession *)self delegate];
-    v11 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if (v12)
     {
       connectionManager = [(DIDropInSession *)self connectionManager];
       manager = [connectionManager manager];
@@ -763,57 +762,48 @@ uint64_t __31__DIDropInSession_participants__block_invoke(uint64_t a1)
       v16[1] = 3221225472;
       v16[2] = __35__DIDropInSession_setParticipants___block_invoke_2;
       v16[3] = &unk_278FB8E48;
-      v17 = v9;
+      v17 = v10;
       selfCopy = self;
       [DIUtilities onQueue:clientQueue block:v16];
     }
   }
 
   _Block_object_dispose(&v22, 8);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__DIDropInSession_setParticipants___block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEB98] setWithArray:*(*(a1 + 32) + 16)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEB98] setWithArray:*(*(a1 + 32) + 16)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 uint64_t __35__DIDropInSession_setParticipants___block_invoke_43(uint64_t a1)
 {
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = [*(a1 + 40) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __35__DIDropInSession_setParticipants___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating participants to %@ for session %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating participants to %@ for session %@", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 40) delegate];
   [v5 session:*(a1 + 40) didUpdateParticipants:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)sessionStartTimeoutDate
@@ -849,7 +839,7 @@ void __35__DIDropInSession_setParticipants___block_invoke_2(uint64_t a1)
   v25 = __Block_byref_object_copy_;
   v26 = __Block_byref_object_dispose_;
   v27 = 0;
-  v5 = DILogHandleDropInSession();
+  v5 = DILogHandleDropInSession(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -868,14 +858,15 @@ void __35__DIDropInSession_setParticipants___block_invoke_2(uint64_t a1)
   v21[5] = &v22;
   [lock di_synchronize:v21];
 
-  if ([v23[5] isEqualToDate:dateCopy])
+  v7 = [v23[5] isEqualToDate:dateCopy];
+  if (v7)
   {
-    v7 = DILogHandleDropInSession();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = DILogHandleDropInSession(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v29 = &stru_285D02BA8;
-      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_INFO, "%@No changes to start timeout date", buf, 0xCu);
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_INFO, "%@No changes to start timeout date", buf, 0xCu);
     }
   }
 
@@ -887,14 +878,14 @@ void __35__DIDropInSession_setParticipants___block_invoke_2(uint64_t a1)
     v19[2] = __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_46;
     v19[3] = &unk_278FB8E48;
     v19[4] = self;
-    v9 = dateCopy;
-    v20 = v9;
+    v10 = dateCopy;
+    v20 = v10;
     [lock2 di_synchronize:v19];
 
     delegate = [(DIDropInSession *)self delegate];
-    v11 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if (v12)
     {
       connectionManager = [(DIDropInSession *)self connectionManager];
       manager = [connectionManager manager];
@@ -903,48 +894,41 @@ void __35__DIDropInSession_setParticipants___block_invoke_2(uint64_t a1)
       v16[1] = 3221225472;
       v16[2] = __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2;
       v16[3] = &unk_278FB8E48;
-      v17 = v9;
+      v17 = v10;
       selfCopy = self;
       [DIUtilities onQueue:clientQueue block:v16];
     }
   }
 
   _Block_object_dispose(&v22, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) sessionStartTimeoutDate];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) sessionStartTimeoutDate];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating sessionStartTimeoutDate to %@ for session %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating sessionStartTimeoutDate to %@ for session %@", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 40) delegate];
   [v5 session:*(a1 + 40) didUpdateSessionStartTimeoutDate:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDate)sessionEndDate
@@ -980,7 +964,7 @@ void __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2(uint64_t 
   v25 = __Block_byref_object_copy_;
   v26 = __Block_byref_object_dispose_;
   v27 = 0;
-  v5 = DILogHandleDropInSession();
+  v5 = DILogHandleDropInSession(dateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -999,14 +983,15 @@ void __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2(uint64_t 
   v21[5] = &v22;
   [lock di_synchronize:v21];
 
-  if ([v23[5] isEqualToDate:dateCopy])
+  v7 = [v23[5] isEqualToDate:dateCopy];
+  if (v7)
   {
-    v7 = DILogHandleDropInSession();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = DILogHandleDropInSession(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v29 = &stru_285D02BA8;
-      _os_log_impl(&dword_249DA7000, v7, OS_LOG_TYPE_INFO, "%@No changes to end date", buf, 0xCu);
+      _os_log_impl(&dword_249DA7000, v8, OS_LOG_TYPE_INFO, "%@No changes to end date", buf, 0xCu);
     }
   }
 
@@ -1018,14 +1003,14 @@ void __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2(uint64_t 
     v19[2] = __37__DIDropInSession_setSessionEndDate___block_invoke_49;
     v19[3] = &unk_278FB8E48;
     v19[4] = self;
-    v9 = dateCopy;
-    v20 = v9;
+    v10 = dateCopy;
+    v20 = v10;
     [lock2 di_synchronize:v19];
 
     delegate = [(DIDropInSession *)self delegate];
-    v11 = objc_opt_respondsToSelector();
+    v12 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if (v12)
     {
       connectionManager = [(DIDropInSession *)self connectionManager];
       manager = [connectionManager manager];
@@ -1034,48 +1019,41 @@ void __46__DIDropInSession_setSessionStartTimeoutDate___block_invoke_2(uint64_t 
       v16[1] = 3221225472;
       v16[2] = __37__DIDropInSession_setSessionEndDate___block_invoke_2;
       v16[3] = &unk_278FB8E48;
-      v17 = v9;
+      v17 = v10;
       selfCopy = self;
       [DIUtilities onQueue:clientQueue block:v16];
     }
   }
 
   _Block_object_dispose(&v22, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__DIDropInSession_setSessionEndDate___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) sessionEndDate];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) sessionEndDate];
 
   return MEMORY[0x2821F96F8]();
 }
 
 void __37__DIDropInSession_setSessionEndDate___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating sessionEndDate to %@ for session %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Updating sessionEndDate to %@ for session %@", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 40) delegate];
   [v5 session:*(a1 + 40) didUpdateSessionEndDate:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)stringForDropInSessionState:(unint64_t)state
@@ -1138,16 +1116,16 @@ void __37__DIDropInSession_updateWithSession___block_invoke(uint64_t a1)
 
 - (void)failWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = DILogHandleDropInSession();
+  v5 = DILogHandleDropInSession(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v16 = &stru_285D02BA8;
-    v17 = 2112;
-    v18 = errorCopy;
-    v19 = 2112;
+    v15 = &stru_285D02BA8;
+    v16 = 2112;
+    v17 = errorCopy;
+    v18 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_ERROR, "%@Session failed with error %@. Session = %@", buf, 0x20u);
   }
@@ -1160,65 +1138,61 @@ void __37__DIDropInSession_updateWithSession___block_invoke(uint64_t a1)
     connectionManager = [(DIDropInSession *)self connectionManager];
     manager = [connectionManager manager];
     clientQueue = [manager clientQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__DIDropInSession_failWithError___block_invoke;
-    v12[3] = &unk_278FB8E48;
-    v13 = errorCopy;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __33__DIDropInSession_failWithError___block_invoke;
+    v11[3] = &unk_278FB8E48;
+    v12 = errorCopy;
     selfCopy2 = self;
-    [DIUtilities onQueue:clientQueue block:v12];
+    [DIUtilities onQueue:clientQueue block:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __33__DIDropInSession_failWithError___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 2112;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Session failed with error %@. Session = %@", &v7, 0x20u);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 2112;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Session failed with error %@. Session = %@", &v6, 0x20u);
   }
 
   v5 = [*(a1 + 40) delegate];
   [v5 session:*(a1 + 40) didFailWithError:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUplinkMuteStatus:(BOOL)status
 {
   statusCopy = status;
-  v23 = *MEMORY[0x277D85DE8];
-  v5 = DILogHandleDropInSession();
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = DILogHandleDropInSession(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v18 = &stru_285D02BA8;
-    v19 = 1024;
-    v20 = statusCopy;
-    v21 = 2112;
+    v17 = &stru_285D02BA8;
+    v18 = 1024;
+    v19 = statusCopy;
+    v20 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Update uplink mute status %d. Session = %@", buf, 0x1Cu);
   }
 
   lock = [(DIDropInSession *)self lock];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __42__DIDropInSession_updateUplinkMuteStatus___block_invoke;
-  v15[3] = &unk_278FB8E70;
-  v15[4] = self;
-  v16 = statusCopy;
-  [lock di_synchronize:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __42__DIDropInSession_updateUplinkMuteStatus___block_invoke;
+  v14[3] = &unk_278FB8E70;
+  v14[4] = self;
+  v15 = statusCopy;
+  [lock di_synchronize:v14];
 
   delegate = [(DIDropInSession *)self delegate];
   v8 = objc_opt_respondsToSelector();
@@ -1228,39 +1202,35 @@ void __33__DIDropInSession_failWithError___block_invoke(uint64_t a1)
     connectionManager = [(DIDropInSession *)self connectionManager];
     manager = [connectionManager manager];
     clientQueue = [manager clientQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __42__DIDropInSession_updateUplinkMuteStatus___block_invoke_2;
-    v13[3] = &unk_278FB8E70;
-    v14 = statusCopy;
-    v13[4] = self;
-    [DIUtilities onQueue:clientQueue block:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __42__DIDropInSession_updateUplinkMuteStatus___block_invoke_2;
+    v12[3] = &unk_278FB8E70;
+    v13 = statusCopy;
+    v12[4] = self;
+    [DIUtilities onQueue:clientQueue block:v12];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __42__DIDropInSession_updateUplinkMuteStatus___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = DILogHandleDropInSession();
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = DILogHandleDropInSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
     v4 = *(a1 + 32);
-    v7 = 138412802;
-    v8 = &stru_285D02BA8;
-    v9 = 1024;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Update uplink mute status %d. Session = %@", &v7, 0x1Cu);
+    v6 = 138412802;
+    v7 = &stru_285D02BA8;
+    v8 = 1024;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_249DA7000, v2, OS_LOG_TYPE_DEFAULT, "%@Notify delegate: Update uplink mute status %d. Session = %@", &v6, 0x1Cu);
   }
 
   v5 = [*(a1 + 32) delegate];
   [v5 session:*(a1 + 32) didUpdateUplinkMuteStatus:*(a1 + 40)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder

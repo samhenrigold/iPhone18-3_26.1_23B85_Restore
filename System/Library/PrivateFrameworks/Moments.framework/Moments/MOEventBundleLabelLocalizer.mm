@@ -101,7 +101,7 @@
 
 + (id)_Moments_LocalizedStringForKey:(id)key withTable:(id)table
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   tableCopy = table;
   if (keyCopy)
@@ -117,13 +117,13 @@
         v13 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v21 = 138412802;
-          v22 = keyCopy;
-          v23 = 2112;
-          v24 = v11;
-          v25 = 2112;
-          v26 = v12;
-          _os_log_error_impl(&dword_22D8C5000, v13, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer key is not found, key, %@, default language bundle, %@, default localized string, %@", &v21, 0x20u);
+          v20 = 138412802;
+          v21 = keyCopy;
+          v22 = 2112;
+          v23 = v11;
+          v24 = 2112;
+          v25 = v12;
+          _os_log_error_impl(&dword_22D8C5000, v13, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer key is not found, key, %@, default language bundle, %@, default localized string, %@", &v20, 0x20u);
         }
 
         v14 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
@@ -177,14 +177,12 @@
     v12 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)_Moments_LocalizedStringWithFormat:(id)format arguments:(id)arguments
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   argumentsCopy = arguments;
   if (!formatCopy)
@@ -226,39 +224,39 @@ LABEL_26:
     goto LABEL_31;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v28 = argumentsCopy;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v27 = argumentsCopy;
   v12 = argumentsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       v16 = 0;
       do
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * v16);
+        v17 = *(*(&v28 + 1) + 8 * v16);
         v18 = _mo_log_facility_get_os_log(MOLogFacilityFramework);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          [(MOEventBundleLabelLocalizer *)v33 _Moments_LocalizedStringWithFormat:v17 arguments:&v34, v18];
+          [(MOEventBundleLabelLocalizer *)v32 _Moments_LocalizedStringWithFormat:v17 arguments:&v33, v18];
         }
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v14);
@@ -289,10 +287,8 @@ LABEL_26:
     v21 = currentHandler;
   }
 
-  argumentsCopy = v28;
+  argumentsCopy = v27;
 LABEL_31:
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -476,54 +472,45 @@ LABEL_7:
 
 + (void)_Moments_LocalizedStringForKey:(uint64_t)a1 withTable:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 mask];
+  v7 = [a2 mask];
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_Moments_LocalizedStringForKey:(NSObject *)a3 withTable:.cold.2(uint64_t a1, void *a2, NSObject *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CBEAF8] preferredLanguages];
   v7 = [v6 firstObject];
   v8 = [MEMORY[0x277CBEAF8] currentLocale];
   v9 = [v8 localeIdentifier];
   v10 = [a2 preferredLocalizations];
   v11 = [v10 firstObject];
-  v13 = 138413058;
-  v14 = a1;
-  v15 = 2112;
-  v16 = v7;
-  v17 = 2112;
-  v18 = v9;
-  v19 = 2112;
-  v20 = v11;
-  _os_log_error_impl(&dword_22D8C5000, a3, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer key is not found, key, %@, locale preferredLanguage, %@, locale, %@, framework preferredLocalization, %@", &v13, 0x2Au);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 138413058;
+  v13 = a1;
+  v14 = 2112;
+  v15 = v7;
+  v16 = 2112;
+  v17 = v9;
+  v18 = 2112;
+  v19 = v11;
+  _os_log_error_impl(&dword_22D8C5000, a3, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer key is not found, key, %@, locale preferredLanguage, %@, locale, %@, framework preferredLocalization, %@", &v12, 0x2Au);
 }
 
 + (void)_Moments_LocalizedStringWithFormat:(uint64_t)a1 arguments:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a2 count];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_Moments_LocalizedStringWithFormat:(uint64_t)a1 arguments:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a2 count];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_Moments_LocalizedStringWithFormat:(void *)a3 arguments:(NSObject *)a4 .cold.3(uint8_t *a1, void *a2, void *a3, NSObject *a4)
@@ -536,32 +523,27 @@ LABEL_7:
 
 + (void)_Moments_LocalizedStringWithFormat:(void *)a1 arguments:.cold.4(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 mask];
+  v6 = [a1 mask];
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_Moments_LocalizedStringWithFormat:(uint64_t)a1 arguments:(NSObject *)a2 .cold.5(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "MOEventBundleLabelLocalizer output string, %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "MOEventBundleLabelLocalizer output string, %@", &v2, 0xCu);
 }
 
 + (void)_Moments_LocalizedStringWithFormat:(uint64_t)a1 arguments:(NSObject *)a2 .cold.6(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = 0;
-  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer return nil for format, %@, localizedFormat, %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = 0;
+  _os_log_error_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_ERROR, "MOEventBundleLabelLocalizer return nil for format, %@, localizedFormat, %@", &v2, 0x16u);
 }
 
 @end

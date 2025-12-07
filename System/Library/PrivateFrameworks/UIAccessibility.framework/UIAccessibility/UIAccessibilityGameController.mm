@@ -24,7 +24,7 @@
   return v2;
 }
 
-uint64_t __53__UIAccessibilityGameController_sharedGameController__block_invoke()
+uint64_t __53__UIAccessibilityGameController_sharedGameController__block_invoke(uint64_t a1)
 {
   SharedController = objc_opt_new();
 

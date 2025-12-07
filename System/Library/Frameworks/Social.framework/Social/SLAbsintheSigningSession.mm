@@ -35,184 +35,184 @@
 
 - (BOOL)establish
 {
-  v63[1] = *MEMORY[0x1E69E9840];
-  _SLLog(v2, 7, @"Fetching Absinthe cert.");
-  v4 = [MEMORY[0x1E695DFF8] URLWithString:self->_certURL];
-  v5 = [MEMORY[0x1E696AF68] requestWithURL:v4];
-  v55 = 0;
-  v56 = 0;
-  v6 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v5 returningResponse:&v56 error:&v55];
-  v7 = v56;
-  v8 = v55;
-  if (v6)
+  v121[1] = *MEMORY[0x1E69E9840];
+  _SLLog(v7, 7, @"Fetching Absinthe cert.", v2, v3, v4, v5, v6, v93);
+  v9 = [MEMORY[0x1E695DFF8] URLWithString:self->_certURL];
+  v10 = [MEMORY[0x1E696AF68] requestWithURL:v9];
+  v113 = 0;
+  v114 = 0;
+  v11 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v10 returningResponse:&v114 error:&v113];
+  v12 = v114;
+  v13 = v113;
+  if (v11)
   {
-    v9 = v8 == 0;
+    v14 = v13 == 0;
   }
 
   else
   {
-    v9 = 0;
+    v14 = 0;
   }
 
-  if (!v9)
+  if (!v14)
   {
-    v10 = v8;
-    localizedDescription = [v8 localizedDescription];
-    _SLLog(v2, 3, @"Could not get Absinthe cert: %@");
+    v15 = v13;
+    localizedDescription = [v13 localizedDescription];
+    _SLLog(v7, 3, @"Could not get Absinthe cert: %@", v17, v18, v19, v20, v21, localizedDescription);
 
 LABEL_8:
-    v12 = 0;
+    v39 = 0;
     goto LABEL_9;
   }
 
-  v37 = [v6 length];
-  _SLLog(v2, 7, @"Got Absinthe cert: %d bytes.");
-  v54 = 0;
-  v53 = 0;
-  _SLLog(v2, 7, @"Initializing Absinthe session.");
-  KxmB0CKvgWt([v6 bytes], objc_msgSend(v6, "length"));
-  if (v11)
+  v22 = [v11 length];
+  _SLLog(v7, 7, @"Got Absinthe cert: %d bytes.", v23, v24, v25, v26, v27, v22);
+  v112 = 0;
+  v111 = 0;
+  _SLLog(v7, 7, @"Initializing Absinthe session.", v28, v29, v30, v31, v32, v94);
+  KxmB0CKvgWt([v11 bytes], objc_msgSend(v11, "length"));
+  if (v33)
   {
-    _SLLog(v2, 3, @"NACInit failed, status: %d");
-    v10 = 0;
+    _SLLog(v7, 3, @"NACInit failed, status: %d", v34, v35, v36, v37, v38, v33);
+    v15 = 0;
     goto LABEL_8;
   }
 
-  _SLLog(v2, 7, @"session info request: %p of size %lu");
-  v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v54 length:{v53, v54, v53}];
-  base64Encoding = [v14 base64Encoding];
+  _SLLog(v7, 7, @"session info request: %p of size %lu", v34, v35, v36, v37, v38, v112);
+  v41 = [MEMORY[0x1E695DEF0] dataWithBytes:v112 length:v111];
+  base64Encoding = [v41 base64Encoding];
 
-  v62 = @"absinthe-operations";
-  v60 = @"create-session-info";
-  v57[0] = @"id";
-  v57[1] = @"request";
-  v58[0] = &unk_1F4202A78;
-  v58[1] = base64Encoding;
-  v48 = base64Encoding;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:v57 count:2];
-  v59 = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
-  v61 = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-  v63[0] = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+  v120 = @"absinthe-operations";
+  v118 = @"create-session-info";
+  v115[0] = @"id";
+  v115[1] = @"request";
+  v116[0] = &unk_1F4202A78;
+  v116[1] = base64Encoding;
+  v106 = base64Encoding;
+  v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:2];
+  v117 = v43;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v117 count:1];
+  v119 = v44;
+  v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
+  v121[0] = v45;
+  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:&v120 count:1];
 
-  v52 = 0;
-  v47 = v19;
-  v20 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v19 options:0 error:&v52];
-  v21 = v52;
-  v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v20 encoding:4];
-  v23 = [(SLAbsintheSigningSession *)self _urlEncodedString:v22];
+  v110 = 0;
+  v105 = v46;
+  v47 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v46 options:0 error:&v110];
+  v48 = v110;
+  v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v47 encoding:4];
+  v50 = [(SLAbsintheSigningSession *)self _urlEncodedString:v49];
 
-  if (v21)
+  if (v48)
   {
-    _SLLog(v2, 3, @"Building Absinthe operation JSON failed: %@");
-    v12 = 0;
-    v10 = 0;
+    _SLLog(v7, 3, @"Building Absinthe operation JSON failed: %@", v51, v52, v53, v54, v55, v48);
+    v39 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v44 = v20;
-    v24 = MEMORY[0x1E696AD68];
-    v25 = [MEMORY[0x1E695DFF8] URLWithString:self->_sessionURL];
-    v26 = [v24 requestWithURL:v25];
+    v102 = v47;
+    v56 = MEMORY[0x1E696AD68];
+    v57 = [MEMORY[0x1E695DFF8] URLWithString:self->_sessionURL];
+    v58 = [v56 requestWithURL:v57];
 
-    [v26 setHTTPMethod:@"POST"];
-    v46 = v23;
-    v27 = [v23 dataUsingEncoding:4];
-    [v26 setHTTPBody:v27];
+    [v58 setHTTPMethod:@"POST"];
+    v104 = v50;
+    v59 = [v50 dataUsingEncoding:4];
+    [v58 setHTTPBody:v59];
 
-    [v26 addValue:@"Absinthe/2.0 Thunderhill (com.apple.social.facebook)" forHTTPHeaderField:@"User-Agent"];
-    v50 = 0;
-    v51 = v7;
-    v45 = v26;
-    v28 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v26 returningResponse:&v51 error:&v50];
-    v43 = v51;
+    [v58 addValue:@"Absinthe/2.0 Thunderhill (com.apple.social.facebook)" forHTTPHeaderField:@"User-Agent"];
+    v108 = 0;
+    v109 = v12;
+    v103 = v58;
+    v60 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v58 returningResponse:&v109 error:&v108];
+    v101 = v109;
 
-    v29 = v50;
-    v10 = v29;
-    v42 = v28;
-    if (v29 || !v28)
+    v61 = v108;
+    v15 = v61;
+    v100 = v60;
+    if (v61 || !v60)
     {
-      localizedDescription2 = [v29 localizedDescription];
-      _SLLog(v2, 3, @"Could not connect to session URL: %@");
-      v21 = 0;
-      v12 = 0;
-      v20 = v44;
+      localizedDescription2 = [v61 localizedDescription];
+      _SLLog(v7, 3, @"Could not connect to session URL: %@", v70, v71, v72, v73, v74, localizedDescription2);
+      v48 = 0;
+      v39 = 0;
+      v47 = v102;
     }
 
     else
     {
-      v49 = 0;
-      localizedDescription2 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v28 options:0 error:&v49];
-      v31 = v49;
-      v21 = v31;
-      v20 = v44;
-      if (v31)
+      v107 = 0;
+      localizedDescription2 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v60 options:0 error:&v107];
+      v63 = v107;
+      v48 = v63;
+      v47 = v102;
+      if (v63)
       {
-        localizedDescription3 = [v31 localizedDescription];
-        _SLLog(v2, 3, @"JSON parsing failed: %@");
-        v12 = 0;
+        localizedDescription3 = [v63 localizedDescription];
+        _SLLog(v7, 3, @"JSON parsing failed: %@", v65, v66, v67, v68, v69, localizedDescription3);
+        v39 = 0;
       }
 
       else
       {
-        v41 = localizedDescription2;
-        v39 = [localizedDescription2 objectForKey:@"absinthe-results"];
-        v38 = [v39 objectForKey:@"create-session-info"];
-        lastObject = [v38 lastObject];
+        v99 = localizedDescription2;
+        v97 = [localizedDescription2 objectForKey:@"absinthe-results"];
+        v96 = [v97 objectForKey:@"create-session-info"];
+        lastObject = [v96 lastObject];
         localizedDescription3 = [lastObject objectForKey:@"session-info"];
 
         if (localizedDescription3)
         {
-          v40 = localizedDescription3;
-          v34 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64Encoding:localizedDescription3];
-          _SLLog(v2, 7, @"Initialized Absinthe session. Establishing key...");
-          nDYmeMqvWb(self->_context, [v34 bytes], objc_msgSend(v34, "length"));
-          v12 = v35 == 0;
-          if (v35)
+          v98 = localizedDescription3;
+          v81 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64Encoding:localizedDescription3];
+          _SLLog(v7, 7, @"Initialized Absinthe session. Establishing key...", v82, v83, v84, v85, v86, v95);
+          nDYmeMqvWb(self->_context, [v81 bytes], objc_msgSend(v81, "length"));
+          v39 = v87 == 0;
+          if (v87)
           {
-            _SLLog(v2, 3, @"NACKeyEstablishment failed, status: %d");
+            _SLLog(v7, 3, @"NACKeyEstablishment failed, status: %d", v88, v89, v90, v91, v92, v87);
           }
 
-          localizedDescription3 = v40;
-          localizedDescription2 = v41;
+          localizedDescription3 = v98;
+          localizedDescription2 = v99;
         }
 
         else
         {
-          _SLLog(v2, 3, @"Could not get session info from server response.");
-          v12 = 0;
-          localizedDescription2 = v41;
+          _SLLog(v7, 3, @"Could not get session info from server response.", v76, v77, v78, v79, v80, v95);
+          v39 = 0;
+          localizedDescription2 = v99;
         }
       }
 
-      v23 = v46;
+      v50 = v104;
     }
 
-    v7 = v43;
+    v12 = v101;
   }
 
 LABEL_9:
-  return v12;
+  return v39;
 }
 
 - (id)signatureForData:(id)data
 {
   if (self->_context)
   {
-    v11 = 0;
+    v22 = 0;
     dataCopy = data;
-    _SLLog(v3, 7, @"Signing data.");
+    _SLLog(v3, 7, @"Signing data.", v6, v7, v8, v9, v10, v21);
     context = self->_context;
     bytes = [dataCopy bytes];
-    v8 = [dataCopy length];
+    v13 = [dataCopy length];
 
-    t1BoNctgaUu66(context, bytes, v8, &v11);
-    if (v9)
+    t1BoNctgaUu66(context, bytes, v13, &v22);
+    if (v14)
     {
-      _SLLog(v3, 3, @"NACSign failed, status: %d");
+      _SLLog(v3, 3, @"NACSign failed, status: %d", v15, v16, v17, v18, v19, v14);
     }
   }
 

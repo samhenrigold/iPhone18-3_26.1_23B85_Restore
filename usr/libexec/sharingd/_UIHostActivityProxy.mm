@@ -98,12 +98,13 @@
       }
     }
 
-    if ([(_UIHostActivityProxy *)v6 isRestricted])
+    isRestricted = [(_UIHostActivityProxy *)v6 isRestricted];
+    if (isRestricted)
     {
-      v30 = share_sheet_log();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      v31 = share_sheet_log(isRestricted);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
-        sub_10005AAA8(v6, v30);
+        sub_10005AAA8(v6, v31);
       }
 
       v6 = 0;

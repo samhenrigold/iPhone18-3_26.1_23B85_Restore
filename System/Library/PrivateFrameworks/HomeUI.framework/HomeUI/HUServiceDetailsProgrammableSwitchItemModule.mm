@@ -110,7 +110,7 @@ uint64_t __81__HUServiceDetailsProgrammableSwitchItemModule_programmableSwitchOp
     v13 = v11;
     v14 = v8;
     [v3 enumerateObjectsUsingBlock:v22];
-    allKeys = [v12 allKeys];
+    v15 = objc_msgSend_allKeys(v12);
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
     v19[2] = __80__HUServiceDetailsProgrammableSwitchItemModule_buildSectionsWithDisplayedItems___block_invoke_9;
@@ -118,7 +118,7 @@ uint64_t __81__HUServiceDetailsProgrammableSwitchItemModule_programmableSwitchOp
     v20 = v12;
     v21 = &__block_literal_global_18_0;
     v16 = v12;
-    v17 = [allKeys na_map:v19];
+    v17 = [v15 na_map:v19];
   }
 
   else

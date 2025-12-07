@@ -28,60 +28,101 @@
 
 - (id)description
 {
-  self->_batteryPresent;
-  NSAppendPrintF_safe();
-  v3 = 0;
+  v30 = 0;
+  if (self->_batteryPresent)
+  {
+    v3 = "Yes";
+  }
+
+  else
+  {
+    v3 = "No";
+  }
+
+  NSAppendPrintF_safe(&v30, "Present %s", v3);
+  v4 = v30;
+  v29 = v4;
   externalPowerSourceWired = self->_externalPowerSourceWired;
-  if (externalPowerSourceWired <= 2)
+  if (externalPowerSourceWired > 2)
   {
-    v5 = off_1000BD2E8[externalPowerSourceWired];
+    v6 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v6 = v3;
+  else
+  {
+    v6 = off_1000BD2E8[externalPowerSourceWired];
+  }
 
+  NSAppendPrintF_safe(&v29, ", Wired %s", v6);
+  v7 = v29;
+
+  v28 = v7;
   externalPowerSourceWireless = self->_externalPowerSourceWireless;
-  if (externalPowerSourceWireless <= 2)
+  if (externalPowerSourceWireless > 2)
   {
-    v8 = off_1000BD2E8[externalPowerSourceWireless];
+    v9 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v9 = v6;
+  else
+  {
+    v9 = off_1000BD2E8[externalPowerSourceWireless];
+  }
 
+  NSAppendPrintF_safe(&v28, ", Wireless %s", v9);
+  v10 = v28;
+
+  v27 = v10;
   batteryChargeState = self->_batteryChargeState;
-  if (batteryChargeState <= 3)
+  if (batteryChargeState > 3)
   {
-    v11 = off_1000BD300[batteryChargeState];
+    v12 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v12 = v9;
+  else
+  {
+    v12 = off_1000BD300[batteryChargeState];
+  }
 
+  NSAppendPrintF_safe(&v27, ", State %s", v12);
+  v13 = v27;
+
+  v26 = v13;
   batteryChargeLevel = self->_batteryChargeLevel;
-  if (batteryChargeLevel <= 3)
+  if (batteryChargeLevel > 3)
   {
-    v14 = off_1000BD320[batteryChargeLevel];
+    v15 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v15 = v12;
+  else
+  {
+    v15 = off_1000BD320[batteryChargeLevel];
+  }
 
+  NSAppendPrintF_safe(&v26, ", Level %s", v15);
+  v16 = v26;
+
+  v25 = v16;
   batteryChargeType = self->_batteryChargeType;
-  if (batteryChargeType <= 4)
+  if (batteryChargeType > 4)
   {
-    v17 = off_1000BD340[batteryChargeType];
+    v18 = "?";
   }
 
-  NSAppendPrintF_safe();
-  v18 = v15;
+  else
+  {
+    v18 = off_1000BD340[batteryChargeType];
+  }
 
-  chargingFaultReason = self->_chargingFaultReason;
-  v22 = CUPrintFlags32();
-  NSAppendPrintF_safe();
-  v20 = v18;
+  NSAppendPrintF_safe(&v25, ", Type %s", v18);
+  v19 = v25;
 
-  return v18;
+  v24 = v19;
+  v20 = CUPrintFlags32();
+  NSAppendPrintF_safe(&v24, ", CFR %@", v20);
+  v21 = v24;
+  v22 = v24;
+
+  return v21;
 }
 
 @end

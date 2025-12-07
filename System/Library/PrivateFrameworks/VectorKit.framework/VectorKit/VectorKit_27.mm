@@ -173,7 +173,7 @@ std::__shared_weak_count *md::LabelLineStore::addRoad(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuildingPointyRoof::BuildingPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuildingPointyRoof::BuildingPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -294,7 +294,7 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuilding::BuildingPipelineSetup>>::~unique_ptr[abi:nn200100](void **a1)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuilding::BuildingPipelineSetup>>::~unique_ptr[abi:nn200100](uint64_t *a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -354,7 +354,7 @@ void **std::unique_ptr<ggl::FragmentedPool<ggl::SpecularBuilding::BuildingPipeli
   return a1;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::FoggedDiffuseBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -447,13 +447,13 @@ LABEL_7:
   return v2 != v7;
 }
 
-void std::vector<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup *,geo::allocator_adapter<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup *,geo::allocator_adapter<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::FoggedDiffuseBuilding::BuildingPipelineSetup *>(v2, v1);
   }
@@ -474,7 +474,7 @@ void md::LabelLineSegment::computeRadiusOfCurvature(float32x2_t *a1, unsigned in
 
     else
     {
-      MEMORY[0x1EEE9AC00]();
+      MEMORY[0x1EEE9AC00](a1);
       v11 = (v36 - v10);
       bzero(v36 - v10, v12);
     }
@@ -483,7 +483,7 @@ void md::LabelLineSegment::computeRadiusOfCurvature(float32x2_t *a1, unsigned in
     v14 = vmul_n_f32(v13, 1.0 / sqrtf(vaddv_f32(vmul_f32(v13, v13))));
     *&v15 = v14;
     *(&v15 + 1) = v14;
-    *v11->f32 = v15;
+    *v11->i8 = v15;
     v16 = a2 - 1;
     v17 = (a4 + 8);
     v18 = a1 + 2;
@@ -496,7 +496,7 @@ void md::LabelLineSegment::computeRadiusOfCurvature(float32x2_t *a1, unsigned in
       v23 = v14;
       if (v22 > 0.00000011921)
       {
-        v23.f32[0] = sqrtf(v22);
+        *v23.i32 = sqrtf(v22);
         v23 = vdiv_f32(v21, vdup_lane_s32(v23, 0));
       }
 
@@ -540,10 +540,10 @@ void md::LabelLineSegment::computeRadiusOfCurvature(float32x2_t *a1, unsigned in
       {
         v30 = vsub_f32(a1[v26 + 1], a1[v26]);
         v31 = vmul_f32(v30, v30);
-        v31.f32[0] = sqrtf(vaddv_f32(v31));
+        *v31.i32 = sqrtf(vaddv_f32(v31));
         v32 = v26 + 1;
         v33 = vsub_f32(v29[2], v11[v26 + 1]);
-        if (v31.f32[0] <= 0.00000011921)
+        if (*v31.i32 <= 0.00000011921)
         {
           goto LABEL_18;
         }
@@ -554,7 +554,7 @@ LABEL_18:
       v34 = sqrtf(vaddv_f32(vmul_f32(v33, v33)));
       if (*(a4 + 8 * v26) == 0.0)
       {
-        if (v31.f32[0] >= v27)
+        if (*v31.i32 >= v27)
         {
           v28 = v34;
         }
@@ -574,7 +574,7 @@ LABEL_18:
 
       v26 = v32;
       v28 = v34;
-      v27 = v31.f32[0];
+      v27 = *v31.i32;
       if (v32 == v9)
       {
         if (a2 >= 0x1FF1)
@@ -588,13 +588,13 @@ LABEL_18:
   }
 }
 
-void std::vector<char16_t,geo::allocator_adapter<char16_t,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *a1)
+void std::vector<char16_t,geo::allocator_adapter<char16_t,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = mdm::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char16_t>(v2, v1);
   }
@@ -610,7 +610,7 @@ uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignLinearDep
   return result;
 }
 
-void **std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](void **result, void *a2)
+uint64_t *std::unique_ptr<ggl::FragmentedPool<ggl::DiffuseBuildingTop::CompressedMeshPipelineSetup>>::reset[abi:nn200100](uint64_t *result, uint64_t a2)
 {
   v2 = *result;
   *result = a2;
@@ -726,12 +726,13 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID
   return result;
 }
 
-uint64_t md::UniLineLabelFeature::updateText(md::UniLineLabelFeature *this, uint64_t a2, int a3)
+uint64_t md::UniLineLabelFeature::updateText(md::UniLineLabelFeature *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v12 = *MEMORY[0x1E69E9840];
   if (*(this + 44) == *(this + 45) && geo::codec::featureGetNativeShieldCount(a2))
   {
-    md::UniLineLabelFeature::shieldsForFeature(&v9, a2, a3);
+    md::UniLineLabelFeature::shieldsForFeature(&v9, a2, v3);
     std::vector<md::LabelShieldEntry,geo::allocator_adapter<md::LabelShieldEntry,mdm::zone_mallocator>>::__vdeallocate((this + 352));
     *(this + 22) = v9;
     *(this + 46) = v10;
@@ -741,11 +742,11 @@ uint64_t md::UniLineLabelFeature::updateText(md::UniLineLabelFeature *this, uint
     std::vector<md::LabelShieldEntry,geo::allocator_adapter<md::LabelShieldEntry,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v8);
   }
 
-  std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::clear[abi:nn200100]((this + 384));
+  std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::clear[abi:nn200100](this + 48);
   v6 = *(this + 24);
   *&v9 = &unk_1F2A00108;
   *(&v9 + 1) = this;
-  LOBYTE(v10) = a3;
+  LOBYTE(v10) = v3;
   v11 = &v9;
   *(&v10 + 1) = 0;
   HIDWORD(v10) = 0;
@@ -763,44 +764,44 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShad
   }
 }
 
-void std::vector<ggl::DiffuseBuilding::BuildingPipelineSetup *,geo::allocator_adapter<ggl::DiffuseBuilding::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::DiffuseBuilding::BuildingPipelineSetup *,geo::allocator_adapter<ggl::DiffuseBuilding::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::DiffuseBuilding::BuildingPipelineSetup *>(v2, v1);
   }
 }
 
-void *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int>(void *result, unsigned int a2)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int>(void *a1, unsigned int a2, _DWORD *a3)
 {
-  v2 = result[1];
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -808,44 +809,42 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_10:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_10;
   }
-
-  return result;
 }
 
 void ecs2::Runtime::queueCommand()
@@ -876,21 +875,21 @@ uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls:
   return v0[330];
 }
 
-void md::LabelTile::LabelTile(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
+void md::LabelTile::LabelTile(unsigned __int8 *a1, uint64_t a2, geo::codec::VectorTile **a3, unsigned __int8 a4, uint64_t *a5, char a6, uint64_t **a7, void *a8)
 {
   *a1 = a4;
-  *(a1 + 8) = *a5;
-  v5 = a5[1];
-  *(a1 + 16) = v5;
-  if (v5)
+  *(a1 + 1) = *a5;
+  v8 = a5[1];
+  *(a1 + 2) = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit((v5 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v8 + 16), 1uLL, memory_order_relaxed);
   }
 
   operator new();
 }
 
-void sub_1B2992B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, md::PointLabelFeature *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, std::__shared_weak_count *a39)
+void sub_1B2992B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, md::PointLabelFeature *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, std::__shared_weak_count *a39)
 {
   std::mutex::unlock(v39);
   if (a39)
@@ -898,26 +897,26 @@ void sub_1B2992B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:nn200100](a39);
   }
 
-  v41 = *(a37 + 272);
+  v41 = a37[34];
   if (v41)
   {
     std::__shared_weak_count::__release_weak(v41);
   }
 
-  std::__tree<std::weak_ptr<md::OverlayLineLabelFeature>,std::owner_less<std::weak_ptr<md::OverlayLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::OverlayLineLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 240));
-  std::__tree<std::weak_ptr<md::PointLabelFeature>,std::owner_less<std::weak_ptr<md::PointLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::PointLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 208));
-  std::__tree<std::weak_ptr<md::TransitLineLabelFeature>,std::owner_less<std::weak_ptr<md::TransitLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::TransitLineLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 176));
-  std::__tree<std::weak_ptr<md::ContourLineLabelFeature>,std::owner_less<std::weak_ptr<md::ContourLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::ContourLineLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 144));
-  std::__tree<std::weak_ptr<md::PhysicalLabelFeature>,std::owner_less<std::weak_ptr<md::PhysicalLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::PhysicalLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 112));
-  std::__tree<std::weak_ptr<md::UniLineLabelFeature>,std::owner_less<std::weak_ptr<md::UniLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::UniLineLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 80));
-  std::__tree<std::weak_ptr<md::UniLineLabelFeature>,std::owner_less<std::weak_ptr<md::UniLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::UniLineLabelFeature>,mdm::zone_mallocator>>::destroy(*(a37 + 48));
-  v42 = *(a37 + 32);
+  std::__tree<std::weak_ptr<md::OverlayLineLabelFeature>,std::owner_less<std::weak_ptr<md::OverlayLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::OverlayLineLabelFeature>,mdm::zone_mallocator>>::destroy(a37[30]);
+  std::__tree<std::weak_ptr<md::PointLabelFeature>,std::owner_less<std::weak_ptr<md::PointLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::PointLabelFeature>,mdm::zone_mallocator>>::destroy(a37[26]);
+  std::__tree<std::weak_ptr<md::TransitLineLabelFeature>,std::owner_less<std::weak_ptr<md::TransitLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::TransitLineLabelFeature>,mdm::zone_mallocator>>::destroy(a37[22]);
+  std::__tree<std::weak_ptr<md::ContourLineLabelFeature>,std::owner_less<std::weak_ptr<md::ContourLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::ContourLineLabelFeature>,mdm::zone_mallocator>>::destroy(a37[18]);
+  std::__tree<std::weak_ptr<md::PhysicalLabelFeature>,std::owner_less<std::weak_ptr<md::PhysicalLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::PhysicalLabelFeature>,mdm::zone_mallocator>>::destroy(a37[14]);
+  std::__tree<std::weak_ptr<md::UniLineLabelFeature>,std::owner_less<std::weak_ptr<md::UniLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::UniLineLabelFeature>,mdm::zone_mallocator>>::destroy(a37[10]);
+  std::__tree<std::weak_ptr<md::UniLineLabelFeature>,std::owner_less<std::weak_ptr<md::UniLineLabelFeature>>,geo::allocator_adapter<std::weak_ptr<md::UniLineLabelFeature>,mdm::zone_mallocator>>::destroy(a37[6]);
+  v42 = a37[4];
   if (v42)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v42);
   }
 
-  v43 = *(a37 + 16);
+  v43 = a37[2];
   if (v43)
   {
     std::__shared_weak_count::__release_weak(v43);
@@ -926,25 +925,25 @@ void sub_1B2992B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup *,geo::allocator_adapter<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup *,geo::allocator_adapter<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::BuildingPointyRoofDepth::BuildingPipelineSetup *>(v2, v1);
   }
 }
 
-void std::vector<md::LabelFeatureStylerItem,geo::allocator_adapter<md::LabelFeatureStylerItem,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *a1)
+void std::vector<md::LabelFeatureStylerItem,geo::allocator_adapter<md::LabelFeatureStylerItem,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = mdm::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<md::LabelFeatureStylerItem>(v2, v1);
   }
@@ -1018,13 +1017,13 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::vector<ggl::BuildingTopDepth::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::BuildingTopDepth::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::BuildingTopDepth::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::BuildingTopDepth::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::BuildingTopDepth::CompressedMeshPipelineSetup *>(v2, v1);
   }
@@ -1079,11 +1078,12 @@ unint64_t std::__unordered_map_hasher<gss::StyleKey,std::__hash_value_type<gss::
   return v5 ^ v2;
 }
 
-void ecs2::BasicRegistry<void>::destroy(void *a1, int a2)
+void ecs2::BasicRegistry<void>::destroy(void *result, uint64_t a2)
 {
-  v5 = HIWORD(a2);
-  v6 = a1[5127];
-  v7 = (v6 + (HIWORD(a2) << 6));
+  v3 = a2;
+  v5 = WORD1(a2);
+  v6 = result[5127];
+  v7 = (v6 + (WORD1(a2) << 6));
   v8 = v7[1];
   v23[0] = *v7;
   v23[1] = v8;
@@ -1123,8 +1123,8 @@ LABEL_23:
   {
     v11 = HIDWORD(v10);
     v12 = __clz(__rbit32(*(v23 + v10) & HIDWORD(v10)));
-    LODWORD(v24) = a2;
-    v13 = a1[128 * v10 + 3082 + 4 * v12];
+    LODWORD(v24) = v3;
+    v13 = result[128 * v10 + 3082 + 4 * v12];
     if (!v13)
     {
       std::__throw_bad_function_call[abi:nn200100]();
@@ -1160,22 +1160,22 @@ LABEL_9:
   }
 
 LABEL_10:
-  v6 = a1[5127];
+  v6 = result[5127];
 LABEL_11:
   v16 = (v6 + (v5 << 6));
   v16[2] = 0u;
   v16[3] = 0u;
   *v16 = 0u;
   v16[1] = 0u;
-  v17 = a1[516];
-  if (v5 < (a1[517] - v17) >> 2)
+  v17 = result[516];
+  if (v5 < (result[517] - v17) >> 2)
   {
     v18 = (v17 + 4 * v5);
-    if (*v18 == a2)
+    if (*v18 == v3)
     {
-      if (a2 <= 0xFFFDu)
+      if (v3 <= 0xFFFDu)
       {
-        v19 = a2 + 1;
+        v19 = v3 + 1;
       }
 
       else
@@ -1185,13 +1185,14 @@ LABEL_11:
 
       *v18 = v19;
       v24 = v5;
-      std::vector<unsigned long>::push_back[abi:nn200100]((a1 + 513), &v24);
+      std::vector<unsigned long>::push_back[abi:nn200100]((result + 513), &v24);
     }
   }
 }
 
-mdm::zone_mallocator *md::PhysicalLabelFeature::textIndexForFeature(void *a1, std::__shared_weak_count **a2, int a3)
+mdm::zone_mallocator *md::PhysicalLabelFeature::textIndexForFeature(uint64_t *a1, std::__shared_weak_count **a2, uint64_t a3)
 {
+  v3 = a3;
   v32 = *MEMORY[0x1E69E9840];
   v28 = 0uLL;
   v29 = 0;
@@ -1206,7 +1207,7 @@ mdm::zone_mallocator *md::PhysicalLabelFeature::textIndexForFeature(void *a1, st
       goto LABEL_14;
     }
 
-    if (a3)
+    if (v3)
     {
       if ((*(v7 + 79) & 0x8000000000000000) != 0)
       {
@@ -1237,7 +1238,7 @@ LABEL_13:
   v23 = 0;
   v20 = 0uLL;
   v21 = 0;
-  md::LabelFeature::textFromFeature(&__dst, a2, a3, &v20, 0);
+  md::LabelFeature::textFromFeature(&__dst, a2, v3, &v20, 0);
   v22 = __dst;
   v23 = v25;
   v8 = md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>::StringWithLocaleImp(&__dst, &v22, &v20);
@@ -1329,13 +1330,13 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShad
   }
 }
 
-void std::vector<ggl::BuildingFacadeDepth::BuildingPipelineSetup *,geo::allocator_adapter<ggl::BuildingFacadeDepth::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::BuildingFacadeDepth::BuildingPipelineSetup *,geo::allocator_adapter<ggl::BuildingFacadeDepth::BuildingPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::BuildingFacadeDepth::BuildingPipelineSetup *>(v2, v1);
   }
@@ -1352,7 +1353,7 @@ uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignStyleShad
   return result;
 }
 
-double md::LabelFeature::textFromFeature(void *a1, std::__shared_weak_count **a2, int a3, uint64_t a4, unsigned int a5)
+double md::LabelFeature::textFromFeature(void *a1, std::__shared_weak_count **a2, int a3, void **a4, unsigned int a5)
 {
   v18 = *MEMORY[0x1E69E9840];
   v14 = 0;
@@ -1379,7 +1380,7 @@ double md::LabelFeature::textFromFeature(void *a1, std::__shared_weak_count **a2
 
   result = *&v16;
   *a4 = v16;
-  *(a4 + 16) = v17;
+  a4[2] = v17;
   return result;
 }
 
@@ -1470,13 +1471,13 @@ void _ZNSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2cc14Cam
   *(v3 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::cc::CameraCommands>(void)::metadata) = *(v3 + 4096);
 }
 
-void std::vector<ggl::BuildingFlat::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::BuildingFlat::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::BuildingFlat::CompressedMeshPipelineSetup *,geo::allocator_adapter<ggl::BuildingFlat::CompressedMeshPipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::BuildingFlat::CompressedMeshPipelineSetup *>(v2, v1);
   }
@@ -1663,7 +1664,7 @@ std::__shared_weak_count *std::vector<std::pair<GeoCodecsFeature const*,std::sha
     }
 
     v16 = &v13[24 * v11];
-    v7 = v14 + 24;
+    v7 = (v14 + 24);
     v17 = v3->__shared_owners_ - v3->__vftable;
     v18 = &v14[-v17];
     memcpy(&v14[-v17], v3->__vftable, v17);
@@ -1689,7 +1690,7 @@ std::__shared_weak_count *std::vector<std::pair<GeoCodecsFeature const*,std::sha
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v7 = (shared_owners + 24);
+    v7 = shared_owners + 24;
   }
 
   v3->__shared_owners_ = v7;
@@ -1743,7 +1744,7 @@ std::__shared_weak_count *std::vector<std::pair<GeoCodecsFeature const*,std::sha
     *(v13 + 2) = *(a2 + 16);
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = v13 + 24;
+    v6 = (v13 + 24);
     v15 = v3->__shared_owners_ - v3->__vftable;
     v16 = &v13[-v15];
     memcpy(&v13[-v15], v3->__vftable, v15);
@@ -1765,7 +1766,7 @@ std::__shared_weak_count *std::vector<std::pair<GeoCodecsFeature const*,std::sha
     *(shared_owners + 16) = *(a2 + 16);
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (shared_owners + 24);
+    v6 = shared_owners + 24;
   }
 
   v3->__shared_owners_ = v6;
@@ -1784,13 +1785,13 @@ void std::vector<std::pair<md::cc::CameraCommandType,std::variant<md::cc::Zoom,m
   }
 }
 
-void std::vector<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup *,geo::allocator_adapter<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *a1)
+void std::vector<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup *,geo::allocator_adapter<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup *,ggl::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](ggl::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = ggl::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = ggl::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<ggl::BuildingFlatStroke::BuildingFlatStrokePipelineSetup *>(v2, v1);
   }
@@ -1852,7 +1853,7 @@ uint64_t ecs2::sparse_set<ecs2::Entity,64ul>::erase(void *a1, uint64_t a2)
   return a1[4];
 }
 
-void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -2352,23 +2353,23 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-void std::vector<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,geo::allocator_adapter<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](std::__shared_weak_count *a1)
+void std::vector<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,geo::allocator_adapter<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](void (__cdecl ***result)(std::__shared_weak_count *__hidden this))
 {
-  v1 = a1->__vftable;
-  v2 = a1->~__shared_weak_count;
+  v1 = *result;
+  v2 = **result;
   if (v2)
   {
     v3 = v1->~__shared_weak_count_0;
-    v4 = a1->~__shared_weak_count;
+    v4 = **result;
     if (v3 != v2)
     {
-      v5 = a1;
+      v5 = result;
       do
       {
-        a1 = *(v3 - 1);
-        if (a1)
+        result = *(v3 - 1);
+        if (result)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](a1);
+          std::__shared_weak_count::__release_shared[abi:nn200100](result);
         }
 
         v3 = (v3 - 16);
@@ -2379,7 +2380,7 @@ void std::vector<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>,geo::all
     }
 
     v1->~__shared_weak_count_0 = v2;
-    v6 = mdm::zone_mallocator::instance(a1);
+    v6 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::shared_ptr<gss::StylesheetQuery<gss::PropertyID>>>(v6, v4);
   }
@@ -2418,23 +2419,23 @@ void ggl::SpecularBuildingPointyRoof::BuildingPipelineState::~BuildingPipelineSt
   JUMPOUT(0x1B8C62190);
 }
 
-void std::vector<std::shared_ptr<md::LabelStyle>,geo::allocator_adapter<std::shared_ptr<md::LabelStyle>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](std::__shared_weak_count *a1)
+void std::vector<std::shared_ptr<md::LabelStyle>,geo::allocator_adapter<std::shared_ptr<md::LabelStyle>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](void (__cdecl ***result)(std::__shared_weak_count *__hidden this))
 {
-  v1 = a1->__vftable;
-  v2 = a1->~__shared_weak_count;
+  v1 = *result;
+  v2 = **result;
   if (v2)
   {
     v3 = v1->~__shared_weak_count_0;
-    v4 = a1->~__shared_weak_count;
+    v4 = **result;
     if (v3 != v2)
     {
-      v5 = a1;
+      v5 = result;
       do
       {
-        a1 = *(v3 - 1);
-        if (a1)
+        result = *(v3 - 1);
+        if (result)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](a1);
+          std::__shared_weak_count::__release_shared[abi:nn200100](result);
         }
 
         v3 = (v3 - 16);
@@ -2445,7 +2446,7 @@ void std::vector<std::shared_ptr<md::LabelStyle>,geo::allocator_adapter<std::sha
     }
 
     v1->~__shared_weak_count_0 = v2;
-    v6 = mdm::zone_mallocator::instance(a1);
+    v6 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::shared_ptr<md::LabelStyle>>(v6, v4);
   }
@@ -2459,8 +2460,9 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md32C
   return result;
 }
 
-void *gss::RenderStyle<gss::PropertyID>::styleValueForKeyAtZ<BOOL>(uint64_t a1, int a2, unsigned int a3, unsigned int a4, _BYTE *a5)
+void *gss::RenderStyle<gss::PropertyID>::styleValueForKeyAtZ<BOOL>(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, _BYTE *a5)
 {
+  v6 = a2;
   v7 = *(a1 + 16 * a4 + 16);
   if (v7)
   {
@@ -2478,7 +2480,7 @@ void *gss::RenderStyle<gss::PropertyID>::styleValueForKeyAtZ<BOOL>(uint64_t a1, 
           v13 = v12 + 2;
           v14 = v15;
           v16 = v15 + 120 * *(v13 + a3);
-          if (geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(v16, a2) != *(v16 + 12))
+          if (geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(v16, v6) != *(v16 + 12))
           {
             break;
           }
@@ -2503,7 +2505,7 @@ void *gss::RenderStyle<gss::PropertyID>::styleValueForKeyAtZ<BOOL>(uint64_t a1, 
       }
 
       v28 = v14 + 120 * *(v13 + v27);
-      v23 = geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex((v28 + 24), a2);
+      v23 = geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex((v28 + 24), v6);
       if (v23 != *(v28 + 36))
       {
         v25 = *(v28 + 24);
@@ -2522,10 +2524,10 @@ LABEL_7:
       v19 = *(v17 + v18 + 16);
       v20 = *v17;
       v21 = *v17 + 120 * v19;
-      if (geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(v21, a2) != *(v21 + 12))
+      if (geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex(v21, v6) != *(v21 + 12))
       {
         v22 = v20 + 120 * v19;
-        v23 = geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex((v22 + 24), a2);
+        v23 = geo::intern_linear_map<gss::PropertyID,unsigned char,unsigned short,geo::allocator_adapter<unsigned char,gss::zone_mallocator>,30ul>::keyIndex((v22 + 24), v6);
         if (v23 != *(v22 + 36))
         {
           v25 = *(v22 + 24);
@@ -2543,7 +2545,7 @@ LABEL_7:
     *a5 = 0;
   }
 
-  return gss::defaultValueForKey<gss::PropertyID,BOOL>(a2);
+  return gss::defaultValueForKey<gss::PropertyID,BOOL>(v6);
 }
 
 void ggl::FoggedSpecularBuildingTop::CompressedMeshPipelineState::~CompressedMeshPipelineState(ggl::FoggedSpecularBuildingTop::CompressedMeshPipelineState *this)
@@ -2571,39 +2573,39 @@ void ggl::FoggedSpecularBuildingTop::CompressedMeshPipelineState::~CompressedMes
   JUMPOUT(0x1B8C62190);
 }
 
-void md::TextDataStringInfo::widenText()
+void md::TextDataStringInfo::widenText(char *a1, unsigned __int16 *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v0 = std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::basic_string[abi:nn200100]<0>(&v18, "UtfConvertError");
-  v1 = mdm::zone_mallocator::instance(v0);
-  v2 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<char16_t>(v1, 16);
-  v16 = v2;
-  v17 = xmmword_1B33B14E0;
-  *(v2 + 14) = *L"ertError";
-  *v2 = *L"UtfConvertError";
-  *(v2 + 15) = 0;
-  v5 = v20;
-  if (SHIBYTE(v19) < 0)
+  v23 = *MEMORY[0x1E69E9840];
+  v2 = std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::basic_string[abi:nn200100]<0>(&v20, "UtfConvertError");
+  v3 = mdm::zone_mallocator::instance(v2);
+  v4 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<char16_t>(v3, 16);
+  v18 = v4;
+  v19 = xmmword_1B33B14E0;
+  *(v4 + 14) = *L"ertError";
+  *v4 = *L"UtfConvertError";
+  *(v4 + 15) = 0;
+  v7 = v22;
+  if (SHIBYTE(v21) < 0)
   {
-    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::__init_copy_ctor_external(&v3, v18, *(&v18 + 1));
+    std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>::__init_copy_ctor_external(&v5, v20, *(&v20 + 1));
   }
 
   else
   {
-    v3 = v18;
-    v4 = v19;
+    v5 = v20;
+    v6 = v21;
   }
 
-  std::basic_string<char16_t,std::char_traits<char16_t>,geo::allocator_adapter<char16_t,mdm::zone_mallocator>>::__init_copy_ctor_external(&__src, v2, 0xFuLL);
-  v15 = 0;
+  std::basic_string<char16_t,std::char_traits<char16_t>,geo::allocator_adapter<char16_t,mdm::zone_mallocator>>::__init_copy_ctor_external(&__src, v4, 0xFuLL);
+  v17 = 0;
+  v16 = 0u;
+  v15 = 0u;
   v14 = 0u;
   v13 = 0u;
   v12 = 0u;
   v11 = 0u;
   v10 = 0u;
   v9 = 0u;
-  v8 = 0u;
-  v7 = 0u;
   operator new();
 }
 
@@ -2652,9 +2654,9 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::ShadowConstantDataHandle>(ui
   return result;
 }
 
-uint64_t std::wstring_convert<std::codecvt_utf8_utf16<char16_t,1114111ul,(std::codecvt_mode)0>,char16_t,geo::allocator_adapter<char16_t,mdm::zone_mallocator>,geo::allocator_adapter<char,mdm::zone_mallocator>>::~wstring_convert(uint64_t a1)
+void **std::wstring_convert<std::codecvt_utf8_utf16<char16_t,1114111ul,(std::codecvt_mode)0>,char16_t,geo::allocator_adapter<char16_t,mdm::zone_mallocator>,geo::allocator_adapter<char,mdm::zone_mallocator>>::~wstring_convert(void **a1)
 {
-  v2 = *(a1 + 64);
+  v2 = a1[8];
   if (v2)
   {
     v2 = (*(*v2 + 8))(v2);
@@ -2662,7 +2664,7 @@ uint64_t std::wstring_convert<std::codecvt_utf8_utf16<char16_t,1114111ul,(std::c
 
   if (*(a1 + 55) < 0)
   {
-    v3 = *(a1 + 32);
+    v3 = a1[4];
     v4 = mdm::zone_mallocator::instance(v2);
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char16_t>(v4, v3);
   }
@@ -2950,9 +2952,9 @@ void md::LabelFeature::enumerateGEOFeatures(uint64_t a1, uint64_t a2)
   std::mutex::unlock((a1 + 8));
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::function<void ()(gdc::tf::Task)>>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -3146,7 +3148,7 @@ void ggl::SpecularBuilding::BuildingPipelineState::~BuildingPipelineState(ggl::S
   JUMPOUT(0x1B8C62190);
 }
 
-void std::vector<ecs2::Transaction>::__destroy_vector::operator()[abi:nn200100](void ***a1)
+void std::vector<ecs2::Transaction>::__destroy_vector::operator()[abi:nn200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3474,9 +3476,9 @@ LABEL_17:
   return std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::StyleSSAODataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](v50);
 }
 
-void sub_1B29981F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B29981F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::ls::StyleSSAODataKeyHandle const&,md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleSSAO>> const&,md::ls::PipelineSetup &)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -3546,7 +3548,7 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID
   return result;
 }
 
-void geo::ConvexHull2<double>::convexHullEnclosingPoints(uint64_t *a1, double **a2)
+void geo::ConvexHull2<double>::convexHullEnclosingPoints(void *a1, __n128 *a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -3573,11 +3575,11 @@ uint64_t gss::FeatureAttributeSet::FeatureAttributeSet(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
+void geo::ConvexHull2<double>::getConvexHullPoints(__n128 *a1, uint64_t a2)
 {
-  v3 = a1[1];
-  v4 = *a1;
-  if (v3 == *a1)
+  v3 = a1->n128_u64[1];
+  v4 = a1->n128_u64[0];
+  if (v3 == a1->n128_u64[0])
   {
 
     std::vector<gm::Matrix<double,2,1>>::resize(a2, 0);
@@ -3585,11 +3587,11 @@ void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
 
   else
   {
-    v6 = (v3 - *a1) >> 4;
-    v7 = *a1;
+    v6 = (v3 - a1->n128_u64[0]) >> 4;
+    v7 = a1->n128_u64[0];
     do
     {
-      if (*v7 < *v4 || *v7 == *v4 && v7[1] < v4[1])
+      if (*v7 < *v4 || *v7 == *v4 && v7[1] < *(v4 + 8))
       {
         v4 = v7;
       }
@@ -3601,16 +3603,16 @@ void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
     v31 = 0uLL;
     v32 = 0;
     std::vector<gm::Matrix<double,2,1>>::reserve(&v31, v6 - 1);
-    v8 = *a1;
-    v9 = a1[1];
+    v8 = a1->n128_u64[0];
+    v9 = a1->n128_u64[1];
     while (v8 != v9)
     {
-      if (*v8 != *v4 || *(v8 + 1) != *(v4 + 1))
+      if (*v8 != *v4 || *(v8 + 8) != *(v4 + 8))
       {
         std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](&v31, v8);
       }
 
-      v8 += 2;
+      v8 += 16;
     }
 
     v11 = *(&v31 + 1);
@@ -3620,21 +3622,21 @@ void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
       std::vector<gm::Matrix<double,2,1>>::resize(a2, 1uLL);
       v30 = *a2;
       *v30 = *v4;
-      v30[1] = *(v4 + 1);
+      *(v30 + 1) = *(v4 + 8);
     }
 
     else
     {
       *__p = *v4;
       std::__introsort<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,false>(v31, *(&v31 + 1), __p, 126 - 2 * __clz((*(&v31 + 1) - v31) >> 4), 1);
-      std::vector<gm::Matrix<double,2,1>>::reserve(a2, (a1[1] - *a1) >> 4);
+      std::vector<gm::Matrix<double,2,1>>::reserve(a2, (a1->n128_u64[1] - a1->n128_u64[0]) >> 4);
       std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](a2, v4);
       std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](a2, v12);
       v13 = v12 + 1;
       for (i = 1; v13 != v11; ++v13)
       {
-        v23 = a2[1];
-        if (*&v13->f64[0] != *(v23 - 16) || *&v13->f64[1] != *(v23 - 8))
+        v23 = *(a2 + 8);
+        if (*v13 != *(v23 - 16) || *(v13 + 1) != *(v23 - 8))
         {
           v25 = *v13;
           v26 = (v23 - 16);
@@ -3648,7 +3650,7 @@ void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
               break;
             }
 
-            a2[1] = v26--;
+            *(a2 + 8) = v26--;
             --i;
           }
 
@@ -3660,30 +3662,30 @@ void geo::ConvexHull2<double>::getConvexHullPoints(double **a1, uint64_t *a2)
 
       v15 = *a2;
       v16 = *v4;
-      v17 = (a2[1] - 16);
+      v17 = (*(a2 + 8) - 16);
       do
       {
-        v18 = vsubq_f64(*v17, *(v15 + 16 * i - 16));
+        v18 = vsubq_f64(*v17, v15[i - 1]);
         v19 = vmulq_f64(vsubq_f64(v16, *v17), vextq_s8(v18, v18, 8uLL));
         if ((vmovn_s64(vcgtq_f64(v19, vdupq_laneq_s64(v19, 1))).u8[0] & 1) == 0)
         {
           break;
         }
 
-        a2[1] = v17--;
+        *(a2 + 8) = v17--;
         --i;
       }
 
       while (i);
-      v20 = v17 + 1;
-      v21 = a2[2] - v15;
-      if (v21 > v20 - v15)
+      v20 = &v17[1];
+      v21 = *(a2 + 16) - v15;
+      if (v21 > (v20 - v15))
       {
-        v22 = (v20 - v15) >> 4;
+        v22 = v20 - v15;
         v36 = a2;
         if (v20 != v15)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<gm::LineSegment<float,2>>>((v20 - v15) >> 4);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<gm::LineSegment<float,2>>>(v20 - v15);
         }
 
         __p[0] = 0;
@@ -3730,16 +3732,16 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RequiresShad
   }
 }
 
-uint64_t *std::vector<gm::Matrix<double,2,1>>::resize(uint64_t *result, unint64_t a2)
+void std::vector<gm::Matrix<double,2,1>>::resize(__int128 **a1, unint64_t a2)
 {
-  v2 = *result;
-  v3 = result[1];
-  v4 = (v3 - *result) >> 4;
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = v3 - *a1;
   if (a2 > v4)
   {
     v6 = a2 - v4;
-    v7 = result[2];
-    if (v6 > (v7 - v3) >> 4)
+    v7 = a1[2];
+    if (v6 > v7 - v3)
     {
       if (!(a2 >> 60))
       {
@@ -3766,21 +3768,20 @@ uint64_t *std::vector<gm::Matrix<double,2,1>>::resize(uint64_t *result, unint64_
       std::__throw_bad_array_new_length[abi:nn200100]();
     }
 
-    v5 = v3 + 16 * v6;
+    v5 = &v3[v6];
   }
 
   else
   {
     if (a2 >= v4)
     {
-      return result;
+      return;
     }
 
-    v5 = v2 + 16 * a2;
+    v5 = (v2 + 16 * a2);
   }
 
-  result[1] = v5;
-  return result;
+  a1[1] = v5;
 }
 
 gss::zone_mallocator *std::vector<std::pair<gss::StyleAttribute,unsigned short>,geo::allocator_adapter<std::pair<gss::StyleAttribute,unsigned short>,gss::zone_mallocator>>::reserve(gss::zone_mallocator *result, unint64_t a2)
@@ -3970,13 +3971,13 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void std::unique_ptr<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> *[],std::__bucket_list_deallocator<geo::allocator_adapter<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> *,mdm::zone_mallocator>>>::reset[abi:nn200100]<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> **,0>(mdm::zone_mallocator *a1, uint64_t a2)
+void std::unique_ptr<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> *[],std::__bucket_list_deallocator<geo::allocator_adapter<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> *,mdm::zone_mallocator>>>::reset[abi:nn200100]<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> **,0>(mdm::zone_mallocator *result, uint64_t a2)
 {
-  v2 = *a1;
-  *a1 = a2;
+  v2 = *result;
+  *result = a2;
   if (v2)
   {
-    v3 = mdm::zone_mallocator::instance(a1);
+    v3 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::__hash_node_base<std::__hash_node<geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>,void *> *> *>(v3, v2);
   }
@@ -4039,7 +4040,7 @@ uint64_t md::MercatorCameraContext::MercatorCameraContext(uint64_t a1, uint64_t 
   *(a1 + 464) = v19;
   *(a1 + 472) = *(a2 + 472);
   *(a1 + 480) = *(a2 + 480);
-  geo::View<double>::View(a1 + 496, a2 + 496, (a2 + 552), (a2 + 680), (a2 + 952), *(a2 + 956), *(a2 + 936));
+  geo::View<double>::View(a1 + 496, (a2 + 496), (a2 + 552), (a2 + 680), (a2 + 952), *(a2 + 956), *(a2 + 936));
   *(a1 + 960) = *(a2 + 960);
   *(a1 + 976) = *(a2 + 976);
   memcpy((a1 + 984), (a2 + 984), 0x1A0uLL);
@@ -4060,7 +4061,7 @@ uint64_t md::MercatorCameraContext::MercatorCameraContext(uint64_t a1, uint64_t 
   v27 = *(a2 + 1544);
   *(a1 + 1528) = *(a2 + 1528);
   *(a1 + 1544) = v27;
-  geo::ConvexHull2<double>::ConvexHull2(a1 + 1560, (a2 + 1560));
+  geo::ConvexHull2<double>::ConvexHull2((a1 + 1560), (a2 + 1560));
   *(a1 + 1584) = *(a2 + 1584);
   v28 = *(a2 + 1592);
   *(a1 + 1608) = *(a2 + 1608);
@@ -4116,11 +4117,11 @@ uint64_t std::__function::__value_func<void ()(md::ls::ItemsPrepared const&,md::
   return a1;
 }
 
-uint64_t geo::ConvexHull2<double>::ConvexHull2(uint64_t a1, __int128 **a2)
+uint64_t *geo::ConvexHull2<double>::ConvexHull2(uint64_t *a1, __int128 **a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a1 != a2)
   {
     std::vector<gm::Matrix<double,2,1>>::__assign_with_size[abi:nn200100]<gm::Matrix<double,2,1>*,gm::Matrix<double,2,1>*>(a1, *a2, a2[1], a2[1] - *a2);
@@ -4141,7 +4142,7 @@ void sub_1B2999450(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<gm::Matrix<double,2,1>>::__assign_with_size[abi:nn200100]<gm::Matrix<double,2,1>*,gm::Matrix<double,2,1>*>(char **a1, __int128 *a2, __int128 *a3, unint64_t a4)
+char *std::vector<gm::Matrix<double,2,1>>::__assign_with_size[abi:nn200100]<gm::Matrix<double,2,1>*,gm::Matrix<double,2,1>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4223,31 +4224,31 @@ char *std::vector<gm::Matrix<double,2,1>>::__assign_with_size[abi:nn200100]<gm::
   return result;
 }
 
-void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_mallocator>>::resize(mdm::zone_mallocator *a1, unint64_t a2)
+void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_mallocator>>::resize(char **result, unint64_t a2)
 {
-  v5 = *a1;
-  v4 = *(a1 + 1);
-  v6 = v4 - *a1;
+  v5 = *result;
+  v4 = result[1];
+  v6 = v4 - *result;
   v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 4);
   v8 = a2 >= v7;
   v9 = a2 - v7;
   if (v9 != 0 && v8)
   {
-    v10 = *(a1 + 2);
+    v10 = result[2];
     if (0xAAAAAAAAAAAAAAABLL * ((v10 - v4) >> 4) >= v9)
     {
-      v28 = v4 + 48 * v9;
+      v28 = &v4[48 * v9];
       do
       {
-        *(v4 + 16) = 0uLL;
-        *(v4 + 32) = 0uLL;
+        *(v4 + 1) = 0uLL;
+        *(v4 + 2) = 0uLL;
         *v4 = 0uLL;
-        *(v4 + 40) = 2139095039;
+        *(v4 + 10) = 2139095039;
         v4 += 48;
       }
 
       while (v4 != v28);
-      *(a1 + 1) = v28;
+      result[1] = v28;
     }
 
     else
@@ -4257,7 +4258,7 @@ void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_
         std::__throw_bad_array_new_length[abi:nn200100]();
       }
 
-      v11 = 0xAAAAAAAAAAAAAAABLL * ((v10 - v5) >> 4);
+      v11 = 0xAAAAAAAAAAAAAAABLL * (&v10[-v5] >> 4);
       v12 = 2 * v11;
       if (2 * v11 <= a2)
       {
@@ -4274,7 +4275,7 @@ void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_
         v13 = v12;
       }
 
-      v14 = mdm::zone_mallocator::instance(a1);
+      v14 = mdm::zone_mallocator::instance(result);
       v15 = pthread_rwlock_rdlock((v14 + 32));
       if (v15)
       {
@@ -4296,12 +4297,12 @@ void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_
       }
 
       while (v20 != v19);
-      v22 = *a1;
-      v21 = *(a1 + 1);
-      v23 = &v17[v6 + *a1 - v21];
-      if (v21 != *a1)
+      v22 = *result;
+      v21 = result[1];
+      v23 = &v17[v6 + *result - v21];
+      if (v21 != *result)
       {
-        v24 = &v17[v6 + *a1 - v21];
+        v24 = &v17[v6 + *result - v21];
         do
         {
           v25 = *v22;
@@ -4316,12 +4317,12 @@ void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_
         }
 
         while (v22 != v21);
-        v22 = *a1;
+        v22 = *result;
       }
 
-      *a1 = v23;
-      *(a1 + 1) = v19;
-      *(a1 + 2) = &v17[48 * v13];
+      *result = v23;
+      result[1] = v19;
+      result[2] = &v17[48 * v13];
       if (v22)
       {
         v27 = mdm::zone_mallocator::instance(v18);
@@ -4333,7 +4334,7 @@ void std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_
 
   else if (!v8)
   {
-    *(a1 + 1) = &v5[48 * a2];
+    result[1] = (v5 + 48 * a2);
   }
 }
 
@@ -4371,16 +4372,6 @@ void ggl::BuildingPointyRoofDepth::BuildingPipelineState::~BuildingPipelineState
   ggl::RenderDataHolder::~RenderDataHolder(this);
 
   JUMPOUT(0x1B8C62190);
-}
-
-uint64_t md::LabelLineSegmentImpl::points(md::LabelLineSegmentImpl *this)
-{
-  std::vector<md::LabelPoint,geo::allocator_adapter<md::LabelPoint,mdm::zone_mallocator>>::resize((this + 48), *(this + 23));
-  return *(this + 6);
-}
-
-{
-  return *(this + 6);
 }
 
 uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::StyleBlend>>>(uint64_t a1)
@@ -4485,7 +4476,7 @@ void *md::LayoutContext::get<md::ElevationContext>(void *a1)
   return result;
 }
 
-void **md::LabelFeaturePool::addLineFeature(mdm::zone_mallocator *a1, uint64_t a2, uint64_t *a3, int **a4, uint64_t a5, uint64_t a6, float *a7, char a8)
+void **md::LabelFeaturePool::addLineFeature(mdm::zone_mallocator *a1, uint64_t a2, uint64_t *a3, int **a4, uint64_t a5, uint64_t a6, mdm::zone_mallocator *a7, char a8)
 {
   v36 = a5;
   v37 = a3;
@@ -4593,9 +4584,9 @@ void **md::LabelFeaturePool::addLineFeature(mdm::zone_mallocator *a1, uint64_t a
   return geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>::~fast_shared_ptr(&v35);
 }
 
-void sub_1B2999EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B2999EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCodecsFeature,geo::codec::VectorTile>,mdm::allocator>::~fast_shared_ptr(va);
   _Unwind_Resume(a1);
 }
@@ -4698,7 +4689,7 @@ void **geo::fast_shared_ptr<md::LabelFeatureThunk<md::UniLineLabelFeature,GeoCod
         std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
 
-      v12.__vftable = (v5 + 32);
+      v12 = (v5 + 32);
       std::vector<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,geo::allocator_adapter<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v12);
       v8 = *(v5 + 3);
       if (v8)
@@ -4743,23 +4734,23 @@ void ggl::BuildingFlat::CompressedMeshPipelineState::~CompressedMeshPipelineStat
   JUMPOUT(0x1B8C62190);
 }
 
-void std::vector<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,geo::allocator_adapter<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](std::__shared_weak_count *a1)
+void std::vector<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,geo::allocator_adapter<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](void (__cdecl ***result)(std::__shared_weak_count *__hidden this))
 {
-  v1 = a1->__vftable;
-  v2 = a1->~__shared_weak_count;
+  v1 = *result;
+  v2 = **result;
   if (v2)
   {
     v3 = v1->~__shared_weak_count_0;
-    v4 = a1->~__shared_weak_count;
+    v4 = **result;
     if (v3 != v2)
     {
-      v5 = a1;
+      v5 = result;
       do
       {
-        a1 = *(v3 - 1);
-        if (a1)
+        result = *(v3 - 1);
+        if (result)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](a1);
+          std::__shared_weak_count::__release_shared[abi:nn200100](result);
         }
 
         v3 = (v3 - 24);
@@ -4770,7 +4761,7 @@ void std::vector<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::V
     }
 
     v1->~__shared_weak_count_0 = v2;
-    v6 = mdm::zone_mallocator::instance(a1);
+    v6 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<std::pair<GeoCodecsFeature const*,std::shared_ptr<geo::codec::VectorTile>>>(v6, v4);
   }
@@ -5145,7 +5136,7 @@ uint64_t gdc::FamilyInfo<ecs2::BasicRegistry<void>,unsigned long>::getId<md::ls:
   return v0[312];
 }
 
-void geo::Intersect::intersection<double>(uint64_t *a1, uint64_t a2, uint64_t a3)
+void geo::Intersect::intersection<double>(void **a1, uint64_t a2, uint64_t a3)
 {
   v5 = 0;
   v109 = *MEMORY[0x1E69E9840];
@@ -5403,7 +5394,7 @@ void *_ZNSt3__18functionIFvN4ecs26EntityEEEaSIZNS1_13BasicRegistryIvE7storageIN2
   return a1;
 }
 
-uint64_t md::UniLineLabelFeature::styleIndexForFeature(void *a1, uint64_t a2)
+unint64_t md::UniLineLabelFeature::styleIndexForFeature(uint64_t *a1, uint64_t a2)
 {
   md::UniLineLabelFeature::mergeAdditionalAttributes(&v5, a1[59], (a2 + 24));
   v3 = md::LineLabelFeature::styleIndexForAttributes(a1, &v5);
@@ -5425,7 +5416,7 @@ void sub_1B299B3E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](uint64_t *a1, __int128 *a2)
+void std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](void **a1, __int128 *a2)
 {
   v4 = a1[1];
   v3 = a1[2];
@@ -5466,10 +5457,10 @@ void std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](uint64_t *a1, 
     v6 = 24 * v7 + 24;
     v13 = *a1;
     v14 = a1[1];
-    v15 = 24 * v7 + *a1 - v14;
+    v15 = *a1 + 24 * v7 - v14;
     if (*a1 != v14)
     {
-      v16 = 24 * v7 + *a1 - v14;
+      v16 = *a1 + 24 * v7 - v14;
       do
       {
         v17 = *v13;
@@ -5512,9 +5503,9 @@ void std::__shared_ptr_emplace<md::BuildingSharedRenderResources>::__on_zero_sha
   }
 }
 
-void *std::vector<gm::Matrix<double,2,1>>::reserve(void *result, unint64_t a2)
+void std::vector<gm::Matrix<double,2,1>>::reserve(__int128 **a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > a1[2] - *a1)
   {
     if (!(a2 >> 60))
     {
@@ -5523,8 +5514,6 @@ void *std::vector<gm::Matrix<double,2,1>>::reserve(void *result, unint64_t a2)
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
 uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls28RequiresShaderConstantDataIDIN3ggl17ConstantDataTypedINS9_7DaVinci16GroundAtmosphereEEEEEEERN3gdc12constness_asINS2_16component_traitsIJu14__remove_constIT_EvEE12storage_typeESI_E4typeEvEUlNS2_6EntityEE_NS_9allocatorISQ_EEFvSP_EE7__cloneEPNS0_6__baseIST_EE(uint64_t result, void *a2)
@@ -5545,7 +5534,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<gm::LineSegment<float
   std::__throw_bad_array_new_length[abi:nn200100]();
 }
 
-void std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](uint64_t *a1, _OWORD *a2)
+void std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](char **a1, __int128 *a2)
 {
   v4 = a1[1];
   v3 = a1[2];
@@ -5580,16 +5569,17 @@ void std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](uint64_t *a1,
     }
 
     *(16 * v6) = *a2;
-    v5 = 16 * v6 + 16;
+    v5 = (16 * v6 + 16);
     v10 = *a1;
     v11 = a1[1];
-    v12 = 16 * v6 + *a1 - v11;
+    v12 = (16 * v6 + *a1 - v11);
     if (*a1 != v11)
     {
       v13 = (16 * v6 + *a1 - v11);
       do
       {
-        v14 = *v10++;
+        v14 = *v10;
+        v10 += 16;
         *v13++ = v14;
       }
 
@@ -5609,13 +5599,13 @@ void std::vector<gm::Box<unsigned int,2>>::push_back[abi:nn200100](uint64_t *a1,
   else
   {
     *v4 = *a2;
-    v5 = (v4 + 1);
+    v5 = v4 + 1;
   }
 
   a1[1] = v5;
 }
 
-uint64_t md::LineLabelFeature::textIndexForText(uint64_t a1, uint64_t a2)
+uint64_t md::LineLabelFeature::textIndexForText(uint64_t *a1, uint64_t a2)
 {
   v2 = *(a2 + 23);
   if (v2 >= 0)
@@ -5630,15 +5620,15 @@ uint64_t md::LineLabelFeature::textIndexForText(uint64_t a1, uint64_t a2)
 
   if (v3)
   {
-    v6 = *(a1 + 384);
-    v7 = *(a1 + 392);
+    v6 = a1[48];
+    v7 = a1[49];
     if (v6 == v7)
     {
       v8 = 0;
 LABEL_34:
-      if (v7 >= *(a1 + 400))
+      if (v7 >= a1[50])
       {
-        v22 = std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::__emplace_back_slow_path<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>> const&>((a1 + 384), a2);
+        v22 = std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::__emplace_back_slow_path<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>> const&>(a1 + 48, a2);
       }
 
       else
@@ -5670,10 +5660,10 @@ LABEL_34:
         }
 
         v22 = v7 + 64;
-        *(a1 + 392) = v7 + 64;
+        a1[49] = v7 + 64;
       }
 
-      *(a1 + 392) = v22;
+      a1[49] = v22;
     }
 
     else
@@ -5780,16 +5770,16 @@ void sub_1B299B918(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,false>(double *a1, double *a2, double *a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,false>(double *result, double *a2, double *a3, uint64_t a4, char a5)
 {
   while (2)
   {
-    v10 = a1;
+    v10 = result;
 LABEL_2:
     v11 = a4 - 1;
     while (1)
     {
-      a1 = v10;
+      result = v10;
       a4 = v11;
       v12 = (a2 - v10) >> 4;
       if (v12 == 3)
@@ -5867,38 +5857,38 @@ LABEL_2:
       }
 
       v15 = v12 >> 1;
-      v16 = &a1[2 * (v12 >> 1)];
+      v16 = &result[2 * (v12 >> 1)];
       if (v12 < 0x81)
       {
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(&a1[2 * (v12 >> 1)], a1, a2 - 2, a3);
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(&result[2 * (v12 >> 1)], result, a2 - 2, a3);
       }
 
       else
       {
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(a1, v16, a2 - 2, a3);
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(a1 + 2, v16 - 2, a2 - 4, a3);
-        v17 = &a1[2 * v15 + 2];
-        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(a1 + 4, v17, a2 - 6, a3);
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(result, v16, a2 - 2, a3);
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(result + 2, v16 - 2, a2 - 4, a3);
+        v17 = &result[2 * v15 + 2];
+        std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(result + 4, v17, a2 - 6, a3);
         std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,0>(v16 - 2, v16, v17, a3);
-        v18 = *a1;
-        *a1 = *v16;
+        v18 = *result;
+        *result = *v16;
         *v16 = v18;
       }
 
-      if ((a5 & 1) == 0 && !geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1}::operator()(*a3, a3[1], *(a1 - 2), *(a1 - 1), *a1, a1[1]))
+      if ((a5 & 1) == 0 && !geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1}::operator()(*a3, a3[1], *(result - 2), *(result - 1), *result, result[1]))
       {
-        v10 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,gm::Matrix<double,2,1> *,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &>(a1, a2, a3);
+        v10 = std::__partition_with_equals_on_left[abi:nn200100]<std::_ClassicAlgPolicy,gm::Matrix<double,2,1> *,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &>(result, a2, a3);
         a5 = 0;
         goto LABEL_2;
       }
 
-      v19 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,gm::Matrix<double,2,1> *,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &>(a1, a2, a3);
+      v19 = std::__partition_with_equals_on_right[abi:nn200100]<std::_ClassicAlgPolicy,gm::Matrix<double,2,1> *,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &>(result, a2, a3);
       if ((v20 & 1) == 0)
       {
         goto LABEL_31;
       }
 
-      v21 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*>(a1, v19, a3);
+      v21 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*>(result, v19, a3);
       v10 = v19 + 2;
       if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*>(v19 + 2, a2, a3))
       {
@@ -5909,7 +5899,7 @@ LABEL_2:
       if (!v21)
       {
 LABEL_31:
-        std::__introsort<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,false>(a1, v19, a3, a4, a5 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,geo::ConvexHull2<double>::getConvexHullPoints(std::vector<gm::Matrix<double,2,1>> const&,std::vector<gm::Matrix<double,2,1>>&)::{lambda(gm::Matrix<double,2,1> const&,gm::Matrix<double,2,1> const&)#1} &,gm::Matrix<double,2,1>*,false>(result, v19, a3, a4, a5 & 1);
         a5 = 0;
         v10 = v19 + 2;
         goto LABEL_2;
@@ -6100,7 +6090,7 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID
   return result;
 }
 
-void std::vector<gm::Matrix<double,2,1>>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<gm::Matrix<double,2,1>>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6498,11 +6488,11 @@ void md::ViewTransform::setCoordinateSpaceEtc(unsigned __int8 *a1, unsigned __in
   }
 
   v68 = 0;
-  v69 = (a1 + 1424);
+  v69 = a1 + 1424;
   v70 = 0.0;
   do
   {
-    v70 = v70 + *(v69 + v68) * *(&v102 + v68);
+    v70 = v70 + *&v69[v68] * *(&v102 + v68);
     v68 += 8;
   }
 
@@ -7186,7 +7176,7 @@ uint64_t std::__function::__func<md::UniLineLabelFeature::updateText(void const*
   return result;
 }
 
-void sub_1B299E0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, void *a23)
+void sub_1B299E0CC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, void *a23)
 {
   v27 = *v25;
   if (*v25)
@@ -7195,7 +7185,7 @@ void sub_1B299E0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(v27);
   }
 
-  MEMORY[0x1B8C62190](v25, 0x10A0C40149C9738);
+  MEMORY[0x1B8C62190](v25, 0x10A0C40149C9738, a3, a4, a5, a6, a7, a8);
   std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>>>::__deallocate_node(a23);
   if (__p)
   {
@@ -7222,42 +7212,42 @@ void sub_1B299E0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::clear[abi:nn200100](mdm::zone_mallocator *a1)
+void std::vector<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,geo::allocator_adapter<md::StringWithLocaleImp<std::basic_string<char,std::char_traits<char>,geo::allocator_adapter<char,mdm::zone_mallocator>>>,mdm::zone_mallocator>>::clear[abi:nn200100](void ***result)
 {
-  v2 = *a1;
-  v3 = *(a1 + 1);
-  if (v3 != *a1)
+  v2 = *result;
+  v3 = result[1];
+  if (v3 != *result)
   {
     do
     {
       if (*(v3 - 9) < 0)
       {
-        v4 = *(v3 - 32);
-        v5 = mdm::zone_mallocator::instance(a1);
+        v4 = *(v3 - 4);
+        v5 = mdm::zone_mallocator::instance(result);
         geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v5, v4);
       }
 
-      v6 = (v3 - 64);
+      v6 = v3 - 8;
       if (*(v3 - 41) < 0)
       {
         v7 = *v6;
-        v8 = mdm::zone_mallocator::instance(a1);
+        v8 = mdm::zone_mallocator::instance(result);
         geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<char>(v8, v7);
       }
 
-      v3 -= 64;
+      v3 -= 8;
     }
 
     while (v6 != v2);
   }
 
-  *(a1 + 1) = v2;
+  result[1] = v2;
 }
 
 void md::TransitRenderLayer::updateActiveTileDatas(md::TransitRenderLayer *this)
 {
   v148 = *MEMORY[0x1E69E9840];
-  v2 = this + 472;
+  v2 = (this + 472);
   v3 = (this + 496);
   v4 = this + 480;
   v5 = (this + 504);
@@ -7297,7 +7287,7 @@ void md::TransitRenderLayer::updateActiveTileDatas(md::TransitRenderLayer *this)
   while (v10 != v11)
   {
     v12 = *v10++;
-    std::__tree<std::shared_ptr<md::TransitTileData>,md::TransitTileSetCompare,std::allocator<std::shared_ptr<md::TransitTileData>>>::__emplace_unique_key_args<std::shared_ptr<md::TransitTileData>,std::shared_ptr<md::TransitTileData> const&>(v2, *(v12 + 392));
+    std::__tree<std::shared_ptr<md::TransitTileData>,md::TransitTileSetCompare,std::allocator<std::shared_ptr<md::TransitTileData>>>::__emplace_unique_key_args<std::shared_ptr<md::TransitTileData>,std::shared_ptr<md::TransitTileData> const&>(v2, *(v12 + 392), (v12 + 392));
   }
 
   v13 = *(v139 + 53);
@@ -7576,7 +7566,7 @@ LABEL_38:
 
               v142 = v56;
               *&v143 = &v142;
-              v62 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v52 + 32), v56);
+              v62 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v52 + 32), v56, &v143);
               if (v58)
               {
                 atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -7662,7 +7652,7 @@ LABEL_38:
                 atomic_fetch_add_explicit((v67 + 8), 1uLL, memory_order_relaxed);
               }
 
-              v68 = v65 + 2;
+              v68 = (v65 + 2);
             }
 
             v80 = v59[4];
@@ -8054,7 +8044,7 @@ LABEL_178:
               {
                 v142 = *(*(*v115 + 8) + 40);
                 *&v143 = &v142;
-                v131 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v114 + 72), v142);
+                v131 = std::__hash_table<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::shared_ptr<md::TransitNodeFeature>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>((v114 + 72), v142, &v143);
                 v133 = v119[3];
                 v132 = v119[4];
                 if (v132)
@@ -8126,14 +8116,14 @@ double md::Logic<md::TileSelectionLogic,md::TileSelectionContext,md::LogicDepend
   return result;
 }
 
-uint64_t *std::set<gdc::LayerDataWithWorld>::swap[abi:nn200100](uint64_t *result, uint64_t a2)
+uint64_t **std::set<gdc::LayerDataWithWorld>::swap[abi:nn200100](uint64_t **result, uint64_t a2)
 {
   v2 = *result;
   *result = *a2;
   *a2 = v2;
   v5 = result[1];
   v4 = result[2];
-  v3 = result + 1;
+  v3 = (result + 1);
   *(result + 1) = *(a2 + 8);
   *(a2 + 8) = v5;
   *(a2 + 16) = v4;
@@ -8350,11 +8340,11 @@ uint64_t md::Logic<md::TileSelectionLogic,md::TileSelectionContext,md::LogicDepe
   return result;
 }
 
-void md::TileSelectionLogic::runBeforeLayout(uint64_t a1, md::LayoutContext *a2, uint64_t a3, uint64_t a4)
+void md::TileSelectionLogic::runBeforeLayout(uint64_t a1, md::LayoutContext *a2, double **a3, uint64_t a4)
 {
   v9[4] = *MEMORY[0x1E69E9840];
   v7 = *a3;
-  v8 = *(a3 + 16);
+  v8 = a3[2];
   if (*(v8 + 82) == 1)
   {
     v9[0] = &unk_1F2A213A0;
@@ -8365,13 +8355,13 @@ void md::TileSelectionLogic::runBeforeLayout(uint64_t a1, md::LayoutContext *a2,
   }
 
   std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>>>::clear(a4 + 88);
-  geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::operator=(a4, a1 + 240);
+  geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::operator=(a4, (a1 + 240));
   md::TileSelectionLogic::processActiveTileSelection(a1, (a1 + 240), (a4 + 88), v7, a4, a2);
 }
 
-void sub_1B299FA68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B299FA68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(md::StyleManagerEvent)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -8518,10 +8508,10 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::RequiresShaderConstantDataID
   return result;
 }
 
-uint64_t _ZNSt3__110__function6__funcIZN2md18TileSelectionLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJNS2_13CameraContextENS2_16ElevationContextENS2_17StyleLogicContextEEEENS9_IJEEEEE20ResolvedDependenciesERNS2_20TileSelectionContextEE3__0NS_9allocatorISL_EEFvNS2_17StyleManagerEventEEEclEOSO_(uint64_t result, unsigned __int8 *a2)
+uint64_t *_ZNSt3__110__function6__funcIZN2md18TileSelectionLogic15runBeforeLayoutERKNS2_13LayoutContextERKNS2_17LogicDependenciesIJN3gdc8TypeListIJNS2_13CameraContextENS2_16ElevationContextENS2_17StyleLogicContextEEEENS9_IJEEEEE20ResolvedDependenciesERNS2_20TileSelectionContextEE3__0NS_9allocatorISL_EEFvNS2_17StyleManagerEventEEEclEOSO_(uint64_t *result, unsigned __int8 *a2)
 {
   v2 = *a2;
-  v3 = *(*(result + 8) + 296);
+  v3 = *(result[1] + 296);
   if (!v3)
   {
 LABEL_7:
@@ -8634,13 +8624,13 @@ mdm::zone_mallocator *std::vector<md::LabelLineStitchSegment,geo::allocator_adap
   return result;
 }
 
-void std::vector<md::LabelLineStitchSegment,geo::allocator_adapter<md::LabelLineStitchSegment,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *a1)
+void std::vector<md::LabelLineStitchSegment,geo::allocator_adapter<md::LabelLineStitchSegment,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = mdm::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<md::LabelLineStitchSegment>(v2, v1);
   }
@@ -8751,12 +8741,12 @@ void std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,gdc::
   }
 }
 
-char **geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::operator=(char **a1, uint64_t a2)
+char **geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionTileSetType>,std::allocator<md::TileSelectionTileSetType>,std::vector<md::TileSelectionTileSetType>>::operator=(char **a1, char **a2)
 {
   if (a1 != a2)
   {
     v4 = *a2;
-    v6 = *(a2 + 8) - v4;
+    v6 = a2[1] - v4;
     v7 = v6 >> 1;
     v8 = *a1;
     v9 = a1[1];
@@ -8804,7 +8794,7 @@ char **geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionT
       v4 = *a2;
     }
 
-    v15 = *(a2 + 8);
+    v15 = a2[1];
     if (v15 != v4)
     {
       memmove(v8, v4, v15 - v4);
@@ -8814,13 +8804,13 @@ char **geo::linear_set<md::TileSelectionTileSetType,std::less<md::TileSelectionT
   return a1;
 }
 
-void std::vector<md::SegmentConnectionEntry,geo::allocator_adapter<md::SegmentConnectionEntry,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *a1)
+void std::vector<md::SegmentConnectionEntry,geo::allocator_adapter<md::SegmentConnectionEntry,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](mdm::zone_mallocator *result)
 {
-  v1 = *a1;
-  if (*a1)
+  v1 = *result;
+  if (*result)
   {
-    *(a1 + 1) = v1;
-    v2 = mdm::zone_mallocator::instance(a1);
+    *(result + 1) = v1;
+    v2 = mdm::zone_mallocator::instance(result);
 
     geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::deallocate<md::SegmentConnectionEntry>(v2, v1);
   }
@@ -8875,10 +8865,10 @@ LABEL_9:
       if (v50 > 0x7F || v56 >= 0x80)
       {
         __p = &v40;
-        if (v30 - std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,long long>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>((a1 + 200), v40)[3] >= 30001)
+        if (v30 - std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,long long>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>((a1 + 200), v40, &__p)[3] >= 30001)
         {
           __p = &v40;
-          std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,long long>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>((a1 + 200), v40)[3] = v30;
+          std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,long long>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,long long>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::piecewise_construct_t const&,std::tuple<md::TileSelectionTileSetType const&>,std::tuple<>>((a1 + 200), v40, &__p)[3] = v30;
           v25 = v50;
           if (v50 <= v56)
           {
@@ -8954,7 +8944,7 @@ LABEL_9:
         v56 = 0;
       }
 
-      std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::pair<md::TileSelectionTileSetType,gdc::TileSelectionResults>>(a3, v18);
+      std::__hash_table<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::__unordered_map_hasher<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::hash<md::TileSelectionTileSetType>,std::equal_to<md::TileSelectionTileSetType>,true>,std::__unordered_map_equal<md::TileSelectionTileSetType,std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>,std::equal_to<md::TileSelectionTileSetType>,std::hash<md::TileSelectionTileSetType>,true>,std::allocator<std::__hash_value_type<md::TileSelectionTileSetType,gdc::TileSelectionResults>>>::__emplace_unique_key_args<md::TileSelectionTileSetType,std::pair<md::TileSelectionTileSetType,gdc::TileSelectionResults>>(a3, v18, &__p);
       std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v37);
       std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v33);
       std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(&v53);
@@ -9044,24 +9034,24 @@ md::TransitNodeFeaturePool **std::unique_ptr<md::TransitNodeFeaturePool>::~uniqu
   return a1;
 }
 
-uint64_t gdc::GlobeTileSelector::tilesInView@<X0>(gdc::GlobeTileSelector *this@<X0>, const gdc::CameraView *a2@<X1>, double a3@<D0>, int a4@<W2>, _DWORD *a5@<X8>)
+uint64_t gdc::GlobeTileSelector::tilesInView@<X0>(gdc::GlobeTileSelector *this@<X0>, const gdc::CameraView *a2@<X1>, int a3@<W2>, _DWORD *a4@<X8>, double a5@<D0>)
 {
   v10 = *(this + 49);
   if (v10)
   {
-    *v22 = *(this + 2);
-    (*(*v10 + 48))(v10, v22, this + 272);
+    *v23 = *(this + 2);
+    (*(*v10 + 48))(v10, v23, this + 272);
   }
 
-  memset(v68, 0, sizeof(v68));
-  v69 = 1065353216;
-  memset(v66, 0, sizeof(v66));
-  v67 = 1065353216;
-  memset(v22, 0, 32);
-  *&v22[32] = 1065353216;
-  gdc::GlobeTileSelector::tilesInViewInternal(this, a2, v68, v22, a3);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v22);
-  if (!a4 || *(this + 312) != 1)
+  memset(v69, 0, sizeof(v69));
+  v70 = 1065353216;
+  memset(v67, 0, sizeof(v67));
+  v68 = 1065353216;
+  memset(v23, 0, 32);
+  *&v23[32] = 1065353216;
+  gdc::GlobeTileSelector::tilesInViewInternal(this, a2, v69, v23, a5);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v23);
+  if (!a3 || *(this + 312) != 1)
   {
     goto LABEL_13;
   }
@@ -9074,22 +9064,22 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  (*(*v11 + 48))(&v61);
-  v12 = vceqzq_f64(v65);
-  v13 = vmvnq_s8(vuzp1q_s32(vceqzq_f64(v64), v12));
+  (*(*v11 + 48))(&v62);
+  v12 = vceqzq_f64(v66);
+  v13 = vmvnq_s8(vuzp1q_s32(vceqzq_f64(v65), v12));
   v13.n128_u64[0] = vmovn_s32(v13);
   v13.n128_u16[0] = vmaxv_u16(v13.n128_u64[0]);
   if ((v13.n128_u8[0] & 1) == 0)
   {
-    v12.n128_f64[0] = v61;
+    v12.n128_f64[0] = v62;
     v13.n128_u64[0] = 0xC00921FB54442D18;
-    if (v61 == -3.14159265)
+    if (v62 == -3.14159265)
     {
-      v12.n128_f64[0] = v62;
-      if (v62 == -3.14159265)
+      v12.n128_f64[0] = v63;
+      if (v63 == -3.14159265)
       {
-        v13.n128_f64[0] = v63;
-        if (v63 == 0.0)
+        v13.n128_f64[0] = v64;
+        if (v64 == 0.0)
         {
           goto LABEL_13;
         }
@@ -9102,57 +9092,57 @@ LABEL_14:
     v14 = *(this + 38);
     if (v14)
     {
-      (*(*v14 + 48))(v22, v13, v12);
+      (*(*v14 + 48))(v23, v13, v12);
       v15 = *(a2 + 60);
-      v25 = *v22;
-      v26 = *&v22[8];
-      v27 = *&v22[24];
-      v28 = v23;
-      v30 = 0;
-      v29 = 0;
-      v33 = 0;
+      v26 = *v23;
+      v27 = *&v23[8];
+      v28 = *&v23[24];
+      v29 = v24;
       v31 = 0;
+      v30 = 0;
+      v34 = 0;
       v32 = 0;
-      v34 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
-      v35 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
-      v36 = v34;
+      v33 = 0;
+      v35 = vdupq_n_s64(0x7FEFFFFFFFFFFFFFuLL);
+      v36 = vdupq_n_s64(0xFFEFFFFFFFFFFFFFLL);
       v37 = v35;
-      v38 = v34;
+      v38 = v36;
       v39 = v35;
-      v40 = v34;
+      v40 = v36;
       v41 = v35;
-      v42 = v34;
+      v42 = v36;
       v43 = v35;
-      v44 = v34;
+      v44 = v36;
       v45 = v35;
-      v46 = 1;
-      v47 = 0;
+      v46 = v36;
+      v47 = 1;
       v48 = 0;
       v49 = 0;
       v50 = 0;
+      v51 = 0;
       v16 = *(a2 + 24);
-      v51 = *(a2 + 23);
-      v52 = v16;
+      v52 = *(a2 + 23);
+      v53 = v16;
       v17 = *(a2 + 26);
-      v53 = *(a2 + 25);
-      v54 = v17;
-      v55 = *(a2 + 27);
-      v56 = *(a2 + 112);
+      v54 = *(a2 + 25);
+      v55 = v17;
+      v56 = *(a2 + 27);
+      v57 = *(a2 + 112);
       v18 = *(a2 + 57);
-      v58 = *(a2 + 29);
-      v57 = v18;
-      v59 = v15;
-      v60 = 0;
-      gdc::CameraView::geocentricCameraView(v22, v24);
-      gdc::GlobeTileSelector::tilesInViewInternal(this, v22, v66, v68, a3);
+      v59 = *(a2 + 29);
+      v58 = v18;
+      v60 = v15;
+      v61 = 0;
+      gdc::CameraView::geocentricCameraView(v23, v25);
+      gdc::GlobeTileSelector::tilesInViewInternal(this, v23, v67, v69, a5);
 LABEL_13:
       v19 = *(this + 2);
-      *a5 = v19;
-      std::unordered_set<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::unordered_set((a5 + 2), v68);
-      a5[12] = v19;
-      std::unordered_set<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::unordered_set((a5 + 14), v66);
-      std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v66);
-      return std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v68);
+      *a4 = v19;
+      std::unordered_set<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::unordered_set((a4 + 2), v69);
+      a4[12] = v19;
+      std::unordered_set<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::unordered_set((a4 + 14), v67);
+      std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v67);
+      return std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v69);
     }
 
     goto LABEL_14;
@@ -9160,7 +9150,7 @@ LABEL_13:
 
 LABEL_15:
   v21 = std::__throw_bad_optional_access[abi:nn200100]();
-  return std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>>,void ()(ecs2::Runtime &)>::operator()(v21);
+  return std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>>,void ()(ecs2::Runtime &)>::operator()(v21, v22);
 }
 
 uint64_t std::__function::__func<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>,std::allocator<ecs2::ForwardToExecute<md::ita::AssignClippingConstantData>>,void ()(ecs2::Runtime &)>::operator()(uint64_t a1, uint64_t a2)
@@ -9491,7 +9481,7 @@ uint64_t md::CartographicTiledRenderLayer<md::TransitTileDataRenderable>::~Carto
   return a1;
 }
 
-uint64_t gdc::GlobeTileSelector::tilesInViewInternal(uint64_t a1, gdc::GlobeTileSelector *this, void *a3, void *a4, double a5)
+uint64_t gdc::GlobeTileSelector::tilesInViewInternal(unint64_t a1, gdc::GlobeTileSelector *this, void *a3, void *a4, double a5)
 {
   v266 = *MEMORY[0x1E69E9840];
   v7 = gdc::GlobeTileSelector::calculateLodConstant(this, *(a1 + 8), a5, *(a1 + 273));
@@ -9576,7 +9566,7 @@ LABEL_25:
     *&v211[16] = 0;
     LOBYTE(v212) = 1;
     std::deque<geo::QuadTile>::push_back(v215, v211);
-    std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(v217, v211);
+    std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(v217, v211, v211);
     v169 = 0;
     goto LABEL_53;
   }
@@ -9640,11 +9630,11 @@ LABEL_13:
       v35.f64[1] = v34;
       v231 = vmlaq_f64(v187, __p, v35);
       *v232 = *(&v181 + 1);
-      std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](v193.i64, &v231);
+      std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v231);
     }
   }
 
-  std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](v193.i64, &v223);
+  std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v223);
   if (*(a1 + 352))
   {
     v39 = *(a1 + 344);
@@ -9771,7 +9761,7 @@ LABEL_145:
             v64.f64[1] = v63;
             v229 = vmlaq_f64(v187, __p, v64);
             v230 = *(&v182 + 1);
-            std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](v193.i64, &v229);
+            std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v229);
             v61 += 24;
           }
 
@@ -9790,7 +9780,7 @@ LABEL_145:
         v67.f64[1] = v66;
         v209 = vmlaq_f64(v187, __p, v67);
         v210 = *(&v183 + 1);
-        std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](v193.i64, &v209);
+        std::vector<gm::Matrix<double,3,1>>::push_back[abi:nn200100](&v193, &v209);
         if (v60)
         {
           *(&v206 + 1) = v60;
@@ -10232,7 +10222,7 @@ LABEL_92:
             {
               if (!a4[3] || !std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::find<geo::QuadTile>(a4, &v206))
               {
-                std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(a3, &v206);
+                std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(a3, &v206, &v206);
               }
             }
 
@@ -10293,7 +10283,7 @@ LABEL_92:
           {
             if (!a4[3] || !std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::find<geo::QuadTile>(a4, &v206))
             {
-              std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(a3, &v206);
+              std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(a3, &v206, &v206);
             }
 
             for (j = -1; j != 2; ++j)
@@ -10311,7 +10301,7 @@ LABEL_92:
                   if (!std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::find<geo::QuadTile>(v217, &v231))
                   {
                     std::deque<geo::QuadTile>::push_back(v215, &v231);
-                    std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(v217, &v231);
+                    std::__hash_table<geo::QuadTile,geo::QuadTileHash,std::equal_to<geo::QuadTile>,std::allocator<geo::QuadTile>>::__emplace_unique_key_args<geo::QuadTile,geo::QuadTile const&>(v217, &v231, &v231);
                   }
                 }
               }

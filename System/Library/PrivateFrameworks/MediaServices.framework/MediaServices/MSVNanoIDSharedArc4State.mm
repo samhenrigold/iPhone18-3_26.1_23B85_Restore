@@ -5,7 +5,7 @@
 
 void ___MSVNanoIDSharedArc4State_block_invoke()
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v0 = malloc_type_malloc(0x10uLL, 0x1010040466105CCuLL);
   _MSVNanoIDSharedArc4State__state = v0;
   if (v0)
@@ -26,9 +26,9 @@ void ___MSVNanoIDSharedArc4State_block_invoke()
 
   if (SecRandomCopyBytes(0, 0x10uLL, bytes))
   {
-    v15 = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"struct MSVArc4State *_MSVNanoIDSharedArc4State(void)_block_invoke"];
-    [v15 handleFailureInFunction:v16 file:@"MSVNanoID.m" lineNumber:43 description:@"Unable to obtain system random bytes."];
+    v14 = [MEMORY[0x1E696AAA8] currentHandler];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"struct MSVArc4State *_MSVNanoIDSharedArc4State(void)_block_invoke"];
+    [v14 handleFailureInFunction:v15 file:@"MSVNanoID.m" lineNumber:43 description:@"Unable to obtain system random bytes."];
   }
 
   v4 = 0;
@@ -62,7 +62,6 @@ void ___MSVNanoIDSharedArc4State_block_invoke()
   while (v10);
   *v6 = v11;
   *(v6 + 4) = v12;
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

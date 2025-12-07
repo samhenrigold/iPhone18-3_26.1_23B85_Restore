@@ -21,7 +21,7 @@
 - (void)_setCollectionView:(id)view
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell();
+  v4.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell(0);
   [(CompositeCollectionViewAwareTableCell *)&v4 _setCollectionView:view];
 }
 
@@ -35,7 +35,7 @@
 - (UIColor)backgroundColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell();
+  v4.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell(0);
   backgroundColor = [(CompositeCollectionViewAwareTableCell *)&v4 backgroundColor];
 
   return backgroundColor;
@@ -44,7 +44,7 @@
 - (void)setBackgroundColor:(id)color
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell();
+  v9.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell(0);
   v4 = v9.receiver;
   colorCopy = color;
   [(CompositeCollectionViewAwareTableCell *)&v9 setBackgroundColor:colorCopy];
@@ -72,7 +72,7 @@
   v9 = sub_140C2C();
   (*(*(v9 - 8) + 56))(self + v8, 1, 1, v9);
   v11.receiver = self;
-  v11.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell();
+  v11.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell(0);
   return [(CompositeCollectionViewAwareTableCell *)&v11 initWithFrame:x, y, width, height];
 }
 
@@ -82,7 +82,7 @@
   v6 = sub_140C2C();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v10.receiver = self;
-  v10.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell();
+  v10.super_class = type metadata accessor for CompositeCollectionViewAwareTableCell(0);
   coderCopy = coder;
   v8 = [(CompositeCollectionViewAwareTableCell *)&v10 initWithCoder:coderCopy];
 

@@ -125,7 +125,7 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
 - (void)receivedBatchResultsFromServer:(id)server finished:(BOOL)finished
 {
   finishedCopy = finished;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   serverCopy = server;
   os_unfair_lock_lock(&self->_lock);
   if (self->_finished)
@@ -140,7 +140,7 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
 
   else
   {
-    v30 = finishedCopy;
+    v29 = finishedCopy;
     if (finishedCopy)
     {
       self->_finished = 1;
@@ -148,30 +148,30 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
 
     selfCopy = self;
     os_unfair_lock_unlock(&self->_lock);
-    v31 = serverCopy;
-    v32 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v30 = serverCopy;
+    v31 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = serverCopy;
-    v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v36;
+      v10 = *v35;
       v11 = @"file";
       v12 = @"status";
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v36 != v10)
+          if (*v35 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v35 + 1) + 8 * i);
+          v14 = *(*(&v34 + 1) + 8 * i);
           v15 = [v14 objectForKeyedSubscript:v11];
           v16 = [v15 url];
           v17 = [v14 objectForKeyedSubscript:v12];
@@ -208,7 +208,7 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
 
             if (!v25)
             {
-              [v32 addObject:v16];
+              [v31 addObject:v16];
             }
 
             v11 = v21;
@@ -216,7 +216,7 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v9 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v9);
@@ -233,20 +233,18 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
       }
     }
 
-    serverCopy = v31;
-    if ([v32 count] && (objc_opt_respondsToSelector() & 1) != 0)
+    serverCopy = v30;
+    if ([v31 count] && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      allObjects = [v32 allObjects];
+      allObjects = [v31 allObjects];
       [delegate diagnosticsCollector:selfCopy createdOutputFiles:allObjects];
     }
 
-    if (v30 && (objc_opt_respondsToSelector() & 1) != 0)
+    if (v29 && (objc_opt_respondsToSelector() & 1) != 0)
     {
       [delegate diagnosticsCollector:selfCopy finishedWithError:0];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (EKDiagnosticsCollectionDelegate)delegate
@@ -258,33 +256,30 @@ void __32__EKDiagnosticsCollector_cancel__block_invoke(uint64_t a1, uint64_t a2)
 
 void __44__EKDiagnosticsCollector_collectDiagnostics__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = a1;
   v5 = [v3 errorWithCADResult:a2];
-  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error starting diagnostics collection: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error starting diagnostics collection: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 void __32__EKDiagnosticsCollector_cancel__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = a1;
   v5 = [v3 errorWithCADResult:a2];
-  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error stopping diagnostics collection: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error stopping diagnostics collection: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 - (void)receivedBatchResultsFromServer:(uint64_t)a1 finished:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Ignoring new results, because we're already finished: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Ignoring new results, because we're already finished: %@", &v2, 0xCu);
 }
 
 @end

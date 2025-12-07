@@ -228,7 +228,7 @@
   v47 = v42;
   if (v42)
   {
-    objc_msgSend_infoChartScale(v42, v43, v44, v45, v46);
+    objc_msgSend_infoChartScale(v42, v44, v45, v46);
   }
 
   else
@@ -274,25 +274,25 @@
   v23 = v22;
 
   v28 = objc_msgSend_objectValueForProperty_(self->_chartInfo, v24, v25, v26, v27, 1073);
-  v33 = v28;
+  v32 = v28;
   if (v28)
   {
-    objc_msgSend_value4(v28, v29, v30, v31, v32);
+    objc_msgSend_value4(v28, v29, v30, v31);
   }
 
   else
   {
-    v45 = 0uLL;
+    v44 = 0uLL;
   }
 
-  sub_2763853A4(v33, &v45, &v46);
-  v34 = v23 * *(&v46 + 2);
-  *&v34 = v34;
-  DWORD2(v46) = LODWORD(v34);
-  v38 = objc_msgSend_vectorWithVec4_(TSCH3DVector, v35, v34, v36, v37, &v46);
-  v43 = objc_msgSend_constantDepthInfoChartScaleForInfoChartScale_(self, v39, v40, v41, v42, v38);
+  sub_2763853A4(v32, &v44, &v45);
+  v33 = v23 * *(&v45 + 2);
+  *&v33 = v33;
+  DWORD2(v45) = LODWORD(v33);
+  v37 = objc_msgSend_vectorWithVec4_(TSCH3DVector, v34, v33, v35, v36, &v45);
+  v42 = objc_msgSend_constantDepthInfoChartScaleForInfoChartScale_(self, v38, v39, v40, v41, v37);
 
-  return v43;
+  return v42;
 }
 
 - (void)mutateInfoByAdjustingScaleFromLayoutSettings:(id *)settings toLayoutSettings:(id *)layoutSettings
@@ -313,112 +313,112 @@
   {
     height = size.height;
     width = size.width;
-    v138 = 0uLL;
-    v139 = 0;
-    objc_msgSend_p_oldLayoutSettingsForSpice_(self, a2, size.width, size.height, v4, 1);
-    v136 = 0uLL;
-    v137 = 0;
-    objc_msgSend_upgradedLayoutSettings(self, v8, v9, v10, v11);
-    v134 = v138;
-    v135 = v139;
-    v15 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v12, *&v138, v13, v14, &v134);
-    objc_msgSend_oldResizingFrame(self, v16, v17, v18, v19);
-    v21 = v20;
-    v23 = v22;
-    v25 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v24, v20, v22, width, v15, height);
-    objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v26, v27, v28, v29, v25, v15);
-    v34 = objc_msgSend_chartType(self->_chartInfo, v30, v31, v32, v33);
-    v39 = objc_msgSend_lineChart3D(TSCHChartType, v35, v36, v37, v38);
-    v44 = v39;
-    if (v34 == v39)
+    v135 = 0uLL;
+    v136 = 0;
+    objc_msgSend_p_oldLayoutSettingsForSpice_(self, size.width, size.height, v4, a2, 1);
+    v133 = 0uLL;
+    v134 = 0;
+    objc_msgSend_upgradedLayoutSettings(self, v8, v9, v10);
+    v131 = v135;
+    v132 = v136;
+    v14 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v11, *&v135, v12, v13, &v131);
+    objc_msgSend_oldResizingFrame(self, v15, v16, v17, v18);
+    v20 = v19;
+    v22 = v21;
+    v24 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v23, v19, v21, width, v14, height);
+    objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v25, v26, v27, v28, v24, v14);
+    v33 = objc_msgSend_chartType(self->_chartInfo, v29, v30, v31, v32);
+    v38 = objc_msgSend_lineChart3D(TSCHChartType, v34, v35, v36, v37);
+    v43 = v38;
+    if (v33 == v38)
     {
     }
 
     else
     {
-      v45 = objc_msgSend_chartType(self->_chartInfo, v40, v41, v42, v43);
-      v50 = objc_msgSend_areaChart3D(TSCHChartType, v46, v47, v48, v49);
+      v44 = objc_msgSend_chartType(self->_chartInfo, v39, v40, v41, v42);
+      v49 = objc_msgSend_areaChart3D(TSCHChartType, v45, v46, v47, v48);
 
-      if (v45 != v50)
+      if (v44 != v49)
       {
         goto LABEL_18;
       }
     }
 
-    v118 = objc_msgSend_numberOfSeries(self, v51, v52, v53, v54);
-    v123 = v137;
-    if (v137 >= v139)
+    v115 = objc_msgSend_numberOfSeries(self, v50, v51, v52, v53);
+    v120 = v134;
+    if (v134 >= v136)
     {
-      v123 = v139;
+      v120 = v136;
     }
 
-    if (v118 > v123)
+    if (v115 > v120)
     {
-      objc_msgSend_mutateInfoByAdjustingScaleFromLayoutSettings_toLayoutSettings_(self, v119, v120, v121, v122, &v138, &v136);
-      v134 = v136;
-      v135 = v137;
-      v127 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v124, *&v136, v125, v126, &v134);
+      objc_msgSend_mutateInfoByAdjustingScaleFromLayoutSettings_toLayoutSettings_(self, v116, v117, v118, v119, &v135, &v133);
+      v131 = v133;
+      v132 = v134;
+      v124 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v121, *&v133, v122, v123, &v131);
 
-      v129 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v128, v21, v23, width, v127, height);
+      v126 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v125, v20, v22, width, v124, height);
 
-      v25 = v129;
-      objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v130, v131, v132, v133, v129, v127);
+      v24 = v126;
+      objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v127, v128, v129, v130, v126, v124);
 LABEL_19:
 
       return;
     }
 
 LABEL_18:
-    v127 = v15;
+    v124 = v14;
     goto LABEL_19;
   }
 
-  v138 = 0uLL;
-  v139 = 0;
-  objc_msgSend_oldLayoutSettings(self, a2, size.width, size.height, v4);
-  v136 = 0uLL;
-  v137 = 0;
-  objc_msgSend_upgradedLayoutSettings(self, v55, v56, v57, v58);
-  objc_msgSend_oldLayoutSettings(self, v59, v60, v61, v62);
-  v67 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v63, v64, v65, v66, &v134);
-  v72 = objc_msgSend_chartType(self->_chartInfo, v68, v69, v70, v71);
-  v77 = objc_msgSend_lineChart3D(TSCHChartType, v73, v74, v75, v76);
-  v82 = v77;
-  if (v72 == v77)
+  v135 = 0uLL;
+  v136 = 0;
+  objc_msgSend_oldLayoutSettings(self, size.width, size.height, v4, a2);
+  v133 = 0uLL;
+  v134 = 0;
+  objc_msgSend_upgradedLayoutSettings(self, v54, v55, v56);
+  objc_msgSend_oldLayoutSettings(self, v57, v58, v59);
+  v64 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v60, v61, v62, v63, &v131);
+  v69 = objc_msgSend_chartType(self->_chartInfo, v65, v66, v67, v68);
+  v74 = objc_msgSend_lineChart3D(TSCHChartType, v70, v71, v72, v73);
+  v79 = v74;
+  if (v69 == v74)
   {
   }
 
   else
   {
-    v83 = objc_msgSend_chartType(self->_chartInfo, v78, v79, v80, v81);
-    v88 = objc_msgSend_areaChart3D(TSCHChartType, v84, v85, v86, v87);
+    v80 = objc_msgSend_chartType(self->_chartInfo, v75, v76, v77, v78);
+    v85 = objc_msgSend_areaChart3D(TSCHChartType, v81, v82, v83, v84);
 
-    if (v83 != v88)
+    if (v80 != v85)
     {
       return;
     }
   }
 
-  v93 = objc_msgSend_numberOfSeries(self, v89, v90, v91, v92);
-  v98 = v137;
-  if (v137 >= v139)
+  v90 = objc_msgSend_numberOfSeries(self, v86, v87, v88, v89);
+  v95 = v134;
+  if (v134 >= v136)
   {
-    v98 = v139;
+    v95 = v136;
   }
 
-  if (v93 > v98)
+  if (v90 > v95)
   {
-    objc_msgSend_oldResizingFrame(self, v94, v95, v96, v97);
-    v100 = v99;
-    v102 = v101;
-    v104 = v103;
-    v106 = v105;
-    objc_msgSend_mutateInfoByAdjustingScaleFromLayoutSettings_toLayoutSettings_(self, v107, v99, v101, v103, &v138, &v136);
-    v134 = v136;
-    v135 = v137;
-    v111 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v108, *&v136, v109, v110, &v134);
-    v113 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v112, v100, v102, v104, v111, v106);
-    objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v114, v115, v116, v117, v113, v111);
+    objc_msgSend_oldResizingFrame(self, v91, v92, v93, v94);
+    v97 = v96;
+    v99 = v98;
+    v101 = v100;
+    v103 = v102;
+    objc_msgSend_mutateInfoByAdjustingScaleFromLayoutSettings_toLayoutSettings_(self, v104, v96, v98, v100, &v135, &v133);
+    v131 = v133;
+    v132 = v134;
+    v108 = objc_msgSend_configuredSceneWithLayoutSettings_(self, v105, *&v133, v106, v107, &v131);
+    v110 = objc_msgSend_containingViewportByResizingScene_toResizingFrame_(self, v109, v97, v99, v101, v108, v103);
+    objc_msgSend_mutateInfoWithContainingViewport_scene_(self, v111, v112, v113, v114, v110, v108);
   }
 }
 

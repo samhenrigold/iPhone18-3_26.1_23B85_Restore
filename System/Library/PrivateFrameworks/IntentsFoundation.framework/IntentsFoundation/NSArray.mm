@@ -95,20 +95,19 @@ void __98__NSArray_IntentsFoundation__if_enumerateAsynchronouslyInSequenceOnQueu
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     v6 = *(a1 + 64);
-    v13 = v5;
-    v15 = v6;
+    v12 = v5;
+    v14 = v6;
     v7 = v3;
     v8 = *(a1 + 48);
     v9 = *(a1 + 56);
-    v12 = v7;
-    v14 = v8;
-    v16 = v9;
+    v11 = v7;
+    v13 = v8;
+    v15 = v9;
     dispatch_async(v4, block);
   }
 
   else
   {
-    v10 = *(a1 + 64);
     (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
   }
 }

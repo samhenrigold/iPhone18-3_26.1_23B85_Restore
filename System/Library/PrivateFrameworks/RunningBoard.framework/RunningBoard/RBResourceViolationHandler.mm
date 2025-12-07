@@ -142,7 +142,7 @@ LABEL_8:
 
 - (void)handleCPUViolationMessage:(uint64_t)message fromConnection:(void *)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v4 = connectionCopy;
   if (message)
@@ -152,9 +152,9 @@ LABEL_8:
     v7 = rbs_process_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14[0] = 67109120;
-      v14[1] = uint64;
-      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "handleCPUViolationMessage on pid:%d", v14, 8u);
+      v13[0] = 67109120;
+      v13[1] = uint64;
+      _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "handleCPUViolationMessage on pid:%d", v13, 8u);
     }
 
     if ([*(message + 8) invalidateAssertionsDueToCPUUsageViolationForProcessIdentifier:v6])
@@ -162,8 +162,8 @@ LABEL_8:
       v8 = rbs_process_log();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14[0]) = 0;
-        _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_DEFAULT, "handleCPUViolationMessage removed assertions", v14, 2u);
+        LOWORD(v13[0]) = 0;
+        _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_DEFAULT, "handleCPUViolationMessage removed assertions", v13, 2u);
       }
     }
 
@@ -176,10 +176,10 @@ LABEL_8:
       v11 = rbs_process_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v14[0]) = 0;
+        LOWORD(v13[0]) = 0;
         v12 = "handleCPUViolationMessage done";
 LABEL_15:
-        _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, v12, v14, 2u);
+        _os_log_error_impl(&dword_262485000, v11, OS_LOG_TYPE_ERROR, v12, v13, 2u);
       }
     }
 
@@ -188,19 +188,17 @@ LABEL_15:
       v11 = rbs_process_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v14[0]) = 0;
+        LOWORD(v13[0]) = 0;
         v12 = "handleCPUViolationMessage - message didn't have reply context";
         goto LABEL_15;
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMessage:(void *)message fromConnection:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   messageCopy = message;
   if (self)
@@ -209,12 +207,12 @@ LABEL_15:
     if (uint64 == 1)
     {
       OUTLINED_FUNCTION_0_1();
-      v11 = 3221225472;
-      v12 = __59__RBResourceViolationHandler_handleMessage_fromConnection___block_invoke;
-      v13 = &unk_279B329D0;
+      v10 = 3221225472;
+      v11 = __59__RBResourceViolationHandler_handleMessage_fromConnection___block_invoke;
+      v12 = &unk_279B329D0;
       selfCopy = self;
-      v15 = v5;
-      v16 = messageCopy;
+      v14 = v5;
+      v15 = messageCopy;
       _os_activity_initiate(&dword_262485000, "handleCPUViolationMessage", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
     }
 
@@ -224,13 +222,11 @@ LABEL_15:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v18 = uint64;
+        v17 = uint64;
         _os_log_error_impl(&dword_262485000, v8, OS_LOG_TYPE_ERROR, "unrecognized command for resource violation server: %ul", buf, 8u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithAssertionManager:(uint64_t)manager
@@ -277,14 +273,6 @@ LABEL_15:
   }
 }
 
-void __56__RBResourceViolationHandler_startWithAssertionManager___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __56__RBResourceViolationHandler_startWithAssertionManager___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_0();
@@ -297,14 +285,6 @@ void __56__RBResourceViolationHandler_startWithAssertionManager___block_invoke_c
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __56__RBResourceViolationHandler_startWithAssertionManager___block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __56__RBResourceViolationHandler_startWithAssertionManager___block_invoke_2_cold_2()

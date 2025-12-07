@@ -17,7 +17,7 @@
 
 - (id)unarchiveLegacyFlags
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   flagsStorage = [(HMDTimeBasedFlagsManager *)self flagsStorage];
   unarchiveLegacyEventFlags = [flagsStorage unarchiveLegacyEventFlags];
 
@@ -28,51 +28,51 @@
     v7 = v6;
     if (v5 && v6)
     {
-      v33 = unarchiveLegacyEventFlags;
+      v32 = unarchiveLegacyEventFlags;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
       obj = [v5 allKeys];
-      v36 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
-      if (v36)
+      v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      if (v35)
       {
-        v35 = *v44;
+        v34 = *v43;
         do
         {
           v8 = 0;
           do
           {
-            if (*v44 != v35)
+            if (*v43 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v37 = v8;
-            v9 = *(*(&v43 + 1) + 8 * v8);
+            v36 = v8;
+            v9 = *(*(&v42 + 1) + 8 * v8);
+            v38 = 0u;
             v39 = 0u;
             v40 = 0u;
             v41 = 0u;
-            v42 = 0u;
             v10 = [v5 objectForKeyedSubscript:v9];
             allKeys = [v10 allKeys];
 
-            v12 = [allKeys countByEnumeratingWithState:&v39 objects:v47 count:16];
+            v12 = [allKeys countByEnumeratingWithState:&v38 objects:v46 count:16];
             if (v12)
             {
               v13 = v12;
-              v14 = *v40;
+              v14 = *v39;
               do
               {
                 for (i = 0; i != v13; ++i)
                 {
-                  if (*v40 != v14)
+                  if (*v39 != v14)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v16 = *(*(&v39 + 1) + 8 * i);
+                  v16 = *(*(&v38 + 1) + 8 * i);
                   v17 = [v5 objectForKeyedSubscript:v9];
                   v18 = [v17 objectForKeyedSubscript:v16];
 
@@ -84,20 +84,20 @@
                   }
                 }
 
-                v13 = [allKeys countByEnumeratingWithState:&v39 objects:v47 count:16];
+                v13 = [allKeys countByEnumeratingWithState:&v38 objects:v46 count:16];
               }
 
               while (v13);
             }
 
-            v8 = v37 + 1;
+            v8 = v36 + 1;
           }
 
-          while (v37 + 1 != v36);
-          v36 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+          while (v36 + 1 != v35);
+          v35 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
-        while (v36);
+        while (v35);
       }
 
       if ([dictionary count])
@@ -112,7 +112,7 @@
 
       v22 = v21;
 
-      unarchiveLegacyEventFlags = v33;
+      unarchiveLegacyEventFlags = v32;
     }
 
     else
@@ -124,7 +124,7 @@
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v50 = v30;
+        v49 = v30;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Legacy flags missing data", buf, 0xCu);
       }
 
@@ -142,7 +142,7 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v50 = v26;
+      v49 = v26;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@No legacy event flags found", buf, 0xCu);
     }
 
@@ -150,14 +150,12 @@
     v22 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)unarchiveFlags
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   flagsStorage = [(HMDTimeBasedFlagsManager *)self flagsStorage];
   unarchive = [flagsStorage unarchive];
@@ -174,7 +172,7 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v20 = v9;
+    v19 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Loading legacy flags", buf, 0xCu);
   }
 
@@ -184,13 +182,13 @@
   {
     unarchive = unarchiveLegacyFlags;
 LABEL_6:
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __42__HMDTimeBasedFlagsManager_unarchiveFlags__block_invoke;
-    v17[3] = &unk_279728200;
-    v17[4] = self;
-    v18 = dictionary;
-    [unarchive enumerateKeysAndObjectsUsingBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __42__HMDTimeBasedFlagsManager_unarchiveFlags__block_invoke;
+    v16[3] = &unk_279728200;
+    v16[4] = self;
+    v17 = dictionary;
+    [unarchive enumerateKeysAndObjectsUsingBlock:v16];
   }
 
   v11 = objc_autoreleasePoolPush();
@@ -200,14 +198,13 @@ LABEL_6:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v14;
-    v21 = 2112;
-    v22 = dictionary;
+    v19 = v14;
+    v20 = 2112;
+    v21 = dictionary;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Final restored flags: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -282,7 +279,7 @@ void __33__HMDTimeBasedFlagsManager__save__block_invoke(uint64_t a1)
   v9 = dictionary;
   v5 = dictionary;
   [(NSMutableDictionary *)flags enumerateKeysAndObjectsUsingBlock:v8];
-  v6 = [v5 copy];
+  v6 = objc_msgSend_copy(v5);
 
   return v6;
 }
@@ -424,16 +421,14 @@ void __42__HMDTimeBasedFlagsManager__fetchAllFlags__block_invoke(uint64_t a1, vo
 
 void __51__HMDTimeBasedFlagsManager_allowedSpecifierClasses__block_invoke()
 {
-  v5[2] = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = allowedSpecifierClasses__hmf_once_v5;
   allowedSpecifierClasses__hmf_once_v5 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -77,7 +77,7 @@
 
   sub_100282F08();
 
-  sub_100024F64(v9, &unk_101908380);
+  sub_100024F64(v9, &unk_101908380, &unk_1011E6860);
 }
 
 - (CGSize)intrinsicContentSize

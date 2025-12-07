@@ -60,38 +60,37 @@
 
 + (unint64_t)bitmakForComputeUnits:(id)units
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   unitsCopy = units;
   v4 = 0;
-  v5 = [unitsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [unitsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(unitsCopy);
         }
 
-        v4 |= [*(*(&v10 + 1) + 8 * v7++) bitmask];
+        v4 |= [*(*(&v9 + 1) + 8 * v7++) bitmask];
       }
 
       while (v5 != v7);
-      v5 = [unitsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [unitsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

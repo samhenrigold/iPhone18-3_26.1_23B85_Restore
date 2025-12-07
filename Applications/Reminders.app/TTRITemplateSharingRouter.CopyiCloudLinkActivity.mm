@@ -32,7 +32,7 @@
 
 - (UIImage)activityImage
 {
-  sub_100003540(0, &qword_10076FCB0);
+  sub_100003540(0, &qword_10076FCB0, UIImage_ptr);
   v2 = static UIImage.ttr_systemSymbolImage(named:)();
 
   return v2;

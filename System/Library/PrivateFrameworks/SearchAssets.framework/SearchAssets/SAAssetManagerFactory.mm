@@ -15,10 +15,10 @@
 
 + (id)safariAssistantAssetManagerWithLocale:(id)locale error:(id *)error
 {
-  v4 = sub_21580B890();
-  v6 = sub_2157F9F90(v4, v5);
+  v5 = sub_21580B890();
+  v7 = sub_2157F9F90(v5, v6, error);
 
-  return v6;
+  return v7;
 }
 
 @end

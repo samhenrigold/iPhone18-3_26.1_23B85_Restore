@@ -9,6 +9,9 @@
 - (void)_accessibilityUpdateDraftElements;
 - (void)_axAddDraftsElementIfNecessaryUsingVC:(id)c;
 - (void)_configureNewDockedView:(id)view;
+- (void)_setDockVisible:(BOOL)visible;
+- (void)activateExposeModeAnimated:(BOOL)animated;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)setActiveTiltedTabViewController:(id)controller;
 @end
 
@@ -101,25 +104,25 @@ uint64_t __86__DockContainerViewControllerAccessibility__accessibilityLoadAccess
 
 - (void)_axAddDraftsElementIfNecessaryUsingVC:(id)c
 {
-  v24[1] = *MEMORY[0x29EDCA608];
+  v23[1] = *MEMORY[0x29EDCA608];
   cCopy = c;
   NSClassFromString(&cfstr_Composenavigat_0.isa);
   if (objc_opt_isKindOfClass())
   {
     view = [cCopy view];
-    v23[0] = MEMORY[0x29EDCA5F8];
-    v23[1] = 3221225472;
-    v23[2] = __82__DockContainerViewControllerAccessibility__axAddDraftsElementIfNecessaryUsingVC___block_invoke;
-    v23[3] = &unk_29F2D4060;
-    v23[4] = self;
-    v6 = [view _accessibilityFindAncestor:v23 startWithSelf:1];
+    v22[0] = MEMORY[0x29EDCA5F8];
+    v22[1] = 3221225472;
+    v22[2] = __82__DockContainerViewControllerAccessibility__axAddDraftsElementIfNecessaryUsingVC___block_invoke;
+    v22[3] = &unk_29F2D4060;
+    v22[4] = self;
+    v6 = [view _accessibilityFindAncestor:v22 startWithSelf:1];
 
     _axDismissDraftElement = [(DockContainerViewControllerAccessibility *)self _axDismissDraftElement];
     [_axDismissDraftElement setAccessibilityContainer:v6];
 
     _axDismissDraftElement2 = [(DockContainerViewControllerAccessibility *)self _axDismissDraftElement];
-    v24[0] = _axDismissDraftElement2;
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v24 count:1];
+    v23[0] = _axDismissDraftElement2;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v23 count:1];
     [v6 _accessibilitySetAdditionalElements:v9];
 
     [(DockContainerViewControllerAccessibility *)self _axSetViewContainingDraftsElement:v6];
@@ -131,7 +134,7 @@ uint64_t __86__DockContainerViewControllerAccessibility__accessibilityLoadAccess
     windowScene = [window windowScene];
     statusBarManager = [windowScene statusBarManager];
     [statusBarManager statusBarFrame];
-    MaxY = CGRectGetMaxY(v25);
+    MaxY = CGRectGetMaxY(v24);
 
     view3 = [cCopy view];
     superview = [view3 superview];
@@ -150,8 +153,6 @@ uint64_t __86__DockContainerViewControllerAccessibility__accessibilityLoadAccess
 
     [(DockContainerViewControllerAccessibility *)self _axSetDraftsElementHeight:0.0];
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 BOOL __82__DockContainerViewControllerAccessibility__axAddDraftsElementIfNecessaryUsingVC___block_invoke(uint64_t a1, void *a2)
@@ -177,6 +178,28 @@ BOOL __82__DockContainerViewControllerAccessibility__axAddDraftsElementIfNecessa
   return v16;
 }
 
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  view = [controllerCopy view];
+  [view setAccessibilityViewIsModal:1];
+
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = __86__DockContainerViewControllerAccessibility_presentViewController_animated_completion___block_invoke;
+  v14[3] = &unk_29F2D4088;
+  v14[4] = self;
+  v15 = controllerCopy;
+  v16 = completionCopy;
+  v13.receiver = self;
+  v13.super_class = DockContainerViewControllerAccessibility;
+  v11 = completionCopy;
+  v12 = controllerCopy;
+  [(DockContainerViewControllerAccessibility *)&v13 presentViewController:v12 animated:animatedCopy completion:v14];
+}
+
 uint64_t __86__DockContainerViewControllerAccessibility_presentViewController_animated_completion___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _axAddDraftsElementIfNecessaryUsingVC:*(a1 + 40)];
@@ -199,6 +222,14 @@ uint64_t __86__DockContainerViewControllerAccessibility_presentViewController_an
   [(DockContainerViewControllerAccessibility *)self _accessibilityUpdateDraftElements];
 }
 
+- (void)activateExposeModeAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = DockContainerViewControllerAccessibility;
+  [(DockContainerViewControllerAccessibility *)&v4 activateExposeModeAnimated:animated];
+  [(DockContainerViewControllerAccessibility *)self _accessibilityUpdateDraftElements];
+}
+
 - (void)setActiveTiltedTabViewController:(id)controller
 {
   v4.receiver = self;
@@ -209,7 +240,7 @@ uint64_t __86__DockContainerViewControllerAccessibility_presentViewController_an
 
 - (void)_accessibilityUpdateDraftElements
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v3 = [(DockContainerViewControllerAccessibility *)self safeDictionaryForKey:@"dockedViews"];
   allValues = [v3 allValues];
 
@@ -219,7 +250,7 @@ uint64_t __86__DockContainerViewControllerAccessibility_presentViewController_an
   v7 = __UIAccessibilityCastAsClass();
   view = [v7 view];
 
-  v30 = 0;
+  v29 = 0;
   objc_opt_class();
   firstObject = [allValues firstObject];
   v10 = __UIAccessibilityCastAsClass();
@@ -244,35 +275,33 @@ uint64_t __86__DockContainerViewControllerAccessibility_presentViewController_an
   v19 = [MEMORY[0x29EDBA070] numberWithDouble:v13 - v16];
   [view _accessibilitySetRetainedValue:v19 forKey:@"kAXDraftHeightKey"];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v20 = allValues;
-  v21 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v27;
+    v23 = *v26;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v27 != v23)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v26 + 1) + 8 * i) setAccessibilityElementsHidden:{1, v26}];
+        [*(*(&v25 + 1) + 8 * i) setAccessibilityElementsHidden:{1, v25}];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v22);
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 - (CGRect)_axFrameForDismissDraftsElement
@@ -341,6 +370,14 @@ double __66__DockContainerViewControllerAccessibility__axDismissDraftElement__bl
   v3 = v2;
 
   return v3;
+}
+
+- (void)_setDockVisible:(BOOL)visible
+{
+  v4.receiver = self;
+  v4.super_class = DockContainerViewControllerAccessibility;
+  [(DockContainerViewControllerAccessibility *)&v4 _setDockVisible:visible];
+  [(DockContainerViewControllerAccessibility *)self _accessibilityUpdateDraftElements];
 }
 
 @end

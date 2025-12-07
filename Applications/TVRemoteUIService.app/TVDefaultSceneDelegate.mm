@@ -16,19 +16,19 @@
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v11 = _TVRUIServiceAppLog();
+  v11 = _TVRUIServiceAppLog(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v23 = [sceneCopy description];
-    v24 = 136315906;
-    v25 = "[TVDefaultSceneDelegate scene:willConnectToSession:options:]";
-    v26 = 2112;
-    v27 = v23;
-    v28 = 2112;
-    v29 = sessionCopy;
-    v30 = 2112;
-    v31 = optionsCopy;
-    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s: %@, %@, %@", &v24, 0x2Au);
+    v24 = [sceneCopy description];
+    v25 = 136315906;
+    v26 = "[TVDefaultSceneDelegate scene:willConnectToSession:options:]";
+    v27 = 2112;
+    v28 = v24;
+    v29 = 2112;
+    v30 = sessionCopy;
+    v31 = 2112;
+    v32 = optionsCopy;
+    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s: %@, %@, %@", &v25, 0x2Au);
   }
 
   v12 = +[UIDevice currentDevice];
@@ -36,7 +36,7 @@
 
   if (userInterfaceIdiom == 1)
   {
-    window2 = _TVRUIServiceAppLog();
+    window2 = _TVRUIServiceAppLog(v14);
     if (os_log_type_enabled(window2, OS_LOG_TYPE_ERROR))
     {
       [TVDefaultSceneDelegate scene:window2 willConnectToSession:? options:?];
@@ -45,21 +45,21 @@
 
   else
   {
-    v15 = sceneCopy;
-    v16 = [[TVRemoteWindow alloc] initWithWindowScene:v15];
+    v16 = sceneCopy;
+    v17 = [[TVRemoteWindow alloc] initWithWindowScene:v16];
     window = self->_window;
-    self->_window = &v16->super;
+    self->_window = &v17->super;
 
-    v18 = objc_alloc_init(TVRemoteViewController);
+    v19 = objc_alloc_init(TVRemoteViewController);
     mainViewController = self->_mainViewController;
-    self->_mainViewController = v18;
+    self->_mainViewController = v19;
 
     mainViewController = [(TVDefaultSceneDelegate *)self mainViewController];
     window = [(TVDefaultSceneDelegate *)self window];
     [window setRootViewController:mainViewController];
 
     uRLContexts = [optionsCopy URLContexts];
-    [(TVDefaultSceneDelegate *)self scene:v15 openURLContexts:uRLContexts];
+    [(TVDefaultSceneDelegate *)self scene:v16 openURLContexts:uRLContexts];
 
     window2 = [(TVDefaultSceneDelegate *)self window];
     [window2 makeKeyAndVisible];
@@ -68,7 +68,7 @@
 
 - (void)sceneDidBecomeActive:(id)active
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [TVDefaultSceneDelegate sceneDidBecomeActive:v4];
@@ -87,7 +87,7 @@
 
 - (void)sceneWillEnterForeground:(id)foreground
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136315138;
@@ -111,28 +111,29 @@
 
 - (void)sceneWillResignActive:(id)active
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v6 = "[TVDefaultSceneDelegate sceneWillResignActive:]";
+    v7 = "[TVDefaultSceneDelegate sceneWillResignActive:]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  if (SBSGetScreenLockStatus())
+  v4 = SBSGetScreenLockStatus();
+  if (v4)
   {
-    v4 = _TVRUIServiceAppLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _TVRUIServiceAppLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Screen is locked", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Screen is locked", buf, 2u);
     }
   }
 }
 
 - (void)sceneDidEnterBackground:(id)background
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315138;
@@ -181,7 +182,7 @@
 
 - (void)sceneDidDisconnect:(id)disconnect
 {
-  v4 = _TVRUIServiceAppLog();
+  v4 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -198,7 +199,7 @@
 
 - (void)resetRootViewController
 {
-  v3 = _TVRUIServiceAppLog();
+  v3 = _TVRUIServiceAppLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;

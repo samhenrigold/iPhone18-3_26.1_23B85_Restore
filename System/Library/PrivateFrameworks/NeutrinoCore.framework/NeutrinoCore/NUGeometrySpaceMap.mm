@@ -878,9 +878,12 @@ void __39__NUGeometrySpaceMap_setSpaces_forKey___block_invoke(uint64_t a1)
 
 uint64_t __41__NUGeometrySpaceMap_taggedSpacesForKey___block_invoke(void *a1)
 {
-  *(*(a1[6] + 8) + 40) = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
+  v2 = [*(a1[4] + 16) objectForKeyedSubscript:a1[5]];
+  v3 = *(a1[6] + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)addTagNode:(id)node
@@ -1006,7 +1009,7 @@ void __37__NUGeometrySpaceMap_applyTransform___block_invoke(uint64_t a1, uint64_
   return v3;
 }
 
-uint64_t __27__NUGeometrySpaceMap_count__block_invoke(uint64_t a1)
+void *__27__NUGeometrySpaceMap_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1033,9 +1036,12 @@ uint64_t __27__NUGeometrySpaceMap_count__block_invoke(uint64_t a1)
 
 uint64_t __35__NUGeometrySpaceMap_copyWithZone___block_invoke(void *a1)
 {
-  *(a1[4] + 16) = [*(a1[5] + 16) mutableCopyWithZone:a1[6]];
+  v2 = [*(a1[5] + 16) mutableCopyWithZone:a1[6]];
+  v3 = a1[4];
+  v4 = *(v3 + 16);
+  *(v3 + 16) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (NUGeometrySpaceMap)init

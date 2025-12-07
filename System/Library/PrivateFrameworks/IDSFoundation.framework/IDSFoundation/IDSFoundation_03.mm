@@ -1,388 +1,3 @@
-uint64_t IDSQRProtoH3EndToEndChannelUnRegisterE2EChannelUnRegisterReadFrom(uint64_t a1, void *a2)
-{
-  while (1)
-  {
-    v3 = [a2 position];
-    if (v3 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
-    {
-      break;
-    }
-
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
-    while (1)
-    {
-      v13 = 0;
-      v7 = [a2 position] + 1;
-      if (v7 >= [a2 position] && (v8 = objc_msgSend(a2, "position") + 1, v8 <= objc_msgSend(a2, "length")))
-      {
-        v9 = [a2 data];
-        [v9 getBytes:&v13 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v6 |= (v13 & 0x7F) << v4;
-      if ((v13 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v4 += 7;
-      if (v5++ >= 9)
-      {
-        v11 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v11 = [a2 hasError] ? 0 : v6;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
-    {
-      break;
-    }
-
-    if ((PBReaderSkipValueWithTag() & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t IDSQRProtoH3EndToEndChannelRegisterResponseReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    while (1)
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v17[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17[0] & 0x7F) << v5;
-        if ((v17[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 1)
-      {
-        v13 = PBReaderReadData();
-        v14 = *(a1 + 16);
-        *(a1 + 16) = v13;
-LABEL_23:
-
-        goto LABEL_25;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_25:
-      v15 = [a2 position];
-      if (v15 >= [a2 length])
-      {
-        return [a2 hasError] ^ 1;
-      }
-    }
-
-    v14 = objc_alloc_init(IDSQRProtoH3EndToEndChannelRegisterE2EChannelInfo);
-    objc_storeStrong((a1 + 8), v14);
-    v17[0] = 0xAAAAAAAAAAAAAAAALL;
-    v17[1] = 0xAAAAAAAAAAAAAAAALL;
-    if (!PBReaderPlaceMark() || !IDSQRProtoH3EndToEndChannelRegisterE2EChannelInfoReadFrom(v14, a2))
-    {
-
-      return 0;
-    }
-
-    PBReaderRecallMark();
-    goto LABEL_23;
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_1A7C0AC44(uint64_t a1)
-{
-  v1[0] = MEMORY[0x1E69E9820];
-  v1[1] = 3221225472;
-  v1[2] = sub_1A7C0ACB4;
-  v1[3] = &unk_1E77E0138;
-  v1[4] = *(a1 + 32);
-  IDSTransportThreadAddBlock(v1);
-}
-
-void sub_1A7C0B420(uint64_t a1)
-{
-  v1[0] = MEMORY[0x1E69E9820];
-  v1[1] = 3221225472;
-  v1[2] = sub_1A7C0B490;
-  v1[3] = &unk_1E77E0138;
-  v1[4] = *(a1 + 32);
-  IDSTransportThreadAddBlock(v1);
-}
-
-uint64_t IDSQRProtoDiagnosticIndicationReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v33 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v33 & 0x7F) << v5;
-        if ((v33 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 2)
-      {
-        if (v13 == 3)
-        {
-          v25 = 0;
-          v26 = 0;
-          v27 = 0;
-          *(a1 + 36) |= 2u;
-          while (1)
-          {
-            v34 = 0;
-            v28 = [a2 position] + 1;
-            if (v28 >= [a2 position] && (v29 = objc_msgSend(a2, "position") + 1, v29 <= objc_msgSend(a2, "length")))
-            {
-              v30 = [a2 data];
-              [v30 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v27 |= (v34 & 0x7F) << v25;
-            if ((v34 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v25 += 7;
-            v11 = v26++ >= 9;
-            if (v11)
-            {
-              v31 = 0;
-              goto LABEL_52;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v31 = 0;
-          }
-
-          else
-          {
-            v31 = v27;
-          }
-
-LABEL_52:
-          *(a1 + 32) = v31;
-        }
-
-        else
-        {
-          if (v13 != 15)
-          {
-LABEL_32:
-            result = PBReaderSkipValueWithTag();
-            if (!result)
-            {
-              return result;
-            }
-
-            goto LABEL_53;
-          }
-
-          v16 = 0;
-          v17 = 0;
-          v18 = 0;
-          *(a1 + 36) |= 1u;
-          while (1)
-          {
-            v35 = 0;
-            v19 = [a2 position] + 1;
-            if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-            {
-              v21 = [a2 data];
-              [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v18 |= (v35 & 0x7F) << v16;
-            if ((v35 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v16 += 7;
-            v11 = v17++ >= 9;
-            if (v11)
-            {
-              v22 = 0;
-              goto LABEL_48;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v22 = 0;
-          }
-
-          else
-          {
-            v22 = v18;
-          }
-
-LABEL_48:
-          *(a1 + 8) = v22;
-        }
-      }
-
-      else
-      {
-        if (v13 == 1)
-        {
-          v14 = PBReaderReadString();
-          v15 = 16;
-        }
-
-        else
-        {
-          if (v13 != 2)
-          {
-            goto LABEL_32;
-          }
-
-          v14 = PBReaderReadString();
-          v15 = 24;
-        }
-
-        v24 = *(a1 + v15);
-        *(a1 + v15) = v14;
-      }
-
-LABEL_53:
-      v32 = [a2 position];
-    }
-
-    while (v32 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
 id IDSIDAliasHashUUIDString(void *a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
@@ -449,16 +64,16 @@ unint64_t IDSIDAliasHashUInt64(unint64_t a1, void *a2)
   return bswap64(*md);
 }
 
-id IDSIDAliasFixedSalt()
+id IDSIDAliasFixedSalt(uint64_t a1)
 {
   if (qword_1EB2BBF58 != -1)
   {
     sub_1A7E1B664();
   }
 
-  v1 = qword_1EB2BBF60;
+  v2 = qword_1EB2BBF60;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A7C0C784()
@@ -470,7 +85,7 @@ void sub_1A7C0C784()
   qword_1EB2BBF60 = v0;
 }
 
-uint64_t sub_1A7C0D640(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *sub_1A7C0D640(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -597,7 +212,7 @@ void sub_1A7C0E614(uint64_t a1, void *a2, void *a3)
 void sub_1A7C0E6FC(void *a1)
 {
   v29 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 4);
+  v2 = a1 + 4;
   if (a1[4])
   {
     v3 = [objc_opt_class() isItemNotFoundError:a1[4]];
@@ -1814,10 +1429,11 @@ void sub_1A7C16E88(id *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void
   }
 }
 
-void sub_1A7C179E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1A7C179E0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_1A7C18AA0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1949,7 +1565,7 @@ void *sub_1A7C226B4(uint64_t a1, uint64_t a2)
   {
     v5 = result + a2 + 40;
     *result = v5;
-    result[1] = v5 + a1;
+    result[1] = &v5[a1];
     result[2] = v5;
     result[3] = v5;
     result[4] = a2;
@@ -2727,12 +2343,11 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t IDSQRCHDataList_Create(uint64_t result, int a2)
+double IDSQRCHDataList_Create(int **a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (result)
+  v41 = *MEMORY[0x1E69E9840];
+  if (a1)
   {
-    v3 = result;
     v4 = malloc_type_malloc(0x10uLL, 0x10200405730B0C9uLL);
     if (v4)
     {
@@ -2743,76 +2358,62 @@ uint64_t IDSQRCHDataList_Create(uint64_t result, int a2)
       {
         *v5 = a2;
         *(v5 + 1) = 0;
-        *v3 = v5;
+        *a1 = v5;
         v7 = OSLogHandleForTransportCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = *v3;
-          v9 = **v3;
+          v8 = *a1;
+          v9 = **a1;
           *buf = 134218240;
-          v13 = v8;
-          v14 = 1024;
-          v15 = v9;
+          v38 = v8;
+          v39 = 1024;
+          v40 = v9;
           _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList: created new list %p, size %d.", buf, 0x12u);
         }
 
-        result = os_log_shim_legacy_logging_enabled();
-        if (result)
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
         {
-          result = _IDSShouldLogTransport();
-          if (result)
+          _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList: created new list %p, size %d.", v11, v12, v13, v14, v15, *a1);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList: created new list %p, size %d.");
-            result = _IDSShouldLog();
-            if (result)
-            {
-              return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: created new list %p, size %d.");
-            }
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: created new list %p, size %d.", v16, v17, v18, v19, *a1);
           }
         }
       }
 
       else
       {
-        v11 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v30 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList: failed to initialize.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList: failed to initialize.", buf, 2u);
         }
 
-        result = os_log_shim_legacy_logging_enabled();
-        if (result)
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          result = _IDSShouldLog();
-          if (result)
-          {
-            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: failed to initialize.");
-          }
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: failed to initialize.", v31, v32, v33, v34, v35);
         }
       }
     }
 
     else
     {
-      v10 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v20 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList_Init failed.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList_Init failed.", buf, 2u);
       }
 
-      result = os_log_shim_legacy_logging_enabled();
-      if (result)
+      if (os_log_shim_legacy_logging_enabled())
       {
-        result = _IDSShouldLogTransport();
-        if (result)
+        if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList_Init failed.");
-          result = _IDSShouldLog();
-          if (result)
+          _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList_Init failed.", v21, v22, v23, v24, v25, v35);
+          if (_IDSShouldLog(0))
           {
-            return _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList_Init failed.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList_Init failed.", v26, v27, v28, v29, v36);
           }
         }
       }
@@ -2824,7 +2425,7 @@ uint64_t IDSQRCHDataList_Create(uint64_t result, int a2)
 
 void IDSQRCHDataList_Destroy(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     *a1 = 0;
@@ -2838,16 +2439,16 @@ void IDSQRCHDataList_Destroy(void *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v5 = a1;
+      v14 = a1;
       _os_log_impl(&dword_1A7AD9000, v3, OS_LOG_TYPE_DEFAULT, "IDSQRCHDataList: list %p destroyed.", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList: list %p destroyed.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"IDSQRCHDataList: list %p destroyed.", v4, v5, v6, v7, v8, a1);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: list %p destroyed.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"IDSQRCHDataList: list %p destroyed.", v9, v10, v11, v12, a1);
       }
     }
 
@@ -3021,10 +2622,9 @@ LABEL_43:
   return result;
 }
 
-void *sub_1A7C2B818(uint64_t a1, uint64_t a2)
+void sub_1A7C2B818(uint64_t a1, char a2)
 {
-  v2 = a2;
-  v36 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (*(a1 + 1305))
   {
     v4 = 0x1000000;
@@ -3093,7 +2693,7 @@ void *sub_1A7C2B818(uint64_t a1, uint64_t a2)
     v10 = 4;
   }
 
-  MEMORY[0x1EEE9AC00](a1, a2);
+  MEMORY[0x1EEE9AC00](a1);
   v12 = &buf[-v11];
   memset(&buf[-v11], 170, v13);
   v14 = &v12[v10];
@@ -3107,26 +2707,23 @@ void *sub_1A7C2B818(uint64_t a1, uint64_t a2)
       {
         v20 = *(a1 + 460);
         *buf = 67109120;
-        v35 = v20;
+        v52 = v20;
         _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "_prependExtendedChannelHeader failed due to invalid streamID count (%d).", buf, 8u);
       }
 
-      result = os_log_shim_legacy_logging_enabled();
-      if (result)
+      if (os_log_shim_legacy_logging_enabled())
       {
-        result = _IDSShouldLogTransport();
-        if (result)
+        if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"_prependExtendedChannelHeader failed due to invalid streamID count (%d).");
-          result = _IDSShouldLog();
-          if (result)
+          _IDSLogTransport(@"GL", @"IDS", @"_prependExtendedChannelHeader failed due to invalid streamID count (%d).", v21, v22, v23, v24, v25, *(a1 + 460));
+          if (_IDSShouldLog(0))
           {
-            return _IDSLogV(0, @"IDSFoundation", @"GL", @"_prependExtendedChannelHeader failed due to invalid streamID count (%d).");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"_prependExtendedChannelHeader failed due to invalid streamID count (%d).", v26, v27, v28, v29, *(a1 + 460));
           }
         }
       }
 
-      return result;
+      return;
     }
   }
 
@@ -3158,11 +2755,11 @@ void *sub_1A7C2B818(uint64_t a1, uint64_t a2)
     }
   }
 
-  v22 = *(a1 + 488);
-  if (v22)
+  v30 = *(a1 + 488);
+  if (v30)
   {
     v9 |= 4u;
-    *v14 = bswap64(v22);
+    *v14 = bswap64(v30);
     v14 += 8;
   }
 
@@ -3187,118 +2784,114 @@ void *sub_1A7C2B818(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 501))
   {
-    v23 = v9 | 0x40;
+    v31 = v9 | 0x40;
   }
 
   else
   {
-    v23 = v9;
+    v31 = v9;
   }
 
-  if ((v2 & 1) == 0)
+  if ((a2 & 1) == 0)
   {
-    v23 |= 0x80u;
+    v31 |= 0x80u;
     *v14 = bswap32(*(a1 + 16)) >> 16;
     v14 += 2;
   }
 
   if (*(a1 + 502))
   {
-    v23 |= 0x100u;
+    v31 |= 0x100u;
   }
 
   if ((*(a1 + 536) & 0x40) != 0)
   {
-    v23 |= 0x200u;
+    v31 |= 0x200u;
     *v14 = bswap32(*(a1 + 504)) >> 16;
     v14 += 2;
   }
 
   if (*(a1 + 516))
   {
-    v23 |= 0x800u;
+    v31 |= 0x800u;
   }
 
-  v24 = *(a1 + 520);
-  if ((v24 - 1) <= 3)
+  v32 = *(a1 + 520);
+  if ((v32 - 1) <= 3)
   {
     *v14 = bswap32(*(a1 + 524)) >> 16;
-    LOWORD(v25) = v14 + 2;
-    v26 = *(a1 + 520);
-    if (v26 < 2)
+    LOWORD(v33) = v14 + 2;
+    v34 = *(a1 + 520);
+    if (v34 < 2)
     {
-      v23 |= 0x2000u;
+      v31 |= 0x2000u;
     }
 
     else
     {
-      v25 = v14 + 3;
-      v14[2] = v26 - 1;
-      v23 |= 0x6000u;
+      v33 = v14 + 3;
+      v14[2] = v34 - 1;
+      v31 |= 0x6000u;
       if (*(a1 + 520) >= 2)
       {
-        v27 = (a1 + 526);
-        v28 = 1;
+        v35 = (a1 + 526);
+        v36 = 1;
         do
         {
-          v29 = *v27++;
-          *v25++ = bswap32(v29) >> 16;
-          ++v28;
+          v37 = *v35++;
+          *v33++ = bswap32(v37) >> 16;
+          ++v36;
         }
 
-        while (v28 < *(a1 + 520));
+        while (v36 < *(a1 + 520));
       }
     }
 
-    LOWORD(v14) = v25;
+    LOWORD(v14) = v33;
     goto LABEL_70;
   }
 
-  if (!v24)
+  if (!v32)
   {
 LABEL_70:
-    v32 = bswap32(v23);
-    *v12 = HIWORD(v32);
+    v49 = bswap32(v31);
+    *v12 = HIWORD(v49);
     if (v8 > 0x8000)
     {
-      *(v12 + 1) = v32;
+      *(v12 + 1) = v49;
     }
 
-    v33 = v14 - v12;
+    v50 = v14 - v12;
     IDSLinkPacketBufferAddBufferStart(a1, -(v14 - v12));
-    return memcpy(*a1, v12, v33);
+    memcpy(*a1, v12, v50);
+    return;
   }
 
-  v30 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v38 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = *(a1 + 520);
+    v39 = *(a1 + 520);
     *buf = 67109120;
-    v35 = v31;
-    _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).", buf, 8u);
+    v52 = v39;
+    _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).", buf, 8u);
   }
 
-  result = os_log_shim_legacy_logging_enabled();
-  if (result)
+  if (os_log_shim_legacy_logging_enabled())
   {
-    result = _IDSShouldLogTransport();
-    if (result)
+    if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).");
-      result = _IDSShouldLog();
-      if (result)
+      _IDSLogTransport(@"GL", @"IDS", @"_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).", v40, v41, v42, v43, v44, *(a1 + 520));
+      if (_IDSShouldLog(0))
       {
-        return _IDSLogV(0, @"IDSFoundation", @"GL", @"_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"_prependExtendedChannelHeader failed due to invalid relay linkID count (%d).", v45, v46, v47, v48, *(a1 + 520));
       }
     }
   }
-
-  return result;
 }
 
 void StunUtilGetMappedParticipantID(uint64_t a1, int a2, void *a3, int a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a1 + 96 * a2;
   v9 = *(v8 + 488);
@@ -3336,11 +2929,11 @@ void StunUtilGetMappedParticipantID(uint64_t a1, int a2, void *a3, int a4)
     {
       v16 = *(a1 + 1216);
       *buf = 134218496;
-      v21 = v9;
-      v22 = 2048;
-      v23 = 0;
-      v24 = 1024;
-      v25 = v16;
+      v35 = v9;
+      v36 = 2048;
+      v37 = 0;
+      v38 = 1024;
+      v39 = v16;
       _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "Incoming: pid -> epid (%llu->%llu) on link %d.", buf, 0x1Cu);
     }
 
@@ -3354,39 +2947,39 @@ void StunUtilGetMappedParticipantID(uint64_t a1, int a2, void *a3, int a4)
       goto LABEL_8;
     }
 
-    _IDSLogTransport(@"GL", @"IDS", @"Incoming: pid -> epid (%llu->%llu) on link %d.");
-    if ((_IDSShouldLog() & 1) == 0)
+    _IDSLogTransport(@"GL", @"IDS", @"Incoming: pid -> epid (%llu->%llu) on link %d.", v17, v18, v19, v20, v21, v9);
+    if ((_IDSShouldLog(0) & 1) == 0)
     {
       goto LABEL_8;
     }
 
-    v17 = @"Incoming: pid -> epid (%llu->%llu) on link %d.";
+    v26 = @"Incoming: pid -> epid (%llu->%llu) on link %d.";
 LABEL_22:
-    _IDSLogV(0, @"IDSFoundation", @"GL", v17);
+    _IDSLogV(0, @"IDSFoundation", @"GL", v26, v22, v23, v24, v25, v9);
     goto LABEL_8;
   }
 
-  v18 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v27 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(a1 + 1216);
+    v28 = *(a1 + 1216);
     *buf = 134218496;
-    v21 = v9;
-    v22 = 2048;
-    v23 = 0;
-    v24 = 1024;
-    v25 = v19;
-    _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "Outgoing: pid -> epid (%llu->%llu) on link %d.", buf, 0x1Cu);
+    v35 = v9;
+    v36 = 2048;
+    v37 = 0;
+    v38 = 1024;
+    v39 = v28;
+    _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "Outgoing: pid -> epid (%llu->%llu) on link %d.", buf, 0x1Cu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"Outgoing: pid -> epid (%llu->%llu) on link %d.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"Outgoing: pid -> epid (%llu->%llu) on link %d.", v29, v30, v31, v32, v33, v9);
+      if (_IDSShouldLog(0))
       {
-        v17 = @"Outgoing: pid -> epid (%llu->%llu) on link %d.";
+        v26 = @"Outgoing: pid -> epid (%llu->%llu) on link %d.";
         goto LABEL_22;
       }
     }
@@ -3396,25 +2989,25 @@ LABEL_8:
   *(v8 + 488) = v14;
 }
 
-BOOL StunUtilPrepareOutgoingChannelData(__int16 a1, void **a2, int a3, uint64_t a4)
+BOOL StunUtilPrepareOutgoingChannelData(__int16 a1, void *a2, unsigned int a3, uint64_t a4)
 {
   if (a3 <= 0)
   {
     v17 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "StunUtilPrepareOutgoingChannelData failed due to invalid parameter.", v19, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "StunUtilPrepareOutgoingChannelData failed due to invalid parameter.", v28, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilPrepareOutgoingChannelData failed due to invalid parameter.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilPrepareOutgoingChannelData failed due to invalid parameter.", v18, v19, v20, v21, v22, *v28);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilPrepareOutgoingChannelData failed due to invalid parameter.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilPrepareOutgoingChannelData failed due to invalid parameter.", v23, v24, v25, v26, *v28);
         }
       }
     }
@@ -3479,24 +3072,24 @@ uint64_t sub_1A7C2C22C(unsigned __int16 *a1, uint64_t a2, __int16 a3, _WORD *a4)
       return 0xFFFFFFFFLL;
     }
 
-    _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: packet is too short for stats-id.");
-    if (!_IDSShouldLog())
+    _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: packet is too short for stats-id.", v5, v6, v7, v8, v9, *v28);
+    if (!_IDSShouldLog(0))
     {
       return 0xFFFFFFFFLL;
     }
 
-    v5 = @"_StunUtilProcessIncomingStats: packet is too short for stats-id.";
+    v14 = @"_StunUtilProcessIncomingStats: packet is too short for stats-id.";
     goto LABEL_22;
   }
 
   a4[28] = bswap32(*a1) >> 16;
   if ((a3 & 0x400) == 0)
   {
-    v6 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v15 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "_StunUtilProcessIncomingStats: missing stats-payload.", v9, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "_StunUtilProcessIncomingStats: missing stats-payload.", v28, 2u);
     }
 
     if (!os_log_shim_legacy_logging_enabled())
@@ -3509,13 +3102,13 @@ uint64_t sub_1A7C2C22C(unsigned __int16 *a1, uint64_t a2, __int16 a3, _WORD *a4)
       return 0xFFFFFFFFLL;
     }
 
-    _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: missing stats-payload.");
-    if (!_IDSShouldLog())
+    _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: missing stats-payload.", v16, v17, v18, v19, v20, *v28);
+    if (!_IDSShouldLog(0))
     {
       return 0xFFFFFFFFLL;
     }
 
-    v5 = @"_StunUtilProcessIncomingStats: missing stats-payload.";
+    v14 = @"_StunUtilProcessIncomingStats: missing stats-payload.";
     goto LABEL_22;
   }
 
@@ -3529,23 +3122,23 @@ uint64_t sub_1A7C2C22C(unsigned __int16 *a1, uint64_t a2, __int16 a3, _WORD *a4)
     return 12;
   }
 
-  v7 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v21 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1A7AD9000, v7, OS_LOG_TYPE_DEFAULT, "_StunUtilProcessIncomingStats: packet is too short for stats-payload.", v10, 2u);
+    *v29 = 0;
+    _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "_StunUtilProcessIncomingStats: packet is too short for stats-payload.", v29, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: packet is too short for stats-payload.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"_StunUtilProcessIncomingStats: packet is too short for stats-payload.", v22, v23, v24, v25, v26, *v28);
+      if (_IDSShouldLog(0))
       {
-        v5 = @"_StunUtilProcessIncomingStats: packet is too short for stats-payload.";
+        v14 = @"_StunUtilProcessIncomingStats: packet is too short for stats-payload.";
 LABEL_22:
-        _IDSLogV(0, @"IDSFoundation", @"GL", v5);
+        _IDSLogV(0, @"IDSFoundation", @"GL", v14, v10, v11, v12, v13, *v28);
       }
     }
   }
@@ -3561,9 +3154,9 @@ uint64_t StunUtilProcessIncomingChannelData(unsigned __int16 **a1, char a2)
   return StunUtilProcessIncomingChannelDataWithoutChannelHeader(a1, a2, v4);
 }
 
-uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16 **a1, char a2, unsigned int a3)
+uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16 **a1, char a2, uint64_t a3)
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v286 = *MEMORY[0x1E69E9840];
   v5 = a1[2];
   v6 = v5;
   if (v5 != a3)
@@ -3576,9 +3169,9 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
       {
         v10 = a1[2];
         *buf = 67109376;
-        *v70 = a3;
-        *&v70[4] = 2048;
-        *&v70[6] = v10;
+        *v285 = a3;
+        *&v285[4] = 2048;
+        *&v285[6] = v10;
         _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: length mismatch (%u != %zd).", buf, 0x12u);
       }
 
@@ -3588,11 +3181,11 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: length mismatch (%u != %zd).");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: length mismatch (%u != %zd).", v12, v13, v14, v15, v16, a3);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: length mismatch (%u != %zd).");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: length mismatch (%u != %zd).", v17, v18, v19, v20, a3);
             return 0;
           }
         }
@@ -3601,20 +3194,20 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
       return result;
     }
 
-    v12 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v21 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v13 = a1[2];
+      v22 = a1[2];
       *buf = 134218240;
-      *v70 = v13;
-      *&v70[8] = 1024;
-      *&v70[10] = a3;
-      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEBUG, "remove padding, length (%zd->%u).", buf, 0x12u);
+      *v285 = v22;
+      *&v285[8] = 1024;
+      *&v285[10] = a3;
+      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEBUG, "remove padding, length (%zd->%u).", buf, 0x12u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
     {
-      _IDSLogV(1, @"IDSFoundation", @"GL", @"remove padding, length (%zd->%u).");
+      _IDSLogV(1, @"IDSFoundation", @"GL", @"remove padding, length (%zd->%u).", v23, v24, v25, v26, a1[2]);
     }
 
     a1[2] = v6;
@@ -3622,18 +3215,18 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
 
   if ((a2 & 1) == 0)
   {
-    v46 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+    v77 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
     {
-      v47 = a1[2];
+      v78 = a1[2];
       *buf = 134217984;
-      *v70 = v47;
-      _os_log_impl(&dword_1A7AD9000, v46, OS_LOG_TYPE_DEBUG, "processed regular channel data %zdB.", buf, 0xCu);
+      *v285 = v78;
+      _os_log_impl(&dword_1A7AD9000, v77, OS_LOG_TYPE_DEBUG, "processed regular channel data %zdB.", buf, 0xCu);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(1))
     {
-      _IDSLogV(1, @"IDSFoundation", @"GL", @"processed regular channel data %zdB.");
+      _IDSLogV(1, @"IDSFoundation", @"GL", @"processed regular channel data %zdB.", v79, v80, v81, v82, a1[2]);
     }
 
     return 1;
@@ -3645,19 +3238,19 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
     return 1;
   }
 
-  v14 = 0;
-  v15 = *a1;
-  v16 = *a1 + v6;
-  v17 = a1 + 233;
-  for (i = a1 + 263; ; i += 48)
+  v27 = 0;
+  v28 = *a1;
+  v29 = (v6 + *a1);
+  v30 = a1 + 466;
+  for (i = a1 + 526; ; i += 96)
   {
-    if ((v16 - v15) <= 1)
+    if (v29 - v28 <= 1)
     {
-      v48 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v83 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v48, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v83, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -3672,8 +3265,8 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
         return result;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", v84, v85, v86, v87, v88, v271);
+      result = _IDSShouldLog(0);
       if (!result)
       {
         return result;
@@ -3682,16 +3275,16 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
       goto LABEL_120;
     }
 
-    if (v14 == 8)
+    if (v27 == 8)
     {
-      v49 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v93 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v70 = 8;
-        *&v70[4] = 1024;
-        *&v70[6] = 8;
-        _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d", buf, 0xEu);
+        *v285 = 8;
+        *&v285[4] = 1024;
+        *&v285[6] = 8;
+        _os_log_impl(&dword_1A7AD9000, v93, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d", buf, 0xEu);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -3700,11 +3293,11 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d", v94, v95, v96, v97, v98, 8);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packetCounter = %d is greater than kLinkPacketBufferMaxCompoundSize: %d", v99, v100, v101, v102, 8);
             return 0;
           }
         }
@@ -3713,20 +3306,20 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
       return result;
     }
 
-    v19 = &a1[12 * v14 + 56];
-    *(v19 + 88) = 0;
-    v20 = v15 + 1;
-    v21 = bswap32(*v15);
-    v22 = HIWORD(v21);
-    if ((v21 & 0x80000000) != 0)
+    v32 = &a1[12 * v27 + 56];
+    *(v32 + 22) = 0;
+    v33 = v28 + 1;
+    v34 = bswap32(*v28);
+    v35 = HIWORD(v34);
+    if ((v34 & 0x80000000) != 0)
     {
-      if ((v16 - v20) <= 1)
+      if (v29 - v33 <= 1)
       {
-        v68 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+        v261 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v261, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v68, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for additional flags.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v261, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for additional flags.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -3741,61 +3334,61 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for additional flags.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for additional flags.", v262, v263, v264, v265, v266, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for additional flags.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for additional flags.", v267, v268, v269, v270, v283);
         return 0;
       }
 
-      v23 = bswap32(v15[1]);
-      v22 |= HIWORD(v23) << 16;
-      v20 = v15 + 2;
-      if (HIWORD(v23) >= 0x200u)
+      v36 = bswap32(v28[1]);
+      v35 |= HIWORD(v36) << 16;
+      v33 = v28 + 2;
+      if (HIWORD(v36) >= 0x200u)
       {
-        v24 = v23 >> 25;
-        v25 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v37 = v36 >> 25;
+        v38 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v70 = v24;
-          _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: has unknown attribute: %d", buf, 8u);
+          *v285 = v37;
+          _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: has unknown attribute: %d", buf, 8u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: has unknown attribute: %d");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: has unknown attribute: %d", v39, v40, v41, v42, v43, v37);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: has unknown attribute: %d");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: has unknown attribute: %d", v44, v45, v46, v47, v37);
             }
           }
         }
       }
     }
 
-    if (v22)
+    if (v35)
     {
-      if ((v16 - v20) > 1)
+      if (v29 - v33 > 1)
       {
-        v26 = *v20++;
-        *(v19 + 88) |= 2u;
-        *(v19 + 16) = bswap32(v26) >> 16;
-        *(v19 + 12) = 1;
+        v48 = *v33++;
+        *(v32 + 22) |= 2u;
+        *(v32 + 8) = bswap32(v48) >> 16;
+        *(v32 + 3) = 1;
         goto LABEL_36;
       }
 
-      v50 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v103 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v50, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v103, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -3810,31 +3403,31 @@ uint64_t StunUtilProcessIncomingChannelDataWithoutChannelHeader(unsigned __int16
         return result;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", v104, v105, v106, v107, v108, v271);
+      result = _IDSShouldLog(0);
       if (!result)
       {
         return result;
       }
 
 LABEL_120:
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.");
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for channel-data-flag.", v89, v90, v91, v92, v272);
       return 0;
     }
 
 LABEL_36:
-    if ((v22 & 2) == 0)
+    if ((v35 & 2) == 0)
     {
       goto LABEL_44;
     }
 
-    if ((v16 - v20) <= 0)
+    if (v29 - v33 <= 0)
     {
-      v51 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v109 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v109, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -3843,11 +3436,11 @@ LABEL_36:
         result = _IDSShouldLogTransport();
         if (result)
         {
-          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.");
-          result = _IDSShouldLog();
+          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.", v110, v111, v112, v113, v114, v271);
+          result = _IDSShouldLog(0);
           if (result)
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-stream-id count.", v115, v116, v117, v118, v273);
             return 0;
           }
         }
@@ -3856,23 +3449,23 @@ LABEL_36:
       return result;
     }
 
-    v27 = *v20;
-    v28 = *(v19 + 12) + v27;
-    *(v19 + 12) = v28;
-    if (v27 > 0xB || v28 >= 13)
+    v49 = *v33;
+    v50 = *(v32 + 3) + v49;
+    *(v32 + 3) = v50;
+    if (v49 > 0xB || v50 >= 13)
     {
       break;
     }
 
-    v20 = (v20 + 1);
-    if ((v16 - v20) < (2 * v27))
+    v33 = (v33 + 1);
+    if (v29 - v33 < (2 * v49))
     {
-      v55 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v149 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v70 = v27;
-        _os_log_impl(&dword_1A7AD9000, v55, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.", buf, 8u);
+        *v285 = v49;
+        _os_log_impl(&dword_1A7AD9000, v149, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.", buf, 8u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -3887,40 +3480,40 @@ LABEL_36:
         return result;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.", v150, v151, v152, v153, v154, v49);
+      result = _IDSShouldLog(0);
       if (!result)
       {
         return result;
       }
 
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.");
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for %d stream-id.", v155, v156, v157, v158, v49);
       return 0;
     }
 
-    if (v27)
+    if (v49)
     {
-      v29 = v17;
+      v51 = v30;
       do
       {
-        v30 = *v20++;
-        *v29++ = bswap32(v30) >> 16;
-        --v27;
+        v52 = *v33++;
+        *v51++ = bswap32(v52) >> 16;
+        --v49;
       }
 
-      while (v27);
+      while (v49);
     }
 
 LABEL_44:
-    if ((v22 & 4) != 0)
+    if ((v35 & 4) != 0)
     {
-      if ((v16 - v20) <= 7)
+      if (v29 - v33 <= 7)
       {
-        v53 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v129 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v129, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v53, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for participant-id.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v129, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for participant-id.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -3935,53 +3528,53 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for participant-id.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for participant-id.", v130, v131, v132, v133, v134, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for participant-id.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for participant-id.", v135, v136, v137, v138, v274);
         return 0;
       }
 
-      v31 = *v20;
-      v20 += 4;
-      *(v19 + 88) |= 1u;
-      *(v19 + 40) = bswap64(v31);
-      if (!v31)
+      v53 = *v33;
+      v33 += 4;
+      *(v32 + 22) |= 1u;
+      v32[5] = bswap64(v53);
+      if (!v53)
       {
-        v32 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v54 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v32, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: we received participant ID 0!!", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: we received participant ID 0!!", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: we received participant ID 0!!");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: we received participant ID 0!!", v55, v56, v57, v58, v59, v271);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: we received participant ID 0!!");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: we received participant ID 0!!", v60, v61, v62, v63, v271);
             }
           }
         }
       }
     }
 
-    if ((v22 & 8) != 0)
+    if ((v35 & 8) != 0)
     {
-      if ((v16 - v20) <= 0)
+      if (v29 - v33 <= 0)
       {
-        v54 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v139 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v54, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-priority.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v139, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for channel-priority.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -3996,32 +3589,32 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-priority.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for channel-priority.", v140, v141, v142, v143, v144, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for channel-priority.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for channel-priority.", v145, v146, v147, v148, v275);
         return 0;
       }
 
-      *(v19 + 88) |= 8u;
-      v33 = *v20;
-      v20 = (v20 + 1);
-      *(v19 + 48) = v33;
+      *(v32 + 22) |= 8u;
+      v64 = *v33;
+      v33 = (v33 + 1);
+      *(v32 + 48) = v64;
     }
 
-    if ((v22 & 0x10) != 0)
+    if ((v35 & 0x10) != 0)
     {
-      if ((v16 - v20) <= 1)
+      if (v29 - v33 <= 1)
       {
-        v56 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v159 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v159, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v56, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v159, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4036,31 +3629,31 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.", v160, v161, v162, v163, v164, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for probe-groupid.", v165, v166, v167, v168, v276);
         return 0;
       }
 
-      v34 = *v20++;
-      *(v19 + 88) |= 0x10u;
-      *(v19 + 50) = bswap32(v34) >> 16;
+      v65 = *v33++;
+      *(v32 + 22) |= 0x10u;
+      *(v32 + 25) = bswap32(v65) >> 16;
     }
 
-    if ((v22 & 0x20) != 0)
+    if ((v35 & 0x20) != 0)
     {
-      if ((v16 - v20) <= 0)
+      if (v29 - v33 <= 0)
       {
-        v57 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v169 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v57, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v169, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4075,38 +3668,38 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.", v170, v171, v172, v173, v174, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for lsb-version-counter.", v175, v176, v177, v178, v277);
         return 0;
       }
 
-      *(v19 + 88) |= 0x20u;
-      v35 = *v20;
-      v20 = (v20 + 1);
-      *(v19 + 52) = v35;
+      *(v32 + 22) |= 0x20u;
+      v66 = *v33;
+      v33 = (v33 + 1);
+      *(v32 + 52) = v66;
     }
 
-    if ((v22 & 0x40) != 0)
+    if ((v35 & 0x40) != 0)
     {
-      *(v19 + 88) |= 4u;
-      *(v19 + 53) = 1;
+      *(v32 + 22) |= 4u;
+      *(v32 + 53) = 1;
     }
 
-    if ((v22 & 0x80) != 0)
+    if ((v35 & 0x80) != 0)
     {
-      if ((v16 - v20) <= 1)
+      if (v29 - v33 <= 1)
       {
-        v58 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        v179 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v179, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v58, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for data length.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v179, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for data length.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4121,29 +3714,29 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for data length.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for data length.", v180, v181, v182, v183, v184, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for data length.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for data length.", v185, v186, v187, v188, v278);
         return 0;
       }
 
-      v36 = *v20++;
-      v37 = bswap32(v36) >> 16;
-      *(v19 + 8) = v37;
-      if ((v16 - v20) < v37)
+      v67 = *v33++;
+      v68 = bswap32(v67) >> 16;
+      *(v32 + 4) = v68;
+      if (v29 - v33 < v68)
       {
-        v60 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        v199 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v199, OS_LOG_TYPE_DEFAULT))
         {
-          v61 = *(v19 + 8);
+          v200 = *(v32 + 4);
           *buf = 67109120;
-          *v70 = v61;
-          _os_log_impl(&dword_1A7AD9000, v60, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for data (%dB).", buf, 8u);
+          *v285 = v200;
+          _os_log_impl(&dword_1A7AD9000, v199, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for data (%dB).", buf, 8u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4158,34 +3751,34 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for data (%dB).");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for data (%dB).", v201, v202, v203, v204, v205, *(v32 + 4));
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for data (%dB).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for data (%dB).", v206, v207, v208, v209, *(v32 + 4));
         return 0;
       }
     }
 
-    if ((v22 & 0x100) != 0)
+    if ((v35 & 0x100) != 0)
     {
-      *(v19 + 88) |= 0x80u;
-      *(v19 + 54) = 1;
+      *(v32 + 22) |= 0x80u;
+      *(v32 + 54) = 1;
     }
 
-    if ((v22 & 0x200) != 0)
+    if ((v35 & 0x200) != 0)
     {
-      v38 = sub_1A7C2C22C(v20, v16, v22, v19);
-      if (v38 <= 0)
+      v69 = sub_1A7C2C22C(v33, v29, v35, v32);
+      if (v69 <= 0)
       {
-        v59 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v189 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v189, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v59, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid incoming stats.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v189, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid incoming stats.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4200,36 +3793,36 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid incoming stats.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid incoming stats.", v190, v191, v192, v193, v194, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid incoming stats.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid incoming stats.", v195, v196, v197, v198, v279);
         return 0;
       }
 
-      *(v19 + 88) |= 0x40u;
-      v20 = (v20 + v38);
+      *(v32 + 22) |= 0x40u;
+      v33 = (v33 + v69);
     }
 
-    if ((v22 & 0x800) != 0)
+    if ((v35 & 0x800) != 0)
     {
-      *(v19 + 88) |= 0x100u;
-      *(v19 + 68) = 1;
+      *(v32 + 22) |= 0x100u;
+      *(v32 + 68) = 1;
     }
 
-    if ((v22 & 0x2000) != 0)
+    if ((v35 & 0x2000) != 0)
     {
-      if ((v16 - v20) <= 1)
+      if (v29 - v33 <= 1)
       {
-        v62 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+        v210 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v210, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v62, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v210, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4244,32 +3837,32 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.", v211, v212, v213, v214, v215, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for primary-relaylinkID-flag.", v216, v217, v218, v219, v280);
         return 0;
       }
 
-      v39 = *v20++;
-      *(v19 + 88) |= 0x800u;
-      *(v19 + 76) = bswap32(v39) >> 16;
-      *(v19 + 72) = 1;
+      v70 = *v33++;
+      *(v32 + 22) |= 0x800u;
+      *(v32 + 38) = bswap32(v70) >> 16;
+      *(v32 + 18) = 1;
     }
 
-    if ((v22 & 0x4000) != 0)
+    if ((v35 & 0x4000) != 0)
     {
-      if ((v16 - v20) <= 0)
+      if (v29 - v33 <= 0)
       {
-        v63 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        v220 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v220, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v63, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v220, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.", buf, 2u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4284,29 +3877,29 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.", v221, v222, v223, v224, v225, v271);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for secondary-relaylinkID-flag.", v226, v227, v228, v229, v281);
         return 0;
       }
 
-      v40 = *v20;
-      if (v40 > 3 || (v41 = *(v19 + 72) + v40, v41 >= 5))
+      v71 = *v33;
+      if (v71 > 3 || (v72 = *(v32 + 18) + v71, v72 >= 5))
       {
-        v64 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        v230 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v230, OS_LOG_TYPE_DEFAULT))
         {
-          v65 = *(v19 + 72);
+          v231 = *(v32 + 18);
           *buf = 67109376;
-          *v70 = v65;
-          *&v70[4] = 1024;
-          *&v70[6] = v40;
-          _os_log_impl(&dword_1A7AD9000, v64, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)", buf, 0xEu);
+          *v285 = v231;
+          *&v285[4] = 1024;
+          *&v285[6] = v71;
+          _os_log_impl(&dword_1A7AD9000, v230, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)", buf, 0xEu);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4321,26 +3914,26 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)", v232, v233, v234, v235, v236, *(v32 + 18));
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid secondary relayLinkid count (%d:%d)", v237, v238, v239, v240, *(v32 + 18));
         return 0;
       }
 
-      v20 = (v20 + 1);
-      if ((v16 - v20) < 2 * v40)
+      v33 = (v33 + 1);
+      if (v29 - v33 < 2 * v71)
       {
-        v67 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v251 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v251, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v70 = v40;
-          _os_log_impl(&dword_1A7AD9000, v67, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.", buf, 8u);
+          *v285 = v71;
+          _os_log_impl(&dword_1A7AD9000, v251, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.", buf, 8u);
         }
 
         result = os_log_shim_legacy_logging_enabled();
@@ -4355,55 +3948,55 @@ LABEL_44:
           return result;
         }
 
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.");
-        result = _IDSShouldLog();
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.", v252, v253, v254, v255, v256, v71);
+        result = _IDSShouldLog(0);
         if (!result)
         {
           return result;
         }
 
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for %d secondary relayLinkID.", v257, v258, v259, v260, v71);
         return 0;
       }
 
-      if (v40 >= 1)
+      if (v71 >= 1)
       {
-        v42 = i;
+        v73 = i;
         do
         {
-          v43 = *v20++;
-          *v42++ = bswap32(v43) >> 16;
-          --v40;
+          v74 = *v33++;
+          *v73++ = bswap32(v74) >> 16;
+          --v71;
         }
 
-        while (v40);
+        while (v71);
       }
 
-      *(v19 + 72) = v41;
-      *(v19 + 88) |= 0x1000u;
+      *(v32 + 18) = v72;
+      *(v32 + 22) |= 0x1000u;
     }
 
-    if ((v22 & 0x10000) != 0)
+    if ((v35 & 0x10000) != 0)
     {
-      *(v19 + 88) |= 0x400u;
+      *(v32 + 22) |= 0x400u;
     }
 
-    if ((v22 & 0x20000) != 0)
+    if ((v35 & 0x20000) != 0)
     {
-      if ((v16 - v20) > 0)
+      if (v29 - v33 > 0)
       {
-        *(v19 + 88) |= 0x2000u;
-        v44 = *v20;
-        v20 = (v20 + 1);
-        *(v19 + 84) = v44;
+        *(v32 + 22) |= 0x2000u;
+        v75 = *v33;
+        v33 = (v33 + 1);
+        *(v32 + 84) = v75;
         goto LABEL_91;
       }
 
-      v66 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v241 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v66, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v241, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.", buf, 2u);
       }
 
       result = os_log_shim_legacy_logging_enabled();
@@ -4418,25 +4011,25 @@ LABEL_44:
         return result;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.", v242, v243, v244, v245, v246, v271);
+      result = _IDSShouldLog(0);
       if (!result)
       {
         return result;
       }
 
-      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.");
+      _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: packet is too short for session state counter LSB.", v247, v248, v249, v250, v282);
       return 0;
     }
 
 LABEL_91:
-    if ((v22 & 0x40000) != 0)
+    if ((v35 & 0x40000) != 0)
     {
-      *(v19 + 88) |= 0x10000u;
-      if ((v22 & 0x80000) == 0)
+      *(v32 + 22) |= 0x10000u;
+      if ((v35 & 0x80000) == 0)
       {
 LABEL_93:
-        if ((v22 & 0x200000) == 0)
+        if ((v35 & 0x200000) == 0)
         {
           goto LABEL_94;
         }
@@ -4445,16 +4038,16 @@ LABEL_93:
       }
     }
 
-    else if ((v22 & 0x80000) == 0)
+    else if ((v35 & 0x80000) == 0)
     {
       goto LABEL_93;
     }
 
-    *(v19 + 88) |= 0x20000u;
-    if ((v22 & 0x200000) == 0)
+    *(v32 + 22) |= 0x20000u;
+    if ((v35 & 0x200000) == 0)
     {
 LABEL_94:
-      if ((v22 & 0x800000) != 0)
+      if ((v35 & 0x800000) != 0)
       {
         goto LABEL_106;
       }
@@ -4463,63 +4056,63 @@ LABEL_94:
     }
 
 LABEL_105:
-    *(v19 + 87) = 1;
-    if ((v22 & 0x800000) != 0)
+    *(v32 + 87) = 1;
+    if ((v35 & 0x800000) != 0)
     {
 LABEL_106:
-      *(v19 + 88) |= 0x80000u;
-      if ((v22 & 0x1000000) == 0)
+      *(v32 + 22) |= 0x80000u;
+      if ((v35 & 0x1000000) == 0)
       {
         goto LABEL_97;
       }
 
 LABEL_96:
-      *(v19 + 69) = 0;
-      *(v19 + 88) &= ~0x400u;
+      *(v32 + 69) = 0;
+      *(v32 + 22) &= ~0x400u;
       *(a1 + 1305) = 1;
       goto LABEL_97;
     }
 
 LABEL_95:
-    if ((v22 & 0x1000000) != 0)
+    if ((v35 & 0x1000000) != 0)
     {
       goto LABEL_96;
     }
 
 LABEL_97:
-    *v19 = v20;
-    if (!v14)
+    *v32 = v33;
+    if (!v27)
     {
-      v45 = v20 - *a1;
-      if (v45 >= 1)
+      v76 = v33 - *a1;
+      if (v76 >= 1)
       {
-        IDSLinkPacketBufferAddBufferStart(a1, v45);
+        IDSLinkPacketBufferAddBufferStart(a1, v76);
       }
     }
 
-    ++v14;
-    if ((v22 & 0x80) == 0)
+    ++v27;
+    if ((v35 & 0x80) == 0)
     {
-      *(v19 + 8) = v16 - v20;
-      *(a1 + 111) = v14;
+      *(v32 + 4) = v29 - v33;
+      *(a1 + 111) = v27;
       return 1;
     }
 
-    v15 = (v20 + *(v19 + 8));
-    v17 += 48;
+    v28 = (v33 + *(v32 + 4));
+    v30 += 96;
     result = 1;
-    if (v15 >= v16)
+    if (v28 >= v29)
     {
       return result;
     }
   }
 
-  v52 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+  v119 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v70 = v27;
-    _os_log_impl(&dword_1A7AD9000, v52, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid streamID count (%d).", buf, 8u);
+    *v285 = v49;
+    _os_log_impl(&dword_1A7AD9000, v119, OS_LOG_TYPE_DEFAULT, "StunUtilProcessIncomingChannelData: invalid streamID count (%d).", buf, 8u);
   }
 
   result = os_log_shim_legacy_logging_enabled();
@@ -4528,11 +4121,11 @@ LABEL_97:
     result = _IDSShouldLogTransport();
     if (result)
     {
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid streamID count (%d).");
-      result = _IDSShouldLog();
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessIncomingChannelData: invalid streamID count (%d).", v120, v121, v122, v123, v124, v49);
+      result = _IDSShouldLog(0);
       if (result)
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid streamID count (%d).");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessIncomingChannelData: invalid streamID count (%d).", v125, v126, v127, v128, v49);
         return 0;
       }
     }
@@ -4541,24 +4134,24 @@ LABEL_97:
   return result;
 }
 
-uint64_t sub_1A7C2DD6C(void *a1, _WORD *a2, int a3)
+uint64_t sub_1A7C2DD6C(void *a1, _WORD *a2, unsigned int a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = v5;
   if (a2 && a3 > 0)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
     LODWORD(v9) = a2;
     if (v8)
     {
       v10 = a2 + a3;
-      v11 = *v20;
+      v11 = *v38;
       v9 = a2;
       while (2)
       {
@@ -4566,30 +4159,30 @@ uint64_t sub_1A7C2DD6C(void *a1, _WORD *a2, int a3)
         v13 = v9;
         do
         {
-          if (*v20 != v11)
+          if (*v38 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = [*(*(&v19 + 1) + 8 * v12) unsignedShortValue];
+          v14 = [*(*(&v37 + 1) + 8 * v12) unsignedShortValue];
           v9 = v13 + 1;
-          if ((v13 + 1) > v10)
+          if (v13 + 1 > v10)
           {
-            v17 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v26 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "StunUtilWritePublishedStreams failed due to short buffer.", buf, 2u);
+              _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "StunUtilWritePublishedStreams failed due to short buffer.", buf, 2u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"StunUtilWritePublishedStreams failed due to short buffer.");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"StunUtilWritePublishedStreams failed due to short buffer.", v27, v28, v29, v30, v31, v37);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWritePublishedStreams failed due to short buffer.");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWritePublishedStreams failed due to short buffer.", v32, v33, v34, v35, v37);
                 }
               }
             }
@@ -4603,7 +4196,7 @@ uint64_t sub_1A7C2DD6C(void *a1, _WORD *a2, int a3)
         }
 
         while (v8 != v12);
-        v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
         if (v8)
         {
           continue;
@@ -4629,10 +4222,10 @@ uint64_t sub_1A7C2DD6C(void *a1, _WORD *a2, int a3)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilWritePublishedStreams failed due to invalid parameter.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilWritePublishedStreams failed due to invalid parameter.", v17, v18, v19, v20, v21, v37);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWritePublishedStreams failed due to invalid parameter.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWritePublishedStreams failed due to invalid parameter.", v22, v23, v24, v25, v37);
         }
       }
     }
@@ -4646,7 +4239,7 @@ LABEL_25:
 
 uint64_t sub_1A7C2E048(void *a1, _BYTE *a2, int a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = v5;
   if (!a2 || a3 <= 0)
@@ -4662,47 +4255,47 @@ uint64_t sub_1A7C2E048(void *a1, _BYTE *a2, int a3)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed due to invalid parameter.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed due to invalid parameter.", v30, v31, v32, v33, v34, v71);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed due to invalid parameter.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed due to invalid parameter.", v35, v36, v37, v38, v72);
         }
       }
     }
 
-    v30 = 0xFFFFFFFFLL;
+    v39 = 0xFFFFFFFFLL;
     goto LABEL_47;
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v36 = v5;
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v77 = v5;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+  v7 = [obj countByEnumeratingWithState:&v83 objects:v89 count:16];
   LODWORD(v8) = a2;
   if (!v7)
   {
 LABEL_45:
 
-    v30 = (v8 - a2);
+    v39 = (v8 - a2);
     goto LABEL_46;
   }
 
   v9 = 0;
   v10 = &a2[a3];
-  v11 = *v43;
-  v12 = *v43;
+  v11 = *v84;
+  v12 = *v84;
   v8 = a2;
-  for (i = *v43; ; v11 = i)
+  for (i = *v84; ; v11 = i)
   {
     if (v12 != v11)
     {
       objc_enumerationMutation(obj);
     }
 
-    v13 = *(*(&v42 + 1) + 8 * v9);
+    v13 = *(*(&v83 + 1) + 8 * v9);
     v14 = [v13 participantID];
     v15 = [v14 unsignedLongLongValue];
 
@@ -4713,7 +4306,7 @@ LABEL_45:
     v19 = [v13 anyStream];
     v20 = [v13 anyStream];
     v21 = v8 + 1;
-    if ((v8 + 1) > v10)
+    if (v8 + 1 > v10)
     {
       break;
     }
@@ -4739,45 +4332,45 @@ LABEL_45:
       }
 
 LABEL_17:
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      v79 = 0u;
+      v80 = 0u;
       v23 = [v13 streamArray];
-      v24 = [v23 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v79 objects:v88 count:16];
       if (v24)
       {
-        v25 = *v39;
+        v25 = *v80;
         while (2)
         {
           v26 = 0;
           v27 = v8;
           do
           {
-            if (*v39 != v25)
+            if (*v80 != v25)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = [*(*(&v38 + 1) + 8 * v26) unsignedShortValue];
+            v28 = [*(*(&v79 + 1) + 8 * v26) unsignedShortValue];
             v8 = v27 + 1;
-            if ((v27 + 1) > v10)
+            if (v27 + 1 > v10)
             {
-              v31 = OSLogHandleForTransportCategory();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v40 = OSLogHandleForTransportCategory();
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1A7AD9000, v31, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write stream-id due to short buffer.", buf, 2u);
+                _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write stream-id due to short buffer.", buf, 2u);
               }
 
               if (os_log_shim_legacy_logging_enabled())
               {
                 if (_IDSShouldLogTransport())
                 {
-                  _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write stream-id due to short buffer.");
-                  if (_IDSShouldLog())
+                  _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write stream-id due to short buffer.", v41, v42, v43, v44, v45, v71);
+                  if (_IDSShouldLog(0))
                   {
-                    _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write stream-id due to short buffer.");
+                    _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write stream-id due to short buffer.", v46, v47, v48, v49, v73);
                   }
                 }
               }
@@ -4791,7 +4384,7 @@ LABEL_17:
           }
 
           while (v24 != v26);
-          v24 = [v23 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v79 objects:v88 count:16];
           if (v24)
           {
             continue;
@@ -4807,21 +4400,21 @@ LABEL_17:
     v8 += 9;
     if (v8 > v10)
     {
-      v34 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v61 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write participant-id due to short buffer.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v61, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write participant-id due to short buffer.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write participant-id due to short buffer.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write participant-id due to short buffer.", v62, v63, v64, v65, v66, v71);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write participant-id due to short buffer.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write participant-id due to short buffer.", v67, v68, v69, v70, v75);
           }
         }
       }
@@ -4838,7 +4431,7 @@ LABEL_17:
 LABEL_26:
     if (++v9 >= v7)
     {
-      v7 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v83 objects:v89 count:16];
       if (!v7)
       {
         goto LABEL_45;
@@ -4847,48 +4440,48 @@ LABEL_26:
       v9 = 0;
     }
 
-    v12 = *v43;
+    v12 = *v84;
   }
 
-  v33 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v51 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write stream-count due to short buffer.", buf, 2u);
+    _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "writeSubscribedStreams failed to write stream-count due to short buffer.", buf, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write stream-count due to short buffer.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"writeSubscribedStreams failed to write stream-count due to short buffer.", v52, v53, v54, v55, v56, v71);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write stream-count due to short buffer.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"writeSubscribedStreams failed to write stream-count due to short buffer.", v57, v58, v59, v60, v74);
       }
     }
   }
 
 LABEL_44:
 
-  v30 = 0xFFFFFFFFLL;
+  v39 = 0xFFFFFFFFLL;
 LABEL_46:
-  v6 = v36;
+  v6 = v77;
 LABEL_47:
 
-  return v30;
+  return v39;
 }
 
-__CFArray *sub_1A7C2E60C(unsigned __int8 *a1, int a2)
+__CFArray *sub_1A7C2E60C(unsigned __int8 *a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (!a1 || a2 < 0)
+  v63 = *MEMORY[0x1E69E9840];
+  if (!a1 || (a2 & 0x80000000) != 0)
   {
     v16 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v23) = a2;
+      LODWORD(v62) = a2;
       _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "invalid peer published stream data length (%d).", buf, 8u);
     }
 
@@ -4896,15 +4489,15 @@ __CFArray *sub_1A7C2E60C(unsigned __int8 *a1, int a2)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"invalid peer published stream data length (%d).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"invalid peer published stream data length (%d).", v17, v18, v19, v20, v21, a2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid peer published stream data length (%d).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid peer published stream data length (%d).", v22, v23, v24, v25, a2);
         }
       }
     }
 
-    v17 = 0;
+    v26 = 0;
   }
 
   else
@@ -4914,26 +4507,26 @@ __CFArray *sub_1A7C2E60C(unsigned __int8 *a1, int a2)
       v3 = a1;
       v4 = 0;
       v5 = &a1[a2];
-      while (~v3 + v5 > 7)
+      while (&v5[~v3] > 7)
       {
         v6 = *v3;
-        if ((v5 - (v3 + 9)) < 2 * *v3)
+        if (v5 - (v3 + 9) < 2 * *v3)
         {
-          v20 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v47 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "incomplete packet for stream-ids.", buf, 2u);
+            _os_log_impl(&dword_1A7AD9000, v47, OS_LOG_TYPE_DEFAULT, "incomplete packet for stream-ids.", buf, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"GL", @"IDS", @"incomplete packet for stream-ids.");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"GL", @"IDS", @"incomplete packet for stream-ids.", v48, v49, v50, v51, v52, v58);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"GL", @"incomplete packet for stream-ids.");
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"incomplete packet for stream-ids.", v53, v54, v55, v56, v60);
               }
             }
           }
@@ -4986,71 +4579,71 @@ __CFArray *sub_1A7C2E60C(unsigned __int8 *a1, int a2)
         }
       }
 
-      v19 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v37 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "incomplete packet for participant-id.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "incomplete packet for participant-id.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"incomplete packet for participant-id.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"incomplete packet for participant-id.", v38, v39, v40, v41, v42, v58);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"incomplete packet for participant-id.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"incomplete packet for participant-id.", v43, v44, v45, v46, v59);
           }
         }
       }
 
-      v17 = 0;
+      v26 = 0;
     }
 
     else
     {
       v4 = 0;
 LABEL_28:
-      v18 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v27 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v4;
-        _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "processed peer-pub-stream: %@.", buf, 0xCu);
+        v62 = v4;
+        _os_log_impl(&dword_1A7AD9000, v27, OS_LOG_TYPE_DEFAULT, "processed peer-pub-stream: %@.", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"processed peer-pub-stream: %@.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"processed peer-pub-stream: %@.", v28, v29, v30, v31, v32, v4);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-pub-stream: %@.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-pub-stream: %@.", v33, v34, v35, v36, v4);
           }
         }
       }
 
 LABEL_47:
       v4 = v4;
-      v17 = v4;
+      v26 = v4;
     }
   }
 
-  return v17;
+  return v26;
 }
 
-__CFArray *sub_1A7C2EB1C(unsigned __int16 *a1, unsigned int a2)
+__CFArray *sub_1A7C2EB1C(unsigned __int16 *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (!a1 || (a2 & 0x80000001) != 0)
   {
     v11 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v15) = a2;
+      LODWORD(v33) = a2;
       _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "invalid peer subscribed stream data length (%d).", buf, 8u);
     }
 
@@ -5058,10 +4651,10 @@ __CFArray *sub_1A7C2EB1C(unsigned __int16 *a1, unsigned int a2)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"invalid peer subscribed stream data length (%d).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"invalid peer subscribed stream data length (%d).", v12, v13, v14, v15, v16, a2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid peer subscribed stream data length (%d).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid peer subscribed stream data length (%d).", v17, v18, v19, v20, a2);
         }
       }
     }
@@ -5103,22 +4696,22 @@ __CFArray *sub_1A7C2EB1C(unsigned __int16 *a1, unsigned int a2)
       v5 = 0;
     }
 
-    v12 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v21 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v5;
-      _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "processed peer-sub-stream: %@.", buf, 0xCu);
+      v33 = v5;
+      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "processed peer-sub-stream: %@.", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"processed peer-sub-stream: %@.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"processed peer-sub-stream: %@.", v22, v23, v24, v25, v26, v5);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-sub-stream: %@.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-sub-stream: %@.", v27, v28, v29, v30, v5);
         }
       }
     }
@@ -5231,21 +4824,21 @@ LABEL_22:
 
 __CFDictionary *StunUtilProcessStreamInfo(void *a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a1;
   memset(__b, 170, sizeof(__b));
-  v18 = -1431655766;
+  v46 = -1431655766;
   if (v5 && (bzero(buf, 0x5D0uLL), ([v5 getAttribute:65531 attribute:buf] & 1) != 0))
   {
-    v6 = v22;
-    if (StunUtilHasValidBinaryDataAttr(v5, 60933, __b, &v18))
+    v6 = v50;
+    if (StunUtilHasValidBinaryDataAttr(v5, 60933, __b, &v46))
     {
-      v7 = sub_1A7C2EB1C(__b, v18);
+      v7 = sub_1A7C2EB1C(__b, v46);
       v8 = OSLogHandleForTransportCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v21 = v18;
+        v49 = v46;
         _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "receive peer-sub-stream, length: %dB.", buf, 8u);
       }
 
@@ -5253,12 +4846,10 @@ __CFDictionary *StunUtilProcessStreamInfo(void *a1, uint64_t a2, uint64_t a3)
       {
         if (_IDSShouldLogTransport())
         {
-          v17 = v18;
-          _IDSLogTransport(@"GL", @"IDS", @"receive peer-sub-stream, length: %dB.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"receive peer-sub-stream, length: %dB.", v9, v10, v11, v12, v13, v46);
+          if (_IDSShouldLog(0))
           {
-            v17 = v18;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"receive peer-sub-stream, length: %dB.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"receive peer-sub-stream, length: %dB.", v14, v15, v16, v17, v46);
           }
         }
       }
@@ -5269,27 +4860,25 @@ __CFDictionary *StunUtilProcessStreamInfo(void *a1, uint64_t a2, uint64_t a3)
       v7 = 0;
     }
 
-    if (StunUtilHasValidBinaryDataAttr(v5, 60932, __b, &v18))
+    if (StunUtilHasValidBinaryDataAttr(v5, 60932, __b, &v46))
     {
-      v11 = sub_1A7C2E60C(__b, v18);
-      v12 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v29 = sub_1A7C2E60C(__b, v46);
+      v30 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v21 = v18;
-        _os_log_impl(&dword_1A7AD9000, v12, OS_LOG_TYPE_DEFAULT, "receive peer-pub-stream, length: %dB.", buf, 8u);
+        v49 = v46;
+        _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "receive peer-pub-stream, length: %dB.", buf, 8u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v17 = v18;
-          _IDSLogTransport(@"GL", @"IDS", @"receive peer-pub-stream, length: %dB.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"receive peer-pub-stream, length: %dB.", v31, v32, v33, v34, v35, v46);
+          if (_IDSShouldLog(0))
           {
-            v17 = v18;
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"receive peer-pub-stream, length: %dB.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"receive peer-pub-stream, length: %dB.", v36, v37, v38, v39, v46);
           }
         }
       }
@@ -5297,70 +4886,70 @@ __CFDictionary *StunUtilProcessStreamInfo(void *a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v11 = 0;
+      v29 = 0;
     }
 
-    v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
-    if (v13)
+    v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
+    if (v40)
     {
-      CFDictionarySetValue(v10, @"stream-info-generation-counter", v13);
+      CFDictionarySetValue(v28, @"stream-info-generation-counter", v40);
     }
 
     if (v7)
     {
-      CFDictionarySetValue(v10, @"stream-info-peer-subscribed-streams", v7);
+      CFDictionarySetValue(v28, @"stream-info-peer-subscribed-streams", v7);
     }
 
-    if (v11)
+    if (v29)
     {
-      CFDictionarySetValue(v10, @"stream-info-peer-published-streams", v11);
+      CFDictionarySetValue(v28, @"stream-info-peer-published-streams", v29);
     }
 
-    v14 = [MEMORY[0x1E696AD98] numberWithChar:{a2, v17}];
-    if (v14)
+    v41 = [MEMORY[0x1E696AD98] numberWithChar:a2];
+    if (v41)
     {
-      CFDictionarySetValue(v10, @"gl-option-linkid", v14);
+      CFDictionarySetValue(v28, @"gl-option-linkid", v41);
     }
 
     if (a3 >= 1)
     {
-      v15 = [MEMORY[0x1E696AD98] numberWithChar:a3];
-      if (v15)
+      v42 = [MEMORY[0x1E696AD98] numberWithChar:a3];
+      if (v42)
       {
-        CFDictionarySetValue(v10, @"gl-option-sessioninfo-link-id-to-query", v15);
+        CFDictionarySetValue(v28, @"gl-option-sessioninfo-link-id-to-query", v42);
       }
     }
   }
 
   else
   {
-    v9 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v18 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v9, OS_LOG_TYPE_DEFAULT, "process streamInfo failed due to invalid generation-counter.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "process streamInfo failed due to invalid generation-counter.", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"process streamInfo failed due to invalid generation-counter.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"process streamInfo failed due to invalid generation-counter.", v19, v20, v21, v22, v23, v44);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"process streamInfo failed due to invalid generation-counter.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"process streamInfo failed due to invalid generation-counter.", v24, v25, v26, v27, v45);
         }
       }
     }
 
-    v10 = 0;
+    v28 = 0;
   }
 
-  return v10;
+  return v28;
 }
 
-uint64_t StunUtilHasValidUInt32Attr(uint64_t result, uint64_t a2, _DWORD *a3)
+void *StunUtilHasValidUInt32Attr(void *result, uint64_t a2, _DWORD *a3)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (result)
@@ -5409,16 +4998,16 @@ uint64_t StunUtilHasValidBinaryDataAttr(void *a1, uint64_t a2, void *a3, int *a4
   return v8;
 }
 
-__CFArray *sub_1A7C2F604(unint64_t *a1, unsigned int a2)
+__CFArray *sub_1A7C2F604(unint64_t *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (!a1 || (a2 & 0x80000000) != 0 || (v3 = a2, (a2 & 7) != 0))
   {
     v4 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v19) = a2;
+      LODWORD(v49) = a2;
       _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "invalid participantID data length (%d).", buf, 8u);
     }
 
@@ -5426,103 +5015,103 @@ __CFArray *sub_1A7C2F604(unint64_t *a1, unsigned int a2)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"invalid participantID data length (%d).");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"invalid participantID data length (%d).", v5, v6, v7, v8, v9, a2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid participantID data length (%d).");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid participantID data length (%d).", v10, v11, v12, v13, a2);
         }
       }
     }
 
-    v5 = 0;
+    v14 = 0;
   }
 
   else
   {
     if (a2)
     {
-      v7 = a1;
-      v8 = 0;
-      v9 = a1 + a2;
+      v16 = a1;
+      v17 = 0;
+      v18 = (a1 + a2);
       while (v3 > 7)
       {
-        v11 = *v7++;
-        v10 = v11;
-        if (v8 || (v8 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
+        v20 = *v16++;
+        v19 = v20;
+        if (v17 || (v17 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
         {
-          v12 = bswap64(v10);
-          v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v12];
+          v21 = bswap64(v19);
+          v22 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v21];
 
-          if (v13)
+          if (v22)
           {
-            v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v12];
-            CFArrayAppendValue(v8, v14);
+            v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v21];
+            CFArrayAppendValue(v17, v23);
           }
         }
 
         v3 -= 8;
-        if (v7 >= v9)
+        if (v16 >= v18)
         {
           goto LABEL_24;
         }
       }
 
-      v16 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v36 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantIDs: incomplete packet for participantID.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantIDs: incomplete packet for participantID.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantIDs: incomplete packet for participantID.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantIDs: incomplete packet for participantID.", v37, v38, v39, v40, v41, v46);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantIDs: incomplete packet for participantID.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantIDs: incomplete packet for participantID.", v42, v43, v44, v45, v47);
           }
         }
       }
 
-      v5 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v8 = 0;
+      v17 = 0;
 LABEL_24:
-      v15 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v24 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v19 = [(__CFArray *)v8 count];
-        v20 = 2112;
-        v21 = v8;
-        _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantIDs: received %lu participants: %@.", buf, 0x16u);
+        v49 = [(__CFArray *)v17 count];
+        v50 = 2112;
+        v51 = v17;
+        _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantIDs: received %lu participants: %@.", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          v17 = [(__CFArray *)v8 count];
-          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantIDs: received %lu participants: %@.");
-          if (_IDSShouldLog())
+          v25 = [(__CFArray *)v17 count];
+          _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantIDs: received %lu participants: %@.", v26, v27, v28, v29, v30, v25);
+          if (_IDSShouldLog(0))
           {
-            [(__CFArray *)v8 count:v17];
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantIDs: received %lu participants: %@.");
+            v31 = [(__CFArray *)v17 count];
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantIDs: received %lu participants: %@.", v32, v33, v34, v35, v31);
           }
         }
       }
 
-      v8 = v8;
-      v5 = v8;
+      v17 = v17;
+      v14 = v17;
     }
   }
 
-  return v5;
+  return v14;
 }
 
 id sub_1A7C2F9E0(void *a1, uint64_t a2)
@@ -5530,17 +5119,17 @@ id sub_1A7C2F9E0(void *a1, uint64_t a2)
   __b[184] = *MEMORY[0x1E69E9840];
   v3 = a1;
   memset(__b, 170, 0x5C0uLL);
-  v7 = -1431655766;
-  if (StunUtilHasValidBinaryDataAttr(v3, a2, __b, &v7))
+  v16 = -1431655766;
+  if (StunUtilHasValidBinaryDataAttr(v3, a2, __b, &v16))
   {
-    v4 = sub_1A7C2F604(__b, v7);
+    v4 = sub_1A7C2F604(__b, v16);
     v5 = OSLogHandleForTransportCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v9 = a2;
-      v10 = 2112;
-      v11 = v4;
+      v18 = a2;
+      v19 = 2112;
+      v20 = v4;
       _os_log_impl(&dword_1A7AD9000, v5, OS_LOG_TYPE_DEFAULT, "StunUtilProcessActiveOrLightweightParticipants: type: 0x%lx, %@", buf, 0x16u);
     }
 
@@ -5548,10 +5137,10 @@ id sub_1A7C2F9E0(void *a1, uint64_t a2)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessActiveOrLightweightParticipants: type: 0x%lx, %@");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessActiveOrLightweightParticipants: type: 0x%lx, %@", v6, v7, v8, v9, v10, a2);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessActiveOrLightweightParticipants: type: 0x%lx, %@");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessActiveOrLightweightParticipants: type: 0x%lx, %@", v11, v12, v13, v14, a2);
         }
       }
     }
@@ -5567,14 +5156,14 @@ id sub_1A7C2F9E0(void *a1, uint64_t a2)
 
 __CFDictionary *StunUtilProcessParticipantUpdate(void *a1, int a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v5 = a1;
   memset(__b, 170, sizeof(__b));
-  v27 = -1431655766;
+  v85 = -1431655766;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v5 && (bzero(buf, 0x5D0uLL), [v5 getAttribute:65489 attribute:buf]))
   {
-    v7 = v31[0];
+    v7 = v89[0];
   }
 
   else
@@ -5592,10 +5181,10 @@ __CFDictionary *StunUtilProcessParticipantUpdate(void *a1, int a2, uint64_t a3)
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid session state counter.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid session state counter.", v9, v10, v11, v12, v13, v80);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid session state counter.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid session state counter.", v14, v15, v16, v17, v81);
           }
         }
       }
@@ -5606,96 +5195,94 @@ __CFDictionary *StunUtilProcessParticipantUpdate(void *a1, int a2, uint64_t a3)
     v7 = 0;
   }
 
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
-  if (v9)
+  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  if (v18)
   {
-    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-counter", v9);
+    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-counter", v18);
   }
 
   if (v5)
   {
     bzero(buf, 0x5D0uLL);
-    v10 = [v5 getAttribute:65518 attribute:buf];
-    if (v10)
+    v19 = [v5 getAttribute:65518 attribute:buf];
+    if (v19)
     {
-      v11 = v31[0];
+      v20 = v89[0];
     }
 
     else
     {
-      v11 = 0;
+      v20 = 0;
     }
 
-    v12 = v10 ^ 1;
+    v21 = v19 ^ 1;
   }
 
   else
   {
-    v11 = 0;
-    v12 = 1;
+    v20 = 0;
+    v21 = 1;
   }
 
-  if ((a3 & 0xFFFFFFFFFFFFFFEFLL) == 0xFE7 && v12)
+  if ((a3 & 0xFFFFFFFFFFFFFFEFLL) == 0xFE7 && v21)
   {
-    v13 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v22 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v13, OS_LOG_TYPE_DEFAULT, "process participantUpdate failed due to invalid operation flags.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "process participantUpdate failed due to invalid operation flags.", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid operation flags.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid operation flags.", v23, v24, v25, v26, v27, v80);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid operation flags.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid operation flags.", v28, v29, v30, v31, v82);
         }
       }
     }
 
 LABEL_51:
-    v19 = 0;
+    v55 = 0;
     goto LABEL_52;
   }
 
-  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v11];
-  if (v14)
+  v32 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v20];
+  if (v32)
   {
-    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-type", v14);
+    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-type", v32);
   }
 
-  if (StunUtilHasValidBinaryDataAttr(v5, 60928, __b, &v27))
+  if (StunUtilHasValidBinaryDataAttr(v5, 60928, __b, &v85))
   {
-    v15 = sub_1A7C2F604(__b, v27);
-    v16 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_1A7C2F604(__b, v85);
+    v34 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v30 = v27;
-      _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "receive participantIDs, length: %dB.", buf, 8u);
+      v88 = v85;
+      _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "receive participantIDs, length: %dB.", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        v26 = v27;
-        _IDSLogTransport(@"GL", @"IDS", @"receive participantIDs, length: %dB.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"receive participantIDs, length: %dB.", v35, v36, v37, v38, v39, v85);
+        if (_IDSShouldLog(0))
         {
-          v26 = v27;
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive participantIDs, length: %dB.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"receive participantIDs, length: %dB.", v40, v41, v42, v43, v85);
         }
       }
     }
 
-    v17 = v15;
-    if (v17)
+    v44 = v33;
+    if (v44)
     {
-      CFDictionarySetValue(v6, @"ids-stun-attribute-enc-ParticipantIDs", v17);
+      CFDictionarySetValue(v6, @"ids-stun-attribute-enc-ParticipantIDs", v44);
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -5704,23 +5291,23 @@ LABEL_51:
     }
   }
 
-  else if (a3 == 3831 || a2 != 401 && a3 == 4087 || (v17 = 0, a3 == 4071) && v11 <= 2u)
+  else if (a3 == 3831 || a2 != 401 && a3 == 4087 || (v44 = 0, a3 == 4071) && v20 <= 2u)
   {
-    v18 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v45 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v18, OS_LOG_TYPE_DEFAULT, "process participantUpdate failed due to invalid participantIDs.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v45, OS_LOG_TYPE_DEFAULT, "process participantUpdate failed due to invalid participantIDs.", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid participantIDs.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"process participantUpdate failed due to invalid participantIDs.", v46, v47, v48, v49, v50, v80);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid participantIDs.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"process participantUpdate failed due to invalid participantIDs.", v51, v52, v53, v54, v83);
         }
       }
     }
@@ -5730,21 +5317,21 @@ LABEL_51:
 
   if (v5 && [v5 hasAttribute:65490])
   {
-    v21 = OSLogHandleForTransportCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v57 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantUpdate: packetTruncated", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v57, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantUpdate: packetTruncated", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantUpdate: packetTruncated");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantUpdate: packetTruncated", v58, v59, v60, v61, v62, v80);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantUpdate: packetTruncated");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantUpdate: packetTruncated", v63, v64, v65, v66, v84);
         }
       }
     }
@@ -5756,30 +5343,30 @@ LABEL_51:
   {
     if (a3 == 4087)
     {
-      v22 = 4;
+      v67 = 4;
       goto LABEL_79;
     }
 
     if (a3 == 4071)
     {
-      v22 = 3;
+      v67 = 3;
       goto LABEL_79;
     }
 
 LABEL_74:
-    v23 = +[IDSFoundationLog Stun];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v68 = +[IDSFoundationLog Stun];
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       sub_1A7E1C760();
     }
 
-    v22 = 0;
+    v67 = 0;
     goto LABEL_79;
   }
 
   if (a3 == 3815)
   {
-    v22 = 1;
+    v67 = 1;
     goto LABEL_79;
   }
 
@@ -5788,12 +5375,12 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  v22 = 5;
+  v67 = 5;
 LABEL_79:
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{v22, v26}];
-  if (v24)
+  v69 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v67];
+  if (v69)
   {
-    CFDictionarySetValue(v6, @"ids-stun-message-type", v24);
+    CFDictionarySetValue(v6, @"ids-stun-message-type", v69);
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -5801,36 +5388,36 @@ LABEL_79:
     sub_1A7E1C7D4();
   }
 
-  v25 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v70 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v30 = v11;
-    LOWORD(v31[0]) = 2048;
-    *(v31 + 2) = a3;
-    _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx", buf, 0x12u);
+    v88 = v20;
+    LOWORD(v89[0]) = 2048;
+    *(v89 + 2) = a3;
+    _os_log_impl(&dword_1A7AD9000, v70, OS_LOG_TYPE_DEFAULT, "StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx", buf, 0x12u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx", v71, v72, v73, v74, v75, v20);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilProcessParticipantUpdate: operationFlags: %u, messageSTUNType: 0X%lx", v76, v77, v78, v79, v20);
       }
     }
   }
 
-  v19 = v6;
+  v55 = v6;
 
 LABEL_52:
 
-  return v19;
+  return v55;
 }
 
-uint64_t StunUtilHasValidUInt16Attr(uint64_t result, uint64_t a2, _WORD *a3)
+void *StunUtilHasValidUInt16Attr(void *result, uint64_t a2, _WORD *a3)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (result)
@@ -5850,34 +5437,34 @@ uint64_t StunUtilHasValidUInt16Attr(uint64_t result, uint64_t a2, _WORD *a3)
   return result;
 }
 
-void *StunUtilHasValidBooleanAttr(void *a1, const char *a2)
+void *StunUtilHasValidBooleanAttr(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 hasAttribute:a2];
+    return [result hasAttribute:a2];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t sub_1A7C30484(void *a1, void *a2, int a3)
+uint64_t sub_1A7C30484(void *a1, void *a2, unsigned int a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = v5;
   if (a2 && a3 > 0)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
     LODWORD(v9) = a2;
     if (v8)
     {
       v10 = a2 + a3;
-      v11 = *v19;
+      v11 = *v37;
       v9 = a2;
       while (2)
       {
@@ -5885,29 +5472,29 @@ uint64_t sub_1A7C30484(void *a1, void *a2, int a3)
         v13 = v9;
         do
         {
-          if (*v19 != v11)
+          if (*v37 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
           v9 = v13 + 1;
-          if ((v13 + 1) > v10)
+          if (v13 + 1 > v10)
           {
-            v16 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v25 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.", buf, 2u);
+              _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.", buf, 2u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.", v26, v27, v28, v29, v30, v36);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWriteParticipantIDs failed to write participant-id due to short buffer.", v31, v32, v33, v34, v36);
                 }
               }
             }
@@ -5915,11 +5502,11 @@ uint64_t sub_1A7C30484(void *a1, void *a2, int a3)
             goto LABEL_25;
           }
 
-          *v13++ = bswap64([*(*(&v18 + 1) + 8 * v12++) unsignedLongLongValue]);
+          *v13++ = bswap64([*(*(&v36 + 1) + 8 * v12++) unsignedLongLongValue]);
         }
 
         while (v8 != v12);
-        v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
         if (v8)
         {
           continue;
@@ -5945,10 +5532,10 @@ uint64_t sub_1A7C30484(void *a1, void *a2, int a3)
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"StunUtilWriteParticipantIDs failed due to invalid parameter.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"StunUtilWriteParticipantIDs failed due to invalid parameter.", v16, v17, v18, v19, v20, v36);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWriteParticipantIDs failed due to invalid parameter.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilWriteParticipantIDs failed due to invalid parameter.", v21, v22, v23, v24, v36);
         }
       }
     }
@@ -5966,7 +5553,7 @@ void sub_1A7C30760(void *a1, void *a2, uint64_t a3, void *a4)
   v7 = a2;
   v8 = a4;
   memset(__b, 170, sizeof(__b));
-  v9 = sub_1A7C2DD6C(a1, __b, 1472);
+  v9 = sub_1A7C2DD6C(a1, __b, 0x5C0u);
   if (v9 >= 1)
   {
     v10 = [MEMORY[0x1E695DEF0] dataWithBytes:__b length:v9];
@@ -6026,7 +5613,7 @@ void sub_1A7C30944(void *a1, void *a2)
   __b[184] = *MEMORY[0x1E69E9840];
   v3 = a2;
   memset(__b, 170, 0x5C0uLL);
-  v4 = sub_1A7C30484(a1, __b, 1472);
+  v4 = sub_1A7C30484(a1, __b, 0x5C0u);
   if (v4 >= 1)
   {
     v5 = [MEMORY[0x1E695DEF0] dataWithBytes:__b length:v4];
@@ -6046,17 +5633,17 @@ void sub_1A7C30944(void *a1, void *a2)
 
 IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  *&v143[7] = *MEMORY[0x1E69E9840];
+  *&v194[7] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = [[IDSStunMessage alloc] initWithType:a1];
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v12 = ids_monotonic_time();
-  v13 = [v8 isRelayStunCandidatePair];
+  isRelayStunCandidatePair = objc_msgSend_isRelayStunCandidatePair(v8);
   v14 = [v8 isSharedQRSession];
-  v139 = v7;
-  if (!v13 || ([v8 isValidRelayStunCandidatePair] & 1) != 0)
+  v190 = v7;
+  if (!isRelayStunCandidatePair || ([v8 isValidRelayStunCandidatePair] & 1) != 0)
   {
     [(IDSStunMessage *)v10 setTransactionID:v7];
     v16 = 0;
@@ -6066,11 +5653,11 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
       {
         if (a1 == 23)
         {
-          v36 = [v8 channelNumber];
-          v37 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v36)];
-          if (v37)
+          v45 = [v8 channelNumber];
+          v46 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v45)];
+          if (v46)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v37);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v46);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6078,10 +5665,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
             sub_1A7E1C85C();
           }
 
-          if (v9 && @"gl-option-generic-data" && (v50 = CFDictionaryGetValue(v9, @"gl-option-generic-data")) != 0)
+          if (v9 && @"gl-option-generic-data" && (v59 = CFDictionaryGetValue(v9, @"gl-option-generic-data")) != 0)
           {
-            v51 = v50;
-            CFDictionarySetValue(v11, @"ids-stun-attribute-data", v50);
+            v60 = v59;
+            CFDictionarySetValue(v11, @"ids-stun-attribute-data", v59);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6097,11 +5684,11 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
             goto LABEL_330;
           }
 
-          v27 = [v8 channelNumber];
-          v28 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v27)];
-          if (v28)
+          v36 = [v8 channelNumber];
+          v37 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v36)];
+          if (v37)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v28);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v37);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6115,74 +5702,74 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
             Value = CFDictionaryGetValue(v9, @"gl-option-test-options-flags");
           }
 
-          v56 = [Value unsignedIntValue];
+          v65 = [Value unsignedIntValue];
           if (@"gl-option-test-requested-message-type")
           {
-            v57 = v9 != 0;
+            v66 = v9 != 0;
           }
 
           else
           {
-            v57 = 0;
+            v66 = 0;
           }
 
-          if (v57)
+          if (v66)
           {
-            v58 = CFDictionaryGetValue(v9, @"gl-option-test-requested-message-type");
+            v67 = CFDictionaryGetValue(v9, @"gl-option-test-requested-message-type");
           }
 
           else
           {
-            v58 = 0;
+            v67 = 0;
           }
 
-          v136 = [v58 unsignedIntValue];
+          v187 = [v67 unsignedIntValue];
           if (@"gl-option-test-requested-error-code-type")
           {
-            v59 = v9 != 0;
+            v68 = v9 != 0;
           }
 
           else
           {
-            v59 = 0;
+            v68 = 0;
           }
 
-          if (v59)
+          if (v68)
           {
-            v60 = CFDictionaryGetValue(v9, @"gl-option-test-requested-error-code-type");
+            v69 = CFDictionaryGetValue(v9, @"gl-option-test-requested-error-code-type");
           }
 
           else
           {
-            v60 = 0;
+            v69 = 0;
           }
 
-          v61 = [v60 unsignedIntValue];
+          v70 = [v69 unsignedIntValue];
           if (@"gl-option-test-sub-operation")
           {
-            v62 = v9 != 0;
+            v71 = v9 != 0;
           }
 
           else
           {
-            v62 = 0;
+            v71 = 0;
           }
 
-          if (v62)
+          if (v71)
           {
-            v63 = CFDictionaryGetValue(v9, @"gl-option-test-sub-operation");
+            v72 = CFDictionaryGetValue(v9, @"gl-option-test-sub-operation");
           }
 
           else
           {
-            v63 = 0;
+            v72 = 0;
           }
 
-          v138 = [v63 dataUsingEncoding:4];
-          v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v56];
-          if (v64)
+          v189 = [v72 dataUsingEncoding:4];
+          v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v65];
+          if (v73)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-testoptions", v64);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-testoptions", v73);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6190,12 +5777,12 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
             sub_1A7E1C9F4();
           }
 
-          if (v56 == 8)
+          if (v65 == 8)
           {
-            v73 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v136];
-            if (v73)
+            v82 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v187];
+            if (v82)
             {
-              CFDictionarySetValue(v11, @"ids-stun-attribute-qr-test-requested-message", v73);
+              CFDictionarySetValue(v11, @"ids-stun-attribute-qr-test-requested-message", v82);
             }
 
             else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6203,10 +5790,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
               sub_1A7E1CA7C();
             }
 
-            v102 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v61];
-            if (v102)
+            v134 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v70];
+            if (v134)
             {
-              CFDictionarySetValue(v11, @"ids-stun-attribute-qr-test-requested-error-code", v102);
+              CFDictionarySetValue(v11, @"ids-stun-attribute-qr-test-requested-error-code", v134);
             }
 
             else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6214,41 +5801,35 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
               sub_1A7E1CB04();
             }
 
-            v103 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+            v135 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v135, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109632;
-              v141 = 8;
-              v142 = 1024;
-              *v143 = v136;
-              v143[2] = 1024;
-              *&v143[3] = v61;
-              _os_log_impl(&dword_1A7AD9000, v103, OS_LOG_TYPE_DEFAULT, "testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", buf, 0x14u);
+              v192 = 8;
+              v193 = 1024;
+              *v194 = v187;
+              v194[2] = 1024;
+              *&v194[3] = v70;
+              _os_log_impl(&dword_1A7AD9000, v135, OS_LOG_TYPE_DEFAULT, "testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", buf, 0x14u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                v134 = v136;
-                v135 = v61;
-                v133 = 8;
-                _IDSLogTransport(@"GL", @"IDS", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", v136, v137, v138, v139, v140, 8);
+                if (_IDSShouldLog(0))
                 {
-                  v134 = v136;
-                  v135 = v61;
-                  v133 = 8;
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"testOptions: %u, requestedMessageType: %u, requestedErrorCode: %u", v141, v142, v143, v144, 8);
                 }
               }
             }
           }
 
-          v104 = v138;
-          if (v104)
+          v145 = v189;
+          if (v145)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-testsuboperation", v104);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-testsuboperation", v145);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6263,14 +5844,14 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
       if ((a1 - 3808) < 2)
       {
         CFDictionarySetValue(v11, @"ids-stun-attribute-requestedtransport", &unk_1F1B20270);
-        v29 = [v8 softwareData];
+        v38 = [v8 softwareData];
 
-        if (v29)
+        if (v38)
         {
-          v30 = [v8 softwareData];
-          if (v30)
+          v39 = [v8 softwareData];
+          if (v39)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-software", v30);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-software", v39);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6279,88 +5860,88 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
           }
         }
 
-        v43 = 0;
+        v52 = 0;
         if (v9 && @"gl-option-additional-binding")
         {
-          v43 = CFDictionaryGetValue(v9, @"gl-option-additional-binding");
+          v52 = CFDictionaryGetValue(v9, @"gl-option-additional-binding");
         }
 
-        v137 = [v43 unsignedIntValue];
+        v188 = [v52 unsignedIntValue];
         if (([v8 isSelfQRSession] & 1) == 0 && objc_msgSend(v8, "hasValidCapabilityFlags"))
         {
-          v44 = [v8 capabilityFlags];
+          v53 = [v8 capabilityFlags];
           if (@"gl-option-is-lightweight-participant-key")
           {
-            v45 = v9 != 0;
+            v54 = v9 != 0;
           }
 
           else
           {
-            v45 = 0;
+            v54 = 0;
           }
 
-          if (v45)
+          if (v54)
           {
-            v46 = CFDictionaryGetValue(v9, @"gl-option-is-lightweight-participant-key");
+            v55 = CFDictionaryGetValue(v9, @"gl-option-is-lightweight-participant-key");
           }
 
           else
           {
-            v46 = 0;
+            v55 = 0;
           }
 
-          if ([v46 BOOLValue])
+          if ([v55 BOOLValue])
           {
-            v44 = v44 & 0xFFFFFFFFFFDF7FFFLL | 0x8000;
+            v53 = v53 & 0xFFFFFFFFFFDF7FFFLL | 0x8000;
           }
 
           if (@"gs-shortmki-enabled-key")
           {
-            v74 = v9 != 0;
+            v83 = v9 != 0;
           }
 
           else
           {
-            v74 = 0;
+            v83 = 0;
           }
 
-          if (v74)
+          if (v83)
           {
-            v75 = CFDictionaryGetValue(v9, @"gs-shortmki-enabled-key");
+            v84 = CFDictionaryGetValue(v9, @"gs-shortmki-enabled-key");
           }
 
           else
           {
-            v75 = 0;
+            v84 = 0;
           }
 
-          if ([v75 BOOLValue])
+          if ([v84 BOOLValue])
           {
-            v76 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+            v85 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A7AD9000, v76, OS_LOG_TYPE_DEFAULT, "StunUtilCreateMessage enabling shortMKI", buf, 2u);
+              _os_log_impl(&dword_1A7AD9000, v85, OS_LOG_TYPE_DEFAULT, "StunUtilCreateMessage enabling shortMKI", buf, 2u);
             }
 
-            v44 |= 0x800000uLL;
+            v53 |= 0x800000uLL;
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"StunUtilCreateMessage enabling shortMKI");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"StunUtilCreateMessage enabling shortMKI", v86, v87, v88, v89, v90, v183);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilCreateMessage enabling shortMKI");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilCreateMessage enabling shortMKI", v91, v92, v93, v94, v185);
                 }
               }
             }
           }
 
-          v77 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v44];
-          if (v77)
+          v95 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v53];
+          if (v95)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-capabilityflags", v77);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-capabilityflags", v95);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6370,13 +5951,13 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 
           if ([v8 relayProviderType] != 1)
           {
-            v99 = [v8 local];
-            v100 = [v99 isCellularStunCandidate];
+            v131 = [v8 local];
+            v132 = [v131 isCellularStunCandidate];
 
-            v101 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v137 & 0x30 | v100];
-            if (v101)
+            v133 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v188 & 0x30 | v132];
+            if (v133)
             {
-              CFDictionarySetValue(v11, @"ids-stun-attribute-channel-binding-info", v101);
+              CFDictionarySetValue(v11, @"ids-stun-attribute-channel-binding-info", v133);
             }
 
             else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6388,48 +5969,48 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 
         if (v14)
         {
-          v111 = [(IDSStunMessage *)v10 transactionID];
-          [v8 deriveAES128CTRKeys:v111];
+          v152 = [(IDSStunMessage *)v10 transactionID];
+          [v8 deriveAES128CTRKeys:v152];
 
-          v112 = [v8 relaySessionInfo];
-          v113 = [v112 publishedStreams];
+          v153 = [v8 relaySessionInfo];
+          v154 = [v153 publishedStreams];
 
-          v114 = [v8 relaySessionInfo];
-          v115 = [v114 subscribedStreams];
+          v155 = [v8 relaySessionInfo];
+          v156 = [v155 subscribedStreams];
 
-          v116 = [v8 relaySessionInfo];
-          v117 = [v116 maxConcurrentStreams];
+          v157 = [v8 relaySessionInfo];
+          v158 = [v157 maxConcurrentStreams];
 
-          sub_1A7C30760(v113, v115, v117, v11);
-          v118 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-materials-key"];
-          if (v118)
+          sub_1A7C30760(v154, v156, v158, v11);
+          v159 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-materials-key"];
+          if (v159)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-materials", v118);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-materials", v159);
           }
         }
 
-        v119 = IDSStunAttributeQRReallocTokenKey;
+        v160 = IDSStunAttributeQRReallocTokenKey;
         if (a1 != 3809)
         {
-          v119 = IDSStunAttributeQRSessionTokenKey;
+          v160 = IDSStunAttributeQRSessionTokenKey;
         }
 
-        v120 = *v119;
-        v121 = [v8 relaySessionToken];
-        if (v121)
+        v161 = *v160;
+        v162 = [v8 relaySessionToken];
+        if (v162)
         {
-          CFDictionarySetValue(v11, v120, v121);
+          CFDictionarySetValue(v11, v161, v162);
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          sub_1A7E1D384(v120, v122, v123, v124, v125, v126, v127, v128);
+          sub_1A7E1D384(v161, v163, v164, v165, v166, v167, v168, v169);
         }
 
-        v129 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-qr-server-data-blob"];
-        if (v129)
+        v170 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-qr-server-data-blob"];
+        if (v170)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-server-blob", v129);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-server-blob", v170);
         }
 
         goto LABEL_317;
@@ -6457,10 +6038,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
           sub_1A7E1C85C();
         }
 
-        v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v18];
-        if (v65)
+        v74 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v18];
+        if (v74)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-clienttime", v65);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-clienttime", v74);
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6470,10 +6051,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 
         if ((v20 * 1000.0))
         {
-          v66 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
-          if (v66)
+          v75 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+          if (v75)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-clientlatency", v66);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-clientlatency", v75);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6482,39 +6063,39 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
           }
         }
 
-        v78 = 0;
+        v96 = 0;
         if (v9 && @"gl-option-stats-sent-packets")
         {
-          v78 = CFDictionaryGetValue(v9, @"gl-option-stats-sent-packets");
+          v96 = CFDictionaryGetValue(v9, @"gl-option-stats-sent-packets");
         }
 
-        v79 = v78;
-        v80 = 0;
+        v97 = v96;
+        v98 = 0;
         if (v9 && @"gl-option-stats-received-packets")
         {
-          v80 = CFDictionaryGetValue(v9, @"gl-option-stats-received-packets");
+          v98 = CFDictionaryGetValue(v9, @"gl-option-stats-received-packets");
         }
 
-        v81 = v80;
-        if (v79 | v81)
+        v99 = v98;
+        if (v97 | v99)
         {
-          if (v79)
+          if (v97)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-sent-packets", v79);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-sent-packets", v97);
           }
 
-          if (v81)
+          if (v99)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-received-packets", v81);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-received-packets", v99);
           }
         }
 
         else
         {
-          v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v8, "totalPacketsSentOnLink")}];
-          if (v82)
+          v100 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v8, "totalPacketsSentOnLink")}];
+          if (v100)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-sent-packets", v82);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-sent-packets", v100);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6522,10 +6103,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
             sub_1A7E1CDAC();
           }
 
-          v98 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v8, "totalPacketsReceivedOnLink")}];
-          if (v98)
+          v130 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v8, "totalPacketsReceivedOnLink")}];
+          if (v130)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-received-packets", v98);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-received-packets", v130);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6539,10 +6120,10 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 
       if ([v8 relayProviderType] == 1)
       {
-        v38 = [v8 sessionID];
-        if (v38)
+        v47 = [v8 sessionID];
+        if (v47)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-sessionid", v38);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-sessionid", v47);
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6553,11 +6134,11 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 
       else
       {
-        v41 = [v8 channelNumber];
-        v38 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v41)];
-        if (v38)
+        v50 = [v8 channelNumber];
+        v47 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v50)];
+        if (v47)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v38);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v47);
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6569,12 +6150,12 @@ IDSStunMessage *StunUtilCreateMessage(uint64_t a1, void *a2, void *a3, void *a4)
 LABEL_300:
 
 LABEL_317:
-      if (v13)
+      if (isRelayStunCandidatePair)
       {
-        v130 = [v8 relaySessionKey];
-        if (v130)
+        v171 = [v8 relaySessionKey];
+        if (v171)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-messageintegrity", v130);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-messageintegrity", v171);
         }
 
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6582,34 +6163,30 @@ LABEL_317:
           sub_1A7E1D0DC();
         }
 
-        v131 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+        v172 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v172, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109378;
-          v141 = a1;
-          v142 = 2112;
-          *v143 = v130;
-          _os_log_impl(&dword_1A7AD9000, v131, OS_LOG_TYPE_DEFAULT, "Msg %04X has relay session key %@", buf, 0x12u);
+          v192 = a1;
+          v193 = 2112;
+          *v194 = v171;
+          _os_log_impl(&dword_1A7AD9000, v172, OS_LOG_TYPE_DEFAULT, "Msg %04X has relay session key %@", buf, 0x12u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            v133 = a1;
-            v134 = v130;
-            _IDSLogTransport(@"GL", @"IDS", @"Msg %04X has relay session key %@");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"Msg %04X has relay session key %@", v173, v174, v175, v176, v177, a1);
+            if (_IDSShouldLog(0))
             {
-              v133 = a1;
-              v134 = v130;
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"Msg %04X has relay session key %@");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"Msg %04X has relay session key %@", v178, v179, v180, v181, a1);
             }
           }
         }
       }
 
-      [(IDSStunMessage *)v10 setAttributes:v11, v133, v134, v135];
+      [(IDSStunMessage *)v10 setAttributes:v11];
       [(IDSStunMessage *)v10 setStartTime:v12];
       v16 = v10;
       goto LABEL_330;
@@ -6620,11 +6197,11 @@ LABEL_317:
       switch(a1)
       {
         case 3815:
-          v39 = [v8 channelNumber];
-          v40 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v39)];
-          if (v40)
+          v48 = [v8 channelNumber];
+          v49 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v48)];
+          if (v49)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v40);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v49);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6632,17 +6209,17 @@ LABEL_317:
             sub_1A7E1C85C();
           }
 
-          v52 = 0;
+          v61 = 0;
           if (v9 && @"gl-option-participant-update-request-type")
           {
-            v52 = CFDictionaryGetValue(v9, @"gl-option-participant-update-request-type");
+            v61 = CFDictionaryGetValue(v9, @"gl-option-participant-update-request-type");
           }
 
-          v53 = [v52 unsignedShortValue];
-          v54 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v53];
-          if (v54)
+          v62 = [v61 unsignedShortValue];
+          v63 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v62];
+          if (v63)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-session-state-type", v54);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-session-state-type", v63);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6650,28 +6227,28 @@ LABEL_317:
             sub_1A7E1CEBC();
           }
 
-          if (v53 > 8 || ((1 << v53) & 0x181) == 0)
+          if (v62 > 8 || ((1 << v62) & 0x181) == 0)
           {
-            v67 = 0;
+            v76 = 0;
             if (v9 && @"gl-option-participant-update-blocked-participantIDs")
             {
-              v67 = CFDictionaryGetValue(v9, @"gl-option-participant-update-blocked-participantIDs");
+              v76 = CFDictionaryGetValue(v9, @"gl-option-participant-update-blocked-participantIDs");
             }
 
-            sub_1A7C30944(v67, v11);
+            sub_1A7C30944(v76, v11);
           }
 
-          v68 = 0;
+          v77 = 0;
           if (v9 && @"gl-option-participant-update-request-counter")
           {
-            v68 = CFDictionaryGetValue(v9, @"gl-option-participant-update-request-counter");
+            v77 = CFDictionaryGetValue(v9, @"gl-option-participant-update-request-counter");
           }
 
-          v69 = [v68 unsignedIntValue];
-          v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v69];
-          if (v38)
+          v78 = [v77 unsignedIntValue];
+          v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v78];
+          if (v47)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-session-state-counter", v38);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-session-state-counter", v47);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6681,11 +6258,11 @@ LABEL_317:
 
           break;
         case 3816:
-          v34 = [v8 channelNumber];
-          v35 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v34)];
-          if (v35)
+          v43 = [v8 channelNumber];
+          v44 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v43)];
+          if (v44)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v35);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v44);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6693,10 +6270,10 @@ LABEL_317:
             sub_1A7E1C85C();
           }
 
-          if (v9 && @"gl-option-plugin-operation" && (v47 = CFDictionaryGetValue(v9, @"gl-option-plugin-operation")) != 0)
+          if (v9 && @"gl-option-plugin-operation" && (v56 = CFDictionaryGetValue(v9, @"gl-option-plugin-operation")) != 0)
           {
-            v48 = v47;
-            CFDictionarySetValue(v11, @"ids-stun-attribute-plugin-operation", v47);
+            v57 = v56;
+            CFDictionarySetValue(v11, @"ids-stun-attribute-plugin-operation", v56);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6704,16 +6281,16 @@ LABEL_317:
             sub_1A7E1C8E4();
           }
 
-          v49 = 0;
+          v58 = 0;
           if (v9 && @"gl-option-plugin-name")
           {
-            v49 = CFDictionaryGetValue(v9, @"gl-option-plugin-name");
+            v58 = CFDictionaryGetValue(v9, @"gl-option-plugin-name");
           }
 
-          v38 = [v49 dataUsingEncoding:4];
-          if (v38)
+          v47 = [v58 dataUsingEncoding:4];
+          if (v47)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-plugin-name", v38);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-plugin-name", v47);
           }
 
           else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6723,21 +6300,21 @@ LABEL_317:
 
           if (@"gl-option-plugin-raw-public-key")
           {
-            v70 = v9 != 0;
+            v79 = v9 != 0;
           }
 
           else
           {
-            v70 = 0;
+            v79 = 0;
           }
 
-          if (v70)
+          if (v79)
           {
-            v71 = CFDictionaryGetValue(v9, @"gl-option-plugin-raw-public-key");
-            if (v71)
+            v80 = CFDictionaryGetValue(v9, @"gl-option-plugin-raw-public-key");
+            if (v80)
             {
-              v72 = v71;
-              CFDictionarySetValue(v11, @"ids-stun-attribute-raw-public-key", v71);
+              v81 = v80;
+              CFDictionarySetValue(v11, @"ids-stun-attribute-raw-public-key", v80);
             }
           }
 
@@ -6755,10 +6332,10 @@ LABEL_317:
             sub_1A7E1C85C();
           }
 
-          v38 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-materials-key"];
-          if (v38)
+          v47 = [(__CFDictionary *)v9 objectForKeyedSubscript:@"gl-option-materials-key"];
+          if (v47)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-materials", v38);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-qr-materials", v47);
           }
 
           break;
@@ -6781,11 +6358,11 @@ LABEL_317:
         goto LABEL_317;
       }
 
-      v25 = [v8 channelNumber];
-      v26 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v25)];
-      if (v26)
+      v34 = [v8 channelNumber];
+      v35 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v34)];
+      if (v35)
       {
-        CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v26);
+        CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v35);
       }
 
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6793,125 +6370,125 @@ LABEL_317:
         sub_1A7E1C85C();
       }
 
-      v83 = 0;
+      v101 = 0;
       if (v9 && @"gl-option-sessioninfo-request-type")
       {
-        v83 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-request-type");
+        v101 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-request-type");
       }
 
-      if ([v83 intValue] == 2)
+      if ([v101 intValue] == 2)
       {
         if (v9)
         {
           if (@"gl-option-sessioninfo-generation-counter")
           {
-            v84 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-generation-counter");
-            if (v84)
+            v102 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-generation-counter");
+            if (v102)
             {
-              v85 = v84;
-              CFDictionarySetValue(v11, @"ids-stun-attribute-generation-counter", v84);
+              v103 = v102;
+              CFDictionarySetValue(v11, @"ids-stun-attribute-generation-counter", v102);
             }
           }
         }
 
-        v86 = 0;
+        v104 = 0;
         if (v9 && @"gl-option-sessioninfo-published-streams")
         {
-          v86 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-published-streams");
+          v104 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-published-streams");
         }
 
-        v87 = v86;
-        v88 = 0;
+        v105 = v104;
+        v106 = 0;
         if (v9 && @"gl-option-sessioninfo-subscribed-streams")
         {
-          v88 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-subscribed-streams");
+          v106 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-subscribed-streams");
         }
 
-        v89 = v88;
-        v90 = 0;
+        v107 = v106;
+        v108 = 0;
         if (v9 && @"gl-option-sessioninfo-max-concurrent-streams")
         {
-          v90 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-max-concurrent-streams");
+          v108 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-max-concurrent-streams");
         }
 
-        sub_1A7C30760(v87, v89, [v90 intValue], v11);
+        sub_1A7C30760(v105, v107, [v108 intValue], v11);
         if (@"gl-option-sessioninfo-relay-link-id")
         {
-          v91 = v9 != 0;
+          v109 = v9 != 0;
         }
 
         else
         {
-          v91 = 0;
+          v109 = 0;
         }
 
-        if (v91)
+        if (v109)
         {
-          v92 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-relay-link-id");
+          v110 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-relay-link-id");
         }
 
         else
         {
-          v92 = 0;
+          v110 = 0;
         }
 
-        v105 = [v92 unsignedIntValue];
-        if (v105)
+        v146 = [v110 unsignedIntValue];
+        if (v146)
         {
-          v106 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v105];
-          if (v106)
+          v147 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v146];
+          if (v147)
           {
-            CFDictionarySetValue(v11, @"ids-stun-attribute-relay-link-id", v106);
+            CFDictionarySetValue(v11, @"ids-stun-attribute-relay-link-id", v147);
           }
         }
       }
 
-      v107 = 0;
+      v148 = 0;
       if (v9 && @"gl-option-sessioninfo-request-id")
       {
-        v107 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-request-id");
+        v148 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-request-id");
       }
 
-      v108 = [v107 unsignedIntValue];
-      if (v108)
+      v149 = [v148 unsignedIntValue];
+      if (v149)
       {
-        v109 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v108];
-        if (v109)
+        v150 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v149];
+        if (v150)
         {
-          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-request-id", v109);
+          CFDictionarySetValue(v11, @"ids-stun-attribute-qr-request-id", v150);
         }
       }
 
-      v110 = 0;
+      v151 = 0;
       if (v9 && @"gl-option-sessioninfo-cookie")
       {
-        v110 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-cookie");
+        v151 = CFDictionaryGetValue(v9, @"gl-option-sessioninfo-cookie");
       }
 
-      v15 = [v110 unsignedIntValue];
+      v15 = [v151 unsignedIntValue];
       if (!v15)
       {
         goto LABEL_317;
       }
 
-      v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
-      if (v38)
+      v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
+      if (v47)
       {
-        CFDictionarySetValue(v11, @"ids-stun-attribute-qr-cookie", v38);
+        CFDictionarySetValue(v11, @"ids-stun-attribute-qr-cookie", v47);
       }
 
       goto LABEL_300;
     }
 
-    v31 = [(IDSStunMessage *)v10 transactionID];
-    [v8 deriveAES128CTRKeys:v31];
+    v40 = [(IDSStunMessage *)v10 transactionID];
+    [v8 deriveAES128CTRKeys:v40];
 
     if ([v8 state] < 3)
     {
-      v42 = [v8 relaySessionToken];
-      if (v42)
+      v51 = [v8 relaySessionToken];
+      if (v51)
       {
-        CFDictionarySetValue(v11, @"ids-stun-attribute-qr-sessiontokenkey", v42);
+        CFDictionarySetValue(v11, @"ids-stun-attribute-qr-sessiontokenkey", v51);
       }
 
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6919,11 +6496,11 @@ LABEL_317:
         sub_1A7E1CFCC();
       }
 
-      v95 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+      v122 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v95, OS_LOG_TYPE_DEFAULT, "use relay-access-token for info request.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v122, OS_LOG_TYPE_DEFAULT, "use relay-access-token for info request.", buf, 2u);
       }
 
       if (!os_log_shim_legacy_logging_enabled())
@@ -6936,22 +6513,22 @@ LABEL_317:
         goto LABEL_242;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"use relay-access-token for info request.");
-      if ((_IDSShouldLog() & 1) == 0)
+      _IDSLogTransport(@"GL", @"IDS", @"use relay-access-token for info request.", v123, v124, v125, v126, v127, v183);
+      if ((_IDSShouldLog(0) & 1) == 0)
       {
         goto LABEL_242;
       }
 
-      v94 = @"use relay-access-token for info request.";
+      v121 = @"use relay-access-token for info request.";
     }
 
     else
     {
-      v32 = [v8 channelNumber];
-      v33 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v32)];
-      if (v33)
+      v41 = [v8 channelNumber];
+      v42 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:__rev16(v41)];
+      if (v42)
       {
-        CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v33);
+        CFDictionarySetValue(v11, @"ids-stun-attribute-channelnumber", v42);
       }
 
       else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6959,11 +6536,11 @@ LABEL_317:
         sub_1A7E1C85C();
       }
 
-      v93 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+      v111 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v93, OS_LOG_TYPE_DEFAULT, "use channel-number for info request.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v111, OS_LOG_TYPE_DEFAULT, "use channel-number for info request.", buf, 2u);
       }
 
       if (!os_log_shim_legacy_logging_enabled())
@@ -6976,21 +6553,21 @@ LABEL_317:
         goto LABEL_242;
       }
 
-      _IDSLogTransport(@"GL", @"IDS", @"use channel-number for info request.");
-      if ((_IDSShouldLog() & 1) == 0)
+      _IDSLogTransport(@"GL", @"IDS", @"use channel-number for info request.", v112, v113, v114, v115, v116, v183);
+      if ((_IDSShouldLog(0) & 1) == 0)
       {
         goto LABEL_242;
       }
 
-      v94 = @"use channel-number for info request.";
+      v121 = @"use channel-number for info request.";
     }
 
-    _IDSLogV(0, @"IDSFoundation", @"GL", v94);
+    _IDSLogV(0, @"IDSFoundation", @"GL", v121, v117, v118, v119, v120, v186);
 LABEL_242:
-    v96 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:7];
-    if (v96)
+    v128 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:7];
+    if (v128)
     {
-      CFDictionarySetValue(v11, @"ids-stun-attribute-infoflags", v96);
+      CFDictionarySetValue(v11, @"ids-stun-attribute-infoflags", v128);
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -6998,10 +6575,10 @@ LABEL_242:
       sub_1A7E1D054();
     }
 
-    v97 = [v8 relaySessionKey];
-    if (v97)
+    v129 = [v8 relaySessionKey];
+    if (v129)
     {
-      CFDictionarySetValue(v11, @"ids-stun-attribute-messageintegrity", v97);
+      CFDictionarySetValue(v11, @"ids-stun-attribute-messageintegrity", v129);
     }
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -7023,10 +6600,10 @@ LABEL_242:
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"StunUtilCreateMessage failed due to invalid relay candidate pair.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"StunUtilCreateMessage failed due to invalid relay candidate pair.", v25, v26, v27, v28, v29, v183);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilCreateMessage failed due to invalid relay candidate pair.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"StunUtilCreateMessage failed due to invalid relay candidate pair.", v30, v31, v32, v33, v184);
       }
     }
   }
@@ -7039,16 +6616,16 @@ LABEL_330:
 
 uint64_t StunUtilHasValidChannelNumber(void *a1, unsigned int a2, _WORD *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  if (!v5 || (bzero(v15, 0x5D0uLL), ![v5 getAttribute:12 attribute:v15]))
+  if (!v5 || (bzero(v24, 0x5D0uLL), ![v5 getAttribute:12 attribute:v24]))
   {
 LABEL_11:
-    v9 = 0;
+    v18 = 0;
     goto LABEL_12;
   }
 
-  v6 = HIWORD(v16);
+  v6 = HIWORD(v25);
   if (a2)
   {
     v7 = __rev16(a2);
@@ -7058,9 +6635,9 @@ LABEL_11:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v12 = v6;
-        v13 = 1024;
-        v14 = v7;
+        v21 = v6;
+        v22 = 1024;
+        v23 = v7;
         _os_log_impl(&dword_1A7AD9000, v8, OS_LOG_TYPE_DEFAULT, "channel-number mismatch (%04x != %04x).", buf, 0xEu);
       }
 
@@ -7068,10 +6645,10 @@ LABEL_11:
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"channel-number mismatch (%04x != %04x).");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"channel-number mismatch (%04x != %04x).", v9, v10, v11, v12, v13, v6);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"channel-number mismatch (%04x != %04x).");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"channel-number mismatch (%04x != %04x).", v14, v15, v16, v17, v6);
           }
         }
       }
@@ -7082,13 +6659,13 @@ LABEL_11:
 
   if (a3)
   {
-    *a3 = HIWORD(v16);
+    *a3 = HIWORD(v25);
   }
 
-  v9 = 1;
+  v18 = 1;
 LABEL_12:
 
-  return v9;
+  return v18;
 }
 
 uint64_t StunUtilHasValidXorMappedAddress(uint64_t result, void *a2)
@@ -7117,7 +6694,7 @@ uint64_t StunUtilHasValidXorMappedAddress(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t StunUtilHasValidUInt64Attr(uint64_t result, uint64_t a2, void *a3)
+void *StunUtilHasValidUInt64Attr(void *result, uint64_t a2, void *a3)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (result)
@@ -7137,7 +6714,7 @@ uint64_t StunUtilHasValidUInt64Attr(uint64_t result, uint64_t a2, void *a3)
   return result;
 }
 
-uint64_t StunUtilHasValidUInt8Attr(uint64_t result, uint64_t a2, _BYTE *a3)
+void *StunUtilHasValidUInt8Attr(void *result, uint64_t a2, _BYTE *a3)
 {
   v7 = *MEMORY[0x1E69E9840];
   if (result)
@@ -7198,99 +6775,99 @@ void *StunUtilHasValidErrorCodeAttr(void *a1, _WORD *a2, char *a3, int *a4)
   return v4;
 }
 
-uint64_t StunUtilDeriveHKDFSha256Keys(void *a1, void *a2, unint64_t a3, void *a4, uint64_t a5)
+uint64_t StunUtilDeriveHKDFSha256Keys(void *a1, void *a2, unint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
-  *&v29[13] = *MEMORY[0x1E69E9840];
-  v9 = a1;
-  v10 = a2;
-  v11 = a4;
-  memset(v29, 170, 24);
-  v12 = [v9 length];
-  v13 = [v11 length];
-  if (a5 && v12 == 20 && v13 == 12)
+  *&v30[13] = *MEMORY[0x1E69E9840];
+  v10 = a1;
+  v11 = a2;
+  v12 = a4;
+  memset(v30, 170, 24);
+  v13 = [v10 length];
+  v14 = [v12 length];
+  if (a5 && v13 == 20 && v14 == 12)
   {
-    qmemcpy(v28, "QuickRelay KDF", sizeof(v28));
-    v14 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v10];
-    v15 = v14;
-    if (v10)
+    qmemcpy(v29, "QuickRelay KDF", sizeof(v29));
+    v15 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v11];
+    v16 = v15;
+    if (v11)
     {
-      [v14 getUUIDBytes:v29];
-      *&v29[8] = bswap64(a3);
-      v16 = ids_monotonic_time();
-      [v11 bytes];
+      [v15 getUUIDBytes:v30];
+      *&v30[8] = bswap64(a3);
+      v17 = ids_monotonic_time();
+      [v12 bytes];
       Hkdf = CCKDFParametersCreateHkdf();
       if (Hkdf)
       {
-        v18 = Hkdf;
-        v19 = +[IDSFoundationLog Stun];
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v19 = Hkdf;
+        v20 = +[IDSFoundationLog Stun];
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v27) = v18;
-          v20 = "CCKDFParametersCreateHkdf failed with error %d.";
+          LODWORD(v28) = v19;
+          v21 = "CCKDFParametersCreateHkdf failed with error %d.";
 LABEL_17:
-          _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 8u);
+          _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 8u);
         }
       }
 
       else
       {
-        [v9 bytes];
-        v23 = CCDeriveKey();
+        [v10 bytes];
+        v24 = CCDeriveKey();
         CCKDFParametersDestroy();
-        if (!v23)
+        if (!v24)
         {
-          v25 = ids_monotonic_time();
-          v19 = +[IDSFoundationLog Stun];
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v26 = ids_monotonic_time();
+          v20 = +[IDSFoundationLog Stun];
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v27 = v25 - v16;
-            _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "HKDF+SHA256 key derivation time: %.6f.", buf, 0xCu);
+            v28 = v26 - v17;
+            _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "HKDF+SHA256 key derivation time: %.6f.", buf, 0xCu);
           }
 
-          v22 = 1;
+          v23 = 1;
           goto LABEL_19;
         }
 
-        v19 = +[IDSFoundationLog Stun];
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = +[IDSFoundationLog Stun];
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v27) = v23;
-          v20 = "CCDeriveKey failed with error %d.";
+          LODWORD(v28) = v24;
+          v21 = "CCDeriveKey failed with error %d.";
           goto LABEL_17;
         }
       }
 
-      v22 = 0;
+      v23 = 0;
 LABEL_19:
 
       goto LABEL_20;
     }
 
-    v21 = +[IDSFoundationLog Stun];
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = +[IDSFoundationLog Stun];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "StunUtilDeriveHKDFSha256Keys failed due to invalid session-id.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "StunUtilDeriveHKDFSha256Keys failed due to invalid session-id.", buf, 2u);
     }
   }
 
   else
   {
-    v15 = +[IDSFoundationLog Stun];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = +[IDSFoundationLog Stun];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v15, OS_LOG_TYPE_DEFAULT, "StunUtilDeriveHKDFSha256Keys failed due to invalid parameter.", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "StunUtilDeriveHKDFSha256Keys failed due to invalid parameter.", buf, 2u);
     }
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_20:
 
-  return v22;
+  return v23;
 }
 
 BOOL StunUtilInitAES128CTR(void *a1, CCOperation a2, const void *a3, CCCryptorRef *a4)
@@ -7402,7 +6979,7 @@ uint64_t sub_1A7C32F38(CCCryptorRef *a1, CCOperation a2)
     v5 = [MEMORY[0x1E695DEF0] dataWithBytes:&v36 length:12];
     v6 = [MEMORY[0x1E695DEF0] dataWithBytes:&v38 length:20];
     v7 = [v4 UUIDString];
-    v8 = StunUtilDeriveHKDFSha256Keys(v6, v7, 0x123456789ABCDEFuLL, v5, &v41);
+    v8 = StunUtilDeriveHKDFSha256Keys(v6, v7, 0x123456789ABCDEFuLL, v5, &v41, 32);
 
     if (v8)
     {
@@ -8593,7 +8170,7 @@ void sub_1A7C3C304(uint64_t a1)
 
 __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   v4 = a1;
   theDict = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([v4 hasGenerationCounter])
@@ -8611,12 +8188,12 @@ __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
 
   v8 = [v4 peerSubscribedStreamIdsCount];
   v9 = [v4 peerSubscribedStreamIds];
-  v42 = a3;
+  v75 = a3;
   v10 = OSLogHandleForTransportCategory();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v55) = v8;
+    LODWORD(v88) = v8;
     _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "receive %d peer-sub-streams", buf, 8u);
   }
 
@@ -8624,12 +8201,10 @@ __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
   {
     if (_IDSShouldLogTransport())
     {
-      v39 = v8;
-      _IDSLogTransport(@"GL", @"IDS", @"receive %d peer-sub-streams");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"receive %d peer-sub-streams", v11, v12, v13, v14, v15, v8);
+      if (_IDSShouldLog(0))
       {
-        v39 = v8;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d peer-sub-streams");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d peer-sub-streams", v16, v17, v18, v19, v8);
       }
     }
   }
@@ -8642,20 +8217,20 @@ __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
   else
   {
     theArray = 0;
-    v11 = v8 & 0x7FFFFFFF;
+    v20 = v8 & 0x7FFFFFFF;
     do
     {
-      v13 = *v9++;
-      v12 = v13;
+      v22 = *v9++;
+      v21 = v22;
       if (theArray || (theArray = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
       {
-        v14 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{v12, v39}];
-        v15 = v14 == 0;
+        v23 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v21];
+        v24 = v23 == 0;
 
-        if (!v15)
+        if (!v24)
         {
-          v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v12];
-          CFArrayAppendValue(theArray, v16);
+          v25 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v21];
+          CFArrayAppendValue(theArray, v25);
         }
       }
 
@@ -8664,152 +8239,146 @@ __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
         theArray = 0;
       }
 
-      --v11;
+      --v20;
     }
 
-    while (v11);
+    while (v20);
   }
 
-  v17 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v26 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = theArray;
-    _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "processed peer-sub-stream: %@.", buf, 0xCu);
+    v88 = theArray;
+    _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "processed peer-sub-stream: %@.", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v39 = theArray;
-      _IDSLogTransport(@"GL", @"IDS", @"processed peer-sub-stream: %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"processed peer-sub-stream: %@.", v27, v28, v29, v30, v31, theArray);
+      if (_IDSShouldLog(0))
       {
-        v39 = theArray;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-sub-stream: %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-sub-stream: %@.", v32, v33, v34, v35, theArray);
       }
     }
   }
 
-  v18 = [v4 peerPublishedStreamsCount];
-  v19 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v36 = [v4 peerPublishedStreamsCount];
+  v37 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v55) = v18;
-    _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "receive %d peer-pub-streams", buf, 8u);
+    LODWORD(v88) = v36;
+    _os_log_impl(&dword_1A7AD9000, v37, OS_LOG_TYPE_DEFAULT, "receive %d peer-pub-streams", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v40 = v18;
-      _IDSLogTransport(@"GL", @"IDS", @"receive %d peer-pub-streams");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"receive %d peer-pub-streams", v38, v39, v40, v41, v42, v36);
+      if (_IDSShouldLog(0))
       {
-        v40 = v18;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d peer-pub-streams");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive %d peer-pub-streams", v43, v44, v45, v46, v36);
       }
     }
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   obj = [v4 peerPublishedStreams];
-  v48 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
-  if (v48)
+  v81 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
+  if (v81)
   {
-    v20 = 0;
-    v47 = *v50;
+    v47 = 0;
+    v80 = *v83;
     do
     {
-      for (i = 0; i != v48; ++i)
+      for (i = 0; i != v81; ++i)
       {
-        if (*v50 != v47)
+        if (*v83 != v80)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v49 + 1) + 8 * i);
-        v23 = [v22 peerStreamIdsCount];
-        v24 = [v22 peerStreamIds];
-        if (v23 < 1)
+        v49 = *(*(&v82 + 1) + 8 * i);
+        v50 = [v49 peerStreamIdsCount];
+        v51 = [v49 peerStreamIds];
+        if (v50 < 1)
         {
-          v26 = 0;
+          v53 = 0;
         }
 
         else
         {
-          v25 = v24;
-          v26 = 0;
-          v27 = v23 & 0x7FFFFFFF;
+          v52 = v51;
+          v53 = 0;
+          v54 = v50 & 0x7FFFFFFF;
           do
           {
-            v29 = *v25++;
-            v28 = v29;
-            if (v26 || (v26 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
+            v56 = *v52++;
+            v55 = v56;
+            if (v53 || (v53 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
             {
-              v30 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v28];
-              v31 = v30 == 0;
+              v57 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v55];
+              v58 = v57 == 0;
 
-              if (!v31)
+              if (!v58)
               {
-                v32 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v28];
-                CFArrayAppendValue(v26, v32);
+                v59 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v55];
+                CFArrayAppendValue(v53, v59);
               }
             }
 
-            --v27;
+            --v54;
           }
 
-          while (v27);
+          while (v54);
         }
 
-        v33 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v22, "peerParticipantId")}];
-        v34 = [IDSQRParticipantStreams streamWithParticipantID:v33 streamArray:v26 anyParticipant:0 anyStream:0];
+        v60 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v49, "peerParticipantId")}];
+        v61 = [IDSQRParticipantStreams streamWithParticipantID:v60 streamArray:v53 anyParticipant:0 anyStream:0];
 
-        if (v20 || (v20 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
+        if (v47 || (v47 = objc_alloc_init(MEMORY[0x1E695DF70])) != 0)
         {
-          if (v34)
+          if (v61)
           {
-            CFArrayAppendValue(v20, v34);
+            CFArrayAppendValue(v47, v61);
           }
         }
       }
 
-      v48 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v81 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
     }
 
-    while (v48);
+    while (v81);
   }
 
   else
   {
-    v20 = 0;
+    v47 = 0;
   }
 
-  v35 = OSLogHandleForTransportCategory();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v62 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v55 = v20;
-    _os_log_impl(&dword_1A7AD9000, v35, OS_LOG_TYPE_DEFAULT, "processed peer-pub-stream: %@.", buf, 0xCu);
+    v88 = v47;
+    _os_log_impl(&dword_1A7AD9000, v62, OS_LOG_TYPE_DEFAULT, "processed peer-pub-stream: %@.", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (_IDSShouldLogTransport())
     {
-      v41 = v20;
-      _IDSLogTransport(@"GL", @"IDS", @"processed peer-pub-stream: %@.");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"processed peer-pub-stream: %@.", v63, v64, v65, v66, v67, v47);
+      if (_IDSShouldLog(0))
       {
-        v41 = v20;
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-pub-stream: %@.");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"processed peer-pub-stream: %@.", v68, v69, v70, v71, v47);
       }
     }
   }
@@ -8819,30 +8388,30 @@ __CFDictionary *ProtoUtilProcessStreamInfo(void *a1, unsigned int a2, int a3)
     CFDictionarySetValue(theDict, @"stream-info-peer-subscribed-streams", theArray);
   }
 
-  if (v20)
+  if (v47)
   {
-    CFDictionarySetValue(theDict, @"stream-info-peer-published-streams", v20);
+    CFDictionarySetValue(theDict, @"stream-info-peer-published-streams", v47);
   }
 
-  v36 = [MEMORY[0x1E696AD98] numberWithChar:{a2, v41}];
-  if (v36)
+  v72 = [MEMORY[0x1E696AD98] numberWithChar:a2];
+  if (v72)
   {
-    CFDictionarySetValue(theDict, @"gl-option-linkid", v36);
+    CFDictionarySetValue(theDict, @"gl-option-linkid", v72);
   }
 
-  if (v42 >= 1)
+  if (v75 >= 1)
   {
-    v37 = [MEMORY[0x1E696AD98] numberWithChar:?];
-    if (v37)
+    v73 = [MEMORY[0x1E696AD98] numberWithChar:?];
+    if (v73)
     {
-      CFDictionarySetValue(theDict, @"gl-option-sessioninfo-link-id-to-query", v37);
+      CFDictionarySetValue(theDict, @"gl-option-sessioninfo-link-id-to-query", v73);
     }
   }
 
   return theDict;
 }
 
-__CFArray *sub_1A7C3D274(int a1, uint64_t *a2)
+__CFArray *sub_1A7C3D274(unsigned int a1, uint64_t *a2)
 {
   if (a1 < 1)
   {
@@ -8879,7 +8448,7 @@ __CFArray *sub_1A7C3D274(int a1, uint64_t *a2)
 
 id ProtoUtilProcessLightweightParticipants(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 lightweightParticipantIdListsCount];
   v3 = sub_1A7C3D274(v2, [v1 lightweightParticipantIdLists]);
@@ -8887,9 +8456,9 @@ id ProtoUtilProcessLightweightParticipants(void *a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v7 = v2;
-    v8 = 2112;
-    v9 = v3;
+    v16 = v2;
+    v17 = 2112;
+    v18 = v3;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "received %d lightweight participants: %@", buf, 0x12u);
   }
 
@@ -8897,10 +8466,10 @@ id ProtoUtilProcessLightweightParticipants(void *a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"received %d lightweight participants: %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"received %d lightweight participants: %@", v5, v6, v7, v8, v9, v2);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"received %d lightweight participants: %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"received %d lightweight participants: %@", v10, v11, v12, v13, v2);
       }
     }
   }
@@ -9321,7 +8890,7 @@ CFMutableDictionaryRef ProtoUtilProcessUpdatedParticipants(void *a1, void *a2, v
 
 id ProtoUtilProcessActiveParticipantsFromInfo(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 activeParticipantsCount];
   v3 = sub_1A7C3D274(v2, [v1 activeParticipants]);
@@ -9329,9 +8898,9 @@ id ProtoUtilProcessActiveParticipantsFromInfo(void *a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v7 = v2;
-    v8 = 2112;
-    v9 = v3;
+    v16 = v2;
+    v17 = 2112;
+    v18 = v3;
     _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "received %d active participants: %@", buf, 0x12u);
   }
 
@@ -9339,13 +8908,432 @@ id ProtoUtilProcessActiveParticipantsFromInfo(void *a1)
   {
     if (_IDSShouldLogTransport())
     {
-      _IDSLogTransport(@"GL", @"IDS", @"received %d active participants: %@");
-      if (_IDSShouldLog())
+      _IDSLogTransport(@"GL", @"IDS", @"received %d active participants: %@", v5, v6, v7, v8, v9, v2);
+      if (_IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"GL", @"received %d active participants: %@");
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"received %d active participants: %@", v10, v11, v12, v13, v2);
       }
     }
   }
 
   return v3;
+}
+
+id ProtoUtilProcessActiveLightweightParticipantsFromInfo(void *a1)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = [v1 activeLightweightParticipantsCount];
+  v3 = sub_1A7C3D274(v2, [v1 activeLightweightParticipants]);
+  v4 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109378;
+    v16 = v2;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_1A7AD9000, v4, OS_LOG_TYPE_DEFAULT, "received %d active lightweight participants: %@", buf, 0x12u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled())
+  {
+    if (_IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"received %d active lightweight participants: %@", v5, v6, v7, v8, v9, v2);
+      if (_IDSShouldLog(0))
+      {
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"received %d active lightweight participants: %@", v10, v11, v12, v13, v2);
+      }
+    }
+  }
+
+  return v3;
+}
+
+__CFDictionary *ProtoUtilProcessParticipantUpdate(void *a1, int a2, int a3)
+{
+  v42 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v7 = [v5 sessionStateCounter];
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v7];
+  if (v8)
+  {
+    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-counter", v8);
+  }
+
+  v9 = [v5 operationFlags];
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v9];
+  if (v10)
+  {
+    CFDictionarySetValue(v6, @"ids-stun-attribute-session-state-type", v10);
+  }
+
+  v11 = [v5 participantIdListsCount];
+  v12 = [v5 participantIdLists];
+  for (i = objc_alloc_init(MEMORY[0x1E695DF70]); v11; --v11)
+  {
+    if (i)
+    {
+      v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v12];
+
+      if (v14)
+      {
+        v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v12];
+        CFArrayAppendValue(i, v15);
+      }
+    }
+
+    ++v12;
+  }
+
+  v16 = OSLogHandleForTransportCategory();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v41 = i;
+    _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "receive participantIDs: %@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled())
+  {
+    if (_IDSShouldLogTransport())
+    {
+      _IDSLogTransport(@"GL", @"IDS", @"receive participantIDs: %@", v17, v18, v19, v20, v21, i);
+      if (_IDSShouldLog(0))
+      {
+        _IDSLogV(0, @"IDSFoundation", @"GL", @"receive participantIDs: %@", v22, v23, v24, v25, i);
+      }
+    }
+  }
+
+  v26 = i;
+  if (v26)
+  {
+    CFDictionarySetValue(v6, @"ids-stun-attribute-enc-ParticipantIDs", v26);
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    sub_1A7E1D40C();
+  }
+
+  if (a2)
+  {
+    v27 = 4;
+  }
+
+  else if ((a3 - 7) >= 3)
+  {
+    v28 = OSLogHandleForTransportCategory();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v41 = a3;
+      _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "ProtoUtilProcessParticipantUpdate: unknown messageType: %ld", buf, 0xCu);
+    }
+
+    if (os_log_shim_legacy_logging_enabled())
+    {
+      if (_IDSShouldLogTransport())
+      {
+        _IDSLogTransport(@"GL", @"IDS", @"ProtoUtilProcessParticipantUpdate: unknown messageType: %ld", v29, v30, v31, v32, v33, a3);
+        if (_IDSShouldLog(0))
+        {
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"ProtoUtilProcessParticipantUpdate: unknown messageType: %ld", v34, v35, v36, v37, a3);
+        }
+      }
+    }
+
+    v27 = 0;
+  }
+
+  else
+  {
+    v27 = (2 * (a3 - 7)) | 1;
+  }
+
+  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v27];
+  if (v38)
+  {
+    CFDictionarySetValue(v6, @"ids-stun-message-type", v38);
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    sub_1A7E1D4A0();
+  }
+
+  return v6;
+}
+
+void sub_1A7C3EEFC()
+{
+  v0 = objc_alloc_init(IDSStunRelayInterfaceInfoController);
+  v1 = qword_1ED5DF728;
+  qword_1ED5DF728 = v0;
+}
+
+uint64_t IDSQRProtoGoAwayIndicationReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v33 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v33 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v33 & 0x7F) << v5;
+        if ((v33 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) <= 2)
+      {
+        break;
+      }
+
+      if (v13 == 3)
+      {
+        v14 = PBReaderReadData();
+        v15 = 32;
+LABEL_44:
+        v31 = *(a1 + v15);
+        *(a1 + v15) = v14;
+
+        goto LABEL_53;
+      }
+
+      if (v13 != 15)
+      {
+LABEL_32:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_53;
+      }
+
+      v16 = 0;
+      v17 = 0;
+      v18 = 0;
+      *(a1 + 40) |= 1u;
+      while (1)
+      {
+        v35 = 0;
+        v19 = [a2 position] + 1;
+        if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
+        {
+          v21 = [a2 data];
+          [v21 getBytes:&v35 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v18 |= (v35 & 0x7F) << v16;
+        if ((v35 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v16 += 7;
+        v11 = v17++ >= 9;
+        if (v11)
+        {
+          v22 = 0;
+          goto LABEL_48;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v22 = 0;
+      }
+
+      else
+      {
+        v22 = v18;
+      }
+
+LABEL_48:
+      *(a1 + 8) = v22;
+LABEL_53:
+      v32 = [a2 position];
+      if (v32 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 == 1)
+    {
+      v24 = 0;
+      v25 = 0;
+      v26 = 0;
+      while (1)
+      {
+        v34 = 0;
+        v27 = [a2 position] + 1;
+        if (v27 >= [a2 position] && (v28 = objc_msgSend(a2, "position") + 1, v28 <= objc_msgSend(a2, "length")))
+        {
+          v29 = [a2 data];
+          [v29 getBytes:&v34 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v26 |= (v34 & 0x7F) << v24;
+        if ((v34 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v24 += 7;
+        v11 = v25++ >= 9;
+        if (v11)
+        {
+          v30 = 0;
+          goto LABEL_52;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v30 = 0;
+      }
+
+      else
+      {
+        v30 = v26;
+      }
+
+LABEL_52:
+      *(a1 + 16) = v30;
+      goto LABEL_53;
+    }
+
+    if (v13 != 2)
+    {
+      goto LABEL_32;
+    }
+
+    v14 = PBReaderReadString();
+    v15 = 24;
+    goto LABEL_44;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t IDSQRProtoInfoInfoReadFrom(uint64_t a1, void *a2)
+{
+  while (1)
+  {
+    v3 = [a2 position];
+    if (v3 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v4 = 0;
+    v5 = 0;
+    v6 = 0;
+    while (1)
+    {
+      v13 = 0;
+      v7 = [a2 position] + 1;
+      if (v7 >= [a2 position] && (v8 = objc_msgSend(a2, "position") + 1, v8 <= objc_msgSend(a2, "length")))
+      {
+        v9 = [a2 data];
+        [v9 getBytes:&v13 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v6 |= (v13 & 0x7F) << v4;
+      if ((v13 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v4 += 7;
+      if (v5++ >= 9)
+      {
+        v11 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v11 = [a2 hasError] ? 0 : v6;
+LABEL_15:
+    if (([a2 hasError] & 1) != 0 || (v11 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return [a2 hasError] ^ 1;
 }

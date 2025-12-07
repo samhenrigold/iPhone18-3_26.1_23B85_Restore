@@ -230,7 +230,7 @@ LABEL_23:
 
 + (id)networkAddressStringFromSockaddr:(const void *)sockaddr length:(unint64_t)length resolveHostName:(id)name
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v11 = nameCopy;
   if (nameCopy)
@@ -255,19 +255,19 @@ LABEL_23:
     goto LABEL_6;
   }
 
-  v23 = *(sockaddr + 1);
-  HIDWORD(v25) = v23 - 2;
-  LODWORD(v25) = v23 - 2;
-  v24 = v25 >> 2;
-  if (v24 > 3)
+  v22 = *(sockaddr + 1);
+  HIDWORD(v24) = v22 - 2;
+  LODWORD(v24) = v22 - 2;
+  v23 = v24 >> 2;
+  if (v23 > 3)
   {
-    if (v24 == 4)
+    if (v23 == 4)
     {
       v17 = "route";
       goto LABEL_32;
     }
 
-    if (v24 != 7)
+    if (v23 != 7)
     {
       goto LABEL_21;
     }
@@ -276,7 +276,7 @@ LABEL_23:
     {
       if (!v11)
       {
-        v17 = inet_ntop(v23, sockaddr + 8, v27, 0xFFu);
+        v17 = inet_ntop(v22, sockaddr + 8, v26, 0xFFu);
       }
 
       if (!*(sockaddr + 1))
@@ -292,9 +292,9 @@ LABEL_23:
 
   else
   {
-    if (v24)
+    if (v23)
     {
-      if (v24 == 2)
+      if (v23 == 2)
       {
         v17 = "ccitt";
 LABEL_32:
@@ -310,15 +310,15 @@ LABEL_21:
     if (v18 >= 0x10)
     {
       v8 = sockaddr + 4;
-      v26 = *(sockaddr + 1);
-      if (!v26)
+      v25 = *(sockaddr + 1);
+      if (!v25)
       {
         v17 = "*";
       }
 
-      if (!v11 && v26)
+      if (!v11 && v25)
       {
-        v17 = inet_ntop(v23, v8, v27, 0xFFu);
+        v17 = inet_ntop(v22, v8, v26, 0xFFu);
       }
 
       if (!*(sockaddr + 1))
@@ -348,8 +348,6 @@ LABEL_6:
   v19 = @"<error>";
   v20 = &stru_285A3F068;
 LABEL_7:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -710,26 +708,24 @@ LABEL_16:
 
 - (id)stringForSocketAddrEngineeringValue:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valueCopy = value;
-  v15 = 0;
-  if (objc_msgSend_getLengthOfUint64Representation_(valueCopy, v4, &v15, v5, v6))
+  v14 = 0;
+  if (objc_msgSend_getLengthOfUint64Representation_(valueCopy, v4, &v14, v5, v6))
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_2480986CC;
-    v14[3] = &unk_278EFBF80;
-    v14[4] = v16;
-    objc_msgSend_enumerateUint64Values_(valueCopy, v7, v14, v8, v9);
-    v11 = objc_msgSend_networkAddressStringFromSockaddr_length_resolveHostName_(XREngineeringValueFormatter, v10, v16, 8 * v15, 0);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_2480986CC;
+    v13[3] = &unk_278EFBF80;
+    v13[4] = v15;
+    objc_msgSend_enumerateUint64Values_(valueCopy, v7, v13, v8, v9);
+    v11 = objc_msgSend_networkAddressStringFromSockaddr_length_resolveHostName_(XREngineeringValueFormatter, v10, v15, 8 * v14, 0);
   }
 
   else
   {
     v11 = @"<error>";
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

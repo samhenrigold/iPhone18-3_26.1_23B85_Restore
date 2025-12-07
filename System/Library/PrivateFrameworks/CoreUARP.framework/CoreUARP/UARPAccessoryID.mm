@@ -179,11 +179,11 @@
 
 - (UARPAccessoryID)initWithCoder:(id)coder
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v43.receiver = self;
-  v43.super_class = UARPAccessoryID;
-  v5 = [(UARPAccessoryID *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = UARPAccessoryID;
+  v5 = [(UARPAccessoryID *)&v42 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
@@ -252,16 +252,15 @@
     v5->_uarpVersion = [v35 unsignedLongLongValue];
 
     v36 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v38 = [v36 setWithArray:v37];
     v39 = [coderCopy decodeObjectOfClasses:v38 forKey:@"partnerSerialNumbers"];
     partnerSerialNumbers = v5->_partnerSerialNumbers;
     v5->_partnerSerialNumbers = v39;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

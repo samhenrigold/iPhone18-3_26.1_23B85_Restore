@@ -9,13 +9,11 @@
 
 - (NSArray)seasons
 {
-  v3 = OBJC_IVAR___MTSeasonFeedRequest_seasons;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_1D91785DC();
+  v2 = sub_1D91785DC();
 
-  return v5;
+  return v2;
 }
 
 - (void)setSeasons:(id)seasons
@@ -23,7 +21,6 @@
   v4 = sub_1D91785FC();
   v5 = OBJC_IVAR___MTSeasonFeedRequest_seasons;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

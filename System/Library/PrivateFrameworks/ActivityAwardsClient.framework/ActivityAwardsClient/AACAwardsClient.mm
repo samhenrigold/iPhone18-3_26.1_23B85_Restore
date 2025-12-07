@@ -77,18 +77,17 @@ void __58__AACAwardsClient_requestAwardingWithTriggers_completion___block_invoke
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -204,7 +203,7 @@ void __55__AACAwardsClient_initialHistoricalRunStatusWithError___block_invoke(ui
 
 void __49__AACAwardsClient_allAchievementsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -218,35 +217,35 @@ void __49__AACAwardsClient_allAchievementsWithCompletion___block_invoke(uint64_t
 
   else
   {
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
-    v11 = [v20 achievements];
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v19 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
+    v11 = [v19 achievements];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         v15 = 0;
         do
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v21 + 1) + 8 * v15)];
+          v16 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v20 + 1) + 8 * v15)];
           [v8 addObject:v16];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -256,25 +255,23 @@ void __49__AACAwardsClient_allAchievementsWithCompletion___block_invoke(uint64_t
     v18 = [v8 copy];
     (*(v17 + 16))(v17, v18, 0);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allAchievementsWithError:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy_;
-  v26 = __Block_byref_object_dispose_;
-  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
+  v29 = *MEMORY[0x277D85DE8];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy_;
+  v19 = __Block_byref_object_dispose_;
+  v20 = 0;
   v5 = ACHLogXPC();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -282,14 +279,14 @@ void __49__AACAwardsClient_allAchievementsWithCompletion___block_invoke(uint64_t
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__AACAwardsClient_allAchievementsWithError___block_invoke;
-  v15[3] = &unk_278C45830;
-  v15[4] = &v16;
-  v15[5] = &v22;
-  [(AACXPCClient *)client sendSynchronousRequest:2 resultHandler:v15];
-  v7 = v17[5];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__AACAwardsClient_allAchievementsWithError___block_invoke;
+  v14[3] = &unk_278C45830;
+  v14[4] = &v15;
+  v14[5] = &v21;
+  [(AACXPCClient *)client sendSynchronousRequest:2 resultHandler:v14];
+  v7 = v16[5];
   v8 = v7;
   if (v7)
   {
@@ -308,24 +305,23 @@ void __49__AACAwardsClient_allAchievementsWithCompletion___block_invoke(uint64_t
   v10 = ACHLogXPC();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v23[5] count];
+    v11 = [v22[5] count];
     *buf = 134217984;
-    v29 = v11;
+    v28 = v11;
     _os_log_impl(&dword_23E4F1000, v10, OS_LOG_TYPE_DEFAULT, "Returning %lu achievements from synchronous allAchievementsWithError", buf, 0xCu);
   }
 
-  v12 = [v23[5] copy];
-  _Block_object_dispose(&v16, 8);
+  v12 = [v22[5] copy];
+  _Block_object_dispose(&v15, 8);
 
-  _Block_object_dispose(&v22, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 
   return v12;
 }
 
 void __44__AACAwardsClient_allAchievementsWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = ACHLogXPC();
@@ -336,40 +332,38 @@ void __44__AACAwardsClient_allAchievementsWithError___block_invoke(uint64_t a1, 
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   v8 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v9 = [v8 achievements];
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v16 + 1) + 8 * v13)];
+        v14 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v15 + 1) + 8 * v13)];
         [*(*(*(a1 + 40) + 8) + 40) addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)earnedAchievementsForDateInterval:(id)interval completion:(id)completion
@@ -395,7 +389,7 @@ void __44__AACAwardsClient_allAchievementsWithError___block_invoke(uint64_t a1, 
 
 void __64__AACAwardsClient_earnedAchievementsForDateInterval_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -415,35 +409,35 @@ void __64__AACAwardsClient_earnedAchievementsForDateInterval_completion___block_
       __64__AACAwardsClient_earnedAchievementsForDateInterval_completion___block_invoke_cold_1();
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
-    v12 = [v21 achievements];
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v20 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
+    v12 = [v20 achievements];
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v22 + 1) + 8 * v16)];
+          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v21 + 1) + 8 * v16)];
           [v8 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -453,8 +447,6 @@ void __64__AACAwardsClient_earnedAchievementsForDateInterval_completion___block_
     v19 = [v8 copy];
     (*(v18 + 16))(v18, v19, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)anniversaryAchievementsForDate:(id)date templateNames:(id)names completion:(id)completion
@@ -480,7 +472,7 @@ void __64__AACAwardsClient_earnedAchievementsForDateInterval_completion___block_
 
 void __75__AACAwardsClient_anniversaryAchievementsForDate_templateNames_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -500,35 +492,35 @@ void __75__AACAwardsClient_anniversaryAchievementsForDate_templateNames_completi
       __75__AACAwardsClient_anniversaryAchievementsForDate_templateNames_completion___block_invoke_cold_1();
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
-    v12 = [v21 achievements];
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v20 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
+    v12 = [v20 achievements];
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v22 + 1) + 8 * v16)];
+          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v21 + 1) + 8 * v16)];
           [v8 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -538,8 +530,6 @@ void __75__AACAwardsClient_anniversaryAchievementsForDate_templateNames_completi
     v19 = [v8 copy];
     (*(v18 + 16))(v18, v19, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)achievementsForTemplateNames:(id)names completion:(id)completion
@@ -565,7 +555,7 @@ void __75__AACAwardsClient_anniversaryAchievementsForDate_templateNames_completi
 
 void __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -585,35 +575,35 @@ void __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invok
       __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invoke_cold_1();
     }
 
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
-    v12 = [v21 achievements];
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v20 = [objc_alloc(MEMORY[0x277CE8CE8]) initWithData:v5];
+    v12 = [v20 achievements];
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v22 + 1) + 8 * v16)];
+          v17 = [objc_alloc(MEMORY[0x277CE8CB0]) initWithCodable:*(*(&v21 + 1) + 8 * v16)];
           [v8 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -623,26 +613,24 @@ void __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invok
     v19 = [v8 copy];
     (*(v18 + 16))(v18, v19, 0);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ephemeralAchievementWithTemplateUniqueName:(id)name error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy_;
-  v22 = __Block_byref_object_dispose_;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy_;
+  v21 = __Block_byref_object_dispose_;
+  v22 = 0;
   v7 = ACHLogXPC();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
@@ -650,14 +638,14 @@ void __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invok
   }
 
   client = self->_client;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __68__AACAwardsClient_ephemeralAchievementWithTemplateUniqueName_error___block_invoke;
-  v17[3] = &unk_278C45830;
-  v17[4] = &v18;
-  v17[5] = &v24;
-  [(AACXPCClient *)client sendSynchronousRequest:18 payload:nameCopy resultHandler:v17];
-  v9 = v19[5];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __68__AACAwardsClient_ephemeralAchievementWithTemplateUniqueName_error___block_invoke;
+  v16[3] = &unk_278C45830;
+  v16[4] = &v17;
+  v16[5] = &v23;
+  [(AACXPCClient *)client sendSynchronousRequest:18 payload:nameCopy resultHandler:v16];
+  v9 = v18[5];
   v10 = v9;
   if (v9)
   {
@@ -676,19 +664,18 @@ void __59__AACAwardsClient_achievementsForTemplateNames_completion___block_invok
   v12 = ACHLogXPC();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v25[5];
+    v13 = v24[5];
     *buf = 138412546;
-    v31 = nameCopy;
-    v32 = 2112;
-    v33 = v13;
+    v30 = nameCopy;
+    v31 = 2112;
+    v32 = v13;
     _os_log_impl(&dword_23E4F1000, v12, OS_LOG_TYPE_DEFAULT, "Returning ephermeral achievement for template name %@: %@", buf, 0x16u);
   }
 
-  v14 = v25[5];
-  _Block_object_dispose(&v18, 8);
+  v14 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v24, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
   return v14;
 }
@@ -729,7 +716,7 @@ void __68__AACAwardsClient_ephemeralAchievementWithTemplateUniqueName_error___bl
 
 void __49__AACAwardsClient_templatesForSource_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -740,35 +727,35 @@ void __49__AACAwardsClient_templatesForSource_completion___block_invoke(uint64_t
 
   else
   {
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v15 = [objc_alloc(MEMORY[0x277CE8D20]) initWithData:v5];
-    v8 = [v15 templates];
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v14 = [objc_alloc(MEMORY[0x277CE8D20]) initWithData:v5];
+    v8 = [v14 templates];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [objc_alloc(MEMORY[0x277CE8D50]) initWithCodable:*(*(&v16 + 1) + 8 * v12)];
+          v13 = [objc_alloc(MEMORY[0x277CE8D50]) initWithCodable:*(*(&v15 + 1) + 8 * v12)];
           [v7 addObject:v13];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -776,156 +763,146 @@ void __49__AACAwardsClient_templatesForSource_completion___block_invoke(uint64_t
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTemplates:(id)templates completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = templatesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
-        v15 = ACHCodableFromTemplate();
-        [v8 addObject:v15];
+        v14 = ACHCodableFromTemplate();
+        [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CE8D20]);
-  [v16 setTemplates:v8];
-  data = [v16 data];
+  v15 = objc_alloc_init(MEMORY[0x277CE8D20]);
+  [v15 setTemplates:v8];
+  data = [v15 data];
   client = self->_client;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __43__AACAwardsClient_addTemplates_completion___block_invoke;
-  v21[3] = &unk_278C45808;
-  v22 = completionCopy;
-  v19 = completionCopy;
-  [(AACXPCClient *)client sendRequest:12 payloadData:data completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __43__AACAwardsClient_addTemplates_completion___block_invoke;
+  v19[3] = &unk_278C45808;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [(AACXPCClient *)client sendRequest:12 payloadData:data completion:v19];
 }
 
 void __43__AACAwardsClient_addTemplates_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 - (void)removeTemplates:(id)templates completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   templatesCopy = templates;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = templatesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
-        v15 = ACHCodableFromTemplate();
-        [v8 addObject:v15];
+        v14 = ACHCodableFromTemplate();
+        [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CE8D20]);
-  [v16 setTemplates:v8];
-  data = [v16 data];
+  v15 = objc_alloc_init(MEMORY[0x277CE8D20]);
+  [v15 setTemplates:v8];
+  data = [v15 data];
   client = self->_client;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __46__AACAwardsClient_removeTemplates_completion___block_invoke;
-  v21[3] = &unk_278C45808;
-  v22 = completionCopy;
-  v19 = completionCopy;
-  [(AACXPCClient *)client sendRequest:13 payloadData:data completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __46__AACAwardsClient_removeTemplates_completion___block_invoke;
+  v19[3] = &unk_278C45808;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [(AACXPCClient *)client sendRequest:13 payloadData:data completion:v19];
 }
 
 void __46__AACAwardsClient_removeTemplates_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -947,18 +924,17 @@ void __55__AACAwardsClient_removeTemplatesForSource_completion___block_invoke(ui
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -980,168 +956,159 @@ void __61__AACAwardsClient_removeTemplatesWithUniqueNames_completion___block_inv
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 - (void)addEarnedInstances:(id)instances completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = instancesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
-        v15 = ACHCodableFromEarnedInstance();
-        [v8 addObject:v15];
+        v14 = ACHCodableFromEarnedInstance();
+        [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CE8D00]);
-  [v16 setEarnedInstances:v8];
-  data = [v16 data];
+  v15 = objc_alloc_init(MEMORY[0x277CE8D00]);
+  [v15 setEarnedInstances:v8];
+  data = [v15 data];
   client = self->_client;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __49__AACAwardsClient_addEarnedInstances_completion___block_invoke;
-  v21[3] = &unk_278C45808;
-  v22 = completionCopy;
-  v19 = completionCopy;
-  [(AACXPCClient *)client sendRequest:16 payloadData:data completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __49__AACAwardsClient_addEarnedInstances_completion___block_invoke;
+  v19[3] = &unk_278C45808;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [(AACXPCClient *)client sendRequest:16 payloadData:data completion:v19];
 }
 
 void __49__AACAwardsClient_addEarnedInstances_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 - (void)removeEarnedInstances:(id)instances completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = instancesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
-        v15 = ACHCodableFromEarnedInstance();
-        [v8 addObject:v15];
+        v14 = ACHCodableFromEarnedInstance();
+        [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CE8D00]);
-  [v16 setEarnedInstances:v8];
-  data = [v16 data];
+  v15 = objc_alloc_init(MEMORY[0x277CE8D00]);
+  [v15 setEarnedInstances:v8];
+  data = [v15 data];
   client = self->_client;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __52__AACAwardsClient_removeEarnedInstances_completion___block_invoke;
-  v21[3] = &unk_278C45808;
-  v22 = completionCopy;
-  v19 = completionCopy;
-  [(AACXPCClient *)client sendRequest:17 payloadData:data completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __52__AACAwardsClient_removeEarnedInstances_completion___block_invoke;
+  v19[3] = &unk_278C45808;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [(AACXPCClient *)client sendRequest:17 payloadData:data completion:v19];
 }
 
 void __52__AACAwardsClient_removeEarnedInstances_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
@@ -1163,93 +1130,88 @@ void __81__AACAwardsClient_requestProgressUpdateForProgressProviderIdentifier_co
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }
 
 - (void)provideAchievementProgressUpdates:(id)updates completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   updatesCopy = updates;
   completionCopy = completion;
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = updatesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       v13 = 0;
       do
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * v13);
-        v15 = ACHCodableFromAchievementProgressUpdate();
-        [v8 addObject:v15];
+        v14 = ACHCodableFromAchievementProgressUpdate();
+        [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CE8CF0]);
-  [v16 setAchievementProgressUpdates:v8];
-  data = [v16 data];
+  v15 = objc_alloc_init(MEMORY[0x277CE8CF0]);
+  [v15 setAchievementProgressUpdates:v8];
+  data = [v15 data];
   client = self->_client;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __64__AACAwardsClient_provideAchievementProgressUpdates_completion___block_invoke;
-  v21[3] = &unk_278C45808;
-  v22 = completionCopy;
-  v19 = completionCopy;
-  [(AACXPCClient *)client sendRequest:19 payloadData:data completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__AACAwardsClient_provideAchievementProgressUpdates_completion___block_invoke;
+  v19[3] = &unk_278C45808;
+  v20 = completionCopy;
+  v18 = completionCopy;
+  [(AACXPCClient *)client sendRequest:19 payloadData:data completion:v19];
 }
 
 void __64__AACAwardsClient_provideAchievementProgressUpdates_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v4 = *(a1 + 32);
-    v5 = *(*(a1 + 32) + 16);
+    v4 = *(*(a1 + 32) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = 0;
-    v6 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v8];
-    v7 = v8;
-    [v6 BOOLValue];
+    v7 = 0;
+    v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:a2 options:4 error:&v7];
+    v6 = v7;
+    [v5 BOOLValue];
     (*(*(a1 + 32) + 16))();
   }
 }

@@ -4,6 +4,7 @@
 - (id)_publisherForDevice:(id)device options:(id)options;
 - (id)_publishersForDevices:(id)devices includeLocal:(BOOL)local options:(id)options;
 - (id)_streamReaderWithRemoteName:(id)name;
+- (id)publishersForDevices:(id)devices includeLocal:(BOOL)local options:(id)options pipeline:(id)pipeline;
 @end
 
 @implementation BMStorePublisherManager
@@ -48,40 +49,58 @@
   return v16;
 }
 
+- (id)publishersForDevices:(id)devices includeLocal:(BOOL)local options:(id)options pipeline:(id)pipeline
+{
+  localCopy = local;
+  pipelineCopy = pipeline;
+  v11 = [(BMStorePublisherManager *)self _publishersForDevices:devices includeLocal:localCopy options:options];
+  v12 = v11;
+  if (pipelineCopy)
+  {
+    v13 = [v11 _pas_mappedArrayWithTransform:pipelineCopy];
+
+    v12 = v13;
+  }
+
+  v14 = [[BMPublishers alloc] initWithPublishers:v12];
+
+  return v14;
+}
+
 - (id)_publishersForDevices:(id)devices includeLocal:(BOOL)local options:(id)options
 {
   localCopy = local;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
   optionsCopy = options;
   v10 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v11 = devicesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [(BMStorePublisherManager *)self _publisherForDevice:*(*(&v20 + 1) + 8 * i) options:optionsCopy, v20];
+        v16 = [(BMStorePublisherManager *)self _publisherForDevice:*(*(&v19 + 1) + 8 * i) options:optionsCopy, v19];
         if (v16)
         {
           [v10 addObject:v16];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -95,8 +114,6 @@
       [v10 addObject:v17];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

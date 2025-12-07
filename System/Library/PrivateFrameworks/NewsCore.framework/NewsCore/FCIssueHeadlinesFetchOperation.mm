@@ -65,7 +65,7 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -75,16 +75,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires a context"];
-      v9 = 136315906;
-      v10 = "[FCIssueHeadlinesFetchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCIssueHeadlinesFetchOperation.m";
-      v13 = 1024;
-      v14 = 76;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires a context"];
+      v8 = 136315906;
+      v9 = "[FCIssueHeadlinesFetchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCIssueHeadlinesFetchOperation.m";
+      v12 = 1024;
+      v13 = 76;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -97,27 +97,25 @@
   if (self->_issueIDs)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues headlines fetch operation requires issue IDs"];
-    v9 = 136315906;
-    v10 = "[FCIssueHeadlinesFetchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCIssueHeadlinesFetchOperation.m";
-    v13 = 1024;
-    v14 = 80;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"issues headlines fetch operation requires issue IDs"];
+    v8 = 136315906;
+    v9 = "[FCIssueHeadlinesFetchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCIssueHeadlinesFetchOperation.m";
+    v12 = 1024;
+    v13 = 80;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
@@ -200,7 +198,7 @@ id __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_2(uint64_
 
 uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v57[3] = *MEMORY[0x1E69E9840];
+  v56[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:&unk_1F2E70620];
   v5 = [v3 objectForKeyedSubscript:&unk_1F2E70638];
@@ -218,7 +216,7 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(u
 
   v11 = *(a1 + 32);
   v12 = *(*(*(a1 + 40) + 8) + 40);
-  v47 = v6;
+  v46 = v6;
   if (v11)
   {
     v11 = v11[48];
@@ -229,21 +227,21 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(u
   v15 = MEMORY[0x1E695DFD8];
   v16 = [v5 allRecordIDs];
   v17 = [v15 setWithArray:v16];
-  v46 = FCHeadlinesByArticleIDFromHeldRecords(v12, v14, v17, v5, v10, v4, 1, 1);
+  v45 = FCHeadlinesByArticleIDFromHeldRecords(v12, v14, v17, v5, v10, v4, 1, 1);
 
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_22;
-  v54[3] = &unk_1E7C3B1B0;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_22;
+  v53[3] = &unk_1E7C3B1B0;
   v18 = v10;
   v19 = *(a1 + 32);
-  v45 = v18;
-  v55 = v18;
-  v56 = v19;
-  v43 = [v4 transformRecordsByIDWithBlock:v54];
+  v44 = v18;
+  v54 = v18;
+  v55 = v19;
+  v42 = [v4 transformRecordsByIDWithBlock:v53];
   v20 = [FCMultiAccessChecker alloc];
   v21 = objc_opt_new();
-  v57[0] = v21;
+  v56[0] = v21;
   v22 = [FCStorefrontAccessChecker alloc];
   v23 = *(a1 + 32);
   v24 = v5;
@@ -256,10 +254,10 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(u
   v26 = v23;
   v27 = [v26 privateChannelMembershipController];
   v28 = [(FCStorefrontAccessChecker *)v22 initWithPrivateChannelMembershipController:v27];
-  v57[1] = v28;
+  v56[1] = v28;
   v29 = objc_opt_new();
-  v57[2] = v29;
-  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
+  v56[2] = v29;
+  v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:3];
   v31 = [(FCMultiAccessChecker *)v20 initWithAccessCheckers:v30];
 
   v32 = *(a1 + 32);
@@ -278,31 +276,31 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(u
 
   if (v35)
   {
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_34;
-    v51[3] = &unk_1E7C382E8;
-    v51[4] = *(a1 + 32);
-    v52 = v44;
-    v53 = v46;
-    if (__50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_34(v51))
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_34;
+    v50[3] = &unk_1E7C382E8;
+    v50[4] = *(a1 + 32);
+    v51 = v43;
+    v52 = v45;
+    if (__50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_34(v50))
     {
       v36 = [MEMORY[0x1E696ABC0] fc_offlineErrorWithReason:v35];
       [*(a1 + 32) finishedPerformingOperationWithError:v36];
 
-      v37 = v52;
+      v37 = v51;
       goto LABEL_16;
     }
   }
 
-  v38 = [v44 allValues];
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_6;
-  v48[3] = &unk_1E7C42018;
-  v49 = v46;
-  v50 = v31;
-  v39 = [v38 fc_dictionaryWithValueBlock:v48];
+  v38 = [v43 allValues];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_6;
+  v47[3] = &unk_1E7C42018;
+  v48 = v45;
+  v49 = v31;
+  v39 = [v38 fc_dictionaryWithValueBlock:v47];
   v40 = *(a1 + 32);
   if (v40)
   {
@@ -310,10 +308,9 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3(u
   }
 
   [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v37 = v49;
+  v37 = v48;
 LABEL_16:
 
-  v41 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -354,11 +351,11 @@ FCIssue *__50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_22(
 
 uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_34(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -366,22 +363,22 @@ uint64_t __50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_3_3
   }
 
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
-    v19 = *v25;
+    v6 = *v24;
+    v18 = *v24;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(a1 + 40) objectForKey:*(*(&v24 + 1) + 8 * i)];
+        v8 = [*(a1 + 40) objectForKey:*(*(&v23 + 1) + 8 * i)];
         if (!v8)
         {
 LABEL_21:
@@ -390,26 +387,26 @@ LABEL_21:
         }
 
         v9 = v8;
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v10 = [v9 allArticleIDs];
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v21;
+          v13 = *v20;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v21 != v13)
+              if (*v20 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = [*(a1 + 48) objectForKey:*(*(&v20 + 1) + 8 * j)];
+              v15 = [*(a1 + 48) objectForKey:*(*(&v19 + 1) + 8 * j)];
 
               if (!v15)
               {
@@ -418,7 +415,7 @@ LABEL_21:
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
             if (v12)
             {
               continue;
@@ -428,10 +425,10 @@ LABEL_21:
           }
         }
 
-        v6 = v19;
+        v6 = v18;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
       v16 = 0;
       if (v5)
       {
@@ -449,7 +446,6 @@ LABEL_21:
 
 LABEL_23:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -518,7 +514,7 @@ void *__50__FCIssueHeadlinesFetchOperation_performOperation__block_invoke_7(uint
 
 void __59__FCIssueHeadlinesFetchOperation__promiseHeldRecordsByType__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -547,43 +543,41 @@ void __59__FCIssueHeadlinesFetchOperation__promiseHeldRecordsByType__block_invok
   }
 
   [(FCRecordChainFetchOperation *)v8 setTopLevelRecordIDs:v12];
-  v29[0] = @"Issue";
-  v28 = @"allArticleIDs";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-  v30[0] = v13;
-  v29[1] = @"Article";
-  v27 = @"sourceChannelTagID";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
-  v29[2] = @"Tag";
-  v30[1] = v14;
-  v30[2] = MEMORY[0x1E695E0F0];
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+  v28[0] = @"Issue";
+  v27 = @"allArticleIDs";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
+  v29[0] = v13;
+  v28[1] = @"Article";
+  v26 = @"sourceChannelTagID";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v28[2] = @"Tag";
+  v29[1] = v14;
+  v29[2] = MEMORY[0x1E695E0F0];
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:3];
   [(FCRecordChainFetchOperation *)v8 setLinkKeysByRecordType:v15];
 
   v16 = [*(a1 + 32) cachePolicy];
 
   if (v16)
   {
-    v25 = @"Issue";
+    v24 = @"Issue";
     v17 = [*(a1 + 32) cachePolicy];
-    v26 = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v25 = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     [(FCRecordChainFetchOperation *)v8 setCachePoliciesByRecordType:v18];
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __59__FCIssueHeadlinesFetchOperation__promiseHeldRecordsByType__block_invoke_2;
-  v22[3] = &unk_1E7C3EF48;
-  v23 = v5;
-  v24 = v6;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __59__FCIssueHeadlinesFetchOperation__promiseHeldRecordsByType__block_invoke_2;
+  v21[3] = &unk_1E7C3EF48;
+  v22 = v5;
+  v23 = v6;
   v19 = v6;
   v20 = v5;
-  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v22];
+  [(FCRecordChainFetchOperation *)v8 setRecordChainCompletionHandler:v21];
   [*(a1 + 32) associateChildOperation:v8];
   [(FCOperation *)v8 start];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__FCIssueHeadlinesFetchOperation__promiseHeldRecordsByType__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)

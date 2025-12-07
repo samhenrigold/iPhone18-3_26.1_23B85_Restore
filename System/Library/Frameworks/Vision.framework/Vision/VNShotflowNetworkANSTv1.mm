@@ -188,7 +188,7 @@
 {
   v3 = objc_opt_class();
   v7 = 0;
-  std::vector<unsigned long>::vector[abi:ne200100](&__p, 4uLL);
+  std::vector<unsigned long>::vector[abi:ne200100](&__p, 4uLL, &v7);
   inputLayerName = [v3 inputLayerName];
   [inputLayerName UTF8String];
   blob_dimensions = espresso_network_query_blob_dimensions();

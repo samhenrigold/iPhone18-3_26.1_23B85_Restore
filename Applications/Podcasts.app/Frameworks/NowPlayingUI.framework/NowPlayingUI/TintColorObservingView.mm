@@ -8,21 +8,22 @@
 
 - (void)tintColorDidChange
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for TintColorObservingView();
-  v2 = v6.receiver;
-  [(TintColorObservingView *)&v6 tintColorDidChange];
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for TintColorObservingView();
+  v2 = v7.receiver;
+  [(TintColorObservingView *)&v7 tintColorDidChange];
   v3 = *&v2[OBJC_IVAR____TtC12NowPlayingUI22TintColorObservingView_tintColorDidChangeCallback];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC12NowPlayingUI22TintColorObservingView_tintColorDidChangeCallback + 8];
 
     tintColor = [v2 tintColor];
     if (tintColor)
     {
-      v5 = tintColor;
+      v6 = tintColor;
       v3();
 
-      sub_2173C(v3);
+      sub_2173C(v3, v4);
     }
 
     else

@@ -1878,7 +1878,7 @@ void __61__ICQLocalBackupController_reloadBackupInfoWithDeleteButton___block_inv
   dispatch_async(MEMORY[0x277D85CD0], v4);
 }
 
-uint64_t __61__ICQLocalBackupController_reloadBackupInfoWithDeleteButton___block_invoke_2(uint64_t a1)
+void *__61__ICQLocalBackupController_reloadBackupInfoWithDeleteButton___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) reloadAfterFetch];
   if (*(a1 + 40) == 1)

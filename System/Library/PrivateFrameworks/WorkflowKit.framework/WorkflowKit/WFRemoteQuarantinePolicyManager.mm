@@ -39,53 +39,53 @@
 
 - (BOOL)deleteAssetBundlesExceptAssetWithIdentifier:(id)identifier error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v7 = WFAssetDataDirectoryForIdentifier(identifierCopy);
   uRLByStandardizingPath = [v7 URLByStandardizingPath];
 
   v9 = WFAssetsDirectory();
-  v29 = 0;
-  v10 = [defaultManager contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:2 error:&v29];
-  v11 = v29;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __85__WFRemoteQuarantinePolicyManager_deleteAssetBundlesExceptAssetWithIdentifier_error___block_invoke;
-  v27[3] = &unk_1E8373590;
+  v28 = 0;
+  v10 = [defaultManager contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:2 error:&v28];
+  v11 = v28;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __85__WFRemoteQuarantinePolicyManager_deleteAssetBundlesExceptAssetWithIdentifier_error___block_invoke;
+  v26[3] = &unk_1E8373590;
   v12 = uRLByStandardizingPath;
-  v28 = v12;
-  v13 = [v10 if_objectsPassingTest:v27];
+  v27 = v12;
+  v13 = [v10 if_objectsPassingTest:v26];
 
   if ([v13 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v24;
+      v17 = *v23;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v24 != v17)
+          if (*v23 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          if (![defaultManager removeItemAtURL:*(*(&v23 + 1) + 8 * i) error:{error, v23}])
+          if (![defaultManager removeItemAtURL:*(*(&v22 + 1) + 8 * i) error:{error, v22}])
           {
             v19 = 0;
             goto LABEL_12;
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v22 objects:v29 count:16];
         if (v16)
         {
           continue;
@@ -110,7 +110,6 @@ LABEL_12:
     v19 = v11 == 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -118,7 +117,7 @@ uint64_t __85__WFRemoteQuarantinePolicyManager_deleteAssetBundlesExceptAssetWith
 {
   v3 = [a2 URLByStandardizingPath];
   v4 = [v3 pathExtension];
-  if ([v4 isEqualToString:@"bundle"])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = [v3 isEqual:*(a1 + 32)];
 
@@ -136,7 +135,7 @@ uint64_t __85__WFRemoteQuarantinePolicyManager_deleteAssetBundlesExceptAssetWith
 
 - (BOOL)persistAssetToDisk:(id)disk error:(id *)error
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   diskCopy = disk;
   assetDataFile = [diskCopy assetDataFile];
   v9 = WFExtractArchiveFile();
@@ -159,15 +158,15 @@ LABEL_35:
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v52 = 0;
+    v51 = 0;
     if ([v9 count] == 1)
     {
       v14 = [v9 objectAtIndexedSubscript:0];
       fileURL = [v14 fileURL];
       path = [fileURL path];
-      if ([defaultManager fileExistsAtPath:path isDirectory:&v52])
+      if ([defaultManager fileExistsAtPath:path isDirectory:&v51])
       {
-        v17 = v52;
+        v17 = v51;
 
         if (v17 == 1)
         {
@@ -175,27 +174,27 @@ LABEL_35:
           fileURL2 = [v18 fileURL];
 
           [defaultManager enumeratorAtURL:fileURL2 includingPropertiesForKeys:0 options:0 errorHandler:0];
+          v47 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v50 = 0u;
-          obj = v51 = 0u;
-          v20 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+          obj = v50 = 0u;
+          v20 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
           if (v20)
           {
             v21 = v20;
-            v39 = v9;
-            v41 = diskCopy;
-            v22 = *v49;
+            v38 = v9;
+            v40 = diskCopy;
+            v22 = *v48;
             while (2)
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v49 != v22)
+                if (*v48 != v22)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v24 = *(*(&v48 + 1) + 8 * i);
+                v24 = *(*(&v47 + 1) + 8 * i);
                 lastPathComponent = [v24 lastPathComponent];
                 v26 = [v12 URLByAppendingPathComponent:lastPathComponent];
 
@@ -207,7 +206,7 @@ LABEL_35:
                 }
               }
 
-              v21 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+              v21 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
               if (v21)
               {
                 continue;
@@ -218,8 +217,8 @@ LABEL_35:
 
             v27 = 1;
 LABEL_31:
-            v9 = v39;
-            diskCopy = v41;
+            v9 = v38;
+            diskCopy = v40;
           }
 
           else
@@ -237,28 +236,28 @@ LABEL_34:
       }
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     fileURL2 = v9;
-    v29 = [fileURL2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v29 = [fileURL2 countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (v29)
     {
       v30 = v29;
-      v40 = v9;
-      v42 = diskCopy;
-      v31 = *v45;
+      v39 = v9;
+      v41 = diskCopy;
+      v31 = *v44;
       while (2)
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v45 != v31)
+          if (*v44 != v31)
           {
             objc_enumerationMutation(fileURL2);
           }
 
-          v33 = *(*(&v44 + 1) + 8 * j);
+          v33 = *(*(&v43 + 1) + 8 * j);
           filename = [v33 filename];
           v35 = [v12 URLByAppendingPathComponent:filename];
 
@@ -272,7 +271,7 @@ LABEL_34:
           }
         }
 
-        v30 = [fileURL2 countByEnumeratingWithState:&v44 objects:v53 count:16];
+        v30 = [fileURL2 countByEnumeratingWithState:&v43 objects:v52 count:16];
         if (v30)
         {
           continue;
@@ -283,8 +282,8 @@ LABEL_34:
 
       v27 = 1;
 LABEL_28:
-      v9 = v40;
-      diskCopy = v42;
+      v9 = v39;
+      diskCopy = v41;
     }
 
     else
@@ -298,13 +297,12 @@ LABEL_28:
   v27 = 0;
 LABEL_36:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (BOOL)processAsset:(id)asset error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   if ([assetCopy compatibilityVersion] != 2)
   {
@@ -317,9 +315,9 @@ LABEL_36:
   {
     identifier = [assetCopy identifier];
     recordName = [identifier recordName];
-    v17 = 0;
-    v11 = [(WFRemoteQuarantinePolicyManager *)self deleteAssetBundlesExceptAssetWithIdentifier:recordName error:&v17];
-    v12 = v17;
+    v16 = 0;
+    v11 = [(WFRemoteQuarantinePolicyManager *)self deleteAssetBundlesExceptAssetWithIdentifier:recordName error:&v16];
+    v12 = v16;
 
     if (!v11)
     {
@@ -327,21 +325,20 @@ LABEL_36:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v19 = "[WFRemoteQuarantinePolicyManager processAsset:error:]";
-        v20 = 2114;
-        v21 = v12;
+        v18 = "[WFRemoteQuarantinePolicyManager processAsset:error:]";
+        v19 = 2114;
+        v20 = v12;
         _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Failed to clean-up older assets. Error: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)updatePolicyWithXPCActivity:(id)activity completionHandler:(id)handler
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = MEMORY[0x1E6996CA8];
   activityCopy = activity;
@@ -380,19 +377,17 @@ LABEL_36:
   [(WFCloudKitItemRequest *)v25 setXpcActivity:activityCopy];
   v26 = objc_opt_class();
   v27 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"contentVersion" ascending:0];
-  v36[0] = v27;
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completionHandler___block_invoke;
-  v33[3] = &unk_1E8373568;
-  v34 = handlerCopy;
-  v35 = a2;
-  v33[4] = self;
+  v35[0] = v27;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completionHandler___block_invoke;
+  v32[3] = &unk_1E8373568;
+  v33 = handlerCopy;
+  v34 = a2;
+  v32[4] = self;
   v29 = handlerCopy;
-  v30 = [(WFCloudKitItemRequest *)v25 fetchItemsWithPredicate:v21 itemType:v26 groupName:@"ConfigurationAssetQuery" properties:0 sortDescriptors:v28 resultsLimit:1 qualityOfService:17 completionHandler:v33];
-
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = [(WFCloudKitItemRequest *)v25 fetchItemsWithPredicate:v21 itemType:v26 groupName:@"ConfigurationAssetQuery" properties:0 sortDescriptors:v28 resultsLimit:1 qualityOfService:17 completionHandler:v32];
 }
 
 void __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -447,7 +442,7 @@ void __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completio
 
 void __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v6 = a3;
   switch(a2)
   {
@@ -455,10 +450,10 @@ void __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completio
       v7 = getWFGeneralLogObject();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315394;
-        v14 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke";
-        v15 = 2114;
-        v16 = v6;
+        v12 = 136315394;
+        v13 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke";
+        v14 = 2114;
+        v15 = v6;
         v8 = "%s Failed to refresh remote quarantine policy. Error: %{public}@";
         v9 = v7;
         v10 = OS_LOG_TYPE_ERROR;
@@ -471,8 +466,8 @@ void __81__WFRemoteQuarantinePolicyManager_updatePolicyWithXPCActivity_completio
       v7 = getWFGeneralLogObject();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke";
+        v12 = 136315138;
+        v13 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke";
         v8 = "%s Remote quarantine policy is up-to-date.";
         goto LABEL_8;
       }
@@ -484,15 +479,15 @@ LABEL_12:
       v7 = getWFGeneralLogObject();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v13 = 136315138;
-        v14 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke_2";
+        v12 = 136315138;
+        v13 = "[WFRemoteQuarantinePolicyManager updatePolicyWithXPCActivity:completionHandler:]_block_invoke_2";
         v8 = "%s Successfully refreshed remote quarantine policy.";
 LABEL_8:
         v9 = v7;
         v10 = OS_LOG_TYPE_INFO;
         v11 = 12;
 LABEL_11:
-        _os_log_impl(&dword_1CA256000, v9, v10, v8, &v13, v11);
+        _os_log_impl(&dword_1CA256000, v9, v10, v8, &v12, v11);
         goto LABEL_12;
       }
 
@@ -500,33 +495,21 @@ LABEL_11:
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v6, v5);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)policyStringForBundleIfValid:(id)valid
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = validCopy;
-  if (!validCopy)
-  {
-    goto LABEL_6;
-  }
-
-  v5 = [validCopy objectForInfoDictionaryKey:@"CompatibilityVersion"];
-  v6 = objc_opt_class();
-  v7 = WFEnforceClass_1042(v5, v6);
-  unsignedIntegerValue = [v7 unsignedIntegerValue];
-
-  if (unsignedIntegerValue == 2)
+  if (validCopy && ([validCopy objectForInfoDictionaryKey:@"CompatibilityVersion"], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_opt_class(), WFEnforceClass_1042(v5, v6), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "unsignedIntegerValue"), v7, v5, v8 == 2))
   {
     v9 = [v4 URLForResource:@"WFRemoteQuarantinePolicy" withExtension:@"js"];
     if (v9)
     {
-      v16 = 0;
-      v10 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v9 encoding:4 error:&v16];
-      v11 = v16;
+      v15 = 0;
+      v10 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v9 encoding:4 error:&v15];
+      v11 = v15;
       if ([v10 length])
       {
         v12 = v10;
@@ -538,11 +521,11 @@ LABEL_11:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v18 = "[WFRemoteQuarantinePolicyManager policyStringForBundleIfValid:]";
-          v19 = 2114;
-          v20 = v9;
-          v21 = 2114;
-          v22 = v11;
+          v17 = "[WFRemoteQuarantinePolicyManager policyStringForBundleIfValid:]";
+          v18 = 2114;
+          v19 = v9;
+          v20 = 2114;
+          v21 = v11;
           _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Failed to parse remote quarantine policy file %{public}@. Error: %{public}@", buf, 0x20u);
         }
 
@@ -558,30 +541,27 @@ LABEL_11:
 
   else
   {
-LABEL_6:
     v12 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)latestRemotePolicyAssetBundle
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = WFAssetsDirectory();
-  v14 = 0;
-  v5 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:2 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [defaultManager contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:2 error:&v13];
+  v6 = v13;
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__block_invoke;
-  v13[3] = &unk_1E8373520;
-  v13[4] = self;
-  v7 = [v5 if_compactMap:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__block_invoke;
+  v12[3] = &unk_1E8373520;
+  v12[4] = self;
+  v7 = [v5 if_compactMap:v12];
   if ([v7 count])
   {
     v8 = [v7 sortedArrayUsingComparator:&__block_literal_global_204];
@@ -596,13 +576,13 @@ LABEL_3:
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = WFAssetsDirectory();
+      v11 = WFAssetsDirectory();
       *buf = 136315650;
-      v16 = "[WFRemoteQuarantinePolicyManager latestRemotePolicyAssetBundle]";
-      v17 = 2114;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v6;
+      v15 = "[WFRemoteQuarantinePolicyManager latestRemotePolicyAssetBundle]";
+      v16 = 2114;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Encountered an error while trying to access asset bundles directory (%{public}@). Error: %{public}@", buf, 0x20u);
     }
 
@@ -613,8 +593,6 @@ LABEL_3:
   lastObject = 0;
 LABEL_7:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return lastObject;
 }
 
@@ -622,9 +600,9 @@ id __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__block_in
 {
   v3 = a2;
   v4 = [v3 pathExtension];
-  v5 = [v4 isEqualToString:@"bundle"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [MEMORY[0x1E696AAE8] bundleWithURL:v3];
     v7 = [*(a1 + 32) policyStringForBundleIfValid:v6];
@@ -693,7 +671,7 @@ uint64_t __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__bl
 
 - (id)localizedString:(id)string
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   policyAssetBundle = [(WFRemoteQuarantinePolicyManager *)self policyAssetBundle];
   v6 = [policyAssetBundle localizedStringForKey:stringCopy value:0 table:0];
@@ -703,11 +681,11 @@ uint64_t __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__bl
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[WFRemoteQuarantinePolicyManager localizedString:]";
-      v14 = 2114;
-      v15 = stringCopy;
-      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Warning: Can't find remote quarantine localized string for value '%{public}@'", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "[WFRemoteQuarantinePolicyManager localizedString:]";
+      v13 = 2114;
+      v14 = stringCopy;
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Warning: Can't find remote quarantine localized string for value '%{public}@'", &v11, 0x16u);
     }
 
     v7 = stringCopy;
@@ -715,7 +693,6 @@ uint64_t __64__WFRemoteQuarantinePolicyManager_latestRemotePolicyAssetBundle__bl
 
   v9 = v7;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

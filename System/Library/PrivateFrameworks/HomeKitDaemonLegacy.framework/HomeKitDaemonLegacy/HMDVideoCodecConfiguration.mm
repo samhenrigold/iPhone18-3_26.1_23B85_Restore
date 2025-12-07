@@ -24,40 +24,39 @@
 
 - (HMDVideoCodecConfiguration)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = HMDVideoCodecConfiguration;
-  v5 = [(HMDVideoCodecConfiguration *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = HMDVideoCodecConfiguration;
+  v5 = [(HMDVideoCodecConfiguration *)&v22 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v26[0] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kVideoCodecConfiguration__CodecType"];
     videoCodec = v5->_videoCodec;
     v5->_videoCodec = v9;
 
     v11 = MEMORY[0x277CBEB98];
-    v25 = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v24 = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"kVideoCodecConfiguration__CodecParameters"];
     codecParameters = v5->_codecParameters;
     v5->_codecParameters = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"kVideoCodecConfiguration__Attributes"];
     videoAttributes = v5->_videoAttributes;
     v5->_videoAttributes = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -105,14 +104,14 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kVideoCodecConfiguration__CodecType"];
   v4 = [MEMORY[0x277CFEB38] wrappertlv:2 name:@"kVideoCodecConfiguration__CodecParameters"];
   v5 = [MEMORY[0x277CFEA58] wrappertlv:3 name:@"kVideoCodecConfiguration__Attributes" objectCreator:&__block_literal_global_296];
-  v28[0] = v3;
-  v28[1] = v4;
-  v28[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
+  v27[0] = v3;
+  v27[1] = v4;
+  v27[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
   if ([(HAPTLVBase *)self _parse:v6])
   {
     v7 = [HMDVideoCodec alloc];
@@ -131,7 +130,7 @@
     videoAttributes = self->_videoAttributes;
     self->_videoAttributes = field3;
 
-    v24 = checkForParseResult(1, v17, v18, v19, v20, v21, v22, v23, self->_codecParameters, v27);
+    v24 = checkForParseResult(1, v17, v18, v19, v20, v21, v22, v23, self->_codecParameters, v26);
   }
 
   else
@@ -139,7 +138,6 @@
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

@@ -411,36 +411,39 @@ LABEL_16:
 
 - (void)_logDeprecation:(id)deprecation value:(id)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   deprecationCopy = deprecation;
   valueCopy = value;
+  v9 = valueCopy;
   if (valueCopy)
   {
     valueCopy = [MEMORY[0x277CCACA8] stringWithFormat:@" = %@", valueCopy];
+    v10 = valueCopy;
   }
 
   else
   {
-    valueCopy = &stru_282D68F58;
+    v10 = &stru_282D68F58;
   }
 
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(valueCopy, v8);
+  if (isInternalInstall)
   {
-    v9 = _RUILoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       objectModel = [(RUITopLevelElementParser *)self objectModel];
       sourceURL = [objectModel sourceURL];
       lastObject = [(NSMutableArray *)self->_elementStack lastObject];
       *buf = 138413058;
-      v14 = sourceURL;
-      v15 = 2112;
-      v16 = deprecationCopy;
-      v17 = 2112;
-      v18 = valueCopy;
-      v19 = 2112;
-      v20 = lastObject;
-      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated feature %@%@ in %@ element", buf, 0x2Au);
+      v17 = sourceURL;
+      v18 = 2112;
+      v19 = deprecationCopy;
+      v20 = 2112;
+      v21 = v10;
+      v22 = 2112;
+      v23 = lastObject;
+      _os_log_impl(&dword_21B93D000, v12, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated feature %@%@ in %@ element", buf, 0x2Au);
     }
   }
 }
@@ -448,7 +451,7 @@ LABEL_16:
 - (void)_finalizePinView
 {
   selfCopy = self;
-  v55 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   page = [(RUITopLevelElementParser *)self page];
   passcodeViewOM = [page passcodeViewOM];
   attributes = [passcodeViewOM attributes];
@@ -466,104 +469,105 @@ LABEL_16:
       goto LABEL_25;
     }
 
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v11, v12);
+    if (isInternalInstall)
     {
-      v11 = _RUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         baseURL = [(RUITopLevelElementParser *)selfCopy baseURL];
         *buf = 138412290;
-        v54 = baseURL;
-        _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated pinView attribute 'footer'. Use <footer> instead.", buf, 0xCu);
+        v60 = baseURL;
+        _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated pinView attribute 'footer'. Use <footer> instead.", buf, 0xCu);
       }
     }
 
     attributes2 = [(RUIElement *)[RUIFooterElement alloc] initWithAttributes:0 parent:passcodeViewOM];
     [passcodeViewOM setFooter:attributes2];
     attributes3 = [passcodeViewOM attributes];
-    v14 = [attributes3 objectForKeyedSubscript:@"footer"];
-    [(RUIElement *)attributes2 setBody:v14];
+    v17 = [attributes3 objectForKeyedSubscript:@"footer"];
+    [(RUIElement *)attributes2 setBody:v17];
 
     attributes4 = [passcodeViewOM attributes];
-    v16 = [attributes4 objectForKeyedSubscript:@"footerLinkURL"];
+    v19 = [attributes4 objectForKeyedSubscript:@"footerLinkURL"];
 
-    if (v16)
+    if (v19)
     {
       attributes5 = [passcodeViewOM attributes];
-      v18 = [attributes5 objectForKeyedSubscript:@"footerLinkURL"];
-      [(RUITopLevelElementParser *)selfCopy _logDeprecation:@"footerLinkURL" value:v18];
+      v21 = [attributes5 objectForKeyedSubscript:@"footerLinkURL"];
+      [(RUITopLevelElementParser *)selfCopy _logDeprecation:@"footerLinkURL" value:v21];
 
       footer2 = [passcodeViewOM footer];
       attributes6 = [footer2 attributes];
-      v21 = [attributes6 mutableCopy];
-      v22 = v21;
-      v46 = selfCopy;
-      v47 = page;
-      if (v21)
+      v24 = [attributes6 mutableCopy];
+      v25 = v24;
+      v52 = selfCopy;
+      v53 = page;
+      if (v24)
       {
-        v23 = v21;
+        v26 = v24;
       }
 
       else
       {
-        v23 = objc_opt_new();
+        v26 = objc_opt_new();
       }
 
-      v24 = v23;
-      v45 = attributes2;
+      v27 = v26;
+      v51 = attributes2;
 
       attributes7 = [passcodeViewOM attributes];
-      v26 = [attributes7 objectForKeyedSubscript:@"footerLinkURL"];
-      [v24 setObject:v26 forKeyedSubscript:@"url"];
+      v29 = [attributes7 objectForKeyedSubscript:@"footerLinkURL"];
+      [v27 setObject:v29 forKeyedSubscript:@"url"];
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v27 = [&unk_282D7AD10 countByEnumeratingWithState:&v48 objects:v52 count:16];
-      if (v27)
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v30 = [&unk_282D7AD10 countByEnumeratingWithState:&v54 objects:v58 count:16];
+      if (v30)
       {
-        v28 = v27;
-        v29 = *v49;
+        v31 = v30;
+        v32 = *v55;
         do
         {
-          for (i = 0; i != v28; ++i)
+          for (i = 0; i != v31; ++i)
           {
-            if (*v49 != v29)
+            if (*v55 != v32)
             {
               objc_enumerationMutation(&unk_282D7AD10);
             }
 
-            v31 = *(*(&v48 + 1) + 8 * i);
-            attributes9 = [v24 objectForKeyedSubscript:v31];
+            v34 = *(*(&v54 + 1) + 8 * i);
+            attributes9 = [v27 objectForKeyedSubscript:v34];
             if (!attributes9)
             {
               attributes8 = [passcodeViewOM attributes];
-              v34 = [attributes8 objectForKeyedSubscript:v31];
+              v37 = [attributes8 objectForKeyedSubscript:v34];
 
-              if (!v34)
+              if (!v37)
               {
                 continue;
               }
 
               attributes9 = [passcodeViewOM attributes];
-              v35 = [attributes9 objectForKeyedSubscript:v31];
-              [v24 setObject:v35 forKeyedSubscript:v31];
+              v38 = [attributes9 objectForKeyedSubscript:v34];
+              [v27 setObject:v38 forKeyedSubscript:v34];
             }
           }
 
-          v28 = [&unk_282D7AD10 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v31 = [&unk_282D7AD10 countByEnumeratingWithState:&v54 objects:v58 count:16];
         }
 
-        while (v28);
+        while (v31);
       }
 
       footer3 = [passcodeViewOM footer];
-      [footer3 setAttributes:v24];
+      [footer3 setAttributes:v27];
 
-      selfCopy = v46;
-      page = v47;
-      attributes2 = v45;
+      selfCopy = v52;
+      page = v53;
+      attributes2 = v51;
     }
 
     [v6 removeObjectForKey:@"footer"];
@@ -572,36 +576,37 @@ LABEL_16:
 
 LABEL_25:
   attributes10 = [passcodeViewOM attributes];
-  v38 = [(RUIHeaderElement *)attributes10 objectForKeyedSubscript:@"label"];
-  if (!v38)
+  v41 = [(RUIHeaderElement *)attributes10 objectForKeyedSubscript:@"label"];
+  if (!v41)
   {
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  v39 = v38;
+  v42 = v41;
   header = [passcodeViewOM header];
 
   if (!header)
   {
-    if (_isInternalInstall())
+    v46 = _isInternalInstall(v44, v45);
+    if (v46)
     {
-      v41 = _RUILoggingFacility();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v47 = _RUILoggingFacility(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         baseURL2 = [(RUITopLevelElementParser *)selfCopy baseURL];
         *buf = 138412290;
-        v54 = baseURL2;
-        _os_log_impl(&dword_21B93D000, v41, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated pinView attribute 'label'. Use <header> instead.", buf, 0xCu);
+        v60 = baseURL2;
+        _os_log_impl(&dword_21B93D000, v47, OS_LOG_TYPE_DEFAULT, "Page with baseURL %@ is using deprecated pinView attribute 'label'. Use <header> instead.", buf, 0xCu);
       }
     }
 
     attributes10 = [(RUIElement *)[RUIHeaderElement alloc] initWithAttributes:&unk_282D7ACC0 parent:passcodeViewOM];
     [passcodeViewOM setHeader:attributes10];
     attributes11 = [passcodeViewOM attributes];
-    v44 = [attributes11 objectForKeyedSubscript:@"label"];
-    [(RUIElement *)attributes10 setBody:v44];
+    v50 = [attributes11 objectForKeyedSubscript:@"label"];
+    [(RUIElement *)attributes10 setBody:v50];
 
     [v6 removeObjectForKey:@"label"];
     goto LABEL_32;
@@ -820,7 +825,7 @@ LABEL_35:
 
 - (void)traversalDelegateDidStartElement:(id)element
 {
-  v163[1] = *MEMORY[0x277D85DE8];
+  v167[1] = *MEMORY[0x277D85DE8];
   elementCopy = element;
   [(NSMutableString *)self->_accumulator setString:&stru_282D68F58];
   name = [elementCopy name];
@@ -860,8 +865,8 @@ LABEL_6:
 
   if (v20)
   {
-    v163[0] = name2;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v163 count:1];
+    v167[0] = name2;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:1];
     v22 = [v21 mutableCopy];
     v23 = self->_swiftUIStack;
     self->_swiftUIStack = v22;
@@ -877,9 +882,9 @@ LABEL_6:
       goto LABEL_24;
     }
 
-    v161 = @"class";
-    v162 = @"customContent";
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v162 forKeys:&v161 count:1];
+    v165 = @"class";
+    v166 = @"customContent";
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
 
     self->_parserState = 6;
     swiftUIStack = self->_elementStack;
@@ -996,14 +1001,15 @@ LABEL_35:
   if ([(__CFString *)name2 isEqualToString:@"row"])
   {
     objectModel = [(RUITopLevelElementParser *)self _newRowWithAttributeDict:attributtes2];
-    [objectModel setSourceXMLElement:elementCopy];
+    v57 = [objectModel setSourceXMLElement:elementCopy];
     self->_parserState = 5;
-    if (!_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v57, v58);
+    if (!isInternalInstall)
     {
       goto LABEL_23;
     }
 
-    style = _RUILoggingFacility();
+    style = _RUILoggingFacility(isInternalInstall);
     if (os_log_type_enabled(&style->super.super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1026,93 +1032,93 @@ LABEL_23:
 
   if ([(__CFString *)name2 hasSuffix:@"Row"])
   {
-    v57 = [objc_opt_class() tableRowClassForElementName:name2];
-    v58 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:attributtes2];
-    [v58 setObject:v57 forKey:@"class"];
+    v60 = [objc_opt_class() tableRowClassForElementName:name2];
+    v61 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:attributtes2];
+    [v61 setObject:v60 forKey:@"class"];
     self->_parserState = 5;
-    page3 = v57;
-    if ([v57 isEqualToString:@"selectPage"])
+    page3 = v60;
+    if ([v60 isEqualToString:@"selectPage"])
     {
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
-      v61 = [@"child-page-" stringByAppendingString:uUIDString];
+      v64 = [@"child-page-" stringByAppendingString:uUIDString];
 
-      v62 = [(RUITopLevelElementParser *)self _newRowWithAttributeDict:v58];
+      v65 = [(RUITopLevelElementParser *)self _newRowWithAttributeDict:v61];
       page2 = [(RUITopLevelElementParser *)self page];
-      v64 = [(RUITopLevelElementParser *)self _createPageWithName:v61 attributes:attributtes2];
-      [v64 setPageID:v61];
-      v149 = page2;
-      [page2 _addChildPage:v64];
-      v150 = v62;
-      [v62 setLinkedPage:v64];
-      v65 = [attributtes2 objectForKeyedSubscript:@"linkedTitle"];
-      v148 = v65;
-      if (v65)
+      v67 = [(RUITopLevelElementParser *)self _createPageWithName:v64 attributes:attributtes2];
+      [v67 setPageID:v64];
+      v153 = page2;
+      [page2 _addChildPage:v67];
+      v154 = v65;
+      [v65 setLinkedPage:v67];
+      v68 = [attributtes2 objectForKeyedSubscript:@"linkedTitle"];
+      v152 = v68;
+      if (v68)
       {
-        v159 = @"title";
-        v160 = v65;
-        v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v160 forKeys:&v159 count:1];
+        v163 = @"title";
+        v164 = v68;
+        v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v164 forKeys:&v163 count:1];
       }
 
       else
       {
-        v66 = 0;
+        v69 = 0;
       }
 
-      v147 = v66;
-      [(RUITopLevelElementParser *)self _addNavigationBarWithAttributes:v66 toPage:v64];
-      v98 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v153 = v61;
-      [v98 setObject:v61 forKey:@"radioGroup"];
-      v99 = [attributtes2 objectForKey:@"autoGoBack"];
-      bOOLValue = [v99 BOOLValue];
+      v151 = v69;
+      [(RUITopLevelElementParser *)self _addNavigationBarWithAttributes:v69 toPage:v67];
+      v101 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v157 = v64;
+      [v101 setObject:v64 forKey:@"radioGroup"];
+      v102 = [attributtes2 objectForKey:@"autoGoBack"];
+      bOOLValue = [v102 BOOLValue];
 
       if (bOOLValue)
       {
-        [v98 setObject:MEMORY[0x277CBEC38] forKey:@"autoGoBack"];
+        [v101 setObject:MEMORY[0x277CBEC38] forKey:@"autoGoBack"];
       }
 
-      v101 = [v58 objectForKeyedSubscript:@"value"];
-      v102 = [v101 length];
+      v104 = [v61 objectForKeyedSubscript:@"value"];
+      v105 = [v104 length];
 
-      if (v102)
+      if (v105)
       {
-        v103 = [v58 objectForKeyedSubscript:@"value"];
-        [v98 setObject:v103 forKey:@"value"];
+        v106 = [v61 objectForKeyedSubscript:@"value"];
+        [v101 setObject:v106 forKey:@"value"];
       }
 
-      v104 = [attributtes2 objectForKeyedSubscript:@"header"];
+      v107 = [attributtes2 objectForKeyedSubscript:@"header"];
 
-      if (v104)
+      if (v107)
       {
-        v105 = [attributtes2 objectForKeyedSubscript:@"header"];
-        [v98 setObject:v105 forKey:@"header"];
+        v108 = [attributtes2 objectForKeyedSubscript:@"header"];
+        [v101 setObject:v108 forKey:@"header"];
 
-        v106 = [attributtes2 objectForKeyedSubscript:@"headerHeight"];
+        v109 = [attributtes2 objectForKeyedSubscript:@"headerHeight"];
 
-        if (v106)
+        if (v109)
         {
-          v107 = [attributtes2 objectForKeyedSubscript:@"headerHeight"];
-          [v98 setObject:v107 forKey:@"headerHeight"];
+          v110 = [attributtes2 objectForKeyedSubscript:@"headerHeight"];
+          [v101 setObject:v110 forKey:@"headerHeight"];
         }
       }
 
-      v108 = [attributtes2 objectForKeyedSubscript:@"footer"];
+      v111 = [attributtes2 objectForKeyedSubscript:@"footer"];
 
-      if (v108)
+      if (v111)
       {
-        v109 = [attributtes2 objectForKeyedSubscript:@"footer"];
-        [v98 setObject:v109 forKey:@"footer"];
+        v112 = [attributtes2 objectForKeyedSubscript:@"footer"];
+        [v101 setObject:v112 forKey:@"footer"];
       }
 
-      tableViewOM = [v64 tableViewOM];
-      [(RUITopLevelElementParser *)self _addSectionWithAttributes:v98 toTableViewOM:tableViewOM xmlElement:elementCopy];
+      tableViewOM = [v67 tableViewOM];
+      [(RUITopLevelElementParser *)self _addSectionWithAttributes:v101 toTableViewOM:tableViewOM xmlElement:elementCopy];
     }
 
     else
     {
-      v87 = [(RUITopLevelElementParser *)self _newRowWithAttributeDict:v58];
-      [v87 setSourceXMLElement:elementCopy];
+      v90 = [(RUITopLevelElementParser *)self _newRowWithAttributeDict:v61];
+      [v90 setSourceXMLElement:elementCopy];
       _lastRow = [(RUITopLevelElementParser *)self _lastRow];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -1120,7 +1126,7 @@ LABEL_23:
       if (isKindOfClass)
       {
         array = [MEMORY[0x277CBEB18] array];
-        v91 = self->_swiftUIStack;
+        v94 = self->_swiftUIStack;
         self->_swiftUIStack = array;
 
         objc_storeStrong(&self->_swiftUIElement, element);
@@ -1158,10 +1164,10 @@ LABEL_23:
 
     if ([(__CFString *)name2 isEqualToString:@"html"])
     {
-      v111 = [attributtes2 copy];
+      v114 = [attributtes2 copy];
       elementProvider5 = [(RUITopLevelElementParser *)self elementProvider];
       makeWebViewOM = [elementProvider5 makeWebViewOM];
-      [makeWebViewOM setAttributes:v111];
+      [makeWebViewOM setAttributes:v114];
 
       baseURL = [(RUITopLevelElementParser *)self baseURL];
       elementProvider6 = [(RUITopLevelElementParser *)self elementProvider];
@@ -1173,8 +1179,8 @@ LABEL_23:
       [makeWebViewOM3 setSourceXMLElement:elementCopy];
 
       delegate5 = [(RUITopLevelElementParser *)self delegate];
-      v120 = [RUIActionSignal signalWithType:2];
-      [delegate5 parser:self setDefaultActionSignal:v120];
+      v123 = [RUIActionSignal signalWithType:2];
+      [delegate5 parser:self setDefaultActionSignal:v123];
 
       self->_parserState = 1;
       goto LABEL_24;
@@ -1197,49 +1203,50 @@ LABEL_23:
 
     if (([(__CFString *)name2 isEqualToString:@"footer"]& v14 & v15) == 1)
     {
-      v158 = name2;
-      v121 = [MEMORY[0x277CBEA60] arrayWithObjects:&v158 count:1];
-      v122 = [v121 mutableCopy];
-      v123 = self->_swiftUIStack;
-      self->_swiftUIStack = v122;
+      v162 = name2;
+      v124 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:1];
+      v125 = [v124 mutableCopy];
+      v126 = self->_swiftUIStack;
+      self->_swiftUIStack = v125;
 
       children = [elementCopy children];
       firstObject = [children firstObject];
       swiftUIElement = self->_swiftUIElement;
       self->_swiftUIElement = firstObject;
 
-      v127 = 4;
+      v130 = 4;
 LABEL_92:
-      self->_parserState = v127;
+      self->_parserState = v130;
       swiftUIStack = self->_elementStack;
       goto LABEL_5;
     }
 
     if (([(__CFString *)name2 isEqualToString:@"header"]& v14 & v15) == 1)
     {
-      v157 = name2;
-      v128 = [MEMORY[0x277CBEA60] arrayWithObjects:&v157 count:1];
-      v129 = [v128 mutableCopy];
-      v130 = self->_swiftUIStack;
-      self->_swiftUIStack = v129;
+      v161 = name2;
+      v131 = [MEMORY[0x277CBEA60] arrayWithObjects:&v161 count:1];
+      v132 = [v131 mutableCopy];
+      v133 = self->_swiftUIStack;
+      self->_swiftUIStack = v132;
 
       children2 = [elementCopy children];
       firstObject2 = [children2 firstObject];
-      v133 = self->_swiftUIElement;
+      v136 = self->_swiftUIElement;
       self->_swiftUIElement = firstObject2;
 
-      v127 = 3;
+      v130 = 3;
       goto LABEL_92;
     }
 
     if (([(__CFString *)name2 isEqualToString:@"buttonBarItem"]& 1) == 0 && ([(__CFString *)name2 isEqualToString:@"linkBarItem"]& 1) == 0 && ([(__CFString *)name2 isEqualToString:@"nextBarItem"]& 1) == 0 && ([(__CFString *)name2 isEqualToString:@"editBarItem"]& 1) == 0 && ([(__CFString *)name2 isEqualToString:@"titleBarItem"]& 1) == 0 && ([(__CFString *)name2 isEqualToString:@"closeButtonBarItem"]& 1) == 0 && ![(__CFString *)name2 isEqualToString:@"backButtonBarItem"])
     {
-      if ([v16 containsObject:name2])
+      v150 = [v16 containsObject:name2];
+      if (v150)
       {
         goto LABEL_24;
       }
 
-      objectModel = _RUILoggingFacility();
+      objectModel = _RUILoggingFacility(v150);
       if (os_log_type_enabled(objectModel, OS_LOG_TYPE_ERROR))
       {
         [(RUITopLevelElementParser *)name2 traversalDelegateDidStartElement:objectModel];
@@ -1249,38 +1256,38 @@ LABEL_92:
     }
 
     page3 = [(RUITopLevelElementParser *)self page];
-    v134 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:attributtes2];
-    v135 = [attributtes2 objectForKeyedSubscript:@"type"];
-    [v134 setObject:v135 forKeyedSubscript:@"barButtonType"];
+    v137 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:attributtes2];
+    v138 = [attributtes2 objectForKeyedSubscript:@"type"];
+    [v137 setObject:v138 forKeyedSubscript:@"barButtonType"];
 
-    [v134 setObject:name2 forKey:@"type"];
-    v136 = [v134 objectForKey:@"position"];
+    [v137 setObject:name2 forKey:@"type"];
+    v139 = [v137 objectForKey:@"position"];
     parserState = self->_parserState;
     if (parserState == 8)
     {
-      [v134 setObject:@"toolbar" forKey:@"parentBar"];
-      v143 = [RUIBarButtonItem alloc];
+      [v137 setObject:@"toolbar" forKey:@"parentBar"];
+      v146 = [RUIBarButtonItem alloc];
       pageElement = [page3 pageElement];
-      v140 = [(RUIElement *)v143 initWithAttributes:v134 parent:pageElement];
+      v143 = [(RUIElement *)v146 initWithAttributes:v137 parent:pageElement];
 
-      [(RUIElement *)v140 setSourceXMLElement:elementCopy];
+      [(RUIElement *)v143 setSourceXMLElement:elementCopy];
       objectModel4 = [(RUITopLevelElementParser *)self objectModel];
       style4 = [objectModel4 style];
-      [(RUIElement *)v140 setStyle:style4];
+      [(RUIElement *)v143 setStyle:style4];
 
-      if ([v136 isEqualToString:@"right"])
+      if ([v139 isEqualToString:@"right"])
       {
-        [page3 setRightToolbarButtonItem:v140];
+        [page3 setRightToolbarButtonItem:v143];
       }
 
-      else if ([v136 isEqualToString:@"left"])
+      else if ([v139 isEqualToString:@"left"])
       {
-        [page3 setLeftToolbarButtonItem:v140];
+        [page3 setLeftToolbarButtonItem:v143];
       }
 
-      else if ([v136 isEqualToString:@"center"])
+      else if ([v139 isEqualToString:@"center"])
       {
-        [page3 setMiddleToolbarButtonItem:v140];
+        [page3 setMiddleToolbarButtonItem:v143];
       }
     }
 
@@ -1294,24 +1301,24 @@ LABEL_77:
         goto LABEL_24;
       }
 
-      [v134 setObject:@"navigationBar" forKey:@"parentBar"];
-      v138 = [RUIBarButtonItem alloc];
+      [v137 setObject:@"navigationBar" forKey:@"parentBar"];
+      v141 = [RUIBarButtonItem alloc];
       pageElement2 = [page3 pageElement];
-      v140 = [(RUIElement *)v138 initWithAttributes:v134 parent:pageElement2];
+      v143 = [(RUIElement *)v141 initWithAttributes:v137 parent:pageElement2];
 
-      [(RUIElement *)v140 setSourceXMLElement:elementCopy];
+      [(RUIElement *)v143 setSourceXMLElement:elementCopy];
       objectModel5 = [(RUITopLevelElementParser *)self objectModel];
       style5 = [objectModel5 style];
-      [(RUIElement *)v140 setStyle:style5];
+      [(RUIElement *)v143 setStyle:style5];
 
-      if ([v136 isEqualToString:@"right"])
+      if ([v139 isEqualToString:@"right"])
       {
-        [page3 setRightNavigationBarButtonItem:v140];
+        [page3 setRightNavigationBarButtonItem:v143];
       }
 
-      else if ([v136 isEqualToString:@"left"])
+      else if ([v139 isEqualToString:@"left"])
       {
-        [page3 setLeftNavigationBarButtonItem:v140];
+        [page3 setLeftNavigationBarButtonItem:v143];
       }
     }
 
@@ -1320,7 +1327,7 @@ LABEL_77:
 
   if ([(__CFString *)name2 isEqualToString:@"linkedOption"])
   {
-    v155 = [attributtes2 mutableCopy];
+    v159 = [attributtes2 mutableCopy];
     elementProvider8 = [(RUITopLevelElementParser *)self elementProvider];
     parentElement = [elementProvider8 parentElement];
     pageElement3 = [parentElement pageElement];
@@ -1328,29 +1335,29 @@ LABEL_77:
     childPages = [page4 childPages];
     lastObject = [childPages lastObject];
 
-    v152 = lastObject;
+    v156 = lastObject;
     tableViewOM2 = [lastObject tableViewOM];
     sections = [tableViewOM2 sections];
     lastObject2 = [sections lastObject];
 
     attributes = [lastObject2 attributes];
-    v76 = [attributes objectForKeyedSubscript:@"radioGroup"];
-    [v155 setObject:v76 forKeyedSubscript:@"radioGroup"];
+    v79 = [attributes objectForKeyedSubscript:@"radioGroup"];
+    [v159 setObject:v79 forKeyedSubscript:@"radioGroup"];
 
-    [v155 setObject:@"linkedOption" forKeyedSubscript:@"class"];
-    v77 = [v155 objectForKeyedSubscript:@"value"];
+    [v159 setObject:@"linkedOption" forKeyedSubscript:@"class"];
+    v80 = [v159 objectForKeyedSubscript:@"value"];
     attributes2 = [lastObject2 attributes];
-    v79 = [attributes2 objectForKeyedSubscript:@"value"];
-    LODWORD(pageElement3) = [v77 isEqualToString:v79];
+    v82 = [attributes2 objectForKeyedSubscript:@"value"];
+    LODWORD(pageElement3) = [v80 isEqualToString:v82];
 
     if (pageElement3)
     {
-      [v155 setObject:@"true" forKeyedSubscript:@"checked"];
+      [v159 setObject:@"true" forKeyedSubscript:@"checked"];
     }
 
-    tableViewOM3 = [v152 tableViewOM];
+    tableViewOM3 = [v156 tableViewOM];
 
-    parentPage = [v152 parentPage];
+    parentPage = [v156 parentPage];
     tableViewOM4 = [parentPage tableViewOM];
     sections2 = [tableViewOM4 sections];
     lastObject3 = [sections2 lastObject];
@@ -1367,22 +1374,22 @@ LABEL_77:
   if (lastObject4)
   {
     selectOptions = [lastObject4 selectOptions];
-    v93 = objc_alloc_init(RUISelectOption);
-    v94 = [attributtes2 objectForKey:@"label"];
-    [(RUISelectOption *)v93 setLabel:v94];
+    v96 = objc_alloc_init(RUISelectOption);
+    v97 = [attributtes2 objectForKey:@"label"];
+    [(RUISelectOption *)v96 setLabel:v97];
 
-    label = [(RUISelectOption *)v93 label];
-    v96 = [label length];
+    label = [(RUISelectOption *)v96 label];
+    v99 = [label length];
 
-    if (!v96)
+    if (!v99)
     {
-      [(RUISelectOption *)v93 setLabel:@" "];
+      [(RUISelectOption *)v96 setLabel:@" "];
     }
 
-    v97 = [attributtes2 objectForKey:@"value"];
-    [(RUISelectOption *)v93 setValue:v97];
+    v100 = [attributtes2 objectForKey:@"value"];
+    [(RUISelectOption *)v96 setValue:v100];
 
-    [selectOptions addObject:v93];
+    [selectOptions addObject:v96];
   }
 
 LABEL_24:

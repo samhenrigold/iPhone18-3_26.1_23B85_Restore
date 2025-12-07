@@ -94,14 +94,15 @@ LABEL_8:
   }
 }
 
-uint64_t sub_100123D0C(uint64_t a1, char a2)
+void sub_100123D0C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  sub_1000F40B0(&unk_100218610);
-  v31 = a2;
-  result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v7 = result;
+  sub_1000F40B0(&unk_100218610, &unk_1001C0020);
+  v32 = v4;
+  v6 = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = v6;
   if (*(v5 + 16))
   {
     v8 = 0;
@@ -119,7 +120,7 @@ uint64_t sub_100123D0C(uint64_t a1, char a2)
 
     v12 = v11 & *(v5 + 64);
     v13 = (v10 + 63) >> 6;
-    v14 = result + 64;
+    v14 = v6 + 64;
     while (v12)
     {
       v16 = __clz(__rbit64(v12));
@@ -128,44 +129,44 @@ LABEL_15:
       v19 = v16 | (v8 << 6);
       v20 = *(*(v5 + 48) + 8 * v19);
       v21 = *(*(v5 + 56) + 8 * v19);
-      if ((v31 & 1) == 0)
+      if ((v32 & 1) == 0)
       {
         v22 = v21;
       }
 
       Hasher.init(_seed:)();
       Hasher._combine(_:)(v20);
-      result = Hasher._finalize()();
-      v23 = -1 << *(v7 + 32);
-      v24 = result & ~v23;
-      v25 = v24 >> 6;
-      if (((-1 << v24) & ~*(v14 + 8 * (v24 >> 6))) == 0)
+      v23 = Hasher._finalize()();
+      v24 = -1 << *(v7 + 32);
+      v25 = v23 & ~v24;
+      v26 = v25 >> 6;
+      if (((-1 << v25) & ~*(v14 + 8 * (v25 >> 6))) == 0)
       {
-        v26 = 0;
-        v27 = (63 - v23) >> 6;
-        while (++v25 != v27 || (v26 & 1) == 0)
+        v27 = 0;
+        v28 = (63 - v24) >> 6;
+        while (++v26 != v28 || (v27 & 1) == 0)
         {
-          v28 = v25 == v27;
-          if (v25 == v27)
+          v29 = v26 == v28;
+          if (v26 == v28)
           {
-            v25 = 0;
+            v26 = 0;
           }
 
-          v26 |= v28;
-          v29 = *(v14 + 8 * v25);
-          if (v29 != -1)
+          v27 |= v29;
+          v30 = *(v14 + 8 * v26);
+          if (v30 != -1)
           {
-            v15 = __clz(__rbit64(~v29)) + (v25 << 6);
+            v15 = __clz(__rbit64(~v30)) + (v26 << 6);
             goto LABEL_7;
           }
         }
 
 LABEL_35:
         __break(1u);
-        return result;
+        return;
       }
 
-      v15 = __clz(__rbit64((-1 << v24) & ~*(v14 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
+      v15 = __clz(__rbit64((-1 << v25) & ~*(v14 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       *(*(v7 + 48) + 8 * v15) = v20;
@@ -198,23 +199,23 @@ LABEL_7:
       }
     }
 
-    if ((v31 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
 
       v3 = v2;
       goto LABEL_33;
     }
 
-    v30 = 1 << *(v5 + 32);
+    v31 = 1 << *(v5 + 32);
     v3 = v2;
-    if (v30 >= 64)
+    if (v31 >= 64)
     {
-      bzero((v5 + 64), ((v30 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v31 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v9 = -1 << v30;
+      *v9 = -1 << v31;
     }
 
     *(v5 + 16) = 0;
@@ -222,23 +223,22 @@ LABEL_7:
 
 LABEL_33:
   *v3 = v7;
-  return result;
 }
 
-id sub_100123F98()
+void sub_100123F98()
 {
   v1 = v0;
-  sub_1000F40B0(&unk_100218610);
+  sub_1000F40B0(&unk_100218610, &unk_1001C0020);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
   if (*(v2 + 16))
   {
-    result = (v3 + 64);
+    v5 = (v3 + 64);
     v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
+    if (v4 != v2 || v5 >= v2 + 64 + 8 * v6)
     {
-      result = memmove(result, (v2 + 64), 8 * v6);
+      memmove(v5, (v2 + 64), 8 * v6);
     }
 
     v8 = 0;
@@ -264,7 +264,7 @@ LABEL_17:
         v18 = *(*(v2 + 56) + 8 * v17);
         *(*(v4 + 48) + 8 * v17) = *(*(v2 + 48) + 8 * v17);
         *(*(v4 + 56) + 8 * v17) = v18;
-        result = v18;
+        v19 = v18;
       }
 
       while (v12);
@@ -303,8 +303,6 @@ LABEL_19:
 
     *v1 = v4;
   }
-
-  return result;
 }
 
 unint64_t sub_1001240F4(void *a1)
@@ -315,7 +313,7 @@ unint64_t sub_1001240F4(void *a1)
     return &_swiftEmptyDictionarySingleton;
   }
 
-  sub_1000F40B0(&unk_100218610);
+  sub_1000F40B0(&unk_100218610, &unk_1001C0020);
   v3 = static _DictionaryStorage.allocate(capacity:)();
   v4 = a1[4];
   v5 = a1[5];
@@ -369,7 +367,7 @@ LABEL_8:
 void _s15assistivetouchd17SCATAirPodsSourceC6update12withSwitches6recipeyShySo8AXSwitchCGSg_So0I6RecipeCSgtF_0(uint64_t a1)
 {
   v2 = v1;
-  v4 = sub_1001240F4(&_swiftEmptyArrayStorage);
+  v4 = sub_1001240F4(_swiftEmptyArrayStorage);
   if (!a1)
   {
 LABEL_43:
@@ -386,7 +384,7 @@ LABEL_44:
   {
 
     __CocoaSet.makeIterator()();
-    sub_1000FB560(0, &qword_100218300);
+    sub_1000FB560(0, &qword_100218300, AXSwitch_ptr);
     sub_10010F138();
     Set.Iterator.init(_cocoa:)();
     a1 = v55[1];
@@ -467,7 +465,7 @@ LABEL_14:
       break;
     }
 
-    sub_1000FB560(0, &qword_100218300);
+    sub_1000FB560(0, &qword_100218300, AXSwitch_ptr);
     swift_dynamicCast();
     v15 = v55[0];
     if (!v55[0])
@@ -565,7 +563,7 @@ LABEL_42:
   }
 
 LABEL_35:
-  sub_10010F1A0();
+  sub_10010F1A0(a1);
   if (qword_10021C1D0 == -1)
   {
     goto LABEL_36;
@@ -585,8 +583,8 @@ LABEL_36:
     v55[0] = v45;
     *v44 = 136315138;
     type metadata accessor for AXHeadGesturesEventUsage(0);
-    sub_1000FB560(0, &qword_100218300);
-    sub_100124EB4(&unk_1002185F8, type metadata accessor for AXHeadGesturesEventUsage);
+    sub_1000FB560(0, &qword_100218300, AXSwitch_ptr);
+    sub_100124EB4(&unk_1002185F8, type metadata accessor for AXHeadGesturesEventUsage, &unk_1001C00C0);
 
     v46 = Dictionary.description.getter();
     v48 = v47;
@@ -607,7 +605,7 @@ LABEL_36:
 
 uint64_t sub_1001247B4(uint64_t a1)
 {
-  v2 = sub_1000F40B0(&qword_100217528);
+  v2 = sub_1000F40B0(&qword_100217528, &qword_1001BD800);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -648,7 +646,7 @@ void _s15assistivetouchd17SCATAirPodsSourceC17_didReceiveAction14withIdentifier5
           *(v12 + 12) = 2080;
           v32 = v5;
           swift_unknownObjectRetain();
-          sub_1000F40B0(&qword_100218608);
+          sub_1000F40B0(&qword_100218608, &qword_1001C0018);
           v14 = String.init<A>(describing:)();
           v16 = sub_1000F9228(v14, v15, aBlock);
 
@@ -708,7 +706,7 @@ void _s15assistivetouchd17SCATAirPodsSourceC17_didReceiveAction14withIdentifier5
           *(v21 + 12) = 2080;
           v32 = v5;
           swift_unknownObjectRetain();
-          sub_1000F40B0(&qword_100218608);
+          sub_1000F40B0(&qword_100218608, &qword_1001C0018);
           v23 = String.init<A>(describing:)();
           v25 = sub_1000F9228(v23, v24, aBlock);
 
@@ -733,7 +731,7 @@ void _s15assistivetouchd17SCATAirPodsSourceC17_didReceiveAction14withIdentifier5
   }
 }
 
-unint64_t sub_100124DA4()
+unint64_t sub_100124DA4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_1002184C8;
   if (!qword_1002184C8)
@@ -752,14 +750,16 @@ uint64_t sub_100124E30()
   return _swift_deallocObject(v0, 48, 7);
 }
 
-uint64_t sub_100124E88(uint64_t a1, uint64_t a2)
+double sub_100124E88(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
-uint64_t sub_100124EB4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100124EB4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -832,14 +832,14 @@ uint64_t sub_100125124()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_10012515C()
+void sub_10012515C()
 {
   v1 = *(v0 + 16);
   v2 = OBJC_IVAR____TtC15assistivetouchd17SCATAirPodsSource_isSimulatingLongPress;
   swift_beginAccess();
   v3 = *(v1 + v2);
   *(v1 + v2) = 0;
-  return sub_100120308(v3);
+  sub_100120308(v3);
 }
 
 uint64_t sub_100125260()
@@ -849,12 +849,11 @@ uint64_t sub_100125260()
   return *(v0 + v1);
 }
 
-uint64_t sub_1001252F8(char a1)
+void sub_1001252F8(char a1)
 {
   v3 = OBJC_IVAR___HNDEyeTrackingCoordinator_shouldShowFaceGuidance;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 id sub_1001253DC(void *a1)
@@ -915,11 +914,13 @@ void sub_100125614()
   }
 }
 
-uint64_t sub_1001256CC(uint64_t a1, uint64_t a2)
+double sub_1001256CC(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 void sub_10012570C()
@@ -1025,26 +1026,25 @@ LABEL_5:
 id sub_100125BB8()
 {
   type metadata accessor for FaceGuidanceViewController();
-  v1 = *(v0 + OBJC_IVAR___HNDEyeTrackingCoordinator_displayManager);
-  v2 = sub_100103304();
-  result = [v2 view];
+  v1 = sub_100103304(*(v0 + OBJC_IVAR___HNDEyeTrackingCoordinator_displayManager));
+  result = [v1 view];
   if (result)
   {
-    v4 = result;
+    v3 = result;
     [result setUserInteractionEnabled:1];
 
-    v5 = [objc_allocWithZone(type metadata accessor for CalibrationNavigationViewController()) initWithRootViewController:v2];
-    v6 = swift_allocObject();
+    v4 = [objc_allocWithZone(type metadata accessor for CalibrationNavigationViewController()) initWithRootViewController:v1];
+    v5 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v7 = swift_allocObject();
-    *(v7 + 16) = v6;
-    *(v7 + 24) = v5;
-    v8 = *((swift_isaMask & *v2) + 0x120);
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    *(v6 + 24) = v4;
+    v7 = *((swift_isaMask & *v1) + 0x120);
 
-    v9 = v5;
-    v8(sub_100125E28, v7);
+    v8 = v4;
+    v7(sub_100125E28, v6);
 
-    return v9;
+    return v8;
   }
 
   else
@@ -1144,24 +1144,24 @@ id sub_10012628C()
 
 void sub_1001262D0()
 {
-  static os_log_type_t.default.getter();
-  v1 = AXLogCommon();
-  if (v1)
+  v1 = static os_log_type_t.default.getter();
+  v2 = AXLogCommon();
+  if (v2)
   {
-    v2 = v1;
-    sub_1000F40B0(&qword_100217900);
-    v3 = swift_allocObject();
-    *(v3 + 16) = xmmword_1001BD7E0;
-    *(v3 + 56) = &type metadata for String;
-    *(v3 + 64) = sub_100112498();
-    *(v3 + 32) = 0x2928706F7473;
-    *(v3 + 40) = 0xE600000000000000;
-    os_log(_:dso:log:_:_:)();
+    v3 = v2;
+    sub_1000F40B0(&qword_100217900, qword_1001C0160);
+    v4 = swift_allocObject();
+    *(v4 + 16) = xmmword_1001BD7E0;
+    *(v4 + 56) = &type metadata for String;
+    *(v4 + 64) = sub_100112498(v4, v5, v6);
+    *(v4 + 32) = 0x2928706F7473;
+    *(v4 + 40) = 0xE600000000000000;
+    os_log(_:dso:log:_:_:)(v1, &_mh_execute_header, v3, "%s: stop called, overriding keep alive to NO so we don't relaunch", v7);
 
     [v0 setKeepAlive:0];
     [*&v0[OBJC_IVAR____TtC15assistivetouchd19ApplicationDelegate_runtimeManager] cleanupRuntime];
-    v4 = [objc_opt_self() sharedApplication];
-    [v4 terminateWithSuccess];
+    v8 = [objc_opt_self() sharedApplication];
+    [v8 terminateWithSuccess];
   }
 
   else
@@ -1218,12 +1218,11 @@ id sub_1001267F0()
   result = (*((swift_isaMask & *v0) + 0xC0))();
   if (!result)
   {
-    static os_log_type_t.info.getter();
+    v2 = static os_log_type_t.info.getter();
     result = ASTLogCommon();
     if (result)
     {
-      v2 = result;
-      os_log(_:dso:log:_:_:)();
+      v3 = result;
 
       return [objc_allocWithZone(CAMediaTimingFunction) init];
     }
@@ -1364,41 +1363,42 @@ char *sub_100126C2C(double a1, double a2, double a3, double a4)
   return v21;
 }
 
-void sub_100127018(void (*a1)(void), double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
+void sub_100127018(void (*a1)(void), __n128 a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
 {
   *(v7 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_zoomStatus) = 1;
-  sub_10012709C(1, a2, a3, a4, a5, a6, a7, 3.0);
+  sub_10012709C(1, a2.n128_f64[0], a3.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0], a6.n128_f64[0], a7.n128_f64[0], 3.0);
   v9 = *(v7 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_sourceViewBeingReplicated);
   a1();
 }
 
-uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8)
+void sub_10012709C(uint64_t a1, double a2, double a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7, double a8)
 {
   v9 = v8;
+  v10 = a1;
   v17 = OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_zoomFactor;
-  v91 = *(v8 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_zoomFactor);
+  v85 = *(v8 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_zoomFactor);
   *(v8 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_zoomFactor) = a8;
   AX_CGRectGetCenter();
-  v99 = v19;
-  v100 = v18;
+  v93 = v19;
+  v94 = v18;
   v20 = a2 - v18;
   v21 = a3 - v19;
   v22 = *(v8 + v17);
   v23 = a6 / v22;
-  v97 = a7 / v22;
-  v109.origin.x = a4;
-  v109.origin.y = a5;
-  v109.size.width = a6;
-  v109.size.height = a7;
-  v24 = CGRectGetWidth(v109) - v23;
-  v95 = a4;
-  v96 = a5;
-  v110.origin.x = a4;
-  v110.origin.y = a5;
-  v110.size.width = a6;
-  v101 = a7;
-  v110.size.height = a7;
-  v25 = CGRectGetHeight(v110) - v97;
+  v91 = a7 / v22;
+  v103.origin.x = a4;
+  v103.origin.y = a5;
+  v103.size.width = a6;
+  v103.size.height = a7;
+  v24 = CGRectGetWidth(v103) - v23;
+  v89 = a4;
+  v90 = a5;
+  v104.origin.x = a4;
+  v104.origin.y = a5;
+  v104.size.width = a6;
+  v95 = a7;
+  v104.size.height = a7;
+  v25 = CGRectGetHeight(v104) - v91;
   v26 = v25 * 0.5;
   v27 = -(v24 * 0.5);
   if (v20 >= v27)
@@ -1438,7 +1438,7 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
   *(v32 + 16) = v31;
   *(v32 + 24) = a8 <= 1.0;
 
-  if ((a1 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     v33 = sub_100126A44();
     [v33 removeAllAnimations];
@@ -1464,49 +1464,49 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
   }
 
   v37 = *(v9 + v17);
-  v94 = a6;
+  v88 = a6;
   v38 = a6 / v37;
-  v39 = v99 + v30;
-  v92 = v99 + v30;
-  v40 = v101 / v37;
-  v111.origin.x = 0.0;
-  v111.origin.y = 0.0;
-  v111.size.width = v38;
-  v111.size.height = v40;
-  v41 = CGRectGetWidth(v111) * 0.5;
-  v93 = v30;
-  v42 = v100 + v28 - v41;
-  v112.origin.x = 0.0;
-  v112.origin.y = 0.0;
-  v112.size.width = v38;
-  v112.size.height = v40;
-  v43 = CGRectGetHeight(v112) * 0.5;
+  v39 = v93 + v30;
+  v86 = v93 + v30;
+  v40 = v95 / v37;
+  v105.origin.x = 0.0;
+  v105.origin.y = 0.0;
+  v105.size.width = v38;
+  v105.size.height = v40;
+  v41 = CGRectGetWidth(v105) * 0.5;
+  v87 = v30;
+  v42 = v94 + v28 - v41;
+  v106.origin.x = 0.0;
+  v106.origin.y = 0.0;
+  v106.size.width = v38;
+  v106.size.height = v40;
+  v43 = CGRectGetHeight(v106) * 0.5;
   v44 = v39 - v43;
-  v113.origin.x = 0.0;
-  v113.origin.y = 0.0;
-  v113.size.width = v38;
-  v113.size.height = v40;
-  Width = CGRectGetWidth(v113);
-  v114.origin.x = 0.0;
-  v114.origin.y = 0.0;
-  v114.size.width = v38;
-  v114.size.height = v40;
-  Height = CGRectGetHeight(v114);
-  v47 = v28 + vabdd_f64(v100 + v28, v41);
-  if (v42 >= v95)
+  v107.origin.x = 0.0;
+  v107.origin.y = 0.0;
+  v107.size.width = v38;
+  v107.size.height = v40;
+  Width = CGRectGetWidth(v107);
+  v108.origin.x = 0.0;
+  v108.origin.y = 0.0;
+  v108.size.width = v38;
+  v108.size.height = v40;
+  Height = CGRectGetHeight(v108);
+  v47 = v28 + vabdd_f64(v94 + v28, v41);
+  if (v42 >= v89)
   {
     v47 = v28;
   }
 
-  if (v42 + Width > v94)
+  if (v42 + Width > v88)
   {
-    v47 = v47 - (v42 - Width - v94);
+    v47 = v47 - (v42 - Width - v88);
   }
 
-  v48 = v93 + vabdd_f64(v92, v43);
-  if (v44 >= v96)
+  v48 = v87 + vabdd_f64(v86, v43);
+  if (v44 >= v90)
   {
-    v48 = v93;
+    v48 = v87;
   }
 
   v49 = v44 + Height;
@@ -1514,13 +1514,13 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
   *&aBlock.m31 = *&CATransform3DIdentity.m31;
   *&aBlock.m33 = v50;
   v51 = *&CATransform3DIdentity.m43;
-  if (v49 > v101)
+  if (v49 > v95)
   {
-    v48 = v48 - (v49 - v101);
+    v48 = v48 - (v49 - v95);
   }
 
-  v52 = v100 + v47;
-  v53 = v99 + v48;
+  v52 = v94 + v47;
+  v53 = v93 + v48;
   *&aBlock.m41 = *&CATransform3DIdentity.m41;
   *&aBlock.m43 = v51;
   v54 = *&CATransform3DIdentity.m13;
@@ -1529,12 +1529,12 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
   v55 = *&CATransform3DIdentity.m23;
   *&aBlock.m21 = *&CATransform3DIdentity.m21;
   *&aBlock.m23 = v55;
-  CATransform3DTranslate(&v105, &aBlock, -v47, -v48, 0.0);
-  CATransform3DScale(&v104, &v105, *(v9 + v17), *(v9 + v17), 1.0);
-  v105 = v104;
-  if (a1)
+  CATransform3DTranslate(&v99, &aBlock, -v47, -v48, 0.0);
+  CATransform3DScale(&v98, &v99, *(v9 + v17), *(v9 + v17), 1.0);
+  v99 = v98;
+  if (v10)
   {
-    v102 = a1;
+    v96 = v10;
     v56 = String._bridgeToObjectiveC()();
     v57 = objc_opt_self();
     v58 = [v57 animationWithKeyPath:v56];
@@ -1559,17 +1559,17 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
     [v64 addAnimation:v62 forKey:v65];
 
     v66 = *(v9 + v17);
-    if (v66 >= v91)
+    if (v66 >= v85)
     {
-      if (v66 != v91)
+      if (v66 != v85)
       {
         goto LABEL_30;
       }
 
       [*(v9 + v63) position];
-      v108.x = v52;
-      v108.y = v53;
-      if (CGPointEqualToPoint(v107, v108))
+      v102.x = v52;
+      v102.y = v53;
+      if (CGPointEqualToPoint(v101, v102))
       {
         goto LABEL_30;
       }
@@ -1604,14 +1604,14 @@ uint64_t sub_10012709C(char a1, double a2, double a3, CGFloat a4, CGFloat a5, CG
     [v73 addAnimation:v68 forKey:v74];
 
 LABEL_30:
-    a1 = v102;
+    v10 = v96;
   }
 
-  v115.origin.x = 0.0;
-  v115.origin.y = 0.0;
-  v115.size.width = v38;
-  v115.size.height = v40;
-  if (!CGRectIsEmpty(v115))
+  v109.origin.x = 0.0;
+  v109.origin.y = 0.0;
+  v109.size.width = v38;
+  v109.size.height = v40;
+  if (!CGRectIsEmpty(v109))
   {
     v75 = sub_100126A44();
     [v75 setPosition:{v52, v53}];
@@ -1622,38 +1622,38 @@ LABEL_30:
     [v77 setBounds:{0.0, 0.0, v38, v40}];
 
     v78 = *(v9 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView____lazy_storage___zoomBackdropLayer);
-    v116.origin.x = 0.0;
-    v116.origin.y = 0.0;
-    v116.size.width = v38;
-    v116.size.height = v40;
-    MidX = CGRectGetMidX(v116);
-    v117.origin.x = 0.0;
-    v117.origin.y = 0.0;
-    v117.size.width = v38;
-    v117.size.height = v40;
-    v80.n128_u64[0] = CGRectGetMidY(v117);
-    v81.n128_f64[0] = MidX;
-    [v78 setPosition:{HeadTrackerAvailabilityDetail.rawValue.getter(v81, v80, v82, v83)}];
+    v110.origin.x = 0.0;
+    v110.origin.y = 0.0;
+    v110.size.width = v38;
+    v110.size.height = v40;
+    CGRectGetMidX(v110);
+    v111.origin.x = 0.0;
+    v111.origin.y = 0.0;
+    v111.size.width = v38;
+    v111.size.height = v40;
+    CGRectGetMidY(v111);
+    HeadTrackerAvailabilityDetail.rawValue.getter();
+    [v78 setPosition:?];
 
-    v84 = *(v9 + v76);
-    v103 = v104;
-    [v84 setInstanceTransform:&v103];
-    v85 = *(v9 + v76);
-    v86 = *(v9 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_sourceViewBeingReplicated);
-    [v85 frame];
-    [v86 setFrame:?];
+    v79 = *(v9 + v76);
+    v97 = v98;
+    [v79 setInstanceTransform:&v97];
+    v80 = *(v9 + v76);
+    v81 = *(v9 + OBJC_IVAR____TtC15assistivetouchd12ZoomLensView_sourceViewBeingReplicated);
+    [v80 frame];
+    [v81 setFrame:?];
   }
 
   [v34 commit];
-  if ((a1 & 1) != 0 || (swift_beginAccess(), (Strong = swift_unknownObjectWeakLoadStrong()) == 0))
+  if ((v10 & 1) != 0 || (swift_beginAccess(), (Strong = swift_unknownObjectWeakLoadStrong()) == 0))
   {
   }
 
   else
   {
-    v88 = Strong;
-    v89 = sub_100126AE0();
-    [v89 setEnabled:a8 > 1.0];
+    v83 = Strong;
+    v84 = sub_100126AE0();
+    [v84 setEnabled:a8 > 1.0];
   }
 }
 
@@ -1712,14 +1712,16 @@ void sub_100127DDC()
   }
 }
 
-uint64_t sub_100127E54(uint64_t a1, uint64_t a2)
+double sub_100127E54(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
-unint64_t sub_100127E70()
+unint64_t sub_100127E70(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = qword_1002188D0;
   if (!qword_1002188D0)
@@ -1747,7 +1749,7 @@ void sub_100127FB4(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Device: %@,\ndidPostEvent: %@", &v3, 0x16u);
 }
 
-void sub_100128080(uint64_t a1, NSObject *a2)
+void sub_100128080(char a1, NSObject *a2)
 {
   v3 = NSStringFromBOOL();
   v4 = 138412290;
@@ -2240,20 +2242,20 @@ void sub_10012A900(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "_logEventToCoreAnalytics: already logged event in last 24 hours: %ld. Skipping.", &v2, 0xCu);
 }
 
-void sub_10012AB2C(double a1, double a2)
+void sub_10012AB2C(char a1, double a2, double a3)
 {
-  v2 = NSStringFromCGPoint(*&a1);
-  v3 = NSStringFromBOOL();
+  v3 = NSStringFromCGPoint(*&a2);
+  v4 = NSStringFromBOOL();
   sub_1000AA334();
-  sub_1000AA34C(&_mh_execute_header, v4, v5, "handleMovementWithDelta: %@, success: %@", v6, v7, v8, v9, v10);
+  sub_1000AA34C(&_mh_execute_header, v5, v6, "handleMovementWithDelta: %@, success: %@", v7, v8, v9, v10);
 }
 
-void sub_10012ABD0(double a1, double a2)
+void sub_10012ABD0(char a1, double a2, double a3)
 {
-  v2 = NSStringFromCGPoint(*&a1);
-  v3 = NSStringFromBOOL();
+  v3 = NSStringFromCGPoint(*&a2);
+  v4 = NSStringFromBOOL();
   sub_1000AA334();
-  sub_1000AA34C(&_mh_execute_header, v4, v5, "handleScrollWithDelta: %@, success: %@", v6, v7, v8, v9, v10);
+  sub_1000AA34C(&_mh_execute_header, v5, v6, "handleScrollWithDelta: %@, success: %@", v7, v8, v9, v10);
 }
 
 void sub_10012AC9C(uint64_t a1, uint64_t a2)

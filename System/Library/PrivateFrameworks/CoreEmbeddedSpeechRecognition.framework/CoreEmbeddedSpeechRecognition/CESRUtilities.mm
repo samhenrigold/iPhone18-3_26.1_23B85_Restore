@@ -51,32 +51,32 @@
 
 + (id)transcriptFromTokens:(id)tokens
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   if ([tokensCopy count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = tokensCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       removeSpaceAfter = 1;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (((removeSpaceAfter | [v11 removeSpaceBefore]) & 1) == 0)
           {
             [v4 appendString:@" "];
@@ -91,7 +91,7 @@
           removeSpaceAfter = [v11 removeSpaceAfter];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -102,8 +102,6 @@
   {
     v4 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -139,7 +137,7 @@
 
 + (void)_cacheDeletePurgeSpaceWithInfo:(id)info completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   if (!infoCopy || ([infoCopy objectForKey:@"CACHE_DELETE_VOLUME"], (v7 = objc_claimAutoreleasedReturnValue()) == 0) || (v8 = v7, objc_msgSend(infoCopy, "objectForKey:", @"CACHE_DELETE_AMOUNT"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, !v9))
@@ -148,9 +146,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]";
-      v21 = 2112;
-      v22 = infoCopy;
+      v19 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]";
+      v20 = 2112;
+      v21 = infoCopy;
       _os_log_error_impl(&dword_225EEB000, v16, OS_LOG_TYPE_ERROR, "%s The volume and/or amount to purge was not specified: %@", buf, 0x16u);
       if (!completionCopy)
       {
@@ -172,28 +170,27 @@
   longLongValue = [v11 longLongValue];
 
   v13 = [MEMORY[0x277CCA8E8] stringFromByteCount:longLongValue countStyle:3];
-  v18 = completionCopy;
+  v17 = completionCopy;
   v14 = v13;
   CacheDeletePurgeSpaceWithInfo();
   v15 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v20 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]";
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v10;
+    v19 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]";
+    v20 = 2112;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v10;
     _os_log_impl(&dword_225EEB000, v15, OS_LOG_TYPE_DEFAULT, "%s Requested CacheDelete to purge %@ from volume: %@", buf, 0x20u);
   }
 
 LABEL_10:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = [a2 objectForKey:@"CACHE_DELETE_ERROR"];
@@ -203,11 +200,11 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
       v6 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
-        v18 = 2112;
-        v19 = v4;
-        _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s CacheDelete reported an error: %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
+        v17 = 2112;
+        v18 = v4;
+        _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s CacheDelete reported an error: %@", &v15, 0x16u);
       }
     }
 
@@ -219,13 +216,13 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = a1[4];
-      v16 = 136315650;
-      v17 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEFAULT, "%s CacheDelete purged %@ (requested %@).", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v11;
+      _os_log_impl(&dword_225EEB000, v10, OS_LOG_TYPE_DEFAULT, "%s CacheDelete purged %@ (requested %@).", &v15, 0x20u);
     }
 
     v12 = a1[5];
@@ -240,9 +237,9 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
     v13 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v16 = 136315138;
-      v17 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
-      _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s CacheDelete failed to return any results.", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "+[CESRUtilities _cacheDeletePurgeSpaceWithInfo:completion:]_block_invoke";
+      _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s CacheDelete failed to return any results.", &v15, 0xCu);
     }
 
     v14 = a1[5];
@@ -251,20 +248,18 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
       (*(v14 + 16))(v14, 0);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_freeSpaceInBytesForPath:(id)path
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (pathCopy)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v16 = 0;
-    v5 = [defaultManager attributesOfFileSystemForPath:pathCopy error:&v16];
-    v6 = v16;
+    v15 = 0;
+    v5 = [defaultManager attributesOfFileSystemForPath:pathCopy error:&v15];
+    v6 = v15;
 
     if (v5)
     {
@@ -290,7 +285,7 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
         if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v18 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
+          v17 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
           _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s File system attributes did not contain a value for NSFileSystemFreeSize.", buf, 0xCu);
         }
 
@@ -304,9 +299,9 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v18 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
-        v19 = 2112;
-        v20 = v6;
+        v17 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
+        v18 = 2112;
+        v19 = v6;
         _os_log_error_impl(&dword_225EEB000, v12, OS_LOG_TYPE_ERROR, "%s Failed to retrieve file system attributes, error: %@", buf, 0x16u);
       }
 
@@ -320,20 +315,19 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v18 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
+      v17 = "+[CESRUtilities _freeSpaceInBytesForPath:]";
       _os_log_error_impl(&dword_225EEB000, v11, OS_LOG_TYPE_ERROR, "%s path cannot be nil.", buf, 0xCu);
     }
 
     v10 = -1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (void)purgeSpaceForModelCompilationAsNeeded:(unint64_t)needed completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = NSOpenStepRootDirectory();
   v7 = [CESRUtilities _freeSpaceInBytesForPath:v6];
@@ -343,9 +337,9 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "+[CESRUtilities purgeSpaceForModelCompilationAsNeeded:completion:]";
-      v21 = 2112;
-      v22 = v6;
+      v19 = "+[CESRUtilities purgeSpaceForModelCompilationAsNeeded:completion:]";
+      v20 = 2112;
+      v21 = v6;
       _os_log_error_impl(&dword_225EEB000, v14, OS_LOG_TYPE_ERROR, "%s Failed to evaluate the free space on volume: %@", buf, 0x16u);
       if (!completionCopy)
       {
@@ -372,11 +366,11 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v20 = "+[CESRUtilities purgeSpaceForModelCompilationAsNeeded:completion:]";
-      v21 = 2112;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v10;
+      v19 = "+[CESRUtilities purgeSpaceForModelCompilationAsNeeded:completion:]";
+      v20 = 2112;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v10;
       _os_log_impl(&dword_225EEB000, v15, OS_LOG_TYPE_DEFAULT, "%s Free space (%@) already meets or exceeds the requested space: %@", buf, 0x20u);
     }
 
@@ -388,18 +382,17 @@ void __59__CESRUtilities__cacheDeletePurgeSpaceWithInfo_completion___block_invok
 
   else
   {
-    v18[0] = v6;
+    v17[0] = v6;
     v12 = [MEMORY[0x277CCABB0] numberWithLongLong:{v9 - v8, @"CACHE_DELETE_VOLUME", @"CACHE_DELETE_AMOUNT"}];
-    v17[2] = @"CACHE_DELETE_URGENCY";
-    v18[1] = v12;
-    v18[2] = &unk_283952480;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v16[2] = @"CACHE_DELETE_URGENCY";
+    v17[1] = v12;
+    v17[2] = &unk_283952480;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
     [CESRUtilities _cacheDeletePurgeSpaceWithInfo:v13 completion:completionCopy];
   }
 
 LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isSamplingSupportedForTask:(id)task
@@ -414,14 +407,14 @@ LABEL_12:
 
 + (id)installedAssistantLocale
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF0E8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "+[CESRUtilities installedAssistantLocale]";
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Fetching installed Assistant locale...", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "+[CESRUtilities installedAssistantLocale]";
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Fetching installed Assistant locale...", &v16, 0xCu);
   }
 
   v4 = objc_alloc(MEMORY[0x277CDCE88]);
@@ -445,57 +438,55 @@ LABEL_12:
     {
       v13 = v12;
       language2 = [v6 language];
-      v17 = 136315394;
-      v18 = "+[CESRUtilities installedAssistantLocale]";
-      v19 = 2112;
-      v20 = language2;
-      _os_log_impl(&dword_225EEB000, v13, OS_LOG_TYPE_INFO, "%s No asset for language: %@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "+[CESRUtilities installedAssistantLocale]";
+      v18 = 2112;
+      v19 = language2;
+      _os_log_impl(&dword_225EEB000, v13, OS_LOG_TYPE_INFO, "%s No asset for language: %@", &v16, 0x16u);
     }
 
     v11 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)installedDictationLocales
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF0E8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v23 = "+[CESRUtilities installedDictationLocales]";
+    v22 = "+[CESRUtilities installedDictationLocales]";
     _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Fetching installed Dictation locales...", buf, 0xCu);
   }
 
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = +[CESRUtilities installedDictationLocaleIdentifiers];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v19;
+    v9 = *v18;
     *&v7 = 136315394;
-    v17 = v7;
+    v16 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v12 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{v11, v17}];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v12 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:{v11, v16}];
         if (v12)
         {
           [v4 addObject:v12];
@@ -506,24 +497,22 @@ LABEL_12:
           v13 = *v2;
           if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v17;
-            v23 = "+[CESRUtilities installedDictationLocales]";
-            v24 = 2112;
-            v25 = v11;
+            *buf = v16;
+            v22 = "+[CESRUtilities installedDictationLocales]";
+            v23 = 2112;
+            v24 = v11;
             _os_log_error_impl(&dword_225EEB000, v13, OS_LOG_TYPE_ERROR, "%s Failed to resolve locale from localeIdentifier: %@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [v5 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v4 copy];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -561,22 +550,20 @@ LABEL_12:
 
 void __60__CESRUtilities_generateABCSnapshotForType_subType_context___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315394;
-      v6 = "+[CESRUtilities generateABCSnapshotForType:subType:context:]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s Unable to trigger ABC due to error %@.", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "+[CESRUtilities generateABCSnapshotForType:subType:context:]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s Unable to trigger ABC due to error %@.", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logToPowerLogForEventCategory:(id)category eventDictionary:(id)dictionary
@@ -597,30 +584,30 @@ void __60__CESRUtilities_generateABCSnapshotForType_subType_context___block_invo
 
 + (id)_alignTokenToFirstSeenPartialResult:(id)result tokenIndex:(unint64_t)index firstSeenPartialResultTokens:(id)tokens firstSeenPartialResultIndex:(unint64_t)resultIndex
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   tokensCopy = tokens;
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-  v40 = v11;
+  v39 = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:resultIndex];
-  v41[0] = v12;
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+  v40[0] = v12;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
 
-  v37 = resultCopy;
+  v36 = resultCopy;
   v13 = [resultCopy count];
   v14 = [tokensCopy count];
-  v35 = v13;
+  v34 = v13;
   if (v13 > index)
   {
     v15 = v14;
     v16 = 0;
     resultIndexCopy = resultIndex;
-    v34 = resultIndex + index;
+    v33 = resultIndex + index;
     v17 = -1;
     resultIndexCopy2 = resultIndex;
     while (1)
     {
-      v19 = [v37 objectAtIndexedSubscript:{index, resultIndexCopy}];
+      v19 = [v36 objectAtIndexedSubscript:{index, resultIndexCopy}];
       tokenName = [v19 tokenName];
       v21 = [CESRUtilities getNormString:tokenName];
 
@@ -639,29 +626,29 @@ LABEL_8:
       v16 = 0;
       v26 = v15;
 LABEL_11:
-      v27 = index - v34 + v22 + v26;
+      v27 = index - v33 + v22 + v26;
       if (v27 < v17)
       {
         v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-        v38 = v28;
+        v37 = v28;
         v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
-        v39 = v29;
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v29;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
 
         if (!v27)
         {
 
-          v36 = v30;
+          v35 = v30;
           goto LABEL_17;
         }
 
-        v36 = v30;
+        v35 = v30;
         v17 = v27;
       }
 
       ++index;
       resultIndexCopy2 = resultIndexCopy;
-      if (index == v35)
+      if (index == v34)
       {
         goto LABEL_17;
       }
@@ -695,9 +682,7 @@ LABEL_9:
 
 LABEL_17:
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v35;
 }
 
 + (id)_firstSeenPartialResultIndicesForTokens:(id)tokens firstSeenPartialResultTokens:(id)resultTokens
@@ -864,44 +849,42 @@ uint64_t __83__CESRUtilities_alignedPartialResultIndicesForTokens_firstSeenParti
 
 + (id)getNormString:(id)string
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   lowercaseString = [stringCopy lowercaseString];
   v6 = [lowercaseString componentsSeparatedByString:@" "];
 
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v16 + 1) + 8 * i) componentsSeparatedByString:@"\\""];
+        v11 = [*(*(&v15 + 1) + 8 * i) componentsSeparatedByString:@"\"];
         firstObject = [v11 firstObject];
         [array addObject:firstObject];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [array componentsJoinedByString:@" "];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1006,29 +989,29 @@ uint64_t __83__CESRUtilities_alignedPartialResultIndicesForTokens_firstSeenParti
 + (id)earTokensForAFTokens:(id)tokens appendedAutoPunctuation:(BOOL)punctuation
 {
   punctuationCopy = punctuation;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(tokensCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = tokensCopy;
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         v11 = objc_alloc(MEMORY[0x277D07268]);
         text = [v10 text];
         [v10 startTime];
@@ -1047,13 +1030,11 @@ uint64_t __83__CESRUtilities_alignedPartialResultIndicesForTokens_firstSeenParti
         [v5 addObject:v24];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v7);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1107,7 +1088,7 @@ uint64_t __83__CESRUtilities_alignedPartialResultIndicesForTokens_firstSeenParti
 
 id __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if ([v3 count])
@@ -1116,14 +1097,14 @@ id __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage__
     if (v5 == [v4 count])
     {
       v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
-      v12 = MEMORY[0x277D85DD0];
-      v13 = 3221225472;
-      v14 = __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage___block_invoke_352;
-      v15 = &unk_27857F5E0;
-      v16 = v3;
-      v17 = v6;
+      v11 = MEMORY[0x277D85DD0];
+      v12 = 3221225472;
+      v13 = __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage___block_invoke_352;
+      v14 = &unk_27857F5E0;
+      v15 = v3;
+      v16 = v6;
       v7 = v6;
-      [v4 enumerateObjectsUsingBlock:&v12];
+      [v4 enumerateObjectsUsingBlock:&v11];
       v8 = [v7 copy];
 
       goto LABEL_7;
@@ -1133,15 +1114,13 @@ id __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage__
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "+[CESRUtilities AFSpeechInfoPackageForEARSpeechRecognitionResultPackage:]_block_invoke";
+      v18 = "+[CESRUtilities AFSpeechInfoPackageForEARSpeechRecognitionResultPackage:]_block_invoke";
       _os_log_error_impl(&dword_225EEB000, v9, OS_LOG_TYPE_ERROR, "%s Count of command interpretation sets does not match count of speech recognition results", buf, 0xCu);
     }
   }
 
   v8 = MEMORY[0x277CBEBF8];
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1159,7 +1138,7 @@ void __73__CESRUtilities_AFSpeechInfoPackageForEARSpeechRecognitionResultPackage
 
 + (id)AFSpeechInfoPackageForEARSpeechRecognitionResult:(id)result
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   tokens = [resultCopy tokens];
   v5 = [CESRUtilities earTokensToString:tokens];
@@ -1193,98 +1172,95 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v19[0] = v7;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v7;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   if (!v11)
   {
     goto LABEL_7;
   }
 
 LABEL_4:
-  v18 = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v17 = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
 LABEL_8:
   v15 = [objc_alloc(MEMORY[0x277CEF510]) initWithNBestParses:v12 preITNNBestParses:v13];
   v14 = [objc_alloc(MEMORY[0x277CEF450]) initWithCommandGrammarParsePackage:v15];
 
 LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (id)afVoiceCommandGrammarParseResultForEARTokenString:(id)string withEARVoiceCommandInterpretations:(id)interpretations
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   interpretationsCopy = interpretations;
   v6 = interpretationsCopy;
   if (interpretationsCopy && [interpretationsCopy count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v23 = v6;
+    v22 = v6;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v8)
     {
-      v9 = *v35;
+      v9 = *v34;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v34 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           v12 = objc_alloc(MEMORY[0x277CBEB38]);
           arguments = [v11 arguments];
           v14 = [v12 initWithCapacity:{objc_msgSend(arguments, "count")}];
 
-          v30 = 0;
-          v31 = &v30;
-          v32 = 0x2020000000;
-          v33 = 1;
+          v29 = 0;
+          v30 = &v29;
+          v31 = 0x2020000000;
+          v32 = 1;
           arguments2 = [v11 arguments];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __102__CESRUtilities_afVoiceCommandGrammarParseResultForEARTokenString_withEARVoiceCommandInterpretations___block_invoke;
-          v26[3] = &unk_27857F5B8;
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __102__CESRUtilities_afVoiceCommandGrammarParseResultForEARTokenString_withEARVoiceCommandInterpretations___block_invoke;
+          v25[3] = &unk_27857F5B8;
           v16 = v14;
-          v27 = v16;
-          v28 = stringCopy;
-          v29 = &v30;
-          [arguments2 enumerateObjectsUsingBlock:v26];
+          v26 = v16;
+          v27 = stringCopy;
+          v28 = &v29;
+          [arguments2 enumerateObjectsUsingBlock:v25];
 
           v17 = objc_alloc(MEMORY[0x277CEF508]);
           commandIdentifier = [v11 commandIdentifier];
-          v19 = [v17 initWithCommandId:commandIdentifier isComplete:*(v31 + 24) paramMatches:v16];
+          v19 = [v17 initWithCommandId:commandIdentifier isComplete:*(v30 + 24) paramMatches:v16];
 
           [v7 addObject:v19];
-          _Block_object_dispose(&v30, 8);
+          _Block_object_dispose(&v29, 8);
         }
 
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v8 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v8);
     }
 
     v20 = [objc_alloc(MEMORY[0x277CEF518]) initWithUtterance:stringCopy parseCandidates:v7];
-    v6 = v23;
+    v6 = v22;
   }
 
   else
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -1409,35 +1385,35 @@ void __35__CESRUtilities_earTokensToString___block_invoke(uint64_t a1, void *a2)
 
 + (void)loadSpeechProfiles:(id)profiles language:(id)language
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   profilesCopy = profiles;
   languageCopy = language;
   if (profilesCopy)
   {
-    v39 = languageCopy;
+    v38 = languageCopy;
     v8 = [self speechProfilePathsWithLanguage:languageCopy];
-    v40 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
+    v9 = [obj countByEnumeratingWithState:&v45 objects:v56 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v47;
+      v11 = *v46;
       v12 = *MEMORY[0x277CCA150];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v47 != v11)
+          if (*v46 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v46 + 1) + 8 * i);
+          v14 = *(*(&v45 + 1) + 8 * i);
           v15 = [profilesCopy objectForKeyedSubscript:v14];
           if (v15)
           {
@@ -1453,49 +1429,49 @@ void __35__CESRUtilities_earTokensToString___block_invoke(uint64_t a1, void *a2)
 
             if (v20 > 0.0 && v23 > 0.0 && v20 <= v23)
             {
-              [v40 setObject:v15 forKeyedSubscript:v14];
+              [v39 setObject:v15 forKeyedSubscript:v14];
               v25 = *MEMORY[0x277CEF0E8];
               if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315395;
-                v51 = "+[CESRUtilities loadSpeechProfiles:language:]";
-                v52 = 2113;
-                v53 = v14;
+                v50 = "+[CESRUtilities loadSpeechProfiles:language:]";
+                v51 = 2113;
+                v52 = v14;
                 _os_log_debug_impl(&dword_225EEB000, v25, OS_LOG_TYPE_DEBUG, "%s Reused new type of speech profile: path=%{private}@", buf, 0x16u);
               }
             }
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v46 objects:v57 count:16];
+        v10 = [obj countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
       while (v10);
     }
 
     [profilesCopy removeAllObjects];
-    [profilesCopy addEntriesFromDictionary:v40];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
+    [profilesCopy addEntriesFromDictionary:v39];
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v26 = obj;
-    v27 = [v26 countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v41 objects:v55 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v43;
+      v29 = *v42;
       do
       {
         v30 = 0;
         do
         {
-          if (*v43 != v29)
+          if (*v42 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v42 + 1) + 8 * v30);
+          v31 = *(*(&v41 + 1) + 8 * v30);
           v32 = [profilesCopy objectForKeyedSubscript:v31];
 
           if (!v32)
@@ -1506,11 +1482,11 @@ void __35__CESRUtilities_earTokensToString___block_invoke(uint64_t a1, void *a2)
             if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315651;
-              v51 = "+[CESRUtilities loadSpeechProfiles:language:]";
-              v52 = 2113;
-              v53 = v31;
-              v54 = 1024;
-              v55 = v34 != 0;
+              v50 = "+[CESRUtilities loadSpeechProfiles:language:]";
+              v51 = 2113;
+              v52 = v31;
+              v53 = 1024;
+              v54 = v34 != 0;
               _os_log_debug_impl(&dword_225EEB000, v35, OS_LOG_TYPE_DEBUG, "%s Loaded new type of speech profile: path=%{private}@ profile=%d", buf, 0x1Cu);
               if (v34)
               {
@@ -1530,14 +1506,14 @@ LABEL_26:
         }
 
         while (v28 != v30);
-        v36 = [v26 countByEnumeratingWithState:&v42 objects:v56 count:16];
+        v36 = [v26 countByEnumeratingWithState:&v41 objects:v55 count:16];
         v28 = v36;
       }
 
       while (v36);
     }
 
-    languageCopy = v39;
+    languageCopy = v38;
   }
 
   else
@@ -1546,17 +1522,15 @@ LABEL_26:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v51 = "+[CESRUtilities loadSpeechProfiles:language:]";
+      v50 = "+[CESRUtilities loadSpeechProfiles:language:]";
       _os_log_fault_impl(&dword_225EEB000, v37, OS_LOG_TYPE_FAULT, "%s loadSpeechProfiles was incorrectly called with profiles=nil", buf, 0xCu);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 + (id)speechProfilePathsWithLanguage:(id)language
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   if (!languageCopy)
   {
@@ -1564,7 +1538,7 @@ LABEL_26:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v46 = "+[CESRUtilities speechProfilePathsWithLanguage:]";
+      v45 = "+[CESRUtilities speechProfilePathsWithLanguage:]";
       _os_log_error_impl(&dword_225EEB000, v25, OS_LOG_TYPE_ERROR, "%s speechProfilePathsWithLanguage was incorrectly called with language=nil", buf, 0xCu);
     }
 
@@ -1594,65 +1568,65 @@ LABEL_26:
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v46 = "+[CESRUtilities speechProfilePathsWithLanguage:]";
+      v45 = "+[CESRUtilities speechProfilePathsWithLanguage:]";
       _os_log_fault_impl(&dword_225EEB000, v26, OS_LOG_TYPE_FAULT, "%s Mapped language=nil", buf, 0xCu);
     }
 
 LABEL_27:
-    v33 = 0;
+    v32 = 0;
     goto LABEL_28;
   }
 
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [self speechProfileRootDirectories];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v31 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
-  if (v31)
+  obj = v40 = 0u;
+  v30 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+  if (v30)
   {
-    v30 = *v39;
+    v29 = *v38;
     do
     {
       v11 = 0;
       do
       {
-        if (*v39 != v30)
+        if (*v38 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v11;
-        v12 = *(*(&v38 + 1) + 8 * v11);
+        v31 = v11;
+        v12 = *(*(&v37 + 1) + 8 * v11);
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
         v36 = 0u;
-        v37 = 0u;
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
         v14 = [defaultManager enumeratorAtPath:v12];
 
-        v15 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v35;
+          v17 = *v34;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v35 != v17)
+              if (*v34 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v34 + 1) + 8 * i);
+              v19 = *(*(&v33 + 1) + 8 * i);
               v20 = MEMORY[0x277CCACA8];
-              v42[0] = v12;
-              v42[1] = v19;
-              v42[2] = v10;
-              v42[3] = @"SpeechProfile";
-              v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
+              v41[0] = v12;
+              v41[1] = v19;
+              v41[2] = v10;
+              v41[3] = @"SpeechProfile";
+              v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
               v22 = [v20 pathWithComponents:v21];
 
               defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
@@ -1660,63 +1634,62 @@ LABEL_27:
 
               if (v24)
               {
-                [v33 addObject:v22];
+                [v32 addObject:v22];
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v34 objects:v43 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v33 objects:v42 count:16];
           }
 
           while (v16);
         }
 
-        v11 = v32 + 1;
+        v11 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
 LABEL_28:
-  v27 = *MEMORY[0x277D85DE8];
 
-  return v33;
+  return v32;
 }
 
 + (id)speechProfileRootDirectories
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = SFSpeechProfileSiteDirectories();
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        path = [*(*(&v12 + 1) + 8 * i) path];
+        path = [*(*(&v11 + 1) + 8 * i) path];
         if (path)
         {
           [v2 addObject:path];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v5);
@@ -1726,13 +1699,11 @@ LABEL_28:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315395;
-    v17 = "+[CESRUtilities speechProfileRootDirectories]";
-    v18 = 2113;
-    v19 = v2;
+    v16 = "+[CESRUtilities speechProfileRootDirectories]";
+    v17 = 2113;
+    v18 = v2;
     _os_log_debug_impl(&dword_225EEB000, v9, OS_LOG_TYPE_DEBUG, "%s Root directories for new type of speech profile: %{private}@", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -1740,38 +1711,38 @@ LABEL_28:
 + (id)afSpeechPackageForEARPackage:(id)package processedAudioDuration:(double)duration speechProfileUsed:(BOOL)used recognizerModelInfo:(id)info isVoiceCommandCandidatePackage:(BOOL)candidatePackage
 {
   candidatePackageCopy = candidatePackage;
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   infoCopy = info;
   recognition = [packageCopy recognition];
-  v92 = [CESRUtilities afRecognitionForEARSausage:recognition processedAudioDuration:duration];
+  v91 = [CESRUtilities afRecognitionForEARSausage:recognition processedAudioDuration:duration];
 
   preITNRecognition = [packageCopy preITNRecognition];
-  v91 = [CESRUtilities afRecognitionForEARSausage:preITNRecognition processedAudioDuration:duration];
+  v90 = [CESRUtilities afRecognitionForEARSausage:preITNRecognition processedAudioDuration:duration];
 
   audioAnalytics = [packageCopy audioAnalytics];
   acousticFeatures = [audioAnalytics acousticFeatures];
   v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
   v14 = acousticFeatures;
-  v15 = [v14 countByEnumeratingWithState:&v94 objects:buf count:16];
+  v15 = [v14 countByEnumeratingWithState:&v93 objects:buf count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v95;
+    v17 = *v94;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v95 != v17)
+        if (*v94 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v94 + 1) + 8 * i);
+        v19 = *(*(&v93 + 1) + 8 * i);
         v20 = [v14 objectForKey:v19];
         v21 = objc_alloc(MEMORY[0x277CEF438]);
         acousticFeatureValuePerFrame = [v20 acousticFeatureValuePerFrame];
@@ -1781,7 +1752,7 @@ LABEL_28:
         [v13 setValue:v23 forKey:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v94 objects:buf count:16];
+      v16 = [v14 countByEnumeratingWithState:&v93 objects:buf count:16];
     }
 
     while (v16);
@@ -1799,25 +1770,25 @@ LABEL_28:
     v29 = infoCopy;
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
-      v74 = v28;
+      v73 = v28;
       [latticeMitigatorResult score];
-      v76 = v75;
+      v75 = v74;
       [latticeMitigatorResult threshold];
-      v78 = v77;
+      v77 = v76;
       [latticeMitigatorResult calibrationScale];
-      v80 = v79;
+      v79 = v78;
       [latticeMitigatorResult calibrationOffset];
       *buf = 136316162;
-      v99 = "AFSpeechLatticeMitigatorResultForEar";
-      v100 = 2048;
-      v101 = v76;
-      v102 = 2048;
-      v103 = v78;
-      v104 = 2048;
-      v105 = v80;
-      v106 = 2048;
-      v107 = v81;
-      _os_log_debug_impl(&dword_225EEB000, v74, OS_LOG_TYPE_DEBUG, "%s AFSpeechLatticeMitigatorResult Score = %f, Threshold = %f, CalibrationScale = %f, CalibrationOffset = %f", buf, 0x34u);
+      v98 = "AFSpeechLatticeMitigatorResultForEar";
+      v99 = 2048;
+      v100 = v75;
+      v101 = 2048;
+      v102 = v77;
+      v103 = 2048;
+      v104 = v79;
+      v105 = 2048;
+      v106 = v80;
+      _os_log_debug_impl(&dword_225EEB000, v73, OS_LOG_TYPE_DEBUG, "%s AFSpeechLatticeMitigatorResult Score = %f, Threshold = %f, CalibrationScale = %f, CalibrationOffset = %f", buf, 0x34u);
     }
 
     v30 = objc_alloc(MEMORY[0x277CEF460]);
@@ -1842,7 +1813,7 @@ LABEL_28:
     v29 = infoCopy;
   }
 
-  v84 = v43;
+  v83 = v43;
   if ([packageCopy isFinal])
   {
     intValue = -1;
@@ -1899,7 +1870,7 @@ LABEL_28:
         v57 = 0;
       }
 
-      v83 = objc_alloc(MEMORY[0x277CEF470]);
+      v82 = objc_alloc(MEMORY[0x277CEF470]);
       recognition2 = [packageCopy recognition];
       potentialCommandRecognition = [recognition2 potentialCommandRecognition];
       v61 = [CESRUtilities afRecognitionForEARSausage:potentialCommandRecognition processedAudioDuration:duration];
@@ -1907,7 +1878,7 @@ LABEL_28:
       potentialCommandRecognition2 = [preITNRecognition3 potentialCommandRecognition];
       v64 = [CESRUtilities afRecognitionForEARSausage:potentialCommandRecognition2 processedAudioDuration:duration];
       [packageCopy utteranceStart];
-      v58 = [v83 initWithRecognition:v61 rawRecognition:v64 audioAnalytics:0 isFinal:0 utteranceStart:?];
+      v58 = [v82 initWithRecognition:v61 rawRecognition:v64 audioAnalytics:0 isFinal:0 utteranceStart:?];
 
       v29 = infoCopy;
 LABEL_29:
@@ -1941,18 +1912,16 @@ LABEL_31:
   v68 = v67;
   recognitionPaused = [packageCopy recognitionPaused];
   endOfSentenceLikelihood = [packageCopy endOfSentenceLikelihood];
-  BYTE1(v82) = used;
-  LOBYTE(v82) = recognitionPaused;
-  v71 = [v65 initWithRecognition:v92 unfilteredRecognition:v92 rawRecognition:v91 audioAnalytics:v26 isFinal:isFinal utteranceStart:v84 latticeMitigatorResult:v68 recognitionPaused:v82 speechProfileUsed:intValue resultCandidateId:endOfSentenceLikelihood endOfSentenceLikelihood:version2 modelVersion:acousticModelVersion acousticModelVersion:v57 potentialCommandPrecedingUtterance:v58 potentialCommandUtterance:objc_msgSend(packageCopy numOneBestTokensExcludingTriggerPhrase:"numTokensExcludingTriggerPhrase")];
-
-  v72 = *MEMORY[0x277D85DE8];
+  BYTE1(v81) = used;
+  LOBYTE(v81) = recognitionPaused;
+  v71 = [v65 initWithRecognition:v91 unfilteredRecognition:v91 rawRecognition:v90 audioAnalytics:v26 isFinal:isFinal utteranceStart:v83 latticeMitigatorResult:v68 recognitionPaused:v81 speechProfileUsed:intValue resultCandidateId:endOfSentenceLikelihood endOfSentenceLikelihood:version2 modelVersion:acousticModelVersion acousticModelVersion:v57 potentialCommandPrecedingUtterance:v58 potentialCommandUtterance:objc_msgSend(packageCopy numOneBestTokensExcludingTriggerPhrase:"numTokensExcludingTriggerPhrase")];
 
   return v71;
 }
 
 + (id)afRecognitionForEARSausage:(id)sausage processedAudioDuration:(double)duration
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   sausageCopy = sausage;
   nBest = [sausageCopy nBest];
   tokenSausage = [sausageCopy tokenSausage];
@@ -1962,29 +1931,29 @@ LABEL_31:
   v11 = [MEMORY[0x277CBEB70] orderedSetWithArray:interpretationIndices];
   array = [v11 array];
 
-  v73 = array;
+  v72 = array;
   v13 = [array count];
-  v70 = v9;
+  v69 = v9;
   v14 = [v9 count];
   v15 = v14;
-  v68 = interpretationIndices;
-  v69 = sausageCopy;
+  v67 = interpretationIndices;
+  v68 = sausageCopy;
   if (v14 > v13)
   {
     v16 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v92 = "AFPhrasesAndUtterancesForEARSausage";
-      v93 = 2048;
-      v94 = v15;
-      v95 = 2048;
-      v96 = v13;
+      v91 = "AFPhrasesAndUtterancesForEARSausage";
+      v92 = 2048;
+      v93 = v15;
+      v94 = 2048;
+      v95 = v13;
       _os_log_impl(&dword_225EEB000, v16, OS_LOG_TYPE_INFO, "%s Size of lossless n-best (%ld) exceeds size of sausage-based n-best (%ld); this leads to information loss in the lossless n-best.", buf, 0x20u);
     }
 
 LABEL_8:
-    v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (!v13)
     {
       goto LABEL_16;
@@ -2002,15 +1971,15 @@ LABEL_8:
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v92 = "AFPhrasesAndUtterancesForEARSausage";
-    v93 = 2048;
-    v94 = v15;
-    v95 = 2048;
-    v96 = v13;
+    v91 = "AFPhrasesAndUtterancesForEARSausage";
+    v92 = 2048;
+    v93 = v15;
+    v94 = 2048;
+    v95 = v13;
     _os_log_error_impl(&dword_225EEB000, v17, OS_LOG_TYPE_ERROR, "%s Size of lossless n-best (%ld) is less than size of sausage-based n-best (%ld); this is unexpected.", buf, 0x20u);
   }
 
-  v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
 LABEL_9:
   v18 = 0;
   v19 = MEMORY[0x277CBEBF8];
@@ -2023,9 +1992,9 @@ LABEL_9:
       if (os_log_type_enabled(*v20, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v92 = "AFPhrasesAndUtterancesForEARSausage";
-        v93 = 2048;
-        v94 = v18;
+        v91 = "AFPhrasesAndUtterancesForEARSausage";
+        v92 = 2048;
+        v93 = v18;
         _os_log_impl(&dword_225EEB000, v24, OS_LOG_TYPE_INFO, "%s AFSpeechUtterance at index %ld will have a nil AFSpeechInterpretation (used for lossless n-best) since the lossless n-best does not have an entry at this index.", buf, 0x16u);
       }
 
@@ -2035,14 +2004,14 @@ LABEL_9:
     else
     {
       v21 = objc_alloc_init(MEMORY[0x277CEF458]);
-      v22 = [v70 objectAtIndex:v18];
+      v22 = [v69 objectAtIndex:v18];
       v23 = [CESRUtilities afTokensForEARTokens:v22 removeSpaceBefore:0];
       [v21 setTokens:v23];
     }
 
     v25 = [objc_alloc(MEMORY[0x277CEF4B8]) initWithInterpretationIndices:v19 confidenceScore:0 interpretation:v21];
     [v25 setSource:2];
-    [v74 addObject:v25];
+    [v73 addObject:v25];
 
     ++v18;
   }
@@ -2050,41 +2019,41 @@ LABEL_9:
   while (v13 != v18);
 LABEL_16:
   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   obj = v10;
-  v27 = [obj countByEnumeratingWithState:&v86 objects:buf count:16];
+  v27 = [obj countByEnumeratingWithState:&v85 objects:buf count:16];
   if (v27)
   {
     v28 = v27;
     v29 = 0;
     v30 = 0;
-    v72 = *v87;
+    v71 = *v86;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v87 != v72)
+        if (*v86 != v71)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v86 + 1) + 8 * i);
+        v32 = *(*(&v85 + 1) + 8 * i);
         v33 = objc_alloc_init(MEMORY[0x277CBEB40]);
-        v80[0] = MEMORY[0x277D85DD0];
-        v80[1] = 3221225472;
-        v80[2] = __AFPhrasesAndUtterancesForEARSausage_block_invoke;
-        v80[3] = &unk_27857F658;
-        v34 = v74;
-        v84 = v30;
-        v81 = v34;
-        v82 = v32;
-        v85 = v29 & 1;
+        v79[0] = MEMORY[0x277D85DD0];
+        v79[1] = 3221225472;
+        v79[2] = __AFPhrasesAndUtterancesForEARSausage_block_invoke;
+        v79[3] = &unk_27857F658;
+        v34 = v73;
+        v83 = v30;
+        v80 = v34;
+        v81 = v32;
+        v84 = v29 & 1;
         v35 = v33;
-        v83 = v35;
-        [v73 enumerateObjectsUsingBlock:v80];
+        v82 = v35;
+        [v72 enumerateObjectsUsingBlock:v79];
         v36 = [v35 count];
         if (v36)
         {
@@ -2104,32 +2073,32 @@ LABEL_16:
         }
       }
 
-      v28 = [obj countByEnumeratingWithState:&v86 objects:buf count:16];
+      v28 = [obj countByEnumeratingWithState:&v85 objects:buf count:16];
     }
 
     while (v28);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
-  v75 = v74;
-  v43 = [v75 countByEnumeratingWithState:&v76 objects:v90 count:16];
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
+  v74 = v73;
+  v43 = [v74 countByEnumeratingWithState:&v75 objects:v89 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v77;
+    v45 = *v76;
     do
     {
       for (j = 0; j != v44; ++j)
       {
-        if (*v77 != v45)
+        if (*v76 != v45)
         {
-          objc_enumerationMutation(v75);
+          objc_enumerationMutation(v74);
         }
 
-        v47 = *(*(&v76 + 1) + 8 * j);
+        v47 = *(*(&v75 + 1) + 8 * j);
         interpretationIndices2 = [v47 interpretationIndices];
         v49 = [interpretationIndices2 count];
 
@@ -2163,49 +2132,47 @@ LABEL_16:
         }
       }
 
-      v44 = [v75 countByEnumeratingWithState:&v76 objects:v90 count:16];
+      v44 = [v74 countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
     while (v44);
   }
 
-  v61 = [MEMORY[0x277CBEB70] orderedSetWithArray:v75];
+  v61 = [MEMORY[0x277CBEB70] orderedSetWithArray:v74];
   array3 = [v61 array];
   v63 = array3;
 
   v64 = array3;
   v65 = [objc_alloc(MEMORY[0x277CEF480]) initWithPhrases:v26 utterances:v64 processedAudioDuration:duration];
 
-  v66 = *MEMORY[0x277D85DE8];
-
   return v65;
 }
 
 + (id)afTokensForEARTokens:(id)tokens removeSpaceBefore:(BOOL)before
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(tokensCopy, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = tokensCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         v13 = objc_alloc_init(MEMORY[0x277CEF4B0]);
         tokenName = [v12 tokenName];
         [v13 setText:tokenName];
@@ -2239,40 +2206,38 @@ LABEL_16:
         [v6 addObject:v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (BOOL)hasRecognizedAnythingInAFSpeechPackage:(id)package
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   recognition = [package recognition];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   utterances = [recognition utterances];
-  v5 = [utterances countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [utterances countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(utterances);
         }
 
-        interpretationIndices = [*(*(&v12 + 1) + 8 * i) interpretationIndices];
+        interpretationIndices = [*(*(&v11 + 1) + 8 * i) interpretationIndices];
         v9 = [interpretationIndices count];
 
         if (v9)
@@ -2282,7 +2247,7 @@ LABEL_16:
         }
       }
 
-      v5 = [utterances countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [utterances countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -2294,7 +2259,6 @@ LABEL_16:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2372,33 +2336,33 @@ LABEL_11:
 
 + (id)installedDictationLocaleIdentifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   v3 = objc_alloc_init(MEMORY[0x277CDCE98]);
   v4 = MEMORY[0x277CDCE98];
   systemClientId = [MEMORY[0x277CDCEB8] systemClientId];
   v6 = [v4 subscriptionsForSubscriberId:systemClientId];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([v12 assetType] == 3)
         {
           v13 = [v3 installedAssetWithConfig:v12];
@@ -2411,14 +2375,13 @@ LABEL_11:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v15 = [v2 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -2462,27 +2425,31 @@ LABEL_11:
 
 + (BOOL)isAutomaticCompilationEnabled
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (AFIsInternalInstall() && ([MEMORY[0x277CBEBD0] standardUserDefaults], v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "BOOLForKey:", @"ASRAutomaticCompilationOverride"), v2, v3))
+  v9 = *MEMORY[0x277D85DE8];
+  if (!AFIsInternalInstall())
   {
-    v4 = *MEMORY[0x277CEF0E8];
-    v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (v5)
-    {
-      v8 = 136315138;
-      v9 = "+[CESRUtilities isAutomaticCompilationEnabled]";
-      _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEFAULT, "%s Automatic model compilation is disabled.", &v8, 0xCu);
-      result = 0;
-    }
+    return 1;
   }
 
-  else
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v3 = [standardUserDefaults BOOLForKey:@"ASRAutomaticCompilationOverride"];
+
+  if (!v3)
   {
-    result = 1;
+    return 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CEF0E8];
+  v5 = os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v5)
+  {
+    v7 = 136315138;
+    v8 = "+[CESRUtilities isAutomaticCompilationEnabled]";
+    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEFAULT, "%s Automatic model compilation is disabled.", &v7, 0xCu);
+    return 0;
+  }
+
   return result;
 }
 

@@ -1,4 +1,4 @@
-char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_ResponseGroup>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
+google::protobuf::internal *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_ResponseGroup>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
 {
   v6 = *a3;
   v7 = *a3;
@@ -47,7 +47,7 @@ char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intellige
   return result;
 }
 
-char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_InputGroup>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
+google::protobuf::internal *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intelligence_InputGroup>(google::protobuf::internal::EpsCopyInputStream *this, uint64_t a2, google::protobuf::internal *a3)
 {
   v6 = *a3;
   v7 = *a3;
@@ -96,7 +96,7 @@ char *google::protobuf::internal::ParseContext::ParseMessage<protobuf::Intellige
   return result;
 }
 
-unsigned __int8 *protobuf::Intelligence::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -1840,7 +1840,6 @@ uint64_t protobuf::Intelligence::ByteSizeLong(protobuf::Intelligence *this)
 
 void protobuf::Intelligence::CheckTypeAndMergeFrom(protobuf::Intelligence *this, const google::protobuf::MessageLite *lpsrc)
 {
-  v4 = **lpsrc;
   {
     __assert_rtn("down_cast", "casts.h", 92, "f == nullptr || dynamic_cast<To>(f) != nullptr");
   }
@@ -1897,7 +1896,7 @@ void protobuf::Intelligence::MergeFrom(protobuf::Intelligence *this, const proto
       {
         if (v8 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 528, v7);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 66, v7);
         }
 
         std::string::operator=(v8, v7);
@@ -1956,9 +1955,9 @@ LABEL_13:
   }
 }
 
-void sub_254CF8198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CF8198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2780,9 +2779,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2808,9 +2807,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2836,9 +2835,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2864,9 +2863,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2892,9 +2891,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA8D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2920,9 +2919,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFA9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFA9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2948,9 +2947,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2976,9 +2975,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3004,9 +3003,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3032,9 +3031,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAD30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3060,9 +3059,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3088,9 +3087,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3116,9 +3115,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFAFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFAFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3144,9 +3143,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3172,9 +3171,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3200,9 +3199,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3228,9 +3227,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3256,9 +3255,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3284,9 +3283,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3312,9 +3311,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB5F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3340,9 +3339,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CFB6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3373,9 +3372,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFB788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3406,9 +3405,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFB838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3439,9 +3438,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFB8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3472,9 +3471,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFB998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFB998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3505,9 +3504,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFBA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFBA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3538,14 +3537,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CFBAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFBAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(atomic_ullong **a1, uint64_t a2)
+std::string *google::protobuf::internal::InternalMetadataWithArenaLite::DoMergeFrom(unint64_t *a1, uint64_t a2)
 {
   if (*a1)
   {
@@ -3589,7 +3588,7 @@ void google::protobuf::internal::arena_destruct_object<google::protobuf::interna
   }
 }
 
-void google::protobuf::internal::InternalMetadataWithArenaLite::DoClear(atomic_ullong **this)
+void google::protobuf::internal::InternalMetadataWithArenaLite::DoClear(google::protobuf::internal::InternalMetadataWithArenaLite *this)
 {
   if (*this)
   {
@@ -3720,9 +3719,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFBDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFBDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3801,9 +3800,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFBF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFBF40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3882,9 +3881,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3963,9 +3962,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4044,9 +4043,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4125,9 +4124,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4206,9 +4205,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4287,9 +4286,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4368,9 +4367,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFC9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFC9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4449,9 +4448,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4530,9 +4529,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFCCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFCCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4611,9 +4610,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFCE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFCE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4692,9 +4691,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFCFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFCFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4773,9 +4772,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFD120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFD120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4973,9 +4972,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFD69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFD69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5054,9 +5053,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFD81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFD81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5135,9 +5134,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFD99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFD99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5216,9 +5215,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFDB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFDB1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5297,9 +5296,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFDC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFDC9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5378,9 +5377,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFDE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFDE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5459,9 +5458,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFDF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFDF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5540,9 +5539,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE10C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5621,9 +5620,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5702,9 +5701,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE40C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5783,9 +5782,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE58C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5864,9 +5863,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -5945,9 +5944,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFE88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFE88C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6026,9 +6025,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFEA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFEA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6107,9 +6106,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFEB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFEB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6188,9 +6187,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFED0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6269,84 +6268,84 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CFEE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CFEE8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::FunctionHandler::GetAllDescriptions(uint64_t a1@<X8>)
+void siri::intelligence::FunctionHandler::GetAllDescriptions(std::string **a1@<X8>)
 {
-  siri::intelligence::GetFunctionDefinitions(&v36);
-  v3 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v37 - v36) >> 4));
-  if (v37 == v36)
+  siri::intelligence::GetFunctionDefinitions(&v35);
+  v2 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v36 - v35) >> 4));
+  if (v36 == v35)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = v3;
+    v3 = v2;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FunctionHandler::GetAllDescriptions(void)::$_0 &,siri::intelligence::FunctionDefinition *,false>(v36, v37, v4, 1);
+  std::__introsort<std::_ClassicAlgPolicy,siri::intelligence::FunctionHandler::GetAllDescriptions(void)::$_0 &,siri::intelligence::FunctionDefinition *,false>(v35, v36, v3, 1);
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v4 = v35;
   v5 = v36;
-  v6 = v37;
-  if (v36 != v37)
+  if (v35 != v36)
   {
-    v7 = 0x6DB6DB6DB6DB6DB7;
-    v8 = "";
-    v30 = v37;
+    v6 = 0x6DB6DB6DB6DB6DB7;
+    v7 = "";
+    v29 = v36;
     do
     {
-      std::string::basic_string[abi:ne200100]<0>(&v31, v8);
-      v9 = v8;
-      std::string::basic_string[abi:ne200100]<0>(&__p, v8);
+      std::string::basic_string[abi:ne200100]<0>(&v30, v7);
+      v8 = v7;
+      std::string::basic_string[abi:ne200100]<0>(&__p, v7);
+      v32 = 0;
       v33 = 0;
       v34 = 0;
-      v35 = 0;
-      std::string::operator=(&v31, v5);
-      std::string::operator=(&__p, (v5 + 4));
-      if (&v33 != (v5 + 7))
+      std::string::operator=(&v30, v4);
+      std::string::operator=(&__p, (v4 + 4));
+      if (&v32 != (v4 + 7))
       {
-        std::vector<siri::intelligence::FunctionArgument>::__assign_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(&v33, v5[7], v5[8], ((v5[8] - v5[7]) >> 3) * v7);
+        std::vector<siri::intelligence::FunctionArgument>::__assign_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(&v32, v4[7], v4[8], ((v4[8] - v4[7]) >> 3) * v6);
       }
 
-      v11 = *(a1 + 8);
-      v10 = *(a1 + 16);
-      if (v11 >= v10)
+      v10 = a1[1];
+      v9 = a1[2];
+      if (v10 >= v9)
       {
-        v13 = 0x8E38E38E38E38E39 * ((v11 - *a1) >> 3);
-        v14 = v13 + 1;
-        if (v13 + 1 > 0x38E38E38E38E38ELL)
+        v12 = 0x8E38E38E38E38E39 * ((v10 - *a1) >> 3);
+        v13 = v12 + 1;
+        if (v12 + 1 > 0x38E38E38E38E38ELL)
         {
           std::vector<siri::intelligence::FunctionArgument>::__throw_length_error[abi:ne200100]();
         }
 
-        v15 = 0x8E38E38E38E38E39 * ((v10 - *a1) >> 3);
-        if (2 * v15 > v14)
+        v14 = 0x8E38E38E38E38E39 * ((v9 - *a1) >> 3);
+        if (2 * v14 > v13)
         {
-          v14 = 2 * v15;
+          v13 = 2 * v14;
         }
 
-        if (v15 >= 0x1C71C71C71C71C7)
+        if (v14 >= 0x1C71C71C71C71C7)
         {
-          v16 = 0x38E38E38E38E38ELL;
+          v15 = 0x38E38E38E38E38ELL;
         }
 
         else
         {
-          v16 = v14;
+          v15 = v13;
         }
 
-        v42 = a1;
-        if (v16)
+        v41 = a1;
+        if (v15)
         {
-          if (v16 <= 0x38E38E38E38E38ELL)
+          if (v15 <= 0x38E38E38E38E38ELL)
           {
             operator new();
           }
@@ -6354,152 +6353,152 @@ void siri::intelligence::FunctionHandler::GetAllDescriptions(uint64_t a1@<X8>)
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
 
-        v19 = 72 * v13;
-        v38 = 0;
-        v39 = 72 * v13;
-        v40 = 72 * v13;
-        v41 = 0;
-        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+        v18 = 72 * v12;
+        v37 = 0;
+        v38 = 72 * v12;
+        v39 = 72 * v12;
+        v40 = 0;
+        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external((72 * v13), v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external((72 * v12), v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *v19 = *&v31.__r_.__value_.__l.__data_;
-          *(72 * v13 + 0x10) = *(&v31.__r_.__value_.__l + 2);
+          *v18 = *&v30.__r_.__value_.__l.__data_;
+          *(72 * v12 + 0x10) = *(&v30.__r_.__value_.__l + 2);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external((v19 + 24), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external((v18 + 24), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *(72 * v13 + 0x18) = *&__p.__r_.__value_.__l.__data_;
-          *(72 * v13 + 0x28) = *(&__p.__r_.__value_.__l + 2);
+          *(72 * v12 + 0x18) = *&__p.__r_.__value_.__l.__data_;
+          *(72 * v12 + 0x28) = *(&__p.__r_.__value_.__l + 2);
         }
 
-        *(72 * v13 + 0x30) = 0;
-        *(72 * v13 + 0x38) = 0;
-        *(72 * v13 + 0x40) = 0;
-        v20 = v7;
-        std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(v19 + 48, v33, v34, ((v34 - v33) >> 3) * v7);
-        v21 = v40;
-        v22 = *a1;
-        v23 = *(a1 + 8);
-        v24 = v39 + *a1 - v23;
-        if (v23 != *a1)
+        *(72 * v12 + 0x30) = 0;
+        *(72 * v12 + 0x38) = 0;
+        *(72 * v12 + 0x40) = 0;
+        v19 = v6;
+        std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>((v18 + 48), v32, v33, ((v33 - v32) >> 3) * v6);
+        v20 = v39;
+        v21 = *a1;
+        v22 = a1[1];
+        v23 = (v38 + *a1 - v22);
+        if (v22 != *a1)
         {
-          v25 = *a1;
-          v26 = v39 + *a1 - v23;
+          v24 = *a1;
+          v25 = (v38 + *a1 - v22);
           do
           {
-            v27 = *v25;
-            *(v26 + 16) = v25[2];
-            *v26 = v27;
-            v25[1] = 0;
-            v25[2] = 0;
-            *v25 = 0;
-            v28 = *(v25 + 3);
-            *(v26 + 40) = v25[5];
-            *(v26 + 24) = v28;
-            v25[4] = 0;
-            v25[5] = 0;
-            v25[3] = 0;
-            *(v26 + 48) = 0;
-            *(v26 + 56) = 0;
-            *(v26 + 64) = 0;
-            *(v26 + 48) = *(v25 + 3);
-            *(v26 + 64) = v25[8];
-            v25[6] = 0;
-            v25[7] = 0;
-            v25[8] = 0;
-            v25 += 9;
-            v26 += 72;
+            v26 = *&v24->__r_.__value_.__l.__data_;
+            *(v25 + 2) = *(&v24->__r_.__value_.__l + 2);
+            *v25 = v26;
+            v24->__r_.__value_.__l.__size_ = 0;
+            v24->__r_.__value_.__r.__words[2] = 0;
+            v24->__r_.__value_.__r.__words[0] = 0;
+            v27 = *&v24[1].__r_.__value_.__l.__data_;
+            *(v25 + 5) = *(&v24[1].__r_.__value_.__l + 2);
+            *(v25 + 24) = v27;
+            v24[1].__r_.__value_.__l.__size_ = 0;
+            v24[1].__r_.__value_.__r.__words[2] = 0;
+            v24[1].__r_.__value_.__r.__words[0] = 0;
+            *(v25 + 6) = 0;
+            *(v25 + 7) = 0;
+            *(v25 + 8) = 0;
+            *(v25 + 3) = *&v24[2].__r_.__value_.__l.__data_;
+            *(v25 + 8) = *(&v24[2].__r_.__value_.__l + 2);
+            v24[2].__r_.__value_.__r.__words[0] = 0;
+            v24[2].__r_.__value_.__l.__size_ = 0;
+            v24[2].__r_.__value_.__r.__words[2] = 0;
+            v24 += 3;
+            v25 += 72;
           }
 
-          while (v25 != v23);
+          while (v24 != v22);
           do
           {
-            std::allocator_traits<std::allocator<siri::intelligence::FunctionDescription>>::destroy[abi:ne200100]<siri::intelligence::FunctionDescription,0>(v22);
-            v22 += 9;
+            std::allocator_traits<std::allocator<siri::intelligence::FunctionDescription>>::destroy[abi:ne200100]<siri::intelligence::FunctionDescription,0>(v21);
+            v21 += 9;
           }
 
-          while (v22 != v23);
-          v22 = *a1;
+          while (v21 != v22);
+          v21 = *a1;
         }
 
-        v18 = v21 + 72;
-        *a1 = v24;
-        *(a1 + 8) = v18;
-        v29 = *(a1 + 16);
-        *(a1 + 16) = v41;
-        v40 = v22;
-        v41 = v29;
-        v38 = v22;
-        v39 = v22;
-        std::__split_buffer<siri::intelligence::FunctionDescription>::~__split_buffer(&v38);
-        v7 = v20;
-        v6 = v30;
+        v17 = v20 + 3;
+        *a1 = v23;
+        a1[1] = v17;
+        v28 = a1[2];
+        a1[2] = v40;
+        v39 = v21;
+        v40 = v28;
+        v37 = v21;
+        v38 = v21;
+        std::__split_buffer<siri::intelligence::FunctionDescription>::~__split_buffer(&v37);
+        v6 = v19;
+        v5 = v29;
       }
 
       else
       {
-        if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(*(a1 + 8), v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(a1[1], v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v12 = *&v31.__r_.__value_.__l.__data_;
-          *(v11 + 16) = *(&v31.__r_.__value_.__l + 2);
-          *v11 = v12;
+          v11 = *&v30.__r_.__value_.__l.__data_;
+          v10->__r_.__value_.__r.__words[2] = v30.__r_.__value_.__r.__words[2];
+          *&v10->__r_.__value_.__l.__data_ = v11;
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external((v11 + 24), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v10 + 1, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v17 = *&__p.__r_.__value_.__l.__data_;
-          *(v11 + 40) = *(&__p.__r_.__value_.__l + 2);
-          *(v11 + 24) = v17;
+          v16 = *&__p.__r_.__value_.__l.__data_;
+          v10[1].__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
+          *&v10[1].__r_.__value_.__l.__data_ = v16;
         }
 
-        *(v11 + 48) = 0;
-        *(v11 + 56) = 0;
-        *(v11 + 64) = 0;
-        std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(v11 + 48, v33, v34, ((v34 - v33) >> 3) * v7);
-        v18 = v11 + 72;
+        v10[2].__r_.__value_.__r.__words[0] = 0;
+        v10[2].__r_.__value_.__l.__size_ = 0;
+        v10[2].__r_.__value_.__r.__words[2] = 0;
+        std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(&v10[2], v32, v33, ((v33 - v32) >> 3) * v6);
+        v17 = v10 + 3;
       }
 
-      *(a1 + 8) = v18;
-      v38 = &v33;
-      std::vector<siri::intelligence::FunctionArgument>::__destroy_vector::operator()[abi:ne200100](&v38);
+      a1[1] = v17;
+      v37 = &v32;
+      std::vector<siri::intelligence::FunctionArgument>::__destroy_vector::operator()[abi:ne200100](&v37);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      v8 = v9;
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      v7 = v8;
+      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v31.__r_.__value_.__l.__data_);
+        operator delete(v30.__r_.__value_.__l.__data_);
       }
 
-      v5 += 10;
+      v4 += 10;
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
 
-  v31.__r_.__value_.__r.__words[0] = &v36;
-  std::vector<siri::intelligence::FunctionDefinition>::__destroy_vector::operator()[abi:ne200100](&v31);
+  v30.__r_.__value_.__r.__words[0] = &v35;
+  std::vector<siri::intelligence::FunctionDefinition>::__destroy_vector::operator()[abi:ne200100](&v30);
 }
 
 void sub_254CFF808(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, char a25)
@@ -6517,31 +6516,26 @@ void sub_254CFF808(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::intelligence::GetFunctionDefinitions(uint64_t this)
+void siri::intelligence::GetFunctionDefinitions(siri::intelligence *this)
 {
-  v1 = this;
-  v10 = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&_MergedGlobals_8, memory_order_acquire) & 1) == 0)
+  v9[233] = *MEMORY[0x277D85DE8];
+  if ((atomic_load_explicit(&_MergedGlobals_8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_8))
   {
-    this = __cxa_guard_acquire(&_MergedGlobals_8);
-    if (this)
-    {
-      std::string::basic_string[abi:ne200100]<0>(v7, "abs");
-      v7[3] = siri::intelligence::FunctionAbs;
-      std::string::basic_string[abi:ne200100]<0>(v8, siri::intelligence::TYPE_NUMBER[0]);
-      std::string::basic_string[abi:ne200100]<0>(v5, "value");
-      std::string::basic_string[abi:ne200100]<0>(v6, siri::intelligence::TYPE_NUMBER[0]);
-      v6[24] = 1;
-      memset(v9, 0, 24);
-      std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument const*,siri::intelligence::FunctionArgument const*>(v9, v5, v7, 1uLL);
-    }
+    std::string::basic_string[abi:ne200100]<0>(v7, "abs");
+    v7[3] = siri::intelligence::FunctionAbs;
+    std::string::basic_string[abi:ne200100]<0>(v8, siri::intelligence::TYPE_NUMBER[0]);
+    std::string::basic_string[abi:ne200100]<0>(v4, "value");
+    std::string::basic_string[abi:ne200100]<0>(v5, siri::intelligence::TYPE_NUMBER[0]);
+    v6 = 1;
+    memset(v9, 0, 24);
+    std::vector<siri::intelligence::FunctionArgument>::__init_with_size[abi:ne200100]<siri::intelligence::FunctionArgument const*,siri::intelligence::FunctionArgument const*>(v9, v4, v7, 1uLL);
   }
 
-  *v1 = 0;
-  v1[1] = 0;
-  v1[2] = 0;
-  v3 = v1;
-  v4 = 0;
+  *this = 0;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  v2 = this;
+  v3 = 0;
   if (qword_280AF4378 != qword_280AF4370)
   {
     if (0xCCCCCCCCCCCCCCCDLL * ((qword_280AF4378 - qword_280AF4370) >> 4) < 0x333333333333334)
@@ -6551,23 +6545,20 @@ uint64_t siri::intelligence::GetFunctionDefinitions(uint64_t this)
 
     std::vector<siri::intelligence::FunctionArgument>::__throw_length_error[abi:ne200100]();
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-  return this;
 }
 
 void sub_254D00B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v74 = -1920;
-  v75 = v72;
+  v67 = -1920;
+  v68 = v65;
   do
   {
-    siri::intelligence::FunctionDefinition::~FunctionDefinition(v75);
-    v75 = (v76 - 80);
-    v74 += 80;
+    siri::intelligence::FunctionDefinition::~FunctionDefinition(v68);
+    v68 = (v69 - 80);
+    v67 += 80;
   }
 
-  while (v74);
+  while (v67);
   siri::intelligence::TestParseError::~TestParseError(&a9);
   for (i = 56; i != -56; i -= 56)
   {
@@ -6583,7 +6574,7 @@ void sub_254D00B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     siri::intelligence::TestParseError::~TestParseError((&a58 + j));
   }
 
-  siri::intelligence::TestParseError::~TestParseError(&a72);
+  siri::intelligence::TestParseError::~TestParseError(&a65);
   for (k = 56; k != -56; k -= 56)
   {
     siri::intelligence::TestParseError::~TestParseError((&STACK[0x230] + k));
@@ -6644,14 +6635,14 @@ void sub_254D00B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void **std::vector<siri::intelligence::FunctionDefinition>::~vector[abi:ne200100](void **a1)
+void ***std::vector<siri::intelligence::FunctionDefinition>::~vector[abi:ne200100](void ***a1)
 {
   v3 = a1;
   std::vector<siri::intelligence::FunctionDefinition>::__destroy_vector::operator()[abi:ne200100](&v3);
   return a1;
 }
 
-void siri::intelligence::FunctionHandler::Validate(uint64_t a1, const void **a2, siri::intelligence::ValidationResults *a3, uint64_t a4, uint64_t *a5, uint64_t a6, int a7)
+void siri::intelligence::FunctionHandler::Validate(uint64_t a1, const void **a2, uint64_t **a3, uint64_t a4, void *a5, uint64_t a6, int a7)
 {
   siri::intelligence::GetFunctionDefinitionsMap(v142);
   v10 = std::__tree<std::string>::find<std::string>(v142, a4);
@@ -6989,7 +6980,7 @@ LABEL_52:
               __p = *(v23 + 32);
             }
 
-            if (siri::intelligence::IsEquivalentType(&__p, &v136.__r_.__value_.__l.__data_))
+            if (siri::intelligence::IsEquivalentType(&__p, &v136))
             {
               v36 = 0;
             }
@@ -6997,7 +6988,7 @@ LABEL_52:
             else
             {
               (*(*v23 + 96))(&v134, v23, v120);
-              IsEquivalentType = siri::intelligence::IsEquivalentType(&v134, &v136.__r_.__value_.__l.__data_);
+              IsEquivalentType = siri::intelligence::IsEquivalentType(&v134, &v136);
               if (SHIBYTE(v134.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(v134.__r_.__value_.__l.__data_);
@@ -7682,7 +7673,7 @@ LABEL_226:
 
 void sub_254D02718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, uint64_t a63)
 {
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(__p);
   }
@@ -7722,29 +7713,29 @@ void sub_254D02718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a23);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a71);
+    operator delete(a66);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (v74)
+  if (v69)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
   }
 
-  siri::intelligence::TestParseError::~TestParseError((v75 - 240));
-  if (*(v75 - 153) < 0)
+  siri::intelligence::TestParseError::~TestParseError((v70 - 240));
+  if (*(v70 - 153) < 0)
   {
-    operator delete(*(v75 - 176));
+    operator delete(*(v70 - 176));
   }
 
-  std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(v75 - 144, *(v75 - 136));
-  std::__tree<std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::intelligence::FunctionDefinition>>>::destroy(*(v75 - 104));
+  std::__tree<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<siri::intelligence::Variable>>>>::destroy(v70 - 144, *(v70 - 136));
+  std::__tree<std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::intelligence::FunctionDefinition>>>::destroy(*(v70 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -7842,7 +7833,7 @@ void *siri::intelligence::GetFunctionDefinitionsMap(siri::intelligence *this)
       std::string::operator=((v5 + 88), (v3 + 32));
       if (v3 != v5 + 56)
       {
-        std::vector<siri::intelligence::FunctionArgument>::__assign_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>(v5 + 112, *(v3 + 56), *(v3 + 64), 0x6DB6DB6DB6DB6DB7 * ((*(v3 + 64) - *(v3 + 56)) >> 3));
+        std::vector<siri::intelligence::FunctionArgument>::__assign_with_size[abi:ne200100]<siri::intelligence::FunctionArgument*,siri::intelligence::FunctionArgument*>((v5 + 112), *(v3 + 56), *(v3 + 64), 0x6DB6DB6DB6DB6DB7 * ((*(v3 + 64) - *(v3 + 56)) >> 3));
       }
     }
 
@@ -7862,9 +7853,9 @@ void sub_254D02CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void siri::intelligence::FunctionHandler::GetReturnType(const void **a1@<X1>, uint64_t *a2@<X2>, std::string *a3@<X8>)
 {
-  siri::intelligence::GetFunctionDefinitionsMap(v32);
-  v6 = std::__tree<std::string>::find<std::string>(v32, a1);
-  if (&v33 == v6)
+  siri::intelligence::GetFunctionDefinitionsMap(v31);
+  v6 = std::__tree<std::string>::find<std::string>(v31, a1);
+  if (&v32 == v6)
   {
     std::string::basic_string[abi:ne200100]<0>(a3, siri::intelligence::TYPE_UNKNOWN);
     goto LABEL_15;
@@ -7919,8 +7910,8 @@ LABEL_12:
   v16 = v15;
   if (v14 + 80 == v15)
   {
-    v23 = 0;
-    v21 = 0;
+    v22 = 0;
+    v20 = 0;
   }
 
   else
@@ -7933,9 +7924,9 @@ LABEL_12:
     }
 
     {
-      v22 = 0;
       v21 = 0;
-      v23 = 0;
+      v20 = 0;
+      v22 = 0;
       if (!v18)
       {
         goto LABEL_27;
@@ -7944,108 +7935,108 @@ LABEL_12:
       goto LABEL_25;
     }
 
-    v21 = v20;
+    v20 = v19;
     if (v18)
     {
       atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
-      v22 = v18;
+      v21 = v18;
 LABEL_25:
       std::__shared_weak_count::__release_shared[abi:ne200100](v18);
-      v23 = v22;
+      v22 = v21;
       goto LABEL_27;
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
 LABEL_27:
-  if (v31 < 0)
+  if (v30 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (!v21)
+  if (!v20)
   {
     goto LABEL_42;
   }
 
-  if ((*(*v21 + 40))(v21))
+  if ((*(*v20 + 40))(v20))
   {
     goto LABEL_42;
   }
 
-  v24 = v21[9];
-  if (((v21[10] - v24) >> 4) < 1)
+  v23 = v20[9];
+  if (((v20[10] - v23) >> 4) < 1)
   {
     goto LABEL_42;
   }
 
-  v26 = *v24;
-  v25 = v24[1];
-  if (!v25)
+  v25 = *v23;
+  v24 = v23[1];
+  if (!v24)
   {
-    if (v26)
+    if (v25)
     {
 LABEL_38:
-      v27 = *v24;
-      v28 = v24[1];
-      if (v28)
+      v26 = *v23;
+      v27 = v23[1];
+      if (v27)
       {
-        atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
       goto LABEL_40;
     }
 
 LABEL_42:
-    if (v23)
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
     goto LABEL_12;
   }
 
-  atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v25);
-  if (!v26)
+  atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+  if (!v25)
   {
     goto LABEL_42;
   }
 
-  v24 = v21[9];
-  if (((v21[10] - v24) >> 4) >= 1)
+  v23 = v20[9];
+  if (((v20[10] - v23) >> 4) >= 1)
   {
     goto LABEL_38;
   }
 
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
 LABEL_40:
-  if (*(v27 + 55) < 0)
+  if (*(v26 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(a3, *(v27 + 32), *(v27 + 40));
+    std::string::__init_copy_ctor_external(a3, *(v26 + 32), *(v26 + 40));
   }
 
   else
   {
-    v29 = *(v27 + 32);
-    a3->__r_.__value_.__r.__words[2] = *(v27 + 48);
-    *&a3->__r_.__value_.__l.__data_ = v29;
+    v28 = *(v26 + 32);
+    a3->__r_.__value_.__r.__words[2] = *(v26 + 48);
+    *&a3->__r_.__value_.__l.__data_ = v28;
   }
 
-  if (v28)
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
-  if (v23)
+  if (v22)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
 LABEL_15:
-  std::__tree<std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::intelligence::FunctionDefinition>>>::destroy(v33);
+  std::__tree<std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::__map_value_compare<std::string,std::__value_type<std::string,siri::intelligence::FunctionDefinition>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,siri::intelligence::FunctionDefinition>>>::destroy(v32);
 }
 
 void sub_254D03020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char *a16)
@@ -8272,7 +8263,7 @@ void sub_254D03450(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::FunctionSqrt(uint64_t *a1@<X0>, void *a2@<X8>)
+double siri::intelligence::FunctionSqrt@<D0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   std::string::basic_string[abi:ne200100]<0>(__p, "value");
@@ -8293,7 +8284,7 @@ void siri::intelligence::FunctionSqrt(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v10 < 0)
+  if (v11 < 0)
   {
     operator delete(__p[0]);
     if (v7)
@@ -8325,6 +8316,8 @@ LABEL_11:
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
+
+  return result;
 }
 
 void sub_254D035C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -8358,14 +8351,15 @@ void siri::intelligence::FunctionOdd(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v9 < 0)
+  if (v11 < 0)
   {
     operator delete(__p[0]);
     if (v7)
     {
 LABEL_7:
-      (*(*v7 + 72))(v7);
-      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL &,0>();
+      v8 = (*(*v7 + 72))(v7);
+      v9 = (v8 == v8) & v8;
+      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL &,0>(__p, &v9);
     }
   }
 
@@ -8414,14 +8408,16 @@ void siri::intelligence::FunctionEven(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v9 < 0)
+  if (v12 < 0)
   {
     operator delete(__p[0]);
     if (v7)
     {
 LABEL_7:
-      (*(*v7 + 72))(v7);
-      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL &,0>();
+      v8 = (*(*v7 + 72))(v7);
+      v9 = (v8 & 1) == 0 && v8 == v8;
+      v10 = v9;
+      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL &,0>(__p, &v10);
     }
   }
 
@@ -8470,7 +8466,7 @@ void siri::intelligence::FunctionAdd(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v8)
@@ -8510,14 +8506,14 @@ LABEL_7:
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v13)
     {
 LABEL_15:
-      v14 = (*(*v8 + 72))(v8);
-      v15 = v14 + (*(*v13 + 72))(v13);
+      (*(*v8 + 72))(v8);
+      (*(*v13 + 72))(v13);
       std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double,0>();
     }
   }
@@ -8578,7 +8574,7 @@ void siri::intelligence::FunctionSubtract(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v8)
@@ -8618,14 +8614,14 @@ LABEL_7:
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v13)
     {
 LABEL_15:
-      v14 = (*(*v8 + 72))(v8);
-      v15 = v14 - (*(*v13 + 72))(v13);
+      (*(*v8 + 72))(v8);
+      (*(*v13 + 72))(v13);
       std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double,0>();
     }
   }
@@ -8686,7 +8682,7 @@ void siri::intelligence::FunctionMultiply(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v8)
@@ -8726,14 +8722,14 @@ LABEL_7:
     }
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
     operator delete(__p[0]);
     if (v13)
     {
 LABEL_15:
-      v14 = (*(*v8 + 72))(v8);
-      v15 = v14 * (*(*v13 + 72))(v13);
+      (*(*v8 + 72))(v8);
+      (*(*v13 + 72))(v13);
       std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double,0>();
     }
   }
@@ -8908,7 +8904,7 @@ void siri::intelligence::FunctionMin(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v15 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
     if (v8)
@@ -8920,7 +8916,7 @@ LABEL_11:
     siri::intelligence::Log::Error("No value provided for '%s' parameter for function '%s'", v6, "firstValue", "min");
     *a2 = 0;
     a2[1] = 0;
-    goto LABEL_17;
+    goto LABEL_20;
   }
 
   if (!v8)
@@ -8948,15 +8944,25 @@ LABEL_7:
     }
   }
 
-  if (v15 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
     if (v13)
     {
 LABEL_15:
-      (*(*v8 + 72))(v8);
-      (*(*v13 + 72))(v13);
-      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double const&,0>();
+      v16 = (*(*v8 + 72))(v8);
+      v15 = (*(*v13 + 72))(v13);
+      if (v15 >= v16)
+      {
+        v14 = &v16;
+      }
+
+      else
+      {
+        v14 = &v15;
+      }
+
+      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double const&,0>(__p, v14);
     }
   }
 
@@ -8973,7 +8979,7 @@ LABEL_15:
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-LABEL_17:
+LABEL_20:
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -9016,7 +9022,7 @@ void siri::intelligence::FunctionMax(uint64_t *a1@<X0>, void *a2@<X8>)
     }
   }
 
-  if (v15 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
     if (v8)
@@ -9028,7 +9034,7 @@ LABEL_11:
     siri::intelligence::Log::Error("No value provided for '%s' parameter for function '%s'", v6, "firstValue", "max");
     *a2 = 0;
     a2[1] = 0;
-    goto LABEL_17;
+    goto LABEL_20;
   }
 
   if (!v8)
@@ -9056,15 +9062,25 @@ LABEL_7:
     }
   }
 
-  if (v15 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
     if (v13)
     {
 LABEL_15:
-      (*(*v8 + 72))(v8);
-      (*(*v13 + 72))(v13);
-      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double const&,0>();
+      v16 = (*(*v8 + 72))(v8);
+      v15 = (*(*v13 + 72))(v13);
+      if (v16 >= v15)
+      {
+        v14 = &v16;
+      }
+
+      else
+      {
+        v14 = &v15;
+      }
+
+      std::allocate_shared[abi:ne200100]<siri::intelligence::VariableNumber,std::allocator<siri::intelligence::VariableNumber>,char const(&)[1],double const&,0>(__p, v14);
     }
   }
 
@@ -9081,7 +9097,7 @@ LABEL_15:
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-LABEL_17:
+LABEL_20:
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
@@ -9624,15 +9640,15 @@ LABEL_7:
     if (v13)
     {
 LABEL_15:
-      if (v8[55] < 0)
+      if (*(v8 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v8 + 4), *(v8 + 5));
+        std::string::__init_copy_ctor_external(&__p, *(v8 + 32), *(v8 + 40));
       }
 
       else
       {
-        *&__p.__first_ = *(v8 + 2);
-        __p.__end_ = *(v8 + 6);
+        *&__p.__first_ = *(v8 + 32);
+        __p.__end_ = *(v8 + 48);
       }
 
       v14 = strlen(siri::intelligence::TYPE_ARRAY[0]);
@@ -9651,115 +9667,114 @@ LABEL_15:
           if (!v16)
           {
 LABEL_27:
+            v38 = 0;
             v39 = 0;
             v40 = 0;
-            v41 = 0;
-            v17 = **v8;
-            v19 = 0;
-            if (v7 && v18)
+            v18 = 0;
+            if (v7 && v17)
             {
               atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-              v19 = v7;
+              v18 = v7;
             }
 
-            v37 = 0uLL;
-            v38 = 0;
-            std::vector<std::shared_ptr<siri::intelligence::Variable>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Variable>*,std::shared_ptr<siri::intelligence::Variable>*>(&v37, v18[9], v18[10], (v18[10] - v18[9]) >> 4);
-            if (v19)
+            v36 = 0uLL;
+            v37 = 0;
+            std::vector<std::shared_ptr<siri::intelligence::Variable>>::__init_with_size[abi:ne200100]<std::shared_ptr<siri::intelligence::Variable>*,std::shared_ptr<siri::intelligence::Variable>*>(&v36, v17[9], v17[10], (v17[10] - v17[9]) >> 4);
+            if (v18)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v18);
             }
 
-            v21 = *(&v37 + 1);
-            for (i = v37; i != v21; i += 2)
+            v20 = *(&v36 + 1);
+            for (i = v36; i != v20; i += 2)
             {
-              v22 = *i;
-              v23 = i[1];
-              if (v23)
-              {
-                atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-              }
-
+              v21 = *i;
+              v22 = i[1];
               if (v22)
               {
-                (*(*v22 + 56))(v35);
-                v24 = v40;
-                if (v40 >= v41)
+                atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+              }
+
+              if (v21)
+              {
+                (*(*v21 + 56))(v34);
+                v23 = v39;
+                if (v39 >= v40)
                 {
-                  v26 = 0xAAAAAAAAAAAAAAABLL * ((v40 - v39) >> 3);
-                  v27 = v26 + 1;
-                  if (v26 + 1 > 0xAAAAAAAAAAAAAAALL)
+                  v25 = 0xAAAAAAAAAAAAAAABLL * ((v39 - v38) >> 3);
+                  v26 = v25 + 1;
+                  if (v25 + 1 > 0xAAAAAAAAAAAAAAALL)
                   {
                     std::vector<siri::intelligence::FunctionArgument>::__throw_length_error[abi:ne200100]();
                   }
 
-                  if (0x5555555555555556 * ((v41 - v39) >> 3) > v27)
+                  if (0x5555555555555556 * ((v40 - v38) >> 3) > v26)
                   {
-                    v27 = 0x5555555555555556 * ((v41 - v39) >> 3);
+                    v26 = 0x5555555555555556 * ((v40 - v38) >> 3);
                   }
 
-                  if (0xAAAAAAAAAAAAAAABLL * ((v41 - v39) >> 3) >= 0x555555555555555)
+                  if (0xAAAAAAAAAAAAAAABLL * ((v40 - v38) >> 3) >= 0x555555555555555)
                   {
-                    v28 = 0xAAAAAAAAAAAAAAALL;
+                    v27 = 0xAAAAAAAAAAAAAAALL;
                   }
 
                   else
                   {
-                    v28 = v27;
+                    v27 = v26;
                   }
 
-                  __p.__end_cap_.__value_ = &v39;
-                  if (v28)
+                  __p.__end_cap_.__value_ = &v38;
+                  if (v27)
                   {
-                    std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v39, v28);
+                    std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v38, v27);
                   }
 
-                  v29 = 8 * ((v40 - v39) >> 3);
-                  v30 = *v35;
-                  *(v29 + 16) = v36;
-                  *v29 = v30;
-                  v35[1] = 0;
-                  v36 = 0;
-                  v35[0] = 0;
-                  v31 = 24 * v26 + 24;
-                  v32 = (24 * v26 - (v40 - v39));
-                  memcpy((v29 - (v40 - v39)), v39, v40 - v39);
-                  v33 = v39;
-                  v34 = v41;
-                  v39 = v32;
-                  v40 = v31;
-                  v41 = 0;
-                  __p.__end_ = v33;
-                  __p.__end_cap_.__value_ = v34;
-                  __p.__first_ = v33;
-                  __p.__begin_ = v33;
+                  v28 = 8 * ((v39 - v38) >> 3);
+                  v29 = *v34;
+                  *(v28 + 16) = v35;
+                  *v28 = v29;
+                  v34[1] = 0;
+                  v35 = 0;
+                  v34[0] = 0;
+                  v30 = 24 * v25 + 24;
+                  v31 = (24 * v25 - (v39 - v38));
+                  memcpy((v28 - (v39 - v38)), v38, v39 - v38);
+                  v32 = v38;
+                  v33 = v40;
+                  v38 = v31;
+                  v39 = v30;
+                  v40 = 0;
+                  __p.__end_ = v32;
+                  __p.__end_cap_.__value_ = v33;
+                  __p.__first_ = v32;
+                  __p.__begin_ = v32;
                   std::__split_buffer<std::string>::~__split_buffer(&__p);
-                  v40 = v31;
-                  if (SHIBYTE(v36) < 0)
+                  v39 = v30;
+                  if (SHIBYTE(v35) < 0)
                   {
-                    operator delete(v35[0]);
+                    operator delete(v34[0]);
                   }
                 }
 
                 else
                 {
-                  v25 = *v35;
-                  *(v40 + 2) = v36;
-                  *v24 = v25;
-                  v40 = v24 + 24;
+                  v24 = *v34;
+                  *(v39 + 2) = v35;
+                  *v23 = v24;
+                  v39 = v23 + 24;
                 }
               }
 
-              if (v23)
+              if (v22)
               {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+                std::__shared_weak_count::__release_shared[abi:ne200100](v22);
               }
             }
 
-            __p.__first_ = &v37;
+            __p.__first_ = &v36;
             std::vector<std::shared_ptr<siri::intelligence::Variable>>::__destroy_vector::operator()[abi:ne200100](&__p);
             (*(*v13 + 56))(&__p, v13);
-            LOBYTE(v35[0]) = siri::intelligence::VectorContains(&v39, &__p);
+            LOBYTE(v34[0]) = siri::intelligence::VectorContains(&v38, &__p);
             std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL,0>();
           }
         }
@@ -9776,8 +9791,8 @@ LABEL_27:
       }
 
       (*(*v8 + 56))(&__p, v8);
-      (*(*v13 + 56))(&v39, v13);
-      v42 = siri::intelligence::StringContains(&__p, &v39);
+      (*(*v13 + 56))(&v38, v13);
+      v41 = siri::intelligence::StringContains(&__p, &v38);
       std::allocate_shared[abi:ne200100]<siri::intelligence::VariableBoolean,std::allocator<siri::intelligence::VariableBoolean>,char const(&)[1],BOOL,0>();
     }
   }

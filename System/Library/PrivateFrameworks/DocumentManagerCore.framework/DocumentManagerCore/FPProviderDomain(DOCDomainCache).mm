@@ -8,28 +8,28 @@
 
 + (void)setDomainCache:()DOCDomainCache
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v23 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [v3 allKeys];
-  v4 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v4)
   {
-    v5 = *v25;
+    v5 = *v24;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
+        v7 = *(*(&v23 + 1) + 8 * i);
         v8 = [v3 objectForKeyedSubscript:v7];
         storageURLs = [v8 storageURLs];
         v10 = [storageURLs count] == 0;
@@ -45,7 +45,7 @@
 
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            [(FPProviderDomain(DOCDomainCache) *)v28 setDomainCache:v16, v8, &v29];
+            [(FPProviderDomain(DOCDomainCache) *)v27 setDomainCache:v16, v8, &v28];
           }
         }
 
@@ -58,11 +58,11 @@
           stringByStandardizingPath = [path stringByStandardizingPath];
           v15 = [stringByStandardizingPath stringByAppendingString:@"/"];
 
-          [v23 setObject:v15 forKeyedSubscript:v7];
+          [v22 setObject:v15 forKeyedSubscript:v7];
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v4);
@@ -70,12 +70,11 @@
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18 = [v23 copy];
+  v18 = [v22 copy];
   v19 = _domainPathCache;
   _domainPathCache = v18;
 
   objc_sync_exit(selfCopy);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)domainPathCache
@@ -148,15 +147,13 @@
 
 + (void)allowedFileProviderBundleIdentifiersFiltered:()DOCDomainCache .cold.1(void *a1, double a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   v4 = a1;
   v5 = [v3 numberWithDouble:a2];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_249340000, v4, OS_LOG_TYPE_ERROR, "Monitoring the File Providers took a long time (%@)", &v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_error_impl(&dword_249340000, v4, OS_LOG_TYPE_ERROR, "Monitoring the File Providers took a long time (%@)", &v6, 0xCu);
 }
 
 @end

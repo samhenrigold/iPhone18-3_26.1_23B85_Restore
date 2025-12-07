@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)newRrcStateAsString:(int)string;
+- (id)rrcStateAsString:(int)string;
 - (int)StringAsNewRrcState:(id)state;
 - (int)StringAsRrcState:(id)state;
 - (int)newRrcState;
@@ -47,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)rrcStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318E98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRrcState:(id)state
@@ -116,6 +133,17 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)newRrcStateAsString:(int)string
+{
+  if (string < 6)
+  {
+    return off_100318E98[string];
+  }
+
+  [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (int)StringAsNewRrcState:(id)state
@@ -357,7 +385,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -377,7 +404,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rrcState = self->_rrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -392,7 +418,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  newRrcState = self->_newRrcState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -407,7 +432,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  prevStateDurMs = self->_prevStateDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -422,12 +446,10 @@ LABEL_6:
   }
 
 LABEL_19:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_7:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -439,7 +461,6 @@ LABEL_8:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -643,7 +664,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if (has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -728,14 +748,14 @@ LABEL_8:
     if (![(NSData *)plmn isEqual:?])
     {
 LABEL_39:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_40;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 48) & 0x40) == 0;
+  v7 = (*(equalCopy + 48) & 0x40) == 0;
   if ((has & 0x40) != 0)
   {
     if ((*(equalCopy + 48) & 0x40) == 0 || self->_subsId != *(equalCopy + 11))
@@ -743,12 +763,12 @@ LABEL_39:
       goto LABEL_39;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_40:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

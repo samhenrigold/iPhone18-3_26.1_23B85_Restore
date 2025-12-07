@@ -37,7 +37,7 @@
 
 - (void)startPingingToHost:(id)host withNumberOfPings:(unint64_t)pings completion:(id)completion
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   hostCopy = host;
   completionCopy = completion;
   [(CWFPinger *)self setMaxPings:pings];
@@ -50,166 +50,159 @@
   [(CWFPinger *)self setRawSocket:socket(2, 2, 1)];
   if ([(CWFPinger *)self rawSocket]< 0)
   {
-    v20 = CWFGetOSLog();
-    if (v20)
+    v17 = CWFGetOSLog();
+    if (v17)
     {
-      v21 = CWFGetOSLog();
+      v18 = CWFGetOSLog();
     }
 
     else
     {
-      v21 = MEMORY[0x1E69E9C10];
-      v26 = MEMORY[0x1E69E9C10];
+      v18 = MEMORY[0x1E69E9C10];
+      v23 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = __error();
-      v28 = strerror(*v27);
-      v29 = *__error();
-      v69 = 136315394;
-      v70 = v28;
-      v71 = 1024;
-      v72 = v29;
-      _os_log_send_and_compose_impl();
+      v24 = __error();
+      v25 = strerror(*v24);
+      v26 = *__error();
+      v63 = 136315394;
+      v64 = v25;
+      v65 = 1024;
+      v66 = v26;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 0, "[corewifi] CWFPinger: Failed to create ICMP socket: %s (errno: %d)", &v63, 18);
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v67 = *MEMORY[0x1E696A578];
-    v31 = MEMORY[0x1E696AEC0];
-    v32 = __error();
-    v33 = strerror(*v32);
-    v34 = [v31 stringWithFormat:@"CWFPinger: Failed to create ICMP socket: %s (errno: %d)", v33, *__error()];
-    v68 = v34;
-    v35 = MEMORY[0x1E695DF20];
-    v36 = &v68;
-    v37 = &v67;
+    v27 = MEMORY[0x1E696ABC0];
+    v61 = *MEMORY[0x1E696A578];
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = __error();
+    v30 = strerror(*v29);
+    v31 = [v28 stringWithFormat:@"CWFPinger: Failed to create ICMP socket: %s (errno: %d)", v30, *__error()];
+    v62 = v31;
+    v32 = MEMORY[0x1E695DF20];
+    v33 = &v62;
+    v34 = &v61;
     goto LABEL_26;
   }
 
-  v11 = gethostbyname([hostCopy UTF8String]);
-  if (!v11)
+  if (!gethostbyname([hostCopy UTF8String]))
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v19 = CWFGetOSLog();
+    if (v19)
     {
-      v23 = CWFGetOSLog();
+      v20 = CWFGetOSLog();
     }
 
     else
     {
-      v23 = MEMORY[0x1E69E9C10];
-      v40 = MEMORY[0x1E69E9C10];
+      v20 = MEMORY[0x1E69E9C10];
+      v37 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v69 = 138412290;
-      v70 = hostCopy;
-      LODWORD(v57) = 12;
-      v56 = &v69;
-      _os_log_send_and_compose_impl();
+      v63 = 138412290;
+      v64 = hostCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 0, "[corewifi] CWFPinger: Failed to resolve hostname: %@", &v63, 12);
     }
 
-    v41 = MEMORY[0x1E696ABC0];
-    v65 = *MEMORY[0x1E696A578];
-    v66 = @"Failed to resolve hostname";
-    v42 = MEMORY[0x1E695DF20];
-    v43 = &v66;
-    v44 = &v65;
+    v38 = MEMORY[0x1E696ABC0];
+    v59 = *MEMORY[0x1E696A578];
+    v60 = @"Failed to resolve hostname";
+    v39 = MEMORY[0x1E695DF20];
+    v40 = &v60;
+    v41 = &v59;
     goto LABEL_31;
   }
 
-  v59 = 0;
-  v12 = *v11->h_addr_list;
-  h_length = v11->h_length;
+  v53 = 0;
   __memcpy_chk();
-  *&v64.sa_len = 512;
-  *&v64.sa_data[6] = 0;
+  *&v58.sa_len = 512;
+  *&v58.sa_data[6] = 0;
   __memcpy_chk();
-  if (connect([(CWFPinger *)self rawSocket], &v64, 0x10u) < 0)
+  if (connect([(CWFPinger *)self rawSocket], &v58, 0x10u) < 0)
   {
-    v24 = CWFGetOSLog();
-    if (v24)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v25 = CWFGetOSLog();
+      v22 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v45 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
+      v42 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = __error();
-      v47 = strerror(*v46);
-      v48 = *__error();
-      v69 = 136315394;
-      v70 = v47;
-      v71 = 1024;
-      v72 = v48;
-      _os_log_send_and_compose_impl();
+      v43 = __error();
+      v44 = strerror(*v43);
+      v45 = *__error();
+      v63 = 136315394;
+      v64 = v44;
+      v65 = 1024;
+      v66 = v45;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 0, "[corewifi] CWFPinger: Failed to connect ICMP socket: %s (errno: %d)", &v63, 18);
     }
 
-    v30 = MEMORY[0x1E696ABC0];
-    v62 = *MEMORY[0x1E696A578];
-    v49 = MEMORY[0x1E696AEC0];
-    v50 = __error();
-    v51 = strerror(*v50);
-    v34 = [v49 stringWithFormat:@"CWFPinger: Failed to connect ICMP socket: %s (errno: %d)", v51, *__error()];
-    v63 = v34;
-    v35 = MEMORY[0x1E695DF20];
-    v36 = &v63;
-    v37 = &v62;
+    v27 = MEMORY[0x1E696ABC0];
+    v56 = *MEMORY[0x1E696A578];
+    v46 = MEMORY[0x1E696AEC0];
+    v47 = __error();
+    v48 = strerror(*v47);
+    v31 = [v46 stringWithFormat:@"CWFPinger: Failed to connect ICMP socket: %s (errno: %d)", v48, *__error()];
+    v57 = v31;
+    v32 = MEMORY[0x1E695DF20];
+    v33 = &v57;
+    v34 = &v56;
 LABEL_26:
-    v52 = [v35 dictionaryWithObjects:v36 forKeys:v37 count:1];
-    v53 = [v30 errorWithDomain:@"com.apple.CWFPinger" code:-1 userInfo:v52];
+    v49 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:1];
+    v50 = [v27 errorWithDomain:@"com.apple.CWFPinger" code:-1 userInfo:v49];
 
 LABEL_32:
-    [(CWFPinger *)self completePingWithError:v53];
+    [(CWFPinger *)self completePingWithError:v50];
 
     goto LABEL_33;
   }
 
   [(CWFPinger *)self rawSocket];
-  v14 = nw_connection_create_with_connected_socket();
-  [(CWFPinger *)self setConnection:v14];
+  v11 = nw_connection_create_with_connected_socket();
+  [(CWFPinger *)self setConnection:v11];
 
   connection = [(CWFPinger *)self connection];
 
   if (!connection)
   {
-    v38 = CWFGetOSLog();
-    if (v38)
+    v35 = CWFGetOSLog();
+    if (v35)
     {
-      v39 = CWFGetOSLog();
+      v36 = CWFGetOSLog();
     }
 
     else
     {
-      v39 = MEMORY[0x1E69E9C10];
-      v54 = MEMORY[0x1E69E9C10];
+      v36 = MEMORY[0x1E69E9C10];
+      v51 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v69) = 0;
-      LODWORD(v57) = 2;
-      v56 = &v69;
-      _os_log_send_and_compose_impl();
+      LOWORD(v63) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v36, 0, "[corewifi] CWFPinger: Failed to create nw_connection from socket", &v63, 2);
     }
 
-    v41 = MEMORY[0x1E696ABC0];
-    v60 = *MEMORY[0x1E696A578];
-    v61 = @"Failed to create nw_connection from socket";
-    v42 = MEMORY[0x1E695DF20];
-    v43 = &v61;
-    v44 = &v60;
+    v38 = MEMORY[0x1E696ABC0];
+    v54 = *MEMORY[0x1E696A578];
+    v55 = @"Failed to create nw_connection from socket";
+    v39 = MEMORY[0x1E695DF20];
+    v40 = &v55;
+    v41 = &v54;
 LABEL_31:
-    v34 = [v42 dictionaryWithObjects:v43 forKeys:v44 count:{1, v56, v57}];
-    v53 = [v41 errorWithDomain:@"com.apple.CWFPinger" code:-1 userInfo:v34];
+    v31 = [v39 dictionaryWithObjects:v40 forKeys:v41 count:1];
+    v50 = [v38 errorWithDomain:@"com.apple.CWFPinger" code:-1 userInfo:v31];
     goto LABEL_32;
   }
 
@@ -230,34 +223,33 @@ LABEL_31:
   nw_connection_start(connection4);
 
 LABEL_33:
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendPing
 {
-  *&v25[9] = *MEMORY[0x1E69E9840];
+  *&v24[9] = *MEMORY[0x1E69E9840];
   connection = [(CWFPinger *)self connection];
   if (connection && (v4 = connection, v5 = [(CWFPinger *)self stopped], v4, !v5))
   {
     if ([(CWFPinger *)self maxPings]&& (v8 = [(CWFPinger *)self currentPingCount], v8 >= [(CWFPinger *)self maxPings]))
     {
-      v19 = CWFGetOSLog();
-      if (v19)
+      v18 = CWFGetOSLog();
+      if (v18)
       {
-        v20 = CWFGetOSLog();
+        v19 = CWFGetOSLog();
       }
 
       else
       {
+        v19 = MEMORY[0x1E69E9C10];
         v20 = MEMORY[0x1E69E9C10];
-        v21 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = 134217984;
-        *v25 = [(CWFPinger *)self maxPings];
-        _os_log_send_and_compose_impl();
+        v23 = 134217984;
+        *v24 = [(CWFPinger *)self maxPings];
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 0, "[corewifi] CWFPinger: Completed %lu pings, stopping.", &v23);
       }
 
       [(CWFPinger *)self completePingWithError:0];
@@ -266,21 +258,21 @@ LABEL_33:
     else
     {
       [(CWFPinger *)self setCurrentPingCount:[(CWFPinger *)self currentPingCount]+ 1];
-      memset(&v25[1], 0, 20);
-      v24 = 8;
-      LOWORD(v25[0]) = __rev16([(CWFPinger *)self identifier]);
+      memset(&v24[1], 0, 20);
+      v23 = 8;
+      LOWORD(v24[0]) = __rev16([(CWFPinger *)self identifier]);
       sequenceNumber = [(CWFPinger *)self sequenceNumber];
       [(CWFPinger *)self setSequenceNumber:(sequenceNumber + 1)];
-      HIWORD(v25[0]) = __rev16(sequenceNumber);
+      HIWORD(v24[0]) = __rev16(sequenceNumber);
       date = [MEMORY[0x1E695DF00] date];
       [date timeIntervalSince1970];
       v12 = v11;
 
-      v23 = v12;
-      v13 = [MEMORY[0x1E695DF88] dataWithBytes:&v24 length:28];
-      [v13 appendBytes:&v23 length:8];
-      HIWORD(v24) = [(CWFPinger *)self checksumForData:v13];
-      [v13 replaceBytesInRange:0 withBytes:{28, &v24}];
+      v22 = v12;
+      v13 = [MEMORY[0x1E695DF88] dataWithBytes:&v23 length:28];
+      [v13 appendBytes:&v22 length:8];
+      HIWORD(v23) = [(CWFPinger *)self checksumForData:v13];
+      [v13 replaceBytesInRange:0 withBytes:{28, &v23}];
       v14 = dispatch_data_create([v13 bytes], objc_msgSend(v13, "length"), 0, 0);
       connection2 = [(CWFPinger *)self connection];
       v16 = *MEMORY[0x1E6977E88];
@@ -309,12 +301,10 @@ LABEL_33:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_send_and_compose_impl();
+      LOWORD(v23) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] CWFPinger: Pinger has been stopped, no longer have connection", &v23, 2);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receiveReply

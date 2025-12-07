@@ -11,24 +11,24 @@
 
 + (int64_t)associateSeries:(id)series toWorkoutBuilderID:(id)d profile:(id)profile error:(id *)error
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   seriesCopy = series;
   profileCopy = profile;
   v12 = [HDWorkoutBuilderEntity workoutBuilderEntityWithIdentifier:d profile:profileCopy error:error];
   if (v12)
   {
-    v25[0] = @"workout_builder_id";
-    v25[1] = @"series_uuid";
-    v25[2] = @"series_type";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+    v24[0] = @"workout_builder_id";
+    v24[1] = @"series_uuid";
+    v24[2] = @"series_type";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
     database = [profileCopy database];
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __91__HDWorkoutBuilderAssociatedSeriesEntity_associateSeries_toWorkoutBuilderID_profile_error___block_invoke;
-    v22 = &unk_278613DE8;
-    v23 = v12;
-    v24 = seriesCopy;
-    v15 = [self insertOrReplaceEntity:0 healthDatabase:database properties:v13 error:error bindingHandler:&v19];
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __91__HDWorkoutBuilderAssociatedSeriesEntity_associateSeries_toWorkoutBuilderID_profile_error___block_invoke;
+    v21 = &unk_278613DE8;
+    v22 = v12;
+    v23 = seriesCopy;
+    v15 = [self insertOrReplaceEntity:0 healthDatabase:database properties:v13 error:error bindingHandler:&v18];
 
     if (v15)
     {
@@ -51,7 +51,6 @@
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -67,7 +66,7 @@ void __91__HDWorkoutBuilderAssociatedSeriesEntity_associateSeries_toWorkoutBuild
 
 + (id)seriesForBuilder:(id)builder profile:(id)profile error:(id *)error
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEB38];
   profileCopy = profile;
   builderCopy = builder;
@@ -80,22 +79,22 @@ void __91__HDWorkoutBuilderAssociatedSeriesEntity_associateSeries_toWorkoutBuild
   v16 = _HDSQLiteValueForNumber();
   v17 = [v12 predicateWithProperty:@"workout_builder_id" equalToValue:v16];
 
-  v29[0] = @"series_uuid";
-  v29[1] = @"series_type";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[0] = @"series_uuid";
+  v28[1] = @"series_type";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
   database = [profileCopy database];
 
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __73__HDWorkoutBuilderAssociatedSeriesEntity_seriesForBuilder_profile_error___block_invoke;
-  v27 = &unk_278615128;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __73__HDWorkoutBuilderAssociatedSeriesEntity_seriesForBuilder_profile_error___block_invoke;
+  v26 = &unk_278615128;
   v20 = v11;
-  v28 = v20;
-  LODWORD(error) = [self enumerateProperties:v18 withPredicate:v17 healthDatabase:database error:error enumerationHandler:&v24];
+  v27 = v20;
+  LODWORD(error) = [self enumerateProperties:v18 withPredicate:v17 healthDatabase:database error:error enumerationHandler:&v23];
 
   if (error)
   {
-    v21 = [v20 copy];
+    v21 = objc_msgSend_copy(v20, v23, v24, v25, v26);
   }
 
   else
@@ -103,16 +102,14 @@ void __91__HDWorkoutBuilderAssociatedSeriesEntity_associateSeries_toWorkoutBuild
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-uint64_t __73__HDWorkoutBuilderAssociatedSeriesEntity_seriesForBuilder_profile_error___block_invoke(uint64_t a1)
+uint64_t __73__HDWorkoutBuilderAssociatedSeriesEntity_seriesForBuilder_profile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  v3 = [MEMORY[0x277CCD920] dataTypeWithCode:HDSQLiteColumnWithNameAsInt64()];
-  [*(a1 + 32) setObject:v3 forKeyedSubscript:v2];
+  v5 = HDSQLiteColumnWithNameAsUUID();
+  v6 = [MEMORY[0x277CCD920] dataTypeWithCode:HDSQLiteColumnWithNameAsInt64()];
+  [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
 
   return 1;
 }
@@ -152,72 +149,67 @@ uint64_t __92__HDWorkoutBuilderAssociatedSeriesEntity_enumerateSeriesForBuilder_
   return sqlite3_bind_int64(a2, 1, v3);
 }
 
-uint64_t __92__HDWorkoutBuilderAssociatedSeriesEntity_enumerateSeriesForBuilder_transaction_error_block___block_invoke_2(uint64_t a1)
+uint64_t __92__HDWorkoutBuilderAssociatedSeriesEntity_enumerateSeriesForBuilder_transaction_error_block___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  v3 = (*(*(a1 + 32) + 16))();
+  v3 = HDSQLiteColumnWithNameAsUUID();
+  v4 = (*(*(a1 + 32) + 16))();
 
-  return v3;
+  return v4;
 }
 
 + (id)allBuilderAssociatedSeriesWithProfile:(id)profile error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB18];
   profileCopy = profile;
   v8 = objc_alloc_init(v6);
-  v17[0] = @"series_uuid";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = @"series_uuid";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   database = [profileCopy database];
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __86__HDWorkoutBuilderAssociatedSeriesEntity_allBuilderAssociatedSeriesWithProfile_error___block_invoke;
-  v15[3] = &unk_278615128;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __86__HDWorkoutBuilderAssociatedSeriesEntity_allBuilderAssociatedSeriesWithProfile_error___block_invoke;
+  v14[3] = &unk_278615128;
   v11 = v8;
-  v16 = v11;
-  LODWORD(self) = [self enumerateProperties:v9 withPredicate:0 healthDatabase:database error:error enumerationHandler:v15];
+  v15 = v11;
+  LODWORD(self) = [self enumerateProperties:v9 withPredicate:0 healthDatabase:database error:error enumerationHandler:v14];
 
   v12 = 0;
   if (self)
   {
-    v12 = [v11 copy];
+    v12 = objc_msgSend_copy(v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
-uint64_t __86__HDWorkoutBuilderAssociatedSeriesEntity_allBuilderAssociatedSeriesWithProfile_error___block_invoke(uint64_t a1)
+uint64_t __86__HDWorkoutBuilderAssociatedSeriesEntity_allBuilderAssociatedSeriesWithProfile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  [*(a1 + 32) addObject:v2];
+  v5 = HDSQLiteColumnWithNameAsUUID();
+  [*(a1 + 32) addObject:v5];
 
   return 1;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"workout_builder_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"workout_builder_id";
   v2 = +[(HDHealthEntity *)HDWorkoutBuilderEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"workout_builder_id";
-  v5[1] = @"series_uuid";
-  v5[2] = @"series_type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"workout_builder_id";
+  v4[1] = @"series_uuid";
+  v4[2] = @"series_type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

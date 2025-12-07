@@ -23,29 +23,27 @@
 
 void __51__GKFamiliarPlayerInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1)
 {
-  v8[5] = *MEMORY[0x277D85DE8];
-  v6.receiver = *(a1 + 32);
-  v6.super_class = &OBJC_METACLASS___GKFamiliarPlayerInternal;
-  v1 = objc_msgSendSuper2(&v6, sel_secureCodedPropertyKeys);
+  v7[5] = *MEMORY[0x277D85DE8];
+  v5.receiver = *(a1 + 32);
+  v5.super_class = &OBJC_METACLASS___GKFamiliarPlayerInternal;
+  v1 = objc_msgSendSuper2(&v5, sel_secureCodedPropertyKeys);
   v2 = [v1 mutableCopy];
 
-  v7[0] = @"firstName";
-  v8[0] = objc_opt_class();
-  v7[1] = @"lastName";
-  v8[1] = objc_opt_class();
-  v7[2] = @"friendLevel";
-  v8[2] = objc_opt_class();
-  v7[3] = @"compositeName";
-  v8[3] = objc_opt_class();
-  v7[4] = @"allowReceivingFriendInvites";
-  v8[4] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:5];
+  v6[0] = @"firstName";
+  v7[0] = objc_opt_class();
+  v6[1] = @"lastName";
+  v7[1] = objc_opt_class();
+  v6[2] = @"friendLevel";
+  v7[2] = objc_opt_class();
+  v6[3] = @"compositeName";
+  v7[3] = objc_opt_class();
+  v6[4] = @"allowReceivingFriendInvites";
+  v7[4] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:5];
   [v2 addEntriesFromDictionary:v3];
 
   v4 = secureCodedPropertyKeys_sSecureCodedKeys_490;
   secureCodedPropertyKeys_sSecureCodedKeys_490 = v2;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

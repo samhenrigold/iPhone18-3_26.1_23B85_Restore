@@ -35,10 +35,10 @@
 
 - (void)setUpUI
 {
-  v49[2] = *MEMORY[0x277D85DE8];
-  v48.receiver = self;
-  v48.super_class = HROnboardingAtrialFibrillationEnableViewController;
-  [(HROnboardingAtrialFibrillationEnableViewController *)&v48 setUpUI];
+  v52[2] = *MEMORY[0x277D85DE8];
+  v51.receiver = self;
+  v51.super_class = HROnboardingAtrialFibrillationEnableViewController;
+  [(HROnboardingAtrialFibrillationEnableViewController *)&v51 setUpUI];
   v3 = [(HROnboardingAtrialFibrillationEnableViewController *)self axidForElementWithString:@"ReceivingANotification.EntireView"];
   scrollView = [(HROnboardingAtrialFibrillationEnableViewController *)self scrollView];
   [scrollView setAccessibilityIdentifier:v3];
@@ -56,10 +56,10 @@
   v9 = objc_alloc_init(MEMORY[0x277D756B8]);
   [(HROnboardingAtrialFibrillationEnableViewController *)self setTitleLabel:v9];
 
-  v10 = HRHeartRhythmUIFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v11 = HRHeartRhythmUIFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_TITLE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   titleLabel = [(HROnboardingAtrialFibrillationEnableViewController *)self titleLabel];
-  [titleLabel setText:v11];
+  [titleLabel setText:v12];
 
   titleLabel2 = [(HROnboardingAtrialFibrillationEnableViewController *)self titleLabel];
   [titleLabel2 setTextAlignment:4];
@@ -74,21 +74,21 @@
   titleLabel5 = [(HROnboardingAtrialFibrillationEnableViewController *)self titleLabel];
   [titleLabel5 setNumberOfLines:0];
 
-  v18 = [(HROnboardingAtrialFibrillationEnableViewController *)self axidForElementWithString:@"PageTitle"];
+  v19 = [(HROnboardingAtrialFibrillationEnableViewController *)self axidForElementWithString:@"PageTitle"];
   titleLabel6 = [(HROnboardingAtrialFibrillationEnableViewController *)self titleLabel];
-  [titleLabel6 setAccessibilityIdentifier:v18];
+  [titleLabel6 setAccessibilityIdentifier:v19];
 
   contentView2 = [(HROnboardingAtrialFibrillationEnableViewController *)self contentView];
   titleLabel7 = [(HROnboardingAtrialFibrillationEnableViewController *)self titleLabel];
   [contentView2 addSubview:titleLabel7];
 
-  v22 = objc_alloc_init(MEMORY[0x277D756B8]);
-  [(HROnboardingAtrialFibrillationEnableViewController *)self setBodyLabel:v22];
+  v23 = objc_alloc_init(MEMORY[0x277D756B8]);
+  [(HROnboardingAtrialFibrillationEnableViewController *)self setBodyLabel:v23];
 
-  v23 = HRHeartRhythmUIFrameworkBundle();
-  v24 = [v23 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+  v25 = HRHeartRhythmUIFrameworkBundle(v24);
+  v26 = [v25 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_BODY" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
   bodyLabel = [(HROnboardingAtrialFibrillationEnableViewController *)self bodyLabel];
-  [bodyLabel setText:v24];
+  [bodyLabel setText:v26];
 
   bodyLabel2 = [(HROnboardingAtrialFibrillationEnableViewController *)self bodyLabel];
   [bodyLabel2 setTextAlignment:4];
@@ -107,27 +107,28 @@
   bodyLabel6 = [(HROnboardingAtrialFibrillationEnableViewController *)self bodyLabel];
   [bodyLabel6 setNumberOfLines:0];
 
-  v33 = [(HROnboardingAtrialFibrillationEnableViewController *)self axidForElementWithString:@"IfYouReceiveANotificationDescription"];
+  v35 = [(HROnboardingAtrialFibrillationEnableViewController *)self axidForElementWithString:@"IfYouReceiveANotificationDescription"];
   bodyLabel7 = [(HROnboardingAtrialFibrillationEnableViewController *)self bodyLabel];
-  [bodyLabel7 setAccessibilityIdentifier:v33];
+  [bodyLabel7 setAccessibilityIdentifier:v35];
 
   contentView3 = [(HROnboardingAtrialFibrillationEnableViewController *)self contentView];
   bodyLabel8 = [(HROnboardingAtrialFibrillationEnableViewController *)self bodyLabel];
   [contentView3 addSubview:bodyLabel8];
 
-  if ([(HROnboardingAtrialFibrillationEnableViewController *)self isOnboarding])
+  isOnboarding = [(HROnboardingAtrialFibrillationEnableViewController *)self isOnboarding];
+  if (isOnboarding)
   {
-    v37 = HRHeartRhythmUIFrameworkBundle();
-    v38 = [v37 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_ENABLE_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
-    v49[0] = v38;
-    v39 = HRHeartRhythmUIFrameworkBundle();
-    v40 = [v39 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_NOT_NOW_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
-    v49[1] = v40;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+    v40 = HRHeartRhythmUIFrameworkBundle(isOnboarding);
+    v41 = [v40 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_ENABLE_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+    v52[0] = v41;
+    v42 = HRHeartRhythmUIFrameworkBundle(v41);
+    v43 = [v42 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_NOT_NOW_BUTTON" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
+    v52[1] = v43;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
 
     footnoteString = [(HROnboardingAtrialFibrillationEnableViewController *)self footnoteString];
-    v43 = [HRStackedButtonView buddyStackedButtonViewWithTitles:v41 footerText:footnoteString boldFooterText:0 delegate:self];
-    [(HROnboardingAtrialFibrillationEnableViewController *)self setStackedButtonView:v43];
+    v46 = [HRStackedButtonView buddyStackedButtonViewWithTitles:v44 footerText:footnoteString boldFooterText:0 delegate:self];
+    [(HROnboardingAtrialFibrillationEnableViewController *)self setStackedButtonView:v46];
 
     stackedButtonView = [(HROnboardingAtrialFibrillationEnableViewController *)self stackedButtonView];
     [stackedButtonView setBlurHidden:1];
@@ -356,7 +357,7 @@ void __90__HROnboardingAtrialFibrillationEnableViewController_viewControllerWill
 
 - (id)footnoteString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATRIAL_FIBRILLATION_DETECTION_ENABLE_NOTIFICATION_FOOTNOTE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable-Antimony"];
 
   return v3;

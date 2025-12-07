@@ -11,8 +11,8 @@
 
 - (id)jsonRepresentation
 {
-  v20[3] = *MEMORY[0x277D85DE8];
-  v19[0] = @"identifier";
+  v19[3] = *MEMORY[0x277D85DE8];
+  v18[0] = @"identifier";
   identifier = [(_LTAlignment *)self identifier];
   v4 = identifier;
   v5 = @"<no value>";
@@ -21,8 +21,8 @@
     v5 = identifier;
   }
 
-  v20[0] = v5;
-  v19[1] = @"text";
+  v19[0] = v5;
+  v18[1] = @"text";
   text = [(_LTAlignment *)self text];
   v7 = text;
   v8 = &stru_284DBB9B8;
@@ -31,21 +31,19 @@
     v8 = text;
   }
 
-  v20[1] = v8;
-  v19[2] = @"targetRange";
-  v17[0] = @"start";
+  v19[1] = v8;
+  v18[2] = @"targetRange";
+  v16[0] = @"start";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[_LTAlignment targetRange](self, "targetRange")}];
-  v17[1] = @"length";
-  v18[0] = v9;
+  v16[1] = @"length";
+  v17[0] = v9;
   v10 = MEMORY[0x277CCABB0];
   [(_LTAlignment *)self targetRange];
   v12 = [v10 numberWithUnsignedInteger:v11];
-  v18[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v20[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v19[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
 
   return v14;
 }

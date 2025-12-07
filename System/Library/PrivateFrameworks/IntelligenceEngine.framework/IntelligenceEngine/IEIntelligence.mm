@@ -9,7 +9,6 @@
 - (BOOL)willHandleDirectInvocation:(id)invocation;
 - (BOOL)willHandleEvent:(id)event;
 - (IEIntelligence)init;
-- (_BYTE)setExtensions:;
 - (id)activeEvents;
 - (id)activeLocalEvents;
 - (id)find:(id)find withId:(id)id;
@@ -91,21 +90,21 @@
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "load(filename:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "load(filename:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "load(filename:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "load(filename:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __23__IEIntelligence_load___block_invoke(siri::intelligence::Utils *a1)
+void __23__IEIntelligence_load___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'load(filename:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'load(filename:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = _MergedGlobals_1;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -128,21 +127,21 @@ void __23__IEIntelligence_load___block_invoke(siri::intelligence::Utils *a1)
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "load(templateDir:flowId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "load(templateDir:flowId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "load(templateDir:flowId:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "load(templateDir:flowId:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __34__IEIntelligence_load_withFlowId___block_invoke(siri::intelligence::Utils *a1)
+void __34__IEIntelligence_load_withFlowId___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'load(templateDir:flowId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'load(templateDir:flowId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3E88;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -165,21 +164,21 @@ void __34__IEIntelligence_load_withFlowId___block_invoke(siri::intelligence::Uti
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "load(bundle:flowId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "load(bundle:flowId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "load(bundle:flowId:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "load(bundle:flowId:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __30__IEIntelligence_load_withId___block_invoke(siri::intelligence::Utils *a1)
+void __30__IEIntelligence_load_withId___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'load(bundle:flowId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'load(bundle:flowId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3E98;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -201,21 +200,21 @@ void __30__IEIntelligence_load_withId___block_invoke(siri::intelligence::Utils *
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "load(string:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "load(string:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "load(string:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "load(string:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __33__IEIntelligence_loadFromString___block_invoke(siri::intelligence::Utils *a1)
+void __33__IEIntelligence_loadFromString___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'load(string:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'load(string:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3EA8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -238,21 +237,21 @@ void __33__IEIntelligence_loadFromString___block_invoke(siri::intelligence::Util
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "find(bundle:flowId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "find(bundle:flowId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "find(bundle:flowId:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "find(bundle:flowId:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __30__IEIntelligence_find_withId___block_invoke(siri::intelligence::Utils *a1)
+void __30__IEIntelligence_find_withId___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'find(bundle:flowId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'find(bundle:flowId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3EB8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -275,21 +274,21 @@ void __30__IEIntelligence_find_withId___block_invoke(siri::intelligence::Utils *
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "find(templateDir:flowId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "find(templateDir:flowId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "find(templateDir:flowId:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "find(templateDir:flowId:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __43__IEIntelligence_findInTemplateDir_withId___block_invoke(siri::intelligence::Utils *a1)
+void __43__IEIntelligence_findInTemplateDir_withId___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'find(templateDir:flowId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'find(templateDir:flowId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3EC8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -310,21 +309,21 @@ void __43__IEIntelligence_findInTemplateDir_withId___block_invoke(siri::intellig
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "start()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "start()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "start()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "start()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __35__IEIntelligence_startConversation__block_invoke(siri::intelligence::Utils *a1)
+void __35__IEIntelligence_startConversation__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'start()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'start()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3ED8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -346,21 +345,21 @@ void __35__IEIntelligence_startConversation__block_invoke(siri::intelligence::Ut
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
+    LOWORD(buf[0].__r_.__value_.__l.__data_) = 0;
     _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "process(event:)", "", buf, 2u);
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, "process(event:)");
-  siri::intelligence::Timer::Timer(&v9);
+  siri::intelligence::Timer::Timer(&v9, buf);
 }
 
-void __31__IEIntelligence_processEvent___block_invoke(siri::intelligence::Utils *a1)
+void __31__IEIntelligence_processEvent___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'process(event:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'process(event:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3EE8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -382,21 +381,21 @@ void __31__IEIntelligence_processEvent___block_invoke(siri::intelligence::Utils 
   v8 = v7;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "process(text:mode:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "process(text:mode:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "process(text:mode:)");
-  siri::intelligence::Timer::Timer(&v11);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "process(text:mode:)");
+  siri::intelligence::Timer::Timer(&v11, &buf);
 }
 
-void __52__IEIntelligence_processText_withMode_withFallback___block_invoke(siri::intelligence::Utils *a1)
+void __52__IEIntelligence_processText_withMode_withFallback___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'process(text:mode:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'process(text:mode:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3EF8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -425,21 +424,21 @@ void __52__IEIntelligence_processText_withMode_withFallback___block_invoke(siri:
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "process(activityId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "process(activityId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "process(activityId:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "process(activityId:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __34__IEIntelligence_processActivity___block_invoke(siri::intelligence::Utils *a1)
+void __34__IEIntelligence_processActivity___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'process(activityId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'process(activityId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F08;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -460,21 +459,21 @@ void __34__IEIntelligence_processActivity___block_invoke(siri::intelligence::Uti
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "remainingResponses()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "remainingResponses()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "remainingResponses()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "remainingResponses()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __39__IEIntelligence_getRemainingResponses__block_invoke(siri::intelligence::Utils *a1)
+void __39__IEIntelligence_getRemainingResponses__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'remainingResponses()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'remainingResponses()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F18;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -496,21 +495,21 @@ void __39__IEIntelligence_getRemainingResponses__block_invoke(siri::intelligence
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "goTo(responseId:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "goTo(responseId:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "goTo(responseId:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "goTo(responseId:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __23__IEIntelligence_goTo___block_invoke(siri::intelligence::Utils *a1)
+void __23__IEIntelligence_goTo___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'goTo(responseId:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'goTo(responseId:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F28;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -532,21 +531,21 @@ void __23__IEIntelligence_goTo___block_invoke(siri::intelligence::Utils *a1)
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
+    LOWORD(buf[0].__r_.__value_.__l.__data_) = 0;
     _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "willHandle(event:)", "", buf, 2u);
   }
 
   std::string::basic_string[abi:ne200100]<0>(buf, "willHandle(event:)");
-  siri::intelligence::Timer::Timer(&v9);
+  siri::intelligence::Timer::Timer(&v9, buf);
 }
 
-void __34__IEIntelligence_willHandleEvent___block_invoke(siri::intelligence::Utils *a1)
+void __34__IEIntelligence_willHandleEvent___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'willHandle(event:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'willHandle(event:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F38;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -567,21 +566,21 @@ void __34__IEIntelligence_willHandleEvent___block_invoke(siri::intelligence::Uti
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "events()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "events()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "events()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "events()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __27__IEIntelligence_getEvents__block_invoke(siri::intelligence::Utils *a1)
+void __27__IEIntelligence_getEvents__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'events()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'events()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F48;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -635,21 +634,21 @@ void __27__IEIntelligence_getEvents__block_invoke(siri::intelligence::Utils *a1)
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "activeEvents()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "activeEvents()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "activeEvents()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "activeEvents()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __30__IEIntelligence_activeEvents__block_invoke(siri::intelligence::Utils *a1)
+void __30__IEIntelligence_activeEvents__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'activeEvents()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'activeEvents()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F58;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -670,21 +669,21 @@ void __30__IEIntelligence_activeEvents__block_invoke(siri::intelligence::Utils *
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "activeLocalEvents()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "activeLocalEvents()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "activeLocalEvents()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "activeLocalEvents()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __35__IEIntelligence_activeLocalEvents__block_invoke(siri::intelligence::Utils *a1)
+void __35__IEIntelligence_activeLocalEvents__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'activeLocalEvents()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'activeLocalEvents()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F68;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -705,21 +704,21 @@ void __35__IEIntelligence_activeLocalEvents__block_invoke(siri::intelligence::Ut
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "hasActiveFallback()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "hasActiveFallback()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "hasActiveFallback()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "hasActiveFallback()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __35__IEIntelligence_hasActiveFallback__block_invoke(siri::intelligence::Utils *a1)
+void __35__IEIntelligence_hasActiveFallback__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'hasActiveFallback()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'hasActiveFallback()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F78;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -741,21 +740,21 @@ void __35__IEIntelligence_hasActiveFallback__block_invoke(siri::intelligence::Ut
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "willHandle(invocation:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "willHandle(invocation:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "willHandle(invocation:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "willHandle(invocation:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __45__IEIntelligence_willHandleDirectInvocation___block_invoke(siri::intelligence::Utils *a1)
+void __45__IEIntelligence_willHandleDirectInvocation___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'willHandle(invocation:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'willHandle(invocation:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F88;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -777,21 +776,21 @@ void __45__IEIntelligence_willHandleDirectInvocation___block_invoke(siri::intell
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "process(invocation:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "process(invocation:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "process(invocation:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "process(invocation:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __42__IEIntelligence_processDirectInvocation___block_invoke(siri::intelligence::Utils *a1)
+void __42__IEIntelligence_processDirectInvocation___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'process(invocation:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'process(invocation:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3F98;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -813,21 +812,21 @@ void __42__IEIntelligence_processDirectInvocation___block_invoke(siri::intellige
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "inputGroup(id:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "inputGroup(id:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "inputGroup(id:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "inputGroup(id:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __32__IEIntelligence_getInputGroup___block_invoke(siri::intelligence::Utils *a1)
+void __32__IEIntelligence_getInputGroup___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'inputGroup(id:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'inputGroup(id:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FA8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -848,21 +847,21 @@ void __32__IEIntelligence_getInputGroup___block_invoke(siri::intelligence::Utils
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "isActive()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "isActive()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "isActive()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "isActive()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __26__IEIntelligence_isActive__block_invoke(siri::intelligence::Utils *a1)
+void __26__IEIntelligence_isActive__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'isActive()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'isActive()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FB8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -883,21 +882,21 @@ void __26__IEIntelligence_isActive__block_invoke(siri::intelligence::Utils *a1)
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "variables()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "variables()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "variables()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "variables()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __30__IEIntelligence_getVariables__block_invoke(siri::intelligence::Utils *a1)
+void __30__IEIntelligence_getVariables__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'variables()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'variables()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FC8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -920,21 +919,21 @@ void __30__IEIntelligence_getVariables__block_invoke(siri::intelligence::Utils *
   v9 = v8;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "setVariable(name:value:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "setVariable(name:value:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "setVariable(name:value:)");
-  siri::intelligence::Timer::Timer(&v12);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "setVariable(name:value:)");
+  siri::intelligence::Timer::Timer(&v12, &buf);
 }
 
-void __40__IEIntelligence_setVariable_withValue___block_invoke(siri::intelligence::Utils *a1)
+void __40__IEIntelligence_setVariable_withValue___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'setVariable(name:value:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'setVariable(name:value:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FD8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -955,21 +954,21 @@ void __40__IEIntelligence_setVariable_withValue___block_invoke(siri::intelligenc
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "changedPersistentVariables()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "changedPersistentVariables()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "changedPersistentVariables()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "changedPersistentVariables()");
+  siri::intelligence::Timer::Timer(&v7, &buf);
 }
 
-void __47__IEIntelligence_getChangedPersistentVariables__block_invoke(siri::intelligence::Utils *a1)
+void __47__IEIntelligence_getChangedPersistentVariables__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'changedPersistentVariables()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'changedPersistentVariables()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FE8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -990,21 +989,21 @@ void __47__IEIntelligence_getChangedPersistentVariables__block_invoke(siri::inte
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *__p = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "conditions()", "", __p, 2u);
+    LOWORD(__p.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "conditions()", "", &__p, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, "conditions()");
-  siri::intelligence::Timer::Timer(&v7);
+  std::string::basic_string[abi:ne200100]<0>(&__p, "conditions()");
+  siri::intelligence::Timer::Timer(&v7, &__p);
 }
 
-void __31__IEIntelligence_getConditions__block_invoke(siri::intelligence::Utils *a1)
+void __31__IEIntelligence_getConditions__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'conditions()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'conditions()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF3FF8;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -1026,21 +1025,21 @@ void __31__IEIntelligence_getConditions__block_invoke(siri::intelligence::Utils 
   v4 = v3;
   if (v2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "exitValue()", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v4, OS_SIGNPOST_INTERVAL_BEGIN, v2, "exitValue()", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "exitValue()");
-  siri::intelligence::Timer::Timer(v7);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "exitValue()");
+  siri::intelligence::Timer::Timer(v7, &buf);
 }
 
-void __30__IEIntelligence_getExitValue__block_invoke(siri::intelligence::Utils *a1)
+void __30__IEIntelligence_getExitValue__block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'exitValue()' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'exitValue()' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF4008;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -1134,14 +1133,12 @@ void __30__IEIntelligence_getExitValue__block_invoke(siri::intelligence::Utils *
 
 - (void)setExtensions:(id)extensions
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   if (self->mIntelligence)
   {
     operator new();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getMetadata:(id)metadata
@@ -1176,24 +1173,10 @@ void __30__IEIntelligence_getExitValue__block_invoke(siri::intelligence::Utils *
 
 - (void)setExtensions:
 {
-
-  operator delete(self);
-}
-
-- (id)setExtensions:
-{
-  *a2 = &unk_286718F50;
-  result = *(self + 8);
-  a2[1] = result;
-  return result;
-}
-
-- (_BYTE)setExtensions:
-{
   v7 = *a3;
-  v6 = *(a3 + 8);
+  v6 = a3[1];
   *a3 = 0;
-  *(a3 + 8) = 0;
+  a3[1] = 0;
   if (*(a2 + 23) >= 0)
   {
     v8 = a2;
@@ -1237,6 +1220,14 @@ void __30__IEIntelligence_getExitValue__block_invoke(siri::intelligence::Utils *
   }
 
   return std::string::basic_string[abi:ne200100]<0>(a4, uTF8String);
+}
+
+- (id)setExtensions:
+{
+  *a2 = &unk_286718F50;
+  result = *(self + 8);
+  a2[1] = result;
+  return result;
 }
 
 - (uint64_t)setExtensions:

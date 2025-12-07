@@ -32,7 +32,7 @@
 
 + (HKMedicalCodingCollection)collectionWithCoding:(id)coding
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   codingCopy = coding;
   if (!codingCopy)
   {
@@ -40,11 +40,9 @@
   }
 
   v6 = [self alloc];
-  v11[0] = codingCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = codingCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [v6 initWithCodings:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -183,28 +181,28 @@ uint64_t __68__HKMedicalCodingCollection_stripCodingsMatchingSystem_fromCodings_
 
 - (NSDictionary)codingsBySystem
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v4 = self->_codingsOrderedSet;
-  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         codingSystem = [v9 codingSystem];
         v11 = codingSystem;
         if (codingSystem)
@@ -231,22 +229,20 @@ uint64_t __68__HKMedicalCodingCollection_stripCodingsMatchingSystem_fromCodings_
         [v16 addObject:v9];
       }
 
-      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [(NSOrderedSet *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
   allKeys = [v3 allKeys];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __44__HKMedicalCodingCollection_codingsBySystem__block_invoke;
-  v22[3] = &unk_1E737AA88;
-  v23 = v3;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __44__HKMedicalCodingCollection_codingsBySystem__block_invoke;
+  v21[3] = &unk_1E737AA88;
+  v22 = v3;
   v18 = v3;
-  v19 = [allKeys hk_mapToDictionary:v22];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [allKeys hk_mapToDictionary:v21];
 
   return v19;
 }

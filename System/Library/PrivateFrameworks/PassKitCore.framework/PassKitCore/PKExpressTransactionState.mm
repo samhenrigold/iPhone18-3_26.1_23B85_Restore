@@ -12,7 +12,7 @@
 - (NSSet)TCIs;
 - (PKExpressTransactionState)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
-- (uint64_t)_normalizedStatus;
+- (unint64_t)_normalizedStatus;
 - (unsigned)_initForStandaloneTransaction:(void *)transaction applicationIdentifier:(void *)identifier keyIdentifier:(void *)keyIdentifier passUniqueIdentifier:(void *)uniqueIdentifier terminalReaderIdentifier:;
 - (unsigned)_initWithUUID:(void *)d;
 - (void)_populatePassUniqueIdentifierWithLookup:(id)lookup;
@@ -240,9 +240,9 @@ LABEL_40:
       goto LABEL_36;
     }
 
-    v11 = [(NSString *)v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (!v11)
+    if (!isEqualToString)
     {
       goto LABEL_37;
     }
@@ -263,7 +263,7 @@ LABEL_40:
       goto LABEL_36;
     }
 
-    v14 = [(NSString *)v8 isEqualToString:v13];
+    v14 = objc_msgSend_isEqualToString_(v8);
 
     if (!v14)
     {
@@ -286,7 +286,7 @@ LABEL_40:
       goto LABEL_36;
     }
 
-    v17 = [(NSString *)v8 isEqualToString:v16];
+    v17 = objc_msgSend_isEqualToString_(v8);
 
     if (!v17)
     {
@@ -311,7 +311,7 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v20 = [(NSString *)v8 isEqualToString:v19];
+  v20 = objc_msgSend_isEqualToString_(v8);
 
   if (v20)
   {
@@ -624,9 +624,9 @@ LABEL_7:
         goto LABEL_38;
       }
 
-      v13 = [(NSString *)v10 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if (!v13)
+      if (!isEqualToString)
       {
         goto LABEL_39;
       }
@@ -647,7 +647,7 @@ LABEL_7:
         goto LABEL_38;
       }
 
-      v17 = [(NSString *)v10 isEqualToString:v16];
+      v17 = objc_msgSend_isEqualToString_(v10);
 
       if (!v17)
       {
@@ -675,9 +675,9 @@ LABEL_33:
 
       if (v10 && v22)
       {
-        v23 = [(NSString *)v10 isEqualToString:v22];
+        v23 = objc_msgSend_isEqualToString_(v10);
 
-        if (!v23)
+        if ((v23 & 1) == 0)
         {
           goto LABEL_39;
         }
@@ -699,7 +699,7 @@ LABEL_17:
 
     if (v10 && v19)
     {
-      v20 = [(NSString *)v10 isEqualToString:v19];
+      v20 = objc_msgSend_isEqualToString_(v10);
 
       if (!v20)
       {
@@ -738,7 +738,7 @@ LABEL_40:
   return self;
 }
 
-- (uint64_t)_normalizedStatus
+- (unint64_t)_normalizedStatus
 {
   if (result)
   {

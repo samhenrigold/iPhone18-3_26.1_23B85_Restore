@@ -1149,9 +1149,9 @@ LABEL_32:
 
   if (v8)
   {
-    v10 = [(__CFString *)v8 isEqualToString:@"PrefetchDynamicAssets"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v10)
+    if (isEqualToString)
     {
 LABEL_4:
       v11 = &__block_literal_global_443;
@@ -1163,7 +1163,7 @@ LABEL_5:
     }
 
     v14 = v9;
-    if (v14 == @"PrefetchHowToUseWalletAssets" || (v15 = v14, v16 = [(__CFString *)v14 isEqualToString:@"PrefetchHowToUseWalletAssets"], v15, v16))
+    if (v14 == @"PrefetchHowToUseWalletAssets" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(v14), v15, v16))
     {
       v11 = &__block_literal_global_446_0;
       selfCopy2 = self;
@@ -1172,7 +1172,7 @@ LABEL_5:
     }
 
     v17 = v15;
-    if (v17 == @"PrefetchAppleCashStickersAssets" || (v18 = v17, v19 = [(__CFString *)v17 isEqualToString:@"PrefetchAppleCashStickersAssets"], v18, v19))
+    if (v17 == @"PrefetchAppleCashStickersAssets" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(v17), v18, v19))
     {
       [(PKMobileAssetManager *)self updateCashStickersIfNecessary];
       goto LABEL_15;

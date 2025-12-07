@@ -9,6 +9,7 @@
 - (id)_readonlyResetDate;
 - (id)_readwriteArticleStateLookup;
 - (id)_readwriteResetDate;
+- (void)_makeIdentifier:(id)identifier active:(BOOL)active;
 - (void)clearAllIdentifiers;
 - (void)synchronize;
 @end
@@ -45,9 +46,9 @@
   resetKeyCopy = resetKey;
   readonlyKeyCopy = readonlyKey;
   readwriteKeyCopy = readwriteKey;
-  v30.receiver = self;
-  v30.super_class = NNArticleIdentifierSyncManager;
-  v14 = [(NNArticleIdentifierSyncManager *)&v30 init];
+  v28.receiver = self;
+  v28.super_class = NNArticleIdentifierSyncManager;
+  v14 = [(NNArticleIdentifierSyncManager *)&v28 init];
   if (v14)
   {
     v15 = [keyCopy copy];
@@ -83,9 +84,7 @@
     v14->_synchronizedKeys = v25;
   }
 
-  v27 = v14->_readonlyResetKey;
-  v28 = v14->_readonlyKey;
-  NSLog(@"Created manager with RO Reset: %@, RW Reset: %@, RO Key: %@, RW Key: %@", v27, v14->_readwriteResetKey, v28, v14->_readwriteKey);
+  NSLog(@"Created manager with RO Reset: %@, RW Reset: %@, RO Key: %@, RW Key: %@", v14->_readonlyResetKey, v14->_readwriteResetKey, v14->_readonlyKey, v14->_readwriteKey);
 
   return v14;
 }
@@ -375,6 +374,25 @@ LABEL_25:
   v24 = [v29 copy];
 
   return v24;
+}
+
+- (void)_makeIdentifier:(id)identifier active:(BOOL)active
+{
+  activeCopy = active;
+  identifierCopy = identifier;
+  if ([identifierCopy length])
+  {
+    _readwriteArticleStateLookup = [(NNArticleIdentifierSyncManager *)self _readwriteArticleStateLookup];
+    v7 = [_readwriteArticleStateLookup mutableCopy];
+
+    v8 = [NSDictionary nn_activeSyncStateWithIdentifier:identifierCopy active:activeCopy];
+    [v7 setObject:v8 forKeyedSubscript:identifierCopy];
+    v9 = +[NSUserDefaults nanoNewsSyncDefaults];
+    readwriteKey = [(NNArticleIdentifierSyncManager *)self readwriteKey];
+    [v9 setObject:v7 forKey:readwriteKey];
+
+    [v9 synchronize];
+  }
 }
 
 - (id)_readonlyArticleStateLookup

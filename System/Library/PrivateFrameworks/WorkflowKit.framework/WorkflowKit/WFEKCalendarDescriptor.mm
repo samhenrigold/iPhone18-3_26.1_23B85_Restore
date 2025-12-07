@@ -63,15 +63,15 @@ uint64_t __53__WFEKCalendarDescriptor_matchingCalendarsFromArray___block_invoke(
   {
     v5 = [v3 calendarIdentifier];
     v6 = [*(a1 + 32) calendarIdentifier];
-    v7 = [v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 uint64_t __53__WFEKCalendarDescriptor_matchingCalendarsFromArray___block_invoke_2(uint64_t a1, void *a2)
@@ -79,9 +79,9 @@ uint64_t __53__WFEKCalendarDescriptor_matchingCalendarsFromArray___block_invoke_
   v3 = a2;
   v4 = [v3 title];
   v5 = [*(a1 + 32) calendarTitle];
-  v6 = [v4 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = [*(a1 + 32) calendarRGBAValue];
 
@@ -113,9 +113,9 @@ uint64_t __53__WFEKCalendarDescriptor_matchingCalendarsFromArray___block_invoke_
 {
   v3 = [a2 title];
   v4 = [*(a1 + 32) calendarTitle];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)matchingRemindersListsFromArray:(id)array
@@ -159,24 +159,24 @@ uint64_t __58__WFEKCalendarDescriptor_matchingRemindersListsFromArray___block_in
     v5 = [v3 objectID];
     v6 = [v5 stringRepresentation];
     v7 = [*(a1 + 32) calendarIdentifier];
-    v8 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 uint64_t __58__WFEKCalendarDescriptor_matchingRemindersListsFromArray___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 name];
   v4 = [*(a1 + 32) calendarTitle];
-  v5 = [v3 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (unint64_t)hash
@@ -240,9 +240,9 @@ LABEL_26:
           goto LABEL_25;
         }
 
-        v12 = [v9 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if ((v12 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           goto LABEL_18;
         }
@@ -282,7 +282,7 @@ LABEL_20:
       v6 = 0;
       if (v9 && v15)
       {
-        v16 = [v9 isEqualToString:v15];
+        v16 = objc_msgSend_isEqualToString_(v9);
 
         if ((v16 & 1) == 0)
         {

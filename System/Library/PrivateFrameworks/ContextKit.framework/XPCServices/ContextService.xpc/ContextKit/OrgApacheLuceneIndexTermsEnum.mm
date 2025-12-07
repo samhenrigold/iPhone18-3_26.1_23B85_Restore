@@ -47,7 +47,7 @@
 - (id)termState
 {
   v2 = [OrgApacheLuceneIndexTermsEnum__2 alloc];
-  OrgApacheLuceneIndexTermState_init(v2, v3);
+  OrgApacheLuceneIndexTermState_init();
 
   return v2;
 }

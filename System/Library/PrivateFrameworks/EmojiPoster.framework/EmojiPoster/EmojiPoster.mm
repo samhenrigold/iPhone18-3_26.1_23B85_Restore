@@ -1,7 +1,7 @@
-uint64_t sub_249FCAEB0@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_249FCAEB0@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -163,9 +163,9 @@ uint64_t sub_249FCB41C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_249FCB478(uint64_t a1, void *a2)
+uint64_t sub_249FCB478(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC11EmojiPoster31GradientConfigurationController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -204,7 +204,7 @@ uint64_t sub_249FCB600()
 
 uint64_t sub_249FCB638()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E508);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E508, &qword_24A027088);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -237,9 +237,9 @@ uint64_t sub_249FCB79C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_249FCB7F8(uint64_t a1, void *a2)
+uint64_t sub_249FCB7F8(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC11EmojiPoster33BackgroundConfigurationController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -282,9 +282,9 @@ uint64_t sub_249FCB968@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_249FCB9C4(uint64_t a1, void *a2)
+uint64_t sub_249FCB9C4(uint64_t *a1, void *a2)
 {
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   v3 = *a2 + OBJC_IVAR____TtC11EmojiPoster31EmojiEditingInputViewController_delegate;
   swift_beginAccess();
   *(v3 + 8) = v2;
@@ -1665,7 +1665,7 @@ void sub_249FCDDF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_249FCE394(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_249FCE394(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColor *a11)
 {
   JCColor::~JCColor(&a9);
   JCColor::~JCColor(&a11);
@@ -1673,7 +1673,7 @@ void sub_249FCE394(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_249FCE498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_249FCE498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColor *a11, uint64_t a12, CGColor *a13)
 {
   JCColor::~JCColor(&a9);
   JCColor::~JCColor(&a11);
@@ -1718,24 +1718,24 @@ void JCImageAnalyzer::JCImageAnalyzer(JCImageAnalyzer *this)
   *(this + 450) = 0u;
 }
 
-void sub_249FCE828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_249FCE828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, CGColor **a9)
 {
   JCColor::~JCColor(&a9);
-  a9 = v9 + 7176;
+  a9 = v9 + 897;
   std::vector<sortColorEntry>::__destroy_vector::operator()[abi:ne200100](&a9);
-  a9 = v9 + 7152;
+  a9 = v9 + 894;
   std::vector<JCColor>::__destroy_vector::operator()[abi:ne200100](&a9);
-  JCColor::~JCColor((v9 + 120));
-  JCColor::~JCColor((v9 + 104));
-  JCColor::~JCColor((v9 + 88));
-  JCColor::~JCColor((v9 + 72));
-  JCColor::~JCColor((v9 + 56));
-  JCColor::~JCColor((v9 + 40));
-  JCColor::~JCColor((v9 + 24));
+  JCColor::~JCColor(v9 + 15);
+  JCColor::~JCColor(v9 + 13);
+  JCColor::~JCColor(v9 + 11);
+  JCColor::~JCColor(v9 + 9);
+  JCColor::~JCColor(v9 + 7);
+  JCColor::~JCColor(v9 + 5);
+  JCColor::~JCColor(v9 + 3);
   _Unwind_Resume(a1);
 }
 
-void JCImageAnalyzer::~JCImageAnalyzer(void **this)
+void JCImageAnalyzer::~JCImageAnalyzer(CGColor **this)
 {
   v2 = *this;
   if (v2)
@@ -1744,17 +1744,17 @@ void JCImageAnalyzer::~JCImageAnalyzer(void **this)
     *this = 0;
   }
 
-  v3 = this + 897;
+  v3 = (this + 897);
   std::vector<sortColorEntry>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this + 894;
+  v3 = (this + 894);
   std::vector<JCColor>::__destroy_vector::operator()[abi:ne200100](&v3);
-  JCColor::~JCColor((this + 15));
-  JCColor::~JCColor((this + 13));
-  JCColor::~JCColor((this + 11));
-  JCColor::~JCColor((this + 9));
-  JCColor::~JCColor((this + 7));
-  JCColor::~JCColor((this + 5));
-  JCColor::~JCColor((this + 3));
+  JCColor::~JCColor(this + 15);
+  JCColor::~JCColor(this + 13);
+  JCColor::~JCColor(this + 11);
+  JCColor::~JCColor(this + 9);
+  JCColor::~JCColor(this + 7);
+  JCColor::~JCColor(this + 5);
+  JCColor::~JCColor(this + 3);
 }
 
 double JCImageAnalyzer::GetBorderMarginInPixels(JCImageAnalyzer *this)
@@ -1844,7 +1844,7 @@ uint64_t JCImageAnalyzer::Reset(JCImageAnalyzer *this)
   v4 = *(this + 894);
   while (v3 != v4)
   {
-    JCColor::~JCColor((v3 - 16));
+    JCColor::~JCColor(v3 - 2);
   }
 
   *(this + 895) = v4;
@@ -2138,33 +2138,33 @@ uint64_t JCImageAnalyzer::CreateHSVMap(uint64_t this, CGContextRef context)
   return this;
 }
 
-void sub_249FCF354(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_249FCF354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, CGColor *);
+  v6 = va_arg(va1, void);
   JCColor::~JCColor(va);
   JCColor::~JCColor(va1);
   _Unwind_Resume(a1);
 }
 
-void JCImageAnalyzer::PickTextColors(JCColor **this)
+void JCImageAnalyzer::PickTextColors(CGColorRef *this)
 {
-  JCImageAnalyzer::GetTextColorForBackgroundColor(this, this + 3, v2);
+  JCImageAnalyzer::GetTextColorForBackgroundColor(v2, this, this + 3);
   JCColor::operator=(this + 5, v2);
   JCColor::~JCColor(v2);
-  JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(this, this + 3, v2);
+  JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(v2, this, this + 3);
   JCColor::operator=(this + 7, v2);
   JCColor::~JCColor(v2);
 }
 
 void JCImageAnalyzer::DoPostImageAnalysis(CGColorRef *this)
 {
-  JCColor::JCColor(v2, (this + 5), 0.75);
+  JCColor::JCColor(v2, this + 5, 0.75);
   JCColor::operator=(this + 9, v2);
   JCColor::~JCColor(v2);
-  JCColor::JCColor(v2, (this + 7), 0.75);
+  JCColor::JCColor(v2, this + 7, 0.75);
   JCColor::operator=(this + 11, v2);
   JCColor::~JCColor(v2);
 }
@@ -2185,7 +2185,7 @@ CGContextRef JCImageAnalyzer::CreateRGBBitmapContext(JCImageAnalyzer *this, CGIm
   return CGBitmapContextCreate(0, a3, a4, 8uLL, 4 * a3, SRGB, 2u);
 }
 
-uint64_t JCImageAnalyzer::IterateOverPixels(uint64_t result, uint64_t a2, int a3)
+uint64_t JCImageAnalyzer::IterateOverPixels(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 24))
   {
@@ -2204,6 +2204,7 @@ uint64_t JCImageAnalyzer::IterateOverPixels(uint64_t result, uint64_t a2, int a3
       v8 = v6 - 2 * v7;
       if (v8 > v7)
       {
+        v9 = a3;
         v11 = v4 - 2 * v7;
         v15 = v4 - 3 * v7;
         v12 = v7;
@@ -2215,7 +2216,7 @@ uint64_t JCImageAnalyzer::IterateOverPixels(uint64_t result, uint64_t a2, int a3
             v14 = v7;
             do
             {
-              result = std::function<void ()(CGPoint,JCHSVColor &,unsigned int)>::operator()(a2, *v3 + 24 * (v14 + v12 * *(v3 + 8)), a3, v14 - v7, v12 - v7);
+              result = std::function<void ()(CGPoint,JCHSVColor &,unsigned int)>::operator()(a2, *v3 + 24 * (v14 + v12 * *(v3 + 8)), v9, v14 - v7, v12 - v7);
               ++v14;
               --v13;
             }
@@ -2293,7 +2294,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t JCImageAnalyzer::WeightHistogram(JCImageAnalyzer *this, unsigned int *a2, int a3, int a4)
+uint64_t JCImageAnalyzer::WeightHistogram(JCImageAnalyzer *this, unsigned int *a2, unsigned int a3, int a4)
 {
   v7 = 4 * a3;
   v8 = malloc_type_malloc(v7, 0x100004052888210uLL);
@@ -2464,8 +2465,8 @@ double JCImageAnalyzer::pixelBlock_GenerateSaturationAndBrightnessHistogramsForH
         {
           v15 = vcvtad_u64_f64(a2[2] * 255.0);
           result = a2[1] * 255.0;
-          v16 = (a1 + 4 * vcvtad_u64_f64(result));
-          v16[1266] += v9;
+          v16 = a1 + 4 * vcvtad_u64_f64(result);
+          *(v16 + 1266) += v9;
           *(a1 + v15 + 1522) += v9;
         }
       }
@@ -2475,9 +2476,9 @@ double JCImageAnalyzer::pixelBlock_GenerateSaturationAndBrightnessHistogramsForH
   return result;
 }
 
-void JCImageAnalyzer::ValidateBackgroundColor(JCImageAnalyzer *this@<X0>, JCColor *a2@<X1>, JCColor *a3@<X8>)
+void JCImageAnalyzer::ValidateBackgroundColor(JCColor *__return_ptr a1@<X8>, JCImageAnalyzer *this@<X0>, CGColorRef *a3@<X1>)
 {
-  JCColor::JCColor(v53, a2);
+  JCColor::JCColor(v53, a3);
   if (*(this + 900) <= 0.4)
   {
     goto LABEL_6;
@@ -2490,13 +2491,13 @@ void JCImageAnalyzer::ValidateBackgroundColor(JCImageAnalyzer *this@<X0>, JCColo
     v6 = *(this + 2);
   }
 
-  if (ceil(*(this + 901) * v6) >= v7 || (BorderLengthForColor = JCImageAnalyzer::GetBorderLengthForColor(this, a2), BorderLengthForColor <= 0.0))
+  if (ceil(*(this + 901) * v6) >= v7 || (BorderLengthForColor = JCImageAnalyzer::GetBorderLengthForColor(this, a3), BorderLengthForColor <= 0.0))
   {
 LABEL_6:
     HistogramColorValues = JCImageAnalyzer::GetHistogramColorValues(this);
     if (HistogramColorValues[1] == *HistogramColorValues)
     {
-      JCColor::JCColor(a3, a2);
+      JCColor::JCColor(a1, a3);
       goto LABEL_76;
     }
 
@@ -2652,7 +2653,7 @@ LABEL_52:
         LODWORD(v36) = 1;
         while (1)
         {
-          v37 = JCColor::JCColor(v51, (v33 + 16));
+          JCColor::JCColor(v51, (v33 + 16));
           v38 = JCColor::WhiteColor(v37);
           JCColor::JCColor(v50, v38);
           v39 = JCColor::IsReallyCloseToColor(v51, v50);
@@ -2706,14 +2707,14 @@ LABEL_52:
     if ((v31 - v30) < 0x41)
     {
 LABEL_73:
-      JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(this, v53, v51);
+      JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(v51, this, v53);
       JCColor::EnsureContrastWithColor(v51, v53);
       if (JCColor::GetContrastWithColorLuminanceMethod(v51, v53) < 3.5)
       {
         JCColor::EnsureContrastWithColor(v53, v51);
       }
 
-      JCColor::JCColor(a3, v53);
+      JCColor::JCColor(a1, v53);
       JCColor::~JCColor(v51);
       JCColor::~JCColor(v52);
       goto LABEL_76;
@@ -2769,71 +2770,71 @@ LABEL_72:
 
   *(this + 898) = v46;
   JCImageAnalyzer::CalculateBackgroundColor(this);
-  JCColor::JCColor(a3, (this + 24));
+  JCColor::JCColor(a1, this + 3);
 LABEL_76:
   JCColor::~JCColor(v53);
 }
 
-void sub_249FCFFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_249FCFFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, CGColor *);
+  v8 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
-  v9 = va_arg(va2, void);
+  v9 = va_arg(va2, CGColor *);
+  v11 = va_arg(va2, void);
   JCColor::~JCColor(va);
   JCColor::~JCColor(va1);
   JCColor::~JCColor(va2);
   _Unwind_Resume(a1);
 }
 
-void JCImageAnalyzer::GetTextColorForBackgroundColor(JCColor **this@<X0>, CGColorRef *a2@<X1>, JCColor *a3@<X8>)
+void JCImageAnalyzer::GetTextColorForBackgroundColor(JCColor *__return_ptr a1@<X8>, CGColorRef *this@<X0>, CGColorRef *a3@<X1>)
 {
-  JCImageAnalyzer::SuggestedTextColorForBackground(this, a2, v10);
-  JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(this, a2, v9);
+  JCImageAnalyzer::SuggestedTextColorForBackground(v10, this, a3);
+  JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(v9, this, a3);
   if (JCColor::IsReallyCloseToColor(v10, v9) || (v6 = JCColor::Luminance(v10), v7 = JCColor::Luminance(this + 3), v8 = JCColor::Luminance(v9), vabdd_f64(v8, JCColor::Luminance(this + 3)) <= fabs(v6 - v7)))
   {
-    JCColor::JCColor(a3, v10);
+    JCColor::JCColor(a1, v10);
   }
 
   else
   {
-    JCColor::JCColor(a3, v9);
+    JCColor::JCColor(a1, v9);
   }
 
   JCColor::~JCColor(v9);
   JCColor::~JCColor(v10);
 }
 
-void sub_249FD0134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_249FD0134(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColor *a11)
 {
   JCColor::~JCColor(&a9);
   JCColor::~JCColor(&a11);
   _Unwind_Resume(a1);
 }
 
-void JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(JCColor **this@<X0>, CGColorRef *a2@<X1>, JCColor *a3@<X8>)
+void JCImageAnalyzer::GetSecondaryTextColorForBackgroundColor(JCColor *__return_ptr a1@<X8>, CGColorRef *this@<X0>, CGColorRef *a3@<X1>)
 {
-  JCImageAnalyzer::SuggestedTextColorForBackground(this, a2, v10);
-  JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(this, a2, v9);
+  JCImageAnalyzer::SuggestedTextColorForBackground(v10, this, a3);
+  JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(v9, this, a3);
   if (JCColor::IsReallyCloseToColor(v10, v9) || (v6 = JCColor::Luminance(v10), v7 = JCColor::Luminance(this + 3), v8 = JCColor::Luminance(v9), vabdd_f64(v8, JCColor::Luminance(this + 3)) <= fabs(v6 - v7)))
   {
-    JCColor::JCColor(a3, v9);
+    JCColor::JCColor(a1, v9);
   }
 
   else
   {
-    JCColor::JCColor(a3, v10);
+    JCColor::JCColor(a1, v10);
   }
 
   JCColor::~JCColor(v9);
   JCColor::~JCColor(v10);
 }
 
-void sub_249FD023C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_249FD023C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColor *a11)
 {
   JCColor::~JCColor(&a9);
   JCColor::~JCColor(&a11);
@@ -3020,7 +3021,7 @@ uint64_t std::function<void ()(CGPoint,JCHSVColor &,unsigned int)>::operator()(u
 
 double JCImageAnalyzer::GetBorderLengthForColor(JCImageAnalyzer *this, CGColorRef *a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v77[8] = *MEMORY[0x277D85DE8];
   if (!*this)
   {
     return 0.0;
@@ -3036,8 +3037,8 @@ double JCImageAnalyzer::GetBorderLengthForColor(JCImageAnalyzer *this, CGColorRe
   }
 
   v8 = vcvtpd_u64_f64(*(this + 901) * v5);
-  v71 = 2 * v8;
-  v72 = v6;
+  v70 = 2 * v8;
+  v71 = v6;
   v9 = v6 - 2 * v8;
   v10 = v7 - 2 * v8;
   v11 = v9;
@@ -3045,18 +3046,18 @@ double JCImageAnalyzer::GetBorderLengthForColor(JCImageAnalyzer *this, CGColorRe
   v13 = v12;
   v14 = roundf((v10 * 0.05) + (v10 * 0.05));
   v15 = v14;
-  v74 = v10;
-  v75 = v8;
+  v73 = v10;
+  v74 = v8;
   v16 = v10;
   v17 = v8;
-  v76 = ~v8;
+  v75 = ~v8;
   do
   {
     v18 = v4 + 1;
     v19 = 0;
     if (v12 <= 0.0)
     {
-      *&v78[4 * v4 + 52] = 0;
+      *(&v77[6] + v4 + 1) = 0;
 LABEL_18:
       v26 = 0.0;
       goto LABEL_19;
@@ -3066,10 +3067,10 @@ LABEL_18:
     v21 = 0.0;
     do
     {
-      v22 = (*this + 24 * (v75 + v9 * v20 + v19));
-      JCColor::JCColor(v78, *v22, v22[1], v22[2]);
-      IsCloseToColor = JCColor::IsCloseToColor(a2, v78);
-      JCColor::~JCColor(v78);
+      v22 = (*this + 24 * (v74 + v9 * v20 + v19));
+      JCColor::JCColor(v77, *v22, v22[1], v22[2]);
+      IsCloseToColor = JCColor::IsCloseToColor(a2, v77);
+      JCColor::~JCColor(v77);
       if (!IsCloseToColor)
       {
         break;
@@ -3089,20 +3090,20 @@ LABEL_18:
       v24 = v19;
     }
 
-    *&v78[4 * v4 + 52] = v24;
+    *(&v77[6] + v4 + 1) = v24;
     v19 = 0;
     if (v12 <= 0.0)
     {
       goto LABEL_18;
     }
 
-    v25 = v9 + v9 * v20 + v76;
+    v25 = v9 + v9 * v20 + v75;
     v26 = 0.0;
     do
     {
-      JCColor::JCColor(v78, *(*this + 24 * v25), *(*this + 24 * v25 + 8), *(*this + 24 * v25 + 16));
-      v27 = JCColor::IsCloseToColor(a2, v78);
-      JCColor::~JCColor(v78);
+      JCColor::JCColor(v77, *(*this + 24 * v25), *(*this + 24 * v25 + 8), *(*this + 24 * v25 + 16));
+      v27 = JCColor::IsCloseToColor(a2, v77);
+      JCColor::~JCColor(v77);
       if (!v27)
       {
         break;
@@ -3124,12 +3125,12 @@ LABEL_19:
       v28 = v19;
     }
 
-    *&v78[4 * v4++ + 28] = v28;
+    *(&v77[3] + ++v4) = v28;
   }
 
   while (v18 != 3);
   v29 = 0;
-  v73 = (v74 + v76) * v9;
+  v72 = (v73 + v75) * v9;
   v30 = v9;
   do
   {
@@ -3137,20 +3138,20 @@ LABEL_19:
     v32 = 0;
     if (v14 <= 0.0)
     {
-      *&v78[4 * v29 + 40] = 0;
+      *(&v77[5] + v29) = 0;
 LABEL_37:
       v38 = 0.0;
       goto LABEL_38;
     }
 
-    v77 = (v17 + vcvtd_n_f64_u32(v31, 2uLL) * v30);
-    v33 = v75 * v9 + v77;
+    v76 = (v17 + vcvtd_n_f64_u32(v31, 2uLL) * v30);
+    v33 = v74 * v9 + v76;
     v34 = 0.0;
     do
     {
-      JCColor::JCColor(v78, *(*this + 24 * v33), *(*this + 24 * v33 + 8), *(*this + 24 * v33 + 16));
-      v35 = JCColor::IsCloseToColor(a2, v78);
-      JCColor::~JCColor(v78);
+      JCColor::JCColor(v77, *(*this + 24 * v33), *(*this + 24 * v33 + 8), *(*this + 24 * v33 + 16));
+      v35 = JCColor::IsCloseToColor(a2, v77);
+      JCColor::~JCColor(v77);
       if (!v35)
       {
         break;
@@ -3171,27 +3172,27 @@ LABEL_37:
       v36 = v32;
     }
 
-    *&v78[4 * v29 + 40] = v36;
+    *(&v77[5] + v29) = v36;
     v32 = 0;
     if (v14 <= 0.0)
     {
       goto LABEL_37;
     }
 
-    v37 = v73 + v77;
+    v37 = v72 + v76;
     v38 = 0.0;
     do
     {
-      JCColor::JCColor(v78, *(*this + 24 * v37), *(*this + 24 * v37 + 8), *(*this + 24 * v37 + 16));
-      v39 = JCColor::IsCloseToColor(a2, v78);
-      JCColor::~JCColor(v78);
+      JCColor::JCColor(v77, *(*this + 24 * v37), *(*this + 24 * v37 + 8), *(*this + 24 * v37 + 16));
+      v39 = JCColor::IsCloseToColor(a2, v77);
+      JCColor::~JCColor(v77);
       if (!v39)
       {
         break;
       }
 
       v38 = ++v32;
-      v37 += v71 - v72;
+      v37 += v70 - v71;
     }
 
     while (v32 < v15);
@@ -3206,7 +3207,7 @@ LABEL_38:
       v40 = v32;
     }
 
-    *&v78[4 * v29++ + 16] = v40;
+    *(&v77[2] + v29++) = v40;
   }
 
   while (v31 != 3);
@@ -3221,48 +3222,48 @@ LABEL_38:
   v49 = 0x40000000;
   do
   {
-    v50 = *&v78[v41 + 52];
+    v50 = *(&v77[6] + v41 + 4);
     if (v45 <= v50)
     {
-      v45 = *&v78[v41 + 52];
+      v45 = *(&v77[6] + v41 + 4);
     }
 
-    v51 = *&v78[v41 + 28];
+    v51 = *(&v77[3] + v41 + 4);
     if (v44 <= v51)
     {
-      v44 = *&v78[v41 + 28];
+      v44 = *(&v77[3] + v41 + 4);
     }
 
-    v52 = *&v78[v41 + 40];
+    v52 = *(&v77[5] + v41);
     if (v43 <= v52)
     {
-      v43 = *&v78[v41 + 40];
+      v43 = *(&v77[5] + v41);
     }
 
-    v53 = *&v78[v41 + 16];
+    v53 = *(&v77[2] + v41);
     if (v42 <= v53)
     {
-      v42 = *&v78[v41 + 16];
+      v42 = *(&v77[2] + v41);
     }
 
     if (v49 >= v50)
     {
-      v49 = *&v78[v41 + 52];
+      v49 = *(&v77[6] + v41 + 4);
     }
 
     if (v48 >= v51)
     {
-      v48 = *&v78[v41 + 28];
+      v48 = *(&v77[3] + v41 + 4);
     }
 
     if (v47 >= v52)
     {
-      v47 = *&v78[v41 + 40];
+      v47 = *(&v77[5] + v41);
     }
 
     if (v46 >= v53)
     {
-      v46 = *&v78[v41 + 16];
+      v46 = *(&v77[2] + v41);
     }
 
     v41 += 4;
@@ -3388,24 +3389,23 @@ LABEL_38:
 
   else
   {
-    v67 = (*this + 24 * (v9 + (v75 + (v11 * 0.25))));
-    JCColor::JCColor(v78, *v67, v67[1], v67[2]);
-    v68 = 0.0;
-    if (!JCColor::IsCloseToColor(a2, v78))
+    v67 = (*this + 24 * (v9 + (v74 + (v11 * 0.25))));
+    JCColor::JCColor(v77, *v67, v67[1], v67[2]);
+    BorderLengthForColor = 0.0;
+    if (!JCColor::IsCloseToColor(a2, v77))
     {
-      JCImageAnalyzer::GetBorderLengthForColor(this, v78);
-      v68 = v69;
+      BorderLengthForColor = JCImageAnalyzer::GetBorderLengthForColor(this, v77);
     }
 
-    JCColor::~JCColor(v78);
+    JCColor::~JCColor(v77);
   }
 
-  return v68;
+  return BorderLengthForColor;
 }
 
-void sub_249FD0A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_249FD0A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   JCColor::~JCColor(va);
   _Unwind_Resume(a1);
 }
@@ -3471,8 +3471,8 @@ uint64_t JCImageAnalyzer::GetHistogramColorValues(JCImageAnalyzer *this)
 
         else
         {
-          *v2 = v4 + (v5 << 32) - 34;
-          v2 += 8;
+          v2->i64[0] = v4 + (v5 << 32) - 34;
+          v2 = (v2 + 8);
         }
 
         v46 = v2;
@@ -3483,7 +3483,7 @@ uint64_t JCImageAnalyzer::GetHistogramColorValues(JCImageAnalyzer *this)
 
     while (v4 != 394);
     v12 = 126 - 2 * __clz((v2 - __p) >> 3);
-    *&v39 = CompareHueEntry;
+    v39[0] = CompareHueEntry;
     if (v2 == __p)
     {
       v13 = 0;
@@ -3494,7 +3494,7 @@ uint64_t JCImageAnalyzer::GetHistogramColorValues(JCImageAnalyzer *this)
       v13 = v12;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,false>(__p, v2, &v39, v13, 1);
+    std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,false>(__p, v2, v39, v13, 1);
     v42 = 0;
     v43 = 0;
     v44 = 0;
@@ -3536,8 +3536,8 @@ uint64_t JCImageAnalyzer::GetHistogramColorValues(JCImageAnalyzer *this)
         JCColor::JCColor(v38, v41);
         JCColor::operator=(v40, v38);
         JCColor::~JCColor(v38);
-        LODWORD(v39) = *&v17[4 * v16];
-        std::vector<sortColorEntry>::push_back[abi:ne200100](&v42, &v39);
+        LODWORD(v39[0]) = *&v17[4 * v16];
+        std::vector<sortColorEntry>::push_back[abi:ne200100](&v42, v39);
         JCColor::~JCColor(v40);
         JCColor::~JCColor(v41);
       }
@@ -3633,8 +3633,8 @@ uint64_t JCImageAnalyzer::GetHistogramColorValues(JCImageAnalyzer *this)
       while (v36 != v34);
     }
 
-    *&v39 = &v42;
-    std::vector<sortColorEntry>::__destroy_vector::operator()[abi:ne200100](&v39);
+    v39[0] = &v42;
+    std::vector<sortColorEntry>::__destroy_vector::operator()[abi:ne200100](v39);
     if (__p)
     {
       v46 = __p;
@@ -3660,19 +3660,19 @@ void sub_249FD0EB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void JCImageAnalyzer::GetDominantColorForHue(JCImageAnalyzer *this)
 {
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   bzero(this + 5064, 0x800uLL);
   operator new();
 }
 
-void sub_249FD10D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_249FD10D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(CGPoint,JCHSVColor &,unsigned int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<sortColorEntry>::push_back[abi:ne200100](uint64_t *a1, _OWORD *a2)
+_OWORD *std::vector<sortColorEntry>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -3683,9 +3683,9 @@ uint64_t std::vector<sortColorEntry>::push_back[abi:ne200100](uint64_t *a1, _OWO
   else
   {
     *v3 = *a2;
-    JCColor::JCColor((v3 + 1), (a2 + 1));
-    result = (v3 + 2);
-    a1[1] = (v3 + 2);
+    JCColor::JCColor((v3 + 1), (a2 + 16));
+    result = v3 + 2;
+    a1[1] = v3 + 2;
   }
 
   a1[1] = result;
@@ -3715,7 +3715,7 @@ JCColor **JCImageAnalyzer::DominantColors(JCColor **this)
         else
         {
           JCColor::JCColor(this[895], v10);
-          v8 = v7 + 16;
+          v8 = (v7 + 16);
           this[895] = (v7 + 16);
         }
 
@@ -3733,7 +3733,7 @@ JCColor **JCImageAnalyzer::DominantColors(JCColor **this)
   return this + 894;
 }
 
-void JCImageAnalyzer::SuggestedTextColorForBackground(JCColor **this@<X0>, CGColorRef *a2@<X1>, JCColor *a3@<X8>)
+void JCImageAnalyzer::SuggestedTextColorForBackground(JCColor *__return_ptr a1@<X8>, JCColor **this@<X0>, CGColorRef *a3@<X1>)
 {
   v5 = JCImageAnalyzer::DominantColors(this);
   v6 = JCColor::BlackColor(v5);
@@ -3742,7 +3742,7 @@ void JCImageAnalyzer::SuggestedTextColorForBackground(JCColor **this@<X0>, CGCol
   if (v5[1] == *v5)
   {
 LABEL_7:
-    if (JCColor::Luminance(a2) <= 0.300000012)
+    if (JCColor::Luminance(a3) <= 0.300000012)
     {
       v12 = JCColor::WhiteColor(v11);
     }
@@ -3762,7 +3762,7 @@ LABEL_7:
     while (1)
     {
       JCColor::JCColor(v13, (v7 + v9));
-      if (JCColor::ContrastsWithColor(v13, a2))
+      if (JCColor::ContrastsWithColor(v13, a3))
       {
         break;
       }
@@ -3786,28 +3786,28 @@ LABEL_7:
     JCColor::~JCColor(v13);
   }
 
-  JCColor::JCColor(a3, v14, 0.899999976);
+  JCColor::JCColor(a1, v14, 0.899999976);
   JCColor::~JCColor(v14);
 }
 
-void sub_249FD1388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_249FD1388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, CGColor *a11)
 {
   JCColor::~JCColor(&a9);
   JCColor::~JCColor(&a11);
   _Unwind_Resume(a1);
 }
 
-void JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(JCColor **this@<X0>, CGColorRef *a2@<X1>, JCColor *a3@<X8>)
+void JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(JCColor *__return_ptr a1@<X8>, JCColor **this@<X0>, CGColorRef *a3@<X1>)
 {
-  JCImageAnalyzer::SuggestedTextColorForBackground(this, a2, v15);
+  JCImageAnalyzer::SuggestedTextColorForBackground(v15, this, a3);
   JCColor::JCColor(v14, 0);
-  if ((JCImageAnalyzer::FindSecondaryTextColorCandidate(this, a2, v15, v14, 1) & 1) == 0)
+  if ((JCImageAnalyzer::FindSecondaryTextColorCandidate(this, a3, v15, v14, 1) & 1) == 0)
   {
     v6 = JCImageAnalyzer::DominantColors(this);
     if ((v6[1] - *v6) < 0x31)
     {
       v7 = JCColor::Luminance(v15);
-      if (v7 <= JCColor::Luminance(a2))
+      if (v7 <= JCColor::Luminance(a3))
       {
         v9 = JCColor::BlackColor(v8);
       }
@@ -3820,15 +3820,15 @@ void JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(JCColor **this@<X
       JCColor::operator=(v14, v9);
     }
 
-    else if (!JCImageAnalyzer::FindSecondaryTextColorCandidate(this, a2, v15, v14, 0))
+    else if (!JCImageAnalyzer::FindSecondaryTextColorCandidate(this, a3, v15, v14, 0))
     {
       goto LABEL_12;
     }
   }
 
-  if (!JCColor::ContrastsWithColor(v14, a2))
+  if (!JCColor::ContrastsWithColor(v14, a3))
   {
-    JCColor::EnsureContrastWithColor(v14, a2);
+    JCColor::EnsureContrastWithColor(v14, a3);
   }
 
   if (!JCColor::IsReallyCloseToColor(v14, v15))
@@ -3838,7 +3838,7 @@ void JCImageAnalyzer::SuggestedSecondaryTextColorForBackground(JCColor **this@<X
   }
 
 LABEL_12:
-  if (JCColor::GetContrastWithColorLuminanceMethod(v15, a2) >= 5.5)
+  if (JCColor::GetContrastWithColorLuminanceMethod(v15, a3) >= 5.5)
   {
     v12 = v15;
   }
@@ -3846,7 +3846,7 @@ LABEL_12:
   else
   {
     v10 = JCColor::Luminance(v15);
-    if (v10 <= JCColor::Luminance(a2))
+    if (v10 <= JCColor::Luminance(a3))
     {
       v12 = JCColor::BlackColor(v11);
     }
@@ -3860,14 +3860,14 @@ LABEL_12:
   JCColor::operator=(v14, v12);
   v13 = 0.699999988;
 LABEL_19:
-  JCColor::JCColor(a3, v14, v13);
+  JCColor::JCColor(a1, v14, v13);
   JCColor::~JCColor(v14);
   JCColor::~JCColor(v15);
 }
 
-void sub_249FD1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_249FD1548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   JCColor::~JCColor(va);
   _Unwind_Resume(a1);
 }
@@ -3922,52 +3922,52 @@ uint64_t JCImageAnalyzer::FindSecondaryTextColorCandidate(JCColor **this, CGColo
   return 1;
 }
 
-void JCImageAnalyzer::GetTextShadowColor(CGColorRef *a1@<X1>, CGColorRef *a2@<X2>, JCColor *a3@<X8>)
+void JCImageAnalyzer::GetTextShadowColor(JCColor *__return_ptr a1@<X8>, CGColorRef *a2@<X1>, CGColorRef *a3@<X2>)
 {
-  JCColor::JCColor(v19);
-  v7 = JCColor::Luminance(a1);
-  if (v7 >= JCColor::Luminance(a2))
+  JCColor::JCColor(v18);
+  v6 = JCColor::Luminance(a2);
+  if (v6 >= JCColor::Luminance(a3))
   {
-    v15 = JCColor::BlackColor(v8);
-    JCColor::operator=(v19, v15);
-    v16 = JCColor::Luminance(v19);
-    v17 = vabdd_f64(v16, JCColor::Luminance(a2));
-    v18 = v17 + v17;
-    v13 = 0.0;
-    if (v18 >= 0.0)
+    v14 = JCColor::BlackColor(v7);
+    JCColor::operator=(v18, v14);
+    v15 = JCColor::Luminance(v18);
+    v16 = vabdd_f64(v15, JCColor::Luminance(a3));
+    v17 = v16 + v16;
+    v12 = 0.0;
+    if (v17 >= 0.0)
     {
-      v13 = v18;
-      if (v18 > 1.0)
+      v12 = v17;
+      if (v17 > 1.0)
       {
-        v13 = 1.0;
+        v12 = 1.0;
       }
     }
 
-    v14 = -0.599999994;
+    v13 = -0.599999994;
   }
 
   else
   {
-    v9 = JCColor::WhiteColor(v8);
-    JCColor::operator=(v19, v9);
-    v10 = JCColor::Luminance(v19);
-    v11 = vabdd_f64(v10, JCColor::Luminance(a2));
-    v12 = v11 + v11;
-    v13 = 0.0;
-    if (v12 >= 0.0)
+    v8 = JCColor::WhiteColor(v7);
+    JCColor::operator=(v18, v8);
+    v9 = JCColor::Luminance(v18);
+    v10 = vabdd_f64(v9, JCColor::Luminance(a3));
+    v11 = v10 + v10;
+    v12 = 0.0;
+    if (v11 >= 0.0)
     {
-      v13 = v12;
-      if (v12 > 1.0)
+      v12 = v11;
+      if (v11 > 1.0)
       {
-        v13 = 1.0;
+        v12 = 1.0;
       }
     }
 
-    v14 = -0.699999988;
+    v13 = -0.699999988;
   }
 
-  JCColor::JCColor(a3, v19, v13 * v14 + 1.0);
-  JCColor::~JCColor(v19);
+  JCColor::JCColor(a1, v18, v12 * v13 + 1.0);
+  JCColor::~JCColor(v18);
 }
 
 void std::vector<JCColor>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3982,7 +3982,7 @@ void std::vector<JCColor>::__destroy_vector::operator()[abi:ne200100](void ***a1
     {
       do
       {
-        JCColor::~JCColor((v4 - 16));
+        JCColor::~JCColor(v4 - 2);
       }
 
       while (v4 != v2);
@@ -4007,8 +4007,8 @@ void std::vector<sortColorEntry>::__destroy_vector::operator()[abi:ne200100](voi
     {
       do
       {
-        v6 = v4 - 32;
-        JCColor::~JCColor((v4 - 16));
+        v6 = v4 - 4;
+        JCColor::~JCColor(v4 - 2);
         v4 = v6;
       }
 
@@ -4127,7 +4127,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<sortHueEntry>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,false>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,false>(uint64_t result, int8x16_t *a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -4151,13 +4151,13 @@ LABEL_3:
 
     if (v12 == 2)
     {
-      result = (*a3)(*(a2 - 1), v9->i64[0]);
+      result = (*a3)(a2[-1].i64[1], v9->i64[0]);
       if (result)
       {
         v59 = v9->i64[0];
-        v9->i64[0] = *(a2 - 1);
+        v9->i64[0] = a2[-1].i64[1];
 LABEL_98:
-        *(a2 - 1) = v59;
+        a2[-1].i64[1] = v59;
         return result;
       }
 
@@ -4170,13 +4170,13 @@ LABEL_11:
       if (a5)
       {
 
-        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v9, a2, a3);
+        return std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v9, a2->i64, a3);
       }
 
       else
       {
 
-        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v9, a2, a3);
+        return std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v9, a2->i64, a3);
       }
     }
 
@@ -4185,7 +4185,7 @@ LABEL_11:
       if (v9 != a2)
       {
 
-        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,sortHueEntry*>(v9->i64, a2, a2, a3);
+        return std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,sortHueEntry*>(v9->i64, a2->i64, a2->i64, a3);
       }
 
       return result;
@@ -4196,25 +4196,25 @@ LABEL_11:
     if (v12 >= 0x81)
     {
       v15 = v14(v8[v13], *v8);
-      v16 = (*a3)(*(a2 - 1), v8[v13]);
+      v16 = (*a3)(a2[-1].i64[1], v8[v13]);
       if (v15)
       {
         v17 = *v8;
         if (v16)
         {
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v17;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v17;
         }
 
         else
         {
           *v8 = v8[v13];
           v8[v13] = v17;
-          if ((*a3)(*(a2 - 1)))
+          if ((*a3)(a2[-1].i64[1]))
           {
             v25 = v8[v13];
-            v8[v13] = *(a2 - 1);
-            *(a2 - 1) = v25;
+            v8[v13] = a2[-1].i64[1];
+            a2[-1].i64[1] = v25;
           }
         }
       }
@@ -4222,8 +4222,8 @@ LABEL_11:
       else if (v16)
       {
         v21 = v8[v13];
-        v8[v13] = *(a2 - 1);
-        *(a2 - 1) = v21;
+        v8[v13] = a2[-1].i64[1];
+        a2[-1].i64[1] = v21;
         if ((*a3)(v8[v13], *v8))
         {
           v22 = *v8;
@@ -4234,25 +4234,25 @@ LABEL_11:
 
       v26 = v13 - 1;
       v27 = (*a3)(v8[v13 - 1], v8[1]);
-      v28 = (*a3)(*(a2 - 2), v8[v13 - 1]);
+      v28 = (*a3)(a2[-1].i64[0], v8[v13 - 1]);
       if (v27)
       {
         v29 = v8[1];
         if (v28)
         {
-          v8[1] = *(a2 - 2);
-          *(a2 - 2) = v29;
+          v8[1] = a2[-1].i64[0];
+          a2[-1].i64[0] = v29;
         }
 
         else
         {
           v8[1] = v8[v26];
           v8[v26] = v29;
-          if ((*a3)(*(a2 - 2)))
+          if ((*a3)(a2[-1].i64[0]))
           {
             v33 = v8[v26];
-            v8[v26] = *(a2 - 2);
-            *(a2 - 2) = v33;
+            v8[v26] = a2[-1].i64[0];
+            a2[-1].i64[0] = v33;
           }
         }
       }
@@ -4260,8 +4260,8 @@ LABEL_11:
       else if (v28)
       {
         v30 = v8[v26];
-        v8[v26] = *(a2 - 2);
-        *(a2 - 2) = v30;
+        v8[v26] = a2[-1].i64[0];
+        a2[-1].i64[0] = v30;
         if ((*a3)(v8[v26], v8[1]))
         {
           v31 = v8[1];
@@ -4272,25 +4272,25 @@ LABEL_11:
 
       v34 = v13 + 1;
       v35 = (*a3)(v8[v13 + 1], v8[2]);
-      v36 = (*a3)(*(a2 - 3), v8[v13 + 1]);
+      v36 = (*a3)(a2[-2].i64[1], v8[v13 + 1]);
       if (v35)
       {
         v37 = v8[2];
         if (v36)
         {
-          v8[2] = *(a2 - 3);
-          *(a2 - 3) = v37;
+          v8[2] = a2[-2].i64[1];
+          a2[-2].i64[1] = v37;
         }
 
         else
         {
           v8[2] = v8[v34];
           v8[v34] = v37;
-          if ((*a3)(*(a2 - 3)))
+          if ((*a3)(a2[-2].i64[1]))
           {
             v40 = v8[v34];
-            v8[v34] = *(a2 - 3);
-            *(a2 - 3) = v40;
+            v8[v34] = a2[-2].i64[1];
+            a2[-2].i64[1] = v40;
           }
         }
       }
@@ -4298,8 +4298,8 @@ LABEL_11:
       else if (v36)
       {
         v38 = v8[v34];
-        v8[v34] = *(a2 - 3);
-        *(a2 - 3) = v38;
+        v8[v34] = a2[-2].i64[1];
+        a2[-2].i64[1] = v38;
         if ((*a3)(v8[v34], v8[2]))
         {
           v39 = v8[2];
@@ -4367,7 +4367,7 @@ LABEL_59:
     }
 
     v18 = v14(*v8, v8[v13]);
-    v19 = (*a3)(*(a2 - 1), *v8);
+    v19 = (*a3)(a2[-1].i64[1], *v8);
     if (v18)
     {
       v20 = v8[v13];
@@ -4375,11 +4375,11 @@ LABEL_59:
       {
         v8[v13] = *v8;
         *v8 = v20;
-        if ((*a3)(*(a2 - 1)))
+        if ((*a3)(a2[-1].i64[1]))
         {
           v32 = *v8;
-          *v8 = *(a2 - 1);
-          *(a2 - 1) = v32;
+          *v8 = a2[-1].i64[1];
+          a2[-1].i64[1] = v32;
         }
 
 LABEL_38:
@@ -4391,8 +4391,8 @@ LABEL_38:
         goto LABEL_60;
       }
 
-      v8[v13] = *(a2 - 1);
-      *(a2 - 1) = v20;
+      v8[v13] = a2[-1].i64[1];
+      a2[-1].i64[1] = v20;
       if (a5)
       {
         goto LABEL_61;
@@ -4407,8 +4407,8 @@ LABEL_38:
       }
 
       v23 = *v8;
-      *v8 = *(a2 - 1);
-      *(a2 - 1) = v23;
+      *v8 = a2[-1].i64[1];
+      a2[-1].i64[1] = v23;
       if (!(*a3)(*v8, v8[v13]))
       {
         goto LABEL_38;
@@ -4426,21 +4426,21 @@ LABEL_38:
 LABEL_60:
     if (((*a3)(*(v8 - 1), *v8) & 1) == 0)
     {
-      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,sortHueEntry *,BOOL (*&)(sortHueEntry,sortHueEntry)>(v8, a2, a3);
+      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,sortHueEntry *,BOOL (*&)(sortHueEntry,sortHueEntry)>(v8, a2->i64, a3);
       v9 = result;
       goto LABEL_66;
     }
 
 LABEL_61:
-    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,sortHueEntry *,BOOL (*&)(sortHueEntry,sortHueEntry)>(v8, a2, a3);
+    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,sortHueEntry *,BOOL (*&)(sortHueEntry,sortHueEntry)>(v8, a2->i64, a3);
     if ((v50 & 1) == 0)
     {
       goto LABEL_64;
     }
 
     v51 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v8, v49, a3);
-    v9 = (v49 + 1);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(v49 + 1, a2, a3);
+    v9 = &v49->u64[1];
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(&v49->i64[1], a2, a3);
     if (result)
     {
       a4 = -v11;
@@ -4458,7 +4458,7 @@ LABEL_61:
     {
 LABEL_64:
       result = std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,false>(v8, v49, a3, -v11, a5 & 1);
-      v9 = (v49 + 1);
+      v9 = &v49->u64[1];
 LABEL_66:
       a5 = 0;
       a4 = -v11;
@@ -4471,21 +4471,21 @@ LABEL_66:
     if (v12 == 4)
     {
 
-      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,0>(v9, &v9->i64[1], v9[1].i64, a2 - 1, a3);
+      return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,0>(v9, &v9->i64[1], v9[1].i64, &a2[-1].i64[1], a3);
     }
 
     if (v12 == 5)
     {
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*,0>(v9, &v9->i64[1], v9[1].i64, &v9[1].i64[1], a3);
-      result = (*a3)(*(a2 - 1), v9[1].i64[1]);
+      result = (*a3)(a2[-1].i64[1], v9[1].i64[1]);
       if (!result)
       {
         return result;
       }
 
       v54 = v9[1].i64[1];
-      v9[1].i64[1] = *(a2 - 1);
-      *(a2 - 1) = v54;
+      v9[1].i64[1] = a2[-1].i64[1];
+      a2[-1].i64[1] = v54;
       result = (*a3)(v9[1].i64[1], v9[1].i64[0]);
       if (!result)
       {
@@ -4514,7 +4514,7 @@ LABEL_66:
   }
 
   v52 = (*a3)(v9->i64[1], v9->i64[0]);
-  result = (*a3)(*(a2 - 1), v9->i64[1]);
+  result = (*a3)(a2[-1].i64[1], v9->i64[1]);
   if ((v52 & 1) == 0)
   {
     if (!result)
@@ -4523,8 +4523,8 @@ LABEL_66:
     }
 
     v60 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
-    *(a2 - 1) = v60;
+    v9->i64[1] = a2[-1].i64[1];
+    a2[-1].i64[1] = v60;
     result = (*a3)(v9->i64[1], v9->i64[0]);
 LABEL_91:
     if (result)
@@ -4538,18 +4538,18 @@ LABEL_91:
   v53 = v9->i64[0];
   if (result)
   {
-    v9->i64[0] = *(a2 - 1);
-    *(a2 - 1) = v53;
+    v9->i64[0] = a2[-1].i64[1];
+    a2[-1].i64[1] = v53;
     return result;
   }
 
   v9->i64[0] = v9->i64[1];
   v9->i64[1] = v53;
-  result = (*a3)(*(a2 - 1));
+  result = (*a3)(a2[-1].i64[1]);
   if (result)
   {
     v59 = v9->i64[1];
-    v9->i64[1] = *(a2 - 1);
+    v9->i64[1] = a2[-1].i64[1];
     goto LABEL_98;
   }
 
@@ -4673,7 +4673,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(uint64_t result, void *a2, uint64_t (**a3)(uint64_t, uint64_t))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEntry,sortHueEntry),sortHueEntry*>(uint64_t result, uint64_t *a2, uint64_t (**a3)(uint64_t, uint64_t))
 {
   if (result != a2)
   {
@@ -5244,7 +5244,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortHueEn
   return result;
 }
 
-uint64_t std::vector<sortColorEntry>::__emplace_back_slow_path<sortColorEntry const&>(uint64_t *a1, _OWORD *a2)
+uint64_t std::vector<sortColorEntry>::__emplace_back_slow_path<sortColorEntry const&>(void *a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -5279,7 +5279,7 @@ uint64_t std::vector<sortColorEntry>::__emplace_back_slow_path<sortColorEntry co
   v15 = (32 * v2);
   v16 = (32 * v2);
   *v15 = *a2;
-  JCColor::JCColor((32 * v2 + 16), (a2 + 1));
+  JCColor::JCColor((32 * v2 + 16), (a2 + 16));
   *&v16 = v16 + 32;
   v8 = a1[1];
   v9 = v15 + *a1 - v8;
@@ -5297,9 +5297,9 @@ uint64_t std::vector<sortColorEntry>::__emplace_back_slow_path<sortColorEntry co
   return v13;
 }
 
-void sub_249FD3038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_249FD3038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<sortColorEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5372,7 +5372,7 @@ uint64_t std::__split_buffer<sortColorEntry>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,false>(CGColorRef *a1, CGColorRef *a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,false>(CGColorRef *a1, unint64_t a2, uint64_t (**a3)(__int128 *, __int128 *), uint64_t a4, char a5)
 {
   v7 = a2;
   v8 = a1;
@@ -5387,16 +5387,16 @@ LABEL_2:
       switch(v10)
       {
         case 3uLL:
-          v30 = (v7 - 2);
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v7 - 2, a3);
+          v30 = (v7 - 32);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v7 - 4, a3);
           return;
         case 4uLL:
-          v30 = (v7 - 2);
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v8 + 8, (v7 - 2), a3);
+          v30 = (v7 - 32);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v8 + 8, (v7 - 32), a3);
           return;
         case 5uLL:
-          v30 = (v7 - 2);
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v8 + 8, v8 + 12, (v7 - 2), a3);
+          v30 = (v7 - 32);
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8, v8 + 4, v8 + 8, v8 + 12, (v7 - 32), a3);
           return;
       }
     }
@@ -5411,11 +5411,11 @@ LABEL_2:
       if (v10 == 2)
       {
         v20 = *a3;
-        v30 = (v7 - 2);
+        v30 = (v7 - 32);
         v28 = *(v7 - 2);
-        JCColor::JCColor(v29, (v7 - 1));
+        JCColor::JCColor(v29, v7 - 2);
         v26 = *v31;
-        JCColor::JCColor(v27, (v31 + 2));
+        JCColor::JCColor(v27, v31 + 2);
         v21 = v20(&v28, &v26);
         JCColor::~JCColor(v27);
         JCColor::~JCColor(v29);
@@ -5449,7 +5449,7 @@ LABEL_2:
     }
 
     v11 = v10 >> 1;
-    v12 = v7 - 2;
+    v12 = (v7 - 32);
     if (v10 < 0x81)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(&v8[4 * (v10 >> 1)], v8, v12, a3);
@@ -5468,11 +5468,11 @@ LABEL_17:
       v13 = v30;
       v8 = v31;
       v14 = &v31[4 * v11];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v31 + 4, v14 - 4, v30 - 4, a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8 + 8, v14 + 4, v13 - 6, a3);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v14 - 4, v14, v14 + 2, a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v31 + 4, v14 - 4, (v30 - 64), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v8 + 8, v14 + 4, (v13 - 96), a3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(v14 - 4, v14, v14 + 4, a3);
       v32 = *v8;
-      JCColor::JCColor(v33, (v8 + 2));
+      JCColor::JCColor(v33, v8 + 2);
       *v8 = *v14;
       JCColor::operator=(v8 + 2, v14 + 2);
       *v14 = v32;
@@ -5486,9 +5486,9 @@ LABEL_17:
 
     v15 = *a3;
     v24 = *(v8 - 2);
-    JCColor::JCColor(v25, (v8 - 2));
+    JCColor::JCColor(v25, v8 - 2);
     v22 = *v8;
-    JCColor::JCColor(v23, (v8 + 2));
+    JCColor::JCColor(v23, v8 + 2);
     v16 = v15(&v24, &v22);
     JCColor::~JCColor(v23);
     JCColor::~JCColor(v25);
@@ -5555,7 +5555,7 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEnt
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
-  JCColor::JCColor(v5, (*a1 + 2));
+  JCColor::JCColor(v5, *a1 + 2);
   *v2 = *v3;
   JCColor::operator=(v2 + 2, (v3 + 16));
   *v3 = v4;
@@ -5563,14 +5563,14 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEnt
   JCColor::~JCColor(v5);
 }
 
-void sub_249FD35FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_249FD35FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   JCColor::~JCColor(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(CGColorRef *a1, CGColorRef *a2, __int128 *a3, uint64_t (**a4)(__int128 *, __int128 *))
+uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(CGColorRef *a1, CGColorRef *a2, CGColorRef *a3, uint64_t (**a4)(__int128 *, __int128 *))
 {
   v6 = a1;
   v37 = a2;
@@ -5578,9 +5578,9 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
   v36 = a3;
   v7 = *a4;
   v34 = *a2;
-  JCColor::JCColor(v35, (a2 + 2));
+  JCColor::JCColor(v35, a2 + 2);
   v32 = *v6;
-  JCColor::JCColor(v33, (v6 + 2));
+  JCColor::JCColor(v33, v6 + 2);
   LOBYTE(v6) = v7(&v34, &v32);
   JCColor::~JCColor(v33);
   JCColor::~JCColor(v35);
@@ -5588,9 +5588,9 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
   if (v6)
   {
     v22 = *a3;
-    JCColor::JCColor(v23, (a3 + 1));
+    JCColor::JCColor(v23, a3 + 2);
     v20 = *v37;
-    JCColor::JCColor(v21, (v37 + 2));
+    JCColor::JCColor(v21, v37 + 2);
     v9 = v8(&v22, &v20);
     JCColor::~JCColor(v21);
     JCColor::~JCColor(v23);
@@ -5607,9 +5607,9 @@ LABEL_9:
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v38, &v37);
     v11 = *a4;
     v18 = *v36;
-    JCColor::JCColor(v19, (v36 + 1));
+    JCColor::JCColor(v19, v36 + 2);
     v16 = *v37;
-    JCColor::JCColor(v17, (v37 + 2));
+    JCColor::JCColor(v17, v37 + 2);
     LODWORD(v11) = v11(&v18, &v16);
     JCColor::~JCColor(v17);
     JCColor::~JCColor(v19);
@@ -5623,9 +5623,9 @@ LABEL_9:
   }
 
   v30 = *a3;
-  JCColor::JCColor(v31, (a3 + 1));
+  JCColor::JCColor(v31, a3 + 2);
   v28 = *v37;
-  JCColor::JCColor(v29, (v37 + 2));
+  JCColor::JCColor(v29, v37 + 2);
   v13 = v8(&v30, &v28);
   JCColor::~JCColor(v29);
   JCColor::~JCColor(v31);
@@ -5634,9 +5634,9 @@ LABEL_9:
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v37, &v36);
     v14 = *a4;
     v26 = *v37;
-    JCColor::JCColor(v27, (v37 + 2));
+    JCColor::JCColor(v27, v37 + 2);
     v24 = *v38;
-    JCColor::JCColor(v25, (v38 + 2));
+    JCColor::JCColor(v25, v38 + 2);
     LODWORD(v14) = v14(&v26, &v24);
     JCColor::~JCColor(v25);
     JCColor::~JCColor(v27);
@@ -5670,9 +5670,9 @@ void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a2, a3, a5);
   v10 = *a5;
   v25 = *v6;
-  JCColor::JCColor(v26, (v6 + 1));
+  JCColor::JCColor(v26, (v6 + 16));
   v23 = *a3;
-  JCColor::JCColor(v24, (a3 + 2));
+  JCColor::JCColor(v24, a3 + 2);
   LODWORD(v6) = v10(&v25, &v23);
   JCColor::~JCColor(v24);
   JCColor::~JCColor(v26);
@@ -5681,9 +5681,9 @@ void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v28, &v27);
     v11 = *a5;
     v21 = *v28;
-    JCColor::JCColor(v22, (v28 + 2));
+    JCColor::JCColor(v22, v28 + 2);
     v19 = *a2;
-    JCColor::JCColor(v20, (a2 + 2));
+    JCColor::JCColor(v20, a2 + 2);
     v12 = v11(&v21, &v19);
     JCColor::~JCColor(v20);
     JCColor::~JCColor(v22);
@@ -5692,9 +5692,9 @@ void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v29, &v28);
       v13 = *a5;
       v17 = *v29;
-      JCColor::JCColor(v18, (v29 + 2));
+      JCColor::JCColor(v18, v29 + 2);
       v15 = *a1;
-      JCColor::JCColor(v16, (a1 + 2));
+      JCColor::JCColor(v16, a1 + 2);
       v14 = v13(&v17, &v15);
       JCColor::~JCColor(v16);
       JCColor::~JCColor(v18);
@@ -5724,9 +5724,9 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a2, a3, a4, a6);
   v12 = *a6;
   v33 = *v7;
-  JCColor::JCColor(v34, (v7 + 1));
+  JCColor::JCColor(v34, (v7 + 16));
   v31 = *a4;
-  JCColor::JCColor(v32, (a4 + 2));
+  JCColor::JCColor(v32, a4 + 2);
   LODWORD(v7) = v12(&v33, &v31);
   JCColor::~JCColor(v32);
   JCColor::~JCColor(v34);
@@ -5735,9 +5735,9 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v36, &v35);
     v13 = *a6;
     v29 = *v36;
-    JCColor::JCColor(v30, (v36 + 2));
+    JCColor::JCColor(v30, v36 + 2);
     v27 = *a3;
-    JCColor::JCColor(v28, (a3 + 2));
+    JCColor::JCColor(v28, a3 + 2);
     v14 = v13(&v29, &v27);
     JCColor::~JCColor(v28);
     JCColor::~JCColor(v30);
@@ -5746,9 +5746,9 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v37, &v36);
       v15 = *a6;
       v25 = *v37;
-      JCColor::JCColor(v26, (v37 + 2));
+      JCColor::JCColor(v26, v37 + 2);
       v23 = *a2;
-      JCColor::JCColor(v24, (a2 + 2));
+      JCColor::JCColor(v24, a2 + 2);
       v16 = v15(&v25, &v23);
       JCColor::~JCColor(v24);
       JCColor::~JCColor(v26);
@@ -5757,9 +5757,9 @@ void std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<sortColorEntry *&,sortColorEntry *&>(&v38, &v37);
         v17 = *a6;
         v21 = *v38;
-        JCColor::JCColor(v22, (v38 + 2));
+        JCColor::JCColor(v22, v38 + 2);
         v19 = *a1;
-        JCColor::JCColor(v20, (a1 + 2));
+        JCColor::JCColor(v20, a1 + 2);
         v18 = v17(&v21, &v19);
         JCColor::~JCColor(v20);
         JCColor::~JCColor(v22);
@@ -5779,7 +5779,7 @@ void sub_249FD3CD8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(_OWORD *a1, _OWORD *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   if (a1 != a2)
   {
@@ -5793,16 +5793,16 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortCo
         v9 = v5;
         v10 = *a3;
         v24 = *v5;
-        JCColor::JCColor(v25, (v8 + 3));
+        JCColor::JCColor(v25, v8 + 6);
         v22 = *v8;
-        JCColor::JCColor(v23, (v8 + 1));
+        JCColor::JCColor(v23, v8 + 2);
         LODWORD(v10) = v10(&v24, &v22);
         JCColor::~JCColor(v23);
         JCColor::~JCColor(v25);
         if (v10)
         {
           v20 = *v9;
-          JCColor::JCColor(v21, (v8 + 3));
+          JCColor::JCColor(v21, v8 + 6);
           v11 = v7;
           while (1)
           {
@@ -5848,7 +5848,7 @@ LABEL_10:
   }
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, __int128 *))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(_OWORD *a1, _OWORD *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   if (a1 != a2)
   {
@@ -5862,16 +5862,16 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
         v8 = v5;
         v9 = *a3;
         v20 = *v5;
-        JCColor::JCColor(v21, (v4 + 3));
+        JCColor::JCColor(v21, v4 + 6);
         v18 = *v4;
-        JCColor::JCColor(v19, (v4 + 1));
+        JCColor::JCColor(v19, v4 + 2);
         LODWORD(v9) = v9(&v20, &v18);
         JCColor::~JCColor(v19);
         JCColor::~JCColor(v21);
         if (v9)
         {
           v16 = *v8;
-          JCColor::JCColor(v17, (v4 + 3));
+          JCColor::JCColor(v17, v4 + 6);
           v10 = v7;
           do
           {
@@ -5904,18 +5904,18 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
   }
 }
 
-CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,sortColorEntry *,BOOL (*&)(sortColorEntry,sortColorEntry)>(CGColorRef *a1, CGColorRef *a2, uint64_t (**a3)(__int128 *, __int128 *))
+CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,sortColorEntry *,BOOL (*&)(sortColorEntry,sortColorEntry)>(CGColorRef *a1, unint64_t a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v4 = a2;
   v46 = a2;
   v47 = a1;
   v44 = *a1;
-  JCColor::JCColor(v45, (a1 + 2));
+  JCColor::JCColor(v45, a1 + 2);
   v6 = *a3;
   v42 = v44;
   JCColor::JCColor(v43, v45);
-  v40 = *(v4 - 2);
-  JCColor::JCColor(v41, (v4 - 2));
+  v40 = *(v4 - 32);
+  JCColor::JCColor(v41, (v4 - 16));
   LOBYTE(v6) = v6(&v42, &v40);
   JCColor::~JCColor(v41);
   JCColor::~JCColor(v43);
@@ -5929,7 +5929,7 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
       v38 = v44;
       JCColor::JCColor(v39, v45);
       v36 = *v7;
-      JCColor::JCColor(v37, (v7 + 2));
+      JCColor::JCColor(v37, v7 + 2);
       LOBYTE(v8) = v8(&v38, &v36);
       JCColor::~JCColor(v37);
       JCColor::~JCColor(v39);
@@ -5958,7 +5958,7 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
       v34 = v44;
       JCColor::JCColor(v35, v45);
       v32 = *v10;
-      JCColor::JCColor(v33, (v10 + 2));
+      JCColor::JCColor(v33, v10 + 2);
       LOBYTE(v12) = v12(&v34, &v32);
       JCColor::~JCColor(v33);
       JCColor::~JCColor(v35);
@@ -5971,7 +5971,7 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
 
   if (v10 < v4)
   {
-    v13 = v9 - 4;
+    v13 = v9 - 32;
     do
     {
       v46 = v13;
@@ -5979,11 +5979,11 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
       v30 = v44;
       JCColor::JCColor(v31, v45);
       v28 = *v13;
-      JCColor::JCColor(v29, (v13 + 2));
+      JCColor::JCColor(v29, (v13 + 16));
       LOBYTE(v14) = v14(&v30, &v28);
       JCColor::~JCColor(v29);
       JCColor::~JCColor(v31);
-      v13 -= 4;
+      v13 -= 32;
     }
 
     while ((v14 & 1) != 0);
@@ -6003,7 +6003,7 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
         v26 = v44;
         JCColor::JCColor(v27, v45);
         v24 = *v47;
-        JCColor::JCColor(v25, (v47 + 2));
+        JCColor::JCColor(v25, v47 + 2);
         LODWORD(v15) = v15(&v26, &v24);
         JCColor::~JCColor(v25);
         JCColor::~JCColor(v27);
@@ -6012,12 +6012,12 @@ CGColorRef *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgP
       while (!v15);
       do
       {
-        v46 -= 4;
+        v46 -= 32;
         v16 = *a3;
         v22 = v44;
         JCColor::JCColor(v23, v45);
         v20 = *v46;
-        JCColor::JCColor(v21, (v46 + 2));
+        JCColor::JCColor(v21, (v46 + 16));
         LOBYTE(v16) = v16(&v22, &v20);
         JCColor::~JCColor(v21);
         JCColor::~JCColor(v23);
@@ -6056,7 +6056,7 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
 {
   v41 = a2;
   v39 = *a1;
-  JCColor::JCColor(v40, (a1 + 2));
+  JCColor::JCColor(v40, a1 + 2);
   v5 = 0;
   do
   {
@@ -6076,10 +6076,10 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
   if (v5 == 4)
   {
     v9 = a1 + 4;
-    v10 = v41 - 4;
+    v10 = (v41 - 4);
     do
     {
-      if (v9 >= v10 + 4)
+      if (v9 >= v10 + 32)
       {
         break;
       }
@@ -6087,13 +6087,13 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
       v11 = *a3;
       v41 = v10;
       v33 = *v10;
-      JCColor::JCColor(v34, (v10 + 2));
+      JCColor::JCColor(v34, (v10 + 16));
       v31 = v39;
       JCColor::JCColor(v32, v40);
       LOBYTE(v11) = v11(&v33, &v31);
       JCColor::~JCColor(v32);
       JCColor::~JCColor(v34);
-      v10 -= 4;
+      v10 -= 32;
     }
 
     while ((v11 & 1) == 0);
@@ -6101,19 +6101,19 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
 
   else
   {
-    v7 = v41 - 4;
+    v7 = (v41 - 4);
     do
     {
       v41 = v7;
       v8 = *a3;
       v29 = *v7;
-      JCColor::JCColor(v30, (v7 + 2));
+      JCColor::JCColor(v30, (v7 + 16));
       v27 = v39;
       JCColor::JCColor(v28, v40);
       LOBYTE(v8) = v8(&v29, &v27);
       JCColor::~JCColor(v28);
       JCColor::~JCColor(v30);
-      v7 -= 4;
+      v7 -= 32;
     }
 
     while ((v8 & 1) == 0);
@@ -6132,7 +6132,7 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
         v42 += 4;
         v14 = *a3;
         v25 = *v42;
-        JCColor::JCColor(v26, (v13 + 6));
+        JCColor::JCColor(v26, v13 + 6);
         v23 = v39;
         JCColor::JCColor(v24, v40);
         LOBYTE(v14) = v14(&v25, &v23);
@@ -6147,7 +6147,7 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
         v41 -= 4;
         v16 = *a3;
         v21 = *v41;
-        JCColor::JCColor(v22, (v15 - 2));
+        JCColor::JCColor(v22, v15 - 2);
         v19 = v39;
         JCColor::JCColor(v20, v40);
         LODWORD(v16) = v16(&v21, &v19);
@@ -6175,7 +6175,7 @@ CGColorRef *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlg
   return v12 - 4;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(CGColorRef *a1, uint64_t a2, uint64_t (**a3)(__int128 *, __int128 *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(CGColorRef *a1, CGColorRef *a2, uint64_t (**a3)(__int128 *, __int128 *))
 {
   v31 = a2;
   v32 = a1;
@@ -6185,13 +6185,13 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
     switch(v6)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, (a2 - 32), a3);
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a2 - 4, a3);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 8, a2 - 32, a3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 8, (a2 - 4), a3);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 8, a1 + 12, a2 - 32, a3);
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 8, a1 + 12, (a2 - 4), a3);
         return 1;
     }
   }
@@ -6206,11 +6206,11 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
     if (v6 == 2)
     {
       v7 = *a3;
-      v31 = (a2 - 32);
-      v29 = *(a2 - 32);
-      JCColor::JCColor(v30, (a2 - 16));
+      v31 = a2 - 4;
+      v29 = *(a2 - 2);
+      JCColor::JCColor(v30, a2 - 2);
       v27 = *a1;
-      JCColor::JCColor(v28, (a1 + 2));
+      JCColor::JCColor(v28, a1 + 2);
       LODWORD(v7) = v7(&v29, &v27);
       JCColor::~JCColor(v28);
       JCColor::~JCColor(v30);
@@ -6224,7 +6224,7 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
   }
 
   v8 = a1 + 8;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 4, a3);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*,0>(a1, a1 + 4, a1 + 8, a3);
   v9 = a1 + 12;
   if (a1 + 12 != a2)
   {
@@ -6233,16 +6233,16 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
     {
       v11 = *a3;
       v25 = *v9;
-      JCColor::JCColor(v26, (v9 + 2));
+      JCColor::JCColor(v26, v9 + 2);
       v23 = *v8;
-      JCColor::JCColor(v24, (v8 + 2));
+      JCColor::JCColor(v24, v8 + 2);
       v12 = v11(&v25, &v23);
       JCColor::~JCColor(v24);
       JCColor::~JCColor(v26);
       if (v12)
       {
         v21 = *v9;
-        JCColor::JCColor(v22, (v9 + 2));
+        JCColor::JCColor(v22, v9 + 2);
         do
         {
           v13 = v8;
@@ -6257,7 +6257,7 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,B
           v19 = v21;
           JCColor::JCColor(v20, v22);
           v17 = *(v8 - 2);
-          JCColor::JCColor(v18, (v8 - 2));
+          JCColor::JCColor(v18, v8 - 2);
           LOBYTE(v14) = v14(&v19, &v17);
           v8 -= 4;
           JCColor::~JCColor(v18);
@@ -6330,9 +6330,9 @@ CGColorRef *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
       {
         v13 = *a4;
         v18 = *v12;
-        JCColor::JCColor(v19, (v12 + 2));
+        JCColor::JCColor(v19, v12 + 2);
         v16 = *v21;
-        JCColor::JCColor(v17, (v21 + 2));
+        JCColor::JCColor(v17, v21 + 2);
         LODWORD(v13) = v13(&v18, &v16);
         JCColor::~JCColor(v17);
         JCColor::~JCColor(v19);
@@ -6386,9 +6386,9 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
       {
         v13 = *a2;
         v41 = *v11;
-        JCColor::JCColor(v42, (v11 + 2));
+        JCColor::JCColor(v42, v11 + 2);
         v39 = *(v11 + 2);
-        JCColor::JCColor(v40, (v11 + 6));
+        JCColor::JCColor(v40, v11 + 6);
         v14 = v13(&v41, &v39);
         JCColor::~JCColor(v40);
         JCColor::~JCColor(v42);
@@ -6407,16 +6407,16 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
 
       v16 = *a2;
       v37 = *v11;
-      JCColor::JCColor(v38, (v11 + 2));
+      JCColor::JCColor(v38, v11 + 2);
       v35 = *v5;
-      JCColor::JCColor(v36, (v5 + 2));
+      JCColor::JCColor(v36, v5 + 2);
       LOBYTE(v16) = v16(&v37, &v35);
       JCColor::~JCColor(v36);
       JCColor::~JCColor(v38);
       if ((v16 & 1) == 0)
       {
         v33 = *v5;
-        JCColor::JCColor(v34, (v5 + 2));
+        JCColor::JCColor(v34, v5 + 2);
         do
         {
           v17 = v11;
@@ -6439,9 +6439,9 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
           {
             v19 = *a2;
             v31 = *v11;
-            JCColor::JCColor(v32, (v11 + 2));
+            JCColor::JCColor(v32, v11 + 2);
             v29 = *(v11 + 2);
-            JCColor::JCColor(v30, (v11 + 6));
+            JCColor::JCColor(v30, v11 + 6);
             v20 = v19(&v31, &v29);
             JCColor::~JCColor(v30);
             JCColor::~JCColor(v32);
@@ -6460,7 +6460,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEn
 
           v22 = *a2;
           v27 = *v11;
-          JCColor::JCColor(v28, (v11 + 2));
+          JCColor::JCColor(v28, v11 + 2);
           v25 = v33;
           JCColor::JCColor(v26, v34);
           v23 = v22(&v27, &v25);
@@ -6483,7 +6483,7 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(sortColorEntr
   if (a4 >= 2)
   {
     v12 = *a1;
-    JCColor::JCColor(v13, (a1 + 2));
+    JCColor::JCColor(v13, a1 + 2);
     v8 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntry,sortColorEntry),sortColorEntry*>(a1, a3, a4);
     v9 = v8;
     v10 = (a2 - 32);
@@ -6521,9 +6521,9 @@ CGColorRef *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v12 = *a2;
       v17 = *v9;
-      JCColor::JCColor(v18, (v8 + 6));
+      JCColor::JCColor(v18, v8 + 6);
       v15 = *(v8 + 4);
-      JCColor::JCColor(v16, (v8 + 10));
+      JCColor::JCColor(v16, v8 + 10);
       LODWORD(v12) = v12(&v17, &v15);
       v13 = v8 + 8;
       JCColor::~JCColor(v16);
@@ -6545,9 +6545,9 @@ CGColorRef *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return v9;
 }
 
-void sub_249FD52C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_249FD52C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   JCColor::~JCColor(va);
   _Unwind_Resume(a1);
 }
@@ -6561,7 +6561,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntr
     v9 = (a1 + 32 * (v4 >> 1));
     v10 = *a3;
     v22 = *v9;
-    JCColor::JCColor(v23, (v9 + 2));
+    JCColor::JCColor(v23, v9 + 2);
     v20 = *(a2 - 32);
     JCColor::JCColor(v21, (a2 - 16));
     LODWORD(v10) = v10(&v22, &v20);
@@ -6586,7 +6586,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntr
         v9 = (a1 + 32 * v8);
         v13 = *a3;
         v16 = *v9;
-        JCColor::JCColor(v17, (v9 + 2));
+        JCColor::JCColor(v17, v9 + 2);
         v14 = v18;
         JCColor::JCColor(v15, v19);
         LOBYTE(v13) = v13(&v16, &v14);
@@ -6603,7 +6603,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(sortColorEntr
   }
 }
 
-uint64_t std::vector<JCColor>::__emplace_back_slow_path<JCColor const&>(uint64_t a1, const JCColor *a2)
+uint64_t std::vector<JCColor>::__emplace_back_slow_path<JCColor const&>(uint64_t a1, CGColorRef *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 4;
   v3 = v2 + 1;
@@ -6654,9 +6654,9 @@ uint64_t std::vector<JCColor>::__emplace_back_slow_path<JCColor const&>(uint64_t
   return v13;
 }
 
-void sub_249FD55B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_249FD55B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<JCColor>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6671,7 +6671,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<JCColor>>(uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<JCColor>,JCColor*>(int a1, JCColor *a2, JCColor *a3, JCColor *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<JCColor>,JCColor*>(int a1, CGColor **a2, CGColorRef *a3, JCColor *this)
 {
   if (a2 != a3)
   {
@@ -6681,7 +6681,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<JCColo
     do
     {
       JCColor::JCColor(this, v8);
-      v8 = (v8 + 16);
+      v8 += 2;
       this = (this + 16);
       v7 -= 16;
     }
@@ -6690,7 +6690,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<JCColo
     while (v6 != a3)
     {
       JCColor::~JCColor(v6);
-      v6 = (v6 + 16);
+      v6 += 2;
     }
   }
 }
@@ -6763,10 +6763,10 @@ uint64_t sub_249FD5830()
   }
 }
 
-uint64_t sub_249FD588C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FD588C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FDD1F0(a1, a2);
-  *a3 = result;
+  result = sub_249FDD1F0(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -6814,24 +6814,24 @@ uint64_t sub_249FD59E0(uint64_t a1)
 
 uint64_t EmojiPosterLayoutStyle.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE58);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE58, &qword_24A024770);
   v25 = *(v3 - 8);
   v26 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v24 = &v18 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE60);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE60, &qword_24A024778);
   v22 = *(v5 - 8);
   v23 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v21 = &v18 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE68);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE68, &qword_24A024780);
   v19 = *(v7 - 8);
   v20 = v7;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v18 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE70);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE70, &qword_24A024788);
   v11 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v13 = &v18 - v12;
   v14 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -6873,7 +6873,7 @@ uint64_t EmojiPosterLayoutStyle.encode(to:)(void *a1)
   return (*(v11 + 8))(v13, v10);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6900,7 +6900,7 @@ unint64_t sub_249FD5E14()
   result = qword_2810DA4A8[0];
   if (!qword_2810DA4A8[0])
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026428, &type metadata for EmojiPosterLayoutStyle.CodingKeys, v0, v1);
     atomic_store(result, qword_2810DA4A8);
   }
 
@@ -6912,7 +6912,7 @@ unint64_t sub_249FD5E68()
   result = qword_2810DA490;
   if (!qword_2810DA490)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aQr8, &type metadata for EmojiPosterLayoutStyle.SpiralCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA490);
   }
 
@@ -6924,7 +6924,7 @@ unint64_t sub_249FD5EBC()
   result = qword_2810DA478;
   if (!qword_2810DA478)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026388, &type metadata for EmojiPosterLayoutStyle.CircularCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA478);
   }
 
@@ -6936,7 +6936,7 @@ unint64_t sub_249FD5F10()
   result = qword_2810DA460;
   if (!qword_2810DA460)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026338, &type metadata for EmojiPosterLayoutStyle.OffsetGridCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA460);
   }
 
@@ -6946,22 +6946,22 @@ unint64_t sub_249FD5F10()
 uint64_t EmojiPosterLayoutStyle.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v39 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE78);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE78, &qword_24A024790);
   v36 = *(v3 - 8);
   v37 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v41 = &v32 - v4;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE80);
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE80, &qword_24A024798);
   v35 = *(v38 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v38);
   v6 = &v32 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE88);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE88, &qword_24A0247A0);
   v40 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v32 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE90);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE90, &qword_24A0247A8);
   v42 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v12 = &v32 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FD5E14();
@@ -7054,7 +7054,7 @@ uint64_t EmojiPosterLayoutStyle.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
   v21 = sub_24A021A08();
   swift_allocError();
   v23 = v22;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98, &qword_24A0247B0);
   *v23 = &type metadata for EmojiPosterLayoutStyle;
   sub_24A021B08();
   sub_24A0219F8();
@@ -7092,9 +7092,9 @@ uint64_t sub_249FD6554()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -7124,10 +7124,10 @@ uint64_t sub_249FD6604()
   }
 }
 
-uint64_t sub_249FD6654@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FD6654@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FDD87C(a1, a2);
-  *a3 = result;
+  result = sub_249FDD87C(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7189,24 +7189,24 @@ uint64_t sub_249FD6820(uint64_t a1)
 
 uint64_t EmojiPosterSizeVariant.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEA0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEA0, &qword_24A0247B8);
   v25 = *(v3 - 8);
   v26 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v24 = &v18 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEA8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEA8, &qword_24A0247C0);
   v22 = *(v5 - 8);
   v23 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v21 = &v18 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEB0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEB0, &qword_24A0247C8);
   v19 = *(v7 - 8);
   v20 = v7;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v18 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEB8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEB8, &qword_24A0247D0);
   v11 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v13 = &v18 - v12;
   v14 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -7253,7 +7253,7 @@ unint64_t sub_249FD6BC8()
   result = qword_2810DA438;
   if (!qword_2810DA438)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aAs8, &type metadata for EmojiPosterSizeVariant.CodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA438);
   }
 
@@ -7265,7 +7265,7 @@ unint64_t sub_249FD6C1C()
   result = qword_2810DA420;
   if (!qword_2810DA420)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026298, &type metadata for EmojiPosterSizeVariant.LargeCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA420);
   }
 
@@ -7277,7 +7277,7 @@ unint64_t sub_249FD6C70()
   result = qword_2810DA3F0;
   if (!qword_2810DA3F0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026248, &type metadata for EmojiPosterSizeVariant.MediumCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA3F0);
   }
 
@@ -7289,7 +7289,7 @@ unint64_t sub_249FD6CC4()
   result = qword_2810DA408;
   if (!qword_2810DA408)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a1t8, &type metadata for EmojiPosterSizeVariant.SmallCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA408);
   }
 
@@ -7299,22 +7299,22 @@ unint64_t sub_249FD6CC4()
 uint64_t EmojiPosterSizeVariant.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v39 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEC0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEC0, &qword_24A0247D8);
   v36 = *(v3 - 8);
   v37 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v41 = &v32 - v4;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEC8);
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEC8, &qword_24A0247E0);
   v35 = *(v38 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v38);
   v6 = &v32 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DED0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DED0, &qword_24A0247E8);
   v40 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v32 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DED8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DED8, &qword_24A0247F0);
   v42 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v12 = &v32 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FD6BC8();
@@ -7407,7 +7407,7 @@ uint64_t EmojiPosterSizeVariant.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
   v21 = sub_24A021A08();
   swift_allocError();
   v23 = v22;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98, &qword_24A0247B0);
   *v23 = &type metadata for EmojiPosterSizeVariant;
   sub_24A021B08();
   sub_24A0219F8();
@@ -7468,10 +7468,10 @@ uint64_t sub_249FD7380()
   }
 }
 
-uint64_t sub_249FD7440@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FD7440@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FDD988(a1, a2);
-  *a3 = result;
+  result = sub_249FDD988(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7547,33 +7547,33 @@ uint64_t sub_249FD7684(uint64_t a1)
 
 uint64_t EmojiPosterBackgroundStyle.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEE0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEE0, &qword_24A0247F8);
   v40 = *(v3 - 8);
   v41 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v39 = &v33 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEE8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEE8, &qword_24A024800);
   v37 = *(v5 - 8);
   v38 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v36 = &v33 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEF0, &qword_24A024808);
   v34 = *(v7 - 8);
   v35 = v7;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v33 = &v33 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEF8);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DEF8, &qword_24A024810);
   v43 = *(v9 - 8);
   v44 = v9;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v9);
   v11 = &v33 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF00);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF00, &qword_24A024818);
   v42 = *(v12 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v12);
   v14 = &v33 - v13;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF08);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF08, &qword_24A024820);
   v15 = *(v45 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v45);
   v16 = *v1;
   v17 = a1[3];
   v18 = a1;
@@ -7655,7 +7655,7 @@ unint64_t sub_249FD7C00()
   result = qword_2810DA388;
   if (!qword_2810DA388)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A0261A8, &type metadata for EmojiPosterBackgroundStyle.CodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA388);
   }
 
@@ -7667,7 +7667,7 @@ unint64_t sub_249FD7C54()
   result = qword_27EF2DF10;
   if (!qword_27EF2DF10)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026158, &type metadata for EmojiPosterBackgroundStyle.VignettedCodingKeys, v0, v1);
     atomic_store(result, &qword_27EF2DF10);
   }
 
@@ -7679,7 +7679,6 @@ unint64_t sub_249FD7CA8()
   result = qword_2810DA348;
   if (!qword_2810DA348)
   {
-    result = swift_getWitnessTable();
     atomic_store(result, &qword_2810DA348);
   }
 
@@ -7691,7 +7690,6 @@ unint64_t sub_249FD7CFC()
   result = qword_27EF2DF18;
   if (!qword_27EF2DF18)
   {
-    result = swift_getWitnessTable();
     atomic_store(result, &qword_27EF2DF18);
   }
 
@@ -7703,7 +7701,7 @@ unint64_t sub_249FD7D50()
   result = qword_27EF2DF20;
   if (!qword_27EF2DF20)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026068, &type metadata for EmojiPosterBackgroundStyle.LinearGradientCodingKeys, v0, v1);
     atomic_store(result, &qword_27EF2DF20);
   }
 
@@ -7715,7 +7713,7 @@ unint64_t sub_249FD7DA4()
   result = qword_2810DA370;
   if (!qword_2810DA370)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(byte_24A026018, &type metadata for EmojiPosterBackgroundStyle.SolidCodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA370);
   }
 
@@ -7733,29 +7731,29 @@ uint64_t _s11EmojiPoster0aB11LayoutStyleO9hashValueSivg_0()
 uint64_t EmojiPosterBackgroundStyle.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v43 = a2;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF28);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF28, &qword_24A024828);
   v39 = *(v41 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v41);
   v45 = &v30[-v3];
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF30);
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF30, &qword_24A024830);
   v38 = *(v40 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v40);
   v42 = &v30[-v4];
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF38);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF38, &qword_24A024838);
   v35 = *(v37 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v37);
   v44 = &v30[-v5];
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF40);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF40, &qword_24A024840);
   v34 = *(v36 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v36);
   v7 = &v30[-v6];
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF48);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF48, &qword_24A024848);
   v33 = *(v8 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v8);
   v10 = &v30[-v9];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF50);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF50, &qword_24A024850);
   v12 = *(v11 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v11);
   v14 = &v30[-v13];
   v15 = a1[3];
   v47 = a1;
@@ -7777,7 +7775,7 @@ uint64_t EmojiPosterBackgroundStyle.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X
       v24 = sub_24A021A08();
       swift_allocError();
       v26 = v25;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98, &qword_24A0247B0);
       *v26 = &type metadata for EmojiPosterBackgroundStyle;
       sub_24A021B08();
       sub_24A0219F8();
@@ -7925,7 +7923,7 @@ uint64_t sub_249FD86A8()
   v1 = *v0;
   v2 = v0[1];
   v3 = v0[2];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148, &unk_24A027810);
   v4 = swift_allocObject();
   v5 = MEMORY[0x277D839F8];
   *(v4 + 16) = xmmword_24A0246F0;
@@ -7993,10 +7991,10 @@ uint64_t sub_249FD88D0()
   }
 }
 
-uint64_t sub_249FD8930@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FD8930@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FDDB54(a1, a2);
-  *a3 = result;
+  result = sub_249FDDB54(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8016,9 +8014,9 @@ uint64_t sub_249FD8994(uint64_t a1)
 
 uint64_t EmojiPosterBackgroundColor.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF58);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF58, &qword_24A024858);
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v6 = &v8[-v5];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FD8BA4();
@@ -8043,18 +8041,18 @@ unint64_t sub_249FD8BA4()
   result = qword_2810DA3B0;
   if (!qword_2810DA3B0)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(aAv8, &type metadata for EmojiPosterBackgroundColor.CodingKeys, v0, v1);
     atomic_store(result, &qword_2810DA3B0);
   }
 
   return result;
 }
 
-uint64_t EmojiPosterBackgroundColor.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+uint64_t EmojiPosterBackgroundColor.init(from:)@<X0>(void *a1@<X0>, double *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF60);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF60, &unk_24A024860);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v18 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FD8BA4();
@@ -8075,9 +8073,9 @@ uint64_t EmojiPosterBackgroundColor.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8
     v17 = v16;
     (*(v6 + 8))(v8, v5);
     *a2 = v10;
-    a2[1] = v12;
-    a2[2] = v15;
-    a2[3] = v17;
+    *(a2 + 1) = v12;
+    *(a2 + 2) = v15;
+    *(a2 + 3) = v17;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
@@ -8391,8 +8389,8 @@ Swift::String __swiftcall EmojiPosterConfiguration.identifier()()
 
     MEMORY[0x24C20C3F0](95, 0xE100000000000000);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-    sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+    sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68, &unk_24A026760, MEMORY[0x277D83958]);
     v13 = sub_24A021628();
     v15 = v14;
 
@@ -8447,7 +8445,7 @@ Swift::String __swiftcall EmojiPosterBackgroundConfiguration.identifier()()
     v3 = 1701736302;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E580);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E580, &qword_24A024870);
   v6 = swift_allocObject();
   v7 = v6;
   *(v6 + 16) = xmmword_24A024700;
@@ -8506,8 +8504,8 @@ LABEL_14:
 
   v7[10] = v12;
   v7[11] = v13;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68, &unk_24A026760, MEMORY[0x277D83958]);
   v14 = sub_24A021628();
   v16 = v15;
 
@@ -8560,10 +8558,10 @@ unint64_t sub_249FD9900()
   }
 }
 
-uint64_t sub_249FD99F4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FD99F4@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FE0A08(a1, a2);
-  *a3 = result;
+  result = sub_249FE0A08(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8583,9 +8581,9 @@ uint64_t sub_249FD9A64(uint64_t a1)
 
 uint64_t EmojiPosterConfiguration.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF70);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF70, &qword_24A024878);
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v5 = *(v1 + 64);
   v34 = *(v1 + 48);
   v35 = v5;
@@ -8641,13 +8639,13 @@ uint64_t EmojiPosterConfiguration.encode(to:)(void *a1)
     sub_24A021C08();
     v22 = v19;
     v23 = 4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-    sub_249FDE150(&qword_2810D9BD0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+    sub_249FDE150(&qword_2810D9BD0, MEMORY[0x277D837D8], MEMORY[0x277D83948]);
     sub_24A021C08();
     v22 = v18;
     v23 = 5;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF78);
-    sub_249FDE1BC(&qword_27EF2DF80, sub_249FDE000);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF78, &qword_24A024880);
+    sub_249FDE1BC(&qword_27EF2DF80, sub_249FDE000, MEMORY[0x277D83948]);
     sub_24A021BB8();
     LOBYTE(v22) = 6;
     sub_24A021BD8();
@@ -8658,9 +8656,9 @@ uint64_t EmojiPosterConfiguration.encode(to:)(void *a1)
 
 uint64_t EmojiPosterConfiguration.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF90);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF90, &qword_24A024888);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v22 - v7;
   v9 = a1[3];
   v53 = a1;
@@ -8694,14 +8692,14 @@ uint64_t EmojiPosterConfiguration.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X
   sub_249FDE0FC();
   sub_24A021B78();
   v13 = LOBYTE(v34[0]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
   LOBYTE(v26) = 4;
-  sub_249FDE150(&qword_2810D9BC0);
+  sub_249FDE150(&qword_2810D9BC0, MEMORY[0x277D83808], MEMORY[0x277D83978]);
   sub_24A021B78();
   v23 = *&v34[0];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF78);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF78, &qword_24A024880);
   LOBYTE(v26) = 5;
-  sub_249FDE1BC(&qword_2810D9BE0, sub_249FDE234);
+  sub_249FDE1BC(&qword_2810D9BE0, sub_249FDE234, MEMORY[0x277D83978]);
   sub_24A021B28();
   v22 = *&v34[0];
   v41 = 6;
@@ -8762,7 +8760,7 @@ __n128 EmojiPosterBackgroundConfiguration.backgroundColor.getter@<Q0>(uint64_t a
   return result;
 }
 
-uint64_t EmojiPosterBackgroundConfiguration.gradientProperties.getter@<X0>(uint64_t *a1@<X8>)
+void EmojiPosterBackgroundConfiguration.gradientProperties.getter(uint64_t *a1@<X8>)
 {
   v2 = v1[5];
   v3 = v1[6];
@@ -8776,7 +8774,7 @@ uint64_t EmojiPosterBackgroundConfiguration.gradientProperties.getter@<X0>(uint6
   a1[3] = v5;
   a1[4] = v6;
   a1[5] = v7;
-  return sub_249FDE2F0(v2, v3, v4, v5, v6);
+  sub_249FDE2F0(v2, v3, v4, v5, v6, v7);
 }
 
 uint64_t sub_249FDA518()
@@ -8785,7 +8783,7 @@ uint64_t sub_249FDA518()
   v2 = v0[1];
   v3 = v0[2];
   v4 = v0[3];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148, &unk_24A027810);
   v5 = swift_allocObject();
   v6 = MEMORY[0x277D839F8];
   *(v5 + 16) = xmmword_24A0246F0;
@@ -8809,7 +8807,7 @@ uint64_t sub_249FDA518()
   *(v15 + 32) = v4;
   v16 = sub_24A0216A8();
   v18 = v17;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E580);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E580, &qword_24A024870);
   v19 = swift_allocObject();
   v20 = v19;
   *(v19 + 16) = xmmword_24A024710;
@@ -8831,14 +8829,14 @@ uint64_t sub_249FDA518()
   v20[13] = v22;
   v20[14] = sub_249FDBDA4();
   v20[15] = v23;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68, &unk_24A026760, MEMORY[0x277D83958]);
   v24 = sub_24A021628();
 
   return v24;
 }
 
-uint64_t sub_249FDA774()
+unint64_t sub_249FDA774()
 {
   v1 = *v0;
   v2 = 0xD000000000000011;
@@ -8868,10 +8866,10 @@ uint64_t sub_249FDA774()
   }
 }
 
-uint64_t sub_249FDA81C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FDA81C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FE0C68(a1, a2);
-  *a3 = result;
+  result = sub_249FE0C68(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8891,9 +8889,9 @@ uint64_t sub_249FDA880(uint64_t a1)
 
 uint64_t EmojiPosterBackgroundConfiguration.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF98);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF98, &qword_24A024890);
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v6 = &v18 - v5;
   v7 = *v1;
   v8 = *(v1 + 8);
@@ -8935,13 +8933,13 @@ uint64_t EmojiPosterBackgroundConfiguration.encode(to:)(void *a1)
     v29 = v19;
     v30 = v18;
     v32 = 2;
-    sub_249FDE2F0(v16, v15, v14, v20, v19);
+    sub_249FDE2F0(v16, v15, v14, v20, v19, v18);
     sub_249FDE430();
     sub_24A021BB8();
-    sub_249FDE484(v27, *(&v27 + 1), v28, *(&v28 + 1), v29);
+    sub_249FDE484(v27, *(&v27 + 1), v28, *(&v28 + 1), v29, v30);
     LOBYTE(v27) = v31;
     v32 = 3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFA0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFA0, &qword_24A024898);
     sub_249FDE4C8();
     sub_24A021C08();
     LOBYTE(v27) = v12;
@@ -8952,91 +8950,94 @@ uint64_t EmojiPosterBackgroundConfiguration.encode(to:)(void *a1)
   return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t EmojiPosterBackgroundConfiguration.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
+void EmojiPosterBackgroundConfiguration.init(from:)(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFB0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFB0, &qword_24A0248A0);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
-  v8 = &v23 - v7;
+  MEMORY[0x28223BE20](v5);
+  v8 = &v22 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FDE334();
   sub_24A021D08();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  LOBYTE(v29) = 0;
-  sub_249FDE544();
-  sub_24A021B78();
-  v9 = v34;
-  LOBYTE(v29) = 1;
-  sub_249FDE598();
-  sub_24A021B78();
-  v10 = v34;
-  v11 = v35;
-  v12 = v36;
-  v13 = v37;
-  LOBYTE(v29) = 2;
-  sub_249FDE5EC();
-  sub_24A021B28();
-  v46 = v9;
-  v27 = v34;
-  v24 = v35;
-  v28 = v36;
-  v25 = v37;
-  v26 = v38;
-  LOBYTE(v34) = 3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFA0);
-  sub_249FDE640(qword_2810DA1C0, &qword_27EF2DFA0);
-  sub_24A021B28();
-  HIDWORD(v23) = v29;
-  v48 = 4;
-  sub_24A021B28();
-  v14 = BYTE4(v23) & 1;
-  (*(v6 + 8))(v8, v5);
-  HIDWORD(v23) = v47 & 1;
-  v15 = v46;
-  LOBYTE(v29) = v46;
-  *(&v29 + 1) = v10;
-  *&v30 = v11;
-  *(&v30 + 1) = v12;
-  *&v31 = v13;
-  *(&v31 + 1) = v27;
-  v16 = v24;
-  *&v32 = v24;
-  v17 = v25;
-  *(&v32 + 1) = v28;
-  *v33 = v25;
-  v18 = *(&v25 + 1);
-  v19 = v26;
-  *&v33[16] = v26;
-  v33[24] = v14;
-  v33[25] = v47 & 1;
-  v20 = v32;
-  a2[2] = v31;
-  a2[3] = v20;
-  a2[4] = *v33;
-  *(a2 + 74) = *&v33[10];
-  v21 = v30;
-  *a2 = v29;
-  a2[1] = v21;
-  sub_249FDDE00(&v29, &v34);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  LOBYTE(v34) = v15;
-  v35 = v10;
-  v36 = v11;
-  *&v37 = v12;
-  *(&v37 + 1) = v13;
-  v38 = v27;
-  v39 = v16;
-  v40 = v28;
-  v41 = v17;
-  v42 = v18;
-  v43 = v19;
-  v44 = v14;
-  v45 = BYTE4(v23);
-  return sub_249FDDE80(&v34);
+  else
+  {
+    LOBYTE(v28) = 0;
+    sub_249FDE544();
+    sub_24A021B78();
+    v9 = v33;
+    LOBYTE(v28) = 1;
+    sub_249FDE598();
+    sub_24A021B78();
+    v10 = v33;
+    v11 = v34;
+    v12 = v35;
+    v13 = v36;
+    LOBYTE(v28) = 2;
+    sub_249FDE5EC();
+    sub_24A021B28();
+    v45 = v9;
+    v26 = v33;
+    v23 = v34;
+    v27 = v35;
+    v24 = v36;
+    v25 = v37;
+    LOBYTE(v33) = 3;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFA0, &qword_24A024898);
+    sub_249FDE640(qword_2810DA1C0, &qword_27EF2DFA0, &qword_24A024898, "y5!8Pa");
+    sub_24A021B28();
+    HIDWORD(v22) = v28;
+    v47 = 4;
+    sub_24A021B28();
+    v14 = BYTE4(v22) & 1;
+    (*(v6 + 8))(v8, v5);
+    HIDWORD(v22) = v46 & 1;
+    v15 = v45;
+    LOBYTE(v28) = v45;
+    *(&v28 + 1) = v10;
+    *&v29 = v11;
+    *(&v29 + 1) = v12;
+    *&v30 = v13;
+    *(&v30 + 1) = v26;
+    v16 = v23;
+    *&v31 = v23;
+    v17 = v24;
+    *(&v31 + 1) = v27;
+    v18 = *(&v24 + 1);
+    *v32 = v24;
+    v19 = v25;
+    *&v32[16] = v25;
+    v32[24] = v14;
+    v32[25] = v46 & 1;
+    v20 = v31;
+    a2[2] = v30;
+    a2[3] = v20;
+    a2[4] = *v32;
+    *(a2 + 74) = *&v32[10];
+    v21 = v29;
+    *a2 = v28;
+    a2[1] = v21;
+    sub_249FDDE00(&v28, &v33);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+    LOBYTE(v33) = v15;
+    v34 = v10;
+    v35 = v11;
+    *&v36 = v12;
+    *(&v36 + 1) = v13;
+    v37 = v26;
+    v38 = v16;
+    v39 = v27;
+    v40 = v17;
+    v41 = v18;
+    v42 = v19;
+    v43 = v14;
+    v44 = BYTE4(v22);
+    sub_249FDDE80(&v33);
+  }
 }
 
 uint64_t sub_249FDB07C()
@@ -9130,19 +9131,19 @@ uint64_t sub_249FDB2B4(uint64_t a1)
 
 uint64_t GradientType.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFB8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFB8, &qword_24A0248A8);
   v19 = *(v3 - 8);
   v20 = v3;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v18 = &v16 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFC0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFC0, &qword_24A0248B0);
   v16 = *(v5 - 8);
   v17 = v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v7 = &v16 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFC8);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFC8, &qword_24A0248B8);
   v9 = *(v8 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v8);
   v11 = &v16 - v10;
   v12 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -9180,19 +9181,19 @@ uint64_t GradientType.hashValue.getter()
 uint64_t GradientType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v30 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFD8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFD8, &qword_24A0248C0);
   v4 = *(v3 - 8);
   v27 = v3;
   v28 = v4;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v3);
   v6 = &v24 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFE0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFE0, &qword_24A0248C8);
   v26 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v9 = &v24 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFE8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFE8, &unk_24A0248D0);
   v29 = *(v10 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v10);
   v12 = &v24 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FDE688();
@@ -9214,7 +9215,7 @@ uint64_t GradientType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
     v19 = sub_24A021A08();
     swift_allocError();
     v21 = v20;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DE98, &qword_24A0247B0);
     *v21 = &type metadata for GradientType;
     sub_24A021B08();
     sub_24A0219F8();
@@ -9253,11 +9254,11 @@ LABEL_7:
   return __swift_destroy_boxed_opaque_existential_1(v22);
 }
 
-uint64_t sub_249FDBA68()
+uint64_t sub_249FDBA68(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_24A021CB8();
-  MEMORY[0x24C20C980](v1);
+  MEMORY[0x24C20C980](v2);
   return sub_24A021CE8();
 }
 
@@ -9284,7 +9285,7 @@ uint64_t sub_249FDBAF4()
       v5 = *(v3 - 2);
       v6 = *(v3 - 1);
       v7 = *v3;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E148, &unk_24A027810);
       v8 = swift_allocObject();
       *(v8 + 16) = xmmword_24A0246F0;
       v9 = MEMORY[0x277D839F8];
@@ -9337,8 +9338,8 @@ uint64_t sub_249FDBAF4()
     while (v2);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68, &unk_24A026760, MEMORY[0x277D83958]);
   v25 = sub_24A021628();
 
   return v25;
@@ -9378,8 +9379,8 @@ uint64_t sub_249FDBDA4()
     while (v2);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68);
-  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DF68, &unk_24A026760);
+  sub_249FDE640(&qword_2810D9BC8, &qword_27EF2DF68, &unk_24A026760, MEMORY[0x277D83958]);
   v8 = sub_24A021628();
 
   return v8;
@@ -9387,7 +9388,7 @@ uint64_t sub_249FDBDA4()
 
 double static GradientProperties.bloomProperties()@<D0>(uint64_t a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF0, &unk_24A026D00);
   v2 = swift_allocObject();
   __asm { FMOV            V1.2D, #1.0 }
 
@@ -9408,7 +9409,7 @@ double static GradientProperties.bloomProperties()@<D0>(uint64_t a1@<X8>)
 
 double static GradientProperties.vignetteProperties()@<D0>(uint64_t a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF0, &unk_24A026D00);
   v2 = swift_allocObject();
   *&result = 3;
   *(v2 + 16) = xmmword_24A024750;
@@ -9471,10 +9472,10 @@ uint64_t sub_249FDC048()
   }
 }
 
-uint64_t sub_249FDC110@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_249FDC110@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_249FE0E28(a1, a2);
-  *a3 = result;
+  result = sub_249FE0E28(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -9494,9 +9495,9 @@ uint64_t sub_249FDC180(uint64_t a1)
 
 uint64_t GradientProperties.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2DFF8, &qword_24A0248E0);
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v7 = &v14 - v6;
   v8 = *v1;
   v9 = *(v1 + 4);
@@ -9525,12 +9526,12 @@ uint64_t GradientProperties.encode(to:)(void *a1)
   sub_24A021BE8();
   v16 = v11;
   v17 = 4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E000);
-  sub_249FDE82C(&qword_2810D9BD8, sub_249FDE3DC);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E000, &qword_24A0248E8);
+  sub_249FDE82C(&qword_2810D9BD8, sub_249FDE3DC, MEMORY[0x277D83948]);
   sub_24A021C08();
   v16 = v12;
   v17 = 5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E008);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E008, &qword_24A0248F0);
   sub_249FDE8A4();
   sub_24A021C08();
   return (*(v5 + 8))(v7, v10);
@@ -9538,9 +9539,9 @@ uint64_t GradientProperties.encode(to:)(void *a1)
 
 uint64_t GradientProperties.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E010);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E010, &qword_24A0248F8);
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = &v19 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_249FDE784();
@@ -9563,12 +9564,12 @@ uint64_t GradientProperties.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   LOBYTE(v19) = 3;
   sub_24A021B58();
   v15 = v14;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E000);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E000, &qword_24A0248E8);
   v20 = 4;
-  sub_249FDE82C(&qword_27EF2E020, sub_249FDE598);
+  sub_249FDE82C(&qword_27EF2E020, sub_249FDE598, MEMORY[0x277D83978]);
   sub_24A021B78();
   v16 = v19;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E008);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E008, &qword_24A0248F0);
   v20 = 5;
   sub_249FDE974();
   sub_24A021B78();
@@ -9615,44 +9616,44 @@ uint64_t sub_249FDC95C()
   return v1;
 }
 
-uint64_t sub_249FDC998()
+uint64_t sub_249FDC998(uint64_t a1)
 {
   sub_24A021698();
   sub_24A021708();
 }
 
-uint64_t sub_249FDC9EC()
+uint64_t sub_249FDC9EC(uint64_t a1)
 {
   sub_24A021698();
   sub_24A021CB8();
   sub_24A021708();
-  v0 = sub_24A021CE8();
+  v1 = sub_24A021CE8();
 
-  return v0;
+  return v1;
 }
 
-uint64_t sub_249FDCA6C()
+uint64_t sub_249FDCA6C(void *a1, uint64_t *a2)
 {
-  v0 = sub_24A021698();
-  v2 = v1;
-  if (v0 == sub_24A021698() && v2 == v3)
+  v2 = sub_24A021698();
+  v4 = v3;
+  if (v2 == sub_24A021698() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = sub_24A021C38();
+    v7 = sub_24A021C38();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_249FDCAF4@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_249FDCAF4@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = sub_24A021658();
+  v3 = sub_24A021658();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
@@ -9666,35 +9667,35 @@ uint64_t sub_249FDCB3C@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_249FDCB68(uint64_t a1)
 {
-  v2 = sub_249FDFB20(&qword_2810D9B70);
-  v3 = sub_249FDFB20(&qword_27EF2E120);
+  v2 = sub_249FDFB20(&qword_2810D9B70, byte_24A025DA4);
+  v3 = sub_249FDFB20(&qword_27EF2E120, "1N!8db");
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-char *sub_249FDCC00(char *a1, int64_t a2, char a3)
+char *sub_249FDCC00(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_249FDCC80(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_249FDCC20(char *a1, int64_t a2, char a3)
+char *sub_249FDCC20(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_249FDCD9C(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_249FDCC40(char *a1, int64_t a2, char a3)
+char *sub_249FDCC40(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_249FDCEA0(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_249FDCC60(char *a1, int64_t a2, char a3)
+char *sub_249FDCC60(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_249FDD0E0(a1, a2, a3, *v3);
   *v3 = result;
@@ -9742,7 +9743,7 @@ char *sub_249FDCC80(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E150);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E150, &qword_24A0264A0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -9815,7 +9816,7 @@ char *sub_249FDCD9C(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E128);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EF2E128, &qword_24A026478);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;

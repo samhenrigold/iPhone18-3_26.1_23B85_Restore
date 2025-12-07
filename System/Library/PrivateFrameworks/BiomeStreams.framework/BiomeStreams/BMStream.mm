@@ -5,7 +5,9 @@
 - (id)publisherWithOptions:(id)options;
 - (id)publisherWithUseCase:(id)case;
 - (id)publisherWithUseCase:(id)case options:(id)options;
+- (id)publisherWithUser:(unsigned int)user useCase:(id)case options:(id)options;
 - (id)source;
+- (id)sourceWithUser:(unsigned int)user;
 @end
 
 @implementation BMStream
@@ -62,6 +64,24 @@
   v4 = [(BMStreamBase *)&v6 publisherWithUseCase:case options:options];
 
   return v4;
+}
+
+- (id)sourceWithUser:(unsigned int)user
+{
+  v5.receiver = self;
+  v5.super_class = BMStream;
+  v3 = [(BMStreamBase *)&v5 sourceWithUser:*&user];
+
+  return v3;
+}
+
+- (id)publisherWithUser:(unsigned int)user useCase:(id)case options:(id)options
+{
+  v7.receiver = self;
+  v7.super_class = BMStream;
+  v5 = [(BMStreamBase *)&v7 publisherWithUser:*&user useCase:case options:options];
+
+  return v5;
 }
 
 - (id)prunerForDevice:(id)device

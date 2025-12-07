@@ -42,190 +42,191 @@
 {
   personCopy = person;
   tu_allContactIdentifiers = [personCopy tu_allContactIdentifiers];
-  v6 = IntentHandlerDefaultLog();
+  v6 = IntentHandlerDefaultLog(tu_allContactIdentifiers);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134218242;
-    v22 = [tu_allContactIdentifiers count];
-    v23 = 2112;
-    v24 = personCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Person contains %ld contact IDs. Person: %@", &v21, 0x16u);
+    v23 = 134218242;
+    v24 = [tu_allContactIdentifiers count];
+    v25 = 2112;
+    v26 = personCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Person contains %ld contact IDs. Person: %@", &v23, 0x16u);
   }
 
-  v7 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = IntentHandlerDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412290;
-    v22 = tu_allContactIdentifiers;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching identifiers: %@", &v21, 0xCu);
+    v23 = 138412290;
+    v24 = tu_allContactIdentifiers;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching identifiers: %@", &v23, 0xCu);
   }
 
-  v8 = [(ContactResolver *)self _contactsMatchingIdentifiers:tu_allContactIdentifiers];
-  v9 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = [(ContactResolver *)self _contactsMatchingIdentifiers:tu_allContactIdentifiers];
+  v10 = IntentHandlerDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v8 count];
-    v21 = 134217984;
-    v22 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Found %ld contacts matching siriMatches", &v21, 0xCu);
+    v11 = [v9 count];
+    v23 = 134217984;
+    v24 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Found %ld contacts matching siriMatches", &v23, 0xCu);
   }
 
-  v11 = [StartCallIntentHandlerUtilities sortContacts:v8 withIdentifiers:tu_allContactIdentifiers];
-  v12 = [v11 count];
-  v13 = IntentHandlerDefaultLog();
-  v14 = v13;
-  if (v12)
+  v12 = [StartCallIntentHandlerUtilities sortContacts:v9 withIdentifiers:tu_allContactIdentifiers];
+  v13 = [v12 count];
+  v14 = IntentHandlerDefaultLog(v13);
+  v15 = v14;
+  if (v13)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Found contacts matching siriMatches", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Found contacts matching siriMatches", &v23, 2u);
     }
 
-    v15 = &__NSArray0__struct;
-    v16 = v11;
+    v16 = &__NSArray0__struct;
+    v17 = v12;
   }
 
   else
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10002F04C(v14);
+      sub_10002F04C(v15);
     }
 
-    v17 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = IntentHandlerDefaultLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store by names", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store by names", &v23, 2u);
     }
 
-    v16 = [(ContactResolver *)self _contactsMatchingNamesForPerson:personCopy];
-    v15 = v16;
+    v17 = [(ContactResolver *)self _contactsMatchingNamesForPerson:personCopy];
+    v16 = v17;
   }
 
-  v18 = v16;
-  [(ContactResolver *)self _sendSiriMatchAnalyticsEventForIdentifiers:tu_allContactIdentifiers contactsMatchingId:v11 contactsMatchingName:v15];
-  v19 = [[ContactPool alloc] initWithContacts:v18];
+  v20 = v17;
+  [(ContactResolver *)self _sendSiriMatchAnalyticsEventForIdentifiers:tu_allContactIdentifiers contactsMatchingId:v12 contactsMatchingName:v16];
+  v21 = [[ContactPool alloc] initWithContacts:v20];
 
-  return v19;
+  return v21;
 }
 
 - (id)_contactsMatchingIdentifiers:(id)identifiers
 {
   identifiersCopy = identifiers;
-  v5 = &__NSArray0__struct;
-  if ([identifiersCopy count])
+  v5 = [identifiersCopy count];
+  v6 = &__NSArray0__struct;
+  if (v5)
   {
-    v6 = IntentHandlerDefaultLog();
-    v7 = os_signpost_id_generate(v6);
+    v7 = IntentHandlerDefaultLog(v5);
+    v8 = os_signpost_id_generate(v7);
 
-    v8 = IntentHandlerDefaultLog();
-    v9 = v8;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v10 = IntentHandlerDefaultLog(v9);
+    v11 = v10;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "contactsMatchingIdentifiers", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "contactsMatchingIdentifiers", "", buf, 2u);
     }
 
-    v10 = [CNContact predicateForContactsWithIdentifiers:identifiersCopy];
+    v12 = [CNContact predicateForContactsWithIdentifiers:identifiersCopy];
     contactsDataSource = [(ContactResolver *)self contactsDataSource];
-    v12 = +[ContactResolver keysToFetch];
-    v22 = 0;
-    v13 = [contactsDataSource unifiedContactsMatchingPredicate:v10 keysToFetch:v12 error:&v22];
-    v14 = v22;
-    if (v13)
+    v14 = +[ContactResolver keysToFetch];
+    v25 = 0;
+    v15 = [contactsDataSource unifiedContactsMatchingPredicate:v12 keysToFetch:v14 error:&v25];
+    v16 = v25;
+    if (v15)
     {
-      v15 = v13;
+      v17 = v15;
     }
 
     else
     {
-      v15 = &__NSArray0__struct;
+      v17 = &__NSArray0__struct;
     }
 
-    v5 = v15;
+    v6 = v17;
 
-    if (v14)
+    if (v16)
     {
-      v16 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v19 = IntentHandlerDefaultLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_10002F090(v14, v16);
+        sub_10002F090(v16, v19);
       }
     }
 
-    v17 = IntentHandlerDefaultLog();
-    v18 = v17;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v20 = IntentHandlerDefaultLog(v18);
+    v21 = v20;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
-      *v21 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_INTERVAL_END, v7, "contactsMatchingIdentifiers", "", v21, 2u);
+      *v24 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v21, OS_SIGNPOST_INTERVAL_END, v8, "contactsMatchingIdentifiers", "", v24, 2u);
     }
   }
 
-  v19 = [v5 copy];
+  v22 = [v6 copy];
 
-  return v19;
+  return v22;
 }
 
 - (id)_contactsMatchingNamesForPerson:(id)person
 {
   personCopy = person;
-  v5 = IntentHandlerDefaultLog();
+  v5 = IntentHandlerDefaultLog(personCopy);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = IntentHandlerDefaultLog();
-  v8 = v7;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = IntentHandlerDefaultLog(v7);
+  v9 = v8;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "contactsMatchingName", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "contactsMatchingName", "", buf, 2u);
   }
 
   displayName = [personCopy displayName];
 
-  v10 = [CNContact predicateForContactsMatchingName:displayName options:1];
+  v11 = [CNContact predicateForContactsMatchingName:displayName options:1];
 
   contactsDataSource = [(ContactResolver *)self contactsDataSource];
-  v12 = +[ContactResolver keysToFetch];
-  v24 = 0;
-  v13 = [contactsDataSource unifiedContactsMatchingPredicate:v10 keysToFetch:v12 error:&v24];
-  v14 = v24;
-  v15 = &__NSArray0__struct;
-  if (v13)
-  {
-    v15 = v13;
-  }
-
-  v16 = v15;
-
+  v13 = +[ContactResolver keysToFetch];
+  v27 = 0;
+  v14 = [contactsDataSource unifiedContactsMatchingPredicate:v11 keysToFetch:v13 error:&v27];
+  v15 = v27;
+  v16 = &__NSArray0__struct;
   if (v14)
   {
-    v17 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = v14;
+  }
+
+  v17 = v16;
+
+  if (v15)
+  {
+    v19 = IntentHandlerDefaultLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_10002F108(v14, v17);
+      sub_10002F108(v15, v19);
     }
   }
 
-  v18 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = IntentHandlerDefaultLog(v18);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    sub_10002F180(v16, v18);
+    sub_10002F180(v17, v20);
   }
 
-  v19 = IntentHandlerDefaultLog();
-  v20 = v19;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v22 = IntentHandlerDefaultLog(v21);
+  v23 = v22;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
-    *v23 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, v6, "contactsMatchingName", "", v23, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_END, v6, "contactsMatchingName", "", v26, 2u);
   }
 
-  v21 = [v16 copy];
+  v24 = [v17 copy];
 
-  return v21;
+  return v24;
 }
 
 - (void)_sendSiriMatchAnalyticsEventForIdentifiers:(id)identifiers contactsMatchingId:(id)id contactsMatchingName:(id)name

@@ -4,6 +4,7 @@
 - (BOOL)popDir:(id *)dir at:(int64_t *)at ofParentPath:(id *)path;
 - (SATraverse)init;
 - (SATraverse)traverseWithPath:(id)path options:(unint64_t)options completionHandler:(id)handler;
+- (id)_getFolderSizeForFD:(int)d path:(id)path options:(unint64_t)options;
 - (id)getItemSizeAtPath:(id)path;
 - (void)debugLogStatistics;
 - (void)pushDir:(id)dir at:(int64_t)at withParentPath:(id)path;
@@ -48,55 +49,55 @@
   v3 = SALog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F094(self);
+    sub_10003F094();
   }
 
   v4 = SALog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F100(self);
+    sub_10003F100();
   }
 
   v5 = SALog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F16C(self);
+    sub_10003F16C();
   }
 
   v6 = SALog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F1D8(self);
+    sub_10003F1D8();
   }
 
   v7 = SALog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F244(self);
+    sub_10003F244();
   }
 
   v8 = SALog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F2B0(self);
+    sub_10003F2B0();
   }
 
   v9 = SALog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F31C(self);
+    sub_10003F31C();
   }
 
   v10 = SALog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F388(self);
+    sub_10003F388();
   }
 
   v11 = SALog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F3F4(self);
+    sub_10003F3F4();
   }
 
   v12 = SALog();
@@ -594,6 +595,187 @@ LABEL_55:
   [v5 setIsFilePurgeable:v12];
 
   return v5;
+}
+
+- (id)_getFolderSizeForFD:(int)d path:(id)path options:(unint64_t)options
+{
+  v6 = *&d;
+  pathCopy = path;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v9 = objc_opt_new();
+  v30 = 0;
+  v28 = 0u;
+  v29 = 0u;
+  bzero(&v52, 0x878uLL);
+  if (v6 || pathCopy)
+  {
+    if (v6 && pathCopy)
+    {
+      v10 = SALog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        sub_10003F70C(v10);
+      }
+
+      goto LABEL_10;
+    }
+
+    if (pathCopy)
+    {
+      v12 = pathCopy;
+      v13 = statfs([pathCopy fileSystemRepresentation], &v52);
+    }
+
+    else
+    {
+      v13 = fstatfs(v6, &v52);
+    }
+
+    if (v13)
+    {
+      v14 = SALog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = __error();
+        v16 = strerror(*v15);
+        sub_10003F6C4(v16, buf, v14);
+      }
+    }
+
+    else
+    {
+      v14 = [NSString stringWithUTF8String:v52.f_mntonname];
+      [v9 setVolumePath:v14];
+    }
+
+    v17 = objc_autoreleasePoolPush();
+    if ((options & 2) == 0)
+    {
+      goto LABEL_21;
+    }
+
+    v18 = [SASupport getDirStatInfoForPath:pathCopy orFD:v6 withOptions:(options >> 4) & 1 info:&v28];
+    if (!v18)
+    {
+      v20 = 1;
+      goto LABEL_33;
+    }
+
+    if (v18 != 2)
+    {
+LABEL_21:
+      if ((options & 4) == 0)
+      {
+        goto LABEL_22;
+      }
+
+      v19 = [SASupport enableDirStatInfoForPath:pathCopy orFD:v6 withOptions:(options >> 4) & 1 andGetInfo:&v28];
+      if (v19 != 45 && v19 != 2)
+      {
+        if (v19)
+        {
+          [v9 setFailedDirStat:1];
+LABEL_22:
+          if ((options & 8) != 0)
+          {
+            if (!pathCopy)
+            {
+              pathCopy = [SASupport getResolvedPathForFD:v6];
+            }
+
+            v27[0] = _NSConcreteStackBlock;
+            v27[1] = 3221225472;
+            v27[2] = sub_1000222E4;
+            v27[3] = &unk_100065320;
+            v27[4] = &v35;
+            v27[5] = &v47;
+            v27[6] = &v39;
+            v27[7] = &v43;
+            v27[8] = &v31;
+            [(SATraverse *)self traverseWithPath:pathCopy options:9 completionHandler:v27];
+          }
+
+          goto LABEL_32;
+        }
+
+        v20 = 1;
+        [v9 setEnabledDirStat:1];
+LABEL_33:
+        objc_autoreleasePoolPop(v17);
+        if (v20)
+        {
+          v21 = v40;
+          v22 = v28;
+          v40[3] = *(&v28 + 1);
+          v23 = v48;
+          v48[3] = v29;
+          v24 = v44;
+          v44[3] = v22;
+          v25 = *(&v29 + 1);
+          v32[3] = v30;
+          v36[3] = v24[3] - (v21[3] + v23[3]);
+          [v9 setUsedDirStat:1];
+        }
+
+        else
+        {
+          v25 = 0;
+        }
+
+        [v9 setDataSize:v36[3]];
+        [v9 setCloneSize:v48[3]];
+        [v9 setPhysicalSize:v44[3]];
+        [v9 setPurgeableSize:v40[3]];
+        [v9 setDirStatsID:v25];
+        [v9 setFileCount:v32[3]];
+        v11 = v9;
+        goto LABEL_37;
+      }
+
+      [v9 setSkippedDirStat:1];
+    }
+
+LABEL_32:
+    v20 = 0;
+    goto LABEL_33;
+  }
+
+  pathCopy = SALog();
+  if (os_log_type_enabled(pathCopy, OS_LOG_TYPE_ERROR))
+  {
+    sub_10003F640(pathCopy);
+  }
+
+LABEL_10:
+  v11 = 0;
+LABEL_37:
+
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
+
+  return v11;
 }
 
 @end

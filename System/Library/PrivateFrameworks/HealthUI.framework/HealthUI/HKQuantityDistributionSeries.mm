@@ -378,7 +378,7 @@
   v104 = 0u;
   v101 = 0u;
   v102 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   [delegateCopy virtualMarginInsets];
   v49 = v28;
   v50 = v27;

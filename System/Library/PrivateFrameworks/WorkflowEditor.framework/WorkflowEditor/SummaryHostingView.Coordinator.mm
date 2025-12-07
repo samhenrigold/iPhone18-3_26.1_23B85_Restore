@@ -29,16 +29,18 @@
 
 - (void)summaryCoordinator:(id)coordinator disclosureArrowDidChange:(BOOL)change
 {
+  changeCopy = change;
   coordinatorCopy = coordinator;
   selfCopy = self;
-  sub_2745510EC();
+  sub_2745510EC(coordinatorCopy, changeCopy);
 }
 
 - (void)summaryCoordinator:(id)coordinator outputButtonDidChange:(BOOL)change
 {
+  changeCopy = change;
   coordinatorCopy = coordinator;
   selfCopy = self;
-  sub_27455124C();
+  sub_27455124C(coordinatorCopy, changeCopy);
 }
 
 - (void)showActionOutputPickerAllowingShortcutInput:(BOOL)input variableProvider:(id)provider completionHandler:(id)handler
@@ -76,7 +78,7 @@
   actionCopy = action;
   selfCopy = self;
   sub_274551648(actionCopy, sub_27445B624, v13, sub_27445B860, v14, v12, v15);
-  sub_274406A94(v12);
+  sub_274406A94(v12, v15);
 }
 
 - (void)showVariableEditorWithOptions:(id)options fromSourceRect:(CGRect)rect
@@ -94,11 +96,18 @@
 {
   if (hint)
   {
-    sub_27463B6AC();
+    v4 = sub_27463B6AC();
+    v6 = v5;
+  }
+
+  else
+  {
+    v4 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_274552690();
+  sub_274552690(v4, v6);
 }
 
 @end

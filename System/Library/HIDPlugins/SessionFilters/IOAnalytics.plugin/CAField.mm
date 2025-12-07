@@ -36,18 +36,18 @@
 - (BOOL)isValidValue:(id)value
 {
   valueCopy = value;
-  v7 = 0;
+  v5 = 0;
   if (valueCopy)
   {
-    v5 = +[NSNull null];
+    v4 = +[NSNull null];
 
-    if (v5 == valueCopy || (valueType = self->_valueType, (objc_opt_isKindOfClass() & 1) != 0))
+    if (v4 == valueCopy || (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v7 = 1;
+      v5 = 1;
     }
   }
 
-  return v7;
+  return v5;
 }
 
 @end

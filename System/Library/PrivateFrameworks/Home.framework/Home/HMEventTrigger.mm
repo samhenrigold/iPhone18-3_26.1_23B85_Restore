@@ -67,44 +67,12 @@ uint64_t __98__HMEventTrigger_NaturalLanguage__hf_naturalLanguageNameWithOptions
 
 uint64_t __105__HMEventTrigger_NaturalLanguage___hf_naturalLanguageNameWithOptions_sensorCharacteristics_triggerValue___block_invoke(uint64_t a1, void *a2)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 characteristicType];
 
-  if (!v4)
+  if (v4 && ((v5 = *MEMORY[0x277CCF9A8], v20[0] = *MEMORY[0x277CCF978], v20[1] = v5, [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "characteristicType"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "containsObject:", v7), v7, v6, objc_msgSend(MEMORY[0x277CD1970], "hf_valueRangeCharacteristicTypes"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "characteristicType"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "containsObject:", v10), v10, v9, (v11 & 1) != 0) || (v8 & 1) != 0 || (v12 = MEMORY[0x277CD1970], objc_msgSend(v3, "characteristicType"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "hf_abnormalValueForSensorCharacteristicType:", v13), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "isEqual:", *(a1 + 32)), v14, v13, v15)))
   {
-    goto LABEL_6;
-  }
-
-  v5 = *MEMORY[0x277CCF9A8];
-  v21[0] = *MEMORY[0x277CCF978];
-  v21[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v7 = [v3 characteristicType];
-  v8 = [v6 containsObject:v7];
-
-  v9 = [MEMORY[0x277CD1970] hf_valueRangeCharacteristicTypes];
-  v10 = [v3 characteristicType];
-  v11 = [v9 containsObject:v10];
-
-  if (v11)
-  {
-    goto LABEL_5;
-  }
-
-  if (v8)
-  {
-    goto LABEL_5;
-  }
-
-  v12 = MEMORY[0x277CD1970];
-  v13 = [v3 characteristicType];
-  v14 = [v12 hf_abnormalValueForSensorCharacteristicType:v13];
-  v15 = [v14 isEqual:*(a1 + 32)];
-
-  if (v15)
-  {
-LABEL_5:
     v16 = *(a1 + 40);
     v17 = [v3 characteristicType];
     v18 = [v16 containsObject:v17];
@@ -112,11 +80,9 @@ LABEL_5:
 
   else
   {
-LABEL_6:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -260,7 +226,7 @@ id __126__HMEventTrigger_NaturalLanguage___hf_naturalLanguageDetailsSentenceElem
 {
   v3 = a1[4];
   v4 = a2;
-  v5 = [v3 home];
+  v5 = objc_msgSend_home(v3);
   v6 = [HFConditionNaturalLanguageOptions optionsForCondition:v4 inHome:v5 formattingContext:a1[5] formattingStyle:a1[6]];
 
   v7 = [v4 hf_naturalLanguageSummaryWithOptions:v6];
@@ -376,7 +342,7 @@ void __69__HMEventTrigger_HFEventTriggerAdditions__hf_isHomeAppCreatedTrigger__b
   v5 = v4;
 
   v6 = [v5 characteristic];
-  v7 = [v6 service];
+  v7 = objc_msgSend_service(v6);
 
   v8 = [MEMORY[0x277CD1D90] hf_programmableSwitchServiceTypes];
   v9 = [v7 serviceType];
@@ -408,7 +374,7 @@ void __63__HMEventTrigger_HFEventTriggerAdditions__hf_designateTrigger___block_i
   v5 = v4;
 
   v6 = [v5 characteristic];
-  v7 = [v6 service];
+  v7 = objc_msgSend_service(v6);
 
   v8 = [MEMORY[0x277CD1D90] hf_programmableSwitchServiceTypes];
   v9 = [v7 serviceType];

@@ -1,7 +1,7 @@
 @interface NSData(WebNSDataExtras)
 - (BOOL)_web_isCaseInsensitiveEqualToCString:()WebNSDataExtras;
+- (__CFString)_webkit_guessedMIMEType;
 - (__CFString)_webkit_guessedMIMETypeForXML;
-- (unint64_t)_webkit_guessedMIMEType;
 @end
 
 @implementation NSData(WebNSDataExtras)
@@ -206,7 +206,7 @@ LABEL_64:
   return @"application/atom+xml";
 }
 
-- (unint64_t)_webkit_guessedMIMEType
+- (__CFString)_webkit_guessedMIMEType
 {
   _webkit_guessedMIMETypeForXML = [self _webkit_guessedMIMETypeForXML];
   result = [(__CFString *)_webkit_guessedMIMETypeForXML length];
@@ -224,8 +224,8 @@ LABEL_64:
   result = [self length];
   v5 = result;
   v6 = result >= 0x400 ? 1024 : result;
-  v7 = v6 - 6;
-  if (result < v6 - 6)
+  v7 = &v6[-1].length + 2;
+  if (result < (&v6[-1].length + 2))
   {
     goto LABEL_132;
   }
@@ -263,9 +263,9 @@ LABEL_64:
 
       v13 = v12;
       result = v11;
-      while (*result != 60)
+      while (LOBYTE(result->isa) != 60)
       {
-        ++result;
+        result = (result + 1);
         if (!--v13)
         {
           if (v7 < 0x11)
@@ -273,7 +273,7 @@ LABEL_64:
             goto LABEL_53;
           }
 
-          result = memchr((v11 + v12), 60, v7 - v12);
+          result = memchr(v11 + v12, 60, v7 - v12);
           if (!result)
           {
             goto LABEL_53;
@@ -283,7 +283,7 @@ LABEL_64:
         }
       }
 
-      v14 = result - v11;
+      v14 = (result - v11);
       if (result - v11 == -1)
       {
         goto LABEL_53;
@@ -302,13 +302,13 @@ LABEL_64:
 
       if (v15 >= 3)
       {
-        v16 = v8[*result];
+        v16 = v8[LOBYTE(result->isa)];
         if (v15 != 3)
         {
           goto LABEL_34;
         }
 
-        if (v16 == v9 && v8[*(result + 1)] == v10 && v8[*(result + 2)] == v57)
+        if (v16 == v9 && v8[BYTE1(result->isa)] == v10 && v8[BYTE2(result->isa)] == v57)
         {
           return _webkit_guessedMIMETypeForXML;
         }
@@ -321,7 +321,7 @@ LABEL_51:
       }
 
       v18 = v14 + 1;
-      v11 += v18;
+      v11 = &v18[v11];
       v7 -= v18;
       if (!v7)
       {
@@ -329,27 +329,27 @@ LABEL_51:
       }
     }
 
-    v16 = v8[*result];
-    if (v16 == v9 && v8[*(result + 1)] == v59 && v8[*(result + 2)] == v61 && v8[*(result + 3)] == v50 && v8[*(result + 4)] == v49 && v8[*(result + 5)] == v47)
+    v16 = v8[LOBYTE(result->isa)];
+    if (v16 == v9 && v8[BYTE1(result->isa)] == v59 && v8[BYTE2(result->isa)] == v61 && v8[BYTE3(result->isa)] == v50 && v8[BYTE4(result->isa)] == v49 && v8[BYTE5(result->isa)] == v47)
     {
       return _webkit_guessedMIMETypeForXML;
     }
 
 LABEL_34:
-    if (v16 == v9 && v8[*(result + 1)] == v10 && v8[*(result + 2)] == v57)
+    if (v16 == v9 && v8[BYTE1(result->isa)] == v10 && v8[BYTE2(result->isa)] == v57)
     {
       return _webkit_guessedMIMETypeForXML;
     }
 
     if (v15 >= 7 && v16 == v9)
     {
-      v17 = v8[*(result + 1)];
-      if (v17 == v55 && v8[*(result + 2)] == v51 && v8[*(result + 3)] == v48 && v8[*(result + 4)] == v53 && v8[*(result + 5)] == v46 && v8[*(result + 6)] == v61)
+      v17 = v8[BYTE1(result->isa)];
+      if (v17 == v55 && v8[BYTE2(result->isa)] == v51 && v8[BYTE3(result->isa)] == v48 && v8[BYTE4(result->isa)] == v53 && v8[BYTE5(result->isa)] == v46 && v8[BYTE6(result->isa)] == v61)
       {
         return _webkit_guessedMIMETypeForXML;
       }
 
-      if (v17 == v61 && v8[*(result + 2)] == v53 && v8[*(result + 3)] == v17 && v8[*(result + 4)] == v49 && v8[*(result + 5)] == v45 && v8[*(result + 6)] == v47)
+      if (v17 == v61 && v8[BYTE2(result->isa)] == v53 && v8[BYTE3(result->isa)] == v17 && v8[BYTE4(result->isa)] == v49 && v8[BYTE5(result->isa)] == v45 && v8[BYTE6(result->isa)] == v47)
       {
         return _webkit_guessedMIMETypeForXML;
       }
@@ -359,8 +359,8 @@ LABEL_34:
   }
 
 LABEL_53:
-  v19 = v6 - 8;
-  if (v5 >= v6 - 8)
+  p_length = &v6[-1].length;
+  if (v5 >= &v6[-1].length)
   {
     if (v6 != 8)
     {
@@ -375,7 +375,7 @@ LABEL_53:
       v54 = v8[109];
       do
       {
-        v22 = v19 >= 0x10 ? 16 : v19;
+        v22 = p_length >= 0x10 ? 16 : p_length;
         v23 = v22;
         v24 = v21;
         do
@@ -390,13 +390,13 @@ LABEL_53:
         }
 
         while (v23);
-        if (v19 >= 0x11)
+        if (p_length >= 0x11)
         {
-          v24 = memchr((v21 + v22), 116, v19 - v22);
+          v24 = memchr(v21 + v22, 116, p_length - v22);
           if (v24)
           {
 LABEL_64:
-            v25 = &v24[-v21];
+            v25 = v24 - v21;
             goto LABEL_66;
           }
         }
@@ -408,19 +408,19 @@ LABEL_66:
         result = v21;
         do
         {
-          if (*result == 84)
+          if (LOBYTE(result->isa) == 84)
           {
             goto LABEL_74;
           }
 
-          ++result;
+          result = (result + 1);
           --v27;
         }
 
         while (v27);
-        if (v19 >= 0x11)
+        if (p_length >= 0x11)
         {
-          result = memchr((v21 + v26), 84, v19 - v26);
+          result = memchr(v21 + v26, 84, p_length - v26);
           if (result)
           {
 LABEL_74:
@@ -446,15 +446,15 @@ LABEL_77:
           v28 = v25;
         }
 
-        if (v19 < v28)
+        if (p_length < v28)
         {
           goto LABEL_132;
         }
 
-        if (v19 - v28 >= 9)
+        if (p_length - v28 >= 9)
         {
-          v29 = (v21 + v28);
-          v30 = v8[*(v21 + v28)];
+          v29 = v21 + v28;
+          v30 = v8[*(&v21->isa + v28)];
           if (v30 == v20 && v8[v29[1]] == v62 && v8[v29[2]] == v60 && v8[v29[3]] == v30 && v8[v29[4]] == v58 && v8[v29[5]] == v56 && v8[v29[6]] == v30 && v8[v29[7]] == v54 && v8[v29[8]] == v52)
           {
             return _webkit_guessedMIMETypeForXML;
@@ -462,17 +462,17 @@ LABEL_77:
         }
 
         v31 = v28 + 1;
-        v32 = v19 >= v31;
-        v19 -= v31;
+        v32 = p_length >= v31;
+        p_length -= v31;
         if (!v32)
         {
           goto LABEL_132;
         }
 
-        v21 += v31;
+        v21 = (v21 + v31);
       }
 
-      while (v19);
+      while (p_length);
     }
 
     if (v5 >= 0xB)
@@ -497,9 +497,9 @@ LABEL_77:
     v36 = 0;
     do
     {
-      if ((*(bytes + v35) - 32) >= 0x5Fu)
+      if ((*(&v35->isa + bytes) - 32) >= 0x5Fu)
       {
-        v37 = *(bytes + v35);
+        v37 = *(&v35->isa + bytes);
         v38 = (1 << v37) & 0x2600;
         if (v37 > 0xD || v38 == 0)
         {
@@ -512,7 +512,7 @@ LABEL_77:
         }
       }
 
-      ++v35;
+      v35 = (v35 + 1);
     }
 
     while (v5 != v35);

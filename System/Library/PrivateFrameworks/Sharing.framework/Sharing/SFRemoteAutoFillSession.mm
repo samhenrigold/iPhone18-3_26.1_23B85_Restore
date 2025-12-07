@@ -29,25 +29,24 @@
 
 - (SFRemoteAutoFillSession)init
 {
-  v7.receiver = self;
-  v7.super_class = SFRemoteAutoFillSession;
-  v2 = [(SFRemoteAutoFillSession *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFRemoteAutoFillSession;
+  v2 = [(SFRemoteAutoFillSession *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v3 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFRemoteAutoFillSession *)v3 activate];
   }
 
@@ -71,7 +70,7 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__SFRemoteAutoFillSession_activate__block_invoke(uint64_t a1)
+void *__35__SFRemoteAutoFillSession_activate__block_invoke(uint64_t a1)
 {
   result = CFPrefs_GetInt64();
   if (result)
@@ -113,22 +112,26 @@ uint64_t __35__SFRemoteAutoFillSession_activate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__SFRemoteAutoFillSession_invalidate__block_invoke(uint64_t a1)
+uint64_t __37__SFRemoteAutoFillSession_invalidate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(*(a1 + 32) + 72) & 1) == 0 && gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if ((*(*(a1 + 32) + 72) & 1) == 0 && gLogCategory_SFRemoteAutoFillSession <= 30)
   {
-    __37__SFRemoteAutoFillSession_invalidate__block_invoke_cold_1();
+    if (gLogCategory_SFRemoteAutoFillSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __37__SFRemoteAutoFillSession_invalidate__block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 72) = 1;
-  [*(*(a1 + 32) + 144) invalidate];
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 144);
-  *(v2 + 144) = 0;
+  *(*(v3 + 32) + 72) = 1;
+  [*(*(v3 + 32) + 144) invalidate];
+  v4 = *(v3 + 32);
+  v5 = *(v4 + 144);
+  *(v4 + 144) = 0;
 
-  v4 = *(a1 + 32);
+  v6 = *(v3 + 32);
 
-  return [v4 _cleanup];
+  return [v6 _cleanup];
 }
 
 - (void)_cleanup
@@ -177,35 +180,42 @@ uint64_t __37__SFRemoteAutoFillSession_invalidate__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __34__SFRemoteAutoFillSession_tryPIN___block_invoke(uint64_t a1)
+uint64_t __34__SFRemoteAutoFillSession_tryPIN___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*(a1 + 32) + 144) && gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (!*(*(a1 + 32) + 144) && gLogCategory_SFRemoteAutoFillSession <= 60)
   {
-    __34__SFRemoteAutoFillSession_tryPIN___block_invoke_cold_1();
+    if (gLogCategory_SFRemoteAutoFillSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __34__SFRemoteAutoFillSession_tryPIN___block_invoke_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 32) + 144);
+  v4 = *(v3 + 40);
+  v5 = *(*(v3 + 32) + 144);
 
-  return [v3 pairSetupTryPIN:v2];
+  return [v5 pairSetupTryPIN:v4];
 }
 
 - (void)_completedWithError:(id)error
 {
-  v14[5] = *MEMORY[0x1E69E9840];
+  v16[5] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (errorCopy)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _completedWithError:];
+      [SFRemoteAutoFillSession _completedWithError:errorCopy];
     }
   }
 
-  else if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_SFRemoteAutoFillSession <= 30)
   {
-    [SFRemoteAutoFillSession _completedWithError:];
+    if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      [(SFRemoteAutoFillSession *)v5 _completedWithError:v6, v7];
+    }
   }
 
   completedHandler = self->_completedHandler;
@@ -214,29 +224,28 @@ uint64_t __34__SFRemoteAutoFillSession_tryPIN___block_invoke(uint64_t a1)
     completedHandler[2](completedHandler, errorCopy);
   }
 
-  v13[0] = @"contextRequestState";
-  v6 = [MEMORY[0x1E696AD98] numberWithInt:self->_contextRequestState];
-  v14[0] = v6;
-  v13[1] = @"pairingState";
-  v7 = [MEMORY[0x1E696AD98] numberWithInt:self->_pairState];
-  v14[1] = v7;
-  v13[2] = @"passwordPickerState";
-  v8 = [MEMORY[0x1E696AD98] numberWithInt:self->_passwordPickerState];
-  v14[2] = v8;
-  v13[3] = @"sendCredentialState";
-  v9 = [MEMORY[0x1E696AD98] numberWithInt:self->_sendCredentialsState];
-  v14[3] = v9;
-  v13[4] = @"sessionState";
-  v10 = [MEMORY[0x1E696AD98] numberWithInt:self->_sessionState];
-  v14[4] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
-  SFMetricsLog(@"com.apple.sharing.AutoFillSession", v11);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[0] = @"contextRequestState";
+  v9 = [MEMORY[0x1E696AD98] numberWithInt:self->_contextRequestState];
+  v16[0] = v9;
+  v15[1] = @"pairingState";
+  v10 = [MEMORY[0x1E696AD98] numberWithInt:self->_pairState];
+  v16[1] = v10;
+  v15[2] = @"passwordPickerState";
+  v11 = [MEMORY[0x1E696AD98] numberWithInt:self->_passwordPickerState];
+  v16[2] = v11;
+  v15[3] = @"sendCredentialState";
+  v12 = [MEMORY[0x1E696AD98] numberWithInt:self->_sendCredentialsState];
+  v16[3] = v12;
+  v15[4] = @"sessionState";
+  v13 = [MEMORY[0x1E696AD98] numberWithInt:self->_sessionState];
+  v16[4] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  SFMetricsLog(@"com.apple.sharing.AutoFillSession", v14);
 }
 
 - (int)_runSessionStart
 {
+  selfCopy = self;
   sessionState = self->_sessionState;
   if (sessionState)
   {
@@ -246,76 +255,92 @@ uint64_t __34__SFRemoteAutoFillSession_tryPIN___block_invoke(uint64_t a1)
       {
         if (!_LogCategory_Initialize())
         {
-          return self->_sessionState;
+          return selfCopy->_sessionState;
         }
 
-        sessionState = self->_sessionState;
+        sessionState = selfCopy->_sessionState;
       }
 
-      if (sessionState < 8)
+      if (sessionState >= 8)
       {
-        v9 = off_1E7890358[sessionState];
+        if (sessionState <= 9)
+        {
+          v10 = "?";
+        }
+
+        else
+        {
+          v10 = "User";
+        }
       }
 
-      LogPrintF();
+      else
+      {
+        v10 = off_1E7890358[sessionState];
+      }
+
+      LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runSessionStart]", 30, "SFSession hasn't succeeded yet (%s)\n", v10);
     }
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      [SFRemoteAutoFillSession _runSessionStart];
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFRemoteAutoFillSession *)self _runSessionStart];
+      }
     }
 
-    self->_sessionState = 1;
-    [(SFSession *)self->_session invalidate];
-    v4 = objc_alloc_init(SFSession);
-    session = self->_session;
-    self->_session = v4;
+    selfCopy->_sessionState = 1;
+    [(SFSession *)selfCopy->_session invalidate];
+    v5 = objc_alloc_init(SFSession);
+    session = selfCopy->_session;
+    selfCopy->_session = v5;
 
-    [(SFSession *)self->_session setDispatchQueue:self->_dispatchQueue];
-    [(SFSession *)self->_session setPeerDevice:self->_peerDevice];
-    [(SFSession *)self->_session setServiceIdentifier:@"com.apple.sharing.RemoteAutoFill"];
-    contactIdentifier = [(SFDevice *)self->_peerDevice contactIdentifier];
-    [(SFSession *)self->_session setPeerContactIdentifier:contactIdentifier];
+    [(SFSession *)selfCopy->_session setDispatchQueue:selfCopy->_dispatchQueue];
+    [(SFSession *)selfCopy->_session setPeerDevice:selfCopy->_peerDevice];
+    [(SFSession *)selfCopy->_session setServiceIdentifier:@"com.apple.sharing.RemoteAutoFill"];
+    contactIdentifier = [(SFDevice *)selfCopy->_peerDevice contactIdentifier];
+    [(SFSession *)selfCopy->_session setPeerContactIdentifier:contactIdentifier];
 
-    [(SFSession *)self->_session setSessionFlags:12];
+    [(SFSession *)selfCopy->_session setSessionFlags:12];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke;
+    v15[3] = &unk_1E788B238;
+    v15[4] = selfCopy;
+    [(SFSession *)selfCopy->_session setErrorHandler:v15];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
-    v14[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke;
-    v14[3] = &unk_1E788B238;
-    v14[4] = self;
-    [(SFSession *)self->_session setErrorHandler:v14];
+    v14[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2;
+    v14[3] = &unk_1E788B198;
+    v14[4] = selfCopy;
+    [(SFSession *)selfCopy->_session setInterruptionHandler:v14];
+    [(SFSession *)selfCopy->_session setInvalidationHandler:&__block_literal_global_63];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2;
-    v13[3] = &unk_1E788B198;
-    v13[4] = self;
-    [(SFSession *)self->_session setInterruptionHandler:v13];
-    [(SFSession *)self->_session setInvalidationHandler:&__block_literal_global_63];
+    v13[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_4;
+    v13[3] = &unk_1E788CFD0;
+    v13[4] = selfCopy;
+    [(SFSession *)selfCopy->_session setPromptForPINHandler:v13];
     v12[0] = MEMORY[0x1E69E9820];
     v12[1] = 3221225472;
-    v12[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_4;
-    v12[3] = &unk_1E788CFD0;
-    v12[4] = self;
-    [(SFSession *)self->_session setPromptForPINHandler:v12];
+    v12[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_5;
+    v12[3] = &unk_1E788CFF8;
+    v12[4] = selfCopy;
+    [(SFSession *)selfCopy->_session setReceivedObjectHandler:v12];
+    v8 = selfCopy->_session;
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_5;
-    v11[3] = &unk_1E788CFF8;
-    v11[4] = self;
-    [(SFSession *)self->_session setReceivedObjectHandler:v11];
-    v7 = self->_session;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6;
-    v10[3] = &unk_1E788B238;
-    v10[4] = self;
-    [(SFSession *)v7 activateWithCompletion:v10];
+    v11[2] = __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6;
+    v11[3] = &unk_1E788B238;
+    v11[4] = selfCopy;
+    [(SFSession *)v8 activateWithCompletion:v11];
   }
 
-  return self->_sessionState;
+  return selfCopy->_sessionState;
 }
 
 void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke(uint64_t a1, void *a2)
@@ -326,7 +351,7 @@ void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke(uint64_t a1, v
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_cold_1();
+      __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -334,39 +359,54 @@ void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke(uint64_t a1, v
   [*(a1 + 32) _completedWithError:v3];
 }
 
-void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2(uint64_t a1)
+void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFRemoteAutoFillSession <= 60)
   {
-    __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2_cold_1();
+    if (gLogCategory_SFRemoteAutoFillSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_2_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = NSErrorWithOSStatusF();
-  [v2 _completedWithError:v3];
+  v4 = *(v3 + 32);
+  v5 = NSErrorWithOSStatusF(4294960534, "SFSession Interrupted");
+  [v4 _completedWithError:v5];
 }
 
-void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_3()
+uint64_t __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (gLogCategory_SFRemoteAutoFillSession <= 30)
+  {
+    if (gLogCategory_SFRemoteAutoFillSession != -1)
+    {
+      return __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_4(uint64_t a1, int a2, int a3)
 {
   if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
   {
-    __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_3_cold_1();
-  }
-}
-
-uint64_t __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_4(uint64_t a1)
-{
-  if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
-  {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runSessionStart]_block_invoke_4", 30, "Prompt for PIN, flags 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   result = *(*(a1 + 32) + 192);
   if (result)
   {
-    v3 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v3();
+    return v7();
   }
 
   return result;
@@ -375,27 +415,30 @@ uint64_t __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_4(uint64_t
 void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v6 = v3;
+  v8 = v3;
   if (v3)
   {
-    v4 = v3;
+    v6 = v3;
     if (gLogCategory_SFRemoteAutoFillSession <= 90)
     {
-      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
       {
-        __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6_cold_1();
-        v4 = v6;
+        __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6_cold_1(v6);
+        v6 = v8;
       }
     }
 
-    [*(a1 + 32) _completedWithError:v4];
+    [*(a1 + 32) _completedWithError:v6];
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6_cold_2();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6_cold_2(v3, v4, v5);
+      }
     }
 
     *(*(a1 + 32) + 152) = 4;
@@ -420,7 +463,7 @@ void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6(uint64_t a1,
       v14 = 0;
       if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairContacts]", 50, "Pair (contacts) start\n");
       }
 
       date = [MEMORY[0x1E695DF00] date];
@@ -459,7 +502,7 @@ void __43__SFRemoteAutoFillSession__runSessionStart__block_invoke_6(uint64_t a1,
 
 void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v7 = a2;
   if (gLogCategory_SFRemoteAutoFillSession <= 50)
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize())
@@ -473,27 +516,31 @@ void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke(uint64_t a1, v
     }
   }
 
-  if (v4)
+  v5 = v7;
+  if (v7)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_3();
+      __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_3(v7);
     }
 
-    v3 = 3;
+    v6 = 3;
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_4();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_4(v5, v3, v4);
+      }
     }
 
-    v3 = 4;
+    v6 = 4;
   }
 
-  *(*(a1 + 32) + 92) = v3;
+  *(*(a1 + 32) + 92) = v6;
   [*(a1 + 32) _run];
 }
 
@@ -513,7 +560,7 @@ void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke(uint64_t a1, v
       v13 = 0;
       if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairHomeKit]", 50, "Pair (HomeKit) start\n");
       }
 
       date = [MEMORY[0x1E695DF00] date];
@@ -552,7 +599,7 @@ void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke(uint64_t a1, v
 
 void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v7 = a2;
   if (gLogCategory_SFRemoteAutoFillSession <= 50)
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize())
@@ -566,27 +613,31 @@ void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke(uint64_t a1, vo
     }
   }
 
-  if (v4)
+  v5 = v7;
+  if (v7)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_3();
+      __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_3(v7);
     }
 
-    v3 = 3;
+    v6 = 3;
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_4();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_4(v5, v3, v4);
+      }
     }
 
-    v3 = 4;
+    v6 = 4;
   }
 
-  *(*(a1 + 32) + 96) = v3;
+  *(*(a1 + 32) + 96) = v6;
   [*(a1 + 32) _run];
 }
 
@@ -606,7 +657,7 @@ void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke(uint64_t a1, vo
       v13 = 0;
       if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVerify]", 50, "Pair (verify) start\n");
       }
 
       date = [MEMORY[0x1E695DF00] date];
@@ -645,7 +696,7 @@ void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke(uint64_t a1, vo
 
 void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v7 = a2;
   if (gLogCategory_SFRemoteAutoFillSession <= 50)
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize())
@@ -659,27 +710,31 @@ void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke(uint64_t a1, voi
     }
   }
 
-  if (v4)
+  v5 = v7;
+  if (v7)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_3();
+      __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_3(v7);
     }
 
-    v3 = 3;
+    v6 = 3;
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_4();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_4(v5, v3, v4);
+      }
     }
 
-    v3 = 4;
+    v6 = 4;
   }
 
-  *(*(a1 + 32) + 104) = v3;
+  *(*(a1 + 32) + 104) = v6;
   [*(a1 + 32) _run];
 }
 
@@ -696,7 +751,7 @@ void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke(uint64_t a1, voi
     v13 = 0;
     if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairPIN]", 50, "Pair (PIN) start\n");
     }
 
     date = [MEMORY[0x1E695DF00] date];
@@ -722,7 +777,7 @@ void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke(uint64_t a1, voi
 
 void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v7 = a2;
   if (gLogCategory_SFRemoteAutoFillSession <= 50)
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize())
@@ -736,27 +791,31 @@ void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke(uint64_t a1, void *
     }
   }
 
-  if (v4)
+  v5 = v7;
+  if (v7)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_3();
+      __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_3(v7);
     }
 
-    v3 = 3;
+    v6 = 3;
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_4();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_4(v5, v3, v4);
+      }
     }
 
-    v3 = 4;
+    v6 = 4;
   }
 
-  *(*(a1 + 32) + 108) = v3;
+  *(*(a1 + 32) + 108) = v6;
   [*(a1 + 32) _run];
 }
 
@@ -776,7 +835,7 @@ void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke(uint64_t a1, void *
       v13 = 0;
       if (gLogCategory_SFRemoteAutoFillSession <= 50 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVisual]", 50, "Pair (visual) start\n");
       }
 
       date = [MEMORY[0x1E695DF00] date];
@@ -815,7 +874,7 @@ void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke(uint64_t a1, void *
 
 void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v7 = a2;
   if (gLogCategory_SFRemoteAutoFillSession <= 50)
   {
     if (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize())
@@ -829,27 +888,31 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke(uint64_t a1, voi
     }
   }
 
-  if (v4)
+  v5 = v7;
+  if (v7)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_3();
+      __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_3(v7);
     }
 
-    v3 = 3;
+    v6 = 3;
   }
 
   else
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_4();
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_4(v5, v3, v4);
+      }
     }
 
-    v3 = 4;
+    v6 = 4;
   }
 
-  *(*(a1 + 32) + 100) = v3;
+  *(*(a1 + 32) + 100) = v6;
   [*(a1 + 32) _run];
 }
 
@@ -870,12 +933,25 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke(uint64_t a1, voi
         contextRequestState = self->_contextRequestState;
       }
 
-      if (contextRequestState < 8)
+      if (contextRequestState >= 8)
       {
-        v6 = off_1E7890358[contextRequestState];
+        if (contextRequestState <= 9)
+        {
+          v7 = "?";
+        }
+
+        else
+        {
+          v7 = "User";
+        }
       }
 
-      LogPrintF();
+      else
+      {
+        v7 = off_1E7890358[contextRequestState];
+      }
+
+      LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runContextRequest]", 30, "ContextRequest hasn't succeeded yet (%s)\n", v7);
     }
   }
 
@@ -883,17 +959,17 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke(uint64_t a1, voi
   {
     self->_contextRequestState = 1;
     session = self->_session;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __45__SFRemoteAutoFillSession__runContextRequest__block_invoke;
-    v7[3] = &unk_1E788D070;
-    v7[4] = self;
-    [(SFSession *)session sendRequestWithFlags:1 object:&unk_1F1D7D6F0 responseHandler:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __45__SFRemoteAutoFillSession__runContextRequest__block_invoke;
+    v8[3] = &unk_1E788D070;
+    v8[4] = self;
+    [(SFSession *)session sendRequestWithFlags:1 object:&unk_1F1D7D6F0 responseHandler:v8];
   }
 
   else
   {
-    [SFRemoteAutoFillSession _runContextRequest];
+    [(SFRemoteAutoFillSession *)self _runContextRequest];
   }
 
   return self->_contextRequestState;
@@ -906,13 +982,13 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke(uint64_t a1, voi
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
   {
-    [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
+    [SFRemoteAutoFillSession _handleContextRequestResponse:responseCopy error:?];
     if (errorCopy)
     {
 LABEL_5:
       if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
+        [SFRemoteAutoFillSession _handleContextRequestResponse:errorCopy error:?];
       }
 
       self->_contextRequestState = 3;
@@ -926,92 +1002,100 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if (!responseCopy && gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+  v9 = responseCopy;
+  if (!responseCopy && gLogCategory_SFRemoteAutoFillSession <= 60)
   {
-    [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
+    if (gLogCategory_SFRemoteAutoFillSession != -1 || (v9 = _LogCategory_Initialize(), v9))
+    {
+      [(SFRemoteAutoFillSession *)v9 _handleContextRequestResponse:v7 error:v8];
+    }
   }
 
   CFDataGetTypeID();
-  v7 = CFDictionaryGetTypedValue();
-  if (v7)
+  v10 = CFDictionaryGetTypedValue();
+  v13 = v10;
+  if (v10)
   {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFRemoteAutoFillSession <= 30)
     {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
+      if (gLogCategory_SFRemoteAutoFillSession != -1 || (v10 = _LogCategory_Initialize(), v10))
+      {
+        [(SFRemoteAutoFillSession *)v10 _handleContextRequestResponse:v11 error:v12];
+      }
     }
 
-    v8 = [v7 copy];
+    v14 = [v13 copy];
     contextAppIconData = self->_contextAppIconData;
-    self->_contextAppIconData = v8;
+    self->_contextAppIconData = v14;
   }
 
   CFArrayGetTypeID();
-  v10 = CFDictionaryGetTypedValue();
-  if (v10)
+  v16 = CFDictionaryGetTypedValue();
+  if (v16)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:v10 error:?];
+      [SFRemoteAutoFillSession _handleContextRequestResponse:v16 error:?];
     }
 
-    v11 = [v10 copy];
+    v17 = [v16 copy];
     contextAssociatedDomains = self->_contextAssociatedDomains;
-    self->_contextAssociatedDomains = v11;
-  }
-
-  CFStringGetTypeID();
-  v13 = CFDictionaryGetTypedValue();
-  if (v13)
-  {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
-    {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
-    }
-
-    objc_storeStrong(&self->_contextBundleID, v13);
-  }
-
-  CFStringGetTypeID();
-  v14 = CFDictionaryGetTypedValue();
-
-  if (v14)
-  {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
-    {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
-    }
-
-    v15 = [v14 copy];
-    contextLocalizedAppName = self->_contextLocalizedAppName;
-    self->_contextLocalizedAppName = v15;
-  }
-
-  CFStringGetTypeID();
-  v17 = CFDictionaryGetTypedValue();
-
-  if (v17)
-  {
-    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
-    {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
-    }
-
-    v18 = [v17 copy];
-    contextUnlocalizedAppName = self->_contextUnlocalizedAppName;
-    self->_contextUnlocalizedAppName = v18;
+    self->_contextAssociatedDomains = v17;
   }
 
   CFStringGetTypeID();
   v20 = CFDictionaryGetTypedValue();
-
   if (v20)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _handleContextRequestResponse:error:];
+      [SFRemoteAutoFillSession _handleContextRequestResponse:v20 error:v19];
     }
 
-    objc_storeStrong(&self->_contextURL, v20);
+    objc_storeStrong(&self->_contextBundleID, v20);
+  }
+
+  CFStringGetTypeID();
+  v21 = CFDictionaryGetTypedValue();
+
+  if (v21)
+  {
+    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    {
+      [SFRemoteAutoFillSession _handleContextRequestResponse:v21 error:v22];
+    }
+
+    v23 = [v21 copy];
+    contextLocalizedAppName = self->_contextLocalizedAppName;
+    self->_contextLocalizedAppName = v23;
+  }
+
+  CFStringGetTypeID();
+  v25 = CFDictionaryGetTypedValue();
+
+  if (v25)
+  {
+    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    {
+      [SFRemoteAutoFillSession _handleContextRequestResponse:v25 error:v26];
+    }
+
+    v27 = [v25 copy];
+    contextUnlocalizedAppName = self->_contextUnlocalizedAppName;
+    self->_contextUnlocalizedAppName = v27;
+  }
+
+  CFStringGetTypeID();
+  v29 = CFDictionaryGetTypedValue();
+
+  if (v29)
+  {
+    if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+    {
+      [SFRemoteAutoFillSession _handleContextRequestResponse:v29 error:v30];
+    }
+
+    objc_storeStrong(&self->_contextURL, v29);
   }
 
   self->_contextRequestState = 4;
@@ -1037,12 +1121,25 @@ LABEL_45:
         passwordPickerState = self->_passwordPickerState;
       }
 
-      if (passwordPickerState < 8)
+      if (passwordPickerState >= 8)
+      {
+        if (passwordPickerState <= 9)
+        {
+          v13 = "?";
+        }
+
+        else
+        {
+          v13 = "User";
+        }
+      }
+
+      else
       {
         v13 = off_1E7890358[passwordPickerState];
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPasswordPicker]", 30, "PasswordPicker hasn't succeeded yet (%s)\n", v13);
     }
   }
 
@@ -1097,11 +1194,12 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
   passwordCopy = password;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_dispatchQueue);
+  v13 = responseCopy;
   if (errorCopy)
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:];
+      [SFRemoteAutoFillSession _handlePasswordPickerResponse:errorCopy password:? error:?];
     }
 
     self->_passwordPickerState = 3;
@@ -1114,7 +1212,7 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
     {
       if (gLogCategory_SFRemoteAutoFillSession <= 10 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        [SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:];
+        [SFRemoteAutoFillSession _handlePasswordPickerResponse:responseCopy password:v11 error:?];
       }
 
       objc_storeStrong(&self->_pickedUsername, response);
@@ -1124,7 +1222,7 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
     {
       if (gLogCategory_SFRemoteAutoFillSession <= 10 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        [SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:];
+        [SFRemoteAutoFillSession _handlePasswordPickerResponse:passwordCopy password:v11 error:?];
       }
 
       objc_storeStrong(&self->_pickedPassword, password);
@@ -1138,14 +1236,17 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
 
     else
     {
-      if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFRemoteAutoFillSession <= 60)
       {
-        [SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:];
+        if (gLogCategory_SFRemoteAutoFillSession != -1 || (v13 = _LogCategory_Initialize(), v13))
+        {
+          [SFRemoteAutoFillSession _handlePasswordPickerResponse:v13 password:v11 error:v12];
+        }
       }
 
       self->_passwordPickerState = 3;
-      v11 = NSErrorWithOSStatusF();
-      [(SFRemoteAutoFillSession *)self _completedWithError:v11];
+      v14 = NSErrorWithOSStatusF(4294960590, "Neither a username nor a password was chosen");
+      [(SFRemoteAutoFillSession *)self _completedWithError:v14];
     }
   }
 }
@@ -1167,12 +1268,25 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
         sendCredentialsState = self->_sendCredentialsState;
       }
 
-      if (sendCredentialsState < 8)
+      if (sendCredentialsState >= 8)
       {
-        v9 = off_1E7890358[sendCredentialsState];
+        if (sendCredentialsState <= 9)
+        {
+          v10 = "?";
+        }
+
+        else
+        {
+          v10 = "User";
+        }
       }
 
-      LogPrintF();
+      else
+      {
+        v10 = off_1E7890358[sendCredentialsState];
+      }
+
+      LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runSendCredentials]", 30, "SendCredentials hasn't succeeded yet (%s)\n", v10);
     }
   }
 
@@ -1180,39 +1294,39 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
   {
     if (self->_pickedPassword || self->_pickedUsername)
     {
-      v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      [v4 setObject:&unk_1F1D7D108 forKeyedSubscript:@"op"];
+      v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      [v5 setObject:&unk_1F1D7D108 forKeyedSubscript:@"op"];
       pickedUsername = self->_pickedUsername;
       if (pickedUsername)
       {
-        [v4 setObject:pickedUsername forKeyedSubscript:@"un"];
+        [v5 setObject:pickedUsername forKeyedSubscript:@"un"];
       }
 
       pickedPassword = self->_pickedPassword;
       if (pickedPassword)
       {
-        [v4 setObject:pickedPassword forKeyedSubscript:@"pw"];
+        [v5 setObject:pickedPassword forKeyedSubscript:@"pw"];
       }
 
       self->_sendCredentialsState = 1;
       session = self->_session;
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __46__SFRemoteAutoFillSession__runSendCredentials__block_invoke;
-      v10[3] = &unk_1E788D070;
-      v10[4] = self;
-      [(SFSession *)session sendRequestWithFlags:1 object:v4 responseHandler:v10];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __46__SFRemoteAutoFillSession__runSendCredentials__block_invoke;
+      v11[3] = &unk_1E788D070;
+      v11[4] = self;
+      [(SFSession *)session sendRequestWithFlags:1 object:v5 responseHandler:v11];
     }
 
     else
     {
-      [SFRemoteAutoFillSession _runSendCredentials];
+      [(SFRemoteAutoFillSession *)self _runSendCredentials];
     }
   }
 
   else
   {
-    [SFRemoteAutoFillSession _runSendCredentials];
+    [(SFRemoteAutoFillSession *)self _runSendCredentials];
   }
 
   return self->_sendCredentialsState;
@@ -1227,7 +1341,7 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _handleSendCredentialsResponse:error:];
+      [SFRemoteAutoFillSession _handleSendCredentialsResponse:errorCopy error:?];
     }
 
     v7 = 3;
@@ -1237,7 +1351,7 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
   {
     if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
     {
-      [SFRemoteAutoFillSession _handleSendCredentialsResponse:error:];
+      [SFRemoteAutoFillSession _handleSendCredentialsResponse:responseCopy error:?];
     }
 
     v7 = 4;
@@ -1257,13 +1371,13 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
 
   if (Int64Ranged == 5)
   {
-    v6 = NSErrorWithOSStatusF();
+    v6 = NSErrorWithOSStatusF(4294960573, "Peer stopped requesting");
     [(SFRemoteAutoFillSession *)self _completedWithError:v6];
   }
 
   else if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
   {
-    [SFRemoteAutoFillSession _receivedObject:Int64Ranged flags:?];
+    [(SFRemoteAutoFillSession *)Int64Ranged _receivedObject:Int64Ranged flags:?];
   }
 }
 
@@ -1302,7 +1416,7 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
       self->_pairState = 1;
       if (gLogCategory_SFRemoteAutoFillSession <= 30 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPair]", 30, "Pair start");
       }
 
       date = [MEMORY[0x1E695DF00] date];
@@ -1386,12 +1500,25 @@ void __45__SFRemoteAutoFillSession__runPasswordPicker__block_invoke(uint64_t a1,
       pairState = self->_pairState;
     }
 
-    if (pairState < 8)
+    if (pairState >= 8)
+    {
+      if (pairState <= 9)
+      {
+        v9 = "?";
+      }
+
+      else
+      {
+        v9 = "User";
+      }
+    }
+
+    else
     {
       v9 = off_1E7890358[pairState];
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPair]", 30, "Pair hasn't succeeded yet (%s)\n", v9);
   }
 
   return self->_pairState;
@@ -1401,127 +1528,127 @@ void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_1()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_3_11(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairContacts]_block_invoke", 50, "Pair (contacts) duration: %f\n", v2);
 }
 
 void __43__SFRemoteAutoFillSession__runPairContacts__block_invoke_cold_2()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_4_7(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairContacts]_block_invoke", 50, "Pair total duration: %f\n", v2);
 }
 
 void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_1()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_3_11(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairHomeKit]_block_invoke", 50, "Pair (HomeKit) duration: %f\n", v2);
 }
 
 void __42__SFRemoteAutoFillSession__runPairHomeKit__block_invoke_cold_2()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_4_7(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairHomeKit]_block_invoke", 50, "Pair total duration: %f\n", v2);
 }
 
 void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_1()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_3_11(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVerify]_block_invoke", 50, "Pair (verify) duration: %f\n", v2);
 }
 
 void __41__SFRemoteAutoFillSession__runPairVerify__block_invoke_cold_2()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_4_7(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVerify]_block_invoke", 50, "Pair total duration: %f\n", v2);
 }
 
 void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_1()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_3_11(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairPIN]_block_invoke", 50, "Pair (PIN) duration: %f\n", v2);
 }
 
 void __38__SFRemoteAutoFillSession__runPairPIN__block_invoke_cold_2()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_4_7(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairPIN]_block_invoke", 50, "Pair total duration: %f\n", v2);
 }
 
 void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_1()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_3_11(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVisual]_block_invoke", 50, "Pair (visual) duration: %f\n", v2);
 }
 
 void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_2()
 {
   v0 = [MEMORY[0x1E695DF00] date];
   OUTLINED_FUNCTION_4_7(v0, v1);
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runPairVisual]_block_invoke", 50, "Pair total duration: %f\n", v2);
 }
 
 - (void)_runContextRequest
 {
   if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_16();
+    OUTLINED_FUNCTION_1_16(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runContextRequest]", a3, "### Cannot request context without session\n");
   }
 }
 
-- (uint64_t)_handleContextRequestResponse:error:.cold.6()
+- (uint64_t)_handleContextRequestResponse:(uint64_t)a1 error:(uint64_t)a2 .cold.6(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handleContextRequestResponse:error:]", 30, "Received context bundleID: %@\n");
 }
 
-- (uint64_t)_handleContextRequestResponse:error:.cold.7()
+- (uint64_t)_handleContextRequestResponse:(uint64_t)a1 error:(uint64_t)a2 .cold.7(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handleContextRequestResponse:error:]", 30, "Received context localized app name: %@\n");
 }
 
-- (uint64_t)_handleContextRequestResponse:error:.cold.8()
+- (uint64_t)_handleContextRequestResponse:(uint64_t)a1 error:(uint64_t)a2 .cold.8(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handleContextRequestResponse:error:]", 30, "Received context unlocalized app name: %@\n");
 }
 
-- (uint64_t)_handleContextRequestResponse:error:.cold.9()
+- (uint64_t)_handleContextRequestResponse:(uint64_t)a1 error:(uint64_t)a2 .cold.9(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handleContextRequestResponse:error:]", 30, "Received context URL: %@\n");
 }
 
-- (uint64_t)_handlePasswordPickerResponse:password:error:.cold.2()
+- (uint64_t)_handlePasswordPickerResponse:(uint64_t)a1 password:(uint64_t)a2 error:.cold.2(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:]", 10, "User picked username: %@\n");
 }
 
-- (uint64_t)_handlePasswordPickerResponse:password:error:.cold.3()
+- (uint64_t)_handlePasswordPickerResponse:(uint64_t)a1 password:(uint64_t)a2 error:.cold.3(uint64_t a1, uint64_t a2)
 {
   IsAppleInternalBuild();
   OUTLINED_FUNCTION_2_15();
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _handlePasswordPickerResponse:password:error:]", 10, "User picked password: %@\n");
 }
 
 - (void)_runSendCredentials
 {
   if (gLogCategory_SFRemoteAutoFillSession <= 60 && (gLogCategory_SFRemoteAutoFillSession != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_1_16();
+    OUTLINED_FUNCTION_1_16(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _runSendCredentials]", a3, "### Cannot send credentials without session\n");
   }
 }
 
@@ -1531,13 +1658,13 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_2()
   {
     if (result != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _receivedObject:flags:]", 60, "### No opcode?\n", v1, v2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _receivedObject:flags:]", 60, "### No opcode?\n", v1, v2);
     }
   }
 
@@ -1546,22 +1673,32 @@ void __41__SFRemoteAutoFillSession__runPairVisual__block_invoke_cold_2()
 
 - (uint64_t)_receivedObject:(unsigned __int8)a1 flags:(char)a2 .cold.2(unsigned __int8 a1, char a2)
 {
-  if (a1 <= 5u)
+  if (a1 > 5u)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_1E7890398[a2 & 7];
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _receivedObject:flags:]", 50, "Received object. %s\n", v2);
 }
 
-- (uint64_t)_receivedObject:(unsigned __int8)a1 flags:(char)a2 .cold.3(unsigned __int8 a1, char a2)
+- (uint64_t)_receivedObject:(uint64_t)a3 flags:.cold.3(unsigned __int8 a1, char a2, uint64_t a3)
 {
-  if (a1 <= 5u)
+  if (a1 > 5u)
   {
-    v2 = off_1E7890398[a2 & 7];
+    v3 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v3 = off_1E7890398[a2 & 7];
+  }
+
+  return LogPrintF(&gLogCategory_SFRemoteAutoFillSession, "[SFRemoteAutoFillSession _receivedObject:flags:]", 60, "Unsupported opCode: %s (%ld)", v3, a3);
 }
 
 @end

@@ -10,6 +10,7 @@
 - (void)startActivityUpdates;
 - (void)stopActivityUpdates;
 - (void)subscribe;
+- (void)transitionToState:(unsigned int)state;
 - (void)unsubscribe;
 @end
 
@@ -42,7 +43,7 @@ void __34__MotionStateRelay_sharedInstance__block_invoke()
 
 - (void)subscribe
 {
-  if (isMotionActivityAvailable())
+  if (isMotionActivityAvailable(self, a2))
   {
     alarmQueue = self->_alarmQueue;
     block[0] = MEMORY[0x277D85DD0];
@@ -54,12 +55,12 @@ void __34__MotionStateRelay_sharedInstance__block_invoke()
   }
 }
 
-uint64_t __29__MotionStateRelay_subscribe__block_invoke(uint64_t result)
+id *__29__MotionStateRelay_subscribe__block_invoke(id *result)
 {
   v1 = subscribedUsers;
   if (!subscribedUsers)
   {
-    result = [*(result + 32) initializeEngine];
+    result = [result[4] initializeEngine];
     v1 = subscribedUsers;
   }
 
@@ -78,11 +79,11 @@ uint64_t __29__MotionStateRelay_subscribe__block_invoke(uint64_t result)
   dispatch_async(alarmQueue, block);
 }
 
-uint64_t __31__MotionStateRelay_unsubscribe__block_invoke(uint64_t result)
+id *__31__MotionStateRelay_unsubscribe__block_invoke(id *result)
 {
   if (!--subscribedUsers)
   {
-    result = [*(result + 32) destroyEngine];
+    result = [result[4] destroyEngine];
     subscribedUsers = 0;
   }
 
@@ -91,10 +92,10 @@ uint64_t __31__MotionStateRelay_unsubscribe__block_invoke(uint64_t result)
 
 - (MotionStateRelay)init
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = MotionStateRelay;
-  v2 = [(MotionStateRelay *)&v20 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = MotionStateRelay;
+  v2 = [(MotionStateRelay *)&v19 init];
   v3 = v2;
   if (v2)
   {
@@ -118,11 +119,11 @@ uint64_t __31__MotionStateRelay_unsubscribe__block_invoke(uint64_t result)
     handler[2] = __24__MotionStateRelay_init__block_invoke;
     handler[3] = &unk_27898B048;
     v10 = v3;
-    v19 = v10;
+    v18 = v10;
     notify_register_dispatch("com.apple.backboardd.rawOrientation", &v3->deviceOrientationStateToken, v9, handler);
-    v17 = 0;
-    notify_get_state(v3->deviceOrientationStateToken, &v17);
-    [(MotionStateRelay *)v10 setDeviceOrientation:v17];
+    v16 = 0;
+    notify_get_state(v3->deviceOrientationStateToken, &v16);
+    [(MotionStateRelay *)v10 setDeviceOrientation:v16];
     v11 = motionLogHandle;
     if (os_log_type_enabled(motionLogHandle, OS_LOG_TYPE_DEFAULT))
     {
@@ -130,14 +131,13 @@ uint64_t __31__MotionStateRelay_unsubscribe__block_invoke(uint64_t result)
       v13 = [(MotionStateRelay *)v10 deviceOrientationString:[(MotionStateRelay *)v10 deviceOrientation]];
       deviceOrientation = [(MotionStateRelay *)v10 deviceOrientation];
       *buf = 138412546;
-      v22 = v13;
-      v23 = 1024;
-      v24 = deviceOrientation;
+      v21 = v13;
+      v22 = 1024;
+      v23 = deviceOrientation;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Initial Device orientation %@ (%u)", buf, 0x12u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -171,7 +171,7 @@ uint64_t __24__MotionStateRelay_init__block_invoke(uint64_t a1, int token)
 {
   *&self->_isStationary = 1;
   self->_currentMotion = 0;
-  if (isMotionActivityAvailable())
+  if (isMotionActivityAvailable(self, a2))
   {
 
     [(MotionStateRelay *)self startMotionMonitoring];
@@ -728,6 +728,76 @@ LABEL_98:
   if (activityManager)
   {
     [(CMMotionActivityManager *)activityManager stopActivityUpdates];
+  }
+}
+
+- (void)transitionToState:(unsigned int)state
+{
+  v3 = *&state;
+  v26 = *MEMORY[0x277D85DE8];
+  if (state - 1 >= 5)
+  {
+    isStationary = self->_isStationary;
+  }
+
+  else
+  {
+    isStationary = 1u >> (state - 1);
+  }
+
+  if (state - 1 >= 5)
+  {
+    isMoving = self->_isMoving;
+  }
+
+  else
+  {
+    isMoving = 0x1Eu >> (state - 1);
+  }
+
+  v7 = motionLogHandle;
+  if (os_log_type_enabled(motionLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    currentMotion = self->_currentMotion;
+    v9 = v7;
+    v10 = [(MotionStateRelay *)self motionStateString:currentMotion];
+    v11 = [(MotionStateRelay *)self motionStateString:v3];
+    v12 = self->_isStationary;
+    v13 = self->_isMoving;
+    v14 = 138413570;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v18 = 1024;
+    v19 = v12;
+    v20 = 1024;
+    v21 = isStationary & 1;
+    v22 = 1024;
+    v23 = v13;
+    v24 = 1024;
+    v25 = isMoving & 1;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Motion State Transition: %@->%@ (stationary:%d->%d moving:%d->%d)", &v14, 0x2Eu);
+  }
+
+  if (self->_isMoving != (isMoving & 1))
+  {
+    [(MotionStateRelay *)self willChangeValueForKey:@"isMoving"];
+    self->_isMoving = isMoving & 1;
+    [(MotionStateRelay *)self didChangeValueForKey:@"isMoving"];
+  }
+
+  if (self->_isStationary != (isStationary & 1))
+  {
+    [(MotionStateRelay *)self willChangeValueForKey:@"isStationary"];
+    self->_isStationary = isStationary & 1;
+    [(MotionStateRelay *)self didChangeValueForKey:@"isStationary"];
+  }
+
+  if (self->_currentMotion != v3)
+  {
+    [(MotionStateRelay *)self willChangeValueForKey:@"currentMotion"];
+    self->_currentMotion = v3;
+    [(MotionStateRelay *)self didChangeValueForKey:@"currentMotion"];
   }
 }
 

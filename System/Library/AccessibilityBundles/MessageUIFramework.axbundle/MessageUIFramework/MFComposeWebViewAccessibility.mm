@@ -20,107 +20,107 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v62 = *MEMORY[0x29EDCA608];
-  v58.receiver = self;
-  v58.super_class = MFComposeWebViewAccessibility;
-  [(MFComposeWebViewAccessibility *)&v58 _accessibilityLoadAccessibilityInformation];
+  v61 = *MEMORY[0x29EDCA608];
+  v57.receiver = self;
+  v57.super_class = MFComposeWebViewAccessibility;
+  [(MFComposeWebViewAccessibility *)&v57 _accessibilityLoadAccessibilityInformation];
   objc_opt_class();
   v3 = [(MFComposeWebViewAccessibility *)self safeValueForKey:@"_leadingInputAssistantItemGroups"];
   v4 = __UIAccessibilityCastAsClass();
 
-  v57 = 0;
+  v56 = 0;
   objc_opt_class();
   v5 = [(MFComposeWebViewAccessibility *)self safeValueForKey:@"_trailingInputAssistantItemGroups"];
   v6 = __UIAccessibilityCastAsClass();
 
   v7 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v6, "count") + objc_msgSend(v4, "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v54;
+    v11 = *v53;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v54 != v11)
+        if (*v53 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        barButtonItems = [*(*(&v53 + 1) + 8 * i) barButtonItems];
+        barButtonItems = [*(*(&v52 + 1) + 8 * i) barButtonItems];
         [v7 axSafelyAddObjectsFromArray:barButtonItems];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
     while (v10);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v14 = v6;
-  v15 = [v14 countByEnumeratingWithState:&v49 objects:v60 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v48 objects:v59 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v50;
+    v17 = *v49;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v50 != v17)
+        if (*v49 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        barButtonItems2 = [*(*(&v49 + 1) + 8 * j) barButtonItems];
+        barButtonItems2 = [*(*(&v48 + 1) + 8 * j) barButtonItems];
         [v7 axSafelyAddObjectsFromArray:barButtonItems2];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v49 objects:v60 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v48 objects:v59 count:16];
     }
 
     while (v16);
   }
 
-  v38 = v14;
-  v39 = v8;
+  v37 = v14;
+  v38 = v8;
   selfCopy = self;
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v7;
-  v20 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+  v20 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v46;
+    v22 = *v45;
     v23 = *MEMORY[0x29EDBB340];
     v24 = *MEMORY[0x29EDBB348];
-    v41 = *MEMORY[0x29EDBB350];
-    v42 = *MEMORY[0x29EDBB358];
-    v40 = *MEMORY[0x29EDBB338];
+    v40 = *MEMORY[0x29EDBB350];
+    v41 = *MEMORY[0x29EDBB358];
+    v39 = *MEMORY[0x29EDBB338];
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v46 != v22)
+        if (*v45 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v45 + 1) + 8 * k);
+        v26 = *(*(&v44 + 1) + 8 * k);
         image = [v26 image];
         imageAsset = [image imageAsset];
         v29 = [imageAsset safeValueForKey:@"assetName"];
@@ -151,7 +151,7 @@ LABEL_29:
           goto LABEL_30;
         }
 
-        v32 = [v29 containsString:v42];
+        v32 = [v29 containsString:v41];
         v31 = @"scan.document.button";
         if (v32)
         {
@@ -165,14 +165,14 @@ LABEL_29:
           goto LABEL_29;
         }
 
-        v34 = [v29 containsString:v41];
+        v34 = [v29 containsString:v40];
         v31 = @"insert.photo.label";
         if (v34)
         {
           goto LABEL_29;
         }
 
-        v35 = [v29 containsString:v40];
+        v35 = [v29 containsString:v39];
         v31 = @"add.attachment.button";
         if (v35)
         {
@@ -182,13 +182,11 @@ LABEL_29:
 LABEL_30:
       }
 
-      v21 = [obj countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v21 = [obj countByEnumeratingWithState:&v44 objects:v58 count:16];
     }
 
     while (v21);
   }
-
-  v37 = *MEMORY[0x29EDCA608];
 }
 
 - (void)set_leadingInputAssistantItemGroups:(id)groups

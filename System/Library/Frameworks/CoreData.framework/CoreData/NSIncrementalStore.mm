@@ -11,6 +11,7 @@
 - (id)metadata;
 - (id)newValueForRelationship:(NSRelationshipDescription *)relationship forObjectWithID:(NSManagedObjectID *)objectID withContext:(NSManagedObjectContext *)context error:(NSError *)error;
 - (id)referenceObjectForObjectID:(NSManagedObjectID *)objectID;
+- (void)_setMetadata:(id)metadata includeVersioning:(BOOL)versioning;
 - (void)dealloc;
 @end
 
@@ -102,8 +103,8 @@ LABEL_7:
 
 - (BOOL)loadMetadata:(NSError *)error
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v5 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v5, v6, v7, v8, v9, v10);
   return 0;
 }
 
@@ -141,96 +142,92 @@ LABEL_7:
 
 - (BOOL)_prepareForExecuteRequest:(id)request withContext:(id)context error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if ([objc_msgSend(request "insertedObjects")])
+  v30 = *MEMORY[0x1E69E9840];
+  if (![objc_msgSend(request "insertedObjects")])
   {
-    v29 = 0;
-    v24 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-    v9 = [objc_msgSend(request "insertedObjects")];
-    array = [MEMORY[0x1E695DF70] array];
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v11)
-    {
-      v12 = v11;
-      v13 = *v26;
-      do
-      {
-        for (i = 0; i != v12; ++i)
-        {
-          if (*v26 != v13)
-          {
-            objc_enumerationMutation(v9);
-          }
+    return 1;
+  }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
-          if ([objc_msgSend(v15 "objectID")])
-          {
-            [array addObject:v15];
-          }
+  v28 = 0;
+  v23 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v9 = [objc_msgSend(request "insertedObjects")];
+  array = [MEMORY[0x1E695DF70] array];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v25;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v25 != v13)
+        {
+          objc_enumerationMutation(v9);
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v15 = *(*(&v24 + 1) + 8 * i);
+        if ([objc_msgSend(v15 "objectID")])
+        {
+          [array addObject:v15];
+        }
       }
 
-      while (v12);
+      v12 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    v16 = [(NSIncrementalStore *)self obtainPermanentIDsForObjects:array error:&v29];
-    v17 = v16 != 0;
-    if (v16)
-    {
-      v18 = [(NSManagedObjectContext *)context _changeIDsForManagedObjects:array toIDs:v16];
-      if (v18)
-      {
-        [(NSSaveChangesRequest *)request _addChangedObjectIDsNotification:v18];
-      }
-    }
-
-    v19 = v29;
-    [v24 drain];
-    v20 = v29;
-    if (v29)
-    {
-      if (error)
-      {
-        *error = v29;
-      }
-
-      v21 = v20;
-    }
+    while (v12);
   }
 
-  else
+  v16 = [(NSIncrementalStore *)self obtainPermanentIDsForObjects:array error:&v28];
+  v17 = v16 != 0;
+  if (v16)
   {
-    v17 = 1;
+    v18 = [(NSManagedObjectContext *)context _changeIDsForManagedObjects:array toIDs:v16];
+    if (v18)
+    {
+      [(NSSaveChangesRequest *)request _addChangedObjectIDsNotification:v18];
+    }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = v28;
+  [v23 drain];
+  v20 = v28;
+  if (v28)
+  {
+    if (error)
+    {
+      *error = v28;
+    }
+
+    v21 = v20;
+  }
+
   return v17;
 }
 
 - (NSIncrementalStoreNode)newValuesForObjectWithID:(NSManagedObjectID *)objectID withContext:(NSManagedObjectContext *)context error:(NSError *)error
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v7 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v7, v8, v9, v10, v11, v12);
   return 0;
 }
 
 - (id)newValueForRelationship:(NSRelationshipDescription *)relationship forObjectWithID:(NSManagedObjectID *)objectID withContext:(NSManagedObjectContext *)context error:(NSError *)error
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v8 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v8, v9, v10, v11, v12, v13);
   return 0;
 }
 
 - (id)executeRequest:(NSPersistentStoreRequest *)request withContext:(NSManagedObjectContext *)context error:(NSError *)error
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v7 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v7, v8, v9, v10, v11, v12);
   return 0;
 }
 
@@ -251,10 +248,37 @@ LABEL_7:
   return [(NSManagedObjectID *)objectID _referenceData];
 }
 
+- (void)_setMetadata:(id)metadata includeVersioning:(BOOL)versioning
+{
+  versioningCopy = versioning;
+  v7 = [(NSDictionary *)self->_storeMetadata objectForKey:@"_NSMetadataLastIdentifier"];
+  if (self->_storeMetadata != metadata || (v8 = self->_lastIdentifier, v8 != [v7 unsignedLongValue]))
+  {
+    v9 = [metadata mutableCopy];
+    v10 = [v9 objectForKey:@"_NSMetadataLastIdentifier"];
+    if (v10)
+    {
+      lastIdentifier = self->_lastIdentifier;
+      if (lastIdentifier > [v10 unsignedLongValue])
+      {
+        [v9 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithUnsignedLongLong:", self->_lastIdentifier), @"_NSMetadataLastIdentifier"}];
+      }
+    }
+
+    v12 = [(NSPersistentStore *)self _updatedMetadataWithSeed:v9 includeVersioning:versioningCopy];
+
+    v13.receiver = self;
+    v13.super_class = NSIncrementalStore;
+    [(NSPersistentStore *)&v13 setMetadata:v12];
+
+    self->_storeMetadata = v12;
+  }
+}
+
 - (id)_newObjectIDForEntityDescription:(id)description pk:(int64_t)pk
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v6 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v6, v7, v8, v9, v10, v11);
   return 0;
 }
 

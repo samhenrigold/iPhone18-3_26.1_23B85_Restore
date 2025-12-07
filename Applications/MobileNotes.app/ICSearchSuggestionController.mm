@@ -29,11 +29,11 @@
 
 - (void)updateForSuggestions:(id)suggestions
 {
-  v4 = sub_10015DA04(&qword_1006C2B00);
+  v4 = sub_10015DA04(&qword_1006C2B00, &qword_10053FCE0);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v10 - v6;
-  sub_1000054A4(0, &qword_1006C2B08);
+  sub_1000054A4(0, &qword_1006C2B08, ICSearchSuggestion_ptr);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1002B1210(v8, 0);
@@ -58,7 +58,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_1002B1C8C(viewCopy);
+  sub_1002B1C8C(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

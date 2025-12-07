@@ -324,26 +324,26 @@ LABEL_28:
 {
   onCopy = on;
   v7 = [specifier propertyForKey:PSControlKey];
-  [v7 setOn:objc_msgSend(onCopy animated:{"BOOLValue"), 1}];
-  v8 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [v7 setOn:objc_msgSend(onCopy animated:{"BOOLValue"), 1}];
+  v10 = TPSWiFiCallingLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     if ([onCopy BOOLValue])
     {
-      v9 = @"Enabling";
+      v11 = @"Enabling";
     }
 
     else
     {
-      v9 = @"Disabling";
+      v11 = @"Disabling";
     }
 
     subscriptionContext = [(TPSWiFiCallingListController *)self subscriptionContext];
-    v12 = 138412546;
-    v13 = v9;
-    v14 = 2112;
-    v15 = subscriptionContext;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ WiFi Calling services for subscription context %@.", &v12, 0x16u);
+    v14 = 138412546;
+    v15 = v11;
+    v16 = 2112;
+    v17 = subscriptionContext;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%@ WiFi Calling services for subscription context %@.", &v14, 0x16u);
   }
 
   if ([onCopy BOOLValue])
@@ -386,25 +386,25 @@ LABEL_28:
   [v8 setOn:objc_msgSend(onCopy animated:{"BOOLValue"), 1}];
   bOOLValue = [onCopy BOOLValue];
 
-  v10 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = TPSWiFiCallingLog(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     if (bOOLValue)
     {
-      v11 = @"Enabling";
+      v13 = @"Enabling";
     }
 
     else
     {
-      v11 = @"Disabling";
+      v13 = @"Disabling";
     }
 
     subscriptionContext = [(TPSWiFiCallingListController *)self subscriptionContext];
-    v14 = 138412546;
-    v15 = v11;
-    v16 = 2112;
-    v17 = subscriptionContext;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%@ WiFi Calling services while roaming for subscription context %@.", &v14, 0x16u);
+    v16 = 138412546;
+    v17 = v13;
+    v18 = 2112;
+    v19 = subscriptionContext;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%@ WiFi Calling services while roaming for subscription context %@.", &v16, 0x16u);
   }
 
   callingController = [(TPSWiFiCallingListController *)self callingController];
@@ -423,26 +423,26 @@ LABEL_28:
 {
   onCopy = on;
   v7 = [specifier propertyForKey:PSControlKey];
-  [v7 setOn:objc_msgSend(onCopy animated:{"BOOLValue"), 1}];
-  v8 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [v7 setOn:objc_msgSend(onCopy animated:{"BOOLValue"), 1}];
+  v10 = TPSWiFiCallingLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     if ([onCopy BOOLValue])
     {
-      v9 = @"Enabling";
+      v11 = @"Enabling";
     }
 
     else
     {
-      v9 = @"Disabling";
+      v11 = @"Disabling";
     }
 
     subscriptionContext = [(TPSWiFiCallingListController *)self subscriptionContext];
-    v18 = 138412546;
-    v19 = v9;
-    v20 = 2112;
-    v21 = subscriptionContext;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ Thumper Calling services for subscription context %@.", &v18, 0x16u);
+    v22 = 138412546;
+    v23 = v11;
+    v24 = 2112;
+    v25 = subscriptionContext;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%@ Thumper Calling services for subscription context %@.", &v22, 0x16u);
   }
 
   if ([onCopy BOOLValue])
@@ -452,11 +452,11 @@ LABEL_28:
 
     if (shouldEnableCapability)
     {
-      v13 = TPSWiFiCallingLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v17 = TPSWiFiCallingLog(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Capability should be enabled, so enabling it directly now", &v18, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Capability should be enabled, so enabling it directly now", &v22, 2u);
       }
 
       thumperProvisioningURLController2 = [(TPSWiFiCallingListController *)self thumperProvisioningURLController];
@@ -677,15 +677,15 @@ LABEL_6:
 - (void)handleTPSWiFiCallingControllerSubscriptionCapabilitiesChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = TPSWiFiCallingLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSWiFiCallingLog(notificationCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2112;
-    v10 = notificationCopy;
-    v6 = v8;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = objc_opt_class();
+    v10 = 2112;
+    v11 = notificationCopy;
+    v7 = v9;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling %@.", &v8, 0x16u);
   }
 
   [(TPSWiFiCallingListController *)self reloadSpecifiers];
@@ -700,13 +700,13 @@ LABEL_6:
 
   if (v7)
   {
-    v8 = TPSWiFiCallingLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = TPSWiFiCallingLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       subscriptionContext2 = [(TPSWiFiCallingListController *)self subscriptionContext];
-      v17 = 138412290;
-      v18 = subscriptionContext2;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "WiFi calling provisioning URL changed for subscription context %@.", &v17, 0xCu);
+      v21 = 138412290;
+      v22 = subscriptionContext2;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "WiFi calling provisioning URL changed for subscription context %@.", &v21, 0xCu);
     }
 
     presentedViewController = [(TPSWiFiCallingListController *)self presentedViewController];
@@ -719,11 +719,11 @@ LABEL_6:
 
       if (!wiFiCallingProvisioningStatus)
       {
-        v14 = TPSWiFiCallingLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = TPSWiFiCallingLog(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "We have presented a view controller and WiFi provisioning status is not-allowed; update the presented controller.", &v17, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "We have presented a view controller and WiFi provisioning status is not-allowed; update the presented controller.", &v21, 2u);
         }
 
         emergencyAddressURLController = [(TPSWiFiCallingListController *)self emergencyAddressURLController];

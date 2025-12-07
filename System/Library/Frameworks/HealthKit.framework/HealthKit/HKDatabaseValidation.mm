@@ -97,10 +97,10 @@ void __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_error
 void __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogDataCollection, OS_LOG_TYPE_ERROR))
   {
-    __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3_cold_1(a1);
+    __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -157,10 +157,10 @@ void __79__HKDatabaseValidation_validateEntitiesWithIdentifier_errorHandler_comp
 void __79__HKDatabaseValidation_validateEntitiesWithIdentifier_errorHandler_completion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogDataCollection, OS_LOG_TYPE_ERROR))
   {
-    __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3_cold_1(a1);
+    __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -168,17 +168,15 @@ void __79__HKDatabaseValidation_validateEntitiesWithIdentifier_errorHandler_comp
 
 - (void)connectionInvalidated
 {
-  v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v6 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogDatabase;
   if (os_log_type_enabled(HKLogDatabase, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clientRemote_processIntegrityErrorString:(id)string errorHandlerIdentifier:(id)identifier
@@ -250,15 +248,6 @@ uint64_t __83__HKDatabaseValidation_clientRemote_processValidationError_errorHan
   v11 = errorCopy;
   v12 = completionCopy;
   dispatch_sync(queue, block);
-}
-
-void __91__HKDatabaseValidation_performIntegrityCheckOnDatabase_identifier_errorHandler_completion___block_invoke_3_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "%{public}@: Failed to restart task server after connection interruption: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

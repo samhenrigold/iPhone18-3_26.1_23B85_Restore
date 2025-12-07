@@ -1,4 +1,5 @@
 @interface _ANESharedSignalEvent
++ (id)signalEventWithValue:(unint64_t)value symbolIndex:(unsigned int)index eventType:(int64_t)type sharedEvent:(id)event;
 - (_ANESharedSignalEvent)initWithCoder:(id)coder;
 - (_ANESharedSignalEvent)initWithValue:(unint64_t)value symbolIndex:(unsigned int)index eventType:(int64_t)type sharedEvent:(id)event agentMask:(unint64_t)mask;
 - (id)description;
@@ -25,6 +26,15 @@
   }
 
   return v15;
+}
+
++ (id)signalEventWithValue:(unint64_t)value symbolIndex:(unsigned int)index eventType:(int64_t)type sharedEvent:(id)event
+{
+  v7 = *&index;
+  eventCopy = event;
+  v11 = [[self alloc] initWithValue:value symbolIndex:v7 eventType:type sharedEvent:eventCopy agentMask:0];
+
+  return v11;
 }
 
 - (id)waitEvent

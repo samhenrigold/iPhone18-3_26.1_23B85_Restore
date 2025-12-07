@@ -15,29 +15,29 @@
 
 - (DOCAppearance)init
 {
-  v8.receiver = self;
-  v8.super_class = DOCAppearance;
-  v2 = [(DOCAppearance *)&v8 init];
-  v3 = v2;
+  v9.receiver = self;
+  v9.super_class = DOCAppearance;
+  v2 = [(DOCAppearance *)&v9 init];
+  v4 = v2;
   if (v2)
   {
     *(v2 + 24) = xmmword_1E5812320;
-    v4 = DOCScreenSizePad12_9();
-    v5 = 40.0;
-    if (!v4)
+    v5 = DOCScreenSizePad12_9(v2, v3);
+    v6 = 40.0;
+    if (!v5)
     {
-      v5 = 30.0;
+      v6 = 30.0;
     }
 
-    v3[5] = v5;
-    *(v3 + 18) = 0;
-    *(v3 + 8) = 0;
-    v3[6] = 0.0;
-    v3[7] = 0.75;
-    v6 = v3;
+    v4[5] = v6;
+    *(v4 + 18) = 0;
+    *(v4 + 8) = 0;
+    v4[6] = 0.0;
+    v4[7] = 0.75;
+    v7 = v4;
   }
 
-  return v3;
+  return v4;
 }
 
 - (UIColor)backgroundColor

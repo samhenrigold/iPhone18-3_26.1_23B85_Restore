@@ -62,7 +62,7 @@ LABEL_13:
       v10 = __biome_log_for_category();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        sub_10004A394();
+        sub_10004A394(self);
       }
     }
 
@@ -71,7 +71,7 @@ LABEL_13:
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        sub_10004A30C();
+        sub_10004A30C(self);
       }
     }
 

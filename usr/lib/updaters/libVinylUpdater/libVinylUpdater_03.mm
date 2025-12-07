@@ -1,12 +1,70 @@
-uint64_t std::future<BOOL>::get(atomic_ullong **a1)
+void sub_299FB8EF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+{
+  ctu::cf::CFSharedRef<__CFURL const>::~CFSharedRef(&a25);
+  ctu::cf::CFSharedRef<__CFDictionary const>::~CFSharedRef(v33);
+  v36 = a26;
+  if (a26)
+  {
+    if (!atomic_fetch_add((a26 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (*(*v36 + 16))(v36);
+    }
+  }
+
+  _Block_object_dispose(&a27, 8);
+  std::promise<BOOL>::~promise((v34 + 40));
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void ___Z23ReverseProxyGetSettingsRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE_block_invoke(uint64_t result, uint64_t a2)
+{
+  if (a2 != 2)
+  {
+    v2 = a2;
+    if (a2 == 1)
+    {
+      gBBULogMaskGet(result, a2);
+      _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Proxy Available!\n");
+      v4 = *(*(result + 32) + 8);
+      v5 = 1;
+      std::promise<BOOL>::set_value((v4 + 40), &v5);
+    }
+
+    else
+    {
+      gBBULogMaskGet(result, a2);
+      _BBULog(0, 0xFFFFFFFFLL, "BBUPurpleReverseProxy", "", "Proxy Aborted? %d\n", v2);
+    }
+  }
+}
+
+void std::promise<BOOL>::set_value(uint64_t *a1, _BYTE *a2)
+{
+  v3 = *a1;
+  if (!v3)
+  {
+    std::__throw_future_error[abi:ne200100](3u);
+  }
+
+  std::__assoc_state<BOOL>::set_value<BOOL>(v3, a2);
+}
+
+uint64_t std::future<BOOL>::get(std::__assoc_sub_state **a1)
 {
   v1 = *a1;
   *a1 = 0;
   std::__assoc_state<BOOL>::move(v1);
   v3 = v2;
-  if (v1 && !atomic_fetch_add(v1 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v1 + 16))(v1);
+    (v1->__on_zero_shared)(v1);
   }
 
   return v3;
@@ -209,30 +267,26 @@ LABEL_26:
   return v13;
 }
 
-void std::__assoc_state<BOOL>::move(uint64_t a1)
+void std::__assoc_state<BOOL>::move(std::__assoc_sub_state *a1)
 {
-  __lk.__m_ = (a1 + 24);
+  __lk.__m_ = &a1->__mut_;
   __lk.__owns_ = 1;
-  std::mutex::lock((a1 + 24));
+  std::mutex::lock(&a1->__mut_);
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
-  v2 = *(a1 + 16);
-  v6.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v6);
-  if (v2)
+  ptr = a1->__exception_.__ptr_;
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
+  if (ptr)
   {
-    std::exception_ptr::exception_ptr(&v5, (a1 + 16));
-    v4.__ptr_ = &v5;
-    std::rethrow_exception(v4);
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
     __break(1u);
   }
 
-  else
+  else if (__lk.__owns_)
   {
-    v3 = *(a1 + 140);
-    if (__lk.__owns_)
-    {
-      std::mutex::unlock(__lk.__m_);
-    }
+    std::mutex::unlock(__lk.__m_);
   }
 }
 
@@ -247,21 +301,19 @@ void sub_299FB9654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void getVinylTatsuTagToFileNameMap(uint64_t a1@<X8>)
+void getVinylTatsuTagToFileNameMap(uint64_t ***a1@<X8>)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v4, &kVinylGold, "euig");
-  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v5, &kVinylMain, "euim");
-  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v4, 2);
+  v4[4] = *MEMORY[0x29EDCA608];
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v3, &kVinylGold, "euig");
+  std::pair<__CFString const* const,std::string>::pair[abi:ne200100]<__CFString const* const&,char const(&)[5],0>(v4, &kVinylMain, "euim");
+  std::map<__CFString const*,std::string>::map[abi:ne200100](a1, v3, 2);
   for (i = 0; i != -8; i -= 4)
   {
-    if (SHIBYTE(v5[i + 3]) < 0)
+    if (SHIBYTE(v4[i + 3]) < 0)
     {
-      operator delete(v5[i + 1]);
+      operator delete(v4[i + 1]);
     }
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299FB9750(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -328,12 +380,12 @@ LABEL_10:
   return a1;
 }
 
-uint64_t std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t a1, unint64_t *a2, uint64_t a3)
+uint64_t ***std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t ***a1, unint64_t *a2, uint64_t a3)
 {
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  *(a1 + 16) = 0;
-  *a1 = a1 + 8;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
@@ -350,7 +402,7 @@ uint64_t std::map<__CFString const*,std::string>::map[abi:ne200100](uint64_t a1,
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,std::string> const&>(uint64_t **a1, void *a2, unint64_t *a3, uint64_t a4)
+uint64_t *std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__emplace_hint_unique_key_args<__CFString const*,std::pair<__CFString const* const,std::string> const&>(uint64_t ***a1, void *a2, unint64_t *a3, uint64_t a4)
 {
   v6 = std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::__find_equal<__CFString const*>(a1, a2, &v10, &v9, a3);
   result = *v6;
@@ -609,14 +661,14 @@ void VinylTransport::createTransport(uint64_t *a1@<X0>, uint64_t a2@<X1>, ACFUTr
   *a3 = v6;
   v7 = *a1;
   v8 = a1[1];
-  v12[0] = v7;
-  v12[1] = v8;
+  v13[0] = v7;
+  v13[1] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9 = VinylTransport::init(v6, v12, a2);
+  v9 = VinylTransport::init(v6, v13, a2);
   v10 = v9;
   if (v8)
   {
@@ -625,12 +677,12 @@ void VinylTransport::createTransport(uint64_t *a1@<X0>, uint64_t a2@<X1>, ACFUTr
 
   if ((v10 & 1) == 0)
   {
-    ACFULogging::getLogInstance(v9);
-    ACFULogging::handleMessage();
+    LogInstance = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize object\n", "VinylTransport", "createTransport");
     *a3 = 0;
-    v11 = *(*v6 + 64);
+    v12 = *(*v6 + 64);
 
-    v11(v6);
+    v12(v6);
   }
 }
 
@@ -647,22 +699,19 @@ uint64_t VinylTransport::init(uint64_t a1, uint64_t a2, uint64_t a3)
   if (*a2)
   {
     *(a1 + 32) = ACFUDiagnostics::copyDiagnosticsPath(*a2);
-    v5 = *(a1 + 24);
     AMSupportSafeRetain();
-    v6 = *(a1 + 32);
     AMSupportSafeRetain();
-    v7 = *(a2 + 8);
-    v10 = *a2;
-    v11 = v7;
-    if (v7)
+    v4 = *(a2 + 8);
+    v7 = v4;
+    if (v4)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v8 = ACFUTransport::init();
-    if (v11)
+    v5 = ACFUTransport::init();
+    if (v7)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
   }
 
@@ -672,7 +721,7 @@ uint64_t VinylTransport::init(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  return v8;
+  return v5;
 }
 
 void sub_299FB9E44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -687,22 +736,22 @@ void sub_299FB9E44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t VinylTransport::getBoardParameters@<X0>(VinylTransport *this@<X0>, uint64_t a2@<X8>)
 {
-  ACFULogging::getLogInstance(this);
-  result = ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(this);
+  result = ACFULogging::handleMessage(LogInstance, 0, "%s::%s: VinylTransport::getBoardParameters not expected to be called\n", "VinylTransport", "getBoardParameters");
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 2;
   return result;
 }
 
-uint64_t VinylTransport::getPersoParameters@<X0>(const __CFDictionary **this@<X0>, uint64_t a2@<X8>)
+uint64_t *VinylTransport::getPersoParameters@<X0>(__CFDictionary **__return_ptr a1@<X8>, const __CFDictionary **this@<X0>)
 {
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   if (!Mutable)
   {
     result = VinylTransport::getPersoParameters(0);
 LABEL_9:
-    v16 = 0;
+    v9 = 0;
     goto LABEL_5;
   }
 
@@ -715,30 +764,30 @@ LABEL_9:
 
   v6 = v5;
   ParamUpdateOperation = VinylController::getParamUpdateOperation(v5, Mutable, this[3]);
-  result = VinylControllerObjDestroy(v6, v8, v9, v10, v11, v12, v13, v14, v17);
+  result = VinylControllerObjDestroy(v6);
   if (ParamUpdateOperation)
   {
     result = VinylTransport::getPersoParameters(ParamUpdateOperation);
     goto LABEL_9;
   }
 
-  v16 = 1;
+  v9 = 1;
 LABEL_5:
-  *a2 = Mutable;
-  *(a2 + 8) = v16;
+  *a1 = Mutable;
+  *(a1 + 8) = v9;
   return result;
 }
 
 BOOL VinylTransport::checkVinylPresence(const __CFDictionary **this, char a2)
 {
-  v16 = 0;
+  v8 = 0;
   v4 = VinylController::create(0, 0);
   if (v4)
   {
     v5 = v4;
-    VinylController::checkVinylPresence(v4, this[3], &v16, a2);
-    VinylControllerObjDestroy(v5, v6, v7, v8, v9, v10, v11, v12, v15);
-    return v16;
+    VinylController::checkVinylPresence(v4, this[3], &v8, a2);
+    VinylControllerObjDestroy(v5);
+    return v8;
   }
 
   else
@@ -750,211 +799,212 @@ BOOL VinylTransport::checkVinylPresence(const __CFDictionary **this, char a2)
 
 uint64_t VinylTransport::createGoldFw(VinylTransport *this, CFDictionaryRef theDict, VinylFirmware **a3)
 {
-  v37 = 0;
-  v38 = 0;
+  v46 = 0;
+  v47 = 0;
   error = 0;
   Value = CFDictionaryGetValue(theDict, @"eUICC,Ticket");
   v6 = Value;
-  if (!Value || (v7 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v7 != Value))
+  if (Value && (v7 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v7 == Value))
   {
     ACFULogging::getLogInstance(Value);
-LABEL_36:
-    ACFULogging::handleMessage();
-    goto LABEL_37;
-  }
-
-  ACFULogging::getLogInstance(Value);
-  std::string::basic_string[abi:ne200100]<0>(&v33, "VinylTransport");
-  v8 = std::string::append(&v33, "::", 2uLL);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v34.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v34.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v34, "createGoldFw", 0xCuLL);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType();
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v34.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v33.__r_.__value_.__l.__data_);
-  }
-
-  v12 = CFDictionaryGetValue(theDict, @"FirmwareData");
-  if (!v12)
-  {
-    ACFULogging::getLogInstance(0);
-    goto LABEL_36;
-  }
-
-  v13 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v12, 0, 0, &error);
-  v14 = v13;
-  v37 = v13;
-  if (v13)
-  {
-    v15 = CFGetTypeID(v13);
-    TypeID = CFDictionaryGetTypeID();
-    if (v15 == TypeID)
+    std::string::basic_string[abi:ne200100]<0>(&v42, "VinylTransport");
+    v8 = std::string::append(&v42, "::", 2uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v43.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v43.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v43, "createGoldFw", 0xCuLL);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType();
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      __p.__r_.__value_.__r.__words[0] = v14;
-      v17 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v38, &__p.__r_.__value_.__l.__data_);
-      if (v38)
-      {
-        ACFULogging::getLogInstance(v17);
-        std::string::basic_string[abi:ne200100]<0>(&v33, "VinylTransport");
-        v18 = std::string::append(&v33, "::", 2uLL);
-        v19 = *&v18->__r_.__value_.__l.__data_;
-        v34.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-        *&v34.__r_.__value_.__l.__data_ = v19;
-        v18->__r_.__value_.__l.__size_ = 0;
-        v18->__r_.__value_.__r.__words[2] = 0;
-        v18->__r_.__value_.__r.__words[0] = 0;
-        v20 = std::string::append(&v34, "createGoldFw", 0xCuLL);
-        v21 = *&v20->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v21;
-        v20->__r_.__value_.__l.__size_ = 0;
-        v20->__r_.__value_.__r.__words[2] = 0;
-        v20->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType();
-        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__p.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v34.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v33.__r_.__value_.__l.__data_);
-        }
-
-        v17 = CFDictionaryGetValue(v38, @"eUICC,Im4pGold");
-        v22 = v17;
-        if (v17)
-        {
-          v23 = CFGetTypeID(v17);
-          v17 = CFDataGetTypeID();
-          if (v23 == v17)
-          {
-            v17 = CFDictionaryGetValue(v38, @"eUICC,InfoPlistDataGold");
-            v24 = v17;
-            if (v17)
-            {
-              v25 = CFGetTypeID(v17);
-              v17 = CFDataGetTypeID();
-              if (v25 == v17)
-              {
-                v17 = CFDictionaryGetValue(v38, @"eUICC,ProfileDataGold");
-                v26 = v17;
-                if (v17)
-                {
-                  v27 = CFGetTypeID(v17);
-                  v17 = CFDataGetTypeID();
-                  if (v27 == v17)
-                  {
-                    v17 = CFDictionaryGetValue(v38, @"eUICC,Gold");
-                    v28 = v17;
-                    if (v17)
-                    {
-                      v29 = CFGetTypeID(v17);
-                      v17 = CFDataGetTypeID();
-                      if (v29 == v17)
-                      {
-                        v30 = CFDictionaryGetValue(v38, @"eUICC,GoldRecoveryFw");
-                        v31 = 0;
-                        *a3 = VinylFirmwareCreate(v28, v30, v22, v24, v26, v6);
-LABEL_28:
-                        CFRelease(v14);
-                        goto LABEL_29;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      ACFULogging::getLogInstance(v17);
-      ACFULogging::handleMessage();
+      operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    else
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      ACFULogging::getLogInstance(TypeID);
-      std::string::basic_string[abi:ne200100]<0>(&v33, "VinylTransport");
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("::", &v33, &v34);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("createGoldFw", &v34, &__p);
+      operator delete(v43.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v42.__r_.__value_.__l.__data_);
+    }
+
+    v12 = CFDictionaryGetValue(theDict, @"FirmwareData");
+    if (v12)
+    {
+      v13 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v12, 0, 0, &error);
+      v14 = v13;
+      v46 = v13;
+      if (v13)
+      {
+        v15 = CFGetTypeID(v13);
+        TypeID = CFDictionaryGetTypeID();
+        if (v15 == TypeID)
+        {
+          __p.__r_.__value_.__r.__words[0] = v14;
+          v17 = ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v47, &__p.__r_.__value_.__l.__data_);
+          if (v47)
+          {
+            ACFULogging::getLogInstance(v17);
+            std::string::basic_string[abi:ne200100]<0>(&v42, "VinylTransport");
+            v18 = std::string::append(&v42, "::", 2uLL);
+            v19 = *&v18->__r_.__value_.__l.__data_;
+            v43.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+            *&v43.__r_.__value_.__l.__data_ = v19;
+            v18->__r_.__value_.__l.__size_ = 0;
+            v18->__r_.__value_.__r.__words[2] = 0;
+            v18->__r_.__value_.__r.__words[0] = 0;
+            v20 = std::string::append(&v43, "createGoldFw", 0xCuLL);
+            v21 = *&v20->__r_.__value_.__l.__data_;
+            __p.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+            *&__p.__r_.__value_.__l.__data_ = v21;
+            v20->__r_.__value_.__l.__size_ = 0;
+            v20->__r_.__value_.__r.__words[2] = 0;
+            v20->__r_.__value_.__r.__words[0] = 0;
+            ACFULogging::handleMessageCFType();
+            if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(__p.__r_.__value_.__l.__data_);
+            }
+
+            if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v43.__r_.__value_.__l.__data_);
+            }
+
+            if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+            {
+              operator delete(v42.__r_.__value_.__l.__data_);
+            }
+
+            v22 = CFDictionaryGetValue(v47, @"eUICC,Im4pGold");
+            v23 = v22;
+            if (v22 && (v24 = CFGetTypeID(v22), v22 = CFDataGetTypeID(), v24 == v22))
+            {
+              v25 = CFDictionaryGetValue(v47, @"eUICC,InfoPlistDataGold");
+              v26 = v25;
+              if (v25 && (v27 = CFGetTypeID(v25), v25 = CFDataGetTypeID(), v27 == v25) && (v25 = CFDictionaryGetValue(v47, @"eUICC,ProfileDataGold"), (v28 = v25) != 0) && (v29 = CFGetTypeID(v25), v25 = CFDataGetTypeID(), v29 == v25))
+              {
+                v30 = CFDictionaryGetValue(v47, @"eUICC,Gold");
+                v31 = v30;
+                if (v30)
+                {
+                  v32 = CFGetTypeID(v30);
+                  v30 = CFDataGetTypeID();
+                  if (v32 == v30)
+                  {
+                    v33 = CFDictionaryGetValue(v47, @"eUICC,GoldRecoveryFw");
+                    v34 = 0;
+                    *a3 = VinylFirmwareCreate(v31, v33, v23, v26, v28, v6);
+LABEL_28:
+                    CFRelease(v14);
+                    goto LABEL_29;
+                  }
+                }
+
+                LogInstance = ACFULogging::getLogInstance(v30);
+                ACFULogging::handleMessage(LogInstance, 2, "%s::%s: goldFwData not present in the input\n");
+              }
+
+              else
+              {
+                v36 = ACFULogging::getLogInstance(v25);
+                ACFULogging::handleMessage(v36, 2, "%s::%s: goldInfoPlistData not present in the input\n");
+              }
+            }
+
+            else
+            {
+              v38 = ACFULogging::getLogInstance(v22);
+              ACFULogging::handleMessage(v38, 2, "%s::%s: goldIm4p not present in the input\n");
+            }
+          }
+
+          else
+          {
+            v41 = ACFULogging::getLogInstance(v17);
+            ACFULogging::handleMessage(v41, 2, "%s::%s: Fw data dictionary not present in the input\n");
+          }
+        }
+
+        else
+        {
+          ACFULogging::getLogInstance(TypeID);
+          std::string::basic_string[abi:ne200100]<0>(&v42, "VinylTransport");
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v43, "::", &v42);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "createGoldFw", &v43);
+          ACFULogging::handleMessageCFType();
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(__p.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v43.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v42.__r_.__value_.__l.__data_);
+          }
+        }
+
+        v34 = 1;
+        goto LABEL_28;
+      }
+
+      ACFULogging::getLogInstance(0);
+      std::string::basic_string[abi:ne200100]<0>(&v42, "VinylTransport");
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v43, "::", &v42);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "createGoldFw", &v43);
       ACFULogging::handleMessageCFType();
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34.__r_.__value_.__l.__data_);
+        operator delete(v43.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v42.__r_.__value_.__l.__data_);
       }
     }
 
-    v31 = 1;
-    goto LABEL_28;
+    else
+    {
+      v40 = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(v40, 2, "%s::%s: Failed to get Vinyl Firmware Data\n");
+    }
   }
 
-  ACFULogging::getLogInstance(0);
-  std::string::basic_string[abi:ne200100]<0>(&v33, "VinylTransport");
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("::", &v33, &v34);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("createGoldFw", &v34, &__p);
-  ACFULogging::handleMessageCFType();
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  else
   {
-    operator delete(__p.__r_.__value_.__l.__data_);
+    v37 = ACFULogging::getLogInstance(Value);
+    ACFULogging::handleMessage(v37, 2, "%s::%s: ticket not present in the input\n");
   }
 
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v34.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v33.__r_.__value_.__l.__data_);
-  }
-
-LABEL_37:
-  v31 = 1;
+  v34 = 1;
 LABEL_29:
-  if (v38)
+  if (v47)
   {
-    CFRelease(v38);
+    CFRelease(v47);
   }
 
-  return v31;
+  return v34;
 }
 
 void sub_299FBA514(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -979,12 +1029,12 @@ void sub_299FBA514(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(char *__s@<X1>, std::string *a2@<X0>, std::string *a3@<X8>)
+__n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<Q0>(std::string *__return_ptr a1@<X8>, char *__s@<X1>, std::string *a3@<X0>)
 {
   v6 = strlen(__s);
-  v7 = std::string::append(a2, __s, v6);
+  v7 = std::string::append(a3, __s, v6);
   result = *v7;
-  *a3 = *v7->n128_u8;
+  *a1 = *v7->n128_u8;
   v7->n128_u64[0] = 0;
   v7->n128_u64[1] = 0;
   v7[1].n128_u64[0] = 0;
@@ -1007,185 +1057,191 @@ const void **ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,vo
 
 uint64_t VinylTransport::createMainFw(VinylTransport *this, CFDictionaryRef theDict, VinylFirmware **a3)
 {
-  v33 = 0;
-  v34 = 0;
+  v43 = 0;
+  v44 = 0;
   error = 0;
   Value = CFDictionaryGetValue(theDict, @"eUICC,Ticket");
   v6 = Value;
-  if (!Value || (v7 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v7 != Value))
+  if (Value && (v7 = CFGetTypeID(Value), Value = CFDataGetTypeID(), v7 == Value))
   {
     ACFULogging::getLogInstance(Value);
-LABEL_30:
-    ACFULogging::handleMessage();
-    goto LABEL_31;
-  }
-
-  ACFULogging::getLogInstance(Value);
-  std::string::basic_string[abi:ne200100]<0>(&v29, "VinylTransport");
-  v8 = std::string::append(&v29, "::", 2uLL);
-  v9 = *&v8->__r_.__value_.__l.__data_;
-  v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v30.__r_.__value_.__l.__data_ = v9;
-  v8->__r_.__value_.__l.__size_ = 0;
-  v8->__r_.__value_.__r.__words[2] = 0;
-  v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v30, "createMainFw", 0xCuLL);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType();
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v30.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v29.__r_.__value_.__l.__data_);
-  }
-
-  v12 = CFDictionaryGetValue(theDict, @"FirmwareData");
-  if (!v12)
-  {
-    ACFULogging::getLogInstance(0);
-    goto LABEL_30;
-  }
-
-  v13 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v12, 0, 0, &error);
-  v14 = v13;
-  v33 = v13;
-  if (v13)
-  {
-    v15 = CFGetTypeID(v13);
-    TypeID = CFDictionaryGetTypeID();
-    if (v15 == TypeID)
+    std::string::basic_string[abi:ne200100]<0>(&v39, "VinylTransport");
+    v8 = std::string::append(&v39, "::", 2uLL);
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v40.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v40.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v40, "createMainFw", 0xCuLL);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType();
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      __p.__r_.__value_.__r.__words[0] = v14;
-      ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v34, &__p.__r_.__value_.__l.__data_);
-      if (v34)
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v40.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v39.__r_.__value_.__l.__data_);
+    }
+
+    v12 = CFDictionaryGetValue(theDict, @"FirmwareData");
+    if (v12)
+    {
+      v13 = CFPropertyListCreateWithData(*MEMORY[0x29EDB8ED8], v12, 0, 0, &error);
+      v14 = v13;
+      v43 = v13;
+      if (v13)
       {
-        v17 = CFDictionaryGetValue(v34, @"eUICC,Im4pMain");
-        v18 = v17;
-        if (v17)
+        v15 = CFGetTypeID(v13);
+        TypeID = CFDictionaryGetTypeID();
+        if (v15 == TypeID)
         {
-          v19 = CFGetTypeID(v17);
-          v17 = CFDataGetTypeID();
-          if (v19 == v17)
+          __p.__r_.__value_.__r.__words[0] = v14;
+          ctu::cf::CFSharedRef<__CFDictionary const>::operator=<void const,void>(&v44, &__p.__r_.__value_.__l.__data_);
+          if (v44)
           {
-            v17 = CFDictionaryGetValue(v34, @"eUICC,InfoPlistDataMain");
-            v20 = v17;
-            if (v17)
+            v17 = CFDictionaryGetValue(v44, @"eUICC,Im4pMain");
+            v18 = v17;
+            if (v17 && (v19 = CFGetTypeID(v17), v17 = CFDataGetTypeID(), v19 == v17))
             {
-              v21 = CFGetTypeID(v17);
-              v17 = CFDataGetTypeID();
-              if (v21 == v17)
+              v20 = CFDictionaryGetValue(v44, @"eUICC,InfoPlistDataMain");
+              v21 = v20;
+              if (v20 && (v22 = CFGetTypeID(v20), v20 = CFDataGetTypeID(), v22 == v20))
               {
-                v17 = CFDictionaryGetValue(v34, @"eUICC,ProfileDataMain");
-                v22 = v17;
-                if (v17)
+                v23 = CFDictionaryGetValue(v44, @"eUICC,ProfileDataMain");
+                v24 = v23;
+                if (v23 && (v25 = CFGetTypeID(v23), v23 = CFDataGetTypeID(), v25 == v23))
                 {
-                  v23 = CFGetTypeID(v17);
-                  v17 = CFDataGetTypeID();
-                  if (v23 == v17)
+                  v26 = CFDictionaryGetValue(v44, @"eUICC,Main");
+                  v27 = v26;
+                  if (v26)
                   {
-                    v17 = CFDictionaryGetValue(v34, @"eUICC,Main");
-                    v24 = v17;
-                    if (v17)
+                    v28 = CFGetTypeID(v26);
+                    v26 = CFDataGetTypeID();
+                    if (v28 == v26)
                     {
-                      v25 = CFGetTypeID(v17);
-                      v17 = CFDataGetTypeID();
-                      if (v25 == v17)
-                      {
-                        v26 = CFDictionaryGetValue(v34, @"eUICC,MainRecoveryFw");
-                        v27 = 0;
-                        *a3 = VinylFirmwareCreate(v24, v26, v18, v20, v22, v6);
+                      v29 = CFDictionaryGetValue(v44, @"eUICC,MainRecoveryFw");
+                      v30 = 0;
+                      *a3 = VinylFirmwareCreate(v27, v29, v18, v21, v24, v6);
 LABEL_22:
-                        CFRelease(v14);
-                        goto LABEL_23;
-                      }
+                      CFRelease(v14);
+                      goto LABEL_23;
                     }
                   }
+
+                  LogInstance = ACFULogging::getLogInstance(v26);
+                  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: mainFwData not present in the input\n");
+                }
+
+                else
+                {
+                  v35 = ACFULogging::getLogInstance(v23);
+                  ACFULogging::handleMessage(v35, 2, "%s::%s: mainProfileData not present in the input\n");
                 }
               }
+
+              else
+              {
+                v34 = ACFULogging::getLogInstance(v20);
+                ACFULogging::handleMessage(v34, 2, "%s::%s: mainInfoPlistData not present in the input\n");
+              }
             }
+
+            else
+            {
+              v33 = ACFULogging::getLogInstance(v17);
+              ACFULogging::handleMessage(v33, 2, "%s::%s: mainIm4p not present in the input\n");
+            }
+          }
+
+          else
+          {
+            v38 = ACFULogging::getLogInstance(0);
+            ACFULogging::handleMessage(v38, 2, "%s::%s: Fw data dictionary not present in the input\n");
           }
         }
 
-        ACFULogging::getLogInstance(v17);
+        else
+        {
+          ACFULogging::getLogInstance(TypeID);
+          std::string::basic_string[abi:ne200100]<0>(&v39, "VinylTransport");
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v40, "::", &v39);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "createMainFw", &v40);
+          ACFULogging::handleMessageCFType();
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(__p.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v40.__r_.__value_.__l.__data_);
+          }
+
+          if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v39.__r_.__value_.__l.__data_);
+          }
+        }
+
+        v30 = 1;
+        goto LABEL_22;
       }
 
-      else
-      {
-        ACFULogging::getLogInstance(0);
-      }
-
-      ACFULogging::handleMessage();
-    }
-
-    else
-    {
-      ACFULogging::getLogInstance(TypeID);
-      std::string::basic_string[abi:ne200100]<0>(&v29, "VinylTransport");
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("::", &v29, &v30);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("createMainFw", &v30, &__p);
+      ACFULogging::getLogInstance(0);
+      std::string::basic_string[abi:ne200100]<0>(&v39, "VinylTransport");
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v40, "::", &v39);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "createMainFw", &v40);
       ACFULogging::handleMessageCFType();
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        operator delete(v40.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v29.__r_.__value_.__l.__data_);
+        operator delete(v39.__r_.__value_.__l.__data_);
       }
     }
 
-    v27 = 1;
-    goto LABEL_22;
+    else
+    {
+      v37 = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(v37, 2, "%s::%s: Failed to get Vinyl Firmware Data\n");
+    }
   }
 
-  ACFULogging::getLogInstance(0);
-  std::string::basic_string[abi:ne200100]<0>(&v29, "VinylTransport");
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("::", &v29, &v30);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("createMainFw", &v30, &__p);
-  ACFULogging::handleMessageCFType();
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  else
   {
-    operator delete(__p.__r_.__value_.__l.__data_);
+    v32 = ACFULogging::getLogInstance(Value);
+    ACFULogging::handleMessage(v32, 2, "%s::%s: ticket not present in the input\n");
   }
 
-  if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v30.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v29.__r_.__value_.__l.__data_);
-  }
-
-LABEL_31:
-  v27 = 1;
+  v30 = 1;
 LABEL_23:
-  if (v34)
+  if (v44)
   {
-    CFRelease(v34);
+    CFRelease(v44);
   }
 
-  return v27;
+  return v30;
 }
 
 void sub_299FBAB20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -1212,19 +1268,19 @@ void sub_299FBAB20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 ACFULogging *VinylTransport::updateFw(const __CFDictionary **this, const __CFDictionary *a2)
 {
-  v20 = 0;
-  v21 = 0;
-  v4 = VinylTransport::createGoldFw(this, a2, &v20);
+  v13 = 0;
+  v14 = 0;
+  v4 = VinylTransport::createGoldFw(this, a2, &v13);
   v5 = v4;
-  if (v4 || (v6 = v20) == 0)
+  if (v4 || (v6 = v13) == 0)
   {
     VinylTransport::updateFw(v4);
     return v5;
   }
 
-  v7 = VinylTransport::createMainFw(v4, a2, &v21);
+  v7 = VinylTransport::createMainFw(v4, a2, &v14);
   v5 = v7;
-  if (v7 || (v8 = v21) == 0)
+  if (v7 || (v8 = v14) == 0)
   {
     VinylTransport::updateFw(v7);
     return v5;
@@ -1239,7 +1295,7 @@ ACFULogging *VinylTransport::updateFw(const __CFDictionary **this, const __CFDic
 
   v10 = v9;
   updated = VinylController::updateFw(v9, v6, v8, this[3]);
-  VinylControllerObjDestroy(v10, v12, v13, v14, v15, v16, v17, v18, v20);
+  VinylControllerObjDestroy(v10);
   if (updated)
   {
     VinylTransport::updateFw(updated);
@@ -1251,29 +1307,29 @@ ACFULogging *VinylTransport::updateFw(const __CFDictionary **this, const __CFDic
 
 uint64_t VinylTransport::setNonce(VinylTransport *this, void *a2)
 {
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: empty implementation not expected to be called\n", "VinylTransport", "setNonce");
   return 2;
 }
 
 uint64_t VinylTransport::pushFirmware(ACFULogging *a1)
 {
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: empty implementation not expected to be called\n", "VinylTransport", "pushFirmware");
   return 2;
 }
 
 uint64_t VinylTransport::pingCheck(VinylTransport *this)
 {
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: empty implementation not expected to be called\n", "VinylTransport", "pingCheck");
   return 2;
 }
 
 uint64_t VinylTransport::reset(VinylTransport *this)
 {
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: empty implementation not expected to be called\n", "VinylTransport", "reset");
   return 2;
 }
 
@@ -1316,8 +1372,8 @@ void VinylTransport::~VinylTransport(VinylTransport *this)
     *(this + 4) = 0;
   }
 
-  ACFULogging::getLogInstance(v3);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(v3);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: VinylTransport destructor called\n", "VinylTransport", "~VinylTransport");
 
   MEMORY[0x2A1C5F0F8](this);
 }
@@ -1356,7 +1412,7 @@ uint64_t eUICC::getSIMId(eUICC *this)
 
 uint64_t eUICC::eUICCVinylDALValve::eUICCVinylDALValve(uint64_t a1, uint64_t a2, int a3, char a4, uint64_t *a5)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *(a1 + 275) = 0u;
   *(a1 + 248) = 0u;
   *(a1 + 232) = 0u;
@@ -1382,18 +1438,18 @@ uint64_t eUICC::eUICCVinylDALValve::eUICCVinylDALValve(uint64_t a1, uint64_t a2,
   *a1 = &unk_2A2031D10;
   v11 = dispatch_queue_create("com.apple.VinylCommunication", 0);
   v12 = a5[1];
-  v21 = *a5;
-  v22 = v12;
+  v19 = *a5;
+  v20 = v12;
   object = v11;
   if (v12)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   abb::router::Client::create();
-  if (v22)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
   if (object)
@@ -1419,28 +1475,29 @@ uint64_t eUICC::eUICCVinylDALValve::eUICCVinylDALValve(uint64_t a1, uint64_t a2,
     dispatch_retain(v13);
   }
 
-  v24 = &unk_2A2031E38;
-  v25 = a1;
-  v26 = v14;
-  v27 = &v24;
+  v22 = &unk_2A2031E38;
+  v23 = a1;
+  v24 = v14;
+  v25 = &v22;
   abb::router::Client::regEventHandler();
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v24);
-  v24 = &unk_2A2031EC8;
-  v25 = a1;
-  v27 = &v24;
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v22);
+  v22 = &unk_2A2031EC8;
+  v23 = a1;
+  v25 = &v22;
   abb::router::Client::regEventHandler();
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v24);
-  v24 = &unk_2A2031F48;
-  v25 = a1;
-  v27 = &v24;
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](&v22);
+  v22 = &unk_2A2031F48;
+  v23 = a1;
+  v25 = &v22;
   abb::router::Client::regIndHandlerInternal();
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](&v24);
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](&v22);
   abb::router::Client::start(v10);
   v15 = dispatch_time(0, 7500000000);
-  if (dispatch_semaphore_wait(v14, v15))
+  v16 = dispatch_semaphore_wait(v14, v15);
+  if (v16)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for mipc client start.\n", v16, v17, v18, v21);
+    gBBULogMaskGet(v16, v17);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for mipc client start.\n", v19);
     *(a1 + 352) = 0;
   }
 
@@ -1449,45 +1506,45 @@ uint64_t eUICC::eUICCVinylDALValve::eUICCVinylDALValve(uint64_t a1, uint64_t a2,
     dispatch_release(v14);
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_299FBB1F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, char a12)
+void sub_299FBB1F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_object_t object, ...)
 {
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](&a12);
-  if (v13)
+  va_start(va, object);
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](va);
+  if (v12)
   {
-    dispatch_release(v13);
+    dispatch_release(v12);
   }
 
-  v15 = *(v12 + 47);
+  v14 = *(v11 + 47);
+  if (v14)
+  {
+    *(v11 + 48) = v14;
+    operator delete(v14);
+  }
+
+  v15 = *(v11 + 45);
   if (v15)
   {
-    *(v12 + 48) = v15;
-    operator delete(v15);
+    dispatch_release(v15);
   }
 
-  v16 = *(v12 + 45);
+  *(v11 + 41) = &unk_2A2031E08;
+  v16 = *(v11 + 43);
   if (v16)
   {
-    dispatch_release(v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
   }
 
-  *(v12 + 41) = &unk_2A2031E08;
-  v17 = *(v12 + 43);
+  v17 = *(v11 + 40);
   if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
-  v18 = *(v12 + 40);
-  if (v18)
-  {
-    std::__shared_weak_count::__release_weak(v18);
-  }
-
-  eUICC::eUICCVinylValve::~eUICCVinylValve(v12);
+  eUICC::eUICCVinylValve::~eUICCVinylValve(v11);
   _Unwind_Resume(a1);
 }
 
@@ -1519,140 +1576,149 @@ void *eUICC::eUICCVinylDALValve::GetVinylType@<X0>(eUICC::eUICCVinylDALValve *th
   return memcpy(a2, this + 8, 0x11BuLL);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::waitForeSIMBoot(eUICC::eUICCVinylDALValve *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::waitForeSIMBoot(eUICC::eUICCVinylDALValve *this, uint64_t a2)
 {
-  v46[4] = *MEMORY[0x29EDCA608];
-  v44 = 0;
+  v28[4] = *MEMORY[0x29EDCA608];
+  v26 = 0;
   if ((*(this + 352) & 1) == 0)
   {
-    eUICC::eUICCVinylDALValve::waitForeSIMBoot(this, a2, a3, a4, a5, a6, a7, a8, v39);
-    v12 = 0;
-    goto LABEL_34;
+    eUICC::eUICCVinylDALValve::waitForeSIMBoot(this, a2);
+    v6 = 0;
+    return v6 & 1;
   }
 
   mipc::sim::Status_Req::Status_Req();
   if (*(this + 73) == 2)
   {
-    v9 = 2;
+    v3 = 2;
   }
 
   else
   {
-    v9 = 1;
+    v3 = 1;
   }
 
-  v42[10] = v9;
-  v10 = operator new(1uLL);
-  *v10 = 0;
-  v11 = __p;
-  __p = v10;
-  if (v11)
+  v24[10] = v3;
+  v4 = operator new(1uLL);
+  *v4 = 0;
+  v5 = __p;
+  __p = v4;
+  if (v5)
   {
-    operator delete(v11);
+    operator delete(v5);
   }
 
-  v12 = 0;
-  v13 = 15;
+  v6 = 0;
+  v7 = 15;
   do
   {
-    v14 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    v8 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v8, v9) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v18 = __p;
+      v10 = __p;
       if (__p)
       {
-        stringifyVal(*__p, &v40);
+        stringifyVal(*__p, v22);
+        v11 = v22;
+        if (v23 < 0)
+        {
+          v11 = v22[0];
+        }
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Status_Req sent: Msg=0x%x fTlv_Mode = %s\n", v15, v16, v17, 15);
-      if (v18 && v41 < 0)
+      else
       {
-        operator delete(v40);
+        v11 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Status_Req sent: Msg=0x%x fTlv_Mode = %s\n", 1295, v11);
+      if (v10 && v23 < 0)
+      {
+        operator delete(v22[0]);
       }
     }
 
-    abb::router::Client::send<mipc::sim::Status_Req>(v42, (this + 328), &__ns);
-    v19 = abb::router::SendProxy::timeout();
-    if (v14)
+    abb::router::Client::send<mipc::sim::Status_Req>(&__ns, v24, (this + 328));
+    v12 = abb::router::SendProxy::timeout();
+    if (v8)
     {
-      dispatch_retain(v14);
+      dispatch_retain(v8);
     }
 
-    v20 = operator new(0x20uLL);
-    *v20 = &unk_2A2031FE8;
-    v20[1] = this;
-    v20[2] = &v44;
-    v20[3] = v14;
-    v46[3] = v20;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v46, (v19 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v46);
+    v13 = operator new(0x20uLL);
+    *v13 = &unk_2A2031FE8;
+    v13[1] = this;
+    v13[2] = &v26;
+    v13[3] = v8;
+    v28[3] = v13;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v28, (v12 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v28);
     MEMORY[0x29C2B81A0](&__ns);
-    v21 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v14, v21) && (gBBULogMaskGet(), _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Status Req.\n", v22, v23, v24, v39), !*(this + 37)))
+    v14 = dispatch_time(0, 7500000000);
+    v15 = dispatch_semaphore_wait(v8, v14);
+    if (v15 && (gBBULogMaskGet(v15, v16), v15 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Status Req.\n"), !*(this + 37)))
     {
-      v30 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v30))
+      gBBULogMaskGet(v15, v16);
+      Transport = VinylDaleCommunication::createTransport();
+      if (Transport)
       {
-        _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+        Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 210, "transport");
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "No transport available.. bail out\n", v34, v35, v36, v39);
-      v25 = 1;
-      if (v14)
+      gBBULogMaskGet(Transport, v20);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "No transport available.. bail out\n");
+      v17 = 1;
+      if (v8)
       {
-        goto LABEL_24;
+        goto LABEL_27;
       }
     }
 
     else
     {
-      v25 = 1;
-      if (v44 - 20 >= 2 && v44 != 253)
+      v17 = 1;
+      if (v26 - 20 >= 2 && v26 != 253)
       {
-        gBBULogMaskGet();
-        --v13;
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "SIM Status Req attempt %d failed.\n", v26, v27, v28, 15 - v13);
+        gBBULogMaskGet(v15, v16);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "SIM Status Req attempt %d failed.\n", 15 - --v7);
         __ns.__rep_ = 1000000000;
         std::this_thread::sleep_for (&__ns);
-        v25 = 0;
-        if (!v14)
+        v17 = 0;
+        if (!v8)
         {
-          goto LABEL_25;
+          goto LABEL_28;
         }
 
-LABEL_24:
-        dispatch_release(v14);
-        goto LABEL_25;
+LABEL_27:
+        dispatch_release(v8);
+        goto LABEL_28;
       }
 
-      v12 = 1;
-      if (v14)
+      v6 = 1;
+      if (v8)
       {
-        goto LABEL_24;
+        goto LABEL_27;
       }
     }
 
-LABEL_25:
-    if (v13)
+LABEL_28:
+    if (v7)
     {
-      v29 = v25;
+      v18 = v17;
     }
 
     else
     {
-      v29 = 1;
+      v18 = 1;
     }
   }
 
-  while (v29 != 1);
-  mipc::sim::Status_Req::~Status_Req(v42);
-LABEL_34:
-  v37 = *MEMORY[0x29EDCA608];
-  return v12 & 1;
+  while (v18 != 1);
+  mipc::sim::Status_Req::~Status_Req(v24);
+  return v6 & 1;
 }
 
-uint64_t abb::router::Client::send<mipc::sim::Status_Req>@<X0>(mipc::sim::Status_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::sim::Status_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::sim::Status_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::sim::Status_Req::serialize(v8, this);
   if (v9)
@@ -1664,14 +1730,14 @@ uint64_t abb::router::Client::send<mipc::sim::Status_Req>@<X0>(mipc::sim::Status
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
 void eUICC::eUICCVinylDALValve::GetData_EoS(eUICC::eUICCVinylDALValve *this@<X0>, void *a2@<X8>)
 {
-  v24[4] = *MEMORY[0x29EDCA608];
+  v20[4] = *MEMORY[0x29EDCA608];
   mipc::dale_vinyl::Eos_Getdata_Req::Eos_Getdata_Req();
   if (*(this + 73) == 2)
   {
@@ -1683,7 +1749,7 @@ void eUICC::eUICCVinylDALValve::GetData_EoS(eUICC::eUICCVinylDALValve *this@<X0>
     v4 = 1;
   }
 
-  v21[10] = v4;
+  v17[10] = v4;
   v5 = operator new(1uLL);
   *v5 = 0;
   v6 = __p;
@@ -1694,40 +1760,50 @@ void eUICC::eUICCVinylDALValve::GetData_EoS(eUICC::eUICCVinylDALValve *this@<X0>
   }
 
   v7 = dispatch_semaphore_create(0);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v8) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v11 = __p;
+    v9 = __p;
     if (__p)
     {
-      stringifyVal(*__p, &v19);
+      stringifyVal(*__p, v15);
+      v10 = v16 >= 0 ? v15 : v15[0];
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "EoS_Getdata_Req sent: Msg=0x%x fTlv_Is_Num_Of_Profile_Needed = %s\n", v8, v9, v10, 3);
-    if (v11 && v20 < 0)
+    else
     {
-      operator delete(v19);
+      v10 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "EoS_Getdata_Req sent: Msg=0x%x fTlv_Is_Num_Of_Profile_Needed = %s\n", 62467, v10);
+    if (v9)
+    {
+      if (v16 < 0)
+      {
+        operator delete(v15[0]);
+      }
     }
   }
 
-  abb::router::Client::send<mipc::dale_vinyl::Eos_Getdata_Req>(v21, (this + 328), v23);
-  v12 = abb::router::SendProxy::timeout();
+  abb::router::Client::send<mipc::dale_vinyl::Eos_Getdata_Req>(v19, v17, (this + 328));
+  v11 = abb::router::SendProxy::timeout();
   if (v7)
   {
     dispatch_retain(v7);
   }
 
-  v24[0] = &unk_2A2032068;
-  v24[1] = this;
-  v24[2] = v7;
-  v24[3] = v24;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v24, (v12 + 152));
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v24);
-  MEMORY[0x29C2B81A0](v23);
-  v13 = dispatch_time(0, 7500000000);
-  if (dispatch_semaphore_wait(v7, v13))
+  v20[0] = &unk_2A2032068;
+  v20[1] = this;
+  v20[2] = v7;
+  v20[3] = v20;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v20, (v11 + 152));
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v20);
+  MEMORY[0x29C2B81A0](v19);
+  v12 = dispatch_time(0, 7500000000);
+  v13 = dispatch_semaphore_wait(v7, v12);
+  if (v13)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on EoS Get Data Req.\n", v14, v15, v16, v18);
+    gBBULogMaskGet(v13, v14);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on EoS Get Data Req.\n");
   }
 
   memcpy(a2, this + 8, 0x11BuLL);
@@ -1736,8 +1812,7 @@ void eUICC::eUICCVinylDALValve::GetData_EoS(eUICC::eUICCVinylDALValve *this@<X0>
     dispatch_release(v7);
   }
 
-  mipc::dale_vinyl::Eos_Getdata_Req::~Eos_Getdata_Req(v21);
-  v17 = *MEMORY[0x29EDCA608];
+  mipc::dale_vinyl::Eos_Getdata_Req::~Eos_Getdata_Req(v17);
 }
 
 void sub_299FBBA08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -1751,7 +1826,7 @@ void sub_299FBBA08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Eos_Getdata_Req>@<X0>(mipc::dale_vinyl::Eos_Getdata_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Eos_Getdata_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Eos_Getdata_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Eos_Getdata_Req::serialize(v8, this);
   if (v9)
@@ -1763,173 +1838,182 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Eos_Getdata_Req>@<X0>(mipc:
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-void *eUICC::eUICCVinylDALValve::GetData@<X0>(eUICC::eUICCVinylDALValve *this@<X0>, void *a2@<X8>)
+void *eUICC::eUICCVinylDALValve::GetData@<X0>(eUICC::eUICCVinylDALValve *this@<X0>, void *a2@<X8>, uint64_t a3@<X1>)
 {
-  v44[4] = *MEMORY[0x29EDCA608];
-  v4 = (this + 8);
+  v33[4] = *MEMORY[0x29EDCA608];
+  v5 = (this + 8);
   if (*(this + 290) == 1)
   {
-    gBBULogMaskGet();
-    v8 = "eUICCVinylData cache is valid. Using cached data!\n";
-    v9 = 22;
-LABEL_17:
-    _BBULog(v9, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v8, v5, v6, v7, v38);
-    goto LABEL_18;
-  }
-
-  *(this + 248) = 0u;
-  *(this + 264) = 0u;
-  *(this + 216) = 0u;
-  *(this + 232) = 0u;
-  *(this + 184) = 0u;
-  *(this + 200) = 0u;
-  *(this + 152) = 0u;
-  *(this + 168) = 0u;
-  *(this + 120) = 0u;
-  *(this + 136) = 0u;
-  *(this + 88) = 0u;
-  *(this + 104) = 0u;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 24) = 0u;
-  *(this + 40) = 0u;
-  *v4 = 0u;
-  *(this + 275) = 0u;
-  RadioVendor = TelephonyRadiosGetRadioVendor();
-  *(this + 2) = (RadioVendor - 2) < 3;
-  if ((*(this + 352) & 1) == 0)
-  {
-    eUICC::eUICCVinylDALValve::GetData(RadioVendor, v11, v12, v13, v14, v15, v16, v17, v38);
-    goto LABEL_18;
-  }
-
-  if ((eUICC::eUICCVinylDALValve::waitForeSIMBoot(this, v11, v12, v13, v14, v15, v16, v17) & 1) == 0)
-  {
-    gBBULogMaskGet();
-    v8 = "SIM status req failed even after several retries.\n";
-    v9 = 0;
-    goto LABEL_17;
-  }
-
-  pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v18 = xmmword_2A14F5908;
-  if (!xmmword_2A14F5908)
-  {
-    BBUCapabilities::create_default_global(v43);
-    v19 = v43[0];
-    v43[0] = 0uLL;
-    v20 = *(&xmmword_2A14F5908 + 1);
-    xmmword_2A14F5908 = v19;
-    if (v20)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-      if (*(&v43[0] + 1))
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v43[0] + 1));
-      }
-    }
-
-    v18 = xmmword_2A14F5908;
-  }
-
-  v21 = *(&xmmword_2A14F5908 + 1);
-  if (*(&xmmword_2A14F5908 + 1))
-  {
-    atomic_fetch_add_explicit((*(&xmmword_2A14F5908 + 1) + 8), 1uLL, memory_order_relaxed);
-  }
-
-  pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
-  v22 = BBUCapabilities::supportsEuiccViaEOS(v18);
-  if (v21)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
-  }
-
-  if (v22)
-  {
-    result = (*(*this + 152))(this);
-    goto LABEL_21;
-  }
-
-  mipc::dale_vinyl::Getdata_Req::Getdata_Req();
-  if (*(this + 73) == 2)
-  {
-    v25 = 2;
+    gBBULogMaskGet(this, a3);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "eUICCVinylData cache is valid. Using cached data!\n");
   }
 
   else
   {
-    v25 = 1;
-  }
-
-  v41[10] = v25;
-  v26 = operator new(1uLL);
-  *v26 = 0;
-  v27 = __p;
-  __p = v26;
-  if (v27)
-  {
-    operator delete(v27);
-  }
-
-  v28 = dispatch_semaphore_create(0);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
-  {
-    v32 = __p;
-    if (__p)
+    *(this + 248) = 0u;
+    *(this + 264) = 0u;
+    *(this + 216) = 0u;
+    *(this + 232) = 0u;
+    *(this + 184) = 0u;
+    *(this + 200) = 0u;
+    *(this + 152) = 0u;
+    *(this + 168) = 0u;
+    *(this + 120) = 0u;
+    *(this + 136) = 0u;
+    *(this + 88) = 0u;
+    *(this + 104) = 0u;
+    *(this + 56) = 0u;
+    *(this + 72) = 0u;
+    *(this + 24) = 0u;
+    *(this + 40) = 0u;
+    *v5 = 0u;
+    *(this + 275) = 0u;
+    RadioVendor = TelephonyRadiosGetRadioVendor();
+    *(this + 2) = (RadioVendor - 2) < 3;
+    if (*(this + 352))
     {
-      stringifyVal(*__p, &v39);
+      v9 = eUICC::eUICCVinylDALValve::waitForeSIMBoot(this, v8);
+      if (v9)
+      {
+        pthread_mutex_lock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
+        v11 = xmmword_2A14F5908;
+        if (!xmmword_2A14F5908)
+        {
+          BBUCapabilities::create_default_global(v32);
+          v12 = v32[0];
+          v32[0] = 0uLL;
+          v13 = *(&xmmword_2A14F5908 + 1);
+          xmmword_2A14F5908 = v12;
+          if (v13)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+            if (*(&v32[0] + 1))
+            {
+              std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32[0] + 1));
+            }
+          }
+
+          v11 = xmmword_2A14F5908;
+        }
+
+        v14 = *(&xmmword_2A14F5908 + 1);
+        if (*(&xmmword_2A14F5908 + 1))
+        {
+          atomic_fetch_add_explicit((*(&xmmword_2A14F5908 + 1) + 8), 1uLL, memory_order_relaxed);
+        }
+
+        pthread_mutex_unlock(&ctu::Singleton<BBUCapabilities,BBUCapabilities,ctu::PthreadMutexGuardPolicy<BBUCapabilities>>::sInstance);
+        v15 = BBUCapabilities::supportsEuiccViaEOS(v11);
+        if (v14)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+        }
+
+        if (v15)
+        {
+          return (*(*this + 152))(this);
+        }
+
+        mipc::dale_vinyl::Getdata_Req::Getdata_Req();
+        if (*(this + 73) == 2)
+        {
+          v17 = 2;
+        }
+
+        else
+        {
+          v17 = 1;
+        }
+
+        v30[10] = v17;
+        v18 = operator new(1uLL);
+        *v18 = 0;
+        v19 = __p;
+        __p = v18;
+        if (v19)
+        {
+          operator delete(v19);
+        }
+
+        v20 = dispatch_semaphore_create(0);
+        if ((*(gBBULogMaskGet(v20, v21) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+        {
+          v22 = __p;
+          if (__p)
+          {
+            stringifyVal(*__p, v28);
+            v23 = v29 >= 0 ? v28 : v28[0];
+          }
+
+          else
+          {
+            v23 = "NULL";
+          }
+
+          _BBULog(22, 7, "eUICCVinylDALValve", "", "Getdata_Req sent: Msg=0x%x fTlv_Is_Num_Of_Profile_Needed = %s\n", 62466, v23);
+          if (v22)
+          {
+            if (v29 < 0)
+            {
+              operator delete(v28[0]);
+            }
+          }
+        }
+
+        abb::router::Client::send<mipc::dale_vinyl::Getdata_Req>(v32, v30, (this + 328));
+        v24 = abb::router::SendProxy::timeout();
+        if (v20)
+        {
+          dispatch_retain(v20);
+        }
+
+        v33[0] = &unk_2A2032138;
+        v33[1] = this;
+        v33[2] = v20;
+        v33[3] = v33;
+        std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v33, (v24 + 152));
+        std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v33);
+        MEMORY[0x29C2B81A0](v32);
+        v25 = dispatch_time(0, 7500000000);
+        v26 = dispatch_semaphore_wait(v20, v25);
+        if (v26)
+        {
+          gBBULogMaskGet(v26, v27);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Get Data Req.\n");
+        }
+
+        if (v20)
+        {
+          dispatch_release(v20);
+        }
+
+        mipc::dale_vinyl::Getdata_Req::~Getdata_Req(v30);
+      }
+
+      else
+      {
+        gBBULogMaskGet(v9, v10);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "SIM status req failed even after several retries.\n");
+      }
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Getdata_Req sent: Msg=0x%x fTlv_Is_Num_Of_Profile_Needed = %s\n", v29, v30, v31, 2);
-    if (v32 && v40 < 0)
+    else
     {
-      operator delete(v39);
+      eUICC::eUICCVinylDALValve::GetData(RadioVendor, v8);
     }
   }
 
-  abb::router::Client::send<mipc::dale_vinyl::Getdata_Req>(v41, (this + 328), v43);
-  v33 = abb::router::SendProxy::timeout();
-  if (v28)
-  {
-    dispatch_retain(v28);
-  }
-
-  v44[0] = &unk_2A2032138;
-  v44[1] = this;
-  v44[2] = v28;
-  v44[3] = v44;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v44, (v33 + 152));
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v44);
-  MEMORY[0x29C2B81A0](v43);
-  v34 = dispatch_time(0, 7500000000);
-  if (dispatch_semaphore_wait(v28, v34))
-  {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Get Data Req.\n", v35, v36, v37, v38);
-  }
-
-  if (v28)
-  {
-    dispatch_release(v28);
-  }
-
-  mipc::dale_vinyl::Getdata_Req::~Getdata_Req(v41);
-LABEL_18:
   if (*(this + 290) == 1)
   {
-    eUICC::logEUICCData(v4);
+    eUICC::logEUICCData(v5, v6);
   }
 
-  result = memcpy(a2, v4, 0x11BuLL);
-LABEL_21:
-  v24 = *MEMORY[0x29EDCA608];
-  return result;
+  return memcpy(a2, v5, 0x11BuLL);
 }
 
 void sub_299FBBF2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18)
@@ -1943,7 +2027,7 @@ void sub_299FBBF2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Getdata_Req>@<X0>(mipc::dale_vinyl::Getdata_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Getdata_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Getdata_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Getdata_Req::serialize(v8, this);
   if (v9)
@@ -1955,97 +2039,117 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Getdata_Req>@<X0>(mipc::dal
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::SetCardMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::SetCardMode(uint64_t a1, uint64_t a2)
 {
-  v32[4] = *MEMORY[0x29EDCA608];
-  v30 = 18;
+  v22[4] = *MEMORY[0x29EDCA608];
+  v20 = 18;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Switch_Mode_Req::Switch_Mode_Req();
     if (*(a1 + 292) == 2)
     {
-      v9 = 2;
+      v3 = 2;
     }
 
     else
     {
-      v9 = 1;
+      v3 = 1;
     }
 
-    v28[10] = v9;
-    v10 = operator new(1uLL);
-    *v10 = 1;
-    v11 = __p;
-    __p = v10;
-    if (v11)
+    v18[10] = v3;
+    v4 = operator new(1uLL);
+    *v4 = 1;
+    v5 = __p;
+    __p = v4;
+    if (v5)
     {
-      operator delete(v11);
+      operator delete(v5);
     }
 
-    v12 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    v6 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v6, v7) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v16 = __p;
+      v8 = __p;
       if (__p)
       {
-        stringifyVal(*__p, &v26);
+        stringifyVal(*__p, v16);
+        v9 = v17 >= 0 ? v16 : v16[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Switch_Mode_Req sent: Msg=0x%x fTlv_Is_Reset_Req = %s\n", v13, v14, v15, 4);
-      if (v16 && v27 < 0)
+      else
       {
-        operator delete(v26);
+        v9 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Switch_Mode_Req sent: Msg=0x%x fTlv_Is_Reset_Req = %s\n", 62468, v9);
+      if (v8)
+      {
+        if (v17 < 0)
+        {
+          operator delete(v16[0]);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Switch_Mode_Req>(v28, (a1 + 328), v31);
-    v17 = abb::router::SendProxy::timeout();
-    if (v12)
+    abb::router::Client::send<mipc::dale_vinyl::Switch_Mode_Req>(v21, v18, (a1 + 328));
+    v10 = abb::router::SendProxy::timeout();
+    if (v6)
     {
-      dispatch_retain(v12);
+      dispatch_retain(v6);
     }
 
-    v18 = operator new(0x20uLL);
-    *v18 = &unk_2A20321B8;
-    v18[1] = a1;
-    v18[2] = &v30;
-    v18[3] = v12;
-    v32[3] = v18;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v32, (v17 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v32);
-    MEMORY[0x29C2B81A0](v31);
-    v19 = dispatch_time(0, 11500000000);
-    if (dispatch_semaphore_wait(v12, v19))
+    v11 = operator new(0x20uLL);
+    *v11 = &unk_2A20321B8;
+    v11[1] = a1;
+    v11[2] = &v20;
+    v11[3] = v6;
+    v22[3] = v11;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v22, (v10 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v22);
+    MEMORY[0x29C2B81A0](v21);
+    v12 = dispatch_time(0, 11500000000);
+    v13 = dispatch_semaphore_wait(v6, v12);
+    if (v13)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Switch Mode Req.\n", v20, v21, v22, v25);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Switch Mode Req.\n");
     }
 
-    if (v12)
+    if (v6)
     {
-      dispatch_release(v12);
+      dispatch_release(v6);
     }
 
-    mipc::dale_vinyl::Switch_Mode_Req::~Switch_Mode_Req(v28);
-    result = v30;
+    mipc::dale_vinyl::Switch_Mode_Req::~Switch_Mode_Req(v18);
+    return v20;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::SetCardMode(a1, a2, a3, a4, a5, a6, a7, a8, v25);
-    result = 18;
+    eUICC::eUICCVinylDALValve::SetCardMode(a1, a2);
+    return 18;
   }
-
-  v24 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBC308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+{
+  v2 = gBBULogMaskGet(a1, a2);
+  if ((*v2 & 2) != 0 && gBBULogVerbosity >= 6)
+  {
+    v2 = OUTLINED_FUNCTION_0_0(v2, v3, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n");
+  }
+
+  gBBULogMaskGet(v2, v3);
+  v4 = OUTLINED_FUNCTION_2();
+
+  return _BBULog(v4, v5, v6, v7, v8);
+}
+
+void sub_299FBC308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
 {
   if (v30)
   {
@@ -2056,7 +2160,7 @@ void sub_299FBC308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Switch_Mode_Req>@<X0>(mipc::dale_vinyl::Switch_Mode_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Switch_Mode_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Switch_Mode_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Switch_Mode_Req::serialize(v8, this);
   if (v9)
@@ -2068,157 +2172,183 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Switch_Mode_Req>@<X0>(mipc:
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::ResetCard(eUICC::eUICCVinylDALValve *this)
+uint64_t eUICC::eUICCVinylDALValve::ResetCard(eUICC::eUICCVinylDALValve *this, uint64_t a2)
 {
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "eUICCVinylDALValve::ResetCard not supported\n", v1, v2, v3, vars0);
+  gBBULogMaskGet(this, a2);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "eUICCVinylDALValve::ResetCard not supported\n");
   return 9;
 }
 
-uint64_t eUICC::eUICCVinylDALValve::DeleteProfile(eUICC::eUICCVinylDALValve *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::DeleteProfile(eUICC::eUICCVinylDALValve *this, uint64_t a2)
 {
-  v49[4] = *MEMORY[0x29EDCA608];
-  v45 = 18;
+  v40[4] = *MEMORY[0x29EDCA608];
+  v36 = 18;
   if (*(this + 352))
   {
-    v8 = a2;
-    v44[0] = 0xBFD00402820434BFLL;
-    *(v44 + 6) = 0xD80302820434BFD0;
+    v2 = a2;
+    v35[0] = 0xBFD00402820434BFLL;
+    *(v35 + 6) = 0xD80302820434BFD0;
     mipc::dale_vinyl::Cmd_Req::Cmd_Req();
     if (*(this + 73) == 2)
     {
-      v10 = 2;
+      v4 = 2;
     }
 
     else
     {
-      v10 = 1;
+      v4 = 1;
     }
 
-    v38[10] = v10;
-    v11 = operator new(4uLL);
-    *v11 = 16;
-    v12 = __p;
-    __p = v11;
+    v29[10] = v4;
+    v5 = operator new(4uLL);
+    *v5 = 16;
+    v6 = __p;
+    __p = v5;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+
+    v7 = operator new(1uLL);
+    *v7 = 1;
+    v8 = v31;
+    v31 = v7;
+    if (v8)
+    {
+      operator delete(v8);
+    }
+
+    v9 = operator new(2uLL);
+    *v9 = 1;
+    v10 = v32;
+    v32 = v9;
+    if (v10)
+    {
+      operator delete(v10);
+    }
+
+    v11 = operator new(2uLL);
+    *v11 = 0;
+    v12 = v33;
+    v33 = v11;
     if (v12)
     {
       operator delete(v12);
     }
 
-    v13 = operator new(1uLL);
-    *v13 = 1;
-    v14 = v40;
-    v40 = v13;
-    if (v14)
+    v13 = &v35[v2] - v2;
+    v37 = 0;
+    v38 = 0;
+    v39 = 0;
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v37, v13, (v13 + 7), 7uLL);
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v34, &v37);
+    if (v37)
     {
-      operator delete(v14);
+      v38 = v37;
+      operator delete(v37);
     }
 
-    v15 = operator new(2uLL);
-    *v15 = 1;
-    v16 = v41;
-    v41 = v15;
-    if (v16)
+    v14 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v14, v15) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      operator delete(v16);
-    }
-
-    v17 = operator new(2uLL);
-    *v17 = 0;
-    v18 = v42;
-    v42 = v17;
-    if (v18)
-    {
-      operator delete(v18);
-    }
-
-    v19 = &v44[v8] - v8;
-    v46 = 0;
-    v47 = 0;
-    v48 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v46, v19, (v19 + 7), 7uLL);
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v43, &v46);
-    if (v46)
-    {
-      v47 = v46;
-      operator delete(v46);
-    }
-
-    v20 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
-    {
-      v24 = __p;
+      v16 = __p;
       if (__p)
       {
-        stringifyVal(*__p, &v36);
+        stringifyVal(*__p, v27);
+        if (v28 >= 0)
+        {
+          v17 = v27;
+        }
+
+        else
+        {
+          v17 = v27[0];
+        }
       }
 
-      v25 = v43;
-      if (v43)
+      else
       {
-        stringifyDataBuffer(*v43, v43[1] - *v43, &v35);
+        v17 = "NULL";
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Delete Profile Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Payload = %s\n", v21, v22, v23, 1);
-      if (v25 && SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+      v18 = v34;
+      if (v34)
       {
-        operator delete(v35.__r_.__value_.__l.__data_);
+        stringifyDataBuffer(*v34, v34[1] - *v34, &v26);
+        if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v19 = &v26;
+        }
+
+        else
+        {
+          v19 = v26.__r_.__value_.__r.__words[0];
+        }
       }
 
-      if (v24 && v37 < 0)
+      else
       {
-        operator delete(v36);
+        v19 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Delete Profile Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Payload = %s\n", 62465, v17, v19);
+      if (v18 && SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v26.__r_.__value_.__l.__data_);
+      }
+
+      if (v16 && v28 < 0)
+      {
+        operator delete(v27[0]);
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>(v38, (this + 328), &v46);
-    v26 = abb::router::SendProxy::timeout();
-    if (v20)
+    abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>(&v37, v29, (this + 328));
+    v20 = abb::router::SendProxy::timeout();
+    if (v14)
     {
-      dispatch_retain(v20);
+      dispatch_retain(v14);
     }
 
-    v27 = operator new(0x20uLL);
-    *v27 = &unk_2A2032238;
-    v27[1] = this;
-    v27[2] = &v45;
-    v27[3] = v20;
-    v49[3] = v27;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v49, (v26 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v49);
-    MEMORY[0x29C2B81A0](&v46);
-    v28 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v20, v28))
+    v21 = operator new(0x20uLL);
+    *v21 = &unk_2A2032238;
+    v21[1] = this;
+    v21[2] = &v36;
+    v21[3] = v14;
+    v40[3] = v21;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v40, (v20 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v40);
+    MEMORY[0x29C2B81A0](&v37);
+    v22 = dispatch_time(0, 7500000000);
+    v23 = dispatch_semaphore_wait(v14, v22);
+    if (v23)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Cmd Req Delete Profile.\n", v29, v30, v31, v34);
+      gBBULogMaskGet(v23, v24);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Cmd Req Delete Profile.\n");
     }
 
-    if (v20)
+    if (v14)
     {
-      dispatch_release(v20);
+      dispatch_release(v14);
     }
 
-    MEMORY[0x29C2B8650](v38);
-    result = v45;
+    MEMORY[0x29C2B8650](v29);
+    return v36;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::DeleteProfile(this, a2, a3, a4, a5, a6, a7, a8, v34);
-    result = 18;
+    eUICC::eUICCVinylDALValve::DeleteProfile(this, a2);
+    return 18;
   }
-
-  v33 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBC81C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
+void sub_299FBC81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44)
 {
   if (v45 && a23 < 0)
   {
@@ -2230,7 +2360,7 @@ void sub_299FBC81C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(v44);
   }
 
-  MEMORY[0x29C2B8650](&a24);
+  MEMORY[0x29C2B8650](&a24, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -2252,7 +2382,7 @@ void ***mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::ve
   return a1;
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>@<X0>(mipc::dale_vinyl::Cmd_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Cmd_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Cmd_Req::serialize(v8, this);
   if (v9)
@@ -2264,151 +2394,177 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>@<X0>(mipc::dale_vi
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::StoreData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::StoreData(uint64_t a1, char **a2, uint64_t a3, uint64_t a4)
 {
-  v52[4] = *MEMORY[0x29EDCA608];
-  v48 = 18;
+  v45[4] = *MEMORY[0x29EDCA608];
+  v41 = 18;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Cmd_Req::Cmd_Req();
     if (*(a1 + 292) == 2)
     {
-      v12 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v12 = 1;
+      v8 = 1;
     }
 
-    v42[10] = v12;
-    v13 = operator new(4uLL);
-    *v13 = 5;
-    v14 = __p;
-    __p = v13;
+    v35[10] = v8;
+    v9 = operator new(4uLL);
+    *v9 = 5;
+    v10 = __p;
+    __p = v9;
+    if (v10)
+    {
+      operator delete(v10);
+    }
+
+    v11 = operator new(1uLL);
+    *v11 = 1;
+    v12 = v37;
+    v37 = v11;
+    if (v12)
+    {
+      operator delete(v12);
+    }
+
+    v13 = operator new(2uLL);
+    *v13 = 1;
+    v14 = v38;
+    v38 = v13;
     if (v14)
     {
       operator delete(v14);
     }
 
-    v15 = operator new(1uLL);
-    *v15 = 1;
-    v16 = v44;
-    v44 = v15;
+    v15 = operator new(2uLL);
+    *v15 = 0;
+    v16 = v39;
+    v39 = v15;
     if (v16)
     {
       operator delete(v16);
     }
 
-    v17 = operator new(2uLL);
-    *v17 = 1;
-    v18 = v45;
-    v45 = v17;
-    if (v18)
+    v17 = *a2;
+    v18 = a2[1];
+    v19 = v18 - *a2;
+    v43 = 0;
+    v44 = 0;
+    v42 = 0;
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v42, v17, v18, v19);
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v40, &v42);
+    if (v42)
     {
-      operator delete(v18);
+      v43 = v42;
+      operator delete(v42);
     }
 
-    v19 = operator new(2uLL);
-    *v19 = 0;
-    v20 = v46;
-    v46 = v19;
-    if (v20)
+    v20 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v20, v21) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      operator delete(v20);
-    }
-
-    v21 = *a2;
-    v22 = a2[1];
-    v23 = &v22[-*a2];
-    v50 = 0;
-    v51 = 0;
-    v49 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v49, v21, v22, v23);
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v47, &v49);
-    if (v49)
-    {
-      v50 = v49;
-      operator delete(v49);
-    }
-
-    v24 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
-    {
-      v28 = __p;
+      v22 = __p;
       if (__p)
       {
-        stringifyVal(*__p, &v40);
+        stringifyVal(*__p, v33);
+        if (v34 >= 0)
+        {
+          v23 = v33;
+        }
+
+        else
+        {
+          v23 = v33[0];
+        }
       }
 
-      v29 = v47;
-      if (v47)
+      else
       {
-        stringifyDataBuffer(*v47, v47[1] - *v47, &v39);
+        v23 = "NULL";
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Store data Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Payload = %s\n", v25, v26, v27, 1);
-      if (v29 && SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+      v24 = v40;
+      if (v40)
       {
-        operator delete(v39.__r_.__value_.__l.__data_);
+        stringifyDataBuffer(*v40, v40[1] - *v40, &v32);
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v25 = &v32;
+        }
+
+        else
+        {
+          v25 = v32.__r_.__value_.__r.__words[0];
+        }
       }
 
-      if (v28 && v41 < 0)
+      else
       {
-        operator delete(v40);
+        v25 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Store data Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Payload = %s\n", 62465, v23, v25);
+      if (v24 && SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v32.__r_.__value_.__l.__data_);
+      }
+
+      if (v22 && v34 < 0)
+      {
+        operator delete(v33[0]);
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>(v42, (a1 + 328), &v49);
-    v30 = abb::router::SendProxy::timeout();
-    if (v24)
+    abb::router::Client::send<mipc::dale_vinyl::Cmd_Req>(&v42, v35, (a1 + 328));
+    v26 = abb::router::SendProxy::timeout();
+    if (v20)
     {
-      dispatch_retain(v24);
+      dispatch_retain(v20);
     }
 
-    v31 = operator new(0x30uLL);
-    *v31 = &unk_2A20322B8;
-    v31[1] = a1;
-    v31[2] = a3;
-    v31[3] = &v48;
-    v31[4] = a4;
-    v31[5] = v24;
-    v52[3] = v31;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v52, (v30 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v52);
-    MEMORY[0x29C2B81A0](&v49);
-    v32 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v24, v32))
+    v27 = operator new(0x30uLL);
+    *v27 = &unk_2A20322B8;
+    v27[1] = a1;
+    v27[2] = a3;
+    v27[3] = &v41;
+    v27[4] = a4;
+    v27[5] = v20;
+    v45[3] = v27;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v45, (v26 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v45);
+    MEMORY[0x29C2B81A0](&v42);
+    v28 = dispatch_time(0, 7500000000);
+    v29 = dispatch_semaphore_wait(v20, v28);
+    if (v29)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indications on Cmd Req store data.\n", v33, v34, v35, v38);
+      gBBULogMaskGet(v29, v30);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indications on Cmd Req store data.\n");
     }
 
-    if (v24)
+    if (v20)
     {
-      dispatch_release(v24);
+      dispatch_release(v20);
     }
 
-    MEMORY[0x29C2B8650](v42);
-    result = v48;
+    MEMORY[0x29C2B8650](v35);
+    return v41;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::StoreData(a1, a2, a3, a4, a5, a6, a7, a8, v38);
-    result = 18;
+    eUICC::eUICCVinylDALValve::StoreData(a1, a2);
+    return 18;
   }
-
-  v37 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBCD80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42)
+void sub_299FBCD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42)
 {
   if (v43 && a23 < 0)
   {
@@ -2420,55 +2576,52 @@ void sub_299FBCD80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     dispatch_release(v42);
   }
 
-  MEMORY[0x29C2B8650](&a24);
+  MEMORY[0x29C2B8650](&a24, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 uint64_t eUICC::eUICCVinylDALValve::InstallTicket(_DWORD *a1, CFDataRef *a2)
 {
-  v57[4] = *MEMORY[0x29EDCA608];
-  v55 = 1;
+  v38[4] = *MEMORY[0x29EDCA608];
+  v36 = 1;
   BytePtr = CFDataGetBytePtr(*a2);
   Length = CFDataGetLength(*a2);
   if (!*a2)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v17, v18, v19, "installTicket");
-    goto LABEL_6;
+    gBBULogMaskGet(Length, v6);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", "installTicket");
+    return 2;
   }
 
   if ((a1[88] & 1) == 0)
   {
-    eUICC::eUICCVinylDALValve::InstallTicket(Length, v6, v7, v8, v9, v10, v11, v12, v45);
-    goto LABEL_13;
+    eUICC::eUICCVinylDALValve::InstallTicket(Length, v6);
+    return 1;
   }
 
-  v13 = Length;
-  gBBULogMaskGet();
-  if (v13 >= 3585)
+  v7 = Length;
+  gBBULogMaskGet(Length, v6);
+  if (v7 >= 3585)
   {
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Ticket provided is larger than spec. [ %ld (lenth) > %d (spec max) ] \n", v14, v15, v16, v13);
-LABEL_6:
-    v20 = 2;
-    goto LABEL_7;
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Ticket provided is larger than spec. [ %ld (lenth) > %d (spec max) ] \n");
+    return 2;
   }
 
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "eUICCVinylDALValve::InstallTicket\n", v14, v15, v16, v45);
+  _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "eUICCVinylDALValve::InstallTicket\n");
   (*(*a1 + 8))(__src, a1);
   memcpy(a1 + 2, __src, 0x11BuLL);
-  if (a1[2] != TelephonyRadiosGetRadioVendor() - 5 < 0xFFFFFFFD)
+  RadioVendor = TelephonyRadiosGetRadioVendor();
+  if (a1[2] != (RadioVendor - 5) < 0xFFFFFFFD)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v26, v27, v28, "outData.Valid()");
-LABEL_13:
-    v20 = 1;
-    goto LABEL_7;
+    gBBULogMaskGet(RadioVendor, v11);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", "outData.Valid()", "", "", 581);
+    return 1;
   }
 
-  if (*(a1 + 31) && (v20 = (*(*a1 + 16))(a1, 0, 0), (v55 = v20) != 0))
+  if (*(a1 + 31) && (v12 = (*(*a1 + 16))(a1, 0, 0), v8 = v12, (v36 = v12) != 0))
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v23, v24, v25, "kBBUReturnSuccess == ret");
+    gBBULogMaskGet(v12, v13);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", "kBBUReturnSuccess == ret", "", "", 587);
   }
 
   else
@@ -2476,106 +2629,114 @@ LABEL_13:
     mipc::dale_vinyl::Install_Vad_Req::Install_Vad_Req();
     if (a1[73] == 2)
     {
-      v29 = 2;
+      v14 = 2;
     }
 
     else
     {
-      v29 = 1;
+      v14 = 1;
     }
 
-    v51[10] = v29;
-    v48 = 0;
-    v49 = 0;
-    v50 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v48, BytePtr, &BytePtr[v13], v13);
+    v32[10] = v14;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(&v29, BytePtr, &BytePtr[v7], v7);
     memset(__src, 0, 24);
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__src, v48, v49, v49 - v48);
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v54, __src);
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char *>,std::__wrap_iter<unsigned char *>>(__src, v29, v30, v30 - v29);
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v35, __src);
     if (__src[0])
     {
       __src[1] = __src[0];
       operator delete(__src[0]);
     }
 
-    v30 = operator new(2uLL);
-    *v30 = 1;
-    v31 = __p;
-    __p = v30;
-    if (v31)
+    v15 = operator new(2uLL);
+    *v15 = 1;
+    v16 = __p;
+    __p = v15;
+    if (v16)
     {
-      operator delete(v31);
+      operator delete(v16);
     }
 
-    v32 = operator new(2uLL);
-    *v32 = 0;
-    v33 = v53;
-    v53 = v32;
-    if (v33)
+    v17 = operator new(2uLL);
+    *v17 = 0;
+    v18 = v34;
+    v34 = v17;
+    if (v18)
     {
-      operator delete(v33);
+      operator delete(v18);
     }
 
-    v34 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    v19 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v19, v20) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v38 = v54;
-      if (v54)
+      v21 = v35;
+      if (v35)
       {
-        stringifyDataBuffer(*v54, v54[1] - *v54, &v47);
+        stringifyDataBuffer(*v35, v35[1] - *v35, &v28);
+        v22 = (v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v28 : v28.__r_.__value_.__r.__words[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Vad_Req sent: Msg=0x%x fTlv_Payload = %s\n", v35, v36, v37, 5);
-      if (v38 && SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v47.__r_.__value_.__l.__data_);
+        v22 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Vad_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62469, v22);
+      if (v21)
+      {
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v28.__r_.__value_.__l.__data_);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Install_Vad_Req>(v51, (a1 + 82), __src);
-    v39 = abb::router::SendProxy::timeout();
-    if (v34)
+    abb::router::Client::send<mipc::dale_vinyl::Install_Vad_Req>(__src, v32, (a1 + 82));
+    v23 = abb::router::SendProxy::timeout();
+    if (v19)
     {
-      dispatch_retain(v34);
+      dispatch_retain(v19);
     }
 
-    v40 = operator new(0x20uLL);
-    *v40 = &unk_2A2032338;
-    v40[1] = a1;
-    v40[2] = &v55;
-    v40[3] = v34;
-    v57[3] = v40;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v57, (v39 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v57);
+    v24 = operator new(0x20uLL);
+    *v24 = &unk_2A2032338;
+    v24[1] = a1;
+    v24[2] = &v36;
+    v24[3] = v19;
+    v38[3] = v24;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v38, (v23 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v38);
     MEMORY[0x29C2B81A0](__src);
-    v41 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v34, v41))
+    v25 = dispatch_time(0, 7500000000);
+    v26 = dispatch_semaphore_wait(v19, v25);
+    if (v26)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on install vad req.\n", v42, v43, v44, v46);
+      gBBULogMaskGet(v26, v27);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on install vad req.\n");
     }
 
-    if (v34)
+    if (v19)
     {
-      dispatch_release(v34);
+      dispatch_release(v19);
     }
 
-    if (v48)
+    if (v29)
     {
-      v49 = v48;
-      operator delete(v48);
+      v30 = v29;
+      operator delete(v29);
     }
 
-    mipc::dale_vinyl::Install_Vad_Req::~Install_Vad_Req(v51);
-    v20 = v55;
+    mipc::dale_vinyl::Install_Vad_Req::~Install_Vad_Req(v32);
+    return v36;
   }
 
-LABEL_7:
-  v21 = *MEMORY[0x29EDCA608];
-  return v20;
+  return v8;
 }
 
-void sub_299FBD2E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
+void sub_299FBD2E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
 {
   if (v38)
   {
@@ -2591,7 +2752,7 @@ void sub_299FBD2E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Install_Vad_Req>@<X0>(mipc::dale_vinyl::Install_Vad_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Install_Vad_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Install_Vad_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Install_Vad_Req::serialize(v8, this);
   if (v9)
@@ -2603,265 +2764,276 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Install_Vad_Req>@<X0>(mipc:
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
 uint64_t eUICC::eUICCVinylDALValve::StreamFirmware(eUICC::eUICCVinylDALValve *this, __CFData *a2)
 {
-  v87[4] = *MEMORY[0x29EDCA608];
-  v85 = 18;
-  VinylFirmware::getFirmwareAPDUs(a2, &v83);
-  v4 = v83;
-  v3 = v84;
-  mipc::dale_vinyl::Install_Fw_Req::Install_Fw_Req();
-  v75 = 0;
-  v76 = 0;
-  v77 = 0;
+  v70[4] = *MEMORY[0x29EDCA608];
+  v68 = 18;
+  VinylFirmware::getFirmwareAPDUs(a2, &v66);
+  v4 = v66;
+  v3 = v67;
+  v5 = mipc::dale_vinyl::Install_Fw_Req::Install_Fw_Req();
+  v58 = 0;
+  v59 = 0;
+  v60 = 0;
   if (*(this + 352))
   {
-    (*(*this + 8))(v86, this);
-    memcpy(this + 8, v86, 0x11BuLL);
+    (*(*this + 8))(v69, this);
+    memcpy(this + 8, v69, 0x11BuLL);
     RadioVendor = TelephonyRadiosGetRadioVendor();
     if (*(this + 2) != (RadioVendor - 5) < 0xFFFFFFFD)
     {
-      gBBULogMaskGet();
-      v9 = "outData.Valid()";
+      gBBULogMaskGet(RadioVendor, v8);
+      v9 = 658;
+      v10 = "outData.Valid()";
       goto LABEL_7;
     }
 
     if (*(this + 31) != 1)
     {
       RadioVendor = (*(*this + 16))(this, 1, 0);
-      v85 = RadioVendor;
+      v68 = RadioVendor;
       if (RadioVendor)
       {
-        gBBULogMaskGet();
-        v9 = "kBBUReturnSuccess == ret";
+        gBBULogMaskGet(RadioVendor, v8);
+        v9 = 664;
+        v10 = "kBBUReturnSuccess == ret";
 LABEL_7:
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v6, v7, v8, v9);
-        goto LABEL_53;
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v10, "", "", v9);
+        goto LABEL_56;
       }
     }
 
-    v10 = (v3 - v4) >> 5;
-    v11 = *(this + 304);
-    v71 = v10;
-    if (v10 % v11)
+    v11 = (v3 - v4) >> 5;
+    v12 = *(this + 304);
+    v54 = v11;
+    if (v11 % v12)
     {
-      v12 = v10 / v11 + 1;
+      v13 = v11 / v12 + 1;
     }
 
     else
     {
-      v12 = v10 / v11;
+      v13 = v11 / v12;
     }
 
-    if (v12)
+    if (v13)
     {
-      v72 = 0;
-      v73 = 0;
-      v13 = 0;
+      v55 = 0;
+      v56 = 0;
+      v14 = 0;
       if (*(this + 73) == 2)
       {
-        v14 = 2;
+        v15 = 2;
       }
 
       else
       {
-        v14 = 1;
+        v15 = 1;
       }
 
-      v78[10] = v14;
-      v70[0] = v12;
+      v61[10] = v15;
+      v53[0] = v13;
       while (1)
       {
-        v70[1] = v70;
-        v15 = *(this + 304);
-        v16 = v71 - v13 * v15 >= v15 ? *(this + 304) : v71 - v13 * v15;
+        v53[1] = v53;
+        v16 = *(this + 304);
+        v17 = v54 - v14 * v16 >= v16 ? *(this + 304) : v54 - v14 * v16;
         MEMORY[0x2A1C7C4A8](RadioVendor);
-        v18 = v70 - v17;
-        bzero(v70 - v17, v19);
-        v20 = v18;
-        if (v16)
+        v19 = v53 - v18;
+        bzero(v53 - v18, v20);
+        v23 = v19;
+        if (v17)
         {
           break;
         }
 
 LABEL_26:
-        v27 = v13 + 1;
-        v28 = v70[0];
-        if (!v13 || v70[0] == v27)
+        v30 = v14 + 1;
+        v31 = v53[0];
+        if (!v14 || v53[0] == v30)
         {
-          gBBULogMaskGet();
-          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "StreamFirmware set %d/%zu adpusThisSet %zu\n", v29, v30, v31, v13 + 1);
+          gBBULogMaskGet(v21, v22);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "StreamFirmware set %d/%zu adpusThisSet %zu\n", v14 + 1, v31, v17);
         }
 
         v32 = operator new(2uLL);
-        *v32 = v28;
-        v33 = v79;
-        v79 = v32;
+        *v32 = v31;
+        v33 = v62;
+        v62 = v32;
         if (v33)
         {
           operator delete(v33);
         }
 
         v34 = operator new(2uLL);
-        *v34 = v13;
-        v35 = v80;
-        v80 = v34;
+        *v34 = v14;
+        v35 = v63;
+        v63 = v34;
         if (v35)
         {
           operator delete(v35);
         }
 
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v75, v18, v20, v20 - v18);
-        mipc::tlv<mipc::mipc_byte_array_t<3930ul,false>,true>::operator=<std::vector<unsigned char> &>(&v82, &v75);
+        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v58, v19, v23, v23 - v19);
+        mipc::tlv<mipc::mipc_byte_array_t<3930ul,false>,true>::operator=<std::vector<unsigned char> &>(&v65, &v58);
         v36 = operator new(2uLL);
-        *v36 = v16;
-        v37 = v81;
-        v81 = v36;
+        *v36 = v17;
+        v37 = v64;
+        v64 = v36;
         if (v37)
         {
           operator delete(v37);
         }
 
         v38 = dispatch_semaphore_create(0);
-        if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+        if ((*(gBBULogMaskGet(v38, v39) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
         {
-          v42 = v82;
-          if (v82)
+          v40 = v65;
+          if (v65)
           {
-            stringifyDataBuffer(*v82, v82[1] - *v82, &v74);
+            stringifyDataBuffer(*v65, v65[1] - *v65, &v57);
+            v41 = &v57;
+            if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            {
+              v41 = v57.__r_.__value_.__r.__words[0];
+            }
           }
 
-          _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Fw_Req sent: Msg=0x%x fTlv_Payload = %s\n", v39, v40, v41, 6);
-          if (v42 && SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+          else
           {
-            operator delete(v74.__r_.__value_.__l.__data_);
+            v41 = "NULL";
+          }
+
+          _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Fw_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62470, v41);
+          if (v40 && SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v57.__r_.__value_.__l.__data_);
           }
         }
 
-        abb::router::Client::send<mipc::dale_vinyl::Install_Fw_Req>(v78, (this + 328), v86);
-        v43 = abb::router::SendProxy::timeout();
+        abb::router::Client::send<mipc::dale_vinyl::Install_Fw_Req>(v69, v61, (this + 328));
+        v42 = abb::router::SendProxy::timeout();
         if (v38)
         {
           dispatch_retain(v38);
         }
 
-        v44 = operator new(0x20uLL);
-        *v44 = &unk_2A20323B8;
-        v44[1] = this;
-        v44[2] = &v85;
-        v44[3] = v38;
-        v87[3] = v44;
-        std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v87, (v43 + 152));
-        std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v87);
-        MEMORY[0x29C2B81A0](v86);
-        v45 = dispatch_time(0, 7500000000);
-        RadioVendor = dispatch_semaphore_wait(v38, v45);
+        v43 = operator new(0x20uLL);
+        *v43 = &unk_2A20323B8;
+        v43[1] = this;
+        v43[2] = &v68;
+        v43[3] = v38;
+        v70[3] = v43;
+        std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v70, (v42 + 152));
+        std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v70);
+        MEMORY[0x29C2B81A0](v69);
+        v44 = dispatch_time(0, 7500000000);
+        RadioVendor = dispatch_semaphore_wait(v38, v44);
         if (RadioVendor)
         {
-          gBBULogMaskGet();
-          RadioVendor = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on install fw req.\n", v46, v47, v48, v70[0]);
+          gBBULogMaskGet(RadioVendor, v45);
+          RadioVendor = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on install fw req.\n");
         }
 
-        v49 = v85;
+        v46 = v68;
         if (v38)
         {
           dispatch_release(v38);
         }
 
-        if (!v49)
+        if (!v46)
         {
-          --v72;
-          v73 += 32;
-          ++v13;
-          if (v28 > v27)
+          --v55;
+          v56 += 32;
+          ++v14;
+          if (v31 > v30)
           {
             continue;
           }
         }
 
-        goto LABEL_53;
+        goto LABEL_56;
       }
 
-      v21 = &v83[v73 * *(this + 304) + 24];
-      if (v71 + v72 * v15 < v15)
+      v24 = &v66[v56 * *(this + 304) + 24];
+      if (v54 + v55 * v16 < v16)
       {
-        v15 = v71 + v72 * v15;
+        v16 = v54 + v55 * v16;
       }
 
-      v20 = v18;
+      v23 = v19;
       while (1)
       {
-        v22 = *(v21 - 2);
-        if (v22 > 5 || *v21 >= 0x100)
+        v25 = *(v24 - 2);
+        if (v25 > 5 || *v24 >= 0x100)
         {
           break;
         }
 
-        v23 = &v20[v22 + *v21];
-        *v20 = v22;
-        memcpy(v20 + 1, *(v21 - 3), *(v21 - 2));
-        v20[*(v21 - 2) + 1] = *v21;
-        v24 = *(v21 - 1);
-        v25 = &v20[*(v21 - 2)];
-        v26 = *v21;
-        v21 += 4;
-        memcpy(v25 + 2, v24, v26);
-        v20 = v23 + 2;
-        if (!--v15)
+        v26 = &v23[v25 + *v24];
+        *v23 = v25;
+        memcpy(v23 + 1, *(v24 - 3), *(v24 - 2));
+        v23[*(v24 - 2) + 1] = *v24;
+        v27 = *(v24 - 1);
+        v28 = &v23[*(v24 - 2)];
+        v29 = *v24;
+        v24 += 4;
+        v21 = memcpy(v28 + 2, v27, v29);
+        v23 = v26 + 2;
+        if (!--v16)
         {
           goto LABEL_26;
         }
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v50, v51, v52, "f.header.length <= 5 && f.data.length <= 255");
-      gBBULogMaskGet();
-      v69 = *v21;
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Firmware APDU not within expected bounds : received (header - 5 : %zu data- 255 : %zu\n", v53, v54, v55, *(v21 - 2));
+      gBBULogMaskGet(v21, v22);
+      v47 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", "f.header.length <= 5 && f.data.length <= 255", "", "", 690);
+      gBBULogMaskGet(v47, v48);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Firmware APDU not within expected bounds : received (header - 5 : %zu data- 255 : %zu\n", *(v24 - 2), *v24);
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", v56, v57, v58, "apduSetCount");
-      v85 = 15;
+      gBBULogMaskGet(RadioVendor, v8);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Condition <<%s>> failed %s %s/%d\n", "apduSetCount", "", "", 668);
+      v68 = 15;
     }
   }
 
   else
   {
-    v62 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v62))
+    gBBULogMaskGet(v5, v6);
+    Transport = VinylDaleCommunication::createTransport();
+    if (Transport)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v63, v64, v65, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 651, "mipc_client_started");
     }
 
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "No transport available.. bail out\n", v66, v67, v68, v70[0]);
+    gBBULogMaskGet(Transport, v52);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "No transport available.. bail out\n");
   }
 
-LABEL_53:
-  v59 = v85;
-  if (v75)
+LABEL_56:
+  v49 = v68;
+  if (v58)
   {
-    v76 = v75;
-    operator delete(v75);
+    v59 = v58;
+    operator delete(v58);
   }
 
-  MEMORY[0x29C2B8440](v78);
-  if (v83)
+  MEMORY[0x29C2B8440](v61);
+  if (v66)
   {
-    v84 = v83;
-    operator delete(v83);
+    v67 = v66;
+    operator delete(v66);
   }
 
-  v60 = *MEMORY[0x29EDCA608];
-  return v59;
+  return v49;
 }
 
 void sub_299FBDB70(_Unwind_Exception *a1)
@@ -2906,7 +3078,7 @@ void ***mipc::tlv<mipc::mipc_byte_array_t<3930ul,false>,true>::operator=<std::ve
   return a1;
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Install_Fw_Req>@<X0>(mipc::dale_vinyl::Install_Fw_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Install_Fw_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Install_Fw_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Install_Fw_Req::serialize(v8, this);
   if (v9)
@@ -2918,108 +3090,115 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Install_Fw_Req>@<X0>(mipc::
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::InitPerso(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::InitPerso(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v37[4] = *MEMORY[0x29EDCA608];
-  v35 = 1;
+  v28[4] = *MEMORY[0x29EDCA608];
+  v26 = 1;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Init_Perso_Req::Init_Perso_Req();
     if (*(a1 + 292) == 2)
     {
-      v11 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v11 = 1;
+      v6 = 1;
     }
 
-    v31[10] = v11;
-    v12 = operator new(1uLL);
-    *v12 = 0;
-    v13 = __p;
-    __p = v12;
-    if (v13)
+    v22[10] = v6;
+    v7 = operator new(1uLL);
+    *v7 = 0;
+    v8 = __p;
+    __p = v7;
+    if (v8)
     {
-      operator delete(v13);
+      operator delete(v8);
     }
 
-    v14 = operator new(1uLL);
-    *v14 = 0;
-    v15 = v33;
-    v33 = v14;
-    if (v15)
+    v9 = operator new(1uLL);
+    *v9 = 0;
+    v10 = v24;
+    v24 = v9;
+    if (v10)
     {
-      operator delete(v15);
+      operator delete(v10);
     }
 
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v34, a2);
-    v16 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v25, a2);
+    v11 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v11, v12) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v20 = v34;
-      if (v34)
+      v13 = v25;
+      if (v25)
       {
-        stringifyDataBuffer(*v34, v34[1] - *v34, &v30);
+        stringifyDataBuffer(*v25, *(v25 + 8) - *v25, &v21);
+        v14 = (v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v21 : v21.__r_.__value_.__r.__words[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Init_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", v17, v18, v19, 7);
-      if (v20 && SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        v14 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Init_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62471, v14);
+      if (v13)
+      {
+        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v21.__r_.__value_.__l.__data_);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Init_Perso_Req>(v31, (a1 + 328), v36);
-    v21 = abb::router::SendProxy::timeout();
-    if (v16)
+    abb::router::Client::send<mipc::dale_vinyl::Init_Perso_Req>(v27, v22, (a1 + 328));
+    v15 = abb::router::SendProxy::timeout();
+    if (v11)
     {
-      dispatch_retain(v16);
+      dispatch_retain(v11);
     }
 
-    v22 = operator new(0x28uLL);
-    *v22 = &unk_2A2032438;
-    v22[1] = a1;
-    v22[2] = a3;
-    v22[3] = &v35;
-    v22[4] = v16;
-    v37[3] = v22;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v37, (v21 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v37);
-    MEMORY[0x29C2B81A0](v36);
-    v23 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v16, v23))
+    v16 = operator new(0x28uLL);
+    *v16 = &unk_2A2032438;
+    v16[1] = a1;
+    v16[2] = a3;
+    v16[3] = &v26;
+    v16[4] = v11;
+    v28[3] = v16;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v28, (v15 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v28);
+    MEMORY[0x29C2B81A0](v27);
+    v17 = dispatch_time(0, 7500000000);
+    v18 = dispatch_semaphore_wait(v11, v17);
+    if (v18)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Init Perso Req.\n", v24, v25, v26, v29);
+      gBBULogMaskGet(v18, v19);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Init Perso Req.\n");
     }
 
-    if (v16)
+    if (v11)
     {
-      dispatch_release(v16);
+      dispatch_release(v11);
     }
 
-    mipc::dale_vinyl::Init_Perso_Req::~Init_Perso_Req(v31);
-    result = v35;
+    mipc::dale_vinyl::Init_Perso_Req::~Init_Perso_Req(v22);
+    return v26;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::InitPerso(a1, a2, a3, a4, a5, a6, a7, a8, v29);
-    result = 1;
+    eUICC::eUICCVinylDALValve::InitPerso(a1, a2);
+    return 1;
   }
-
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBE010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_299FBE010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (v32)
   {
@@ -3047,7 +3226,7 @@ void ***mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::ve
   return a1;
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Init_Perso_Req>@<X0>(mipc::dale_vinyl::Init_Perso_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Init_Perso_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Init_Perso_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Init_Perso_Req::serialize(v8, this);
   if (v9)
@@ -3059,108 +3238,115 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Init_Perso_Req>@<X0>(mipc::
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::AuthPerso(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::AuthPerso(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v37[4] = *MEMORY[0x29EDCA608];
-  v35 = 1;
+  v28[4] = *MEMORY[0x29EDCA608];
+  v26 = 1;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Auth_Perso_Req::Auth_Perso_Req();
     if (*(a1 + 292) == 2)
     {
-      v11 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v11 = 1;
+      v6 = 1;
     }
 
-    v31[10] = v11;
-    v12 = operator new(1uLL);
-    *v12 = 0;
-    v13 = __p;
-    __p = v12;
-    if (v13)
+    v22[10] = v6;
+    v7 = operator new(1uLL);
+    *v7 = 0;
+    v8 = __p;
+    __p = v7;
+    if (v8)
     {
-      operator delete(v13);
+      operator delete(v8);
     }
 
-    v14 = operator new(1uLL);
-    *v14 = 0;
-    v15 = v33;
-    v33 = v14;
-    if (v15)
+    v9 = operator new(1uLL);
+    *v9 = 0;
+    v10 = v24;
+    v24 = v9;
+    if (v10)
     {
-      operator delete(v15);
+      operator delete(v10);
     }
 
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v34, a2);
-    v16 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v25, a2);
+    v11 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v11, v12) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v20 = v34;
-      if (v34)
+      v13 = v25;
+      if (v25)
       {
-        stringifyDataBuffer(*v34, v34[1] - *v34, &v30);
+        stringifyDataBuffer(*v25, v25[1] - *v25, &v21);
+        v14 = (v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v21 : v21.__r_.__value_.__r.__words[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Auth_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", v17, v18, v19, 8);
-      if (v20 && SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        v14 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Auth_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62472, v14);
+      if (v13)
+      {
+        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v21.__r_.__value_.__l.__data_);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Auth_Perso_Req>(v31, (a1 + 328), v36);
-    v21 = abb::router::SendProxy::timeout();
-    if (v16)
+    abb::router::Client::send<mipc::dale_vinyl::Auth_Perso_Req>(v27, v22, (a1 + 328));
+    v15 = abb::router::SendProxy::timeout();
+    if (v11)
     {
-      dispatch_retain(v16);
+      dispatch_retain(v11);
     }
 
-    v22 = operator new(0x28uLL);
-    *v22 = &unk_2A20324B8;
-    v22[1] = a1;
-    v22[2] = a3;
-    v22[3] = &v35;
-    v22[4] = v16;
-    v37[3] = v22;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v37, (v21 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v37);
-    MEMORY[0x29C2B81A0](v36);
-    v23 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v16, v23))
+    v16 = operator new(0x28uLL);
+    *v16 = &unk_2A20324B8;
+    v16[1] = a1;
+    v16[2] = a3;
+    v16[3] = &v26;
+    v16[4] = v11;
+    v28[3] = v16;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v28, (v15 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v28);
+    MEMORY[0x29C2B81A0](v27);
+    v17 = dispatch_time(0, 7500000000);
+    v18 = dispatch_semaphore_wait(v11, v17);
+    if (v18)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Auth Perso Req.\n", v24, v25, v26, v29);
+      gBBULogMaskGet(v18, v19);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Auth Perso Req.\n");
     }
 
-    if (v16)
+    if (v11)
     {
-      dispatch_release(v16);
+      dispatch_release(v11);
     }
 
-    mipc::dale_vinyl::Auth_Perso_Req::~Auth_Perso_Req(v31);
-    result = v35;
+    mipc::dale_vinyl::Auth_Perso_Req::~Auth_Perso_Req(v22);
+    return v26;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::AuthPerso(a1, a2, a3, a4, a5, a6, a7, a8, v29);
-    result = 1;
+    eUICC::eUICCVinylDALValve::AuthPerso(a1, a2);
+    return 1;
   }
-
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBE480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_299FBE480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (v32)
   {
@@ -3171,7 +3357,7 @@ void sub_299FBE480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Auth_Perso_Req>@<X0>(mipc::dale_vinyl::Auth_Perso_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Auth_Perso_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Auth_Perso_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Auth_Perso_Req::serialize(v8, this);
   if (v9)
@@ -3183,107 +3369,127 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Auth_Perso_Req>@<X0>(mipc::
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::FinalizePerso(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::FinalizePerso(uint64_t a1, uint64_t a2)
 {
-  v36[4] = *MEMORY[0x29EDCA608];
-  v34 = 1;
+  v26[4] = *MEMORY[0x29EDCA608];
+  v24 = 1;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Finalize_Perso_Req::Finalize_Perso_Req();
     if (*(a1 + 292) == 2)
     {
-      v10 = 2;
+      v4 = 2;
     }
 
     else
     {
-      v10 = 1;
+      v4 = 1;
     }
 
-    v30[10] = v10;
-    v11 = operator new(1uLL);
-    *v11 = 0;
-    v12 = __p;
-    __p = v11;
-    if (v12)
+    v20[10] = v4;
+    v5 = operator new(1uLL);
+    *v5 = 0;
+    v6 = __p;
+    __p = v5;
+    if (v6)
     {
-      operator delete(v12);
+      operator delete(v6);
     }
 
-    v13 = operator new(1uLL);
-    *v13 = 0;
-    v14 = v32;
-    v32 = v13;
-    if (v14)
+    v7 = operator new(1uLL);
+    *v7 = 0;
+    v8 = v22;
+    v22 = v7;
+    if (v8)
     {
-      operator delete(v14);
+      operator delete(v8);
     }
 
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v33, a2);
-    v15 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v23, a2);
+    v9 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v9, v10) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v19 = v33;
-      if (v33)
+      v11 = v23;
+      if (v23)
       {
-        stringifyDataBuffer(*v33, v33[1] - *v33, &v29);
+        stringifyDataBuffer(*v23, v23[1] - *v23, &v19);
+        v12 = (v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v19 : v19.__r_.__value_.__r.__words[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Finalize_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", v16, v17, v18, 9);
-      if (v19 && SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v29.__r_.__value_.__l.__data_);
+        v12 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Finalize_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62473, v12);
+      if (v11)
+      {
+        if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v19.__r_.__value_.__l.__data_);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Finalize_Perso_Req>(v30, (a1 + 328), v35);
-    v20 = abb::router::SendProxy::timeout();
-    if (v15)
+    abb::router::Client::send<mipc::dale_vinyl::Finalize_Perso_Req>(v25, v20, (a1 + 328));
+    v13 = abb::router::SendProxy::timeout();
+    if (v9)
     {
-      dispatch_retain(v15);
+      dispatch_retain(v9);
     }
 
-    v21 = operator new(0x20uLL);
-    *v21 = &unk_2A2032538;
-    v21[1] = a1;
-    v21[2] = &v34;
-    v21[3] = v15;
-    v36[3] = v21;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v36, (v20 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v36);
-    MEMORY[0x29C2B81A0](v35);
-    v22 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v15, v22))
+    v14 = operator new(0x20uLL);
+    *v14 = &unk_2A2032538;
+    v14[1] = a1;
+    v14[2] = &v24;
+    v14[3] = v9;
+    v26[3] = v14;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v26, (v13 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v26);
+    MEMORY[0x29C2B81A0](v25);
+    v15 = dispatch_time(0, 7500000000);
+    v16 = dispatch_semaphore_wait(v9, v15);
+    if (v16)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Finalize Perso Req.\n", v23, v24, v25, v28);
+      gBBULogMaskGet(v16, v17);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Finalize Perso Req.\n");
     }
 
-    if (v15)
+    if (v9)
     {
-      dispatch_release(v15);
+      dispatch_release(v9);
     }
 
-    mipc::dale_vinyl::Finalize_Perso_Req::~Finalize_Perso_Req(v30);
-    result = v34;
+    mipc::dale_vinyl::Finalize_Perso_Req::~Finalize_Perso_Req(v20);
+    return v24;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::FinalizePerso(a1, a2, a3, a4, a5, a6, a7, a8, v28);
-    result = 1;
+    eUICC::eUICCVinylDALValve::FinalizePerso(a1, a2);
+    return 1;
   }
-
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBE870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+{
+  v2 = gBBULogMaskGet(a1, a2);
+  if ((*v2 & 2) != 0 && gBBULogVerbosity >= 6)
+  {
+    v2 = OUTLINED_FUNCTION_0_0(v2, v3, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n");
+  }
+
+  gBBULogMaskGet(v2, v3);
+  v4 = OUTLINED_FUNCTION_2();
+
+  return _BBULog(v4, v5, v6, v7, v8);
+}
+
+void sub_299FBE870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (v32)
   {
@@ -3294,7 +3500,7 @@ void sub_299FBE870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Finalize_Perso_Req>@<X0>(mipc::dale_vinyl::Finalize_Perso_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Finalize_Perso_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Finalize_Perso_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Finalize_Perso_Req::serialize(v8, this);
   if (v9)
@@ -3306,108 +3512,115 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Finalize_Perso_Req>@<X0>(mi
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::ValidatePerso(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t eUICC::eUICCVinylDALValve::ValidatePerso(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v37[4] = *MEMORY[0x29EDCA608];
-  v35 = 1;
+  v28[4] = *MEMORY[0x29EDCA608];
+  v26 = 1;
   if (*(a1 + 352))
   {
     mipc::dale_vinyl::Validate_Perso_Req::Validate_Perso_Req();
     if (*(a1 + 292) == 2)
     {
-      v11 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v11 = 1;
+      v6 = 1;
     }
 
-    v31[10] = v11;
-    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v34, a2);
-    v12 = operator new(2uLL);
-    *v12 = 1;
-    v13 = __p;
-    __p = v12;
-    if (v13)
+    v22[10] = v6;
+    mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char> const&>(&v25, a2);
+    v7 = operator new(2uLL);
+    *v7 = 1;
+    v8 = __p;
+    __p = v7;
+    if (v8)
     {
-      operator delete(v13);
+      operator delete(v8);
     }
 
-    v14 = operator new(2uLL);
-    *v14 = 0;
-    v15 = v33;
-    v33 = v14;
-    if (v15)
+    v9 = operator new(2uLL);
+    *v9 = 0;
+    v10 = v24;
+    v24 = v9;
+    if (v10)
     {
-      operator delete(v15);
+      operator delete(v10);
     }
 
-    v16 = dispatch_semaphore_create(0);
-    if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+    v11 = dispatch_semaphore_create(0);
+    if ((*(gBBULogMaskGet(v11, v12) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
     {
-      v20 = v34;
-      if (v34)
+      v13 = v25;
+      if (v25)
       {
-        stringifyDataBuffer(*v34, v34[1] - *v34, &v30);
+        stringifyDataBuffer(*v25, v25[1] - *v25, &v21);
+        v14 = (v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v21 : v21.__r_.__value_.__r.__words[0];
       }
 
-      _BBULog(22, 7, "eUICCVinylDALValve", "", "Validate_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", v17, v18, v19, 10);
-      if (v20 && SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v30.__r_.__value_.__l.__data_);
+        v14 = "NULL";
+      }
+
+      _BBULog(22, 7, "eUICCVinylDALValve", "", "Validate_Perso_Req sent: Msg=0x%x fTlv_Payload = %s\n", 62474, v14);
+      if (v13)
+      {
+        if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v21.__r_.__value_.__l.__data_);
+        }
       }
     }
 
-    abb::router::Client::send<mipc::dale_vinyl::Validate_Perso_Req>(v31, (a1 + 328), v36);
-    v21 = abb::router::SendProxy::timeout();
-    if (v16)
+    abb::router::Client::send<mipc::dale_vinyl::Validate_Perso_Req>(v27, v22, (a1 + 328));
+    v15 = abb::router::SendProxy::timeout();
+    if (v11)
     {
-      dispatch_retain(v16);
+      dispatch_retain(v11);
     }
 
-    v22 = operator new(0x28uLL);
-    *v22 = &unk_2A20325B8;
-    v22[1] = a1;
-    v22[2] = a3;
-    v22[3] = &v35;
-    v22[4] = v16;
-    v37[3] = v22;
-    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v37, (v21 + 152));
-    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v37);
-    MEMORY[0x29C2B81A0](v36);
-    v23 = dispatch_time(0, 7500000000);
-    if (dispatch_semaphore_wait(v16, v23))
+    v16 = operator new(0x28uLL);
+    *v16 = &unk_2A20325B8;
+    v16[1] = a1;
+    v16[2] = a3;
+    v16[3] = &v26;
+    v16[4] = v11;
+    v28[3] = v16;
+    std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v28, (v15 + 152));
+    std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v28);
+    MEMORY[0x29C2B81A0](v27);
+    v17 = dispatch_time(0, 7500000000);
+    v18 = dispatch_semaphore_wait(v11, v17);
+    if (v18)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Validate Perso Req.\n", v24, v25, v26, v29);
+      gBBULogMaskGet(v18, v19);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for confirmation on Validate Perso Req.\n");
     }
 
-    if (v16)
+    if (v11)
     {
-      dispatch_release(v16);
+      dispatch_release(v11);
     }
 
-    mipc::dale_vinyl::Validate_Perso_Req::~Validate_Perso_Req(v31);
-    result = v35;
+    mipc::dale_vinyl::Validate_Perso_Req::~Validate_Perso_Req(v22);
+    return v26;
   }
 
   else
   {
-    eUICC::eUICCVinylDALValve::ValidatePerso(a1, a2, a3, a4, a5, a6, a7, a8, v29);
-    result = 1;
+    eUICC::eUICCVinylDALValve::ValidatePerso(a1, a2);
+    return 1;
   }
-
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
-void sub_299FBEC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_299FBEC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
 {
   if (v32)
   {
@@ -3418,7 +3631,7 @@ void sub_299FBEC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Validate_Perso_Req>@<X0>(mipc::dale_vinyl::Validate_Perso_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Validate_Perso_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Validate_Perso_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Validate_Perso_Req::serialize(v8, this);
   if (v9)
@@ -3430,164 +3643,192 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Validate_Perso_Req>@<X0>(mi
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
 uint64_t eUICC::eUICCVinylDALValve::InstallPairingMSM(uint64_t a1, char **a2)
 {
-  v70[4] = *MEMORY[0x29EDCA608];
-  gBBULogMaskGet();
-  v7 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In InstallPairingMSM...\n", v4, v5, v6, v58);
+  v42[4] = *MEMORY[0x29EDCA608];
+  gBBULogMaskGet(a1, a2);
+  v4 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In InstallPairingMSM...\n");
   if ((*(a1 + 352) & 1) == 0)
   {
-    eUICC::eUICCVinylDALValve::InstallPairingMSM(v7, v8, v9, v10, v11, v12, v13, v14, v59);
-    v36 = 1;
-    goto LABEL_30;
+    eUICC::eUICCVinylDALValve::InstallPairingMSM(v4, v5);
+    return 1;
   }
 
   *(a1 + 368) = 0;
-  v15 = dispatch_semaphore_create(0);
-  v16 = *(a1 + 360);
-  *(a1 + 360) = v15;
-  if (v16)
+  v6 = dispatch_semaphore_create(0);
+  v7 = *(a1 + 360);
+  *(a1 + 360) = v6;
+  if (v7)
   {
-    dispatch_release(v16);
+    dispatch_release(v7);
   }
 
-  v66 = 0;
+  v38 = 0;
   mipc::dale_vinyl::Sep_Cmd_Req::Sep_Cmd_Req();
   if (*(a1 + 292) == 2)
   {
-    v17 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v17 = 1;
+    v8 = 1;
   }
 
-  v63[10] = v17;
-  v18 = operator new(4uLL);
-  *v18 = 2;
-  v19 = __p;
-  __p = v18;
-  if (v19)
+  v35[10] = v8;
+  v9 = operator new(4uLL);
+  *v9 = 2;
+  v10 = __p;
+  __p = v9;
+  if (v10)
   {
-    operator delete(v19);
+    operator delete(v10);
   }
 
-  v20 = *a2;
-  v21 = a2[1];
-  v22 = v21 - *a2;
-  if (v22 >= 0xE01)
+  v11 = *a2;
+  v12 = a2[1];
+  v13 = v12 - *a2;
+  if (v13 >= 0xE01)
   {
-    v39 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v39))
+    gBBULogMaskGet(v9, v11);
+    Transport = VinylDaleCommunication::createTransport();
+    if (Transport)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v40, v41, v42, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 982, "payload.size() <= MAX_MSM_SZ");
     }
 
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate input signed auth size = %zu, should < %d\n", v43, v44, v45, *(a2 + 8) - *a2);
-    goto LABEL_42;
+    gBBULogMaskGet(Transport, v27);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate input signed auth size = %zu, should < %d\n", a2[1] - *a2, 3584);
+    goto LABEL_47;
   }
 
-  v67 = 0;
-  v68 = 0;
-  v69 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v67, v20, v21, v22);
-  mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v65, &v67);
-  if (v67)
+  v39 = 0;
+  v40 = 0;
+  v41 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v39, v11, v12, v13);
+  mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v37, &v39);
+  v15 = v39;
+  if (v39)
   {
-    v68 = v67;
-    operator delete(v67);
+    v40 = v39;
+    operator delete(v39);
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v15, v14) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v26 = __p;
+    v16 = __p;
     if (__p)
     {
-      stringifyVal(*__p, &v61);
+      stringifyVal(*__p, v33);
+      if (v34 >= 0)
+      {
+        v17 = v33;
+      }
+
+      else
+      {
+        v17 = v33[0];
+      }
     }
 
-    v27 = v65;
-    if (v65)
+    else
     {
-      stringifyDataBuffer(*v65, v65[1] - *v65, &v60);
+      v17 = "NULL";
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Msm = %s\n", v23, v24, v25, 16);
-    if (v27 && SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+    v18 = v37;
+    if (v37)
     {
-      operator delete(v60.__r_.__value_.__l.__data_);
+      stringifyDataBuffer(*v37, v37[1] - *v37, &v32);
+      if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v19 = &v32;
+      }
+
+      else
+      {
+        v19 = v32.__r_.__value_.__r.__words[0];
+      }
     }
 
-    if (v26 && v62 < 0)
+    else
     {
-      operator delete(v61);
+      v19 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Msm = %s\n", 62480, v17, v19);
+    if (v18 && SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v32.__r_.__value_.__l.__data_);
+    }
+
+    if (v16 && v34 < 0)
+    {
+      operator delete(v33[0]);
     }
   }
 
-  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(v63, (a1 + 328), &v67);
-  v28 = abb::router::SendProxy::timeout();
-  v70[0] = &unk_2A2032638;
-  v70[1] = a1;
-  v70[2] = &v66;
-  v70[3] = v70;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v70, (v28 + 152));
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v70);
-  MEMORY[0x29C2B81A0](&v67);
-  v29 = dispatch_time(0, 7500000000);
-  if (dispatch_semaphore_wait(*(a1 + 360), v29))
+  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(&v39, v35, (a1 + 328));
+  v20 = abb::router::SendProxy::timeout();
+  v42[0] = &unk_2A2032638;
+  v42[1] = a1;
+  v42[2] = &v38;
+  v42[3] = v42;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v42, (v20 + 152));
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v42);
+  MEMORY[0x29C2B81A0](&v39);
+  v21 = dispatch_time(0, 7500000000);
+  v22 = dispatch_semaphore_wait(*(a1 + 360), v21);
+  if (v22)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on InstallPairingMSM Sep_Cmd_Req\n", v30, v31, v32, v59);
+    gBBULogMaskGet(v22, v23);
+    v22 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on InstallPairingMSM Sep_Cmd_Req\n");
   }
 
-  if ((v66 & 1) == 0)
+  if ((v38 & 1) == 0)
   {
-    v46 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v46))
+    gBBULogMaskGet(v22, v23);
+    v28 = VinylDaleCommunication::createTransport();
+    if (v28)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      v28 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1012, "successCnf");
     }
 
-    gBBULogMaskGet();
-    v53 = "InstallPairingMSM Sep_Cmd_Cnf fail\n";
-    goto LABEL_41;
+    gBBULogMaskGet(v28, v29);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf fail\n");
+    goto LABEL_47;
   }
 
   if ((*(a1 + 368) & 1) == 0)
   {
-    v54 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v54))
+    gBBULogMaskGet(v22, v23);
+    v30 = VinylDaleCommunication::createTransport();
+    if (v30)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v55, v56, v57, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      v30 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1013, "sepIndSuccess_");
     }
 
-    gBBULogMaskGet();
-    v53 = "InstallPairingMSM Sep_Cmd_Ind Fail\n";
-LABEL_41:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v53, v50, v51, v52, v59);
-LABEL_42:
-    v36 = 1;
-    goto LABEL_29;
+    gBBULogMaskGet(v30, v31);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Ind Fail\n");
+LABEL_47:
+    v24 = 1;
+    goto LABEL_35;
   }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM succeed\n", v33, v34, v35, v59);
-  v36 = 0;
-LABEL_29:
-  MEMORY[0x29C2B8350](v63);
-LABEL_30:
-  v37 = *MEMORY[0x29EDCA608];
-  return v36;
+  gBBULogMaskGet(v22, v23);
+  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM succeed\n");
+  v24 = 0;
+LABEL_35:
+  MEMORY[0x29C2B8350](v35);
+  return v24;
 }
 
-void sub_299FBF270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
+void sub_299FBF270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
 {
   if (v42)
   {
@@ -3597,11 +3838,11 @@ void sub_299FBF270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  MEMORY[0x29C2B8350](&a25);
+  MEMORY[0x29C2B8350](&a25, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>@<X0>(mipc::dale_vinyl::Sep_Cmd_Req *this@<X1>, const abb::router::Client *a2@<X0>, abb::router::SendProxy *a3@<X8>)
+uint64_t *abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>@<X0>(abb::router::SendProxy *__return_ptr a1@<X8>, mipc::dale_vinyl::Sep_Cmd_Req *this@<X1>, const abb::router::Client *a3@<X0>)
 {
   mipc::dale_vinyl::Sep_Cmd_Req::serialize(v8, this);
   if (v9)
@@ -3613,341 +3854,389 @@ uint64_t abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>@<X0>(mipc::dal
   }
 
   MEMORY[0x29C2B8170](v7, v8);
-  abb::router::SendProxy::SendProxy(a3, a2, v7);
+  abb::router::SendProxy::SendProxy(a1, a3, v7);
   MEMORY[0x29C2B8180](v7);
   return std::__variant_detail::__dtor<std::__variant_detail::__traits<std::vector<unsigned char>,mipc::Error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
 }
 
-uint64_t eUICC::eUICCVinylDALValve::ManagePairingGetNonce(uint64_t a1, void *a2)
+uint64_t eUICC::eUICCVinylDALValve::ManagePairingGetNonce(uint64_t a1, void **a2)
 {
-  v55[4] = *MEMORY[0x29EDCA608];
-  gBBULogMaskGet();
-  v7 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In ManagePairingGetNonce...\n", v4, v5, v6, v47);
+  v30[4] = *MEMORY[0x29EDCA608];
+  gBBULogMaskGet(a1, a2);
+  v4 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In ManagePairingGetNonce...\n");
   if ((*(a1 + 352) & 1) == 0)
   {
-    eUICC::eUICCVinylDALValve::ManagePairingGetNonce(v7, v8, v9, v10, v11, v12, v13, v14, v48);
-    v32 = 1;
-    goto LABEL_24;
+    eUICC::eUICCVinylDALValve::ManagePairingGetNonce(v4, v5);
+    return 1;
   }
 
   *(a1 + 384) = *(a1 + 376);
   *(a1 + 368) = 0;
-  v15 = dispatch_semaphore_create(0);
-  v16 = *(a1 + 360);
-  *(a1 + 360) = v15;
-  if (v16)
+  v6 = dispatch_semaphore_create(0);
+  v7 = *(a1 + 360);
+  *(a1 + 360) = v6;
+  if (v7)
   {
-    dispatch_release(v16);
+    dispatch_release(v7);
   }
 
-  v53 = 0;
+  v28 = 0;
   mipc::dale_vinyl::Sep_Cmd_Req::Sep_Cmd_Req();
   if (*(a1 + 292) == 2)
   {
-    v17 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v17 = 1;
+    v8 = 1;
   }
 
-  v51[10] = v17;
-  v18 = operator new(4uLL);
-  *v18 = 0;
-  v19 = __p;
-  __p = v18;
-  if (v19)
+  v26[10] = v8;
+  v9 = operator new(4uLL);
+  *v9 = 0;
+  v11 = __p;
+  __p = v9;
+  if (v11)
   {
-    operator delete(v19);
+    operator delete(v11);
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v9, v10) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v23 = __p;
+    v12 = __p;
     if (__p)
     {
-      stringifyVal(*__p, &v49);
+      stringifyVal(*__p, v24);
+      v13 = v25 >= 0 ? v24 : v24[0];
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s\n", v20, v21, v22, 16);
-    if (v23 && v50 < 0)
+    else
     {
-      operator delete(v49);
+      v13 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s\n", 62480, v13);
+    if (v12)
+    {
+      if (v25 < 0)
+      {
+        operator delete(v24[0]);
+      }
     }
   }
 
-  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(v51, (a1 + 328), v54);
-  v24 = abb::router::SendProxy::timeout();
-  v55[0] = &unk_2A20326B8;
-  v55[1] = a1;
-  v55[2] = &v53;
-  v55[3] = v55;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v55, (v24 + 152));
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v55);
-  MEMORY[0x29C2B81A0](v54);
-  v25 = dispatch_time(0, 7500000000);
-  if (dispatch_semaphore_wait(*(a1 + 360), v25))
+  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(v29, v26, (a1 + 328));
+  v14 = abb::router::SendProxy::timeout();
+  v30[0] = &unk_2A20326B8;
+  v30[1] = a1;
+  v30[2] = &v28;
+  v30[3] = v30;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v30, (v14 + 152));
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v30);
+  MEMORY[0x29C2B81A0](v29);
+  v15 = dispatch_time(0, 7500000000);
+  v16 = dispatch_semaphore_wait(*(a1 + 360), v15);
+  if (v16)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on ManagePairingGetNonce Sep_Cmd_Req\n", v26, v27, v28, v48);
+    gBBULogMaskGet(v16, v17);
+    v16 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on ManagePairingGetNonce Sep_Cmd_Req\n");
   }
 
-  if (v53)
+  if (v28)
   {
     if (*(a1 + 368))
     {
       if ((a1 + 376) != a2)
       {
-        std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2, *(a1 + 376), *(a1 + 384), *(a1 + 384) - *(a1 + 376));
+        v16 = std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2, *(a1 + 376), *(a1 + 384), *(a1 + 384) - *(a1 + 376));
       }
 
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce succeed\n", v29, v30, v31, v48);
-      v32 = 0;
-      goto LABEL_23;
+      gBBULogMaskGet(v16, v17);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce succeed\n");
+      v18 = 0;
+      goto LABEL_26;
     }
 
-    v43 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v43))
+    gBBULogMaskGet(v16, v17);
+    Transport = VinylDaleCommunication::createTransport();
+    if (Transport)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v44, v45, v46, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1069, "sepIndSuccess_");
     }
 
-    gBBULogMaskGet();
-    v42 = "ManagePairingGetNonce Sep_Cmd_Ind fail\n";
+    gBBULogMaskGet(Transport, v23);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Ind fail\n");
   }
 
   else
   {
-    v35 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v35))
+    gBBULogMaskGet(v16, v17);
+    v20 = VinylDaleCommunication::createTransport();
+    if (v20)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v36, v37, v38, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      v20 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1068, "successCnf");
     }
 
-    gBBULogMaskGet();
-    v42 = "ManagePairingGetNonce Sep_Cmd_Cnf fail\n";
+    gBBULogMaskGet(v20, v21);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf fail\n");
   }
 
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v42, v39, v40, v41, v48);
-  v32 = 1;
-LABEL_23:
-  MEMORY[0x29C2B8350](v51);
-LABEL_24:
-  v33 = *MEMORY[0x29EDCA608];
-  return v32;
+  v18 = 1;
+LABEL_26:
+  MEMORY[0x29C2B8350](v26);
+  return v18;
 }
 
-uint64_t eUICC::eUICCVinylDALValve::ManagePairingAuthenticate(uint64_t a1, char **a2, char **a3)
+uint64_t eUICC::eUICCVinylDALValve::ManagePairingAuthenticate(uint64_t a1, char **a2, void *a3)
 {
-  v86[4] = *MEMORY[0x29EDCA608];
-  gBBULogMaskGet();
-  v9 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In ManagePairingAuthenticate...\n", v6, v7, v8, v72);
+  v56[4] = *MEMORY[0x29EDCA608];
+  gBBULogMaskGet(a1, a2);
+  v6 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "In ManagePairingAuthenticate...\n");
   if ((*(a1 + 352) & 1) == 0)
   {
-    eUICC::eUICCVinylDALValve::ManagePairingAuthenticate(v9, v10, v11, v12, v13, v14, v15, v16, v73);
-    v35 = 1;
-    goto LABEL_39;
+    eUICC::eUICCVinylDALValve::ManagePairingAuthenticate(v6, v7);
+    return 1;
   }
 
   *(a1 + 368) = 0;
-  v17 = dispatch_semaphore_create(0);
-  v18 = *(a1 + 360);
-  *(a1 + 360) = v17;
-  if (v18)
+  v8 = dispatch_semaphore_create(0);
+  v9 = *(a1 + 360);
+  *(a1 + 360) = v8;
+  if (v9)
   {
-    dispatch_release(v18);
+    dispatch_release(v9);
   }
 
-  v82 = 0;
+  v52 = 0;
   mipc::dale_vinyl::Sep_Cmd_Req::Sep_Cmd_Req();
   if (*(a1 + 292) == 2)
   {
-    v19 = 2;
+    v10 = 2;
   }
 
   else
   {
-    v19 = 1;
+    v10 = 1;
   }
 
-  v78[10] = v19;
-  v20 = operator new(4uLL);
-  *v20 = 1;
-  v21 = __p;
-  __p = v20;
-  if (v21)
+  v48[10] = v10;
+  v11 = operator new(4uLL);
+  *v11 = 1;
+  v12 = __p;
+  __p = v11;
+  if (v12)
   {
-    operator delete(v21);
+    operator delete(v12);
   }
 
-  v22 = *a2;
-  v23 = a2[1];
-  v24 = v23 - *a2;
-  if (v24 >= 0x49)
+  v13 = *a2;
+  v14 = a2[1];
+  v15 = v14 - *a2;
+  if (v15 >= 0x49)
   {
-    v44 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v44))
+    gBBULogMaskGet(v11, v13);
+    Transport = VinylDaleCommunication::createTransport();
+    if (Transport)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v45, v46, v47, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1100, "payload.size() <= MAX_SEP_SIGNED_AUTH_SZ");
     }
 
-    gBBULogMaskGet();
-    v51 = "ManagePairingAuthenticate input signed auth size = %zu, should < %d\n";
-    goto LABEL_50;
+    gBBULogMaskGet(Transport, v35);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate input signed auth size = %zu, should < %d\n");
+    goto LABEL_66;
   }
 
-  v83 = 0;
-  v84 = 0;
-  v85 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v83, v22, v23, v24);
-  mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v80, &v83);
-  if (v83)
+  v53 = 0;
+  v54 = 0;
+  v55 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v53, v13, v14, v15);
+  mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,true>::operator=<std::vector<unsigned char>>(&v50, &v53);
+  v17 = v53;
+  if (v53)
   {
-    v84 = v83;
-    operator delete(v83);
+    v54 = v53;
+    operator delete(v53);
   }
 
-  v25 = a3[1];
-  if (*a3 == v25)
+  v18 = a3[1];
+  if (*a3 == v18)
   {
-    v52 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v52))
+    gBBULogMaskGet(v17, v16);
+    v36 = VinylDaleCommunication::createTransport();
+    if (v36)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v53, v54, v55, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      v36 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1102, "!nonce.empty()");
     }
 
-    gBBULogMaskGet();
-    v59 = "ManagePairingAuthenticate input nonce is empty\n";
-LABEL_57:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v59, v56, v57, v58, v73);
-    goto LABEL_58;
+    gBBULogMaskGet(v36, v37);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate input nonce is empty\n");
+    goto LABEL_66;
   }
 
-  if (v25 - *a3 != 16)
+  if (v18 - *a3 != 16)
   {
-    v60 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v60))
+    gBBULogMaskGet(v17, v16);
+    v38 = VinylDaleCommunication::createTransport();
+    if (v38)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v61, v62, v63, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      v38 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1104, "nonce.size() == SEP_NONCE_SZ");
     }
 
-    gBBULogMaskGet();
-    v51 = "ManagePairingAuthenticate input nonce size = %zu, should be %d\n";
-    a2 = a3;
-LABEL_50:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v51, v48, v49, v50, *(a2 + 8) - *a2);
-LABEL_58:
-    v35 = 1;
-    goto LABEL_38;
+    gBBULogMaskGet(v38, v39);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate input nonce size = %zu, should be %d\n");
+    goto LABEL_66;
   }
 
-  mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,false>::operator=<std::vector<unsigned char> const&>(&v81, a3);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  v19 = mipc::tlv<mipc::mipc_byte_array_t<3584ul,false>,false>::operator=<std::vector<unsigned char> const&>(&v51, a3);
+  if ((*(gBBULogMaskGet(v19, v20) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v29 = __p;
+    v21 = __p;
     if (__p)
     {
-      stringifyVal(*__p, &v76);
-    }
-
-    v30 = v80;
-    if (v80)
-    {
-      stringifyDataBuffer(*v80, v80[1] - *v80, &v75);
-    }
-
-    v31 = v81;
-    if (v81)
-    {
-      stringifyDataBuffer(*v81, v81[1] - *v81, &v74);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Signed_Auth = %s fTlv_Nonce = %s\n", v26, v27, v28, 16);
-    if (v31 && SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v74.__r_.__value_.__l.__data_);
-    }
-
-    if (v30 && SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v75.__r_.__value_.__l.__data_);
-    }
-
-    if (v29 && v77 < 0)
-    {
-      operator delete(v76);
-    }
-  }
-
-  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(v78, (a1 + 328), &v83);
-  v32 = abb::router::SendProxy::timeout();
-  v33 = operator new(0x20uLL);
-  *v33 = &unk_2A2032738;
-  v33[1] = a1;
-  v33[2] = &v82 + 1;
-  v33[3] = &v82;
-  v86[3] = v33;
-  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v86, (v32 + 152));
-  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v86);
-  MEMORY[0x29C2B81A0](&v83);
-  v34 = dispatch_time(0, 7500000000);
-  if (!dispatch_semaphore_wait(*(a1 + 360), v34))
-  {
-LABEL_35:
-    if ((v82 & 0x100) != 0)
-    {
-      if (*(a1 + 368))
+      stringifyVal(*__p, v46);
+      if (v47 >= 0)
       {
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate succeed\n", v39, v40, v41, v73);
-        v35 = 0;
-LABEL_38:
-        MEMORY[0x29C2B8350](v78);
-        goto LABEL_39;
+        v22 = v46;
       }
 
-      v68 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v68))
+      else
       {
-        _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v69, v70, v71, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+        v22 = v46[0];
       }
-
-      gBBULogMaskGet();
-      v59 = "ManagePairingAuthenticate Sep_Cmd_Ind Sep_Cmd_Cnf\n";
     }
 
     else
     {
-      v64 = gBBULogMaskGet();
-      if (VinylDaleCommunication::createTransport(v64))
-      {
-        _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v65, v66, v67, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-      }
-
-      gBBULogMaskGet();
-      v59 = "ManagePairingAuthenticate Sep_Cmd_Cnf fail\n";
+      v22 = "NULL";
     }
 
-    goto LABEL_57;
+    v23 = v50;
+    if (v50)
+    {
+      stringifyDataBuffer(*v50, v50[1] - *v50, &v45);
+      if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v24 = &v45;
+      }
+
+      else
+      {
+        v24 = v45.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v24 = "NULL";
+    }
+
+    v25 = v51;
+    if (v51)
+    {
+      stringifyDataBuffer(*v51, *(v51 + 8) - *v51, &v44);
+      if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v26 = &v44;
+      }
+
+      else
+      {
+        v26 = v44.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v26 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Req sent: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Signed_Auth = %s fTlv_Nonce = %s\n", 62480, v22, v24, v26);
+    if (v25 && SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v44.__r_.__value_.__l.__data_);
+    }
+
+    if (v23 && SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    if (v21 && v47 < 0)
+    {
+      operator delete(v46[0]);
+    }
   }
 
-  if ((v82 & 1) == 0)
+  abb::router::Client::send<mipc::dale_vinyl::Sep_Cmd_Req>(&v53, v48, (a1 + 328));
+  v27 = abb::router::SendProxy::timeout();
+  v28 = operator new(0x20uLL);
+  *v28 = &unk_2A2032738;
+  v28[1] = a1;
+  v28[2] = &v52 + 1;
+  v28[3] = &v52;
+  v56[3] = v28;
+  std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](v56, (v27 + 152));
+  std::__function::__value_func<void ()(abb::router::Message const&)>::~__value_func[abi:ne200100](v56);
+  MEMORY[0x29C2B81A0](&v53);
+  v29 = dispatch_time(0, 7500000000);
+  v30 = dispatch_semaphore_wait(*(a1 + 360), v29);
+  if (!v30)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on ManagePairingAuthenticate Sep_Cmd_Req\n", v36, v37, v38, v73);
-    goto LABEL_35;
+LABEL_44:
+    if ((v52 & 0x100) != 0)
+    {
+      if (*(a1 + 368))
+      {
+        gBBULogMaskGet(v30, v31);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate succeed\n");
+        v32 = 0;
+LABEL_47:
+        MEMORY[0x29C2B8350](v48);
+        return v32;
+      }
+
+      gBBULogMaskGet(v30, v31);
+      v42 = VinylDaleCommunication::createTransport();
+      if (v42)
+      {
+        v42 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1145, "sepIndSuccess_");
+      }
+
+      gBBULogMaskGet(v42, v43);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Ind Sep_Cmd_Cnf\n");
+    }
+
+    else
+    {
+      gBBULogMaskGet(v30, v31);
+      v40 = VinylDaleCommunication::createTransport();
+      if (v40)
+      {
+        v40 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 1144, "successCnf");
+      }
+
+      gBBULogMaskGet(v40, v41);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf fail\n");
+    }
+
+LABEL_66:
+    v32 = 1;
+    goto LABEL_47;
   }
 
-  MEMORY[0x29C2B8350](v78);
-  v35 = 0;
-LABEL_39:
-  v42 = *MEMORY[0x29EDCA608];
-  return v35;
+  if ((v52 & 1) == 0)
+  {
+    gBBULogMaskGet(v30, v31);
+    v30 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Timeout waiting for indication on ManagePairingAuthenticate Sep_Cmd_Req\n");
+    goto LABEL_44;
+  }
+
+  MEMORY[0x29C2B8350](v48);
+  return 0;
 }
 
-void sub_299FBFDC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+void sub_299FBFDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
 {
   if (v50 && a25 < 0)
   {
@@ -3962,7 +4251,7 @@ void sub_299FBFDC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  MEMORY[0x29C2B8350](&a32);
+  MEMORY[0x29C2B8350](&a32, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4214,236 +4503,290 @@ uint64_t std::__function::__func<void abb::router::Client::regIndHandler<eUICC::
 
 uint64_t std::__function::__func<void abb::router::Client::regIndHandler<eUICC::eUICCVinylDALValve::eUICCVinylDALValve(void *,int,BOOL,std::shared_ptr<void>)::$_2>(unsigned int,eUICC::eUICCVinylDALValve::eUICCVinylDALValve(void *,int,BOOL,std::shared_ptr<void>)::$_2 &&)::{lambda(abb::router::Message const&)#1},std::allocator<abb::router::Message const&>,void ()(abb::router::Message const)>::operator()(uint64_t a1, abb::router::Message *this)
 {
-  abb::router::Message::getRawMsg(&v75, this);
-  v4 = *v75;
-  abb::router::Message::getRawMsg(&v72, this);
-  MEMORY[0x29C2B8320](v62, v4, v72[1] - *v72);
-  if (v73)
+  abb::router::Message::getRawMsg(&v52, this);
+  v4 = *v52;
+  abb::router::Message::getRawMsg(&v49, this);
+  MEMORY[0x29C2B8320](v39, v4, *(v49 + 1) - *v49);
+  if (v50)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v73);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
   }
 
-  if (v76)
+  v6 = v53;
+  if (v53)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v53);
   }
 
-  v5 = *(a1 + 8);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  v7 = *(a1 + 8);
+  v8 = gBBULogMaskGet(v6, v5);
+  if ((*(v8 + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v9 = v64;
-    if (v64)
+    v10 = v41;
+    if (v41)
     {
-      stringifyVal(*v64, &v75);
-    }
+      stringifyVal(*v41, &v52);
+      if (v54 >= 0)
+      {
+        v11 = &v52;
+      }
 
-    v10 = v65;
-    if (v65)
-    {
-      stringifyVal(*v65, &v72);
-    }
-
-    v11 = v66;
-    if (v66)
-    {
-      stringifyVal(*v66, &v70);
-    }
-
-    v12 = v67;
-    if (v67)
-    {
-      stringifyDataBuffer(*v67, *(v67 + 8) - *v67, &v69);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Sep_Cmd_Ind received: Msg=%04x fTlv_Cmd_Id = %s fTlv_Result = %s fTlv_Sw = %s fTlv_Nonce = %s\n", v6, v7, v8, 131);
-    if (v12 && SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v69.__r_.__value_.__l.__data_);
-    }
-
-    if (v11 && v71 < 0)
-    {
-      operator delete(v70);
-    }
-
-    if (v10 && v74 < 0)
-    {
-      operator delete(v72);
-    }
-
-    if (v9 && v77 < 0)
-    {
-      operator delete(v75);
-    }
-  }
-
-  if (!v64)
-  {
-    v30 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v30))
-    {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v31, v32, v33, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-    }
-
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind doesn't have fTlv_Cmd_Id\n", v34, v35, v36, v61);
-    goto LABEL_39;
-  }
-
-  v13 = *v64;
-  if (*v64 >= 3)
-  {
-    v37 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v37))
-    {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v38, v39, v40, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-    }
-
-    gBBULogMaskGet();
-    v41 = "Sep_Cmd_Ind Cmd_Id %u not supported\n";
-    goto LABEL_65;
-  }
-
-  if ((mipc::operator==() & 1) == 0)
-  {
-    v42 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v42))
-    {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-    }
-
-    gBBULogMaskGet();
-    if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v68, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
+      else
+      {
+        v11 = v52;
+      }
     }
 
     else
     {
-      v68 = v63;
+      v11 = "NULL";
     }
 
-    v60 = &v68;
-    if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v12 = v42;
+    if (v42)
     {
-      LOBYTE(v60) = v68.__r_.__value_.__s.__data_[0];
-    }
+      stringifyVal(*v42, &v49);
+      if (v51 >= 0)
+      {
+        v13 = &v49;
+      }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind returned error[%s].\n", v46, v47, v48, v60);
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v68.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_39;
-  }
-
-  if (!v65 || *v65)
-  {
-    v19 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v19))
-    {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v20, v21, v22, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-    }
-
-    gBBULogMaskGet();
-    if (v65)
-    {
-      v13 = *v65;
+      else
+      {
+        v13 = v49;
+      }
     }
 
     else
     {
-      LOBYTE(v13) = 0;
+      v13 = "NULL";
     }
 
-    v41 = "Sep_Cmd_Ind failed, result 0x%x\n";
-    goto LABEL_65;
-  }
-
-  if (!v66 || *v66 != -28672)
-  {
-    v26 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v26))
+    v14 = v43;
+    if (v43)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v27, v28, v29, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-    }
+      stringifyVal(*v43, v47);
+      if (v48 >= 0)
+      {
+        v15 = v47;
+      }
 
-    gBBULogMaskGet();
-    if (v66)
-    {
-      LOWORD(v13) = *v66;
+      else
+      {
+        v15 = v47[0];
+      }
     }
 
     else
     {
-      LOBYTE(v13) = 0;
+      v15 = "NULL";
     }
 
-    v41 = "Sep_Cmd_Ind failed, status word from UICC sw 0x%hx\n";
-    goto LABEL_65;
-  }
-
-  if (v13 > 1)
-  {
-LABEL_38:
-    *(v5 + 368) = 1;
-    goto LABEL_39;
-  }
-
-  if (!v67)
-  {
-    v49 = gBBULogMaskGet();
-    if (VinylDaleCommunication::createTransport(v49))
+    v16 = v44;
+    if (v44)
     {
-      _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v50, v51, v52, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
+      stringifyDataBuffer(*v44, *(v44 + 8) - *v44, &v46);
+      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v17 = &v46;
+      }
+
+      else
+      {
+        v17 = v46.__r_.__value_.__r.__words[0];
+      }
     }
 
-    gBBULogMaskGet();
-    v41 = "Sep_Cmd_Ind Cmd_id %u should have fTlv_Nonce\n";
-LABEL_65:
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", v41, v23, v24, v25, v13);
-    goto LABEL_39;
+    else
+    {
+      v17 = "NULL";
+    }
+
+    v8 = _BBULog(22, 7, "eUICCVinylDALValve", "", "Sep_Cmd_Ind received: Msg=%04x fTlv_Cmd_Id = %s fTlv_Result = %s fTlv_Sw = %s fTlv_Nonce = %s\n", 62595, v11, v13, v15, v17);
+    if (v16 && SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v46.__r_.__value_.__l.__data_);
+    }
+
+    if (v14 && v48 < 0)
+    {
+      operator delete(v47[0]);
+    }
+
+    if (v12 && v51 < 0)
+    {
+      operator delete(v49);
+    }
+
+    if (v10 && v54 < 0)
+    {
+      operator delete(v52);
+    }
   }
 
-  if (*(v67 + 8) - *v67 == 16)
+  if (v41)
   {
-    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v5 + 376), *v67, (*v67 + 16), 0x10uLL);
-    goto LABEL_38;
-  }
+    v18 = *v41;
+    if (*v41 >= 3)
+    {
+      gBBULogMaskGet(v8, v9);
+      Transport = VinylDaleCommunication::createTransport();
+      if (Transport)
+      {
+        Transport = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 125, "cmdId == mipc::MIPC_DALE_VINYL_SEP_CMD_GET_NONCE || cmdId == mipc::MIPC_DALE_VINYL_SEP_CMD_AUTHENTICATE || cmdId == mipc::MIPC_DALE_VINYL_SEP_CMD_INSTALL");
+      }
 
-  v53 = gBBULogMaskGet();
-  if (VinylDaleCommunication::createTransport(v53))
-  {
-    _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", v54, v55, v56, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp");
-  }
+      gBBULogMaskGet(Transport, v31);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind Cmd_Id %u not supported\n");
+    }
 
-  gBBULogMaskGet();
-  _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind nonce size = %zu, should be %d\n", v57, v58, v59, *(v67 + 8) - *v67);
-LABEL_39:
-  v14 = *(v5 + 360);
-  if (v14)
-  {
-    dispatch_semaphore_signal(v14);
+    else
+    {
+      v19 = mipc::operator==();
+      if (v19)
+      {
+        if (!v42 || *v42)
+        {
+          gBBULogMaskGet(v19, v20);
+          v24 = VinylDaleCommunication::createTransport();
+          if (v24)
+          {
+            v24 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 130, "ind.fTlv_Result && *ind.fTlv_Result == mipc::MIPC_DALE_VINYL_CMD_RESULT_SUCCESS");
+          }
+
+          gBBULogMaskGet(v24, v25);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind failed, result 0x%x\n");
+        }
+
+        else if (v43 && *v43 == -28672)
+        {
+          if (v18 > 1)
+          {
+LABEL_50:
+            *(v7 + 368) = 1;
+            goto LABEL_51;
+          }
+
+          if (v44)
+          {
+            v21 = *v44;
+            if (*(v44 + 8) - *v44 == 16)
+            {
+              std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>((v7 + 376), v21, v21 + 16, 0x10uLL);
+              goto LABEL_50;
+            }
+
+            gBBULogMaskGet(v19, v21);
+            v36 = VinylDaleCommunication::createTransport();
+            if (v36)
+            {
+              v36 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 139, "ind.fTlv_Nonce.get()->size() == SEP_NONCE_SZ");
+            }
+
+            gBBULogMaskGet(v36, v37);
+            _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind nonce size = %zu, should be %d\n", *(v44 + 8) - *v44, 16);
+          }
+
+          else
+          {
+            gBBULogMaskGet(v19, v20);
+            v34 = VinylDaleCommunication::createTransport();
+            if (v34)
+            {
+              v34 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 137, "ind.fTlv_Nonce.get()");
+            }
+
+            gBBULogMaskGet(v34, v35);
+            _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind Cmd_id %u should have fTlv_Nonce\n");
+          }
+        }
+
+        else
+        {
+          gBBULogMaskGet(v19, v20);
+          v26 = VinylDaleCommunication::createTransport();
+          if (v26)
+          {
+            v26 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 132, "ind.fTlv_Sw && *ind.fTlv_Sw == 0x9000");
+          }
+
+          gBBULogMaskGet(v26, v27);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind failed, status word from UICC sw 0x%hx\n");
+        }
+      }
+
+      else
+      {
+        gBBULogMaskGet(v19, v20);
+        v32 = VinylDaleCommunication::createTransport();
+        if (v32)
+        {
+          v32 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 128, "!ind.isError()");
+        }
+
+        gBBULogMaskGet(v32, v33);
+        if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external(&v45, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v45 = v40;
+        }
+
+        v38 = &v45;
+        if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v38 = v45.__r_.__value_.__r.__words[0];
+        }
+
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind returned error[%s].\n", v38);
+        if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v45.__r_.__value_.__l.__data_);
+        }
+      }
+    }
   }
 
   else
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind sepIndSem_ is NULL because of an unexpected baseband indication but that's fine\n", v15, v16, v17, v61);
+    gBBULogMaskGet(v8, v9);
+    v28 = VinylDaleCommunication::createTransport();
+    if (v28)
+    {
+      v28 = _BBULog(1, 6, "eUICCVinylDALValve", "", "check failed: %s, %d, assertion: %s\n", "/Library/Caches/com.apple.xbs/Sources/VinylRestore/CommandDrivers/eUICCVinylDALValve.cpp", 119, "ind.fTlv_Cmd_Id");
+    }
+
+    gBBULogMaskGet(v28, v29);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind doesn't have fTlv_Cmd_Id\n");
   }
 
-  return MEMORY[0x29C2B8330](v62);
+LABEL_51:
+  v22 = *(v7 + 360);
+  if (v22)
+  {
+    dispatch_semaphore_signal(v22);
+  }
+
+  else
+  {
+    gBBULogMaskGet(0, v20);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Sep_Cmd_Ind sepIndSem_ is NULL because of an unexpected baseband indication but that's fine\n");
+  }
+
+  return MEMORY[0x29C2B8330](v39);
 }
 
-void sub_299FC0AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+void sub_299FC0AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34)
 {
   if (a34 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x29C2B8330](&a14);
+  MEMORY[0x29C2B8330](&a14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4603,123 +4946,154 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v26.__val_, this);
-    if ((v27 & 1) == 0)
+    abb::router::Message::getError(&v25.__val_, this);
+    if ((v26 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v32 = v26;
-    v5 = mipc::toErrorCode(v26.__val_, v4);
-    std::error_code::message(&v28.__r_.__value_.__r.__words[1], &v32);
+    v31 = v25;
+    v5 = mipc::toErrorCode(v25.__val_, v4);
+    std::error_code::message(&v27.__r_.__value_.__r.__words[1], &v31);
+    v29 = 0;
     v30 = 0;
-    v31 = 0;
-    v28.__r_.__value_.__r.__words[0] = v5;
-    MEMORY[0x29C2B8670](v20, &v28, 1);
-    if (v31)
+    v27.__r_.__value_.__r.__words[0] = v5;
+    MEMORY[0x29C2B8670](v19, &v27, 1);
+    size = v30;
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
 
-    if (v29 < 0)
+    if (v28 < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__size_);
+      operator delete(v27.__r_.__value_.__l.__size_);
     }
   }
 
   else
   {
-    abb::router::Message::getRawMsg(&v28, this);
-    v6 = *v28.__r_.__value_.__l.__data_;
-    abb::router::Message::getRawMsg(&v26.__val_, this);
-    MEMORY[0x29C2B8680](v20, v6, *(*&v26.__val_ + 8) - **&v26.__val_);
-    if (v26.__cat_)
+    abb::router::Message::getRawMsg(&v27, this);
+    v8 = *v27.__r_.__value_.__l.__data_;
+    abb::router::Message::getRawMsg(&v25.__val_, this);
+    MEMORY[0x29C2B8680](v19, v8, *(*&v25.__val_ + 8) - **&v25.__val_);
+    if (v25.__cat_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26.__cat_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v25.__cat_);
     }
 
-    if (v28.__r_.__value_.__l.__size_)
+    size = v27.__r_.__value_.__l.__size_;
+    if (v27.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27.__r_.__value_.__l.__size_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(size, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    if (v23 && *(v23 + 23) < 0)
+    v9 = v22;
+    if (v22)
     {
-      v10 = *v23;
+      if (*(v22 + 23) < 0)
+      {
+        v9 = *v22;
+      }
     }
 
-    if (v24 && *(v24 + 23) < 0)
+    else
     {
-      v11 = *v24;
+      v9 = "NULL";
     }
 
-    if (v25 && *(v25 + 23) < 0)
+    v10 = v23;
+    if (v23)
     {
-      v12 = *v25;
+      if (*(v23 + 23) < 0)
+      {
+        v10 = *v23;
+      }
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Status_Cnf received: Msg=0x%x fTlv_Eid = %s fTlv_Iccid = %s fTlv_Atr = %s\n", v7, v8, v9, 16);
+    else
+    {
+      v10 = "NULL";
+    }
+
+    v11 = v24;
+    if (v24)
+    {
+      if (*(v24 + 23) < 0)
+      {
+        v11 = *v24;
+      }
+    }
+
+    else
+    {
+      v11 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Status_Cnf received: Msg=0x%x fTlv_Eid = %s fTlv_Iccid = %s fTlv_Atr = %s\n", 1296, v9, v10, v11);
   }
 
-  v13 = mipc::operator==();
-  gBBULogMaskGet();
+  v12 = mipc::operator==();
+  v13 = v12;
+  gBBULogMaskGet(v12, v14);
   if (v13)
   {
-    if ((*v22 + 4) > 0x19u)
+    v15 = *v21;
+    if ((v15 + 4) > 0x19u)
     {
-      v17 = "Unknown sim status";
+      v16 = "Unknown sim status";
     }
 
     else
     {
-      v17 = off_29F293A08[(*v22 + 4)];
+      v16 = off_29F293A08[(v15 + 4)];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "SIM status: %s(%d).\n", v14, v15, v16, v17);
-    **(a1 + 16) = *v22;
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "SIM status: %s(%d).\n", v16, v15);
+    **(a1 + 16) = *v21;
   }
 
   else
   {
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v28, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v27, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v28 = v21;
+      v27 = v20;
     }
 
-    v18 = &v28;
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v17 = &v27;
+    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v18) = v28.__r_.__value_.__s.__data_[0];
+      v17 = v27.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Status_Cnf returned error[%s].\n", v14, v15, v16, v18);
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Status_Cnf returned error[%s].\n", v17);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 24));
-  return MEMORY[0x29C2B8690](v20);
+  return MEMORY[0x29C2B8690](v19);
 }
 
-void sub_299FC11AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_299FC11AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  if (*(v6 - 89) < 0)
+  va_start(va, a11);
+  if (*(v11 - 89) < 0)
   {
-    operator delete(*(v6 - 112));
+    operator delete(*(v11 - 112));
   }
 
-  MEMORY[0x29C2B8690](va);
+  MEMORY[0x29C2B8690](va, a2, a3, a4, a5, a6);
   _Unwind_Resume(a1);
 }
 
@@ -4744,7 +5118,7 @@ void std::__throw_bad_optional_access[abi:ne200100]()
 
 void *std::__function::__value_func<void ()(abb::router::Message const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x29EDCA608];
+  v5[3] = *MEMORY[0x29EDCA608];
   if (a2 != result)
   {
     v3 = result;
@@ -4754,15 +5128,15 @@ void *std::__function::__value_func<void ()(abb::router::Message const&)>::swap[
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -4790,7 +5164,6 @@ void *std::__function::__value_func<void ()(abb::router::Message const&)>::swap[
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4881,22 +5254,23 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v52.__val_, this);
-    if ((v53 & 1) == 0)
+    abb::router::Message::getError(&v50.__val_, this);
+    if ((v51 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v50 = v52;
-    v5 = mipc::toErrorCode(v52.__val_, v4);
-    std::error_code::message(&__p, &v50);
-    v44 = 0;
-    v45 = 0;
-    v42 = v5;
-    MEMORY[0x29C2B8450](v33, &v42, 1);
-    if (v45)
+    v48 = v50;
+    v5 = mipc::toErrorCode(v50.__val_, v4);
+    std::error_code::message(&__p, &v48);
+    v42 = 0;
+    v43 = 0;
+    v40 = v5;
+    MEMORY[0x29C2B8450](v31, &v40, 1);
+    v7 = v43;
+    if (v43)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4907,183 +5281,251 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 
   else
   {
-    abb::router::Message::getRawMsg(&v42, this);
-    v6 = *v42;
-    abb::router::Message::getRawMsg(&v52.__val_, this);
-    MEMORY[0x29C2B8460](v33, v6, *(*&v52.__val_ + 8) - **&v52.__val_);
-    if (v52.__cat_)
+    abb::router::Message::getRawMsg(&v40, this);
+    v8 = *v40;
+    abb::router::Message::getRawMsg(&v50.__val_, this);
+    MEMORY[0x29C2B8460](v31, v8, *(*&v50.__val_ + 8) - **&v50.__val_);
+    if (v50.__cat_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v52.__cat_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v50.__cat_);
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  v7 = *(a1 + 8);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  v9 = *(a1 + 8);
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v11 = v35;
-    if (v35)
+    v10 = v33;
+    if (v33)
     {
-      stringifyVal(*v35, &v42);
-    }
-
-    v32 = v36;
-    if (v36)
-    {
-      stringifyVal(*v36, &v52);
-    }
-
-    v12 = v37;
-    if (v37)
-    {
-      stringifyVal(*v37, &v50);
-    }
-
-    v13 = v41;
-    if (v41)
-    {
-      stringifyVal(*v41, &v48);
-    }
-
-    v14 = v38;
-    if (v38)
-    {
-      stringifyDataBuffer(*v38, v38[1] - *v38, &v47);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Is_Not_Personalized = %s fTlv_Sw = %s fTlv_Chip_Id = %s fTlv_Eid = %s\n", v8, v9, v10, 3);
-    if (v14 && SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v47.__r_.__value_.__l.__data_);
-    }
-
-    if (v13 && v49 < 0)
-    {
-      operator delete(v48);
-    }
-
-    if (v12 && v51 < 0)
-    {
-      operator delete(*&v50.__val_);
-    }
-
-    if (v32 && v54 < 0)
-    {
-      operator delete(*&v52.__val_);
-    }
-
-    if (v11 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v42);
-    }
-  }
-
-  if (mipc::operator==())
-  {
-    if (*v35)
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf not successful, result 0x%x ", v15, v16, v17, *v35);
-      v18 = v37;
-      gBBULogMaskGet();
-      if (v18)
+      stringifyVal(*v33, &v40);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
       {
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "sw1_sw2 0x%hx\n", v19, v20, v21, *v37);
+        v11 = &v40;
       }
 
       else
       {
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "\n", v19, v20, v21, v31);
+        v11 = v40;
       }
     }
 
     else
     {
-      *(v7 + 8) = 0;
+      v11 = "NULL";
+    }
+
+    v30 = v34;
+    if (v34)
+    {
+      stringifyVal(*v34, &v50);
+      if (v52 >= 0)
+      {
+        v12 = &v50;
+      }
+
+      else
+      {
+        v12 = *&v50.__val_;
+      }
+    }
+
+    else
+    {
+      v12 = "NULL";
+    }
+
+    v13 = v35;
+    if (v35)
+    {
+      stringifyVal(*v35, &v48);
+      if (v49 >= 0)
+      {
+        v14 = &v48;
+      }
+
+      else
+      {
+        v14 = *&v48.__val_;
+      }
+    }
+
+    else
+    {
+      v14 = "NULL";
+    }
+
+    v15 = v39;
+    if (v39)
+    {
+      v16 = v46;
+      stringifyVal(*v39, v46);
+      if (v47 < 0)
+      {
+        v16 = v46[0];
+      }
+    }
+
+    else
+    {
+      v16 = "NULL";
+    }
+
+    v17 = v36;
+    if (v36)
+    {
+      stringifyDataBuffer(*v36, v36[1] - *v36, &v45);
+      if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v18 = &v45;
+      }
+
+      else
+      {
+        v18 = v45.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v18 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Is_Not_Personalized = %s fTlv_Sw = %s fTlv_Chip_Id = %s fTlv_Eid = %s\n", 62467, v11, v12, v14, v16, v18);
+    if (v17 && SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    if (v15 && v47 < 0)
+    {
+      operator delete(v46[0]);
+    }
+
+    if (v13 && v49 < 0)
+    {
+      operator delete(*&v48.__val_);
+    }
+
+    if (v30 && v52 < 0)
+    {
+      operator delete(*&v50.__val_);
+    }
+
+    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v40);
+    }
+  }
+
+  v19 = mipc::operator==();
+  if (v19)
+  {
+    if (*v33)
+    {
+      gBBULogMaskGet(v19, v20);
+      v21 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf not successful, result 0x%x ", *v33);
+      v22 = v35;
+      gBBULogMaskGet(v21, v23);
+      if (v22)
+      {
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "sw1_sw2 0x%hx\n", *v35);
+      }
+
+      else
+      {
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "\n");
+      }
+    }
+
+    else
+    {
+      *(v9 + 8) = 0;
+      if (v35)
+      {
+        *(v9 + 13) = *v35;
+      }
+
+      if (v36)
+      {
+        *(v9 + 15) = **v36;
+      }
+
       if (v37)
       {
-        *(v7 + 13) = *v37;
+        v24 = (*v37)[1];
+        *(v9 + 32) = **v37;
+        *(v9 + 48) = v24;
       }
 
       if (v38)
       {
-        *(v7 + 15) = **v38;
-      }
-
-      if (v39)
-      {
-        v25 = (*v39)[1];
-        *(v7 + 32) = **v39;
-        *(v7 + 48) = v25;
-      }
-
-      if (v40)
-      {
-        mipc::getBuf<3ul,true>(v40, &v46);
-        size = v46.__r_.__value_.__l.__size_;
-        v27 = *(*v46.__r_.__value_.__l.__data_ + 2);
-        *(v7 + 248) = **v46.__r_.__value_.__l.__data_;
-        *(v7 + 250) = v27;
+        mipc::getBuf<3ul,true>(v38, &v44);
+        size = v44.__r_.__value_.__l.__size_;
+        v26 = *(*v44.__r_.__value_.__l.__data_ + 2);
+        *(v9 + 248) = **v44.__r_.__value_.__l.__data_;
+        *(v9 + 250) = v26;
         if (size)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](size);
         }
       }
 
-      if (v36)
+      if (v34)
       {
-        *(v7 + 12) = *v36;
+        *(v9 + 12) = *v34;
       }
 
-      if (v41)
+      if (v39)
       {
-        *(v7 + 283) = *v41;
+        *(v9 + 283) = *v39;
       }
 
-      v28 = eUICC::eUICCVinylValve::hardwareHasESIM;
-      *(v7 + 289) = eUICC::eUICCVinylValve::hardwareHasESIM;
-      *(v7 + 286) = eUICC::eUICCVinylValve::simSKUID;
-      *(v7 + 287) = v28 ^ 1;
-      *(v7 + 290) = 1;
-      eUICC::logEUICCData((v7 + 8));
+      v27 = eUICC::eUICCVinylValve::hardwareHasESIM;
+      *(v9 + 289) = eUICC::eUICCVinylValve::hardwareHasESIM;
+      *(v9 + 286) = eUICC::eUICCVinylValve::simSKUID;
+      *(v9 + 287) = v27 ^ 1;
+      *(v9 + 290) = 1;
+      eUICC::logEUICCData((v9 + 8), v20);
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v19, v20);
+    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v46, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v44, v32.__r_.__value_.__l.__data_, v32.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v46 = v34;
+      v44 = v32;
     }
 
-    v29 = &v46;
-    if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v28 = &v44;
+    if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v29) = v46.__r_.__value_.__s.__data_[0];
+      v28 = v44.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf returned error[%s].\n", v22, v23, v24, v29);
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "EoS_Getdata_Cnf returned error[%s].\n", v28);
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v44.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 16));
-  return MEMORY[0x29C2B8470](v33);
+  return MEMORY[0x29C2B8470](v31);
 }
 
-void sub_299FC1B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
+void sub_299FC1B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
 {
   if (v43 && *(v44 - 145) < 0)
   {
@@ -5108,7 +5550,7 @@ void sub_299FC1B8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  MEMORY[0x29C2B8470](&a17);
+  MEMORY[0x29C2B8470](&a17, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5124,10 +5566,10 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
   }
 }
 
-uint64_t mipc::getBuf<3ul,true>@<X0>(uint64_t result@<X0>, void *a2@<X8>)
+uint64_t *mipc::getBuf<3ul,true>@<X0>(uint64_t *result@<X0>, void *a2@<X8>)
 {
   v4 = *result;
-  v5 = *(result + 8);
+  v5 = result[1];
   if (*result == v5)
   {
     *a2 = 0;
@@ -5262,22 +5704,23 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v70.__val_, this);
-    if ((v71 & 1) == 0)
+    abb::router::Message::getError(&v68.__val_, this);
+    if ((v69 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v68 = v70;
-    v5 = mipc::toErrorCode(v70.__val_, v4);
-    std::error_code::message(&__p, &v68);
-    v62 = 0;
-    v63 = 0;
-    v60 = v5;
-    MEMORY[0x29C2B82A0](v45, &v60, 1);
-    if (v63)
+    v66 = v68;
+    v5 = mipc::toErrorCode(v68.__val_, v4);
+    std::error_code::message(&__p, &v66);
+    v60 = 0;
+    v61 = 0;
+    v58 = v5;
+    MEMORY[0x29C2B82A0](v43, &v58, 1);
+    v7 = v61;
+    if (v61)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v61);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5288,248 +5731,316 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 
   else
   {
-    abb::router::Message::getRawMsg(&v60, this);
-    v6 = *v60;
-    abb::router::Message::getRawMsg(&v70.__val_, this);
-    MEMORY[0x29C2B82B0](v45, v6, *(*&v70.__val_ + 8) - **&v70.__val_);
-    if (v70.__cat_)
+    abb::router::Message::getRawMsg(&v58, this);
+    v8 = *v58;
+    abb::router::Message::getRawMsg(&v68.__val_, this);
+    MEMORY[0x29C2B82B0](v43, v8, *(*&v68.__val_ + 8) - **&v68.__val_);
+    if (v68.__cat_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v70.__cat_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v68.__cat_);
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  v7 = *(a1 + 8);
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  v9 = *(a1 + 8);
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v11 = v47;
-    if (v47)
+    v10 = v45;
+    if (v45)
     {
-      stringifyVal(*v47, &v60);
-    }
-
-    v44 = v48;
-    if (v48)
-    {
-      stringifyVal(*v48, &v70);
-    }
-
-    v12 = v49;
-    if (v49)
-    {
-      stringifyVal(*v49, &v68);
-    }
-
-    v13 = v58;
-    if (v58)
-    {
-      stringifyVal(*v58, &v66);
-    }
-
-    v14 = v50;
-    if (v50)
-    {
-      stringifyDataBuffer(*v50, v50[1] - *v50, &v65);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Getdata_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Is_Not_Personalized = %s fTlv_Sw = %s fTlv_Chip_Id = %s fTlv_Eid = %s\n", v8, v9, v10, 2);
-    if (v14 && SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v65.__r_.__value_.__l.__data_);
-    }
-
-    if (v13 && v67 < 0)
-    {
-      operator delete(v66);
-    }
-
-    if (v12 && v69 < 0)
-    {
-      operator delete(*&v68.__val_);
-    }
-
-    if (v44 && v72 < 0)
-    {
-      operator delete(*&v70.__val_);
-    }
-
-    if (v11 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v60);
-    }
-  }
-
-  if (mipc::operator==())
-  {
-    if (*v47)
-    {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Getdata_Cnf not successful, result 0x%x ", v15, v16, v17, *v47);
-      v18 = v49;
-      gBBULogMaskGet();
-      if (v18)
+      stringifyVal(*v45, &v58);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
       {
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "sw1_sw2 0x%hx\n", v19, v20, v21, *v49);
+        v11 = &v58;
       }
 
       else
       {
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "\n", v19, v20, v21, v43);
+        v11 = v58;
       }
     }
 
     else
     {
-      *(v7 + 8) = 0;
+      v11 = "NULL";
+    }
+
+    v42 = v46;
+    if (v46)
+    {
+      stringifyVal(*v46, &v68);
+      if (v70 >= 0)
+      {
+        v12 = &v68;
+      }
+
+      else
+      {
+        v12 = *&v68.__val_;
+      }
+    }
+
+    else
+    {
+      v12 = "NULL";
+    }
+
+    v13 = v47;
+    if (v47)
+    {
+      stringifyVal(*v47, &v66);
+      if (v67 >= 0)
+      {
+        v14 = &v66;
+      }
+
+      else
+      {
+        v14 = *&v66.__val_;
+      }
+    }
+
+    else
+    {
+      v14 = "NULL";
+    }
+
+    v15 = v56;
+    if (v56)
+    {
+      v16 = v64;
+      stringifyVal(*v56, v64);
+      if (v65 < 0)
+      {
+        v16 = v64[0];
+      }
+    }
+
+    else
+    {
+      v16 = "NULL";
+    }
+
+    v17 = v48;
+    if (v48)
+    {
+      stringifyDataBuffer(*v48, v48[1] - *v48, &v63);
+      if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v18 = &v63;
+      }
+
+      else
+      {
+        v18 = v63.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v18 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Getdata_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Is_Not_Personalized = %s fTlv_Sw = %s fTlv_Chip_Id = %s fTlv_Eid = %s\n", 62466, v11, v12, v14, v16, v18);
+    if (v17 && SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v63.__r_.__value_.__l.__data_);
+    }
+
+    if (v15 && v65 < 0)
+    {
+      operator delete(v64[0]);
+    }
+
+    if (v13 && v67 < 0)
+    {
+      operator delete(*&v66.__val_);
+    }
+
+    if (v42 && v70 < 0)
+    {
+      operator delete(*&v68.__val_);
+    }
+
+    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v58);
+    }
+  }
+
+  v19 = mipc::operator==();
+  if (v19)
+  {
+    if (*v45)
+    {
+      gBBULogMaskGet(v19, v20);
+      v21 = _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Getdata_Cnf not successful, result 0x%x ", *v45);
+      v22 = v47;
+      gBBULogMaskGet(v21, v23);
+      if (v22)
+      {
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "sw1_sw2 0x%hx\n", *v47);
+      }
+
+      else
+      {
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "\n");
+      }
+    }
+
+    else
+    {
+      *(v9 + 8) = 0;
+      if (v47)
+      {
+        *(v9 + 13) = *v47;
+      }
+
+      if (v48)
+      {
+        *(v9 + 15) = **v48;
+      }
+
       if (v49)
       {
-        *(v7 + 13) = *v49;
-      }
-
-      if (v50)
-      {
-        *(v7 + 15) = **v50;
-      }
-
-      if (v51)
-      {
-        *(v7 + 31) = *v51;
-      }
-
-      if (v54)
-      {
-        v25 = (*v54)[1];
-        *(v7 + 32) = **v54;
-        *(v7 + 48) = v25;
+        *(v9 + 31) = *v49;
       }
 
       if (v52)
       {
-        *(v7 + 64) = **v52;
+        v24 = (*v52)[1];
+        *(v9 + 32) = **v52;
+        *(v9 + 48) = v24;
+      }
+
+      if (v50)
+      {
+        *(v9 + 64) = **v50;
+      }
+
+      if (v51)
+      {
+        *(v9 + 72) = **v51;
       }
 
       if (v53)
       {
-        *(v7 + 72) = **v53;
-      }
-
-      if (v55)
-      {
-        mipc::tlv<mipc::mipc_policy_ctrl_func_struct4,false>::getBuf(&v55, &v64);
-        size = v64.__r_.__value_.__l.__size_;
-        v27 = *v64.__r_.__value_.__l.__data_;
-        *(v7 + 80) = **v64.__r_.__value_.__l.__data_;
-        v29 = v27[2];
-        v28 = v27[3];
-        v30 = v27[1];
-        *(v7 + 139) = *(v27 + 59);
-        *(v7 + 112) = v29;
-        *(v7 + 128) = v28;
-        *(v7 + 96) = v30;
+        mipc::tlv<mipc::mipc_policy_ctrl_func_struct4,false>::getBuf(&v53, &v62);
+        size = v62.__r_.__value_.__l.__size_;
+        v26 = *v62.__r_.__value_.__l.__data_;
+        *(v9 + 80) = **v62.__r_.__value_.__l.__data_;
+        v28 = v26[2];
+        v27 = v26[3];
+        v29 = v26[1];
+        *(v9 + 139) = *(v26 + 59);
+        *(v9 + 112) = v28;
+        *(v9 + 128) = v27;
+        *(v9 + 96) = v29;
         if (size)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](size);
         }
       }
 
-      if (v56)
+      if (v54)
       {
-        mipc::tlv<mipc::mipc_policy_ctrl_func_struct4,false>::getBuf(&v56, &v64);
-        v31 = v64.__r_.__value_.__l.__size_;
-        v32 = *v64.__r_.__value_.__l.__data_;
-        *(v7 + 155) = **v64.__r_.__value_.__l.__data_;
-        v34 = v32[2];
-        v33 = v32[3];
-        v35 = *(v32 + 59);
-        *(v7 + 171) = v32[1];
-        *(v7 + 214) = v35;
-        *(v7 + 203) = v33;
-        *(v7 + 187) = v34;
-        if (v31)
+        mipc::tlv<mipc::mipc_policy_ctrl_func_struct4,false>::getBuf(&v54, &v62);
+        v30 = v62.__r_.__value_.__l.__size_;
+        v31 = *v62.__r_.__value_.__l.__data_;
+        *(v9 + 155) = **v62.__r_.__value_.__l.__data_;
+        v33 = v31[2];
+        v32 = v31[3];
+        v34 = *(v31 + 59);
+        *(v9 + 171) = v31[1];
+        *(v9 + 214) = v34;
+        *(v9 + 203) = v32;
+        *(v9 + 187) = v33;
+        if (v30)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+        }
+      }
+
+      if (v55)
+      {
+        mipc::getBuf<3ul,true>(v55, &v62);
+        v35 = v62.__r_.__value_.__l.__size_;
+        v36 = *(*v62.__r_.__value_.__l.__data_ + 2);
+        *(v9 + 248) = **v62.__r_.__value_.__l.__data_;
+        *(v9 + 250) = v36;
+        if (v35)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](v35);
         }
       }
 
       if (v57)
       {
-        mipc::getBuf<3ul,true>(v57, &v64);
-        v36 = v64.__r_.__value_.__l.__size_;
-        v37 = *(*v64.__r_.__value_.__l.__data_ + 2);
-        *(v7 + 248) = **v64.__r_.__value_.__l.__data_;
-        *(v7 + 250) = v37;
-        if (v36)
+        mipc::getBuf<3ul,true>(v57, &v62);
+        v37 = v62.__r_.__value_.__l.__size_;
+        v38 = *(*v62.__r_.__value_.__l.__data_ + 16);
+        *(v9 + 251) = **v62.__r_.__value_.__l.__data_;
+        *(v9 + 267) = v38;
+        if (v37)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v37);
         }
       }
 
-      if (v59)
+      if (v46)
       {
-        mipc::getBuf<3ul,true>(v59, &v64);
-        v38 = v64.__r_.__value_.__l.__size_;
-        v39 = *(*v64.__r_.__value_.__l.__data_ + 16);
-        *(v7 + 251) = **v64.__r_.__value_.__l.__data_;
-        *(v7 + 267) = v39;
-        if (v38)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-        }
+        *(v9 + 12) = *v46;
       }
 
-      if (v48)
+      if (v56)
       {
-        *(v7 + 12) = *v48;
+        *(v9 + 283) = *v56;
       }
 
-      if (v58)
-      {
-        *(v7 + 283) = *v58;
-      }
-
-      v40 = eUICC::eUICCVinylValve::hardwareHasESIM;
-      *(v7 + 289) = eUICC::eUICCVinylValve::hardwareHasESIM;
-      *(v7 + 286) = eUICC::eUICCVinylValve::simSKUID;
-      *(v7 + 287) = v40 ^ 1;
-      *(v7 + 290) = 1;
+      v39 = eUICC::eUICCVinylValve::hardwareHasESIM;
+      *(v9 + 289) = eUICC::eUICCVinylValve::hardwareHasESIM;
+      *(v9 + 286) = eUICC::eUICCVinylValve::simSKUID;
+      *(v9 + 287) = v39 ^ 1;
+      *(v9 + 290) = 1;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v19, v20);
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v64, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v62, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v64 = v46;
+      v62 = v44;
     }
 
-    v41 = &v64;
-    if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v40 = &v62;
+    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v41) = v64.__r_.__value_.__s.__data_[0];
+      v40 = v62.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Getdata_Cnf returned error[%s].\n", v22, v23, v24, v41);
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Getdata_Cnf returned error[%s].\n", v40);
+    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      operator delete(v62.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 16));
-  return MEMORY[0x29C2B82C0](v45);
+  return MEMORY[0x29C2B82C0](v43);
 }
 
-void sub_299FC25EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, int a47, __int16 a48, char a49, char a50)
+void sub_299FC25EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p, uint64_t a46, int a47, __int16 a48, char a49, char a50)
 {
   if (v51 && *(v52 - 161) < 0)
   {
@@ -5554,7 +6065,7 @@ void sub_299FC25EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  MEMORY[0x29C2B82C0](&a18);
+  MEMORY[0x29C2B82C0](&a18, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -5624,7 +6135,7 @@ void *std::vector<unsigned char>::vector[abi:ne200100](void *a1, size_t a2)
   {
     std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
     v4 = a1[1];
-    v5 = &v4[a2];
+    v5 = v4 + a2;
     bzero(v4, a2);
     a1[1] = v5;
   }
@@ -5719,22 +6230,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v29, this);
-    if ((v30 & 1) == 0)
+    abb::router::Message::getError(&v25, this);
+    if ((v26 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v28.__r_.__value_.__l.__data_ = v29;
-    v5 = mipc::toErrorCode(v29, v4);
-    std::error_code::message(&__p, &v28);
-    v26 = 0;
-    v27 = 0;
-    v24 = v5;
-    MEMORY[0x29C2B84F0](v20, &v24, 1);
-    if (v27)
+    *&v24.__r_.__value_.__l.__data_ = v25;
+    v5 = mipc::toErrorCode(v25, v4);
+    std::error_code::message(&__p, &v24);
+    v22 = 0;
+    v23 = 0;
+    v20 = v5;
+    MEMORY[0x29C2B84F0](v16, &v20, 1);
+    v7 = v23;
+    if (v23)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5745,54 +6257,83 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v24, this);
-    v6 = *v24;
-    abb::router::Message::getRawMsg(&v29, this);
-    MEMORY[0x29C2B8500](v20, v6, *(v29 + 8) - *v29);
-    if (*(&v29 + 1))
+    abb::router::Message::getRawMsg(&v20, this);
+    v8 = *v20;
+    abb::router::Message::getRawMsg(&v25, this);
+    MEMORY[0x29C2B8500](v16, v8, *(v25 + 8) - *v25);
+    if (*(&v25 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v29 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v22;
-    if (v22)
+    v9 = v18;
+    if (v18)
     {
-      stringifyVal(*v22, &v24);
+      stringifyVal(*v18, &v20);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v20;
+      }
+
+      else
+      {
+        v10 = v20;
+      }
     }
 
-    v11 = v23;
-    if (v23)
+    else
     {
-      stringifyVal(*v23, &v29);
+      v10 = "NULL";
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Switch_Mode_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", v7, v8, v9, 4);
-    if (v11 && v31 < 0)
+    v11 = v19;
+    if (v19)
     {
-      operator delete(v29);
+      stringifyVal(*v19, &v25);
+      if (v27 >= 0)
+      {
+        v12 = &v25;
+      }
+
+      else
+      {
+        v12 = v25;
+      }
     }
 
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v24);
+      v12 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Switch_Mode_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", 62468, v10, v12);
+    if (v11 && v27 < 0)
+    {
+      operator delete(v25);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v20);
     }
   }
 
-  if (mipc::operator==())
+  v13 = mipc::operator==();
+  if (v13)
   {
-    if (*v22)
+    if (*v18)
     {
-      gBBULogMaskGet();
-      v19 = *v23;
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Switch_Mode_Cnf not successful, result 0x%x sw1_sw2 0x%hx\n", v12, v13, v14, *v22);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Switch_Mode_Cnf not successful, result 0x%x sw1_sw2 0x%hx\n", *v18, *v19);
     }
 
     else
@@ -5803,35 +6344,35 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v13, v14);
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v28, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v24, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v28 = v21;
+      v24 = v17;
     }
 
-    v18 = &v28;
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v15 = &v24;
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v18) = v28.__r_.__value_.__s.__data_[0];
+      v15 = v24.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Switch_Mode_Req returned error[%s].\n", v15, v16, v17, v18);
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Switch_Mode_Req returned error[%s].\n", v15);
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 24));
-  mipc::dale_vinyl::Switch_Mode_Cnf::~Switch_Mode_Cnf(v20);
+  mipc::dale_vinyl::Switch_Mode_Cnf::~Switch_Mode_Cnf(v16);
 }
 
-void sub_299FC2D64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_299FC2D64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v30)
   {
@@ -5947,22 +6488,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v28, this);
-    if ((v29 & 1) == 0)
+    abb::router::Message::getError(&v25, this);
+    if ((v26 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v27.__r_.__value_.__l.__data_ = v28;
-    v5 = mipc::toErrorCode(v28, v4);
-    std::error_code::message(&__p, &v27);
-    v25 = 0;
-    v26 = 0;
-    v23 = v5;
-    MEMORY[0x29C2B85E0](v19, &v23, 1);
-    if (v26)
+    *&v24.__r_.__value_.__l.__data_ = v25;
+    v5 = mipc::toErrorCode(v25, v4);
+    std::error_code::message(&__p, &v24);
+    v22 = 0;
+    v23 = 0;
+    v20 = v5;
+    MEMORY[0x29C2B85E0](v16, &v20, 1);
+    v7 = v23;
+    if (v23)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5973,53 +6515,83 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v23, this);
-    v6 = *v23;
-    abb::router::Message::getRawMsg(&v28, this);
-    MEMORY[0x29C2B85F0](v19, v6, *(v28 + 8) - *v28);
-    if (*(&v28 + 1))
+    abb::router::Message::getRawMsg(&v20, this);
+    v8 = *v20;
+    abb::router::Message::getRawMsg(&v25, this);
+    MEMORY[0x29C2B85F0](v16, v8, *(v25 + 8) - *v25);
+    if (*(&v25 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v28 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v21;
-    if (v21)
+    v9 = v18;
+    if (v18)
     {
-      stringifyVal(*v21, &v23);
+      stringifyVal(*v18, &v20);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v20;
+      }
+
+      else
+      {
+        v10 = v20;
+      }
     }
 
-    v11 = v22;
-    if (v22)
+    else
     {
-      stringifyVal(*v22, &v28);
+      v10 = "NULL";
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Delete Profile Cmd_Cnf received: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Result = %s\n", v7, v8, v9, 1);
-    if (v11 && v30 < 0)
+    v11 = v19;
+    if (v19)
     {
-      operator delete(v28);
+      stringifyVal(*v19, &v25);
+      if (v27 >= 0)
+      {
+        v12 = &v25;
+      }
+
+      else
+      {
+        v12 = v25;
+      }
     }
 
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v23);
+      v12 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Delete Profile Cmd_Cnf received: Msg=0x%x fTlv_Cmd_Id = %s fTlv_Result = %s\n", 62465, v10, v12);
+    if (v11 && v27 < 0)
+    {
+      operator delete(v25);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v20);
     }
   }
 
-  if (mipc::operator==())
+  v13 = mipc::operator==();
+  if (v13)
   {
-    if (*v22)
+    if (*v19)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Delete Profile Cmd_Cnf not successful, result 0x%x\n", v12, v13, v14, *v22);
+      gBBULogMaskGet(v13, v14);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Delete Profile Cmd_Cnf not successful, result 0x%x\n", *v19);
     }
 
     else
@@ -6030,35 +6602,35 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v13, v14);
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v27, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v24, v17.__r_.__value_.__l.__data_, v17.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v27 = v20;
+      v24 = v17;
     }
 
-    v18 = &v27;
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v15 = &v24;
+    if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v18) = v27.__r_.__value_.__s.__data_[0];
+      v15 = v24.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Delete Profile Cmd_Req returned error[%s].\n", v15, v16, v17, v18);
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Delete Profile Cmd_Req returned error[%s].\n", v15);
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v27.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 24));
-  mipc::dale_vinyl::Cmd_Cnf::~Cmd_Cnf(v19);
+  mipc::dale_vinyl::Cmd_Cnf::~Cmd_Cnf(v16);
 }
 
-void sub_299FC3310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_299FC3310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v30)
   {
@@ -6162,22 +6734,23 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v38, this);
-    if ((v39 & 1) == 0)
+    abb::router::Message::getError(&v32, this);
+    if ((v33 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v37.__r_.__value_.__l.__data_ = v38;
-    v5 = mipc::toErrorCode(v38, v4);
-    std::error_code::message(&__p, &v37);
-    v34 = 0;
-    v35 = 0;
-    v32 = v5;
-    MEMORY[0x29C2B8610](v25, &v32, 1);
-    if (v35)
+    *&v31.__r_.__value_.__l.__data_ = v32;
+    v5 = mipc::toErrorCode(v32, v4);
+    std::error_code::message(&__p, &v31);
+    v28 = 0;
+    v29 = 0;
+    v26 = v5;
+    MEMORY[0x29C2B8610](v19, &v26, 1);
+    v7 = v29;
+    if (v29)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6188,112 +6761,155 @@ uint64_t std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy
 
   else
   {
+    abb::router::Message::getRawMsg(&v26, this);
+    v8 = *v26;
     abb::router::Message::getRawMsg(&v32, this);
-    v6 = *v32;
-    abb::router::Message::getRawMsg(&v38, this);
-    MEMORY[0x29C2B8620](v25, v6, *(v38 + 8) - *v38);
-    if (*(&v38 + 1))
+    MEMORY[0x29C2B8620](v19, v8, *(v32 + 8) - *v32);
+    if (*(&v32 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v38 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v27;
-    if (v27)
+    v9 = v21;
+    if (v21)
     {
-      stringifyVal(*v27, &v32);
+      stringifyVal(*v21, &v26);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v26;
+      }
+
+      else
+      {
+        v10 = v26;
+      }
     }
 
-    v11 = v28;
-    if (v28)
+    else
     {
-      stringifyVal(*v28, &v38);
+      v10 = "NULL";
     }
 
-    v12 = v31;
-    if (v31)
+    v11 = v22;
+    if (v22)
     {
-      stringifyDataBuffer(*v31, *(v31 + 8) - *v31, &v37);
+      stringifyVal(*v22, &v32);
+      if (v34 >= 0)
+      {
+        v12 = &v32;
+      }
+
+      else
+      {
+        v12 = v32;
+      }
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Store data Cmd_Ind received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", v7, v8, v9, 128);
-    if (v12 && SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    else
     {
-      operator delete(v37.__r_.__value_.__l.__data_);
+      v12 = "NULL";
     }
 
-    if (v11 && v40 < 0)
+    v13 = v25;
+    if (v25)
     {
-      operator delete(v38);
+      stringifyDataBuffer(*v25, *(v25 + 8) - *v25, &v31);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &v31;
+      }
+
+      else
+      {
+        v14 = v31.__r_.__value_.__r.__words[0];
+      }
     }
 
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
+    {
+      v14 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Store data Cmd_Ind received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", 62592, v10, v12, v14);
+    if (v13 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v31.__r_.__value_.__l.__data_);
+    }
+
+    if (v11 && v34 < 0)
     {
       operator delete(v32);
     }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v26);
+    }
   }
 
-  if (mipc::operator==())
+  v15 = mipc::operator==();
+  if (v15)
   {
-    if (*v27)
+    if (*v21)
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Store data Cmd_Ind not successful, result 0x%x\n", v13, v14, v15, *v27);
+      gBBULogMaskGet(v15, v16);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Store data Cmd_Ind not successful, result 0x%x\n", *v21);
     }
 
-    else if (*v29 < 2u)
+    else if (*v23 < 2u)
     {
-      **(a1 + 32) = *v28;
-      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v31, *(v31 + 8), *(v31 + 8) - *v31);
+      **(a1 + 32) = *v22;
+      std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v25, *(v25 + 8), *(v25 + 8) - *v25);
       **(a1 + 24) = 0;
     }
 
     else
     {
-      gBBULogMaskGet();
-      v24 = *v29;
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Not support for concatenated indications currently, segment 0x%x/0x%x\n", v19, v20, v21, *v30);
+      gBBULogMaskGet(v15, v16);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Not support for concatenated indications currently, segment 0x%x/0x%x\n", *v24, *v23);
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v15, v16);
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v36, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v30, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v36 = v26;
+      v30 = v20;
     }
 
-    v22 = &v36;
-    if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v17 = &v30;
+    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v22) = v36.__r_.__value_.__s.__data_[0];
+      v17 = v30.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Store data Cmd_Req returned error[%s].\n", v16, v17, v18, v22);
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Store data Cmd_Req returned error[%s].\n", v17);
+    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v36.__r_.__value_.__l.__data_);
+      operator delete(v30.__r_.__value_.__l.__data_);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  return MEMORY[0x29C2B8630](v25);
+  return MEMORY[0x29C2B8630](v19);
 }
 
-void sub_299FC3944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
+void sub_299FC3944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36)
 {
   if (v37 && *(v38 - 89) < 0)
   {
@@ -6308,7 +6924,7 @@ void sub_299FC3944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     }
   }
 
-  MEMORY[0x29C2B8630](&a14);
+  MEMORY[0x29C2B8630](&a14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -6399,22 +7015,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v30, this);
-    if ((v31 & 1) == 0)
+    abb::router::Message::getError(&v26, this);
+    if ((v27 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v29.__r_.__value_.__l.__data_ = v30;
-    v5 = mipc::toErrorCode(v30, v4);
-    std::error_code::message(&__p, &v29);
-    v27 = 0;
-    v28 = 0;
-    v25 = v5;
-    MEMORY[0x29C2B84A0](v21, &v25, 1);
-    if (v28)
+    *&v25.__r_.__value_.__l.__data_ = v26;
+    v5 = mipc::toErrorCode(v26, v4);
+    std::error_code::message(&__p, &v25);
+    v23 = 0;
+    v24 = 0;
+    v21 = v5;
+    MEMORY[0x29C2B84A0](v17, &v21, 1);
+    v7 = v24;
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6425,93 +7042,122 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v25, this);
-    v6 = *v25;
-    abb::router::Message::getRawMsg(&v30, this);
-    MEMORY[0x29C2B84B0](v21, v6, *(v30 + 8) - *v30);
-    if (*(&v30 + 1))
+    abb::router::Message::getRawMsg(&v21, this);
+    v8 = *v21;
+    abb::router::Message::getRawMsg(&v26, this);
+    MEMORY[0x29C2B84B0](v17, v8, *(v26 + 8) - *v26);
+    if (*(&v26 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v26 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v23;
-    if (v23)
+    v9 = v19;
+    if (v19)
     {
-      stringifyVal(*v23, &v25);
+      stringifyVal(*v19, &v21);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v21;
+      }
+
+      else
+      {
+        v10 = v21;
+      }
     }
 
-    v11 = v24;
-    if (v24)
+    else
     {
-      stringifyVal(*v24, &v30);
+      v10 = "NULL";
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Vad_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", v7, v8, v9, 5);
-    if (v11 && v32 < 0)
+    v11 = v20;
+    if (v20)
     {
-      operator delete(v30);
+      stringifyVal(*v20, &v26);
+      if (v28 >= 0)
+      {
+        v12 = &v26;
+      }
+
+      else
+      {
+        v12 = v26;
+      }
     }
 
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v25);
+      v12 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Vad_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", 62469, v10, v12);
+    if (v11 && v28 < 0)
+    {
+      operator delete(v26);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v21);
     }
   }
 
-  if (mipc::operator==())
+  v13 = mipc::operator==();
+  if (v13)
   {
-    v12 = *v23;
-    if (*v23)
+    v15 = *v19;
+    if (*v19)
     {
-      gBBULogMaskGet();
-      v20 = *v24;
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallTicket result 0x%x sw1_sw2 0x%hx\n", v13, v14, v15, *v23);
-      v12 = 16;
+      gBBULogMaskGet(v13, v14);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallTicket result 0x%x sw1_sw2 0x%hx\n", *v19, *v20);
+      v15 = 16;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v13, v14);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v29, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v25, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v29 = v22;
+      v25 = v18;
     }
 
-    v19 = &v29;
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v16 = &v25;
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v19) = v29.__r_.__value_.__s.__data_[0];
+      v16 = v25.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Vad_Req returned error[%s].\n", v16, v17, v18, v19);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Vad_Req returned error[%s].\n", v16);
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
-    v12 = 11;
+    v15 = 11;
   }
 
-  **(a1 + 16) = v12;
+  **(a1 + 16) = v15;
   dispatch_semaphore_signal(*(a1 + 24));
-  mipc::dale_vinyl::Install_Vad_Cnf::~Install_Vad_Cnf(v21);
+  mipc::dale_vinyl::Install_Vad_Cnf::~Install_Vad_Cnf(v17);
 }
 
-void sub_299FC3EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_299FC3EC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v30)
   {
@@ -6612,22 +7258,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v30, this);
-    if ((v31 & 1) == 0)
+    abb::router::Message::getError(&v26, this);
+    if ((v27 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v29.__r_.__value_.__l.__data_ = v30;
-    v5 = mipc::toErrorCode(v30, v4);
-    std::error_code::message(&__p, &v29);
-    v27 = 0;
-    v28 = 0;
-    v25 = v5;
-    MEMORY[0x29C2B8400](v21, &v25, 1);
-    if (v28)
+    *&v25.__r_.__value_.__l.__data_ = v26;
+    v5 = mipc::toErrorCode(v26, v4);
+    std::error_code::message(&__p, &v25);
+    v23 = 0;
+    v24 = 0;
+    v21 = v5;
+    MEMORY[0x29C2B8400](v17, &v21, 1);
+    v7 = v24;
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6638,93 +7285,122 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v25, this);
-    v6 = *v25;
-    abb::router::Message::getRawMsg(&v30, this);
-    MEMORY[0x29C2B8410](v21, v6, *(v30 + 8) - *v30);
-    if (*(&v30 + 1))
+    abb::router::Message::getRawMsg(&v21, this);
+    v8 = *v21;
+    abb::router::Message::getRawMsg(&v26, this);
+    MEMORY[0x29C2B8410](v17, v8, *(v26 + 8) - *v26);
+    if (*(&v26 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v26 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v23;
-    if (v23)
+    v9 = v19;
+    if (v19)
     {
-      stringifyVal(*v23, &v25);
+      stringifyVal(*v19, &v21);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v21;
+      }
+
+      else
+      {
+        v10 = v21;
+      }
     }
 
-    v11 = v24;
-    if (v24)
+    else
     {
-      stringifyVal(*v24, &v30);
+      v10 = "NULL";
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Fw_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", v7, v8, v9, 6);
-    if (v11 && v32 < 0)
+    v11 = v20;
+    if (v20)
     {
-      operator delete(v30);
+      stringifyVal(*v20, &v26);
+      if (v28 >= 0)
+      {
+        v12 = &v26;
+      }
+
+      else
+      {
+        v12 = v26;
+      }
     }
 
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v25);
+      v12 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Install_Fw_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", 62470, v10, v12);
+    if (v11 && v28 < 0)
+    {
+      operator delete(v26);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v21);
     }
   }
 
-  if (mipc::operator==())
+  v13 = mipc::operator==();
+  if (v13)
   {
-    v12 = *v23;
-    if (*v23)
+    v15 = *v19;
+    if (*v19)
     {
-      gBBULogMaskGet();
-      v20 = *v24;
-      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Fw_Cnf result 0x%x sw1_sw2 0x%hx\n", v13, v14, v15, *v23);
-      v12 = 16;
+      gBBULogMaskGet(v13, v14);
+      _BBULog(22, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Fw_Cnf result 0x%x sw1_sw2 0x%hx\n", *v19, *v20);
+      v15 = 16;
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v13, v14);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v29, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v25, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v29 = v22;
+      v25 = v18;
     }
 
-    v19 = &v29;
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v16 = &v25;
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v19) = v29.__r_.__value_.__s.__data_[0];
+      v16 = v25.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Fw_Req returned error[%s].\n", v16, v17, v18, v19);
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Install_Fw_Req returned error[%s].\n", v16);
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
-    v12 = 11;
+    v15 = 11;
   }
 
-  **(a1 + 16) = v12;
+  **(a1 + 16) = v15;
   dispatch_semaphore_signal(*(a1 + 24));
-  mipc::dale_vinyl::Install_Fw_Cnf::~Install_Fw_Cnf(v21);
+  mipc::dale_vinyl::Install_Fw_Cnf::~Install_Fw_Cnf(v17);
 }
 
-void sub_299FC4430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_299FC4430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v30)
   {
@@ -6828,22 +7504,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v32, this);
-    if ((v33 & 1) == 0)
+    abb::router::Message::getError(&v30, this);
+    if ((v31 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v31.__r_.__value_.__l.__data_ = v32;
-    v5 = mipc::toErrorCode(v32, v4);
-    std::error_code::message(&__p, &v31);
-    v28 = 0;
-    v29 = 0;
-    v26 = v5;
-    MEMORY[0x29C2B83B0](v21, &v26, 1);
-    if (v29)
+    *&v29.__r_.__value_.__l.__data_ = v30;
+    v5 = mipc::toErrorCode(v30, v4);
+    std::error_code::message(&__p, &v29);
+    v26 = 0;
+    v27 = 0;
+    v24 = v5;
+    MEMORY[0x29C2B83B0](v19, &v24, 1);
+    v7 = v27;
+    if (v27)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6854,104 +7531,148 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v26, this);
-    v6 = *v26;
-    abb::router::Message::getRawMsg(&v32, this);
-    MEMORY[0x29C2B83C0](v21, v6, *(v32 + 8) - *v32);
-    if (*(&v32 + 1))
+    abb::router::Message::getRawMsg(&v24, this);
+    v8 = *v24;
+    abb::router::Message::getRawMsg(&v30, this);
+    MEMORY[0x29C2B83C0](v19, v8, *(v30 + 8) - *v30);
+    if (*(&v30 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v23;
-    if (v23)
+    v9 = v21;
+    if (v21)
     {
-      stringifyVal(*v23, &v26);
-    }
+      stringifyVal(*v21, &v24);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v24;
+      }
 
-    v11 = v24;
-    if (v24)
-    {
-      stringifyVal(*v24, &v32);
-    }
-
-    v12 = v25;
-    if (v25)
-    {
-      stringifyDataBuffer(*v25, *(v25 + 8) - *v25, &v31);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Init_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", v7, v8, v9, 7);
-    if (v12 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v31.__r_.__value_.__l.__data_);
-    }
-
-    if (v11 && v34 < 0)
-    {
-      operator delete(v32);
-    }
-
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v26);
-    }
-  }
-
-  if ((mipc::operator==() & 1) == 0)
-  {
-    gBBULogMaskGet();
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v30, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      else
+      {
+        v10 = v24;
+      }
     }
 
     else
     {
-      v30 = v22;
+      v10 = "NULL";
     }
 
-    v20 = &v30;
-    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = v22;
+    if (v22)
     {
-      LOBYTE(v20) = v30.__r_.__value_.__s.__data_[0];
+      stringifyVal(*v22, &v30);
+      if (v32 >= 0)
+      {
+        v12 = &v30;
+      }
+
+      else
+      {
+        v12 = v30;
+      }
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Init_Perso_Cnf returned error[%s].\n", v16, v17, v18, v20);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    else
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      v12 = "NULL";
     }
 
-    goto LABEL_39;
+    v13 = v23;
+    if (v23)
+    {
+      stringifyDataBuffer(*v23, *(v23 + 8) - *v23, &v29);
+      if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &v29;
+      }
+
+      else
+      {
+        v14 = v29.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v14 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Init_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", 62471, v10, v12, v14);
+    if (v13 && SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v29.__r_.__value_.__l.__data_);
+    }
+
+    if (v11 && v32 < 0)
+    {
+      operator delete(v30);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v24);
+    }
   }
 
-  if (*v23)
+  v15 = mipc::operator==();
+  if ((v15 & 1) == 0)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Init_Perso_Req not successful, result 0x%x", v13, v14, v15, *v23);
-LABEL_39:
-    v19 = 1;
-    goto LABEL_40;
+    gBBULogMaskGet(v15, v16);
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v28, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v28 = v20;
+    }
+
+    v18 = &v28;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v18 = v28.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Init_Perso_Cnf returned error[%s].\n", v18);
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v28.__r_.__value_.__l.__data_);
+    }
+
+    goto LABEL_48;
   }
 
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v25, *(v25 + 8), *(v25 + 8) - *v25);
-  v19 = 0;
-LABEL_40:
-  **(a1 + 24) = v19;
+  if (*v21)
+  {
+    gBBULogMaskGet(v15, v16);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Init_Perso_Req not successful, result 0x%x", *v21);
+LABEL_48:
+    v17 = 1;
+    goto LABEL_49;
+  }
+
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v23, *(v23 + 8), *(v23 + 8) - *v23);
+  v17 = 0;
+LABEL_49:
+  **(a1 + 24) = v17;
   dispatch_semaphore_signal(*(a1 + 32));
-  mipc::dale_vinyl::Init_Perso_Cnf::~Init_Perso_Cnf(v21);
+  mipc::dale_vinyl::Init_Perso_Cnf::~Init_Perso_Cnf(v19);
 }
 
-void sub_299FC49FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_299FC49FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (v33 && *(v34 - 73) < 0)
   {
@@ -7060,22 +7781,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v32, this);
-    if ((v33 & 1) == 0)
+    abb::router::Message::getError(&v30, this);
+    if ((v31 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v31.__r_.__value_.__l.__data_ = v32;
-    v5 = mipc::toErrorCode(v32, v4);
-    std::error_code::message(&__p, &v31);
-    v28 = 0;
-    v29 = 0;
-    v26 = v5;
-    MEMORY[0x29C2B8360](v21, &v26, 1);
-    if (v29)
+    *&v29.__r_.__value_.__l.__data_ = v30;
+    v5 = mipc::toErrorCode(v30, v4);
+    std::error_code::message(&__p, &v29);
+    v26 = 0;
+    v27 = 0;
+    v24 = v5;
+    MEMORY[0x29C2B8360](v19, &v24, 1);
+    v7 = v27;
+    if (v27)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7086,104 +7808,148 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v26, this);
-    v6 = *v26;
-    abb::router::Message::getRawMsg(&v32, this);
-    MEMORY[0x29C2B8370](v21, v6, *(v32 + 8) - *v32);
-    if (*(&v32 + 1))
+    abb::router::Message::getRawMsg(&v24, this);
+    v8 = *v24;
+    abb::router::Message::getRawMsg(&v30, this);
+    MEMORY[0x29C2B8370](v19, v8, *(v30 + 8) - *v30);
+    if (*(&v30 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v23;
-    if (v23)
+    v9 = v21;
+    if (v21)
     {
-      stringifyVal(*v23, &v26);
-    }
+      stringifyVal(*v21, &v24);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v24;
+      }
 
-    v11 = v24;
-    if (v24)
-    {
-      stringifyVal(*v24, &v32);
-    }
-
-    v12 = v25;
-    if (v25)
-    {
-      stringifyDataBuffer(*v25, *(v25 + 8) - *v25, &v31);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Auth_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", v7, v8, v9, 8);
-    if (v12 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v31.__r_.__value_.__l.__data_);
-    }
-
-    if (v11 && v34 < 0)
-    {
-      operator delete(v32);
-    }
-
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v26);
-    }
-  }
-
-  if ((mipc::operator==() & 1) == 0)
-  {
-    gBBULogMaskGet();
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v30, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      else
+      {
+        v10 = v24;
+      }
     }
 
     else
     {
-      v30 = v22;
+      v10 = "NULL";
     }
 
-    v20 = &v30;
-    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = v22;
+    if (v22)
     {
-      LOBYTE(v20) = v30.__r_.__value_.__s.__data_[0];
+      stringifyVal(*v22, &v30);
+      if (v32 >= 0)
+      {
+        v12 = &v30;
+      }
+
+      else
+      {
+        v12 = v30;
+      }
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Auth_Perso_Cnf returned error[%s].\n", v16, v17, v18, v20);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    else
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      v12 = "NULL";
     }
 
-    goto LABEL_39;
+    v13 = v23;
+    if (v23)
+    {
+      stringifyDataBuffer(*v23, *(v23 + 8) - *v23, &v29);
+      if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &v29;
+      }
+
+      else
+      {
+        v14 = v29.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v14 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Auth_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", 62472, v10, v12, v14);
+    if (v13 && SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v29.__r_.__value_.__l.__data_);
+    }
+
+    if (v11 && v32 < 0)
+    {
+      operator delete(v30);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v24);
+    }
   }
 
-  if (*v23)
+  v15 = mipc::operator==();
+  if ((v15 & 1) == 0)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Auth_Perso_Req not successful, result 0x%x", v13, v14, v15, *v23);
-LABEL_39:
-    v19 = 1;
-    goto LABEL_40;
+    gBBULogMaskGet(v15, v16);
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v28, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v28 = v20;
+    }
+
+    v18 = &v28;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v18 = v28.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Auth_Perso_Cnf returned error[%s].\n", v18);
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v28.__r_.__value_.__l.__data_);
+    }
+
+    goto LABEL_48;
   }
 
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v25, *(v25 + 8), *(v25 + 8) - *v25);
-  v19 = 0;
-LABEL_40:
-  **(a1 + 24) = v19;
+  if (*v21)
+  {
+    gBBULogMaskGet(v15, v16);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Auth_Perso_Req not successful, result 0x%x", *v21);
+LABEL_48:
+    v17 = 1;
+    goto LABEL_49;
+  }
+
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v23, *(v23 + 8), *(v23 + 8) - *v23);
+  v17 = 0;
+LABEL_49:
+  **(a1 + 24) = v17;
   dispatch_semaphore_signal(*(a1 + 32));
-  mipc::dale_vinyl::Auth_Perso_Cnf::~Auth_Perso_Cnf(v21);
+  mipc::dale_vinyl::Auth_Perso_Cnf::~Auth_Perso_Cnf(v19);
 }
 
-void sub_299FC4FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_299FC4FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (v33 && *(v34 - 73) < 0)
   {
@@ -7289,22 +8055,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v29, this);
-    if ((v30 & 1) == 0)
+    abb::router::Message::getError(&v26, this);
+    if ((v27 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v28.__r_.__value_.__l.__data_ = v29;
-    v5 = mipc::toErrorCode(v29, v4);
-    std::error_code::message(&__p, &v28);
-    v26 = 0;
-    v27 = 0;
-    v24 = v5;
-    MEMORY[0x29C2B8540](v20, &v24, 1);
-    if (v27)
+    *&v25.__r_.__value_.__l.__data_ = v26;
+    v5 = mipc::toErrorCode(v26, v4);
+    std::error_code::message(&__p, &v25);
+    v23 = 0;
+    v24 = 0;
+    v21 = v5;
+    MEMORY[0x29C2B8540](v17, &v21, 1);
+    v7 = v24;
+    if (v24)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v24);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7315,98 +8082,128 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v24, this);
-    v6 = *v24;
-    abb::router::Message::getRawMsg(&v29, this);
-    MEMORY[0x29C2B8550](v20, v6, *(v29 + 8) - *v29);
-    if (*(&v29 + 1))
+    abb::router::Message::getRawMsg(&v21, this);
+    v8 = *v21;
+    abb::router::Message::getRawMsg(&v26, this);
+    MEMORY[0x29C2B8550](v17, v8, *(v26 + 8) - *v26);
+    if (*(&v26 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v29 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v26 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v22;
-    if (v22)
+    v9 = v19;
+    if (v19)
     {
-      stringifyVal(*v22, &v24);
-    }
+      stringifyVal(*v19, &v21);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v21;
+      }
 
-    v11 = v23;
-    if (v23)
-    {
-      stringifyVal(*v23, &v29);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Finalize_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", v7, v8, v9, 9);
-    if (v11 && v31 < 0)
-    {
-      operator delete(v29);
-    }
-
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v24);
-    }
-  }
-
-  if ((mipc::operator==() & 1) == 0)
-  {
-    gBBULogMaskGet();
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v28, v21.__r_.__value_.__l.__data_, v21.__r_.__value_.__l.__size_);
+      else
+      {
+        v10 = v21;
+      }
     }
 
     else
     {
-      v28 = v21;
+      v10 = "NULL";
     }
 
-    v19 = &v28;
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = v20;
+    if (v20)
     {
-      LOBYTE(v19) = v28.__r_.__value_.__s.__data_[0];
+      stringifyVal(*v20, &v26);
+      if (v28 >= 0)
+      {
+        v12 = &v26;
+      }
+
+      else
+      {
+        v12 = v26;
+      }
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Finalize_Perso_Cnf returned error[%s].\n", v15, v16, v17, v19);
-    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    else
     {
-      operator delete(v28.__r_.__value_.__l.__data_);
+      v12 = "NULL";
     }
 
-    goto LABEL_36;
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Finalize_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s\n", 62473, v10, v12);
+    if (v11 && v28 < 0)
+    {
+      operator delete(v26);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v21);
+    }
   }
 
-  if (*v22)
+  v13 = mipc::operator==();
+  if ((v13 & 1) == 0)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Finalize_Perso_Req not successful, result 0x%x", v12, v13, v14, *v22);
-LABEL_36:
-    v18 = 1;
-    goto LABEL_37;
+    gBBULogMaskGet(v13, v14);
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v25, v18.__r_.__value_.__l.__data_, v18.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v25 = v18;
+    }
+
+    v16 = &v25;
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v16 = v25.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Finalize_Perso_Cnf returned error[%s].\n", v16);
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v25.__r_.__value_.__l.__data_);
+    }
+
+    goto LABEL_42;
   }
 
-  if (*v23 != 36864)
+  if (*v19)
   {
-    printf("Finalize perso failed with sw = %02X.\n", *v23);
-    goto LABEL_36;
+    gBBULogMaskGet(v13, v14);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Finalize_Perso_Req not successful, result 0x%x", *v19);
+LABEL_42:
+    v15 = 1;
+    goto LABEL_43;
   }
 
-  v18 = 0;
-LABEL_37:
-  **(a1 + 16) = v18;
+  if (*v20 != 36864)
+  {
+    printf("Finalize perso failed with sw = %02X.\n", *v20);
+    goto LABEL_42;
+  }
+
+  v15 = 0;
+LABEL_43:
+  **(a1 + 16) = v15;
   dispatch_semaphore_signal(*(a1 + 24));
-  mipc::dale_vinyl::Finalize_Perso_Cnf::~Finalize_Perso_Cnf(v20);
+  mipc::dale_vinyl::Finalize_Perso_Cnf::~Finalize_Perso_Cnf(v17);
 }
 
-void sub_299FC558C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+void sub_299FC558C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
 {
   if (v30)
   {
@@ -7510,22 +8307,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v32, this);
-    if ((v33 & 1) == 0)
+    abb::router::Message::getError(&v30, this);
+    if ((v31 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    *&v31.__r_.__value_.__l.__data_ = v32;
-    v5 = mipc::toErrorCode(v32, v4);
-    std::error_code::message(&__p, &v31);
-    v28 = 0;
-    v29 = 0;
-    v26 = v5;
-    MEMORY[0x29C2B8590](v21, &v26, 1);
-    if (v29)
+    *&v29.__r_.__value_.__l.__data_ = v30;
+    v5 = mipc::toErrorCode(v30, v4);
+    std::error_code::message(&__p, &v29);
+    v26 = 0;
+    v27 = 0;
+    v24 = v5;
+    MEMORY[0x29C2B8590](v19, &v24, 1);
+    v7 = v27;
+    if (v27)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v27);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7536,104 +8334,148 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v26, this);
-    v6 = *v26;
-    abb::router::Message::getRawMsg(&v32, this);
-    MEMORY[0x29C2B85A0](v21, v6, *(v32 + 8) - *v32);
-    if (*(&v32 + 1))
+    abb::router::Message::getRawMsg(&v24, this);
+    v8 = *v24;
+    abb::router::Message::getRawMsg(&v30, this);
+    MEMORY[0x29C2B85A0](v19, v8, *(v30 + 8) - *v30);
+    if (*(&v30 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v32 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v23;
-    if (v23)
+    v9 = v21;
+    if (v21)
     {
-      stringifyVal(*v23, &v26);
-    }
+      stringifyVal(*v21, &v24);
+      if (__p.__r_.__value_.__s.__data_[15] >= 0)
+      {
+        v10 = &v24;
+      }
 
-    v11 = v24;
-    if (v24)
-    {
-      stringifyVal(*v24, &v32);
-    }
-
-    v12 = v25;
-    if (v25)
-    {
-      stringifyDataBuffer(*v25, *(v25 + 8) - *v25, &v31);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "Validate_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", v7, v8, v9, 10);
-    if (v12 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v31.__r_.__value_.__l.__data_);
-    }
-
-    if (v11 && v34 < 0)
-    {
-      operator delete(v32);
-    }
-
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v26);
-    }
-  }
-
-  if ((mipc::operator==() & 1) == 0)
-  {
-    gBBULogMaskGet();
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-    {
-      std::string::__init_copy_ctor_external(&v30, v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
+      else
+      {
+        v10 = v24;
+      }
     }
 
     else
     {
-      v30 = v22;
+      v10 = "NULL";
     }
 
-    v20 = &v30;
-    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v11 = v22;
+    if (v22)
     {
-      LOBYTE(v20) = v30.__r_.__value_.__s.__data_[0];
+      stringifyVal(*v22, &v30);
+      if (v32 >= 0)
+      {
+        v12 = &v30;
+      }
+
+      else
+      {
+        v12 = v30;
+      }
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Validate_Perso_Cnf returned error[%s].\n", v16, v17, v18, v20);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    else
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      v12 = "NULL";
     }
 
-    goto LABEL_39;
+    v13 = v23;
+    if (v23)
+    {
+      stringifyDataBuffer(*v23, *(v23 + 8) - *v23, &v29);
+      if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v14 = &v29;
+      }
+
+      else
+      {
+        v14 = v29.__r_.__value_.__r.__words[0];
+      }
+    }
+
+    else
+    {
+      v14 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "Validate_Perso_Cnf received: Msg=0x%x fTlv_Result = %s fTlv_Sw = %s fTlv_Payload = %s\n", 62474, v10, v12, v14);
+    if (v13 && SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v29.__r_.__value_.__l.__data_);
+    }
+
+    if (v11 && v32 < 0)
+    {
+      operator delete(v30);
+    }
+
+    if (v9 && __p.__r_.__value_.__s.__data_[15] < 0)
+    {
+      operator delete(v24);
+    }
   }
 
-  if (*v23)
+  v15 = mipc::operator==();
+  if ((v15 & 1) == 0)
   {
-    gBBULogMaskGet();
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Validate_Perso_Req not successful, result 0x%x\n", v13, v14, v15, *v23);
-LABEL_39:
-    v19 = 1;
-    goto LABEL_40;
+    gBBULogMaskGet(v15, v16);
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v28, v20.__r_.__value_.__l.__data_, v20.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      v28 = v20;
+    }
+
+    v18 = &v28;
+    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v18 = v28.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Validate_Perso_Cnf returned error[%s].\n", v18);
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v28.__r_.__value_.__l.__data_);
+    }
+
+    goto LABEL_48;
   }
 
-  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v25, *(v25 + 8), *(v25 + 8) - *v25);
-  v19 = 0;
-LABEL_40:
-  **(a1 + 24) = v19;
+  if (*v21)
+  {
+    gBBULogMaskGet(v15, v16);
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "Validate_Perso_Req not successful, result 0x%x\n", *v21);
+LABEL_48:
+    v17 = 1;
+    goto LABEL_49;
+  }
+
+  std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(*(a1 + 16), *v23, *(v23 + 8), *(v23 + 8) - *v23);
+  v17 = 0;
+LABEL_49:
+  **(a1 + 24) = v17;
   dispatch_semaphore_signal(*(a1 + 32));
-  mipc::dale_vinyl::Validate_Perso_Cnf::~Validate_Perso_Cnf(v21);
+  mipc::dale_vinyl::Validate_Perso_Cnf::~Validate_Perso_Cnf(v19);
 }
 
-void sub_299FC5B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_299FC5B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   if (v33 && *(v34 - 73) < 0)
   {
@@ -7685,22 +8527,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v30, this);
-    if ((v30.__r_.__value_.__s.__data_[16] & 1) == 0)
+    abb::router::Message::getError(&v22, this);
+    if ((v22.__r_.__value_.__s.__data_[16] & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v29 = *&v30.__r_.__value_.__l.__data_;
-    v5 = mipc::toErrorCode(LODWORD(v30.__r_.__value_.__l.__data_), v4);
-    std::error_code::message(&__p, &v29);
-    v27 = 0;
-    v28 = 0;
-    v25 = v5;
-    MEMORY[0x29C2B82F0](v22, &v25, 1);
-    if (v28)
+    v21 = *&v22.__r_.__value_.__l.__data_;
+    v5 = mipc::toErrorCode(LODWORD(v22.__r_.__value_.__l.__data_), v4);
+    std::error_code::message(&__p, &v21);
+    v19 = 0;
+    v20 = 0;
+    v17 = v5;
+    MEMORY[0x29C2B82F0](v14, &v17, 1);
+    v7 = v20;
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7711,44 +8554,55 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v25, this);
-    v6 = *v25;
-    abb::router::Message::getRawMsg(&v30, this);
-    MEMORY[0x29C2B8300](v22, v6, *(v30.__r_.__value_.__r.__words[0] + 8) - *v30.__r_.__value_.__l.__data_);
-    if (v30.__r_.__value_.__l.__size_)
+    abb::router::Message::getRawMsg(&v17, this);
+    v8 = *v17;
+    abb::router::Message::getRawMsg(&v22, this);
+    MEMORY[0x29C2B8300](v14, v8, *(v22.__r_.__value_.__r.__words[0] + 8) - *v22.__r_.__value_.__l.__data_);
+    if (v22.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22.__r_.__value_.__l.__size_);
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v24;
-    if (v24)
+    v9 = v16;
+    if (v16)
     {
-      stringifyVal(*v24, &v25);
+      stringifyVal(*v16, &v17);
+      v10 = __p.__r_.__value_.__s.__data_[15] >= 0 ? &v17 : v17;
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", v7, v8, v9, 16);
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v25);
+      v10 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", 62480, v10);
+    if (v9)
+    {
+      if (__p.__r_.__value_.__s.__data_[15] < 0)
+      {
+        operator delete(v17);
+      }
     }
   }
 
-  if (mipc::operator==())
+  v11 = mipc::operator==();
+  if (v11)
   {
-    if (v24)
+    if (v16)
     {
-      if (*v24)
+      if (*v16)
       {
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf failed, result 0x%x\n", v11, v12, v13, *v24);
+        gBBULogMaskGet(v11, v12);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf failed, result 0x%x\n", *v16);
       }
 
       else
@@ -7759,46 +8613,46 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf has no fTlv_Result\n", v17, v18, v19, v21);
+      gBBULogMaskGet(v11, v12);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf has no fTlv_Result\n");
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v11, v12);
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v22, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = v23;
+      v22 = v15;
     }
 
-    v20 = &v30;
-    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v13 = &v22;
+    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v20) = v30.__r_.__value_.__s.__data_[0];
+      v13 = v22.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf returned error[%s]\n", v14, v15, v16, v20);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "InstallPairingMSM Sep_Cmd_Cnf returned error[%s]\n", v13);
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v22.__r_.__value_.__l.__data_);
     }
   }
 
-  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v22);
+  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v14);
 }
 
-void sub_299FC5F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_299FC5F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (*(v3 - 41) < 0)
+  va_start(va, a5);
+  if (*(v5 - 41) < 0)
   {
-    operator delete(*(v3 - 64));
+    operator delete(*(v5 - 64));
   }
 
   mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(va);
@@ -7838,22 +8692,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v30, this);
-    if ((v30.__r_.__value_.__s.__data_[16] & 1) == 0)
+    abb::router::Message::getError(&v22, this);
+    if ((v22.__r_.__value_.__s.__data_[16] & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v29 = *&v30.__r_.__value_.__l.__data_;
-    v5 = mipc::toErrorCode(LODWORD(v30.__r_.__value_.__l.__data_), v4);
-    std::error_code::message(&__p, &v29);
-    v27 = 0;
-    v28 = 0;
-    v25 = v5;
-    MEMORY[0x29C2B82F0](v22, &v25, 1);
-    if (v28)
+    v21 = *&v22.__r_.__value_.__l.__data_;
+    v5 = mipc::toErrorCode(LODWORD(v22.__r_.__value_.__l.__data_), v4);
+    std::error_code::message(&__p, &v21);
+    v19 = 0;
+    v20 = 0;
+    v17 = v5;
+    MEMORY[0x29C2B82F0](v14, &v17, 1);
+    v7 = v20;
+    if (v20)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7864,44 +8719,55 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v25, this);
-    v6 = *v25;
-    abb::router::Message::getRawMsg(&v30, this);
-    MEMORY[0x29C2B8300](v22, v6, *(v30.__r_.__value_.__r.__words[0] + 8) - *v30.__r_.__value_.__l.__data_);
-    if (v30.__r_.__value_.__l.__size_)
+    abb::router::Message::getRawMsg(&v17, this);
+    v8 = *v17;
+    abb::router::Message::getRawMsg(&v22, this);
+    MEMORY[0x29C2B8300](v14, v8, *(v22.__r_.__value_.__r.__words[0] + 8) - *v22.__r_.__value_.__l.__data_);
+    if (v22.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22.__r_.__value_.__l.__size_);
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v24;
-    if (v24)
+    v9 = v16;
+    if (v16)
     {
-      stringifyVal(*v24, &v25);
+      stringifyVal(*v16, &v17);
+      v10 = __p.__r_.__value_.__s.__data_[15] >= 0 ? &v17 : v17;
     }
 
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", v7, v8, v9, 16);
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
+    else
     {
-      operator delete(v25);
+      v10 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", 62480, v10);
+    if (v9)
+    {
+      if (__p.__r_.__value_.__s.__data_[15] < 0)
+      {
+        operator delete(v17);
+      }
     }
   }
 
-  if (mipc::operator==())
+  v11 = mipc::operator==();
+  if (v11)
   {
-    if (v24)
+    if (v16)
     {
-      if (*v24)
+      if (*v16)
       {
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf failed, result 0x%x\n", v11, v12, v13, *v24);
+        gBBULogMaskGet(v11, v12);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf failed, result 0x%x\n", *v16);
       }
 
       else
@@ -7912,46 +8778,46 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf has no fTlv_Result\n", v17, v18, v19, v21);
+      gBBULogMaskGet(v11, v12);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf has no fTlv_Result\n");
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v11, v12);
+    if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v30, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v22, v15.__r_.__value_.__l.__data_, v15.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v30 = v23;
+      v22 = v15;
     }
 
-    v20 = &v30;
-    if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v13 = &v22;
+    if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v20) = v30.__r_.__value_.__s.__data_[0];
+      v13 = v22.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf returned error[%s]\n", v14, v15, v16, v20);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingGetNonce Sep_Cmd_Cnf returned error[%s]\n", v13);
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v22.__r_.__value_.__l.__data_);
     }
   }
 
-  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v22);
+  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v14);
 }
 
-void sub_299FC638C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_299FC638C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (*(v3 - 41) < 0)
+  va_start(va, a5);
+  if (*(v5 - 41) < 0)
   {
-    operator delete(*(v3 - 64));
+    operator delete(*(v5 - 64));
   }
 
   mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(va);
@@ -7993,22 +8859,23 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 {
   if (abb::router::Message::isError(this))
   {
-    abb::router::Message::getError(&v34, this);
-    if ((v34.__r_.__value_.__s.__data_[16] & 1) == 0)
+    abb::router::Message::getError(&v23, this);
+    if ((v23.__r_.__value_.__s.__data_[16] & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v33 = *&v34.__r_.__value_.__l.__data_;
-    v5 = mipc::toErrorCode(LODWORD(v34.__r_.__value_.__l.__data_), v4);
-    std::error_code::message(&__p, &v33);
-    v31 = 0;
-    v32 = 0;
-    v29 = v5;
-    MEMORY[0x29C2B82F0](v26, &v29, 1);
-    if (v32)
+    v22 = *&v23.__r_.__value_.__l.__data_;
+    v5 = mipc::toErrorCode(LODWORD(v23.__r_.__value_.__l.__data_), v4);
+    std::error_code::message(&__p, &v22);
+    v20 = 0;
+    v21 = 0;
+    v18 = v5;
+    MEMORY[0x29C2B82F0](v15, &v18, 1);
+    v7 = v21;
+    if (v21)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8019,106 +8886,117 @@ void std::__function::__func<abb::router::SendProxy&& abb::router::SendProxy::ca
 
   else
   {
-    abb::router::Message::getRawMsg(&v29, this);
-    v6 = *v29;
-    abb::router::Message::getRawMsg(&v34, this);
-    MEMORY[0x29C2B8300](v26, v6, *(v34.__r_.__value_.__r.__words[0] + 8) - *v34.__r_.__value_.__l.__data_);
-    if (v34.__r_.__value_.__l.__size_)
+    abb::router::Message::getRawMsg(&v18, this);
+    v8 = *v18;
+    abb::router::Message::getRawMsg(&v23, this);
+    MEMORY[0x29C2B8300](v15, v8, *(v23.__r_.__value_.__r.__words[0] + 8) - *v23.__r_.__value_.__l.__data_);
+    if (v23.__r_.__value_.__l.__size_)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v34.__r_.__value_.__l.__size_);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23.__r_.__value_.__l.__size_);
     }
 
+    v7 = __p.__r_.__value_.__r.__words[0];
     if (__p.__r_.__value_.__r.__words[0])
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](__p.__r_.__value_.__l.__data_);
     }
   }
 
-  if ((*(gBBULogMaskGet() + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
+  if ((*(gBBULogMaskGet(v7, v6) + 2) & 0x40) != 0 && gBBULogVerbosity >= 7)
   {
-    v10 = v28;
-    if (v28)
+    v9 = v17;
+    if (v17)
     {
-      stringifyVal(*v28, &v29);
-    }
-
-    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", v7, v8, v9, 16);
-    if (v10 && __p.__r_.__value_.__s.__data_[15] < 0)
-    {
-      operator delete(v29);
-    }
-  }
-
-  if (mipc::operator==())
-  {
-    if (v28)
-    {
-      if (*v28)
-      {
-        if (*v28 != 8)
-        {
-          gBBULogMaskGet();
-          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf failed, result 0x%x\n", v22, v23, v24, *v28);
-          goto LABEL_34;
-        }
-
-        gBBULogMaskGet();
-        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate has cached succeed result, no following indication\n", v11, v12, v13, v25);
-        **(a1 + 16) = 1;
-        v14 = *(a1 + 24);
-      }
-
-      else
-      {
-        v14 = *(a1 + 16);
-      }
-
-      *v14 = 1;
+      stringifyVal(*v17, &v18);
+      v10 = __p.__r_.__value_.__s.__data_[15] >= 0 ? &v18 : v18;
     }
 
     else
     {
-      gBBULogMaskGet();
-      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf has no fTlv_Result\n", v18, v19, v20, v25);
+      v10 = "NULL";
+    }
+
+    _BBULog(22, 7, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf received: Msg=0x%x fTlv_Result = %s\n", 62480, v10);
+    if (v9)
+    {
+      if (__p.__r_.__value_.__s.__data_[15] < 0)
+      {
+        operator delete(v18);
+      }
+    }
+  }
+
+  v11 = mipc::operator==();
+  if (v11)
+  {
+    if (v17)
+    {
+      if (*v17)
+      {
+        if (*v17 != 8)
+        {
+          gBBULogMaskGet(v11, v12);
+          _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf failed, result 0x%x\n", *v17);
+          goto LABEL_37;
+        }
+
+        gBBULogMaskGet(v11, v12);
+        _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate has cached succeed result, no following indication\n");
+        **(a1 + 16) = 1;
+        v13 = *(a1 + 24);
+      }
+
+      else
+      {
+        v13 = *(a1 + 16);
+      }
+
+      *v13 = 1;
+    }
+
+    else
+    {
+      gBBULogMaskGet(v11, v12);
+      _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf has no fTlv_Result\n");
     }
   }
 
   else
   {
-    gBBULogMaskGet();
-    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+    gBBULogMaskGet(v11, v12);
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v34, v27.__r_.__value_.__l.__data_, v27.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v23, v16.__r_.__value_.__l.__data_, v16.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v34 = v27;
+      v23 = v16;
     }
 
-    v21 = &v34;
-    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v14 = &v23;
+    if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      LOBYTE(v21) = v34.__r_.__value_.__s.__data_[0];
+      v14 = v23.__r_.__value_.__r.__words[0];
     }
 
-    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf returned error[%s]\n", v15, v16, v17, v21);
-    if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+    _BBULog(0, 0xFFFFFFFFLL, "eUICCVinylDALValve", "", "ManagePairingAuthenticate Sep_Cmd_Cnf returned error[%s]\n", v14);
+    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v34.__r_.__value_.__l.__data_);
+      operator delete(v23.__r_.__value_.__l.__data_);
     }
   }
 
-LABEL_34:
-  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v26);
+LABEL_37:
+  mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(v15);
 }
 
-void sub_299FC67DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_299FC67DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (*(v3 - 41) < 0)
+  va_start(va, a5);
+  if (*(v5 - 41) < 0)
   {
-    operator delete(*(v3 - 64));
+    operator delete(*(v5 - 64));
   }
 
   mipc::dale_vinyl::Sep_Cmd_Cnf::~Sep_Cmd_Cnf(va);
@@ -8161,7 +9039,7 @@ void *vinyl_zipOpen2(uint64_t a1)
   v4 = v3;
   v6 = v5;
   v7 = v1;
-  v68 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   memset(__src, 0, 512);
   if (v2)
   {
@@ -8192,7 +9070,7 @@ void *vinyl_zipOpen2(uint64_t a1)
   *&__src[4] = v11;
   if (!v11)
   {
-    goto LABEL_75;
+    return 0;
   }
 
   *&__src[1044] = (*(&__src[1] + 1))(*(&__src[3] + 1), v11);
@@ -8206,19 +9084,19 @@ void *vinyl_zipOpen2(uint64_t a1)
     *(&__src[1045] + 1) = 0;
     if (v6 == 2)
     {
+      v64 = 0;
       v65 = 0;
-      v66 = 0;
-      v62 = 0;
-      v63 = 0;
-      v60 = 0;
       v61 = 0;
+      v62 = 0;
       v59 = 0;
+      v60 = 0;
+      v58 = 0;
       v13 = *&__src[4];
-      v53 = v4;
+      v52 = v4;
       if ((*&__src[2])(*(&__src[3] + 1), *&__src[4], 0, 2) || ((v16 = (*(&__src[1] + 1))(*(&__src[3] + 1), v13), v17 = v16, v16 >= 0xFFFF) ? (v18 = 0xFFFFLL) : (v18 = v16), (v19 = malloc(0x404uLL)) == 0))
       {
         v14 = 0;
-        v57 = 0;
+        v56 = 0;
       }
 
       else
@@ -8261,7 +9139,7 @@ void *vinyl_zipOpen2(uint64_t a1)
               if (v25)
               {
                 v14 = -v25;
-                v57 = 1;
+                v56 = 1;
                 goto LABEL_45;
               }
 
@@ -8277,42 +9155,40 @@ LABEL_40:
         }
 
         v14 = 0;
-        v57 = 0;
+        v56 = 0;
 LABEL_45:
         free(v20);
       }
 
-      v54 = (*&__src[2])(*(&__src[3] + 1), *&__src[4], v14, 0);
-      HIDWORD(v55) = unzlocal_getLong(__src, *&__src[4], &v64);
-      LODWORD(v55) = unzlocal_getShort(__src, *&__src[4], &v63);
-      Short = unzlocal_getShort(__src, *&__src[4], &v62);
-      v29 = unzlocal_getShort(__src, *&__src[4], &v61);
-      v30 = unzlocal_getShort(__src, *&__src[4], &v60);
-      v31 = v61;
-      v58 = v60;
-      v32 = v62;
-      v33 = v63;
-      Long = unzlocal_getLong(__src, *&__src[4], &v66);
-      v35 = unzlocal_getLong(__src, *&__src[4], &v65);
-      v36 = unzlocal_getShort(__src, *&__src[4], &v59);
-      v37 = v66;
-      v52 = v65;
-      v38 = v14 >= v66 + v65;
-      v39 = v14 - (v66 + v65);
-      if (!v38 || v35 | Long | v36 || v58 != v31 || v32 || v33 || !v57 || v30 || v29 || Short || v55 || v54)
+      v53 = (*&__src[2])(*(&__src[3] + 1), *&__src[4], v14, 0);
+      HIDWORD(v54) = unzlocal_getLong(__src, *&__src[4], &v63);
+      LODWORD(v54) = unzlocal_getShort(__src, *&__src[4], &v62);
+      Short = unzlocal_getShort(__src, *&__src[4], &v61);
+      v29 = unzlocal_getShort(__src, *&__src[4], &v60);
+      v30 = unzlocal_getShort(__src, *&__src[4], &v59);
+      v31 = v60;
+      v57 = v59;
+      v32 = v61;
+      v33 = v62;
+      Long = unzlocal_getLong(__src, *&__src[4], &v65);
+      v35 = unzlocal_getLong(__src, *&__src[4], &v64);
+      v36 = unzlocal_getShort(__src, *&__src[4], &v58);
+      v37 = v65;
+      v51 = v64;
+      v38 = v14 >= v65 + v64;
+      v39 = v14 - (v65 + v64);
+      if (!v38 || v35 | Long | v36 || v57 != v31 || v32 || v33 || !v56 || v30 || v29 || Short || v54 || v53)
       {
         (*(&__src[2] + 1))(*(&__src[3] + 1), *&__src[4]);
 LABEL_74:
         free(v12);
-LABEL_75:
-        v12 = 0;
-        goto LABEL_76;
+        return 0;
       }
 
-      v40 = v59;
-      if (v59)
+      v40 = v58;
+      if (v58)
       {
-        v41 = malloc(v59 + 1);
+        v41 = malloc(v58 + 1);
         *(&__src[1045] + 1) = v41;
         if (v41)
         {
@@ -8324,7 +9200,7 @@ LABEL_75:
       *(&__src[1044] + 1) = v39;
       v43 = malloc(0xFF0uLL);
       v44 = v39;
-      v45 = (*&__src[2])(*(&__src[3] + 1), *&__src[4], v39 + v52, 0);
+      v45 = (*&__src[2])(*(&__src[3] + 1), *&__src[4], v39 + v51, 0);
       if (v45)
       {
         v46 = -1;
@@ -8364,26 +9240,26 @@ LABEL_78:
       }
 
       *&__src[1044] = v44;
-      *&__src[1045] = v58;
-      if ((*&__src[2])(*(&__src[3] + 1), *&__src[4], v44 + v52, 0))
+      *&__src[1045] = v57;
+      if ((*&__src[2])(*(&__src[3] + 1), *&__src[4], v44 + v51, 0))
       {
-        v51 = 0;
+        v50 = 0;
       }
 
       else
       {
-        v51 = v46 == 0;
+        v50 = v46 == 0;
       }
 
-      v15 = v51;
-      v4 = v53;
-      if (!v53)
+      v15 = v50;
+      v4 = v52;
+      if (!v52)
       {
 LABEL_15:
         if (v15)
         {
           memcpy(v12, __src, 0x4160uLL);
-          goto LABEL_76;
+          return v12;
         }
 
         if (*(&__src[1045] + 1))
@@ -8409,8 +9285,6 @@ LABEL_15:
   }
 
   (*(&__src[2] + 1))(*(&__src[3] + 1), *&__src[4]);
-LABEL_76:
-  v49 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -8517,18 +9391,18 @@ LABEL_8:
   return 4294967192;
 }
 
-uint64_t vinyl_zipOpenNewFileInZip3(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, unsigned int a5, char *a6, unsigned int a7, char *__s, int a9, int a10, int a11, int a12, int a13, int a14, _BYTE *a15, uint64_t a16)
+uint64_t vinyl_zipOpenNewFileInZip3(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, unsigned int a5, char *a6, unsigned int a7, char *__s, int a9, int a10, int a11, int a12, int a13, int a14, char *a15, uint64_t a16)
 {
-  v101 = *MEMORY[0x29EDCA608];
+  v100 = *MEMORY[0x29EDCA608];
   result = 4294967194;
   if (!a1)
   {
-    goto LABEL_94;
+    return result;
   }
 
   if ((a9 & 0xFFFFFFF7) != 0)
   {
-    goto LABEL_94;
+    return result;
   }
 
   if (*(a1 + 88) == 1)
@@ -8536,11 +9410,11 @@ uint64_t vinyl_zipOpenNewFileInZip3(uint64_t a1, const char *a2, uint64_t a3, ui
     result = vinyl_zipCloseFileInZipRaw(a1, 0, 0);
     if (result)
     {
-      goto LABEL_94;
+      return result;
     }
   }
 
-  v95 = a4;
+  v94 = a4;
   if (a2)
   {
     v25 = a2;
@@ -8551,7 +9425,7 @@ uint64_t vinyl_zipOpenNewFileInZip3(uint64_t a1, const char *a2, uint64_t a3, ui
     v25 = "-";
   }
 
-  v96 = a5;
+  v95 = a5;
   if (__s)
   {
     v26 = strlen(__s);
@@ -8772,44 +9646,43 @@ LABEL_25:
 
   if (!*(a1 + 224))
   {
-    result = 4294967192;
-    goto LABEL_94;
+    return 4294967192;
   }
 
-  v97[0] = 67324752;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 4) != 4)
+  v96[0] = 67324752;
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 4) != 4)
   {
     goto LABEL_91;
   }
 
-  LOWORD(v97[0]) = 20;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 2) != 2)
+  LOWORD(v96[0]) = 20;
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 2) != 2)
   {
     goto LABEL_91;
   }
 
   v58 = *(a1 + 64);
   v59 = *(a1 + 240);
-  LOWORD(v97[0]) = v59;
+  LOWORD(v96[0]) = v59;
   if (v59 >= 0x10000)
   {
-    LOWORD(v97[0]) = -1;
+    LOWORD(v96[0]) = -1;
   }
 
-  if ((*(a1 + 16))(*(a1 + 56), v58, v97, 2) != 2)
+  if ((*(a1 + 16))(*(a1 + 56), v58, v96, 2) != 2)
   {
     goto LABEL_91;
   }
 
   v60 = *(a1 + 64);
   v61 = *(a1 + 248);
-  LOWORD(v97[0]) = v61;
+  LOWORD(v96[0]) = v61;
   if (v61 >= 0x10000)
   {
-    LOWORD(v97[0]) = -1;
+    LOWORD(v96[0]) = -1;
   }
 
-  if ((*(a1 + 16))(*(a1 + 56), v60, v97, 2) != 2)
+  if ((*(a1 + 16))(*(a1 + 56), v60, v96, 2) != 2)
   {
     goto LABEL_91;
   }
@@ -8820,7 +9693,7 @@ LABEL_25:
   do
   {
     v65 = v64;
-    *(v97 + v62) = v64;
+    *(v96 + v62) = v64;
     v64 >>= 8;
     ++v62;
   }
@@ -8828,62 +9701,62 @@ LABEL_25:
   while (v62 != 4);
   if (v65 >= 0x100)
   {
-    v97[0] = -1;
+    v96[0] = -1;
   }
 
-  if ((*(a1 + 16))(*(a1 + 56), v63, v97, 4) != 4)
+  if ((*(a1 + 16))(*(a1 + 56), v63, v96, 4) != 4)
   {
     goto LABEL_91;
   }
 
-  v97[0] = 0;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 4) != 4)
+  v96[0] = 0;
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 4) != 4)
   {
     goto LABEL_91;
   }
 
-  v97[0] = 0;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 4) != 4)
+  v96[0] = 0;
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 4) != 4)
   {
     goto LABEL_91;
   }
 
-  v97[0] = 0;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 4) != 4)
+  v96[0] = 0;
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 4) != 4)
   {
     goto LABEL_91;
   }
 
   v66 = *(a1 + 64);
-  LOWORD(v97[0]) = v27;
+  LOWORD(v96[0]) = v27;
   if (v27 >= 0x10000uLL)
   {
-    LOWORD(v97[0]) = -1;
+    LOWORD(v96[0]) = -1;
   }
 
-  if ((*(a1 + 16))(*(a1 + 56), v66, v97, 2) != 2)
+  if ((*(a1 + 16))(*(a1 + 56), v66, v96, 2) != 2)
   {
     goto LABEL_91;
   }
 
   v67 = *(a1 + 64);
-  LOWORD(v97[0]) = v96;
-  if (v96 >= 0x10000)
+  LOWORD(v96[0]) = v95;
+  if (v95 >= 0x10000)
   {
-    LOWORD(v97[0]) = -1;
+    LOWORD(v96[0]) = -1;
   }
 
-  v68 = (*(a1 + 16))(*(a1 + 56), v67, v97, 2);
+  v68 = (*(a1 + 16))(*(a1 + 56), v67, v96, 2);
   v69 = v68 != 2;
   if (v68 == 2 && v27)
   {
     v69 = (*(a1 + 16))(*(a1 + 56), *(a1 + 64), v25, v27) != v27;
   }
 
-  v70 = v96;
-  if (v96 && !v69)
+  v70 = v95;
+  if (v95 && !v69)
   {
-    if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v95, v96) == v70)
+    if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v94, v95) == v70)
     {
       *(a1 + 104) = 0;
       *(a1 + 128) = 0x4000;
@@ -8927,23 +9800,23 @@ LABEL_97:
 
   if (a12 < 0)
   {
-    v94 = a12;
+    v93 = a12;
   }
 
   else
   {
-    v94 = -a12;
+    v93 = -a12;
   }
 
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  result = deflateInit2_((a1 + 96), a10, 8, v94, a13, a14, "1.2.12", 112);
+  result = deflateInit2_((a1 + 96), a10, 8, v93, a13, a14, "1.2.12", 112);
   if (result)
   {
 LABEL_92:
     *(v71 + 312) = 0;
-    goto LABEL_94;
+    return result;
   }
 
   *(a1 + 208) = 1;
@@ -8960,1009 +9833,63 @@ LABEL_99:
   *(a1 + 16688) = crc_table;
   if (!crypthead_calls++)
   {
-    v76 = time(0);
-    srand(v76 ^ 0xBB40E64E);
+    v75 = time(0);
+    srand(v75 ^ 0xBB40E64E);
   }
 
   init_keys(a15, (a1 + 16664), crc_table);
-  for (j = 0; j != 10; v100[j++] = (((v79 & 0xFFFD ^ 3) * (v79 | 2)) >> 8) ^ (v78 >> 7))
+  for (j = 0; j != 10; v99[j++] = (((v78 & 0xFFFD ^ 3) * (v78 | 2)) >> 8) ^ (v77 >> 7))
   {
-    v78 = rand();
-    v79 = *(a1 + 16680);
-    v80 = crc_table[(*(a1 + 16664) ^ (v78 >> 7))] ^ (*(a1 + 16664) >> 8);
-    *(a1 + 16664) = v80;
-    v81 = 134775813 * (*(a1 + 16672) + v80) + 1;
-    *(a1 + 16672) = v81;
-    *(a1 + 16680) = crc_table[(v79 ^ BYTE3(v81))] ^ (v79 >> 8);
+    v77 = rand();
+    v78 = *(a1 + 16680);
+    v79 = crc_table[(*(a1 + 16664) ^ (v77 >> 7))] ^ (*(a1 + 16664) >> 8);
+    *(a1 + 16664) = v79;
+    v80 = 134775813 * (*(a1 + 16672) + v79) + 1;
+    *(a1 + 16672) = v80;
+    *(a1 + 16680) = crc_table[(v78 ^ BYTE3(v80))] ^ (v78 >> 8);
   }
 
   init_keys(a15, (a1 + 16664), crc_table);
-  v82 = 0;
-  v83 = *(a1 + 16680);
-  v84 = *(a1 + 16664);
-  v85 = *(a1 + 16672);
+  v81 = 0;
+  v82 = *(a1 + 16680);
+  v83 = *(a1 + 16664);
+  v84 = *(a1 + 16672);
   do
   {
-    v86 = (v83 & 0xFFFD ^ 3) * (v83 | 2);
-    v87 = v100[v82];
-    v84 = crc_table[(v87 ^ v84)] ^ (v84 >> 8);
-    *(a1 + 16664) = v84;
-    v85 = 134775813 * (v85 + v84) + 1;
-    *(a1 + 16672) = v85;
-    v83 = crc_table[(v83 ^ BYTE3(v85))] ^ (v83 >> 8);
-    *(a1 + 16680) = v83;
-    *(v97 + v82++) = v87 ^ HIBYTE(v86);
+    v85 = (v82 & 0xFFFD ^ 3) * (v82 | 2);
+    v86 = v99[v81];
+    v83 = crc_table[(v86 ^ v83)] ^ (v83 >> 8);
+    *(a1 + 16664) = v83;
+    v84 = 134775813 * (v84 + v83) + 1;
+    *(a1 + 16672) = v84;
+    v82 = crc_table[(v82 ^ BYTE3(v84))] ^ (v82 >> 8);
+    *(a1 + 16680) = v82;
+    *(v96 + v81++) = v86 ^ HIBYTE(v85);
   }
 
-  while (v82 != 10);
-  v88 = ((v83 & 0xFFFFFFFD ^ 3) * (v83 | 2)) >> 8;
-  v89 = crc_table[(v84 ^ BYTE2(a16))] ^ (v84 >> 8);
-  *(a1 + 16664) = v89;
-  v90 = 134775813 * (v85 + v89) + 1;
-  *(a1 + 16672) = v90;
-  v91 = crc_table[(v83 ^ BYTE3(v90))] ^ (v83 >> 8);
-  *(a1 + 16680) = v91;
-  v98 = v88 ^ BYTE2(a16);
-  v92 = crc_table[v89 ^ BYTE3(a16)] ^ (v89 >> 8);
-  *(a1 + 16664) = v92;
-  v93 = 134775813 * (v90 + v92) + 1;
-  *(a1 + 16672) = v93;
-  *(a1 + 16680) = crc_table[(v91 ^ BYTE3(v93))] ^ (v91 >> 8);
-  v99 = (((v91 & 0xFFFD ^ 3) * (v91 | 2)) >> 8) ^ BYTE3(a16);
+  while (v81 != 10);
+  v87 = ((v82 & 0xFFFFFFFD ^ 3) * (v82 | 2)) >> 8;
+  v88 = crc_table[(v83 ^ BYTE2(a16))] ^ (v83 >> 8);
+  *(a1 + 16664) = v88;
+  v89 = 134775813 * (v84 + v88) + 1;
+  *(a1 + 16672) = v89;
+  v90 = crc_table[(v82 ^ BYTE3(v89))] ^ (v82 >> 8);
+  *(a1 + 16680) = v90;
+  v97 = v87 ^ BYTE2(a16);
+  v91 = crc_table[v88 ^ BYTE3(a16)] ^ (v88 >> 8);
+  *(a1 + 16664) = v91;
+  v92 = 134775813 * (v89 + v91) + 1;
+  *(a1 + 16672) = v92;
+  *(a1 + 16680) = crc_table[(v90 ^ BYTE3(v92))] ^ (v90 >> 8);
+  v98 = (((v90 & 0xFFFD ^ 3) * (v90 | 2)) >> 8) ^ BYTE3(a16);
   *(a1 + 16696) = 12;
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v97, 12) != 12)
+  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v96, 12) != 12)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
 LABEL_107:
-    result = 0;
-    *(a1 + 88) = 1;
-  }
-
-LABEL_94:
-  v73 = *MEMORY[0x29EDCA608];
+  result = 0;
+  *(a1 + 88) = 1;
   return result;
-}
-
-uint64_t vinyl_zipWriteInFileInZip(uint64_t a1, const Bytef *a2, uInt a3)
-{
-  if (!a1)
-  {
-    return 4294967194;
-  }
-
-  if (!*(a1 + 88))
-  {
-    return 4294967194;
-  }
-
-  *(a1 + 96) = a2;
-  *(a1 + 104) = a3;
-  *(a1 + 16648) = crc32(*(a1 + 16648), a2, a3);
-  while (*(a1 + 104))
-  {
-    v4 = *(a1 + 128);
-    if (v4 || (result = zipFlushWriteBuffer(a1), v4 = 0x4000, *(a1 + 128) = 0x4000, *(a1 + 120) = a1 + 256, result != -1))
-    {
-      if (*(a1 + 248) == 8 && !*(a1 + 252))
-      {
-        v10 = *(a1 + 136);
-        result = deflate((a1 + 96), 0);
-        LODWORD(v7) = *(a1 + 136) - v10;
-      }
-
-      else
-      {
-        v6 = *(a1 + 104);
-        v7 = v6 >= v4 ? v4 : v6;
-        if (v6)
-        {
-          v8 = 0;
-          do
-          {
-            *(*(a1 + 120) + v8) = *(*(a1 + 96) + v8);
-            ++v8;
-          }
-
-          while (v7 != v8);
-          v6 = *(a1 + 104);
-          v4 = *(a1 + 128);
-        }
-
-        result = 0;
-        *(a1 + 104) = v6 - v7;
-        *(a1 + 128) = v4 - v7;
-        *(a1 + 96) += v7;
-        v9 = *(a1 + 120) + v7;
-        *(a1 + 112) += v7;
-        *(a1 + 120) = v9;
-        *(a1 + 136) += v7;
-      }
-
-      *(a1 + 212) += v7;
-      if (!result)
-      {
-        continue;
-      }
-    }
-
-    return result;
-  }
-
-  return 0;
-}
-
-uint64_t zipFlushWriteBuffer(uint64_t a1)
-{
-  v2 = *(a1 + 212);
-  if (*(a1 + 16656) && v2)
-  {
-    v3 = (a1 + 256);
-    v4 = *(a1 + 212);
-    do
-    {
-      v5 = *(a1 + 16680);
-      v6 = *(a1 + 16688);
-      v7 = *(v6 + 8 * (*v3 ^ *(a1 + 16664))) ^ (*(a1 + 16664) >> 8);
-      *(a1 + 16664) = v7;
-      v8 = 134775813 * (*(a1 + 16672) + v7) + 1;
-      *(a1 + 16672) = v8;
-      *(a1 + 16680) = *(v6 + 8 * (v5 ^ BYTE3(v8))) ^ (v5 >> 8);
-      *v3++ ^= ((v5 & 0xFFFD ^ 3) * (v5 | 2)) >> 8;
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), a1 + 256, v2) == *(a1 + 212))
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  *(a1 + 212) = 0;
-  return result;
-}
-
-uint64_t vinyl_zipCloseFileInZipRaw(uint64_t a1, unint64_t a2, unint64_t a3)
-{
-  if (!a1 || !*(a1 + 88))
-  {
-    return 4294967194;
-  }
-
-  *(a1 + 104) = 0;
-  if (*(a1 + 248) == 8 && !*(a1 + 252))
-  {
-    do
-    {
-      if (!*(a1 + 128))
-      {
-        v33 = zipFlushWriteBuffer(a1);
-        *(a1 + 128) = 0x4000;
-        *(a1 + 120) = a1 + 256;
-        if (v33 == -1)
-        {
-          v6 = 0xFFFFFFFFLL;
-          goto LABEL_10;
-        }
-      }
-
-      v34 = *(a1 + 136);
-      v35 = deflate((a1 + 96), 4);
-      *(a1 + 212) += *(a1 + 136) - v34;
-    }
-
-    while (!v35);
-    if (v35 == 1)
-    {
-      v6 = 0;
-    }
-
-    else
-    {
-      v6 = v35;
-    }
-
-    if (v6)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  if (*(a1 + 212))
-  {
-    if (zipFlushWriteBuffer(a1) == -1)
-    {
-      v6 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-  }
-
-LABEL_10:
-  if (*(a1 + 248) == 8 && !(*(a1 + 252) | v6))
-  {
-    v6 = deflateEnd((a1 + 96));
-    *(a1 + 208) = 0;
-  }
-
-  if (!*(a1 + 252))
-  {
-    a3 = *(a1 + 16648);
-    a2 = *(a1 + 112);
-  }
-
-  v7 = 0;
-  v8 = *(a1 + 136);
-  v9 = *(a1 + 16696);
-  v10 = (*(a1 + 224) + 16);
-  v11 = a3;
-  do
-  {
-    v12 = v11;
-    *(v10 + v7) = v11;
-    v11 >>= 8;
-    ++v7;
-  }
-
-  while (v7 != 4);
-  v13 = v8 + v9;
-  if (v12 >= 0x100)
-  {
-    *v10 = -1;
-  }
-
-  v14 = 0;
-  v15 = (*(a1 + 224) + 20);
-  v16 = v8 + v9;
-  do
-  {
-    v17 = v16;
-    *(v15 + v14) = v16;
-    v16 >>= 8;
-    ++v14;
-  }
-
-  while (v14 != 4);
-  if (v17 >= 0x100)
-  {
-    *v15 = -1;
-  }
-
-  if (*(a1 + 184) == 1)
-  {
-    *(*(a1 + 224) + 36) = 1;
-  }
-
-  v18 = 0;
-  v19 = (*(a1 + 224) + 24);
-  v20 = a2;
-  do
-  {
-    v21 = v20;
-    *(v19 + v18) = v20;
-    v20 >>= 8;
-    ++v18;
-  }
-
-  while (v18 != 4);
-  if (v21 >= 0x100)
-  {
-    *v19 = -1;
-  }
-
-  if (v6)
-  {
-    free(*(a1 + 224));
-  }
-
-  else
-  {
-    v6 = add_data_in_datablock((a1 + 72), *(a1 + 224), *(a1 + 232));
-    free(*(a1 + 224));
-    if (!v6)
-    {
-      v22 = (*(a1 + 24))(*(a1 + 56), *(a1 + 64));
-      if ((*(a1 + 32))(*(a1 + 56), *(a1 + 64), *(a1 + 216) + 14, 0))
-      {
-        goto LABEL_59;
-      }
-
-      v23 = 0;
-      v24 = *(a1 + 64);
-      do
-      {
-        v25 = a3;
-        *(&v37 + v23) = a3;
-        a3 >>= 8;
-        ++v23;
-      }
-
-      while (v23 != 4);
-      if (v25 >= 0x100)
-      {
-        v37 = -1;
-      }
-
-      if ((*(a1 + 16))(*(a1 + 56), v24, &v37, 4) != 4)
-      {
-        goto LABEL_59;
-      }
-
-      v26 = 0;
-      v27 = *(a1 + 64);
-      do
-      {
-        v28 = v13;
-        *(&v38 + v26) = v13;
-        v13 >>= 8;
-        ++v26;
-      }
-
-      while (v26 != 4);
-      if (v28 >= 0x100)
-      {
-        v38 = -1;
-      }
-
-      if ((*(a1 + 16))(*(a1 + 56), v27, &v38, 4) == 4)
-      {
-        v29 = 0;
-        v30 = *(a1 + 64);
-        do
-        {
-          v31 = a2;
-          *(&v39 + v29) = a2;
-          a2 >>= 8;
-          ++v29;
-        }
-
-        while (v29 != 4);
-        if (v31 >= 0x100)
-        {
-          v39 = -1;
-        }
-
-        if ((*(a1 + 16))(*(a1 + 56), v30, &v39, 4) == 4)
-        {
-          v32 = 0;
-        }
-
-        else
-        {
-          v32 = -1;
-        }
-      }
-
-      else
-      {
-LABEL_59:
-        v32 = -1;
-      }
-
-      if ((*(a1 + 32))(*(a1 + 56), *(a1 + 64), v22, 0))
-      {
-        v6 = 0xFFFFFFFFLL;
-      }
-
-      else
-      {
-        v6 = v32;
-      }
-    }
-  }
-
-  ++*(a1 + 16720);
-  *(a1 + 88) = 0;
-  return v6;
-}
-
-uint64_t vinyl_zipClose(uint64_t a1, const char *a2)
-{
-  if (!a1)
-  {
-    return 4294967194;
-  }
-
-  v2 = a2;
-  if (*(a1 + 88) != 1)
-  {
-    v4 = 0;
-    if (!a2)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_8:
-    v6 = strlen(v2);
-    goto LABEL_9;
-  }
-
-  v4 = vinyl_zipCloseFileInZipRaw(a1, 0, 0);
-  if (v2)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_7:
-  v2 = *(a1 + 16728);
-  if (v2)
-  {
-    goto LABEL_8;
-  }
-
-  v6 = 0;
-LABEL_9:
-  v7 = (*(a1 + 24))(*(a1 + 56), *(a1 + 64));
-  if (!v4)
-  {
-    v9 = *(a1 + 72);
-    if (v9)
-    {
-      v8 = 0;
-      v4 = 0;
-      do
-      {
-        v10 = v9[2];
-        if (v4)
-        {
-          v4 = -1;
-        }
-
-        else if (v10)
-        {
-          v11 = (*(a1 + 16))(*(a1 + 56), *(a1 + 64), v9 + 4);
-          v10 = v9[2];
-          if (v11 == v10)
-          {
-            v4 = 0;
-          }
-
-          else
-          {
-            v4 = -1;
-          }
-        }
-
-        else
-        {
-          v4 = 0;
-        }
-
-        v8 += v10;
-        v9 = *v9;
-      }
-
-      while (v9);
-      goto LABEL_21;
-    }
-
-    v4 = 0;
-  }
-
-  v8 = 0;
-LABEL_21:
-  v12 = *(a1 + 72);
-  if (v12)
-  {
-    do
-    {
-      v13 = *v12;
-      free(v12);
-      v12 = v13;
-    }
-
-    while (v13);
-  }
-
-  if (!v4)
-  {
-    v31 = 101010256;
-    if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), &v31, 4) != 4)
-    {
-      goto LABEL_53;
-    }
-
-    LOWORD(v31) = 0;
-    if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), &v31, 2) != 2)
-    {
-      goto LABEL_53;
-    }
-
-    LOWORD(v31) = 0;
-    if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), &v31, 2) != 2)
-    {
-      goto LABEL_53;
-    }
-
-    v14 = *(a1 + 64);
-    v15 = *(a1 + 16720);
-    LOWORD(v31) = v15;
-    if (v15 >= 0x10000)
-    {
-      LOWORD(v31) = -1;
-    }
-
-    if ((*(a1 + 16))(*(a1 + 56), v14, &v31, 2) != 2)
-    {
-      goto LABEL_53;
-    }
-
-    v16 = *(a1 + 64);
-    v17 = *(a1 + 16720);
-    LOWORD(v31) = v17;
-    if (v17 >= 0x10000)
-    {
-      LOWORD(v31) = -1;
-    }
-
-    if ((*(a1 + 16))(*(a1 + 56), v16, &v31, 2) != 2)
-    {
-      goto LABEL_53;
-    }
-
-    v18 = 0;
-    v19 = *(a1 + 64);
-    do
-    {
-      v20 = v8;
-      *(&v31 + v18) = v8;
-      v8 >>= 8;
-      ++v18;
-    }
-
-    while (v18 != 4);
-    if (v20 >= 0x100)
-    {
-      v31 = -1;
-    }
-
-    if ((*(a1 + 16))(*(a1 + 56), v19, &v31, 4) != 4)
-    {
-      goto LABEL_53;
-    }
-
-    v21 = 0;
-    v22 = *(a1 + 64);
-    v23 = v7 - *(a1 + 16712);
-    do
-    {
-      v24 = v23;
-      *(&v31 + v21) = v23;
-      v23 >>= 8;
-      ++v21;
-    }
-
-    while (v21 != 4);
-    if (v24 >= 0x100)
-    {
-      v31 = -1;
-    }
-
-    if ((*(a1 + 16))(*(a1 + 56), v22, &v31, 4) == 4)
-    {
-      v25 = *(a1 + 64);
-      LOWORD(v31) = v6;
-      if (v6 >= 0x10000)
-      {
-        LOWORD(v31) = -1;
-      }
-
-      v26 = (*(a1 + 16))(*(a1 + 56), v25, &v31, 2);
-      if (v26 == 2)
-      {
-        v4 = 0;
-      }
-
-      else
-      {
-        v4 = -1;
-      }
-
-      if (v26 == 2 && v6)
-      {
-        if ((*(a1 + 16))(*(a1 + 56), *(a1 + 64), v2, v6) == v6)
-        {
-          v4 = 0;
-        }
-
-        else
-        {
-          v4 = -1;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_53:
-      v4 = -1;
-    }
-  }
-
-  v27 = (*(a1 + 40))(*(a1 + 56), *(a1 + 64));
-  if (v4)
-  {
-    v28 = v4;
-  }
-
-  else
-  {
-    v28 = -1;
-  }
-
-  if (v27)
-  {
-    v5 = v28;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  v29 = *(a1 + 16728);
-  if (v29)
-  {
-    free(v29);
-  }
-
-  free(a1);
-  return v5;
-}
-
-_BYTE *init_keys(_BYTE *result, void *a2, uint64_t a3)
-{
-  *a2 = xmmword_299FE2E80;
-  a2[2] = 878082192;
-  v3 = *result;
-  if (*result)
-  {
-    v6 = result + 1;
-    do
-    {
-      result = update_keys(a2, a3, v3);
-      v7 = *v6++;
-      v3 = v7;
-    }
-
-    while (v7);
-  }
-
-  return result;
-}
-
-uint64_t update_keys(void *a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 8 * (*a1 ^ a3)) ^ (*a1 >> 8);
-  v4 = 134775813 * (a1[1] + v3) + 1;
-  *a1 = v3;
-  a1[1] = v4;
-  a1[2] = *(a2 + 8 * (a1[2] ^ BYTE3(v4))) ^ (a1[2] >> 8);
-  return a3;
-}
-
-uint64_t Options::Options(uint64_t a1, const __CFDictionary **a2)
-{
-  v74 = *MEMORY[0x29EDCA608];
-  *a1 = 255;
-  *(a1 + 4) = 0;
-  v4 = (a1 + 4);
-  *(a1 + 12) = 0;
-  *(a1 + 16) = 1;
-  std::string::basic_string[abi:ne200100]<0>((a1 + 24), "");
-  *(a1 + 48) = 0;
-  *(a1 + 50) = 0;
-  std::string::basic_string[abi:ne200100]<0>((a1 + 56), "");
-  *(a1 + 80) = 0;
-  std::string::basic_string[abi:ne200100]<0>((a1 + 88), "");
-  v5 = (a1 + 112);
-  std::string::basic_string[abi:ne200100]<0>((a1 + 112), "");
-  *(a1 + 136) = 0;
-  v6 = (a1 + 144);
-  std::string::basic_string[abi:ne200100]<0>((a1 + 144), "");
-  *(a1 + 168) = 0;
-  if (*a2)
-  {
-    ctu::cf::dict_adapter::dict_adapter(v64, *a2);
-    Value = CFDictionaryGetValue(*a2, @"BasebandUpdater");
-    ctu::cf::dict_adapter::dict_adapter(v63, Value);
-    v8 = *(a1 + 11);
-    *(a1 + 11) = ctu::cf::map_adapter::getBool(v63, @"VinylForceGold");
-    v9 = *(a1 + 10);
-    *(a1 + 10) = ctu::cf::map_adapter::getBool(v63, @"VinylForceMain");
-    ctu::cf::map_adapter::getString();
-    if (*(a1 + 47) < 0)
-    {
-      operator delete(*(a1 + 24));
-    }
-
-    *(a1 + 24) = *__p;
-    *(a1 + 40) = v66;
-    v10 = *(a1 + 20);
-    *(a1 + 20) = ctu::cf::map_adapter::getInt(v63, @"BypassPairing");
-    ctu::cf::map_adapter::getString();
-    if (*(a1 + 79) < 0)
-    {
-      operator delete(*(a1 + 56));
-    }
-
-    *(a1 + 56) = *__p;
-    *(a1 + 72) = v66;
-    v11 = *(a1 + 80);
-    *(a1 + 80) = ctu::cf::map_adapter::getBool(v64, @"VinylTwoPhasePresenceCheck");
-    ctu::cf::map_adapter::getString();
-    if (*(a1 + 111) < 0)
-    {
-      operator delete(*(a1 + 88));
-    }
-
-    *(a1 + 88) = *__p;
-    *(a1 + 104) = v66;
-    ctu::cf::map_adapter::getString();
-    if (*(a1 + 135) < 0)
-    {
-      operator delete(*v5);
-    }
-
-    *v5 = *__p;
-    *(a1 + 128) = v66;
-    v12 = *(a1 + 135);
-    if (v12 < 0)
-    {
-      v13 = *(a1 + 112);
-      v12 = *(a1 + 120);
-    }
-
-    else
-    {
-      v13 = (a1 + 112);
-    }
-
-    v14 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v13, &v13[v12], isblank);
-    v15 = *(a1 + 135);
-    if (v15 < 0)
-    {
-      v17 = *(a1 + 112);
-      v16 = (v17 + *(a1 + 120));
-    }
-
-    else
-    {
-      v16 = v5 + v15;
-      v17 = a1 + 112;
-    }
-
-    std::string::erase((a1 + 112), &v14[-v17], v16 - v14);
-    v18 = *(a1 + 135);
-    if (v18 < 0)
-    {
-      v19 = *(a1 + 112);
-      v18 = *(a1 + 120);
-    }
-
-    else
-    {
-      v19 = (a1 + 112);
-    }
-
-    v20 = std::remove_if[abi:ne200100]<std::__wrap_iter<char *>,int (*)(int)>(v19, &v19[v18], iscntrl);
-    v21 = *(a1 + 135);
-    if (v21 < 0)
-    {
-      v23 = *(a1 + 112);
-      v22 = (v23 + *(a1 + 120));
-    }
-
-    else
-    {
-      v22 = v5 + v21;
-      v23 = a1 + 112;
-    }
-
-    std::string::erase((a1 + 112), &v20[-v23], v22 - v20);
-    v24 = *(a1 + 136);
-    *(a1 + 136) = ctu::cf::map_adapter::getBool(v64, @"VinylSkipProvisioning");
-    v25 = *(a1 + 137);
-    *(a1 + 137) = ctu::cf::map_adapter::getBool(v64, @"OptimizeRefurbFirmwareUpdatePath");
-    ctu::cf::map_adapter::getString();
-    if (*(a1 + 167) < 0)
-    {
-      operator delete(*v6);
-    }
-
-    *v6 = *__p;
-    *(a1 + 160) = v66;
-    v26 = *(a1 + 167);
-    if (v26 < 0)
-    {
-      v27 = *(a1 + 144);
-      v28 = *(a1 + 152);
-    }
-
-    else
-    {
-      v27 = (a1 + 144);
-      v28 = *(a1 + 167);
-    }
-
-    v29 = &v27[v28];
-    if (v28 >= 2)
-    {
-      v30 = v27;
-      do
-      {
-        v31 = memchr(v30, 45, v28 - 1);
-        if (!v31)
-        {
-          break;
-        }
-
-        if (*v31 == 26157)
-        {
-          goto LABEL_33;
-        }
-
-        v30 = v31 + 1;
-        v28 = v29 - v30;
-      }
-
-      while (v29 - v30 > 1);
-    }
-
-    v31 = v29;
-LABEL_33:
-    v33 = v31 != v29 && v31 - v27 != -1;
-    *(a1 + 168) = v33;
-    if ((v26 & 0x80000000) != 0)
-    {
-      v34 = *(a1 + 144);
-      v26 = *(a1 + 152);
-    }
-
-    else
-    {
-      v34 = (a1 + 144);
-    }
-
-    v35 = &v34[v26];
-    if (v26 >= 2)
-    {
-      v36 = v34;
-      do
-      {
-        v37 = memchr(v36, 45, v26 - 1);
-        if (!v37)
-        {
-          break;
-        }
-
-        if (*v37 == 25389)
-        {
-          goto LABEL_48;
-        }
-
-        v36 = v37 + 1;
-        v26 = v35 - v36;
-      }
-
-      while (v35 - v36 > 1);
-    }
-
-    v37 = v35;
-LABEL_48:
-    v39 = v37 != v35 && v37 - v34 != -1;
-    *(a1 + 169) = v39;
-    v40 = *(a1 + 8);
-    if (ctu::cf::map_adapter::getBool(v63, @"VinylSkipAll"))
-    {
-      v41 = 1;
-    }
-
-    else
-    {
-      v41 = ctu::cf::map_adapter::getBool(v64, @"UpdateBaseband") ^ 1;
-    }
-
-    *(a1 + 8) = v41;
-    v42 = *(a1 + 9);
-    *(a1 + 9) = ctu::cf::map_adapter::getBool(v63, @"VinylOnlyPerso");
-    if (ctu::cf::map_adapter::getBool(v63, @"VinylUse4FF"))
-    {
-      *a1 = 1;
-    }
-
-    if (BBUpdaterCommon::isNVRAMKeyPresent(@"VinylForceGenericUpdate", v43))
-    {
-      *(a1 + 10) = 257;
-    }
-
-    v44 = *(a1 + 13);
-    *(a1 + 13) = ctu::cf::map_adapter::getBool(v64, @"VinylVerifyPairing");
-    v45 = *(a1 + 12);
-    *(a1 + 12) = ctu::cf::map_adapter::getBool(v64, @"VinylInstallSealingManifest");
-    v46 = *(a1 + 16);
-    *(a1 + 16) = ctu::cf::map_adapter::getInt(v64, @"VinylPairingAuthTest");
-    __p[0] = 0;
-    __p[1] = 0;
-    v66 = 0;
-    ctu::cf::map_adapter::getString();
-    if (SHIBYTE(v66) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    v47 = v62;
-    v48 = v62;
-    if ((v62 & 0x80u) != 0)
-    {
-      v47 = v61[1];
-    }
-
-    if (v47)
-    {
-      std::string::basic_string[abi:ne200100]<0>(__p, "Bootstrap");
-      v67 = 1;
-      std::string::basic_string[abi:ne200100]<0>(v68, "All");
-      v69 = 2;
-      std::string::basic_string[abi:ne200100]<0>(v70, "Bootstrap Preferences");
-      v71 = 3;
-      std::string::basic_string[abi:ne200100]<0>(v72, "All Preferences");
-      v73 = 4;
-      std::map<std::string,VinylRefurbAction,BBUpdaterCommon::case_insensitive_key_comparer,std::allocator<std::pair<std::string const,VinylRefurbAction>>>::map[abi:ne200100](v59, __p, 4);
-      for (i = 0; i != -16; i -= 4)
-      {
-        if (SHIBYTE(v72[i + 2]) < 0)
-        {
-          operator delete(v72[i]);
-        }
-      }
-
-      v50 = std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::find<std::string>(v59, v61);
-      if (&v60 == v50)
-      {
-        exception = __cxa_allocate_exception(0x210uLL);
-        v57 = exception;
-        v58 = v61;
-        if ((v62 & 0x80u) != 0)
-        {
-          LOBYTE(v58) = v61[0];
-        }
-
-        _BBUException::_BBUException(exception, 2, "/Library/Caches/com.apple.xbs/Sources/VinylRestore/Options/eUICCOptions.cpp", 0x57u, "Invalid Refurb Option %s", v54, v55, v56, v58);
-      }
-
-      *v4 = *(v50 + 56);
-      std::__tree<std::__value_type<std::string,VinylRefurbAction>,std::__map_value_compare<std::string,std::__value_type<std::string,VinylRefurbAction>,BBUpdaterCommon::case_insensitive_key_comparer,true>,std::allocator<std::__value_type<std::string,VinylRefurbAction>>>::destroy(v59, v60);
-      v48 = v62;
-    }
-
-    if ((v48 & 0x80) != 0)
-    {
-      operator delete(v61[0]);
-    }
-
-    MEMORY[0x29C2B8210](v63);
-    MEMORY[0x29C2B8210](v64);
-  }
-
-  v51 = *MEMORY[0x29EDCA608];
-  return a1;
 }

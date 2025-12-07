@@ -1210,21 +1210,21 @@ void sub_1000067F0(uint64_t a1, void *a2, void *a3, void *a4, char a5, void *a6)
   dispatch_async(v17, block);
 }
 
-uint64_t sub_100006928(uint64_t a1)
+uint64_t sub_100006928(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (!v2)
   {
-    if ([*(a1 + 40) _shouldSync])
+    if ([a1[5] _shouldSync])
     {
-      v3 = *(a1 + 40);
-      v4 = *(a1 + 48);
+      v3 = a1[5];
+      v4 = a1[6];
 LABEL_9:
       sub_100005B9C(v3, v4);
       goto LABEL_10;
     }
 
-    v2 = *(a1 + 32);
+    v2 = a1[4];
   }
 
   v5 = v2;
@@ -1240,22 +1240,18 @@ LABEL_9:
 
   if (v8 == 21)
   {
-    v3 = *(a1 + 40);
+    v3 = a1[5];
     v4 = 0;
     goto LABEL_9;
   }
 
 LABEL_10:
-  result = *(a1 + 72);
+  result = a1[9];
   if (result)
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 56);
-    v12 = *(a1 + 64);
-    v13 = *(result + 16);
-    v14 = *(a1 + 80);
+    v10 = *(result + 16);
 
-    return v13();
+    return v10();
   }
 
   return result;
@@ -2224,23 +2220,22 @@ void sub_10000B2EC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_10000B3D8;
-    v9[3] = &unk_100018C58;
-    v10 = v7;
-    v11 = *(a1 + 48);
-    [v8 removeValuesForKeys:a3 fromStoreWithIdentifier:v10 completionHandler:v9];
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10000B3D8;
+    v8[3] = &unk_100018C58;
+    v9 = v6;
+    v10 = *(a1 + 48);
+    [v7 removeValuesForKeys:a3 fromStoreWithIdentifier:v9 completionHandler:v8];
   }
 }
 
@@ -2336,30 +2331,29 @@ void sub_10000B9E4(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 64);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10000BB14;
-    v12[3] = &unk_100018C08;
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    *&v10 = *(a1 + 40);
-    *(&v10 + 1) = v7;
-    *&v11 = v8;
-    *(&v11 + 1) = v9;
-    v13 = v11;
-    v14 = v10;
-    [v5 keysInStoreWithIdentifier:v6 completionHandler:v12];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000BB14;
+    v11[3] = &unk_100018C08;
+    v6 = *(a1 + 64);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
+    *&v9 = *(a1 + 40);
+    *(&v9 + 1) = v6;
+    *&v10 = v7;
+    *(&v10 + 1) = v8;
+    v12 = v10;
+    v13 = v9;
+    [v4 keysInStoreWithIdentifier:v5 completionHandler:v11];
     sub_100001A08(*(a1 + 48), *(a1 + 40));
   }
 }
@@ -2959,11 +2953,11 @@ void sub_10000E28C(void *a1)
   v2 = CKLogContextDaemon;
   if (os_log_type_enabled(CKLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
-    v17 = a1[4];
+    v15 = a1[4];
     *buf = 136315394;
-    v22 = "[CKDaemon valuesForKeys:inStoreWithIdentifier:completionHandler:]_block_invoke";
-    v23 = 2112;
-    v24 = v17;
+    v20 = "[CKDaemon valuesForKeys:inStoreWithIdentifier:completionHandler:]_block_invoke";
+    v21 = 2112;
+    v22 = v15;
     _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s Getting values for keys %@", buf, 0x16u);
   }
 
@@ -2979,9 +2973,9 @@ void sub_10000E28C(void *a1)
   if (!v9)
   {
     v10 = a1[4];
-    v19 = 0;
-    v11 = [v6 _valuesForKeys:v10 error:&v19];
-    objc_storeStrong(v8, v19);
+    v17 = 0;
+    v11 = [v6 _valuesForKeys:v10 error:&v17];
+    objc_storeStrong(v8, v17);
     v12 = *(a1[9] + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v11;
@@ -2990,16 +2984,14 @@ void sub_10000E28C(void *a1)
   v14 = CKLogContextDaemon;
   if (os_log_type_enabled(CKLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
-    v18 = a1[4];
+    v16 = a1[4];
     *buf = 136315394;
-    v22 = "[CKDaemon valuesForKeys:inStoreWithIdentifier:completionHandler:]_block_invoke";
-    v23 = 2112;
-    v24 = v18;
+    v20 = "[CKDaemon valuesForKeys:inStoreWithIdentifier:completionHandler:]_block_invoke";
+    v21 = 2112;
+    v22 = v16;
     _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%s Finished getting values for keys %@", buf, 0x16u);
   }
 
-  v15 = *(*(a1[8] + 8) + 40);
-  v16 = *(*(a1[9] + 8) + 40);
   (*(a1[7] + 16))();
 }
 

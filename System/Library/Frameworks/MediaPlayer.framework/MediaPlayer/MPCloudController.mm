@@ -1316,7 +1316,7 @@ LABEL_13:
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __60__MPCloudController_setItemProperties_forPurchaseHistoryID___block_invoke(uint64_t a1, uint64_t a2)
+void *__60__MPCloudController_setItemProperties_forPurchaseHistoryID___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) canSetItemProperty:a2];
   if (result)
@@ -1572,7 +1572,7 @@ uint64_t __60__MPCloudController_setItemProperties_forPurchaseHistoryID___block_
   return v3;
 }
 
-uint64_t __36__MPCloudController_isGeniusEnabled__block_invoke(uint64_t a1)
+void *__36__MPCloudController_isGeniusEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCloudEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -2392,7 +2392,7 @@ uint64_t __132__MPCloudController_loadArtworkForEntityPersistentID_entityType_ar
 - (void)setAlbumArtistProperties:(id)properties forEntityWithPersistentID:(int64_t)d completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v10 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties);
+  v10 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties, 3);
   cloudClient = [(MPCloudController *)self cloudClient];
   [cloudClient setAlbumArtistProperties:v10 forAlbumArtistPersistentID:d completionHandler:handlerCopy];
 }
@@ -2400,7 +2400,7 @@ uint64_t __132__MPCloudController_loadArtworkForEntityPersistentID_entityType_ar
 - (void)setAlbumProperties:(id)properties forEntityWithPersistentID:(int64_t)d cloudLibraryID:(id)iD completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v11 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties);
+  v11 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties, 1);
   cloudClient = [(MPCloudController *)self cloudClient];
   [cloudClient setAlbumEntityProperties:v11 forAlbumPersistentID:d completionHandler:handlerCopy];
 }
@@ -2413,7 +2413,7 @@ uint64_t __132__MPCloudController_loadArtworkForEntityPersistentID_entityType_ar
   v12 = handlerCopy;
   if (type == 1)
   {
-    v13 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy);
+    v13 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy, 1);
 
     cloudClient = [(MPCloudController *)self cloudClient];
     [cloudClient setAlbumProperties:v13 forAlbumPersistentID:d completionHandler:v12];
@@ -2477,7 +2477,7 @@ uint64_t __132__MPCloudController_loadArtworkForEntityPersistentID_entityType_ar
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __49__MPCloudController_setItemProperties_forSagaID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__49__MPCloudController_setItemProperties_forSagaID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canSetItemProperty:a2];
   if (result)
@@ -2651,7 +2651,7 @@ void __40__MPCloudController_canSetItemProperty___block_invoke()
 {
   completionCopy = completion;
   editsCopy = edits;
-  v13 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties);
+  v13 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties, 6);
   cloudClient = [(MPCloudController *)self cloudClient];
   [cloudClient editCollaborationWithPersistentID:d properties:v13 trackEdits:editsCopy completion:completionCopy];
 }
@@ -2827,7 +2827,7 @@ void __40__MPCloudController_canSetItemProperty___block_invoke()
   }
 
   [(MPCloudController *)self _setDateModified:date forPlaylistPersistentID:d];
-  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy);
+  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy, 6);
 
   v20 = 0;
   v21 = &v20;
@@ -2864,7 +2864,7 @@ void __40__MPCloudController_canSetItemProperty___block_invoke()
   _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __103__MPCloudController_sdk_setPlaylistProperties_trackList_forPlaylistWithPersistentID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__103__MPCloudController_sdk_setPlaylistProperties_trackList_forPlaylistWithPersistentID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canSetPlaylistProperty:a2];
   if (result)
@@ -2889,7 +2889,7 @@ uint64_t __103__MPCloudController_sdk_setPlaylistProperties_trackList_forPlaylis
   }
 
   [(MPCloudController *)self _setDateModified:date forPlaylistPersistentID:d];
-  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy);
+  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(propertiesCopy, 6);
 
   v20 = 0;
   v21 = &v20;
@@ -2926,7 +2926,7 @@ uint64_t __103__MPCloudController_sdk_setPlaylistProperties_trackList_forPlaylis
   _Block_object_dispose(&v20, 8);
 }
 
-uint64_t __99__MPCloudController_setPlaylistProperties_trackList_forPlaylistWithPersistentID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__99__MPCloudController_setPlaylistProperties_trackList_forPlaylistWithPersistentID_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) canSetPlaylistProperty:a2];
   if (result)
@@ -2973,7 +2973,7 @@ void __44__MPCloudController_canSetPlaylistProperty___block_invoke()
 {
   handlerCopy = handler;
   tracklistCopy = tracklist;
-  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties);
+  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties, 6);
   cloudClient = [(MPCloudController *)self cloudClient];
   iCCloudItemIDList = [tracklistCopy ICCloudItemIDList];
 
@@ -2984,7 +2984,7 @@ void __44__MPCloudController_canSetPlaylistProperty___block_invoke()
 {
   handlerCopy = handler;
   listCopy = list;
-  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties);
+  v14 = _ML3CollectionPropertiesFromMPMediaItemColectionProperties(properties, 6);
   cloudClient = [(MPCloudController *)self cloudClient];
   iCCloudItemIDList = [listCopy ICCloudItemIDList];
 

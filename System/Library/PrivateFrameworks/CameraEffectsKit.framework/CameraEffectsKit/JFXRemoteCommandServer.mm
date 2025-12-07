@@ -109,7 +109,7 @@
 
 - (void)onGetEffectsResponse:(id)response
 {
-  v5 = JFXEffectsResponseGetEffects(response, a2);
+  v5 = JFXEffectsResponseGetEffects(response);
   delegate = [(JFXRemoteCommandServer *)self delegate];
   [delegate remoteCommandServer:self didReceiveGetEffectsResponse:v5];
 }

@@ -218,12 +218,7 @@
         v25 = [v62 objectForKeyedSubscript:AKAppleAccountConsentVersionKey];
         v58 = sub_1000E72E0(v24, v25);
         _objc_release(v25);
-        if (!v59)
-        {
-          goto LABEL_22;
-        }
-
-        if (v58)
+        if (v59 && v58)
         {
           v79[0] = AKAppleAccountConsentValueKey;
           v80[0] = v59;
@@ -238,7 +233,6 @@
 
         else
         {
-LABEL_22:
           v57 = _AKLogSystem();
           v56 = OS_LOG_TYPE_ERROR;
           if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))

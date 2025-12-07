@@ -41,10 +41,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -101,7 +100,7 @@
 
 - (void)_queue_startWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -109,8 +108,8 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v12 = objc_opt_class();
-    v6 = v12;
+    v11 = objc_opt_class();
+    v6 = v11;
     _os_log_impl(&dword_262086000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session start", buf, 0xCu);
   }
 
@@ -137,13 +136,11 @@
     self->_sessionState = 1;
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_abortWithCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
   _HKInitializeLogging();
@@ -151,8 +148,8 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = objc_opt_class();
-    v6 = v10;
+    v9 = objc_opt_class();
+    v6 = v9;
     _os_log_impl(&dword_262086000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session abort", buf, 0xCu);
   }
 
@@ -168,8 +165,6 @@
     v7 = [MEMORY[0x277CCA9B8] hk_error:100 format:{@"Cannot abort session in state: %@", @"Not Started"}];
     (completionCopy)[2](completionCopy, 0, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_abortSensorSession
@@ -304,7 +299,7 @@ void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReaso
 
 - (void)oxygenSaturationSession:(id)session didBeginWithStartTime:(double)time expectedDuration:(double)duration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [(HDRPOxygenSaturationSessionServer *)self setStartTime:session];
   [(HDRPOxygenSaturationSessionServer *)self setExpectedDuration:duration];
   v8 = [MEMORY[0x277CBEAA8] now];
@@ -319,26 +314,24 @@ void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReaso
     v12 = objc_opt_class();
     v13 = v12;
     expectedEndDate = [(HDRPOxygenSaturationSessionServer *)self expectedEndDate];
-    v16 = 138544130;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2050;
+    v15 = 138544130;
+    v16 = v12;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2050;
     durationCopy = duration;
-    v22 = 2114;
-    v23 = expectedEndDate;
-    _os_log_impl(&dword_262086000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did begin with Start date: %{public}@, Duration: %{public}.1f sec, Expected end date: %{public}@", &v16, 0x2Au);
+    v21 = 2114;
+    v22 = expectedEndDate;
+    _os_log_impl(&dword_262086000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did begin with Start date: %{public}@, Duration: %{public}.1f sec, Expected end date: %{public}@", &v15, 0x2Au);
   }
 
   self->_sessionState = 2;
   [(HDRPOxygenSaturationSessionServer *)self _queue_notifyClientDidStartWithStartTime:time expectedDuration:duration];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)oxygenSaturationSession:(id)session feedbackDidChange:(unint64_t)change
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [(HDRPOxygenSaturationSessionServer *)self startTime];
   v7 = v6;
   [(HDRPOxygenSaturationSessionServer *)self expectedDuration];
@@ -381,22 +374,21 @@ void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReaso
       v16 = @"None";
     }
 
-    v18 = 138543874;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v16;
-    v22 = 2050;
-    v23 = v12;
-    _os_log_impl(&dword_262086000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session feedback did change: (%{public}@) at %{public}.1f sec", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v16;
+    v21 = 2050;
+    v22 = v12;
+    _os_log_impl(&dword_262086000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session feedback did change: (%{public}@) at %{public}.1f sec", &v17, 0x20u);
   }
 
   [(HDRPOxygenSaturationSessionServer *)self _queue_notifyClientDidSendFeedback:change & 3];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)oxygenSaturationSession:(id)session didEndForReason:(unint64_t)reason measurement:(id)measurement
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   measurementCopy = measurement;
   _HKInitializeLogging();
   v8 = HKLogRespiratoryCategory();
@@ -413,12 +405,12 @@ void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReaso
       v10 = off_279B0E3C8[reason - 1];
     }
 
-    *v21 = 138543618;
-    *&v21[4] = v9;
-    *&v21[12] = 2114;
-    *&v21[14] = v10;
+    *v20 = 138543618;
+    *&v20[4] = v9;
+    *&v20[12] = 2114;
+    *&v20[14] = v10;
     v11 = v9;
-    _os_log_impl(&dword_262086000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did end with reason: %{public}@", v21, 0x16u);
+    _os_log_impl(&dword_262086000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session did end with reason: %{public}@", v20, 0x16u);
   }
 
   if (reason > 4)
@@ -442,41 +434,27 @@ void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReaso
 
   uuid = [averageHeartRateData2 uuid];
   [(HDRPOxygenSaturationSessionServer *)self _queue_notifyClientDidEndWithReason:v12 saturation:oxygenSaturationPercentage barometricPressure:pressureInKilopascals averageHeartRate:v17 averageHeartRateUUID:uuid error:0];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HDRPOxygenSaturationSessionServer__queue_notifyClientDidSendFeedback___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_262086000, v4, v5, "[%{public}@] Error notifying Oxygen Saturation Session client of feedback update: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0(v1);
+  OUTLINED_FUNCTION_1(&dword_262086000, v3, v4, "[%{public}@] Error notifying Oxygen Saturation Session client of feedback update: %{public}@", v5, v6, v7, v8);
 }
 
 void __95__HDRPOxygenSaturationSessionServer__queue_notifyClientDidStartWithStartTime_expectedDuration___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_262086000, v4, v5, "[%{public}@] Error notifying Oxygen Saturation Session client of session start with expected end date: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0(v1);
+  OUTLINED_FUNCTION_1(&dword_262086000, v3, v4, "[%{public}@] Error notifying Oxygen Saturation Session client of session start with expected end date: %{public}@", v5, v6, v7, v8);
 }
 
 void __147__HDRPOxygenSaturationSessionServer__queue_notifyClientDidEndWithReason_saturation_barometricPressure_averageHeartRate_averageHeartRateUUID_error___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_262086000, v4, v5, "[%{public}@] Error notifying Oxygen Saturation Session client of session end: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0(v1);
+  OUTLINED_FUNCTION_1(&dword_262086000, v3, v4, "[%{public}@] Error notifying Oxygen Saturation Session client of session end: %{public}@", v5, v6, v7, v8);
 }
 
 @end

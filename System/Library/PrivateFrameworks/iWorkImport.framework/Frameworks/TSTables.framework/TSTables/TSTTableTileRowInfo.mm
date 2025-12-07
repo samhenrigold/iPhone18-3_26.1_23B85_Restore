@@ -33,27 +33,27 @@
 
 - (vector<TSTCell)accumulateCurrentCellsConcurrentlyAtColumns:(TSTTableTileRowInfo *)self usingCellCreationBlock:(SEL)block
 {
-  v17 = a5;
+  v16 = a5;
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->__begin_ = 0;
   sub_2211389A0(retstr, (*(a4 + 1) - *a4) >> 1);
-  v11 = *a4;
+  v10 = *a4;
   if (*(a4 + 1) != *a4)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      v13 = objc_msgSend_cellStorageRefAtIndex_(self, v8, *(v11 + 2 * v12), v9, v10, v17);
-      v14 = v17[2](v17, v13, v12);
-      v15 = retstr->__begin_[v12];
-      retstr->__begin_[v12] = v14;
+      v12 = objc_msgSend_cellStorageRefAtIndex_(self, v8, *(v10 + 2 * v11), v9, v16);
+      v13 = v16[2](v16, v12, v11);
+      v14 = retstr->__begin_[v11];
+      retstr->__begin_[v11] = v13;
 
-      ++v12;
-      v11 = *a4;
+      ++v11;
+      v10 = *a4;
     }
 
-    while (v12 < (*(a4 + 1) - *a4) >> 1);
+    while (v11 < (*(a4 + 1) - *a4) >> 1);
   }
 
   return result;
@@ -64,9 +64,9 @@
   offsetsCopy = offsets;
   v5 = *&index;
   v6 = [self alloc];
-  v9 = objc_msgSend_initWithTileRowIndex_wideOffsets_(v6, v7, v5, offsetsCopy, v8);
+  v8 = objc_msgSend_initWithTileRowIndex_wideOffsets_(v6, v7, v5, offsetsCopy);
 
-  return v9;
+  return v8;
 }
 
 - (TSTTableTileRowInfo)initWithTileRowIndex:(unsigned int)index wideOffsets:(BOOL)offsets
@@ -109,20 +109,20 @@
 + (id)rowInfoFromArchive:(const void *)archive fileFormatVersion:(unint64_t)version
 {
   v6 = [self alloc];
-  v9 = objc_msgSend_initFromArchive_fileFormatVersion_(v6, v7, archive, version, v8);
+  v8 = objc_msgSend_initFromArchive_fileFormatVersion_(v6, v7, archive, version);
 
-  return v9;
+  return v8;
 }
 
 - (id)initFromArchive:(const void *)archive fileFormatVersion:(unint64_t)version
 {
-  v57.receiver = self;
-  v57.super_class = TSTTableTileRowInfo;
-  v6 = [(TSTTableTileRowInfo *)&v57 init];
-  v8 = v6;
+  v49.receiver = self;
+  v49.super_class = TSTTableTileRowInfo;
+  v6 = [(TSTTableTileRowInfo *)&v49 init];
+  v7 = v6;
   if (!v6)
   {
-    return v8;
+    return v7;
   }
 
   v6->_tileRowIndex = *(archive + 14);
@@ -131,35 +131,35 @@
   v6->_unfairLock._os_unfair_lock_opaque = 0;
   __dmb(0xBu);
   v6->_storageVersion = 1;
-  v10 = *(archive + 4);
-  if ((v10 & 0x40) != 0)
+  v9 = *(archive + 4);
+  if ((v9 & 0x40) != 0)
   {
     v6->_storageVersion = *(archive + 16);
   }
 
-  if ((v10 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
-    sub_221139174(&v6->_currentData, *(archive + 68) & ((v10 & 0x80) >> 7), *(archive + 5) & 0xFFFFFFFFFFFFFFFELL, *(archive + 6) & 0xFFFFFFFFFFFFFFFELL, v7);
+    sub_221139174(&v6->_currentData, *(archive + 68) & ((v9 & 0x80) >> 7), (*(archive + 5) & 0xFFFFFFFFFFFFFFFELL), (*(archive + 6) & 0xFFFFFFFFFFFFFFFELL));
   }
 
   if (version > 0x3000200000009)
   {
-    *(v8 + 79) = 0;
-    *(v8 + 48) = 0u;
-    *(v8 + 64) = 0u;
+    *(v7 + 79) = 0;
+    *(v7 + 48) = 0u;
+    *(v7 + 64) = 0u;
   }
 
   else
   {
-    sub_221139174(v8 + 48, 0, *(archive + 3) & 0xFFFFFFFFFFFFFFFELL, *(archive + 4) & 0xFFFFFFFFFFFFFFFELL, v7);
+    sub_221139174(v7 + 48, 0, (*(archive + 3) & 0xFFFFFFFFFFFFFFFELL), (*(archive + 4) & 0xFFFFFFFFFFFFFFFELL));
   }
 
-  sub_2211392B0(v8);
+  sub_2211392B0(v7);
   if (!*p_cellCount)
   {
-    sub_221138D14(v8 + 48);
-    sub_221138D14(v8 + 8);
-    if ((v10 & 4) != 0)
+    sub_221138D14(v7 + 48);
+    sub_221138D14(v7 + 8);
+    if ((v9 & 4) != 0)
     {
       goto LABEL_39;
     }
@@ -167,91 +167,91 @@
     goto LABEL_43;
   }
 
-  v11 = sub_221138A3C(v8);
-  v16 = v11;
-  if (v11 == 0x7FFF)
+  v10 = sub_221138A3C(v7);
+  v14 = v10;
+  if (v10 == 0x7FFF)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTTableTileRowInfo initFromArchive:fileFormatVersion:]", v14, v15);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 922, 0, "Can't find the last valid column during unarchive!");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTTableTileRowInfo initFromArchive:fileFormatVersion:]", v13);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 922, 0, "Can't find the last valid column during unarchive!");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
-    v28 = *(v8 + 56);
-    v29 = (v8 + 80);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
+    v24 = *(v7 + 56);
+    v25 = (v7 + 80);
 LABEL_19:
-    v32 = 0x800000000000005FLL;
+    v28 = 0x800000000000005FLL;
     goto LABEL_20;
   }
 
-  v29 = (v8 + 80);
-  v28 = *(v8 + 56);
-  if (*(v8 + 80) <= v11)
+  v25 = (v7 + 80);
+  v24 = *(v7 + 56);
+  if (*(v7 + 80) <= v10)
   {
     goto LABEL_19;
   }
 
-  v31 = *(*(v8 + 72) + 2 * v11);
-  if (v31 == 0xFFFF)
+  v27 = *(*(v7 + 72) + 2 * v10);
+  if (v27 == 0xFFFF)
   {
     goto LABEL_19;
   }
 
-  if (*(v8 + 82))
+  if (*(v7 + 82))
   {
-    v31 *= 4;
+    v27 *= 4;
   }
 
-  v32 = v31 + 96;
+  v28 = v27 + 96;
 LABEL_20:
-  if (v28 > v32)
+  if (v24 > v28)
   {
-    v37 = objc_msgSend_p_preBNCStorageRefAtIndex_(v8, v12, v16, v14, v15);
-    if (!v37)
+    v32 = objc_msgSend_p_preBNCStorageRefAtIndex_(v7, v11, v14, v13);
+    if (!v32)
     {
-      v38 = MEMORY[0x277D81150];
-      v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "[TSTTableTileRowInfo initFromArchive:fileFormatVersion:]", v35, v36);
-      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v41, v42);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v44, v39, v43, 930, 0, "invalid nil value for '%{public}s'", "lastPreBNCCellRef");
+      v33 = MEMORY[0x277D81150];
+      v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "[TSTTableTileRowInfo initFromArchive:fileFormatVersion:]", v31);
+      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v36);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v33, v38, v34, v37, 930, 0, "invalid nil value for '%{public}s'", "lastPreBNCCellRef");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41);
     }
 
-    v49 = 0x7FFFFFFFFFFFFFFFLL;
-    if (v16 != 0x7FFF && *v29 > v16)
+    v42 = 0x7FFFFFFFFFFFFFFFLL;
+    if (v14 != 0x7FFF && *v25 > v14)
     {
-      v50 = *(*(v8 + 72) + 2 * v16);
-      if (v50 != 0xFFFF)
+      v43 = *(*(v7 + 72) + 2 * v14);
+      if (v43 != 0xFFFF)
       {
-        if (*(v8 + 82))
+        if (*(v7 + 82))
         {
-          v49 = 4 * v50;
+          v42 = 4 * v43;
         }
 
         else
         {
-          v49 = *(*(v8 + 72) + 2 * v16);
+          v42 = *(*(v7 + 72) + 2 * v14);
         }
       }
     }
 
-    v51 = sub_221395B64(v37, v33, v34, v35, v36);
-    sub_221139394((v8 + 48), v49 + v51, v52, v53, v54);
+    v44 = sub_221395B64(v32, v29, v30, v31);
+    sub_221139394((v7 + 48), v42 + v44, v45, v46);
   }
 
-  v30 = 0x8000000000000087;
-  if (v16 != 0x7FFF && *(v8 + 40) > v16)
+  v26 = 0x8000000000000087;
+  if (v14 != 0x7FFF && *(v7 + 40) > v14)
   {
-    v55 = *(*(v8 + 32) + 2 * v16);
-    if (v55 == 0xFFFF)
+    v47 = *(*(v7 + 32) + 2 * v14);
+    if (v47 == 0xFFFF)
     {
-      v30 = 0x8000000000000087;
-      if ((v10 & 4) != 0)
+      v26 = 0x8000000000000087;
+      if ((v9 & 4) != 0)
       {
 LABEL_37:
-        if (*(v8 + 16) > v30)
+        if (*(v7 + 16) > v26)
         {
-          sub_221139394((v8 + 8), v30, v13, v14, v15);
+          sub_221139394((v7 + 8), v26, v12, v13);
         }
 
         goto LABEL_39;
@@ -260,29 +260,29 @@ LABEL_37:
       goto LABEL_43;
     }
 
-    if (*(v8 + 42))
+    if (*(v7 + 42))
     {
-      v55 *= 4;
+      v47 *= 4;
     }
 
-    v30 = (v55 + 136);
+    v26 = (v47 + 136);
   }
 
-  if ((v10 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
     goto LABEL_37;
   }
 
 LABEL_43:
-  sub_2216F6BD8(v8, (v8 + 112));
+  sub_2216F6BD8(v7, (v7 + 112));
 LABEL_39:
-  if ((objc_msgSend_quickValidate(v8, v30, v13, v14, v15) & 1) == 0)
+  if ((objc_msgSend_quickValidate(v7, v26, v12, v13) & 1) == 0)
   {
 
     return 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)p_emptyCell
@@ -296,10 +296,10 @@ LABEL_39:
     if (!emptyCellForPreBNC)
     {
       v5 = [TSTCell alloc];
-      v10 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v6, v7, v8, v9);
-      v14 = objc_msgSend_initWithLocale_(v5, v11, v10, v12, v13);
-      v15 = self->_emptyCellForPreBNC;
-      self->_emptyCellForPreBNC = v14;
+      v9 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v6, v7, v8);
+      v12 = objc_msgSend_initWithLocale_(v5, v10, v9, v11);
+      v13 = self->_emptyCellForPreBNC;
+      self->_emptyCellForPreBNC = v12;
 
       emptyCellForPreBNC = self->_emptyCellForPreBNC;
     }
@@ -325,39 +325,39 @@ LABEL_39:
 {
   archiverCopy = archiver;
   wideOffsets = self->_currentData._private.wideOffsets;
-  v12 = *(archive + 4);
+  v11 = *(archive + 4);
   *(archive + 14) = self->_tileRowIndex;
   cellCount = self->_cellCount;
-  *(archive + 4) = v12 | 0x30;
+  *(archive + 4) = v11 | 0x30;
   *(archive + 15) = cellCount;
   if (!cellCount)
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTTableTileRowInfo encodeToArchive:archiver:]", v8, v9);
-    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v17, v18);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v20, v15, v19, 1031, 0, "should not be archiving an empty row info");
+    v13 = MEMORY[0x277D81150];
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTTableTileRowInfo encodeToArchive:archiver:]", v8);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v14, v17, 1031, 0, "should not be archiving an empty row info");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23, v24);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
   }
 
-  v25 = objc_msgSend__archivedColumnCount(self, v6, v7, v8, v9);
-  v28 = v25;
-  if (v25 < 0x100)
+  v22 = objc_msgSend__archivedColumnCount(self, v6, v7, v8);
+  v24 = v22;
+  if (v22 < 0x100)
   {
     if (wideOffsets)
     {
-      v28 = v25;
+      v24 = v22;
     }
 
     else
     {
-      v28 = 255;
+      v24 = 255;
     }
   }
 
   else
   {
-    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v26, 0xA000000000003, @"TSTExpandedTables", v27);
+    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v23, 0xA000000000003, @"TSTExpandedTables");
   }
 
   cellData = self->_currentData._private.cellData;
@@ -365,7 +365,7 @@ LABEL_39:
   *(archive + 4) |= 4u;
   sub_22113C508(__p, cellData, cellBufferSize);
   google::protobuf::internal::ArenaStringPtr::Set();
-  if (SHIBYTE(v82) < 0)
+  if (SHIBYTE(v71) < 0)
   {
     operator delete(__p[0]);
   }
@@ -373,15 +373,15 @@ LABEL_39:
   offsets = self->_currentData._private.offsets;
   if (!offsets)
   {
-    sub_221139CC8(&self->_currentData._private.cellData, (v28 - 1));
+    sub_221139CC8(&self->_currentData._private.cellData, (v24 - 1));
     offsets = self->_currentData._private.offsets;
   }
 
-  v32 = 2 * v28;
+  v28 = 2 * v24;
   *(archive + 4) |= 8u;
-  sub_22113C508(__p, offsets, v32);
+  sub_22113C508(__p, offsets, v28);
   google::protobuf::internal::ArenaStringPtr::Set();
-  if (SHIBYTE(v82) < 0)
+  if (SHIBYTE(v71) < 0)
   {
     operator delete(__p[0]);
     if (wideOffsets)
@@ -393,143 +393,143 @@ LABEL_39:
   else if (wideOffsets)
   {
 LABEL_14:
-    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v33, 0xA000000000003, @"TSTExpandedTables", v36);
-    v37 = *(archive + 4);
+    objc_msgSend_requiresDocumentVersion_featureIdentifier_(archiverCopy, v29, 0xA000000000003, @"TSTExpandedTables");
+    v32 = *(archive + 4);
     *(archive + 68) = 1;
-    *(archive + 4) = v37 | 0x81;
-    HIBYTE(v82) = 4;
+    *(archive + 4) = v32 | 0x81;
+    HIBYTE(v71) = 4;
     strcpy(__p, "🤠");
     google::protobuf::internal::ArenaStringPtr::Set();
-    if (SHIBYTE(v82) < 0)
+    if (SHIBYTE(v71) < 0)
     {
       operator delete(__p[0]);
     }
 
     *(archive + 4) |= 2u;
-    HIBYTE(v82) = 4;
+    HIBYTE(v71) = 4;
     strcpy(__p, "🤠");
     google::protobuf::internal::ArenaStringPtr::Set();
     goto LABEL_39;
   }
 
-  v41 = self->_preBNCData._private.cellData;
-  if (!v41)
+  v35 = self->_preBNCData._private.cellData;
+  if (!v35)
   {
-    v42 = objc_msgSend_p_emptyCell(self, 0, v34, v35, v36);
+    v36 = objc_msgSend_p_emptyCell(self, 0, v30, v31);
     __p[0] = 0;
     __p[1] = __p;
-    v82 = 0x5812000000;
-    v83 = sub_221139EDC;
-    v84 = nullsub_13;
-    v85 = &unk_22188E88F;
-    memset(v86, 0, sizeof(v86));
-    v87 = 0;
-    v43 = sub_221395DEC(v42, v86);
+    v71 = 0x5812000000;
+    v72 = sub_221139EDC;
+    v73 = nullsub_13;
+    v74 = &unk_22188E88F;
+    memset(v75, 0, sizeof(v75));
+    v76 = 0;
+    v37 = sub_221395DEC(v36, v75);
     sub_221139CC8(&self->_preBNCData._private.cellData, 0xFEu);
-    v47 = v43;
-    v48 = self->_cellCount * v43;
+    v40 = v37;
+    v41 = self->_cellCount * v37;
     allocatedCellBufferSize = self->_preBNCData._private.allocatedCellBufferSize;
-    if (allocatedCellBufferSize < v48)
+    if (allocatedCellBufferSize < v41)
     {
-      if (v48 >= 0x41)
+      if (v41 >= 0x41)
       {
-        if (v48 >= 0x81)
+        if (v41 >= 0x81)
         {
-          if (v48 >= 0x201)
+          if (v41 >= 0x201)
           {
-            if (v48 >= 0x401)
+            if (v41 >= 0x401)
             {
-              v50 = (v48 >> (flsll(2048) - 1) << 11) + 2048;
+              v43 = (v41 >> (flsll(2048) - 1) << 11) + 2048;
             }
 
             else
             {
-              v50 = 1024;
+              v43 = 1024;
             }
           }
 
           else
           {
-            v50 = 512;
+            v43 = 512;
           }
         }
 
         else
         {
-          v50 = 128;
+          v43 = 128;
         }
       }
 
       else
       {
-        v50 = 64;
+        v43 = 64;
       }
 
-      if (v50 >= 0x3FFFC)
+      if (v43 >= 0x3FFFC)
       {
-        v51 = 262140;
+        v44 = 262140;
       }
 
       else
       {
-        v51 = v50;
+        v44 = v43;
       }
 
-      self->_preBNCData._private.allocatedCellBufferSize = v51;
-      self->_preBNCData._private.cellData = malloc_type_realloc(self->_preBNCData._private.cellData, v51, 0x100004077774924uLL);
+      self->_preBNCData._private.allocatedCellBufferSize = v44;
+      self->_preBNCData._private.cellData = malloc_type_realloc(self->_preBNCData._private.cellData, v44, 0x100004077774924uLL);
       allocatedCellBufferSize = self->_preBNCData._private.allocatedCellBufferSize;
     }
 
     if (self->_preBNCData._private.cellBufferSize > allocatedCellBufferSize)
     {
-      v52 = MEMORY[0x277D81150];
-      v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "void _preallocateCellBufferSize(TSTTableTileRowBuffer *, NSUInteger)", v45, v46);
-      v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v55, v56);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v58, v53, v57, 254, 0, "Row data buffer is too small!");
+      v45 = MEMORY[0x277D81150];
+      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "void _preallocateCellBufferSize(TSTTableTileRowBuffer *, NSUInteger)", v39);
+      v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v48);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v50, v46, v49, 254, 0, "Row data buffer is too small!");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v59, v60, v61, v62);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53);
     }
 
-    v79[0] = 0;
-    v79[1] = v79;
-    v79[2] = 0x2020000000;
-    v80 = 0x7FFF;
-    v78[0] = 0;
-    v78[1] = v78;
-    v78[2] = 0x2020000000;
-    v78[3] = 0;
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = sub_221139EF4;
-    v77[3] = &unk_27845FAC0;
-    v77[4] = self;
-    v77[5] = v79;
-    v77[8] = v47;
-    v77[9] = v42;
-    v77[6] = v78;
-    v77[7] = __p;
-    objc_msgSend_enumerateStoragesInColumnRange_withBlock_(self, v44, 0, 255, v77);
-    _Block_object_dispose(v78, 8);
-    _Block_object_dispose(v79, 8);
+    v68[0] = 0;
+    v68[1] = v68;
+    v68[2] = 0x2020000000;
+    v69 = 0x7FFF;
+    v67[0] = 0;
+    v67[1] = v67;
+    v67[2] = 0x2020000000;
+    v67[3] = 0;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = sub_221139EF4;
+    v66[3] = &unk_27845FAC0;
+    v66[4] = self;
+    v66[5] = v68;
+    v66[8] = v40;
+    v66[9] = v36;
+    v66[6] = v67;
+    v66[7] = __p;
+    objc_msgSend_enumerateStoragesInColumnRange_withBlock_(self, v38, 0, 255, v66);
+    _Block_object_dispose(v67, 8);
+    _Block_object_dispose(v68, 8);
     _Block_object_dispose(__p, 8);
-    v41 = self->_preBNCData._private.cellData;
+    v35 = self->_preBNCData._private.cellData;
   }
 
-  v63 = self->_preBNCData._private.cellBufferSize;
+  v54 = self->_preBNCData._private.cellBufferSize;
   *(archive + 4) |= 1u;
-  sub_22113C508(__p, v41, v63);
+  sub_22113C508(__p, v35, v54);
   google::protobuf::internal::ArenaStringPtr::Set();
-  if (SHIBYTE(v82) < 0)
+  if (SHIBYTE(v71) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v64 = self->_preBNCData._private.offsets;
+  v55 = self->_preBNCData._private.offsets;
   *(archive + 4) |= 2u;
-  sub_22113C508(__p, v64, v32);
+  sub_22113C508(__p, v55, v28);
   google::protobuf::internal::ArenaStringPtr::Set();
 LABEL_39:
-  if (SHIBYTE(v82) < 0)
+  if (SHIBYTE(v71) < 0)
   {
     operator delete(__p[0]);
   }
@@ -537,12 +537,12 @@ LABEL_39:
   storageVersion = self->_storageVersion;
   if (storageVersion != 5)
   {
-    v66 = MEMORY[0x277D81150];
-    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSTTableTileRowInfo encodeToArchive:archiver:]", v39, v40);
-    v71 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v69, v70);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v66, v72, v67, v71, 1100, 0, "Expected current storage version.");
+    v57 = MEMORY[0x277D81150];
+    v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "[TSTTableTileRowInfo encodeToArchive:archiver:]", v34);
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v60);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v62, v58, v61, 1100, 0, "Expected current storage version.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74, v75, v76);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65);
     storageVersion = self->_storageVersion;
   }
 
@@ -552,7 +552,7 @@ LABEL_39:
 
 - (unint64_t)archivingCompatibilityVersion
 {
-  if (objc_msgSend__archivedColumnCount(self, a2, v2, v3, v4) > 0xFF || self->_currentData._private.wideOffsets)
+  if (objc_msgSend__archivedColumnCount(self, a2, v2, v3) > 0xFF || self->_currentData._private.wideOffsets)
   {
     return 0xA000000000003;
   }
@@ -623,102 +623,102 @@ LABEL_39:
   indexCopy = index;
   cellCopy = cell;
   v6 = sub_221138A3C(self);
-  v9 = sub_2211438C8(cellCopy);
-  v10 = 0x7FFFFFFFFFFFFFFFLL;
+  v8 = sub_2211438C8(cellCopy);
+  v9 = 0x7FFFFFFFFFFFFFFFLL;
   if (indexCopy != 0x7FFF && self->_currentData._private.offsetBufferCount > indexCopy)
   {
-    v11 = self->_currentData._private.offsets[indexCopy];
-    if (v11 != 0xFFFF)
+    v10 = self->_currentData._private.offsets[indexCopy];
+    if (v10 != 0xFFFF)
     {
       if (self->_currentData._private.wideOffsets)
       {
-        v10 = 4 * v11;
+        v9 = 4 * v10;
       }
 
       else
       {
-        v10 = self->_currentData._private.offsets[indexCopy];
+        v9 = self->_currentData._private.offsets[indexCopy];
       }
     }
   }
 
-  v15 = sub_2216F6A80(&self->_currentData, indexCopy, v6, v7, v8);
-  v16 = v9 - v15;
-  if (v16)
+  v13 = sub_2216F6A80(&self->_currentData, indexCopy, v6, v7);
+  v14 = v8 - v13;
+  if (v14)
   {
-    if (v16 >= 1)
+    if (v14 >= 1)
     {
-      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize + v16, v12, v13, v14);
+      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize + v14, v11, v12);
     }
 
-    v23 = v10;
+    v21 = v9;
     if (v6 > indexCopy)
     {
-      sub_22113C758(&self->_currentData._private.cellData, (v15 + v10), v16, v13, v14);
-      v17 = indexCopy + 1;
+      sub_22113C758(&self->_currentData._private.cellData, (v13 + v9), v14, v12);
+      v15 = indexCopy + 1;
       do
       {
-        if (v17 != 0x7FFF)
+        if (v15 != 0x7FFF)
         {
           offsetBufferCount = self->_currentData._private.offsetBufferCount;
-          if (offsetBufferCount > v17)
+          if (offsetBufferCount > v15)
           {
-            v19 = self->_currentData._private.offsets[v17];
-            if (v19 != 0xFFFF)
+            v17 = self->_currentData._private.offsets[v15];
+            if (v17 != 0xFFFF)
             {
               wideOffsets = self->_currentData._private.wideOffsets;
               if (self->_currentData._private.wideOffsets)
               {
-                v21 = 4 * v19;
+                v19 = 4 * v17;
               }
 
               else
               {
-                v21 = self->_currentData._private.offsets[v17];
+                v19 = self->_currentData._private.offsets[v15];
               }
 
-              if (v17 >= 0xFFu && !wideOffsets)
+              if (v15 >= 0xFFu && !wideOffsets)
               {
                 sub_22113A218(&self->_currentData);
                 offsetBufferCount = self->_currentData._private.offsetBufferCount;
                 wideOffsets = 1;
               }
 
-              if (offsetBufferCount <= v17)
+              if (offsetBufferCount <= v15)
               {
-                sub_221139CC8(&self->_currentData._private.cellData, v17);
+                sub_221139CC8(&self->_currentData._private.cellData, v15);
               }
 
-              v22 = v21 + v16;
-              if (v21 + v16 == 0x7FFFFFFFFFFFFFFFLL)
+              v20 = v19 + v14;
+              if (v19 + v14 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                LOWORD(v22) = -1;
+                LOWORD(v20) = -1;
               }
 
               else if (wideOffsets)
               {
-                v22 >>= 2;
+                v20 >>= 2;
               }
 
-              self->_currentData._private.offsets[v17] = v22;
+              self->_currentData._private.offsets[v15] = v20;
             }
           }
         }
 
-        ++v17;
+        ++v15;
       }
 
-      while (v6 >= v17);
+      while (v6 >= v15);
     }
 
-    v10 = v23;
-    if (v16 < 0)
+    v9 = v21;
+    if (v14 < 0)
     {
-      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize + v16, v12, v13, v14);
+      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize + v14, v11, v12);
     }
   }
 
-  sub_221143B30(cellCopy, &self->_currentData._private.cellData[v10]);
+  sub_221143B30(cellCopy, &self->_currentData._private.cellData[v9]);
   sub_221138D14(&self->_preBNCData);
 }
 
@@ -728,19 +728,19 @@ LABEL_39:
   cellCopy = cell;
   if (indexCopy != 0x7FFF && self->_currentData._private.offsetBufferCount > indexCopy && self->_currentData._private.offsets[indexCopy] != -1)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTTableTileRowInfo _insertCell:atIndex:]", v7, v8);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 1198, 0, "Can't insert over an existing cell!");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTTableTileRowInfo _insertCell:atIndex:]", v7);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 1198, 0, "Can't insert over an existing cell!");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
-  v20 = sub_221138A3C(self);
+  v17 = sub_221138A3C(self);
   cellCount = self->_cellCount;
-  v22 = sub_2211438C8(cellCopy);
-  v23 = sub_221139F78(&self->_currentData, indexCopy, v20, cellCount, v22);
-  sub_221143B30(cellCopy, v23);
+  v19 = sub_2211438C8(cellCopy);
+  v20 = sub_221139F78(&self->_currentData, indexCopy, v17, cellCount, v19);
+  sub_221143B30(cellCopy, v20);
   sub_221138D14(&self->_preBNCData);
   ++self->_cellCount;
   if (!self->_maxColumnIndexIsValidPrivate || (maxColumnIndexPrivate = self->_maxColumnIndexPrivate, maxColumnIndexPrivate == 0x7FFF) || maxColumnIndexPrivate <= indexCopy)
@@ -754,14 +754,14 @@ LABEL_39:
 {
   indexCopy = index;
   cellCopy = cell;
-  v10 = cellCopy;
+  v9 = cellCopy;
   if (self->_storageVersion != 5)
   {
-    TSUSetCrashReporterInfo();
-    v14 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTTableTileRowInfo setCell:atIndex:]", v16, v17, "[TSTTableTileRowInfo setCell:atIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1241);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v23, v18, v22, 1241, 1, "Attempting to write cells to a preBNC row.");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Attempting to write cells to a preBNC row.", "[TSTTableTileRowInfo setCell:atIndex:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1241);
+    v13 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTTableTileRowInfo setCell:atIndex:]", v15);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v20, v16, v19, 1241, 1, "Attempting to write cells to a preBNC row.");
 
     TSUCrashBreakpoint();
     abort();
@@ -775,46 +775,46 @@ LABEL_39:
     }
 
 LABEL_10:
-    objc_msgSend__insertCell_atIndex_(self, v7, cellCopy, indexCopy, v9);
-    v12 = 1;
+    objc_msgSend__insertCell_atIndex_(self, v7, cellCopy, indexCopy);
+    v11 = 1;
     goto LABEL_12;
   }
 
-  v11 = self->_currentData._private.offsets[indexCopy];
+  v10 = self->_currentData._private.offsets[indexCopy];
   if (cellCopy)
   {
-    if (v11 != 0xFFFF)
+    if (v10 != 0xFFFF)
     {
-      objc_msgSend__replaceCellAtIndex_withCell_(self, v7, indexCopy, cellCopy, v9);
+      objc_msgSend__replaceCellAtIndex_withCell_(self, v7, indexCopy, cellCopy);
 LABEL_11:
-      v12 = 0;
+      v11 = 0;
       goto LABEL_12;
     }
 
     goto LABEL_10;
   }
 
-  if (v11 == 0xFFFF)
+  if (v10 == 0xFFFF)
   {
     goto LABEL_11;
   }
 
-  objc_msgSend__removeCellAtIndex_(self, v7, indexCopy, v8, v9);
-  v12 = -1;
+  objc_msgSend__removeCellAtIndex_(self, v7, indexCopy, v8);
+  v11 = -1;
 LABEL_12:
 
-  return v12;
+  return v11;
 }
 
 - (void)insertColumnsAtIndex:(unsigned __int16)index count:(unsigned int)count
 {
   if (self->_storageVersion != 5)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Attempting to insert columns in a preBNC row.", a2, index, *&count, "[TSTTableTileRowInfo insertColumnsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1273);
     v18 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTTableTileRowInfo insertColumnsAtIndex:count:]", v20, v21, "[TSTTableTileRowInfo insertColumnsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1273);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v27, v22, v26, 1273, 1, "Attempting to insert columns in a preBNC row.");
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTTableTileRowInfo insertColumnsAtIndex:count:]", v20);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v25, v21, v24, 1273, 1, "Attempting to insert columns in a preBNC row.");
 
     TSUCrashBreakpoint();
     abort();
@@ -912,11 +912,11 @@ LABEL_12:
 {
   if (self->_storageVersion != 5)
   {
-    TSUSetCrashReporterInfo();
-    v18 = MEMORY[0x277D81150];
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTTableTileRowInfo removeColumnsAtIndex:count:]", v20, v21, "[TSTTableTileRowInfo removeColumnsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1309);
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v24, v25);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v27, v22, v26, 1309, 1, "Attempting to remove columns in a preBNC row.");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Attempting to remove columns in a preBNC row.", a2, index, *&count, "[TSTTableTileRowInfo removeColumnsAtIndex:count:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", 1309);
+    v17 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSTTableTileRowInfo removeColumnsAtIndex:count:]", v19);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v24, v20, v23, 1309, 1, "Attempting to remove columns in a preBNC row.");
 
     TSUCrashBreakpoint();
     abort();
@@ -924,14 +924,14 @@ LABEL_12:
 
   countCopy = count;
   indexCopy = index;
-  v9 = sub_221138A3C(self);
+  v8 = sub_221138A3C(self);
   result = 0;
-  if (v9 != 0x7FFF && v9 >= indexCopy)
+  if (v8 != 0x7FFF && v8 >= indexCopy)
   {
     cellCount = self->_cellCount;
     if (countCopy)
     {
-      sub_2216F6C34(self, indexCopy, indexCopy + countCopy, v7, v8);
+      sub_2216F6C34(self, indexCopy, indexCopy + countCopy, v7);
     }
 
     do
@@ -940,27 +940,27 @@ LABEL_12:
       if ((indexCopy + countCopy) == 0x7FFF || offsetBufferCount <= (indexCopy + countCopy))
       {
         wideOffsets = self->_currentData._private.wideOffsets;
-        v16 = 0x7FFFFFFFFFFFFFFFLL;
+        v15 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v13 = self->_currentData._private.offsets[(indexCopy + countCopy)];
-        v14 = 4 * v13;
+        v12 = self->_currentData._private.offsets[(indexCopy + countCopy)];
+        v13 = 4 * v12;
         if (!self->_currentData._private.wideOffsets)
         {
-          v14 = self->_currentData._private.offsets[(indexCopy + countCopy)];
+          v13 = self->_currentData._private.offsets[(indexCopy + countCopy)];
         }
 
         wideOffsets = self->_currentData._private.wideOffsets;
-        if (v13 == 0xFFFF)
+        if (v12 == 0xFFFF)
         {
-          v16 = 0x7FFFFFFFFFFFFFFFLL;
+          v15 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v16 = v14;
+          v15 = v13;
         }
       }
 
@@ -976,22 +976,22 @@ LABEL_12:
         sub_221139CC8(&self->_currentData._private.cellData, indexCopy);
       }
 
-      v17 = v16 >> 2;
+      v16 = v15 >> 2;
       if (!wideOffsets)
       {
-        LOWORD(v17) = v16;
+        LOWORD(v16) = v15;
       }
 
-      if (v16 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v15 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        LOWORD(v17) = -1;
+        LOWORD(v16) = -1;
       }
 
-      self->_currentData._private.offsets[indexCopy] = v17;
+      self->_currentData._private.offsets[indexCopy] = v16;
       LOWORD(indexCopy) = indexCopy + 1;
     }
 
-    while (v9 >= indexCopy);
+    while (v8 >= indexCopy);
     sub_221138D14(&self->_preBNCData);
     sub_2211392B0(self);
     return cellCount - self->_cellCount;
@@ -1010,11 +1010,11 @@ LABEL_12:
     if (index + count > toIndex)
     {
       v9 = MEMORY[0x277D81150];
-      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo moveColumnsFromIndex:toIndex:count:]", toIndex, *&count);
-      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v12, v13);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 1356, 0, "Move column ranges cannot overlap!");
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo moveColumnsFromIndex:toIndex:count:]", toIndex);
+      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v12);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 1356, 0, "Move column ranges cannot overlap!");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
     }
 
     toIndexCopy2 = toIndexCopy - count;
@@ -1025,46 +1025,46 @@ LABEL_12:
     return;
   }
 
-  v20 = sub_221138A3C(self);
-  if (v20 < toIndexCopy && v20 < indexCopy)
+  v18 = sub_221138A3C(self);
+  if (v18 < toIndexCopy && v18 < indexCopy)
   {
     return;
   }
 
   countCopy = count;
-  v101 = 0;
+  v92 = 0;
   *__dst = 0u;
-  v100 = 0u;
+  v91 = 0u;
   wideOffsets = self->_currentData._private.wideOffsets;
   if (wideOffsets)
   {
-    BYTE2(v101) = 1;
+    BYTE2(v92) = 1;
   }
 
-  if (v20 != 0x7FFF)
+  if (v18 != 0x7FFF)
   {
-    v26 = indexCopy + count;
+    v23 = indexCopy + count;
     offsetBufferCount = self->_currentData._private.offsetBufferCount;
     if (indexCopy != 0x7FFF && offsetBufferCount > indexCopy)
     {
       offsets = self->_currentData._private.offsets;
-      v29 = offsets[indexCopy];
-      if (v29 != 0xFFFF)
+      v26 = offsets[indexCopy];
+      if (v26 != 0xFFFF)
       {
 LABEL_23:
         if (wideOffsets)
         {
-          v34 = 4 * v29;
+          v31 = 4 * v26;
         }
 
         else
         {
-          v34 = v29;
+          v31 = v26;
         }
 
-        if (v26 == 0x7FFF || offsetBufferCount <= v26 || (v35 = offsets[(indexCopy + count)], v35 == 0xFFFF))
+        if (v23 == 0x7FFF || offsetBufferCount <= v23 || (v32 = offsets[(indexCopy + count)], v32 == 0xFFFF))
         {
-          if (v20 <= v26)
+          if (v18 <= v23)
           {
 LABEL_40:
             cellBufferSize = self->_currentData._private.cellBufferSize;
@@ -1072,22 +1072,22 @@ LABEL_40:
 
           else
           {
-            v37 = (indexCopy + count);
-            v38 = v20 - v37;
-            v39 = v37 + 1;
+            v34 = (indexCopy + count);
+            v35 = v18 - v34;
+            v36 = v34 + 1;
             while (1)
             {
-              if (v39 != 0x7FFF && v39 < offsetBufferCount)
+              if (v36 != 0x7FFF && v36 < offsetBufferCount)
               {
-                v41 = offsets[v39];
-                if (v41 != 0xFFFF)
+                v38 = offsets[v36];
+                if (v38 != 0xFFFF)
                 {
                   break;
                 }
               }
 
-              ++v39;
-              if (!--v38)
+              ++v36;
+              if (!--v35)
               {
                 goto LABEL_40;
               }
@@ -1095,19 +1095,19 @@ LABEL_40:
 
             if (wideOffsets)
             {
-              cellBufferSize = 4 * v41;
+              cellBufferSize = 4 * v38;
             }
 
             else
             {
-              cellBufferSize = offsets[v39];
+              cellBufferSize = offsets[v36];
             }
           }
         }
 
         else if (wideOffsets)
         {
-          cellBufferSize = 4 * v35;
+          cellBufferSize = 4 * v32;
         }
 
         else
@@ -1115,58 +1115,58 @@ LABEL_40:
           cellBufferSize = offsets[(indexCopy + count)];
         }
 
-        v42 = cellBufferSize - v34;
-        if (cellBufferSize != v34)
+        v39 = cellBufferSize - v31;
+        if (cellBufferSize != v31)
         {
-          sub_221139394(__dst, cellBufferSize - v34, v22, v23, v24);
-          memcpy(__dst[0], &self->_currentData._private.cellData[v34], v42);
+          sub_221139394(__dst, cellBufferSize - v31, v20, v21);
+          memcpy(__dst[0], &self->_currentData._private.cellData[v31], v39);
           if (count)
           {
-            v43 = 0;
+            v40 = 0;
             do
             {
-              v44 = 0x7FFFFFFFFFFFFFFFLL;
-              if ((v43 + indexCopy) != 0x7FFF && self->_currentData._private.offsetBufferCount > (v43 + indexCopy))
+              v41 = 0x7FFFFFFFFFFFFFFFLL;
+              if ((v40 + indexCopy) != 0x7FFF && self->_currentData._private.offsetBufferCount > (v40 + indexCopy))
               {
-                v45 = self->_currentData._private.offsets[(v43 + indexCopy)];
-                if (v45 != 0xFFFF)
+                v42 = self->_currentData._private.offsets[(v40 + indexCopy)];
+                if (v42 != 0xFFFF)
                 {
                   if (self->_currentData._private.wideOffsets)
                   {
-                    v45 *= 4;
+                    v42 *= 4;
                   }
 
-                  v44 = v45 - v34;
+                  v41 = v42 - v31;
                 }
               }
 
-              v46 = BYTE2(v101);
-              if (v43 >= 0xFF && (v101 & 0x10000) == 0)
+              v43 = BYTE2(v92);
+              if (v40 >= 0xFF && (v92 & 0x10000) == 0)
               {
                 sub_22113A218(__dst);
-                v46 = 1;
+                v43 = 1;
               }
 
-              if (v43 >= v101)
+              if (v40 >= v92)
               {
-                sub_221139CC8(__dst, v43);
+                sub_221139CC8(__dst, v40);
               }
 
-              v47 = v44 >> 2;
-              if ((v46 & 1) == 0)
+              v44 = v41 >> 2;
+              if ((v43 & 1) == 0)
               {
-                LOWORD(v47) = v44;
+                LOWORD(v44) = v41;
               }
 
-              if (v44 == 0x7FFFFFFFFFFFFFFFLL)
+              if (v41 == 0x7FFFFFFFFFFFFFFFLL)
               {
-                LOWORD(v47) = -1;
+                LOWORD(v44) = -1;
               }
 
-              *(*(&v100 + 1) + 2 * v43++) = v47;
+              *(*(&v91 + 1) + 2 * v40++) = v44;
             }
 
-            while (count != v43);
+            while (count != v40);
           }
         }
 
@@ -1174,50 +1174,50 @@ LABEL_40:
       }
     }
 
-    v30 = (v26 - 1);
-    if (v30 > indexCopy)
+    v27 = (v23 - 1);
+    if (v27 > indexCopy)
     {
-      v31 = v30 - indexCopy;
-      v32 = indexCopy + 1;
+      v28 = v27 - indexCopy;
+      v29 = indexCopy + 1;
       do
       {
-        if (v32 != 0x7FFF && v32 < offsetBufferCount)
+        if (v29 != 0x7FFF && v29 < offsetBufferCount)
         {
           offsets = self->_currentData._private.offsets;
-          v29 = offsets[v32];
-          if (v29 != 0xFFFF)
+          v26 = offsets[v29];
+          if (v26 != 0xFFFF)
           {
             goto LABEL_23;
           }
         }
 
-        ++v32;
+        ++v29;
       }
 
-      while (--v31);
+      while (--v28);
     }
   }
 
 LABEL_63:
-  objc_msgSend_removeColumnsAtIndex_count_(self, v21, indexCopy, count, v24);
-  objc_msgSend_insertColumnsAtIndex_count_(self, v48, toIndexCopy2, count, v49);
-  v53 = __dst[1];
+  objc_msgSend_removeColumnsAtIndex_count_(self, v19, indexCopy, count);
+  objc_msgSend_insertColumnsAtIndex_count_(self, v45, toIndexCopy2, count);
+  v48 = __dst[1];
   if (__dst[1])
   {
-    sub_221139394(&self->_currentData._private.cellData, __dst[1] + self->_currentData._private.cellBufferSize, v50, v51, v52);
-    v54 = self->_currentData._private.offsetBufferCount;
+    sub_221139394(&self->_currentData._private.cellData, __dst[1] + self->_currentData._private.cellBufferSize, v46, v47);
+    v49 = self->_currentData._private.offsetBufferCount;
     if (self->_currentData._private.offsetBufferCount)
     {
-      v55 = (v54 - 1) + 1;
+      v50 = (v49 - 1) + 1;
       while (1)
       {
-        v56 = v55--;
-        if (v56 != 0x8000 && v54 > v55 && self->_currentData._private.offsets[v55] != -1)
+        v51 = v50--;
+        if (v51 != 0x8000 && v49 > v50 && self->_currentData._private.offsets[v50] != -1)
         {
           break;
         }
 
-        if (v55 <= 0)
+        if (v50 <= 0)
         {
           goto LABEL_70;
         }
@@ -1227,109 +1227,109 @@ LABEL_63:
     else
     {
 LABEL_70:
-      LOWORD(v55) = 0x7FFF;
+      LOWORD(v50) = 0x7FFF;
     }
 
-    v57 = sub_22113C5B8(&self->_currentData, toIndexCopy2, v55, v53);
-    sub_22113C758(&self->_currentData._private.cellData, v57, v53, v58, v59);
-    v95 = v53;
-    memcpy(&self->_currentData._private.cellData[v57], __dst[0], v53);
+    v52 = sub_22113C5B8(&self->_currentData, toIndexCopy2, v50, v48);
+    sub_22113C758(&self->_currentData._private.cellData, v52, v48, v53);
+    v86 = v48;
+    memcpy(&self->_currentData._private.cellData[v52], __dst[0], v48);
     countCopy2 = count;
     if (count)
     {
-      v64 = 0;
-      v97 = 0;
-      v65 = v101;
-      v66 = *(&v100 + 1);
-      v96 = BYTE2(v101);
+      v57 = 0;
+      v88 = 0;
+      v58 = v92;
+      v59 = *(&v91 + 1);
+      v87 = BYTE2(v92);
       do
       {
-        v67 = toIndexCopy2 + v64;
-        if ((toIndexCopy2 + v64) != 0x7FFF && self->_currentData._private.offsetBufferCount > v67 && self->_currentData._private.offsets[(toIndexCopy2 + v64)] != -1)
+        v60 = toIndexCopy2 + v57;
+        if ((toIndexCopy2 + v57) != 0x7FFF && self->_currentData._private.offsetBufferCount > v60 && self->_currentData._private.offsets[(toIndexCopy2 + v57)] != -1)
         {
-          v68 = MEMORY[0x277D81150];
-          v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "NSUInteger _applyMovingCellBuffer(TSTTableTileRowBuffer *, TSTTableTileRowBuffer *, TSUColumnIndex, TSUColumnRowCount)", v61, v62);
-          v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v71, v72);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v74, v69, v73, 715, 0, "Overwriting a column in move!");
+          v61 = MEMORY[0x277D81150];
+          v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "NSUInteger _applyMovingCellBuffer(TSTTableTileRowBuffer *, TSTTableTileRowBuffer *, TSUColumnIndex, TSUColumnRowCount)", v55);
+          v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v64);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v61, v66, v62, v65, 715, 0, "Overwriting a column in move!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v75, v76, v77, v78);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v67, v68, v69);
         }
 
-        if (v64 != 0x7FFF && v64 < v65)
+        if (v57 != 0x7FFF && v57 < v58)
         {
-          v79 = *(v66 + 2 * v64);
-          if (v79 != 0xFFFF)
+          v70 = *(v59 + 2 * v57);
+          if (v70 != 0xFFFF)
           {
-            if (v96)
+            if (v87)
             {
-              v80 = 4 * v79;
+              v71 = 4 * v70;
             }
 
             else
             {
-              v80 = *(v66 + 2 * v64);
+              v71 = *(v59 + 2 * v57);
             }
 
-            v81 = self->_currentData._private.wideOffsets;
-            if ((toIndexCopy2 + v64) >= 0xFFu && !self->_currentData._private.wideOffsets)
+            v72 = self->_currentData._private.wideOffsets;
+            if ((toIndexCopy2 + v57) >= 0xFFu && !self->_currentData._private.wideOffsets)
             {
               sub_22113A218(&self->_currentData);
-              v81 = 1;
+              v72 = 1;
             }
 
-            if (self->_currentData._private.offsetBufferCount <= v67)
+            if (self->_currentData._private.offsetBufferCount <= v60)
             {
-              sub_221139CC8(&self->_currentData._private.cellData, (toIndexCopy2 + v64));
+              sub_221139CC8(&self->_currentData._private.cellData, (toIndexCopy2 + v57));
             }
 
-            v82 = (v80 + v57) >> 2;
-            if (!v81)
+            v73 = (v71 + v52) >> 2;
+            if (!v72)
             {
-              LOWORD(v82) = v80 + v57;
+              LOWORD(v73) = v71 + v52;
             }
 
-            if (v80 + v57 == 0x7FFFFFFFFFFFFFFFLL)
+            if (v71 + v52 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v83 = -1;
+              v74 = -1;
             }
 
             else
             {
-              v83 = v82;
+              v74 = v73;
             }
 
-            self->_currentData._private.offsets[(toIndexCopy2 + v64)] = v83;
-            ++v97;
+            self->_currentData._private.offsets[(toIndexCopy2 + v57)] = v74;
+            ++v88;
           }
         }
 
-        ++v64;
+        ++v57;
       }
 
-      while (countCopy2 != v64);
+      while (countCopy2 != v57);
     }
 
     else
     {
-      v97 = 0;
+      v88 = 0;
     }
 
-    v84 = self->_currentData._private.offsetBufferCount;
+    v75 = self->_currentData._private.offsetBufferCount;
     if (self->_currentData._private.offsetBufferCount)
     {
-      v85 = (v84 - 1) + 1;
-      v86 = countCopy;
+      v76 = (v75 - 1) + 1;
+      v77 = countCopy;
       while (1)
       {
-        v87 = v85--;
-        if (v87 != 0x8000 && v84 > v85 && self->_currentData._private.offsets[v85] != -1)
+        v78 = v76--;
+        if (v78 != 0x8000 && v75 > v76 && self->_currentData._private.offsets[v76] != -1)
         {
           break;
         }
 
-        if (v85 <= 0)
+        if (v76 <= 0)
         {
-          LOWORD(v85) = 0x7FFF;
+          LOWORD(v76) = 0x7FFF;
           break;
         }
       }
@@ -1337,62 +1337,62 @@ LABEL_70:
 
     else
     {
-      LOWORD(v85) = 0x7FFF;
-      v86 = countCopy;
+      LOWORD(v76) = 0x7FFF;
+      v77 = countCopy;
     }
 
-    for (i = toIndexCopy2 + v86; i <= v85; ++i)
+    for (i = toIndexCopy2 + v77; i <= v76; ++i)
     {
       if (i != 0x7FFF)
       {
-        v89 = self->_currentData._private.offsetBufferCount;
-        if (v89 > i)
+        v80 = self->_currentData._private.offsetBufferCount;
+        if (v80 > i)
         {
-          v90 = self->_currentData._private.offsets[i];
-          if (v90 != 0xFFFF)
+          v81 = self->_currentData._private.offsets[i];
+          if (v81 != 0xFFFF)
           {
-            v91 = self->_currentData._private.wideOffsets;
+            v82 = self->_currentData._private.wideOffsets;
             if (self->_currentData._private.wideOffsets)
             {
-              v92 = 4 * v90;
+              v83 = 4 * v81;
             }
 
             else
             {
-              v92 = self->_currentData._private.offsets[i];
+              v83 = self->_currentData._private.offsets[i];
             }
 
-            if (i >= 0xFFu && !v91)
+            if (i >= 0xFFu && !v82)
             {
               sub_22113A218(&self->_currentData);
-              v89 = self->_currentData._private.offsetBufferCount;
-              v91 = 1;
+              v80 = self->_currentData._private.offsetBufferCount;
+              v82 = 1;
             }
 
-            if (v89 <= i)
+            if (v80 <= i)
             {
               sub_221139CC8(&self->_currentData._private.cellData, i);
             }
 
-            v93 = &v95[v92];
-            if (&v95[v92] == 0x7FFFFFFFFFFFFFFFLL)
+            v84 = &v86[v83];
+            if (&v86[v83] == 0x7FFFFFFFFFFFFFFFLL)
             {
-              LOWORD(v93) = -1;
+              LOWORD(v84) = -1;
             }
 
-            else if (v91)
+            else if (v82)
             {
-              v93 >>= 2;
+              v84 >>= 2;
             }
 
-            self->_currentData._private.offsets[i] = v93;
+            self->_currentData._private.offsets[i] = v84;
           }
         }
       }
     }
 
     sub_221138D14(__dst);
-    self->_cellCount += v97;
+    self->_cellCount += v88;
   }
 
   sub_221138D14(__dst);
@@ -1469,23 +1469,23 @@ LABEL_17:
 
 - (BOOL)searchCellStorageRefAtColumnIndex:(unsigned __int16)index searchMask:(unint64_t)mask
 {
-  v6 = objc_msgSend_cellStorageRefAtIndex_(self, a2, index, mask, v4);
-  if (v6)
+  v5 = objc_msgSend_cellStorageRefAtIndex_(self, a2, index, mask);
+  if (v5)
   {
-    LOBYTE(v6) = !mask || (mask & 0x3EFF800) != 0 && ((v11 = v6, (mask & 0x400000) != 0) && ((sub_22113C374(v6, v7, v8, v9, v10), sub_22113C374(v11, v12, v13, v14, v15), v11[1]) || (sub_22114503C(v11, 0x400, v16, v17, v18) & 1) != 0 || (sub_22114503C(v11, 0x200, v19, v20, v21) & 1) != 0) || (mask & 0x800) != 0 && (sub_22114503C(v11, 0x20, v8, v9, v10) & 1) != 0 || (mask & 0x1000) != 0 && (v11[10] & 8) != 0 || (mask & 0x2000) != 0 && (sub_22114503C(v11, 0x80, v8, v9, v10) & 1) != 0 || (mask & 0x4000) != 0 && (v11[4] & 2) != 0 || (mask & 0x8000) != 0 && (sub_22113C374(v11, v7, v8, v9, v10), (*(v11 + 9) & 0x7E0) != 0) || (mask & 0x10000) != 0 && (sub_22114503C(v11, 0x800, v8, v9, v10) & 1) != 0 || (mask & 0x20000) != 0 && (sub_22114503C(v11, 0x200, v8, v9, v10) & 1) != 0 || (mask & 0x800000) != 0 && (sub_22114503C(v11, 0x400, v8, v9, v10) & 1) != 0 || (mask & 0x40000) != 0 && (sub_22114503C(v11, 0x100000, v8, v9, v10) & 1) != 0 || (mask & 0x1000000) != 0 && (v11[5] & 2) != 0 || (mask & 0x80000) != 0 && (sub_22114503C(v11, 0x10, v8, v9, v10) & 1) != 0 || (mask & 0x200000) != 0 && (sub_22114503C(v11, 0x40, v8, v9, v10) & 1) != 0 || (mask & 0x2000000) != 0 && (sub_22113C374(v11, v7, v8, v9, v10), (v11[1] & 0xF7) != 0));
+    LOBYTE(v5) = !mask || (mask & 0x3EFF800) != 0 && ((v9 = v5, (mask & 0x400000) != 0) && ((sub_22113C374(v5, v6, v7, v8), sub_22113C374(v9, v10, v11, v12), v9[1]) || (sub_22114503C(v9, 0x400, v13, v14) & 1) != 0 || (sub_22114503C(v9, 0x200, v15, v16) & 1) != 0) || (mask & 0x800) != 0 && (sub_22114503C(v9, 0x20, v7, v8) & 1) != 0 || (mask & 0x1000) != 0 && (v9[10] & 8) != 0 || (mask & 0x2000) != 0 && (sub_22114503C(v9, 0x80, v7, v8) & 1) != 0 || (mask & 0x4000) != 0 && (v9[4] & 2) != 0 || (mask & 0x8000) != 0 && (sub_22113C374(v9, v6, v7, v8), (*(v9 + 9) & 0x7E0) != 0) || (mask & 0x10000) != 0 && (sub_22114503C(v9, 0x800, v7, v8) & 1) != 0 || (mask & 0x20000) != 0 && (sub_22114503C(v9, 0x200, v7, v8) & 1) != 0 || (mask & 0x800000) != 0 && (sub_22114503C(v9, 0x400, v7, v8) & 1) != 0 || (mask & 0x40000) != 0 && (sub_22114503C(v9, 0x100000, v7, v8) & 1) != 0 || (mask & 0x1000000) != 0 && (v9[5] & 2) != 0 || (mask & 0x80000) != 0 && (sub_22114503C(v9, 0x10, v7, v8) & 1) != 0 || (mask & 0x200000) != 0 && (sub_22114503C(v9, 0x40, v7, v8) & 1) != 0 || (mask & 0x2000000) != 0 && (sub_22113C374(v9, v6, v7, v8), (v9[1] & 0xF7) != 0));
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)quickValidate
 {
-  if ((!self->_preBNCData._private.cellData || (v5 = objc_msgSend__quickValidateBuffer_(self, a2, &self->_preBNCData, v2, v3)) != 0) && (!self->_currentData._private.cellData || (v5 = objc_msgSend__quickValidateBuffer_(self, a2, &self->_currentData, v2, v3)) != 0))
+  if ((!self->_preBNCData._private.cellData || (v4 = objc_msgSend__quickValidateBuffer_(self, a2, &self->_preBNCData, v2)) != 0) && (!self->_currentData._private.cellData || (v4 = objc_msgSend__quickValidateBuffer_(self, a2, &self->_currentData, v2)) != 0))
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(v4) = 1;
   }
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)validateWithResult:(id *)result
@@ -1494,31 +1494,31 @@ LABEL_17:
   p_currentData = &self->_currentData;
   if (result)
   {
-    v6 = MEMORY[0x277CCAB68];
-    v7 = objc_msgSend_description(self, a2, result, v3, v4);
-    v11 = objc_msgSend_stringWithString_(v6, v8, v7, v9, v10);
+    v5 = MEMORY[0x277CCAB68];
+    v6 = objc_msgSend_description(self, a2, result, v3);
+    v9 = objc_msgSend_stringWithString_(v5, v7, v6, v8);
 
-    v12 = v11;
+    v10 = v9;
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
   offsetBufferCount = self->_currentData._private.offsetBufferCount;
   if (self->_currentData._private.offsetBufferCount)
   {
-    v14 = (offsetBufferCount - 1) + 1;
+    v12 = (offsetBufferCount - 1) + 1;
     while (1)
     {
-      v15 = v14--;
-      if (v15 != 0x8000 && offsetBufferCount > v14 && self->_currentData._private.offsets[v14] != -1)
+      v13 = v12--;
+      if (v13 != 0x8000 && offsetBufferCount > v12 && self->_currentData._private.offsets[v12] != -1)
       {
         break;
       }
 
-      if (v14 <= 0)
+      if (v12 <= 0)
       {
         goto LABEL_10;
       }
@@ -1528,210 +1528,210 @@ LABEL_17:
   else
   {
 LABEL_10:
-    LOWORD(v14) = 0x7FFF;
+    LOWORD(v12) = 0x7FFF;
   }
 
-  v218 = self->_preBNCData._private.cellData;
-  v220 = v12;
-  if (self->_maxColumnIndexIsValidPrivate && self->_maxColumnIndexPrivate != v14)
+  v176 = self->_preBNCData._private.cellData;
+  v178 = v10;
+  if (self->_maxColumnIndexIsValidPrivate && self->_maxColumnIndexPrivate != v12)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 1621, 0, "%{public}@", @"Incorrect maximum column!");
+    v15 = MEMORY[0x277D81150];
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v18);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 1621, 0, "%{public}@", @"Incorrect maximum column!");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
-    objc_msgSend_appendString_(v12, v28, @"Incorrect maximum column!", v29, v30);
-    v16 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
+    objc_msgSend_appendString_(v10, v24, @"Incorrect maximum column!", v25);
+    v14 = 0;
   }
 
   else
   {
-    v16 = 1;
+    v14 = 1;
   }
 
-  v216 = 0;
-  v217 = 0;
-  v31 = 0;
-  v32 = 0;
-  v219 = 0;
-  v33 = 0;
+  v174 = 0;
+  v175 = 0;
+  v26 = 0;
+  v27 = 0;
+  v177 = 0;
+  v28 = 0;
   do
   {
-    v34 = 1;
-    if (v33 != 0x7FFF && self->_currentData._private.offsetBufferCount > v33)
+    v29 = 1;
+    if (v28 != 0x7FFF && self->_currentData._private.offsetBufferCount > v28)
     {
-      v35 = self->_currentData._private.offsets[v33];
-      if (v35 == 0xFFFF)
+      v30 = self->_currentData._private.offsets[v28];
+      if (v30 == 0xFFFF)
       {
-        v34 = 1;
+        v29 = 1;
       }
 
       else
       {
         if (self->_currentData._private.wideOffsets)
         {
-          v36 = 4 * v35;
+          v31 = 4 * v30;
         }
 
         else
         {
-          v36 = self->_currentData._private.offsets[v33];
+          v31 = self->_currentData._private.offsets[v28];
         }
 
-        if (v36 != v32)
+        if (v31 != v27)
         {
-          v37 = MEMORY[0x277D81150];
-          v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-          v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v40, v41);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v43, v38, v42, 1632, 0, "%{public}@", @" Misaligned cell storage offsets!");
+          v32 = MEMORY[0x277D81150];
+          v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+          v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v35);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v37, v33, v36, 1632, 0, "%{public}@", @" Misaligned cell storage offsets!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46, v47);
-          objc_msgSend_appendString_(v220, v48, @" Misaligned cell storage offsets!", v49, v50);
-          v16 = 0;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v38, v39, v40);
+          objc_msgSend_appendString_(v178, v41, @" Misaligned cell storage offsets!", v42);
+          v14 = 0;
         }
 
-        if (v36 >= self->_currentData._private.cellBufferSize)
+        if (v31 >= self->_currentData._private.cellBufferSize)
         {
-          v51 = MEMORY[0x277D81150];
-          v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-          v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v54, v55);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v57, v52, v56, 1638, 0, "%{public}@", @" Cell storage overflow!");
+          v43 = MEMORY[0x277D81150];
+          v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+          v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v46);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v48, v44, v47, 1638, 0, "%{public}@", @" Cell storage overflow!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v58, v59, v60, v61);
-          objc_msgSend_appendString_(v220, v62, @" Cell storage overflow!", v63, v64);
-          v16 = 0;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v49, v50, v51);
+          objc_msgSend_appendString_(v178, v52, @" Cell storage overflow!", v53);
+          v14 = 0;
         }
 
-        if (++v31 > self->_cellCount)
+        if (++v26 > self->_cellCount)
         {
-          v65 = MEMORY[0x277D81150];
-          v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-          v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v68, v69);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v71, v66, v70, 1646, 0, "%{public}@", @" Found an extra cell in this row!");
+          v54 = MEMORY[0x277D81150];
+          v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+          v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v57);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v59, v55, v58, 1646, 0, "%{public}@", @" Found an extra cell in this row!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v72, v73, v74, v75);
-          objc_msgSend_appendString_(v220, v76, @" Found an extra cell in this row!", v77, v78);
-          v16 = 0;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v60, v61, v62);
+          objc_msgSend_appendString_(v178, v63, @" Found an extra cell in this row!", v64);
+          v14 = 0;
         }
 
-        v32 += sub_2216F6A80(p_currentData, v33, v14, v3, v4);
-        if (sub_22113C374(&cellData[v36], v79, v80, v81, v82))
+        v27 += sub_2216F6A80(p_currentData, v28, v12, v3);
+        if (sub_22113C374(&cellData[v31], v65, v66, v67))
         {
-          v34 = 0;
+          v29 = 0;
         }
 
         else
         {
-          v83 = MEMORY[0x277D81150];
-          v84 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-          v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v86, v87);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v83, v89, v84, v88, 1692, 0, "%{public}@", @" Bad cell version!");
+          v68 = MEMORY[0x277D81150];
+          v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+          v72 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v71);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v73, v69, v72, 1692, 0, "%{public}@", @" Bad cell version!");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v90, v91, v92, v93);
-          objc_msgSend_appendString_(v220, v94, @" Bad cell version!", v95, v96);
-          v34 = 0;
-          v16 = 0;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v74, v75, v76);
+          objc_msgSend_appendString_(v178, v77, @" Bad cell version!", v78);
+          v29 = 0;
+          v14 = 0;
         }
       }
     }
 
-    if (v218)
+    if (v176)
     {
-      if (v33 == 0x7FFF || self->_preBNCData._private.offsetBufferCount <= v33 || (v97 = self->_preBNCData._private.offsets[v33], v97 == 0xFFFF))
+      if (v28 == 0x7FFF || self->_preBNCData._private.offsetBufferCount <= v28 || (v79 = self->_preBNCData._private.offsets[v28], v79 == 0xFFFF))
       {
-        if (v34)
+        if (v29)
         {
           goto LABEL_55;
         }
 
-        v98 = 0x7FFFFFFFFFFFFFFFLL;
+        v80 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
         if (self->_preBNCData._private.wideOffsets)
         {
-          v98 = 4 * v97;
+          v80 = 4 * v79;
         }
 
         else
         {
-          v98 = self->_preBNCData._private.offsets[v33];
+          v80 = self->_preBNCData._private.offsets[v28];
         }
 
-        if (!v34)
+        if (!v29)
         {
 LABEL_44:
-          if (v98 != v219)
+          if (v80 != v177)
           {
-            v113 = MEMORY[0x277D81150];
-            v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-            v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v115, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v116, v117);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v113, v119, v114, v118, 1710, 0, "%{public}@", @" Misaligned cell storage offsets in PreBNC!");
+            v92 = MEMORY[0x277D81150];
+            v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+            v96 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v94, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v95);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v92, v97, v93, v96, 1710, 0, "%{public}@", @" Misaligned cell storage offsets in PreBNC!");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v120, v121, v122, v123);
-            objc_msgSend_appendString_(v220, v124, @" Misaligned cell storage offsets in PreBNC!", v125, v126);
-            v16 = 0;
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v98, v99, v100);
+            objc_msgSend_appendString_(v178, v101, @" Misaligned cell storage offsets in PreBNC!", v102);
+            v14 = 0;
           }
 
-          if (v98 >= self->_preBNCData._private.cellBufferSize)
+          if (v80 >= self->_preBNCData._private.cellBufferSize)
+          {
+            v103 = MEMORY[0x277D81150];
+            v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+            v107 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v106);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v103, v108, v104, v107, 1716, 0, "%{public}@", @" Cell storage overflow in PreBNC!");
+
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v109, v110, v111);
+            objc_msgSend_appendString_(v178, v112, @" Cell storage overflow in PreBNC!", v113);
+            v14 = 0;
+          }
+
+          if (++v175 > self->_cellCount)
+          {
+            v114 = MEMORY[0x277D81150];
+            v115 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+            v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v116, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v117);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v114, v119, v115, v118, 1724, 0, "%{public}@", @" Found an extra preBNC cell in this row!");
+
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v120, v121, v122);
+            objc_msgSend_appendString_(v178, v123, @" Found an extra preBNC cell in this row!", v124);
+            v14 = 0;
+          }
+
+          v125 = v174;
+          if (!v174)
+          {
+            v125 = self->_preBNCData._private.cellData;
+          }
+
+          v174 = v125;
+          v126 = sub_221395B64(&v125[v80], a2, result, v3);
+          if (v80 + v126 > self->_preBNCData._private.cellBufferSize)
           {
             v127 = MEMORY[0x277D81150];
-            v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-            v132 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v129, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v130, v131);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v127, v133, v128, v132, 1716, 0, "%{public}@", @" Cell storage overflow in PreBNC!");
+            v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+            v131 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v129, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v130);
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v127, v132, v128, v131, 1738, 0, "%{public}@", @" Cell storage overflow in Pre BNC!");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v134, v135, v136, v137);
-            objc_msgSend_appendString_(v220, v138, @" Cell storage overflow in PreBNC!", v139, v140);
-            v16 = 0;
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v133, v134, v135);
+            objc_msgSend_appendString_(v178, v136, @" Cell storage overflow in Pre BNC!", v137);
+            v14 = 0;
           }
 
-          if (++v217 > self->_cellCount)
-          {
-            v141 = MEMORY[0x277D81150];
-            v142 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-            v146 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v143, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v144, v145);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v141, v147, v142, v146, 1724, 0, "%{public}@", @" Found an extra preBNC cell in this row!");
-
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v148, v149, v150, v151);
-            objc_msgSend_appendString_(v220, v152, @" Found an extra preBNC cell in this row!", v153, v154);
-            v16 = 0;
-          }
-
-          v155 = v216;
-          if (!v216)
-          {
-            v155 = self->_preBNCData._private.cellData;
-          }
-
-          v216 = v155;
-          v156 = sub_221395B64(&v155[v98], a2, result, v3, v4);
-          if (v98 + v156 > self->_preBNCData._private.cellBufferSize)
-          {
-            v157 = MEMORY[0x277D81150];
-            v158 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-            v162 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v159, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v160, v161);
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v157, v163, v158, v162, 1738, 0, "%{public}@", @" Cell storage overflow in Pre BNC!");
-
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v164, v165, v166, v167);
-            objc_msgSend_appendString_(v220, v168, @" Cell storage overflow in Pre BNC!", v169, v170);
-            v16 = 0;
-          }
-
-          v219 += v156;
+          v177 += v126;
           goto LABEL_55;
         }
       }
 
-      v99 = MEMORY[0x277D81150];
-      v100 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3, v4);
-      v104 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v101, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v102, v103);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v99, v105, v100, v104, 1703, 0, "%{public}@", @" Mismatched presence of cells.");
+      v81 = MEMORY[0x277D81150];
+      v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileRowInfo validateWithResult:]", v3);
+      v85 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v83, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v84);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v81, v86, v82, v85, 1703, 0, "%{public}@", @" Mismatched presence of cells.");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v106, v107, v108, v109);
-      objc_msgSend_appendString_(v220, v110, @" Mismatched presence of cells.", v111, v112);
-      if (v98 == 0x7FFFFFFFFFFFFFFFLL)
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v87, v88, v89);
+      objc_msgSend_appendString_(v178, v90, @" Mismatched presence of cells.", v91);
+      if (v80 == 0x7FFFFFFFFFFFFFFFLL)
       {
         goto LABEL_55;
       }
@@ -1740,55 +1740,55 @@ LABEL_44:
     }
 
 LABEL_55:
-    ++v33;
+    ++v28;
   }
 
-  while (v33 <= v14);
-  if (v31 != self->_cellCount)
+  while (v28 <= v12);
+  if (v26 != self->_cellCount)
   {
-    v171 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @" Incorrect cell count! Expected:%tu Found:%tu.", v3, v4, self->_cellCount, v31);
-    v172 = MEMORY[0x277D81150];
-    v176 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v173, "[TSTTableTileRowInfo validateWithResult:]", v174, v175);
-    v180 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v177, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v178, v179);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v172, v181, v176, v180, 1750, 0, "%{public}@", v171);
+    v138 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @" Incorrect cell count! Expected:%tu Found:%tu.", v3, self->_cellCount, v26);
+    v139 = MEMORY[0x277D81150];
+    v142 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v140, "[TSTTableTileRowInfo validateWithResult:]", v141);
+    v145 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v143, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v144);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v139, v146, v142, v145, 1750, 0, "%{public}@", v138);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v182, v183, v184, v185);
-    objc_msgSend_appendString_(v220, v186, v171, v187, v188);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v147, v148, v149);
+    objc_msgSend_appendString_(v178, v150, v138, v151);
 
-    v16 = 0;
+    v14 = 0;
   }
 
-  if (v218 && v217 != self->_cellCount)
+  if (v176 && v175 != self->_cellCount)
   {
-    v189 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @" Incorrect PreBNC cell count! Expected:%tu Found:%tu.", v3, v4, self->_cellCount, v217);
-    v190 = MEMORY[0x277D81150];
-    v194 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v191, "[TSTTableTileRowInfo validateWithResult:]", v192, v193);
-    v198 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v195, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v196, v197);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v190, v199, v194, v198, 1757, 0, "%{public}@", v189);
+    v152 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @" Incorrect PreBNC cell count! Expected:%tu Found:%tu.", v3, self->_cellCount, v175);
+    v153 = MEMORY[0x277D81150];
+    v156 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v154, "[TSTTableTileRowInfo validateWithResult:]", v155);
+    v159 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v157, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v158);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v153, v160, v156, v159, 1757, 0, "%{public}@", v152);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v200, v201, v202, v203);
-    objc_msgSend_appendString_(v220, v204, v189, v205, v206);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v161, v162, v163);
+    objc_msgSend_appendString_(v178, v164, v152, v165);
 
-    v16 = 0;
+    v14 = 0;
   }
 
-  objc_msgSend_appendString_(v220, a2, @"\n", v3, v4);
+  objc_msgSend_appendString_(v178, a2, @"\n", v3);
   if (result)
   {
-    if (v16)
+    if (v14)
     {
-      v211 = &stru_2834BADA0;
+      v169 = &stru_2834BADA0;
     }
 
     else
     {
-      v211 = objc_msgSend_copy(v220, v207, v208, v209, v210);
+      v169 = objc_msgSend_copy(v178, v166, v167, v168);
     }
 
-    *result = v211;
+    *result = v169;
   }
 
-  return v16 & 1;
+  return v14 & 1;
 }
 
 - (id)description
@@ -1796,9 +1796,9 @@ LABEL_55:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@:%p tileRowIndex %lu cellCount %lu>", v7, v8, v5, self, self->_tileRowIndex, self->_cellCount);
+  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@:%p tileRowIndex %lu cellCount %lu>", v7, v5, self, self->_tileRowIndex, self->_cellCount);
 
-  return v9;
+  return v8;
 }
 
 - (TSTCellStorage)cellStorageRefAtIndex:(unsigned __int16)index
@@ -1854,21 +1854,21 @@ LABEL_55:
   v5 = sub_221138A3C(self);
   if (indexCopy != 0x7FFF && self->_currentData._private.offsetBufferCount > indexCopy)
   {
-    v9 = self->_currentData._private.offsets[indexCopy];
-    if (v9 != 0xFFFF)
+    v8 = self->_currentData._private.offsets[indexCopy];
+    if (v8 != 0xFFFF)
     {
-      v12 = v5;
+      v11 = v5;
       if (self->_currentData._private.wideOffsets)
       {
-        v13 = 4 * v9;
+        v12 = 4 * v8;
       }
 
       else
       {
-        v13 = self->_currentData._private.offsets[indexCopy];
+        v12 = self->_currentData._private.offsets[indexCopy];
       }
 
-      v17 = sub_2216F6A80(&self->_currentData, indexCopy, v5, v6, v7);
+      v15 = sub_2216F6A80(&self->_currentData, indexCopy, v5, v6);
       if (indexCopy >= 0xFF && !self->_currentData._private.wideOffsets)
       {
         sub_22113A218(&self->_currentData);
@@ -1880,66 +1880,66 @@ LABEL_55:
       }
 
       self->_currentData._private.offsets[indexCopy] = -1;
-      if (v12 > indexCopy)
+      if (v11 > indexCopy)
       {
-        sub_22113C758(&self->_currentData._private.cellData, (v13 + v17), -v17, v15, v16);
-        v18 = indexCopy + 1;
+        sub_22113C758(&self->_currentData._private.cellData, (v12 + v15), -v15, v14);
+        v16 = indexCopy + 1;
         do
         {
-          if (v18 != 0x7FFF)
+          if (v16 != 0x7FFF)
           {
             offsetBufferCount = self->_currentData._private.offsetBufferCount;
-            if (offsetBufferCount > v18)
+            if (offsetBufferCount > v16)
             {
-              v20 = self->_currentData._private.offsets[v18];
-              if (v20 != 0xFFFF)
+              v18 = self->_currentData._private.offsets[v16];
+              if (v18 != 0xFFFF)
               {
                 wideOffsets = self->_currentData._private.wideOffsets;
                 if (self->_currentData._private.wideOffsets)
                 {
-                  v22 = 4 * v20;
+                  v20 = 4 * v18;
                 }
 
                 else
                 {
-                  v22 = self->_currentData._private.offsets[v18];
+                  v20 = self->_currentData._private.offsets[v16];
                 }
 
-                if (v18 >= 0xFFu && !wideOffsets)
+                if (v16 >= 0xFFu && !wideOffsets)
                 {
                   sub_22113A218(&self->_currentData);
                   offsetBufferCount = self->_currentData._private.offsetBufferCount;
                   wideOffsets = 1;
                 }
 
-                if (offsetBufferCount <= v18)
+                if (offsetBufferCount <= v16)
                 {
-                  sub_221139CC8(&self->_currentData._private.cellData, v18);
+                  sub_221139CC8(&self->_currentData._private.cellData, v16);
                 }
 
-                v23 = v22 - v17;
-                if (v22 - v17 == 0x7FFFFFFFFFFFFFFFLL)
+                v21 = v20 - v15;
+                if (v20 - v15 == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  LOWORD(v23) = -1;
+                  LOWORD(v21) = -1;
                 }
 
                 else if (wideOffsets)
                 {
-                  v23 >>= 2;
+                  v21 >>= 2;
                 }
 
-                self->_currentData._private.offsets[v18] = v23;
+                self->_currentData._private.offsets[v16] = v21;
               }
             }
           }
 
-          ++v18;
+          ++v16;
         }
 
-        while (v12 >= v18);
+        while (v11 >= v16);
       }
 
-      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize - v17, v14, v15, v16);
+      sub_221139394(&self->_currentData._private.cellData, self->_currentData._private.cellBufferSize - v15, v13, v14);
     }
   }
 
@@ -2011,14 +2011,14 @@ LABEL_7:
     if (v10 + 8 > cellBufferSize)
     {
       v14 = sub_22113CA14();
-      objc_msgSend_stringWithUTF8String_(v14, v15, "[TSTTableTileRowInfo _quickValidateBuffer:]", v16, v17);
+      objc_msgSend_stringWithUTF8String_(v14, v15, "[TSTTableTileRowInfo _quickValidateBuffer:]", v16);
       objc_claimAutoreleasedReturnValue();
-      v18 = sub_22113CA24();
-      objc_msgSend_stringWithUTF8String_(v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v20, v21);
+      v17 = sub_22113CA24();
+      objc_msgSend_stringWithUTF8String_(v17, v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v19);
       objc_claimAutoreleasedReturnValue();
       sub_22113CA30();
-      v22 = sub_22113CA04();
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v23, v24, v25, 1545, 0);
+      v20 = sub_22113CA04();
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v21, v22, v23, 1545, 0);
       goto LABEL_27;
     }
 
@@ -2047,15 +2047,15 @@ LABEL_7:
 LABEL_21:
     if (v12 + v10 > cellBufferSize)
     {
-      v26 = sub_22113CA14();
-      objc_msgSend_stringWithUTF8String_(v26, v27, "[TSTTableTileRowInfo _quickValidateBuffer:]", v28, v29);
+      v24 = sub_22113CA14();
+      objc_msgSend_stringWithUTF8String_(v24, v25, "[TSTTableTileRowInfo _quickValidateBuffer:]", v26);
       objc_claimAutoreleasedReturnValue();
-      v30 = sub_22113CA24();
-      objc_msgSend_stringWithUTF8String_(v30, v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v32, v33);
+      v27 = sub_22113CA24();
+      objc_msgSend_stringWithUTF8String_(v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v29);
       objc_claimAutoreleasedReturnValue();
       sub_22113CA30();
-      v34 = sub_22113CA04();
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v35, v36, v37, 1579, 0);
+      v30 = sub_22113CA04();
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v31, v32, v33, 1579, 0);
       goto LABEL_27;
     }
 
@@ -2066,16 +2066,16 @@ LABEL_22:
     }
   }
 
-  v38 = sub_22113CA14();
-  objc_msgSend_stringWithUTF8String_(v38, v39, "[TSTTableTileRowInfo _quickValidateBuffer:]", v40, v41);
+  v34 = sub_22113CA14();
+  objc_msgSend_stringWithUTF8String_(v34, v35, "[TSTTableTileRowInfo _quickValidateBuffer:]", v36);
   objc_claimAutoreleasedReturnValue();
-  v42 = sub_22113CA24();
-  v4 = objc_msgSend_stringWithUTF8String_(v42, v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v44, v45);
-  v46 = sub_22113CA04();
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v47, v48, v49, 1555, 0, v8, v11);
+  v37 = sub_22113CA24();
+  v4 = objc_msgSend_stringWithUTF8String_(v37, v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileRowInfo.mm", v39);
+  v40 = sub_22113CA04();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v41, v42, v43, 1555, 0, v8, v11);
 LABEL_27:
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v50, v51, v52, v53);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46);
   return 0;
 }
 

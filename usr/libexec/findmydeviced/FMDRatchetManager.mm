@@ -174,41 +174,41 @@
 
   if (ratchet)
   {
-    v4 = sub_10017DEB4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10017DEB4(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       ratchetIdentifier = [(FMDRatchetManager *)self ratchetIdentifier];
       *buf = 138412290;
-      v13 = ratchetIdentifier;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Ratchet already initialized %@.", buf, 0xCu);
+      v14 = ratchetIdentifier;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Ratchet already initialized %@.", buf, 0xCu);
     }
   }
 
   else
   {
-    v6 = [LARatchet alloc];
+    v7 = [LARatchet alloc];
     ratchetIdentifier2 = [(FMDRatchetManager *)self ratchetIdentifier];
-    v4 = [v6 initWithIdentifier:ratchetIdentifier2];
+    v5 = [v7 initWithIdentifier:ratchetIdentifier2];
 
-    [(FMDRatchetManager *)self setRatchet:v4];
+    [(FMDRatchetManager *)self setRatchet:v5];
     ratchetOptions = [(FMDRatchetManager *)self ratchetOptions];
-    v9 = sub_10017DEB4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10017DEB4(ratchetOptions);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       ratchetIdentifier3 = [(FMDRatchetManager *)self ratchetIdentifier];
       *buf = 138412546;
-      v13 = ratchetIdentifier3;
-      v14 = 2112;
-      v15 = ratchetOptions;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Arming ratchet %@ with options %@.", buf, 0x16u);
+      v14 = ratchetIdentifier3;
+      v15 = 2112;
+      v16 = ratchetOptions;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Arming ratchet %@ with options %@.", buf, 0x16u);
     }
 
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_100158E0C;
-    v11[3] = &unk_1002CD7C0;
-    v11[4] = self;
-    [v4 armWithOptions:ratchetOptions completion:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100158E0C;
+    v12[3] = &unk_1002CD7C0;
+    v12[4] = self;
+    [v5 armWithOptions:ratchetOptions completion:v12];
   }
 }
 
@@ -222,51 +222,51 @@
   {
     currentTask2 = v6;
     code = [errorCopy code];
-    v9 = sub_10017DEB4();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v10 = sub_10017DEB4(code);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
     if (code)
     {
-      if (v10)
+      if (v11)
       {
         ratchetIdentifier = [(FMDRatchetManager *)self ratchetIdentifier];
         rawValue = [currentTask2 rawValue];
         localizedDescription = [errorCopy localizedDescription];
-        v19 = 138412802;
-        v20 = ratchetIdentifier;
-        v21 = 2048;
-        v22 = rawValue;
-        v23 = 2112;
-        v24 = localizedDescription;
-        v14 = "Unexpected failure to arm ratchet %@ state %li, error: %@.";
+        v20 = 138412802;
+        v21 = ratchetIdentifier;
+        v22 = 2048;
+        v23 = rawValue;
+        v24 = 2112;
+        v25 = localizedDescription;
+        v15 = "Unexpected failure to arm ratchet %@ state %li, error: %@.";
 LABEL_12:
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, v14, &v19, 0x20u);
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v15, &v20, 0x20u);
       }
     }
 
-    else if (v10)
+    else if (v11)
     {
       ratchetIdentifier = [(FMDRatchetManager *)self ratchetIdentifier];
       rawValue2 = [currentTask2 rawValue];
       localizedDescription = [errorCopy localizedDescription];
-      v19 = 138412802;
-      v20 = ratchetIdentifier;
-      v21 = 2048;
-      v22 = rawValue2;
-      v23 = 2112;
-      v24 = localizedDescription;
-      v14 = "Failed to arm ratchet %@ state %li, error: %@.";
+      v20 = 138412802;
+      v21 = ratchetIdentifier;
+      v22 = 2048;
+      v23 = rawValue2;
+      v24 = 2112;
+      v25 = localizedDescription;
+      v15 = "Failed to arm ratchet %@ state %li, error: %@.";
       goto LABEL_12;
     }
 
     currentTask = [(FMDRatchetManager *)self currentTask];
-    v17 = [FMDRatchetManager ratchetErrorDeniedWithUnderlyingError:errorCopy];
-    [currentTask finishWithError:v17];
+    v18 = [FMDRatchetManager ratchetErrorDeniedWithUnderlyingError:errorCopy];
+    [currentTask finishWithError:v18];
 
     goto LABEL_10;
   }
 
-  v15 = sub_10017DEB4();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_10017DEB4(v7);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_100228718(self, errorCopy);
   }

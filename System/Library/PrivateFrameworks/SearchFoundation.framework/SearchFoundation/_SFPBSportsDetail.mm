@@ -132,9 +132,7 @@ LABEL_8:
 
 - (void)setRequested_entity_type:(id)requested_entity_type
 {
-  v4 = [requested_entity_type copy];
-  requested_entity_type = self->_requested_entity_type;
-  self->_requested_entity_type = v4;
+  self->_requested_entity_type = [requested_entity_type copy];
 
   MEMORY[0x1EEE66BB8]();
 }

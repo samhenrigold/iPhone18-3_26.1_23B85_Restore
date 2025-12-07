@@ -15,11 +15,11 @@ uint64_t __59__TVRCMediaInfo_TVRUIAdditions__tvrui_formattedReleaseDate__block_i
   return [v2 setTimeStyle:0];
 }
 
-uint64_t __55__TVRCMediaInfo_TVRUIAdditions__tvrui_formattedSummary__block_invoke(uint64_t result, uint64_t a2)
+id *__55__TVRCMediaInfo_TVRUIAdditions__tvrui_formattedSummary__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

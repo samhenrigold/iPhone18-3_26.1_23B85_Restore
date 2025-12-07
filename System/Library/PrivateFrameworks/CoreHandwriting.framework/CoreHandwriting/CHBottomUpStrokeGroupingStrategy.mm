@@ -1659,7 +1659,7 @@ LABEL_86:
   v46 = 10000.0;
   v20 = objc_msgSend_writingDirectionSortedSubstrokes(groupCopy, v15, v16, v17, v18, v19);
   v26 = objc_msgSend_count(v20, v21, v22, v23, v24, v25);
-  sub_1839555FC(self, &v46, &v45, forStrokeCopy, substrokesCopy, groupCopy, v26 - 1);
+  sub_1839555FC(self, &v46, &v45, forStrokeCopy, substrokesCopy, groupCopy, (v26 - 1));
   v27 = v45;
 
   if ((objc_msgSend_lastSubstrokeIndexBeforeMerge(groupCopy, v28, v29, v30, v31, v32) & 0x8000000000000000) == 0)
@@ -4326,8 +4326,8 @@ LABEL_43:
     }
 
     v168 = -v36;
-    sub_18395B224(v193, MinX, MaxY, v168, CHBottomUpStrokeGroupingStrategy, v90);
-    sub_18395B224(__p, MinX, MaxY, v168, CHBottomUpStrokeGroupingStrategy, v89);
+    sub_18395B224(v193, CHBottomUpStrokeGroupingStrategy, v90, MinX, MaxY, v168);
+    sub_18395B224(__p, CHBottomUpStrokeGroupingStrategy, v89, MinX, MaxY, v168);
     objc_msgSend_unionStrokeBounds_usingStrokeCountLimit_reverseOrder_(CHStrokeUtilities, v169, v193, 0x7FFFFFFFFFFFFFFFLL, 0, v170);
     v172 = v171;
     v174 = v173;

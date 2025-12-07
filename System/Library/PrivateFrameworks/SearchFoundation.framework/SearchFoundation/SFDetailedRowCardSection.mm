@@ -3585,11 +3585,11 @@ LABEL_145:
 
 - (SFDetailedRowCardSection)initWithProtobuf:(id)protobuf
 {
-  v121 = *MEMORY[0x1E69E9840];
+  v120 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v117.receiver = self;
-  v117.super_class = SFDetailedRowCardSection;
-  v5 = [(SFCardSection *)&v117 init];
+  v116.receiver = self;
+  v116.super_class = SFDetailedRowCardSection;
+  v5 = [(SFCardSection *)&v116 init];
 
   if (v5)
   {
@@ -3604,33 +3604,33 @@ LABEL_145:
       v7 = 0;
     }
 
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
     v114 = 0u;
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v113 objects:v120 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v112 objects:v119 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v114;
+      v11 = *v113;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v114 != v11)
+          if (*v113 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v113 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v112 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v113 objects:v120 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v112 objects:v119 count:16];
       }
 
       while (v10);
@@ -3742,7 +3742,7 @@ LABEL_145:
     }
 
     descriptions = [protobufCopy descriptions];
-    v104 = v5;
+    v103 = v5;
     if (descriptions)
     {
       v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -3753,39 +3753,39 @@ LABEL_145:
       v41 = 0;
     }
 
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     descriptions2 = [protobufCopy descriptions];
-    v43 = [descriptions2 countByEnumeratingWithState:&v109 objects:v119 count:16];
+    v43 = [descriptions2 countByEnumeratingWithState:&v108 objects:v118 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v110;
+      v45 = *v109;
       do
       {
         for (j = 0; j != v44; ++j)
         {
-          if (*v110 != v45)
+          if (*v109 != v45)
           {
             objc_enumerationMutation(descriptions2);
           }
 
-          v47 = [[SFRichText alloc] initWithProtobuf:*(*(&v109 + 1) + 8 * j)];
+          v47 = [[SFRichText alloc] initWithProtobuf:*(*(&v108 + 1) + 8 * j)];
           if (v47)
           {
             [v41 addObject:v47];
           }
         }
 
-        v44 = [descriptions2 countByEnumeratingWithState:&v109 objects:v119 count:16];
+        v44 = [descriptions2 countByEnumeratingWithState:&v108 objects:v118 count:16];
       }
 
       while (v44);
     }
 
-    [(SFDetailedRowCardSection *)v104 setDescriptions:v41];
+    [(SFDetailedRowCardSection *)v103 setDescriptions:v41];
     footnote = [protobufCopy footnote];
 
     if (footnote)
@@ -3793,7 +3793,7 @@ LABEL_145:
       v49 = [SFRichText alloc];
       footnote2 = [protobufCopy footnote];
       v51 = [(SFRichText *)v49 initWithProtobuf:footnote2];
-      [(SFDetailedRowCardSection *)v104 setFootnote:v51];
+      [(SFDetailedRowCardSection *)v103 setFootnote:v51];
     }
 
     trailingTopText = [protobufCopy trailingTopText];
@@ -3803,7 +3803,7 @@ LABEL_145:
       v53 = [SFFormattedText alloc];
       trailingTopText2 = [protobufCopy trailingTopText];
       v55 = [(SFFormattedText *)v53 initWithProtobuf:trailingTopText2];
-      [(SFDetailedRowCardSection *)v104 setTrailingTopText:v55];
+      [(SFDetailedRowCardSection *)v103 setTrailingTopText:v55];
     }
 
     trailingMiddleText = [protobufCopy trailingMiddleText];
@@ -3813,7 +3813,7 @@ LABEL_145:
       v57 = [SFFormattedText alloc];
       trailingMiddleText2 = [protobufCopy trailingMiddleText];
       v59 = [(SFFormattedText *)v57 initWithProtobuf:trailingMiddleText2];
-      [(SFDetailedRowCardSection *)v104 setTrailingMiddleText:v59];
+      [(SFDetailedRowCardSection *)v103 setTrailingMiddleText:v59];
     }
 
     trailingBottomText = [protobufCopy trailingBottomText];
@@ -3823,7 +3823,7 @@ LABEL_145:
       v61 = [SFFormattedText alloc];
       trailingBottomText2 = [protobufCopy trailingBottomText];
       v63 = [(SFFormattedText *)v61 initWithProtobuf:trailingBottomText2];
-      [(SFDetailedRowCardSection *)v104 setTrailingBottomText:v63];
+      [(SFDetailedRowCardSection *)v103 setTrailingBottomText:v63];
     }
 
     action = [protobufCopy action];
@@ -3833,7 +3833,7 @@ LABEL_145:
       v65 = [SFActionItem alloc];
       action2 = [protobufCopy action];
       v67 = [(SFActionItem *)v65 initWithProtobuf:action2];
-      [(SFDetailedRowCardSection *)v104 setAction:v67];
+      [(SFDetailedRowCardSection *)v103 setAction:v67];
     }
 
     button = [protobufCopy button];
@@ -3843,12 +3843,12 @@ LABEL_145:
       v69 = [SFButton alloc];
       button2 = [protobufCopy button];
       v71 = [(SFButton *)v69 initWithProtobuf:button2];
-      [(SFDetailedRowCardSection *)v104 setButton:v71];
+      [(SFDetailedRowCardSection *)v103 setButton:v71];
     }
 
     if ([protobufCopy shouldUseCompactDisplay])
     {
-      -[SFDetailedRowCardSection setShouldUseCompactDisplay:](v104, "setShouldUseCompactDisplay:", [protobufCopy shouldUseCompactDisplay]);
+      -[SFDetailedRowCardSection setShouldUseCompactDisplay:](v103, "setShouldUseCompactDisplay:", [protobufCopy shouldUseCompactDisplay]);
     }
 
     buttonItems = [protobufCopy buttonItems];
@@ -3862,101 +3862,100 @@ LABEL_145:
       v73 = 0;
     }
 
-    v107 = 0u;
-    v108 = 0u;
-    v105 = 0u;
     v106 = 0u;
-    v103 = protobufCopy;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    v102 = protobufCopy;
     buttonItems2 = [protobufCopy buttonItems];
-    v75 = [buttonItems2 countByEnumeratingWithState:&v105 objects:v118 count:16];
+    v75 = [buttonItems2 countByEnumeratingWithState:&v104 objects:v117 count:16];
     if (v75)
     {
       v76 = v75;
-      v77 = *v106;
+      v77 = *v105;
       do
       {
         for (k = 0; k != v76; ++k)
         {
-          if (*v106 != v77)
+          if (*v105 != v77)
           {
             objc_enumerationMutation(buttonItems2);
           }
 
-          v79 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v105 + 1) + 8 * k)];
+          v79 = [[SFButtonItem alloc] initWithProtobuf:*(*(&v104 + 1) + 8 * k)];
           if (v79)
           {
             [v73 addObject:v79];
           }
         }
 
-        v76 = [buttonItems2 countByEnumeratingWithState:&v105 objects:v118 count:16];
+        v76 = [buttonItems2 countByEnumeratingWithState:&v104 objects:v117 count:16];
       }
 
       while (v76);
     }
 
-    v5 = v104;
-    [(SFDetailedRowCardSection *)v104 setButtonItems:v73];
-    protobufCopy = v103;
-    trailingThumbnail = [v103 trailingThumbnail];
+    v5 = v103;
+    [(SFDetailedRowCardSection *)v103 setButtonItems:v73];
+    protobufCopy = v102;
+    trailingThumbnail = [v102 trailingThumbnail];
 
     if (trailingThumbnail)
     {
       v81 = [SFImage alloc];
-      trailingThumbnail2 = [v103 trailingThumbnail];
+      trailingThumbnail2 = [v102 trailingThumbnail];
       v83 = [(SFImage *)v81 initWithProtobuf:trailingThumbnail2];
-      [(SFDetailedRowCardSection *)v104 setTrailingThumbnail:v83];
+      [(SFDetailedRowCardSection *)v103 setTrailingThumbnail:v83];
     }
 
-    if ([v103 buttonItemsAreTrailing])
+    if ([v102 buttonItemsAreTrailing])
     {
-      -[SFDetailedRowCardSection setButtonItemsAreTrailing:](v104, "setButtonItemsAreTrailing:", [v103 buttonItemsAreTrailing]);
+      -[SFDetailedRowCardSection setButtonItemsAreTrailing:](v103, "setButtonItemsAreTrailing:", [v102 buttonItemsAreTrailing]);
     }
 
-    topText = [v103 topText];
+    topText = [v102 topText];
 
     if (topText)
     {
       v85 = [SFRichText alloc];
-      topText2 = [v103 topText];
+      topText2 = [v102 topText];
       v87 = [(SFRichText *)v85 initWithProtobuf:topText2];
-      [(SFDetailedRowCardSection *)v104 setTopText:v87];
+      [(SFDetailedRowCardSection *)v103 setTopText:v87];
     }
 
-    richTrailingTopText = [v103 richTrailingTopText];
+    richTrailingTopText = [v102 richTrailingTopText];
 
     if (richTrailingTopText)
     {
       v89 = [SFRichText alloc];
-      richTrailingTopText2 = [v103 richTrailingTopText];
+      richTrailingTopText2 = [v102 richTrailingTopText];
       v91 = [(SFRichText *)v89 initWithProtobuf:richTrailingTopText2];
-      [(SFDetailedRowCardSection *)v104 setRichTrailingTopText:v91];
+      [(SFDetailedRowCardSection *)v103 setRichTrailingTopText:v91];
     }
 
-    richTrailingMiddleText = [v103 richTrailingMiddleText];
+    richTrailingMiddleText = [v102 richTrailingMiddleText];
 
     if (richTrailingMiddleText)
     {
       v93 = [SFRichText alloc];
-      richTrailingMiddleText2 = [v103 richTrailingMiddleText];
+      richTrailingMiddleText2 = [v102 richTrailingMiddleText];
       v95 = [(SFRichText *)v93 initWithProtobuf:richTrailingMiddleText2];
-      [(SFDetailedRowCardSection *)v104 setRichTrailingMiddleText:v95];
+      [(SFDetailedRowCardSection *)v103 setRichTrailingMiddleText:v95];
     }
 
-    richTrailingBottomText = [v103 richTrailingBottomText];
+    richTrailingBottomText = [v102 richTrailingBottomText];
 
     if (richTrailingBottomText)
     {
       v97 = [SFRichText alloc];
-      richTrailingBottomText2 = [v103 richTrailingBottomText];
+      richTrailingBottomText2 = [v102 richTrailingBottomText];
       v99 = [(SFRichText *)v97 initWithProtobuf:richTrailingBottomText2];
-      [(SFDetailedRowCardSection *)v104 setRichTrailingBottomText:v99];
+      [(SFDetailedRowCardSection *)v103 setRichTrailingBottomText:v99];
     }
 
-    v100 = v104;
+    v100 = v103;
   }
 
-  v101 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

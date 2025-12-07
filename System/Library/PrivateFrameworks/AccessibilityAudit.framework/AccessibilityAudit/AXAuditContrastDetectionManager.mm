@@ -32,7 +32,6 @@
 
 uint64_t __48__AXAuditContrastDetectionManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_instance_3 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -40,7 +39,7 @@ uint64_t __48__AXAuditContrastDetectionManager_sharedManager__block_invoke(uint6
 
 - (id)contrastResultForInput:(id)input
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v5 = objc_alloc_init(AXAuditContrastResult);
   imageData = [inputCopy imageData];
@@ -60,8 +59,8 @@ uint64_t __48__AXAuditContrastDetectionManager_sharedManager__block_invoke(uint6
 
   v12 = [v7 objectAtIndexedSubscript:0];
   v13 = [v7 objectAtIndexedSubscript:1];
-  v41 = v13;
-  v42 = v12;
+  v40 = v13;
+  v41 = v12;
   if (!v9)
   {
     v15 = v12;
@@ -83,38 +82,38 @@ LABEL_7:
   v18 = v13;
   if ((v21 & 1) == 0)
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     obj = v7;
-    v22 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v22 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v22)
     {
       v23 = v22;
-      v39 = v9;
-      v24 = *v44;
+      v38 = v9;
+      v24 = *v43;
       while (2)
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v44 != v24)
+          if (*v43 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v43 + 1) + 8 * i);
+          v26 = *(*(&v42 + 1) + 8 * i);
           [(AXAuditContrastDetectionManager *)self _euclideanDistanceBetweenColor1:v15 color2:v26];
           if (v27 > 0.1)
           {
-            v38 = v26;
+            v37 = v26;
 
-            v18 = v38;
+            v18 = v37;
             goto LABEL_37;
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v23 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v23)
         {
           continue;
@@ -124,7 +123,7 @@ LABEL_7:
       }
 
 LABEL_37:
-      v9 = v39;
+      v9 = v38;
     }
 
     v11 = 0;
@@ -196,8 +195,6 @@ LABEL_33:
   [(AXAuditContrastResult *)v5 setClassification:v17];
   [inputCopy fontSize];
   [(AXAuditContrastResult *)v5 setFontSize:?];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -362,7 +359,7 @@ LABEL_23:
 
 - (id)_topColorsForColors:(id)colors
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   colorsCopy = colors;
   if (![colorsCopy count])
   {
@@ -371,12 +368,12 @@ LABEL_23:
   }
 
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:3];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v5 = colorsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v6)
   {
 
@@ -386,23 +383,23 @@ LABEL_23:
   }
 
   v7 = v6;
-  v23 = v4;
-  v24 = colorsCopy;
-  v25 = 0;
+  v22 = v4;
+  v23 = colorsCopy;
+  v24 = 0;
   v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = *v27;
+  v11 = *v26;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v5);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v25 + 1) + 8 * i);
       v14 = [v5 countForObject:v13];
       v15 = v14;
       if (v14 <= v9)
@@ -416,10 +413,10 @@ LABEL_23:
 
       else
       {
-        v16 = v25;
+        v16 = v24;
 
         v8 = v16;
-        v25 = v13;
+        v24 = v13;
         v17 = v15;
         v15 = v9;
         v9 = v17;
@@ -431,29 +428,28 @@ LABEL_23:
       v10 = v15;
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v7);
 
-  v4 = v23;
-  v19 = v25;
-  if (v25)
+  v4 = v22;
+  v19 = v24;
+  if (v24)
   {
-    [v23 addObject:v25];
+    [v22 addObject:v24];
   }
 
-  colorsCopy = v24;
+  colorsCopy = v23;
   if (v8)
   {
-    [v23 addObject:v8];
+    [v22 addObject:v8];
   }
 
 LABEL_19:
   v20 = v4;
 
 LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

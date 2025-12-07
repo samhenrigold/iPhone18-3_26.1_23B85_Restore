@@ -48,7 +48,7 @@ void __41__SpecificRedirectHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (id)evaluate:(id)evaluate forThreshold:(int64_t)threshold
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   evaluateCopy = evaluate;
   v6 = evaluateCopy;
   if (!self->_triggerURL)
@@ -73,22 +73,21 @@ LABEL_8:
     triggerURL = self->_triggerURL;
     v11 = v9;
     v12 = [(NSData *)triggerURL description];
-    v16 = 136315138;
+    v15 = 136315138;
     uTF8String = [v12 UTF8String];
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Matched specific redirect lookup for destination URL %s", &v16, 0xCu);
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "Matched specific redirect lookup for destination URL %s", &v15, 0xCu);
   }
 
   v13 = objc_alloc_init(Evaluation);
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   v5 = redirectLogHandle;
   if (os_log_type_enabled(redirectLogHandle, OS_LOG_TYPE_DEBUG))
@@ -98,8 +97,8 @@ LABEL_9:
     uTF8String = [v7 UTF8String];
     v9 = [(SpecificRedirectHandler *)self description];
     *buf = 136315394;
-    v30 = uTF8String;
-    v31 = 2080;
+    v29 = uTF8String;
+    v30 = 2080;
     uTF8String2 = [v9 UTF8String];
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "noteSymptom %s, prior %s", buf, 0x16u);
   }
@@ -126,11 +125,11 @@ LABEL_9:
       v19 = self->_triggerURL;
       v20 = v18;
       v21 = [(NSData *)v19 description];
-      v25 = 138478083;
-      v26 = v18;
-      v27 = 2080;
+      v24 = 138478083;
+      v25 = v18;
+      v26 = 2080;
       uTF8String3 = [v21 UTF8String];
-      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Set redirect URL %{private}@  SHA %s", &v25, 0x16u);
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Set redirect URL %{private}@  SHA %s", &v24, 0x16u);
     }
   }
 
@@ -144,7 +143,6 @@ LABEL_9:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

@@ -11,7 +11,7 @@
 
 - (void)transformMatrix:(_OWORD *)matrix@<X8>
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = a2[5];
   matrix[4] = a2[4];
   matrix[5] = v4;
@@ -24,73 +24,57 @@
   v7 = a2[3];
   matrix[2] = a2[2];
   matrix[3] = v7;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = *(self + 8);
-  v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v32 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v12);
+        v13 = *(*(&v22 + 1) + 8 * v12);
         if (v13)
         {
-          v14 = matrix[5];
-          v22[4] = matrix[4];
-          v22[5] = v14;
-          v15 = matrix[7];
-          v22[6] = matrix[6];
-          v22[7] = v15;
-          v16 = matrix[1];
-          v22[0] = *matrix;
-          v22[1] = v16;
-          v17 = matrix[3];
-          v22[2] = matrix[2];
-          v22[3] = v17;
-          [v13 transformMatrix:v22];
+          objc_msgSend_transformMatrix_(v13, *matrix, *(matrix + 1), *(matrix + 2), *(matrix + 3), *(matrix + 4), *(matrix + 5), *(matrix + 6), *(matrix + 7), *(matrix + 8), *(matrix + 9), *(matrix + 10), *(matrix + 11), *(matrix + 12), *(matrix + 13), *(matrix + 14), *(matrix + 15));
         }
 
         else
         {
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
-          v28 = 0u;
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
-          v24 = 0u;
+          v20 = 0u;
+          v21 = 0u;
+          v18 = 0u;
+          v19 = 0u;
+          v16 = 0u;
+          v17 = 0u;
+          v14 = 0u;
+          v15 = 0u;
         }
 
-        v18 = v28;
-        matrix[4] = v27;
-        matrix[5] = v18;
-        v19 = v30;
-        matrix[6] = v29;
-        matrix[7] = v19;
-        v20 = v24;
-        *matrix = v23;
-        matrix[1] = v20;
-        v21 = v26;
+        matrix[4] = v18;
+        matrix[5] = v19;
+        matrix[6] = v20;
+        matrix[7] = v21;
+        *matrix = v14;
+        matrix[1] = v15;
         ++v12;
-        matrix[2] = v25;
-        matrix[3] = v21;
+        matrix[2] = v16;
+        matrix[3] = v17;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -99,49 +83,47 @@
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)transformTime:(SEL)time
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *retstr = *a4;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = self->_transforms;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         if (v10)
         {
-          v12 = *&retstr->var0;
-          var3 = retstr->var3;
-          [v10 transformTime:&v12];
+          objc_msgSend_transformTime_(v10, retstr->var0, *&retstr->var1, retstr->var3);
         }
 
         else
         {
-          v14 = 0uLL;
-          v15 = 0;
+          v12 = 0uLL;
+          v13 = 0;
         }
 
-        *&retstr->var0 = v14;
-        retstr->var3 = v15;
+        *&retstr->var0 = v12;
+        retstr->var3 = v13;
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);

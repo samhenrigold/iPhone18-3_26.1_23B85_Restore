@@ -24,19 +24,18 @@
   changeCopy = change;
   nameCopy = name;
   dispatch_assert_queue_V2(self->super._dispatchQueue);
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
     v8 = changeCopy;
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->super._ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_8;
       }
 
-      v13 = self->super._ucat;
+      ucat = self->super._ucat;
       v8 = changeCopy;
     }
 
@@ -54,11 +53,8 @@
     StringFromNRLinkType = createStringFromNRLinkType();
     [changeCopy linkSubtype];
     StringFromNRLinkSubtype = createStringFromNRLinkSubtype();
-    [changeCopy proxyServiceInterfaceName];
-    v17 = v16 = StringFromNRLinkSubtype;
-    v14 = v9;
-    v15 = StringFromNRLinkType;
-    LogPrintF();
+    proxyServiceInterfaceName = [changeCopy proxyServiceInterfaceName];
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient deviceProxyServiceInterfaceNameDidChange:interfaceName:]", 30, "NetworkRelayMonitor interface changed: connected %s, type %@, subtype %@, interface '%@'", v9, StringFromNRLinkType, StringFromNRLinkSubtype, proxyServiceInterfaceName);
   }
 
 LABEL_8:
@@ -72,23 +68,22 @@ LABEL_8:
 - (void)deviceLinkTypeDidChange:(id)change linkType:(unsigned __int8)type linkSubtype:(unsigned __int8)subtype
 {
   dispatch_assert_queue_V2(self->super._dispatchQueue);
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->super._ucat;
       if (!_LogCategory_Initialize())
       {
         return;
       }
 
-      v8 = self->super._ucat;
+      ucat = self->super._ucat;
     }
 
     StringFromNRLinkType = createStringFromNRLinkType();
     StringFromNRLinkSubtype = createStringFromNRLinkSubtype();
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient deviceLinkTypeDidChange:linkType:linkSubtype:]", 30, "NetworkRelayMonitor link type changed: type %@, subtype %@", StringFromNRLinkType, StringFromNRLinkSubtype);
   }
 }
 
@@ -98,28 +93,37 @@ LABEL_8:
   changeCopy = change;
   dispatch_assert_queue_V2(self->super._dispatchQueue);
   proxyServiceInterfaceName = [changeCopy proxyServiceInterfaceName];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->super._ucat;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_5;
+        goto LABEL_8;
       }
 
-      v10 = self->super._ucat;
+      ucat = self->super._ucat;
+    }
+
+    if (connectedCopy)
+    {
+      v8 = "yes";
+    }
+
+    else
+    {
+      v8 = "no";
     }
 
     [changeCopy linkType];
     StringFromNRLinkType = createStringFromNRLinkType();
     [changeCopy linkSubtype];
     StringFromNRLinkSubtype = createStringFromNRLinkSubtype();
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient deviceIsConnectedDidChange:isConnected:]", 30, "NetworkRelayMonitor connected changed: %s, type %@, subtype %@, interface '%@'", v8, StringFromNRLinkType, StringFromNRLinkSubtype, proxyServiceInterfaceName);
   }
 
-LABEL_5:
+LABEL_8:
   if (connectedCopy && !self->_networkRelayProxyInterface && [proxyServiceInterfaceName length])
   {
     objc_storeStrong(&self->_networkRelayProxyInterface, proxyServiceInterfaceName);
@@ -152,43 +156,39 @@ LABEL_5:
 
         else
         {
-          v12 = *MEMORY[0x277CCA590];
-          v8 = NSErrorF_safe();
+          v8 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No captive interface");
           [(SKSetupBase *)self _completeWithError:v8];
         }
       }
 
       else
       {
-        v11 = *MEMORY[0x277CCA590];
-        v7 = NSErrorF_safe();
-        [(SKSetupBase *)self _completeWithError:v7, v5];
+        v7 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "Bad captive URL: '%@'", v5);
+        [(SKSetupBase *)self _completeWithError:v7];
       }
     }
 
     else
     {
-      v10 = *MEMORY[0x277CCA590];
-      v6 = NSErrorF_safe();
+      v6 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No captive URL");
       [(SKSetupBase *)self _completeWithError:v6];
     }
   }
 
   else
   {
-    v9 = *MEMORY[0x277CCA590];
-    v5 = NSErrorF_safe();
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No captive SSID");
     [(SKSetupBase *)self _completeWithError:v5];
   }
 }
 
 - (void)_runCaptiveNetworkLoginStart
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  v7[1] = *MEMORY[0x277D85DE8];
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -198,21 +198,19 @@ LABEL_5:
       ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _runCaptiveNetworkLoginStart]", 30, "CaptiveNetworkLogin request");
   }
 
 LABEL_5:
-  v8 = @"timeoutSeconds";
-  v9[0] = &unk_28776E1C8;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __63__SKSetupCaptiveNetworkJoinClient__runCaptiveNetworkLoginStart__block_invoke;
-  v7[3] = &unk_279BB86A0;
-  v7[4] = self;
-  [(SKSetupBase *)self sendRequestID:@"_cnLg" requestMessage:MEMORY[0x277CBEC10] options:v4 responseHandler:v7];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = @"timeoutSeconds";
+  v7[0] = &unk_28776E1C8;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __63__SKSetupCaptiveNetworkJoinClient__runCaptiveNetworkLoginStart__block_invoke;
+  v5[3] = &unk_279BB86A0;
+  v5[4] = self;
+  [(SKSetupBase *)self sendRequestID:@"_cnLg" requestMessage:MEMORY[0x277CBEC10] options:v4 responseHandler:v5];
 }
 
 void __63__SKSetupCaptiveNetworkJoinClient__runCaptiveNetworkLoginStart__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -222,101 +220,100 @@ void __63__SKSetupCaptiveNetworkJoinClient__runCaptiveNetworkLoginStart__block_i
   v9 = a4;
   v10 = v7;
   v11 = *(a1 + 32);
-  v12 = *v11[18];
-  v23 = v10;
-  if (!v10 || v9)
+  v12 = v11[18];
+  v13 = *v12;
+  v20 = v10;
+  if (v10 && !v9)
   {
-    if (v12 > 90)
+    v14 = v10;
+    if (v13 <= 30)
     {
-      goto LABEL_10;
-    }
-
-    if (v12 == -1)
-    {
-      v14 = _LogCategory_Initialize();
-      v11 = *(a1 + 32);
-      if (!v14)
+      if (v13 == -1)
       {
-LABEL_10:
-        if (v9)
+        v19 = _LogCategory_Initialize();
+        v11 = *(a1 + 32);
+        if (!v19)
         {
-          [v11 _completeWithError:v9];
+          v14 = v20;
+          goto LABEL_15;
         }
 
-        else
-        {
-          v15 = *MEMORY[0x277CCA590];
-          v16 = NSErrorF_safe();
-          [v11 _completeWithError:v16];
-        }
-
-        goto LABEL_16;
+        v12 = v11[18];
       }
 
-      v18 = v11[18];
+      v15 = CUPrintNSObjectOneLine();
+      LogPrintF(v12, "[SKSetupCaptiveNetworkJoinClient _runCaptiveNetworkLoginStart]_block_invoke", 30, "CaptiveNetworkLogin response: %@", v15);
+
+      v14 = v20;
+      v11 = *(a1 + 32);
     }
 
-    v22 = CUPrintNSError();
-    LogPrintF();
-
-    v11 = *(a1 + 32);
-    goto LABEL_10;
+LABEL_15:
+    [v11 _runCaptiveNetworkLoginResponse:v14];
+    goto LABEL_16;
   }
 
-  v13 = v10;
-  if (v12 <= 30)
+  if (v13 <= 90)
   {
-    if (v12 != -1)
+    if (v13 != -1)
     {
-LABEL_5:
-      v21 = CUPrintNSObjectOneLine();
-      LogPrintF();
+LABEL_8:
+      v16 = CUPrintNSError();
+      LogPrintF(v12, "[SKSetupCaptiveNetworkJoinClient _runCaptiveNetworkLoginStart]_block_invoke", 90, "### CaptiveNetworkLogin request failed: %@", v16);
 
-      [*(a1 + 32) _runCaptiveNetworkLoginResponse:{v23, v21}];
-      goto LABEL_16;
+      v11 = *(a1 + 32);
+      goto LABEL_10;
     }
 
     v17 = _LogCategory_Initialize();
     v11 = *(a1 + 32);
     if (v17)
     {
-      v19 = v11[18];
-      goto LABEL_5;
+      v12 = v11[18];
+      goto LABEL_8;
     }
-
-    v13 = v23;
   }
 
-  [v11 _runCaptiveNetworkLoginResponse:{v13, v20}];
+LABEL_10:
+  if (v9)
+  {
+    [v11 _completeWithError:v9];
+  }
+
+  else
+  {
+    v18 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No response, no error");
+    [v11 _completeWithError:v18];
+  }
+
 LABEL_16:
 }
 
 - (void)_runNetworkRelaySelfStart
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy__596;
-  v55 = __Block_byref_object_dispose__597;
-  v56 = 0;
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke;
-  v50[3] = &unk_279BB8670;
-  v50[4] = self;
-  v50[5] = &v51;
-  v3 = MEMORY[0x26676A4C0](v50, a2);
+  v47 = *MEMORY[0x277D85DE8];
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__596;
+  v44 = __Block_byref_object_dispose__597;
+  v45 = 0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke;
+  v39[3] = &unk_279BB8670;
+  v39[4] = self;
+  v39[5] = &v40;
+  v3 = MEMORY[0x26676A4C0](v39, a2);
   copySharedDeviceManager = self->_nrDeviceManager;
   if (!copySharedDeviceManager)
   {
     copySharedDeviceManager = [MEMORY[0x277D2C9E0] copySharedDeviceManager];
     if (!copySharedDeviceManager)
     {
-      v36 = *MEMORY[0x277CCA590];
-      v37 = NSErrorF_safe();
-      copySharedDeviceManager = v52[5];
-      v52[5] = v37;
+      v31 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "Get NRDeviceManager failed");
+      copySharedDeviceManager = v41[5];
+      v41[5] = v31;
       goto LABEL_27;
     }
 
@@ -326,26 +323,25 @@ LABEL_16:
   v5 = self->_nrDeviceIdentifier;
   if (v5)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 < 31)
+    ucat = self->super._ucat;
+    if (ucat->var0 < 31)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
-        ucat = self->super._ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_9;
         }
 
-        v41 = self->super._ucat;
+        ucat = self->super._ucat;
       }
 
       nrDeviceIdentifier = [(NRDeviceIdentifier *)v5 nrDeviceIdentifier];
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelaySelfStart]", 30, "NetworkRelaySetup unregister device: re-setup, %@", nrDeviceIdentifier);
     }
 
 LABEL_9:
-    [(NRDeviceManager *)copySharedDeviceManager unregisterDevice:v5, nrDeviceIdentifier];
+    [(NRDeviceManager *)copySharedDeviceManager unregisterDevice:v5];
     nrDeviceIdentifier = self->_nrDeviceIdentifier;
     self->_nrDeviceIdentifier = 0;
   }
@@ -353,10 +349,9 @@ LABEL_9:
   newEphemeralDeviceIdentifier = [MEMORY[0x277D2C9D0] newEphemeralDeviceIdentifier];
   if (!newEphemeralDeviceIdentifier)
   {
-    v23 = *MEMORY[0x277CCA590];
-    v24 = NSErrorF_safe();
-    v10 = v52[5];
-    v52[5] = v24;
+    v22 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "New NRDeviceIdentifier failed");
+    v10 = v41[5];
+    v41[5] = v22;
     goto LABEL_26;
   }
 
@@ -365,64 +360,61 @@ LABEL_9:
   uTF8String = [(NSString *)self->_networkRelayPeerIPStr UTF8String];
   if (!uTF8String)
   {
-    v25 = *MEMORY[0x277CCA590];
-    v26 = NSErrorF_safe();
-    v27 = v52[5];
-    v52[5] = v26;
+    v23 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960534, "No peer IP");
+    v24 = v41[5];
+    v41[5] = v23;
 
     goto LABEL_26;
   }
 
-  memset(v48, 0, sizeof(v48));
-  v49 = 0;
-  v47 = 0;
-  if (StringToSockAddr())
+  memset(v37, 0, sizeof(v37));
+  v38 = 0;
+  v36 = 0;
+  v12 = StringToSockAddr();
+  if (v12)
   {
-    v28 = *MEMORY[0x277CCA590];
-    v29 = NSErrorF_safe();
-    v14 = v52[5];
-    v52[5] = v29;
+    v25 = NSErrorF_safe(*MEMORY[0x277CCA590], v12, "Convert peer IP failed");
+    v14 = v41[5];
+    v41[5] = v25;
     goto LABEL_25;
   }
 
-  v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v48 length:v47];
-  [v10 setAwdlAddressData:v12];
+  v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v37 length:v36];
+  [v10 setAwdlAddressData:v13];
 
   if ([(NSData *)self->super._pskData length])
   {
     [(NSData *)self->super._pskData bytes];
     [(NSData *)self->super._pskData length];
-    v13 = *MEMORY[0x277D029A0];
     CryptoHKDF();
-    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v57 length:{32, v57}];
+    v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v46 length:{32, v46}];
   }
 
   else
   {
     skCnx = self->super._skCnx;
-    v16 = v52;
-    obj = v52[5];
+    v16 = v41;
+    obj = v41[5];
     v14 = [(SKConnection *)skCnx deriveKeyWithSaltPtr:"NetworkRelaySalt" saltLen:16 infoPtr:"NetworkRelayInfo" infoLen:16 keyLen:32 error:&obj];
     objc_storeStrong(v16 + 5, obj);
   }
 
   if (!v14)
   {
-    v30 = v52;
-    v31 = v52[5];
-    if (v31)
+    v26 = v41;
+    v27 = v41[5];
+    if (v27)
     {
-      v32 = v31;
-      v17 = v30[5];
-      v30[5] = v32;
+      v28 = v27;
+      v17 = v26[5];
+      v26[5] = v28;
     }
 
     else
     {
-      v38 = *MEMORY[0x277CCA590];
-      v39 = NSErrorF_safe();
-      v17 = v52[5];
-      v52[5] = v39;
+      v32 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "Derive key failed");
+      v17 = v41[5];
+      v41[5] = v32;
     }
 
     goto LABEL_24;
@@ -436,41 +428,38 @@ LABEL_9:
   v18 = [objc_alloc(MEMORY[0x277D2C9F0]) initWithDeviceIdentifier:self->_nrDeviceIdentifier delegate:self queue:self->super._dispatchQueue];
   if (!v18)
   {
-    v33 = *MEMORY[0x277CCA590];
-    v34 = NSErrorF_safe();
-    v35 = v52[5];
-    v52[5] = v34;
+    v29 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960534, "No create NRDeviceMonitor failed");
+    v30 = v41[5];
+    v41[5] = v29;
 
     goto LABEL_23;
   }
 
   objc_storeStrong(&self->_nrDeviceMonitor, v18);
-  v19 = self->super._ucat->var0;
-  if (v19 <= 30)
+  v19 = self->super._ucat;
+  if (v19->var0 <= 30)
   {
-    if (v19 == -1)
+    if (v19->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
 
-      v40 = self->super._ucat;
+      v19 = self->super._ucat;
     }
 
-    nrDeviceIdentifier = newEphemeralDeviceIdentifier;
-    v43 = uTF8String;
-    LogPrintF();
+    LogPrintF(v19, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelaySelfStart]", 30, "NetworkRelaySetup register device start: %@, peerIP %s", newEphemeralDeviceIdentifier, uTF8String);
   }
 
 LABEL_22:
   dispatchQueue = self->super._dispatchQueue;
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke_87;
-  v45[3] = &unk_279BB8370;
-  v45[4] = self;
-  [(NRDeviceManager *)copySharedDeviceManager registerDevice:newEphemeralDeviceIdentifier properties:v10 operationalproperties:v17 queue:dispatchQueue completionBlock:v45, nrDeviceIdentifier, v43];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke_87;
+  v34[3] = &unk_279BB8370;
+  v34[4] = self;
+  [(NRDeviceManager *)copySharedDeviceManager registerDevice:newEphemeralDeviceIdentifier properties:v10 operationalproperties:v17 queue:dispatchQueue completionBlock:v34];
   v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->super._dispatchQueue);
   objc_storeStrong(&self->_networkRelayTimer, v21);
   handler[0] = MEMORY[0x277D85DD0];
@@ -492,43 +481,40 @@ LABEL_26:
 LABEL_27:
   v3[2](v3);
 
-  _Block_object_dispose(&v51, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v40, 8);
 }
 
-uint64_t __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke(uint64_t result)
+void *__60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = result[5];
   if (!*(*(v1 + 8) + 40))
   {
     return result;
   }
 
   v2 = result;
-  v3 = *(result + 32);
-  v4 = *v3[18];
-  if (v4 <= 90)
+  v3 = result[4];
+  v4 = v3[18];
+  if (*v4 <= 90)
   {
-    if (v4 == -1)
+    if (*v4 == -1)
     {
-      v5 = v3[18];
       v6 = _LogCategory_Initialize();
-      v3 = *(v2 + 32);
-      v1 = *(v2 + 40);
+      v3 = v2[4];
+      v1 = v2[5];
       if (!v6)
       {
         goto LABEL_7;
       }
 
-      v8 = v3[18];
-      v9 = *(*(v1 + 8) + 40);
+      v4 = v3[18];
     }
 
-    v10 = CUPrintNSError();
-    LogPrintF();
+    v5 = CUPrintNSError();
+    LogPrintF(v4, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelaySelfStart]_block_invoke", 90, "### NetworkRelaySetup request failed: %@", v5);
 
-    v3 = *(v2 + 32);
-    v1 = *(v2 + 40);
+    v3 = v2[4];
+    v1 = v2[5];
   }
 
 LABEL_7:
@@ -539,59 +525,58 @@ LABEL_7:
 
 uint64_t __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invoke_87(uint64_t a1, void *a2)
 {
-  v14 = a2;
+  v10 = a2;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 32));
-  v3 = v14;
+  v3 = v10;
   v4 = *(a1 + 32);
-  v5 = *v4[18];
-  if (v14)
+  v5 = v4[18];
+  v6 = *v5;
+  if (v10)
   {
-    if (v5 <= 90)
+    if (v6 <= 90)
     {
-      if (v5 != -1)
+      if (v6 == -1)
       {
-LABEL_4:
-        v13 = CUPrintNSError();
-        LogPrintF();
+        v8 = _LogCategory_Initialize();
+        v4 = *(a1 + 32);
+        if (!v8)
+        {
+          goto LABEL_9;
+        }
 
-        v4 = [*(a1 + 32) _completeWithError:{v14, v13}];
-LABEL_10:
-        v3 = v14;
-        goto LABEL_11;
+        v5 = v4[18];
       }
 
-      v6 = v4[18];
-      v7 = _LogCategory_Initialize();
+      v7 = CUPrintNSError();
+      LogPrintF(v5, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelaySelfStart]_block_invoke", 90, "### NetworkRelaySetup register device failed: %@", v7);
+
       v4 = *(a1 + 32);
-      if (v7)
-      {
-        v10 = v4[18];
-        goto LABEL_4;
-      }
     }
 
-    v4 = [v4 _completeWithError:{v14, v12}];
+LABEL_9:
+    v4 = [v4 _completeWithError:v10];
     goto LABEL_10;
   }
 
-  if (v5 > 30)
+  if (v6 > 30)
   {
     goto LABEL_11;
   }
 
-  if (v5 != -1)
+  if (v6 != -1)
   {
 LABEL_7:
-    v4 = LogPrintF();
-    goto LABEL_10;
+    v4 = LogPrintF(v5, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelaySelfStart]_block_invoke", 30, "NetworkRelaySetup register device completed");
+LABEL_10:
+    v3 = v10;
+    goto LABEL_11;
   }
 
-  v8 = v4[18];
   v4 = _LogCategory_Initialize();
   v3 = 0;
   if (v4)
   {
-    v9 = *(*(a1 + 32) + 144);
+    v5 = *(*(a1 + 32) + 144);
     goto LABEL_7;
   }
 
@@ -618,86 +603,80 @@ void __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelaySelfStart__block_invo
       v2 = *(a1 + 40);
     }
 
-    v8 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF_safe();
-    [v2 _completeWithError:v9];
+    v8 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960574, "NetworkRelaySetup timeout");
+    [v2 _completeWithError:v8];
   }
 }
 
 - (BOOL)_runNetworkRelayPeerStart
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v21 = 0;
-  v23 = 0;
-  v22 = 0;
-  if (CUGetInterfaceAddresses())
-  {
-    v13 = *MEMORY[0x277CCA590];
-    v14 = NSErrorF_safe();
-    [(SKSetupBase *)self _completeWithError:v14];
-
-    v4 = 0;
-    goto LABEL_9;
-  }
-
-  v3 = SockAddrToString();
-  v4 = v3 == 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v17 = 0;
+  v19 = 0;
+  v18 = 0;
+  v3 = CUGetInterfaceAddresses();
   if (v3)
   {
-    v15 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    [(SKSetupBase *)self _completeWithError:v6];
+    v13 = NSErrorF_safe(*MEMORY[0x277CCA590], v3, "Get awdl0 address failed");
+    [(SKSetupBase *)self _completeWithError:v13];
+
+    return 0;
+  }
+
+  v4 = SockAddrToString();
+  v5 = v4 == 0;
+  if (v4)
+  {
+    v7 = NSErrorF_safe(*MEMORY[0x277CCA590], v4, "Convert awdl0 address failed");
+    [(SKSetupBase *)self _completeWithError:v7];
     goto LABEL_8;
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v28];
-  v26 = @"_ip";
-  v27 = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-  v24 = @"timeoutSeconds";
-  v25 = &unk_28776E1C8;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v24];
+  v22 = @"_ip";
+  v23 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v20 = @"timeoutSeconds";
+  v21 = &unk_28776E1C8;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->super._ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v16 = self->super._ucat;
+      ucat = self->super._ucat;
     }
 
-    v17 = CUPrintNSObjectOneLine();
-    LogPrintF();
+    v10 = CUPrintNSObjectOneLine();
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelayPeerStart]", 30, "NetworkRelaySetup peer request: %@", v10);
   }
 
 LABEL_7:
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelayPeerStart__block_invoke;
-  v18[3] = &unk_279BB7EB0;
-  v18[4] = self;
-  v19 = v5;
-  v10 = v5;
-  [(SKSetupBase *)self sendRequestID:@"_ntRl" requestMessage:v6 options:v7 responseHandler:v18];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelayPeerStart__block_invoke;
+  v14[3] = &unk_279BB7EB0;
+  v14[4] = self;
+  v15 = v6;
+  v11 = v6;
+  [(SKSetupBase *)self sendRequestID:@"_ntRl" requestMessage:v7 options:v8 responseHandler:v14];
 
 LABEL_8:
-LABEL_9:
-  v11 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 void __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelayPeerStart__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = a2;
+  v21 = a2;
   v7 = a3;
   v8 = a4;
-  if (v29 && !v8)
+  if (v21 && !v8)
   {
     CFStringGetTypeID();
     v9 = CFDictionaryGetTypedValue();
@@ -705,62 +684,59 @@ void __60__SKSetupCaptiveNetworkJoinClient__runNetworkRelayPeerStart__block_invo
     v11 = *(a1 + 32);
     if (!v10)
     {
-      v21 = *MEMORY[0x277CCA590];
-      v22 = NSErrorF_safe();
-      [v11 _completeWithError:v22];
+      v20 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960535, "No peer address");
+      [v11 _completeWithError:v20];
 
       goto LABEL_16;
     }
 
     objc_storeStrong(v11 + 31, v9);
     v12 = *(a1 + 32);
-    v13 = *v12[18];
-    if (v13 <= 30)
+    v13 = v12[18];
+    if (*v13 <= 30)
     {
-      if (v13 != -1)
+      if (*v13 == -1)
       {
-LABEL_6:
-        v26 = *(a1 + 40);
-        LogPrintF();
-        [*(a1 + 32) _run];
-LABEL_16:
+        v19 = _LogCategory_Initialize();
+        v12 = *(a1 + 32);
+        if (!v19)
+        {
+          goto LABEL_15;
+        }
 
-        goto LABEL_17;
+        v13 = v12[18];
       }
 
-      v20 = _LogCategory_Initialize();
+      LogPrintF(v13, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelayPeerStart]_block_invoke", 30, "NetworkRelaySetup peer succeeded: selfIP %@, peerIP %@", *(a1 + 40), v9);
       v12 = *(a1 + 32);
-      if (v20)
-      {
-        v24 = v12[18];
-        goto LABEL_6;
-      }
     }
 
+LABEL_15:
     [v12 _run];
-    goto LABEL_16;
+LABEL_16:
+
+    goto LABEL_17;
   }
 
   v14 = *(a1 + 32);
-  v15 = *v14[18];
-  if (v15 <= 90)
+  v15 = v14[18];
+  if (*v15 <= 90)
   {
-    if (v15 != -1)
+    if (*v15 != -1)
     {
 LABEL_9:
-      v27 = CUPrintNSError();
-      LogPrintF();
+      v16 = CUPrintNSError();
+      LogPrintF(v15, "[SKSetupCaptiveNetworkJoinClient _runNetworkRelayPeerStart]_block_invoke", 90, "### NetworkRelaySetup peer failed: %@", v16);
 
       v14 = *(a1 + 32);
       goto LABEL_11;
     }
 
-    v16 = v14[18];
     v17 = _LogCategory_Initialize();
     v14 = *(a1 + 32);
     if (v17)
     {
-      v23 = v14[18];
+      v15 = v14[18];
       goto LABEL_9;
     }
   }
@@ -773,9 +749,8 @@ LABEL_11:
 
   else
   {
-    v18 = *MEMORY[0x277CCA590];
-    v19 = NSErrorF_safe();
-    [v14 _completeWithError:v19];
+    v18 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No response, no error");
+    [v14 _completeWithError:v18];
   }
 
 LABEL_17:
@@ -806,10 +781,10 @@ LABEL_17:
   if (v10)
   {
 LABEL_6:
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -819,7 +794,7 @@ LABEL_6:
         ucat = self->super._ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _runAWDLFoundDevice:]", 30, "AWDL browser found: %@", deviceCopy);
     }
 
 LABEL_10:
@@ -829,22 +804,22 @@ LABEL_10:
   }
 
 LABEL_15:
-  v12 = self->super._ucat->var0;
-  if (v12 > 30)
+  v12 = self->super._ucat;
+  if (v12->var0 > 30)
   {
     goto LABEL_11;
   }
 
-  if (v12 != -1)
+  if (v12->var0 != -1)
   {
     goto LABEL_17;
   }
 
   if (_LogCategory_Initialize())
   {
-    v13 = self->super._ucat;
+    v12 = self->super._ucat;
 LABEL_17:
-    LogPrintF();
+    LogPrintF(v12, "[SKSetupCaptiveNetworkJoinClient _runAWDLFoundDevice:]", 30, "AWDL browser ignore name mismatch: %@", deviceCopy);
   }
 
 LABEL_11:
@@ -886,15 +861,14 @@ void __58__SKSetupCaptiveNetworkJoinClient__runAWDLFoundTimerStart__block_invoke
       v2 = *(a1 + 40);
     }
 
-    v8 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF_safe();
-    [v2 _completeWithError:v9];
+    v8 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960574, "AWDL find timeout");
+    [v2 _completeWithError:v8];
   }
 }
 
 - (void)_runAWDLStart
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   [(CUBonjourBrowser *)self->_awdlBrowser invalidate];
   awdlPeerDevice = self->_awdlPeerDevice;
   self->_awdlPeerDevice = 0;
@@ -908,27 +882,27 @@ void __58__SKSetupCaptiveNetworkJoinClient__runAWDLFoundTimerStart__block_invoke
   [(CUBonjourBrowser *)v4 setDomain:@"local."];
   [(CUBonjourBrowser *)v4 setInterfaceName:@"awdl0"];
   [(CUBonjourBrowser *)v4 setServiceType:@"_setupkit._tcp"];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke;
-  v17[3] = &unk_279BB7E60;
-  v17[4] = v4;
-  v17[5] = self;
-  [(CUBonjourBrowser *)v4 setDeviceFoundHandler:v17];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_2;
-  v16[3] = &unk_279BB7E88;
-  v16[4] = v4;
-  v16[5] = self;
-  [(CUBonjourBrowser *)v4 setDeviceChangedHandler:v16];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke;
+  v13[3] = &unk_279BB7E60;
+  v13[4] = v4;
+  v13[5] = self;
+  [(CUBonjourBrowser *)v4 setDeviceFoundHandler:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_2;
+  v12[3] = &unk_279BB7E88;
+  v12[4] = v4;
+  v12[5] = self;
+  [(CUBonjourBrowser *)v4 setDeviceChangedHandler:v12];
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _runAWDLStart]", 30, "AWDL browser start");
       goto LABEL_5;
     }
 
@@ -941,44 +915,41 @@ LABEL_3:
 
 LABEL_5:
   [(CUBonjourBrowser *)v4 activate];
-  *(v22 + 5) = 0;
-  v22[0] = 0;
+  *(v18 + 5) = 0;
+  v18[0] = 0;
   RandomString();
-  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v22];
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v18];
   objc_storeStrong(&self->_awdlName, v7);
-  v8 = self->super._ucat->var0;
-  if (v8 <= 30)
+  v8 = self->super._ucat;
+  if (v8->var0 <= 30)
   {
-    if (v8 == -1)
+    if (v8->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_9;
       }
 
-      v13 = self->super._ucat;
+      v8 = self->super._ucat;
     }
 
-    v14 = v7;
-    LogPrintF();
+    LogPrintF(v8, "[SKSetupCaptiveNetworkJoinClient _runAWDLStart]", 30, "AWDLStart request: name '%@'", v7);
   }
 
 LABEL_9:
   self->_awdlAdvertiserPeerStarted = 0;
-  v20 = @"_nm";
-  v21 = v7;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:{1, v14}];
-  v18 = @"timeoutSeconds";
-  v19 = &unk_28776E1C8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_3;
-  v15[3] = &unk_279BB86A0;
-  v15[4] = self;
-  [(SKSetupBase *)self sendRequestID:@"_awSt" requestMessage:v9 options:v10 responseHandler:v15];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v16 = @"_nm";
+  v17 = v7;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v14 = @"timeoutSeconds";
+  v15 = &unk_28776E1C8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_3;
+  v11[3] = &unk_279BB86A0;
+  v11[4] = self;
+  [(SKSetupBase *)self sendRequestID:@"_awSt" requestMessage:v9 options:v10 responseHandler:v11];
 }
 
 void *__48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke(uint64_t a1, uint64_t a2)
@@ -1007,29 +978,29 @@ void *__48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_2(uint64
 
 void __48__SKSetupCaptiveNetworkJoinClient__runAWDLStart__block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v20 = a2;
+  v16 = a2;
   v7 = a3;
   v8 = a4;
   v9 = *(a1 + 32);
-  v10 = **(v9 + 144);
-  if (v20 && !v8)
+  v10 = *(v9 + 144);
+  v11 = *v10;
+  if (v16 && !v8)
   {
-    if (v10 <= 30)
+    if (v11 <= 30)
     {
-      if (v10 == -1)
+      if (v11 == -1)
       {
-        v15 = *(v9 + 144);
-        v16 = _LogCategory_Initialize();
+        v15 = _LogCategory_Initialize();
         v9 = *(a1 + 32);
-        if (!v16)
+        if (!v15)
         {
           goto LABEL_14;
         }
 
-        v18 = *(v9 + 144);
+        v10 = *(v9 + 144);
       }
 
-      LogPrintF();
+      LogPrintF(v10, "[SKSetupCaptiveNetworkJoinClient _runAWDLStart]_block_invoke_3", 30, "AWDLStart succeeded");
       v9 = *(a1 + 32);
     }
 
@@ -1039,24 +1010,23 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (v10 <= 90)
+  if (v11 <= 90)
   {
-    if (v10 != -1)
+    if (v11 != -1)
     {
 LABEL_8:
-      v19 = CUPrintNSError();
-      LogPrintF();
+      v12 = CUPrintNSError();
+      LogPrintF(v10, "[SKSetupCaptiveNetworkJoinClient _runAWDLStart]_block_invoke_3", 90, "### AWDLStart failed: %@", v12);
 
       v9 = *(a1 + 32);
       goto LABEL_10;
     }
 
-    v11 = *(v9 + 144);
-    v12 = _LogCategory_Initialize();
+    v13 = _LogCategory_Initialize();
     v9 = *(a1 + 32);
-    if (v12)
+    if (v13)
     {
-      v17 = *(v9 + 144);
+      v10 = *(v9 + 144);
       goto LABEL_8;
     }
   }
@@ -1069,8 +1039,7 @@ LABEL_10:
 
   else
   {
-    v13 = *MEMORY[0x277CCA590];
-    v14 = NSErrorF_safe();
+    v14 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No response, no error");
     [v9 _completeWithError:v14];
   }
 
@@ -1225,11 +1194,11 @@ LABEL_30:
             return;
           }
 
-          var0 = self->super._ucat->var0;
+          ucat = self->super._ucat;
         }
 
-        while (var0 > 30);
-        if (var0 == -1)
+        while (ucat->var0 > 30);
+        if (ucat->var0 == -1)
         {
           break;
         }
@@ -1240,12 +1209,32 @@ LABEL_34:
           v12 = off_279BB7ED0[runState];
         }
 
-        if (v4 < 0x19 && ((0x1FFF8FFu >> v4) & 1) != 0)
+        else if (runState <= 9)
         {
-          v14 = off_279BB7ED0[v4];
+          v12 = "?";
         }
 
-        LogPrintF();
+        else
+        {
+          v12 = "User";
+        }
+
+        if (v4 < 0x19 && ((0x1FFF8FFu >> v4) & 1) != 0)
+        {
+          v13 = off_279BB7ED0[v4];
+        }
+
+        else if (v4 <= 9)
+        {
+          v13 = "?";
+        }
+
+        else
+        {
+          v13 = "User";
+        }
+
+        LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _run]", 30, "State: %s -> %s", v12, v13);
       }
 
       if (_LogCategory_Initialize())
@@ -1261,26 +1250,22 @@ LABEL_34:
 - (void)_postEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy eventType] != 201)
+  if ([eventCopy eventType] == 201)
   {
-    v8.receiver = self;
-    v8.super_class = SKSetupCaptiveNetworkJoinClient;
-    [(SKSetupBase *)&v8 _postEvent:eventCopy];
-    goto LABEL_8;
-  }
-
-  var0 = self->super._ucat->var0;
-  if (var0 > 30)
-  {
-    goto LABEL_7;
-  }
-
-  if (var0 == -1)
-  {
-    if (_LogCategory_Initialize())
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      ucat = self->super._ucat;
-      goto LABEL_4;
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_7;
+        }
+
+        ucat = self->super._ucat;
+      }
+
+      LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _postEvent:]", 30, "ReportEvent: %@", eventCopy);
     }
 
 LABEL_7:
@@ -1288,9 +1273,9 @@ LABEL_7:
     goto LABEL_8;
   }
 
-LABEL_4:
-  LogPrintF();
-  [(SKSetupCaptiveNetworkJoinClient *)self _captiveProbeRequest];
+  v6.receiver = self;
+  v6.super_class = SKSetupCaptiveNetworkJoinClient;
+  [(SKSetupBase *)&v6 _postEvent:eventCopy];
 LABEL_8:
 }
 
@@ -1318,9 +1303,9 @@ LABEL_8:
     self->_networkRelayTimer = 0;
   }
 
-  v20 = self->_nrDeviceManager;
+  v17 = self->_nrDeviceManager;
   v10 = self->_nrDeviceIdentifier;
-  if (v20)
+  if (v17)
   {
     v11 = v10 == 0;
   }
@@ -1332,31 +1317,27 @@ LABEL_8:
 
   if (!v11)
   {
-    var0 = self->super._ucat->var0;
-    if (var0 <= 30)
+    ucat = self->super._ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 != -1)
+      if (ucat->var0 == -1)
       {
-LABEL_11:
-        nrDeviceIdentifier = [(NRDeviceIdentifier *)v10 nrDeviceIdentifier];
-        LogPrintF();
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_13;
+        }
 
-        [(NRDeviceManager *)v20 unregisterDevice:v10, nrDeviceIdentifier];
-        goto LABEL_14;
+        ucat = self->super._ucat;
       }
 
-      ucat = self->super._ucat;
-      if (_LogCategory_Initialize())
-      {
-        v17 = self->super._ucat;
-        goto LABEL_11;
-      }
+      nrDeviceIdentifier = [(NRDeviceIdentifier *)v10 nrDeviceIdentifier];
+      LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _networkRelayEnsureStopped]", 30, "NetworkRelaySetup unregister device: stop, %@", nrDeviceIdentifier);
     }
 
-    [(NRDeviceManager *)v20 unregisterDevice:v10, v18];
+LABEL_13:
+    [(NRDeviceManager *)v17 unregisterDevice:v10];
   }
 
-LABEL_14:
   nrDeviceIdentifier = self->_nrDeviceIdentifier;
   self->_nrDeviceIdentifier = 0;
 
@@ -1369,11 +1350,11 @@ LABEL_14:
 
 - (void)_captiveProbeRequest
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  var0 = self->super._ucat->var0;
-  if (var0 <= 30)
+  v7[1] = *MEMORY[0x277D85DE8];
+  ucat = self->super._ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1383,21 +1364,19 @@ LABEL_14:
       ucat = self->super._ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[SKSetupCaptiveNetworkJoinClient _captiveProbeRequest]", 30, "CaptiveNetworkProbe request");
   }
 
 LABEL_5:
-  v8 = @"timeoutSeconds";
-  v9[0] = &unk_28776E1C8;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __55__SKSetupCaptiveNetworkJoinClient__captiveProbeRequest__block_invoke;
-  v7[3] = &unk_279BB86A0;
-  v7[4] = self;
-  [(SKSetupBase *)self sendRequestID:@"_cnPb" requestMessage:MEMORY[0x277CBEC10] options:v4 responseHandler:v7];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = @"timeoutSeconds";
+  v7[0] = &unk_28776E1C8;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __55__SKSetupCaptiveNetworkJoinClient__captiveProbeRequest__block_invoke;
+  v5[3] = &unk_279BB86A0;
+  v5[4] = self;
+  [(SKSetupBase *)self sendRequestID:@"_cnPb" requestMessage:MEMORY[0x277CBEC10] options:v4 responseHandler:v5];
 }
 
 void __55__SKSetupCaptiveNetworkJoinClient__captiveProbeRequest__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1407,72 +1386,72 @@ void __55__SKSetupCaptiveNetworkJoinClient__captiveProbeRequest__block_invoke(ui
   v9 = a4;
   v10 = v7;
   v11 = *(a1 + 32);
-  v12 = *v11[18];
-  v23 = v10;
-  if (!v10 || v9)
+  v12 = v11[18];
+  v13 = *v12;
+  v20 = v10;
+  if (v10 && !v9)
   {
-    if (v12 > 90)
+    v14 = v10;
+    if (v13 <= 30)
     {
-      goto LABEL_10;
-    }
-
-    if (v12 == -1)
-    {
-      v14 = _LogCategory_Initialize();
-      v11 = *(a1 + 32);
-      if (!v14)
+      if (v13 == -1)
       {
-LABEL_10:
-        if (v9)
+        v19 = _LogCategory_Initialize();
+        v11 = *(a1 + 32);
+        if (!v19)
         {
-          [v11 _completeWithError:v9];
+          v14 = v20;
+          goto LABEL_15;
         }
 
-        else
-        {
-          v15 = *MEMORY[0x277CCA590];
-          v16 = NSErrorF_safe();
-          [v11 _completeWithError:v16];
-        }
-
-        goto LABEL_16;
+        v12 = v11[18];
       }
 
-      v18 = v11[18];
+      v15 = CUPrintNSObjectOneLine();
+      LogPrintF(v12, "[SKSetupCaptiveNetworkJoinClient _captiveProbeRequest]_block_invoke", 30, "CaptiveNetworkProbe response: %@", v15);
+
+      v14 = v20;
+      v11 = *(a1 + 32);
     }
 
-    v22 = CUPrintNSError();
-    LogPrintF();
-
-    v11 = *(a1 + 32);
-    goto LABEL_10;
+LABEL_15:
+    [v11 _captiveProbeResponse:v14];
+    goto LABEL_16;
   }
 
-  v13 = v10;
-  if (v12 <= 30)
+  if (v13 <= 90)
   {
-    if (v12 != -1)
+    if (v13 != -1)
     {
-LABEL_5:
-      v21 = CUPrintNSObjectOneLine();
-      LogPrintF();
+LABEL_8:
+      v16 = CUPrintNSError();
+      LogPrintF(v12, "[SKSetupCaptiveNetworkJoinClient _captiveProbeRequest]_block_invoke", 90, "### CaptiveNetworkProbe request failed: %@", v16);
 
-      [*(a1 + 32) _captiveProbeResponse:{v23, v21}];
-      goto LABEL_16;
+      v11 = *(a1 + 32);
+      goto LABEL_10;
     }
 
     v17 = _LogCategory_Initialize();
     v11 = *(a1 + 32);
     if (v17)
     {
-      v19 = v11[18];
-      goto LABEL_5;
+      v12 = v11[18];
+      goto LABEL_8;
     }
-
-    v13 = v23;
   }
 
-  [v11 _captiveProbeResponse:{v13, v20}];
+LABEL_10:
+  if (v9)
+  {
+    [v11 _completeWithError:v9];
+  }
+
+  else
+  {
+    v18 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960596, "No response, no error");
+    [v11 _completeWithError:v18];
+  }
+
 LABEL_16:
 }
 

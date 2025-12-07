@@ -85,7 +85,7 @@
 
 - (uint64_t)tvp_shallowIsEqualToArray:()TVPlaybackAdditions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 == self)
@@ -106,34 +106,34 @@
     if ((isKindOfClass & 1) == 0)
     {
       [MEMORY[0x277CCACA8] stringWithFormat:@"*** %s: array argument is not an NSArray", "-[NSArray(TVPlaybackAdditions) tvp_shallowIsEqualToArray:]"];
-      v20 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
-      objc_exception_throw(v20);
+      v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:objc_claimAutoreleasedReturnValue() userInfo:0];
+      objc_exception_throw(v19);
     }
 
     v8 = [v5 count];
     if (v8 == [self count])
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       selfCopy = self;
-      v10 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v10)
       {
         v11 = v10;
         v12 = 0;
-        v13 = *v22;
+        v13 = *v21;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(selfCopy);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             v16 = [v5 objectAtIndex:v12];
 
             if (v15 != v16)
@@ -145,7 +145,7 @@
             ++v12;
           }
 
-          v11 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v11 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
           if (v11)
           {
             continue;
@@ -166,7 +166,6 @@ LABEL_14:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

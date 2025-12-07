@@ -3,25 +3,25 @@
 
 @implementation NSTextLayoutFragmentConfigureForTextAnimationContext
 
-uint64_t ____NSTextLayoutFragmentConfigureForTextAnimationContext_block_invoke(uint64_t result, void *a2, unint64_t a3, _BYTE *a4)
+char *____NSTextLayoutFragmentConfigureForTextAnimationContext_block_invoke(char *result, void *a2, unint64_t a3, _BYTE *a4)
 {
-  if (*(result + 72) <= a3)
+  if (*(result + 9) <= a3)
   {
     *a4 = 1;
     return result;
   }
 
   v4 = result;
-  v5 = [a2 textRangeByIntersectingWithTextRange:*(result + 32)];
+  v5 = [a2 textRangeByIntersectingWithTextRange:{*(result + 4), a4}];
   result = [v5 isNotEmpty];
   if (!result)
   {
     return result;
   }
 
-  v6 = *(v4 + 48);
-  v7 = [*(v4 + 32) location];
-  v8 = *(v4 + 56);
+  v6 = *(v4 + 6);
+  v7 = [*(v4 + 4) location];
+  v8 = *(v4 + 7);
   v9 = [v5 location];
   if (v8)
   {
@@ -49,11 +49,11 @@ uint64_t ____NSTextLayoutFragmentConfigureForTextAnimationContext_block_invoke(u
 
   if (result != 0x7FFFFFFFFFFFFFFFLL && result != v10)
   {
-    v11 = *(*(v4 + 64) + 8);
+    v11 = *(*(v4 + 8) + 8);
     v12 = *(v11 + 24);
     *(v11 + 24) = v12 + 2;
     *v12 = v10;
-    v12[1] = result - v10;
+    v12[1] = (result - v10);
   }
 
   return result;

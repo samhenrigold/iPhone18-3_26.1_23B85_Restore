@@ -12,7 +12,7 @@
   selfCopy = self;
   [senderCopy currentPage];
 
-  sub_100140278(&qword_1008E0EA0);
+  sub_100140278(&qword_1008E0EA0, &unk_1006DCAF0);
   Binding.wrappedValue.setter();
 }
 

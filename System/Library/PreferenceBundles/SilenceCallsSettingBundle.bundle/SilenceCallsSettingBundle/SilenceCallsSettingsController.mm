@@ -14,6 +14,7 @@
 - (void)emitNavigationEvent;
 - (void)setOnlyAllowContacts:(id)contacts specifier:(id)specifier;
 - (void)setValueInUserDefaults:(id)defaults forKey:(id)key;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation SilenceCallsSettingsController
@@ -40,6 +41,22 @@
   }
 
   return v2;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = SilenceCallsSettingsController;
+  [(SilenceCallsSettingsController *)&v7 viewDidAppear:appear];
+  specifier = [(SilenceCallsSettingsController *)self specifier];
+  target = [specifier target];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    [(SilenceCallsSettingsController *)self emitNavigationEvent];
+  }
 }
 
 - (void)emitNavigationEvent
@@ -97,7 +114,7 @@
   v7 = v6;
   if (v5)
   {
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -117,7 +134,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -152,7 +169,7 @@ LABEL_9:
   v7 = v6;
   if (v5)
   {
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -172,7 +189,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = PHDefaultLog();
+    v8 = PHDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -290,17 +307,17 @@ LABEL_9:
   specifierID = [parentListController specifierID];
   v12 = [specifierID isEqualToString:@"com.apple.preferences.facetime"];
 
-  v13 = PHDefaultLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = PHDefaultLog(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (deviceExpertMigrationEnabled)
   {
     if (v12)
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v20, 0xCu);
       }
 
       bOOLValue = [contactsCopy BOOLValue];
@@ -310,11 +327,11 @@ LABEL_9:
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v20, 0xCu);
       }
 
       bOOLValue2 = [contactsCopy BOOLValue];
@@ -327,29 +344,29 @@ LABEL_9:
   {
     if (v12)
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers FaceTime switch to %@", &v20, 0xCu);
       }
 
-      v17 = &TUCallFilteringPreferencesSilenceUnknownFaceTimeCallersKey;
+      v18 = &TUCallFilteringPreferencesSilenceUnknownFaceTimeCallersKey;
     }
 
     else
     {
-      if (v14)
+      if (v15)
       {
-        v19 = 138412290;
-        v20 = contactsCopy;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v19, 0xCu);
+        v20 = 138412290;
+        v21 = contactsCopy;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "User toggled Silence Unknown Callers switch to %@", &v20, 0xCu);
       }
 
-      v17 = &TUCallFilteringPreferencesContactsOnlyKey;
+      v18 = &TUCallFilteringPreferencesContactsOnlyKey;
     }
 
-    [(SilenceCallsSettingsController *)self setValueInUserDefaults:contactsCopy forKey:*v17];
+    [(SilenceCallsSettingsController *)self setValueInUserDefaults:contactsCopy forKey:*v18];
   }
 }
 
@@ -426,7 +443,7 @@ LABEL_9:
 - (void)carrierBundleController:(id)controller carrierBundleDidChangeForSubscriptionContext:(id)context
 {
   contextCopy = context;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(contextCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

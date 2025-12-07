@@ -38,7 +38,7 @@
 
 void __64__HMTRSession_sendRequestData_qualityOfService_responseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -67,13 +67,13 @@ void __64__HMTRSession_sendRequestData_qualityOfService_responseHandler___block_
     {
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 32);
-      v21 = 138543874;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v9;
-      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Received an unexpected request: %@ response: %@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = v9;
+      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Received an unexpected request: %@ response: %@", &v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -83,8 +83,6 @@ void __64__HMTRSession_sendRequestData_qualityOfService_responseHandler___block_
   v18 = *(a1 + 40);
   v19 = [v11 payload];
   (*(v18 + 16))(v18, v12, v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (HMTRSession)initWithSession:(id)session

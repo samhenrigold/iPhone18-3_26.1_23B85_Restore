@@ -19,34 +19,34 @@ id getDescriptionForCategorySuffix(void *a1, uint64_t a2)
 
 id lookupLocalizedString(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   if (platformSpecificSuffixes_once != -1)
   {
     lookupLocalizedString_cold_1();
   }
 
   v5 = platformSpecificSuffixes_suffixes;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
 LABEL_5:
     v9 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = [v4 stringByAppendingString:{*(*(&v14 + 1) + 8 * v9), v14}];
+      v10 = [v4 stringByAppendingString:{*(*(&v13 + 1) + 8 * v9), v13}];
       v11 = [v3 objectForKeyedSubscript:v10];
 
       if (v11)
@@ -56,7 +56,7 @@ LABEL_5:
 
       if (v7 == ++v9)
       {
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           goto LABEL_5;
@@ -73,22 +73,20 @@ LABEL_11:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void PDURetrieveLocalizedTitlesAndDescriptions(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v19 = a2;
+  v18 = a2;
   if (a2)
   {
     a2 = [MEMORY[0x277CBEB18] array];
   }
 
-  v20 = a3;
+  v19 = a3;
   if (a3)
   {
     v6 = [MEMORY[0x277CBEB18] array];
@@ -99,27 +97,27 @@ void PDURetrieveLocalizedTitlesAndDescriptions(void *a1, void *a2, void *a3)
     v6 = 0;
   }
 
-  v21 = v5;
+  v20 = v5;
   v7 = [v5 localizedInfoDictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v8 = [&unk_2871C00E0 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [&unk_2871C00E0 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(&unk_2871C00E0);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         v13 = getDescriptionForCategorySuffix(v7, v12);
         if (v13)
         {
@@ -131,25 +129,23 @@ void PDURetrieveLocalizedTitlesAndDescriptions(void *a1, void *a2, void *a3)
         }
       }
 
-      v9 = [&unk_2871C00E0 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [&unk_2871C00E0 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
   }
 
-  if (v19)
+  if (v18)
   {
     v16 = a2;
-    *v19 = a2;
+    *v18 = a2;
   }
 
-  if (v20)
+  if (v19)
   {
     v17 = v6;
-    *v20 = v6;
+    *v19 = v6;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id PDUWelcomeTitleTextForAppRecord(void *a1)
@@ -238,17 +234,17 @@ id PDUWelcomeDetailTextForAppRecord(void *a1)
 
 BOOL PDUShouldShowLearnMoreScreen(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCA8D8];
   v2 = [a1 URL];
   v3 = [v1 bundleWithURL:v2];
 
   v4 = [v3 localizedInfoDictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v5 = [&unk_2871C00E0 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [&unk_2871C00E0 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (!v5)
   {
     goto LABEL_12;
@@ -256,24 +252,24 @@ BOOL PDUShouldShowLearnMoreScreen(void *a1)
 
   v6 = v5;
   v7 = 0;
-  v8 = *v16;
+  v8 = *v15;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(&unk_2871C00E0);
       }
 
-      v10 = getDescriptionForCategorySuffix(v4, *(*(&v15 + 1) + 8 * i));
+      v10 = getDescriptionForCategorySuffix(v4, *(*(&v14 + 1) + 8 * i));
       if (v10)
       {
         ++v7;
       }
     }
 
-    v6 = [&unk_2871C00E0 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [&unk_2871C00E0 countByEnumeratingWithState:&v14 objects:v18 count:16];
   }
 
   while (v6);
@@ -289,7 +285,6 @@ LABEL_12:
     v11 = v12 != 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -364,30 +359,31 @@ PDUDisclosureReviewViewController_iOS *PDUDisclosureReviewViewControllerForBundl
 id PDUDisclosureReviewViewControllerForApplicationWithVariant(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v12 = 0;
-  v4 = [v3 findApplicationRecordWithError:&v12];
-  v5 = v12;
+  v14 = 0;
+  v4 = [v3 findApplicationRecordWithError:&v14];
+  v5 = v14;
+  v7 = v5;
   if (v5)
   {
-    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      PDUDisclosureReviewViewControllerForApplicationWithVariant_cold_1(v3, v5, v6);
+      PDUDisclosureReviewViewControllerForApplicationWithVariant_cold_1(v3, v7, v8);
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = MEMORY[0x277CCA8D8];
-    v9 = [v4 URL];
-    v10 = [v8 bundleWithURL:v9];
+    v10 = MEMORY[0x277CCA8D8];
+    v11 = [v4 URL];
+    v12 = [v10 bundleWithURL:v11];
 
-    v7 = PDUDisclosureReviewViewControllerForBundleWithVariant(v10, a2);
+    v9 = PDUDisclosureReviewViewControllerForBundleWithVariant(v12, a2);
   }
 
-  return v7;
+  return v9;
 }
 
 BOOL PDUDoesApplicationSupportDisclosureReview()
@@ -449,9 +445,8 @@ id PDUAllApplicationsSupportingDisclosureReview()
                     objc_enumerationMutation(v9);
                   }
 
-                  v14 = *(*(&v23 + 1) + 8 * j);
-                  v15 = PDCApplicationIdentityToLSApplicationIdentity();
-                  [v0 addObject:v15];
+                  v14 = PDCApplicationIdentityToLSApplicationIdentity();
+                  [v0 addObject:v14];
                 }
 
                 v11 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
@@ -469,21 +464,22 @@ id PDUAllApplicationsSupportingDisclosureReview()
     }
 
     v22 = 0;
-    v16 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.Preferences" allowPlaceholder:0 error:&v22];
-    v17 = v22;
-    if (v17)
+    v15 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:@"com.apple.Preferences" allowPlaceholder:0 error:&v22];
+    v16 = v22;
+    v18 = v16;
+    if (v16)
     {
-      v18 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        PDUAllApplicationsSupportingDisclosureReview_cold_1(v17, v18);
+        PDUAllApplicationsSupportingDisclosureReview_cold_1(v18, v19);
       }
     }
 
-    else if (v16)
+    else if (v15)
     {
-      v19 = [v16 identities];
-      [v0 addObjectsFromArray:v19];
+      v20 = [v15 identities];
+      [v0 addObjectsFromArray:v20];
     }
   }
 
@@ -492,21 +488,19 @@ id PDUAllApplicationsSupportingDisclosureReview()
     v0 = [MEMORY[0x277CBEB98] set];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v0;
 }
 
-id PDUGetBundle()
+id PDUGetBundle(uint64_t a1)
 {
   if (PDUGetBundle_once != -1)
   {
     PDUGetBundle_cold_1();
   }
 
-  v1 = PDUGetBundle_result;
+  v2 = PDUGetBundle_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __PDUGetBundle_block_invoke()
@@ -557,7 +551,7 @@ LABEL_9:
   return v7;
 }
 
-uint64_t PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI()
+uint64_t PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI(uint64_t a1, uint64_t a2)
 {
   if (PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI_onceToken != -1)
   {
@@ -613,59 +607,59 @@ id stackForViews(void *a1)
 
 void fillViewWithNewSubview(void *a1, void *a2)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1;
   [v4 addSubview:v3];
-  v19 = [v3 leadingAnchor];
-  v20 = [v4 layoutMarginsGuide];
-  v18 = [v20 leadingAnchor];
-  v17 = [v19 constraintEqualToAnchor:v18];
-  v21[0] = v17;
-  v15 = [v3 trailingAnchor];
-  v16 = [v4 layoutMarginsGuide];
-  v5 = [v16 trailingAnchor];
-  v6 = [v15 constraintEqualToAnchor:v5];
-  v21[1] = v6;
+  v18 = [v3 leadingAnchor];
+  v19 = [v4 layoutMarginsGuide];
+  v17 = [v19 leadingAnchor];
+  v16 = [v18 constraintEqualToAnchor:v17];
+  v20[0] = v16;
+  v14 = [v3 trailingAnchor];
+  v15 = [v4 layoutMarginsGuide];
+  v5 = [v15 trailingAnchor];
+  v6 = [v14 constraintEqualToAnchor:v5];
+  v20[1] = v6;
   v7 = [v3 topAnchor];
   v8 = [v4 topAnchor];
   v9 = [v7 constraintEqualToAnchor:v8];
-  v21[2] = v9;
+  v20[2] = v9;
   v10 = [v3 bottomAnchor];
 
   v11 = [v4 bottomAnchor];
   v12 = [v10 constraintEqualToAnchor:v11];
-  v21[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  v20[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
   [v4 addConstraints:v13];
 
   [v4 setNeedsLayout];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 id PDUWelcomeTintColorForApplicationIdentity(void *a1)
 {
   v1 = a1;
-  v7 = 0;
-  v2 = [v1 findApplicationRecordWithError:&v7];
-  v3 = v7;
+  v9 = 0;
+  v2 = [v1 findApplicationRecordWithError:&v9];
+  v3 = v9;
+  v5 = v3;
   if (v3)
   {
-    v4 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureUI(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      PDUDisclosureReviewViewControllerForApplicationWithVariant_cold_1(v1, v3, v4);
+      PDUDisclosureReviewViewControllerForApplicationWithVariant_cold_1(v1, v5, v6);
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v5 = PDUWelcomeTintColorForApplicationRecord(v2);
+    v7 = PDUWelcomeTintColorForApplicationRecord(v2);
   }
 
-  return v5;
+  return v7;
 }
 
 id PDUWelcomeTintColorForApplicationRecord(void *a1)
@@ -688,20 +682,18 @@ id PDUWelcomeTintColorForBundle(uint64_t a1)
 
 void PDUDisclosureReviewViewControllerForApplicationWithVariant_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25F70A000, log, OS_LOG_TYPE_ERROR, "Attempt to locate app %@ failed: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25F70A000, log, OS_LOG_TYPE_ERROR, "Attempt to locate app %@ failed: %@", &v3, 0x16u);
 }
 
 void PDUAllApplicationsSupportingDisclosureReview_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25F70A000, a2, OS_LOG_TYPE_ERROR, "Attempt to locate settings failed: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25F70A000, a2, OS_LOG_TYPE_ERROR, "Attempt to locate settings failed: %@", &v2, 0xCu);
 }

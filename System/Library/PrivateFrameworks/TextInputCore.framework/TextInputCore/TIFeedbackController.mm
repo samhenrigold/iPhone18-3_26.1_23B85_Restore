@@ -15,12 +15,16 @@
 - (void)handleFeedbackStateCompletionPendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device;
 - (void)handleFeedbackStateInitiatedWithDelegate:(id)delegate isEligibleDevice:(BOOL)device isPreferenceEnabled:(BOOL)enabled;
 - (void)handleFeedbackStateNoneWithDelegate:(id)delegate isEligibleDevice:(BOOL)device;
+- (void)handleFeedbackStateResponsePendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device;
+- (void)handleFeedbackStateRetryPendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device;
+- (void)initiateStudyWithInputModes:(id)modes initialPreferenceValue:(BOOL)value;
 - (void)retrySurvey;
 - (void)scheduleCompletionEvent;
 - (void)scheduleInitiationEvent;
 - (void)scheduleRetry;
 - (void)scheduleSurveyRequestEvent;
 - (void)setInitiationState;
+- (void)setPreferenceValue:(BOOL)value;
 - (void)setTerminationStateWithValue:(int64_t)value;
 @end
 
@@ -60,6 +64,21 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
   v3 = *(*(a1 + 32) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
+}
+
+- (void)setPreferenceValue:(BOOL)value
+{
+  mEMORY[0x277D6F470] = [MEMORY[0x277D6F470] sharedPreferencesController];
+  if ([MEMORY[0x277CCACC8] isMainThread])
+  {
+    [mEMORY[0x277D6F470] setValue:MEMORY[0x277CBEC38] forPreferenceKey:self->_preferenceName];
+  }
+
+  else
+  {
+    v5 = mEMORY[0x277D6F470];
+    TIDispatchSync();
+  }
 }
 
 - (BOOL)currentPreferenceValue
@@ -204,7 +223,7 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
 
 - (void)setTerminationStateWithValue:(int64_t)value
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D6F360] setFeedbackState:?];
   v5 = MEMORY[0x277D6F360];
   currentInputModes = [(TIFeedbackController *)self currentInputModes];
@@ -222,12 +241,41 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
     {
       value = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: set termination state with value:%ld", "-[TIFeedbackController setTerminationStateWithValue:]", self->_studyID, value];
       *buf = 138412290;
-      v13 = value;
+      v12 = value;
       _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)initiateStudyWithInputModes:(id)modes initialPreferenceValue:(BOOL)value
+{
+  valueCopy = value;
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277D6F360];
+  modesCopy = modes;
+  [v6 setFeedbackState:2];
+  [MEMORY[0x277D6F360] setInitialInputModes:modesCopy];
+
+  v8 = MEMORY[0x277D6F360];
+  v9 = [MEMORY[0x277CBEAA8] now];
+  [v8 setInitialTimestamp:v9];
+
+  [MEMORY[0x277D6F360] setInitialPreferenceValue:valueCopy];
+  v10 = MEMORY[0x277D6F360];
+  getSupportedLangRegion = [MEMORY[0x277D6F360] getSupportedLangRegion];
+  [v10 setStudyLanguageAndRegion:getSupportedLangRegion];
+
+  if (IXACanLogMessageAtLevel())
+  {
+    v12 = IXAFeedbackLogFacility();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: set initiation state", "-[TIFeedbackController initiateStudyWithInputModes:initialPreferenceValue:]", self->_studyID];
+      *buf = 138412290;
+      v15 = v13;
+      _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+  }
 }
 
 - (void)setInitiationState
@@ -244,7 +292,7 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
 
 - (void)handleFeedbackActionsWithDelegate:(id)delegate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if ([(TIFeedbackController *)self isFCSBuild])
   {
@@ -262,11 +310,11 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v15 = __KeyboardSettingsFeedbackLibraryCore_block_invoke;
-        v16 = &__block_descriptor_40_e5_v8__0l;
-        v17 = 0;
-        v18 = xmmword_278733780;
-        v19 = 0;
+        v14 = __KeyboardSettingsFeedbackLibraryCore_block_invoke;
+        v15 = &__block_descriptor_40_e5_v8__0l;
+        v16 = 0;
+        v17 = xmmword_278733780;
+        v18 = 0;
         KeyboardSettingsFeedbackLibraryCore_frameworkLibrary = _sl_dlopen();
       }
 
@@ -283,9 +331,9 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
       v9 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: enabled: %ld, eligible: %ld, state: %ld, preferenceEnabled: %ld", "-[TIFeedbackController handleFeedbackActionsWithDelegate:]", self->_studyID, v8, isEligibleDevice, getFeedbackState, currentPreferenceValue];
+        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: enabled: %ld, eligible: %ld, state: %ld, preferenceEnabled: %ld", "-[TIFeedbackController handleFeedbackActionsWithDelegate:]", self->_studyID, v8, isEligibleDevice, getFeedbackState, currentPreferenceValue];
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v12;
+        *(&buf + 4) = v11;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
       }
     }
@@ -329,9 +377,9 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
         v10 = IXASessionDetailsLogFacility();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: none", "-[TIFeedbackController handleFeedbackActionsWithDelegate:]", self->_studyID];
+          v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: none", "-[TIFeedbackController handleFeedbackActionsWithDelegate:]", self->_studyID];
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v13;
+          *(&buf + 4) = v12;
           _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
         }
       }
@@ -339,8 +387,6 @@ void __41__TIFeedbackController_currentInputModes__block_invoke(uint64_t a1)
   }
 
 LABEL_28:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFCSBuildWithDelegate:(id)delegate
@@ -387,9 +433,20 @@ LABEL_28:
   return TI_IS_INTERNAL_INSTALL::is_internal_install != 1 || ([MEMORY[0x277D6F360] isFeatureEnabledForInternalBuilds] & 1) == 0;
 }
 
+- (void)handleFeedbackStateResponsePendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device
+{
+  getFormIdentifier = [MEMORY[0x277D6F360] getFormIdentifier];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __88__TIFeedbackController_handleFeedbackStateResponsePendingWithDelegate_isEligibleDevice___block_invoke;
+  v6[3] = &unk_2787336C0;
+  v6[4] = self;
+  [MEMORY[0x277D08688] fetchCountsForFormWithIdentifier:getFormIdentifier completion:v6];
+}
+
 void __88__TIFeedbackController_handleFeedbackStateResponsePendingWithDelegate_isEligibleDevice___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -406,7 +463,7 @@ LABEL_4:
 
       v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TIFeedbackController handleFeedbackStateResponsePendingWithDelegate:isEligibleDevice:]_block_invoke", *(*(a1 + 32) + 8), v6];
       *buf = 138412290;
-      v16 = v12;
+      v15 = v12;
 LABEL_16:
       _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
@@ -435,7 +492,7 @@ LABEL_16:
 
       v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: retry is is still pending", "-[TIFeedbackController handleFeedbackStateResponsePendingWithDelegate:isEligibleDevice:]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v16 = v12;
+      v15 = v12;
       goto LABEL_16;
     }
 
@@ -444,9 +501,9 @@ LABEL_16:
       v11 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController handleFeedbackStateResponsePendingWithDelegate:isEligibleDevice:]_block_invoke", *(*(a1 + 32) + 8)];
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController handleFeedbackStateResponsePendingWithDelegate:isEligibleDevice:]_block_invoke", *(*(a1 + 32) + 8)];
         *buf = 138412290;
-        v16 = v14;
+        v15 = v13;
         _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -456,42 +513,48 @@ LABEL_16:
   }
 
 LABEL_14:
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)handleFeedbackStateRetryPendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device
+{
+  date = [MEMORY[0x277CBEAA8] date];
+  getRetryTimestamp = [MEMORY[0x277D6F360] getRetryTimestamp];
+  if ([date compare:getRetryTimestamp] != -1)
+  {
+    [(TIFeedbackController *)self retrySurvey];
+  }
 }
 
 - (void)retrySurvey
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   getFormIdentifier = [MEMORY[0x277D6F360] getFormIdentifier];
   if (IXACanLogMessageAtLevel())
   {
     v4 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: retrying survey: %@", "-[TIFeedbackController retrySurvey]", self->_studyID, getFormIdentifier];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: retrying survey: %@", "-[TIFeedbackController retrySurvey]", self->_studyID, getFormIdentifier];
       *buf = 138412290;
-      v12 = v8;
+      v11 = v7;
       _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   v5 = MEMORY[0x277D08688];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __35__TIFeedbackController_retrySurvey__block_invoke;
-  v9[3] = &unk_278733710;
-  v9[4] = self;
-  v10 = getFormIdentifier;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __35__TIFeedbackController_retrySurvey__block_invoke;
+  v8[3] = &unk_278733710;
+  v8[4] = self;
+  v9 = getFormIdentifier;
   v6 = getFormIdentifier;
-  [v5 fetchCountsForFormWithIdentifier:v6 completion:v9];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [v5 fetchCountsForFormWithIdentifier:v6 completion:v8];
 }
 
 void __35__TIFeedbackController_retrySurvey__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -501,9 +564,9 @@ void __35__TIFeedbackController_retrySurvey__block_invoke(uint64_t a1, void *a2,
       v7 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8), v6];
+        v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8), v6];
         *buf = 138412290;
-        v38 = v28;
+        v37 = v27;
         _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -526,9 +589,9 @@ LABEL_13:
       v12 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
+        v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
         *buf = 138412290;
-        v38 = v29;
+        v37 = v28;
         _os_log_debug_impl(&dword_22CA55000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -538,74 +601,73 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v14 = [v5 currentCampaign];
+  v13 = [v5 currentCampaign];
 
-  if (v14 && IXACanLogMessageAtLevel())
+  if (v13 && IXACanLogMessageAtLevel())
   {
-    v15 = IXAFeedbackLogFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v14 = IXAFeedbackLogFacility();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: already running a campaign - maybe they cancelled and we can retry", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: already running a campaign - maybe they cancelled and we can retry", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v38 = v30;
-      _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v37 = v29;
+      _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v16 = [objc_alloc(MEMORY[0x277D08690]) initWithIdentifier:*(a1 + 40)];
-  v17 = [MEMORY[0x277D6F360] getFormMetadata];
+  v15 = [objc_alloc(MEMORY[0x277D08690]) initWithIdentifier:*(a1 + 40)];
+  v16 = [MEMORY[0x277D6F360] getFormMetadata];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v18)
+  v17 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v33;
+    v18 = v17;
+    v19 = *v32;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v33 != v20)
+        if (*v32 != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * i);
-        v23 = [v17 objectForKey:v22];
-        [v16 prefill:v22 answer:v23];
+        v21 = *(*(&v31 + 1) + 8 * i);
+        v22 = [v16 objectForKey:v21];
+        [v15 prefill:v21 answer:v22];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
-  [v16 setAuthenticationMethod:1];
-  v24 = [objc_alloc(MEMORY[0x277D08680]) initWithFeedbackForm:v16];
-  v25 = objc_alloc_init(MEMORY[0x277D08698]);
-  v26 = [MEMORY[0x277CCA8D8] mainBundle];
-  v27 = [v26 localizedStringForKey:@"Tell us why you turned off autocorrection" value:@"Will you provide more insights on autocorrection" table:0];
-  [v25 setLocalizedPromptTitle:v27];
+  [v15 setAuthenticationMethod:1];
+  v23 = [objc_alloc(MEMORY[0x277D08680]) initWithFeedbackForm:v15];
+  v24 = objc_alloc_init(MEMORY[0x277D08698]);
+  v25 = [MEMORY[0x277CCA8D8] mainBundle];
+  v26 = [v25 localizedStringForKey:@"Tell us why you turned off autocorrection" value:@"Will you provide more insights on autocorrection" table:0];
+  [v24 setLocalizedPromptTitle:v26];
 
-  [v25 setPromptStyle:2];
+  [v24 setPromptStyle:2];
   [MEMORY[0x277D6F360] setFeedbackState:9];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __35__TIFeedbackController_retrySurvey__block_invoke_66;
-  v31[3] = &unk_2787336E8;
-  v31[4] = *(a1 + 32);
-  [v24 collectFeedbackWithLaunchConfiguration:v25 completion:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __35__TIFeedbackController_retrySurvey__block_invoke_66;
+  v30[3] = &unk_2787336E8;
+  v30[4] = *(a1 + 32);
+  [v23 collectFeedbackWithLaunchConfiguration:v24 completion:v30];
 
 LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IXACanLogMessageAtLevel();
   if (v3)
@@ -615,9 +677,9 @@ void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *
       v5 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error launching retry survey: %@", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8), v3];
+        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error launching retry survey: %@", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8), v3];
         *buf = 138412290;
-        v11 = v8;
+        v10 = v7;
         _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -631,19 +693,17 @@ void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *
     v6 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: retry survey successfully submitted", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: retry survey successfully submitted", "-[TIFeedbackController retrySurvey]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v11 = v9;
+      v10 = v8;
       _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFeedbackStateCompletionPendingWithDelegate:(id)delegate isEligibleDevice:(BOOL)device
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   [(TIFeedbackController *)self scheduleSurveyRequestEvent];
   getSurveyOutcome = [MEMORY[0x277D6F360] getSurveyOutcome];
@@ -655,9 +715,9 @@ void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *
       v11 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is %ld, device is ineligible action: terminateIneligible", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID, getSurveyOutcome];
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is %ld, device is ineligible action: terminateIneligible", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID, getSurveyOutcome];
         *buf = 138412290;
-        v23 = v18;
+        v22 = v17;
         _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -676,9 +736,9 @@ void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *
         v16 = IXAFeedbackLogFacility();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is state error, device is ineligible action: terminateInvalid", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
+          v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is state error, device is ineligible action: terminateInvalid", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
           *buf = 138412290;
-          v23 = v21;
+          v22 = v20;
           _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -695,7 +755,7 @@ void __35__TIFeedbackController_retrySurvey__block_invoke_66(uint64_t a1, void *
         {
           v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is launch error, will plan retry", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
           *buf = 138412290;
-          v23 = v10;
+          v22 = v10;
           goto LABEL_36;
         }
 
@@ -713,9 +773,9 @@ LABEL_19:
       v14 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is unexpected as %ld: terminateInvalid", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID, getSurveyOutcome];
+        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is unexpected as %ld: terminateInvalid", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID, getSurveyOutcome];
         *buf = 138412290;
-        v23 = v19;
+        v22 = v18;
         _os_log_debug_impl(&dword_22CA55000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -740,7 +800,7 @@ LABEL_33:
         {
           v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is connection error, will plan retry", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
           *buf = 138412290;
-          v23 = v10;
+          v22 = v10;
 LABEL_36:
           _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
@@ -761,30 +821,28 @@ LABEL_36:
     v15 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is submitted, device is eligible, will evaluate for plan retry if necessary", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
+      v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey outcome is submitted, device is eligible, will evaluate for plan retry if necessary", "-[TIFeedbackController handleFeedbackStateCompletionPendingWithDelegate:isEligibleDevice:]", self->_studyID];
       *buf = 138412290;
-      v23 = v20;
+      v22 = v19;
       _os_log_debug_impl(&dword_22CA55000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   [(TIFeedbackController *)self assessAndScheduleRetry];
 LABEL_34:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleRetry
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (IXACanLogMessageAtLevel())
   {
     v3 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: scheduling a retry", "-[TIFeedbackController scheduleRetry]", self->_studyID];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: scheduling a retry", "-[TIFeedbackController scheduleRetry]", self->_studyID];
       *buf = 138412290;
-      v10 = v8;
+      v9 = v7;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -800,8 +858,6 @@ LABEL_34:
 
   [MEMORY[0x277D6F360] setRetryTimestamp:v5];
   [MEMORY[0x277D6F360] setFeedbackState:8];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assessAndScheduleRetry
@@ -817,7 +873,7 @@ LABEL_34:
 
 void __46__TIFeedbackController_assessAndScheduleRetry__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -837,9 +893,9 @@ LABEL_4:
       goto LABEL_5;
     }
 
-    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8), v6];
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: error getting response from feedback service: %@", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8), v6];
     *buf = 138412290;
-    v18 = v15;
+    v17 = v14;
 LABEL_21:
     _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
@@ -852,11 +908,11 @@ LABEL_21:
   v10 = [v5 declineCount];
   if (v9 < 1)
   {
-    v13 = v10;
-    v14 = IXACanLogMessageAtLevel();
-    if (v13)
+    v12 = v10;
+    v13 = IXACanLogMessageAtLevel();
+    if (v12)
     {
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_5;
       }
@@ -867,14 +923,14 @@ LABEL_21:
         goto LABEL_4;
       }
 
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: feedback declined!", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: feedback declined!", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v18 = v15;
+      v17 = v14;
     }
 
     else
     {
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_5;
       }
@@ -885,9 +941,9 @@ LABEL_21:
         goto LABEL_4;
       }
 
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: feedback not filed for some other reason", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: feedback not filed for some other reason", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v18 = v15;
+      v17 = v14;
     }
 
     goto LABEL_21;
@@ -898,9 +954,9 @@ LABEL_21:
     v11 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: survey filed: complete", "-[TIFeedbackController assessAndScheduleRetry]_block_invoke", *(*(a1 + 32) + 8)];
       *buf = 138412290;
-      v18 = v16;
+      v17 = v15;
       _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -908,15 +964,13 @@ LABEL_21:
   [MEMORY[0x277D6F360] setFeedbackState:4];
   [*(a1 + 32) scheduleCompletionEvent];
 LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFeedbackStateInitiatedWithDelegate:(id)delegate isEligibleDevice:(BOOL)device isPreferenceEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
   deviceCopy = device;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if (!deviceCopy)
   {
@@ -925,9 +979,9 @@ LABEL_12:
       v10 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: terminateIneligible", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: terminateIneligible", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
         *buf = 138412290;
-        v19 = v15;
+        v18 = v14;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -944,9 +998,9 @@ LABEL_12:
       v13 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: terminateInvalid", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: terminateInvalid", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
         *buf = 138412290;
-        v19 = v17;
+        v18 = v16;
         _os_log_debug_impl(&dword_22CA55000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -964,23 +1018,21 @@ LABEL_18:
     v9 = IXAFeedbackLogFacility();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: accumulateWordCounts", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
+      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: accumulateWordCounts", "-[TIFeedbackController handleFeedbackStateInitiatedWithDelegate:isEligibleDevice:isPreferenceEnabled:]", self->_studyID];
       *buf = 138412290;
-      v19 = v16;
+      v18 = v15;
       _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   [delegateCopy accumulateWordCounts];
 LABEL_19:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFeedbackStateNoneWithDelegate:(id)delegate isEligibleDevice:(BOOL)device
 {
   deviceCopy = device;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   if (deviceCopy)
   {
@@ -989,9 +1041,9 @@ LABEL_19:
       v7 = IXAFeedbackLogFacility();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: initiate", "-[TIFeedbackController handleFeedbackStateNoneWithDelegate:isEligibleDevice:]", self->_studyID];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: action: initiate", "-[TIFeedbackController handleFeedbackStateNoneWithDelegate:isEligibleDevice:]", self->_studyID];
         *buf = 138412290;
-        v11 = v9;
+        v10 = v8;
         _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1001,8 +1053,6 @@ LABEL_19:
     [(TIFeedbackController *)self scheduleInitiationEvent];
     [MEMORY[0x277D6F360] setStudyEnrollment];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (TIFeedbackController)init

@@ -79,7 +79,7 @@
     CFRelease(v6);
   }
 
-  sub_10023CB20();
+  sub_10023CB20(v7);
 
   return 1;
 }
@@ -99,7 +99,7 @@
 - (BOOL)kvsAppendRingKeyInterest:(__CFArray *)interest firstUnlock:(__CFArray *)unlock unlocked:(__CFArray *)unlocked err:(__CFError *)err
 {
   v8 = [(SOSCircleStorageTransport *)self account:interest];
-  v9 = sub_100218428(v8);
+  v9 = sub_100218428(v8, 0);
 
   if (!v9)
   {
@@ -136,7 +136,7 @@ LABEL_9:
           CFRelease(v14);
         }
 
-        (v18)(v15, @"RecoveryRing");
+        v18(v15, @"RecoveryRing");
       }
 
       goto LABEL_9;
@@ -151,7 +151,7 @@ LABEL_9:
 - (BOOL)kvsAppendKeyInterest:(__CFArray *)interest firstUnlock:(__CFArray *)unlock unlocked:(__CFArray *)unlocked err:(__CFError *)err
 {
   v8 = [(SOSCircleStorageTransport *)self account:interest];
-  v9 = sub_100218428(v8);
+  v9 = sub_100218428(v8, 0);
 
   if (!v9)
   {
@@ -298,7 +298,7 @@ LABEL_12:
   CFDictionaryApplyFunction(records, sub_10023D684, context);
   if (CFDictionaryGetCount(Mutable))
   {
-    sub_10023CB20();
+    sub_10023CB20(Mutable);
   }
 
   if (Mutable)
@@ -359,7 +359,7 @@ LABEL_12:
       [pending_changes3 setObject:v9 forKey:kSOSKVSRequiredKey];
 
       pending_changes4 = [(SOSKVSCircleStorageTransport *)self pending_changes];
-      sub_10023CB20();
+      sub_10023CB20(pending_changes4);
 
       pending_changes5 = [(SOSKVSCircleStorageTransport *)self pending_changes];
       [pending_changes5 removeAllObjects];

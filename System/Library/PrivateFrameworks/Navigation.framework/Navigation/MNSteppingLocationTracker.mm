@@ -41,15 +41,15 @@
 
 - (id)_matchedLocationForLocation:(id)location
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v5 = MNGetPuckTrackingLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     uuid = [locationCopy uuid];
-    v17 = 138412290;
-    v18 = uuid;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNSteppingLocationTracker::_matchedLocationForLocation:", &v17, 0xCu);
+    v14 = 138412290;
+    v15 = uuid;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "[MN] [%@] - Processing - in MNSteppingLocationTracker::_matchedLocationForLocation:", &v14, 0xCu);
   }
 
   v7 = [objc_alloc(MEMORY[0x1E69A1E70]) initWithCLLocation:locationCopy];
@@ -67,15 +67,11 @@
     [(MNLocation *)v11 setRouteMatch:v8];
   }
 
-  v12 = *MEMORY[0x1E69A19F8];
-  v13 = *(MEMORY[0x1E69A19F8] + 8);
   if (GEOConfigGetBOOL())
   {
     uuid2 = [locationCopy uuid];
     [(MNLocation *)v11 setUuid:uuid2];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -48,7 +48,7 @@
 
 - (void)_participantsUpdated:(id)updated participantsRemoved:(id)removed completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30, &unk_1AEAFC780);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v19 - v8;
   v10 = _Block_copy(completion);

@@ -21,28 +21,27 @@
 
 - (PGCityFeatureExtractor)initWithVersion:(int64_t)version error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEC588] = [MEMORY[0x277CEC588] sharedManager];
   v7 = [(PGCityFeatureExtractor *)self labelsForVersion:version];
   v8 = MEMORY[0x277D22C90];
   v9 = +[PGGraphMomentNode addressOfMoment];
-  v20[0] = v9;
+  v19[0] = v9;
   v10 = +[PGGraphAddressNode cityOfAddress];
-  v20[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v12 = [v8 chain:v11];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __48__PGCityFeatureExtractor_initWithVersion_error___block_invoke;
-  v18[3] = &unk_278883F18;
-  v19 = mEMORY[0x277CEC588];
-  v17.receiver = self;
-  v17.super_class = PGCityFeatureExtractor;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __48__PGCityFeatureExtractor_initWithVersion_error___block_invoke;
+  v17[3] = &unk_278883F18;
+  v18 = mEMORY[0x277CEC588];
+  v16.receiver = self;
+  v16.super_class = PGCityFeatureExtractor;
   v13 = mEMORY[0x277CEC588];
-  v14 = [(MARelationCollectionFeatureExtractor *)&v17 initWithName:@"City" featureNames:v7 relation:v12 labelForTargetBlock:v18];
+  v14 = [(MARelationCollectionFeatureExtractor *)&v16 initWithName:@"City" featureNames:v7 relation:v12 labelForTargetBlock:v17];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

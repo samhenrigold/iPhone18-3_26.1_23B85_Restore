@@ -9,7 +9,7 @@
   representationCopy = representation;
   parametersCopy = parameters;
   v7 = [parametersCopy objectForKey:@"thingsWhen"];
-  if ([v7 isEqualToString:@"This Evening"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = representationCopy[2];
 LABEL_5:
@@ -17,7 +17,7 @@ LABEL_5:
     goto LABEL_17;
   }
 
-  if ([v7 isEqualToString:@"Someday"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = representationCopy[2];
     goto LABEL_5;
@@ -27,7 +27,7 @@ LABEL_5:
   v10 = [MEMORY[0x1E6996DC0] datesInString:v9 error:0];
   firstObject = [v10 firstObject];
 
-  if ([v7 isEqualToString:@"Today"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     date = [MEMORY[0x1E695DF00] date];
 LABEL_8:
@@ -35,7 +35,7 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  if ([v7 isEqualToString:@"Tomorrow"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     date2 = [MEMORY[0x1E695DF00] date];
     v13 = [date2 dateByAddingTimeInterval:86400.0];
@@ -80,7 +80,7 @@ LABEL_11:
     goto LABEL_16;
   }
 
-  if ([v7 isEqualToString:@"On Date"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     date = firstObject;
     goto LABEL_8;

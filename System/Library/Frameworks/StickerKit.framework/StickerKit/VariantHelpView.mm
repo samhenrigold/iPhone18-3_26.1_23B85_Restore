@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_19A7577C0();
+  sub_19A7577C0(selfCopy, v2);
 }
 
 - (_TtC10StickerKit15VariantHelpView)initWithFrame:(CGRect)frame

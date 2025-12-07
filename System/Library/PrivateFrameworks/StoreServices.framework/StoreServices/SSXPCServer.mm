@@ -32,7 +32,7 @@ uint64_t __20__SSXPCServer_start__block_invoke(uint64_t a1, _xpc_connection_s *a
   return [v4 drain];
 }
 
-uint64_t __20__SSXPCServer_start__block_invoke_2(uint64_t result, uint64_t a2)
+void *__20__SSXPCServer_start__block_invoke_2(void *result, uint64_t a2)
 {
   if (a2 != MEMORY[0x1E69E9E20])
   {
@@ -40,8 +40,8 @@ uint64_t __20__SSXPCServer_start__block_invoke_2(uint64_t result, uint64_t a2)
     result = MEMORY[0x1DA6E0380](a2);
     if (result == MEMORY[0x1E69E9E80])
     {
-      v4 = *(v3 + 32);
-      v5 = *(*(*(v3 + 40) + 8) + 40);
+      v4 = v3[4];
+      v5 = *(*(v3[5] + 8) + 40);
 
       return [v5 _dispatchMessage:a2 connection:v4];
     }
@@ -122,7 +122,7 @@ uint64_t __20__SSXPCServer_start__block_invoke_2(uint64_t result, uint64_t a2)
   return mainServer_sMainServer;
 }
 
-uint64_t __25__SSXPCServer_mainServer__block_invoke()
+void *__25__SSXPCServer_mainServer__block_invoke(uint64_t a1)
 {
   mainServer_sMainServerQueue = dispatch_queue_create("com.apple.StoreServices.SSXPCServer.main", 0);
   result = [objc_alloc(objc_opt_class()) initWithServiceName:@"com.apple.itunesstored.xpc" entitlement:0 queue:mainServer_sMainServerQueue];
@@ -222,10 +222,10 @@ void __50__SSXPCServer_removeObserver_selector_forMessage___block_invoke(void *a
 
 - (void)_dispatchMessage:(id)message connection:(id)connection
 {
-  v85 = *MEMORY[0x1E69E9840];
-  memset(v82, 0, sizeof(v82));
+  v88 = *MEMORY[0x1E69E9840];
+  memset(v85, 0, sizeof(v85));
   xpc_connection_get_audit_token();
-  v66 = CPCopyBundleIdentifierFromAuditToken();
+  v69 = CPCopyBundleIdentifierFromAuditToken();
   v4 = MKBDeviceUnlockedSinceBoot();
   v5 = v4;
   if (v4 != 1)
@@ -241,35 +241,35 @@ void __50__SSXPCServer_removeObserver_selector_forMessage___block_invoke(void *a
       shouldLog = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        v13 = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        v13 = shouldLog;
       }
 
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_FAULT))
+      oSLogObject = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        v12 = v11;
+        v15 = v13;
       }
 
       else
       {
-        v12 = v11 & 2;
+        v15 = v13 & 2;
       }
 
-      if (!v12)
+      if (!v15)
       {
         goto LABEL_25;
       }
 
-      LODWORD(v82[0]) = 138543618;
-      *(v82 + 4) = objc_opt_class();
-      WORD6(v82[0]) = 1024;
-      *(v82 + 14) = v5;
-      LODWORD(v62) = 18;
-      v61 = v82;
+      LODWORD(v85[0]) = 138543618;
+      *(v85 + 4) = objc_opt_class();
+      WORD6(v85[0]) = 1024;
+      *(v85 + 14) = v5;
+      v11 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 17, "%{public}@: Invalidating connection; error determining whether device has been unlocked since boot (%d)", v85, 18);
     }
 
     else
@@ -291,192 +291,191 @@ void __50__SSXPCServer_removeObserver_selector_forMessage___block_invoke(void *a
         v8 = shouldLog2;
       }
 
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject2 = [v6 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
       {
-        v9 = v8;
+        v10 = v8;
       }
 
       else
       {
-        v9 = v8 & 2;
+        v10 = v8 & 2;
       }
 
-      if (!v9)
+      if (!v10)
       {
         goto LABEL_25;
       }
 
-      LODWORD(v82[0]) = 138543362;
-      *(v82 + 4) = objc_opt_class();
-      LODWORD(v62) = 12;
-      v61 = v82;
+      LODWORD(v85[0]) = 138543362;
+      *(v85 + 4) = objc_opt_class();
+      v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Invalidating connection; device has not been unlocked since boot", v85, 12);
     }
 
-    v13 = _os_log_send_and_compose_impl();
-    if (v13)
+    if (v11)
     {
-      v14 = v13;
-      v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, v82, v62}];
-      free(v14);
-      SSFileLog(v6, @"%@", v16, v17, v18, v19, v20, v21, v15);
+      v16 = v11;
+      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v16);
+      SSFileLog(v6, @"%@", v18, v19, v20, v21, v22, v23, v17);
     }
 
 LABEL_25:
-    [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v66 andSelector:@"beforeFirstUnlockClient", v61];
+    [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v69 andSelector:@"beforeFirstUnlockClient"];
     xpc_connection_cancel(connection);
   }
 
   entitlementName = self->_entitlementName;
   if (entitlementName && !SSXPCConnectionHasEntitlement(connection, entitlementName))
   {
-    v46 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v46)
+    v49 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v49)
     {
-      v46 = +[SSLogConfig sharedConfig];
+      v49 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v46 shouldLog];
-    if ([v46 shouldLogToDisk])
+    shouldLog3 = [v49 shouldLog];
+    if ([v49 shouldLogToDisk])
     {
-      v48 = shouldLog3 | 2;
-    }
-
-    else
-    {
-      v48 = shouldLog3;
-    }
-
-    if (os_log_type_enabled([v46 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v49 = v48;
+      v51 = shouldLog3 | 2;
     }
 
     else
     {
-      v49 = v48 & 2;
+      v51 = shouldLog3;
     }
 
-    if (v49)
+    oSLogObject3 = [v49 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v50 = objc_opt_class();
-      v51 = self->_entitlementName;
-      LODWORD(v82[0]) = 138412546;
-      *(v82 + 4) = v50;
-      WORD6(v82[0]) = 2112;
-      *(v82 + 14) = v51;
-      LODWORD(v62) = 22;
-      v61 = v82;
-      v52 = _os_log_send_and_compose_impl();
-      if (v52)
+      v53 = v51;
+    }
+
+    else
+    {
+      v53 = v51 & 2;
+    }
+
+    if (v53)
+    {
+      v54 = objc_opt_class();
+      v55 = self->_entitlementName;
+      LODWORD(v85[0]) = 138412546;
+      *(v85 + 4) = v54;
+      WORD6(v85[0]) = 2112;
+      *(v85 + 14) = v55;
+      LODWORD(v65) = 22;
+      v56 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, "%@: Ignoring message, client lacks entitlement: %@", v85, v65);
+      if (v56)
       {
-        v53 = v52;
-        v54 = [MEMORY[0x1E696AEC0] stringWithCString:v52 encoding:{4, v82, v62}];
-        free(v53);
-        SSFileLog(v46, @"%@", v55, v56, v57, v58, v59, v60, v54);
+        v57 = v56;
+        v58 = [MEMORY[0x1E696AEC0] stringWithCString:v56 encoding:4];
+        free(v57);
+        SSFileLog(v49, @"%@", v59, v60, v61, v62, v63, v64, v58);
       }
     }
 
-    [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v66 andSelector:@"unentitledClient", v61];
+    [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v69 andSelector:@"unentitledClient"];
   }
 
   else
   {
-    *&v82[0] = 0;
-    *(&v82[0] + 1) = v82;
-    *&v82[1] = 0x3052000000;
-    *(&v82[1] + 1) = __Block_byref_object_copy__37;
-    v83 = __Block_byref_object_dispose__37;
-    v84 = 0;
+    *&v85[0] = 0;
+    *(&v85[0] + 1) = v85;
+    *&v85[1] = 0x3052000000;
+    *(&v85[1] + 1) = __Block_byref_object_copy__37;
+    v86 = __Block_byref_object_dispose__37;
+    v87 = 0;
     dispatchQueue = self->_dispatchQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __43__SSXPCServer__dispatchMessage_connection___block_invoke;
     block[3] = &unk_1E84B0D50;
     block[5] = self;
-    block[6] = v82;
+    block[6] = v85;
     block[4] = message;
     dispatch_sync(dispatchQueue, block);
-    v70 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
-    obj = *(*(&v82[0] + 1) + 40);
-    v24 = [obj countByEnumeratingWithState:&v68 objects:v81 count:16];
-    if (v24)
+    v72 = 0u;
+    obj = *(*(&v85[0] + 1) + 40);
+    v26 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
+    if (v26)
     {
-      v25 = *v69;
+      v27 = *v72;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v69 != v25)
+          if (*v72 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v68 + 1) + 8 * i);
-          v28 = NSStringFromSelector([v27 selector]);
-          v29 = +[SSLogConfig sharedDaemonConfig];
-          if (!v29)
+          v29 = *(*(&v71 + 1) + 8 * i);
+          v30 = NSStringFromSelector([v29 selector]);
+          v31 = +[SSLogConfig sharedDaemonConfig];
+          if (!v31)
           {
-            v29 = +[SSLogConfig sharedConfig];
+            v31 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog4 = [v29 shouldLog];
-          shouldLogToDisk = [v29 shouldLogToDisk];
-          oSLogObject = [v29 OSLogObject];
+          shouldLog4 = [v31 shouldLog];
+          shouldLogToDisk = [v31 shouldLogToDisk];
+          oSLogObject4 = [v31 OSLogObject];
+          v35 = oSLogObject4;
           if (shouldLogToDisk)
           {
             shouldLog4 |= 2u;
           }
 
-          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
           {
-            v33 = shouldLog4;
+            v36 = shouldLog4;
           }
 
           else
           {
-            v33 = shouldLog4 & 2;
+            v36 = shouldLog4 & 2;
           }
 
-          if (v33)
+          if (v36)
           {
-            v34 = objc_opt_class();
-            [v27 observer];
-            v35 = objc_opt_class();
-            v36 = NSStringFromClass(v35);
-            v73 = 138544130;
-            v74 = v34;
-            v75 = 2114;
-            v76 = v66;
-            v77 = 2112;
-            v78 = v36;
-            v79 = 2112;
-            v80 = v28;
-            LODWORD(v62) = 42;
-            v61 = &v73;
-            v37 = _os_log_send_and_compose_impl();
-            if (v37)
+            v37 = objc_opt_class();
+            [v29 observer];
+            v38 = objc_opt_class();
+            v39 = NSStringFromClass(v38);
+            v76 = 138544130;
+            v77 = v37;
+            v78 = 2114;
+            v79 = v69;
+            v80 = 2112;
+            v81 = v39;
+            v82 = 2112;
+            v83 = v30;
+            LODWORD(v65) = 42;
+            v40 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &dword_1D48BA000, v35, 0, "%{public}@: Received connection from: %{public}@ message: [%@ %@]", &v76, v65);
+            if (v40)
             {
-              v38 = v37;
-              v39 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:{4, &v73, v62}];
-              free(v38);
-              SSFileLog(v29, @"%@", v40, v41, v42, v43, v44, v45, v39);
+              v41 = v40;
+              v42 = [MEMORY[0x1E696AEC0] stringWithCString:v40 encoding:4];
+              free(v41);
+              SSFileLog(v31, @"%@", v43, v44, v45, v46, v47, v48, v42);
             }
           }
 
-          [objc_msgSend(v27 observer];
-          [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v66 andSelector:v28];
+          [objc_msgSend(v29 "observer")];
+          [(SSXPCServer *)self _recordCoreAnalyticsEventForClient:v69 andSelector:v30];
         }
 
-        v24 = [obj countByEnumeratingWithState:&v68 objects:v81 count:16];
+        v26 = [obj countByEnumeratingWithState:&v71 objects:v84 count:16];
       }
 
-      while (v24);
+      while (v26);
     }
 
-    _Block_object_dispose(v82, 8);
+    _Block_object_dispose(v85, 8);
   }
 }
 

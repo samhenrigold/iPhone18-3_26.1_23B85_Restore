@@ -258,22 +258,20 @@ LABEL_7:
 
 - (id)fileExistsAtPath:(id)path
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v12 = 0;
+  v13[2] = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v3 = MEMORY[0x277CCAA00];
   pathCopy = path;
   defaultManager = [v3 defaultManager];
-  v6 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v12];
+  v6 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v11];
 
-  v13[0] = @"fileExists";
+  v12[0] = @"fileExists";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-  v13[1] = @"isDirectory";
-  v14[0] = v7;
-  v8 = [MEMORY[0x277CCABB0] numberWithBool:v12];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = @"isDirectory";
+  v13[0] = v7;
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:v11];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v9;
 }

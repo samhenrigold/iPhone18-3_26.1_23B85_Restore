@@ -149,7 +149,7 @@
 - (BOOL)p_getData:(id *)data forCellID:(id)d
 {
   v7 = *&d.var0 >> 16;
-  v34 = 0;
+  v35 = 0;
   var0 = d.var0;
   location = self->mCurTileRange.location;
   v11 = d.var0 >= location;
@@ -159,20 +159,20 @@
   {
     self->mCurTile = 0;
     self->mCurTileRange = NSRangeEmpty;
-    TileForRow = TSTDataStoreGetTileForRow(self->mTableDataStore, d.var0, &v34);
+    TileForRow = TSTDataStoreGetTileForRow(self->mTableDataStore, d.var0, &v35);
     self->mCurTile = TileForRow;
     if (TileForRow || (v13 = [MEMORY[0x277D6C290] currentHandler], v14 = objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "-[TSTCellIterator p_getData:forCellID:]"), objc_msgSend(v13, "handleFailureInFunction:file:lineNumber:description:", v14, objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", "/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTCellIterator.mm"), 149, @"Failed to get a tile while iterating!"), (TileForRow = self->mCurTile) != 0))
     {
-      v15 = v34;
+      v15 = v35;
       if ([(TSTTableTile *)TileForRow maxRow]+ v15 < d.var0)
       {
-        self->mCurTile = TSTDataStoreGetTileAtOrAfterRow(self->mTableDataStore, d.var0, &v34);
+        self->mCurTile = TSTDataStoreGetTileAtOrAfterRow(self->mTableDataStore, d.var0, &v35);
       }
     }
 
     if (!self->mReturnEmptyCells && self->mDontReturnMergeRegions)
     {
-      if (!self->mCurTile || (v16 = [(TSTCellRegion *)self->mModelRegion boundingCellRange], v34 > (v16.var0.var0 + v16.var1.var1 - 1)))
+      if (!self->mCurTile || (v16 = [(TSTCellRegion *)self->mModelRegion boundingCellRange], v35 > (v16.var0.var0 + v16.var1.var1 - 1)))
       {
         [(TSTCellRegionIterating *)self->mModelRegionIterator terminate];
       }
@@ -181,7 +181,7 @@
     mCurTile = self->mCurTile;
     if (mCurTile)
     {
-      v18 = v34;
+      v18 = v35;
       maxRow = [(TSTTableTile *)mCurTile maxRow];
       self->mCurTileRange.location = v18;
       self->mCurTileRange.length = maxRow + 1;
@@ -205,24 +205,24 @@
   }
 
   data->var8 = TSTHidingActionForRow(self->mTableModel, d.var0) != 0;
-  v23 = TSTHidingActionForColumn(self->mTableModel, v7) != 0;
-  data->var9 = v23;
-  v24 = data->var8 || v23;
-  data->var7 = v24;
-  if (v24 && !self->mReturnHiddenCells)
+  v24 = TSTHidingActionForColumn(self->mTableModel, v7) != 0;
+  data->var9 = v24;
+  v25 = data->var8 || v24;
+  data->var7 = v25;
+  if (v25 && !self->mReturnHiddenCells)
   {
     return 0;
   }
 
-  if (self->mCurRowID == -1 || (v25 = TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(self->mCurRow, v7), (data->var3 = v25) == 0))
+  if (self->mCurRowID == -1 || (v26 = TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(self->mCurRow, v7), (data->var3 = v26) == 0))
   {
-    LOBYTE(v27) = 0;
     LOBYTE(v28) = 0;
-    v29 = 0;
+    LOBYTE(v29) = 0;
+    v30 = 0;
 LABEL_45:
-    if (self->mReturnEmptyCells && !v28 && (v27 & 1) == 0 && !data->var2)
+    if (self->mReturnEmptyCells && !v29 && (v28 & 1) == 0 && !data->var2)
     {
-      TSTCellClear(self->mCell);
+      TSTCellClear(self->mCell, v23);
       mCell = self->mCell;
       TSTCellClearValue(mCell);
       *&mCell->mPrivate &= 0xFFFF00FF;
@@ -231,40 +231,40 @@ LABEL_45:
       data->var1.var0 = d.var0;
       data->var1.var1 = v7;
       data->var1.var2 = d.var2;
-      v29 = 1;
+      v30 = 1;
     }
 
     goto LABEL_50;
   }
 
-  if (*(v25 + 1) > 0xFFu)
+  if (*(v26 + 1) > 0xFFu)
   {
     data->var5 = 0;
   }
 
   else
   {
-    data->var5 = (TSTCellStorageHeaderFlagsForStorage(v25) & 2) != 0;
+    data->var5 = (TSTCellStorageHeaderFlagsForStorage(v26) & 2) != 0;
     if ((TSTCellStorageHeaderFlagsForStorage(data->var3) & 0x1000) != 0)
     {
-      v26 = 1;
       v27 = 1;
+      v28 = 1;
       goto LABEL_35;
     }
   }
 
-  v26 = 0;
   v27 = 0;
+  v28 = 0;
 LABEL_35:
-  data->var6 = v26;
-  v28 = self->mSkipStyleOnlyCells && data->var5;
+  data->var6 = v27;
+  v29 = self->mSkipStyleOnlyCells && data->var5;
   if (!self->mSkipCommentStorageOnlyCells)
   {
-    LOBYTE(v27) = 0;
+    LOBYTE(v28) = 0;
     goto LABEL_42;
   }
 
-  if ((v28 & v27 & 1) == 0)
+  if ((v29 & v28 & 1) == 0)
   {
 LABEL_42:
     if (!self->mDontExpandCellRefs)
@@ -277,35 +277,35 @@ LABEL_42:
     data->var1.var1 = v7;
     data->var1.var2 = d.var2;
     data->var0 = self->mPreviousCellID;
-    v29 = 1;
+    v30 = 1;
     goto LABEL_45;
   }
 
-  v29 = 0;
+  v30 = 0;
 LABEL_50:
   if (!self->mDontReturnMergeRegions)
   {
     data->var1.var0 = d.var0;
     data->var1.var1 = v7;
     data->var1.var2 = d.var2;
-    v31 = TSTTableMergeRangeAtCellID(self->mTableModel, *&d);
-    data->var4 = v31;
-    if (v29)
+    v32 = TSTTableMergeRangeAtCellID(self->mTableModel, *&d);
+    data->var4 = v32;
+    if (v30)
     {
       return 1;
     }
 
     else
     {
-      v29 = 0;
-      if (v31 != 0xFFFF && (v31 & 0xFF0000) != 0xFF0000)
+      v30 = 0;
+      if (v32 != 0xFFFF && (v32 & 0xFF0000) != 0xFF0000)
       {
-        return (v31 & 0xFFFF00000000) != 0 && HIWORD(v31) != 0;
+        return (v32 & 0xFFFF00000000) != 0 && HIWORD(v32) != 0;
       }
     }
   }
 
-  return v29;
+  return v30;
 }
 
 - (BOOL)getNext:(id *)next

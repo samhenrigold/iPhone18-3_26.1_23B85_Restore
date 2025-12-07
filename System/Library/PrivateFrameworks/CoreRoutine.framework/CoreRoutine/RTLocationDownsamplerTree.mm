@@ -167,7 +167,7 @@ LABEL_7:
 
 - (id)sampledLocations
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   left = [(RTLocationDownsamplerTree *)self left];
   if (left && (v4 = left, [(RTLocationDownsamplerTree *)self right], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
   {
@@ -188,14 +188,12 @@ LABEL_7:
   {
     sampledLocations = [(RTLocationDownsamplerTree *)self locations];
     sampledLocations2 = [sampledLocations firstObject];
-    v16[0] = sampledLocations2;
+    v15[0] = sampledLocations2;
     locations = [(RTLocationDownsamplerTree *)self locations];
     lastObject = [locations lastObject];
-    v16[1] = lastObject;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[1] = lastObject;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

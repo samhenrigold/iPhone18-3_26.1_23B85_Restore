@@ -1,3 +1,327 @@
+uint64_t INFERENCESchemaINFERENCECommsAppSelectionTrainingAppIndependentSignalsReadFrom(void *a1, void *a2)
+{
+  for (i = a2; ; i = a2)
+  {
+    v5 = [i position];
+    if (v5 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    while (1)
+    {
+      v51 = 0;
+      v9 = [a2 position] + 1;
+      if (v9 >= [a2 position] && (v10 = objc_msgSend(a2, "position") + 1, v10 <= objc_msgSend(a2, "length")))
+      {
+        v11 = [a2 data];
+        [v11 getBytes:&v51 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v8 |= (v51 & 0x7F) << v6;
+      if ((v51 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v6 += 7;
+      v12 = v7++ >= 9;
+      if (v12)
+      {
+        v13 = 0;
+        goto LABEL_16;
+      }
+    }
+
+    v13 = [a2 hasError] ? 0 : v8;
+LABEL_16:
+    if (([a2 hasError] & 1) != 0 || (v13 & 7) == 4)
+    {
+      break;
+    }
+
+    v14 = v13 >> 3;
+    if ((v13 >> 3) <= 2)
+    {
+      if (v14 == 1)
+      {
+        v43 = 0;
+        v44 = 0;
+        v45 = 0;
+        while (1)
+        {
+          v54 = 0;
+          v46 = [a2 position] + 1;
+          if (v46 >= [a2 position] && (v47 = objc_msgSend(a2, "position") + 1, v47 <= objc_msgSend(a2, "length")))
+          {
+            v48 = [a2 data];
+            [v48 getBytes:&v54 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v45 |= (v54 & 0x7F) << v43;
+          if ((v54 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v43 += 7;
+          v12 = v44++ >= 9;
+          if (v12)
+          {
+            v49 = 0;
+            goto LABEL_82;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v49 = 0;
+        }
+
+        else
+        {
+          v49 = v45;
+        }
+
+LABEL_82:
+        [a1 setRequestOriginLocale:v49];
+        continue;
+      }
+
+      if (v14 == 2)
+      {
+        v22 = 0;
+        v23 = 0;
+        v24 = 0;
+        while (1)
+        {
+          v53 = 0;
+          v25 = [a2 position] + 1;
+          if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
+          {
+            v27 = [a2 data];
+            [v27 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v24 |= (v53 & 0x7F) << v22;
+          if ((v53 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v22 += 7;
+          v12 = v23++ >= 9;
+          if (v12)
+          {
+            v28 = 0;
+            goto LABEL_90;
+          }
+        }
+
+        if ([a2 hasError])
+        {
+          v28 = 0;
+        }
+
+        else
+        {
+          v28 = v24;
+        }
+
+LABEL_90:
+        [a1 setRequestOriginLanguage:v28];
+        continue;
+      }
+    }
+
+    else
+    {
+      switch(v14)
+      {
+        case 3:
+          v29 = 0;
+          v30 = 0;
+          v31 = 0;
+          while (1)
+          {
+            v52 = 0;
+            v32 = [a2 position] + 1;
+            if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
+            {
+              v34 = [a2 data];
+              [v34 getBytes:&v52 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v31 |= (v52 & 0x7F) << v29;
+            if ((v52 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v29 += 7;
+            v12 = v30++ >= 9;
+            if (v12)
+            {
+              v35 = 0;
+              goto LABEL_74;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v35 = 0;
+          }
+
+          else
+          {
+            v35 = v31;
+          }
+
+LABEL_74:
+          [a1 setCommunicationType:v35];
+          continue;
+        case 4:
+          v36 = 0;
+          v37 = 0;
+          v38 = 0;
+          while (1)
+          {
+            v56 = 0;
+            v39 = [a2 position] + 1;
+            if (v39 >= [a2 position] && (v40 = objc_msgSend(a2, "position") + 1, v40 <= objc_msgSend(a2, "length")))
+            {
+              v41 = [a2 data];
+              [v41 getBytes:&v56 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v38 |= (v56 & 0x7F) << v36;
+            if ((v56 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v36 += 7;
+            v12 = v37++ >= 9;
+            if (v12)
+            {
+              v42 = 0;
+              goto LABEL_78;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v42 = 0;
+          }
+
+          else
+          {
+            v42 = v38;
+          }
+
+LABEL_78:
+          [a1 setAppResolutionType:v42];
+          continue;
+        case 5:
+          v15 = 0;
+          v16 = 0;
+          v17 = 0;
+          while (1)
+          {
+            v55 = 0;
+            v18 = [a2 position] + 1;
+            if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
+            {
+              v20 = [a2 data];
+              [v20 getBytes:&v55 range:{objc_msgSend(a2, "position"), 1}];
+
+              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+            }
+
+            else
+            {
+              [a2 _setError];
+            }
+
+            v17 |= (v55 & 0x7F) << v15;
+            if ((v55 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v15 += 7;
+            v12 = v16++ >= 9;
+            if (v12)
+            {
+              v21 = 0;
+              goto LABEL_86;
+            }
+          }
+
+          if ([a2 hasError])
+          {
+            v21 = 0;
+          }
+
+          else
+          {
+            v21 = v17;
+          }
+
+LABEL_86:
+          [a1 setUserPersona:v21];
+          continue;
+      }
+    }
+
+    result = PBReaderSkipValueWithTag();
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
 uint64_t INFERENCESchemaINFERENCECommsAppSelectionTrainingContactDependentMessageSignalsReadFrom(void *a1, void *a2)
 {
   for (i = a2; ; i = a2)

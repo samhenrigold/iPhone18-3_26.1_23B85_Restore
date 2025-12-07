@@ -10,126 +10,124 @@
 - (LBFExperimentEventsHolder)initWithExperimentOrTaskId:(id)id
 {
   idCopy = id;
-  v10.receiver = self;
-  v10.super_class = LBFExperimentEventsHolder;
-  v6 = [(LBFExperimentEventsHolder *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = LBFExperimentEventsHolder;
+  v6 = [(LBFExperimentEventsHolder *)&v12 init];
+  v8 = v6;
   if (v6)
   {
-    LBFLoggingUtilsInit();
-    objc_storeStrong(&v6->_experimentOrTaskId, id);
-    v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    deploymentEventsHolders = v6->_deploymentEventsHolders;
-    v6->_deploymentEventsHolders = v7;
+    LBFLoggingUtilsInit(v6, v7);
+    objc_storeStrong(&v8->_experimentOrTaskId, id);
+    v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    deploymentEventsHolders = v8->_deploymentEventsHolders;
+    v8->_deploymentEventsHolders = v9;
   }
 
-  return v6;
+  return v8;
 }
 
 - (id)ensureDeploymentEventsHolder:(id)holder
 {
   holderCopy = holder;
-  v8 = objc_msgSend_objectForKey_(self->_deploymentEventsHolders, v5, holderCopy, v6, v7);
-  if (!v8)
+  v7 = objc_msgSend_objectForKey_(self->_deploymentEventsHolders, v5, v6, holderCopy);
+  if (!v7)
   {
-    v9 = [LBFDeploymentEventsHolder alloc];
-    v8 = objc_msgSend_initWithExperimentOrTaskId_deploymentId_(v9, v10, self->_experimentOrTaskId, holderCopy, v11);
-    objc_msgSend_setValue_forKey_(self->_deploymentEventsHolders, v12, v8, holderCopy, v13);
+    v8 = [LBFDeploymentEventsHolder alloc];
+    v7 = objc_msgSend_initWithExperimentOrTaskId_deploymentId_(v8, v9, v10, self->_experimentOrTaskId, holderCopy);
+    objc_msgSend_setValue_forKey_(self->_deploymentEventsHolders, v11, v12, v7, holderCopy);
   }
 
-  v14 = v8;
+  v13 = v7;
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)dumpFetchedEvents
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = LBFLogContextEventsHolder;
   if (os_log_type_enabled(LBFLogContextEventsHolder, OS_LOG_TYPE_INFO))
   {
     experimentOrTaskId = self->_experimentOrTaskId;
     *buf = 138412290;
-    v27 = experimentOrTaskId;
+    v24 = experimentOrTaskId;
     _os_log_impl(&dword_255ED5000, v3, OS_LOG_TYPE_INFO, "dumpFetchedEvents experimentId %@", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v9 = objc_msgSend_allValues(self->_deploymentEventsHolders, v4, v5, v6, v7, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
-  if (v11)
+  v18 = 0u;
+  v19 = 0u;
+  v7 = objc_msgSend_allValues(self->_deploymentEventsHolders, v4, 0, v5, 0);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, v9, &v18, v22, 16);
+  if (v10)
   {
-    v16 = v11;
-    v17 = *v22;
+    v14 = v10;
+    v15 = *v19;
     do
     {
-      v18 = 0;
+      v16 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v19 != v15)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        objc_msgSend_dumpFetchedEvents(*(*(&v21 + 1) + 8 * v18++), v12, v13, v14, v15);
+        objc_msgSend_dumpFetchedEvents(*(*(&v18 + 1) + 8 * v16++), v11, v13, v12);
       }
 
-      while (v16 != v18);
-      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v21, v25, 16);
+      while (v14 != v16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v11, v13, &v18, v22, 16);
     }
 
-    while (v16);
+    while (v14);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)fetchedEventsInDictionaries
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = LBFLogContextEventsHolder;
   if (os_log_type_enabled(LBFLogContextEventsHolder, OS_LOG_TYPE_INFO))
   {
     experimentOrTaskId = self->_experimentOrTaskId;
     *buf = 138412290;
-    v32 = experimentOrTaskId;
+    v28 = experimentOrTaskId;
     _os_log_impl(&dword_255ED5000, v4, OS_LOG_TYPE_INFO, "dumpFetchedEvents experimentId %@", buf, 0xCu);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v10 = objc_msgSend_allValues(self->_deploymentEventsHolders, v5, v6, v7, v8, 0);
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v26, v30, 16);
-  if (v12)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v8 = objc_msgSend_allValues(self->_deploymentEventsHolders, v5, 0, v6, 0);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, v10, &v22, v26, 16);
+  if (v11)
   {
-    v17 = v12;
-    v18 = *v27;
+    v15 = v11;
+    v16 = *v23;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v18)
+        if (*v23 != v16)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v8);
         }
 
-        v20 = objc_msgSend_fetchedEventsInDictionaries(*(*(&v26 + 1) + 8 * i), v13, v14, v15, v16);
-        objc_msgSend_addObjectsFromArray_(v3, v21, v20, v22, v23);
+        v18 = objc_msgSend_fetchedEventsInDictionaries(*(*(&v22 + 1) + 8 * i), v12, v14, v13);
+        objc_msgSend_addObjectsFromArray_(v3, v19, v20, v18);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v26, v30, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v12, v14, &v22, v26, 16);
     }
 
-    while (v17);
+    while (v15);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

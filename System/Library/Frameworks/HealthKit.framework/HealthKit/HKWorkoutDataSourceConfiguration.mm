@@ -51,13 +51,13 @@
 
 - (HKWorkoutDataSourceConfiguration)initWithWorkoutConfiguration:(id)configuration sampleTypesToCollect:(id)collect eventTypesToCollect:(id)toCollect collectsDefaultTypes:(BOOL)types
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   collectCopy = collect;
   toCollectCopy = toCollect;
-  v44.receiver = self;
-  v44.super_class = HKWorkoutDataSourceConfiguration;
-  v13 = [(HKWorkoutDataSourceConfiguration *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = HKWorkoutDataSourceConfiguration;
+  v13 = [(HKWorkoutDataSourceConfiguration *)&v43 init];
   if (v13)
   {
     v14 = [configurationCopy copy];
@@ -67,7 +67,7 @@
       v15 = objc_alloc_init(HKWorkoutConfiguration);
     }
 
-    v34 = toCollectCopy;
+    v33 = toCollectCopy;
     typesCopy = types;
     objc_storeStrong(&v13->_workoutConfiguration, v15);
     if (!v14)
@@ -76,61 +76,60 @@
 
     v16 = [collectCopy copy];
     sampleTypesToCollect = v13->_sampleTypesToCollect;
-    v35 = v13;
+    v34 = v13;
     v13->_sampleTypesToCollect = v16;
 
     v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v38 = configurationCopy;
+    v37 = configurationCopy;
     locationType = [configurationCopy locationType];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v36 = collectCopy;
+    v35 = collectCopy;
     obj = collectCopy;
-    v20 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v20 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v41;
+      v22 = *v40;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v40 + 1) + 8 * i);
+          v24 = *(*(&v39 + 1) + 8 * i);
           v25 = [HKWorkoutDataSource _sourcePredicateForSampleType:v24 isIndoor:locationType == 2];
           v26 = [MEMORY[0x1E695DFD8] setWithObject:v24];
           v27 = [v25 hk_filterRepresentationForDataTypes:v26];
           [v18 setObject:v27 forKeyedSubscript:v24];
         }
 
-        v21 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v21 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v21);
     }
 
     v28 = [v18 copy];
-    v13 = v35;
-    filtersBySampleType = v35->_filtersBySampleType;
-    v35->_filtersBySampleType = v28;
+    v13 = v34;
+    filtersBySampleType = v34->_filtersBySampleType;
+    v34->_filtersBySampleType = v28;
 
-    toCollectCopy = v34;
-    v30 = [v34 copy];
-    eventTypesToCollect = v35->_eventTypesToCollect;
-    v35->_eventTypesToCollect = v30;
+    toCollectCopy = v33;
+    v30 = [v33 copy];
+    eventTypesToCollect = v34->_eventTypesToCollect;
+    v34->_eventTypesToCollect = v30;
 
-    v35->_collectsDefaultTypes = typesCopy;
-    configurationCopy = v38;
-    collectCopy = v36;
+    v34->_collectsDefaultTypes = typesCopy;
+    configurationCopy = v37;
+    collectCopy = v35;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

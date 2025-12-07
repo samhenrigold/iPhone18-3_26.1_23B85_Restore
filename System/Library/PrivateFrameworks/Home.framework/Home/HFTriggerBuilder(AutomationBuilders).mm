@@ -19,8 +19,8 @@
     }
   }
 
-  home = [(HFItemBuilder *)self home];
-  areAutomationBuildersSupported = [home areAutomationBuildersSupported];
+  v7 = objc_msgSend_home(self);
+  areAutomationBuildersSupported = [v7 areAutomationBuildersSupported];
 
   return areAutomationBuildersSupported;
 }

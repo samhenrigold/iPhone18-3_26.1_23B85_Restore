@@ -44,7 +44,7 @@
 
 - (void)didReceiveMessage:(id)message securityOrigin:(id)origin
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   name = [messageCopy name];
   v7 = [name isEqualToString:@"action"];
@@ -77,33 +77,33 @@
           v21 = [v18 stringWithFormat:@"Action: action type %@. Message: %@", v19, body3];
           [logger2 log:v21];
 
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           actionBlocks2 = [(SWActionProvider *)self actionBlocks];
           v23 = [actionBlocks2 copy];
 
-          v24 = [v23 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v30;
+            v26 = *v29;
             do
             {
               v27 = 0;
               do
               {
-                if (*v30 != v26)
+                if (*v29 != v26)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                (*(*(*(&v29 + 1) + 8 * v27++) + 16))();
+                (*(*(*(&v28 + 1) + 8 * v27++) + 16))();
               }
 
               while (v25 != v27);
-              v25 = [v23 countByEnumeratingWithState:&v29 objects:v33 count:16];
+              v25 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
             }
 
             while (v25);
@@ -112,8 +112,6 @@
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)actionTypeText:(unint64_t)text

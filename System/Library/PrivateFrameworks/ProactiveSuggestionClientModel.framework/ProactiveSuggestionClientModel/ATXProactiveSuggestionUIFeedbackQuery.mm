@@ -86,7 +86,7 @@
 
   else
   {
-    v12 = __atxlog_handle_blending_ecosystem();
+    v12 = __atxlog_handle_blending_ecosystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXProactiveSuggestionUIFeedbackQuery enumerateUIFeedbackResultsWithBlock:v12 completionBlock:?];
@@ -102,7 +102,7 @@
 
 void __93__ATXProactiveSuggestionUIFeedbackQuery_enumerateUIFeedbackResultsWithBlock_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 error];
@@ -114,21 +114,20 @@ void __93__ATXProactiveSuggestionUIFeedbackQuery_enumerateUIFeedbackResultsWithB
     if (*(*(a1 + 32) + 32))
     {
       v11 = [objc_alloc(MEMORY[0x1E698AFE0]) initWithURLPath:*(*(a1 + 32) + 32) versionNumber:&unk_1F5A40E10 bookmark:v6 metadata:0];
-      v22 = 0;
-      v10 = [v11 saveBookmarkWithError:&v22];
-      v7 = v22;
-      v12 = __atxlog_handle_blending_ecosystem();
+      v19 = 0;
+      v10 = [v11 saveBookmarkWithError:&v19];
+      v7 = v19;
+      v12 = __atxlog_handle_blending_ecosystem(v7);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(a1 + 32);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138412802;
-        v24 = v15;
-        v25 = 1024;
-        v26 = v10;
-        v27 = 2112;
-        v28 = v7;
+        v21 = v14;
+        v22 = 1024;
+        v23 = v10;
+        v24 = 2112;
+        v25 = v7;
         _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "%@ - saved new bookmark with success: %u, error: %@", buf, 0x1Cu);
       }
     }
@@ -140,27 +139,24 @@ void __93__ATXProactiveSuggestionUIFeedbackQuery_enumerateUIFeedbackResultsWithB
     }
   }
 
-  v16 = __atxlog_handle_blending_ecosystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_blending_ecosystem(v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
     *buf = 138412802;
-    v24 = v19;
-    v25 = 1024;
-    v26 = v10;
-    v27 = 2112;
-    v28 = v7;
-    _os_log_impl(&dword_1DEFC4000, v16, OS_LOG_TYPE_DEFAULT, "%@ - invoking completion handler with success: %u, error: %@", buf, 0x1Cu);
+    v21 = v17;
+    v22 = 1024;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_impl(&dword_1DEFC4000, v15, OS_LOG_TYPE_DEFAULT, "%@ - invoking completion handler with success: %u, error: %@", buf, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v8);
-  v20 = objc_autoreleasePoolPush();
+  v18 = objc_autoreleasePoolPush();
   (*(*(a1 + 40) + 16))();
-  objc_autoreleasePoolPop(v20);
-
-  v21 = *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(v18);
 }
 
 void __93__ATXProactiveSuggestionUIFeedbackQuery_enumerateUIFeedbackResultsWithBlock_completionBlock___block_invoke_15(uint64_t a1, void *a2)
@@ -184,14 +180,12 @@ void __93__ATXProactiveSuggestionUIFeedbackQuery_enumerateUIFeedbackResultsWithB
 
 - (void)enumerateUIFeedbackResultsWithBlock:(uint64_t)a1 completionBlock:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "%@ - could not create uiFeedbackPublisherChain, returning early", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "%@ - could not create uiFeedbackPublisherChain, returning early", &v5, 0xCu);
 }
 
 @end

@@ -44,7 +44,7 @@
 - (id)_wordsFromContext:(id)context shouldDelete:(BOOL)delete
 {
   deleteCopy = delete;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   inDocumentWordsStack = [(TIDocumentWordsAligned *)self inDocumentWordsStack];
   v8 = [inDocumentWordsStack count];
@@ -59,17 +59,17 @@
   if (contextCopy)
   {
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    v38 = [contextCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+    v37 = [contextCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
   }
 
   else
   {
-    v38 = &stru_283FDFAF8;
+    v37 = &stru_283FDFAF8;
   }
 
   if (v8 >= 1)
   {
-    v36 = deleteCopy;
+    v35 = deleteCopy;
     v11 = 0;
     while (1)
     {
@@ -81,7 +81,7 @@
       whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
       v17 = [contextBeforeInput stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
 
-      if (([v17 isEqualToString:contextCopy] & 1) != 0 || objc_msgSend(v17, "isEqualToString:", v38))
+      if ((objc_msgSend_isEqualToString_(v17) & 1) != 0 || objc_msgSend_isEqualToString_(v17))
       {
         break;
       }
@@ -109,7 +109,7 @@
     }
 
 LABEL_16:
-    if (!v36)
+    if (!v35)
     {
       goto LABEL_36;
     }
@@ -121,58 +121,58 @@ LABEL_16:
   if (deleteCopy)
   {
 LABEL_19:
-    v37 = contextCopy;
+    v36 = contextCopy;
     if (v11 != -1)
     {
       inDocumentWordsStack4 = [(TIDocumentWordsAligned *)self inDocumentWordsStack];
       [inDocumentWordsStack4 removeObjectsInRange:{v11, v8 - v11}];
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
-    v35 = array;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v34 = array;
     v22 = array;
-    v23 = [v22 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v44;
+      v25 = *v43;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v44 != v25)
+          if (*v43 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v43 + 1) + 8 * i);
+          v27 = *(*(&v42 + 1) + 8 * i);
           [v27 setDeleted:1];
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
           allEdits = [v27 allEdits];
-          v29 = [allEdits countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v29 = [allEdits countByEnumeratingWithState:&v38 objects:v46 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v40;
+            v31 = *v39;
             do
             {
               for (j = 0; j != v30; ++j)
               {
-                if (*v40 != v31)
+                if (*v39 != v31)
                 {
                   objc_enumerationMutation(allEdits);
                 }
 
-                [*(*(&v39 + 1) + 8 * j) setDeleted:1];
+                [*(*(&v38 + 1) + 8 * j) setDeleted:1];
               }
 
-              v30 = [allEdits countByEnumeratingWithState:&v39 objects:v47 count:16];
+              v30 = [allEdits countByEnumeratingWithState:&v38 objects:v46 count:16];
             }
 
             while (v30);
@@ -181,20 +181,19 @@ LABEL_19:
           [(TIDocumentWordsAligned *)self removeFromContextMap:v27];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v24);
     }
 
-    array = v35;
-    contextCopy = v37;
+    array = v34;
+    contextCopy = v36;
   }
 
 LABEL_36:
 
 LABEL_37:
-  v33 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -229,7 +228,7 @@ LABEL_37:
 {
   keyCopy = key;
   newKeyCopy = newKey;
-  if (([keyCopy isEqualToString:newKeyCopy] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(keyCopy) & 1) == 0)
   {
     leftContextToWordMap = [(TIDocumentWordsAligned *)self leftContextToWordMap];
     v8 = [leftContextToWordMap objectForKey:keyCopy];
@@ -273,32 +272,32 @@ LABEL_37:
 
 - (id)matchingLeftContextToWordMapKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   leftContextToWordMap = [(TIDocumentWordsAligned *)self leftContextToWordMap];
   allKeys = [leftContextToWordMap allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        if ([v12 isEqualToString:keyCopy])
+        v12 = *(*(&v17 + 1) + 8 * i);
+        if (objc_msgSend_isEqualToString_(v12))
         {
           v15 = v12;
 
@@ -314,7 +313,7 @@ LABEL_37:
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -332,8 +331,6 @@ LABEL_37:
   v9 = v9;
   v15 = v9;
 LABEL_21:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

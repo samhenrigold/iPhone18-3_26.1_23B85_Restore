@@ -74,19 +74,19 @@
 void __64__HMIHomePersonDataSourceHomeKit_fetchAllPersonsWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __64__HMIHomePersonDataSourceHomeKit_fetchAllPersonsWithCompletion___block_invoke_2;
-  v3[3] = &unk_278752DD0;
-  v4 = *(a1 + 40);
-  [v2 fetchAllPersonsWithCompletion:v3];
+  v3 = MEMORY[0x277D85DD0];
+  v4 = 3221225472;
+  v5 = __64__HMIHomePersonDataSourceHomeKit_fetchAllPersonsWithCompletion___block_invoke_2;
+  v6 = &unk_278752DD0;
+  v7 = *(a1 + 40);
+  [v2 fetchAllPersonsWithCompletion:?];
 }
 
 void __64__HMIHomePersonDataSourceHomeKit_fetchAllPersonsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v4 = [a2 na_map:&__block_literal_global_23];
+    v4 = [a2 na_map:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -133,20 +133,15 @@ void __64__HMIHomePersonDataSourceHomeKit_fetchAllPersonsWithCompletion___block_
 void __67__HMIHomePersonDataSourceHomeKit_fetchPersonsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __67__HMIHomePersonDataSourceHomeKit_fetchPersonsWithUUIDs_completion___block_invoke_2;
-  v4[3] = &unk_278752DD0;
-  v3 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  [v2 fetchPersonsWithUUIDs:v3 completion:v4];
+  v3 = *(a1 + 48);
+  [v2 fetchPersonsWithUUIDs:? completion:?];
 }
 
 void __67__HMIHomePersonDataSourceHomeKit_fetchPersonsWithUUIDs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v4 = [a2 na_map:&__block_literal_global_4_0];
+    v4 = [a2 na_map:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -188,26 +183,21 @@ void __67__HMIHomePersonDataSourceHomeKit_fetchPersonsWithUUIDs_completion___blo
 void __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_2;
-  v4[3] = &unk_278752E48;
+  v4 = MEMORY[0x277D85DD0];
+  v5 = 3221225472;
+  v6 = __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_2;
+  v7 = &unk_278752E48;
   v3 = *(a1 + 40);
-  v4[4] = *(a1 + 32);
-  v5 = v3;
-  [v2 fetchAllPersonFaceCropsWithCompletion:v4];
+  v8 = *(a1 + 32);
+  v9 = v3;
+  [v2 fetchAllPersonFaceCropsWithCompletion:{v4, 3221225472, __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_2, &unk_278752E48, v8}];
 }
 
 void __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_3;
-    v5[3] = &unk_278752E20;
-    v5[4] = *(a1 + 32);
-    v3 = [a2 na_map:v5];
+    v3 = [a2 na_map:?];
     (*(*(a1 + 40) + 16))();
   }
 
@@ -221,41 +211,35 @@ void __72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion_
 
 HMIPersonFaceCrop *__72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [v3 source];
-  if (v4 >= 5)
+  if ([v3 source] >= 5)
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 32);
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v8;
-      v26 = 2048;
-      v27 = [v3 source];
-      _os_log_impl(&dword_22D12F000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMPersonFaceCropSource: %ld", &v24, 0x16u);
+      v7 = HMFGetLogIdentifier();
+      v15 = 138543618;
+      v16 = v7;
+      v17 = 2048;
+      v18 = [v3 source];
+      _os_log_impl(&dword_22D12F000, v6, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMPersonFaceCropSource: %ld", &v15, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v5);
-    v4 = 0;
+    objc_autoreleasePoolPop(v4);
   }
 
-  v9 = [HMIPersonFaceCrop alloc];
-  v10 = [v3 UUID];
-  v11 = [v3 dataRepresentation];
-  v12 = [v3 dateCreated];
+  v8 = [HMIPersonFaceCrop alloc];
+  v9 = [v3 UUID];
+  v10 = [v3 dataRepresentation];
+  v11 = [v3 dateCreated];
   [v3 faceBoundingBox];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v21 = [v3 personUUID];
-  v22 = [(HMIPersonFaceCrop *)v9 initWithUUID:v10 dataRepresentation:v11 dateCreated:v12 faceBoundingBox:v21 personUUID:v4 source:v14, v16, v18, v20];
+  v12 = [v3 personUUID];
+  v13 = [HMIPersonFaceCrop initWithUUID:v8 dataRepresentation:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:personUUID:source:" dateCreated:? faceBoundingBox:? personUUID:? source:?];
 
-  return v22;
+  return v13;
 }
 
 - (void)fetchFaceCropsForPersonsWithUUIDs:(id)ds completion:(id)completion
@@ -293,27 +277,16 @@ HMIPersonFaceCrop *__72__HMIHomePersonDataSourceHomeKit_fetchAllPersonFaceCropsW
 void __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke_2;
-  v5[3] = &unk_278752E48;
-  v3 = *(a1 + 40);
+  v3 = MEMORY[0x277D85DD0];
   v4 = *(a1 + 48);
-  v5[4] = *(a1 + 32);
-  v6 = v4;
-  [v2 fetchFaceCropsForPersonsWithUUIDs:v3 completion:v5];
+  [v2 fetchFaceCropsForPersonsWithUUIDs:v3 completion:{3221225472, __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke_2, &unk_278752E48, *(a1 + 32)}];
 }
 
 void __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke_3;
-    v5[3] = &unk_278752E20;
-    v5[4] = *(a1 + 32);
-    v3 = [a2 na_map:v5];
+    v3 = [a2 na_map:?];
     (*(*(a1 + 40) + 16))();
   }
 
@@ -327,41 +300,35 @@ void __79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_comp
 
 HMIPersonFaceCrop *__79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersonsWithUUIDs_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [v3 source];
-  if (v4 >= 5)
+  if ([v3 source] >= 5)
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 32);
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v8;
-      v26 = 2048;
-      v27 = [v3 source];
-      _os_log_impl(&dword_22D12F000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMPersonFaceCropSource: %ld", &v24, 0x16u);
+      v7 = HMFGetLogIdentifier();
+      v15 = 138543618;
+      v16 = v7;
+      v17 = 2048;
+      v18 = [v3 source];
+      _os_log_impl(&dword_22D12F000, v6, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMPersonFaceCropSource: %ld", &v15, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v5);
-    v4 = 0;
+    objc_autoreleasePoolPop(v4);
   }
 
-  v9 = [HMIPersonFaceCrop alloc];
-  v10 = [v3 UUID];
-  v11 = [v3 dataRepresentation];
-  v12 = [v3 dateCreated];
+  v8 = [HMIPersonFaceCrop alloc];
+  v9 = [v3 UUID];
+  v10 = [v3 dataRepresentation];
+  v11 = [v3 dateCreated];
   [v3 faceBoundingBox];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v21 = [v3 personUUID];
-  v22 = [(HMIPersonFaceCrop *)v9 initWithUUID:v10 dataRepresentation:v11 dateCreated:v12 faceBoundingBox:v21 personUUID:v4 source:v14, v16, v18, v20];
+  v12 = [v3 personUUID];
+  v13 = [HMIPersonFaceCrop initWithUUID:v8 dataRepresentation:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:personUUID:source:" dateCreated:? faceBoundingBox:? personUUID:? source:?];
 
-  return v22;
+  return v13;
 }
 
 - (void)fetchAllFaceprintsWithCompletion:(id)completion
@@ -394,19 +361,19 @@ HMIPersonFaceCrop *__79__HMIHomePersonDataSourceHomeKit_fetchFaceCropsForPersons
 void __67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithCompletion___block_invoke_2;
-  v3[3] = &unk_278752DD0;
-  v4 = *(a1 + 40);
-  [v2 fetchAllFaceprintsWithCompletion:v3];
+  v3 = MEMORY[0x277D85DD0];
+  v4 = 3221225472;
+  v5 = __67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithCompletion___block_invoke_2;
+  v6 = &unk_278752DD0;
+  v7 = *(a1 + 40);
+  [v2 fetchAllFaceprintsWithCompletion:?];
 }
 
 void __67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v4 = [a2 na_map:&__block_literal_global_9_1];
+    v4 = [a2 na_map:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -427,7 +394,7 @@ HMIFaceprint *__67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithComplet
   v6 = [v2 modelUUID];
   v7 = [v2 faceCropUUID];
 
-  v8 = [(HMIFaceprint *)v3 initWithUUID:v4 data:v5 modelUUID:v6 faceCropUUID:v7];
+  v8 = [HMIFaceprint initWithUUID:v3 data:"initWithUUID:data:modelUUID:faceCropUUID:" modelUUID:? faceCropUUID:?];
 
   return v8;
 }
@@ -467,20 +434,15 @@ HMIFaceprint *__67__HMIHomePersonDataSourceHomeKit_fetchAllFaceprintsWithComplet
 void __82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWithUUIDs_completion___block_invoke_2;
-  v4[3] = &unk_278752DD0;
-  v3 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  [v2 fetchFaceprintsForFaceCropsWithUUIDs:v3 completion:v4];
+  v3 = *(a1 + 48);
+  [v2 fetchFaceprintsForFaceCropsWithUUIDs:? completion:?];
 }
 
 void __82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWithUUIDs_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v4 = [a2 na_map:&__block_literal_global_12_0];
+    v4 = [a2 na_map:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -501,7 +463,7 @@ HMIFaceprint *__82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWi
   v6 = [v2 modelUUID];
   v7 = [v2 faceCropUUID];
 
-  v8 = [(HMIFaceprint *)v3 initWithUUID:v4 data:v5 modelUUID:v6 faceCropUUID:v7];
+  v8 = [HMIFaceprint initWithUUID:v3 data:"initWithUUID:data:modelUUID:faceCropUUID:" modelUUID:? faceCropUUID:?];
 
   return v8;
 }
@@ -522,7 +484,7 @@ HMIFaceprint *__82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWi
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
+  v9 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:?];
   completionCopy[2](completionCopy, 0, v9);
 }
 
@@ -555,8 +517,8 @@ HMIFaceprint *__82__HMIHomePersonDataSourceHomeKit_fetchFaceprintsForFaceCropsWi
 
 void __65__HMIHomePersonDataSourceHomeKit_performCloudPullWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) homePersonManager];
-  [v2 performCloudPullWithCompletion:*(a1 + 40)];
+  v1 = [*(a1 + 32) homePersonManager];
+  [v1 performCloudPullWithCompletion:?];
 }
 
 - (void)addFaceCrops:(id)crops completion:(id)completion
@@ -593,12 +555,12 @@ void __65__HMIHomePersonDataSourceHomeKit_performCloudPullWithCompletion___block
 
 void __58__HMIHomePersonDataSourceHomeKit_addFaceCrops_completion___block_invoke(uint64_t a1)
 {
-  v3 = [*(a1 + 32) na_map:&__block_literal_global_16_0];
+  v3 = [*(a1 + 32) na_map:?];
   v2 = [*(a1 + 40) homePersonManager];
-  [v2 addOrUpdateFaceCrops:v3 completion:*(a1 + 48)];
+  [v2 addOrUpdateFaceCrops:? completion:?];
 }
 
-id __58__HMIHomePersonDataSourceHomeKit_addFaceCrops_completion___block_invoke_2(uint64_t a1, void *a2)
+void *__58__HMIHomePersonDataSourceHomeKit_addFaceCrops_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x277CD1A30];
   v3 = a2;
@@ -607,14 +569,10 @@ id __58__HMIHomePersonDataSourceHomeKit_addFaceCrops_completion___block_invoke_2
   v6 = [v3 dataRepresentation];
   v7 = [v3 dateCreated];
   [v3 faceBoundingBox];
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
 
-  v16 = [v4 initWithUUID:v5 dataRepresentation:v6 dateCreated:v7 faceBoundingBox:{v9, v11, v13, v15}];
+  v8 = [v4 initWithUUID:? dataRepresentation:? dateCreated:? faceBoundingBox:?];
 
-  return v16;
+  return v8;
 }
 
 - (void)addFaceprints:(id)faceprints completion:(id)completion
@@ -651,12 +609,12 @@ id __58__HMIHomePersonDataSourceHomeKit_addFaceCrops_completion___block_invoke_2
 
 void __59__HMIHomePersonDataSourceHomeKit_addFaceprints_completion___block_invoke(uint64_t a1)
 {
-  v3 = [*(a1 + 32) na_map:&__block_literal_global_20_0];
+  v3 = [*(a1 + 32) na_map:?];
   v2 = [*(a1 + 40) homePersonManager];
-  [v2 addOrUpdateFaceprints:v3 completion:*(a1 + 48)];
+  [v2 addOrUpdateFaceprints:? completion:?];
 }
 
-id __59__HMIHomePersonDataSourceHomeKit_addFaceprints_completion___block_invoke_2(uint64_t a1, void *a2)
+void *__59__HMIHomePersonDataSourceHomeKit_addFaceprints_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x277CD1A38];
   v3 = a2;
@@ -666,7 +624,7 @@ id __59__HMIHomePersonDataSourceHomeKit_addFaceprints_completion___block_invoke_
   v7 = [v3 modelUUID];
   v8 = [v3 faceCropUUID];
 
-  v9 = [v4 initWithUUID:v5 data:v6 modelUUID:v7 faceCropUUID:v8];
+  v9 = [v4 initWithUUID:? data:? modelUUID:? faceCropUUID:?];
 
   return v9;
 }
@@ -706,56 +664,50 @@ id __59__HMIHomePersonDataSourceHomeKit_addFaceprints_completion___block_invoke_
 void __64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_invoke_2;
-  v5[3] = &unk_278754920;
-  v5[4] = *(a1 + 40);
-  v3 = [v2 na_map:v5];
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_invoke_2;
+  v8 = &unk_278754920;
+  v9 = *(a1 + 40);
+  v3 = [v2 na_map:?];
   v4 = [*(a1 + 40) homePersonManager];
-  [v4 addOrUpdateFaceCrops:v3 completion:*(a1 + 48)];
+  [v4 addOrUpdateFaceCrops:? completion:?];
 }
 
-id __64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_invoke_2(uint64_t a1, void *a2)
+void *__64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [v3 source];
-  if (v4 >= 5)
+  if ([v3 source] >= 5)
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 32);
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v4 = objc_autoreleasePoolPush();
+    v5 = *(a1 + 32);
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v8;
-      v27 = 2048;
-      v28 = [v3 source];
-      _os_log_impl(&dword_22D12F000, v7, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMIPersonFaceCropSource: %ld", &v25, 0x16u);
+      v7 = HMFGetLogIdentifier();
+      v16 = 138543618;
+      v17 = v7;
+      v18 = 2048;
+      v19 = [v3 source];
+      _os_log_impl(&dword_22D12F000, v6, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMIPersonFaceCropSource: %ld", &v16, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v5);
-    v4 = 0;
+    objc_autoreleasePoolPop(v4);
   }
 
-  v9 = objc_alloc(MEMORY[0x277CD1C78]);
-  v10 = [v3 UUID];
-  v11 = [v3 dataRepresentation];
-  v12 = [v3 dateCreated];
+  v8 = objc_alloc(MEMORY[0x277CD1C78]);
+  v9 = [v3 UUID];
+  v10 = [v3 dataRepresentation];
+  v11 = [v3 dateCreated];
   [v3 faceBoundingBox];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v21 = [v3 personUUID];
-  v22 = [v9 initWithUUID:v10 dataRepresentation:v11 dateCreated:v12 faceBoundingBox:v21 personUUID:{v14, v16, v18, v20}];
+  v12 = [v3 personUUID];
+  v13 = [v8 initWithUUID:? dataRepresentation:? dateCreated:? faceBoundingBox:? personUUID:?];
 
-  [v22 setSource:v4];
-  v23 = [v22 copy];
+  [v13 setSource:?];
+  v14 = [v13 copy];
 
-  return v23;
+  return v14;
 }
 
 - (void)addPersons:(id)persons completion:(id)completion
@@ -792,22 +744,22 @@ id __64__HMIHomePersonDataSourceHomeKit_addPersonFaceCrops_completion___block_in
 
 void __56__HMIHomePersonDataSourceHomeKit_addPersons_completion___block_invoke(uint64_t a1)
 {
-  v3 = [*(a1 + 32) na_map:&__block_literal_global_26];
+  v3 = [*(a1 + 32) na_map:?];
   v2 = [*(a1 + 40) homePersonManager];
-  [v2 addOrUpdatePersons:v3 completion:*(a1 + 48)];
+  [v2 addOrUpdatePersons:? completion:?];
 }
 
-id __56__HMIHomePersonDataSourceHomeKit_addPersons_completion___block_invoke_2(uint64_t a1, void *a2)
+void *__56__HMIHomePersonDataSourceHomeKit_addPersons_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x277CD1C70];
   v3 = a2;
   v4 = [v2 alloc];
   v5 = [v3 UUID];
-  v6 = [v4 initWithUUID:v5];
+  v6 = [v4 initWithUUID:?];
 
   v7 = [v3 name];
 
-  [v6 setName:v7];
+  [v6 setName:?];
 
   return v6;
 }
@@ -842,19 +794,19 @@ id __56__HMIHomePersonDataSourceHomeKit_addPersons_completion___block_invoke_2(u
 void __78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) homePersonManager];
-  v3[0] = MEMORY[0x277D85DD0];
-  v3[1] = 3221225472;
-  v3[2] = __78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsWithCompletion___block_invoke_2;
-  v3[3] = &unk_278752DD0;
-  v4 = *(a1 + 40);
-  [v2 fetchAllUnassociatedFaceCropsWithCompletion:v3];
+  v3 = MEMORY[0x277D85DD0];
+  v4 = 3221225472;
+  v5 = __78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsWithCompletion___block_invoke_2;
+  v6 = &unk_278752DD0;
+  v7 = *(a1 + 40);
+  [v2 fetchAllUnassociatedFaceCropsWithCompletion:?];
 }
 
 void __78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v4 = [a2 na_map:&__block_literal_global_30];
+    v4 = [a2 na_map:?];
     (*(*(a1 + 32) + 16))();
   }
 
@@ -874,14 +826,10 @@ HMIFaceCrop *__78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsW
   v5 = [v2 dataRepresentation];
   v6 = [v2 dateCreated];
   [v2 faceBoundingBox];
-  v8 = v7;
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
 
-  v15 = [(HMIFaceCrop *)v3 initWithUUID:v4 dataRepresentation:v5 dateCreated:v6 faceBoundingBox:v8, v10, v12, v14];
+  v7 = [HMIFaceCrop initWithUUID:v3 dataRepresentation:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:" dateCreated:? faceBoundingBox:?];
 
-  return v15;
+  return v7;
 }
 
 - (void)removeFaceCropsWithUUIDs:(id)ds completion:(id)completion
@@ -918,8 +866,8 @@ HMIFaceCrop *__78__HMIHomePersonDataSourceHomeKit_fetchAllUnassociatedFaceCropsW
 
 void __70__HMIHomePersonDataSourceHomeKit_removeFaceCropsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) homePersonManager];
-  [v2 removeFaceCropsWithUUIDs:*(a1 + 40) completion:*(a1 + 48)];
+  v1 = [*(a1 + 32) homePersonManager];
+  [v1 removeFaceCropsWithUUIDs:? completion:?];
 }
 
 - (void)removeFaceprintsWithUUIDs:(id)ds completion:(id)completion
@@ -956,8 +904,8 @@ void __70__HMIHomePersonDataSourceHomeKit_removeFaceCropsWithUUIDs_completion___
 
 void __71__HMIHomePersonDataSourceHomeKit_removeFaceprintsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) homePersonManager];
-  [v2 removeFaceprintsWithUUIDs:*(a1 + 40) completion:*(a1 + 48)];
+  v1 = [*(a1 + 32) homePersonManager];
+  [v1 removeFaceprintsWithUUIDs:? completion:?];
 }
 
 - (void)removePersonsWithUUIDs:(id)ds completion:(id)completion
@@ -994,8 +942,8 @@ void __71__HMIHomePersonDataSourceHomeKit_removeFaceprintsWithUUIDs_completion__
 
 void __68__HMIHomePersonDataSourceHomeKit_removePersonsWithUUIDs_completion___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) homePersonManager];
-  [v2 removePersonsWithUUIDs:*(a1 + 40) completion:*(a1 + 48)];
+  v1 = [*(a1 + 32) homePersonManager];
+  [v1 removePersonsWithUUIDs:? completion:?];
 }
 
 - (void)associateFaceCropsWithUUIDs:(id)ds toPersonWithUUID:(id)d forSource:(int64_t)source completion:(id)completion
@@ -1044,30 +992,28 @@ void __68__HMIHomePersonDataSourceHomeKit_removePersonsWithUUIDs_completion___bl
 
 void __100__HMIHomePersonDataSourceHomeKit_associateFaceCropsWithUUIDs_toPersonWithUUID_forSource_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 64);
-  if (v2 >= 5)
+  v12 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 64) >= 5uLL)
   {
-    v3 = objc_autoreleasePoolPush();
-    v4 = *(a1 + 32);
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v2 = objc_autoreleasePoolPush();
+    v3 = *(a1 + 32);
+    v4 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = HMFGetLogIdentifier();
-      v7 = *(a1 + 64);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2048;
-      v12 = v7;
-      _os_log_impl(&dword_22D12F000, v5, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMIPersonFaceCropSource: %ld", &v9, 0x16u);
+      v5 = HMFGetLogIdentifier();
+      v6 = *(a1 + 64);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v6;
+      _os_log_impl(&dword_22D12F000, v4, OS_LOG_TYPE_ERROR, "%{public}@Received invalid HMIPersonFaceCropSource: %ld", &v8, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v3);
-    v2 = 0;
+    objc_autoreleasePoolPop(v2);
   }
 
-  v8 = [*(a1 + 32) homePersonManager];
-  [v8 associateFaceCropsWithUUIDs:*(a1 + 40) toPersonWithUUID:*(a1 + 48) forSource:v2 completion:*(a1 + 56)];
+  v7 = [*(a1 + 32) homePersonManager];
+  [v7 associateFaceCropsWithUUIDs:? toPersonWithUUID:? forSource:? completion:?];
 }
 
 - (id)logIdentifier
@@ -1075,7 +1021,7 @@ void __100__HMIHomePersonDataSourceHomeKit_associateFaceCropsWithUUIDs_toPersonW
   v2 = MEMORY[0x277CCACA8];
   homePersonManager = [(HMIHomePersonDataSourceHomeKit *)self homePersonManager];
   uUID = [homePersonManager UUID];
-  v5 = [v2 stringWithFormat:@"%@", uUID];
+  v5 = [v2 stringWithFormat:uUID];
 
   return v5;
 }

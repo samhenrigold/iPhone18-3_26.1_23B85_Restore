@@ -287,7 +287,7 @@
     *keyExistsAndHasValidFormat = 0;
     v30 = 0;
     v31 = 0;
-    [(PXSharedLibrarySharingSuggestionsCountsManager *)self detailedUnreadCounts];
+    objc_msgSend_detailedUnreadCounts(self);
     if (v31 == 0x7FFFFFFFFFFFFFFFLL || v30 == 0x7FFFFFFFFFFFFFFFLL || *keyExistsAndHasValidFormat == 0x7FFFFFFFFFFFFFFFLL)
     {
       v7 = 0;

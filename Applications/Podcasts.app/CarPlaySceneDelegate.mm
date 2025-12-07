@@ -23,7 +23,7 @@
   v8[3] = controller;
   controllerCopy = controller;
   selfCopy = self;
-  sub_100218B84(sub_10021A608, v8);
+  sub_100218B84(sub_10021A608, v8, "Podcasts/CarPlaySceneDelegate.swift", 35, 2u, 62);
 }
 
 - (void)templateApplicationScene:(id)scene didDisconnectInterfaceController:(id)controller
@@ -31,7 +31,7 @@
   type metadata accessor for MainActor();
   v6[2] = self;
   selfCopy = self;
-  sub_100218B84(sub_10021A624, v6);
+  sub_100218B84(sub_10021A624, v6, "Podcasts/CarPlaySceneDelegate.swift", 35, 2u, 82);
 }
 
 @end

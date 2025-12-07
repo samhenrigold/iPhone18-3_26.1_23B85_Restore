@@ -25,7 +25,7 @@
   if (selfCopy->_systemOffsets.__begin_ == selfCopy->_systemOffsets.__end_)
   {
     _tableNameForSystemOffset = [(PPSTimestampConverter *)selfCopy _tableNameForSystemOffset];
-    [(PPSTimestampConverter *)selfCopy _systemOffsetsForTableName:_tableNameForSystemOffset];
+    objc_msgSend__systemOffsetsForTableName_(selfCopy);
     v7 = *p_begin;
     if (*p_begin)
     {
@@ -88,7 +88,7 @@
   if (selfCopy->_timeZoneOffsets.__begin_ == selfCopy->_timeZoneOffsets.__end_)
   {
     _tableNameForTimeZoneOffset = [(PPSTimestampConverter *)selfCopy _tableNameForTimeZoneOffset];
-    [(PPSTimestampConverter *)selfCopy _timeZoneOffsetsForTableName:_tableNameForTimeZoneOffset];
+    objc_msgSend__timeZoneOffsetsForTableName_(selfCopy);
     v7 = *p_begin;
     if (*p_begin)
     {
@@ -124,7 +124,7 @@
   v3 = 0.0;
   if (time > 0.0)
   {
-    [(PPSTimestampConverter *)self systemOffsets];
+    objc_msgSend_systemOffsets(self, a2);
     if (v14 != v15)
     {
       v5 = (v15 - v14) >> 4;
@@ -169,7 +169,7 @@
 
 - (double)systemOffsetFromMonotonicTime:(double)time
 {
-  [(PPSTimestampConverter *)self systemOffsets];
+  objc_msgSend_systemOffsets(self, a2);
   if (v13 == v14)
   {
     v11 = 0.0;
@@ -220,7 +220,7 @@ LABEL_10:
 
 - (double)timeZoneOffsetForMonotonicTime:(double)time
 {
-  [(PPSTimestampConverter *)self timeZoneOffsets];
+  objc_msgSend_timeZoneOffsets(self, a2);
   if (v13 == v14)
   {
     v11 = 0.0;
@@ -271,71 +271,70 @@ LABEL_10:
 
 - (vector<std::pair<double,)_systemOffsetsForTableName:()std:(double>>> *__return_ptr)retstr :(PPSTimestampConverter *)self allocator<std:(SEL)std :(id)a4 pair<double
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [PPSSQLiteEntity alloc];
-  v39[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
   v9 = [(PPSSQLiteEntity *)v7 initWithTableNames:v8];
 
   v10 = [[PPSSQLiteQueryDescriptor alloc] initWithEntity:v9 predicate:0 limitCount:0 offsetCount:0];
-  v38 = @"timestamp";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+  v37 = @"timestamp";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   [(PPSSQLiteQueryDescriptor *)v10 setOrderByProperties:v11];
 
-  v37 = @"ASC";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = @"ASC";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   [(PPSSQLiteQueryDescriptor *)v10 setOrderByDirections:v12];
 
   v13 = [[PPSSQLiteDatabase alloc] initWithDatabaseURL:self->_filepath];
   v14 = [[PPSSQLiteQuery alloc] initWithDatabase:v13 descriptor:v10];
-  v36[0] = @"timestamp";
-  v36[1] = @"system";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x2020000000;
-  v34[3] = 0xFFEFFFFFFFFFFFFFLL;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x4812000000;
-  v28 = __Block_byref_object_copy__5;
-  v29 = __Block_byref_object_dispose__5;
-  v30 = &unk_25E38FA03;
-  v32 = 0;
-  v33 = 0;
-  __p = 0;
+  v35[0] = @"timestamp";
+  v35[1] = @"system";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v33[3] = 0xFFEFFFFFFFFFFFFFLL;
   v24 = 0;
-  [(PPSSQLiteDatabase *)v13 openForReadingWithError:&v24];
-  v16 = v24;
-  v22[5] = &v25;
-  v23 = v16;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __52__PPSTimestampConverter__systemOffsetsForTableName___block_invoke;
-  v22[3] = &unk_279A11870;
-  v22[4] = v34;
-  [(PPSSQLiteQuery *)v14 enumerateProperties:v15 error:&v23 enumerationHandler:v22];
-  v17 = v23;
+  v25 = &v24;
+  v26 = 0x4812000000;
+  v27 = __Block_byref_object_copy__5;
+  v28 = __Block_byref_object_dispose__5;
+  v29 = &unk_25E38FA03;
+  v31 = 0;
+  v32 = 0;
+  __p = 0;
+  v23 = 0;
+  [(PPSSQLiteDatabase *)v13 openForReadingWithError:&v23];
+  v16 = v23;
+  v21[5] = &v24;
+  v22 = v16;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __52__PPSTimestampConverter__systemOffsetsForTableName___block_invoke;
+  v21[3] = &unk_279A11870;
+  v21[4] = v33;
+  [(PPSSQLiteQuery *)v14 enumerateProperties:v15 error:&v22 enumerationHandler:v21];
+  v17 = v22;
 
   [(PPSSQLiteDatabase *)v13 close];
-  std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>,std::__less<void,void>>(v26[6], v26[7], &v35, v18);
-  v19 = v26;
+  std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>,std::__less<void,void>>(v25[6], v25[7], &v34, v18);
+  v19 = v25;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
   std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(retstr, v19[6], v19[7], (v19[7] - v19[6]) >> 4);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (__p)
   {
-    v32 = __p;
+    v31 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v33, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -467,71 +466,70 @@ uint64_t __52__PPSTimestampConverter__systemOffsetsForTableName___block_invoke(u
 
 - (vector<std::pair<double,)_timeZoneOffsetsForTableName:()std:(double>>> *__return_ptr)retstr :(PPSTimestampConverter *)self allocator<std:(SEL)std :(id)a4 pair<double
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [PPSSQLiteEntity alloc];
-  v39[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+  v38[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
   v9 = [(PPSSQLiteEntity *)v7 initWithTableNames:v8];
 
   v10 = [[PPSSQLiteQueryDescriptor alloc] initWithEntity:v9 predicate:0 limitCount:0 offsetCount:0];
-  v38 = @"timestamp";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+  v37 = @"timestamp";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
   [(PPSSQLiteQueryDescriptor *)v10 setOrderByProperties:v11];
 
-  v37 = @"ASC";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = @"ASC";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   [(PPSSQLiteQueryDescriptor *)v10 setOrderByDirections:v12];
 
   v13 = [[PPSSQLiteDatabase alloc] initWithDatabaseURL:self->_filepath];
   v14 = [[PPSSQLiteQuery alloc] initWithDatabase:v13 descriptor:v10];
-  v36[0] = @"timestamp";
-  v36[1] = @"SecondsFromGMT";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x2020000000;
-  v34[3] = 0xFFEFFFFFFFFFFFFFLL;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x4812000000;
-  v28 = __Block_byref_object_copy__5;
-  v29 = __Block_byref_object_dispose__5;
-  v30 = &unk_25E38FA03;
-  v32 = 0;
-  v33 = 0;
-  __p = 0;
+  v35[0] = @"timestamp";
+  v35[1] = @"SecondsFromGMT";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x2020000000;
+  v33[3] = 0xFFEFFFFFFFFFFFFFLL;
   v24 = 0;
-  [(PPSSQLiteDatabase *)v13 openForReadingWithError:&v24];
-  v16 = v24;
-  v22[5] = &v25;
-  v23 = v16;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __54__PPSTimestampConverter__timeZoneOffsetsForTableName___block_invoke;
-  v22[3] = &unk_279A11870;
-  v22[4] = v34;
-  [(PPSSQLiteQuery *)v14 enumerateProperties:v15 error:&v23 enumerationHandler:v22];
-  v17 = v23;
+  v25 = &v24;
+  v26 = 0x4812000000;
+  v27 = __Block_byref_object_copy__5;
+  v28 = __Block_byref_object_dispose__5;
+  v29 = &unk_25E38FA03;
+  v31 = 0;
+  v32 = 0;
+  __p = 0;
+  v23 = 0;
+  [(PPSSQLiteDatabase *)v13 openForReadingWithError:&v23];
+  v16 = v23;
+  v21[5] = &v24;
+  v22 = v16;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __54__PPSTimestampConverter__timeZoneOffsetsForTableName___block_invoke;
+  v21[3] = &unk_279A11870;
+  v21[4] = v33;
+  [(PPSSQLiteQuery *)v14 enumerateProperties:v15 error:&v22 enumerationHandler:v21];
+  v17 = v22;
 
   [(PPSSQLiteDatabase *)v13 close];
-  std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>,std::__less<void,void>>(v26[6], v26[7], &v35, v18);
-  v19 = v26;
+  std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std::pair<double,double> *>,std::__less<void,void>>(v25[6], v25[7], &v34, v18);
+  v19 = v25;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
   std::vector<std::pair<double,double>>::__init_with_size[abi:ne200100]<std::pair<double,double>*,std::pair<double,double>*>(retstr, v19[6], v19[7], (v19[7] - v19[6]) >> 4);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (__p)
   {
-    v32 = __p;
+    v31 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v33, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 

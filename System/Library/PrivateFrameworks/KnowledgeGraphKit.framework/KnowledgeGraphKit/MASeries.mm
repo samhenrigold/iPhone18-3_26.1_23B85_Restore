@@ -44,21 +44,8 @@
       v5 = equalCopy;
       v6 = v5;
       name = self->_name;
-      if (name)
+      if (name && ([(MASeries *)v5 name], v8 = objc_claimAutoreleasedReturnValue(), v9 = [(NSString *)name isEqual:v8], v8, !v9) || (indexCache = self->_indexCache) != 0 && ([(MASeries *)v6 indexCache], v11 = objc_claimAutoreleasedReturnValue(), v12 = [(MAIndexCache *)indexCache isEqual:v11], v11, !v12))
       {
-        name = [(MASeries *)v5 name];
-        v9 = [(NSString *)name isEqual:name];
-
-        if (!v9)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      indexCache = self->_indexCache;
-      if (indexCache && ([(MASeries *)v6 indexCache], v11 = objc_claimAutoreleasedReturnValue(), v12 = [(MAIndexCache *)indexCache isEqual:v11], v11, !v12))
-      {
-LABEL_10:
         v15 = 0;
       }
 
@@ -81,41 +68,39 @@ LABEL_10:
 
 - (id)valueByLabels
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] init];
   v4 = [v3 alloc];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   labels = [(MASeries *)self labels];
-  v6 = [labels countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [labels countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(labels);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [(MASeries *)self valueForLabel:v10];
         [v4 setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [labels countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [labels countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

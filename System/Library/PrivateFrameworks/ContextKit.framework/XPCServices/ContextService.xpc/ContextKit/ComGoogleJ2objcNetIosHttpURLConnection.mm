@@ -2,6 +2,8 @@
 + (void)initialize;
 - (ComGoogleJ2objcNetIosHttpURLConnection)initWithJavaNetURL:(id)l;
 - (JavaUtilHashMap)getHeaderFieldsDoNotForceResponse;
+- (id)getHeaderFieldKeyWithInt:(int)int;
+- (id)getHeaderFieldWithInt:(int)int;
 - (id)getHeaderFieldWithNSString:(id)string;
 - (id)getHeaderFields;
 - (id)getInputStream;
@@ -159,6 +161,35 @@ LABEL_14:
   return self->headers_;
 }
 
+- (id)getHeaderFieldWithInt:(int)int
+{
+  v3 = *&int;
+  if (self->super.responseCode_ == -1)
+  {
+    sub_10026D5AC(self);
+  }
+
+  headers = self->headers_;
+  if (!headers)
+  {
+    goto LABEL_7;
+  }
+
+  if ([(JavaUtilList *)headers size]> v3)
+  {
+    v6 = [(JavaUtilList *)headers getWithInt:v3];
+    if (v6)
+    {
+      return [v6 getValue];
+    }
+
+LABEL_7:
+    JreThrowNullPointerException();
+  }
+
+  return 0;
+}
+
 - (id)getHeaderFieldWithNSString:(id)string
 {
   if (self->super.responseCode_ == -1)
@@ -179,6 +210,35 @@ LABEL_14:
   }
 
   return [v5 getTime];
+}
+
+- (id)getHeaderFieldKeyWithInt:(int)int
+{
+  v3 = *&int;
+  if (self->super.responseCode_ == -1)
+  {
+    sub_10026D5AC(self);
+  }
+
+  headers = self->headers_;
+  if (!headers)
+  {
+    goto LABEL_7;
+  }
+
+  if ([(JavaUtilList *)headers size]> v3)
+  {
+    v6 = [(JavaUtilList *)headers getWithInt:v3];
+    if (v6)
+    {
+      return [v6 getKey];
+    }
+
+LABEL_7:
+    JreThrowNullPointerException();
+  }
+
+  return 0;
 }
 
 - (int64_t)getHeaderFieldLongWithNSString:(id)string withLong:(int64_t)long

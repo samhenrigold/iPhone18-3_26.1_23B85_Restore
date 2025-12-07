@@ -54,9 +54,7 @@
   dateToWeekdayMedian = self->_dateToWeekdayMedian;
   self->_dateToWeekdayMedian = v3;
 
-  v5 = +[NSMutableDictionary dictionary];
-  dateToWeekendMedian = self->_dateToWeekendMedian;
-  self->_dateToWeekendMedian = v5;
+  self->_dateToWeekendMedian = +[NSMutableDictionary dictionary];
 
   _objc_release_x1();
 }

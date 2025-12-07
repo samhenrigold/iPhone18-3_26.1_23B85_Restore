@@ -40,37 +40,38 @@
   if (v7)
   {
     v8 = v7[5];
-    coordinate = objc_msgSend_spillRange(v8, v9, v10, v11, v12);
-    v15 = v14;
-    v19 = objc_msgSend_error(v8, v14, v16, v17, v18);
+    coordinate = objc_msgSend_spillRange(v8, v9, v10, v11);
+    v14 = v13;
+    v17 = objc_msgSend_error(v8, v13, v15, v16);
   }
 
   else
   {
     pthread_rwlock_unlock(&self->_rwLock);
     WeakRetained = objc_loadWeakRetained(&self->_calcEngine);
-    v19 = objc_msgSend_errorForCell_(WeakRetained, v21, ref, v22, v23);
+    v17 = objc_msgSend_errorForCell_(WeakRetained, v19, ref, v20);
 
-    v24 = objc_loadWeakRetained(&self->_calcEngine);
-    v15 = objc_msgSend_spillSizeForCell_(v24, v25, ref, v26, v27);
+    v21 = objc_loadWeakRetained(&self->_calcEngine);
+    v14 = objc_msgSend_spillSizeForCell_(v21, v22, ref, v23);
 
     coordinate = ref->coordinate;
     v8 = objc_alloc_init(TSCESpillingOriginCacheEntry);
-    objc_msgSend_setSpillRange_(v8, v28, coordinate, v15, v29);
-    objc_msgSend_setError_(v8, v30, v19, v31, v32);
+    objc_msgSend_setSpillRange_(v8, v24, coordinate, v14);
+    objc_msgSend_setError_(v8, v25, v17, v26);
     pthread_rwlock_wrlock(&self->_rwLock);
-    v33 = sub_2215A80D4(&self->_cache.__table_.__bucket_list_.__ptr_, ref);
-    objc_storeStrong(v33 + 5, v8);
+    refCopy = ref;
+    v27 = sub_2215A80D4(&self->_cache.__table_.__bucket_list_.__ptr_, ref, &unk_2217F3082, &refCopy);
+    objc_storeStrong(v27 + 5, v8);
   }
 
   pthread_rwlock_unlock(&self->_rwLock);
-  v34 = v19;
-  *error = v19;
+  v28 = v17;
+  *error = v17;
 
-  v35 = coordinate;
-  v36 = v15;
-  result.size = v36;
-  result.origin = v35;
+  v29 = coordinate;
+  v30 = v14;
+  result.size = v30;
+  result.origin = v29;
   return result;
 }
 
@@ -81,7 +82,7 @@
   v6 = sub_221244B44(&self->_cache.__table_.__bucket_list_.__ptr_, ref);
   if (v6)
   {
-    objc_msgSend_setError_(v6[5], v7, errorCopy, v8, v9);
+    objc_msgSend_setError_(v6[5], v7, errorCopy, v8);
   }
 
   pthread_rwlock_unlock(&self->_rwLock);

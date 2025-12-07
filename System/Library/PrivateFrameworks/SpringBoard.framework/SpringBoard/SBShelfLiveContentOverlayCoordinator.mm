@@ -38,8 +38,7 @@
     WeakRetained = objc_loadWeakRetained(&self->_shelfDelegate);
     v4 = [WeakRetained shelfLiveContentOverlayCoordinatorSnapshotCache:self];
 
-    [v4 removeSnapshotObserver:self];
-    v5 = SBLogShelfLiveContent();
+    v5 = SBLogShelfLiveContent([v4 removeSnapshotObserver:self]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -114,8 +113,7 @@
         if (v26)
         {
           [v26 setDisplayMode:0];
-          [v27 setPendingSwitcherSnapshotCacheUpdate:0];
-          v28 = SBLogShelfLiveContent();
+          v28 = SBLogShelfLiveContent([v27 setPendingSwitcherSnapshotCacheUpdate:0]);
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             v29 = [v25 itemForLayoutRole:1];
@@ -159,8 +157,7 @@
         v38 = v37;
         if (v37)
         {
-          [v37 setDisplayMode:1];
-          v39 = SBLogShelfLiveContent();
+          v39 = SBLogShelfLiveContent([v37 setDisplayMode:1]);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             v40 = [v36 itemForLayoutRole:1];
@@ -236,8 +233,7 @@
           [v24 addSnapshotUpdateObserver:self forDisplayItem:v25 inAppLayout:v22];
 
           self->_isSnapshotCacheObserver = 1;
-          [v23 setPendingSwitcherSnapshotCacheUpdate:1];
-          v26 = SBLogShelfLiveContent();
+          v26 = SBLogShelfLiveContent([v23 setPendingSwitcherSnapshotCacheUpdate:1]);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             v27 = [v22 itemForLayoutRole:1];
@@ -317,8 +313,7 @@
         v26 = v25;
         if (v25)
         {
-          [v25 setDisplayMode:1];
-          v27 = SBLogShelfLiveContent();
+          v27 = SBLogShelfLiveContent([v25 setDisplayMode:1]);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             v28 = [v24 itemForLayoutRole:1];
@@ -360,8 +355,7 @@
         v37 = v36;
         if (v36)
         {
-          [v36 setDisplayMode:0];
-          v38 = SBLogShelfLiveContent();
+          v38 = SBLogShelfLiveContent([v36 setDisplayMode:0]);
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             v39 = [v35 itemForLayoutRole:1];
@@ -445,8 +439,7 @@
           if ([v24 isPendingSwitcherSnapshotCacheUpdate])
           {
             [(NSMutableDictionary *)selfCopy->_leafAppLayoutsToOverlays removeObjectForKey:v23];
-            [delegate removeLiveContentOverlayForAppLayout:v23 animated:1];
-            v26 = SBLogShelfLiveContent();
+            v26 = SBLogShelfLiveContent([delegate removeLiveContentOverlayForAppLayout:v23 animated:1]);
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               v27 = [v23 itemForLayoutRole:1];
@@ -503,8 +496,7 @@ LABEL_12:
             v51 = [[SBShelfLiveContentOverlay alloc] initWithSceneHandle:v36 referenceSize:v46 contentOrientation:interfaceOrientation containerOrientation:v48 livePortalView:v42, v44];
             selfCopy = v63;
             [delegate addLiveContentOverlay:v51 forAppLayout:v23 animated:{objc_msgSend(v61, "animationsDisabled") ^ 1}];
-            [(NSMutableDictionary *)v63->_leafAppLayoutsToOverlays setObject:v51 forKey:v23];
-            v52 = SBLogShelfLiveContent();
+            v52 = SBLogShelfLiveContent([(NSMutableDictionary *)v63->_leafAppLayoutsToOverlays setObject:v51 forKey:v23]);
             if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
             {
               uniqueIdentifier3 = [v30 uniqueIdentifier];
@@ -542,8 +534,7 @@ LABEL_12:
     delegate = [(SBShelfLiveContentOverlayCoordinator *)self delegate];
     [delegate removeLiveContentOverlayForAppLayout:appLayout animated:1];
 
-    [(NSMutableDictionary *)self->_leafAppLayoutsToOverlays removeObjectForKey:appLayout];
-    v8 = SBLogShelfLiveContent();
+    v8 = SBLogShelfLiveContent([(NSMutableDictionary *)self->_leafAppLayoutsToOverlays removeObjectForKey:appLayout]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [appLayout itemForLayoutRole:1];

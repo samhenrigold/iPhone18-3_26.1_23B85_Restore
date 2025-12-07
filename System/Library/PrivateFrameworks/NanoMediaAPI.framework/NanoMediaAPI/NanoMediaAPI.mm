@@ -13,8 +13,8 @@ id NMLogForCategory(uint64_t a1)
 uint64_t __NMLogForCategory_block_invoke()
 {
   v0 = os_log_create("com.apple.nanomusic", "NanoMusicCore");
-  v1 = NMLogForCategory_logObjects;
-  NMLogForCategory_logObjects = v0;
+  v1 = NMLogForCategory_logObjects[0];
+  NMLogForCategory_logObjects[0] = v0;
 
   v2 = os_log_create("com.apple.nanomusic", "NanoMusicCore-Oversize");
   v3 = qword_28154B830;
@@ -262,16 +262,18 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id MusicURLComponentsWithURLBag(void *a1, int a2)
@@ -379,65 +381,30 @@ id MusicURLQueryItemLanguageWithURLBag(void *a1)
   return v2;
 }
 
-void NMAPIDictionaryWithObject_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25B251000, v0, v1, "[NMAPIResponseParser] Expected a dictionary for %@ object: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void NMAPIDictionaryWithObject_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25B251000, v0, v1, "[NMAPIResponseParser] %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void NMAPIArrayWithObject_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25B251000, v0, v1, "[NMAPIResponseParser] Expected an array for %@ object: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void NMAPIStringWithObject_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_25B251000, v0, v1, "[NMAPIResponseParser] Expected a string for %@ object: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void NMAPIDictionaryInSingleObjectArray_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 count];
-  _os_log_error_impl(&dword_25B251000, a3, OS_LOG_TYPE_ERROR, "[NMAPIResponseParser] Invalid response due to %@ object count: %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 count];
+  _os_log_error_impl(&dword_25B251000, a3, OS_LOG_TYPE_ERROR, "[NMAPIResponseParser] Invalid response due to %@ object count: %lu", &v4, 0x16u);
 }
 
 void MusicURLComponentsWithURLBag_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "No domains in music common dictionary of bag, can't generate URL: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B251000, a2, OS_LOG_TYPE_ERROR, "No domains in music common dictionary of bag, can't generate URL: %{public}@", &v2, 0xCu);
 }
 
 void MusicURLComponentsWithURLBag_cold_3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25B251000, log, OS_LOG_TYPE_ERROR, "No host found for API domain requested (%{public}@): %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25B251000, log, OS_LOG_TYPE_ERROR, "No host found for API domain requested (%{public}@): %{public}@", &v3, 0x16u);
 }

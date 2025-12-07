@@ -56,7 +56,7 @@
 
 void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
@@ -65,11 +65,11 @@ void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke(uint64_
     v4 = [WeakRetained ssvConnection];
     v5 = [WeakRetained ssvConnection];
     *buf = 136315650;
-    v11 = "[CSSmartSiriVolumeClient _createClientConnection]_block_invoke";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSSmartSiriVolumeClient _createClientConnection]_block_invoke";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Interruption Handler: %{public}@, client PID: %{public}d)", buf, 0x1Cu);
   }
 
@@ -88,13 +88,11 @@ void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke(uint64_
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
@@ -103,11 +101,11 @@ void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_2(uint6
     v4 = [WeakRetained ssvConnection];
     v5 = [WeakRetained ssvConnection];
     *buf = 136315650;
-    v11 = "[CSSmartSiriVolumeClient _createClientConnection]_block_invoke_2";
-    v12 = 2114;
-    v13 = v4;
-    v14 = 1026;
-    v15 = [v5 processIdentifier];
+    v10 = "[CSSmartSiriVolumeClient _createClientConnection]_block_invoke_2";
+    v11 = 2114;
+    v12 = v4;
+    v13 = 1026;
+    v14 = [v5 processIdentifier];
     _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Client Invalidation Handler: %{public}@, client PID: %{public}d exited", buf, 0x1Cu);
   }
 
@@ -126,8 +124,6 @@ void __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_2(uint6
       dispatch_async(v7, block);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_21(uint64_t a1)
@@ -142,7 +138,7 @@ uint64_t __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_21(
 
 - (id)_getRemoteServiceProxyObject
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   ssvConnection = self->_ssvConnection;
   if (ssvConnection || ([(CSSmartSiriVolumeClient *)self _createClientConnection], (ssvConnection = self->_ssvConnection) != 0))
   {
@@ -151,45 +147,41 @@ uint64_t __50__CSSmartSiriVolumeClient__createClientConnection__block_invoke_21(
 
   else
   {
-    v7 = *MEMORY[0x277D01598];
+    v6 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[CSSmartSiriVolumeClient _getRemoteServiceProxyObject]";
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s ERR: SmartSiriVolume ssvConnection is nil", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSSmartSiriVolumeClient _getRemoteServiceProxyObject]";
+      _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s ERR: SmartSiriVolume ssvConnection is nil", &v7, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 void __55__CSSmartSiriVolumeClient__getRemoteServiceProxyObject__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v5 = v3;
-      v6 = [v2 code];
-      v7 = [v2 localizedDescription];
-      v8 = 136315650;
-      v9 = "[CSSmartSiriVolumeClient _getRemoteServiceProxyObject]_block_invoke";
-      v10 = 2050;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v7;
-      _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s ERR: SmartSiriVolume Remote Object Proxy returned error : %{public}ld (%{public}@)", &v8, 0x20u);
+      v4 = v3;
+      v5 = [v2 code];
+      v6 = [v2 localizedDescription];
+      v7 = 136315650;
+      v8 = "[CSSmartSiriVolumeClient _getRemoteServiceProxyObject]_block_invoke";
+      v9 = 2050;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s ERR: SmartSiriVolume Remote Object Proxy returned error : %{public}ld (%{public}@)", &v7, 0x20u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didTTSVolumeChangeForReason:(unint64_t)reason
@@ -206,16 +198,16 @@ void __55__CSSmartSiriVolumeClient__getRemoteServiceProxyObject__block_invoke(ui
 
 void __55__CSSmartSiriVolumeClient_didTTSVolumeChangeForReason___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01598];
   if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v10 = 136315394;
-    v11 = "[CSSmartSiriVolumeClient didTTSVolumeChangeForReason:]_block_invoke";
-    v12 = 1026;
-    v13 = v3;
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s SmartSiriVolume didChangeForReason: %{public}d", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[CSSmartSiriVolumeClient didTTSVolumeChangeForReason:]_block_invoke";
+    v11 = 1026;
+    v12 = v3;
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s SmartSiriVolume didChangeForReason: %{public}d", &v9, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -231,8 +223,6 @@ void __55__CSSmartSiriVolumeClient_didTTSVolumeChangeForReason___block_invoke(ui
       [v8 didSmartSiriVolumeChangeForReason:*(a1 + 40)];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPermanentVolumeOffsetWithDirection:(BOOL)direction
@@ -249,7 +239,7 @@ void __55__CSSmartSiriVolumeClient_didTTSVolumeChangeForReason___block_invoke(ui
 
 void __65__CSSmartSiriVolumeClient_setPermanentVolumeOffsetWithDirection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getRemoteServiceProxyObject];
   v3 = v2;
   if (v2)
@@ -262,13 +252,11 @@ void __65__CSSmartSiriVolumeClient_setPermanentVolumeOffsetWithDirection___block
     v4 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[CSSmartSiriVolumeClient setPermanentVolumeOffsetWithDirection:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSSmartSiriVolumeClient setPermanentVolumeOffsetWithDirection:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSmartSiriVolumeDirection:(BOOL)direction
@@ -285,7 +273,7 @@ void __65__CSSmartSiriVolumeClient_setPermanentVolumeOffsetWithDirection___block
 
 void __55__CSSmartSiriVolumeClient_setSmartSiriVolumeDirection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getRemoteServiceProxyObject];
   v3 = v2;
   if (v2)
@@ -298,13 +286,11 @@ void __55__CSSmartSiriVolumeClient_setSmartSiriVolumeDirection___block_invoke(ui
     v4 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[CSSmartSiriVolumeClient setSmartSiriVolumeDirection:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSSmartSiriVolumeClient setSmartSiriVolumeDirection:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v4, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSmartSiriVolumePercentage:(float)percentage
@@ -321,7 +307,7 @@ void __55__CSSmartSiriVolumeClient_setSmartSiriVolumeDirection___block_invoke(ui
 
 void __56__CSSmartSiriVolumeClient_setSmartSiriVolumePercentage___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getRemoteServiceProxyObject];
   v4 = v2;
   if (v2)
@@ -335,13 +321,11 @@ void __56__CSSmartSiriVolumeClient_setSmartSiriVolumePercentage___block_invoke(u
     v5 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[CSSmartSiriVolumeClient setSmartSiriVolumePercentage:]_block_invoke";
-      _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSSmartSiriVolumeClient setSmartSiriVolumePercentage:]_block_invoke";
+      _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getVolumeForTTSType:(unint64_t)type withContext:(id)context
@@ -373,19 +357,19 @@ void __56__CSSmartSiriVolumeClient_setSmartSiriVolumePercentage___block_invoke(u
 
 void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getRemoteServiceProxyObject];
   v3 = v2;
   if (v2)
   {
     v4 = *(a1 + 40);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invoke_3;
-    v8[3] = &unk_2784C3898;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invoke_3;
+    v7[3] = &unk_2784C3898;
     v5 = *(a1 + 56);
-    v8[4] = *(a1 + 48);
-    [v2 getVolumeForTTSType:v5 withContext:v4 reply:v8];
+    v7[4] = *(a1 + 48);
+    [v2 getVolumeForTTSType:v5 withContext:v4 reply:v7];
   }
 
   else
@@ -394,17 +378,15 @@ void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invok
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v10 = "[CSSmartSiriVolumeClient getVolumeForTTSType:withContext:]_block_invoke";
+      v9 = "[CSSmartSiriVolumeClient getVolumeForTTSType:withContext:]_block_invoke";
       _os_log_error_impl(&dword_222E4D000, v6, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Remote Object Proxy is nil", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -412,11 +394,11 @@ void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invok
     v7 = *MEMORY[0x277D01598];
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[CSSmartSiriVolumeClient getVolumeForTTSType:withContext:]_block_invoke";
-      v11 = 2114;
-      v12 = v6;
-      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Failed to get estimate with %{public}@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CSSmartSiriVolumeClient getVolumeForTTSType:withContext:]_block_invoke";
+      v10 = 2114;
+      v11 = v6;
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s SmartSiriVolume Failed to get estimate with %{public}@", &v8, 0x16u);
     }
   }
 
@@ -424,8 +406,6 @@ void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invok
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -441,10 +421,10 @@ void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invok
 
 - (CSSmartSiriVolumeClient)init
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = CSSmartSiriVolumeClient;
-  v2 = [(CSSmartSiriVolumeClient *)&v8 init];
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = CSSmartSiriVolumeClient;
+  v2 = [(CSSmartSiriVolumeClient *)&v7 init];
   if (v2)
   {
     CSLogInitIfNeeded();
@@ -456,12 +436,11 @@ void __59__CSSmartSiriVolumeClient_getVolumeForTTSType_withContext___block_invok
     if (os_log_type_enabled(*MEMORY[0x277D01598], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[CSSmartSiriVolumeClient init]";
+      v9 = "[CSSmartSiriVolumeClient init]";
       _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, "%s Creating SmartSiriVolume connection", buf, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

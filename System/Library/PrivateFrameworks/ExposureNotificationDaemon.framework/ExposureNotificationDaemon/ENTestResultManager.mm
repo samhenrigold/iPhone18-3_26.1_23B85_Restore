@@ -9,6 +9,7 @@
 - (id)_createSessionWithVerificationCode:(id)code proxyEnabled:(BOOL)enabled region:(id)region maxRetryTime:(unint64_t)time error:(id *)error;
 - (id)_createURLSessionWithSecondaryIdentifier:(BOOL)identifier;
 - (id)_existingSessionForVerificationCode:(id)code region:(id)region;
+- (id)_getTemporaryExposureKeysForUpload:(BOOL)upload requireConsentForRegion:(id)region error:(id *)error;
 - (id)_metadataForSessionWithUUID:(id)d error:(id *)error;
 - (id)_revisionTokenKeyForSession:(id)session;
 - (id)_serverConfigurationForRegion:(id)region error:(id *)error;
@@ -21,6 +22,7 @@
 - (void)_invalidateSession:(id)session;
 - (void)_startChaffTestVerficationSessionForRegion:(id)region completionHandler:(id)handler;
 - (void)_startSelfReportWebSession:(id)session completionHandler:(id)handler;
+- (void)_startTestVerficationSessionWithCode:(id)code proxyEnabled:(BOOL)enabled region:(id)region completionHandler:(id)handler;
 - (void)_updateChaffingTimerBlock;
 - (void)activateAutomatedChaffingWithRegion:(id)region;
 - (void)activateWebSession:(id)session verificationTimestamp:(double)timestamp nonceTimestamp:(double)nonceTimestamp;
@@ -94,33 +96,33 @@
 
 - (void)_invalidate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(ENChaffTestResultSession *)self->_chaffSession invalidate];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_sessionsByUUID allValues];
-  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) invalidate];
+        [*(*(&v10 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -133,8 +135,6 @@
   [(ENXPCTimer *)self->_chaffingTimer invalidate];
   chaffingTimer = self->_chaffingTimer;
   self->_chaffingTimer = 0;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createURLSessionWithSecondaryIdentifier:(BOOL)identifier
@@ -176,9 +176,15 @@
     v6 = +[ENLoggingPrefs sharedENLoggingPrefs];
     isSensitiveLoggingAllowed = [v6 isSensitiveLoggingAllowed];
 
-    if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
+    if (isSensitiveLoggingAllowed)
     {
-      [ENTestResultManager _activateAutomatedChaffingWithRegion:];
+      if (gLogCategory_ENTestResultManager <= 40)
+      {
+        if (gLogCategory_ENTestResultManager != -1 || (v8 = _LogCategory_Initialize(), v8))
+        {
+          [(ENTestResultManager *)v8 _activateAutomatedChaffingWithRegion:v9, v10];
+        }
+      }
     }
 
     [(ENTestResultManager *)self _deactivateAutomatedChaffing];
@@ -186,174 +192,171 @@
 
   date = [MEMORY[0x277CBEAA0] date];
   CFPrefs_GetDouble();
-  if (v9 != 0.0)
+  if (v12 != 0.0)
   {
-    v10 = [MEMORY[0x277CBEAA0] dateWithTimeIntervalSince1970:?];
+    v13 = [MEMORY[0x277CBEAA0] dateWithTimeIntervalSince1970:?];
     currentCalendar = [MEMORY[0x277CBEA88] currentCalendar];
-    v12 = [currentCalendar isDate:v10 inSameDayAsDate:date];
+    v15 = [currentCalendar isDate:v13 inSameDayAsDate:date];
 
-    if ((v12 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
       CFPrefs_RemoveValue();
       CFPrefs_RemoveValue();
     }
   }
 
-  v59 = 0;
-  v13 = [(ENTestResultManager *)self _serverConfigurationForRegion:regionCopy error:&v59];
-  v14 = v59;
-  if (!v13)
+  v61 = 0;
+  v16 = [(ENTestResultManager *)self _serverConfigurationForRegion:regionCopy error:&v61];
+  v17 = v61;
+  if (!v16)
+  {
+    [(ENTestResultManager *)self _activateAutomatedChaffingWithRegion:regionCopy, v17];
+    goto LABEL_69;
+  }
+
+  if (![v16 isChaffingEnabled] || (objc_msgSend(v16, "chaffingSelectionPercentage"), v18 <= 0.0) && (objc_msgSend(v16, "chaffingSelectionPercentageAlternative"), v19 <= 0.0))
   {
     [ENTestResultManager _activateAutomatedChaffingWithRegion:?];
     goto LABEL_69;
   }
 
-  if (![v13 isChaffingEnabled] || (objc_msgSend(v13, "chaffingSelectionPercentage"), v15 <= 0.0) && (objc_msgSend(v13, "chaffingSelectionPercentageAlternative"), v16 <= 0.0))
-  {
-    [ENTestResultManager _activateAutomatedChaffingWithRegion:?];
-    goto LABEL_69;
-  }
-
-  v57 = regionCopy;
-  CFPrefs_GetInt64();
-  CFPrefs_GetInt64();
+  v59 = regionCopy;
+  Int64 = CFPrefs_GetInt64();
+  v21 = CFPrefs_GetInt64();
   if (self->_chaffingTimer)
   {
-    [ENTestResultManager _activateAutomatedChaffingWithRegion:v13];
+    [(ENTestResultManager *)v16 _activateAutomatedChaffingWithRegion:v21, Int64];
     goto LABEL_68;
   }
 
   delegate = [(ENTestResultManager *)self delegate];
   if ([delegate isProxyEnabledForTestResultManager:self])
   {
-    [v13 chaffingSelectionPercentageAlternative];
+    [v16 chaffingSelectionPercentageAlternative];
   }
 
   else
   {
-    [v13 chaffingSelectionPercentage];
+    [v16 chaffingSelectionPercentage];
   }
 
-  v19 = v18;
+  v24 = v23;
 
   CFPrefs_GetDouble();
-  if (v20 == 0.0 || (v21 = v20, !IsAppleInternalBuild()))
+  if (v25 == 0.0 || (v26 = v25, !IsAppleInternalBuild()))
   {
-    v21 = v19;
+    v26 = v24;
   }
 
-  v56 = v14;
-  v22 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed2 = [v22 isSensitiveLoggingAllowed];
+  v58 = v17;
+  v27 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed2 = [v27 isSensitiveLoggingAllowed];
 
   if (isSensitiveLoggingAllowed2 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    [ENTestResultManager _activateAutomatedChaffingWithRegion:];
+    [ENTestResultManager _activateAutomatedChaffingWithRegion:v26];
   }
 
-  if (v21 <= 0.0)
+  if (v26 <= 0.0)
   {
     [(ENTestResultManager *)self _deactivateAutomatedChaffing];
 LABEL_67:
-    v14 = v56;
+    v17 = v58;
 LABEL_68:
-    regionCopy = v57;
+    regionCopy = v59;
     goto LABEL_69;
   }
 
-  Int64 = CFPrefs_GetInt64();
-  v25 = vcvtd_n_f64_u32(arc4random(), 0x20uLL) * 100.0;
-  v27 = v25 >= v21 && Int64 == 0;
-  v28 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed3 = [v28 isSensitiveLoggingAllowed];
+  v29 = CFPrefs_GetInt64();
+  v30 = vcvtd_n_f64_u32(arc4random(), 0x20uLL) * 100.0;
+  v32 = v30 >= v26 && v29 == 0;
+  v33 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed3 = [v33 isSensitiveLoggingAllowed];
 
   if (isSensitiveLoggingAllowed3 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    v30 = "yes";
-    if (v27)
+    v35 = "yes";
+    if (v32)
     {
-      v31 = "no";
+      v36 = "no";
     }
 
     else
     {
-      v31 = "yes";
+      v36 = "yes";
     }
 
-    if (!Int64)
+    if (!v29)
     {
-      v30 = "no";
+      v35 = "no";
     }
 
-    v53 = v25;
-    v54 = v31;
-    v55 = v30;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 40, "Chaffing - Rolling: %lf, Selected: %s, Previously Selected: %s", v30, v36, v35);
   }
 
-  if (Int64)
+  if (v29)
   {
 LABEL_45:
-    if (v27)
+    if (v32)
     {
       [ENTestResultManager _activateAutomatedChaffingWithRegion:];
     }
 
     else
     {
-      v32 = 0x15180 / [v13 maximumChaffsAllowedPerDay];
-      v33 = arc4random_uniform(0x1C20u);
-      if (Int64)
+      v37 = 0x15180 / [v16 maximumChaffsAllowedPerDay];
+      v38 = arc4random_uniform(0x1C20u);
+      if (v29)
       {
-        v34 = arc4random_uniform(0x2A30u) + 3600;
+        v39 = arc4random_uniform(0x2A30u) + 3600;
       }
 
       else
       {
-        v34 = v33 + 60;
+        v39 = v38 + 60;
       }
 
-      v41 = v34;
+      v46 = v39;
       CFPrefs_GetDouble();
-      if (v42 <= 0.0)
+      if (v47 <= 0.0)
       {
-        v43 = 900.0;
+        v48 = 900.0;
       }
 
       else
       {
-        v41 = v42;
-        v43 = 10.0;
+        v46 = v47;
+        v48 = 10.0;
       }
 
-      v44 = CFPrefs_GetInt64();
-      if (v44)
+      v49 = CFPrefs_GetInt64();
+      if (v49)
       {
-        v45 = v44;
+        v50 = v49;
       }
 
       else
       {
-        v45 = v32;
+        v50 = v37;
       }
 
-      v46 = [ENLoggingPrefs sharedENLoggingPrefs:*&v53];
-      isSensitiveLoggingAllowed4 = [v46 isSensitiveLoggingAllowed];
+      v51 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed4 = [v51 isSensitiveLoggingAllowed];
 
       if (isSensitiveLoggingAllowed4 && gLogCategory_ENTestResultManager <= 50 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
       {
-        [ENTestResultManager _activateAutomatedChaffingWithRegion:v45];
+        [ENTestResultManager _activateAutomatedChaffingWithRegion:v50];
       }
 
-      v48 = [ENXPCTimer alloc];
-      v58[0] = MEMORY[0x277D85DD0];
-      v58[1] = 3221225472;
-      v58[2] = __60__ENTestResultManager__activateAutomatedChaffingWithRegion___block_invoke;
-      v58[3] = &unk_278FD1580;
-      v58[4] = self;
-      v49 = [(ENXPCTimer *)v48 initWithName:@"com.apple.exposureNotification.chaffing" delay:v45 gracePeriod:0 cadence:9153 priority:v58 options:v41 block:v43];
+      v53 = [ENXPCTimer alloc];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __60__ENTestResultManager__activateAutomatedChaffingWithRegion___block_invoke;
+      v60[3] = &unk_278FD1580;
+      v60[4] = self;
+      v54 = [(ENXPCTimer *)v53 initWithName:@"com.apple.exposureNotification.chaffing" delay:v50 gracePeriod:0 cadence:9153 priority:v60 options:v46 block:v48];
       chaffingTimer = self->_chaffingTimer;
-      self->_chaffingTimer = v49;
+      self->_chaffingTimer = v54;
 
       objc_storeStrong(&self->_chaffingRegion, region);
     }
@@ -362,21 +365,21 @@ LABEL_45:
   }
 
   CFPrefs_GetDouble();
-  if (v35 == 0.0)
+  if (v40 == 0.0)
   {
     [date timeIntervalSince1970];
     CFPrefs_SetDouble();
     goto LABEL_45;
   }
 
-  v36 = [MEMORY[0x277CBEAA0] dateWithTimeIntervalSince1970:?];
+  v41 = [MEMORY[0x277CBEAA0] dateWithTimeIntervalSince1970:?];
   currentCalendar2 = [MEMORY[0x277CBEA88] currentCalendar];
-  v38 = [currentCalendar2 isDate:v36 inSameDayAsDate:date];
+  v43 = [currentCalendar2 isDate:v41 inSameDayAsDate:date];
 
-  if ((v38 & 1) == 0)
+  if ((v43 & 1) == 0)
   {
-    v51 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    isSensitiveLoggingAllowed5 = [v51 isSensitiveLoggingAllowed];
+    v56 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    isSensitiveLoggingAllowed5 = [v56 isSensitiveLoggingAllowed];
 
     if (isSensitiveLoggingAllowed5 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
     {
@@ -389,11 +392,11 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v39 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed6 = [v39 isSensitiveLoggingAllowed];
+  v44 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed6 = [v44 isSensitiveLoggingAllowed];
 
-  v14 = v56;
-  regionCopy = v57;
+  v17 = v58;
+  regionCopy = v59;
   if (isSensitiveLoggingAllowed6 && gLogCategory_ENTestResultManager <= 10 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
     [ENTestResultManager _activateAutomatedChaffingWithRegion:];
@@ -441,7 +444,7 @@ void __60__ENTestResultManager__activateAutomatedChaffingWithRegion___block_invo
   if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _deactivateAutomatedChaffing]", 40, "Cannot deactivate chaffing, still in-progress");
   }
 }
 
@@ -454,35 +457,34 @@ void __60__ENTestResultManager__activateAutomatedChaffingWithRegion___block_invo
 
 void __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  if (v10)
+  v9 = a2;
+  if (v9)
   {
     v3 = +[ENLoggingPrefs sharedENLoggingPrefs];
     v4 = [v3 isSensitiveLoggingAllowed];
 
     if (v4 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
     {
-      __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke_cold_1();
+      __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke_cold_1(v9);
     }
   }
 
   else
   {
-    v5 = *(a1 + 40);
     CFPrefs_SetInt64();
-    v6 = +[ENLoggingPrefs sharedENLoggingPrefs];
-    v7 = [v6 isSensitiveLoggingAllowed];
+    v5 = +[ENLoggingPrefs sharedENLoggingPrefs];
+    v6 = [v5 isSensitiveLoggingAllowed];
 
-    if (v7 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
+    if (v6 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
     {
       __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke_cold_2((a1 + 40));
     }
   }
 
   [*(*(a1 + 32) + 16) invalidate];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 16);
-  *(v8 + 16) = 0;
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 16);
+  *(v7 + 16) = 0;
 }
 
 - (void)startChaffTestVerficationSessionForRegion:(id)region completionHandler:(id)handler
@@ -566,6 +568,42 @@ void __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke(uint64_t 
   dispatch_async(queue, block);
 }
 
+- (void)_startTestVerficationSessionWithCode:(id)code proxyEnabled:(BOOL)enabled region:(id)region completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  codeCopy = code;
+  regionCopy = region;
+  handlerCopy = handler;
+  v13 = [(ENTestResultManager *)self _existingSessionForVerificationCode:codeCopy region:regionCopy];
+  if (!v13)
+  {
+    maxRetryTime = self->_maxRetryTime;
+    v22 = 0;
+    v15 = [(ENTestResultManager *)self _createSessionWithVerificationCode:codeCopy proxyEnabled:enabledCopy region:regionCopy maxRetryTime:maxRetryTime error:&v22];
+    v16 = v22;
+    v13 = v16;
+    if (!v15)
+    {
+      handlerCopy[2](handlerCopy, 0, v16);
+      goto LABEL_5;
+    }
+
+    v13 = v15;
+  }
+
+  uUID = [v13 UUID];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __98__ENTestResultManager__startTestVerficationSessionWithCode_proxyEnabled_region_completionHandler___block_invoke;
+  v19[3] = &unk_278FD2680;
+  v20 = uUID;
+  v21 = handlerCopy;
+  v18 = uUID;
+  [v13 verifyCodeWithCompletionHandler:v19];
+
+LABEL_5:
+}
+
 uint64_t __98__ENTestResultManager__startTestVerficationSessionWithCode_proxyEnabled_region_completionHandler___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
   v4 = *(a1 + 40);
@@ -604,15 +642,15 @@ uint64_t __98__ENTestResultManager__startTestVerficationSessionWithCode_proxyEna
 {
   sessionCopy = session;
   handlerCopy = handler;
-  v22 = 0;
-  v8 = [(ENTestResultManager *)self _configurationForRegion:sessionCopy error:&v22];
-  v9 = v22;
+  v23 = 0;
+  v8 = [(ENTestResultManager *)self _configurationForRegion:sessionCopy error:&v23];
+  v9 = v23;
   v10 = v9;
   if (v8)
   {
-    v21 = v9;
-    v11 = [(ENTestResultManager *)self _serverConfigurationForRegion:sessionCopy error:&v21];
-    v12 = v21;
+    v22 = v9;
+    v11 = [(ENTestResultManager *)self _serverConfigurationForRegion:sessionCopy error:&v22];
+    v12 = v22;
 
     if (v11)
     {
@@ -623,9 +661,9 @@ uint64_t __98__ENTestResultManager__startTestVerficationSessionWithCode_proxyEna
         if ([ENTestResultManager checkValidNonce:v14 size:256])
         {
           CFPrefs_GetDouble();
-          if (v15 > 0.0 && (v16 = v15, [MEMORY[0x277CBEAA0] date], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSince1970"), v19 = v18 - v16, v17, v19 < (86400 * objc_msgSend(v11, "selfReportTimeoutDays"))))
+          if (v15 > 0.0 && (v16 = v15, [MEMORY[0x277CBEAA0] date], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "timeIntervalSince1970"), v19 = v18 - v16, v17, v20 = (86400 * objc_msgSend(v11, "selfReportTimeoutDays")), v19 < v20))
           {
-            [ENTestResultManager _startSelfReportWebSession:handlerCopy completionHandler:testVerificationAPIKey];
+            [(ENTestResultManager *)handlerCopy _startSelfReportWebSession:testVerificationAPIKey completionHandler:v20, v19];
           }
 
           else
@@ -647,8 +685,8 @@ uint64_t __98__ENTestResultManager__startTestVerficationSessionWithCode_proxyEna
 
       else
       {
-        [ENTestResultManager _startSelfReportWebSession:handlerCopy completionHandler:&v23];
-        v14 = v23;
+        [ENTestResultManager _startSelfReportWebSession:handlerCopy completionHandler:&v24];
+        v14 = v24;
       }
     }
 
@@ -892,7 +930,7 @@ LABEL_11:
 
       else
       {
-        [ENTestResultManager _configurationForRegion:error error:?];
+        [ENTestResultManager _configurationForRegion:error error:regionCopy];
       }
 
       goto LABEL_7;
@@ -900,9 +938,8 @@ LABEL_11:
 
     if (error)
     {
-      v13 = 10;
+      ENTestResultErrorF(10, "Test verification unsupported for %@", regionCopy);
 LABEL_14:
-      ENTestResultErrorF(v13);
       *error = v10 = 0;
       goto LABEL_7;
     }
@@ -910,7 +947,7 @@ LABEL_14:
 
   else if (error)
   {
-    v13 = 9;
+    ENTestResultErrorF(9, "Region %@ unavailable", regionCopy);
     goto LABEL_14;
   }
 
@@ -935,9 +972,8 @@ LABEL_7:
 
     if (error)
     {
-      v11 = 10;
+      ENTestResultErrorF(10, "Test verification unsupported for %@", regionCopy);
 LABEL_12:
-      ENTestResultErrorF(v11);
       *error = v9 = 0;
       goto LABEL_5;
     }
@@ -945,7 +981,7 @@ LABEL_12:
 
   else if (error)
   {
-    v11 = 9;
+    ENTestResultErrorF(9, "Region %@ unavailable", regionCopy);
     goto LABEL_12;
   }
 
@@ -953,6 +989,81 @@ LABEL_12:
 LABEL_5:
 
   return v9;
+}
+
+- (id)_getTemporaryExposureKeysForUpload:(BOOL)upload requireConsentForRegion:(id)region error:(id *)error
+{
+  uploadCopy = upload;
+  regionCopy = region;
+  if (!regionCopy)
+  {
+LABEL_5:
+    v13 = 144 * (((CFAbsoluteTimeGetCurrent() + *MEMORY[0x277CBECD8]) / 600.0) / 0x90) - 2016;
+    temporaryExposureKeyManager = self->_temporaryExposureKeyManager;
+    v27 = 0;
+    v15 = [(ENTemporaryExposureKeyManager *)temporaryExposureKeyManager getTemporaryExposureKeysFromRollingStart:v13 includingActive:uploadCopy ^ 1 refresh:uploadCopy error:&v27];
+    v16 = v27;
+    v22 = v16;
+    if (v15)
+    {
+      if ([v15 count])
+      {
+        v23 = v15;
+LABEL_8:
+
+        goto LABEL_9;
+      }
+
+      if (error)
+      {
+        v25 = ENTestResultErrorF(1, "Zero temporary exposure keys");
+        goto LABEL_16;
+      }
+    }
+
+    else if (error)
+    {
+      v25 = ENNestedTestResultErrorF(v16, 1, "Temporary exposure keys unavailable", v17, v18, v19, v20, v21, v26);
+LABEL_16:
+      v23 = 0;
+      *error = v25;
+      goto LABEL_8;
+    }
+
+    v23 = 0;
+    goto LABEL_8;
+  }
+
+  v9 = [(ENConfigurationStore *)self->_configurationStore configurationForRegion:regionCopy];
+  v10 = v9;
+  if (v9)
+  {
+    userConsent = [v9 userConsent];
+    consent = [userConsent consent];
+
+    if (consent == 2)
+    {
+
+      goto LABEL_5;
+    }
+
+    if (error)
+    {
+      ENTestResultErrorF(9, "Region not authorized");
+      goto LABEL_22;
+    }
+  }
+
+  else if (error)
+  {
+    ENTestResultErrorF(9, "Missing region configuration");
+    *error = LABEL_22:;
+  }
+
+  v23 = 0;
+LABEL_9:
+
+  return v23;
 }
 
 - (id)_sessionWithUUID:(id)d error:(id *)error
@@ -974,28 +1085,28 @@ LABEL_5:
 
 - (id)_existingSessionForVerificationCode:(id)code region:(id)region
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   regionCopy = region;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allValues = [(NSMutableDictionary *)self->_sessionsByUUID allValues];
-  v9 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         verificationCode = [v12 verificationCode];
         if ([verificationCode isEqualToString:codeCopy])
         {
@@ -1014,15 +1125,13 @@ LABEL_5:
         }
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1073,25 +1182,25 @@ LABEL_12:
   v3 = self->_chaffingRegion;
   if (v3)
   {
-    v29 = 0;
-    v4 = [(ENTestResultManager *)self _serverConfigurationForRegion:v3 error:&v29];
-    v5 = v29;
+    v28 = 0;
+    v4 = [(ENTestResultManager *)self _serverConfigurationForRegion:v3 error:&v28];
+    v5 = v28;
     v6 = v5;
     if (!v4)
     {
       [(ENTestResultManager *)self _deactivateAutomatedChaffing];
-      v17 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed = [v17 isSensitiveLoggingAllowed];
+      v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
 
       if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _updateChaffingTimerBlock]", 40, "Chaff Timer: No configuration for %@ with error %@", v3, v6);
       }
 
       goto LABEL_17;
     }
 
-    v27 = v5;
+    v26 = v5;
     date = [MEMORY[0x277CBEAA0] date];
     currentCalendar = [MEMORY[0x277CBEA88] currentCalendar];
     Int64 = CFPrefs_GetInt64();
@@ -1110,23 +1219,22 @@ LABEL_12:
 
     if (isSensitiveLoggingAllowed2 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
     {
-      v24 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:Int64];
-      v25 = v13;
-      LogPrintF_safe();
+      v16 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:Int64];
+      LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _updateChaffingTimerBlock]", 40, "Chaffing Timer update attempts: %@ and start: %@", v16, v13);
     }
 
     if (self->_chaffSession)
     {
-      v19 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed3 = [v19 isSensitiveLoggingAllowed];
+      v20 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed3 = [v20 isSensitiveLoggingAllowed];
 
       if (!isSensitiveLoggingAllowed3 || gLogCategory_ENTestResultManager > 40 || gLogCategory_ENTestResultManager == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_16;
       }
 
-      v21 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:{Int64 + 1, v24, v25}];
-      LogPrintF_safe();
+      v22 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:Int64 + 1];
+      LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _updateChaffingTimerBlock]", 40, "Current chaff attempt (%@) in-progress", v22);
     }
 
     else
@@ -1137,35 +1245,35 @@ LABEL_12:
         goto LABEL_16;
       }
 
-      v16 = CFPrefs_GetInt64();
-      if (Int64 < [v4 maximumChaffsAllowedPerDay] - v16)
+      v17 = CFPrefs_GetInt64();
+      if (Int64 < [v4 maximumChaffsAllowedPerDay] - v17)
       {
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke;
-        v28[3] = &unk_278FD2630;
-        v28[4] = self;
-        v28[5] = Int64;
-        [(ENTestResultManager *)self _startChaffTestVerficationSessionForRegion:v3 completionHandler:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke;
+        v27[3] = &unk_278FD2630;
+        v27[4] = self;
+        v27[5] = Int64;
+        [(ENTestResultManager *)self _startChaffTestVerficationSessionForRegion:v3 completionHandler:v27];
 LABEL_16:
 
-        v6 = v27;
+        v6 = v26;
 LABEL_17:
 
         goto LABEL_18;
       }
 
-      v22 = +[ENLoggingPrefs sharedENLoggingPrefs];
-      isSensitiveLoggingAllowed4 = [v22 isSensitiveLoggingAllowed];
+      v23 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed4 = [v23 isSensitiveLoggingAllowed];
 
       if (!isSensitiveLoggingAllowed4 || gLogCategory_ENTestResultManager > 40 || gLogCategory_ENTestResultManager == -1 && !_LogCategory_Initialize())
       {
         goto LABEL_16;
       }
 
-      v21 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:{Int64, v24, v25}];
-      v26 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:v16];
-      LogPrintF_safe();
+      v22 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:Int64];
+      v25 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:v17];
+      LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _updateChaffingTimerBlock]", 40, "All Chaffs attempted for today. (Chaffs: %@, User-Initiated: %@)", v22, v25);
     }
 
     goto LABEL_16;
@@ -1201,13 +1309,13 @@ LABEL_18:
     v14 = [(ENTestResultManager *)self _getTemporaryExposureKeysForUpload:0 requireConsentForRegion:0 error:error];
     if (!v14)
     {
-      v26 = 0;
-      goto LABEL_22;
+      v27 = 0;
+      goto LABEL_24;
     }
 
     CFStringGetTypeID();
     v15 = CFPrefs_CopyTypedValue();
-    v33 = v14;
+    v34 = v14;
     if (!v15)
     {
       goto LABEL_8;
@@ -1217,19 +1325,19 @@ LABEL_18:
     {
       if (error)
       {
-        ENTestResultErrorF(5);
-        *error = v26 = 0;
+        ENTestResultErrorF(5, "Self report nonce is invalid");
+        *error = v27 = 0;
       }
 
       else
       {
-        v26 = 0;
+        v27 = 0;
       }
 
-LABEL_21:
+LABEL_23:
 
-LABEL_22:
-      goto LABEL_23;
+LABEL_24:
+      goto LABEL_25;
     }
 
     CFPrefs_GetDouble();
@@ -1259,37 +1367,43 @@ LABEL_8:
 
     if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      v26 = "no";
+      if (enabledCopy)
+      {
+        v26 = "yes";
+      }
+
+      LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _createSessionWithVerificationCode:proxyEnabled:region:maxRetryTime:error:]", 40, "Session proxy enabled: %s", v26);
     }
 
     codeCopy = v21;
-    v26 = [ENTestResultSession sessionWithVerificationCode:v21 configuration:v13 maxRetryTime:time nonce:v15 URLSession:v23 queue:self->_queue error:error];
-    if (v26)
+    v27 = [ENTestResultSession sessionWithVerificationCode:v21 configuration:v13 maxRetryTime:time nonce:v15 URLSession:v23 queue:self->_queue error:error];
+    if (v27)
     {
       sessionsByUUID = self->_sessionsByUUID;
       if (!sessionsByUUID)
       {
-        v28 = objc_alloc_init(MEMORY[0x277CBEB30]);
-        v29 = self->_sessionsByUUID;
-        self->_sessionsByUUID = v28;
+        v29 = objc_alloc_init(MEMORY[0x277CBEB30]);
+        v30 = self->_sessionsByUUID;
+        self->_sessionsByUUID = v29;
 
         sessionsByUUID = self->_sessionsByUUID;
       }
 
-      uUID = [v26 UUID];
-      [(NSMutableDictionary *)sessionsByUUID setObject:v26 forKeyedSubscript:uUID];
+      uUID = [v27 UUID];
+      [(NSMutableDictionary *)sessionsByUUID setObject:v27 forKeyedSubscript:uUID];
 
-      v31 = v26;
+      v32 = v27;
     }
 
-    v14 = v33;
-    goto LABEL_21;
+    v14 = v34;
+    goto LABEL_23;
   }
 
-  v26 = 0;
-LABEL_23:
+  v27 = 0;
+LABEL_25:
 
-  return v26;
+  return v27;
 }
 
 - (BOOL)_getRevisionToken:(id *)token forSession:(id)session error:(id *)error
@@ -1338,19 +1452,28 @@ LABEL_23:
 
   if (v2 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 40, "Chaffing disabled for this region");
   }
 }
 
-- (void)_activateAutomatedChaffingWithRegion:(void *)a1 .cold.3(void *a1)
+- (void)_activateAutomatedChaffingWithRegion:(unint64_t)a3 .cold.3(void *a1, uint64_t a2, unint64_t a3)
 {
-  v2 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v3 = [v2 isSensitiveLoggingAllowed];
+  v6 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v7 = [v6 isSensitiveLoggingAllowed];
 
-  if (v3 && gLogCategory_ENTestResultManager <= 10 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
+  if (v7 && gLogCategory_ENTestResultManager <= 10 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    [a1 maximumChaffsAllowedPerDay];
-    LogPrintF_safe();
+    if (a3 >= [a1 maximumChaffsAllowedPerDay] - a2)
+    {
+      v8 = "All Chaffs attempted for today.";
+    }
+
+    else
+    {
+      v8 = "Chaffing already in-progress";
+    }
+
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 10, "%s", v8);
   }
 }
 
@@ -1358,7 +1481,7 @@ LABEL_23:
 {
   v2 = [MEMORY[0x277CCABA8] numberWithDouble:?];
   v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInteger:a1];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 50, "Start Chaffing Timer with delay: %@ and cadence: %@", v2, v3);
 }
 
 - (void)_activateAutomatedChaffingWithRegion:.cold.7()
@@ -1368,54 +1491,54 @@ LABEL_23:
 
   if (v1 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 40, "Device not selected to perform chaffing");
   }
 }
 
-- (void)_activateAutomatedChaffingWithRegion:(void *)a1 .cold.9(void *a1)
+- (void)_activateAutomatedChaffingWithRegion:(uint64_t)a3 .cold.9(void *a1, uint64_t a2, uint64_t a3)
 {
   [a1 _deactivateAutomatedChaffing];
-  v1 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  v2 = [v1 isSensitiveLoggingAllowed];
+  v5 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  v6 = [v5 isSensitiveLoggingAllowed];
 
-  if (v2 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
+  if (v6 && gLogCategory_ENTestResultManager <= 40 && (gLogCategory_ENTestResultManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _activateAutomatedChaffingWithRegion:]", 40, "No configuration for %@ with error %@", a2, a3);
   }
 }
 
 void __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke_cold_2(void *a1)
 {
   v1 = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:*a1 + 1];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultManager, "[ENTestResultManager _updateChaffingTimerBlock]_block_invoke", 40, "Chaffing Finished attempt: %@", v1);
 }
 
 - (void)_startSelfReportWebSession:(uint64_t)a1 completionHandler:.cold.1(uint64_t a1)
 {
-  v2 = ENTestResultErrorF(5);
+  v2 = ENTestResultErrorF(5, "Self report not able to generate nonce");
   (*(a1 + 16))(a1, 0, 0, v2);
 }
 
-- (void)_startSelfReportWebSession:(uint64_t)a1 completionHandler:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
+- (void)_startSelfReportWebSession:(double)a3 completionHandler:(double)a4 .cold.2(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  v4 = ENTestResultErrorF(5);
-  (*(a1 + 16))(a1, a2, 0, v4);
+  v6 = ENTestResultErrorF(5, "Rate limiting Self Report %f", a3 - a4);
+  (*(a1 + 16))(a1, a2, 0, v6);
 }
 
 - (uint64_t)_startSelfReportWebSession:(uint64_t)a1 completionHandler:(uint64_t *)a2 .cold.3(uint64_t a1, uint64_t *a2)
 {
-  v4 = ENTestResultErrorF(10);
+  v4 = ENTestResultErrorF(10, "Self report no valid API key");
   *a2 = v4;
   return (*(a1 + 16))(a1, 0, 0, v4);
 }
 
-- (void)_configurationForRegion:(void *)result error:.cold.1(void *result)
+- (void)_configurationForRegion:(void *)result error:(uint64_t)a2 .cold.1(void *result, uint64_t a2)
 {
   if (result)
   {
-    v1 = result;
-    result = ENTestResultErrorF(9);
-    *v1 = result;
+    v2 = result;
+    result = ENTestResultErrorF(9, "Test verification configuration unavailable for %@", a2);
+    *v2 = result;
   }
 
   return result;
@@ -1426,7 +1549,7 @@ void __48__ENTestResultManager__updateChaffingTimerBlock__block_invoke_cold_2(vo
   if (result)
   {
     v1 = result;
-    result = ENTestResultErrorF(5);
+    result = ENTestResultErrorF(5, "Session not found");
     *v1 = result;
   }
 

@@ -247,7 +247,7 @@ uint64_t __40__PLReadyForAnalysis_isReadyForAnalysis__block_invoke(uint64_t a1)
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLReadyForAnalysis.m" lineNumber:196 description:{@"Invalid parameter not satisfying: %@", @"status"}];
   }
 
-  if (![(NSString *)self->_lock_status isEqualToString:stringCopy])
+  if ((objc_msgSend_isEqualToString_(self->_lock_status) & 1) == 0)
   {
     objc_storeStrong(&self->_lock_status, string);
     v7 = PLBackendGetLog();

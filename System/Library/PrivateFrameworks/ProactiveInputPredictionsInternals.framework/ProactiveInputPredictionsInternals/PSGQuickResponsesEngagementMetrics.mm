@@ -129,11 +129,11 @@ LABEL_20:
 
 - (PSGQuickResponsesEngagementMetrics)initWithCoder:(id)coder
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v51.receiver = self;
-  v51.super_class = PSGQuickResponsesEngagementMetrics;
-  v6 = [(PSGQuickResponsesEngagementMetrics *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = PSGQuickResponsesEngagementMetrics;
+  v6 = [(PSGQuickResponsesEngagementMetrics *)&v50 init];
   if (v6)
   {
     v7 = v6;
@@ -163,7 +163,7 @@ LABEL_20:
       {
         error2 = [coderCopy error];
         *buf = 138412290;
-        v53 = error2;
+        v52 = error2;
         _os_log_error_impl(&dword_260D36000, v18, OS_LOG_TYPE_ERROR, "Secure coding failure: %@", buf, 0xCu);
       }
 
@@ -172,7 +172,7 @@ LABEL_20:
 
     else
     {
-      v50 = a2;
+      v49 = a2;
       v20 = MEMORY[0x277D42620];
       v21 = objc_opt_class();
       v22 = psg_default_log_handle();
@@ -187,7 +187,7 @@ LABEL_20:
         {
           error4 = [coderCopy error];
           *buf = 138412290;
-          v53 = error4;
+          v52 = error4;
           _os_log_error_impl(&dword_260D36000, v24, OS_LOG_TYPE_ERROR, "Secure coding failure: %@", buf, 0xCu);
         }
 
@@ -196,7 +196,7 @@ LABEL_20:
 
       else
       {
-        v49 = v7;
+        v48 = v7;
         v25 = MEMORY[0x277D42620];
         v26 = objc_opt_class();
         v27 = psg_default_log_handle();
@@ -211,7 +211,7 @@ LABEL_20:
           {
             error6 = [coderCopy error];
             *buf = 138412290;
-            v53 = error6;
+            v52 = error6;
             _os_log_error_impl(&dword_260D36000, v29, OS_LOG_TYPE_ERROR, "Secure coding failure: %@", buf, 0xCu);
           }
 
@@ -220,10 +220,10 @@ LABEL_20:
 
         else
         {
-          v47 = MEMORY[0x277D42620];
+          v46 = MEMORY[0x277D42620];
           v30 = objc_opt_class();
           v31 = psg_default_log_handle();
-          v29 = [v47 robustDecodeObjectOfClass:v30 forKey:@"treatmentId" withCoder:coderCopy expectNonNull:0 errorDomain:v10 errorCode:3 logHandle:v31];
+          v29 = [v46 robustDecodeObjectOfClass:v30 forKey:@"treatmentId" withCoder:coderCopy expectNonNull:0 errorDomain:v10 errorCode:3 logHandle:v31];
 
           error7 = [coderCopy error];
 
@@ -234,7 +234,7 @@ LABEL_20:
             {
               error8 = [coderCopy error];
               *buf = 138412290;
-              v53 = error8;
+              v52 = error8;
               _os_log_error_impl(&dword_260D36000, v33, OS_LOG_TYPE_ERROR, "Secure coding failure: %@", buf, 0xCu);
             }
 
@@ -243,27 +243,27 @@ LABEL_20:
 
           else
           {
-            v48 = MEMORY[0x277D42620];
+            v47 = MEMORY[0x277D42620];
             v35 = objc_autoreleasePoolPush();
             v36 = objc_alloc(MEMORY[0x277CBEB98]);
             v37 = objc_opt_class();
             v38 = [v36 initWithObjects:{v37, objc_opt_class(), 0}];
             objc_autoreleasePoolPop(v35);
             v39 = psg_default_log_handle();
-            v33 = [v48 robustDecodeObjectOfClasses:v38 forKey:@"engagementDeltas" withCoder:coderCopy expectNonNull:1 errorDomain:v10 errorCode:3 logHandle:v39];
+            v33 = [v47 robustDecodeObjectOfClasses:v38 forKey:@"engagementDeltas" withCoder:coderCopy expectNonNull:1 errorDomain:v10 errorCode:3 logHandle:v39];
 
             if (!v33)
             {
               currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-              [currentHandler2 handleFailureInMethod:v50 object:v49 file:@"PSGDPDeviceMetricsCollector.m" lineNumber:183 description:{@"Invalid parameter not satisfying: %@", @"deltas"}];
+              [currentHandler2 handleFailureInMethod:v49 object:v48 file:@"PSGDPDeviceMetricsCollector.m" lineNumber:183 description:{@"Invalid parameter not satisfying: %@", @"deltas"}];
             }
 
-            v19 = [(PSGQuickResponsesEngagementMetrics *)v49 initWithLang:v12 rolloutId:v16 factorPackId:v18 experimentId:v24 treatmentId:v29 engagementDeltas:v33];
-            v49 = v19;
+            v19 = [(PSGQuickResponsesEngagementMetrics *)v48 initWithLang:v12 rolloutId:v16 factorPackId:v18 experimentId:v24 treatmentId:v29 engagementDeltas:v33];
+            v48 = v19;
           }
         }
 
-        v7 = v49;
+        v7 = v48;
       }
     }
   }
@@ -273,7 +273,6 @@ LABEL_20:
     v19 = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

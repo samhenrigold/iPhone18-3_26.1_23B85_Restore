@@ -53,13 +53,10 @@
     [ODCurareReportFillerModelEvaluation writeTo:];
   }
 
-  v8 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  metricValue = self->_metricValue;
   PBDataWriterWriteDoubleField();
-  numberOfSamples = self->_numberOfSamples;
   PBDataWriterWriteUint32Field();
-  numberOfPositiveSamples = self->_numberOfPositiveSamples;
   PBDataWriterWriteUint32Field();
 }
 

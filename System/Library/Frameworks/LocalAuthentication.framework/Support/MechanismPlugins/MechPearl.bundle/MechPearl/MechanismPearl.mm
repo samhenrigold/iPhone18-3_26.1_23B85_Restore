@@ -3,9 +3,11 @@
 - (BOOL)_exceededFailureLimit;
 - (BOOL)_shouldShowUIBeforeFailure;
 - (BOOL)isAvailableForPurpose:(int64_t)purpose error:(id *)error;
+- (BOOL)pause:(BOOL)pause forEvent:(int64_t)event error:(id *)error;
 - (LACRemoteUI)remoteUiDelegate;
 - (MechanismPearl)initWithParams:(id)params request:(id)request;
 - (id)additionalControllerInternalInfoForPolicy:(int64_t)policy;
+- (id)tccError:(BOOL)error;
 - (void)_cancelOperation:(id)operation;
 - (void)_dispatchBKOperationWithBlock:(id)block;
 - (void)_expireMatchThatStartedAt:(id)at;
@@ -38,7 +40,9 @@
 - (void)operation:(id)operation finishedWithReason:(int64_t)reason;
 - (void)operation:(id)operation presenceStateChanged:(BOOL)changed;
 - (void)operation:(id)operation stateChanged:(int64_t)changed;
+- (void)restartWithEventIdentifier:(int64_t)identifier lastAttempt:(BOOL)attempt;
 - (void)runWithHints:(id)hints eventsDelegate:(id)delegate reply:(id)reply;
+- (void)setShowingCoachingHint:(BOOL)hint reply:(id)reply;
 - (void)willFinish;
 @end
 
@@ -120,18 +124,7 @@
   v23 = NSStringFromProtocol(&OBJC_PROTOCOL___LACCompanionAuthenticationService);
   v24 = [serviceLocator serviceWithIdentifier:v23];
 
-  if (![v24 isCompanionDeviceAvailable])
-  {
-    goto LABEL_12;
-  }
-
-  request3 = [(MechanismPearl *)self request];
-  options = [request3 options];
-  v27 = [NSNumber numberWithInteger:LACPolicyOptionConcurrentBiometryAndCompanion];
-  v28 = [options objectForKeyedSubscript:v27];
-  bOOLValue = [v28 BOOLValue];
-
-  if ((bOOLValue & 1) == 0)
+  if ([v24 isCompanionDeviceAvailable] && (-[MechanismPearl request](self, "request"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "options"), v26 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", LACPolicyOptionConcurrentBiometryAndCompanion), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "objectForKeyedSubscript:", v27), v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "BOOLValue"), v28, v27, v26, v25, (v29 & 1) == 0))
   {
     if (error)
     {
@@ -147,11 +140,25 @@
 
   else
   {
-LABEL_12:
     v31.receiver = self;
     v31.super_class = MechanismPearl;
     v7 = [(MechanismPearl *)&v31 isAvailableForPurpose:purpose error:error];
   }
+
+  return v7;
+}
+
+- (id)tccError:(BOOL)error
+{
+  errorCopy = error;
+  v9[0] = LAErrorInfoTCCService;
+  tccService = [(MechanismPearl *)self tccService];
+  v10[0] = tccService;
+  v9[1] = LAErrorInfoTCCServerPrompt;
+  v5 = [NSNumber numberWithBool:errorCopy];
+  v10[1] = v5;
+  v6 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v7 = [LAErrorHelper errorWithCode:-1018 message:@"User has denied the use of biometry for this app." moreInfo:v6];
 
   return v7;
 }
@@ -814,25 +821,8 @@ LABEL_61:
 
     if (self->_hasUI)
     {
-      v14 = [(MechanismPearl *)self failuresInfoDictionaryWithError:v12];
-      [(MechanismPearl *)self mechanismEvent:6 value:v14 reply:&stru_10498];
-
-      eventsDelegate = [(MechanismPearl *)self eventsDelegate];
-      if (!eventsDelegate)
+      if (([(MechanismPearl *)self failuresInfoDictionaryWithError:v12], v14 = objc_claimAutoreleasedReturnValue(), [(MechanismPearl *)self mechanismEvent:6 value:v14 reply:&stru_10498], v14, [(MechanismPearl *)self eventsDelegate], (v15 = objc_claimAutoreleasedReturnValue()) == 0) && (v16 = self->_standardUifailures + 1, self->_standardUifailures = v16, v16 > 1) || (v17 = [(MechanismPearl *)self isLastRestartAttempt], v15, v17))
       {
-        v16 = self->_standardUifailures + 1;
-        self->_standardUifailures = v16;
-        if (v16 > 1)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      isLastRestartAttempt = [(MechanismPearl *)self isLastRestartAttempt];
-
-      if (isLastRestartAttempt)
-      {
-LABEL_17:
         [(MechanismPearl *)self _stopBiometry];
       }
     }
@@ -1481,6 +1471,46 @@ LABEL_16:
   }
 }
 
+- (BOOL)pause:(BOOL)pause forEvent:(int64_t)event error:(id *)error
+{
+  pauseCopy = pause;
+  v12.receiver = self;
+  v12.super_class = MechanismPearl;
+  v7 = [(MechanismPearl *)&v12 pause:pause forEvent:event error:error];
+  if (v7)
+  {
+    request = [(MechanismPearl *)self request];
+    v9 = [request log];
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = "resume";
+      if (pauseCopy)
+      {
+        v10 = "pause";
+      }
+
+      *buf = 138543618;
+      selfCopy = self;
+      v15 = 2080;
+      v16 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will %s the biometric operation", buf, 0x16u);
+    }
+
+    if (pauseCopy)
+    {
+      [(MechanismPearl *)self _stopBiometry];
+    }
+
+    else
+    {
+      [(MechanismPearl *)self _startBiometry];
+    }
+  }
+
+  return v7;
+}
+
 - (void)willFinish
 {
   if (self->_operationState == 2)
@@ -1578,6 +1608,84 @@ LABEL_14:
 
   [(MechanismPearl *)self mechanismEvent:v11 reply:&stru_105B8];
 LABEL_15:
+}
+
+- (void)restartWithEventIdentifier:(int64_t)identifier lastAttempt:(BOOL)attempt
+{
+  if (self->_operationState == 2)
+  {
+    v5 = [(MechanismPearl *)self request:identifier];
+    v6 = [v5 log];
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Match is already running, no need to restart.", buf, 2u);
+    }
+  }
+
+  else
+  {
+    attemptCopy = attempt;
+    if ([(MechanismPearl *)self biolockout])
+    {
+      request = [(MechanismPearl *)self request];
+      v10 = [request log];
+
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        sub_75CC(self, v10);
+      }
+    }
+
+    else
+    {
+      isRestartable = [(MechanismPearl *)self isRestartable];
+      v13.receiver = self;
+      v13.super_class = MechanismPearl;
+      [(MechanismPearl *)&v13 restartWithEventIdentifier:identifier lastAttempt:attemptCopy];
+      if (isRestartable)
+      {
+        [(MechanismPearl *)self _setupCoachingFilter];
+        self->_expectingEndOfMatching = 0;
+        if (self->_operationState == 5)
+        {
+          v12[0] = _NSConcreteStackBlock;
+          v12[1] = 3221225472;
+          v12[2] = sub_5DB8;
+          v12[3] = &unk_10300;
+          v12[4] = self;
+          [(MechanismPearl *)self _prepareCustomSecureUiWithCompletion:v12];
+        }
+
+        else
+        {
+          [(MechanismPearl *)self _startMatching];
+        }
+      }
+    }
+  }
+}
+
+- (void)setShowingCoachingHint:(BOOL)hint reply:(id)reply
+{
+  matchOperation = self->_matchOperation;
+  if (matchOperation)
+  {
+    hintCopy = hint;
+    v12 = 0;
+    replyCopy = reply;
+    v8 = [(BKMatchPearlOperation *)matchOperation pauseFaceDetectTimer:hintCopy error:&v12];
+    v9 = v12;
+    replyCopy[2](replyCopy, v8, v9);
+  }
+
+  else
+  {
+    replyCopy2 = reply;
+    v11 = [LAErrorHelper errorWithCode:-1008 message:@"Match not running"];
+    (*(reply + 2))(replyCopy2, 0, v11);
+  }
 }
 
 - (id)additionalControllerInternalInfoForPolicy:(int64_t)policy

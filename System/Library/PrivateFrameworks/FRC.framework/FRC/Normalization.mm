@@ -253,7 +253,7 @@
   width = [textureCopy width];
   height = [textureCopy height];
 
-  [(Normalization *)self threadsPerGroupForStats];
+  objc_msgSend_threadsPerGroupForStats(self);
   if (self->_useFloatAtomic)
   {
     v7 = 8;
@@ -344,7 +344,7 @@
   height = [textureCopy height];
   v20 = 0uLL;
   v21 = 0;
-  [(Normalization *)self threadsPerGroupForStats];
+  objc_msgSend_threadsPerGroupForStats(self);
   v13 = v20;
   computeCommandEncoder = [bufferCopy computeCommandEncoder];
 

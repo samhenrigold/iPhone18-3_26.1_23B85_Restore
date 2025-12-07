@@ -7,10 +7,13 @@
 - (CLBeaconRegion)initWithCoder:(id)coder;
 - (CLBeaconRegion)initWithIdentifier:(id)identifier;
 - (CLBeaconRegion)initWithUUID:(NSUUID *)uuid identifier:(NSString *)identifier;
+- (CLBeaconRegion)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major identifier:(NSString *)identifier;
 - (CLBeaconRegion)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier;
+- (CLBeaconRegion)initWithUUID:(id)d major:(unsigned __int16)major minor:(unsigned __int16)minor identifier:(id)identifier notifyEntryStateOnDisplay:(BOOL)display;
 - (NSMutableDictionary)peripheralDataWithMeasuredPower:(NSNumber *)measuredPower;
 - (char)_measuredPowerForDevice;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)description;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -53,16 +56,16 @@
   }
 
   self->_definitionMask = v10;
-  self->_UUID = [d copy];
-  self->_major = [major copy];
-  self->_minor = [minor copy];
+  self->_UUID = objc_msgSend_copy(d, a2, d, major);
+  self->_major = objc_msgSend_copy(major, v12, v13, v14);
+  self->_minor = objc_msgSend_copy(minor, v15, v16, v17);
   self->_notifyEntryStateOnDisplay = display;
 }
 
 - (CLBeaconRegion)init
 {
   selfCopy = self;
-  if (![(CLBeaconRegion *)self UUID])
+  if (!objc_msgSend_UUID(self, a2, v2, v3))
   {
 
     return 0;
@@ -73,29 +76,29 @@
 
 - (CLBeaconRegion)initWithIdentifier:(id)identifier
 {
-  v6.receiver = self;
-  v6.super_class = CLBeaconRegion;
-  v3 = [(CLRegion *)&v6 initWithIdentifier:identifier andRegionType:0];
-  v4 = v3;
+  v7.receiver = self;
+  v7.super_class = CLBeaconRegion;
+  v3 = [(CLRegion *)&v7 initWithIdentifier:identifier andRegionType:0];
+  v5 = v3;
   if (v3)
   {
-    [(CLBeaconRegion *)v3 setGutsWithProximityUUID:0 major:0 minor:0 notifyOnDisplay:0];
+    objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v3, v4, 0, 0, 0, 0);
   }
 
-  return v4;
+  return v5;
 }
 
 - (CLBeaconRegion)initWithUUID:(NSUUID *)uuid identifier:(NSString *)identifier
 {
   if (uuid)
   {
-    v8.receiver = self;
-    v8.super_class = CLBeaconRegion;
-    v5 = [(CLRegion *)&v8 initWithIdentifier:identifier andRegionType:0];
-    v6 = v5;
+    v9.receiver = self;
+    v9.super_class = CLBeaconRegion;
+    v5 = [(CLRegion *)&v9 initWithIdentifier:identifier andRegionType:0];
+    v7 = v5;
     if (v5)
     {
-      [(CLBeaconRegion *)v5 setGutsWithProximityUUID:uuid major:0 minor:0 notifyOnDisplay:0];
+      objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v5, v6, uuid, 0, 0, 0);
     }
   }
 
@@ -105,7 +108,31 @@
     return 0;
   }
 
-  return v6;
+  return v7;
+}
+
+- (CLBeaconRegion)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major identifier:(NSString *)identifier
+{
+  if (uuid)
+  {
+    v5 = major;
+    v13.receiver = self;
+    v13.super_class = CLBeaconRegion;
+    v9 = [(CLRegion *)&v13 initWithIdentifier:identifier andRegionType:0];
+    if (v9)
+    {
+      v10 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v7, v5, v8);
+      objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v9, v11, uuid, v10, 0, 0);
+    }
+  }
+
+  else
+  {
+
+    return 0;
+  }
+
+  return v9;
 }
 
 - (CLBeaconRegion)initWithUUID:(NSUUID *)uuid major:(CLBeaconMajorValue)major minor:(CLBeaconMinorValue)minor identifier:(NSString *)identifier
@@ -113,7 +140,7 @@
   if (uuid)
   {
 
-    return MEMORY[0x1EEE66B58](self, sel_initWithUUID_major_minor_identifier_notifyEntryStateOnDisplay_);
+    return MEMORY[0x1EEE66B58](self, sel_initWithUUID_major_minor_identifier_notifyEntryStateOnDisplay_, uuid, major);
   }
 
   else
@@ -123,92 +150,128 @@
   }
 }
 
+- (CLBeaconRegion)initWithUUID:(id)d major:(unsigned __int16)major minor:(unsigned __int16)minor identifier:(id)identifier notifyEntryStateOnDisplay:(BOOL)display
+{
+  displayCopy = display;
+  minorCopy = minor;
+  majorCopy = major;
+  v20.receiver = self;
+  v20.super_class = CLBeaconRegion;
+  v13 = [(CLRegion *)&v20 initWithIdentifier:identifier andRegionType:0];
+  if (v13)
+  {
+    v14 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v11, majorCopy, v12);
+    v17 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v15, minorCopy, v16);
+    objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v13, v18, d, v14, v17, displayCopy);
+  }
+
+  return v13;
+}
+
 - (CLBeaconRegion)initWithBeaconIdentityConstraint:(CLBeaconIdentityConstraint *)beaconIdentityConstraint identifier:(NSString *)identifier
 {
   if (!beaconIdentityConstraint)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v23 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, identifier);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v23, v24, a2, self, @"CLBeaconRegion.m", 182, @"Invalid parameter not satisfying: %@", @"beaconIdentityConstraint");
   }
 
-  v9.receiver = self;
-  v9.super_class = CLBeaconRegion;
-  v7 = [(CLRegion *)&v9 initWithIdentifier:identifier andRegionType:0];
+  v25.receiver = self;
+  v25.super_class = CLBeaconRegion;
+  v10 = [(CLRegion *)&v25 initWithIdentifier:identifier andRegionType:0];
+  if (v10)
+  {
+    v11 = objc_msgSend_UUID(beaconIdentityConstraint, v7, v8, v9);
+    v15 = objc_msgSend_major(beaconIdentityConstraint, v12, v13, v14);
+    v19 = objc_msgSend_minor(beaconIdentityConstraint, v16, v17, v18);
+    objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v10, v20, v11, v15, v19, 0);
+  }
+
+  return v10;
+}
+
+- (CLBeaconRegion)initWithCoder:(id)coder
+{
+  v38.receiver = self;
+  v38.super_class = CLBeaconRegion;
+  v7 = [(CLRegion *)&v38 initWithCoder:?];
   if (v7)
   {
-    [(CLBeaconRegion *)v7 setGutsWithProximityUUID:[(CLBeaconIdentityCondition *)beaconIdentityConstraint UUID] major:[(CLBeaconIdentityCondition *)beaconIdentityConstraint major] minor:[(CLBeaconIdentityCondition *)beaconIdentityConstraint minor] notifyOnDisplay:0];
+    v37 = 0;
+    if (objc_msgSend_allowsKeyedCoding(coder, v4, v5, v6))
+    {
+      v8 = objc_opt_class();
+      v10 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v9, v8, @"kCLBeaconRegionCodingKeyProximityUUID");
+      v11 = objc_opt_class();
+      v13 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"kCLBeaconRegionCodingKeyMajor");
+      v14 = objc_opt_class();
+      v16 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v15, v14, @"kCLBeaconRegionCodingKeyMinor");
+      v37 = objc_msgSend_decodeBoolForKey_(coder, v17, @"kCLBeaconRegionNotifyEntryStateOnDisplay", v18);
+    }
+
+    else
+    {
+      v21 = objc_alloc(MEMORY[0x1E696AFB0]);
+      v25 = objc_msgSend_decodeObject(coder, v22, v23, v24);
+      v10 = objc_msgSend_initWithUUIDString_(v21, v26, v25, v27);
+      v13 = objc_msgSend_decodeObject(coder, v28, v29, v30);
+      v16 = objc_msgSend_decodeObject(coder, v31, v32, v33);
+      objc_msgSend_decodeValueOfObjCType_at_(coder, v34, "B", &v37);
+    }
+
+    objc_msgSend_setType_(v7, v19, 0, v20);
+    objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v7, v35, v10, v13, v16, v37);
   }
 
   return v7;
 }
 
-- (CLBeaconRegion)initWithCoder:(id)coder
-{
-  v10.receiver = self;
-  v10.super_class = CLBeaconRegion;
-  v4 = [(CLRegion *)&v10 initWithCoder:?];
-  if (v4)
-  {
-    v9 = 0;
-    if ([coder allowsKeyedCoding])
-    {
-      v5 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconRegionCodingKeyProximityUUID"];
-      decodeObject = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconRegionCodingKeyMajor"];
-      decodeObject2 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLBeaconRegionCodingKeyMinor"];
-      v9 = [coder decodeBoolForKey:@"kCLBeaconRegionNotifyEntryStateOnDisplay"];
-    }
-
-    else
-    {
-      v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:{objc_msgSend(coder, "decodeObject")}];
-      decodeObject = [coder decodeObject];
-      decodeObject2 = [coder decodeObject];
-      [coder decodeValueOfObjCType:"B" at:&v9];
-    }
-
-    [(CLRegion *)v4 setType:0];
-    [(CLBeaconRegion *)v4 setGutsWithProximityUUID:v5 major:decodeObject minor:decodeObject2 notifyOnDisplay:v9];
-  }
-
-  return v4;
-}
-
 - (void)encodeWithCoder:(id)coder
 {
-  v9.receiver = self;
-  v9.super_class = CLBeaconRegion;
-  [(CLRegion *)&v9 encodeWithCoder:?];
-  notifyEntryStateOnDisplay = [(CLBeaconRegion *)self notifyEntryStateOnDisplay];
-  v8 = notifyEntryStateOnDisplay;
-  allowsKeyedCoding = [coder allowsKeyedCoding];
-  uUID = [(CLBeaconRegion *)self UUID];
-  if (allowsKeyedCoding)
+  v47.receiver = self;
+  v47.super_class = CLBeaconRegion;
+  [(CLRegion *)&v47 encodeWithCoder:?];
+  v8 = objc_msgSend_notifyEntryStateOnDisplay(self, v5, v6, v7);
+  v46 = v8;
+  v12 = objc_msgSend_allowsKeyedCoding(coder, v9, v10, v11);
+  v16 = objc_msgSend_UUID(self, v13, v14, v15);
+  if (v12)
   {
-    [coder encodeObject:uUID forKey:@"kCLBeaconRegionCodingKeyProximityUUID"];
-    [coder encodeObject:-[CLBeaconRegion major](self forKey:{"major"), @"kCLBeaconRegionCodingKeyMajor"}];
-    [coder encodeObject:-[CLBeaconRegion minor](self forKey:{"minor"), @"kCLBeaconRegionCodingKeyMinor"}];
-    [coder encodeBool:notifyEntryStateOnDisplay forKey:@"kCLBeaconRegionNotifyEntryStateOnDisplay"];
+    objc_msgSend_encodeObject_forKey_(coder, v17, v16, @"kCLBeaconRegionCodingKeyProximityUUID");
+    v22 = objc_msgSend_major(self, v19, v20, v21);
+    objc_msgSend_encodeObject_forKey_(coder, v23, v22, @"kCLBeaconRegionCodingKeyMajor");
+    v27 = objc_msgSend_minor(self, v24, v25, v26);
+    objc_msgSend_encodeObject_forKey_(coder, v28, v27, @"kCLBeaconRegionCodingKeyMinor");
+    objc_msgSend_encodeBool_forKey_(coder, v29, v8, @"kCLBeaconRegionNotifyEntryStateOnDisplay");
   }
 
   else
   {
-    [coder encodeObject:{-[NSUUID UUIDString](uUID, "UUIDString")}];
-    [coder encodeObject:{-[CLBeaconRegion major](self, "major")}];
-    [coder encodeObject:{-[CLBeaconRegion minor](self, "minor")}];
-    [coder encodeValueOfObjCType:"B" at:&v8];
+    v30 = objc_msgSend_UUIDString(v16, v17, v16, v18);
+    objc_msgSend_encodeObject_(coder, v31, v30, v32);
+    v36 = objc_msgSend_major(self, v33, v34, v35);
+    objc_msgSend_encodeObject_(coder, v37, v36, v38);
+    v42 = objc_msgSend_minor(self, v39, v40, v41);
+    objc_msgSend_encodeObject_(coder, v43, v42, v44);
+    objc_msgSend_encodeValueOfObjCType_at_(coder, v45, "B", &v46);
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6.receiver = self;
-  v6.super_class = CLBeaconRegion;
-  v4 = [(CLRegion *)&v6 copyWithZone:zone];
-  if (v4)
+  v23.receiver = self;
+  v23.super_class = CLBeaconRegion;
+  v7 = [(CLRegion *)&v23 copyWithZone:zone];
+  if (v7)
   {
-    [v4 setGutsWithProximityUUID:-[CLBeaconRegion UUID](self major:"UUID") minor:-[CLBeaconRegion major](self notifyOnDisplay:{"major"), -[CLBeaconRegion minor](self, "minor"), -[CLBeaconRegion notifyEntryStateOnDisplay](self, "notifyEntryStateOnDisplay")}];
+    v8 = objc_msgSend_UUID(self, v4, v5, v6);
+    v12 = objc_msgSend_major(self, v9, v10, v11);
+    v16 = objc_msgSend_minor(self, v13, v14, v15);
+    v20 = objc_msgSend_notifyEntryStateOnDisplay(self, v17, v18, v19);
+    objc_msgSend_setGutsWithProximityUUID_major_minor_notifyOnDisplay_(v7, v21, v8, v12, v16, v20);
   }
 
-  return v4;
+  return v7;
 }
 
 - (void)dealloc
@@ -221,20 +284,31 @@
   [(CLRegion *)&v3 dealloc];
 }
 
+- (id)description
+{
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_msgSend_identifier(self, a2, v2, v3);
+  v10 = objc_msgSend_UUID(self, v7, v8, v9);
+  v14 = objc_msgSend_major(self, v11, v12, v13);
+  v18 = objc_msgSend_minor(self, v15, v16, v17);
+  return objc_msgSend_stringWithFormat_(v5, v19, @"CLBeaconRegion (identifier:'%@', uuid:%@, major:%@, minor:%@)", v20, v6, v10, v14, v18);
+}
+
 - (unint64_t)hash
 {
-  if ([(NSString *)[(CLRegion *)self identifier] isEqualToString:&stru_1F0E6F140])
+  v5 = objc_msgSend_identifier(self, a2, v2, v3);
+  if (objc_msgSend_isEqualToString_(v5, v6, &stru_1F0E6F140, v7))
   {
-    beaconIdentityConstraint = [(CLBeaconRegion *)self beaconIdentityConstraint];
+    v11 = objc_msgSend_beaconIdentityConstraint(self, v8, v9, v10);
 
-    return [(CLBeaconIdentityCondition *)beaconIdentityConstraint hash];
+    return objc_msgSend_hash(v11, v12, v13, v14);
   }
 
   else
   {
-    v5.receiver = self;
-    v5.super_class = CLBeaconRegion;
-    return [(CLRegion *)&v5 hash];
+    v16.receiver = self;
+    v16.super_class = CLBeaconRegion;
+    return [(CLRegion *)&v16 hash];
   }
 }
 
@@ -242,33 +316,35 @@
 {
   if (self == equal)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isMemberOfClass) = 1;
   }
 
   else
   {
-    v5 = [equal isMemberOfClass:objc_opt_class()];
-    if (v5)
+    v5 = objc_opt_class();
+    isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+    if (isMemberOfClass)
     {
-      if (-[NSString isEqualToString:](-[CLRegion identifier](self, "identifier"), "isEqualToString:", &stru_1F0E6F140) && -[NSString isEqualToString:](-[CLRegion identifier](self, "identifier"), "isEqualToString:", [equal identifier]))
+      v12 = objc_msgSend_identifier(self, v9, v10, v11);
+      if (objc_msgSend_isEqualToString_(v12, v13, &stru_1F0E6F140, v14) && (v18 = objc_msgSend_identifier(self, v15, v16, v17), v22 = objc_msgSend_identifier(equal, v19, v20, v21), objc_msgSend_isEqualToString_(v18, v23, v22, v24)))
       {
-        beaconIdentityConstraint = [(CLBeaconRegion *)self beaconIdentityConstraint];
-        beaconIdentityConstraint2 = [equal beaconIdentityConstraint];
+        v25 = objc_msgSend_beaconIdentityConstraint(self, v15, v16, v17);
+        v30 = objc_msgSend_beaconIdentityConstraint(equal, v26, v27, v28);
 
-        LOBYTE(v5) = [(CLBeaconIdentityCondition *)beaconIdentityConstraint isEqual:beaconIdentityConstraint2];
+        LOBYTE(isMemberOfClass) = objc_msgSend_isEqual_(v25, v29, v30, v31);
       }
 
       else
       {
-        identifier = [(CLRegion *)self identifier];
-        identifier2 = [equal identifier];
+        v32 = objc_msgSend_identifier(self, v15, v16, v17);
+        v37 = objc_msgSend_identifier(equal, v33, v34, v35);
 
-        LOBYTE(v5) = [(NSString *)identifier isEqualToString:identifier2];
+        LOBYTE(isMemberOfClass) = objc_msgSend_isEqualToString_(v32, v36, v37, v38);
       }
     }
   }
 
-  return v5;
+  return isMemberOfClass;
 }
 
 - (char)_measuredPowerForDevice
@@ -280,52 +356,57 @@
 
 - (NSMutableDictionary)peripheralDataWithMeasuredPower:(NSNumber *)measuredPower
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
-  if ([(CLBeaconRegion *)self UUID])
+  if (objc_msgSend_UUID(self, v5, v6, v7))
   {
-    [(NSUUID *)[(CLBeaconRegion *)self UUID] getUUIDBytes:uu];
+    v11 = objc_msgSend_UUID(self, v8, v9, v10);
+    objc_msgSend_getUUIDBytes_(v11, v12, uu, v13);
   }
 
-  v11 = 0;
-  if ([(CLBeaconRegion *)self major])
+  v40 = 0;
+  if (objc_msgSend_major(self, v8, v9, v10))
   {
-    v11 = bswap32([(NSNumber *)[(CLBeaconRegion *)self major] shortValue]) >> 16;
+    v17 = objc_msgSend_major(self, v14, v15, v16);
+    v40 = bswap32(objc_msgSend_shortValue(v17, v18, v19, v20)) >> 16;
   }
 
-  v10 = 0;
-  if ([(CLBeaconRegion *)self minor])
+  v39 = 0;
+  if (objc_msgSend_minor(self, v14, v15, v16))
   {
-    v10 = bswap32([(NSNumber *)[(CLBeaconRegion *)self minor] shortValue]) >> 16;
+    v24 = objc_msgSend_minor(self, v21, v22, v23);
+    v39 = bswap32(objc_msgSend_shortValue(v24, v25, v26, v27)) >> 16;
   }
 
   if (measuredPower)
   {
-    charValue = [(NSNumber *)measuredPower charValue];
+    v28 = objc_msgSend_charValue(measuredPower, v21, v22, v23);
   }
 
   else
   {
-    charValue = [(CLBeaconRegion *)self _measuredPowerForDevice];
+    v28 = objc_msgSend__measuredPowerForDevice(self, v21, v22, v23);
   }
 
-  v9 = charValue;
-  v6 = [MEMORY[0x1E695DF88] dataWithCapacity:21];
-  [v6 appendBytes:uu length:16];
-  [v6 appendBytes:&v11 length:2];
-  [v6 appendBytes:&v10 length:2];
-  [v6 appendBytes:&v9 length:1];
-  result = [MEMORY[0x1E695DF90] dictionaryWithObject:v6 forKey:*MEMORY[0x1E695D1E8]];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v38 = v28;
+  v31 = objc_msgSend_dataWithCapacity_(MEMORY[0x1E695DF88], v29, 21, v30);
+  objc_msgSend_appendBytes_length_(v31, v32, uu, 16);
+  objc_msgSend_appendBytes_length_(v31, v33, &v40, 2);
+  objc_msgSend_appendBytes_length_(v31, v34, &v39, 2);
+  objc_msgSend_appendBytes_length_(v31, v35, &v38, 1);
+  return objc_msgSend_dictionaryWithObject_forKey_(MEMORY[0x1E695DF90], v36, v31, *MEMORY[0x1E695D1E8]);
 }
 
 - (CLBeaconIdentityConstraint)beaconIdentityConstraint
 {
-  v2 = [(CLBeaconIdentityCondition *)[CLBeaconIdentityConstraint alloc] _initWithUUID:[(CLBeaconRegion *)self UUID] major:[(CLBeaconRegion *)self major] minor:[(CLBeaconRegion *)self minor]];
+  v3 = [CLBeaconIdentityConstraint alloc];
+  v7 = objc_msgSend_UUID(self, v4, v5, v6);
+  v11 = objc_msgSend_major(self, v8, v9, v10);
+  v15 = objc_msgSend_minor(self, v12, v13, v14);
+  v17 = objc_msgSend__initWithUUID_major_minor_(v3, v16, v7, v11, v15);
 
-  return v2;
+  return v17;
 }
 
 @end

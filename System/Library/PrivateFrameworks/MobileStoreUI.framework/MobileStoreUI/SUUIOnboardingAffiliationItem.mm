@@ -38,15 +38,15 @@
   {
     identifier = [(SUUIOnboardingAffiliationItem *)self identifier];
     identifier2 = [equalCopy identifier];
-    v6 = [identifier isEqualToString:identifier2];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 @end

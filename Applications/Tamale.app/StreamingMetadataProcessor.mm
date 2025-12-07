@@ -7,20 +7,20 @@
 
 - (_TtC6Tamale26StreamingMetadataProcessor)init
 {
-  v3 = sub_1000033A8(&qword_1001D6460);
+  v3 = sub_1000033A8(&qword_1001D6460, &qword_1001753A8);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v16 - v5;
-  v17 = sub_1000033A8(&unk_1001D6410);
+  v17 = sub_1000033A8(&unk_1001D6410, &unk_100175370);
   v7 = *(v17 - 8);
   __chkstk_darwin(v17);
   v9 = &v16 - v8;
-  v10 = sub_1000033A8(&qword_1001D6468);
+  v10 = sub_1000033A8(&qword_1001D6468, &unk_1001753B0);
   v11 = *(v10 - 8);
   __chkstk_darwin(v10);
   v13 = &v16 - v12;
   static Log.cvProcessor.getter();
-  sub_1000033A8(&qword_1001D6288);
+  sub_1000033A8(&qword_1001D6288, &qword_1001751F0);
   (*(v4 + 104))(v6, enum case for AsyncStream.Continuation.BufferingPolicy.unbounded<A>(_:), v3);
   static AsyncStream.makeStream(of:bufferingPolicy:)();
   (*(v4 + 8))(v6, v3);
@@ -37,7 +37,7 @@
   collectionsCopy = collections;
   if (collections)
   {
-    sub_10005BBC4(0, &qword_1001D7FF0);
+    sub_10005BBC4(0, &qword_1001D7FF0, NSObject_ptr);
     collectionsCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

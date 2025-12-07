@@ -2,6 +2,7 @@
 - (BOOL)handleClientRequest:(id)request;
 - (BOOL)performSensing:(id)sensing error:(id *)error;
 - (W5PeerSensingListener)initWithInterface:(id)interface;
+- (id)_responseDictionaryWithSuccess:(BOOL)success errorString:(id)string;
 @end
 
 @implementation W5PeerSensingListener
@@ -9,9 +10,9 @@
 - (W5PeerSensingListener)initWithInterface:(id)interface
 {
   interfaceCopy = interface;
-  v10.receiver = self;
-  v10.super_class = W5PeerSensingListener;
-  v6 = [(W5PeerSensingListener *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = W5PeerSensingListener;
+  v6 = [(W5PeerSensingListener *)&v11 init];
   v7 = v6;
   if (!v6 || (objc_storeStrong(&v6->_interface, interface), !v7->_interface))
   {
@@ -19,13 +20,14 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "[W5PeerSensingListener initWithInterface:]";
-      v13 = 2080;
-      v14 = "W5PeerSensingListener.m";
-      v15 = 1024;
-      v16 = 35;
-      _os_log_send_and_compose_impl();
+      v12 = 136315650;
+      v13 = "[W5PeerSensingListener initWithInterface:]";
+      v14 = 2080;
+      v15 = "W5PeerSensingListener.m";
+      v16 = 1024;
+      v17 = 35;
+      LODWORD(v10) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) init error!", &v12, v10, LODWORD(v11.receiver));
     }
 
     v7 = 0;
@@ -62,22 +64,23 @@
     v16 = sub_100098A04();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      [handler2 description];
-      v24 = 136315906;
-      v25 = "[W5PeerSensingListener handleClientRequest:]";
-      v26 = 2080;
-      v27 = "W5PeerSensingListener.m";
-      v28 = 1024;
-      v29 = 58;
-      v31 = v30 = 2114;
-      _os_log_send_and_compose_impl();
+      v17 = [handler2 description];
+      v27 = 136315906;
+      v28 = "[W5PeerSensingListener handleClientRequest:]";
+      v29 = 2080;
+      v30 = "W5PeerSensingListener.m";
+      v31 = 1024;
+      v32 = 58;
+      v33 = 2114;
+      v34 = v17;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s (%s:%u) Performing sensing with parameters='%{public}@'", &v27, 38);
     }
 
-    v23 = 0;
-    v17 = [(W5PeerSensingListener *)self performSensing:handler2 error:&v23];
-    v18 = v23;
-    [(W5PeerSensingResponsePayload *)v5 setResult:v17];
-    localizedDescription = [v18 localizedDescription];
+    v26 = 0;
+    v18 = [(W5PeerSensingListener *)self performSensing:handler2 error:&v26];
+    v19 = v26;
+    [(W5PeerSensingResponsePayload *)v5 setResult:v18];
+    localizedDescription = [v19 localizedDescription];
 
     [(W5PeerSensingResponsePayload *)v5 setErrorStr:localizedDescription];
     handler = [requestCopy handler];
@@ -86,16 +89,17 @@
 
   else
   {
-    v21 = sub_100098A04();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100098A04();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 136315650;
-      v25 = "[W5PeerSensingListener handleClientRequest:]";
-      v26 = 2080;
-      v27 = "W5PeerSensingListener.m";
-      v28 = 1024;
-      v29 = 45;
-      _os_log_send_and_compose_impl();
+      v27 = 136315650;
+      v28 = "[W5PeerSensingListener handleClientRequest:]";
+      v29 = 2080;
+      v30 = "W5PeerSensingListener.m";
+      v31 = 1024;
+      v32 = 45;
+      LODWORD(v24) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v22, 0, "[wifivelocity] %s (%s:%u) Incoming request for W5DeviceConnection to perform sensing, but options dictionary was empty", &v27, v24, v25);
     }
 
     [(W5PeerSensingResponsePayload *)v5 setResult:0];
@@ -115,13 +119,57 @@
   {
     interface = [(W5PeerSensingListener *)self interface];
     networkName = [interface networkName];
-    _os_log_send_and_compose_impl();
+    v14 = 136315906;
+    v15 = "[W5PeerSensingListener performSensing:error:]";
+    v16 = 2080;
+    v17 = "W5PeerSensingListener.m";
+    v18 = 1024;
+    v19 = 85;
+    v20 = 2114;
+    v21 = networkName;
+    v13 = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) corewifi perform sensing for network='%{public}@'", &v14, v13);
   }
 
   interface2 = [(W5PeerSensingListener *)self interface];
-  v10 = [interface2 performSensingWithParameters:sensingCopy error:error];
+  v11 = [interface2 performSensingWithParameters:sensingCopy error:error];
 
-  return v10 != 0;
+  return v11 != 0;
+}
+
+- (id)_responseDictionaryWithSuccess:(BOOL)success errorString:(id)string
+{
+  successCopy = success;
+  stringCopy = string;
+  if (stringCopy)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = successCopy;
+  }
+
+  if (v6)
+  {
+    v7 = stringCopy;
+  }
+
+  else
+  {
+    v7 = @"unknown error";
+  }
+
+  v12[0] = @"result";
+  v8 = stringCopy;
+  v9 = [NSNumber numberWithBool:successCopy];
+  v12[1] = @"error";
+  v13[0] = v9;
+  v13[1] = v7;
+  v10 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+
+  return v10;
 }
 
 @end

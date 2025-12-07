@@ -14,12 +14,12 @@
 
 - (ISBundleResourceProvider)initWithBundleURL:(id)l iconDictionary:(id)dictionary options:(unint64_t)options
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   lCopy = l;
   dictionaryCopy = dictionary;
-  v20.receiver = self;
-  v20.super_class = ISBundleResourceProvider;
-  v10 = [(ISResourceProvider *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = ISBundleResourceProvider;
+  v10 = [(ISResourceProvider *)&v19 init];
   if (v10)
   {
     if ([lCopy isFileReferenceURL])
@@ -37,10 +37,10 @@
 
     objc_storeStrong(&v10->_iconDictionary, dictionary);
     iconDictionary = v10->_iconDictionary;
-    v21[0] = @"UTTypeIconBadgeName";
-    v21[1] = @"UTTypeIconText";
-    v21[2] = @"UTTypeIconBackgroundName";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+    v20[0] = @"UTTypeIconBadgeName";
+    v20[1] = @"UTTypeIconText";
+    v20[2] = @"UTTypeIconBackgroundName";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
     v15 = [(NSDictionary *)iconDictionary _IF_stringForKeys:v14];
 
     if (v15)
@@ -53,12 +53,11 @@
       optionsCopy = options;
     }
 
-    v19.receiver = v10;
-    v19.super_class = ISBundleResourceProvider;
-    [(ISResourceProvider *)&v19 setOptions:optionsCopy];
+    v18.receiver = v10;
+    v18.super_class = ISBundleResourceProvider;
+    [(ISResourceProvider *)&v18 setOptions:optionsCopy];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -138,7 +137,7 @@
 
 - (id)symbol
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coreTypesBundle = [MEMORY[0x1E69A8960] coreTypesBundle];
   bundleURL = [coreTypesBundle bundleURL];
   v5 = [bundleURL isEqual:self->_bundleURL];
@@ -154,9 +153,9 @@
   }
 
   v7 = self->_iconDictionary;
-  v16[0] = @"CFBundleSymbolName";
-  v16[1] = @"UTTypeSymbolName";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = @"CFBundleSymbolName";
+  v15[1] = @"UTTypeSymbolName";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v9 = [(NSDictionary *)v7 _IF_stringForKeys:v8];
 
   if (v9)
@@ -179,8 +178,6 @@ LABEL_7:
   v9 = 0;
   v13 = 0;
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

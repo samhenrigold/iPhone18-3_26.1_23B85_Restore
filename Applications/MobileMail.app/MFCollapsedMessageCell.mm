@@ -299,8 +299,7 @@ LABEL_14:
   if (MUISolariumFeatureEnabled())
   {
     [senderOrSubjectLabel _firstBaselineOffsetFromTop];
-    UIRoundToViewScale();
-    v50 = v49;
+    v50 = UIRoundToViewScale(v49);
     [senderOrSubjectLabel frame];
     v52 = v51;
     [v44 frame];
@@ -434,8 +433,7 @@ LABEL_17:
   }
 
   [viewsCopy _firstBaselineOffsetFromTop];
-  UIRoundToViewScale();
-  [viewsCopy setFrame:{v43, v46 - v44, v41, v42}];
+  [viewsCopy setFrame:{v43, v46 - UIRoundToViewScale(v44), v41, v42}];
 }
 
 - (double)_leadingMargin

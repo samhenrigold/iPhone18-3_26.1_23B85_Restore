@@ -24,7 +24,7 @@
       v5 = equalCopy;
       sourceAppIdentifier = [(WFWorkflowQuarantine *)self sourceAppIdentifier];
       sourceAppIdentifier2 = [(WFWorkflowQuarantine *)v5 sourceAppIdentifier];
-      if ([sourceAppIdentifier isEqualToString:sourceAppIdentifier2])
+      if (objc_msgSend_isEqualToString_(sourceAppIdentifier))
       {
         importDate = [(WFWorkflowQuarantine *)self importDate];
         importDate2 = [(WFWorkflowQuarantine *)v5 importDate];
@@ -48,28 +48,26 @@
 
 - (id)serializedRepresentation
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"WFWorkflowQuarantineSourceApp";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"WFWorkflowQuarantineSourceApp";
   sourceAppIdentifier = [(WFWorkflowQuarantine *)self sourceAppIdentifier];
-  v8[1] = @"WFWorkflowQuarantineImportDate";
-  v9[0] = sourceAppIdentifier;
+  v7[1] = @"WFWorkflowQuarantineImportDate";
+  v8[0] = sourceAppIdentifier;
   importDate = [(WFWorkflowQuarantine *)self importDate];
-  v9[1] = importDate;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = importDate;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 - (id)serializedData
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ACC8];
   serializedRepresentation = [(WFWorkflowQuarantine *)self serializedRepresentation];
-  v9 = 0;
-  v4 = [v2 archivedDataWithRootObject:serializedRepresentation requiringSecureCoding:1 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v2 archivedDataWithRootObject:serializedRepresentation requiringSecureCoding:1 error:&v8];
+  v5 = v8;
 
   if (!v4)
   {
@@ -77,14 +75,12 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "[WFWorkflowQuarantine serializedData]";
-      v12 = 2114;
-      v13 = v5;
+      v10 = "[WFWorkflowQuarantine serializedData]";
+      v11 = 2114;
+      v12 = v5;
       _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to archive quarantine data: %{public}@", buf, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

@@ -66,37 +66,28 @@ void __42___GDSManager_triggerBAUpdateWithHandler___block_invoke_63(uint64_t a1,
 void __51___GDSManager_registerClientID_locationBundlePath___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 40));
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __51___GDSManager_registerClientID_locationBundlePath___block_invoke_62_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 40));
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42___GDSManager_triggerBAUpdateWithHandler___block_invoke_63_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 48));
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

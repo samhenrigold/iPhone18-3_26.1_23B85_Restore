@@ -39,7 +39,7 @@
 {
   kind = self->_kind;
   axis = self->_axis;
-  v8 = objc_msgSend_index(self, a2, v2, v3, v4);
+  v8 = objc_msgSend_index(self, v2, v3, v4, a2);
   objc_msgSend_unitSpaceValueForAxis_index_(kind, v9, v10, v11, v12, axis, v8);
 
   objc_msgSend_setValue_(self, v13, v14, v15, v16);
@@ -49,7 +49,7 @@
 {
   kind = self->_kind;
   axis = self->_axis;
-  v7 = objc_msgSend_index(self, a2, v2, v3, v4);
+  v7 = objc_msgSend_index(self, v2, v3, v4, a2);
   v12 = objc_msgSend_labelForAxis_index_(kind, v8, v9, v10, v11, axis, v7);
   if (objc_msgSend_length(v12, v13, v14, v15, v16))
   {
@@ -67,14 +67,14 @@
 - (id)stringForLabelResources:(id)resources
 {
   resourcesCopy = resources;
-  v34[0] = objc_msgSend_index(self, v5, v6, v7, v8);
-  v34[1] = 0;
-  if (!objc_msgSend_hasResourceAtIndex_(resourcesCopy, v9, v10, v11, v12, v34) || (objc_opt_class(), objc_msgSend_resourceAtIndex_(resourcesCopy, v17, v18, v19, v20, v34), v21 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), v22 = objc_claimAutoreleasedReturnValue(), v21, objc_msgSend_attributes(v22, v23, v24, v25, v26), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend_string(v27, v28, v29, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v27, v22, !v32))
+  v33[0] = objc_msgSend_index(self, v5, v6, v7);
+  v33[1] = 0;
+  if (!objc_msgSend_hasResourceAtIndex_(resourcesCopy, v8, v9, v10, v11, v33) || (objc_opt_class(), objc_msgSend_resourceAtIndex_(resourcesCopy, v16, v17, v18, v19, v33), v20 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), v21 = objc_claimAutoreleasedReturnValue(), v20, objc_msgSend_attributes(v21, v22, v23, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend_string(v26, v27, v28, v29, v30), v31 = objc_claimAutoreleasedReturnValue(), v26, v21, !v31))
   {
-    v32 = objc_msgSend_string(self, v13, v14, v15, v16);
+    v31 = objc_msgSend_string(self, v12, v13, v14, v15);
   }
 
-  return v32;
+  return v31;
 }
 
 @end

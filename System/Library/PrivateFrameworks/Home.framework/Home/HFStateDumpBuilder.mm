@@ -103,34 +103,34 @@
 
 - (id)buildPropertyListRepresentation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   context = [(HFStateDumpBuilder *)self context];
   derivedOutputStyle = [context derivedOutputStyle];
 
   if ((derivedOutputStyle - 1) < 2)
   {
     a2 = [@"<" mutableCopy];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     _filteredEntries = [(HFStateDumpBuilder *)self _filteredEntries];
-    v15 = [_filteredEntries countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v15 = [_filteredEntries countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v33;
+      v18 = *v32;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v33 != v18)
+          if (*v32 != v18)
           {
             objc_enumerationMutation(_filteredEntries);
           }
 
-          v20 = *(*(&v32 + 1) + 8 * i);
+          v20 = *(*(&v31 + 1) + 8 * i);
           v21 = [(HFStateDumpBuilder *)self _formattedObjectForEntry:v20 withRepresentation:1];
           v22 = [v21 description];
           v23 = v22;
@@ -148,7 +148,7 @@
           }
         }
 
-        v16 = [_filteredEntries countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v16 = [_filteredEntries countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v16);
@@ -162,32 +162,32 @@
     if (derivedOutputStyle == 3)
     {
       a2 = objc_opt_new();
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       _filteredEntries2 = [(HFStateDumpBuilder *)self _filteredEntries];
-      v7 = [_filteredEntries2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v7 = [_filteredEntries2 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v29;
+        v9 = *v28;
         do
         {
           for (j = 0; j != v8; ++j)
           {
-            if (*v29 != v9)
+            if (*v28 != v9)
             {
               objc_enumerationMutation(_filteredEntries2);
             }
 
-            v11 = *(*(&v28 + 1) + 8 * j);
+            v11 = *(*(&v27 + 1) + 8 * j);
             v12 = [(HFStateDumpBuilder *)self _formattedObjectForEntry:v11 withRepresentation:1];
             name2 = [v11 name];
             [a2 setObject:v12 forKeyedSubscript:name2];
           }
 
-          v8 = [_filteredEntries2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v8 = [_filteredEntries2 countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
         while (v8);
@@ -202,8 +202,6 @@
 
     a2 = @"(internal error)";
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return a2;
 }
@@ -264,28 +262,28 @@
 
 void __38__HFStateDumpBuilder_buildDescription__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [*(a1 + 32) _filteredEntries];
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v26;
     do
     {
       v5 = 0;
       do
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * v5);
+        v6 = *(*(&v25 + 1) + 8 * v5);
         v7 = [*(a1 + 32) _formattedObjectForEntry:v6 withRepresentation:0];
         v8 = [v6 options];
         objc_opt_class();
@@ -303,21 +301,8 @@ void __38__HFStateDumpBuilder_buildDescription__block_invoke(uint64_t a1)
         v11 = v10;
 
         v12 = v9;
-        if (v11)
+        if (v11 || ((objc_opt_class(), v13 = v9, (objc_opt_isKindOfClass() & 1) == 0) ? (v14 = 0) : (v14 = v13), v15 = v14, v13, [v15 allObjects], v12 = objc_claimAutoreleasedReturnValue(), v15, v12))
         {
-          goto LABEL_14;
-        }
-
-        objc_opt_class();
-        v13 = v9;
-        v14 = (objc_opt_isKindOfClass() & 1) != 0 ? v13 : 0;
-        v15 = v14;
-
-        v12 = [v15 allObjects];
-
-        if (v12)
-        {
-LABEL_14:
           v16 = *(a1 + 40);
           v17 = [v6 name];
           [v16 appendArraySection:v12 withName:v17 skipIfEmpty:v8 & 1];
@@ -358,14 +343,12 @@ LABEL_14:
       }
 
       while (v3 != v5);
-      v23 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v23 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       v3 = v23;
     }
 
     while (v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_formattedObjectForEntry:(id)entry withRepresentation:(unint64_t)representation
@@ -587,17 +570,16 @@ id __83__HFStateDumpBuilder__formattedObjectForObject_withRepresentation_context
 
 void __83__HFStateDumpBuilder__formattedObjectForObject_withRepresentation_context_options___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = a2;
-  v12 = [objc_opt_class() _coerceObjectToPropertyList:v7 options:0];
+  v5 = a3;
+  v6 = a2;
+  v11 = [objc_opt_class() _coerceObjectToPropertyList:v6 options:0];
 
-  v8 = *(a1 + 32);
-  v9 = *(a1 + 56);
-  v10 = (*(*(a1 + 48) + 16))();
-  v11 = [v8 _formattedObjectForObject:v6 withRepresentation:v9 context:v10 options:0];
+  v7 = *(a1 + 32);
+  v8 = *(a1 + 56);
+  v9 = (*(*(a1 + 48) + 16))();
+  v10 = [v7 _formattedObjectForObject:v5 withRepresentation:v8 context:v9 options:0];
 
-  [*(a1 + 40) setObject:v11 forKeyedSubscript:v12];
+  [*(a1 + 40) setObject:v10 forKeyedSubscript:v11];
 }
 
 + (id)_coerceObjectToPropertyList:(id)list options:(unint64_t)options

@@ -30,10 +30,10 @@ void __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEv
 
   if (v3)
   {
-    v4 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_2_cold_1(v2, v4);
+      __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_2_cold_1(v2, v5);
     }
   }
 }
@@ -53,8 +53,8 @@ BOOL __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEv
     {
       v8 = *(a1 + 48);
 LABEL_6:
-      v11 = [v3 eventBody];
-      (*(v8 + 16))(v8, v11);
+      v12 = [v3 eventBody];
+      (*(v8 + 16))(v8, v12);
 
       goto LABEL_10;
     }
@@ -69,10 +69,10 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v12 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = __atxlog_handle_metrics(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_73_cold_1(v3, v12);
+      __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_73_cold_1(v3, v13);
     }
   }
 
@@ -92,24 +92,20 @@ void __92___ATXClientModelShadowMetricsDataSourceBase_enumeratePredictionsInCach
 
 void __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXClientModelShadowMetricsDataSourceBase: Biome query completed with error %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXClientModelShadowMetricsDataSourceBase: Biome query completed with error %@", &v4, 0xCu);
 }
 
 void __144___ATXClientModelShadowMetricsDataSourceBase_replayHistoryWithShadowEventPublisher_startDate_endDate_shadowEventHandler_predictionCacheHandler___block_invoke_73_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 eventBody];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXClientModelShadowMetricsDataSourceBase: unexpected event of class %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "ATXClientModelShadowMetricsDataSourceBase: unexpected event of class %@", &v4, 0xCu);
 }
 
 @end

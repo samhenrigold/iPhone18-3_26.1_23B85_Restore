@@ -411,49 +411,49 @@ void __61__EDBusinessCommonPrefixGroupingUpgradeStep__groupAddresses___block_inv
 
 void __81__EDBusinessCommonPrefixGroupingUpgradeStep__persistBusinesses_connection_error___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v22 = a4;
-  v34 = *MEMORY[0x1E69E9840];
-  v24 = a2;
-  v23 = a3;
-  v25 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"businesses"];
+  v21 = a4;
+  v33 = *MEMORY[0x1E69E9840];
+  v23 = a2;
+  v22 = a3;
+  v24 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"businesses"];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(a1[5] + 8) + 24)];
-  [v25 setObject:v6 forKeyedSubscript:@"ROWID"];
+  [v24 setObject:v6 forKeyedSubscript:@"ROWID"];
 
-  v7 = [v24 first];
-  [v25 setObject:v7 forKeyedSubscript:@"domain"];
+  v7 = [v23 first];
+  [v24 setObject:v7 forKeyedSubscript:@"domain"];
 
-  v8 = [v24 second];
-  [v25 setObject:v8 forKeyedSubscript:@"address_comment"];
+  v8 = [v23 second];
+  [v24 setObject:v8 forKeyedSubscript:@"address_comment"];
 
   v9 = a1[4];
   v10 = *(a1[7] + 8);
   obj = *(v10 + 40);
-  LOBYTE(v8) = [v9 executeInsertStatement:v25 error:&obj];
+  LOBYTE(v8) = [v9 executeInsertStatement:v24 error:&obj];
   objc_storeStrong((v10 + 40), obj);
   *(*(a1[6] + 8) + 24) = v8;
   if (*(*(a1[6] + 8) + 24))
   {
     v11 = [objc_alloc(MEMORY[0x1E699B910]) initWithTable:@"business_addresses"];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v26 = v23;
-    v12 = [v26 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = v22;
+    v12 = [v25 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v12)
     {
-      v13 = *v29;
+      v13 = *v28;
       do
       {
         v14 = 0;
         do
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * v14);
+          v15 = *(*(&v27 + 1) + 8 * v14);
           v16 = [v11 addValue];
           v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(a1[5] + 8) + 24)];
           [v16 setObject:v17 forKeyedSubscript:@"business"];
@@ -463,7 +463,7 @@ void __81__EDBusinessCommonPrefixGroupingUpgradeStep__persistBusinesses_connecti
         }
 
         while (v12 != v14);
-        v12 = [v26 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v12 = [v25 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v12);
@@ -471,9 +471,9 @@ void __81__EDBusinessCommonPrefixGroupingUpgradeStep__persistBusinesses_connecti
 
     v18 = a1[4];
     v19 = *(a1[7] + 8);
-    v27 = *(v19 + 40);
-    v20 = [v18 executeInsertStatement:v11 error:&v27];
-    objc_storeStrong((v19 + 40), v27);
+    v26 = *(v19 + 40);
+    v20 = [v18 executeInsertStatement:v11 error:&v26];
+    objc_storeStrong((v19 + 40), v26);
     *(*(a1[6] + 8) + 24) = v20;
     if (*(*(a1[6] + 8) + 24))
     {
@@ -482,16 +482,14 @@ void __81__EDBusinessCommonPrefixGroupingUpgradeStep__persistBusinesses_connecti
 
     else
     {
-      *v22 = 1;
+      *v21 = 1;
     }
   }
 
   else
   {
-    *v22 = 1;
+    *v21 = 1;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_resetGroupingDefault

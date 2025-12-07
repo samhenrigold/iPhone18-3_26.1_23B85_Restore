@@ -13,6 +13,7 @@
 - (NSString)debugDescription;
 - (NSString)description;
 - (NSString)localizedSessionName;
+- (id)handleJoinRequest:(id)request isGuest:(BOOL)guest completion:(id)completion;
 - (int64_t)state;
 - (unsigned)routeType;
 - (void)_initializeWithIdentity:(id)identity nearbyGroup:(id)group isHosted:(BOOL)hosted hostSigningKey:(id)key;
@@ -22,6 +23,7 @@
 - (void)dealloc;
 - (void)denyPendingParticipant:(id)participant;
 - (void)finish;
+- (void)handleApprovedJoinRequest:(id)request isGuest:(BOOL)guest;
 - (void)handleDisplayMonitorChangeNotification:(id)notification;
 - (void)reevaluateLowPowerMode;
 - (void)removeAllParticipants;
@@ -373,6 +375,87 @@
   [observers removeObject:observerCopy];
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (id)handleJoinRequest:(id)request isGuest:(BOOL)guest completion:(id)completion
+{
+  guestCopy = guest;
+  completionCopy = completion;
+  requestCopy = request;
+  fastSyncSession = [(MRDRemoteControlGroupSession *)self fastSyncSession];
+  identity = [requestCopy identity];
+  v12 = [fastSyncSession prewarmForIdentity:identity];
+
+  os_unfair_lock_lock(&self->_lock);
+  v13 = [MRDFastSyncGroupSessionParticipant alloc];
+  identity2 = [requestCopy identity];
+
+  v15 = [(MRDFastSyncGroupSessionParticipant *)v13 initWithIdentifier:v12 identity:identity2 connected:0 guest:guestCopy];
+  pendingParticipantsMap = [(MRDRemoteControlGroupSession *)self pendingParticipantsMap];
+  identifier = [(MRDFastSyncGroupSessionParticipant *)v15 identifier];
+  [pendingParticipantsMap setObject:v15 forKey:identifier];
+
+  pendingJoinCompletions = [(MRDRemoteControlGroupSession *)self pendingJoinCompletions];
+  v19 = objc_retainBlock(completionCopy);
+
+  identifier2 = [(MRDFastSyncGroupSessionParticipant *)v15 identifier];
+  [pendingJoinCompletions setObject:v19 forKey:identifier2];
+
+  pendingParticipantsMap2 = [(MRDRemoteControlGroupSession *)self pendingParticipantsMap];
+  objectEnumerator = [pendingParticipantsMap2 objectEnumerator];
+  allObjects = [objectEnumerator allObjects];
+
+  observers = [(MRDRemoteControlGroupSession *)self observers];
+  allObjects2 = [observers allObjects];
+
+  os_unfair_lock_unlock(&self->_lock);
+  fastSyncSession2 = [(MRDRemoteControlGroupSession *)self fastSyncSession];
+  [fastSyncSession2 markParticipantAsGuestIfNeeded:v15];
+
+  fastSyncSession3 = [(MRDRemoteControlGroupSession *)self fastSyncSession];
+  [fastSyncSession3 addPendingParticipant:v15];
+
+  notificationQueue = [(MRDRemoteControlGroupSession *)self notificationQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1001B2CB4;
+  block[3] = &unk_1004B69D0;
+  v33 = allObjects2;
+  selfCopy = self;
+  v35 = allObjects;
+  v29 = allObjects;
+  v30 = allObjects2;
+  dispatch_async(notificationQueue, block);
+
+  return v12;
+}
+
+- (void)handleApprovedJoinRequest:(id)request isGuest:(BOOL)guest
+{
+  guestCopy = guest;
+  requestCopy = request;
+  fastSyncSession = [(MRDRemoteControlGroupSession *)self fastSyncSession];
+  identity = [requestCopy identity];
+  v17 = [fastSyncSession prewarmForIdentity:identity];
+
+  os_unfair_lock_lock(&self->_lock);
+  v9 = [MRDFastSyncGroupSessionParticipant alloc];
+  identity2 = [requestCopy identity];
+
+  v11 = [(MRDFastSyncGroupSessionParticipant *)v9 initWithIdentifier:v17 identity:identity2 connected:0 guest:guestCopy];
+  pendingParticipantsMap = [(MRDRemoteControlGroupSession *)self pendingParticipantsMap];
+  identifier = [(MRDFastSyncGroupSessionParticipant *)v11 identifier];
+  [pendingParticipantsMap setObject:v11 forKey:identifier];
+
+  pendingJoinCompletions = [(MRDRemoteControlGroupSession *)self pendingJoinCompletions];
+  identifier2 = [(MRDFastSyncGroupSessionParticipant *)v11 identifier];
+  [pendingJoinCompletions setObject:&stru_1004C17B0 forKey:identifier2];
+
+  os_unfair_lock_unlock(&self->_lock);
+  fastSyncSession2 = [(MRDRemoteControlGroupSession *)self fastSyncSession];
+  [fastSyncSession2 markParticipantAsGuestIfNeeded:v11];
+
+  [(MRDRemoteControlGroupSession *)self approvePendingParticipant:v17];
 }
 
 - (void)approvePendingParticipant:(id)participant

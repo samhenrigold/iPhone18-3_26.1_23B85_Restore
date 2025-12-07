@@ -72,7 +72,7 @@
 
           else
           {
-            v24 = sub_100012AB8();
+            v24 = sub_100012AB8(0);
             if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
@@ -133,17 +133,18 @@
 - (void)startPollingWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v18 = 0;
-  v5 = [(TKNFCReaderManager *)self isNFCSupportedWithError:&v18];
-  v6 = v18;
+  v21 = 0;
+  v5 = [(TKNFCReaderManager *)self isNFCSupportedWithError:&v21];
+  v6 = v21;
+  v7 = v6;
   if (v5)
   {
-    v7 = self->_lock;
-    objc_sync_enter(v7);
+    v8 = self->_lock;
+    v9 = objc_sync_enter(v8);
     if (self->_isStartingPolling)
     {
-      v8 = sub_100012AB8();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = sub_100012AB8(v9);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
 LABEL_14:
 
@@ -152,7 +153,7 @@ LABEL_14:
           completionCopy[2](completionCopy, 1, 0);
         }
 
-        objc_sync_exit(v7);
+        objc_sync_exit(v8);
 
         goto LABEL_17;
       }
@@ -161,30 +162,30 @@ LABEL_14:
     else
     {
       nfReaderSession = self->_nfReaderSession;
-      if (!nfReaderSession || [(NFReaderSession *)nfReaderSession state]== 2)
+      if (!nfReaderSession || (v13 = [(NFReaderSession *)nfReaderSession state], v13 == 2))
       {
         self->_isStartingPolling = 1;
-        objc_sync_exit(v7);
+        objc_sync_exit(v8);
 
         objc_initWeak(&location, self);
         nfcHwManager = self->_nfcHwManager;
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_100012DB0;
-        v14[3] = &unk_100038DE0;
-        objc_copyWeak(&v16, &location);
-        v15 = completionCopy;
-        v12 = [(TKNFCHardwareManager *)nfcHwManager startNFCReaderSession:v14];
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = sub_100012DB0;
+        v17[3] = &unk_100038DE0;
+        objc_copyWeak(&v19, &location);
+        v18 = completionCopy;
+        v15 = [(TKNFCHardwareManager *)nfcHwManager startNFCReaderSession:v17];
         overallSession = self->_overallSession;
-        self->_overallSession = v12;
+        self->_overallSession = v15;
 
-        objc_destroyWeak(&v16);
+        objc_destroyWeak(&v19);
         objc_destroyWeak(&location);
         goto LABEL_17;
       }
 
-      v8 = sub_100012AB8();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = sub_100012AB8(v13);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_14;
       }
@@ -194,8 +195,8 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v9 = sub_100012AB8();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = sub_100012AB8(v6);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_10001FBE4();
   }
@@ -203,7 +204,7 @@ LABEL_14:
   [(TKNFCReaderManager *)self endSession];
   if (completionCopy)
   {
-    (completionCopy)[2](completionCopy, 0, v6);
+    (completionCopy)[2](completionCopy, 0, v7);
   }
 
 LABEL_17:
@@ -216,22 +217,23 @@ LABEL_17:
   v6 = self->_nfReaderSession;
   objc_sync_exit(v5);
 
-  v12 = 0;
-  v7 = [(NFReaderSession *)v6 stopPollingWithError:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [(NFReaderSession *)v6 stopPollingWithError:&v13];
+  v8 = v13;
+  v9 = v8;
   if (v8)
   {
-    v9 = sub_100012AB8();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100012AB8(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10001FDD4();
     }
 
     if (error)
     {
-      v10 = v8;
+      v11 = v9;
       v7 = 0;
-      *error = v8;
+      *error = v9;
     }
 
     else
@@ -374,10 +376,11 @@ LABEL_17:
   if (nfReaderSession)
   {
     v8 = [(NFReaderSession *)nfReaderSession updateUIAlertMessage:messageCopy];
+    v9 = v8;
     if (v8)
     {
-      v9 = sub_100012AB8();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100012AB8(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10001FE48();
       }
@@ -454,21 +457,22 @@ LABEL_17:
 
   if (v4)
   {
-    v19 = 0;
-    v5 = [(NFReaderSession *)v4 checkPresenceWithError:&v19];
-    v6 = v19;
+    v20 = 0;
+    v5 = [(NFReaderSession *)v4 checkPresenceWithError:&v20];
+    v6 = v20;
+    v7 = v6;
     if (v6)
     {
-      v7 = sub_100012AB8();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100012AB8(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
-        v22 = 1024;
-        v23 = v5;
-        v24 = 2112;
-        v25 = v6;
-        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@: checking tag connection: connected: %d, error: %@", buf, 0x1Cu);
+        v23 = 1024;
+        v24 = v5;
+        v25 = 2112;
+        v26 = v7;
+        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%@: checking tag connection: connected: %d, error: %@", buf, 0x1Cu);
       }
     }
 
@@ -480,29 +484,29 @@ LABEL_17:
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   [(TKNFCReaderManager *)self stopConnectionObservation];
   delegate = [(TKNFCReaderManager *)self delegate];
   [delegate readerManagerDidDisconnectTag:self];
 
-  v18 = 0;
-  [(TKNFCReaderManager *)self restartPollingWithError:&v18];
-  v9 = v18;
-  v10 = sub_100012AB8();
-  v11 = v10;
-  if (v9)
+  v19 = 0;
+  [(TKNFCReaderManager *)self restartPollingWithError:&v19];
+  v10 = v19;
+  v11 = sub_100012AB8(v10);
+  v12 = v11;
+  if (v10)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10001FEBC(self, v9, v11);
+      sub_10001FEBC(self, v10, v12);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001FF44(self, v11, v12, v13, v14, v15, v16, v17);
+    sub_10001FF44(self, v12, v13, v14, v15, v16, v17, v18);
   }
 
 LABEL_14:

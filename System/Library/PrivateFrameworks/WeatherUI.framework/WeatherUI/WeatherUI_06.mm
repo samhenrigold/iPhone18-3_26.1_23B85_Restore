@@ -1,61 +1,28 @@
-uint64_t __vfx_script_WeatherV136DefaultBackground_graph_E98E71ED_C208_4BF9_B7C6_57A575CF000F()
-{
-  result = vfx_script_get_arguments_buffer();
-  **(result + 24) = **(result + 16);
-  return result;
-}
-
-double ParticleInit_WeatherV136DefaultBackground_particleInit_75(double a1, float32x4_t a2, float32x4_t a3, uint64_t a4, int a5, int a6, int a7, float *a8, void *a9, float32x4_t *a10)
-{
-  v30 = *a9;
-  v16 = vfx_script_clock_simulation_index();
-  v17 = a6 + a5;
-  v18 = 277803737 * (((747796405 * (v17 + v16) - 1403630843) >> (((747796405 * (v17 + v16) - 1403630843) >> 28) + 4)) ^ (747796405 * (v17 + v16) - 1403630843));
-  v19 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v18 >> 31) ^ (v18 >> 9) | 0x3F800000) + -1.0, 3uLL) + 1, 3uLL) + -0.0625;
-  v20 = *(&a1 + 1);
-  if (!a7)
-  {
-    v20 = *&a1;
-  }
-
-  v27 = v20;
-  v21 = vfx_script_clock_simulation_index();
-  v22 = 277803737 * (((747796405 * (v17 + v21) + 1340069426) >> (((747796405 * (v17 + v21) + 1340069426) >> 28) + 4)) ^ (747796405 * (v17 + v21) + 1340069426));
-  v23 = vmlaq_n_f32(a2, vsubq_f32(a3, a2), COERCE_FLOAT((v22 >> 31) ^ (v22 >> 9) | 0x3F800000) + -1.0);
-  v24 = vmulq_laneq_f32(v23, v23, 3);
-  v24.i32[3] = v23.i32[3];
-  *a8 = v19;
-  *a10 = v24;
-  result = COERCE_DOUBLE(__PAIR64__(LODWORD(v27), v30));
-  *a9 = __PAIR64__(LODWORD(v27), v30);
-  return result;
-}
-
-float __vfx_script_WeatherV136DefaultBackground_particleInit_217()
+float __vfx_script_WeatherV136DefaultBackground_particleInit_217(uint64_t a1)
 {
   vfx_script_get_iteration_range();
   vfx_script_get_arguments_buffer();
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_18(float a1, double a2, uint64_t a3, int a4, unsigned int a5, unint64_t a6, float *a7, __n128 *a8, uint64_t a9)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_18(uint64_t a1, int a2, unsigned int a3, unint64_t a4, float *a5, __n128 *a6, uint64_t a7, float a8, double a9)
 {
-  v32 = *a8;
-  v15 = *a8;
-  v15.n128_u32[0] = *(a9 + 12);
+  v32 = *a6;
+  v15 = *a6;
+  v15.n128_u32[0] = *(a7 + 12);
   v33 = v15;
-  v34 = HIDWORD(a2);
+  v34 = HIDWORD(a9);
   v16 = vfx_script_clock_simulation_index();
-  v17 = a5 + a4;
+  v17 = a3 + a2;
   v18 = 277803737 * (((747796405 * (v17 + v16) - 1403630843) >> (((747796405 * (v17 + v16) - 1403630843) >> 28) + 4)) ^ (747796405 * (v17 + v16) - 1403630843));
   v19 = ((((COERCE_FLOAT((v18 >> 31) ^ (v18 >> 9) | 0x3F800000) + -1.0) * 6.0) + 1) / 6.0) + -0.083333;
-  v20.n128_f32[0] = (a1 + a1) / a6;
-  if (!a6)
+  v20.n128_f32[0] = (a8 + a8) / a4;
+  if (!a4)
   {
     v20.n128_f32[0] = 0.0;
   }
 
-  v20.n128_f32[0] = (v20.n128_f32[0] * a5) - a1;
+  v20.n128_f32[0] = (v20.n128_f32[0] * a3) - a8;
   v31 = v20;
   v21 = vfx_script_clock_simulation_index();
   v22 = 277803737 * (((747796405 * (v17 + v21) + 1957069266) >> (((747796405 * (v17 + v21) + 1957069266) >> 28) + 4)) ^ (747796405 * (v17 + v21) + 1957069266));
@@ -68,332 +35,331 @@ __n128 ParticleInit_WeatherV136DefaultBackground_particleInit_18(float a1, doubl
     v25 = -1.0;
   }
 
-  *a7 = v19;
+  *a5 = v19;
   v26 = v31;
   *(v26.n128_u64 + 4) = *(v32.n128_u64 + 4);
   *&v27 = __PAIR64__(v34, LODWORD(v29));
-  *a8 = v26;
+  *a6 = v26;
   *(&v27 + 1) = __PAIR64__(v33.n128_u32[0], LODWORD(v25));
   result = v33;
-  *a9 = v27;
+  *a7 = v27;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_10(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, __n128 *a6)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_10(uint64_t a1, int a2, int a3, __n128 *a4, float32x4_t a5, float32x4_t a6)
 {
   v9 = vfx_script_clock_simulation_index();
-  v10 = 277803737 * (((747796405 * (a5 + a4 + v9) - 1670564325) >> (((747796405 * (a5 + a4 + v9) - 1670564325) >> 28) + 4)) ^ (747796405 * (a5 + a4 + v9) - 1670564325));
-  v11 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v10 >> 31) ^ (v10 >> 9) | 0x3F800000) + -1.0);
+  v10 = 277803737 * (((747796405 * (a3 + a2 + v9) - 1670564325) >> (((747796405 * (a3 + a2 + v9) - 1670564325) >> 28) + 4)) ^ (747796405 * (a3 + a2 + v9) - 1670564325));
+  v11 = vmlaq_n_f32(a5, vsubq_f32(a6, a5), COERCE_FLOAT((v10 >> 31) ^ (v10 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v11, v11, 3);
   result.n128_u32[3] = v11.u32[3];
-  *a6 = result;
+  *a4 = result;
   return result;
 }
 
-int8x16_t ParticleInit_WeatherV136DefaultBackground_particleInit_302(__n128 a1, __n128 a2, float32x4_t a3, float32x4_t a4, uint64_t a5, int a6, __n128 *a7, _OWORD *a8, int8x16_t *a9)
+int8x16_t ParticleInit_WeatherV136DefaultBackground_particleInit_302(uint64_t a1, int a2, __n128 *a3, _OWORD *a4, int8x16_t *a5, __n128 a6, __n128 a7, float32x4_t a8, float32x4_t a9)
 {
   v13 = vfx_script_clock_simulation_index();
-  v15 = 277803737 * (((747796405 * (v13 + a6) - 1881823590) >> (((747796405 * (v13 + a6) - 1881823590) >> 28) + 4)) ^ (747796405 * (v13 + a6) - 1881823590));
+  v15 = 277803737 * (((747796405 * (v13 + a2) - 1881823590) >> (((747796405 * (v13 + a2) - 1881823590) >> 28) + 4)) ^ (747796405 * (v13 + a2) - 1881823590));
   v16 = COERCE_FLOAT((v15 >> 31) ^ (v15 >> 9) | 0x3F800000) + -1.0;
   if (v16 <= 0.5)
   {
-    v14.n128_f32[0] = -a1.n128_f32[0];
-    *(v14.n128_u64 + 4) = *(a1.n128_u64 + 4);
-    a1 = v14;
+    v14.n128_f32[0] = -a6.n128_f32[0];
+    *(v14.n128_u64 + 4) = *(a6.n128_u64 + 4);
+    a6 = v14;
   }
 
   v17 = vfx_script_clock_simulation_index();
-  *&v19 = -a2.n128_f32[0];
+  *&v19 = -a7.n128_f32[0];
   v20.i32[0] = 0.5;
   if (v16 > 0.5)
   {
-    *&v19 = a2.n128_f32[0];
+    *&v19 = a7.n128_f32[0];
   }
 
-  v18 = 277803737 * (((747796405 * (v17 + a6) - 558593783) >> (((747796405 * (v17 + a6) - 558593783) >> 28) + 4)) ^ (747796405 * (v17 + a6) - 558593783));
+  v18 = 277803737 * (((747796405 * (v17 + a2) - 558593783) >> (((747796405 * (v17 + a2) - 558593783) >> 28) + 4)) ^ (747796405 * (v17 + a2) - 558593783));
   *(&v19 + 1) = ((COERCE_FLOAT((v18 >> 31) ^ (v18 >> 9) | 0x3F800000) + -1.0) * 35.0) + -55.0;
-  DWORD2(v19) = a2.n128_u32[2];
-  *a7 = a1;
-  result = vandq_s8(vmulq_n_f32(a3, a4.f32[0]), vdupq_lane_s32(*&vmvnq_s8(vcgtq_f32(v20, a4)), 0));
-  *a8 = v19;
-  *a9 = result;
-  return result;
-}
-
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_327(double a1, uint64_t a2, int a3, int a4, __n128 *a5)
-{
-  v13 = *a5;
-  v8 = vfx_script_clock_simulation_index();
-  v9 = 277803737 * (((747796405 * (a4 + a3 + v8) + 1857158435) >> (((747796405 * (a4 + a3 + v8) + 1857158435) >> 28) + 4)) ^ (747796405 * (a4 + a3 + v8) + 1857158435));
-  result.n128_f32[0] = COERCE_FLOAT((v9 >> 31) ^ (v9 >> 9) | 0x3F800000) + -1.0;
-  v10 = 277803737 * (((747796405 * (a4 + a3) + 2048969569) >> (((747796405 * (a4 + a3) + 2048969569) >> 28) + 4)) ^ (747796405 * (a4 + a3) + 2048969569));
-  result.n128_f32[1] = *&a1 + ((COERCE_FLOAT((v10 >> 31) ^ (v10 >> 9) | 0x3F800000) + -1.0) * vsub_f32(vdup_lane_s32(*&a1, 1), *&a1).f32[0]);
-  result.n128_u64[1] = v13.n128_u64[1];
+  DWORD2(v19) = a7.n128_u32[2];
+  *a3 = a6;
+  result = vandq_s8(vmulq_n_f32(a8, a9.f32[0]), vdupq_lane_s32(*&vmvnq_s8(vcgtq_f32(v20, a9)), 0));
+  *a4 = v19;
   *a5 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_252(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_327(uint64_t a1, int a2, int a3, __n128 *a4, double a5)
+{
+  v13 = *a4;
+  v8 = vfx_script_clock_simulation_index();
+  v9 = 277803737 * (((747796405 * (a3 + a2 + v8) + 1857158435) >> (((747796405 * (a3 + a2 + v8) + 1857158435) >> 28) + 4)) ^ (747796405 * (a3 + a2 + v8) + 1857158435));
+  result.n128_f32[0] = COERCE_FLOAT((v9 >> 31) ^ (v9 >> 9) | 0x3F800000) + -1.0;
+  v10 = 277803737 * (((747796405 * (a3 + a2) + 2048969569) >> (((747796405 * (a3 + a2) + 2048969569) >> 28) + 4)) ^ (747796405 * (a3 + a2) + 2048969569));
+  result.n128_f32[1] = *&a5 + ((COERCE_FLOAT((v10 >> 31) ^ (v10 >> 9) | 0x3F800000) + -1.0) * vsub_f32(vdup_lane_s32(*&a5, 1), *&a5).f32[0]);
+  result.n128_u64[1] = *(&v13 + 1);
+  *a4 = result;
+  return result;
+}
+
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_252(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = ((((COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0) * 9.0) + 1) / 9.0) + -0.055556;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) - 769853048) >> (((747796405 * (v12 + v15) - 769853048) >> 28) + 4)) ^ (747796405 * (v12 + v15) - 769853048));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-float32x4_t ParticleInit_WeatherV136DefaultBackground_particleInit_395(__n128 a1, float a2, float a3, float a4, float a5, float32x4_t a6, float32_t a7, uint64_t a8, int a9, uint64_t a10, int a11, __n128 *a12, uint64_t a13, __n128 *a14)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_395(uint64_t a1, int a2, uint64_t a3, int a4, __n128 *a5, uint64_t a6, __n128 *a7, __n128 a8, float a9, float a10, float a11, float a12, float32x4_t a13, float32_t a14)
 {
-  v43 = *(a13 + 12);
-  v44 = *a14;
+  v43 = *(a6 + 12);
+  v44 = *a7;
   v20 = vfx_script_clock_simulation_index();
   v21 = vfx_script_clock_simulation_index();
   v22 = vfx_script_clock_simulation_index();
-  result = vmulq_f32(a6, a6);
-  result.f32[0] = sqrtf(result.f32[2] + vaddv_f32(*result.f32));
-  v23 = result.f32[0] / 300.0;
-  v25 = vmla_s32(0x86B85AE2390239B6, vadd_s32(vdup_n_s32(a11 + a9), __PAIR64__(v21, v20)), vdup_n_s32(0x2C9277B5u));
+  result = vmulq_f32(a13, a13);
+  result.n128_f32[0] = sqrtf(result.n128_f32[2] + vaddv_f32(result.n128_u64[0]));
+  v23 = result.n128_f32[0] / 300.0;
+  v25 = vmla_s32(0x86B85AE2390239B6, vadd_s32(vdup_n_s32(a4 + a2), __PAIR64__(v21, v20)), vdup_n_s32(0x2C9277B5u));
   v26 = vmul_s32(veor_s8(vshl_u32(v25, vsub_s32(0x300000003, vshr_n_u32(v25, 0x1CuLL))), v25), vdup_n_s32(0x108EF2D9u));
   __asm { FMOV            V6.2S, #1.0 }
 
   v32 = vorr_s8(veor_s8(vshl_u32(v26, 0xFFFFFFE1FFFFFFF7), vshl_u32(v26, 0xFFFFFFF7FFFFFFE1)), _D6);
   __asm { FMOV            V6.2S, #-1.0 }
 
-  *&v34 = vmul_f32(vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(a10 == 0), 0x1FuLL)), __PAIR64__(LODWORD(a4), LODWORD(a2)), __PAIR64__(LODWORD(a5), LODWORD(a3))), vmla_f32(0x3F2666663F4CCCCDLL, 0x3EB333343E4CCCCCLL, vadd_f32(v32, _D6)));
-  v35 = result.f32[0] <= 300.0;
-  result.i32[0] = 1.0;
+  *&v34 = vmul_f32(vbsl_s8(vcltz_s32(vshl_n_s32(vdup_n_s32(a3 == 0), 0x1FuLL)), __PAIR64__(LODWORD(a11), LODWORD(a9)), __PAIR64__(LODWORD(a12), LODWORD(a10))), vmla_f32(0x3F2666663F4CCCCDLL, 0x3EB333343E4CCCCCLL, vadd_f32(v32, _D6)));
+  v35 = result.n128_f32[0] <= 300.0;
+  result.n128_u32[0] = 1.0;
   if (v35)
   {
-    result.f32[0] = v23;
+    result.n128_f32[0] = v23;
   }
 
-  *a12 = a1;
-  v24 = 277803737 * (((747796405 * (a11 + a9 + v22) - 327886387) >> (((747796405 * (a11 + a9 + v22) - 327886387) >> 28) + 4)) ^ (747796405 * (a11 + a9 + v22) - 327886387));
+  *a5 = a8;
+  v24 = 277803737 * (((747796405 * (a4 + a2 + v22) - 327886387) >> (((747796405 * (a4 + a2 + v22) - 327886387) >> 28) + 4)) ^ (747796405 * (a4 + a2 + v22) - 327886387));
   *(&v34 + 1) = __PAIR64__(v43, ((COERCE_FLOAT((v24 >> 31) ^ (v24 >> 9) | 0x3F800000) + -1.0) * 6.28) + -3.14);
-  *a13 = v34;
-  result.f32[1] = a7;
-  result.i64[1] = v44.n128_i64[1];
-  *a14 = result;
+  *a6 = v34;
+  result.n128_f32[1] = a14;
+  result.n128_u64[1] = *(&v44 + 1);
+  *a7 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_203(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, uint64_t a5, int a6, float *a7, __n128 *a8)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_203(uint64_t a1, int a2, uint64_t a3, int a4, float *a5, __n128 *a6, float32x4_t a7, float32x4_t a8)
 {
   vfx_script_clock_simulation_index();
   v13 = vfx_script_clock_simulation_index();
-  v14 = 277803737 * (((747796405 * (a6 + a4 + v13) + 1378965688) >> (((747796405 * (a6 + a4 + v13) + 1378965688) >> 28) + 4)) ^ (747796405 * (a6 + a4 + v13) + 1378965688));
-  v15 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v14 >> 31) ^ (v14 >> 9) | 0x3F800000) + -1.0);
+  v14 = 277803737 * (((747796405 * (a4 + a2 + v13) + 1378965688) >> (((747796405 * (a4 + a2 + v13) + 1378965688) >> 28) + 4)) ^ (747796405 * (a4 + a2 + v13) + 1378965688));
+  v15 = vmlaq_n_f32(a7, vsubq_f32(a8, a7), COERCE_FLOAT((v14 >> 31) ^ (v14 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v15, v15, 3);
   result.n128_u32[3] = v15.u32[3];
-  *a7 = vcvts_n_f32_u64(a5 + 1, 3uLL) + -0.0625;
-  *a8 = result;
+  *a5 = vcvts_n_f32_u64(a3 + 1, 3uLL) + -0.0625;
+  *a6 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_385(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_385(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0, 2uLL) + 1, 2uLL) + -0.125;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) + 2048969569) >> (((747796405 * (v12 + v15) + 2048969569) >> 28) + 4)) ^ (747796405 * (v12 + v15) + 2048969569));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-uint64_t ParticleInit_WeatherV136DefaultBackground_particleInit_551(float32x4_t a1, float a2, float32x4_t a3, uint64_t a4, int a5, int a6, float32x4_t *a7, float *a8, float *a9)
+void ParticleInit_WeatherV136DefaultBackground_particleInit_551(uint64_t a1, int a2, int a3, float32x4_t *a4, float *a5, float *a6, float32x4_t a7, float a8, float32x4_t a9)
 {
   v15 = vfx_script_clock_simulation_index();
-  v16 = 277803737 * (((747796405 * (v15 + a5) + 1415191774) >> (((747796405 * (v15 + a5) + 1415191774) >> 28) + 4)) ^ (747796405 * (v15 + a5) + 1415191774));
+  v16 = 277803737 * (((747796405 * (v15 + a2) + 1415191774) >> (((747796405 * (v15 + a2) + 1415191774) >> 28) + 4)) ^ (747796405 * (v15 + a2) + 1415191774));
   __asm { FMOV            V1.4S, #1.0 }
 
   _Q1.f32[3] = COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0;
-  v29 = vmulq_f32(_Q1, a1);
-  result = vfx_script_clock_simulation_index();
-  v23 = 277803737 * (((747796405 * (a6 + a5 + result) - 1403630843) >> (((747796405 * (a6 + a5 + result) - 1403630843) >> 28) + 4)) ^ (747796405 * (a6 + a5 + result) - 1403630843));
+  v29 = vmulq_f32(_Q1, a7);
+  v22 = vfx_script_clock_simulation_index();
+  v23 = 277803737 * (((747796405 * (a3 + a2 + v22) - 1403630843) >> (((747796405 * (a3 + a2 + v22) - 1403630843) >> 28) + 4)) ^ (747796405 * (a3 + a2 + v22) - 1403630843));
   v24 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v23 >> 31) ^ (v23 >> 9) | 0x3F800000) + -1.0, 3uLL) + 1, 3uLL) + -0.0625;
-  v25 = vaddq_f32(a3, xmmword_1BCE23090);
+  v25 = vaddq_f32(a9, xmmword_1BCE23090);
   v26 = vmulq_f32(v25, v25);
   _NF = sqrtf(v26.f32[2] + vaddv_f32(*v26.f32)) < 175.0;
   v27 = 0.0;
-  *a7 = v29;
+  *a4 = v29;
   if (!_NF)
   {
-    v27 = a2;
+    v27 = a8;
   }
 
-  *a8 = v24;
-  *a9 = v27;
-  return result;
+  *a5 = v24;
+  *a6 = v27;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_500(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_500(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0, 2uLL) + 1, 2uLL) + -0.125;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) + 572824890) >> (((747796405 * (v12 + v15) + 572824890) >> 28) + 4)) ^ (747796405 * (v12 + v15) + 572824890));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_129(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_129(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0, 2uLL) + 1, 2uLL) + -0.125;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) + 1187154554) >> (((747796405 * (v12 + v15) + 1187154554) >> 28) + 4)) ^ (747796405 * (v12 + v15) + 1187154554));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-float ParticleInit_WeatherV136DefaultBackground_particleInit_87(double a1, float a2, float32x4_t a3, float a4, uint64_t a5, int a6, unsigned int a7, uint64_t a8, uint64_t a9, __int128 *a10, float *a11, float32x2_t *a12, float32x4_t *a13)
+float ParticleInit_WeatherV136DefaultBackground_particleInit_87(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5, __int128 *a6, float *a7, float32x2_t *a8, double a9, float a10, float32x4_t a11, float a12, float32x4_t *a13)
 {
-  v28 = *a10;
+  v28 = *a6;
   v18 = vfx_script_clock_simulation_index();
-  v19 = a7 / (a8 - 1);
-  if (a8 == 1)
+  v19 = a3 / (a4 - 1);
+  if (a4 == 1)
   {
     v19 = 0.0;
   }
 
-  v20 = 277803737 * (((747796405 * (a7 + a6 + v18) - 174971515) >> (((747796405 * (a7 + a6 + v18) - 174971515) >> 28) + 4)) ^ (747796405 * (a7 + a6 + v18) - 174971515));
+  v20 = 277803737 * (((747796405 * (a3 + a2 + v18) - 174971515) >> (((747796405 * (a3 + a2 + v18) - 174971515) >> 28) + 4)) ^ (747796405 * (a3 + a2 + v18) - 174971515));
   v27 = v19 + (((COERCE_FLOAT((v20 >> 31) ^ (v20 >> 9) | 0x3F800000) + -1.0) * 0.08) + 0.0);
   vfx_script_clock_simulation_index();
-  if (a7 % 0xC == 1 && a7 > 1)
+  if (a3 % 0xC == 1 && a3 > 1)
   {
     v22 = 0.375;
   }
 
   else
   {
-    v22 = ((a7 % 0xC + 1) / 12.0) + -0.041667;
+    v22 = ((a3 % 0xC + 1) / 12.0) + -0.041667;
   }
 
   vfx_script_clock_simulation_index();
   vfx_script_texture_sample1d();
-  v24 = *&a1 + vmuls_n_f32(vsub_f32(vdup_lane_s32(*&a1, 1), *&a1).f32[0], v23);
-  if (!a7)
+  v24 = *&a9 + vmuls_n_f32(vsub_f32(vdup_lane_s32(*&a9, 1), *&a9).f32[0], v23);
+  if (!a3)
   {
     v24 = 0.0;
   }
 
-  if (a7 == 1)
+  if (a3 == 1)
   {
-    v24 = *&a1;
+    v24 = *&a9;
   }
 
-  *a11 = v22;
-  *a12 = vmul_n_f32(vmul_n_f32(0x3F1C6A7F3F6ED917, v24), a2);
-  *a13 = vmulq_n_f32(a3, a4);
+  *a7 = v22;
+  *a8 = vmul_n_f32(vmul_n_f32(0x3F1C6A7F3F6ED917, v24), a10);
+  *a13 = vmulq_n_f32(a11, a12);
   v25 = v28;
   *&v25 = v27;
-  *a10 = v25;
+  *a6 = v25;
   return *&v25;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_439(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_439(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0, 2uLL) + 1, 2uLL) + -0.125;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) + 322669363) >> (((747796405 * (v12 + v15) + 322669363) >> 28) + 4)) ^ (747796405 * (v12 + v15) + 322669363));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_20(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_20(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = 277803737 * (((747796405 * (v11 + a4) - 1403630843) >> (((747796405 * (v11 + a4) - 1403630843) >> 28) + 4)) ^ (747796405 * (v11 + a4) - 1403630843));
+  v12 = 277803737 * (((747796405 * (v11 + a2) - 1403630843) >> (((747796405 * (v11 + a2) - 1403630843) >> 28) + 4)) ^ (747796405 * (v11 + a2) - 1403630843));
   v13 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v12 >> 31) ^ (v12 >> 9) | 0x3F800000) + -1.0, 2uLL) + 1, 2uLL) + -0.125;
   v14 = vfx_script_clock_simulation_index();
-  v15 = 277803737 * (((747796405 * (a5 + a4 + v14) - 981112313) >> (((747796405 * (a5 + a4 + v14) - 981112313) >> 28) + 4)) ^ (747796405 * (a5 + a4 + v14) - 981112313));
-  v16 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v15 >> 31) ^ (v15 >> 9) | 0x3F800000) + -1.0);
+  v15 = 277803737 * (((747796405 * (a3 + a2 + v14) - 981112313) >> (((747796405 * (a3 + a2 + v14) - 981112313) >> 28) + 4)) ^ (747796405 * (a3 + a2 + v14) - 981112313));
+  v16 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v15 >> 31) ^ (v15 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v16, v16, 3);
   result.n128_u32[3] = v16.u32[3];
-  *a6 = v13;
-  *a7 = result;
+  *a4 = v13;
+  *a5 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_523(float32x4_t a1, float32x4_t a2, uint64_t a3, int a4, int a5, float *a6, __n128 *a7)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_523(uint64_t a1, int a2, int a3, float *a4, __n128 *a5, float32x4_t a6, float32x4_t a7)
 {
   v11 = vfx_script_clock_simulation_index();
-  v12 = a5 + a4;
+  v12 = a3 + a2;
   v13 = 277803737 * (((747796405 * (v12 + v11) - 1403630843) >> (((747796405 * (v12 + v11) - 1403630843) >> 28) + 4)) ^ (747796405 * (v12 + v11) - 1403630843));
   v14 = vcvts_n_f32_u64(vcvts_n_s32_f32(COERCE_FLOAT((v13 >> 31) ^ (v13 >> 9) | 0x3F800000) + -1.0, 3uLL) + 1, 3uLL) + -0.0625;
   v15 = vfx_script_clock_simulation_index();
   v16 = 277803737 * (((747796405 * (v12 + v15) + 725739762) >> (((747796405 * (v12 + v15) + 725739762) >> 28) + 4)) ^ (747796405 * (v12 + v15) + 725739762));
-  v17 = vmlaq_n_f32(a1, vsubq_f32(a2, a1), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
+  v17 = vmlaq_n_f32(a6, vsubq_f32(a7, a6), COERCE_FLOAT((v16 >> 31) ^ (v16 >> 9) | 0x3F800000) + -1.0);
   result = vmulq_laneq_f32(v17, v17, 3);
   result.n128_u32[3] = v17.u32[3];
-  *a6 = v14;
-  *a7 = result;
+  *a4 = v14;
+  *a5 = result;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_204(__n128 a1, float a2, __n128 a3, uint64_t a4, int a5, unsigned int a6, unint64_t a7, int32x4_t *a8, __n128 *a9, __int128 *a10, __int128 *a11)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_204(uint64_t a1, int a2, unsigned int a3, unint64_t a4, int32x4_t *a5, __n128 *a6, __n128 *a7, __int128 *a8, __n128 a9, float a10, __n128 a11)
 {
-  v34 = *a10;
-  v35 = *a11;
+  v34 = *a7;
+  v35 = *a8;
   v18 = vfx_script_clock_simulation_index();
-  v19 = (a2 + a2) / a7;
+  v19 = (a10 + a10) / a4;
   v20.i32[1] = 0;
-  if (!a7)
+  if (!a4)
   {
     v19 = 0.0;
   }
 
-  v21 = a6 + a5;
+  v21 = a3 + a2;
   v22 = 277803737 * (((747796405 * (v21 + v18) + 211320929) >> (((747796405 * (v21 + v18) + 211320929) >> 28) + 4)) ^ (747796405 * (v21 + v18) + 211320929));
   *v20.i32 = COERCE_FLOAT((v22 >> 31) ^ (v22 >> 9) | 0x3F800000) + -1.0;
   v32 = v20;
   v23 = v19 * 0.5;
-  v24 = (v19 * 0.5) + ((v19 * a6) - a2);
+  v24 = (v19 * 0.5) + ((v19 * a3) - a10);
   v25 = vfx_script_clock_simulation_index();
   v26 = 277803737 * (((747796405 * (v21 + v25) - 152853208) >> (((747796405 * (v21 + v25) - 152853208) >> 28) + 4)) ^ (747796405 * (v21 + v25) - 152853208));
-  *&v27 = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
-  v28 = a1;
-  *a8 = vdupq_lane_s32(v32, 0);
+  v27.n128_f32[0] = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
+  v28 = a9;
+  *a5 = vdupq_lane_s32(v32, 0);
   v28.n128_u32[3] = 1.0;
-  *a9 = v28;
+  *a6 = v28;
   v29 = v35;
-  *(&v27 + 4) = *(&v34 + 4);
-  *a10 = v27;
-  result = a3;
-  LODWORD(v29) = a3.n128_u32[0];
-  *a11 = v29;
+  *(v27.n128_u64 + 4) = *(&v34 + 4);
+  *a7 = v27;
+  result = a11;
+  LODWORD(v29) = a11.n128_u32[0];
+  *a8 = v29;
   return result;
 }
 
@@ -411,7 +377,7 @@ int32x4_t ParticleInit_WeatherV136DefaultBackground_particleInit_467(int32x2_t a
   return result;
 }
 
-__n128 __vfx_script_WeatherV136DefaultBackground_particleInit_467()
+float32x4_t __vfx_script_WeatherV136DefaultBackground_particleInit_467(uint64_t a1)
 {
   vfx_script_get_iteration_range();
   vfx_script_get_arguments_buffer();
@@ -428,105 +394,105 @@ __n128 ParticleInit_WeatherV136DefaultBackground_particleInit_71(__n128 result, 
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_94(__n128 a1, float a2, __n128 a3, uint64_t a4, int a5, unsigned int a6, unint64_t a7, int32x4_t *a8, __n128 *a9, __int128 *a10, __int128 *a11)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_94(uint64_t a1, int a2, unsigned int a3, unint64_t a4, int32x4_t *a5, __n128 *a6, __n128 *a7, __int128 *a8, __n128 a9, float a10, __n128 a11)
 {
-  v34 = *a10;
-  v35 = *a11;
+  v34 = *a7;
+  v35 = *a8;
   v18 = vfx_script_clock_simulation_index();
-  v19 = (a2 + a2) / a7;
+  v19 = (a10 + a10) / a4;
   v20.i32[1] = 0;
-  if (!a7)
+  if (!a4)
   {
     v19 = 0.0;
   }
 
-  v21 = a6 + a5;
+  v21 = a3 + a2;
   v22 = 277803737 * (((747796405 * (v21 + v18) - 497579214) >> (((747796405 * (v21 + v18) - 497579214) >> 28) + 4)) ^ (747796405 * (v21 + v18) - 497579214));
   *v20.i32 = COERCE_FLOAT((v22 >> 31) ^ (v22 >> 9) | 0x3F800000) + -1.0;
   v32 = v20;
   v23 = v19 * 0.5;
-  v24 = (v19 * 0.5) + ((v19 * a6) - a2);
+  v24 = (v19 * 0.5) + ((v19 * a3) - a10);
   v25 = vfx_script_clock_simulation_index();
   v26 = 277803737 * (((747796405 * (v21 + v25 + 5) + 1937621135) >> (((747796405 * (v21 + v25 + 5) + 1937621135) >> 28) + 4)) ^ (747796405 * (v21 + v25 + 5) + 1937621135));
-  *&v27 = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
-  v28 = a1;
-  *a8 = vdupq_lane_s32(v32, 0);
+  v27.n128_f32[0] = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
+  v28 = a9;
+  *a5 = vdupq_lane_s32(v32, 0);
   v28.n128_u32[3] = 1.0;
-  *a9 = v28;
+  *a6 = v28;
   v29 = v35;
-  *(&v27 + 4) = *(&v34 + 4);
-  *a10 = v27;
-  result = a3;
-  LODWORD(v29) = a3.n128_u32[0];
-  *a11 = v29;
+  *(v27.n128_u64 + 4) = *(&v34 + 4);
+  *a7 = v27;
+  result = a11;
+  LODWORD(v29) = a11.n128_u32[0];
+  *a8 = v29;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_456(__n128 a1, float a2, __n128 a3, uint64_t a4, int a5, unsigned int a6, unint64_t a7, int32x4_t *a8, __n128 *a9, __int128 *a10, __int128 *a11)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_456(uint64_t a1, int a2, unsigned int a3, unint64_t a4, int32x4_t *a5, __n128 *a6, __n128 *a7, __int128 *a8, __n128 a9, float a10, __n128 a11)
 {
-  v34 = *a10;
-  v35 = *a11;
+  v34 = *a7;
+  v35 = *a8;
   v18 = vfx_script_clock_simulation_index();
-  v19 = (a2 + a2) / a7;
+  v19 = (a10 + a10) / a4;
   v20.i32[1] = 0;
-  if (!a7)
+  if (!a4)
   {
     v19 = 0.0;
   }
 
-  v21 = a6 + a5;
+  v21 = a3 + a2;
   v22 = 277803737 * (((747796405 * (v21 + v18) - 1534427408) >> (((747796405 * (v21 + v18) - 1534427408) >> 28) + 4)) ^ (747796405 * (v21 + v18) - 1534427408));
   *v20.i32 = COERCE_FLOAT((v22 >> 31) ^ (v22 >> 9) | 0x3F800000) + -1.0;
   v32 = v20;
   v23 = v19 * 0.5;
-  v24 = (v19 * 0.5) + ((v19 * a6) - a2);
+  v24 = (v19 * 0.5) + ((v19 * a3) - a10);
   v25 = vfx_script_clock_simulation_index();
   v26 = 277803737 * (((747796405 * (v21 + v25 + 4) + 1648569346) >> (((747796405 * (v21 + v25 + 4) + 1648569346) >> 28) + 4)) ^ (747796405 * (v21 + v25 + 4) + 1648569346));
-  *&v27 = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
-  v28 = a1;
-  *a8 = vdupq_lane_s32(v32, 0);
+  v27.n128_f32[0] = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
+  v28 = a9;
+  *a5 = vdupq_lane_s32(v32, 0);
   v28.n128_u32[3] = 1.0;
-  *a9 = v28;
+  *a6 = v28;
   v29 = v35;
-  *(&v27 + 4) = *(&v34 + 4);
-  *a10 = v27;
-  result = a3;
-  LODWORD(v29) = a3.n128_u32[0];
-  *a11 = v29;
+  *(v27.n128_u64 + 4) = *(&v34 + 4);
+  *a7 = v27;
+  result = a11;
+  LODWORD(v29) = a11.n128_u32[0];
+  *a8 = v29;
   return result;
 }
 
-__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_452(__n128 a1, float a2, __n128 a3, uint64_t a4, int a5, unsigned int a6, unint64_t a7, int32x4_t *a8, __n128 *a9, __int128 *a10, __int128 *a11)
+__n128 ParticleInit_WeatherV136DefaultBackground_particleInit_452(uint64_t a1, int a2, unsigned int a3, unint64_t a4, int32x4_t *a5, __n128 *a6, __n128 *a7, __int128 *a8, __n128 a9, float a10, __n128 a11)
 {
-  v34 = *a10;
-  v35 = *a11;
+  v34 = *a7;
+  v35 = *a8;
   v18 = vfx_script_clock_simulation_index();
-  v19 = (a2 + a2) / a7;
+  v19 = (a10 + a10) / a4;
   v20.i32[1] = 0;
-  if (!a7)
+  if (!a4)
   {
     v19 = 0.0;
   }
 
-  v21 = a6 + a5;
+  v21 = a3 + a2;
   v22 = 277803737 * (((747796405 * (v21 + v18) + 1859828611) >> (((747796405 * (v21 + v18) + 1859828611) >> 28) + 4)) ^ (747796405 * (v21 + v18) + 1859828611));
   *v20.i32 = COERCE_FLOAT((v22 >> 31) ^ (v22 >> 9) | 0x3F800000) + -1.0;
   v32 = v20;
   v23 = v19 * 0.5;
-  v24 = (v19 * 0.5) + ((v19 * a6) - a2);
+  v24 = (v19 * 0.5) + ((v19 * a3) - a10);
   v25 = vfx_script_clock_simulation_index();
   v26 = 277803737 * (((747796405 * (v21 + v25 + 6) + 747858069) >> (((747796405 * (v21 + v25 + 6) + 747858069) >> 28) + 4)) ^ (747796405 * (v21 + v25 + 6) + 747858069));
-  *&v27 = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
-  v28 = a1;
-  *a8 = vdupq_lane_s32(v32, 0);
+  v27.n128_f32[0] = v24 + (v23 * (COERCE_FLOAT((v26 >> 31) ^ (v26 >> 9) | 0x3F800000) + -1.0));
+  v28 = a9;
+  *a5 = vdupq_lane_s32(v32, 0);
   v28.n128_u32[3] = 1.0;
-  *a9 = v28;
+  *a6 = v28;
   v29 = v35;
-  *(&v27 + 4) = *(&v34 + 4);
-  *a10 = v27;
-  result = a3;
-  LODWORD(v29) = a3.n128_u32[0];
-  *a11 = v29;
+  *(v27.n128_u64 + 4) = *(&v34 + 4);
+  *a7 = v27;
+  result = a11;
+  LODWORD(v29) = a11.n128_u32[0];
+  *a8 = v29;
   return result;
 }
 
@@ -551,64 +517,64 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_378(float
   return result;
 }
 
-__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_128(float32x4_t a1, float32x4_t a2, float32x4_t a3, __n128 a4, float a5, float32x4_t a6, float a7, float a8, uint64_t a9, uint64_t a10, uint64_t a11, __n128 *a12, float32x4_t *a13, float *a14, float *a15, float a16, float a17)
+__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_128(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, __n128 a5, float a6, float32x4_t a7, float a8, float a9, uint64_t a10, uint64_t a11, __n128 *a12, float32x4_t *a13, float *a14, float *a15, float a16, float a17)
 {
-  v42 = *a12;
-  if (vmovn_s32(vcgtq_f32(a2, a1)).u8[0])
+  v41 = *a12;
+  if (vmovn_s32(vcgtq_f32(a3, a2)).u8[0])
   {
-    v26 = -a1.f32[0];
+    v25 = -a2.f32[0];
   }
 
   else
   {
-    v26 = a2.f32[0];
+    v25 = a3.f32[0];
   }
 
-  if (v26 >= -a1.f32[0])
+  if (v25 >= -a2.f32[0])
   {
-    *&v18 = v26;
+    *&v17 = v25;
   }
 
   else
   {
-    *&v18 = a1.f32[0];
+    *&v17 = a2.f32[0];
   }
 
-  v38 = a3.f32[0];
-  v27 = a3.f32[1] + a4.n128_f32[0];
-  a4.n128_f32[0] = -a5;
-  v41 = a4;
-  v28 = vmulq_laneq_f32(a6, a6, 3);
-  v29 = (0.075 * a1.f32[0]) - a1.f32[0];
-  v30 = fminf(fmaxf(vaddq_f32(a1, a2).f32[0] / (a1.f32[0] + v29), 0.0), 1.0);
-  v31 = a1.f32[0] - (0.075 * a1.f32[0]);
-  v32 = fminf(fmaxf(vsubq_f32(a2, a1).f32[0] / (v31 - a1.f32[0]), 0.0), 1.0);
-  if (v31 > a2.f32[0])
+  v37 = a4.f32[0];
+  v26 = a4.f32[1] + a5.n128_f32[0];
+  a5.n128_f32[0] = -a6;
+  v40 = a5;
+  v27 = vmulq_laneq_f32(a7, a7, 3);
+  v28 = (0.075 * a2.f32[0]) - a2.f32[0];
+  v29 = fminf(fmaxf(vaddq_f32(a2, a3).f32[0] / (a2.f32[0] + v28), 0.0), 1.0);
+  v30 = a2.f32[0] - (0.075 * a2.f32[0]);
+  v31 = fminf(fmaxf(vsubq_f32(a3, a2).f32[0] / (v30 - a2.f32[0]), 0.0), 1.0);
+  if (v30 > a3.f32[0])
   {
-    v32 = 1.0;
+    v31 = 1.0;
   }
 
-  if (v29 >= a2.f32[0])
+  if (v28 >= a3.f32[0])
   {
-    v32 = v30;
+    v31 = v29;
   }
 
-  v40 = vmulq_n_f32(v28, v32);
-  v33 = vmuls_lane_f32((a7 * 3.1416) / 180.0, a3, 2);
-  *(&v18 + 1) = v27;
-  DWORD2(v18) = *(a11 + 8);
-  v39 = v18;
+  v39 = vmulq_n_f32(v27, v31);
+  v32 = vmuls_lane_f32((a8 * 3.1416) / 180.0, a4, 2);
+  *(&v17 + 1) = v26;
+  DWORD2(v17) = *(a11 + 8);
+  v38 = v17;
   vfx_script_clock_time();
-  *&v34 = v34;
-  v35 = sinf(v38 + (*&v34 * a8));
-  v36 = v41;
-  *a13 = v40;
-  *a14 = v33;
-  *a15 = (v35 * a16) + a17;
-  *a11 = v39;
-  result = v42;
-  *(v36.n128_u64 + 4) = *(v42.n128_u64 + 4);
-  *a12 = v36;
+  *&v33 = v33;
+  v34 = sinf(v37 + (*&v33 * a9));
+  v35 = v40;
+  *a13 = v39;
+  *a14 = v32;
+  *a15 = (v34 * a16) + a17;
+  *a11 = v38;
+  result = v41;
+  *(v35.n128_u64 + 4) = *(v41.n128_u64 + 4);
+  *a12 = v35;
   return result;
 }
 
@@ -623,50 +589,50 @@ int8x16_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_208(float32
   return result;
 }
 
-__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_543(float a1, float a2, float a3, __n128 a4, float a5, float a6, float a7, __n128 a8, uint64_t a9, uint64_t a10, float *a11, __n128 *a12, __n128 *a13, float *a14)
+__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_543(uint64_t a1, float a2, float a3, float a4, __n128 a5, float a6, float a7, float a8, __n128 a9, uint64_t a10, float *a11, __n128 *a12, __n128 *a13, float *a14)
 {
-  v20 = (a1 * 3.1416) / 180.0;
-  v21 = a4.n128_f32[1];
-  v22 = (a6 * a7) * 0.5;
-  if (a4.n128_f32[1] >= ((v22 * 0.08) + a5))
+  v20 = (a2 * 3.1416) / 180.0;
+  v21 = a5.n128_f32[1];
+  v22 = (a7 * a8) * 0.5;
+  if (a5.n128_f32[1] >= ((v22 * 0.08) + a6))
   {
-    v21 = (v22 * 0.08) + a5;
+    v21 = (v22 * 0.08) + a6;
   }
 
-  a4.n128_f32[1] = v21;
-  a4.n128_u32[2] = a12->n128_u32[2];
-  v25 = a4;
+  a5.n128_f32[1] = v21;
+  a5.n128_u32[2] = a12->n128_u32[2];
+  v25 = a5;
   vfx_script_clock_time();
   *&v23 = v23;
-  *a11 = v20 + (((a3 * 3.1416) / 180.0) * sinf(*&v23 * a2));
+  *a11 = v20 + (((a4 * 3.1416) / 180.0) * sinf(*&v23 * a3));
   result = v25;
-  *a13 = a8;
+  *a13 = a9;
   *a14 = v22;
   *a12 = v25;
   return result;
 }
 
-__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_465(float a1, __n128 a2, float a3, float a4, float a5, float a6, float a7, float a8, uint64_t a9, uint64_t a10, float *a11, __n128 *a12, int32x4_t *a13, float *a14)
+__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_465(uint64_t a1, float a2, __n128 a3, float a4, float a5, float a6, float a7, float a8, float a9, uint64_t a10, float *a11, __n128 *a12, int32x4_t *a13, float *a14)
 {
-  v23 = a2.n128_f32[1];
-  v24 = ((a4 * a5) * 0.04) + a3;
-  if (a2.n128_f32[1] >= v24)
+  v23 = a3.n128_f32[1];
+  v24 = ((a5 * a6) * 0.04) + a4;
+  if (a3.n128_f32[1] >= v24)
   {
     v23 = v24;
   }
 
-  a2.n128_f32[1] = v23;
-  a2.n128_u32[2] = a12->n128_u32[2];
-  v32 = a2;
+  a3.n128_f32[1] = v23;
+  a3.n128_u32[2] = a12->n128_u32[2];
+  v32 = a3;
   vfx_script_clock_time();
   v26 = v25;
-  v27 = (((sinf(v26 * 0.15) * 20.0) + a1) * 3.1416) / 180.0;
-  *v28.i32 = a6 * a7;
+  v27 = (((sinf(v26 * 0.15) * 20.0) + a2) * 3.1416) / 180.0;
+  *v28.i32 = a7 * a8;
   v31 = v28;
   v29 = sinf(v26 * 0.2);
   *a11 = v27;
   *a13 = vdupq_lane_s32(v31, 0);
-  *a14 = (((v29 + v29) + a8) * a5) * 0.6;
+  *a14 = (((v29 + v29) + a9) * a6) * 0.6;
   result = v32;
   *a12 = v32;
   return result;
@@ -720,28 +686,28 @@ int32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_501(double 
   return result;
 }
 
-__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_360(float32x4_t a1, __n128 a2, float a3, float32x4_t a4, float32x4_t a5, float a6, float a7, int8x8_t a8, uint64_t a9, uint64_t a10, uint64_t a11, float32x4_t *a12, float *a13, uint64_t a14, uint64_t a15, uint64_t a16, int8x8_t a17, uint64_t a18, float a19, float a20, uint64_t a21, float a22)
+__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_360(uint64_t a1, float32x4_t a2, __n128 a3, float a4, float32x4_t a5, float32x4_t a6, float a7, float a8, int8x8_t a9, uint64_t a10, uint64_t a11, float32x4_t *a12, float *a13, uint64_t a14, uint64_t a15, uint64_t a16, int8x8_t a17, uint64_t a18, float a19, float a20, uint64_t a21, float a22)
 {
   v46 = *(a14 + 8);
   vfx_script_clock_time();
   *&v28 = v28;
-  *v29.i32 = a2.n128_f32[1] + vmuls_lane_f32(sinf(a2.n128_f32[2] + (*&v28 * a2.n128_f32[0])), a2.n128_u64[0], 1);
-  v48 = vmulq_n_f32(vaddq_f32(vdupq_lane_s32(v29, 0), a1), a3);
-  v30 = vsubq_f32(vaddq_f32(a4, xmmword_1BCE22F80), a5);
+  *v29.i32 = a3.n128_f32[1] + vmuls_lane_f32(sinf(a3.n128_f32[2] + (*&v28 * a3.n128_f32[0])), a3.n128_u64[0], 1);
+  v48 = vmulq_n_f32(vaddq_f32(vdupq_lane_s32(v29, 0), a2), a4);
+  v30 = vsubq_f32(vaddq_f32(a5, xmmword_1BCE22F80), a6);
   v31 = vmulq_f32(v30, v30);
-  v31.f32[0] = fminf(fmaxf((sqrtf(v31.f32[2] + vaddv_f32(*v31.f32)) - (0.5 * a6)) / (((0.5 * a6) + 5.5) - (0.5 * a6)), 0.0), 1.0);
+  v31.f32[0] = fminf(fmaxf((sqrtf(v31.f32[2] + vaddv_f32(*v31.f32)) - (0.5 * a7)) / (((0.5 * a7) + 5.5) - (0.5 * a7)), 0.0), 1.0);
   v32 = (v31.f32[0] * v31.f32[0]) * ((v31.f32[0] * -2.0) + 3.0);
-  if (a7 <= 0.02)
+  if (a8 <= 0.02)
   {
     v32 = 1.0;
   }
 
-  v33 = vbsl_s8(vceqd_s64(a11, 0), a8, a17);
+  v33 = vbsl_s8(vceqd_s64(a11, 0), a9, a17);
   v34 = ((v33.f32[0] + (vsub_f32(vdup_lane_s32(v33, 1), v33).f32[0] * a20)) * a19) * v32;
   vfx_script_clock_delta_time();
   v36 = __sincosf_stret(v35 * a22);
-  *&v39 = vrev64_s32(vmul_n_f32(*a4.f32, v36.__sinval));
-  v37 = vmul_n_f32(*a4.f32, v36.__cosval);
+  *&v39 = vrev64_s32(vmul_n_f32(*a5.f32, v36.__sinval));
+  v37 = vmul_n_f32(*a5.f32, v36.__cosval);
   v38.i32[0] = vsub_f32(v37, *&v39).u32[0];
   v38.i32[1] = vadd_f32(v37, *&v39).i32[1];
   *&v39 = vadd_f32(v38, 0);
@@ -772,19 +738,19 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_314(float
   return result;
 }
 
-__n128 __vfx_script_WeatherV136DefaultBackground_particleUpdate_314()
+float32x4_t __vfx_script_WeatherV136DefaultBackground_particleUpdate_314(uint64_t a1)
 {
   vfx_script_get_iteration_range();
   vfx_script_get_arguments_buffer();
   return result;
 }
 
-__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_120(float a1, float a2, float a3, float a4, float a5, uint64_t a6, uint64_t a7, __int128 *a8)
+__n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_120(uint64_t a1, float a2, float a3, float a4, float a5, float a6, uint64_t a7, __int128 *a8)
 {
   v16 = *a8;
   vfx_script_clock_time();
   *&v13 = v13;
-  *&v14 = ((((sinf(*&v13 * a1) * a2) + a3) * a4) * a5) + 0.0;
+  *&v14 = ((((sinf(*&v13 * a2) * a3) + a4) * a5) * a6) + 0.0;
   *(&v14 + 4) = *(&v16 + 4);
   *a8 = v14;
   result.n128_u64[0] = v14;
@@ -792,7 +758,7 @@ __n128 ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_120(float a1, 
   return result;
 }
 
-float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_138(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, float32x2_t a21)
+float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_138(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, int32x2_t a21)
 {
   v22 = *a12;
   if (vmovn_s32(vcgtq_f32(a2, a1)).u8[0])
@@ -839,12 +805,12 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_138(float
 
   result = vmulq_n_f32(v28, v31);
   *a13 = result;
-  *a14 = a19 * (a21.f32[0] + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
+  *a14 = a19 * (*a21.i32 + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
   *(&v21 + 1) = v24;
   *(&v21 + 2) = v25;
   *a11 = v21;
-  a5.n128_u32[1] = v22.n128_u32[1];
-  a5.n128_u32[2] = v22.n128_u32[2];
+  a5.n128_u32[1] = DWORD1(v22);
+  a5.n128_u32[2] = DWORD2(v22);
   *a12 = a5;
   return result;
 }
@@ -857,7 +823,7 @@ float ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_474(double a1, 
   return result;
 }
 
-float __vfx_script_WeatherV136DefaultBackground_particleUpdate_474()
+float __vfx_script_WeatherV136DefaultBackground_particleUpdate_474(uint64_t a1)
 {
   vfx_script_get_iteration_range();
   vfx_script_get_arguments_buffer();
@@ -866,66 +832,66 @@ float __vfx_script_WeatherV136DefaultBackground_particleUpdate_474()
 
 float ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_402(float a1, float a2, double a3, float a4, float a5, float a6, float a7, float a8, uint64_t a9, uint64_t a10, unsigned int a11, float *a12, float a13)
 {
-  v17 = (a4 + a5) + a6;
-  v18 = fabsf(v17);
-  v19 = v18 > 0.00000011921;
-  v20 = 0.0;
-  if (v18 > 0.00000011921)
+  v13 = (a4 + a5) + a6;
+  v14 = fabsf(v13);
+  v15 = v14 > 0.00000011921;
+  v16 = 0.0;
+  if (v14 > 0.00000011921)
   {
-    v21 = (a4 + a5) / v17;
+    v17 = (a4 + a5) / v13;
   }
 
   else
   {
-    v21 = 0.0;
+    v17 = 0.0;
   }
 
-  if (v19)
+  if (v15)
   {
-    v20 = a4 / v17;
+    v16 = a4 / v13;
   }
 
-  v22 = a1 * a2;
-  v23 = vmuls_lane_f32(a2, *&a3, 1);
+  v18 = a1 * a2;
+  v19 = vmuls_lane_f32(a2, *&a3, 1);
   if (*&a3 != 0.0)
   {
-    v22 = v23;
+    v18 = v19;
   }
 
-  v24 = fminf(fmaxf((a7 - v21) / (1.0 - v21), 0.0), 1.0);
-  v25 = fminf(fmaxf((a7 - v20) / ((a4 + a8) - v20), 0.0), 1.0);
+  v20 = fminf(fmaxf((a7 - v17) / (1.0 - v17), 0.0), 1.0);
+  v21 = fminf(fmaxf((a7 - v16) / ((a4 + a8) - v16), 0.0), 1.0);
   if (*&a3 == 0.0)
   {
-    v25 = v24;
+    v21 = v20;
   }
 
-  v26 = v22 * (1.0 - v25);
-  if (((*&a3 + ((1.0 - *&a3) * ((a11 % 0x81) / 129.0))) * v20) >= a7)
+  v22 = v18 * (1.0 - v21);
+  if (((*&a3 + ((1.0 - *&a3) * ((a11 % 0x81) / 129.0))) * v16) >= a7)
   {
-    v23 = 0.0;
+    v19 = 0.0;
   }
 
-  if (v20 <= a7)
+  if (v16 <= a7)
   {
-    v23 = v26;
+    v19 = v22;
   }
 
   else
   {
-    v22 = v23;
+    v18 = v19;
   }
 
-  if (v21 < a7)
+  if (v17 < a7)
   {
-    v22 = v26;
+    v18 = v22;
   }
 
   if (*&a3 != 0.0)
   {
-    v22 = v23;
+    v18 = v19;
   }
 
-  result = v22 * a13;
+  result = v18 * a13;
   *a12 = result;
   return result;
 }
@@ -960,7 +926,7 @@ void ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_232(float a1, fl
   *a11 = v21;
 }
 
-float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_244(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, float32x2_t a21)
+float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_244(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, int32x2_t a21)
 {
   v22 = *a12;
   if (vmovn_s32(vcgtq_f32(a2, a1)).u8[0])
@@ -1005,17 +971,17 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_244(float
   v30.i32[3] = 1.0;
   result = vmulq_n_f32(vmulq_f32(vmulq_laneq_f32(a8, a8, 3), v30), v29);
   *a13 = result;
-  *a14 = a19 * (a21.f32[0] + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
+  *a14 = a19 * (*a21.i32 + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
   *(&v21 + 1) = v24;
   *(&v21 + 2) = v25;
   *a11 = v21;
-  a5.n128_u32[1] = v22.n128_u32[1];
-  a5.n128_u32[2] = v22.n128_u32[2];
+  a5.n128_u32[1] = DWORD1(v22);
+  a5.n128_u32[2] = DWORD2(v22);
   *a12 = a5;
   return result;
 }
 
-float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_276(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, float32x2_t a21)
+float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_276(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, __n128 a5, double a6, float a7, float32x4_t a8, uint64_t a9, uint64_t a10, _OWORD *a11, __n128 *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, int32x2_t a21)
 {
   v22 = *a12;
   if (vmovn_s32(vcgtq_f32(a2, a1)).u8[0])
@@ -1062,17 +1028,17 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_276(float
 
   result = vmulq_n_f32(v28, v31);
   *a13 = result;
-  *a14 = a19 * (a21.f32[0] + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
+  *a14 = a19 * (*a21.i32 + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a7));
   *(&v21 + 1) = v24;
   *(&v21 + 2) = v25;
   *a11 = v21;
-  a5.n128_u32[1] = v22.n128_u32[1];
-  a5.n128_u32[2] = v22.n128_u32[2];
+  a5.n128_u32[1] = DWORD1(v22);
+  a5.n128_u32[2] = DWORD2(v22);
   *a12 = a5;
   return result;
 }
 
-float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_176(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, float a5, float32x4_t a6, float a7, double a8, uint64_t a9, uint64_t a10, _OWORD *a11, float32x4_t *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, float32x2_t a21)
+float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_176(float32x4_t a1, float32x4_t a2, __n128 a3, float a4, float a5, float32x4_t a6, float a7, double a8, uint64_t a9, uint64_t a10, _OWORD *a11, float32x4_t *a12, float32x4_t *a13, float *a14, uint64_t a15, uint64_t a16, float a17, uint64_t a18, float a19, uint64_t a20, int32x2_t a21)
 {
   v22 = *a13;
   if (vmovn_s32(vcgtq_f32(a2, a1)).u8[0])
@@ -1119,12 +1085,12 @@ float32x4_t ParticleUpdate_WeatherV136DefaultBackground_particleUpdate_176(float
   result = vmulq_n_f32(v28, v31);
   v28.f32[0] = -(*&a8 + (vsub_f32(vdup_lane_s32(*&a8, 1), *&a8).f32[0] * a17));
   *a12 = result;
-  *a14 = a19 * (a21.f32[0] + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a17));
+  *a14 = a19 * (*a21.i32 + (vsub_f32(vdup_lane_s32(a21, 1), a21).f32[0] * a17));
   *(&v21 + 1) = v24;
   *(&v21 + 2) = v25;
   *a11 = v21;
-  v28.i32[1] = v22.i32[1];
-  v28.i32[2] = v22.i32[2];
+  v28.i32[1] = DWORD1(v22);
+  v28.i32[2] = DWORD2(v22);
   *a13 = v28;
   return result;
 }
@@ -1136,9 +1102,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BC9DC4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BC9DC4D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1150,19 +1116,19 @@ void sub_1BC9DD50C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BC9DD818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BC9DD818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1173,9 +1139,9 @@ void *__Block_byref_object_copy__30(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1BC9DE3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BC9DE3D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1354,7 +1320,7 @@ uint64_t CLKUIConvertToUIColorFromRGBf_dynamic(float32x4_t a1)
   return [v8 colorWithRed:*v7.i32 green:*&v7.i32[1] blue:*&v7.i32[2] alpha:v2];
 }
 
-uint64_t _CLKUIRawImageGenerateMipmapsSRGB8(uint64_t result, int a2)
+uint64_t _CLKUIRawImageGenerateMipmapsSRGB8(uint64_t result, unsigned int a2)
 {
   if (a2 >= 2)
   {
@@ -1524,7 +1490,7 @@ double _CLKUILAB2RGB(float32x4_t _Q0)
 
 __n128 CLKUIConvertRGBtoLAB(float32x4_t a1)
 {
-  v2 = a1.u32[3];
+  v2 = a1.i32[3];
   result.n128_f64[0] = _CLKUIRGB2LAB(a1);
   result.n128_u32[3] = v2;
   return result;
@@ -1532,7 +1498,7 @@ __n128 CLKUIConvertRGBtoLAB(float32x4_t a1)
 
 __n128 CLKUIConvertLABtoRGB(float32x4_t a1)
 {
-  v2 = a1.u32[3];
+  v2 = a1.i32[3];
   result.n128_f64[0] = _CLKUILAB2RGB(a1);
   result.n128_u32[3] = v2;
   return result;
@@ -1602,7 +1568,7 @@ id CLKCreateImageFromBytes(UInt8 *bytes, size_t a2, size_t a3, uint64_t a4, size
   return v17;
 }
 
-unint64_t _CLKClamp(uint64_t a1, unint64_t a2)
+uint64_t _CLKClamp(unint64_t a1, unint64_t a2)
 {
   if (a1 <= a2)
   {
@@ -1615,7 +1581,7 @@ unint64_t _CLKClamp(uint64_t a1, unint64_t a2)
   }
 }
 
-double _CLKPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint8x8_t a6)
+double _CLKPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, uint8x8_t a6)
 {
   v6 = a2 - 1;
   if (a2 - 1 >= a4)
@@ -1634,7 +1600,7 @@ double _CLKPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64
   return result;
 }
 
-double _CLKIntensityForPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float a6, float a7, float a8)
+double _CLKIntensityForPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, float a6, float a7, float a8)
 {
   v8 = a2 - 1;
   if (a2 - 1 >= a4)
@@ -1655,11 +1621,11 @@ double _CLKIntensityForPixelAtPosition(unsigned __int8 *a1, uint64_t a2, uint64_
   return ((LODWORD(a6) + LODWORD(a7)) + LODWORD(a8)) / 3.0;
 }
 
-double _CLKCalculateNormal(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
+double _CLKCalculateNormal(unsigned __int8 *a1, uint64_t a2, uint64_t a3, unint64_t a4, unint64_t a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12, float a13)
 {
   v16 = a5 - 1;
   v17 = a2 - 1;
-  if (a2 - 1 >= (a4 - 1))
+  if (a2 - 1 >= a4 - 1)
   {
     v18 = (a4 - 1) & ~((a4 - 1) >> 63);
   }
@@ -2106,16 +2072,16 @@ id CLKUIShadowImageFromView(void *a1, void *a2, void *a3, double a4, double a5, 
   return v21;
 }
 
-id filterNamesToIndicesMap()
+id filterNamesToIndicesMap(uint64_t a1)
 {
   if (filterNamesToIndicesMap_onceToken != -1)
   {
     filterNamesToIndicesMap_cold_1();
   }
 
-  v1 = filterNamesToIndicesMap_namesToIndices;
+  v2 = filterNamesToIndicesMap_namesToIndices;
 
-  return v1;
+  return v2;
 }
 
 void __filterNamesToIndicesMap_block_invoke()
@@ -2208,14 +2174,14 @@ float _linearizeAndComputeAPL(uint64_t a1, vDSP_Length a2)
       }
 
       __C = 0;
-      v15 = 0.0;
+      v17 = 0.0;
       vDSP_meanv(v5, 1, &__C + 1, a2);
       vDSP_meanv(v7, 1, &__C, a2);
-      vDSP_meanv(v8, 1, &v15, a2);
+      vDSP_meanv(v8, 1, &v17, a2);
       free(v6);
       v13.i64[0] = __PAIR64__(__C, HIDWORD(__C));
-      v13.f32[2] = v15;
-      return CLKUIConvertP3ToAPL(v13);
+      v13.f32[2] = v17;
+      return CLKUIConvertP3ToAPL(v14, v15, v13);
     }
   }
 
@@ -2420,18 +2386,18 @@ id _CLKUIComputeTextureAPL(void *a1, void *a2, id *a3)
 
 float CLKUIGetAPLFromSumBuffer(void *a1, uint64_t a2, uint64_t a3)
 {
-  *&v8 = (a3 * a2) * 255.0;
+  *&v9 = (a3 * a2) * 255.0;
   v3 = [a1 contents];
-  v4.i64[0] = *v3;
-  v4.i64[1] = HIDWORD(*v3);
-  v5 = vdupq_lane_s64(v8, 0);
-  v6 = vdivq_f64(vcvtq_f64_u64(v4), v5);
-  *v6.f32 = vcvt_f32_f64(v6);
-  LODWORD(v5.f64[0]) = *(v3 + 8);
-  *v5.f64 = *&v5.f64[0] / *&v8;
-  v6.i32[2] = LODWORD(v5.f64[0]);
+  v5.i64[0] = *v3;
+  v5.i64[1] = HIDWORD(*v3);
+  v6 = vdupq_lane_s64(v9, 0);
+  v7 = vdivq_f64(vcvtq_f64_u64(v5), v6);
+  *v7.f32 = vcvt_f32_f64(v7);
+  LODWORD(v6.f64[0]) = *(v3 + 8);
+  *v6.f64 = *&v6.f64[0] / *&v9;
+  v7.i32[2] = LODWORD(v6.f64[0]);
 
-  return CLKUIConvertSRGBToAPL(v6);
+  return CLKUIConvertSRGBToAPL(v3, v4, v7);
 }
 
 id CLKUIComputeTextureAPL(void *a1, void *a2, id *a3)
@@ -2474,10 +2440,10 @@ float CLKUIComputeColorAPL(void *a1)
   *v7.f32 = vcvt_f32_f64(*Components);
   v8 = Components[1].f64[0];
   v7.f32[2] = v8;
-  v9 = CLKUIConvertP3ToAPL(v7);
+  v10 = CLKUIConvertP3ToAPL(Components, v9, v7);
   CGColorRelease(CopyByMatchingToColorSpace);
   CGColorSpaceRelease(v3);
-  return v9;
+  return v10;
 }
 
 float CLKUIComputeDimmingRequiredToObtainColorAPLUnclamped(void *a1, float a2, float a3)
@@ -2609,16 +2575,16 @@ double _NTKAstronomyNormalizeCoordinateForRotationAroundCoordinate(double result
   return result;
 }
 
-id NUNIBundle()
+id NUNIBundle(uint64_t a1)
 {
   if (NUNIBundle_onceToken != -1)
   {
     NUNIBundle_cold_1();
   }
 
-  v1 = NUNIBundle___bundle;
+  v2 = NUNIBundle___bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NUNIBundle_block_invoke()
@@ -2628,9 +2594,9 @@ uint64_t __NUNIBundle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1BC9E6B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BC9E6B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2688,9 +2654,9 @@ uint64_t _CLKUIDeterminePlaneLength(int a1, int a2, int a3, int a4)
   }
 }
 
-void sub_1BC9EA2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BC9EA2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2730,7 +2696,7 @@ void __NUNILoggingObjectForDomain_block_invoke()
   NUNILoggingObjectForDomain___logObjects = v0;
 }
 
-id _NUNAegirCreateTexture(void *a1, int a2, int a3, int a4, uint64_t a5)
+id _NUNAegirCreateTexture(void *a1, int a2, int a3, unsigned int a4, uint64_t a5)
 {
   v9 = a1;
   if (a5)
@@ -2796,7 +2762,7 @@ uint64_t CLKUIFetchPrimaryGamutMatrix(_OWORD *a1)
   return 1;
 }
 
-double CLKUIPrimaryGamutMatrix()
+double CLKUIPrimaryGamutMatrix(uint64_t a1, uint64_t a2)
 {
   if (CLKUIPrimaryGamutMatrix_onceToken != -1)
   {
@@ -2855,18 +2821,18 @@ uint64_t __CLKUINativeToAPLCoeff_block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
-double CLKUIConvertP3ToNative(float32x4_t a1)
+double CLKUIConvertP3ToNative(uint64_t a1, uint64_t a2, float32x4_t a3)
 {
-  v1 = a1;
+  v3 = a3;
   if (CLKUIPrimaryGamutMatrix_onceToken != -1)
   {
     CLKUIPrimaryGamutMatrix_cold_1();
-    v1 = a1;
+    v3 = a3;
   }
 
-  v2 = vtrn2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, *algn_1EBD0EB70);
-  v2.i32[2] = DWORD1(xmmword_1EBD0EB80);
-  *&result = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), *algn_1EBD0EB70), v1.f32[0]), v2, *v1.f32, 1), vzip1q_s32(vzip2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), vdupq_laneq_s32(*algn_1EBD0EB70, 2)), v1, 2).u64[0];
+  v4 = vtrn2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, *algn_1EBD0EB70);
+  v4.i32[2] = DWORD1(xmmword_1EBD0EB80);
+  *&result = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), *algn_1EBD0EB70), v3.f32[0]), v4, *v3.f32, 1), vzip1q_s32(vzip2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), vdupq_laneq_s32(*algn_1EBD0EB70, 2)), v3, 2).u64[0];
   return result;
 }
 
@@ -2880,23 +2846,23 @@ float CLKUIConvertNativeToAPL(float32x4_t a1)
   return v3;
 }
 
-float CLKUIConvertP3ToAPL(float32x4_t a1)
+float CLKUIConvertP3ToAPL(uint64_t a1, uint64_t a2, float32x4_t a3)
 {
-  v2 = a1;
+  v4 = a3;
   if (CLKUIPrimaryGamutMatrix_onceToken != -1)
   {
     CLKUIPrimaryGamutMatrix_cold_1();
-    v2 = a1;
+    v4 = a3;
   }
 
-  v3 = vtrn2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, *algn_1EBD0EB70);
-  v3.i32[2] = DWORD1(xmmword_1EBD0EB80);
-  v4 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), *algn_1EBD0EB70), v2.f32[0]), v3, *v2.f32, 1), vzip1q_s32(vzip2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), vdupq_laneq_s32(*algn_1EBD0EB70, 2)), v2, 2);
+  v5 = vtrn2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, *algn_1EBD0EB70);
+  v5.i32[2] = DWORD1(xmmword_1EBD0EB80);
+  v6 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), *algn_1EBD0EB70), v4.f32[0]), v5, *v4.f32, 1), vzip1q_s32(vzip2q_s32(CLKUIPrimaryGamutMatrix_p3ToNativeMatrix, xmmword_1EBD0EB80), vdupq_laneq_s32(*algn_1EBD0EB70, 2)), v4, 2);
 
-  return CLKUIConvertNativeToAPL(v4);
+  return CLKUIConvertNativeToAPL(v6);
 }
 
-double sRGBtoNative()
+double sRGBtoNative(uint64_t a1, uint64_t a2)
 {
   if (sRGBtoNative_onceToken != -1)
   {
@@ -2906,57 +2872,57 @@ double sRGBtoNative()
   return *&sRGBtoNative_sRGBToNative;
 }
 
-double __sRGBtoNative_block_invoke()
+double __sRGBtoNative_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (CLKUIPrimaryGamutMatrix_onceToken != -1)
   {
     CLKUIPrimaryGamutMatrix_cold_1();
   }
 
-  v0 = 0;
-  v1 = CLKUIPrimaryGamutMatrix_p3ToNativeMatrix;
-  v2 = *algn_1EBD0EB70;
-  HIDWORD(v1) = 0;
-  HIDWORD(v2) = 0;
-  v3 = xmmword_1EBD0EB80;
+  v2 = 0;
+  v3 = CLKUIPrimaryGamutMatrix_p3ToNativeMatrix;
+  v4 = *algn_1EBD0EB70;
   HIDWORD(v3) = 0;
-  v5[0] = v1;
-  v5[1] = v2;
-  v5[2] = v3;
-  v6 = 0u;
-  v7 = 0u;
+  HIDWORD(v4) = 0;
+  v5 = xmmword_1EBD0EB80;
+  HIDWORD(v5) = 0;
+  v7[0] = v3;
+  v7[1] = v4;
+  v7[2] = v5;
   v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   do
   {
-    *(&v6 + v0 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1BCE3AD10, COERCE_FLOAT(v5[v0])), xmmword_1BCE3AD20, *&v5[v0], 1), xmmword_1BCE3AD30, v5[v0], 2);
-    ++v0;
+    *(&v8 + v2 * 16) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_1BCE3AD10, COERCE_FLOAT(v7[v2])), xmmword_1BCE3AD20, *&v7[v2], 1), xmmword_1BCE3AD30, v7[v2], 2);
+    ++v2;
   }
 
-  while (v0 != 3);
-  result = *&v6;
-  DWORD2(sRGBtoNative_sRGBToNative) = DWORD2(v6);
-  *algn_1EBD0EBD8 = DWORD2(v7);
-  *&sRGBtoNative_sRGBToNative = v6;
-  qword_1EBD0EBD0 = v7;
-  DWORD2(xmmword_1EBD0EBE0) = DWORD2(v8);
-  *&xmmword_1EBD0EBE0 = v8;
+  while (v2 != 3);
+  result = *&v8;
+  DWORD2(sRGBtoNative_sRGBToNative) = DWORD2(v8);
+  *algn_1EBD0EBD8 = DWORD2(v9);
+  *&sRGBtoNative_sRGBToNative = v8;
+  qword_1EBD0EBD0 = v9;
+  DWORD2(xmmword_1EBD0EBE0) = DWORD2(v10);
+  *&xmmword_1EBD0EBE0 = v10;
   return result;
 }
 
-float CLKUIConvertSRGBToAPL(float32x4_t a1)
+float CLKUIConvertSRGBToAPL(uint64_t a1, uint64_t a2, float32x4_t a3)
 {
-  v2 = a1;
+  v4 = a3;
   if (sRGBtoNative_onceToken != -1)
   {
     sRGBtoNative_cold_1();
-    v2 = a1;
+    v4 = a3;
   }
 
-  v3 = vtrn2q_s32(sRGBtoNative_sRGBToNative, *&qword_1EBD0EBD0);
-  v3.i32[2] = DWORD1(xmmword_1EBD0EBE0);
-  v4 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(sRGBtoNative_sRGBToNative, xmmword_1EBD0EBE0), *&qword_1EBD0EBD0), v2.f32[0]), v3, *v2.f32, 1), vzip1q_s32(vzip2q_s32(sRGBtoNative_sRGBToNative, xmmword_1EBD0EBE0), vdupq_laneq_s32(*&qword_1EBD0EBD0, 2)), v2, 2);
+  v5 = vtrn2q_s32(sRGBtoNative_sRGBToNative, *&qword_1EBD0EBD0);
+  v5.i32[2] = DWORD1(xmmword_1EBD0EBE0);
+  v6 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(vzip1q_s32(vzip1q_s32(sRGBtoNative_sRGBToNative, xmmword_1EBD0EBE0), *&qword_1EBD0EBD0), v4.f32[0]), v5, *v4.f32, 1), vzip1q_s32(vzip2q_s32(sRGBtoNative_sRGBToNative, xmmword_1EBD0EBE0), vdupq_laneq_s32(*&qword_1EBD0EBD0, 2)), v4, 2);
 
-  return CLKUIConvertNativeToAPL(v4);
+  return CLKUIConvertNativeToAPL(v6);
 }
 
 void sub_1BC9EEE00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -3174,44 +3140,44 @@ double UMFloat4x4MakeRotateZ(float a1)
 
 float UMSlerp(float a1, float a2, float a3, float a4, float a5, float a6, float a7, float a8, float a9)
 {
-  v18 = a9;
+  v10 = a9;
   if (a9 <= 0.0)
   {
     return a1;
   }
 
-  v19 = a5;
+  v11 = a5;
   if (a9 < 1.0)
   {
-    v20 = (((a2 * a6) + (a1 * a5)) + (a3 * a7)) + (a4 * a8);
-    if (v20 < 0.0)
+    v12 = (((a2 * a6) + (a1 * a5)) + (a3 * a7)) + (a4 * a8);
+    if (v12 < 0.0)
     {
-      v19 = -a5;
-      v20 = -v20;
+      v11 = -a5;
+      v12 = -v12;
     }
 
-    if (v20 <= 0.999)
+    if (v12 <= 0.999)
     {
-      v22 = sqrtf(1.0 - (v20 * v20));
-      v25 = atan2f(v22, v20);
-      v26 = 1.0 / v22;
-      v23 = (1.0 - a9) * v25;
-      v21 = (1.0 / v22) * sinf(v23);
-      v18 = v26 * sinf(v25 * a9);
+      v14 = sqrtf(1.0 - (v12 * v12));
+      v17 = atan2f(v14, v12);
+      v18 = 1.0 / v14;
+      v15 = (1.0 - a9) * v17;
+      v13 = (1.0 / v14) * sinf(v15);
+      v10 = v18 * sinf(v17 * a9);
     }
 
     else
     {
-      v21 = 1.0 - a9;
+      v13 = 1.0 - a9;
     }
 
-    return (v19 * v18) + (v21 * a1);
+    return (v11 * v10) + (v13 * a1);
   }
 
-  return v19;
+  return v11;
 }
 
-float32x2_t UMQuaternionMake(int8x16_t a1, int32x4_t a2, __n128 a3, double a4, double a5)
+float32x2_t UMQuaternionMake(int8x16_t a1, int8x16_t a2, __n128 a3, double a4, double a5)
 {
   v5 = ((*a1.i32 + *&a2.i32[1]) + a3.n128_f32[2]) + 1.0;
   if (v5 <= 0.0001)
@@ -3238,7 +3204,7 @@ float32x2_t UMQuaternionMake(int8x16_t a1, int32x4_t a2, __n128 a3, double a4, d
       v6.f32[0] = 0.25 / v15;
       v16 = (*&a1.i32[1] + *a2.i32) * v15;
       v17.i32[0] = vadd_f32(a3.n128_u64[0], *&vextq_s8(a1, a1, 8uLL)).u32[0];
-      v17.i32[1] = vsub_f32(vdup_laneq_s32(a2, 2), *&a3).i32[1];
+      v17.i32[1] = vsub_f32(vdup_laneq_s32(*&a2, 2), *&a3).i32[1];
       _D2 = vmul_n_f32(v17, v15);
     }
 
@@ -3263,7 +3229,7 @@ LABEL_12:
   return vdiv_f32(v6, vdup_lane_s32(_D0, 0));
 }
 
-uint64_t static CurrentObservationsHeaderViewStyle.== infix(_:_:)()
+uint64_t static CurrentObservationsHeaderViewStyle.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
   sub_1BC9F6BBC();
   if (sub_1BCE1DAC0() & 1) != 0 && (sub_1BCE1DAC0() & 1) != 0 && (sub_1BCE1DAC0() & 1) != 0 && (sub_1BCE1DAC0())
@@ -3460,13 +3426,6 @@ uint64_t sub_1BC9F6E84(uint64_t a1)
   return v2 & a1;
 }
 
-uint64_t sub_1BC9F6EE8(uint64_t a1, id *a2)
-{
-  result = sub_1BCE1D260();
-  *a2 = 0;
-  return result;
-}
-
 uint64_t sub_1BC9F6F60(uint64_t a1, id *a2)
 {
   v3 = sub_1BCE1D270();
@@ -3474,31 +3433,33 @@ uint64_t sub_1BC9F6F60(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_1BC9F6FE0()
+uint64_t sub_1BC9F6FE0(uint64_t a1)
 {
-  v0 = sub_1BCE1D280();
-  v1 = MEMORY[0x1BFB2FB90](v0);
+  v1 = sub_1BCE1D280();
+  v2 = MEMORY[0x1BFB2FB90](v1);
 
-  return v1;
+  return v2;
 }
 
-uint64_t sub_1BC9F7018()
+double sub_1BC9F7018(uint64_t a1, uint64_t a2)
 {
   sub_1BCE1D280();
   sub_1BCE1D370();
+
+  return result;
 }
 
-uint64_t sub_1BC9F706C()
+uint64_t sub_1BC9F706C(uint64_t a1, uint64_t a2)
 {
   sub_1BCE1D280();
   sub_1BCE1E100();
   sub_1BCE1D370();
-  v0 = sub_1BCE1E150();
+  v2 = sub_1BCE1E150();
 
-  return v0;
+  return v2;
 }
 
-uint64_t sub_1BC9F7184()
+uint64_t sub_1BC9F7184(uint64_t a1, uint64_t a2)
 {
   sub_1BCE1E100();
   swift_getWitnessTable();
@@ -3558,7 +3519,7 @@ uint64_t sub_1BC9F7324@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1BC9F73AC()
+uint64_t sub_1BC9F73AC(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   swift_getWitnessTable();
 
@@ -3572,31 +3533,30 @@ uint64_t sub_1BC9F7418@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-void sub_1BC9F7440(uint64_t a1@<X8>)
+void sub_1BC9F7440(uint64_t a2@<X8>)
 {
   sub_1BC9F7474();
-  *a1 = v2;
-  *(a1 + 8) = v3 & 1;
+  *a2 = v3;
+  *(a2 + 8) = v4 & 1;
 }
 
-uint64_t sub_1BC9F747C()
+void sub_1BC9F747C()
 {
-  v1 = OUTLINED_FUNCTION_1_3();
-  result = GEOLocationCoordinate2DMake(v1, v2);
-  *v0 = result;
-  return result;
+  OUTLINED_FUNCTION_1_3();
+  GEOLocationCoordinate2DMake();
+  *v0 = v1;
 }
 
 uint64_t sub_1BC9F74A4(uint64_t a1)
 {
-  v2 = sub_1BC9F75F0(&qword_1EDA1C110, type metadata accessor for Key);
-  v3 = sub_1BC9F75F0(&qword_1EBD07718, type metadata accessor for Key);
+  v2 = sub_1BC9F75F0(&qword_1EDA1C110, type metadata accessor for Key, &unk_1BCE3BB14);
+  v3 = sub_1BC9F75F0(&qword_1EBD07718, type metadata accessor for Key, &unk_1BCE3B7A4);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1BC9F75F0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1BC9F75F0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3618,36 +3578,35 @@ void *sub_1BC9F7680@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1BC9F7840(uint64_t a1)
 {
-  v2 = sub_1BC9F75F0(&qword_1EBD07768, type metadata accessor for Option);
-  v3 = sub_1BC9F75F0(&unk_1EBD07770, type metadata accessor for Option);
+  v2 = sub_1BC9F75F0(&qword_1EBD07768, type metadata accessor for Option, &unk_1BCE3BE58);
+  v3 = sub_1BC9F75F0(&unk_1EBD07770, type metadata accessor for Option, &unk_1BCE3BC54);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1BC9F78FC@<X0>(uint64_t *a1@<X8>)
+void sub_1BC9F78FC(uint64_t *a2@<X8>)
 {
-  v2 = sub_1BCE1D240();
+  v3 = sub_1BCE1D240();
 
-  *a1 = v2;
-  return result;
+  *a2 = v3;
 }
 
 uint64_t sub_1BC9F7944(uint64_t a1)
 {
-  v2 = sub_1BC9F75F0(&qword_1EBD07758, type metadata accessor for Origin);
-  v3 = sub_1BC9F75F0(&qword_1EBD07760, type metadata accessor for Origin);
+  v2 = sub_1BC9F75F0(&qword_1EBD07758, type metadata accessor for Origin, &unk_1BCE3BDC8);
+  v3 = sub_1BC9F75F0(&qword_1EBD07760, type metadata accessor for Origin, &unk_1BCE3BD68);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t sub_1BC9F7A00()
+uint64_t sub_1BC9F7A00(uint64_t a1)
 {
   sub_1BCE1D280();
-  v0 = sub_1BCE1D240();
+  v1 = sub_1BCE1D240();
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_1BC9F7A6C(uint64_t a1, int a2)
@@ -3690,7 +3649,7 @@ uint64_t sub_1BC9F7A8C(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t type metadata accessor for ComplicationHourlyGaugeViewModel()
+uint64_t type metadata accessor for ComplicationHourlyGaugeViewModel(uint64_t a1)
 {
   result = qword_1EBD07840;
   if (!qword_1EBD07840)
@@ -3701,19 +3660,19 @@ uint64_t type metadata accessor for ComplicationHourlyGaugeViewModel()
   return result;
 }
 
-void sub_1BC9F7D18()
+void sub_1BC9F7D18(uint64_t a1)
 {
   sub_1BC9F7E14(319, &qword_1EDA1C200, MEMORY[0x1E69E63B0], MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1BC9F7E14(319, &qword_1EBD07850, MEMORY[0x1E6981AA8], MEMORY[0x1E69E62F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1BCE19060();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1BCE19470();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -3967,7 +3926,7 @@ void sub_1BC9F7E64(uint64_t a1@<X8>)
 
 __n128 sub_1BC9F857C()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C0B0;
   *(v0 + 48) = xmmword_1BCE3C0C0;
@@ -4646,7 +4605,7 @@ __n128 sub_1BC9F857C()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -4891,7 +4850,7 @@ double sub_1BC9F9310@<D0>(uint64_t a1@<X8>)
 
 __n128 sub_1BC9F9AA0()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -6397,7 +6356,7 @@ __n128 sub_1BC9F9AA0()
 
 double sub_1BC9FBAA0()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -7927,9 +7886,9 @@ __n128 WeatherConditionConfigurationModel.init(condition:windSpeed:cloudCover:cl
   sub_1BCE199D0();
   OUTLINED_FUNCTION_0_3();
   (*(v48 + 32))(v36, v37);
-  v49 = type metadata accessor for WeatherConditionConfigurationModel();
+  v49 = type metadata accessor for WeatherConditionConfigurationModel(0);
   v50 = v49[5];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07860);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07860, &unk_1BCE3D7E0);
   OUTLINED_FUNCTION_0_3();
   (*(v51 + 32))(v36 + v50, v38);
   *(v36 + v49[6]) = v39;
@@ -7947,7 +7906,7 @@ __n128 WeatherConditionConfigurationModel.init(condition:windSpeed:cloudCover:cl
   sub_1BCE19470();
   OUTLINED_FUNCTION_0_3();
   (*(v56 + 32))(v36 + v55, v62);
-  sub_1BC9FE308(a31, v36 + v49[13], &qword_1EBD07870);
+  sub_1BC9FE308(a31, v36 + v49[13], &qword_1EBD07870, &unk_1BCE3D7F0);
   *(v36 + v49[14]) = v61;
   v57 = v49[15];
   sub_1BCE1B7E0();
@@ -7962,11 +7921,11 @@ __n128 WeatherConditionConfigurationModel.init(condition:windSpeed:cloudCover:cl
   return result;
 }
 
-uint64_t sub_1BC9FE308(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_1BC9FE308(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
   OUTLINED_FUNCTION_0_3();
-  (*(v5 + 32))(a2, a1);
+  (*(v6 + 32))(a2, a1);
   return a2;
 }
 
@@ -8198,7 +8157,7 @@ __n128 sub_1BC9FE38C@<Q0>(uint64_t a1@<X8>)
 
 __n128 sub_1BC9FEA84()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;
@@ -9707,7 +9666,7 @@ __n128 sub_1BC9FEA84()
 
 double sub_1BCA00A70()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07858, &qword_1BCE6CF50);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1BCE3C820;
   *(v0 + 32) = 0xC056800000000000;

@@ -58,10 +58,9 @@
     swift_getKeyPath();
     swift_getKeyPath();
     v5 = static Published.subscript.modify();
-    v7 = *v6;
-    *v6 = &_swiftEmptyArrayStorage;
+    *v6 = _swiftEmptyArrayStorage;
 
-    v5(&v8, 0);
+    v5(&v7, 0);
 
     sub_10002D910(0, 0);
   }
@@ -82,26 +81,24 @@
 {
   v3 = type metadata accessor for Notification();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_100032A88(v7);
-  (*(v4 + 8))(v7, v3);
+  sub_100032A88(v6, v7);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)handleAudioSessionResetWithNotification:(id)notification
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10002FB3C(v8);
+  sub_10002FB3C(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)addPlaceholder
@@ -114,17 +111,16 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   connectedCopy = connected;
   selfCopy = self;
   static os_log_type_t.default.getter();
-  v13 = AXLogLiveTranscription();
-  if (v13)
+  v12 = AXLogLiveTranscription();
+  if (v12)
   {
-    v14 = v13;
+    v13 = v12;
     os_log(_:dso:log:_:_:)();
 
     if (qword_100062788 != -1)
@@ -132,16 +128,16 @@
       swift_once();
     }
 
-    v15 = static AXLTSettingsManager.shared;
-    v16 = OBJC_IVAR___AXLTSettingsManager_inCallOn;
+    v14 = static AXLTSettingsManager.shared;
+    v15 = OBJC_IVAR___AXLTSettingsManager_inCallOn;
     swift_beginAccess();
-    if (*(v15 + v16) == 1)
+    if (*(v14 + v15) == 1)
     {
       AXLTCaptionsProvider.stopTranscribing()();
       AXLTCaptionsProvider.startTranscribing()();
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
   }
 
   else
@@ -154,17 +150,16 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   endedCopy = ended;
   selfCopy = self;
   static os_log_type_t.default.getter();
-  v13 = AXLogLiveTranscription();
-  if (v13)
+  v12 = AXLogLiveTranscription();
+  if (v12)
   {
-    v14 = v13;
+    v13 = v12;
     os_log(_:dso:log:_:_:)();
 
     if (*(&selfCopy->super.isa + OBJC_IVAR___AXLTCaptionsProvider_activePid) == -2)
@@ -174,7 +169,7 @@
       AXLTCaptionsProvider.startTranscribing()();
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
   }
 
   else

@@ -435,18 +435,8 @@ LABEL_12:
 
         categoriesLocalizationDict = [(FinHealthTextSimilarityFeatures *)self categoriesLocalizationDict];
         v19 = 1.0 - (i / v14);
-        if (!categoriesLocalizationDict)
+        if (!categoriesLocalizationDict || (-[FinHealthTextSimilarityFeatures categoriesLocalizationDict](self, "categoriesLocalizationDict"), v20 = objc_claimAutoreleasedReturnValue(), [v20 valueForKey:v17], v21 = objc_claimAutoreleasedReturnValue(), v22 = v21 == 0, v21, v20, categoriesLocalizationDict, v22))
         {
-          goto LABEL_9;
-        }
-
-        categoriesLocalizationDict2 = [(FinHealthTextSimilarityFeatures *)self categoriesLocalizationDict];
-        v21 = [categoriesLocalizationDict2 valueForKey:v17];
-        v22 = v21 == 0;
-
-        if (v22)
-        {
-LABEL_9:
           v24 = [(FinHealthTextSimilarityFeatures *)self _tokenize:v15 shouldLemmatize:0];
           v25 = [v24 count];
           v26 = v46[2];
@@ -467,8 +457,8 @@ LABEL_9:
 
         else
         {
-          categoriesLocalizationDict3 = [(FinHealthTextSimilarityFeatures *)self categoriesLocalizationDict];
-          v24 = [categoriesLocalizationDict3 valueForKey:v17];
+          categoriesLocalizationDict2 = [(FinHealthTextSimilarityFeatures *)self categoriesLocalizationDict];
+          v24 = [categoriesLocalizationDict2 valueForKey:v17];
 
           (v46[2])(v46, v24, v19);
           (v45[2])(v45, v24, v19);

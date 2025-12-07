@@ -126,7 +126,7 @@ LABEL_20:
           }
         }
 
-        sub_10003AAD8(&v27, v23);
+        sub_10003AAD8(&v27, &v23);
         if (v24[640] == 1)
         {
           sub_10003F650(v24);
@@ -170,7 +170,7 @@ LABEL_20:
   }
 
   v8 = v7;
-  [(DIEncryptionFrontend *)selfCopy getSerializerWithAuthTable:v7];
+  objc_msgSend_getSerializerWithAuthTable_(selfCopy);
   if (v29)
   {
     v33.i32[0] = 8;
@@ -234,7 +234,7 @@ LABEL_11:
             }
           }
 
-          sub_10003AAD8(&v50, v31);
+          sub_10003AAD8(&v50, &v31);
           if (v32[640] == 1)
           {
             sub_10003F650(v32);
@@ -481,33 +481,45 @@ LABEL_32:
 {
   stdinCopy = stdin;
   v9 = *__error();
-  if (sub_1000E95F0())
+  v10 = sub_1000E95F0();
+  if (v10)
   {
-    v10 = sub_1000E957C();
-    os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v33 = 70;
-    v34 = 2080;
-    v35 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-    v11 = _os_log_send_and_compose_impl();
-
-    if (v11)
+    v39 = 0;
+    v12 = sub_1000E957C(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v11);
-      free(v11);
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    *buf = 68157954;
+    v41 = 70;
+    v42 = 2080;
+    v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+    LODWORD(v38) = 18;
+    v14 = _os_log_send_and_compose_impl(v13, &v39, 0, 0, &_mh_execute_header, v12, 0, "%.*s: Asking for passphrase using readpassphrase", buf, v38);
+
+    if (v14)
+    {
+      fprintf(__stderrp, "%s\n", v14);
+      free(v14);
     }
   }
 
   else
   {
-    v12 = sub_1000E957C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000E957C(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v33 = 70;
-      v34 = 2080;
-      v35 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
+      v41 = 70;
+      v42 = 2080;
+      v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Asking for passphrase using readpassphrase", buf, 0x12u);
     }
   }
 
@@ -515,53 +527,53 @@ LABEL_32:
   if (usage)
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptCreate];
-    v14 = cLIPassphrasePromptCreate;
+    v17 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
   else
   {
     cLIPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIPassphrasePromptUnlock];
-    v17 = cLIPassphrasePromptCreate;
+    v20 = cLIPassphrasePromptCreate;
     uTF8String = [cLIPassphrasePromptCreate UTF8String];
     if (stdinCopy)
     {
-      v16 = 32;
+      v19 = 32;
     }
 
     else
     {
-      v16 = 2;
+      v19 = 2;
     }
   }
 
-  v18 = readpassphrase(uTF8String, __s1, 0x102uLL, v16);
+  v21 = readpassphrase(uTF8String, __s1, 0x102uLL, v19);
 
-  if (v18)
+  if (v21)
   {
     if (usage)
     {
       if (!stdinCopy)
       {
         cLIVerifyPassphrasePromptCreate = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-        v20 = cLIVerifyPassphrasePromptCreate == 0;
+        v23 = cLIVerifyPassphrasePromptCreate == 0;
 
-        if (!v20)
+        if (!v23)
         {
           cLIVerifyPassphrasePromptCreate2 = [(DIEncryptionFrontend *)self CLIVerifyPassphrasePromptCreate];
-          v22 = cLIVerifyPassphrasePromptCreate2;
-          v23 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
+          v25 = cLIVerifyPassphrasePromptCreate2;
+          v26 = readpassphrase([cLIVerifyPassphrasePromptCreate2 UTF8String], buf, 0x102uLL, 2);
 
-          if (!v23)
+          if (!v26)
           {
             return [DIError failWithPOSIXCode:5 verboseInfo:@"Failed to read passphrase" error:error];
           }
@@ -594,43 +606,55 @@ LABEL_32:
       return [DIError failWithPOSIXCode:25 verboseInfo:@"Failed to read passphrase from stdin" error:error];
     }
 
-    v25 = *__error();
-    if (sub_1000E95F0())
+    v28 = *__error();
+    v29 = sub_1000E95F0();
+    if (v29)
     {
-      v26 = sub_1000E957C();
-      os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v33 = 70;
-      v34 = 2080;
-      v35 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-      v27 = _os_log_send_and_compose_impl();
-
-      if (v27)
+      v39 = 0;
+      v31 = sub_1000E957C(v29, v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v27);
-        free(v27);
+        v32 = 3;
+      }
+
+      else
+      {
+        v32 = 2;
+      }
+
+      *buf = 68157954;
+      v41 = 70;
+      v42 = 2080;
+      v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+      LODWORD(v38) = 18;
+      v33 = _os_log_send_and_compose_impl(v32, &v39, 0, 0, &_mh_execute_header, v31, 0, "%.*s: Failed to read passphrase from TTY", buf, v38);
+
+      if (v33)
+      {
+        fprintf(__stderrp, "%s\n", v33);
+        free(v33);
       }
     }
 
     else
     {
-      v29 = sub_1000E957C();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v35 = sub_1000E957C(v29, v30);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v33 = 70;
-        v34 = 2080;
-        v35 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
+        v41 = 70;
+        v42 = 2080;
+        v43 = "[DIEncryptionChpass consoleAskForPassphraseWithUseStdin:usage:error:]";
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%.*s: Failed to read passphrase from TTY", buf, 0x12u);
       }
     }
 
-    *__error() = v25;
-    v30 = [NSError errorWithDomain:NSPOSIXErrorDomain code:25 userInfo:0];
-    v28 = [DIError failWithInError:v30 outError:error];
+    *__error() = v28;
+    v36 = [NSError errorWithDomain:NSPOSIXErrorDomain code:25 userInfo:0];
+    v34 = [DIError failWithInError:v36 outError:error];
   }
 
-  return v28;
+  return v34;
 }
 
 - (void)setPassEntryToChange:(void *)change

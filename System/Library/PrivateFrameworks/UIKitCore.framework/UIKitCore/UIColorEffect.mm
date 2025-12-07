@@ -1261,7 +1261,7 @@ id __79__UIColorEffect_colorEffectMonochromeTint_blendingAmount_brightnessAdjust
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -1291,13 +1291,13 @@ id __79__UIColorEffect_colorEffectMonochromeTint_blendingAmount_brightnessAdjust
 
         if (v11)
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           goto LABEL_32;
         }
 
-        v12 = [(UIColor *)v8 isEqual:v9];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_33;
         }
@@ -1313,15 +1313,15 @@ id __79__UIColorEffect_colorEffectMonochromeTint_blendingAmount_brightnessAdjust
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v8 || !v14)
         {
           goto LABEL_32;
         }
 
-        v12 = [(UIColor *)v8 isEqual:v14];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_33;
         }
@@ -1342,27 +1342,27 @@ LABEL_27:
         v10 = v19;
         if (v8 == v19)
         {
-          LOBYTE(v12) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v12) = 0;
+          LOBYTE(isEqual) = 0;
           if (v8 && v19)
           {
-            LOBYTE(v12) = [(UIColor *)v8 isEqual:v19];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v8);
           }
         }
 
         goto LABEL_32;
       }
 
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqual) = 0;
       if (v8 && v16)
       {
-        v12 = [(UIColor *)v8 isEqual:v16];
+        isEqual = objc_msgSend_isEqual_(v8);
 
-        if (!v12)
+        if (!isEqual)
         {
           goto LABEL_33;
         }
@@ -1376,12 +1376,12 @@ LABEL_33:
       goto LABEL_34;
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_34:
 
-  return v12;
+  return isEqual;
 }
 
 - (id)_filterEntryForTraitCollection:(id)collection

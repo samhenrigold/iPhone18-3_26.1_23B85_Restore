@@ -116,7 +116,7 @@ void __46__FCTagsFetchOperation_completeFetchOperation__block_invoke(uint64_t a1
 
 - (FCTagsFetchOperation)initWithTagIDs:(id)ds tagRecordSource:(id)source assetManager:(id)manager configuration:(id)configuration delegate:(id)delegate
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   sourceCopy = source;
   managerCopy = manager;
@@ -124,15 +124,15 @@ void __46__FCTagsFetchOperation_completeFetchOperation__block_invoke(uint64_t a1
   delegateCopy = delegate;
   if (!dsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagIDs"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagIDs"];
     *buf = 136315906;
-    v29 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
-    v30 = 2080;
-    v31 = "FCTagsFetchOperation.m";
-    v32 = 1024;
-    v33 = 45;
-    v34 = 2114;
-    v35 = v24;
+    v28 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
+    v29 = 2080;
+    v30 = "FCTagsFetchOperation.m";
+    v31 = 1024;
+    v32 = 45;
+    v33 = 2114;
+    v34 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (managerCopy)
@@ -148,36 +148,36 @@ void __46__FCTagsFetchOperation_completeFetchOperation__block_invoke(uint64_t a1
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
     *buf = 136315906;
-    v29 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
-    v30 = 2080;
-    v31 = "FCTagsFetchOperation.m";
-    v32 = 1024;
-    v33 = 46;
-    v34 = 2114;
-    v35 = v25;
+    v28 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
+    v29 = 2080;
+    v30 = "FCTagsFetchOperation.m";
+    v31 = 1024;
+    v32 = 46;
+    v33 = 2114;
+    v34 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!sourceCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagRecordSource"];
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "tagRecordSource"];
     *buf = 136315906;
-    v29 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
-    v30 = 2080;
-    v31 = "FCTagsFetchOperation.m";
-    v32 = 1024;
-    v33 = 47;
-    v34 = 2114;
-    v35 = v26;
+    v28 = "[FCTagsFetchOperation initWithTagIDs:tagRecordSource:assetManager:configuration:delegate:]";
+    v29 = 2080;
+    v30 = "FCTagsFetchOperation.m";
+    v31 = 1024;
+    v32 = 47;
+    v33 = 2114;
+    v34 = v25;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v27.receiver = self;
-  v27.super_class = FCTagsFetchOperation;
-  v17 = [(FCMultiStepFetchOperation *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = FCTagsFetchOperation;
+  v17 = [(FCMultiStepFetchOperation *)&v26 init];
   if (v17)
   {
     v18 = [dsCopy copy];
@@ -196,7 +196,6 @@ LABEL_6:
     [(FCMultiStepFetchOperation *)v17 addFetchStep:sel_fetchChildTagRecordsWithCompletion_];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -270,15 +269,15 @@ void __54__FCTagsFetchOperation_fetchTagRecordsWithCompletion___block_invoke(uin
 
 - (id)fetchParentTagRecordsWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   array = [MEMORY[0x1E695DF70] array];
   if ([(FCTagsFetchOperation *)self includeParents])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     if (self)
     {
       heldTagRecords = self->_heldTagRecords;
@@ -290,28 +289,28 @@ void __54__FCTagsFetchOperation_fetchTagRecordsWithCompletion___block_invoke(uin
     }
 
     allRecords = [(FCHeldRecords *)heldTagRecords allRecords];
-    v8 = [allRecords countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [allRecords countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(allRecords);
           }
 
-          parentID = [*(*(&v20 + 1) + 8 * i) parentID];
+          parentID = [*(*(&v19 + 1) + 8 * i) parentID];
           if (parentID)
           {
             [array addObject:parentID];
           }
         }
 
-        v9 = [allRecords countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [allRecords countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -332,13 +331,13 @@ void __54__FCTagsFetchOperation_fetchTagRecordsWithCompletion___block_invoke(uin
 
     v14 = [(FCRecordSource *)tagRecordSource fetchOperationForRecordsWithIDs:array];
     [v14 setCachePolicy:{-[FCFetchOperation cachePolicy](self, "cachePolicy")}];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invoke;
-    v18[3] = &unk_1E7C37B98;
-    v18[4] = self;
-    v19 = completionCopy;
-    [v14 setFetchCompletionBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invoke;
+    v17[3] = &unk_1E7C37B98;
+    v17[4] = self;
+    v18 = completionCopy;
+    [v14 setFetchCompletionBlock:v17];
     v15 = v14;
   }
 
@@ -347,8 +346,6 @@ void __54__FCTagsFetchOperation_fetchTagRecordsWithCompletion___block_invoke(uin
     (*(completionCopy + 2))(completionCopy, 0);
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -368,15 +365,15 @@ void __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invo
 
 - (id)fetchChildTagRecordsWithCompletion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   array = [MEMORY[0x1E695DF70] array];
   if ([(FCTagsFetchOperation *)self includeChildren])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     if (self)
     {
       heldTagRecords = self->_heldTagRecords;
@@ -388,25 +385,25 @@ void __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invo
     }
 
     allRecords = [(FCHeldRecords *)heldTagRecords allRecords];
-    v8 = [allRecords countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [allRecords countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(allRecords);
           }
 
-          channelSectionIDs = [*(*(&v20 + 1) + 8 * i) channelSectionIDs];
+          channelSectionIDs = [*(*(&v19 + 1) + 8 * i) channelSectionIDs];
           [array addObjectsFromArray:channelSectionIDs];
         }
 
-        v9 = [allRecords countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [allRecords countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -427,13 +424,13 @@ void __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invo
 
     v14 = [(FCRecordSource *)tagRecordSource fetchOperationForRecordsWithIDs:array];
     [v14 setCachePolicy:{-[FCFetchOperation cachePolicy](self, "cachePolicy")}];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __59__FCTagsFetchOperation_fetchChildTagRecordsWithCompletion___block_invoke;
-    v18[3] = &unk_1E7C37B98;
-    v18[4] = self;
-    v19 = completionCopy;
-    [v14 setFetchCompletionBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __59__FCTagsFetchOperation_fetchChildTagRecordsWithCompletion___block_invoke;
+    v17[3] = &unk_1E7C37B98;
+    v17[4] = self;
+    v18 = completionCopy;
+    [v14 setFetchCompletionBlock:v17];
     v15 = v14;
   }
 
@@ -442,8 +439,6 @@ void __60__FCTagsFetchOperation_fetchParentTagRecordsWithCompletion___block_invo
     (*(completionCopy + 2))(completionCopy, 0);
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

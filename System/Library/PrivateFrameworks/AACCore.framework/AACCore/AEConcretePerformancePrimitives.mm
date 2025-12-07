@@ -26,7 +26,7 @@
 
 - (id)beginIntervalWithCategory:(id)category name:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (self)
   {
@@ -44,13 +44,12 @@
   v14 = v13;
   if ((v12 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v18 = 136446210;
+    v17 = 136446210;
     uTF8String3 = [nameCopy UTF8String];
-    _os_signpost_emit_with_name_impl(&dword_23C1AA000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "AAC Signposts", "%{public}s", &v18, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_23C1AA000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "AAC Signposts", "%{public}s", &v17, 0xCu);
   }
 
   v15 = [[AEConcretePerformancePrimitivesInFlightInterval alloc] initWithName:nameCopy signpostID:v12 log:v14];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

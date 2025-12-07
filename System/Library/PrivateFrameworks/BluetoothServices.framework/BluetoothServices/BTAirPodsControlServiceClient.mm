@@ -59,21 +59,24 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __43__BTAirPodsControlServiceClient_invalidate__block_invoke(uint64_t result)
+void *__43__BTAirPodsControlServiceClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 49) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 49) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 49) = 1;
-    if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
+    v5 = result;
+    *(v4 + 49) = 1;
+    if (gLogCategory_BTAirPodsControlServiceClient <= 30)
     {
-      __43__BTAirPodsControlServiceClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_BTAirPodsControlServiceClient != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __43__BTAirPodsControlServiceClient_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v4 = *(v3 + 32);
+    v6 = v5[4];
 
-    return [v4 _invalidate];
+    return [v6 _invalidate];
   }
 
   return result;
@@ -81,8 +84,8 @@ uint64_t __43__BTAirPodsControlServiceClient_invalidate__block_invoke(uint64_t r
 
 - (void)_invalidate
 {
-  v3 = BTErrorF();
-  [(BTAirPodsControlServiceClient *)self _abortRequestsWithError:v3];
+  v9 = BTErrorF(4294896148, "Invalidated", v2, v3, v4, v5, v6, v7, v16);
+  [(BTAirPodsControlServiceClient *)self _abortRequestsWithError:v9];
 
   [(CBCentralManager *)self->_centralManager setDelegate:0];
   centralManager = self->_centralManager;
@@ -95,9 +98,12 @@ uint64_t __43__BTAirPodsControlServiceClient_invalidate__block_invoke(uint64_t r
   requestArray = self->_requestArray;
   self->_requestArray = 0;
 
-  if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_BTAirPodsControlServiceClient <= 30)
   {
-    [BTAirPodsControlServiceClient _invalidate];
+    if (gLogCategory_BTAirPodsControlServiceClient != -1 || (v13 = _LogCategory_Initialize(), v13))
+    {
+      [(BTAirPodsControlServiceClient *)v13 _invalidate];
+    }
   }
 }
 
@@ -115,15 +121,19 @@ uint64_t __43__BTAirPodsControlServiceClient_invalidate__block_invoke(uint64_t r
   dispatch_async(dispatchQueue, v7);
 }
 
-void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke(uint64_t a1)
+void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = (a1 + 32);
+  v9 = (a1 + 32);
   if (*(*(a1 + 32) + 49) == 1)
   {
-    v6 = BTErrorF();
-    if (gLogCategory_BTAirPodsControlServiceClient <= 90 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
+    v10 = BTErrorF(4294896148, "Request after invalidate", a3, a4, a5, a6, a7, a8, v15);
+    v16 = v10;
+    if (gLogCategory_BTAirPodsControlServiceClient <= 90)
     {
-      __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_2(v2);
+      if (gLogCategory_BTAirPodsControlServiceClient != -1 || (v11 = _LogCategory_Initialize(), v10 = v16, v11))
+      {
+        __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_2(v9, v10);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -131,27 +141,27 @@ void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___bl
 
   else
   {
-    v6 = objc_alloc_init(BTAirPodsControlRequest);
-    [(BTAirPodsControlRequest *)v6 setClient:*(a1 + 32)];
-    [(BTAirPodsControlRequest *)v6 setGetHandler:*(a1 + 40)];
-    [*(a1 + 32) _setupTimeoutForRequest:v6];
-    v3 = *(*(a1 + 32) + 72);
-    if (!v3)
+    v16 = objc_alloc_init(BTAirPodsControlRequest);
+    [(BTAirPodsControlRequest *)v16 setClient:*(a1 + 32)];
+    [(BTAirPodsControlRequest *)v16 setGetHandler:*(a1 + 40)];
+    [*(a1 + 32) _setupTimeoutForRequest:v16];
+    v12 = *(*(a1 + 32) + 72);
+    if (!v12)
     {
-      v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v5 = *(*v2 + 72);
-      *(*v2 + 72) = v4;
+      v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v14 = *(*v9 + 72);
+      *(*v9 + 72) = v13;
 
-      v3 = *(*v2 + 72);
+      v12 = *(*v9 + 72);
     }
 
-    [v3 addObject:v6];
+    [v12 addObject:v16];
     if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
-      __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_1(v2);
+      __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_1(v9);
     }
 
-    [*v2 _run];
+    [*v9 _run];
   }
 }
 
@@ -170,15 +180,15 @@ void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___bl
   dispatch_async(dispatchQueue, block);
 }
 
-void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke(uint64_t a1)
+void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = (a1 + 32);
+  v9 = (a1 + 32);
   if (*(*(a1 + 32) + 49) == 1)
   {
-    v6 = BTErrorF();
+    v14 = BTErrorF(4294896148, "Request after invalidate", a3, a4, a5, a6, a7, a8, v13);
     if (gLogCategory_BTAirPodsControlServiceClient <= 90 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
-      __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_2(v2, a1);
+      __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_2(v9, a1, v14);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -186,28 +196,28 @@ void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block
 
   else
   {
-    v6 = objc_alloc_init(BTAirPodsControlRequest);
-    [(BTAirPodsControlRequest *)v6 setClient:*(a1 + 32)];
-    [(BTAirPodsControlRequest *)v6 setEnabled:*(a1 + 48)];
-    [(BTAirPodsControlRequest *)v6 setSetHandler:*(a1 + 40)];
-    [*(a1 + 32) _setupTimeoutForRequest:v6];
-    v3 = *(*(a1 + 32) + 72);
-    if (!v3)
+    v14 = objc_alloc_init(BTAirPodsControlRequest);
+    [(BTAirPodsControlRequest *)v14 setClient:*(a1 + 32)];
+    [(BTAirPodsControlRequest *)v14 setEnabled:*(a1 + 48)];
+    [(BTAirPodsControlRequest *)v14 setSetHandler:*(a1 + 40)];
+    [*(a1 + 32) _setupTimeoutForRequest:v14];
+    v10 = *(*(a1 + 32) + 72);
+    if (!v10)
     {
-      v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v5 = *(*v2 + 72);
-      *(*v2 + 72) = v4;
+      v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v12 = *(*v9 + 72);
+      *(*v9 + 72) = v11;
 
-      v3 = *(*v2 + 72);
+      v10 = *(*v9 + 72);
     }
 
-    [v3 addObject:v6];
+    [v10 addObject:v14];
     if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
-      __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_1(v2, (a1 + 48));
+      __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_1(v9, (a1 + 48));
     }
 
-    [*v2 _run];
+    [*v9 _run];
   }
 }
 
@@ -292,35 +302,44 @@ LABEL_5:
 {
   requestCopy = request;
   errorCopy = error;
-  [(BTAirPodsControlRequest *)requestCopy getHandler];
+  getHandler = [(BTAirPodsControlRequest *)requestCopy getHandler];
+  if (getHandler)
+  {
+    v8 = "GetSilentMode";
+  }
+
+  else
+  {
+    v8 = "SetSilentMode";
+  }
 
   if (errorCopy)
   {
     if (gLogCategory_BTAirPodsControlServiceClient <= 90 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
-      [BTAirPodsControlServiceClient _completeRequest:error:];
+      [BTAirPodsControlServiceClient _completeRequest:errorCopy error:v8];
     }
   }
 
   else if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
   {
-    [BTAirPodsControlServiceClient _completeRequest:error:];
+    [BTAirPodsControlServiceClient _completeRequest:v8 error:?];
   }
 
   timeoutTimer = [(BTAirPodsControlRequest *)requestCopy timeoutTimer];
-  v8 = timeoutTimer;
+  v10 = timeoutTimer;
   if (timeoutTimer)
   {
     dispatch_source_cancel(timeoutTimer);
     [(BTAirPodsControlRequest *)requestCopy setTimeoutTimer:0];
   }
 
-  getHandler = [(BTAirPodsControlRequest *)requestCopy getHandler];
+  getHandler2 = [(BTAirPodsControlRequest *)requestCopy getHandler];
 
-  if (getHandler)
+  if (getHandler2)
   {
-    getHandler2 = [(BTAirPodsControlRequest *)requestCopy getHandler];
-    (getHandler2)[2](getHandler2, [(BTAirPodsControlRequest *)requestCopy enabled], errorCopy);
+    getHandler3 = [(BTAirPodsControlRequest *)requestCopy getHandler];
+    (getHandler3)[2](getHandler3, [(BTAirPodsControlRequest *)requestCopy enabled], errorCopy);
   }
 
   else
@@ -329,14 +348,14 @@ LABEL_5:
 
     if (!setHandler)
     {
-      goto LABEL_16;
+      goto LABEL_19;
     }
 
-    getHandler2 = [(BTAirPodsControlRequest *)requestCopy setHandler];
-    (getHandler2[2])(getHandler2, errorCopy);
+    getHandler3 = [(BTAirPodsControlRequest *)requestCopy setHandler];
+    (getHandler3[2])(getHandler3, errorCopy);
   }
 
-LABEL_16:
+LABEL_19:
   [(BTAirPodsControlRequest *)requestCopy setClient:0];
   [(BTAirPodsControlRequest *)requestCopy setGetHandler:0];
   [(BTAirPodsControlRequest *)requestCopy setSetHandler:0];
@@ -358,7 +377,7 @@ LABEL_16:
   {
     if (gLogCategory_BTAirPodsControlServiceClient != -1 || (v5 = _LogCategory_Initialize(), errorCopy = v6, v5))
     {
-      [BTAirPodsControlServiceClient _reportError:];
+      [BTAirPodsControlServiceClient _reportError:errorCopy];
       errorCopy = v6;
     }
   }
@@ -405,8 +424,8 @@ void __57__BTAirPodsControlServiceClient__setupTimeoutForRequest___block_invoke(
     v6 = a1 + 40;
     v4 = *(a1 + 40);
     v5 = *(v6 + 8);
-    v7 = BTErrorF();
-    [v5 _completeRequest:v4 error:v7];
+    v14 = BTErrorF(4294960574, "Timed out", v7, v8, v9, v10, v11, v12, v13);
+    [v5 _completeRequest:v4 error:v14];
   }
 }
 
@@ -514,83 +533,82 @@ LABEL_26:
 
 - (BOOL)_runInit
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   p_centralManager = &self->_centralManager;
   v4 = self->_centralManager;
   if (!v4)
   {
     v5 = objc_alloc(MEMORY[0x277CBDFF8]);
     dispatchQueue = self->_dispatchQueue;
-    v17 = *MEMORY[0x277CBDD80];
-    v18[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v35 = *MEMORY[0x277CBDD80];
+    v36[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v4 = [v5 initWithDelegate:self queue:dispatchQueue options:v7];
 
     if (!v4)
     {
-      v4 = BTErrorF();
+      v4 = BTErrorF(4294960596, "Create CBCentralManager failed", v8, v9, v10, v11, v12, v13, v34);
       [(BTAirPodsControlServiceClient *)self _reportError:v4];
-      v12 = 0;
+      v24 = 0;
       goto LABEL_14;
     }
 
     objc_storeStrong(p_centralManager, v4);
   }
 
-  v8 = self->_airpodsCaseControlServiceUUID;
-  if (v8)
+  v14 = self->_airpodsCaseControlServiceUUID;
+  if (v14)
   {
     goto LABEL_7;
   }
 
-  v9 = [MEMORY[0x277CBE0A0] UUIDWithString:@"2EE26CD4-C04E-41CE-905A-B4054F5D1770"];
-  if (v9)
+  v15 = [MEMORY[0x277CBE0A0] UUIDWithString:@"2EE26CD4-C04E-41CE-905A-B4054F5D1770"];
+  if (v15)
   {
-    v8 = v9;
-    objc_storeStrong(&self->_airpodsCaseControlServiceUUID, v9);
+    v14 = v15;
+    objc_storeStrong(&self->_airpodsCaseControlServiceUUID, v15);
 LABEL_7:
-    v10 = self->_airpodsCaseControlCharacteristicUUID;
-    if (v10)
+    v22 = self->_airpodsCaseControlCharacteristicUUID;
+    if (v22)
     {
-      v11 = v10;
-      v12 = 1;
+      v23 = v22;
+      v24 = 1;
     }
 
     else
     {
-      v13 = [MEMORY[0x277CBE0A0] UUIDWithString:@"71060001-413A-41EA-AF86-8CECFA21D057"];
-      v12 = v13 != 0;
-      if (v13)
+      v25 = [MEMORY[0x277CBE0A0] UUIDWithString:@"71060001-413A-41EA-AF86-8CECFA21D057"];
+      v24 = v25 != 0;
+      if (v25)
       {
-        v11 = v13;
+        v23 = v25;
         airpodsCaseControlCharacteristicUUID = self->_airpodsCaseControlCharacteristicUUID;
-        self->_airpodsCaseControlCharacteristicUUID = v11;
+        self->_airpodsCaseControlCharacteristicUUID = v23;
       }
 
       else
       {
-        airpodsCaseControlCharacteristicUUID = BTErrorF();
-        [(BTAirPodsControlServiceClient *)self _reportError:airpodsCaseControlCharacteristicUUID, @"71060001-413A-41EA-AF86-8CECFA21D057"];
-        v11 = 0;
+        airpodsCaseControlCharacteristicUUID = BTErrorF(4294960591, "Create characteristic UUID failed: %@", v26, v27, v28, v29, v30, v31, @"71060001-413A-41EA-AF86-8CECFA21D057");
+        [(BTAirPodsControlServiceClient *)self _reportError:airpodsCaseControlCharacteristicUUID];
+        v23 = 0;
       }
     }
 
     goto LABEL_13;
   }
 
-  v8 = BTErrorF();
-  [(BTAirPodsControlServiceClient *)self _reportError:v8, @"2EE26CD4-C04E-41CE-905A-B4054F5D1770"];
-  v12 = 0;
+  v14 = BTErrorF(4294960591, "Create service UUID failed: %@", v16, v17, v18, v19, v20, v21, @"2EE26CD4-C04E-41CE-905A-B4054F5D1770");
+  [(BTAirPodsControlServiceClient *)self _reportError:v14];
+  v24 = 0;
 LABEL_13:
 
 LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v24;
 }
 
 - (BOOL)_runConnectStart
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   peerDevice = self->_peerDevice;
   if (!peerDevice)
   {
@@ -600,25 +618,25 @@ LABEL_14:
       deviceSN = self->_deviceSN;
       if (deviceSN)
       {
-        v15 = [(NSString *)deviceSN dataUsingEncoding:4];
-        if (v15)
+        v37 = [(NSString *)deviceSN dataUsingEncoding:4];
+        if (v37)
         {
-          v16 = v15;
-          v20 = v15;
+          v44 = v37;
+          v48 = v37;
           LOBYTE(identifier) = 1;
-          v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+          v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
           centralManager = self->_centralManager;
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __49__BTAirPodsControlServiceClient__runConnectStart__block_invoke;
-          v19[3] = &unk_278D11BC0;
-          v19[4] = self;
-          [(CBCentralManager *)centralManager retrievePeripheralsWithFindMySerialNumbers:v17 completion:v19];
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __49__BTAirPodsControlServiceClient__runConnectStart__block_invoke;
+          v47[3] = &unk_278D11BC0;
+          v47[4] = self;
+          [(CBCentralManager *)centralManager retrievePeripheralsWithFindMySerialNumbers:v45 completion:v47];
 
-          goto LABEL_13;
+          return identifier;
         }
 
-        [(BTAirPodsControlServiceClient *)&self->_deviceSN _runConnectStart];
+        [(BTAirPodsControlServiceClient *)&self->_deviceSN _runConnectStart:v38];
       }
 
       else
@@ -627,32 +645,32 @@ LABEL_14:
         {
 LABEL_12:
           LOBYTE(identifier) = 1;
-          goto LABEL_13;
+          return identifier;
         }
 
-        [BTAirPodsControlServiceClient _runConnectStart];
+        [(BTAirPodsControlServiceClient *)self _runConnectStart:a2];
       }
 
 LABEL_22:
       LOBYTE(identifier) = 0;
-      goto LABEL_13;
+      return identifier;
     }
 
     identifier = deviceUUID;
 LABEL_6:
-    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:identifier];
-    if (v6)
+    v19 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:identifier];
+    if (v19)
     {
-      v7 = v6;
-      v8 = self->_centralManager;
-      v21[0] = v6;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-      v10 = [(CBCentralManager *)v8 retrievePeripheralsWithIdentifiers:v9];
-      firstObject = [v10 firstObject];
+      v26 = v19;
+      v27 = self->_centralManager;
+      v49[0] = v19;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
+      v29 = [(CBCentralManager *)v27 retrievePeripheralsWithIdentifiers:v28];
+      firstObject = [v29 firstObject];
 
       if (firstObject)
       {
-        objc_storeStrong(&self->_peerUUID, v7);
+        objc_storeStrong(&self->_peerUUID, v26);
         objc_storeStrong(&self->_peripheral, firstObject);
         [(CBPeripheral *)self->_peripheral setDelegate:self];
         if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
@@ -665,12 +683,12 @@ LABEL_6:
         goto LABEL_12;
       }
 
-      [(BTAirPodsControlServiceClient *)v7 _runConnectStart:0];
+      [(BTAirPodsControlServiceClient *)v26 _runConnectStart:0];
     }
 
     else
     {
-      [(BTAirPodsControlServiceClient *)identifier _runConnectStart];
+      [(BTAirPodsControlServiceClient *)identifier _runConnectStart:v20];
     }
 
     goto LABEL_22;
@@ -682,22 +700,20 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  [BTAirPodsControlServiceClient _runConnectStart];
-LABEL_13:
-  v12 = *MEMORY[0x277D85DE8];
+  [(BTAirPodsControlServiceClient *)self _runConnectStart:v10];
   return identifier;
 }
 
 void __49__BTAirPodsControlServiceClient__runConnectStart__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v17 = v3;
+  v14 = v3;
   if (gLogCategory_BTAirPodsControlServiceClient <= 30)
   {
-    if (gLogCategory_BTAirPodsControlServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v17, v4))
+    if (gLogCategory_BTAirPodsControlServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v14, v4))
     {
       __49__BTAirPodsControlServiceClient__runConnectStart__block_invoke_cold_1(v3);
-      v3 = v17;
+      v3 = v14;
     }
   }
 
@@ -714,134 +730,132 @@ void __49__BTAirPodsControlServiceClient__runConnectStart__block_invoke(uint64_t
 
   v11 = *(a1 + 32);
   v12 = *(v11 + 56);
-  if (!v12)
+  if (v12)
   {
-    if (gLogCategory_BTAirPodsControlServiceClient > 90)
+    if (gLogCategory_BTAirPodsControlServiceClient <= 30)
     {
-      goto LABEL_13;
-    }
-
-    if (gLogCategory_BTAirPodsControlServiceClient == -1)
-    {
-      if (!_LogCategory_Initialize())
+      if (gLogCategory_BTAirPodsControlServiceClient == -1)
       {
-        goto LABEL_13;
+        v13 = _LogCategory_Initialize();
+        v11 = *(a1 + 32);
+        if (!v13)
+        {
+          goto LABEL_12;
+        }
+
+        v12 = *(v11 + 56);
       }
 
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _runConnectStart]_block_invoke", 30, "Connecting to peer %@", v12);
       v11 = *(a1 + 32);
     }
 
-    v16 = *(v11 + 112);
-    LogPrintF_safe();
+LABEL_12:
+    [*(v11 + 40) connectPeripheral:*(v11 + 64) options:0];
     goto LABEL_13;
   }
 
-  if (gLogCategory_BTAirPodsControlServiceClient <= 30)
+  if (gLogCategory_BTAirPodsControlServiceClient > 90)
   {
-    if (gLogCategory_BTAirPodsControlServiceClient != -1)
-    {
-LABEL_7:
-      v15 = v12;
-      LogPrintF_safe();
-      [*(*(a1 + 32) + 40) connectPeripheral:*(*(a1 + 32) + 64) options:{0, v15}];
-      goto LABEL_13;
-    }
-
-    v13 = _LogCategory_Initialize();
-    v11 = *(a1 + 32);
-    if (v13)
-    {
-      v12 = *(v11 + 56);
-      goto LABEL_7;
-    }
+    goto LABEL_13;
   }
 
-  [*(v11 + 40) connectPeripheral:*(v11 + 64) options:{0, v14}];
+  if (gLogCategory_BTAirPodsControlServiceClient != -1)
+  {
+LABEL_10:
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _runConnectStart]_block_invoke", 90, "### Can't get the peer device for SN %@", *(v11 + 112));
+    goto LABEL_13;
+  }
+
+  if (_LogCategory_Initialize())
+  {
+    v11 = *(a1 + 32);
+    goto LABEL_10;
+  }
+
 LABEL_13:
 }
 
 - (BOOL)_runDiscoverServicesStart
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v3 = self->_peripheral;
-  if (v3)
+  v23[1] = *MEMORY[0x277D85DE8];
+  v10 = self->_peripheral;
+  if (v10)
   {
-    v4 = self->_airpodsCaseControlServiceUUID;
-    v5 = v4;
-    v6 = v4 != 0;
-    if (v4)
+    v11 = self->_airpodsCaseControlServiceUUID;
+    v19 = v11;
+    v20 = v11 != 0;
+    if (v11)
     {
-      v10[0] = v4;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+      v23[0] = v11;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
       {
-        [(BTAirPodsControlServiceClient *)v3 _runDiscoverServicesStart];
+        [(BTAirPodsControlServiceClient *)v10 _runDiscoverServicesStart];
       }
 
-      [(CBPeripheral *)v3 discoverServices:v7];
+      [(CBPeripheral *)v10 discoverServices:v21];
     }
 
     else
     {
-      [BTAirPodsControlServiceClient _runDiscoverServicesStart];
+      [(BTAirPodsControlServiceClient *)self _runDiscoverServicesStart:v12];
     }
   }
 
   else
   {
-    [BTAirPodsControlServiceClient _runDiscoverServicesStart];
-    v6 = 0;
+    [(BTAirPodsControlServiceClient *)self _runDiscoverServicesStart:v3];
+    v20 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v20;
 }
 
 - (BOOL)_runDiscoverCharacteristicsStart
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v3 = self->_peripheral;
-  if (v3)
+  v31[1] = *MEMORY[0x277D85DE8];
+  v10 = self->_peripheral;
+  if (v10)
   {
-    v4 = self->_airpodsCaseControlServiceObj;
-    if (v4)
+    v18 = self->_airpodsCaseControlServiceObj;
+    if (v18)
     {
-      v5 = self->_airpodsCaseControlCharacteristicUUID;
-      v6 = v5;
-      v7 = v5 != 0;
-      if (v5)
+      v19 = self->_airpodsCaseControlCharacteristicUUID;
+      v27 = v19;
+      v28 = v19 != 0;
+      if (v19)
       {
-        v11[0] = v5;
-        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+        v31[0] = v19;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
         if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
         {
           [BTAirPodsControlServiceClient _runDiscoverCharacteristicsStart];
         }
 
-        [(CBPeripheral *)v3 discoverCharacteristics:v8 forService:v4];
+        [(CBPeripheral *)v10 discoverCharacteristics:v29 forService:v18];
       }
 
       else
       {
-        [BTAirPodsControlServiceClient _runDiscoverCharacteristicsStart];
+        [(BTAirPodsControlServiceClient *)self _runDiscoverCharacteristicsStart:v20];
       }
     }
 
     else
     {
-      [BTAirPodsControlServiceClient _runDiscoverCharacteristicsStart];
-      v7 = 0;
+      [(BTAirPodsControlServiceClient *)self _runDiscoverCharacteristicsStart:v11];
+      v28 = 0;
     }
   }
 
   else
   {
-    [BTAirPodsControlServiceClient _runDiscoverServicesStart];
-    v7 = 0;
+    [(BTAirPodsControlServiceClient *)self _runDiscoverServicesStart:v3];
+    v28 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v28;
 }
 
 - (void)_runProcessRequests
@@ -864,49 +878,49 @@ LABEL_13:
 - (void)_runProcessRequest:(id)request
 {
   requestCopy = request;
-  v5 = self->_peripheral;
-  if (v5)
+  v11 = self->_peripheral;
+  if (v11)
   {
-    v6 = self->_airpodsCaseControlCharacteristicObj;
-    if (v6)
+    v18 = self->_airpodsCaseControlCharacteristicObj;
+    if (v18)
     {
       getHandler = [requestCopy getHandler];
 
       if (getHandler)
       {
-        v12 = 513;
-        v13 = 8;
-        v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v12 length:3];
+        v24 = 513;
+        v25 = 8;
+        v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v24 length:3];
         if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
         {
-          [BTAirPodsControlServiceClient _runProcessRequest:v5];
+          [BTAirPodsControlServiceClient _runProcessRequest:v11];
         }
       }
 
       else
       {
-        v9 = 1;
-        v10 = 8;
+        v21 = 1;
+        v22 = 8;
         enabled = [requestCopy enabled];
-        v8 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v9 length:4];
+        v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v21 length:4];
         if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
         {
           [BTAirPodsControlServiceClient _runProcessRequest:];
         }
       }
 
-      [(CBPeripheral *)v5 writeValue:v8 forCharacteristic:v6 type:0];
+      [(CBPeripheral *)v11 writeValue:v20 forCharacteristic:v18 type:0];
     }
 
     else
     {
-      [BTAirPodsControlServiceClient _runProcessRequest:];
+      [(BTAirPodsControlServiceClient *)self _runProcessRequest:requestCopy, v12, v13, v14, v15, v16, v17];
     }
   }
 
   else
   {
-    [BTAirPodsControlServiceClient _runProcessRequest:];
+    [(BTAirPodsControlServiceClient *)self _runProcessRequest:requestCopy, v5, v6, v7, v8, v9, v10];
   }
 }
 
@@ -915,34 +929,45 @@ LABEL_13:
   stateCopy = state;
   if (!self->_invalidateCalled)
   {
-    v7 = stateCopy;
+    v16 = stateCopy;
     state = [stateCopy state];
     if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
       [BTAirPodsControlServiceClient centralManagerDidUpdateState:state];
     }
 
-    if (state == 1 || state == 4)
+    if (state == 1)
     {
-      v6 = BTErrorF();
-      [(BTAirPodsControlServiceClient *)self _reportError:v6];
+      v12 = "Bluetooth reset";
+      v13 = 4294896145;
     }
 
     else
     {
-      stateCopy = v7;
-      if (state != 5)
+      if (state != 4)
       {
-        goto LABEL_11;
+        stateCopy = v16;
+        if (state != 5)
+        {
+          goto LABEL_13;
+        }
+
+        [(BTAirPodsControlServiceClient *)self _run];
+        goto LABEL_12;
       }
 
-      [(BTAirPodsControlServiceClient *)self _run];
+      v12 = "Bluetooth powered off";
+      v13 = 4294896144;
     }
 
-    stateCopy = v7;
+    v14 = BTErrorF(v13, v12, v5, v6, v7, v8, v9, v10, v15);
+    [(BTAirPodsControlServiceClient *)self _reportError:v14];
+
+LABEL_12:
+    stateCopy = v16;
   }
 
-LABEL_11:
+LABEL_13:
 }
 
 - (void)centralManager:(id)manager didConnectPeripheral:(id)peripheral
@@ -954,7 +979,7 @@ LABEL_11:
     {
       if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
       {
-        [BTAirPodsControlServiceClient centralManager:didConnectPeripheral:];
+        [BTAirPodsControlServiceClient centralManager:identifier didConnectPeripheral:?];
       }
 
       self->_connected = 1;
@@ -973,24 +998,24 @@ LABEL_11:
   errorCopy = error;
   if (!self->_invalidateCalled)
   {
-    v10 = errorCopy;
+    v16 = errorCopy;
     identifier = [peripheral identifier];
     if ([identifier isEqual:self->_peerUUID])
     {
       if (gLogCategory_BTAirPodsControlServiceClient <= 90 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
       {
-        [BTAirPodsControlServiceClient centralManager:didFailToConnectPeripheral:error:];
+        [BTAirPodsControlServiceClient centralManager:v16 didFailToConnectPeripheral:identifier error:?];
       }
 
-      if (v10)
+      if (v16)
       {
         [(BTAirPodsControlServiceClient *)self _reportError:?];
       }
 
       else
       {
-        v9 = BTErrorF();
-        [(BTAirPodsControlServiceClient *)self _reportError:v9];
+        v14 = BTErrorF(4294960543, "Connect failed without error", 0, v9, v10, v11, v12, v13, v15);
+        [(BTAirPodsControlServiceClient *)self _reportError:v14];
       }
     }
 
@@ -999,7 +1024,7 @@ LABEL_11:
       [BTAirPodsControlServiceClient centralManager:? didFailToConnectPeripheral:? error:?];
     }
 
-    errorCopy = v10;
+    errorCopy = v16;
   }
 }
 
@@ -1009,13 +1034,13 @@ LABEL_11:
   peripheralsCopy = peripherals;
   if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
   {
-    [BTAirPodsControlServiceClient centralManager:didUpdateFindMyPeripherals:];
+    [BTAirPodsControlServiceClient centralManager:peripheralsCopy didUpdateFindMyPeripherals:?];
   }
 }
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   identifier = [peripheralCopy identifier];
   if (([identifier isEqual:self->_peerUUID] & 1) == 0)
@@ -1025,25 +1050,25 @@ LABEL_11:
   }
 
   [peripheralCopy services];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v7 = v22 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v7 = v21 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
 LABEL_4:
     v11 = 0;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v19 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * v11);
+      v12 = *(*(&v18 + 1) + 8 * v11);
       uUID = [v12 UUID];
       v14 = [uUID isEqual:self->_airpodsCaseControlServiceUUID];
 
@@ -1054,7 +1079,7 @@ LABEL_4:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
         if (v9)
         {
           goto LABEL_4;
@@ -1073,7 +1098,7 @@ LABEL_4:
 
     if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
-      [BTAirPodsControlServiceClient peripheral:didDiscoverServices:];
+      [BTAirPodsControlServiceClient peripheral:v7 didDiscoverServices:identifier];
     }
 
     airpodsCaseControlServiceObj = self->_airpodsCaseControlServiceObj;
@@ -1088,23 +1113,21 @@ LABEL_4:
 LABEL_10:
 
 LABEL_11:
-    if (([(BTAirPodsControlServiceClient *)self peripheral:v7 didDiscoverServices:identifier, &v23]& 1) != 0)
+    if (([(BTAirPodsControlServiceClient *)self peripheral:v7 didDiscoverServices:identifier, &v22]& 1) != 0)
     {
       goto LABEL_19;
     }
 
-    v15 = v23;
+    v15 = v22;
   }
 
 LABEL_19:
 LABEL_20:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   serviceCopy = service;
   identifier = [peripheralCopy identifier];
@@ -1121,30 +1144,30 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  v26 = uUID;
-  v27 = serviceCopy;
+  v25 = uUID;
+  v26 = serviceCopy;
   v11 = identifier;
   v12 = peripheralCopy;
   [serviceCopy characteristics];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v13 = v31 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v13 = v30 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v28;
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v29 != v16)
+      if (*v28 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = *(*(&v28 + 1) + 8 * v17);
+      v18 = *(*(&v27 + 1) + 8 * v17);
       uUID2 = [v18 UUID];
       v20 = [uUID2 isEqual:self->_airpodsCaseControlCharacteristicUUID];
 
@@ -1155,7 +1178,7 @@ LABEL_5:
 
       if (v15 == ++v17)
       {
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v15)
         {
           goto LABEL_5;
@@ -1174,7 +1197,7 @@ LABEL_5:
 
     peripheralCopy = v12;
     identifier = v11;
-    uUID = v26;
+    uUID = v25;
     if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
     {
       [BTAirPodsControlServiceClient peripheral:didDiscoverCharacteristicsForService:error:];
@@ -1195,7 +1218,7 @@ LABEL_11:
 LABEL_12:
     peripheralCopy = v12;
     identifier = v11;
-    uUID = v26;
+    uUID = v25;
     if (gLogCategory_BTAirPodsControlServiceClient > 60 || gLogCategory_BTAirPodsControlServiceClient == -1 && !_LogCategory_Initialize())
     {
       goto LABEL_21;
@@ -1203,15 +1226,14 @@ LABEL_12:
 
     airpodsCaseControlCharacteristicUUID = self->_airpodsCaseControlCharacteristicUUID;
     v22 = CUPrintNSObjectOneLine();
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverCharacteristicsForService:error:]", 60, "### DidDiscoverCharacteristics not found: peer %@, service %@, characteristic %@ vs %@", identifier, v25, airpodsCaseControlCharacteristicUUID, v22);
   }
 
 LABEL_21:
-  serviceCopy = v27;
+  serviceCopy = v26;
 LABEL_22:
 
 LABEL_23:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error
@@ -1241,7 +1263,7 @@ LABEL_23:
     v9 = self->_requestCurrent;
     if (!v9)
     {
-      [BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:];
+      [BTAirPodsControlServiceClient peripheral:identifier didUpdateValueForCharacteristic:uUID error:?];
       goto LABEL_17;
     }
 
@@ -1330,7 +1352,7 @@ LABEL_19:
     {
       if (gLogCategory_BTAirPodsControlServiceClient <= 30 && (gLogCategory_BTAirPodsControlServiceClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didWriteValueForCharacteristic:error:]", 30, "DidWriteValueForCharacteristic: peer %@, characteristic %@", identifier, uUID);
       }
     }
 
@@ -1352,35 +1374,34 @@ void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___bl
   v2 = *(*a1 + 104);
   if (v2)
   {
-    v4 = [v2 identifier];
-    LogPrintF_safe();
+    v3 = [v2 identifier];
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient getSilentModeWithCompletionHandler:]_block_invoke", 30, "GetSilentMode enqueued: peer %@", v3);
   }
 
   else
   {
-    v3 = *(v1 + 112);
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient getSilentModeWithCompletionHandler:]_block_invoke", 30, "GetSilentMode enqueued: peer %@", *(v1 + 112));
   }
 }
 
-void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_2(uint64_t a1)
+void __68__BTAirPodsControlServiceClient_getSilentModeWithCompletionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*a1 + 104);
-  if (v1)
+  v2 = *(*a1 + 104);
+  if (v2)
   {
-    v2 = [*(*a1 + 104) identifier];
+    v3 = [*(*a1 + 104) identifier];
   }
 
   else
   {
-    v2 = *(*a1 + 112);
+    v3 = *(*a1 + 112);
   }
 
-  v4 = v2;
-  v3 = CUPrintNSError();
-  LogPrintF_safe();
+  v5 = v3;
+  v4 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient getSilentModeWithCompletionHandler:]_block_invoke", 90, "### GetSilentMode failed: peer %@, %@", v5, v4);
 
-  if (v1)
+  if (v2)
   {
   }
 }
@@ -1391,93 +1412,140 @@ void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block
   v4 = *(*a1 + 104);
   if (v4)
   {
-    v6 = [v4 identifier];
-    *a2;
-    LogPrintF_safe();
+    v5 = [v4 identifier];
+    v9 = v5;
+    if (*a2)
+    {
+      v6 = "yes";
+    }
+
+    else
+    {
+      v6 = "no";
+    }
+
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient setSilentMode:completionHandler:]_block_invoke", 30, "SetSilentMode enqueued: peer %@, enable %s", v5, v6);
   }
 
   else
   {
-    v5 = *(v3 + 112);
-    *a2;
-    LogPrintF_safe();
+    v7 = *(v3 + 112);
+    if (*a2)
+    {
+      v8 = "yes";
+    }
+
+    else
+    {
+      v8 = "no";
+    }
+
+    LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient setSilentMode:completionHandler:]_block_invoke", 30, "SetSilentMode enqueued: peer %@, enable %s", v7, v8);
   }
 }
 
-void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2)
+void __65__BTAirPodsControlServiceClient_setSilentMode_completionHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(*a1 + 104);
-  if (v3)
+  v4 = *(*a1 + 104);
+  if (v4)
   {
-    v4 = [*(*a1 + 104) identifier];
+    v5 = [*(*a1 + 104) identifier];
   }
 
   else
   {
-    v4 = *(*a1 + 112);
+    v5 = *(*a1 + 112);
   }
 
-  v6 = v4;
-  *(a2 + 48);
-  v5 = CUPrintNSError();
-  LogPrintF_safe();
+  v8 = v5;
+  if (*(a2 + 48))
+  {
+    v6 = "yes";
+  }
 
-  if (v3)
+  else
+  {
+    v6 = "no";
+  }
+
+  v7 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient setSilentMode:completionHandler:]_block_invoke", 90, "### SetSilentMode failed: peer %@, enabled %s, %@", v8, v6, v7);
+
+  if (v4)
   {
   }
 }
 
 uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  [a1 count];
-  *(*(*a2 + 8) + 24);
-  return LogPrintF_safe();
+  v3 = [a1 count];
+  if (*(*(*a2 + 8) + 24))
+  {
+    v4 = "yes";
+  }
+
+  else
+  {
+    v4 = "no";
+  }
+
+  return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient isFindmyManaged]_block_invoke", 30, "CentralManager retrieved FindMy peripherals with serial numbers count %lu, managed by findmy %s", v3, v4);
 }
 
-- (void)_completeRequest:error:.cold.1()
+- (void)_completeRequest:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v3 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _completeRequest:error:]", 90, "### %s failed: %@", a2, v3);
 }
 
-- (void)_reportError:.cold.1()
+- (void)_reportError:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _reportError:]", 90, "Error: %@", v1);
 }
 
 - (uint64_t)_run
 {
-  if (self <= 0x12)
+  if (self > 0x12)
+  {
+    v2 = "?";
+  }
+
+  else
   {
     v2 = off_278D11BE0[self];
   }
 
   v3 = *a2;
-  if (v3 <= 0x12)
+  if (v3 > 0x12)
+  {
+    v4 = "?";
+  }
+
+  else
   {
     v4 = off_278D11BE0[v3];
   }
 
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _run]", 30, "State: %s -> %s", v2, v4);
 }
 
 - (void)_runConnectStart
 {
-  v0 = BTErrorF();
-  OUTLINED_FUNCTION_4(v0);
+  v8 = BTErrorF(4294960591, "No peer Device or Serial Number is specified", a3, a4, a5, a6, a7, a8, v9);
+  OUTLINED_FUNCTION_4(v8);
 }
 
 - (void)_runDiscoverServicesStart
 {
-  v0 = BTErrorF();
-  OUTLINED_FUNCTION_4(v0);
+  v8 = BTErrorF(4294960591, "No peripheral", a3, a4, a5, a6, a7, a8, v9);
+  OUTLINED_FUNCTION_4(v8);
 }
 
 - (void)_runDiscoverCharacteristicsStart
 {
-  v0 = BTErrorF();
-  OUTLINED_FUNCTION_4(v0);
+  v8 = BTErrorF(4294960591, "No service", a3, a4, a5, a6, a7, a8, v9);
+  OUTLINED_FUNCTION_4(v8);
 }
 
 - (void)_runProcessRequest:(void *)a1 .cold.1(void *a1)
@@ -1486,38 +1554,52 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_9();
   v2 = CUPrintNSDataHex();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _runProcessRequest:]", 30, "GetSilentMode start: peer %@, value <%@>", v1, v2);
 }
 
 - (void)_runProcessRequest:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   v2 = [v1 identifier];
-  [v0 enabled];
-  v3 = CUPrintNSDataHex();
-  LogPrintF_safe();
+  if ([v0 enabled])
+  {
+    v3 = "yes";
+  }
+
+  else
+  {
+    v3 = "no";
+  }
+
+  v4 = CUPrintNSDataHex();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient _runProcessRequest:]", 30, "SetSilentMode start: peer %@, enable %s, value <%@>", v2, v3, v4);
 }
 
-- (void)_runProcessRequest:.cold.3()
+- (void)_runProcessRequest:(uint64_t)a3 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = BTErrorF();
-  OUTLINED_FUNCTION_10(v0);
+  v8 = BTErrorF(4294960596, "No characteristic", a3, a4, a5, a6, a7, a8, v9);
+  OUTLINED_FUNCTION_10(v8);
 }
 
-- (void)_runProcessRequest:.cold.4()
+- (void)_runProcessRequest:(uint64_t)a3 .cold.4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = BTErrorF();
-  OUTLINED_FUNCTION_10(v0);
+  v8 = BTErrorF(4294960591, "No peripheral", a3, a4, a5, a6, a7, a8, v9);
+  OUTLINED_FUNCTION_10(v8);
 }
 
 - (uint64_t)centralManagerDidUpdateState:(unint64_t)a1 .cold.1(unint64_t a1)
 {
-  if (a1 <= 0xA)
+  if (a1 > 0xA)
+  {
+    v1 = "?";
+  }
+
+  else
   {
     v1 = off_278D11C78[a1];
   }
 
-  return LogPrintF_safe();
+  return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient centralManagerDidUpdateState:]", 30, "Bluetooth state changed: %s", v1);
 }
 
 - (uint64_t)centralManager:(uint64_t)result didConnectPeripheral:.cold.1(uint64_t result)
@@ -1528,7 +1610,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (v1 != -1 || (result = _LogCategory_Initialize(), result))
     {
       OUTLINED_FUNCTION_6();
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient centralManager:didConnectPeripheral:]", 60, "### DidConnectPeripheral wrong peripheral: %@ (not %@)");
     }
   }
 
@@ -1543,17 +1625,17 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (v1 != -1 || (result = _LogCategory_Initialize(), result))
     {
       OUTLINED_FUNCTION_6();
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient centralManager:didFailToConnectPeripheral:error:]", 60, "### DidFailToConnectPeripheral wrong peripheral: %@ (not %@)");
     }
   }
 
   return result;
 }
 
-- (void)centralManager:didFailToConnectPeripheral:error:.cold.2()
+- (void)centralManager:(uint64_t)a1 didFailToConnectPeripheral:(uint64_t)a2 error:.cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v3 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient centralManager:didFailToConnectPeripheral:error:]", 90, "### DidFailToConnectPeripheral %@, error %@", a2, v3);
 }
 
 - (void)peripheral:didDiscoverServices:.cold.1()
@@ -1564,15 +1646,15 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverServices:]", 60, "### DidDiscoverServices wrong peripheral: %@ (not %@)");
     }
   }
 }
 
-- (void)peripheral:didDiscoverServices:.cold.2()
+- (void)peripheral:(uint64_t)a1 didDiscoverServices:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSObjectOneLine();
-  LogPrintF_safe();
+  v3 = CUPrintNSObjectOneLine();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverServices:]", 30, "DidDiscoverServices: peer %@, services %@", a2, v3);
 }
 
 - (uint64_t)peripheral:(uint64_t)a3 didDiscoverServices:(uint64_t *)a4 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
@@ -1587,9 +1669,10 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     return 1;
   }
 
-  v6 = *(a1 + 32);
-  *a4 = CUPrintNSObjectOneLine();
-  LogPrintF_safe();
+  v7 = *(a1 + 32);
+  v8 = CUPrintNSObjectOneLine();
+  *a4 = v8;
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverServices:]", 60, "### DidDiscoverServices not found: peer %@, service %@ vs %@", a3, v7, v8);
   return 0;
 }
 
@@ -1601,7 +1684,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverCharacteristicsForService:error:]", 60, "### DidDiscoverCharacteristics wrong peripheral: %@ (not %@)");
     }
   }
 }
@@ -1614,7 +1697,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverCharacteristicsForService:error:]", 60, "### DidDiscoverCharacteristics wrong service: %@ (not %@)");
     }
   }
 }
@@ -1622,8 +1705,8 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
 - (void)peripheral:didDiscoverCharacteristicsForService:error:.cold.3()
 {
   OUTLINED_FUNCTION_5();
-  v1 = [v0 UUID];
-  LogPrintF_safe();
+  v3 = [v2 UUID];
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didDiscoverCharacteristicsForService:error:]", 30, "DidDiscoverCharacteristicsForService: %@, service %@, characteristics %@", v1, v0, v3);
 }
 
 - (void)peripheral:didUpdateNotificationStateForCharacteristic:error:.cold.1()
@@ -1634,7 +1717,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_9();
   v2 = CUPrintNSError();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateNotificationStateForCharacteristic:error:]", 30, "DidUpdateNotificationStateForCharacteristic: peer %@, characteristic %@, error %@", v3, v0, v2);
 }
 
 - (void)peripheral:didUpdateValueForCharacteristic:error:.cold.1()
@@ -1645,7 +1728,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:]", 60, "### DidUpdateValueForCharacteristic wrong peripheral: %@ (not %@)");
     }
   }
 }
@@ -1658,7 +1741,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:]", 60, "### DidUpdateValueForCharacteristic wrong characteristic: %@ (not %@)");
     }
   }
 }
@@ -1666,8 +1749,8 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
 - (void)peripheral:didUpdateValueForCharacteristic:error:.cold.3()
 {
   OUTLINED_FUNCTION_2_0();
-  v0 = CUPrintNSDataHex();
-  LogPrintF_safe();
+  v2 = CUPrintNSDataHex();
+  LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:]", 30, "DidUpdateValueForCharacteristic: peer %@, characteristic %@, value <%@>", v1, v0, v2);
 }
 
 - (void)peripheral:(uint64_t)a1 didUpdateValueForCharacteristic:(uint64_t)a2 error:.cold.4(uint64_t a1, uint64_t a2)
@@ -1676,7 +1759,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
   CUPrintNSDataHex();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8();
-  v3 = CBErrorF();
+  v3 = CBErrorF(4294960553, "Bad get opcode: 0x%04X, value <%@>");
   OUTLINED_FUNCTION_3(v3);
 }
 
@@ -1684,7 +1767,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
 {
   OUTLINED_FUNCTION_2_0();
   v2 = CUPrintNSDataHex();
-  v1 = CBErrorF();
+  v1 = CBErrorF(4294960553, "No get result: value <%@>", v2);
   OUTLINED_FUNCTION_3(v1);
 }
 
@@ -1694,7 +1777,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
   CUPrintNSDataHex();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8();
-  v3 = CBErrorF();
+  v3 = CBErrorF(4294960553, "Bad set opcode: 0x%04X, value <%@>");
   OUTLINED_FUNCTION_3(v3);
 }
 
@@ -1704,7 +1787,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
   CUPrintNSDataHex();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8();
-  v3 = CBErrorF();
+  v3 = CBErrorF(4294960584, "Bad set status 0x%04X, value <%@>");
   OUTLINED_FUNCTION_3(v3);
 }
 
@@ -1712,7 +1795,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
 {
   OUTLINED_FUNCTION_2_0();
   v2 = CUPrintNSDataHex();
-  v1 = CBErrorF();
+  v1 = CBErrorF(4294960553, "No set status: value <%@>", v2);
   OUTLINED_FUNCTION_3(v1);
 }
 
@@ -1720,23 +1803,24 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
 {
   OUTLINED_FUNCTION_2_0();
   v2 = CUPrintNSDataHex();
-  v1 = CBErrorF();
+  v1 = CBErrorF(4294960553, "No opcode: value <%@>", v2);
   OUTLINED_FUNCTION_3(v1);
 }
 
-- (uint64_t)peripheral:didUpdateValueForCharacteristic:error:.cold.10()
+- (uint64_t)peripheral:(uint64_t)result didUpdateValueForCharacteristic:(uint64_t)a2 error:.cold.10(uint64_t result, uint64_t a2)
 {
   if (gLogCategory_BTAirPodsControlServiceClient <= 30)
   {
+    v3 = result;
     if (gLogCategory_BTAirPodsControlServiceClient != -1)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:]", 30, "DidUpdateValueForCharacteristic ignored without request: peer %@, characteristic %@", v3, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didUpdateValueForCharacteristic:error:]", 30, "DidUpdateValueForCharacteristic ignored without request: peer %@, characteristic %@", v3, a2);
     }
   }
 
@@ -1751,7 +1835,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (!v0 || _LogCategory_Initialize())
     {
       OUTLINED_FUNCTION_6();
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didWriteValueForCharacteristic:error:]", 60, "### DidWriteValueForCharacteristic wrong peripheral: %@ (not %@)");
     }
   }
 }
@@ -1764,7 +1848,7 @@ uint64_t __48__BTAirPodsControlServiceClient_isFindmyManaged__block_invoke_cold_
     if (v1 != -1 || (result = _LogCategory_Initialize(), result))
     {
       OUTLINED_FUNCTION_6();
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory_BTAirPodsControlServiceClient, "[BTAirPodsControlServiceClient peripheral:didWriteValueForCharacteristic:error:]", 60, "### DidWriteValueForCharacteristic wrong characteristic: %@ (not %@)");
     }
   }
 

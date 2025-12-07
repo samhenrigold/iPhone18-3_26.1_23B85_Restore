@@ -28,7 +28,6 @@
 
 uint64_t __53__CALNEKUIEventRepresentationProvider_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sharedInstance_6 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -102,13 +101,11 @@ uint64_t __53__CALNEKUIEventRepresentationProvider_sharedInstance__block_invoke(
 
 - (void)updateEventRepresentationDictionary:(void *)a1 withHypothesisMessage:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "type")}];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Tried to add hypothesis message to event representation with the wrong type: (%@)", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_242909000, a2, OS_LOG_TYPE_ERROR, "Tried to add hypothesis message to event representation with the wrong type: (%@)", &v4, 0xCu);
 }
 
 @end

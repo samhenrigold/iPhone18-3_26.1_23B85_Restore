@@ -57,79 +57,80 @@
 {
   longitude = from.longitude;
   latitude = from.latitude;
-  [(_CLVertex *)self coordinate];
-  v7 = v6;
-  [(_CLVertex *)self coordinate];
+  objc_msgSend_coordinate(self, a2, v3, v4);
+  v9 = v8;
+  objc_msgSend_coordinate(self, v10, v11, v12);
 
-  return sub_19B87E164(latitude, longitude, v7, v8);
+  return sub_19B87E164(latitude, longitude, v9, v13);
 }
 
 - (_CLVertex)initWithCoder:(id)coder
 {
-  [coder decodeDoubleForKey:@"kCLVertexCodingKeyLatitude"];
-  self->_coordinate.latitude = v5;
-  [coder decodeDoubleForKey:@"kCLVertexCodingKeyLongitude"];
-  self->_coordinate.longitude = v6;
+  objc_msgSend_decodeDoubleForKey_(coder, a2, @"kCLVertexCodingKeyLatitude", v3);
+  self->_coordinate.latitude = v6;
+  objc_msgSend_decodeDoubleForKey_(coder, v7, @"kCLVertexCodingKeyLongitude", v8);
+  self->_coordinate.longitude = v9;
   return self;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [(_CLVertex *)self coordinate];
-  [coder encodeDouble:@"kCLVertexCodingKeyLatitude" forKey:?];
-  [(_CLVertex *)self coordinate];
+  objc_msgSend_coordinate(self, a2, coder, v3);
+  objc_msgSend_encodeDouble_forKey_(coder, v6, @"kCLVertexCodingKeyLatitude", v7);
+  objc_msgSend_coordinate(self, v8, v9, v10);
 
-  [coder encodeDouble:@"kCLVertexCodingKeyLongitude" forKey:v5];
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"kCLVertexCodingKeyLongitude", v12, v13);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  [(_CLVertex *)self coordinate];
+  objc_msgSend_coordinate(self, v5, v6, v7);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithCoordinate_);
+  return MEMORY[0x1EEE66B58](v4, sel_initWithCoordinate_, v8, v9);
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(v5) = 1;
+    LOBYTE(isMemberOfClass) = 1;
   }
 
   else
   {
-    v5 = [equal isMemberOfClass:objc_opt_class()];
-    if (v5)
+    v5 = objc_opt_class();
+    isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+    if (isMemberOfClass)
     {
-      [(_CLVertex *)self coordinate];
-      v7 = v6;
-      [equal coordinate];
-      if (v7 == v8)
+      objc_msgSend_coordinate(self, v9, v10, v11);
+      v13 = v12;
+      objc_msgSend_coordinate(equal, v14, v15, v16);
+      if (v13 == v20)
       {
-        [(_CLVertex *)self coordinate];
-        v10 = v9;
-        [equal coordinate];
-        LOBYTE(v5) = v10 == v11;
+        objc_msgSend_coordinate(self, v17, v18, v19);
+        v22 = v21;
+        objc_msgSend_coordinate(equal, v23, v24, v25);
+        LOBYTE(isMemberOfClass) = v22 == v26;
       }
 
       else
       {
-        LOBYTE(v5) = 0;
+        LOBYTE(isMemberOfClass) = 0;
       }
     }
   }
 
-  return v5;
+  return isMemberOfClass;
 }
 
 - (id)description
 {
-  v3 = MEMORY[0x1E696AEC0];
-  [(_CLVertex *)self coordinate];
-  v5 = v4;
-  [(_CLVertex *)self coordinate];
-  return [v3 stringWithFormat:@"#polygon, _CLVertex (latitude:'%.07lf', longitude:'%.07lf')", v5, v6];
+  v5 = MEMORY[0x1E696AEC0];
+  objc_msgSend_coordinate(self, a2, v2, v3);
+  v7 = v6;
+  objc_msgSend_coordinate(self, v8, v9, v10);
+  return objc_msgSend_stringWithFormat_(v5, v11, @"#polygon,_CLVertex (latitude:'%.07lf', longitude:'%.07lf')", v12, v7, v13);
 }
 
 - (unint64_t)hash

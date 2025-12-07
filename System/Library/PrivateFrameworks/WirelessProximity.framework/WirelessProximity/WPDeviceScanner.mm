@@ -1,4 +1,5 @@
 @interface WPDeviceScanner
+- (BOOL)parseType:(unsigned __int8)type atOffset:(char *)offset withSize:(int)size intoDictionary:(id)dictionary;
 - (WPDeviceScanner)initWithDelegate:(id)delegate queue:(id)queue;
 - (WPDeviceScannerDelegate)delegate;
 - (id)description;
@@ -10,6 +11,7 @@
 - (void)parseCompanyData:(char *)data forSize:(int)size intoDictionary:(id)dictionary;
 - (void)postDevice:(id)device;
 - (void)postDevices:(id)devices;
+- (void)registerForAnyScanResults:(BOOL)results;
 - (void)registerForDevicesMatching:(id)matching options:(id)options;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
 - (void)stateDidChange:(int64_t)change;
@@ -67,15 +69,43 @@
   [(WPClient *)&v3 invalidate];
 }
 
+- (void)registerForAnyScanResults:(BOOL)results
+{
+  resultsCopy = results;
+  v12 = *MEMORY[0x277D85DE8];
+  if (WPLogInitOnce != -1)
+  {
+    [WPDeviceScanner registerForAnyScanResults:];
+  }
+
+  v5 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    *buf = 67109376;
+    anyScanResultsRequested = [(WPDeviceScanner *)self anyScanResultsRequested];
+    v10 = 1024;
+    v11 = resultsCopy;
+    _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Device Scanner registering for spy scan results: current %d, new %d", buf, 0xEu);
+  }
+
+  if ([(WPDeviceScanner *)self anyScanResultsRequested]!= resultsCopy)
+  {
+    v7.receiver = self;
+    v7.super_class = WPDeviceScanner;
+    [(WPClient *)&v7 registerForAnyScanResults:resultsCopy];
+  }
+}
+
 - (void)registerForDevicesMatching:(id)matching options:(id)options
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v7 = [matching objectForKeyedSubscript:@"kPuckTypes"];
   allKeys = [optionsCopy allKeys];
   v9 = [allKeys containsObject:@"kScanDuration"];
 
-  v35 = optionsCopy;
+  v34 = optionsCopy;
   if (v9)
   {
     v10 = [optionsCopy objectForKeyedSubscript:@"kScanDuration"];
@@ -83,38 +113,38 @@
     [v10 floatValue];
     v13 = [v11 scheduledTimerWithTimeInterval:self target:sel_timerFinished_ selector:0 userInfo:0 repeats:v12];
     activeScans = [(WPDeviceScanner *)self activeScans];
-    v52[0] = @"kPuckTypes";
-    v52[1] = @"kFoundDevices";
-    v53[0] = v7;
+    v51[0] = @"kPuckTypes";
+    v51[1] = @"kFoundDevices";
+    v52[0] = v7;
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v53[1] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
+    v52[1] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
     v17 = [v13 description];
     [activeScans setValue:v16 forKey:v17];
   }
 
   else
   {
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v10 = v7;
-    v18 = [v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v18 = [v10 countByEnumeratingWithState:&v45 objects:v50 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v47;
+      v20 = *v46;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v47 != v20)
+          if (*v46 != v20)
           {
             objc_enumerationMutation(v10);
           }
 
-          v22 = *(*(&v46 + 1) + 8 * i);
+          v22 = *(*(&v45 + 1) + 8 * i);
           liveDevices = [(WPDeviceScanner *)self liveDevices];
           v24 = [liveDevices containsObject:v10];
 
@@ -125,54 +155,54 @@
           }
         }
 
-        v19 = [v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v19 = [v10 countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
       while (v19);
     }
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v7;
-  v26 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v26 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (!v26)
   {
     goto LABEL_28;
   }
 
   v27 = v26;
-  v28 = *v43;
-  v36 = vdupq_n_s64(0x12CuLL);
-  v37 = vdupq_n_s64(0x17uLL);
+  v28 = *v42;
+  v35 = vdupq_n_s64(0x12CuLL);
+  v36 = vdupq_n_s64(0x17uLL);
   while (2)
   {
     for (j = 0; j != v27; ++j)
     {
-      if (*v43 != v28)
+      if (*v42 != v28)
       {
         objc_enumerationMutation(obj);
       }
 
-      v30 = *(*(&v42 + 1) + 8 * j);
+      v30 = *(*(&v41 + 1) + 8 * j);
       v31 = objc_opt_new();
       if ([v30 isEqualToString:@"WPPuckCompany"])
       {
         [v31 setActiveScanning:1];
-        v40 = v37;
+        v39 = v36;
         v32 = 23;
 LABEL_21:
-        v41 = v32;
-        [v31 setScanningRates:&v40];
+        v40 = v32;
+        [v31 setScanningRates:&v39];
         v33 = 2;
         goto LABEL_24;
       }
 
       if ([v30 isEqualToString:@"WPPuckBeaconNoRanging"])
       {
-        v40 = v36;
+        v39 = v35;
         v32 = 30;
         goto LABEL_21;
       }
@@ -183,19 +213,19 @@ LABEL_21:
         goto LABEL_28;
       }
 
-      v40 = xmmword_27435CEA0;
-      v41 = 30;
-      [v31 setScanningRates:&v40];
+      v39 = xmmword_27435CEA0;
+      v40 = 30;
+      [v31 setScanningRates:&v39];
       v33 = 3;
 LABEL_24:
       [v31 setAllowDuplicates:1];
       [v31 setClientType:v33];
-      v39.receiver = self;
-      v39.super_class = WPDeviceScanner;
-      [(WPClient *)&v39 startScanning:v31];
+      v38.receiver = self;
+      v38.super_class = WPDeviceScanner;
+      [(WPClient *)&v38 startScanning:v31];
     }
 
-    v27 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v27 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v27)
     {
       continue;
@@ -205,39 +235,37 @@ LABEL_24:
   }
 
 LABEL_28:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterForDevices:(id)devices
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = [devices objectForKey:@"kPuckTypes"];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         if (([v9 isEqualToString:@"WPPuckCompany"] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", @"WPPuckBeaconNoRanging"))
         {
           v10 = objc_opt_new();
           [v10 setClientType:2];
-          [(WPClient *)&v15 stopScanning:v10, v14.receiver, v14.super_class, self, WPDeviceScanner];
+          [(WPClient *)&v14 stopScanning:v10, v13.receiver, v13.super_class, self, WPDeviceScanner];
 LABEL_9:
 
           goto LABEL_10;
@@ -247,7 +275,7 @@ LABEL_9:
         {
           v10 = objc_opt_new();
           [v10 setClientType:3];
-          [(WPClient *)&v14 stopScanning:v10, self, WPDeviceScanner, v15.receiver, v15.super_class];
+          [(WPClient *)&v13 stopScanning:v10, self, WPDeviceScanner, v14.receiver, v14.super_class];
           goto LABEL_9;
         }
 
@@ -256,7 +284,7 @@ LABEL_10:
       }
 
       while (v6 != v8);
-      v11 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v6 = v11;
     }
 
@@ -265,20 +293,16 @@ LABEL_10:
 
   liveDevices = [(WPDeviceScanner *)self liveDevices];
   [liveDevices removeObjectsInArray:v4];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAllDeviceChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"kPuckTypes";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"kPuckTypes";
   liveDevices = [(WPDeviceScanner *)self liveDevices];
-  v7[0] = liveDevices;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = liveDevices;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [(WPDeviceScanner *)self unregisterForDevices:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateDidChange:(int64_t)change
@@ -298,7 +322,7 @@ LABEL_10:
 
 - (void)anyDiscoveredDevice:(id)device
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [deviceCopy objectForKeyedSubscript:@"kDeviceRSSI"];
   v6 = [deviceCopy objectForKeyedSubscript:@"kDevicePeripheralUUID"];
@@ -315,7 +339,7 @@ LABEL_10:
     {
       v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
       selfCopy = self;
-      v24 = v5;
+      v23 = v5;
       v16 = *([v7 bytes] + 2);
       [v15 setObject:v5 forKeyedSubscript:@"kPuckRSSI"];
       [v15 setObject:v6 forKeyedSubscript:@"kPuckID"];
@@ -323,8 +347,8 @@ LABEL_10:
       [v15 setObject:v11 forKeyedSubscript:@"kPuckWlanOn"];
       [v15 setObject:v8 forKeyedSubscript:@"kPuckAdvertisingChannel"];
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v16];
-      v25[0] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       [v15 setObject:v18 forKeyedSubscript:@"kPuckTypes"];
 
       v19 = [MEMORY[0x277CBEA90] dataWithBytes:objc_msgSend(v7 length:{"bytes") + 4, (objc_msgSend(v7, "length") - 4)}];
@@ -340,7 +364,7 @@ LABEL_10:
         [delegate2 scanner:selfCopy foundAnyDevice:v6 withData:v15];
       }
 
-      v5 = v24;
+      v5 = v23;
     }
 
     else
@@ -371,13 +395,11 @@ LABEL_10:
       [WPDeviceScanner anyDiscoveredDevice:v14];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v5 = [discoveredCopy objectForKeyedSubscript:@"kDeviceRSSI"];
   v6 = [discoveredCopy objectForKeyedSubscript:@"kDevicePeripheralUUID"];
@@ -385,8 +407,8 @@ LABEL_10:
   v8 = [discoveredCopy objectForKeyedSubscript:@"kDeviceChannel"];
   v9 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAdvertisingPacket"];
   v10 = [v9 objectForKeyedSubscript:*MEMORY[0x277CBDD20]];
-  v44 = [v9 objectForKeyedSubscript:*MEMORY[0x277CBDD50]];
-  v43 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
+  v43 = [v9 objectForKeyedSubscript:*MEMORY[0x277CBDD50]];
+  v42 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
   if (!v7)
   {
     if (WPLogInitOnce != -1)
@@ -421,61 +443,61 @@ LABEL_10:
 
   v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
   bytes = [v7 bytes];
-  v50 = *(bytes + 2);
+  v49 = *(bytes + 2);
   [v13 setObject:v5 forKeyedSubscript:@"kPuckRSSI"];
   [v13 setObject:v6 forKeyedSubscript:@"kPuckID"];
-  v42 = v10;
+  v41 = v10;
   [v13 setObject:v10 forKeyedSubscript:@"kPuckSaturated"];
-  [v13 setObject:v44 forKeyedSubscript:@"kPuckWlanOn"];
+  [v13 setObject:v43 forKeyedSubscript:@"kPuckWlanOn"];
   [v13 setObject:v8 forKeyedSubscript:@"kPuckAdvertisingChannel"];
-  [v13 setObject:v43 forKeyedSubscript:@"kPuckDeviceTime"];
-  if (!-[WPDeviceScanner parseType:atOffset:withSize:intoDictionary:](self, "parseType:atOffset:withSize:intoDictionary:", v50, bytes + 4, [v7 length] - 4, v13))
+  [v13 setObject:v42 forKeyedSubscript:@"kPuckDeviceTime"];
+  if (!-[WPDeviceScanner parseType:atOffset:withSize:intoDictionary:](self, "parseType:atOffset:withSize:intoDictionary:", v49, bytes + 4, [v7 length] - 4, v13))
   {
     goto LABEL_39;
   }
 
-  v37 = v8;
-  v38 = v7;
-  v39 = v6;
-  v40 = v5;
-  v41 = discoveredCopy;
-  v49 = [v13 objectForKeyedSubscript:@"kPuckTypes"];
+  v36 = v8;
+  v37 = v7;
+  v38 = v6;
+  v39 = v5;
+  v40 = discoveredCopy;
+  v48 = [v13 objectForKeyedSubscript:@"kPuckTypes"];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   activeScans = [(WPDeviceScanner *)self activeScans];
   allKeys = [activeScans allKeys];
 
   obj = allKeys;
-  v51 = [allKeys countByEnumeratingWithState:&v60 objects:v66 count:16];
-  if (!v51)
+  v50 = [allKeys countByEnumeratingWithState:&v59 objects:v65 count:16];
+  if (!v50)
   {
     goto LABEL_29;
   }
 
   selfCopy = self;
-  v48 = *v61;
-  v46 = v13;
+  v47 = *v60;
+  v45 = v13;
   do
   {
-    for (i = 0; i != v51; ++i)
+    for (i = 0; i != v50; ++i)
     {
-      if (*v61 != v48)
+      if (*v60 != v47)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v60 + 1) + 8 * i);
+      v18 = *(*(&v59 + 1) + 8 * i);
       activeScans2 = [(WPDeviceScanner *)self activeScans];
       v20 = [activeScans2 objectForKeyedSubscript:v18];
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
-      v21 = v49;
-      v22 = [v21 countByEnumeratingWithState:&v56 objects:v65 count:16];
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
+      v21 = v48;
+      v22 = [v21 countByEnumeratingWithState:&v55 objects:v64 count:16];
       if (!v22)
       {
         goto LABEL_26;
@@ -483,65 +505,65 @@ LABEL_10:
 
       v23 = v22;
       v24 = 0;
-      v25 = *v57;
+      v25 = *v56;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v57 != v25)
+          if (*v56 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          v27 = *(*(&v56 + 1) + 8 * j);
+          v27 = *(*(&v55 + 1) + 8 * j);
           v28 = [v20 objectForKeyedSubscript:@"kPuckTypes"];
           LOBYTE(v27) = [v28 containsObject:v27];
 
           v24 |= v27;
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v55 objects:v64 count:16];
       }
 
       while (v23);
 
-      v13 = v46;
+      v13 = v45;
       self = selfCopy;
       if (v24)
       {
         v21 = [v20 objectForKeyedSubscript:@"kFoundDevices"];
-        [v21 addObject:v46];
+        [v21 addObject:v45];
 LABEL_26:
       }
     }
 
-    v51 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+    v50 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
   }
 
-  while (v51);
+  while (v50);
 LABEL_29:
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v29 = v49;
-  v30 = [v29 countByEnumeratingWithState:&v52 objects:v64 count:16];
-  v8 = v37;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v29 = v48;
+  v30 = [v29 countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v8 = v36;
   if (v30)
   {
     v31 = v30;
-    v32 = *v53;
+    v32 = *v52;
     do
     {
       for (k = 0; k != v31; ++k)
       {
-        if (*v53 != v32)
+        if (*v52 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v52 + 1) + 8 * k);
+        v34 = *(*(&v51 + 1) + 8 * k);
         liveDevices = [(WPDeviceScanner *)self liveDevices];
         LODWORD(v34) = [liveDevices containsObject:v34];
 
@@ -551,30 +573,55 @@ LABEL_29:
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
     while (v31);
   }
 
-  v5 = v40;
-  discoveredCopy = v41;
-  v7 = v38;
-  v6 = v39;
+  v5 = v39;
+  discoveredCopy = v40;
+  v7 = v37;
+  v6 = v38;
 LABEL_39:
 
-  v10 = v42;
+  v10 = v41;
 LABEL_40:
+}
 
-  v36 = *MEMORY[0x277D85DE8];
+- (BOOL)parseType:(unsigned __int8)type atOffset:(char *)offset withSize:(int)size intoDictionary:(id)dictionary
+{
+  v6 = *&size;
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  if (typeCopy == 3)
+  {
+    [(WPDeviceScanner *)self parseAirPrint:offset forSize:v6 intoDictionary:dictionaryCopy];
+  }
+
+  else
+  {
+    if (typeCopy != 2)
+    {
+      v11 = 0;
+      goto LABEL_7;
+    }
+
+    [(WPDeviceScanner *)self parseCompanyData:offset forSize:v6 intoDictionary:dictionaryCopy];
+  }
+
+  v11 = 1;
+LABEL_7:
+
+  return v11;
 }
 
 - (void)parseCompanyData:(char *)data forSize:(int)size intoDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v21 = 0uLL;
-  if (size < 16 || (v21 = *data, size < 0x12))
+  v20 = 0uLL;
+  if (size < 16 || (v20 = *data, size < 0x12))
   {
     v8 = 0;
     goto LABEL_8;
@@ -609,7 +656,7 @@ LABEL_9:
   }
 
 LABEL_10:
-  v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v21];
+  v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&v20];
   if (v12)
   {
     [dictionaryCopy setObject:v12 forKeyedSubscript:@"kPuckCompanyUUID"];
@@ -656,8 +703,6 @@ LABEL_10:
 
   [(WPDeviceScanner *)self addPuckType:@"WPPuckBeaconNoRanging" toDictionary:dictionaryCopy];
   [(WPDeviceScanner *)self addPuckType:@"WPPuckCompany" toDictionary:dictionaryCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)parseAirPrint:(char *)print forSize:(int)size intoDictionary:(id)dictionary
@@ -676,7 +721,7 @@ LABEL_10:
 
 - (void)addPuckType:(id)type toDictionary:(id)dictionary
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   typeCopy = type;
   v7 = [dictionaryCopy objectForKey:@"kPuckTypes"];
@@ -689,14 +734,12 @@ LABEL_10:
   else
   {
     v9 = MEMORY[0x277CBEB18];
-    v13[0] = typeCopy;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = typeCopy;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v11 = [v9 arrayWithArray:v10];
 
     [dictionaryCopy setObject:v11 forKey:@"kPuckTypes"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postDevice:(id)device
@@ -764,23 +807,20 @@ LABEL_10:
 
 - (void)anyDiscoveredDevice:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  [a2 length];
-  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "Device Scanner: Minimum advertisement data length expected: 4, received: %lu", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [a2 length];
+  OUTLINED_FUNCTION_0_3(&dword_274327000, v4, v5, "Device Scanner: Minimum advertisement data length expected: 4, received: %lu", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)parseCompanyData:(unsigned __int8)a1 forSize:(NSObject *)a2 intoDictionary:.cold.3(unsigned __int8 a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"kPuckConfig";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "%@: %02x", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"kPuckConfig";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "%@: %02x", &v2, 0x12u);
 }
 
 @end

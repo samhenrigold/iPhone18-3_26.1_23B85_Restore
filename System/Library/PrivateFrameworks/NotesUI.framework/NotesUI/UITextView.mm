@@ -5,21 +5,21 @@
 
 uint64_t __70__UITextView_IC__ic_shouldEnableBlockQuoteForAttachmentsOnlySelection__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v11 = a2;
-  if (v11 && ([MEMORY[0x1E69B7888] isInlineAttachment:v11] & 1) == 0)
+  v12 = a2;
+  if (v12 && (v7 = [MEMORY[0x1E69B7888] isInlineAttachment:v12], (v7 & 1) == 0))
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
   else
   {
-    v7 = [*(a1 + 32) textStorage];
-    v8 = [v7 string];
-    v9 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    *(*(*(a1 + 48) + 8) + 24) |= [v8 ic_range:a3 onlyContainsCharacterSet:{a4, v9}] ^ 1;
+    v8 = [*(a1 + 32) textStorage];
+    v9 = [v8 string];
+    v10 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+    *(*(*(a1 + 48) + 8) + 24) |= [v9 ic_range:a3 onlyContainsCharacterSet:{a4, v10}] ^ 1;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v7);
 }
 
 void __34__UITextView_IC__ic_rectForRange___block_invoke(uint64_t a1)
@@ -44,7 +44,7 @@ void __34__UITextView_IC__ic_rectForRange___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __35__UITextView_IC__ic_imageForRange___block_invoke(uint64_t a1)
+void *__35__UITextView_IC__ic_imageForRange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) glyphRangeForCharacterRange:*(a1 + 40) actualCharacterRange:{*(a1 + 48), 0}];
   if (v3)

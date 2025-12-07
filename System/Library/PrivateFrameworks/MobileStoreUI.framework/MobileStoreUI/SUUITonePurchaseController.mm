@@ -406,7 +406,7 @@ void __63__SUUITonePurchaseController__finishContactPicker_withContact___block_i
 
 - (void)_showContactPicker
 {
-  v3 = SUUIContactsUIFramework();
+  v3 = SUUIContactsUIFramework(self, a2);
   v4 = SUUIWeakLinkedClassForString(&cfstr_Cncontactpicke.isa, v3);
   if (v4)
   {

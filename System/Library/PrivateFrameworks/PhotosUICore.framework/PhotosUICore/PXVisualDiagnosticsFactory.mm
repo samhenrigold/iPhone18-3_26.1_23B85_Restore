@@ -160,7 +160,7 @@ void __67__PXVisualDiagnosticsFactory_debugQuickLookObjectWithRootProvider___blo
   }
 }
 
-void __100__PXVisualDiagnosticsFactory_requestVisualDiagnosticsPDFDocumentURLWithConfiguration_resultHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __100__PXVisualDiagnosticsFactory_requestVisualDiagnosticsPDFDocumentURLWithConfiguration_resultHandler___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);

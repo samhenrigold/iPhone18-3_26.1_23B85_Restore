@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFCriticalInputStreamObservable.criticalInputStreamService(_:didUpdateOn:)();
+  CAFCriticalInputStreamObservable.criticalInputStreamService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

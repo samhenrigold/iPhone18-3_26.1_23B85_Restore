@@ -6,9 +6,9 @@
 - (id)dc_imageViewRenderedFromViewHierarchy;
 - (id)dc_renderImage;
 - (id)dc_renderImageView;
-- (uint64_t)dc_crashIfWindowIsSecure;
 - (uint64_t)dc_isInSecureWindow;
 - (void)dc_addConstraintsToFillSuperview;
+- (void)dc_crashIfWindowIsSecure;
 - (void)dc_removeAllConstraintsForSubview:()DC;
 @end
 
@@ -40,7 +40,7 @@
   }
 }
 
-- (uint64_t)dc_crashIfWindowIsSecure
+- (void)dc_crashIfWindowIsSecure
 {
   result = [self dc_isInSecureWindow];
   if (result)

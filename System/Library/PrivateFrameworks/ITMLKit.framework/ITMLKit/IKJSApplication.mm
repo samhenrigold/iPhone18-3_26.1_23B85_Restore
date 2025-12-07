@@ -34,92 +34,85 @@
 
 - (void)launchAppWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onLaunch" withArguments:v6, optionsCopy, v10];
+  v7 = [(IKJSObject *)self invokeMethod:@"onLaunch" withArguments:v6, optionsCopy, v9];
   kdebug_trace();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendAppWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onSuspend" withArguments:v6, optionsCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onSuspend" withArguments:v6, optionsCopy, v9];
 }
 
 - (void)resumeAppWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onResume" withArguments:v6, optionsCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onResume" withArguments:v6, optionsCopy, v9];
 }
 
 - (void)openURLWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onOpenURL" withArguments:v6, optionsCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onOpenURL" withArguments:v6, optionsCopy, v9];
 }
 
 - (void)exitAppWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onExit" withArguments:v6, optionsCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onExit" withArguments:v6, optionsCopy, v9];
 }
 
 - (void)updatedAppWithOptions:(id)options
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v4 = MEMORY[0x277CBEA60];
   optionsCopy2 = options;
   v6 = [v4 arrayWithObjects:&optionsCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onUpdate" withArguments:v6, optionsCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onUpdate" withArguments:v6, optionsCopy, v9];
 }
 
 - (void)traitCollectionChanged:(id)changed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v4 = MEMORY[0x277CBEA60];
   changedCopy2 = changed;
   v6 = [v4 arrayWithObjects:&changedCopy count:1];
 
-  v7 = [(IKJSObject *)self invokeMethod:@"onTraitCollectionChange" withArguments:v6, changedCopy, v10];
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(IKJSObject *)self invokeMethod:@"onTraitCollectionChange" withArguments:v6, changedCopy, v9];
 }
 
 - (BOOL)requestDocumentWithContext:(id)context response:(id)response
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   responseCopy = response;
   v8 = MEMORY[0x277CD4658];
@@ -136,9 +129,9 @@
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v18[0] = null;
-    v18[1] = responseCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = null;
+    v17[1] = responseCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v15 = [(IKJSObject *)self invokeMethod:@"onDocumentRequest" withArguments:v14];
 
     if (!contextCopy)
@@ -146,7 +139,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

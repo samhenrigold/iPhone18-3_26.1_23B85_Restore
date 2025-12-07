@@ -46,13 +46,10 @@
   toCopy = to;
   if (*&self->_has)
   {
-    cellularOn = self->_cellularOn;
     PBDataWriterWriteBOOLField();
   }
 
-  wifiOn = self->_wifiOn;
   PBDataWriterWriteBOOLField();
-  bluetoothOn = self->_bluetoothOn;
   PBDataWriterWriteBOOLField();
 }
 
@@ -119,7 +116,6 @@ LABEL_3:
     }
   }
 
-  v6 = equalCopy[10];
   if (self->_wifiOn)
   {
     if (equalCopy[10])
@@ -131,15 +127,15 @@ LABEL_3:
   else if ((equalCopy[10] & 1) == 0)
   {
 LABEL_14:
-    v7 = self->_bluetoothOn == equalCopy[8];
+    v6 = self->_bluetoothOn == equalCopy[8];
     goto LABEL_13;
   }
 
 LABEL_12:
-  v7 = 0;
+  v6 = 0;
 LABEL_13:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

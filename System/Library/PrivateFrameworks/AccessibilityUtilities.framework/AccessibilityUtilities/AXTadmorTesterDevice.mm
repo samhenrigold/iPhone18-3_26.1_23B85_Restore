@@ -27,9 +27,11 @@
 
 uint64_t __38__AXTadmorTesterDevice_sharedInstance__block_invoke()
 {
-  sharedInstance__shared = objc_alloc_init(AXTadmorTesterDevice);
+  v0 = objc_alloc_init(AXTadmorTesterDevice);
+  v1 = sharedInstance__shared;
+  sharedInstance__shared = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AXTadmorTesterDevice)init

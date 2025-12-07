@@ -167,7 +167,7 @@
 {
   notificationCopy = notification;
   selfCopy = self;
-  sub_1005EAB28();
+  sub_1005EAB28(selfCopy);
 }
 
 - (void)shareFailedWithError:(id)error recordID:(id)d
@@ -187,7 +187,7 @@
   if (v6)
   {
     v7 = v6;
-    sub_100F9F8FC();
+    sub_100F9F8FC(v7);
   }
 }
 
@@ -233,7 +233,7 @@
   {
     v5 = share;
     static CKShare.SystemFieldKey.thumbnailImageData.getter();
-    sub_100006370(0, &qword_1019F52C0);
+    sub_100006370(0, &qword_1019F52C0, CKShare_ptr);
     CKRecordKeyValueSetting.subscript.getter();
 
     v6 = 0;
@@ -256,7 +256,7 @@
 
 - (void)networkReachabilityDidChangeWithNotification:(id)notification
 {
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v11 - v5;
   v7 = type metadata accessor for TaskPriority();
@@ -319,7 +319,7 @@
   {
   }
 
-  sub_10000CAAC(v9, &unk_1019F4D00);
+  sub_10000CAAC(v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)documentPicker:(id)picker didPickDocumentsAtURLs:(id)ls
@@ -333,7 +333,7 @@
 
 - (void)documentPickerWasCancelled:(id)cancelled
 {
-  sub_100006370(0, &qword_1019F6EE0);
+  sub_100006370(0, &qword_1019F6EE0, OS_os_log_ptr);
   v4 = static OS_os_log.default.getter();
   v3 = static os_log_type_t.default.getter();
   sub_100005404(v4, &_mh_execute_header, v3, "User cancelled inserting a file", 31, 2, _swiftEmptyArrayStorage);
@@ -342,7 +342,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_1000063B8(&qword_1019F6EC0, type metadata accessor for InfoKey);
+  sub_1000063B8(&qword_1019F6EC0, type metadata accessor for InfoKey, aI_43);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = swift_allocObject();
   swift_unknownObjectWeakInit();
@@ -401,7 +401,7 @@
   __chkstk_darwin(v6);
   v9 = &v18[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1005B981C(&unk_1019F6B30);
+  sub_1005B981C(&unk_1019F6B30, &qword_10146F930);
   v10 = (*(v7 + 80) + 32) & ~*(v7 + 80);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_10146C6B0;
@@ -495,7 +495,7 @@
   interactionCopy = interaction;
   viewCopy = view;
   selfCopy = self;
-  v9 = sub_10101389C(interactionCopy);
+  v9 = sub_10101389C(interactionCopy, viewCopy);
 
   return v9;
 }
@@ -587,7 +587,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_10101FBE4(controllerCopy, animated, v8, v9);
-  sub_1000C1014(v8);
+  sub_1000C1014(v8, v9);
 }
 
 - (_TtC8Freeform16CRLiOSPencilTray)sharedPencilTray
@@ -806,7 +806,7 @@
   v5 = v3;
   sub_100EB8D4C();
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -816,7 +816,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_10102EAFC();
+  v6 = sub_10102EAFC(controllerCopy);
 
   return v6;
 }
@@ -825,7 +825,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_101056288();
+  v6 = sub_101056288(controllerCopy);
 
   return v6;
 }
@@ -834,7 +834,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_101056860();
+  v6 = sub_101056860(controllerCopy);
   v7 = v6;
 
   return v6;
@@ -843,13 +843,13 @@
 - (void)selectionPathDidChangeWithFlags:(unint64_t)flags
 {
   selfCopy = self;
-  sub_101056E38();
+  sub_101056E38(selfCopy);
 }
 
 - (id)canvasViewScaleDetentsForInteractiveCanvasController:(id)controller isFastPinch:(BOOL)pinch
 {
   sub_101057470();
-  sub_100006370(0, &qword_1019FF3E0);
+  sub_100006370(0, &qword_1019FF3E0, NSNumber_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -861,7 +861,7 @@
   selfCopy = self;
   sub_1010532BC();
 
-  sub_100006370(0, &qword_101A04270);
+  sub_100006370(0, &qword_101A04270, NSValue_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -894,7 +894,7 @@
   if (v3)
   {
     v6 = *(v3 + OBJC_IVAR____TtC8Freeform19CRLiOSMediaReplacer_interactiveCanvasController);
-    sub_100006370(0, &qword_1019F8508);
+    sub_100006370(0, &qword_1019F8508, off_10182F8A8);
     controllerCopy = controller;
     selfCopy = self;
     v9 = v6;
@@ -913,7 +913,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_10102F450();
+  v6 = sub_10102F450(controllerCopy);
 
   return v6;
 }
@@ -1009,7 +1009,7 @@
 - (void)updateToolbarButtons
 {
   selfCopy = self;
-  sub_101030890();
+  sub_101030890(selfCopy);
 }
 
 - (BOOL)allowsZoomHUD
@@ -1060,7 +1060,7 @@ LABEL_5:
 
   sub_1010332F8(action, v16, v17);
 
-  sub_10000CAAC(v16, &unk_1019F4D00);
+  sub_10000CAAC(v16, &unk_1019F4D00, &unk_10146E7F0);
   v8 = v18;
   if (v18)
   {
@@ -1100,7 +1100,7 @@ LABEL_5:
 
   v8 = sub_1010338FC(action, v10);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
   return v8 & 1;
 }
 
@@ -1132,7 +1132,7 @@ LABEL_5:
   selfCopy3 = self;
   sub_10102E35C(sub_10067C02C, v6);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (_TtC8Freeform25CRLiOSBoardViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -1258,17 +1258,23 @@ LABEL_5:
   v7 = _Block_copy(handler);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_100699760;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   progressCopy = progress;
   selfCopy = self;
   sub_10105772C();
-  v11 = v10;
-  sub_1000C1014(v7);
+  v12 = v11;
+  sub_1000C1014(v7, v8);
 
-  return v11;
+  return v12;
 }
 
 - (id)beginModalOperationWithPresentedLocalizedMessage:(id)message progress:(id)progress cancelHandler:(id)handler
@@ -1279,7 +1285,7 @@ LABEL_5:
   if (v7)
   {
     v11 = swift_allocObject();
-    v11[2] = v7;
+    *(v11 + 16) = v7;
     v7 = sub_100699760;
   }
 
@@ -1291,7 +1297,7 @@ LABEL_5:
   progressCopy = progress;
   selfCopy = self;
   v14 = sub_10103848C(v8, v10, progress, v7, v11);
-  sub_1000C1014(v7);
+  sub_1000C1014(v7, v11);
 
   return v14;
 }
@@ -1346,7 +1352,7 @@ LABEL_5:
   [objc_opt_self() crl_phoneUI];
   sub_10101F6C4();
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)createSceneShortcut:(id)shortcut
@@ -1372,7 +1378,7 @@ LABEL_5:
     sub_101048E40(0);
   }
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)linkAction:(id)action
@@ -1395,7 +1401,7 @@ LABEL_5:
   v6 = *(*(self + OBJC_IVAR____TtC8Freeform25CRLiOSBoardViewController_editingCoordinator) + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_followCoordinator);
   sub_1008FEE94(1);
 
-  sub_10000CAAC(v7, &unk_1019F4D00);
+  sub_10000CAAC(v7, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)toggleSnapToGridAction:(id)action
@@ -1409,12 +1415,12 @@ LABEL_5:
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v6, 0, sizeof(v6));
   }
 
-  v6 = &type metadata for CRLFeatureFlags;
-  v7 = sub_100004D60();
-  v5[0] = 23;
+  v5[3] = &type metadata for CRLFeatureFlags;
+  v5[4] = sub_100004D60();
+  LOBYTE(v5[0]) = 23;
   v3 = isFeatureEnabled(_:)();
   sub_100005070(v5);
   if (v3)
@@ -1423,7 +1429,7 @@ LABEL_5:
     [v4 setShouldSnapToGrid:{objc_msgSend(v4, "shouldSnapToGrid") ^ 1}];
   }
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)toggleHapticFeedbackAction:(id)action
@@ -1449,7 +1455,7 @@ LABEL_5:
   standardUserDefaults2 = [v6 standardUserDefaults];
   [standardUserDefaults2 setBool:v8 ^ 1 forKey:@"CRLUseHapticFeedbackWhenSnapping"];
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)zoom100PercentAction:(id)action
@@ -1470,12 +1476,12 @@ LABEL_5:
 
   sub_1010107F4(1.0);
 
-  sub_10000CAAC(v6, &unk_1019F4D00);
+  sub_10000CAAC(v6, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)handleFavoriteBoard:(id)board
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = v16 - v6;
   if (board)
@@ -1513,7 +1519,7 @@ LABEL_5:
     sub_10064191C(0, 0, v7, &unk_1014C20C0, v15);
   }
 
-  sub_10000CAAC(v16, &unk_1019F4D00);
+  sub_10000CAAC(v16, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)exportScenesAsPDFAction:(id)action
@@ -1545,7 +1551,7 @@ LABEL_5:
 
   sub_10104BEF0(v9);
 
-  sub_10000CAAC(v10, &unk_1019F4D00);
+  sub_10000CAAC(v10, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (id)boardViewControllerTraitCollectionForContentLibraryViewController:(id)controller
@@ -1605,13 +1611,12 @@ LABEL_5:
 
 - (id)editorControllersToObserveForMode:(id)mode
 {
-  sub_1005B981C(&unk_1019F4D60);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_101465920;
   selfCopy = self;
   *(v4 + 32) = sub_101012B64();
 
-  sub_100006370(0, &unk_101A1B848);
+  sub_100006370(0, &unk_101A1B848, off_10182F800);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -1798,7 +1803,7 @@ LABEL_5:
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_101058CC8();
+  v6 = sub_101058CC8(controllerCopy);
 
   return v6;
 }
@@ -1868,7 +1873,7 @@ LABEL_5:
   selfCopy = self;
   sub_101042160();
 
-  sub_1005B981C(&qword_101A28688);
+  sub_1005B981C(&qword_101A28688, &qword_1014C2098);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -1996,7 +2001,7 @@ LABEL_9:
 
 - (void)insertStickerFromItemProvider:(NSItemProvider *)provider completionHandler:(id)handler
 {
-  v7 = sub_1005B981C(&qword_1019FB750);
+  v7 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

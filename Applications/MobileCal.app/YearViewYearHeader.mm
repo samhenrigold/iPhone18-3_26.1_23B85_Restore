@@ -592,40 +592,40 @@ LABEL_6:
 + (double)headerYInsetForWindowSize:(CGSize)size
 {
   sub_10007FD08();
-  objc_opt_class();
-  sub_100026F2C();
+  v3 = objc_opt_class();
+  sub_100026F2C(v3);
   return 0.0;
 }
 
 + (double)middleHeightForWindowSize:(CGSize)size
 {
   sub_10007FD08();
-  objc_opt_class();
-  sub_100026F2C();
+  v3 = objc_opt_class();
+  sub_100026F2C(v3);
   return 0.0;
 }
 
 + (double)headerDaySpacingForWindowSize:(CGSize)size
 {
   sub_10007FD08();
-  objc_opt_class();
-  sub_100026F2C();
+  v3 = objc_opt_class();
+  sub_100026F2C(v3);
   return 0.0;
 }
 
 - (double)yearNumberHeaderFontSize
 {
   sub_10007FD08();
-  objc_opt_class();
-  sub_100026F2C();
+  v2 = objc_opt_class();
+  sub_100026F2C(v2);
   return 0.0;
 }
 
 - (double)heightBetweenLineAndNumber
 {
   sub_10007FD08();
-  objc_opt_class();
-  sub_100026F2C();
+  v2 = objc_opt_class();
+  sub_100026F2C(v2);
   return 0.0;
 }
 

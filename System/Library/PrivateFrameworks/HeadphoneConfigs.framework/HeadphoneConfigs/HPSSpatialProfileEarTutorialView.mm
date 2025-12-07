@@ -146,7 +146,7 @@
 
   else
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(HPSSpatialProfileEarTutorialView *)v4 startPlayerLeftEar];
@@ -170,7 +170,7 @@
 
   else
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(HPSSpatialProfileEarTutorialView *)v4 startPlayerLeftEar];
@@ -218,77 +218,79 @@
 
 void __83__HPSSpatialProfileEarTutorialView_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = *(a1 + 32);
   if (v2 == v3 + 408 || v2 == v3 + 416)
   {
     v4 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [v4 integerValue];
+      isKindOfClass = [v4 integerValue];
+      v6 = isKindOfClass;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 32);
-    if (v6 == v7 + 408)
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 32);
+    if (v7 == v8 + 408)
     {
-      v11 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sharedBluetoothSettingsLogComponent(isKindOfClass);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 134217984;
-        v19 = v5;
-        _os_log_impl(&dword_251143000, v11, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: LeftEar player status changed to %ld\n", &v18, 0xCu);
+        v19 = 134217984;
+        v20 = v6;
+        _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: LeftEar player status changed to %ld\n", &v19, 0xCu);
       }
 
-      if (v5 != 1)
+      if (v6 != 1)
       {
         goto LABEL_35;
       }
 
-      v9 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusLeftEar;
+      v10 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusLeftEar;
     }
 
     else
     {
-      if (v6 != v7 + 416)
+      if (v7 != v8 + 416)
       {
         goto LABEL_35;
       }
 
-      v8 = sharedBluetoothSettingsLogComponent();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sharedBluetoothSettingsLogComponent(isKindOfClass);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 134217984;
-        v19 = v5;
-        _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: RightEar player status changed to %ld\n", &v18, 0xCu);
+        v19 = 134217984;
+        v20 = v6;
+        _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: RightEar player status changed to %ld\n", &v19, 0xCu);
       }
 
-      if (v5 != 1)
+      if (v6 != 1)
       {
         goto LABEL_35;
       }
 
-      v9 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusRightEar;
+      v10 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusRightEar;
     }
 
-    *(*(a1 + 32) + *v9) = 1;
+    *(*(a1 + 32) + *v10) = 1;
     goto LABEL_35;
   }
 
   if (v2 != v3 + 424 && v2 != v3 + 432)
   {
-    v4 = sharedBluetoothSettingsLogComponent();
+    v4 = sharedBluetoothSettingsLogComponent(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: Invalid context\n", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_251143000, v4, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: Invalid context\n", &v19, 2u);
     }
 
     goto LABEL_35;
@@ -296,56 +298,56 @@ void __83__HPSSpatialProfileEarTutorialView_observeValueForKeyPath_ofObject_chan
 
   v4 = [*(a1 + 40) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v11 = objc_opt_isKindOfClass();
+  if (v11)
   {
-    v10 = [v4 integerValue];
+    v11 = [v4 integerValue];
+    v12 = v11;
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 32);
-  if (v12 == v13 + 424)
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 32);
+  if (v14 == v15 + 424)
   {
-    v16 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sharedBluetoothSettingsLogComponent(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134217984;
-      v19 = v10;
-      _os_log_impl(&dword_251143000, v16, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: LeftEar looper status changed to %ld\n", &v18, 0xCu);
+      v19 = 134217984;
+      v20 = v12;
+      _os_log_impl(&dword_251143000, v18, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: LeftEar looper status changed to %ld\n", &v19, 0xCu);
     }
 
-    if (v10 == 1)
+    if (v12 == 1)
     {
-      v15 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusLeftEar;
+      v17 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusLeftEar;
       goto LABEL_34;
     }
   }
 
-  else if (v12 == v13 + 432)
+  else if (v14 == v15 + 432)
   {
-    v14 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sharedBluetoothSettingsLogComponent(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134217984;
-      v19 = v10;
-      _os_log_impl(&dword_251143000, v14, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: RightEar looper status changed to %ld\n", &v18, 0xCu);
+      v19 = 134217984;
+      v20 = v12;
+      _os_log_impl(&dword_251143000, v16, OS_LOG_TYPE_DEFAULT, "Spatial Profile: Ear Tutorial: RightEar looper status changed to %ld\n", &v19, 0xCu);
     }
 
-    if (v10 == 1)
+    if (v12 == 1)
     {
-      v15 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusRightEar;
+      v17 = &OBJC_IVAR___HPSSpatialProfileEarTutorialView__statusRightEar;
 LABEL_34:
-      *(*(a1 + 32) + *v15 + 1) = 1;
+      *(*(a1 + 32) + *v17 + 1) = 1;
     }
   }
 
 LABEL_35:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -31,9 +31,7 @@
 
 - (void)setMainIndividualConfiguration:(id)configuration
 {
-  v4 = [(AEAssessmentIndividualConfiguration *)self->_mainIndividualConfiguration copy];
-  mainIndividualConfiguration = self->_mainIndividualConfiguration;
-  self->_mainIndividualConfiguration = v4;
+  self->_mainIndividualConfiguration = [(AEAssessmentIndividualConfiguration *)self->_mainIndividualConfiguration copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -54,9 +52,7 @@
 
 - (void)setConfigurationsByApplicationDescriptor:(id)descriptor
 {
-  v4 = [descriptor mutableCopy];
-  configurationsByApplicationDescriptor = self->_configurationsByApplicationDescriptor;
-  self->_configurationsByApplicationDescriptor = v4;
+  self->_configurationsByApplicationDescriptor = [descriptor mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }

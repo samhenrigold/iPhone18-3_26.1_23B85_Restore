@@ -585,7 +585,7 @@ LABEL_18:
     v11 = v10;
     if (computeLayoutGeometry)
     {
-      [computeLayoutGeometry transform];
+      objc_msgSend_transform(computeLayoutGeometry);
     }
 
     else
@@ -668,7 +668,7 @@ LABEL_18:
   v12 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -704,7 +704,7 @@ LABEL_18:
   v6 = pureGeometryWithoutMathResults;
   if (pureGeometryWithoutMathResults)
   {
-    [pureGeometryWithoutMathResults transform];
+    objc_msgSend_transform(pureGeometryWithoutMathResults);
   }
 
   else
@@ -724,24 +724,19 @@ LABEL_18:
       v10 = geometry;
       if (geometry)
       {
-        v11 = *&retstr->c;
-        v14[0] = *&retstr->a;
-        v14[1] = v11;
-        v14[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v14];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v16 = 0u;
-        v17 = 0u;
-        v15 = 0u;
+        v13 = 0u;
+        v14 = 0u;
+        v12 = 0u;
       }
 
-      v12 = v16;
-      *&retstr->a = v15;
-      *&retstr->c = v12;
-      *&retstr->tx = v17;
+      *&retstr->a = v12;
+      *&retstr->c = v13;
+      *&retstr->tx = v14;
 
       parent = [(CGAffineTransform *)v8 parent];
 
@@ -783,7 +778,7 @@ LABEL_18:
     v19 = pureGeometryInRoot;
     if (pureGeometryInRoot)
     {
-      [pureGeometryInRoot transform];
+      objc_msgSend_transform(pureGeometryInRoot);
     }
 
     else
@@ -892,7 +887,7 @@ LABEL_18:
   v21 = 0u;
   v22 = 0u;
   v20 = 0u;
-  [(CRLFreehandDrawingLayout *)self pureTransformInRootWithoutMathResults];
+  objc_msgSend_pureTransformInRootWithoutMathResults(self);
   v15 = *&CGAffineTransformIdentity.c;
   *&v19.a = *&CGAffineTransformIdentity.a;
   v16 = *&v19.a;
@@ -1338,7 +1333,7 @@ LABEL_24:
     v22 = v21;
     if (v21 && ([v21 isEmpty] & 1) == 0)
     {
-      [(CRLCanvasAbstractLayout *)selfCopy transformInRoot];
+      objc_msgSend_transformInRoot(selfCopy);
       CGAffineTransformInvert(&v27, &v26);
       [v22 transformUsingAffineTransform:&v27];
     }

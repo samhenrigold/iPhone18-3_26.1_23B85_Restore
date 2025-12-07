@@ -192,7 +192,7 @@
   return v7;
 }
 
-uint64_t __36__BNTieredArray_indexPathForObject___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__36__BNTieredArray_indexPathForObject___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 indexOfObject:a1[4]];
   *(*(a1[5] + 8) + 24) = result;
@@ -329,7 +329,7 @@ uint64_t __36__BNTieredArray_indexPathForObject___block_invoke(void *a1, void *a
   }
 }
 
-uint64_t __30__BNTieredArray_removeObject___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__30__BNTieredArray_removeObject___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 indexOfObject:a1[4]];
   *(*(a1[5] + 8) + 24) = result;

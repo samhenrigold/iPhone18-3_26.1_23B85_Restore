@@ -102,23 +102,23 @@ uint64_t __70__ISWrappedAVAudioSession__main_informObserversOfVolumeChangeFrom_t
 
 - (BOOL)setCategory:(id)category mode:(id)mode routeSharingPolicy:(unint64_t)policy options:(unint64_t)options error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   modeCopy = mode;
   v14 = ISGetLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138413314;
-    v24 = categoryCopy;
-    v25 = 2112;
-    v26 = modeCopy;
-    v27 = 2048;
+    v22 = 138413314;
+    v23 = categoryCopy;
+    v24 = 2112;
+    v25 = modeCopy;
+    v26 = 2048;
     policyCopy = policy;
-    v29 = 2048;
+    v28 = 2048;
     optionsCopy = options;
-    v31 = 2112;
+    v30 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E667000, v14, OS_LOG_TYPE_DEFAULT, "Setting category (%@) mode (%@) routeSharingPolicy (%lu) options (%lu) on wrapped audio session %@", &v23, 0x34u);
+    _os_log_impl(&dword_25E667000, v14, OS_LOG_TYPE_DEFAULT, "Setting category (%@) mode (%@) routeSharingPolicy (%lu) options (%lu) on wrapped audio session %@", &v22, 0x34u);
   }
 
   v15 = [(AVAudioSession *)self->_audioSession setCategory:categoryCopy mode:modeCopy routeSharingPolicy:policy options:options error:error];
@@ -138,14 +138,13 @@ uint64_t __70__ISWrappedAVAudioSession__main_informObserversOfVolumeChangeFrom_t
     expectedMode = ISGetLog();
     if (os_log_type_enabled(expectedMode, OS_LOG_TYPE_ERROR))
     {
-      v22 = *error;
-      v23 = 138412290;
-      v24 = v22;
-      _os_log_error_impl(&dword_25E667000, expectedMode, OS_LOG_TYPE_ERROR, "Failed! %@", &v23, 0xCu);
+      v21 = *error;
+      v22 = 138412290;
+      v23 = v21;
+      _os_log_error_impl(&dword_25E667000, expectedMode, OS_LOG_TYPE_ERROR, "Failed! %@", &v22, 0xCu);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -176,7 +175,7 @@ uint64_t __70__ISWrappedAVAudioSession__main_informObserversOfVolumeChangeFrom_t
   is_dispatch_on_main_queue(v6);
 }
 
-uint64_t __52__ISWrappedAVAudioSession_unregisterVolumeObserver___block_invoke(uint64_t a1)
+void *__52__ISWrappedAVAudioSession_unregisterVolumeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 32) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 32) count];
@@ -307,30 +306,28 @@ uint64_t __50__ISWrappedAVAudioSession_registerVolumeObserver___block_invoke(uin
 
 void __52__ISWrappedAVAudioSession_sharedPhotosOneUpInstance__block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = +[ISWrappedAVAudioSession auxiliarySession];
   v1 = sharedPhotosOneUpInstance_sharedVideoPlaybackInstance;
   sharedPhotosOneUpInstance_sharedVideoPlaybackInstance = v0;
 
   v2 = *MEMORY[0x277CB8020];
   v3 = *MEMORY[0x277CB80A8];
-  v8 = 0;
-  v4 = [sharedPhotosOneUpInstance_sharedVideoPlaybackInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [sharedPhotosOneUpInstance_sharedVideoPlaybackInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v7];
+  v5 = v7;
   if ((v4 & 1) == 0)
   {
     v6 = ISGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_error_impl(&dword_25E667000, v6, OS_LOG_TYPE_ERROR, "Unable to configure Playback audio session. Error: %@", buf, 0xCu);
     }
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_17);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sharedPhotosOneUpInstanceWithLoadHandler:(id)handler
@@ -411,30 +408,28 @@ void __70__ISWrappedAVAudioSession_sharedVideoPlaybackInstanceWithLoadHandler___
 
 void __54__ISWrappedAVAudioSession_sharedVideoPlaybackInstance__block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = +[ISWrappedAVAudioSession auxiliarySession];
   v1 = sharedVideoPlaybackInstance_sharedVideoPlaybackInstance;
   sharedVideoPlaybackInstance_sharedVideoPlaybackInstance = v0;
 
   v2 = *MEMORY[0x277CB8020];
   v3 = *MEMORY[0x277CB80A8];
-  v8 = 0;
-  v4 = [sharedVideoPlaybackInstance_sharedVideoPlaybackInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [sharedVideoPlaybackInstance_sharedVideoPlaybackInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v7];
+  v5 = v7;
   if ((v4 & 1) == 0)
   {
     v6 = ISGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_error_impl(&dword_25E667000, v6, OS_LOG_TYPE_ERROR, "Unable to configure Playback audio session. Error: %@", buf, 0xCu);
     }
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_12);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sharedAmbientInstanceWithLoadHandler:(id)handler
@@ -483,30 +478,28 @@ void __64__ISWrappedAVAudioSession_sharedAmbientInstanceWithLoadHandler___block_
 
 void __48__ISWrappedAVAudioSession_sharedAmbientInstance__block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = +[ISWrappedAVAudioSession auxiliarySession];
   v1 = sharedAmbientInstance_sharedAmbientInstance;
   sharedAmbientInstance_sharedAmbientInstance = v0;
 
   v2 = *MEMORY[0x277CB8020];
   v3 = *MEMORY[0x277CB80A8];
-  v8 = 0;
-  v4 = [sharedAmbientInstance_sharedAmbientInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [sharedAmbientInstance_sharedAmbientInstance setCategory:v2 mode:v3 routeSharingPolicy:0 options:0 error:&v7];
+  v5 = v7;
   if ((v4 & 1) == 0)
   {
     v6 = ISGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_error_impl(&dword_25E667000, v6, OS_LOG_TYPE_ERROR, "Unable to configure Ambient audio session. Error: %@", buf, 0xCu);
     }
   }
 
   dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_7);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sharedMemoryPlaybackInstanceWithLoadHandler:(id)handler

@@ -204,24 +204,24 @@
 
 - (id)description
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  v16[0] = @"Input Word";
+  v16[6] = *MEMORY[0x277D85DE8];
+  v15[0] = @"Input Word";
   inputWord = [(TLTransliteratorCandidate *)self inputWord];
-  v17[0] = inputWord;
-  v16[1] = @"Transliterated Word";
+  v16[0] = inputWord;
+  v15[1] = @"Transliterated Word";
   transliteratedWord = [(TLTransliteratorCandidate *)self transliteratedWord];
-  v17[1] = transliteratedWord;
-  v16[2] = @"LM Score";
+  v16[1] = transliteratedWord;
+  v15[2] = @"LM Score";
   v5 = MEMORY[0x277CCABB0];
   [(TLTransliteratorCandidate *)self lmScore];
   v6 = [v5 numberWithDouble:?];
-  v17[2] = v6;
-  v16[3] = @"Seq2Seq Score";
+  v16[2] = v6;
+  v15[3] = @"Seq2Seq Score";
   v7 = MEMORY[0x277CCABB0];
   [(TLTransliteratorCandidate *)self seq2seqScore];
   v8 = [v7 numberWithDouble:?];
-  v17[3] = v8;
-  v16[4] = @"Is Extension Candidate";
+  v16[3] = v8;
+  v15[4] = @"Is Extension Candidate";
   isExtensionCandidate = [(TLTransliteratorCandidate *)self isExtensionCandidate];
   v10 = @"NO";
   if (isExtensionCandidate)
@@ -229,15 +229,13 @@
     v10 = @"YES";
   }
 
-  v17[4] = v10;
-  v16[5] = @"Type";
+  v16[4] = v10;
+  v15[5] = @"Type";
   v11 = TLTransliterationCandidateTypeAsString([(TLTransliteratorCandidate *)self type]);
-  v17[5] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
+  v16[5] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   v13 = [v12 description];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

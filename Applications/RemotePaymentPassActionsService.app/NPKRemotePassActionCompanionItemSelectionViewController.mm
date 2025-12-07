@@ -21,6 +21,7 @@
 - (void)setContact:(id)contact;
 - (void)traitCollectionDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -117,6 +118,14 @@ LABEL_13:
   v3.super_class = NPKRemotePassActionCompanionItemSelectionViewController;
   [(NPKRemotePassActionCompanionItemSelectionViewController *)&v3 viewDidLoad];
   [(NPKRemotePassActionCompanionItemSelectionViewController *)self _setUpNavigationItem];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NPKRemotePassActionCompanionItemSelectionViewController;
+  [(NPKRemotePassActionCompanionItemSelectionViewController *)&v4 viewWillAppear:appear];
+  [(NPKRemotePassActionCompanionItemSelectionViewController *)self _fetchRemoteContentIfNeeded];
 }
 
 - (void)viewWillLayoutSubviews
@@ -363,62 +372,61 @@ LABEL_6:
 - (id)_contactImageForContact:(id)contact
 {
   contactCopy = contact;
-  passView = self->_passView;
   [objc_opt_class() contactImageSize];
-  v7 = v6;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2050000000;
-  v8 = qword_100016DC8;
-  v27 = qword_100016DC8;
+  v5 = v4;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
+  v6 = qword_100016DC8;
+  v25 = qword_100016DC8;
   if (!qword_100016DC8)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v29 = sub_100004DFC;
-    v30 = &unk_1000103C0;
-    v31 = &v24;
+    v27 = sub_100004DFC;
+    v28 = &unk_1000103C0;
+    v29 = &v22;
     sub_100004DFC(&buf);
-    v8 = v25[3];
+    v6 = v23[3];
   }
 
-  v9 = v8;
-  _Block_object_dispose(&v24, 8);
+  v7 = v6;
+  _Block_object_dispose(&v22, 8);
   givenName = [contactCopy givenName];
   familyName = [contactCopy familyName];
-  v12 = [v8 profilePictureForContact:contactCopy serverImageData:0 firstName:givenName lastName:familyName diameter:v7];
+  v10 = [v6 profilePictureForContact:contactCopy serverImageData:0 firstName:givenName lastName:familyName diameter:v5];
 
-  if (!v12 || ([UIImage imageWithData:v12], (v13 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!v10 || ([UIImage imageWithData:v10], (v11 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v14 = pk_RemotePassAction_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_RemotePassAction_log();
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v13)
     {
-      v16 = pk_RemotePassAction_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_RemotePassAction_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = contactCopy;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Warning: No photo data found; falling back to monogram for contact: %@", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Warning: No photo data found; falling back to monogram for contact: %@", &buf, 0xCu);
       }
     }
 
-    v17 = qword_100016DC0;
+    v15 = qword_100016DC0;
     if (!qword_100016DC0)
     {
-      v18 = [[CNMonogrammer alloc] initWithStyle:0 diameter:v7];
-      v19 = qword_100016DC0;
-      qword_100016DC0 = v18;
-
+      v16 = [[CNMonogrammer alloc] initWithStyle:0 diameter:v5];
       v17 = qword_100016DC0;
+      qword_100016DC0 = v16;
+
+      v15 = qword_100016DC0;
     }
 
-    v20 = [v17 monogramForContact:contactCopy];
-    v21 = v20;
-    if (v20)
+    v18 = [v15 monogramForContact:contactCopy];
+    v19 = v18;
+    if (v18)
     {
-      silhouetteMonogram = v20;
+      silhouetteMonogram = v18;
     }
 
     else
@@ -426,10 +434,10 @@ LABEL_6:
       silhouetteMonogram = [qword_100016DC0 silhouetteMonogram];
     }
 
-    v13 = silhouetteMonogram;
+    v11 = silhouetteMonogram;
   }
 
-  return v13;
+  return v11;
 }
 
 - (BOOL)_shouldHideNonEssentialUI

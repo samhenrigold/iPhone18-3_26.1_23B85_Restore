@@ -7,28 +7,19 @@
 - (id)buildCommand
 {
   result = [(SPUISResultBuilder *)self result];
-  if ([result type] == 24)
+  if ([result type] == 24 || objc_msgSend(result, "type") == 22)
   {
-    v3 = 0x277D4C4F0;
-LABEL_5:
-    v4 = *v3;
-    v5 = objc_opt_new();
+    v3 = objc_opt_new();
     identifier = [result identifier];
-    [v5 setClipIdentifier:identifier];
-
-    goto LABEL_7;
+    [v3 setClipIdentifier:identifier];
   }
 
-  if ([result type] == 22)
+  else
   {
-    v3 = 0x277D4C4C8;
-    goto LABEL_5;
+    v3 = 0;
   }
 
-  v5 = 0;
-LABEL_7:
-
-  return v5;
+  return v3;
 }
 
 @end

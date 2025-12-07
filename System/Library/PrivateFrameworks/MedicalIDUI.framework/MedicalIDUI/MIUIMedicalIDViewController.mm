@@ -2,6 +2,7 @@
 - (MIUIMedicalIDViewController)initWithCoder:(id)coder;
 - (MIUIMedicalIDViewController)initWithHealthStore:(id)store displayConfiguration:(id)configuration;
 - (MIUIMedicalIDViewController)initWithHealthStore:(id)store medicalIDData:(id)data displayConfiguration:(id)configuration;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 @end
@@ -136,6 +137,15 @@ void __42__MIUIMedicalIDViewController_viewDidLoad__block_invoke(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained parentViewController];
   [v1 dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MIUIMedicalIDViewController;
+  [(MIUIMedicalIDViewController *)&v5 viewDidAppear:appear];
+  scrollView = [(MedicalIDViewFactory *)self->_factory scrollView];
+  [(MIUIMedicalIDViewController *)self setContentScrollView:scrollView forEdge:15];
 }
 
 - (void)viewDidLayoutSubviews

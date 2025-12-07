@@ -1645,10 +1645,10 @@ LABEL_29:
 
   if (!v3)
   {
-    v113 = NSLocalizedDescriptionKey;
+    v112 = NSLocalizedDescriptionKey;
     v10 = [NSString stringWithFormat:@"No vocab filename specified in recipe."];
-    v114 = v10;
-    v7 = [NSDictionary dictionaryWithObjects:&v114 forKeys:&v113 count:1];
+    v113 = v10;
+    v7 = [NSDictionary dictionaryWithObjects:&v113 forKeys:&v112 count:1];
     v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v7];
     goto LABEL_11;
   }
@@ -1660,11 +1660,11 @@ LABEL_29:
 
   if (!v7)
   {
-    v111 = NSLocalizedDescriptionKey;
+    v110 = NSLocalizedDescriptionKey;
     v12 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"kaldiVocab"];
     v14 = [NSString stringWithFormat:@"No vocab file attached: %@", v12];
-    v112 = v14;
-    v15 = [NSDictionary dictionaryWithObjects:&v112 forKeys:&v111 count:1];
+    v111 = v14;
+    v15 = [NSDictionary dictionaryWithObjects:&v111 forKeys:&v110 count:1];
     v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v15];
 
     v7 = 0;
@@ -1675,13 +1675,13 @@ LABEL_29:
   if (os_log_type_enabled(qword_10003FF18, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v110 = v7;
+    v109 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Attached vocabulary URL: %@", buf, 0xCu);
   }
 
-  v94[0] = 0;
-  v9 = [[SMTKaldiVocab alloc] initWithContentsOfUrl:v7 outError:v94];
-  v10 = v94[0];
+  v93[0] = 0;
+  v9 = [[SMTKaldiVocab alloc] initWithContentsOfUrl:v7 outError:v93];
+  v10 = v93[0];
   vocab = self->_vocab;
   self->_vocab = v9;
 
@@ -1712,15 +1712,15 @@ LABEL_29:
 
     if (v24)
     {
-      v93 = 0;
-      v25 = [NSData dataWithContentsOfURL:v24 options:1 error:&v93];
-      v26 = v93;
+      v92 = 0;
+      v25 = [NSData dataWithContentsOfURL:v24 options:1 error:&v92];
+      v26 = v92;
       if (v26)
       {
         v10 = v26;
-        v103 = NSLocalizedDescriptionKey;
-        v104 = @"Unable to load partial update offsets";
-        v27 = [NSDictionary dictionaryWithObjects:&v104 forKeys:&v103 count:1];
+        v102 = NSLocalizedDescriptionKey;
+        v103 = @"Unable to load partial update offsets";
+        v27 = [NSDictionary dictionaryWithObjects:&v103 forKeys:&v102 count:1];
         v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v27];
 
 LABEL_43:
@@ -1728,14 +1728,14 @@ LABEL_43:
         goto LABEL_10;
       }
 
-      v92 = 0;
-      v28 = [NSJSONSerialization JSONObjectWithData:v25 options:1 error:&v92];
-      v10 = v92;
+      v91 = 0;
+      v28 = [NSJSONSerialization JSONObjectWithData:v25 options:1 error:&v91];
+      v10 = v91;
       if (v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v101 = NSLocalizedDescriptionKey;
-        v102 = @"Unable to load _recipe[kRecipePartialUpdateOffsetFile] as json";
-        v74 = [NSDictionary dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+        v100 = NSLocalizedDescriptionKey;
+        v101 = @"Unable to load _recipe[kRecipePartialUpdateOffsetFile] as json";
+        v74 = [NSDictionary dictionaryWithObjects:&v101 forKeys:&v100 count:1];
         v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:153 userInfo:v74];
 
         goto LABEL_43;
@@ -1746,49 +1746,49 @@ LABEL_43:
 
       self->_deltaIsPartial = 1;
 LABEL_24:
-      v100[0] = @"inferenceContextSize";
-      v100[1] = @"trainingContextKey";
-      v100[2] = @"trainingTargetKey";
-      v100[3] = @"sequenceLength";
-      v100[4] = @"numNoise";
-      v100[5] = @"batchSize";
-      v100[6] = @"trainingMaskKey";
-      v100[7] = @"trainingNoiseKey";
-      [NSArray arrayWithObjects:v100 count:8];
+      v99[0] = @"inferenceContextSize";
+      v99[1] = @"trainingContextKey";
+      v99[2] = @"trainingTargetKey";
+      v99[3] = @"sequenceLength";
+      v99[4] = @"numNoise";
+      v99[5] = @"batchSize";
+      v99[6] = @"trainingMaskKey";
+      v99[7] = @"trainingNoiseKey";
+      [NSArray arrayWithObjects:v99 count:8];
+      v89 = 0u;
       v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
-      v12 = v89 = 0u;
-      v30 = [v12 countByEnumeratingWithState:&v88 objects:v99 count:16];
+      v87 = 0u;
+      v12 = v88 = 0u;
+      v30 = [v12 countByEnumeratingWithState:&v87 objects:v98 count:16];
       if (v30)
       {
-        v31 = *v89;
+        v31 = *v88;
         while (2)
         {
           for (i = 0; i != v30; i = i + 1)
           {
-            if (*v89 != v31)
+            if (*v88 != v31)
             {
               objc_enumerationMutation(v12);
             }
 
-            v33 = *(*(&v88 + 1) + 8 * i);
+            v33 = *(*(&v87 + 1) + 8 * i);
             v34 = [(NSDictionary *)self->_recipe valueForKey:v33];
             v35 = v34 == 0;
 
             if (v35)
             {
               v72 = [NSString stringWithFormat:@"Unable to read recipe[%@]", v33];
-              v97 = NSLocalizedDescriptionKey;
-              v98 = v72;
-              v73 = [NSDictionary dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+              v96 = NSLocalizedDescriptionKey;
+              v97 = v72;
+              v73 = [NSDictionary dictionaryWithObjects:&v97 forKeys:&v96 count:1];
               v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v73];
 
               goto LABEL_9;
             }
           }
 
-          v30 = [v12 countByEnumeratingWithState:&v88 objects:v99 count:16];
+          v30 = [v12 countByEnumeratingWithState:&v87 objects:v98 count:16];
           if (v30)
           {
             continue;
@@ -1822,26 +1822,26 @@ LABEL_24:
 
       v50 = v41;
       trainData = self->_trainData;
-      v87[0] = _NSConcreteStackBlock;
-      v87[1] = 3221225472;
-      v87[2] = sub_10000C1DC;
-      v87[3] = &unk_100038970;
-      v87[4] = self;
-      v87[5] = v41;
-      [(NSMutableArray *)trainData enumerateObjectsUsingBlock:v87];
+      v86[0] = _NSConcreteStackBlock;
+      v86[1] = 3221225472;
+      v86[2] = sub_10000C1DC;
+      v86[3] = &unk_100038970;
+      v86[4] = self;
+      v86[5] = v41;
+      [(NSMutableArray *)trainData enumerateObjectsUsingBlock:v86];
       v52 = [SMTDataSourceTrain alloc];
       numberSamples = [(SMTTextProcessorTrain *)self->_textProcessorTrain numberSamples];
       [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"numNoise"];
-      v83 = v82 = numberSamples;
-      LODWORD(numberSamples) = [v83 intValue];
-      v81 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"batchSize"];
-      intValue = [v81 intValue];
+      v82 = v81 = numberSamples;
+      LODWORD(numberSamples) = [v82 intValue];
+      v80 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"batchSize"];
+      intValue = [v80 intValue];
       vocabSize = [(SMTKaldiVocab *)self->_vocab vocabSize];
-      v85 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingContextKey"];
-      v84 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingTargetKey"];
+      v84 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingContextKey"];
+      v83 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingTargetKey"];
       v56 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingMaskKey"];
       v57 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"trainingNoiseKey"];
-      v58 = [(SMTDataSourceTrain *)v52 initWithNumDataPoints:v82 sequenceLength:v50 noiseSize:numberSamples batchSize:intValue vocabSize:vocabSize contextKey:v85 targetKey:v84 maskKey:v56 noiseKey:v57];
+      v58 = [(SMTDataSourceTrain *)v52 initWithNumDataPoints:v81 sequenceLength:v50 noiseSize:numberSamples batchSize:intValue vocabSize:vocabSize contextKey:v84 targetKey:v83 maskKey:v56 noiseKey:v57];
       fofeTrainSource = self->_fofeTrainSource;
       self->_fofeTrainSource = v58;
 
@@ -1852,9 +1852,9 @@ LABEL_24:
         _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_INFO, "Data feeder loaded", buf, 2u);
       }
 
-      v86 = 0;
-      v61 = [(SMTGlobalNNLM *)self getEvalTask:&v86];
-      v62 = v86;
+      v85 = 0;
+      v61 = [(SMTGlobalNNLM *)self getEvalTask:&v85];
+      v62 = v85;
       v10 = v62;
       if (!v61 || v62)
       {
@@ -1873,7 +1873,6 @@ LABEL_24:
 
         if (!sub_100006924(self->_recipe, @"enableMemoryMap", 0))
         {
-          numParam = self->_numParam;
           operator new[]();
         }
 
@@ -1893,15 +1892,15 @@ LABEL_24:
 
           dataPointer = [(SMTSimpleMmapBuffer *)v69 dataPointer];
           self->_weightsRawPtr = dataPointer;
-          v76 = sub_10000726C(self->_tensorInfo, v61, dataPointer);
+          v75 = sub_10000726C(self->_tensorInfo, v61, dataPointer);
           tensors = self->_tensors;
-          self->_tensors = v76;
+          self->_tensors = v75;
 
-          v78 = qword_10003FF18;
+          v77 = qword_10003FF18;
           if (os_log_type_enabled(qword_10003FF18, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_INFO, "Initial weights and tensor shapes have been read from evaluation graph", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "Initial weights and tensor shapes have been read from evaluation graph", buf, 2u);
           }
 
           v13 = 0;
@@ -1909,28 +1908,28 @@ LABEL_24:
 
         else
         {
-          v95 = NSLocalizedDescriptionKey;
-          v96 = @"Unable to memory map the buffer";
-          v80 = [NSDictionary dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-          v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v80];
+          v94 = NSLocalizedDescriptionKey;
+          v95 = @"Unable to memory map the buffer";
+          v79 = [NSDictionary dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+          v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v79];
         }
       }
 
       goto LABEL_10;
     }
 
-    v105 = NSLocalizedDescriptionKey;
-    v106 = @"recipe[kRecipePartialUpdateOffsetFile] is configured but not resolved";
-    v12 = [NSDictionary dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+    v104 = NSLocalizedDescriptionKey;
+    v105 = @"recipe[kRecipePartialUpdateOffsetFile] is configured but not resolved";
+    v12 = [NSDictionary dictionaryWithObjects:&v105 forKeys:&v104 count:1];
     v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v12];
 LABEL_9:
     v10 = 0;
     goto LABEL_10;
   }
 
-  v107 = NSUnderlyingErrorKey;
-  v108 = v10;
-  v12 = [NSDictionary dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+  v106 = NSUnderlyingErrorKey;
+  v107 = v10;
+  v12 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
   v13 = [NSError errorWithDomain:@"com.apple.siri.speechmodeltraining" code:151 userInfo:v12];
 LABEL_10:
 

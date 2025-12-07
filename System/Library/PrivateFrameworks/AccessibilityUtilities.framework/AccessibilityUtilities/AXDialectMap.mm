@@ -413,14 +413,14 @@ LABEL_7:
   return v2;
 }
 
-void __33__AXDialectMap__hanjaToHangulMap__block_invoke()
+void __33__AXDialectMap__hanjaToHangulMap__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = [v0 pathForResource:@"hanjaToHangul" ofType:@"plist"];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v4 = [v1 pathForResource:@"hanjaToHangul" ofType:@"plist"];
 
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v3];
-  v2 = _hanjaToHangulMap_hanjaToHangulMap;
-  _hanjaToHangulMap_hanjaToHangulMap = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v4];
+  v3 = _hanjaToHangulMap_hanjaToHangulMap;
+  _hanjaToHangulMap_hanjaToHangulMap = v2;
 }
 
 + (id)_hanjaCharacterSet

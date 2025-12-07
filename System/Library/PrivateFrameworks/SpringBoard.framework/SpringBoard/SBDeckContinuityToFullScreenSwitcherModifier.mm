@@ -194,7 +194,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __62__SBDeckContinuityToFullScreenSwitcherModifier_frameForIndex___block_invoke(void *a1)
+void *__62__SBDeckContinuityToFullScreenSwitcherModifier_frameForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -247,7 +247,7 @@ uint64_t __62__SBDeckContinuityToFullScreenSwitcherModifier_frameForIndex___bloc
   return v5;
 }
 
-uint64_t __62__SBDeckContinuityToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__62__SBDeckContinuityToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -296,7 +296,7 @@ uint64_t __62__SBDeckContinuityToFullScreenSwitcherModifier_scaleForIndex___bloc
   return v5;
 }
 
-uint64_t __69__SBDeckContinuityToFullScreenSwitcherModifier_titleOpacityForIndex___block_invoke(void *a1)
+void *__69__SBDeckContinuityToFullScreenSwitcherModifier_titleOpacityForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) titleOpacityForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -350,7 +350,7 @@ uint64_t __69__SBDeckContinuityToFullScreenSwitcherModifier_titleOpacityForIndex
   return v9;
 }
 
-uint64_t __89__SBDeckContinuityToFullScreenSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
+void *__89__SBDeckContinuityToFullScreenSwitcherModifier_opacityForLayoutRole_inAppLayout_atIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) opacityForLayoutRole:a1[7] inAppLayout:a1[5] atIndex:a1[8]];
   *(*(a1[6] + 8) + 24) = v3;
@@ -399,7 +399,7 @@ uint64_t __89__SBDeckContinuityToFullScreenSwitcherModifier_opacityForLayoutRole
   return v5;
 }
 
-uint64_t __76__SBDeckContinuityToFullScreenSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(void *a1)
+void *__76__SBDeckContinuityToFullScreenSwitcherModifier_titleAndIconOpacityForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 176) titleAndIconOpacityForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;

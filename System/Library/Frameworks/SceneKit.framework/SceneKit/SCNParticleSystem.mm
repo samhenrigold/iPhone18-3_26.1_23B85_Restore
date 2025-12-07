@@ -196,7 +196,7 @@
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setName:];
@@ -237,16 +237,17 @@ CFStringRef __29__SCNParticleSystem_setName___block_invoke(uint64_t a1)
   }
 
   sceneRef = [(SCNParticleSystem *)self sceneRef];
-  v5 = sceneRef;
+  v6 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v5);
   }
 
-  Name = C3DEntityGetName([(SCNParticleSystem *)self __CFObject]);
-  if (v5)
+  __CFObject = [(SCNParticleSystem *)self __CFObject];
+  Name = C3DEntityGetName(__CFObject, v8);
+  if (v6)
   {
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v9);
   }
 
   return Name;
@@ -263,21 +264,21 @@ CFStringRef __29__SCNParticleSystem_setName___block_invoke(uint64_t a1)
 {
   __CFObject = [(SCNParticleSystem *)self __CFObject];
 
-  return C3DEntityGetID(__CFObject);
+  return C3DEntityGetID(__CFObject, v3);
 }
 
 - (void)_syncEntityObjCModel
 {
   __CFObject = [(SCNParticleSystem *)self __CFObject];
 
-  self->_name = C3DEntityGetName(__CFObject);
+  self->_name = C3DEntityGetName(__CFObject, v4);
 }
 
 - (__C3DScene)sceneRef
 {
   __CFObject = [(SCNParticleSystem *)self __CFObject];
 
-  return C3DGetScene(__CFObject);
+  return C3DGetScene(__CFObject, v3);
 }
 
 - (id)scene
@@ -298,7 +299,7 @@ CFStringRef __29__SCNParticleSystem_setName___block_invoke(uint64_t a1)
   if (result)
   {
 
-    return C3DSceneGetAnimationManager(result);
+    return C3DSceneGetAnimationManager(result, v3);
   }
 
   return result;
@@ -317,12 +318,13 @@ CFStringRef __29__SCNParticleSystem_setName___block_invoke(uint64_t a1)
   {
     [(SCNOrderedDictionary *)self->_animations removeObjectForKey:key];
     __CFObject = [(SCNParticleSystem *)self __CFObject];
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [SCNTechnique __removeAnimation:v9 forKey:?];
+        [SCNTechnique __removeAnimation:v11 forKey:?];
       }
     }
 
@@ -366,7 +368,7 @@ CFStringRef __29__SCNParticleSystem_setName___block_invoke(uint64_t a1)
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimationPlayer:forKey:];
@@ -412,7 +414,7 @@ void __47__SCNParticleSystem_addAnimationPlayer_forKey___block_invoke(uint64_t a
 
   else
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem addAnimation:forKey:];
@@ -505,10 +507,10 @@ void __47__SCNParticleSystem_addAnimationPlayer_forKey___block_invoke(uint64_t a
 - (void)_syncObjCAnimations
 {
   sceneRef = [(SCNParticleSystem *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   os_unfair_lock_lock(&self->_animationsLock);
@@ -518,29 +520,30 @@ void __47__SCNParticleSystem_addAnimationPlayer_forKey___block_invoke(uint64_t a
   __CFObject = [(SCNParticleSystem *)self __CFObject];
   if (__CFObject)
   {
-    v6 = __CFObject;
-    if ((CFTypeIsC3DEntity(__CFObject) & 1) == 0)
+    v8 = __CFObject;
+    v9 = CFTypeIsC3DEntity(__CFObject);
+    if ((v9 & 1) == 0)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+      v11 = scn_default_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(SCNTechnique *)v7 _syncObjCAnimations];
+        [(SCNTechnique *)v11 _syncObjCAnimations];
       }
     }
 
-    Animations = C3DEntityGetAnimations(v6);
+    Animations = C3DEntityGetAnimations(v8, v10);
     if (Animations)
     {
-      v9 = Animations;
+      v13 = Animations;
       os_unfair_lock_lock(&self->_animationsLock);
-      C3DOrderedDictionaryApplyFunction(v9, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
+      C3DOrderedDictionaryApplyFunction(v13, SCNConvertC3DAnimationDictionaryFunc, self->_animations);
       os_unfair_lock_unlock(&self->_animationsLock);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v7);
   }
 }
 
@@ -709,21 +712,21 @@ void __46__SCNParticleSystem_setSpeed_forAnimationKey___block_invoke(uint64_t a1
 - (BOOL)isAnimationForKeyPaused:(id)paused
 {
   sceneRef = [(SCNParticleSystem *)self sceneRef];
-  v6 = sceneRef;
+  v7 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v6);
   }
 
   __CFObject = [(SCNParticleSystem *)self __CFObject];
   if (__CFObject)
   {
-    v8 = __CFObject;
+    v10 = __CFObject;
     animationManager = [(SCNParticleSystem *)self animationManager];
     if (animationManager)
     {
-      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v8, paused);
-      if (!v6)
+      IsPaused = C3DAnimationManagerGetAnimationForKeyIsPaused(animationManager, v10, paused);
+      if (!v7)
       {
         return IsPaused;
       }
@@ -733,10 +736,10 @@ void __46__SCNParticleSystem_setSpeed_forAnimationKey___block_invoke(uint64_t a1
   }
 
   IsPaused = 0;
-  if (v6)
+  if (v7)
   {
 LABEL_8:
-    C3DSceneUnlock(v6);
+    C3DSceneUnlock(v7, v9);
   }
 
   return IsPaused;
@@ -830,7 +833,7 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) __CFObject];
 
-  C3DEntityRemoveAllBindings(v1);
+  C3DEntityRemoveAllBindings(v1, v2);
 }
 
 + (SCNParticleSystem)particleSystem
@@ -886,23 +889,24 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
 
 - (SCNParticleSystem)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNParticleSystem;
-  v2 = [(SCNParticleSystem *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNParticleSystem;
+  v2 = [(SCNParticleSystem *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = C3DParticleSystemCreate();
-    v2->_particleSystem = v3;
-    if (v3)
+    v5 = C3DParticleSystemCreate(v2, v3);
+    v4->_particleSystem = v5;
+    if (v5)
     {
-      C3DEntitySetObjCWrapper(v3, v2);
+      C3DEntitySetObjCWrapper(v5, v4);
     }
 
-    v2->_animationsLock._os_unfair_lock_opaque = 0;
-    [(SCNParticleSystem *)v2 _syncObjCModel];
+    v4->_animationsLock._os_unfair_lock_opaque = 0;
+    [(SCNParticleSystem *)v4 _syncObjCModel];
   }
 
-  return v2;
+  return v4;
 }
 
 - (SCNParticleSystem)initWithParticleSystemRef:(__C3DParticleSystem *)ref
@@ -961,90 +965,90 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
 - (void)_syncObjCModel
 {
   sceneRef = [(SCNParticleSystem *)self sceneRef];
-  v4 = sceneRef;
+  v5 = sceneRef;
   if (sceneRef)
   {
-    C3DSceneLock(sceneRef);
+    C3DSceneLock(sceneRef, v4);
   }
 
   particleSystemRef = [(SCNParticleSystem *)self particleSystemRef];
-  self->_emissionDuration = C3DParticleSystemGetEmissionDuration(particleSystemRef);
-  self->_emissionDurationVariation = C3DParticleSystemGetEmissionDurationVariation(particleSystemRef);
-  self->_idleDuration = C3DParticleSystemGetIdleDuration(particleSystemRef);
-  self->_idleDurationVariation = C3DParticleSystemGetIdleDurationVariation(particleSystemRef);
-  self->_birthRate = C3DParticleSystemGetBirthRate(particleSystemRef);
-  self->_birthRateVariation = C3DParticleSystemGetBirthRateVariation(particleSystemRef);
-  self->_warmupDuration = C3DParticleSystemGetWarmupDuration(particleSystemRef);
-  EmitterShape = C3DParticleSystemGetEmitterShape(particleSystemRef);
+  self->_emissionDuration = C3DParticleSystemGetEmissionDuration(particleSystemRef, v7);
+  self->_emissionDurationVariation = C3DParticleSystemGetEmissionDurationVariation(particleSystemRef, v8);
+  self->_idleDuration = C3DParticleSystemGetIdleDuration(particleSystemRef, v9);
+  self->_idleDurationVariation = C3DParticleSystemGetIdleDurationVariation(particleSystemRef, v10);
+  self->_birthRate = C3DParticleSystemGetBirthRate(particleSystemRef, v11);
+  self->_birthRateVariation = C3DParticleSystemGetBirthRateVariation(particleSystemRef, v12);
+  self->_warmupDuration = C3DParticleSystemGetWarmupDuration(particleSystemRef, v13);
+  EmitterShape = C3DParticleSystemGetEmitterShape(particleSystemRef, v14);
   if (EmitterShape)
   {
     [(SCNParticleSystem *)self setEmitterShape:[SCNGeometry geometryWithGeometryRef:EmitterShape]];
   }
 
-  self->_birthLocation = C3DParticleSystemGetBirthLocation(particleSystemRef);
-  self->_birthDirection = C3DParticleSystemGetBirthDirection(particleSystemRef);
-  EmittingDirection = C3DParticleSystemGetEmittingDirection(particleSystemRef);
+  self->_birthLocation = C3DParticleSystemGetBirthLocation(particleSystemRef, v16);
+  self->_birthDirection = C3DParticleSystemGetBirthDirection(particleSystemRef, v17);
+  EmittingDirection = C3DParticleSystemGetEmittingDirection(particleSystemRef, v18);
   *&self->_emittingDirection.x = EmittingDirection.n128_u64[0];
   LODWORD(self->_emittingDirection.z) = EmittingDirection.n128_u32[2];
-  OrientationDirection = C3DParticleSystemGetOrientationDirection(particleSystemRef);
+  OrientationDirection = C3DParticleSystemGetOrientationDirection(particleSystemRef, v20);
   *&self->_orientationDirection.x = OrientationDirection.n128_u64[0];
   LODWORD(self->_orientationDirection.z) = OrientationDirection.n128_u32[2];
-  Acceleration = C3DParticleSystemGetAcceleration(particleSystemRef);
+  Acceleration = C3DParticleSystemGetAcceleration(particleSystemRef, v22);
   *&self->_acceleration.x = Acceleration.n128_u64[0];
   LODWORD(self->_acceleration.z) = Acceleration.n128_u32[2];
-  self->_spreadingAngle = C3DParticleSystemGetSpreadingAngle(particleSystemRef);
-  self->_loops = C3DParticleSystemGetLoops(particleSystemRef);
-  self->_isLocal = C3DParticleSystemGetIsLocal(particleSystemRef);
-  self->_affectedByGravity = C3DParticleSystemGetAffectedByGravity(particleSystemRef);
-  self->_affectedByPhysicsFields = C3DParticleSystemGetAffectedByPhysicsFields(particleSystemRef);
-  self->_physicsCollisionsEnabled = C3DParticleSystemGetPhysicsCollisionsEnabled(particleSystemRef);
-  self->_lightingEnabled = C3DParticleSystemGetLightingEnabled(particleSystemRef);
-  self->_softParticlesEnabled = C3DParticleSystemGetSoftParticlesEnabled(particleSystemRef);
-  self->_particleDiesOnCollision = C3DParticleSystemGetParticleDiesOnCollision(particleSystemRef);
-  self->_blackPassEnabled = C3DParticleSystemGetBlackPassEnabled(particleSystemRef);
-  self->_writesToDepthBuffer = C3DParticleSystemGetWritesToDepthBuffer(particleSystemRef);
-  self->_particleAngle = C3DParticleSystemGetParticleAngle(particleSystemRef);
-  self->_particleAngleVariation = C3DParticleSystemGetParticleAngleVariation(particleSystemRef);
-  self->_particleVelocity = C3DParticleSystemGetParticleVelocity(particleSystemRef);
-  self->_particleVelocityVariation = C3DParticleSystemGetParticleVelocityVariation(particleSystemRef);
-  self->_particleAngularVelocity = C3DParticleSystemGetParticleAngularVelocity(particleSystemRef);
-  self->_particleAngularVelocityVariation = C3DParticleSystemGetParticleAngularVelocityVariation(particleSystemRef);
-  self->_particleLifeSpan = C3DParticleSystemGetParticleLifeSpan(particleSystemRef);
-  self->_particleLifeSpanVariation = C3DParticleSystemGetParticleLifeSpanVariation(particleSystemRef);
-  self->_particleBounce = C3DParticleSystemGetParticleBounce(particleSystemRef);
-  self->_particleBounceVariation = C3DParticleSystemGetParticleBounceVariation(particleSystemRef);
-  self->_particleFriction = C3DParticleSystemGetParticleFriction(particleSystemRef);
-  self->_particleFrictionVariation = C3DParticleSystemGetParticleFrictionVariation(particleSystemRef);
-  ParticleColor = C3DParticleSystemGetParticleColor(particleSystemRef);
+  self->_spreadingAngle = C3DParticleSystemGetSpreadingAngle(particleSystemRef, v24);
+  self->_loops = C3DParticleSystemGetLoops(particleSystemRef, v25);
+  self->_isLocal = C3DParticleSystemGetIsLocal(particleSystemRef, v26);
+  self->_affectedByGravity = C3DParticleSystemGetAffectedByGravity(particleSystemRef, v27);
+  self->_affectedByPhysicsFields = C3DParticleSystemGetAffectedByPhysicsFields(particleSystemRef, v28);
+  self->_physicsCollisionsEnabled = C3DParticleSystemGetPhysicsCollisionsEnabled(particleSystemRef, v29);
+  self->_lightingEnabled = C3DParticleSystemGetLightingEnabled(particleSystemRef, v30);
+  self->_softParticlesEnabled = C3DParticleSystemGetSoftParticlesEnabled(particleSystemRef, v31);
+  self->_particleDiesOnCollision = C3DParticleSystemGetParticleDiesOnCollision(particleSystemRef, v32);
+  self->_blackPassEnabled = C3DParticleSystemGetBlackPassEnabled(particleSystemRef, v33);
+  self->_writesToDepthBuffer = C3DParticleSystemGetWritesToDepthBuffer(particleSystemRef, v34);
+  self->_particleAngle = C3DParticleSystemGetParticleAngle(particleSystemRef, v35);
+  self->_particleAngleVariation = C3DParticleSystemGetParticleAngleVariation(particleSystemRef, v36);
+  self->_particleVelocity = C3DParticleSystemGetParticleVelocity(particleSystemRef, v37);
+  self->_particleVelocityVariation = C3DParticleSystemGetParticleVelocityVariation(particleSystemRef, v38);
+  self->_particleAngularVelocity = C3DParticleSystemGetParticleAngularVelocity(particleSystemRef, v39);
+  self->_particleAngularVelocityVariation = C3DParticleSystemGetParticleAngularVelocityVariation(particleSystemRef, v40);
+  self->_particleLifeSpan = C3DParticleSystemGetParticleLifeSpan(particleSystemRef, v41);
+  self->_particleLifeSpanVariation = C3DParticleSystemGetParticleLifeSpanVariation(particleSystemRef, v42);
+  self->_particleBounce = C3DParticleSystemGetParticleBounce(particleSystemRef, v43);
+  self->_particleBounceVariation = C3DParticleSystemGetParticleBounceVariation(particleSystemRef, v44);
+  self->_particleFriction = C3DParticleSystemGetParticleFriction(particleSystemRef, v45);
+  self->_particleFrictionVariation = C3DParticleSystemGetParticleFrictionVariation(particleSystemRef, v46);
+  ParticleColor = C3DParticleSystemGetParticleColor(particleSystemRef, v47);
   [(SCNParticleSystem *)self setParticleColor:C3DColor4ToRGBCFColor(ParticleColor)];
-  self->_particleColorVariation = C3DParticleSystemGetParticleColorVariation(particleSystemRef);
-  self->_particleSize = C3DParticleSystemGetParticleSize(particleSystemRef);
-  self->_particleSizeVariation = C3DParticleSystemGetParticleSizeVariation(particleSystemRef);
-  self->_particleIntensity = C3DParticleSystemGetParticleIntensity(particleSystemRef);
-  self->_particleIntensityVariation = C3DParticleSystemGetParticleIntensityVariation(particleSystemRef);
-  self->_seed = C3DParticleSystemGetSeed(particleSystemRef);
-  self->_blendMode = C3DParticleSystemGetBlendMode(particleSystemRef);
-  self->_renderingMode = C3DParticleSystemGetRenderingMode(particleSystemRef);
-  self->_orientationMode = C3DParticleSystemGetOrientationMode(particleSystemRef);
-  self->_imageSequenceAnimationMode = C3DParticleSystemGetImageSequenceAnimationMode(particleSystemRef);
-  self->_sortingMode = C3DParticleSystemGetSortingMode(particleSystemRef);
-  self->_particleMass = C3DParticleSystemGetParticleMass(particleSystemRef);
-  self->_particleMassVariation = C3DParticleSystemGetParticleMassVariation(particleSystemRef);
-  self->_dampingFactor = C3DParticleSystemGetDampingFactor(particleSystemRef);
-  self->_speedFactor = C3DParticleSystemGetSpeedFactor(particleSystemRef);
-  self->_fixedTimeStep = C3DParticleSystemGetFixedTimeStep(particleSystemRef);
-  self->_stretchFactor = C3DParticleSystemGetStretchFactor(particleSystemRef);
-  self->_imageSequenceRowCount = C3DParticleSystemGetImageSequenceRowCount(particleSystemRef);
-  self->_imageSequenceColumnCount = C3DParticleSystemGetImageSequenceColumnCount(particleSystemRef);
-  self->_imageSequenceInitialFrame = C3DParticleSystemGetImageSequenceInitialFrame(particleSystemRef);
-  self->_imageSequenceInitialFrameVariation = C3DParticleSystemGetImageSequenceInitialFrameVariation(particleSystemRef);
-  self->_imageSequenceFrameRate = C3DParticleSystemGetImageSequenceFrameRate(particleSystemRef);
-  self->_imageSequenceFrameRateVariation = C3DParticleSystemGetImageSequenceFrameRateVariation(particleSystemRef);
+  self->_particleColorVariation = C3DParticleSystemGetParticleColorVariation(particleSystemRef, v49);
+  self->_particleSize = C3DParticleSystemGetParticleSize(particleSystemRef, v50);
+  self->_particleSizeVariation = C3DParticleSystemGetParticleSizeVariation(particleSystemRef, v51);
+  self->_particleIntensity = C3DParticleSystemGetParticleIntensity(particleSystemRef, v52);
+  self->_particleIntensityVariation = C3DParticleSystemGetParticleIntensityVariation(particleSystemRef, v53);
+  self->_seed = C3DParticleSystemGetSeed(particleSystemRef, v54);
+  self->_blendMode = C3DParticleSystemGetBlendMode(particleSystemRef, v55);
+  self->_renderingMode = C3DParticleSystemGetRenderingMode(particleSystemRef, v56);
+  self->_orientationMode = C3DParticleSystemGetOrientationMode(particleSystemRef, v57);
+  self->_imageSequenceAnimationMode = C3DParticleSystemGetImageSequenceAnimationMode(particleSystemRef, v58);
+  self->_sortingMode = C3DParticleSystemGetSortingMode(particleSystemRef, v59);
+  self->_particleMass = C3DParticleSystemGetParticleMass(particleSystemRef, v60);
+  self->_particleMassVariation = C3DParticleSystemGetParticleMassVariation(particleSystemRef, v61);
+  self->_dampingFactor = C3DParticleSystemGetDampingFactor(particleSystemRef, v62);
+  self->_speedFactor = C3DParticleSystemGetSpeedFactor(particleSystemRef, v63);
+  self->_fixedTimeStep = C3DParticleSystemGetFixedTimeStep(particleSystemRef, v64);
+  self->_stretchFactor = C3DParticleSystemGetStretchFactor(particleSystemRef, v65);
+  self->_imageSequenceRowCount = C3DParticleSystemGetImageSequenceRowCount(particleSystemRef, v66);
+  self->_imageSequenceColumnCount = C3DParticleSystemGetImageSequenceColumnCount(particleSystemRef, v67);
+  self->_imageSequenceInitialFrame = C3DParticleSystemGetImageSequenceInitialFrame(particleSystemRef, v68);
+  self->_imageSequenceInitialFrameVariation = C3DParticleSystemGetImageSequenceInitialFrameVariation(particleSystemRef, v69);
+  self->_imageSequenceFrameRate = C3DParticleSystemGetImageSequenceFrameRate(particleSystemRef, v70);
+  self->_imageSequenceFrameRateVariation = C3DParticleSystemGetImageSequenceFrameRateVariation(particleSystemRef, v71);
   [(SCNParticleSystem *)self _syncEntityObjCModel];
-  if (v4)
+  if (v5)
   {
 
-    C3DSceneUnlock(v4);
+    C3DSceneUnlock(v5, v72);
   }
 }
 
@@ -1195,9 +1199,9 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
   result = [(SCNParticleSystem *)self sceneRef];
   if (result)
   {
-    v3 = result;
-    C3DSceneLock(result);
-    C3DSceneUnlock(v3);
+    v4 = result;
+    C3DSceneLock(result, v3);
+    C3DSceneUnlock(v4, v5);
     return 0;
   }
 
@@ -1252,7 +1256,7 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v5 = scn_default_log();
+    v5 = scn_default_log(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleGeometries:];
@@ -1278,9 +1282,9 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
   result = [(SCNParticleSystem *)self sceneRef];
   if (result)
   {
-    v3 = result;
-    C3DSceneLock(result);
-    C3DSceneUnlock(v3);
+    v4 = result;
+    C3DSceneLock(result, v3);
+    C3DSceneUnlock(v4, v5);
     return 0;
   }
 
@@ -1291,7 +1295,7 @@ void __38__SCNParticleSystem_removeAllBindings__block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setColliderNodes:];
@@ -1345,7 +1349,7 @@ void __38__SCNParticleSystem_setColliderNodes___block_invoke_2(uint64_t a1, void
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setPropertyControllers:];
@@ -1369,31 +1373,31 @@ void __38__SCNParticleSystem_setColliderNodes___block_invoke_2(uint64_t a1, void
 
 void __44__SCNParticleSystem_setPropertyControllers___block_invoke(uint64_t a1)
 {
-  *(&v43[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v47[1] + 4) = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v30 = *(a1 + 40);
+  v34 = *(a1 + 40);
   cf = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v1, "count")}];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   obj = [v1 allKeys];
-  v2 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v2 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v34;
+    v4 = *v38;
     do
     {
       v5 = 0;
       do
       {
-        if (*v34 != v4)
+        if (*v38 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v33 + 1) + 8 * v5);
+        v6 = *(*(&v37 + 1) + 8 * v5);
         v7 = [v1 valueForKey:v6];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -1403,71 +1407,72 @@ void __44__SCNParticleSystem_setPropertyControllers___block_invoke(uint64_t a1)
           if (v9)
           {
             v10 = v9;
-            v11 = [v30 typeOfProperty:v6];
+            v11 = [v34 typeOfProperty:v6];
             if (v11)
             {
-              v12 = v11;
+              v13 = v11;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v13 = CABasicAnimationToC3DAnimation(v10, v12, 0);
+                v14 = CABasicAnimationToC3DAnimation(v10, v13, 0);
                 goto LABEL_16;
               }
 
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              isKindOfClass = objc_opt_isKindOfClass();
+              if (isKindOfClass)
               {
-                v13 = CAKeyframeAnimationToC3DAnimation(v10, v12, 0);
+                v14 = CAKeyframeAnimationToC3DAnimation(v10, v13, 0);
 LABEL_16:
-                v17 = v13;
-                if (v13)
+                v20 = v14;
+                if (v14)
                 {
-                  C3DAnimationSetup(v13, 0);
-                  [v8 setValue:v17 forKey:@"ControllerAnimation"];
-                  v14 = v7;
-                  v15 = v17;
+                  C3DAnimationSetup(v14, 0);
+                  [v8 setValue:v20 forKey:@"ControllerAnimation"];
+                  v15 = v7;
+                  v16 = v20;
 LABEL_18:
-                  [v14 setC3dAnimation:v15];
+                  [v15 setC3dAnimation:v16];
                 }
               }
 
               else
               {
-                v27 = scn_default_log();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v31 = scn_default_log(isKindOfClass, v19);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
-                  __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_1(v42, v10, v43, v27);
+                  __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_1(v46, v10, v47, v31);
                 }
               }
             }
 
             else
             {
-              v16 = scn_default_log();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v17 = scn_default_log(v11, v12);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v41 = v6;
-                _os_log_error_impl(&dword_21BEF7000, v16, OS_LOG_TYPE_ERROR, "Error: Can't introspect type of property %@", buf, 0xCu);
+                v45 = v6;
+                _os_log_error_impl(&dword_21BEF7000, v17, OS_LOG_TYPE_ERROR, "Error: Can't introspect type of property %@", buf, 0xCu);
               }
             }
 
             [v7 inputScale];
-            if (v18 != 1.0)
+            if (v21 != 1.0)
             {
-              v19 = MEMORY[0x277CCABB0];
+              v22 = MEMORY[0x277CCABB0];
               [v7 inputScale];
-              *&v20 = v20;
-              [v8 setValue:objc_msgSend(v19 forKey:{"numberWithFloat:", v20), @"ControllerVariableScale"}];
+              *&v23 = v23;
+              [v8 setValue:objc_msgSend(v22 forKey:{"numberWithFloat:", v23), @"ControllerVariableScale"}];
             }
 
             [v7 inputBias];
-            if (v21 != 0.0)
+            if (v24 != 0.0)
             {
-              v22 = MEMORY[0x277CCABB0];
+              v25 = MEMORY[0x277CCABB0];
               [v7 inputBias];
-              *&v23 = v23;
-              [v8 setValue:objc_msgSend(v22 forKey:{"numberWithFloat:", v23), @"ControllerVariableBias"}];
+              *&v26 = v26;
+              [v8 setValue:objc_msgSend(v25 forKey:{"numberWithFloat:", v26), @"ControllerVariableBias"}];
             }
 
             if ([v7 inputOrigin])
@@ -1475,35 +1480,35 @@ LABEL_18:
               [v8 setValue:objc_msgSend(objc_msgSend(v7 forKey:{"inputOrigin"), "nodeRef"), @"ControllerVariableOrigin"}];
             }
 
-            v24 = [v7 inputMode];
-            v25 = @"ControllerVariableOverLife";
-            if (v24)
+            v27 = [v7 inputMode];
+            v29 = @"ControllerVariableOverLife";
+            if (v27)
             {
-              v25 = @"ControllerVariableOverOtherProperty";
-              if (v24 != 2)
+              v29 = @"ControllerVariableOverOtherProperty";
+              if (v27 != 2)
               {
-                v25 = @"ControllerVariableOverDistance";
-                if (v24 != 1)
+                v29 = @"ControllerVariableOverDistance";
+                if (v27 != 1)
                 {
-                  v26 = scn_default_log();
-                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                  v30 = scn_default_log(v27, v28);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                   {
-                    __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_2(&v37, v38, v26);
+                    __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_2(&v41, v42, v30);
                   }
 
-                  v25 = 0;
+                  v29 = 0;
                 }
               }
             }
 
-            [v8 setValue:v25 forKey:@"ControllerVariableMode"];
+            [v8 setValue:v29 forKey:@"ControllerVariableMode"];
             [v8 setValue:objc_msgSend(v7 forKey:{"inputProperty"), @"ControllerVariableOverOtherProperty"}];
             [cf setObject:v8 forKey:v6];
             goto LABEL_32;
           }
 
-          v14 = v7;
-          v15 = 0;
+          v15 = v7;
+          v16 = 0;
           goto LABEL_18;
         }
 
@@ -1512,11 +1517,11 @@ LABEL_32:
       }
 
       while (v3 != v5);
-      v28 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-      v3 = v28;
+      v32 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v3 = v32;
     }
 
-    while (v28);
+    while (v32);
   }
 
   C3DParticleSystemSetProperyControllers(*(*(a1 + 40) + 8), cf);
@@ -1560,7 +1565,7 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleImage:];
@@ -1584,7 +1589,7 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem _setParticleImagePath:withResolvedPath:];
@@ -1605,19 +1610,19 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v6 = sceneRef;
+    v7 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v6);
     }
 
-    OrientationDirection = C3DParticleSystemGetOrientationDirection(self->_particleSystem);
+    OrientationDirection = C3DParticleSystemGetOrientationDirection(self->_particleSystem, v6);
     z = OrientationDirection.n128_f32[2];
-    if (v6)
+    if (v7)
     {
-      v9 = OrientationDirection.n128_u64[0];
-      C3DSceneUnlock(v6);
-      OrientationDirection.n128_u64[0] = v9;
+      v11 = OrientationDirection.n128_u64[0];
+      C3DSceneUnlock(v7, v8);
+      OrientationDirection.n128_u64[0] = v11;
     }
   }
 
@@ -1627,11 +1632,11 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
     z = self->_orientationDirection.z;
   }
 
-  v7 = OrientationDirection.n128_f32[1];
-  v8 = z;
+  v9 = OrientationDirection.n128_f32[1];
+  v10 = z;
   result.x = OrientationDirection.n128_f32[0];
-  result.z = v8;
-  result.y = v7;
+  result.z = v10;
+  result.y = v9;
   return result;
 }
 
@@ -1639,7 +1644,7 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setOrientationDirection:];
@@ -1670,11 +1675,11 @@ void __45__SCNParticleSystem__updateParticleC3DImage___block_invoke(uint64_t a1)
   }
 }
 
-void __45__SCNParticleSystem_setOrientationDirection___block_invoke(uint64_t a1, __n128 a2)
+void __45__SCNParticleSystem_setOrientationDirection___block_invoke(uint64_t a1, __n128 a2, uint64_t a3)
 {
   a2.n128_u64[0] = *(a1 + 40);
   a2.n128_u32[2] = *(a1 + 48);
-  C3DParticleSystemSetOrientationDirection(*(*(a1 + 32) + 8), a2);
+  C3DParticleSystemSetOrientationDirection(*(*(a1 + 32) + 8), a3, a2);
 }
 
 - (double)lightEmissionRadiusFactor
@@ -1687,13 +1692,13 @@ void __45__SCNParticleSystem_setOrientationDirection___block_invoke(uint64_t a1,
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetLightEmissionRadiusFactor(self->_particleSystem);
+    return C3DParticleSystemGetLightEmissionRadiusFactor(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  LightEmissionRadiusFactor = C3DParticleSystemGetLightEmissionRadiusFactor(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  LightEmissionRadiusFactor = C3DParticleSystemGetLightEmissionRadiusFactor(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return LightEmissionRadiusFactor;
 }
 
@@ -1701,7 +1706,7 @@ void __45__SCNParticleSystem_setOrientationDirection___block_invoke(uint64_t a1,
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setLightEmissionRadiusFactor:];
@@ -1722,10 +1727,10 @@ void __45__SCNParticleSystem_setOrientationDirection___block_invoke(uint64_t a1,
   }
 }
 
-float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetLightEmissionRadiusFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetLightEmissionRadiusFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -1734,19 +1739,19 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v6 = sceneRef;
+    v7 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v6);
     }
 
-    Acceleration = C3DParticleSystemGetAcceleration(self->_particleSystem);
+    Acceleration = C3DParticleSystemGetAcceleration(self->_particleSystem, v6);
     z = Acceleration.n128_f32[2];
-    if (v6)
+    if (v7)
     {
-      v9 = Acceleration.n128_u64[0];
-      C3DSceneUnlock(v6);
-      Acceleration.n128_u64[0] = v9;
+      v11 = Acceleration.n128_u64[0];
+      C3DSceneUnlock(v7, v8);
+      Acceleration.n128_u64[0] = v11;
     }
   }
 
@@ -1756,11 +1761,11 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
     z = self->_acceleration.z;
   }
 
-  v7 = Acceleration.n128_f32[1];
-  v8 = z;
+  v9 = Acceleration.n128_f32[1];
+  v10 = z;
   result.x = Acceleration.n128_f32[0];
-  result.z = v8;
-  result.y = v7;
+  result.z = v10;
+  result.y = v9;
   return result;
 }
 
@@ -1774,10 +1779,10 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    AffectedByGravity = C3DParticleSystemGetAffectedByGravity(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    AffectedByGravity = C3DParticleSystemGetAffectedByGravity(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return AffectedByGravity;
   }
 
@@ -1785,7 +1790,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetAffectedByGravity(particleSystem);
+    return C3DParticleSystemGetAffectedByGravity(particleSystem, v5);
   }
 }
 
@@ -1793,7 +1798,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setAffectedByGravity:];
@@ -1824,10 +1829,10 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    AffectedByPhysicsFields = C3DParticleSystemGetAffectedByPhysicsFields(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    AffectedByPhysicsFields = C3DParticleSystemGetAffectedByPhysicsFields(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return AffectedByPhysicsFields;
   }
 
@@ -1835,7 +1840,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetAffectedByPhysicsFields(particleSystem);
+    return C3DParticleSystemGetAffectedByPhysicsFields(particleSystem, v5);
   }
 }
 
@@ -1843,7 +1848,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setAffectedByPhysicsFields:];
@@ -1874,13 +1879,13 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetBirthDirection(self->_particleSystem);
+    return C3DParticleSystemGetBirthDirection(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BirthDirection = C3DParticleSystemGetBirthDirection(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BirthDirection = C3DParticleSystemGetBirthDirection(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return BirthDirection;
 }
 
@@ -1888,7 +1893,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBirthDirection:];
@@ -1919,13 +1924,13 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetBirthLocation(self->_particleSystem);
+    return C3DParticleSystemGetBirthLocation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BirthLocation = C3DParticleSystemGetBirthLocation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BirthLocation = C3DParticleSystemGetBirthLocation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return BirthLocation;
 }
 
@@ -1933,7 +1938,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBirthLocation:];
@@ -1964,13 +1969,13 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetBirthRate(self->_particleSystem);
+    return C3DParticleSystemGetBirthRate(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BirthRate = C3DParticleSystemGetBirthRate(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BirthRate = C3DParticleSystemGetBirthRate(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return BirthRate;
 }
 
@@ -1978,7 +1983,7 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBirthRate:];
@@ -1999,10 +2004,10 @@ float __50__SCNParticleSystem_setLightEmissionRadiusFactor___block_invoke(uint64
   }
 }
 
-float __34__SCNParticleSystem_setBirthRate___block_invoke(uint64_t a1)
+float __34__SCNParticleSystem_setBirthRate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetBirthRate(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetBirthRate(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2016,13 +2021,13 @@ float __34__SCNParticleSystem_setBirthRate___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetBirthRateVariation(self->_particleSystem);
+    return C3DParticleSystemGetBirthRateVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BirthRateVariation = C3DParticleSystemGetBirthRateVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BirthRateVariation = C3DParticleSystemGetBirthRateVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return BirthRateVariation;
 }
 
@@ -2030,7 +2035,7 @@ float __34__SCNParticleSystem_setBirthRate___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBirthRateVariation:];
@@ -2051,10 +2056,10 @@ float __34__SCNParticleSystem_setBirthRate___block_invoke(uint64_t a1)
   }
 }
 
-float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
+float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetBirthRateVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetBirthRateVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2068,10 +2073,10 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    BlackPassEnabled = C3DParticleSystemGetBlackPassEnabled(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    BlackPassEnabled = C3DParticleSystemGetBlackPassEnabled(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return BlackPassEnabled;
   }
 
@@ -2079,7 +2084,7 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetBlackPassEnabled(particleSystem);
+    return C3DParticleSystemGetBlackPassEnabled(particleSystem, v5);
   }
 }
 
@@ -2087,7 +2092,7 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBlackPassEnabled:];
@@ -2118,13 +2123,13 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetBlendMode(self->_particleSystem);
+    return C3DParticleSystemGetBlendMode(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  BlendMode = C3DParticleSystemGetBlendMode(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  BlendMode = C3DParticleSystemGetBlendMode(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return BlendMode;
 }
 
@@ -2132,7 +2137,7 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setBlendMode:];
@@ -2163,13 +2168,13 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetDampingFactor(self->_particleSystem);
+    return C3DParticleSystemGetDampingFactor(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  DampingFactor = C3DParticleSystemGetDampingFactor(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  DampingFactor = C3DParticleSystemGetDampingFactor(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return DampingFactor;
 }
 
@@ -2177,7 +2182,7 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setDampingFactor:];
@@ -2198,10 +2203,10 @@ float __43__SCNParticleSystem_setBirthRateVariation___block_invoke(uint64_t a1)
   }
 }
 
-float __38__SCNParticleSystem_setDampingFactor___block_invoke(uint64_t a1)
+float __38__SCNParticleSystem_setDampingFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetDampingFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetDampingFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2215,13 +2220,13 @@ float __38__SCNParticleSystem_setDampingFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetEmissionDuration(self->_particleSystem);
+    return C3DParticleSystemGetEmissionDuration(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  EmissionDuration = C3DParticleSystemGetEmissionDuration(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  EmissionDuration = C3DParticleSystemGetEmissionDuration(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return EmissionDuration;
 }
 
@@ -2229,7 +2234,7 @@ float __38__SCNParticleSystem_setDampingFactor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setEmissionDuration:];
@@ -2250,10 +2255,10 @@ float __38__SCNParticleSystem_setDampingFactor___block_invoke(uint64_t a1)
   }
 }
 
-float __41__SCNParticleSystem_setEmissionDuration___block_invoke(uint64_t a1)
+float __41__SCNParticleSystem_setEmissionDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetEmissionDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetEmissionDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2267,13 +2272,13 @@ float __41__SCNParticleSystem_setEmissionDuration___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetEmissionDurationVariation(self->_particleSystem);
+    return C3DParticleSystemGetEmissionDurationVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  EmissionDurationVariation = C3DParticleSystemGetEmissionDurationVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  EmissionDurationVariation = C3DParticleSystemGetEmissionDurationVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return EmissionDurationVariation;
 }
 
@@ -2281,7 +2286,7 @@ float __41__SCNParticleSystem_setEmissionDuration___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setEmissionDurationVariation:];
@@ -2302,10 +2307,10 @@ float __41__SCNParticleSystem_setEmissionDuration___block_invoke(uint64_t a1)
   }
 }
 
-float __50__SCNParticleSystem_setEmissionDurationVariation___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setEmissionDurationVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetEmissionDurationVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetEmissionDurationVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2314,17 +2319,17 @@ float __50__SCNParticleSystem_setEmissionDurationVariation___block_invoke(uint64
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    EmitterShape = C3DParticleSystemGetEmitterShape(self->_particleSystem);
+    EmitterShape = C3DParticleSystemGetEmitterShape(self->_particleSystem, v5);
     if (EmitterShape)
     {
       v3 = [SCNGeometry geometryWithGeometryRef:EmitterShape];
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
@@ -2333,13 +2338,13 @@ float __50__SCNParticleSystem_setEmissionDurationVariation___block_invoke(uint64
     else
     {
       v3 = 0;
-      if (!v5)
+      if (!v6)
       {
         return v3;
       }
     }
 
-    C3DSceneUnlock(v5);
+    C3DSceneUnlock(v6, v8);
     return v3;
   }
 
@@ -2350,7 +2355,7 @@ float __50__SCNParticleSystem_setEmissionDurationVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setEmitterShape:];
@@ -2389,19 +2394,19 @@ CFTypeRef __37__SCNParticleSystem_setEmitterShape___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v6 = sceneRef;
+    v7 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v6);
     }
 
-    EmittingDirection = C3DParticleSystemGetEmittingDirection(self->_particleSystem);
+    EmittingDirection = C3DParticleSystemGetEmittingDirection(self->_particleSystem, v6);
     z = EmittingDirection.n128_f32[2];
-    if (v6)
+    if (v7)
     {
-      v9 = EmittingDirection.n128_u64[0];
-      C3DSceneUnlock(v6);
-      EmittingDirection.n128_u64[0] = v9;
+      v11 = EmittingDirection.n128_u64[0];
+      C3DSceneUnlock(v7, v8);
+      EmittingDirection.n128_u64[0] = v11;
     }
   }
 
@@ -2411,11 +2416,11 @@ CFTypeRef __37__SCNParticleSystem_setEmitterShape___block_invoke(uint64_t a1)
     z = self->_emittingDirection.z;
   }
 
-  v7 = EmittingDirection.n128_f32[1];
-  v8 = z;
+  v9 = EmittingDirection.n128_f32[1];
+  v10 = z;
   result.x = EmittingDirection.n128_f32[0];
-  result.z = v8;
-  result.y = v7;
+  result.z = v10;
+  result.y = v9;
   return result;
 }
 
@@ -2429,13 +2434,13 @@ CFTypeRef __37__SCNParticleSystem_setEmitterShape___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetFixedTimeStep(self->_particleSystem);
+    return C3DParticleSystemGetFixedTimeStep(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  FixedTimeStep = C3DParticleSystemGetFixedTimeStep(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  FixedTimeStep = C3DParticleSystemGetFixedTimeStep(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return FixedTimeStep;
 }
 
@@ -2443,7 +2448,7 @@ CFTypeRef __37__SCNParticleSystem_setEmitterShape___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setFixedTimeStep:];
@@ -2464,10 +2469,10 @@ CFTypeRef __37__SCNParticleSystem_setEmitterShape___block_invoke(uint64_t a1)
   }
 }
 
-float __38__SCNParticleSystem_setFixedTimeStep___block_invoke(uint64_t a1)
+float __38__SCNParticleSystem_setFixedTimeStep___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetFixedTimeStep(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetFixedTimeStep(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2481,13 +2486,13 @@ float __38__SCNParticleSystem_setFixedTimeStep___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetFresnelExponent(self->_particleSystem);
+    return C3DParticleSystemGetFresnelExponent(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  FresnelExponent = C3DParticleSystemGetFresnelExponent(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  FresnelExponent = C3DParticleSystemGetFresnelExponent(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return FresnelExponent;
 }
 
@@ -2495,7 +2500,7 @@ float __38__SCNParticleSystem_setFixedTimeStep___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setFresnelExponent:];
@@ -2516,10 +2521,10 @@ float __38__SCNParticleSystem_setFixedTimeStep___block_invoke(uint64_t a1)
   }
 }
 
-float __40__SCNParticleSystem_setFresnelExponent___block_invoke(uint64_t a1)
+float __40__SCNParticleSystem_setFresnelExponent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetFresnelExponent(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetFresnelExponent(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2533,13 +2538,13 @@ float __40__SCNParticleSystem_setFresnelExponent___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetIdleDuration(self->_particleSystem);
+    return C3DParticleSystemGetIdleDuration(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  IdleDuration = C3DParticleSystemGetIdleDuration(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  IdleDuration = C3DParticleSystemGetIdleDuration(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return IdleDuration;
 }
 
@@ -2547,7 +2552,7 @@ float __40__SCNParticleSystem_setFresnelExponent___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setIdleDuration:];
@@ -2568,10 +2573,10 @@ float __40__SCNParticleSystem_setFresnelExponent___block_invoke(uint64_t a1)
   }
 }
 
-float __37__SCNParticleSystem_setIdleDuration___block_invoke(uint64_t a1)
+float __37__SCNParticleSystem_setIdleDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetIdleDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetIdleDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2585,13 +2590,13 @@ float __37__SCNParticleSystem_setIdleDuration___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetIdleDurationVariation(self->_particleSystem);
+    return C3DParticleSystemGetIdleDurationVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  IdleDurationVariation = C3DParticleSystemGetIdleDurationVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  IdleDurationVariation = C3DParticleSystemGetIdleDurationVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return IdleDurationVariation;
 }
 
@@ -2599,7 +2604,7 @@ float __37__SCNParticleSystem_setIdleDuration___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setIdleDurationVariation:];
@@ -2620,10 +2625,10 @@ float __37__SCNParticleSystem_setIdleDuration___block_invoke(uint64_t a1)
   }
 }
 
-float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a1)
+float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetIdleDurationVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetIdleDurationVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2637,13 +2642,13 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceAnimationMode(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceAnimationMode(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceAnimationMode = C3DParticleSystemGetImageSequenceAnimationMode(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceAnimationMode = C3DParticleSystemGetImageSequenceAnimationMode(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceAnimationMode;
 }
 
@@ -2651,7 +2656,7 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceAnimationMode:];
@@ -2682,13 +2687,13 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceColumnCount(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceColumnCount(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceColumnCount = C3DParticleSystemGetImageSequenceColumnCount(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceColumnCount = C3DParticleSystemGetImageSequenceColumnCount(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceColumnCount;
 }
 
@@ -2696,7 +2701,7 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceColumnCount:];
@@ -2727,13 +2732,13 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceFrameRate(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceFrameRate(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceFrameRate = C3DParticleSystemGetImageSequenceFrameRate(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceFrameRate = C3DParticleSystemGetImageSequenceFrameRate(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceFrameRate;
 }
 
@@ -2741,7 +2746,7 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceFrameRate:];
@@ -2762,10 +2767,10 @@ float __46__SCNParticleSystem_setIdleDurationVariation___block_invoke(uint64_t a
   }
 }
 
-float __47__SCNParticleSystem_setImageSequenceFrameRate___block_invoke(uint64_t a1)
+float __47__SCNParticleSystem_setImageSequenceFrameRate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetImageSequenceFrameRate(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetImageSequenceFrameRate(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2779,13 +2784,13 @@ float __47__SCNParticleSystem_setImageSequenceFrameRate___block_invoke(uint64_t 
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceFrameRateVariation(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceFrameRateVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceFrameRateVariation = C3DParticleSystemGetImageSequenceFrameRateVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceFrameRateVariation = C3DParticleSystemGetImageSequenceFrameRateVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceFrameRateVariation;
 }
 
@@ -2793,7 +2798,7 @@ float __47__SCNParticleSystem_setImageSequenceFrameRate___block_invoke(uint64_t 
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceFrameRateVariation:];
@@ -2814,10 +2819,10 @@ float __47__SCNParticleSystem_setImageSequenceFrameRate___block_invoke(uint64_t 
   }
 }
 
-float __56__SCNParticleSystem_setImageSequenceFrameRateVariation___block_invoke(uint64_t a1)
+float __56__SCNParticleSystem_setImageSequenceFrameRateVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetImageSequenceFrameRateVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetImageSequenceFrameRateVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2831,13 +2836,13 @@ float __56__SCNParticleSystem_setImageSequenceFrameRateVariation___block_invoke(
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceInitialFrame(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceInitialFrame(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceInitialFrame = C3DParticleSystemGetImageSequenceInitialFrame(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceInitialFrame = C3DParticleSystemGetImageSequenceInitialFrame(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceInitialFrame;
 }
 
@@ -2845,7 +2850,7 @@ float __56__SCNParticleSystem_setImageSequenceFrameRateVariation___block_invoke(
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceInitialFrame:];
@@ -2866,10 +2871,10 @@ float __56__SCNParticleSystem_setImageSequenceFrameRateVariation___block_invoke(
   }
 }
 
-float __50__SCNParticleSystem_setImageSequenceInitialFrame___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setImageSequenceInitialFrame___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetImageSequenceInitialFrame(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetImageSequenceInitialFrame(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2883,13 +2888,13 @@ float __50__SCNParticleSystem_setImageSequenceInitialFrame___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceInitialFrameVariation(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceInitialFrameVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceInitialFrameVariation = C3DParticleSystemGetImageSequenceInitialFrameVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceInitialFrameVariation = C3DParticleSystemGetImageSequenceInitialFrameVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceInitialFrameVariation;
 }
 
@@ -2897,7 +2902,7 @@ float __50__SCNParticleSystem_setImageSequenceInitialFrame___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceInitialFrameVariation:];
@@ -2918,10 +2923,10 @@ float __50__SCNParticleSystem_setImageSequenceInitialFrame___block_invoke(uint64
   }
 }
 
-float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invoke(uint64_t a1)
+float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetImageSequenceInitialFrameVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetImageSequenceInitialFrameVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -2935,13 +2940,13 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetImageSequenceRowCount(self->_particleSystem);
+    return C3DParticleSystemGetImageSequenceRowCount(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ImageSequenceRowCount = C3DParticleSystemGetImageSequenceRowCount(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ImageSequenceRowCount = C3DParticleSystemGetImageSequenceRowCount(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ImageSequenceRowCount;
 }
 
@@ -2949,7 +2954,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setImageSequenceRowCount:];
@@ -2980,10 +2985,10 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    IsLocal = C3DParticleSystemGetIsLocal(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    IsLocal = C3DParticleSystemGetIsLocal(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return IsLocal;
   }
 
@@ -2991,7 +2996,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetIsLocal(particleSystem);
+    return C3DParticleSystemGetIsLocal(particleSystem, v5);
   }
 }
 
@@ -2999,7 +3004,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setIsLocal:];
@@ -3030,10 +3035,10 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    LightingEnabled = C3DParticleSystemGetLightingEnabled(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    LightingEnabled = C3DParticleSystemGetLightingEnabled(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return LightingEnabled;
   }
 
@@ -3041,7 +3046,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetLightingEnabled(particleSystem);
+    return C3DParticleSystemGetLightingEnabled(particleSystem, v5);
   }
 }
 
@@ -3049,7 +3054,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setLightingEnabled:];
@@ -3080,10 +3085,10 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    Loops = C3DParticleSystemGetLoops(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    Loops = C3DParticleSystemGetLoops(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return Loops;
   }
 
@@ -3091,7 +3096,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetLoops(particleSystem);
+    return C3DParticleSystemGetLoops(particleSystem, v5);
   }
 }
 
@@ -3099,7 +3104,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setLoops:];
@@ -3130,13 +3135,13 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetOrientationMode(self->_particleSystem);
+    return C3DParticleSystemGetOrientationMode(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  OrientationMode = C3DParticleSystemGetOrientationMode(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  OrientationMode = C3DParticleSystemGetOrientationMode(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return OrientationMode;
 }
 
@@ -3144,7 +3149,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setOrientationMode:];
@@ -3175,13 +3180,13 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleAngle(self->_particleSystem);
+    return C3DParticleSystemGetParticleAngle(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleAngle = C3DParticleSystemGetParticleAngle(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleAngle = C3DParticleSystemGetParticleAngle(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleAngle;
 }
 
@@ -3189,7 +3194,7 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleAngle:];
@@ -3210,10 +3215,10 @@ float __59__SCNParticleSystem_setImageSequenceInitialFrameVariation___block_invo
   }
 }
 
-float __38__SCNParticleSystem_setParticleAngle___block_invoke(uint64_t a1)
+float __38__SCNParticleSystem_setParticleAngle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleAngle(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleAngle(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3227,13 +3232,13 @@ float __38__SCNParticleSystem_setParticleAngle___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleAngleVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleAngleVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleAngleVariation = C3DParticleSystemGetParticleAngleVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleAngleVariation = C3DParticleSystemGetParticleAngleVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleAngleVariation;
 }
 
@@ -3241,7 +3246,7 @@ float __38__SCNParticleSystem_setParticleAngle___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleAngleVariation:];
@@ -3262,10 +3267,10 @@ float __38__SCNParticleSystem_setParticleAngle___block_invoke(uint64_t a1)
   }
 }
 
-float __47__SCNParticleSystem_setParticleAngleVariation___block_invoke(uint64_t a1)
+float __47__SCNParticleSystem_setParticleAngleVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleAngleVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleAngleVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3279,13 +3284,13 @@ float __47__SCNParticleSystem_setParticleAngleVariation___block_invoke(uint64_t 
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleAngularVelocity(self->_particleSystem);
+    return C3DParticleSystemGetParticleAngularVelocity(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleAngularVelocity = C3DParticleSystemGetParticleAngularVelocity(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleAngularVelocity = C3DParticleSystemGetParticleAngularVelocity(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleAngularVelocity;
 }
 
@@ -3293,7 +3298,7 @@ float __47__SCNParticleSystem_setParticleAngleVariation___block_invoke(uint64_t 
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleAngularVelocity:];
@@ -3314,10 +3319,10 @@ float __47__SCNParticleSystem_setParticleAngleVariation___block_invoke(uint64_t 
   }
 }
 
-float __48__SCNParticleSystem_setParticleAngularVelocity___block_invoke(uint64_t a1)
+float __48__SCNParticleSystem_setParticleAngularVelocity___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleAngularVelocity(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleAngularVelocity(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3331,13 +3336,13 @@ float __48__SCNParticleSystem_setParticleAngularVelocity___block_invoke(uint64_t
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleAngularVelocityVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleAngularVelocityVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleAngularVelocityVariation = C3DParticleSystemGetParticleAngularVelocityVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleAngularVelocityVariation = C3DParticleSystemGetParticleAngularVelocityVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleAngularVelocityVariation;
 }
 
@@ -3345,7 +3350,7 @@ float __48__SCNParticleSystem_setParticleAngularVelocity___block_invoke(uint64_t
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleAngularVelocityVariation:];
@@ -3366,10 +3371,10 @@ float __48__SCNParticleSystem_setParticleAngularVelocity___block_invoke(uint64_t
   }
 }
 
-float __57__SCNParticleSystem_setParticleAngularVelocityVariation___block_invoke(uint64_t a1)
+float __57__SCNParticleSystem_setParticleAngularVelocityVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleAngularVelocityVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleAngularVelocityVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3383,13 +3388,13 @@ float __57__SCNParticleSystem_setParticleAngularVelocityVariation___block_invoke
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleBounce(self->_particleSystem);
+    return C3DParticleSystemGetParticleBounce(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleBounce = C3DParticleSystemGetParticleBounce(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleBounce = C3DParticleSystemGetParticleBounce(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleBounce;
 }
 
@@ -3397,7 +3402,7 @@ float __57__SCNParticleSystem_setParticleAngularVelocityVariation___block_invoke
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleBounce:];
@@ -3418,10 +3423,10 @@ float __57__SCNParticleSystem_setParticleAngularVelocityVariation___block_invoke
   }
 }
 
-float __39__SCNParticleSystem_setParticleBounce___block_invoke(uint64_t a1)
+float __39__SCNParticleSystem_setParticleBounce___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleBounce(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleBounce(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3435,13 +3440,13 @@ float __39__SCNParticleSystem_setParticleBounce___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleBounceVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleBounceVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleBounceVariation = C3DParticleSystemGetParticleBounceVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleBounceVariation = C3DParticleSystemGetParticleBounceVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleBounceVariation;
 }
 
@@ -3449,7 +3454,7 @@ float __39__SCNParticleSystem_setParticleBounce___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleBounceVariation:];
@@ -3470,10 +3475,10 @@ float __39__SCNParticleSystem_setParticleBounce___block_invoke(uint64_t a1)
   }
 }
 
-float __48__SCNParticleSystem_setParticleBounceVariation___block_invoke(uint64_t a1)
+float __48__SCNParticleSystem_setParticleBounceVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleBounceVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleBounceVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3487,13 +3492,13 @@ float __48__SCNParticleSystem_setParticleBounceVariation___block_invoke(uint64_t
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleCharge(self->_particleSystem);
+    return C3DParticleSystemGetParticleCharge(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleCharge = C3DParticleSystemGetParticleCharge(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleCharge = C3DParticleSystemGetParticleCharge(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleCharge;
 }
 
@@ -3501,7 +3506,7 @@ float __48__SCNParticleSystem_setParticleBounceVariation___block_invoke(uint64_t
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleCharge:];
@@ -3522,10 +3527,10 @@ float __48__SCNParticleSystem_setParticleBounceVariation___block_invoke(uint64_t
   }
 }
 
-float __39__SCNParticleSystem_setParticleCharge___block_invoke(uint64_t a1)
+float __39__SCNParticleSystem_setParticleCharge___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleCharge(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleCharge(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3539,13 +3544,13 @@ float __39__SCNParticleSystem_setParticleCharge___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleChargeVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleChargeVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleChargeVariation = C3DParticleSystemGetParticleChargeVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleChargeVariation = C3DParticleSystemGetParticleChargeVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleChargeVariation;
 }
 
@@ -3553,7 +3558,7 @@ float __39__SCNParticleSystem_setParticleCharge___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleChargeVariation:];
@@ -3574,10 +3579,10 @@ float __39__SCNParticleSystem_setParticleCharge___block_invoke(uint64_t a1)
   }
 }
 
-float __48__SCNParticleSystem_setParticleChargeVariation___block_invoke(uint64_t a1)
+float __48__SCNParticleSystem_setParticleChargeVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleChargeVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleChargeVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3586,17 +3591,17 @@ float __48__SCNParticleSystem_setParticleChargeVariation___block_invoke(uint64_t
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    ParticleColor = C3DParticleSystemGetParticleColor(self->_particleSystem);
+    ParticleColor = C3DParticleSystemGetParticleColor(self->_particleSystem, v5);
     v3 = C3DColor4ToRGBCFColor(ParticleColor);
-    if (v5)
+    if (v6)
     {
-      C3DSceneUnlock(v5);
+      C3DSceneUnlock(v6, v8);
     }
   }
 
@@ -3605,16 +3610,16 @@ float __48__SCNParticleSystem_setParticleChargeVariation___block_invoke(uint64_t
     v3 = self->_particleColor;
   }
 
-  v7 = [v3 copy];
+  v9 = [v3 copy];
 
-  return v7;
+  return v9;
 }
 
 - (void)setParticleColor:(UIColor *)particleColor
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleColor:];
@@ -3653,18 +3658,18 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
   if (*(self + 16))
   {
     sceneRef = [(SCNParticleSystem *)self sceneRef];
-    v5 = sceneRef;
+    v6 = sceneRef;
     if (sceneRef)
     {
-      C3DSceneLock(sceneRef);
+      C3DSceneLock(sceneRef, v5);
     }
 
-    ParticleColorVariation = C3DParticleSystemGetParticleColorVariation(self->_particleSystem);
-    if (v5)
+    ParticleColorVariation = C3DParticleSystemGetParticleColorVariation(self->_particleSystem, v5);
+    if (v6)
     {
-      v9 = ParticleColorVariation;
-      C3DSceneUnlock(v5);
-      ParticleColorVariation = v9;
+      v11 = ParticleColorVariation;
+      C3DSceneUnlock(v6, v7);
+      ParticleColorVariation = v11;
     }
   }
 
@@ -3673,13 +3678,13 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
     ParticleColorVariation = self->_particleColorVariation;
   }
 
-  v6 = ParticleColorVariation.n128_f32[1];
-  v8 = ParticleColorVariation.n128_f32[3];
-  v7 = ParticleColorVariation.n128_f32[2];
+  v8 = ParticleColorVariation.n128_f32[1];
+  v10 = ParticleColorVariation.n128_f32[3];
+  v9 = ParticleColorVariation.n128_f32[2];
   result.x = ParticleColorVariation.n128_f32[0];
-  result.w = v8;
-  result.z = v7;
-  result.y = v6;
+  result.w = v10;
+  result.z = v9;
+  result.y = v8;
   return result;
 }
 
@@ -3693,10 +3698,10 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    ParticleDiesOnCollision = C3DParticleSystemGetParticleDiesOnCollision(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    ParticleDiesOnCollision = C3DParticleSystemGetParticleDiesOnCollision(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return ParticleDiesOnCollision;
   }
 
@@ -3704,7 +3709,7 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetParticleDiesOnCollision(particleSystem);
+    return C3DParticleSystemGetParticleDiesOnCollision(particleSystem, v5);
   }
 }
 
@@ -3712,7 +3717,7 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleDiesOnCollision:];
@@ -3743,13 +3748,13 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleFriction(self->_particleSystem);
+    return C3DParticleSystemGetParticleFriction(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleFriction = C3DParticleSystemGetParticleFriction(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleFriction = C3DParticleSystemGetParticleFriction(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleFriction;
 }
 
@@ -3757,7 +3762,7 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleFriction:];
@@ -3778,10 +3783,10 @@ double __38__SCNParticleSystem_setParticleColor___block_invoke(uint64_t a1)
   }
 }
 
-float __41__SCNParticleSystem_setParticleFriction___block_invoke(uint64_t a1)
+float __41__SCNParticleSystem_setParticleFriction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleFriction(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleFriction(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3795,13 +3800,13 @@ float __41__SCNParticleSystem_setParticleFriction___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleFrictionVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleFrictionVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleFrictionVariation = C3DParticleSystemGetParticleFrictionVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleFrictionVariation = C3DParticleSystemGetParticleFrictionVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleFrictionVariation;
 }
 
@@ -3809,7 +3814,7 @@ float __41__SCNParticleSystem_setParticleFriction___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleFrictionVariation:];
@@ -3830,10 +3835,10 @@ float __41__SCNParticleSystem_setParticleFriction___block_invoke(uint64_t a1)
   }
 }
 
-float __50__SCNParticleSystem_setParticleFrictionVariation___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setParticleFrictionVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleFrictionVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleFrictionVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3847,13 +3852,13 @@ float __50__SCNParticleSystem_setParticleFrictionVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleLifeSpan(self->_particleSystem);
+    return C3DParticleSystemGetParticleLifeSpan(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleLifeSpan = C3DParticleSystemGetParticleLifeSpan(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleLifeSpan = C3DParticleSystemGetParticleLifeSpan(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleLifeSpan;
 }
 
@@ -3861,7 +3866,7 @@ float __50__SCNParticleSystem_setParticleFrictionVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleLifeSpan:];
@@ -3882,10 +3887,10 @@ float __50__SCNParticleSystem_setParticleFrictionVariation___block_invoke(uint64
   }
 }
 
-float __41__SCNParticleSystem_setParticleLifeSpan___block_invoke(uint64_t a1)
+float __41__SCNParticleSystem_setParticleLifeSpan___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleLifeSpan(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleLifeSpan(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3899,13 +3904,13 @@ float __41__SCNParticleSystem_setParticleLifeSpan___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleLifeSpanVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleLifeSpanVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleLifeSpanVariation = C3DParticleSystemGetParticleLifeSpanVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleLifeSpanVariation = C3DParticleSystemGetParticleLifeSpanVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleLifeSpanVariation;
 }
 
@@ -3913,7 +3918,7 @@ float __41__SCNParticleSystem_setParticleLifeSpan___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleLifeSpanVariation:];
@@ -3934,10 +3939,10 @@ float __41__SCNParticleSystem_setParticleLifeSpan___block_invoke(uint64_t a1)
   }
 }
 
-float __50__SCNParticleSystem_setParticleLifeSpanVariation___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setParticleLifeSpanVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleLifeSpanVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleLifeSpanVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -3951,13 +3956,13 @@ float __50__SCNParticleSystem_setParticleLifeSpanVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleMass(self->_particleSystem);
+    return C3DParticleSystemGetParticleMass(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleMass = C3DParticleSystemGetParticleMass(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleMass = C3DParticleSystemGetParticleMass(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleMass;
 }
 
@@ -3965,7 +3970,7 @@ float __50__SCNParticleSystem_setParticleLifeSpanVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleMass:];
@@ -3986,10 +3991,10 @@ float __50__SCNParticleSystem_setParticleLifeSpanVariation___block_invoke(uint64
   }
 }
 
-float __37__SCNParticleSystem_setParticleMass___block_invoke(uint64_t a1)
+float __37__SCNParticleSystem_setParticleMass___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleMass(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleMass(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4003,13 +4008,13 @@ float __37__SCNParticleSystem_setParticleMass___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleMassVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleMassVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleMassVariation = C3DParticleSystemGetParticleMassVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleMassVariation = C3DParticleSystemGetParticleMassVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleMassVariation;
 }
 
@@ -4017,7 +4022,7 @@ float __37__SCNParticleSystem_setParticleMass___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleMassVariation:];
@@ -4038,10 +4043,10 @@ float __37__SCNParticleSystem_setParticleMass___block_invoke(uint64_t a1)
   }
 }
 
-float __46__SCNParticleSystem_setParticleMassVariation___block_invoke(uint64_t a1)
+float __46__SCNParticleSystem_setParticleMassVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleMassVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleMassVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4055,13 +4060,13 @@ float __46__SCNParticleSystem_setParticleMassVariation___block_invoke(uint64_t a
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleSize(self->_particleSystem);
+    return C3DParticleSystemGetParticleSize(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleSize = C3DParticleSystemGetParticleSize(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleSize = C3DParticleSystemGetParticleSize(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleSize;
 }
 
@@ -4069,7 +4074,7 @@ float __46__SCNParticleSystem_setParticleMassVariation___block_invoke(uint64_t a
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleSize:];
@@ -4090,10 +4095,10 @@ float __46__SCNParticleSystem_setParticleMassVariation___block_invoke(uint64_t a
   }
 }
 
-float __37__SCNParticleSystem_setParticleSize___block_invoke(uint64_t a1)
+float __37__SCNParticleSystem_setParticleSize___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleSize(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleSize(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4107,13 +4112,13 @@ float __37__SCNParticleSystem_setParticleSize___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleSizeVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleSizeVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleSizeVariation = C3DParticleSystemGetParticleSizeVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleSizeVariation = C3DParticleSystemGetParticleSizeVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleSizeVariation;
 }
 
@@ -4121,7 +4126,7 @@ float __37__SCNParticleSystem_setParticleSize___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleSizeVariation:];
@@ -4142,10 +4147,10 @@ float __37__SCNParticleSystem_setParticleSize___block_invoke(uint64_t a1)
   }
 }
 
-float __46__SCNParticleSystem_setParticleSizeVariation___block_invoke(uint64_t a1)
+float __46__SCNParticleSystem_setParticleSizeVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleSizeVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleSizeVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4159,13 +4164,13 @@ float __46__SCNParticleSystem_setParticleSizeVariation___block_invoke(uint64_t a
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleVelocity(self->_particleSystem);
+    return C3DParticleSystemGetParticleVelocity(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleVelocity = C3DParticleSystemGetParticleVelocity(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleVelocity = C3DParticleSystemGetParticleVelocity(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleVelocity;
 }
 
@@ -4173,7 +4178,7 @@ float __46__SCNParticleSystem_setParticleSizeVariation___block_invoke(uint64_t a
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleVelocity:];
@@ -4194,10 +4199,10 @@ float __46__SCNParticleSystem_setParticleSizeVariation___block_invoke(uint64_t a
   }
 }
 
-float __41__SCNParticleSystem_setParticleVelocity___block_invoke(uint64_t a1)
+float __41__SCNParticleSystem_setParticleVelocity___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleVelocity(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleVelocity(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4211,13 +4216,13 @@ float __41__SCNParticleSystem_setParticleVelocity___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleVelocityVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleVelocityVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleVelocityVariation = C3DParticleSystemGetParticleVelocityVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleVelocityVariation = C3DParticleSystemGetParticleVelocityVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleVelocityVariation;
 }
 
@@ -4225,7 +4230,7 @@ float __41__SCNParticleSystem_setParticleVelocity___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleVelocityVariation:];
@@ -4246,10 +4251,10 @@ float __41__SCNParticleSystem_setParticleVelocity___block_invoke(uint64_t a1)
   }
 }
 
-float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64_t a1)
+float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleVelocityVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleVelocityVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4263,10 +4268,10 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    PhysicsCollisionsEnabled = C3DParticleSystemGetPhysicsCollisionsEnabled(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    PhysicsCollisionsEnabled = C3DParticleSystemGetPhysicsCollisionsEnabled(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return PhysicsCollisionsEnabled;
   }
 
@@ -4274,7 +4279,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetPhysicsCollisionsEnabled(particleSystem);
+    return C3DParticleSystemGetPhysicsCollisionsEnabled(particleSystem, v5);
   }
 }
 
@@ -4282,7 +4287,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setPhysicsCollisionsEnabled:];
@@ -4313,13 +4318,13 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetRenderingMode(self->_particleSystem);
+    return C3DParticleSystemGetRenderingMode(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  RenderingMode = C3DParticleSystemGetRenderingMode(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  RenderingMode = C3DParticleSystemGetRenderingMode(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return RenderingMode;
 }
 
@@ -4327,7 +4332,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setRenderingMode:];
@@ -4358,13 +4363,13 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetSeed(self->_particleSystem);
+    return C3DParticleSystemGetSeed(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  Seed = C3DParticleSystemGetSeed(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  Seed = C3DParticleSystemGetSeed(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return Seed;
 }
 
@@ -4372,7 +4377,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSeed:];
@@ -4403,10 +4408,10 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    SoftParticlesEnabled = C3DParticleSystemGetSoftParticlesEnabled(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    SoftParticlesEnabled = C3DParticleSystemGetSoftParticlesEnabled(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return SoftParticlesEnabled;
   }
 
@@ -4414,7 +4419,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetSoftParticlesEnabled(particleSystem);
+    return C3DParticleSystemGetSoftParticlesEnabled(particleSystem, v5);
   }
 }
 
@@ -4422,7 +4427,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSoftParticlesEnabled:];
@@ -4453,13 +4458,13 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetSortingMode(self->_particleSystem);
+    return C3DParticleSystemGetSortingMode(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  SortingMode = C3DParticleSystemGetSortingMode(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  SortingMode = C3DParticleSystemGetSortingMode(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return SortingMode;
 }
 
@@ -4467,7 +4472,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSortingMode:];
@@ -4498,13 +4503,13 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetSpeedFactor(self->_particleSystem);
+    return C3DParticleSystemGetSpeedFactor(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  SpeedFactor = C3DParticleSystemGetSpeedFactor(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  SpeedFactor = C3DParticleSystemGetSpeedFactor(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return SpeedFactor;
 }
 
@@ -4512,7 +4517,7 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSpeedFactor:];
@@ -4533,10 +4538,10 @@ float __50__SCNParticleSystem_setParticleVelocityVariation___block_invoke(uint64
   }
 }
 
-float __36__SCNParticleSystem_setSpeedFactor___block_invoke(uint64_t a1)
+float __36__SCNParticleSystem_setSpeedFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetSpeedFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetSpeedFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4550,13 +4555,13 @@ float __36__SCNParticleSystem_setSpeedFactor___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetSpreadingAngle(self->_particleSystem);
+    return C3DParticleSystemGetSpreadingAngle(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  SpreadingAngle = C3DParticleSystemGetSpreadingAngle(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  SpreadingAngle = C3DParticleSystemGetSpreadingAngle(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return SpreadingAngle;
 }
 
@@ -4564,7 +4569,7 @@ float __36__SCNParticleSystem_setSpeedFactor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSpreadingAngle:];
@@ -4585,10 +4590,10 @@ float __36__SCNParticleSystem_setSpeedFactor___block_invoke(uint64_t a1)
   }
 }
 
-float __39__SCNParticleSystem_setSpreadingAngle___block_invoke(uint64_t a1)
+float __39__SCNParticleSystem_setSpreadingAngle___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetSpreadingAngle(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetSpreadingAngle(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4602,13 +4607,13 @@ float __39__SCNParticleSystem_setSpreadingAngle___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetStretchFactor(self->_particleSystem);
+    return C3DParticleSystemGetStretchFactor(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  StretchFactor = C3DParticleSystemGetStretchFactor(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  StretchFactor = C3DParticleSystemGetStretchFactor(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return StretchFactor;
 }
 
@@ -4616,7 +4621,7 @@ float __39__SCNParticleSystem_setSpreadingAngle___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setStretchFactor:];
@@ -4637,10 +4642,10 @@ float __39__SCNParticleSystem_setSpreadingAngle___block_invoke(uint64_t a1)
   }
 }
 
-float __38__SCNParticleSystem_setStretchFactor___block_invoke(uint64_t a1)
+float __38__SCNParticleSystem_setStretchFactor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetStretchFactor(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetStretchFactor(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4648,7 +4653,7 @@ float __38__SCNParticleSystem_setStretchFactor___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSystemSpawnedOnCollision:];
@@ -4686,7 +4691,7 @@ CFTypeRef __49__SCNParticleSystem_setSystemSpawnedOnCollision___block_invoke(uin
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSystemSpawnedOnDying:];
@@ -4724,7 +4729,7 @@ CFTypeRef __45__SCNParticleSystem_setSystemSpawnedOnDying___block_invoke(uint64_
 {
   if (*(self + 16))
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setSystemSpawnedOnLiving:];
@@ -4768,13 +4773,13 @@ CFTypeRef __46__SCNParticleSystem_setSystemSpawnedOnLiving___block_invoke(uint64
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetWarmupDuration(self->_particleSystem);
+    return C3DParticleSystemGetWarmupDuration(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  WarmupDuration = C3DParticleSystemGetWarmupDuration(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  WarmupDuration = C3DParticleSystemGetWarmupDuration(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return WarmupDuration;
 }
 
@@ -4782,7 +4787,7 @@ CFTypeRef __46__SCNParticleSystem_setSystemSpawnedOnLiving___block_invoke(uint64
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setWarmupDuration:];
@@ -4803,10 +4808,10 @@ CFTypeRef __46__SCNParticleSystem_setSystemSpawnedOnLiving___block_invoke(uint64
   }
 }
 
-float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
+float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetWarmupDuration(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetWarmupDuration(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4820,10 +4825,10 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (sceneRef)
   {
-    v5 = sceneRef;
-    C3DSceneLock(sceneRef);
-    WritesToDepthBuffer = C3DParticleSystemGetWritesToDepthBuffer(self->_particleSystem);
-    C3DSceneUnlock(v5);
+    v6 = sceneRef;
+    C3DSceneLock(sceneRef, v5);
+    WritesToDepthBuffer = C3DParticleSystemGetWritesToDepthBuffer(self->_particleSystem, v7);
+    C3DSceneUnlock(v6, v9);
     return WritesToDepthBuffer;
   }
 
@@ -4831,7 +4836,7 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
   {
     particleSystem = self->_particleSystem;
 
-    return C3DParticleSystemGetWritesToDepthBuffer(particleSystem);
+    return C3DParticleSystemGetWritesToDepthBuffer(particleSystem, v5);
   }
 }
 
@@ -4839,7 +4844,7 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setWritesToDepthBuffer:];
@@ -4870,13 +4875,13 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleIntensity(self->_particleSystem);
+    return C3DParticleSystemGetParticleIntensity(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleIntensity = C3DParticleSystemGetParticleIntensity(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleIntensity = C3DParticleSystemGetParticleIntensity(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleIntensity;
 }
 
@@ -4884,7 +4889,7 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleIntensity:];
@@ -4905,10 +4910,10 @@ float __39__SCNParticleSystem_setWarmupDuration___block_invoke(uint64_t a1)
   }
 }
 
-float __42__SCNParticleSystem_setParticleIntensity___block_invoke(uint64_t a1)
+float __42__SCNParticleSystem_setParticleIntensity___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleIntensity(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleIntensity(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4922,13 +4927,13 @@ float __42__SCNParticleSystem_setParticleIntensity___block_invoke(uint64_t a1)
   sceneRef = [(SCNParticleSystem *)self sceneRef];
   if (!sceneRef)
   {
-    return C3DParticleSystemGetParticleIntensityVariation(self->_particleSystem);
+    return C3DParticleSystemGetParticleIntensityVariation(self->_particleSystem, v5);
   }
 
-  v5 = sceneRef;
-  C3DSceneLock(sceneRef);
-  ParticleIntensityVariation = C3DParticleSystemGetParticleIntensityVariation(self->_particleSystem);
-  C3DSceneUnlock(v5);
+  v6 = sceneRef;
+  C3DSceneLock(sceneRef, v5);
+  ParticleIntensityVariation = C3DParticleSystemGetParticleIntensityVariation(self->_particleSystem, v7);
+  C3DSceneUnlock(v6, v8);
   return ParticleIntensityVariation;
 }
 
@@ -4936,7 +4941,7 @@ float __42__SCNParticleSystem_setParticleIntensity___block_invoke(uint64_t a1)
 {
   if (*(self + 16))
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(self, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleIntensityVariation:];
@@ -4957,10 +4962,10 @@ float __42__SCNParticleSystem_setParticleIntensity___block_invoke(uint64_t a1)
   }
 }
 
-float __51__SCNParticleSystem_setParticleIntensityVariation___block_invoke(uint64_t a1)
+float __51__SCNParticleSystem_setParticleIntensityVariation___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  C3DParticleSystemSetParticleIntensityVariation(*(*(a1 + 32) + 8), v1);
+  v2 = *(a1 + 40);
+  C3DParticleSystemSetParticleIntensityVariation(*(*(a1 + 32) + 8), a2, v2);
   return result;
 }
 
@@ -4968,7 +4973,7 @@ float __51__SCNParticleSystem_setParticleIntensityVariation___block_invoke(uint6
 {
   if (*(self + 16))
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setParticleColorVariation:];
@@ -5006,7 +5011,7 @@ float __51__SCNParticleSystem_setParticleIntensityVariation___block_invoke(uint6
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setEmittingDirection:];
@@ -5037,18 +5042,18 @@ float __51__SCNParticleSystem_setParticleIntensityVariation___block_invoke(uint6
   }
 }
 
-void __42__SCNParticleSystem_setEmittingDirection___block_invoke(uint64_t a1, __n128 a2)
+void __42__SCNParticleSystem_setEmittingDirection___block_invoke(uint64_t a1, __n128 a2, uint64_t a3)
 {
   a2.n128_u64[0] = *(a1 + 40);
   a2.n128_u32[2] = *(a1 + 48);
-  C3DParticleSystemSetEmittingDirection(*(*(a1 + 32) + 8), a2);
+  C3DParticleSystemSetEmittingDirection(*(*(a1 + 32) + 8), a3, a2);
 }
 
 - (void)setAcceleration:(SCNVector3)acceleration
 {
   if (*(self + 16))
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(self, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SCNParticleSystem setAcceleration:];
@@ -5079,11 +5084,11 @@ void __42__SCNParticleSystem_setEmittingDirection___block_invoke(uint64_t a1, __
   }
 }
 
-void __37__SCNParticleSystem_setAcceleration___block_invoke(uint64_t a1, __n128 a2)
+void __37__SCNParticleSystem_setAcceleration___block_invoke(uint64_t a1, __n128 a2, uint64_t a3)
 {
   a2.n128_u64[0] = *(a1 + 40);
   a2.n128_u32[2] = *(a1 + 48);
-  C3DParticleSystemSetAcceleration(*(*(a1 + 32) + 8), a2);
+  C3DParticleSystemSetAcceleration(*(*(a1 + 32) + 8), a3, a2);
 }
 
 - (void)reset
@@ -5369,10 +5374,10 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
 
 - (SCNParticleSystem)initWithCoder:(id)coder
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = SCNParticleSystem;
-  v4 = [(SCNParticleSystem *)&v17 init];
+  v23[4] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = SCNParticleSystem;
+  v4 = [(SCNParticleSystem *)&v22 init];
   if (v4)
   {
     if ([coder containsValueForKey:@"referenceName"])
@@ -5381,22 +5386,23 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
       if ([(SCNParticleSystem *)v4 referenceName])
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v5 = [objc_msgSend(coder "assetCatalog")];
-          if (v5)
+          v8 = [objc_msgSend(coder "assetCatalog")];
+          if (v8)
           {
-            v6 = v5;
-            [v5 setReferenceName:{-[SCNParticleSystem referenceName](v4, "referenceName")}];
+            v9 = v8;
+            [v8 setReferenceName:{-[SCNParticleSystem referenceName](v4, "referenceName")}];
 
-            return v6;
+            return v9;
           }
         }
 
         else
         {
-          v8 = scn_default_log();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v11 = scn_default_log(isKindOfClass, v7);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             [SCNParticleSystem initWithCoder:];
           }
@@ -5405,21 +5411,21 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
 
       else
       {
-        v7 = scn_default_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = scn_default_log(0, v5);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [SCNParticleSystem initWithCoder:];
         }
       }
     }
 
-    v9 = +[SCNTransaction immediateMode];
-    [SCNTransaction setImmediateMode:1];
-    v10 = C3DParticleSystemCreate();
-    v4->_particleSystem = v10;
-    if (v10)
+    v12 = +[SCNTransaction immediateMode];
+    v13 = [SCNTransaction setImmediateMode:1];
+    v15 = C3DParticleSystemCreate(v13, v14);
+    v4->_particleSystem = v15;
+    if (v15)
     {
-      C3DEntitySetObjCWrapper(v10, v4);
+      C3DEntitySetObjCWrapper(v15, v4);
     }
 
     [(SCNParticleSystem *)v4 _syncObjCModel];
@@ -5442,12 +5448,12 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
     -[SCNParticleSystem setEmitterShape:](v4, "setEmitterShape:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"emitterShape"]);
     -[SCNParticleSystem setBirthLocation:](v4, "setBirthLocation:", [coder decodeIntegerForKey:@"birthLocation"]);
     -[SCNParticleSystem setBirthDirection:](v4, "setBirthDirection:", [coder decodeIntegerForKey:@"birthDirection"]);
-    *&v11 = SCNDecodeVector3(coder, @"emittingDirection");
-    [(SCNParticleSystem *)v4 setEmittingDirection:v11];
-    *&v12 = SCNDecodeVector3(coder, @"orientationDirection");
-    [(SCNParticleSystem *)v4 setOrientationDirection:v12];
-    *&v13 = SCNDecodeVector3(coder, @"acceleration");
-    [(SCNParticleSystem *)v4 setAcceleration:v13];
+    *&v16 = SCNDecodeVector3(coder, @"emittingDirection");
+    [(SCNParticleSystem *)v4 setEmittingDirection:v16];
+    *&v17 = SCNDecodeVector3(coder, @"orientationDirection");
+    [(SCNParticleSystem *)v4 setOrientationDirection:v17];
+    *&v18 = SCNDecodeVector3(coder, @"acceleration");
+    [(SCNParticleSystem *)v4 setAcceleration:v18];
     [coder decodeDoubleForKey:@"spreadingAngle"];
     [(SCNParticleSystem *)v4 setSpreadingAngle:?];
     -[SCNParticleSystem setIsLocal:](v4, "setIsLocal:", [coder decodeBoolForKey:@"isLocal"]);
@@ -5486,8 +5492,8 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
     [(SCNParticleSystem *)v4 setParticleCharge:?];
     [coder decodeDoubleForKey:@"particleChargeVariation"];
     [(SCNParticleSystem *)v4 setParticleChargeVariation:?];
-    *&v14 = SCNDecodeVector4(coder, @"particleColorVariation");
-    [(SCNParticleSystem *)v4 setParticleColorVariation:v14];
+    *&v19 = SCNDecodeVector4(coder, @"particleColorVariation");
+    [(SCNParticleSystem *)v4 setParticleColorVariation:v19];
     -[SCNParticleSystem setSystemSpawnedOnCollision:](v4, "setSystemSpawnedOnCollision:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"systemSpawnedOnCollision"]);
     -[SCNParticleSystem setSystemSpawnedOnDying:](v4, "setSystemSpawnedOnDying:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"systemSpawnedOnDying"]);
     -[SCNParticleSystem setSystemSpawnedOnLiving:](v4, "setSystemSpawnedOnLiving:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"systemSpawnedOnLiving"]);
@@ -5515,12 +5521,12 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
     -[SCNParticleSystem setImageSequenceAnimationMode:](v4, "setImageSequenceAnimationMode:", [coder decodeIntegerForKey:@"imageSequenceAnimationMode"]);
     -[SCNParticleSystem setParticleGeometries:](v4, "setParticleGeometries:", [coder scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"particleGeometries"]);
     -[SCNParticleSystem setColliderNodes:](v4, "setColliderNodes:", [coder scn_decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"colliderNodes"]);
-    v15 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v18[3] = objc_opt_class();
-    -[SCNParticleSystem setPropertyControllers:](v4, "setPropertyControllers:", [coder decodeObjectOfClasses:objc_msgSend(v15 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v18, 4)), @"propertyControllers"}]);
+    v20 = MEMORY[0x277CBEB98];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v23[3] = objc_opt_class();
+    -[SCNParticleSystem setPropertyControllers:](v4, "setPropertyControllers:", [coder decodeObjectOfClasses:objc_msgSend(v20 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v23, 4)), @"propertyControllers"}]);
     -[SCNParticleSystem setSortingMode:](v4, "setSortingMode:", [coder decodeIntegerForKey:@"sortingMode"]);
     [coder decodeDoubleForKey:@"particleMass"];
     [(SCNParticleSystem *)v4 setParticleMass:?];
@@ -5549,7 +5555,7 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
     v4->_animationsLock._os_unfair_lock_opaque = 0;
     SCNDecodeEntity(coder, v4);
     SCNDecodeAnimations(coder, v4);
-    [SCNTransaction setImmediateMode:v9];
+    [SCNTransaction setImmediateMode:v12];
   }
 
   return v4;
@@ -5557,30 +5563,34 @@ void __64__SCNParticleSystem_addModifierForProperties_atStage_withBlock___block_
 
 - (void)setName:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleGeometries:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setColliderNodes:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPropertyControllers:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 void __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_1(uint8_t *a1, uint64_t a2, uint64_t *a3, NSObject *a4)
@@ -5600,485 +5610,554 @@ void __44__SCNParticleSystem_setPropertyControllers___block_invoke_cold_2(uint8_
 
 - (void)setParticleImage:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)_setParticleImagePath:withResolvedPath:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setOrientationDirection:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLightEmissionRadiusFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAffectedByGravity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAffectedByPhysicsFields:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBirthDirection:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBirthLocation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBirthRate:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBirthRateVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBlackPassEnabled:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setBlendMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setDampingFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setEmissionDuration:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setEmissionDurationVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setEmitterShape:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFixedTimeStep:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setFresnelExponent:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setIdleDuration:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setIdleDurationVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceAnimationMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceColumnCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceFrameRate:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceFrameRateVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceInitialFrame:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceInitialFrameVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setImageSequenceRowCount:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setIsLocal:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLightingEnabled:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setLoops:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setOrientationMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleAngle:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleAngleVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleAngularVelocity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleAngularVelocityVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleBounce:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleBounceVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleCharge:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleChargeVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleColor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleDiesOnCollision:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleFriction:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleFrictionVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleLifeSpan:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleLifeSpanVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleMass:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleMassVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleSize:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleSizeVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleVelocity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleVelocityVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setPhysicsCollisionsEnabled:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setRenderingMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSeed:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSoftParticlesEnabled:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSortingMode:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSpeedFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSpreadingAngle:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setStretchFactor:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSystemSpawnedOnCollision:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSystemSpawnedOnDying:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setSystemSpawnedOnLiving:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWarmupDuration:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setWritesToDepthBuffer:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleIntensity:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleIntensityVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setParticleColorVariation:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setEmittingDirection:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 - (void)setAcceleration:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_2_12(&dword_21BEF7000, v0, v1, "Error: can't set a property (%s::%d) on the presentation instance %@ - ignoring", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -1,8 +1,10 @@
 @interface MogulDecoder
++ (BOOL)isTopUpTransactionType:(unsigned __int8)type;
 + (id)decodeCardIssueDate:(id)date;
 + (id)decodeChargeAmountFlagValue:(id)value;
 + (id)decodePointsData:(id)data andWith:(id)with;
 + (id)decodeTransactionHistoryEntry:(id)entry;
++ (id)decodeTransactionTypeCode:(unsigned __int8)code;
 + (id)getPurseBalance:(id)balance;
 @end
 
@@ -21,7 +23,7 @@
 
 + (id)decodeTransactionHistoryEntry:(id)entry
 {
-  v22[6] = *MEMORY[0x277D85DE8];
+  v21[6] = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   if ([entryCopy isAll00])
   {
@@ -50,26 +52,102 @@
 
     v15 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v7 exponent:0 isNegative:v14];
     v16 = [MEMORY[0x277CCA980] decimalNumberWithMantissa:v8 exponent:0 isNegative:0];
-    v22[0] = v15;
-    v21[0] = @"Amount";
-    v21[1] = @"TypeDetailRaw";
+    v21[0] = v15;
+    v20[0] = @"Amount";
+    v20[1] = @"TypeDetailRaw";
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v6];
-    v22[1] = v17;
-    v22[2] = v11;
-    v21[2] = @"TransactionTime";
-    v21[3] = @"TypeDetail";
-    v22[3] = v12;
-    v21[4] = @"SerialNumber";
+    v21[1] = v17;
+    v21[2] = v11;
+    v20[2] = @"TransactionTime";
+    v20[3] = @"TypeDetail";
+    v21[3] = v12;
+    v20[4] = @"SerialNumber";
     v18 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v10];
-    v21[5] = @"FinalBalance";
-    v22[4] = v18;
-    v22[5] = v16;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+    v20[5] = @"FinalBalance";
+    v21[4] = v18;
+    v21[5] = v16;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v5;
+}
+
++ (id)decodeTransactionTypeCode:(unsigned __int8)code
+{
+  codeCopy = code;
+  v4 = +[AppletConfigurationData getSlalomSettings];
+  v5 = [v4 objectForKeyedSubscript:@"mogul"];
+  v6 = [v5 objectForKeyedSubscript:@"transactionType"];
+
+  if (!v6 || ([MEMORY[0x277CCACA8] stringWithFormat:@"%d", codeCopy], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "valueForKey:", v7), v8 = objc_claimAutoreleasedReturnValue(), v7, !v8))
+  {
+    if (codeCopy <= 91)
+    {
+      if (codeCopy != 56)
+      {
+        if (codeCopy == 71)
+        {
+          v8 = @"Purchase";
+          goto LABEL_20;
+        }
+
+        if (codeCopy != 91)
+        {
+LABEL_19:
+          v8 = @"Unknown";
+          goto LABEL_20;
+        }
+
+LABEL_18:
+        v8 = @"CardRead";
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      v9 = (codeCopy - 94);
+      if (v9 > 0x27)
+      {
+        goto LABEL_15;
+      }
+
+      if (((1 << (codeCopy - 94)) & 0x10660001) == 0)
+      {
+        if (((1 << (codeCopy - 94)) & 0xA000000000) != 0)
+        {
+          v8 = @"Points";
+          goto LABEL_20;
+        }
+
+        if (v9 == 25)
+        {
+          v8 = @"TopUpAuto";
+          goto LABEL_20;
+        }
+
+LABEL_15:
+        if (codeCopy != 93)
+        {
+          if (codeCopy == 92)
+          {
+            goto LABEL_17;
+          }
+
+          goto LABEL_19;
+        }
+
+        goto LABEL_18;
+      }
+    }
+
+LABEL_17:
+    v8 = @"TopUp";
+  }
+
+LABEL_20:
+
+  return v8;
 }
 
 + (id)getPurseBalance:(id)balance
@@ -308,6 +386,30 @@ LABEL_17:
   }
 
   return v6;
+}
+
++ (BOOL)isTopUpTransactionType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v4 = +[AppletConfigurationData getSlalomSettings];
+  v5 = [v4 objectForKeyedSubscript:@"mogul"];
+  v6 = [v5 objectForKeyedSubscript:@"topupCodes"];
+
+  if (v6 && ([MEMORY[0x277CCACA8] stringWithFormat:@"%d", typeCopy], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "valueForKey:", v7), v8 = objc_claimAutoreleasedReturnValue(), v7, v8))
+  {
+    bOOLValue = [v8 BOOLValue];
+  }
+
+  else
+  {
+    bOOLValue = 1;
+    if ((typeCopy - 92) > 0x29 || ((1 << (typeCopy - 92)) & 0x28049980005) == 0)
+    {
+      bOOLValue = typeCopy == 56;
+    }
+  }
+
+  return bOOLValue;
 }
 
 @end

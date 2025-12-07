@@ -37,7 +37,7 @@
     if (wellKnownPhotoLibraryIdentifier == 1)
     {
       [PLInitialSuggestionsManager generateInitialSuggestionsForPhotoLibrary:v13];
-      [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + objc_msgSend(assetsCopy, "count")}];
+      [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + objc_msgSend_count(assetsCopy)}];
       v16 = MEMORY[0x1E69BF2D0];
       null = [MEMORY[0x1E695DFB0] null];
       v18 = [v16 successWithResult:null];
@@ -88,7 +88,7 @@
   v16 = v15;
   if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    v17 = [assetsCopy count];
+    v17 = objc_msgSend_count(assetsCopy);
     parentTaskID2 = [(PLAnalysisCoordinatorStep *)self parentTaskID];
     *buf = 134349314;
     v26 = v17;

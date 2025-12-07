@@ -38,34 +38,31 @@
 
 - (void)fillOutRequestProperties:(id)properties
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v7 = objc_msgSend_metadata(self, v5, v6);
   v10 = objc_msgSend_recordID(v7, v8, v9);
-  v16[0] = v10;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v16, 1);
+  v15[0] = v10;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v15, 1);
   objc_msgSend_setModifyRecordIDs_(propertiesCopy, v13, v12);
 
-  v15.receiver = self;
-  v15.super_class = CKDMarkAssetBrokenURLRequest;
-  [(CKDURLRequest *)&v15 fillOutRequestProperties:propertiesCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = CKDMarkAssetBrokenURLRequest;
+  [(CKDURLRequest *)&v14 fillOutRequestProperties:propertiesCopy];
 }
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_operationType(self, a2, v2);
   v6 = objc_msgSend_operationRequestWithType_(self, v5, v4);
   v7 = objc_opt_new();
@@ -134,10 +131,8 @@ LABEL_6:
     objc_msgSend_setSkipWriteMissingAssetStatusRecord_(v11, v79, 1);
   }
 
-  v84[0] = v6;
-  v81 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v80, v84, 1);
-
-  v82 = *MEMORY[0x277D85DE8];
+  v83[0] = v6;
+  v81 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v80, v83, 1);
 
   return v81;
 }

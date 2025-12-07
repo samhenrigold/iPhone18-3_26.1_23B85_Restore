@@ -1,12 +1,30 @@
 @interface _DASWidgetRefreshBudget
++ (id)budgetWithName:(id)name widgetBudgetID:(id)d capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type;
 - (_DASWidgetRefreshBudget)initWithCoder:(id)coder;
 - (_DASWidgetRefreshBudget)initWithDictionary:(id)dictionary;
+- (_DASWidgetRefreshBudget)initWithName:(id)name widgetBudgetID:(id)d capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation _DASWidgetRefreshBudget
+
+- (_DASWidgetRefreshBudget)initWithName:(id)name widgetBudgetID:(id)d capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type
+{
+  typeCopy = type;
+  dCopy = d;
+  v17.receiver = self;
+  v17.super_class = _DASWidgetRefreshBudget;
+  v14 = [(_DASBudget *)&v17 initWithName:name capacity:typeCopy balance:0 allocationType:capacity lastModulatedDate:balance];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_widgetBudgetID, d);
+  }
+
+  return v15;
+}
 
 - (_DASWidgetRefreshBudget)initWithDictionary:(id)dictionary
 {
@@ -29,6 +47,16 @@
   }
 
   return v5;
+}
+
++ (id)budgetWithName:(id)name widgetBudgetID:(id)d capacity:(double)capacity balance:(double)balance allocationType:(unsigned __int8)type
+{
+  typeCopy = type;
+  dCopy = d;
+  nameCopy = name;
+  v13 = [objc_alloc(objc_opt_class()) initWithName:nameCopy widgetBudgetID:dCopy capacity:typeCopy balance:capacity allocationType:balance];
+
+  return v13;
 }
 
 - (id)description

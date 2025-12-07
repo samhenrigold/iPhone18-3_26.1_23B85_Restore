@@ -27,9 +27,10 @@
 
 uint64_t __31__CalDAVTrafficLogScrubber_log__block_invoke()
 {
-  log_log = os_log_create("com.apple.calendar", "CalDAVTrafficLogScrubber");
+  v0 = os_log_create("com.apple.calendar", "CalDAVTrafficLogScrubber");
+  log_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 + (BOOL)redactLog:(id)log toOutputFile:(id)file context:(id)context
@@ -73,45 +74,44 @@ uint64_t __31__CalDAVTrafficLogScrubber_log__block_invoke()
 
 - (void)cleanUp
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_urlsToCleanUp;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(CADDiagnosticLogContext *)self->_context deleteTemporaryFile:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(CADDiagnosticLogContext *)self->_context deleteTemporaryFile:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_urlsToCleanUp removeAllObjects];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)scrub
 {
   selfCopy = self;
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   decompressedInputFile = [(CalDAVTrafficLogScrubber *)self decompressedInputFile];
   temporaryUncompressedFile = [(CalDAVTrafficLogScrubber *)selfCopy temporaryUncompressedFile];
   [(NSMutableArray *)selfCopy->_urlsToCleanUp addObject:temporaryUncompressedFile];
@@ -135,9 +135,9 @@ uint64_t __31__CalDAVTrafficLogScrubber_log__block_invoke()
     }
   }
 
-  v72 = temporaryUncompressedFile;
-  v73 = selfCopy;
-  v71 = decompressedInputFile;
+  v71 = temporaryUncompressedFile;
+  v72 = selfCopy;
+  v70 = decompressedInputFile;
   path2 = [temporaryUncompressedFile path];
   v10 = fopen([path2 fileSystemRepresentation], "w");
 
@@ -150,7 +150,7 @@ uint64_t __31__CalDAVTrafficLogScrubber_log__block_invoke()
         goto LABEL_84;
       }
 
-      v74 = v7;
+      v73 = v7;
       while (1)
       {
         v11 = objc_autoreleasePoolPush();
@@ -290,7 +290,7 @@ LABEL_52:
 
       v14 = 0;
 LABEL_14:
-      v78 = v11;
+      v77 = v11;
       if (getHeaderRedactionBehaviors_onceToken != -1)
       {
         [CalDAVTrafficLogScrubber scrub];
@@ -305,30 +305,30 @@ LABEL_14:
         goto LABEL_62;
       }
 
-      v79 = v15;
-      v75 = v16;
-      v76 = v14;
-      v77 = v13;
+      v78 = v15;
+      v74 = v16;
+      v75 = v14;
+      v76 = v13;
       v17 = [v16 componentsSeparatedByString:@"\n"];
+      v79 = 0u;
       v80 = 0u;
       v81 = 0u;
       v82 = 0u;
-      v83 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v80 objects:v84 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v79 objects:v83 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v81;
+        v20 = *v80;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v81 != v20)
+            if (*v80 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v80 + 1) + 8 * i);
+            v22 = *(*(&v79 + 1) + 8 * i);
             if ([v22 length])
             {
               v23 = [v22 rangeOfString:@": "];
@@ -346,7 +346,7 @@ LABEL_14:
                 fputs(": ", v10);
                 v28 = [v22 substringFromIndex:v25 + v26];
                 lowercaseString = [v27 lowercaseString];
-                v30 = [v79 objectForKeyedSubscript:lowercaseString];
+                v30 = [v78 objectForKeyedSubscript:lowercaseString];
                 integerValue = [v30 integerValue];
 
                 v32 = CalRedactString(integerValue, v28);
@@ -361,7 +361,7 @@ LABEL_14:
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v80 objects:v84 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v79 objects:v83 count:16];
         }
 
         while (v19);
@@ -369,15 +369,15 @@ LABEL_14:
 
       fputc(10, v10);
 
-      v14 = v76;
-      v7 = v74;
-      if (checkForString(v74, "[compression: gzip]\n", 1))
+      v14 = v75;
+      v7 = v73;
+      if (checkForString(v73, "[compression: gzip]\n", 1))
       {
         fputs("[compression: gzip]\n", v10);
       }
 
-      v33 = checkForString(v74, "\nTask ", 0);
-      if (v77 == 1)
+      v33 = checkForString(v73, "\nTask ", 0);
+      if (v76 == 1)
       {
         v34 = "\n>>>>>\n";
       }
@@ -387,7 +387,7 @@ LABEL_14:
         v34 = "\n<<<<<\n";
       }
 
-      v11 = v78;
+      v11 = v77;
       if (v33)
       {
 LABEL_61:
@@ -396,18 +396,18 @@ LABEL_61:
         goto LABEL_62;
       }
 
-      v35 = fgetc(v74);
-      ungetc(v35, v74);
+      v35 = fgetc(v73);
+      ungetc(v35, v73);
       if (v35 != 60 && (v35 == 66 || [v14 isEqualToString:@"PUT"]))
       {
-        v36 = readFromFileUntilStringAndReturnData(v74, v34, 0);
+        v36 = readFromFileUntilStringAndReturnData(v73, v34, 0);
         v37 = CalRedactString(3, v36);
         fputNSString(v10, v37);
       }
 
       else
       {
-        v36 = readFromFileUntilStringAndReturnData(v74, v34, 1);
+        v36 = readFromFileUntilStringAndReturnData(v73, v34, 1);
         if (![v36 length])
         {
 LABEL_60:
@@ -459,19 +459,18 @@ LABEL_84:
 
   fclose(v10);
 LABEL_87:
-  selfCopy = v73;
-  decompressedInputFile = v71;
-  temporaryUncompressedFile = v72;
-  if (([(CADDiagnosticLogContext *)v73->_context canceled]& 1) == 0)
+  selfCopy = v72;
+  decompressedInputFile = v70;
+  temporaryUncompressedFile = v71;
+  if (([(CADDiagnosticLogContext *)v72->_context canceled]& 1) == 0)
   {
-    [CADDiagnosticsUtils compressFileAt:v72 to:v73->_outputURL context:v73->_context];
+    [CADDiagnosticsUtils compressFileAt:v71 to:v72->_outputURL context:v72->_context];
   }
 
 LABEL_89:
   context2 = [(CalDAVTrafficLogScrubber *)selfCopy context];
   [context2 log:{@"...finished redacting log from %@", decompressedInputFile}];
 
-  v69 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -489,70 +488,68 @@ LABEL_89:
 
 - (id)decompressedInputFile
 {
-  v2 = MEMORY[0x28223BE20](self);
-  v43[4096] = *MEMORY[0x277D85DE8];
-  v3 = v2 + 2;
+  v2 = MEMORY[0x28223BE20](self, a2);
+  v40[4096] = *MEMORY[0x277D85DE8];
   pathExtension = [v2[2] pathExtension];
-  v5 = [pathExtension isEqualToString:@"gz"];
+  v4 = [pathExtension isEqualToString:@"gz"];
 
-  if ((v5 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    v18 = *v3;
+    v17 = v2[2];
     goto LABEL_47;
   }
 
   uRLByDeletingPathExtension = [v2[3] URLByDeletingPathExtension];
   lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
 
-  v36 = lastPathComponent;
-  v8 = [v2[4] temporaryFileForName:lastPathComponent];
+  v33 = lastPathComponent;
+  v7 = [v2[4] temporaryFileForName:lastPathComponent];
   path = [v2[2] path];
-  v35 = v8;
-  path2 = [v8 path];
-  v11 = path;
-  v12 = path2;
+  v32 = v7;
+  path2 = [v7 path];
+  v10 = path;
+  v11 = path2;
   memset(&strm.avail_out + 1, 0, 76);
   *&strm.avail_in = 0u;
-  strm.next_in = v43;
+  strm.next_in = v40;
   strm.next_out = __ptr;
   strm.avail_in = 0;
   strm.avail_out = 0x8000;
-  v13 = fopen([v11 fileSystemRepresentation], "r");
-  v14 = fopen([v12 fileSystemRepresentation], "w");
+  v12 = fopen([v10 fileSystemRepresentation], "r");
+  v13 = fopen([v11 fileSystemRepresentation], "w");
   if (!inflateInit2_(&strm, 47, "1.2.12", 112))
   {
-    v33 = v11;
-    v34 = v2 + 2;
-    v19 = 1;
+    v31 = v10;
+    v18 = 1;
     next_in = strm.next_in;
     while (1)
     {
-      if (next_in != v43)
+      if (next_in != v40)
       {
         [CalDAVTrafficLogScrubber decompressedInputFile];
       }
 
-      v21 = fread(&next_in[strm.avail_in], 1uLL, 0x8000 - strm.avail_in, v13);
-      if (v21)
+      v20 = fread(&next_in[strm.avail_in], 1uLL, 0x8000 - strm.avail_in, v12);
+      if (v20)
       {
         break;
       }
 
-      v27 = ferror(v13);
-      if (v27)
+      v26 = ferror(v12);
+      if (v26)
       {
-        v28 = v27;
-        v29 = +[CalDAVTrafficLogScrubber log];
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v27 = v26;
+        v28 = +[CalDAVTrafficLogScrubber log];
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v41[0] = v28;
-          _os_log_error_impl(&dword_22430B000, v29, OS_LOG_TYPE_ERROR, "error reading file: %i", buf, 8u);
+          v38[0] = v27;
+          _os_log_error_impl(&dword_22430B000, v28, OS_LOG_TYPE_ERROR, "error reading file: %i", buf, 8u);
         }
 
 LABEL_32:
 
-        v19 = 0;
+        v18 = 0;
       }
 
       else if (strm.avail_in)
@@ -561,39 +558,37 @@ LABEL_32:
       }
 
 LABEL_33:
-      v22 = 1;
+      v21 = 1;
 LABEL_34:
-      if (strm.next_in == v43)
+      if (strm.next_in == v40)
       {
-        v15 = +[CalDAVTrafficLogScrubber log];
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = +[CalDAVTrafficLogScrubber log];
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [(CalDAVTrafficLogScrubber *)buf decompressedInputFile];
         }
 
-        v17 = v35;
-        v16 = v36;
-        v11 = v33;
-        v3 = v34;
+        v16 = v32;
+        v15 = v33;
+        v10 = v31;
         goto LABEL_42;
       }
 
-      next_in = v43;
+      next_in = v40;
       __memmove_chk();
-      strm.next_in = v43;
-      if (v22)
+      strm.next_in = v40;
+      if (v21)
       {
         inflateEnd(&strm);
+        fclose(v12);
         fclose(v13);
-        fclose(v14);
 
-        v17 = v35;
-        v16 = v36;
-        v3 = v2 + 2;
-        if (v19)
+        v16 = v32;
+        v15 = v33;
+        if (v18)
         {
-          [v2[1] addObject:v35];
-          v18 = v35;
+          [v2[1] addObject:v32];
+          v17 = v32;
           goto LABEL_46;
         }
 
@@ -601,40 +596,40 @@ LABEL_34:
       }
     }
 
-    strm.avail_in += v21;
+    strm.avail_in += v20;
 LABEL_11:
-    v22 = 0;
+    v21 = 0;
     while (1)
     {
-      v23 = inflate(&strm, 0);
-      if (v23)
+      v22 = inflate(&strm, 0);
+      if (v22)
       {
-        v24 = v23;
-        if (v23 == 1)
+        v23 = v22;
+        if (v22 == 1)
         {
-          v25 = 0;
+          v24 = 0;
         }
 
         else
         {
-          v26 = +[CalDAVTrafficLogScrubber log];
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v25 = +[CalDAVTrafficLogScrubber log];
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            v41[0] = v24;
-            _os_log_error_impl(&dword_22430B000, v26, OS_LOG_TYPE_ERROR, "zlib gave an error: %i", buf, 8u);
+            v38[0] = v23;
+            _os_log_error_impl(&dword_22430B000, v25, OS_LOG_TYPE_ERROR, "zlib gave an error: %i", buf, 8u);
           }
 
-          v19 = 0;
-          v25 = 1;
+          v18 = 0;
+          v24 = 1;
         }
 
-        v22 = 1;
+        v21 = 1;
       }
 
       else
       {
-        v25 = 1;
+        v24 = 1;
       }
 
       if (strm.avail_out >> 15)
@@ -642,20 +637,20 @@ LABEL_11:
         goto LABEL_34;
       }
 
-      if (fwrite(__ptr, 0x8000 - strm.avail_out, 1uLL, v14) != 1)
+      if (fwrite(__ptr, 0x8000 - strm.avail_out, 1uLL, v13) != 1)
       {
-        v29 = +[CalDAVTrafficLogScrubber log];
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = +[CalDAVTrafficLogScrubber log];
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          [(CalDAVTrafficLogScrubber *)v38 decompressedInputFile:v14];
+          [(CalDAVTrafficLogScrubber *)v35 decompressedInputFile:v13];
         }
 
         goto LABEL_32;
       }
 
-      if (v22)
+      if (v21)
       {
-        if ((v25 & 1) == 0)
+        if ((v24 & 1) == 0)
         {
           goto LABEL_33;
         }
@@ -667,41 +662,40 @@ LABEL_11:
         strm.avail_out = 0x8000;
         if (!strm.avail_in)
         {
-          v22 = 0;
+          v21 = 0;
           goto LABEL_34;
         }
       }
     }
   }
 
-  v15 = +[CalDAVTrafficLogScrubber log];
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = +[CalDAVTrafficLogScrubber log];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [CalDAVTrafficLogScrubber decompressedInputFile];
   }
 
-  v17 = v35;
-  v16 = v36;
+  v16 = v32;
+  v15 = v33;
 LABEL_42:
 
   inflateEnd(&strm);
+  fclose(v12);
   fclose(v13);
-  fclose(v14);
 
 LABEL_43:
-  v30 = +[CalDAVTrafficLogScrubber log];
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v29 = +[CalDAVTrafficLogScrubber log];
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    [(CalDAVTrafficLogScrubber *)v3 decompressedInputFile];
+    [CalDAVTrafficLogScrubber decompressedInputFile];
   }
 
-  v18 = 0;
+  v17 = 0;
 LABEL_46:
 
 LABEL_47:
-  v31 = *MEMORY[0x277D85DE8];
 
-  return v18;
+  return v17;
 }
 
 - (void)compressFileAt:(id)at to:(id)to
@@ -755,30 +749,18 @@ LABEL_47:
 - (void)scrub
 {
   OUTLINED_FUNCTION_4_0();
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)decompressedInputFile
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  OUTLINED_FUNCTION_2_0();
-  v6 = v2;
-  _os_log_error_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Couldn't decompress input file (%@) to output file (%@).", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)compressFileAt:to:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_3_0(&dword_22430B000, v0, v1, "Compressing file failed: %i", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0();
+  v3 = v0;
+  _os_log_error_impl(&dword_22430B000, v1, OS_LOG_TYPE_ERROR, "Couldn't decompress input file (%@) to output file (%@).", v2, 0x16u);
 }
 
 @end

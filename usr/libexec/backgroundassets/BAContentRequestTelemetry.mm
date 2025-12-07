@@ -86,16 +86,16 @@
 
   if ((v10 & 1) == 0)
   {
-    downloadedFileSize = sub_1000104FC();
+    downloadedFileSize = sub_1000104FC(v11);
     if (!os_log_type_enabled(downloadedFileSize, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     uniqueIdentifier2 = [completionCopy uniqueIdentifier];
-    v22 = 138543362;
-    v23 = uniqueIdentifier2;
-    _os_log_impl(&_mh_execute_header, downloadedFileSize, OS_LOG_TYPE_DEFAULT, "BAContentRequestTelemetry informed about unknown download with identifier %{public}@", &v22, 0xCu);
+    v24 = 138543362;
+    v25 = uniqueIdentifier2;
+    _os_log_impl(&_mh_execute_header, downloadedFileSize, OS_LOG_TYPE_DEFAULT, "BAContentRequestTelemetry informed about unknown download with identifier %{public}@", &v24, 0xCu);
 LABEL_11:
 
     goto LABEL_12;
@@ -112,7 +112,7 @@ LABEL_11:
   if (self->_invalid || !(errorCopy | downloadedFileSize))
   {
     self->_invalid = 1;
-    uniqueIdentifier2 = sub_1000104FC();
+    uniqueIdentifier2 = sub_1000104FC(v16);
     if (os_log_type_enabled(uniqueIdentifier2, OS_LOG_TYPE_ERROR))
     {
       sub_100047B64(completionCopy, uniqueIdentifier2);
@@ -128,20 +128,20 @@ LABEL_11:
     fileSizes = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", domain, [errorCopy code], 0);
 
     uniqueErrorCounts = [(BAContentRequestTelemetry *)self uniqueErrorCounts];
-    v18 = [uniqueErrorCounts objectForKey:fileSizes];
+    v20 = [uniqueErrorCounts objectForKey:fileSizes];
 
-    if (v18)
+    if (v20)
     {
-      v19 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v18 intValue] + 1);
+      v21 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v20 intValue] + 1);
     }
 
     else
     {
-      v19 = &off_10007D430;
+      v21 = &off_10007D430;
     }
 
     uniqueErrorCounts2 = [(BAContentRequestTelemetry *)self uniqueErrorCounts];
-    [uniqueErrorCounts2 setObject:v19 forKeyedSubscript:fileSizes];
+    [uniqueErrorCounts2 setObject:v21 forKeyedSubscript:fileSizes];
   }
 
   else

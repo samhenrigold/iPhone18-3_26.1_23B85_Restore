@@ -17,7 +17,7 @@
 - (void)receivedSecureFieldEntranceEventWithProperties:(id)properties
 {
   propertiesCopy = properties;
-  v5 = sub_100191AB0();
+  v5 = sub_100191AB0(propertiesCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1005C82DC;
@@ -30,7 +30,7 @@
 
 - (void)receivedSecureFieldExitEvent
 {
-  v3 = sub_100191AB0();
+  v3 = sub_100191AB0(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100191EC4;

@@ -180,44 +180,44 @@
 
 - (void)updateLabel
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (![(FMFNoLocationView *)self blockLabelUpdates])
   {
     delegate = [(FMFNoLocationView *)self delegate];
     handlesShowingLocations = [delegate handlesShowingLocations];
     if ([handlesShowingLocations count])
     {
-      v26 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
+      v26 = 0u;
       v5 = handlesShowingLocations;
-      v6 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v25;
+        v8 = *v26;
         while (2)
         {
           v9 = 0;
           do
           {
-            if (*v25 != v8)
+            if (*v26 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v24 + 1) + 8 * v9);
+            v10 = *(*(&v25 + 1) + 8 * v9);
             mEMORY[0x277D07BE0] = [MEMORY[0x277D07BE0] sharedInstance];
             v12 = [mEMORY[0x277D07BE0] cachedLocationForHandle:v10];
 
             if (!v12)
             {
-              v15 = LogCategory_Daemon();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v16 = LogCategory_Daemon(v13);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_24A4E3000, v15, OS_LOG_TYPE_DEFAULT, "No location received from service yet.", buf, 2u);
+                _os_log_impl(&dword_24A4E3000, v16, OS_LOG_TYPE_DEFAULT, "No location received from service yet.", buf, 2u);
               }
 
 LABEL_19:
@@ -240,7 +240,7 @@ LABEL_19:
           }
 
           while (v7 != v9);
-          v7 = [v5 countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v7)
           {
             continue;
@@ -250,12 +250,12 @@ LABEL_19:
         }
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v5 = LogCategory_Daemon();
+      v5 = LogCategory_Daemon(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -263,42 +263,40 @@ LABEL_19:
       }
 
 LABEL_20:
-      v14 = 1;
+      v15 = 1;
     }
 
-    v16 = LogCategory_Daemon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = LogCategory_Daemon(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       handlesShowingLocations2 = [delegate handlesShowingLocations];
       *buf = 67109378;
-      v29 = v14;
-      v30 = 2112;
-      v31 = handlesShowingLocations2;
-      _os_log_impl(&dword_24A4E3000, v16, OS_LOG_TYPE_DEFAULT, "Updating labels for FMFNoLocationView isLocating: %d handles: %@", buf, 0x12u);
+      v30 = v15;
+      v31 = 2112;
+      v32 = handlesShowingLocations2;
+      _os_log_impl(&dword_24A4E3000, v18, OS_LOG_TYPE_DEFAULT, "Updating labels for FMFNoLocationView isLocating: %d handles: %@", buf, 0x12u);
     }
 
-    v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v19 = v18;
-    if (v14)
+    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v21 = v20;
+    if (v15)
     {
-      v20 = @"LOCATING";
+      v22 = @"LOCATING";
     }
 
     else
     {
-      v20 = @"LOCATION_NOT_AVAILABLE";
+      v22 = @"LOCATION_NOT_AVAILABLE";
     }
 
-    v21 = [v18 localizedStringForKey:v20 value:&stru_285D99658 table:{@"LocalizableUI", v24}];
+    v23 = [v20 localizedStringForKey:v22 value:&stru_285D99658 table:{@"LocalizableUI", v25}];
 
     detailsLabel = [(FMFNoLocationView *)self detailsLabel];
-    [detailsLabel setText:v21];
+    [detailsLabel setText:v23];
 
     [(UILabel *)self->_detailsLabel sizeToFit];
     [(UILabel *)self->_detailsLabel invalidateIntrinsicContentSize];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAlpha:(double)alpha

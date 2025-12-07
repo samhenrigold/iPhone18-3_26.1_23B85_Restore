@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)metricTypeAsString:(int)string;
 - (int)StringAsMetricType:(id)type;
 - (int)metricType;
 - (unint64_t)hash;
@@ -161,18 +162,28 @@ LABEL_34:
   v16 = *(v5 + 6);
   if (genericEvent)
   {
-    if (v16)
+    if (!v16)
     {
-      [(SECC2MPGenericEvent *)genericEvent mergeFrom:?];
+      goto LABEL_40;
     }
+
+    genericEvent = [(SECC2MPGenericEvent *)genericEvent mergeFrom:?];
   }
 
-  else if (v16)
+  else
   {
-    [(SECC2MPMetric *)self setGenericEvent:?];
+    if (!v16)
+    {
+      goto LABEL_40;
+    }
+
+    genericEvent = [(SECC2MPMetric *)self setGenericEvent:?];
   }
 
-  _objc_release_x1();
+  v5 = v17;
+LABEL_40:
+
+  _objc_release_x1(genericEvent, v5);
 }
 
 - (unint64_t)hash
@@ -239,7 +250,6 @@ LABEL_11:
     goto LABEL_32;
   }
 
-  v5 = *(equalCopy + 80);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 80) & 8) == 0 || self->_metricType != *(equalCopy + 14))
@@ -251,7 +261,7 @@ LABEL_11:
   else if ((*(equalCopy + 80) & 8) != 0)
   {
 LABEL_32:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_33;
   }
 
@@ -279,7 +289,6 @@ LABEL_32:
     }
   }
 
-  v9 = *(equalCopy + 80);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 80) & 4) == 0 || self->_triggers != *(equalCopy + 3))
@@ -328,17 +337,17 @@ LABEL_32:
   genericEvent = self->_genericEvent;
   if (genericEvent | *(equalCopy + 6))
   {
-    v12 = [(SECC2MPGenericEvent *)genericEvent isEqual:?];
+    v10 = [(SECC2MPGenericEvent *)genericEvent isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_33:
 
-  return v12;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -487,38 +496,36 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 8) != 0)
   {
-    metricType = self->_metricType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_deviceInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_cloudkitInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_serverInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    triggers = self->_triggers;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -537,28 +544,26 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  reportFrequency = self->_reportFrequency;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_12:
-    reportFrequencyBase = self->_reportFrequencyBase;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_13:
   if (self->_networkEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_genericEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -1098,6 +1103,34 @@ LABEL_20:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)metricTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 201)
+    {
+      v4 = @"generic_event_type";
+    }
+
+    else if (string == 200)
+    {
+      v4 = @"network_event_type";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"none_type";
   }
 
   return v4;

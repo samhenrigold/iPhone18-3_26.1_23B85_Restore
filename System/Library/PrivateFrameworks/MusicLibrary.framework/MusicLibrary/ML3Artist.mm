@@ -180,9 +180,11 @@ LABEL_13:
 
 uint64_t __37__ML3Artist_propertiesForGroupingKey__block_invoke()
 {
-  propertiesForGroupingKey_propertiesForGroupingKey = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"series_name", @"item_artist", 0}];
+  v0 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"series_name", @"item_artist", 0}];
+  v1 = propertiesForGroupingKey_propertiesForGroupingKey;
+  propertiesForGroupingKey_propertiesForGroupingKey = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)countingQueryForBaseQuery:(id)query countProperty:(id)property forIdentifier:(int64_t)identifier

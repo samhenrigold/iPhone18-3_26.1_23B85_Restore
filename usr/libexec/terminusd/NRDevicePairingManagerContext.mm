@@ -37,7 +37,7 @@
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: Got config request for listener %@ session %@ sessionConfig %@", ", "[NRDevicePairingManagerContext requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 1749, self, listenerCopy, sessionCopy, configCopy);
   }
 
   (*(responseBlockCopy + 2))(responseBlockCopy, 0, 0, 0);
@@ -73,7 +73,7 @@
               dispatch_once(&qword_1002291E8, &stru_1001FC218);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: BT pipe for %@ (CBUUID %@) disconnected error %@", ", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidDisconnect:error:]"", 1660, self, v13, identifier, errorCopy);
           }
 
           if (sub_100123380(v13) && (sub_100123434(v13) & 1) == 0)
@@ -101,7 +101,7 @@
               dispatch_once(&qword_1002291E8, &stru_1001FC218);
             }
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: BT BT pipe for unknown CBUUID %@ disconnected error %@", ", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidDisconnect:error:]"", 1656, self, identifier, errorCopy);
           }
 
           v13 = 0;
@@ -120,7 +120,7 @@
         }
 
         v13 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v13, 17, "%s called with null cbUUID", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidDisconnect:error:]");
       }
 
 LABEL_23:
@@ -132,9 +132,8 @@ LABEL_23:
 
     if (v17)
     {
-LABEL_30:
       identifier = sub_100123258();
-      _NRLogWithArgs();
+      _NRLogWithArgs(identifier, 17, "%s called with null pipe");
       goto LABEL_23;
     }
   }
@@ -146,7 +145,9 @@ LABEL_30:
 
     if (v15)
     {
-      goto LABEL_30;
+      identifier = sub_100123258();
+      _NRLogWithArgs(identifier, 17, "%s called with null pipeManager");
+      goto LABEL_23;
     }
   }
 
@@ -166,7 +167,7 @@ LABEL_24:
 
       if (!identifier)
       {
-        v45 = sub_100123258();
+        v42 = sub_100123258();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (!IsLevelEnabled)
@@ -176,7 +177,7 @@ LABEL_24:
         }
 
         v10 = sub_100123258();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v10, 17, "%s called with null cbUUID", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidConnect:]");
         goto LABEL_32;
       }
 
@@ -195,7 +196,7 @@ LABEL_24:
             dispatch_once(&qword_1002291E8, &stru_1001FC218);
           }
 
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: BT pipe for unknown CBUUID %@ connected", ", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidConnect:]"", 1626, self, identifier);
         }
 
         v10 = 0;
@@ -215,7 +216,7 @@ LABEL_24:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: BT pipe for %@ connected (CBUUID %@)", ", "[NRDevicePairingManagerContext scalablePipeManager:pipeDidConnect:]"", 1640, self, v10, identifier);
       }
 
       v11 = connectCopy;
@@ -237,129 +238,128 @@ LABEL_24:
       if (channel)
       {
         os_channel_ring_id();
-        v14 = *(v10 + 13);
-        v15 = os_channel_rx_ring();
-        *(v10 + 14) = v15;
-        if (v15)
+        v14 = os_channel_rx_ring();
+        *(v10 + 14) = v14;
+        if (v14)
         {
-          v16 = *(v10 + 13);
           os_channel_ring_id();
-          v17 = *(v10 + 13);
-          v18 = os_channel_tx_ring();
-          *(v10 + 15) = v18;
-          if (v18)
+          v15 = os_channel_tx_ring();
+          *(v10 + 15) = v15;
+          if (v15)
           {
-            v19 = *(v10 + 13);
             fd = os_channel_get_fd();
+            v17 = fd;
             if ((fd & 0x80000000) != 0)
             {
-              v53 = sub_100123258();
-              v54 = _NRLogIsLevelEnabled();
+              v51 = sub_100123258();
+              v52 = _NRLogIsLevelEnabled();
 
-              if (v54)
+              if (v52)
               {
-                v55 = sub_100123258();
-                _NRLogWithArgs();
+                v53 = sub_100123258();
+                _NRLogWithArgs(v53, 17, "os_channel_get_fd failed: %d", v17);
               }
 
               goto LABEL_24;
             }
 
-            v21 = fd;
-            v22 = *(v10 + 3);
-            v23 = dispatch_source_create(&_dispatch_source_type_read, v21, 0, v22);
-            v24 = *(v10 + 16);
-            *(v10 + 16) = v23;
+            v18 = fd;
+            v19 = *(v10 + 3);
+            v20 = dispatch_source_create(&_dispatch_source_type_read, v18, 0, v19);
+            v21 = *(v10 + 16);
+            *(v10 + 16) = v20;
 
-            v25 = *(v10 + 16);
-            if (v25)
+            v22 = *(v10 + 16);
+            if (v22)
             {
               handler[0] = _NSConcreteStackBlock;
               handler[1] = 3221225472;
               handler[2] = sub_1001264E4;
               handler[3] = &unk_1001FD3C8;
               handler[4] = v10;
-              dispatch_source_set_event_handler(v25, handler);
-              v26 = *(v10 + 16);
-              v67[0] = _NSConcreteStackBlock;
-              v67[1] = 3221225472;
-              v67[2] = nullsub_13;
-              v67[3] = &unk_1001FD3C8;
-              v27 = v11;
-              v68 = v27;
-              dispatch_source_set_cancel_handler(v26, v67);
+              dispatch_source_set_event_handler(v22, handler);
+              v23 = *(v10 + 16);
+              v64[0] = _NSConcreteStackBlock;
+              v64[1] = 3221225472;
+              v64[2] = nullsub_13;
+              v64[3] = &unk_1001FD3C8;
+              v24 = v11;
+              v65 = v24;
+              dispatch_source_set_cancel_handler(v23, v64);
               dispatch_resume(*(v10 + 16));
-              v28 = *(v10 + 3);
-              v29 = dispatch_source_create(&_dispatch_source_type_write, v21, 0, v28);
-              v30 = *(v10 + 17);
-              *(v10 + 17) = v29;
+              v25 = *(v10 + 3);
+              v26 = dispatch_source_create(&_dispatch_source_type_write, v18, 0, v25);
+              v27 = *(v10 + 17);
+              *(v10 + 17) = v26;
 
-              v31 = *(v10 + 17);
-              if (v31)
+              v28 = *(v10 + 17);
+              if (v28)
               {
-                v66[0] = _NSConcreteStackBlock;
-                v66[1] = 3221225472;
-                v66[2] = sub_1001266AC;
-                v66[3] = &unk_1001FD3C8;
-                v66[4] = v10;
-                dispatch_source_set_event_handler(v31, v66);
-                v32 = *(v10 + 17);
-                v64[0] = _NSConcreteStackBlock;
-                v64[1] = 3221225472;
-                v64[2] = nullsub_14;
-                v64[3] = &unk_1001FD3C8;
-                v65 = v27;
-                dispatch_source_set_cancel_handler(v32, v64);
-                dispatch_resume(*(v10 + 17));
-                *(v10 + 9) = 0;
-                v33 = [NRDeviceIdentifier alloc];
-                uuid = [*(v10 + 4) uuid];
-                v35 = [v33 initWithUUID:uuid];
-
-                v36 = [[NRBluetoothPacketParser alloc] initWithDeviceIdentifier:v35 queue:*(v10 + 3)];
-                [v36 setDirect:1];
-                [v36 setControlOnly:1];
-                v37 = [v36 createReadContextForPriority:1 readAvailableCallback:nullsub_15 readAvailableContext:v10];
-                v38 = [v36 createWriteContextForPriority:1 writeOutputCallback:sub_10012D3D4 writeOutputContext:v10];
                 v63[0] = _NSConcreteStackBlock;
                 v63[1] = 3221225472;
-                v63[2] = sub_100126718;
-                v63[3] = &unk_1001FBF78;
+                v63[2] = sub_1001266AC;
+                v63[3] = &unk_1001FD3C8;
                 v63[4] = v10;
-                [v36 setReceiveXPCCommDictionaryHandler:v63];
-                v39 = *(v10 + 18);
-                *(v10 + 18) = v36;
-                v40 = v36;
+                dispatch_source_set_event_handler(v28, v63);
+                v29 = *(v10 + 17);
+                v61[0] = _NSConcreteStackBlock;
+                v61[1] = 3221225472;
+                v61[2] = nullsub_14;
+                v61[3] = &unk_1001FD3C8;
+                v62 = v24;
+                dispatch_source_set_cancel_handler(v29, v61);
+                dispatch_resume(*(v10 + 17));
+                *(v10 + 9) = 0;
+                v30 = [NRDeviceIdentifier alloc];
+                uuid = [*(v10 + 4) uuid];
+                v32 = [v30 initWithUUID:uuid];
 
-                *(v10 + 19) = v37;
-                *(v10 + 20) = v38;
-                [v40 start];
-                [v40 sendXPCCommDictionary:&off_10020A178];
+                v33 = [[NRBluetoothPacketParser alloc] initWithDeviceIdentifier:v32 queue:*(v10 + 3)];
+                [v33 setDirect:1];
+                [v33 setControlOnly:1];
+                v34 = [v33 createReadContextForPriority:1 readAvailableCallback:nullsub_15 readAvailableContext:v10];
+                v35 = [v33 createWriteContextForPriority:1 writeOutputCallback:sub_10012D3D4 writeOutputContext:v10];
+                v60[0] = _NSConcreteStackBlock;
+                v60[1] = 3221225472;
+                v60[2] = sub_100126718;
+                v60[3] = &unk_1001FBF78;
+                v60[4] = v10;
+                [v33 setReceiveXPCCommDictionaryHandler:v60];
+                v36 = *(v10 + 18);
+                *(v10 + 18) = v33;
+                v37 = v33;
+
+                *(v10 + 19) = v34;
+                *(v10 + 20) = v35;
+                [v37 start];
+                [v37 sendXPCCommDictionary:&off_10020A178];
                 sub_100126844(v10);
                 sub_100127188(v10);
               }
 
               else
               {
-                v59 = sub_100123258();
-                v60 = _NRLogIsLevelEnabled();
+                v56 = sub_100123258();
+                v57 = _NRLogIsLevelEnabled();
 
-                if (v60)
+                if (v57)
                 {
-                  v61 = sub_100123258();
-                  _NRLogWithArgs();
+                  v58 = sub_100123258();
+                  _NRLogWithArgs(v58, 17, "%@: Failed to create read output source for pipe %@", v10, v24);
                 }
               }
 
               goto LABEL_24;
             }
 
-            v56 = sub_100123258();
-            v57 = _NRLogIsLevelEnabled();
+            v54 = sub_100123258();
+            v55 = _NRLogIsLevelEnabled();
 
-            if (v57)
+            if (v55)
             {
-              goto LABEL_52;
+              v46 = sub_100123258();
+              _NRLogWithArgs(v46, 17, "%@: Failed to create read input source for pipe %@", v10, v11);
+              goto LABEL_53;
             }
 
 LABEL_24:
@@ -370,17 +370,6 @@ LABEL_33:
             goto LABEL_34;
           }
 
-          v51 = sub_100123258();
-          v52 = _NRLogIsLevelEnabled();
-
-          if (!v52)
-          {
-            goto LABEL_24;
-          }
-        }
-
-        else
-        {
           v49 = sub_100123258();
           v50 = _NRLogIsLevelEnabled();
 
@@ -388,47 +377,66 @@ LABEL_33:
           {
             goto LABEL_24;
           }
+
+          v46 = sub_100123258();
+          _NRLogWithArgs(v46, 17, "%@: Pipe has no output ring %@", v10, v11);
+        }
+
+        else
+        {
+          v47 = sub_100123258();
+          v48 = _NRLogIsLevelEnabled();
+
+          if (!v48)
+          {
+            goto LABEL_24;
+          }
+
+          v46 = sub_100123258();
+          _NRLogWithArgs(v46, 17, "%@: Pipe has no input ring %@", v10, v11);
         }
       }
 
       else
       {
-        v47 = sub_100123258();
-        v48 = _NRLogIsLevelEnabled();
+        v44 = sub_100123258();
+        v45 = _NRLogIsLevelEnabled();
 
-        if (!v48)
+        if (!v45)
         {
           goto LABEL_24;
         }
+
+        v46 = sub_100123258();
+        _NRLogWithArgs(v46, 17, "%@: Pipe has no channel %@", v10, v11);
       }
 
-LABEL_52:
-      v58 = sub_100123258();
-      _NRLogWithArgs();
+LABEL_53:
 
       goto LABEL_24;
     }
 
-    v43 = sub_100123258();
-    v44 = _NRLogIsLevelEnabled();
+    v40 = sub_100123258();
+    v41 = _NRLogIsLevelEnabled();
 
-    if (v44)
+    if (v41)
     {
-LABEL_40:
       identifier = sub_100123258();
-      _NRLogWithArgs();
+      _NRLogWithArgs(identifier, 17, "%s called with null pipe");
       goto LABEL_33;
     }
   }
 
   else
   {
-    v41 = sub_100123258();
-    v42 = _NRLogIsLevelEnabled();
+    v38 = sub_100123258();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (v42)
+    if (v39)
     {
-      goto LABEL_40;
+      identifier = sub_100123258();
+      _NRLogWithArgs(identifier, 17, "%s called with null pipeManager");
+      goto LABEL_33;
     }
   }
 
@@ -551,7 +559,7 @@ LABEL_3:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: unknown centralManager instance", ", "[NRDevicePairingManagerContext centralManager:didFailToConnectPeripheral:error:]"", 1574, self);
       }
 
       goto LABEL_25;
@@ -580,7 +588,7 @@ LABEL_3:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didFailToConnectPeripheral:%@ error:%@", ", "[NRDevicePairingManagerContext centralManager:didFailToConnectPeripheral:error:]"", 1580, v10, peripheralCopy, errorCopy);
     }
 
     sub_10012DB18(&self->super.isa, v10);
@@ -600,7 +608,7 @@ LABEL_3:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didFailToConnectPeripheral:%@ error:%@ (no candidate)", ", "[NRDevicePairingManagerContext centralManager:didFailToConnectPeripheral:error:]"", 1583, self, peripheralCopy, errorCopy);
     }
   }
 
@@ -628,7 +636,7 @@ LABEL_3:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: unknown centralManager instance", ", "[NRDevicePairingManagerContext centralManager:didDisconnectPeripheral:error:]"", 1558, self);
       }
 
       goto LABEL_25;
@@ -657,7 +665,7 @@ LABEL_3:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didDisconnectPeripheral:%@ error:%@", ", "[NRDevicePairingManagerContext centralManager:didDisconnectPeripheral:error:]"", 1564, v10, peripheralCopy, errorCopy);
     }
 
     sub_10012DB18(&self->super.isa, v10);
@@ -677,7 +685,7 @@ LABEL_3:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didDisconnectPeripheral:%@ error:%@ (no candidate)", ", "[NRDevicePairingManagerContext centralManager:didDisconnectPeripheral:error:]"", 1567, self, peripheralCopy, errorCopy);
     }
   }
 
@@ -710,18 +718,14 @@ LABEL_25:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      if (!_NRLogIsLevelEnabled())
+      if (_NRLogIsLevelEnabled())
       {
-        goto LABEL_21;
-      }
+        if (qword_1002291E8 != -1)
+        {
+          dispatch_once(&qword_1002291E8, &stru_1001FC218);
+        }
 
-      if (qword_1002291E8 == -1)
-      {
-LABEL_20:
-        _NRLogWithArgs();
-LABEL_21:
-
-        goto LABEL_22;
+        _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didConnectPeripheral: %@", ", "[NRDevicePairingManagerContext centralManager:didConnectPeripheral:]"", 1537, v9, v10);
       }
     }
 
@@ -732,37 +736,35 @@ LABEL_21:
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
       }
 
-      if (!_NRLogIsLevelEnabled())
+      if (_NRLogIsLevelEnabled())
       {
-        goto LABEL_21;
-      }
+        if (qword_1002291E8 != -1)
+        {
+          dispatch_once(&qword_1002291E8, &stru_1001FC218);
+        }
 
-      if (qword_1002291E8 == -1)
-      {
-        goto LABEL_20;
+        _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: didConnectPeripheral: %@  (no candidate)", ", "[NRDevicePairingManagerContext centralManager:didConnectPeripheral:]"", 1539, self, v10);
       }
     }
-
-    dispatch_once(&qword_1002291E8, &stru_1001FC218);
-    goto LABEL_20;
   }
 
-  if (qword_1002291E8 != -1)
-  {
-    dispatch_once(&qword_1002291E8, &stru_1001FC218);
-  }
-
-  if (_NRLogIsLevelEnabled())
+  else
   {
     if (qword_1002291E8 != -1)
     {
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    _NRLogWithArgs();
-  }
+    if (_NRLogIsLevelEnabled())
+    {
+      if (qword_1002291E8 != -1)
+      {
+        dispatch_once(&qword_1002291E8, &stru_1001FC218);
+      }
 
-LABEL_22:
+      _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: unknown centralManager instance", ", "[NRDevicePairingManagerContext centralManager:didConnectPeripheral:]"", 1531, self);
+    }
+  }
 }
 
 - (void)centralManagerDidUpdateState:(id)state
@@ -786,7 +788,7 @@ LABEL_3:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: unknown centralManager instance", ", "[NRDevicePairingManagerContext centralManagerDidUpdateState:]"", 1511, self);
       }
 
       goto LABEL_26;
@@ -878,9 +880,8 @@ LABEL_26:
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    v3 = qword_1002291E0;
-    [stateCopy state];
-    _NRLogWithArgs();
+    v4 = qword_1002291E0;
+    _NRLogWithArgs(v4, 1, "%s%.30s:%-4d %@: peripheralManagerDidUpdateState %ld", ", "-[NRDevicePairingManagerContext peripheralManagerDidUpdateState:]"", 1436, self, [stateCopy state]);
   }
 }
 
@@ -912,7 +913,7 @@ LABEL_3:
       {
         v44 = sub_100123258();
         identifier2 = [pairingCopy identifier];
-        _NRLogWithArgs();
+        _NRLogWithArgs(v44, 16, "%s%.30s:%-4d %@: peerDidFailToCompletePairing: Unable to find pairing candidate context for %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1220, self, identifier2);
       }
 
       goto LABEL_56;
@@ -932,7 +933,7 @@ LABEL_3:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: BT pairing failed: %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1229, v13, errorCopy);
       }
 
       *(v13 + 11) = 0;
@@ -953,13 +954,13 @@ LABEL_3:
           v82 = domain;
           if (!domain)
           {
-            v58 = sub_100123258();
-            v59 = _NRLogIsLevelEnabled();
+            v59 = sub_100123258();
+            v60 = _NRLogIsLevelEnabled();
 
-            if (v59)
+            if (v60)
             {
-              v60 = sub_100123258();
-              _NRLogWithArgs();
+              v61 = sub_100123258();
+              _NRLogWithArgs(v61, 16, "%s%.30s:%-4d %@: BT already paired, but no previous UUID given", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1236, v13);
             }
 
             sub_10012B2F8(self, 0xFFFFFFFFFFFFF442);
@@ -982,13 +983,13 @@ LABEL_3:
               v22 = *uuid;
               if (v22 || ![v21 length])
               {
-                v69 = sub_100123258();
-                v70 = _NRLogIsLevelEnabled();
+                v70 = sub_100123258();
+                v71 = _NRLogIsLevelEnabled();
 
-                if (v70)
+                if (v71)
                 {
-                  v71 = sub_100123258();
-                  _NRLogWithArgs();
+                  v72 = sub_100123258();
+                  _NRLogWithArgs(v72, 17, "Failed to archive %@: %@", v81, v22);
                 }
               }
 
@@ -1004,13 +1005,13 @@ LABEL_3:
 
             else
             {
-              v63 = sub_100123258();
-              v64 = _NRLogIsLevelEnabled();
+              v64 = sub_100123258();
+              v65 = _NRLogIsLevelEnabled();
 
-              if (v64)
+              if (v65)
               {
-                v65 = sub_100123258();
-                _NRLogWithArgs();
+                v66 = sub_100123258();
+                _NRLogWithArgs(v66, 17, "%s called with null key", "nr_xpc_dictionary_set_nsobject");
               }
             }
 
@@ -1028,14 +1029,14 @@ LABEL_3:
 
             else
             {
-              v66 = sub_100123258();
-              v67 = _NRLogIsLevelEnabled();
+              v67 = sub_100123258();
+              v68 = _NRLogIsLevelEnabled();
 
               v28 = v82;
-              if (v67)
+              if (v68)
               {
-                v68 = sub_100123258();
-                _NRLogWithArgs();
+                v69 = sub_100123258();
+                _NRLogWithArgs(v69, 17, "%s called with null key", "nr_xpc_dictionary_set_nsuuid");
               }
             }
 
@@ -1057,7 +1058,7 @@ LABEL_3:
                 dispatch_once(&qword_1002291E8, &stru_1001FC218);
               }
 
-              _NRLogWithArgs();
+              _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: Previous device for BT UUID found: %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1247, v13, v29);
             }
 
             v30 = nrXPCKeyNRUUID;
@@ -1088,41 +1089,45 @@ LABEL_55:
                 goto LABEL_56;
               }
 
-              v74 = sub_100123258();
-              v75 = _NRLogIsLevelEnabled();
+              v76 = sub_100123258();
+              v77 = _NRLogIsLevelEnabled();
 
-              if (!v75)
+              if (!v77)
               {
                 goto LABEL_33;
               }
+
+              v75 = sub_100123258();
+              _NRLogWithArgs(v75, 17, "%s called with null uuid");
             }
 
             else
             {
-              v72 = sub_100123258();
-              v73 = _NRLogIsLevelEnabled();
+              v73 = sub_100123258();
+              v74 = _NRLogIsLevelEnabled();
 
-              if (!v73)
+              if (!v74)
               {
                 goto LABEL_33;
               }
-            }
 
-            v76 = sub_100123258();
-            _NRLogWithArgs();
+              v75 = sub_100123258();
+              _NRLogWithArgs(v75, 17, "%s called with null key");
+            }
 
             goto LABEL_33;
           }
 
-          v61 = sub_100123258();
-          v62 = _NRLogIsLevelEnabled();
+          v62 = sub_100123258();
+          v63 = _NRLogIsLevelEnabled();
 
-          if (!v62)
+          if (!v63)
           {
             goto LABEL_63;
           }
 
-          v47 = sub_100123258();
+          v48 = sub_100123258();
+          _NRLogWithArgs(v48, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
           goto LABEL_62;
         }
       }
@@ -1146,13 +1151,13 @@ LABEL_55:
             v41 = *uuid;
             if (v41 || ![v40 length])
             {
-              v55 = sub_100123258();
-              v56 = _NRLogIsLevelEnabled();
+              v56 = sub_100123258();
+              v57 = _NRLogIsLevelEnabled();
 
-              if (v56)
+              if (v57)
               {
-                v57 = sub_100123258();
-                _NRLogWithArgs();
+                v58 = sub_100123258();
+                _NRLogWithArgs(v58, 17, "Failed to archive %@: %@", domain, v41);
               }
             }
 
@@ -1164,12 +1169,13 @@ LABEL_55:
             goto LABEL_52;
           }
 
-          v53 = sub_100123258();
-          v54 = _NRLogIsLevelEnabled();
+          v54 = sub_100123258();
+          v55 = _NRLogIsLevelEnabled();
 
-          if (v54)
+          if (v55)
           {
-            v52 = sub_100123258();
+            v53 = sub_100123258();
+            _NRLogWithArgs(v53, 17, "%s called with null object");
             goto LABEL_68;
           }
 
@@ -1185,14 +1191,14 @@ LABEL_52:
         }
 
 LABEL_64:
-        v50 = sub_100123258();
-        v51 = _NRLogIsLevelEnabled();
+        v51 = sub_100123258();
+        v52 = _NRLogIsLevelEnabled();
 
-        if (v51)
+        if (v52)
         {
-          v52 = sub_100123258();
+          v53 = sub_100123258();
+          _NRLogWithArgs(v53, 17, "%s called with null key");
 LABEL_68:
-          _NRLogWithArgs();
 
           goto LABEL_52;
         }
@@ -1200,25 +1206,25 @@ LABEL_68:
         goto LABEL_52;
       }
 
-      v45 = sub_100123258();
-      v46 = _NRLogIsLevelEnabled();
+      v46 = sub_100123258();
+      v47 = _NRLogIsLevelEnabled();
 
-      if (!v46)
+      if (!v47)
       {
 LABEL_63:
         agentCopy = _os_log_pack_size();
         pairingCopy = &v80 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-        v48 = *__error();
-        v49 = _os_log_pack_fill();
-        sub_1000F4320(v49, "nr_xpc_dictionary_create");
+        v49 = __error();
+        v50 = _os_log_pack_fill(pairingCopy, agentCopy, *v49, &_mh_execute_header, "%{public}s xpc_dictionary_create(%p, %p, %u) failed");
+        sub_1000F4320(v50, "nr_xpc_dictionary_create");
         sub_100123258();
         _NRLogAbortWithPack();
         goto LABEL_64;
       }
 
-      v47 = sub_100123258();
+      v48 = sub_100123258();
+      _NRLogWithArgs(v48, 16, "%s%.30s:%-4d ABORTING: xpc_dictionary_create(%p, %p, %u) failed", ", "nr_xpc_dictionary_create"", 74, 0, 0, 0);
 LABEL_62:
-      _NRLogWithArgs();
 
       goto LABEL_63;
     }
@@ -1236,9 +1242,15 @@ LABEL_62:
     if (qword_1002291E8 == -1)
     {
       v35 = qword_1002291E0;
-      if (!self)
+      if (self)
       {
-        goto LABEL_43;
+LABEL_42:
+        inProgressPairingCandidateIdentifier = self->_inProgressPairingCandidateIdentifier;
+LABEL_43:
+        v37 = v35;
+        _NRLogWithArgs(v37, 16, "%s%.30s:%-4d %@: peerDidFailToCompletePairing: Already pairing another candidate %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1225, self, inProgressPairingCandidateIdentifier);
+
+        goto LABEL_56;
       }
     }
 
@@ -1246,30 +1258,26 @@ LABEL_62:
     {
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
       v35 = qword_1002291E0;
-      if (!self)
+      if (self)
       {
-        goto LABEL_43;
+        goto LABEL_42;
       }
     }
 
-    inProgressPairingCandidateIdentifier = self->_inProgressPairingCandidateIdentifier;
-LABEL_43:
-    v37 = v35;
-    _NRLogWithArgs();
-
-    goto LABEL_56;
+    inProgressPairingCandidateIdentifier = 0;
+    goto LABEL_43;
   }
 
-  v77 = sub_100123258();
-  v78 = _NRLogIsLevelEnabled();
+  v78 = sub_100123258();
+  v79 = _NRLogIsLevelEnabled();
 
-  if (!v78)
+  if (!v79)
   {
     goto LABEL_57;
   }
 
   v13 = sub_100123258();
-  _NRLogWithArgs();
+  _NRLogWithArgs(v13, 16, "%s%.30s:%-4d %@: peerDidFailToCompletePairing: invalid pairing agent", ", "[NRDevicePairingManagerContext pairingAgent:peerDidFailToCompletePairing:error:]"", 1214, self);
 LABEL_56:
 
 LABEL_57:
@@ -1305,7 +1313,7 @@ LABEL_3:
 
       v18 = sub_100123258();
       identifier2 = [v7 identifier];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v18, 16, "%s%.30s:%-4d %@: peerDidCompletePairing: Unable to find pairing candidate context for %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidCompletePairing:]"", 1166, self, identifier2);
 
       goto LABEL_24;
     }
@@ -1324,11 +1332,7 @@ LABEL_3:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        v25 = 1175;
-        v26 = v9;
-        v23 = "";
-        v24 = "[NRDevicePairingManagerContext pairingAgent:peerDidCompletePairing:]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: BT pairing succeeded!", ", "[NRDevicePairingManagerContext pairingAgent:peerDidCompletePairing:]"", 1175, v9);
       }
 
       *(v9 + 11) = 0;
@@ -1347,7 +1351,7 @@ LABEL_3:
         }
       }
 
-      [v7 tag:{@"IsAppleWatch", v23, v24, v25, v26}];
+      [v7 tag:@"IsAppleWatch"];
       sub_100128FC4(v9);
       objc_initWeak(&location, self);
       v13 = dispatch_time(0, 200000000);
@@ -1366,11 +1370,11 @@ LABEL_3:
       block[2] = sub_10012FDA8;
       block[3] = &unk_1001FD0D8;
       v15 = queue;
-      objc_copyWeak(&v30, &location);
-      v29 = v9;
+      objc_copyWeak(&v26, &location);
+      v25 = v9;
       dispatch_after(v13, v15, block);
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
       goto LABEL_25;
     }
@@ -1388,9 +1392,16 @@ LABEL_3:
     if (qword_1002291E8 == -1)
     {
       v16 = qword_1002291E0;
-      if (!self)
+      if (self)
       {
-        goto LABEL_23;
+LABEL_22:
+        inProgressPairingCandidateIdentifier = self->_inProgressPairingCandidateIdentifier;
+LABEL_23:
+        v18 = v16;
+        _NRLogWithArgs(v18, 16, "%s%.30s:%-4d %@: peerDidCompletePairing: Already pairing another candidate %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidCompletePairing:]"", 1171, self, inProgressPairingCandidateIdentifier);
+LABEL_24:
+
+        goto LABEL_25;
       }
     }
 
@@ -1398,31 +1409,26 @@ LABEL_3:
     {
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
       v16 = qword_1002291E0;
-      if (!self)
+      if (self)
       {
-        goto LABEL_23;
+        goto LABEL_22;
       }
     }
 
-    inProgressPairingCandidateIdentifier = self->_inProgressPairingCandidateIdentifier;
-LABEL_23:
-    v18 = v16;
-    _NRLogWithArgs();
-LABEL_24:
-
-    goto LABEL_25;
+    inProgressPairingCandidateIdentifier = 0;
+    goto LABEL_23;
   }
 
-  v21 = sub_100123258();
-  v22 = _NRLogIsLevelEnabled();
+  v22 = sub_100123258();
+  v23 = _NRLogIsLevelEnabled();
 
-  if (!v22)
+  if (!v23)
   {
     goto LABEL_26;
   }
 
   v9 = sub_100123258();
-  _NRLogWithArgs();
+  _NRLogWithArgs(v9, 16, "%s%.30s:%-4d %@: peerDidCompletePairing: Invalid pairing agent", ", "[NRDevicePairingManagerContext pairingAgent:peerDidCompletePairing:]"", 1160, self);
 LABEL_25:
 
 LABEL_26:
@@ -1446,13 +1452,7 @@ LABEL_26:
       dispatch_once(&qword_1002291E8, &stru_1001FC218);
     }
 
-    typeCopy2 = type;
-    v40 = pairingCopy;
-    v37 = 1091;
-    selfCopy6 = self;
-    v35 = "";
-    v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291E0, 2, "%s%.30s:%-4d %@: peerDidRequestPairing: pairing type: %zd, peer %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1091, self, type, pairingCopy);
   }
 
   if (self)
@@ -1480,15 +1480,10 @@ LABEL_9:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        selfCopy6 = self;
-        typeCopy2 = type;
-        v37 = 1144;
-        v35 = "";
-        v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: pairing type not supported: %zd", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1144, self, type);
       }
 
-      goto LABEL_38;
+      goto LABEL_37;
     }
 
     identifier = [pairingCopy identifier];
@@ -1501,21 +1496,17 @@ LABEL_9:
 
       if (!IsLevelEnabled)
       {
-        goto LABEL_37;
+        goto LABEL_36;
       }
 
       v24 = sub_100123258();
-      [pairingCopy identifier];
-      typeCopy2 = selfCopy6 = self;
-      v37 = 1104;
-      v35 = "";
-      v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-      _NRLogWithArgs();
+      identifier2 = [pairingCopy identifier];
+      _NRLogWithArgs(v24, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: Unable to find pairing candidate context for %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1104, self, identifier2);
 
+LABEL_35:
 LABEL_36:
-LABEL_37:
 
-LABEL_38:
+LABEL_37:
       if (v13[61] != -1)
       {
         dispatch_once(&qword_1002291E8, &stru_1001FC218);
@@ -1528,24 +1519,19 @@ LABEL_38:
           dispatch_once(&qword_1002291E8, &stru_1001FC218);
         }
 
-        selfCopy6 = self;
-        typeCopy2 = pairingCopy;
-        v37 = 1149;
-        v35 = "";
-        v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291E0, 16, "%s%.30s:%-4d %@: Rejecting pairing request from %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1149, self, pairingCopy);
       }
 
-      [(CBPairingAgent *)agentCopy respondToPairingRequest:pairingCopy type:type accept:0 data:0, v35, v36, v37, selfCopy6, typeCopy2, v40];
-      goto LABEL_45;
+      [(CBPairingAgent *)agentCopy respondToPairingRequest:pairingCopy type:type accept:0 data:0];
+      goto LABEL_44;
     }
 
-    if (sub_100123434(&v15->super.isa))
+    if (sub_100123434(v15))
     {
-      peripheralManager = v15[1]._peripheralManager;
-      if (peripheralManager)
+      v16 = v15[31];
+      if (v16)
       {
-        v17 = sub_100163B2C(NRDLocalDevice, peripheralManager, 0);
+        v17 = sub_100163B2C(NRDLocalDevice, v16, 0);
         v18 = v17;
         if (v17)
         {
@@ -1565,54 +1551,41 @@ LABEL_38:
                 dispatch_once(&qword_1002291E8, &stru_1001FC218);
               }
 
-              selfCopy6 = v15;
-              typeCopy2 = pairingCopy;
-              v37 = 1129;
-              v35 = "";
-              v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-              _NRLogWithArgs();
+              _NRLogWithArgs(qword_1002291E0, 0, "%s%.30s:%-4d %@: peerDidRequestPairing: Accepting BT pairing request with peer %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1129, v15, pairingCopy);
             }
 
-            v41 = CBPairingAgentPairingDataOOBTKKey;
-            v42 = v20;
-            v21 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1, v35, v36, v37, selfCopy6, typeCopy2, v40];
+            v36 = CBPairingAgentPairingDataOOBTKKey;
+            v37 = v20;
+            v21 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
             [(CBPairingAgent *)agentCopy respondToPairingRequest:pairingCopy type:5 accept:1 data:v21];
 
-            goto LABEL_45;
+            goto LABEL_44;
           }
         }
 
-        v32 = sub_100123258();
-        v33 = _NRLogIsLevelEnabled();
+        v33 = sub_100123258();
+        v34 = _NRLogIsLevelEnabled();
 
-        if (v33)
+        if (v34)
         {
-          v34 = sub_100123258();
-          v37 = 1141;
-          selfCopy6 = self;
-          v35 = "";
-          v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-          _NRLogWithArgs();
+          v35 = sub_100123258();
+          _NRLogWithArgs(v35, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: No BTOOBK to complete pairing", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1141, self);
         }
 
         v13 = &qword_100229000;
-        goto LABEL_38;
-      }
-
-      v27 = sub_100123258();
-      v28 = _NRLogIsLevelEnabled();
-
-      if (!v28)
-      {
         goto LABEL_37;
       }
 
+      v28 = sub_100123258();
+      v29 = _NRLogIsLevelEnabled();
+
+      if (!v29)
+      {
+        goto LABEL_36;
+      }
+
       v24 = sub_100123258();
-      selfCopy6 = self;
-      typeCopy2 = v15;
-      v37 = 1122;
-      v35 = "";
-      v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
+      _NRLogWithArgs(v24, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: Pairing candidate doesn't have NRUUID %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1122, self, v15);
       goto LABEL_35;
     }
 
@@ -1623,7 +1596,7 @@ LABEL_38:
 
     if (!_NRLogIsLevelEnabled())
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
     if (qword_1002291E8 == -1)
@@ -1635,14 +1608,8 @@ LABEL_33:
         inProgressPairingCandidateIdentifier = self->_inProgressPairingCandidateIdentifier;
 LABEL_34:
         v24 = v22;
-        selfCopy6 = self;
-        typeCopy2 = inProgressPairingCandidateIdentifier;
-        v37 = 1117;
-        v35 = "";
-        v36 = "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]";
-LABEL_35:
-        _NRLogWithArgs();
-        goto LABEL_36;
+        _NRLogWithArgs(v24, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: Already pairing another candidate %@", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1117, self, inProgressPairingCandidateIdentifier);
+        goto LABEL_35;
       }
     }
 
@@ -1660,16 +1627,16 @@ LABEL_35:
     goto LABEL_34;
   }
 
-  v29 = sub_100123258();
-  v30 = _NRLogIsLevelEnabled();
+  v30 = sub_100123258();
+  v31 = _NRLogIsLevelEnabled();
 
-  if (v30)
+  if (v31)
   {
-    v31 = sub_100123258();
-    _NRLogWithArgs();
+    v32 = sub_100123258();
+    _NRLogWithArgs(v32, 16, "%s%.30s:%-4d %@: peerDidRequestPairing: invalid pairing agent", ", "[NRDevicePairingManagerContext pairingAgent:peerDidRequestPairing:type:passkey:]"", 1094, self);
   }
 
-LABEL_45:
+LABEL_44:
 }
 
 - (NSString)description

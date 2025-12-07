@@ -53,7 +53,6 @@
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -93,8 +92,6 @@
     [(RBSAssertion *)selfCopy->_assertion invalidate];
     selfCopy->_invalidated = 1;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)assertionWithName:(id)name explanation:(id)explanation timeout:(double)timeout timeoutHandler:(id)handler
@@ -119,10 +116,9 @@
   MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
   MEMORY[0x277D82BD8](v16);
-  MEMORY[0x277D82BD8](v17);
   v23 = 0;
   v22 = 0;
-  v18 = [v24 acquireWithError:&v22];
+  v18 = [v24 acquireWithError:{&v22, MEMORY[0x277D82BD8](v17).n128_f64[0]}];
   objc_storeStrong(&v23, v22);
   if ((v18 & 1) == 0)
   {
@@ -149,7 +145,6 @@
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -214,7 +209,6 @@ void __62__NLSessionBackgroundAssertion__configureTimeout_withHandler___block_in
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

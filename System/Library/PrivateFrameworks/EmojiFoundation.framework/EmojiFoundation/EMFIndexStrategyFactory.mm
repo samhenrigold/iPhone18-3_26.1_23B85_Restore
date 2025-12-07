@@ -11,7 +11,7 @@
   v4 = _strategyClassForIndex(indexCopy);
   if (!v4)
   {
-    v10 = emf_logging_get_default_log();
+    v10 = emf_logging_get_default_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [EMFIndexStrategyFactory inferStrategyForIndex:v10];

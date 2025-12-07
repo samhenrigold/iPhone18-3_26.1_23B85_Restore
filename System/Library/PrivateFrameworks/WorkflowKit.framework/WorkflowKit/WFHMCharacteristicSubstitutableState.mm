@@ -27,7 +27,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v9 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -41,7 +41,7 @@
       {
         homeIdentifier = [(WFHMCharacteristicSubstitutableState *)equalCopy homeIdentifier];
         homeIdentifier2 = [(WFHMCharacteristicSubstitutableState *)self homeIdentifier];
-        v9 = [homeIdentifier isEqualToString:homeIdentifier2];
+        isEqualToString = objc_msgSend_isEqualToString_(homeIdentifier);
 
         if (serializedCharacteristic == serializedCharacteristic2)
         {
@@ -53,18 +53,18 @@ LABEL_10:
 
       else
       {
-        v9 = 0;
+        isEqualToString = 0;
       }
 
       goto LABEL_10;
     }
 
-    v9 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_11:
 
-  return v9;
+  return isEqualToString;
 }
 
 - (HMCharacteristic)characteristic

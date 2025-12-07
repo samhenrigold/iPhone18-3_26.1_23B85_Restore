@@ -262,13 +262,13 @@
   if (!swift::runtime::bincompat::useLegacySwiftObjCHashing(self))
   {
     v3 = (selfCopy->isa & 0x7FFFFFFFFFFFF8);
-    v4 = swift_conformsToProtocolCommon(v3, &protocol descriptor for Hashable);
+    v4 = swift_conformsToProtocolCommon(v3, &protocol descriptor for Hashable.Flags);
     if (v4)
     {
       return _swift_stdlib_Hashable_hashValue_indirect(&selfCopy2, v3, v4);
     }
 
-    else if (swift_conformsToProtocolCommon(v3, &protocol descriptor for Equatable))
+    else if (swift_conformsToProtocolCommon(v3, protocol descriptor for Equatable))
     {
       v11 = objc_opt_class();
       os_unfair_lock_lock(&[_TtCs12_SwiftObject hash]::warnedLock);
@@ -277,7 +277,7 @@
         [_SwiftObject hash];
       }
 
-      std::__hash_table<objc_class *,std::hash<objc_class *>,std::equal_to<objc_class *>,std::allocator<objc_class *>>::__emplace_unique_key_args<objc_class *,objc_class * const&>([_TtCs12_SwiftObject hash]::warned, &v11);
+      std::__hash_table<objc_class *,std::hash<objc_class *>,std::equal_to<objc_class *>,std::allocator<objc_class *>>::__emplace_unique_key_args<objc_class *,objc_class * const&>([_TtCs12_SwiftObject hash]::warned, &v11, &v11);
       if (v5)
       {
         v6 = objc_opt_class();
@@ -313,7 +313,7 @@
     if ((v5 & 1) == 0 && (equal & 0x8000000000000000) == 0)
     {
       v7 = (self->isa & 0x7FFFFFFFFFFFF8);
-      v6 = swift_conformsToProtocolCommon(v7, &protocol descriptor for Equatable);
+      v6 = swift_conformsToProtocolCommon(v7, protocol descriptor for Equatable);
       if (v6)
       {
         v8 = v6;
@@ -328,7 +328,7 @@
         }
 
         ConformingSuperclass = swift::findConformingSuperclass(v7, v9);
-        if (_swift_class_isSubclass(*equal & 0x7FFFFFFFFFFFF8, ConformingSuperclass))
+        if (_swift_class_isSubclass((*equal & 0x7FFFFFFFFFFFF8), ConformingSuperclass))
         {
           LOBYTE(v6) = _swift_stdlib_Equatable_isEqual_indirect(&selfCopy, &equalCopy, ConformingSuperclass, v8);
           return v6 & 1;

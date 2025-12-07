@@ -80,42 +80,40 @@ uint64_t __36__QLImageAnimationTimer_sharedTimer__block_invoke()
 
 - (void)animationTimerFired:(id)fired
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   observers = [(QLImageAnimationTimer *)self observers];
-  v6 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(observers);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         [firedCopy timestamp];
         [v10 animationTimerFired:?];
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [observers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

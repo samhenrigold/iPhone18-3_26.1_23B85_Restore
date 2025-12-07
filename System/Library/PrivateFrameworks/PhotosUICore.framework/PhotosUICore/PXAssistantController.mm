@@ -206,55 +206,55 @@ void __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction_
   [*(*(a1 + 32) + 992) presentViewController:v20 animated:1 completion:0];
 }
 
-uint64_t __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_275(uint64_t a1)
+uint64_t __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_275(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "Did confirm request to cancel assistant controller: %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "Did confirm request to cancel assistant controller: %@", &v6, 0xCu);
   }
 
   return [*(a1 + 32) cancelAssistantWithDestruction:1];
 }
 
-void __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_277(uint64_t a1)
+void __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_277(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User canceled confirmation of request to cancel assistant controller: %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User canceled confirmation of request to cancel assistant controller: %@", &v5, 0xCu);
   }
 }
 
-uint64_t __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_278(uint64_t a1)
+uint64_t __71__PXAssistantController__confirmCancellationOfAssistantWithDestruction__block_invoke_278(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User chose to continue when requested to cancel assistant controller: %@", &v6, 0xCu);
+    v4 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User chose to continue when requested to cancel assistant controller: %@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
   if (*(a1 + 40))
   {
-    return [v4 cancelAssistantWithDestruction:0];
+    return [v5 cancelAssistantWithDestruction:0];
   }
 
   else
   {
-    return [v4 _stepForwardInAssistantAnimated:1 currentViewController:0];
+    return [v5 _stepForwardInAssistantAnimated:1 currentViewController:0];
   }
 }
 

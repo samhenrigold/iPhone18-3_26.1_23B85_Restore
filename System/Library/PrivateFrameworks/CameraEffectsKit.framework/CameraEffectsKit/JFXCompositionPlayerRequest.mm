@@ -64,7 +64,7 @@
 - (void)didEnqueue
 {
   v8 = *MEMORY[0x277D85DE8];
-  v3 = JFXPlaybackEventSignpostPointCategory();
+  v3 = JFXPlaybackEventSignpostPointCategory(self, a2);
   signPostID = [(JFXCompositionPlayerRequest *)self signPostID];
   if (signPostID - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {

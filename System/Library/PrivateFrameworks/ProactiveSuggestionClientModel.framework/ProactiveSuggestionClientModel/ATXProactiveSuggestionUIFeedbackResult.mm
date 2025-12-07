@@ -1,5 +1,7 @@
 @interface ATXProactiveSuggestionUIFeedbackResult
 - (ATXProactiveSuggestionUIFeedbackResult)initWithCoder:(id)coder;
+- (ATXProactiveSuggestionUIFeedbackResult)initWithEngagementType:(int64_t)type shownSuggestions:(id)suggestions engagedSuggestions:(id)engagedSuggestions rejectedSuggestions:(id)rejectedSuggestions session:(id)session consumerSubType:(unsigned __int8)subType clientCacheUpdate:(id)update uiCacheUpdate:(id)self0 context:(id)self1;
+- (ATXProactiveSuggestionUIFeedbackResult)initWithShownSuggestions:(id)suggestions engagedSuggestions:(id)engagedSuggestions rejectedSuggestions:(id)rejectedSuggestions session:(id)session consumerSubType:(unsigned __int8)type clientCacheUpdate:(id)update uiCacheUpdate:(id)cacheUpdate context:(id)self0;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToATXProactiveSuggestionUIFeedbackResult:(id)result;
 - (id)description;
@@ -10,6 +12,44 @@
 @end
 
 @implementation ATXProactiveSuggestionUIFeedbackResult
+
+- (ATXProactiveSuggestionUIFeedbackResult)initWithShownSuggestions:(id)suggestions engagedSuggestions:(id)engagedSuggestions rejectedSuggestions:(id)rejectedSuggestions session:(id)session consumerSubType:(unsigned __int8)type clientCacheUpdate:(id)update uiCacheUpdate:(id)cacheUpdate context:(id)self0
+{
+  typeCopy = type;
+  contextCopy = context;
+  cacheUpdateCopy = cacheUpdate;
+  updateCopy = update;
+  sessionCopy = session;
+  rejectedSuggestionsCopy = rejectedSuggestions;
+  engagedSuggestionsCopy = engagedSuggestions;
+  suggestionsCopy = suggestions;
+  v24 = [(ATXProactiveSuggestionUIFeedbackResult *)self initWithEngagementType:[(ATXProactiveSuggestionUIFeedbackResult *)self uiEngagementTypeFromShownSuggestions:suggestionsCopy engagedSuggestions:engagedSuggestionsCopy rejectedSuggestions:rejectedSuggestionsCopy] shownSuggestions:suggestionsCopy engagedSuggestions:engagedSuggestionsCopy rejectedSuggestions:rejectedSuggestionsCopy session:sessionCopy consumerSubType:typeCopy clientCacheUpdate:updateCopy uiCacheUpdate:cacheUpdateCopy context:contextCopy];
+
+  return v24;
+}
+
+- (ATXProactiveSuggestionUIFeedbackResult)initWithEngagementType:(int64_t)type shownSuggestions:(id)suggestions engagedSuggestions:(id)engagedSuggestions rejectedSuggestions:(id)rejectedSuggestions session:(id)session consumerSubType:(unsigned __int8)subType clientCacheUpdate:(id)update uiCacheUpdate:(id)self0 context:(id)self1
+{
+  subTypeCopy = subType;
+  suggestionsCopy = suggestions;
+  engagedSuggestionsCopy = engagedSuggestions;
+  rejectedSuggestionsCopy = rejectedSuggestions;
+  sessionCopy = session;
+  v25.receiver = self;
+  v25.super_class = ATXProactiveSuggestionUIFeedbackResult;
+  v18 = [(ATXProactiveSuggestionFeedbackResult *)&v25 initWithConsumerSubType:subTypeCopy sessionType:0 clientCacheUpdate:update uiCacheUpdate:cacheUpdate context:context];
+  v19 = v18;
+  if (v18)
+  {
+    v18->_engagementType = type;
+    objc_storeStrong(&v18->_shownSuggestions, suggestions);
+    objc_storeStrong(&v19->_engagedSuggestions, engagedSuggestions);
+    objc_storeStrong(&v19->_rejectedSuggestions, rejectedSuggestions);
+    objc_storeStrong(&v19->_session, session);
+  }
+
+  return v19;
+}
 
 - (int64_t)uiEngagementTypeFromShownSuggestions:(id)suggestions engagedSuggestions:(id)engagedSuggestions rejectedSuggestions:(id)rejectedSuggestions
 {
@@ -244,7 +284,7 @@ LABEL_26:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_blending_ecosystem();
+  v7 = __atxlog_handle_blending_ecosystem(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"consumerSubType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v7];
 
   if (v8)
@@ -259,7 +299,7 @@ LABEL_26:
         v13 = v12;
         v14 = MEMORY[0x1E69C5D78];
         v15 = objc_opt_class();
-        v16 = __atxlog_handle_blending_ecosystem();
+        v16 = __atxlog_handle_blending_ecosystem(v15);
         v17 = [v14 robustDecodeObjectOfClass:v15 forKey:@"sessionType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v16];
 
         if (!v17 || ([coderCopy error], v18 = objc_claimAutoreleasedReturnValue(), v18, v18))
@@ -272,7 +312,7 @@ LABEL_52:
 
         v19 = MEMORY[0x1E69C5D78];
         v20 = objc_opt_class();
-        v21 = __atxlog_handle_blending_ecosystem();
+        v21 = __atxlog_handle_blending_ecosystem(v20);
         v22 = [v19 robustDecodeObjectOfClass:v20 forKey:@"clientCache" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v21];
 
         if (!v22 || ([coderCopy error], v23 = objc_claimAutoreleasedReturnValue(), v23, v23))
@@ -283,25 +323,25 @@ LABEL_51:
           goto LABEL_52;
         }
 
-        v72 = v22;
+        v76 = v22;
         v24 = MEMORY[0x1E69C5D78];
         v25 = objc_opt_class();
-        v26 = __atxlog_handle_blending_ecosystem();
+        v26 = __atxlog_handle_blending_ecosystem(v25);
         v27 = [v24 robustDecodeObjectOfClass:v25 forKey:@"uiCache" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v26];
 
         if (!v27 || ([coderCopy error], v28 = objc_claimAutoreleasedReturnValue(), v28, v28))
         {
           selfCopy = 0;
-          v22 = v72;
+          v22 = v76;
 LABEL_50:
 
           goto LABEL_51;
         }
 
-        v71 = v27;
+        v75 = v27;
         v29 = MEMORY[0x1E69C5D78];
         v30 = objc_opt_class();
-        v31 = __atxlog_handle_blending_ecosystem();
+        v31 = __atxlog_handle_blending_ecosystem(v30);
         v32 = [v29 robustDecodeObjectOfClass:v30 forKey:@"contextString" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v31];
 
         error2 = [coderCopy error];
@@ -309,100 +349,91 @@ LABEL_50:
         if (error2)
         {
           selfCopy = 0;
-          v27 = v71;
-          v22 = v72;
+          v27 = v75;
+          v22 = v76;
 LABEL_49:
 
           goto LABEL_50;
         }
 
-        v22 = v72;
+        v22 = v76;
         if (v32 && (-[ATXProactiveSuggestionFeedbackResult validContextClassNames](self, "validContextClassNames"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v34 containsObject:v32], v34, v35))
         {
           v36 = NSClassFromString(v32);
-          if (!v36)
+          v37 = v36;
+          if (!v36 || (v73 = MEMORY[0x1E69C5D78], __atxlog_handle_blending_ecosystem(v36), v38 = objc_claimAutoreleasedReturnValue(), [v73 robustDecodeObjectOfClass:v37 forKey:@"context" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v38], v37 = objc_claimAutoreleasedReturnValue(), v38, !v37) || (objc_msgSend(coderCopy, "error"), v39 = objc_claimAutoreleasedReturnValue(), v39, v39))
           {
-            goto LABEL_22;
-          }
-
-          v69 = MEMORY[0x1E69C5D78];
-          v37 = __atxlog_handle_blending_ecosystem();
-          v36 = [v69 robustDecodeObjectOfClass:v36 forKey:@"context" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v37];
-
-          if (!v36 || ([coderCopy error], v38 = objc_claimAutoreleasedReturnValue(), v38, v38))
-          {
-LABEL_22:
             selfCopy = 0;
-            v27 = v71;
+            v27 = v75;
 LABEL_48:
 
             goto LABEL_49;
           }
 
-          v70 = v36;
-          v67 = v32;
+          v74 = v37;
+          v71 = v32;
         }
 
         else
         {
-          v67 = v32;
-          v70 = 0;
+          v71 = v32;
+          v74 = 0;
         }
 
-        v39 = MEMORY[0x1E69C5D78];
-        v40 = objc_opt_class();
-        v41 = __atxlog_handle_blending_ecosystem();
-        v42 = [v39 robustDecodeObjectOfClass:v40 forKey:@"uiEngagementType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v41];
+        v40 = MEMORY[0x1E69C5D78];
+        v41 = objc_opt_class();
+        v42 = __atxlog_handle_blending_ecosystem(v41);
+        v43 = [v40 robustDecodeObjectOfClass:v41 forKey:@"uiEngagementType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v42];
 
-        v68 = v42;
-        if (v42)
+        v72 = v43;
+        if (v43)
         {
           error3 = [coderCopy error];
 
-          v27 = v71;
+          v27 = v75;
           if (error3)
           {
             selfCopy = 0;
 LABEL_47:
-            v36 = v70;
+            v37 = v74;
 
-            v32 = v67;
+            v32 = v71;
             goto LABEL_48;
           }
 
-          v44 = objc_autoreleasePoolPush();
-          v45 = objc_alloc(MEMORY[0x1E695DFD8]);
-          v46 = objc_opt_class();
-          v47 = [v45 initWithObjects:{v46, objc_opt_class(), 0}];
-          objc_autoreleasePoolPop(v44);
-          v48 = MEMORY[0x1E69C5D78];
-          v49 = __atxlog_handle_blending_ecosystem();
-          v50 = [v48 robustDecodeObjectOfClasses:v47 forKey:@"engaged" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v49];
+          v45 = objc_autoreleasePoolPush();
+          v46 = objc_alloc(MEMORY[0x1E695DFD8]);
+          v47 = objc_opt_class();
+          v48 = [v46 initWithObjects:{v47, objc_opt_class(), 0}];
+          objc_autoreleasePoolPop(v45);
+          v49 = MEMORY[0x1E69C5D78];
+          v51 = __atxlog_handle_blending_ecosystem(v50);
+          v52 = [v49 robustDecodeObjectOfClasses:v48 forKey:@"engaged" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v51];
 
-          if (v50 && ([coderCopy error], v51 = objc_claimAutoreleasedReturnValue(), v51, !v51))
+          if (v52 && ([coderCopy error], v53 = objc_claimAutoreleasedReturnValue(), v53, !v53))
           {
-            v52 = MEMORY[0x1E69C5D78];
-            v53 = __atxlog_handle_blending_ecosystem();
-            v54 = [v52 robustDecodeObjectOfClasses:v47 forKey:@"shown" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v53];
+            v55 = MEMORY[0x1E69C5D78];
+            v56 = __atxlog_handle_blending_ecosystem(v54);
+            v57 = [v55 robustDecodeObjectOfClasses:v48 forKey:@"shown" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v56];
 
-            v66 = v54;
-            if (v54 && ([coderCopy error], v55 = objc_claimAutoreleasedReturnValue(), v55, !v55))
+            v70 = v57;
+            if (v57 && ([coderCopy error], v58 = objc_claimAutoreleasedReturnValue(), v58, !v58))
             {
-              v56 = MEMORY[0x1E69C5D78];
-              v57 = __atxlog_handle_blending_ecosystem();
-              v58 = [v56 robustDecodeObjectOfClasses:v47 forKey:@"dismissed" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v57];
+              v60 = MEMORY[0x1E69C5D78];
+              v61 = __atxlog_handle_blending_ecosystem(v59);
+              v62 = [v60 robustDecodeObjectOfClasses:v48 forKey:@"dismissed" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v61];
 
-              v59 = v58;
-              if (v58 && ([coderCopy error], v60 = objc_claimAutoreleasedReturnValue(), v60, !v60))
+              v63 = v62;
+              if (v62 && ([coderCopy error], v64 = objc_claimAutoreleasedReturnValue(), v64, !v64))
               {
-                v65 = MEMORY[0x1E69C5D78];
-                v61 = objc_opt_class();
-                v62 = __atxlog_handle_blending_ecosystem();
-                v63 = [v65 robustDecodeObjectOfClass:v61 forKey:@"session" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v62];
+                v69 = MEMORY[0x1E69C5D78];
+                v65 = objc_opt_class();
+                v66 = __atxlog_handle_blending_ecosystem(v65);
+                v67 = [v69 robustDecodeObjectOfClass:v65 forKey:@"session" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackResult" errorCode:-1 logHandle:v66];
 
-                if (v63 && ([coderCopy error], v64 = objc_claimAutoreleasedReturnValue(), v64, !v64))
+                if (v67 && ([coderCopy error], v68 = objc_claimAutoreleasedReturnValue(), v68, !v68))
                 {
-                  self = -[ATXProactiveSuggestionUIFeedbackResult initWithEngagementType:shownSuggestions:engagedSuggestions:rejectedSuggestions:session:consumerSubType:clientCacheUpdate:uiCacheUpdate:context:](self, "initWithEngagementType:shownSuggestions:engagedSuggestions:rejectedSuggestions:session:consumerSubType:clientCacheUpdate:uiCacheUpdate:context:", [v68 integerValue], v66, v50, v59, v63, v13, v72, v71, v70);
+                  self = -[ATXProactiveSuggestionUIFeedbackResult initWithEngagementType:shownSuggestions:engagedSuggestions:rejectedSuggestions:session:consumerSubType:clientCacheUpdate:uiCacheUpdate:context:](self, "initWithEngagementType:shownSuggestions:engagedSuggestions:rejectedSuggestions:session:consumerSubType:clientCacheUpdate:uiCacheUpdate:context:", [v72 integerValue], v70, v52, v63, v67, v13, v76, v75, v74);
                   selfCopy = self;
                 }
 
@@ -429,7 +460,7 @@ LABEL_47:
             selfCopy = 0;
           }
 
-          v22 = v72;
+          v22 = v76;
         }
 
         else
@@ -437,7 +468,7 @@ LABEL_47:
           selfCopy = 0;
         }
 
-        v27 = v71;
+        v27 = v75;
         goto LABEL_47;
       }
     }
@@ -482,29 +513,29 @@ LABEL_4:
 
 - (id)suggestionExecutableObjectListFromSuggestions:(id)suggestions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = suggestionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         executableSpecification = [v10 executableSpecification];
         executableIdentifier = [executableSpecification executableIdentifier];
@@ -513,15 +544,13 @@ LABEL_4:
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v4 componentsJoinedByString:{@", "}];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

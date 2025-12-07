@@ -46,12 +46,12 @@
 - (NSDictionary)userInfo
 {
   selfCopy = self;
-  SleepScoreResultsNotification.userInfo.getter();
+  SleepScoreResultsNotification.userInfo.getter(selfCopy, v3);
 
   sub_269BE5A00();
-  v3 = sub_269BF8698();
+  v4 = sub_269BF8698();
 
-  return v3;
+  return v4;
 }
 
 - (_TtC11SleepHealth29SleepScoreResultsNotification)init

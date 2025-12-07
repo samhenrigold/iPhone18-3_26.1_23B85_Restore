@@ -360,13 +360,13 @@ void __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPassco
   [v7 addOperationWithBlock:v12];
 }
 
-void __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_2(uint64_t a1)
+void __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_2(id *a1)
 {
-  v2 = (a1 + 32);
-  v3 = [*(a1 + 32) objectForKeyedSubscript:AKAuthenticationAlternateDSIDKey];
+  v2 = (a1 + 4);
+  v3 = [a1[4] objectForKeyedSubscript:AKAuthenticationAlternateDSIDKey];
   v4 = +[CLFSettings sharedInstance];
-  v5 = (a1 + 40);
-  if (*(a1 + 40))
+  v5 = a1 + 5;
+  if (a1[5])
   {
     v6 = 1;
   }
@@ -395,9 +395,9 @@ LABEL_19:
         v28[1] = 3221225472;
         v28[2] = __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_386;
         v28[3] = &unk_257868;
-        v29 = *(a1 + 48);
+        v29 = a1[6];
         v20 = v4;
-        v21 = *(a1 + 56);
+        v21 = a1[7];
         v30 = v20;
         v31 = v21;
         v22 = [UIAlertAction actionWithTitle:v19 style:0 handler:v28];
@@ -407,13 +407,13 @@ LABEL_19:
         v26[1] = 3221225472;
         v26[2] = __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_2_388;
         v26[3] = &unk_256AA0;
-        v25 = *(a1 + 48);
+        v25 = *(a1 + 3);
         v23 = v25.i64[0];
         v27 = vextq_s8(v25, v25, 8uLL);
         v24 = [UIAlertAction actionWithTitle:v8 style:1 handler:v26];
         [v18 addAction:v24];
 
-        [*(a1 + 56) presentViewController:v18 animated:1 completion:0];
+        [a1[7] presentViewController:v18 animated:1 completion:0];
         goto LABEL_20;
       }
     }
@@ -427,7 +427,7 @@ LABEL_19:
       v14 = CLFLogSettings();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_2_cold_1((a1 + 40), v14);
+        __75__ClarityUIAdminPasscodeSetupController__axShowDoneControllerWithPasscode___block_invoke_2_cold_1(a1 + 5, v14);
       }
     }
 
@@ -466,12 +466,12 @@ LABEL_15:
     goto LABEL_19;
   }
 
-  v12 = *(a1 + 48);
+  v12 = a1[6];
   v13 = +[AXBackBoardServer server];
   [v13 setClarityUIAdminPasscode:v12];
 
   [v4 setAdminPasscodeRecoveryAppleID:v3];
-  (*(*(*(a1 + 56) + 8) + 16))();
+  (*(*(a1[7] + 1) + 16))();
 LABEL_20:
 }
 

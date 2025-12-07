@@ -9,14 +9,14 @@
 
 - (BRCiWorkPublishingOperation)initWithDocumentItem:(id)item sessionContext:(id)context forPublish:(BOOL)publish readonly:(BOOL)readonly
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   contextCopy = context;
   serverZone = [itemCopy serverZone];
   metadataSyncContext = [serverZone metadataSyncContext];
-  v27.receiver = self;
-  v27.super_class = BRCiWorkPublishingOperation;
-  v14 = [(_BRCOperation *)&v27 initWithName:@"sharing/iWork-publishing" syncContext:metadataSyncContext sessionContext:contextCopy];
+  v26.receiver = self;
+  v26.super_class = BRCiWorkPublishingOperation;
+  v14 = [(_BRCOperation *)&v26 initWithName:@"sharing/iWork-publishing" syncContext:metadataSyncContext sessionContext:contextCopy];
 
   if (v14)
   {
@@ -25,10 +25,10 @@
     v14->_itemID = itemID;
 
     structureRecordID = [itemCopy structureRecordID];
-    v28[0] = structureRecordID;
+    v27[0] = structureRecordID;
     documentRecordID = [itemCopy documentRecordID];
-    v28[1] = documentRecordID;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[1] = documentRecordID;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     recordIDs = v14->_recordIDs;
     v14->_recordIDs = v19;
 
@@ -48,7 +48,6 @@
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -177,23 +176,23 @@ LABEL_6:
 
 void __35__BRCiWorkPublishingOperation_main__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   v10 = v9;
   if (!a4 || v9)
   {
-    v17 = brc_bread_crumbs();
-    v18 = brc_default_log();
-    if (os_log_type_enabled(v18, 0x90u))
+    v15 = brc_bread_crumbs();
+    v16 = brc_default_log();
+    if (os_log_type_enabled(v16, 0x90u))
     {
-      v23 = 138412802;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v17;
-      _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] Failed sharing %@ - %@%@", &v23, 0x20u);
+      v19 = 138412802;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v15;
+      _os_log_error_impl(&dword_223E7A000, v16, 0x90u, "[ERROR] Failed sharing %@ - %@%@", &v19, 0x20u);
     }
   }
 
@@ -206,33 +205,26 @@ void __35__BRCiWorkPublishingOperation_main__block_invoke_2(uint64_t a1, void *a
       __35__BRCiWorkPublishingOperation_main__block_invoke_2_cold_1();
     }
 
-    v13 = *(a1 + 32);
-    if ((*(v13 + 520) & 1) == 0)
+    if ((*(*(a1 + 32) + 520) & 1) == 0)
     {
-      v20 = brc_bread_crumbs();
-      v21 = brc_default_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v17 = brc_bread_crumbs();
+      v18 = brc_default_log();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         __35__BRCiWorkPublishingOperation_main__block_invoke_2_cold_2();
       }
-
-      v13 = *(a1 + 32);
-      v22 = *(v13 + 520);
     }
 
-    v14 = *(v13 + 521);
-    v15 = [MEMORY[0x277CCABB0] numberWithChar:BRMakeiWorkSharingOptions()];
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 528);
-    *(v16 + 528) = v15;
+    v13 = [MEMORY[0x277CCABB0] numberWithChar:BRMakeiWorkSharingOptions()];
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 528);
+    *(v14 + 528) = v13;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __35__BRCiWorkPublishingOperation_main__block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -241,13 +233,13 @@ void __35__BRCiWorkPublishingOperation_main__block_invoke_11(uint64_t a1, void *
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v19 = 138412802;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] Failed unsharing %@ - %@%@", &v19, 0x20u);
+      v15 = 138412802;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_error_impl(&dword_223E7A000, v8, 0x90u, "[ERROR] Failed unsharing %@ - %@%@", &v15, 0x20u);
     }
   }
 
@@ -260,28 +252,21 @@ void __35__BRCiWorkPublishingOperation_main__block_invoke_11(uint64_t a1, void *
       __35__BRCiWorkPublishingOperation_main__block_invoke_11_cold_1();
     }
 
-    v11 = *(a1 + 32);
-    if (*(v11 + 520) == 1)
+    if (*(*(a1 + 32) + 520) == 1)
     {
-      v16 = brc_bread_crumbs();
-      v17 = brc_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v13 = brc_bread_crumbs();
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         __35__BRCiWorkPublishingOperation_main__block_invoke_11_cold_2();
       }
-
-      v11 = *(a1 + 32);
-      v18 = *(v11 + 520);
     }
 
-    v12 = *(v11 + 521);
-    v13 = [MEMORY[0x277CCABB0] numberWithChar:BRMakeiWorkSharingOptions()];
-    v14 = *(a1 + 32);
-    v7 = *(v14 + 528);
-    *(v14 + 528) = v13;
+    v11 = [MEMORY[0x277CCABB0] numberWithChar:BRMakeiWorkSharingOptions()];
+    v12 = *(a1 + 32);
+    v7 = *(v12 + 528);
+    *(v12 + 528) = v11;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

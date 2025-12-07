@@ -21,7 +21,7 @@
 {
   gestureCopy = gesture;
   selfCopy = self;
-  sub_23A9C7C90(gestureCopy);
+  sub_23A9C7C90(gestureCopy, v5);
 }
 
 - (void)didTouchDownWithLongPressGesture:(id)gesture

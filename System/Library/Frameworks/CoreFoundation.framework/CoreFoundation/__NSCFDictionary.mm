@@ -28,41 +28,28 @@
 
 - (id)description
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v2, __CFTSANTagMutableDictionary);
   }
 
-  __CFDictionaryGetKeyCallbacks(self, v10);
-  v4 = v11;
-  __CFDictionaryGetValueCallbacks(self, v8);
-  if ((!v4 || v4 == CFCopyDescription) && (!v9 || v9 == CFCopyDescription))
+  __CFDictionaryGetKeyCallbacks(v9, self);
+  v4 = v10;
+  __CFDictionaryGetValueCallbacks(self, v7);
+  if (v4 && v4 != CFCopyDescription || v8 && v8 != CFCopyDescription)
   {
-    v7.receiver = self;
-    v7.super_class = __NSCFDictionary;
-    result = [(NSDictionary *)&v7 description];
+    return CFCopyDescription(self);
   }
 
-  else
-  {
-    result = CFCopyDescription(self);
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6.receiver = self;
+  v6.super_class = __NSCFDictionary;
+  return [(NSDictionary *)&v6 description];
 }
 
 - (Class)classForCoder
 {
-  IsMutable = _CFDictionaryIsMutable(self);
-  v3 = off_1E6A55868;
-  if (!IsMutable)
-  {
-    v3 = off_1E6A557F0;
-  }
-
-  v4 = *v3;
+  _CFDictionaryIsMutable(self);
 
   return objc_opt_self();
 }
@@ -150,17 +137,16 @@ LABEL_4:
 
 - (void)setObservationInfo:(void *)info
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   _CFDictionarySetKVOBit(self, info != 0);
-  v6.receiver = self;
-  v6.super_class = __NSCFDictionary;
-  [(__NSCFDictionary *)&v6 setObservationInfo:info];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = __NSCFDictionary;
+  [(__NSCFDictionary *)&v5 setObservationInfo:info];
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableDictionary);
@@ -168,23 +154,15 @@ LABEL_4:
 
   if (_CFExecutableLinkedOnOrAfter(6uLL))
   {
-    v8.receiver = self;
-    v8.super_class = __NSCFDictionary;
-    result = [(NSDictionary *)&v8 isEqual:equal];
-  }
-
-  else if (equal)
-  {
-    result = _CFNonObjCEqual(self, equal) != 0;
+    v7.receiver = self;
+    v7.super_class = __NSCFDictionary;
+    return [(NSDictionary *)&v7 isEqual:equal];
   }
 
   else
   {
-    result = 0;
+    return equal && _CFNonObjCEqual(self, equal) != 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count

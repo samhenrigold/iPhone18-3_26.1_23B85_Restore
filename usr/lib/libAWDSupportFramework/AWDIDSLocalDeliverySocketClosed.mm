@@ -290,7 +290,6 @@ LABEL_14:
 {
   if ((*&self->_has & 0x100) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -302,7 +301,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    isToDefaultPairedDevice = self->_isToDefaultPairedDevice;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -322,7 +320,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  closeError = self->_closeError;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -337,7 +334,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  socketError = self->_socketError;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -352,7 +348,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  bytesSent = self->_bytesSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -367,7 +362,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  packetsSent = self->_packetsSent;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -382,7 +376,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  bytesReceived = self->_bytesReceived;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -397,12 +390,10 @@ LABEL_12:
   }
 
 LABEL_26:
-  packetsReceived = self->_packetsReceived;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_13:
-    priority = self->_priority;
     PBDataWriterWriteUint64Field();
   }
 
@@ -683,7 +674,6 @@ LABEL_12:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 52);
     if ((has & 0x100) != 0)
     {
       if ((*(equal + 52) & 0x100) == 0 || self->_timestamp != *(equal + 9))
@@ -711,107 +701,107 @@ LABEL_54:
       has = self->_has;
     }
 
-    v9 = *(equal + 52);
+    v8 = *(equal + 52);
     if ((has & 8) != 0)
     {
-      if ((v9 & 8) == 0 || self->_isToDefaultPairedDevice != *(equal + 4))
+      if ((v8 & 8) == 0 || self->_isToDefaultPairedDevice != *(equal + 4))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 8) != 0)
+    else if ((v8 & 8) != 0)
     {
       goto LABEL_54;
     }
 
     if ((has & 4) != 0)
     {
-      if ((v9 & 4) == 0 || self->_closeError != *(equal + 3))
+      if ((v8 & 4) == 0 || self->_closeError != *(equal + 3))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 4) != 0)
+    else if ((v8 & 4) != 0)
     {
       goto LABEL_54;
     }
 
     if ((has & 0x80) != 0)
     {
-      if ((v9 & 0x80) == 0 || self->_socketError != *(equal + 8))
+      if ((v8 & 0x80) == 0 || self->_socketError != *(equal + 8))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 0x80) != 0)
+    else if ((v8 & 0x80) != 0)
     {
       goto LABEL_54;
     }
 
     if ((has & 2) != 0)
     {
-      if ((v9 & 2) == 0 || self->_bytesSent != *(equal + 2))
+      if ((v8 & 2) == 0 || self->_bytesSent != *(equal + 2))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 2) != 0)
+    else if ((v8 & 2) != 0)
     {
       goto LABEL_54;
     }
 
     if ((has & 0x20) != 0)
     {
-      if ((v9 & 0x20) == 0 || self->_packetsSent != *(equal + 6))
+      if ((v8 & 0x20) == 0 || self->_packetsSent != *(equal + 6))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 0x20) != 0)
+    else if ((v8 & 0x20) != 0)
     {
       goto LABEL_54;
     }
 
     if (has)
     {
-      if ((v9 & 1) == 0 || self->_bytesReceived != *(equal + 1))
+      if ((v8 & 1) == 0 || self->_bytesReceived != *(equal + 1))
       {
         goto LABEL_54;
       }
     }
 
-    else if (v9)
+    else if (v8)
     {
       goto LABEL_54;
     }
 
     if ((has & 0x10) != 0)
     {
-      if ((v9 & 0x10) == 0 || self->_packetsReceived != *(equal + 5))
+      if ((v8 & 0x10) == 0 || self->_packetsReceived != *(equal + 5))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 0x10) != 0)
+    else if ((v8 & 0x10) != 0)
     {
       goto LABEL_54;
     }
 
     if ((has & 0x40) != 0)
     {
-      if ((v9 & 0x40) == 0 || self->_priority != *(equal + 7))
+      if ((v8 & 0x40) == 0 || self->_priority != *(equal + 7))
       {
         goto LABEL_54;
       }
     }
 
-    else if ((v9 & 0x40) != 0)
+    else if ((v8 & 0x40) != 0)
     {
       goto LABEL_54;
     }

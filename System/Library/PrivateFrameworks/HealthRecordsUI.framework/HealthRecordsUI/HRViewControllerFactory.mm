@@ -60,7 +60,7 @@ LABEL_6:
   fromCopy = from;
   selfCopy = self;
   sub_1D129A740(forCopy, fromCopy, v14, identifier, animated, v13, v16);
-  sub_1D102CC60(v13);
+  sub_1D102CC60(v13, v16);
 }
 
 - (id)makeAccountDetailViewControllerForAccount:(id)account profile:(id)profile sourceIdentifier:(id)identifier
@@ -78,7 +78,7 @@ LABEL_6:
   }
 
   v12 = 0;
-  objc_allocWithZone(type metadata accessor for ClinicalAccountDetailsViewController());
+  objc_allocWithZone(type metadata accessor for ClinicalAccountDetailsViewController(0));
   v10 = sub_1D127988C(account, profile, &v12, v7, v9);
 
   return v10;
@@ -141,8 +141,8 @@ LABEL_6:
   v14 = &v21 - v13;
   if (type)
   {
-    sub_1D106F934(0, &qword_1EE06B780);
-    sub_1D106F934(0, &qword_1EE06B790);
+    sub_1D106F934(0, &qword_1EE06B780, 0x1E696C3D0);
+    sub_1D106F934(0, &qword_1EE06B790, 0x1E696AE18);
     sub_1D1127F80();
     type = sub_1D138FFFC();
   }
@@ -151,7 +151,7 @@ LABEL_6:
   v16 = *(*(v15 - 8) + 56);
   v16(v14, 1, 1, v15);
   v16(v11, 1, 1, v15);
-  objc_allocWithZone(type metadata accessor for MedicalRecordTimelineViewController());
+  objc_allocWithZone(type metadata accessor for MedicalRecordTimelineViewController(0));
   categoryCopy = category;
   profileCopy = profile;
   v19 = sub_1D107E9F4(profileCopy, category, v14, 0, 0, v11, 0, type, 0);
@@ -164,7 +164,7 @@ LABEL_6:
   categoryCopy = category;
   profileCopy = profile;
   sub_1D123E1C4(categoryCopy, v10);
-  v7 = objc_allocWithZone(type metadata accessor for ConceptListViewController());
+  v7 = objc_allocWithZone(type metadata accessor for ConceptListViewController(0));
   v8 = sub_1D133BFA4(v10, profileCopy);
 
   return v8;

@@ -31,7 +31,7 @@
 
 void __31__HMDCompanionLinkClient_start__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
@@ -41,24 +41,24 @@ void __31__HMDCompanionLinkClient_start__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v6 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v2;
+      v11 = 138543618;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v2;
       v7 = "%{public}@Failed to activate RPCompanionLinkClient with error %@";
       v8 = v5;
       v9 = OS_LOG_TYPE_ERROR;
       v10 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v8, v9, v7, &v12, v10);
+      _os_log_impl(&dword_2531F8000, v8, v9, v7, &v11, v10);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v6;
+    v11 = 138543362;
+    v12 = v6;
     v7 = "%{public}@Successfully activated RPCompanionLinkClient.";
     v8 = v5;
     v9 = OS_LOG_TYPE_INFO;
@@ -67,7 +67,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceLostHandler:(id)handler

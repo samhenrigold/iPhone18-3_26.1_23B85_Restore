@@ -19,7 +19,7 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   validateCopy = validate;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
@@ -29,14 +29,14 @@
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v29[0] = *MEMORY[0x1E696A578];
+    v28[0] = *MEMORY[0x1E696A578];
     v15 = MEMORY[0x1E696AEC0];
     v16 = NSStringFromClass(validateCopy);
     v18 = objc_msgSend_stringWithFormat_(v15, v17, @"%@ is not a string (%@)", validateCopy, v16);
-    v29[1] = @"ck_isComparisonError";
-    v30[0] = v18;
-    v30[1] = MEMORY[0x1E695E110];
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v30, v29, 2);
+    v28[1] = @"ck_isComparisonError";
+    v29[0] = v18;
+    v29[1] = MEMORY[0x1E695E110];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v29, v28, 2);
     v23 = LABEL_8:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v24, @"CKErrorDomain", 12, v23);
 
@@ -55,21 +55,20 @@
     }
 
     v14 = MEMORY[0x1E696ABC0];
-    v27[0] = *MEMORY[0x1E696A578];
+    v26[0] = *MEMORY[0x1E696A578];
     v20 = MEMORY[0x1E696AEC0];
     v16 = objc_msgSend_value(self, v12, v13);
     v18 = objc_msgSend_stringWithFormat_(v20, v21, @"%@ is not equal to %@", validateCopy, v16);
-    v27[1] = @"ck_isComparisonError";
-    v28[0] = v18;
-    v28[1] = MEMORY[0x1E695E110];
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v28, v27, 2);
+    v26[1] = @"ck_isComparisonError";
+    v27[0] = v18;
+    v27[1] = MEMORY[0x1E695E110];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v22, v27, v26, 2);
     goto LABEL_8;
   }
 
   LOBYTE(error) = 1;
 LABEL_9:
 
-  v25 = *MEMORY[0x1E69E9840];
   return error;
 }
 

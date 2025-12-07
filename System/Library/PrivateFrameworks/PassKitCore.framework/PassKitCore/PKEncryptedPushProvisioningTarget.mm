@@ -128,18 +128,14 @@
     }
   }
 
-  else
+  else if (([(NSData *)ephemeralPublicKey isEqual:?]& 1) == 0)
   {
-    v8 = [(NSData *)ephemeralPublicKey isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_28;
-    }
+    goto LABEL_28;
   }
 
   publicKeyHash = self->_publicKeyHash;
-  v10 = targetCopy[2];
-  if (publicKeyHash && v10)
+  v9 = targetCopy[2];
+  if (publicKeyHash && v9)
   {
     if (([(NSData *)publicKeyHash isEqual:?]& 1) == 0)
     {
@@ -147,22 +143,22 @@
     }
   }
 
-  else if (publicKeyHash != v10)
+  else if (publicKeyHash != v9)
   {
     goto LABEL_28;
   }
 
   data = self->_data;
-  v12 = targetCopy[3];
-  if (!data || !v12)
+  v11 = targetCopy[3];
+  if (!data || !v11)
   {
-    if (data == v12)
+    if (data == v11)
     {
       goto LABEL_20;
     }
 
 LABEL_28:
-    LOBYTE(v17) = 0;
+    LOBYTE(isEqualToString) = 0;
     goto LABEL_29;
   }
 
@@ -177,45 +173,45 @@ LABEL_20:
     goto LABEL_28;
   }
 
-  v13 = targetCopy[7];
-  v14 = self->_verificationCode;
-  v15 = v13;
-  v16 = v15;
-  if (v14 == v15)
+  v12 = targetCopy[7];
+  v13 = self->_verificationCode;
+  v14 = v12;
+  v15 = v14;
+  if (v13 == v14)
   {
 
     goto LABEL_31;
   }
 
-  LOBYTE(v17) = 0;
-  if (!v14 || !v15)
+  LOBYTE(isEqualToString) = 0;
+  if (!v13 || !v14)
   {
 LABEL_36:
 
     goto LABEL_29;
   }
 
-  v17 = [(NSString *)v14 isEqualToString:v15];
+  isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-  if (v17)
+  if (isEqualToString)
   {
 LABEL_31:
     secondarySource = self->_secondarySource;
-    v20 = targetCopy[8];
-    v14 = secondarySource;
-    v21 = v20;
-    v16 = v21;
-    if (v14 == v21)
+    v19 = targetCopy[8];
+    v13 = secondarySource;
+    v20 = v19;
+    v15 = v20;
+    if (v13 == v20)
     {
-      LOBYTE(v17) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v17) = 0;
-      if (v14 && v21)
+      LOBYTE(isEqualToString) = 0;
+      if (v13 && v20)
       {
-        LOBYTE(v17) = [(NSString *)v14 isEqualToString:v21];
+        LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v13);
       }
     }
 
@@ -224,7 +220,7 @@ LABEL_31:
 
 LABEL_29:
 
-  return v17;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

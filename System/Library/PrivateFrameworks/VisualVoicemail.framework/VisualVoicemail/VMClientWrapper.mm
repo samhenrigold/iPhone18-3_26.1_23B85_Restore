@@ -15,21 +15,22 @@
 
 - (VMClientWrapper)init
 {
-  if ([objc_opt_class() isVMXPCAvailable])
+  isVMXPCAvailable = [objc_opt_class() isVMXPCAvailable];
+  if (isVMXPCAvailable)
   {
-    v6.receiver = self;
-    v6.super_class = VMClientWrapper;
-    self = [(VMClientWrapper *)&v6 init];
+    v8.receiver = self;
+    v8.super_class = VMClientWrapper;
+    self = [(VMClientWrapper *)&v8 init];
     selfCopy = self;
   }
 
   else
   {
-    v4 = vm_framework_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = vm_framework_log(isVMXPCAvailable, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2721BA000, v4, OS_LOG_TYPE_DEFAULT, "VMD is not available", buf, 2u);
+      _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "VMD is not available", buf, 2u);
     }
 
     selfCopy = 0;
@@ -57,7 +58,7 @@ uint64_t __35__VMClientWrapper_isVMXPCAvailable__block_invoke()
 
 - (NSXPCConnection)clientConnection
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   clientConnection = selfCopy->_clientConnection;
@@ -77,41 +78,39 @@ uint64_t __35__VMClientWrapper_isVMXPCAvailable__block_invoke()
     [(NSXPCConnection *)selfCopy->_clientConnection setExportedObject:manager];
 
     selfCopy->_pingRetry = 0;
-    v9 = vm_framework_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = vm_framework_log(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = selfCopy->_clientConnection;
+      v12 = selfCopy->_clientConnection;
       *buf = 138412290;
-      v22 = v10;
-      _os_log_impl(&dword_2721BA000, v9, OS_LOG_TYPE_DEFAULT, "XPC connection created %@", buf, 0xCu);
+      v23 = v12;
+      _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "XPC connection created %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, selfCopy);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __35__VMClientWrapper_clientConnection__block_invoke;
-    v19[3] = &unk_279E3D0E0;
-    objc_copyWeak(&v20, buf);
-    [(NSXPCConnection *)selfCopy->_clientConnection setInvalidationHandler:v19];
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __35__VMClientWrapper_clientConnection__block_invoke_202;
-    v17 = &unk_279E3D0E0;
-    objc_copyWeak(&v18, buf);
-    [(NSXPCConnection *)selfCopy->_clientConnection setInterruptionHandler:&v14];
-    [(NSXPCConnection *)selfCopy->_clientConnection resume:v14];
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v20);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __35__VMClientWrapper_clientConnection__block_invoke;
+    v20[3] = &unk_279E3D0E0;
+    objc_copyWeak(&v21, buf);
+    [(NSXPCConnection *)selfCopy->_clientConnection setInvalidationHandler:v20];
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __35__VMClientWrapper_clientConnection__block_invoke_202;
+    v18 = &unk_279E3D0E0;
+    objc_copyWeak(&v19, buf);
+    [(NSXPCConnection *)selfCopy->_clientConnection setInterruptionHandler:&v15];
+    [(NSXPCConnection *)selfCopy->_clientConnection resume:v15];
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
     clientConnection = selfCopy->_clientConnection;
   }
 
-  v11 = clientConnection;
+  v13 = clientConnection;
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v13;
 }
 
 + (id)voicemailServerXPCInterface
@@ -301,116 +300,114 @@ void __46__VMClientWrapper_voicemailServerXPCInterface__block_invoke()
 void __64__VMClientWrapper_asynchronousServerConnectionWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = vm_framework_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = vm_framework_log(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __64__VMClientWrapper_asynchronousServerConnectionWithErrorHandler___block_invoke_cold_1(v3, v4);
+    __64__VMClientWrapper_asynchronousServerConnectionWithErrorHandler___block_invoke_cold_1(v3, v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
-void __35__VMClientWrapper_clientConnection__block_invoke(uint64_t a1)
+void __35__VMClientWrapper_clientConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated.", &v10, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection invalidated.", &v14, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WeakRetained;
-    objc_sync_enter(v5);
-    [v5 setClientConnection:0];
-    if ([v5 pingRetry])
+    v6 = WeakRetained;
+    objc_sync_enter(v6);
+    [v6 setClientConnection:0];
+    v7 = [v6 pingRetry];
+    if (v7)
     {
-      [v5 setPingRetry:0];
-      v6 = vm_framework_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v9 = [v6 setPingRetry:0];
+      v11 = vm_framework_log(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [v5 clientConnection];
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_2721BA000, v6, OS_LOG_TYPE_DEFAULT, "XPC attempting to ping connection %@", &v10, 0xCu);
+        v12 = [v6 clientConnection];
+        v14 = 138412290;
+        v15 = v12;
+        _os_log_impl(&dword_2721BA000, v11, OS_LOG_TYPE_DEFAULT, "XPC attempting to ping connection %@", &v14, 0xCu);
       }
 
-      v8 = [v5 asynchronousServerConnectionWithErrorHandler:&__block_literal_global_195];
-      [v8 ping:&__block_literal_global_199];
+      v13 = [v6 asynchronousServerConnectionWithErrorHandler:&__block_literal_global_195];
+      [v13 ping:&__block_literal_global_199];
     }
 
     else
     {
-      v8 = vm_framework_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v13 = vm_framework_log(v7, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v10) = 0;
-        _os_log_impl(&dword_2721BA000, v8, OS_LOG_TYPE_DEFAULT, "XPC connection deallocated", &v10, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_2721BA000, v13, OS_LOG_TYPE_DEFAULT, "XPC connection deallocated", &v14, 2u);
       }
     }
 
-    objc_sync_exit(v5);
+    objc_sync_exit(v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __35__VMClientWrapper_clientConnection__block_invoke_193(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = vm_framework_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = vm_framework_log(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __35__VMClientWrapper_clientConnection__block_invoke_193_cold_1(v2, v3);
+    __35__VMClientWrapper_clientConnection__block_invoke_193_cold_1(v2, v4);
   }
 }
 
-void __35__VMClientWrapper_clientConnection__block_invoke_196(uint64_t a1, int a2)
+void __35__VMClientWrapper_clientConnection__block_invoke_196(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = vm_framework_log();
+  v2 = a2;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = vm_framework_log(a1, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = "NO";
-    if (a2)
+    if (v2)
     {
       v4 = "YES";
     }
 
-    v6 = 136315138;
-    v7 = v4;
-    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection reestablished with ping response %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = v4;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection reestablished with ping response %s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __35__VMClientWrapper_clientConnection__block_invoke_202(uint64_t a1)
+void __35__VMClientWrapper_clientConnection__block_invoke_202(uint64_t a1, uint64_t a2)
 {
-  v2 = vm_framework_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = vm_framework_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2721BA000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2721BA000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v5, 2u);
   }
 
-  v3 = objc_loadWeakRetained((a1 + 32));
-  objc_sync_enter(v3);
-  if (v3)
+  v4 = objc_loadWeakRetained((a1 + 32));
+  objc_sync_enter(v4);
+  if (v4)
   {
-    [v3[2] invalidate];
-    [v3 setClientConnection:0];
+    [v4[2] invalidate];
+    [v4 setClientConnection:0];
   }
 
-  objc_sync_exit(v3);
+  objc_sync_exit(v4);
 }
 
 - (void)setClientConnection:(id)connection
@@ -450,20 +447,18 @@ void __35__VMClientWrapper_clientConnection__block_invoke_202(uint64_t a1)
 
 void __64__VMClientWrapper_asynchronousServerConnectionWithErrorHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "Failed to create remote object proxy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "Failed to create remote object proxy: %@", &v2, 0xCu);
 }
 
 void __35__VMClientWrapper_clientConnection__block_invoke_193_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "XPC connection failed to ping after interruption %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2721BA000, a2, OS_LOG_TYPE_ERROR, "XPC connection failed to ping after interruption %@", &v2, 0xCu);
 }
 
 @end

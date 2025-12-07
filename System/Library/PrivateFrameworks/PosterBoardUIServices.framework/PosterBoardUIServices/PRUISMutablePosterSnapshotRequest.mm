@@ -110,16 +110,16 @@
     if (attachmentHostWindowScene)
     {
 LABEL_8:
-      v9 = [PRUISPosterAttachmentConfiguration attachmentConfigurationWithHostWindowScene:attachmentHostWindowScene attachments:attachmentsCopy];
-      [(PRUISMutablePosterSnapshotRequest *)self setAttachmentConfiguration:v9];
+      v10 = [PRUISPosterAttachmentConfiguration attachmentConfigurationWithHostWindowScene:attachmentHostWindowScene attachments:attachmentsCopy];
+      [(PRUISMutablePosterSnapshotRequest *)self setAttachmentConfiguration:v10];
     }
 
     else
     {
-      v10 = PRUISLogAttachments();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = PRUISLogAttachments(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [PRUISMutablePosterSnapshotRequest(Deprecated) setAttachments:v10];
+        [PRUISMutablePosterSnapshotRequest(Deprecated) setAttachments:v11];
       }
 
       [(PRUISMutablePosterSnapshotRequest *)self setAttachmentConfiguration:0];

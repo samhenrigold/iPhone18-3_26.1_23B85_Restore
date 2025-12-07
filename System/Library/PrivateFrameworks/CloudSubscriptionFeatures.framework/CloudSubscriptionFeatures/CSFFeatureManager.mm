@@ -189,32 +189,28 @@ void __69__CSFFeatureManager_getTicketStatusForFeature_withCompletionHandler___b
 
 void __38__CSFFeatureManager_postCFUIfEligible__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _CSFGetLogSystem();
+  v3 = _CSFGetLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1DF47C000, v3, OS_LOG_TYPE_DEFAULT, "Finished attempting to post CFU with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1DF47C000, v3, OS_LOG_TYPE_DEFAULT, "Finished attempting to post CFU with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __34__CSFFeatureManager_revalidateCFU__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _CSFGetLogSystem();
+  v3 = _CSFGetLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1DF47C000, v3, OS_LOG_TYPE_DEFAULT, "Finished revalidating CFU with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1DF47C000, v3, OS_LOG_TYPE_DEFAULT, "Finished revalidating CFU with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)cachedFeatureObjectWithId:(id)id
@@ -293,222 +289,213 @@ void __34__CSFFeatureManager_revalidateCFU__block_invoke(uint64_t a1, void *a2)
 {
   v3 = sub_1DF564344();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1DF564874();
-  _sSo17CSFFeatureManagerC25CloudSubscriptionFeaturesE23urlForRSVPDataDetectors7context10Foundation3URLVSDySSypG_tFZ_0(v8, v7);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1DF564874();
+  _sSo17CSFFeatureManagerC25CloudSubscriptionFeaturesE23urlForRSVPDataDetectors7context10Foundation3URLVSDySSypG_tFZ_0(v7, v6);
 
-  v9 = sub_1DF564314();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_1DF564314();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 + (void)getTicketStatusForFeature:(NSString *)feature completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = feature;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1DF564B44();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = feature;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1DF564B44();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1DF56BC48;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1DF56BC48;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1DF56BC50;
-  v15[5] = v14;
+  v14[4] = &unk_1DF56BC50;
+  v14[5] = v13;
   featureCopy = feature;
-  sub_1DF51CC08(0, 0, v10, &unk_1DF56BC58, v15);
+  sub_1DF51CC08(0, 0, v9, &unk_1DF56BC58, v14);
 }
 
 + (void)getTicketStatusFromCacheForFeature:(NSString *)feature completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = feature;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1DF564B44();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = feature;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1DF564B44();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1DF56BC28;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1DF56BC28;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1DF56BC30;
-  v15[5] = v14;
+  v14[4] = &unk_1DF56BC30;
+  v14[5] = v13;
   featureCopy = feature;
-  sub_1DF51CC08(0, 0, v10, &unk_1DF56BC38, v15);
+  sub_1DF51CC08(0, 0, v9, &unk_1DF56BC38, v14);
 }
 
 + (void)getTicketForFeature:(NSString *)feature completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = feature;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1DF564B44();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = feature;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1DF564B44();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1DF56BC08;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1DF56BC08;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1DF56BC10;
-  v15[5] = v14;
+  v14[4] = &unk_1DF56BC10;
+  v14[5] = v13;
   featureCopy = feature;
-  sub_1DF51CC08(0, 0, v10, &unk_1DF56BC18, v15);
+  sub_1DF51CC08(0, 0, v9, &unk_1DF56BC18, v14);
 }
 
 + (void)deviceHasAnyTicketWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DF564B44();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DF564B44();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DF56BBE8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DF56BBE8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DF56BBF0;
-  v13[5] = v12;
-  sub_1DF51CC08(0, 0, v8, &unk_1DF56BBF8, v13);
+  v12[4] = &unk_1DF56BBF0;
+  v12[5] = v11;
+  sub_1DF51CC08(0, 0, v7, &unk_1DF56BBF8, v12);
 }
 
 + (void)clearCFUWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DF564B44();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DF564B44();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DF56BBC8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DF56BBC8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DF56BBD0;
-  v13[5] = v12;
-  sub_1DF51CC08(0, 0, v8, &unk_1DF56BBD8, v13);
+  v12[4] = &unk_1DF56BBD0;
+  v12[5] = v11;
+  sub_1DF51CC08(0, 0, v7, &unk_1DF56BBD8, v12);
 }
 
 + (void)postCFUIfEligibleWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DF564B44();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DF564B44();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DF56BBA8;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DF56BBA8;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DF56BBB0;
-  v13[5] = v12;
-  sub_1DF51CC08(0, 0, v8, &unk_1DF56BBB8, v13);
+  v12[4] = &unk_1DF56BBB0;
+  v12[5] = v11;
+  sub_1DF51CC08(0, 0, v7, &unk_1DF56BBB8, v12);
 }
 
 + (void)revalidateCFUWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DF564B44();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DF564B44();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DF56BB88;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DF56BB88;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DF56BB90;
-  v13[5] = v12;
-  sub_1DF51CC08(0, 0, v8, &unk_1DF56BB98, v13);
+  v12[4] = &unk_1DF56BB90;
+  v12[5] = v11;
+  sub_1DF51CC08(0, 0, v7, &unk_1DF56BB98, v12);
 }
 
 + (void)gmOptInToggleWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECE383B0, &qword_1DF568C10);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1DF564B44();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v13 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1DF564B44();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1DF56BB50;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1DF56BB50;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1DF5692D0;
-  v13[5] = v12;
-  sub_1DF51CC08(0, 0, v8, &unk_1DF56A700, v13);
+  v12[4] = &unk_1DF5692D0;
+  v12[5] = v11;
+  sub_1DF51CC08(0, 0, v7, &unk_1DF56A700, v12);
 }
 
 @end

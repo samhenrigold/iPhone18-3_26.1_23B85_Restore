@@ -75,19 +75,17 @@
     [NPKProtoPassSyncStateChangeProcessed writeTo:];
   }
 
-  v8 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteDataField();
   has = self->_has;
   if (has)
   {
-    changeAccepted = self->_changeAccepted;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    fullPassRequired = self->_fullPassRequired;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -169,7 +167,6 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v8 = *(equalCopy + 16);
   if (self->_changeAccepted)
   {
     if ((*(equalCopy + 16) & 1) == 0)

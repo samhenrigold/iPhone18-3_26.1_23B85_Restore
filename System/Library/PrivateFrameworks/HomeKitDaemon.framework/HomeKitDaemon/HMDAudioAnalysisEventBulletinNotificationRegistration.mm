@@ -15,22 +15,20 @@
 
 - (id)attributeDescriptions
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = HMDAudioAnalysisEventBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v14 attributeDescriptions];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HMDAudioAnalysisEventBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v13 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDAudioAnalysisEventBulletinNotificationRegistration *)self accessoryUUID];
   v6 = [v4 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAudioAnalysisEventBulletinNotificationRegistration audioAnalysisClassifierOptions](self, "audioAnalysisClassifierOptions")}];
   v9 = [v7 initWithName:@"classifiers" value:v8];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v11 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

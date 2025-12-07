@@ -261,6 +261,7 @@
   actionHandler = self->_actionHandler;
   if (actionHandler)
   {
+    v9 = triggeredCopy;
     if (self->_allowForAllButton == triggeredCopy)
     {
       v6 = 1;
@@ -284,9 +285,11 @@
 
     v8 = self->_actionHandler;
     self->_actionHandler = 0;
+
+    triggeredCopy = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](actionHandler, triggeredCopy);
 }
 
 - (void)mapViewDidChangeVisibleRegion:(id)region

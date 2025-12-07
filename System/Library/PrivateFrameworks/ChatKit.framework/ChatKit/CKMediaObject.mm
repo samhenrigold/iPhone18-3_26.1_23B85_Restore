@@ -124,7 +124,7 @@
   v37 = 0u;
   if (viewCopy)
   {
-    [viewCopy balloonDescriptorForSnapshotRenderingUsingTraitCollection:collectionCopy];
+    objc_msgSend_balloonDescriptorForSnapshotRenderingUsingTraitCollection_(viewCopy);
   }
 
   v35[4] = v40;
@@ -312,7 +312,7 @@
       v66 = 0u;
       if (v14)
       {
-        [v14 balloonDescriptor];
+        objc_msgSend_balloonDescriptor(v14);
       }
 
       BYTE1(v65) = 0;
@@ -1325,44 +1325,44 @@ void __50__CKMediaObject_Internal___refreshSpatialMetadata__block_invoke(uint64_
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __50__CKMediaObject_Internal___refreshSpatialMetadata__block_invoke_2(uint64_t a1)
+void *__50__CKMediaObject_Internal___refreshSpatialMetadata__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       if (*(a1 + 40))
       {
-        v4 = @"YES";
+        v5 = @"YES";
       }
 
       else
       {
-        v4 = @"NO";
+        v5 = @"NO";
       }
 
-      v7 = 138412546;
-      v8 = v4;
-      v9 = 2048;
-      v10 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Determined spatial state = %@ for %p", &v7, 0x16u);
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2048;
+      v11 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Determined spatial state = %@ for %p", &v8, 0x16u);
     }
   }
 
   if (*(a1 + 40))
   {
-    v5 = 3;
+    v6 = 3;
   }
 
   else
   {
-    v5 = 2;
+    v6 = 2;
   }
 
-  result = [*(a1 + 32) setSpatialState:v5];
+  result = [*(a1 + 32) setSpatialState:v6];
   if (*(a1 + 40) == 1)
   {
     return [*(a1 + 32) postPreviewDidChangeNotifications];
@@ -1543,7 +1543,7 @@ LABEL_30:
   if (!v4 || (v5 = UTTypeCopyDescription([(CKMediaObject *)self UTIType])) == 0)
   {
     filename2 = [(CKMediaObject *)self filename];
-    v5 = CKAttachmentTitleFromFilename();
+    v5 = CKAttachmentTitleFromFilename(filename2);
   }
 
   return v5;
@@ -2009,23 +2009,23 @@ void __34__CKMediaObject_Display__richIcon__block_invoke_249(uint64_t a1)
   }
 }
 
-void __34__CKMediaObject_Display__richIcon__block_invoke_2(uint64_t a1)
+void __34__CKMediaObject_Display__richIcon__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Posting rich icon change notif for generating rich icon for key: %@", &v5, 0xCu);
+      v4 = *(a1 + 32);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Posting rich icon change notif for generating rich icon for key: %@", &v6, 0xCu);
     }
   }
 
-  v4 = [MEMORY[0x1E696AD88] defaultCenter];
-  [v4 postNotificationName:@"CKRichIconDidChangeNotification" object:*(a1 + 40)];
+  v5 = [MEMORY[0x1E696AD88] defaultCenter];
+  [v5 postNotificationName:@"CKRichIconDidChangeNotification" object:*(a1 + 40)];
 }
 
 - (BOOL)shouldShowViewer
@@ -2383,7 +2383,7 @@ LABEL_9:
 - (id)previewForWidth:(double)width orientation:(char)orientation
 {
   orientationCopy = orientation;
-  v61 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v7 = [(CKMediaObject *)self previewCacheKeyWithOrientation:?];
   if (IMOSLoggingEnabled())
   {
@@ -2394,13 +2394,13 @@ LABEL_9:
       transferGUID = [(CKMediaObject *)self transferGUID];
       filename = [(CKMediaObject *)self filename];
       *buf = 134218754;
-      selfCopy6 = self;
-      v55 = 2112;
-      v56 = transferGUID;
-      v57 = 2112;
-      v58 = filename;
-      v59 = 1024;
-      LODWORD(v60) = orientationCopy;
+      selfCopy5 = self;
+      v70 = 2112;
+      v71 = transferGUID;
+      v72 = 2112;
+      v73 = filename;
+      v74 = 1024;
+      LODWORD(v75) = orientationCopy;
       _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_DEBUG, "[%p, %@, %@] previewForOrientation:%d", buf, 0x26u);
     }
   }
@@ -2409,21 +2409,18 @@ LABEL_9:
   {
     transferGUID2 = [(CKMediaObject *)self transferGUID];
     filename2 = [(CKMediaObject *)self filename];
-    v52 = orientationCopy;
-    selfCopy2 = self;
-    v49 = transferGUID2;
-    _CKLog();
+    _CKLog(2u, @"[%p, %@, %@] previewForOrientation:%d", v12, v13, v14, v15, v16, v17, self);
   }
 
-  if ([(CKMediaObject *)self shouldSuppressPreview:selfCopy2])
+  if ([(CKMediaObject *)self shouldSuppressPreview])
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v18 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "Preview generation aborted - shouldSuppressPreview is YES", buf, 2u);
+        _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "Preview generation aborted - shouldSuppressPreview is YES", buf, 2u);
       }
 
 LABEL_17:
@@ -2438,18 +2435,18 @@ LABEL_17:
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v18 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "Preview generation failed - returning no preview", buf, 2u);
+        _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "Preview generation failed - returning no preview", buf, 2u);
       }
 
       goto LABEL_17;
     }
 
 LABEL_18:
-    v13 = 0;
+    v19 = 0;
     goto LABEL_89;
   }
 
@@ -2459,27 +2456,27 @@ LABEL_18:
     if (IMOSLoggingEnabled())
     {
       CKLogCStringForType(2);
-      v20 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v32 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        selfCopy6 = self;
-        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
+        selfCopy5 = self;
+        _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_DEBUG, "%@ isn't previewable.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(2u, @"%@ isn't previewable.", v33, v34, v35, v36, v37, v38, self);
     }
 
-    v13 = 0;
+    v19 = 0;
     goto LABEL_88;
   }
 
   previewDispatchCache = [(CKMediaObject *)self previewDispatchCache];
-  v13 = [previewDispatchCache cachedPreviewForKey:v7];
-  if (!v13)
+  v19 = [previewDispatchCache cachedPreviewForKey:v7];
+  if (!v19)
   {
     transfer2 = [(CKMediaObject *)self transfer];
     if ([transfer2 isFileURLFinalized])
@@ -2498,161 +2495,161 @@ LABEL_18:
     }
 
     previewFilenameExtension = [(CKMediaObject *)self previewFilenameExtension];
-    v25 = [(CKMediaObject *)self previewCachesFileURLWithOrientation:orientationCopy extension:previewFilenameExtension generateIntermediaries:0];
+    v43 = [(CKMediaObject *)self previewCachesFileURLWithOrientation:orientationCopy extension:previewFilenameExtension generateIntermediaries:0];
 
-    if ([(CKMediaObject *)self validPreviewExistsAtURL:v25])
+    if ([(CKMediaObject *)self validPreviewExistsAtURL:v43])
     {
-      v26 = [(CKMediaObject *)self savedPreviewFromURL:v25 forOrientation:orientationCopy];
+      v44 = [(CKMediaObject *)self savedPreviewFromURL:v43 forOrientation:orientationCopy];
       mEMORY[0x1E69A8168] = [MEMORY[0x1E69A8168] sharedInstance];
       [mEMORY[0x1E69A8168] trackEvent:*MEMORY[0x1E69A7578]];
 
       if (IMOSLoggingEnabled())
       {
-        v28 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v46 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
           isFromMe = [(CKMediaObject *)self isFromMe];
-          v30 = @"NO";
+          v48 = @"NO";
           *buf = 138412802;
-          selfCopy6 = v25;
-          v55 = 2112;
+          selfCopy5 = v43;
+          v70 = 2112;
           if (isFromMe)
           {
-            v30 = @"YES";
+            v48 = @"YES";
           }
 
-          v56 = v30;
-          v57 = 2112;
-          v58 = v26;
-          _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Persisted preview at url %@ isFromMe %@ is %@", buf, 0x20u);
+          v71 = v48;
+          v72 = 2112;
+          v73 = v44;
+          _os_log_impl(&dword_19020E000, v46, OS_LOG_TYPE_INFO, "Persisted preview at url %@ isFromMe %@ is %@", buf, 0x20u);
         }
       }
 
-      v31 = IMOSLoggingEnabled();
-      if (v26)
+      v49 = IMOSLoggingEnabled();
+      if (v44)
       {
-        if (v31)
+        if (v49)
         {
-          v32 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+          v50 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            selfCopy6 = self;
-            _os_log_impl(&dword_19020E000, v32, OS_LOG_TYPE_INFO, "%@ preview read from disk.", buf, 0xCu);
+            selfCopy5 = self;
+            _os_log_impl(&dword_19020E000, v50, OS_LOG_TYPE_INFO, "%@ preview read from disk.", buf, 0xCu);
           }
         }
 
         if (IMOSLoggingEnabled())
         {
-          v33 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          v51 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
           {
             isFromMe2 = [(CKMediaObject *)self isFromMe];
-            v35 = @"NO";
+            v53 = @"NO";
             if (isFromMe2)
             {
-              v35 = @"YES";
+              v53 = @"YES";
             }
 
             *buf = 138412546;
-            selfCopy6 = v25;
-            v55 = 2112;
-            v56 = v35;
-            _os_log_impl(&dword_19020E000, v33, OS_LOG_TYPE_INFO, "Got persisted preview from disk at URL %@ isFromMe %@", buf, 0x16u);
+            selfCopy5 = v43;
+            v70 = 2112;
+            v71 = v53;
+            _os_log_impl(&dword_19020E000, v51, OS_LOG_TYPE_INFO, "Got persisted preview from disk at URL %@ isFromMe %@", buf, 0x16u);
           }
         }
 
-        [previewDispatchCache setCachedPreview:v26 key:v7];
-        v13 = v26;
+        [previewDispatchCache setCachedPreview:v44 key:v7];
+        v19 = v44;
 
         goto LABEL_87;
       }
 
-      if (v31)
+      if (v49)
       {
-        v36 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v54 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          selfCopy6 = v25;
-          _os_log_impl(&dword_19020E000, v36, OS_LOG_TYPE_INFO, "Preview at URL %@ exists but could not be read. Deleting the file so we can retranscode it.", buf, 0xCu);
+          selfCopy5 = v43;
+          _os_log_impl(&dword_19020E000, v54, OS_LOG_TYPE_INFO, "Preview at URL %@ exists but could not be read. Deleting the file so we can retranscode it.", buf, 0xCu);
         }
       }
 
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      [defaultManager removeItemAtURL:v25 error:0];
+      [defaultManager removeItemAtURL:v43 error:0];
     }
 
 LABEL_66:
     if ([(CKMediaObject *)self generatePreviewOutOfProcess])
     {
       [(CKMediaObject *)self generateOOPPreviewForWidth:orientationCopy orientation:width];
-      v13 = 0;
+      v19 = 0;
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v38 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        v56 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v38, OS_LOG_TYPE_INFO, "Using legacy preview generator", buf, 2u);
+          _os_log_impl(&dword_19020E000, v56, OS_LOG_TYPE_INFO, "Using legacy preview generator", buf, 2u);
         }
       }
 
-      v39 = objc_alloc_init(MEMORY[0x1E69A6170]);
-      [(__CFString *)v39 startTimingForKey:@"CKMediaObject_PreviewGenerationTime"];
+      v57 = objc_alloc_init(MEMORY[0x1E69A6170]);
+      [(__CFString *)v57 startTimingForKey:@"CKMediaObject_PreviewGenerationTime"];
       if ([(CKMediaObject *)self mediaType]== 7 || [(CKMediaObject *)self mediaType]== 9)
       {
-        v13 = [(CKMediaObject *)self generateThumbnailForWidth:orientationCopy orientation:width];
+        v19 = [(CKMediaObject *)self generateThumbnailForWidth:orientationCopy orientation:width];
       }
 
       else
       {
-        v40 = [(CKMediaObject *)self generateThumbnailForWidth:orientationCopy orientation:width];
-        v13 = [(CKMediaObject *)self generatePreviewFromThumbnail:v40 width:orientationCopy orientation:width];
+        v58 = [(CKMediaObject *)self generateThumbnailForWidth:orientationCopy orientation:width];
+        v19 = [(CKMediaObject *)self generatePreviewFromThumbnail:v58 width:orientationCopy orientation:width];
       }
 
-      [(__CFString *)v39 stopTimingForKey:@"CKMediaObject_PreviewGenerationTime"];
+      [(__CFString *)v57 stopTimingForKey:@"CKMediaObject_PreviewGenerationTime"];
       if (IMOSLoggingEnabled())
       {
-        v41 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        v59 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
         {
           uTIType = [(CKMediaObject *)self UTIType];
           *buf = 138412546;
-          selfCopy6 = uTIType;
-          v55 = 2112;
-          v56 = v39;
-          _os_log_impl(&dword_19020E000, v41, OS_LOG_TYPE_INFO, "Cache miss on UTI type %@ generated with timing: %@", buf, 0x16u);
+          selfCopy5 = uTIType;
+          v70 = 2112;
+          v71 = v57;
+          _os_log_impl(&dword_19020E000, v59, OS_LOG_TYPE_INFO, "Cache miss on UTI type %@ generated with timing: %@", buf, 0x16u);
         }
       }
 
       mEMORY[0x1E69A8168]2 = [MEMORY[0x1E69A8168] sharedInstance];
       [mEMORY[0x1E69A8168]2 trackEvent:*MEMORY[0x1E69A7580]];
 
-      if (v13)
+      if (v19)
       {
         if (IMOSLoggingEnabled())
         {
-          v44 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+          v62 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
           {
             transferGUID3 = [(CKMediaObject *)self transferGUID];
             filename3 = [(CKMediaObject *)self filename];
             *buf = 134218498;
-            selfCopy6 = self;
-            v55 = 2112;
-            v56 = transferGUID3;
-            v57 = 2112;
-            v58 = filename3;
-            _os_log_impl(&dword_19020E000, v44, OS_LOG_TYPE_INFO, "[%p, %@, %@] preview generated.", buf, 0x20u);
+            selfCopy5 = self;
+            v70 = 2112;
+            v71 = transferGUID3;
+            v72 = 2112;
+            v73 = filename3;
+            _os_log_impl(&dword_19020E000, v62, OS_LOG_TYPE_INFO, "[%p, %@, %@] preview generated.", buf, 0x20u);
           }
         }
 
-        [(CKMediaObject *)self cacheAndPersistPreview:v13 orientation:orientationCopy];
+        [(CKMediaObject *)self cacheAndPersistPreview:v19 orientation:orientationCopy];
       }
     }
 
@@ -2662,20 +2659,20 @@ LABEL_66:
   if (IMOSLoggingEnabled())
   {
     CKLogCStringForType(2);
-    v16 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       transferGUID4 = [(CKMediaObject *)self transferGUID];
       filename4 = [(CKMediaObject *)self filename];
       *buf = 134218754;
-      selfCopy6 = self;
-      v55 = 2112;
-      v56 = transferGUID4;
-      v57 = 2112;
-      v58 = filename4;
-      v59 = 2112;
-      v60 = v13;
-      _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "[%p, %@, %@] found in cache! returning %@", buf, 0x2Au);
+      selfCopy5 = self;
+      v70 = 2112;
+      v71 = transferGUID4;
+      v72 = 2112;
+      v73 = filename4;
+      v74 = 2112;
+      v75 = v19;
+      _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_DEBUG, "[%p, %@, %@] found in cache! returning %@", buf, 0x2Au);
     }
   }
 
@@ -2683,7 +2680,7 @@ LABEL_66:
   {
     transferGUID5 = [(CKMediaObject *)self transferGUID];
     filename5 = [(CKMediaObject *)self filename];
-    _CKLog();
+    _CKLog(2u, @"[%p, %@, %@] found in cache! returning %@", v26, v27, v28, v29, v30, v31, self);
   }
 
 LABEL_87:
@@ -2691,7 +2688,7 @@ LABEL_87:
 LABEL_88:
 LABEL_89:
 
-  return v13;
+  return v19;
 }
 
 - (void)prewarmPreviewForWidth:(double)width orientation:(char)orientation
@@ -2884,49 +2881,49 @@ void __61__CKMediaObject_Display__prewarmPreviewForWidth_orientation___block_inv
   }
 }
 
-void __61__CKMediaObject_Display__prewarmPreviewForWidth_orientation___block_invoke_283(uint64_t a1)
+void __61__CKMediaObject_Display__prewarmPreviewForWidth_orientation___block_invoke_283(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Prewarm: returned value is %@", &v10, 0xCu);
+      v4 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Prewarm: returned value is %@", &v11, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32) == 0;
-  v5 = IMOSLoggingEnabled();
-  if (v4)
+  v5 = *(a1 + 32) == 0;
+  v6 = IMOSLoggingEnabled();
+  if (v5)
   {
-    if (v5)
+    if (v6)
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v9 = *(a1 + 40);
-        v10 = 138412290;
-        v11 = v9;
-        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Prewarm: No preview on disk for %@", &v10, 0xCu);
+        v10 = *(a1 + 40);
+        v11 = 138412290;
+        v12 = v10;
+        _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "Prewarm: No preview on disk for %@", &v11, 0xCu);
       }
     }
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v6 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v7 = *(a1 + 40);
-        v10 = 138412290;
-        v11 = v7;
-        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Prewarm: Successfully prewarmed %@", &v10, 0xCu);
+        v8 = *(a1 + 40);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Prewarm: Successfully prewarmed %@", &v11, 0xCu);
       }
     }
 
@@ -2976,7 +2973,7 @@ void __61__CKMediaObject_Display__prewarmPreviewForWidth_orientation___block_inv
     v29 = 0;
     v28 = 0u;
     v27 = 0u;
-    [(CKMediaObject *)self _previewConstraintsForWidth:width];
+    objc_msgSend__previewConstraintsForWidth_(self, width);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
@@ -3130,15 +3127,15 @@ void __65__CKMediaObject_Display__generateOOPPreviewForWidth_orientation___block
   dispatch_async(MEMORY[0x1E69E96A0], v1);
 }
 
-uint64_t __65__CKMediaObject_Display__generateOOPPreviewForWidth_orientation___block_invoke_2_289(uint64_t a1)
+uint64_t __65__CKMediaObject_Display__generateOOPPreviewForWidth_orientation___block_invoke_2_289(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v5, 2u);
     }
   }
 
@@ -3457,7 +3454,7 @@ LABEL_11:
 
 - (CGSize)transcoderGeneratedSizeForConstraints:(IMPreviewConstraints *)constraints
 {
-  [(CKMediaObject *)self transcodingPreviewConstraints];
+  objc_msgSend_transcodingPreviewConstraints(self, a2);
   v13 = *constraints;
   v5 = 0.0;
   if (!IMPreviewConstraintsEqualToConstraints() || (([(CKMediaObject *)self transcodingPreviewPxSize:*&v13.var0], v6 == *MEMORY[0x1E695F060]) ? (v8 = v7 == *(MEMORY[0x1E695F060] + 8)) : (v8 = 0), v8))
@@ -4187,7 +4184,7 @@ uint64_t __41__CKMediaObject_Display__previewMetadata__block_invoke(uint64_t a1,
     [v9 defaultPreviewWidth];
     if (v9)
     {
-      [v9 _previewConstraintsForWidth:?];
+      objc_msgSend__previewConstraintsForWidth_(v9);
     }
 
     else
@@ -4282,15 +4279,15 @@ void __41__CKMediaObject_Display__previewMetadata__block_invoke_326(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __41__CKMediaObject_Display__previewMetadata__block_invoke_2_327(uint64_t a1)
+uint64_t __41__CKMediaObject_Display__previewMetadata__block_invoke_2_327(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Posting preview change notif for OOP generation completion", v5, 2u);
     }
   }
 
@@ -4801,7 +4798,7 @@ LABEL_14:
 
 - (NSURL)backgroundFileURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD55F20, &unk_190DD75D0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;

@@ -129,42 +129,42 @@ LABEL_18:
 
 - (void)decidePolicyForGeolocationRequestFromOrigin:(void *)origin completionHandler:(void *)handler view:(id)view
 {
-  v69 = *MEMORY[0x1E69E9840];
-  WebCore::RegistrableDomain::RegistrableDomain(&v47, (origin + 208));
-  MEMORY[0x19EB01DE0](v48, [view URL]);
-  v49 = *origin;
-  WebCore::ResourceRequestBase::RequestData::RequestData(v50, origin + 8);
+  v70 = *MEMORY[0x1E69E9840];
+  WebCore::RegistrableDomain::RegistrableDomain(&v48, (origin + 208));
+  MEMORY[0x19EB01DE0](v49, [view URL]);
+  v50 = *origin;
+  WebCore::ResourceRequestBase::RequestData::RequestData(v51, origin + 8);
   v9 = *(origin + 10);
   *(origin + 20) = 0;
   *(origin + 21) = 0;
-  *&v50[152] = v9;
+  *&v51[152] = v9;
   v10 = *(origin + 22);
   v11 = *(origin + 23);
   *(origin + 22) = 0;
-  v51 = v10;
-  v52 = v11;
-  v53 = *(origin + 192);
+  v52 = v10;
+  v53 = v11;
+  v54 = *(origin + 192);
   v12 = *(origin + 25);
   *(origin + 25) = 0;
-  v54 = v12;
-  LOBYTE(v55) = 0;
-  v57 = -1;
+  v55 = v12;
+  LOBYTE(v56) = 0;
+  v58 = -1;
   v13 = *(origin + 232);
   if (!*(origin + 232))
   {
     v14 = *(origin + 13);
     *(origin + 26) = 0;
     *(origin + 27) = 0;
-    v55 = v14;
-    v56 = *(origin + 56);
+    v56 = v14;
+    v57 = *(origin + 56);
 LABEL_3:
-    v57 = v13;
+    v58 = v13;
     goto LABEL_4;
   }
 
   if (v13 != 255)
   {
-    v55 = *(origin + 13);
+    v56 = *(origin + 13);
     goto LABEL_3;
   }
 
@@ -173,22 +173,22 @@ LABEL_4:
   *(origin + 30) = 0;
   v16 = *(origin + 264);
   v17 = *(origin + 280);
-  v59 = *(origin + 248);
-  v60 = v16;
-  v61 = v17;
+  v60 = *(origin + 248);
+  v61 = v16;
+  v62 = v17;
   v18 = *(origin + 37);
   v19 = *(origin + 38);
-  v58 = v15;
-  v62 = v18;
-  v63 = v19;
+  v59 = v15;
+  v63 = v18;
+  v64 = v19;
   *(origin + 38) = 0;
   v20 = *(origin + 328);
-  v64 = *(origin + 312);
-  v65 = v20;
-  v66 = *(origin + 86);
+  v65 = *(origin + 312);
+  v66 = v20;
+  v67 = *(origin + 86);
   v21 = *handler;
   *handler = 0;
-  v67 = v21;
+  v68 = v21;
   viewCopy = view;
   if (view)
   {
@@ -240,7 +240,7 @@ LABEL_4:
   }
 
   v29 = 416 * v27 + 416;
-  v30 = WTF::fastMalloc((416 * v27 + 416));
+  v30 = WTF::fastMalloc(v27, (416 * v27 + 416));
   self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_capacity = v29 / 0x1A0;
   self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_buffer = v30;
   v31 = self->_requestsWaitingForCoreLocationAuthorization.m_start;
@@ -268,7 +268,7 @@ LABEL_4:
       goto LABEL_48;
     }
 
-    WTF::VectorMover<false,GeolocationRequestData>::move((m_buffer + 416 * v31), (m_buffer + 416 * v31 + 416 * v33), v30 + 416 * v31);
+    WTF::VectorMover<false,GeolocationRequestData>::move((m_buffer + 416 * v31), (m_buffer + 416 * v31 + 416 * v33), &v30[52 * v31]);
     goto LABEL_29;
   }
 
@@ -300,7 +300,7 @@ LABEL_34:
     goto LABEL_48;
   }
 
-  GeolocationRequestData::GeolocationRequestData(self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_buffer + 416 * m_end, v48);
+  GeolocationRequestData::GeolocationRequestData(self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_buffer + 416 * m_end, v49);
   v38 = self->_requestsWaitingForCoreLocationAuthorization.m_end;
   if (v38 == self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_capacity - 1)
   {
@@ -322,26 +322,26 @@ LABEL_34:
   else
   {
     selfCopy = self;
-    v43 = WTF::fastMalloc(0x18);
-    *v43 = &unk_1F110D840;
-    v43[1] = self;
-    v43[2] = self;
-    v46 = v43;
+    v44 = WTF::fastMalloc(v43, 0x18);
+    *v44 = &unk_1F110D840;
+    v44[1] = self;
+    v44[2] = self;
+    v47 = v44;
     WebCore::CoreLocationGeolocationProvider::requestAuthorization();
-    if (v46)
+    if (v47)
     {
-      (*(*v46 + 8))(v46);
+      (*(*v47 + 8))(v47);
     }
   }
 
-  GeolocationRequestData::~GeolocationRequestData(v48, v41);
-  v45 = v47;
-  v47 = 0;
-  if (v45)
+  GeolocationRequestData::~GeolocationRequestData(v49, v41);
+  v46 = v48;
+  v48 = 0;
+  if (v46)
   {
-    if (atomic_fetch_add_explicit(v45, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v45, v44);
+      WTF::StringImpl::destroy(v46, v45);
     }
   }
 }
@@ -358,7 +358,7 @@ LABEL_34:
 
 - (void)geolocationAuthorizationGranted
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   m_start = self->_requestsWaitingForCoreLocationAuthorization.m_start;
   if (m_start == self->_requestsWaitingForCoreLocationAuthorization.m_end)
   {
@@ -370,7 +370,7 @@ LABEL_34:
     goto LABEL_28;
   }
 
-  GeolocationRequestData::GeolocationRequestData(v30, self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_buffer + 416 * m_start);
+  GeolocationRequestData::GeolocationRequestData(v31, self->_requestsWaitingForCoreLocationAuthorization.m_buffer.m_buffer + 416 * m_start);
   v5 = self->_requestsWaitingForCoreLocationAuthorization.m_start;
   if (v5 == self->_requestsWaitingForCoreLocationAuthorization.m_end)
   {
@@ -397,44 +397,44 @@ LABEL_28:
   }
 
   self->_requestsWaitingForCoreLocationAuthorization.m_start = v7;
-  v8 = v32;
-  v32 = 0;
+  v8 = v33;
+  v33 = 0;
   selfCopy = self;
-  v10 = WTF::fastMalloc(0x18);
-  *v10 = &unk_1F110D868;
-  v10[1] = v8;
-  v10[2] = self;
-  v28 = v10;
-  uIDelegate = [v33 UIDelegate];
+  v11 = WTF::fastMalloc(v10, 0x18);
+  *v11 = &unk_1F110D868;
+  v11[1] = v8;
+  v11[2] = self;
+  v29 = v11;
+  uIDelegate = [v34 UIDelegate];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v14 = [[WKWebAllowDenyPolicyListener alloc] initWithCompletionHandler:&v28];
-    v17 = +[WKWebGeolocationPolicyDecider sharedPolicyDecider];
-    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v29, v30, v18);
-    WTF::URL::createCFURL(&v27, v30);
-    [v17 decidePolicyForGeolocationRequestFromOrigin:v29 requestingURL:v27 view:v33 listener:v14];
-    v19 = v27;
-    v27 = 0;
-    if (v19)
+    v15 = [[WKWebAllowDenyPolicyListener alloc] initWithCompletionHandler:&v29];
+    v18 = +[WKWebGeolocationPolicyDecider sharedPolicyDecider];
+    WebCore::SecurityOriginData::fromURLWithoutStrictOpaqueness(v30, v31, v19);
+    WTF::URL::createCFURL(&v28, v31);
+    [v18 decidePolicyForGeolocationRequestFromOrigin:v30 requestingURL:v28 view:v34 listener:v15];
+    v20 = v28;
+    v28 = 0;
+    if (v20)
     {
     }
 
-    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v29);
+    mpark::detail::move_constructor<mpark::detail::traits<WebCore::SecurityOriginData::Tuple,WebCore::ProcessQualified<WTF::ObjectIdentifierGeneric<WebCore::OpaqueOriginIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>>,(mpark::detail::Trait)1>::~move_constructor(v30);
     goto LABEL_22;
   }
 
-  v12 = v33[52];
-  if (v12)
+  v13 = v34[52];
+  if (v13)
   {
-    CFRetain(*(v12 + 8));
+    CFRetain(*(v13 + 8));
   }
 
-  v29[0] = v12;
-  v13 = API::Object::newObject(0x180uLL, 59);
-  v14 = *(API::FrameInfo::FrameInfo(v13, &v31, v29) + 8);
-  if (!v14)
+  v30[0] = v13;
+  v14 = API::Object::newObject(0x180uLL, 59);
+  v15 = *(API::FrameInfo::FrameInfo(v14, &v32, v30) + 8);
+  if (!v15)
   {
-    v16 = 0;
+    var1 = 0;
     goto LABEL_18;
   }
 
@@ -446,49 +446,49 @@ LABEL_31:
     JUMPOUT(0x19DE56A7CLL);
   }
 
-  v15 = v14;
-  v16 = *(v13 + 8);
+  v16 = v15;
+  var1 = v14->var1;
 LABEL_18:
-  CFRelease(v16);
-  if (v29[0])
+  CFRelease(var1);
+  if (v30[0])
   {
-    CFRelease(*(v29[0] + 8));
+    CFRelease(*(v30[0] + 8));
   }
 
-  WebKit::CompletionHandlerCallChecker::create(uIDelegate, sel__webView_requestGeolocationAuthorizationForURL_frame_decisionHandler_, v29);
-  v21 = v33;
-  WTF::URL::createCFURL(&v27, v30);
-  v22 = v27;
-  v28 = 0;
-  v23 = v29[0];
-  v24 = malloc_type_malloc(0x30uLL, 0x10E0040FAC56454uLL);
-  *v24 = MEMORY[0x1E69E9818];
-  v24[1] = 50331650;
-  v24[2] = WTF::BlockPtr<void ()(BOOL)>::fromCallable<[WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1>([WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1)::{lambda(void *,BOOL)#1}::__invoke;
-  v24[3] = &WTF::BlockPtr<void ()(BOOL)>::fromCallable<[WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1>([WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1)::descriptor;
-  v24[4] = v10;
-  v24[5] = v23;
-  [(WebKit::CompletionHandlerCallChecker *)uIDelegate _webView:v21 requestGeolocationAuthorizationForURL:v22 frame:v14 decisionHandler:v24];
-  _Block_release(v24);
-  v25 = v27;
-  v27 = 0;
-  if (v25)
-  {
-  }
-
-LABEL_22:
-  if (v14)
-  {
-  }
-
+  WebKit::CompletionHandlerCallChecker::create(uIDelegate, sel__webView_requestGeolocationAuthorizationForURL_frame_decisionHandler_, v30);
+  v22 = v34;
+  WTF::URL::createCFURL(&v28, v31);
+  v23 = v28;
+  v29 = 0;
+  v24 = v30[0];
+  v25 = malloc_type_malloc(0x30uLL, 0x10E0040FAC56454uLL);
+  *v25 = MEMORY[0x1E69E9818];
+  v25[1] = 50331650;
+  v25[2] = WTF::BlockPtr<void ()(BOOL)>::fromCallable<[WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1>([WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1)::{lambda(void *,BOOL)#1}::__invoke;
+  v25[3] = &WTF::BlockPtr<void ()(BOOL)>::fromCallable<[WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1>([WKGeolocationProviderIOS(WebGeolocationCoreLocationUpdateListener) geolocationAuthorizationGranted]::$_1)::descriptor;
+  v25[4] = v11;
+  v25[5] = v24;
+  [(WebKit::CompletionHandlerCallChecker *)uIDelegate _webView:v22 requestGeolocationAuthorizationForURL:v23 frame:v15 decisionHandler:v25];
+  _Block_release(v25);
   v26 = v28;
   v28 = 0;
   if (v26)
   {
-    (*(*v26 + 8))(v26);
   }
 
-  GeolocationRequestData::~GeolocationRequestData(v30, v20);
+LABEL_22:
+  if (v15)
+  {
+  }
+
+  v27 = v29;
+  v29 = 0;
+  if (v27)
+  {
+    (*(*v27 + 8))(v27);
+  }
+
+  GeolocationRequestData::~GeolocationRequestData(v31, v21);
 }
 
 - (void)geolocationAuthorizationDenied

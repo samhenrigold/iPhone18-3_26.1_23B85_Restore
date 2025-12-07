@@ -13,32 +13,30 @@
 
 - (NSArray)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x1E69E9840];
+  v20[5] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   uUID = [(HMHomeWalletKey *)self UUID];
   v4 = [v3 initWithName:@"UUID" value:uUID];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   customURL = [(HMHomeWalletKey *)self customURL];
   v7 = [v5 initWithName:@"Custom URL" value:customURL];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMHomeWalletKey *)self isExpressEnabled];
   v9 = HMFBooleanToString();
   v10 = [v8 initWithName:@"Express Enabled" value:v9];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMHomeWalletKey *)self isUWBUnlockEnabled];
   v12 = HMFBooleanToString();
   v13 = [v11 initWithName:@"UWB Enabled" value:v12];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x1E69A29C8]);
   v15 = HMHomeWalletKeyColorAsString([(HMHomeWalletKey *)self color]);
   v16 = [v14 initWithName:@"Color" value:v15];
-  v21[4] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v20[4] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:5];
 
   return v17;
 }
@@ -52,7 +50,7 @@
 
 - (HMHomeWalletKey)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMHomeWalletKeyUUID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMHomeWalletKeyCustomURL"];
@@ -75,13 +73,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize wallet keyfrom decoded UUID: %@ customURL: %@", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize wallet keyfrom decoded UUID: %@ customURL: %@", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -94,7 +92,6 @@
     v13 = selfCopy;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

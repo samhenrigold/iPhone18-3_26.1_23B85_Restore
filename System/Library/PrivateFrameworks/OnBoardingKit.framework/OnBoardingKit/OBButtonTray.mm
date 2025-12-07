@@ -41,10 +41,10 @@
 
 - (OBButtonTray)initWithFrame:(CGRect)frame
 {
-  v94[2] = *MEMORY[0x1E69E9840];
-  v91.receiver = self;
-  v91.super_class = OBButtonTray;
-  v3 = [(OBButtonTray *)&v91 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v93[2] = *MEMORY[0x1E69E9840];
+  v90.receiver = self;
+  v90.super_class = OBButtonTray;
+  v3 = [(OBButtonTray *)&v90 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -128,106 +128,105 @@
     if (v38)
     {
       v45 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:bottomAnchor3];
-      v94[0] = v45;
+      v93[0] = v45;
       stackView9 = [(OBButtonTray *)v3 stackView];
       [stackView9 bottomAnchor];
-      v47 = v87 = topAnchor3;
+      v47 = v86 = topAnchor3;
       [(OBButtonTray *)v3 buttonLayoutGuide];
-      v48 = v85 = v40;
+      v48 = v84 = v40;
       [v48 bottomAnchor];
-      v49 = v89 = stackView8;
+      v49 = v88 = stackView8;
       [(OBButtonTray *)v3 bottomPadding];
       v51 = [v47 constraintEqualToAnchor:v49 constant:-v50];
-      v94[1] = v51;
-      v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:2];
-      [v85 activateConstraints:v52];
+      v93[1] = v51;
+      v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:2];
+      [v84 activateConstraints:v52];
 
       v39 = 0x1E696A000;
-      stackView8 = v89;
+      stackView8 = v88;
 
-      topAnchor3 = v87;
+      topAnchor3 = v86;
     }
 
     else
     {
       v45 = [topAnchor3 constraintEqualToAnchor:bottomAnchor3];
-      v93 = v45;
-      stackView9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v93 count:1];
+      v92 = v45;
+      stackView9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v92 count:1];
       [v40 activateConstraints:stackView9];
     }
 
-    v74 = *(v39 + 3288);
+    v73 = *(v39 + 3288);
     privacyContainer5 = [(OBButtonTray *)v3 privacyContainer];
     leadingAnchor3 = [privacyContainer5 leadingAnchor];
     leadingAnchor4 = [(OBButtonTray *)v3 leadingAnchor];
-    v84 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v92[0] = v84;
+    v83 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v91[0] = v83;
     privacyContainer6 = [(OBButtonTray *)v3 privacyContainer];
     trailingAnchor3 = [privacyContainer6 trailingAnchor];
     trailingAnchor4 = [(OBButtonTray *)v3 trailingAnchor];
-    v80 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v92[1] = v80;
+    v79 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v91[1] = v79;
     buttonViewTopConstraint = [(OBButtonTray *)v3 buttonViewTopConstraint];
-    v92[2] = buttonViewTopConstraint;
+    v91[2] = buttonViewTopConstraint;
     buttonViewBottomConstraint = [(OBButtonTray *)v3 buttonViewBottomConstraint];
-    v92[3] = buttonViewBottomConstraint;
+    v91[3] = buttonViewBottomConstraint;
     buttonViewLeadingConstraint = [(OBButtonTray *)v3 buttonViewLeadingConstraint];
-    v92[4] = buttonViewLeadingConstraint;
+    v91[4] = buttonViewLeadingConstraint;
     buttonViewTrailingConstraint = [(OBButtonTray *)v3 buttonViewTrailingConstraint];
-    v92[5] = buttonViewTrailingConstraint;
+    v91[5] = buttonViewTrailingConstraint;
     buttonLayoutGuide5 = [(OBButtonTray *)v3 buttonLayoutGuide];
     heightAnchor = [buttonLayoutGuide5 heightAnchor];
-    v72 = [heightAnchor constraintEqualToConstant:0.0];
-    v92[6] = v72;
+    v71 = [heightAnchor constraintEqualToConstant:0.0];
+    v91[6] = v71;
     widthAnchor = [(OBButtonTray *)v3 widthAnchor];
     backdropContainer3 = [(OBButtonTray *)v3 backdropContainer];
     widthAnchor2 = [backdropContainer3 widthAnchor];
-    v68 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:1.0];
-    v92[7] = v68;
+    v67 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:1.0];
+    v91[7] = v67;
     heightAnchor2 = [(OBButtonTray *)v3 heightAnchor];
     backdropContainer4 = [(OBButtonTray *)v3 backdropContainer];
     heightAnchor3 = [backdropContainer4 heightAnchor];
-    v64 = [heightAnchor2 constraintEqualToAnchor:heightAnchor3 multiplier:1.0];
-    v92[8] = v64;
+    v63 = [heightAnchor2 constraintEqualToAnchor:heightAnchor3 multiplier:1.0];
+    v91[8] = v63;
     leadingAnchor5 = [(OBButtonTray *)v3 leadingAnchor];
     backdropContainer5 = [(OBButtonTray *)v3 backdropContainer];
     leadingAnchor6 = [backdropContainer5 leadingAnchor];
     v56 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    v92[9] = v56;
+    v91[9] = v56;
     bottomAnchor4 = [(OBButtonTray *)v3 bottomAnchor];
     backdropContainer6 = [(OBButtonTray *)v3 backdropContainer];
     bottomAnchor5 = [backdropContainer6 bottomAnchor];
     v60 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
-    v92[10] = v60;
-    v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:11];
-    [v74 activateConstraints:v61];
+    v91[10] = v60;
+    v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:11];
+    [v73 activateConstraints:v61];
 
     [(OBButtonTray *)v3 setBackdropStyle:1];
     [(OBButtonTray *)v3 _setUpBackdrops];
   }
 
-  v62 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 - (void)removeFromSuperview
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   stackView = [(OBButtonTray *)self stackView];
   buttonViewLeadingConstraint = [(OBButtonTray *)self buttonViewLeadingConstraint];
-  v21[0] = buttonViewLeadingConstraint;
+  v20[0] = buttonViewLeadingConstraint;
   buttonViewTrailingConstraint = [(OBButtonTray *)self buttonViewTrailingConstraint];
-  v21[1] = buttonViewTrailingConstraint;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[1] = buttonViewTrailingConstraint;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   [stackView removeConstraints:v6];
 
   buttonLayoutGuide = [(OBButtonTray *)self buttonLayoutGuide];
   widthConstraint = [buttonLayoutGuide widthConstraint];
   [widthConstraint setActive:0];
 
-  v20.receiver = self;
-  v20.super_class = OBButtonTray;
-  [(OBButtonTray *)&v20 removeFromSuperview];
+  v19.receiver = self;
+  v19.super_class = OBButtonTray;
+  [(OBButtonTray *)&v19 removeFromSuperview];
   buttonLayoutGuide2 = [(OBButtonTray *)self buttonLayoutGuide];
   leadingAnchor = [buttonLayoutGuide2 leadingAnchor];
   stackView2 = [(OBButtonTray *)self stackView];
@@ -241,8 +240,6 @@
   trailingAnchor2 = [stackView3 trailingAnchor];
   v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
   [(OBButtonTray *)self setButtonViewTrailingConstraint:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)layoutSubviews
@@ -263,82 +260,78 @@
 
 - (void)showButtonsBusy
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   buttons = [(OBButtonTray *)self buttons];
   firstObject = [buttons firstObject];
   [firstObject showsBusyIndicator];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   buttons2 = [(OBButtonTray *)self buttons];
-  v6 = [buttons2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [buttons2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(buttons2);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setEnabled:0];
+        [*(*(&v10 + 1) + 8 * v9++) setEnabled:0];
       }
 
       while (v7 != v9);
-      v7 = [buttons2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [buttons2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)showButtonsAvailable
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   buttons = [(OBButtonTray *)self buttons];
   firstObject = [buttons firstObject];
   [firstObject hidesBusyIndicator];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   buttons2 = [(OBButtonTray *)self buttons];
-  v6 = [buttons2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [buttons2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(buttons2);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setEnabled:1];
+        [*(*(&v10 + 1) + 8 * v9++) setEnabled:1];
       }
 
       while (v7 != v9);
-      v7 = [buttons2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [buttons2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (double)buttonTrayButtonSpacing
@@ -355,40 +348,38 @@
 
 - (void)addButton:(id)button
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   buttonCopy = button;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    buttons = [(OBButtonTray *)self buttons];
-    v6 = [buttons countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v20 = 0u;
+    v5 = [(OBButtonTray *)self buttons:0];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v20 != v8)
           {
-            objc_enumerationMutation(buttons);
+            objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"A link button cannot be placed above a bold button." userInfo:0];
-            objc_exception_throw(v20);
+            v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"A link button cannot be placed above a bold button." userInfo:0];
+            objc_exception_throw(v18);
           }
         }
 
-        v7 = [buttons countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -398,8 +389,8 @@
   stackView = [(OBButtonTray *)self stackView];
   [stackView addArrangedSubview:buttonCopy];
 
-  buttons2 = [(OBButtonTray *)self buttons];
-  [buttons2 addObject:buttonCopy];
+  buttons = [(OBButtonTray *)self buttons];
+  [buttons addObject:buttonCopy];
 
   [(OBButtonTray *)self _updateButtonConstraints];
   parentViewController = [(OBButtonTray *)self parentViewController];
@@ -415,8 +406,6 @@
     view2 = [parentViewController3 view];
     [view2 layoutIfNeeded];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeButton:(id)button
@@ -447,28 +436,28 @@
 
 - (void)removeAllButtons
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   buttons = [(OBButtonTray *)self buttons];
-  v4 = [buttons countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [buttons countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         stackView = [(OBButtonTray *)self stackView];
         [stackView removeArrangedSubview:v8];
 
@@ -477,7 +466,7 @@
       }
 
       while (v5 != v7);
-      v5 = [buttons countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [buttons countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -494,8 +483,6 @@
   parentViewController2 = [(OBButtonTray *)self parentViewController];
   view2 = [parentViewController2 view];
   [view2 layoutIfNeeded];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPrivacyLinkForBundles:(id)bundles
@@ -538,14 +525,14 @@
 
 - (void)setPrivacyLinkController:(id)controller
 {
-  v56[4] = *MEMORY[0x1E69E9840];
+  v55[4] = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   captionLabel = [(OBButtonTray *)self captionLabel];
 
   if (captionLabel)
   {
-    v47 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Privacy link not permitted with caption text." userInfo:0];
-    objc_exception_throw(v47);
+    v46 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Privacy link not permitted with caption text." userInfo:0];
+    objc_exception_throw(v46);
   }
 
   privacyLinkController = [(OBButtonTray *)self privacyLinkController];
@@ -565,7 +552,7 @@
 
   if (controllerCopy)
   {
-    v55 = controllerCopy;
+    v54 = controllerCopy;
     objc_storeStrong(&self->_privacyLinkController, controller);
     parentViewController = [(OBButtonTray *)self parentViewController];
     privacyLinkController4 = [(OBButtonTray *)self privacyLinkController];
@@ -617,33 +604,31 @@
       [(OBButtonTray *)self setPrivacyLinkControllerTrailingConstraint:v36];
     }
 
-    v48 = MEMORY[0x1E696ACD8];
+    v47 = MEMORY[0x1E696ACD8];
     privacyLinkControllerLeadingConstraint = [(OBButtonTray *)self privacyLinkControllerLeadingConstraint];
-    v56[0] = privacyLinkControllerLeadingConstraint;
+    v55[0] = privacyLinkControllerLeadingConstraint;
     privacyLinkControllerTrailingConstraint = [(OBButtonTray *)self privacyLinkControllerTrailingConstraint];
-    v56[1] = privacyLinkControllerTrailingConstraint;
+    v55[1] = privacyLinkControllerTrailingConstraint;
     privacyLinkController9 = [(OBButtonTray *)self privacyLinkController];
     view8 = [privacyLinkController9 view];
     centerXAnchor = [view8 centerXAnchor];
     privacyContainer2 = [(OBButtonTray *)self privacyContainer];
     centerXAnchor2 = [privacyContainer2 centerXAnchor];
     v38 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v56[2] = v38;
+    v55[2] = v38;
     privacyLinkController10 = [(OBButtonTray *)self privacyLinkController];
     view9 = [privacyLinkController10 view];
     topAnchor = [view9 topAnchor];
     privacyContainer3 = [(OBButtonTray *)self privacyContainer];
     topAnchor2 = [privacyContainer3 topAnchor];
     v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v56[3] = v44;
-    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:4];
-    [v48 activateConstraints:v45];
+    v55[3] = v44;
+    v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:4];
+    [v47 activateConstraints:v45];
 
     [(OBButtonTray *)self _updateButtonConstraints];
-    controllerCopy = v55;
+    controllerCopy = v54;
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPrivacyLinkCallback:(id)callback
@@ -856,7 +841,7 @@
 
 - (void)updatePrivacyLinkControllerBottomConstraint
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   [(OBButtonTray *)self _privacyLinkControllerBottomPadding];
   v4 = v3;
   v5 = MEMORY[0x1E696ACD8];
@@ -866,11 +851,9 @@
   privacyContainer = [(OBButtonTray *)self privacyContainer];
   bottomAnchor = [privacyContainer bottomAnchor];
   v11 = [lastBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:-v4];
-  v14[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   [v5 activateConstraints:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (double)topPadding
@@ -1017,7 +1000,7 @@
 
 - (void)_setUpBackdrops
 {
-  v33[4] = *MEMORY[0x1E69E9840];
+  v32[4] = *MEMORY[0x1E69E9840];
   if (+[OBFeatureFlags isNaturalUIEnabled])
   {
     stackView = [(OBButtonTray *)self stackView];
@@ -1043,37 +1026,36 @@
     effectView3 = [(OBButtonTray *)self effectView];
     [backdropContainer addSubview:effectView3];
 
-    v24 = MEMORY[0x1E696ACD8];
+    v23 = MEMORY[0x1E696ACD8];
     backdropContainer2 = [(OBButtonTray *)self backdropContainer];
     widthAnchor = [backdropContainer2 widthAnchor];
     effectView4 = [(OBButtonTray *)self effectView];
     widthAnchor2 = [effectView4 widthAnchor];
-    v28 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:1.0];
-    v33[0] = v28;
+    v27 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:1.0];
+    v32[0] = v27;
     backdropContainer3 = [(OBButtonTray *)self backdropContainer];
     heightAnchor = [backdropContainer3 heightAnchor];
     effectView5 = [(OBButtonTray *)self effectView];
     heightAnchor2 = [effectView5 heightAnchor];
-    v22 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:1.0];
-    v33[1] = v22;
+    v21 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:1.0];
+    v32[1] = v21;
     backdropContainer4 = [(OBButtonTray *)self backdropContainer];
     leadingAnchor = [backdropContainer4 leadingAnchor];
     effectView6 = [(OBButtonTray *)self effectView];
     leadingAnchor2 = [effectView6 leadingAnchor];
     v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v33[2] = v12;
+    v32[2] = v12;
     backdropContainer5 = [(OBButtonTray *)self backdropContainer];
     bottomAnchor = [backdropContainer5 bottomAnchor];
     effectView7 = [(OBButtonTray *)self effectView];
     bottomAnchor2 = [effectView7 bottomAnchor];
     v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v33[3] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
-    [v24 activateConstraints:v18];
+    v32[3] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
+    [v23 activateConstraints:v18];
   }
 
   [(OBButtonTray *)self _updateTrayVisibility];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateTrayVisibility

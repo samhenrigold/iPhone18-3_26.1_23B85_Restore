@@ -163,11 +163,13 @@ LABEL_14:
 {
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v3 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
+      LODWORD(v10) = 136315650;
+      *(&v10 + 4) = v3;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_2_16(&dword_1DB56E000, v3, v4, " [%s] %s:%d Airplay Screen rules: No suitable H264 encode rules for this mac", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_2_16(&dword_1DB56E000, v4, v5, " [%s] %s:%d Airplay Screen rules: No suitable H264 encode rules for this mac", v6, v7, v8, v9, v10, DWORD2(v10));
     }
   }
 

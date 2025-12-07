@@ -15,12 +15,12 @@
   {
     if (!v6)
     {
-      [SBSystemActionDefaultsDataSource initWithDefaults:? instanceIdentity:?];
+      [SBSystemActionDefaultsDataSource initWithDefaults:self instanceIdentity:?];
     }
 
     if (!defaultsCopy)
     {
-      [SBSystemActionDefaultsDataSource initWithDefaults:? instanceIdentity:?];
+      [SBSystemActionDefaultsDataSource initWithDefaults:self instanceIdentity:?];
     }
 
     objc_storeStrong(self + 5, a2);
@@ -78,50 +78,50 @@ void __70__SBSystemActionDefaultsDataSource_initWithDefaults_instanceIdentity___
   _os_log_error_impl(&dword_21ED4E000, log, OS_LOG_TYPE_ERROR, "(%{public}@) Error unarchiving configured action: %{public}@", &v3, 0x16u);
 }
 
-- (void)initWithDefaults:(const char *)a1 instanceIdentity:.cold.1(const char *a1)
+- (void)initWithDefaults:(const char *)a1 instanceIdentity:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"instanceIdentity != ((void *)0)"];
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"instanceIdentity != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"SBSystemActionDefaultsDataSource.m";
-    v10 = 1024;
-    v11 = 31;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"SBSystemActionDefaultsDataSource.m";
+    v11 = 1024;
+    v12 = 31;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithDefaults:(const char *)a1 instanceIdentity:.cold.2(const char *a1)
+- (void)initWithDefaults:(const char *)a1 instanceIdentity:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"defaults != ((void *)0)"];
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"defaults != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"SBSystemActionDefaultsDataSource.m";
-    v10 = 1024;
-    v11 = 30;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"SBSystemActionDefaultsDataSource.m";
+    v11 = 1024;
+    v12 = 30;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -507,7 +507,7 @@ LABEL_6:
       result = operator new(v6);
       __gnu_cxx::__pool_alloc_base::_S_start_free = result;
       __gnu_cxx::__pool_alloc_base::_S_heap_size += v6;
-      v4 = result + v6;
+      v4 = (result + v6);
       __gnu_cxx::__pool_alloc_base::_S_end_free = result + v6;
       v3 = *a3 * a2;
       if (v6 >= v3)
@@ -1225,9 +1225,9 @@ LABEL_32:
   *(a1 + 64) = 1;
 }
 
-void sub_1F5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __gnu_cxx::__scoped_lock::~__scoped_lock(va);
   _Unwind_Resume(a1);
 }
@@ -1238,9 +1238,9 @@ void anonymous namespace::_M_destroy_thread_key(_anonymous_namespace_ *this, voi
   __gnu_cxx::__scoped_lock::~__scoped_lock(&v4);
 }
 
-void sub_2270(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __gnu_cxx::__scoped_lock::~__scoped_lock(va);
   _Unwind_Resume(a1);
 }
@@ -1266,7 +1266,7 @@ void std::locale::_Impl::_M_remove_reference(atomic_uint *this)
   }
 }
 
-BOOL std::locale::_Impl::_M_check_same_name(std::locale::_Impl *this)
+uint64_t std::locale::_Impl::_M_check_same_name(std::locale::_Impl *this)
 {
   v1 = *(this + 4);
   if (!v1[1])
@@ -1826,29 +1826,30 @@ void sub_2EF8(void *a1)
 
 std::istream *std::operator>><float,char,std::char_traits<char>>(std::istream *a1, _DWORD *a2)
 {
-  std::operator>><char,std::char_traits<char>>(a1, &v8);
-  if (v8 != 40)
+  std::operator>><char,std::char_traits<char>>(a1, &v9);
+  v4 = v9;
+  if (v4 != 40)
   {
-    std::istream::putback(a1, v8);
-    std::istream::_M_extract<float>(a1, &v10);
+    std::istream::putback(a1, v4);
+    std::istream::_M_extract<float>(a1, &v11);
     goto LABEL_7;
   }
 
-  v4 = std::istream::_M_extract<float>(a1, &v10);
-  std::operator>><char,std::char_traits<char>>(v4, &v8);
-  if (v8 == 41)
+  v5 = std::istream::_M_extract<float>(a1, &v11);
+  std::operator>><char,std::char_traits<char>>(v5, &v9);
+  if (v9 == 41)
   {
 LABEL_7:
-    *a2 = v10;
+    *a2 = v11;
     a2[1] = 0;
     return a1;
   }
 
-  if (v8 == 44 && (v5 = std::istream::_M_extract<float>(a1, &v9), std::operator>><char,std::char_traits<char>>(v5, &v8), v8 == 41))
+  if (v9 == 44 && (v6 = std::istream::_M_extract<float>(a1, &v10), std::operator>><char,std::char_traits<char>>(v6, &v9), v9 == 41))
   {
-    v6 = v9;
-    *a2 = v10;
-    a2[1] = v6;
+    v7 = v10;
+    *a2 = v11;
+    a2[1] = v7;
   }
 
   else
@@ -1864,13 +1865,13 @@ std::ostream *std::operator<<<float,char,std::char_traits<char>>(std::ostream *a
   std::ostringstream::basic_ostringstream(&v16, 16);
   v4 = v16;
   v5 = *a1;
-  *&v17[*(v16 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v17[2] + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v14, (a1 + *(v5 - 24) + 208));
-  std::ios::imbue(&v17[v6 - 8], &v14, &v15);
+  std::ios::imbue(&v17[-1] + v6, &v14, &v15);
   std::locale::~locale(&v15);
   std::locale::~locale(&v14);
-  *&v17[*(v16 - 24)] = *(a1 + *(*a1 - 24) + 8);
+  *(v17 + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 8);
   LOBYTE(v14) = 40;
   v7 = std::__ostream_insert<char,std::char_traits<char>>(&v16, &v14, 1);
   v8 = std::ostream::_M_insert<double>(v7, *a2);
@@ -1891,12 +1892,12 @@ std::ostream *std::operator<<<float,char,std::char_traits<char>>(std::ostream *a
   return v11;
 }
 
-void sub_323C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_323C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::string::_Rep::_M_destroy((a3 - 24));
+    std::string::_Rep::_M_destroy((a6 - 24));
   }
 
   std::ostringstream::~ostringstream(va);
@@ -1905,29 +1906,30 @@ void sub_323C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 
 std::istream *std::operator>><double,char,std::char_traits<char>>(std::istream *a1, void *a2)
 {
-  std::operator>><char,std::char_traits<char>>(a1, &v8);
-  if (v8 != 40)
+  std::operator>><char,std::char_traits<char>>(a1, &v9);
+  v4 = v9;
+  if (v4 != 40)
   {
-    std::istream::putback(a1, v8);
-    std::istream::_M_extract<double>(a1, &v10);
+    std::istream::putback(a1, v4);
+    std::istream::_M_extract<double>(a1, &v11);
     goto LABEL_7;
   }
 
-  v4 = std::istream::_M_extract<double>(a1, &v10);
-  std::operator>><char,std::char_traits<char>>(v4, &v8);
-  if (v8 == 41)
+  v5 = std::istream::_M_extract<double>(a1, &v11);
+  std::operator>><char,std::char_traits<char>>(v5, &v9);
+  if (v9 == 41)
   {
 LABEL_7:
-    *a2 = v10;
+    *a2 = v11;
     a2[1] = 0;
     return a1;
   }
 
-  if (v8 == 44 && (v5 = std::istream::_M_extract<double>(a1, &v9), std::operator>><char,std::char_traits<char>>(v5, &v8), v8 == 41))
+  if (v9 == 44 && (v6 = std::istream::_M_extract<double>(a1, &v10), std::operator>><char,std::char_traits<char>>(v6, &v9), v9 == 41))
   {
-    v6 = v9;
-    *a2 = v10;
-    a2[1] = v6;
+    v7 = v10;
+    *a2 = v11;
+    a2[1] = v7;
   }
 
   else
@@ -1943,13 +1945,13 @@ std::ostream *std::operator<<<double,char,std::char_traits<char>>(std::ostream *
   std::ostringstream::basic_ostringstream(&v16, 16);
   v4 = v16;
   v5 = *a1;
-  *&v17[*(v16 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v17[2] + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v14, (a1 + *(v5 - 24) + 208));
-  std::ios::imbue(&v17[v6 - 8], &v14, &v15);
+  std::ios::imbue(&v17[-1] + v6, &v14, &v15);
   std::locale::~locale(&v15);
   std::locale::~locale(&v14);
-  *&v17[*(v16 - 24)] = *(a1 + *(*a1 - 24) + 8);
+  *(v17 + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 8);
   LOBYTE(v14) = 40;
   v7 = std::__ostream_insert<char,std::char_traits<char>>(&v16, &v14, 1);
   v8 = std::ostream::_M_insert<double>(v7, *a2);
@@ -1970,12 +1972,12 @@ std::ostream *std::operator<<<double,char,std::char_traits<char>>(std::ostream *
   return v11;
 }
 
-void sub_3584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_3584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::string::_Rep::_M_destroy((a3 - 24));
+    std::string::_Rep::_M_destroy((a6 - 24));
   }
 
   std::ostringstream::~ostringstream(va);
@@ -1984,29 +1986,30 @@ void sub_3584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 
 std::istream *std::operator>><long double,char,std::char_traits<char>>(std::istream *a1, void *a2)
 {
-  std::operator>><char,std::char_traits<char>>(a1, &v8);
-  if (v8 != 40)
+  std::operator>><char,std::char_traits<char>>(a1, &v9);
+  v4 = v9;
+  if (v4 != 40)
   {
-    std::istream::putback(a1, v8);
-    std::istream::_M_extract<long double>(a1, &v10);
+    std::istream::putback(a1, v4);
+    std::istream::_M_extract<long double>(a1, &v11);
     goto LABEL_7;
   }
 
-  v4 = std::istream::_M_extract<long double>(a1, &v10);
-  std::operator>><char,std::char_traits<char>>(v4, &v8);
-  if (v8 == 41)
+  v5 = std::istream::_M_extract<long double>(a1, &v11);
+  std::operator>><char,std::char_traits<char>>(v5, &v9);
+  if (v9 == 41)
   {
 LABEL_7:
-    *a2 = v10;
+    *a2 = v11;
     a2[1] = 0;
     return a1;
   }
 
-  if (v8 == 44 && (v5 = std::istream::_M_extract<long double>(a1, &v9), std::operator>><char,std::char_traits<char>>(v5, &v8), v8 == 41))
+  if (v9 == 44 && (v6 = std::istream::_M_extract<long double>(a1, &v10), std::operator>><char,std::char_traits<char>>(v6, &v9), v9 == 41))
   {
-    v6 = v9;
-    *a2 = v10;
-    a2[1] = v6;
+    v7 = v10;
+    *a2 = v11;
+    a2[1] = v7;
   }
 
   else
@@ -2022,13 +2025,13 @@ std::ostream *std::operator<<<long double,char,std::char_traits<char>>(std::ostr
   std::ostringstream::basic_ostringstream(&v16, 16);
   v4 = v16;
   v5 = *a1;
-  *&v17[*(v16 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v17[2] + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v14, (a1 + *(v5 - 24) + 208));
-  std::ios::imbue(&v17[v6 - 8], &v14, &v15);
+  std::ios::imbue(&v17[-1] + v6, &v14, &v15);
   std::locale::~locale(&v15);
   std::locale::~locale(&v14);
-  *&v17[*(v16 - 24)] = *(a1 + *(*a1 - 24) + 8);
+  *(v17 + *(v16 - 24)) = *(a1 + *(*a1 - 24) + 8);
   LOBYTE(v14) = 40;
   v7 = std::__ostream_insert<char,std::char_traits<char>>(&v16, &v14, 1);
   v8 = std::ostream::_M_insert<long double>(v7, *a2);
@@ -2049,12 +2052,12 @@ std::ostream *std::operator<<<long double,char,std::char_traits<char>>(std::ostr
   return v11;
 }
 
-void sub_38CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_38CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::string::_Rep::_M_destroy((a3 - 24));
+    std::string::_Rep::_M_destroy((a6 - 24));
   }
 
   std::ostringstream::~ostringstream(va);
@@ -2101,15 +2104,15 @@ uint64_t *std::operator<<<float,wchar_t,std::char_traits<wchar_t>>(uint64_t *a1,
   std::wostringstream::basic_ostringstream(&v17, 16);
   v4 = v17;
   v5 = *a1;
-  *&v18[*(v17 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v18[2] + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v15, (a1 + *(v5 - 24) + 208));
-  std::wios::imbue(&v18[v6 - 8], &v15, &v16);
+  std::wios::imbue(&v18[-1] + v6, &v15, &v16);
   std::locale::~locale(&v16);
   std::locale::~locale(&v15);
   v7 = v17;
-  *&v18[*(v17 - 24)] = *(a1 + *(*a1 - 24) + 8);
-  LODWORD(v15) = std::wios::widen(&v18[*(v7 - 24) - 8]);
+  *(v18 + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 8);
+  LODWORD(v15) = std::wios::widen(&v18[-1] + *(v7 - 24));
   v8 = std::__ostream_insert<wchar_t,std::char_traits<wchar_t>>(&v17, &v15, 1);
   v9 = std::wostream::_M_insert<double>(v8, *a2);
   LODWORD(v15) = std::wios::widen(v9 + *(*v9 - 24));
@@ -2129,12 +2132,12 @@ uint64_t *std::operator<<<float,wchar_t,std::char_traits<wchar_t>>(uint64_t *a1,
   return v12;
 }
 
-void sub_3C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_3C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::wstring::_Rep::_M_destroy((a3 - 24));
+    std::wstring::_Rep::_M_destroy((a6 - 24));
   }
 
   std::wostringstream::~wostringstream(va);
@@ -2181,15 +2184,15 @@ uint64_t *std::operator<<<double,wchar_t,std::char_traits<wchar_t>>(uint64_t *a1
   std::wostringstream::basic_ostringstream(&v17, 16);
   v4 = v17;
   v5 = *a1;
-  *&v18[*(v17 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v18[2] + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v15, (a1 + *(v5 - 24) + 208));
-  std::wios::imbue(&v18[v6 - 8], &v15, &v16);
+  std::wios::imbue(&v18[-1] + v6, &v15, &v16);
   std::locale::~locale(&v16);
   std::locale::~locale(&v15);
   v7 = v17;
-  *&v18[*(v17 - 24)] = *(a1 + *(*a1 - 24) + 8);
-  LODWORD(v15) = std::wios::widen(&v18[*(v7 - 24) - 8]);
+  *(v18 + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 8);
+  LODWORD(v15) = std::wios::widen(&v18[-1] + *(v7 - 24));
   v8 = std::__ostream_insert<wchar_t,std::char_traits<wchar_t>>(&v17, &v15, 1);
   v9 = std::wostream::_M_insert<double>(v8, *a2);
   LODWORD(v15) = std::wios::widen(v9 + *(*v9 - 24));
@@ -2209,12 +2212,12 @@ uint64_t *std::operator<<<double,wchar_t,std::char_traits<wchar_t>>(uint64_t *a1
   return v12;
 }
 
-void sub_4064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_4064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::wstring::_Rep::_M_destroy((a3 - 24));
+    std::wstring::_Rep::_M_destroy((a6 - 24));
   }
 
   std::wostringstream::~wostringstream(va);
@@ -2261,15 +2264,15 @@ uint64_t *std::operator<<<long double,wchar_t,std::char_traits<wchar_t>>(uint64_
   std::wostringstream::basic_ostringstream(&v17, 16);
   v4 = v17;
   v5 = *a1;
-  *&v18[*(v17 - 24) + 16] = *(a1 + *(*a1 - 24) + 24);
+  *(&v18[2] + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 24);
   v6 = *(v4 - 24);
   std::locale::locale(&v15, (a1 + *(v5 - 24) + 208));
-  std::wios::imbue(&v18[v6 - 8], &v15, &v16);
+  std::wios::imbue(&v18[-1] + v6, &v15, &v16);
   std::locale::~locale(&v16);
   std::locale::~locale(&v15);
   v7 = v17;
-  *&v18[*(v17 - 24)] = *(a1 + *(*a1 - 24) + 8);
-  LODWORD(v15) = std::wios::widen(&v18[*(v7 - 24) - 8]);
+  *(v18 + *(v17 - 24)) = *(a1 + *(*a1 - 24) + 8);
+  LODWORD(v15) = std::wios::widen(&v18[-1] + *(v7 - 24));
   v8 = std::__ostream_insert<wchar_t,std::char_traits<wchar_t>>(&v17, &v15, 1);
   v9 = std::wostream::_M_insert<long double>(v8, *a2);
   LODWORD(v15) = std::wios::widen(v9 + *(*v9 - 24));
@@ -2289,12 +2292,12 @@ uint64_t *std::operator<<<long double,wchar_t,std::char_traits<wchar_t>>(uint64_
   return v12;
 }
 
-void sub_442C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_442C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if ((a3 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a3 - 8), 0xFFFFFFFF) <= 0)
+  va_start(va, a7);
+  if ((a6 - 24) != &std::wstring::_Rep::_S_empty_rep_storage && atomic_fetch_add((a6 - 8), 0xFFFFFFFF) <= 0)
   {
-    std::wstring::_Rep::_M_destroy((a3 - 24));
+    std::wstring::_Rep::_M_destroy((a6 - 24));
   }
 
   std::wostringstream::~wostringstream(va);
@@ -2387,7 +2390,7 @@ uint64_t std::ctype<char>::ctype(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
   return a1;
 }
 
-_BYTE *std::ctype<char>::do_toupper(uint64_t a1, _BYTE *a2, _BYTE *a3)
+char *std::ctype<char>::do_toupper(uint64_t a1, char *a2, char *a3)
 {
   if (a2 < a3)
   {
@@ -2404,7 +2407,7 @@ _BYTE *std::ctype<char>::do_toupper(uint64_t a1, _BYTE *a2, _BYTE *a3)
   return a3;
 }
 
-_BYTE *std::ctype<char>::do_tolower(uint64_t a1, _BYTE *a2, _BYTE *a3)
+char *std::ctype<char>::do_tolower(uint64_t a1, char *a2, char *a3)
 {
   if (a2 < a3)
   {
@@ -2568,7 +2571,7 @@ unsigned int *std::ctype<wchar_t>::do_scan_not(int a1, unint64_t a2, unsigned in
   return i;
 }
 
-void __gnu_debug::_Safe_sequence_base::_M_detach_all(__gnu_debug::_Safe_sequence_base *this)
+void __gnu_debug::_Safe_sequence_base::_M_detach_all(__gnu_debug::_Safe_iterator_base **this)
 {
   v2 = *this;
   if (*this)
@@ -2583,12 +2586,12 @@ void __gnu_debug::_Safe_sequence_base::_M_detach_all(__gnu_debug::_Safe_sequence
     while (v3);
   }
 
-  v4 = *(this + 1);
+  v4 = this[1];
   if (v4)
   {
     do
     {
-      v5 = *(v4 + 24);
+      v5 = *(v4 + 3);
       __gnu_debug::_Safe_iterator_base::_M_detach_single(v4);
       v4 = v5;
     }
@@ -3048,21 +3051,21 @@ LABEL_9:
   return result;
 }
 
-_DWORD *__gnu_debug::_Error_formatter::_Parameter::_M_print_description(_DWORD *this, const __gnu_debug::_Error_formatter *a2)
+const char **__gnu_debug::_Error_formatter::_Parameter::_M_print_description(const char **this, const __gnu_debug::_Error_formatter *a2)
 {
   v3 = this;
   if (*this == 2)
   {
     __gnu_debug::_Error_formatter::_M_print_word(a2, "sequence ");
-    if (*(v3 + 8))
+    if (v3[1])
     {
-      snprintf(__str, 0x80uLL, "%s ", *(v3 + 8));
+      snprintf(__str, 0x80uLL, "%s ", v3[1]);
       __gnu_debug::_Error_formatter::_M_print_word(a2, __str);
     }
 
-    snprintf(__str, 0x80uLL, "@ 0x%p {\n", *(v3 + 16));
+    snprintf(__str, 0x80uLL, "@ 0x%p {\n", v3[2]);
     __gnu_debug::_Error_formatter::_M_print_word(a2, __str);
-    if (!*(v3 + 24))
+    if (!v3[3])
     {
       goto LABEL_20;
     }
@@ -3079,19 +3082,19 @@ _DWORD *__gnu_debug::_Error_formatter::_Parameter::_M_print_description(_DWORD *
   }
 
   __gnu_debug::_Error_formatter::_M_print_word(a2, "iterator ");
-  if (*(v3 + 8))
+  if (v3[1])
   {
-    snprintf(__str, 0x80uLL, "%s ", *(v3 + 8));
+    snprintf(__str, 0x80uLL, "%s ", v3[1]);
     __gnu_debug::_Error_formatter::_M_print_word(a2, __str);
   }
 
-  snprintf(__str, 0x80uLL, "@ 0x%p {\n", *(v3 + 16));
+  snprintf(__str, 0x80uLL, "@ 0x%p {\n", v3[2]);
   __gnu_debug::_Error_formatter::_M_print_word(a2, __str);
-  if (*(v3 + 24))
+  if (v3[3])
   {
     __gnu_debug::_Error_formatter::_M_print_word(a2, "type = ");
     __gnu_debug::_Error_formatter::_Parameter::_M_print_field(v3, a2, "type");
-    if (*(v3 + 32))
+    if (*(v3 + 8))
     {
       __gnu_debug::_Error_formatter::_M_print_word(a2, " (");
       __gnu_debug::_Error_formatter::_Parameter::_M_print_field(v3, a2, "constness");
@@ -3101,23 +3104,23 @@ _DWORD *__gnu_debug::_Error_formatter::_Parameter::_M_print_description(_DWORD *
     __gnu_debug::_Error_formatter::_M_print_word(a2, ";\n");
   }
 
-  if (*(v3 + 36))
+  if (*(v3 + 9))
   {
     __gnu_debug::_Error_formatter::_M_print_word(a2, "  state = ");
     __gnu_debug::_Error_formatter::_Parameter::_M_print_field(v3, a2, "state");
     __gnu_debug::_Error_formatter::_M_print_word(a2, ";\n");
   }
 
-  if (*(v3 + 40))
+  if (v3[5])
   {
     __gnu_debug::_Error_formatter::_M_print_word(a2, "  references sequence ");
-    if (*(v3 + 48))
+    if (v3[6])
     {
       __gnu_debug::_Error_formatter::_Parameter::_M_print_field(v3, a2, "seq_type");
       __gnu_debug::_Error_formatter::_M_print_word(a2, "' ");
     }
 
-    snprintf(__str, 0x80uLL, "@ 0x%p\n", *(v3 + 16));
+    snprintf(__str, 0x80uLL, "@ 0x%p\n", v3[2]);
     v4 = __str;
 LABEL_19:
     __gnu_debug::_Error_formatter::_M_print_word(a2, v4);
@@ -3188,10 +3191,10 @@ void __gnu_debug::_Error_formatter::_M_error(const char **this)
   __assert_rtn("_M_error", "debug.cc", 502, "_M_text");
 }
 
-unint64_t __gnu_debug::_Error_formatter::_M_print_string(unint64_t this, const char *a2)
+__gnu_debug::_Error_formatter *__gnu_debug::_Error_formatter::_M_print_string(__gnu_debug::_Error_formatter *this, const char *a2)
 {
   v3 = this;
-  v4 = this + 16;
+  v4 = (this + 16);
   while (1)
   {
     v5 = *a2;
@@ -3328,7 +3331,7 @@ unint64_t __gnu_debug::_Error_formatter::_M_print_string(unint64_t this, const c
 
         a2 += i + 4;
         __s1[i] = 0;
-        this = __gnu_debug::_Error_formatter::_Parameter::_M_print_field((v4 + 56 * v18), v3, __s1);
+        this = __gnu_debug::_Error_formatter::_Parameter::_M_print_field(&v4[7 * v18], v3, __s1);
       }
 
       else
@@ -3340,15 +3343,15 @@ unint64_t __gnu_debug::_Error_formatter::_M_print_string(unint64_t this, const c
 
         a2 += 3;
         __dst[0] = 0;
-        v22 = v4 + 56 * v18;
+        v22 = &v4[7 * v18];
         if (*v22 == 4)
         {
-          this = __gnu_debug::_Error_formatter::_M_print_string(v3, *(v22 + 16));
+          this = __gnu_debug::_Error_formatter::_M_print_string(v3, v22[2]);
         }
 
         else if (*v22 == 3)
         {
-          snprintf(__dst, 0x80uLL, "%ld", *(v22 + 16));
+          snprintf(__dst, 0x80uLL, "%ld", v22[2]);
           this = __gnu_debug::_Error_formatter::_M_print_word(v3, __dst);
         }
       }
@@ -3473,7 +3476,7 @@ void std::__throw_bad_typeid(void)
   exception = __cxa_allocate_exception(8uLL);
 }
 
-void std::__throw_logic_error(const char *a1)
+void std::__throw_logic_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3495,7 +3498,7 @@ void sub_5F08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_domain_error(const char *a1)
+void std::__throw_domain_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3517,7 +3520,7 @@ void sub_5FD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_invalid_argument(const char *a1)
+void std::__throw_invalid_argument(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3539,7 +3542,7 @@ void sub_6098(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_length_error(const char *a1)
+void std::__throw_length_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3561,7 +3564,7 @@ void sub_6160(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_out_of_range(const char *a1)
+void std::__throw_out_of_range(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3583,7 +3586,7 @@ void sub_6228(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_runtime_error(const char *a1)
+void std::__throw_runtime_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3605,7 +3608,7 @@ void sub_62F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_range_error(const char *a1)
+void std::__throw_range_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3627,7 +3630,7 @@ void sub_63B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_overflow_error(const char *a1)
+void std::__throw_overflow_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3649,7 +3652,7 @@ void sub_6480(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_underflow_error(const char *a1)
+void std::__throw_underflow_error(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v4, a1, &v3);
@@ -3671,7 +3674,7 @@ void sub_6548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-void std::__throw_ios_failure(const char *a1)
+void std::__throw_ios_failure(char *a1)
 {
   exception = __cxa_allocate_exception(0x10uLL);
   std::string::string(v5, a1, &v4);
@@ -3733,23 +3736,23 @@ std::ios_base *std::ios_base::ios_base(std::ios_base *this)
   return this;
 }
 
-void std::ios_base::~ios_base(std::ios_base *this)
+void std::ios_base::~ios_base(atomic_uint **this)
 {
   *this = off_5C5C8;
   std::ios_base::_M_call_callbacks(this, 0);
   std::ios_base::_M_dispose_callbacks(this);
-  v2 = *(this + 25);
-  if (v2 != this + 64)
+  v2 = this[25];
+  if (v2 != this + 8)
   {
     if (v2)
     {
       operator delete[](v2);
     }
 
-    *(this + 25) = 0;
+    this[25] = 0;
   }
 
-  std::locale::~locale((this + 208));
+  std::locale::~locale(this + 26);
 }
 
 {
@@ -3970,14 +3973,14 @@ std::ios_base::Init *std::ios_base::Init::Init(std::ios_base::Init *this)
       __gnu_internal::buf_cerr_sync = off_5E3C8;
       qword_610D0 = v5;
       dword_610D8 = -1;
-      std::ostream::ostream(&std::cout, &__gnu_internal::buf_cout_sync);
+      std::ostream::ostream(std::cout, &__gnu_internal::buf_cout_sync);
       std::istream::istream(std::cin, &__gnu_internal::buf_cin_sync);
       std::ostream::ostream(std::cerr, &__gnu_internal::buf_cerr_sync);
-      std::ostream::ostream(&std::clog, &__gnu_internal::buf_cerr_sync);
-      *(&std::cin[27] + *(std::cin[0] - 24)) = &std::cout;
+      std::ostream::ostream(std::clog, &__gnu_internal::buf_cerr_sync);
+      *(&std::cin[27] + *(std::cin[0] - 24)) = std::cout;
       v6 = std::cerr[0];
       *(&std::cerr[3] + *(std::cerr[0] - 24)) = 0x2000;
-      *(&std::cerr[27] + *(v6 - 24)) = &std::cout;
+      *(&std::cerr[27] + *(v6 - 24)) = std::cout;
       v7 = __stdoutp;
       __gnu_internal::buf_wcout_sync = off_5EF08;
       unk_61838 = 0u;
@@ -4058,17 +4061,17 @@ uint64_t std::ios_base::sync_with_stdio(std::ios_base *this)
     std::ios_base::Init::Init(&v3);
     std::ios_base::Init::_S_synced_with_stdio = 0;
     __gnu_internal::buf_cout_sync = off_5EE88;
-    std::locale::~locale(&unk_61028);
+    std::locale::~locale(&qword_61028);
     __gnu_internal::buf_cin_sync = off_5EE88;
     std::locale::~locale(&algn_61048[48]);
     __gnu_internal::buf_cerr_sync = off_5EE88;
-    std::locale::~locale(&unk_610C8);
+    std::locale::~locale(&qword_610C8);
     __gnu_internal::buf_wcout_sync = off_5EF08;
-    std::locale::~locale(&unk_61868);
+    std::locale::~locale(&qword_61868);
     __gnu_internal::buf_wcin_sync = off_5EF08;
     std::locale::~locale(&algn_61888[48]);
     __gnu_internal::buf_wcerr_sync = off_5EF08;
-    std::locale::~locale(&unk_61908);
+    std::locale::~locale(&qword_61908);
     __gnu_cxx::stdio_filebuf<char>::stdio_filebuf(&__gnu_internal::buf_cout, __stdoutp, 16, 1024);
     __gnu_cxx::stdio_filebuf<char>::stdio_filebuf(&__gnu_internal::buf_cin, __stdinp, 8, 1024);
     __gnu_cxx::stdio_filebuf<char>::stdio_filebuf(&__gnu_internal::buf_cerr, __stderrp, 16, 1024);
@@ -4273,8 +4276,8 @@ uint64_t std::locale::operator==(std::locale *a1, std::locale *a2)
     return 1;
   }
 
-  std::locale::name(a1, &v18);
-  std::locale::name(a2, &v17);
+  std::locale::name(&v18, a1);
+  std::locale::name(&v17, a2);
   v7 = v17;
   v8 = *(v18 - 3);
   v9 = v17 - 6;
@@ -4298,8 +4301,8 @@ uint64_t std::locale::operator==(std::locale *a1, std::locale *a2)
     result = v16;
   }
 
-  v14 = v18 - 6;
-  if (v18 - 6 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v18 - 2, 0xFFFFFFFF) <= 0)
+  v14 = v18 - 24;
+  if (v18 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v18 - 2, 0xFFFFFFFF) <= 0)
   {
     v15 = result;
     std::string::_Rep::_M_destroy(v14);
@@ -4319,14 +4322,14 @@ void sub_77EC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, 
   __cxa_call_unexpected(a1);
 }
 
-int **std::locale::name@<X0>(std::locale *this@<X0>, int **a2@<X8>)
+int **std::locale::name@<X0>(int **__return_ptr a1@<X8>, std::locale *this@<X0>)
 {
-  *a2 = &unk_60620;
+  *a1 = &unk_60620;
   v3 = *(*this + 32);
   v4 = *v3;
   if (!*v3)
   {
-    return std::string::_M_replace_aux(a2, 0, std::string::_Rep::_S_empty_rep_storage, 1uLL, 42);
+    return std::string::_M_replace_aux(a1, 0, std::string::_Rep::_S_empty_rep_storage, 1uLL, 42);
   }
 
   if (!*(v3 + 8))
@@ -4353,20 +4356,20 @@ int **std::locale::name@<X0>(std::locale *this@<X0>, int **a2@<X8>)
   while (!v10);
   if (v10)
   {
-    std::string::reserve(a2, 0x80uLL);
+    std::string::reserve(a1, 0x80uLL);
     v11 = strlen("LC_CTYPE");
-    std::string::append(a2, "LC_CTYPE", v11);
-    std::string::push_back(a2, 61);
+    std::string::append(a1, "LC_CTYPE", v11);
+    std::string::push_back(a1, 61);
     v12 = strlen(**(*this + 32));
-    std::string::append(a2, **(*this + 32), v12);
+    std::string::append(a1, **(*this + 32), v12);
     for (i = 1; i != 6; ++i)
     {
-      std::string::push_back(a2, 59);
+      std::string::push_back(a1, 59);
       v14 = strlen(__gnu_cxx::category_names[i]);
-      std::string::append(a2, __gnu_cxx::category_names[i], v14);
-      std::string::push_back(a2, 61);
+      std::string::append(a1, __gnu_cxx::category_names[i], v14);
+      std::string::push_back(a1, 61);
       v15 = strlen(*(*(*this + 32) + i * 8));
-      result = std::string::append(a2, *(*(*this + 32) + i * 8), v15);
+      result = std::string::append(a1, *(*(*this + 32) + i * 8), v15);
     }
   }
 
@@ -4374,7 +4377,7 @@ int **std::locale::name@<X0>(std::locale *this@<X0>, int **a2@<X8>)
   {
 LABEL_10:
     v17 = strlen(v4);
-    return std::string::assign(a2, v4, v17);
+    return std::string::assign(a1, v4, v17);
   }
 
   return result;
@@ -4824,39 +4827,39 @@ uint64_t std::locale::_S_initialize(std::locale *this)
   return result;
 }
 
-void anonymous namespace::get_locale_mutex(_anonymous_namespace_ *this)
+void anonymous namespace::get_locale_mutex(uint64_t this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
   }
 }
 
 void *std::locale::global@<X0>(std::locale *this@<X0>, void *a2@<X8>)
 {
-  v5 = std::locale::_S_initialize(this);
-  __gnu_cxx::__scoped_lock::__scoped_lock(&v10, &qword_63438);
-  v6 = std::locale::_S_global;
+  v4 = std::locale::_S_initialize(this);
+  __gnu_cxx::__scoped_lock::__scoped_lock(&v9, &qword_63438);
+  v5 = std::locale::_S_global;
   atomic_fetch_add(*this, 1u);
   std::locale::_S_global = *this;
-  std::locale::name(this, &v9);
-  if (std::string::compare(&v9, "*"))
+  std::locale::name(&v8, this);
+  if (std::string::compare(&v8, "*"))
   {
-    setlocale(0, v9);
+    setlocale(0, v8);
   }
 
-  v7 = v9 - 24;
-  if (v9 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v9 - 2, 0xFFFFFFFF) <= 0)
+  v6 = v8 - 24;
+  if (v8 - 24 != &std::string::_Rep::_S_empty_rep_storage && atomic_fetch_add(v8 - 2, 0xFFFFFFFF) <= 0)
   {
-    std::string::_Rep::_M_destroy(v7);
+    std::string::_Rep::_M_destroy(v6);
   }
 
-  __gnu_cxx::__scoped_lock::~__scoped_lock(&v10);
-  return std::locale::locale(a2, v6);
+  __gnu_cxx::__scoped_lock::~__scoped_lock(&v9);
+  return std::locale::locale(a2, v5);
 }
 
-void sub_8410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_8410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __gnu_cxx::__scoped_lock::~__scoped_lock(va);
   _Unwind_Resume(a1);
 }
@@ -5002,14 +5005,14 @@ std::locale::_Impl *std::locale::_Impl::_Impl(std::locale::_Impl *this, int a2)
   *(&xmmword_633A8 + 9) = 0u;
   dword_633F8 = 1;
   dword_63408 = 1;
-  v9 = *(this + 3);
-  v10 = *(this + 3);
-  v11 = *(this + 3);
-  v12 = *(this + 3);
   v13 = *(this + 3);
   v14 = *(this + 3);
   v15 = *(this + 3);
   v16 = *(this + 3);
+  v17 = *(this + 3);
+  v18 = *(this + 3);
+  v19 = *(this + 3);
+  v20 = *(this + 3);
   return this;
 }
 
@@ -5338,9 +5341,9 @@ std::locale *std::locale::locale(std::locale *this, const std::locale::_Impl **a
   return this;
 }
 
-void sub_9518(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_9518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::locale::~locale(va);
   _Unwind_Resume(a1);
 }
@@ -5349,7 +5352,7 @@ void std::locale::_M_coalesce(std::locale *this, const std::locale::_Impl **a2, 
 {
   v7 = std::locale::_S_normalize_category(a4);
   v8 = operator new(0x28uLL);
-  std::locale::_Impl::_Impl(v8, *a2, 1uLL);
+  std::locale::_Impl::_Impl(v8, *a2, 1);
   *this = v8;
   std::locale::_Impl::_M_replace_categories(v8, *a3, v7);
 }
@@ -5499,7 +5502,7 @@ std::locale::_Impl *std::locale::_Impl::_Impl(std::locale::_Impl *this, int **a2
   if (memchr(a2, 59, v13))
   {
     v14 = 0;
-    v15 = a2 + v13;
+    v15 = (a2 + v13);
     v16 = a2;
     do
     {
@@ -5630,12 +5633,13 @@ std::locale::_Impl *std::locale::_Impl::_Impl(std::locale::_Impl *this, int **a2
   return this;
 }
 
-void sub_9F00(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_9F00(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  operator delete(v11);
+  va_start(va, a9);
+  operator delete(v10);
   __cxa_begin_catch(a1);
-  std::locale::facet::_S_destroy_c_locale(&a10, v13);
-  std::locale::_Impl::~_Impl(v10);
+  std::locale::facet::_S_destroy_c_locale(va, v12);
+  std::locale::_Impl::~_Impl(v9);
   __cxa_rethrow();
 }
 
@@ -5757,7 +5761,7 @@ std::strstreambuf *std::strstreambuf::strstreambuf(std::strstreambuf *this, int6
 void sub_A3D8(_Unwind_Exception *a1)
 {
   *v1 = v2;
-  std::locale::~locale((v1 + 7));
+  std::locale::~locale((v1 + 56));
   _Unwind_Resume(a1);
 }
 
@@ -5812,7 +5816,7 @@ std::strstreambuf *std::strstreambuf::strstreambuf(std::strstreambuf *this, void
 void sub_A4D4(_Unwind_Exception *a1)
 {
   *v1 = v2;
-  std::locale::~locale((v1 + 7));
+  std::locale::~locale((v1 + 56));
   _Unwind_Resume(a1);
 }
 
@@ -5845,7 +5849,7 @@ std::strstreambuf *std::strstreambuf::strstreambuf(std::strstreambuf *this, char
   return this;
 }
 
-size_t std::strstreambuf::_M_setup(size_t this, char *__s, char *a3, uint64_t a4)
+void *std::strstreambuf::_M_setup(void *this, char *__s, char *a3, uint64_t a4)
 {
   if (__s)
   {
@@ -6033,7 +6037,7 @@ void std::strstreambuf::~strstreambuf(std::strstreambuf *this)
   }
 
   *this = off_5EE88;
-  std::locale::~locale((this + 56));
+  std::locale::~locale(this + 7);
 }
 
 {
@@ -6909,14 +6913,10 @@ void std::strstream::~strstream(std::strstream *this)
   operator delete(this);
 }
 
-void non-virtual thunk tostd::strstream::~strstream(std::strstream *this)
+void non-virtual thunk tostd::strstream::~strstream(atomic_uint **this)
 {
 
-  std::ios_base::~ios_base((this + 96));
-}
-
-{
-  std::strstream::~strstream((this - 16));
+  std::ios_base::~ios_base(this + 12);
 }
 
 void virtual thunk tostd::strstream::~strstream(std::strstream *this)
@@ -7137,12 +7137,12 @@ uint64_t std::_Rb_tree_rotate_right(uint64_t result, void *a2)
   return result;
 }
 
-uint64_t std::_Rb_tree_insert_and_rebalance(uint64_t result, uint64_t a2, void *a3, void *a4)
+uint64_t std::_Rb_tree_insert_and_rebalance(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   *a2 = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
-  v4 = (a4 + 1);
+  v4 = a4 + 1;
   *(a2 + 8) = a3;
   if (result)
   {
@@ -7471,7 +7471,7 @@ LABEL_20:
   do
   {
     v6 = v5;
-    v5 = *(v5 + 2);
+    v5 = *(v5 + 16);
   }
 
   while (v5);
@@ -7959,14 +7959,14 @@ void sub_D864(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::filebuf::~filebuf(void *a1)
+uint64_t std::filebuf::~filebuf(uint64_t a1)
 {
   *a1 = off_5CAA8;
-  v2 = (a1 + 16);
+  v2 = (a1 + 128);
   std::filebuf::close(a1);
   std::__basic_file<char>::~__basic_file(v2);
   *a1 = off_5EE88;
-  std::locale::~locale((a1 + 7));
+  std::locale::~locale((a1 + 56));
   return a1;
 }
 
@@ -8031,7 +8031,7 @@ void sub_D9F8(void *a1)
   JUMPOUT(0xD934);
 }
 
-void std::filebuf::~filebuf(void *a1)
+void std::filebuf::~filebuf(uint64_t a1)
 {
   v1 = std::filebuf::~filebuf(a1);
 
@@ -8773,7 +8773,7 @@ LABEL_8:
   return a1;
 }
 
-double std::filebuf::seekoff@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+double std::filebuf::seekoff@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v8 = *(a1 + 584);
   if (v8)
@@ -8876,8 +8876,9 @@ void sub_EAD0(_Unwind_Exception *a1, int a2)
   __cxa_call_unexpected(a1);
 }
 
-__n128 std::filebuf::_M_seek@<Q0>(uint64_t a1@<X0>, off_t a2@<X1>, int a3@<W2>, __n128 *a4@<X3>, uint64_t a5@<X8>)
+__n128 std::filebuf::_M_seek@<Q0>(uint64_t a1@<X0>, off_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X3>, uint64_t a5@<X8>)
 {
+  v6 = a3;
   *a5 = -1;
   *(a5 + 8) = 0u;
   v10 = (a5 + 8);
@@ -8890,7 +8891,7 @@ __n128 std::filebuf::_M_seek@<Q0>(uint64_t a1@<X0>, off_t a2@<X1>, int a3@<W2>, 
   *(a5 + 120) = 0u;
   if (std::filebuf::_M_terminate_output(a1))
   {
-    v12 = std::__basic_file<char>::seekoff((a1 + 128), a2, a3);
+    v12 = std::__basic_file<char>::seekoff((a1 + 128), a2, v6);
     result.n128_u64[0] = 0;
     *v10 = 0u;
     *(a5 + 24) = 0u;
@@ -9320,7 +9321,7 @@ uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
 
 void sub_F308(_Unwind_Exception *a1)
 {
-  std::filebuf::~filebuf(v1 + 2);
+  std::filebuf::~filebuf((v1 + 2));
   v4 = *(v2 + 8);
   *v1 = v4;
   *(v1 + *(v4 - 24)) = *(v2 + 16);
@@ -9345,7 +9346,7 @@ uint64_t std::ifstream::basic_ifstream(uint64_t a1)
 
 void sub_F450(_Unwind_Exception *a1)
 {
-  std::filebuf::~filebuf(v1 + 2);
+  std::filebuf::~filebuf((v1 + 2));
   v1[80] = off_5CF40;
   *v1 = off_5CF18;
   v1[1] = 0;
@@ -9353,8 +9354,9 @@ void sub_F450(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, const char *a3, int a4)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, const char *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a2[1];
   *a1 = v7;
   *(a1 + *(v7 - 24)) = a2[2];
@@ -9364,7 +9366,7 @@ uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, const char *
   *(a1 + *(v8 - 24)) = a2[3];
   std::filebuf::basic_filebuf((a1 + 2));
   std::ios::init(a1 + *(*a1 - 24), (a1 + 2));
-  std::ifstream::open(a1, a3, a4);
+  std::ifstream::open(a1, a3, v4);
   return a1;
 }
 
@@ -9388,7 +9390,7 @@ uint64_t std::ifstream::open(void *a1, const char *a2, int a3)
 
   else
   {
-    v6 = *(v5 + 32) | 4;
+    v6 = *(v5 + 8) | 4;
   }
 
   return std::ios::clear(v5, v6);
@@ -9424,7 +9426,7 @@ uint64_t *std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
   v4 = *a2;
   *a1 = *a2;
   *(a1 + *(v4 - 24)) = a2[3];
-  std::filebuf::~filebuf(a1 + 2);
+  std::filebuf::~filebuf((a1 + 2));
   v5 = a2[1];
   *a1 = v5;
   *(a1 + *(v5 - 24)) = a2[2];
@@ -9434,7 +9436,7 @@ uint64_t *std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
 
 uint64_t *std::ifstream::~ifstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 80));
+  std::ios_base::~ios_base(v2 + 80);
   return a1;
 }
 
@@ -9450,7 +9452,7 @@ void virtual thunk tostd::ifstream::~ifstream(void *a1)
 
 void std::ifstream::~ifstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 80));
+  std::ios_base::~ios_base(v2 + 80);
 
   operator delete(a1);
 }
@@ -9470,7 +9472,7 @@ uint64_t std::ifstream::close(void *a1)
   if (!result)
   {
     v3 = a1 + *(*a1 - 24);
-    v4 = *(v3 + 32) | 4;
+    v4 = *(v3 + 8) | 4;
 
     return std::ios::clear(v3, v4);
   }
@@ -9507,13 +9509,14 @@ uint64_t std::ofstream::basic_ofstream(uint64_t a1)
 
 void sub_FD34(_Unwind_Exception *a1)
 {
-  std::filebuf::~filebuf((v2 + 8));
+  std::filebuf::~filebuf(v2 + 8);
   std::ios_base::~ios_base(v1);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, const char *a3, int a4)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, const char *a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a2[1];
   *a1 = v7;
   *(a1 + *(v7 - 24)) = a2[2];
@@ -9522,7 +9525,7 @@ uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t *a2, const char *
   *(a1 + *(v8 - 24)) = a2[3];
   std::filebuf::basic_filebuf((a1 + 1));
   std::ios::init(a1 + *(*a1 - 24), (a1 + 1));
-  std::ofstream::open(a1, a3, a4);
+  std::ofstream::open(a1, a3, v4);
   return a1;
 }
 
@@ -9537,7 +9540,7 @@ uint64_t std::ofstream::open(void *a1, const char *a2, int a3)
 
   else
   {
-    v6 = *(v5 + 32) | 4;
+    v6 = *(v5 + 8) | 4;
   }
 
   return std::ios::clear(v5, v6);
@@ -9563,7 +9566,7 @@ uint64_t *std::ofstream::~ofstream(uint64_t *a1, uint64_t *a2)
   v3 = *a2;
   *a1 = *a2;
   *(a1 + *(v3 - 24)) = a2[3];
-  std::filebuf::~filebuf(a1 + 1);
+  std::filebuf::~filebuf((a1 + 1));
   return a1;
 }
 
@@ -9572,7 +9575,7 @@ void *std::ofstream::~ofstream(void *a1)
   *a1 = off_5CBA0;
   v2 = (a1 + 79);
   a1[79] = off_5CBC8;
-  std::filebuf::~filebuf(a1 + 1);
+  std::filebuf::~filebuf((a1 + 1));
   std::ios_base::~ios_base(v2);
   return a1;
 }
@@ -9583,7 +9586,7 @@ void virtual thunk tostd::ofstream::~ofstream(void *a1)
   *v1 = off_5CBA0;
   v2 = (v1 + 79);
   v1[79] = off_5CBC8;
-  std::filebuf::~filebuf(v1 + 1);
+  std::filebuf::~filebuf((v1 + 1));
 
   std::ios_base::~ios_base(v2);
 }
@@ -9592,12 +9595,12 @@ void virtual thunk tostd::ofstream::~ofstream(void *a1)
   std::ofstream::~ofstream((a1 + *(*a1 - 24)));
 }
 
-void std::ofstream::~ofstream(void *a1)
+void std::ofstream::~ofstream(atomic_uint **a1)
 {
   *a1 = off_5CBA0;
-  v2 = (a1 + 79);
+  v2 = a1 + 79;
   a1[79] = off_5CBC8;
-  std::filebuf::~filebuf(a1 + 1);
+  std::filebuf::~filebuf((a1 + 1));
   std::ios_base::~ios_base(v2);
 
   operator delete(a1);
@@ -9618,7 +9621,7 @@ uint64_t std::ofstream::close(void *a1)
   if (!result)
   {
     v3 = a1 + *(*a1 - 24);
-    v4 = *(v3 + 32) | 4;
+    v4 = *(v3 + 8) | 4;
 
     return std::ios::clear(v3, v4);
   }
@@ -9626,21 +9629,21 @@ uint64_t std::ofstream::close(void *a1)
   return result;
 }
 
-uint64_t *std::fstream::basic_fstream(uint64_t *a1, uint64_t *a2)
+std::iostream *std::fstream::basic_fstream(std::iostream *a1, uint64_t *a2)
 {
   v4 = std::iostream::iostream(a1, a2 + 1);
   v5 = *a2;
   *v4 = *a2;
   *(a1 + *(v5 - 24)) = a2[8];
-  a1[2] = a2[9];
-  std::filebuf::basic_filebuf((a1 + 3));
-  std::ios::init(a1 + *(*a1 - 24), (a1 + 3));
+  *(a1 + 2) = a2[9];
+  std::filebuf::basic_filebuf(a1 + 24);
+  std::ios::init(a1 + *(*a1 - 24), a1 + 24);
   return a1;
 }
 
 void sub_10438(_Unwind_Exception *a1)
 {
-  std::filebuf::~filebuf(v1 + 3);
+  std::filebuf::~filebuf((v1 + 3));
   v4 = *(v2 + 16);
   *v1 = v4;
   *(v1 + *(v4 - 24)) = *(v2 + 24);
@@ -9667,7 +9670,7 @@ uint64_t std::fstream::basic_fstream(uint64_t a1)
 
 void sub_105CC(_Unwind_Exception *a1)
 {
-  std::filebuf::~filebuf(v1 + 3);
+  std::filebuf::~filebuf((v1 + 3));
   *v1 = off_5D060;
   v1[1] = 0;
   v1[81] = off_5D088;
@@ -9708,7 +9711,7 @@ uint64_t std::fstream::open(void *a1, const char *a2, uint64_t a3)
 
   else
   {
-    v6 = *(v5 + 32) | 4;
+    v6 = *(v5 + 8) | 4;
   }
 
   return std::ios::clear(v5, v6);
@@ -9747,7 +9750,7 @@ uint64_t *std::fstream::~fstream(uint64_t *a1, uint64_t *a2)
   *a1 = *a2;
   *(a1 + *(v4 - 24)) = a2[8];
   a1[2] = a2[9];
-  std::filebuf::~filebuf(a1 + 3);
+  std::filebuf::~filebuf((a1 + 3));
   v5 = a2[2];
   *a1 = v5;
   *(a1 + *(v5 - 24)) = a2[3];
@@ -9757,7 +9760,7 @@ uint64_t *std::fstream::~fstream(uint64_t *a1, uint64_t *a2)
 
 uint64_t *std::fstream::~fstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 81));
+  std::ios_base::~ios_base(v2 + 81);
   return a1;
 }
 
@@ -9783,7 +9786,7 @@ void virtual thunk tostd::fstream::~fstream(void *a1)
 
 void std::fstream::~fstream(uint64_t *a1)
 {
-  std::ios_base::~ios_base((v2 + 81));
+  std::ios_base::~ios_base(v2 + 81);
 
   operator delete(a1);
 }
@@ -9803,7 +9806,7 @@ uint64_t std::fstream::close(void *a1)
   if (!result)
   {
     v3 = a1 + *(*a1 - 24);
-    v4 = *(v3 + 32) | 4;
+    v4 = *(v3 + 8) | 4;
 
     return std::ios::clear(v3, v4);
   }

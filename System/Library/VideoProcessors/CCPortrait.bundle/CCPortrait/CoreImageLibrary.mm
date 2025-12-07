@@ -47,7 +47,7 @@
 
       else
       {
-        v15 = uni_logger_compile();
+        v15 = uni_logger_compile(0);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_2956CD6A8(v15);
@@ -83,41 +83,41 @@
 
   if (v12)
   {
-    v15 = MEMORY[0x29EDB9180];
-    v16 = objc_msgSend_url(self, v13, v14);
-    v23 = 0;
-    v18 = objc_msgSend_cachedKernelWithFunctionName_fromMetalLibrary_constants_error_(v15, v17, nameCopy, v16, constantsCopy, &v23);
-    v19 = v23;
+    v16 = MEMORY[0x29EDB9180];
+    v17 = objc_msgSend_url(self, v14, v15);
+    v25 = 0;
+    v19 = objc_msgSend_cachedKernelWithFunctionName_fromMetalLibrary_constants_error_(v16, v18, nameCopy, v17, constantsCopy, &v25);
+    v20 = v25;
 
-    if (!v18 || v19)
+    if (!v19 || v20)
     {
-      v21 = uni_logger_compile();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = uni_logger_compile(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        sub_2956CD75C(nameCopy, v19, v21);
+        sub_2956CD75C(nameCopy, v20, v23);
       }
 
-      v20 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v20 = v18;
+      v22 = v19;
     }
   }
 
   else
   {
-    v19 = uni_logger_compile();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = uni_logger_compile(v13);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_2956CD700(nameCopy);
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
-  return v20;
+  return v22;
 }
 
 @end

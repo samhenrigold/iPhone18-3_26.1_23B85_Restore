@@ -12,34 +12,33 @@
 
 - (HFCAPackageIconDescriptor)initWithPackageIdentifier:(id)identifier state:(id)state modifiers:(id)modifiers
 {
-  v18[10] = *MEMORY[0x277D85DE8];
+  v17[10] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   stateCopy = state;
   modifiersCopy = modifiers;
-  v17.receiver = self;
-  v17.super_class = HFCAPackageIconDescriptor;
-  v12 = [(HFCAPackageIconDescriptor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HFCAPackageIconDescriptor;
+  v12 = [(HFCAPackageIconDescriptor *)&v16 init];
   v13 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->_packageIdentifier, identifier);
     objc_storeStrong(&v13->_state, state);
     objc_storeStrong(&v13->_iconModifiers, modifiers);
-    v18[0] = @"HFImageIconIdentifierAppleTVRegular";
-    v18[1] = @"HFImageIconIdentifierAppleTVSmall";
-    v18[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
-    v18[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
-    v18[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
-    v18[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
-    v18[6] = @"HFCAPackageIconIdentifierAirport";
-    v18[7] = @"HFImageIconIdentifierGeneric";
-    v18[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
-    v18[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:10];
+    v17[0] = @"HFImageIconIdentifierAppleTVRegular";
+    v17[1] = @"HFImageIconIdentifierAppleTVSmall";
+    v17[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
+    v17[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
+    v17[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
+    v17[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
+    v17[6] = @"HFCAPackageIconIdentifierAirport";
+    v17[7] = @"HFImageIconIdentifierGeneric";
+    v17[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
+    v17[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:10];
     v13->_shouldForceLTR = [v14 containsObject:identifierCopy];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -336,7 +336,7 @@ LABEL_37:
   [v8 setPixelFormat_];
   [v8 setUsage_];
   [v8 setStorageMode_];
-  re::mtl::Device::makeTexture(v8, &v13, &v12);
+  re::mtl::Device::makeTexture(&v12, v8, &v13);
   v9 = v12;
   v10 = v9;
   if (v9)
@@ -360,7 +360,7 @@ LABEL_37:
   [v10 setUsage_];
   [v10 setStorageMode_];
   [v10 setMipmapLevelCount_];
-  re::mtl::Device::makeTexture(v10, &v15, &v14);
+  re::mtl::Device::makeTexture(&v14, v10, &v15);
   v11 = v14;
   v12 = v11;
   if (v11)
@@ -410,7 +410,7 @@ LABEL_37:
     }
 
     while ((v20 & 1) != 0);
-    [blitCommandEncoder endEncoding];
+    objc_msgSend_endEncoding(blitCommandEncoder);
 
     for (i = 1; i != -1; --i)
     {
@@ -549,7 +549,7 @@ LABEL_13:
     v27[2] = 1;
     memset(v26, 0, sizeof(v26));
     [blitCommandEncoder copyFromTexture:fromCopy sourceSlice:0 sourceLevel:0 sourceOrigin:buf sourceSize:v27 toTexture:v11 destinationSlice:0 destinationLevel:0 destinationOrigin:v26];
-    [blitCommandEncoder endEncoding];
+    objc_msgSend_endEncoding(blitCommandEncoder);
     width = [v12 width];
     *buf = (width / [v11 width]);
     height = [v12 height];
@@ -624,7 +624,7 @@ LABEL_12:
     v28[1] = (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
     v28[2] = 1;
     [computeCommandEncoder dispatchThreadgroups:&v24 threadsPerThreadgroup:v28];
-    [computeCommandEncoder endEncoding];
+    objc_msgSend_endEncoding(computeCommandEncoder);
     v16 = [(TextureProcessorMetalSession *)self createShaderRWTexture2DWithPixelFormat:v11 width:64 height:64];
     v28[0] = v16;
     v24 = vcvts_n_f32_u64([v16 width], 8uLL);

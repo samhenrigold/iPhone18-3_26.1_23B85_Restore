@@ -4,6 +4,8 @@
 - (int64_t)adjustLPMOption:(int64_t)option;
 - (void)registerForTrial;
 - (void)setPowerBudgetForWorkload:(unint64_t)workload value:(float)value;
+- (void)updatePowerTargetForMode:(id)mode withState:(BOOL)state;
+- (void)updatePowerTargetForMode:(id)mode withState:(BOOL)state andOptions:(unint64_t)options;
 - (void)updateTrialParameters;
 @end
 
@@ -119,6 +121,120 @@ LABEL_25:
   }
 
   return v2;
+}
+
+- (void)updatePowerTargetForMode:(id)mode withState:(BOOL)state
+{
+  stateCopy = state;
+  modeCopy = mode;
+  clpcClient = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+
+  if (clpcClient)
+  {
+    if (stateCopy)
+    {
+      v8 = os_transaction_create();
+      [(CLPCPolicyInterfaceHelper *)self setModeActive:v8];
+    }
+
+    if ([modeCopy isEqualToString:@"RestrictedPerfMode"])
+    {
+      clpcClient2 = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+      v10 = clpcClient2;
+      v23 = 0;
+      v11 = &v23;
+      v12 = &v23;
+LABEL_6:
+      [clpcClient2 setHotInPocketMode:stateCopy options:0 error:{v12, v20}];
+      goto LABEL_14;
+    }
+
+    if ([modeCopy isEqualToString:@"AcceleratedChargingMode"])
+    {
+      clpcClient3 = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+      v10 = clpcClient3;
+      v22 = 0;
+      v11 = &v22;
+      v15 = &v22;
+      v16 = stateCopy;
+      v17 = 2;
+    }
+
+    else
+    {
+      if (![modeCopy isEqualToString:@"LongChargingMode"])
+      {
+        if (![modeCopy isEqualToString:@"InBoxUpdateMode"])
+        {
+LABEL_20:
+          if (stateCopy)
+          {
+            [(CLPCPolicyInterfaceHelper *)self setCurrentActiveMode:modeCopy];
+          }
+
+          else
+          {
+            [(CLPCPolicyInterfaceHelper *)self setCurrentActiveMode:0];
+            [(CLPCPolicyInterfaceHelper *)self setModeActive:0];
+          }
+
+          v13 = [(CLPCPolicyInterfaceHelper *)self log];
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            v19 = [NSNumber numberWithBool:stateCopy];
+            *buf = 138412546;
+            v25 = modeCopy;
+            v26 = 2112;
+            v27 = v19;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updated CLPC with power target for mode %@ status %@", buf, 0x16u);
+          }
+
+          goto LABEL_25;
+        }
+
+        clpcClient2 = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+        v10 = clpcClient2;
+        v20 = 0;
+        v11 = &v20;
+        v12 = &v20;
+        goto LABEL_6;
+      }
+
+      clpcClient3 = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+      v10 = clpcClient3;
+      v21 = 0;
+      v11 = &v21;
+      v15 = &v21;
+      v16 = stateCopy;
+      v17 = 1;
+    }
+
+    [clpcClient3 setContextualPowerMode:v16 options:v17 error:v15];
+LABEL_14:
+    v13 = *v11;
+
+    if (v13)
+    {
+      v18 = [(CLPCPolicyInterfaceHelper *)self log];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        sub_100019538();
+      }
+
+      [(CLPCPolicyInterfaceHelper *)self setModeActive:0];
+      goto LABEL_25;
+    }
+
+    goto LABEL_20;
+  }
+
+  v13 = [(CLPCPolicyInterfaceHelper *)self log];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000195AC();
+  }
+
+LABEL_25:
 }
 
 - (void)registerForTrial
@@ -290,6 +406,101 @@ LABEL_18:
           sub_100019624();
         }
       }
+    }
+  }
+}
+
+- (void)updatePowerTargetForMode:(id)mode withState:(BOOL)state andOptions:(unint64_t)options
+{
+  stateCopy = state;
+  modeCopy = mode;
+  clpcClient = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+
+  if (clpcClient)
+  {
+    if (stateCopy)
+    {
+      v10 = os_transaction_create();
+      [(CLPCPolicyInterfaceHelper *)self setPowerBudgetActive:v10];
+    }
+
+    if ([modeCopy isEqualToString:@"Prepickup"] && options - 1 <= 4)
+    {
+      v11 = qword_10001F8E0[options - 1];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    clpcClient2 = [(CLPCPolicyInterfaceHelper *)self clpcClient];
+    v22 = 0;
+    [clpcClient2 setContextualPowerMode:stateCopy options:v11 error:&v22];
+    v13 = v22;
+
+    if (v13)
+    {
+      v14 = [(CLPCPolicyInterfaceHelper *)self log];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v19 = [NSNumber numberWithBool:stateCopy];
+        v20 = [NSNumber numberWithUnsignedLongLong:options];
+        v21 = [NSNumber numberWithUnsignedLongLong:v11];
+        *buf = 138413314;
+        v24 = modeCopy;
+        v25 = 2112;
+        v26 = v19;
+        v27 = 2112;
+        v28 = v20;
+        v29 = 2112;
+        v30 = v21;
+        v31 = 2112;
+        v32 = v13;
+        _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to update CLPC with power target for mode %@ status %@ option %@, CLPC option %@. Error: %@", buf, 0x34u);
+      }
+
+      [(CLPCPolicyInterfaceHelper *)self setPowerBudgetActive:0];
+    }
+
+    else
+    {
+      if (stateCopy)
+      {
+        [(CLPCPolicyInterfaceHelper *)self setCurrentActiveMode:modeCopy];
+      }
+
+      else
+      {
+        [(CLPCPolicyInterfaceHelper *)self setCurrentActiveMode:0];
+        [(CLPCPolicyInterfaceHelper *)self setPowerBudgetActive:0];
+      }
+
+      v15 = [(CLPCPolicyInterfaceHelper *)self log];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = [NSNumber numberWithBool:stateCopy];
+        v17 = [NSNumber numberWithUnsignedLongLong:options];
+        v18 = [NSNumber numberWithUnsignedLongLong:v11];
+        *buf = 138413058;
+        v24 = modeCopy;
+        v25 = 2112;
+        v26 = v16;
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2112;
+        v30 = v18;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updated CLPC with power target for mode %@ status %@ option %@, CLPC option %@", buf, 0x2Au);
+      }
+    }
+  }
+
+  else
+  {
+    v13 = [(CLPCPolicyInterfaceHelper *)self log];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000195AC();
     }
   }
 }

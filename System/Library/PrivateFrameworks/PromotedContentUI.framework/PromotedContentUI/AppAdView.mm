@@ -27,21 +27,21 @@
 {
   requestCopy = request;
   selfCopy = self;
-  sub_1C1A12588(MEMORY[0x1E69E9440]);
+  sub_1C1A12588(MEMORY[0x1E69E9440], "[PCUI] Error with ASCAdLockupView loading screenshots, for adamId=%@ and identifier=%@.", 87);
 }
 
 - (void)adLockupViewDidFinishScreenshotsFetchRequest:(id)request
 {
   requestCopy = request;
   selfCopy = self;
-  sub_1C1A12588(MEMORY[0x1E69E9430]);
+  sub_1C1A12588(MEMORY[0x1E69E9430], "[PCUI] Loaded ASCAdLockupView screenshots for adamId=%@ and identifier=%@.", 74);
 }
 
 - (void)adLockupViewDidInvalidateIntrinsicContentSize:(id)size
 {
   sizeCopy = size;
   selfCopy = self;
-  sub_1C1A12588(MEMORY[0x1E69E9430]);
+  sub_1C1A12588(MEMORY[0x1E69E9430], "[PCUI] Did invalidate intrinsicContentSize for adamId=%@ and identifier=%@.", 75);
 }
 
 - (void)adLockupViewDidFinishRequest:(id)request
@@ -56,7 +56,7 @@
   viewCopy = view;
   errorCopy = error;
   selfCopy = self;
-  sub_1C1A12A08();
+  sub_1C1A12A08(errorCopy);
 }
 
 - (void)adLockupView:(id)view didSelectOfferWithState:(id)state
@@ -64,7 +64,7 @@
   viewCopy = view;
   stateCopy = state;
   selfCopy = self;
-  sub_1C1A12D40();
+  sub_1C1A12D40(stateCopy);
 }
 
 - (void)adLockupViewDidSelectAdMarker:(id)marker
@@ -104,15 +104,15 @@
   v5 = *(&self->super.super.super.super.isa + OBJC_IVAR___APPCPromotedContentView_promotedContent);
   selfCopy = self;
   [objc_msgSend(v5 metricsHelper)];
-  swift_unknownObjectRelease();
-  v7 = sub_1C1A11B8C();
+  v7 = swift_unknownObjectRelease();
+  v8 = sub_1C1A11B8C(v7);
 
-  return v7;
+  return v8;
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
-  sub_1C198FB8C(0, &qword_1EDE63970);
+  sub_1C198FB8C(0, &qword_1EDE63970, 0x1E695E000);
   selfCopy = self;
   if (sub_1C19CF5B0())
   {

@@ -44,18 +44,18 @@
     return *(&self->super._enabled + 1);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160FEC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160FEC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -73,7 +73,7 @@
     v5[2] = sub_1AF2B652C;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    radiusCopy = radius;
+    *&v6 = radius;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"radius", v5);
   }
 }
@@ -85,18 +85,18 @@
     return *(self + 64);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, a3);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF163AA0(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF163AA0(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -124,18 +124,18 @@
     return *&self->_maskCenter[4];
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160E58(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160E58(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -153,7 +153,7 @@
     v5[2] = sub_1AF2B67F4;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    radiusCopy = radius;
+    *&v6 = radius;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"maskRadius", v5);
   }
 }
@@ -162,18 +162,18 @@
 {
   if (self->super._isPresentationObject)
   {
-    v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, v2);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    maskRadius_low = sub_1AF163B3C(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    maskRadius_low = sub_1AF163B3C(v8, v9);
+    if (v7)
     {
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
     }
   }
 
@@ -212,11 +212,11 @@
 - (BOOL)rawFloat2ForKey:(id)key value:
 {
   v4 = v3;
-  isEqualToString = objc_msgSend_isEqualToString_(key, a2, @"maskCenter", v3);
+  isEqualToString = objc_msgSend_isEqualToString_(key, a2, @"maskCenter");
   if (isEqualToString)
   {
-    objc_msgSend_maskCenter(self, v6, v7, v8);
-    *v4 = v10;
+    objc_msgSend_maskCenter(self, v6, v7);
+    *v4 = v9;
   }
 
   return isEqualToString;
@@ -224,62 +224,62 @@
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"maskCenter", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"maskCenter"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_maskCenter(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_maskCenter(self, v5, v6);
 
-    return MEMORY[0x1EEE66B58](v9, sel_valueWithVFXFloat2_, v10, v11);
+    return MEMORY[0x1EEE66B58](v7, sel_valueWithVFXFloat2_, v8);
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = VFXCameraEffectDoughnutBokeh;
-    return [(VFXCameraEffectDoughnutBokeh *)&v13 valueForKey:key];
+    v10.receiver = self;
+    v10.super_class = VFXCameraEffectDoughnutBokeh;
+    return [(VFXCameraEffectDoughnutBokeh *)&v10 valueForKey:key];
   }
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"maskCenter", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"maskCenter"))
   {
-    objc_msgSend_VFXFloat2Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat2Value(value, v7, v8);
 
-    objc_msgSend_setMaskCenter_(self, v10, v11, v12);
+    objc_msgSend_setMaskCenter_(self, v9, v10);
   }
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = VFXCameraEffectDoughnutBokeh;
-    [(VFXCameraEffectDoughnutBokeh *)&v13 setValue:value forKey:key];
+    v11.receiver = self;
+    v11.super_class = VFXCameraEffectDoughnutBokeh;
+    [(VFXCameraEffectDoughnutBokeh *)&v11 setValue:value forKey:key];
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19.receiver = self;
-  v19.super_class = VFXCameraEffectDoughnutBokeh;
-  v4 = [(VFXCameraEffect *)&v19 copyWithZone:zone];
+  v15.receiver = self;
+  v15.super_class = VFXCameraEffectDoughnutBokeh;
+  v4 = [(VFXCameraEffect *)&v15 copyWithZone:zone];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_setRadius_(v4, v6, v7, v8, v5);
-  objc_msgSend_setMaskCenter_(v4, v9, v10, v11, *&self->_radius);
-  LODWORD(v12) = *&self->_maskCenter[4];
-  objc_msgSend_setMaskRadius_(v4, v13, v14, v15, v12);
-  objc_msgSend_setMaskEnabled_(v4, v16, LOBYTE(self->_maskRadius), v17);
+  objc_msgSend_setRadius_(v4, v6, v7, v5);
+  objc_msgSend_setMaskCenter_(v4, v8, v9, *&self->_radius);
+  LODWORD(v10) = *&self->_maskCenter[4];
+  objc_msgSend_setMaskRadius_(v4, v11, v12, v10);
+  objc_msgSend_setMaskEnabled_(v4, v13, LOBYTE(self->_maskRadius));
   return v4;
 }
 
 - (void)_updateModelFromPresentation
 {
-  v3.receiver = self;
-  v3.super_class = VFXCameraEffectDoughnutBokeh;
-  [(VFXCameraEffect *)&v3 _updateModelFromPresentation];
-  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect);
-  *&self->_radius = sub_1AF163AA0(self->super._cameraEffect);
-  *&self->_maskCenter[4] = sub_1AF160E58(self->super._cameraEffect);
-  LOBYTE(self->_maskRadius) = sub_1AF163B3C(self->super._cameraEffect);
+  v7.receiver = self;
+  v7.super_class = VFXCameraEffectDoughnutBokeh;
+  [(VFXCameraEffect *)&v7 _updateModelFromPresentation];
+  *(&self->super._enabled + 1) = sub_1AF160FEC(self->super._cameraEffect, v3);
+  *&self->_radius = sub_1AF163AA0(self->super._cameraEffect, v4);
+  *&self->_maskCenter[4] = sub_1AF160E58(self->super._cameraEffect, v5);
+  LOBYTE(self->_maskRadius) = sub_1AF163B3C(self->super._cameraEffect, v6);
 }
 
 - (void)_updatePresentationFromModel
@@ -294,38 +294,38 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v12.receiver = self;
-  v12.super_class = VFXCameraEffectDoughnutBokeh;
-  [(VFXCameraEffect *)&v12 encodeWithCoder:?];
+  v10.receiver = self;
+  v10.super_class = VFXCameraEffectDoughnutBokeh;
+  [(VFXCameraEffect *)&v10 encodeWithCoder:?];
   LODWORD(v5) = *(&self->super._enabled + 1);
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"radius", v7, v5);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"radius", v5);
   sub_1AF371A30(coder, @"maskCenter", *&self->_radius);
-  LODWORD(v8) = *&self->_maskCenter[4];
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"maskRadius", v10, v8);
-  objc_msgSend_encodeBool_forKey_(coder, v11, LOBYTE(self->_maskRadius), @"maskEnabled");
+  LODWORD(v7) = *&self->_maskCenter[4];
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"maskRadius", v7);
+  objc_msgSend_encodeBool_forKey_(coder, v9, LOBYTE(self->_maskRadius), @"maskEnabled");
 }
 
 - (VFXCameraEffectDoughnutBokeh)initWithCoder:(id)coder
 {
-  v33.receiver = self;
-  v33.super_class = VFXCameraEffectDoughnutBokeh;
-  v7 = [(VFXCameraEffect *)&v33 initWithCoder:?];
-  if (v7)
+  v23.receiver = self;
+  v23.super_class = VFXCameraEffectDoughnutBokeh;
+  v6 = [(VFXCameraEffect *)&v23 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend_decodeFloatForKey_(coder, v11, @"radius", v12);
-    objc_msgSend_setRadius_(v7, v13, v14, v15);
-    v16 = sub_1AF371B84(coder, @"maskCenter");
-    objc_msgSend_setMaskCenter_(v7, v17, v18, v19, v16);
-    objc_msgSend_decodeFloatForKey_(coder, v20, @"maskRadius", v21);
-    objc_msgSend_setMaskRadius_(v7, v22, v23, v24);
-    v27 = objc_msgSend_decodeBoolForKey_(coder, v25, @"maskEnabled", v26);
-    objc_msgSend_setMaskEnabled_(v7, v28, v27, v29);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v30, v8, v31);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend_decodeFloatForKey_(coder, v9, @"radius");
+    objc_msgSend_setRadius_(v6, v10, v11);
+    v12 = sub_1AF371B84(coder, @"maskCenter");
+    objc_msgSend_setMaskCenter_(v6, v13, v14, v12);
+    objc_msgSend_decodeFloatForKey_(coder, v15, @"maskRadius");
+    objc_msgSend_setMaskRadius_(v6, v16, v17);
+    v19 = objc_msgSend_decodeBoolForKey_(coder, v18, @"maskEnabled");
+    objc_msgSend_setMaskEnabled_(v6, v20, v19);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v21, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

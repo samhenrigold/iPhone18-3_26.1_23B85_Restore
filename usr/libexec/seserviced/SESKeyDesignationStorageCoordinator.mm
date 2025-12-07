@@ -71,11 +71,6 @@
   v11 = *(&selfCopy->super.isa + v9);
   if (v11 >> 62)
   {
-    if (v11 < 0)
-    {
-      v13 = *(&selfCopy->super.isa + v9);
-    }
-
     v12 = _CocoaArrayWrapper.endIndex.getter();
     if (v12 >= v10)
     {
@@ -141,9 +136,7 @@ LABEL_3:
   v2 = OBJC_IVAR____TtC10seserviced35SESKeyDesignationStorageCoordinator_mutated;
   if (*(&self->super.isa + OBJC_IVAR____TtC10seserviced35SESKeyDesignationStorageCoordinator_mutated) == 1)
   {
-    v3 = OBJC_IVAR____TtC10seserviced35SESKeyDesignationStorageCoordinator_keys;
     swift_beginAccess();
-    v5 = *(&self->super.isa + v3);
     sub_1001217D8();
     selfCopy = self;
 

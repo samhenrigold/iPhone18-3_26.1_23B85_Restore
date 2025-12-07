@@ -82,55 +82,54 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2(uint64_
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (!v6)
     {
-      if (!gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(WeakRetained, v9);
+      if (!isInternalBuild)
       {
         goto LABEL_8;
       }
 
-      v12 = a1;
-      v10 = getGCLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = a1;
+      v11 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(v12 + 32);
-        v14 = *(v12 + 40);
+        v14 = *(v13 + 32);
+        v15 = *(v13 + 40);
         *buf = 138412802;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v7;
-        _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "%@ failed to connect to 'Light Service' on connection %@: %@", buf, 0x20u);
+        v19 = v14;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2112;
+        v23 = v7;
+        _os_log_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_DEFAULT, "%@ failed to connect to 'Light Service' on connection %@: %@", buf, 0x20u);
       }
 
       goto LABEL_6;
     }
 
     objc_storeStrong(WeakRetained + 21, a2);
-    if (v9[5] && v9[21])
+    if (v10[5] && v10[21])
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_244;
       block[3] = &unk_1E8418C28;
-      v16 = v9;
+      v17 = v10;
       dispatch_async(MEMORY[0x1E69E96A0], block);
-      v10 = v16;
+      v11 = v17;
 LABEL_6:
     }
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_245(uint64_t a1)
@@ -152,55 +151,54 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_245(uin
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_247(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (!v6)
     {
-      if (!gc_isInternalBuild())
+      isInternalBuild = gc_isInternalBuild(WeakRetained, v9);
+      if (!isInternalBuild)
       {
         goto LABEL_8;
       }
 
-      v12 = a1;
-      v10 = getGCLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = a1;
+      v11 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(v12 + 32);
-        v14 = *(v12 + 40);
+        v14 = *(v13 + 32);
+        v15 = *(v13 + 40);
         *buf = 138412802;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v14;
-        v21 = 2112;
-        v22 = v7;
-        _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_DEFAULT, "%@ failed to connect to 'Adaptive Triggers Service' on connection %@: %@", buf, 0x20u);
+        v19 = v14;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2112;
+        v23 = v7;
+        _os_log_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_DEFAULT, "%@ failed to connect to 'Adaptive Triggers Service' on connection %@: %@", buf, 0x20u);
       }
 
       goto LABEL_6;
     }
 
     objc_storeStrong(WeakRetained + 20, a2);
-    if (v9[6] && v9[20])
+    if (v10[6] && v10[20])
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_248;
       block[3] = &unk_1E8418C28;
-      v16 = v9;
+      v17 = v10;
       dispatch_async(MEMORY[0x1E69E96A0], block);
-      v10 = v16;
+      v11 = v17;
 LABEL_6:
     }
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_249(uint64_t a1)
@@ -225,7 +223,7 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_251(uin
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
@@ -233,7 +231,7 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_251(uin
       objc_storeStrong(WeakRetained + 22, a2);
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(WeakRetained, v9))
     {
       __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_251_cold_1();
     }
@@ -262,26 +260,26 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_254(uin
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
       objc_storeStrong(WeakRetained + 23, a2);
-      if (v9[12] && v9[23])
+      if (v10[12] && v10[23])
       {
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_255;
         block[3] = &unk_1E8418C28;
-        v11 = v9;
+        v12 = v10;
         dispatch_async(MEMORY[0x1E69E96A0], block);
       }
 
-      [v9 createPowerSource];
+      [v10 createPowerSource];
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(WeakRetained, v9))
     {
       __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_254_cold_1();
     }
@@ -310,7 +308,7 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_258(uin
   v6 = a2;
   v7 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
@@ -318,7 +316,7 @@ void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_258(uin
       objc_storeStrong(WeakRetained + 24, a2);
     }
 
-    else if (gc_isInternalBuild())
+    else if (gc_isInternalBuild(WeakRetained, v9))
     {
       __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_258_cold_1();
     }
@@ -374,25 +372,23 @@ void __61___GCDefaultPhysicalDevice_AdaptiveTriggers__triggerStatuses__block_inv
 
 void __158___GCDefaultPhysicalDevice_AdaptiveTriggersClient__updateAdaptiveTriggerStatusWithLeftMode_leftStatus_leftArmPosition_rightMode_rightStatus_rightArmPosition___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v3 = [[GCDeviceAdaptiveTriggersStatusPayload alloc] initFeedbackWithStatus:*(a1 + 40) armPosition:*(a1 + 41) mode:*(a1 + 42)];
-    v7[0] = v3;
+    v8[0] = v3;
     v4 = [[GCDeviceAdaptiveTriggersStatusPayload alloc] initFeedbackWithStatus:*(a1 + 43) armPosition:*(a1 + 44) mode:*(a1 + 45)];
-    v7[1] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+    v8[1] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
 
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v6, v7))
     {
-      __158___GCDefaultPhysicalDevice_AdaptiveTriggersClient__updateAdaptiveTriggerStatusWithLeftMode_leftStatus_leftArmPosition_rightMode_rightStatus_rightArmPosition___block_invoke_cold_1();
+      __158___GCDefaultPhysicalDevice_AdaptiveTriggersClient__updateAdaptiveTriggerStatusWithLeftMode_leftStatus_leftArmPosition_rightMode_rightStatus_rightArmPosition___block_invoke_cold_1(v5);
     }
 
     (*(WeakRetained[7] + 16))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __77___GCDefaultPhysicalDevice_Battery__setDeviceBatteryServiceConnectedHandler___block_invoke(uint64_t a1)
@@ -413,14 +409,15 @@ void __44___GCDefaultPhysicalDevice_Battery__battery__block_invoke(uint64_t a1, 
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke(uint64_t a1, uint64_t a2, char a3)
+void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v6 = WeakRetained;
     [_GCDefaultPhysicalDevice _updatePowerSourceWithBatteryLevel:a2 charging:?];
-    [(_GCDefaultPhysicalDevice *)v6 _displayBatteryAlertIfNeededForBatteryLevel:a2 charging:a3];
+    [(_GCDefaultPhysicalDevice *)v6 _displayBatteryAlertIfNeededForBatteryLevel:a2 charging:v3];
     WeakRetained = v6;
   }
 }
@@ -428,8 +425,8 @@ void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke(uin
 void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke_496(uint64_t a1, int token)
 {
   state64 = 0;
-  notify_get_state(token, &state64);
-  if (gc_isInternalBuild())
+  state = notify_get_state(token, &state64);
+  if (gc_isInternalBuild(state, v4))
   {
     __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke_496_cold_1(&state64);
   }
@@ -447,9 +444,9 @@ void __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___bl
   if (WeakRetained)
   {
     v3 = [[GCDeviceBattery alloc] initWithLevel:*(a1 + 40) isCharging:*(a1 + 41)];
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v3, v4))
     {
-      __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___block_invoke_cold_1();
+      __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___block_invoke_cold_1(v3);
     }
 
     (*(WeakRetained[13] + 16))();
@@ -460,135 +457,105 @@ void __67___GCDefaultPhysicalDevice_GameIntentClient__handleButton_gesture___blo
 {
   v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 40);
-    v4 = _gc_log_physical_device();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v4 = *(a1 + 40);
+    v5 = _gc_log_physical_device(WeakRetained);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = [WeakRetained[26] registryID];
+      v6 = [v3[26] registryID];
       v7 = 134218240;
-      v8 = [v5 unsignedLongLongValue];
+      v8 = [v6 unsignedLongLongValue];
       v9 = 1024;
-      v10 = v3 == 2;
-      _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "[%#010llx] Perform gameIntentGesture(long: %{BOOL}d)", &v7, 0x12u);
+      v10 = v4 == 2;
+      _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "[%#010llx] Perform gameIntentGesture(long: %{BOOL}d)", &v7, 0x12u);
     }
 
-    (*(WeakRetained[15] + 2))();
+    (*(v3[15] + 2))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setFilterConnection___block_invoke_3_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x1E69E9840];
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v1, v2);
+  if (isInternalBuild)
   {
-    v3 = getGCLogger();
-    if (OUTLINED_FUNCTION_4_5(v3))
+    v4 = getGCLogger(isInternalBuild);
+    if (OUTLINED_FUNCTION_4_5(v4))
     {
-      v4 = *(v1 + 32);
-      v5 = *(v1 + 40);
       OUTLINED_FUNCTION_0_16();
       OUTLINED_FUNCTION_1_0();
-      OUTLINED_FUNCTION_6_8(v6, v7, v8, v9, v10);
+      OUTLINED_FUNCTION_6_8(v5, v6, v7, v8, v9);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_251_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(v1);
   if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v3 = *(v1 + 32);
-    v4 = *(v1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_6_8(v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_6_8(v3, v4, v5, v6, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_2_254_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(v1);
   if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v3 = *(v1 + 32);
-    v4 = *(v1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_6_8(v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_6_8(v3, v4, v5, v6, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __48___GCDefaultPhysicalDevice_setDriverConnection___block_invoke_3_258_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
+  v2 = getGCLogger(v1);
   if (OUTLINED_FUNCTION_4_5(v2))
   {
-    v3 = *(v1 + 32);
-    v4 = *(v1 + 40);
     OUTLINED_FUNCTION_0_16();
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_6_8(v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_6_8(v3, v4, v5, v6, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void __158___GCDefaultPhysicalDevice_AdaptiveTriggersClient__updateAdaptiveTriggerStatusWithLeftMode_leftStatus_leftArmPosition_rightMode_rightStatus_rightArmPosition___block_invoke_cold_1()
+void __158___GCDefaultPhysicalDevice_AdaptiveTriggersClient__updateAdaptiveTriggerStatusWithLeftMode_leftStatus_leftArmPosition_rightMode_rightStatus_rightArmPosition___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke_496_cold_1(uint64_t *a1)
+void __54___GCDefaultPhysicalDevice_Battery__createPowerSource__block_invoke_496_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v10 = *a1;
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___block_invoke_cold_1()
+void __68___GCDefaultPhysicalDevice_BatteryClient__updateBattery_isCharging___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

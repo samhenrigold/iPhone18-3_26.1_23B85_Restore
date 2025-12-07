@@ -4,16 +4,19 @@
 - (void)addObservers:(id)observers;
 - (void)didDiscoverNearbyObject:(id)object;
 - (void)didGenerateShareableConfigurationData:(id)data forObject:(id)object;
+- (void)didPrefetchAcwgUrsk:(unsigned int)ursk error:(id)error;
 - (void)didProcessAcwgM1MsgWithResponse:(id)response error:(id)error;
 - (void)didProcessAcwgM3MsgWithResponse:(id)response error:(id)error;
 - (void)didProcessAcwgRangingSessionResumeRequestMsgWithResponse:(id)response error:(id)error;
 - (void)didReceiveAopSFZoneUpdate:(id)update;
+- (void)didReceiveRangingAuthRecommendation:(BOOL)recommendation forObject:(id)object;
 - (void)didRemoveNearbyObjects:(id)objects withReason:(unint64_t)reason;
 - (void)didStartAcwgRanging:(int64_t)ranging;
 - (void)didSuspendAcwgRanging:(int64_t)ranging;
 - (void)didUpdateAlgorithmState:(id)state forObject:(id)object;
 - (void)didUpdateDLTDOAMeasurements:(id)measurements;
 - (void)didUpdateHealthStatus:(int64_t)status;
+- (void)didUpdateHomeDeviceUWBRangingAvailability:(BOOL)availability;
 - (void)didUpdateLocalDiscoveryToken:(id)token;
 - (void)didUpdateMotionState:(int64_t)state;
 - (void)didUpdateNICoordinates:(id)coordinates;
@@ -22,6 +25,8 @@
 - (void)object:(id)object didUpdateRegion:(id)region previousRegion:(id)previousRegion;
 - (void)relayDCKMessage:(id)message;
 - (void)removeObservers:(id)observers;
+- (void)requestAcwgRangingSessionSuspend:(unsigned int)suspend withSuspendTriggerReason:(int64_t)reason;
+- (void)systemDidUpdateResourceUsageLimitExceeded:(BOOL)exceeded forSessionConfigurationTypeWithName:(id)name;
 - (void)systemDidUpdateState:(id)state;
 - (void)uwbSessionDidFailWithError:(id)error;
 - (void)uwbSessionDidInvalidateWithError:(id)error;
@@ -295,6 +300,45 @@
     }
 
     while (v6);
+  }
+
+  os_unfair_lock_unlock(&self->_observersLock);
+}
+
+- (void)didReceiveRangingAuthRecommendation:(BOOL)recommendation forObject:(id)object
+{
+  recommendationCopy = recommendation;
+  objectCopy = object;
+  [(NIServerClient *)self->_client didReceiveRangingAuthRecommendation:recommendationCopy forObject:objectCopy];
+  os_unfair_lock_lock(&self->_observersLock);
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = self->_observers;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) didReceiveRangingAuthRecommendation:recommendationCopy forObject:{objectCopy, v11}];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
   }
 
   os_unfair_lock_unlock(&self->_observersLock);
@@ -642,6 +686,44 @@
   os_unfair_lock_unlock(&self->_observersLock);
 }
 
+- (void)didUpdateHomeDeviceUWBRangingAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  [(NIServerClient *)self->_client didUpdateHomeDeviceUWBRangingAvailability:?];
+  os_unfair_lock_lock(&self->_observersLock);
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = self->_observers;
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v6)
+  {
+    v7 = *v10;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v10 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        [*(*(&v9 + 1) + 8 * v8) didUpdateHomeDeviceUWBRangingAvailability:{availabilityCopy, v9}];
+        v8 = v8 + 1;
+      }
+
+      while (v6 != v8);
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    }
+
+    while (v6);
+  }
+
+  os_unfair_lock_unlock(&self->_observersLock);
+}
+
 - (void)didProcessAcwgM1MsgWithResponse:(id)response error:(id)error
 {
   responseCopy = response;
@@ -759,6 +841,44 @@
   os_unfair_lock_unlock(&self->_observersLock);
 }
 
+- (void)requestAcwgRangingSessionSuspend:(unsigned int)suspend withSuspendTriggerReason:(int64_t)reason
+{
+  v5 = *&suspend;
+  [NIServerClient requestAcwgRangingSessionSuspend:"requestAcwgRangingSessionSuspend:withSuspendTriggerReason:" withSuspendTriggerReason:?];
+  os_unfair_lock_lock(&self->_observersLock);
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = self->_observers;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) requestAcwgRangingSessionSuspend:v5 withSuspendTriggerReason:{reason, v11}];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
+
+  os_unfair_lock_unlock(&self->_observersLock);
+}
+
 - (void)didStartAcwgRanging:(int64_t)ranging
 {
   [(NIServerClient *)self->_client didStartAcwgRanging:?];
@@ -828,6 +948,45 @@
     }
 
     while (v6);
+  }
+
+  os_unfair_lock_unlock(&self->_observersLock);
+}
+
+- (void)didPrefetchAcwgUrsk:(unsigned int)ursk error:(id)error
+{
+  v4 = *&ursk;
+  errorCopy = error;
+  [(NIServerClient *)self->_client didPrefetchAcwgUrsk:v4 error:errorCopy];
+  os_unfair_lock_lock(&self->_observersLock);
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = self->_observers;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) didPrefetchAcwgUrsk:v4 error:{errorCopy, v11}];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
   }
 
   os_unfair_lock_unlock(&self->_observersLock);
@@ -904,6 +1063,45 @@
     }
 
     while (v6);
+  }
+
+  os_unfair_lock_unlock(&self->_observersLock);
+}
+
+- (void)systemDidUpdateResourceUsageLimitExceeded:(BOOL)exceeded forSessionConfigurationTypeWithName:(id)name
+{
+  exceededCopy = exceeded;
+  nameCopy = name;
+  [(NIServerClient *)self->_client systemDidUpdateResourceUsageLimitExceeded:exceededCopy forSessionConfigurationTypeWithName:nameCopy];
+  os_unfair_lock_lock(&self->_observersLock);
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = self->_observers;
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        [*(*(&v11 + 1) + 8 * v10) systemDidUpdateResourceUsageLimitExceeded:exceededCopy forSessionConfigurationTypeWithName:{nameCopy, v11}];
+        v10 = v10 + 1;
+      }
+
+      while (v8 != v10);
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
   }
 
   os_unfair_lock_unlock(&self->_observersLock);

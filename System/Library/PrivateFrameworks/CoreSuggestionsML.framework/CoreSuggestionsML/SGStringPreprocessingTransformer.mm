@@ -82,7 +82,7 @@ LABEL_10:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   v5 = objc_opt_new();
   if ([(NSArray *)self->_methodNames count])
@@ -115,11 +115,9 @@ LABEL_10:
     while ([(NSArray *)self->_methodNames count]> v6);
   }
 
-  v17 = @"METHODS";
-  v18[0] = v5;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = @"METHODS";
+  v17[0] = v5;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   return v14;
 }
@@ -146,7 +144,7 @@ LABEL_10:
 
 - (SEL)selectorForMethod:(id)method preprocessor:(id)preprocessor
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   methodCopy = method;
   preprocessorCopy = preprocessor;
   v7 = NSSelectorFromString(methodCopy);
@@ -154,7 +152,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
+      LOWORD(v13) = 0;
       v9 = MEMORY[0x277D86220];
       v10 = "SGStringPreprocessor error: NSSelectorFromString returned NULL";
       v11 = 2;
@@ -171,13 +169,13 @@ LABEL_6:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = methodCopy;
+      v13 = 138412290;
+      v14 = methodCopy;
       v9 = MEMORY[0x277D86220];
       v10 = "SGStringPreprocessor received an invalid method %@";
       v11 = 12;
 LABEL_9:
-      _os_log_error_impl(&dword_24799E000, v9, OS_LOG_TYPE_ERROR, v10, &v14, v11);
+      _os_log_error_impl(&dword_24799E000, v9, OS_LOG_TYPE_ERROR, v10, &v13, v11);
       goto LABEL_6;
     }
 
@@ -186,41 +184,40 @@ LABEL_9:
 
 LABEL_7:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)transformBatch:(id)batch
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   context = objc_autoreleasePoolPush();
   v5 = objc_opt_new();
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(batchCopy, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v7 = batchCopy;
-  v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v30 + 1) + 8 * i) mutableCopy];
+        v12 = [*(*(&v29 + 1) + 8 * i) mutableCopy];
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v9);
@@ -234,44 +231,43 @@ LABEL_7:
       context = [(NSArray *)self->_methodNames objectAtIndexedSubscript:v13, context];
       v15 = [(SGStringPreprocessingTransformer *)self selectorForMethod:context preprocessor:v5];
 
-      v25 = v13;
+      v24 = v13;
       v16 = [(NSArray *)self->_methodValues objectAtIndexedSubscript:v13];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v17 = v6;
-      v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v27;
+        v20 = *v26;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v27 != v20)
+            if (*v26 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            [(SGStringPreprocessingTransformer *)self applySelector:v15 preprocesor:v5 string:*(*(&v26 + 1) + 8 * j) value:v16];
+            [(SGStringPreprocessingTransformer *)self applySelector:v15 preprocesor:v5 string:*(*(&v25 + 1) + 8 * j) value:v16];
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
         }
 
         while (v19);
       }
 
-      v13 = v25 + 1;
+      v13 = v24 + 1;
     }
 
-    while (v25 + 1 < [(NSArray *)self->_methodNames count]);
+    while (v24 + 1 < [(NSArray *)self->_methodNames count]);
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -312,7 +308,7 @@ LABEL_7:
 
 - (SGStringPreprocessingTransformer)initWithMethods:(id)methods
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   methodsCopy = methods;
   if (!methodsCopy)
   {
@@ -326,14 +322,14 @@ LABEL_7:
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGStringPreprocessingTransformer.m" lineNumber:68 description:{@"Invalid parameter not satisfying: %@", @"methods.count % 2 == 0"}];
   }
 
-  v33.receiver = self;
-  v33.super_class = SGStringPreprocessingTransformer;
-  v6 = [(SGStringPreprocessingTransformer *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = SGStringPreprocessingTransformer;
+  v6 = [(SGStringPreprocessingTransformer *)&v32 init];
   v7 = v6;
   if (v6)
   {
-    v31 = a2;
-    v32 = v6;
+    v30 = a2;
+    v31 = v6;
     v8 = objc_opt_new();
     v9 = objc_opt_new();
     if ([methodsCopy count])
@@ -374,33 +370,32 @@ LABEL_7:
       while (v10 < [methodsCopy count]);
     }
 
-    v7 = v32;
-    objc_storeStrong(&v32->_methodNames, v8);
-    objc_storeStrong(&v32->_methodValues, v9);
+    v7 = v31;
+    objc_storeStrong(&v31->_methodNames, v8);
+    objc_storeStrong(&v31->_methodValues, v9);
     *__str = 0u;
-    v35 = 0u;
+    v34 = 0u;
     if (snprintf(__str, 0x20uLL, "%s%s%s%s", "v", "@", ":", "@") > 0x1F)
     {
       currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler3 handleFailureInMethod:v31 object:v32 file:@"SGStringPreprocessingTransformer.m" lineNumber:83 description:{@"Invalid parameter not satisfying: %@", @"size >= 0 && size < TYPES_STRING_BUF_SIZE"}];
+      [currentHandler3 handleFailureInMethod:v30 object:v31 file:@"SGStringPreprocessingTransformer.m" lineNumber:83 description:{@"Invalid parameter not satisfying: %@", @"size >= 0 && size < TYPES_STRING_BUF_SIZE"}];
     }
 
     v21 = [MEMORY[0x277CBEB08] signatureWithObjCTypes:__str];
-    methodSignatureNoValue = v32->_methodSignatureNoValue;
-    v32->_methodSignatureNoValue = v21;
+    methodSignatureNoValue = v31->_methodSignatureNoValue;
+    v31->_methodSignatureNoValue = v21;
 
     if (snprintf(__str, 0x20uLL, "%s%s%s%s%s", "v", "@", ":", "@", "@") >= 0x20)
     {
       currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler4 handleFailureInMethod:v31 object:v32 file:@"SGStringPreprocessingTransformer.m" lineNumber:86 description:{@"Invalid parameter not satisfying: %@", @"size >= 0 && size < TYPES_STRING_BUF_SIZE"}];
+      [currentHandler4 handleFailureInMethod:v30 object:v31 file:@"SGStringPreprocessingTransformer.m" lineNumber:86 description:{@"Invalid parameter not satisfying: %@", @"size >= 0 && size < TYPES_STRING_BUF_SIZE"}];
     }
 
     v23 = [MEMORY[0x277CBEB08] signatureWithObjCTypes:__str];
-    methodSignatureWithValue = v32->_methodSignatureWithValue;
-    v32->_methodSignatureWithValue = v23;
+    methodSignatureWithValue = v31->_methodSignatureWithValue;
+    v31->_methodSignatureWithValue = v23;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

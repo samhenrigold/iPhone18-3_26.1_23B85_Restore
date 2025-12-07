@@ -3,7 +3,7 @@
 
 @implementation VTDecompressionSessionRemote
 
-uint64_t __VTDecompressionSessionRemote_Create_block_invoke(void *a1, mach_port_t a2, int a3, _DWORD *a4, void *a5, void *a6)
+uint64_t __VTDecompressionSessionRemote_Create_block_invoke(void *a1, mach_port_t a2, int a3, int *a4, void *a5, uint64_t *a6)
 {
   v25 = *MEMORY[0x1E69E9840];
   v23 = 0;
@@ -60,9 +60,9 @@ LABEL_6:
   }
 }
 
-uint64_t __VTDecompressionSessionRemote_GetMinOutputPresentationTimeStampOfFramesBeingDecoded_block_invoke(void *a1)
+uint64_t __VTDecompressionSessionRemote_GetMinOutputPresentationTimeStampOfFramesBeingDecoded_block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  result = VTDecompressionSessionRemoteClient_GetMinOutputPresentationTimeStampOfFramesBeingDecoded(*(a1[6] + 24), *(a1[5] + 8) + 24);
+  result = VTDecompressionSessionRemoteClient_GetMinOutputPresentationTimeStampOfFramesBeingDecoded(*(a1[6] + 24), *(a1[5] + 8) + 24, a3);
   *(*(a1[4] + 8) + 24) = result;
   return result;
 }

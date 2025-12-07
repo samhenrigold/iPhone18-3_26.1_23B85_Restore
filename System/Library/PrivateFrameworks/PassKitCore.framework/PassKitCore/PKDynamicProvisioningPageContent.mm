@@ -102,7 +102,7 @@
 
   v32 = v31;
 
-  if ([v32 isEqualToString:@"center"])
+  if (objc_msgSend_isEqualToString_(v32))
   {
     v33 = 2;
   }
@@ -260,9 +260,9 @@
     goto LABEL_54;
   }
 
-  v72 = [(__CFString *)v70 isEqualToString:@"default"];
+  isEqualToString = objc_msgSend_isEqualToString_(v70);
 
-  if (v72)
+  if (isEqualToString)
   {
 LABEL_50:
     v73 = 1;
@@ -270,7 +270,7 @@ LABEL_50:
   }
 
   v74 = v71;
-  if (v74 == @"compact" || (v75 = v74, v76 = [(__CFString *)v74 isEqualToString:@"compact"], v75, v76))
+  if (v74 == @"compact" || (v75 = v74, v76 = objc_msgSend_isEqualToString_(v74), v75, v76))
   {
     v73 = 2;
   }

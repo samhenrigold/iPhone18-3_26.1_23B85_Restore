@@ -7,6 +7,7 @@
 - (VMSpeechURLRecognitionRequestOperation)initWithSpeechRecognizer:(id)recognizer speechURLRecognitionRequest:(id)request;
 - (id)URL;
 - (id)speechURLRecognitionRequest;
+- (void)setForceOfflineRecognition:(BOOL)recognition;
 @end
 
 @implementation VMSpeechURLRecognitionRequestOperation
@@ -87,6 +88,17 @@
 
   objc_sync_exit(selfCopy);
   return _forceOfflineRecognition;
+}
+
+- (void)setForceOfflineRecognition:(BOOL)recognition
+{
+  recognitionCopy = recognition;
+  obj = self;
+  objc_sync_enter(obj);
+  speechRecognitionRequest = [(VMSpeechRecognitionRequestOperation *)obj speechRecognitionRequest];
+  [speechRecognitionRequest _setForceOfflineRecognition:recognitionCopy];
+
+  objc_sync_exit(obj);
 }
 
 - (id)URL

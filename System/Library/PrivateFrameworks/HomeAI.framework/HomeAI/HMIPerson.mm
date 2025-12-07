@@ -17,7 +17,7 @@
   nameCopy = name;
   dCopy = d;
   v9 = [v6 set];
-  v10 = [(HMIPerson *)self initWithUUID:dCopy name:nameCopy personLinks:v9];
+  v10 = [HMIPerson initWithUUID:"initWithUUID:name:personLinks:" name:? personLinks:?];
 
   return v10;
 }
@@ -60,35 +60,32 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uUID = [(HMIPerson *)self UUID];
-  v5 = [v3 initWithName:@"UUID" value:uUID];
+  v5 = [v3 initWithName:? value:?];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMIPerson *)self name];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
-  v9 = [v6 initWithName:@"name" value:name options:2 formatter:defaultFormatter];
-  v15[1] = v9;
-  v10 = objc_alloc(MEMORY[0x277D0F778]);
+  v13 = [v6 initWithName:? value:? options:? formatter:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
   personLinks = [(HMIPerson *)self personLinks];
-  v12 = [v10 initWithName:@"personLinks" value:personLinks];
-  v15[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14 = [v9 initWithName:? value:?];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v13;
+  return v11;
 }
 
 + (id)personFromHomePerson:(id)person
 {
   personCopy = person;
   personLinks = [personCopy personLinks];
-  v5 = [personLinks na_map:&__block_literal_global_21];
+  v5 = [personLinks na_map:?];
 
   v6 = [HMIPerson alloc];
   uUID = [personCopy UUID];
   name = [personCopy name];
 
-  v9 = [(HMIPerson *)v6 initWithUUID:uUID name:name personLinks:v5];
+  v9 = [HMIPerson initWithUUID:v6 name:"initWithUUID:name:personLinks:" personLinks:?];
 
   return v9;
 }
@@ -112,7 +109,7 @@
   {
     uUID = [(HMIPerson *)self UUID];
     uUID2 = [v6 UUID];
-    if ([uUID isEqual:uUID2] && (-[HMIPerson name](self, "name"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11))
+    if ([uUID isEqual:?] && (-[HMIPerson name](self, "name"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11))
     {
       personLinks = [(HMIPerson *)self personLinks];
       personLinks2 = [v6 personLinks];
@@ -145,31 +142,33 @@
 {
   coderCopy = coder;
   uUID = [(HMIPerson *)self UUID];
-  [coderCopy encodeObject:uUID forKey:@"HMIP.ck.u"];
+  [coderCopy encodeObject:? forKey:?];
 
   name = [(HMIPerson *)self name];
-  [coderCopy encodeObject:name forKey:@"HMIP.ck.n"];
+  [coderCopy encodeObject:? forKey:?];
 
   personLinks = [(HMIPerson *)self personLinks];
-  [coderCopy encodeObject:personLinks forKey:@"HMIP.ck.pl"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIPerson)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIP.ck.u"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIP.ck.n"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
   v7 = MEMORY[0x277CBEB98];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
-  v9 = [v7 setWithArray:v8];
+  v21 = objc_opt_class();
+  v22 = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v9 = [v7 setWithArray:?];
 
-  v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"HMIP.ck.pl"];
+  v10 = [coderCopy decodeObjectOfClasses:? forKey:?];
   if (v5)
   {
-    selfCopy = [(HMIPerson *)self initWithUUID:v5 name:v6 personLinks:v10];
+    selfCopy = [HMIPerson initWithUUID:"initWithUUID:name:personLinks:" name:? personLinks:?];
     v12 = selfCopy;
   }
 

@@ -35,7 +35,7 @@
   inlineCopy = inline;
   v17 = *MEMORY[0x1E69E9840];
   presenterCopy = presenter;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(presenterCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [MEMORY[0x1E696AD98] numberWithBool:inlineCopy];
@@ -71,7 +71,7 @@
 
 - (void)dealloc
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -140,7 +140,7 @@ uint64_t __66__AAUIPasscodeValidateController_setPasscodeValidationCompletion___
 - (void)validateStingrayPasscodeStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -170,7 +170,7 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
 - (void)validatePasscodeStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -181,15 +181,15 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
 
   if (passcodeValidationCompletion)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Passcode Creation/Validation in progress.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Passcode Creation/Validation in progress.", v11, 2u);
     }
 
-    v8 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
-    completionCopy[2](completionCopy, 0, v8);
+    v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
+    completionCopy[2](completionCopy, 0, v9);
   }
 
   else
@@ -197,22 +197,22 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
     [(AAUIPasscodeValidateController *)self setPasscodeValidationCompletion:completionCopy];
     if ([MEMORY[0x1E69977F0] hasLocalSecret])
     {
-      v9 = 3;
+      v10 = 3;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    [(AAUIPasscodeValidateController *)self _showPasscodePromptWithMode:v9];
+    [(AAUIPasscodeValidateController *)self _showPasscodePromptWithMode:v10];
   }
 }
 
 - (void)createPasscodeStateWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -223,15 +223,15 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
 
   if (passcodeValidationCompletion)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Passcode Creation/Validation in progress.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Passcode Creation/Validation in progress.", v10, 2u);
     }
 
-    v8 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
-    completionCopy[2](completionCopy, 0, v8);
+    v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
+    completionCopy[2](completionCopy, 0, v9);
   }
 
   else
@@ -245,7 +245,7 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
 {
   v3 = *&mode;
   v12 = *MEMORY[0x1E69E9840];
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -316,7 +316,7 @@ uint64_t __78__AAUIPasscodeValidateController_validateStingrayPasscodeStateWithC
 - (void)didAcceptEnteredPIN:(id)n
 {
   nCopy = n;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(nCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -372,7 +372,7 @@ void __67__AAUIPasscodeValidateController_dismissFlowWithLocalSecret_error___blo
 
 - (void)didCancelEnteringPIN
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -386,7 +386,7 @@ void __67__AAUIPasscodeValidateController_dismissFlowWithLocalSecret_error___blo
 - (void)devicePINController:(id)controller didFailToSetPinWithError:(id)error
 {
   errorCopy = error;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -399,7 +399,7 @@ void __67__AAUIPasscodeValidateController_dismissFlowWithLocalSecret_error___blo
 - (void)devicePINController:(id)controller didAcceptSetPIN:(id)n
 {
   nCopy = n;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(nCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -410,25 +410,25 @@ void __67__AAUIPasscodeValidateController_dismissFlowWithLocalSecret_error___blo
   {
     if ([(DevicePINController *)self->_pinController simplePIN])
     {
-      v7 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v7 = 3;
+      v8 = 3;
     }
 
-    passcodeValidationCompletion = [objc_alloc(MEMORY[0x1E69977F8]) initWithValidatedSecret:nCopy secretType:v7];
+    passcodeValidationCompletion = [objc_alloc(MEMORY[0x1E69977F8]) initWithValidatedSecret:nCopy secretType:v8];
     [(AAUIPasscodeValidateController *)self dismissFlowWithLocalSecret:passcodeValidationCompletion error:0];
   }
 
   else
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Passcode was accepted, but it was not set, initiate revalidation", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Passcode was accepted, but it was not set, initiate revalidation", v11, 2u);
     }
 
     passcodeValidationCompletion = [(AAUIPasscodeValidateController *)self passcodeValidationCompletion];
@@ -439,7 +439,7 @@ void __67__AAUIPasscodeValidateController_dismissFlowWithLocalSecret_error___blo
 - (void)devicePINController:(id)controller canCancelWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;

@@ -12,10 +12,10 @@
 - (DRSSamplingParameters)initWithSamplingPercentage:(double)percentage
 {
   selfCopy = self;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (percentage < 0.0)
   {
-    v5 = DPLogHandle_TaskingMessageError();
+    v5 = DPLogHandle_TaskingMessageError(self);
     if (os_signpost_enabled(v5))
     {
       *buf = 134217984;
@@ -31,7 +31,7 @@ LABEL_7:
 
   if (percentage > 100.0)
   {
-    v5 = DPLogHandle_TaskingMessageError();
+    v5 = DPLogHandle_TaskingMessageError(self);
     if (os_signpost_enabled(v5))
     {
       *buf = 134217984;
@@ -46,9 +46,9 @@ LABEL_8:
     goto LABEL_12;
   }
 
-  v11.receiver = self;
-  v11.super_class = DRSSamplingParameters;
-  v8 = [(DRSSamplingParameters *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = DRSSamplingParameters;
+  v8 = [(DRSSamplingParameters *)&v10 init];
   if (v8)
   {
     v8->_samplingPercentage = percentage;
@@ -58,7 +58,6 @@ LABEL_8:
   v7 = selfCopy;
 LABEL_12:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -97,9 +96,10 @@ LABEL_12:
 
 - (DRSSamplingParameters)initWithJSONDict:(id)dict
 {
+  selfCopy = self;
   if (!dict)
   {
-    v4 = DPLogHandle_TaskingMessageError();
+    v4 = DPLogHandle_TaskingMessageError(self);
     if (os_signpost_enabled(v4))
     {
       *buf = 0;
@@ -112,32 +112,33 @@ LABEL_12:
   v4 = [dict objectForKeyedSubscript:@"samplingPercentage"];
   if (!v4)
   {
-    v6 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v6))
+    v7 = DPLogHandle_TaskingMessageError(0);
+    if (os_signpost_enabled(v7))
     {
-      v11 = 0;
-      v7 = "JSON missing sampling percentage";
-      v8 = &v11;
+      v12 = 0;
+      v8 = "JSON missing sampling percentage";
+      v9 = &v12;
 LABEL_11:
-      _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SamplingParameterFailedJSONInit", v7, v8, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SamplingParameterFailedJSONInit", v8, v9, 2u);
     }
 
 LABEL_12:
 
 LABEL_13:
-    selfCopy = 0;
+    v6 = 0;
     goto LABEL_14;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v6))
+    v7 = DPLogHandle_TaskingMessageError(isKindOfClass);
+    if (os_signpost_enabled(v7))
     {
-      v10 = 0;
-      v7 = "Sampling percentage is wrong class";
-      v8 = &v10;
+      v11 = 0;
+      v8 = "Sampling percentage is wrong class";
+      v9 = &v11;
       goto LABEL_11;
     }
 
@@ -145,24 +146,22 @@ LABEL_13:
   }
 
   [v4 doubleValue];
-  self = [(DRSSamplingParameters *)self initWithSamplingPercentage:?];
-  selfCopy = self;
+  selfCopy = [(DRSSamplingParameters *)selfCopy initWithSamplingPercentage:?];
+  v6 = selfCopy;
 LABEL_14:
 
-  return selfCopy;
+  return v6;
 }
 
 - (id)jsonDictRepresentation
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"samplingPercentage";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"samplingPercentage";
   v2 = MEMORY[0x277CCABB0];
   [(DRSSamplingParameters *)self samplingPercentage];
   v3 = [v2 numberWithDouble:?];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

@@ -214,7 +214,7 @@
 
 - (id)persistableRepresentationWithError:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if ([(PFPosterPath *)self->_path isServerPosterPath]&& [(PFPosterPath *)self->_path isPersistable])
   {
     bs_secureEncoded = [(PRSPosterConfiguration *)self bs_secureEncoded];
@@ -227,32 +227,30 @@
       v6 = MEMORY[0x1E696ABC0];
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
-      v12 = *MEMORY[0x1E696A588];
-      v13[0] = @"configuration is not persistable";
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x1E696A588];
+      v12[0] = @"configuration is not persistable";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       *error = [v6 errorWithDomain:v8 code:1 userInfo:v9];
     }
 
     bs_secureEncoded = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return bs_secureEncoded;
 }
 
 + (id)decodeFromPersistableRepresentation:(id)representation expectedContainerIdentifier:(id)identifier error:(id *)error
 {
-  v67[3] = *MEMORY[0x1E69E9840];
+  v70[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v66[0] = @"PRSPosterPath";
+  v69[0] = @"PRSPosterPath";
   representationCopy = representation;
-  v67[0] = objc_opt_class();
-  v66[1] = @"PRSServerPosterPath";
-  v67[1] = objc_opt_class();
-  v66[2] = @"PRSServerPosterIdentity";
-  v67[2] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:3];
+  v70[0] = objc_opt_class();
+  v69[1] = @"PRSServerPosterPath";
+  v70[1] = objc_opt_class();
+  v69[2] = @"PRSServerPosterIdentity";
+  v70[2] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:v69 count:3];
   v10 = [PRSPosterConfiguration pf_secureDecodedFromData:representationCopy classReplacementMap:v9];
 
   if (v10)
@@ -262,15 +260,15 @@
     standardizedURL = [containerURL standardizedURL];
 
     v14 = +[PRSBehaviorAggregator dataStoreContainerDirectoryPath];
-    v15 = PRSLogCommon();
+    v15 = PRSLogCommon(v14);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v59 = standardizedURL;
-      v60 = 2112;
-      v61 = v14;
-      v62 = 2112;
-      v63 = identifierCopy;
+      v62 = standardizedURL;
+      v63 = 2112;
+      v64 = v14;
+      v65 = 2112;
+      v66 = identifierCopy;
       _os_log_impl(&dword_1C26FF000, v15, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] Attempting to fix up path for configuration. Persisted configuration container URL: %@ kContainerDirectory: %@, targetContainerIdentifier: %@>", buf, 0x20u);
     }
 
@@ -278,105 +276,109 @@
     v17 = [path rangeOfString:v14];
     if (v17 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v19 = PRSLogCommon();
+      v19 = PRSLogCommon(0x7FFFFFFFFFFFFFFFLL);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&dword_1C26FF000, v19, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] unable to find container uuid; checking if this is a valid file system location...", buf, 2u);
       }
 
-      if ([standardizedURL checkResourceIsReachableAndReturnError:error])
+      v20 = [standardizedURL checkResourceIsReachableAndReturnError:error];
+      if (v20)
       {
-        v20 = v10;
+        v21 = v10;
       }
 
       else
       {
-        v26 = PRSLogCommon();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = PRSLogCommon(v20);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          [(PRSPosterConfiguration *)standardizedURL decodeFromPersistableRepresentation:v26 expectedContainerIdentifier:v27 error:v28, v29, v30, v31, v32];
+          [(PRSPosterConfiguration *)standardizedURL decodeFromPersistableRepresentation:v28 expectedContainerIdentifier:v29 error:v30, v31, v32, v33, v34];
         }
 
-        v20 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      v23 = v17;
-      v24 = v18;
+      v24 = v17;
+      v25 = v18;
       uUIDString = [identifierCopy UUIDString];
-      if ([uUIDString length] == 36)
+      v27 = [uUIDString length];
+      if (v27 == 36)
       {
-        v57 = [path substringWithRange:{v23 + v24, 36}];
-        if ([v57 isEqualToString:uUIDString])
+        v60 = [path substringWithRange:{v24 + v25, 36}];
+        if ([v60 isEqualToString:uUIDString])
         {
-          v20 = v10;
+          v21 = v10;
         }
 
         else
         {
-          v34 = [path mutableCopy];
-          [v34 replaceCharactersInRange:v23 + v24 withString:{36, uUIDString}];
-          v56 = v34;
-          v35 = [MEMORY[0x1E695DFF8] fileURLWithPath:v34 isDirectory:1];
-          v36 = PRSLogCommon();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v37 = [path mutableCopy];
+          [v37 replaceCharactersInRange:v24 + v25 withString:{36, uUIDString}];
+          v59 = v37;
+          v38 = [MEMORY[0x1E695DFF8] fileURLWithPath:v37 isDirectory:1];
+          v39 = PRSLogCommon(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v59 = v57;
-            v60 = 2112;
-            v61 = uUIDString;
-            _os_log_impl(&dword_1C26FF000, v36, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] Replacing container %@ with %@...", buf, 0x16u);
+            v62 = v60;
+            v63 = 2112;
+            v64 = uUIDString;
+            _os_log_impl(&dword_1C26FF000, v39, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] Replacing container %@ with %@...", buf, 0x16u);
           }
 
-          if ([v35 checkResourceIsReachableAndReturnError:error])
+          v40 = [v38 checkResourceIsReachableAndReturnError:error];
+          if (v40)
           {
-            v37 = MEMORY[0x1E69C51E8];
+            v41 = MEMORY[0x1E69C51E8];
             _path2 = [v10 _path];
             serverIdentity = [_path2 serverIdentity];
-            v40 = [v37 pathWithContainerURL:v35 identity:serverIdentity];
+            v44 = [v41 pathWithContainerURL:v38 identity:serverIdentity];
 
-            v20 = [[PRSPosterConfiguration alloc] _initWithPath:v40];
+            v21 = [[PRSPosterConfiguration alloc] _initWithPath:v44];
           }
 
           else
           {
-            v40 = PRSLogCommon();
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            v44 = PRSLogCommon(v40);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
-              [(PRSPosterConfiguration *)v35 decodeFromPersistableRepresentation:v40 expectedContainerIdentifier:v48 error:v49, v50, v51, v52, v53];
+              [(PRSPosterConfiguration *)v38 decodeFromPersistableRepresentation:v44 expectedContainerIdentifier:v52 error:v53, v54, v55, v56, v57];
             }
 
-            v20 = 0;
+            v21 = 0;
           }
         }
       }
 
       else
       {
-        v33 = PRSLogCommon();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v35 = PRSLogCommon(v27);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C26FF000, v33, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] container UUID was wrong length; checking if this configuration's file system URL is reachable...", buf, 2u);
+          _os_log_impl(&dword_1C26FF000, v35, OS_LOG_TYPE_DEFAULT, "[decodeFromPersistableRepresentation] container UUID was wrong length; checking if this configuration's file system URL is reachable...", buf, 2u);
         }
 
-        if ([standardizedURL checkResourceIsReachableAndReturnError:error])
+        v36 = [standardizedURL checkResourceIsReachableAndReturnError:error];
+        if (v36)
         {
-          v20 = v10;
+          v21 = v10;
         }
 
         else
         {
-          v41 = PRSLogCommon();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          v45 = PRSLogCommon(v36);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
           {
-            [(PRSPosterConfiguration *)standardizedURL decodeFromPersistableRepresentation:v41 expectedContainerIdentifier:v42 error:v43, v44, v45, v46, v47];
+            [(PRSPosterConfiguration *)standardizedURL decodeFromPersistableRepresentation:v45 expectedContainerIdentifier:v46 error:v47, v48, v49, v50, v51];
           }
 
-          v20 = 0;
+          v21 = 0;
         }
       }
     }
@@ -386,24 +388,23 @@
   {
     if (!error)
     {
-      v20 = 0;
+      v21 = 0;
       goto LABEL_37;
     }
 
-    v21 = MEMORY[0x1E696ABC0];
-    v22 = objc_opt_class();
-    standardizedURL = NSStringFromClass(v22);
-    v64 = *MEMORY[0x1E696A588];
-    v65 = @"failed to decode configuration from data";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-    [v21 errorWithDomain:standardizedURL code:2 userInfo:v14];
-    *error = v20 = 0;
+    v22 = MEMORY[0x1E696ABC0];
+    v23 = objc_opt_class();
+    standardizedURL = NSStringFromClass(v23);
+    v67 = *MEMORY[0x1E696A588];
+    v68 = @"failed to decode configuration from data";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    [v22 errorWithDomain:standardizedURL code:2 userInfo:v14];
+    *error = v21 = 0;
   }
 
 LABEL_37:
-  v54 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v21;
 }
 
 + (id)decodeFromPersistableRepresentation:(id)representation error:(id *)error
@@ -508,23 +509,23 @@ LABEL_3:
 
 + (void)decodeFromPersistableRepresentation:(uint64_t)a3 expectedContainerIdentifier:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] this is not a valid file system location: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] this is not a valid file system location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)decodeFromPersistableRepresentation:(uint64_t)a3 expectedContainerIdentifier:(uint64_t)a4 error:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] fixedContainerURL is not a valid file system location: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] fixedContainerURL is not a valid file system location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)decodeFromPersistableRepresentation:(uint64_t)a3 expectedContainerIdentifier:(uint64_t)a4 error:(uint64_t)a5 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] unable to find container uuid; this is not a valid file system location: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1C26FF000, a2, a3, "[decodeFromPersistableRepresentation] unable to find container uuid; this is not a valid file system location: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

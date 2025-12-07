@@ -7,16 +7,16 @@
 
 - (id)_cs_xpcObject
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   objCType = [self objCType];
   if (!objCType)
   {
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[NSNumber(XPCObject) _cs_xpcObject]";
-      v10 = "%s Cannot create xpcObject if objcType is NULL";
+      v10 = 136315138;
+      v11 = "[NSNumber(XPCObject) _cs_xpcObject]";
+      v9 = "%s Cannot create xpcObject if objcType is NULL";
       goto LABEL_19;
     }
 
@@ -54,11 +54,11 @@ LABEL_7:
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[NSNumber(XPCObject) _cs_xpcObject]";
-      v10 = "%s Cannot create xpcObject since there is no matching type";
+      v10 = 136315138;
+      v11 = "[NSNumber(XPCObject) _cs_xpcObject]";
+      v9 = "%s Cannot create xpcObject since there is no matching type";
 LABEL_19:
-      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, v10, &v11, 0xCu);
+      _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, v9, &v10, 0xCu);
       goto LABEL_7;
     }
 
@@ -67,14 +67,13 @@ LABEL_19:
 
   v5 = xpc_BOOL_create([self BOOLValue]);
 LABEL_13:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)_cs_initWithXPCObject:()XPCObject
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (!v4)
@@ -82,8 +81,8 @@ LABEL_13:
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[NSNumber(XPCObject) _cs_initWithXPCObject:]";
+      v12 = 136315138;
+      v13 = "[NSNumber(XPCObject) _cs_initWithXPCObject:]";
       v8 = "%s Cannot create NSNumber if xpcObject is NULL";
       goto LABEL_19;
     }
@@ -116,11 +115,11 @@ LABEL_9:
       v7 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315138;
-        v14 = "[NSNumber(XPCObject) _cs_initWithXPCObject:]";
+        v12 = 136315138;
+        v13 = "[NSNumber(XPCObject) _cs_initWithXPCObject:]";
         v8 = "%s XPC object type should be BOOL, DOUBLE, INT64, or UINT64";
 LABEL_19:
-        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, v8, &v13, 0xCu);
+        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, v8, &v12, 0xCu);
         goto LABEL_9;
       }
 
@@ -132,8 +131,6 @@ LABEL_19:
 
   v9 = v10;
 LABEL_15:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

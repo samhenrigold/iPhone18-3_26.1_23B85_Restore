@@ -85,11 +85,13 @@
 - (void)openAuthenticationURLForAccount:(id)account withDelegateClassName:(id)name fromBundleAtPath:(id)path shouldConfirm:(BOOL)confirm completion:(id)completion;
 - (void)preloadDataclassOwnersWithCompletion:(id)completion;
 - (void)removeAccount:(id)account withDataclassActions:(id)actions completion:(id)completion;
+- (void)removeAccount:(id)account withDeleteSync:(BOOL)sync completion:(id)completion;
 - (void)removeAccountFromPairedDevice:(id)device withOptions:(id)options completion:(id)completion;
 - (void)removeAccountType:(id)type withCompletionHandler:(id)handler;
 - (void)removeAccountsFromPairedDeviceWithOptions:(id)options completion:(id)completion;
 - (void)removeCredentialItem:(id)item withCompletionHandler:(id)handler;
 - (void)removeObsoleteAccounts:(id)accounts;
+- (void)renewCredentialsForAccount:(id)account force:(BOOL)force reason:(id)reason completion:(id)completion;
 - (void)renewCredentialsForAccount:(id)account options:(id)options completion:(id)completion;
 - (void)renewCredentialsForAccount:(id)account services:(id)services completion:(id)completion;
 - (void)reportTelemetryForLandmarkEvent:(id)event;
@@ -100,9 +102,11 @@
 - (void)saveCredentialItem:(id)item withCompletionHandler:(id)handler;
 - (void)scheduleBackupIfNonexistent:(id)nonexistent;
 - (void)setCredential:(id)credential forAccount:(id)account serviceID:(id)d error:(id *)error;
+- (void)setNotificationsEnabled:(BOOL)enabled;
 - (void)setPermissionGranted:(BOOL)granted forBundleID:(id)d onAccountType:(id)type;
 - (void)shutdownAccountsD:(id)d;
 - (void)verifyCredentialsForAccount:(id)account options:(id)options completion:(id)completion;
+- (void)verifyCredentialsForAccount:(id)account saveWhenAuthorized:(BOOL)authorized withHandler:(id)handler;
 - (void)visibleTopLevelAccountsWithAccountTypeIdentifiers:(id)identifiers completion:(id)completion;
 @end
 
@@ -384,122 +388,130 @@ void __52__ACAccountStore_longLivedRemoteAccountStoreSession__block_invoke_3(uin
   *(v1 + 56) = 0;
 }
 
+- (void)setNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  [remoteAccountStoreSession setNotificationsEnabled:enabledCopy];
+
+  longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
+  [longLivedRemoteAccountStoreSession setNotificationsEnabled:enabledCopy];
+}
+
 - (id)accountWithIdentifier:(id)identifier error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/account-with-identifier-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "AccountWithIdentifierSync", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "AccountWithIdentifierSync", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore accountWithIdentifier:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __46__ACAccountStore_accountWithIdentifier_error___block_invoke;
-  v30[3] = &unk_1E7975B78;
-  v16 = identifierCopy;
-  v31 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __46__ACAccountStore_accountWithIdentifier_error___block_invoke;
+  v33[3] = &unk_1E7975B78;
+  v19 = identifierCopy;
+  v34 = v19;
   p_buf = &buf;
-  v33 = &v34;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __46__ACAccountStore_accountWithIdentifier_error___block_invoke_66;
-  v29[3] = &unk_1E7975BA0;
-  v29[4] = self;
-  v29[5] = &v34;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v30, v29);
+  v36 = &v37;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __46__ACAccountStore_accountWithIdentifier_error___block_invoke_66;
+  v32[3] = &unk_1E7975BA0;
+  v32[4] = self;
+  v32[5] = &v37;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v33, v32);
 
   [*(*(&buf + 1) + 40) _setAccountStore:self];
   if (error)
   {
-    *error = v35[5];
+    *error = v38[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    v21 = v35[5];
-    if (*&v21 == 0.0)
+    v23 = *(*(&buf + 1) + 40);
+    v24 = v38[5];
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v41 = 138412546;
-    v42 = v20;
-    v43 = 2112;
-    v44 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "AccountWithIdentifierSync", "%@%@", v41, 0x16u);
+    *v44 = 138412546;
+    v45 = v23;
+    v46 = 2112;
+    v47 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "AccountWithIdentifierSync", "%@%@", v44, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(*(&buf + 1) + 40);
-    v27 = v35[5];
-    *v41 = 134218754;
-    v42 = v9;
-    v43 = 2048;
-    v44 = Nanoseconds / 1000000000.0;
-    v45 = 2112;
-    v46 = v26;
-    if (v27)
+    v29 = *(*(&buf + 1) + 40);
+    v30 = v38[5];
+    *v44 = 134218754;
+    v45 = v10;
+    v46 = 2048;
+    v47 = Nanoseconds / 1000000000.0;
+    v48 = 2112;
+    v49 = v29;
+    if (v30)
     {
-      v28 = v27;
+      v31 = v30;
     }
 
     else
     {
-      v28 = &stru_1F210E1C8;
+      v31 = &stru_1F210E1C8;
     }
 
-    v47 = 2112;
-    v48 = v28;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountWithIdentifierSync %@%@", v41, 0x2Au);
+    v50 = 2112;
+    v51 = v31;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountWithIdentifierSync %@%@", v44, 0x2Au);
   }
 
-  v23 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v34, 8);
+  v27 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v37, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v27;
 }
 
 uint64_t __46__ACAccountStore_accountWithIdentifier_error___block_invoke(uint64_t a1, void *a2)
@@ -517,38 +529,36 @@ void __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2(uint64_t 
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __46__ACAccountStore_accountWithIdentifier_error___block_invoke_66(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)accountWithIdentifier:(id)identifier completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/account-with-identifier", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -557,55 +567,53 @@ uint64_t __46__ACAccountStore_accountWithIdentifier_error___block_invoke_66(uint
   os_activity_scope_enter(v8, &state);
   if (completionCopy)
   {
-    v9 = _ACSignpostLogSystem();
-    v10 = _ACSignpostCreate(v9);
-    v12 = v11;
+    v10 = _ACSignpostLogSystem(v9);
+    v11 = _ACSignpostCreate(v10);
+    v13 = v12;
 
-    v13 = _ACSignpostLogSystem();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = _ACSignpostLogSystem(v14);
+    v16 = v15;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 138412290;
-      v32 = identifierCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "AccountWithIdentifier", "%@", buf, 0xCu);
+      v34 = identifierCopy;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "AccountWithIdentifier", "%@", buf, 0xCu);
     }
 
-    v15 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = _ACSignpostLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore accountWithIdentifier:completion:];
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke;
-    v26[3] = &unk_1E7975BF0;
-    v26[4] = self;
-    v28 = v10;
-    v29 = v12;
-    v27 = completionCopy;
-    v16 = MEMORY[0x1AC5B3C70](v26);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke;
+    v28[3] = &unk_1E7975BF0;
+    v28[4] = self;
+    v30 = v11;
+    v31 = v13;
+    v29 = completionCopy;
+    v19 = MEMORY[0x1AC5B3C70](v28);
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_71;
+    v24[3] = &unk_1E7975C40;
+    v25 = identifierCopy;
+    selfCopy = self;
+    v27 = v19;
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
-    v22[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_71;
-    v22[3] = &unk_1E7975C40;
-    v23 = identifierCopy;
-    selfCopy = self;
-    v25 = v16;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_73;
-    v20[3] = &unk_1E79754F0;
-    v18 = v25;
-    v20[4] = self;
-    v21 = v18;
-    ac_dispatch_remote(remoteAccountStoreSession, v22, v20);
+    v22[2] = __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_73;
+    v22[3] = &unk_1E79754F0;
+    v21 = v27;
+    v22[4] = self;
+    v23 = v21;
+    ac_dispatch_remote(remoteAccountStoreSession, v24, v22);
   }
 
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __51__ACAccountStore_accountWithIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -628,9 +636,9 @@ void __51__ACAccountStore_accountWithIdentifier_completion___block_invoke(uint64
 
 uint64_t __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_2(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -642,41 +650,37 @@ uint64_t __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_2(
       v7 = &stru_1F210E1C8;
     }
 
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = *&v7;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountWithIdentifier", "%@%@", &v17, 0x16u);
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = *&v7;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountWithIdentifier", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = a1[7];
-    v14 = a1[4];
-    v15 = a1[5];
-    v17 = 134218754;
-    v18 = v13;
-    v16 = &stru_1F210E1C8;
-    v19 = 2048;
-    v20 = Nanoseconds / 1000000000.0;
-    v21 = 2112;
-    v22 = v14;
-    if (v15)
+    v11 = a1[7];
+    v12 = a1[4];
+    v13 = a1[5];
+    v15 = 134218754;
+    v16 = v11;
+    v14 = &stru_1F210E1C8;
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 2112;
+    v20 = v12;
+    if (v13)
     {
-      v16 = v15;
+      v14 = v13;
     }
 
-    v23 = 2112;
-    v24 = v16;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountWithIdentifier %@%@", &v17, 0x2Au);
+    v21 = 2112;
+    v22 = v14;
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountWithIdentifier %@%@", &v15, 0x2Au);
   }
 
-  v9 = a1[5];
-  v10 = a1[4];
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_71(void *a1, void *a2)
@@ -697,9 +701,8 @@ void __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_2_72(u
   v5 = a3;
   if (v5)
   {
-    v6 = a2;
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _ACLogSystem(a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -722,66 +725,65 @@ void __51__ACAccountStore_accountWithIdentifier_completion___block_invoke_73(uin
 
 - (void)cachedAccountWithIdentifier:(id)identifier completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/cached-account-with-identifier", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v30 = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CachedAccountWithIdentifier", "%@", buf, 0xCu);
+    v32 = identifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "CachedAccountWithIdentifier", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore cachedAccountWithIdentifier:completion:];
   }
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_invoke;
-  v24[3] = &unk_1E7975BF0;
-  v24[4] = self;
-  v26 = v10;
-  v27 = v12;
-  v16 = completionCopy;
-  v25 = v16;
-  v17 = MEMORY[0x1AC5B3C70](v24);
-  v18 = self->_accountCache;
-  objc_sync_enter(v18);
-  v19 = [(NSMutableDictionary *)self->_accountCache objectForKeyedSubscript:identifierCopy];
-  objc_sync_exit(v18);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_invoke;
+  v26[3] = &unk_1E7975BF0;
+  v26[4] = self;
+  v28 = v11;
+  v29 = v13;
+  v19 = completionCopy;
+  v27 = v19;
+  v20 = MEMORY[0x1AC5B3C70](v26);
+  v21 = self->_accountCache;
+  objc_sync_enter(v21);
+  v22 = [(NSMutableDictionary *)self->_accountCache objectForKeyedSubscript:identifierCopy];
+  objc_sync_exit(v21);
 
-  if (v19)
+  if (v22)
   {
-    (v17)[2](v17, v19, 0);
+    (v20)[2](v20, v22, 0);
   }
 
   else
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_invoke_74;
-    v21[3] = &unk_1E7975C68;
-    v21[4] = self;
-    v22 = identifierCopy;
-    v23 = v17;
-    [(ACAccountStore *)self accountWithIdentifier:v22 completion:v21];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_invoke_74;
+    v23[3] = &unk_1E7975C68;
+    v23[4] = self;
+    v24 = identifierCopy;
+    v25 = v20;
+    [(ACAccountStore *)self accountWithIdentifier:v24 completion:v23];
   }
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -806,7 +808,7 @@ uint64_t __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_inv
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -825,8 +827,8 @@ uint64_t __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_inv
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "CachedAccountWithIdentifier", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = a1[7];
     v12 = a1[4];
@@ -845,16 +847,15 @@ uint64_t __57__ACAccountStore_cachedAccountWithIdentifier_completion___block_inv
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CachedAccountWithIdentifier %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CachedAccountWithIdentifier %@%@", &v15, 0x2Au);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, a1[4], a1[5]);
+    return (*(result + 16))(result, a1[4], a1[5]);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -948,10 +949,11 @@ void __61__ACAccountStore_accountTypeWithAccountTypeIdentifier_error___block_inv
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -960,21 +962,18 @@ void __61__ACAccountStore_accountTypeWithAccountTypeIdentifier_error___block_inv
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    v9 = [*(a1 + 32) _cache];
-    [v9 cacheAccountType:*(*(*(a1 + 40) + 8) + 40)];
+    v10 = [*(a1 + 32) _cache];
+    [v10 cacheAccountType:*(*(*(a1 + 40) + 8) + 40)];
   }
 
-  v10 = *(*(a1 + 48) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v7;
+  v11 = *(*(a1 + 48) + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v8;
 }
 
 uint64_t __61__ACAccountStore_accountTypeWithAccountTypeIdentifier_error___block_invoke_76(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -1066,9 +1065,8 @@ void __55__ACAccountStore_accountTypeWithIdentifier_completion___block_invoke_4(
   v5 = a3;
   if (v5)
   {
-    v6 = a2;
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _ACLogSystem(a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -1077,8 +1075,8 @@ void __55__ACAccountStore_accountTypeWithIdentifier_completion___block_invoke_4(
   else
   {
     [a2 setAccountStore:*(a1 + 32)];
-    v7 = [*(a1 + 32) _cache];
-    [v7 cacheAccountType:*(a1 + 40)];
+    v6 = [*(a1 + 32) _cache];
+    [v6 cacheAccountType:*(a1 + 40)];
   }
 
   (*(*(a1 + 48) + 16))();
@@ -1093,105 +1091,104 @@ void __55__ACAccountStore_accountTypeWithIdentifier_completion___block_invoke_77
 
 - (NSArray)accounts
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1AC3CD000, "accounts/all-accounts-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v3, &state);
-  v4 = _ACSignpostLogSystem();
-  v5 = _ACSignpostCreate(v4);
-  v7 = v6;
+  v5 = _ACSignpostLogSystem(v4);
+  v6 = _ACSignpostCreate(v5);
+  v8 = v7;
 
-  v8 = _ACSignpostLogSystem();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "AllAccountsSync", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "AllAccountsSync", &unk_1AC43804B, buf, 2u);
   }
 
-  v10 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v13 = _ACSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore accounts];
   }
 
   *buf = 0;
-  v31 = buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__0;
-  v34 = __Block_byref_object_dispose__0;
-  v35 = 0;
+  v34 = buf;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__0;
+  v37 = __Block_byref_object_dispose__0;
+  v38 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __26__ACAccountStore_accounts__block_invoke;
-  v29[3] = &unk_1E7975D80;
-  v29[4] = buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v29, &__block_literal_global_81);
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __26__ACAccountStore_accounts__block_invoke;
+  v32[3] = &unk_1E7975D80;
+  v32[4] = buf;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v32, &__block_literal_global_81);
 
-  v27 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v12 = *(v31 + 5);
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v45 count:16];
-  if (v13)
+  v29 = 0u;
+  v15 = *(v34 + 5);
+  v16 = [v15 countByEnumeratingWithState:&v28 objects:v48 count:16];
+  if (v16)
   {
-    v14 = *v26;
+    v17 = *v29;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v14)
+        if (*v29 != v17)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v15);
         }
 
-        [*(*(&v25 + 1) + 8 * i) _setAccountStore:{self, v25}];
+        [*(*(&v28 + 1) + 8 * i) _setAccountStore:{self, v28}];
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v25 objects:v45 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v28 objects:v48 count:16];
     }
 
-    while (v13);
+    while (v16);
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v5, v7);
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  Nanoseconds = _ACSignpostGetNanoseconds(v6, v8);
+  v20 = _ACSignpostLogSystem(Nanoseconds);
+  v21 = v20;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    v19 = *(v31 + 5);
-    *v37 = 138412546;
-    v38 = v19;
-    v39 = 2112;
-    v40 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_END, v5, "AllAccountsSync", "%@%@", v37, 0x16u);
+    v22 = *(v34 + 5);
+    *v40 = 138412546;
+    v41 = v22;
+    v42 = 2112;
+    v43 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_END, v6, "AllAccountsSync", "%@%@", v40, 0x16u);
   }
 
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    *v37 = 134218754;
-    v24 = *(v31 + 5);
-    v38 = v5;
-    v39 = 2048;
-    v40 = Nanoseconds / 1000000000.0;
-    v41 = 2112;
-    v42 = v24;
-    v43 = 2112;
-    v44 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllAccountsSync %@%@", v37, 0x2Au);
+    *v40 = 134218754;
+    v27 = *(v34 + 5);
+    v41 = v6;
+    v42 = 2048;
+    v43 = Nanoseconds / 1000000000.0;
+    v44 = 2112;
+    v45 = v27;
+    v46 = 2112;
+    v47 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllAccountsSync %@%@", v40, 0x2Au);
   }
 
-  v21 = *(v31 + 5);
+  v25 = *(v34 + 5);
   _Block_object_dispose(buf, 8);
 
   os_activity_scope_leave(&state);
-  v22 = *MEMORY[0x1E69E9840];
 
-  return v21;
+  return v25;
 }
 
 uint64_t __26__ACAccountStore_accounts__block_invoke(uint64_t a1, void *a2)
@@ -1208,10 +1205,11 @@ void __26__ACAccountStore_accounts__block_invoke_2(uint64_t a1, void *a2, void *
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -1223,10 +1221,10 @@ void __26__ACAccountStore_accounts__block_invoke_2(uint64_t a1, void *a2, void *
   }
 }
 
-void __26__ACAccountStore_accounts__block_invoke_79()
+void __26__ACAccountStore_accounts__block_invoke_79(uint64_t a1)
 {
-  v0 = _ACLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _ACLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __26__ACAccountStore_accounts__block_invoke_79_cold_1();
   }
@@ -1234,7 +1232,7 @@ void __26__ACAccountStore_accounts__block_invoke_79()
 
 - (NSArray)accountsWithAccountType:(ACAccountType *)accountType
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v4 = accountType;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -1243,17 +1241,17 @@ void __26__ACAccountStore_accounts__block_invoke_79()
   identifier = [(ACAccountType *)v4 identifier];
   v7 = [ACNotifyAccountCache suffixForAccountsForAccountType:identifier fetchOptions:1];
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__0;
-  v44 = __Block_byref_object_dispose__0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__0;
+  v47 = __Block_byref_object_dispose__0;
   _cache = [(ACAccountStore *)self _cache];
-  v45 = [_cache cachedAccountsForSuffix:v7];
+  v48 = [_cache cachedAccountsForSuffix:v7];
 
-  if (v41[5])
+  if (v44[5])
   {
-    p_super = _ACLogSystem();
+    p_super = _ACLogSystem(v9);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
     {
       [(ACAccountType *)v4 identifier];
@@ -1264,101 +1262,100 @@ void __26__ACAccountStore_accounts__block_invoke_79()
 
   else
   {
-    v10 = _ACSignpostLogSystem();
-    v11 = _ACSignpostCreate(v10);
-    v13 = v12;
+    v11 = _ACSignpostLogSystem(v9);
+    v12 = _ACSignpostCreate(v11);
+    v14 = v13;
 
-    v14 = _ACSignpostLogSystem();
-    v15 = v14;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v16 = _ACSignpostLogSystem(v15);
+    v17 = v16;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 138412290;
-      v49 = v4;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "AccountsWithTypeSync", "%@", buf, 0xCu);
+      v52 = v4;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "AccountsWithTypeSync", "%@", buf, 0xCu);
     }
 
-    v16 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v19 = _ACSignpostLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore accountsWithAccountType:];
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __42__ACAccountStore_accountsWithAccountType___block_invoke;
-    v35[3] = &unk_1E7975DF0;
-    v39 = &v40;
-    v36 = v4;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __42__ACAccountStore_accountsWithAccountType___block_invoke;
+    v38[3] = &unk_1E7975DF0;
+    v42 = &v43;
+    v39 = v4;
     selfCopy = self;
-    v38 = v7;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v35, &__block_literal_global_85);
+    v41 = v7;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v38, &__block_literal_global_85);
 
-    Nanoseconds = _ACSignpostGetNanoseconds(v11, v13);
-    v19 = _ACSignpostLogSystem();
-    v20 = v19;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    Nanoseconds = _ACSignpostGetNanoseconds(v12, v14);
+    v22 = _ACSignpostLogSystem(Nanoseconds);
+    v23 = v22;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      v21 = v41[5];
+      v24 = v44[5];
       *buf = 138412546;
-      v49 = v21;
-      v50 = 2112;
-      v51 = COERCE_DOUBLE(&stru_1F210E1C8);
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v11, "AccountsWithTypeSync", "%@%@", buf, 0x16u);
+      v52 = v24;
+      v53 = 2112;
+      v54 = COERCE_DOUBLE(&stru_1F210E1C8);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_END, v12, "AccountsWithTypeSync", "%@%@", buf, 0x16u);
     }
 
-    v22 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v26 = _ACSignpostLogSystem(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218754;
-      v30 = v41[5];
-      v49 = v11;
-      v50 = 2048;
-      v51 = Nanoseconds / 1000000000.0;
-      v52 = 2112;
-      v53 = v30;
-      v54 = 2112;
-      v55 = &stru_1F210E1C8;
-      _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeSync %@%@", buf, 0x2Au);
+      v33 = v44[5];
+      v52 = v12;
+      v53 = 2048;
+      v54 = Nanoseconds / 1000000000.0;
+      v55 = 2112;
+      v56 = v33;
+      v57 = 2112;
+      v58 = &stru_1F210E1C8;
+      _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeSync %@%@", buf, 0x2Au);
     }
 
-    p_super = &v36->super;
+    p_super = &v39->super;
   }
 
-  v33 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v23 = v41[5];
-  v24 = [v23 countByEnumeratingWithState:&v31 objects:v47 count:16];
-  if (v24)
+  v35 = 0u;
+  v27 = v44[5];
+  v28 = [v27 countByEnumeratingWithState:&v34 objects:v50 count:16];
+  if (v28)
   {
-    v25 = *v32;
+    v29 = *v35;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v32 != v25)
+        if (*v35 != v29)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v27);
         }
 
-        [*(*(&v31 + 1) + 8 * i) _setAccountStore:{self, v31}];
+        [*(*(&v34 + 1) + 8 * i) _setAccountStore:{self, v34}];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v31 objects:v47 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v34 objects:v50 count:16];
     }
 
-    while (v24);
+    while (v28);
   }
 
-  v27 = v41[5];
-  _Block_object_dispose(&v40, 8);
+  v31 = v44[5];
+  _Block_object_dispose(&v43, 8);
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 
-  return v27;
+  return v31;
 }
 
 void __42__ACAccountStore_accountsWithAccountType___block_invoke(uint64_t a1, void *a2)
@@ -1379,10 +1376,11 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2(uint64_t a1, 
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1();
     }
@@ -1391,15 +1389,15 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2(uint64_t a1, 
   else
   {
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
-    v9 = [*(a1 + 32) _cache];
-    [v9 cacheAccounts:v6 forSuffix:*(a1 + 40)];
+    v10 = [*(a1 + 32) _cache];
+    [v10 cacheAccounts:v6 forSuffix:*(a1 + 40)];
   }
 }
 
-void __42__ACAccountStore_accountsWithAccountType___block_invoke_83()
+void __42__ACAccountStore_accountsWithAccountType___block_invoke_83(uint64_t a1)
 {
-  v0 = _ACLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _ACLogSystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __26__ACAccountStore_accounts__block_invoke_79_cold_1();
   }
@@ -1407,7 +1405,7 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_83()
 
 - (id)accountsWithAccountType:(id)type options:(unint64_t)options error:(id *)error
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v9 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type-with-options-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -1416,24 +1414,24 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_83()
   identifier = [typeCopy identifier];
   v11 = [ACNotifyAccountCache suffixForAccountsForAccountType:identifier fetchOptions:options];
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__0;
-  v60 = __Block_byref_object_dispose__0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__0;
+  v63 = __Block_byref_object_dispose__0;
   _cache = [(ACAccountStore *)self _cache];
-  v61 = [_cache cachedAccountsForSuffix:v11];
+  v64 = [_cache cachedAccountsForSuffix:v11];
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__0;
-  v54 = __Block_byref_object_dispose__0;
-  v55 = 0;
-  if (v57[5])
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__0;
+  v57 = __Block_byref_object_dispose__0;
+  v58 = 0;
+  if (v60[5])
   {
-    v13 = _ACLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = _ACLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [typeCopy identifier];
       objc_claimAutoreleasedReturnValue();
@@ -1443,141 +1441,139 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_83()
 
   else
   {
-    v14 = _ACSignpostLogSystem();
-    v15 = _ACSignpostCreate(v14);
-    v17 = v16;
+    v15 = _ACSignpostLogSystem(v13);
+    v16 = _ACSignpostCreate(v15);
+    v18 = v17;
 
-    v18 = _ACSignpostLogSystem();
-    v19 = v18;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v20 = _ACSignpostLogSystem(v19);
+    v21 = v20;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 138412546;
-      v65 = typeCopy;
-      v66 = 2048;
+      v68 = typeCopy;
+      v69 = 2048;
       optionsCopy = options;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v15, "AccountsWithTypeSync", "%@: %lu", buf, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v16, "AccountsWithTypeSync", "%@: %lu", buf, 0x16u);
     }
 
-    v20 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v23 = _ACSignpostLogSystem(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v65 = v15;
-      v66 = 2112;
+      v68 = v16;
+      v69 = 2112;
       optionsCopy = typeCopy;
-      v68 = 2048;
+      v71 = 2048;
       optionsCopy2 = options;
-      _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypeSync %@: %lu", buf, 0x20u);
+      _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypeSync %@: %lu", buf, 0x20u);
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke;
-    v43[3] = &unk_1E7975E40;
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke;
+    v46[3] = &unk_1E7975E40;
     optionsCopy3 = options;
-    v47 = &v50;
-    v48 = &v56;
-    v44 = typeCopy;
+    v50 = &v53;
+    v51 = &v59;
+    v47 = typeCopy;
     selfCopy = self;
-    v46 = v11;
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke_86;
-    v42[3] = &unk_1E7975BA0;
-    v42[4] = self;
-    v42[5] = &v50;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v43, v42);
+    v49 = v11;
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke_86;
+    v45[3] = &unk_1E7975BA0;
+    v45[4] = self;
+    v45[5] = &v53;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v46, v45);
 
-    Nanoseconds = _ACSignpostGetNanoseconds(v15, v17);
-    v23 = _ACSignpostLogSystem();
-    v24 = v23;
-    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    Nanoseconds = _ACSignpostGetNanoseconds(v16, v18);
+    v26 = _ACSignpostLogSystem(Nanoseconds);
+    v27 = v26;
+    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
-      v25 = v57[5];
-      v26 = v51[5];
-      if (!v26)
+      v28 = v60[5];
+      v29 = v54[5];
+      if (!v29)
       {
-        v26 = &stru_1F210E1C8;
+        v29 = &stru_1F210E1C8;
       }
 
       *buf = 138412546;
-      v65 = v25;
-      v66 = 2112;
-      optionsCopy = v26;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v24, OS_SIGNPOST_INTERVAL_END, v15, "AccountsWithTypeSync", "%@%@", buf, 0x16u);
+      v68 = v28;
+      v69 = 2112;
+      optionsCopy = v29;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v27, OS_SIGNPOST_INTERVAL_END, v16, "AccountsWithTypeSync", "%@%@", buf, 0x16u);
     }
 
-    v27 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v31 = _ACSignpostLogSystem(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v35 = v57[5];
-      v36 = v51[5];
+      v38 = v60[5];
+      v39 = v54[5];
       *buf = 134218754;
-      v65 = v15;
-      v66 = 2048;
+      v68 = v16;
+      v69 = 2048;
       *&optionsCopy = Nanoseconds / 1000000000.0;
-      v68 = 2112;
-      optionsCopy2 = v35;
-      if (v36)
+      v71 = 2112;
+      optionsCopy2 = v38;
+      if (v39)
       {
-        v37 = v36;
+        v40 = v39;
       }
 
       else
       {
-        v37 = &stru_1F210E1C8;
+        v40 = &stru_1F210E1C8;
       }
 
-      v70 = 2112;
-      v71 = v37;
-      _os_log_debug_impl(&dword_1AC3CD000, v27, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeSync %@%@", buf, 0x2Au);
+      v73 = 2112;
+      v74 = v40;
+      _os_log_debug_impl(&dword_1AC3CD000, v31, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeSync %@%@", buf, 0x2Au);
     }
 
-    v13 = v44;
+    v14 = v47;
   }
 
-  v40 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v28 = v57[5];
-  v29 = [v28 countByEnumeratingWithState:&v38 objects:v63 count:16];
-  if (v29)
+  v42 = 0u;
+  v32 = v60[5];
+  v33 = [v32 countByEnumeratingWithState:&v41 objects:v66 count:16];
+  if (v33)
   {
-    v30 = *v39;
+    v34 = *v42;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v39 != v30)
+        if (*v42 != v34)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v32);
         }
 
-        [*(*(&v38 + 1) + 8 * i) _setAccountStore:{self, v38}];
+        [*(*(&v41 + 1) + 8 * i) _setAccountStore:{self, v41}];
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v38 objects:v63 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v41 objects:v66 count:16];
     }
 
-    while (v29);
+    while (v33);
   }
 
   if (error)
   {
-    *error = v51[5];
+    *error = v54[5];
   }
 
-  v32 = v57[5];
-  _Block_object_dispose(&v50, 8);
+  v36 = v60[5];
+  _Block_object_dispose(&v53, 8);
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v59, 8);
   os_activity_scope_leave(&state);
 
-  v33 = *MEMORY[0x1E69E9840];
-
-  return v32;
+  return v36;
 }
 
 void __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke(uint64_t a1, void *a2)
@@ -1601,10 +1597,11 @@ void __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke_2
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1();
     }
@@ -1615,24 +1612,21 @@ void __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke_2
   else
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
-    v9 = [*(a1 + 32) _cache];
-    [v9 cacheAccounts:v6 forSuffix:*(a1 + 40)];
+    v10 = [*(a1 + 32) _cache];
+    [v10 cacheAccounts:v6 forSuffix:*(a1 + 40)];
   }
 }
 
 uint64_t __56__ACAccountStore_accountsWithAccountType_options_error___block_invoke_86(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)accountsWithAccountType:(id)type completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -1641,13 +1635,13 @@ uint64_t __56__ACAccountStore_accountsWithAccountType_options_error___block_invo
   os_activity_scope_enter(v8, &state);
   if (completionCopy)
   {
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke;
-    v35[3] = &unk_1E79754A0;
-    v35[4] = self;
-    v36 = completionCopy;
-    v9 = MEMORY[0x1AC5B3C70](v35);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke;
+    v37[3] = &unk_1E79754A0;
+    v37[4] = self;
+    v38 = completionCopy;
+    v9 = MEMORY[0x1AC5B3C70](v37);
     identifier = [typeCopy identifier];
     v11 = [ACNotifyAccountCache suffixForAccountsForAccountType:identifier fetchOptions:1];
 
@@ -1656,8 +1650,8 @@ uint64_t __56__ACAccountStore_accountsWithAccountType_options_error___block_invo
 
     if (v13)
     {
-      v14 = _ACLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = _ACLogSystem(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         [typeCopy identifier];
         objc_claimAutoreleasedReturnValue();
@@ -1669,82 +1663,80 @@ uint64_t __56__ACAccountStore_accountsWithAccountType_options_error___block_invo
 
     else
     {
-      v15 = _ACSignpostLogSystem();
-      v16 = _ACSignpostCreate(v15);
-      v18 = v17;
+      v16 = _ACSignpostLogSystem(v14);
+      v17 = _ACSignpostCreate(v16);
+      v19 = v18;
 
-      v19 = _ACSignpostLogSystem();
-      v20 = v19;
-      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+      v21 = _ACSignpostLogSystem(v20);
+      v22 = v21;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
       {
         *buf = 138412290;
-        v39 = typeCopy;
-        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v16, "AccountsWithType", "%@", buf, 0xCu);
+        v41 = typeCopy;
+        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v17, "AccountsWithType", "%@", buf, 0xCu);
       }
 
-      v21 = _ACSignpostLogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v24 = _ACSignpostLogSystem(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         [ACAccountStore accountsWithAccountType:completion:];
       }
 
       remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_87;
-      v28[3] = &unk_1E7975E90;
-      v29 = typeCopy;
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_87;
+      v30[3] = &unk_1E7975E90;
+      v31 = typeCopy;
       selfCopy = self;
-      v31 = v11;
-      v33 = v16;
-      v34 = v18;
-      v32 = v9;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89;
-      v24[3] = &unk_1E7975EB8;
-      v26 = v16;
-      v27 = v18;
-      v24[4] = self;
-      v25 = v32;
-      ac_dispatch_remote(remoteAccountStoreSession, v28, v24);
+      v33 = v11;
+      v35 = v17;
+      v36 = v19;
+      v34 = v9;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89;
+      v26[3] = &unk_1E7975EB8;
+      v28 = v17;
+      v29 = v19;
+      v26[4] = self;
+      v27 = v34;
+      ac_dispatch_remote(remoteAccountStoreSession, v30, v26);
     }
   }
 
   os_activity_scope_leave(&state);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v20 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
+        [*(*(&v19 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -1756,14 +1748,12 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke(uint
   block[2] = __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_2;
   block[3] = &unk_1E7975478;
   v12 = *(a1 + 40);
-  v18 = v6;
-  v19 = v12;
-  v17 = v5;
+  v17 = v6;
+  v18 = v12;
+  v16 = v5;
   v13 = v6;
   v14 = v5;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_87(uint64_t a1, void *a2)
@@ -1783,63 +1773,63 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_87(u
 
 void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_2_88(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = [*(a1 + 32) _cache];
-  [v8 cacheAccounts:v5 forSuffix:*(a1 + 40)];
+  v9 = [*(a1 + 32) _cache];
+  [v9 cacheAccounts:v5 forSuffix:*(a1 + 40)];
 
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  v12 = *(a1 + 56);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _ACSignpostLogSystem(Nanoseconds);
+  v12 = v11;
+  v13 = *(a1 + 56);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = &stru_1F210E1C8;
-    if (v6)
+    v14 = &stru_1F210E1C8;
+    if (v7)
     {
-      v13 = v6;
+      v14 = v7;
     }
 
-    v18 = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = *&v13;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_END, v12, "AccountsWithType", "%@%@", &v18, 0x16u);
+    v19 = 138412546;
+    v20 = v5;
+    v21 = 2112;
+    v22 = *&v14;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v12, OS_SIGNPOST_INTERVAL_END, v13, "AccountsWithType", "%@%@", &v19, 0x16u);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _ACSignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(a1 + 56);
-    v18 = 134218754;
-    v19 = v16;
-    v17 = &stru_1F210E1C8;
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 2112;
-    v23 = v5;
-    if (v6)
+    v17 = *(a1 + 56);
+    v19 = 134218754;
+    v20 = v17;
+    v18 = &stru_1F210E1C8;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 2112;
+    v24 = v5;
+    if (v7)
     {
-      v17 = v6;
+      v18 = v7;
     }
 
-    v24 = 2112;
-    v25 = v17;
-    _os_log_debug_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v18, 0x2Au);
+    v25 = 2112;
+    v26 = v18;
+    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v19, 0x2Au);
   }
 
   (*(*(a1 + 48) + 16))();
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(uint64_t a1, void *a2)
@@ -1847,7 +1837,7 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
   v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v5 = _ACSignpostLogSystem();
+  v5 = _ACSignpostLogSystem(Nanoseconds);
   v6 = v5;
   v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -1865,8 +1855,8 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v6, OS_SIGNPOST_INTERVAL_END, v7, "AccountsWithType", "%@%@", &v15, 0x16u);
   }
 
-  v9 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ACSignpostLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v13 = *(a1 + 48);
     v15 = 134218754;
@@ -1883,19 +1873,17 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v15, 0x2Au);
   }
 
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) _connectionFailureError];
-  (*(v10 + 16))(v10, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 32) _connectionFailureError];
+  (*(v11 + 16))(v11, 0, v12);
 }
 
 - (void)accountsWithAccountType:(id)type options:(unint64_t)options completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   completionCopy = completion;
   v10 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type-with-options", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -1904,13 +1892,13 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
   os_activity_scope_enter(v10, &state);
   if (completionCopy)
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke;
-    v39[3] = &unk_1E79754A0;
-    v39[4] = self;
-    v40 = completionCopy;
-    v11 = MEMORY[0x1AC5B3C70](v39);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke;
+    v41[3] = &unk_1E79754A0;
+    v41[4] = self;
+    v42 = completionCopy;
+    v11 = MEMORY[0x1AC5B3C70](v41);
     identifier = [typeCopy identifier];
     v13 = [ACNotifyAccountCache suffixForAccountsForAccountType:identifier fetchOptions:options];
 
@@ -1919,8 +1907,8 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
 
     if (v15)
     {
-      v16 = _ACLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v17 = _ACLogSystem(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [typeCopy identifier];
         objc_claimAutoreleasedReturnValue();
@@ -1932,92 +1920,90 @@ void __53__ACAccountStore_accountsWithAccountType_completion___block_invoke_89(u
 
     else
     {
-      v17 = _ACSignpostLogSystem();
-      v18 = _ACSignpostCreate(v17);
-      v26 = v19;
-      v20 = v18;
+      v18 = _ACSignpostLogSystem(v16);
+      v19 = _ACSignpostCreate(v18);
+      v28 = v20;
+      v21 = v19;
 
-      v21 = _ACSignpostLogSystem();
-      v22 = v21;
-      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+      v23 = _ACSignpostLogSystem(v22);
+      v24 = v23;
+      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         *buf = 138412546;
-        v43 = typeCopy;
-        v44 = 2048;
+        v45 = typeCopy;
+        v46 = 2048;
         optionsCopy = options;
-        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "AccountsWithType", "%@: %lu", buf, 0x16u);
+        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "AccountsWithType", "%@: %lu", buf, 0x16u);
       }
 
-      v23 = _ACSignpostLogSystem();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v26 = _ACSignpostLogSystem(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218498;
-        v43 = v20;
-        v44 = 2112;
+        v45 = v21;
+        v46 = 2112;
         optionsCopy = typeCopy;
-        v46 = 2048;
+        v48 = 2048;
         optionsCopy2 = options;
-        _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithType %@: %lu", buf, 0x20u);
+        _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithType %@: %lu", buf, 0x20u);
       }
 
       remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_90;
-      v31[3] = &unk_1E7975EE0;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_90;
+      v33[3] = &unk_1E7975EE0;
       optionsCopy3 = options;
-      v32 = typeCopy;
+      v34 = typeCopy;
       selfCopy = self;
-      v34 = v13;
-      v37 = v20;
-      v38 = v26;
-      v35 = v11;
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_92;
-      v27[3] = &unk_1E7975EB8;
-      v29 = v20;
-      v30 = v26;
-      v27[4] = self;
-      v28 = v35;
-      ac_dispatch_remote(remoteAccountStoreSession, v31, v27);
+      v36 = v13;
+      v39 = v21;
+      v40 = v28;
+      v37 = v11;
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_92;
+      v29[3] = &unk_1E7975EB8;
+      v31 = v21;
+      v32 = v28;
+      v29[4] = self;
+      v30 = v37;
+      ac_dispatch_remote(remoteAccountStoreSession, v33, v29);
     }
   }
 
   os_activity_scope_leave(&state);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v20 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
+        [*(*(&v19 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -2029,14 +2015,12 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
   block[2] = __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_2;
   block[3] = &unk_1E7975478;
   v12 = *(a1 + 40);
-  v18 = v6;
-  v19 = v12;
-  v17 = v5;
+  v17 = v6;
+  v18 = v12;
+  v16 = v5;
   v13 = v6;
   v14 = v5;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_90(uint64_t a1, void *a2)
@@ -2057,63 +2041,63 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
 
 void __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_2_91(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = [*(a1 + 32) _cache];
-  [v8 cacheAccounts:v5 forSuffix:*(a1 + 40)];
+  v9 = [*(a1 + 32) _cache];
+  [v9 cacheAccounts:v5 forSuffix:*(a1 + 40)];
 
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  v12 = *(a1 + 56);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _ACSignpostLogSystem(Nanoseconds);
+  v12 = v11;
+  v13 = *(a1 + 56);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = &stru_1F210E1C8;
-    if (v6)
+    v14 = &stru_1F210E1C8;
+    if (v7)
     {
-      v13 = v6;
+      v14 = v7;
     }
 
-    v18 = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = *&v13;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_END, v12, "AccountsWithType", "%@%@", &v18, 0x16u);
+    v19 = 138412546;
+    v20 = v5;
+    v21 = 2112;
+    v22 = *&v14;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v12, OS_SIGNPOST_INTERVAL_END, v13, "AccountsWithType", "%@%@", &v19, 0x16u);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _ACSignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v16 = *(a1 + 56);
-    v18 = 134218754;
-    v19 = v16;
-    v17 = &stru_1F210E1C8;
-    v20 = 2048;
-    v21 = Nanoseconds / 1000000000.0;
-    v22 = 2112;
-    v23 = v5;
-    if (v6)
+    v17 = *(a1 + 56);
+    v19 = 134218754;
+    v20 = v17;
+    v18 = &stru_1F210E1C8;
+    v21 = 2048;
+    v22 = Nanoseconds / 1000000000.0;
+    v23 = 2112;
+    v24 = v5;
+    if (v7)
     {
-      v17 = v6;
+      v18 = v7;
     }
 
-    v24 = 2112;
-    v25 = v17;
-    _os_log_debug_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v18, 0x2Au);
+    v25 = 2112;
+    v26 = v18;
+    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v19, 0x2Au);
   }
 
   (*(*(a1 + 48) + 16))();
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_accountsWithAccountType_options_completion___block_invoke_92(uint64_t a1, void *a2)
@@ -2121,7 +2105,7 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
   v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v5 = _ACSignpostLogSystem();
+  v5 = _ACSignpostLogSystem(Nanoseconds);
   v6 = v5;
   v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -2139,8 +2123,8 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v6, OS_SIGNPOST_INTERVAL_END, v7, "AccountsWithType", "%@%@", &v15, 0x16u);
   }
 
-  v9 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ACSignpostLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v13 = *(a1 + 48);
     v15 = 134218754;
@@ -2157,19 +2141,17 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithType %@%@", &v15, 0x2Au);
   }
 
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) _connectionFailureError];
-  (*(v10 + 16))(v10, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 32) _connectionFailureError];
+  (*(v11 + 16))(v11, 0, v12);
 }
 
 - (void)accountsWithAccountTypeIdentifiers:(id)identifiers preloadedProperties:(id)properties completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   propertiesCopy = properties;
   completionCopy = completion;
@@ -2179,129 +2161,128 @@ void __61__ACAccountStore_accountsWithAccountType_options_completion___block_inv
   os_activity_scope_enter(v11, &state);
   if (completionCopy)
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke;
-    v39[3] = &unk_1E79754A0;
-    v39[4] = self;
-    v40 = completionCopy;
-    v26 = MEMORY[0x1AC5B3C70](v39);
-    if ([identifiersCopy count] == 1 && !objc_msgSend(propertiesCopy, "count"))
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke;
+    v41[3] = &unk_1E79754A0;
+    v41[4] = self;
+    v42 = completionCopy;
+    v28 = MEMORY[0x1AC5B3C70](v41);
+    v12 = [identifiersCopy count];
+    if (v12 == 1 && (v12 = [propertiesCopy count]) == 0)
     {
       firstObject = [identifiersCopy firstObject];
-      v12 = [ACNotifyAccountCache suffixForAccountsForAccountType:firstObject fetchOptions:1];
+      v13 = [ACNotifyAccountCache suffixForAccountsForAccountType:firstObject fetchOptions:1];
 
       _cache = [(ACAccountStore *)self _cache];
-      v21 = [_cache cachedAccountsForSuffix:v12];
+      v24 = [_cache cachedAccountsForSuffix:v13];
 
-      if (v21)
+      if (v24)
       {
-        v25 = _ACLogSystem();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v27 = _ACLogSystem(v12);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           [identifiersCopy firstObject];
           objc_claimAutoreleasedReturnValue();
           [ACAccountStore accountsWithAccountType:completion:];
         }
 
-        (v26)[2](v26, v21, 0);
+        (v28)[2](v28, v24, 0);
         goto LABEL_11;
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = _ACSignpostLogSystem();
-    v14 = _ACSignpostCreate(v13);
-    v16 = v15;
+    v14 = _ACSignpostLogSystem(v12);
+    v15 = _ACSignpostCreate(v14);
+    v17 = v16;
 
-    v17 = _ACSignpostLogSystem();
-    v18 = v17;
-    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v19 = _ACSignpostLogSystem(v18);
+    v20 = v19;
+    if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 138412546;
-      v43 = identifiersCopy;
-      v44 = 2112;
-      v45 = propertiesCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "AccountsWithTypesWithProperties", "%@: %@", buf, 0x16u);
-    }
-
-    v19 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 134218498;
-      v43 = v14;
-      v44 = 2112;
       v45 = identifiersCopy;
       v46 = 2112;
       v47 = propertiesCopy;
-      _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypesWithProperties %@: %@", buf, 0x20u);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v15, "AccountsWithTypesWithProperties", "%@: %@", buf, 0x16u);
+    }
+
+    v22 = _ACSignpostLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218498;
+      v45 = v15;
+      v46 = 2112;
+      v47 = identifiersCopy;
+      v48 = 2112;
+      v49 = propertiesCopy;
+      _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypesWithProperties %@: %@", buf, 0x20u);
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_93;
-    v31[3] = &unk_1E7975F08;
-    v32 = identifiersCopy;
-    v33 = propertiesCopy;
-    v12 = v12;
-    v34 = v12;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_93;
+    v33[3] = &unk_1E7975F08;
+    v34 = identifiersCopy;
+    v35 = propertiesCopy;
+    v13 = v13;
+    v36 = v13;
     selfCopy = self;
-    v37 = v14;
-    v38 = v16;
-    v36 = v26;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_95;
-    v27[3] = &unk_1E7975EB8;
-    v29 = v14;
-    v30 = v16;
-    v27[4] = self;
-    v28 = v36;
-    ac_dispatch_remote(remoteAccountStoreSession, v31, v27);
+    v39 = v15;
+    v40 = v17;
+    v38 = v28;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_95;
+    v29[3] = &unk_1E7975EB8;
+    v31 = v15;
+    v32 = v17;
+    v29[4] = self;
+    v30 = v38;
+    ac_dispatch_remote(remoteAccountStoreSession, v33, v29);
 
-    v21 = 0;
+    v24 = 0;
 LABEL_11:
   }
 
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v20 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
+        [*(*(&v19 + 1) + 8 * v10++) _setAccountStore:*(a1 + 32)];
       }
 
       while (v8 != v10);
-      v8 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -2313,14 +2294,12 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
   block[2] = __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_2;
   block[3] = &unk_1E7975478;
   v12 = *(a1 + 40);
-  v18 = v6;
-  v19 = v12;
-  v17 = v5;
+  v17 = v6;
+  v18 = v12;
+  v16 = v5;
   v13 = v6;
   v14 = v5;
   dispatch_async(v11, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_93(uint64_t a1, void *a2)
@@ -2343,13 +2322,14 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
 
 void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_2_94(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -2357,63 +2337,61 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
 
   if (*(a1 + 32))
   {
-    v8 = [*(a1 + 40) _cache];
-    [v8 cacheAccounts:v5 forSuffix:*(a1 + 32)];
+    v9 = [*(a1 + 40) _cache];
+    [v9 cacheAccounts:v5 forSuffix:*(a1 + 32)];
   }
 
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  v12 = *(a1 + 56);
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = _ACSignpostLogSystem(Nanoseconds);
+  v12 = v11;
+  v13 = *(a1 + 56);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = &stru_1F210E1C8;
-    if (v6)
+    v14 = &stru_1F210E1C8;
+    if (v7)
     {
-      v13 = v6;
+      v14 = v7;
     }
 
-    v19 = 138412546;
-    v20 = v5;
-    v21 = 2112;
-    v22 = *&v13;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_END, v12, "AccountsWithTypesWithProperties", "%@%@", &v19, 0x16u);
+    v20 = 138412546;
+    v21 = v5;
+    v22 = 2112;
+    v23 = *&v14;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v12, OS_SIGNPOST_INTERVAL_END, v13, "AccountsWithTypesWithProperties", "%@%@", &v20, 0x16u);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _ACSignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 56);
-    v19 = 134218754;
-    v20 = v17;
-    v18 = &stru_1F210E1C8;
-    v21 = 2048;
-    v22 = Nanoseconds / 1000000000.0;
-    v23 = 2112;
-    v24 = v5;
-    if (v6)
+    v18 = *(a1 + 56);
+    v20 = 134218754;
+    v21 = v18;
+    v19 = &stru_1F210E1C8;
+    v22 = 2048;
+    v23 = Nanoseconds / 1000000000.0;
+    v24 = 2112;
+    v25 = v5;
+    if (v7)
     {
-      v18 = v6;
+      v19 = v7;
     }
 
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithProperties %@%@", &v19, 0x2Au);
+    v26 = 2112;
+    v27 = v19;
+    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithProperties %@%@", &v20, 0x2Au);
   }
 
-  if (v5 | v6)
+  if (v5 | v7)
   {
-    v15 = v5;
+    v17 = v5;
   }
 
   else
   {
-    v15 = MEMORY[0x1E695E0F0];
+    v17 = MEMORY[0x1E695E0F0];
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v15, v6);
-
-  v16 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 48) + 16))(*(a1 + 48), v17, v7);
 }
 
 void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_completion___block_invoke_95(uint64_t a1, void *a2)
@@ -2421,7 +2399,7 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
   v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v5 = _ACSignpostLogSystem();
+  v5 = _ACSignpostLogSystem(Nanoseconds);
   v6 = v5;
   v7 = *(a1 + 48);
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -2439,8 +2417,8 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v6, OS_SIGNPOST_INTERVAL_END, v7, "AccountsWithTypesWithProperties", "%@%@", &v15, 0x16u);
   }
 
-  v9 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ACSignpostLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v13 = *(a1 + 48);
     v15 = 134218754;
@@ -2457,57 +2435,56 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithProperties %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithProperties %@%@", &v15, 0x2Au);
   }
 
-  v10 = *(a1 + 40);
-  v11 = [*(a1 + 32) _connectionFailureError];
-  (*(v10 + 16))(v10, 0, v11);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 40);
+  v12 = [*(a1 + 32) _connectionFailureError];
+  (*(v11 + 16))(v11, 0, v12);
 }
 
 - (id)accountsWithAccountTypeIdentifiers:(id)identifiers preloadedProperties:(id)properties error:(id *)error
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   *&v8 = COERCE_DOUBLE(identifiers);
-  *&v40 = COERCE_DOUBLE(properties);
+  *&v43 = COERCE_DOUBLE(properties);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v39 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-types-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v39, &state);
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__0;
-  v63 = __Block_byref_object_dispose__0;
-  v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__0;
-  v57 = __Block_byref_object_dispose__0;
-  v58 = 0;
-  if ([(__CFString *)v8 count]== 1 && ![(__CFString *)v40 count])
+  v42 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-types-sync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v42, &state);
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__0;
+  v66 = __Block_byref_object_dispose__0;
+  v67 = 0;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__0;
+  v60 = __Block_byref_object_dispose__0;
+  v61 = 0;
+  v9 = [(__CFString *)v8 count];
+  if (v9 == 1 && (v9 = [(__CFString *)v43 count]) == 0)
   {
     firstObject = [(__CFString *)v8 firstObject];
-    v9 = [ACNotifyAccountCache suffixForAccountsForAccountType:firstObject fetchOptions:1];
+    v10 = [ACNotifyAccountCache suffixForAccountsForAccountType:firstObject fetchOptions:1];
 
     _cache = [(ACAccountStore *)self _cache];
-    v34 = [_cache cachedAccountsForSuffix:v9];
-    v35 = v60[5];
-    v60[5] = v34;
+    v37 = [_cache cachedAccountsForSuffix:v10];
+    v38 = v63[5];
+    v63[5] = v37;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v60[5])
+  if (v63[5])
   {
-    v10 = _ACLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _ACLogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [(__CFString *)v8 firstObject];
       objc_claimAutoreleasedReturnValue();
@@ -2517,142 +2494,141 @@ void __84__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
 
   else
   {
-    v11 = _ACSignpostLogSystem();
-    v12 = _ACSignpostCreate(v11);
-    v14 = v13;
+    v12 = _ACSignpostLogSystem(v9);
+    v13 = _ACSignpostCreate(v12);
+    v15 = v14;
 
-    v15 = _ACSignpostLogSystem();
-    v16 = v15;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v17 = _ACSignpostLogSystem(v16);
+    v18 = v17;
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
     {
       *buf = 138412546;
-      v68 = v8;
-      v69 = 2112;
-      v70 = *&v40;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "AccountsWithTypesWithPropertiesSync", "%@: %@", buf, 0x16u);
+      v71 = v8;
+      v72 = 2112;
+      v73 = *&v43;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v13, "AccountsWithTypesWithPropertiesSync", "%@: %@", buf, 0x16u);
     }
 
-    v17 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v20 = _ACSignpostLogSystem(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v68 = v12;
-      v69 = 2112;
-      v70 = *&v8;
-      v71 = 2112;
-      v72 = v40;
-      _os_log_debug_impl(&dword_1AC3CD000, v17, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypesWithPropertiesSync %@: %@", buf, 0x20u);
+      v71 = v13;
+      v72 = 2112;
+      v73 = *&v8;
+      v74 = 2112;
+      v75 = v43;
+      _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsWithTypesWithPropertiesSync %@: %@", buf, 0x20u);
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_error___block_invoke;
-    v46[3] = &unk_1E7975F30;
-    v47 = v8;
-    v48 = v40;
-    v51 = &v53;
-    v52 = &v59;
-    v49 = v9;
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_error___block_invoke;
+    v49[3] = &unk_1E7975F30;
+    v50 = v8;
+    v51 = v43;
+    v54 = &v56;
+    v55 = &v62;
+    v52 = v10;
     selfCopy = self;
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_error___block_invoke_96;
-    v45[3] = &unk_1E7975F58;
-    v45[5] = &v59;
-    v45[6] = &v53;
-    v45[4] = self;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v46, v45);
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_error___block_invoke_96;
+    v48[3] = &unk_1E7975F58;
+    v48[5] = &v62;
+    v48[6] = &v56;
+    v48[4] = self;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v49, v48);
 
-    Nanoseconds = _ACSignpostGetNanoseconds(v12, v14);
-    v20 = _ACSignpostLogSystem();
-    v21 = v20;
-    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    Nanoseconds = _ACSignpostGetNanoseconds(v13, v15);
+    v23 = _ACSignpostLogSystem(Nanoseconds);
+    v24 = v23;
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
-      v22 = v60[5];
-      v23 = v54[5];
-      if (*&v23 == 0.0)
+      v25 = v63[5];
+      v26 = v57[5];
+      if (*&v26 == 0.0)
       {
-        *&v23 = COERCE_DOUBLE(&stru_1F210E1C8);
+        *&v26 = COERCE_DOUBLE(&stru_1F210E1C8);
       }
 
       *buf = 138412546;
-      v68 = v22;
-      v69 = 2112;
-      v70 = *&v23;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_END, v12, "AccountsWithTypesWithPropertiesSync", "%@%@", buf, 0x16u);
+      v71 = v25;
+      v72 = 2112;
+      v73 = *&v26;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v24, OS_SIGNPOST_INTERVAL_END, v13, "AccountsWithTypesWithPropertiesSync", "%@%@", buf, 0x16u);
     }
 
-    v24 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v28 = _ACSignpostLogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v36 = v60[5];
-      v37 = v54[5];
+      v39 = v63[5];
+      v40 = v57[5];
       *buf = 134218754;
-      v68 = v12;
-      v69 = 2048;
-      v70 = Nanoseconds / 1000000000.0;
-      v71 = 2112;
-      v72 = v36;
-      if (v37)
+      v71 = v13;
+      v72 = 2048;
+      v73 = Nanoseconds / 1000000000.0;
+      v74 = 2112;
+      v75 = v39;
+      if (v40)
       {
-        v38 = v37;
+        v41 = v40;
       }
 
       else
       {
-        v38 = &stru_1F210E1C8;
+        v41 = &stru_1F210E1C8;
       }
 
-      v73 = 2112;
-      v74 = v38;
-      _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithPropertiesSync %@%@", buf, 0x2Au);
+      v76 = 2112;
+      v77 = v41;
+      _os_log_debug_impl(&dword_1AC3CD000, v28, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypesWithPropertiesSync %@%@", buf, 0x2Au);
     }
 
-    v10 = v47;
+    v11 = v50;
   }
 
-  v43 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v25 = v60[5];
-  v26 = [v25 countByEnumeratingWithState:&v41 objects:v66 count:16];
-  if (v26)
+  v45 = 0u;
+  v29 = v63[5];
+  v30 = [v29 countByEnumeratingWithState:&v44 objects:v69 count:16];
+  if (v30)
   {
-    v27 = *v42;
+    v31 = *v45;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v42 != v27)
+        if (*v45 != v31)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v29);
         }
 
-        [*(*(&v41 + 1) + 8 * i) _setAccountStore:{self, v39}];
+        [*(*(&v44 + 1) + 8 * i) _setAccountStore:{self, v42}];
       }
 
-      v26 = [v25 countByEnumeratingWithState:&v41 objects:v66 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v44 objects:v69 count:16];
     }
 
-    while (v26);
+    while (v30);
   }
 
   if (error)
   {
-    *error = v54[5];
+    *error = v57[5];
   }
 
-  v29 = v60[5];
+  v33 = v63[5];
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v62, 8);
 
   os_activity_scope_leave(&state);
-  v30 = *MEMORY[0x1E69E9840];
 
-  return v29;
+  return v33;
 }
 
 void __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties_error___block_invoke(uint64_t a1, void *a2)
@@ -2675,31 +2651,32 @@ void __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProperties
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a3);
-  if (v5 | v6)
+  if (v5 | v7)
   {
-    v8 = v5;
+    v9 = v5;
   }
 
   else
   {
-    v8 = MEMORY[0x1E695E0F0];
+    v9 = MEMORY[0x1E695E0F0];
   }
 
-  objc_storeStrong((*(*(a1 + 56) + 8) + 40), v8);
+  objc_storeStrong((*(*(a1 + 56) + 8) + 40), v9);
   if (*(a1 + 32))
   {
-    v9 = [*(a1 + 40) _cache];
-    [v9 cacheAccounts:v5 forSuffix:*(a1 + 32)];
+    v10 = [*(a1 + 40) _cache];
+    [v10 cacheAccounts:v5 forSuffix:*(a1 + 32)];
   }
 }
 
@@ -2709,10 +2686,7 @@ uint64_t __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProper
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v4 = [*(a1 + 32) _connectionFailureError];
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2728,7 +2702,7 @@ uint64_t __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProper
 
 - (void)accountsOnPairedDeviceWithAccountTypes:(id)types withOptions:(id)options completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   optionsCopy = options;
   completionCopy = completion;
@@ -2738,64 +2712,62 @@ uint64_t __79__ACAccountStore_accountsWithAccountTypeIdentifiers_preloadedProper
   os_activity_scope_enter(v11, &state);
   if (completionCopy)
   {
-    v12 = _ACSignpostLogSystem();
-    v13 = _ACSignpostCreate(v12);
-    v15 = v14;
+    v13 = _ACSignpostLogSystem(v12);
+    v14 = _ACSignpostCreate(v13);
+    v16 = v15;
 
-    v16 = _ACSignpostLogSystem();
-    v17 = v16;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = _ACSignpostLogSystem(v17);
+    v19 = v18;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 138412546;
-      v36 = typesCopy;
-      v37 = 2112;
-      v38 = optionsCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "AccountsOnPairedDeviceWithTypes", "%@ (options: %@)", buf, 0x16u);
-    }
-
-    v18 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 134218498;
-      v36 = v13;
-      v37 = 2112;
       v38 = typesCopy;
       v39 = 2112;
       v40 = optionsCopy;
-      _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsOnPairedDeviceWithTypes %@ (options: %@)", buf, 0x20u);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "AccountsOnPairedDeviceWithTypes", "%@ (options: %@)", buf, 0x16u);
     }
 
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke;
-    v30[3] = &unk_1E7975F80;
-    v30[4] = self;
-    v32 = v13;
-    v33 = v15;
-    v31 = completionCopy;
-    v19 = MEMORY[0x1AC5B3C70](v30);
+    v21 = _ACSignpostLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218498;
+      v38 = v14;
+      v39 = 2112;
+      v40 = typesCopy;
+      v41 = 2112;
+      v42 = optionsCopy;
+      _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsOnPairedDeviceWithTypes %@ (options: %@)", buf, 0x20u);
+    }
+
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke;
+    v32[3] = &unk_1E7975F80;
+    v32[4] = self;
+    v34 = v14;
+    v35 = v16;
+    v33 = completionCopy;
+    v22 = MEMORY[0x1AC5B3C70](v32);
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_98;
+    v27[3] = &unk_1E7975D30;
+    v28 = typesCopy;
+    v29 = optionsCopy;
+    selfCopy = self;
+    v31 = v22;
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
-    v25[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_98;
-    v25[3] = &unk_1E7975D30;
-    v26 = typesCopy;
-    v27 = optionsCopy;
-    selfCopy = self;
-    v29 = v19;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_100;
-    v23[3] = &unk_1E79754F0;
-    v21 = v29;
-    v23[4] = self;
-    v24 = v21;
-    ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+    v25[2] = __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_100;
+    v25[3] = &unk_1E79754F0;
+    v24 = v31;
+    v25[4] = self;
+    v26 = v24;
+    ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
   }
 
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2818,9 +2790,9 @@ void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_com
 
 uint64_t __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_2(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -2832,41 +2804,37 @@ uint64_t __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions
       v7 = &stru_1F210E1C8;
     }
 
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = *&v7;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountsOnPairedDeviceWithTypes", "%@%@", &v17, 0x16u);
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = *&v7;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountsOnPairedDeviceWithTypes", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = a1[7];
-    v14 = a1[4];
-    v15 = a1[5];
-    v17 = 134218754;
-    v18 = v13;
-    v16 = &stru_1F210E1C8;
-    v19 = 2048;
-    v20 = Nanoseconds / 1000000000.0;
-    v21 = 2112;
-    v22 = v14;
-    if (v15)
+    v11 = a1[7];
+    v12 = a1[4];
+    v13 = a1[5];
+    v15 = 134218754;
+    v16 = v11;
+    v14 = &stru_1F210E1C8;
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 2112;
+    v20 = v12;
+    if (v13)
     {
-      v16 = v15;
+      v14 = v13;
     }
 
-    v23 = 2112;
-    v24 = v16;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsOnPairedDeviceWithTypes %@%@", &v17, 0x2Au);
+    v21 = 2112;
+    v22 = v14;
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsOnPairedDeviceWithTypes %@%@", &v15, 0x2Au);
   }
 
-  v9 = a1[5];
-  v10 = a1[4];
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_98(void *a1, void *a2)
@@ -2888,10 +2856,11 @@ void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_com
   v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -2903,16 +2872,16 @@ void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_com
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v14;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v14 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v5);
           }
@@ -2920,16 +2889,14 @@ void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_com
           [*(*(&v13 + 1) + 8 * i) _setAccountStore:*(a1 + 32)];
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_completion___block_invoke_100(uint64_t a1)
@@ -2941,78 +2908,77 @@ void __80__ACAccountStore_accountsOnPairedDeviceWithAccountTypes_withOptions_com
 
 - (id)allDataclasses
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1AC3CD000, "accounts/all-dataclasses", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v3, &state);
-  v4 = _ACSignpostLogSystem();
-  v5 = _ACSignpostCreate(v4);
-  v7 = v6;
+  v5 = _ACSignpostLogSystem(v4);
+  v6 = _ACSignpostCreate(v5);
+  v8 = v7;
 
-  v8 = _ACSignpostLogSystem();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "AllDataclasses", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "AllDataclasses", &unk_1AC43804B, buf, 2u);
   }
 
-  v10 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v13 = _ACSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore allDataclasses];
   }
 
   *buf = 0;
-  v23 = buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
-  v27 = 0;
+  v26 = buf;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __32__ACAccountStore_allDataclasses__block_invoke;
-  v21[3] = &unk_1E7975D80;
-  v21[4] = buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v21, 0);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __32__ACAccountStore_allDataclasses__block_invoke;
+  v24[3] = &unk_1E7975D80;
+  v24[4] = buf;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v5, v7);
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  Nanoseconds = _ACSignpostGetNanoseconds(v6, v8);
+  v16 = _ACSignpostLogSystem(Nanoseconds);
+  v17 = v16;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v15 = *(v23 + 5);
-    *v29 = 138412546;
-    v30 = v15;
-    v31 = 2112;
-    v32 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_END, v5, "AllDataclasses", "%@%@", v29, 0x16u);
+    v18 = *(v26 + 5);
+    *v32 = 138412546;
+    v33 = v18;
+    v34 = 2112;
+    v35 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v6, "AllDataclasses", "%@%@", v32, 0x16u);
   }
 
-  v16 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v20 = _ACSignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    *v29 = 134218754;
-    v20 = *(v23 + 5);
-    v30 = v5;
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllDataclasses %@%@", v29, 0x2Au);
+    *v32 = 134218754;
+    v23 = *(v26 + 5);
+    v33 = v6;
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2112;
+    v37 = v23;
+    v38 = 2112;
+    v39 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllDataclasses %@%@", v32, 0x2Au);
   }
 
-  v17 = *(v23 + 5);
+  v21 = *(v26 + 5);
   _Block_object_dispose(buf, 8);
 
   os_activity_scope_leave(&state);
-  v18 = *MEMORY[0x1E69E9840];
 
-  return v17;
+  return v21;
 }
 
 uint64_t __32__ACAccountStore_allDataclasses__block_invoke(uint64_t a1, void *a2)
@@ -3029,10 +2995,11 @@ void __32__ACAccountStore_allDataclasses__block_invoke_2(uint64_t a1, void *a2, 
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -3046,114 +3013,113 @@ void __32__ACAccountStore_allDataclasses__block_invoke_2(uint64_t a1, void *a2, 
 
 - (id)allAccountTypes
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1AC3CD000, "accounts/all-account-types", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v3, &state);
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__0;
-  v36 = __Block_byref_object_dispose__0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__0;
+  v39 = __Block_byref_object_dispose__0;
   _cache = [(ACAccountStore *)self _cache];
   cachedAllAccountTypes = [_cache cachedAllAccountTypes];
 
-  v5 = v33[5];
-  if (!v5)
+  v6 = v36[5];
+  if (!v6)
   {
-    v6 = _ACSignpostLogSystem();
-    v7 = _ACSignpostCreate(v6);
-    v9 = v8;
+    v7 = _ACSignpostLogSystem(v5);
+    v8 = _ACSignpostCreate(v7);
+    v10 = v9;
 
-    v10 = _ACSignpostLogSystem();
-    v11 = v10;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = _ACSignpostLogSystem(v11);
+    v13 = v12;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AllAccountTypes", &unk_1AC43804B, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AllAccountTypes", &unk_1AC43804B, buf, 2u);
     }
 
-    v12 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v15 = _ACSignpostLogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore allAccountTypes];
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __33__ACAccountStore_allAccountTypes__block_invoke;
-    v31[3] = &unk_1E7975FD0;
-    v31[4] = self;
-    v31[5] = &v32;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v31, 0);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __33__ACAccountStore_allAccountTypes__block_invoke;
+    v34[3] = &unk_1E7975FD0;
+    v34[4] = self;
+    v34[5] = &v35;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v34, 0);
 
-    Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-    v15 = _ACSignpostLogSystem();
-    v16 = v15;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+    v18 = _ACSignpostLogSystem(Nanoseconds);
+    v19 = v18;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v17 = v33[5];
+      v20 = v36[5];
       *buf = 138412546;
-      v41 = v17;
-      v42 = 2112;
-      v43 = COERCE_DOUBLE(&stru_1F210E1C8);
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_END, v7, "AllAccountTypes", "%@%@", buf, 0x16u);
+      v44 = v20;
+      v45 = 2112;
+      v46 = COERCE_DOUBLE(&stru_1F210E1C8);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v8, "AllAccountTypes", "%@%@", buf, 0x16u);
     }
 
-    v18 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v22 = _ACSignpostLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218754;
-      v26 = v33[5];
-      v41 = v7;
-      v42 = 2048;
-      v43 = Nanoseconds / 1000000000.0;
-      v44 = 2112;
-      v45 = v26;
-      v46 = 2112;
-      v47 = &stru_1F210E1C8;
-      _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllAccountTypes %@%@", buf, 0x2Au);
+      v29 = v36[5];
+      v44 = v8;
+      v45 = 2048;
+      v46 = Nanoseconds / 1000000000.0;
+      v47 = 2112;
+      v48 = v29;
+      v49 = 2112;
+      v50 = &stru_1F210E1C8;
+      _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllAccountTypes %@%@", buf, 0x2Au);
     }
 
-    v5 = v33[5];
+    v6 = v36[5];
   }
 
-  v29 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v19 = v5;
-  v20 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
-  if (v20)
+  v31 = 0u;
+  v23 = v6;
+  v24 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
+  if (v24)
   {
-    v21 = *v28;
+    v25 = *v31;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v28 != v21)
+        if (*v31 != v25)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v23);
         }
 
-        [*(*(&v27 + 1) + 8 * i) setAccountStore:{self, v27}];
+        [*(*(&v30 + 1) + 8 * i) setAccountStore:{self, v30}];
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
-    while (v20);
+    while (v24);
   }
 
-  v23 = v33[5];
-  _Block_object_dispose(&v32, 8);
+  v27 = v36[5];
+  _Block_object_dispose(&v35, 8);
 
   os_activity_scope_leave(&state);
-  v24 = *MEMORY[0x1E69E9840];
 
-  return v23;
+  return v27;
 }
 
 uint64_t __33__ACAccountStore_allAccountTypes__block_invoke(uint64_t a1, void *a2)
@@ -3169,10 +3135,11 @@ uint64_t __33__ACAccountStore_allAccountTypes__block_invoke(uint64_t a1, void *a
 void __33__ACAccountStore_allAccountTypes__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -3180,19 +3147,19 @@ void __33__ACAccountStore_allAccountTypes__block_invoke_2(uint64_t a1, void *a2,
 
   else
   {
-    v7 = [a2 copy];
-    v8 = *(*(a1 + 40) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [a2 copy];
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
-    v10 = [*(a1 + 32) _cache];
-    [v10 cacheAllAccountTypes:*(*(*(a1 + 40) + 8) + 40)];
+    v11 = [*(a1 + 32) _cache];
+    [v11 cacheAllAccountTypes:*(*(*(a1 + 40) + 8) + 40)];
   }
 }
 
 - (void)visibleTopLevelAccountsWithAccountTypeIdentifiers:(id)identifiers completion:(id)completion
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/all-account-types", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3201,71 +3168,70 @@ void __33__ACAccountStore_allAccountTypes__block_invoke_2(uint64_t a1, void *a2,
   os_activity_scope_enter(v8, &state);
   if (!identifiersCopy)
   {
-    v21 = @"accountTypeIDs must be non-nil";
+    v23 = @"accountTypeIDs must be non-nil";
     goto LABEL_13;
   }
 
-  if (![identifiersCopy count])
+  v9 = [identifiersCopy count];
+  if (!v9)
   {
-    v21 = @"accountTypeIDs must not be empty";
+    v23 = @"accountTypeIDs must not be empty";
 LABEL_13:
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
-    objc_exception_throw(v22);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v24);
   }
 
   if (completionCopy)
   {
-    v9 = _ACSignpostLogSystem();
-    v10 = _ACSignpostCreate(v9);
-    v12 = v11;
+    v10 = _ACSignpostLogSystem(v9);
+    v11 = _ACSignpostCreate(v10);
+    v13 = v12;
 
-    v13 = _ACSignpostLogSystem();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = _ACSignpostLogSystem(v14);
+    v16 = v15;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 138412290;
-      v36 = identifiersCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VisibleAccountsWithTypes", "%@", buf, 0xCu);
+      v38 = identifiersCopy;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VisibleAccountsWithTypes", "%@", buf, 0xCu);
     }
 
-    v15 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = _ACSignpostLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore visibleTopLevelAccountsWithAccountTypeIdentifiers:completion:];
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke;
-    v29[3] = &unk_1E7975E68;
-    v29[4] = self;
-    v32 = v10;
-    v33 = v12;
-    v16 = identifiersCopy;
-    v30 = v16;
-    v31 = completionCopy;
-    v17 = MEMORY[0x1AC5B3C70](v29);
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke;
+    v31[3] = &unk_1E7975E68;
+    v31[4] = self;
+    v34 = v11;
+    v35 = v13;
+    v19 = identifiersCopy;
+    v32 = v19;
+    v33 = completionCopy;
+    v20 = MEMORY[0x1AC5B3C70](v31);
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_108;
+    v27[3] = &unk_1E7975C40;
+    v28 = v19;
+    selfCopy = self;
+    v30 = v20;
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
-    v25[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_108;
-    v25[3] = &unk_1E7975C40;
-    v26 = v16;
-    selfCopy = self;
-    v28 = v17;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_110;
-    v23[3] = &unk_1E79754F0;
-    v19 = v28;
-    v23[4] = self;
-    v24 = v19;
-    ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+    v25[2] = __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_110;
+    v25[3] = &unk_1E79754F0;
+    v22 = v30;
+    v25[4] = self;
+    v26 = v22;
+    ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
   }
 
   os_activity_scope_leave(&state);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3290,9 +3256,9 @@ void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_comp
 
 uint64_t __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_2(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[8], a1[9]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[8];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -3304,41 +3270,37 @@ uint64_t __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_
       v7 = &stru_1F210E1C8;
     }
 
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = *&v7;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "VisibleAccountsWithTypes", "%@%@", &v17, 0x16u);
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = *&v7;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "VisibleAccountsWithTypes", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = a1[8];
-    v14 = a1[4];
-    v15 = a1[5];
-    v17 = 134218754;
-    v18 = v13;
-    v16 = &stru_1F210E1C8;
-    v19 = 2048;
-    v20 = Nanoseconds / 1000000000.0;
-    v21 = 2112;
-    v22 = v14;
-    if (v15)
+    v11 = a1[8];
+    v12 = a1[4];
+    v13 = a1[5];
+    v15 = 134218754;
+    v16 = v11;
+    v14 = &stru_1F210E1C8;
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 2112;
+    v20 = v12;
+    if (v13)
     {
-      v16 = v15;
+      v14 = v13;
     }
 
-    v23 = 2112;
-    v24 = v16;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: VisibleAccountsWithTypes %@%@", &v17, 0x2Au);
+    v21 = 2112;
+    v22 = v14;
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: VisibleAccountsWithTypes %@%@", &v15, 0x2Au);
   }
 
-  v9 = a1[6];
-  v10 = a1[5];
-  result = (*(a1[7] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_108(void *a1, void *a2)
@@ -3359,10 +3321,11 @@ void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_comp
   v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -3374,16 +3337,16 @@ void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_comp
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v14;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v14 != v10)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v5);
           }
@@ -3391,16 +3354,14 @@ void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_comp
           [*(*(&v13 + 1) + 8 * i) _setAccountStore:*(a1 + 32)];
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_completion___block_invoke_110(uint64_t a1)
@@ -3412,94 +3373,93 @@ void __79__ACAccountStore_visibleTopLevelAccountsWithAccountTypeIdentifiers_comp
 
 - (BOOL)hasAccountWithDescription:(id)description
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/has-account-with-description", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = descriptionCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HasAccountWithDescription", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "HasAccountWithDescription", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore hasAccountWithDescription:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v39 = 0x2020000000;
+  v40 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __44__ACAccountStore_hasAccountWithDescription___block_invoke;
-  v25[3] = &unk_1E7976048;
-  v14 = descriptionCopy;
-  v26 = v14;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __44__ACAccountStore_hasAccountWithDescription___block_invoke;
+  v28[3] = &unk_1E7976048;
+  v17 = descriptionCopy;
+  v29 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v25, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v28, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     if (*(*(&buf + 1) + 24))
     {
-      v18 = @"YES";
+      v21 = @"YES";
     }
 
     else
     {
-      v18 = @"NO";
+      v21 = @"NO";
     }
 
-    *v29 = 138543362;
-    v30 = v18;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "HasAccountWithDescription", "%{public}@", v29, 0xCu);
+    *v32 = 138543362;
+    v33 = v21;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "HasAccountWithDescription", "%{public}@", v32, 0xCu);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(*(&buf + 1) + 24);
-    *v29 = 134218498;
-    v30 = v7;
-    if (v23)
+    v26 = *(*(&buf + 1) + 24);
+    *v32 = 134218498;
+    v33 = v8;
+    if (v26)
     {
-      v24 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v27 = @"NO";
     }
 
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2114;
-    v34 = v24;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: HasAccountWithDescription %{public}@", v29, 0x20u);
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2114;
+    v37 = v27;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: HasAccountWithDescription %{public}@", v32, 0x20u);
   }
 
-  v20 = *(*(&buf + 1) + 24);
+  v24 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v24 & 1;
 }
 
 uint64_t __44__ACAccountStore_hasAccountWithDescription___block_invoke(uint64_t a1, void *a2)
@@ -3515,7 +3475,7 @@ uint64_t __44__ACAccountStore_hasAccountWithDescription___block_invoke(uint64_t 
 
 - (void)kerberosAccountsForDomainFromURL:(id)l completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   lCopy = l;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/kerberos-accounts", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3524,54 +3484,52 @@ uint64_t __44__ACAccountStore_hasAccountWithDescription___block_invoke(uint64_t 
   os_activity_scope_enter(v8, &state);
   if (completionCopy)
   {
-    v9 = _ACSignpostLogSystem();
-    v10 = _ACSignpostCreate(v9);
-    v12 = v11;
+    v10 = _ACSignpostLogSystem(v9);
+    v11 = _ACSignpostCreate(v10);
+    v13 = v12;
 
-    v13 = _ACSignpostLogSystem();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = _ACSignpostLogSystem(v14);
+    v16 = v15;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 138412290;
-      v31 = lCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "KerberosAccounts", "%@", buf, 0xCu);
+      v33 = lCopy;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "KerberosAccounts", "%@", buf, 0xCu);
     }
 
-    v15 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = _ACSignpostLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore kerberosAccountsForDomainFromURL:completion:];
     }
 
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke;
-    v25[3] = &unk_1E7975F80;
-    v25[4] = self;
-    v27 = v10;
-    v28 = v12;
-    v26 = completionCopy;
-    v16 = MEMORY[0x1AC5B3C70](v25);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke;
+    v27[3] = &unk_1E7975F80;
+    v27[4] = self;
+    v29 = v11;
+    v30 = v13;
+    v28 = completionCopy;
+    v19 = MEMORY[0x1AC5B3C70](v27);
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_119;
+    v24[3] = &unk_1E79754C8;
+    v25 = lCopy;
+    v26 = v19;
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
-    v22[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_119;
-    v22[3] = &unk_1E79754C8;
-    v23 = lCopy;
-    v24 = v16;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_2;
-    v20[3] = &unk_1E79754F0;
-    v18 = v24;
-    v20[4] = self;
-    v21 = v18;
-    ac_dispatch_remote(remoteAccountStoreSession, v22, v20);
+    v22[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_2;
+    v22[3] = &unk_1E79754F0;
+    v21 = v26;
+    v22[4] = self;
+    v23 = v21;
+    ac_dispatch_remote(remoteAccountStoreSession, v24, v22);
   }
 
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3579,10 +3537,11 @@ void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_in
   v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -3594,16 +3553,16 @@ void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_in
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v22;
+      v10 = v9;
+      v11 = *v22;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v10)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v5);
           }
@@ -3611,34 +3570,32 @@ void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_in
           [*(*(&v21 + 1) + 8 * i) _setAccountStore:*(a1 + 32)];
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
   }
 
-  v12 = *(*(a1 + 32) + 80);
+  v13 = *(*(a1 + 32) + 80);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_118;
   block[3] = &unk_1E7975BC8;
   v20 = *(a1 + 48);
   v17 = v5;
-  v18 = v6;
+  v18 = v7;
   v19 = *(a1 + 40);
-  v13 = v6;
-  v14 = v5;
-  dispatch_async(v12, block);
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = v7;
+  v15 = v5;
+  dispatch_async(v13, block);
 }
 
 uint64_t __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_118(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -3650,41 +3607,37 @@ uint64_t __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___bloc
       v7 = &stru_1F210E1C8;
     }
 
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = *&v7;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "KerberosAccounts", "%@%@", &v17, 0x16u);
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = *&v7;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "KerberosAccounts", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = a1[7];
-    v14 = a1[4];
-    v15 = a1[5];
-    v17 = 134218754;
-    v18 = v13;
-    v16 = &stru_1F210E1C8;
-    v19 = 2048;
-    v20 = Nanoseconds / 1000000000.0;
-    v21 = 2112;
-    v22 = v14;
-    if (v15)
+    v11 = a1[7];
+    v12 = a1[4];
+    v13 = a1[5];
+    v15 = 134218754;
+    v16 = v11;
+    v14 = &stru_1F210E1C8;
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 2112;
+    v20 = v12;
+    if (v13)
     {
-      v16 = v15;
+      v14 = v13;
     }
 
-    v23 = 2112;
-    v24 = v16;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: KerberosAccounts %@%@", &v17, 0x2Au);
+    v21 = 2112;
+    v22 = v14;
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: KerberosAccounts %@%@", &v15, 0x2Au);
   }
 
-  v9 = a1[5];
-  v10 = a1[4];
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_invoke_2(uint64_t a1)
@@ -3696,94 +3649,93 @@ void __62__ACAccountStore_kerberosAccountsForDomainFromURL_completion___block_in
 
 - (BOOL)isPushSupportedForAccount:(id)account
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/push-supported", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "PushSupported", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PushSupported", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore isPushSupportedForAccount:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v39 = 0x2020000000;
+  v40 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __44__ACAccountStore_isPushSupportedForAccount___block_invoke;
-  v25[3] = &unk_1E7976048;
-  v14 = accountCopy;
-  v26 = v14;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __44__ACAccountStore_isPushSupportedForAccount___block_invoke;
+  v28[3] = &unk_1E7976048;
+  v17 = accountCopy;
+  v29 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v25, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v28, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     if (*(*(&buf + 1) + 24))
     {
-      v18 = @"YES";
+      v21 = @"YES";
     }
 
     else
     {
-      v18 = @"NO";
+      v21 = @"NO";
     }
 
-    *v29 = 138543362;
-    v30 = v18;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "PushSupported", "%{public}@", v29, 0xCu);
+    *v32 = 138543362;
+    v33 = v21;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "PushSupported", "%{public}@", v32, 0xCu);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(*(&buf + 1) + 24);
-    *v29 = 134218498;
-    v30 = v7;
-    if (v23)
+    v26 = *(*(&buf + 1) + 24);
+    *v32 = 134218498;
+    v33 = v8;
+    if (v26)
     {
-      v24 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v27 = @"NO";
     }
 
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2114;
-    v34 = v24;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PushSupported %{public}@", v29, 0x20u);
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2114;
+    v37 = v27;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PushSupported %{public}@", v32, 0x20u);
   }
 
-  v20 = *(*(&buf + 1) + 24);
+  v24 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v24 & 1;
 }
 
 uint64_t __44__ACAccountStore_isPushSupportedForAccount___block_invoke(uint64_t a1, void *a2)
@@ -3799,142 +3751,140 @@ uint64_t __44__ACAccountStore_isPushSupportedForAccount___block_invoke(uint64_t 
 
 + (int)accountsWithAccountTypeIdentifierExist:(id)exist
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   existCopy = exist;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type-exist", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v22.opaque[0] = 0;
-  v22.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v22);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v25.opaque[0] = 0;
+  v25.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v25);
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v24 = existCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AccountsWithTypeExist", "%@", buf, 0xCu);
+    v27 = existCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AccountsWithTypeExist", "%@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     +[ACAccountStore accountsWithAccountTypeIdentifierExist:];
   }
 
   if ([self countOfAccountsWithAccountTypeIdentifier:existCopy] > 0)
   {
-    v13 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v13 = 2;
+    v16 = 2;
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v15 = _ACSignpostLogSystem();
-  v16 = v15;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v18 = _ACSignpostLogSystem(Nanoseconds);
+  v19 = v18;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13];
+    v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v16];
     *buf = 138412546;
-    v24 = v17;
-    v25 = 2112;
-    v26 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_END, v7, "AccountsWithTypeExist", "%@%@", buf, 0x16u);
+    v27 = v20;
+    v28 = 2112;
+    v29 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v8, "AccountsWithTypeExist", "%@%@", buf, 0x16u);
   }
 
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v22 = _ACSignpostLogSystem(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13];
+    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v16];
     *buf = 134218754;
-    v24 = v7;
-    v25 = 2048;
-    v26 = Nanoseconds / 1000000000.0;
-    v27 = 2112;
-    v28 = v21;
-    v29 = 2112;
-    v30 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeExist %@%@", buf, 0x2Au);
+    v27 = v8;
+    v28 = 2048;
+    v29 = Nanoseconds / 1000000000.0;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeExist %@%@", buf, 0x2Au);
   }
 
-  os_activity_scope_leave(&v22);
-  v19 = *MEMORY[0x1E69E9840];
-  return v13;
+  os_activity_scope_leave(&v25);
+  return v16;
 }
 
 + (int64_t)countOfAccountsWithAccountTypeIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = _os_activity_create(&dword_1AC3CD000, "accounts/accounts-with-type-count", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v24.opaque[0] = 0;
-  v24.opaque[1] = 0;
-  os_activity_scope_enter(v4, &v24);
-  v5 = _ACSignpostLogSystem();
-  v6 = _ACSignpostCreate(v5);
-  v8 = v7;
+  v27.opaque[0] = 0;
+  v27.opaque[1] = 0;
+  os_activity_scope_enter(v4, &v27);
+  v6 = _ACSignpostLogSystem(v5);
+  v7 = _ACSignpostCreate(v6);
+  v9 = v8;
 
-  v9 = _ACSignpostLogSystem();
-  v10 = v9;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v11 = _ACSignpostLogSystem(v10);
+  v12 = v11;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v6, "AccountsWithTypeCount", "%@", buf, 0xCu);
+    v29 = identifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AccountsWithTypeCount", "%@", buf, 0xCu);
   }
 
-  v11 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = _ACSignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     +[ACAccountStore countOfAccountsWithAccountTypeIdentifier:];
   }
 
-  v12 = objc_alloc_init(ACAccountStore);
-  v13 = [(ACAccountStore *)v12 accountTypeWithAccountTypeIdentifier:identifierCopy];
-  v14 = [(ACAccountStore *)v12 accountsWithAccountType:v13];
-  v15 = [v14 count];
+  v15 = objc_alloc_init(ACAccountStore);
+  v16 = [(ACAccountStore *)v15 accountTypeWithAccountTypeIdentifier:identifierCopy];
+  v17 = [(ACAccountStore *)v15 accountsWithAccountType:v16];
+  v18 = [v17 count];
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v6, v8);
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
+  v20 = _ACSignpostLogSystem(Nanoseconds);
+  v21 = v20;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    v19 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
+    v22 = [MEMORY[0x1E696AD98] numberWithInteger:v18];
     *buf = 138412546;
-    v26 = v19;
-    v27 = 2112;
-    v28 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_END, v6, "AccountsWithTypeCount", "%@%@", buf, 0x16u);
+    v29 = v22;
+    v30 = 2112;
+    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_END, v7, "AccountsWithTypeCount", "%@%@", buf, 0x16u);
   }
 
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v23 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
+    v26 = [MEMORY[0x1E696AD98] numberWithInteger:v18];
     *buf = 134218754;
-    v26 = v6;
-    v27 = 2048;
-    v28 = Nanoseconds / 1000000000.0;
-    v29 = 2112;
-    v30 = v23;
-    v31 = 2112;
-    v32 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeCount %@%@", buf, 0x2Au);
+    v29 = v7;
+    v30 = 2048;
+    v31 = Nanoseconds / 1000000000.0;
+    v32 = 2112;
+    v33 = v26;
+    v34 = 2112;
+    v35 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsWithTypeCount %@%@", buf, 0x2Au);
   }
 
-  os_activity_scope_leave(&v24);
-  v21 = *MEMORY[0x1E69E9840];
-  return v15;
+  os_activity_scope_leave(&v27);
+  return v18;
 }
 
 - (void)insertAccountType:(id)type withCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/insert-account-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -3943,58 +3893,57 @@ uint64_t __44__ACAccountStore_isPushSupportedForAccount___block_invoke(uint64_t 
   os_activity_scope_enter(v8, &state);
   if (!typeCopy)
   {
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account type must be non-nil" userInfo:0];
-    objc_exception_throw(v22);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account type must be non-nil" userInfo:0];
+    objc_exception_throw(v24);
   }
 
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v34 = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "InsertAccountType", "%@", buf, 0xCu);
+    v36 = typeCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "InsertAccountType", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore insertAccountType:withCompletionHandler:];
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke;
-  v28[3] = &unk_1E7976098;
-  v28[4] = self;
-  v30 = v10;
-  v31 = v12;
-  v16 = handlerCopy;
-  v29 = v16;
-  v17 = MEMORY[0x1AC5B3C70](v28);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke;
+  v30[3] = &unk_1E7976098;
+  v30[4] = self;
+  v32 = v11;
+  v33 = v13;
+  v19 = handlerCopy;
+  v31 = v19;
+  v20 = MEMORY[0x1AC5B3C70](v30);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_124;
+  v27[3] = &unk_1E79754C8;
+  v22 = typeCopy;
+  v28 = v22;
+  v29 = v20;
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
-  v25[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_124;
-  v25[3] = &unk_1E79754C8;
-  v19 = typeCopy;
-  v26 = v19;
-  v27 = v17;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_3;
-  v23[3] = &unk_1E79754F0;
-  v20 = v27;
-  v23[4] = self;
-  v24 = v20;
-  ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+  v25[2] = __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_3;
+  v25[3] = &unk_1E79754F0;
+  v23 = v29;
+  v25[4] = self;
+  v26 = v23;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -4017,7 +3966,7 @@ uint64_t __58__ACAccountStore_insertAccountType_withCompletionHandler___block_in
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -4045,8 +3994,8 @@ uint64_t __58__ACAccountStore_insertAccountType_withCompletionHandler___block_in
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "InsertAccountType", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -4070,16 +4019,15 @@ uint64_t __58__ACAccountStore_insertAccountType_withCompletionHandler___block_in
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: InsertAccountType %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: InsertAccountType %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4097,21 +4045,16 @@ void __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke
 
 uint64_t __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_2_125(uint64_t a1, void *a2, uint64_t a3)
 {
-  if (a3)
+  if (!a3)
   {
-    v4 = *(a1 + 40);
+    v5 = *(a1 + 32);
+    v6 = [a2 objectID];
+    [v5 setObjectID:v6];
   }
 
-  else
-  {
-    v6 = *(a1 + 32);
-    v7 = [a2 objectID];
-    [v6 setObjectID:v7];
-  }
+  v4 = *(*(a1 + 40) + 16);
 
-  v5 = *(*(a1 + 40) + 16);
-
-  return v5();
+  return v4();
 }
 
 void __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke_3(uint64_t a1)
@@ -4123,7 +4066,7 @@ void __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke
 
 - (void)removeAccountType:(id)type withCompletionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/remove-account-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -4132,58 +4075,57 @@ void __58__ACAccountStore_insertAccountType_withCompletionHandler___block_invoke
   os_activity_scope_enter(v8, &state);
   if (!typeCopy)
   {
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account type must be non-nil" userInfo:0];
-    objc_exception_throw(v22);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account type must be non-nil" userInfo:0];
+    objc_exception_throw(v24);
   }
 
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v34 = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveAccountType", "%@", buf, 0xCu);
+    v36 = typeCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveAccountType", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore removeAccountType:withCompletionHandler:];
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke;
-  v28[3] = &unk_1E7976098;
-  v28[4] = self;
-  v30 = v10;
-  v31 = v12;
-  v16 = handlerCopy;
-  v29 = v16;
-  v17 = MEMORY[0x1AC5B3C70](v28);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke;
+  v30[3] = &unk_1E7976098;
+  v30[4] = self;
+  v32 = v11;
+  v33 = v13;
+  v19 = handlerCopy;
+  v31 = v19;
+  v20 = MEMORY[0x1AC5B3C70](v30);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke_126;
+  v27[3] = &unk_1E79754C8;
+  v22 = typeCopy;
+  v28 = v22;
+  v29 = v20;
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
-  v25[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke_126;
-  v25[3] = &unk_1E79754C8;
-  v19 = typeCopy;
-  v26 = v19;
-  v27 = v17;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke_3;
-  v23[3] = &unk_1E79754F0;
-  v20 = v27;
-  v23[4] = self;
-  v24 = v20;
-  ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+  v25[2] = __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke_3;
+  v25[3] = &unk_1E79754F0;
+  v23 = v29;
+  v25[4] = self;
+  v26 = v23;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke(void *a1, uint64_t a2, void *a3)
@@ -4191,7 +4133,7 @@ void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke
   v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _ACSignpostLogSystem();
+  v7 = _ACSignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -4215,8 +4157,8 @@ void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveAccountType", "%@%@", &v18, 0x16u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _ACSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v15 = a1[6];
     v16 = @"NO";
@@ -4239,16 +4181,14 @@ void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke
 
     v24 = 2112;
     v25 = v17;
-    _os_log_debug_impl(&dword_1AC3CD000, v12, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountType %@%@", &v18, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountType %@%@", &v18, 0x2Au);
   }
 
-  v13 = a1[5];
-  if (v13)
+  v14 = a1[5];
+  if (v14)
   {
-    (*(v13 + 16))(v13, a2, v5);
+    (*(v14 + 16))(v14, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke_126(uint64_t a1, void *a2)
@@ -4269,9 +4209,21 @@ void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke
   (*(v1 + 16))(v1, 0, v2);
 }
 
+- (void)removeAccount:(id)account withDeleteSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  v8 = MEMORY[0x1E696AD98];
+  completionCopy = completion;
+  accountCopy = account;
+  v10 = [v8 numberWithBool:syncCopy];
+  [accountCopy setAccountProperty:v10 forKey:@"AccountSyncDelete"];
+
+  [(ACAccountStore *)self removeAccount:accountCopy withDataclassActions:0 completion:completionCopy];
+}
+
 - (void)removeAccount:(id)account withDataclassActions:(id)actions completion:(id)completion
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   actionsCopy = actions;
   completionCopy = completion;
@@ -4281,83 +4233,82 @@ void __58__ACAccountStore_removeAccountType_withCompletionHandler___block_invoke
   os_activity_scope_enter(v11, &state);
   if (!accountCopy)
   {
-    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v31);
+    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v34);
   }
 
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
     *buf = 138543362;
-    v44 = identifier;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "RemoveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ ", buf, 0xCu);
+    v47 = identifier;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "RemoveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ ", buf, 0xCu);
   }
 
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
     *buf = 134218242;
-    v44 = v13;
-    v45 = 2114;
-    v46 = identifier2;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RemoveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ ", buf, 0x16u);
+    v47 = v14;
+    v48 = 2114;
+    v49 = identifier2;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RemoveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ ", buf, 0x16u);
   }
 
-  v21 = _ACLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v25 = _ACLogSystem(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v44 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEFAULT, "Starting removal of account %@.", buf, 0xCu);
+    v47 = accountCopy;
+    _os_log_impl(&dword_1AC3CD000, v25, OS_LOG_TYPE_DEFAULT, "Starting removal of account %@.", buf, 0xCu);
   }
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke;
-  v38[3] = &unk_1E7976098;
-  v38[4] = self;
-  v40 = v13;
-  v41 = v15;
-  v22 = completionCopy;
-  v39 = v22;
-  v23 = MEMORY[0x1AC5B3C70](v38);
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke;
+  v41[3] = &unk_1E7976098;
+  v41[4] = self;
+  v43 = v14;
+  v44 = v16;
+  v26 = completionCopy;
+  v42 = v26;
+  v27 = MEMORY[0x1AC5B3C70](v41);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_135;
-  v34[3] = &unk_1E7975C40;
-  v25 = accountCopy;
-  v35 = v25;
-  v26 = actionsCopy;
-  v36 = v26;
-  v37 = v23;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_2;
-  v32[3] = &unk_1E79754F0;
-  v27 = v37;
-  v32[4] = self;
-  v33 = v27;
-  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v34, v32);
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_135;
+  v37[3] = &unk_1E7975C40;
+  v29 = accountCopy;
+  v38 = v29;
+  v30 = actionsCopy;
+  v39 = v30;
+  v40 = v27;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_2;
+  v35[3] = &unk_1E79754F0;
+  v31 = v40;
+  v35[4] = self;
+  v36 = v31;
+  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v37, v35);
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -4367,9 +4318,9 @@ void __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_
     }
 
     *buf = 138412546;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v5;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed account removal: %@ - %@.", buf, 0x16u);
   }
 
@@ -4378,22 +4329,20 @@ void __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_
   block[1] = 3221225472;
   block[2] = __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_134;
   block[3] = &unk_1E7976110;
-  v15 = *(a1 + 48);
-  v16 = a2;
+  v14 = *(a1 + 48);
+  v15 = a2;
   v9 = *(a1 + 40);
-  v13 = v5;
-  v14 = v9;
+  v12 = v5;
+  v13 = v9;
   v10 = v5;
   dispatch_async(v8, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_invoke_134(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -4413,8 +4362,8 @@ uint64_t __64__ACAccountStore_removeAccount_withDataclassActions_completion___bl
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RemoveAccount", "%{public}@", &v13, 0xCu);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = *(a1 + 48);
     v11 = *(a1 + 64);
@@ -4434,16 +4383,15 @@ uint64_t __64__ACAccountStore_removeAccount_withDataclassActions_completion___bl
     v16 = Nanoseconds / 1000000000.0;
     v17 = 2114;
     v18 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccount %{public}@", &v13, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccount %{public}@", &v13, 0x20u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4456,7 +4404,7 @@ void __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_
 
 - (void)canSaveAccount:(id)account withCompletionHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/can-save-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -4465,78 +4413,77 @@ void __64__ACAccountStore_removeAccount_withDataclassActions_completion___block_
   os_activity_scope_enter(v8, &state);
   if (!accountCopy)
   {
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v21);
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v24);
   }
 
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CanSaveAccount", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "CanSaveAccount", &unk_1AC43804B, buf, 2u);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore canSaveAccount:withCompletionHandler:];
   }
 
-  v16 = _ACLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v20 = _ACLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEFAULT, "Checking save eligibility of account %@.", buf, 0xCu);
+    v36 = accountCopy;
+    _os_log_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEFAULT, "Checking save eligibility of account %@.", buf, 0xCu);
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke;
-  v27[3] = &unk_1E7976098;
-  v27[4] = self;
-  v29 = v10;
-  v30 = v12;
-  v17 = handlerCopy;
-  v28 = v17;
-  v18 = MEMORY[0x1AC5B3C70](v27);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke;
+  v30[3] = &unk_1E7976098;
+  v30[4] = self;
+  v32 = v11;
+  v33 = v13;
+  v21 = handlerCopy;
+  v31 = v21;
+  v22 = MEMORY[0x1AC5B3C70](v30);
   if ([accountCopy isDirty])
   {
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_137;
-    v24[3] = &unk_1E79754C8;
-    v25 = accountCopy;
-    v26 = v18;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_2;
-    v22[3] = &unk_1E79754F0;
-    v22[4] = self;
-    v23 = v26;
-    ac_dispatch_remote(remoteAccountStoreSession, v24, v22);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_137;
+    v27[3] = &unk_1E79754C8;
+    v28 = accountCopy;
+    v29 = v22;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_2;
+    v25[3] = &unk_1E79754F0;
+    v25[4] = self;
+    v26 = v29;
+    ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
   }
 
   else
   {
-    v18[2](v18, 1, 0);
+    v22[2](v22, 1, 0);
   }
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -4546,9 +4493,9 @@ void __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke(ui
     }
 
     *buf = 138412546;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v5;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed checking save eligibility: %@ - %@.", buf, 0x16u);
   }
 
@@ -4557,22 +4504,20 @@ void __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke(ui
   block[1] = 3221225472;
   block[2] = __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_136;
   block[3] = &unk_1E7976110;
-  v15 = *(a1 + 48);
-  v16 = a2;
+  v14 = *(a1 + 48);
+  v15 = a2;
   v9 = *(a1 + 40);
-  v13 = v5;
-  v14 = v9;
+  v12 = v5;
+  v13 = v9;
   v10 = v5;
   dispatch_async(v8, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_136(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -4592,8 +4537,8 @@ uint64_t __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invok
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "CanSaveAccount", "%{public}@", &v13, 0xCu);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = *(a1 + 48);
     v11 = *(a1 + 64);
@@ -4613,16 +4558,15 @@ uint64_t __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invok
     v16 = Nanoseconds / 1000000000.0;
     v17 = 2114;
     v18 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CanSaveAccount %{public}@", &v13, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CanSaveAccount %{public}@", &v13, 0x20u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4635,86 +4579,85 @@ void __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_2(
 
 + (BOOL)canSaveAccountsOfAccountTypeIdentifier:(id)identifier
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = _os_activity_create(&dword_1AC3CD000, "accounts/can-save-accounts-with-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v24.opaque[0] = 0;
-  v24.opaque[1] = 0;
-  os_activity_scope_enter(v4, &v24);
-  v5 = _ACSignpostLogSystem();
-  v6 = _ACSignpostCreate(v5);
-  v8 = v7;
+  v27.opaque[0] = 0;
+  v27.opaque[1] = 0;
+  os_activity_scope_enter(v4, &v27);
+  v6 = _ACSignpostLogSystem(v5);
+  v7 = _ACSignpostCreate(v6);
+  v9 = v8;
 
-  v9 = _ACSignpostLogSystem();
-  v10 = v9;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v11 = _ACSignpostLogSystem(v10);
+  v12 = v11;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 138412290;
-    v26 = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CanSaveAccountsWithType", "%@", buf, 0xCu);
+    v29 = identifierCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CanSaveAccountsWithType", "%@", buf, 0xCu);
   }
 
-  v11 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = _ACSignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     +[ACAccountStore canSaveAccountsOfAccountTypeIdentifier:];
   }
 
-  v12 = objc_alloc_init(ACAccountStore);
-  v13 = [(ACAccountStore *)v12 accountTypeWithAccountTypeIdentifier:identifierCopy];
-  if ([v13 supportsMultipleAccounts])
+  v15 = objc_alloc_init(ACAccountStore);
+  v16 = [(ACAccountStore *)v15 accountTypeWithAccountTypeIdentifier:identifierCopy];
+  if ([v16 supportsMultipleAccounts])
   {
-    v14 = 1;
+    v17 = 1;
   }
 
   else
   {
-    identifier = [v13 identifier];
-    v14 = [ACAccountStore countOfAccountsWithAccountTypeIdentifier:identifier]< 1;
+    identifier = [v16 identifier];
+    v17 = [ACAccountStore countOfAccountsWithAccountTypeIdentifier:identifier]< 1;
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v6, v8);
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
+  v20 = _ACSignpostLogSystem(Nanoseconds);
+  v21 = v20;
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    v19 = @"NO";
-    if (v14)
+    v22 = @"NO";
+    if (v17)
     {
-      v19 = @"YES";
+      v22 = @"YES";
     }
 
     *buf = 138543362;
-    v26 = v19;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_END, v6, "CanSaveAccountsWithType", "%{public}@", buf, 0xCu);
+    v29 = v22;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_END, v7, "CanSaveAccountsWithType", "%{public}@", buf, 0xCu);
   }
 
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    v23 = @"NO";
+    v26 = @"NO";
     *buf = 134218498;
-    v26 = v6;
-    if (v14)
+    v29 = v7;
+    if (v17)
     {
-      v23 = @"YES";
+      v26 = @"YES";
     }
 
-    v27 = 2048;
-    v28 = Nanoseconds / 1000000000.0;
-    v29 = 2114;
-    v30 = v23;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CanSaveAccountsWithType %{public}@", buf, 0x20u);
+    v30 = 2048;
+    v31 = Nanoseconds / 1000000000.0;
+    v32 = 2114;
+    v33 = v26;
+    _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CanSaveAccountsWithType %{public}@", buf, 0x20u);
   }
 
-  os_activity_scope_leave(&v24);
-  v21 = *MEMORY[0x1E69E9840];
-  return v14;
+  os_activity_scope_leave(&v27);
+  return v17;
 }
 
 - (void)_saveAccount:(id)account verify:(BOOL)verify dataclassActions:(id)actions completion:(id)completion
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   actionsCopy = actions;
   completionCopy = completion;
@@ -4724,119 +4667,119 @@ void __55__ACAccountStore_canSaveAccount_withCompletionHandler___block_invoke_2(
   os_activity_scope_enter(v11, &state);
   if (!accountCopy)
   {
-    v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v35);
+    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v39);
   }
 
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
     *buf = 138543618;
-    v54 = identifier;
-    v55 = 2112;
-    v56 = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SaveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x16u);
+    v58 = identifier;
+    v59 = 2112;
+    v60 = accountCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "SaveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x16u);
   }
 
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
     *buf = 134218498;
-    v54 = v13;
-    v55 = 2114;
-    v56 = identifier2;
-    v57 = 2112;
-    v58 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x20u);
+    v58 = v14;
+    v59 = 2114;
+    v60 = identifier2;
+    v61 = 2112;
+    v62 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x20u);
   }
 
-  v21 = _ACLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v25 = _ACLogSystem(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v54 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEFAULT, "Starting save for account %@.", buf, 0xCu);
+    v58 = accountCopy;
+    _os_log_impl(&dword_1AC3CD000, v25, OS_LOG_TYPE_DEFAULT, "Starting save for account %@.", buf, 0xCu);
   }
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke;
-  v48[3] = &unk_1E7976098;
-  v48[4] = self;
-  v50 = v13;
-  v51 = v15;
-  v22 = completionCopy;
-  v49 = v22;
-  v23 = MEMORY[0x1AC5B3C70](v48);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_139;
-  v45[3] = &unk_1E7976138;
-  v24 = v23;
-  v47 = v24;
-  v45[4] = self;
-  v25 = accountCopy;
-  v46 = v25;
-  v26 = MEMORY[0x1AC5B3C70](v45);
-  if ([v25 isDirty])
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke;
+  v52[3] = &unk_1E7976098;
+  v52[4] = self;
+  v54 = v14;
+  v55 = v16;
+  v26 = completionCopy;
+  v53 = v26;
+  v27 = MEMORY[0x1AC5B3C70](v52);
+  v49[0] = MEMORY[0x1E69E9820];
+  v49[1] = 3221225472;
+  v49[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_139;
+  v49[3] = &unk_1E7976138;
+  v28 = v27;
+  v51 = v28;
+  v49[4] = self;
+  v29 = accountCopy;
+  v50 = v29;
+  v30 = MEMORY[0x1AC5B3C70](v49);
+  isDirty = [v29 isDirty];
+  if (isDirty)
   {
-    v27 = _ACLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v32 = _ACLogSystem(isDirty);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore _saveAccount:verify:dataclassActions:completion:];
     }
 
-    accountType3 = [v25 accountType];
+    accountType3 = [v29 accountType];
     identifier3 = [accountType3 identifier];
     [(ACAccountStore *)self _checkSaveRateLimitForAccountType:identifier3];
 
     longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_141;
-    v40[3] = &unk_1E7976160;
-    v41 = v25;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_141;
+    v44[3] = &unk_1E7976160;
+    v45 = v29;
     verifyCopy = verify;
-    v42 = actionsCopy;
-    v43 = v26;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_2;
-    v38[3] = &unk_1E79754F0;
-    v38[4] = self;
-    v39 = v24;
-    ac_dispatch_remote(longLivedRemoteAccountStoreSession, v40, v38);
+    v46 = actionsCopy;
+    v47 = v30;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_2;
+    v42[3] = &unk_1E79754F0;
+    v42[4] = self;
+    v43 = v28;
+    ac_dispatch_remote(longLivedRemoteAccountStoreSession, v44, v42);
   }
 
   else
   {
-    v31 = _ACLogSystem();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v36 = _ACLogSystem(isDirty);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore _saveAccount:verify:dataclassActions:completion:];
     }
 
-    (*(v24 + 2))(v24, 1, 0);
+    (*(v28 + 2))(v28, 1, 0);
   }
 
   os_activity_scope_leave(&state);
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -4846,9 +4789,9 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
     }
 
     *buf = 138412546;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v5;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed account save: %@ - %@.", buf, 0x16u);
   }
 
@@ -4857,22 +4800,20 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
   block[1] = 3221225472;
   block[2] = __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_138;
   block[3] = &unk_1E7976110;
-  v15 = *(a1 + 48);
-  v16 = a2;
+  v14 = *(a1 + 48);
+  v15 = a2;
   v9 = *(a1 + 40);
-  v13 = v5;
-  v14 = v9;
+  v12 = v5;
+  v13 = v9;
   v10 = v5;
   dispatch_async(v8, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___block_invoke_138(uint64_t a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -4892,8 +4833,8 @@ uint64_t __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "SaveAccount", "%{public}@", &v13, 0xCu);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = *(a1 + 48);
     v11 = *(a1 + 64);
@@ -4913,16 +4854,15 @@ uint64_t __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___
     v16 = Nanoseconds / 1000000000.0;
     v17 = 2114;
     v18 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccount %{public}@", &v13, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccount %{public}@", &v13, 0x20u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4964,7 +4904,7 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
 
 - (BOOL)saveVerifiedAccount:(id)account error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/save-verified-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -4972,17 +4912,17 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
   os_activity_scope_enter(v7, &state);
   if (!accountCopy)
   {
-    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v34);
+    v38 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v38);
   }
 
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
@@ -4990,64 +4930,65 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
     *&buf[4] = identifier;
     *&buf[12] = 2112;
     *&buf[14] = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SaveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SaveAccount", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x16u);
   }
 
-  v16 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v19 = _ACSignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
     *buf = 134218498;
-    *&buf[4] = v9;
+    *&buf[4] = v10;
     *&buf[12] = 2114;
     *&buf[14] = identifier2;
     *&buf[22] = 2112;
-    v55 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x20u);
+    v59 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccount  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@ (account: %@)", buf, 0x20u);
   }
 
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 1;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 1;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v55 = __Block_byref_object_copy__0;
-  v56 = __Block_byref_object_dispose__0;
-  v57 = 0;
-  if ([accountCopy isDirty])
+  v59 = __Block_byref_object_copy__0;
+  v60 = __Block_byref_object_dispose__0;
+  v61 = 0;
+  isDirty = [accountCopy isDirty];
+  if (isDirty)
   {
     accountType3 = [accountCopy accountType];
     identifier3 = [accountType3 identifier];
     [(ACAccountStore *)self _checkSaveRateLimitForAccountType:identifier3];
 
     longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __44__ACAccountStore_saveVerifiedAccount_error___block_invoke;
-    v36[3] = &unk_1E79761B0;
-    v39 = &v41;
-    v40 = buf;
-    v37 = accountCopy;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __44__ACAccountStore_saveVerifiedAccount_error___block_invoke;
+    v40[3] = &unk_1E79761B0;
+    v43 = &v45;
+    v44 = buf;
+    v41 = accountCopy;
     selfCopy = self;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __44__ACAccountStore_saveVerifiedAccount_error___block_invoke_3;
-    v35[3] = &unk_1E7975F58;
-    v35[5] = &v41;
-    v35[6] = buf;
-    v35[4] = self;
-    ac_dispatch_remote_sync(longLivedRemoteAccountStoreSession, v36, v35);
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __44__ACAccountStore_saveVerifiedAccount_error___block_invoke_3;
+    v39[3] = &unk_1E7975F58;
+    v39[5] = &v45;
+    v39[6] = buf;
+    v39[4] = self;
+    ac_dispatch_remote_sync(longLivedRemoteAccountStoreSession, v40, v39);
 
-    v20 = v37;
+    v24 = v41;
   }
 
   else
   {
-    v20 = _ACLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v24 = _ACLogSystem(isDirty);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore saveVerifiedAccount:error:];
     }
@@ -5058,68 +4999,67 @@ void __66__ACAccountStore__saveAccount_verify_dataclassActions_completion___bloc
     *error = *(*&buf[8] + 40);
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v22 = _ACSignpostLogSystem();
-  v23 = v22;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v26 = _ACSignpostLogSystem(Nanoseconds);
+  v27 = v26;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
-    if (*(v42 + 24))
+    if (*(v46 + 24))
     {
-      v24 = @"YES";
+      v28 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v28 = @"NO";
     }
 
-    v25 = *(*&buf[8] + 40);
-    if (*&v25 == 0.0)
+    v29 = *(*&buf[8] + 40);
+    if (*&v29 == 0.0)
     {
-      *&v25 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v29 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v46 = 138412546;
-    v47 = v24;
-    v48 = 2112;
-    v49 = *&v25;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_END, v9, "SaveAccount", "%@%@", v46, 0x16u);
-  }
-
-  v26 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-  {
-    v32 = @"NO";
-    v33 = *(*&buf[8] + 40);
-    if (*(v42 + 24))
-    {
-      v32 = @"YES";
-    }
-
-    *v46 = 134218754;
-    v47 = v9;
-    v48 = 2048;
-    v49 = Nanoseconds / 1000000000.0;
-    v50 = 2112;
-    v51 = v32;
-    if (!v33)
-    {
-      v33 = &stru_1F210E1C8;
-    }
-
+    *v50 = 138412546;
+    v51 = v28;
     v52 = 2112;
-    v53 = v33;
-    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccount %@%@", v46, 0x2Au);
+    v53 = *&v29;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v27, OS_SIGNPOST_INTERVAL_END, v10, "SaveAccount", "%@%@", v50, 0x16u);
   }
 
-  v27 = *(v42 + 24);
+  v31 = _ACSignpostLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+  {
+    v36 = @"NO";
+    v37 = *(*&buf[8] + 40);
+    if (*(v46 + 24))
+    {
+      v36 = @"YES";
+    }
+
+    *v50 = 134218754;
+    v51 = v10;
+    v52 = 2048;
+    v53 = Nanoseconds / 1000000000.0;
+    v54 = 2112;
+    v55 = v36;
+    if (!v37)
+    {
+      v37 = &stru_1F210E1C8;
+    }
+
+    v56 = 2112;
+    v57 = v37;
+    _os_log_debug_impl(&dword_1AC3CD000, v31, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccount %@%@", v50, 0x2Au);
+  }
+
+  v32 = *(v46 + 24);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v45, 8);
   os_activity_scope_leave(&state);
 
-  v28 = *MEMORY[0x1E69E9840];
-  return v27 & 1;
+  return v32 & 1;
 }
 
 void __44__ACAccountStore_saveVerifiedAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -5167,10 +5107,7 @@ void __44__ACAccountStore_saveVerifiedAccount_error___block_invoke_2(uint64_t a1
 uint64_t __44__ACAccountStore_saveVerifiedAccount_error___block_invoke_3(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = 0;
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -5183,12 +5120,16 @@ uint64_t __44__ACAccountStore_saveVerifiedAccount_error___block_invoke_3(uint64_
     [ACAccountStore _checkSaveRateLimitForAccountType:];
   }
 
-  if (_checkSaveRateLimitForAccountType__saveRateLimiter && ([_checkSaveRateLimitForAccountType__saveRateLimiter reservePerformActionForKey:typeCopy] & 1) == 0)
+  if (_checkSaveRateLimitForAccountType__saveRateLimiter)
   {
-    v4 = _ACLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v4 = [_checkSaveRateLimitForAccountType__saveRateLimiter reservePerformActionForKey:typeCopy];
+    if ((v4 & 1) == 0)
     {
-      [(ACAccountStore *)typeCopy _checkSaveRateLimitForAccountType:v4];
+      v5 = _ACLogSystem(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      {
+        [(ACAccountStore *)typeCopy _checkSaveRateLimitForAccountType:v5];
+      }
     }
   }
 }
@@ -5208,7 +5149,7 @@ uint64_t __52__ACAccountStore__checkSaveRateLimitForAccountType___block_invoke()
 
 - (void)requestAccessToAccountsWithType:(ACAccountType *)accountType options:(NSDictionary *)options completion:(ACAccountStoreRequestAccessCompletionHandler)completion
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v8 = accountType;
   v9 = options;
   v10 = completion;
@@ -5221,77 +5162,76 @@ uint64_t __52__ACAccountStore__checkSaveRateLimitForAccountType___block_invoke()
 
   if (v9 != 0 && v13 == 0)
   {
-    v14 = @"Access options are not permitted for this account type. The options argument must be nil.";
+    v15 = @"Access options are not permitted for this account type. The options argument must be nil.";
 LABEL_6:
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v14];
+    v14 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v15];
     goto LABEL_7;
   }
 
   if (!v9 && v13)
   {
-    v14 = @"Access options are required for this account type.";
+    v15 = @"Access options are required for this account type.";
     goto LABEL_6;
   }
 
 LABEL_7:
-  v15 = _ACSignpostLogSystem();
-  v16 = _ACSignpostCreate(v15);
-  v18 = v17;
+  v16 = _ACSignpostLogSystem(v14);
+  v17 = _ACSignpostCreate(v16);
+  v19 = v18;
 
-  v19 = _ACSignpostLogSystem();
-  v20 = v19;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = _ACSignpostLogSystem(v20);
+  v22 = v21;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 138412546;
-    v41 = v8;
-    v42 = 2112;
-    v43 = v9;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v16, "RequestAccessToAccountType", "%@ : %@", buf, 0x16u);
-  }
-
-  v21 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v41 = v16;
-    v42 = 2112;
     v43 = v8;
     v44 = 2112;
     v45 = v9;
-    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RequestAccessToAccountType %@ : %@", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v17, "RequestAccessToAccountType", "%@ : %@", buf, 0x16u);
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke;
-  v35[3] = &unk_1E7976098;
-  v35[4] = self;
-  v37 = v16;
-  v38 = v18;
-  v22 = v10;
-  v36 = v22;
-  v23 = MEMORY[0x1AC5B3C70](v35);
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v43 = v17;
+    v44 = 2112;
+    v45 = v8;
+    v46 = 2112;
+    v47 = v9;
+    _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RequestAccessToAccountType %@ : %@", buf, 0x20u);
+  }
+
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke;
+  v37[3] = &unk_1E7976098;
+  v37[4] = self;
+  v39 = v17;
+  v40 = v19;
+  v25 = v10;
+  v38 = v25;
+  v26 = MEMORY[0x1AC5B3C70](v37);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke_153;
+  v33[3] = &unk_1E7975C40;
+  v28 = v8;
+  v34 = v28;
+  v29 = v9;
+  v35 = v29;
+  v36 = v26;
   v31[0] = MEMORY[0x1E69E9820];
   v31[1] = 3221225472;
-  v31[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke_153;
-  v31[3] = &unk_1E7975C40;
-  v25 = v8;
-  v32 = v25;
-  v26 = v9;
-  v33 = v26;
-  v34 = v23;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke_3;
-  v29[3] = &unk_1E79754F0;
-  v27 = v34;
-  v29[4] = self;
-  v30 = v27;
-  ac_dispatch_remote(remoteAccountStoreSession, v31, v29);
+  v31[2] = __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke_3;
+  v31[3] = &unk_1E79754F0;
+  v30 = v36;
+  v31[4] = self;
+  v32 = v30;
+  ac_dispatch_remote(remoteAccountStoreSession, v33, v31);
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -5314,7 +5254,7 @@ uint64_t __69__ACAccountStore_requestAccessToAccountsWithType_options_completion
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -5342,8 +5282,8 @@ uint64_t __69__ACAccountStore_requestAccessToAccountsWithType_options_completion
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RequestAccessToAccountType", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -5367,16 +5307,15 @@ uint64_t __69__ACAccountStore_requestAccessToAccountsWithType_options_completion
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RequestAccessToAccountType %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RequestAccessToAccountType %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5424,82 +5363,81 @@ void __69__ACAccountStore_requestAccessToAccountsWithType_options_completion___b
 
 - (id)accessKeysForAccountType:(id)type
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/request-access", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AccessKeysForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AccessKeysForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore accessKeysForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __43__ACAccountStore_accessKeysForAccountType___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __43__ACAccountStore_accessKeysForAccountType___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "AccessKeysForAccountType", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "AccessKeysForAccountType", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccessKeysForAccountType %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccessKeysForAccountType %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __43__ACAccountStore_accessKeysForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -5517,10 +5455,11 @@ void __43__ACAccountStore_accessKeysForAccountType___block_invoke_2(uint64_t a1,
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -5534,82 +5473,81 @@ void __43__ACAccountStore_accessKeysForAccountType___block_invoke_2(uint64_t a1,
 
 - (id)appPermissionsForAccountType:(id)type
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/app-permissions", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AppPermissionsForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AppPermissionsForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore appPermissionsForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __47__ACAccountStore_appPermissionsForAccountType___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __47__ACAccountStore_appPermissionsForAccountType___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "AppPermissionsForAccountType", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "AppPermissionsForAccountType", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AppPermissionsForAccountType %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AppPermissionsForAccountType %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __47__ACAccountStore_appPermissionsForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -5627,10 +5565,11 @@ void __47__ACAccountStore_appPermissionsForAccountType___block_invoke_2(uint64_t
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -5645,94 +5584,93 @@ void __47__ACAccountStore_appPermissionsForAccountType___block_invoke_2(uint64_t
 - (void)setPermissionGranted:(BOOL)granted forBundleID:(id)d onAccountType:(id)type
 {
   grantedCopy = granted;
-  v45 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dCopy = d;
   typeCopy = type;
   v10 = _os_activity_create(&dword_1AC3CD000, "accounts/set-permission-granted", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v10, &state);
-  v11 = _ACSignpostLogSystem();
-  v12 = _ACSignpostCreate(v11);
-  v14 = v13;
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = _ACSignpostCreate(v12);
+  v15 = v14;
 
-  v15 = _ACSignpostLogSystem();
-  v16 = v15;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = _ACSignpostLogSystem(v16);
+  v18 = v17;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    v17 = @"NO";
+    v19 = @"NO";
     *buf = 138412802;
     if (grantedCopy)
     {
-      v17 = @"YES";
+      v19 = @"YES";
     }
 
-    v38 = v17;
-    v39 = 2112;
-    v40 = dCopy;
-    v41 = 2112;
-    v42 = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "PermitBundleWithAccountType", "%@: %@ -> %@", buf, 0x20u);
+    v42 = v19;
+    v43 = 2112;
+    v44 = dCopy;
+    v45 = 2112;
+    v46 = typeCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v13, "PermitBundleWithAccountType", "%@: %@ -> %@", buf, 0x20u);
   }
 
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v21 = _ACSignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v28 = @"NO";
+    v32 = @"NO";
     *buf = 134218754;
-    v38 = v12;
+    v42 = v13;
     if (grantedCopy)
     {
-      v28 = @"YES";
+      v32 = @"YES";
     }
 
-    v39 = 2112;
-    v40 = v28;
-    v41 = 2112;
-    v42 = dCopy;
     v43 = 2112;
-    v44 = typeCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: PermitBundleWithAccountType %@: %@ -> %@", buf, 0x2Au);
+    v44 = v32;
+    v45 = 2112;
+    v46 = dCopy;
+    v47 = 2112;
+    v48 = typeCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: PermitBundleWithAccountType %@: %@ -> %@", buf, 0x2Au);
   }
 
-  v19 = dispatch_semaphore_create(0);
+  v22 = dispatch_semaphore_create(0);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke;
-  v31[3] = &unk_1E7976250;
-  v35 = grantedCopy;
-  v21 = dCopy;
-  v32 = v21;
-  v22 = typeCopy;
-  v33 = v22;
-  v34 = v19;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke_158;
-  v29[3] = &unk_1E7976278;
-  v23 = v34;
-  v30 = v23;
-  ac_dispatch_remote(remoteAccountStoreSession, v31, v29);
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke;
+  v35[3] = &unk_1E7976250;
+  v39 = grantedCopy;
+  v24 = dCopy;
+  v36 = v24;
+  v25 = typeCopy;
+  v37 = v25;
+  v38 = v22;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke_158;
+  v33[3] = &unk_1E7976278;
+  v26 = v38;
+  v34 = v26;
+  ac_dispatch_remote(remoteAccountStoreSession, v35, v33);
 
-  dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-  _ACSignpostGetNanoseconds(v12, v14);
-  v24 = _ACSignpostLogSystem();
-  v25 = v24;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  dispatch_semaphore_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
+  Nanoseconds = _ACSignpostGetNanoseconds(v13, v15);
+  v28 = _ACSignpostLogSystem(Nanoseconds);
+  v29 = v28;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v25, OS_SIGNPOST_INTERVAL_END, v12, "PermitBundleWithAccountType", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v29, OS_SIGNPOST_INTERVAL_END, v13, "PermitBundleWithAccountType", &unk_1AC43804B, buf, 2u);
   }
 
-  v26 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v31 = _ACSignpostLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore setPermissionGranted:forBundleID:onAccountType:];
   }
 
   os_activity_scope_leave(&state);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke(uint64_t a1, void *a2)
@@ -5754,10 +5692,11 @@ void __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block
 void __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _ACLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ACLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -5768,66 +5707,65 @@ void __65__ACAccountStore_setPermissionGranted_forBundleID_onAccountType___block
 
 - (void)clearAllPermissionsGrantedForAccountType:(id)type
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/clear-permission-granted", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v28 = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ClearPermissionsForAccountType", "%@", buf, 0xCu);
+    v32 = typeCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ClearPermissionsForAccountType", "%@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore clearAllPermissionsGrantedForAccountType:];
   }
 
-  v13 = dispatch_semaphore_create(0);
+  v16 = dispatch_semaphore_create(0);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke;
-  v23[3] = &unk_1E79762A0;
-  v15 = typeCopy;
-  v24 = v15;
-  v25 = v13;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke_159;
-  v21[3] = &unk_1E7976278;
-  v16 = v25;
-  v22 = v16;
-  ac_dispatch_remote(remoteAccountStoreSession, v23, v21);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke;
+  v27[3] = &unk_1E79762A0;
+  v18 = typeCopy;
+  v28 = v18;
+  v29 = v16;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke_159;
+  v25[3] = &unk_1E7976278;
+  v19 = v29;
+  v26 = v19;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
 
-  dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-  _ACSignpostGetNanoseconds(v7, v9);
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_END, v7, "ClearPermissionsForAccountType", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v8, "ClearPermissionsForAccountType", &unk_1AC43804B, buf, 2u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore clearAllPermissionsGrantedForAccountType:];
   }
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -5844,10 +5782,11 @@ void __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invok
 void __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _ACLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ACLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -5858,94 +5797,93 @@ void __59__ACAccountStore_clearAllPermissionsGrantedForAccountType___block_invok
 
 - (BOOL)permissionForAccountType:(id)type
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/permission-for-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "PermissionForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PermissionForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore permissionForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v36 = 0x2020000000;
-  v37 = 0;
+  v39 = 0x2020000000;
+  v40 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __43__ACAccountStore_permissionForAccountType___block_invoke;
-  v25[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v26 = v14;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __43__ACAccountStore_permissionForAccountType___block_invoke;
+  v28[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v29 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v25, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v28, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     if (*(*(&buf + 1) + 24))
     {
-      v18 = @"YES";
+      v21 = @"YES";
     }
 
     else
     {
-      v18 = @"NO";
+      v21 = @"NO";
     }
 
-    *v29 = 138543362;
-    v30 = v18;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "PermissionForAccountType", "%{public}@", v29, 0xCu);
+    *v32 = 138543362;
+    v33 = v21;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "PermissionForAccountType", "%{public}@", v32, 0xCu);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(*(&buf + 1) + 24);
-    *v29 = 134218498;
-    v30 = v7;
-    if (v23)
+    v26 = *(*(&buf + 1) + 24);
+    *v32 = 134218498;
+    v33 = v8;
+    if (v26)
     {
-      v24 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v27 = @"NO";
     }
 
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2114;
-    v34 = v24;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PermissionForAccountType %{public}@", v29, 0x20u);
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2114;
+    v37 = v27;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PermissionForAccountType %{public}@", v32, 0x20u);
   }
 
-  v20 = *(*(&buf + 1) + 24);
+  v24 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v24 & 1;
 }
 
 uint64_t __43__ACAccountStore_permissionForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -5962,10 +5900,11 @@ uint64_t __43__ACAccountStore_permissionForAccountType___block_invoke(uint64_t a
 void __43__ACAccountStore_permissionForAccountType___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -5979,82 +5918,81 @@ void __43__ACAccountStore_permissionForAccountType___block_invoke_2(uint64_t a1,
 
 - (id)grantedPermissionsForAccountType:(id)type
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/granted-permissions-for-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "GrantedPermissionsForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "GrantedPermissionsForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore grantedPermissionsForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __51__ACAccountStore_grantedPermissionsForAccountType___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __51__ACAccountStore_grantedPermissionsForAccountType___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "GrantedPermissionsForAccountType", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "GrantedPermissionsForAccountType", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: GrantedPermissionsForAccountType %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: GrantedPermissionsForAccountType %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __51__ACAccountStore_grantedPermissionsForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -6072,10 +6010,11 @@ void __51__ACAccountStore_grantedPermissionsForAccountType___block_invoke_2(uint
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -6089,66 +6028,65 @@ void __51__ACAccountStore_grantedPermissionsForAccountType___block_invoke_2(uint
 
 - (void)clearGrantedPermissionsForAccountType:(id)type
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/clear-granted-permissions-for-type", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v28 = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ClearGrantedPermissionsForAccountType", "%@", buf, 0xCu);
+    v32 = typeCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ClearGrantedPermissionsForAccountType", "%@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore clearGrantedPermissionsForAccountType:];
   }
 
-  v13 = dispatch_semaphore_create(0);
+  v16 = dispatch_semaphore_create(0);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke;
-  v23[3] = &unk_1E79762A0;
-  v15 = typeCopy;
-  v24 = v15;
-  v25 = v13;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke_160;
-  v21[3] = &unk_1E7976278;
-  v16 = v25;
-  v22 = v16;
-  ac_dispatch_remote(remoteAccountStoreSession, v23, v21);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke;
+  v27[3] = &unk_1E79762A0;
+  v18 = typeCopy;
+  v28 = v18;
+  v29 = v16;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke_160;
+  v25[3] = &unk_1E7976278;
+  v19 = v29;
+  v26 = v19;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
 
-  dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-  _ACSignpostGetNanoseconds(v7, v9);
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_END, v7, "ClearGrantedPermissionsForAccountType", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v8, "ClearGrantedPermissionsForAccountType", &unk_1AC43804B, buf, 2u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore clearGrantedPermissionsForAccountType:];
   }
 
   os_activity_scope_leave(&state);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -6165,10 +6103,11 @@ void __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke(u
 void __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _ACLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _ACLogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -6177,9 +6116,23 @@ void __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke_2
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
+- (void)verifyCredentialsForAccount:(id)account saveWhenAuthorized:(BOOL)authorized withHandler:(id)handler
+{
+  authorizedCopy = authorized;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"ACShouldSave";
+  v8 = MEMORY[0x1E696AD98];
+  handlerCopy = handler;
+  accountCopy = account;
+  v11 = [v8 numberWithBool:authorizedCopy];
+  v14[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  [(ACAccountStore *)self verifyCredentialsForAccount:accountCopy options:v12 completion:handlerCopy];
+}
+
 - (void)verifyCredentialsForAccount:(id)account options:(id)options completion:(id)completion
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
@@ -6189,107 +6142,106 @@ void __56__ACAccountStore_clearGrantedPermissionsForAccountType___block_invoke_2
   os_activity_scope_enter(v11, &state);
   if (!accountCopy)
   {
-    v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v36);
+    v39 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v39);
   }
 
-  v37 = completionCopy;
+  v40 = completionCopy;
   [accountCopy _setAccountStore:self];
   v12 = [(ACAccountStore *)self _sanitizeOptionsDictionary:optionsCopy];
 
-  v13 = _ACSignpostLogSystem();
-  v14 = _ACSignpostCreate(v13);
-  v16 = v15;
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = _ACSignpostCreate(v14);
+  v17 = v16;
 
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = _ACSignpostLogSystem(v18);
+  v20 = v19;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
-    v21 = [v12 objectForKeyedSubscript:@"ACShouldSave"];
-    bOOLValue = [v21 BOOLValue];
+    v23 = [v12 objectForKeyedSubscript:@"ACShouldSave"];
+    bOOLValue = [v23 BOOLValue];
     *buf = 138543874;
-    v51 = identifier;
-    v52 = 1026;
-    *v53 = bOOLValue;
-    *&v53[4] = 2112;
-    *&v53[6] = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "VerifyCredentials", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldSave=%{public,signpost.telemetry:number1,name=ShouldSave}d  enableTelemetry=YES (account: %@)", buf, 0x1Cu);
+    v54 = identifier;
+    v55 = 1026;
+    *v56 = bOOLValue;
+    *&v56[4] = 2112;
+    *&v56[6] = accountCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VerifyCredentials", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldSave=%{public,signpost.telemetry:number1,name=ShouldSave}d  enableTelemetry=YES (account: %@)", buf, 0x1Cu);
   }
 
-  v23 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
-    v34 = [v12 objectForKeyedSubscript:@"ACShouldSave"];
-    bOOLValue2 = [v34 BOOLValue];
+    v37 = [v12 objectForKeyedSubscript:@"ACShouldSave"];
+    bOOLValue2 = [v37 BOOLValue];
     *buf = 134218754;
-    v51 = v14;
-    v52 = 2114;
-    *v53 = identifier2;
-    *&v53[8] = 1026;
-    *&v53[10] = bOOLValue2;
-    v54 = 2112;
-    v55 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: VerifyCredentials  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldSave=%{public,signpost.telemetry:number1,name=ShouldSave}d  enableTelemetry=YES (account: %@)", buf, 0x26u);
+    v54 = v15;
+    v55 = 2114;
+    *v56 = identifier2;
+    *&v56[8] = 1026;
+    *&v56[10] = bOOLValue2;
+    v57 = 2112;
+    v58 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: VerifyCredentials  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldSave=%{public,signpost.telemetry:number1,name=ShouldSave}d  enableTelemetry=YES (account: %@)", buf, 0x26u);
   }
 
-  v24 = _ACLogSystem();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v28 = _ACLogSystem(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v51 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEFAULT, "Starting credential verification for account %@.", buf, 0xCu);
+    v54 = accountCopy;
+    _os_log_impl(&dword_1AC3CD000, v28, OS_LOG_TYPE_DEFAULT, "Starting credential verification for account %@.", buf, 0xCu);
   }
 
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke;
-  v45[3] = &unk_1E7975BF0;
-  v45[4] = self;
-  v47 = v14;
-  v48 = v16;
-  v25 = v37;
-  v46 = v25;
-  v26 = MEMORY[0x1AC5B3C70](v45);
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke;
+  v48[3] = &unk_1E7975BF0;
+  v48[4] = self;
+  v50 = v15;
+  v51 = v17;
+  v29 = v40;
+  v49 = v29;
+  v30 = MEMORY[0x1AC5B3C70](v48);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_163;
-  v40[3] = &unk_1E7975D30;
-  v28 = accountCopy;
-  v41 = v28;
-  v29 = v12;
-  v42 = v29;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_163;
+  v43[3] = &unk_1E7975D30;
+  v32 = accountCopy;
+  v44 = v32;
+  v33 = v12;
+  v45 = v33;
   selfCopy = self;
-  v44 = v26;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_3;
-  v38[3] = &unk_1E79754F0;
-  v30 = v44;
-  v38[4] = self;
-  v39 = v30;
-  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v40, v38);
+  v47 = v30;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_3;
+  v41[3] = &unk_1E79754F0;
+  v34 = v47;
+  v41[4] = self;
+  v42 = v34;
+  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v43, v41);
 
   os_activity_scope_leave(&state);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _ACLogSystem();
+  v7 = _ACLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEFAULT, "Completed account credential verification: %@ - %@.", buf, 0x16u);
   }
 
@@ -6298,23 +6250,21 @@ void __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block
   block[1] = 3221225472;
   block[2] = __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_162;
   block[3] = &unk_1E79762F0;
-  v17 = *(a1 + 48);
-  v14 = v6;
+  v16 = *(a1 + 48);
+  v13 = v6;
   v9 = *(a1 + 40);
-  v15 = v5;
-  v16 = v9;
+  v14 = v5;
+  v15 = v9;
   v10 = v5;
   v11 = v6;
   dispatch_async(v8, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block_invoke_162(void *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -6334,8 +6284,8 @@ uint64_t __65__ACAccountStore_verifyCredentialsForAccount_options_completion___b
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "VerifyCredentials", "%{public}@", &v13, 0xCu);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = a1[7];
     v11 = a1[4];
@@ -6355,16 +6305,15 @@ uint64_t __65__ACAccountStore_verifyCredentialsForAccount_options_completion___b
     v16 = Nanoseconds / 1000000000.0;
     v17 = 2114;
     v18 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: VerifyCredentials %{public}@", &v13, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: VerifyCredentials %{public}@", &v13, 0x20u);
   }
 
   result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result, a1[5], a1[4]);
+    return (*(result + 16))(result, a1[5], a1[4]);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6414,18 +6363,18 @@ void __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block
 
 - (void)renewCredentialsForAccount:(id)account options:(id)options completion:(id)completion
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v44 = _os_activity_create(&dword_1AC3CD000, "accounts/renew-credentials", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v44, &state);
+  v48 = _os_activity_create(&dword_1AC3CD000, "accounts/renew-credentials", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v48, &state);
   if (!accountCopy)
   {
-    v43 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v43);
+    v47 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v47);
   }
 
   accountStore = [accountCopy accountStore];
@@ -6436,125 +6385,124 @@ void __65__ACAccountStore_verifyCredentialsForAccount_options_completion___block
 
     if ((v12 & 1) == 0)
     {
-      v13 = _ACLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _ACLogSystem(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         accountStore3 = [accountCopy accountStore];
         *buf = 138412802;
-        v60 = accountCopy;
-        v61 = 2112;
-        *v62 = accountStore3;
-        *&v62[8] = 2112;
-        *v63 = self;
-        _os_log_error_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_ERROR, "Account %@ associated with store %@, renewing credentials on store %@", buf, 0x20u);
+        v64 = accountCopy;
+        v65 = 2112;
+        *v66 = accountStore3;
+        *&v66[8] = 2112;
+        *v67 = self;
+        _os_log_error_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_ERROR, "Account %@ associated with store %@, renewing credentials on store %@", buf, 0x20u);
       }
     }
   }
 
   [accountCopy _setAccountStore:self];
-  v14 = [(ACAccountStore *)self _sanitizeOptionsDictionary:optionsCopy];
+  v15 = [(ACAccountStore *)self _sanitizeOptionsDictionary:optionsCopy];
 
-  v15 = _ACSignpostLogSystem();
-  v16 = _ACSignpostCreate(v15);
-  v45 = v17;
-  v18 = v16;
+  v17 = _ACSignpostLogSystem(v16);
+  v18 = _ACSignpostCreate(v17);
+  v49 = v19;
+  v20 = v18;
 
-  v19 = _ACSignpostLogSystem();
-  v20 = v19;
-  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v22 = _ACSignpostLogSystem(v21);
+  v23 = v22;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
-    v23 = [v14 objectForKeyedSubscript:@"ShouldForce"];
-    bOOLValue = [v23 BOOLValue];
-    v25 = [v14 objectForKeyedSubscript:@"ShouldAvoidUI"];
-    bOOLValue2 = [v25 BOOLValue];
+    v26 = [v15 objectForKeyedSubscript:@"ShouldForce"];
+    bOOLValue = [v26 BOOLValue];
+    v28 = [v15 objectForKeyedSubscript:@"ShouldAvoidUI"];
+    bOOLValue2 = [v28 BOOLValue];
     *buf = 138544130;
-    v60 = identifier;
-    v61 = 1026;
-    *v62 = bOOLValue;
-    *&v62[4] = 1026;
-    *&v62[6] = bOOLValue2;
-    *v63 = 2112;
-    *&v63[2] = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "RenewCredentials", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldForce=%{public,signpost.telemetry:number1,name=ShouldForce}d  ShouldAvoidUI=%{public,signpost.telemetry:number2,name=ShouldAvoidUI}d  enableTelemetry=YES (account: %@)", buf, 0x22u);
+    v64 = identifier;
+    v65 = 1026;
+    *v66 = bOOLValue;
+    *&v66[4] = 1026;
+    *&v66[6] = bOOLValue2;
+    *v67 = 2112;
+    *&v67[2] = accountCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "RenewCredentials", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldForce=%{public,signpost.telemetry:number1,name=ShouldForce}d  ShouldAvoidUI=%{public,signpost.telemetry:number2,name=ShouldAvoidUI}d  enableTelemetry=YES (account: %@)", buf, 0x22u);
   }
 
-  v27 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v31 = _ACSignpostLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
-    v38 = [v14 objectForKeyedSubscript:@"ShouldForce"];
-    bOOLValue3 = [v38 BOOLValue];
-    v40 = [v14 objectForKeyedSubscript:@"ShouldAvoidUI"];
-    bOOLValue4 = [v40 BOOLValue];
+    v42 = [v15 objectForKeyedSubscript:@"ShouldForce"];
+    bOOLValue3 = [v42 BOOLValue];
+    v44 = [v15 objectForKeyedSubscript:@"ShouldAvoidUI"];
+    bOOLValue4 = [v44 BOOLValue];
     *buf = 134219010;
-    v60 = v18;
-    v61 = 2114;
-    *v62 = identifier2;
-    *&v62[8] = 1026;
-    *v63 = bOOLValue3;
-    *&v63[4] = 1026;
-    *&v63[6] = bOOLValue4;
-    v64 = 2112;
-    v65 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v27, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RenewCredentials  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldForce=%{public,signpost.telemetry:number1,name=ShouldForce}d  ShouldAvoidUI=%{public,signpost.telemetry:number2,name=ShouldAvoidUI}d  enableTelemetry=YES (account: %@)", buf, 0x2Cu);
+    v64 = v20;
+    v65 = 2114;
+    *v66 = identifier2;
+    *&v66[8] = 1026;
+    *v67 = bOOLValue3;
+    *&v67[4] = 1026;
+    *&v67[6] = bOOLValue4;
+    v68 = 2112;
+    v69 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v31, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RenewCredentials  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  ShouldForce=%{public,signpost.telemetry:number1,name=ShouldForce}d  ShouldAvoidUI=%{public,signpost.telemetry:number2,name=ShouldAvoidUI}d  enableTelemetry=YES (account: %@)", buf, 0x2Cu);
   }
 
-  v28 = _ACLogSystem();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v33 = _ACLogSystem(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v60 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v28, OS_LOG_TYPE_DEFAULT, "Starting credential renewal for account %@.", buf, 0xCu);
+    v64 = accountCopy;
+    _os_log_impl(&dword_1AC3CD000, v33, OS_LOG_TYPE_DEFAULT, "Starting credential renewal for account %@.", buf, 0xCu);
   }
 
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke;
-  v54[3] = &unk_1E7976340;
-  v54[4] = self;
-  v56 = v18;
-  v57 = v45;
-  v29 = completionCopy;
-  v55 = v29;
-  v30 = MEMORY[0x1AC5B3C70](v54);
+  v58[0] = MEMORY[0x1E69E9820];
+  v58[1] = 3221225472;
+  v58[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke;
+  v58[3] = &unk_1E7976340;
+  v58[4] = self;
+  v60 = v20;
+  v61 = v49;
+  v34 = completionCopy;
+  v59 = v34;
+  v35 = MEMORY[0x1AC5B3C70](v58);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_166;
-  v49[3] = &unk_1E7976390;
-  v32 = accountCopy;
-  v50 = v32;
-  v33 = v14;
-  v51 = v33;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_166;
+  v53[3] = &unk_1E7976390;
+  v37 = accountCopy;
+  v54 = v37;
+  v38 = v15;
+  v55 = v38;
   selfCopy = self;
-  v53 = v30;
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_3;
-  v47[3] = &unk_1E79754F0;
-  v34 = v53;
-  v47[4] = self;
-  v48 = v34;
-  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v49, v47);
+  v57 = v35;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3221225472;
+  v51[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_3;
+  v51[3] = &unk_1E79754F0;
+  v39 = v57;
+  v51[4] = self;
+  v52 = v39;
+  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v53, v51);
 
   os_activity_scope_leave(&state);
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = a2;
-    v18 = 2112;
-    v19 = v5;
+    v16 = a2;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed account credential renewal: %ld - %@.", buf, 0x16u);
   }
 
@@ -6563,22 +6511,20 @@ void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_
   block[1] = 3221225472;
   block[2] = __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_164;
   block[3] = &unk_1E7976318;
-  v14 = *(a1 + 48);
-  v15 = a2;
+  v13 = *(a1 + 48);
+  v14 = a2;
   v8 = *(a1 + 40);
-  v12 = v5;
-  v13 = v8;
+  v11 = v5;
+  v12 = v8;
   v9 = v5;
   dispatch_async(v7, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_invoke_164(void *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[6];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -6598,8 +6544,8 @@ uint64_t __64__ACAccountStore_renewCredentialsForAccount_options_completion___bl
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RenewCredentials", "%{public}@", &v13, 0xCu);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = a1[6];
     v11 = a1[8];
@@ -6619,16 +6565,15 @@ uint64_t __64__ACAccountStore_renewCredentialsForAccount_options_completion___bl
     v16 = Nanoseconds / 1000000000.0;
     v17 = 2114;
     v18 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RenewCredentials %{public}@", &v13, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RenewCredentials %{public}@", &v13, 0x20u);
   }
 
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, a1[8], a1[4]);
+    return (*(result + 16))(result, a1[8], a1[4]);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6668,6 +6613,24 @@ void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_
   (*(v1 + 16))(v1, 2, v2);
 }
 
+- (void)renewCredentialsForAccount:(id)account force:(BOOL)force reason:(id)reason completion:(id)completion
+{
+  forceCopy = force;
+  accountCopy = account;
+  reasonCopy = reason;
+  completionCopy = completion;
+  v12 = objc_opt_new();
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:forceCopy];
+  [v12 setObject:v13 forKey:@"ShouldForce"];
+
+  if (reasonCopy)
+  {
+    [v12 setObject:reasonCopy forKey:@"ReasonString"];
+  }
+
+  [(ACAccountStore *)self renewCredentialsForAccount:accountCopy options:v12 completion:completionCopy];
+}
+
 - (void)renewCredentialsForAccount:(id)account services:(id)services completion:(id)completion
 {
   completionCopy = completion;
@@ -6702,8 +6665,8 @@ void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_
 
     if ((v11 & 1) == 0)
     {
-      v12 = _ACLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _ACLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         accountStore3 = [accountCopy accountStore];
         *buf = 138412802;
@@ -6712,18 +6675,17 @@ void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_
         v34 = accountStore3;
         v35 = 2112;
         selfCopy = self;
-        _os_log_error_impl(&dword_1AC3CD000, v12, OS_LOG_TYPE_ERROR, "Account %@ associated with store %@, renewing credentials on store %@", buf, 0x20u);
+        _os_log_error_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_ERROR, "Account %@ associated with store %@, renewing credentials on store %@", buf, 0x20u);
       }
     }
   }
 
-  [accountCopy _setAccountStore:self];
-  v13 = _ACLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _ACLogSystem([accountCopy _setAccountStore:self]);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v32 = accountCopy;
-    _os_log_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_DEFAULT, "Starting credential migration for account %@.", buf, 0xCu);
+    _os_log_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEFAULT, "Starting credential migration for account %@.", buf, 0xCu);
   }
 
   v28[0] = MEMORY[0x1E69E9820];
@@ -6731,36 +6693,35 @@ void __64__ACAccountStore_renewCredentialsForAccount_options_completion___block_
   v28[2] = __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke;
   v28[3] = &unk_1E79763E0;
   v28[4] = self;
-  v14 = completionCopy;
-  v29 = v14;
-  v15 = MEMORY[0x1AC5B3C70](v28);
+  v15 = completionCopy;
+  v29 = v15;
+  v16 = MEMORY[0x1AC5B3C70](v28);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
   v24[2] = __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke_2;
   v24[3] = &unk_1E7976430;
-  v17 = accountCopy;
-  v25 = v17;
+  v18 = accountCopy;
+  v25 = v18;
   selfCopy2 = self;
-  v27 = v15;
+  v27 = v16;
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
   v22[2] = __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke_4;
   v22[3] = &unk_1E79754F0;
-  v18 = v27;
+  v19 = v27;
   v22[4] = self;
-  v23 = v18;
+  v23 = v19;
   ac_dispatch_remote(longLivedRemoteAccountStoreSession, v24, v22);
 
   os_activity_scope_leave(&state);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -6770,9 +6731,9 @@ void __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke(
     }
 
     *buf = 138412546;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v5;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed account credential migration: %@ - %@.", buf, 0x16u);
   }
 
@@ -6784,13 +6745,11 @@ void __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke(
     block[1] = 3221225472;
     block[2] = __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke_167;
     block[3] = &unk_1E79763B8;
-    v13 = v8;
-    v14 = a2;
-    v12 = v5;
+    v12 = v8;
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -6832,44 +6791,44 @@ void __57__ACAccountStore_migrateCredentialForAccount_completion___block_invoke_
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _ACLogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Starting account migration plugins", buf, 2u);
+    _os_log_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEFAULT, "Starting account migration plugins", buf, 2u);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke;
-  v15[3] = &unk_1E79763E0;
-  v15[4] = self;
-  v7 = pluginsCopy;
-  v16 = v7;
-  v8 = MEMORY[0x1AC5B3C70](v15);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke;
+  v16[3] = &unk_1E79763E0;
+  v16[4] = self;
+  v8 = pluginsCopy;
+  v17 = v8;
+  v9 = MEMORY[0x1AC5B3C70](v16);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_2;
-  v13[3] = &unk_1E7976480;
-  v14 = v8;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_4;
-  v11[3] = &unk_1E79754F0;
-  v10 = v14;
-  v11[4] = self;
-  v12 = v10;
-  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v13, v11);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_2;
+  v14[3] = &unk_1E7976480;
+  v15 = v9;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_4;
+  v12[3] = &unk_1E79754F0;
+  v11 = v15;
+  v12[4] = self;
+  v13 = v11;
+  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v14, v12);
 
   os_activity_scope_leave(&state);
 }
 
 void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -6879,9 +6838,9 @@ void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke(uint64_t a1,
     }
 
     *buf = 138412546;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v5;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Completed account migration: %@ - %@.", buf, 0x16u);
   }
 
@@ -6893,13 +6852,11 @@ void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke(uint64_t a1,
     block[1] = 3221225472;
     block[2] = __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_168;
     block[3] = &unk_1E79763B8;
-    v13 = v8;
-    v14 = a2;
-    v12 = v5;
+    v12 = v8;
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_2(uint64_t a1, void *a2)
@@ -6921,74 +6878,74 @@ void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_4(uint64_t a
 
 - (id)credentialForAccount:(id)account error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/credential-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "CredentialForAccount", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CredentialForAccount", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore credentialForAccount:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__0;
-  v56 = __Block_byref_object_dispose__0;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__0;
+  v60 = __Block_byref_object_dispose__0;
   _cache = [(ACAccountStore *)self _cache];
   credentialCache = [_cache credentialCache];
-  v57 = [credentialCache cachedCredentialForAccount:accountCopy serviceID:0];
+  v61 = [credentialCache cachedCredentialForAccount:accountCopy serviceID:0];
 
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__0;
-  v42 = __Block_byref_object_dispose__0;
-  v43 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__0;
+  v46 = __Block_byref_object_dispose__0;
+  v47 = 0;
   if (*(*(&buf + 1) + 40))
   {
-    v17 = _ACLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v21 = _ACLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [ACAccountStore credentialForAccount:? error:?];
+      [ACAccountStore credentialForAccount:error:];
     }
   }
 
   else
   {
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __45__ACAccountStore_credentialForAccount_error___block_invoke;
-    v34[3] = &unk_1E7975B78;
-    v35 = accountCopy;
-    v36 = &v38;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __45__ACAccountStore_credentialForAccount_error___block_invoke;
+    v38[3] = &unk_1E7975B78;
+    v39 = accountCopy;
+    v40 = &v42;
     p_buf = &buf;
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __45__ACAccountStore_credentialForAccount_error___block_invoke_170;
-    v33[3] = &unk_1E7975BA0;
-    v33[4] = self;
-    v33[5] = &v38;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v34, v33);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __45__ACAccountStore_credentialForAccount_error___block_invoke_170;
+    v37[3] = &unk_1E7975BA0;
+    v37[4] = self;
+    v37[5] = &v42;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v38, v37);
 
-    v17 = v35;
+    v21 = v39;
   }
 
   [*(*(&buf + 1) + 40) _setOwningAccount:accountCopy];
@@ -7001,63 +6958,61 @@ void __45__ACAccountStore_runAccountMigrationPlugins___block_invoke_4(uint64_t a
 
   if (error)
   {
-    *error = v39[5];
+    *error = v43[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v22 = _ACSignpostLogSystem();
-  v23 = v22;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v26 = _ACSignpostLogSystem(Nanoseconds);
+  v27 = v26;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
-    v24 = *(*(&buf + 1) + 40);
-    v25 = v39[5];
-    if (*&v25 == 0.0)
+    v28 = *(*(&buf + 1) + 40);
+    v29 = v43[5];
+    if (*&v29 == 0.0)
     {
-      *&v25 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v29 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v45 = 138412546;
-    v46 = v24;
-    v47 = 2112;
-    v48 = *&v25;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_END, v9, "CredentialForAccount", "%@%@", v45, 0x16u);
+    *v49 = 138412546;
+    v50 = v28;
+    v51 = 2112;
+    v52 = *&v29;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v27, OS_SIGNPOST_INTERVAL_END, v10, "CredentialForAccount", "%@%@", v49, 0x16u);
   }
 
-  v26 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v31 = _ACSignpostLogSystem(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    v30 = *(*(&buf + 1) + 40);
-    v31 = v39[5];
-    *v45 = 134218754;
-    v46 = v9;
-    v47 = 2048;
-    v48 = Nanoseconds / 1000000000.0;
-    v49 = 2112;
-    v50 = v30;
-    if (v31)
+    v34 = *(*(&buf + 1) + 40);
+    v35 = v43[5];
+    *v49 = 134218754;
+    v50 = v10;
+    v51 = 2048;
+    v52 = Nanoseconds / 1000000000.0;
+    v53 = 2112;
+    v54 = v34;
+    if (v35)
     {
-      v32 = v31;
+      v36 = v35;
     }
 
     else
     {
-      v32 = &stru_1F210E1C8;
+      v36 = &stru_1F210E1C8;
     }
 
-    v51 = 2112;
-    v52 = v32;
-    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialForAccount %@%@", v45, 0x2Au);
+    v55 = 2112;
+    v56 = v36;
+    _os_log_debug_impl(&dword_1AC3CD000, v31, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialForAccount %@%@", v49, 0x2Au);
   }
 
-  v27 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v38, 8);
+  v32 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v42, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v32;
 }
 
 void __45__ACAccountStore_credentialForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -7077,123 +7032,121 @@ void __45__ACAccountStore_credentialForAccount_error___block_invoke_2(uint64_t a
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
 
-    v9 = 32;
+    v10 = 32;
   }
 
   else
   {
-    v9 = 40;
+    v10 = 40;
     a3 = a2;
   }
 
-  objc_storeStrong((*(*(a1 + v9) + 8) + 40), a3);
+  objc_storeStrong((*(*(a1 + v10) + 8) + 40), a3);
 }
 
 uint64_t __45__ACAccountStore_credentialForAccount_error___block_invoke_170(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)credentialForAccount:(id)account serviceID:(id)d error:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   *&v8 = COERCE_DOUBLE(account);
   dCopy = d;
   v10 = _os_activity_create(&dword_1AC3CD000, "accounts/credential-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v10, &state);
-  v11 = _ACSignpostLogSystem();
-  v12 = _ACSignpostCreate(v11);
-  v14 = v13;
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = _ACSignpostCreate(v12);
+  v15 = v14;
 
-  v15 = _ACSignpostLogSystem();
-  v16 = v15;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = _ACSignpostLogSystem(v16);
+  v18 = v17;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 138412546;
     *&buf[4] = v8;
     *&buf[12] = 2112;
     *&buf[14] = dCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "CredentialForAccountWithServiceID", "%@ : %@", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v13, "CredentialForAccountWithServiceID", "%@ : %@", buf, 0x16u);
   }
 
-  v17 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v20 = _ACSignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v12;
+    *&buf[4] = v13;
     *&buf[12] = 2112;
     *&buf[14] = v8;
     *&buf[22] = 2112;
-    v59 = dCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v17, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: CredentialForAccountWithServiceID %@ : %@", buf, 0x20u);
+    v63 = dCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: CredentialForAccountWithServiceID %@ : %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v59 = __Block_byref_object_copy__0;
-  v60 = __Block_byref_object_dispose__0;
+  v63 = __Block_byref_object_copy__0;
+  v64 = __Block_byref_object_dispose__0;
   _cache = [(ACAccountStore *)self _cache];
   credentialCache = [_cache credentialCache];
-  v61 = [credentialCache cachedCredentialForAccount:v8 serviceID:dCopy];
+  v65 = [credentialCache cachedCredentialForAccount:v8 serviceID:dCopy];
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__0;
-  v47 = __Block_byref_object_dispose__0;
-  v48 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy__0;
+  v51 = __Block_byref_object_dispose__0;
+  v52 = 0;
   if (*(*&buf[8] + 40))
   {
-    v20 = _ACLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v24 = _ACLogSystem(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*&buf[8] + 40);
-      *v50 = 138412802;
-      v51 = v21;
-      v52 = 2112;
-      v53 = *&v8;
-      v54 = 2112;
-      v55 = dCopy;
-      _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "@Returning cached credential %@ for account %@, serviceID %@", v50, 0x20u);
+      v25 = *(*&buf[8] + 40);
+      *v54 = 138412802;
+      v55 = v25;
+      v56 = 2112;
+      v57 = *&v8;
+      v58 = 2112;
+      v59 = dCopy;
+      _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "@Returning cached credential %@ for account %@, serviceID %@", v54, 0x20u);
     }
   }
 
   else
   {
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke;
-    v38[3] = &unk_1E79764D0;
-    v39 = v8;
-    v40 = dCopy;
-    v41 = &v43;
-    v42 = buf;
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke_171;
-    v37[3] = &unk_1E7975BA0;
-    v37[4] = self;
-    v37[5] = &v43;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v38, v37);
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke;
+    v42[3] = &unk_1E79764D0;
+    v43 = v8;
+    v44 = dCopy;
+    v45 = &v47;
+    v46 = buf;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke_171;
+    v41[3] = &unk_1E7975BA0;
+    v41[4] = self;
+    v41[5] = &v47;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v42, v41);
 
-    v20 = v39;
+    v24 = v43;
   }
 
   [*(*&buf[8] + 40) _setOwningAccount:v8];
@@ -7206,63 +7159,61 @@ uint64_t __45__ACAccountStore_credentialForAccount_error___block_invoke_170(uint
 
   if (error)
   {
-    *error = v44[5];
+    *error = v48[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v12, v14);
-  v26 = _ACSignpostLogSystem();
-  v27 = v26;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+  Nanoseconds = _ACSignpostGetNanoseconds(v13, v15);
+  v30 = _ACSignpostLogSystem(Nanoseconds);
+  v31 = v30;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
-    v28 = *(*&buf[8] + 40);
-    v29 = v44[5];
-    if (*&v29 == 0.0)
+    v32 = *(*&buf[8] + 40);
+    v33 = v48[5];
+    if (*&v33 == 0.0)
     {
-      *&v29 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v33 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v50 = 138412546;
-    v51 = v28;
-    v52 = 2112;
-    v53 = *&v29;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v27, OS_SIGNPOST_INTERVAL_END, v12, "CredentialForAccountWithServiceID", "%@%@", v50, 0x16u);
+    *v54 = 138412546;
+    v55 = v32;
+    v56 = 2112;
+    v57 = *&v33;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v31, OS_SIGNPOST_INTERVAL_END, v13, "CredentialForAccountWithServiceID", "%@%@", v54, 0x16u);
   }
 
-  v30 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  v35 = _ACSignpostLogSystem(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
-    v34 = *(*&buf[8] + 40);
-    v35 = v44[5];
-    *v50 = 134218754;
-    v51 = v12;
-    v52 = 2048;
-    v53 = Nanoseconds / 1000000000.0;
-    v54 = 2112;
-    v55 = v34;
-    if (v35)
+    v38 = *(*&buf[8] + 40);
+    v39 = v48[5];
+    *v54 = 134218754;
+    v55 = v13;
+    v56 = 2048;
+    v57 = Nanoseconds / 1000000000.0;
+    v58 = 2112;
+    v59 = v38;
+    if (v39)
     {
-      v36 = v35;
+      v40 = v39;
     }
 
     else
     {
-      v36 = &stru_1F210E1C8;
+      v40 = &stru_1F210E1C8;
     }
 
-    v56 = 2112;
-    v57 = v36;
-    _os_log_debug_impl(&dword_1AC3CD000, v30, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialForAccountWithServiceID %@%@", v50, 0x2Au);
+    v60 = 2112;
+    v61 = v40;
+    _os_log_debug_impl(&dword_1AC3CD000, v35, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialForAccountWithServiceID %@%@", v54, 0x2Au);
   }
 
-  v31 = *(*&buf[8] + 40);
-  _Block_object_dispose(&v43, 8);
+  v36 = *(*&buf[8] + 40);
+  _Block_object_dispose(&v47, 8);
 
   _Block_object_dispose(buf, 8);
   os_activity_scope_leave(&state);
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v31;
+  return v36;
 }
 
 uint64_t __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke(uint64_t a1, void *a2)
@@ -7281,165 +7232,161 @@ void __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke_2(
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
 
-    v9 = 32;
+    v10 = 32;
   }
 
   else
   {
-    v9 = 40;
+    v10 = 40;
     a3 = a2;
   }
 
-  objc_storeStrong((*(*(a1 + v9) + 8) + 40), a3);
+  objc_storeStrong((*(*(a1 + v10) + 8) + 40), a3);
 }
 
 uint64_t __55__ACAccountStore_credentialForAccount_serviceID_error___block_invoke_171(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCredential:(id)credential forAccount:(id)account serviceID:(id)d error:(id *)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   accountCopy = account;
   dCopy = d;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
-  v36 = _os_activity_create(&dword_1AC3CD000, "accounts/set-credential-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v36, &state);
-  v13 = _ACSignpostLogSystem();
-  v14 = _ACSignpostCreate(v13);
-  v16 = v15;
+  v40 = _os_activity_create(&dword_1AC3CD000, "accounts/set-credential-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v40, &state);
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = _ACSignpostCreate(v14);
+  v17 = v16;
 
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = _ACSignpostLogSystem(v18);
+  v20 = v19;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 138412802;
     *&buf[4] = credentialCopy;
     *&buf[12] = 2112;
     *&buf[14] = accountCopy;
     *&buf[22] = 2112;
-    v56 = dCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "SetCredentialForAccountWithServiceID", "%@ -> %@ : %@", buf, 0x20u);
+    v60 = dCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v15, "SetCredentialForAccountWithServiceID", "%@ -> %@ : %@", buf, 0x20u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v22 = _ACSignpostLogSystem(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    *&buf[4] = v14;
+    *&buf[4] = v15;
     *&buf[12] = 2112;
     *&buf[14] = credentialCopy;
     *&buf[22] = 2112;
-    v56 = accountCopy;
-    LOWORD(v57) = 2112;
-    *(&v57 + 2) = dCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SetCredentialForAccountWithServiceID %@ -> %@ : %@", buf, 0x2Au);
+    v60 = accountCopy;
+    LOWORD(v61) = 2112;
+    *(&v61 + 2) = dCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SetCredentialForAccountWithServiceID %@ -> %@ : %@", buf, 0x2Au);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v56 = __Block_byref_object_copy__0;
-  *&v57 = __Block_byref_object_dispose__0;
-  *(&v57 + 1) = 0;
+  v60 = __Block_byref_object_copy__0;
+  *&v61 = __Block_byref_object_dispose__0;
+  *(&v61 + 1) = 0;
   accountType = [accountCopy accountType];
   identifier = [accountType identifier];
-  v22 = identifier == 0;
+  v25 = identifier == 0;
 
-  if (v22)
+  if (v25)
   {
-    v23 = _ACLogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v27 = _ACLogSystem(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      [ACAccountStore setCredential:callStackSymbols forAccount:v54 serviceID:v23 error:?];
+      [ACAccountStore setCredential:callStackSymbols forAccount:v58 serviceID:v27 error:?];
     }
   }
 
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke;
-  v39[3] = &unk_1E79764F8;
-  v26 = credentialCopy;
-  v40 = v26;
-  v27 = accountCopy;
-  v41 = v27;
-  v28 = dCopy;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke;
+  v43[3] = &unk_1E79764F8;
+  v30 = credentialCopy;
+  v44 = v30;
+  v31 = accountCopy;
+  v45 = v31;
+  v32 = dCopy;
   selfCopy = self;
-  v44 = buf;
-  v42 = v28;
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke_173;
-  v38[3] = &unk_1E7975BA0;
-  v38[4] = self;
-  v38[5] = buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v39, v38);
+  v48 = buf;
+  v46 = v32;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke_173;
+  v42[3] = &unk_1E7975BA0;
+  v42[4] = self;
+  v42[5] = buf;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v43, v42);
 
   if (error)
   {
     *error = *(*&buf[8] + 40);
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v14, v16);
-  v30 = _ACSignpostLogSystem();
-  v31 = v30;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+  Nanoseconds = _ACSignpostGetNanoseconds(v15, v17);
+  v34 = _ACSignpostLogSystem(Nanoseconds);
+  v35 = v34;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
   {
-    v32 = *(*&buf[8] + 40);
-    if (*&v32 == 0.0)
+    v36 = *(*&buf[8] + 40);
+    if (*&v36 == 0.0)
     {
-      *&v32 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v36 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v46 = 138412546;
-    v47 = @"COMPLETE";
-    v48 = 2112;
-    v49 = *&v32;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v31, OS_SIGNPOST_INTERVAL_END, v14, "SetCredentialForAccountWithServiceID", "%@%@", v46, 0x16u);
+    *v50 = 138412546;
+    v51 = @"COMPLETE";
+    v52 = 2112;
+    v53 = *&v36;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v35, OS_SIGNPOST_INTERVAL_END, v15, "SetCredentialForAccountWithServiceID", "%@%@", v50, 0x16u);
   }
 
-  v33 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v38 = _ACSignpostLogSystem(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
-    v35 = *(*&buf[8] + 40);
-    *v46 = 134218754;
-    v47 = v14;
-    v48 = 2048;
-    v49 = Nanoseconds / 1000000000.0;
-    v51 = @"COMPLETE";
-    v50 = 2112;
-    if (!v35)
+    v39 = *(*&buf[8] + 40);
+    *v50 = 134218754;
+    v51 = v15;
+    v52 = 2048;
+    v53 = Nanoseconds / 1000000000.0;
+    v55 = @"COMPLETE";
+    v54 = 2112;
+    if (!v39)
     {
-      v35 = &stru_1F210E1C8;
+      v39 = &stru_1F210E1C8;
     }
 
-    v52 = 2112;
-    v53 = v35;
-    _os_log_debug_impl(&dword_1AC3CD000, v33, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SetCredentialForAccountWithServiceID %@%@", v46, 0x2Au);
+    v56 = 2112;
+    v57 = v39;
+    _os_log_debug_impl(&dword_1AC3CD000, v38, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SetCredentialForAccountWithServiceID %@%@", v50, 0x2Au);
   }
 
   _Block_object_dispose(buf, 8);
   os_activity_scope_leave(&state);
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke(uint64_t a1, void *a2)
@@ -7461,10 +7408,11 @@ void __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invok
 void __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -7475,88 +7423,84 @@ void __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invok
 
 uint64_t __59__ACAccountStore_setCredential_forAccount_serviceID_error___block_invoke_173(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)allCredentialItems
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1AC3CD000, "accounts/all-credential-items", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v3, &state);
-  v4 = _ACSignpostLogSystem();
-  v5 = _ACSignpostCreate(v4);
-  v7 = v6;
+  v5 = _ACSignpostLogSystem(v4);
+  v6 = _ACSignpostCreate(v5);
+  v8 = v7;
 
-  v8 = _ACSignpostLogSystem();
-  v9 = v8;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v5, "AllCredentialItems", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "AllCredentialItems", &unk_1AC43804B, buf, 2u);
   }
 
-  v10 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v13 = _ACSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore allCredentialItems];
   }
 
   *buf = 0;
-  v23 = buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__0;
-  v26 = __Block_byref_object_dispose__0;
-  v27 = 0;
+  v26 = buf;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__0;
+  v29 = __Block_byref_object_dispose__0;
+  v30 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __36__ACAccountStore_allCredentialItems__block_invoke;
-  v21[3] = &unk_1E7975D80;
-  v21[4] = buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v21, 0);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __36__ACAccountStore_allCredentialItems__block_invoke;
+  v24[3] = &unk_1E7975D80;
+  v24[4] = buf;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v5, v7);
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  Nanoseconds = _ACSignpostGetNanoseconds(v6, v8);
+  v16 = _ACSignpostLogSystem(Nanoseconds);
+  v17 = v16;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v15 = *(v23 + 5);
-    *v29 = 138412546;
-    v30 = v15;
-    v31 = 2112;
-    v32 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_END, v5, "AllCredentialItems", "%@%@", v29, 0x16u);
+    v18 = *(v26 + 5);
+    *v32 = 138412546;
+    v33 = v18;
+    v34 = 2112;
+    v35 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v6, "AllCredentialItems", "%@%@", v32, 0x16u);
   }
 
-  v16 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v20 = _ACSignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    *v29 = 134218754;
-    v20 = *(v23 + 5);
-    v30 = v5;
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2112;
-    v34 = v20;
-    v35 = 2112;
-    v36 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v16, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllCredentialItems %@%@", v29, 0x2Au);
+    *v32 = 134218754;
+    v23 = *(v26 + 5);
+    v33 = v6;
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2112;
+    v37 = v23;
+    v38 = 2112;
+    v39 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AllCredentialItems %@%@", v32, 0x2Au);
   }
 
-  v17 = *(v23 + 5);
+  v21 = *(v26 + 5);
   _Block_object_dispose(buf, 8);
 
   os_activity_scope_leave(&state);
-  v18 = *MEMORY[0x1E69E9840];
 
-  return v17;
+  return v21;
 }
 
 uint64_t __36__ACAccountStore_allCredentialItems__block_invoke(uint64_t a1, void *a2)
@@ -7573,10 +7517,11 @@ void __36__ACAccountStore_allCredentialItems__block_invoke_2(uint64_t a1, void *
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -7590,94 +7535,93 @@ void __36__ACAccountStore_allCredentialItems__block_invoke_2(uint64_t a1, void *
 
 - (id)credentialItemForAccount:(id)account serviceName:(id)name
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   nameCopy = name;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/credential-item-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412546;
     *&buf[4] = accountCopy;
     *&buf[12] = 2112;
     *&buf[14] = nameCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "CredentialItemsForAccountWithServiceName", "%@ : %@", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "CredentialItemsForAccountWithServiceName", "%@ : %@", buf, 0x16u);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v10;
+    *&buf[4] = v11;
     *&buf[12] = 2112;
     *&buf[14] = accountCopy;
     *&buf[22] = 2112;
-    v43 = nameCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v15, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: CredentialItemsForAccountWithServiceName %@ : %@", buf, 0x20u);
+    v46 = nameCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: CredentialItemsForAccountWithServiceName %@ : %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v43 = __Block_byref_object_copy__0;
-  v44 = __Block_byref_object_dispose__0;
-  v45 = 0;
+  v46 = __Block_byref_object_copy__0;
+  v47 = __Block_byref_object_dispose__0;
+  v48 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __55__ACAccountStore_credentialItemForAccount_serviceName___block_invoke;
-  v28[3] = &unk_1E7976548;
-  v17 = accountCopy;
-  v29 = v17;
-  v18 = nameCopy;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __55__ACAccountStore_credentialItemForAccount_serviceName___block_invoke;
+  v31[3] = &unk_1E7976548;
+  v20 = accountCopy;
+  v32 = v20;
+  v21 = nameCopy;
   selfCopy = self;
-  v32 = buf;
-  v30 = v18;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v28, 0);
+  v35 = buf;
+  v33 = v21;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v31, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
-  v20 = _ACSignpostLogSystem();
-  v21 = v20;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  Nanoseconds = _ACSignpostGetNanoseconds(v11, v13);
+  v23 = _ACSignpostLogSystem(Nanoseconds);
+  v24 = v23;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
-    v22 = *(*&buf[8] + 40);
-    *v34 = 138412546;
-    v35 = v22;
-    v36 = 2112;
-    v37 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_END, v10, "CredentialItemsForAccountWithServiceName", "%@%@", v34, 0x16u);
+    v25 = *(*&buf[8] + 40);
+    *v37 = 138412546;
+    v38 = v25;
+    v39 = 2112;
+    v40 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v24, OS_SIGNPOST_INTERVAL_END, v11, "CredentialItemsForAccountWithServiceName", "%@%@", v37, 0x16u);
   }
 
-  v23 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v27 = _ACSignpostLogSystem(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
-    *v34 = 134218754;
-    v27 = *(*&buf[8] + 40);
-    v35 = v10;
-    v36 = 2048;
-    v37 = Nanoseconds / 1000000000.0;
-    v38 = 2112;
-    v39 = v27;
-    v40 = 2112;
-    v41 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialItemsForAccountWithServiceName %@%@", v34, 0x2Au);
+    *v37 = 134218754;
+    v30 = *(*&buf[8] + 40);
+    v38 = v11;
+    v39 = 2048;
+    v40 = Nanoseconds / 1000000000.0;
+    v41 = 2112;
+    v42 = v30;
+    v43 = 2112;
+    v44 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v27, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: CredentialItemsForAccountWithServiceName %@%@", v37, 0x2Au);
   }
 
-  v24 = *(*&buf[8] + 40);
+  v28 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 
-  return v24;
+  return v28;
 }
 
 uint64_t __55__ACAccountStore_credentialItemForAccount_serviceName___block_invoke(uint64_t a1, void *a2)
@@ -7696,10 +7640,11 @@ void __55__ACAccountStore_credentialItemForAccount_serviceName___block_invoke_2(
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -7714,91 +7659,90 @@ void __55__ACAccountStore_credentialItemForAccount_serviceName___block_invoke_2(
 
 - (void)insertCredentialItem:(id)item withCompletionHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/insert-credential-item", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v39 = itemCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "InsertCredentialItem", "%@", buf, 0xCu);
+    v42 = itemCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "InsertCredentialItem", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore insertCredentialItem:withCompletionHandler:];
   }
 
   if (!itemCopy)
   {
-    v27 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
-    objc_exception_throw(v27);
+    v30 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
+    objc_exception_throw(v30);
   }
 
   accountStore = [itemCopy accountStore];
   if (accountStore)
   {
     accountStore2 = [itemCopy accountStore];
-    v18 = [accountStore2 isEqual:self];
+    v21 = [accountStore2 isEqual:self];
 
-    if ((v18 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      v19 = _ACLogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v23 = _ACLogSystem(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         accountStore3 = [itemCopy accountStore];
         *buf = 138412802;
-        v39 = itemCopy;
-        v40 = 2112;
-        v41 = accountStore3;
-        v42 = 2112;
+        v42 = itemCopy;
+        v43 = 2112;
+        v44 = accountStore3;
+        v45 = 2112;
         selfCopy = self;
-        _os_log_error_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_ERROR, "Credential item %@ associated with store %@, inserting credential item on store %@", buf, 0x20u);
+        _os_log_error_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_ERROR, "Credential item %@ associated with store %@, inserting credential item on store %@", buf, 0x20u);
       }
     }
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke;
-  v33[3] = &unk_1E7976098;
-  v33[4] = self;
-  v35 = v10;
-  v36 = v12;
-  v20 = handlerCopy;
-  v34 = v20;
-  v21 = MEMORY[0x1AC5B3C70](v33);
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke;
+  v36[3] = &unk_1E7976098;
+  v36[4] = self;
+  v38 = v11;
+  v39 = v13;
+  v24 = handlerCopy;
+  v37 = v24;
+  v25 = MEMORY[0x1AC5B3C70](v36);
   [itemCopy setAccountStore:self];
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke_181;
-  v30[3] = &unk_1E79754C8;
-  v23 = itemCopy;
-  v31 = v23;
-  v32 = v21;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke_3;
-  v28[3] = &unk_1E79754F0;
-  v24 = v32;
-  v28[4] = self;
-  v29 = v24;
-  ac_dispatch_remote(remoteAccountStoreSession, v30, v28);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke_181;
+  v33[3] = &unk_1E79754C8;
+  v27 = itemCopy;
+  v34 = v27;
+  v35 = v25;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke_3;
+  v31[3] = &unk_1E79754F0;
+  v28 = v35;
+  v31[4] = self;
+  v32 = v28;
+  ac_dispatch_remote(remoteAccountStoreSession, v33, v31);
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -7821,7 +7765,7 @@ uint64_t __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -7849,8 +7793,8 @@ uint64_t __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "InsertCredentialItem", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -7874,16 +7818,15 @@ uint64_t __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: InsertCredentialItem %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: InsertCredentialItem %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7907,7 +7850,7 @@ void __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_inv
 
 - (void)saveCredentialItem:(id)item withCompletionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/save-credential-item", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -7916,127 +7859,127 @@ void __61__ACAccountStore_insertCredentialItem_withCompletionHandler___block_inv
   os_activity_scope_enter(v8, &state);
   if (!itemCopy)
   {
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
-    objc_exception_throw(v22);
+    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
+    objc_exception_throw(v25);
   }
 
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v35 = itemCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SaveCredentialItem", "%@", buf, 0xCu);
+    v38 = itemCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "SaveCredentialItem", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore saveCredentialItem:withCompletionHandler:];
   }
 
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke;
-  v28[3] = &unk_1E7976598;
-  v28[4] = self;
-  v31 = v10;
-  v32 = v12;
-  v16 = handlerCopy;
-  v30 = v16;
-  v17 = itemCopy;
-  v29 = v17;
-  v18 = MEMORY[0x1AC5B3C70](v28);
-  if ([v17 isDirty])
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke;
+  v31[3] = &unk_1E7976598;
+  v31[4] = self;
+  v34 = v11;
+  v35 = v13;
+  v19 = handlerCopy;
+  v33 = v19;
+  v20 = itemCopy;
+  v32 = v20;
+  v21 = MEMORY[0x1AC5B3C70](v31);
+  isDirty = [v20 isDirty];
+  if (isDirty)
   {
-    v19 = _ACLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v23 = _ACLogSystem(isDirty);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore saveCredentialItem:withCompletionHandler:];
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_183;
-    v25[3] = &unk_1E79754C8;
-    v26 = v17;
-    v27 = v18;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_2;
-    v23[3] = &unk_1E79754F0;
-    v23[4] = self;
-    v24 = v16;
-    ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_183;
+    v28[3] = &unk_1E79754C8;
+    v29 = v20;
+    v30 = v21;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_2;
+    v26[3] = &unk_1E79754F0;
+    v26[4] = self;
+    v27 = v19;
+    ac_dispatch_remote(remoteAccountStoreSession, v28, v26);
   }
 
-  else if (v16)
+  else if (v19)
   {
-    (*(v16 + 2))(v16, 1, 0);
+    (*(v19 + 2))(v19, 1, 0);
   }
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v5 || v6)
   {
     Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-    v14 = _ACSignpostLogSystem();
-    v15 = v14;
-    v16 = *(a1 + 56);
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v16 = _ACSignpostLogSystem(Nanoseconds);
+    v17 = v16;
+    v18 = *(a1 + 56);
+    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      v17 = &stru_1F210E1C8;
+      v19 = &stru_1F210E1C8;
       if (v7)
       {
-        v17 = v7;
+        v19 = v7;
       }
 
-      v24 = 138412546;
-      v25 = @"NO";
-      v26 = 2112;
-      v27 = *&v17;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_END, v16, "SaveCredentialItem", "%@%@", &v24, 0x16u);
-    }
-
-    v18 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-    {
-      v22 = *(a1 + 56);
-      v24 = 134218754;
-      v25 = v22;
-      v23 = &stru_1F210E1C8;
-      v26 = 2048;
-      v27 = Nanoseconds / 1000000000.0;
+      v26 = 138412546;
+      v27 = @"NO";
       v28 = 2112;
-      v29 = @"NO";
-      if (v7)
-      {
-        v23 = v7;
-      }
-
-      v30 = 2112;
-      v31 = v23;
-      _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveCredentialItem %@%@", &v24, 0x2Au);
+      v29 = *&v19;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v18, "SaveCredentialItem", "%@%@", &v26, 0x16u);
     }
 
-    v19 = *(a1 + 48);
-    if (v19)
+    v21 = _ACSignpostLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      v20 = [*(a1 + 32) _unsanitizeError:v7];
-      (*(v19 + 16))(v19, 0, v20);
+      v24 = *(a1 + 56);
+      v26 = 134218754;
+      v27 = v24;
+      v25 = &stru_1F210E1C8;
+      v28 = 2048;
+      v29 = Nanoseconds / 1000000000.0;
+      v30 = 2112;
+      v31 = @"NO";
+      if (v7)
+      {
+        v25 = v7;
+      }
+
+      v32 = 2112;
+      v33 = v25;
+      _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveCredentialItem %@%@", &v26, 0x2Au);
+    }
+
+    v22 = *(a1 + 48);
+    if (v22)
+    {
+      v23 = [*(a1 + 32) _unsanitizeError:v7];
+      (*(v22 + 16))(v22, 0, v23);
     }
   }
 
@@ -8045,31 +7988,29 @@ void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invok
     [*(a1 + 40) setAccountStore:*(a1 + 32)];
     [*(a1 + 40) setObjectID:v5];
     [*(a1 + 40) clearDirtyProperties];
-    _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-    v8 = _ACSignpostLogSystem();
-    v9 = v8;
-    v10 = *(a1 + 56);
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v8 = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
+    v9 = _ACSignpostLogSystem(v8);
+    v10 = v9;
+    v11 = *(a1 + 56);
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
-      v24 = 138543362;
-      v25 = @"YES";
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_END, v10, "SaveCredentialItem", "%{public}@", &v24, 0xCu);
+      v26 = 138543362;
+      v27 = @"YES";
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v10, OS_SIGNPOST_INTERVAL_END, v11, "SaveCredentialItem", "%{public}@", &v26, 0xCu);
     }
 
-    v11 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _ACSignpostLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_cold_1((a1 + 56));
+      __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_cold_1();
     }
 
-    v12 = *(a1 + 48);
-    if (v12)
+    v14 = *(a1 + 48);
+    if (v14)
     {
-      (*(v12 + 16))(v12, 1, 0);
+      (*(v14 + 16))(v14, 1, 0);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_2(uint64_t a1)
@@ -8084,7 +8025,7 @@ void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invok
 
 - (void)removeCredentialItem:(id)item withCompletionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   handlerCopy = handler;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/remove-credential-item", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -8093,124 +8034,122 @@ void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invok
   os_activity_scope_enter(v8, &state);
   if (!itemCopy)
   {
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
-    objc_exception_throw(v23);
+    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Credential item must be non-nil" userInfo:0];
+    objc_exception_throw(v25);
   }
 
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v35 = itemCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveCredentialItem", "%@", buf, 0xCu);
+    v37 = itemCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveCredentialItem", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore removeCredentialItem:withCompletionHandler:];
   }
 
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke;
-  v29[3] = &unk_1E7976098;
-  v29[4] = self;
-  v16 = handlerCopy;
-  v30 = v16;
-  v31 = v10;
-  v32 = v12;
-  v17 = MEMORY[0x1AC5B3C70](v29);
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke;
+  v31[3] = &unk_1E7976098;
+  v31[4] = self;
+  v19 = handlerCopy;
+  v32 = v19;
+  v33 = v11;
+  v34 = v13;
+  v20 = MEMORY[0x1AC5B3C70](v31);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_184;
+  v28[3] = &unk_1E79754C8;
+  v22 = itemCopy;
+  v29 = v22;
+  v23 = v20;
+  v30 = v23;
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
-  v26[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_184;
-  v26[3] = &unk_1E79754C8;
-  v19 = itemCopy;
-  v27 = v19;
-  v20 = v17;
-  v28 = v20;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_2;
-  v24[3] = &unk_1E79754F0;
-  v21 = v16;
-  v24[4] = self;
-  v25 = v21;
-  ac_dispatch_remote(remoteAccountStoreSession, v26, v24);
+  v26[2] = __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_2;
+  v26[3] = &unk_1E79754F0;
+  v24 = v19;
+  v26[4] = self;
+  v27 = v24;
+  ac_dispatch_remote(remoteAccountStoreSession, v28, v26);
 
   os_activity_scope_leave(&state);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (a1[5])
   {
     v5 = (a1 + 6);
-    v6 = _ACSignpostGetNanoseconds(a1[6], a1[7]) / 1000000000.0;
-    v7 = _ACSignpostLogSystem();
-    v8 = v7;
-    v9 = a1[6];
-    v10 = v9 - 1;
+    Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
+    v7 = Nanoseconds / 1000000000.0;
+    v8 = _ACSignpostLogSystem(Nanoseconds);
+    v9 = v8;
+    v10 = a1[6];
+    v11 = v10 - 1;
     if (v4)
     {
-      if (((&(*v5)->isa + 2) == 0 || v10 < 0xFFFFFFFFFFFFFFFDLL) && os_signpost_enabled(v7))
+      if (((&(*v5)->isa + 2) == 0 || v11 < 0xFFFFFFFFFFFFFFFDLL) && os_signpost_enabled(v8))
       {
-        v16 = 138412546;
-        v17 = @"NO";
-        v18 = 2112;
-        v19 = *&v4;
-        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveCredentialItem", "%@%@", &v16, 0x16u);
-      }
-
-      v11 = _ACSignpostLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        v15 = *v5;
-        v16 = 134218754;
-        v17 = v15;
-        v18 = 2048;
-        v19 = v6;
+        v18 = 138412546;
+        v19 = @"NO";
         v20 = 2112;
-        v21 = @"NO";
-        v22 = 2112;
-        v23 = v4;
-        _os_log_debug_impl(&dword_1AC3CD000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveCredentialItem %@%@", &v16, 0x2Au);
+        v21 = *&v4;
+        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_END, v10, "RemoveCredentialItem", "%@%@", &v18, 0x16u);
       }
 
-      v12 = *(a1[5] + 16);
+      v13 = _ACSignpostLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        v17 = *v5;
+        v18 = 134218754;
+        v19 = v17;
+        v20 = 2048;
+        v21 = v7;
+        v22 = 2112;
+        v23 = @"NO";
+        v24 = 2112;
+        v25 = v4;
+        _os_log_debug_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveCredentialItem %@%@", &v18, 0x2Au);
+      }
+
+      v14 = *(a1[5] + 16);
     }
 
     else
     {
-      if (((&(*v5)->isa + 2) == 0 || v10 < 0xFFFFFFFFFFFFFFFDLL) && os_signpost_enabled(v7))
+      if (((&(*v5)->isa + 2) == 0 || v11 < 0xFFFFFFFFFFFFFFFDLL) && os_signpost_enabled(v8))
       {
-        v16 = 138543362;
-        v17 = @"YES";
-        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveCredentialItem", "%{public}@", &v16, 0xCu);
+        v18 = 138543362;
+        v19 = @"YES";
+        _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_END, v10, "RemoveCredentialItem", "%{public}@", &v18, 0xCu);
       }
 
-      v13 = _ACSignpostLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v16 = _ACSignpostLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_cold_1(a1 + 6);
+        __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_cold_1();
       }
 
-      v12 = *(a1[5] + 16);
+      v14 = *(a1[5] + 16);
     }
 
-    v12();
+    v14();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_2(uint64_t a1)
@@ -8225,120 +8164,121 @@ void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_inv
 
 - (id)parentAccountForAccount:(id)account error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/parent-account-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__0;
-  v45 = __Block_byref_object_dispose__0;
-  v46 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__0;
+  v48 = __Block_byref_object_dispose__0;
+  v49 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   identifier = [accountCopy identifier];
+  v9 = identifier;
   if (identifier)
   {
-    v9 = _ACSignpostLogSystem();
-    v10 = _ACSignpostCreate(v9);
-    v12 = v11;
+    v10 = _ACSignpostLogSystem(identifier);
+    v11 = _ACSignpostCreate(v10);
+    v13 = v12;
 
-    v13 = _ACSignpostLogSystem();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v15 = _ACSignpostLogSystem(v14);
+    v16 = v15;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       *buf = 138412290;
-      v49 = accountCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ParentAccountForAccount", "%@", buf, 0xCu);
+      v52 = accountCopy;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "ParentAccountForAccount", "%@", buf, 0xCu);
     }
 
-    v15 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = _ACSignpostLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore parentAccountForAccount:error:];
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __48__ACAccountStore_parentAccountForAccount_error___block_invoke;
-    v31[3] = &unk_1E7975B78;
-    v32 = identifier;
-    v33 = &v41;
-    v34 = &v35;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __48__ACAccountStore_parentAccountForAccount_error___block_invoke_185;
-    v30[3] = &unk_1E7975BA0;
-    v30[4] = self;
-    v30[5] = &v35;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v31, v30);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __48__ACAccountStore_parentAccountForAccount_error___block_invoke;
+    v34[3] = &unk_1E7975B78;
+    v35 = v9;
+    v36 = &v44;
+    v37 = &v38;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __48__ACAccountStore_parentAccountForAccount_error___block_invoke_185;
+    v33[3] = &unk_1E7975BA0;
+    v33[4] = self;
+    v33[5] = &v38;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v34, v33);
 
-    [v42[5] _setAccountStore:self];
+    [v45[5] _setAccountStore:self];
     if (error)
     {
-      *error = v36[5];
+      *error = v39[5];
     }
 
-    Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
-    v18 = _ACSignpostLogSystem();
-    v19 = v18;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    Nanoseconds = _ACSignpostGetNanoseconds(v11, v13);
+    v21 = _ACSignpostLogSystem(Nanoseconds);
+    v22 = v21;
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
-      v20 = v42[5];
-      v21 = v36[5];
-      if (*&v21 == 0.0)
+      v23 = v45[5];
+      v24 = v39[5];
+      if (*&v24 == 0.0)
       {
-        *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+        *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
       }
 
       *buf = 138412546;
-      v49 = v20;
-      v50 = 2112;
-      v51 = *&v21;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v10, "ParentAccountForAccount", "%@%@", buf, 0x16u);
+      v52 = v23;
+      v53 = 2112;
+      v54 = *&v24;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v11, "ParentAccountForAccount", "%@%@", buf, 0x16u);
     }
 
-    v22 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v26 = _ACSignpostLogSystem(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      v27 = v42[5];
-      v28 = v36[5];
+      v30 = v45[5];
+      v31 = v39[5];
       *buf = 134218754;
-      v49 = v10;
-      v50 = 2048;
-      v51 = Nanoseconds / 1000000000.0;
-      v52 = 2112;
-      v53 = v27;
-      if (v28)
+      v52 = v11;
+      v53 = 2048;
+      v54 = Nanoseconds / 1000000000.0;
+      v55 = 2112;
+      v56 = v30;
+      if (v31)
       {
-        v29 = v28;
+        v32 = v31;
       }
 
       else
       {
-        v29 = &stru_1F210E1C8;
+        v32 = &stru_1F210E1C8;
       }
 
-      v54 = 2112;
-      v55 = v29;
-      _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ParentAccountForAccount %@%@", buf, 0x2Au);
+      v57 = 2112;
+      v58 = v32;
+      _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ParentAccountForAccount %@%@", buf, 0x2Au);
     }
 
-    v23 = v42[5];
+    v27 = v45[5];
   }
 
   else
   {
-    v24 = _ACLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v28 = _ACLogSystem(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [ACAccountStore parentAccountForAccount:error:];
     }
@@ -8346,22 +8286,21 @@ void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_inv
     if (error)
     {
       [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.accounts" code:6 userInfo:0];
-      *error = v23 = 0;
+      *error = v27 = 0;
     }
 
     else
     {
-      v23 = 0;
+      v27 = 0;
     }
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v44, 8);
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 
-  return v23;
+  return v27;
 }
 
 uint64_t __48__ACAccountStore_parentAccountForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -8379,182 +8318,181 @@ void __48__ACAccountStore_parentAccountForAccount_error___block_invoke_2(uint64_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __48__ACAccountStore_parentAccountForAccount_error___block_invoke_185(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)childAccountsForAccount:(id)account error:(id *)error
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/child-accounts-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x3032000000;
-  v55 = __Block_byref_object_copy__0;
-  v56 = __Block_byref_object_dispose__0;
-  v57 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__0;
-  v50 = __Block_byref_object_dispose__0;
-  v51 = 0;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__0;
+  v59 = __Block_byref_object_dispose__0;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__0;
+  v53 = __Block_byref_object_dispose__0;
+  v54 = 0;
   identifier = [accountCopy identifier];
+  v9 = identifier;
   if (identifier)
   {
-    v9 = _ACSignpostLogSystem();
-    spid = _ACSignpostCreate(v9);
-    v11 = v10;
+    v10 = _ACSignpostLogSystem(identifier);
+    spid = _ACSignpostCreate(v10);
+    v12 = v11;
 
-    v12 = _ACSignpostLogSystem();
-    v13 = v12;
-    v35 = spid - 1;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = _ACSignpostLogSystem(v13);
+    v15 = v14;
+    v38 = spid - 1;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 138412290;
-      v60 = accountCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ChildAccountForAccounts", "%@", buf, 0xCu);
+      v63 = accountCopy;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, spid, "ChildAccountForAccounts", "%@", buf, 0xCu);
     }
 
-    v14 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = _ACSignpostLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [ACAccountStore childAccountsForAccount:error:];
     }
 
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __48__ACAccountStore_childAccountsForAccount_error___block_invoke;
-    v42[3] = &unk_1E7975B78;
-    v43 = identifier;
-    v44 = &v52;
-    v45 = &v46;
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __48__ACAccountStore_childAccountsForAccount_error___block_invoke_186;
-    v41[3] = &unk_1E7975BA0;
-    v41[4] = self;
-    v41[5] = &v46;
-    ac_dispatch_remote_sync(remoteAccountStoreSession, v42, v41);
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __48__ACAccountStore_childAccountsForAccount_error___block_invoke;
+    v45[3] = &unk_1E7975B78;
+    v46 = v9;
+    v47 = &v55;
+    v48 = &v49;
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __48__ACAccountStore_childAccountsForAccount_error___block_invoke_186;
+    v44[3] = &unk_1E7975BA0;
+    v44[4] = self;
+    v44[5] = &v49;
+    ac_dispatch_remote_sync(remoteAccountStoreSession, v45, v44);
 
-    v16 = accountCopy;
-    v17 = v7;
-    v39 = 0u;
+    v19 = accountCopy;
+    v20 = v7;
+    v42 = 0u;
+    v43 = 0u;
     v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v18 = v53[5];
-    v19 = [v18 countByEnumeratingWithState:&v37 objects:v67 count:16];
-    if (v19)
+    v41 = 0u;
+    v21 = v56[5];
+    v22 = [v21 countByEnumeratingWithState:&v40 objects:v70 count:16];
+    if (v22)
     {
-      v20 = *v38;
+      v23 = *v41;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v38 != v20)
+          if (*v41 != v23)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v21);
           }
 
-          [*(*(&v37 + 1) + 8 * i) _setAccountStore:{self, v35}];
+          [*(*(&v40 + 1) + 8 * i) _setAccountStore:{self, v38}];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v37 objects:v67 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v40 objects:v70 count:16];
       }
 
-      while (v19);
+      while (v22);
     }
 
-    v7 = v17;
-    accountCopy = v16;
+    v7 = v20;
+    accountCopy = v19;
     if (error)
     {
-      *error = v47[5];
+      *error = v50[5];
     }
 
-    Nanoseconds = _ACSignpostGetNanoseconds(spid, v11);
-    v23 = _ACSignpostLogSystem();
-    v24 = v23;
-    if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+    Nanoseconds = _ACSignpostGetNanoseconds(spid, v12);
+    v26 = _ACSignpostLogSystem(Nanoseconds);
+    v27 = v26;
+    if (v38 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
-      v25 = v53[5];
-      v26 = v47[5];
-      if (*&v26 == 0.0)
+      v28 = v56[5];
+      v29 = v50[5];
+      if (*&v29 == 0.0)
       {
-        *&v26 = COERCE_DOUBLE(&stru_1F210E1C8);
+        *&v29 = COERCE_DOUBLE(&stru_1F210E1C8);
       }
 
       *buf = 138412546;
-      v60 = v25;
-      v61 = 2112;
-      v62 = *&v26;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v24, OS_SIGNPOST_INTERVAL_END, spid, "ChildAccountForAccounts", "%@%@", buf, 0x16u);
+      v63 = v28;
+      v64 = 2112;
+      v65 = *&v29;
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v27, OS_SIGNPOST_INTERVAL_END, spid, "ChildAccountForAccounts", "%@%@", buf, 0x16u);
     }
 
-    v27 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v31 = _ACSignpostLogSystem(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v32 = v53[5];
-      v33 = v47[5];
+      v35 = v56[5];
+      v36 = v50[5];
       *buf = 134218754;
-      v60 = spid;
-      v61 = 2048;
-      v62 = Nanoseconds / 1000000000.0;
-      v63 = 2112;
-      v64 = v32;
-      if (v33)
+      v63 = spid;
+      v64 = 2048;
+      v65 = Nanoseconds / 1000000000.0;
+      v66 = 2112;
+      v67 = v35;
+      if (v36)
       {
-        v34 = v33;
+        v37 = v36;
       }
 
       else
       {
-        v34 = &stru_1F210E1C8;
+        v37 = &stru_1F210E1C8;
       }
 
-      v65 = 2112;
-      v66 = v34;
-      _os_log_debug_impl(&dword_1AC3CD000, v27, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ChildAccountForAccounts %@%@", buf, 0x2Au);
+      v68 = 2112;
+      v69 = v37;
+      _os_log_debug_impl(&dword_1AC3CD000, v31, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ChildAccountForAccounts %@%@", buf, 0x2Au);
     }
 
-    v28 = v53[5];
+    v32 = v56[5];
   }
 
   else
   {
-    v29 = _ACLogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v33 = _ACLogSystem(0);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [ACAccountStore parentAccountForAccount:error:];
     }
@@ -8562,22 +8500,21 @@ uint64_t __48__ACAccountStore_parentAccountForAccount_error___block_invoke_185(u
     if (error)
     {
       [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.accounts" code:6 userInfo:0];
-      *error = v28 = 0;
+      *error = v32 = 0;
     }
 
     else
     {
-      v28 = 0;
+      v32 = 0;
     }
   }
 
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v55, 8);
 
   os_activity_scope_leave(&state);
-  v30 = *MEMORY[0x1E69E9840];
 
-  return v28;
+  return v32;
 }
 
 uint64_t __48__ACAccountStore_childAccountsForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -8595,83 +8532,79 @@ void __48__ACAccountStore_childAccountsForAccount_error___block_invoke_2(uint64_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __48__ACAccountStore_childAccountsForAccount_error___block_invoke_186(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)childAccountsForAccount:(id)account withTypeIdentifier:(id)identifier
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   identifierCopy = identifier;
-  v28[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   v9 = [(ACAccountStore *)self accountsWithAccountTypeIdentifiers:v8 error:0];
 
   v10 = MEMORY[0x1E696AE18];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __61__ACAccountStore_childAccountsForAccount_withTypeIdentifier___block_invoke;
-  v25[3] = &unk_1E79765E8;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __61__ACAccountStore_childAccountsForAccount_withTypeIdentifier___block_invoke;
+  v24[3] = &unk_1E79765E8;
   v11 = accountCopy;
-  v26 = v11;
-  v12 = [v10 predicateWithBlock:v25];
+  v25 = v11;
+  v12 = [v10 predicateWithBlock:v24];
   v13 = [v9 filteredArrayUsingPredicate:v12];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v21 + 1) + 8 * i) _setAccountStore:{self, v21}];
+        [*(*(&v20 + 1) + 8 * i) _setAccountStore:{self, v20}];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -8687,119 +8620,117 @@ uint64_t __61__ACAccountStore_childAccountsForAccount_withTypeIdentifier___block
 
 - (id)enabledDataclassesForAccount:(id)account error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/enabled-dataclasses-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "EnabledDataclassesForAccount", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "EnabledDataclassesForAccount", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore enabledDataclassesForAccount:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke;
-  v30[3] = &unk_1E7975B78;
-  v16 = accountCopy;
-  v31 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke;
+  v33[3] = &unk_1E7975B78;
+  v19 = accountCopy;
+  v34 = v19;
   p_buf = &buf;
-  v33 = &v34;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke_190;
-  v29[3] = &unk_1E7975BA0;
-  v29[4] = self;
-  v29[5] = &v34;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v30, v29);
+  v36 = &v37;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke_190;
+  v32[3] = &unk_1E7975BA0;
+  v32[4] = self;
+  v32[5] = &v37;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v33, v32);
 
   if (error)
   {
-    *error = v35[5];
+    *error = v38[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    v21 = v35[5];
-    if (*&v21 == 0.0)
+    v23 = *(*(&buf + 1) + 40);
+    v24 = v38[5];
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v41 = 138412546;
-    v42 = v20;
-    v43 = 2112;
-    v44 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "EnabledDataclassesForAccount", "%@%@", v41, 0x16u);
+    *v44 = 138412546;
+    v45 = v23;
+    v46 = 2112;
+    v47 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "EnabledDataclassesForAccount", "%@%@", v44, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(*(&buf + 1) + 40);
-    v27 = v35[5];
-    *v41 = 134218754;
-    v42 = v9;
-    v43 = 2048;
-    v44 = Nanoseconds / 1000000000.0;
-    v45 = 2112;
-    v46 = v26;
-    if (v27)
+    v29 = *(*(&buf + 1) + 40);
+    v30 = v38[5];
+    *v44 = 134218754;
+    v45 = v10;
+    v46 = 2048;
+    v47 = Nanoseconds / 1000000000.0;
+    v48 = 2112;
+    v49 = v29;
+    if (v30)
     {
-      v28 = v27;
+      v31 = v30;
     }
 
     else
     {
-      v28 = &stru_1F210E1C8;
+      v31 = &stru_1F210E1C8;
     }
 
-    v47 = 2112;
-    v48 = v28;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: EnabledDataclassesForAccount %@%@", v41, 0x2Au);
+    v50 = 2112;
+    v51 = v31;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: EnabledDataclassesForAccount %@%@", v44, 0x2Au);
   }
 
-  v23 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v34, 8);
+  v27 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v37, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v27;
 }
 
 void __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -8819,150 +8750,146 @@ void __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke_2(ui
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __53__ACAccountStore_enabledDataclassesForAccount_error___block_invoke_190(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)provisionedDataclassesForAccount:(id)account error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/provisioned-dataclasses-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "ProvisionedDataclassesForAccount", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ProvisionedDataclassesForAccount", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore provisionedDataclassesForAccount:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke;
-  v30[3] = &unk_1E7975B78;
-  v16 = accountCopy;
-  v31 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke;
+  v33[3] = &unk_1E7975B78;
+  v19 = accountCopy;
+  v34 = v19;
   p_buf = &buf;
-  v33 = &v34;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke_191;
-  v29[3] = &unk_1E7975BA0;
-  v29[4] = self;
-  v29[5] = &v34;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v30, v29);
+  v36 = &v37;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke_191;
+  v32[3] = &unk_1E7975BA0;
+  v32[4] = self;
+  v32[5] = &v37;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v33, v32);
 
   if (error)
   {
-    *error = v35[5];
+    *error = v38[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    v21 = v35[5];
-    if (*&v21 == 0.0)
+    v23 = *(*(&buf + 1) + 40);
+    v24 = v38[5];
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v41 = 138412546;
-    v42 = v20;
-    v43 = 2112;
-    v44 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "ProvisionedDataclassesForAccount", "%@%@", v41, 0x16u);
+    *v44 = 138412546;
+    v45 = v23;
+    v46 = 2112;
+    v47 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "ProvisionedDataclassesForAccount", "%@%@", v44, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(*(&buf + 1) + 40);
-    v27 = v35[5];
-    *v41 = 134218754;
-    v42 = v9;
-    v43 = 2048;
-    v44 = Nanoseconds / 1000000000.0;
-    v45 = 2112;
-    v46 = v26;
-    if (v27)
+    v29 = *(*(&buf + 1) + 40);
+    v30 = v38[5];
+    *v44 = 134218754;
+    v45 = v10;
+    v46 = 2048;
+    v47 = Nanoseconds / 1000000000.0;
+    v48 = 2112;
+    v49 = v29;
+    if (v30)
     {
-      v28 = v27;
+      v31 = v30;
     }
 
     else
     {
-      v28 = &stru_1F210E1C8;
+      v31 = &stru_1F210E1C8;
     }
 
-    v47 = 2112;
-    v48 = v28;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ProvisionedDataclassesForAccount %@%@", v41, 0x2Au);
+    v50 = 2112;
+    v51 = v31;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ProvisionedDataclassesForAccount %@%@", v44, 0x2Au);
   }
 
-  v23 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v34, 8);
+  v27 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v37, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v27;
 }
 
 void __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -8982,113 +8909,110 @@ void __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke_
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __57__ACAccountStore_provisionedDataclassesForAccount_error___block_invoke_191(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)supportedDataclassesForAccountType:(id)type
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/supported-dataclasses-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SupportedDataclassesForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "SupportedDataclassesForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore supportedDataclassesForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __53__ACAccountStore_supportedDataclassesForAccountType___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __53__ACAccountStore_supportedDataclassesForAccountType___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "SupportedDataclassesForAccountType", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "SupportedDataclassesForAccountType", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SupportedDataclassesForAccountType %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SupportedDataclassesForAccountType %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __53__ACAccountStore_supportedDataclassesForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -9106,10 +9030,11 @@ void __53__ACAccountStore_supportedDataclassesForAccountType___block_invoke_2(ui
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -9123,82 +9048,81 @@ void __53__ACAccountStore_supportedDataclassesForAccountType___block_invoke_2(ui
 
 - (id)syncableDataclassesForAccountType:(id)type
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/syncable-dataclasses-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = typeCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SyncableDataclassesForAccountType", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "SyncableDataclassesForAccountType", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore syncableDataclassesForAccountType:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __52__ACAccountStore_syncableDataclassesForAccountType___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = typeCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __52__ACAccountStore_syncableDataclassesForAccountType___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = typeCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "SyncableDataclassesForAccountType", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "SyncableDataclassesForAccountType", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SyncableDataclassesForAccountType %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SyncableDataclassesForAccountType %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __52__ACAccountStore_syncableDataclassesForAccountType___block_invoke(uint64_t a1, void *a2)
@@ -9216,10 +9140,11 @@ void __52__ACAccountStore_syncableDataclassesForAccountType___block_invoke_2(uin
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -9233,83 +9158,82 @@ void __52__ACAccountStore_syncableDataclassesForAccountType___block_invoke_2(uin
 
 - (id)displayTypeForAccountWithIdentifier:(id)identifier
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/display-type-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = identifierCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "DisplayTypeForAccount", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "DisplayTypeForAccount", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore displayTypeForAccountWithIdentifier:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__0;
-  v40 = __Block_byref_object_dispose__0;
-  v41 = 0;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__0;
+  v43 = __Block_byref_object_dispose__0;
+  v44 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __54__ACAccountStore_displayTypeForAccountWithIdentifier___block_invoke;
-  v24[3] = &unk_1E7976660;
-  v14 = identifierCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __54__ACAccountStore_displayTypeForAccountWithIdentifier___block_invoke;
+  v27[3] = &unk_1E7976660;
+  v17 = identifierCopy;
   selfCopy = self;
   p_buf = &buf;
-  v25 = v14;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  v28 = v17;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v29 = 138412546;
-    v30 = v18;
-    v31 = 2112;
-    v32 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "DisplayTypeForAccount", "%@%@", v29, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v32 = 138412546;
+    v33 = v21;
+    v34 = 2112;
+    v35 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "DisplayTypeForAccount", "%@%@", v32, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v29 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v30 = v7;
-    v31 = 2048;
-    v32 = Nanoseconds / 1000000000.0;
-    v33 = 2112;
-    v34 = v23;
-    v35 = 2112;
-    v36 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DisplayTypeForAccount %@%@", v29, 0x2Au);
+    *v32 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v33 = v8;
+    v34 = 2048;
+    v35 = Nanoseconds / 1000000000.0;
+    v36 = 2112;
+    v37 = v26;
+    v38 = 2112;
+    v39 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DisplayTypeForAccount %@%@", v32, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __54__ACAccountStore_displayTypeForAccountWithIdentifier___block_invoke(uint64_t a1, void *a2)
@@ -9327,10 +9251,11 @@ void __54__ACAccountStore_displayTypeForAccountWithIdentifier___block_invoke_2(u
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -9345,82 +9270,81 @@ void __54__ACAccountStore_displayTypeForAccountWithIdentifier___block_invoke_2(u
 
 - (id)accountIdentifiersEnabledForDataclass:(id)dataclass
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/account-identifiers-enabled-for-dataclass", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AccountsEnabledForDataclass", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AccountsEnabledForDataclass", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore accountIdentifiersEnabledForDataclass:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __56__ACAccountStore_accountIdentifiersEnabledForDataclass___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = dataclassCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __56__ACAccountStore_accountIdentifiersEnabledForDataclass___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = dataclassCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "AccountsEnabledForDataclass", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "AccountsEnabledForDataclass", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledForDataclass %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledForDataclass %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __56__ACAccountStore_accountIdentifiersEnabledForDataclass___block_invoke(uint64_t a1, void *a2)
@@ -9438,10 +9362,11 @@ void __56__ACAccountStore_accountIdentifiersEnabledForDataclass___block_invoke_2
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -9455,82 +9380,81 @@ void __56__ACAccountStore_accountIdentifiersEnabledForDataclass___block_invoke_2
 
 - (id)accountIdentifiersEnabledToSyncDataclass:(id)dataclass
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/account-identifiers-enabled-sync-dataclass", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "AccountsEnabledToSyncDataclass", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "AccountsEnabledToSyncDataclass", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore accountIdentifiersEnabledToSyncDataclass:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __59__ACAccountStore_accountIdentifiersEnabledToSyncDataclass___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = dataclassCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __59__ACAccountStore_accountIdentifiersEnabledToSyncDataclass___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = dataclassCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "AccountsEnabledToSyncDataclass", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "AccountsEnabledToSyncDataclass", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledToSyncDataclass %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledToSyncDataclass %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __59__ACAccountStore_accountIdentifiersEnabledToSyncDataclass___block_invoke(uint64_t a1, void *a2)
@@ -9548,10 +9472,11 @@ void __59__ACAccountStore_accountIdentifiersEnabledToSyncDataclass___block_invok
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _ACLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _ACLogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1();
     }
@@ -9570,43 +9495,43 @@ void __59__ACAccountStore_accountIdentifiersEnabledToSyncDataclass___block_invok
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "PreloadDataclassOwners", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "PreloadDataclassOwners", &unk_1AC43804B, buf, 2u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore preloadDataclassOwnersWithCompletion:];
   }
 
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke;
-  v19[3] = &unk_1E79766D8;
-  v19[4] = self;
-  v21 = v7;
-  v22 = v9;
-  v20 = completionCopy;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke_192;
-  v15[3] = &unk_1E79766B0;
-  v15[4] = self;
-  v17 = v7;
-  v18 = v9;
-  v14 = v20;
-  v16 = v14;
-  ac_dispatch_remote(remoteAccountStoreSession, v19, v15);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke;
+  v22[3] = &unk_1E79766D8;
+  v22[4] = self;
+  v24 = v8;
+  v25 = v10;
+  v23 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke_192;
+  v18[3] = &unk_1E79766B0;
+  v18[4] = self;
+  v20 = v8;
+  v21 = v10;
+  v17 = v23;
+  v19 = v17;
+  ac_dispatch_remote(remoteAccountStoreSession, v22, v18);
 
   os_activity_scope_leave(&state);
 }
@@ -9643,7 +9568,7 @@ uint64_t __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invok
 {
   v21 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[6];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -9661,8 +9586,8 @@ uint64_t __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invok
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "PreloadDataclassOwners", "%@%@", &v13, 0x16u);
   }
 
-  v7 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v10 = a1[6];
     v11 = a1[4];
@@ -9680,16 +9605,15 @@ uint64_t __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invok
 
     v19 = 2112;
     v20 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PreloadDataclassOwners %@%@", &v13, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PreloadDataclassOwners %@%@", &v13, 0x2Au);
   }
 
   result = a1[5];
   if (result)
   {
-    result = (*(result + 16))(result, a1[4]);
+    return (*(result + 16))(result, a1[4]);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9713,7 +9637,7 @@ void __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke_2_
   v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _connectionFailureError];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v4 = _ACSignpostLogSystem();
+  v4 = _ACSignpostLogSystem(Nanoseconds);
   v5 = v4;
   v6 = *(a1 + 48);
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
@@ -9731,8 +9655,8 @@ void __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke_2_
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v5, OS_SIGNPOST_INTERVAL_END, v6, "PreloadDataclassOwners", "%@%@", &v13, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v13 = 134218754;
@@ -9749,133 +9673,129 @@ void __55__ACAccountStore_preloadDataclassOwnersWithCompletion___block_invoke_2_
 
     v19 = 2112;
     v20 = v12;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PreloadDataclassOwners %@%@", &v13, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: PreloadDataclassOwners %@%@", &v13, 0x2Au);
   }
 
-  v9 = *(a1 + 40);
-  if (v9)
+  v10 = *(a1 + 40);
+  if (v10)
   {
-    (*(v9 + 16))(v9, v2);
+    (*(v10 + 16))(v10, v2);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dataclassActionsForAccountSave:(id)save error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   saveCopy = save;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/dataclass-actions-for-account-save", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = saveCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DataclassActionsForAccountSave", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "DataclassActionsForAccountSave", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore dataclassActionsForAccountSave:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke;
-  v30[3] = &unk_1E7975B78;
-  v16 = saveCopy;
-  v31 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke;
+  v33[3] = &unk_1E7975B78;
+  v19 = saveCopy;
+  v34 = v19;
   p_buf = &buf;
-  v33 = &v34;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_194;
-  v29[3] = &unk_1E7975BA0;
-  v29[4] = self;
-  v29[5] = &v34;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v30, v29);
+  v36 = &v37;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_194;
+  v32[3] = &unk_1E7975BA0;
+  v32[4] = self;
+  v32[5] = &v37;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v33, v32);
 
   if (error)
   {
-    *error = v35[5];
+    *error = v38[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    v21 = v35[5];
-    if (*&v21 == 0.0)
+    v23 = *(*(&buf + 1) + 40);
+    v24 = v38[5];
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v41 = 138412546;
-    v42 = v20;
-    v43 = 2112;
-    v44 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "DataclassActionsForAccountSave", "%@%@", v41, 0x16u);
+    *v44 = 138412546;
+    v45 = v23;
+    v46 = 2112;
+    v47 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "DataclassActionsForAccountSave", "%@%@", v44, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(*(&buf + 1) + 40);
-    v27 = v35[5];
-    *v41 = 134218754;
-    v42 = v9;
-    v43 = 2048;
-    v44 = Nanoseconds / 1000000000.0;
-    v45 = 2112;
-    v46 = v26;
-    if (v27)
+    v29 = *(*(&buf + 1) + 40);
+    v30 = v38[5];
+    *v44 = 134218754;
+    v45 = v10;
+    v46 = 2048;
+    v47 = Nanoseconds / 1000000000.0;
+    v48 = 2112;
+    v49 = v29;
+    if (v30)
     {
-      v28 = v27;
+      v31 = v30;
     }
 
     else
     {
-      v28 = &stru_1F210E1C8;
+      v31 = &stru_1F210E1C8;
     }
 
-    v47 = 2112;
-    v48 = v28;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DataclassActionsForAccountSave %@%@", v41, 0x2Au);
+    v50 = 2112;
+    v51 = v31;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DataclassActionsForAccountSave %@%@", v44, 0x2Au);
   }
 
-  v23 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v34, 8);
+  v27 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v37, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v27;
 }
 
 uint64_t __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke(uint64_t a1, void *a2)
@@ -9893,150 +9813,146 @@ void __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_2(
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_194(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)dataclassActionsForAccountDeletion:(id)deletion error:(id *)error
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   deletionCopy = deletion;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/dataclass-actions-for-account-deletion", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = deletionCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DataclassActionsForAccountDeletion", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "DataclassActionsForAccountDeletion", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore dataclassActionsForAccountDeletion:error:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__0;
-  v52 = __Block_byref_object_dispose__0;
-  v53 = 0;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
-  v39 = 0;
+  v53 = 0x3032000000;
+  v54 = __Block_byref_object_copy__0;
+  v55 = __Block_byref_object_dispose__0;
+  v56 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__0;
+  v41 = __Block_byref_object_dispose__0;
+  v42 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke;
-  v30[3] = &unk_1E7975B78;
-  v16 = deletionCopy;
-  v31 = v16;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke;
+  v33[3] = &unk_1E7975B78;
+  v19 = deletionCopy;
+  v34 = v19;
   p_buf = &buf;
-  v33 = &v34;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke_195;
-  v29[3] = &unk_1E7975BA0;
-  v29[4] = self;
-  v29[5] = &v34;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v30, v29);
+  v36 = &v37;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke_195;
+  v32[3] = &unk_1E7975BA0;
+  v32[4] = self;
+  v32[5] = &v37;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v33, v32);
 
   if (error)
   {
-    *error = v35[5];
+    *error = v38[5];
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    v21 = v35[5];
-    if (*&v21 == 0.0)
+    v23 = *(*(&buf + 1) + 40);
+    v24 = v38[5];
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v41 = 138412546;
-    v42 = v20;
-    v43 = 2112;
-    v44 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "DataclassActionsForAccountDeletion", "%@%@", v41, 0x16u);
+    *v44 = 138412546;
+    v45 = v23;
+    v46 = 2112;
+    v47 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "DataclassActionsForAccountDeletion", "%@%@", v44, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = *(*(&buf + 1) + 40);
-    v27 = v35[5];
-    *v41 = 134218754;
-    v42 = v9;
-    v43 = 2048;
-    v44 = Nanoseconds / 1000000000.0;
-    v45 = 2112;
-    v46 = v26;
-    if (v27)
+    v29 = *(*(&buf + 1) + 40);
+    v30 = v38[5];
+    *v44 = 134218754;
+    v45 = v10;
+    v46 = 2048;
+    v47 = Nanoseconds / 1000000000.0;
+    v48 = 2112;
+    v49 = v29;
+    if (v30)
     {
-      v28 = v27;
+      v31 = v30;
     }
 
     else
     {
-      v28 = &stru_1F210E1C8;
+      v31 = &stru_1F210E1C8;
     }
 
-    v47 = 2112;
-    v48 = v28;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DataclassActionsForAccountDeletion %@%@", v41, 0x2Au);
+    v50 = 2112;
+    v51 = v31;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DataclassActionsForAccountDeletion %@%@", v44, 0x2Au);
   }
 
-  v23 = *(*(&buf + 1) + 40);
-  _Block_object_dispose(&v34, 8);
+  v27 = *(*(&buf + 1) + 40);
+  _Block_object_dispose(&v37, 8);
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v27;
 }
 
 uint64_t __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke(uint64_t a1, void *a2)
@@ -10054,156 +9970,153 @@ void __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invok
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ACLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_2_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
-  v11 = *(*(a1 + 40) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v6;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v7;
 }
 
 uint64_t __59__ACAccountStore_dataclassActionsForAccountDeletion_error___block_invoke_195(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (BOOL)isPerformingDataclassActionsForAccount:(id)account error:(id *)error
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v7 = _os_activity_create(&dword_1AC3CD000, "accounts/is-performingdataclass-actions", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
-  v8 = _ACSignpostLogSystem();
-  v9 = _ACSignpostCreate(v8);
-  v11 = v10;
+  v9 = _ACSignpostLogSystem(v8);
+  v10 = _ACSignpostCreate(v9);
+  v12 = v11;
 
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = v14;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "IsPerformingDataclassActions", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v10, "IsPerformingDataclassActions", "%@", &buf, 0xCu);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = _ACSignpostLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore isPerformingDataclassActionsForAccount:error:];
   }
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy__0;
-  v49 = __Block_byref_object_dispose__0;
-  v50 = 0;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__0;
+  v52 = __Block_byref_object_dispose__0;
+  v53 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke;
-  v29[3] = &unk_1E7975B78;
-  v16 = accountCopy;
-  v30 = v16;
-  v31 = &v33;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke;
+  v32[3] = &unk_1E7975B78;
+  v19 = accountCopy;
+  v33 = v19;
+  v34 = &v36;
   p_buf = &buf;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_196;
-  v28[3] = &unk_1E7975BA0;
-  v28[4] = self;
-  v28[5] = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v29, v28);
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_196;
+  v31[3] = &unk_1E7975BA0;
+  v31[4] = self;
+  v31[5] = &buf;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v32, v31);
 
   if (error)
   {
     *error = *(*(&buf + 1) + 40);
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v9, v11);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    if (*(v34 + 24))
+    if (*(v37 + 24))
     {
-      v20 = @"YES";
+      v23 = @"YES";
     }
 
     else
     {
-      v20 = @"NO";
+      v23 = @"NO";
     }
 
-    v21 = *(*(&buf + 1) + 40);
-    if (*&v21 == 0.0)
+    v24 = *(*(&buf + 1) + 40);
+    if (*&v24 == 0.0)
     {
-      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v24 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v38 = 138412546;
-    v39 = v20;
-    v40 = 2112;
-    v41 = *&v21;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v9, "IsPerformingDataclassActions", "%@%@", v38, 0x16u);
+    *v41 = 138412546;
+    v42 = v23;
+    v43 = 2112;
+    v44 = *&v24;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v10, "IsPerformingDataclassActions", "%@%@", v41, 0x16u);
   }
 
-  v22 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v26 = @"NO";
-    v27 = *(*(&buf + 1) + 40);
-    if (*(v34 + 24))
+    v29 = @"NO";
+    v30 = *(*(&buf + 1) + 40);
+    if (*(v37 + 24))
     {
-      v26 = @"YES";
+      v29 = @"YES";
     }
 
-    *v38 = 134218754;
-    v39 = v9;
-    v40 = 2048;
-    v41 = Nanoseconds / 1000000000.0;
-    v42 = 2112;
-    v43 = v26;
-    if (!v27)
+    *v41 = 134218754;
+    v42 = v10;
+    v43 = 2048;
+    v44 = Nanoseconds / 1000000000.0;
+    v45 = 2112;
+    v46 = v29;
+    if (!v30)
     {
-      v27 = &stru_1F210E1C8;
+      v30 = &stru_1F210E1C8;
     }
 
-    v44 = 2112;
-    v45 = v27;
-    _os_log_debug_impl(&dword_1AC3CD000, v22, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: IsPerformingDataclassActions %@%@", v38, 0x2Au);
+    v47 = 2112;
+    v48 = v30;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: IsPerformingDataclassActions %@%@", v41, 0x2Au);
   }
 
-  v23 = *(v34 + 24);
+  v27 = *(v37 + 24);
   _Block_object_dispose(&buf, 8);
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v36, 8);
   os_activity_scope_leave(&state);
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v23 & 1;
+  return v27 & 1;
 }
 
 uint64_t __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke(uint64_t a1, void *a2)
@@ -10220,125 +10133,122 @@ uint64_t __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___blo
 void __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _ACLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_2_cold_1();
     }
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2;
-  v7 = *(*(a1 + 40) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v5;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v6;
 }
 
 uint64_t __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_196(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (BOOL)isTetheredSyncingEnabledForDataclass:(id)dataclass
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/is-tethered-syncing-enabled-for-dataclasse", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v34 = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "IsThetheredSyncingEnabledForDataclass", "%@", buf, 0xCu);
+    v37 = dataclassCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "IsThetheredSyncingEnabledForDataclass", "%@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore isTetheredSyncingEnabledForDataclass:];
   }
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __55__ACAccountStore_isTetheredSyncingEnabledForDataclass___block_invoke;
-  v25[3] = &unk_1E7976048;
-  v14 = dataclassCopy;
-  v26 = v14;
-  v27 = &v28;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v25, 0);
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __55__ACAccountStore_isTetheredSyncingEnabledForDataclass___block_invoke;
+  v28[3] = &unk_1E7976048;
+  v17 = dataclassCopy;
+  v29 = v17;
+  v30 = &v31;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v28, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    if (*(v29 + 24))
+    if (*(v32 + 24))
     {
-      v18 = @"YES";
+      v21 = @"YES";
     }
 
     else
     {
-      v18 = @"NO";
+      v21 = @"NO";
     }
 
     *buf = 138412546;
-    v34 = v18;
-    v35 = 2112;
-    v36 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "IsThetheredSyncingEnabledForDataclass", "%@%@", buf, 0x16u);
+    v37 = v21;
+    v38 = 2112;
+    v39 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "IsThetheredSyncingEnabledForDataclass", "%@%@", buf, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = *(v29 + 24);
+    v26 = *(v32 + 24);
     *buf = 134218754;
-    v34 = v7;
-    if (v23)
+    v37 = v8;
+    if (v26)
     {
-      v24 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v27 = @"NO";
     }
 
-    v35 = 2048;
-    v36 = Nanoseconds / 1000000000.0;
-    v37 = 2112;
-    v38 = v24;
-    v39 = 2112;
-    v40 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: IsThetheredSyncingEnabledForDataclass %@%@", buf, 0x2Au);
+    v38 = 2048;
+    v39 = Nanoseconds / 1000000000.0;
+    v40 = 2112;
+    v41 = v27;
+    v42 = 2112;
+    v43 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: IsThetheredSyncingEnabledForDataclass %@%@", buf, 0x2Au);
   }
 
-  v20 = *(v29 + 24);
-  _Block_object_dispose(&v28, 8);
+  v24 = *(v32 + 24);
+  _Block_object_dispose(&v31, 8);
   os_activity_scope_leave(&state);
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v24 & 1;
 }
 
 uint64_t __55__ACAccountStore_isTetheredSyncingEnabledForDataclass___block_invoke(uint64_t a1, void *a2)
@@ -10354,82 +10264,81 @@ uint64_t __55__ACAccountStore_isTetheredSyncingEnabledForDataclass___block_invok
 
 - (id)tetheredSyncSourceTypeForDataclass:(id)dataclass
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/is-tethered-syncing-enabled-for-dataclass", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = dataclassCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ThetheredSyncSourceTypeForDataclass", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ThetheredSyncSourceTypeForDataclass", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore tetheredSyncSourceTypeForDataclass:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__0;
-  v39 = __Block_byref_object_dispose__0;
-  v40 = 0;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__0;
+  v42 = __Block_byref_object_dispose__0;
+  v43 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __53__ACAccountStore_tetheredSyncSourceTypeForDataclass___block_invoke;
-  v24[3] = &unk_1E7976048;
-  v14 = dataclassCopy;
-  v25 = v14;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __53__ACAccountStore_tetheredSyncSourceTypeForDataclass___block_invoke;
+  v27[3] = &unk_1E7976048;
+  v17 = dataclassCopy;
+  v28 = v17;
   p_buf = &buf;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, 0);
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v27, 0);
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v19 = _ACSignpostLogSystem(Nanoseconds);
+  v20 = v19;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v18 = *(*(&buf + 1) + 40);
-    *v28 = 138412546;
-    v29 = v18;
-    v30 = 2112;
-    v31 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_END, v7, "ThetheredSyncSourceTypeForDataclass", "%@%@", v28, 0x16u);
+    v21 = *(*(&buf + 1) + 40);
+    *v31 = 138412546;
+    v32 = v21;
+    v33 = 2112;
+    v34 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_END, v8, "ThetheredSyncSourceTypeForDataclass", "%@%@", v31, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    *v28 = 134218754;
-    v23 = *(*(&buf + 1) + 40);
-    v29 = v7;
-    v30 = 2048;
-    v31 = Nanoseconds / 1000000000.0;
-    v32 = 2112;
-    v33 = v23;
-    v34 = 2112;
-    v35 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ThetheredSyncSourceTypeForDataclass %@%@", v28, 0x2Au);
+    *v31 = 134218754;
+    v26 = *(*(&buf + 1) + 40);
+    v32 = v8;
+    v33 = 2048;
+    v34 = Nanoseconds / 1000000000.0;
+    v35 = 2112;
+    v36 = v26;
+    v37 = 2112;
+    v38 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ThetheredSyncSourceTypeForDataclass %@%@", v31, 0x2Au);
   }
 
-  v20 = *(*(&buf + 1) + 40);
+  v24 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 
-  return v20;
+  return v24;
 }
 
 uint64_t __53__ACAccountStore_tetheredSyncSourceTypeForDataclass___block_invoke(uint64_t a1, void *a2)
@@ -10445,7 +10354,7 @@ uint64_t __53__ACAccountStore_tetheredSyncSourceTypeForDataclass___block_invoke(
 
 - (void)accountIdentifiersEnabledForDataclasses:(id)dataclasses withAccountTypeIdentifiers:(id)identifiers completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dataclassesCopy = dataclasses;
   identifiersCopy = identifiers;
   completionCopy = completion;
@@ -10455,73 +10364,71 @@ uint64_t __53__ACAccountStore_tetheredSyncSourceTypeForDataclass___block_invoke(
   os_activity_scope_enter(v11, &state);
   if (!dataclassesCopy)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"The dataclasses argument cannot be nil"];
+    v12 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"The dataclasses argument cannot be nil"];
   }
 
   if (!identifiersCopy)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"The accountTypes argument cannot be nil"];
+    v12 = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"The accountTypes argument cannot be nil"];
   }
 
   if (completionCopy)
   {
-    v12 = _ACSignpostLogSystem();
-    v13 = _ACSignpostCreate(v12);
-    v15 = v14;
+    v13 = _ACSignpostLogSystem(v12);
+    v14 = _ACSignpostCreate(v13);
+    v16 = v15;
 
-    v16 = _ACSignpostLogSystem();
-    v17 = v16;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = _ACSignpostLogSystem(v17);
+    v19 = v18;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 138412546;
-      v35 = dataclassesCopy;
-      v36 = 2112;
-      v37 = identifiersCopy;
-      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "AccountsEnabledForDataclasses", "%@ : %@", buf, 0x16u);
-    }
-
-    v18 = _ACSignpostLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 134218498;
-      v35 = v13;
-      v36 = 2112;
       v37 = dataclassesCopy;
       v38 = 2112;
       v39 = identifiersCopy;
-      _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsEnabledForDataclasses %@ : %@", buf, 0x20u);
+      _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "AccountsEnabledForDataclasses", "%@ : %@", buf, 0x16u);
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke;
-    v29[3] = &unk_1E7975F80;
-    v29[4] = self;
-    v31 = v13;
-    v32 = v15;
-    v30 = completionCopy;
-    v19 = MEMORY[0x1AC5B3C70](v29);
+    v21 = _ACSignpostLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218498;
+      v37 = v14;
+      v38 = 2112;
+      v39 = dataclassesCopy;
+      v40 = 2112;
+      v41 = identifiersCopy;
+      _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AccountsEnabledForDataclasses %@ : %@", buf, 0x20u);
+    }
+
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke;
+    v31[3] = &unk_1E7975F80;
+    v31[4] = self;
+    v33 = v14;
+    v34 = v16;
+    v32 = completionCopy;
+    v22 = MEMORY[0x1AC5B3C70](v31);
     remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_204;
+    v27[3] = &unk_1E7975C40;
+    v28 = dataclassesCopy;
+    v29 = identifiersCopy;
+    v30 = v22;
     v25[0] = MEMORY[0x1E69E9820];
     v25[1] = 3221225472;
-    v25[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_204;
-    v25[3] = &unk_1E7975C40;
-    v26 = dataclassesCopy;
-    v27 = identifiersCopy;
-    v28 = v19;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_2_205;
-    v23[3] = &unk_1E79754F0;
-    v21 = v28;
-    v23[4] = self;
-    v24 = v21;
-    ac_dispatch_remote(remoteAccountStoreSession, v25, v23);
+    v25[2] = __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_2_205;
+    v25[3] = &unk_1E79754F0;
+    v24 = v30;
+    v25[4] = self;
+    v26 = v24;
+    ac_dispatch_remote(remoteAccountStoreSession, v27, v25);
   }
 
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -10544,9 +10451,9 @@ void __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTyp
 
 uint64_t __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_2(void *a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(a1[7], a1[8]);
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = a1[7];
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -10558,41 +10465,37 @@ uint64_t __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccoun
       v7 = &stru_1F210E1C8;
     }
 
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = *&v7;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountsEnabledForDataclasses", "%@%@", &v17, 0x16u);
+    v15 = 138412546;
+    v16 = v6;
+    v17 = 2112;
+    v18 = *&v7;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "AccountsEnabledForDataclasses", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v13 = a1[7];
-    v14 = a1[4];
-    v15 = a1[5];
-    v17 = 134218754;
-    v18 = v13;
-    v16 = &stru_1F210E1C8;
-    v19 = 2048;
-    v20 = Nanoseconds / 1000000000.0;
-    v21 = 2112;
-    v22 = v14;
-    if (v15)
+    v11 = a1[7];
+    v12 = a1[4];
+    v13 = a1[5];
+    v15 = 134218754;
+    v16 = v11;
+    v14 = &stru_1F210E1C8;
+    v17 = 2048;
+    v18 = Nanoseconds / 1000000000.0;
+    v19 = 2112;
+    v20 = v12;
+    if (v13)
     {
-      v16 = v15;
+      v14 = v13;
     }
 
-    v23 = 2112;
-    v24 = v16;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledForDataclasses %@%@", &v17, 0x2Au);
+    v21 = 2112;
+    v22 = v14;
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AccountsEnabledForDataclasses %@%@", &v15, 0x2Au);
   }
 
-  v9 = a1[5];
-  v10 = a1[4];
-  result = (*(a1[6] + 16))();
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTypeIdentifiers_completion___block_invoke_2_205(uint64_t a1)
@@ -10604,91 +10507,90 @@ void __96__ACAccountStore_accountIdentifiersEnabledForDataclasses_withAccountTyp
 
 - (id)clientTokenForAccount:(id)account
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/client-token-for-account", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ClientTokenForAccount", "%@", &buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ClientTokenForAccount", "%@", &buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore clientTokenForAccount:];
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__0;
-  v44 = __Block_byref_object_dispose__0;
-  v45 = 0;
-  v13 = dispatch_semaphore_create(0);
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__0;
+  v47 = __Block_byref_object_dispose__0;
+  v48 = 0;
+  v16 = dispatch_semaphore_create(0);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __40__ACAccountStore_clientTokenForAccount___block_invoke;
-  v28[3] = &unk_1E7976660;
-  v15 = accountCopy;
-  v29 = v15;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __40__ACAccountStore_clientTokenForAccount___block_invoke;
+  v31[3] = &unk_1E7976660;
+  v18 = accountCopy;
+  v32 = v18;
   p_buf = &buf;
-  v30 = v13;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __40__ACAccountStore_clientTokenForAccount___block_invoke_3;
-  v26[3] = &unk_1E7976278;
-  v16 = v30;
-  v27 = v16;
-  ac_dispatch_remote(remoteAccountStoreSession, v28, v26);
+  v33 = v16;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __40__ACAccountStore_clientTokenForAccount___block_invoke_3;
+  v29[3] = &unk_1E7976278;
+  v19 = v33;
+  v30 = v19;
+  ac_dispatch_remote(remoteAccountStoreSession, v31, v29);
 
-  dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v21 = _ACSignpostLogSystem(Nanoseconds);
+  v22 = v21;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
-    v20 = *(*(&buf + 1) + 40);
-    *v33 = 138412546;
-    v34 = v20;
-    v35 = 2112;
-    v36 = COERCE_DOUBLE(&stru_1F210E1C8);
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v7, "ClientTokenForAccount", "%@%@", v33, 0x16u);
+    v23 = *(*(&buf + 1) + 40);
+    *v36 = 138412546;
+    v37 = v23;
+    v38 = 2112;
+    v39 = COERCE_DOUBLE(&stru_1F210E1C8);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v22, OS_SIGNPOST_INTERVAL_END, v8, "ClientTokenForAccount", "%@%@", v36, 0x16u);
   }
 
-  v21 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v25 = _ACSignpostLogSystem(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    *v33 = 134218754;
-    v25 = *(*(&buf + 1) + 40);
-    v34 = v7;
-    v35 = 2048;
-    v36 = Nanoseconds / 1000000000.0;
-    v37 = 2112;
-    v38 = v25;
-    v39 = 2112;
-    v40 = &stru_1F210E1C8;
-    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ClientTokenForAccount %@%@", v33, 0x2Au);
+    *v36 = 134218754;
+    v28 = *(*(&buf + 1) + 40);
+    v37 = v8;
+    v38 = 2048;
+    v39 = Nanoseconds / 1000000000.0;
+    v40 = 2112;
+    v41 = v28;
+    v42 = 2112;
+    v43 = &stru_1F210E1C8;
+    _os_log_debug_impl(&dword_1AC3CD000, v25, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ClientTokenForAccount %@%@", v36, 0x2Au);
   }
 
-  v22 = *(*(&buf + 1) + 40);
+  v26 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x1E69E9840];
 
-  return v22;
+  return v26;
 }
 
 void __40__ACAccountStore_clientTokenForAccount___block_invoke(uint64_t a1, void *a2)
@@ -10715,114 +10617,113 @@ void __40__ACAccountStore_clientTokenForAccount___block_invoke_2(uint64_t a1, vo
 
 - (BOOL)addClientToken:(id)token forAccount:(id)account
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   accountCopy = account;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/add-client-token", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412546;
     *&buf[4] = tokenCopy;
     *&buf[12] = 2112;
     *&buf[14] = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "AddClientTokenForAccount", "%@ -> %@", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "AddClientTokenForAccount", "%@ -> %@", buf, 0x16u);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    *&buf[4] = v10;
+    *&buf[4] = v11;
     *&buf[12] = 2112;
     *&buf[14] = tokenCopy;
     *&buf[22] = 2112;
-    v46 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v15, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AddClientTokenForAccount %@ -> %@", buf, 0x20u);
+    v49 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: AddClientTokenForAccount %@ -> %@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v46) = 0;
-  v16 = dispatch_semaphore_create(0);
+  LOBYTE(v49) = 0;
+  v19 = dispatch_semaphore_create(0);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __44__ACAccountStore_addClientToken_forAccount___block_invoke;
-  v33[3] = &unk_1E7976548;
-  v18 = tokenCopy;
-  v34 = v18;
-  v19 = accountCopy;
-  v35 = v19;
-  v37 = buf;
-  v36 = v16;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __44__ACAccountStore_addClientToken_forAccount___block_invoke_3;
-  v31[3] = &unk_1E7976278;
-  v20 = v36;
-  v32 = v20;
-  ac_dispatch_remote(remoteAccountStoreSession, v33, v31);
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __44__ACAccountStore_addClientToken_forAccount___block_invoke;
+  v36[3] = &unk_1E7976548;
+  v21 = tokenCopy;
+  v37 = v21;
+  v22 = accountCopy;
+  v38 = v22;
+  v40 = buf;
+  v39 = v19;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __44__ACAccountStore_addClientToken_forAccount___block_invoke_3;
+  v34[3] = &unk_1E7976278;
+  v23 = v39;
+  v35 = v23;
+  ac_dispatch_remote(remoteAccountStoreSession, v36, v34);
 
-  dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
-  Nanoseconds = _ACSignpostGetNanoseconds(v10, v12);
-  v22 = _ACSignpostLogSystem();
-  v23 = v22;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
+  Nanoseconds = _ACSignpostGetNanoseconds(v11, v13);
+  v25 = _ACSignpostLogSystem(Nanoseconds);
+  v26 = v25;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
     if (*(*&buf[8] + 24))
     {
-      v24 = @"YES";
+      v27 = @"YES";
     }
 
     else
     {
-      v24 = @"NO";
+      v27 = @"NO";
     }
 
-    *v39 = 138543362;
-    v40 = v24;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_END, v10, "AddClientTokenForAccount", "%{public}@", v39, 0xCu);
+    *v42 = 138543362;
+    v43 = v27;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v26, OS_SIGNPOST_INTERVAL_END, v11, "AddClientTokenForAccount", "%{public}@", v42, 0xCu);
   }
 
-  v25 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v29 = _ACSignpostLogSystem(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
-    v29 = *(*&buf[8] + 24);
-    *v39 = 134218498;
-    v40 = v10;
-    if (v29)
+    v32 = *(*&buf[8] + 24);
+    *v42 = 134218498;
+    v43 = v11;
+    if (v32)
     {
-      v30 = @"YES";
+      v33 = @"YES";
     }
 
     else
     {
-      v30 = @"NO";
+      v33 = @"NO";
     }
 
-    v41 = 2048;
-    v42 = Nanoseconds / 1000000000.0;
-    v43 = 2114;
-    v44 = v30;
-    _os_log_debug_impl(&dword_1AC3CD000, v25, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AddClientTokenForAccount %{public}@", v39, 0x20u);
+    v44 = 2048;
+    v45 = Nanoseconds / 1000000000.0;
+    v46 = 2114;
+    v47 = v33;
+    _os_log_debug_impl(&dword_1AC3CD000, v29, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: AddClientTokenForAccount %{public}@", v42, 0x20u);
   }
 
-  v26 = *(*&buf[8] + 24);
+  v30 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
   os_activity_scope_leave(&state);
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26 & 1;
+  return v30 & 1;
 }
 
 void __44__ACAccountStore_addClientToken_forAccount___block_invoke(uint64_t a1, void *a2)
@@ -10843,7 +10744,7 @@ void __44__ACAccountStore_addClientToken_forAccount___block_invoke(uint64_t a1, 
 
 - (void)discoverPropertiesForAccount:(id)account options:(id)options completion:(id)completion
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
@@ -10853,75 +10754,74 @@ void __44__ACAccountStore_addClientToken_forAccount___block_invoke(uint64_t a1, 
   os_activity_scope_enter(v11, &state);
   if (!accountCopy)
   {
-    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v31);
+    v33 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v33);
   }
 
   v12 = [(ACAccountStore *)self _sanitizeOptionsDictionary:optionsCopy];
 
-  v13 = _ACSignpostLogSystem();
-  v14 = _ACSignpostCreate(v13);
-  v16 = v15;
+  v14 = _ACSignpostLogSystem(v13);
+  v15 = _ACSignpostCreate(v14);
+  v17 = v16;
 
-  v17 = _ACSignpostLogSystem();
-  v18 = v17;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = _ACSignpostLogSystem(v18);
+  v20 = v19;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     accountType = [accountCopy accountType];
     identifier = [accountType identifier];
     *buf = 138543618;
-    v45 = identifier;
-    v46 = 2112;
-    v47 = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "DiscoverProperties", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  enableTelemetry=YES (account: %@)", buf, 0x16u);
+    v47 = identifier;
+    v48 = 2112;
+    v49 = accountCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v15, "DiscoverProperties", " AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  enableTelemetry=YES (account: %@)", buf, 0x16u);
   }
 
-  v21 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v24 = _ACSignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     accountType2 = [accountCopy accountType];
     identifier2 = [accountType2 identifier];
     *buf = 134218498;
-    v45 = v14;
-    v46 = 2114;
-    v47 = identifier2;
-    v48 = 2112;
-    v49 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: DiscoverProperties  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  enableTelemetry=YES (account: %@)", buf, 0x20u);
+    v47 = v15;
+    v48 = 2114;
+    v49 = identifier2;
+    v50 = 2112;
+    v51 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v24, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: DiscoverProperties  AccountType=%{public,signpost.telemetry:string1,name=AccountType}@  enableTelemetry=YES (account: %@)", buf, 0x20u);
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke;
-  v39[3] = &unk_1E79767C8;
-  v41 = v14;
-  v42 = v16;
-  v22 = completionCopy;
-  v39[4] = self;
-  v40 = v22;
-  v23 = MEMORY[0x1AC5B3C70](v39);
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke;
+  v41[3] = &unk_1E79767C8;
+  v43 = v15;
+  v44 = v17;
+  v25 = completionCopy;
+  v41[4] = self;
+  v42 = v25;
+  v26 = MEMORY[0x1AC5B3C70](v41);
   longLivedRemoteAccountStoreSession = [(ACAccountStore *)self longLivedRemoteAccountStoreSession];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_2;
+  v36[3] = &unk_1E7976390;
+  v28 = accountCopy;
+  v37 = v28;
+  v29 = v12;
+  v38 = v29;
+  selfCopy = self;
+  v40 = v26;
   v34[0] = MEMORY[0x1E69E9820];
   v34[1] = 3221225472;
-  v34[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_2;
-  v34[3] = &unk_1E7976390;
-  v25 = accountCopy;
-  v35 = v25;
-  v26 = v12;
-  v36 = v26;
-  selfCopy = self;
-  v38 = v23;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_4;
-  v32[3] = &unk_1E79754F0;
-  v27 = v38;
-  v32[4] = self;
-  v33 = v27;
-  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v34, v32);
+  v34[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_4;
+  v34[3] = &unk_1E79754F0;
+  v30 = v40;
+  v34[4] = self;
+  v35 = v30;
+  ac_dispatch_remote(longLivedRemoteAccountStoreSession, v36, v34);
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -10930,7 +10830,7 @@ void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___bloc
   v5 = a2;
   v6 = a3;
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v8 = _ACSignpostLogSystem();
+  v8 = _ACSignpostLogSystem(Nanoseconds);
   v9 = v8;
   v10 = a1[6];
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
@@ -10946,8 +10846,8 @@ void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___bloc
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v9, OS_SIGNPOST_INTERVAL_END, v10, "DiscoverProperties", "%{public}@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _ACSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v16 = a1[6];
     *buf = 134218498;
@@ -10966,24 +10866,22 @@ void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___bloc
     v25 = Nanoseconds / 1000000000.0;
     v26 = 2114;
     v27 = v17;
-    _os_log_debug_impl(&dword_1AC3CD000, v12, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DiscoverProperties %{public}@", buf, 0x20u);
+    _os_log_debug_impl(&dword_1AC3CD000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: DiscoverProperties %{public}@", buf, 0x20u);
   }
 
-  v13 = a1[5];
-  if (v13)
+  v14 = a1[5];
+  if (v14)
   {
-    v14 = *(a1[4] + 80);
+    v15 = *(a1[4] + 80);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_206;
     block[3] = &unk_1E7975478;
-    v21 = v13;
+    v21 = v14;
     v19 = v5;
     v20 = v6;
-    dispatch_async(v14, block);
+    dispatch_async(v15, block);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -11018,7 +10916,7 @@ void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___bloc
 
 - (void)openAuthenticationURL:(id)l forAccount:(id)account shouldConfirm:(BOOL)confirm completion:(id)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   lCopy = l;
   accountCopy = account;
   completionCopy = completion;
@@ -11028,77 +10926,76 @@ void __66__ACAccountStore_discoverPropertiesForAccount_options_completion___bloc
   os_activity_scope_enter(v13, &state);
   if (!accountCopy)
   {
-    v28 = @"Account must be non-nil";
+    v30 = @"Account must be non-nil";
     goto LABEL_11;
   }
 
   if (!lCopy)
   {
-    v28 = @"URL must be non-nil";
+    v30 = @"URL must be non-nil";
 LABEL_11:
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v28 userInfo:0];
-    objc_exception_throw(v29);
+    v31 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v30 userInfo:0];
+    objc_exception_throw(v31);
   }
 
-  v14 = _ACSignpostLogSystem();
-  v15 = _ACSignpostCreate(v14);
-  v17 = v16;
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = _ACSignpostCreate(v15);
+  v18 = v17;
 
-  v18 = _ACSignpostLogSystem();
-  v19 = v18;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v20 = _ACSignpostLogSystem(v19);
+  v21 = v20;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 138412546;
-    v43 = lCopy;
-    v44 = 2112;
-    v45 = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v15, "OpenAuthURLForAccount", "%@ -> %@", buf, 0x16u);
-  }
-
-  v20 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v43 = v15;
-    v44 = 2112;
     v45 = lCopy;
     v46 = 2112;
     v47 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v20, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: OpenAuthURLForAccount %@ -> %@", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v16, "OpenAuthURLForAccount", "%@ -> %@", buf, 0x16u);
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke;
-  v37[3] = &unk_1E7976098;
-  v37[4] = self;
-  v39 = v15;
-  v40 = v17;
-  v21 = completionCopy;
-  v38 = v21;
-  v22 = MEMORY[0x1AC5B3C70](v37);
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v45 = v16;
+    v46 = 2112;
+    v47 = lCopy;
+    v48 = 2112;
+    v49 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: OpenAuthURLForAccount %@ -> %@", buf, 0x20u);
+  }
+
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke;
+  v39[3] = &unk_1E7976098;
+  v39[4] = self;
+  v41 = v16;
+  v42 = v18;
+  v24 = completionCopy;
+  v40 = v24;
+  v25 = MEMORY[0x1AC5B3C70](v39);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke_210;
+  v34[3] = &unk_1E7976160;
+  v27 = lCopy;
+  v35 = v27;
+  v28 = accountCopy;
+  v36 = v28;
+  confirmCopy = confirm;
+  v37 = v25;
   v32[0] = MEMORY[0x1E69E9820];
   v32[1] = 3221225472;
-  v32[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke_210;
-  v32[3] = &unk_1E7976160;
-  v24 = lCopy;
-  v33 = v24;
-  v25 = accountCopy;
-  v34 = v25;
-  confirmCopy = confirm;
-  v35 = v22;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke_2_211;
-  v30[3] = &unk_1E79754F0;
-  v26 = v35;
-  v30[4] = self;
-  v31 = v26;
-  ac_dispatch_remote(remoteAccountStoreSession, v32, v30);
+  v32[2] = __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke_2_211;
+  v32[3] = &unk_1E79754F0;
+  v29 = v37;
+  v32[4] = self;
+  v33 = v29;
+  ac_dispatch_remote(remoteAccountStoreSession, v34, v32);
 
   os_activity_scope_leave(&state);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -11121,7 +11018,7 @@ uint64_t __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_com
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -11149,8 +11046,8 @@ uint64_t __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_com
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "OpenAuthURLForAccount", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -11174,16 +11071,15 @@ uint64_t __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_com
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: OpenAuthURLForAccount %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: OpenAuthURLForAccount %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -11197,7 +11093,7 @@ void __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_complet
 - (void)openAuthenticationURLForAccount:(id)account withDelegateClassName:(id)name fromBundleAtPath:(id)path shouldConfirm:(BOOL)confirm completion:(id)completion
 {
   confirmCopy = confirm;
-  v59 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   nameCopy = name;
   pathCopy = path;
@@ -11208,105 +11104,104 @@ void __76__ACAccountStore_openAuthenticationURL_forAccount_shouldConfirm_complet
   os_activity_scope_enter(v15, &state);
   if (!accountCopy)
   {
-    v33 = @"Account must be non-nil";
+    v35 = @"Account must be non-nil";
     goto LABEL_17;
   }
 
   if (!nameCopy)
   {
-    v33 = @"Auth delegate class name must be non-nil";
+    v35 = @"Auth delegate class name must be non-nil";
     goto LABEL_17;
   }
 
   if (!pathCopy)
   {
-    v33 = @"Bundle path must be non-nil";
+    v35 = @"Bundle path must be non-nil";
 LABEL_17:
-    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v33 userInfo:0];
-    objc_exception_throw(v34);
+    v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v35 userInfo:0];
+    objc_exception_throw(v36);
   }
 
-  v16 = _ACSignpostLogSystem();
-  v17 = _ACSignpostCreate(v16);
-  v19 = v18;
+  v17 = _ACSignpostLogSystem(v16);
+  v18 = _ACSignpostCreate(v17);
+  v20 = v19;
 
-  v20 = _ACSignpostLogSystem();
-  v21 = v20;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v22 = _ACSignpostLogSystem(v21);
+  v23 = v22;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
-    v22 = @"NO";
+    v24 = @"NO";
     *buf = 138413058;
-    v50 = nameCopy;
-    if (confirmCopy)
-    {
-      v22 = @"YES";
-    }
-
-    v51 = 2112;
-    v52 = pathCopy;
-    v53 = 2112;
-    v54 = v22;
-    v55 = 2112;
-    v56 = accountCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v17, "OpenAuthURLForAccount", "%@,%@,%@ -> %@", buf, 0x2Au);
-  }
-
-  v23 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-  {
-    v32 = @"NO";
-    *buf = 134219010;
-    v50 = v17;
-    if (confirmCopy)
-    {
-      v32 = @"YES";
-    }
-
-    v51 = 2112;
     v52 = nameCopy;
+    if (confirmCopy)
+    {
+      v24 = @"YES";
+    }
+
     v53 = 2112;
     v54 = pathCopy;
     v55 = 2112;
-    v56 = v32;
+    v56 = v24;
     v57 = 2112;
     v58 = accountCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: OpenAuthURLForAccount %@,%@,%@ -> %@", buf, 0x34u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v18, "OpenAuthURLForAccount", "%@,%@,%@ -> %@", buf, 0x2Au);
   }
 
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke;
-  v44[3] = &unk_1E7976840;
-  v44[4] = self;
-  v46 = v17;
-  v47 = v19;
-  v24 = completionCopy;
-  v45 = v24;
-  v25 = MEMORY[0x1AC5B3C70](v44);
+  v26 = _ACSignpostLogSystem(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  {
+    v34 = @"NO";
+    *buf = 134219010;
+    v52 = v18;
+    if (confirmCopy)
+    {
+      v34 = @"YES";
+    }
+
+    v53 = 2112;
+    v54 = nameCopy;
+    v55 = 2112;
+    v56 = pathCopy;
+    v57 = 2112;
+    v58 = v34;
+    v59 = 2112;
+    v60 = accountCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v26, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: OpenAuthURLForAccount %@,%@,%@ -> %@", buf, 0x34u);
+  }
+
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke;
+  v46[3] = &unk_1E7976840;
+  v46[4] = self;
+  v48 = v18;
+  v49 = v20;
+  v27 = completionCopy;
+  v47 = v27;
+  v28 = MEMORY[0x1AC5B3C70](v46);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke_219;
+  v40[3] = &unk_1E7976868;
+  v30 = accountCopy;
+  v41 = v30;
+  v31 = nameCopy;
+  v42 = v31;
+  v32 = pathCopy;
+  v43 = v32;
+  v45 = confirmCopy;
+  v44 = v28;
   v38[0] = MEMORY[0x1E69E9820];
   v38[1] = 3221225472;
-  v38[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke_219;
-  v38[3] = &unk_1E7976868;
-  v27 = accountCopy;
-  v39 = v27;
-  v28 = nameCopy;
-  v40 = v28;
-  v29 = pathCopy;
-  v41 = v29;
-  v43 = confirmCopy;
-  v42 = v25;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke_2_220;
-  v36[3] = &unk_1E79754F0;
-  v30 = v42;
-  v36[4] = self;
-  v37 = v30;
-  ac_dispatch_remote(remoteAccountStoreSession, v38, v36);
+  v38[2] = __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke_2_220;
+  v38[3] = &unk_1E79754F0;
+  v33 = v44;
+  v38[4] = self;
+  v39 = v33;
+  ac_dispatch_remote(remoteAccountStoreSession, v40, v38);
 
   os_activity_scope_leave(&state);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName_fromBundleAtPath_shouldConfirm_completion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -11333,7 +11228,7 @@ uint64_t __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClass
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 56), *(a1 + 64));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 56);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -11361,8 +11256,8 @@ uint64_t __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClass
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "OpenAuthURLForAccount", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 56);
     v12 = @"NO";
@@ -11386,16 +11281,15 @@ uint64_t __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClass
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: OpenAuthURLForAccount %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: OpenAuthURLForAccount %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 72), *(a1 + 40), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 72), *(a1 + 40), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -11408,7 +11302,7 @@ void __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName
 
 - (void)notifyRemoteDevicesOfModifiedAccount:(id)account withOptions:(id)options completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
@@ -11416,57 +11310,56 @@ void __114__ACAccountStore_openAuthenticationURLForAccount_withDelegateClassName
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 138412546;
-    v34 = accountCopy;
-    v35 = 2112;
-    v36 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "NotifyRemoteOfModifiedAccount", "%@ (%@)", buf, 0x16u);
-  }
-
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v34 = v13;
-    v35 = 2112;
     v36 = accountCopy;
     v37 = 2112;
     v38 = optionsCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: NotifyRemoteOfModifiedAccount %@ (%@)", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "NotifyRemoteOfModifiedAccount", "%@ (%@)", buf, 0x16u);
+  }
+
+  v21 = _ACSignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v36 = v14;
+    v37 = 2112;
+    v38 = accountCopy;
+    v39 = 2112;
+    v40 = optionsCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: NotifyRemoteOfModifiedAccount %@ (%@)", buf, 0x20u);
   }
 
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke;
-  v25[3] = &unk_1E7975E90;
-  v20 = accountCopy;
-  v26 = v20;
-  v21 = optionsCopy;
-  v27 = v21;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke;
+  v27[3] = &unk_1E7975E90;
+  v23 = accountCopy;
+  v28 = v23;
+  v24 = optionsCopy;
+  v29 = v24;
   selfCopy = self;
-  v30 = v13;
-  v31 = v15;
-  v22 = completionCopy;
-  v29 = v22;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke_221;
-  v24[3] = &__block_descriptor_48_e17_v16__0__NSError_8l;
-  v24[4] = v13;
-  v24[5] = v15;
-  ac_dispatch_remote(remoteAccountStoreSession, v25, v24);
+  v32 = v14;
+  v33 = v16;
+  v25 = completionCopy;
+  v31 = v25;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke_221;
+  v26[3] = &__block_descriptor_48_e17_v16__0__NSError_8l;
+  v26[4] = v14;
+  v26[5] = v16;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v26);
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -11488,7 +11381,7 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
 {
   v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -11505,7 +11398,7 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
   }
 
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v9 = _ACSignpostLogSystem();
+  v9 = _ACSignpostLogSystem(Nanoseconds);
   v10 = v9;
   v11 = a1[6];
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
@@ -11529,8 +11422,8 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v10, OS_SIGNPOST_INTERVAL_END, v11, "NotifyRemoteOfModifiedAccount", "%@%@", &v20, 0x16u);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v17 = a1[6];
     v18 = @"NO";
@@ -11553,30 +11446,28 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
 
     v26 = 2112;
     v27 = v19;
-    _os_log_debug_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfModifiedAccount %@%@", &v20, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v15, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfModifiedAccount %@%@", &v20, 0x2Au);
   }
 
-  v15 = a1[5];
-  if (v15)
+  v16 = a1[5];
+  if (v16)
   {
-    (*(v15 + 16))(v15, a2, v5);
+    (*(v16 + 16))(v16, a2, v5);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke_221(uint64_t a1, void *a2)
 {
   v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ACLogSystem();
+  v4 = _ACLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke_221_cold_1();
   }
 
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 32), *(a1 + 40));
-  v6 = _ACSignpostLogSystem();
+  v6 = _ACSignpostLogSystem(Nanoseconds);
   v7 = v6;
   v8 = *(a1 + 32);
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
@@ -11594,8 +11485,8 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v7, OS_SIGNPOST_INTERVAL_END, v8, "NotifyRemoteOfModifiedAccount", "%@%@", &v14, 0x16u);
   }
 
-  v10 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _ACSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = *(a1 + 32);
     v14 = 134218754;
@@ -11612,15 +11503,13 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
 
     v20 = 2112;
     v21 = v13;
-    _os_log_debug_impl(&dword_1AC3CD000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfModifiedAccount %@%@", &v14, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfModifiedAccount %@%@", &v14, 0x2Au);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyRemoteDevicesOfUpdatedCredentials:(id)credentials withOptions:(id)options completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   credentialsCopy = credentials;
   optionsCopy = options;
   completionCopy = completion;
@@ -11628,57 +11517,56 @@ void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_compl
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 138412546;
-    v34 = credentialsCopy;
-    v35 = 2112;
-    v36 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "NotifyRemoteOfUpdatedCredentials", "%@ (%@)", buf, 0x16u);
-  }
-
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v34 = v13;
-    v35 = 2112;
     v36 = credentialsCopy;
     v37 = 2112;
     v38 = optionsCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: NotifyRemoteOfUpdatedCredentials %@ (%@)", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "NotifyRemoteOfUpdatedCredentials", "%@ (%@)", buf, 0x16u);
+  }
+
+  v21 = _ACSignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v36 = v14;
+    v37 = 2112;
+    v38 = credentialsCopy;
+    v39 = 2112;
+    v40 = optionsCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: NotifyRemoteOfUpdatedCredentials %@ (%@)", buf, 0x20u);
   }
 
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke;
-  v25[3] = &unk_1E7975E90;
-  v20 = credentialsCopy;
-  v26 = v20;
-  v21 = optionsCopy;
-  v27 = v21;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke;
+  v27[3] = &unk_1E7975E90;
+  v23 = credentialsCopy;
+  v28 = v23;
+  v24 = optionsCopy;
+  v29 = v24;
   selfCopy = self;
-  v30 = v13;
-  v31 = v15;
-  v22 = completionCopy;
-  v29 = v22;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke_222;
-  v24[3] = &__block_descriptor_48_e17_v16__0__NSError_8l;
-  v24[4] = v13;
-  v24[5] = v15;
-  ac_dispatch_remote(remoteAccountStoreSession, v25, v24);
+  v32 = v14;
+  v33 = v16;
+  v25 = completionCopy;
+  v31 = v25;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke_222;
+  v26[3] = &__block_descriptor_48_e17_v16__0__NSError_8l;
+  v26[4] = v14;
+  v26[5] = v16;
+  ac_dispatch_remote(remoteAccountStoreSession, v27, v26);
 
   os_activity_scope_leave(&state);
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -11700,7 +11588,7 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
 {
   v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -11717,7 +11605,7 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
   }
 
   Nanoseconds = _ACSignpostGetNanoseconds(a1[6], a1[7]);
-  v9 = _ACSignpostLogSystem();
+  v9 = _ACSignpostLogSystem(Nanoseconds);
   v10 = v9;
   v11 = a1[6];
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
@@ -11741,8 +11629,8 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v10, OS_SIGNPOST_INTERVAL_END, v11, "NotifyRemoteOfUpdatedCredentials", "%@%@", &v20, 0x16u);
   }
 
-  v14 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v17 = a1[6];
     v18 = @"NO";
@@ -11765,30 +11653,28 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
 
     v26 = 2112;
     v27 = v19;
-    _os_log_debug_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfUpdatedCredentials %@%@", &v20, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v15, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfUpdatedCredentials %@%@", &v20, 0x2Au);
   }
 
-  v15 = a1[5];
-  if (v15)
+  v16 = a1[5];
+  if (v16)
   {
-    (*(v15 + 16))(v15, a2, v5);
+    (*(v16 + 16))(v16, a2, v5);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke_222(uint64_t a1, void *a2)
 {
   v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _ACLogSystem();
+  v4 = _ACLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_completion___block_invoke_222_cold_1();
   }
 
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 32), *(a1 + 40));
-  v6 = _ACSignpostLogSystem();
+  v6 = _ACSignpostLogSystem(Nanoseconds);
   v7 = v6;
   v8 = *(a1 + 32);
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
@@ -11806,8 +11692,8 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v7, OS_SIGNPOST_INTERVAL_END, v8, "NotifyRemoteOfUpdatedCredentials", "%@%@", &v14, 0x16u);
   }
 
-  v10 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _ACSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = *(a1 + 32);
     v14 = 134218754;
@@ -11824,15 +11710,13 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
 
     v20 = 2112;
     v21 = v13;
-    _os_log_debug_impl(&dword_1AC3CD000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfUpdatedCredentials %@%@", &v14, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: NotifyRemoteOfUpdatedCredentials %@%@", &v14, 0x2Au);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveAccount:(id)account toPairedDeviceWithOptions:(id)options completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   optionsCopy = options;
   completionCopy = completion;
@@ -11842,68 +11726,67 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
   os_activity_scope_enter(v11, &state);
   if (!accountCopy)
   {
-    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
-    objc_exception_throw(v26);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"Account must be non-nil" userInfo:0];
+    objc_exception_throw(v28);
   }
 
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 138412546;
-    v39 = accountCopy;
-    v40 = 2112;
-    v41 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "SaveAccountToPairedDevice", "%@ (%@)", buf, 0x16u);
-  }
-
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v39 = v13;
-    v40 = 2112;
     v41 = accountCopy;
     v42 = 2112;
     v43 = optionsCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccountToPairedDevice %@ (%@)", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "SaveAccountToPairedDevice", "%@ (%@)", buf, 0x16u);
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke;
-  v33[3] = &unk_1E7976098;
-  v33[4] = self;
-  v35 = v13;
-  v36 = v15;
-  v19 = completionCopy;
-  v34 = v19;
-  v20 = MEMORY[0x1AC5B3C70](v33);
+  v21 = _ACSignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v41 = v14;
+    v42 = 2112;
+    v43 = accountCopy;
+    v44 = 2112;
+    v45 = optionsCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: SaveAccountToPairedDevice %@ (%@)", buf, 0x20u);
+  }
+
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke;
+  v35[3] = &unk_1E7976098;
+  v35[4] = self;
+  v37 = v14;
+  v38 = v16;
+  v22 = completionCopy;
+  v36 = v22;
+  v23 = MEMORY[0x1AC5B3C70](v35);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke_223;
+  v31[3] = &unk_1E7975C40;
+  v25 = accountCopy;
+  v32 = v25;
+  v26 = optionsCopy;
+  v33 = v26;
+  v34 = v23;
   v29[0] = MEMORY[0x1E69E9820];
   v29[1] = 3221225472;
-  v29[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke_223;
-  v29[3] = &unk_1E7975C40;
-  v22 = accountCopy;
-  v30 = v22;
-  v23 = optionsCopy;
-  v31 = v23;
-  v32 = v20;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke_225;
-  v27[3] = &unk_1E79754F0;
-  v24 = v32;
-  v27[4] = self;
-  v28 = v24;
-  ac_dispatch_remote(remoteAccountStoreSession, v29, v27);
+  v29[2] = __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke_225;
+  v29[3] = &unk_1E79754F0;
+  v27 = v34;
+  v29[4] = self;
+  v30 = v27;
+  ac_dispatch_remote(remoteAccountStoreSession, v31, v29);
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -11926,7 +11809,7 @@ uint64_t __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion__
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -11954,8 +11837,8 @@ uint64_t __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion__
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "SaveAccountToPairedDevice", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -11979,16 +11862,15 @@ uint64_t __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion__
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccountToPairedDevice %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: SaveAccountToPairedDevice %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12007,7 +11889,7 @@ void __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___blo
 void __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___block_invoke_2_224(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -12035,61 +11917,60 @@ void __67__ACAccountStore_saveAccount_toPairedDeviceWithOptions_completion___blo
 
 - (void)removeAccountsFromPairedDeviceWithOptions:(id)options completion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/paired-remove-accounts", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v33 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveAccountsFromPairedDevice", "(%@)", buf, 0xCu);
+    v35 = optionsCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveAccountsFromPairedDevice", "(%@)", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore removeAccountsFromPairedDeviceWithOptions:completion:];
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke;
-  v27[3] = &unk_1E7976098;
-  v27[4] = self;
-  v29 = v10;
-  v30 = v12;
-  v16 = completionCopy;
-  v28 = v16;
-  v17 = MEMORY[0x1AC5B3C70](v27);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke;
+  v29[3] = &unk_1E7976098;
+  v29[4] = self;
+  v31 = v11;
+  v32 = v13;
+  v19 = completionCopy;
+  v30 = v19;
+  v20 = MEMORY[0x1AC5B3C70](v29);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke_226;
+  v26[3] = &unk_1E79754C8;
+  v22 = optionsCopy;
+  v27 = v22;
+  v28 = v20;
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
-  v24[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke_226;
-  v24[3] = &unk_1E79754C8;
-  v19 = optionsCopy;
-  v25 = v19;
-  v26 = v17;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke_228;
-  v22[3] = &unk_1E79754F0;
-  v20 = v26;
-  v22[4] = self;
-  v23 = v20;
-  ac_dispatch_remote(remoteAccountStoreSession, v24, v22);
+  v24[2] = __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke_228;
+  v24[3] = &unk_1E79754F0;
+  v23 = v28;
+  v24[4] = self;
+  v25 = v23;
+  ac_dispatch_remote(remoteAccountStoreSession, v26, v24);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -12112,7 +11993,7 @@ uint64_t __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completi
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -12140,8 +12021,8 @@ uint64_t __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completi
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RemoveAccountsFromPairedDevice", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -12165,16 +12046,15 @@ uint64_t __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completi
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountsFromPairedDevice %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountsFromPairedDevice %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12192,7 +12072,7 @@ void __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion__
 void __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion___block_invoke_2_227(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -12220,7 +12100,7 @@ void __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion__
 
 - (void)removeAccountFromPairedDevice:(id)device withOptions:(id)options completion:(id)completion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   optionsCopy = options;
   completionCopy = completion;
@@ -12228,64 +12108,63 @@ void __71__ACAccountStore_removeAccountsFromPairedDeviceWithOptions_completion__
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _ACSignpostLogSystem();
-  v13 = _ACSignpostCreate(v12);
-  v15 = v14;
+  v13 = _ACSignpostLogSystem(v12);
+  v14 = _ACSignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _ACSignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _ACSignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 138412546;
-    v38 = deviceCopy;
-    v39 = 2112;
-    v40 = optionsCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "RemoveAccountFromPairedDevice", "%@ (%@)", buf, 0x16u);
-  }
-
-  v18 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 134218498;
-    v38 = v13;
-    v39 = 2112;
     v40 = deviceCopy;
     v41 = 2112;
     v42 = optionsCopy;
-    _os_log_debug_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RemoveAccountFromPairedDevice %@ (%@)", buf, 0x20u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "RemoveAccountFromPairedDevice", "%@ (%@)", buf, 0x16u);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke;
-  v32[3] = &unk_1E7976098;
-  v32[4] = self;
-  v34 = v13;
-  v35 = v15;
-  v19 = completionCopy;
-  v33 = v19;
-  v20 = MEMORY[0x1AC5B3C70](v32);
+  v21 = _ACSignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218498;
+    v40 = v14;
+    v41 = 2112;
+    v42 = deviceCopy;
+    v43 = 2112;
+    v44 = optionsCopy;
+    _os_log_debug_impl(&dword_1AC3CD000, v21, OS_LOG_TYPE_DEBUG, "BEGIN [%lld]: RemoveAccountFromPairedDevice %@ (%@)", buf, 0x20u);
+  }
+
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke;
+  v34[3] = &unk_1E7976098;
+  v34[4] = self;
+  v36 = v14;
+  v37 = v16;
+  v22 = completionCopy;
+  v35 = v22;
+  v23 = MEMORY[0x1AC5B3C70](v34);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke_229;
+  v30[3] = &unk_1E7975C40;
+  v25 = deviceCopy;
+  v31 = v25;
+  v26 = optionsCopy;
+  v32 = v26;
+  v33 = v23;
   v28[0] = MEMORY[0x1E69E9820];
   v28[1] = 3221225472;
-  v28[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke_229;
-  v28[3] = &unk_1E7975C40;
-  v22 = deviceCopy;
-  v29 = v22;
-  v23 = optionsCopy;
-  v30 = v23;
-  v31 = v20;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke_231;
-  v26[3] = &unk_1E79754F0;
-  v24 = v31;
-  v26[4] = self;
-  v27 = v24;
-  ac_dispatch_remote(remoteAccountStoreSession, v28, v26);
+  v28[2] = __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke_231;
+  v28[3] = &unk_1E79754F0;
+  v27 = v33;
+  v28[4] = self;
+  v29 = v27;
+  ac_dispatch_remote(remoteAccountStoreSession, v30, v28);
 
   os_activity_scope_leave(&state);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -12308,7 +12187,7 @@ uint64_t __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completi
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -12336,8 +12215,8 @@ uint64_t __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completi
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RemoveAccountFromPairedDevice", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -12361,16 +12240,15 @@ uint64_t __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completi
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountFromPairedDevice %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveAccountFromPairedDevice %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12389,7 +12267,7 @@ void __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion__
 void __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion___block_invoke_2_230(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -12417,122 +12295,121 @@ void __71__ACAccountStore_removeAccountFromPairedDevice_withOptions_completion__
 
 - (BOOL)triggerKeychainMigrationIfNecessary:(id *)necessary
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/trigger-keychain-migration", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "TriggerMigration", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "TriggerMigration", &unk_1AC43804B, buf, 2u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore triggerKeychainMigrationIfNecessary:];
   }
 
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   *buf = 0;
-  v28 = buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__0;
-  v31 = __Block_byref_object_dispose__0;
-  v32 = 0;
+  v31 = buf;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__0;
+  v34 = __Block_byref_object_dispose__0;
+  v35 = 0;
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke;
-  v26[3] = &unk_1E79768B0;
-  v26[4] = &v33;
-  v26[5] = buf;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke_232;
-  v25[3] = &unk_1E7975F58;
-  v25[5] = &v33;
-  v25[6] = buf;
-  v25[4] = self;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v26, v25);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke;
+  v29[3] = &unk_1E79768B0;
+  v29[4] = &v36;
+  v29[5] = buf;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke_232;
+  v28[3] = &unk_1E7975F58;
+  v28[5] = &v36;
+  v28[6] = buf;
+  v28[4] = self;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v29, v28);
 
   if (necessary)
   {
-    *necessary = *(v28 + 5);
+    *necessary = *(v31 + 5);
   }
 
-  Nanoseconds = _ACSignpostGetNanoseconds(v7, v9);
-  v15 = _ACSignpostLogSystem();
-  v16 = v15;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  Nanoseconds = _ACSignpostGetNanoseconds(v8, v10);
+  v18 = _ACSignpostLogSystem(Nanoseconds);
+  v19 = v18;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    if (*(v34 + 24))
+    if (*(v37 + 24))
     {
-      v17 = @"YES";
+      v20 = @"YES";
     }
 
     else
     {
-      v17 = @"NO";
+      v20 = @"NO";
     }
 
-    v18 = *(v28 + 5);
-    if (*&v18 == 0.0)
+    v21 = *(v31 + 5);
+    if (*&v21 == 0.0)
     {
-      *&v18 = COERCE_DOUBLE(&stru_1F210E1C8);
+      *&v21 = COERCE_DOUBLE(&stru_1F210E1C8);
     }
 
-    *v38 = 138412546;
-    v39 = v17;
-    v40 = 2112;
-    v41 = *&v18;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_END, v7, "TriggerMigration", "%@%@", v38, 0x16u);
+    *v41 = 138412546;
+    v42 = v20;
+    v43 = 2112;
+    v44 = *&v21;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v19, OS_SIGNPOST_INTERVAL_END, v8, "TriggerMigration", "%@%@", v41, 0x16u);
   }
 
-  v19 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v23 = _ACSignpostLogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
-    v23 = @"NO";
-    v24 = *(v28 + 5);
-    if (*(v34 + 24))
+    v26 = @"NO";
+    v27 = *(v31 + 5);
+    if (*(v37 + 24))
     {
-      v23 = @"YES";
+      v26 = @"YES";
     }
 
-    *v38 = 134218754;
-    v39 = v7;
-    v40 = 2048;
-    v41 = Nanoseconds / 1000000000.0;
-    v42 = 2112;
-    v43 = v23;
-    if (!v24)
+    *v41 = 134218754;
+    v42 = v8;
+    v43 = 2048;
+    v44 = Nanoseconds / 1000000000.0;
+    v45 = 2112;
+    v46 = v26;
+    if (!v27)
     {
-      v24 = &stru_1F210E1C8;
+      v27 = &stru_1F210E1C8;
     }
 
-    v44 = 2112;
-    v45 = v24;
-    _os_log_debug_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: TriggerMigration %@%@", v38, 0x2Au);
+    v47 = 2112;
+    v48 = v27;
+    _os_log_debug_impl(&dword_1AC3CD000, v23, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: TriggerMigration %@%@", v41, 0x2Au);
   }
 
-  v20 = *(v34 + 24);
+  v24 = *(v37 + 24);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v36, 8);
   os_activity_scope_leave(&state);
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v20 & 1;
+  return v24 & 1;
 }
 
 uint64_t __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke(uint64_t a1, void *a2)
@@ -12548,7 +12425,7 @@ uint64_t __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke
 void __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -12573,10 +12450,7 @@ void __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke_2(u
 uint64_t __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke_232(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = 0;
-  v2 = [*(a1 + 32) _connectionFailureError];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _connectionFailureError];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -12595,101 +12469,96 @@ uint64_t __54__ACAccountStore_triggerKeychainMigrationIfNecessary___block_invoke
 
 void __49__ACAccountStore__obsoleteAccountTypeIDsToRemove__block_invoke()
 {
-  v3[8] = *MEMORY[0x1E69E9840];
+  v2[8] = *MEMORY[0x1E69E9840];
   if (!_obsoleteAccountTypeIDsToRemove__obsolteAccountTypeIDs)
   {
-    v3[0] = @"com.apple.twitter";
-    v3[1] = @"com.apple.facebook";
-    v3[2] = @"com.apple.sinaweibo";
-    v3[3] = @"com.apple.account.tencentweibo";
-    v3[4] = @"com.apple.flickr";
-    v3[5] = @"com.apple.vimeo";
-    v3[6] = @"com.apple.linkedin";
-    v3[7] = @"com.apple.account.osxserver";
-    v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:8];
+    v2[0] = @"com.apple.twitter";
+    v2[1] = @"com.apple.facebook";
+    v2[2] = @"com.apple.sinaweibo";
+    v2[3] = @"com.apple.account.tencentweibo";
+    v2[4] = @"com.apple.flickr";
+    v2[5] = @"com.apple.vimeo";
+    v2[6] = @"com.apple.linkedin";
+    v2[7] = @"com.apple.account.osxserver";
+    v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:8];
     v1 = _obsoleteAccountTypeIDsToRemove__obsolteAccountTypeIDs;
     _obsoleteAccountTypeIDsToRemove__obsolteAccountTypeIDs = v0;
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObsoleteAccounts:(id)accounts
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   accountsCopy = accounts;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/remove-obsolete-accounts", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "RemoveObsoleteAccounts", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "RemoveObsoleteAccounts", &unk_1AC43804B, buf, 2u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore removeObsoleteAccounts:];
   }
 
-  v13 = +[ACAccountStore _obsoleteAccountTypeIDsToRemove];
-  v14 = _ACLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = +[ACAccountStore _obsoleteAccountTypeIDsToRemove];
+  v17 = _ACLogSystem(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v13;
-    _os_log_impl(&dword_1AC3CD000, v14, OS_LOG_TYPE_DEFAULT, "Will remove obsolete accounts with type identifiers %@", buf, 0xCu);
+    v25 = v16;
+    _os_log_impl(&dword_1AC3CD000, v17, OS_LOG_TYPE_DEFAULT, "Will remove obsolete accounts with type identifiers %@", buf, 0xCu);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __41__ACAccountStore_removeObsoleteAccounts___block_invoke;
-  v17[3] = &unk_1E7975F80;
-  v17[4] = self;
-  v19 = v7;
-  v20 = v9;
-  v15 = accountsCopy;
-  v18 = v15;
-  [(ACAccountStore *)self accountsWithAccountTypeIdentifiers:v13 completion:v17];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __41__ACAccountStore_removeObsoleteAccounts___block_invoke;
+  v19[3] = &unk_1E7975F80;
+  v19[4] = self;
+  v21 = v8;
+  v22 = v10;
+  v18 = accountsCopy;
+  v20 = v18;
+  [(ACAccountStore *)self accountsWithAccountTypeIdentifiers:v16 completion:v19];
 
   os_activity_scope_leave(&state);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ACAccountStore_removeObsoleteAccounts___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [a2 mutableCopy];
-  v7 = _ACLogSystem();
+  v7 = _ACLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v5;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_1AC3CD000, v7, OS_LOG_TYPE_DEFAULT, "Fetched obsolete accounts %@ error %@", buf, 0x16u);
   }
 
   v8 = *(a1 + 32);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __41__ACAccountStore_removeObsoleteAccounts___block_invoke_235;
-  v10[3] = &unk_1E7976098;
-  v10[4] = v8;
-  v12 = *(a1 + 48);
-  v11 = *(a1 + 40);
-  [v8 _removeObsoleteAccountsInternal:v6 completion:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__ACAccountStore_removeObsoleteAccounts___block_invoke_235;
+  v9[3] = &unk_1E7976098;
+  v9[4] = v8;
+  v11 = *(a1 + 48);
+  v10 = *(a1 + 40);
+  [v8 _removeObsoleteAccountsInternal:v6 completion:v9];
 }
 
 void __41__ACAccountStore_removeObsoleteAccounts___block_invoke_235(uint64_t a1, char a2, void *a3)
@@ -12712,7 +12581,7 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -12740,8 +12609,8 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "RemoveObsoleteAccounts", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -12765,16 +12634,15 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveObsoleteAccounts %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: RemoveObsoleteAccounts %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -12789,7 +12657,7 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
     v30 = 0;
     v9 = [(ACAccountStore *)self dataclassActionsForAccountDeletion:firstObject error:&v30];
     v10 = v30;
-    v11 = _ACLogSystem();
+    v11 = _ACLogSystem(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
@@ -12819,17 +12687,17 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
 
     if (v17)
     {
-      [(ACAccountStore *)self _removeObsoleteOSXServerAccountForiOS:v14];
+      v18 = [(ACAccountStore *)self _removeObsoleteOSXServerAccountForiOS:v14];
     }
 
-    v18 = _ACLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _ACLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v32 = v14;
       v33 = 2112;
       v34 = v13;
-      _os_log_impl(&dword_1AC3CD000, v18, OS_LOG_TYPE_DEFAULT, "Will remove obsolete account %@ with dataclass actions %@", buf, 0x16u);
+      _os_log_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEFAULT, "Will remove obsolete account %@ with dataclass actions %@", buf, 0x16u);
     }
 
     v21[0] = MEMORY[0x1E69E9820];
@@ -12848,8 +12716,6 @@ uint64_t __41__ACAccountStore_removeObsoleteAccounts___block_invoke_2(uint64_t a
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -12893,14 +12759,14 @@ LABEL_3:
       }
     }
 
-    v12 = v11;
+    v13 = v11;
 
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_12;
     }
 
-    [*(a1 + 32) setObject:v12 forKeyedSubscript:v5];
+    [*(a1 + 32) setObject:v13 forKeyedSubscript:v5];
   }
 
   else
@@ -12908,63 +12774,61 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-    v12 = _ACLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ACLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke_cold_1(v5, a1);
+      __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke_cold_1();
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke_237(uint64_t a1, uint64_t a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = [MEMORY[0x1E696AD98] numberWithBool:a2];
     *buf = 138412802;
-    v31 = v7;
-    v32 = 2112;
-    v33 = v8;
-    v34 = 2112;
-    v35 = v5;
+    v30 = v7;
+    v31 = 2112;
+    v32 = v8;
+    v33 = 2112;
+    v34 = v5;
     _os_log_impl(&dword_1AC3CD000, v6, OS_LOG_TYPE_DEFAULT, "Did remove obsolete account %@ with success %@ error %@", buf, 0x20u);
   }
 
   if (a2)
   {
-    v23 = v5;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v22 = v5;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = *(a1 + 40);
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         v13 = 0;
         do
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * v13);
+          v14 = *(*(&v24 + 1) + 8 * v13);
           v15 = *(a1 + 48);
-          v24 = 0;
-          v16 = [v15 saveVerifiedAccount:v14 error:&v24];
-          v17 = v24;
-          v18 = _ACLogSystem();
+          v23 = 0;
+          v16 = [v15 saveVerifiedAccount:v14 error:&v23];
+          v17 = v23;
+          v18 = _ACLogSystem(v17);
           v19 = v18;
           if (v16)
           {
@@ -12973,7 +12837,7 @@ void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_inv
               v20 = [v14 accountType];
               v21 = [v20 identifier];
               *buf = 138412290;
-              v31 = v21;
+              v30 = v21;
               _os_log_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_DEFAULT, "Successfully saved macOSServer child account: %@", buf, 0xCu);
             }
           }
@@ -12981,7 +12845,7 @@ void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_inv
           else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v31 = v17;
+            v30 = v17;
             _os_log_error_impl(&dword_1AC3CD000, v19, OS_LOG_TYPE_ERROR, "Failed to save macOSServer child account. Error: %@", buf, 0xCu);
           }
 
@@ -12989,19 +12853,17 @@ void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_inv
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
 
-    v5 = v23;
+    v5 = v22;
   }
 
   [*(a1 + 56) removeObjectAtIndex:0];
   [*(a1 + 48) _removeObsoleteAccountsInternal:*(a1 + 56) completion:*(a1 + 64)];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_removeObsoleteOSXServerAccountForMacOS:(id)s
@@ -13021,7 +12883,7 @@ void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_inv
     v91 = sCopy;
     do
     {
-      for (i = 0; i != v89; i = v60 + 1)
+      for (i = 0; i != v89; i = v61 + 1)
       {
         if (*v116 != v87)
         {
@@ -13085,7 +12947,7 @@ void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_inv
                   v8 = v92;
                   v11 = v93;
 LABEL_41:
-                  identifier2 = _ACLogSystem();
+                  identifier2 = _ACLogSystem(v23);
                   if (os_log_type_enabled(identifier2, OS_LOG_TYPE_DEFAULT))
                   {
                     identifier = [v16 identifier];
@@ -13096,7 +12958,7 @@ LABEL_41:
 
                   portableCopy = v11;
                   sCopy = v91;
-                  v60 = v90;
+                  v61 = v90;
                   goto LABEL_71;
                 }
 
@@ -13116,9 +12978,9 @@ LABEL_41:
             }
 
             while (v13 != v15);
-            v23 = [v11 countByEnumeratingWithState:&v111 objects:v129 count:16];
-            v13 = v23;
-            if (v23)
+            v24 = [v11 countByEnumeratingWithState:&v111 objects:v129 count:16];
+            v13 = v24;
+            if (v24)
             {
               continue;
             }
@@ -13136,48 +12998,48 @@ LABEL_41:
 
         sCopy = v91;
         internalCredential = [v91 internalCredential];
-        v28 = [internalCredential copy];
-        [portableCopy setCredential:v28];
+        v29 = [internalCredential copy];
+        [portableCopy setCredential:v29];
 
         internalCredential2 = [v91 internalCredential];
         credentialType = [internalCredential2 credentialType];
-        v31 = [credentialType copy];
-        [portableCopy setCredentialType:v31];
+        v32 = [credentialType copy];
+        [portableCopy setCredentialType:v32];
 
         authenticationType = [v91 authenticationType];
-        v33 = [authenticationType copy];
-        [portableCopy setAuthenticationType:v33];
+        v34 = [authenticationType copy];
+        [portableCopy setAuthenticationType:v34];
 
         [portableCopy setSupportsAuthentication:{objc_msgSend(v91, "supportsAuthentication")}];
         [portableCopy setAuthenticated:{objc_msgSend(v91, "isAuthenticated")}];
         username4 = [v91 username];
-        v35 = [username4 copy];
-        [portableCopy setUsername:v35];
+        v36 = [username4 copy];
+        [portableCopy setUsername:v36];
 
         accountDescription = [v91 accountDescription];
-        v37 = [accountDescription copy];
-        [portableCopy setAccountDescription:v37];
+        v38 = [accountDescription copy];
+        [portableCopy setAccountDescription:v38];
 
-        v38 = MEMORY[0x1E696AEC0];
+        v39 = MEMORY[0x1E696AEC0];
         owningBundleID = [v91 owningBundleID];
-        v40 = [v38 stringWithFormat:@"%@.migrator", owningBundleID];
-        [portableCopy setOwningBundleID:v40];
+        v41 = [v39 stringWithFormat:@"%@.migrator", owningBundleID];
+        [portableCopy setOwningBundleID:v41];
 
         v109 = 0u;
         v110 = 0u;
         v107 = 0u;
         v108 = 0u;
         enabledDataclasses = [v94 enabledDataclasses];
-        v42 = [enabledDataclasses countByEnumeratingWithState:&v107 objects:v126 count:16];
-        if (v42)
+        v43 = [enabledDataclasses countByEnumeratingWithState:&v107 objects:v126 count:16];
+        if (v43)
         {
-          v43 = v42;
-          v44 = *v108;
+          v44 = v43;
+          v45 = *v108;
           do
           {
-            for (j = 0; j != v43; ++j)
+            for (j = 0; j != v44; ++j)
             {
-              if (*v108 != v44)
+              if (*v108 != v45)
               {
                 objc_enumerationMutation(enabledDataclasses);
               }
@@ -13185,10 +13047,10 @@ LABEL_41:
               [portableCopy setEnabled:1 forDataclass:*(*(&v107 + 1) + 8 * j)];
             }
 
-            v43 = [enabledDataclasses countByEnumeratingWithState:&v107 objects:v126 count:16];
+            v44 = [enabledDataclasses countByEnumeratingWithState:&v107 objects:v126 count:16];
           }
 
-          while (v43);
+          while (v44);
         }
 
         v105 = 0u;
@@ -13196,16 +13058,16 @@ LABEL_41:
         v103 = 0u;
         v104 = 0u;
         provisionedDataclasses = [v94 provisionedDataclasses];
-        v47 = [provisionedDataclasses countByEnumeratingWithState:&v103 objects:v125 count:16];
-        if (v47)
+        v48 = [provisionedDataclasses countByEnumeratingWithState:&v103 objects:v125 count:16];
+        if (v48)
         {
-          v48 = v47;
-          v49 = *v104;
+          v49 = v48;
+          v50 = *v104;
           do
           {
-            for (k = 0; k != v48; ++k)
+            for (k = 0; k != v49; ++k)
             {
-              if (*v104 != v49)
+              if (*v104 != v50)
               {
                 objc_enumerationMutation(provisionedDataclasses);
               }
@@ -13213,10 +13075,10 @@ LABEL_41:
               [portableCopy setProvisioned:1 forDataclass:*(*(&v103 + 1) + 8 * k)];
             }
 
-            v48 = [provisionedDataclasses countByEnumeratingWithState:&v103 objects:v125 count:16];
+            v49 = [provisionedDataclasses countByEnumeratingWithState:&v103 objects:v125 count:16];
           }
 
-          while (v48);
+          while (v49);
         }
 
         accountType2 = [v94 accountType];
@@ -13232,62 +13094,62 @@ LABEL_41:
           v123[3] = @"EmailAddress";
           v124[2] = @"Hostname";
           v124[3] = @"IdentityEmailAddress";
-          v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:v123 count:4];
+          v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:v123 count:4];
           dataclassProperties = [v91 dataclassProperties];
-          v55 = [dataclassProperties objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
-          if (v55)
+          v56 = [dataclassProperties objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
+          if (v56)
           {
             dataclassProperties2 = [v91 dataclassProperties];
-            v57 = [dataclassProperties2 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
-            v58 = [v57 mutableCopy];
+            v58 = [dataclassProperties2 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
+            v59 = [v58 mutableCopy];
           }
 
           else
           {
-            v58 = objc_opt_new();
+            v59 = objc_opt_new();
           }
 
           v101 = 0u;
           v102 = 0u;
           v99 = 0u;
           v100 = 0u;
-          v66 = v53;
-          v67 = [v66 countByEnumeratingWithState:&v99 objects:v122 count:16];
-          if (v67)
+          v67 = v54;
+          v68 = [v67 countByEnumeratingWithState:&v99 objects:v122 count:16];
+          if (v68)
           {
-            v68 = v67;
-            v69 = *v100;
+            v69 = v68;
+            v70 = *v100;
             do
             {
-              for (m = 0; m != v68; ++m)
+              for (m = 0; m != v69; ++m)
               {
-                if (*v100 != v69)
+                if (*v100 != v70)
                 {
-                  objc_enumerationMutation(v66);
+                  objc_enumerationMutation(v67);
                 }
 
-                v71 = *(*(&v99 + 1) + 8 * m);
-                v72 = [v58 objectForKeyedSubscript:v71];
+                v72 = *(*(&v99 + 1) + 8 * m);
+                v73 = [v59 objectForKeyedSubscript:v72];
 
-                if (v72)
+                if (v73)
                 {
-                  v73 = [v58 objectForKeyedSubscript:v71];
-                  v74 = [v66 objectForKeyedSubscript:v71];
-                  [portableCopy setAccountProperty:v73 forKey:v74];
+                  v74 = [v59 objectForKeyedSubscript:v72];
+                  v75 = [v67 objectForKeyedSubscript:v72];
+                  [portableCopy setAccountProperty:v74 forKey:v75];
                 }
               }
 
-              v68 = [v66 countByEnumeratingWithState:&v99 objects:v122 count:16];
+              v69 = [v67 countByEnumeratingWithState:&v99 objects:v122 count:16];
             }
 
-            while (v68);
+            while (v69);
             goto LABEL_68;
           }
 
           goto LABEL_69;
         }
 
-        v60 = v90;
+        v61 = v90;
         v11 = v93;
         if ([identifier2 isEqualToString:@"com.apple.account.SMTP"])
         {
@@ -13297,62 +13159,62 @@ LABEL_41:
           v121[1] = @"Hostname";
           v120[2] = @"smtpRequiresSSL";
           v121[2] = @"SSLEnabled";
-          v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:v120 count:3];
+          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v121 forKeys:v120 count:3];
           dataclassProperties3 = [v91 dataclassProperties];
-          v63 = [dataclassProperties3 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
-          if (v63)
+          v64 = [dataclassProperties3 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
+          if (v64)
           {
             dataclassProperties4 = [v91 dataclassProperties];
-            v65 = [dataclassProperties4 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
-            v58 = [v65 mutableCopy];
+            v66 = [dataclassProperties4 objectForKeyedSubscript:@"com.apple.Dataclass.Mail"];
+            v59 = [v66 mutableCopy];
           }
 
           else
           {
-            v58 = objc_opt_new();
+            v59 = objc_opt_new();
           }
 
           v97 = 0u;
           v98 = 0u;
           v95 = 0u;
           v96 = 0u;
-          v66 = v61;
-          v75 = [v66 countByEnumeratingWithState:&v95 objects:v119 count:16];
-          if (v75)
+          v67 = v62;
+          v76 = [v67 countByEnumeratingWithState:&v95 objects:v119 count:16];
+          if (v76)
           {
-            v76 = v75;
-            v77 = *v96;
+            v77 = v76;
+            v78 = *v96;
             do
             {
-              for (n = 0; n != v76; ++n)
+              for (n = 0; n != v77; ++n)
               {
-                if (*v96 != v77)
+                if (*v96 != v78)
                 {
-                  objc_enumerationMutation(v66);
+                  objc_enumerationMutation(v67);
                 }
 
-                v79 = *(*(&v95 + 1) + 8 * n);
-                v80 = [v58 objectForKeyedSubscript:v79];
+                v80 = *(*(&v95 + 1) + 8 * n);
+                v81 = [v59 objectForKeyedSubscript:v80];
 
-                if (v80)
+                if (v81)
                 {
-                  v81 = [v58 objectForKeyedSubscript:v79];
-                  v82 = [v66 objectForKeyedSubscript:v79];
-                  [portableCopy setAccountProperty:v81 forKey:v82];
+                  v82 = [v59 objectForKeyedSubscript:v80];
+                  v83 = [v67 objectForKeyedSubscript:v80];
+                  [portableCopy setAccountProperty:v82 forKey:v83];
                 }
               }
 
-              v76 = [v66 countByEnumeratingWithState:&v95 objects:v119 count:16];
+              v77 = [v67 countByEnumeratingWithState:&v95 objects:v119 count:16];
             }
 
-            while (v76);
+            while (v77);
 LABEL_68:
             sCopy = v91;
           }
 
 LABEL_69:
 
-          v60 = v90;
+          v61 = v90;
           v8 = v92;
           v11 = v93;
         }
@@ -13367,43 +13229,41 @@ LABEL_71:
     while (v89);
   }
 
-  v83 = *MEMORY[0x1E69E9840];
-
   return v85;
 }
 
 - (void)_removeObsoleteOSXServerAccountForiOS:(id)s
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   sCopy = s;
   v4 = [sCopy accountPropertyForKey:@"MCAccountIsManaged"];
   bOOLValue = [v4 BOOLValue];
 
   if ((bOOLValue & 1) == 0)
   {
-    v72 = objc_opt_new();
+    v71 = objc_opt_new();
+    v94 = 0u;
     v95 = 0u;
     v96 = 0u;
     v97 = 0u;
-    v98 = 0u;
     obj = [sCopy childAccounts];
-    v67 = sCopy;
-    v71 = [obj countByEnumeratingWithState:&v95 objects:v105 count:16];
-    if (v71)
+    v66 = sCopy;
+    v70 = [obj countByEnumeratingWithState:&v94 objects:v104 count:16];
+    if (v70)
     {
-      v70 = *v96;
+      v69 = *v95;
       do
       {
         v6 = 0;
         do
         {
-          if (*v96 != v70)
+          if (*v95 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v73 = v6;
-          v7 = *(*(&v95 + 1) + 8 * v6);
+          v72 = v6;
+          v7 = *(*(&v94 + 1) + 8 * v6);
           enabledDataclasses = [v7 enabledDataclasses];
           v9 = [enabledDataclasses copy];
 
@@ -13440,57 +13300,57 @@ LABEL_71:
           v25 = [v23 stringWithFormat:@"%@.migrator", owningBundleID];
           [v7 setOwningBundleID:v25];
 
-          v93 = 0u;
-          v94 = 0u;
-          v91 = 0u;
           v92 = 0u;
+          v93 = 0u;
+          v90 = 0u;
+          v91 = 0u;
           v26 = v9;
-          v27 = [v26 countByEnumeratingWithState:&v91 objects:v104 count:16];
+          v27 = [v26 countByEnumeratingWithState:&v90 objects:v103 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v92;
+            v29 = *v91;
             do
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v92 != v29)
+                if (*v91 != v29)
                 {
                   objc_enumerationMutation(v26);
                 }
 
-                [v7 setEnabled:1 forDataclass:*(*(&v91 + 1) + 8 * i)];
+                [v7 setEnabled:1 forDataclass:*(*(&v90 + 1) + 8 * i)];
               }
 
-              v28 = [v26 countByEnumeratingWithState:&v91 objects:v104 count:16];
+              v28 = [v26 countByEnumeratingWithState:&v90 objects:v103 count:16];
             }
 
             while (v28);
           }
 
-          v89 = 0u;
-          v90 = 0u;
-          v87 = 0u;
           v88 = 0u;
+          v89 = 0u;
+          v86 = 0u;
+          v87 = 0u;
           v31 = v11;
-          v32 = [v31 countByEnumeratingWithState:&v87 objects:v103 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v86 objects:v102 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v88;
+            v34 = *v87;
             do
             {
               for (j = 0; j != v33; ++j)
               {
-                if (*v88 != v34)
+                if (*v87 != v34)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                [v7 setProvisioned:1 forDataclass:*(*(&v87 + 1) + 8 * j)];
+                [v7 setProvisioned:1 forDataclass:*(*(&v86 + 1) + 8 * j)];
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v87 objects:v103 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v86 objects:v102 count:16];
             }
 
             while (v33);
@@ -13537,31 +13397,31 @@ LABEL_71:
             }
 
             v46 = [(ACAccountStore *)self _createSMTPAccountForServerAccount:sCopy];
-            [v72 addObject:v46];
+            [v71 addObject:v46];
           }
 
           if ([identifier isEqualToString:@"com.apple.account.IMAPNotes"])
           {
-            v85 = 0u;
-            v86 = 0u;
-            v83 = 0u;
             v84 = 0u;
+            v85 = 0u;
+            v82 = 0u;
+            v83 = 0u;
             childAccounts = [sCopy childAccounts];
-            v77 = [childAccounts countByEnumeratingWithState:&v83 objects:v102 count:16];
-            if (v77)
+            v76 = [childAccounts countByEnumeratingWithState:&v82 objects:v101 count:16];
+            if (v76)
             {
-              v76 = *v84;
-              v69 = identifier;
+              v75 = *v83;
+              v68 = identifier;
               while (2)
               {
-                for (k = 0; k != v77; ++k)
+                for (k = 0; k != v76; ++k)
                 {
-                  if (*v84 != v76)
+                  if (*v83 != v75)
                   {
                     objc_enumerationMutation(childAccounts);
                   }
 
-                  v48 = *(*(&v83 + 1) + 8 * k);
+                  v48 = *(*(&v82 + 1) + 8 * k);
                   accountType2 = [v48 accountType];
                   identifier2 = [accountType2 identifier];
                   if ([identifier2 isEqualToString:@"com.apple.account.IMAPMail"])
@@ -13570,9 +13430,9 @@ LABEL_71:
 LABEL_42:
                     [v7 setParentAccount:v48];
                     [v7 setAuthenticationType:@"parent"];
-                    sCopy = v67;
-                    identifier = v69;
-                    if ([v67 isProvisionedForDataclass:@"com.apple.Dataclass.Notes"])
+                    sCopy = v66;
+                    identifier = v68;
+                    if ([v66 isProvisionedForDataclass:@"com.apple.Dataclass.Notes"])
                     {
                       [v7 setProvisioned:1 forDataclass:@"com.apple.Dataclass.Notes"];
                     }
@@ -13590,10 +13450,10 @@ LABEL_42:
                   }
                 }
 
-                sCopy = v67;
-                identifier = v69;
-                v77 = [childAccounts countByEnumeratingWithState:&v83 objects:v102 count:16];
-                if (v77)
+                sCopy = v66;
+                identifier = v68;
+                v76 = [childAccounts countByEnumeratingWithState:&v82 objects:v101 count:16];
+                if (v76)
                 {
                   continue;
                 }
@@ -13605,42 +13465,42 @@ LABEL_42:
 LABEL_44:
           }
 
-          [v72 addObject:v7];
+          [v71 addObject:v7];
 
-          v6 = v73 + 1;
+          v6 = v72 + 1;
         }
 
-        while (v73 + 1 != v71);
-        v71 = [obj countByEnumeratingWithState:&v95 objects:v105 count:16];
+        while (v72 + 1 != v70);
+        v70 = [obj countByEnumeratingWithState:&v94 objects:v104 count:16];
       }
 
-      while (v71);
+      while (v70);
     }
 
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
     v80 = 0u;
-    v54 = v72;
-    v55 = [v54 countByEnumeratingWithState:&v79 objects:v101 count:16];
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v54 = v71;
+    v55 = [v54 countByEnumeratingWithState:&v78 objects:v100 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v80;
+      v57 = *v79;
       do
       {
         for (m = 0; m != v56; ++m)
         {
-          if (*v80 != v57)
+          if (*v79 != v57)
           {
             objc_enumerationMutation(v54);
           }
 
-          v59 = *(*(&v79 + 1) + 8 * m);
-          v78 = 0;
-          v60 = [(ACAccountStore *)self saveVerifiedAccount:v59 error:&v78];
-          v61 = v78;
-          v62 = _ACLogSystem();
+          v59 = *(*(&v78 + 1) + 8 * m);
+          v77 = 0;
+          v60 = [(ACAccountStore *)self saveVerifiedAccount:v59 error:&v77];
+          v61 = v77;
+          v62 = _ACLogSystem(v61);
           v63 = v62;
           if (v60)
           {
@@ -13649,7 +13509,7 @@ LABEL_44:
               accountType4 = [v59 accountType];
               identifier4 = [accountType4 identifier];
               *buf = 138412290;
-              v100 = identifier4;
+              v99 = identifier4;
               _os_log_impl(&dword_1AC3CD000, v63, OS_LOG_TYPE_DEFAULT, "Successfully saved macOSServer child account: %@", buf, 0xCu);
             }
           }
@@ -13657,21 +13517,19 @@ LABEL_44:
           else if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v100 = v61;
+            v99 = v61;
             _os_log_error_impl(&dword_1AC3CD000, v63, OS_LOG_TYPE_ERROR, "Failed to save macOSServer child account. Error: %@", buf, 0xCu);
           }
         }
 
-        v56 = [v54 countByEnumeratingWithState:&v79 objects:v101 count:16];
+        v56 = [v54 countByEnumeratingWithState:&v78 objects:v100 count:16];
       }
 
       while (v56);
     }
 
-    sCopy = v67;
+    sCopy = v66;
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createSMTPAccountForServerAccount:(id)account
@@ -13734,108 +13592,101 @@ LABEL_44:
 
 - (void)handleURL:(id)l
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = _os_activity_create(&dword_1AC3CD000, "accounts/handle-url", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v26 = lCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "HandleURL", "%@", buf, 0xCu);
+    v28 = lCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "HandleURL", "%@", buf, 0xCu);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore handleURL:];
   }
 
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __28__ACAccountStore_handleURL___block_invoke;
-  v20[3] = &unk_1E7976928;
-  v21 = lCopy;
-  v22 = v7;
-  v23 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __28__ACAccountStore_handleURL___block_invoke_252;
-  v16[3] = &unk_1E7976950;
-  v14 = v21;
-  v17 = v14;
-  v18 = v7;
-  v19 = v9;
-  ac_dispatch_remote(remoteAccountStoreSession, v20, v16);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __28__ACAccountStore_handleURL___block_invoke;
+  v22[3] = &unk_1E7976928;
+  v23 = lCopy;
+  v24 = v8;
+  v25 = v10;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __28__ACAccountStore_handleURL___block_invoke_252;
+  v18[3] = &unk_1E7976950;
+  v17 = v23;
+  v19 = v17;
+  v20 = v8;
+  v21 = v10;
+  ac_dispatch_remote(remoteAccountStoreSession, v22, v18);
 
   os_activity_scope_leave(&state);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __28__ACAccountStore_handleURL___block_invoke(void *a1, void *a2)
 {
   [a2 handleURL:a1[4]];
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1 + 5;
-  _ACSignpostGetNanoseconds(v3, v4);
-  v6 = _ACSignpostLogSystem();
-  v7 = v6;
-  v8 = *v5;
-  if ((*v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  Nanoseconds = _ACSignpostGetNanoseconds(a1[5], a1[6]);
+  v4 = _ACSignpostLogSystem(Nanoseconds);
+  v5 = v4;
+  v6 = a1[5];
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
-    *v10 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v7, OS_SIGNPOST_INTERVAL_END, v8, "HandleURL", &unk_1AC43804B, v10, 2u);
+    *v9 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v5, OS_SIGNPOST_INTERVAL_END, v6, "HandleURL", &unk_1AC43804B, v9, 2u);
   }
 
-  v9 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = _ACSignpostLogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    __28__ACAccountStore_handleURL___block_invoke_cold_1(v5);
+    __28__ACAccountStore_handleURL___block_invoke_cold_1();
   }
 }
 
 void __28__ACAccountStore_handleURL___block_invoke_252(uint64_t a1)
 {
-  v2 = _ACLogSystem();
+  v2 = _ACLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __28__ACAccountStore_handleURL___block_invoke_252_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
   }
 
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v11 = (a1 + 40);
-  _ACSignpostGetNanoseconds(v9, v10);
-  v12 = _ACSignpostLogSystem();
-  v13 = v12;
-  v14 = *v11;
-  if ((*v11 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 40), *(a1 + 48));
+  v10 = _ACSignpostLogSystem(Nanoseconds);
+  v11 = v10;
+  v12 = *(a1 + 40);
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_END, v14, "HandleURL", &unk_1AC43804B, v16, 2u);
+    *v15 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_END, v12, "HandleURL", &unk_1AC43804B, v15, 2u);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v14 = _ACSignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    __28__ACAccountStore_handleURL___block_invoke_cold_1(v11);
+    __28__ACAccountStore_handleURL___block_invoke_cold_1();
   }
 }
 
 - (void)reportTelemetryForLandmarkEvent:(id)event
 {
   eventCopy = event;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [ACAccountStore reportTelemetryForLandmarkEvent:];
@@ -13852,48 +13703,48 @@ void __28__ACAccountStore_handleURL___block_invoke_252(uint64_t a1)
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ScheduleBackup", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ScheduleBackup", &unk_1AC43804B, buf, 2u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore scheduleBackupIfNonexistent:];
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke;
-  v21[3] = &unk_1E7976098;
-  v21[4] = self;
-  v23 = v7;
-  v24 = v9;
-  v13 = nonexistentCopy;
-  v22 = v13;
-  v14 = MEMORY[0x1AC5B3C70](v21);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke;
+  v24[3] = &unk_1E7976098;
+  v24[4] = self;
+  v26 = v8;
+  v27 = v10;
+  v16 = nonexistentCopy;
+  v25 = v16;
+  v17 = MEMORY[0x1AC5B3C70](v24);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_253;
-  v19[3] = &unk_1E7976480;
-  v20 = v14;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_255;
-  v17[3] = &unk_1E79754F0;
-  v16 = v20;
-  v17[4] = self;
-  v18 = v16;
-  ac_dispatch_remote(remoteAccountStoreSession, v19, v17);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_253;
+  v22[3] = &unk_1E7976480;
+  v23 = v17;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_255;
+  v20[3] = &unk_1E79754F0;
+  v19 = v23;
+  v20[4] = self;
+  v21 = v19;
+  ac_dispatch_remote(remoteAccountStoreSession, v22, v20);
 
   os_activity_scope_leave(&state);
 }
@@ -13918,7 +13769,7 @@ uint64_t __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_2(uint6
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -13946,8 +13797,8 @@ uint64_t __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_2(uint6
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "ScheduleBackup", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -13971,16 +13822,15 @@ uint64_t __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_2(uint6
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ScheduleBackup %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ScheduleBackup %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -13997,7 +13847,7 @@ void __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_253(uint64_
 void __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_2_254(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = _ACLogSystem();
+  v5 = _ACLogSystem(v4);
   v6 = v5;
   if (v4)
   {
@@ -14025,61 +13875,60 @@ void __46__ACAccountStore_scheduleBackupIfNonexistent___block_invoke_255(uint64_
 
 - (void)resetDatabaseToVersion:(id)version withCompletion:(id)completion
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   completionCopy = completion;
   v8 = _os_activity_create(&dword_1AC3CD000, "accounts/reset-database-to-version", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _ACSignpostLogSystem();
-  v10 = _ACSignpostCreate(v9);
-  v12 = v11;
+  v10 = _ACSignpostLogSystem(v9);
+  v11 = _ACSignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _ACSignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _ACSignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v33 = versionCopy;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "ResetDatabaseToVersion", "%@", buf, 0xCu);
+    v35 = versionCopy;
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "ResetDatabaseToVersion", "%@", buf, 0xCu);
   }
 
-  v15 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v18 = _ACSignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore resetDatabaseToVersion:withCompletion:];
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke;
-  v27[3] = &unk_1E7976098;
-  v27[4] = self;
-  v29 = v10;
-  v30 = v12;
-  v16 = completionCopy;
-  v28 = v16;
-  v17 = MEMORY[0x1AC5B3C70](v27);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke;
+  v29[3] = &unk_1E7976098;
+  v29[4] = self;
+  v31 = v11;
+  v32 = v13;
+  v19 = completionCopy;
+  v30 = v19;
+  v20 = MEMORY[0x1AC5B3C70](v29);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke_256;
+  v26[3] = &unk_1E79754C8;
+  v22 = versionCopy;
+  v27 = v22;
+  v28 = v20;
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
-  v24[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke_256;
-  v24[3] = &unk_1E79754C8;
-  v19 = versionCopy;
-  v25 = v19;
-  v26 = v17;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke_2_257;
-  v22[3] = &unk_1E79754F0;
-  v20 = v26;
-  v22[4] = self;
-  v23 = v20;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v24, v22);
+  v24[2] = __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke_2_257;
+  v24[3] = &unk_1E79754F0;
+  v23 = v28;
+  v24[4] = self;
+  v25 = v23;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v26, v24);
 
   os_activity_scope_leave(&state);
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -14102,7 +13951,7 @@ uint64_t __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invo
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -14130,8 +13979,8 @@ uint64_t __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invo
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "ResetDatabaseToVersion", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -14155,16 +14004,15 @@ uint64_t __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invo
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ResetDatabaseToVersion %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ResetDatabaseToVersion %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -14182,48 +14030,48 @@ void __56__ACAccountStore_resetDatabaseToVersion_withCompletion___block_invoke_2
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _ACSignpostLogSystem();
-  v7 = _ACSignpostCreate(v6);
-  v9 = v8;
+  v7 = _ACSignpostLogSystem(v6);
+  v8 = _ACSignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _ACSignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _ACSignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ShutdownAccountsd", &unk_1AC43804B, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "ShutdownAccountsd", &unk_1AC43804B, buf, 2u);
   }
 
-  v12 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v15 = _ACSignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [ACAccountStore shutdownAccountsD:];
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke;
-  v21[3] = &unk_1E7976098;
-  v21[4] = self;
-  v23 = v7;
-  v24 = v9;
-  v13 = dCopy;
-  v22 = v13;
-  v14 = MEMORY[0x1AC5B3C70](v21);
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke;
+  v24[3] = &unk_1E7976098;
+  v24[4] = self;
+  v26 = v8;
+  v27 = v10;
+  v16 = dCopy;
+  v25 = v16;
+  v17 = MEMORY[0x1AC5B3C70](v24);
   remoteAccountStoreSession = [(ACAccountStore *)self remoteAccountStoreSession];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke_258;
-  v19[3] = &unk_1E7976480;
-  v20 = v14;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke_2_259;
-  v17[3] = &unk_1E79754F0;
-  v16 = v20;
-  v17[4] = self;
-  v18 = v16;
-  ac_dispatch_remote_sync(remoteAccountStoreSession, v19, v17);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke_258;
+  v22[3] = &unk_1E7976480;
+  v23 = v17;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __36__ACAccountStore_shutdownAccountsD___block_invoke_2_259;
+  v20[3] = &unk_1E79754F0;
+  v19 = v23;
+  v20[4] = self;
+  v21 = v19;
+  ac_dispatch_remote_sync(remoteAccountStoreSession, v22, v20);
 
   os_activity_scope_leave(&state);
 }
@@ -14248,7 +14096,7 @@ uint64_t __36__ACAccountStore_shutdownAccountsD___block_invoke_2(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
   Nanoseconds = _ACSignpostGetNanoseconds(*(a1 + 48), *(a1 + 56));
-  v3 = _ACSignpostLogSystem();
+  v3 = _ACSignpostLogSystem(Nanoseconds);
   v4 = v3;
   v5 = *(a1 + 48);
   if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -14276,8 +14124,8 @@ uint64_t __36__ACAccountStore_shutdownAccountsD___block_invoke_2(uint64_t a1)
     _os_signpost_emit_with_name_impl(&dword_1AC3CD000, v4, OS_SIGNPOST_INTERVAL_END, v5, "ShutdownAccountsd", "%@%@", &v15, 0x16u);
   }
 
-  v8 = _ACSignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ACSignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 48);
     v12 = @"NO";
@@ -14301,16 +14149,15 @@ uint64_t __36__ACAccountStore_shutdownAccountsD___block_invoke_2(uint64_t a1)
 
     v21 = 2112;
     v22 = v14;
-    _os_log_debug_impl(&dword_1AC3CD000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ShutdownAccountsd %@%@", &v15, 0x2Au);
+    _os_log_debug_impl(&dword_1AC3CD000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs: ShutdownAccountsd %@%@", &v15, 0x2Au);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 64), *(a1 + 32));
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -14437,45 +14284,11 @@ uint64_t __33__ACAccountStore__uidOfAccountsd__block_invoke(uint64_t a1, void *a
   return v10;
 }
 
-- (void)accountWithIdentifier:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountWithIdentifierSync %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __46__ACAccountStore_accountWithIdentifier_error___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Error returned from daemon: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)accountWithIdentifier:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountWithIdentifier %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)cachedAccountWithIdentifier:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: CachedAccountWithIdentifier %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)accounts
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __26__ACAccountStore_accounts__block_invoke_79_cold_1()
@@ -14488,25 +14301,8 @@ void __26__ACAccountStore_accounts__block_invoke_79_cold_1()
 - (void)accountsWithAccountType:.cold.1()
 {
   OUTLINED_FUNCTION_7();
-  v2 = *(*v1 + 40);
-  OUTLINED_FUNCTION_9(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_12(&dword_1AC3CD000, "@Returning cached accounts of type %@: %@", v5, v6);
-}
-
-- (void)accountsWithAccountType:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsWithTypeSync %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Error returned from daemon: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_12(&dword_1AC3CD000, "@Returning cached accounts of type %@: %@", v4, v5);
 }
 
 - (void)accountsWithAccountType:completion:.cold.1()
@@ -14516,111 +14312,25 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1()
   OUTLINED_FUNCTION_12(&dword_1AC3CD000, "@Returning cached accounts of type %@: %@", v4, v5);
 }
 
-- (void)accountsWithAccountType:completion:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsWithType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)allDataclasses
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allAccountTypes
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)visibleTopLevelAccountsWithAccountTypeIdentifiers:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: VisibleAccountsWithTypes %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hasAccountWithDescription:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: HasAccountWithDescription %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)kerberosAccountsForDomainFromURL:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: KerberosAccounts %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isPushSupportedForAccount:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: PushSupported %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)accountsWithAccountTypeIdentifierExist:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsWithTypeExist %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)countOfAccountsWithAccountTypeIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsWithTypeCount %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)insertAccountType:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: InsertAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeAccountType:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: RemoveAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)canSaveAccount:withCompletionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)canSaveAccountsOfAccountTypeIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: CanSaveAccountsWithType %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveAccount:verify:dataclassActions:completion:.cold.1()
@@ -14646,114 +14356,49 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1()
 
 - (void)_checkSaveRateLimitForAccountType:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(_checkSaveRateLimitForAccountType__saveRateLimiter, "maximum")}];
   v5 = MEMORY[0x1E696AD98];
   [_checkSaveRateLimitForAccountType__saveRateLimiter timeInterval];
   v7 = [v5 numberWithDouble:v6 / 60.0];
-  v9 = 138543874;
-  v10 = a1;
-  v11 = 2114;
-  v12 = v4;
-  v13 = 2114;
-  v14 = v7;
-  _os_log_fault_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_FAULT, " %{public}@: Exceeded %{public}@ saves per %{public}@ minute(s)", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)accessKeysForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccessKeysForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)appPermissionsForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AppPermissionsForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v8 = 138543874;
+  v9 = a1;
+  v10 = 2114;
+  v11 = v4;
+  v12 = 2114;
+  v13 = v7;
+  _os_log_fault_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_FAULT, " %{public}@: Exceeded %{public}@ saves per %{public}@ minute(s)", &v8, 0x20u);
 }
 
 - (void)setPermissionGranted:forBundleID:onAccountType:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clearAllPermissionsGrantedForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ClearPermissionsForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearAllPermissionsGrantedForAccountType:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)permissionForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: PermissionForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)grantedPermissionsForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: GrantedPermissionsForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clearGrantedPermissionsForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ClearGrantedPermissionsForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearGrantedPermissionsForAccountType:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)credentialForAccount:error:.cold.1()
+- (void)credentialForAccount:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: CredentialForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)credentialForAccount:(uint64_t *)a1 error:.cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
-  *v5 = 138412546;
-  *&v5[4] = *(v1 + 40);
-  *&v5[12] = 2112;
-  *&v5[14] = v2;
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v2, v3, "@Returning cached credential %@ for account %@", *v5, *&v5[8], *&v5[16]);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
+  *v3 = 138412546;
+  *&v3[4] = *(v0 + 40);
+  *&v3[12] = 2112;
+  *&v3[14] = v1;
+  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v1, v2, "@Returning cached credential %@ for account %@", *v3, *&v3[8], *&v3[16]);
 }
 
 - (void)setCredential:(os_log_t)log forAccount:serviceID:error:.cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -14767,27 +14412,9 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1()
 
 - (void)allCredentialItems
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)insertCredentialItem:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: InsertCredentialItem %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)saveCredentialItem:withCompletionHandler:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: SaveCredentialItem %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveCredentialItem:withCompletionHandler:.cold.2()
@@ -14797,38 +14424,20 @@ void __42__ACAccountStore_accountsWithAccountType___block_invoke_2_cold_1()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_cold_1(uint64_t *a1)
+void __59__ACAccountStore_saveCredentialItem_withCompletionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)removeCredentialItem:withCompletionHandler:.cold.1()
+void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: RemoveCredentialItem %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)parentAccountForAccount:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ParentAccountForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)parentAccountForAccount:error:.cold.2()
@@ -14838,141 +14447,11 @@ void __61__ACAccountStore_removeCredentialItem_withCompletionHandler___block_inv
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)childAccountsForAccount:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ChildAccountForAccounts %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)enabledDataclassesForAccount:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: EnabledDataclassesForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)provisionedDataclassesForAccount:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ProvisionedDataclassesForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)supportedDataclassesForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: SupportedDataclassesForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)syncableDataclassesForAccountType:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: SyncableDataclassesForAccountType %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)displayTypeForAccountWithIdentifier:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: DisplayTypeForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)accountIdentifiersEnabledForDataclass:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsEnabledForDataclass %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)accountIdentifiersEnabledToSyncDataclass:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: AccountsEnabledToSyncDataclass %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)preloadDataclassOwnersWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)dataclassActionsForAccountSave:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: DataclassActionsForAccountSave %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __55__ACAccountStore_dataclassActionsForAccountSave_error___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Could not get dataclass actions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)dataclassActionsForAccountDeletion:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: DataclassActionsForAccountDeletion %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isPerformingDataclassActionsForAccount:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: IsPerformingDataclassActions %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __63__ACAccountStore_isPerformingDataclassActionsForAccount_error___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, v0, v1, "Could not get dataclass performing status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isTetheredSyncingEnabledForDataclass:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: IsThetheredSyncingEnabledForDataclass %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)tetheredSyncSourceTypeForDataclass:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ThetheredSyncSourceTypeForDataclass %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)clientTokenForAccount:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ClientTokenForAccount %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __78__ACAccountStore_notifyRemoteDevicesOfModifiedAccount_withOptions_completion___block_invoke_221_cold_1()
@@ -14989,66 +14468,42 @@ void __81__ACAccountStore_notifyRemoteDevicesOfUpdatedCredentials_withOptions_co
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)removeAccountsFromPairedDeviceWithOptions:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: RemoveAccountsFromPairedDevice (%@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)triggerKeychainMigrationIfNecessary:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObsoleteAccounts:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __61__ACAccountStore__removeObsoleteAccountsInternal_completion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 40);
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1AC3CD000, v4, OS_LOG_TYPE_ERROR, "Could not find acceptable action for dataclass %@ for removal of account %@. Probably orphaning data.", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AC3CD000, v1, OS_LOG_TYPE_ERROR, "Could not find acceptable action for dataclass %@ for removal of account %@. Probably orphaning data.", v2, 0x16u);
 }
 
-- (void)handleURL:.cold.1()
+void __28__ACAccountStore_handleURL___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: HandleURL %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __28__ACAccountStore_handleURL___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_13(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_13(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __28__ACAccountStore_handleURL___block_invoke_252_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, a2, a3, "Failed to handle URL: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_1_1(&dword_1AC3CD000, a2, a3, "Failed to handle URL: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportTelemetryForLandmarkEvent:.cold.1()
@@ -15060,28 +14515,16 @@ void __28__ACAccountStore_handleURL___block_invoke_252_cold_1(uint64_t a1, NSObj
 
 - (void)scheduleBackupIfNonexistent:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)resetDatabaseToVersion:withCompletion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_0(&dword_1AC3CD000, v0, v1, "BEGIN [%lld]: ResetDatabaseToVersion %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shutdownAccountsD:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

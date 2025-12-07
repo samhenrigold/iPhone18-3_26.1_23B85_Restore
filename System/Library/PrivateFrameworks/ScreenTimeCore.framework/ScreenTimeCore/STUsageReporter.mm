@@ -32,12 +32,12 @@
 
 - (STUsageReporter)initWithUsage:(id)usage dateInterval:(id)interval
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v23.receiver = self;
-  v23.super_class = STUsageReporter;
+  v23[1] = *MEMORY[0x1E69E9840];
+  v22.receiver = self;
+  v22.super_class = STUsageReporter;
   intervalCopy = interval;
   usageCopy = usage;
-  v7 = [(STUsageReporter *)&v23 init];
+  v7 = [(STUsageReporter *)&v22 init];
   v8 = [intervalCopy copy];
   dateInterval = v7->_dateInterval;
   v7->_dateInterval = v8;
@@ -51,8 +51,8 @@
   v14 = [STUsageBlock fetchRequestMatchingUsage:usageCopy dateInterval:intervalCopy];
 
   v15 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"startDate" ascending:1];
-  v24[0] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   [v14 setSortDescriptors:v16];
 
   [v14 setShouldRefreshRefetchedObjects:1];
@@ -64,7 +64,6 @@
   v7->_fetchedResultsController = v19;
 
   [(NSFetchedResultsController *)v7->_fetchedResultsController setDelegate:v7];
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -78,19 +77,19 @@
 
 - (NSFetchedResultsController)installedAppsController
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   installedAppsController = self->_installedAppsController;
   if (!installedAppsController)
   {
     v4 = +[STInstalledApp fetchRequest];
     [v4 setReturnsDistinctResults:1];
-    v23[0] = @"bundleIdentifier";
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = @"bundleIdentifier";
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [v4 setPropertiesToFetch:v5];
 
     v6 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"bundleIdentifier" ascending:1];
-    v22 = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
+    v21 = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
     [v4 setSortDescriptors:v7];
 
     v8 = MEMORY[0x1E696AE18];
@@ -108,9 +107,9 @@
 
     [(NSFetchedResultsController *)self->_installedAppsController setDelegate:self];
     v16 = self->_installedAppsController;
-    v21 = 0;
-    LOBYTE(fetchedResultsController) = [(NSFetchedResultsController *)v16 performFetch:&v21];
-    v17 = v21;
+    v20 = 0;
+    LOBYTE(fetchedResultsController) = [(NSFetchedResultsController *)v16 performFetch:&v20];
+    v17 = v20;
     if ((fetchedResultsController & 1) == 0)
     {
       v18 = +[STLog usage];
@@ -122,8 +121,6 @@
 
     installedAppsController = self->_installedAppsController;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return installedAppsController;
 }
@@ -175,18 +172,16 @@
 
 - (id)_categoryUsageWithoutAllUsageItem
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   fetchedResultsController = [(STUsageReporter *)self fetchedResultsController];
   fetchedObjects = [fetchedResultsController fetchedObjects];
   v4 = [STUsageBlock usageCategoriesForUsageBlocks:fetchedObjects];
 
   v5 = [STUsageCategory categoryItemsExcludingSystemCategories:v4];
   v6 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"quantity" ascending:0];
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -307,7 +302,7 @@ void __50__STUsageReporter_screenTimeUsagePerCalendarUnit___block_invoke(uint64_
 
 - (id)categoryRatiosPerCalendarUnit:(unint64_t)unit numberOfCategories:(unint64_t)categories
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   _categoryUsageWithoutAllUsageItem = [(STUsageReporter *)self _categoryUsageWithoutAllUsageItem];
   if ([_categoryUsageWithoutAllUsageItem count] >= 4)
   {
@@ -318,35 +313,33 @@ void __50__STUsageReporter_screenTimeUsagePerCalendarUnit___block_invoke(uint64_
 
   v9 = objc_opt_new();
   v10 = [_categoryUsageWithoutAllUsageItem valueForKeyPath:@"identifier"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(STUsageReporter *)self _ratiosForCategory:*(*(&v18 + 1) + 8 * i) perCalendarUnit:unit useTotalScreenTime:0];
+        v15 = [(STUsageReporter *)self _ratiosForCategory:*(*(&v17 + 1) + 8 * i) perCalendarUnit:unit useTotalScreenTime:0];
         [v9 addObject:v15];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -373,7 +366,7 @@ void __50__STUsageReporter_screenTimeUsagePerCalendarUnit___block_invoke(uint64_
 
 void __73__STUsageReporter__ratiosForCategory_perCalendarUnit_useTotalScreenTime___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = 0.0;
   v5 = 0.0;
@@ -383,26 +376,26 @@ void __73__STUsageReporter__ratiosForCategory_perCalendarUnit_useTotalScreenTime
     v5 = v6;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v7 = [STUsageBlock usageCategoriesForUsageBlocks:v3, 0];
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [v12 totalTimeInSeconds];
         v14 = [v12 identifier];
         v15 = [v14 isEqualToString:*(a1 + 32)];
@@ -418,7 +411,7 @@ void __73__STUsageReporter__ratiosForCategory_perCalendarUnit_useTotalScreenTime
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
@@ -442,8 +435,6 @@ void __73__STUsageReporter__ratiosForCategory_perCalendarUnit_useTotalScreenTime
   *&v17 = v5;
   [(STUsageDetailItem *)v16 setQuantity:v17];
   [*(a1 + 40) addObject:v18];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ratiosForApplication:(id)application perCalendarUnit:(unint64_t)unit
@@ -467,49 +458,49 @@ void __73__STUsageReporter__ratiosForCategory_perCalendarUnit_useTotalScreenTime
 
 void __56__STUsageReporter_ratiosForApplication_perCalendarUnit___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v23 = a2;
+  v22 = a2;
   obj = [STUsageBlock usageCategoriesForUsageBlocks:?];
-  v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v3 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v25 = *v31;
+    v24 = *v30;
     v5 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v25)
+        if (*v30 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v8 = [v7 timedItems];
-        v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v27;
+          v11 = *v26;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v27 != v11)
+              if (*v26 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v26 + 1) + 8 * j);
+              v13 = *(*(&v25 + 1) + 8 * j);
               v14 = [v13 totalTimeInSeconds];
               v15 = [v13 bundleIdentifier];
               v16 = [v15 isEqualToString:*(a1 + 32)];
@@ -520,14 +511,14 @@ void __56__STUsageReporter_ratiosForApplication_perCalendarUnit___block_invoke(u
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v10);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v4);
@@ -538,7 +529,7 @@ void __56__STUsageReporter_ratiosForApplication_perCalendarUnit___block_invoke(u
     v5 = 0.0;
   }
 
-  [STUsageBlock totalScreenTimeForUsageBlocks:v23];
+  [STUsageBlock totalScreenTimeForUsageBlocks:v22];
   v18 = v17;
   v19 = [[STUsageDetailItem alloc] initWithType:1 identifier:*(a1 + 32)];
   v21 = v19;
@@ -558,8 +549,6 @@ void __56__STUsageReporter_ratiosForApplication_perCalendarUnit___block_invoke(u
   *&v20 = v18;
   [(STUsageDetailItem *)v19 setQuantity:v20];
   [*(a1 + 40) addObject:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ratiosForWebDomain:(id)domain perCalendarUnit:(unint64_t)unit
@@ -583,49 +572,49 @@ void __56__STUsageReporter_ratiosForApplication_perCalendarUnit___block_invoke(u
 
 void __54__STUsageReporter_ratiosForWebDomain_perCalendarUnit___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v23 = a2;
+  v22 = a2;
   obj = [STUsageBlock usageCategoriesForUsageBlocks:?];
-  v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v3 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v3)
   {
     v4 = v3;
-    v25 = *v31;
+    v24 = *v30;
     v5 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v31 != v25)
+        if (*v30 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v30 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v8 = [v7 timedItems];
-        v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v27;
+          v11 = *v26;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v27 != v11)
+              if (*v26 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v26 + 1) + 8 * j);
+              v13 = *(*(&v25 + 1) + 8 * j);
               v14 = [v13 totalTimeInSeconds];
               v15 = [v13 domain];
               v16 = [v15 isEqualToString:*(a1 + 32)];
@@ -636,14 +625,14 @@ void __54__STUsageReporter_ratiosForWebDomain_perCalendarUnit___block_invoke(uin
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v10);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v4 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v4);
@@ -654,7 +643,7 @@ void __54__STUsageReporter_ratiosForWebDomain_perCalendarUnit___block_invoke(uin
     v5 = 0.0;
   }
 
-  [STUsageBlock totalScreenTimeForUsageBlocks:v23];
+  [STUsageBlock totalScreenTimeForUsageBlocks:v22];
   v18 = v17;
   v19 = [[STUsageDetailItem alloc] initWithType:2 identifier:*(a1 + 32)];
   v21 = v19;
@@ -674,8 +663,6 @@ void __54__STUsageReporter_ratiosForWebDomain_perCalendarUnit___block_invoke(uin
   *&v20 = v18;
   [(STUsageDetailItem *)v19 setQuantity:v20];
   [*(a1 + 40) addObject:v21];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pickupsPerCalendarUnit:(unint64_t)unit
@@ -694,59 +681,59 @@ void __54__STUsageReporter_ratiosForWebDomain_perCalendarUnit___block_invoke(uin
 
 void __42__STUsageReporter_pickupsPerCalendarUnit___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         v7 = v7 + [v9 numberOfPickupsWithoutApplicationUsage];
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         v10 = [v9 countedItems];
-        v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v7 = v7 + [*(*(&v18 + 1) + 8 * j) numberOfPickups];
+              v7 = v7 + [*(*(&v17 + 1) + 8 * j) numberOfPickups];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
@@ -761,8 +748,6 @@ void __42__STUsageReporter_pickupsPerCalendarUnit___block_invoke(uint64_t a1, vo
   *&v16 = v7;
   [(STUsageDetailItem *)v15 setQuantity:v16];
   [*(a1 + 32) addObject:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pickupRatiosForApplication:(id)application perCalendarUnit:(unint64_t)unit
@@ -786,50 +771,50 @@ void __42__STUsageReporter_pickupsPerCalendarUnit___block_invoke(uint64_t a1, vo
 
 void __62__STUsageReporter_pickupRatiosForApplication_perCalendarUnit___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v3 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v3)
   {
     v4 = v3;
-    v23 = *v29;
+    v22 = *v28;
     v5 = 0.0;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v29 != v23)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         v5 = v5 + [v8 numberOfPickupsWithoutApplicationUsage];
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v9 = [v8 countedItems];
-        v10 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v25;
+          v12 = *v24;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v25 != v12)
+              if (*v24 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v24 + 1) + 8 * j);
+              v14 = *(*(&v23 + 1) + 8 * j);
               v15 = [v14 numberOfPickups];
               v16 = [v14 bundleIdentifier];
               v17 = [v16 isEqualToString:*(a1 + 32)];
@@ -842,14 +827,14 @@ void __62__STUsageReporter_pickupRatiosForApplication_perCalendarUnit___block_in
               v5 = v5 + v15;
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v11);
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v4 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v4);
@@ -871,8 +856,6 @@ void __62__STUsageReporter_pickupRatiosForApplication_perCalendarUnit___block_in
 
   [(STUsageDetailItem *)v18 setQuantity:v20];
   [*(a1 + 40) addObject:v19];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDate)firstPickup
@@ -964,31 +947,31 @@ BOOL __47__STUsageReporter__firstPickupFromUsageBlocks___block_invoke(uint64_t a
 
 void __48__STUsageReporter_notificationsPerCalendarUnit___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = [STUsageBlock usageCountedItemsForUsageBlocks:a2, 0];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = v7 + [*(*(&v12 + 1) + 8 * i) numberOfNotifications];
+        v7 = v7 + [*(*(&v11 + 1) + 8 * i) numberOfNotifications];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -1003,8 +986,6 @@ void __48__STUsageReporter_notificationsPerCalendarUnit___block_invoke(uint64_t 
   *&v10 = v7;
   [(STUsageDetailItem *)v9 setQuantity:v10];
   [*(a1 + 32) addObject:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)notificationRatiosForApplication:(id)application perCalendarUnit:(unint64_t)unit
@@ -1028,29 +1009,29 @@ void __48__STUsageReporter_notificationsPerCalendarUnit___block_invoke(uint64_t 
 
 void __68__STUsageReporter_notificationRatiosForApplication_perCalendarUnit___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = [STUsageBlock usageCountedItemsForUsageBlocks:a2, 0];
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [v10 numberOfNotifications];
         v12 = [v10 bundleIdentifier];
         v13 = [v12 isEqualToString:*(a1 + 32)];
@@ -1063,7 +1044,7 @@ void __68__STUsageReporter_notificationRatiosForApplication_perCalendarUnit___bl
         v7 = v7 + v11;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -1085,68 +1066,66 @@ void __68__STUsageReporter_notificationRatiosForApplication_perCalendarUnit___bl
 
   [(STUsageDetailItem *)v14 setQuantity:v16];
   [*(a1 + 40) addObject:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateUsageBlocksWithUnitGranularity:(unint64_t)granularity block:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   fetchedResultsController = [(STUsageReporter *)self fetchedResultsController];
   fetchedObjects = [fetchedResultsController fetchedObjects];
-  v27 = [fetchedObjects mutableCopy];
+  v26 = [fetchedObjects mutableCopy];
 
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
   dateInterval = [(STUsageReporter *)self dateInterval];
   endDate = [dateInterval endDate];
-  v23 = dateInterval;
+  v22 = dateInterval;
   startDate = [dateInterval startDate];
-  v25 = endDate;
+  v24 = endDate;
   if ([startDate compare:endDate] == -1)
   {
-    v24 = blockCopy;
+    v23 = blockCopy;
     do
     {
       v12 = startDate;
       startDate = [currentCalendar dateByAddingUnit:granularity value:1 toDate:startDate options:512];
       v13 = objc_opt_new();
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
-      v14 = v27;
-      v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = v26;
+      v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v29;
+        v17 = *v28;
         while (2)
         {
           granularityCopy = granularity;
           for (i = 0; i != v16; ++i)
           {
-            if (*v29 != v17)
+            if (*v28 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v20 = *(*(&v28 + 1) + 8 * i);
+            v20 = *(*(&v27 + 1) + 8 * i);
             startDate2 = [v20 startDate];
             if ([v12 compare:startDate2] == 1 || objc_msgSend(startDate2, "compare:", startDate) != -1)
             {
 
               granularity = granularityCopy;
-              blockCopy = v24;
+              blockCopy = v23;
               goto LABEL_14;
             }
 
             [v13 addObject:v20];
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
           granularity = granularityCopy;
-          blockCopy = v24;
+          blockCopy = v23;
           if (v16)
           {
             continue;
@@ -1162,10 +1141,8 @@ LABEL_14:
       [v14 removeObjectsInArray:v13];
     }
 
-    while ([startDate compare:v25] == -1);
+    while ([startDate compare:v24] == -1);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)controllerDidChangeContent:(id)content
@@ -1214,38 +1191,38 @@ LABEL_6:
 
 - (void)_updateInstalledBundleIdentifiers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   installedAppsController = [(STUsageReporter *)self installedAppsController];
   fetchedObjects = [installedAppsController fetchedObjects];
 
-  v6 = [fetchedObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [fetchedObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(fetchedObjects);
         }
 
-        bundleIdentifier = [*(*(&v18 + 1) + 8 * v9) bundleIdentifier];
+        bundleIdentifier = [*(*(&v17 + 1) + 8 * v9) bundleIdentifier];
         [v3 addObject:bundleIdentifier];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [fetchedObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [fetchedObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -1253,16 +1230,14 @@ LABEL_6:
 
   mEMORY[0x1E6993B98] = [MEMORY[0x1E6993B98] sharedCategories];
   array = [v3 array];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __52__STUsageReporter__updateInstalledBundleIdentifiers__block_invoke;
-  v15[3] = &unk_1E7CE7290;
-  v16 = v3;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __52__STUsageReporter__updateInstalledBundleIdentifiers__block_invoke;
+  v14[3] = &unk_1E7CE7290;
+  v15 = v3;
   selfCopy = self;
   v13 = v3;
-  [mEMORY[0x1E6993B98] categoriesForBundleIDs:array completionHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [mEMORY[0x1E6993B98] categoriesForBundleIDs:array completionHandler:v14];
 }
 
 void __52__STUsageReporter__updateInstalledBundleIdentifiers__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1315,20 +1290,18 @@ void __52__STUsageReporter__updateInstalledBundleIdentifiers__block_invoke_2(uin
 
 - (void)installedAppsController
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch installed apps: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch installed apps: %{public}@", &v2, 0xCu);
 }
 
 void __52__STUsageReporter__updateInstalledBundleIdentifiers__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch categories for installed apps: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch categories for installed apps: %{public}@", &v2, 0xCu);
 }
 
 @end

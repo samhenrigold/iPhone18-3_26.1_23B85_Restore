@@ -61,7 +61,7 @@
     objc_storeStrong((v9 + 424), handle);
     if (handleCopy)
     {
-      [handleCopy rootLayerTransform];
+      objc_msgSend_rootLayerTransform(handleCopy);
     }
 
     else
@@ -104,7 +104,7 @@
     [(_UILayerHostView *)self setPid:[(_UIHostedWindowHostingHandle *)self->_hostedWindowHostingHandle pid] contextID:[(_UIHostedWindowHostingHandle *)self->_hostedWindowHostingHandle contextID]];
     if (handleCopy)
     {
-      [(_UIHostedWindowHostingHandle *)handleCopy rootLayerTransform];
+      objc_msgSend_rootLayerTransform(handleCopy);
     }
 
     else

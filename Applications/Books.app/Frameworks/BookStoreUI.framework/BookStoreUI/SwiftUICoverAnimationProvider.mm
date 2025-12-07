@@ -41,7 +41,7 @@
 {
   v7 = 0;
   selfCopy = self;
-  sub_6620C(&qword_3C27A8);
+  sub_6620C(&qword_3C27A8, &qword_2EDC50);
   sub_2C44D8();
   v3 = swift_allocObject();
   *(v3 + 16) = selfCopy;

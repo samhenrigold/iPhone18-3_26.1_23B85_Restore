@@ -25,7 +25,7 @@
 
 void __184__STCoreDataPersistenceSource_saveCommunicationSafetySettingsForDSID_checkForUnsafePhotos_communicationSafetyNotificationEnabled_communicationSafetyAnalyticsEnabled_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _coreUserForIdentifier:*(a1 + 40) inContext:v3];
   v5 = v4;
@@ -36,19 +36,17 @@ void __184__STCoreDataPersistenceSource_saveCommunicationSafetySettingsForDSID_c
     [v5 setIsCommunicationSafetyNotificationEnabled:*(a1 + 49)];
     [v5 setIsCommunicationSafetyAnalyticsEnabled:*(a1 + 50)];
     v6 = +[STAdminPersistenceController sharedController];
-    v10 = 0;
-    v7 = [v6 saveContext:v3 error:&v10];
-    v8 = v10;
+    v9 = 0;
+    v7 = [v6 saveContext:v3 error:&v9];
+    v8 = v9;
 
     if ((v7 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_1B831F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Could not save Communication Safety settings changes. Error: %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)userDataWithIdentifier:(id)identifier

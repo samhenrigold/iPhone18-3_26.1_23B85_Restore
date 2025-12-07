@@ -100,22 +100,22 @@
   v6 = sub_29E2BCFB4();
   v7 = *(v6 - 8);
   MEMORY[0x2A1C7C4A8](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E2BCF44();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_29DF84818(viewCopy, v9);
+  v13 = sub_29DF84818(viewCopy, v9, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
 {
-  sub_29DEC65FC();
+  sub_29DEC65FC(0);
   sub_29E2C31A4();
-  sub_29DF89378(&unk_2A18199E0, MEMORY[0x29EDBA2F8]);
+  sub_29DF89378(&unk_2A18199E0, MEMORY[0x29EDBA2F8], MEMORY[0x29EDBA318]);
   selfCopy = self;
   sub_29E2C4344();
 

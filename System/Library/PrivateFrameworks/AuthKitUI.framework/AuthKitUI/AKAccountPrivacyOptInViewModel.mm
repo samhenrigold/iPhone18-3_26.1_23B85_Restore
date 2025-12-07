@@ -54,7 +54,6 @@
 
   v12 = MEMORY[0x277D82BE0](v22);
   objc_storeStrong(&v22, 0);
-  *MEMORY[0x277D85DE8];
   return v12;
 }
 

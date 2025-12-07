@@ -18,13 +18,13 @@
 
 - (NSArray)preferredFocusEnvironments
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C7629D0, &unk_20C14F960);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_20C14F580;
   v4 = *((*(&self->super.super.super.isa + OBJC_IVAR____TtC9SeymourUI20TVRootViewController_dataProvider))[6] + OBJC_IVAR____TtC9SeymourUI11CatalogPage_collectionView);
   *(v3 + 32) = v4;
   v5 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7620E0, &unk_20C14F970);
   v6 = sub_20C13CC54();
 
   return v6;
@@ -40,7 +40,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TVRootViewController();
+  v5.super_class = type metadata accessor for TVRootViewController(0);
   v4 = v5.receiver;
   [(TVRootViewController *)&v5 viewWillAppear:appearCopy];
   v4[OBJC_IVAR____TtC9SeymourUI20TVRootViewController_engagementPresentability] = 1;
@@ -62,19 +62,19 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TVRootViewController();
+  v5.super_class = type metadata accessor for TVRootViewController(0);
   v4 = v5.receiver;
   [(TVRootViewController *)&v5 viewDidDisappear:disappearCopy];
   v4[OBJC_IVAR____TtC9SeymourUI20TVRootViewController_engagementPresentability] = 2;
-  sub_20BB2AA64(&qword_27C76A910, type metadata accessor for TVRootViewController);
-  sub_20BB2AA64(&unk_27C76A918, type metadata accessor for TVRootViewController);
+  sub_20BB2AA64(&qword_27C76A910, type metadata accessor for TVRootViewController, &protocol conformance descriptor for TVRootViewController);
+  sub_20BB2AA64(&unk_27C76A918, type metadata accessor for TVRootViewController, &protocol conformance descriptor for TVRootViewController);
   sub_20C139374();
 }
 
 - (void)viewDidLayoutSubviews
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for TVRootViewController();
+  v10.super_class = type metadata accessor for TVRootViewController(0);
   v2 = v10.receiver;
   [(TVRootViewController *)&v10 viewDidLayoutSubviews];
   v3 = *(*&v2[OBJC_IVAR____TtC9SeymourUI20TVRootViewController_dataProvider] + 48);
@@ -88,7 +88,7 @@
 - (void)didUpdateFocusInContext:(id)context withAnimationCoordinator:(id)coordinator
 {
   v14.receiver = self;
-  v14.super_class = type metadata accessor for TVRootViewController();
+  v14.super_class = type metadata accessor for TVRootViewController(0);
   contextCopy = context;
   coordinatorCopy = coordinator;
   v8 = v14.receiver;
@@ -96,7 +96,7 @@
   navigationController = [v8 navigationController];
   visibleViewController = [navigationController visibleViewController];
 
-  if (!visibleViewController || (sub_20B51C88C(0, &qword_281100550), v11 = v8, v12 = sub_20C13D5F4(), visibleViewController, v11, v13 = 0, (v12 & 1) == 0))
+  if (!visibleViewController || (sub_20B51C88C(0, &qword_281100550, 0x277D75D28), v11 = v8, v12 = sub_20C13D5F4(), visibleViewController, v11, v13 = 0, (v12 & 1) == 0))
   {
     v13 = 2;
   }

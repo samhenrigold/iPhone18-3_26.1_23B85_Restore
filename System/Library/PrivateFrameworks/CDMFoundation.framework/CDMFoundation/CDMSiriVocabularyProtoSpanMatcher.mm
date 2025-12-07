@@ -24,7 +24,7 @@
 
 - (id)matchSpansForTokenChain:(id)chain asrHypothesis:(id)hypothesis
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   hypothesisCopy = hypothesis;
   if (self->_overrideSpans)
@@ -32,9 +32,9 @@
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 136315138;
-      v21 = "[CDMSiriVocabularyProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]";
-      _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s SiriVocabularyProtoSpanMatcher is returning override spans!", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[CDMSiriVocabularyProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]";
+      _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s SiriVocabularyProtoSpanMatcher is returning override spans!", &v19, 0xCu);
     }
 
     v9 = self->_overrideSpans;
@@ -49,9 +49,9 @@
     {
       v13 = objc_opt_class();
       v14 = NSStringFromClass(v13);
-      v20 = 138543362;
-      v21 = v14;
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SpanMatcher", "%{public}@", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v14;
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SpanMatcher", "%{public}@", &v19, 0xCu);
     }
 
     v15 = [(CDMSiriVocabularyProtoSpanMatcher *)self callSEMSpanMatcher:chainCopy asrHypothesis:hypothesisCopy];
@@ -60,34 +60,32 @@
     v17 = v16;
     if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
-      LOWORD(v20) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DC287000, v17, OS_SIGNPOST_INTERVAL_END, v10, "SpanMatcher", "", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DC287000, v17, OS_SIGNPOST_INTERVAL_END, v10, "SpanMatcher", "", &v19, 2u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)callSEMSpanMatcher:(id)matcher asrHypothesis:(id)hypothesis
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   matcherCopy = matcher;
   hypothesisCopy = hypothesis;
   v6 = MEMORY[0x1E695DF58];
-  v36 = matcherCopy;
+  v35 = matcherCopy;
   locale = [matcherCopy locale];
-  v34 = [v6 localeWithLocaleIdentifier:locale];
+  v33 = [v6 localeWithLocaleIdentifier:locale];
 
   if (+[CDMFeatureFlags isPhoneticSpanMatchingEnabled])
   {
-    v35 = hypothesisCopy;
+    v34 = hypothesisCopy;
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v46 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
+      v45 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Creating SEMSpanMatchQueryBuilder with asrHypothesis for Phonetic Span Matching", buf, 0xCu);
     }
   }
@@ -98,55 +96,55 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v46 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
+      v45 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Creating SEMSpanMatchQueryBuilder without Phonetic Span Matching", buf, 0xCu);
     }
 
-    v35 = 0;
+    v34 = 0;
   }
 
   v9 = objc_alloc(MEMORY[0x1E69CE400]);
   string = [matcherCopy string];
-  v39 = [v9 initWithLocale:v34 originalText:string asrHypothesis:v35];
+  v38 = [v9 initWithLocale:v33 originalText:string asrHypothesis:v34];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   tokens = [matcherCopy tokens];
   obj = tokens;
-  v12 = [tokens countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v12 = [tokens countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v12)
   {
-    v13 = *v42;
+    v13 = *v41;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * i);
+        v15 = *(*(&v40 + 1) + 8 * i);
         value = [v15 value];
         cleanValue = [v15 cleanValue];
         normalizedValues = [v15 normalizedValues];
         begin = [v15 begin];
         v20 = [v15 end];
         isSignificant = [v15 isSignificant];
-        LOBYTE(v32) = [v15 isWhiteSpace];
-        [v39 addTokenWithValue:value cleanValue:cleanValue normalizedValues:normalizedValues beginIndex:begin endIndex:v20 isSignificant:isSignificant isWhitespace:v32];
+        LOBYTE(v31) = [v15 isWhiteSpace];
+        [v38 addTokenWithValue:value cleanValue:cleanValue normalizedValues:normalizedValues beginIndex:begin endIndex:v20 isSignificant:isSignificant isWhitespace:v31];
       }
 
       tokens = obj;
-      v12 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v12 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v12);
   }
 
-  build = [v39 build];
+  build = [v38 build];
   createFiltersForItemTypes = [(CDMSiriVocabularyProtoSpanMatcher *)self createFiltersForItemTypes];
   [build setEntityFilters:createFiltersForItemTypes];
   if (self->_semSandbox)
@@ -156,77 +154,75 @@
     {
       semSandboxId = [(CDMSiriVocabularyProtoSpanMatcher *)self semSandboxId];
       *buf = 136315394;
-      v46 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
-      v47 = 2112;
-      v48 = semSandboxId;
+      v45 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
+      v46 = 2112;
+      v47 = semSandboxId;
       _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s SiriVocabulary matching spans with Siri Entity Matcher sandbox ID: %@", buf, 0x16u);
     }
   }
 
   semSpanMatcher = self->_semSpanMatcher;
-  v40 = 0;
-  v26 = [(SEMSpanMatcher *)semSpanMatcher matchSpans:build error:&v40];
-  v27 = v40;
+  v39 = 0;
+  v26 = [(SEMSpanMatcher *)semSpanMatcher matchSpans:build error:&v39];
+  v27 = v39;
   if (!v26)
   {
     v28 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v46 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
-      v47 = 2112;
-      v48 = v27;
+      v45 = "[CDMSiriVocabularyProtoSpanMatcher callSEMSpanMatcher:asrHypothesis:]";
+      v46 = 2112;
+      v47 = v27;
       _os_log_impl(&dword_1DC287000, v28, OS_LOG_TYPE_INFO, "%s [WARN]: Nil span match results returned: %@", buf, 0x16u);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 - (id)createFiltersForItemTypes
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [(CDMSiriVocabularyProtoSpanMatcher *)self getItemTypes];
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v4 = v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v17 = 0u;
+  v4 = v18 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v27 count:16];
   if (v5)
   {
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     *&v6 = 136315650;
-    v16 = v6;
+    v15 = v6;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        intValue = [*(*(&v18 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v17 + 1) + 8 * i) intValue];
 
         v11 = objc_alloc(MEMORY[0x1E69CE3F0]);
-        v17 = 0;
-        v12 = [v11 initWithItemType:intValue error:&v17];
-        v7 = v17;
+        v16 = 0;
+        v12 = [v11 initWithItemType:intValue error:&v16];
+        v7 = v16;
         if (v7)
         {
           v13 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            *buf = v16;
-            v23 = "[CDMSiriVocabularyProtoSpanMatcher createFiltersForItemTypes]";
-            v24 = 1024;
-            v25 = intValue;
-            v26 = 2112;
-            v27 = v7;
+            *buf = v15;
+            v22 = "[CDMSiriVocabularyProtoSpanMatcher createFiltersForItemTypes]";
+            v23 = 1024;
+            v24 = intValue;
+            v25 = 2112;
+            v26 = v7;
             _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: SEM Filter creation error for type %d: %@", buf, 0x1Cu);
           }
         }
@@ -237,13 +233,11 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v17 objects:v27 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -296,11 +290,11 @@ uint64_t __49__CDMSiriVocabularyProtoSpanMatcher_getItemTypes__block_invoke()
 
 - (CDMSiriVocabularyProtoSpanMatcher)initWithSandboxId:(id)id
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   idCopy = id;
-  v18.receiver = self;
-  v18.super_class = CDMSiriVocabularyProtoSpanMatcher;
-  v5 = [(CDMSiriVocabularyProtoSpanMatcher *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CDMSiriVocabularyProtoSpanMatcher;
+  v5 = [(CDMSiriVocabularyProtoSpanMatcher *)&v17 init];
   if (!v5)
   {
 LABEL_6:
@@ -308,9 +302,9 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  v17 = 0;
-  v6 = [MEMORY[0x1E69CE3F8] loadWithSandboxId:idCopy error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [MEMORY[0x1E69CE3F8] loadWithSandboxId:idCopy error:&v16];
+  v7 = v16;
   semSandbox = v5->_semSandbox;
   v5->_semSandbox = v6;
 
@@ -325,9 +319,9 @@ LABEL_6:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v20 = "[CDMSiriVocabularyProtoSpanMatcher initWithSandboxId:]";
-      v21 = 2112;
-      v22 = idCopy;
+      v19 = "[CDMSiriVocabularyProtoSpanMatcher initWithSandboxId:]";
+      v20 = 2112;
+      v21 = idCopy;
       _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s SiriVocabulary span matcher initialized with sandbox Id %@", buf, 0x16u);
     }
 
@@ -338,16 +332,15 @@ LABEL_6:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v20 = "[CDMSiriVocabularyProtoSpanMatcher initWithSandboxId:]";
-    v21 = 2112;
-    v22 = v7;
+    v19 = "[CDMSiriVocabularyProtoSpanMatcher initWithSandboxId:]";
+    v20 = 2112;
+    v21 = v7;
     _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: Error when loading Siri Entity Matcher Sandbox for SiriVocabulary: %@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -368,7 +361,7 @@ LABEL_10:
 
 + (id)convertSEMSpanResults:(id)results tokenChain:(id)chain
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   chainCopy = chain;
   array = [MEMORY[0x1E695DF70] array];
@@ -376,9 +369,9 @@ LABEL_10:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "+[CDMSiriVocabularyProtoSpanMatcher convertSEMSpanResults:tokenChain:]";
-    v16 = 2048;
-    v17 = [resultsCopy count];
+    v14 = "+[CDMSiriVocabularyProtoSpanMatcher convertSEMSpanResults:tokenChain:]";
+    v15 = 2048;
+    v16 = [resultsCopy count];
     _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s SiriVocabulary matched %tu spanResults", buf, 0x16u);
   }
 
@@ -393,8 +386,6 @@ LABEL_10:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
@@ -406,28 +397,27 @@ LABEL_10:
   {
     siri::ontology::UsoGraph::getNodes(&__p, [v4 getCppGraph]);
     v5 = __p;
-    v6 = v15;
-    if (__p != v15)
+    v6 = v14;
+    if (__p != v14)
     {
       v7 = MEMORY[0x1E69D2618];
       do
       {
-        v8 = ***v5;
-        if (v9)
+        if (v8)
         {
-          siri::ontology::UsoEntityNode::getEntitySpans(&v12, v9);
-          if (v13 != v12)
+          siri::ontology::UsoEntityNode::getEntitySpans(&v11, v8);
+          if (v12 != v11)
           {
-            v10 = *v12;
-            v13 = v12;
-            operator delete(v12);
+            v9 = *v11;
+            v12 = v11;
+            operator delete(v11);
             goto LABEL_13;
           }
 
-          if (v13)
+          if (v12)
           {
-            v13 = v12;
-            operator delete(v12);
+            v12 = v11;
+            operator delete(v11);
           }
         }
 
@@ -437,31 +427,31 @@ LABEL_10:
       while (v5 != v6);
     }
 
-    v10 = 0;
+    v9 = 0;
 LABEL_13:
     if (__p)
     {
-      v15 = __p;
+      v14 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 + (id)convertSEMResultToNLUTypesMatchingSpan:(id)span tokenChain:(id)chain
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   spanCopy = span;
   chainCopy = chain;
-  v33 = 0;
-  v7 = [spanCopy toOntologyGraph:&v33];
-  v31 = v33;
+  v32 = 0;
+  v7 = [spanCopy toOntologyGraph:&v32];
+  v30 = v32;
   if (!v7)
   {
     v8 = CDMOSLoggerForCategory(0);
@@ -470,21 +460,21 @@ LABEL_13:
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
       *(buf.__r_.__value_.__r.__words + 4) = "+[CDMSiriVocabularyProtoSpanMatcher convertSEMResultToNLUTypesMatchingSpan:tokenChain:]";
       WORD2(buf.__r_.__value_.__r.__words[1]) = 2112;
-      *(&buf.__r_.__value_.__r.__words[1] + 6) = v31;
+      *(&buf.__r_.__value_.__r.__words[1] + 6) = v30;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [WARN]: No ontologyGraph from spanMatchResult: %@", &buf, 0x16u);
     }
   }
 
-  *(&v32.__r_.__value_.__s + 23) = 0;
-  v32.__r_.__value_.__s.__data_[0] = 0;
+  *(&v31.__r_.__value_.__s + 23) = 0;
+  v31.__r_.__value_.__s.__data_[0] = 0;
   v9 = [CDMSiriVocabularyProtoSpanMatcher getFirstEntitySpanFromGraph:v7];
   if (v9)
   {
     std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&buf, (v9 + 40));
-    if (v35 == 1)
+    if (v34 == 1)
     {
-      std::string::operator=(&v32, &buf);
-      if ((v35 & 1) != 0 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+      std::string::operator=(&v31, &buf);
+      if ((v34 & 1) != 0 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(buf.__r_.__value_.__l.__data_);
       }
@@ -508,21 +498,21 @@ LABEL_13:
 
         if (!v17)
         {
-          if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v18 = &v32;
+            v18 = &v31;
           }
 
           else
           {
-            v18 = v32.__r_.__value_.__r.__words[0];
+            v18 = v31.__r_.__value_.__r.__words[0];
           }
 
-          v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
+          v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
           string3 = [chainCopy string];
           v20 = [string3 substringWithRange:{spanRange, v14}];
-          LODWORD(v29) = 2;
-          v21 = +[CDMProtoSpanMatcherHelper buildMatchingSpanProtoWithLabel:inputStringForDebug:startTokenIndex:endTokenIndex:startCharIndex:endCharIndex:spanMatcherName:](CDMProtoSpanMatcherHelper, "buildMatchingSpanProtoWithLabel:inputStringForDebug:startTokenIndex:endTokenIndex:startCharIndex:endCharIndex:spanMatcherName:", v30, v20, [chainCopy tokenIndexFromCharacterIndex:spanRange], objc_msgSend(chainCopy, "tokenIndexFromCharacterIndex:", (spanRange + v14 - 1)) + 1, spanRange, (spanRange + v14), v29);
+          LODWORD(v28) = 2;
+          v21 = +[CDMProtoSpanMatcherHelper buildMatchingSpanProtoWithLabel:inputStringForDebug:startTokenIndex:endTokenIndex:startCharIndex:endCharIndex:spanMatcherName:](CDMProtoSpanMatcherHelper, "buildMatchingSpanProtoWithLabel:inputStringForDebug:startTokenIndex:endTokenIndex:startCharIndex:endCharIndex:spanMatcherName:", v29, v20, [chainCopy tokenIndexFromCharacterIndex:spanRange], objc_msgSend(chainCopy, "tokenIndexFromCharacterIndex:", (spanRange + v14 - 1)) + 1, spanRange, (spanRange + v14), v28);
 
           v22 = objc_alloc_init(MEMORY[0x1E69D12E0]);
           v23 = objc_alloc_init(MEMORY[0x1E69D13B8]);
@@ -543,9 +533,9 @@ LABEL_13:
       v22 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v38.location = spanRange;
-        v38.length = v14;
-        v26 = NSStringFromRange(v38);
+        v37.location = spanRange;
+        v37.length = v14;
+        v26 = NSStringFromRange(v37);
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315394;
         *(buf.__r_.__value_.__r.__words + 4) = "+[CDMSiriVocabularyProtoSpanMatcher convertSEMResultToNLUTypesMatchingSpan:tokenChain:]";
         WORD2(buf.__r_.__value_.__r.__words[1]) = 2112;
@@ -582,12 +572,10 @@ LABEL_28:
   v21 = 0;
 LABEL_29:
 
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

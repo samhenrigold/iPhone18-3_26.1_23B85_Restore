@@ -53,20 +53,19 @@
   if ([v10 count])
   {
     cloudKitScope = self->_cloudKitScope;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000B0770;
-    v13[3] = &unk_100276EF0;
-    v13[4] = self;
-    v14 = v9;
-    v15 = dCopy;
-    v16 = anchorCopy;
-    [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v10 fetchResources:1 inScope:cloudKitScope completionHandler:v13];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000B0770;
+    v12[3] = &unk_100276EF0;
+    v12[4] = self;
+    v13 = v9;
+    v14 = dCopy;
+    v15 = anchorCopy;
+    [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v10 fetchResources:1 inScope:cloudKitScope completionHandler:v12];
   }
 
   else
   {
-    updatedTransportScope = self->_updatedTransportScope;
     (*(self->_completionHandler + 2))();
   }
 }

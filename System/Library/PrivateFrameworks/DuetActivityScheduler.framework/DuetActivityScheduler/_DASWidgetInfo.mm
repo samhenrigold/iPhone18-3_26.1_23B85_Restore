@@ -49,9 +49,7 @@
 
 - (void)setWidgetID:(id)d
 {
-  v4 = [d copy];
-  budgetID = self->_budgetID;
-  self->_budgetID = v4;
+  self->_budgetID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }

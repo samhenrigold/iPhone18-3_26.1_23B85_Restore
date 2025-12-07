@@ -6,8 +6,7 @@
 
 - (void)transformTXStats
 {
-  txMcastMaxRetriesPerc = self->_txMcastMaxRetriesPerc;
-  [WiFiUsageLQMTransformations txErrorsPercentagesWithtxSuccess:self->_txMcastSuccessPerc txDropped:self->_txMcastDroppedPerc txNoBuff:self->_txMcastNoBuffPerc txNoRes:self->_txMcastNoResPerc txNoAck:self->_txMcastNoAckPerc txChipModeErr:self->_txMcastChipModeErrPerc txExpired:self->_txMcastExpiredPerc txFail:self->_txMcastFailPerc txFwFree:self->_txMcastFwFreePerc txMaxRetries:self->_txMcastMaxRetriesPerc txForceExpire:self->_txMcastForceExpirePerc];
+  objc_msgSend_txErrorsPercentagesWithtxSuccess_txDropped_txNoBuff_txNoRes_txNoAck_txChipModeErr_txExpired_txFail_txFwFree_txMaxRetries_txForceExpire_(WiFiUsageLQMTransformations, a2, self->_txMcastSuccessPerc, self->_txMcastDroppedPerc, self->_txMcastNoBuffPerc, self->_txMcastNoResPerc, self->_txMcastNoAckPerc, self->_txMcastChipModeErrPerc, self->_txMcastExpiredPerc, self->_txMcastFailPerc, self->_txMcastFwFreePerc, self->_txMcastMaxRetriesPerc, self->_txMcastForceExpirePerc);
   self->_txMcast = 0;
   self->_txMcastSuccessPerc = 0;
   self->_txMcastAllFailPerc = 0;

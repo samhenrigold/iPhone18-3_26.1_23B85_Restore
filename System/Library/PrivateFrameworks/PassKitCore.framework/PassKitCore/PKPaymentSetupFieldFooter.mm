@@ -52,12 +52,12 @@
 
   if (v8)
   {
-    if ([@"sticky" isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(@"sticky"))
     {
       v9 = 1;
     }
 
-    else if ([@"inline" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"inline"))
     {
       v9 = 2;
     }

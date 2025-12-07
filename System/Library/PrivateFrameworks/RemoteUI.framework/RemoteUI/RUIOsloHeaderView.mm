@@ -14,10 +14,15 @@
 {
   if (attributes)
   {
-    sub_21BA87BCC();
+    v3 = sub_21BA87BCC();
   }
 
-  return OsloHeaderView.init(attributes:)();
+  else
+  {
+    v3 = 0;
+  }
+
+  return OsloHeaderView.init(attributes:)(v3);
 }
 
 - (double)headerHeightForWidth:(double)width inView:(id)view

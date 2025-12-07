@@ -33,7 +33,7 @@
   commandCopy = command;
   behaviorCopy = behavior;
   selfCopy = self;
-  sub_100888700(commandCopy, 0, behavior, 4, 0);
+  sub_100888700(commandCopy, 0, behavior, 4uLL, 0);
 }
 
 - (void)performBlockOnMainThreadWhenSafeToEnqueueCommands:(id)commands
@@ -92,22 +92,20 @@
 
 - (NSString)undoActionString
 {
-  v3 = OBJC_IVAR____TtC8Freeform20CRLCommandController_commandHistory;
   swift_beginAccess();
-  sub_100D4D760(*(&self->super.isa + v3));
-  v4 = String._bridgeToObjectiveC()();
+  sub_100D4D760();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (NSString)redoActionString
 {
-  v2 = self + OBJC_IVAR____TtC8Freeform20CRLCommandController_commandHistory;
   swift_beginAccess();
-  sub_100D4D760(*(v2 + 1));
-  v3 = String._bridgeToObjectiveC()();
+  sub_100D4D760();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)currentGroupActionString

@@ -37,9 +37,9 @@ LABEL_10:
   }
 }
 
-uint64_t CA::Render::Updater::LayerShapes::union_bounds(__n128 *this, float64x2_t *a2, const CA::Bounds *a3)
+uint64_t **CA::Render::Updater::LayerShapes::union_bounds(float64x2_t *this, float64x2_t *a2, const CA::Bounds *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = this[1];
   v6 = a2[1];
   v7 = vclezq_f64(v5);
@@ -70,34 +70,34 @@ LABEL_6:
   if (a3)
   {
     v11 = &this[4];
-    if (this[4].n128_u64[0])
+    if (*&this[4].f64[0])
     {
       v12 = a2[1];
       v13 = vceqzq_f64(v12);
       if ((vorrq_s8(vdupq_laneq_s64(v13, 1), v13).u64[0] & 0x8000000000000000) != 0 || (v14 = vceqq_f64(v12, v12), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v14), 1), v14).u64[0] & 0x8000000000000000) != 0))
       {
-        v18 = 0uLL;
+        v17 = 0uLL;
       }
 
       else
       {
         v15 = vcvtmq_s64_f64(vmaxnmq_f64(*a2, vdupq_n_s64(0xC1BFFFFFFF000000)));
-        v18 = vuzp1q_s32(v15, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(*a2, v12), vdupq_n_s64(0x41C0000000000000uLL))), v15));
+        v17 = vuzp1q_s32(v15, vsubq_s64(vcvtpq_s64_f64(vminnmq_f64(vaddq_f64(*a2, v12), vdupq_n_s64(0x41C0000000000000uLL))), v15));
       }
 
-      CA::shape_union(v11, &v18, a3);
+      CA::shape_union(v11, &v17, a3);
     }
   }
 
-  result = this[3].n128_i64[0];
-  if (result && (*(result + 16) & 1) == 0)
+  result = *&this[3].f64[0];
+  if (result && (result[2] & 1) == 0)
   {
-    v17 = a2->f64[0];
+    v6.n128_u64[0] = *&a2->f64[0];
     v5.n128_u64[0] = *&a2->f64[1];
     v9.n128_f64[0] = a2[1].f64[0] + a2->f64[0];
     v8.n128_f64[0] = a2[1].f64[1] + v5.n128_f64[0];
 
-    return CA::GenericRectTree<CA::Rect>::insert_node(result, (result + 8), v17, v5, v9, v8);
+    return CA::GenericRectTree<CA::Rect>::insert_node(result, result + 1, v6, v5, v9, v8);
   }
 
   return result;
@@ -417,7 +417,7 @@ LABEL_5:
   return 0;
 }
 
-uint64_t CA::Shape::contains(uint64_t this, int32x2_t *a2)
+uint64_t CA::Shape::contains(unint64_t this, int32x2_t *a2)
 {
   if (this)
   {
@@ -488,15 +488,15 @@ LABEL_6:
       v16 = a2->i32[0] + v9;
       while (v14 >= v12)
       {
-        v17 = *(v11 + 1);
-        v18 = &v11[4 * v17];
+        v17 = v11[1];
+        v18 = &v11[v17];
         v12 = *v18;
         if (v14 < *v18 && v17 >= 3)
         {
-          v20 = v11 + 8;
-          while (a2->i32[0] < *v20 || v16 > *(v20 + 1))
+          v20 = v11 + 2;
+          while (a2->i32[0] < *v20 || v16 > v20[1])
           {
-            v20 += 8;
+            v20 += 2;
             if (v20 >= v18)
             {
               goto LABEL_28;
@@ -1044,21 +1044,21 @@ void CA::OGL::GlassBackgroundFilter::DOD(CA::OGL::GlassBackgroundFilter *this, c
   v15 = CA::OGL::gaussian_expansion_factor(v13, v12);
   v16.f64[1] = v65.f64[1];
   v17 = v15 * v11;
-  if (*v67.i64 <= *&v67.i64[1])
+  if (v67.f64[0] <= v67.f64[1])
   {
-    v18 = *&v67.i64[1];
+    v18 = v67.f64[1];
   }
 
   else
   {
-    v18 = *v67.i64;
+    v18 = v67.f64[0];
   }
 
   v19 = v67;
   v20 = v65;
   if (v18 < 1.79769313e308)
   {
-    v21 = *v67.i64 >= *&v67.i64[1] ? *&v67.i64[1] : *v67.i64;
+    v21 = v67.f64[0] >= v67.f64[1] ? v67.f64[1] : v67.f64[0];
     v22 = v21 <= 0.0;
     v19 = v67;
     v20 = v65;
@@ -1066,9 +1066,9 @@ void CA::OGL::GlassBackgroundFilter::DOD(CA::OGL::GlassBackgroundFilter *this, c
     {
       v23 = vdupq_lane_s64(COERCE__INT64(-(v15 * v11)), 0);
       v20 = vaddq_f64(v65, v23);
-      *v24.i64 = v17 + v17 + *v67.i64;
-      v16.f64[0] = fmin(*v24.i64, v17 + v17 + *&v67.i64[1]);
-      *&v24.i64[1] = v17 + v17 + *&v67.i64[1];
+      *v24.i64 = v17 + v17 + v67.f64[0];
+      v16.f64[0] = fmin(*v24.i64, v17 + v17 + v67.f64[1]);
+      *&v24.i64[1] = v17 + v17 + v67.f64[1];
       v23.f64[0] = 0.0;
       v19 = vandq_s8(v24, vdupq_lane_s64(vmvnq_s8(vcgeq_f64(v23, v16)).i64[0], 0));
     }
@@ -1096,14 +1096,14 @@ LABEL_18:
   }
 
   v29 = v67;
-  if (*v67.i64 >= *&v67.i64[1])
+  if (v67.f64[0] >= v67.f64[1])
   {
-    v30 = *&v67.i64[1];
+    v30 = v67.f64[1];
   }
 
   else
   {
-    v30 = *v67.i64;
+    v30 = v67.f64[0];
   }
 
   if (v30 <= 0.0)
@@ -1115,8 +1115,8 @@ LABEL_18:
   v65 = vaddq_f64(v65, vdupq_lane_s64(COERCE__INT64(v28 * -2.8), 0));
   *a4 = v65;
   v53 = v28 * 5.6;
-  v54 = v53 + *v67.i64;
-  v55 = v53 + *&v67.i64[1];
+  v54 = v53 + v67.f64[0];
+  v55 = v53 + v67.f64[1];
   a4[1].f64[0] = v54;
   a4[1].f64[1] = v55;
   if (v54 <= 0.0 || v55 <= 0.0)
@@ -1336,7 +1336,7 @@ void CA::Render::Update::add_opaque_shape(CA::Shape **this, CA::Shape **a2, cons
   }
 }
 
-void CA::Render::Updater::prepare_layer_mask(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void CA::Render::Updater::prepare_layer_mask(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v56 = *MEMORY[0x1E69E9840];
   v8 = *(a2 + 56);
@@ -1356,10 +1356,10 @@ void CA::Render::Updater::prepare_layer_mask(uint64_t a1, uint64_t a2, uint64_t 
   v55 = v10;
   CA::Rect::apply_transform(v54.f64, a2 + 8);
   v11 = *(v8 + 136);
-  v12 = 0.0;
+  v12.n128_u64[0] = 0;
   if (v11)
   {
-    v12 = *(v11 + 232);
+    v12.n128_u32[0] = *(v11 + 232);
   }
 
   if ((v9 & 0xF0000) != 0)
@@ -1372,25 +1372,25 @@ void CA::Render::Updater::prepare_layer_mask(uint64_t a1, uint64_t a2, uint64_t 
 
   else
   {
-    v12 = 0.0;
+    v12.n128_u64[0] = 0;
     if (v11)
     {
 LABEL_7:
       if (*(v11 + 72))
       {
         CA::Render::Layer::max_corner_radii(v11);
-        v12 = v43;
+        v12.n128_f32[0] = v12.n128_f64[0];
       }
     }
   }
 
   if ((v9 & 0x300000000) != 0)
   {
-    v13 = v12 * 1.52866;
-    v12 = v13;
+    v13 = v12.n128_f32[0] * 1.52866;
+    v12.n128_f32[0] = v13;
   }
 
-  if (v12 <= 0.0)
+  if (v12.n128_f32[0] <= 0.0)
   {
     v14 = v54;
     v44 = v54;
@@ -1399,7 +1399,7 @@ LABEL_7:
 
   else
   {
-    CA::Render::Updater::corner_clipped_layer_bounds(v53, v8);
+    CA::Render::Updater::corner_clipped_layer_bounds(v53, v8, v12);
     v44 = v53[0];
     v45 = v53[1];
     v14.n128_f64[0] = CA::Rect::apply_transform(v44.f64, a2 + 8);
@@ -1452,27 +1452,29 @@ LABEL_21:
   v21 = (a4 + 104);
   v22 = *(a4 + 104);
   v50 = *(a4 + 88);
+  v23 = v50;
   v51 = v22;
-  v23 = (a4 + 120);
+  v24 = (a4 + 120);
   v52 = *(a4 + 120);
-  v24 = *(a2 + 89);
-  *(a2 + 89) = v24 | 0x40;
-  if (CA::Render::Updater::prepare_layer(a1, a2, v20, &v44, a2 + 72))
+  *&v22 = v52;
+  v25 = *(a2 + 89);
+  *(a2 + 89) = v25 | 0x40;
+  if (CA::Render::Updater::prepare_layer(result, a2, v20, &v44, (a2 + 72), *&v22, v23))
   {
     *(a2 + 64) |= 8uLL;
   }
 
-  *(a2 + 89) = *(a2 + 89) & 0xFFBF | v24 & 0x40;
+  *(a2 + 89) = *(a2 + 89) & 0xFFBF | v25 & 0x40;
   if ((*(*(a2 + 56) + 45) & 2) != 0)
   {
     goto LABEL_34;
   }
 
-  v25 = vclezq_f64(*v21);
-  if ((vorrq_s8(vdupq_laneq_s64(v25, 1), v25).u64[0] & 0x8000000000000000) == 0)
+  v26 = vclezq_f64(*v21);
+  if ((vorrq_s8(vdupq_laneq_s64(v26, 1), v26).u64[0] & 0x8000000000000000) == 0)
   {
-    v26 = vclezq_f64(v45);
-    if ((vorrq_s8(vdupq_laneq_s64(v26, 1), v26).u64[0] & 0x8000000000000000) != 0 || (v27 = *(a4 + 88), v28 = vmaxnmq_f64(v27, v44), v29 = vsubq_f64(vminnmq_f64(vaddq_f64(v27, *v21), vaddq_f64(v44, v45)), v28), v30 = vclezq_f64(v29), (vorrq_s8(vdupq_laneq_s64(v30, 1), v30).u64[0] & 0x8000000000000000) != 0))
+    v27 = vclezq_f64(v45);
+    if ((vorrq_s8(vdupq_laneq_s64(v27, 1), v27).u64[0] & 0x8000000000000000) != 0 || (v28 = *(a4 + 88), v29 = vmaxnmq_f64(v28, v44), v30 = vsubq_f64(vminnmq_f64(vaddq_f64(v28, *v21), vaddq_f64(v44, v45)), v29), v31 = vclezq_f64(v30), (vorrq_s8(vdupq_laneq_s64(v31, 1), v31).u64[0] & 0x8000000000000000) != 0))
     {
       v21->f64[0] = 0.0;
       *(a4 + 112) = 0;
@@ -1480,63 +1482,63 @@ LABEL_21:
 
     else
     {
-      *(a4 + 88) = v28;
-      *(a4 + 104) = v29;
+      *(a4 + 88) = v29;
+      *(a4 + 104) = v30;
     }
   }
 
-  v31 = *(v20 + 208);
-  if (!v31)
+  v32 = v20[26];
+  if (!v32)
   {
 LABEL_34:
-    *v23 = 0;
+    *v24 = 0;
     *(a4 + 128) = 0;
     return;
   }
 
-  if ((v31 & 1) == 0)
+  if ((v32 & 1) == 0)
   {
-    if (*(v31 + 4) == 12)
+    if (*(v32 + 4) == 12)
     {
-      v33 = *(v31 + 28);
-      v32.i32[0] = vsub_s32(vdup_lane_s32(v33, 1), v33).u32[0];
-      v33.i32[1] = *(v31 + 20);
-      v34 = *(v31 + 36) - v33.i32[1];
+      v34 = *(v32 + 28);
+      v33.i32[0] = vsub_s32(vdup_lane_s32(v34, 1), v34).u32[0];
+      v34.i32[1] = *(v32 + 20);
+      v35 = *(v32 + 36) - v34.i32[1];
       goto LABEL_38;
     }
 
 LABEL_42:
-    v42 = CA::Shape::intersect(v31, (a4 + 120));
-    CA::Shape::get_interior_bounds(v42, v23);
-    CA::Shape::unref(v42);
+    v43 = CA::Shape::intersect(v32, (a4 + 120));
+    CA::Shape::get_interior_bounds(v43, v24);
+    CA::Shape::unref(v43);
     return;
   }
 
-  if (v31 == 1)
+  if (v32 == 1)
   {
     goto LABEL_42;
   }
 
-  v33.i32[0] = v31 >> 48;
-  v33.i32[1] = (v31 >> 16) >> 16;
-  v32.i32[0] = v31 >> 17;
-  v34 = (v31 >> 2) & 0x7FFF;
+  v34.i32[0] = v32 >> 48;
+  v34.i32[1] = (v32 >> 16) >> 16;
+  v33.i32[0] = v32 >> 17;
+  v35 = (v32 >> 2) & 0x7FFF;
 LABEL_38:
-  v35 = *(a4 + 128);
-  v36 = vclez_s32(v35);
-  if ((vpmax_u32(v36, v36).u32[0] & 0x80000000) == 0)
+  v36 = *(a4 + 128);
+  v37 = vclez_s32(v36);
+  if ((vpmax_u32(v37, v37).u32[0] & 0x80000000) == 0)
   {
-    v32.i32[1] = v34;
-    v37 = vclez_s32(v32);
-    if ((vpmax_u32(v37, v37).u32[0] & 0x80000000) != 0 || (v38 = vadd_s32(v33, v32), *&v39 = vmax_s32(*v23, v33), v40 = vsub_s32(vmin_s32(vadd_s32(*v23, v35), v38), *&v39), v41 = vclez_s32(v40), (vpmax_u32(v41, v41).u32[0] & 0x80000000) != 0))
+    v33.i32[1] = v35;
+    v38 = vclez_s32(v33);
+    if ((vpmax_u32(v38, v38).u32[0] & 0x80000000) != 0 || (v39 = vadd_s32(v34, v33), *&v40 = vmax_s32(*v24, v34), v41 = vsub_s32(vmin_s32(vadd_s32(*v24, v36), v39), *&v40), v42 = vclez_s32(v41), (vpmax_u32(v42, v42).u32[0] & 0x80000000) != 0))
     {
       *(a4 + 128) = 0;
     }
 
     else
     {
-      *(&v39 + 1) = v40;
-      *v23 = v39;
+      *(&v40 + 1) = v41;
+      *v24 = v40;
     }
   }
 }
@@ -1587,7 +1589,7 @@ double CA::Rect::apply_transform(double *a1, uint64_t a2)
 
   v8 = *a1;
   *a1 = -(result + a1[1]);
-  a1[1] = v8;
+  *(a1 + 1) = v8;
   a1[2] = result;
   a1[3] = v3;
   v5 = *(a2 + 32);
@@ -1699,23 +1701,23 @@ LABEL_12:
   return result;
 }
 
-void CA::Render::Updater::update_handle(CA::Render::Updater *this, int32x2_t *a2, CA::Shape **a3, CA::Render::Context *a4)
+void CA::Render::Updater::update_handle(CA::Render::Update *this, int32x2_t *a2, CA::Shape **a3, CA::Render::Context *a4, __n128 a5, __n128 a6)
 {
   if (a2[11].i32[0] != a4)
   {
-    v4 = a4;
-    v6 = a2[13];
-    if (v6.i8[0])
+    v6 = a4;
+    v8 = a2[13];
+    if (v8.i8[0])
     {
-      a2[13] = (*&v6 & 0xFFFFFFFFFFFFFFFELL);
-      CA::Render::Context::invalidate(a3, a2 + 15, a3);
+      a2[13] = (*&v8 & 0xFFFFFFFFFFFFFFFELL);
+      CA::Render::Context::invalidate(a3, a2 + 15, a3, a5, a6);
       CA::Render::Update::invalidate_backdrops(this, &a2[15], 0, 0xFFFFFFFF);
-      v6 = a2[13];
+      v8 = a2[13];
     }
 
-    a2[11].i32[0] = v4;
-    a2[13] = (*&v6 & 0xDBF83E000C3FFF83);
-    a2[14] = v6;
+    a2[11].i32[0] = v6;
+    a2[13] = (*&v8 & 0xDBF83E000C3FFF83);
+    a2[14] = v8;
     a2[15] = 0;
     a2[16] = 0;
   }
@@ -1817,18 +1819,18 @@ uint64_t CA::Render::Context::context_by_id(CA::Render::Context *this)
   return v1;
 }
 
-void X::small_vector_base<unsigned int>::push_back(uint64_t a1, _DWORD *a2)
+void X::small_vector_base<unsigned int>::push_back(int **result, int *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = ((v4 - *a1) >> 2) + 1;
-  if (*(a1 + 24) < v5)
+  v4 = result[1];
+  v5 = (v4 - *result + 1);
+  if (result[3] < v5)
   {
-    X::small_vector_base<unsigned int>::grow(a1, v5);
-    v4 = *(a1 + 8);
+    X::small_vector_base<unsigned int>::grow(result, v5);
+    v4 = result[1];
   }
 
   *v4 = *a2;
-  *(a1 + 8) = v4 + 1;
+  result[1] = v4 + 1;
 }
 
 __n128 CA::Transform::set(uint64_t a1, CA::Mat4Impl *this, int a3)
@@ -1870,7 +1872,7 @@ __n128 CA::Transform::set(uint64_t a1, CA::Mat4Impl *this, int a3)
   return result;
 }
 
-void CA::Transform::set_affine(CA::Transform *this, double a2, double a3, double a4, double a5, double a6, double a7)
+void CA::Transform::set_affine(uint64_t this, double a2, double a3, double a4, double a5, double a6, double a7)
 {
   if (a3 == 0.0 && a3 == a4)
   {
@@ -1880,7 +1882,7 @@ void CA::Transform::set_affine(CA::Transform *this, double a2, double a3, double
 
   __asm { FMOV            V6.2D, #1.0 }
 
-  *(this + 8) = _Q6;
+  *(this + 128) = _Q6;
   v12 = *(this + 144) & 0xE0;
   if (a2 == 0.0 && a2 == a5)
   {
@@ -1938,8 +1940,8 @@ void CA::Transform::set_affine(CA::Transform *this, double a2, double a3, double
       goto LABEL_32;
     }
 
-    *(this + 16) = v15;
-    *(this + 17) = 1.0 / v15;
+    *(this + 128) = v15;
+    *(this + 136) = 1.0 / v15;
     v14 = v20 | 8;
   }
 
@@ -1950,18 +1952,18 @@ void CA::Transform::set_affine(CA::Transform *this, double a2, double a3, double
 
   *(this + 144) = v14;
 LABEL_32:
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 3) = 0u;
-  *(this + 4) = 0u;
-  *(this + 5) = xmmword_183E20E00;
-  *(this + 7) = xmmword_183E20E60;
+  *(this + 16) = 0;
+  *(this + 24) = 0;
+  *(this + 48) = 0u;
+  *(this + 64) = 0u;
+  *(this + 80) = xmmword_183E20E00;
+  *(this + 112) = xmmword_183E20E60;
   *this = a2;
-  *(this + 1) = a3;
-  *(this + 4) = a4;
-  *(this + 5) = a5;
-  *(this + 12) = a6;
-  *(this + 13) = a7;
+  *(this + 8) = a3;
+  *(this + 32) = a4;
+  *(this + 40) = a5;
+  *(this + 96) = a6;
+  *(this + 104) = a7;
 }
 
 double CA::Transform::set_affine_rectilinear(CA::Transform *this, double result, double a3, double a4, double a5)
@@ -2212,7 +2214,7 @@ LABEL_15:
           goto LABEL_27;
         }
 
-        LODWORD(v10) = *(v3 + 1);
+        LODWORD(v10) = v3[1];
         v4 = v7;
         v7 += v9;
         v11 = v6;
@@ -2239,7 +2241,7 @@ LABEL_28:
           if (v10 != 2)
           {
             v16 = 0;
-            v17 = (v3 + 8);
+            v17 = v3 + 2;
             v18 = v4 + 2;
             while (1)
             {
@@ -2697,7 +2699,7 @@ LABEL_14:
   return v9;
 }
 
-unint64_t CA::Shape::get_bounds(unint64_t this, CA::Bounds *a2)
+uint64_t CA::Shape::get_bounds(uint64_t this, CA::Bounds *a2)
 {
   if (this)
   {
@@ -2992,7 +2994,7 @@ BOOL CA::Render::BackdropLayer::get_bounds(CA::Render::BackdropLayer *this, cons
   return v4 != 0;
 }
 
-uint64_t CA::Render::KeyValueArray::get_float_color_key(CA::Render::KeyValueArray *this, int a2, float32x4_t *a3)
+uint64_t CA::Render::KeyValueArray::get_float_color_key(CA::Render::KeyValueArray *this, const CA::Render::KeyValueArray *a2, float32x4_t *a3)
 {
   named_object = CA::Render::KeyValueArray::find_named_object_(this, a2);
   if ((named_object & 0x80000000) != 0)
@@ -3217,8 +3219,7 @@ int32x4_t *CA::Bounds::set_exterior(int32x4_t *this, const Rect *a2, float64x2_t
   v4 = vceqzq_f64(a4);
   if ((vorrq_s8(vdupq_laneq_s64(v4, 1), v4).u64[0] & 0x8000000000000000) != 0 || (v5 = vceqq_f64(a4, a4), (vornq_s8(vdupq_laneq_s64(vmvnq_s8(v5), 1), v5).u64[0] & 0x8000000000000000) != 0))
   {
-    this->i64[0] = 0;
-    this->i64[1] = 0;
+    *this = 0uLL;
   }
 
   else
@@ -3341,7 +3342,7 @@ LABEL_16:
   }
 }
 
-uint64_t CA::Render::compute_gravity_transform(int a1, double *a2, float64x2_t *a3, uint64_t a4, uint64_t a5)
+uint64_t CA::Render::compute_gravity_transform(unsigned int a1, double *a2, float64x2_t *a3, uint64_t a4, uint64_t a5)
 {
   if (a1 > 4)
   {
@@ -3357,14 +3358,14 @@ uint64_t CA::Render::compute_gravity_transform(int a1, double *a2, float64x2_t *
 
     switch(a1)
     {
-      case 8:
+      case 8u:
 LABEL_15:
         __asm { FMOV            V0.2D, #1.0 }
 
         *a5 = _Q0;
         v10 = a2[2] + *a2 - a3->f64[0];
         goto LABEL_17;
-      case 10:
+      case 0xAu:
         v12 = a2[2];
         v11 = a2[3];
         v13 = v12 / a3->f64[0];
@@ -3374,7 +3375,7 @@ LABEL_15:
         }
 
         goto LABEL_26;
-      case 11:
+      case 0xBu:
         v12 = a2[2];
         v11 = a2[3];
         v13 = v12 / a3->f64[0];
@@ -4010,7 +4011,7 @@ uint64_t CA::Render::ImageQueue::texture_cast(CA::Render::ImageQueue *this)
   return result;
 }
 
-uint64_t CA::Render::Layer::apply_contents_transform(uint64_t a1, uint64_t a2, float64x2_t *a3, int a4)
+uint64_t CA::Render::Layer::apply_contents_transform(uint64_t a1, int8x16_t *a2, float64x2_t *a3, int a4)
 {
   v33 = *MEMORY[0x1E69E9840];
   v29 = 0uLL;
@@ -4053,17 +4054,17 @@ uint64_t CA::Render::Layer::apply_contents_transform(uint64_t a1, uint64_t a2, f
   {
     if ((v7 & 1) == 0)
     {
-      CA::BoundsImpl::scale(a2, v27, v28);
+      CA::BoundsImpl::scale(a2->i64, v27, v28);
       if (a4)
       {
         v19 = vdupq_n_s64(0x412E848000000000uLL);
         __asm { FMOV            V3.2D, #0.5 }
 
         v24 = vrndmq_f64(vmlaq_f64(_Q3, v19, *a2));
-        v25 = vrndmq_f64(vmlaq_f64(_Q3, v19, *(a2 + 16)));
+        v25 = vrndmq_f64(vmlaq_f64(_Q3, v19, a2[1]));
         v26 = vdupq_n_s64(0x3EB0C6F7A0B5ED8DuLL);
         *a2 = vmulq_f64(v24, v26);
-        *(a2 + 16) = vmulq_f64(v25, v26);
+        a2[1] = vmulq_f64(v25, v26);
       }
     }
 
@@ -5383,7 +5384,7 @@ LABEL_21:
   }
 }
 
-uint64_t CA::Bounds::contains(int32x2_t *this, uint64_t a2)
+uint64_t CA::Bounds::contains(int32x2_t *this, unint64_t a2)
 {
   if (a2)
   {
@@ -5423,7 +5424,7 @@ LABEL_7:
   }
 
   v12 = *(a2 + 12);
-  v10 = (a2 + 12);
+  v10 = a2 + 12;
   v11 = v12;
   if (v12 != 0x7FFFFFFF)
   {
@@ -5434,8 +5435,8 @@ LABEL_7:
     result = 1;
     while (1)
     {
-      v17 = *(v10 + 1);
-      v18 = &v10[4 * v17];
+      v17 = *(v10 + 4);
+      v18 = (v10 + 4 * v17);
       if (v17 == 2)
       {
         v11 = *v18;
@@ -5449,7 +5450,7 @@ LABEL_7:
         }
 
         v11 = *v18;
-        if (*v18 > v16 || *(v10 + 2) < v13 || *(v18 - 1) > v15)
+        if (*v18 > v16 || *(v10 + 8) < v13 || *(v18 - 1) > v15)
         {
           return 0;
         }
@@ -5552,9 +5553,9 @@ LABEL_9:
   }
 }
 
-void CA::Render::Update::invalidate_context(CA::Render::Update *this, CA::Shape **a2, int32x2_t *a3)
+void CA::Render::Update::invalidate_context(CA::Render::Update *this, CA::Shape **a2, int32x2_t *a3, __n128 a4, __n128 a5)
 {
-  CA::Render::Context::invalidate(a2, a3, a3);
+  CA::Render::Context::invalidate(a2, a3, a3, a4, a5);
 
   CA::Render::Update::invalidate_backdrops(this, a3, 0, 0xFFFFFFFF);
 }
@@ -6077,7 +6078,7 @@ LABEL_15:
   v200 = v3;
   do
   {
-    v20 = *(*(v18 + 8) + 256);
+    v20 = *(*&v18[1] + 256);
     os_unfair_lock_lock((v20 + 52));
     v21 = *(v20 + 56);
     os_unfair_lock_lock((v21 + 40));
@@ -6408,20 +6409,20 @@ LABEL_35:
     }
 
     os_unfair_lock_unlock((v21 + 40));
-    v31 = *(v18 + 32);
-    if (v31 >= *(v18 + 36))
+    v31 = v18[4].i32[0];
+    if (v31 >= v18[4].i32[1])
     {
-      v31 = *(v18 + 36);
+      v31 = v18[4].i32[1];
     }
 
     if (v31 >= 1)
     {
       v217 = 0uLL;
       v216 = 0uLL;
-      v32 = *(v18 + 32);
+      v32 = v18[4];
       v33 = *(v20 + 88);
       v34 = vorr_s8(vcltz_s32(v33), vclez_s32(v32));
-      if ((vpmax_u32(v34, v34).u32[0] & 0x80000000) == 0 && (*&v35 = *(v20 + 80), v36 = vand_s8(vcge_s32(vadd_s32(*(v18 + 24), v32), vadd_s32(*&v35, v33)), vcge_s32(*&v35, *(v18 + 24))), (vpmin_u32(v36, v36).u32[0] & 0x80000000) != 0))
+      if ((vpmax_u32(v34, v34).u32[0] & 0x80000000) == 0 && (*&v35 = *(v20 + 80), v36 = vand_s8(vcge_s32(vadd_s32(v18[3], v32), vadd_s32(*&v35, v33)), vcge_s32(*&v35, v18[3])), (vpmin_u32(v36, v36).u32[0] & 0x80000000) != 0))
       {
         *&v217 = *(v20 + 80);
         *(&v217 + 1) = v33;
@@ -6443,9 +6444,9 @@ LABEL_35:
         }
 
         v37.i32[0] = v38;
-        v39 = *(v18 + 24);
-        v40.i64[0] = v39;
-        v40.i64[1] = SHIDWORD(v39);
+        v39 = v18[3];
+        v40.i64[0] = v39.i32[0];
+        v40.i64[1] = v39.i32[1];
         v45.i64[1] = v211.i64[1];
         v41 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v37, v203), 0), v211, vcvtq_f64_s64(v40));
         v40.i64[0] = v32.i32[0];
@@ -6457,7 +6458,7 @@ LABEL_35:
         v44 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v40, 0x3FuLL)), v210, v42);
         v214 = v41;
         v215 = v44;
-        v45.i32[0] = *(v18 + 108);
+        v45.i32[0] = v18[13].i32[1];
         if (*v45.i32 != 0.0)
         {
           v46 = (*(v20 + 64) + *(v20 + 72) / 2);
@@ -6481,9 +6482,9 @@ LABEL_35:
           }
 
           v45.i32[0] = v38;
-          v54 = *(v18 + 24);
-          v55.i64[0] = v54;
-          v55.i64[1] = SHIDWORD(v54);
+          v54 = v18[3];
+          v55.i64[0] = v54.i32[0];
+          v55.i64[1] = v54.i32[1];
           v56 = vbslq_s8(vdupq_lane_s32(*&vcgtq_s32(v45, v202), 0), v211, vcvtq_f64_s64(v55));
           v214.f64[0] = v47 + v46;
           v214.f64[1] = v51 + v50;
@@ -6515,9 +6516,9 @@ LABEL_103:
         v213[0] = &unk_1EF1FBD80;
         v213[1] = 1;
         v213[2] = &v214;
-        CA::Render::LayerNode::MapGeometry::map(v213, 0, *(v18 + 8));
-        CA::Rect::apply_transform(v214.f64, v18 + 48);
-        v120 = *(v18 + 88);
+        CA::Render::LayerNode::MapGeometry::map(v213, 0, *&v18[1]);
+        CA::Rect::apply_transform(v214.f64, &v18[6]);
+        v120 = v18[11];
         v121 = v214;
         v122 = v215;
         *v218 = v214;
@@ -6589,7 +6590,7 @@ LABEL_103:
         }
 
         v145 = vextq_s8(v140, v140, 8uLL).u64[0];
-        v146 = *(v18 + 32);
+        v146 = v18[4];
         v147 = vclez_s32(v145);
         v148 = vpmax_u32(v147, v147).u32[0];
         v149 = vclez_s32(v146);
@@ -6598,7 +6599,7 @@ LABEL_103:
         {
           if ((v150 & 0x80000000) == 0)
           {
-            v140.i64[0] = *(v18 + 24);
+            *v140.i8 = v18[3];
 LABEL_122:
             v140.u64[1] = v146;
             v145 = vextq_s8(v140, v140, 8uLL).u64[0];
@@ -6607,7 +6608,7 @@ LABEL_122:
 
         else if ((v150 & 0x80000000) == 0)
         {
-          v151 = *(v18 + 24);
+          v151 = v18[3];
           v152 = vadd_s32(*v140.i8, v145);
           *v140.i8 = vmin_s32(*v140.i8, v151);
           v146 = vsub_s32(vmax_s32(v152, vadd_s32(v151, v146)), *v140.i8);
@@ -6910,7 +6911,7 @@ void CA::FrameRateRangeGroup::arbitrate_ranges(CA::FrameRateRangeGroup *this)
   }
 }
 
-unint64_t CA::Shape::get_interior_bounds(unint64_t this, CA::Bounds *a2)
+uint64_t CA::Shape::get_interior_bounds(uint64_t this, CA::Bounds *a2)
 {
   if (this)
   {
@@ -7158,62 +7159,62 @@ LABEL_11:
   return CA::Shape::ref(this, a2);
 }
 
-float64x2_t *CA::Render::Updater::corner_clipped_layer_bounds(float64x2_t *this, const CA::Render::Layer *a2)
+float64x2_t *CA::Render::Updater::corner_clipped_layer_bounds(float64x2_t *this, const CA::Render::Layer *a2, __n128 a3)
 {
-  v2 = *(a2 + 72);
-  *this = v2;
-  v4 = *(a2 + 11);
-  v3 = *(a2 + 12);
-  this[1].f64[0] = v4;
+  v3 = *(a2 + 72);
+  *this = v3;
+  v5 = *(a2 + 11);
+  v4 = *(a2 + 12);
+  this[1].f64[0] = v5;
   f64 = this[1].f64;
-  this[1].f64[1] = v3;
-  v6 = *(a2 + 17);
-  if (v6)
+  this[1].f64[1] = v4;
+  v7 = *(a2 + 17);
+  if (v7)
   {
-    v8 = this;
-    v9 = *(v6 + 232);
-    v10 = *(a2 + 5);
-    if ((v10 & 0xF0000) == 0)
+    v9 = this;
+    v10 = *(v7 + 232);
+    v11 = *(a2 + 5);
+    if ((v11 & 0xF0000) == 0)
     {
-      v9 = 0.0;
+      v10 = 0.0;
     }
 
-    if (*(v6 + 72))
+    if (*(v7 + 72))
     {
-      v29 = v2;
+      v30 = v3;
       this = CA::Render::Layer::max_corner_radii(*(a2 + 17));
-      v2 = v29;
-      v9 = v25;
+      v3 = v30;
+      v10 = v26;
     }
 
-    if (v9 > 0.0)
+    if (v10 > 0.0)
     {
-      if (*(v6 + 56) && (*(a2 + 50) & 1) != 0)
+      if (*(v7 + 56) && (*(a2 + 50) & 1) != 0)
       {
-        if (v4 <= v3)
+        if (v5 <= v4)
         {
-          v11 = v3;
+          v12 = v4;
         }
 
         else
         {
-          v11 = v4;
+          v12 = v5;
         }
 
-        if (v11 < 1.79769313e308)
+        if (v12 < 1.79769313e308)
         {
-          v12 = v4 >= v3 ? v3 : v4;
-          if (v12 > 0.0)
+          v13 = v5 >= v4 ? v4 : v5;
+          if (v13 > 0.0)
           {
-            *&v13 = v9;
-            *v8 = vaddq_f64(v2, vdupq_lane_s64(v13, 0));
-            v14 = *&v13 * -2.0;
-            v15 = v14 + v4;
-            v16 = v14 + v3;
+            *&v14 = v10;
+            *v9 = vaddq_f64(v3, vdupq_lane_s64(v14, 0));
+            v15 = *&v14 * -2.0;
+            v16 = v15 + v5;
+            v17 = v15 + v4;
 LABEL_33:
-            v8[1].f64[0] = v15;
-            v8[1].f64[1] = v16;
-            if (v15 <= 0.0 || v16 <= 0.0)
+            v9[1].f64[0] = v16;
+            v9[1].f64[1] = v17;
+            if (v16 <= 0.0 || v17 <= 0.0)
             {
               *f64 = 0;
               f64[1] = 0;
@@ -7224,30 +7225,46 @@ LABEL_33:
 
       else
       {
-        if ((v10 & 0x300000000) != 0)
+        if ((v11 & 0x300000000) != 0)
         {
-          v17 = v9 * 1.52866;
-          v9 = v17;
+          v18 = v10 * 1.52866;
+          v10 = v18;
         }
 
-        v18 = ceilf(v9);
-        v19 = v18;
-        if ((~v10 & 0xF0000) != 0)
+        v19 = ceilf(v10);
+        v20 = v19;
+        if ((~v11 & 0xF0000) != 0)
         {
-          if (v4 <= v3)
+          if (v5 <= v4)
           {
-            v27 = 0.0;
-            if ((v10 & 0x30000) != 0)
+            v28 = 0.0;
+            if ((v11 & 0x30000) != 0)
             {
-              v26 = v19;
+              v27 = v20;
             }
 
             else
             {
-              v26 = 0.0;
+              v27 = 0.0;
             }
 
-            if ((v10 & 0xC0000) != 0)
+            if ((v11 & 0xC0000) != 0)
+            {
+              v29 = v20;
+            }
+
+            else
+            {
+              v29 = 0.0;
+            }
+
+            v20 = 0.0;
+          }
+
+          else
+          {
+            v27 = 0.0;
+            if ((v11 & 0x50000) != 0)
             {
               v28 = v19;
             }
@@ -7257,67 +7274,51 @@ LABEL_33:
               v28 = 0.0;
             }
 
-            v19 = 0.0;
+            if ((v11 & 0xA0000) == 0)
+            {
+              v20 = 0.0;
+            }
+
+            v29 = 0.0;
           }
 
-          else
-          {
-            v26 = 0.0;
-            if ((v10 & 0x50000) != 0)
-            {
-              v27 = v18;
-            }
-
-            else
-            {
-              v27 = 0.0;
-            }
-
-            if ((v10 & 0xA0000) == 0)
-            {
-              v19 = 0.0;
-            }
-
-            v28 = 0.0;
-          }
-
-          return CA::BoundsImpl::inset(v8, v27, v26, v19, v28);
+          return CA::BoundsImpl::inset(v9, v28, v27, v20, v29);
         }
 
         else
         {
-          v20 = 0.0;
-          if (v4 <= v3)
+          v21 = 0.0;
+          if (v5 <= v4)
           {
-            v21 = 0.0;
+            v22 = 0.0;
           }
 
           else
           {
-            v21 = v19;
+            v22 = v20;
           }
 
-          if (v4 > v3)
+          if (v5 > v4)
           {
-            v22 = v4;
+            v23 = v5;
           }
 
           else
           {
-            v20 = v19;
-            v22 = v3;
+            v21 = v20;
+            v23 = v4;
           }
 
-          if (v22 < 1.79769313e308)
+          if (v23 < 1.79769313e308)
           {
-            v23 = v4 >= v3 ? v3 : v4;
-            if (v23 > 0.0)
+            v24 = v5 >= v4 ? v4 : v5;
+            if (v24 > 0.0)
             {
-              v24.f64[0] = v21;
-              v24.f64[1] = v20;
-              *v8 = vaddq_f64(v2, v24);
-              v15 = v4 - (v21 + v21);
-              v16 = v3 - (v20 + v20);
+              v25.f64[0] = v22;
+              v25.f64[1] = v21;
+              *v9 = vaddq_f64(v3, v25);
+              v16 = v5 - (v22 + v22);
+              v17 = v4 - (v21 + v21);
               goto LABEL_33;
             }
           }
@@ -7440,9 +7441,9 @@ uint64_t CA::OGL::BlurFilter::DOD(CA::OGL::BlurFilter *this, CA::Render::KeyValu
   return result;
 }
 
-BOOL CA::OGL::MetalContext::is_viable_texture_from_iosurface(CA::OGL::MetalContext *this, IOSurfaceRef buffer, MTLPixelFormat a3)
+BOOL CA::OGL::MetalContext::is_viable_texture_from_iosurface(CA::OGL::MetalContext *this, IOSurfaceRef buffer, MTLPixelFormat a3, unsigned int a4, unsigned int a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (IOSurfaceGetPlaneCount(buffer))
   {
     return 1;
@@ -7452,17 +7453,17 @@ BOOL CA::OGL::MetalContext::is_viable_texture_from_iosurface(CA::OGL::MetalConte
   {
   }
 
-  v6 = qword_1ED4E4918;
+  v8 = qword_1ED4E4918;
   if (((qword_1ED4E4918 - 1) & BytesPerRow) == 0)
   {
     BytesPerElement = IOSurfaceGetBytesPerElement(buffer);
-    v19 = 0;
-    v17 = 0u;
-    v18 = 0u;
-    memset(v16, 0, sizeof(v16));
+    v21 = 0;
+    v19 = 0u;
+    v20 = 0u;
+    memset(v18, 0, sizeof(v18));
     MTLGetTextureLevelInfoForDeviceWithOptions();
     IOSurfaceGetWidth(buffer);
-    if (IOSurfaceAllowsPixelSizeCasting(buffer) || *(&v17 + 1) == BytesPerElement)
+    if (IOSurfaceAllowsPixelSizeCasting(buffer) || *(&v19 + 1) == BytesPerElement)
     {
       return 1;
     }
@@ -7472,22 +7473,22 @@ BOOL CA::OGL::MetalContext::is_viable_texture_from_iosurface(CA::OGL::MetalConte
       dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
     }
 
-    v7 = x_log_get_ogl_metal(void)::log;
+    v9 = x_log_get_ogl_metal(void)::log;
     if (!os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
 
-    v11[0] = 67109632;
-    v11[1] = IOSurfaceGetID(buffer);
-    v12 = 2048;
-    v13 = *(&v17 + 1);
+    v13[0] = 67109632;
+    v13[1] = IOSurfaceGetID(buffer);
     v14 = 2048;
-    v15 = BytesPerElement;
-    v8 = "Failed to allocate MTLTexture from IOSurface 0x%x. Texture block bytes (%ld) not equal to surface block bytes (%ld).";
-    v9 = v11;
+    v15 = *(&v19 + 1);
+    v16 = 2048;
+    v17 = BytesPerElement;
+    v10 = "Failed to allocate MTLTexture from IOSurface 0x%x. Texture block bytes (%ld) not equal to surface block bytes (%ld).";
+    v11 = v13;
 LABEL_10:
-    _os_log_error_impl(&dword_183AA6000, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x1Cu);
+    _os_log_error_impl(&dword_183AA6000, v9, OS_LOG_TYPE_ERROR, v10, v11, 0x1Cu);
     return 0;
   }
 
@@ -7496,59 +7497,59 @@ LABEL_10:
     dispatch_once(&x_log_get_ogl_metal(void)::once, &__block_literal_global_8312);
   }
 
-  v7 = x_log_get_ogl_metal(void)::log;
+  v9 = x_log_get_ogl_metal(void)::log;
   result = os_log_type_enabled(x_log_get_ogl_metal(void)::log, OS_LOG_TYPE_ERROR);
   if (result)
   {
-    LODWORD(v16[0]) = 67109632;
-    DWORD1(v16[0]) = IOSurfaceGetID(buffer);
-    WORD4(v16[0]) = 2048;
-    *(v16 + 10) = BytesPerRow;
-    WORD1(v16[1]) = 2048;
-    *(&v16[1] + 4) = v6;
-    v8 = "Failed to allocate MTLTexture from IOSurface 0x%x. Row bytes (%ld) not %ld aligned.";
-    v9 = v16;
+    LODWORD(v18[0]) = 67109632;
+    DWORD1(v18[0]) = IOSurfaceGetID(buffer);
+    WORD4(v18[0]) = 2048;
+    *(v18 + 10) = BytesPerRow;
+    WORD1(v18[1]) = 2048;
+    *(&v18[1] + 4) = v8;
+    v10 = "Failed to allocate MTLTexture from IOSurface 0x%x. Row bytes (%ld) not %ld aligned.";
+    v11 = v18;
     goto LABEL_10;
   }
 
   return result;
 }
 
-void CA::FrameRateRangeGroup::add(int8x8_t *this, CAFrameRateRange a2)
+void CA::FrameRateRangeGroup::add(int8x8_t *this, CAFrameRateRange a2, uint64_t a3, BOOL a4)
 {
   preferred = a2.preferred;
   maximum = a2.maximum;
   minimum = a2.minimum;
-  v29 = *MEMORY[0x1E69E9840];
-  v7 = CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(this, a2);
-  v8 = v6;
-  v27 = v7;
-  v28 = v6;
-  v9 = (maximum << 16) | (minimum << 32) | preferred;
-  v10 = this[8];
-  if (!*&v10)
+  v31 = *MEMORY[0x1E69E9840];
+  v9 = CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(this, a2, a3, a4);
+  v10 = v8;
+  v29 = v9;
+  v30 = v8;
+  v11 = (maximum << 16) | (minimum << 32) | preferred;
+  v12 = this[8];
+  if (!*&v12)
   {
     goto LABEL_20;
   }
 
-  v11 = vcnt_s8(v10);
-  v11.i16[0] = vaddlv_u8(v11);
-  if (v11.u32[0] > 1uLL)
+  v13 = vcnt_s8(v12);
+  v13.i16[0] = vaddlv_u8(v13);
+  if (v13.u32[0] > 1uLL)
   {
-    v12 = (maximum << 16) | (minimum << 32) | preferred;
-    if (v9 >= *&v10)
+    v14 = (maximum << 16) | (minimum << 32) | preferred;
+    if (v11 >= *&v12)
     {
-      v12 = v9 % *&v10;
+      v14 = v11 % *&v12;
     }
   }
 
   else
   {
-    v12 = v9 & (*&v10 - 1);
+    v14 = v11 & (*&v12 - 1);
   }
 
-  v13 = *(*&this[7] + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v15 = *(*&this[7] + 8 * v14);
+  if (!v15 || (v16 = *v15) == 0)
   {
 LABEL_20:
     operator new();
@@ -7556,47 +7557,47 @@ LABEL_20:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v9)
+    v17 = v16[1];
+    if (v17 == v11)
     {
       break;
     }
 
-    if (v11.u32[0] > 1uLL)
+    if (v13.u32[0] > 1uLL)
     {
-      if (v15 >= *&v10)
+      if (v17 >= *&v12)
       {
-        v15 %= *&v10;
+        v17 %= *&v12;
       }
     }
 
     else
     {
-      v15 &= *&v10 - 1;
+      v17 &= *&v12 - 1;
     }
 
-    if (v15 != v12)
+    if (v17 != v14)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v14 = *v14;
-    if (!v14)
+    v16 = *v16;
+    if (!v16)
     {
       goto LABEL_20;
     }
   }
 
-  if (*(v14 + 4) != minimum || *(v14 + 5) != maximum || *(v14 + 6) != preferred)
+  if (*(v16 + 4) != minimum || *(v16 + 5) != maximum || *(v16 + 6) != preferred)
   {
     goto LABEL_19;
   }
 
-  v16 = v14[6];
-  if (v16)
+  v18 = v16[6];
+  if (v18)
   {
-    if (*(v14 + 8) != v7 || *(v14 + 36) != __PAIR64__(v6, HIDWORD(v7)))
+    if (*(v16 + 8) != v9 || *(v16 + 36) != __PAIR64__(v8, HIDWORD(v9)))
     {
       __assert_rtn("add", "CAFrameRateRangeGroup.mm", 152, "info.count == 0 || info.range == range");
     }
@@ -7604,55 +7605,55 @@ LABEL_19:
     goto LABEL_38;
   }
 
-  v18 = this[12];
-  v17 = this[13];
-  v19 = this + 12;
-  if (v17 == v18)
+  v20 = this[12];
+  v19 = this[13];
+  v21 = this + 12;
+  if (v19 == v20)
   {
     goto LABEL_37;
   }
 
-  v20 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v18) >> 2);
+  v22 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v20) >> 2);
   while (2)
   {
-    v21 = v20 >> 1;
-    v22 = &v18[12 * (v20 >> 1)];
-    if (*v22 <= v7)
+    v23 = v22 >> 1;
+    v24 = &v20[12 * (v22 >> 1)];
+    if (*v24 <= v9)
     {
-      if (*v22 != v7)
+      if (*v24 != v9)
       {
         goto LABEL_34;
       }
 
-      v23 = *(v22 + 1);
-      if (v23 > HIDWORD(v7))
+      v25 = *(v24 + 1);
+      if (v25 > HIDWORD(v9))
       {
         goto LABEL_35;
       }
 
-      if (v23 == HIDWORD(v7))
+      if (v25 == HIDWORD(v9))
       {
-        v24 = *(v22 + 2);
-        v25 = v20 + ~v21;
-        v26 = v22 + 12;
-        if (v24 <= v8)
+        v26 = *(v24 + 2);
+        v27 = v22 + ~v23;
+        v28 = v24 + 12;
+        if (v26 <= v10)
         {
-          v18 = v26;
-          v21 = v25;
+          v20 = v28;
+          v23 = v27;
         }
       }
 
       else
       {
 LABEL_34:
-        v18 = v22 + 12;
-        v21 = v20 + ~v21;
+        v20 = v24 + 12;
+        v23 = v22 + ~v23;
       }
     }
 
 LABEL_35:
-    v20 = v21;
-    if (v21)
+    v22 = v23;
+    if (v23)
     {
       continue;
     }
@@ -7660,17 +7661,17 @@ LABEL_35:
     break;
   }
 
-  v17 = v18;
+  v19 = v20;
 LABEL_37:
-  std::vector<CAFrameIntervalRange>::insert(v19, v17, &v27);
-  v16 = v14[6];
+  std::vector<CAFrameIntervalRange>::insert(v21, v19, &v29);
+  v18 = v16[6];
 LABEL_38:
-  v14[4] = v27;
-  *(v14 + 10) = v28;
-  v14[6] = v16 + 1;
+  v16[4] = v29;
+  *(v16 + 10) = v30;
+  v16[6] = v18 + 1;
 }
 
-unint64_t CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(CA::FrameRateRangeGroup *this, CAFrameRateRange a2)
+unint64_t CA::FrameRateRangeGroup::fps_range_to_frame_interval_range(CA::FrameRateRangeGroup *this, CAFrameRateRange a2, uint64_t a3, BOOL a4)
 {
   if (*(this + 1))
   {
@@ -7693,7 +7694,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<CAFrameIntervalRange>
   std::vector<CA::Display::DisplayEDRState *>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t CA::shape_subtract(int **this, uint64_t a2, uint64_t a3, const int *a4)
+uint64_t CA::shape_subtract(int **this, unint64_t a2, unint64_t a3, const int *a4)
 {
   v39 = *MEMORY[0x1E69E9840];
   v37 = 0u;
@@ -7734,7 +7735,7 @@ uint64_t CA::shape_subtract(int **this, uint64_t a2, uint64_t a3, const int *a4)
   {
     v9 = (a3 + 12);
     v10 = (a3 + 12);
-    v7 = (a2 + 12);
+    v7 = a2 + 12;
     while (1)
     {
       v11 = *v10;
@@ -7748,17 +7749,17 @@ uint64_t CA::shape_subtract(int **this, uint64_t a2, uint64_t a3, const int *a4)
         break;
       }
 
-      v12 = v7[1];
+      v12 = *(v7 + 4);
       if (((v6 - v11) & 0x80000000) == 0)
       {
         v5 = v7;
-        v7 += v12;
+        v7 += 4 * v12;
         goto LABEL_14;
       }
 
       LODWORD(v13) = v9[1];
       v5 = v7;
-      v7 += v12;
+      v7 += 4 * v12;
       v14 = v10;
 LABEL_15:
       v15 = v12 - 2;
@@ -7785,7 +7786,7 @@ LABEL_15:
         if (v13 != 2)
         {
           v21 = 0;
-          v22 = (v9 + 2);
+          v22 = v9 + 2;
           while (1)
           {
             v23 = *v19;
@@ -7890,7 +7891,7 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v7 = (a2 + 12);
+  v7 = a2 + 12;
   return CA::ShapeHandle::finish(this, v7);
 }
 
@@ -7920,10 +7921,10 @@ unsigned int CAFrameIntervalToFrameRate(unsigned int result, double a2)
   return result;
 }
 
-void CA::WindowServer::IOMFBDisplay::update_display_headroom(CA::WindowServer::IOMFBDisplay *this)
+void CA::WindowServer::IOMFBDisplay::update_display_headroom(unsigned int **this)
 {
-  (*(*this + 1104))(this);
-  if (!(*(*this + 904))(this))
+  (*(*this + 138))(this);
+  if (!(*(*this + 113))(this))
   {
     goto LABEL_7;
   }
@@ -7935,11 +7936,11 @@ void CA::WindowServer::IOMFBDisplay::update_display_headroom(CA::WindowServer::I
       dispatch_once(CADeviceIsVirtualized::once, &__block_literal_global_323);
     }
 
-    if ((CADeviceIsVirtualized::is_virtualized & 1) == 0 && !CA::WindowServer::Display::Mode::is_hdr((this + 656)))
+    if ((CADeviceIsVirtualized::is_virtualized & 1) == 0 && !CA::WindowServer::Display::Mode::is_hdr((this + 82)))
     {
 LABEL_7:
       CA::WindowServer::Display::initialize_edr_state(this);
-      v2 = *(this + 88);
+      v2 = this[88];
       if (v2)
       {
         atomic_store(0x3F800000u, v2);
@@ -7977,7 +7978,7 @@ uint64_t CA::WindowServer::IOMFBDisplay::update_ui_scale_factor(CA::WindowServer
   return v4(this, v3);
 }
 
-void CA::WindowServer::get_context_logical_bounds(CA::WindowServer *this, CA::Render::Context *a2, int32x2_t *a3, CA::Bounds *a4, BOOL *a5)
+void CA::WindowServer::get_context_logical_bounds(CA::Render::Context *this, CA::Render::Context *a2, int32x2_t *a3, CA::Bounds *a4, BOOL *a5)
 {
   v24 = *MEMORY[0x1E69E9840];
   if ((BYTE14(xmmword_1ED4E97EC) & 1) == 0 && (*(this + 13) & 0x80) != 0)
@@ -8040,7 +8041,7 @@ void CA::Render::Update::add_context(CA::Render::Update *this, CA::Render::Conte
     v9 = *(a2 + 56);
     if ((!v9 || (*(this + 1377) & 0x20) != 0 || (*(v9 + 13) & 4) != 0) && CA::Render::Update::allowed_in_secure_update(this, a2, 0) && CA::Render::Update::allowed_to_include_context(this, a2) && *(a2 + 48) <= *(this + 294) && CA::Render::Update::allowed_in_update(this, a2, a3, 0))
     {
-      CA::Render::Update::add_included_context(this, a2);
+      CA::Render::Update::add_included_context(this, a2, 0);
     }
   }
 
@@ -8298,7 +8299,7 @@ uint64_t CA::WindowServer::AppleDisplay::compressed_pixel_format(uint64_t a1, CA
     v12 = *(a1 + 29792);
     if (v12)
     {
-      v13 = v12 >= CA::WindowServer::IOMFBDisplay::_compressed_display_count;
+      v13 = v12 >= CA::WindowServer::IOMFBDisplay::_compressed_display_count[0];
     }
 
     else
@@ -8780,7 +8781,7 @@ uint64_t CA::OGL::MetalContext::get_surface(CA::OGL::MetalContext *this, CA::Win
   }
 
   v13 = v12;
-  if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(this, v10, v12))
+  if (!CA::OGL::MetalContext::is_viable_texture_from_iosurface(this, v10, v12, v7, v8))
   {
     return 0;
   }
@@ -9089,7 +9090,7 @@ LABEL_65:
 
   *(v16 + 92) |= v51;
 LABEL_72:
-  if (!CA::OGL::metal_pixel_format_has_alpha_plane(v13, v14))
+  if ((CA::OGL::metal_pixel_format_has_alpha_plane(v13, v14) & 1) == 0)
   {
     *(v16 + 92) &= ~8u;
   }
@@ -9647,7 +9648,7 @@ LABEL_58:
   return result;
 }
 
-BOOL CA::OGL::metal_pixel_format_has_alpha_plane(CA::OGL *this, MTLPixelFormat a2)
+uint64_t CA::OGL::metal_pixel_format_has_alpha_plane(CA::OGL *this, MTLPixelFormat a2)
 {
   result = 1;
   if (this - 70 > 0x37 || ((1 << (this - 70)) & 0xE03D0000000C1FLL) == 0)

@@ -121,14 +121,14 @@
 
 - (void)connect
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = AXLogBrailleHW();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     peripheral = [(VOSBluetoothLowEnergyDevice *)self peripheral];
-    v12 = 138412290;
-    v13 = peripheral;
-    _os_log_impl(&dword_223C70000, v3, OS_LOG_TYPE_DEFAULT, "Attempt connect: Current peripheral state: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = peripheral;
+    _os_log_impl(&dword_223C70000, v3, OS_LOG_TYPE_DEFAULT, "Attempt connect: Current peripheral state: %@", &v11, 0xCu);
   }
 
   peripheral2 = [(VOSBluetoothLowEnergyDevice *)self peripheral];
@@ -140,17 +140,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       peripheral3 = [(VOSBluetoothLowEnergyDevice *)self peripheral];
-      v12 = 138412290;
-      v13 = peripheral3;
-      _os_log_impl(&dword_223C70000, v7, OS_LOG_TYPE_DEFAULT, "Connecting: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = peripheral3;
+      _os_log_impl(&dword_223C70000, v7, OS_LOG_TYPE_DEFAULT, "Connecting: %@", &v11, 0xCu);
     }
 
     centralManager = [(VOSBluetoothLowEnergyDevice *)self centralManager];
     peripheral4 = [(VOSBluetoothLowEnergyDevice *)self peripheral];
     [centralManager connectPeripheral:peripheral4 options:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect

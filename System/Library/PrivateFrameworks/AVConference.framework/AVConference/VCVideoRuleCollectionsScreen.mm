@@ -646,7 +646,7 @@ LABEL_117:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen sharing rules: Failed to create Mac Decoding only rules", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen sharing rules: Failed to create Mac Decoding only rules", v2, v3, v4, v5);
 }
 
 + (void)updateScreenRuleCollections:(uint64_t)a1 size:.cold.1(uint64_t a1)
@@ -693,7 +693,7 @@ LABEL_117:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen sharing rules: Could not retrieve main screen width", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Screen sharing rules: Could not retrieve main screen width", v2, v3, v4, v5);
 }
 
 @end

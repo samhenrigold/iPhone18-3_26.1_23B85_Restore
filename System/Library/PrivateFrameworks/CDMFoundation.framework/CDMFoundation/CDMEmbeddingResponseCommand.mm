@@ -7,24 +7,22 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   values = [(NLv4EmbeddingTensor *)self->_embeddingTensor values];
   v4 = [values componentsJoinedByString:{@", "}];
 
-  v12[0] = v4;
-  v11[0] = @"embeddings";
-  v11[1] = @"numTokens";
+  v11[0] = v4;
+  v10[0] = @"embeddings";
+  v10[1] = @"numTokens";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_numTokens];
-  v12[1] = v5;
-  v11[2] = @"numLayers";
+  v11[1] = v5;
+  v10[2] = @"numLayers";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_numLayers];
-  v12[2] = v6;
-  v11[3] = @"embeddingDim";
+  v11[2] = v6;
+  v10[3] = @"embeddingDim";
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_embeddingDim];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   return v8;
 }

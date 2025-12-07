@@ -3,7 +3,7 @@
 - (id)initWithAccessory:()Home;
 - (id)initWithUser:()Home;
 - (id)initWithUser:()Home andAccessory:;
-- (uint64_t)populateWithAccessory:()Home;
+- (void)populateWithAccessory:()Home;
 - (void)populateWithUser:()Home;
 - (void)populateWithUser:()Home andAccessory:;
 @end
@@ -56,7 +56,7 @@
   return v9;
 }
 
-- (uint64_t)populateWithAccessory:()Home
+- (void)populateWithAccessory:()Home
 {
   if (a3)
   {
@@ -128,7 +128,7 @@
 
 + (id)participantsFromUsersInHome:()Home
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_opt_new();
   v5 = +[ANHomeManager shared];
@@ -144,39 +144,37 @@
     [v3 hmu_users];
   }
 
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v7 = v17 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v15 = 0u;
+  v7 = v16 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        if ([v3 announceAccessAllowedForUser:{v12, v16}])
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if ([v3 announceAccessAllowedForUser:{v12, v15}])
         {
           v13 = [objc_alloc(MEMORY[0x277CEABB0]) initWithUser:v12];
           [v4 addObject:v13];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

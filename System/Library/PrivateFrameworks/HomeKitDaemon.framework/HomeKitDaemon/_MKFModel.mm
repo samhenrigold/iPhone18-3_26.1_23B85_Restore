@@ -71,14 +71,13 @@
 
 - (BOOL)validateWriterTimestamp:(id *)timestamp error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = *timestamp;
   if (!*timestamp)
   {
     if (([(_MKFModel *)self isInserted]& 1) != 0)
     {
-      v8 = 1;
-      goto LABEL_13;
+      return 1;
     }
 
     v7 = *timestamp;
@@ -108,27 +107,25 @@
     {
       v15 = HMFGetLogIdentifier();
       v16 = *timestamp;
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2112;
-      v22 = @"writerTimestamp";
-      v23 = 2112;
-      v24 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %@: %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2112;
+      v21 = @"writerTimestamp";
+      v22 = 2112;
+      v23 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %@: %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     *error = [objc_opt_class() hmd_errorForInvalidValue:*timestamp key:@"writerTimestamp"];
   }
 
-LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)validateModelID:(id *)d error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = [objc_opt_class() hmd_validateUUID:*d key:@"modelID" error:error];
   if ((v6 & 1) == 0)
   {
@@ -139,19 +136,18 @@ LABEL_13:
     {
       v10 = HMFGetLogIdentifier();
       v11 = *d;
-      v14 = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = @"modelID";
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %@: %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v10;
+      v15 = 2112;
+      v16 = @"modelID";
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Invalid value for %@: %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -290,12 +286,12 @@ LABEL_12:
 
 + (id)modelWithModelID:(id)d context:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   contextCopy = context;
-  v16 = 0;
-  v8 = [self modelWithModelID:dCopy context:contextCopy error:&v16];
-  v9 = v16;
+  v15 = 0;
+  v8 = [self modelWithModelID:dCopy context:contextCopy error:&v15];
+  v9 = v15;
   if (v9)
   {
     v10 = objc_autoreleasePoolPush();
@@ -305,25 +301,23 @@ LABEL_12:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = dCopy;
-      v21 = 2112;
-      v22 = v9;
+      v17 = v13;
+      v18 = 2112;
+      v19 = dCopy;
+      v20 = 2112;
+      v21 = v9;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch model with modelID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)modelWithModelID:(id)d context:(id)context error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dCopy = d;
   fetchRequest = [self fetchRequest];
@@ -331,8 +325,8 @@ LABEL_12:
 
   [fetchRequest setPredicate:dCopy];
   [fetchRequest setFetchBatchSize:1];
-  v17[0] = @"modelID";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = @"modelID";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [fetchRequest setPropertiesToFetch:v12];
 
   v13 = [contextCopy executeFetchRequest:fetchRequest error:error];
@@ -346,8 +340,6 @@ LABEL_12:
   {
     firstObject = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

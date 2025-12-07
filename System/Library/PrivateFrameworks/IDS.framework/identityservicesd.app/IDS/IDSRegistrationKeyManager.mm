@@ -5377,7 +5377,7 @@ LABEL_58:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       v4 = v5;
     }
   }
@@ -5391,7 +5391,7 @@ LABEL_58:
   v3 = v2;
   if (v2)
   {
-    [v2 doubleValue];
+    objc_msgSend_doubleValue(v2);
     v5 = v4;
     +[NSDate timeIntervalSinceReferenceDate];
     v7 = v5 - v6;
@@ -5435,7 +5435,7 @@ LABEL_58:
     IMSetAppValueForKey();
   }
 
-  [v3 doubleValue];
+  objc_msgSend_doubleValue(v3);
   v5 = v4;
   +[NSDate timeIntervalSinceReferenceDate];
   v7 = v5 - v6;
@@ -5473,7 +5473,7 @@ LABEL_58:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v4 doubleValue];
+      objc_msgSend_doubleValue(v4);
       v5 = v6;
     }
   }

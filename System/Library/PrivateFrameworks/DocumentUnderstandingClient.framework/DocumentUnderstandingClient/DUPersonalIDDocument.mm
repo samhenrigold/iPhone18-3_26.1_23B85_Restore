@@ -10,13 +10,13 @@
 
 - (DUPersonalIDDocument)initWithCoder:(id)coder
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"documentType"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lines"];
-  v37 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v6 error:&v37];
-  v8 = v37;
+  v36 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v6 error:&v36];
+  v8 = v36;
   error = v8;
   if (v8 || !v7)
   {
@@ -28,7 +28,7 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = error;
+      v41 = error;
       _os_log_error_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[DUInformationExtractor] failed to decode DUPersonalIDDocument: %@", buf, 0xCu);
     }
 
@@ -37,22 +37,22 @@
 
   else
   {
-    v31 = v5;
-    v33 = v6;
+    v30 = v5;
+    v32 = v6;
     selfCopy = self;
     v10 = objc_alloc(MEMORY[0x277CBEB98]);
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
     v12 = [v10 initWithArray:v11];
 
     v13 = *MEMORY[0x277CCA308];
-    v32 = [v7 decodeObjectOfClasses:v12 forKey:*MEMORY[0x277CCA308]];
+    v31 = [v7 decodeObjectOfClasses:v12 forKey:*MEMORY[0x277CCA308]];
     [v7 finishDecoding];
     v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"boundingBoxes"];
-    v36 = 0;
-    v15 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v36];
-    error = v36;
+    v35 = 0;
+    v15 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v14 error:&v35];
+    error = v35;
 
     if (error || !v15)
     {
@@ -61,12 +61,12 @@
         error = [v15 error];
       }
 
-      v24 = v32;
-      v6 = v33;
+      v24 = v31;
+      v6 = v32;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = error;
+        v41 = error;
         _os_log_error_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[DUInformationExtractor] failed to decode DUPersonalIDDocument: %@", buf, 0xCu);
       }
 
@@ -78,32 +78,32 @@
     else
     {
       v16 = objc_alloc(MEMORY[0x277CBEB98]);
-      v39[0] = objc_opt_class();
-      v39[1] = objc_opt_class();
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+      v38[0] = objc_opt_class();
+      v38[1] = objc_opt_class();
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
       v18 = [v16 initWithArray:v17];
 
-      v30 = [v15 decodeObjectOfClasses:v18 forKey:v13];
+      v29 = [v15 decodeObjectOfClasses:v18 forKey:v13];
       [v15 finishDecoding];
       v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"confidenceScores"];
-      v35 = 0;
-      v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v19 error:&v35];
-      error = v35;
+      v34 = 0;
+      v7 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v19 error:&v34];
+      error = v34;
 
       if (error || !v7)
       {
-        v24 = v32;
+        v24 = v31;
         if (!error)
         {
           error = [v7 error];
         }
 
         self = selfCopy;
-        v26 = v30;
+        v26 = v29;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v42 = error;
+          v41 = error;
           _os_log_error_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[DUInformationExtractor] failed to decode DUPersonalIDDocument: %@", buf, 0xCu);
         }
 
@@ -113,64 +113,61 @@
       else
       {
         v20 = objc_alloc(MEMORY[0x277CBEB98]);
-        v38[0] = objc_opt_class();
-        v38[1] = objc_opt_class();
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+        v37[0] = objc_opt_class();
+        v37[1] = objc_opt_class();
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
         v22 = [v20 initWithArray:v21];
 
         v23 = [v7 decodeObjectOfClasses:v22 forKey:v13];
         [v7 finishDecoding];
-        v24 = v32;
-        v25 = [(DUPersonalIDDocument *)selfCopy initWithTextLines:v32 boundingBoxes:v30 confidenceScores:v23 documentType:v31];
+        v24 = v31;
+        v25 = [(DUPersonalIDDocument *)selfCopy initWithTextLines:v31 boundingBoxes:v29 confidenceScores:v23 documentType:v30];
 
         error = 0;
         v18 = v22;
         self = v25;
-        v26 = v30;
+        v26 = v29;
         selfCopy2 = self;
       }
 
       v12 = v18;
-      v6 = v33;
+      v6 = v32;
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   type = self->_type;
   coderCopy = coder;
   [coderCopy encodeInteger:type forKey:@"documentType"];
   lines = self->_lines;
-  v18 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:lines requiringSecureCoding:1 error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:lines requiringSecureCoding:1 error:&v17];
+  v8 = v17;
   boundingBoxes = self->_boundingBoxes;
-  v17 = v8;
-  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:boundingBoxes requiringSecureCoding:1 error:&v17];
-  v11 = v17;
+  v16 = v8;
+  v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:boundingBoxes requiringSecureCoding:1 error:&v16];
+  v11 = v16;
 
   confidenceScores = self->_confidenceScores;
-  v16 = v11;
-  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:confidenceScores requiringSecureCoding:1 error:&v16];
-  v14 = v16;
+  v15 = v11;
+  v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:confidenceScores requiringSecureCoding:1 error:&v15];
+  v14 = v15;
 
   if (v14 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v20 = v14;
+    v19 = v14;
     _os_log_error_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[DUInformationExtractor] failed to decode DUPersonalIDDocument: %@", buf, 0xCu);
   }
 
   [coderCopy encodeObject:v7 forKey:@"lines"];
   [coderCopy encodeObject:v10 forKey:@"boundingBoxes"];
   [coderCopy encodeObject:v13 forKey:@"confidenceScores"];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (DUPersonalIDDocument)initWithText:(id)text documentType:(int64_t)type

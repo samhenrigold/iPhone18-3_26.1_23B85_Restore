@@ -57,10 +57,10 @@ void __55__WBSPageContextDataFetcher_fetchSchemaDataForWebView___block_invoke(ui
       v13 = [*(a1 + 32) URL];
       [v9 pageContextDataFetcherDidFinishFetching:v8 forURL:v13 withError:v6];
 
-      v14 = WBS_LOG_CHANNEL_PREFIXSchemaDataLoading();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXSchemaDataLoading(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        __55__WBSPageContextDataFetcher_fetchSchemaDataForWebView___block_invoke_cold_1(v14, v6);
+        __55__WBSPageContextDataFetcher_fetchSchemaDataForWebView___block_invoke_cold_1(v16, v6);
       }
     }
   }

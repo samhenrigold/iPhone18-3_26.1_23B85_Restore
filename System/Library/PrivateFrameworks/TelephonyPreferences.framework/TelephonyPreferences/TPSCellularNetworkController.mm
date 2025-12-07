@@ -134,7 +134,7 @@ LABEL_10:
 
 - (void)setNetworks:(id)networks
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   if (self->_networks != networksCopy)
   {
@@ -142,30 +142,30 @@ LABEL_10:
     if (networksCopy)
     {
       v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](networksCopy, "count")}];
+      v13 = 0u;
       v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
       v7 = networksCopy;
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v15;
+        v10 = *v14;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = [(TPSCellularNetworkController *)self networkItemForNetwork:*(*(&v14 + 1) + 8 * i), v14];
+            v12 = [(TPSCellularNetworkController *)self networkItemForNetwork:*(*(&v13 + 1) + 8 * i), v13];
             [v6 addObject:v12];
           }
 
-          v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v9);
@@ -177,10 +177,8 @@ LABEL_10:
       v6 = 0;
     }
 
-    [(TPSCellularNetworkController *)self setNetworkItems:v6, v14];
+    [(TPSCellularNetworkController *)self setNetworkItems:v6, v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNetworkSelectionModeForNetworkSelectionInfo:(id)info
@@ -218,47 +216,45 @@ LABEL_10:
 - (id)networkItemAtIndex:(int64_t)index
 {
   networkItems = [(TPSCellularNetworkController *)self networkItems];
-  v5 = networkItems;
-  if (index < 0 || [networkItems count] <= index)
+  v6 = networkItems;
+  if (index < 0 || (networkItems = [networkItems count], networkItems <= index))
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TPSLog(networkItems, v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(TPSCellularNetworkController *)index networkItemAtIndex:v7];
+      [(TPSCellularNetworkController *)index networkItemAtIndex:v8];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = [v5 objectAtIndexedSubscript:index];
+    v7 = [v6 objectAtIndexedSubscript:index];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)selectNetworkItemAtIndex:(unint64_t)index
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   networks = [(TPSCellularNetworkController *)self networks];
   v6 = [networks objectAtIndexedSubscript:index];
 
   if (v6)
   {
-    v7 = TPSLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Requesting manual selection of network %@.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Requesting manual selection of network %@.", &v11, 0xCu);
     }
 
     registrationController = [(TPSCellularNetworkController *)self registrationController];
     [registrationController selectNetwork:v6];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)networkItemForNetwork:(id)network
@@ -276,43 +272,41 @@ LABEL_10:
 
 - (void)networksChangedForRegistrationController:(id)controller
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   registrationController = [(TPSCellularNetworkController *)self registrationController];
 
   if (registrationController == controllerCopy)
   {
-    v6 = TPSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling networks changed delegate callback.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v9 = v12;
+      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling networks changed delegate callback.", &v11, 0xCu);
     }
 
     networks = [controllerCopy networks];
     [(TPSCellularNetworkController *)self setNetworks:networks];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkSelectionInfoChangedForRegistrationController:(id)controller
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   registrationController = [(TPSCellularNetworkController *)self registrationController];
 
   if (registrationController == controllerCopy)
   {
-    v6 = TPSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling networks selection information changed delegate callback.", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v9 = v12;
+      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling networks selection information changed delegate callback.", &v11, 0xCu);
     }
 
     networkSelectionInfo = [controllerCopy networkSelectionInfo];
@@ -320,17 +314,14 @@ LABEL_10:
     [(TPSCellularNetworkController *)self updateSelectedNetworkForNetworkSelectionInfo:networkSelectionInfo];
     [(TPSCellularNetworkController *)self updateNetworkSelectionModeForNetworkSelectionInfo:networkSelectionInfo];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkItemAtIndex:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Could not find network item at index %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_21B8E9000, a2, OS_LOG_TYPE_ERROR, "Could not find network item at index %ld", &v2, 0xCu);
 }
 
 @end

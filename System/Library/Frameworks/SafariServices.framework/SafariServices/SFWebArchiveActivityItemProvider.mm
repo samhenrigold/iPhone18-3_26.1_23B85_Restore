@@ -21,20 +21,20 @@ void __60___SFWebArchiveActivityItemProvider__webArchiveItemProvider__block_invo
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __60___SFWebArchiveActivityItemProvider__webArchiveItemProvider__block_invoke_2_cold_1(v8, v7);
+      __60___SFWebArchiveActivityItemProvider__webArchiveItemProvider__block_invoke_2_cold_1(v9, v8);
     }
   }
 
   [*(*(a1 + 32) + 320) setSize:{objc_msgSend(v5, "fileSize")}];
-  v9 = *(a1 + 40);
-  v10 = [v5 savedURLWithProperExtension];
-  (*(v9 + 16))(v9, v10, 0);
+  v10 = *(a1 + 40);
+  v11 = [v5 savedURLWithProperExtension];
+  (*(v10 + 16))(v10, v11, 0);
 }
 
 void __60___SFWebArchiveActivityItemProvider__webArchiveItemProvider__block_invoke_2_cold_1(void *a1, void *a2)

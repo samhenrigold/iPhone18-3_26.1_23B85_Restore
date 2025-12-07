@@ -50,15 +50,15 @@
   contextCopy = context;
   selfCopy = self;
   sub_1000BF778(context, v6, v7);
-  sub_100012050(v6);
+  sub_100012050(v6, v7);
 }
 
 - (void)handleButtonActions:(id)actions
 {
   if (actions)
   {
-    sub_1000122EC(0, &qword_1001BC220);
-    sub_1000A1F20(&qword_1001BBC40, &qword_1001BC220);
+    sub_1000122EC(0, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
+    sub_1000A1F20(&qword_1001BBC40, &qword_1001BC220, SBUIRemoteAlertButtonAction_ptr);
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -73,7 +73,7 @@
 
 - (void)dismiss:(int)dismiss
 {
-  v5 = sub_100005DCC(&qword_1001BA7B0);
+  v5 = sub_100005DCC(&qword_1001BA7B0, &qword_10016D9A0);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC18SharingViewService29AirTagSetupMainViewController_nfcVC];
@@ -88,7 +88,7 @@
   (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
   selfCopy = self;
   sub_1000C1744(dismiss, v7, 0, 0, 429);
-  sub_10001259C(v7, &qword_1001BA7B0);
+  sub_10001259C(v7, &qword_1001BA7B0, &qword_10016D9A0);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -108,7 +108,7 @@
 
   selfCopy = self;
   sub_1000C3A98(animated, v6, v7);
-  sub_100012050(v6);
+  sub_100012050(v6, v7);
 }
 
 - (_TtC18SharingViewService29AirTagSetupMainViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -9,27 +9,27 @@
 
 - (KmlCancelMessage)initWithData:(id)data
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   [KmlTlv TLVsWithData:data];
-  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v4 = v36 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v36 = 0u;
+  v4 = v37 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
+    v7 = *v35;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v34 != v7)
+      if (*v35 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v33 + 1) + 8 * v8);
+      v9 = *(*(&v34 + 1) + 8 * v8);
       if ([v9 tag] == 32620)
       {
         break;
@@ -37,7 +37,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -47,61 +47,61 @@ LABEL_3:
       }
     }
 
-    v10 = v9;
+    v11 = v9;
 
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_21;
     }
 
-    value = [v10 value];
-    v12 = [KmlTlv TLVsWithData:value];
+    value = [v11 value];
+    v13 = [KmlTlv TLVsWithData:value];
 
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v4 = v12;
-    v13 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (!v13)
+    v31 = 0u;
+    v4 = v13;
+    v14 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    if (!v14)
     {
 LABEL_20:
 
 LABEL_29:
-      v24 = KmlLogger();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = KmlLogger(v19);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v39 = "[KmlCancelMessage initWithData:]";
-        v40 = 1024;
-        v41 = 120;
-        _os_log_impl(&dword_248BF3000, v24, OS_LOG_TYPE_ERROR, "%s : %i : Cancel code TLV not found", buf, 0x12u);
+        v40 = "[KmlCancelMessage initWithData:]";
+        v41 = 1024;
+        v42 = 120;
+        _os_log_impl(&dword_248BF3000, v26, OS_LOG_TYPE_ERROR, "%s : %i : Cancel code TLV not found", buf, 0x12u);
       }
 
       goto LABEL_32;
     }
 
-    v14 = v13;
-    v15 = *v30;
+    v15 = v14;
+    v16 = *v31;
 LABEL_13:
-    v16 = 0;
+    v17 = 0;
     while (1)
     {
-      if (*v30 != v15)
+      if (*v31 != v16)
       {
         objc_enumerationMutation(v4);
       }
 
-      v17 = *(*(&v29 + 1) + 8 * v16);
-      if ([v17 tag] == 109 || objc_msgSend(v17, "tag") == 90)
+      v18 = *(*(&v30 + 1) + 8 * v17);
+      if ([v18 tag] == 109 || objc_msgSend(v18, "tag") == 90)
       {
         break;
       }
 
-      if (v14 == ++v16)
+      if (v15 == ++v17)
       {
-        v14 = [v4 countByEnumeratingWithState:&v29 objects:v37 count:16];
-        if (v14)
+        v15 = [v4 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        if (v15)
         {
           goto LABEL_13;
         }
@@ -110,38 +110,38 @@ LABEL_13:
       }
     }
 
-    v18 = v17;
+    v20 = v18;
 
-    if (!v18)
+    if (!v20)
     {
       goto LABEL_29;
     }
 
-    v28.receiver = self;
-    v28.super_class = KmlCancelMessage;
-    v19 = [(KmlCancelMessage *)&v28 init];
-    if (v19)
+    v29.receiver = self;
+    v29.super_class = KmlCancelMessage;
+    v21 = [(KmlCancelMessage *)&v29 init];
+    if (v21)
     {
-      valueAsUnsignedShort = [v18 valueAsUnsignedShort];
-      v19->_cccCode = valueAsUnsignedShort;
-      v21 = &byte_248C29D6C;
-      v22 = 4;
-      while (*v21 != valueAsUnsignedShort)
+      valueAsUnsignedShort = [v20 valueAsUnsignedShort];
+      v21->_cccCode = valueAsUnsignedShort;
+      v23 = &byte_248C29D6C;
+      v24 = 4;
+      while (*v23 != valueAsUnsignedShort)
       {
-        v21 += 8;
-        if (!--v22)
+        v23 += 8;
+        if (!--v24)
         {
-          v23 = 105;
+          v25 = 105;
           goto LABEL_35;
         }
       }
 
-      v23 = *(v21 - 1);
+      v25 = *(v23 - 1);
 LABEL_35:
-      v19->_kmlCode = v23;
+      v21->_kmlCode = v25;
     }
 
-    self = v19;
+    self = v21;
 
     selfCopy = self;
   }
@@ -151,21 +151,20 @@ LABEL_35:
 LABEL_9:
 
 LABEL_21:
-    v10 = KmlLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = KmlLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v39 = "[KmlCancelMessage initWithData:]";
-      v40 = 1024;
-      v41 = 107;
-      _os_log_impl(&dword_248BF3000, v10, OS_LOG_TYPE_ERROR, "%s : %i : Cancel TLV not found", buf, 0x12u);
+      v40 = "[KmlCancelMessage initWithData:]";
+      v41 = 1024;
+      v42 = 107;
+      _os_log_impl(&dword_248BF3000, v11, OS_LOG_TYPE_ERROR, "%s : %i : Cancel TLV not found", buf, 0x12u);
     }
 
 LABEL_32:
     selfCopy = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

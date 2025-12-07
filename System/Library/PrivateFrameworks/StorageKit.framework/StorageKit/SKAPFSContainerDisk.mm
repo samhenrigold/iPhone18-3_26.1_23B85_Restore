@@ -2,6 +2,7 @@
 - (id)copyVolumesWithIncludeSnapshots:(BOOL)snapshots;
 - (id)designatedPhysicalStore;
 - (id)dictionaryRepresentation;
+- (id)innerDescriptionWithPrivateData:(BOOL)data;
 - (id)minimalDictionaryRepresentation;
 - (id)physicalStores;
 - (id)volumes;
@@ -57,31 +58,55 @@
   return dictionaryRepresentation;
 }
 
+- (id)innerDescriptionWithPrivateData:(BOOL)data
+{
+  if ([(SKDisk *)self isLiveFSAPFSDisk])
+  {
+    v4 = @"liveFS";
+  }
+
+  else
+  {
+    v5 = MEMORY[0x277CCACA8];
+    apfsUUID = [(SKAPFSContainerDisk *)self apfsUUID];
+    v7 = apfsUUID;
+    v8 = @"--";
+    if (apfsUUID)
+    {
+      v8 = apfsUUID;
+    }
+
+    v4 = [v5 stringWithFormat:@"APFS UUID: %@", v8];
+  }
+
+  return v4;
+}
+
 - (id)physicalStores
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = +[SKBaseManager sharedManager];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allDisks = [v3 allDisks];
-  v6 = [allDisks countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allDisks countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allDisks);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -93,49 +118,47 @@
         }
       }
 
-      v7 = [allDisks countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allDisks countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)copyVolumesWithIncludeSnapshots:(BOOL)snapshots
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   children = [(SKDisk *)self children];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(children, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = children;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           if (snapshots || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
-            [v5 addObject:{v11, v14}];
+            [v5 addObject:{v11, v13}];
           }
         }
 
@@ -143,13 +166,12 @@
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -169,52 +191,49 @@
 
 - (id)designatedPhysicalStore
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(SKAPFSContainerDisk *)self physicalStores];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v3 = v20 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = v19 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
-        if ([(SKDisk *)self isLiveFSAPFSDisk])
+        v8 = *(*(&v16 + 1) + 8 * i);
+        if (![(SKDisk *)self isLiveFSAPFSDisk])
         {
-          goto LABEL_12;
+          designatedPSUUID = [(SKAPFSContainerDisk *)self designatedPSUUID];
+          if (designatedPSUUID)
+          {
+            v10 = designatedPSUUID;
+            designatedPSUUID2 = [(SKAPFSContainerDisk *)self designatedPSUUID];
+            apfsUUID = [v8 apfsUUID];
+            v13 = [designatedPSUUID2 isEqualToString:apfsUUID];
+
+            if ((v13 & 1) == 0)
+            {
+              continue;
+            }
+          }
         }
 
-        designatedPSUUID = [(SKAPFSContainerDisk *)self designatedPSUUID];
-        if (!designatedPSUUID)
-        {
-          goto LABEL_12;
-        }
-
-        v10 = designatedPSUUID;
-        designatedPSUUID2 = [(SKAPFSContainerDisk *)self designatedPSUUID];
-        apfsUUID = [v8 apfsUUID];
-        v13 = [designatedPSUUID2 isEqualToString:apfsUUID];
-
-        if (v13)
-        {
-LABEL_12:
-          v14 = v8;
-          goto LABEL_14;
-        }
+        v14 = v8;
+        goto LABEL_14;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
       v14 = 0;
       if (v5)
       {
@@ -231,8 +250,6 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

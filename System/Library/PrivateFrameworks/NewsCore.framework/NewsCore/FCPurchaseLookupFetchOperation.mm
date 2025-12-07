@@ -10,18 +10,18 @@
 
 - (void)performOperation
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
   if (([bundleIdentifier isEqualToString:@"com.apple.stocks.widget"] & 1) != 0 || objc_msgSend(bundleIdentifier, "isEqualToString:", @"com.apple.news.widget"))
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke;
-    v14[3] = &unk_1E7C36EA0;
-    v14[4] = self;
-    __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke(v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke;
+    v13[3] = &unk_1E7C36EA0;
+    v13[4] = self;
+    __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke(v13);
   }
 
   else
@@ -37,30 +37,28 @@
     v9 = [(FCPurchaseLookupFetchOperation *)self _prefixedPurchasedIDs:purchaseIDs];
     [(FCRecordChainFetchOperation *)v5 setTopLevelRecordIDs:v9];
 
-    v15 = @"PurchaseLookup";
-    v16[0] = MEMORY[0x1E695E0F0];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"PurchaseLookup";
+    v15[0] = MEMORY[0x1E695E0F0];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     [(FCRecordChainFetchOperation *)v5 setLinkKeysByRecordType:v10];
 
     v11 = +[FCEdgeCacheHint edgeCacheHintForPurchaseLookup];
     [(FCRecordChainFetchOperation *)v5 setEdgeCacheHint:v11];
 
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke_2;
-    v13[3] = &unk_1E7C39358;
-    v13[4] = self;
-    [(FCRecordChainFetchOperation *)v5 setRecordChainCompletionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke_2;
+    v12[3] = &unk_1E7C39358;
+    v12[4] = self;
+    [(FCRecordChainFetchOperation *)v5 setRecordChainCompletionHandler:v12];
     [(FCOperation *)self associateChildOperation:v5];
     [(FCOperation *)v5 start];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -68,9 +66,9 @@ void __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke_2(uint6
     v7 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543362;
-      v14 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Error when fetching purchase lookup record error=%{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Error when fetching purchase lookup record error=%{public}@", &v12, 0xCu);
     }
   }
 
@@ -79,8 +77,6 @@ void __50__FCPurchaseLookupFetchOperation_performOperation__block_invoke_2(uint6
   v10 = [v9 fc_onlyObject];
   v11 = [v8 processFetchedResults:v10 error:v6];
   [v8 finishExecutingWithFetchedObject:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (FCPurchaseLookupFetchOperation)init
@@ -189,7 +185,7 @@ void __56__FCPurchaseLookupFetchOperation__prefixedPurchasedIDs___block_invoke(u
 
 void __62__FCPurchaseLookupFetchOperation_processFetchedResults_error___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 base];
   v5 = [v4 identifier];
@@ -223,9 +219,9 @@ void __62__FCPurchaseLookupFetchOperation_processFetchedResults_error___block_in
     v15 = FCPurchaseLog;
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_ERROR))
     {
-      v22 = 138412290;
-      v23 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "Purchase lookup identifier should have prefix IAP- but found %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "Purchase lookup identifier should have prefix IAP- but found %@", &v21, 0xCu);
     }
   }
 
@@ -239,8 +235,6 @@ void __62__FCPurchaseLookupFetchOperation_processFetchedResults_error___block_in
     v20 = *(v19 + 40);
     *(v19 + 40) = v18;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

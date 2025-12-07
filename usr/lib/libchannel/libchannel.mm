@@ -124,14 +124,18 @@ uint64_t channel_rt_obj_alloc(uint64_t a1)
   return MEMORY[0x2A1C74938](v2, a1);
 }
 
-uint64_t DispatchChannel::DispatchChannel(uint64_t a1, int a2, uint64_t a3, __int128 *a4, uint64_t a5, int a6, int a7, int a8, int a9, void *a10, uint64_t a11)
+uint64_t DispatchChannel::DispatchChannel(uint64_t a1, uint64_t a2, __int128 *a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, void *a10, uint64_t a11)
 {
+  v11 = a8;
+  v12 = a7;
+  v13 = a6;
+  v17 = a2;
   v19 = a10;
-  v36 = *a3;
-  v37 = *(a3 + 16);
-  v34 = *a4;
-  v35 = *(a4 + 2);
-  Channel::Channel(a1, a2, &v36, &v34, a5, a6, a7, a8, a9);
+  v33 = *a3;
+  v34 = *(a3 + 2);
+  v31 = *a4;
+  v32 = *(a4 + 2);
+  Channel::Channel(a1, v17, &v33, &v31, a5, v13, v12, v11, a9);
   v20 = v19;
   *(a1 + 88) = v20;
   *(a1 + 96) = 0;
@@ -149,33 +153,30 @@ uint64_t DispatchChannel::DispatchChannel(uint64_t a1, int a2, uint64_t a3, __in
   v26 = *(a1 + 104);
   *(a1 + 104) = v25;
 
-  v27 = *(a1 + 120);
   object_retain_internal();
-  v28 = *(a1 + 96);
   handler[5] = MEMORY[0x29EDCA5F8];
   handler[6] = 3321888768;
   handler[7] = ___ZN15DispatchChannelC2Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto17OS_dispatch_queue8NSObjectPv_block_invoke;
   handler[8] = &__block_descriptor_48_ea8_32c111_ZTSKZN15DispatchChannelC1Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto17OS_dispatch_queue8NSObjectPvE3__0_e5_v8__0l;
   handler[9] = a1;
-  v33 = a7;
+  v30 = v12;
   dispatch_source_set_mandatory_cancel_handler();
-  v29 = *(a1 + 96);
+  v27 = *(a1 + 96);
   handler[0] = MEMORY[0x29EDCA5F8];
   handler[1] = 3321888768;
   handler[2] = ___ZN15DispatchChannelC2Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto17OS_dispatch_queue8NSObjectPv_block_invoke_1;
   handler[3] = &__block_descriptor_40_ea8_32c111_ZTSKZN15DispatchChannelC1Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto17OS_dispatch_queue8NSObjectPvE3__1_e5_v8__0l;
   handler[4] = a1;
-  dispatch_source_set_event_handler(v29, handler);
-  v30 = *(a1 + 120);
+  dispatch_source_set_event_handler(v27, handler);
   object_retain_internal();
   DispatchChannel::set_msg_source_mandatory_cancel_handler(a1, 0);
-  AssertableValue::AssertableValue(&v36);
+  AssertableValue::AssertableValue(&v33);
   do
   {
-    *&v36 = atomic_load_explicit(*(a1 + 64), memory_order_acquire);
+    *&v33 = atomic_load_explicit(*(a1 + 64), memory_order_acquire);
   }
 
-  while (!assert_wait(*(a1 + 64), &v36));
+  while (!assert_wait(*(a1 + 64), &v33));
 
   return a1;
 }
@@ -186,9 +187,7 @@ uint64_t DispatchChannel::DispatchChannel(uint64_t a1, int a2, uint64_t a3, __in
 
 uint64_t ___ZN15DispatchChannelC2Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto17OS_dispatch_queue8NSObjectPv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   mach_port_mod_refs(*MEMORY[0x29EDCA6B0], *(a1 + 40), 1u, -1);
-  v2 = *(v1 + 120);
 
   return object_release_internal();
 }
@@ -213,9 +212,8 @@ void ___ZN15DispatchChannelC2Eb17MessageRingBufferS0_P7CASPagejjjjPU28objcproto1
 
 void DispatchChannel::set_msg_source_mandatory_cancel_handler(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 104);
-  v3 = MEMORY[0x29C28CED0](a2);
-  v4 = MEMORY[0x29C28CED0]();
+  v2 = MEMORY[0x29C28CED0](a2);
+  v3 = MEMORY[0x29C28CED0]();
   dispatch_source_set_mandatory_cancel_handler();
 }
 
@@ -226,14 +224,13 @@ uint64_t ___ZN15DispatchChannel39set_msg_source_mandatory_cancel_handlerEU13bloc
   v3 = *(v2 + 112);
   *(v2 + 112) = 0;
 
-  v4 = *(v2 + 120);
   object_release_internal();
   result = *(a1 + 40);
   if (result)
   {
-    v6 = *(result + 16);
+    v5 = *(result + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
@@ -265,15 +262,14 @@ void DispatchChannel::activate_no_check(DispatchChannel *this)
   explicit = atomic_load_explicit(*(this + 8), memory_order_acquire);
   if (v2 < AssertableValue::value(&explicit))
   {
-    v3 = *(this + 15);
     object_retain_internal();
-    v4 = *(this + 11);
-    v5[0] = MEMORY[0x29EDCA5F8];
-    v5[1] = 3321888768;
-    v5[2] = ___ZN15DispatchChannel17activate_no_checkEv_block_invoke;
-    v5[3] = &__block_descriptor_40_ea8_32c50_ZTSKZN15DispatchChannel17activate_no_checkEvE3__0_e5_v8__0l;
-    v5[4] = this;
-    dispatch_async(v4, v5);
+    v3 = *(this + 11);
+    v4[0] = MEMORY[0x29EDCA5F8];
+    v4[1] = 3321888768;
+    v4[2] = ___ZN15DispatchChannel17activate_no_checkEv_block_invoke;
+    v4[3] = &__block_descriptor_40_ea8_32c50_ZTSKZN15DispatchChannel17activate_no_checkEvE3__0_e5_v8__0l;
+    v4[4] = this;
+    dispatch_async(v3, v4);
   }
 }
 
@@ -290,9 +286,7 @@ void DispatchChannel::try_activate(DispatchChannel *this)
 
 uint64_t ___ZN15DispatchChannel17activate_no_checkEv_block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  DispatchChannel::dequeue_messages(v1);
-  v2 = *(v1 + 15);
+  DispatchChannel::dequeue_messages(*(a1 + 32));
 
   return object_release_internal();
 }
@@ -304,31 +298,31 @@ void DispatchChannel::dequeue_messages(DispatchChannel *this)
   if (v2 != 14 && v2 != 37)
   {
     v3 = MEMORY[0x29C28CED0](*(this + 14));
-    AssertableValue::AssertableValue(&v8);
+    AssertableValue::AssertableValue(&v7);
     while (1)
     {
-      v7 = 0;
+      v6 = 0;
       while (1)
       {
-        Channel::receive_message(this, &v8, &v7, v4);
-        if ((v6 & 1) == 0)
+        Channel::receive_message(v4, this, &v7, &v6);
+        if ((v5 & 1) == 0)
         {
           break;
         }
 
-        v3[2](v3, v5 + 8, (v4[0] - 8), v4[1]);
+        v3[2](v3, v4[2] + 8, (LODWORD(v4[0]) - 8), HIDWORD(v4[0]));
         if (!atomic_load_explicit(this + 18, memory_order_acquire))
         {
           goto LABEL_12;
         }
       }
 
-      if (v7)
+      if (v6)
       {
         break;
       }
 
-      if (assert_wait(*(this + 8), &v8))
+      if (assert_wait(*(this + 8), &v7))
       {
         goto LABEL_12;
       }
@@ -416,12 +410,12 @@ uint64_t RTChannel::close(uint64_t this)
   return this;
 }
 
-uint64_t RTChannel::pop_message@<X0>(RTChannel *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *RTChannel::pop_message@<X0>(RTChannel *this@<X0>, uint64_t a2@<X8>)
 {
   AssertableValue::AssertableValue(v6);
   v5 = 0;
-  result = Channel::receive_message(this, v6, &v5, a2);
-  if ((a2[24] & 1) == 0)
+  result = Channel::receive_message(a2, this, v6, &v5);
+  if ((*(a2 + 24) & 1) == 0)
   {
     if (v5)
     {
@@ -429,19 +423,19 @@ uint64_t RTChannel::pop_message@<X0>(RTChannel *this@<X0>, _BYTE *a2@<X8>)
     }
 
     *a2 = 0;
-    a2[24] = 0;
+    *(a2 + 24) = 0;
   }
 
   return result;
 }
 
-unint64_t RTChannel::receive_message@<X0>(atomic_ullong **this@<X0>, int a2@<W1>, _BYTE *a3@<X8>)
+unint64_t RTChannel::receive_message@<X0>(atomic_ullong **this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   LODWORD(v3) = a2;
   AssertableValue::AssertableValue(&v12);
   v11 = 0;
-  result = Channel::receive_message(this, &v12, &v11, a3);
-  if ((a3[24] & 1) == 0)
+  result = Channel::receive_message(a3, this, &v12, &v11);
+  if ((*(a3 + 24) & 1) == 0)
   {
     if (v11)
     {
@@ -473,8 +467,8 @@ LABEL_3:
             }
           }
 
-          result = Channel::receive_message(this, &v12, &v11, a3);
-          if (a3[24])
+          result = Channel::receive_message(a3, this, &v12, &v11);
+          if (*(a3 + 24))
           {
             return result;
           }
@@ -495,7 +489,7 @@ LABEL_3:
     }
 
     *a3 = 0;
-    a3[24] = 0;
+    *(a3 + 24) = 0;
   }
 
   return result;
@@ -588,7 +582,7 @@ BOOL RTChannel::poll_closed(atomic_uint *this)
   return atomic_load_explicit(v1, memory_order_acquire) == 0;
 }
 
-BOOL RTChannel::wire(const void **this)
+BOOL RTChannel::wire(size_t *this)
 {
   result = MessageRingBuffer::wire(this);
   if (result)
@@ -608,13 +602,11 @@ BOOL RTChannel::wire(const void **this)
   return result;
 }
 
-void *MessageRingBuffer::allocate(MessageRingBuffer *this)
+void *MessageRingBuffer::allocate(MessageRingBuffer *this, unsigned int a2)
 {
-  v1 = this;
   result = MessageRingBufferSharedMemory::allocate(this);
   if (result)
   {
-    v3 = *MEMORY[0x29EDCA6D0] * ((2 * v1) | 1u);
     operator new();
   }
 
@@ -686,7 +678,7 @@ void *MessageRingBufferSharedMemory::allocate(MessageRingBufferSharedMemory *thi
   return result;
 }
 
-uint64_t MessageRingBuffer::from_xpc(void *a1)
+void *MessageRingBuffer::from_xpc(void *a1)
 {
   v1 = a1;
   v2 = v1;
@@ -715,7 +707,7 @@ LABEL_6:
   return v4;
 }
 
-uint64_t MessageRingBuffer::from_shared_region(MessageRingBuffer *this, char *a2)
+void *MessageRingBuffer::from_shared_region(MessageRingBuffer *this, char *a2)
 {
   result = 0;
   v4 = *MEMORY[0x29EDCA6D0];
@@ -854,7 +846,7 @@ uint64_t disarm_deadname_notification(mach_port_name_t name)
   return mach_port_deallocate(*v2, v3);
 }
 
-unint64_t Channel::receive_message@<X0>(Channel *this@<X0>, AssertableValue *a2@<X1>, BOOL *a3@<X2>, uint64_t a4@<X8>)
+uint64_t *Channel::receive_message@<X0>(uint64_t *__return_ptr a1@<X8>, Channel *this@<X0>, AssertableValue *a3@<X1>, BOOL *a4@<X2>)
 {
   v7 = *MEMORY[0x29EDCA6D0];
   v8 = *(this + 4);
@@ -862,8 +854,8 @@ unint64_t Channel::receive_message@<X0>(Channel *this@<X0>, AssertableValue *a2@
   v10 = *(this + 2);
   v11 = *(v10 + 128);
   v12 = *(v10 + 256);
-  *a2 = atomic_load_explicit(*(this + 8), memory_order_acquire);
-  result = AssertableValue::value(a2);
+  *a3 = atomic_load_explicit(*(this + 8), memory_order_acquire);
+  result = AssertableValue::value(a3);
   if (v11 <= v12)
   {
     v17 = v12;
@@ -882,16 +874,16 @@ unint64_t Channel::receive_message@<X0>(Channel *this@<X0>, AssertableValue *a2@
 LABEL_20:
     *(*(this + 2) + 256) = v12;
     atomic_store(v17, (*(this + 2) + 128));
-    *a3 = 0;
-    *a4 = v23 | v18;
-    *(a4 + 4) = v16;
-    *(a4 + 8) = v15;
-    *(a4 + 9) = *v26;
-    *(a4 + 12) = *&v26[3];
-    *(a4 + 16) = v14;
-    *(a4 + 24) = v24;
-    *(a4 + 25) = *v25;
-    *(a4 + 28) = *&v25[3];
+    *a4 = 0;
+    *a1 = v23 | v18;
+    *(a1 + 1) = v16;
+    *(a1 + 8) = v15;
+    *(a1 + 9) = *v26;
+    *(a1 + 3) = *&v26[3];
+    a1[2] = v14;
+    *(a1 + 24) = v24;
+    *(a1 + 25) = *v25;
+    *(a1 + 7) = *&v25[3];
   }
 
   else
@@ -926,9 +918,9 @@ LABEL_20:
       }
     }
 
-    *a3 = 1;
-    *a4 = 0;
-    *(a4 + 24) = 0;
+    *a4 = 1;
+    *a1 = 0;
+    *(a1 + 24) = 0;
   }
 
   return result;
@@ -964,7 +956,7 @@ _DWORD *Channel::reserve_message(atomic_uint *this, int a2, uint64_t a3, uint64_
   *v13 = v11 - v13;
   v13[1] = a2 & 0x3FFFFFFF;
   v14 = v8 + v4;
-  v15 = v13 - v4;
+  v15 = (v13 - v4);
   if (v13 <= v14)
   {
     result = v13;
@@ -1085,42 +1077,45 @@ uint64_t Channel::msg_wait(Channel *this, mach_msg_timeout_t a2)
 
 uint64_t Channel::poll_dead_name_notification(Channel *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v1 = *(this + 18);
-  if (v1)
+  if (!v1)
+  {
+    return 1;
+  }
+
+  realtime_runtime_check_push_authorization();
+  v2 = mach_msg(&msg, 258, 0, 0x2Cu, v1, 0, 0);
+  realtime_runtime_check_pop_authorization();
+  result = 1;
+  if ((v2 - 268451842) <= 7 && ((1 << (v2 - 2)) & 0x93) != 0)
+  {
+    return 0;
+  }
+
+  if (v2)
   {
     realtime_runtime_check_push_authorization();
-    v2 = mach_msg(&msg, 258, 0, 0x2Cu, v1, 0, 0);
-    realtime_runtime_check_pop_authorization();
-    result = 1;
-    if ((v2 - 268451842) <= 7 && ((1 << (v2 - 2)) & 0x93) != 0)
+    v6 = 0;
+    memset(v9, 0, sizeof(v9));
+    v4 = MEMORY[0x29EDCA988];
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      result = 0;
+      v5 = 3;
     }
 
-    else if (v2)
+    else
     {
-      realtime_runtime_check_push_authorization();
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
-      v11 = 0u;
-      v9 = 0u;
-      os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-      v7 = 67109120;
-      v8 = v2;
-      _os_log_send_and_compose_impl();
-      v5 = _os_crash_msg();
-      Channel::poll_dead_name_notification(v5);
+      v5 = 2;
     }
+
+    v8[0] = 67109120;
+    v8[1] = v2;
+    _os_log_send_and_compose_impl(v5, &v6, v9, 80, &dword_29858E000, v4, 16, "channel_t poll dead name error: %d", v8);
+    _os_crash_msg();
+    Channel::poll_dead_name_notification();
   }
 
-  else
-  {
-    result = 1;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1128,7 +1123,7 @@ void Endpoint::Endpoint(Endpoint *this, MessageRingBuffer *a2, int a3)
 {
   *this = 1;
   *(this + 1) = a3;
-  v4 = MessageRingBuffer::allocate(a2);
+  v4 = MessageRingBuffer::allocate(a2, a2);
   *(this + 1) = v4;
   *(this + 2) = 0;
   CASPage::allocate(v4);
@@ -1170,28 +1165,28 @@ uint64_t Endpoint::Endpoint(uint64_t a1, void *a2)
   *a1 = 0;
   uint64 = xpc_dictionary_get_uint64(v3, "CHChannelEndpointRingBufferPagesV2");
   *(a1 + 4) = uint64;
-  *(a1 + 8) = MessageRingBuffer::allocate(uint64);
-  v5 = xpc_dictionary_get_value(v3, "CHChannelEndpointRingBufferV2");
-  *(a1 + 16) = MessageRingBuffer::from_xpc(v5);
+  *(a1 + 8) = MessageRingBuffer::allocate(uint64, v5);
+  v6 = xpc_dictionary_get_value(v3, "CHChannelEndpointRingBufferV2");
+  *(a1 + 16) = MessageRingBuffer::from_xpc(v6);
 
-  v6 = xpc_dictionary_get_value(v3, "CHChannelEndpointCASPageV2");
-  v7 = v6;
-  v8 = MEMORY[0x29EDCA6B0];
-  if (v6)
+  v7 = xpc_dictionary_get_value(v3, "CHChannelEndpointCASPageV2");
+  v8 = v7;
+  v9 = MEMORY[0x29EDCA6B0];
+  if (v7)
   {
-    if (MEMORY[0x29C28D000](v6) == MEMORY[0x29EDCAA48])
+    if (MEMORY[0x29C28D000](v7) == MEMORY[0x29EDCAA48])
     {
       region = 0;
-      v13 = xpc_shmem_map(v7, &region);
-      if (v13)
+      v14 = xpc_shmem_map(v8, &region);
+      if (v14)
       {
-        if (v13 >= 0x100 && v13 == *MEMORY[0x29EDCA6D0])
+        if (v14 >= 0x100 && v14 == *MEMORY[0x29EDCA6D0])
         {
-          v9 = region;
+          v10 = region;
           goto LABEL_7;
         }
 
-        mach_vm_deallocate(*v8, region, v13);
+        mach_vm_deallocate(*v9, region, v14);
       }
     }
 
@@ -1201,24 +1196,24 @@ uint64_t Endpoint::Endpoint(uint64_t a1, void *a2)
     }
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_7:
 
-  *(a1 + 24) = v9;
+  *(a1 + 24) = v10;
   *(a1 + 36) = allocate_recv_right();
   *(a1 + 32) = xpc_dictionary_copy_mach_send();
   *(a1 + 44) = allocate_recv_right();
   *(a1 + 48) = xpc_dictionary_copy_mach_send();
   previous = 0;
-  *(a1 + 40) = mach_port_request_notification(*v8, *(a1 + 32), 72, 1u, *(a1 + 36), 0x15u, &previous) == 0;
-  v10 = mach_port_request_notification(*v8, *(a1 + 48), 72, 1u, *(a1 + 44), 0x15u, &previous);
-  v11 = *(a1 + 40);
-  if (v10)
+  *(a1 + 40) = mach_port_request_notification(*v9, *(a1 + 32), 72, 1u, *(a1 + 36), 0x15u, &previous) == 0;
+  v11 = mach_port_request_notification(*v9, *(a1 + 48), 72, 1u, *(a1 + 44), 0x15u, &previous);
+  v12 = *(a1 + 40);
+  if (v11)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  *(a1 + 40) = v11;
+  *(a1 + 40) = v12;
 LABEL_11:
 
   return a1;
@@ -1319,96 +1314,86 @@ uint64_t Endpoint::encode(uint64_t a1, void *a2)
   {
     if (is_open(a1))
     {
-      v21 = *(a1 + 8);
-      v22 = v21[2];
-      v23 = *v21;
       readonly = xpc_shmem_create_readonly();
-      v24 = *(a1 + 36);
-      v11 = xpc_mach_send_create_with_disposition();
-      v25 = *(a1 + 44);
-      v26 = xpc_mach_send_create_with_disposition();
-      v13 = v26;
+      v8 = xpc_mach_send_create_with_disposition();
+      v16 = xpc_mach_send_create_with_disposition();
+      v9 = v16;
       if (readonly)
       {
-        v27 = v11 == 0;
+        v17 = v8 == 0;
       }
 
       else
       {
-        v27 = 1;
+        v17 = 1;
       }
 
-      v28 = v27 || v26 == 0;
-      v20 = !v28;
-      if (!v28)
+      v18 = v17 || v16 == 0;
+      v15 = !v18;
+      if (!v18)
       {
         xpc_dictionary_set_BOOL(v3, "CHChannelEndpointReplyV2", 1);
         xpc_dictionary_set_value(v3, "CHChannelEndpointRingBufferV2", readonly);
-        xpc_dictionary_set_value(v3, "CHChannelEndpointDeadNameNotifyPortV2", v11);
-        xpc_dictionary_set_value(v3, "CHChannelEndpointMsgNotifyPortV2", v13);
-        v20 = 1;
+        xpc_dictionary_set_value(v3, "CHChannelEndpointDeadNameNotifyPortV2", v8);
+        xpc_dictionary_set_value(v3, "CHChannelEndpointMsgNotifyPortV2", v9);
+        v15 = 1;
       }
 
       goto LABEL_40;
     }
 
 LABEL_41:
-    v20 = 0;
+    v15 = 0;
     goto LABEL_42;
   }
 
-  v4 = *(a1 + 8);
   if (*(a1 + 4))
   {
-    v5 = v4 == 0;
+    v4 = *(a1 + 8) == 0;
   }
 
   else
   {
-    v5 = 1;
+    v4 = 1;
   }
 
-  v7 = v5 || *(a1 + 24) == 0 || *(a1 + 36) == 0;
-  if (v7 || !*(a1 + 44))
+  v6 = v4 || *(a1 + 24) == 0 || *(a1 + 36) == 0;
+  if (v6 || !*(a1 + 44))
   {
     goto LABEL_41;
   }
 
-  v8 = v4[2];
-  v9 = *v4;
   readonly = xpc_shmem_create_readonly();
-  v11 = xpc_shmem_create(*(a1 + 24), *MEMORY[0x29EDCA6D0]);
-  v12 = *(a1 + 36);
-  v13 = xpc_mach_send_create_with_disposition();
-  v14 = *(a1 + 44);
-  v15 = xpc_mach_send_create_with_disposition();
-  v16 = v15;
+  v8 = xpc_shmem_create(*(a1 + 24), *MEMORY[0x29EDCA6D0]);
+  v9 = xpc_mach_send_create_with_disposition();
+  v10 = xpc_mach_send_create_with_disposition();
+  v11 = v10;
   if (readonly)
   {
-    v17 = v11 == 0;
+    v12 = v8 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v12 = 1;
   }
 
-  v19 = v17 || v13 == 0 || v15 == 0;
-  v20 = !v19;
-  if (!v19)
+  v14 = v12 || v9 == 0 || v10 == 0;
+  v15 = !v14;
+  if (!v14)
   {
     xpc_dictionary_set_BOOL(v3, "CHChannelEndpointRequestV2", 1);
     xpc_dictionary_set_value(v3, "CHChannelEndpointRingBufferV2", readonly);
     xpc_dictionary_set_uint64(v3, "CHChannelEndpointRingBufferPagesV2", *(a1 + 4));
-    xpc_dictionary_set_value(v3, "CHChannelEndpointCASPageV2", v11);
-    xpc_dictionary_set_value(v3, "CHChannelEndpointDeadNameNotifyPortV2", v13);
-    xpc_dictionary_set_value(v3, "CHChannelEndpointMsgNotifyPortV2", v16);
+    xpc_dictionary_set_value(v3, "CHChannelEndpointCASPageV2", v8);
+    xpc_dictionary_set_value(v3, "CHChannelEndpointDeadNameNotifyPortV2", v9);
+    xpc_dictionary_set_value(v3, "CHChannelEndpointMsgNotifyPortV2", v11);
   }
 
 LABEL_40:
 LABEL_42:
 
-  return v20;
+  return v15;
 }
 
 BOOL is_open(Endpoint *a1)
@@ -1468,7 +1453,7 @@ void channel_dispatch_dispose(id *a1)
   Channel::~Channel((a1 + 3));
 }
 
-uint64_t channel_create_asymmetric_endpoint_and_request(unsigned int a1, unsigned int a2, void *a3)
+uint64_t channel_create_asymmetric_endpoint_and_request(MessageRingBuffer *a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = v5;
@@ -1501,9 +1486,9 @@ uint64_t channel_create_asymmetric_endpoint_and_request(unsigned int a1, unsigne
   return v7;
 }
 
-void sub_2985912F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2985912F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Endpoint::~Endpoint(va);
 
   _Unwind_Resume(a1);
@@ -1564,9 +1549,9 @@ LABEL_9:
   return v6;
 }
 
-void sub_29859143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_29859143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   Endpoint::~Endpoint(va);
 
   _Unwind_Resume(a1);
@@ -1689,7 +1674,7 @@ uint64_t channel_dispatch_create_from_request(void *a1, void *a2, void *a3)
             if (Endpoint::encode(v19, v6))
             {
               v9 = channel_dispatch_obj_alloc(160);
-              v12 = *(v20 + 2);
+              v12 = *(v20 + 16);
               v17 = *v20;
               v18 = v12;
               v13 = *(v21 + 16);
@@ -1719,9 +1704,9 @@ uint64_t channel_dispatch_create_from_request(void *a1, void *a2, void *a3)
   return v9;
 }
 
-void sub_29859188C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_29859188C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   Endpoint::~Endpoint(va);
 
   _Unwind_Resume(a1);
@@ -1747,7 +1732,7 @@ uint64_t channel_dispatch_create_from_reply(uint64_t a1, void *a2, void *a3)
             v7 = channel_dispatch_obj_alloc(160);
             v9 = *(a1 + 24);
             v10 = *(a1 + 32);
-            v11 = *(v9 + 2);
+            v11 = *(v9 + 16);
             v16 = *v9;
             v17 = v11;
             v12 = *(v10 + 16);
@@ -1771,61 +1756,50 @@ uint64_t channel_dispatch_create_from_reply(uint64_t a1, void *a2, void *a3)
 
 void CASPage::allocate(mach_error_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = mach_error_string(a1);
-  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "CASPage::allocate failed: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = mach_error_string(a1);
+  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "CASPage::allocate failed: %s", &v1, 0xCu);
 }
 
 void MessageRingBufferSharedMemory::allocate(mach_error_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   mach_error_string(a1);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 {
-  v7 = *MEMORY[0x29EDCA608];
   mach_error_string(a1);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void MessageRingBufferSharedMemory::allocate()
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 {
-  v6 = *MEMORY[0x29EDCA608];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void allocate_recv_right(mach_error_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = mach_error_string(a1);
-  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Unable to allocate mach receive right %s", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = mach_error_string(a1);
+  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Unable to allocate mach receive right %s", &v1, 0xCu);
 }
 
 void Endpoint::Endpoint()
 {
-  v3 = *MEMORY[0x29EDCA608];
-  v1 = 136315138;
-  v2 = "CHChannelEndpointCASPageV2";
-  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Item at key (%s) was not a XPC_TYPE_SHMEM, not retrieving", &v1, 0xCu);
-  v0 = *MEMORY[0x29EDCA608];
+  v2 = *MEMORY[0x29EDCA608];
+  v0 = 136315138;
+  v1 = "CHChannelEndpointCASPageV2";
+  _os_log_error_impl(&dword_29858E000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "Item at key (%s) was not a XPC_TYPE_SHMEM, not retrieving", &v0, 0xCu);
 }
 
 _DWORD *channel_reserve_aligned_message(uint64_t a1, int a2, uint64_t a3, uint64_t a4)

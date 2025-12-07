@@ -54,10 +54,10 @@ void __48__ATXFrontBoardLayoutAggregator_fetchActiveApps__block_invoke(uint64_t 
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __48__ATXFrontBoardLayoutAggregator_fetchActiveApps__block_invoke_cold_1(v2, v4);
+      __48__ATXFrontBoardLayoutAggregator_fetchActiveApps__block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -138,24 +138,25 @@ LABEL_11:
 
     else
     {
-      v14 = 0;
-      v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:visibleCopy allowPlaceholder:0 error:&v14];
-      v10 = v14;
+      v15 = 0;
+      v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:visibleCopy allowPlaceholder:0 error:&v15];
+      v10 = v15;
+      v11 = v10;
       if (v9)
       {
         appTags = [v9 appTags];
         v8 = [appTags containsObject:@"hidden"] ^ 1;
 
-        v12 = [MEMORY[0x277CCABB0] numberWithBool:v8];
-        [(NSMutableDictionary *)selfCopy->_bundleIdentifierToVisibilityMap setObject:v12 forKeyedSubscript:visibleCopy];
+        v13 = [MEMORY[0x277CCABB0] numberWithBool:v8];
+        [(NSMutableDictionary *)selfCopy->_bundleIdentifierToVisibilityMap setObject:v13 forKeyedSubscript:visibleCopy];
       }
 
       else
       {
-        v12 = __atxlog_handle_default();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __atxlog_handle_default(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(ATXFrontBoardLayoutAggregator *)v10 _isAppWithBundleIdentifierVisible:v12];
+          [(ATXFrontBoardLayoutAggregator *)v11 _isAppWithBundleIdentifierVisible:v13];
         }
 
         LOBYTE(v8) = 0;
@@ -175,22 +176,19 @@ LABEL_11:
 
 void __48__ATXFrontBoardLayoutAggregator_fetchActiveApps__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXFrontBoardLayoutAggregator: error fetching FrontBoard display elements: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXFrontBoardLayoutAggregator: error fetching FrontBoard display elements: %@", &v4, 0xCu);
 }
 
 - (void)_isAppWithBundleIdentifierVisible:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXFrontBoardLayoutAggregator: could not obtain record: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXFrontBoardLayoutAggregator: could not obtain record: %@", &v2, 0xCu);
 }
 
 @end

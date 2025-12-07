@@ -55,7 +55,7 @@
   dynamicButtonGesture = self->_dynamicButtonGesture;
   if (dynamicButtonGesture)
   {
-    [(_UIDynamicButtonNotifyingGestureRecognizer *)dynamicButtonGesture _evaluateAllowedPhysicalButtons];
+    [(_UIDynamicButtonNotifyingGestureRecognizer *)&dynamicButtonGesture->super.super.super.isa _evaluateAllowedPhysicalButtons];
   }
 }
 

@@ -27,16 +27,14 @@ id __67__HMMediaProfile_HRERecommendableObjectProtocol__hre_matchingTypes__block
 
 void __67__HMMediaProfile_HRERecommendableObjectProtocol__hre_matchingTypes__block_invoke_2(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB98];
   v2 = [*(a1 + 32) hre_primaryType];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v4 = [v1 setWithArray:v3];
   v5 = qword_27F5F96E0;
   qword_27F5F96E0 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__HMMediaProfile_HRERecommendableObjectProtocol__hre_characteristics__block_invoke_2()

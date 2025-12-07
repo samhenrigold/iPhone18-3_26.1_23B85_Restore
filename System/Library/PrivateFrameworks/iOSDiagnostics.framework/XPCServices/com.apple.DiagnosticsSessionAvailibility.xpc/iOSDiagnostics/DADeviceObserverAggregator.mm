@@ -32,9 +32,9 @@
 - (DADeviceObserverAggregator)initWithObserverClasses:(id)classes
 {
   classesCopy = classes;
-  v27.receiver = self;
-  v27.super_class = DADeviceObserverAggregator;
-  v5 = [(DADeviceObserverAggregator *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = DADeviceObserverAggregator;
+  v5 = [(DADeviceObserverAggregator *)&v26 init];
   if (v5)
   {
     v6 = objc_alloc_init(NSOperationQueue);
@@ -42,49 +42,48 @@
     v5->_discoveryQueue = v6;
 
     v8 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [classesCopy count]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v9 = classesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
-          v15 = objc_opt_new();
-          v16 = [DADeviceObserverEnclosure alloc];
-          v17 = [(DADeviceObserverEnclosure *)v16 initWithObserver:v15 delegate:v5, v23];
-          [v8 addObject:v17];
+          v14 = objc_opt_new();
+          v15 = [DADeviceObserverEnclosure alloc];
+          v16 = [(DADeviceObserverEnclosure *)v15 initWithObserver:v14 delegate:v5, v22];
+          [v8 addObject:v16];
 
-          v13 = v13 + 1;
+          ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v11);
     }
 
-    v18 = [v8 copy];
+    v17 = [v8 copy];
     observers = v5->_observers;
-    v5->_observers = v18;
+    v5->_observers = v17;
 
-    v20 = +[NSMutableDictionary dictionary];
+    v19 = +[NSMutableDictionary dictionary];
     handlers = v5->_handlers;
-    v5->_handlers = v20;
+    v5->_handlers = v19;
   }
 
   return v5;

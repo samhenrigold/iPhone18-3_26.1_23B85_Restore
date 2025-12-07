@@ -105,7 +105,7 @@ void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdenti
     v6 = [MEMORY[0x277D45F58] assetResolverController];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1(a1);
+      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1();
     }
 
     v8 = *(a1 + 32);
@@ -135,7 +135,7 @@ void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdenti
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_2(a1);
+        __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_2();
       }
 
       v16 = *(a1 + 32);
@@ -562,26 +562,25 @@ uint64_t __114__RMAssetResolverController__resolveKeychainAssets_assetIdentifier
 {
   if (a3)
   {
-    v4 = a1[8];
-    v5 = *(a1[8] + 16);
+    v4 = *(a1[8] + 16);
 
-    return v5();
+    return v4();
   }
 
   else
   {
-    v7 = a1[4];
-    v8 = [a2 assetKeychainReference];
-    [v7 addObject:v8];
+    v6 = a1[4];
+    v7 = [a2 assetKeychainReference];
+    [v6 addObject:v7];
 
-    v9 = a1[6];
-    v10 = a1[7];
-    v12 = a1[4];
-    v11 = a1[5];
-    v14 = a1[8];
-    v13 = a1[9];
+    v8 = a1[6];
+    v9 = a1[7];
+    v11 = a1[4];
+    v10 = a1[5];
+    v13 = a1[8];
+    v12 = a1[9];
 
-    return [v13 _resolveKeychainAssets:v11 assetIdentifiers:v9 accessGroup:v10 persistentRefs:v12 completionHandler:v14];
+    return [v12 _resolveKeychainAssets:v10 assetIdentifiers:v8 accessGroup:v9 persistentRefs:v11 completionHandler:v13];
   }
 }
 
@@ -764,7 +763,7 @@ void __120__RMAssetResolverController__resolveKeychainAsset_assetIdentifier_conf
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1(a1);
+      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1();
     }
 
     v10 = *(a1 + 32);
@@ -861,7 +860,7 @@ void __99__RMAssetResolverController__resolveDataAsset_assetIdentifier_store_dow
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1(a1);
+      __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1();
     }
 
     v8 = *(a1 + 32);
@@ -944,52 +943,18 @@ void __135__RMAssetResolverController__fetchAssetDeclarationWithAssetIdentifier_
   }
 }
 
-+ (void)resolveUserNameAndPasswordAsset:assetIdentifier:completionHandler:.cold.1()
+void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Wrong asset type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)resolveUserNameAndPasswordAsset:assetIdentifier:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Missing asset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v1, v2, "Error resolving asset %{public}@: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_261E36000, v0, v1, "Error resolving asset %{public}@: %{public}@");
 }
 
-void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_2(uint64_t a1)
+void __95__RMAssetResolverController_resolveUserNameAndPasswordAsset_assetIdentifier_completionHandler___block_invoke_2_cold_2()
 {
-  OUTLINED_FUNCTION_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_261E36000, v1, v2, "Could not deserialize credentials asset %{public}@: %{public}@");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_resolveKeychainAsset:assetIdentifier:configurationKey:store:accessGroup:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Wrong asset type: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_resolveKeychainAsset:assetIdentifier:configurationKey:store:accessGroup:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_3(&dword_261E36000, v0, v1, "Missing asset: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_261E36000, v0, v1, "Could not deserialize credentials asset %{public}@: %{public}@");
 }
 
 @end

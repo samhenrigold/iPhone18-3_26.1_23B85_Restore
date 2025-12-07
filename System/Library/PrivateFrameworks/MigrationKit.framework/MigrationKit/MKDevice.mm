@@ -6,10 +6,10 @@
 
 - (MKDevice)init
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = MKDevice;
-  v2 = [(MKDevice *)&v33 init];
+  v34 = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = MKDevice;
+  v2 = [(MKDevice *)&v32 init];
   if (v2)
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -69,27 +69,27 @@ LABEL_13:
     [(MKDevice *)v2 setDeviceModel:v11];
 
     model = [currentDevice model];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v13 = [&unk_286AAD368 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v13 = [&unk_286AAD368 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v28 = v4;
-      v15 = *v30;
+      v27 = v4;
+      v15 = *v29;
       v16 = @"Unknown";
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v30 != v15)
+          if (*v29 != v15)
           {
             objc_enumerationMutation(&unk_286AAD368);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           if ([model rangeOfString:v18] != 0x7FFFFFFFFFFFFFFFLL)
           {
             v16 = v18;
@@ -97,7 +97,7 @@ LABEL_13:
           }
         }
 
-        v14 = [&unk_286AAD368 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v14 = [&unk_286AAD368 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v14)
         {
           continue;
@@ -107,7 +107,7 @@ LABEL_13:
       }
 
 LABEL_23:
-      v4 = v28;
+      v4 = v27;
     }
 
     else
@@ -143,7 +143,7 @@ LABEL_23:
         {
 LABEL_32:
 
-          goto LABEL_33;
+          return v2;
         }
 
         v21 = 3;
@@ -154,8 +154,6 @@ LABEL_32:
     goto LABEL_32;
   }
 
-LABEL_33:
-  v26 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

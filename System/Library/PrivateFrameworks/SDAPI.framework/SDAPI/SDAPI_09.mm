@@ -1,7 +1,359 @@
+void *TRegisterable<TLexicon>::~TRegisterable(void *a1)
+{
+  *a1 = &unk_2875281F0;
+  if (a1[1] != -1)
+  {
+    Registry = TRegisterable<TLexicon>::getRegistry();
+    v3 = *Registry;
+    *(Registry[1] + 8 * a1[1] - 8) = 0;
+    *Registry = v3 - 1;
+  }
+
+  return a1;
+}
+
+void TLexicon::~TLexicon(TLexicon *this)
+{
+  *this = &unk_287523388;
+  SDWord_DeleteList(*(this + 13), this + 448, 1u);
+  v2 = *(this + 52);
+  if (v2)
+  {
+    MEMORY[0x26672B190](v2, 0x1000C8077774924);
+  }
+
+  v3 = *(this + 54);
+  if (v3)
+  {
+    MEMORY[0x26672B190](v3, 0x80C80B8603338);
+  }
+
+  v4 = *(this + 55);
+  if (v4)
+  {
+    MEMORY[0x26672B190](v4, 0x80C80B8603338);
+  }
+
+  v5 = *(this + 42);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v5 + 144));
+  v7 = *(v5 + 4 * TParam::getValidConfig((v5 + 144), ActiveConfigHandle) + 304);
+  v8 = *(*(this + 42) + 296);
+  if (v7 > v8)
+  {
+    v9 = 0;
+    v10 = v7 - v8;
+    if (v10 <= 1)
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    do
+    {
+      v12 = *(this + 46);
+      v13 = *(v12 + 8 * v9);
+      if (v13)
+      {
+        std::__tree<std::__value_type<wchar_t const*,unsigned long>,std::__map_value_compare<wchar_t const*,std::__value_type<wchar_t const*,unsigned long>,TWideCharCompare,true>,std::allocator<std::__value_type<wchar_t const*,unsigned long>>>::destroy(*(v12 + 8 * v9), *(v13 + 8));
+        MEMORY[0x26672B1B0](v13, 0x1020C4062D53EE8);
+      }
+
+      v14 = *(this + 47);
+      v15 = *(v14 + 8 * v9);
+      if (v15)
+      {
+        std::__tree<std::__value_type<wchar_t const*,unsigned long>,std::__map_value_compare<wchar_t const*,std::__value_type<wchar_t const*,unsigned long>,TWideCharCompare,true>,std::allocator<std::__value_type<wchar_t const*,unsigned long>>>::destroy(*(v14 + 8 * v9), *(v15 + 8));
+        MEMORY[0x26672B1B0](v15, 0x1020C4062D53EE8);
+      }
+
+      v16 = *(this + 7);
+      v17 = *(v16 + 8 * v9);
+      if (v17)
+      {
+        TAllocator::clear(*(v16 + 8 * v9));
+        MEMORY[0x26672B1B0](v17, 0x1010C40CCBCF24ELL);
+      }
+
+      v18 = *(this + 8);
+      v19 = *(v18 + 8 * v9);
+      if (v19)
+      {
+        TAllocator::clear(*(v18 + 8 * v9));
+        MEMORY[0x26672B1B0](v19, 0x1010C40CCBCF24ELL);
+      }
+
+      ++v9;
+    }
+
+    while (v11 != v9);
+    v20 = *(this + 46);
+    if (v20)
+    {
+      MEMORY[0x26672B190](v20, 0x20C8093837F09);
+    }
+
+    v21 = *(this + 47);
+    if (v21)
+    {
+      MEMORY[0x26672B190](v21, 0x20C8093837F09);
+    }
+
+    v22 = *(this + 7);
+    if (v22)
+    {
+      MEMORY[0x26672B190](v22, 0x20C8093837F09);
+    }
+
+    v23 = *(this + 8);
+    if (v23)
+    {
+      MEMORY[0x26672B190](v23, 0x20C8093837F09);
+    }
+  }
+
+  v24 = *(this + 27);
+  if (v24 >= 1)
+  {
+    v25 = *(this + 26);
+    v26 = &v25[v24];
+    v27 = *v25;
+    if (*v25)
+    {
+      do
+      {
+LABEL_34:
+        v30 = v27[2];
+        if (!*v30 || (MEMORY[0x26672B190](*v30, 0x1000C8052888210), v27[2]))
+        {
+          MEMORY[0x26672B1B0]();
+        }
+
+        v27 = *v27;
+      }
+
+      while (v27);
+      v31 = v25 + 1;
+      while (v31 < v26)
+      {
+        v32 = *v31++;
+        v27 = v32;
+        if (v32)
+        {
+          v25 = v31 - 1;
+          goto LABEL_34;
+        }
+      }
+    }
+
+    else
+    {
+      v28 = v25 + 1;
+      while (v28 < v26)
+      {
+        v29 = *v28++;
+        v27 = v29;
+        if (v29)
+        {
+          v25 = v28 - 1;
+          goto LABEL_34;
+        }
+      }
+    }
+  }
+
+  v33 = *(this + 19);
+  if (v33 >= 1)
+  {
+    v34 = *(this + 18);
+    v35 = &v34[v33];
+    v36 = *v34;
+    if (*v34)
+    {
+      do
+      {
+LABEL_48:
+        v39 = v36[1];
+        if (v39)
+        {
+          MEMORY[0x26672B190](v39, 0x1000C8052888210);
+        }
+
+        v40 = v36[2];
+        if (v40)
+        {
+          MEMORY[0x26672B1B0](v40, 0x1000C4057661CB1);
+        }
+
+        v36 = *v36;
+      }
+
+      while (v36);
+      v37 = v34 + 1;
+      while (v37 < v35)
+      {
+        v41 = *v37++;
+        v36 = v41;
+        if (v41)
+        {
+          goto LABEL_47;
+        }
+      }
+    }
+
+    else
+    {
+      v37 = v34 + 1;
+      while (v37 < v35)
+      {
+        v38 = *v37++;
+        v36 = v38;
+        if (v38)
+        {
+LABEL_47:
+          v34 = v37 - 1;
+          goto LABEL_48;
+        }
+      }
+    }
+  }
+
+  v42 = *(this + 22);
+  if (v42 != (this + 184))
+  {
+    do
+    {
+      v43 = *(v42 + 7);
+      if (v43)
+      {
+        MEMORY[0x26672B1B0](v43, 0x1000C4057661CB1);
+      }
+
+      v44 = *(v42 + 1);
+      if (v44)
+      {
+        do
+        {
+          v45 = v44;
+          v44 = *v44;
+        }
+
+        while (v44);
+      }
+
+      else
+      {
+        do
+        {
+          v45 = *(v42 + 2);
+          v46 = *v45 == v42;
+          v42 = v45;
+        }
+
+        while (!v46);
+      }
+
+      v42 = v45;
+    }
+
+    while (v45 != (this + 184));
+  }
+
+  v48 = *(this + 14);
+  v47 = *(this + 15);
+  if (v47 != v48)
+  {
+    v49 = 0;
+    v50 = 8;
+    do
+    {
+      v51 = *(v48 + v50);
+      if (v51)
+      {
+        MEMORY[0x26672B190](v51, 0x1000C8052888210);
+        v48 = *(this + 14);
+        v47 = *(this + 15);
+      }
+
+      ++v49;
+      v50 += 16;
+    }
+
+    while (v49 < (v47 - v48) >> 4);
+  }
+
+  v52 = *(this + 42);
+  v53 = TParam::getActiveConfigHandle((v52 + 21520));
+  if (*(v52 + TParam::getValidConfig((v52 + 21520), v53) + 21672) == 1)
+  {
+    tknPrintString("-- TLexicon --\n");
+    tknPrintf("  Clean calls   : %llu\n", v54, *(this + 65));
+    tknPrintString("findWord\n");
+    tknPrintf("  Cache lookups : %llu\n", v55, *(this + 57));
+    tknPrintf("  Cache hits    : %llu\n", v56, *(this + 60));
+    tknPrintString("collationSearch\n");
+    tknPrintf("  Cache lookups : %llu\n", v57, *(this + 58));
+    tknPrintf("  Cache hits    : %llu\n", v58, *(this + 61));
+    tknPrintf("  Iterations    : %llu\n", v59, *(this + 63));
+    tknPrintString("computeClones\n");
+    tknPrintf("  Cache lookups : %llu\n", v60, *(this + 59));
+    tknPrintf("  Cache hits    : %llu\n", v61, *(this + 62));
+    tknPrintf("  Iterations    : %llu\n", v62, *(this + 64));
+  }
+
+  v63 = *(this + 44);
+  if (v63)
+  {
+    TDataSaver::~TDataSaver(v63);
+    MEMORY[0x26672B1B0]();
+  }
+
+  v64 = *(this + 42);
+  if (v64)
+  {
+    (*(*v64 + 8))(v64);
+  }
+
+  v65 = *(this + 43);
+  if (v65)
+  {
+    (*(*v65 + 8))(v65);
+  }
+
+  TCollation::~TCollation((this + 256));
+  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::~THashBase(this + 25);
+  std::__tree<std::__value_type<std::wstring,unsigned long>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,unsigned long>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,unsigned long>>>::destroy(this + 176, *(this + 23));
+  THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::~THashBase(this + 17);
+  v66 = *(this + 14);
+  if (v66)
+  {
+    *(this + 15) = v66;
+    operator delete(v66);
+  }
+
+  if (*(this + 95) < 0)
+  {
+    operator delete(*(this + 9));
+  }
+
+  TAllocator::clear((this + 16));
+
+  TRegisterable<TLexicon>::~TRegisterable(this);
+}
+
+{
+  TLexicon::~TLexicon(this);
+
+  JUMPOUT(0x26672B1B0);
+}
+
 uint64_t TLexicon::checkName(uint64_t a1, int *a2, char a3, unint64_t a4)
 {
   v4 = a4;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   if (a4 == -1)
   {
     v8 = *(a1 + 336);
@@ -9,41 +361,41 @@ uint64_t TLexicon::checkName(uint64_t a1, int *a2, char a3, unint64_t a4)
     v4 = *(v8 + 4 * TParam::getValidConfig((v8 + 144), ActiveConfigHandle) + 304);
   }
 
-  __s = v47;
-  v46 = xmmword_26286B6F0;
-  v48 = 1;
+  __s = v46;
+  v45 = xmmword_26286B6F0;
+  v47 = 1;
   TBuffer<wchar_t>::assign(&__s, a2);
-  v11 = *(&v46 + 1);
-  v10 = v46;
-  if (*(&v46 + 1) >= v46)
+  v11 = *(&v45 + 1);
+  v10 = v45;
+  if (*(&v45 + 1) >= v45)
   {
-    if (v48)
+    if (v47)
     {
-      LODWORD(v50) = 0;
-      TBuffer<wchar_t>::insert(&__s, *(&v46 + 1), &v50, 1uLL);
-      v10 = v46;
-      v11 = --*(&v46 + 1);
+      LODWORD(v49) = 0;
+      TBuffer<wchar_t>::insert(&__s, *(&v45 + 1), &v49, 1uLL);
+      v10 = v45;
+      v11 = --*(&v45 + 1);
       v12 = __s;
     }
 
     else
     {
       v12 = __s;
-      if (!v46)
+      if (!v45)
       {
 LABEL_15:
         v13 = v12;
         goto LABEL_16;
       }
 
-      __s[v46 - 1] = 0;
+      __s[v45 - 1] = 0;
     }
   }
 
   else
   {
     v12 = __s;
-    __s[*(&v46 + 1)] = 0;
+    __s[*(&v45 + 1)] = 0;
   }
 
   if (v11 < v10)
@@ -52,7 +404,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if ((v48 & 1) == 0)
+  if ((v47 & 1) == 0)
   {
     if (v10)
     {
@@ -62,10 +414,10 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  LODWORD(v50) = 0;
-  TBuffer<wchar_t>::insert(&__s, v11, &v50, 1uLL);
+  LODWORD(v49) = 0;
+  TBuffer<wchar_t>::insert(&__s, v11, &v49, 1uLL);
   v13 = __s;
-  v11 = --*(&v46 + 1);
+  v11 = --*(&v45 + 1);
 LABEL_16:
   v14 = wcschr(v13, 92);
   if (!v14)
@@ -74,19 +426,19 @@ LABEL_16:
   }
 
   v15 = v14;
-  if (v11 >= v46)
+  if (v11 >= v45)
   {
-    if (v48)
+    if (v47)
     {
-      LODWORD(v50) = 0;
-      TBuffer<wchar_t>::insert(&__s, v11, &v50, 1uLL);
+      LODWORD(v49) = 0;
+      TBuffer<wchar_t>::insert(&__s, v11, &v49, 1uLL);
       v13 = __s;
-      v11 = --*(&v46 + 1);
+      v11 = --*(&v45 + 1);
     }
 
-    else if (v46)
+    else if (v45)
     {
-      v13[v46 - 1] = 0;
+      v13[v45 - 1] = 0;
     }
   }
 
@@ -119,19 +471,19 @@ LABEL_160:
     goto LABEL_117;
   }
 
-  if (v11 >= v46)
+  if (v11 >= v45)
   {
-    if (v48)
+    if (v47)
     {
-      LODWORD(v50) = 0;
-      TBuffer<wchar_t>::insert(&__s, v11, &v50, 1uLL);
+      LODWORD(v49) = 0;
+      TBuffer<wchar_t>::insert(&__s, v11, &v49, 1uLL);
       v13 = __s;
-      v11 = --*(&v46 + 1);
+      v11 = --*(&v45 + 1);
     }
 
-    else if (v46)
+    else if (v45)
     {
-      v13[v46 - 1] = 0;
+      v13[v45 - 1] = 0;
     }
   }
 
@@ -165,15 +517,15 @@ LABEL_120:
       }
 
 LABEL_32:
-      v42 = v20;
-      v50 = v52;
-      v51 = xmmword_26286B6F0;
-      v53 = 1;
-      if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v12, &v50))
+      v41 = v20;
+      v49 = v51;
+      v50 = xmmword_26286B6F0;
+      v52 = 1;
+      if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v12, &v49))
       {
         v17 = 2;
 LABEL_149:
-        if (v53 == 1 && v50 != v52 && v50)
+        if (v52 == 1 && v49 != v51 && v49)
         {
           MEMORY[0x26672B1B0]();
         }
@@ -181,31 +533,31 @@ LABEL_149:
         goto LABEL_153;
       }
 
-      if (*(&v51 + 1) >= v51)
+      if (*(&v50 + 1) >= v50)
       {
-        if (v53)
+        if (v52)
         {
-          v44[0] = 0;
-          TBuffer<char>::insert(&v50, *(&v51 + 1), v44, 1uLL);
-          --*(&v51 + 1);
+          LOBYTE(v43[0]) = 0;
+          TBuffer<char>::insert(&v49, *(&v50 + 1), v43, 1uLL);
+          --*(&v50 + 1);
         }
 
-        else if (v51)
+        else if (v50)
         {
-          v50[v51 - 1] = 0;
+          v49[v50 - 1] = 0;
         }
       }
 
       else
       {
-        v50[*(&v51 + 1)] = 0;
+        v49[*(&v50 + 1)] = 0;
       }
 
-      v23 = v50;
-      TSegmenter::TSegmenter(v44, v50, a1 + 240, 0);
+      v23 = v49;
+      TSegmenter::TSegmenter(v43, v49, a1 + 240, 0);
       for (; *v23; v23 = *(v25 + 8))
       {
-        Segment = TSegmenter::getSegment(v44, v23);
+        Segment = TSegmenter::getSegment(v43, v23);
         v25 = Segment;
         v26 = *(Segment + 24);
         if (v26 == 5 || v4 >= 3 && *(Segment + 16))
@@ -239,49 +591,49 @@ LABEL_113:
             }
           }
 
-          if (*(&v51 + 1) >= v51)
+          if (*(&v50 + 1) >= v50)
           {
-            if (v53)
+            if (v52)
             {
-              v43[0] = 0;
-              TBuffer<char>::insert(&v50, *(&v51 + 1), v43, 1uLL);
-              --*(&v51 + 1);
+              LOBYTE(v42[0]) = 0;
+              TBuffer<char>::insert(&v49, *(&v50 + 1), v42, 1uLL);
+              --*(&v50 + 1);
             }
 
-            else if (v51)
+            else if (v50)
             {
-              v50[v51 - 1] = 0;
+              v49[v50 - 1] = 0;
             }
           }
 
           else
           {
-            v50[*(&v51 + 1)] = 0;
+            v49[*(&v50 + 1)] = 0;
           }
 
-          if (v23 != v50 || **(v25 + 8))
+          if (v23 != v49 || **(v25 + 8))
           {
-            if (*(&v51 + 1) >= v51)
+            if (*(&v50 + 1) >= v50)
             {
-              if (v53)
+              if (v52)
               {
-                v43[0] = 0;
-                TBuffer<char>::insert(&v50, *(&v51 + 1), v43, 1uLL);
-                --*(&v51 + 1);
+                LOBYTE(v42[0]) = 0;
+                TBuffer<char>::insert(&v49, *(&v50 + 1), v42, 1uLL);
+                --*(&v50 + 1);
               }
 
-              else if (v51)
+              else if (v50)
               {
-                v50[v51 - 1] = 0;
+                v49[v50 - 1] = 0;
               }
             }
 
             else
             {
-              v50[*(&v51 + 1)] = 0;
+              v49[*(&v50 + 1)] = 0;
             }
 
-            if (v23 == v50 || !**(v25 + 8))
+            if (v23 == v49 || !**(v25 + 8))
             {
               goto LABEL_113;
             }
@@ -291,21 +643,21 @@ LABEL_113:
 
       if (v17)
       {
-        TBuffer<char>::resize(&v50, 0);
-        if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v19, &v50))
+        TBuffer<char>::resize(&v49, 0);
+        if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v19, &v49))
         {
 LABEL_112:
           v17 = 5;
           goto LABEL_148;
         }
 
-        v29 = TBuffer<char>::c_str(&v50);
-        TSegmenter::TSegmenter(v43, v29, a1 + 240, 0);
+        v29 = TBuffer<char>::c_str(&v49);
+        TSegmenter::TSegmenter(v42, v29, a1 + 240, 0);
         if (*v29)
         {
           while (1)
           {
-            v30 = TSegmenter::getSegment(v43, v29);
+            v30 = TSegmenter::getSegment(v42, v29);
             v31 = v30;
             v32 = *(v30 + 24);
             if (v32 == 5 || v4 >= 3 && *(v30 + 16))
@@ -315,27 +667,27 @@ LABEL_112:
 
             if (!v32)
             {
-              if (*(&v51 + 1) >= v51)
+              if (*(&v50 + 1) >= v50)
               {
-                if (v53)
+                if (v52)
                 {
-                  v49 = 0;
-                  v30 = TBuffer<char>::insert(&v50, *(&v51 + 1), &v49, 1uLL);
-                  --*(&v51 + 1);
+                  v48 = 0;
+                  v30 = TBuffer<char>::insert(&v49, *(&v50 + 1), &v48, 1uLL);
+                  --*(&v50 + 1);
                 }
 
-                else if (v51)
+                else if (v50)
                 {
-                  v50[v51 - 1] = 0;
+                  v49[v50 - 1] = 0;
                 }
               }
 
               else
               {
-                v50[*(&v51 + 1)] = 0;
+                v49[*(&v50 + 1)] = 0;
               }
 
-              if (v29 == v50 || !*v31[1] || (*v31)[1])
+              if (v29 == v49 || !*v31[1] || (*v31)[1])
               {
                 break;
               }
@@ -363,33 +715,33 @@ LABEL_112:
             }
           }
 
-          TSegmenter::~TSegmenter(v43);
+          TSegmenter::~TSegmenter(v42);
           goto LABEL_112;
         }
 
 LABEL_124:
-        TSegmenter::~TSegmenter(v43);
+        TSegmenter::~TSegmenter(v42);
       }
 
-      if (v42)
+      if (v41)
       {
-        TBuffer<char>::resize(&v50, 0);
-        if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v18, &v50))
+        TBuffer<char>::resize(&v49, 0);
+        if (TLocaleInfo::unicodeToMultiByte(a1 + 240, v18, &v49))
         {
 LABEL_145:
           v17 = 3;
 LABEL_148:
-          TSegmenter::~TSegmenter(v44);
+          TSegmenter::~TSegmenter(v43);
           goto LABEL_149;
         }
 
-        v34 = TBuffer<char>::c_str(&v50);
-        TSegmenter::TSegmenter(v43, v34, a1 + 240, 0);
+        v34 = TBuffer<char>::c_str(&v49);
+        TSegmenter::TSegmenter(v42, v34, a1 + 240, 0);
         if (*v34)
         {
           while (1)
           {
-            v35 = TSegmenter::getSegment(v43, v34);
+            v35 = TSegmenter::getSegment(v42, v34);
             v36 = v35;
             v37 = *(v35 + 24);
             if (v37 == 5 || v4 >= 3 && (*(v35 + 16) & 0xFFFFFFFFFFFFFFFBLL) != 0)
@@ -399,7 +751,7 @@ LABEL_148:
 
             if (!v37)
             {
-              v38 = TBuffer<char>::c_str(&v50);
+              v38 = TBuffer<char>::c_str(&v49);
               if (v34 == v38 || !*v36[1] || (*v36)[1])
               {
                 break;
@@ -428,12 +780,12 @@ LABEL_148:
             }
           }
 
-          TSegmenter::~TSegmenter(v43);
+          TSegmenter::~TSegmenter(v42);
           goto LABEL_145;
         }
 
 LABEL_146:
-        TSegmenter::~TSegmenter(v43);
+        TSegmenter::~TSegmenter(v42);
       }
 
       v17 = 0;
@@ -446,18 +798,18 @@ LABEL_117:
   }
 
   v22 = v21;
-  if (v11 >= v46)
+  if (v11 >= v45)
   {
-    if (v48)
+    if (v47)
     {
-      LODWORD(v50) = 0;
-      TBuffer<wchar_t>::insert(&__s, v11, &v50, 1uLL);
-      --*(&v46 + 1);
+      LODWORD(v49) = 0;
+      TBuffer<wchar_t>::insert(&__s, v11, &v49, 1uLL);
+      --*(&v45 + 1);
     }
 
-    else if (v46)
+    else if (v45)
     {
-      v13[v46 - 1] = 0;
+      v13[v45 - 1] = 0;
     }
   }
 
@@ -480,18 +832,17 @@ LABEL_117:
   }
 
 LABEL_153:
-  if (v48 == 1 && __s != v47 && __s)
+  if (v47 == 1 && __s != v46 && __s)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-void sub_2625ECAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
+void sub_2625ECAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42)
 {
-  MEMORY[0x26672B1B0](a11, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](a11, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   TSegmenter::~TSegmenter(&a28);
   if (LOBYTE(STACK[0x648]) == 1)
   {
@@ -537,21 +888,21 @@ uint64_t TBuffer<char>::c_str(uint64_t a1)
 
   else
   {
-    *(*a1 + v2) = 0;
+    v2[*a1] = 0;
   }
 
   return *a1;
 }
 
-uint64_t TLexicon::findWord(void *a1, __int32 *a2)
+void *TLexicon::findWord(void *a1, unsigned int *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   ++a1[41];
   ++a1[57];
-  v8[0] = a2;
-  v8[1] = 0;
-  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 25), v8, &v9);
-  if (*(&v10 + 1) && (v4 = *(*(&v10 + 1) + 16)) != 0)
+  v7[0] = a2;
+  v7[1] = 0;
+  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 25), v7, &v8);
+  if (*(&v9 + 1) && (v4 = *(*(&v9 + 1) + 16)) != 0)
   {
     *(v4 + 24) = a1[41];
     ++a1[60];
@@ -559,51 +910,50 @@ uint64_t TLexicon::findWord(void *a1, __int32 *a2)
 
   else
   {
-    v9 = v11;
-    v10 = xmmword_26286B6F0;
-    v12 = 1;
-    TLocaleInfo::unicodeToMultiByte((a1 + 30), a2, &v9);
+    v8 = v10;
+    v9 = xmmword_26286B6F0;
+    v11 = 1;
+    TLocaleInfo::unicodeToMultiByte((a1 + 30), a2, &v8);
     v5 = a1[13];
-    if (*(&v10 + 1) >= v10)
+    if (*(&v9 + 1) >= v9)
     {
-      if (v12)
+      if (v11)
       {
-        LOBYTE(v8[0]) = 0;
-        TBuffer<char>::insert(&v9, *(&v10 + 1), v8, 1uLL);
-        --*(&v10 + 1);
+        LOBYTE(v7[0]) = 0;
+        TBuffer<char>::insert(&v8, *(&v9 + 1), v7, 1uLL);
+        --*(&v9 + 1);
       }
 
-      else if (v10)
+      else if (v9)
       {
-        *(v9 + v10 - 1) = 0;
+        *(v8 + v9 - 1) = 0;
       }
     }
 
     else
     {
-      *(v9 + *(&v10 + 1)) = 0;
+      *(v8 + *(&v9 + 1)) = 0;
     }
 
-    if (SDWord_GetHandle(v5, v9) != -1)
+    if (SDWord_GetHandle(v5, v8) != -1)
     {
       wcslen(a2);
       operator new[]();
     }
 
     v4 = 0;
-    if (v12 == 1 && v9 != v11 && v9)
+    if (v11 == 1 && v8 != v10 && v8)
     {
       MEMORY[0x26672B1B0]();
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void sub_2625ECE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
 {
-  MEMORY[0x26672B1B0](v51, 0x10F0C4030D8D1E0);
+  MEMORY[0x26672B1B0](v51, 0x10F0C4030D8D1E0, a3, a4, a5, a6, a7, a8);
   if (a51 == 1 && a16 != v52)
   {
     if (a16)
@@ -694,46 +1044,46 @@ void sub_2625ED14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *TLexicon::collationSearch(void *a1, unsigned int *a2)
+uint64_t *TLexicon::collationSearch(void *a1, unsigned int *a2)
 {
   ++a1[41];
   ++a1[58];
-  v27 = v29;
-  v28 = xmmword_26286B6F0;
-  v30 = 1;
-  TCollation::collate(a1 + 32, a2, &v27);
-  v20 = v27;
-  *&v21 = 0;
-  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 17), &v20, &v25);
-  if (!v26)
+  v24 = v26;
+  v25 = xmmword_26286B6F0;
+  v27 = 1;
+  TCollation::collate(a1 + 32, a2, &v24);
+  v17 = v24;
+  *&v18 = 0;
+  THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find((a1 + 17), &v17, &v22);
+  if (!v23)
   {
-    memset(v24, 0, sizeof(v24));
+    memset(v21, 0, sizeof(v21));
     if (!wcschr(a2, 92) || !wcscmp(a2, &unk_262873564))
     {
       if (a1[14] == a1[15])
       {
-        TLexicon::collationSearchInternal(a1, a2, v24, 0, 0, 0);
+        TLexicon::collationSearchInternal(a1, a2, v21, 0, 0, 0);
       }
 
       else
       {
-        v21 = xmmword_26286B6F0;
-        v23 = 1;
-        v19 = 100;
-        v20 = v22;
-        TLexicon::collationSearchRec(a1, a2, v24, &v20, &v19);
-        if (!v19)
+        v18 = xmmword_26286B6F0;
+        v20 = 1;
+        v16 = 100;
+        v17 = v19;
+        TLexicon::collationSearchRec(a1, a2, v21, &v17, &v16);
+        if (!v16)
         {
           loggableUnicode(a2, &__p);
-          v14 = v18 >= 0 ? &__p : __p;
-          tknPrintf("Warning: '%s' : Ran over 100 voc searches due to mismatched collation tables. Giving up.\n", v10, v11, v12, v13, v14);
-          if (v18 < 0)
+          v11 = v15 >= 0 ? &__p : __p;
+          tknPrintf("Warning: '%s' : Ran over 100 voc searches due to mismatched collation tables. Giving up.\n", v10, v11);
+          if (v15 < 0)
           {
             operator delete(__p);
           }
         }
 
-        if (v23 == 1 && v20 != v22 && v20)
+        if (v20 == 1 && v17 != v19 && v17)
         {
           MEMORY[0x26672B1B0]();
         }
@@ -743,7 +1093,7 @@ void *TLexicon::collationSearch(void *a1, unsigned int *a2)
     operator new[]();
   }
 
-  v4 = *(v26 + 16);
+  v4 = *(v23 + 16);
   v5 = a1[41];
   *v4 = v5;
   v6 = v4[1];
@@ -762,7 +1112,7 @@ void *TLexicon::collationSearch(void *a1, unsigned int *a2)
   }
 
   ++a1[61];
-  if (v30 == 1 && v27 != v29 && v27 != 0)
+  if (v27 == 1 && v24 != v26 && v24 != 0)
   {
     MEMORY[0x26672B1B0]();
   }
@@ -942,13 +1292,13 @@ void sub_2625ED814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void TLexicon::findHeadClonesCollatedPrefix(void *a1, char *a2, TSegmenter *this, int *a4, size_t a5, size_t a6, uint64_t a7)
 {
   v9 = a2;
-  v40 = 0;
-  *v51 = v53;
-  v52 = xmmword_26286B6F0;
-  v54 = 1;
-  v47 = v49;
-  v48 = xmmword_26286B6F0;
-  v50 = 1;
+  v37 = 0;
+  *v48 = v50;
+  v49 = xmmword_26286B6F0;
+  v51 = 1;
+  v44 = v46;
+  v45 = xmmword_26286B6F0;
+  v47 = 1;
   while (1)
   {
     Segment = TSegmenter::getSegment(this, v9);
@@ -972,37 +1322,37 @@ void TLexicon::findHeadClonesCollatedPrefix(void *a1, char *a2, TSegmenter *this
         ;
       }
 
-      TBuffer<wchar_t>::insert(v51, *(&v52 + 1), v15, v14 - 1);
+      TBuffer<wchar_t>::insert(v48, *(&v49 + 1), v15, v14 - 1);
 LABEL_8:
-      if (*(&v52 + 1) > 0xFFuLL)
+      if (*(&v49 + 1) > 0xFFuLL)
       {
         break;
       }
 
-      if (*(&v52 + 1) >= v52)
+      if (*(&v49 + 1) >= v49)
       {
-        if (v54)
+        if (v51)
         {
           LODWORD(__p) = 0;
-          TBuffer<wchar_t>::insert(v51, *(&v52 + 1), &__p, 1uLL);
-          v17 = *v51;
-          --*(&v52 + 1);
+          TBuffer<wchar_t>::insert(v48, *(&v49 + 1), &__p, 1uLL);
+          v17 = *v48;
+          --*(&v49 + 1);
         }
 
         else
         {
-          v17 = *v51;
-          if (v52)
+          v17 = *v48;
+          if (v49)
           {
-            *(*v51 + 4 * v52 - 4) = 0;
+            *(*v48 + 4 * v49 - 4) = 0;
           }
         }
       }
 
       else
       {
-        v17 = *v51;
-        *(*v51 + 4 * *(&v52 + 1)) = 0;
+        v17 = *v48;
+        *(*v48 + 4 * *(&v49 + 1)) = 0;
       }
 
       v20 = TLexicon::collationSearch(a1, v17);
@@ -1011,7 +1361,7 @@ LABEL_8:
         goto LABEL_72;
       }
 
-      v21 = *(*v51 + 4 * *(&v52 + 1) - 4);
+      v21 = *(*v48 + 4 * *(&v49 + 1) - 4);
       {
         operator new();
       }
@@ -1032,13 +1382,13 @@ LABEL_8:
 LABEL_35:
           loggableUnicode(*v20[3], &__p);
           p_p = &__p;
-          if (v45 < 0)
+          if (v42 < 0)
           {
             p_p = __p;
           }
 
-          tknPrintf("Warning: '%s' : found a match that ends with a space. Ignored.\n", v23, v24, v25, v26, p_p);
-          if (SHIBYTE(v45) < 0)
+          tknPrintf("Warning: '%s' : found a match that ends with a space. Ignored.\n", v23, p_p);
+          if (SHIBYTE(v42) < 0)
           {
             operator delete(__p);
           }
@@ -1049,80 +1399,80 @@ LABEL_35:
 
       if (v20[1])
       {
-        v31 = (v20 + 3);
+        v28 = (v20 + 3);
         do
         {
-          v32 = *v31;
-          v33 = TLexicon::applyMask((*v31)[1], (*v31)[2], a4, *v31 + 4);
-          if (!v33)
+          v29 = *v28;
+          v30 = TLexicon::applyMask((*v28)[1], (*v28)[2], a4, *v28 + 4);
+          if (!v30)
           {
-            TLexicon::getWrittenForm(v33, *v32, &v47);
-            if (*(&v52 + 1) >= v52)
+            TLexicon::getWrittenForm(v30, *v29, &v44);
+            if (*(&v49 + 1) >= v49)
             {
-              if (v54)
+              if (v51)
               {
                 LODWORD(__p) = 0;
-                TBuffer<wchar_t>::insert(v51, *(&v52 + 1), &__p, 1uLL);
-                v34 = *v51;
-                --*(&v52 + 1);
+                TBuffer<wchar_t>::insert(v48, *(&v49 + 1), &__p, 1uLL);
+                v31 = *v48;
+                --*(&v49 + 1);
               }
 
               else
               {
-                v34 = *v51;
-                if (v52)
+                v31 = *v48;
+                if (v49)
                 {
-                  *(*v51 + 4 * v52 - 4) = 0;
+                  *(*v48 + 4 * v49 - 4) = 0;
                 }
               }
             }
 
             else
             {
-              v34 = *v51;
-              *(*v51 + 4 * *(&v52 + 1)) = 0;
+              v31 = *v48;
+              *(*v48 + 4 * *(&v49 + 1)) = 0;
             }
 
-            if (*(&v48 + 1) >= v48)
+            if (*(&v45 + 1) >= v45)
             {
-              if (v50)
+              if (v47)
               {
                 LODWORD(__p) = 0;
-                TBuffer<wchar_t>::insert(&v47, *(&v48 + 1), &__p, 1uLL);
-                v35 = v47;
-                --*(&v48 + 1);
+                TBuffer<wchar_t>::insert(&v44, *(&v45 + 1), &__p, 1uLL);
+                v32 = v44;
+                --*(&v45 + 1);
               }
 
               else
               {
-                v35 = v47;
-                if (v48)
+                v32 = v44;
+                if (v45)
                 {
-                  v47[v48 - 1] = 0;
+                  v44[v45 - 1] = 0;
                 }
               }
             }
 
             else
             {
-              v35 = v47;
-              v47[*(&v48 + 1)] = 0;
+              v32 = v44;
+              v44[*(&v45 + 1)] = 0;
             }
 
-            TLexiconScore::TLexiconScore(&__p, v34, v35, a5, a6, (a1 + 30));
-            v36 = __p;
-            v37 = BYTE8(__p);
-            *&__p = v32;
+            TLexiconScore::TLexiconScore(&__p, v31, v32, a5, a6, (a1 + 30));
+            v33 = __p;
+            v34 = BYTE8(__p);
+            *&__p = v29;
             *(&__p + 1) = v9 - a2;
-            v45 = v36;
-            v46 = v37;
+            v42 = v33;
+            v43 = v34;
             std::vector<TLexiconMatch>::push_back[abi:ne200100](a7, &__p);
           }
 
-          ++v31;
+          ++v28;
         }
 
-        while (v31 != &v20[v20[1] + 3]);
+        while (v28 != &v20[v20[1] + 3]);
       }
 
 LABEL_72:
@@ -1134,7 +1484,7 @@ LABEL_72:
 
     else
     {
-      if (!*(&v52 + 1))
+      if (!*(&v49 + 1))
       {
         break;
       }
@@ -1146,7 +1496,7 @@ LABEL_72:
         break;
       }
 
-      if (*(*v51 + 4 * *(&v52 + 1) - 4) == 32)
+      if (*(*v48 + 4 * *(&v49 + 1) - 4) == 32)
       {
         goto LABEL_42;
       }
@@ -1177,37 +1527,37 @@ LABEL_41:
 
       v18 = *v12;
 LABEL_42:
-      v28 = *v18;
+      v25 = *v18;
       {
         operator new();
       }
 
-      if (v28 != 13 && v28 != 10)
+      if (v25 != 13 && v25 != 10)
       {
         goto LABEL_53;
       }
 
-      if (v40)
+      if (v37)
       {
         break;
       }
 
-      v40 = 1;
-      if (*(*v51 + 4 * *(&v52 + 1) - 4) != 45)
+      v37 = 1;
+      if (*(*v48 + 4 * *(&v49 + 1) - 4) != 45)
       {
-        v30 = TSegmenter::getSegment(this, v9);
-        if (!v30 || *(v30 + 24) == 5)
+        v27 = TSegmenter::getSegment(this, v9);
+        if (!v27 || *(v27 + 24) == 5)
         {
           break;
         }
 
-        v40 = 1;
-        if (**v30 != 45)
+        v37 = 1;
+        if (**v27 != 45)
         {
 LABEL_53:
-          if (*(*v51 + 4 * *(&v52 + 1) - 4) != 32)
+          if (*(*v48 + 4 * *(&v49 + 1) - 4) != 32)
           {
-            TBuffer<wchar_t>::insert(v51, *(&v52 + 1), &unk_26287355C, 1uLL);
+            TBuffer<wchar_t>::insert(v48, *(&v49 + 1), &unk_26287355C, 1uLL);
             goto LABEL_8;
           }
         }
@@ -1215,14 +1565,14 @@ LABEL_53:
     }
   }
 
-  if (v50 == 1 && v47 != v49 && v47 != 0)
+  if (v47 == 1 && v44 != v46 && v44 != 0)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  if (v54 == 1 && *v51 != v53)
+  if (v51 == 1 && *v48 != v50)
   {
-    if (*v51)
+    if (*v48)
     {
       MEMORY[0x26672B1B0]();
     }
@@ -1231,7 +1581,7 @@ LABEL_53:
 
 void sub_2625EDE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
-  MEMORY[0x26672B1B0](v22, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v22, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x480]) == 1 && a22 != a12 && a22 != 0)
   {
     MEMORY[0x26672B1B0]();
@@ -1252,12 +1602,12 @@ void sub_2625EDE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t TLexicon::getPronCount(void *a1, __int32 *a2)
+void *TLexicon::getPronCount(void *a1, unsigned int *a2)
 {
   result = TLexicon::findWord(a1, a2);
   if (result)
   {
-    SDWord_GetInfo(a1[13], *(result + 16), v4);
+    SDWord_GetInfo(a1[13], result[2], v4);
     return (v4[1] + v4[0]);
   }
 
@@ -1295,34 +1645,34 @@ void std::vector<std::string>::resize(std::vector<std::wstring> *this, std::vect
 
 BOOL TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *a3, int *a4, int a5, unint64_t a6)
 {
-  v73 = *MEMORY[0x277D85DE8];
-  v69 = v71;
-  v70 = xmmword_26286B6F0;
-  v72 = 1;
-  TLocaleInfo::unicodeToMultiByte(a1 + 240, a2, &v69);
-  v66 = 0;
-  v65 = 0;
-  v64 = 0;
+  v63 = *MEMORY[0x277D85DE8];
+  v59 = v61;
+  v60 = xmmword_26286B6F0;
+  v62 = 1;
+  TLocaleInfo::unicodeToMultiByte(a1 + 240, a2, &v59);
+  v56 = 0;
+  v55 = 0;
+  v54 = 0;
   v11 = *(a1 + 96);
   v10 = *(a1 + 104);
-  if (*(&v70 + 1) >= v70)
+  if (*(&v60 + 1) >= v60)
   {
-    if (v72)
+    if (v62)
     {
-      LOBYTE(v60) = 0;
-      TBuffer<char>::insert(&v69, *(&v70 + 1), &v60, 1uLL);
-      --*(&v70 + 1);
+      LOBYTE(v50) = 0;
+      TBuffer<char>::insert(&v59, *(&v60 + 1), &v50, 1uLL);
+      --*(&v60 + 1);
     }
 
-    else if (v70)
+    else if (v60)
     {
-      v69[v70 - 1] = 0;
+      v59[v60 - 1] = 0;
     }
   }
 
   else
   {
-    v69[*(&v70 + 1)] = 0;
+    v59[*(&v60 + 1)] = 0;
   }
 
   if (a5)
@@ -1332,34 +1682,34 @@ BOOL TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *a3, 
 
   else
   {
-    v12 = "\";
+    v12 = "\"";
   }
 
-  SDVoc_GetWords(v10, v11, v69, v12, *(a1 + 440), *(a1 + 428), &v66 + 1, &v65, &v66, callBackMRECArrayReallocator, 0, &v64);
-  v60 = v62;
-  v61 = xmmword_26286B6F0;
-  v63 = 1;
-  if (HIDWORD(v66))
+  SDVoc_GetWords(v10, v11, v59, v12, *(a1 + 440), *(a1 + 428), &v56 + 1, &v55, &v56, callBackMRECArrayReallocator, 0, &v54);
+  v50 = v52;
+  v51 = xmmword_26286B6F0;
+  v53 = 1;
+  if (HIDWORD(v56))
   {
     v13 = 0;
     v14 = 0;
-    v50 = 0;
+    v40 = 0;
     do
     {
       ++*(a1 + 504);
-      v15 = v65[v14];
+      v15 = v55[v14];
       v16 = TStringParam::get((*(a1 + 336) + 496));
       if (!TLexicon::applyMask(a1, v15, v16, 0) && (!a4 || !TLexicon::applyMask(a1, v15, a4, 0)))
       {
-        if (SDWord_GetName(*(a1 + 104), v15, v68, 0x100u) < 0x101)
+        if (SDWord_GetName(*(a1 + 104), v15, v58, 0x100u) < 0x101)
         {
-          __p = v58;
-          v57 = xmmword_26286B6F0;
-          v59 = 1;
-          v21 = TLocaleInfo::multiByteToUnicode(a1 + 240, v68, &__p);
-          if (v21)
+          __p = v48;
+          v47 = xmmword_26286B6F0;
+          v49 = 1;
+          v18 = TLocaleInfo::multiByteToUnicode(a1 + 240, v58, &__p);
+          if (v18)
           {
-            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v22, v23, v24, v25, v68);
+            tknPrintf("Warning: '%s' : Can't convert to Unicode. Ignored.\n", v19, v58);
           }
 
           else
@@ -1369,161 +1719,161 @@ BOOL TLexicon::collationSearchInternal(uint64_t a1, unsigned int *a2, void *a3, 
               goto LABEL_97;
             }
 
-            v52 = v54;
-            v53 = xmmword_26286B6F0;
-            v55 = 1;
-            if (*(&v57 + 1) >= v57)
+            v42 = v44;
+            v43 = xmmword_26286B6F0;
+            v45 = 1;
+            if (*(&v47 + 1) >= v47)
             {
-              if (v59)
+              if (v49)
               {
-                LODWORD(v67[0]) = 0;
-                v21 = TBuffer<wchar_t>::insert(&__p, *(&v57 + 1), v67, 1uLL);
-                v26 = __p;
-                --*(&v57 + 1);
+                LODWORD(v57[0]) = 0;
+                v18 = TBuffer<wchar_t>::insert(&__p, *(&v47 + 1), v57, 1uLL);
+                v20 = __p;
+                --*(&v47 + 1);
               }
 
               else
               {
-                v26 = __p;
-                if (v57)
+                v20 = __p;
+                if (v47)
                 {
-                  *(__p + v57 - 1) = 0;
+                  *(__p + v47 - 1) = 0;
                 }
               }
             }
 
             else
             {
-              v26 = __p;
-              *(__p + *(&v57 + 1)) = 0;
+              v20 = __p;
+              *(__p + *(&v47 + 1)) = 0;
             }
 
-            TLexicon::getWrittenForm(v21, v26, &v52);
-            v27 = *(&v53 + 1);
-            if (v55 == 1 && v52 != v54 && v52)
+            TLexicon::getWrittenForm(v18, v20, &v42);
+            v21 = *(&v43 + 1);
+            if (v45 == 1 && v42 != v44 && v42)
             {
               MEMORY[0x26672B1B0]();
             }
 
-            if (v27 <= a6)
+            if (v21 <= a6)
             {
 LABEL_97:
-              v28 = *(&v61 + 1);
-              if (!*(&v61 + 1))
+              v22 = *(&v51 + 1);
+              if (!*(&v51 + 1))
               {
-                TCollation::collate((a1 + 256), a2, &v60);
-                v28 = *(&v61 + 1);
+                TCollation::collate((a1 + 256), a2, &v50);
+                v22 = *(&v51 + 1);
               }
 
-              if (v28 >= v61)
+              if (v22 >= v51)
               {
-                if (v63)
+                if (v53)
                 {
-                  LODWORD(v52) = 0;
-                  TBuffer<wchar_t>::insert(&v60, v28, &v52, 1uLL);
-                  v29 = v60;
-                  --*(&v61 + 1);
+                  LODWORD(v42) = 0;
+                  TBuffer<wchar_t>::insert(&v50, v22, &v42, 1uLL);
+                  v23 = v50;
+                  --*(&v51 + 1);
                 }
 
                 else
                 {
-                  v29 = v60;
-                  if (v61)
+                  v23 = v50;
+                  if (v51)
                   {
-                    v60[v61 - 1] = 0;
+                    v50[v51 - 1] = 0;
                   }
                 }
               }
 
               else
               {
-                v29 = v60;
-                v60[v28] = 0;
+                v23 = v50;
+                v50[v22] = 0;
               }
 
-              if (*(&v57 + 1) >= v57)
+              if (*(&v47 + 1) >= v47)
               {
-                if (v59)
+                if (v49)
                 {
-                  LODWORD(v52) = 0;
-                  TBuffer<wchar_t>::insert(&__p, *(&v57 + 1), &v52, 1uLL);
-                  v30 = __p;
-                  --*(&v57 + 1);
+                  LODWORD(v42) = 0;
+                  TBuffer<wchar_t>::insert(&__p, *(&v47 + 1), &v42, 1uLL);
+                  v24 = __p;
+                  --*(&v47 + 1);
                 }
 
                 else
                 {
-                  v30 = __p;
-                  if (v57)
+                  v24 = __p;
+                  if (v47)
                   {
-                    *(__p + v57 - 1) = 0;
+                    *(__p + v47 - 1) = 0;
                   }
                 }
               }
 
               else
               {
-                v30 = __p;
-                *(__p + *(&v57 + 1)) = 0;
+                v24 = __p;
+                *(__p + *(&v47 + 1)) = 0;
               }
 
-              if (!TCollation::collprefixcmp((a1 + 256), v29, v30))
+              if (!TCollation::collprefixcmp((a1 + 256), v23, v24))
               {
-                if (*(&v57 + 1) >= v57)
+                if (*(&v47 + 1) >= v47)
                 {
-                  if (v59)
+                  if (v49)
                   {
-                    LODWORD(v52) = 0;
-                    TBuffer<wchar_t>::insert(&__p, *(&v57 + 1), &v52, 1uLL);
-                    v31 = __p;
-                    --*(&v57 + 1);
+                    LODWORD(v42) = 0;
+                    TBuffer<wchar_t>::insert(&__p, *(&v47 + 1), &v42, 1uLL);
+                    v25 = __p;
+                    --*(&v47 + 1);
                   }
 
                   else
                   {
-                    v31 = __p;
-                    if (v57)
+                    v25 = __p;
+                    if (v47)
                     {
-                      *(__p + v57 - 1) = 0;
+                      *(__p + v47 - 1) = 0;
                     }
                   }
                 }
 
                 else
                 {
-                  v31 = __p;
-                  *(__p + *(&v57 + 1)) = 0;
+                  v25 = __p;
+                  *(__p + *(&v47 + 1)) = 0;
                 }
 
-                v67[0] = v31;
-                v67[1] = 0;
-                THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 200, v67, &v52);
-                if (!*(&v53 + 1))
+                v57[0] = v25;
+                v57[1] = 0;
+                THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::find(a1 + 200, v57, &v42);
+                if (!*(&v43 + 1))
                 {
-                  v51 = 0;
+                  v41 = 0;
 LABEL_56:
                   operator new[]();
                 }
 
-                v32 = *(*(&v53 + 1) + 16);
-                v51 = v32;
-                if (!v32)
+                v26 = *(*(&v43 + 1) + 16);
+                v41 = v26;
+                if (!v26)
                 {
                   goto LABEL_56;
                 }
 
-                if ((*(v32 + 32) & 2) != 0 || TLexicon::findHeadClone(*(v32 + 8), *v32) == v32)
+                if ((*(v26 + 32) & 2) != 0 || TLexicon::findHeadClone(*(v26 + 8), *v26) == v26)
                 {
-                  std::vector<TItnRule *>::push_back[abi:ne200100](a3, &v51);
+                  std::vector<TItnRule *>::push_back[abi:ne200100](a3, &v41);
                   ++v13;
                 }
 
-                ++v50;
+                ++v40;
               }
             }
           }
 
-          if (v59 == 1 && __p != v58 && __p)
+          if (v49 == 1 && __p != v48 && __p)
           {
             MEMORY[0x26672B1B0]();
           }
@@ -1531,26 +1881,26 @@ LABEL_56:
 
         else
         {
-          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", v17, v18, v19, v20, 256, v68);
+          tknPrintf("Warning: The voc contains a >= %llu-byte word name, prefix is '%s'. Ignored.\n", v17, 256, v58);
         }
       }
 
       ++v14;
     }
 
-    while (v14 < HIDWORD(v66));
+    while (v14 < HIDWORD(v56));
   }
 
   else
   {
     v13 = 0;
-    v50 = 0;
+    v40 = 0;
   }
 
-  if (v65 != *(a1 + 440))
+  if (v55 != *(a1 + 440))
   {
     loggableUnicode(a2, &__p);
-    if (v57 >= 0)
+    if (v47 >= 0)
     {
       p_p = &__p;
     }
@@ -1560,57 +1910,55 @@ LABEL_56:
       p_p = __p;
     }
 
-    tknPrintf("Warning: '%s' : Inefficient voc search. Required dynamic allocation of size %llu\n", v33, v34, v35, v36, p_p, v66);
-    if (SHIBYTE(v57) < 0)
+    tknPrintf("Warning: '%s' : Inefficient voc search. Required dynamic allocation of size %llu\n", v27, p_p, v56);
+    if (SHIBYTE(v47) < 0)
     {
       operator delete(__p);
     }
 
-    v38 = *(a1 + 440);
-    if (v38)
+    v29 = *(a1 + 440);
+    if (v29)
     {
-      MEMORY[0x26672B190](v38, 0x80C80B8603338);
+      MEMORY[0x26672B190](v29, 0x80C80B8603338);
     }
 
-    *(a1 + 440) = v65;
-    *(a1 + 428) = v66;
+    *(a1 + 440) = v55;
+    *(a1 + 428) = v56;
   }
 
-  if (v50 == v13)
+  if (v40 == v13)
   {
-    v39 = (a3[1] - *a3) >> 3;
-    if (v39 - v13 < v39)
+    v30 = (a3[1] - *a3) >> 3;
+    if (v30 - v13 < v30)
     {
-      v40 = -v13;
-      v41 = *a3 + 8 * v39;
+      v31 = -v13;
+      v32 = *a3 + 8 * v30;
       do
       {
-        *(*(v41 + 8 * v40) + 32) |= 1uLL;
+        *(*(v32 + 8 * v31) + 32) |= 1uLL;
       }
 
-      while (!__CFADD__(v40++, 1));
+      while (!__CFADD__(v31++, 1));
     }
   }
 
-  v43 = v64;
-  if (v63 == 1 && v60 != v62 && v60 != 0)
+  v34 = v54;
+  if (v53 == 1 && v50 != v52 && v50 != 0)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  if (v72 == 1 && v69 != v71 && v69 != 0)
+  if (v62 == 1 && v59 != v61 && v59 != 0)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  result = v43 == 1;
-  v47 = *MEMORY[0x277D85DE8];
-  return result;
+  return v34 == 1;
 }
 
 void sub_2625EE7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
-  MEMORY[0x26672B1B0](v15, 0x10F0C4030D8D1E0);
+  MEMORY[0x26672B1B0](v15, 0x10F0C4030D8D1E0, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x8A0]) == 1)
   {
     v17 = STACK[0x488];
@@ -1766,72 +2114,72 @@ LABEL_15:
   return v25 & 1;
 }
 
-uint64_t THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::insert@<X0>(uint64_t a1@<X0>, const __int32 **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+uint64_t THashBase<std::pair<wchar_t * const,TWordBlock *>,THashMapCompare<std::pair<wchar_t * const,TWordBlock *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t * const,TWordBlock *>,THash<wchar_t const*>>>::insert@<X0>(uint64_t a1@<X0>, const __int32 **a2@<X1>, uint64_t a3@<X8>)
 {
-  v8 = *(a1 + 24);
-  if (v8 == *(a1 + 16))
+  v5 = *(a1 + 24);
+  if (v5 == *(a1 + 16))
   {
-    if (v8)
+    if (v5)
     {
       if (*(a1 + 34) == 1)
       {
-        tknPrintf("Warning: hashtable resizing, size was %llu\n", a2, a3, a4, a5, *(a1 + 24));
-        v8 = *(a1 + 16);
+        tknPrintf("Warning: hashtable resizing, size was %llu\n", a2, *(a1 + 24));
+        v5 = *(a1 + 16);
       }
 
-      v9 = 2 * v8;
+      v6 = 2 * v5;
     }
 
     else
     {
-      v9 = 10781;
+      v6 = 10781;
     }
 
-    THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::resize(a1, v9);
+    THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pair<wchar_t const* const,TWord *>,TWideCharEqualTo>,THashMapFunction<std::pair<wchar_t const* const,TWord *>,THash<wchar_t const*>>>::resize(a1, v6);
   }
 
-  v10 = *a2;
-  v11 = wcslen(*a2);
-  v12 = 0;
-  v13 = 4 * v11;
-  if (4 * v11)
+  v7 = *a2;
+  v8 = wcslen(*a2);
+  v9 = 0;
+  v10 = 4 * v8;
+  if (4 * v8)
   {
-    v14 = v10;
+    v11 = v7;
     do
     {
-      v15 = *v14;
-      v14 = (v14 + 1);
-      v12 = 33 * v12 + v15;
-      --v13;
+      v12 = *v11;
+      v11 = (v11 + 1);
+      v9 = 33 * v9 + v12;
+      --v10;
     }
 
-    while (v13);
+    while (v10);
   }
 
-  v17 = *(a1 + 8);
-  v16 = *(a1 + 16);
-  v18 = (v17 + 8 * (v12 % v16));
-  v19 = v18;
+  v14 = *(a1 + 8);
+  v13 = *(a1 + 16);
+  v15 = (v14 + 8 * (v9 % v13));
+  v16 = v15;
   do
   {
-    v19 = *v19;
-    if (!v19)
+    v16 = *v16;
+    if (!v16)
     {
       operator new();
     }
 
-    result = wcscmp(v19[1], v10);
+    result = wcscmp(v16[1], v7);
   }
 
   while (result);
-  *a6 = v18;
-  *(a6 + 8) = v17 + 8 * v16;
-  *(a6 + 16) = v19;
-  *(a6 + 24) = 0;
+  *a3 = v15;
+  *(a3 + 8) = v14 + 8 * v13;
+  *(a3 + 16) = v16;
+  *(a3 + 24) = 0;
   return result;
 }
 
-uint64_t TLexicon::addTempWord(uint64_t a1, int *a2, int *a3, int *a4, const __int32 *a5)
+void *TLexicon::addTempWord(uint64_t a1, int *a2, int *a3, int *a4, const __int32 *a5)
 {
   v20 = v22;
   v21 = xmmword_26286B6F0;
@@ -1916,9 +2264,9 @@ uint64_t TLexicon::addTempWord(uint64_t a1, int *a2, int *a3, int *a4, const __i
 
   v18 = TAllocator::allocate((a1 + 16), 40);
   *v18 = v16;
-  *(v18 + 8) = a1;
-  *(v18 + 16) = -1;
-  *(v18 + 24) = xmmword_262870070;
+  v18[1] = a1;
+  v18[2] = -1;
+  *(v18 + 3) = xmmword_262870070;
   if (v23 == 1 && v20 != v22 && v20)
   {
     MEMORY[0x26672B1B0]();
@@ -2305,7 +2653,7 @@ void TLexicon::save(TLexicon *this, TDataManager *a2, FileSpec *a3)
 {
   if (a3)
   {
-    SDVoc_Save(*(this + 13), a3, 1u, 0, 0);
+    SDVoc_Save(*(this + 13), a3, 1, 0, 0);
   }
 
   if (a2)
@@ -2369,7 +2717,7 @@ void TLexicon::save(TLexicon *this, TDataManager *a2, FileSpec *a3)
     v19[0].__locale_ = 0;
     if ((*(**(this + 43) + 40))(*(this + 43), "LexCollation", 0, 0))
     {
-      TDataManager::getStringVar(*(this + 43));
+      TDataManager::getStringVar(*(this + 43), "LexCollation", &v17);
       if (SHIBYTE(v19[0].__locale_) >= 0)
       {
         v8 = &v17;
@@ -2395,7 +2743,7 @@ void TLexicon::save(TLexicon *this, TDataManager *a2, FileSpec *a3)
 
     if ((*(**(this + 43) + 40))(*(this + 43), "LexUpgrade", 0, 0))
     {
-      TDataManager::getStringVar(*(this + 43));
+      TDataManager::getStringVar(*(this + 43), "LexUpgrade", &v17);
       if (SHIBYTE(v19[0].__locale_) >= 0)
       {
         v10 = &v17;
@@ -2421,7 +2769,7 @@ void TLexicon::save(TLexicon *this, TDataManager *a2, FileSpec *a3)
 
     if ((*(**(this + 43) + 40))(*(this + 43), "LexUpgradeSpelling", 0, 0))
     {
-      TDataManager::getStringVar(*(this + 43));
+      TDataManager::getStringVar(*(this + 43), "LexUpgradeSpelling", &v17);
       if (SHIBYTE(v19[0].__locale_) >= 0)
       {
         v12 = &v17;
@@ -2465,9 +2813,8 @@ void sub_2625EF880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TLexicon::loadUpgradeMap(TLexicon *this, int a2, uint64_t a3)
+void *TLexicon::loadUpgradeMap(TLexicon *this, int a2, unint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = 368;
@@ -2480,17 +2827,16 @@ uint64_t TLexicon::loadUpgradeMap(TLexicon *this, int a2, uint64_t a3)
 
   if (!*(*(this + v3) + 8 * (a3 - *(*(this + 42) + 296))))
   {
-    v6 = a3 - *(*(this + 42) + 296);
     operator new();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *(*(this + v3) + 8 * (a3 - *(*(this + 42) + 296)));
 }
 
-void sub_2625F07C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, TAllocator *a15, uint64_t a16, uint64_t a17, TFileObjectParser *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
+void sub_2625F07C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, TAllocator *a15, uint64_t a16, uint64_t a17, void **a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, ...)
 {
-  MEMORY[0x26672B1B0](v56, 0x1070C40ADD13FEBLL);
+  va_start(va, a55);
+  MEMORY[0x26672B1B0](v55, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (a2 == 1)
   {
     __cxa_begin_catch(a1);
@@ -2508,10 +2854,10 @@ void sub_2625F07C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   }
 
   TInputStream::~TInputStream(&a33);
-  std::istringstream::~istringstream(&a56);
-  if (*(v57 - 193) < 0)
+  std::istringstream::~istringstream(va);
+  if (*(v56 - 193) < 0)
   {
-    operator delete(*(v57 - 216));
+    operator delete(*(v56 - 216));
   }
 
   _Unwind_Resume(a1);
@@ -2529,8 +2875,8 @@ void sub_2625F0AD4(void *a1, int a2)
 
 uint64_t TLexicon::getNGramScore(TLexicon *this, const TWord *a2, const TWord *a3, const TWord *a4, const TWord *a5, int a6)
 {
-  v26[4] = *MEMORY[0x277D85DE8];
-  v7 = &v24;
+  v25[4] = *MEMORY[0x277D85DE8];
+  v7 = &v23;
   if (!a2)
   {
     v9 = 0;
@@ -2542,24 +2888,24 @@ uint64_t TLexicon::getNGramScore(TLexicon *this, const TWord *a2, const TWord *a
     goto LABEL_9;
   }
 
-  v7 = v26;
+  v7 = v25;
   v8 = *(a2 + 2);
   if (v8 == -1)
   {
+    v23 = -1;
     v24 = -1;
-    v25 = -1;
     if (a6)
     {
       v10 = *(this + 56);
-      v24 = *(this + 13);
-      v25 = v10;
+      v23 = *(this + 13);
+      v24 = v10;
     }
   }
 
   else
   {
-    v24 = *(*(a2 + 1) + 104);
-    v25 = v8;
+    v23 = *(*(a2 + 1) + 104);
+    v24 = v8;
   }
 
   v9 = 1;
@@ -2594,7 +2940,7 @@ LABEL_14:
     v13 = *(a4 + 2);
     if (v13 == -1)
     {
-      v15 = &v24 + 2 * v9;
+      v15 = &v23 + 2 * v9;
       *v15 = -1;
       v15[1] = -1;
       if (a6)
@@ -2607,7 +2953,7 @@ LABEL_14:
 
     else
     {
-      v14 = &v24 + 2 * v9;
+      v14 = &v23 + 2 * v9;
       *v14 = *(*(a4 + 1) + 104);
       v14[1] = v13;
     }
@@ -2615,20 +2961,20 @@ LABEL_14:
     LODWORD(v9) = v9 + 1;
   }
 
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   v17 = *(a5 + 2);
   if (v17 != -1)
   {
     v18 = *(*(a5 + 1) + 104);
 LABEL_24:
-    v22 = v18;
-    v23 = v17;
+    v21 = v18;
+    v22 = v17;
     goto LABEL_25;
   }
 
+  v21 = -1;
   v22 = -1;
-  v23 = -1;
   if (a6)
   {
     v18 = *(this + 13);
@@ -2637,272 +2983,271 @@ LABEL_24:
   }
 
 LABEL_25:
-  v21 = 0;
-  SDLm_LmScore(0, 0, 0, &v24, v9, &v22, 1u, &v21, 1u, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  result = v21;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  v20 = 0;
+  SDLm_LmScore(0, 0, 0, &v23, v9, &v21, 1u, &v20, 1u, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  return v20;
 }
 
-void TLexicon::mapWordSequence(void *a1, void *a2, unint64_t a3)
+void TLexicon::mapWordSequence(TLexicon *a1, uint64_t *a2, unint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, void *a7)
 {
-  v6 = a1[42];
-  ActiveConfigHandle = TParam::getActiveConfigHandle((v6 + 144));
-  TParam::getValidConfig((v6 + 144), ActiveConfigHandle);
+  v10 = *(a1 + 42);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v10 + 144));
+  TParam::getValidConfig((v10 + 144), ActiveConfigHandle);
   if (a3 >= 4)
   {
-    v8 = 4;
+    v12 = 4;
   }
 
   else
   {
-    v8 = a3;
+    v12 = a3;
   }
 
-  *&v16 = 0;
-  std::vector<TWord const*>::vector[abi:ne200100](&v14, v8);
-  if (v15 != v14)
+  *&v20 = 0;
+  std::vector<TWord const*>::vector[abi:ne200100](&v18, v12, &v20);
+  if (v19 != v18)
   {
-    v9 = 0;
-    v10 = 8 * a3 - 8;
+    v13 = 0;
+    v14 = 8 * a3 - 8;
     do
     {
-      v11 = *(*a2 + v10);
-      Word = TLexicon::findWord(a1, v11);
+      v15 = *(*a2 + v14);
+      Word = TLexicon::findWord(a1, v15);
       if (!Word)
       {
-        Word = TLexicon::addTempWord(a1, v11, 0, 0, 0);
+        Word = TLexicon::addTempWord(a1, v15, 0, 0, 0);
       }
 
-      *(v14 + 8 * v9++) = Word;
-      v10 -= 8;
+      *(v18 + 8 * v13++) = Word;
+      v14 -= 8;
     }
 
-    while (v9 < (v15 - v14) >> 3);
+    while (v13 < (v19 - v18) >> 3);
   }
 
-  memset(v13, 0, sizeof(v13));
-  std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(v13, 1uLL);
+  memset(v17, 0, sizeof(v17));
+  std::__allocate_at_least[abi:ne200100]<std::allocator<TSegment const*>>(v17, 1uLL);
 }
 
-void sub_2625F11C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
+void sub_2625F11C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::~THashBase(&a32);
-  v34 = *(v32 - 176);
-  if (v34)
+  va_start(va, a31);
+  THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::~THashBase(va);
+  v33 = *(v31 - 176);
+  if (v33)
   {
-    *(v32 - 168) = v34;
-    operator delete(v34);
+    *(v31 - 168) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 152);
-  if (v35)
+  v34 = *(v31 - 152);
+  if (v34)
   {
-    *(v32 - 144) = v35;
-    operator delete(v35);
+    *(v31 - 144) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
 }
 
-void TLexicon::mapWord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void TLexicon::mapWord(uint64_t a1, uint64_t a2)
 {
-  v5 = MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v14 = v5;
-  v47 = v12;
-  std::vector<TWord const*>::resize(v6, 0);
-  v15 = *(v14 + 42);
-  ActiveConfigHandle = TParam::getActiveConfigHandle((v15 + 144));
-  if (*(v15 + 4 * TParam::getValidConfig((v15 + 144), ActiveConfigHandle) + 304) == v11)
+  v2 = MEMORY[0x28223BE20](a1, a2);
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v11 = v2;
+  v44 = v9;
+  std::vector<TWord const*>::resize(v3, 0);
+  v12 = *(v11 + 42);
+  ActiveConfigHandle = TParam::getActiveConfigHandle((v12 + 144));
+  if (*(v12 + 4 * TParam::getValidConfig((v12 + 144), ActiveConfigHandle) + 304) == v8)
   {
-    Word = TLexicon::findWord(v14, v13);
+    Word = TLexicon::findWord(v11, v10);
     if (!Word)
     {
-      Word = TLexicon::addTempWord(v14, v13, 0, 0, 0);
+      Word = TLexicon::addTempWord(v11, v10, 0, 0, 0);
     }
 
-    std::vector<TWord const*>::push_back[abi:ne200100](v7, &Word);
+    std::vector<TWord const*>::push_back[abi:ne200100](v4, &Word);
   }
 
   else
   {
-    UpgradeMap = TLexicon::loadUpgradeMap(v14, v9, v11);
-    v18 = std::__tree<std::__value_type<wchar_t const*,wchar_t const*>,std::__map_value_compare<wchar_t const*,std::__value_type<wchar_t const*,wchar_t const*>,TWideCharCompare,true>,std::allocator<std::__value_type<wchar_t const*,wchar_t const*>>>::__equal_range_multi<wchar_t const*>(UpgradeMap, &v47);
-    if (v18 == v19 || (v20 = v18, v21 = v19, LODWORD(v18) = wcscmp(v18[5], dword_2628735C4), !v18))
+    UpgradeMap = TLexicon::loadUpgradeMap(v11, v6, v8);
+    v15 = std::__tree<std::__value_type<wchar_t const*,wchar_t const*>,std::__map_value_compare<wchar_t const*,std::__value_type<wchar_t const*,wchar_t const*>,TWideCharCompare,true>,std::allocator<std::__value_type<wchar_t const*,wchar_t const*>>>::__equal_range_multi<wchar_t const*>(UpgradeMap, &v44);
+    if (v15 == v16 || (v17 = v15, v18 = v16, LODWORD(v15) = wcscmp(v15[5], dword_2628735C4), !v15))
     {
-      Word = v45;
-      v44 = xmmword_26286B6F0;
-      v46 = 1;
-      v39 = v41;
-      v40 = xmmword_26286B6F0;
-      v42 = 1;
-      v35 = v37;
-      v36 = xmmword_26286B6F0;
-      v38 = 1;
-      TLexicon::getWrittenForm(v18, v47, &Word);
-      getSecondField(v47, &v39);
-      getThirdField(v47, &v35);
-      v31 = v33;
-      v32 = xmmword_26286B6F0;
-      v34 = 1;
-      if (*(&v44 + 1) >= v44)
+      Word = v42;
+      v41 = xmmword_26286B6F0;
+      v43 = 1;
+      v36 = v38;
+      v37 = xmmword_26286B6F0;
+      v39 = 1;
+      v32 = v34;
+      v33 = xmmword_26286B6F0;
+      v35 = 1;
+      TLexicon::getWrittenForm(v15, v44, &Word);
+      getSecondField(v44, &v36);
+      getThirdField(v44, &v32);
+      v28 = v30;
+      v29 = xmmword_26286B6F0;
+      v31 = 1;
+      if (*(&v41 + 1) >= v41)
       {
-        if (v46)
+        if (v43)
         {
-          LODWORD(v30) = 0;
-          TBuffer<wchar_t>::insert(&Word, *(&v44 + 1), &v30, 1uLL);
-          v25 = Word;
-          --*(&v44 + 1);
+          LODWORD(v27) = 0;
+          TBuffer<wchar_t>::insert(&Word, *(&v41 + 1), &v27, 1uLL);
+          v22 = Word;
+          --*(&v41 + 1);
         }
 
         else
         {
-          v25 = Word;
-          if (v44)
+          v22 = Word;
+          if (v41)
           {
-            Word[v44 - 1] = 0;
+            Word[v41 - 1] = 0;
           }
         }
       }
 
       else
       {
-        v25 = Word;
-        Word[*(&v44 + 1)] = 0;
+        v22 = Word;
+        Word[*(&v41 + 1)] = 0;
       }
 
-      if (*(&v40 + 1) >= v40)
+      if (*(&v37 + 1) >= v37)
       {
-        if (v42)
+        if (v39)
         {
-          LODWORD(v30) = 0;
-          TBuffer<wchar_t>::insert(&v39, *(&v40 + 1), &v30, 1uLL);
-          v26 = v39;
-          --*(&v40 + 1);
+          LODWORD(v27) = 0;
+          TBuffer<wchar_t>::insert(&v36, *(&v37 + 1), &v27, 1uLL);
+          v23 = v36;
+          --*(&v37 + 1);
         }
 
         else
         {
-          v26 = v39;
-          if (v40)
+          v23 = v36;
+          if (v37)
           {
-            v39[v40 - 1] = 0;
+            v36[v37 - 1] = 0;
           }
         }
       }
 
       else
       {
-        v26 = v39;
-        v39[*(&v40 + 1)] = 0;
+        v23 = v36;
+        v36[*(&v37 + 1)] = 0;
       }
 
-      if (*(&v36 + 1) >= v36)
+      if (*(&v33 + 1) >= v33)
       {
-        if (v38)
+        if (v35)
         {
-          LODWORD(v30) = 0;
-          TBuffer<wchar_t>::insert(&v35, *(&v36 + 1), &v30, 1uLL);
-          v27 = v35;
-          --*(&v36 + 1);
+          LODWORD(v27) = 0;
+          TBuffer<wchar_t>::insert(&v32, *(&v33 + 1), &v27, 1uLL);
+          v24 = v32;
+          --*(&v33 + 1);
         }
 
         else
         {
-          v27 = v35;
-          if (v36)
+          v24 = v32;
+          if (v33)
           {
-            v35[v36 - 1] = 0;
+            v32[v33 - 1] = 0;
           }
         }
       }
 
       else
       {
-        v27 = v35;
-        v35[*(&v36 + 1)] = 0;
+        v24 = v32;
+        v32[*(&v33 + 1)] = 0;
       }
 
-      TLexicon::constructWordName(v14, v25, v26, v27, 1, &v31);
-      if (*(&v32 + 1) >= v32)
+      TLexicon::constructWordName(v11, v22, v23, v24, 1, &v28);
+      if (*(&v29 + 1) >= v29)
       {
-        if (v34)
+        if (v31)
         {
-          v48 = 0;
-          TBuffer<wchar_t>::insert(&v31, *(&v32 + 1), &v48, 1uLL);
-          v28 = v31;
-          --*(&v32 + 1);
+          v45 = 0;
+          TBuffer<wchar_t>::insert(&v28, *(&v29 + 1), &v45, 1uLL);
+          v25 = v28;
+          --*(&v29 + 1);
         }
 
         else
         {
-          v28 = v31;
-          if (v32)
+          v25 = v28;
+          if (v29)
           {
-            v31[v32 - 1] = 0;
+            v28[v29 - 1] = 0;
           }
         }
       }
 
       else
       {
-        v28 = v31;
-        v31[*(&v32 + 1)] = 0;
+        v25 = v28;
+        v28[*(&v29 + 1)] = 0;
       }
 
-      v30 = TLexicon::findWord(v14, v28);
-      if (!v30)
+      v27 = TLexicon::findWord(v11, v25);
+      if (!v27)
       {
-        if (*(&v32 + 1) >= v32)
+        if (*(&v29 + 1) >= v29)
         {
-          if (v34)
+          if (v31)
           {
-            v48 = 0;
-            TBuffer<wchar_t>::insert(&v31, *(&v32 + 1), &v48, 1uLL);
-            v29 = v31;
-            --*(&v32 + 1);
+            v45 = 0;
+            TBuffer<wchar_t>::insert(&v28, *(&v29 + 1), &v45, 1uLL);
+            v26 = v28;
+            --*(&v29 + 1);
           }
 
           else
           {
-            v29 = v31;
-            if (v32)
+            v26 = v28;
+            if (v29)
             {
-              v31[v32 - 1] = 0;
+              v28[v29 - 1] = 0;
             }
           }
         }
 
         else
         {
-          v29 = v31;
-          v31[*(&v32 + 1)] = 0;
+          v26 = v28;
+          v28[*(&v29 + 1)] = 0;
         }
 
-        v30 = TLexicon::addTempWord(v14, v29, 0, 0, 0);
+        v27 = TLexicon::addTempWord(v11, v26, 0, 0, 0);
       }
 
-      std::vector<TWord const*>::push_back[abi:ne200100](v7, &v30);
-      if (v34 == 1 && v31 != v33 && v31)
+      std::vector<TWord const*>::push_back[abi:ne200100](v4, &v27);
+      if (v31 == 1 && v28 != v30 && v28)
       {
         MEMORY[0x26672B1B0]();
       }
 
-      if (v38 == 1 && v35 != v37 && v35)
+      if (v35 == 1 && v32 != v34 && v32)
       {
         MEMORY[0x26672B1B0]();
       }
 
-      if (v42 == 1 && v39 != v41 && v39)
+      if (v39 == 1 && v36 != v38 && v36)
       {
         MEMORY[0x26672B1B0]();
       }
 
-      if (v46 == 1 && Word != v45 && Word)
+      if (v43 == 1 && Word != v42 && Word)
       {
         MEMORY[0x26672B1B0]();
       }
@@ -2912,41 +3257,41 @@ void TLexicon::mapWord(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     {
       do
       {
-        Word = TLexicon::findWord(v14, v20[5]);
+        Word = TLexicon::findWord(v11, v17[5]);
         if (!Word)
         {
-          Word = TLexicon::addTempWord(v14, v20[5], 0, 0, 0);
+          Word = TLexicon::addTempWord(v11, v17[5], 0, 0, 0);
         }
 
-        std::vector<TWord const*>::push_back[abi:ne200100](v7, &Word);
-        v22 = v20[1];
-        if (v22)
+        std::vector<TWord const*>::push_back[abi:ne200100](v4, &Word);
+        v19 = v17[1];
+        if (v19)
         {
           do
           {
-            v23 = v22;
-            v22 = *v22;
+            v20 = v19;
+            v19 = *v19;
           }
 
-          while (v22);
+          while (v19);
         }
 
         else
         {
           do
           {
-            v23 = v20[2];
-            v24 = *v23 == v20;
-            v20 = v23;
+            v20 = v17[2];
+            v21 = *v20 == v17;
+            v17 = v20;
           }
 
-          while (!v24);
+          while (!v21);
         }
 
-        v20 = v23;
+        v17 = v20;
       }
 
-      while (v23 != v21);
+      while (v20 != v18);
     }
   }
 }
@@ -2965,7 +3310,7 @@ void sub_2625F1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v19)
       {
-        MEMORY[0x26672B1B0](v19, 0x1000C4052888210);
+        MEMORY[0x26672B1B0](v19, 0x1000C4052888210, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -2977,7 +3322,7 @@ void sub_2625F1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v20)
       {
-        MEMORY[0x26672B1B0](v20, 0x1000C4052888210);
+        MEMORY[0x26672B1B0](v20, 0x1000C4052888210, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -2989,7 +3334,7 @@ void sub_2625F1758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     {
       if (v21)
       {
-        MEMORY[0x26672B1B0](v21, 0x1000C4052888210);
+        MEMORY[0x26672B1B0](v21, 0x1000C4052888210, a3, a4, a5, a6, a7, a8);
       }
     }
   }
@@ -3074,42 +3419,42 @@ LABEL_5:
   }
 }
 
-void *THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::insert@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+void *THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::insert@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v8 = *(a1 + 24);
-  if (v8 == *(a1 + 16))
+  v5 = *(a1 + 24);
+  if (v5 == *(a1 + 16))
   {
-    if (v8)
+    if (v5)
     {
       if (*(a1 + 34) == 1)
       {
-        tknPrintf("Warning: hashtable resizing, size was %llu\n", a2, a3, a4, a5, *(a1 + 24));
-        v8 = *(a1 + 16);
+        tknPrintf("Warning: hashtable resizing, size was %llu\n", a2, *(a1 + 24));
+        v5 = *(a1 + 16);
       }
 
-      v9 = 2 * v8;
+      v6 = 2 * v5;
     }
 
     else
     {
-      v9 = 10781;
+      v6 = 10781;
     }
 
-    THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::resize(a1, v9);
+    THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THashMapCompare<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,std::equal_to<TDecodeLinkMapWord::THistory>>,THashMapFunction<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord const*>,THash<TDecodeLinkMapWord::THistory>>>::resize(a1, v6);
   }
 
-  v10 = 0;
-  v11 = 0;
+  v7 = 0;
+  v8 = 0;
   do
   {
-    v11 = 33 * v11 + *(a2 + v10++);
+    v8 = 33 * v8 + *(a2 + v7++);
   }
 
-  while (v10 != 32);
-  v13 = *(a1 + 8);
-  v12 = *(a1 + 16);
-  v14 = (v13 + 8 * (v11 % v12));
-  result = v14;
+  while (v7 != 32);
+  v10 = *(a1 + 8);
+  v9 = *(a1 + 16);
+  v11 = (v10 + 8 * (v8 % v9));
+  result = v11;
   do
   {
     result = *result;
@@ -3120,14 +3465,14 @@ void *THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord 
   }
 
   while (result[1] != *a2 || result[2] != a2[1] || result[3] != a2[2] || result[4] != a2[3]);
-  *a6 = v14;
-  *(a6 + 8) = v13 + 8 * v12;
-  *(a6 + 16) = result;
-  *(a6 + 24) = 0;
+  *a3 = v11;
+  *(a3 + 8) = v10 + 8 * v9;
+  *(a3 + 16) = result;
+  *(a3 + 24) = 0;
   return result;
 }
 
-__int32 *getSecondField(__int32 *a1, uint64_t a2)
+__int32 *getSecondField(__int32 *a1, const void **a2)
 {
   TBuffer<wchar_t>::resize(a2, 0);
   if (*a1 != 92)
@@ -3172,7 +3517,7 @@ LABEL_7:
   }
 }
 
-__int32 *getThirdField(__int32 *a1, uint64_t a2)
+__int32 *getThirdField(__int32 *a1, const void **a2)
 {
   TBuffer<wchar_t>::resize(a2, 0);
   if (*a1 != 92)
@@ -3665,7 +4010,7 @@ uint64_t TBuffer<wchar_t>::operator+=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t respellRoot(uint64_t a1, int *a2)
+uint64_t respellRoot(uint64_t a1, __int32 *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -3763,7 +4108,7 @@ LABEL_21:
   return 1;
 }
 
-uint64_t findStressPosition(int *a1, int a2)
+uint64_t findStressPosition(__int32 *a1, int a2)
 {
   v4 = *a1;
   if (!*a1)
@@ -3805,7 +4150,7 @@ LABEL_8:
     v10 = v18;
     if ((v9 & 1) == 0)
     {
-      *&v18[4 * v7] = *(s_pszUnaccentedVowels + v8 - s_pszAccentedVowels);
+      v18[v7] = *(s_pszUnaccentedVowels + v8 - s_pszAccentedVowels);
     }
 
     v11 = *(&v19 + 1);
@@ -4421,7 +4766,7 @@ void THashBase<std::pair<TDecodeLinkMapWord::THistory const,TDecodeLinkMapWord c
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t findPreviousVowel(uint64_t a1, int a2)
+uint64_t findPreviousVowel(uint64_t a1, unsigned int a2)
 {
   v2 = a2;
   if (a2 >= 1)
@@ -4464,17 +4809,17 @@ uint64_t findPreviousVowel(uint64_t a1, int a2)
   return v6;
 }
 
-void *std::vector<std::wstring>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::wstring>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::wstring>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::wstring>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void TRegisterable<TLexicon>::~TRegisterable(void *a1)
@@ -4537,15 +4882,15 @@ double THashBase<std::pair<wchar_t const* const,TWord *>,THashMapCompare<std::pa
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::wstring,TWordBlock *>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,TWordBlock *>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,TWordBlock *>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring&&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<std::wstring,TWordBlock *>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,TWordBlock *>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,TWordBlock *>>>::__emplace_unique_key_args<std::wstring,std::piecewise_construct_t const&,std::tuple<std::wstring&&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::wstring,unsigned long>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,unsigned long>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,unsigned long>>>::__find_equal<std::wstring>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::wstring,unsigned long>,std::__map_value_compare<std::wstring,std::__value_type<std::wstring,unsigned long>,std::less<std::wstring>,true>,std::allocator<std::__value_type<std::wstring,unsigned long>>>::__find_equal<std::wstring>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<TLexiconMatch>>(uint64_t a1, unint64_t a2)
@@ -5252,15 +5597,15 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(st
           {
             v13 = v6 + v12;
             v14 = *(v6 + v12 + 8);
-            *(v13 + 2) = *(v6 + v12);
-            *(v13 + 3) = v14;
+            *(v13 + 16) = *(v6 + v12);
+            *(v13 + 24) = v14;
             if (!v12)
             {
               break;
             }
 
             v12 -= 16;
-            result = (*a3)(&v17, v6 + v12);
+            result = (*a3)(&v17, v12 + v6);
             if ((result & 1) == 0)
             {
               v15 = (v6 + v12 + 16);
@@ -5286,7 +5631,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(_OWORD *, void *))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, void *))
 {
   if (result != a2)
   {
@@ -5723,7 +6068,7 @@ LABEL_43:
   }
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*,std::pair<wchar_t const*,wchar_t *>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, unsigned int (**a4)(uint64_t, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*,std::pair<wchar_t const*,wchar_t *>*>(char *a1, char *a2, char *a3, unsigned int (**a4)(char *, char *))
 {
   if (a1 != a2)
   {
@@ -5732,10 +6077,11 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, a4, v8, v11--);
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, a4, v8, v11);
+        v11 -= 16;
         --v10;
       }
 
@@ -5753,13 +6099,13 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
           v13 = *v12;
           *v12 = *a1;
           *a1 = v13;
-          v14 = v12[1];
-          v12[1] = *(a1 + 8);
-          *(a1 + 8) = v14;
+          v14 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 16;
       }
 
       while (v12 != a3);
@@ -5767,28 +6113,28 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
 
     if (v8 >= 2)
     {
-      v15 = a2 - 2;
+      v15 = a2 - 16;
       do
       {
         v17 = *a1;
-        v16 = *(a1 + 8);
+        v16 = *(a1 + 1);
         v18 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, a4, v8);
         if (v15 == v18)
         {
           *v18 = v17;
-          v18[1] = v16;
+          *(v18 + 1) = v16;
         }
 
         else
         {
           *v18 = *v15;
-          v18[1] = v15[1];
+          *(v18 + 1) = *(v15 + 1);
           *v15 = v17;
-          v15[1] = v16;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, (v18 + 2), a4, (v18 - a1 + 16) >> 4);
+          *(v15 + 1) = v16;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<wchar_t const*,wchar_t *> const&,std::pair<wchar_t const*,wchar_t *> const&),std::pair<wchar_t const*,wchar_t *>*>(a1, (v18 + 16), a4, (v18 + 16 - a1) >> 4);
         }
 
-        v15 -= 2;
+        v15 -= 16;
       }
 
       while (v8-- > 2);
@@ -5969,6 +6315,19 @@ void *std::__tree<std::__value_type<wchar_t const*,wchar_t const*>,std::__map_va
 LABEL_9:
   *a2 = v5;
   return result;
+}
+
+uint64_t *std::vector<TWord const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<TWord const*>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_2625F567C(_Unwind_Exception *exception_object)
@@ -6180,9 +6539,11 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
   *(this + 92) = a2;
   *(this + 93) = *(a2 + 6);
   v5 = MemChunkAlloc(0x110uLL, 0);
-  *(this + 94) = EnvMgr::EnvMgr(v5, 2u);
-  v6 = MemChunkAlloc(0x110uLL, 0);
-  *(this + 95) = EnvMgr::EnvMgr(v6, 2u);
+  EnvMgr::EnvMgr(v5, 2);
+  *(this + 94) = v6;
+  v7 = MemChunkAlloc(0x110uLL, 0);
+  EnvMgr::EnvMgr(v7, 2);
+  *(this + 95) = v8;
   *(this + 45) = 0u;
   *(this + 656) = 1;
   *(this + 696) = 1;
@@ -6198,9 +6559,9 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 11))
   {
-    v12 = 0;
-    *(this + 11) = realloc_array(*(this + 4), &v12, 1uLL, *(this + 10), *(this + 10), 1);
-    *(this + 4) = v12;
+    v9 = 0;
+    *(this + 11) = realloc_array(*(this + 4), &v9, 1uLL, *(this + 10), *(this + 10), 1);
+    *(this + 4) = v9;
   }
 
   if (!*(this + 15))
@@ -6285,44 +6646,44 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 79))
   {
-    v12 = 0;
-    *(this + 79) = realloc_array(*(this + 38), &v12, 1uLL, *(this + 78), *(this + 78), 1);
-    *(this + 38) = v12;
+    v9 = 0;
+    *(this + 79) = realloc_array(*(this + 38), &v9, 1uLL, *(this + 78), *(this + 78), 1);
+    *(this + 38) = v9;
   }
 
   if (!*(this + 83))
   {
-    v12 = 0;
-    *(this + 83) = realloc_array(*(this + 40), &v12, 1uLL, *(this + 82), *(this + 82), 1);
-    *(this + 40) = v12;
+    v9 = 0;
+    *(this + 83) = realloc_array(*(this + 40), &v9, 1uLL, *(this + 82), *(this + 82), 1);
+    *(this + 40) = v9;
   }
 
   if (!*(this + 87))
   {
-    v12 = 0;
-    *(this + 87) = realloc_array(*(this + 42), &v12, 1uLL, *(this + 86), *(this + 86), 1);
-    *(this + 42) = v12;
+    v9 = 0;
+    *(this + 87) = realloc_array(*(this + 42), &v9, 1uLL, *(this + 86), *(this + 86), 1);
+    *(this + 42) = v9;
   }
 
   if (!*(this + 91))
   {
-    v12 = 0;
-    *(this + 91) = realloc_array(*(this + 44), &v12, 1uLL, *(this + 90), *(this + 90), 1);
-    *(this + 44) = v12;
+    v9 = 0;
+    *(this + 91) = realloc_array(*(this + 44), &v9, 1uLL, *(this + 90), *(this + 90), 1);
+    *(this + 44) = v9;
   }
 
   if (!*(this + 95))
   {
-    v12 = 0;
-    *(this + 95) = realloc_array(*(this + 46), &v12, 1uLL, *(this + 94), *(this + 94), 1);
-    *(this + 46) = v12;
+    v9 = 0;
+    *(this + 95) = realloc_array(*(this + 46), &v9, 1uLL, *(this + 94), *(this + 94), 1);
+    *(this + 46) = v9;
   }
 
   if (!*(this + 99))
   {
-    v12 = 0;
-    *(this + 99) = realloc_array(*(this + 48), &v12, 1uLL, *(this + 98), *(this + 98), 1);
-    *(this + 48) = v12;
+    v9 = 0;
+    *(this + 99) = realloc_array(*(this + 48), &v9, 1uLL, *(this + 98), *(this + 98), 1);
+    *(this + 48) = v9;
   }
 
   if (!*(this + 103))
@@ -6352,9 +6713,9 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 123))
   {
-    v12 = 0;
-    *(this + 123) = realloc_array(*(this + 60), &v12, 1uLL, *(this + 122), *(this + 122), 1);
-    *(this + 60) = v12;
+    v9 = 0;
+    *(this + 123) = realloc_array(*(this + 60), &v9, 1uLL, *(this + 122), *(this + 122), 1);
+    *(this + 60) = v9;
   }
 
   if (!*(this + 151))
@@ -6364,9 +6725,9 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 119))
   {
-    v12 = 0;
-    *(this + 119) = realloc_array(*(this + 58), &v12, 1uLL, *(this + 118), *(this + 118), 1);
-    *(this + 58) = v12;
+    v9 = 0;
+    *(this + 119) = realloc_array(*(this + 58), &v9, 1uLL, *(this + 118), *(this + 118), 1);
+    *(this + 58) = v9;
   }
 
   if (!*(this + 127))
@@ -6376,16 +6737,16 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 139))
   {
-    v12 = 0;
-    *(this + 139) = realloc_array(*(this + 68), &v12, 1uLL, *(this + 138), *(this + 138), 1);
-    *(this + 68) = v12;
+    v9 = 0;
+    *(this + 139) = realloc_array(*(this + 68), &v9, 1uLL, *(this + 138), *(this + 138), 1);
+    *(this + 68) = v9;
   }
 
   if (!*(this + 143))
   {
-    v12 = 0;
-    *(this + 143) = realloc_array(*(this + 70), &v12, 1uLL, *(this + 142), *(this + 142), 1);
-    *(this + 70) = v12;
+    v9 = 0;
+    *(this + 143) = realloc_array(*(this + 70), &v9, 1uLL, *(this + 142), *(this + 142), 1);
+    *(this + 70) = v9;
   }
 
   if (!*(this + 147))
@@ -6400,9 +6761,9 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
 
   if (!*(this + 159))
   {
-    v12 = 0;
-    *(this + 159) = realloc_array(*(this + 78), &v12, 1uLL, *(this + 158), *(this + 158), 1);
-    *(this + 78) = v12;
+    v9 = 0;
+    *(this + 159) = realloc_array(*(this + 78), &v9, 1uLL, *(this + 158), *(this + 158), 1);
+    *(this + 78) = v9;
   }
 
   if (!*(this + 169))
@@ -6415,8 +6776,8 @@ void StateMgr::StateMgr(StateMgr *this, Voc *a2)
     DgnPrimArray<short>::reallocElts(this + 528, 1, 0);
   }
 
-  LOWORD(v12) = 0;
-  StateMgr::newState(this, 0, &v12, v7, v8, v9, v10, v11);
+  LOWORD(v9) = 0;
+  StateMgr::newState(this, 0, &v9);
   **(this + 68) = 0;
   **(this + 70) = 0;
   *(this + 183) = 0;
@@ -6469,91 +6830,6 @@ void sub_2625F61D8(_Unwind_Exception *a1)
   DgnIOwnArray<BitArray *>::releaseAll(v1 + 16);
   DgnArray<DgnCollArray<unsigned int,WordList>>::releaseAll(v1);
   _Unwind_Resume(a1);
-}
-
-uint64_t StateMgr::newState(StateMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = 0;
-  return StateMgr::newState(this, a2, &v9, a4, a5, a6, a7, a8);
-}
-
-{
-  if (*(this + 182) <= a3)
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1552, "voc/statemgr", 22, "%u %u", a7, a8, *(this + 180));
-  }
-
-  StateMgr::verifyStateFull(this, a2, 1, 1, a5, a6, a7, a8);
-  v13 = *(this + 178);
-  if (!v13)
-  {
-    goto LABEL_9;
-  }
-
-  v14 = *(this + 88);
-  v15 = 0xFFFFFFFFLL;
-  while (1)
-  {
-    v16 = *v14++;
-    if (v16 == a3)
-    {
-      break;
-    }
-
-    --v15;
-    if (!--v13)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  if (!v15)
-  {
-LABEL_9:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1558, "voc/statemgr", 29, "%u", v11, v12, a3);
-  }
-
-  PhnIndexSet::PhnIndexSet(v24, *(*(this + 92) + 184));
-  *v24[0] |= 1u;
-  v17 = *(this + 178);
-  if (v17)
-  {
-    v18 = *(this + 178);
-    v19 = *(this + 88);
-    while (*v19 != a3)
-    {
-      ++v19;
-      if (!--v18)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v20 = v17 - 1;
-    *v19 = *(*(this + 88) + 4 * v20);
-    *(this + 178) = v20;
-  }
-
-LABEL_16:
-  *(*(this + 68) + a3) = 1;
-  *(*(this + 70) + a3) = 1;
-  BitArray::operator=((*(this + 83) + 16 * a3), v24);
-  v21 = *(this + 16) + 16 * a2;
-  v22 = *(v21 + 8);
-  if (v22 == *(v21 + 12))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(*(this + 16) + 16 * a2, 1, 1);
-    v22 = *(v21 + 8);
-  }
-
-  *(*v21 + 4 * v22) = a3;
-  ++*(v21 + 8);
-  *(*(this + 14) + 4 * a3) = a2;
-  *(*(this + 6) + 2 * a3) = 0;
-  *(*(this + 8) + 4 * a3) = 0;
-  *(this + 183) ^= StateMgr::computeOneStateIdNameChecksum(this, a3);
-  BitArray::~BitArray(v24);
-  return a3;
 }
 
 void StateMgr::~StateMgr(EnvMgr **this)
@@ -6702,90 +6978,92 @@ BOOL StateMgr::isPrecedingNonAcousticWordForState(StateMgr *this, int a2, unsign
   return i != 0;
 }
 
-uint64_t StateMgr::isValidPrecedingNonAcousticWordStateForUpgrade(WordList **this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StateMgr::isValidPrecedingNonAcousticWordStateForUpgrade(WordList **this, unsigned int a2)
 {
-  StateMgr::verifyState(this, a2, a3, a4, a5, a6, a7, a8);
+  StateMgr::verifyState(this, a2);
   if (*(this[64] + a2))
   {
     return 0;
   }
 
-  StateMgr::verifyStateFull(this, a2, 1, 0, v10, v11, v12, v13);
+  StateMgr::verifyStateFull(this, a2, 1, 0);
   if (*(this[28] + 4 * a2 + 2))
   {
     return 0;
   }
 
-  StateMgr::verifyStateFull(this, a2, 1, 0, v14, v15, v16, v17);
+  StateMgr::verifyStateFull(this, a2, 1, 0);
   if (*(this[76] + 4 * a2 + 2))
   {
     return 0;
   }
 
-  v25 = *this + 80 * a2;
-  if (!*(v25 + 16))
+  v5 = *this + 80 * a2;
+  if (!*(v5 + 4))
   {
     return 0;
   }
 
-  v26 = 0;
+  v6 = 0;
   do
   {
-    v27 = *(*(v25 + 8) + 4 * v26);
-    WordList::verifyVisible(this[93], v27, v18, v19, v20, v21, v22, v23);
-    result = WordList::isGuessedWordByOptionalTag(this[93], v27);
+    v7 = *(*(v5 + 1) + 4 * v6);
+    WordList::verifyVisible(this[93], v7);
+    result = WordList::isGuessedWordByOptionalTag(this[93], v7);
     if ((result & 1) == 0)
     {
       break;
     }
 
-    ++v26;
+    ++v6;
   }
 
-  while (v26 < *(v25 + 16));
+  while (v6 < *(v5 + 4));
   return result;
 }
 
-void StateMgr::verifyState(StateMgr *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double StateMgr::verifyState(uint64_t this, unsigned int a2)
 {
-  if (*(this + 180) <= a2 || !*(*(this + 68) + a2))
+  if (*(this + 720) <= a2 || !*(*(this + 544) + a2))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1326, "voc/statemgr", 1, "%u", a7, a8, a2);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1326, "voc/statemgr", 1, "%u", a2);
   }
+
+  return result;
 }
 
-uint64_t StateMgr::resetPrecedingNonAcousticWordStates(uint64_t this)
+_DWORD *StateMgr::resetPrecedingNonAcousticWordStates(_DWORD *this)
 {
   v1 = this;
-  v2 = *(this + 720);
-  v3 = *(this + 524);
+  v2 = this[180];
+  v3 = this[131];
   v4 = v2;
   if (v2 > v3)
   {
-    this = DgnPrimArray<unsigned int>::reallocElts(this + 512, v2 - v3, 0);
-    v4 = *(v1 + 720);
+    this = DgnPrimArray<unsigned int>::reallocElts((this + 128), v2 - v3, 0);
+    v4 = v1[180];
   }
 
-  *(v1 + 520) = v2;
+  v1[130] = v2;
   v5 = v4;
-  if (*(v1 + 492) < v4)
+  if (v1[123] < v4)
   {
     v17 = 0;
-    this = realloc_array(*(v1 + 480), &v17, v4, *(v1 + 488), *(v1 + 488), 1);
-    *(v1 + 492) = this;
-    *(v1 + 480) = v17;
-    v5 = *(v1 + 720);
+    this = realloc_array(*(v1 + 60), &v17, v4, v1[122], v1[122], 1);
+    v1[123] = this;
+    *(v1 + 60) = v17;
+    v5 = v1[180];
   }
 
-  *(v1 + 488) = v4;
-  v6 = (v1 + 592);
-  v7 = *(v1 + 604);
+  v1[122] = v4;
+  v6 = v1 + 148;
+  v7 = v1[151];
   if (v5 > v7)
   {
-    this = DgnArray<DgnPrimArray<double>>::reallocElts(v1 + 592, v5 - v7, 0);
+    this = DgnArray<DgnPrimArray<double>>::reallocElts((v1 + 148), v5 - v7, 0);
   }
 
-  v8 = *(v1 + 600);
+  v8 = v1[150];
   if (v8 <= v5)
   {
     if (v8 < v5)
@@ -6819,16 +7097,16 @@ uint64_t StateMgr::resetPrecedingNonAcousticWordStates(uint64_t this)
     while (v9 > v5);
   }
 
-  *(v1 + 600) = v5;
-  if (*(v1 + 720))
+  v1[150] = v5;
+  if (v1[180])
   {
     v14 = 0;
     v15 = 0;
     do
     {
-      *(*(v1 + 512) + 4 * v15) = 0;
-      *(*(v1 + 480) + v15) = 0;
-      v16 = *(v1 + 592);
+      *(*(v1 + 64) + 4 * v15) = 0;
+      *(*(v1 + 60) + v15) = 0;
+      v16 = *(v1 + 74);
       this = *(v16 + v14);
       if (this)
       {
@@ -6841,161 +7119,160 @@ uint64_t StateMgr::resetPrecedingNonAcousticWordStates(uint64_t this)
       v14 += 16;
     }
 
-    while (v15 < *(v1 + 720));
+    while (v15 < v1[180]);
   }
 
   return this;
 }
 
-StateMgr *StateMgr::upgradePrecedingNonAcousticWordsAllowed(StateMgr *result, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+StateMgr *StateMgr::upgradePrecedingNonAcousticWordsAllowed(StateMgr *result, unsigned int *a2)
 {
   if (*(*(result + 93) + 516) >= 0x3Eu)
   {
-    v9 = a2[2];
-    if (v9 >= 2)
+    v3 = a2[2];
+    if (v3 >= 2)
     {
-      v10 = result;
-      v11 = (*a2 + 1);
-      v12 = v9 - 1;
+      v4 = result;
+      v5 = (*a2 + 1);
+      v6 = v3 - 1;
       while (1)
       {
-        v13 = *v11++;
-        if (v13 == 1)
+        v7 = *v5++;
+        if (v7 == 1)
         {
           break;
         }
 
-        if (!--v12)
+        if (!--v6)
         {
           return result;
         }
       }
 
-      Handle = StateMgr::getHandle(result, "GuessedWords", 0, a4, a5, a6, a7, a8);
-      v33 = 0;
-      v34 = 0;
-      if (!Handle || (v21 = Handle, (StateMgr::isValidPrecedingNonAcousticWordStateForUpgrade(v10, Handle, v15, v16, v17, v18, v19, v20) & 1) == 0))
+      Handle = StateMgr::getHandle(result, "GuessedWords", 0);
+      v12 = 0;
+      v13 = 0;
+      if (!Handle || (v9 = Handle, (StateMgr::isValidPrecedingNonAcousticWordStateForUpgrade(v4, Handle) & 1) == 0))
       {
-        WordList::getAllGuessedWordsByOptionalTag(*(v10 + 93), &v33);
-        if (!v34)
+        WordList::getAllGuessedWordsByOptionalTag(*(v4 + 93), &v12);
+        if (!v13)
         {
-          return DgnPrimArray<unsigned int>::~DgnPrimArray(&v33);
+          return DgnPrimArray<unsigned int>::~DgnPrimArray(&v12);
         }
 
-        v35 = 0;
-        v21 = StateMgr::newState(v10, 0, &v35, v22, v23, v24, v25, v26);
-        StateMgr::addWordIdArrayNoPhones(v10, v21, &v33, 1, v27, v28, v29, v30);
+        v14 = 0;
+        v9 = StateMgr::newState(v4, 0, &v14);
+        StateMgr::addWordIdArrayNoPhones(v4, v9, &v12, 1);
       }
 
-      v31 = a2[2];
-      if (v31 >= 2)
+      v10 = a2[2];
+      if (v10 >= 2)
       {
-        for (i = 1; i < v31; ++i)
+        for (i = 1; i < v10; ++i)
         {
-          if (v21 != i && *(*a2 + i) == 1)
+          if (v9 != i && *(*a2 + i) == 1)
           {
-            *(*(v10 + 64) + 4 * i) = v21;
-            StateMgr::addPrecedingNonAcousticWordStateRef(v10, v21, i);
-            v31 = a2[2];
+            *(*(v4 + 64) + 4 * i) = v9;
+            StateMgr::addPrecedingNonAcousticWordStateRef(v4, v9, i);
+            v10 = a2[2];
           }
         }
       }
 
-      return DgnPrimArray<unsigned int>::~DgnPrimArray(&v33);
+      return DgnPrimArray<unsigned int>::~DgnPrimArray(&v12);
     }
   }
 
   return result;
 }
 
-void sub_2625F6C94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2625F6C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t StateMgr::getHandle(StateMgr *this, const char *__s2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StateMgr::getHandle(StateMgr *this, const char *__s2, unsigned int a3)
 {
-  v8 = a3;
   if (a3)
   {
-    StateMgr::verifyVisible(this, a3, a3, a4, a5, a6, a7, a8);
+    StateMgr::verifyVisible(this, a3);
   }
 
-  v11 = *(this + 16) + 16 * v8;
-  v12 = *(v11 + 8);
-  if (!v12)
+  v6 = *(this + 16) + 16 * a3;
+  v7 = *(v6 + 8);
+  if (!v7)
   {
     return 0;
   }
 
-  v13 = *v11;
-  v14 = *(this + 12);
+  v8 = *v6;
+  v9 = *(this + 12);
   while (1)
   {
-    v16 = *v13++;
-    v15 = v16;
-    v17 = v14 + 16 * v16;
-    v18 = *(v17 + 8);
-    v19 = *v17;
-    v20 = (v18 ? v19 : &unk_26287398E);
-    if (*v20 && !strcmp(v20, __s2))
+    v11 = *v8++;
+    v10 = v11;
+    v12 = v9 + 16 * v11;
+    v13 = *(v12 + 8);
+    v14 = *v12;
+    v15 = (v13 ? v14 : &unk_26287398E);
+    if (*v15 && !strcmp(v15, __s2))
     {
       break;
     }
 
-    if (!--v12)
+    if (!--v7)
     {
       return 0;
     }
   }
 
-  return v15;
+  return v10;
 }
 
-uint64_t StateMgr::addWordIdArrayNoPhones(StateMgr *a1, unsigned int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StateMgr::addWordIdArrayNoPhones(StateMgr *a1, unsigned int a2, uint64_t a3, int a4)
 {
   if (*(a3 + 8))
   {
-    v12 = 0;
-    v13 = a2;
+    v8 = 0;
+    v9 = a2;
     do
     {
-      v14 = *(*a3 + 4 * v12);
-      if (StateMgr::isWordIdInState(a1, a2, *(*a3 + 4 * v12), a4, a5, a6, a7, a8))
+      v10 = *(*a3 + 4 * v8);
+      if (StateMgr::isWordIdInState(a1, a2, *(*a3 + 4 * v8), a4))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2046, "voc/statemgr", 3, "%u %u", v15, v16, v14);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2046, "voc/statemgr", 3, "%u %u", v10, a2);
       }
 
-      WordList::addIncludingStateRef(*(a1 + 93), v14);
-      v17 = *(*(a1 + 2) + 8 * a2);
-      if (v17)
+      WordList::addIncludingStateRef(*(a1 + 93), v10);
+      v11 = *(*(a1 + 2) + 8 * a2);
+      if (v11)
       {
-        v18 = *(v17 + 2);
-        if (v18 <= v14)
+        v12 = *(v11 + 2);
+        if (v12 <= v10)
         {
-          BitArray::addSize(v17, v14 + 1 - v18);
-          BitArray::clearRange(*(*(a1 + 2) + 8 * a2), v18, v14 + 1);
-          v17 = *(*(a1 + 2) + 8 * a2);
+          BitArray::addSize(v11, v10 + 1 - v12);
+          BitArray::clearRange(*(*(a1 + 2) + 8 * a2), v12, v10 + 1);
+          v11 = *(*(a1 + 2) + 8 * a2);
         }
 
-        *(*v17 + ((v14 >> 3) & 0x1FFFFFFC)) |= 1 << v14;
+        *(*v11 + ((v10 >> 3) & 0x1FFFFFFC)) |= 1 << v10;
       }
 
-      ++v12;
+      ++v8;
     }
 
-    while (v12 < *(a3 + 8));
+    while (v8 < *(a3 + 8));
   }
 
   else
   {
-    v13 = a2;
+    v9 = a2;
   }
 
-  result = DgnCollArray<unsigned int,WordList>::addArray(*a1 + 80 * v13, a3);
-  if (!*(*(a1 + 2) + 8 * v13) && *(*a1 + 80 * v13 + 16) >= 0x1F4u)
+  result = DgnCollArray<unsigned int,WordList>::addArray(*a1 + 80 * v9, a3);
+  if (!*(*(a1 + 2) + 8 * v9) && *(*a1 + 80 * v9 + 16) >= 0x1F4u)
   {
 
     return StateMgr::getBitWords(a1, a2);
@@ -7004,13 +7281,13 @@ uint64_t StateMgr::addWordIdArrayNoPhones(StateMgr *a1, unsigned int a2, uint64_
   return result;
 }
 
-unint64_t StateMgr::addPrecedingNonAcousticWordStateRef(unint64_t this, unsigned int a2, int a3)
+uint64_t *StateMgr::addPrecedingNonAcousticWordStateRef(uint64_t *this, unsigned int a2, int a3)
 {
-  v4 = *(this + 592) + 16 * a2;
+  v4 = this[74] + 16 * a2;
   v5 = *(v4 + 8);
   if (v5 == *(v4 + 12))
   {
-    this = DgnPrimArray<unsigned int>::reallocElts(*(this + 592) + 16 * a2, 1, 1);
+    this = DgnPrimArray<unsigned int>::reallocElts(this[74] + 16 * a2, 1, 1);
     v5 = *(v4 + 8);
   }
 
@@ -7019,7 +7296,7 @@ unint64_t StateMgr::addPrecedingNonAcousticWordStateRef(unint64_t this, unsigned
   return this;
 }
 
-uint64_t StateMgr::loadStateMgr(StateMgr *this, DFile *a2, DFileChecksums *a3, int a4, unsigned int a5)
+uint64_t StateMgr::loadStateMgr(StateMgr *this, const char **a2, DFileChecksums *a3, int a4, unsigned int a5)
 {
   *(this + 656) = 0;
   result = DFile::subFileExists(a2, 0x59u);
@@ -7031,914 +7308,915 @@ uint64_t StateMgr::loadStateMgr(StateMgr *this, DFile *a2, DFileChecksums *a3, i
   *(this + 92) = *(**VocMgr::smpVocMgr + 8 * a5);
   if (a4)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 746, "voc/statemgr", 19, "%s", v11, v12, &unk_26287398E);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 746, "voc/statemgr", 19, "%s", &unk_26287398E);
   }
 
-  *v193 = 0;
-  MrecHeader = OpenAndReadMrecHeader(a2, 0x59u, 1, "MRSTA!? ", &v193[1], v193);
-  v16 = MrecHeader;
+  *v179 = 0;
+  MrecHeader = OpenAndReadMrecHeader(a2, 0x59u, 1, "MRSTA!? ", &v179[1], v179);
+  v12 = MrecHeader;
   *(MrecHeader + 35) = 0;
-  v17 = v193[0];
-  v18 = v193[1] == 19 && v193[0] == 38;
-  v19 = !v18;
-  v175 = v19;
-  v173 = a3;
-  if (v18)
+  v13 = v179[0];
+  v14 = v179[1] == 19 && v179[0] == 38;
+  v15 = !v14;
+  v161 = v15;
+  v159 = a3;
+  if (v14)
   {
-    v174 = 0;
-    v20 = 0;
-    v172 = 0;
+    v160 = 0;
+    v16 = 0;
+    v158 = 0;
     *(MrecHeader + 35) = 1;
-    v21 = 19;
-    v17 = 38;
+    v17 = 19;
+    v13 = 38;
   }
 
-  else if (*v193 == 0x1400000027)
+  else if (v179[1] == 20 && v179[0] == 39)
   {
-    v174 = 0;
-    v20 = 0;
-    v172 = 0;
+    v160 = 0;
+    v16 = 0;
+    v158 = 0;
     *(MrecHeader + 35) = 1;
-    v21 = 20;
+    v17 = 20;
   }
 
-  else if (*v193 == 0x1600000028)
+  else if (v179[1] == 22 && v179[0] == 40)
   {
-    v20 = 0;
-    v172 = 0;
-    v174 = 1;
+    v16 = 0;
+    v158 = 0;
+    v160 = 1;
     *(MrecHeader + 35) = 1;
-    v21 = 22;
+    v17 = 22;
   }
 
-  else if (*v193 == 0x1700000029 || *v193 == 0x170000002ALL)
+  else if (v179[1] == 23 && v179[0] == 41 || v179[1] == 23 && v179[0] == 42)
   {
-    v172 = 0;
-    v174 = 1;
+    v158 = 0;
+    v160 = 1;
     *(MrecHeader + 35) = 1;
-    v21 = 23;
-    v20 = 1;
+    v17 = 23;
+    v16 = 1;
   }
 
   else
   {
-    if (*v193 == 0x180000002BLL)
+    if (v179[1] == 24 && v179[0] == 43)
     {
-      v174 = 1;
+      v160 = 1;
       *(MrecHeader + 35) = 1;
-      v21 = 24;
+      v17 = 24;
     }
 
     else
     {
       if (*(a2 + 6))
       {
-        v171 = *(a2 + 2);
+        v157 = a2[2];
       }
 
       else
       {
-        v171 = &unk_26287398E;
+        v157 = &unk_26287398E;
       }
 
-      MrecHeaderCheckVersions(v171, "MRSTA!? ", v193[1], v193[0], 0x18u, 0x2Cu);
-      v17 = v193[0];
-      v21 = v193[1];
-      v174 = 1;
+      MrecHeaderCheckVersions(v157, "MRSTA!? ", v179[1], v179[0], 0x18u, 0x2Cu);
+      v13 = v179[0];
+      v17 = v179[1];
+      v160 = 1;
     }
 
-    v20 = 1;
-    v172 = 1;
+    v16 = 1;
+    v158 = 1;
   }
 
-  MrecHeaderCheckLatestVersionIfShared(a2, "MRSTA!? ", v21, v17, 24, 44, v14, v15);
-  v192 = 0;
-  v191[0] = 0;
-  v191[1] = 0;
-  v189 = 0;
-  v190 = 0;
-  v187 = 0;
-  v188 = 0;
-  v185 = 0;
-  v186 = 0;
-  v183 = 0;
-  v184 = 0;
-  readObject<DgnCollArray<unsigned int,WordList>>(v16, this, &v192);
-  readObject<unsigned char>(v16, this + 32, &v192);
-  if (*(v16 + 35) != 1 || (readObject<RuleSpec>(v16, &v189, &v192), (*(v16 + 35) & 1) == 0))
+  MrecHeaderCheckLatestVersionIfShared(a2, "MRSTA!? ", v17, v13, 24, 44);
+  v178 = 0;
+  v177[0] = 0;
+  v177[1] = 0;
+  v175 = 0;
+  v176 = 0;
+  v173 = 0;
+  v174 = 0;
+  v171 = 0;
+  v172 = 0;
+  v169 = 0;
+  v170 = 0;
+  readObject<DgnCollArray<unsigned int,WordList>>(v12, this, &v178);
+  readObject<unsigned char>(v12, this + 32, &v178);
+  if (*(v12 + 35) != 1 || (readObject<RuleSpec>(v12, &v175, &v178), (*(v12 + 35) & 1) == 0))
   {
-    readObject<unsigned short>(v16, this + 48, &v192);
+    readObject<unsigned short>(v12, this + 48, &v178);
   }
 
-  readObject<unsigned int>(v16, this + 64, &v192);
-  if (*(v16 + 35) != 1 || (readObject<DgnArray<RuleSpec>>(v16, &v187, &v192), (*(v16 + 35) & 1) == 0))
+  readObject<unsigned int>(v12, this + 64, &v178);
+  if (*(v12 + 35) != 1 || (readObject<DgnArray<RuleSpec>>(v12, &v173, &v178), (*(v12 + 35) & 1) == 0))
   {
-    readObject<DgnPrimArray<unsigned short>>(v16, this + 80, &v192);
+    readObject<DgnPrimArray<unsigned short>>(v12, this + 80, &v178);
   }
 
-  readObject<DgnString>(v16, this + 96, &v192);
-  readObject<unsigned int>(v16, this + 112, &v192);
-  readObject<DgnPrimArray<unsigned int>>(v16, this + 128, &v192);
-  readObject<DgnPrimArray<unsigned short>>(v16, this + 144, &v192);
-  if (*(v16 + 35) != 1 || (readObject<DgnArray<StateSpec>>(v16, &v185, &v192), (*(v16 + 35) & 1) == 0))
+  readObject<DgnString>(v12, this + 96, &v178);
+  readObject<unsigned int>(v12, this + 112, &v178);
+  readObject<DgnPrimArray<unsigned int>>(v12, this + 128, &v178);
+  readObject<DgnPrimArray<unsigned short>>(v12, this + 144, &v178);
+  if (*(v12 + 35) != 1 || (readObject<DgnArray<StateSpec>>(v12, &v171, &v178), (*(v12 + 35) & 1) == 0))
   {
-    readObject<DgnPrimArray<unsigned int>>(v16, this + 224, &v192);
+    readObject<DgnPrimArray<unsigned int>>(v12, this + 224, &v178);
   }
 
-  readObject<DgnPrimArray<unsigned short>>(v16, this + 240, &v192);
-  readObject<DgnArray<ParseToken>>(v16, this + 256, &v192);
-  readObject<unsigned int>(v16, this + 272, &v192);
-  readObject<int>(v16, this + 288, &v192);
-  readObject<unsigned char>(v16, this + 304, &v192);
-  readObject<unsigned char>(v16, this + 320, &v192);
-  readObject<unsigned char>(v16, this + 336, &v192);
-  readObject<unsigned char>(v16, this + 352, &v192);
-  readObject<unsigned char>(v16, this + 368, &v192);
-  readObject<unsigned char>(v16, this + 384, &v192);
-  if (v175)
+  readObject<DgnPrimArray<unsigned short>>(v12, this + 240, &v178);
+  readObject<DgnArray<ParseToken>>(v12, this + 256, &v178);
+  readObject<unsigned int>(v12, this + 272, &v178);
+  readObject<int>(v12, this + 288, &v178);
+  readObject<unsigned char>(v12, this + 304, &v178);
+  readObject<unsigned char>(v12, this + 320, &v178);
+  readObject<unsigned char>(v12, this + 336, &v178);
+  readObject<unsigned char>(v12, this + 352, &v178);
+  readObject<unsigned char>(v12, this + 368, &v178);
+  readObject<unsigned char>(v12, this + 384, &v178);
+  if (v161)
   {
-    readObject<unsigned int>(v16, this + 400, &v192);
-    readObject<unsigned int>(v16, this + 416, &v192);
-    readObject<unsigned int>(v16, this + 432, &v192);
-    readObject<unsigned int>(v16, this + 448, &v192);
+    readObject<unsigned int>(v12, this + 400, &v178);
+    readObject<unsigned int>(v12, this + 416, &v178);
+    readObject<unsigned int>(v12, this + 432, &v178);
+    readObject<unsigned int>(v12, this + 448, &v178);
   }
 
-  if (v20)
+  if (v16)
   {
-    readObject<unsigned int>(v16, this + 512, &v192);
-    readObject<unsigned char>(v16, this + 480, &v192);
-    readObject<DgnPrimArray<unsigned int>>(v16, this + 592, &v192);
+    readObject<unsigned int>(v12, this + 512, &v178);
+    readObject<unsigned char>(v12, this + 480, &v178);
+    readObject<DgnPrimArray<unsigned int>>(v12, this + 592, &v178);
   }
 
   else
   {
-    readObject<unsigned char>(v16, v191, &v192);
+    readObject<unsigned char>(v12, v177, &v178);
   }
 
-  readObject<unsigned char>(v16, this + 464, &v192);
-  readObject<unsigned int>(v16, this + 496, &v192);
-  readObject<unsigned char>(v16, this + 544, &v192);
-  readObject<unsigned char>(v16, this + 560, &v192);
-  readObject<DgnPrimArray<unsigned int>>(v16, this + 576, &v192);
-  if (*(v16 + 35) != 1 || (readObject<DgnArray<StateSpec>>(v16, &v183, &v192), (*(v16 + 35) & 1) == 0))
+  readObject<unsigned char>(v12, this + 464, &v178);
+  readObject<unsigned int>(v12, this + 496, &v178);
+  readObject<unsigned char>(v12, this + 544, &v178);
+  readObject<unsigned char>(v12, this + 560, &v178);
+  readObject<DgnPrimArray<unsigned int>>(v12, this + 576, &v178);
+  if (*(v12 + 35) != 1 || (readObject<DgnArray<StateSpec>>(v12, &v169, &v178), (*(v12 + 35) & 1) == 0))
   {
-    readObject<DgnPrimArray<unsigned int>>(v16, this + 608, &v192);
+    readObject<DgnPrimArray<unsigned int>>(v12, this + 608, &v178);
   }
 
-  readObject<unsigned int>(v16, this + 704, &v192);
-  v22 = (this + 720);
-  readObject(v16, this + 180, &v192);
-  readObject(v16, this + 181, &v192);
-  if (v174)
+  readObject<unsigned int>(v12, this + 704, &v178);
+  v18 = (this + 720);
+  readObject(v12, this + 180, &v178);
+  readObject(v12, this + 181, &v178);
+  if (v160)
   {
-    readObject(v16, this + 183, &v192);
+    readObject(v12, this + 183, &v178);
   }
 
-  if (*(v16 + 35) == 1)
+  if (*(v12 + 35) == 1)
   {
-    v182 = 0;
-    readObject(v16, &v182, &v192);
-    v180 = 0;
-    v181 = 0;
-    v178 = 0;
-    v179 = 0;
-    readObject<unsigned int>(v16, &v180, &v192);
-    readObject<unsigned int>(v16, &v178, &v192);
-    if (v181)
+    v168 = 0;
+    readObject(v12, &v168, &v178);
+    v166 = 0;
+    v167 = 0;
+    v164 = 0;
+    v165 = 0;
+    readObject<unsigned int>(v12, &v166, &v178);
+    readObject<unsigned int>(v12, &v164, &v178);
+    if (v167)
     {
-      v27 = 0;
+      v19 = 0;
       do
       {
-        StateMgr::killStateInternal(this, *(v180 + v27++), 0, 1, v23, v24, v25, v26);
+        StateMgr::killStateInternal(this, *(v166 + v19++), 0, 1);
       }
 
-      while (v27 < v181);
+      while (v19 < v167);
     }
 
-    if (*v22)
+    if (*v18)
     {
-      v28 = 0;
+      v20 = 0;
       do
       {
-        v176 = 0;
-        v177 = 0;
-        v29 = v183;
-        v30 = v183 + 16 * v28;
-        if (*(v30 + 8))
+        v162 = 0;
+        v163 = 0;
+        v21 = v169;
+        v22 = v169 + 16 * v20;
+        if (*(v22 + 8))
         {
-          v31 = 0;
-          v32 = 0;
-          v33 = 0;
+          v23 = 0;
+          v24 = 0;
+          v25 = 0;
           do
           {
-            v34 = *(*v30 + v31);
-            if (v34 == v182)
+            v26 = *(*v22 + v23);
+            if (v26 == v168)
             {
-              v35 = *(*v30 + v31 + 4);
-              if (v32 == HIDWORD(v177))
+              v27 = *(*v22 + v23 + 4);
+              if (v24 == HIDWORD(v163))
               {
-                DgnPrimArray<unsigned long long>::reallocElts(&v176, 1, 1);
-                v32 = v177;
+                DgnPrimArray<unsigned long long>::reallocElts(&v162, 1, 1);
+                v24 = v163;
               }
 
-              *(v176 + 8 * v32) = v34 | (v35 << 32);
-              v32 = v177 + 1;
-              LODWORD(v177) = v177 + 1;
-              v29 = v183;
+              *(v162 + 8 * v24) = v26 | (v27 << 32);
+              v24 = v163 + 1;
+              LODWORD(v163) = v163 + 1;
+              v21 = v169;
             }
 
-            ++v33;
-            v30 = v29 + 16 * v28;
-            v31 += 8;
+            ++v25;
+            v22 = v21 + 16 * v20;
+            v23 += 8;
           }
 
-          while (v33 < *(v30 + 8));
+          while (v25 < *(v22 + 8));
         }
 
         else
         {
-          v32 = 0;
+          v24 = 0;
         }
 
-        DgnArray<StateSpec>::copyArraySlice(v30, &v176, 0, v32);
-        DgnIArray<Utterance *>::~DgnIArray(&v176);
-        ++v28;
-        v36 = *v22;
+        DgnArray<StateSpec>::copyArraySlice(v22, &v162, 0, v24);
+        DgnIArray<Utterance *>::~DgnIArray(&v162);
+        ++v20;
+        v28 = *v18;
       }
 
-      while (v28 < v36);
-      if (*v22)
+      while (v20 < v28);
+      if (*v18)
       {
-        v37 = 0;
+        v29 = 0;
         do
         {
-          v38 = v179;
-          if (v179)
+          v30 = v165;
+          if (v165)
           {
-            v39 = v178;
-            v40 = 0xFFFFFFFFLL;
+            v31 = v164;
+            v32 = 0xFFFFFFFFLL;
             while (1)
             {
-              v41 = *v39++;
-              if (v37 == v41)
+              v33 = *v31++;
+              if (v29 == v33)
               {
                 break;
               }
 
-              --v40;
-              if (!--v38)
+              --v32;
+              if (!--v30)
               {
-                goto LABEL_67;
+                goto LABEL_68;
               }
             }
 
-            if (v40)
+            if (v32)
             {
-              v176 = 0;
-              v177 = 0;
-              v42 = v187;
-              v43 = v187 + 16 * v37;
-              if (*(v43 + 8))
+              v162 = 0;
+              v163 = 0;
+              v34 = v173;
+              v35 = v173 + 16 * v29;
+              if (*(v35 + 8))
               {
-                v44 = 0;
-                v45 = 0;
-                v46 = 0;
-                v47 = 0;
+                v36 = 0;
+                v37 = 0;
+                v38 = 0;
+                v39 = 0;
                 do
                 {
-                  v48 = *v43;
-                  v49 = *(*v43 + v44);
-                  if (v49 == v182)
+                  v40 = *v35;
+                  v41 = *(*v35 + v36);
+                  if (v41 == v168)
                   {
-                    if (v46 == HIDWORD(v177))
+                    if (v38 == HIDWORD(v163))
                     {
-                      DgnPrimArray<unsigned int>::reallocElts(&v176, 1, 1);
-                      v46 = v177;
-                      v45 = v176;
-                      LOWORD(v49) = *(v48 + v44);
-                      v42 = v187;
+                      DgnPrimArray<unsigned int>::reallocElts(&v162, 1, 1);
+                      v38 = v163;
+                      v37 = v162;
+                      LOWORD(v41) = *(v40 + v36);
+                      v34 = v173;
                     }
 
-                    v50 = (v45 + 4 * v46);
-                    *v50 = v49;
-                    v50[1] = *(v48 + v44 + 2);
-                    LODWORD(v177) = ++v46;
+                    v42 = (v37 + 4 * v38);
+                    *v42 = v41;
+                    v42[1] = *(v40 + v36 + 2);
+                    LODWORD(v163) = ++v38;
                   }
 
-                  ++v47;
-                  v43 = v42 + 16 * v37;
-                  v44 += 4;
+                  ++v39;
+                  v35 = v34 + 16 * v29;
+                  v36 += 4;
                 }
 
-                while (v47 < *(v43 + 8));
+                while (v39 < *(v35 + 8));
               }
 
               else
               {
-                v46 = 0;
+                v38 = 0;
               }
 
-              DgnArray<RuleSpec>::copyArraySlice(v43, &v176, 0, v46);
-              DgnIArray<Utterance *>::~DgnIArray(&v176);
-              v36 = *v22;
+              DgnArray<RuleSpec>::copyArraySlice(v35, &v162, 0, v38);
+              DgnIArray<Utterance *>::~DgnIArray(&v162);
+              v28 = *v18;
             }
           }
 
-LABEL_67:
-          ++v37;
+LABEL_68:
+          ++v29;
         }
 
-        while (v37 < v36);
+        while (v29 < v28);
       }
     }
 
-    v51 = v190;
-    v52 = *(this + 15);
-    LODWORD(v53) = v190;
-    if (v190 > v52)
+    v43 = v176;
+    v44 = *(this + 15);
+    LODWORD(v45) = v176;
+    if (v176 > v44)
     {
-      DgnPrimArray<short>::reallocElts(this + 48, v190 - v52, 0);
-      LODWORD(v53) = v190;
+      DgnPrimArray<short>::reallocElts(this + 48, v176 - v44, 0);
+      LODWORD(v45) = v176;
     }
 
-    *(this + 14) = v51;
-    if (v53)
+    *(this + 14) = v43;
+    if (v45)
     {
-      v54 = *(this + 6);
-      v53 = v53;
-      v55 = (v189 + 2);
+      v46 = *(this + 6);
+      v45 = v45;
+      v47 = (v175 + 2);
       do
       {
-        v56 = *v55;
-        v55 += 2;
-        *v54++ = v56;
-        --v53;
+        v48 = *v47;
+        v47 += 2;
+        *v46++ = v48;
+        --v45;
       }
 
-      while (v53);
+      while (v45);
     }
 
-    v57 = v188;
-    v58 = *(this + 23);
-    if (v188 > v58)
+    v49 = v174;
+    v50 = *(this + 23);
+    if (v174 > v50)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(this + 80, v188 - v58, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(this + 80, v174 - v50, 0);
     }
 
-    v59 = *(this + 22);
-    if (v59 <= v57)
+    v51 = *(this + 22);
+    if (v51 <= v49)
     {
-      if (v59 < v57)
+      if (v51 < v49)
       {
-        v62 = v57 - v59;
-        v63 = 16 * v59;
+        v54 = v49 - v51;
+        v55 = 16 * v51;
         do
         {
-          v64 = (*(this + 10) + v63);
-          *v64 = 0;
-          v64[1] = 0;
-          v63 += 16;
-          --v62;
+          v56 = (*(this + 10) + v55);
+          *v56 = 0;
+          v56[1] = 0;
+          v55 += 16;
+          --v54;
         }
 
-        while (v62);
+        while (v54);
       }
     }
 
-    else if (v59 > v57)
+    else if (v51 > v49)
     {
-      v60 = v59;
-      v61 = 16 * v59 - 16;
+      v52 = v51;
+      v53 = 16 * v51 - 16;
       do
       {
-        --v60;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 10) + v61);
-        v61 -= 16;
+        --v52;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 10) + v53);
+        v53 -= 16;
       }
 
-      while (v60 > v57);
+      while (v52 > v49);
     }
 
-    *(this + 22) = v57;
-    if (v188)
+    *(this + 22) = v49;
+    if (v174)
     {
-      v65 = 0;
-      v66 = v187;
+      v57 = 0;
+      v58 = v173;
       do
       {
-        v67 = *(this + 10) + 16 * v65;
-        v68 = *(v66 + 16 * v65 + 8);
-        v69 = *(v67 + 12);
-        if (v68 > v69)
+        v59 = *(this + 10) + 16 * v57;
+        v60 = *(v58 + 16 * v57 + 8);
+        v61 = *(v59 + 12);
+        if (v60 > v61)
         {
-          DgnPrimArray<short>::reallocElts(*(this + 10) + 16 * v65, v68 - v69, 0);
-          v66 = v187;
+          DgnPrimArray<short>::reallocElts(*(this + 10) + 16 * v57, v60 - v61, 0);
+          v58 = v173;
         }
 
-        *(v67 + 8) = v68;
-        v70 = (v66 + 16 * v65);
-        v71 = *(v70 + 2);
-        if (v71)
+        *(v59 + 8) = v60;
+        v62 = (v58 + 16 * v57);
+        v63 = *(v62 + 2);
+        if (v63)
         {
-          v72 = *v70;
-          v73 = *(*(this + 10) + 16 * v65);
-          v74 = (v72 + 2);
+          v64 = *v62;
+          v65 = *(*(this + 10) + 16 * v57);
+          v66 = (v64 + 2);
           do
           {
-            v75 = *v74;
-            v74 += 2;
-            *v73++ = v75;
-            --v71;
+            v67 = *v66;
+            v66 += 2;
+            *v65++ = v67;
+            --v63;
           }
 
-          while (v71);
+          while (v63);
         }
 
-        ++v65;
+        ++v57;
       }
 
-      while (v65 < v188);
+      while (v57 < v174);
     }
 
-    v76 = v186;
-    v77 = *(this + 59);
-    if (v186 > v77)
+    v68 = v172;
+    v69 = *(this + 59);
+    if (v172 > v69)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(this + 224, v186 - v77, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(this + 224, v172 - v69, 0);
     }
 
-    v78 = *(this + 58);
-    if (v78 <= v76)
+    v70 = *(this + 58);
+    if (v70 <= v68)
     {
-      if (v78 < v76)
+      if (v70 < v68)
       {
-        v81 = v76 - v78;
-        v82 = 16 * v78;
+        v73 = v68 - v70;
+        v74 = 16 * v70;
         do
         {
-          v83 = (*(this + 28) + v82);
-          *v83 = 0;
-          v83[1] = 0;
-          v82 += 16;
-          --v81;
+          v75 = (*(this + 28) + v74);
+          *v75 = 0;
+          v75[1] = 0;
+          v74 += 16;
+          --v73;
         }
 
-        while (v81);
+        while (v73);
       }
     }
 
-    else if (v78 > v76)
+    else if (v70 > v68)
     {
-      v79 = v78;
-      v80 = 16 * v78 - 16;
+      v71 = v70;
+      v72 = 16 * v70 - 16;
       do
       {
-        --v79;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 28) + v80);
-        v80 -= 16;
+        --v71;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 28) + v72);
+        v72 -= 16;
       }
 
-      while (v79 > v76);
+      while (v71 > v68);
     }
 
-    *(this + 58) = v76;
-    if (v186)
+    *(this + 58) = v68;
+    if (v172)
     {
-      v84 = 0;
-      v85 = v185;
+      v76 = 0;
+      v77 = v171;
       do
       {
-        v86 = *(this + 28) + 16 * v84;
-        v87 = *(v85 + 16 * v84 + 8);
-        v88 = *(v86 + 12);
-        if (v87 > v88)
+        v78 = *(this + 28) + 16 * v76;
+        v79 = *(v77 + 16 * v76 + 8);
+        v80 = *(v78 + 12);
+        if (v79 > v80)
         {
-          DgnPrimArray<unsigned int>::reallocElts(*(this + 28) + 16 * v84, v87 - v88, 0);
-          v85 = v185;
+          DgnPrimArray<unsigned int>::reallocElts(*(this + 28) + 16 * v76, v79 - v80, 0);
+          v77 = v171;
         }
 
-        *(v86 + 8) = v87;
-        v89 = (v85 + 16 * v84);
-        if (v89[2])
+        *(v78 + 8) = v79;
+        v81 = (v77 + 16 * v76);
+        if (v81[2])
         {
-          v90 = 0;
-          v91 = *(*(this + 28) + 16 * v84);
-          v92 = (*v89 + 4);
+          v82 = 0;
+          v83 = *(*(this + 28) + 16 * v76);
+          v84 = (*v81 + 4);
           do
           {
-            v93 = *v92;
-            v92 += 2;
-            *(v91 + 4 * v90++) = v93;
+            v85 = *v84;
+            v84 += 2;
+            *(v83 + 4 * v82++) = v85;
           }
 
-          while (v90 < v89[2]);
+          while (v82 < v81[2]);
         }
 
-        ++v84;
+        ++v76;
       }
 
-      while (v84 < v186);
+      while (v76 < v172);
     }
 
-    v94 = (this + 608);
-    v95 = v184;
-    v96 = *(this + 155);
-    if (v184 > v96)
+    v86 = (this + 608);
+    v87 = v170;
+    v88 = *(this + 155);
+    if (v170 > v88)
     {
-      DgnArray<DgnPrimArray<double>>::reallocElts(this + 608, v184 - v96, 0);
+      DgnArray<DgnPrimArray<double>>::reallocElts(this + 608, v170 - v88, 0);
     }
 
-    v97 = *(this + 154);
-    if (v97 <= v95)
+    v89 = *(this + 154);
+    if (v89 <= v87)
     {
-      if (v97 < v95)
+      if (v89 < v87)
       {
-        v100 = v95 - v97;
-        v101 = 16 * v97;
+        v92 = v87 - v89;
+        v93 = 16 * v89;
         do
         {
-          v102 = (*v94 + v101);
-          *v102 = 0;
-          v102[1] = 0;
-          v101 += 16;
-          --v100;
+          v94 = (*v86 + v93);
+          *v94 = 0;
+          v94[1] = 0;
+          v93 += 16;
+          --v92;
         }
 
-        while (v100);
+        while (v92);
       }
     }
 
-    else if (v97 > v95)
+    else if (v89 > v87)
     {
-      v98 = v97;
-      v99 = 16 * v97 - 16;
+      v90 = v89;
+      v91 = 16 * v89 - 16;
       do
       {
-        --v98;
-        DgnPrimArray<unsigned int>::~DgnPrimArray(*v94 + v99);
-        v99 -= 16;
+        --v90;
+        DgnPrimArray<unsigned int>::~DgnPrimArray(*v86 + v91);
+        v91 -= 16;
       }
 
-      while (v98 > v95);
+      while (v90 > v87);
     }
 
-    *(this + 154) = v95;
-    if (v184)
+    *(this + 154) = v87;
+    if (v170)
     {
-      v103 = 0;
-      v104 = v183;
+      v95 = 0;
+      v96 = v169;
       do
       {
-        v105 = *v94 + 16 * v103;
-        v106 = *(v104 + 16 * v103 + 8);
-        v107 = *(v105 + 12);
-        if (v106 > v107)
+        v97 = *v86 + 16 * v95;
+        v98 = *(v96 + 16 * v95 + 8);
+        v99 = *(v97 + 12);
+        if (v98 > v99)
         {
-          DgnPrimArray<unsigned int>::reallocElts(*v94 + 16 * v103, v106 - v107, 0);
-          v104 = v183;
+          DgnPrimArray<unsigned int>::reallocElts(*v86 + 16 * v95, v98 - v99, 0);
+          v96 = v169;
         }
 
-        *(v105 + 8) = v106;
-        v108 = (v104 + 16 * v103);
-        if (v108[2])
+        *(v97 + 8) = v98;
+        v100 = (v96 + 16 * v95);
+        if (v100[2])
         {
-          v109 = 0;
-          v110 = *(*v94 + 16 * v103);
-          v111 = (*v108 + 4);
+          v101 = 0;
+          v102 = *(*v86 + 16 * v95);
+          v103 = (*v100 + 4);
           do
           {
-            v112 = *v111;
-            v111 += 2;
-            *(v110 + 4 * v109++) = v112;
+            v104 = *v103;
+            v103 += 2;
+            *(v102 + 4 * v101++) = v104;
           }
 
-          while (v109 < v108[2]);
+          while (v101 < v100[2]);
         }
 
-        ++v103;
+        ++v95;
       }
 
-      while (v103 < v184);
+      while (v95 < v170);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v178);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v180);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v166);
   }
 
-  EnvMgr::loadEnvMgrFromStream(*(this + 94), a2, v16, &v192, 0);
-  EnvMgr::loadEnvMgrFromStream(*(this + 95), a2, v16, &v192, 0);
-  readObjectChecksumAndVerify(v16, v192);
+  EnvMgr::loadEnvMgrFromStream(*(this + 94), a2, v12, &v178, 0);
+  EnvMgr::loadEnvMgrFromStream(*(this + 95), a2, v12, &v178, 0);
+  readObjectChecksumAndVerify(v12, v178);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(v173, CurrentSubDirComponents, 0x59u, v192);
-  if ((v20 & 1) == 0)
+  DFileChecksums::addChecksum(v159, CurrentSubDirComponents, 89, v178);
+  if ((v16 & 1) == 0)
   {
     StateMgr::resetPrecedingNonAcousticWordStates(this);
   }
 
-  LODWORD(v114) = *v22;
-  if (v175)
+  LODWORD(v106) = *v18;
+  if (v161)
   {
-    goto LABEL_144;
+    goto LABEL_146;
   }
 
-  v115 = *(this + 103);
-  v116 = *v22;
-  if (v114 > v115)
+  v107 = *(this + 103);
+  v108 = *v18;
+  if (v106 > v107)
   {
-    DgnPrimArray<unsigned int>::reallocElts(this + 400, v114 - v115, 0);
-    v116 = *v22;
+    DgnPrimArray<unsigned int>::reallocElts(this + 400, v106 - v107, 0);
+    v108 = *v18;
   }
 
-  *(this + 102) = v114;
-  v117 = *(this + 107);
-  v118 = v116;
-  if (v116 > v117)
+  *(this + 102) = v106;
+  v109 = *(this + 107);
+  v110 = v108;
+  if (v108 > v109)
   {
-    DgnPrimArray<unsigned int>::reallocElts(this + 416, v116 - v117, 0);
-    v118 = *v22;
+    DgnPrimArray<unsigned int>::reallocElts(this + 416, v108 - v109, 0);
+    v110 = *v18;
   }
 
-  *(this + 106) = v116;
-  v119 = *(this + 111);
-  v120 = v118;
-  if (v118 > v119)
+  *(this + 106) = v108;
+  v111 = *(this + 111);
+  v112 = v110;
+  if (v110 > v111)
   {
-    DgnPrimArray<unsigned int>::reallocElts(this + 432, v118 - v119, 0);
-    v120 = *v22;
+    DgnPrimArray<unsigned int>::reallocElts(this + 432, v110 - v111, 0);
+    v112 = *v18;
   }
 
-  *(this + 110) = v118;
-  v121 = *(this + 115);
-  v122 = v120;
-  if (v120 > v121)
+  *(this + 110) = v110;
+  v113 = *(this + 115);
+  v114 = v112;
+  if (v112 > v113)
   {
-    DgnPrimArray<unsigned int>::reallocElts(this + 448, v120 - v121, 0);
-    v122 = *v22;
+    DgnPrimArray<unsigned int>::reallocElts(this + 448, v112 - v113, 0);
+    v114 = *v18;
   }
 
-  *(this + 114) = v120;
-  if (v122)
+  *(this + 114) = v112;
+  if (v114)
   {
-    v123 = 0;
-    v124 = *(this + 50);
-    v125 = *(this + 52);
-    v126 = *(this + 54);
-    v127 = *(this + 56);
+    v115 = 0;
+    v116 = *(this + 50);
+    v117 = *(this + 52);
+    v118 = *(this + 54);
+    v119 = *(this + 56);
     do
     {
-      *(v124 + 4 * v123) = -1;
-      *(v125 + 4 * v123) = -1;
-      *(v126 + 4 * v123) = -1;
-      *(v127 + 4 * v123++) = -1;
-      v114 = *v22;
+      *(v116 + 4 * v115) = -1;
+      *(v117 + 4 * v115) = -1;
+      *(v118 + 4 * v115) = -1;
+      *(v119 + 4 * v115++) = -1;
+      v106 = *v18;
     }
 
-    while (v123 < v114);
-LABEL_144:
-    if (*(this + 173) < v114)
+    while (v115 < v106);
+LABEL_146:
+    if (*(this + 173) < v106)
     {
-      v180 = 0;
-      *(this + 173) = realloc_array(*(this + 85), &v180, v114, *(this + 172), *(this + 172), 1);
-      *(this + 85) = v180;
+      v166 = 0;
+      *(this + 173) = realloc_array(*(this + 85), &v166, v106, *(this + 172), *(this + 172), 1);
+      *(this + 85) = v166;
     }
 
-    goto LABEL_147;
+    goto LABEL_149;
   }
 
-  LODWORD(v114) = 0;
-LABEL_147:
-  *(this + 172) = v114;
+  LODWORD(v106) = 0;
+LABEL_149:
+  *(this + 172) = v106;
   if (*(this + 178))
   {
-    v128 = 0;
+    v120 = 0;
     do
     {
-      *(*(this + 85) + *(*(this + 88) + 4 * v128++)) = 1;
+      *(*(this + 85) + *(*(this + 88) + 4 * v120++)) = 1;
     }
 
-    while (v128 < *(this + 178));
+    while (v120 < *(this + 178));
   }
 
-  v129 = (this + 664);
-  v130 = *(this + 168);
-  if (v130 >= 1)
+  v121 = (this + 664);
+  v122 = *(this + 168);
+  if (v122 >= 1)
   {
-    v131 = 16 * v130 - 16;
+    v123 = 16 * v122 - 16;
     do
     {
-      BitArray::~BitArray((*v129 + v131));
-      v131 -= 16;
+      BitArray::~BitArray((*v121 + v123));
+      v123 -= 16;
     }
 
-    while (v131 != -16);
+    while (v123 != -16);
   }
 
   *(this + 168) = 0;
-  v132 = *(this + 180);
-  v133 = *(this + 169);
-  if (v132 > v133)
+  v124 = *(this + 180);
+  v125 = *(this + 169);
+  if (v124 > v125)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(this + 664, v132 - v133, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(this + 664, v124 - v125, 0);
   }
 
-  PhnIndexSet::PhnIndexSet(&v180, *(*(this + 92) + 184));
-  if (*v22)
+  PhnIndexSet::PhnIndexSet(&v166, *(*(this + 92) + 184));
+  if (*v18)
   {
-    v134 = 0;
-    v135 = *(this + 168);
+    v126 = 0;
+    v127 = *(this + 168);
     do
     {
-      PhnIndexSet::PhnIndexSet((*v129 + 16 * v135), &v180);
-      v135 = *(this + 168) + 1;
-      *(this + 168) = v135;
-      ++v134;
+      PhnIndexSet::PhnIndexSet((*v121 + 16 * v127), &v166);
+      v127 = *(this + 168) + 1;
+      *(this + 168) = v127;
+      ++v126;
     }
 
-    while (v134 < *(this + 180));
+    while (v126 < *(this + 180));
   }
 
-  BitArray::~BitArray(&v180);
-  v142 = *(this + 180);
-  v143 = v142;
-  if (*(this + 159) < v142)
+  BitArray::~BitArray(&v166);
+  v128 = *(this + 180);
+  v129 = v128;
+  if (*(this + 159) < v128)
   {
-    v180 = 0;
-    *(this + 159) = realloc_array(*(this + 78), &v180, v142, *(this + 158), *(this + 158), 1);
-    *(this + 78) = v180;
-    v143 = *(this + 180);
+    v166 = 0;
+    *(this + 159) = realloc_array(*(this + 78), &v166, v128, *(this + 158), *(this + 158), 1);
+    *(this + 78) = v166;
+    v129 = *(this + 180);
   }
 
-  *(this + 158) = v142;
-  if (v143)
+  *(this + 158) = v128;
+  if (v129)
   {
-    v144 = 0;
+    v130 = 0;
     do
     {
-      *(*(this + 78) + v144++) = 0;
-      v145 = *(this + 180);
+      *(*(this + 78) + v130++) = 0;
+      v131 = *(this + 180);
     }
 
-    while (v144 < v145);
-    if (v145)
+    while (v130 < v131);
+    if (v131)
     {
-      v146 = *(this + 92);
-      v147 = *(v146 + 48);
-      v148 = *(v146 + 16);
-      v149 = (*this + 72);
-      v150 = *(this + 180);
+      v132 = *(this + 92);
+      v133 = *(v132 + 48);
+      v134 = *(v132 + 16);
+      v135 = (*this + 72);
+      v136 = *(this + 180);
       do
       {
-        *(v149 - 2) = WordIdCollSearchCmpFromWordId;
-        *(v149 - 1) = v147;
-        *v149 = v148;
-        v149 += 10;
-        --v150;
+        *(v135 - 2) = WordIdCollSearchCmpFromWordId;
+        *(v135 - 1) = v133;
+        *v135 = v134;
+        v135 += 10;
+        --v136;
       }
 
-      while (v150);
+      while (v136);
     }
 
-    v151 = (this + 16);
-    v152 = *(this + 7);
-    if (v145 > v152)
+    v137 = (this + 16);
+    v138 = *(this + 7);
+    if (v131 > v138)
     {
-      DgnPrimArray<unsigned long long>::reallocElts(this + 16, v145 - v152, 0);
+      DgnPrimArray<unsigned long long>::reallocElts(this + 16, v131 - v138, 0);
     }
   }
 
   else
   {
-    LODWORD(v145) = 0;
-    v151 = (this + 16);
+    LODWORD(v131) = 0;
+    v137 = (this + 16);
   }
 
-  v153 = *(this + 6);
-  if (v153 <= v145)
+  v139 = *(this + 6);
+  if (v139 <= v131)
   {
-    if (v153 < v145)
+    if (v139 < v131)
     {
       do
       {
-        *(*v151 + 8 * v153++) = 0;
+        *(*v137 + 8 * v139++) = 0;
       }
 
-      while (v145 != v153);
+      while (v131 != v139);
     }
   }
 
   else
   {
-    DgnIOwnArray<BitArray *>::destructAt(v151, v145, v153 - v145);
+    DgnIOwnArray<BitArray *>::destructAt(v137, v131, v139 - v131);
   }
 
-  *(this + 6) = v145;
-  v154 = *(this + 180);
-  if (v154)
+  *(this + 6) = v131;
+  v140 = *(this + 180);
+  if (v140)
   {
-    v155 = 0;
+    v141 = 0;
     do
     {
-      *(*v151 + v155) = 0;
-      v155 += 8;
+      *(*v137 + v141) = 0;
+      v141 += 8;
     }
 
-    while (8 * v154 != v155);
+    while (8 * v140 != v141);
   }
 
-  v156 = *(this + 43);
-  v157 = v154;
-  if (v154 > v156)
+  v142 = *(this + 43);
+  v143 = v140;
+  if (v140 > v142)
   {
-    DgnPrimArray<short>::reallocElts(this + 160, v154 - v156, 0);
-    v157 = *v22;
+    DgnPrimArray<short>::reallocElts(this + 160, v140 - v142, 0);
+    v143 = *v18;
   }
 
-  *(this + 42) = v154;
-  v158 = *(this + 47);
-  v159 = v157;
-  if (v157 > v158)
+  *(this + 42) = v140;
+  v144 = *(this + 47);
+  v145 = v143;
+  if (v143 > v144)
   {
-    DgnPrimArray<short>::reallocElts(this + 176, v157 - v158, 0);
-    v159 = *v22;
+    DgnPrimArray<short>::reallocElts(this + 176, v143 - v144, 0);
+    v145 = *v18;
   }
 
-  *(this + 46) = v157;
-  v160 = *(this + 51);
-  v161 = v159;
-  if (v159 > v160)
+  *(this + 46) = v143;
+  v146 = *(this + 51);
+  v147 = v145;
+  if (v145 > v146)
   {
-    DgnPrimArray<short>::reallocElts(this + 192, v159 - v160, 0);
-    v161 = *v22;
+    DgnPrimArray<short>::reallocElts(this + 192, v145 - v146, 0);
+    v147 = *v18;
   }
 
-  *(this + 50) = v159;
-  v162 = *(this + 55);
-  v163 = v161;
-  if (v161 > v162)
+  *(this + 50) = v145;
+  v148 = *(this + 55);
+  v149 = v147;
+  if (v147 > v148)
   {
-    DgnPrimArray<short>::reallocElts(this + 208, v161 - v162, 0);
-    v163 = *v22;
+    DgnPrimArray<short>::reallocElts(this + 208, v147 - v148, 0);
+    v149 = *v18;
   }
 
-  *(this + 54) = v161;
-  if (v163)
+  *(this + 54) = v147;
+  if (v149)
   {
-    v164 = *(this + 20);
-    v165 = *(this + 22);
-    v166 = *(this + 24);
-    v167 = v163;
-    v168 = *(this + 26);
+    v150 = *(this + 20);
+    v151 = *(this + 22);
+    v152 = *(this + 24);
+    v153 = v149;
+    v154 = *(this + 26);
     do
     {
-      *v164++ = 0;
-      *v165++ = 0;
-      *v166++ = 0;
-      *v168++ = 0;
-      --v167;
+      *v150++ = 0;
+      *v151++ = 0;
+      *v152++ = 0;
+      *v154++ = 0;
+      --v153;
     }
 
-    while (v167);
+    while (v153);
   }
 
-  v169 = *(this + 135);
-  v170 = v163;
-  if (v163 > v169)
+  v155 = *(this + 135);
+  v156 = v149;
+  if (v149 > v155)
   {
-    DgnPrimArray<short>::reallocElts(this + 528, v163 - v169, 0);
-    v170 = *v22;
+    DgnPrimArray<short>::reallocElts(this + 528, v149 - v155, 0);
+    v156 = *v18;
   }
 
-  *(this + 134) = v163;
-  if (v170)
+  *(this + 134) = v149;
+  if (v156)
   {
-    memset_pattern16(*(this + 66), &unk_262873A20, 2 * v170);
+    memset_pattern16(*(this + 66), &unk_262873A20, 2 * v156);
   }
 
-  if ((v20 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    StateMgr::upgradePrecedingNonAcousticWordsAllowed(this, v191, v136, v137, v138, v139, v140, v141);
+    StateMgr::upgradePrecedingNonAcousticWordsAllowed(this, v177);
   }
 
-  DgnDelete<DgnStream>(v16);
-  if ((v174 & v172 & 1) == 0)
+  DgnDelete<DgnStream>(v12);
+  if ((v160 & v158 & 1) == 0)
   {
     StateMgr::computeStateIdNameChecksum(this);
   }
 
-  DgnArray<DgnArray<ParseToken>>::releaseAll(&v183);
-  DgnArray<DgnArray<ParseToken>>::releaseAll(&v185);
-  DgnArray<DgnArray<ParseToken>>::releaseAll(&v187);
-  DgnIArray<Utterance *>::~DgnIArray(&v189);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v191);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(&v169);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(&v171);
+  DgnArray<DgnArray<ParseToken>>::releaseAll(&v173);
+  DgnIArray<Utterance *>::~DgnIArray(&v175);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v177);
 }
 
-void sub_2625F7F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, char a22, uint64_t a23, char a24, uint64_t a25, char a26)
+void sub_2625F7F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   DgnArray<DgnArray<ParseToken>>::releaseAll(&a20);
   DgnArray<DgnArray<ParseToken>>::releaseAll(&a22);
   DgnArray<DgnArray<ParseToken>>::releaseAll(&a24);
-  DgnIArray<Utterance *>::~DgnIArray(&a26);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v26 - 120);
+  DgnIArray<Utterance *>::~DgnIArray(va);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v25 - 120);
   _Unwind_Resume(a1);
 }
 
@@ -8210,35 +8488,35 @@ void readObject<int>(DgnStream *a1, uint64_t a2, unsigned int *a3)
   readObjectArray(a1, *a2, v6, a3);
 }
 
-uint64_t StateMgr::killStateInternal(EnvMgr **this, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StateMgr::killStateInternal(EnvMgr **this, unsigned int a2, int a3, int a4)
 {
   if (a3)
   {
     ItemEnvId = EnvMgr::getItemEnvId(this[94], a2);
     if (ItemEnvId)
     {
-      EnvMgr::killEnv(this[94], ItemEnvId, v13, v14, v15, v16, v17, v18);
-      EnvMgr::setItemEnvId(this[94], a2, 0, v19, v20, v21, v22, v23);
+      EnvMgr::killEnv(this[94], ItemEnvId);
+      EnvMgr::setItemEnvId(this[94], a2, 0);
     }
 
-    v24 = a2;
-    v25 = *this + 80 * a2;
-    if (*(v25 + 16))
+    v9 = a2;
+    v10 = *this + 80 * a2;
+    if (*(v10 + 4))
     {
-      v26 = 0;
+      v11 = 0;
       do
       {
-        ItemPairEnvId = EnvMgr::getItemPairEnvId(this[95], a2, *(*(v25 + 8) + 4 * v26));
+        ItemPairEnvId = EnvMgr::getItemPairEnvId(this[95], a2, *(*(v10 + 1) + 4 * v11));
         if (ItemPairEnvId)
         {
-          EnvMgr::killEnv(this[95], ItemPairEnvId, v28, v29, v30, v31, v32, v33);
-          EnvMgr::setItemPairEnvId(this[95], a2, *(*(v25 + 8) + 4 * v26), 0, v34, v35, v36, v37);
+          EnvMgr::killEnv(this[95], ItemPairEnvId);
+          EnvMgr::setItemPairEnvId(this[95], a2, *(*(v10 + 1) + 4 * v11), 0);
         }
 
-        ++v26;
+        ++v11;
       }
 
-      while (v26 < *(v25 + 16));
+      while (v11 < *(v10 + 4));
     }
 
     *(this + 183) ^= StateMgr::computeOneStateIdNameChecksum(this, a2);
@@ -8246,167 +8524,168 @@ uint64_t StateMgr::killStateInternal(EnvMgr **this, uint64_t a2, int a3, int a4,
 
   else
   {
-    v24 = a2;
+    v9 = a2;
   }
 
-  v38 = this[14];
-  v39 = this[16] + 16 * *(v38 + v24);
-  v40 = *(v39 + 8);
-  if (v40)
+  v13 = this[14];
+  v14 = this[16] + 16 * *(v13 + v9);
+  v15 = *(v14 + 2);
+  if (v15)
   {
-    v41 = *(v39 + 8);
-    v42 = *v39;
-    while (*v42 != a2)
+    v16 = *(v14 + 2);
+    v17 = *v14;
+    while (*v17 != a2)
     {
-      ++v42;
-      if (!--v41)
+      ++v17;
+      if (!--v16)
       {
         goto LABEL_17;
       }
     }
 
-    v43 = v40 - 1;
-    *v42 = *(*v39 + 4 * v43);
-    *(v39 + 8) = v43;
+    v18 = v15 - 1;
+    *v17 = *(*v14 + 4 * v18);
+    *(v14 + 2) = v18;
   }
 
 LABEL_17:
-  *(v38 + v24) = 0;
-  *(this[6] + v24) = 0;
-  *(this[8] + v24) = 0;
-  v44 = this[10] + 16 * v24;
-  if (*v44)
+  *(v13 + v9) = 0;
+  *(this[6] + v9) = 0;
+  *(this[8] + v9) = 0;
+  v19 = this[10] + 16 * v9;
+  if (*v19)
   {
-    MemChunkFree(*v44, 0);
-    *v44 = 0;
+    MemChunkFree(*v19, 0);
+    *v19 = 0;
   }
 
-  *(v44 + 8) = 0;
-  v45 = this[12] + 16 * v24;
-  if (*v45)
+  *(v19 + 1) = 0;
+  v20 = this[12] + 16 * v9;
+  if (*v20)
   {
-    MemChunkFree(*v45, 0);
-    *v45 = 0;
+    MemChunkFree(*v20, 0);
+    *v20 = 0;
   }
 
-  *(v45 + 8) = 0;
-  *(this[20] + v24) = 0;
-  *(this[22] + v24) = 0;
-  *(this[24] + v24) = 0;
-  *(this[26] + v24) = 0;
-  v46 = this[72] + 16 * v24;
-  if (*v46)
+  *(v20 + 1) = 0;
+  *(this[20] + v9) = 0;
+  *(this[22] + v9) = 0;
+  *(this[24] + v9) = 0;
+  *(this[26] + v9) = 0;
+  v21 = this[72] + 16 * v9;
+  if (*v21)
   {
-    MemChunkFree(*v46, 0);
-    *v46 = 0;
+    MemChunkFree(*v21, 0);
+    *v21 = 0;
   }
 
-  *(v46 + 8) = 0;
-  v47 = this[76] + 16 * v24;
-  if (*v47)
+  *(v21 + 1) = 0;
+  v22 = this[76] + 16 * v9;
+  if (*v22)
   {
-    MemChunkFree(*v47, 0);
-    *v47 = 0;
+    MemChunkFree(*v22, 0);
+    *v22 = 0;
   }
 
-  *(v47 + 8) = 0;
-  v69[0] = 0;
-  v69[1] = 0;
-  StateMgr::verifyStateFull(this, a2, a3, 0, a5, a6, a7, a8);
-  DgnCollArray<unsigned int,WordList>::setColls(*this + 80 * v24, v69);
+  *(v22 + 1) = 0;
+  v31[0] = 0;
+  v31[1] = 0;
+  StateMgr::verifyStateFull(this, a2, a3, 0);
+  DgnCollArray<unsigned int,WordList>::setColls(*this + 80 * v9, v31);
   while (1)
   {
-    v52 = *this + 80 * v24;
-    if (!*(v52 + 16))
+    v23 = *this + 80 * v9;
+    if (!*(v23 + 4))
     {
       break;
     }
 
-    StateMgr::deleteWordIdNoPhones(this, a2, **(v52 + 8), 0, v48, v49, v50, v51);
+    StateMgr::deleteWordIdNoPhones(this, a2, **(v23 + 1), 0);
   }
 
-  DgnDelete<BitArray>(*(this[2] + v24));
-  *(this[2] + v24) = 0;
+  DgnDelete<BitArray>(*(this[2] + v9));
+  *(this[2] + v9) = 0;
   if (a4)
   {
-    v58 = this[28] + 16 * v24;
-    if (*v58)
+    v24 = this[28] + 16 * v9;
+    if (*v24)
     {
-      MemChunkFree(*v58, 0);
-      *v58 = 0;
+      MemChunkFree(*v24, 0);
+      *v24 = 0;
     }
 
-    *(v58 + 8) = 0;
-    v59 = this[30] + 16 * v24;
-    if (*v59)
+    *(v24 + 1) = 0;
+    v25 = this[30] + 16 * v9;
+    if (*v25)
     {
-      MemChunkFree(*v59, 0);
-      *v59 = 0;
+      MemChunkFree(*v25, 0);
+      *v25 = 0;
     }
 
-    *(v59 + 8) = 0;
-    v60 = this[32] + 16 * v24;
-    if (*v60)
+    *(v25 + 1) = 0;
+    v26 = this[32] + 16 * v9;
+    if (*v26)
     {
-      MemChunkFree(*v60, 0);
-      *v60 = 0;
+      MemChunkFree(*v26, 0);
+      *v26 = 0;
     }
 
-    *(v60 + 8) = 0;
+    *(v26 + 1) = 0;
   }
 
   else
   {
-    StateMgr::setEmptyStateTransition(this, a2, a3, v53, v54, v55, v56, v57);
+    StateMgr::setEmptyStateTransition(this, a2, a3);
   }
 
-  *(this[4] + v24) = 0;
-  *(this[34] + v24) = 0xFFFF;
-  *(this[36] + v24) = 0;
-  *(this[38] + v24) = 1;
-  *(this[40] + v24) = 1;
-  *(this[42] + v24) = 0;
-  *(this[44] + v24) = 1;
-  *(this[46] + v24) = 1;
-  *(this[48] + v24) = 0;
-  *(this[50] + v24) = -1;
-  *(this[52] + v24) = -1;
-  *(this[54] + v24) = -1;
-  *(this[56] + v24) = -1;
-  *(this[60] + v24) = 0;
-  StateMgr::setPrecedingNonAcousticWordState(this, a2, 0, a3, v54, v55, v56, v57);
-  v65 = this[74] + 16 * v24;
-  if (*v65)
+  *(this[4] + v9) = 0;
+  *(this[34] + v9) = 0xFFFF;
+  *(this[36] + v9) = 0;
+  *(this[38] + v9) = 1;
+  *(this[40] + v9) = 1;
+  *(this[42] + v9) = 0;
+  *(this[44] + v9) = 1;
+  *(this[46] + v9) = 1;
+  *(this[48] + v9) = 0;
+  *(this[50] + v9) = -1;
+  *(this[52] + v9) = -1;
+  *(this[54] + v9) = -1;
+  *(this[56] + v9) = -1;
+  *(this[60] + v9) = 0;
+  StateMgr::setPrecedingNonAcousticWordState(this, a2, 0, a3);
+  v27 = this[74] + 16 * v9;
+  if (*v27)
   {
-    MemChunkFree(*v65, 0);
-    *v65 = 0;
+    MemChunkFree(*v27, 0);
+    *v27 = 0;
   }
 
-  *(v65 + 8) = 0;
-  *(this[58] + v24) = 1;
-  *(this[85] + v24) = 1;
-  StateMgr::setWordAliasState(this, a2, 0, a3, v61, v62, v63, v64);
-  v66 = *(this + 178);
-  if (v66 == *(this + 179))
+  *(v27 + 1) = 0;
+  *(this[58] + v9) = 1;
+  *(this[85] + v9) = 1;
+  StateMgr::setWordAliasState(this, a2, 0, a3);
+  v28 = *(this + 178);
+  if (v28 == *(this + 179))
   {
     DgnPrimArray<unsigned int>::reallocElts((this + 88), 1, 1);
-    v66 = *(this + 178);
+    v28 = *(this + 178);
   }
 
-  *(this[88] + v66) = a2;
+  *(this[88] + v28) = a2;
   ++*(this + 178);
-  *(this[68] + v24) = 0;
-  *(this[70] + v24) = 0;
-  PhnIndexSet::PhnIndexSet(v68, *(this[92] + 46));
-  BitArray::operator=(this[83] + 2 * v24, v68);
-  BitArray::~BitArray(v68);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v69);
+  *(this[68] + v9) = 0;
+  *(this[70] + v9) = 0;
+  PhnIndexSet::PhnIndexSet(v30, *(this[92] + 46));
+  BitArray::operator=(this[83] + 2 * v9, v30);
+  BitArray::~BitArray(v30);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v31);
 }
 
-void sub_2625F8950(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2625F8950(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   BitArray::~BitArray(&a9);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a11);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
@@ -8421,34 +8700,34 @@ BOOL StateMgr::isEmpty(StateMgr *this)
   return *(this + 180) == v1 + 1 && *(*(this + 18) + 8) == 0;
 }
 
-void StateMgr::makeSpecialEouStateId(StateMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void StateMgr::makeSpecialEouStateId(StateMgr *this)
 {
-  v15 = -1;
-  v9 = StateMgr::newState(this, 0, &v15, a4, a5, a6, a7, a8);
-  *(this + 181) = v9;
-  *(*(this + 70) + v9) = 0;
+  v4 = -1;
+  v2 = StateMgr::newState(this, 0, &v4);
+  *(this + 181) = v2;
+  *(*(this + 70) + v2) = 0;
   *(*(this + 58) + *(this + 181)) = 0;
   *(*(this + 85) + *(this + 181)) = 0;
-  v14 = *(this + 181);
+  v3 = *(this + 181);
 
-  StateMgr::setEndOfUtteranceAllowed(this, v14, 1, 0, v10, v11, v12, v13);
+  StateMgr::setEndOfUtteranceAllowed(this, v3, 1, 0);
 }
 
-uint64_t StateMgr::newState(StateMgr *this, unsigned int a2, const unsigned __int16 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t StateMgr::newState(StateMgr *this, unsigned int a2, const unsigned __int16 *a3)
 {
-  StateMgr::verifyStateFull(this, a2, 1, 1, a5, a6, a7, a8);
-  PhnIndexSet::PhnIndexSet(v76, *(*(this + 92) + 184));
-  *v76[0] |= 1u;
-  v13 = *(this + 178);
-  if (v13)
+  StateMgr::verifyStateFull(this, a2, 1, 1);
+  PhnIndexSet::PhnIndexSet(v69, *(*(this + 92) + 184));
+  *v69[0] |= 1u;
+  v6 = *(this + 178);
+  if (v6)
   {
-    v14 = v13 - 1;
-    v15 = *(*(this + 88) + 4 * v14);
-    *(this + 178) = v14;
-    *(*(this + 68) + v15) = 1;
-    *(*(this + 70) + v15) = *a3 == 0;
-    BitArray::operator=((*(this + 83) + 16 * v15), v76);
-    if (!v15)
+    v7 = v6 - 1;
+    v8 = *(*(this + 88) + 4 * v7);
+    *(this + 178) = v7;
+    *(*(this + 68) + v8) = 1;
+    *(*(this + 70) + v8) = *a3 == 0;
+    BitArray::operator=((*(this + 83) + 16 * v8), v69);
+    if (!v8)
     {
       goto LABEL_94;
     }
@@ -8456,548 +8735,546 @@ uint64_t StateMgr::newState(StateMgr *this, unsigned int a2, const unsigned __in
     goto LABEL_91;
   }
 
-  v15 = *(this + 180);
-  if (v15 == -1)
+  v8 = *(this + 180);
+  if (v8 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1391, "voc/statemgr", 16, "%s", v11, v12, &errStr_voc_statemgr_E_TOO_MANY_STATES);
-    v15 = *(this + 180);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1391, "voc/statemgr", 16, "%s", &errStr_voc_statemgr_E_TOO_MANY_STATES);
+    v8 = *(this + 180);
   }
 
-  *(this + 180) = v15 + 1;
-  v16 = *(this + 2);
-  if (v16 == *(this + 3))
+  *(this + 180) = v8 + 1;
+  v9 = *(this + 2);
+  if (v9 == *(this + 3))
   {
     DgnArray<DSMLocalRecord>::reallocElts(this, 1, 1);
-    v16 = *(this + 2);
+    v9 = *(this + 2);
   }
 
-  v17 = *this + 80 * v16;
-  *v17 = 0;
-  *(v17 + 2) = 0;
-  *(v17 + 8) = 0u;
-  *(v17 + 24) = 0u;
-  *(v17 + 40) = 0u;
-  *(v17 + 64) = 0;
-  *(v17 + 72) = 0;
+  v10 = *this + 80 * v9;
+  *v10 = 0;
+  *(v10 + 2) = 0;
+  *(v10 + 8) = 0u;
+  *(v10 + 24) = 0u;
+  *(v10 + 40) = 0u;
+  *(v10 + 64) = 0;
+  *(v10 + 72) = 0;
   ++*(this + 2);
-  v18 = (*this + 80 * (*(this + 180) - 1));
-  v19 = *(this + 92);
-  v20 = *(v19 + 48);
-  v21 = *(v19 + 16);
-  v18[7] = WordIdCollSearchCmpFromWordId;
-  v18[8] = v20;
-  v18[9] = v21;
-  v22 = *(this + 6);
-  if (v22 == *(this + 7))
+  v11 = (*this + 80 * (*(this + 180) - 1));
+  v12 = *(this + 92);
+  v13 = *(v12 + 48);
+  v14 = *(v12 + 16);
+  v11[7] = WordIdCollSearchCmpFromWordId;
+  v11[8] = v13;
+  v11[9] = v14;
+  v15 = *(this + 6);
+  if (v15 == *(this + 7))
   {
     DgnPrimArray<unsigned long long>::reallocElts(this + 16, 1, 1);
-    v22 = *(this + 6);
+    v15 = *(this + 6);
   }
 
-  *(*(this + 2) + 8 * v22) = 0;
-  *(this + 6) = v22 + 1;
-  v23 = *(this + 10);
-  if (v23 == *(this + 11))
+  *(*(this + 2) + 8 * v15) = 0;
+  *(this + 6) = v15 + 1;
+  v16 = *(this + 10);
+  if (v16 == *(this + 11))
   {
     DgnPrimArray<char>::reallocElts(this + 32, 1, 1);
-    v23 = *(this + 10);
+    v16 = *(this + 10);
   }
 
-  *(*(this + 4) + v23) = 0;
+  *(*(this + 4) + v16) = 0;
   ++*(this + 10);
-  v24 = *(this + 14);
-  if (v24 == *(this + 15))
+  v17 = *(this + 14);
+  if (v17 == *(this + 15))
   {
     DgnPrimArray<short>::reallocElts(this + 48, 1, 1);
-    v24 = *(this + 14);
+    v17 = *(this + 14);
   }
 
-  *(this + 14) = v24 + 1;
-  v25 = *(this + 18);
-  if (v25 == *(this + 19))
+  *(this + 14) = v17 + 1;
+  v18 = *(this + 18);
+  if (v18 == *(this + 19))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 64, 1, 1);
-    v25 = *(this + 18);
+    v18 = *(this + 18);
   }
 
-  *(this + 18) = v25 + 1;
-  v26 = *(this + 22);
-  if (v26 == *(this + 23))
+  *(this + 18) = v18 + 1;
+  v19 = *(this + 22);
+  if (v19 == *(this + 23))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 80, 1, 1);
-    v26 = *(this + 22);
+    v19 = *(this + 22);
   }
 
-  v27 = (*(this + 10) + 16 * v26);
-  *v27 = 0;
-  v27[1] = 0;
+  v20 = (*(this + 10) + 16 * v19);
+  *v20 = 0;
+  v20[1] = 0;
   ++*(this + 22);
-  v28 = *(this + 26);
-  if (v28 == *(this + 27))
+  v21 = *(this + 26);
+  if (v21 == *(this + 27))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 96, 1, 1);
-    v28 = *(this + 26);
+    v21 = *(this + 26);
   }
 
-  DgnString::DgnString((*(this + 12) + 16 * v28));
+  DgnString::DgnString((*(this + 12) + 16 * v21));
   ++*(this + 26);
-  v29 = *(this + 30);
-  if (v29 == *(this + 31))
+  v22 = *(this + 30);
+  if (v22 == *(this + 31))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 112, 1, 1);
-    v29 = *(this + 30);
+    v22 = *(this + 30);
   }
 
-  *(this + 30) = v29 + 1;
-  v30 = *(this + 34);
-  if (v30 == *(this + 35))
+  *(this + 30) = v22 + 1;
+  v23 = *(this + 34);
+  if (v23 == *(this + 35))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 128, 1, 1);
-    v30 = *(this + 34);
+    v23 = *(this + 34);
   }
 
-  v31 = (*(this + 16) + 16 * v30);
-  *v31 = 0;
-  v31[1] = 0;
+  v24 = (*(this + 16) + 16 * v23);
+  *v24 = 0;
+  v24[1] = 0;
   ++*(this + 34);
-  v32 = *(this + 42);
-  if (v32 == *(this + 43))
+  v25 = *(this + 42);
+  if (v25 == *(this + 43))
   {
     DgnPrimArray<short>::reallocElts(this + 160, 1, 1);
-    v32 = *(this + 42);
+    v25 = *(this + 42);
   }
 
-  *(*(this + 20) + 2 * v32) = 0;
-  *(this + 42) = v32 + 1;
-  v33 = *(this + 46);
-  if (v33 == *(this + 47))
+  *(*(this + 20) + 2 * v25) = 0;
+  *(this + 42) = v25 + 1;
+  v26 = *(this + 46);
+  if (v26 == *(this + 47))
   {
     DgnPrimArray<short>::reallocElts(this + 176, 1, 1);
-    v33 = *(this + 46);
+    v26 = *(this + 46);
   }
 
-  *(*(this + 22) + 2 * v33) = 0;
-  *(this + 46) = v33 + 1;
-  v34 = *(this + 50);
-  if (v34 == *(this + 51))
+  *(*(this + 22) + 2 * v26) = 0;
+  *(this + 46) = v26 + 1;
+  v27 = *(this + 50);
+  if (v27 == *(this + 51))
   {
     DgnPrimArray<short>::reallocElts(this + 192, 1, 1);
-    v34 = *(this + 50);
+    v27 = *(this + 50);
   }
 
-  *(*(this + 24) + 2 * v34) = 0;
-  *(this + 50) = v34 + 1;
-  v35 = *(this + 54);
-  if (v35 == *(this + 55))
+  *(*(this + 24) + 2 * v27) = 0;
+  *(this + 50) = v27 + 1;
+  v28 = *(this + 54);
+  if (v28 == *(this + 55))
   {
     DgnPrimArray<short>::reallocElts(this + 208, 1, 1);
-    v35 = *(this + 54);
+    v28 = *(this + 54);
   }
 
-  *(*(this + 26) + 2 * v35) = 0;
-  *(this + 54) = v35 + 1;
-  v36 = *(this + 146);
-  if (v36 == *(this + 147))
+  *(*(this + 26) + 2 * v28) = 0;
+  *(this + 54) = v28 + 1;
+  v29 = *(this + 146);
+  if (v29 == *(this + 147))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 576, 1, 1);
-    v36 = *(this + 146);
+    v29 = *(this + 146);
   }
 
-  v37 = (*(this + 72) + 16 * v36);
-  *v37 = 0;
-  v37[1] = 0;
+  v30 = (*(this + 72) + 16 * v29);
+  *v30 = 0;
+  v30[1] = 0;
   ++*(this + 146);
-  v38 = *(this + 154);
-  if (v38 == *(this + 155))
+  v31 = *(this + 154);
+  if (v31 == *(this + 155))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 608, 1, 1);
-    v38 = *(this + 154);
+    v31 = *(this + 154);
   }
 
-  v39 = (*(this + 76) + 16 * v38);
-  *v39 = 0;
-  v39[1] = 0;
+  v32 = (*(this + 76) + 16 * v31);
+  *v32 = 0;
+  v32[1] = 0;
   ++*(this + 154);
-  v40 = *(this + 38);
-  if (v40 == *(this + 39))
+  v33 = *(this + 38);
+  if (v33 == *(this + 39))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 144, 1, 1);
-    v40 = *(this + 38);
+    v33 = *(this + 38);
   }
 
-  v41 = (*(this + 18) + 16 * v40);
-  *v41 = 0;
-  v41[1] = 0;
+  v34 = (*(this + 18) + 16 * v33);
+  *v34 = 0;
+  v34[1] = 0;
   ++*(this + 38);
-  v42 = *(this + 58);
-  if (v42 == *(this + 59))
+  v35 = *(this + 58);
+  if (v35 == *(this + 59))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 224, 1, 1);
-    v42 = *(this + 58);
+    v35 = *(this + 58);
   }
 
-  v43 = (*(this + 28) + 16 * v42);
-  *v43 = 0;
-  v43[1] = 0;
+  v36 = (*(this + 28) + 16 * v35);
+  *v36 = 0;
+  v36[1] = 0;
   ++*(this + 58);
-  v44 = *(this + 62);
-  if (v44 == *(this + 63))
+  v37 = *(this + 62);
+  if (v37 == *(this + 63))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 240, 1, 1);
-    v44 = *(this + 62);
+    v37 = *(this + 62);
   }
 
-  v45 = (*(this + 30) + 16 * v44);
-  *v45 = 0;
-  v45[1] = 0;
+  v38 = (*(this + 30) + 16 * v37);
+  *v38 = 0;
+  v38[1] = 0;
   ++*(this + 62);
-  v46 = *(this + 66);
-  if (v46 == *(this + 67))
+  v39 = *(this + 66);
+  if (v39 == *(this + 67))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 256, 1, 1);
-    v46 = *(this + 66);
+    v39 = *(this + 66);
   }
 
-  v47 = (*(this + 32) + 16 * v46);
-  *v47 = 0;
-  v47[1] = 0;
+  v40 = (*(this + 32) + 16 * v39);
+  *v40 = 0;
+  v40[1] = 0;
   ++*(this + 66);
-  v48 = *(this + 70);
-  if (v48 == *(this + 71))
+  v41 = *(this + 70);
+  if (v41 == *(this + 71))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 272, 1, 1);
-    v48 = *(this + 70);
+    v41 = *(this + 70);
   }
 
-  *(*(this + 34) + 4 * v48) = 0xFFFF;
+  *(*(this + 34) + 4 * v41) = 0xFFFF;
   ++*(this + 70);
-  v49 = *(this + 74);
-  if (v49 == *(this + 75))
+  v42 = *(this + 74);
+  if (v42 == *(this + 75))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 288, 1, 1);
-    v49 = *(this + 74);
+    v42 = *(this + 74);
   }
 
-  *(*(this + 36) + 4 * v49) = 0;
+  *(*(this + 36) + 4 * v42) = 0;
   ++*(this + 74);
-  v50 = *(this + 78);
-  if (v50 == *(this + 79))
+  v43 = *(this + 78);
+  if (v43 == *(this + 79))
   {
     DgnPrimArray<char>::reallocElts(this + 304, 1, 1);
-    v50 = *(this + 78);
+    v43 = *(this + 78);
   }
 
-  *(*(this + 38) + v50) = 1;
+  *(*(this + 38) + v43) = 1;
   ++*(this + 78);
-  v51 = *(this + 82);
-  if (v51 == *(this + 83))
+  v44 = *(this + 82);
+  if (v44 == *(this + 83))
   {
     DgnPrimArray<char>::reallocElts(this + 320, 1, 1);
-    v51 = *(this + 82);
+    v44 = *(this + 82);
   }
 
-  *(*(this + 40) + v51) = 1;
+  *(*(this + 40) + v44) = 1;
   ++*(this + 82);
-  v52 = *(this + 86);
-  if (v52 == *(this + 87))
+  v45 = *(this + 86);
+  if (v45 == *(this + 87))
   {
     DgnPrimArray<char>::reallocElts(this + 336, 1, 1);
-    v52 = *(this + 86);
+    v45 = *(this + 86);
   }
 
-  *(*(this + 42) + v52) = 0;
+  *(*(this + 42) + v45) = 0;
   ++*(this + 86);
-  v53 = *(this + 90);
-  if (v53 == *(this + 91))
+  v46 = *(this + 90);
+  if (v46 == *(this + 91))
   {
     DgnPrimArray<char>::reallocElts(this + 352, 1, 1);
-    v53 = *(this + 90);
+    v46 = *(this + 90);
   }
 
-  *(*(this + 44) + v53) = 1;
+  *(*(this + 44) + v46) = 1;
   ++*(this + 90);
-  v54 = *(this + 94);
-  if (v54 == *(this + 95))
+  v47 = *(this + 94);
+  if (v47 == *(this + 95))
   {
     DgnPrimArray<char>::reallocElts(this + 368, 1, 1);
-    v54 = *(this + 94);
+    v47 = *(this + 94);
   }
 
-  *(*(this + 46) + v54) = 1;
+  *(*(this + 46) + v47) = 1;
   ++*(this + 94);
-  v55 = *(this + 98);
-  if (v55 == *(this + 99))
+  v48 = *(this + 98);
+  if (v48 == *(this + 99))
   {
     DgnPrimArray<char>::reallocElts(this + 384, 1, 1);
-    v55 = *(this + 98);
+    v48 = *(this + 98);
   }
 
-  *(*(this + 48) + v55) = 0;
+  *(*(this + 48) + v48) = 0;
   ++*(this + 98);
-  v56 = *(this + 102);
-  if (v56 == *(this + 103))
+  v49 = *(this + 102);
+  if (v49 == *(this + 103))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 400, 1, 1);
-    v56 = *(this + 102);
+    v49 = *(this + 102);
   }
 
-  *(*(this + 50) + 4 * v56) = -1;
+  *(*(this + 50) + 4 * v49) = -1;
   ++*(this + 102);
-  v57 = *(this + 106);
-  if (v57 == *(this + 107))
+  v50 = *(this + 106);
+  if (v50 == *(this + 107))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 416, 1, 1);
-    v57 = *(this + 106);
+    v50 = *(this + 106);
   }
 
-  *(*(this + 52) + 4 * v57) = -1;
+  *(*(this + 52) + 4 * v50) = -1;
   ++*(this + 106);
-  v58 = *(this + 110);
-  if (v58 == *(this + 111))
+  v51 = *(this + 110);
+  if (v51 == *(this + 111))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 432, 1, 1);
-    v58 = *(this + 110);
+    v51 = *(this + 110);
   }
 
-  *(*(this + 54) + 4 * v58) = -1;
+  *(*(this + 54) + 4 * v51) = -1;
   ++*(this + 110);
-  v59 = *(this + 114);
-  if (v59 == *(this + 115))
+  v52 = *(this + 114);
+  if (v52 == *(this + 115))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 448, 1, 1);
-    v59 = *(this + 114);
+    v52 = *(this + 114);
   }
 
-  *(*(this + 56) + 4 * v59) = -1;
+  *(*(this + 56) + 4 * v52) = -1;
   ++*(this + 114);
-  v60 = *(this + 130);
-  if (v60 == *(this + 131))
+  v53 = *(this + 130);
+  if (v53 == *(this + 131))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 512, 1, 1);
-    v60 = *(this + 130);
+    v53 = *(this + 130);
   }
 
-  *(*(this + 64) + 4 * v60) = 0;
+  *(*(this + 64) + 4 * v53) = 0;
   ++*(this + 130);
-  v61 = *(this + 122);
-  if (v61 == *(this + 123))
+  v54 = *(this + 122);
+  if (v54 == *(this + 123))
   {
     DgnPrimArray<char>::reallocElts(this + 480, 1, 1);
-    v61 = *(this + 122);
+    v54 = *(this + 122);
   }
 
-  *(*(this + 60) + v61) = 0;
+  *(*(this + 60) + v54) = 0;
   ++*(this + 122);
-  v62 = *(this + 150);
-  if (v62 == *(this + 151))
+  v55 = *(this + 150);
+  if (v55 == *(this + 151))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 592, 1, 1);
-    v62 = *(this + 150);
+    v55 = *(this + 150);
   }
 
-  v63 = (*(this + 74) + 16 * v62);
-  *v63 = 0;
-  v63[1] = 0;
+  v56 = (*(this + 74) + 16 * v55);
+  *v56 = 0;
+  v56[1] = 0;
   ++*(this + 150);
-  v64 = *(this + 118);
-  if (v64 == *(this + 119))
+  v57 = *(this + 118);
+  if (v57 == *(this + 119))
   {
     DgnPrimArray<char>::reallocElts(this + 464, 1, 1);
-    v64 = *(this + 118);
+    v57 = *(this + 118);
   }
 
-  *(*(this + 58) + v64) = 1;
+  *(*(this + 58) + v57) = 1;
   ++*(this + 118);
-  v65 = *(this + 172);
-  if (v65 == *(this + 173))
+  v58 = *(this + 172);
+  if (v58 == *(this + 173))
   {
     DgnPrimArray<char>::reallocElts(this + 680, 1, 1);
-    v65 = *(this + 172);
+    v58 = *(this + 172);
   }
 
-  *(*(this + 85) + v65) = 1;
+  *(*(this + 85) + v58) = 1;
   ++*(this + 172);
-  v66 = *(this + 126);
-  if (v66 == *(this + 127))
+  v59 = *(this + 126);
+  if (v59 == *(this + 127))
   {
     DgnPrimArray<unsigned int>::reallocElts(this + 496, 1, 1);
-    v66 = *(this + 126);
+    v59 = *(this + 126);
   }
 
-  *(*(this + 62) + 4 * v66) = 0;
+  *(*(this + 62) + 4 * v59) = 0;
   ++*(this + 126);
-  v67 = *(this + 134);
-  if (v67 == *(this + 135))
+  v60 = *(this + 134);
+  if (v60 == *(this + 135))
   {
     DgnPrimArray<short>::reallocElts(this + 528, 1, 1);
-    v67 = *(this + 134);
+    v60 = *(this + 134);
   }
 
-  *(*(this + 66) + 2 * v67) = 127;
-  *(this + 134) = v67 + 1;
-  v68 = *(this + 138);
-  if (v68 == *(this + 139))
+  *(*(this + 66) + 2 * v60) = 127;
+  *(this + 134) = v60 + 1;
+  v61 = *(this + 138);
+  if (v61 == *(this + 139))
   {
     DgnPrimArray<char>::reallocElts(this + 544, 1, 1);
-    v68 = *(this + 138);
+    v61 = *(this + 138);
   }
 
-  *(*(this + 68) + v68) = 1;
+  *(*(this + 68) + v61) = 1;
   ++*(this + 138);
-  v69 = *a3 == 0;
-  v70 = *(this + 142);
-  if (v70 == *(this + 143))
+  v62 = *a3 == 0;
+  v63 = *(this + 142);
+  if (v63 == *(this + 143))
   {
     DgnPrimArray<char>::reallocElts(this + 560, 1, 1);
-    v70 = *(this + 142);
+    v63 = *(this + 142);
   }
 
-  *(*(this + 70) + v70) = v69;
+  *(*(this + 70) + v63) = v62;
   ++*(this + 142);
-  v71 = *(this + 158);
-  if (v71 == *(this + 159))
+  v64 = *(this + 158);
+  if (v64 == *(this + 159))
   {
     DgnPrimArray<char>::reallocElts(this + 624, 1, 1);
-    v71 = *(this + 158);
+    v64 = *(this + 158);
   }
 
-  *(*(this + 78) + v71) = 0;
+  *(*(this + 78) + v64) = 0;
   ++*(this + 158);
-  v72 = *(this + 168);
-  if (v72 == *(this + 169))
+  v65 = *(this + 168);
+  if (v65 == *(this + 169))
   {
     DgnArray<DgnPrimArray<double>>::reallocElts(this + 664, 1, 1);
-    v72 = *(this + 168);
+    v65 = *(this + 168);
   }
 
-  PhnIndexSet::PhnIndexSet((*(this + 83) + 16 * v72), v76);
+  PhnIndexSet::PhnIndexSet((*(this + 83) + 16 * v65), v69);
   ++*(this + 168);
-  if (v15)
+  if (v8)
   {
 LABEL_91:
-    v73 = *(this + 16) + 16 * a2;
-    v74 = *(v73 + 8);
-    if (v74 == *(v73 + 12))
+    v66 = *(this + 16) + 16 * a2;
+    v67 = *(v66 + 8);
+    if (v67 == *(v66 + 12))
     {
       DgnPrimArray<unsigned int>::reallocElts(*(this + 16) + 16 * a2, 1, 1);
-      v74 = *(v73 + 8);
+      v67 = *(v66 + 8);
     }
 
-    *(*v73 + 4 * v74) = v15;
-    ++*(v73 + 8);
+    *(*v66 + 4 * v67) = v8;
+    ++*(v66 + 8);
   }
 
 LABEL_94:
-  *(*(this + 14) + 4 * v15) = a2;
-  *(*(this + 6) + 2 * v15) = *a3;
-  *(*(this + 8) + 4 * v15) = 0;
-  if (*(*(this + 70) + v15))
+  *(*(this + 14) + 4 * v8) = a2;
+  *(*(this + 6) + 2 * v8) = *a3;
+  *(*(this + 8) + 4 * v8) = 0;
+  if (*(*(this + 70) + v8))
   {
-    *(this + 183) ^= StateMgr::computeOneStateIdNameChecksum(this, v15);
+    *(this + 183) ^= StateMgr::computeOneStateIdNameChecksum(this, v8);
   }
 
-  BitArray::~BitArray(v76);
-  return v15;
+  BitArray::~BitArray(v69);
+  return v8;
 }
 
-void sub_2625F9524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2625F9524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   BitArray::~BitArray(va);
   _Unwind_Resume(a1);
 }
 
-void StateMgr::setEndOfUtteranceAllowed(StateMgr *this, unsigned int a2, char a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void StateMgr::setEndOfUtteranceAllowed(StateMgr *this, unsigned int a2, char a3, BOOL a4)
 {
-  StateMgr::verifyStateFull(this, a2, a4, 0, a5, a6, a7, a8);
+  StateMgr::verifyStateFull(this, a2, a4, 0);
   if (*(*(this + 20) + 2 * a2))
   {
-    v13 = *(*(this + 20) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2230, "voc/statemgr", 13, "%.500s %d %.500s %d", v11, v12, "setEndOfUtteranceAllowed");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2230, "voc/statemgr", 13, "%.500s %d %.500s %d", "setEndOfUtteranceAllowed", a2, "mIncludingLatticesCount", *(*(this + 20) + 2 * a2));
   }
 
   if (*(*(this + 24) + 2 * a2))
   {
-    v14 = *(*(this + 24) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2233, "voc/statemgr", 13, "%.500s %d %.500s %d", v11, v12, "setEndOfUtteranceAllowed");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2233, "voc/statemgr", 13, "%.500s %d %.500s %d", "setEndOfUtteranceAllowed", a2, "mIncludingTransducersCount", *(*(this + 24) + 2 * a2));
   }
 
   if (*(*(this + 26) + 2 * a2))
   {
-    v15 = *(*(this + 26) + 2 * a2);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2236, "voc/statemgr", 13, "%.500s %d %.500s %d", v11, v12, "setEndOfUtteranceAllowed");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 2236, "voc/statemgr", 13, "%.500s %d %.500s %d", "setEndOfUtteranceAllowed", a2, "mIncludingTransducerGrammarsCount", *(*(this + 26) + 2 * a2));
   }
 
   *(*(this + 4) + a2) = a3;
 }
 
-void (***StateMgr::saveStateMgr(void (***this)(void), DFile *a2, DFileChecksums *a3, int a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8))(void)
+int *StateMgr::saveStateMgr(int *this, DFile *a2, DFileChecksums *a3, int a4, uint64_t a5)
 {
-  v11 = this;
-  v12 = *(this + 178);
-  if (*(this + 181))
+  v5 = a5;
+  v8 = this;
+  v9 = this[178];
+  if (this[181])
   {
-    ++v12;
+    ++v9;
   }
 
-  if (*(this + 180) != v12 + 1 || *(this[18] + 2))
+  if (this[180] != v9 + 1 || *(*(this + 18) + 8))
   {
     if (a4)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1115, "voc/statemgr", 18, "%s", a7, a8, &errStr_voc_statemgr_E_MIXED_TEXT_AND_BINARY_SUBFILES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1115, "voc/statemgr", 18, "%s", &errStr_voc_statemgr_E_MIXED_TEXT_AND_BINARY_SUBFILES);
     }
 
-    v13 = OpenAndWriteMrecHeader(a2, 0x59u, a5, "MRSTA!? ", 24, 44);
-    v15 = 0;
-    writeObject<DgnCollArray<unsigned int,WordList>>(v13, v11, &v15);
-    writeObject<unsigned char>(v13, v11 + 32, &v15);
-    writeObject<unsigned short>(v13, v11 + 48, &v15);
-    writeObject<unsigned int>(v13, v11 + 64, &v15);
-    writeObject<DgnPrimArray<unsigned short>>(v13, v11 + 80, &v15);
-    writeObject<DgnString>(v13, v11 + 96, &v15);
-    writeObject<unsigned int>(v13, v11 + 112, &v15);
-    writeObject<DgnPrimArray<unsigned int>>(v13, v11 + 128, &v15);
-    writeObject<DgnPrimArray<unsigned short>>(v13, v11 + 144, &v15);
-    writeObject<DgnPrimArray<unsigned int>>(v13, v11 + 224, &v15);
-    writeObject<DgnPrimArray<unsigned short>>(v13, v11 + 240, &v15);
-    writeObject<DgnArray<ParseToken>>(v13, v11 + 256, &v15);
-    writeObject<unsigned int>(v13, v11 + 272, &v15);
-    writeObject<unsigned int>(v13, v11 + 288, &v15);
-    writeObject<unsigned char>(v13, v11 + 304, &v15);
-    writeObject<unsigned char>(v13, v11 + 320, &v15);
-    writeObject<unsigned char>(v13, v11 + 336, &v15);
-    writeObject<unsigned char>(v13, v11 + 352, &v15);
-    writeObject<unsigned char>(v13, v11 + 368, &v15);
-    writeObject<unsigned char>(v13, v11 + 384, &v15);
-    writeObject<unsigned int>(v13, v11 + 400, &v15);
-    writeObject<unsigned int>(v13, v11 + 416, &v15);
-    writeObject<unsigned int>(v13, v11 + 432, &v15);
-    writeObject<unsigned int>(v13, v11 + 448, &v15);
-    writeObject<unsigned int>(v13, v11 + 512, &v15);
-    writeObject<unsigned char>(v13, v11 + 480, &v15);
-    writeObject<DgnPrimArray<unsigned int>>(v13, v11 + 592, &v15);
-    writeObject<unsigned char>(v13, v11 + 464, &v15);
-    writeObject<unsigned int>(v13, v11 + 496, &v15);
-    writeObject<unsigned char>(v13, v11 + 544, &v15);
-    writeObject<unsigned char>(v13, v11 + 560, &v15);
-    writeObject<DgnPrimArray<unsigned int>>(v13, v11 + 576, &v15);
-    writeObject<DgnPrimArray<unsigned int>>(v13, v11 + 608, &v15);
-    writeObject<unsigned int>(v13, v11 + 704, &v15);
-    writeObject(v13, (v11 + 720), &v15);
-    writeObject(v13, (v11 + 724), &v15);
-    writeObject(v13, (v11 + 732), &v15);
-    EnvMgr::saveEnvMgrToStream(*(v11 + 752), v13, &v15, 1, 0);
-    EnvMgr::saveEnvMgrToStream(*(v11 + 760), v13, &v15, 1, 0);
-    writeObjectChecksum(v13, &v15);
+    v10 = OpenAndWriteMrecHeader(a2, 0x59u, v5, "MRSTA!? ", 24, 44);
+    v12 = 0;
+    writeObject<DgnCollArray<unsigned int,WordList>>(v10, v8, &v12);
+    writeObject<unsigned char>(v10, (v8 + 8), &v12);
+    writeObject<unsigned short>(v10, (v8 + 12), &v12);
+    writeObject<unsigned int>(v10, (v8 + 16), &v12);
+    writeObject<DgnPrimArray<unsigned short>>(v10, (v8 + 20), &v12);
+    writeObject<DgnString>(v10, (v8 + 24), &v12);
+    writeObject<unsigned int>(v10, (v8 + 28), &v12);
+    writeObject<DgnPrimArray<unsigned int>>(v10, (v8 + 32), &v12);
+    writeObject<DgnPrimArray<unsigned short>>(v10, (v8 + 36), &v12);
+    writeObject<DgnPrimArray<unsigned int>>(v10, (v8 + 56), &v12);
+    writeObject<DgnPrimArray<unsigned short>>(v10, (v8 + 60), &v12);
+    writeObject<DgnArray<ParseToken>>(v10, (v8 + 64), &v12);
+    writeObject<unsigned int>(v10, (v8 + 68), &v12);
+    writeObject<unsigned int>(v10, (v8 + 72), &v12);
+    writeObject<unsigned char>(v10, (v8 + 76), &v12);
+    writeObject<unsigned char>(v10, (v8 + 80), &v12);
+    writeObject<unsigned char>(v10, (v8 + 84), &v12);
+    writeObject<unsigned char>(v10, (v8 + 88), &v12);
+    writeObject<unsigned char>(v10, (v8 + 92), &v12);
+    writeObject<unsigned char>(v10, (v8 + 96), &v12);
+    writeObject<unsigned int>(v10, (v8 + 100), &v12);
+    writeObject<unsigned int>(v10, (v8 + 104), &v12);
+    writeObject<unsigned int>(v10, (v8 + 108), &v12);
+    writeObject<unsigned int>(v10, (v8 + 112), &v12);
+    writeObject<unsigned int>(v10, (v8 + 128), &v12);
+    writeObject<unsigned char>(v10, (v8 + 120), &v12);
+    writeObject<DgnPrimArray<unsigned int>>(v10, (v8 + 148), &v12);
+    writeObject<unsigned char>(v10, (v8 + 116), &v12);
+    writeObject<unsigned int>(v10, (v8 + 124), &v12);
+    writeObject<unsigned char>(v10, (v8 + 136), &v12);
+    writeObject<unsigned char>(v10, (v8 + 140), &v12);
+    writeObject<DgnPrimArray<unsigned int>>(v10, (v8 + 144), &v12);
+    writeObject<DgnPrimArray<unsigned int>>(v10, (v8 + 152), &v12);
+    writeObject<unsigned int>(v10, (v8 + 176), &v12);
+    writeObject(v10, v8 + 180, &v12);
+    writeObject(v10, v8 + 181, &v12);
+    writeObject(v10, v8 + 183, &v12);
+    EnvMgr::saveEnvMgrToStream(*(v8 + 94), v10, &v12, 1, 0);
+    EnvMgr::saveEnvMgrToStream(*(v8 + 95), v10, &v12, 1, 0);
+    writeObjectChecksum(v10, &v12);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x59u, v15);
-    return DgnDelete<DgnStream>(v13);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 89, v12);
+    return DgnDelete<DgnStream>(v10);
   }
 
   return this;
 }
 
-uint64_t writeObject<DgnCollArray<unsigned int,WordList>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<DgnCollArray<unsigned int,WordList>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v9 = *(a2 + 8);
   result = writeObject(a1, &v9, a3);
@@ -9018,7 +9295,7 @@ uint64_t writeObject<DgnCollArray<unsigned int,WordList>>(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t writeObject<DgnPrimArray<unsigned short>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<DgnPrimArray<unsigned short>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v9 = *(a2 + 8);
   result = writeObject(a1, &v9, a3);
@@ -9039,7 +9316,7 @@ uint64_t writeObject<DgnPrimArray<unsigned short>>(uint64_t a1, uint64_t a2, _DW
   return result;
 }
 
-uint64_t writeObject<DgnPrimArray<unsigned int>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<DgnPrimArray<unsigned int>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v9 = *(a2 + 8);
   result = writeObject(a1, &v9, a3);
@@ -9065,325 +9342,545 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1143, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1143);
+  if (v324)
   {
-    v16 = v489;
+    v13 = v323;
   }
 
   else
   {
-    v16 = &unk_26287398E;
+    v13 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26287398E, a3, &unk_26287398E, v16);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26287398E, a3, &unk_26287398E, v13);
+  DgnString::~DgnString(&v323);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26287398E);
-  v21 = sizeObject<DgnCollArray<unsigned int,WordList>>(this, 0);
-  v22 = sizeObject<DgnCollArray<unsigned int,WordList>>(this, 1);
-  LOBYTE(v489) = 0;
-  *(&v489 + 2) = 0;
-  v490 = 0u;
-  v491 = 0u;
-  v492 = 0u;
-  v493 = 0;
-  v494 = 0;
-  DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::~DgnCollArray(&v489);
-  v23 = (a3 + 1);
-  v486 = a3;
-  v24 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26287398E);
+  v15 = sizeObject<DgnCollArray<unsigned int,WordList>>(this, 0);
+  v16 = sizeObject<DgnCollArray<unsigned int,WordList>>(this, 1);
+  LOBYTE(v323) = 0;
+  *(&v323 + 2) = 0;
+  v324 = 0u;
+  v325 = 0u;
+  v326 = 0u;
+  v327 = 0;
+  v328 = 0;
+  DgnCollArray<unsigned int,ParamSetIdCollCmpWithTemp>::~DgnCollArray(&v323);
+  v17 = (a3 + 1);
+  v320 = a3;
+  v18 = (34 - a3);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v29 = v489;
+    v20 = v323;
   }
 
   else
   {
-    v29 = &unk_26287398E;
+    v20 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v26, v27, v28, v23, &unk_26287398E, v24, v24, v29, v21, v22, 0);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, v17, &unk_26287398E, v18, v18, v20, v15, v16, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v15;
+  *a5 += v16;
+  v21 = sizeObject<BitArray *>(this + 16, 0);
+  v22 = sizeObject<BitArray *>(this + 16, 1);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v24 = v323;
+  }
+
+  else
+  {
+    v24 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v17, &unk_26287398E, v18, v18, v24, v21, v22, 0);
+  DgnString::~DgnString(&v323);
   *a4 += v21;
   *a5 += v22;
-  v30 = sizeObject<BitArray *>(this + 16, 0);
-  v31 = sizeObject<BitArray *>(this + 16, 1);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v36 = v489;
-  }
-
-  else
-  {
-    v36 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, v23, &unk_26287398E, v24, v24, v36, v30, v31, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v30;
-  *a5 += v31;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v37 = 12;
+    v25 = 12;
   }
 
   else
   {
-    v37 = 16;
+    v25 = 16;
   }
 
-  v38 = *(this + 10);
-  v39 = *(this + 11);
-  v40 = v39 >= v38;
-  v41 = v39 - v38;
-  if (v40)
+  v26 = *(this + 10);
+  v27 = *(this + 11);
+  v28 = v27 >= v26;
+  v29 = v27 - v26;
+  if (v28)
   {
-    if (v38 > 0)
+    if (v26 > 0)
     {
-      v42 = (v38 - 1) + v37 + 1;
+      v30 = (v26 - 1) + v25 + 1;
     }
 
     else
     {
-      v42 = v37;
+      v30 = v25;
     }
 
-    v37 = v42 + v41;
-    v38 = 0;
+    v25 = v30 + v29;
+    v26 = 0;
   }
 
   else
   {
-    v42 = v37;
+    v30 = v25;
   }
 
-  v43 = v38;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v31 = v26;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v48 = v489;
+    v33 = v323;
   }
 
   else
   {
-    v48 = &unk_26287398E;
+    v33 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v44, v45, v46, v47, v23, &unk_26287398E, v24, v24, v48, v37, v42, v43);
-  DgnString::~DgnString(&v489);
-  *a4 += v37;
-  *a5 += v42;
-  *a6 += v43;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v17, &unk_26287398E, v18, v18, v33, v25, v30, v31);
+  DgnString::~DgnString(&v323);
+  *a4 += v25;
+  *a5 += v30;
+  *a6 += v31;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v49 = 12;
+    v34 = 12;
   }
 
   else
   {
-    v49 = 16;
+    v34 = 16;
   }
 
-  v50 = *(this + 14);
-  v51 = *(this + 15);
-  if (v51 >= v50)
+  v35 = *(this + 14);
+  v36 = *(this + 15);
+  if (v36 >= v35)
   {
-    v52 = 0;
-    if (v50 > 0)
+    v37 = 0;
+    if (v35 > 0)
     {
-      v49 += 2 * (v50 - 1) + 2;
+      v34 += 2 * (v35 - 1) + 2;
     }
 
-    v53 = v49 + 2 * (v51 - v50);
+    v38 = v34 + 2 * (v36 - v35);
   }
 
   else
   {
-    v52 = 2 * v50;
-    v53 = v49;
+    v37 = 2 * v35;
+    v38 = v34;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v58 = v489;
+    v40 = v323;
   }
 
   else
   {
-    v58 = &unk_26287398E;
+    v40 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, v23, &unk_26287398E, v24, v24, v58, v53, v49, v52);
-  DgnString::~DgnString(&v489);
-  *a4 += v53;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v17, &unk_26287398E, v18, v18, v40, v38, v34, v37);
+  DgnString::~DgnString(&v323);
+  *a4 += v38;
+  *a5 += v34;
+  *a6 += v37;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v41 = 12;
+  }
+
+  else
+  {
+    v41 = 16;
+  }
+
+  v42 = *(this + 18);
+  v43 = *(this + 19);
+  if (v43 >= v42)
+  {
+    v44 = 0;
+    if (v42 > 0)
+    {
+      v41 += 4 * (v42 - 1) + 4;
+    }
+
+    v45 = v41 + 4 * (v43 - v42);
+  }
+
+  else
+  {
+    v44 = 4 * v42;
+    v45 = v41;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v47 = v323;
+  }
+
+  else
+  {
+    v47 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v17, &unk_26287398E, v18, v18, v47, v45, v41, v44);
+  DgnString::~DgnString(&v323);
+  *a4 += v45;
+  *a5 += v41;
+  *a6 += v44;
+  v48 = sizeObject<DgnPrimArray<unsigned short>>(this + 80, 0);
+  v49 = sizeObject<DgnPrimArray<unsigned short>>(this + 80, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v51 = v323;
+  }
+
+  else
+  {
+    v51 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v50, v17, &unk_26287398E, v18, v18, v51, v48, v49, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v48;
   *a5 += v49;
-  *a6 += v52;
+  v52 = sizeObject<DgnString>(this + 96, 0);
+  v53 = sizeObject<DgnString>(this + 96, 1);
+  v54 = sizeObject<DgnString>(this + 96, 3);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v56 = v323;
+  }
+
+  else
+  {
+    v56 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v55, v17, &unk_26287398E, v18, v18, v56, v52, v53, v54);
+  DgnString::~DgnString(&v323);
+  *a4 += v52;
+  *a5 += v53;
+  *a6 += v54;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v59 = 12;
+    v57 = 12;
   }
 
   else
   {
-    v59 = 16;
+    v57 = 16;
   }
 
-  v60 = *(this + 18);
-  v61 = *(this + 19);
-  if (v61 >= v60)
+  v58 = *(this + 30);
+  v59 = *(this + 31);
+  if (v59 >= v58)
   {
-    v62 = 0;
-    if (v60 > 0)
+    v60 = 0;
+    if (v58 > 0)
     {
-      v59 += 4 * (v60 - 1) + 4;
+      v57 += 4 * (v58 - 1) + 4;
     }
 
-    v63 = v59 + 4 * (v61 - v60);
+    v61 = v57 + 4 * (v59 - v58);
   }
 
   else
   {
-    v62 = 4 * v60;
-    v63 = v59;
+    v60 = 4 * v58;
+    v61 = v57;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v68 = v489;
+    v63 = v323;
   }
 
   else
   {
-    v68 = &unk_26287398E;
+    v63 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v65, v66, v67, v23, &unk_26287398E, v24, v24, v68, v63, v59, v62);
-  DgnString::~DgnString(&v489);
-  *a4 += v63;
-  *a5 += v59;
-  *a6 += v62;
-  v69 = sizeObject<DgnPrimArray<unsigned short>>(this + 80, 0);
-  v70 = sizeObject<DgnPrimArray<unsigned short>>(this + 80, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v17, &unk_26287398E, v18, v18, v63, v61, v57, v60);
+  DgnString::~DgnString(&v323);
+  *a4 += v61;
+  *a5 += v57;
+  *a6 += v60;
+  v64 = sizeObject<DgnPrimArray<unsigned int>>(this + 128, 0);
+  v65 = sizeObject<DgnPrimArray<unsigned int>>(this + 128, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v75 = v489;
+    v67 = v323;
   }
 
   else
   {
-    v75 = &unk_26287398E;
+    v67 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v71, v72, v73, v74, v23, &unk_26287398E, v24, v24, v75, v69, v70, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v69;
-  *a5 += v70;
-  v76 = sizeObject<DgnString>(this + 96, 0);
-  v77 = sizeObject<DgnString>(this + 96, 1);
-  v78 = sizeObject<DgnString>(this + 96, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v66, v17, &unk_26287398E, v18, v18, v67, v64, v65, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v64;
+  *a5 += v65;
+  v68 = sizeObject<DgnPrimArray<unsigned short>>(this + 144, 0);
+  v69 = sizeObject<DgnPrimArray<unsigned short>>(this + 144, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v83 = v489;
+    v71 = v323;
   }
 
   else
   {
-    v83 = &unk_26287398E;
+    v71 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v79, v80, v81, v82, v23, &unk_26287398E, v24, v24, v83, v76, v77, v78);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v17, &unk_26287398E, v18, v18, v71, v68, v69, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v68;
+  *a5 += v69;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v72 = 12;
+  }
+
+  else
+  {
+    v72 = 16;
+  }
+
+  v73 = *(this + 42);
+  v74 = *(this + 43);
+  if (v74 >= v73)
+  {
+    v75 = 0;
+    if (v73 > 0)
+    {
+      v72 += 2 * (v73 - 1) + 2;
+    }
+
+    v76 = v72 + 2 * (v74 - v73);
+  }
+
+  else
+  {
+    v75 = 2 * v73;
+    v76 = v72;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v78 = v323;
+  }
+
+  else
+  {
+    v78 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v77, v17, &unk_26287398E, v18, v18, v78, v76, v72, v75);
+  DgnString::~DgnString(&v323);
   *a4 += v76;
-  *a5 += v77;
-  *a6 += v78;
+  *a5 += v72;
+  *a6 += v75;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v84 = 12;
+    v79 = 12;
   }
 
   else
   {
-    v84 = 16;
+    v79 = 16;
   }
 
-  v85 = *(this + 30);
-  v86 = *(this + 31);
-  if (v86 >= v85)
+  v80 = *(this + 46);
+  v81 = *(this + 47);
+  if (v81 >= v80)
   {
-    v87 = 0;
-    if (v85 > 0)
+    v82 = 0;
+    if (v80 > 0)
     {
-      v84 += 4 * (v85 - 1) + 4;
+      v79 += 2 * (v80 - 1) + 2;
     }
 
-    v88 = v84 + 4 * (v86 - v85);
+    v83 = v79 + 2 * (v81 - v80);
   }
 
   else
   {
-    v87 = 4 * v85;
-    v88 = v84;
+    v82 = 2 * v80;
+    v83 = v79;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v93 = v489;
-  }
-
-  else
-  {
-    v93 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v89, v90, v91, v92, v23, &unk_26287398E, v24, v24, v93, v88, v84, v87);
-  DgnString::~DgnString(&v489);
-  *a4 += v88;
-  *a5 += v84;
-  *a6 += v87;
-  v94 = sizeObject<DgnPrimArray<unsigned int>>(this + 128, 0);
-  v95 = sizeObject<DgnPrimArray<unsigned int>>(this + 128, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v100 = v489;
+    v85 = v323;
   }
 
   else
   {
-    v100 = &unk_26287398E;
+    v85 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v96, v97, v98, v99, v23, &unk_26287398E, v24, v24, v100, v94, v95, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v94;
-  *a5 += v95;
-  v101 = sizeObject<DgnPrimArray<unsigned short>>(this + 144, 0);
-  v102 = sizeObject<DgnPrimArray<unsigned short>>(this + 144, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v17, &unk_26287398E, v18, v18, v85, v83, v79, v82);
+  DgnString::~DgnString(&v323);
+  *a4 += v83;
+  *a5 += v79;
+  *a6 += v82;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v107 = v489;
+    v86 = 12;
+  }
+
+  else
+  {
+    v86 = 16;
+  }
+
+  v87 = *(this + 50);
+  v88 = *(this + 51);
+  if (v88 >= v87)
+  {
+    v89 = 0;
+    if (v87 > 0)
+    {
+      v86 += 2 * (v87 - 1) + 2;
+    }
+
+    v90 = v86 + 2 * (v88 - v87);
+  }
+
+  else
+  {
+    v89 = 2 * v87;
+    v90 = v86;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v92 = v323;
+  }
+
+  else
+  {
+    v92 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v91, v17, &unk_26287398E, v18, v18, v92, v90, v86, v89);
+  DgnString::~DgnString(&v323);
+  *a4 += v90;
+  *a5 += v86;
+  *a6 += v89;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v93 = 12;
+  }
+
+  else
+  {
+    v93 = 16;
+  }
+
+  v94 = *(this + 54);
+  v95 = *(this + 55);
+  if (v95 >= v94)
+  {
+    v96 = 0;
+    if (v94 > 0)
+    {
+      v93 += 2 * (v94 - 1) + 2;
+    }
+
+    v97 = v93 + 2 * (v95 - v94);
+  }
+
+  else
+  {
+    v96 = 2 * v94;
+    v97 = v93;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v99 = v323;
+  }
+
+  else
+  {
+    v99 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v98, v17, &unk_26287398E, v18, v18, v99, v97, v93, v96);
+  DgnString::~DgnString(&v323);
+  *a4 += v97;
+  *a5 += v93;
+  *a6 += v96;
+  v100 = sizeObject<DgnPrimArray<unsigned int>>(this + 224, 0);
+  v101 = sizeObject<DgnPrimArray<unsigned int>>(this + 224, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v103 = v323;
+  }
+
+  else
+  {
+    v103 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v102, v17, &unk_26287398E, v18, v18, v103, v100, v101, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v100;
+  *a5 += v101;
+  v104 = sizeObject<DgnPrimArray<unsigned short>>(this + 240, 0);
+  v105 = sizeObject<DgnPrimArray<unsigned short>>(this + 240, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v107 = v323;
   }
 
   else
@@ -9391,588 +9888,866 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v107 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v103, v104, v105, v106, v23, &unk_26287398E, v24, v24, v107, v101, v102, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v101;
-  *a5 += v102;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v17, &unk_26287398E, v18, v18, v107, v104, v105, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v104;
+  *a5 += v105;
+  v108 = sizeObject<DgnArray<ParseToken>>(this + 256, 0);
+  v109 = sizeObject<DgnArray<ParseToken>>(this + 256, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnIArray<Utterance *>::~DgnIArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v111 = v323;
+  }
+
+  else
+  {
+    v111 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v110, v17, &unk_26287398E, v18, v18, v111, v108, v109, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v108;
+  *a5 += v109;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v108 = 12;
+    v112 = 12;
   }
 
   else
   {
-    v108 = 16;
+    v112 = 16;
   }
 
-  v109 = *(this + 42);
-  v110 = *(this + 43);
-  if (v110 >= v109)
+  v113 = *(this + 70);
+  v114 = *(this + 71);
+  if (v114 >= v113)
   {
-    v111 = 0;
-    if (v109 > 0)
+    v115 = 0;
+    if (v113 > 0)
     {
-      v108 += 2 * (v109 - 1) + 2;
+      v112 += 4 * (v113 - 1) + 4;
     }
 
-    v112 = v108 + 2 * (v110 - v109);
+    v116 = v112 + 4 * (v114 - v113);
   }
 
   else
   {
-    v111 = 2 * v109;
-    v112 = v108;
+    v115 = 4 * v113;
+    v116 = v112;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v117 = v489;
+    v118 = v323;
   }
 
   else
   {
-    v117 = &unk_26287398E;
+    v118 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v113, v114, v115, v116, v23, &unk_26287398E, v24, v24, v117, v112, v108, v111);
-  DgnString::~DgnString(&v489);
-  *a4 += v112;
-  *a5 += v108;
-  *a6 += v111;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v17, &unk_26287398E, v18, v18, v118, v116, v112, v115);
+  DgnString::~DgnString(&v323);
+  *a4 += v116;
+  *a5 += v112;
+  *a6 += v115;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v118 = 12;
+    v119 = 12;
   }
 
   else
   {
-    v118 = 16;
+    v119 = 16;
   }
 
-  v119 = *(this + 46);
-  v120 = *(this + 47);
-  if (v120 >= v119)
+  v120 = *(this + 74);
+  v121 = *(this + 75);
+  if (v121 >= v120)
   {
-    v121 = 0;
-    if (v119 > 0)
+    v122 = 0;
+    if (v120 > 0)
     {
-      v118 += 2 * (v119 - 1) + 2;
+      v119 += 4 * (v120 - 1) + 4;
     }
 
-    v122 = v118 + 2 * (v120 - v119);
+    v123 = v119 + 4 * (v121 - v120);
   }
 
   else
   {
-    v121 = 2 * v119;
-    v122 = v118;
+    v122 = 4 * v120;
+    v123 = v119;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v127 = v489;
+    v125 = v323;
   }
 
   else
   {
-    v127 = &unk_26287398E;
+    v125 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v123, v124, v125, v126, v23, &unk_26287398E, v24, v24, v127, v122, v118, v121);
-  DgnString::~DgnString(&v489);
-  *a4 += v122;
-  *a5 += v118;
-  *a6 += v121;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v124, v17, &unk_26287398E, v18, v18, v125, v123, v119, v122);
+  DgnString::~DgnString(&v323);
+  *a4 += v123;
+  *a5 += v119;
+  *a6 += v122;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v128 = 12;
+    v126 = 12;
   }
 
   else
   {
-    v128 = 16;
+    v126 = 16;
   }
 
-  v129 = *(this + 50);
-  v130 = *(this + 51);
-  if (v130 >= v129)
+  v127 = *(this + 78);
+  v128 = *(this + 79);
+  v28 = v128 >= v127;
+  v129 = v128 - v127;
+  if (v28)
   {
-    v131 = 0;
-    if (v129 > 0)
+    if (v127 > 0)
     {
-      v128 += 2 * (v129 - 1) + 2;
+      v130 = (v127 - 1) + v126 + 1;
     }
 
-    v132 = v128 + 2 * (v130 - v129);
+    else
+    {
+      v130 = v126;
+    }
+
+    v126 = v130 + v129;
+    v127 = 0;
   }
 
   else
   {
-    v131 = 2 * v129;
-    v132 = v128;
+    v130 = v126;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v131 = v127;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v137 = v489;
+    v133 = v323;
   }
 
   else
   {
-    v137 = &unk_26287398E;
+    v133 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v133, v134, v135, v136, v23, &unk_26287398E, v24, v24, v137, v132, v128, v131);
-  DgnString::~DgnString(&v489);
-  *a4 += v132;
-  *a5 += v128;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v132, v17, &unk_26287398E, v18, v18, v133, v126, v130, v131);
+  DgnString::~DgnString(&v323);
+  *a4 += v126;
+  *a5 += v130;
   *a6 += v131;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v138 = 12;
+    v134 = 12;
   }
 
   else
   {
-    v138 = 16;
+    v134 = 16;
   }
 
-  v139 = *(this + 54);
-  v140 = *(this + 55);
-  if (v140 >= v139)
+  v135 = *(this + 82);
+  v136 = *(this + 83);
+  v28 = v136 >= v135;
+  v137 = v136 - v135;
+  if (v28)
   {
-    v141 = 0;
-    if (v139 > 0)
+    if (v135 > 0)
     {
-      v138 += 2 * (v139 - 1) + 2;
+      v138 = (v135 - 1) + v134 + 1;
     }
 
-    v142 = v138 + 2 * (v140 - v139);
+    else
+    {
+      v138 = v134;
+    }
+
+    v134 = v138 + v137;
+    v135 = 0;
   }
 
   else
   {
-    v141 = 2 * v139;
-    v142 = v138;
+    v138 = v134;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v139 = v135;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v147 = v489;
+    v141 = v323;
   }
 
   else
   {
-    v147 = &unk_26287398E;
+    v141 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v143, v144, v145, v146, v23, &unk_26287398E, v24, v24, v147, v142, v138, v141);
-  DgnString::~DgnString(&v489);
-  *a4 += v142;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v140, v17, &unk_26287398E, v18, v18, v141, v134, v138, v139);
+  DgnString::~DgnString(&v323);
+  *a4 += v134;
   *a5 += v138;
-  *a6 += v141;
-  v148 = sizeObject<DgnPrimArray<unsigned int>>(this + 224, 0);
-  v149 = sizeObject<DgnPrimArray<unsigned int>>(this + 224, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v154 = v489;
-  }
-
-  else
-  {
-    v154 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v150, v151, v152, v153, v23, &unk_26287398E, v24, v24, v154, v148, v149, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v148;
-  *a5 += v149;
-  v155 = sizeObject<DgnPrimArray<unsigned short>>(this + 240, 0);
-  v156 = sizeObject<DgnPrimArray<unsigned short>>(this + 240, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v161 = v489;
-  }
-
-  else
-  {
-    v161 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v157, v158, v159, v160, v23, &unk_26287398E, v24, v24, v161, v155, v156, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v155;
-  *a5 += v156;
-  v162 = sizeObject<DgnArray<ParseToken>>(this + 256, 0);
-  v163 = sizeObject<DgnArray<ParseToken>>(this + 256, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnIArray<Utterance *>::~DgnIArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v168 = v489;
-  }
-
-  else
-  {
-    v168 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v164, v165, v166, v167, v23, &unk_26287398E, v24, v24, v168, v162, v163, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v162;
-  *a5 += v163;
+  *a6 += v139;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v169 = 12;
+    v142 = 12;
   }
 
   else
   {
-    v169 = 16;
+    v142 = 16;
   }
 
-  v170 = *(this + 70);
-  v171 = *(this + 71);
-  if (v171 >= v170)
+  v143 = *(this + 86);
+  v144 = *(this + 87);
+  v28 = v144 >= v143;
+  v145 = v144 - v143;
+  if (v28)
   {
-    v172 = 0;
-    if (v170 > 0)
+    if (v143 > 0)
     {
-      v169 += 4 * (v170 - 1) + 4;
-    }
-
-    v173 = v169 + 4 * (v171 - v170);
-  }
-
-  else
-  {
-    v172 = 4 * v170;
-    v173 = v169;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v178 = v489;
-  }
-
-  else
-  {
-    v178 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v174, v175, v176, v177, v23, &unk_26287398E, v24, v24, v178, v173, v169, v172);
-  DgnString::~DgnString(&v489);
-  *a4 += v173;
-  *a5 += v169;
-  *a6 += v172;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v179 = 12;
-  }
-
-  else
-  {
-    v179 = 16;
-  }
-
-  v180 = *(this + 74);
-  v181 = *(this + 75);
-  if (v181 >= v180)
-  {
-    v182 = 0;
-    if (v180 > 0)
-    {
-      v179 += 4 * (v180 - 1) + 4;
-    }
-
-    v183 = v179 + 4 * (v181 - v180);
-  }
-
-  else
-  {
-    v182 = 4 * v180;
-    v183 = v179;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v188 = v489;
-  }
-
-  else
-  {
-    v188 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v184, v185, v186, v187, v23, &unk_26287398E, v24, v24, v188, v183, v179, v182);
-  DgnString::~DgnString(&v489);
-  *a4 += v183;
-  *a5 += v179;
-  *a6 += v182;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v189 = 12;
-  }
-
-  else
-  {
-    v189 = 16;
-  }
-
-  v190 = *(this + 78);
-  v191 = *(this + 79);
-  v40 = v191 >= v190;
-  v192 = v191 - v190;
-  if (v40)
-  {
-    if (v190 > 0)
-    {
-      v193 = (v190 - 1) + v189 + 1;
+      v146 = (v143 - 1) + v142 + 1;
     }
 
     else
     {
-      v193 = v189;
+      v146 = v142;
     }
 
-    v189 = v193 + v192;
-    v190 = 0;
+    v142 = v146 + v145;
+    v143 = 0;
   }
 
   else
   {
-    v193 = v189;
+    v146 = v142;
   }
 
-  v194 = v190;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v147 = v143;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v199 = v489;
+    v149 = v323;
   }
 
   else
   {
-    v199 = &unk_26287398E;
+    v149 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v195, v196, v197, v198, v23, &unk_26287398E, v24, v24, v199, v189, v193, v194);
-  DgnString::~DgnString(&v489);
-  *a4 += v189;
-  *a5 += v193;
-  *a6 += v194;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v148, v17, &unk_26287398E, v18, v18, v149, v142, v146, v147);
+  DgnString::~DgnString(&v323);
+  *a4 += v142;
+  *a5 += v146;
+  *a6 += v147;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v200 = 12;
+    v150 = 12;
   }
 
   else
   {
-    v200 = 16;
+    v150 = 16;
   }
 
-  v201 = *(this + 82);
-  v202 = *(this + 83);
-  v40 = v202 >= v201;
-  v203 = v202 - v201;
-  if (v40)
+  v151 = *(this + 90);
+  v152 = *(this + 91);
+  v28 = v152 >= v151;
+  v153 = v152 - v151;
+  if (v28)
   {
-    if (v201 > 0)
+    if (v151 > 0)
     {
-      v204 = (v201 - 1) + v200 + 1;
+      v154 = (v151 - 1) + v150 + 1;
     }
 
     else
     {
-      v204 = v200;
+      v154 = v150;
     }
 
-    v200 = v204 + v203;
-    v201 = 0;
+    v150 = v154 + v153;
+    v151 = 0;
   }
 
   else
   {
-    v204 = v200;
+    v154 = v150;
   }
 
-  v205 = v201;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v155 = v151;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v210 = v489;
+    v157 = v323;
   }
 
   else
   {
-    v210 = &unk_26287398E;
+    v157 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v206, v207, v208, v209, v23, &unk_26287398E, v24, v24, v210, v200, v204, v205);
-  DgnString::~DgnString(&v489);
-  *a4 += v200;
-  *a5 += v204;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v156, v17, &unk_26287398E, v18, v18, v157, v150, v154, v155);
+  DgnString::~DgnString(&v323);
+  *a4 += v150;
+  *a5 += v154;
+  *a6 += v155;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v158 = 12;
+  }
+
+  else
+  {
+    v158 = 16;
+  }
+
+  v159 = *(this + 94);
+  v160 = *(this + 95);
+  v28 = v160 >= v159;
+  v161 = v160 - v159;
+  if (v28)
+  {
+    if (v159 > 0)
+    {
+      v162 = (v159 - 1) + v158 + 1;
+    }
+
+    else
+    {
+      v162 = v158;
+    }
+
+    v158 = v162 + v161;
+    v159 = 0;
+  }
+
+  else
+  {
+    v162 = v158;
+  }
+
+  v163 = v159;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v165 = v323;
+  }
+
+  else
+  {
+    v165 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v164, v17, &unk_26287398E, v18, v18, v165, v158, v162, v163);
+  DgnString::~DgnString(&v323);
+  *a4 += v158;
+  *a5 += v162;
+  *a6 += v163;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v166 = 12;
+  }
+
+  else
+  {
+    v166 = 16;
+  }
+
+  v167 = *(this + 98);
+  v168 = *(this + 99);
+  v28 = v168 >= v167;
+  v169 = v168 - v167;
+  if (v28)
+  {
+    if (v167 > 0)
+    {
+      v170 = (v167 - 1) + v166 + 1;
+    }
+
+    else
+    {
+      v170 = v166;
+    }
+
+    v166 = v170 + v169;
+    v167 = 0;
+  }
+
+  else
+  {
+    v170 = v166;
+  }
+
+  v171 = v167;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v173 = v323;
+  }
+
+  else
+  {
+    v173 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v172, v17, &unk_26287398E, v18, v18, v173, v166, v170, v171);
+  DgnString::~DgnString(&v323);
+  *a4 += v166;
+  *a5 += v170;
+  *a6 += v171;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v174 = 12;
+  }
+
+  else
+  {
+    v174 = 16;
+  }
+
+  v175 = *(this + 102);
+  v176 = *(this + 103);
+  if (v176 >= v175)
+  {
+    v177 = 0;
+    if (v175 > 0)
+    {
+      v174 += 4 * (v175 - 1) + 4;
+    }
+
+    v178 = v174 + 4 * (v176 - v175);
+  }
+
+  else
+  {
+    v177 = 4 * v175;
+    v178 = v174;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v180 = v323;
+  }
+
+  else
+  {
+    v180 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v179, v17, &unk_26287398E, v18, v18, v180, v178, v174, v177);
+  DgnString::~DgnString(&v323);
+  *a4 += v178;
+  *a5 += v174;
+  *a6 += v177;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v181 = 12;
+  }
+
+  else
+  {
+    v181 = 16;
+  }
+
+  v182 = *(this + 106);
+  v183 = *(this + 107);
+  if (v183 >= v182)
+  {
+    v184 = 0;
+    if (v182 > 0)
+    {
+      v181 += 4 * (v182 - 1) + 4;
+    }
+
+    v185 = v181 + 4 * (v183 - v182);
+  }
+
+  else
+  {
+    v184 = 4 * v182;
+    v185 = v181;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v187 = v323;
+  }
+
+  else
+  {
+    v187 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v186, v17, &unk_26287398E, v18, v18, v187, v185, v181, v184);
+  DgnString::~DgnString(&v323);
+  *a4 += v185;
+  *a5 += v181;
+  *a6 += v184;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v188 = 12;
+  }
+
+  else
+  {
+    v188 = 16;
+  }
+
+  v189 = *(this + 110);
+  v190 = *(this + 111);
+  if (v190 >= v189)
+  {
+    v191 = 0;
+    if (v189 > 0)
+    {
+      v188 += 4 * (v189 - 1) + 4;
+    }
+
+    v192 = v188 + 4 * (v190 - v189);
+  }
+
+  else
+  {
+    v191 = 4 * v189;
+    v192 = v188;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v194 = v323;
+  }
+
+  else
+  {
+    v194 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v193, v17, &unk_26287398E, v18, v18, v194, v192, v188, v191);
+  DgnString::~DgnString(&v323);
+  *a4 += v192;
+  *a5 += v188;
+  *a6 += v191;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v195 = 12;
+  }
+
+  else
+  {
+    v195 = 16;
+  }
+
+  v196 = *(this + 114);
+  v197 = *(this + 115);
+  if (v197 >= v196)
+  {
+    v198 = 0;
+    if (v196 > 0)
+    {
+      v195 += 4 * (v196 - 1) + 4;
+    }
+
+    v199 = v195 + 4 * (v197 - v196);
+  }
+
+  else
+  {
+    v198 = 4 * v196;
+    v199 = v195;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v201 = v323;
+  }
+
+  else
+  {
+    v201 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v200, v17, &unk_26287398E, v18, v18, v201, v199, v195, v198);
+  DgnString::~DgnString(&v323);
+  *a4 += v199;
+  *a5 += v195;
+  *a6 += v198;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v202 = 12;
+  }
+
+  else
+  {
+    v202 = 16;
+  }
+
+  v203 = *(this + 130);
+  v204 = *(this + 131);
+  if (v204 >= v203)
+  {
+    v205 = 0;
+    if (v203 > 0)
+    {
+      v202 += 4 * (v203 - 1) + 4;
+    }
+
+    v206 = v202 + 4 * (v204 - v203);
+  }
+
+  else
+  {
+    v205 = 4 * v203;
+    v206 = v202;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v208 = v323;
+  }
+
+  else
+  {
+    v208 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v207, v17, &unk_26287398E, v18, v18, v208, v206, v202, v205);
+  DgnString::~DgnString(&v323);
+  *a4 += v206;
+  *a5 += v202;
   *a6 += v205;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v211 = 12;
+    v209 = 12;
   }
 
   else
   {
-    v211 = 16;
+    v209 = 16;
   }
 
-  v212 = *(this + 86);
-  v213 = *(this + 87);
-  v40 = v213 >= v212;
-  v214 = v213 - v212;
-  if (v40)
+  v210 = *(this + 122);
+  v211 = *(this + 123);
+  v28 = v211 >= v210;
+  v212 = v211 - v210;
+  if (v28)
   {
-    if (v212 > 0)
+    if (v210 > 0)
     {
-      v215 = (v212 - 1) + v211 + 1;
+      v213 = (v210 - 1) + v209 + 1;
     }
 
     else
     {
-      v215 = v211;
+      v213 = v209;
     }
 
-    v211 = v215 + v214;
-    v212 = 0;
+    v209 = v213 + v212;
+    v210 = 0;
   }
 
   else
   {
-    v215 = v211;
+    v213 = v209;
   }
 
-  v216 = v212;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v214 = v210;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v221 = v489;
+    v216 = v323;
   }
 
   else
   {
-    v221 = &unk_26287398E;
+    v216 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v217, v218, v219, v220, v23, &unk_26287398E, v24, v24, v221, v211, v215, v216);
-  DgnString::~DgnString(&v489);
-  *a4 += v211;
-  *a5 += v215;
-  *a6 += v216;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v215, v17, &unk_26287398E, v18, v18, v216, v209, v213, v214);
+  DgnString::~DgnString(&v323);
+  *a4 += v209;
+  *a5 += v213;
+  *a6 += v214;
+  v217 = sizeObject<DgnPrimArray<unsigned int>>(this + 592, 0);
+  v218 = sizeObject<DgnPrimArray<unsigned int>>(this + 592, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v220 = v323;
+  }
+
+  else
+  {
+    v220 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v219, v17, &unk_26287398E, v18, v18, v220, v217, v218, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v217;
+  *a5 += v218;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v222 = 12;
+    v221 = 12;
   }
 
   else
   {
-    v222 = 16;
+    v221 = 16;
   }
 
-  v223 = *(this + 90);
-  v224 = *(this + 91);
-  v40 = v224 >= v223;
-  v225 = v224 - v223;
-  if (v40)
+  v222 = *(this + 118);
+  v223 = *(this + 119);
+  v28 = v223 >= v222;
+  v224 = v223 - v222;
+  if (v28)
   {
-    if (v223 > 0)
+    if (v222 > 0)
     {
-      v226 = (v223 - 1) + v222 + 1;
+      v225 = (v222 - 1) + v221 + 1;
     }
 
     else
     {
-      v226 = v222;
+      v225 = v221;
     }
 
-    v222 = v226 + v225;
-    v223 = 0;
+    v221 = v225 + v224;
+    v222 = 0;
   }
 
   else
   {
-    v226 = v222;
+    v225 = v221;
   }
 
-  v227 = v223;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v226 = v222;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v232 = v489;
+    v228 = v323;
   }
 
   else
   {
-    v232 = &unk_26287398E;
+    v228 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v228, v229, v230, v231, v23, &unk_26287398E, v24, v24, v232, v222, v226, v227);
-  DgnString::~DgnString(&v489);
-  *a4 += v222;
-  *a5 += v226;
-  *a6 += v227;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v227, v17, &unk_26287398E, v18, v18, v228, v221, v225, v226);
+  DgnString::~DgnString(&v323);
+  *a4 += v221;
+  *a5 += v225;
+  *a6 += v226;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v233 = 12;
+    v229 = 12;
   }
 
   else
   {
-    v233 = 16;
+    v229 = 16;
   }
 
-  v234 = *(this + 94);
-  v235 = *(this + 95);
-  v40 = v235 >= v234;
-  v236 = v235 - v234;
-  if (v40)
+  v230 = *(this + 126);
+  v231 = *(this + 127);
+  if (v231 >= v230)
   {
-    if (v234 > 0)
+    v232 = 0;
+    if (v230 > 0)
     {
-      v237 = (v234 - 1) + v233 + 1;
+      v229 += 4 * (v230 - 1) + 4;
+    }
+
+    v233 = v229 + 4 * (v231 - v230);
+  }
+
+  else
+  {
+    v232 = 4 * v230;
+    v233 = v229;
+  }
+
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v235 = v323;
+  }
+
+  else
+  {
+    v235 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v234, v17, &unk_26287398E, v18, v18, v235, v233, v229, v232);
+  DgnString::~DgnString(&v323);
+  *a4 += v233;
+  *a5 += v229;
+  *a6 += v232;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v236 = 12;
+  }
+
+  else
+  {
+    v236 = 16;
+  }
+
+  v237 = *(this + 138);
+  v238 = *(this + 139);
+  v28 = v238 >= v237;
+  v239 = v238 - v237;
+  if (v28)
+  {
+    if (v237 > 0)
+    {
+      v240 = (v237 - 1) + v236 + 1;
     }
 
     else
     {
-      v237 = v233;
+      v240 = v236;
     }
 
-    v233 = v237 + v236;
-    v234 = 0;
+    v236 = v240 + v239;
+    v237 = 0;
   }
 
   else
   {
-    v237 = v233;
+    v240 = v236;
   }
 
-  v238 = v234;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v241 = v237;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v243 = v489;
+    v243 = v323;
   }
 
   else
@@ -9980,11 +10755,11 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v243 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v239, v240, v241, v242, v23, &unk_26287398E, v24, v24, v243, v233, v237, v238);
-  DgnString::~DgnString(&v489);
-  *a4 += v233;
-  *a5 += v237;
-  *a6 += v238;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v242, v17, &unk_26287398E, v18, v18, v243, v236, v240, v241);
+  DgnString::~DgnString(&v323);
+  *a4 += v236;
+  *a5 += v240;
+  *a6 += v241;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
     v244 = 12;
@@ -9995,11 +10770,11 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v244 = 16;
   }
 
-  v245 = *(this + 98);
-  v246 = *(this + 99);
-  v40 = v246 >= v245;
+  v245 = *(this + 142);
+  v246 = *(this + 143);
+  v28 = v246 >= v245;
   v247 = v246 - v245;
-  if (v40)
+  if (v28)
   {
     if (v245 > 0)
     {
@@ -10021,100 +10796,147 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
   }
 
   v249 = v245;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v254 = v489;
+    v251 = v323;
   }
 
   else
   {
-    v254 = &unk_26287398E;
+    v251 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v250, v251, v252, v253, v23, &unk_26287398E, v24, v24, v254, v244, v248, v249);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v250, v17, &unk_26287398E, v18, v18, v251, v244, v248, v249);
+  DgnString::~DgnString(&v323);
   *a4 += v244;
   *a5 += v248;
   *a6 += v249;
+  v252 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 0);
+  v253 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v255 = v323;
+  }
+
+  else
+  {
+    v255 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v254, v17, &unk_26287398E, v18, v18, v255, v252, v253, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v252;
+  *a5 += v253;
+  v256 = sizeObject<DgnPrimArray<unsigned int>>(this + 608, 0);
+  v257 = sizeObject<DgnPrimArray<unsigned int>>(this + 608, 1);
+  v323 = 0;
+  *&v324 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v323);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v259 = v323;
+  }
+
+  else
+  {
+    v259 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v258, v17, &unk_26287398E, v18, v18, v259, v256, v257, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v256;
+  *a5 += v257;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v255 = 12;
+    v260 = 12;
   }
 
   else
   {
-    v255 = 16;
+    v260 = 16;
   }
 
-  v256 = *(this + 102);
-  v257 = *(this + 103);
-  if (v257 >= v256)
+  v261 = *(this + 158);
+  v262 = *(this + 159);
+  v28 = v262 >= v261;
+  v263 = v262 - v261;
+  if (v28)
   {
-    v258 = 0;
-    if (v256 > 0)
+    if (v261 > 0)
     {
-      v255 += 4 * (v256 - 1) + 4;
+      v264 = (v261 - 1) + v260 + 1;
     }
 
-    v259 = v255 + 4 * (v257 - v256);
+    else
+    {
+      v264 = v260;
+    }
+
+    v260 = v264 + v263;
+    v261 = 0;
   }
 
   else
   {
-    v258 = 4 * v256;
-    v259 = v255;
+    v264 = v260;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  v265 = v261;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v264 = v489;
+    v267 = v323;
   }
 
   else
   {
-    v264 = &unk_26287398E;
+    v267 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v260, v261, v262, v263, v23, &unk_26287398E, v24, v24, v264, v259, v255, v258);
-  DgnString::~DgnString(&v489);
-  *a4 += v259;
-  *a5 += v255;
-  *a6 += v258;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v266, v17, &unk_26287398E, v18, v18, v267, v260, v264, v265);
+  DgnString::~DgnString(&v323);
+  *a4 += v260;
+  *a5 += v264;
+  *a6 += v265;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v265 = 12;
+    v268 = 12;
   }
 
   else
   {
-    v265 = 16;
+    v268 = 16;
   }
 
-  v266 = *(this + 106);
-  v267 = *(this + 107);
-  if (v267 >= v266)
+  v269 = *(this + 162);
+  v270 = *(this + 163);
+  if (v270 >= v269)
   {
-    v268 = 0;
-    if (v266 > 0)
+    v271 = 0;
+    if (v269 > 0)
     {
-      v265 += 4 * (v266 - 1) + 4;
+      v268 += 4 * (v269 - 1) + 4;
     }
 
-    v269 = v265 + 4 * (v267 - v266);
+    v272 = v268 + 4 * (v270 - v269);
   }
 
   else
   {
-    v268 = 4 * v266;
-    v269 = v265;
+    v271 = 4 * v269;
+    v272 = v268;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v274 = v489;
+    v274 = v323;
   }
 
   else
@@ -10122,89 +10944,124 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v274 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v270, v271, v272, v273, v23, &unk_26287398E, v24, v24, v274, v269, v265, v268);
-  DgnString::~DgnString(&v489);
-  *a4 += v269;
-  *a5 += v265;
-  *a6 += v268;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v273, v17, &unk_26287398E, v18, v18, v274, v272, v268, v271);
+  DgnString::~DgnString(&v323);
+  *a4 += v272;
+  *a5 += v268;
+  *a6 += v271;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v276 = v323;
+  }
+
+  else
+  {
+    v276 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v275, v17, &unk_26287398E, v18, v18, v276, 1, 1, 0);
+  DgnString::~DgnString(&v323);
+  ++*a4;
+  ++*a5;
+  v277 = sizeObject<PhnIndexSet>(this + 664, 0);
+  v278 = sizeObject<PhnIndexSet>(this + 664, 1);
+  v279 = sizeObject<PhnIndexSet>(this + 664, 3);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v281 = v323;
+  }
+
+  else
+  {
+    v281 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v280, v17, &unk_26287398E, v18, v18, v281, v277, v278, v279);
+  DgnString::~DgnString(&v323);
+  *a4 += v277;
+  *a5 += v278;
+  *a6 += v279;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v275 = 12;
+    v282 = 12;
   }
 
   else
   {
-    v275 = 16;
+    v282 = 16;
   }
 
-  v276 = *(this + 110);
-  v277 = *(this + 111);
-  if (v277 >= v276)
+  v283 = *(this + 178);
+  v284 = *(this + 179);
+  if (v284 >= v283)
   {
-    v278 = 0;
-    if (v276 > 0)
+    v285 = 0;
+    if (v283 > 0)
     {
-      v275 += 4 * (v276 - 1) + 4;
+      v282 += 4 * (v283 - 1) + 4;
     }
 
-    v279 = v275 + 4 * (v277 - v276);
+    v286 = v282 + 4 * (v284 - v283);
   }
 
   else
   {
-    v278 = 4 * v276;
-    v279 = v275;
+    v285 = 4 * v283;
+    v286 = v282;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v284 = v489;
-  }
-
-  else
-  {
-    v284 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v280, v281, v282, v283, v23, &unk_26287398E, v24, v24, v284, v279, v275, v278);
-  DgnString::~DgnString(&v489);
-  *a4 += v279;
-  *a5 += v275;
-  *a6 += v278;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v285 = 12;
+    v288 = v323;
   }
 
   else
   {
-    v285 = 16;
+    v288 = &unk_26287398E;
   }
 
-  v286 = *(this + 114);
-  v287 = *(this + 115);
-  if (v287 >= v286)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v287, v17, &unk_26287398E, v18, v18, v288, v286, v282, v285);
+  DgnString::~DgnString(&v323);
+  *a4 += v286;
+  *a5 += v282;
+  *a6 += v285;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v288 = 0;
-    if (v286 > 0)
-    {
-      v285 += 4 * (v286 - 1) + 4;
-    }
-
-    v289 = v285 + 4 * (v287 - v286);
+    v290 = v323;
   }
 
   else
   {
-    v288 = 4 * v286;
-    v289 = v285;
+    v290 = &unk_26287398E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v289, v17, &unk_26287398E, v18, v18, v290, 4, 4, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v294 = v489;
+    v292 = v323;
+  }
+
+  else
+  {
+    v292 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v291, v17, &unk_26287398E, v18, v18, v292, 4, 4, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
+  {
+    v294 = v323;
   }
 
   else
@@ -10212,786 +11069,205 @@ void StateMgr::printSize(StateMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4
     v294 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v290, v291, v292, v293, v23, &unk_26287398E, v24, v24, v294, v289, v285, v288);
-  DgnString::~DgnString(&v489);
-  *a4 += v289;
-  *a5 += v285;
-  *a6 += v288;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v295 = 12;
-  }
-
-  else
-  {
-    v295 = 16;
-  }
-
-  v296 = *(this + 130);
-  v297 = *(this + 131);
-  if (v297 >= v296)
-  {
-    v298 = 0;
-    if (v296 > 0)
-    {
-      v295 += 4 * (v296 - 1) + 4;
-    }
-
-    v299 = v295 + 4 * (v297 - v296);
-  }
-
-  else
-  {
-    v298 = 4 * v296;
-    v299 = v295;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v304 = v489;
-  }
-
-  else
-  {
-    v304 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v300, v301, v302, v303, v23, &unk_26287398E, v24, v24, v304, v299, v295, v298);
-  DgnString::~DgnString(&v489);
-  *a4 += v299;
-  *a5 += v295;
-  *a6 += v298;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v305 = 12;
-  }
-
-  else
-  {
-    v305 = 16;
-  }
-
-  v306 = *(this + 122);
-  v307 = *(this + 123);
-  v40 = v307 >= v306;
-  v308 = v307 - v306;
-  if (v40)
-  {
-    if (v306 > 0)
-    {
-      v309 = (v306 - 1) + v305 + 1;
-    }
-
-    else
-    {
-      v309 = v305;
-    }
-
-    v305 = v309 + v308;
-    v306 = 0;
-  }
-
-  else
-  {
-    v309 = v305;
-  }
-
-  v310 = v306;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v315 = v489;
-  }
-
-  else
-  {
-    v315 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v311, v312, v313, v314, v23, &unk_26287398E, v24, v24, v315, v305, v309, v310);
-  DgnString::~DgnString(&v489);
-  *a4 += v305;
-  *a5 += v309;
-  *a6 += v310;
-  v316 = sizeObject<DgnPrimArray<unsigned int>>(this + 592, 0);
-  v317 = sizeObject<DgnPrimArray<unsigned int>>(this + 592, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v322 = v489;
-  }
-
-  else
-  {
-    v322 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v318, v319, v320, v321, v23, &unk_26287398E, v24, v24, v322, v316, v317, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v316;
-  *a5 += v317;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v323 = 12;
-  }
-
-  else
-  {
-    v323 = 16;
-  }
-
-  v324 = *(this + 118);
-  v325 = *(this + 119);
-  v40 = v325 >= v324;
-  v326 = v325 - v324;
-  if (v40)
-  {
-    if (v324 > 0)
-    {
-      v327 = (v324 - 1) + v323 + 1;
-    }
-
-    else
-    {
-      v327 = v323;
-    }
-
-    v323 = v327 + v326;
-    v324 = 0;
-  }
-
-  else
-  {
-    v327 = v323;
-  }
-
-  v328 = v324;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v333 = v489;
-  }
-
-  else
-  {
-    v333 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v329, v330, v331, v332, v23, &unk_26287398E, v24, v24, v333, v323, v327, v328);
-  DgnString::~DgnString(&v489);
-  *a4 += v323;
-  *a5 += v327;
-  *a6 += v328;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v334 = 12;
-  }
-
-  else
-  {
-    v334 = 16;
-  }
-
-  v335 = *(this + 126);
-  v336 = *(this + 127);
-  if (v336 >= v335)
-  {
-    v337 = 0;
-    if (v335 > 0)
-    {
-      v334 += 4 * (v335 - 1) + 4;
-    }
-
-    v338 = v334 + 4 * (v336 - v335);
-  }
-
-  else
-  {
-    v337 = 4 * v335;
-    v338 = v334;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v343 = v489;
-  }
-
-  else
-  {
-    v343 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v339, v340, v341, v342, v23, &unk_26287398E, v24, v24, v343, v338, v334, v337);
-  DgnString::~DgnString(&v489);
-  *a4 += v338;
-  *a5 += v334;
-  *a6 += v337;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v344 = 12;
-  }
-
-  else
-  {
-    v344 = 16;
-  }
-
-  v345 = *(this + 138);
-  v346 = *(this + 139);
-  v40 = v346 >= v345;
-  v347 = v346 - v345;
-  if (v40)
-  {
-    if (v345 > 0)
-    {
-      v348 = (v345 - 1) + v344 + 1;
-    }
-
-    else
-    {
-      v348 = v344;
-    }
-
-    v344 = v348 + v347;
-    v345 = 0;
-  }
-
-  else
-  {
-    v348 = v344;
-  }
-
-  v349 = v345;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v354 = v489;
-  }
-
-  else
-  {
-    v354 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v350, v351, v352, v353, v23, &unk_26287398E, v24, v24, v354, v344, v348, v349);
-  DgnString::~DgnString(&v489);
-  *a4 += v344;
-  *a5 += v348;
-  *a6 += v349;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v355 = 12;
-  }
-
-  else
-  {
-    v355 = 16;
-  }
-
-  v356 = *(this + 142);
-  v357 = *(this + 143);
-  v40 = v357 >= v356;
-  v358 = v357 - v356;
-  if (v40)
-  {
-    if (v356 > 0)
-    {
-      v359 = (v356 - 1) + v355 + 1;
-    }
-
-    else
-    {
-      v359 = v355;
-    }
-
-    v355 = v359 + v358;
-    v356 = 0;
-  }
-
-  else
-  {
-    v359 = v355;
-  }
-
-  v360 = v356;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v365 = v489;
-  }
-
-  else
-  {
-    v365 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v361, v362, v363, v364, v23, &unk_26287398E, v24, v24, v365, v355, v359, v360);
-  DgnString::~DgnString(&v489);
-  *a4 += v355;
-  *a5 += v359;
-  *a6 += v360;
-  v366 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 0);
-  v367 = sizeObject<DgnPrimArray<unsigned int>>(this + 576, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v372 = v489;
-  }
-
-  else
-  {
-    v372 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v368, v369, v370, v371, v23, &unk_26287398E, v24, v24, v372, v366, v367, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v366;
-  *a5 += v367;
-  v373 = sizeObject<DgnPrimArray<unsigned int>>(this + 608, 0);
-  v374 = sizeObject<DgnPrimArray<unsigned int>>(this + 608, 1);
-  v489 = 0;
-  *&v490 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v489);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v379 = v489;
-  }
-
-  else
-  {
-    v379 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v375, v376, v377, v378, v23, &unk_26287398E, v24, v24, v379, v373, v374, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v373;
-  *a5 += v374;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v380 = 12;
-  }
-
-  else
-  {
-    v380 = 16;
-  }
-
-  v381 = *(this + 158);
-  v382 = *(this + 159);
-  v40 = v382 >= v381;
-  v383 = v382 - v381;
-  if (v40)
-  {
-    if (v381 > 0)
-    {
-      v384 = (v381 - 1) + v380 + 1;
-    }
-
-    else
-    {
-      v384 = v380;
-    }
-
-    v380 = v384 + v383;
-    v381 = 0;
-  }
-
-  else
-  {
-    v384 = v380;
-  }
-
-  v385 = v381;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v390 = v489;
-  }
-
-  else
-  {
-    v390 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v386, v387, v388, v389, v23, &unk_26287398E, v24, v24, v390, v380, v384, v385);
-  DgnString::~DgnString(&v489);
-  *a4 += v380;
-  *a5 += v384;
-  *a6 += v385;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v391 = 12;
-  }
-
-  else
-  {
-    v391 = 16;
-  }
-
-  v392 = *(this + 162);
-  v393 = *(this + 163);
-  if (v393 >= v392)
-  {
-    v394 = 0;
-    if (v392 > 0)
-    {
-      v391 += 4 * (v392 - 1) + 4;
-    }
-
-    v395 = v391 + 4 * (v393 - v392);
-  }
-
-  else
-  {
-    v394 = 4 * v392;
-    v395 = v391;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v400 = v489;
-  }
-
-  else
-  {
-    v400 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v396, v397, v398, v399, v23, &unk_26287398E, v24, v24, v400, v395, v391, v394);
-  DgnString::~DgnString(&v489);
-  *a4 += v395;
-  *a5 += v391;
-  *a6 += v394;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v405 = v489;
-  }
-
-  else
-  {
-    v405 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v401, v402, v403, v404, v23, &unk_26287398E, v24, v24, v405, 1, 1, 0);
-  DgnString::~DgnString(&v489);
-  ++*a4;
-  ++*a5;
-  v406 = sizeObject<PhnIndexSet>(this + 664, 0);
-  v407 = sizeObject<PhnIndexSet>(this + 664, 1);
-  v408 = sizeObject<PhnIndexSet>(this + 664, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v413 = v489;
-  }
-
-  else
-  {
-    v413 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v409, v410, v411, v412, v23, &unk_26287398E, v24, v24, v413, v406, v407, v408);
-  DgnString::~DgnString(&v489);
-  *a4 += v406;
-  *a5 += v407;
-  *a6 += v408;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v414 = 12;
-  }
-
-  else
-  {
-    v414 = 16;
-  }
-
-  v415 = *(this + 178);
-  v416 = *(this + 179);
-  if (v416 >= v415)
-  {
-    v417 = 0;
-    if (v415 > 0)
-    {
-      v414 += 4 * (v415 - 1) + 4;
-    }
-
-    v418 = v414 + 4 * (v416 - v415);
-  }
-
-  else
-  {
-    v417 = 4 * v415;
-    v418 = v414;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v423 = v489;
-  }
-
-  else
-  {
-    v423 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v419, v420, v421, v422, v23, &unk_26287398E, v24, v24, v423, v418, v414, v417);
-  DgnString::~DgnString(&v489);
-  *a4 += v418;
-  *a5 += v414;
-  *a6 += v417;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v428 = v489;
-  }
-
-  else
-  {
-    v428 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v424, v425, v426, v427, v23, &unk_26287398E, v24, v24, v428, 4, 4, 0);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v293, v17, &unk_26287398E, v18, v18, v294, 4, 4, 0);
+  DgnString::~DgnString(&v323);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v433 = v489;
+    v296 = v323;
   }
 
   else
   {
-    v433 = &unk_26287398E;
+    v296 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v429, v430, v431, v432, v23, &unk_26287398E, v24, v24, v433, 4, 4, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v438 = v489;
-  }
-
-  else
-  {
-    v438 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v434, v435, v436, v437, v23, &unk_26287398E, v24, v24, v438, 4, 4, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
-  {
-    v443 = v489;
-  }
-
-  else
-  {
-    v443 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v439, v440, v441, v442, v23, &unk_26287398E, v24, v24, v443, 4, 4, 0);
-  DgnString::~DgnString(&v489);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v295, v17, &unk_26287398E, v18, v18, v296, 4, 4, 0);
+  DgnString::~DgnString(&v323);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v444 = 12;
+    v297 = 12;
   }
 
   else
   {
-    v444 = 16;
+    v297 = 16;
   }
 
-  v445 = *(this + 134);
-  v446 = *(this + 135);
-  if (v446 >= v445)
+  v298 = *(this + 134);
+  v299 = *(this + 135);
+  if (v299 >= v298)
   {
-    v447 = 0;
-    if (v445 > 0)
+    v300 = 0;
+    if (v298 > 0)
     {
-      v444 += 2 * (v445 - 1) + 2;
+      v297 += 2 * (v298 - 1) + 2;
     }
 
-    v448 = v444 + 2 * (v446 - v445);
+    v301 = v297 + 2 * (v299 - v298);
   }
 
   else
   {
-    v447 = 2 * v445;
-    v448 = v444;
+    v300 = 2 * v298;
+    v301 = v297;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1145);
+  if (v324)
   {
-    v453 = v489;
+    v303 = v323;
   }
 
   else
   {
-    v453 = &unk_26287398E;
+    v303 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v449, v450, v451, v452, v23, &unk_26287398E, v24, v24, v453, v448, v444, v447);
-  DgnString::~DgnString(&v489);
-  *a4 += v448;
-  *a5 += v444;
-  *a6 += v447;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v302, v17, &unk_26287398E, v18, v18, v303, v301, v297, v300);
+  DgnString::~DgnString(&v323);
+  *a4 += v301;
+  *a5 += v297;
+  *a6 += v300;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v454 = 4;
+    v304 = 4;
   }
 
   else
   {
-    v454 = 8;
+    v304 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1146, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1146);
+  if (v324)
   {
-    v459 = v489;
+    v306 = v323;
   }
 
   else
   {
-    v459 = &unk_26287398E;
+    v306 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v455, v456, v457, v458, v23, &unk_26287398E, v24, v24, v459, v454, v454, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v454;
-  *a5 += v454;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v305, v17, &unk_26287398E, v18, v18, v306, v304, v304, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v304;
+  *a5 += v304;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v460 = 4;
+    v307 = 4;
   }
 
   else
   {
-    v460 = 8;
+    v307 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1147, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1147);
+  if (v324)
   {
-    v465 = v489;
-  }
-
-  else
-  {
-    v465 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v461, v462, v463, v464, v23, &unk_26287398E, v24, v24, v465, v460, v460, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v460;
-  *a5 += v460;
-  v466 = *(this + 94);
-  if (v466)
-  {
-    v488 = 0;
-    v489 = 0;
-    v487 = 0;
-    EnvMgr::printSize(v466, 0xFFFFFFFFLL, v23, &v489, &v488, &v487);
-    *a4 += v489;
-    *a5 += v488;
-    *a6 += v487;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v467 = 4;
+    v309 = v323;
   }
 
   else
   {
-    v467 = 8;
+    v309 = &unk_26287398E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1149, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v308, v17, &unk_26287398E, v18, v18, v309, v307, v307, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v307;
+  *a5 += v307;
+  v310 = *(this + 94);
+  if (v310)
   {
-    v472 = v489;
-  }
-
-  else
-  {
-    v472 = &unk_26287398E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v468, v469, v470, v471, v23, &unk_26287398E, v24, v24, v472, v467, v467, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v467;
-  *a5 += v467;
-  v473 = *(this + 95);
-  if (v473)
-  {
-    v488 = 0;
-    v489 = 0;
-    v487 = 0;
-    EnvMgr::printSize(v473, 0xFFFFFFFFLL, v23, &v489, &v488, &v487);
-    *a4 += v489;
-    *a5 += v488;
-    *a6 += v487;
+    v322 = 0;
+    v323 = 0;
+    v321 = 0;
+    EnvMgr::printSize(v310, 0xFFFFFFFFLL, v17, &v323, &v322, &v321);
+    *a4 += v323;
+    *a5 += v322;
+    *a6 += v321;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v474 = 4;
+    v311 = 4;
   }
 
   else
   {
-    v474 = 8;
+    v311 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1151, &v489);
-  if (v490)
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1149);
+  if (v324)
   {
-    v479 = v489;
+    v313 = v323;
   }
 
   else
   {
-    v479 = &unk_26287398E;
+    v313 = &unk_26287398E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v475, v476, v477, v478, v23, &unk_26287398E, v24, v24, v479, v474, v474, 0);
-  DgnString::~DgnString(&v489);
-  *a4 += v474;
-  *a5 += v474;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1152, &v489);
-  if (v490)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v312, v17, &unk_26287398E, v18, v18, v313, v311, v311, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v311;
+  *a5 += v311;
+  v314 = *(this + 95);
+  if (v314)
   {
-    v484 = v489;
+    v322 = 0;
+    v323 = 0;
+    v321 = 0;
+    EnvMgr::printSize(v314, 0xFFFFFFFFLL, v17, &v323, &v322, &v321);
+    *a4 += v323;
+    *a5 += v322;
+    *a6 += v321;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v315 = 4;
   }
 
   else
   {
-    v484 = &unk_26287398E;
+    v315 = 8;
   }
 
-  v485 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v480, v481, v482, v483, v486, &unk_26287398E, (35 - v486), (35 - v486), v484, *a4, *a5, *a6);
-  DgnString::~DgnString(&v489);
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1151);
+  if (v324)
+  {
+    v317 = v323;
+  }
+
+  else
+  {
+    v317 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v316, v17, &unk_26287398E, v18, v18, v317, v315, v315, 0);
+  DgnString::~DgnString(&v323);
+  *a4 += v315;
+  *a5 += v315;
+  getShipObjectSizeDescription(&v323, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/statemgr.cpp", 1152);
+  if (v324)
+  {
+    v319 = v323;
+  }
+
+  else
+  {
+    v319 = &unk_26287398E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v318, v320, &unk_26287398E, (35 - v320), (35 - v320), v319, *a4, *a5, *a6);
+  DgnString::~DgnString(&v323);
 }

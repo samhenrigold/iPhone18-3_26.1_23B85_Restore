@@ -1,6 +1,7 @@
 @interface PHHandsetDialerLCDViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)hasText;
+- (PHHandsetDialerLCDViewAccessibility)initWithFrame:(CGRect)frame forDialerType:(int)type appType:(int64_t)appType enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search;
 - (id)_accessibilitySubviews;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axUpdateContactResultButton;
@@ -9,6 +10,8 @@
 - (void)deleteCharacter;
 - (void)insertText:(id)text;
 - (void)setSenderIdentity:(id)identity;
+- (void)setText:(id)text needsFormat:(BOOL)format;
+- (void)updateAddAndDeleteButtonForText:(id)text name:(id)name animated:(BOOL)animated;
 - (void)updateContactResultButtons;
 @end
 
@@ -25,6 +28,16 @@
   [validationsCopy validateClass:@"PHHandsetDialerLCDView" hasInstanceMethod:@"setSenderIdentity:" withFullSignature:{"v", "@", 0}];
   [validationsCopy validateClass:@"TUSenderIdentity"];
   [validationsCopy validateClass:@"TUSenderIdentity" hasInstanceMethod:@"localizedName" withFullSignature:{"@", 0}];
+}
+
+- (PHHandsetDialerLCDViewAccessibility)initWithFrame:(CGRect)frame forDialerType:(int)type appType:(int64_t)appType enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search
+{
+  v9.receiver = self;
+  v9.super_class = PHHandsetDialerLCDViewAccessibility;
+  v7 = [(PHHandsetDialerLCDViewAccessibility *)&v9 initWithFrame:*&type forDialerType:appType appType:dialer enableSmartDialer:search enableSmartDialerExpandedSearch:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  [(PHHandsetDialerLCDViewAccessibility *)v7 _accessibilityLoadAccessibilityInformation];
+
+  return v7;
 }
 
 - (void)dealloc
@@ -208,6 +221,30 @@ LABEL_7:
 LABEL_10:
 }
 
+- (void)setText:(id)text needsFormat:(BOOL)format
+{
+  formatCopy = format;
+  textCopy = text;
+  v7 = [(PHHandsetDialerLCDViewAccessibility *)self safeValueForKey:@"text"];
+  v8 = UIUnformattedPhoneNumberFromString();
+
+  v14.receiver = self;
+  v14.super_class = PHHandsetDialerLCDViewAccessibility;
+  [(PHHandsetDialerLCDViewAccessibility *)&v14 setText:textCopy needsFormat:formatCopy];
+
+  v9 = [(PHHandsetDialerLCDViewAccessibility *)self safeValueForKey:@"text"];
+  v10 = UIUnformattedPhoneNumberFromString();
+
+  v11 = [v8 length];
+  if (v11 < [v10 length])
+  {
+    v12 = [v10 substringFromIndex:{objc_msgSend(v8, "length")}];
+    v13 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v12];
+    [v13 setAttribute:*MEMORY[0x29EDB8F00] forKey:*MEMORY[0x29EDBDA18]];
+    UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v13);
+  }
+}
+
 - (void)deleteCharacter
 {
   v3 = [(PHHandsetDialerLCDViewAccessibility *)self safeValueForKey:@"text"];
@@ -228,6 +265,33 @@ LABEL_10:
     [v9 setAttribute:&unk_2A213A188 forKey:*MEMORY[0x29EDBD860]];
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v9);
   }
+}
+
+- (void)updateAddAndDeleteButtonForText:(id)text name:(id)name animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  textCopy = text;
+  nameCopy = name;
+  v14.receiver = self;
+  v14.super_class = PHHandsetDialerLCDViewAccessibility;
+  [(PHHandsetDialerLCDViewAccessibility *)&v14 updateAddAndDeleteButtonForText:textCopy name:nameCopy animated:animatedCopy];
+  if ([textCopy length])
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    objc_opt_class();
+    v11 = __UIAccessibilityCastAsClass();
+    superview = [v11 superview];
+
+    objc_opt_class();
+    v13 = __UIAccessibilityCastAsClass();
+    v10 = [v13 safeValueForKey:@"phonePadView"];
+  }
+
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v10);
 }
 
 - (id)_accessibilitySubviews

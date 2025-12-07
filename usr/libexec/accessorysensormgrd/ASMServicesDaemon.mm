@@ -46,15 +46,15 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v44 = 0;
-  NSAppendPrintF_safe();
-  v4 = 0;
-  v40 = 0u;
+  v45 = 0;
+  NSAppendPrintF_safe(&v45, "-- ASMServicesDaemon --\n", *&level);
+  v4 = v45;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
   v5 = CFPrefs_CopyKeys();
-  v6 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (!v6)
   {
     goto LABEL_12;
@@ -63,42 +63,41 @@
   v7 = v6;
   obj = self;
   v8 = 0;
-  v9 = *v41;
+  v9 = *v42;
   do
   {
     for (i = 0; i != v7; i = i + 1)
     {
-      if (*v41 != v9)
+      if (*v42 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v40 + 1) + 8 * i);
+      v11 = *(*(&v41 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v39 = v4;
-        v27 = v11;
-        v29 = CFPrefs_CopyTypedValue();
-        NSAppendPrintF();
-        v12 = v4;
+        v12 = CFPrefs_CopyTypedValue();
+        v40 = v4;
+        NSAppendPrintF(&v40, "Pref: '%@' = '%##@'\n", v11, v12);
+        v13 = v40;
 
         ++v8;
-        v4 = v12;
+        v4 = v13;
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v41 objects:v47 count:16];
   }
 
   while (v7);
 
   if (v8 >= 1)
   {
-    v38 = v4;
-    NSAppendPrintF();
+    v39 = v4;
+    NSAppendPrintF(&v39, "\n");
     v5 = v4;
-    v4 = v4;
+    v4 = v39;
     self = obj;
 LABEL_12:
 
@@ -107,65 +106,66 @@ LABEL_12:
 
   self = obj;
 LABEL_14:
-  v13 = [(NSMutableSet *)self->_xpcConnections count:v27];
-  if (v13)
+  v14 = [(NSMutableSet *)self->_xpcConnections count];
+  if (v14)
   {
-    v37 = v4;
-    v28 = v13;
-    NSAppendPrintF();
-    v14 = v4;
+    v38 = v4;
+    NSAppendPrintF(&v38, "XPC Cnx: %d\n", v14);
+    v15 = v38;
 
-    v4 = v14;
+    v4 = v15;
   }
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
+  v35 = 0u;
   obja = self->_xpcConnections;
-  v15 = [(NSMutableSet *)obja countByEnumeratingWithState:&v33 objects:v45 count:16];
-  if (v15)
+  v16 = [(NSMutableSet *)obja countByEnumeratingWithState:&v34 objects:v46 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v34;
+    v17 = v16;
+    v18 = *v35;
     do
     {
-      for (j = 0; j != v16; j = j + 1)
+      for (j = 0; j != v17; j = j + 1)
       {
-        if (*v34 != v17)
+        if (*v35 != v18)
         {
           objc_enumerationMutation(obja);
         }
 
-        v19 = *(*(&v33 + 1) + 8 * j);
-        xpcCnx = [v19 xpcCnx];
+        v20 = *(*(&v34 + 1) + 8 * j);
+        v33 = v4;
+        xpcCnx = [v20 xpcCnx];
         processIdentifier = [xpcCnx processIdentifier];
-        entitled = [v19 entitled];
-        v23 = "no";
+        entitled = [v20 entitled];
+        v24 = "no";
         if (entitled)
         {
-          v23 = "yes";
+          v24 = "yes";
         }
 
-        v28 = processIdentifier;
-        v30 = v23;
-        NSAppendPrintF();
-        v24 = v4;
+        NSAppendPrintF(&v33, "    %#{pid}, entitled %s", processIdentifier, v24);
+        v25 = v33;
 
-        NSAppendPrintF();
-        v4 = v24;
+        v32 = v25;
+        NSAppendPrintF(&v32, "\n");
+        v4 = v32;
       }
 
-      v16 = [(NSMutableSet *)obja countByEnumeratingWithState:&v33 objects:v45 count:16, processIdentifier, v30];
+      v17 = [(NSMutableSet *)obja countByEnumeratingWithState:&v34 objects:v46 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
-  NSAppendPrintF();
-  v25 = v4;
+  v31 = v4;
+  NSAppendPrintF(&v31, "\n");
+  v26 = v31;
+  v27 = v31;
 
-  return v4;
+  return v26;
 }
 
 - (void)activate
@@ -205,7 +205,6 @@ LABEL_14:
 
   if (!self->_stateHandle)
   {
-    v6 = self->_dispatchQueue;
     self->_stateHandle = os_state_add_handler();
   }
 

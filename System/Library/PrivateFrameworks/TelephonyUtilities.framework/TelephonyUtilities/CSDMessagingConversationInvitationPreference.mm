@@ -6,6 +6,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)handleTypeAsString:(int)string;
 - (int)StringAsHandleType:(id)type;
 - (int)handleType;
 - (int64_t)tuHandleType;
@@ -107,6 +108,21 @@
   {
     return 0;
   }
+}
+
+- (id)handleTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061D890[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsHandleType:(id)type
@@ -224,12 +240,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -248,15 +263,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  handleType = self->_handleType;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    notificationStyles = self->_notificationStyles;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

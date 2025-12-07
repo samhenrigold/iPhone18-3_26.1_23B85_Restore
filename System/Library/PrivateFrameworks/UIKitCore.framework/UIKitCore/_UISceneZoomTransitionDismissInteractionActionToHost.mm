@@ -10,22 +10,22 @@
 
 + (id)actionForDismissInteractionDidBeginAtLocation:(double)location withVelocity:(double)velocity
 {
-  v8 = objc_opt_self();
-  v9 = objc_alloc_init(MEMORY[0x1E698E700]);
-  [v9 setObject:&unk_1EFE33928 forSetting:0];
-  *v15 = self;
-  *&v15[1] = a2;
-  v10 = [MEMORY[0x1E696B098] valueWithBytes:v15 objCType:"{CGPoint=dd}"];
-  [v9 setObject:v10 forSetting:1];
+  v9 = objc_opt_self();
+  v10 = objc_alloc_init(MEMORY[0x1E698E700]);
+  [v10 setObject:&unk_1EFE33928 forSetting:0];
+  *v16 = a2;
+  *&v16[1] = location;
+  v11 = [MEMORY[0x1E696B098] valueWithBytes:v16 objCType:"{CGPoint=dd}"];
+  [v10 setObject:v11 forSetting:1];
 
-  *v14 = location;
-  *&v14[1] = velocity;
-  v11 = [MEMORY[0x1E696B098] valueWithBytes:v14 objCType:"{CGPoint=dd}"];
-  [v9 setObject:v11 forSetting:2];
+  *v15 = velocity;
+  *&v15[1] = a5;
+  v12 = [MEMORY[0x1E696B098] valueWithBytes:v15 objCType:"{CGPoint=dd}"];
+  [v10 setObject:v12 forSetting:2];
 
-  v12 = [[v8 alloc] initWithInfo:v9 responder:0];
+  v13 = [[v9 alloc] initWithInfo:v10 responder:0];
 
-  return v12;
+  return v13;
 }
 
 + (id)actionForDismissInteractionDidIssueUpdate:(uint64_t)update
@@ -43,37 +43,37 @@
 
 + (id)actionForDismissInteractionDidDismissWithVelocity:(double)velocity
 {
-  v4 = objc_opt_self();
-  v5 = objc_alloc_init(MEMORY[0x1E698E700]);
-  [v5 setObject:&unk_1EFE33958 forSetting:0];
-  *v9 = velocity;
-  *&v9[1] = a2;
-  v6 = [MEMORY[0x1E696B098] valueWithBytes:v9 objCType:"{CGPoint=dd}"];
-  [v5 setObject:v6 forSetting:2];
+  v5 = objc_opt_self();
+  v6 = objc_alloc_init(MEMORY[0x1E698E700]);
+  [v6 setObject:&unk_1EFE33958 forSetting:0];
+  *v10 = a2;
+  *&v10[1] = velocity;
+  v7 = [MEMORY[0x1E696B098] valueWithBytes:v10 objCType:"{CGPoint=dd}"];
+  [v6 setObject:v7 forSetting:2];
 
-  v7 = [[v4 alloc] initWithInfo:v5 responder:0];
+  v8 = [[v5 alloc] initWithInfo:v6 responder:0];
 
-  return v7;
+  return v8;
 }
 
 + (id)actionForDismissInteractionDidCancelWithVelocity:(double)velocity originalPosition:(double)position
 {
-  v8 = objc_opt_self();
-  v9 = objc_alloc_init(MEMORY[0x1E698E700]);
-  [v9 setObject:&unk_1EFE33970 forSetting:0];
-  *v15 = self;
-  *&v15[1] = a2;
-  v10 = [MEMORY[0x1E696B098] valueWithBytes:v15 objCType:"{CGPoint=dd}"];
-  [v9 setObject:v10 forSetting:2];
+  v9 = objc_opt_self();
+  v10 = objc_alloc_init(MEMORY[0x1E698E700]);
+  [v10 setObject:&unk_1EFE33970 forSetting:0];
+  *v16 = a2;
+  *&v16[1] = velocity;
+  v11 = [MEMORY[0x1E696B098] valueWithBytes:v16 objCType:"{CGPoint=dd}"];
+  [v10 setObject:v11 forSetting:2];
 
-  *v14 = velocity;
-  *&v14[1] = position;
-  v11 = [MEMORY[0x1E696B098] valueWithBytes:v14 objCType:"{CGPoint=dd}"];
-  [v9 setObject:v11 forSetting:1];
+  *v15 = position;
+  *&v15[1] = a5;
+  v12 = [MEMORY[0x1E696B098] valueWithBytes:v15 objCType:"{CGPoint=dd}"];
+  [v10 setObject:v12 forSetting:1];
 
-  v12 = [[v8 alloc] initWithInfo:v9 responder:0];
+  v13 = [[v9 alloc] initWithInfo:v10 responder:0];
 
-  return v12;
+  return v13;
 }
 
 - (void)executeActionForProxyDismissInteraction:(void *)interaction

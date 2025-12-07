@@ -38,9 +38,9 @@
 
 - (AVCaptureSmartFramingMonitor)initWithDevice:(id)device smartFramingZoomFactorsByFieldOfView:(id)view
 {
-  v9.receiver = self;
-  v9.super_class = AVCaptureSmartFramingMonitor;
-  v6 = [(AVCaptureSmartFramingMonitor *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = AVCaptureSmartFramingMonitor;
+  v6 = [(AVCaptureSmartFramingMonitor *)&v11 init];
   if (v6)
   {
     if ([device isSmartFramingMonitoringSupported])
@@ -59,7 +59,7 @@
     {
       v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v7);
       }
@@ -94,7 +94,7 @@
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
-  v7 = [view objectForKeyedSubscript:@"FieldOfViewPortrait"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(view);
   v8 = 0x1E786C000;
   if (v7)
   {
@@ -107,7 +107,7 @@
     [array3 addObject:@"FieldOfViewPortrait"];
   }
 
-  v10 = [view objectForKeyedSubscript:@"FieldOfViewZoomedOutPortrait"];
+  v10 = objc_msgSend_objectForKeyedSubscript_(view);
   if (v10)
   {
     v11 = v10;
@@ -119,7 +119,7 @@
     [array3 addObject:@"FieldOfViewZoomedOutPortrait"];
   }
 
-  v12 = [view objectForKeyedSubscript:@"FieldOfViewLandscape"];
+  v12 = objc_msgSend_objectForKeyedSubscript_(view);
   if (v12)
   {
     v13 = v12;
@@ -131,7 +131,7 @@
     [array3 addObject:@"FieldOfViewLandscape"];
   }
 
-  v14 = [view objectForKeyedSubscript:@"FieldOfViewZoomedOutLandscape"];
+  v14 = objc_msgSend_objectForKeyedSubscript_(view);
   if (v14)
   {
     v15 = v14;
@@ -150,8 +150,8 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v9 = [change objectForKeyedSubscript:{*MEMORY[0x1E696A500], object}];
-  v10 = [change objectForKeyedSubscript:*MEMORY[0x1E696A4F0]];
+  v9 = objc_msgSend_objectForKeyedSubscript_(change, a2, *MEMORY[0x1E696A500], object);
+  v10 = objc_msgSend_objectForKeyedSubscript_(change);
   if (AVCaptureSmartFramingMonitorActiveFormatChangedContext == context && v9 != v10)
   {
     v12 = v10;
@@ -372,52 +372,52 @@ LABEL_49:
 {
   referencedObject = [(AVWeakReference *)self->_deviceWeakReference referencedObject];
   array = [MEMORY[0x1E695DF70] array];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   framingsCopy = framings;
-  v6 = [framings countByEnumeratingWithState:&v26 objects:v25 count:16];
+  v6 = [framings countByEnumeratingWithState:&v27 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(framingsCopy);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
-        v11 = [(NSArray *)self->_photoModeFramings indexOfObject:v10, v15, v16];
+        v10 = *(*(&v27 + 1) + 8 * i);
+        v11 = [(NSArray *)self->_photoModeFramings indexOfObject:v10];
         if (v11 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v24 = 0;
+          v25 = 0;
           type = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v13 = v24;
+          v13 = v25;
+          v14 = type;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
-            v14 = v13;
+            v15 = v13;
           }
 
           else
           {
-            v14 = v13 & 0xFFFFFFFE;
+            v15 = v13 & 0xFFFFFFFE;
           }
 
-          if (v14)
+          if (v15)
           {
             v19 = 136315394;
             v20 = "[AVCaptureSmartFramingMonitor _updateFigCaptureSourceEnabledSmartFramingFieldsOfViewForFramings:]";
             v21 = 2114;
             v22 = v10;
             LODWORD(v16) = 22;
-            v15 = &v19;
-            _os_log_send_and_compose_impl();
+            _os_log_send_and_compose_impl(v15, 0, v23, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v14, "<<<< AVCaptureSmartFramingMonitor >>>> %s: One of the the enabled framings %{public}@ has no match in the internal supported store!", &v19, v16);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -429,65 +429,65 @@ LABEL_49:
         }
       }
 
-      v7 = [framingsCopy countByEnumeratingWithState:&v26 objects:v25 count:16];
+      v7 = [framingsCopy countByEnumeratingWithState:&v27 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  [referencedObject _setEnabledSmartFramingFieldsOfView:{array, v15, v16}];
+  [referencedObject _setEnabledSmartFramingFieldsOfView:array];
 }
 
 - (void)_updateFigCaptureSourceEnabledSmartFramingFieldsOfViewForSmartFramings:(id)framings
 {
   referencedObject = [(AVWeakReference *)self->_deviceWeakReference referencedObject];
   array = [MEMORY[0x1E695DF70] array];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   framingsCopy = framings;
-  v6 = [framings countByEnumeratingWithState:&v26 objects:v25 count:16];
+  v6 = [framings countByEnumeratingWithState:&v27 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v28;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(framingsCopy);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
-        v11 = [(NSArray *)self->_photoModeSmartFramings indexOfObject:v10, v15, v16];
+        v10 = *(*(&v27 + 1) + 8 * i);
+        v11 = [(NSArray *)self->_photoModeSmartFramings indexOfObject:v10];
         if (v11 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v24 = 0;
+          v25 = 0;
           type = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v13 = v24;
+          v13 = v25;
+          v14 = type;
           if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
           {
-            v14 = v13;
+            v15 = v13;
           }
 
           else
           {
-            v14 = v13 & 0xFFFFFFFE;
+            v15 = v13 & 0xFFFFFFFE;
           }
 
-          if (v14)
+          if (v15)
           {
             v19 = 136315394;
             v20 = "[AVCaptureSmartFramingMonitor _updateFigCaptureSourceEnabledSmartFramingFieldsOfViewForSmartFramings:]";
             v21 = 2114;
             v22 = v10;
             LODWORD(v16) = 22;
-            v15 = &v19;
-            _os_log_send_and_compose_impl();
+            _os_log_send_and_compose_impl(v15, 0, v23, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v14, "<<<< AVCaptureSmartFramingMonitor >>>> %s: One of the the enabled framings %{public}@ has no match in the internal supported store!", &v19, v16);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -499,13 +499,13 @@ LABEL_49:
         }
       }
 
-      v7 = [framingsCopy countByEnumeratingWithState:&v26 objects:v25 count:16];
+      v7 = [framingsCopy countByEnumeratingWithState:&v27 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  [referencedObject _setEnabledSmartFramingFieldsOfView:{array, v15, v16}];
+  [referencedObject _setEnabledSmartFramingFieldsOfView:array];
 }
 
 - (void)updateRecommendedSmartFramingWithFieldOfView:(id)view
@@ -517,6 +517,8 @@ LABEL_49:
       v9 = [(NSArray *)self->_photoModeFieldsOfView indexOfObject:view];
       if (v9 == 0x7FFFFFFFFFFFFFFFLL)
       {
+        v13 = 0;
+        v12 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -603,7 +605,7 @@ LABEL_49:
   }
 
   v8 = [v6 exceptionWithName:v7 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -630,6 +632,8 @@ LABEL_49:
     os_unfair_lock_lock(&self->_isMonitoringLock);
     if (dword_1EB3859F8)
     {
+      v9 = 0;
+      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -653,6 +657,8 @@ LABEL_49:
   os_unfair_lock_lock(&self->_isMonitoringLock);
   if (dword_1EB3859F8)
   {
+    v5 = 0;
+    v4 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -718,7 +724,7 @@ LABEL_49:
   }
 
   v8 = [v6 exceptionWithName:v7 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -744,6 +750,8 @@ LABEL_49:
     os_unfair_lock_lock(&self->_isMonitoringLock);
     if (dword_1EB3859F8)
     {
+      v9 = 0;
+      v8 = 0;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();

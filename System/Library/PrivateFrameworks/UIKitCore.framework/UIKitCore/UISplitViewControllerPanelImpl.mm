@@ -3856,9 +3856,9 @@ LABEL_10:
   if (displayModeButtonItemTitle != titleCopy)
   {
     v9 = titleCopy;
-    v6 = [(NSString *)displayModeButtonItemTitle isEqualToString:titleCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(displayModeButtonItemTitle, titleCopy, titleCopy);
     titleCopy = v9;
-    if (!v6)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = [(NSString *)v9 copy];
       v8 = self->_displayModeButtonItemTitle;
@@ -4965,7 +4965,7 @@ void __131__UISplitViewControllerPanelImpl_updatePanelControllerForViewControlle
   }
 }
 
-uint64_t __131__UISplitViewControllerPanelImpl_updatePanelControllerForViewControllerChangeInColumn_alwaysAnimate_shouldUpdateCollapsedNavStack___block_invoke_2(uint64_t a1)
+void *__131__UISplitViewControllerPanelImpl_updatePanelControllerForViewControllerChangeInColumn_alwaysAnimate_shouldUpdateCollapsedNavStack___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) pushViewController:*(a1 + 40) animated:0];
   if (*(*(*(a1 + 48) + 8) + 40))
@@ -6356,7 +6356,7 @@ LABEL_11:
   CGAffineTransformMakeRotation(&t1, v12);
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -10921,11 +10921,9 @@ UISlidingBarStateRequest *__60__UISplitViewControllerPanelImpl_panelControllerWi
       [v11 bounds];
       v13 = v12;
       v15 = v14;
-
-      v10 = *(a1 + 32);
     }
 
-    if ([v9 isEqual:*(v10 + 184)])
+    if (objc_msgSend_isEqual_(v9))
     {
       v16 = *(a1 + 32);
       if (v13 == *(v16 + 192) && v15 == *(v16 + 200))
@@ -11108,7 +11106,7 @@ LABEL_62:
       displayModeButtonItem3 = [(UISplitViewControllerPanelImpl *)self displayModeButtonItem];
       title2 = [displayModeButtonItem3 title];
 
-      if (v13 != title2 && ([v13 isEqualToString:title2] & 1) == 0)
+      if (v13 != title2 && (objc_msgSend_isEqualToString_(v13) & 1) == 0)
       {
         [(UISplitViewControllerPanelImpl *)self _setDisplayModeButtonItemTitle:title2];
       }
@@ -12820,10 +12818,10 @@ LABEL_10:
     v6 = [(NSMutableDictionary *)self->_perColumnViewControllers objectForKeyedSubscript:&unk_1EFE30220];
     if (v6)
     {
-      v7 = 0;
+      isEqual = 0;
 LABEL_12:
 
-      return v7;
+      return isEqual;
     }
   }
 
@@ -12831,12 +12829,12 @@ LABEL_12:
   {
     image = [(UIBarButtonItem *)self->_sidebarToggleButtonItem image];
     _sidebarToggleSymbolImage = [(UISplitViewControllerPanelImpl *)self _sidebarToggleSymbolImage];
-    v7 = [image isEqual:_sidebarToggleSymbolImage];
+    isEqual = objc_msgSend_isEqual_(image);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
   if (v5 == 2)
@@ -12845,7 +12843,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)_navigationBarForSidebarButtonForDisplayMode:(int64_t)mode
@@ -13763,7 +13761,7 @@ LABEL_26:
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   name = [gestureRecognizerCopy name];
-  v9 = [name isEqualToString:@"com.apple.UIKit.UIWindowDraggingPan"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
   if ([(UISplitViewControllerPanelImpl *)self _shouldUseFluidSidebarGestures])
   {
@@ -13793,7 +13791,7 @@ LABEL_6:
         v19 = 0;
       }
 
-      _canScrollX = v19 & v9;
+      _canScrollX = v19 & isEqualToString;
 
       if ((_canScrollX & 1) != 0 || !v18)
       {
@@ -13854,8 +13852,8 @@ LABEL_33:
     if (([gestureRecognizerCopy _isGestureType:10] & 1) == 0)
     {
       v20 = [gestureRecognizerCopy _isGestureType:8];
-      _canScrollX = v20 & v9;
-      if ((v20 & v9 & 1) != 0 || !v20)
+      _canScrollX = v20 & isEqualToString;
+      if ((v20 & isEqualToString & 1) != 0 || !v20)
       {
         goto LABEL_7;
       }
@@ -14657,7 +14655,7 @@ LABEL_19:
   state = [changedCopy state];
   if ((state - 3) < 2)
   {
-    _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, _fluidPresentationGestureRecognizerChanged__updateRequest, 0x10002Eu);
+    _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, _fluidPresentationGestureRecognizerChanged__updateRequest, 1048622);
     [(UISplitViewControllerPanelImpl *)self _notifyFluidPresentationGestureDidEnd];
     [(_UIHyperInteractor *)self->_interactor _commitTranslation];
     v57 = [(_UIHyperregionUnion *)self->_regionUnion _regionIndexForClosestPoint:0 toPoint:[(_UIHyperInteractor *)self->_interactor _projectedPoint]];
@@ -14760,7 +14758,7 @@ LABEL_66:
 
     if (state == 1)
     {
-      _UIUpdateRequestRegistryAddRecord(&mainRegistry, _fluidPresentationGestureRecognizerChanged__updateRequest, 0x10002Eu);
+      _UIUpdateRequestRegistryAddRecord(&mainRegistry, _fluidPresentationGestureRecognizerChanged__updateRequest, 1048622);
       [(UISplitViewControllerPanelImpl *)self _notifyFluidPresentationGestureWillBegin];
       [(_UIHyperInteractor *)self->_interactor _setRegion:self->_hyperrectangle];
       panelController6 = [(UISplitViewControllerPanelImpl *)self panelController];
@@ -14892,14 +14890,14 @@ void __77__UISplitViewControllerPanelImpl__fluidPresentationGestureRecognizerCha
   [*(*(a1 + 32) + 272) _getUnconstrainedPoint:a2 forConstrainedPoint:&v14];
 }
 
-uint64_t __77__UISplitViewControllerPanelImpl__fluidPresentationGestureRecognizerChanged___block_invoke_6(uint64_t a1, void *a2)
+void *__77__UISplitViewControllerPanelImpl__fluidPresentationGestureRecognizerChanged___block_invoke_6(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) translationInView:0];
   *a2 = v4;
   return result;
 }
 
-uint64_t __77__UISplitViewControllerPanelImpl__fluidPresentationGestureRecognizerChanged___block_invoke_7(uint64_t a1, void *a2)
+void *__77__UISplitViewControllerPanelImpl__fluidPresentationGestureRecognizerChanged___block_invoke_7(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) velocityInView:0];
   *a2 = v4;
@@ -15152,9 +15150,9 @@ LABEL_22:
   panelController3 = [(UISplitViewControllerPanelImpl *)self panelController];
   currentState2 = [panelController3 currentState];
   stateRequest2 = [currentState2 stateRequest];
-  v27 = [stateRequest isEqual:stateRequest2];
+  isEqual = objc_msgSend_isEqual_(stateRequest);
 
-  if ((v27 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     panelController4 = [(UISplitViewControllerPanelImpl *)self panelController];
     [panelController4 setInteractiveStateRequest:stateRequest];
@@ -16804,7 +16802,7 @@ LABEL_174:
   }
 
   image2 = [(UIBarButtonItem *)self->_secondaryOnlyShortcutButtonItem image];
-  if (!image2 || (-[UIBarButtonItem image](self->_secondaryOnlyShortcutButtonItem, "image"), v83 = objc_claimAutoreleasedReturnValue(), v84 = [v83 isEqual:v122], v83, image2, (v84 & 1) == 0))
+  if (!image2 || ([(UIBarButtonItem *)self->_secondaryOnlyShortcutButtonItem image], v83 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v83), v83, image2, (isEqual & 1) == 0))
   {
     [(UIBarButtonItem *)self->_secondaryOnlyShortcutButtonItem setImage:v122];
     v81 = v60 & isHidden ^ 1;

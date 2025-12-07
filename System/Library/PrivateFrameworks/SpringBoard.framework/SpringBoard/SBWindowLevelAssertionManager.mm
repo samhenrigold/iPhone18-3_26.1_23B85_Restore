@@ -84,7 +84,7 @@ void __104__SBWindowLevelAssertionManager_acquireWindowLevelAssertionWithPriorit
     v6 = [WeakRetained windowLevelAssertionsPerScene];
     v7 = [v6 objectForKey:v5];
 
-    if ([v7 containsObject:v9])
+    if (objc_msgSend_containsObject_(v7))
     {
       [v7 removeObject:v9];
       if (![v7 count])
@@ -98,7 +98,7 @@ void __104__SBWindowLevelAssertionManager_acquireWindowLevelAssertionWithPriorit
   }
 }
 
-uint64_t __104__SBWindowLevelAssertionManager_acquireWindowLevelAssertionWithPriority_windowLevel_windowScene_reason___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__104__SBWindowLevelAssertionManager_acquireWindowLevelAssertionWithPriority_windowLevel_windowScene_reason___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 40);
   result = [a2 priority];

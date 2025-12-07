@@ -6,7 +6,7 @@
 - (PRUISDeviceMotionProvider)init;
 - (PRUISDeviceMotionProvider)initWithMotionSource:(id)source;
 - (PRUISDeviceMotionProviderDelegate)delegate;
-- (float64_t)_scaleRotation:(double)rotation@<D0> byFactor:;
+- (double)_scaleRotation:(float64x2_t *)rotation@<X2> byFactor:(_OWORD *)factor@<X8>;
 - (id)__lock_lightSourceSubscription;
 - (id)_activeOrientationChangedDate;
 - (id)_lightSourceSubscription;
@@ -20,7 +20,7 @@
 - (void)_lock_setLightSourceSubscriptionActive:(BOOL)active;
 - (void)_motionGenerationQueue_cancelDampeningTimer;
 - (void)_motionGenerationQueue_motionProvider:(id)provider motionActivityLevelDidUpdate:(int64_t)update;
-- (void)_motionGenerationQueue_motionProvider:(void *)provider motionDidUpdateWithRotation:(uint64_t)rotation;
+- (void)_motionGenerationQueue_motionProvider:(void *)provider motionDidUpdateWithRotation:(_OWORD *)rotation;
 - (void)_motionGenerationQueue_processDampeningStep:(float64x2_t *)step;
 - (void)_motionGenerationQueue_processDeviceMotion:(id)motion;
 - (void)_motionGenerationQueue_startDampeningToZeroFromRotation:(__int128 *)rotation;
@@ -189,45 +189,47 @@ void __56__PRUISDeviceMotionProvider_startGeneratingMotionEvents__block_invoke(u
       if (self->_motionSource)
       {
         [(PRUISDeviceMotionProvider *)self _motionGenerationQueue_cancelDampeningTimer];
-        if ([(CMMotionManager *)self->_motionSource isDeviceMotionAvailable])
+        isDeviceMotionAvailable = [(CMMotionManager *)self->_motionSource isDeviceMotionAvailable];
+        if (isDeviceMotionAvailable)
         {
           _lightSourceSubscription = [(PRUISDeviceMotionProvider *)self _lightSourceSubscription];
           [(CMMotionManager *)self->_motionSource setDeviceMotionUpdateInterval:self->_motionUpdateInterval];
           [(CMMotionManager *)self->_motionSource setPowerConservationMode:3];
-          if ([(PRUISDeviceMotionProvider *)self _wantsNorthByNorthwestTreatment])
+          _wantsNorthByNorthwestTreatment = [(PRUISDeviceMotionProvider *)self _wantsNorthByNorthwestTreatment];
+          if (_wantsNorthByNorthwestTreatment)
           {
-            [(CMMotionManager *)self->_motionSource setShouldResetStartingReference:0];
+            _wantsNorthByNorthwestTreatment = [(CMMotionManager *)self->_motionSource setShouldResetStartingReference:0];
           }
 
-          v4 = PRUISLogMotionEvents();
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+          v6 = PRUISLogMotionEvents(_wantsNorthByNorthwestTreatment);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf[0]) = 0;
-            _os_log_impl(&dword_1CAE63000, v4, OS_LOG_TYPE_DEFAULT, "Starting motion updates", buf, 2u);
+            _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "Starting motion updates", buf, 2u);
           }
 
-          v5 = objc_opt_new();
-          [v5 setUnderlyingQueue:self->_motionGenerationQueue];
+          v7 = objc_opt_new();
+          [v7 setUnderlyingQueue:self->_motionGenerationQueue];
           objc_initWeak(buf, self);
           motionSource = self->_motionSource;
-          v7[0] = MEMORY[0x1E69E9820];
-          v7[1] = 3221225472;
-          v7[2] = __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke;
-          v7[3] = &unk_1E83A72D0;
-          objc_copyWeak(&v8, buf);
-          [(CMMotionManager *)motionSource startDeviceMotionUpdatesToQueue:v5 withHandler:v7];
+          v9[0] = MEMORY[0x1E69E9820];
+          v9[1] = 3221225472;
+          v9[2] = __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke;
+          v9[3] = &unk_1E83A72D0;
+          objc_copyWeak(&v10, buf);
+          [(CMMotionManager *)motionSource startDeviceMotionUpdatesToQueue:v7 withHandler:v9];
           [(PRUISDeviceMotionProvider *)self setGeneratingMotionEvents:1];
-          objc_destroyWeak(&v8);
+          objc_destroyWeak(&v10);
           objc_destroyWeak(buf);
         }
 
         else
         {
-          v5 = PRUISLogMotionEvents();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+          v7 = PRUISLogMotionEvents(isDeviceMotionAvailable);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(buf[0]) = 0;
-            _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Device motion updates are not available.", buf, 2u);
+            _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "Device motion updates are not available.", buf, 2u);
           }
         }
       }
@@ -244,44 +246,49 @@ void __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotio
   if (WeakRetained && [WeakRetained isGeneratingMotionEvents])
   {
     v9 = [v8 _wantsNorthByNorthwestTreatment];
-    if (v9 && ([v8 _isLightSourceSubscriptionActive] & 1) == 0)
+    v10 = v9;
+    if (v9)
     {
-      v10 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = [v8 _isLightSourceSubscriptionActive];
+      if ((v9 & 1) == 0)
       {
-        __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke_cold_1();
-      }
+        v11 = PRUISLogMotionEvents(v9);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        {
+          __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke_cold_1();
+        }
 
-      goto LABEL_15;
+        goto LABEL_15;
+      }
     }
 
     if (v6)
     {
-      v10 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PRUISLogMotionEvents(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke_cold_2(v6, v10);
+        __79__PRUISDeviceMotionProvider__motionGenerationQueue_startGeneratingMotionEvents__block_invoke_cold_2(v6, v11);
       }
 
       goto LABEL_15;
     }
 
-    v11 = [MEMORY[0x1E698E730] sharedInstance];
-    v12 = [v11 deviceClass];
+    v12 = [MEMORY[0x1E698E730] sharedInstance];
+    v13 = [v12 deviceClass];
 
-    if (v12 == 2)
+    if (v13 == 2)
     {
       [v8 _setActiveOrientation:{objc_msgSend(*MEMORY[0x1E69DDA98], "activeInterfaceOrientation")}];
     }
 
-    if (!v9)
+    if (!v10)
     {
-      v13 = [v8 referenceAttitude];
+      v14 = [v8 referenceAttitude];
 
-      if (!v13)
+      if (!v14)
       {
-        v10 = [v5 attitude];
-        [v8 setReferenceAttitude:v10];
+        v11 = [v5 attitude];
+        [v8 setReferenceAttitude:v11];
 LABEL_15:
 
         goto LABEL_16;
@@ -357,7 +364,7 @@ void __56__PRUISDeviceMotionProvider_pauseGeneratingMotionEvents__block_invoke(u
 
 - (void)_motionGenerationQueue_stopGeneratingMotionEventsWithActivityLevel:(int64_t)level invalidateLightSourceSubscription:(BOOL)subscription
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssert();
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -371,34 +378,35 @@ void __56__PRUISDeviceMotionProvider_pauseGeneratingMotionEvents__block_invoke(u
     motionSource = self->_motionSource;
     if (motionSource)
     {
-      if ([(CMMotionManager *)motionSource isDeviceMotionActive])
+      isDeviceMotionActive = [(CMMotionManager *)motionSource isDeviceMotionActive];
+      if (isDeviceMotionActive)
       {
-        v9 = PRUISLogMotionEvents();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = PRUISLogMotionEvents(isDeviceMotionActive);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = @"Stopping";
+          v11 = @"Stopping";
           if (level == 1)
           {
-            v10 = @"Pausing";
+            v11 = @"Pausing";
           }
 
           *buf = 138412290;
-          *&buf[4] = v10;
-          _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "%@ motion updates", buf, 0xCu);
+          *&buf[4] = v11;
+          _os_log_impl(&dword_1CAE63000, v10, OS_LOG_TYPE_DEFAULT, "%@ motion updates", buf, 0xCu);
         }
 
         if (!self->_motionGenerationQueue_deallocating)
         {
           os_unfair_lock_lock(&self->_lock);
-          v11 = *&self->_anon_a0[16];
-          v12 = *self->_anon_a0;
+          v12 = *&self->_anon_a0[16];
+          v13 = *self->_anon_a0;
           os_unfair_lock_unlock(&self->_lock);
-          *buf = v12;
-          v16 = v11;
+          *buf = v13;
+          v17 = v12;
           [(PRUISDeviceMotionProvider *)self _motionGenerationQueue_startDampeningToZeroFromRotation:buf];
         }
 
-        [(CMMotionManager *)self->_motionSource stopDeviceMotionUpdates:v11];
+        [(CMMotionManager *)self->_motionSource stopDeviceMotionUpdates:v12];
         [(PRUISDeviceMotionProvider *)self resetReferenceAttitude];
         [(PRUISDeviceMotionProvider *)self setGeneratingMotionEvents:0];
       }
@@ -408,11 +416,11 @@ void __56__PRUISDeviceMotionProvider_pauseGeneratingMotionEvents__block_invoke(u
   v7[2](v7);
 }
 
-uint64_t __130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingMotionEventsWithActivityLevel_invalidateLightSourceSubscription___block_invoke(uint64_t result)
+id *__130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingMotionEventsWithActivityLevel_invalidateLightSourceSubscription___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _invalidateLightSourceSubscription];
+    return [result[4] _invalidateLightSourceSubscription];
   }
 
   return result;
@@ -466,28 +474,28 @@ uint64_t __130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingM
 
 - (void)_setActiveOrientation:(int64_t)orientation
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0)
   {
     os_unfair_lock_lock(&self->_lock);
     if (self->_lock_activeOrientation != orientation)
     {
-      v5 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = PRUISLogMotionEvents(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         lock_activeOrientation = self->_lock_activeOrientation;
-        v9 = 134218240;
-        v10 = lock_activeOrientation;
-        v11 = 2048;
+        v10 = 134218240;
+        v11 = lock_activeOrientation;
+        v12 = 2048;
         orientationCopy = orientation;
-        _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Active orientation changed from %lu to %lu, reseting reference attitude", &v9, 0x16u);
+        _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "Active orientation changed from %lu to %lu, reseting reference attitude", &v10, 0x16u);
       }
 
       self->_lock_previousOrientation = self->_lock_activeOrientation;
       self->_lock_activeOrientation = orientation;
-      v7 = [MEMORY[0x1E695DF00] now];
+      v8 = [MEMORY[0x1E695DF00] now];
       lock_activeOrientationChangedDate = self->_lock_activeOrientationChangedDate;
-      self->_lock_activeOrientationChangedDate = v7;
+      self->_lock_activeOrientationChangedDate = v8;
 
       [(PRUISDeviceMotionProvider *)self _lock_resetReferenceAttitude];
     }
@@ -556,7 +564,7 @@ uint64_t __130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingM
   if (self->_lock_lightSourceSubscriptionActive != active)
   {
     activeCopy = active;
-    v5 = PRUISLogMotionEvents();
+    v5 = PRUISLogMotionEvents(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6[0] = 67109120;
@@ -578,7 +586,7 @@ uint64_t __130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingM
 
 - (void)_setMotionActivityLevel:(int64_t)level
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (([(BSAtomicSignal *)self->_invalidationSignal hasBeenSignalled]& 1) == 0)
   {
     os_unfair_lock_lock(&self->_lock);
@@ -590,22 +598,22 @@ uint64_t __130__PRUISDeviceMotionProvider__motionGenerationQueue_stopGeneratingM
 
     else
     {
-      v5 = PRUISLogMotionEvents();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = PRUISLogMotionEvents(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         if (level > 2)
         {
-          v6 = @"unknown";
+          v7 = @"unknown";
         }
 
         else
         {
-          v6 = off_1E83A73E0[level];
+          v7 = off_1E83A73E0[level];
         }
 
-        v7 = 138412290;
-        v8 = v6;
-        _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Motion activity level changed: %@", &v7, 0xCu);
+        v8 = 138412290;
+        v9 = v7;
+        _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "Motion activity level changed: %@", &v8, 0xCu);
       }
 
       self->_lock_motionActivityLevel = level;
@@ -708,7 +716,7 @@ void __59__PRUISDeviceMotionProvider___lock_lightSourceSubscription__block_invok
 
 - (void)_motionGenerationQueue_processDeviceMotion:(id)motion
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   motionCopy = motion;
   BSDispatchQueueAssert();
   attitude = [motionCopy attitude];
@@ -719,10 +727,10 @@ void __59__PRUISDeviceMotionProvider___lock_lightSourceSubscription__block_invok
     [attitude multiplyByInverseOfAttitude:referenceAttitude];
 
     [attitude quaternion];
-    v25.f64[1] = v24;
     v27.f64[1] = v26;
-    v81 = v27;
-    v83 = v25;
+    v29.f64[1] = v28;
+    v84 = v29;
+    v86 = v27;
     goto LABEL_7;
   }
 
@@ -732,43 +740,44 @@ void __59__PRUISDeviceMotionProvider___lock_lightSourceSubscription__block_invok
   v8 = [__lock_lightSourceSubscription lightSourceOrientationQuaternionForTimestamp:v6];
   os_unfair_lock_unlock(&self->_lock);
   [v8 timestamp];
-  if ([PRUISDeviceMotionProvider _isTimestamp:"_isTimestamp:almostEqualToTimestamp:withinThreshold:" almostEqualToTimestamp:? withinThreshold:?])
+  v9 = [PRUISDeviceMotionProvider _isTimestamp:"_isTimestamp:almostEqualToTimestamp:withinThreshold:" almostEqualToTimestamp:? withinThreshold:?];
+  if (v9)
   {
     [v8 orientation];
-    v10.f64[1] = v9;
-    v12.f64[1] = v11;
-    v80 = v10;
-    v82 = v12;
-    [attitude quaternion];
-    v76 = v13;
-    v77 = v14;
-    *(&v13 + 1) = v14;
-    v74 = v15;
-    v75 = v16;
-    *&v15.f64[1] = v16;
-    v78 = v15;
-    v79 = v13;
-    v17 = PRUISLogMotionEvents();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v11.f64[1] = v10;
+    v13.f64[1] = v12;
+    v83 = v11;
+    v85 = v13;
+    quaternion = [attitude quaternion];
+    v79 = v15;
+    v80 = v16;
+    *(&v15 + 1) = v16;
+    v77 = v17;
+    v78 = v18;
+    *&v17.f64[1] = v18;
+    v81 = v17;
+    v82 = v15;
+    v19 = PRUISLogMotionEvents(quaternion);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       buf[0].n128_u32[0] = 134218752;
-      *(buf[0].n128_u64 + 4) = *&v74.f64[0];
+      *(buf[0].n128_u64 + 4) = *&v77.f64[0];
       buf[0].n128_u16[6] = 2048;
-      *(&buf[0].n128_u64[1] + 6) = v75;
+      *(&buf[0].n128_u64[1] + 6) = v78;
       buf[1].n128_u16[3] = 2048;
-      buf[1].n128_u64[1] = v76;
-      v88 = 2048;
-      v89 = v77;
-      _os_log_debug_impl(&dword_1CAE63000, v17, OS_LOG_TYPE_DEBUG, "Device motion attitude: x: %f, y: %f, z: %f, w: %f", buf, 0x2Au);
+      buf[1].n128_u64[1] = v79;
+      v91 = 2048;
+      v92 = v80;
+      _os_log_debug_impl(&dword_1CAE63000, v19, OS_LOG_TYPE_DEBUG, "Device motion attitude: x: %f, y: %f, z: %f, w: %f", buf, 0x2Au);
     }
 
-    v18 = 1.0 / vaddvq_f64(vaddq_f64(vmulq_f64(v82, v82), vmulq_f64(v80, v80)));
-    v19 = vmulq_n_f64(vmulq_f64(v80, xmmword_1CAF024C0), v18);
-    v20 = vmulq_n_f64(vnegq_f64(v82), v18);
-    v21 = vnegq_f64(v78);
-    v22 = vextq_s8(v79, vnegq_f64(v79), 8uLL);
-    v81 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v79, v20, 1), v22, v20.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v78, v19, 1), vextq_s8(v21, v78, 8uLL), v19.f64[0]));
-    v83 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v21, v20, 1), vextq_s8(v78, v21, 8uLL), v20.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v79, v19, 1), v22, v19.f64[0]));
+    v20 = 1.0 / vaddvq_f64(vaddq_f64(vmulq_f64(v85, v85), vmulq_f64(v83, v83)));
+    v21 = vmulq_n_f64(vmulq_f64(v83, xmmword_1CAF024C0), v20);
+    v22 = vmulq_n_f64(vnegq_f64(v85), v20);
+    v23 = vnegq_f64(v81);
+    v24 = vextq_s8(v82, vnegq_f64(v82), 8uLL);
+    v84 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v82, v22, 1), v24, v22.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v81, v21, 1), vextq_s8(v23, v81, 8uLL), v21.f64[0]));
+    v86 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v23, v22, 1), vextq_s8(v81, v23, 8uLL), v22.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(v82, v21, 1), v24, v21.f64[0]));
 
 LABEL_7:
     mEMORY[0x1E698E730] = [MEMORY[0x1E698E730] sharedInstance];
@@ -777,11 +786,11 @@ LABEL_7:
     if (deviceClass != 2)
     {
 LABEL_24:
-      buf[0] = v81;
-      buf[1] = v83;
+      buf[0] = v84;
+      buf[1] = v86;
       [(PRUISDeviceMotionProvider *)self _setPreviousAttitudeQuaternion:buf];
-      buf[0] = v81;
-      buf[1] = v83;
+      buf[0] = v84;
+      buf[1] = v86;
       [(PRUISDeviceMotionProvider *)self _motionGenerationQueue_motionProvider:self motionDidUpdateWithRotation:buf];
       goto LABEL_25;
     }
@@ -790,49 +799,49 @@ LABEL_24:
     switch(_activeOrientation)
     {
       case 2:
-        v58 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF024D0, v81, 1), xmmword_1CAF024F0, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(vnegq_f64(0), v83, 1), xmmword_1CAF02500, v83.f64[0]));
-        v59 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(0, v81, 1), xmmword_1CAF024E0, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF024D0, v83, 1), xmmword_1CAF024F0, v83.f64[0]));
-        v60 = vnegq_f64(v58);
-        v61 = vextq_s8(v59, vnegq_f64(v59), 8uLL);
-        v49 = vmlaq_f64(vmulq_f64(v59, 0), 0, v61);
-        v50 = vmlaq_f64(vmulq_f64(v60, 0), 0, vextq_s8(v58, v60, 8uLL));
-        v62 = vextq_s8(v60, v58, 8uLL);
-        v63 = vdupq_n_s64(0x3C91A62633145C07uLL);
-        v56 = vaddq_f64(v62, vmulq_f64(v58, v63));
-        v57 = vaddq_f64(v61, vmulq_f64(v59, v63));
+        v60 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF024D0, v84, 1), xmmword_1CAF024F0, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(vnegq_f64(0), v86, 1), xmmword_1CAF02500, v86.f64[0]));
+        v61 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(0, v84, 1), xmmword_1CAF024E0, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF024D0, v86, 1), xmmword_1CAF024F0, v86.f64[0]));
+        v62 = vnegq_f64(v60);
+        v63 = vextq_s8(v61, vnegq_f64(v61), 8uLL);
+        v51 = vmlaq_f64(vmulq_f64(v61, 0), 0, v63);
+        v52 = vmlaq_f64(vmulq_f64(v62, 0), 0, vextq_s8(v60, v62, 8uLL));
+        v64 = vextq_s8(v62, v60, 8uLL);
+        v65 = vdupq_n_s64(0x3C91A62633145C07uLL);
+        v58 = vaddq_f64(v64, vmulq_f64(v60, v65));
+        v59 = vaddq_f64(v63, vmulq_f64(v61, v65));
         break;
       case 3:
-        v45 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02510, v81, 1), xmmword_1CAF02520, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(vnegq_f64(0), v83, 1), xmmword_1CAF02500, v83.f64[0]));
-        v46 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(0, v81, 1), xmmword_1CAF024E0, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02510, v83, 1), xmmword_1CAF02520, v83.f64[0]));
-        v47 = vnegq_f64(v45);
-        v48 = vextq_s8(v46, vnegq_f64(v46), 8uLL);
-        v49 = vmlaq_f64(vmulq_f64(v46, 0), 0, v48);
-        v50 = vmlaq_f64(vmulq_f64(v47, 0), 0, vextq_s8(v45, v47, 8uLL));
-        v51 = vextq_s8(v47, v45, 8uLL);
-        v52 = vdupq_n_s64(0x3FE6A09E667F3BCDuLL);
-        v53 = vmulq_f64(v46, v52);
-        v54 = vmulq_f64(v45, v52);
-        v55 = vdupq_n_s64(0x3FE6A09E667F3BCCuLL);
-        v56 = vmlaq_f64(v54, v55, v51);
-        v57 = vmlaq_f64(v53, v55, v48);
+        v47 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02510, v84, 1), xmmword_1CAF02520, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(vnegq_f64(0), v86, 1), xmmword_1CAF02500, v86.f64[0]));
+        v48 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(0, v84, 1), xmmword_1CAF024E0, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02510, v86, 1), xmmword_1CAF02520, v86.f64[0]));
+        v49 = vnegq_f64(v47);
+        v50 = vextq_s8(v48, vnegq_f64(v48), 8uLL);
+        v51 = vmlaq_f64(vmulq_f64(v48, 0), 0, v50);
+        v52 = vmlaq_f64(vmulq_f64(v49, 0), 0, vextq_s8(v47, v49, 8uLL));
+        v53 = vextq_s8(v49, v47, 8uLL);
+        v54 = vdupq_n_s64(0x3FE6A09E667F3BCDuLL);
+        v55 = vmulq_f64(v48, v54);
+        v56 = vmulq_f64(v47, v54);
+        v57 = vdupq_n_s64(0x3FE6A09E667F3BCCuLL);
+        v58 = vmlaq_f64(v56, v57, v53);
+        v59 = vmlaq_f64(v55, v57, v50);
         break;
       case 4:
-        v31 = vnegq_f64(0);
-        v32 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02530, v81, 1), xmmword_1CAF02540, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(0, v83, 1), xmmword_1CAF024E0, v83.f64[0]));
-        v33 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v31, v81, 1), xmmword_1CAF02500, v81.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02530, v83, 1), xmmword_1CAF02540, v83.f64[0]));
-        v34 = vnegq_f64(v32);
-        v35 = vextq_s8(v33, vnegq_f64(v33), 8uLL);
-        v36 = vmlsq_f64(vmulq_f64(v33, v31), v35, 0);
-        v37 = vmlsq_f64(vmulq_f64(v32, 0), vextq_s8(v32, v34, 8uLL), 0);
-        v38 = vextq_s8(v34, v32, 8uLL);
-        v39 = vdupq_n_s64(0x3FE6A09E667F3BCDuLL);
-        v40 = vmulq_f64(v33, v39);
-        v41 = vmulq_f64(v32, v39);
-        v42 = vdupq_n_s64(0xBFE6A09E667F3BCCLL);
-        v83 = vaddq_f64(vmlaq_f64(v40, v42, v35), v37);
-        v43 = vaddq_f64(vmlaq_f64(v41, v42, v38), v36);
+        v33 = vnegq_f64(0);
+        v34 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02530, v84, 1), xmmword_1CAF02540, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(0, v86, 1), xmmword_1CAF024E0, v86.f64[0]));
+        v35 = vaddq_f64(vmlaq_n_f64(vmulq_laneq_f64(v33, v84, 1), xmmword_1CAF02500, v84.f64[0]), vmlaq_n_f64(vmulq_laneq_f64(xmmword_1CAF02530, v86, 1), xmmword_1CAF02540, v86.f64[0]));
+        v36 = vnegq_f64(v34);
+        v37 = vextq_s8(v35, vnegq_f64(v35), 8uLL);
+        v38 = vmlsq_f64(vmulq_f64(v35, v33), v37, 0);
+        v39 = vmlsq_f64(vmulq_f64(v34, 0), vextq_s8(v34, v36, 8uLL), 0);
+        v40 = vextq_s8(v36, v34, 8uLL);
+        v41 = vdupq_n_s64(0x3FE6A09E667F3BCDuLL);
+        v42 = vmulq_f64(v35, v41);
+        v43 = vmulq_f64(v34, v41);
+        v44 = vdupq_n_s64(0xBFE6A09E667F3BCCLL);
+        v86 = vaddq_f64(vmlaq_f64(v42, v44, v37), v39);
+        v45 = vaddq_f64(vmlaq_f64(v43, v44, v40), v38);
 LABEL_18:
-        v81 = v43;
+        v84 = v45;
         goto LABEL_19;
       default:
 LABEL_19:
@@ -840,38 +849,38 @@ LABEL_19:
         {
           _activeOrientationChangedDate = [(PRUISDeviceMotionProvider *)self _activeOrientationChangedDate];
           [_activeOrientationChangedDate timeIntervalSinceNow];
-          v66 = fabs(v65);
+          v68 = fabs(v67);
 
-          if (v66 < 1.0)
+          if (v68 < 1.0)
           {
             memset(buf, 0, sizeof(buf));
-            [(PRUISDeviceMotionProvider *)self _previousAttitudeQuaternion];
-            v67 = PRUISLogMotionEvents();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+            v69 = objc_msgSend__previousAttitudeQuaternion(self);
+            v70 = PRUISLogMotionEvents(v69);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
             {
-              [(PRUISDeviceMotionProvider *)buf _motionGenerationQueue_processDeviceMotion:v67, v68, v69, v70, v71, v72, v73];
+              [(PRUISDeviceMotionProvider *)buf _motionGenerationQueue_processDeviceMotion:v70, v71, v72, v73, v74, v75, v76];
             }
 
-            v85[0] = buf[0];
-            v85[1] = buf[1];
-            v84[0] = v81;
-            v84[1] = v83;
-            simd_slerp(v85, v84, v86, v66);
-            v81 = v86[0];
-            v83 = v86[1];
+            v88[0] = buf[0];
+            v88[1] = buf[1];
+            v87[0] = v84;
+            v87[1] = v86;
+            simd_slerp(v88, v87, v89, v68);
+            v84 = v89[0];
+            v86 = v89[1];
           }
         }
 
         goto LABEL_24;
     }
 
-    v83 = vaddq_f64(v57, v50);
-    v43 = vaddq_f64(v56, v49);
+    v86 = vaddq_f64(v59, v52);
+    v45 = vaddq_f64(v58, v51);
     goto LABEL_18;
   }
 
-  v44 = PRUISLogMotionEvents();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+  v46 = PRUISLogMotionEvents(v9);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     [PRUISDeviceMotionProvider _motionGenerationQueue_processDeviceMotion:];
   }
@@ -906,23 +915,23 @@ uint64_t __73__PRUISDeviceMotionProvider__motionProvider_motionDidUpdateWithRota
   return [v2 _motionGenerationQueue_motionProvider:v1 motionDidUpdateWithRotation:v5];
 }
 
-- (void)_motionGenerationQueue_motionProvider:(void *)provider motionDidUpdateWithRotation:(uint64_t)rotation
+- (void)_motionGenerationQueue_motionProvider:(void *)provider motionDidUpdateWithRotation:(_OWORD *)rotation
 {
   providerCopy = provider;
   BSDispatchQueueAssert();
   os_unfair_lock_lock((self + 88));
-  v7 = *(rotation + 16);
+  v7 = rotation[1];
   *(self + 160) = *rotation;
   *(self + 176) = v7;
   os_unfair_lock_unlock((self + 88));
   WeakRetained = objc_loadWeakRetained((self + 224));
-  v9 = PRUISLogMotionEvents();
+  v9 = PRUISLogMotionEvents(WeakRetained);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [(PRUISDeviceMotionProvider *)rotation _motionGenerationQueue_motionProvider:v9 motionDidUpdateWithRotation:v10, v11, v12, v13, v14, v15];
   }
 
-  v16 = *(rotation + 16);
+  v16 = rotation[1];
   v17[0] = *rotation;
   v17[1] = v16;
   [WeakRetained motionProvider:providerCopy motionDidUpdateWithRotation:v17];
@@ -953,7 +962,7 @@ uint64_t __73__PRUISDeviceMotionProvider__motionProvider_motionDidUpdateWithRota
 
 - (void)_motionGenerationQueue_startDampeningToZeroFromRotation:(__int128 *)rotation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   BSDispatchQueueAssert();
   [self _motionGenerationQueue_cancelDampeningTimer];
   os_unfair_lock_lock((self + 88));
@@ -968,33 +977,33 @@ uint64_t __73__PRUISDeviceMotionProvider__motionProvider_motionDidUpdateWithRota
     *(self + 144) = 1;
     *(self + 200) = 0x3FF0000000000000;
     os_unfair_lock_unlock((self + 88));
-    v5 = PRUISLogMotionEvents();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRUISLogMotionEvents(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(self + 208);
+      v7 = *(self + 208);
       *buf = 134217984;
-      v18 = v6;
-      _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "Starting dampening motion to zero over %f seconds", buf, 0xCu);
+      v19 = v7;
+      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "Starting dampening motion to zero over %f seconds", buf, 0xCu);
     }
 
-    v7 = *(self + 232);
-    v8 = [objc_alloc(MEMORY[0x1E698E5E8]) initWithIdentifier:@"PRUISDeviceMotionProvider.dampening"];
-    v9 = *(self + 192);
-    *(self + 192) = v8;
+    v8 = *(self + 232);
+    v9 = [objc_alloc(MEMORY[0x1E698E5E8]) initWithIdentifier:@"PRUISDeviceMotionProvider.dampening"];
+    v10 = *(self + 192);
+    *(self + 192) = v9;
 
     objc_initWeak(buf, self);
-    v10 = *(self + 192);
-    v11 = *(self + 80);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __85__PRUISDeviceMotionProvider__motionGenerationQueue_startDampeningToZeroFromRotation___block_invoke;
-    v13[3] = &unk_1E83A73C0;
-    objc_copyWeak(v16, buf);
-    v12 = rotation[1];
-    v14 = *rotation;
-    v15 = v12;
-    [v10 scheduleRepeatingWithFireInterval:v11 repeatInterval:v13 leewayInterval:v7 queue:v7 handler:v7 * 0.1];
-    objc_destroyWeak(v16);
+    v11 = *(self + 192);
+    v12 = *(self + 80);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __85__PRUISDeviceMotionProvider__motionGenerationQueue_startDampeningToZeroFromRotation___block_invoke;
+    v14[3] = &unk_1E83A73C0;
+    objc_copyWeak(v17, buf);
+    v13 = rotation[1];
+    v15 = *rotation;
+    v16 = v13;
+    [v11 scheduleRepeatingWithFireInterval:v12 repeatInterval:v14 leewayInterval:v8 queue:v8 handler:v8 * 0.1];
+    objc_destroyWeak(v17);
     objc_destroyWeak(buf);
   }
 }
@@ -1040,8 +1049,7 @@ void __85__PRUISDeviceMotionProvider__motionGenerationQueue_startDampeningToZero
       *buf = vmlaq_f64(vmulq_f64(vmulq_f64(vextq_s8(v14, v14, 8uLL), v8), v10), vzip1q_s64(v14, v16), vmulq_f64(vextq_s8(v15, v15, 8uLL), v9));
       v20 = vmlaq_f64(vmulq_f64(vmulq_laneq_f64(v12, v14, 1), vzip1q_s64(v16, v14)), v11, vmulq_f64(v15, vextq_s8(v15, v16, 8uLL)));
       [self _motionGenerationQueue_motionProvider:self motionDidUpdateWithRotation:buf];
-      [self _motionGenerationQueue_cancelDampeningTimer];
-      v13 = PRUISLogMotionEvents();
+      v13 = PRUISLogMotionEvents([self _motionGenerationQueue_cancelDampeningTimer]);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -1058,7 +1066,7 @@ void __85__PRUISDeviceMotionProvider__motionGenerationQueue_startDampeningToZero
       v7 = step[1];
       v17 = *step;
       v18 = v7;
-      [self _scaleRotation:&v17 byFactor:(1.0 - v6)];
+      objc_msgSend__scaleRotation_byFactor_(self, (1.0 - v6));
       v17 = *buf;
       v18 = v20;
       [self _motionGenerationQueue_motionProvider:self motionDidUpdateWithRotation:&v17];
@@ -1072,21 +1080,21 @@ void __85__PRUISDeviceMotionProvider__motionGenerationQueue_startDampeningToZero
   }
 }
 
-- (float64_t)_scaleRotation:(double)rotation@<D0> byFactor:
+- (double)_scaleRotation:(float64x2_t *)rotation@<X2> byFactor:(_OWORD *)factor@<X8>
 {
-  v4 = *self;
-  v5 = self[1];
+  v4 = *rotation;
+  v5 = rotation[1];
   v10 = 0u;
   v11 = 0u;
   v9[0] = 0uLL;
   v9[1] = xmmword_1CAF02550;
   v8[0] = v4;
   v8[1] = v5;
-  simd_slerp(v9, v8, &v10, rotation);
+  simd_slerp(v9, v8, &v10, v2);
   result = v10.f64[0];
   v7 = v11;
-  *a2 = v10;
-  *(a2 + 16) = v7;
+  *factor = v10;
+  factor[1] = v7;
   return result;
 }
 

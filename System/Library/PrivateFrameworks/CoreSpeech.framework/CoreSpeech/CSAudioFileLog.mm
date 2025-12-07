@@ -184,7 +184,7 @@
     v7 = dispatch_get_global_queue(17, 0);
     dispatch_set_target_queue(v6, v7);
 
-    +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
+    objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
     *(v2 + 24) = v9;
     *(v2 + 40) = v10;
     *(v2 + 7) = v11;

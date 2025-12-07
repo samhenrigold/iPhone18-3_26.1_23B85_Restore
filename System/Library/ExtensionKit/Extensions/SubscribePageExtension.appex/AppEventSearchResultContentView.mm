@@ -28,11 +28,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension31AppEventSearchResultContentView_appEventViewTappedAction);
   if (v3)
   {
+    v4 = *&self->lockupView[OBJC_IVAR____TtC22SubscribePageExtension31AppEventSearchResultContentView_appEventViewTappedAction];
     selfCopy = self;
-    v5 = sub_10001B5AC(v3);
-    v3(v5);
+    v6 = sub_10001B5AC(v3, v4);
+    v3(v6);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 }
 
@@ -43,7 +44,7 @@
   selfCopy = self;
   v9 = sub_1000195C8(touchCopy);
 
-  return v9 & 1;
+  return v9;
 }
 
 @end

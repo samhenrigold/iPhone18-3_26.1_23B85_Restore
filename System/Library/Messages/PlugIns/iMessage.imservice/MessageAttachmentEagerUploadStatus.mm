@@ -133,17 +133,15 @@
   state = self->_state;
   if (state > 5)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = *(&off_113C18 + state);
+    v3 = *(&off_113C18 + state);
   }
 
-  v5 = objc_opt_class();
-  useCount = self->_useCount;
-  return [NSString stringWithFormat:@"<%@:%p> transferId=%@ originalURL=%@ state=%@ useCount=%zd waitCount=%zd", v5, self, self->_transferId, self->_originalURL, v4, useCount, self->_waitCount];
+  return [NSString stringWithFormat:@"<%@:%p> transferId=%@ originalURL=%@ state=%@ useCount=%zd waitCount=%zd", objc_opt_class(), self, self->_transferId, self->_originalURL, v3, self->_useCount, self->_waitCount];
 }
 
 @end

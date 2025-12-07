@@ -397,7 +397,7 @@ uint64_t __44__SBAppSwitcherModel_modifyWithDropContext___block_invoke_2(uint64_
   return v9;
 }
 
-uint64_t __49__SBAppSwitcherModel_indexOfDisplayItem_visible___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__49__SBAppSwitcherModel_indexOfDisplayItem_visible___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsItem:*(a1 + 32)];
   if (result)

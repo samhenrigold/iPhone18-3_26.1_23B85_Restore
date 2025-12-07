@@ -214,14 +214,14 @@ uint64_t sub_100002824(uint64_t a1)
   return v3();
 }
 
-void sub_100002D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100002D54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v14 + 40));
+  va_start(va, a15);
+  objc_destroyWeak((v21 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v13 + 40));
+  objc_destroyWeak((v20 + 40));
 
-  objc_destroyWeak((v15 - 88));
+  objc_destroyWeak((v22 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -274,7 +274,7 @@ void sub_100002ED4(uint64_t a1)
   }
 }
 
-uint64_t sub_1000039F8()
+uint64_t sub_1000039F8(uint64_t a1, uint64_t a2)
 {
   if (qword_10000D048 != -1)
   {
@@ -291,7 +291,7 @@ void sub_100003A30(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100003A74()
+uint64_t sub_100003A74(uint64_t a1, uint64_t a2)
 {
   if (qword_10000D058 != -1)
   {

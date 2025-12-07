@@ -141,11 +141,11 @@ void sub_100004670(uint64_t a1)
   }
 }
 
-void sub_1000049E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1000049E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   objc_destroyWeak(va);
-  objc_destroyWeak((v5 - 24));
+  objc_destroyWeak((v9 - 24));
   _Unwind_Resume(a1);
 }
 
@@ -343,9 +343,9 @@ uint64_t sub_1000060B8(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_100006114(uint64_t a1)
+uint64_t sub_100006114(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -1204,7 +1204,7 @@ LABEL_213:
 
               sub_1000C73BC(&v114);
 
-              sub_100093B6C(&qword_10018EE48);
+              sub_100093B6C(&qword_10018EE48, &qword_1000F80A8);
               sub_1000C7428();
               v5 = BidirectionalCollection<>.joined(separator:)();
               v110 = v109;
@@ -1565,37 +1565,37 @@ uint64_t sub_100007C78(uint64_t a1)
   v1(v2);
 }
 
-char *sub_100007FAC()
+char *sub_100007FAC(uint64_t a1, uint64_t a2)
 {
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakInit();
-  v1 = &v0[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
-  *v1 = 0;
-  v1[1] = 0;
-  v0[OBJC_IVAR___SRCarPlayPresentation_siriIsIdleAndQuiet] = 2;
-  v2 = &v0[OBJC_IVAR___SRCarPlayPresentation_isJarvisProvider];
-  *(v2 + 3) = &type metadata for DefaultIsJarvisProvider;
-  *(v2 + 4) = &off_1001696C0;
-  v0[OBJC_IVAR___SRCarPlayPresentation_shouldResumeMediaOnIdle] = 0;
-  *&v0[OBJC_IVAR___SRCarPlayPresentation_delayDismissalTimeInSec] = 0;
-  v0[OBJC_IVAR___SRCarPlayPresentation_shouldClearFullscreenSnippet] = 0;
-  v0[OBJC_IVAR___SRCarPlayPresentation_shouldRequestStartAttendingAfterTTSStarts] = 0;
-  v10.receiver = v0;
-  v10.super_class = type metadata accessor for SRCarPlayPresentation();
-  v3 = objc_msgSendSuper2(&v10, "init");
+  v3 = &v2[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
+  *v3 = 0;
+  v3[1] = 0;
+  v2[OBJC_IVAR___SRCarPlayPresentation_siriIsIdleAndQuiet] = 2;
+  v4 = &v2[OBJC_IVAR___SRCarPlayPresentation_isJarvisProvider];
+  *(v4 + 3) = &type metadata for DefaultIsJarvisProvider;
+  *(v4 + 4) = &off_1001696C0;
+  v2[OBJC_IVAR___SRCarPlayPresentation_shouldResumeMediaOnIdle] = 0;
+  *&v2[OBJC_IVAR___SRCarPlayPresentation_delayDismissalTimeInSec] = 0;
+  v2[OBJC_IVAR___SRCarPlayPresentation_shouldClearFullscreenSnippet] = 0;
+  v2[OBJC_IVAR___SRCarPlayPresentation_shouldRequestStartAttendingAfterTTSStarts] = 0;
+  v12.receiver = v2;
+  v12.super_class = type metadata accessor for SRCarPlayPresentation();
+  v5 = objc_msgSendSuper2(&v12, "init");
   swift_unknownObjectWeakAssign();
   swift_unknownObjectWeakAssign();
-  v4 = objc_allocWithZone(type metadata accessor for SRCarPlayViewController());
-  v5 = v3;
-  v6 = sub_100008400(v5, v4);
+  v6 = objc_allocWithZone(type metadata accessor for SRCarPlayViewController());
+  v7 = v5;
+  v8 = sub_100008400(v7, v6);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  v7 = &v5[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
-  v8 = *&v5[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
-  *v7 = v6;
-  v7[1] = &off_100169BD8;
+  v9 = &v7[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
+  v10 = *&v7[OBJC_IVAR___SRCarPlayPresentation_carPlayViewController];
+  *v9 = v8;
+  v9[1] = &off_100169BD8;
 
-  return v5;
+  return v7;
 }
 
 void sub_1000081C0(uint64_t a1, uint64_t a2)
@@ -2006,15 +2006,15 @@ uint64_t _s4Siri36GenerativeModelsCompatabilityWrapperC21siriGMAssetsAvailableSb
   v0 = type metadata accessor for GenerativeModelsAvailability.Availability();
   v96 = *(v0 - 8);
   v1 = *(v96 + 64);
-  (__chkstk_darwin)();
+  __chkstk_darwin(v0);
   v2 = (v1 + 15) & 0xFFFFFFFFFFFFFFF0;
   v3 = type metadata accessor for GenerativeModelsAvailability();
   v4 = *(v3 - 8);
-  (__chkstk_darwin)();
+  __chkstk_darwin(v3);
   v6 = &v87 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for GenerativeModelsAvailability.Parameters();
   v8 = *(v7 - 8);
-  (__chkstk_darwin)();
+  __chkstk_darwin(v7);
   v10 = &v87 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   GenerativeModelsAvailability.Parameters.init(useCaseIdentifiers:)();
   static GenerativeModelsAvailability.current(parameters:)();
@@ -2046,7 +2046,7 @@ uint64_t _s4Siri36GenerativeModelsCompatabilityWrapperC21siriGMAssetsAvailableSb
     v99 = 0x8000000100118650;
     GenerativeModelsAvailability.Availability.RestrictedInfo.reasons.getter();
     v21 = type metadata accessor for GenerativeModelsAvailability.Availability.RestrictedInfo.RestrictedReason();
-    sub_1000A3A94(&qword_10018E4C0, &type metadata accessor for GenerativeModelsAvailability.Availability.RestrictedInfo.RestrictedReason);
+    sub_1000A3A94(&qword_10018E4C0, &type metadata accessor for GenerativeModelsAvailability.Availability.RestrictedInfo.RestrictedReason, &protocol conformance descriptor for GenerativeModelsAvailability.Availability.RestrictedInfo.RestrictedReason);
     v90 = v21;
     v22 = Set.description.getter();
     v24 = v23;
@@ -2204,7 +2204,7 @@ uint64_t _s4Siri36GenerativeModelsCompatabilityWrapperC21siriGMAssetsAvailableSb
       String.append(_:)(v50);
       GenerativeModelsAvailability.Availability.UnavailableInfo.reasons.getter();
       type metadata accessor for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason();
-      sub_1000A3A94(&qword_10018E4B8, &type metadata accessor for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason);
+      sub_1000A3A94(&qword_10018E4B8, &type metadata accessor for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason, &protocol conformance descriptor for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason);
       v51 = Set.description.getter();
       v53 = v52;
 
@@ -2303,7 +2303,7 @@ void sub_10000A190(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000A238(uint64_t a1, unint64_t *a2)
+uint64_t sub_10000A238(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2516,7 +2516,7 @@ LABEL_27:
   }
 }
 
-void sub_10000AABC(os_log_type_t a1, Swift::UInt a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6)
+void sub_10000AABC(os_log_type_t a1, Swift::UInt a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
   v24 = a3;
   v25 = a4;
@@ -2657,9 +2657,9 @@ void sub_10000AEDC(char a1)
     v13 = [v11 *v12];
     [v8 setBackgroundColor:v13];
 
-    sub_10000A238(0, &qword_10018EE20);
+    sub_10000A238(0, &qword_10018EE20, UITraitCollection_ptr);
     static UITraitCollection.systemTraitsAffectingColorAppearance.getter();
-    sub_10000A238(0, &qword_10018E9A8);
+    sub_10000A238(0, &qword_10018E9A8, UIView_ptr);
     UIView.registerForTraitChanges<A>(_:handler:)();
     swift_unknownObjectRelease();
   }
@@ -2677,13 +2677,13 @@ LABEL_9:
     [v17 setOpacity:0.0];
 
     [v2 insertSubview:v16 belowSubview:v49];
-    v51 = &type metadata for SiriUIFeaturesFlags;
-    v52 = sub_100017934();
-    v50[0] = 0;
+    v50[3] = &type metadata for SiriUIFeaturesFlags;
+    v50[4] = sub_100017934();
+    LOBYTE(v50[0]) = 0;
     v18 = isFeatureEnabled(_:)();
     sub_100006114(v50);
     v19 = objc_opt_self();
-    sub_100093B6C(&qword_10018E930);
+    sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
     v20 = swift_allocObject();
     *(v20 + 16) = xmmword_1000F7EF0;
     v21 = [v16 topAnchor];
@@ -2737,7 +2737,7 @@ LABEL_9:
       *(v20 + 56) = v47;
     }
 
-    sub_10000A238(0, &qword_10018E938);
+    sub_10000A238(0, &qword_10018E938, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v19 activateConstraints:isa];
@@ -3152,7 +3152,7 @@ LABEL_61:
             v21._object = (v77 | 0x8000000000000000);
             String.append(_:)(v21);
             v90._countAndFlagsBits = v20;
-            sub_100093B6C(&qword_10018E328);
+            sub_100093B6C(&qword_10018E328, &qword_1000F7568);
             _print_unlocked<A, B>(_:_:)();
             v22 = v91;
             v82 = v92;
@@ -3236,7 +3236,7 @@ LABEL_61:
             v87 = v35;
             if (v37 >= v36 >> 1)
             {
-              v87 = sub_1000126BC(v36 > 1, v37 + 1, 1, v87);
+              v87 = sub_1000126BC((v36 > 1), v37 + 1, 1, v87);
             }
 
             v39 = v86;
@@ -3500,7 +3500,7 @@ void sub_10000D260(void *a1, uint64_t a2, uint64_t a3, int a4)
     goto LABEL_24;
   }
 
-  sub_10000A238(0, &qword_10018E6D0);
+  sub_10000A238(0, &qword_10018E6D0, SAAceView_ptr);
   v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v11 >> 62)
@@ -3618,7 +3618,7 @@ LABEL_24:
   }
 
   v48 = v47;
-  sub_10000A238(0, &qword_10018E6D0);
+  sub_10000A238(0, &qword_10018E6D0, SAAceView_ptr);
   v49 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v49 >> 62)
@@ -4140,7 +4140,7 @@ void sub_10000E5B8(void *a1)
   swift_beginAccess();
   v26[0] = *(v1 + v5);
 
-  sub_100093B6C(&qword_10018EA08);
+  sub_100093B6C(&qword_10018EA08, &qword_1000F7CD0);
   v6._countAndFlagsBits = String.init<A>(describing:)();
   String.append(_:)(v6);
 
@@ -4212,7 +4212,7 @@ void sub_10000E9A0(uint64_t a1, uint64_t a2, char a3)
   v73 = *(v7 - 8);
   __chkstk_darwin(v7);
   v70 = &v66 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100093B6C(&unk_10018EA10);
+  v9 = sub_100093B6C(&unk_10018EA10, &qword_1000F7CD8);
   v10 = __chkstk_darwin(v9 - 8);
   v83 = &v66 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
@@ -4246,7 +4246,7 @@ void sub_10000E9A0(uint64_t a1, uint64_t a2, char a3)
 
       v85 = 0xD000000000000019;
       v86 = 0x8000000100119720;
-      v23 = sub_100093B6C(&qword_10018E6B8);
+      v23 = sub_100093B6C(&qword_10018E6B8, &qword_1000F7CE0);
       v81 = v20;
       v79 = v23;
       v24._countAndFlagsBits = Array.description.getter();
@@ -4359,13 +4359,13 @@ LABEL_38:
           }
 
           v47 = *(v27 - 8);
-          sub_100099924(v21 + ((*(v47 + 80) + 32) & ~*(v47 + 80)) + *(v47 + 72) * v22++, v44, &qword_10018E6B8);
+          sub_100099924(v21 + ((*(v47 + 80) + 32) & ~*(v47 + 80)) + *(v47 + 72) * v22++, v44, &qword_10018E6B8, &qword_1000F7CE0);
           (*(v47 + 56))(v44, 0, 1, v27);
         }
 
         v48 = v44;
         v49 = v82;
-        sub_1000988D4(v48, v82, &unk_10018EA10);
+        sub_1000988D4(v48, v82, &unk_10018EA10, &qword_1000F7CD8);
         if ((*(v47 + 48))(v49, 1, v27) == 1)
         {
           break;
@@ -4612,34 +4612,39 @@ void sub_10000F39C(char a1, char a2)
   }
 }
 
-void sub_10000F8EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F8EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10000F908(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F908(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10000F928(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F928(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_10000F974(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F974(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_10000F9B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000F9B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_10000FB68(uint64_t a1, uint64_t a2)
@@ -5709,7 +5714,7 @@ void sub_100012674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-size_t sub_1000126BC(size_t result, int64_t a2, char a3, void *a4)
+void *sub_1000126BC(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -5755,7 +5760,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  sub_100093B6C(&qword_10018E6E0);
+  sub_100093B6C(&qword_10018E6E0, &qword_1000F7AA0);
   v10 = *(type metadata accessor for UUID() - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -5769,7 +5774,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -6379,7 +6384,7 @@ LABEL_76:
     String.append(_:)(v152);
     v200._countAndFlagsBits = a1;
     v153 = a1;
-    sub_100093B6C(&qword_10018E338);
+    sub_100093B6C(&qword_10018E338, &qword_1000F7570);
     v154._countAndFlagsBits = String.init<A>(describing:)();
     String.append(_:)(v154);
 
@@ -6677,7 +6682,7 @@ void sub_100014188(void *a1)
 
   objc_opt_self();
   v23 = swift_dynamicCastObjCClass();
-  v24 = &unk_10018E000;
+  v24 = &qword_10018E000;
   if (v23)
   {
     v25 = *&v2[OBJC_IVAR____TtC4Siri23SRCarPlayViewController_requestOptions];
@@ -6692,7 +6697,7 @@ void sub_100014188(void *a1)
       v32 = objc_allocWithZone(type metadata accessor for SRCarPlayVisualResponseViewController());
       v33 = v2;
       v34 = v31;
-      v24 = &unk_10018E000;
+      v24 = &qword_10018E000;
       v35 = sub_100014A20(v26, v29, v33, v30, v34, v32);
 
 LABEL_18:
@@ -6810,7 +6815,7 @@ LABEL_19:
     *(v68 + 4) = v70;
     _os_log_impl(&_mh_execute_header, v67, v60, "%s", v68, 0xCu);
     sub_100006114(v69);
-    v24 = &unk_10018E000;
+    v24 = &qword_10018E000;
   }
 
   else
@@ -7265,7 +7270,7 @@ void sub_1000155A4(void *a1)
       v39 = [v38 turnIdentifier];
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-      sub_1000AD170(&qword_10018E6C0, &type metadata accessor for UUID);
+      sub_1000AD170(&qword_10018E6C0, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       v40._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       String.append(_:)(v40);
 
@@ -7695,7 +7700,7 @@ void sub_100016708(void *a1, uint64_t a2, char a3)
     String.append(_:)(v7);
     v56 = v4;
     v59 = [v4 view];
-    sub_100093B6C(&qword_10018EA20);
+    sub_100093B6C(&qword_10018EA20, &qword_1000F7CE8);
     v8._countAndFlagsBits = String.init<A>(describing:)();
     String.append(_:)(v8);
 
@@ -7917,7 +7922,7 @@ char *sub_100016E2C(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_100093B6C(&qword_10018E320);
+    sub_100093B6C(&qword_10018E320, &unk_1000F7D90);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     v12 = v11 - 32;
@@ -7967,7 +7972,7 @@ uint64_t sub_100016FCC()
   v1 = *&v0[OBJC_IVAR____TtC4Siri19SRCarPlayScrollView_snippet];
   if (!v1)
   {
-    sub_100093B6C(&qword_10018E930);
+    sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
     v8 = swift_allocObject();
     *(v8 + 16) = xmmword_1000F79C0;
     *(v8 + 32) = v0;
@@ -7977,7 +7982,7 @@ uint64_t sub_100016FCC()
 
   v2 = v1;
   v3 = [v2 subviews];
-  sub_10000A238(0, &qword_10018E9A8);
+  sub_10000A238(0, &qword_10018E9A8, UIView_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v4 >> 62))
@@ -7990,7 +7995,7 @@ uint64_t sub_100016FCC()
 
 LABEL_10:
 
-    sub_100093B6C(&qword_10018E930);
+    sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
     v8 = swift_allocObject();
     *(v8 + 16) = xmmword_1000F79C0;
     *(v8 + 32) = v2;
@@ -8016,7 +8021,7 @@ LABEL_4:
 LABEL_7:
     v7 = v6;
 
-    sub_100093B6C(&qword_10018E930);
+    sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
     v8 = swift_allocObject();
     *(v8 + 16) = xmmword_1000F79C0;
     *(v8 + 32) = v7;
@@ -8036,13 +8041,13 @@ _OWORD *sub_100017168(_OWORD *a1, _OWORD *a2)
   return a2;
 }
 
-uint64_t sub_10001717C(uint64_t a1, unint64_t a2)
+uint64_t sub_10001717C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -8116,7 +8121,7 @@ char *sub_10001725C(char a1)
   LODWORD(v33) = 1144750080;
   [v29 setPriority:v33];
   v34 = objc_opt_self();
-  sub_100093B6C(&qword_10018E930);
+  sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
   v35 = swift_allocObject();
   *(v35 + 16) = xmmword_1000F7C00;
   v36 = *&v10[v46];
@@ -8127,7 +8132,7 @@ char *sub_10001725C(char a1)
   *(v35 + 56) = v26;
   *(v35 + 64) = v29;
   *(v35 + 72) = v32;
-  sub_10000A238(0, &qword_10018E938);
+  sub_10000A238(0, &qword_10018E938, NSLayoutConstraint_ptr);
   v38 = v36;
   v39 = v37;
   v40 = v23;
@@ -8389,7 +8394,7 @@ void sub_100017F74(void *a1, char a2)
     isa = [v7 constraints];
     if (!isa)
     {
-      sub_10000A238(0, &qword_10018E938);
+      sub_10000A238(0, &qword_10018E938, NSLayoutConstraint_ptr);
       static Array._unconditionallyBridgeFromObjectiveC(_:)();
       isa = Array._bridgeToObjectiveC()().super.isa;
     }
@@ -8438,7 +8443,7 @@ void sub_100017F74(void *a1, char a2)
     *&v2[OBJC_IVAR____TtC4Siri19SRCarPlayScrollView_snippetTrailingAnchorConstraint] = v25;
 
     v48 = objc_opt_self();
-    sub_100093B6C(&qword_10018E930);
+    sub_100093B6C(&qword_10018E930, &unk_1000F7A90);
     v28 = swift_allocObject();
     v29 = *&v2[v16];
     v30 = *&v2[v21];
@@ -8464,7 +8469,7 @@ void sub_100017F74(void *a1, char a2)
     v43 = *&v2[v49];
     *(v28 + 64) = v42;
     *(v28 + 72) = v43;
-    sub_10000A238(0, &qword_10018E938);
+    sub_10000A238(0, &qword_10018E938, NSLayoutConstraint_ptr);
     v44 = v43;
     v45 = Array._bridgeToObjectiveC()().super.isa;
     a2 = v50;
@@ -8482,7 +8487,7 @@ void sub_100017F74(void *a1, char a2)
 uint64_t sub_100018428(void *a1)
 {
   swift_getObjectType();
-  v3 = sub_100093B6C(&unk_10018E6A0);
+  v3 = sub_100093B6C(&unk_10018E6A0, &unk_1000F7A70);
   v4 = __chkstk_darwin(v3 - 8);
   v6 = &v91 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
@@ -8620,7 +8625,7 @@ LABEL_32:
   v24 = v23;
 
   sub_1000ACA14(v22, v24);
-  v25 = sub_1000AD170(&qword_10018E348, &type metadata accessor for Response);
+  v25 = sub_1000AD170(&qword_10018E348, &type metadata accessor for Response, &protocol conformance descriptor for Response);
   ProtobufBuilder.init(serializedData:)();
   v92 = v13;
   v93 = v25;
@@ -8691,7 +8696,7 @@ LABEL_38:
   v71 = Response.getComponentTypes()();
   result = Response.getComponentTypes()();
   v72 = result;
-  v73 = *(v71 + 16);
+  v73 = *(v71 + 2);
   v74 = v98;
   v75 = v21;
   if (v73)
@@ -8700,7 +8705,7 @@ LABEL_38:
     v77 = v71 + 32;
     v97 = v50;
     v78 = v48;
-    while (v76 < *(v71 + 16))
+    while (v76 < *(v71 + 2))
     {
       v79 = *(v72 + 16);
       if (!v79)
@@ -8718,7 +8723,7 @@ LABEL_55:
 
       v80 = 0;
       v81 = 0;
-      v82 = *(v77 + 16 * v76++);
+      v82 = *&v77[16 * v76++];
       while (*(v72 + v80 + 32) != v82)
       {
         ++v81;
@@ -8881,7 +8886,7 @@ uint64_t sub_100018F64@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_100018F94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_100093B6C(&qword_10018E058);
+  v6 = sub_100093B6C(&qword_10018E058, &qword_1000F7358);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -8904,7 +8909,7 @@ uint64_t sub_100018F94(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10001905C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = sub_100093B6C(&qword_10018E058);
+  result = sub_100093B6C(&qword_10018E058, &qword_1000F7358);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -8964,7 +8969,7 @@ uint64_t sub_100019320()
 
 uint64_t sub_100019358()
 {
-  v1 = sub_100093B6C(&qword_10018E5A8);
+  v1 = sub_100093B6C(&qword_10018E5A8, &unk_1000F78B0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 40) & ~v3;

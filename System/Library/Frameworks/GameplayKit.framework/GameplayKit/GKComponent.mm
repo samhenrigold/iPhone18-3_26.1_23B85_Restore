@@ -33,23 +33,23 @@
 
 - (GKComponent)initWithCoder:(id)coder
 {
-  v36[10] = *MEMORY[0x277D85DE8];
+  v35[10] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(GKComponent *)self init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v36[0] = objc_opt_class();
-    v36[1] = objc_opt_class();
-    v36[2] = objc_opt_class();
-    v36[3] = objc_opt_class();
-    v36[4] = objc_opt_class();
-    v36[5] = objc_opt_class();
-    v36[6] = objc_opt_class();
-    v36[7] = objc_opt_class();
-    v36[8] = objc_opt_class();
-    v36[9] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:10];
+    v35[0] = objc_opt_class();
+    v35[1] = objc_opt_class();
+    v35[2] = objc_opt_class();
+    v35[3] = objc_opt_class();
+    v35[4] = objc_opt_class();
+    v35[5] = objc_opt_class();
+    v35[6] = objc_opt_class();
+    v35[7] = objc_opt_class();
+    v35[8] = objc_opt_class();
+    v35[9] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:10];
     [v6 addObjectsFromArray:v7];
 
     allowedClasses = [coderCopy allowedClasses];
@@ -63,30 +63,30 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v27 = v11;
-      v28 = v6;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v26 = v11;
+      v27 = v6;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       obj = v11;
-      v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v32;
-        v29 = *v32;
+        v14 = *v31;
+        v28 = *v31;
         do
         {
           v15 = 0;
           do
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v31 + 1) + 8 * v15);
+            v16 = *(*(&v30 + 1) + 8 * v15);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -114,7 +114,7 @@
                 }
 
                 coderCopy = v18;
-                v14 = v29;
+                v14 = v28;
               }
             }
 
@@ -122,18 +122,17 @@
           }
 
           while (v13 != v15);
-          v13 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v13);
       }
 
-      v11 = v27;
-      v6 = v28;
+      v11 = v26;
+      v6 = v27;
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

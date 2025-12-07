@@ -57,7 +57,7 @@
 - (PXGenerativeStoryFeatureEligibilityDataSource)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for GenerativeStoryFeatureEligibilityDataSource();
+  v3.super_class = type metadata accessor for GenerativeStoryFeatureEligibilityDataSource(self, a2);
   return [(PXGenerativeStoryFeatureEligibilityDataSource *)&v3 init];
 }
 

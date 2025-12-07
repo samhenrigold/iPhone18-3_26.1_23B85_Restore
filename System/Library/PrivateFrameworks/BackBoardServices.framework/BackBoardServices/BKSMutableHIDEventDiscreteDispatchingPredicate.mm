@@ -12,45 +12,43 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [BKSHIDEventDiscreteDispatchingPredicate allocWithZone:zone];
-  senderDescriptors = self->super._senderDescriptors;
-  descriptors = self->super._descriptors;
+  v3 = [BKSHIDEventDiscreteDispatchingPredicate allocWithZone:?];
 
-  return [(BKSHIDEventDiscreteDispatchingPredicate *)v4 _initWithSourceDescriptors:senderDescriptors descriptors:descriptors];
+  return [BKSHIDEventDiscreteDispatchingPredicate _initWithSourceDescriptors:v3 descriptors:"_initWithSourceDescriptors:descriptors:"];
 }
 
 - (void)setDescriptors:(id)descriptors
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   if (!descriptorsCopy)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"descriptors", v10];
+    v7 = MEMORY[0x1E696AEC0];
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [v7 stringWithFormat:@"descriptors", v9];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v30 = v12;
-      v31 = 2114;
-      v32 = v14;
-      v33 = 2048;
+      v29 = v11;
+      v30 = 2114;
+      v31 = v13;
+      v32 = 2048;
       selfCopy3 = self;
-      v35 = 2114;
-      v36 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-      v37 = 1024;
-      v38 = 256;
-      v39 = 2114;
-      v40 = v11;
+      v34 = 2114;
+      v35 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+      v36 = 1024;
+      v37 = 256;
+      v38 = 2114;
+      v39 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18639C0D8);
@@ -59,68 +57,68 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     classForCoder = [descriptorsCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v17 = NSStringFromClass(classForCoder);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v15 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"descriptors", v17, v19];
+    v16 = NSStringFromClass(classForCoder);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = [v14 stringWithFormat:@"descriptors", v16, v18];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v23;
-      v33 = 2048;
+      v29 = v20;
+      v30 = 2114;
+      v31 = v22;
+      v32 = 2048;
       selfCopy3 = self;
-      v35 = 2114;
-      v36 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-      v37 = 1024;
-      v38 = 256;
-      v39 = 2114;
-      v40 = v20;
+      v34 = 2114;
+      v35 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+      v36 = 1024;
+      v37 = 256;
+      v38 = 2114;
+      v39 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18639C214);
   }
 
-  if ([descriptorsCopy bs_containsObjectPassingTest:&__block_literal_global_162])
+  if ([descriptorsCopy bs_containsObjectPassingTest:?])
   {
-    descriptorsCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"descriptors contains non-BKSHIDEventDescriptor elements : %@", descriptorsCopy];
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:descriptorsCopy];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v24 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138544642;
-      v30 = v25;
-      v31 = 2114;
-      v32 = v27;
-      v33 = 2048;
+      v29 = v24;
+      v30 = 2114;
+      v31 = v26;
+      v32 = 2048;
       selfCopy3 = self;
-      v35 = 2114;
-      v36 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-      v37 = 1024;
-      v38 = 260;
-      v39 = 2114;
-      v40 = descriptorsCopy;
+      v34 = 2114;
+      v35 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+      v36 = 1024;
+      v37 = 260;
+      v38 = 2114;
+      v39 = v23;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [descriptorsCopy UTF8String];
+    [v23 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18639C308);
@@ -129,8 +127,6 @@
   v5 = [descriptorsCopy copy];
   descriptors = self->super._descriptors;
   self->super._descriptors = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __65__BKSMutableHIDEventDiscreteDispatchingPredicate_setDescriptors___block_invoke(uint64_t a1, void *a2)
@@ -144,213 +140,204 @@ BOOL __65__BKSMutableHIDEventDiscreteDispatchingPredicate_setDescriptors___block
 
 - (void)setSenderDescriptors:(id)descriptors
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   if (descriptorsCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v21 = MEMORY[0x1E696AEC0];
+      v19 = MEMORY[0x1E696AEC0];
       classForCoder = [descriptorsCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v23 = NSStringFromClass(classForCoder);
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = [v21 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"senderDescriptors", v23, v25];
+      v21 = NSStringFromClass(classForCoder);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
+      v24 = [v19 stringWithFormat:@"senderDescriptors", v21, v23];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v27 = NSStringFromSelector(a2);
-        v28 = objc_opt_class();
-        v29 = NSStringFromClass(v28);
+        v25 = NSStringFromSelector(a2);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
         *buf = 138544642;
-        v36 = v27;
-        v37 = 2114;
-        v38 = v29;
-        v39 = 2048;
+        v29 = v25;
+        v30 = 2114;
+        v31 = v27;
+        v32 = 2048;
         selfCopy2 = self;
-        v41 = 2114;
-        v42 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-        v43 = 1024;
-        v44 = 239;
-        v45 = 2114;
-        v46 = v26;
+        v34 = 2114;
+        v35 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+        v36 = 1024;
+        v37 = 239;
+        v38 = 2114;
+        v39 = v24;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v26 UTF8String];
+      [v24 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18639C720);
     }
 
     v6 = [MEMORY[0x1E695DFA8] set];
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
     v7 = descriptorsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = MEMORY[0];
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v31 != v10)
+          if (MEMORY[0] != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"set contains non-BKSHIDEventSenderDescriptor elements : %@", v7];
+            v15 = [MEMORY[0x1E696AEC0] stringWithFormat:v7];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v18 = NSStringFromSelector(a2);
-              v19 = objc_opt_class();
-              v20 = NSStringFromClass(v19);
+              v16 = NSStringFromSelector(a2);
+              v17 = objc_opt_class();
+              v18 = NSStringFromClass(v17);
               *buf = 138544642;
-              v36 = v18;
-              v37 = 2114;
-              v38 = v20;
-              v39 = 2048;
+              v29 = v16;
+              v30 = 2114;
+              v31 = v18;
+              v32 = 2048;
               selfCopy2 = self;
-              v41 = 2114;
-              v42 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-              v43 = 1024;
-              v44 = 243;
-              v45 = 2114;
-              v46 = v17;
+              v34 = 2114;
+              v35 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+              v36 = 1024;
+              v37 = 243;
+              v38 = 2114;
+              v39 = v15;
               _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            [v17 UTF8String];
+            [v15 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x18639C5E4);
           }
 
-          [v6 addObject:v12];
+          [v6 addObject:?];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v9);
     }
 
-    v13 = [v6 copy];
+    v12 = [v6 copy];
     senderDescriptors = self->super._senderDescriptors;
-    self->super._senderDescriptors = v13;
+    self->super._senderDescriptors = v12;
   }
 
   else
   {
-    v15 = self->super._senderDescriptors;
+    v14 = self->super._senderDescriptors;
     self->super._senderDescriptors = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplays:(id)displays
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   displaysCopy = displays;
   if (displaysCopy)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v7 = MEMORY[0x1E696AEC0];
+      v6 = MEMORY[0x1E696AEC0];
       classForCoder = [displaysCopy classForCoder];
       if (!classForCoder)
       {
         classForCoder = objc_opt_class();
       }
 
-      v9 = NSStringFromClass(classForCoder);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = [v7 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"displays", v9, v11];
+      v8 = NSStringFromClass(classForCoder);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = [v6 stringWithFormat:@"displays", v8, v10];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v12 = NSStringFromSelector(a2);
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
         *buf = 138544642;
-        v22 = v13;
-        v23 = 2114;
-        v24 = v15;
-        v25 = 2048;
+        v21 = v12;
+        v22 = 2114;
+        v23 = v14;
+        v24 = 2048;
         selfCopy2 = self;
-        v27 = 2114;
-        v28 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-        v29 = 1024;
-        v30 = 223;
-        v31 = 2114;
-        v32 = v12;
+        v26 = 2114;
+        v27 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+        v28 = 1024;
+        v29 = 223;
+        v30 = 2114;
+        v31 = v11;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v12 UTF8String];
+      [v11 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18639C948);
     }
 
-    if ([displaysCopy bs_containsObjectPassingTest:&__block_literal_global_146])
+    if ([displaysCopy bs_containsObjectPassingTest:?])
     {
-      displaysCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"displays contains non-BKSHIDEventDisplay elements : %@", displaysCopy];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:displaysCopy];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = NSStringFromSelector(a2);
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v16 = NSStringFromSelector(a2);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138544642;
-        v22 = v17;
-        v23 = 2114;
-        v24 = v19;
-        v25 = 2048;
+        v21 = v16;
+        v22 = 2114;
+        v23 = v18;
+        v24 = 2048;
         selfCopy2 = self;
-        v27 = 2114;
-        v28 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-        v29 = 1024;
-        v30 = 227;
-        v31 = 2114;
-        v32 = displaysCopy;
+        v26 = 2114;
+        v27 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+        v28 = 1024;
+        v29 = 227;
+        v30 = 2114;
+        v31 = v15;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [displaysCopy UTF8String];
+      [v15 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18639CA3CLL);
     }
   }
 
-  v5 = [displaysCopy bs_map:&__block_literal_global_153];
-  [(BKSMutableHIDEventDiscreteDispatchingPredicate *)self setSenderDescriptors:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [displaysCopy bs_map:?];
+  [(BKSMutableHIDEventDiscreteDispatchingPredicate *)self setSenderDescriptors:?];
 }
 
-id __62__BKSMutableHIDEventDiscreteDispatchingPredicate_setDisplays___block_invoke_150(uint64_t a1, void *a2)
+void *__62__BKSMutableHIDEventDiscreteDispatchingPredicate_setDisplays___block_invoke_150(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_alloc_init(BKSMutableHIDEventSenderDescriptor);
-  [(BKSMutableHIDEventSenderDescriptor *)v3 setAssociatedDisplay:v2];
+  [(BKSMutableHIDEventSenderDescriptor *)v3 setAssociatedDisplay:?];
 
   v4 = [(BKSMutableHIDEventSenderDescriptor *)v3 copy];
 
@@ -368,32 +355,32 @@ BOOL __62__BKSMutableHIDEventDiscreteDispatchingPredicate_setDisplays___block_in
 
 - (BKSMutableHIDEventDiscreteDispatchingPredicate)init
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class())
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSMutableHIDEventDiscreteDispatchingPredicate cannot be subclassed"];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = 138544642;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v13;
-      v18 = 2048;
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = 138544642;
+      v14 = v10;
+      v15 = 2114;
+      v16 = v12;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
-      v22 = 1024;
-      v23 = 217;
-      v24 = 2114;
-      v25 = v10;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v14, 0x3Au);
+      v19 = 2114;
+      v20 = @"BKSHIDEventDiscreteDispatchingPredicate.m";
+      v21 = 1024;
+      v22 = 217;
+      v23 = 2114;
+      v24 = v9;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18639CCA0);
@@ -401,9 +388,8 @@ BOOL __62__BKSMutableHIDEventDiscreteDispatchingPredicate_setDisplays___block_in
 
   v5 = [MEMORY[0x1E695DFD8] set];
   v6 = [MEMORY[0x1E695DFD8] set];
-  v7 = [(BKSHIDEventDiscreteDispatchingPredicate *)self _initWithSourceDescriptors:v5 descriptors:v6];
+  v7 = [BKSHIDEventDiscreteDispatchingPredicate _initWithSourceDescriptors:"_initWithSourceDescriptors:descriptors:" descriptors:?];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -422,63 +408,63 @@ BOOL __62__BKSMutableHIDEventDiscreteDispatchingPredicate_setDisplays___block_in
 void __71__BKSMutableHIDEventDiscreteDispatchingPredicate_defaultFocusPredicate__block_invoke()
 {
   v22 = [MEMORY[0x1E695DFA8] set];
-  v0 = [BKSHIDEventDescriptor descriptorWithEventType:11];
-  [v22 addObject:v0];
+  v0 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
-  v1 = [BKSHIDEventDescriptor descriptorWithEventType:6];
-  [v22 addObject:v1];
+  v1 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
-  v2 = [BKSHIDEventDescriptor descriptorWithEventType:17];
-  [v22 addObject:v2];
+  v2 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
-  v3 = [BKSHIDEventDescriptor descriptorWithEventType:35];
-  [v22 addObject:v3];
+  v3 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
-  v4 = [BKSHIDEventDescriptor descriptorWithEventType:30];
-  [v22 addObject:v4];
+  v4 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
-  v5 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:7 usage:0];
-  [v22 addObject:v5];
+  v5 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v6 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:548];
-  [v22 addObject:v6];
+  v6 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v7 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:516];
-  [v22 addObject:v7];
+  v7 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v8 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:521];
-  [v22 addObject:v8];
+  v8 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v9 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:178];
-  [v22 addObject:v9];
+  v9 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v10 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:184];
-  [v22 addObject:v10];
+  v10 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v11 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:430];
-  [v22 addObject:v11];
+  v11 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v12 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:669];
-  [v22 addObject:v12];
+  v12 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v13 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:255 usage:3];
-  [v22 addObject:v13];
+  v13 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v22 addObject:?];
 
-  v14 = [BKSHIDEventUsagePairDescriptor descriptorForHIDEventType:1 page:65280 usage:59];
-  [v22 addObject:v14];
+  v14 = [BKSHIDEventUsagePairDescriptor descriptorForHIDEventType:"descriptorForHIDEventType:page:usage:" page:? usage:?];
+  [v22 addObject:?];
 
-  v15 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:3];
-  [v22 addObject:v15];
+  v15 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:?];
+  [v22 addObject:?];
 
-  v16 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:0];
-  [v22 addObject:v16];
+  v16 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:?];
+  [v22 addObject:?];
 
-  v17 = [BKSHIDEventDescriptor descriptorWithEventType:39];
-  [v22 addObject:v17];
+  v17 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v22 addObject:?];
 
   v18 = [BKSHIDEventDiscreteDispatchingPredicate alloc];
   v19 = [MEMORY[0x1E695DFD8] set];
-  v20 = [(BKSHIDEventDiscreteDispatchingPredicate *)v18 _initWithSourceDescriptors:v19 descriptors:v22];
+  v20 = [BKSHIDEventDiscreteDispatchingPredicate _initWithSourceDescriptors:v18 descriptors:"_initWithSourceDescriptors:descriptors:"];
   v21 = defaultFocusPredicate___defaultFocusPredicate;
   defaultFocusPredicate___defaultFocusPredicate = v20;
 }
@@ -498,225 +484,225 @@ void __71__BKSMutableHIDEventDiscreteDispatchingPredicate_defaultFocusPredicate_
 void __72__BKSMutableHIDEventDiscreteDispatchingPredicate_defaultSystemPredicate__block_invoke()
 {
   v76 = [MEMORY[0x1E695DFA8] set];
-  v0 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:11 usage:45];
-  [v76 addObject:v0];
+  v0 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v1 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:11 usage:46];
-  [v76 addObject:v1];
+  v1 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v2 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:11 usage:35];
-  [v76 addObject:v2];
+  v2 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v3 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:11 usage:33];
-  [v76 addObject:v3];
+  v3 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v4 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65287 usage:1];
-  [v76 addObject:v4];
+  v4 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v5 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65281 usage:33];
-  [v76 addObject:v5];
+  v5 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v6 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65281 usage:32];
-  [v76 addObject:v6];
+  v6 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v7 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65281 usage:16];
-  [v76 addObject:v7];
+  v7 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v8 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65281 usage:64];
-  [v76 addObject:v8];
+  v8 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v9 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65281 usage:65];
-  [v76 addObject:v9];
+  v9 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v10 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:133 usage:75];
-  [v76 addObject:v10];
+  v10 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v11 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:134];
-  [v76 addObject:v11];
+  v11 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v12 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:132];
-  [v76 addObject:v12];
+  v12 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v13 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:133];
-  [v76 addObject:v13];
+  v13 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v14 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:137];
-  [v76 addObject:v14];
+  v14 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v15 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:141];
-  [v76 addObject:v15];
+  v15 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v16 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:136];
-  [v76 addObject:v16];
+  v16 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v17 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:139];
-  [v76 addObject:v17];
+  v17 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v18 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:138];
-  [v76 addObject:v18];
+  v18 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v19 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:140];
-  [v76 addObject:v19];
+  v19 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v20 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:1 usage:155];
-  [v76 addObject:v20];
+  v20 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v21 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:610];
-  [v76 addObject:v21];
+  v21 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v22 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:604];
-  [v76 addObject:v22];
+  v22 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v23 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:547];
-  [v76 addObject:v23];
+  v23 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v24 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:603];
-  [v76 addObject:v24];
+  v24 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v25 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:545];
-  [v76 addObject:v25];
+  v25 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v26 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:433];
-  [v76 addObject:v26];
+  v26 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v27 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:414];
-  [v76 addObject:v27];
+  v27 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v28 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:134];
-  [v76 addObject:v28];
+  v28 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v29 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:96];
-  [v76 addObject:v29];
+  v29 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v30 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:111];
-  [v76 addObject:v30];
+  v30 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v31 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:112];
-  [v76 addObject:v31];
+  v31 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v32 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:121];
-  [v76 addObject:v32];
+  v32 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v33 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:122];
-  [v76 addObject:v33];
+  v33 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v34 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:179];
-  [v76 addObject:v34];
+  v34 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v35 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:64];
-  [v76 addObject:v35];
+  v35 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v36 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:67];
-  [v76 addObject:v36];
+  v36 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v37 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:68];
-  [v76 addObject:v37];
+  v37 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v38 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:65];
-  [v76 addObject:v38];
+  v38 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v39 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:69];
-  [v76 addObject:v39];
+  v39 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v40 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:66];
-  [v76 addObject:v40];
+  v40 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v41 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:4];
-  [v76 addObject:v41];
+  v41 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v42 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:226];
-  [v76 addObject:v42];
+  v42 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v43 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:177];
-  [v76 addObject:v43];
+  v43 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v44 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:176];
-  [v76 addObject:v44];
+  v44 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v45 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:205];
-  [v76 addObject:v45];
+  v45 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v46 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:48];
-  [v76 addObject:v46];
+  v46 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v47 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:185];
-  [v76 addObject:v47];
+  v47 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v48 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:188];
-  [v76 addObject:v48];
+  v48 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v49 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:180];
-  [v76 addObject:v49];
+  v49 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v50 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:181];
-  [v76 addObject:v50];
+  v50 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v51 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:182];
-  [v76 addObject:v51];
+  v51 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v52 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:199];
-  [v76 addObject:v52];
+  v52 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v53 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:198];
-  [v76 addObject:v53];
+  v53 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v54 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:128];
-  [v76 addObject:v54];
+  v54 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v55 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:101];
-  [v76 addObject:v55];
+  v55 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v56 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:183];
-  [v76 addObject:v56];
+  v56 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v57 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:203];
-  [v76 addObject:v57];
+  v57 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v58 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:202];
-  [v76 addObject:v58];
+  v58 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v59 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:190];
-  [v76 addObject:v59];
+  v59 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v60 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:207];
-  [v76 addObject:v60];
+  v60 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v61 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:234];
-  [v76 addObject:v61];
+  v61 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v62 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:12 usage:233];
-  [v76 addObject:v62];
+  v62 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v63 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65289 usage:1];
-  [v76 addObject:v63];
+  v63 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v64 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65289 usage:2];
-  [v76 addObject:v64];
+  v64 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v65 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65289 usage:3];
-  [v76 addObject:v65];
+  v65 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v66 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65289 usage:4];
-  [v76 addObject:v66];
+  v66 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v67 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:65289 usage:32];
-  [v76 addObject:v67];
+  v67 = [BKSHIDEventKeyboardDescriptor descriptorWithPage:"descriptorWithPage:usage:" usage:?];
+  [v76 addObject:?];
 
-  v68 = [BKSHIDEventDescriptor descriptorWithEventType:32];
-  [v76 addObject:v68];
+  v68 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v76 addObject:?];
 
-  v69 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:2];
-  [v76 addObject:v69];
+  v69 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:?];
+  [v76 addObject:?];
 
-  v70 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:1];
-  [v76 addObject:v70];
+  v70 = [BKSHIDEventBiometricDescriptor descriptorWithBiometricEventType:?];
+  [v76 addObject:?];
 
-  v71 = [BKSHIDEventDescriptor descriptorWithEventType:14];
-  [v76 addObject:v71];
+  v71 = [BKSHIDEventDescriptor descriptorWithEventType:?];
+  [v76 addObject:?];
 
   v72 = [BKSHIDEventDiscreteDispatchingPredicate alloc];
   v73 = [MEMORY[0x1E695DFD8] set];
-  v74 = [(BKSHIDEventDiscreteDispatchingPredicate *)v72 _initWithSourceDescriptors:v73 descriptors:v76];
+  v74 = [BKSHIDEventDiscreteDispatchingPredicate _initWithSourceDescriptors:v72 descriptors:"_initWithSourceDescriptors:descriptors:"];
   v75 = defaultSystemPredicate___defaultSystemPredicate;
   defaultSystemPredicate___defaultSystemPredicate = v74;
 }

@@ -25,7 +25,7 @@ VCPMADVISceneClassificationResource *__53__VCPMADVISceneClassificationResource_s
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 75;
   }
@@ -38,7 +38,7 @@ VCPMADVISceneClassificationResource *__53__VCPMADVISceneClassificationResource_s
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 35;
   }

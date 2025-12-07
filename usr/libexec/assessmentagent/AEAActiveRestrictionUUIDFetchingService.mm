@@ -37,9 +37,7 @@
 - (void)fetchSetOfActiveRestrictionUUIDsWithClientType:(id)type completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  v6 = (*(&self->super.isa + OBJC_IVAR____TtC15assessmentagent39AEAActiveRestrictionUUIDFetchingService_sessionManager))[22];
   swift_beginAccess();
-  v7 = *(v6 + 16);
   selfCopy = self;
 
   isa = Set._bridgeToObjectiveC()().super.isa;

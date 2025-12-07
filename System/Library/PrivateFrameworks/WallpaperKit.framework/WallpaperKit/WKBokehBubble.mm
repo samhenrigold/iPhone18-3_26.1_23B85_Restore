@@ -1,16 +1,18 @@
 @interface WKBokehBubble
 + (id)_newFadeAnimationWithSeed:(uint64_t)seed;
++ (id)_newFlickerAnimationWithSeed:(uint64_t)seed;
++ (id)_newScaleAnimationWithSeed:(uint64_t)seed;
+- (id)initWithSeed:(void *)seed;
 - (void)_configureAnimationsWithSeed:(void *)seed;
 - (void)_configureAppearanceWithSeed:(void *)seed;
 - (void)animationDidStop:(id)stop finished:(BOOL)finished;
-- (void)initWithSeed:(void *)seed;
 @end
 
 @implementation WKBokehBubble
 
 + (id)_newFadeAnimationWithSeed:(uint64_t)seed
 {
-  v14[4] = *MEMORY[0x1E69E9840];
+  v13[4] = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v3 = ((vcvts_n_f32_s32(rand_r(a2), 0x1FuLL) * 3.0) + 5.0) + 0.0;
   v4 = v3 + ((vcvts_n_f32_s32(rand_r(a2), 0x1FuLL) * 14.0) + 3.0);
@@ -19,19 +21,123 @@
   [v6 setAdditive:1];
   [v6 setValues:&unk_1F5EAA790];
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:0.0 / v5];
-  v14[0] = v7;
+  v13[0] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithDouble:v3 / v5];
-  v14[1] = v8;
+  v13[1] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:v4 / v5];
-  v14[2] = v9;
+  v13[2] = v9;
   v10 = [MEMORY[0x1E696AD98] numberWithDouble:v5 / v5];
-  v14[3] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:4];
+  v13[3] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:4];
   [v6 setKeyTimes:v11];
 
   [v6 setDuration:v5];
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
+}
+
++ (id)_newFlickerAnimationWithSeed:(uint64_t)seed
+{
+  v30[4] = *MEMORY[0x1E69E9840];
+  objc_opt_self();
+  v3 = rand_r(a2);
+  v4 = vcvts_n_f32_s32(rand_r(a2), 0x1FuLL);
+  v5 = vcvts_n_f32_s32(rand_r(a2), 0x1FuLL);
+  v6 = (v5 * 0.2) + 0.3;
+  v7 = (v5 * 0.5) + 0.5;
+  if (v4 >= 0.15)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = v6;
+  }
+
+  v9 = vcvts_n_f32_s32(rand_r(a2), 0x1FuLL);
+  v10 = vcvts_n_f32_s32(rand_r(a2), 0x1FuLL);
+  v11 = v10 + 0.5;
+  v12 = (v10 * 0.4) + 0.1;
+  if (v9 < 0.15)
+  {
+    v12 = v11;
+  }
+
+  v13 = v12 * 0.5;
+  v14 = v13 + 0.0;
+  v15 = v13 + 0.0 + v8;
+  v16 = v13 + v15;
+  v17 = objc_alloc_init(MEMORY[0x1E6979390]);
+  [v17 setAdditive:1];
+  v30[0] = &unk_1F5EAA718;
+  v30[1] = &unk_1F5EAA718;
+  v18 = -((vcvts_n_f32_s32(v3, 0x1FuLL) * 0.1) + 0.0);
+  v19 = [MEMORY[0x1E696AD98] numberWithDouble:v18];
+  v30[2] = v19;
+  v20 = [MEMORY[0x1E696AD98] numberWithDouble:v18];
+  v30[3] = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
+  [v17 setValues:v21];
+
+  v22 = [MEMORY[0x1E696AD98] numberWithDouble:0.0 / v16];
+  v29[0] = v22;
+  v23 = [MEMORY[0x1E696AD98] numberWithDouble:v14 / v16];
+  v29[1] = v23;
+  v24 = [MEMORY[0x1E696AD98] numberWithDouble:v15 / v16];
+  v29[2] = v24;
+  v25 = [MEMORY[0x1E696AD98] numberWithDouble:v16 / v16];
+  v29[3] = v25;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:4];
+  [v17 setKeyTimes:v26];
+
+  [v17 setDuration:v16];
+  [v17 setAutoreverses:1];
+  LODWORD(v27) = 2139095040;
+  [v17 setRepeatCount:v27];
+  v31 = CAFrameRateRangeMake(30.0, 120.0, 30.0);
+  [v17 setPreferredFrameRateRange:{*&v31.minimum, *&v31.maximum, *&v31.preferred}];
+  return v17;
+}
+
++ (id)_newScaleAnimationWithSeed:(uint64_t)seed
+{
+  v19[4] = *MEMORY[0x1E69E9840];
+  objc_opt_self();
+  v3 = ((vcvts_n_f32_s32(rand_r(a2), 0x1FuLL) * 0.4) + 0.2) * 0.5;
+  v4 = v3 + 0.0;
+  v5 = v3 + 0.0 + 0.4;
+  v6 = v3 + v5;
+  v7 = objc_alloc_init(MEMORY[0x1E6979390]);
+  [v7 setAdditive:1];
+  v19[0] = &unk_1F5EAA718;
+  v19[1] = &unk_1F5EAA718;
+  v8 = [MEMORY[0x1E696AD98] numberWithDouble:-0.025];
+  v19[2] = v8;
+  v9 = [MEMORY[0x1E696AD98] numberWithDouble:-0.025];
+  v19[3] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+  [v7 setValues:v10];
+
+  v11 = [MEMORY[0x1E696AD98] numberWithDouble:0.0 / v6];
+  v18[0] = v11;
+  v12 = [MEMORY[0x1E696AD98] numberWithDouble:v4 / v6];
+  v18[1] = v12;
+  v13 = [MEMORY[0x1E696AD98] numberWithDouble:v5 / v6];
+  v18[2] = v13;
+  v14 = [MEMORY[0x1E696AD98] numberWithDouble:v6 / v6];
+  v18[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
+  [v7 setKeyTimes:v15];
+
+  [v7 setDuration:v6];
+  *&v6 = v6;
+  [v7 setTimeOffset:{((vcvts_n_f32_s32(rand_r(a2), 0x1FuLL) * *&v6) + 0.0)}];
+  [v7 setAutoreverses:1];
+  LODWORD(v16) = 2139095040;
+  [v7 setRepeatCount:v16];
+  v20 = CAFrameRateRangeMake(30.0, 120.0, 30.0);
+  [v7 setPreferredFrameRateRange:{*&v20.minimum, *&v20.maximum, *&v20.preferred}];
+  return v7;
 }
 
 - (void)animationDidStop:(id)stop finished:(BOOL)finished
@@ -42,7 +148,7 @@
   }
 }
 
-- (void)initWithSeed:(void *)seed
+- (id)initWithSeed:(void *)seed
 {
   if (!seed)
   {
@@ -88,24 +194,24 @@
   {
     [seed removeAllAnimations];
     v4 = OUTLINED_FUNCTION_0_0();
-    v12 = [(WKBokehBubble *)v4 _newFadeAnimationWithSeed:v5];
-    [v12 setKeyPath:@"opacity"];
-    [v12 setDelegate:seed];
-    [seed addAnimation:v12 forKey:@"fade"];
+    v15 = [(WKBokehBubble *)v4 _newFadeAnimationWithSeed:v5];
+    [v15 setKeyPath:@"opacity"];
+    [v15 setDelegate:seed];
+    [seed addAnimation:v15 forKey:@"fade"];
     v6 = OUTLINED_FUNCTION_0_0();
-    v7 = [WKBokehBubble _newFlickerAnimationWithSeed:v6];
-    [v7 setKeyPath:@"opacity"];
-    [seed addAnimation:v7 forKey:@"flicker"];
+    v8 = [(WKBokehBubble *)v6 _newFlickerAnimationWithSeed:v7];
+    [v8 setKeyPath:@"opacity"];
+    [seed addAnimation:v8 forKey:@"flicker"];
     if (vcvts_n_f32_s32(rand_r(a2), 0x1FuLL) < 0.5)
     {
-      v8 = OUTLINED_FUNCTION_0_0();
-      v9 = [WKBokehBubble _newScaleAnimationWithSeed:v8];
-      [v9 setKeyPath:@"transform.scale.x"];
-      [seed addAnimation:v9 forKey:@"squish"];
-      v10 = OUTLINED_FUNCTION_0_0();
-      v11 = [WKBokehBubble _newScaleAnimationWithSeed:v10];
-      [v11 setKeyPath:@"transform.scale.y"];
-      [seed addAnimation:v11 forKey:@"squash"];
+      v9 = OUTLINED_FUNCTION_0_0();
+      v11 = [(WKBokehBubble *)v9 _newScaleAnimationWithSeed:v10];
+      [v11 setKeyPath:@"transform.scale.x"];
+      [seed addAnimation:v11 forKey:@"squish"];
+      v12 = OUTLINED_FUNCTION_0_0();
+      v14 = [(WKBokehBubble *)v12 _newScaleAnimationWithSeed:v13];
+      [v14 setKeyPath:@"transform.scale.y"];
+      [seed addAnimation:v14 forKey:@"squash"];
     }
   }
 }

@@ -1,49 +1,49 @@
-id MTLoggingCrownFilterManager()
+id MTLoggingCrownFilterManager(uint64_t a1)
 {
   if (MTLoggingCrownFilterManager_onceToken != -1)
   {
     MTLoggingCrownFilterManager_cold_1();
   }
 
-  v1 = MTLoggingCrownFilterManager___logObj;
+  v2 = MTLoggingCrownFilterManager___logObj;
 
-  return v1;
+  return v2;
 }
 
-id MTLoggingRemoteFilterManager()
+id MTLoggingRemoteFilterManager(uint64_t a1)
 {
   if (MTLoggingRemoteFilterManager_onceToken != -1)
   {
     MTLoggingRemoteFilterManager_cold_1();
   }
 
-  v1 = MTLoggingRemoteFilterManager___logObj;
+  v2 = MTLoggingRemoteFilterManager___logObj;
 
-  return v1;
+  return v2;
 }
 
-id MTLoggingAnalyticsFilterManager()
+id MTLoggingAnalyticsFilterManager(uint64_t a1)
 {
   if (MTLoggingAnalyticsFilterManager_onceToken != -1)
   {
     MTLoggingAnalyticsFilterManager_cold_1();
   }
 
-  v1 = MTLoggingAnalyticsFilterManager___logObj;
+  v2 = MTLoggingAnalyticsFilterManager___logObj;
 
-  return v1;
+  return v2;
 }
 
-id MTLoggingContinuousRecordingFilterManager(void)
+id MTLoggingContinuousRecordingFilterManager(uint64_t a1)
 {
   if (MTLoggingContinuousRecordingFilterManager(void)::onceToken != -1)
   {
     MTLoggingContinuousRecordingFilterManager();
   }
 
-  v1 = MTLoggingContinuousRecordingFilterManager(void)::__logObj;
+  v2 = MTLoggingContinuousRecordingFilterManager(void)::__logObj;
 
-  return v1;
+  return v2;
 }
 
 void ___Z41MTLoggingContinuousRecordingFilterManagerv_block_invoke(id a1)

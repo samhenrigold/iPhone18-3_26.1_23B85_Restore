@@ -85,13 +85,13 @@
   self->_sideLoaded = 0;
   if (self->_headModelURL)
   {
-    v16 = sub_1AC090E50();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = sub_1AC090E50(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_msgSend_absoluteString(self->_headModelURL, v17, v18, v19, v20);
+      v22 = objc_msgSend_absoluteString(self->_headModelURL, v18, v19, v20, v21);
       v24 = 138412290;
-      v25 = v21;
-      _os_log_impl(&dword_1AC05D000, v16, OS_LOG_TYPE_INFO, "Models side loaded from %@", &v24, 0xCu);
+      v25 = v22;
+      _os_log_impl(&dword_1AC05D000, v17, OS_LOG_TYPE_INFO, "Models side loaded from %@", &v24, 0xCu);
     }
 
     self->_sideLoaded = 1;
@@ -100,7 +100,6 @@
   self->_revision = revision;
   self->_threshold = threshold;
 
-  v22 = *MEMORY[0x1E69E9840];
   return self;
 }
 

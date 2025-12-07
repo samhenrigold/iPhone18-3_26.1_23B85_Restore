@@ -1005,7 +1005,7 @@ LABEL_50:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1044,7 +1044,7 @@ LABEL_50:
     toCopy = to;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1078,10 +1078,10 @@ LABEL_50:
   v12 = v11;
   if (v11)
   {
-    [v11 hostTime];
+    objc_msgSend_hostTime(v11);
     if ((v34 & 0x100000000) != 0)
     {
-      [v12 hostTime];
+      objc_msgSend_hostTime(v12);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v31, time);
       goto LABEL_6;
     }
@@ -1108,7 +1108,7 @@ LABEL_6:
   {
     if (v12)
     {
-      [v12 hostTime];
+      objc_msgSend_hostTime(v12);
     }
 
     else
@@ -1225,7 +1225,7 @@ LABEL_19:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1286,7 +1286,7 @@ LABEL_19:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1399,7 +1399,7 @@ LABEL_19:
     {
       if (stampCopy)
       {
-        [stampCopy hostTime];
+        objc_msgSend_hostTime(stampCopy);
       }
 
       else
@@ -1432,7 +1432,7 @@ LABEL_19:
 
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1581,10 +1581,10 @@ LABEL_14:
     v10 = timeStamp;
     if (timeStamp)
     {
-      [timeStamp hostTime];
+      objc_msgSend_hostTime(timeStamp);
       if ((v33 & 0x100000000) != 0)
       {
-        [v10 hostTime];
+        objc_msgSend_hostTime(v10);
         MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v28, &v29);
 LABEL_13:
         v11 = v29;
@@ -1667,7 +1667,7 @@ LABEL_15:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1716,7 +1716,7 @@ LABEL_15:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -1753,10 +1753,10 @@ LABEL_15:
   v14 = v13;
   if (v13)
   {
-    [v13 hostTime];
+    objc_msgSend_hostTime(v13);
     if ((v48 & 0x100000000) != 0)
     {
-      [v14 hostTime];
+      objc_msgSend_hostTime(v14);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v45, buf);
       goto LABEL_6;
     }
@@ -1829,7 +1829,7 @@ LABEL_17:
       {
         if (v14)
         {
-          [v14 hostTime];
+          objc_msgSend_hostTime(v14);
         }
 
         else
@@ -1883,7 +1883,7 @@ LABEL_17:
       {
         if (v14)
         {
-          [v14 hostTime];
+          objc_msgSend_hostTime(v14);
         }
 
         else
@@ -1946,10 +1946,10 @@ LABEL_29:
   v14 = v13;
   if (v13)
   {
-    [v13 hostTime];
+    objc_msgSend_hostTime(v13);
     if ((v46 & 0x100000000) != 0)
     {
-      [v14 hostTime];
+      objc_msgSend_hostTime(v14);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v43, buf);
       goto LABEL_6;
     }
@@ -2028,7 +2028,7 @@ LABEL_29:
     {
       if (v14)
       {
-        [v14 hostTime];
+        objc_msgSend_hostTime(v14);
       }
 
       else
@@ -2080,7 +2080,7 @@ LABEL_29:
     {
       if (v14)
       {
-        [v14 hostTime];
+        objc_msgSend_hostTime(v14);
       }
 
       else
@@ -2143,7 +2143,7 @@ LABEL_30:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2189,7 +2189,7 @@ LABEL_30:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2361,7 +2361,7 @@ LABEL_39:
     v16 = [MFDescription forPlayerState:toState];
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2394,7 +2394,7 @@ LABEL_39:
   bookmarker = [(_MPCPlaybackEnginePlayer *)self bookmarker];
   playbackStackController = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
   currentQueueItem = [playbackStackController currentQueueItem];
-  [(_MPCPlaybackEnginePlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   v22 = v21;
   playbackStackController2 = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
   [playbackStackController2 rate];
@@ -2425,7 +2425,7 @@ LABEL_39:
     isAirplay = [metadataCopy isAirplay];
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2504,7 +2504,7 @@ LABEL_39:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2545,7 +2545,7 @@ LABEL_39:
     v13 = [MFDescription forTimeControlStatus:change];
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2770,7 +2770,7 @@ LABEL_17:
     v20 = reasonCopy;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2804,10 +2804,10 @@ LABEL_17:
   v43 = engineID;
   if (v22)
   {
-    [v22 hostTime];
+    objc_msgSend_hostTime(v22);
     if ((v49 & 0x100000000) != 0)
     {
-      [v23 hostTime];
+      objc_msgSend_hostTime(v23);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v46, time);
       goto LABEL_11;
     }
@@ -2936,7 +2936,7 @@ LABEL_28:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -2981,7 +2981,7 @@ LABEL_28:
     v18 = v17;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3057,7 +3057,7 @@ LABEL_13:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3405,7 +3405,7 @@ LABEL_33:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3429,10 +3429,10 @@ LABEL_33:
   v14 = v13;
   if (v13)
   {
-    [v13 hostTime];
+    objc_msgSend_hostTime(v13);
     if ((v48 & 0x100000000) != 0)
     {
-      [v14 hostTime];
+      objc_msgSend_hostTime(v14);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v46, &time);
       goto LABEL_11;
     }
@@ -3567,7 +3567,7 @@ LABEL_21:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3608,9 +3608,9 @@ LABEL_21:
         v19 = playerItem;
         if (playerItem)
         {
-          [playerItem duration];
+          objc_msgSend_duration(playerItem);
           Seconds = CMTimeGetSeconds(&time);
-          [v19 advanceTimeForOverlappedPlayback];
+          objc_msgSend_advanceTimeForOverlappedPlayback(v19);
         }
 
         else
@@ -3643,7 +3643,7 @@ LABEL_21:
 
         if (v19)
         {
-          [v19 currentTime];
+          objc_msgSend_currentTime(v19);
         }
 
         else
@@ -3711,7 +3711,7 @@ LABEL_21:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3738,10 +3738,10 @@ LABEL_21:
   v32 = engineID;
   if (v16)
   {
-    [v16 hostTime];
+    objc_msgSend_hostTime(v16);
     if ((v36 & 0x100000000) != 0)
     {
-      [v17 hostTime];
+      objc_msgSend_hostTime(v17);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v33, time);
       goto LABEL_11;
     }
@@ -3849,7 +3849,7 @@ LABEL_23:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3897,7 +3897,7 @@ LABEL_23:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -3958,7 +3958,7 @@ LABEL_23:
     {
       if (stampCopy)
       {
-        [stampCopy hostTime];
+        objc_msgSend_hostTime(stampCopy);
       }
 
       else
@@ -4014,7 +4014,7 @@ LABEL_39:
       v56 = [MFDescription forPlaybackTimeChangeReason:reason];
       if (stampCopy)
       {
-        [stampCopy hostTime];
+        objc_msgSend_hostTime(stampCopy);
       }
 
       else
@@ -4068,10 +4068,10 @@ LABEL_38:
     v40 = v39;
     if (v39)
     {
-      [v39 hostTime];
+      objc_msgSend_hostTime(v39);
       if ((v68 & 0x100000000) != 0)
       {
-        [v40 hostTime];
+        objc_msgSend_hostTime(v40);
         MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v65, time);
 LABEL_31:
         v65 = *time;
@@ -4089,23 +4089,23 @@ LABEL_31:
         v71[1] = queueItemID;
         v70[2] = @"item-end-position";
         v43 = MEMORY[0x1E696AD98];
-        [contentItem duration];
+        objc_msgSend_duration(contentItem);
         toCopy = to;
         if (v45 <= to)
         {
-          [contentItem duration];
+          objc_msgSend_duration(contentItem);
           toCopy = v46;
         }
 
         toCopy2 = 0.0;
         if (toCopy >= 0.0)
         {
-          [contentItem duration];
+          objc_msgSend_duration(contentItem, 0.0);
           v49 = v48 <= to;
           toCopy2 = to;
           if (v49)
           {
-            [contentItem duration];
+            objc_msgSend_duration(contentItem, to);
           }
         }
 
@@ -4138,7 +4138,7 @@ LABEL_9:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4176,7 +4176,7 @@ LABEL_40:
   {
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4228,7 +4228,7 @@ LABEL_40:
     v23 = v22;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4263,10 +4263,10 @@ LABEL_40:
   v61 = engineID;
   if (v26)
   {
-    [v26 hostTime];
+    objc_msgSend_hostTime(v26);
     if ((v76 & 0x100000000) != 0)
     {
-      [v27 hostTime];
+      objc_msgSend_hostTime(v27);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v74, &time);
       goto LABEL_15;
     }
@@ -4413,7 +4413,7 @@ LABEL_15:
     v23 = v22;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4443,10 +4443,10 @@ LABEL_15:
   v26 = v25;
   if (v25)
   {
-    [v25 hostTime];
+    objc_msgSend_hostTime(v25);
     if ((v89 & 0x100000000) != 0)
     {
-      [v26 hostTime];
+      objc_msgSend_hostTime(v26);
       MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v87, &time);
       goto LABEL_13;
     }
@@ -4587,9 +4587,9 @@ LABEL_13:
         v60 = playerItem;
         if (playerItem)
         {
-          [playerItem duration];
+          objc_msgSend_duration(playerItem);
           Seconds = CMTimeGetSeconds(&time);
-          [v60 advanceTimeForOverlappedPlayback];
+          objc_msgSend_advanceTimeForOverlappedPlayback(v60);
         }
 
         else
@@ -4622,7 +4622,7 @@ LABEL_13:
 
         if (v60)
         {
-          [v60 currentTime];
+          objc_msgSend_currentTime(v60);
         }
 
         else
@@ -4705,7 +4705,7 @@ LABEL_13:
     v22 = v21;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4748,7 +4748,7 @@ LABEL_13:
     goto LABEL_12;
   }
 
-  [v25 hostTime];
+  objc_msgSend_hostTime(v25);
   if ((v70 & 0x100000000) == 0)
   {
 LABEL_12:
@@ -4756,7 +4756,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  [v26 hostTime];
+  objc_msgSend_hostTime(v26);
   MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v68, &time);
 LABEL_13:
   timeCopy2 = time;
@@ -4874,7 +4874,7 @@ LABEL_13:
     v23 = v22;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -4917,7 +4917,7 @@ LABEL_13:
     goto LABEL_10;
   }
 
-  [v27 hostTime];
+  objc_msgSend_hostTime(v27);
   if ((v60 & 0x100000000) == 0)
   {
 LABEL_10:
@@ -4925,7 +4925,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  [v28 hostTime];
+  objc_msgSend_hostTime(v28);
   MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v57, time);
 LABEL_11:
   v57 = *time;
@@ -5011,7 +5011,7 @@ LABEL_11:
     v26 = v25;
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -5055,7 +5055,7 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  [v30 hostTime];
+  objc_msgSend_hostTime(v30);
   if ((v64 & 0x100000000) == 0)
   {
 LABEL_10:
@@ -5063,7 +5063,7 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  [v31 hostTime];
+  objc_msgSend_hostTime(v31);
   MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v61, time);
 LABEL_11:
   v61 = *time;
@@ -5144,7 +5144,7 @@ LABEL_11:
     v15 = [MFDescription forItemChangeSource:source];
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -5213,7 +5213,7 @@ LABEL_15:
       v16 = [MFDescription forItemChangeSource:source];
       if (stampCopy)
       {
-        [stampCopy hostTime];
+        objc_msgSend_hostTime(stampCopy);
       }
 
       else
@@ -5422,7 +5422,7 @@ LABEL_6:
     v17 = [MFDescription forItemChangeSource:source];
     if (stampCopy)
     {
-      [stampCopy hostTime];
+      objc_msgSend_hostTime(stampCopy);
     }
 
     else
@@ -5496,7 +5496,7 @@ LABEL_6:
 {
   v13 = [(_MPCPlaybackEnginePlayer *)self bookmarker:engine];
   playbackStackController = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
-  [playbackStackController currentTime];
+  objc_msgSend_currentTime(playbackStackController);
   v7 = v6;
   playbackStackController2 = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
   currentItem = [playbackStackController2 currentItem];
@@ -5796,7 +5796,7 @@ LABEL_5:
       jumpIdentifier = self->_jumpIdentifier;
       if (stampCopy)
       {
-        [stampCopy hostTime];
+        objc_msgSend_hostTime(stampCopy);
       }
 
       else
@@ -5831,10 +5831,10 @@ LABEL_5:
     v39 = engineID;
     if (v21)
     {
-      [v21 hostTime];
+      objc_msgSend_hostTime(v21);
       if ((v43 & 0x100000000) != 0)
       {
-        [v22 hostTime];
+        objc_msgSend_hostTime(v22);
         MPCPlaybackEngineEventMonotonicTimeWithHostTime(&v40, time);
         goto LABEL_15;
       }
@@ -5962,7 +5962,7 @@ LABEL_25:
   v29[3] = @"currentTime";
   v8 = MEMORY[0x1E696AD98];
   playbackStackController4 = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
-  [playbackStackController4 currentTime];
+  objc_msgSend_currentTime(playbackStackController4);
   v10 = [v8 numberWithDouble:?];
   v30[3] = v10;
   v29[4] = @"targetRate";
@@ -6601,7 +6601,7 @@ LABEL_16:
 - (double)currentTime
 {
   playbackStackController = [(_MPCPlaybackEnginePlayer *)self playbackStackController];
-  [playbackStackController currentTime];
+  objc_msgSend_currentTime(playbackStackController);
   v4 = v3;
 
   return v4;
@@ -6624,7 +6624,7 @@ LABEL_16:
       v18 = 0u;
       if (playbackEngine)
       {
-        [playbackEngine remoteHostProcessAuditToken];
+        objc_msgSend_remoteHostProcessAuditToken(playbackEngine);
       }
 
       v15 = v17;

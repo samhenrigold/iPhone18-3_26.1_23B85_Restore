@@ -1,43 +1,4 @@
-id createTemporaryMatrixViews(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v8 = a1;
-  v26 = a2;
-  v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:a4];
-  if (a4)
-  {
-    v10 = a4;
-    v11 = 0;
-    v22 = 4 * a4 * a6;
-    do
-    {
-      v12 = [v8 descriptor];
-      v13 = [v12 batchSizePerSequenceStep];
-      v14 = a5;
-      if (v13)
-      {
-        v15 = [v8 descriptor];
-        v16 = [v15 batchSizePerSequenceStep];
-        v17 = [v16 objectAtIndexedSubscript:v11];
-        v14 = [v17 unsignedIntegerValue];
-      }
-
-      v18 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v14 columns:a6 rowBytes:v22 dataType:268435488];
-      v19 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v26 matrixDescriptor:v18];
-      [v19 setReadCount:{objc_msgSend(v19, "readCount") + a3}];
-      [v9 addObject:v19];
-
-      ++v11;
-    }
-
-    while (v10 != v11);
-  }
-
-  v20 = [v9 copy];
-
-  return v20;
-}
-
-id createMatricesForTNCBufferNoOffset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+id createMatricesForTNCBufferNoOffset(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
 {
   v11 = a5;
   v12 = a6;
@@ -470,27 +431,25 @@ id createArrayOfMPSMatrixSlicesFromBatch(void *a1, void *a2)
 
 void convertNCHWToWHCN(void *a1)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 copy];
   [v1 removeAllObjects];
   v3 = [v2 objectAtIndexedSubscript:3];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [v2 objectAtIndexedSubscript:2];
-  v9[1] = v4;
+  v8[1] = v4;
   v5 = [v2 objectAtIndexedSubscript:1];
-  v9[2] = v5;
+  v8[2] = v5;
   v6 = [v2 objectAtIndexedSubscript:0];
-  v9[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   [v1 addObjectsFromArray:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id makeMPSNDArrayDescriptorFromTensor(void *a1, unint64_t a2)
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 descriptor];
   v5 = [v4 shape];
@@ -512,13 +471,13 @@ id makeMPSNDArrayDescriptorFromTensor(void *a1, unint64_t a2)
     if (v8 == 3)
     {
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-      v29[0] = v9;
+      v28[0] = v9;
       v10 = [v5 objectAtIndexedSubscript:1];
-      v29[1] = v10;
-      v29[2] = &unk_284BA5A80;
+      v28[1] = v10;
+      v28[2] = &unk_284BA5A80;
       v13 = [v5 objectAtIndexedSubscript:2];
-      v29[3] = v13;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
+      v28[3] = v13;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
     }
 
     else
@@ -529,14 +488,14 @@ id makeMPSNDArrayDescriptorFromTensor(void *a1, unint64_t a2)
       }
 
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-      v28[0] = v9;
+      v27[0] = v9;
       v10 = [v5 objectAtIndexedSubscript:1];
-      v28[1] = v10;
+      v27[1] = v10;
       v13 = [v5 objectAtIndexedSubscript:2];
-      v28[2] = v13;
+      v27[2] = v13;
       v14 = [v5 objectAtIndexedSubscript:3];
-      v28[3] = v14;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+      v27[3] = v14;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
     }
 
     goto LABEL_18;
@@ -545,26 +504,26 @@ id makeMPSNDArrayDescriptorFromTensor(void *a1, unint64_t a2)
   if (v8 == 1)
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-    v31[0] = v9;
-    v31[1] = &unk_284BA5A80;
-    v31[2] = &unk_284BA5A80;
+    v30[0] = v9;
+    v30[1] = &unk_284BA5A80;
+    v30[2] = &unk_284BA5A80;
     v10 = [v5 objectAtIndexedSubscript:0];
-    v31[3] = v10;
+    v30[3] = v10;
     v11 = MEMORY[0x277CBEA60];
-    v12 = v31;
+    v12 = v30;
     goto LABEL_15;
   }
 
   if (v8 == 2)
   {
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
-    v30[0] = v9;
-    v30[1] = &unk_284BA5A80;
-    v30[2] = &unk_284BA5A80;
+    v29[0] = v9;
+    v29[1] = &unk_284BA5A80;
+    v29[2] = &unk_284BA5A80;
     v10 = [v5 objectAtIndexedSubscript:1];
-    v30[3] = v10;
+    v29[3] = v10;
     v11 = MEMORY[0x277CBEA60];
-    v12 = v30;
+    v12 = v29;
 LABEL_15:
     v15 = [v11 arrayWithObjects:v12 count:4];
 LABEL_18:
@@ -587,12 +546,10 @@ LABEL_19:
 
   v25 = [MEMORY[0x277CD7268] descriptorWithDataType:DataType shape:v15];
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
-id makeMPSNDArrayFromMTLBuffer(void *a1, void *a2, void *a3, void *a4, unint64_t a5, uint64_t a6)
+id makeMPSNDArrayFromMTLBuffer(void *a1, void *a2, void *a3, void *a4, unint64_t a5, unint64_t a6)
 {
   v11 = a4;
   v12 = a3;
@@ -606,7 +563,7 @@ id makeMPSNDArrayFromMTLBuffer(void *a1, void *a2, void *a3, void *a4, unint64_t
   return v16;
 }
 
-id GPU_CreateMPSMatrixDescForNDArray(void *a1, unint64_t a2, uint64_t a3)
+id GPU_CreateMPSMatrixDescForNDArray(void *a1, unint64_t a2, unint64_t a3)
 {
   v5 = a1;
   v6 = [v5 descriptor];
@@ -854,26 +811,26 @@ id deviceParameterWithVectors(void *a1, void *a2, void *a3)
 
 id GPU_GetDataSourceFromTensors(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
-    v3 = *v10;
+    v3 = *v9;
     while (2)
     {
       for (i = 0; i != v2; i = i + 1)
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v5 = *(*(&v9 + 1) + 8 * i);
+        v5 = *(*(&v8 + 1) + 8 * i);
         v6 = [v5 deviceDataSources];
 
         if (v6)
@@ -883,7 +840,7 @@ id GPU_GetDataSourceFromTensors(void *a1)
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v2)
       {
         continue;
@@ -895,46 +852,42 @@ id GPU_GetDataSourceFromTensors(void *a1)
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 void GPU_AssociateDataSourceToTensors(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setDeviceDataSources:v3];
+        [*(*(&v9 + 1) + 8 * v8++) setDeviceDataSources:v3];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void GPU_ScaleMPSImageBatchWithKernel(void *a1, void *a2, void *a3, int a4)
@@ -1121,31 +1074,31 @@ void copyNDArrayToMTLBuffer(void *a1, void *a2, void *a3)
 
 void GPU_clearTemporaryImageBatchReadCount(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v10;
+      v5 = *v9;
       do
       {
         v6 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v9 + 1) + 8 * v6);
+          v7 = *(*(&v8 + 1) + 8 * v6);
           if (v7)
           {
             objc_opt_class();
@@ -1162,43 +1115,42 @@ void GPU_clearTemporaryImageBatchReadCount(void *a1)
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v4);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id CPU_CreateUpsampleLayer(uint64_t a1, int a2, char a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v18 = 0u;
-  memset(v17, 0, sizeof(v17));
+  v17 = 0u;
+  memset(v16, 0, sizeof(v16));
   if (a2 == 1)
   {
-    LODWORD(v17[0]) = 1;
+    LODWORD(v16[0]) = 1;
   }
 
-  BYTE8(v18) = a3;
-  v6 = [MEMORY[0x277CBEA90] dataWithBytes:v17 length:368];
-  memset(v16, 0, sizeof(v16));
+  BYTE8(v17) = a3;
+  v6 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:368];
   memset(v15, 0, sizeof(v15));
-  v7 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:176];
-  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:176];
-  v20[0] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-  v19 = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  memset(v14, 0, sizeof(v14));
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:176];
+  v8 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:176];
+  v19[0] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18 = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
   v11 = [MLCCPUDeviceOps deviceOpsWithType:24 params:v6 inDeltaData:v9 outDeltaData:v10 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v11)
@@ -1207,8 +1159,6 @@ id CPU_CreateUpsampleLayer(uint64_t a1, int a2, char a3)
   }
 
   v12 = [v5 copy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1335,8 +1285,9 @@ uint64_t getBNNSSplitLayerTensorDataOffset(void *a1)
   return v7;
 }
 
-uint64_t ANE_ValidateConcatUnit(void *a1, void *a2, int a3)
+uint64_t ANE_ValidateConcatUnit(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v61[70] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
@@ -1348,7 +1299,7 @@ uint64_t ANE_ValidateConcatUnit(void *a1, void *a2, int a3)
   if ((ANE_ValidateConcatUnit_isAppleNeuralEngineAvailable & 1) == 0)
   {
     v8 = [v5 count];
-    v9 = MEMORY[0x28223BE20]();
+    v9 = MEMORY[0x28223BE20](v8);
     if (v9)
     {
       v10 = 0;
@@ -1356,7 +1307,7 @@ uint64_t ANE_ValidateConcatUnit(void *a1, void *a2, int a3)
       while (1)
       {
         v12 = [v5 objectAtIndexedSubscript:v10];
-        if (!ANE_BuildANECTensorDesc(v11, v12, a3))
+        if (!ANE_BuildANECTensorDesc(v11, v12, v3))
         {
           break;
         }
@@ -1369,8 +1320,8 @@ uint64_t ANE_ValidateConcatUnit(void *a1, void *a2, int a3)
         }
       }
 
-      v41 = +[MLCLog framework];
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v42 = +[MLCLog framework];
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         ANE_ValidateConcatUnit_cold_2();
       }
@@ -1386,14 +1337,14 @@ LABEL_9:
     ANECConcatLayerDescInitialize();
     v53 = [v12 objectForKeyedSubscript:@"Dimension"];
 
-    v13 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v14 = [softLinkClass_ANEDeviceInfo_1(v13) aneSubType];
     v52 = 0;
-    if (!ANE_CreateUnitValidator(&v52, v13))
+    if (!ANE_CreateUnitValidator(&v52, v14))
     {
-      v33 = +[MLCLog framework];
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = +[MLCLog framework];
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateConcatUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
+        ANE_ValidateConcatUnit_cold_3(v34, v35, v36, v37, v38, v39, v40, v41);
       }
 
       v7 = 0;
@@ -1403,80 +1354,80 @@ LABEL_9:
     v47 = v44;
     v50 = 0;
     v51 = 0;
-    v14 = ANECValidateConcatLayer();
-    v7 = v14 == 0;
+    v15 = ANECValidateConcatLayer();
+    v7 = v15 == 0;
     v48 = v6;
-    if (v14)
+    if (v15)
     {
-      v15 = v14;
-      v45 = v14 == 0;
-      v16 = +[MLCLog framework];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v16 = v15;
+      v45 = v15 == 0;
+      v17 = +[MLCLog framework];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         LODWORD(v61[0]) = 136315906;
         *(v61 + 4) = "ANE_ValidateConcatUnit";
         WORD2(v61[1]) = 1024;
-        *(&v61[1] + 6) = v15;
+        *(&v61[1] + 6) = v16;
         WORD1(v61[2]) = 2112;
-        *(&v61[2] + 4) = v13;
+        *(&v61[2] + 4) = v14;
         WORD2(v61[3]) = 2112;
         *(&v61[3] + 6) = v6;
-        _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v61, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v61, 0x26u);
       }
 
-      v46 = v13;
+      v46 = v14;
 
-      v18 = v51;
+      v19 = v51;
       if (v51)
       {
-        v19 = 0;
-        *&v17 = 136315650;
-        v49 = v17;
+        v20 = 0;
+        *&v18 = 136315650;
+        v49 = v18;
         do
         {
-          memcpy(v61, (v50 + 552 * v19), 0x228uLL);
-          v20 = v61[0];
+          memcpy(v61, (v50 + 552 * v20), 0x228uLL);
+          v21 = v61[0];
           if (v61[0])
           {
-            v21 = 0;
+            v22 = 0;
             do
             {
-              v22 = +[MLCLog framework];
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+              v23 = +[MLCLog framework];
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
-                v23 = v61[v21 + 1];
+                v24 = v61[v22 + 1];
                 v55 = v49;
                 v56 = "ANE_ValidateConcatUnit";
                 v57 = 2048;
-                v58 = v21;
+                v58 = v22;
                 v59 = 2112;
-                v60 = v23;
-                _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v55, 0x20u);
+                v60 = v24;
+                _os_log_error_impl(&dword_238C1D000, v23, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v55, 0x20u);
               }
 
-              ++v21;
+              ++v22;
             }
 
-            while (v20 != v21);
-            v18 = v51;
+            while (v21 != v22);
+            v19 = v51;
           }
 
-          ++v19;
+          ++v20;
         }
 
-        while (v19 < v18);
+        while (v20 < v19);
       }
 
-      v24 = ANECUnitValidatorDelete();
-      v13 = v46;
+      v25 = ANECUnitValidatorDelete();
+      v14 = v46;
       v7 = v45;
-      if (!v24)
+      if (!v25)
       {
         goto LABEL_35;
       }
 
-      v25 = +[MLCLog framework];
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = +[MLCLog framework];
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
       }
@@ -1494,8 +1445,8 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      v25 = +[MLCLog framework];
-      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = +[MLCLog framework];
+      if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
 LABEL_34:
 
@@ -1503,14 +1454,13 @@ LABEL_34:
       }
     }
 
-    ANE_ValidateConcatUnit_cold_4(v25, v26, v27, v28, v29, v30, v31, v32);
+    ANE_ValidateConcatUnit_cold_4(v26, v27, v28, v29, v30, v31, v32, v33);
     goto LABEL_34;
   }
 
   v7 = 0;
 LABEL_38:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1572,16 +1522,16 @@ BOOL ANE_BuildANECTensorDesc(uint64_t a1, void *a2, int a3)
   return v14 != 0;
 }
 
-id softLinkClass_ANEDeviceInfo_1()
+id softLinkClass_ANEDeviceInfo_1(uint64_t a1)
 {
   if (softLinkClass_ANEDeviceInfo_onceToken_1 != -1)
   {
     softLinkClass_ANEDeviceInfo_cold_1_1();
   }
 
-  v1 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo_1;
+  v2 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo_1;
 
-  return v1;
+  return v2;
 }
 
 BOOL ANE_CreateUnitValidator(uint64_t a1, void *a2)
@@ -1616,10 +1566,10 @@ uint64_t ANE_ValidateConvolutionUnit(void *a1, void *a2, int a3)
     memset(v75, 0, sizeof(v75));
     if (!ANE_BuildANECTensorDesc(v75, v8, a3))
     {
-      v30 = +[MLCLog framework];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = +[MLCLog framework];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateConvolutionUnit_cold_2(v30, v31, v32, v33, v34, v35, v36, v37);
+        ANE_ValidateConvolutionUnit_cold_2(v31, v32, v33, v34, v35, v36, v37, v38);
       }
 
       v7 = 0;
@@ -1686,37 +1636,37 @@ uint64_t ANE_ValidateConvolutionUnit(void *a1, void *a2, int a3)
 
     v63 = v67;
     v64 = v68;
-    v18 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v19 = [softLinkClass_ANEDeviceInfo_1(v18) aneSubType];
     v48 = 0;
-    if (!ANE_CreateUnitValidator(&v48, v18))
+    if (!ANE_CreateUnitValidator(&v48, v19))
     {
-      v38 = +[MLCLog framework];
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v39 = +[MLCLog framework];
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateConvolutionUnit_cold_3(v38, v39, v40, v41, v42, v43, v44, v45);
+        ANE_ValidateConvolutionUnit_cold_3(v39, v40, v41, v42, v43, v44, v45, v46);
       }
 
       v7 = 0;
       goto LABEL_27;
     }
 
-    v19 = ANECValidateConvLayer();
-    v7 = v19 == 0;
-    if (v19)
+    v20 = ANECValidateConvLayer();
+    v7 = v20 == 0;
+    if (v20)
     {
-      v20 = v19;
-      v21 = +[MLCLog framework];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v21 = v20;
+      v22 = +[MLCLog framework];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateConvolutionUnit";
         v77 = 1024;
-        v78 = v20;
+        v78 = v21;
         v79 = 2112;
-        v80 = v18;
+        v80 = v19;
         v81 = 2112;
         v82 = v6;
-        _os_log_error_impl(&dword_238C1D000, v21, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -1725,8 +1675,8 @@ uint64_t ANE_ValidateConvolutionUnit(void *a1, void *a2, int a3)
         goto LABEL_27;
       }
 
-      v22 = +[MLCLog framework];
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = +[MLCLog framework];
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_26;
       }
@@ -1742,8 +1692,8 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v22 = +[MLCLog framework];
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = +[MLCLog framework];
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
 LABEL_26:
 
@@ -1751,14 +1701,13 @@ LABEL_26:
       }
     }
 
-    ANE_ValidateConvolutionUnit_cold_4(v22, v23, v24, v25, v26, v27, v28, v29);
+    ANE_ValidateConvolutionUnit_cold_4(v23, v24, v25, v26, v27, v28, v29, v30);
     goto LABEL_26;
   }
 
   v7 = 0;
 LABEL_29:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1874,7 +1823,7 @@ uint64_t ANE_ValidateInstanceNormUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateInstanceNormUnit_cold_2(v9, v25, v26, v27, v28, v29, v30, v31);
+        ANE_ValidateInstanceNormUnit_cold_2(v9, v26, v27, v28, v29, v30, v31, v32);
       }
 
       v7 = 0;
@@ -1886,27 +1835,26 @@ uint64_t ANE_ValidateInstanceNormUnit(void *a1, void *a2, int a3)
     ANECInstanceNormLayerDescInitialize();
     v10 = [v9 objectForKeyedSubscript:@"Dimension"];
     v43[1] = [v10 count];
-    if ([v10 count])
+    v11 = [v10 count];
+    if (v11)
     {
-      v11 = 0;
-      do
+      for (i = 0; i < v11; ++i)
       {
-        v12 = [v10 objectAtIndexedSubscript:v11];
+        v13 = [v10 objectAtIndexedSubscript:i];
 
-        v43[v11++ + 2] = v12;
+        v43[i + 2] = v13;
+        v11 = [v10 count];
       }
-
-      while (v11 < [v10 count]);
     }
 
-    v13 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v14 = [softLinkClass_ANEDeviceInfo_1(v11) aneSubType];
     v43[0] = 0;
-    if (!ANE_CreateUnitValidator(v43, v13))
+    if (!ANE_CreateUnitValidator(v43, v14))
     {
-      v32 = +[MLCLog framework];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = +[MLCLog framework];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateInstanceNormUnit_cold_3(v32, v33, v34, v35, v36, v37, v38, v39);
+        ANE_ValidateInstanceNormUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
       }
 
       v7 = 0;
@@ -1914,23 +1862,23 @@ uint64_t ANE_ValidateInstanceNormUnit(void *a1, void *a2, int a3)
     }
 
     v42 = v8;
-    v14 = ANECValidateInstanceNormLayer();
-    v7 = v14 == 0;
-    if (v14)
+    v15 = ANECValidateInstanceNormLayer();
+    v7 = v15 == 0;
+    if (v15)
     {
-      v15 = v14;
-      v16 = +[MLCLog framework];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v16 = v15;
+      v17 = +[MLCLog framework];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateInstanceNormUnit";
         v46 = 1024;
-        v47 = v15;
+        v47 = v16;
         v48 = 2112;
-        v49 = v13;
+        v49 = v14;
         v50 = 2112;
         v51 = v6;
-        _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v8 = v42;
@@ -1940,8 +1888,8 @@ uint64_t ANE_ValidateInstanceNormUnit(void *a1, void *a2, int a3)
         goto LABEL_26;
       }
 
-      v17 = +[MLCLog framework];
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = +[MLCLog framework];
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
@@ -1957,8 +1905,8 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      v17 = +[MLCLog framework];
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = +[MLCLog framework];
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
 LABEL_25:
 
@@ -1966,14 +1914,13 @@ LABEL_25:
       }
     }
 
-    ANE_ValidateInstanceNormUnit_cold_4(v17, v18, v19, v20, v21, v22, v23, v24);
+    ANE_ValidateInstanceNormUnit_cold_4(v18, v19, v20, v21, v22, v23, v24, v25);
     goto LABEL_25;
   }
 
   v7 = 0;
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1996,7 +1943,7 @@ uint64_t ANE_ValidateNeuronUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateNeuronUnit_cold_2(v9, v30, v31, v32, v33, v34, v35, v36);
+        ANE_ValidateNeuronUnit_cold_2(v9, v31, v32, v33, v34, v35, v36, v37);
       }
 
       v7 = 0;
@@ -2012,46 +1959,46 @@ uint64_t ANE_ValidateNeuronUnit(void *a1, void *a2, int a3)
 
     if (v48 == @"LeakyReLU")
     {
-      v10 = [v9 objectForKeyedSubscript:@"ReluSlope"];
-      v11 = [v10 shortValue];
+      v11 = [v9 objectForKeyedSubscript:@"ReluSlope"];
+      v12 = [v11 shortValue];
 
-      _H0 = v11;
+      _H0 = v12;
       __asm { FCVT            S0, H0 }
 
       DWORD2(v48) = _S0;
     }
 
-    v18 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v19 = [softLinkClass_ANEDeviceInfo_1(v10) aneSubType];
     v47 = 0;
-    if (!ANE_CreateUnitValidator(&v47, v18))
+    if (!ANE_CreateUnitValidator(&v47, v19))
     {
-      v37 = +[MLCLog framework];
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v38 = +[MLCLog framework];
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateNeuronUnit_cold_3(v37, v38, v39, v40, v41, v42, v43, v44);
+        ANE_ValidateNeuronUnit_cold_3(v38, v39, v40, v41, v42, v43, v44, v45);
       }
 
       v7 = 0;
       goto LABEL_25;
     }
 
-    v19 = ANECValidateNeuronLayer();
-    v7 = v19 == 0;
-    if (v19)
+    v20 = ANECValidateNeuronLayer();
+    v7 = v20 == 0;
+    if (v20)
     {
-      v20 = v19;
-      v21 = +[MLCLog framework];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v21 = v20;
+      v22 = +[MLCLog framework];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateNeuronUnit";
         v53 = 1024;
-        v54 = v20;
+        v54 = v21;
         v55 = 2112;
-        v56 = v18;
+        v56 = v19;
         v57 = 2112;
         v58 = v6;
-        _os_log_error_impl(&dword_238C1D000, v21, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -2060,8 +2007,8 @@ uint64_t ANE_ValidateNeuronUnit(void *a1, void *a2, int a3)
         goto LABEL_25;
       }
 
-      v22 = +[MLCLog framework];
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = +[MLCLog framework];
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_24;
       }
@@ -2077,8 +2024,8 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v22 = +[MLCLog framework];
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = +[MLCLog framework];
+      if (!os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
 LABEL_24:
 
@@ -2086,14 +2033,13 @@ LABEL_24:
       }
     }
 
-    ANE_ValidateNeuronUnit_cold_4(v22, v23, v24, v25, v26, v27, v28, v29);
+    ANE_ValidateNeuronUnit_cold_4(v23, v24, v25, v26, v27, v28, v29, v30);
     goto LABEL_24;
   }
 
   v7 = 0;
 LABEL_27:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2113,10 +2059,10 @@ uint64_t ANE_ValidatePoolingUnit(void *a1, void *a2, int a3)
     memset(v58, 0, sizeof(v58));
     if (!ANE_BuildANECTensorDesc(v58, v8, a3))
     {
-      v24 = +[MLCLog framework];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = +[MLCLog framework];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidatePoolingUnit_cold_2(v24, v25, v26, v27, v28, v29, v30, v31);
+        ANE_ValidatePoolingUnit_cold_2(v25, v26, v27, v28, v29, v30, v31, v32);
       }
 
       v7 = 0;
@@ -2153,49 +2099,49 @@ uint64_t ANE_ValidatePoolingUnit(void *a1, void *a2, int a3)
     *&v51 = [v11 longValue];
 
     DWORD2(v51) = 1065353216;
-    v12 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v13 = [softLinkClass_ANEDeviceInfo_1(v12) aneSubType];
     v43 = 0;
-    if (!ANE_CreateUnitValidator(&v43, v12))
+    if (!ANE_CreateUnitValidator(&v43, v13))
     {
-      v32 = +[MLCLog framework];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = +[MLCLog framework];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidatePoolingUnit_cold_3(v32, v33, v34, v35, v36, v37, v38, v39);
+        ANE_ValidatePoolingUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
       }
 
       v7 = 0;
       goto LABEL_23;
     }
 
-    v42 = v12;
-    v13 = ANECValidatePoolLayer();
-    v7 = v13 == 0;
-    if (v13)
+    v42 = v13;
+    v14 = ANECValidatePoolLayer();
+    v7 = v14 == 0;
+    if (v14)
     {
-      v14 = v13;
-      v15 = +[MLCLog framework];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v15 = v14;
+      v16 = +[MLCLog framework];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidatePoolingUnit";
         v60 = 1024;
-        v61 = v14;
+        v61 = v15;
         v62 = 2112;
         v63 = v42;
         v64 = 2112;
         v65 = v6;
-        _os_log_error_impl(&dword_238C1D000, v15, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
-      v12 = v42;
+      v13 = v42;
       v7 = v7;
       if (!ANECUnitValidatorDelete())
       {
         goto LABEL_23;
       }
 
-      v16 = +[MLCLog framework];
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = +[MLCLog framework];
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
@@ -2211,8 +2157,8 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v16 = +[MLCLog framework];
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = +[MLCLog framework];
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
 
@@ -2220,14 +2166,13 @@ LABEL_22:
       }
     }
 
-    ANE_ValidatePoolingUnit_cold_4(v16, v17, v18, v19, v20, v21, v22, v23);
+    ANE_ValidatePoolingUnit_cold_4(v17, v18, v19, v20, v21, v22, v23, v24);
     goto LABEL_22;
   }
 
   v7 = 0;
 LABEL_25:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2250,7 +2195,7 @@ uint64_t ANE_ValidateSoftmaxUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateSoftmaxUnit_cold_2(v9, v23, v24, v25, v26, v27, v28, v29);
+        ANE_ValidateSoftmaxUnit_cold_2(v9, v24, v25, v26, v27, v28, v29, v30);
       }
 
       v7 = 0;
@@ -2265,37 +2210,37 @@ uint64_t ANE_ValidateSoftmaxUnit(void *a1, void *a2, int a3)
     v10 = [v9 objectForKeyedSubscript:@"Dimension"];
 
     v40[2] = v10;
-    v11 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v12 = [softLinkClass_ANEDeviceInfo_1(v11) aneSubType];
     v40[0] = 0;
-    if (!ANE_CreateUnitValidator(v40, v11))
+    if (!ANE_CreateUnitValidator(v40, v12))
     {
-      v30 = +[MLCLog framework];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = +[MLCLog framework];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateSoftmaxUnit_cold_3(v30, v31, v32, v33, v34, v35, v36, v37);
+        ANE_ValidateSoftmaxUnit_cold_3(v31, v32, v33, v34, v35, v36, v37, v38);
       }
 
       v7 = 0;
       goto LABEL_23;
     }
 
-    v12 = ANECValidateSoftmaxLayer();
-    v7 = v12 == 0;
-    if (v12)
+    v13 = ANECValidateSoftmaxLayer();
+    v7 = v13 == 0;
+    if (v13)
     {
-      v13 = v12;
-      v14 = +[MLCLog framework];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v14 = v13;
+      v15 = +[MLCLog framework];
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateSoftmaxUnit";
         v45 = 1024;
-        v46 = v13;
+        v46 = v14;
         v47 = 2112;
-        v48 = v11;
+        v48 = v12;
         v49 = 2112;
         v50 = v6;
-        _os_log_error_impl(&dword_238C1D000, v14, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v15, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -2304,8 +2249,8 @@ uint64_t ANE_ValidateSoftmaxUnit(void *a1, void *a2, int a3)
         goto LABEL_23;
       }
 
-      v15 = +[MLCLog framework];
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = +[MLCLog framework];
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
@@ -2321,8 +2266,8 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v15 = +[MLCLog framework];
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = +[MLCLog framework];
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
 
@@ -2330,14 +2275,13 @@ LABEL_22:
       }
     }
 
-    ANE_ValidateSoftmaxUnit_cold_4(v15, v16, v17, v18, v19, v20, v21, v22);
+    ANE_ValidateSoftmaxUnit_cold_4(v16, v17, v18, v19, v20, v21, v22, v23);
     goto LABEL_22;
   }
 
   v7 = 0;
 LABEL_25:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2360,7 +2304,7 @@ uint64_t ANE_ValidateReshapeUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateReshapeUnit_cold_2(v9, v26, v27, v28, v29, v30, v31, v32);
+        ANE_ValidateReshapeUnit_cold_2(v9, v27, v28, v29, v30, v31, v32, v33);
       }
 
       v7 = 0;
@@ -2382,41 +2326,41 @@ uint64_t ANE_ValidateReshapeUnit(void *a1, void *a2, int a3)
     v13 = [v9 objectForKeyedSubscript:@"ReshapedWidth"];
     *(&v48 + 1) = [v13 longValue];
 
-    ANECReshapeLayerDescInitialize();
+    v14 = ANECReshapeLayerDescInitialize();
     v44 = v47;
     v45 = v48;
     v46 = 1;
-    v14 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v15 = [softLinkClass_ANEDeviceInfo_1(v14) aneSubType];
     v43 = 0;
-    if (!ANE_CreateUnitValidator(&v43, v14))
+    if (!ANE_CreateUnitValidator(&v43, v15))
     {
-      v33 = +[MLCLog framework];
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = +[MLCLog framework];
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateReshapeUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
+        ANE_ValidateReshapeUnit_cold_3(v34, v35, v36, v37, v38, v39, v40, v41);
       }
 
       v7 = 0;
       goto LABEL_23;
     }
 
-    v15 = ANECValidateReshapeLayer();
-    v7 = v15 == 0;
-    if (v15)
+    v16 = ANECValidateReshapeLayer();
+    v7 = v16 == 0;
+    if (v16)
     {
-      v16 = v15;
-      v17 = +[MLCLog framework];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v17 = v16;
+      v18 = +[MLCLog framework];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateReshapeUnit";
         v52 = 1024;
-        v53 = v16;
+        v53 = v17;
         v54 = 2112;
-        v55 = v14;
+        v55 = v15;
         v56 = 2112;
         v57 = v6;
-        _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v18, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -2425,8 +2369,8 @@ uint64_t ANE_ValidateReshapeUnit(void *a1, void *a2, int a3)
         goto LABEL_23;
       }
 
-      v18 = +[MLCLog framework];
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = +[MLCLog framework];
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
@@ -2442,8 +2386,8 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v18 = +[MLCLog framework];
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = +[MLCLog framework];
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
 
@@ -2451,14 +2395,13 @@ LABEL_22:
       }
     }
 
-    ANE_ValidateReshapeUnit_cold_4(v18, v19, v20, v21, v22, v23, v24, v25);
+    ANE_ValidateReshapeUnit_cold_4(v19, v20, v21, v22, v23, v24, v25, v26);
     goto LABEL_22;
   }
 
   v7 = 0;
 LABEL_25:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2481,7 +2424,7 @@ uint64_t ANE_ValidateTransposeUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateTransposeUnit_cold_2(v9, v28, v29, v30, v31, v32, v33, v34);
+        ANE_ValidateTransposeUnit_cold_2(v9, v29, v30, v31, v32, v33, v34, v35);
       }
 
       v7 = 0;
@@ -2495,36 +2438,38 @@ uint64_t ANE_ValidateTransposeUnit(void *a1, void *a2, int a3)
     ANECTransposeLayerDescInitialize();
     v10 = [v9 objectForKeyedSubscript:@"TransposeDimensions"];
     v49[1] = [v10 count];
-    if ([v10 count])
+    v11 = [v10 count];
+    if (v11)
     {
-      v11 = 0;
-      v12 = &v49[2];
+      v12 = 0;
+      v13 = &v49[2];
       do
       {
-        v13 = [v10 objectAtIndexedSubscript:v11];
+        v14 = [v10 objectAtIndexedSubscript:v12];
         *__dst = 0;
         *&__dst[8] = 0;
         ANECDimensionMappingInitialize();
-        v14 = [v13 objectForKeyedSubscript:@"TransposeSourceDimension"];
-        *__dst = v14;
-        v15 = [v13 objectForKeyedSubscript:@"TransposeDestinationDimension"];
-        *&__dst[8] = v15;
-        *v12++ = *__dst;
+        v15 = [v14 objectForKeyedSubscript:@"TransposeSourceDimension"];
+        *__dst = v15;
+        v16 = [v14 objectForKeyedSubscript:@"TransposeDestinationDimension"];
+        *&__dst[8] = v16;
+        *v13++ = *__dst;
 
-        ++v11;
+        ++v12;
+        v11 = [v10 count];
       }
 
-      while (v11 < [v10 count]);
+      while (v12 < v11);
     }
 
-    v16 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v17 = [softLinkClass_ANEDeviceInfo_1(v11) aneSubType];
     v49[0] = 0;
-    if (!ANE_CreateUnitValidator(v49, v16))
+    if (!ANE_CreateUnitValidator(v49, v17))
     {
-      v35 = +[MLCLog framework];
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v36 = +[MLCLog framework];
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateTransposeUnit_cold_3(v35, v36, v37, v38, v39, v40, v41, v42);
+        ANE_ValidateTransposeUnit_cold_3(v36, v37, v38, v39, v40, v41, v42, v43);
       }
 
       v7 = 0;
@@ -2533,36 +2478,36 @@ uint64_t ANE_ValidateTransposeUnit(void *a1, void *a2, int a3)
       goto LABEL_26;
     }
 
-    v46 = v16;
-    v17 = ANECValidateTransposeLayer();
-    v45 = v17 == 0;
-    if (v17)
+    v46 = v17;
+    v18 = ANECValidateTransposeLayer();
+    v45 = v18 == 0;
+    if (v18)
     {
-      v18 = v17;
-      v19 = +[MLCLog framework];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v19 = v18;
+      v20 = +[MLCLog framework];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *__dst = 136315906;
         *&__dst[4] = "ANE_ValidateTransposeUnit";
         *&__dst[12] = 1024;
-        *&__dst[14] = v18;
+        *&__dst[14] = v19;
         v52 = 2112;
         v53 = v46;
         v54 = 2112;
         v55 = v6;
-        _os_log_error_impl(&dword_238C1D000, v19, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v20, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v5 = v48;
-      v16 = v46;
+      v17 = v46;
       v7 = v45;
       if (!ANECUnitValidatorDelete())
       {
         goto LABEL_26;
       }
 
-      v20 = +[MLCLog framework];
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = +[MLCLog framework];
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
@@ -2580,8 +2525,8 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      v20 = +[MLCLog framework];
-      if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = +[MLCLog framework];
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
 LABEL_25:
 
@@ -2589,14 +2534,13 @@ LABEL_25:
       }
     }
 
-    ANE_ValidateTransposeUnit_cold_4(v20, v21, v22, v23, v24, v25, v26, v27);
+    ANE_ValidateTransposeUnit_cold_4(v21, v22, v23, v24, v25, v26, v27, v28);
     goto LABEL_25;
   }
 
   v7 = 0;
 LABEL_28:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2619,7 +2563,7 @@ uint64_t ANE_ValidateReductionUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateReductionUnit_cold_2(v9, v25, v26, v27, v28, v29, v30, v31);
+        ANE_ValidateReductionUnit_cold_2(v9, v26, v27, v28, v29, v30, v31, v32);
       }
 
       v7 = 0;
@@ -2636,28 +2580,26 @@ uint64_t ANE_ValidateReductionUnit(void *a1, void *a2, int a3)
     v46 = 0x3727C5AC3F800000;
     v10 = [v9 objectForKeyedSubscript:@"Dimension"];
     v47 = [v10 count];
-    if ([v10 count])
+    v11 = [v10 count];
+    if (v11)
     {
-      v11 = 0;
-      do
+      for (i = 0; i < v11; ++i)
       {
-        v12 = [v10 objectAtIndexedSubscript:v11];
-        *(v48 + v11) = v12;
+        v13 = [v10 objectAtIndexedSubscript:i];
+        *(v48 + i) = v13;
 
-        ++v11;
+        v11 = [v10 count];
       }
-
-      while (v11 < [v10 count]);
     }
 
-    v13 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v14 = [softLinkClass_ANEDeviceInfo_1(v11) aneSubType];
     v43 = 0;
-    if (!ANE_CreateUnitValidator(&v43, v13))
+    if (!ANE_CreateUnitValidator(&v43, v14))
     {
-      v32 = +[MLCLog framework];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = +[MLCLog framework];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateReductionUnit_cold_3(v32, v33, v34, v35, v36, v37, v38, v39);
+        ANE_ValidateReductionUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
       }
 
       v7 = 0;
@@ -2665,23 +2607,23 @@ uint64_t ANE_ValidateReductionUnit(void *a1, void *a2, int a3)
     }
 
     v42 = v8;
-    v14 = ANECValidateReductionLayer();
-    v7 = v14 == 0;
-    if (v14)
+    v15 = ANECValidateReductionLayer();
+    v7 = v15 == 0;
+    if (v15)
     {
-      v15 = v14;
-      v16 = +[MLCLog framework];
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v16 = v15;
+      v17 = +[MLCLog framework];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateReductionUnit";
         v52 = 1024;
-        v53 = v15;
+        v53 = v16;
         v54 = 2112;
-        v55 = v13;
+        v55 = v14;
         v56 = 2112;
         v57 = v6;
-        _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v8 = v42;
@@ -2691,8 +2633,8 @@ uint64_t ANE_ValidateReductionUnit(void *a1, void *a2, int a3)
         goto LABEL_26;
       }
 
-      v17 = +[MLCLog framework];
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = +[MLCLog framework];
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
@@ -2708,8 +2650,8 @@ LABEL_27:
         goto LABEL_28;
       }
 
-      v17 = +[MLCLog framework];
-      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = +[MLCLog framework];
+      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
 LABEL_25:
 
@@ -2717,14 +2659,13 @@ LABEL_25:
       }
     }
 
-    ANE_ValidateReductionUnit_cold_4(v17, v18, v19, v20, v21, v22, v23, v24);
+    ANE_ValidateReductionUnit_cold_4(v18, v19, v20, v21, v22, v23, v24, v25);
     goto LABEL_25;
   }
 
   v7 = 0;
 LABEL_28:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2745,10 +2686,10 @@ BOOL ANE_ValidateBroadcastUnit(void *a1, void *a2, void *a3, int a4)
     memset(v52, 0, sizeof(v52));
     if (!ANE_BuildANECTensorDesc(v52, v11, a4))
     {
-      v24 = +[MLCLog framework];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = +[MLCLog framework];
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateBroadcastUnit_cold_2(v24, v25, v26, v27, v28, v29, v30, v31);
+        ANE_ValidateBroadcastUnit_cold_2(v25, v26, v27, v28, v29, v30, v31, v32);
       }
 
       v10 = 0;
@@ -2756,40 +2697,41 @@ BOOL ANE_ValidateBroadcastUnit(void *a1, void *a2, void *a3, int a4)
     }
 
     memset(v51, 0, sizeof(v51));
-    if (ANE_BuildANECTensorDesc(v51, v8, a4))
+    v12 = ANE_BuildANECTensorDesc(v51, v8, a4);
+    if (v12)
     {
-      v12 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+      v13 = [softLinkClass_ANEDeviceInfo_1(v12) aneSubType];
       v50 = 0;
-      if (ANE_CreateUnitValidator(&v50, v12))
+      if (ANE_CreateUnitValidator(&v50, v13))
       {
-        v49 = v12;
-        v13 = ANECValidateBroadcastLayer();
-        v10 = v13 == 0;
-        if (v13)
+        v49 = v13;
+        v14 = ANECValidateBroadcastLayer();
+        v10 = v14 == 0;
+        if (v14)
         {
-          v14 = v13;
-          v15 = +[MLCLog framework];
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v15 = v14;
+          v16 = +[MLCLog framework];
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             __dst[0] = 136315906;
             *&__dst[1] = "ANE_ValidateBroadcastUnit";
             v54 = 1024;
-            v55 = v14;
+            v55 = v15;
             v56 = 2112;
             v57 = v49;
             v58 = 2112;
             v59 = v9;
-            _os_log_error_impl(&dword_238C1D000, v15, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+            _os_log_error_impl(&dword_238C1D000, v16, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
           }
 
-          v12 = v49;
+          v13 = v49;
           if (!ANECUnitValidatorDelete())
           {
             goto LABEL_27;
           }
 
-          v16 = +[MLCLog framework];
-          if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = +[MLCLog framework];
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_26;
           }
@@ -2799,8 +2741,8 @@ BOOL ANE_ValidateBroadcastUnit(void *a1, void *a2, void *a3, int a4)
 
         if (ANECUnitValidatorDelete())
         {
-          v16 = +[MLCLog framework];
-          if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = +[MLCLog framework];
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
 LABEL_26:
 
@@ -2808,7 +2750,7 @@ LABEL_26:
           }
 
 LABEL_25:
-          ANE_ValidateBroadcastUnit_cold_5(v16, v17, v18, v19, v20, v21, v22, v23);
+          ANE_ValidateBroadcastUnit_cold_5(v17, v18, v19, v20, v21, v22, v23, v24);
           goto LABEL_26;
         }
 
@@ -2818,19 +2760,19 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v39 = +[MLCLog framework];
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v40 = +[MLCLog framework];
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateBroadcastUnit_cold_4(v39, v40, v41, v42, v43, v44, v45, v46);
+        ANE_ValidateBroadcastUnit_cold_4(v40, v41, v42, v43, v44, v45, v46, v47);
       }
     }
 
     else
     {
-      v12 = +[MLCLog framework];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = +[MLCLog framework];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateBroadcastUnit_cold_3(v12, v32, v33, v34, v35, v36, v37, v38);
+        ANE_ValidateBroadcastUnit_cold_3(v13, v33, v34, v35, v36, v37, v38, v39);
       }
     }
 
@@ -2841,7 +2783,6 @@ LABEL_28:
   v10 = 0;
 LABEL_29:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2863,7 +2804,7 @@ uint64_t ANE_ValidateElementWiseUnit(void *a1, void *a2, int a3)
 
   v8 = [v5 count];
   v65 = v60;
-  v9 = MEMORY[0x28223BE20]();
+  v9 = MEMORY[0x28223BE20](v8);
   if (!v9)
   {
 LABEL_9:
@@ -2873,14 +2814,14 @@ LABEL_9:
     v69[1] = _D0;
     v70 = [v16 objectForKeyedSubscript:@"Type"];
 
-    v22 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v23 = [softLinkClass_ANEDeviceInfo_1(v22) aneSubType];
     v69[0] = 0;
-    if (!ANE_CreateUnitValidator(v69, v22))
+    if (!ANE_CreateUnitValidator(v69, v23))
     {
-      v42 = +[MLCLog framework];
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = +[MLCLog framework];
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateElementWiseUnit_cold_3(v42, v43, v44, v45, v46, v47, v48, v49);
+        ANE_ValidateElementWiseUnit_cold_3(v43, v44, v45, v46, v47, v48, v49, v50);
       }
 
       v7 = 0;
@@ -2890,81 +2831,81 @@ LABEL_9:
     v64 = v6;
     v67 = 0;
     v68 = 0;
-    v23 = ANECValidateElementWiseLayer();
-    v7 = v23 == 0;
-    if (v23)
+    v24 = ANECValidateElementWiseLayer();
+    v7 = v24 == 0;
+    if (v24)
     {
-      v24 = v23;
-      v61 = v23 == 0;
+      v25 = v24;
+      v61 = v24 == 0;
       v63 = v16;
-      v25 = +[MLCLog framework];
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = +[MLCLog framework];
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         LODWORD(v77[0]) = 136315906;
         *(v77 + 4) = "ANE_ValidateElementWiseUnit";
         WORD6(v77[0]) = 1024;
-        *(v77 + 14) = v24;
+        *(v77 + 14) = v25;
         WORD1(v77[1]) = 2112;
-        *(&v77[1] + 4) = v22;
+        *(&v77[1] + 4) = v23;
         WORD6(v77[1]) = 2112;
         *(&v77[1] + 14) = v64;
-        _os_log_error_impl(&dword_238C1D000, v25, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v77, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v26, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v77, 0x26u);
       }
 
-      v62 = v22;
+      v62 = v23;
 
-      v27 = v68;
+      v28 = v68;
       if (v68)
       {
-        v28 = 0;
-        *&v26 = 136315650;
-        v66 = v26;
+        v29 = 0;
+        *&v27 = 136315650;
+        v66 = v27;
         do
         {
-          memcpy(v77, (v67 + 552 * v28), 0x228uLL);
-          v29 = *&v77[0];
+          memcpy(v77, (v67 + 552 * v29), 0x228uLL);
+          v30 = *&v77[0];
           if (*&v77[0])
           {
-            v30 = 0;
+            v31 = 0;
             do
             {
-              v31 = +[MLCLog framework];
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v32 = +[MLCLog framework];
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
-                v32 = *(v77 + v30 + 1);
+                v33 = *(v77 + v31 + 1);
                 v71 = v66;
                 v72 = "ANE_ValidateElementWiseUnit";
                 v73 = 2048;
-                v74 = v30;
+                v74 = v31;
                 v75 = 2112;
-                v76 = v32;
-                _os_log_error_impl(&dword_238C1D000, v31, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v71, 0x20u);
+                v76 = v33;
+                _os_log_error_impl(&dword_238C1D000, v32, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v71, 0x20u);
               }
 
-              ++v30;
+              ++v31;
             }
 
-            while (v29 != v30);
-            v27 = v68;
+            while (v30 != v31);
+            v28 = v68;
           }
 
-          ++v28;
+          ++v29;
         }
 
-        while (v28 < v27);
+        while (v29 < v28);
       }
 
-      v33 = ANECUnitValidatorDelete();
-      v22 = v62;
+      v34 = ANECUnitValidatorDelete();
+      v23 = v62;
       v16 = v63;
       v7 = v61;
-      if (!v33)
+      if (!v34)
       {
         goto LABEL_35;
       }
 
-      v34 = +[MLCLog framework];
-      if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = +[MLCLog framework];
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
       }
@@ -2981,8 +2922,8 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v34 = +[MLCLog framework];
-      if (!os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = +[MLCLog framework];
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
 LABEL_34:
 
@@ -2990,7 +2931,7 @@ LABEL_34:
       }
     }
 
-    ANE_ValidateElementWiseUnit_cold_4(v34, v35, v36, v37, v38, v39, v40, v41);
+    ANE_ValidateElementWiseUnit_cold_4(v35, v36, v37, v38, v39, v40, v41, v42);
     goto LABEL_34;
   }
 
@@ -3021,16 +2962,15 @@ LABEL_34:
     }
   }
 
-  v50 = +[MLCLog framework];
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+  v51 = +[MLCLog framework];
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    ANE_ValidateElementWiseUnit_cold_2(v50, v51, v52, v53, v54, v55, v56, v57);
+    ANE_ValidateElementWiseUnit_cold_2(v51, v52, v53, v54, v55, v56, v57, v58);
   }
 
   v7 = 0;
 LABEL_37:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3053,7 +2993,7 @@ uint64_t ANE_ValidateInputViewUnit(void *a1, void *a2, int a3)
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateInputViewUnit_cold_2(v9, v26, v27, v28, v29, v30, v31, v32);
+        ANE_ValidateInputViewUnit_cold_2(v9, v27, v28, v29, v30, v31, v32, v33);
       }
 
       v7 = 0;
@@ -3073,37 +3013,37 @@ uint64_t ANE_ValidateInputViewUnit(void *a1, void *a2, int a3)
 
     v44 = v11;
     v45 = v13;
-    v14 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v15 = [softLinkClass_ANEDeviceInfo_1(v14) aneSubType];
     v43 = 0;
-    if (!ANE_CreateUnitValidator(&v43, v14))
+    if (!ANE_CreateUnitValidator(&v43, v15))
     {
-      v33 = +[MLCLog framework];
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = +[MLCLog framework];
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateInputViewUnit_cold_3(v33, v34, v35, v36, v37, v38, v39, v40);
+        ANE_ValidateInputViewUnit_cold_3(v34, v35, v36, v37, v38, v39, v40, v41);
       }
 
       v7 = 0;
       goto LABEL_23;
     }
 
-    v15 = ANECValidateInputViewLayer();
-    v7 = v15 == 0;
-    if (v15)
+    v16 = ANECValidateInputViewLayer();
+    v7 = v16 == 0;
+    if (v16)
     {
-      v16 = v15;
-      v17 = +[MLCLog framework];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v17 = v16;
+      v18 = +[MLCLog framework];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateInputViewUnit";
         v50 = 1024;
-        v51 = v16;
+        v51 = v17;
         v52 = 2112;
-        v53 = v14;
+        v53 = v15;
         v54 = 2112;
         v55 = v6;
-        _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v18, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -3112,8 +3052,8 @@ uint64_t ANE_ValidateInputViewUnit(void *a1, void *a2, int a3)
         goto LABEL_23;
       }
 
-      v18 = +[MLCLog framework];
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = +[MLCLog framework];
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
@@ -3129,8 +3069,8 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v18 = +[MLCLog framework];
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = +[MLCLog framework];
+      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
 
@@ -3138,20 +3078,19 @@ LABEL_22:
       }
     }
 
-    ANE_ValidateInputViewUnit_cold_4(v18, v19, v20, v21, v22, v23, v24, v25);
+    ANE_ValidateInputViewUnit_cold_4(v19, v20, v21, v22, v23, v24, v25, v26);
     goto LABEL_22;
   }
 
   v7 = 0;
 LABEL_25:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   if (ANE_ValidateArgMinMaxUnit_onceToken != -1)
@@ -3162,8 +3101,8 @@ BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
   if ((ANE_ValidateArgMinMaxUnit_isAppleNeuralEngineAvailable & 1) == 0)
   {
     v8 = [v5 objectAtIndexedSubscript:0];
-    memset(v50, 0, sizeof(v50));
-    if (!ANE_BuildANECTensorDesc(v50, v8, a3))
+    memset(v49, 0, sizeof(v49));
+    if (!ANE_BuildANECTensorDesc(v49, v8, a3))
     {
       v9 = +[MLCLog framework];
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -3176,33 +3115,34 @@ BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
     }
 
     v9 = [v6 objectForKeyedSubscript:@"Params"];
-    v49 = 0;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v48 = 0;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     ANECKernelSizeInitialize();
     ANECStepInitialize();
     ANECPaddingInitialize();
-    *&v45 = [v9 objectForKeyedSubscript:@"Mode"];
+    *&v44 = [v9 objectForKeyedSubscript:@"Mode"];
 
     v10 = [v9 objectForKeyedSubscript:@"KernelHeight"];
     v11 = v10;
     if (v10)
     {
-      *&v46 = [v10 longValue];
+      *&v45 = [v10 longValue];
     }
 
     v12 = [v9 objectForKeyedSubscript:@"KernelWidth"];
     v13 = v12;
     if (v12)
     {
-      *(&v45 + 1) = [v12 longValue];
+      v12 = [v12 longValue];
+      *(&v44 + 1) = v12;
     }
 
-    v14 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
-    v44 = 0;
-    if (!ANE_CreateUnitValidator(&v44, v14))
+    v14 = [softLinkClass_ANEDeviceInfo_1(v12) aneSubType];
+    v43 = 0;
+    if (!ANE_CreateUnitValidator(&v43, v14))
     {
       v33 = +[MLCLog framework];
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
@@ -3215,7 +3155,7 @@ BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
     }
 
     v15 = ANECValidateArgMinMaxLayer();
-    v43 = v15 == 0;
+    v42 = v15 == 0;
     if (v15)
     {
       v16 = v15;
@@ -3224,12 +3164,12 @@ BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateArgMinMaxUnit";
-        v52 = 1024;
-        v53 = v16;
-        v54 = 2112;
-        v55 = v14;
-        v56 = 2112;
-        v57 = v6;
+        v51 = 1024;
+        v52 = v16;
+        v53 = 2112;
+        v54 = v14;
+        v55 = 2112;
+        v56 = v6;
         _os_log_error_impl(&dword_238C1D000, v17, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
@@ -3250,7 +3190,7 @@ BOOL ANE_ValidateArgMinMaxUnit(void *a1, void *a2, int a3)
       if (!ANECUnitValidatorDelete())
       {
 LABEL_27:
-        v7 = v43;
+        v7 = v42;
 LABEL_28:
 
 LABEL_29:
@@ -3273,7 +3213,6 @@ LABEL_26:
   v7 = 0;
 LABEL_30:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3293,10 +3232,10 @@ uint64_t ANE_ValidateGOCUnit(void *a1, void *a2, int a3)
     memset(v41, 0, sizeof(v41));
     if (!ANE_BuildANECTensorDesc(v41, v8, a3))
     {
-      v21 = +[MLCLog framework];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = +[MLCLog framework];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateGOCUnit_cold_2(v21, v22, v23, v24, v25, v26, v27, v28);
+        ANE_ValidateGOCUnit_cold_2(v22, v23, v24, v25, v26, v27, v28, v29);
       }
 
       v7 = 0;
@@ -3304,38 +3243,38 @@ uint64_t ANE_ValidateGOCUnit(void *a1, void *a2, int a3)
     }
 
     v40 = 0;
-    ANECGOCLayerDescInitialize();
-    v9 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v9 = ANECGOCLayerDescInitialize();
+    v10 = [softLinkClass_ANEDeviceInfo_1(v9) aneSubType];
     v39 = 0;
-    if (!ANE_CreateUnitValidator(&v39, v9))
+    if (!ANE_CreateUnitValidator(&v39, v10))
     {
-      v29 = +[MLCLog framework];
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = +[MLCLog framework];
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateGOCUnit_cold_3(v29, v30, v31, v32, v33, v34, v35, v36);
+        ANE_ValidateGOCUnit_cold_3(v30, v31, v32, v33, v34, v35, v36, v37);
       }
 
       v7 = 0;
       goto LABEL_23;
     }
 
-    v10 = ANECValidateGOCLayer();
-    v7 = v10 == 0;
-    if (v10)
+    v11 = ANECValidateGOCLayer();
+    v7 = v11 == 0;
+    if (v11)
     {
-      v11 = v10;
-      v12 = +[MLCLog framework];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v12 = v11;
+      v13 = +[MLCLog framework];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateGOCUnit";
         v43 = 1024;
-        v44 = v11;
+        v44 = v12;
         v45 = 2112;
-        v46 = v9;
+        v46 = v10;
         v47 = 2112;
         v48 = v6;
-        _os_log_error_impl(&dword_238C1D000, v12, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v13, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v7 = v7;
@@ -3344,8 +3283,8 @@ uint64_t ANE_ValidateGOCUnit(void *a1, void *a2, int a3)
         goto LABEL_23;
       }
 
-      v13 = +[MLCLog framework];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = +[MLCLog framework];
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
@@ -3361,8 +3300,8 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v13 = +[MLCLog framework];
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = +[MLCLog framework];
+      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
 LABEL_22:
 
@@ -3370,14 +3309,13 @@ LABEL_22:
       }
     }
 
-    ANE_ValidateGOCUnit_cold_4(v13, v14, v15, v16, v17, v18, v19, v20);
+    ANE_ValidateGOCUnit_cold_4(v14, v15, v16, v17, v18, v19, v20, v21);
     goto LABEL_22;
   }
 
   v7 = 0;
 LABEL_25:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3399,7 +3337,7 @@ uint64_t ANE_ValidateMatrixMultUnit(void *a1, void *a2, int a3)
 
   v8 = [v5 count];
   v62 = v57;
-  v9 = MEMORY[0x28223BE20]();
+  v9 = MEMORY[0x28223BE20](v8);
   if (!v9)
   {
 LABEL_9:
@@ -3413,14 +3351,14 @@ LABEL_9:
     v18 = [v6 objectForKeyedSubscript:@"OutputChannels"];
     v68 = [v18 longValue];
 
-    v19 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v20 = [softLinkClass_ANEDeviceInfo_1(v19) aneSubType];
     v66 = 0;
-    if (!ANE_CreateUnitValidator(&v66, v19))
+    if (!ANE_CreateUnitValidator(&v66, v20))
     {
-      v39 = +[MLCLog framework];
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v40 = +[MLCLog framework];
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateMatrixMultUnit_cold_3(v39, v40, v41, v42, v43, v44, v45, v46);
+        ANE_ValidateMatrixMultUnit_cold_3(v40, v41, v42, v43, v44, v45, v46, v47);
       }
 
       v7 = 0;
@@ -3430,81 +3368,81 @@ LABEL_9:
     v61 = v6;
     v64 = 0;
     v65 = 0;
-    v20 = ANECValidateMatrixMultLayer();
-    v7 = v20 == 0;
-    if (v20)
+    v21 = ANECValidateMatrixMultLayer();
+    v7 = v21 == 0;
+    if (v21)
     {
-      v21 = v20;
-      v58 = v20 == 0;
+      v22 = v21;
+      v58 = v21 == 0;
       v60 = v16;
-      v22 = +[MLCLog framework];
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = +[MLCLog framework];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         LODWORD(v75[0]) = 136315906;
         *(v75 + 4) = "ANE_ValidateMatrixMultUnit";
         WORD6(v75[0]) = 1024;
-        *(v75 + 14) = v21;
+        *(v75 + 14) = v22;
         WORD1(v75[1]) = 2112;
-        *(&v75[1] + 4) = v19;
+        *(&v75[1] + 4) = v20;
         WORD6(v75[1]) = 2112;
         *(&v75[1] + 14) = v61;
-        _os_log_error_impl(&dword_238C1D000, v22, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v75, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v23, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", v75, 0x26u);
       }
 
-      v59 = v19;
+      v59 = v20;
 
-      v24 = v65;
+      v25 = v65;
       if (v65)
       {
-        v25 = 0;
-        *&v23 = 136315650;
-        v63 = v23;
+        v26 = 0;
+        *&v24 = 136315650;
+        v63 = v24;
         do
         {
-          memcpy(v75, (v64 + 552 * v25), 0x228uLL);
-          v26 = *&v75[0];
+          memcpy(v75, (v64 + 552 * v26), 0x228uLL);
+          v27 = *&v75[0];
           if (*&v75[0])
           {
-            v27 = 0;
+            v28 = 0;
             do
             {
-              v28 = +[MLCLog framework];
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v29 = +[MLCLog framework];
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
-                v29 = *(v75 + v27 + 1);
+                v30 = *(v75 + v28 + 1);
                 v69 = v63;
                 v70 = "ANE_ValidateMatrixMultUnit";
                 v71 = 2048;
-                v72 = v27;
+                v72 = v28;
                 v73 = 2112;
-                v74 = v29;
-                _os_log_error_impl(&dword_238C1D000, v28, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v69, 0x20u);
+                v74 = v30;
+                _os_log_error_impl(&dword_238C1D000, v29, OS_LOG_TYPE_ERROR, "%s: ANE hardware constraint violation %lu: %@", &v69, 0x20u);
               }
 
-              ++v27;
+              ++v28;
             }
 
-            while (v26 != v27);
-            v24 = v65;
+            while (v27 != v28);
+            v25 = v65;
           }
 
-          ++v25;
+          ++v26;
         }
 
-        while (v25 < v24);
+        while (v26 < v25);
       }
 
-      v30 = ANECUnitValidatorDelete();
-      v19 = v59;
+      v31 = ANECUnitValidatorDelete();
+      v20 = v59;
       v16 = v60;
       v7 = v58;
-      if (!v30)
+      if (!v31)
       {
         goto LABEL_35;
       }
 
-      v31 = +[MLCLog framework];
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = +[MLCLog framework];
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_34;
       }
@@ -3521,8 +3459,8 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v31 = +[MLCLog framework];
-      if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = +[MLCLog framework];
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
 LABEL_34:
 
@@ -3530,7 +3468,7 @@ LABEL_34:
       }
     }
 
-    ANE_ValidateMatrixMultUnit_cold_4(v31, v32, v33, v34, v35, v36, v37, v38);
+    ANE_ValidateMatrixMultUnit_cold_4(v32, v33, v34, v35, v36, v37, v38, v39);
     goto LABEL_34;
   }
 
@@ -3561,16 +3499,15 @@ LABEL_34:
     }
   }
 
-  v47 = +[MLCLog framework];
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+  v48 = +[MLCLog framework];
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
   {
-    ANE_ValidateMatrixMultUnit_cold_2(v47, v48, v49, v50, v51, v52, v53, v54);
+    ANE_ValidateMatrixMultUnit_cold_2(v48, v49, v50, v51, v52, v53, v54, v55);
   }
 
   v7 = 0;
 LABEL_37:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3619,28 +3556,27 @@ uint64_t ANE_ValidateLayerNormUnit(void *a1, void *a2, int a3)
     ANECLayerNormLayerDescInitialize();
     v20 = [v9 objectForKeyedSubscript:@"Dimension"];
     *&v47 = [v20 count];
-    if ([v20 count])
+    v21 = [v20 count];
+    if (v21)
     {
-      v21 = 0;
-      do
+      for (i = 0; i < v21; ++i)
       {
-        v22 = [v20 objectAtIndexedSubscript:v21];
+        v23 = [v20 objectAtIndexedSubscript:i];
 
-        *(v48 + v21++) = v22;
+        *(v48 + i) = v23;
+        v21 = [v20 count];
       }
-
-      while (v21 < [v20 count]);
     }
 
     *(&v47 + 1) = v12;
-    v23 = [softLinkClass_ANEDeviceInfo_1() aneSubType];
+    v24 = [softLinkClass_ANEDeviceInfo_1(v21) aneSubType];
     v46 = 0;
-    if (!ANE_CreateUnitValidator(&v46, v23))
+    if (!ANE_CreateUnitValidator(&v46, v24))
     {
-      v35 = +[MLCLog framework];
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v36 = +[MLCLog framework];
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        ANE_ValidateLayerNormUnit_cold_3(v35, v36, v37, v38, v39, v40, v41, v42);
+        ANE_ValidateLayerNormUnit_cold_3(v36, v37, v38, v39, v40, v41, v42, v43);
       }
 
       v7 = 0;
@@ -3648,23 +3584,23 @@ uint64_t ANE_ValidateLayerNormUnit(void *a1, void *a2, int a3)
     }
 
     v45 = v8;
-    v24 = ANECValidateLayerNormLayer();
-    v7 = v24 == 0;
-    if (v24)
+    v25 = ANECValidateLayerNormLayer();
+    v7 = v25 == 0;
+    if (v25)
     {
-      v25 = v24;
-      v26 = +[MLCLog framework];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v26 = v25;
+      v27 = +[MLCLog framework];
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         __dst[0] = 136315906;
         *&__dst[1] = "ANE_ValidateLayerNormUnit";
         v52 = 1024;
-        v53 = v25;
+        v53 = v26;
         v54 = 2112;
-        v55 = v23;
+        v55 = v24;
         v56 = 2112;
         v57 = v6;
-        _os_log_error_impl(&dword_238C1D000, v26, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
+        _os_log_error_impl(&dword_238C1D000, v27, OS_LOG_TYPE_ERROR, "%s: error code=%d from ANEC validate API. ANE hardware constraints violated on archType=%@ by unit=%@", __dst, 0x26u);
       }
 
       v8 = v45;
@@ -3674,8 +3610,8 @@ uint64_t ANE_ValidateLayerNormUnit(void *a1, void *a2, int a3)
         goto LABEL_29;
       }
 
-      v27 = +[MLCLog framework];
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = +[MLCLog framework];
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_28;
       }
@@ -3691,8 +3627,8 @@ LABEL_30:
         goto LABEL_31;
       }
 
-      v27 = +[MLCLog framework];
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = +[MLCLog framework];
+      if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
 LABEL_28:
 
@@ -3700,41 +3636,40 @@ LABEL_28:
       }
     }
 
-    ANE_ValidateLayerNormUnit_cold_4(v27, v28, v29, v30, v31, v32, v33, v34);
+    ANE_ValidateLayerNormUnit_cold_4(v28, v29, v30, v31, v32, v33, v34, v35);
     goto LABEL_28;
   }
 
   v7 = 0;
 LABEL_31:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-void __isAppleNeuralEngineAPIAvailable_block_invoke()
+void __isAppleNeuralEngineAPIAvailable_block_invoke(uint64_t a1)
 {
   if (AppleNeuralEngineLibrary_onceToken_2 != -1)
   {
     __isAppleNeuralEngineAPIAvailable_block_invoke_cold_1();
   }
 
-  if (AppleNeuralEngineLibrary_frameworkLibrary_2 && softLinkClass_ANEDeviceInfo_1())
+  if (AppleNeuralEngineLibrary_frameworkLibrary_2 && softLinkClass_ANEDeviceInfo_1(a1))
   {
-    v0 = 1;
+    v1 = 1;
   }
 
   else
   {
-    v1 = +[MLCLog framework];
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = +[MLCLog framework];
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __isAppleNeuralEngineAPIAvailable_block_invoke_cold_2(v1, v2, v3, v4, v5, v6, v7, v8);
+      __isAppleNeuralEngineAPIAvailable_block_invoke_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
     }
 
-    v0 = 0;
+    v1 = 0;
   }
 
-  isAppleNeuralEngineAPIAvailable_isAvailable = v0;
+  isAppleNeuralEngineAPIAvailable_isAvailable = v1;
 }
 
 void *__AppleNeuralEngineLibrary_block_invoke_2()
@@ -3744,9 +3679,10 @@ void *__AppleNeuralEngineLibrary_block_invoke_2()
   return result;
 }
 
-id ANE_BuildReductionParams(int a1, void *a2, unint64_t a3)
+id ANE_BuildReductionParams(uint64_t a1, void *a2, unint64_t a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [MEMORY[0x277CBEC10] mutableCopy];
   v7 = ANE_Get4DReductionDimensions(a3, v5);
@@ -3756,12 +3692,12 @@ id ANE_BuildReductionParams(int a1, void *a2, unint64_t a3)
     goto LABEL_27;
   }
 
-  v24 = xmmword_278A69308;
-  v25 = *off_278A69318;
-  if ((a1 - 1) < 4)
+  v23 = xmmword_278A69308;
+  v24 = *off_278A69318;
+  if ((v4 - 1) < 4)
   {
-    [v6 setObject:@"Reduction" forKeyedSubscript:{kMLCANENetUnitType[0], v24, v25}];
-    [v6 setObject:*(&v24 + (a1 - 1)) forKeyedSubscript:@"Type"];
+    [v6 setObject:@"Reduction" forKeyedSubscript:{kMLCANENetUnitType[0], v23, v24}];
+    [v6 setObject:*(&v23 + (v4 - 1)) forKeyedSubscript:@"Type"];
     v8 = [MEMORY[0x277CBEBF8] mutableCopy];
     if ([v7 count])
     {
@@ -3784,9 +3720,9 @@ id ANE_BuildReductionParams(int a1, void *a2, unint64_t a3)
     goto LABEL_20;
   }
 
-  if ((a1 - 5) > 1)
+  if ((v4 - 5) > 1)
   {
-    v18 = [MLCLog framework:v24];
+    v18 = [MLCLog framework:v23];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       ANE_BuildReductionParams_cold_2();
@@ -3795,7 +3731,7 @@ id ANE_BuildReductionParams(int a1, void *a2, unint64_t a3)
 
   else
   {
-    [v6 setObject:@"ArgMinMax" forKeyedSubscript:{kMLCANENetUnitType[0], v24, v25}];
+    [v6 setObject:@"ArgMinMax" forKeyedSubscript:{kMLCANENetUnitType[0], v23, v24}];
     v14 = [v7 objectAtIndexedSubscript:0];
     v15 = [v14 unsignedIntegerValue];
 
@@ -3804,7 +3740,7 @@ id ANE_BuildReductionParams(int a1, void *a2, unint64_t a3)
       v16 = @"SpatialArgMax";
       v17 = @"SpatialArgMin";
 LABEL_16:
-      if (a1 == 6)
+      if (v4 == 6)
       {
         v19 = v17;
       }
@@ -3841,8 +3777,6 @@ LABEL_25:
   }
 
 LABEL_27:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3889,7 +3823,7 @@ id ANE_Get4DReductionDimensions(unint64_t a1, void *a2)
   return v5;
 }
 
-id ANE_CreateReductionLayer(int a1, void *a2, unint64_t a3)
+id ANE_CreateReductionLayer(uint64_t a1, void *a2, unint64_t a3)
 {
   v5 = a2;
   v6 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -4075,7 +4009,7 @@ id ANE_CreateSoftmaxLayer(int a1, unint64_t a2, unint64_t a3)
 
 id ANE_CompileSoftmaxLayer(void *a1, uint64_t a2, void *a3)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = [a3 parentLayers];
   v6 = [v5 objectAtIndexedSubscript:0];
@@ -4110,21 +4044,21 @@ id ANE_CompileSoftmaxLayer(void *a1, uint64_t a2, void *a3)
     v17 = [v16 stringByAppendingString:@"_1"];
 
     v18 = [v6 label];
-    v43 = [v18 stringByAppendingString:@"_2"];
+    v42 = [v18 stringByAppendingString:@"_2"];
 
     [v11 setObject:v15 forKeyedSubscript:@"Name"];
     v19 = [v8 neuronParams];
     if (v19)
     {
-      v40 = v19;
+      v39 = v19;
       v20 = [_MLCANEPlistBuilder createUnitWithLayer:v6 unitParams:v19];
       v21 = v17;
       v22 = v20;
-      v42 = v21;
+      v41 = v21;
       [v20 setObject:? forKeyedSubscript:?];
-      v41 = v15;
-      v45[0] = v15;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+      v40 = v15;
+      v44[0] = v15;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
       [v22 setObject:v23 forKeyedSubscript:@"Bottom"];
 
       v24 = [v6 sourceTensors];
@@ -4136,34 +4070,34 @@ id ANE_CompileSoftmaxLayer(void *a1, uint64_t a2, void *a3)
         v26 = [v8 gocParams];
         if (v26)
         {
-          v39 = v26;
+          v38 = v26;
           v27 = [_MLCANEPlistBuilder createUnitWithLayer:v6 unitParams:v26];
-          [v27 setObject:v43 forKeyedSubscript:@"Name"];
-          v44 = v42;
-          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+          [v27 setObject:v42 forKeyedSubscript:@"Name"];
+          v43 = v41;
+          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
           [v27 setObject:v28 forKeyedSubscript:@"Bottom"];
 
           v29 = [v6 sourceTensors];
           v30 = ANE_ValidateGOCUnit(v29, v27, 1);
 
-          v38 = v30;
+          v37 = v30;
           if (v30)
           {
             [v10 addObject:v27];
-            v31 = v41;
+            v31 = v40;
           }
 
           else
           {
             v35 = +[MLCLog framework];
-            v31 = v41;
+            v31 = v40;
             if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               ANE_CompileSoftmaxLayer_cold_1();
             }
           }
 
-          if (v38)
+          if (v37)
           {
             goto LABEL_24;
           }
@@ -4205,8 +4139,6 @@ LABEL_10:
 LABEL_24:
   v32 = [v10 copy];
 LABEL_25:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -4716,7 +4648,7 @@ id createBiDirectionalAndStackedGateWeightData(size_t a1, void *a2, int a3, uint
 
 NSObject *ANE_CreatePoolingLayer(void *a1, void *a2)
 {
-  v24[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   v3 = a1;
   if ([v3 dilationRateInX] <= 1 && objc_msgSend(v3, "dilationRateInY") < 2)
   {
@@ -4757,9 +4689,9 @@ LABEL_13:
         [v6 setObject:&unk_284BA5AC8 forKeyedSubscript:@"KernelDepth"];
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "strideInX")}];
         v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "strideInY", v14)}];
-        v24[1] = v15;
-        v24[2] = &unk_284BA5AC8;
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+        v23[1] = v15;
+        v23[2] = &unk_284BA5AC8;
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
 
         [v6 setObject:v11 forKeyedSubscript:@"Step"];
         v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*a2];
@@ -4811,8 +4743,6 @@ LABEL_19:
   v5 = MEMORY[0x277CBEBF8];
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -4827,17 +4757,17 @@ uint64_t ANE_ValidatePoolingLayer(void *a1, void *a2)
 
 id ANE_CompilePoolingLayer(void *a1, void *a2, void *a3)
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v49[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = a1;
-  v45 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v44 = [MEMORY[0x277CBEBF8] mutableCopy];
   v8 = [v6 parentLayers];
   v9 = [v8 objectAtIndexedSubscript:0];
 
   v10 = [v7 objectAtIndexedSubscript:0];
 
-  v44 = v10;
+  v43 = v10;
   v11 = [v10 params];
   v12 = [v11 poolingParams];
   v13 = [v12 mutableCopy];
@@ -4859,7 +4789,7 @@ id ANE_CompilePoolingLayer(void *a1, void *a2, void *a3)
 LABEL_17:
 
       v30 = 0;
-      v27 = v45;
+      v27 = v44;
       goto LABEL_22;
     }
 
@@ -4881,15 +4811,15 @@ LABEL_17:
   v22 = [v13 objectForKeyedSubscript:@"KernelHeight"];
   v23 = [v22 unsignedIntegerValue];
 
-  v48 = 0;
-  v49 = 0;
-  v24 = [v5 objectAtIndexedSubscript:0];
-  ANE_GetTensorWidthAndHeightWithBatchFirst(v24, &v49, &v48);
-
-  v46 = 0;
   v47 = 0;
-  ANE_GetTensorWidthAndHeightWithBatchFirst(v6, &v47, &v46);
-  if (v21 == v49 && v23 == v48 && v47 == 1 && v46 == 1)
+  v48 = 0;
+  v24 = [v5 objectAtIndexedSubscript:0];
+  ANE_GetTensorWidthAndHeightWithBatchFirst(v24, &v48, &v47);
+
+  v45 = 0;
+  v46 = 0;
+  ANE_GetTensorWidthAndHeightWithBatchFirst(v6, &v46, &v45);
+  if (v21 == v48 && v23 == v47 && v46 == 1 && v45 == 1)
   {
     if ([MLCPlatformInfo isAneSubTypeVersionGreaterThanOrEqualTo:13])
     {
@@ -4899,16 +4829,16 @@ LABEL_17:
       if (v26 == 1)
       {
         v28 = 3;
-        v27 = v45;
+        v27 = v44;
       }
 
       else
       {
-        v27 = v45;
+        v27 = v44;
         if (v26 != 2)
         {
-          v42 = +[MLCLog framework];
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v41 = +[MLCLog framework];
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             ANE_CompilePoolingLayer_cold_5();
           }
@@ -4926,31 +4856,31 @@ LABEL_17:
 
       else
       {
-        v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-        v50[0] = v37;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+        v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
+        v49[0] = v36;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
       }
 
-      v38 = ANE_BuildReductionParams(v28, v29, v16);
-      if (v38)
+      v37 = ANE_BuildReductionParams(v28, v29, v16);
+      if (v37)
       {
-        v31 = v38;
-        v39 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v38];
-        v40 = [v9 sourceTensors];
-        v41 = ANE_ValidateReductionUnit(v40, v39, 1);
+        v31 = v37;
+        v38 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v37];
+        v39 = [v9 sourceTensors];
+        v40 = ANE_ValidateReductionUnit(v39, v38, 1);
 
-        if (v41)
+        if (v40)
         {
-          v27 = v45;
-          [v45 addObject:v39];
+          v27 = v44;
+          [v44 addObject:v38];
 
           goto LABEL_37;
         }
 
-        v43 = +[MLCLog framework];
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v42 = +[MLCLog framework];
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          ANE_CompilePoolingLayer_cold_3(v39, v9, v43);
+          ANE_CompilePoolingLayer_cold_3(v38, v9, v42);
         }
 
         goto LABEL_17;
@@ -4965,27 +4895,27 @@ LABEL_17:
 
     else
     {
-      v34 = [v13 objectForKeyedSubscript:@"Step"];
-      v29 = [v34 mutableCopy];
+      v33 = [v13 objectForKeyedSubscript:@"Step"];
+      v29 = [v33 mutableCopy];
 
       [v29 setObject:&unk_284BA5AC8 atIndexedSubscript:0];
       [v29 setObject:&unk_284BA5AC8 atIndexedSubscript:1];
-      v35 = [v29 copy];
-      [v13 setObject:v35 forKeyedSubscript:@"Step"];
+      v34 = [v29 copy];
+      [v13 setObject:v34 forKeyedSubscript:@"Step"];
 
       v31 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v13];
       if (ANE_ValidatePoolingLayer(v9, v31))
       {
-        v27 = v45;
-        [v45 addObject:v31];
+        v27 = v44;
+        [v44 addObject:v31];
 LABEL_37:
 
         goto LABEL_14;
       }
 
-      v36 = +[MLCLog framework];
-      v27 = v45;
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v35 = +[MLCLog framework];
+      v27 = v44;
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         ANE_CompilePoolingLayer_cold_1();
       }
@@ -4997,8 +4927,8 @@ LABEL_37:
     v29 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v13];
     if (ANE_ValidatePoolingLayer(v9, v29))
     {
-      v27 = v45;
-      [v45 addObject:v29];
+      v27 = v44;
+      [v44 addObject:v29];
 LABEL_14:
 
       v30 = [v27 copy];
@@ -5006,7 +4936,7 @@ LABEL_14:
     }
 
     v31 = +[MLCLog framework];
-    v27 = v45;
+    v27 = v44;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       ANE_CompilePoolingLayer_cold_1();
@@ -5017,20 +4947,18 @@ LABEL_21:
   v30 = 0;
 LABEL_22:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 id CPU_CreateLossLayer(uint64_t a1, void *a2)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
   v4 = [v2 lossType];
   v5 = v4;
-  v22 = 0u;
-  memset(v21, 0, sizeof(v21));
+  v21 = 0u;
+  memset(v20, 0, sizeof(v20));
   if (v4 <= 3)
   {
     if (v4 > 1)
@@ -5045,8 +4973,8 @@ id CPU_CreateLossLayer(uint64_t a1, void *a2)
         v7 = 2;
       }
 
-      LODWORD(v21[0]) = v7;
-      DWORD2(v22) = getBNNSLossReductionFunction([v2 reductionType]);
+      LODWORD(v20[0]) = v7;
+      DWORD2(v21) = getBNNSLossReductionFunction([v2 reductionType]);
       goto LABEL_18;
     }
 
@@ -5083,8 +5011,8 @@ id CPU_CreateLossLayer(uint64_t a1, void *a2)
     switch(v4)
     {
       case 6:
-        LODWORD(v21[0]) = 4;
-        DWORD2(v22) = getBNNSLossReductionFunction([v2 reductionType]);
+        LODWORD(v20[0]) = 4;
+        DWORD2(v21) = getBNNSLossReductionFunction([v2 reductionType]);
 LABEL_20:
         [v2 delta];
         goto LABEL_21;
@@ -5094,20 +5022,20 @@ LABEL_20:
       case 8:
         v6 = 6;
 LABEL_24:
-        LODWORD(v21[0]) = v6;
-        DWORD2(v22) = getBNNSLossReductionFunction([v2 reductionType]);
+        LODWORD(v20[0]) = v6;
+        DWORD2(v21) = getBNNSLossReductionFunction([v2 reductionType]);
         goto LABEL_25;
     }
   }
 
-  v18 = +[MLCLog framework];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = +[MLCLog framework];
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     CPU_CreateLossLayer_cold_1();
   }
 
-  LODWORD(v21[0]) = 1;
-  DWORD2(v22) = getBNNSLossReductionFunction([v2 reductionType]);
+  LODWORD(v20[0]) = 1;
+  DWORD2(v21) = getBNNSLossReductionFunction([v2 reductionType]);
   if (v5 == 6)
   {
     goto LABEL_20;
@@ -5118,19 +5046,19 @@ LABEL_24:
 LABEL_18:
     [v2 labelSmoothing];
 LABEL_21:
-    HIDWORD(v22) = v8;
+    HIDWORD(v21) = v8;
   }
 
 LABEL_25:
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:368];
-  memset(v20, 0, sizeof(v20));
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:368];
   memset(v19, 0, sizeof(v19));
-  v10 = [MEMORY[0x277CBEA90] dataWithBytes:v20 length:176];
-  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:176];
-  v24[0] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-  v23 = v11;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  memset(v18, 0, sizeof(v18));
+  v10 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:176];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v18 length:176];
+  v23[0] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22 = v11;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
   v14 = [MLCCPUDeviceOps deviceOpsWithType:12 params:v9 inDeltaData:v12 outDeltaData:v13 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v14)
@@ -5142,12 +5070,10 @@ LABEL_25:
 
   v15 = [v3 copy];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
-uint64_t getBNNSLossReductionFunction(unsigned int a1)
+uint64_t getBNNSLossReductionFunction(uint64_t a1)
 {
   if (a1 < 3)
   {
@@ -5165,47 +5091,47 @@ uint64_t getBNNSLossReductionFunction(unsigned int a1)
 
 id CPU_CreateYOLOLossLayer(uint64_t a1, void *a2)
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v26 = 0;
-  memset(v25, 0, sizeof(v25));
-  LODWORD(v25[0]) = 5;
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  LODWORD(v24[0]) = 5;
   v4 = [v2 spatialSizeLossDescriptor];
   [v4 delta];
-  v28 = v5;
+  v27 = v5;
 
   BNNSLossReductionFunction = getBNNSLossReductionFunction([v2 reductionType]);
-  v31 = [v2 shouldRescore];
+  v30 = [v2 shouldRescore];
   [v2 scaleSpatialPositionLoss];
-  v32 = v6;
+  v31 = v6;
   [v2 scaleSpatialSizeLoss];
-  v33 = v7;
+  v32 = v7;
   [v2 scaleObjectConfidenceLoss];
-  v34 = v8;
+  v33 = v8;
   [v2 scaleNoObjectConfidenceLoss];
-  v35 = v9;
+  v34 = v9;
   [v2 scaleClassLoss];
-  v36 = v10;
+  v35 = v10;
   [v2 minimumIOUForObjectPresence];
-  v37 = v11;
+  v36 = v11;
   [v2 maximumIOUForObjectAbsence];
-  v38 = v12;
-  *&v30 = [v2 anchorBoxCount];
+  v37 = v12;
+  *&v29 = [v2 anchorBoxCount];
   v13 = [v2 anchorBoxes];
 
-  v39 = [v13 bytes];
-  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:440];
-  memset(v24, 0, sizeof(v24));
+  v38 = [v13 bytes];
+  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:440];
   memset(v23, 0, sizeof(v23));
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:176];
-  v16 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
-  v41[0] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
-  v40 = v16;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+  memset(v22, 0, sizeof(v22));
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
+  v16 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:176];
+  v40[0] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+  v39 = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
   v19 = [MLCCPUDeviceOps deviceOpsWithType:18 params:v14 inDeltaData:v17 outDeltaData:v18 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v19)
@@ -5214,8 +5140,6 @@ id CPU_CreateYOLOLossLayer(uint64_t a1, void *a2)
   }
 
   v20 = [v3 copy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -5594,19 +5518,19 @@ NSString *__cdecl MLCGradientClippingTypeDebugDescription(MLCGradientClippingTyp
 
 id CPU_CreateFusedConvolutionNormalizationAndNeuronLayer(float a1, float a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, uint64_t a12, unsigned int a13)
 {
-  v117[1] = *MEMORY[0x277D85DE8];
+  v116[1] = *MEMORY[0x277D85DE8];
   v21 = a4;
   v22 = a5;
   v23 = a6;
   v24 = a7;
   v25 = a8;
-  v102 = a9;
-  v103 = a10;
+  v101 = a9;
+  v102 = a10;
   v26 = v22;
   v27 = a11;
-  v99 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v100 = v27;
-  v101 = v25;
+  v98 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v99 = v27;
+  v100 = v25;
   if (a13 <= 0x24)
   {
     if (((1 << a13) & 0xC00000) != 0)
@@ -5628,31 +5552,31 @@ id CPU_CreateFusedConvolutionNormalizationAndNeuronLayer(float a1, float a2, uin
       v28 = 3;
       v29 = 1;
 LABEL_10:
-      bzero(v110, 0x348uLL);
-      CPU_BuildBNNSConvolutionWeightAndBiasParams(v110, v23, v21, v26);
-      bzero(v108, 0x468uLL);
+      bzero(v109, 0x348uLL);
+      CPU_BuildBNNSConvolutionWeightAndBiasParams(v109, v23, v21, v26);
+      bzero(v107, 0x468uLL);
       v30 = [v23 outputFeatureChannelCount];
       v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
-      v117[0] = v31;
-      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:1];
-      v33 = CPU_BuildBNNSNormalizationParams(v28, v108, v32, v101, v102, v103, v100, a1, a2);
+      v116[0] = v31;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:1];
+      v33 = CPU_BuildBNNSNormalizationParams(v28, v107, v32, v100, v101, v102, v99, a1, a2);
 
-      if (v33 && (!v24 || setBNNSActivation(v109, v24)))
+      if (v33 && (!v24 || setBNNSActivation(v108, v24)))
       {
-        v84 = v24;
+        v83 = v24;
         if (v29)
         {
-          v109[6] = a12;
+          v108[6] = a12;
         }
 
-        v97 = [MEMORY[0x277CBEA90] dataWithBytes:v110 length:840];
-        v90 = [MEMORY[0x277CBEA90] dataWithBytes:v108 length:1128];
-        memset(v107, 0, sizeof(v107));
+        v96 = [MEMORY[0x277CBEA90] dataWithBytes:v109 length:840];
+        v89 = [MEMORY[0x277CBEA90] dataWithBytes:v107 length:1128];
         memset(v106, 0, sizeof(v106));
-        v96 = [MEMORY[0x277CBEA90] dataWithBytes:v107 length:176];
+        memset(v105, 0, sizeof(v105));
         v95 = [MEMORY[0x277CBEA90] dataWithBytes:v106 length:176];
+        v94 = [MEMORY[0x277CBEA90] dataWithBytes:v105 length:176];
         v34 = [v21 descriptor];
-        v94 = +[_MLCCPUConvolution createBNNSNDArrayDescriptorForDescriptor:weightsDelta:fullyConnected:dataType:](_MLCCPUConvolution, "createBNNSNDArrayDescriptorForDescriptor:weightsDelta:fullyConnected:dataType:", v23, 0, 0, [v34 dataType]);
+        v93 = +[_MLCCPUConvolution createBNNSNDArrayDescriptorForDescriptor:weightsDelta:fullyConnected:dataType:](_MLCCPUConvolution, "createBNNSNDArrayDescriptorForDescriptor:weightsDelta:fullyConnected:dataType:", v23, 0, 0, [v34 dataType]);
 
         v35 = [MEMORY[0x277CBEBF8] mutableCopy];
         v36 = 3;
@@ -5663,58 +5587,58 @@ LABEL_10:
           [v35 setObject:v39 atIndexedSubscript:i];
         }
 
-        v93 = v35;
-        v86 = v21;
-        v83 = v23;
+        v92 = v35;
+        v85 = v21;
+        v82 = v23;
         if (v26)
         {
           v40 = [v26 descriptor];
-          v92 = +[_MLCCPUConvolution createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:](_MLCCPUConvolution, "createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:", v23, 0, [v40 dataType]);
+          v91 = +[_MLCCPUConvolution createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:](_MLCCPUConvolution, "createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:", v23, 0, [v40 dataType]);
 
-          v91 = [MEMORY[0x277CBEBF8] mutableCopy];
+          v90 = [MEMORY[0x277CBEBF8] mutableCopy];
           for (j = 0; j != 3; ++j)
           {
             v42 = [v26 descriptor];
             v43 = +[_MLCCPUConvolution createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:](_MLCCPUConvolution, "createBNNSNDArrayDescriptorForDescriptor:biasDelta:dataType:", v23, 0, [v42 dataType]);
-            [v91 setObject:v43 atIndexedSubscript:j];
+            [v90 setObject:v43 atIndexedSubscript:j];
           }
         }
 
         else
         {
+          v90 = 0;
           v91 = 0;
-          v92 = 0;
         }
 
-        v85 = v26;
+        v84 = v26;
         v47 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:malloc_type_calloc(v30 length:4uLL freeWhenDone:{0x100004052888210uLL), 4 * v30, 1}];
-        v98 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:malloc_type_calloc(v30 length:4uLL freeWhenDone:{0x100004052888210uLL), 4 * v30, 1}];
+        v97 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:malloc_type_calloc(v30 length:4uLL freeWhenDone:{0x100004052888210uLL), 4 * v30, 1}];
         v48 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
-        v116 = v48;
-        v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v116 count:1];
-        v50 = v103;
-        v51 = [v103 descriptor];
-        v89 = v47;
-        v88 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v49, v47, [v51 dataType], 0);
+        v115 = v48;
+        v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v115 count:1];
+        v50 = v102;
+        v51 = [v102 descriptor];
+        v88 = v47;
+        v87 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v49, v47, [v51 dataType], 0);
 
         v52 = 0x277CBE000uLL;
         v53 = v30;
-        v105 = [MEMORY[0x277CBEBF8] mutableCopy];
-        if (v103)
+        v104 = [MEMORY[0x277CBEBF8] mutableCopy];
+        if (v102)
         {
           v54 = 0;
           do
           {
             v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v53];
-            v115 = v55;
-            v56 = [*(v52 + 2656) arrayWithObjects:&v115 count:1];
+            v114 = v55;
+            v56 = [*(v52 + 2656) arrayWithObjects:&v114 count:1];
             [v50 descriptor];
             v57 = v36;
             v58 = v50;
             v59 = v53;
             v61 = v60 = v52;
             v62 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v56, 0, [v61 dataType], 0);
-            [v105 setObject:v62 atIndexedSubscript:v54];
+            [v104 setObject:v62 atIndexedSubscript:v54];
 
             v52 = v60;
             v53 = v59;
@@ -5728,56 +5652,56 @@ LABEL_10:
         }
 
         v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v53];
-        v114 = v63;
-        v64 = [*(v52 + 2656) arrayWithObjects:&v114 count:1];
+        v113 = v63;
+        v64 = [*(v52 + 2656) arrayWithObjects:&v113 count:1];
         v65 = v52;
-        v66 = [v100 descriptor];
-        v87 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v64, v98, [v66 dataType], 0);
+        v66 = [v99 descriptor];
+        v86 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v64, v97, [v66 dataType], 0);
 
-        v104 = [MEMORY[0x277CBEBF8] mutableCopy];
-        if (v100)
+        v103 = [MEMORY[0x277CBEBF8] mutableCopy];
+        if (v99)
         {
           for (k = 0; k != v36; ++k)
           {
             v68 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v53];
-            v113 = v68;
-            v69 = [*(v65 + 2656) arrayWithObjects:&v113 count:1];
-            v70 = [v100 descriptor];
+            v112 = v68;
+            v69 = [*(v65 + 2656) arrayWithObjects:&v112 count:1];
+            v70 = [v99 descriptor];
             v71 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v69, 0, [v70 dataType], 0);
-            [v104 setObject:v71 atIndexedSubscript:k];
+            [v103 setObject:v71 atIndexedSubscript:k];
           }
         }
 
-        v112 = v96;
-        v72 = [*(v65 + 2656) arrayWithObjects:&v112 count:1];
         v111 = v95;
-        v73 = [*(v65 + 2656) arrayWithObjects:&v111 count:1];
-        v74 = [MLCCPUDeviceOps deviceOpsWithType:a13 params:v97 inDeltaData:v72 outDeltaData:v73 weightsDeltaData:v94 biasDeltaData:v92 weightsMomentumData:v93 biasMomentumData:v91];
+        v72 = [*(v65 + 2656) arrayWithObjects:&v111 count:1];
+        v110 = v94;
+        v73 = [*(v65 + 2656) arrayWithObjects:&v110 count:1];
+        v74 = [MLCCPUDeviceOps deviceOpsWithType:a13 params:v96 inDeltaData:v72 outDeltaData:v73 weightsDeltaData:v93 biasDeltaData:v91 weightsMomentumData:v92 biasMomentumData:v90];
 
-        v24 = v84;
-        v26 = v85;
-        v25 = v101;
-        v45 = v102;
-        v23 = v83;
+        v24 = v83;
+        v26 = v84;
+        v25 = v100;
+        v45 = v101;
+        v23 = v82;
         if (v74)
         {
-          [v99 addObject:v74];
-          [v74 setFusedPrimitiveParams:v90];
-          [v74 setBetaDeltaData:v88];
-          [v74 setGammaDeltaData:v87];
-          [v74 setBetaDeltaDataBytes:v89];
-          [v74 setGammaDeltaDataBytes:v98];
+          [v98 addObject:v74];
+          [v74 setFusedPrimitiveParams:v89];
+          [v74 setBetaDeltaData:v87];
+          [v74 setGammaDeltaData:v86];
+          [v74 setBetaDeltaDataBytes:v88];
+          [v74 setGammaDeltaDataBytes:v97];
           v75 = [MEMORY[0x277CBEBF8] mutableCopy];
           [v74 setWeightsMomentumDataBytes:v75];
 
-          if (v85)
+          if (v84)
           {
             v76 = [MEMORY[0x277CBEBF8] mutableCopy];
             [v74 setBiasMomentumDataBytes:v76];
           }
 
-          [v74 setBetaMomentumData:v105];
-          [v74 setGammaMomentumData:v104];
+          [v74 setBetaMomentumData:v104];
+          [v74 setGammaMomentumData:v103];
           v77 = MEMORY[0x277CBEBF8];
           v78 = [MEMORY[0x277CBEBF8] mutableCopy];
           [v74 setBetaMomentumDataBytes:v78];
@@ -5785,33 +5709,33 @@ LABEL_10:
           v79 = [v77 mutableCopy];
           [v74 setGammaMomentumDataBytes:v79];
 
+          if (v100)
+          {
+            [v74 setMovingMean:v100];
+          }
+
           if (v101)
           {
-            [v74 setMovingMean:v101];
+            [v74 setMovingVariance:v101];
           }
 
-          if (v102)
-          {
-            [v74 setMovingVariance:v102];
-          }
-
-          [v74 setPaddingPolicy:{objc_msgSend(v83, "paddingPolicy")}];
+          [v74 setPaddingPolicy:{objc_msgSend(v82, "paddingPolicy")}];
         }
 
-        v44 = [v99 copy];
+        v44 = [v98 copy];
 
-        v21 = v86;
-        v46 = v103;
-        v27 = v100;
+        v21 = v85;
+        v46 = v102;
+        v27 = v99;
       }
 
       else
       {
         v44 = MEMORY[0x277CBEBF8];
-        v25 = v101;
-        v45 = v102;
-        v46 = v103;
-        v27 = v100;
+        v25 = v100;
+        v45 = v101;
+        v46 = v102;
+        v27 = v99;
       }
 
       goto LABEL_41;
@@ -5832,11 +5756,9 @@ LABEL_10:
   }
 
   v44 = MEMORY[0x277CBEBF8];
-  v45 = v102;
-  v46 = v103;
+  v45 = v101;
+  v46 = v102;
 LABEL_41:
-
-  v81 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
@@ -5950,7 +5872,7 @@ void CPU_BuildBNNSConvolutionWeightAndBiasParams(uint64_t a1, void *a2, void *a3
 
 void *CPU_CompileFusedConvolutionNormalizationAndNeuronLayer(void *a1, void *a2, void *a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1 objectAtIndexedSubscript:0];
@@ -6043,8 +5965,8 @@ LABEL_17:
 
   v8 = v14;
   v15 = [v14 bytes];
-  v30[0] = v6;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v6;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v17 = CPU_BuildBNNSNormalizationInputOutputParams(v15, v16, v6, 0);
 
   if (!v17)
@@ -6059,12 +5981,12 @@ LABEL_30:
   v20 = [v19 objectAtIndexedSubscript:1];
   v15[3] = [v20 unsignedIntegerValue];
 
-  memset(&v27, 0, sizeof(v27));
-  v27.flags = 1;
+  memset(&v26, 0, sizeof(v26));
+  v26.flags = 1;
   *filter_type = v11;
   layer_params[0] = v9;
   layer_params[1] = v15;
-  v21 = BNNSFilterCreateFusedLayer(2uLL, filter_type, layer_params, &v27);
+  v21 = BNNSFilterCreateFusedLayer(2uLL, filter_type, layer_params, &v26);
   if (v21)
   {
     v22 = [v5 objectAtIndexedSubscript:0];
@@ -6085,7 +6007,6 @@ LABEL_30:
 
 LABEL_31:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -6228,37 +6149,37 @@ uint64_t CPU_SetOptimizerDataForConvolutionLayer(void *a1, void *a2, void *a3)
 
 id CPU_CreateTransposeLayer(uint64_t a1, void *a2)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v26 = 0u;
-  memset(v27, 0, sizeof(v27));
-  memset(v25, 0, sizeof(v25));
+  v25 = 0u;
+  memset(v26, 0, sizeof(v26));
+  memset(v24, 0, sizeof(v24));
   v4 = [v2 count];
   if (v4 == 4)
   {
-    v5 = v27 + 8;
+    v5 = v26 + 8;
     v9 = 3;
     v12 = [v2 objectAtIndexedSubscript:3];
-    *&v26 = 3 - [v12 unsignedIntegerValue];
+    *&v25 = 3 - [v12 unsignedIntegerValue];
 
     v13 = [v2 objectAtIndexedSubscript:2];
-    *(&v26 + 1) = 3 - [v13 unsignedIntegerValue];
+    *(&v25 + 1) = 3 - [v13 unsignedIntegerValue];
 
     v11 = [v2 objectAtIndexedSubscript:1];
-    *&v27[0] = 3 - [v11 unsignedIntegerValue];
+    *&v26[0] = 3 - [v11 unsignedIntegerValue];
     goto LABEL_7;
   }
 
   if (v4 == 3)
   {
-    v5 = v27;
+    v5 = v26;
     v9 = 2;
     v10 = [v2 objectAtIndexedSubscript:2];
-    *&v26 = 2 - [v10 unsignedIntegerValue];
+    *&v25 = 2 - [v10 unsignedIntegerValue];
 
     v11 = [v2 objectAtIndexedSubscript:1];
-    *(&v26 + 1) = 2 - [v11 unsignedIntegerValue];
+    *(&v25 + 1) = 2 - [v11 unsignedIntegerValue];
 LABEL_7:
 
     v7 = [v2 objectAtIndexedSubscript:0];
@@ -6271,9 +6192,9 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v5 = &v26 + 8;
+  v5 = &v25 + 8;
   v6 = [v2 objectAtIndexedSubscript:1];
-  *&v26 = [v6 unsignedIntegerValue] != 1;
+  *&v25 = [v6 unsignedIntegerValue] != 1;
 
   v7 = [v2 objectAtIndexedSubscript:0];
   v8 = [v7 unsignedIntegerValue] != 1;
@@ -6281,15 +6202,15 @@ LABEL_8:
   *v5 = v8;
 
 LABEL_9:
-  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:416];
-  memset(v24, 0, sizeof(v24));
+  v14 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:416];
   memset(v23, 0, sizeof(v23));
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:176];
-  v16 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
-  v29[0] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
-  v28 = v16;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  memset(v22, 0, sizeof(v22));
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:176];
+  v16 = [MEMORY[0x277CBEA90] dataWithBytes:v22 length:176];
+  v28[0] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27 = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   v19 = [MLCCPUDeviceOps deviceOpsWithType:39 params:v14 inDeltaData:v17 outDeltaData:v18 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v19)
@@ -6298,8 +6219,6 @@ LABEL_9:
   }
 
   v20 = [v3 copy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -6362,45 +6281,47 @@ LABEL_8:
   return v22;
 }
 
-id CPU_CreatePaddingLayer(float a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
+id CPU_CreatePaddingLayer(float a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v8 = a8;
   _S8 = a1;
-  v46[1] = *MEMORY[0x277D85DE8];
+  v14 = a3;
+  v45[1] = *MEMORY[0x277D85DE8];
   v15 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v44 = 0;
+  v43 = 0;
   HIWORD(_S0) = 0;
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  memset(v33, 0, sizeof(v33));
-  v34 = a4;
-  v35 = a5;
-  v36 = a6;
-  v37 = a7;
-  if (a3 > 1)
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  memset(v32, 0, sizeof(v32));
+  v33 = a4;
+  v34 = a5;
+  v35 = a6;
+  v36 = a7;
+  if (v14 > 1)
   {
-    if (a3 == 2)
+    if (v14 == 2)
     {
       v17 = 2;
       goto LABEL_13;
     }
 
-    if (a3 != 3)
+    if (v14 != 3)
     {
       goto LABEL_10;
     }
   }
 
-  else if (a3)
+  else if (v14)
   {
-    if (a3 == 1)
+    if (v14 == 1)
     {
       v17 = 1;
 LABEL_13:
-      LODWORD(v44) = v17;
+      LODWORD(v43) = v17;
       goto LABEL_15;
     }
 
@@ -6416,15 +6337,15 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  if (a8 == 3)
+  if (v8 == 3)
   {
     __asm { FCVT            H0, S8 }
 
-    HIDWORD(v44) = _S0;
+    HIDWORD(v43) = _S0;
     goto LABEL_15;
   }
 
-  if (a8 != 1)
+  if (v8 != 1)
   {
     v18 = +[MLCLog framework];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -6435,17 +6356,17 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  *(&v44 + 1) = _S8;
+  *(&v43 + 1) = _S8;
 LABEL_15:
-  v18 = [MEMORY[0x277CBEA90] dataWithBytes:v33 length:488];
-  memset(v32, 0, sizeof(v32));
+  v18 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:488];
   memset(v31, 0, sizeof(v31));
-  v23 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:176];
-  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:176];
-  v46[0] = v23;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
-  v45 = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+  memset(v30, 0, sizeof(v30));
+  v23 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:176];
+  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v30 length:176];
+  v45[0] = v23;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+  v44 = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
   v27 = [MLCCPUDeviceOps deviceOpsWithType:14 params:v18 inDeltaData:v25 outDeltaData:v26 weightsDeltaData:0 biasDeltaData:0 weightsMomentumData:0 biasMomentumData:0];
 
   if (v27)
@@ -6456,7 +6377,6 @@ LABEL_15:
   v28 = [v15 copy];
 
 LABEL_21:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -6557,7 +6477,7 @@ unint64_t *hashCombine_5(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a
 
 id ANE_CreateMatMulLayer(void *a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEBF8] mutableCopy];
   v3 = v1;
@@ -6584,9 +6504,9 @@ id ANE_CreateMatMulLayer(void *a1)
 
   v7 = ANE_BuildTransposeParams(v6);
   v8 = ANE_BuildTransposeParams(&unk_284BA6128);
-  v24 = kMLCANENetUnitType[0];
-  v25[0] = @"MatrixMultiplication";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v23 = kMLCANENetUnitType[0];
+  v24[0] = @"MatrixMultiplication";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   [v3 alpha];
   if (fabsf(v10 + -1.0) <= 0.000001)
   {
@@ -6595,16 +6515,16 @@ id ANE_CreateMatMulLayer(void *a1)
   }
 
   [v3 alpha];
-  v21 = v11;
-  v20 = 0;
-  if (ANE_ConvertFp32ToInt16(&v21, &v20))
+  v20 = v11;
+  v19 = 0;
+  if (ANE_ConvertFp32ToInt16(&v20, &v19))
   {
-    v22[1] = @"ScaleScalar";
-    v23[0] = @"GOC";
-    v22[0] = kMLCANENetUnitType[0];
-    v12 = [MEMORY[0x277CCABB0] numberWithShort:v20];
-    v23[1] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[1] = @"ScaleScalar";
+    v22[0] = @"GOC";
+    v21[0] = kMLCANENetUnitType[0];
+    v12 = [MEMORY[0x277CCABB0] numberWithShort:v19];
+    v22[1] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
 LABEL_11:
     v14 = [_MLCANEMatMulParameters matMulUnitParametersWith:v9 transposeXParams:v5 transposeYParams:v7 finalTransposeParams:v8 gocParams:v13];
@@ -6615,7 +6535,7 @@ LABEL_11:
   v15 = +[MLCLog framework];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    ANE_CreateMatMulLayer_cold_1(&v21);
+    ANE_CreateMatMulLayer_cold_1();
   }
 
   v14 = 0;
@@ -6643,8 +6563,6 @@ LABEL_15:
     v17 = MEMORY[0x277CBEBF8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
@@ -6670,13 +6588,13 @@ id ANE_CompileMatMulLayer(void *a1, void *a2, void *a3)
 
   v156 = v17;
   v18 = [v17 descriptor];
-  LODWORD(v17) = [v18 dataType];
+  v19 = [v18 dataType];
 
-  v150 = v17;
-  v155 = ANE_GetANECIRDataTypeWithMLCDataType(v17);
+  v150 = v19;
+  v155 = ANE_GetANECIRDataTypeWithMLCDataType(v19);
   if (!v155)
   {
-    v80 = v154;
+    v81 = v154;
     v153 = +[MLCLog framework];
     if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
     {
@@ -6684,7 +6602,7 @@ id ANE_CompileMatMulLayer(void *a1, void *a2, void *a3)
     }
 
     v152 = 0;
-    v111 = v15;
+    v112 = v15;
     goto LABEL_30;
   }
 
@@ -6694,78 +6612,78 @@ id ANE_CompileMatMulLayer(void *a1, void *a2, void *a3)
   v145 = v9;
   v146 = v6;
   v141 = v5;
-  v19 = [v12 transposeXParams];
-  v20 = [v12 transposeYParams];
+  v20 = [v12 transposeXParams];
+  v21 = [v12 transposeYParams];
   v147 = [v12 finalTransposeParams];
   v149 = [v12 matMulParams];
   v144 = v12;
   v148 = [v12 gocParams];
-  v153 = v19;
-  v186[0] = v19;
-  v186[1] = v20;
-  v140 = v20;
+  v153 = v20;
+  v186[0] = v20;
+  v186[1] = v21;
+  v140 = v21;
   v159 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:2];
   v168 = [v14 transposesX];
   v142 = v14;
   v167 = [v14 transposesY];
-  v21 = MEMORY[0x277CBEBF8];
+  v22 = MEMORY[0x277CBEBF8];
   v157 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v158 = [v21 mutableCopy];
-  v22 = 0;
-  v23 = &v168;
-  v24 = 1;
-  v25 = v162;
+  v158 = [v22 mutableCopy];
+  v23 = 0;
+  v24 = &v168;
+  v25 = 1;
+  v26 = v162;
   do
   {
-    v26 = v24;
-    v27 = [v160 objectAtIndexedSubscript:v22];
+    v27 = v25;
+    v28 = [v160 objectAtIndexedSubscript:v23];
     v166 = 0;
-    ANE_GetTensor4DShapeWithOnePrepended(v27, &v166);
-    v28 = v166;
-    v29 = [v28 mutableCopy];
-    if (*v23 == 1)
+    ANE_GetTensor4DShapeWithOnePrepended(v28, &v166);
+    v29 = v166;
+    v30 = [v29 mutableCopy];
+    if (*v24 == 1)
     {
-      v30 = [v28 objectAtIndexedSubscript:3];
-      [v29 setObject:v30 atIndexedSubscript:1];
+      v31 = [v29 objectAtIndexedSubscript:3];
+      [v30 setObject:v31 atIndexedSubscript:1];
 
-      v31 = 1;
-      v32 = 2;
-      v33 = 3;
+      v32 = 1;
+      v33 = 2;
+      v34 = 3;
     }
 
     else
     {
-      v31 = 2;
-      v32 = 1;
-      v33 = 2;
+      v32 = 2;
+      v33 = 1;
+      v34 = 2;
     }
 
-    v34 = [v28 objectAtIndexedSubscript:v31];
-    [v29 setObject:v34 atIndexedSubscript:v32];
+    v35 = [v29 objectAtIndexedSubscript:v32];
+    [v30 setObject:v35 atIndexedSubscript:v33];
 
-    v35 = [v28 objectAtIndexedSubscript:v32];
-    [v29 setObject:v35 atIndexedSubscript:v33];
+    v36 = [v29 objectAtIndexedSubscript:v33];
+    [v30 setObject:v36 atIndexedSubscript:v34];
 
-    v36 = [v159 objectAtIndexedSubscript:v22];
-    v37 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v36];
+    v37 = [v159 objectAtIndexedSubscript:v23];
+    v38 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v37];
 
-    v38 = [v161 label];
-    v39 = [v38 stringByAppendingFormat:@"_%lu", objc_msgSend(v25, "count")];
-    [v37 setObject:v39 forKeyedSubscript:@"Name"];
+    v39 = [v161 label];
+    v40 = [v39 stringByAppendingFormat:@"_%lu", objc_msgSend(v26, "count")];
+    [v38 setObject:v40 forKeyedSubscript:@"Name"];
 
-    v40 = [v27 label];
-    v185 = v40;
-    v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v185 count:1];
-    [v37 setObject:v41 forKeyedSubscript:@"Bottom"];
+    v41 = [v28 label];
+    v185 = v41;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v185 count:1];
+    [v38 setObject:v42 forKeyedSubscript:@"Bottom"];
 
-    v42 = [v27 descriptor];
-    v43 = [v42 dataType];
+    v43 = [v28 descriptor];
+    v44 = [v43 dataType];
 
-    v44 = ANE_GetANECIRDataTypeWithMLCDataType(v43);
-    if (!v44)
+    v45 = ANE_GetANECIRDataTypeWithMLCDataType(v44);
+    if (!v45)
     {
-      v112 = +[MLCLog framework];
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+      v113 = +[MLCLog framework];
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileMatMulLayer_cold_10();
       }
@@ -6773,141 +6691,141 @@ id ANE_CompileMatMulLayer(void *a1, void *a2, void *a3)
       goto LABEL_28;
     }
 
-    [v158 addObject:v44];
-    v184 = v44;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v184 count:1];
-    [v37 setObject:v45 forKeyedSubscript:@"InputType"];
+    [v158 addObject:v45];
+    v184 = v45;
+    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v184 count:1];
+    [v38 setObject:v46 forKeyedSubscript:@"InputType"];
 
-    v46 = MEMORY[0x277CCABB0];
-    v47 = [v29 objectAtIndexedSubscript:1];
-    v48 = [v46 numberWithUnsignedInteger:{objc_msgSend(v47, "unsignedIntegerValue")}];
-    [v37 setObject:v48 forKeyedSubscript:@"OutputChannels"];
+    v47 = MEMORY[0x277CCABB0];
+    v48 = [v30 objectAtIndexedSubscript:1];
+    v49 = [v47 numberWithUnsignedInteger:{objc_msgSend(v48, "unsignedIntegerValue")}];
+    [v38 setObject:v49 forKeyedSubscript:@"OutputChannels"];
 
-    v183 = v27;
-    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v183 count:1];
-    LOBYTE(v48) = ANE_ValidateTransposeUnit(v49, v37, 1);
+    v183 = v28;
+    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v183 count:1];
+    LOBYTE(v49) = ANE_ValidateTransposeUnit(v50, v38, 1);
 
-    if ((v48 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
-      v112 = +[MLCLog framework];
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+      v113 = +[MLCLog framework];
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileMatMulLayer_cold_1();
       }
 
 LABEL_28:
-      v80 = v154;
-      v111 = v160;
-      v113 = v140;
+      v81 = v154;
+      v112 = v160;
+      v114 = v140;
 
       v152 = 0;
-      v69 = v147;
+      v70 = v147;
       goto LABEL_29;
     }
 
-    v25 = v162;
-    [v162 addObject:v37];
-    v50 = [MLCTensor tensorWithShape:v29 dataType:v43];
-    [v157 addObject:v50];
+    v26 = v162;
+    [v162 addObject:v38];
+    v51 = [MLCTensor tensorWithShape:v30 dataType:v44];
+    [v157 addObject:v51];
 
-    v24 = 0;
-    v23 = &v167;
-    v22 = 1;
+    v25 = 0;
+    v24 = &v167;
+    v23 = 1;
   }
 
-  while ((v26 & 1) != 0);
+  while ((v27 & 1) != 0);
   v165 = 0;
   ANE_GetTensor4DShapeWithOnePrepended(v156, &v165);
-  v51 = v165;
-  v52 = [v51 mutableCopy];
-  v53 = [v51 objectAtIndexedSubscript:2];
-  [v52 setObject:v53 atIndexedSubscript:1];
+  v52 = v165;
+  v53 = [v52 mutableCopy];
+  v54 = [v52 objectAtIndexedSubscript:2];
+  [v53 setObject:v54 atIndexedSubscript:1];
 
-  v54 = [v51 objectAtIndexedSubscript:1];
-  [v52 setObject:v54 atIndexedSubscript:2];
+  v55 = [v52 objectAtIndexedSubscript:1];
+  [v53 setObject:v55 atIndexedSubscript:2];
 
-  v139 = v51;
-  v55 = [v51 objectAtIndexedSubscript:1];
-  v138 = [v55 unsignedIntegerValue];
+  v139 = v52;
+  v56 = [v52 objectAtIndexedSubscript:1];
+  v138 = [v56 unsignedIntegerValue];
 
-  v56 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v149];
-  v57 = [v161 label];
-  v58 = [v57 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-  v59 = v162;
-  [v56 setObject:v58 forKeyedSubscript:@"Name"];
+  v57 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v149];
+  v58 = [v161 label];
+  v59 = [v58 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
+  v60 = v162;
+  [v57 setObject:v59 forKeyedSubscript:@"Name"];
 
-  v60 = [v162 objectAtIndexedSubscript:0];
-  v61 = [v60 objectForKeyedSubscript:@"Name"];
-  v182[0] = v61;
-  v62 = [v162 objectAtIndexedSubscript:1];
-  v63 = [v62 objectForKeyedSubscript:@"Name"];
-  v182[1] = v63;
-  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
-  [v56 setObject:v64 forKeyedSubscript:@"Bottom"];
+  v61 = [v162 objectAtIndexedSubscript:0];
+  v62 = [v61 objectForKeyedSubscript:@"Name"];
+  v182[0] = v62;
+  v63 = [v162 objectAtIndexedSubscript:1];
+  v64 = [v63 objectForKeyedSubscript:@"Name"];
+  v182[1] = v64;
+  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
+  [v57 setObject:v65 forKeyedSubscript:@"Bottom"];
 
-  v65 = [v158 copy];
-  [v56 setObject:v65 forKeyedSubscript:@"InputType"];
+  v66 = [v158 copy];
+  [v57 setObject:v66 forKeyedSubscript:@"InputType"];
 
-  v66 = MEMORY[0x277CCABB0];
-  v67 = [v52 objectAtIndexedSubscript:1];
-  v68 = [v66 numberWithUnsignedInteger:{objc_msgSend(v67, "unsignedIntegerValue")}];
-  [v56 setObject:v68 forKeyedSubscript:@"OutputChannels"];
+  v67 = MEMORY[0x277CCABB0];
+  v68 = [v53 objectAtIndexedSubscript:1];
+  v69 = [v67 numberWithUnsignedInteger:{objc_msgSend(v68, "unsignedIntegerValue")}];
+  [v57 setObject:v69 forKeyedSubscript:@"OutputChannels"];
 
-  if ((ANE_ValidateMatrixMultUnit(v157, v56, 1) & 1) == 0)
+  if ((ANE_ValidateMatrixMultUnit(v157, v57, 1) & 1) == 0)
   {
-    v29 = v56;
-    v28 = v52;
-    v37 = +[MLCLog framework];
-    v80 = v154;
-    v69 = v147;
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v30 = v57;
+    v29 = v53;
+    v38 = +[MLCLog framework];
+    v81 = v154;
+    v70 = v147;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileMatMulLayer_cold_2();
     }
 
     v152 = 0;
-    v113 = v140;
+    v114 = v140;
     v5 = v141;
-    v111 = v160;
-    v27 = v139;
+    v112 = v160;
+    v28 = v139;
     goto LABEL_29;
   }
 
-  [v162 addObject:v56];
-  v137 = v52;
-  v37 = [MLCTensor tensorWithShape:v52 dataType:v150];
-  v69 = v147;
-  v70 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v147];
-  v71 = [v161 label];
-  v72 = [v71 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-  [v70 setObject:v72 forKeyedSubscript:@"Name"];
+  [v162 addObject:v57];
+  v137 = v53;
+  v38 = [MLCTensor tensorWithShape:v53 dataType:v150];
+  v70 = v147;
+  v71 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v147];
+  v72 = [v161 label];
+  v73 = [v72 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
+  [v71 setObject:v73 forKeyedSubscript:@"Name"];
 
-  v135 = v56;
-  v73 = v56;
-  v74 = v70;
-  v75 = [v73 objectForKeyedSubscript:@"Name"];
-  v181 = v75;
-  v76 = [MEMORY[0x277CBEA60] arrayWithObjects:&v181 count:1];
-  [v70 setObject:v76 forKeyedSubscript:@"Bottom"];
+  v135 = v57;
+  v74 = v57;
+  v75 = v71;
+  v76 = [v74 objectForKeyedSubscript:@"Name"];
+  v181 = v76;
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v181 count:1];
+  [v71 setObject:v77 forKeyedSubscript:@"Bottom"];
 
   v180 = v155;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:&v180 count:1];
-  [v70 setObject:v77 forKeyedSubscript:@"InputType"];
+  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v180 count:1];
+  [v71 setObject:v78 forKeyedSubscript:@"InputType"];
 
-  v78 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
-  [v70 setObject:v78 forKeyedSubscript:@"OutputChannels"];
+  v79 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
+  [v71 setObject:v79 forKeyedSubscript:@"OutputChannels"];
 
-  v179 = v37;
-  v79 = [MEMORY[0x277CBEA60] arrayWithObjects:&v179 count:1];
-  LOBYTE(v76) = ANE_ValidateTransposeUnit(v79, v70, 1);
+  v179 = v38;
+  v80 = [MEMORY[0x277CBEA60] arrayWithObjects:&v179 count:1];
+  LOBYTE(v77) = ANE_ValidateTransposeUnit(v80, v71, 1);
 
-  v80 = v154;
-  v136 = v74;
-  if ((v76 & 1) == 0)
+  v81 = v154;
+  v136 = v75;
+  if ((v77 & 1) == 0)
   {
     v116 = +[MLCLog framework];
-    v111 = v160;
-    v113 = v140;
+    v112 = v160;
+    v114 = v140;
     if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileMatMulLayer_cold_1();
@@ -6918,34 +6836,34 @@ LABEL_28:
     goto LABEL_49;
   }
 
-  [v162 addObject:v74];
+  [v162 addObject:v75];
   if (!v148)
   {
     goto LABEL_14;
   }
 
-  v81 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v148];
-  v82 = [v161 label];
-  v83 = [v82 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-  [v81 setObject:v83 forKeyedSubscript:@"Name"];
+  v82 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:v148];
+  v83 = [v161 label];
+  v84 = [v83 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
+  [v82 setObject:v84 forKeyedSubscript:@"Name"];
 
-  v84 = [v74 objectForKeyedSubscript:@"Name"];
-  v178 = v84;
-  v85 = [MEMORY[0x277CBEA60] arrayWithObjects:&v178 count:1];
-  [v81 setObject:v85 forKeyedSubscript:@"Bottom"];
+  v85 = [v75 objectForKeyedSubscript:@"Name"];
+  v178 = v85;
+  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:&v178 count:1];
+  [v82 setObject:v86 forKeyedSubscript:@"Bottom"];
 
   v177 = v155;
-  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:&v177 count:1];
-  [v81 setObject:v86 forKeyedSubscript:@"InputType"];
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:&v177 count:1];
+  [v82 setObject:v87 forKeyedSubscript:@"InputType"];
 
-  v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
-  [v81 setObject:v87 forKeyedSubscript:@"OutputChannels"];
+  v88 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
+  [v82 setObject:v88 forKeyedSubscript:@"OutputChannels"];
 
   v176 = v156;
-  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:&v176 count:1];
-  LOBYTE(v85) = ANE_ValidateGOCUnit(v88, v81, 0);
+  v89 = [MEMORY[0x277CBEA60] arrayWithObjects:&v176 count:1];
+  LOBYTE(v86) = ANE_ValidateGOCUnit(v89, v82, 0);
 
-  if ((v85 & 1) == 0)
+  if ((v86 & 1) == 0)
   {
     v117 = +[MLCLog framework];
     if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
@@ -6954,145 +6872,145 @@ LABEL_28:
     }
 
     v152 = 0;
-    v113 = v140;
+    v114 = v140;
     v5 = v141;
-    v111 = v160;
-    v69 = v147;
+    v112 = v160;
+    v70 = v147;
     goto LABEL_49;
   }
 
-  [v162 addObject:v81];
+  [v162 addObject:v82];
 
-  v69 = v147;
+  v70 = v147;
 LABEL_14:
-  v89 = v160;
+  v90 = v160;
   if ([v160 count] != 3)
   {
 LABEL_48:
-    v152 = [v59 copy];
-    v111 = v89;
-    v113 = v140;
+    v152 = [v60 copy];
+    v112 = v90;
+    v114 = v140;
     v5 = v141;
 LABEL_49:
-    v28 = v137;
-    v27 = v139;
-    v29 = v135;
+    v29 = v137;
+    v28 = v139;
+    v30 = v135;
     goto LABEL_50;
   }
 
-  v90 = [v160 objectAtIndexedSubscript:2];
-  v91 = [v90 descriptor];
-  v92 = [v91 dataType];
+  v91 = [v160 objectAtIndexedSubscript:2];
+  v92 = [v91 descriptor];
+  v93 = [v92 dataType];
 
   v174[0] = kMLCANENetUnitType[0];
   v174[1] = @"Type";
   v175[0] = @"ElementWise";
   v175[1] = @"Add";
   v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:2];
-  v93 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:?];
-  v94 = [v161 label];
-  v95 = [v94 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-  [v93 setObject:v95 forKeyedSubscript:@"Name"];
+  v94 = [_MLCANEPlistBuilder createUnitWithLayer:v161 unitParams:?];
+  v95 = [v161 label];
+  v96 = [v95 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
+  [v94 setObject:v96 forKeyedSubscript:@"Name"];
 
-  v96 = [v162 objectAtIndexedSubscript:{objc_msgSend(v162, "count") - 1}];
-  v97 = [v96 objectForKeyedSubscript:@"Name"];
-  v173[0] = v97;
-  v151 = v90;
-  v98 = [v90 label];
-  v173[1] = v98;
-  v99 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
-  [v93 setObject:v99 forKeyedSubscript:@"Bottom"];
+  v97 = [v162 objectAtIndexedSubscript:{objc_msgSend(v162, "count") - 1}];
+  v98 = [v97 objectForKeyedSubscript:@"Name"];
+  v173[0] = v98;
+  v151 = v91;
+  v99 = [v91 label];
+  v173[1] = v99;
+  v100 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
+  [v94 setObject:v100 forKeyedSubscript:@"Bottom"];
 
-  v100 = ANE_GetANECIRDataTypeWithMLCDataType(v92);
-  if (!v100)
+  v101 = ANE_GetANECIRDataTypeWithMLCDataType(v93);
+  if (!v101)
   {
-    v118 = v93;
+    v118 = v94;
     v119 = +[MLCLog framework];
-    v69 = v147;
-    v28 = v137;
-    v29 = v135;
+    v70 = v147;
+    v29 = v137;
+    v30 = v135;
     if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileMatMulLayer_cold_9();
     }
 
     v152 = 0;
-    v113 = v140;
+    v114 = v140;
     v5 = v141;
-    v111 = v160;
-    v80 = v154;
-    v27 = v139;
+    v112 = v160;
+    v81 = v154;
+    v28 = v139;
     goto LABEL_50;
   }
 
-  v101 = v100;
+  v102 = v101;
   v172[0] = v155;
-  v172[1] = v100;
-  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:v172 count:2];
-  [v93 setObject:v102 forKeyedSubscript:@"InputType"];
+  v172[1] = v101;
+  v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v172 count:2];
+  [v94 setObject:v103 forKeyedSubscript:@"InputType"];
 
-  v103 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
-  [v93 setObject:v103 forKeyedSubscript:@"OutputChannels"];
+  v104 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
+  [v94 setObject:v104 forKeyedSubscript:@"OutputChannels"];
 
   v163 = 0;
   v164 = 0;
-  v104 = v90;
-  v27 = v139;
-  v105 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v90 targetShape:v139 layer:v161 broadcastUnit:&v164 broadcastResultTensor:&v163];
-  v106 = v164;
-  v132 = v101;
+  v105 = v91;
+  v28 = v139;
+  v106 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v91 targetShape:v139 layer:v161 broadcastUnit:&v164 broadcastResultTensor:&v163];
+  v107 = v164;
+  v132 = v102;
   v133 = v163;
-  v131 = v106;
-  if (v105 == 2)
+  v131 = v107;
+  if (v106 == 2)
   {
-    if (!v106)
+    if (!v107)
     {
-      v109 = v93;
-      v110 = +[MLCLog framework];
-      if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+      v110 = v94;
+      v111 = +[MLCLog framework];
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileMatMulLayer_cold_6();
       }
 
-      v113 = v140;
-      v69 = v147;
-      v80 = v154;
+      v114 = v140;
+      v70 = v147;
+      v81 = v154;
       goto LABEL_60;
     }
 
     v120 = [v161 label];
     v121 = [v120 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-    [v106 setObject:v121 forKeyedSubscript:@"Name"];
+    [v107 setObject:v121 forKeyedSubscript:@"Name"];
 
     v122 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v138];
-    [v106 setObject:v122 forKeyedSubscript:@"OutputChannels"];
+    [v107 setObject:v122 forKeyedSubscript:@"OutputChannels"];
 
-    [v162 addObject:v106];
+    [v162 addObject:v107];
     v123 = [v161 label];
     v124 = [v123 stringByAppendingFormat:@"_%lu", objc_msgSend(v162, "count")];
-    [v93 setObject:v124 forKeyedSubscript:@"Name"];
+    [v94 setObject:v124 forKeyedSubscript:@"Name"];
 
     v125 = [v162 objectAtIndexedSubscript:{objc_msgSend(v162, "count") - 2}];
     v126 = [v125 objectForKeyedSubscript:@"Name"];
     v170 = v126;
-    v127 = [v106 objectForKeyedSubscript:@"Name"];
+    v127 = [v107 objectForKeyedSubscript:@"Name"];
     v171 = v127;
     v128 = [MEMORY[0x277CBEA60] arrayWithObjects:&v170 count:2];
-    [v93 setObject:v128 forKeyedSubscript:@"Bottom"];
+    [v94 setObject:v128 forKeyedSubscript:@"Bottom"];
 
-    v104 = v151;
+    v105 = v151;
     v169[0] = v156;
     v169[1] = v133;
     v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v169 count:2];
-    LOBYTE(v125) = ANE_ValidateElementWiseUnit(v129, v93, 1);
+    LOBYTE(v125) = ANE_ValidateElementWiseUnit(v129, v94, 1);
 
-    v69 = v147;
-    v80 = v154;
+    v70 = v147;
+    v81 = v154;
     if ((v125 & 1) == 0)
     {
-      v109 = v93;
-      v110 = +[MLCLog framework];
-      if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+      v110 = v94;
+      v111 = +[MLCLog framework];
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_58;
       }
@@ -7101,61 +7019,61 @@ LABEL_49:
     }
 
 LABEL_47:
-    v89 = v160;
-    v130 = v104;
-    v59 = v162;
-    [v162 addObject:v93];
+    v90 = v160;
+    v130 = v105;
+    v60 = v162;
+    [v162 addObject:v94];
 
     goto LABEL_48;
   }
 
-  if (v105 != 1)
+  if (v106 != 1)
   {
-    v109 = v93;
-    v110 = +[MLCLog framework];
-    v69 = v147;
-    v80 = v154;
-    v28 = v137;
-    v29 = v135;
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+    v110 = v94;
+    v111 = +[MLCLog framework];
+    v70 = v147;
+    v81 = v154;
+    v29 = v137;
+    v30 = v135;
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileMatMulLayer_cold_8();
     }
 
-    v113 = v140;
+    v114 = v140;
     goto LABEL_61;
   }
 
   v170 = v156;
   v171 = v151;
-  v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v170 count:2];
-  v108 = ANE_ValidateElementWiseUnit(v107, v93, 1);
+  v108 = [MEMORY[0x277CBEA60] arrayWithObjects:&v170 count:2];
+  v109 = ANE_ValidateElementWiseUnit(v108, v94, 1);
 
-  v69 = v147;
-  v80 = v154;
-  if (v108)
+  v70 = v147;
+  v81 = v154;
+  if (v109)
   {
     goto LABEL_47;
   }
 
-  v109 = v93;
-  v110 = +[MLCLog framework];
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+  v110 = v94;
+  v111 = +[MLCLog framework];
+  if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
   {
 LABEL_58:
     ANE_CompileMatMulLayer_cold_5();
   }
 
 LABEL_59:
-  v113 = v140;
+  v114 = v140;
 LABEL_60:
-  v28 = v137;
-  v29 = v135;
+  v29 = v137;
+  v30 = v135;
 LABEL_61:
 
   v152 = 0;
   v5 = v141;
-  v111 = v160;
+  v112 = v160;
 LABEL_50:
 
 LABEL_29:
@@ -7168,7 +7086,6 @@ LABEL_29:
 LABEL_30:
 
   objc_autoreleasePoolPop(v13);
-  v114 = *MEMORY[0x277D85DE8];
 
   return v152;
 }
@@ -7206,7 +7123,7 @@ uint64_t ANE_ValidateConcatLayer(void *a1, void *a2)
 
 id ANE_CompileConcatLayer(void *a1, void *a2, void *a3)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a1;
   v7 = [a3 parentLayers];
@@ -7233,16 +7150,16 @@ id ANE_CompileConcatLayer(void *a1, void *a2, void *a3)
 
 LABEL_6:
 
-    v17 = v11;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     goto LABEL_10;
   }
 
-  v18[0] = kMLCANENetUnitType[0];
-  v18[1] = @"BiasScalar";
-  v19[0] = @"GOC";
-  v19[1] = &unk_284BA5CD8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[0] = kMLCANENetUnitType[0];
+  v17[1] = @"BiasScalar";
+  v18[0] = @"GOC";
+  v18[1] = &unk_284BA5CD8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [_MLCANEPlistBuilder createUnitWithLayer:v8 unitParams:v10];
   if (ANE_ValidateGOCUnit(v5, v11, 1))
   {
@@ -7260,14 +7177,13 @@ LABEL_9:
   v14 = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
-id ANE_CreateNormalizationLayer(int a1, void *a2, void *a3, float a4, uint64_t a5, void *a6, void *a7, void *a8, void *a9)
+id ANE_CreateNormalizationLayer(uint64_t a1, void *a2, void *a3, float a4, uint64_t a5, void *a6, void *a7, void *a8, void *a9)
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v15 = a1;
+  v107 = *MEMORY[0x277D85DE8];
   v16 = a2;
   v17 = a3;
   v18 = a6;
@@ -7276,17 +7192,17 @@ id ANE_CreateNormalizationLayer(int a1, void *a2, void *a3, float a4, uint64_t a
   v21 = a9;
   v22 = [MEMORY[0x277CBEBF8] mutableCopy];
   v23 = v22;
-  if (a1 <= 1)
+  if (v15 <= 1)
   {
-    if (!a1)
+    if (!v15)
     {
-      v101 = 0;
-      v50 = ANE_BuildBatchNormalizationParams(&v101, v17, v18, v19, v20, v21, a4);
-      v49 = v101;
+      v100 = 0;
+      v50 = ANE_BuildBatchNormalizationParams(&v100, v17, v18, v19, v20, v21, a4);
+      v49 = v100;
       if (v50)
       {
-        v100 = v23;
-        v98 = v18;
+        v99 = v23;
+        v97 = v18;
         v51 = 0;
         v52 = 2;
         if (v16)
@@ -7308,27 +7224,27 @@ LABEL_36:
       goto LABEL_103;
     }
 
-    if (a1 == 1)
+    if (v15 == 1)
     {
       v24 = v17;
       v25 = v18;
-      v95 = v19;
-      v92 = v20;
-      v90 = v21;
-      v98 = v18;
-      v99 = v19;
-      v100 = v23;
-      v88 = v24;
+      v94 = v19;
+      v91 = v20;
+      v89 = v21;
+      v97 = v18;
+      v98 = v19;
+      v99 = v23;
+      v87 = v24;
       if ([v24 count] == 1)
       {
         v26 = [v24 objectAtIndexedSubscript:0];
         v27 = [v26 unsignedIntegerValue];
 
-        if (v25 && v95)
+        if (v25 && v94)
         {
-          v105 = 0;
-          v28 = ANE_BuildBatchNormalizationParams(&v105, v88, v25, v95, v92, v90, a4);
-          v29 = v105;
+          v104 = 0;
+          v28 = ANE_BuildBatchNormalizationParams(&v104, v87, v25, v94, v91, v89, a4);
+          v29 = v104;
           if (v28)
           {
             v30 = 0;
@@ -7349,14 +7265,14 @@ LABEL_74:
             }
 
             v78 = +[MLCLog framework];
-            v19 = v99;
+            v19 = v98;
             if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
             {
               ANE_CreateNormalizationLayer_cold_14();
             }
 
             v63 = MEMORY[0x277CBEBF8];
-            v18 = v98;
+            v18 = v97;
             goto LABEL_94;
           }
 
@@ -7369,33 +7285,33 @@ LABEL_74:
 
         else
         {
-          v87 = v27;
+          v86 = v27;
           v29 = [MEMORY[0x277CBEC10] mutableCopy];
           [v29 setObject:@"InstanceNormalization" forKeyedSubscript:kMLCANENetUnitType[0]];
-          v105 = @"Height";
-          v106 = @"Width";
-          v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:2];
+          v104 = @"Height";
+          v105 = @"Width";
+          v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:2];
           [v29 setObject:v67 forKeyedSubscript:@"Dimension"];
 
-          v104 = a4;
-          v103 = 0;
-          if (ANE_ConvertFp32ToInt16(&v104, &v103))
+          v103 = a4;
+          v102 = 0;
+          if (ANE_ConvertFp32ToInt16(&v103, &v102))
           {
-            v68 = [MEMORY[0x277CCABB0] numberWithShort:v103];
+            v68 = [MEMORY[0x277CCABB0] numberWithShort:v102];
             [v29 setObject:v68 forKeyedSubscript:@"Epsilon"];
 
             v30 = 0;
-            if (!v92 || !v90)
+            if (!v91 || !v89)
             {
               goto LABEL_9;
             }
 
-            v102 = 0;
-            v69 = ANE_BuildGocParams(&v102, v87, v92, v90);
-            v30 = v102;
+            v101 = 0;
+            v69 = ANE_BuildGocParams(&v101, v86, v91, v89);
+            v30 = v101;
             if (v69)
             {
-              if (ANE_CalculateScaleAndBiasForInstanceNorm(v87, v92, v90, a4))
+              if (ANE_CalculateScaleAndBiasForInstanceNorm(v86, v91, v89, a4))
               {
                 goto LABEL_9;
               }
@@ -7422,7 +7338,7 @@ LABEL_74:
             v30 = +[MLCLog framework];
             if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
-              ANE_CreateNormalizationLayer_cold_10(&v104);
+              ANE_CreateNormalizationLayer_cold_10(&v103);
             }
           }
         }
@@ -7453,20 +7369,20 @@ LABEL_19:
     goto LABEL_36;
   }
 
-  if (a1 != 2)
+  if (v15 != 2)
   {
-    if (a1 != 3)
+    if (v15 != 3)
     {
       goto LABEL_19;
     }
 
-    v98 = v18;
+    v97 = v18;
     v35 = v17;
     v36 = v20;
-    v93 = v21;
-    v99 = v19;
-    v100 = v23;
-    v96 = v36;
+    v92 = v21;
+    v98 = v19;
+    v99 = v23;
+    v95 = v36;
     if ([v35 count] != 1)
     {
       v39 = +[MLCLog framework];
@@ -7481,38 +7397,38 @@ LABEL_19:
       goto LABEL_84;
     }
 
-    v91 = v16;
+    v90 = v16;
     v37 = [v35 objectAtIndexedSubscript:0];
     v38 = [v37 unsignedIntegerValue];
 
     v39 = [MEMORY[0x277CBEC10] mutableCopy];
     [v39 setObject:@"LayerNormalization" forKeyedSubscript:kMLCANENetUnitType[0]];
-    v105 = @"Channel";
-    v106 = @"Height";
-    v107 = @"Width";
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:3];
+    v104 = @"Channel";
+    v105 = @"Height";
+    v106 = @"Width";
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:3];
     [v39 setObject:v40 forKeyedSubscript:@"Dimension"];
 
-    v104 = a4;
-    v103 = 0;
-    if (ANE_ConvertFp32ToInt16(&v104, &v103))
+    v103 = a4;
+    v102 = 0;
+    if (ANE_ConvertFp32ToInt16(&v103, &v102))
     {
-      v89 = v38;
-      v41 = [MEMORY[0x277CCABB0] numberWithShort:v103];
+      v88 = v38;
+      v41 = [MEMORY[0x277CCABB0] numberWithShort:v102];
       [v39 setObject:v41 forKeyedSubscript:@"Epsilon"];
 
       v42 = 0;
-      if (!v96 || !v93)
+      if (!v95 || !v92)
       {
         goto LABEL_18;
       }
 
-      v102 = 0;
-      v43 = ANE_BuildGocParams(&v102, v89, v96, v93);
-      v42 = v102;
+      v101 = 0;
+      v43 = ANE_BuildGocParams(&v101, v88, v95, v92);
+      v42 = v101;
       if (v43)
       {
-        if (ANE_CalculateScaleAndBiasForInstanceNorm(v89, v96, v93, a4))
+        if (ANE_CalculateScaleAndBiasForInstanceNorm(v88, v95, v92, a4))
         {
 LABEL_18:
           v44 = v39;
@@ -7522,7 +7438,7 @@ LABEL_18:
           v48 = v42;
 LABEL_83:
 
-          v16 = v91;
+          v16 = v90;
 LABEL_84:
 
           v49 = v47;
@@ -7531,7 +7447,7 @@ LABEL_84:
           {
             v52 = 23;
 LABEL_86:
-            v19 = v99;
+            v19 = v98;
             if (v16)
             {
 LABEL_87:
@@ -7539,7 +7455,7 @@ LABEL_87:
               if (!v79)
               {
                 v56 = +[MLCLog framework];
-                v23 = v100;
+                v23 = v99;
                 if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                 {
                   ANE_CreateNormalizationLayer_cold_17();
@@ -7550,23 +7466,23 @@ LABEL_87:
               }
 
               v56 = v79;
-              if (a1)
+              if (v15)
               {
-                if (a1 != 1)
+                if (v15 != 1)
                 {
-                  v86 = +[MLCLog framework];
-                  if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+                  v85 = +[MLCLog framework];
+                  if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
                   {
                     ANE_CreateNormalizationLayer_cold_16();
                   }
 
                   v63 = MEMORY[0x277CBEBF8];
-                  v23 = v100;
+                  v23 = v99;
                   goto LABEL_102;
                 }
 
-                v94 = v17;
-                v97 = v21;
+                v93 = v17;
+                v96 = v21;
                 v53 = v20;
                 v54 = v19;
                 v55 = v16;
@@ -7575,8 +7491,8 @@ LABEL_87:
 
               else
               {
-                v94 = v17;
-                v97 = v21;
+                v93 = v17;
+                v96 = v21;
                 v53 = v20;
                 v54 = v19;
                 v55 = v16;
@@ -7588,27 +7504,27 @@ LABEL_99:
               v82 = [MLCANEDeviceOps deviceOpsWithType:v52 params:v81];
               if (v82)
               {
-                [v100 addObject:v82];
+                [v99 addObject:v82];
               }
 
-              v63 = v100;
+              v63 = v99;
 
               v16 = v55;
               v19 = v54;
               v83 = v53;
-              v17 = v94;
-              v21 = v97;
-              v23 = v100;
+              v17 = v93;
+              v21 = v96;
+              v23 = v99;
               v20 = v83;
 LABEL_102:
 
-              v18 = v98;
+              v18 = v97;
               goto LABEL_103;
             }
 
 LABEL_23:
-            v94 = v17;
-            v97 = v21;
+            v93 = v17;
+            v96 = v21;
             v53 = v20;
             v54 = v19;
             v55 = v16;
@@ -7623,10 +7539,10 @@ LABEL_23:
           }
 
           v63 = MEMORY[0x277CBEBF8];
-          v18 = v98;
-          v19 = v99;
+          v18 = v97;
+          v19 = v98;
 LABEL_94:
-          v23 = v100;
+          v23 = v99;
           goto LABEL_103;
         }
 
@@ -7652,7 +7568,7 @@ LABEL_94:
       v42 = +[MLCLog framework];
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        ANE_CreateNormalizationLayer_cold_2(&v104);
+        ANE_CreateNormalizationLayer_cold_2(&v103);
       }
     }
 
@@ -7662,20 +7578,20 @@ LABEL_94:
     goto LABEL_83;
   }
 
-  v100 = v22;
+  v99 = v22;
   v57 = v17;
   v58 = [MEMORY[0x277CBEC10] mutableCopy];
   v59 = [v57 count];
 
-  *&v102 = a4;
-  LOWORD(v104) = 0;
-  v99 = v19;
-  if (!ANE_ConvertFp32ToInt16(&v102, &v104))
+  *&v101 = a4;
+  LOWORD(v103) = 0;
+  v98 = v19;
+  if (!ANE_ConvertFp32ToInt16(&v101, &v103))
   {
     v64 = +[MLCLog framework];
     if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
-      ANE_CreateNormalizationLayer_cold_6(&v102);
+      ANE_CreateNormalizationLayer_cold_6(&v101);
     }
 
     goto LABEL_40;
@@ -7684,26 +7600,26 @@ LABEL_94:
   if ((v59 - 1) < 2)
   {
     [v58 setObject:@"InstanceNormalization" forKeyedSubscript:kMLCANENetUnitType[0]];
-    v23 = v100;
+    v23 = v99;
     if (v59 == 1)
     {
-      v105 = @"Width";
+      v104 = @"Width";
       v60 = MEMORY[0x277CBEA60];
       v61 = 1;
     }
 
     else
     {
-      v105 = @"Height";
-      v106 = @"Width";
+      v104 = @"Height";
+      v105 = @"Width";
       v60 = MEMORY[0x277CBEA60];
       v61 = 2;
     }
 
-    v73 = [v60 arrayWithObjects:&v105 count:v61];
+    v73 = [v60 arrayWithObjects:&v104 count:v61];
     [v58 setObject:v73 forKeyedSubscript:@"Dimension"];
 
-    v72 = [MEMORY[0x277CCABB0] numberWithShort:SLOWORD(v104)];
+    v72 = [MEMORY[0x277CCABB0] numberWithShort:SLOWORD(v103)];
     goto LABEL_56;
   }
 
@@ -7718,19 +7634,19 @@ LABEL_94:
 LABEL_40:
     v65 = 0;
     v66 = 0;
-    v23 = v100;
+    v23 = v99;
     goto LABEL_57;
   }
 
   [v58 setObject:@"LayerNormalization" forKeyedSubscript:kMLCANENetUnitType[0]];
-  v105 = @"Channel";
-  v106 = @"Height";
-  v107 = @"Width";
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:3];
+  v104 = @"Channel";
+  v105 = @"Height";
+  v106 = @"Width";
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:3];
   [v58 setObject:v71 forKeyedSubscript:@"Dimension"];
 
-  v72 = [MEMORY[0x277CCABB0] numberWithShort:SLOWORD(v104)];
-  v23 = v100;
+  v72 = [MEMORY[0x277CCABB0] numberWithShort:SLOWORD(v103)];
+  v23 = v99;
 LABEL_56:
   [v58 setObject:v72 forKeyedSubscript:@"Epsilon"];
 
@@ -7742,7 +7658,7 @@ LABEL_57:
   v49 = v65;
   if (v66)
   {
-    v98 = v18;
+    v97 = v18;
     v51 = 0;
     v52 = 19;
     goto LABEL_86;
@@ -7755,10 +7671,8 @@ LABEL_57:
   }
 
   v63 = MEMORY[0x277CBEBF8];
-  v19 = v99;
+  v19 = v98;
 LABEL_103:
-
-  v84 = *MEMORY[0x277D85DE8];
 
   return v63;
 }
@@ -7967,16 +7881,17 @@ LABEL_34:
   return v64;
 }
 
-id ANE_CompileNormalizationLayer(unsigned int a1, void *a2, void *a3, void *a4)
+id ANE_CompileNormalizationLayer(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v172[2] = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v171[2] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = [v7 objectAtIndexedSubscript:0];
-  v164 = v9;
+  v163 = v9;
   v11 = [v9 parentLayers];
-  v165 = [v11 objectAtIndexedSubscript:0];
+  v164 = [v11 objectAtIndexedSubscript:0];
 
   v12 = [v10 params];
   v13 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -7985,14 +7900,14 @@ id ANE_CompileNormalizationLayer(unsigned int a1, void *a2, void *a3, void *a4)
 
   v16 = [v12 gocParams];
   v17 = [v12 neuronParams];
-  if (a1 < 2)
+  if (v6 < 2)
   {
     goto LABEL_4;
   }
 
-  if (a1 != 2)
+  if (v6 != 2)
   {
-    if (a1 != 3)
+    if (v6 != 3)
     {
       v31 = +[MLCLog framework];
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
@@ -8004,17 +7919,17 @@ id ANE_CompileNormalizationLayer(unsigned int a1, void *a2, void *a3, void *a4)
     }
 
 LABEL_4:
-    v160 = v7;
-    v18 = v165;
-    v158 = v15;
-    v156 = v16;
+    v159 = v7;
+    v18 = v164;
+    v157 = v15;
+    v155 = v16;
     v19 = [MEMORY[0x277CBEBF8] mutableCopy];
     objc_opt_class();
-    v163 = v8;
+    v162 = v8;
     if (objc_opt_isKindOfClass())
     {
-      v149 = v12;
-      v151 = v17;
+      v148 = v12;
+      v150 = v17;
       v20 = 0;
     }
 
@@ -8023,8 +7938,8 @@ LABEL_4:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v149 = v12;
-        v151 = v17;
+        v148 = v12;
+        v150 = v17;
         v20 = 1;
       }
 
@@ -8033,8 +7948,8 @@ LABEL_4:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v155 = +[MLCLog framework];
-          if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+          v154 = +[MLCLog framework];
+          if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
           {
             ANE_CompileNormalizationLayer_cold_9();
           }
@@ -8042,8 +7957,8 @@ LABEL_4:
           goto LABEL_57;
         }
 
-        v149 = v12;
-        v151 = v17;
+        v148 = v12;
+        v150 = v17;
         v20 = 3;
       }
     }
@@ -8051,23 +7966,23 @@ LABEL_4:
     v32 = [v18 sourceTensors];
     v33 = [v32 objectAtIndexedSubscript:0];
 
-    v155 = v33;
+    v154 = v33;
     v34 = [v33 descriptor];
     v35 = [v34 dimensionCount];
 
     if ((v35 - 2) < 2)
     {
-      v148 = v15;
+      v147 = v15;
       v36 = objc_autoreleasePoolPush();
-      v172[0] = 0;
       v171[0] = 0;
-      v37 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v18 reshapeUnits:v172 reshapeResultTensors:v171];
-      v38 = v172[0];
-      v39 = v171[0];
+      v170[0] = 0;
+      v37 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v18 reshapeUnits:v171 reshapeResultTensors:v170];
+      v38 = v171[0];
+      v39 = v170[0];
       if (v37)
       {
         contexta = v36;
-        v144 = v10;
+        v143 = v10;
         v40 = [v18 label];
         v41 = [v40 stringByAppendingFormat:@"_%lu", objc_msgSend(v19, "count")];
         v42 = [v38 objectAtIndexedSubscript:0];
@@ -8077,13 +7992,13 @@ LABEL_4:
         [v19 addObject:v43];
 
         v44 = [v39 objectAtIndexedSubscript:0];
-        v45 = ANE_CreateNormUnits(v20, v44, v18, v158, v156);
+        v45 = ANE_CreateNormUnits(v20, v44, v18, v157, v155);
 
-        v141 = v39;
+        v140 = v39;
         if (v45)
         {
-          v139 = v38;
-          v135 = v13;
+          v138 = v38;
+          v134 = v13;
           if ([v45 count])
           {
             v46 = 0;
@@ -8096,8 +8011,8 @@ LABEL_4:
 
               v50 = [v19 objectAtIndexedSubscript:{objc_msgSend(v19, "count") - 1}];
               v51 = [v50 objectForKeyedSubscript:@"Name"];
-              v170[0] = v51;
-              v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v170 count:1];
+              v169[0] = v51;
+              v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v169 count:1];
               [v47 setObject:v52 forKeyedSubscript:@"Bottom"];
 
               [v19 addObject:v47];
@@ -8109,22 +8024,22 @@ LABEL_4:
 
           v53 = [v18 label];
           v54 = [v53 stringByAppendingFormat:@"_%lu", objc_msgSend(v19, "count")];
-          v38 = v139;
-          v55 = [v139 objectAtIndexedSubscript:1];
+          v38 = v138;
+          v55 = [v138 objectAtIndexedSubscript:1];
           [v55 setObject:v54 forKeyedSubscript:@"Name"];
 
           v56 = [v19 objectAtIndexedSubscript:{objc_msgSend(v19, "count") - 1}];
           v57 = [v56 objectForKeyedSubscript:@"Name"];
-          v169[0] = v57;
-          v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v169 count:1];
-          v59 = [v139 objectAtIndexedSubscript:1];
+          v168[0] = v57;
+          v58 = [MEMORY[0x277CBEA60] arrayWithObjects:v168 count:1];
+          v59 = [v138 objectAtIndexedSubscript:1];
           [v59 setObject:v58 forKeyedSubscript:@"Bottom"];
 
-          v60 = [v139 objectAtIndexedSubscript:1];
+          v60 = [v138 objectAtIndexedSubscript:1];
           [v19 addObject:v60];
-          v10 = v144;
-          v15 = v148;
-          v13 = v135;
+          v10 = v143;
+          v15 = v147;
+          v13 = v134;
         }
 
         else
@@ -8135,11 +8050,11 @@ LABEL_4:
             ANE_CompileNormalizationLayer_cold_10();
           }
 
-          v10 = v144;
-          v15 = v148;
+          v10 = v143;
+          v15 = v147;
         }
 
-        v17 = v151;
+        v17 = v150;
 
         objc_autoreleasePoolPop(contexta);
         if (!v45)
@@ -8151,7 +8066,7 @@ LABEL_4:
 LABEL_53:
         v64 = [v19 copy];
 LABEL_59:
-        v12 = v149;
+        v12 = v148;
         goto LABEL_60;
       }
 
@@ -8163,16 +8078,16 @@ LABEL_59:
 
       objc_autoreleasePoolPop(v36);
       v64 = 0;
-      v12 = v149;
-      v17 = v151;
-      v15 = v148;
+      v12 = v148;
+      v17 = v150;
+      v15 = v147;
 LABEL_60:
 
-      v7 = v160;
+      v7 = v159;
       if (!v64)
       {
         v101 = +[MLCLog framework];
-        v8 = v163;
+        v8 = v162;
         if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
         {
           ANE_CompileNormalizationLayer_cold_8();
@@ -8181,7 +8096,7 @@ LABEL_60:
 LABEL_64:
         v102 = 0;
 LABEL_89:
-        v121 = v164;
+        v121 = v163;
         goto LABEL_90;
       }
 
@@ -8197,24 +8112,24 @@ LABEL_89:
       }
 
       v64 = 0;
-      v12 = v149;
-      v17 = v151;
+      v12 = v148;
+      v17 = v150;
       goto LABEL_60;
     }
 
-    v61 = ANE_CreateNormUnits(v20, v155, v18, v158, v156);
+    v61 = ANE_CreateNormUnits(v20, v154, v18, v157, v155);
     if (v61)
     {
       v62 = v61;
       [v19 addObjectsFromArray:v61];
 
-      v17 = v151;
+      v17 = v150;
       goto LABEL_53;
     }
 
     v100 = +[MLCLog framework];
-    v12 = v149;
-    v17 = v151;
+    v12 = v148;
+    v17 = v150;
     if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileNormalizationLayer_cold_10();
@@ -8225,19 +8140,19 @@ LABEL_57:
     goto LABEL_60;
   }
 
-  v163 = v8;
-  v21 = v165;
-  v147 = v15;
+  v162 = v8;
+  v21 = v164;
+  v146 = v15;
   v22 = v15;
-  v140 = v10;
-  v159 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v139 = v10;
+  v158 = [MEMORY[0x277CBEBF8] mutableCopy];
   v23 = v21;
   v24 = [v23 normalizedShape];
   v25 = [v24 count];
 
-  v157 = [v23 gamma];
-  v154 = [v23 beta];
-  v138 = v23;
+  v156 = [v23 gamma];
+  v153 = [v23 beta];
+  v137 = v23;
   context = v22;
   if ((v25 - 1) < 2)
   {
@@ -8249,14 +8164,14 @@ LABEL_57:
 
     if (v30)
     {
-      v15 = v147;
+      v15 = v146;
       goto LABEL_34;
     }
 
     v98 = +[MLCLog framework];
     v17 = v27;
-    v23 = v138;
-    v15 = v147;
+    v23 = v137;
+    v15 = v146;
     if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileNormalizationLayer_cold_2();
@@ -8270,7 +8185,7 @@ LABEL_48:
   if (v25 != 3)
   {
     v99 = +[MLCLog framework];
-    v15 = v147;
+    v15 = v146;
     if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileNormalizationLayer_cold_7();
@@ -8285,7 +8200,7 @@ LABEL_48:
   v67 = [v66 sourceTensors];
   v68 = ANE_ValidateLayerNormUnit(v67, v28, 1);
 
-  v15 = v147;
+  v15 = v146;
   if ((v68 & 1) == 0)
   {
     v103 = +[MLCLog framework];
@@ -8300,99 +8215,99 @@ LABEL_48:
   }
 
 LABEL_34:
-  [v159 addObject:v28];
+  [v158 addObject:v28];
 
   v17 = v27;
-  if (!v157 || !v154)
+  if (!v156 || !v153)
   {
     goto LABEL_79;
   }
 
-  v161 = v7;
-  v137 = v16;
-  v69 = v138;
-  v70 = v157;
-  v132 = v154;
-  v71 = v159;
-  v134 = v140;
-  v131 = v70;
-  v133 = v69;
+  v160 = v7;
+  v136 = v16;
+  v69 = v137;
+  v70 = v156;
+  v131 = v153;
+  v71 = v158;
+  v133 = v139;
+  v130 = v70;
+  v132 = v69;
   if ([v71 count])
   {
-    v152 = v17;
-    v136 = v13;
+    v151 = v17;
+    v135 = v13;
     v72 = [v71 objectAtIndexedSubscript:{objc_msgSend(v71, "count") - 1}];
     v73 = [v69 label];
     v74 = [v73 stringByAppendingFormat:@"_%lu", objc_msgSend(v71, "count") - 1];
-    v130 = v72;
+    v129 = v72;
     [v72 setObject:v74 forKeyedSubscript:@"Name"];
 
     v75 = [v69 sourceTensors];
     v76 = [v75 objectAtIndexedSubscript:0];
 
     v77 = ANE_CreateBroadcastedConstantTensor(v70, v76);
-    v128 = v77;
-    v129 = v76;
+    v127 = v77;
+    v128 = v76;
     if (v77)
     {
       v78 = v77;
-      v79 = [v134 constantTensors];
+      v79 = [v133 constantTensors];
       [v79 addObject:v78];
 
-      v80 = v132;
-      v81 = ANE_CreateBroadcastedConstantTensor(v132, v76);
-      v127 = v81 != 0;
+      v80 = v131;
+      v81 = ANE_CreateBroadcastedConstantTensor(v131, v76);
+      v126 = v81 != 0;
       if (v81)
       {
-        v82 = [v134 constantTensors];
+        v82 = [v133 constantTensors];
         [v82 addObject:v81];
 
-        v171[0] = kMLCANENetUnitType[0];
-        v171[1] = @"Type";
-        v172[0] = @"ElementWise";
-        v172[1] = @"Mult";
-        v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:2];
-        v125 = [_MLCANEPlistBuilder createUnitWithLayer:v133 unitParams:v83];
-        [v133 label];
+        v170[0] = kMLCANENetUnitType[0];
+        v170[1] = @"Type";
+        v171[0] = @"ElementWise";
+        v171[1] = @"Mult";
+        v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v171 forKeys:v170 count:2];
+        v124 = [_MLCANEPlistBuilder createUnitWithLayer:v132 unitParams:v83];
+        [v132 label];
         v85 = v84 = v78;
         [v85 stringByAppendingFormat:@"_%lu", objc_msgSend(v71, "count")];
-        v86 = v145 = v10;
-        [v125 setObject:v86 forKeyedSubscript:?];
+        v86 = v144 = v10;
+        [v124 setObject:v86 forKeyedSubscript:?];
 
-        v87 = [v130 objectForKeyedSubscript:@"Name"];
-        v170[0] = v87;
+        v87 = [v129 objectForKeyedSubscript:@"Name"];
+        v169[0] = v87;
         v88 = v84;
         v89 = v83;
-        v80 = v132;
+        v80 = v131;
         v90 = [v88 label];
-        v170[1] = v90;
-        v150 = v12;
-        v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v170 count:2];
-        [v125 setObject:v91 forKeyedSubscript:@"Bottom"];
+        v169[1] = v90;
+        v149 = v12;
+        v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v169 count:2];
+        [v124 setObject:v91 forKeyedSubscript:@"Bottom"];
 
-        [v71 addObject:v125];
-        v168[0] = kMLCANENetUnitType[0];
-        v168[1] = @"Type";
-        v169[0] = @"ElementWise";
-        v169[1] = @"Add";
-        v126 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v169 forKeys:v168 count:2];
-        v92 = [_MLCANEPlistBuilder createUnitWithLayer:v133 unitParams:v126];
-        v93 = [v133 label];
+        [v71 addObject:v124];
+        v167[0] = kMLCANENetUnitType[0];
+        v167[1] = @"Type";
+        v168[0] = @"ElementWise";
+        v168[1] = @"Add";
+        v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v168 forKeys:v167 count:2];
+        v92 = [_MLCANEPlistBuilder createUnitWithLayer:v132 unitParams:v125];
+        v93 = [v132 label];
         v94 = [v93 stringByAppendingFormat:@"_%lu", objc_msgSend(v71, "count")];
         [v92 setObject:v94 forKeyedSubscript:@"Name"];
 
-        v95 = [v125 objectForKeyedSubscript:@"Name"];
-        v167[0] = v95;
+        v95 = [v124 objectForKeyedSubscript:@"Name"];
+        v166[0] = v95;
         v96 = [v81 label];
-        v167[1] = v96;
-        v97 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:2];
+        v166[1] = v96;
+        v97 = [MEMORY[0x277CBEA60] arrayWithObjects:v166 count:2];
         [v92 setObject:v97 forKeyedSubscript:@"Bottom"];
 
-        v12 = v150;
-        v15 = v147;
+        v12 = v149;
+        v15 = v146;
 
         [v71 addObject:v92];
-        v10 = v145;
+        v10 = v144;
       }
 
       else
@@ -8404,8 +8319,8 @@ LABEL_34:
         }
       }
 
-      v17 = v152;
-      v107 = v134;
+      v17 = v151;
+      v107 = v133;
       v106 = v80;
     }
 
@@ -8417,43 +8332,43 @@ LABEL_34:
         ANE_CompileNormalizationLayer_cold_4();
       }
 
-      v127 = 0;
-      v17 = v152;
-      v106 = v132;
-      v107 = v134;
+      v126 = 0;
+      v17 = v151;
+      v106 = v131;
+      v107 = v133;
     }
 
-    v13 = v136;
-    v105 = v127;
-    v108 = v130;
+    v13 = v135;
+    v105 = v126;
+    v108 = v129;
   }
 
   else
   {
-    v153 = v71;
+    v152 = v71;
     v104 = +[MLCLog framework];
     if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileNormalizationLayer_cold_5();
       v105 = 0;
-      v106 = v132;
+      v106 = v131;
       v108 = v104;
-      v107 = v134;
+      v107 = v133;
     }
 
     else
     {
       v105 = 0;
-      v106 = v132;
-      v107 = v134;
+      v106 = v131;
+      v107 = v133;
       v108 = v104;
     }
 
-    v71 = v153;
+    v71 = v152;
   }
 
-  v16 = v137;
-  v7 = v161;
+  v16 = v136;
+  v7 = v160;
   if (!v105)
   {
     v109 = +[MLCLog framework];
@@ -8468,19 +8383,19 @@ LABEL_34:
   else
   {
 LABEL_79:
-    v64 = [v159 copy];
+    v64 = [v158 copy];
   }
 
 LABEL_83:
-  v23 = v138;
+  v23 = v137;
 LABEL_84:
 
   if (!v64)
   {
-    v124 = +[MLCLog framework];
-    v8 = v163;
-    v121 = v164;
-    if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+    v123 = +[MLCLog framework];
+    v8 = v162;
+    v121 = v163;
+    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileNormalizationLayer_cold_8();
     }
@@ -8495,54 +8410,52 @@ LABEL_85:
   {
 LABEL_88:
     v102 = [v13 copy];
-    v8 = v163;
+    v8 = v162;
     goto LABEL_89;
   }
 
-  v146 = v10;
-  v110 = [v165 fusedLayers];
+  v145 = v10;
+  v110 = [v164 fusedLayers];
   v111 = [v110 objectAtIndexedSubscript:0];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v113 = [v165 fusedLayers];
+    v113 = [v164 fusedLayers];
     v114 = [v113 objectAtIndexedSubscript:0];
 
     v115 = [v114 descriptor];
     v116 = ANE_CreateUnitsWithNeuronLayer(v114, v17, [v115 activationType]);
 
-    v117 = [v165 label];
-    v166 = v117;
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v166 count:1];
-    v162 = v7;
+    v117 = [v164 label];
+    v165 = v117;
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v165 count:1];
+    v161 = v7;
     v119 = v118 = v17;
     v120 = [v116 objectAtIndexedSubscript:0];
     [v120 setObject:v119 forKeyedSubscript:@"Bottom"];
 
-    v10 = v146;
+    v10 = v145;
     v17 = v118;
-    v7 = v162;
+    v7 = v161;
 
     [v13 addObjectsFromArray:v116];
     goto LABEL_88;
   }
 
-  v124 = +[MLCLog framework];
-  v8 = v163;
-  v121 = v164;
-  if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+  v123 = +[MLCLog framework];
+  v8 = v162;
+  v121 = v163;
+  if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
   {
-    ANE_CompileNormalizationLayer_cold_14(v165);
+    ANE_CompileNormalizationLayer_cold_14(v164);
   }
 
 LABEL_95:
 
   v102 = 0;
 LABEL_90:
-
-  v122 = *MEMORY[0x277D85DE8];
 
   return v102;
 }
@@ -8567,8 +8480,8 @@ uint64_t ANE_BuildGocParams(void *a1, uint64_t a2, void *a3, void *a4)
   v16 = ANE_GetANECIRDataTypeWithMLCDataType(v15);
   if (!v16)
   {
-    v20 = +[MLCLog framework];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = +[MLCLog framework];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       ANE_BuildGocParams_cold_1();
     }
@@ -8584,30 +8497,30 @@ uint64_t ANE_BuildGocParams(void *a1, uint64_t a2, void *a3, void *a4)
   [v11 setObject:v18 forKeyedSubscript:@"ScaleCount"];
 
   v19 = [v8 descriptor];
-  LODWORD(v17) = [v19 dataType];
+  v20 = [v19 dataType];
 
-  v20 = ANE_GetANECIRDataTypeWithMLCDataType(v17);
-  if (!v20)
+  v21 = ANE_GetANECIRDataTypeWithMLCDataType(v20);
+  if (!v21)
   {
-    v23 = +[MLCLog framework];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = +[MLCLog framework];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       ANE_BuildGocParams_cold_1();
     }
 
 LABEL_9:
-    v22 = 0;
+    v23 = 0;
     goto LABEL_10;
   }
 
-  [v11 setObject:v20 forKeyedSubscript:@"ScaleType"];
+  [v11 setObject:v21 forKeyedSubscript:@"ScaleType"];
   [v10 setObject:v11 forKeyedSubscript:@"BiasScaleGroupData"];
-  v21 = v10;
+  v22 = v10;
   *a1 = v10;
-  v22 = 1;
+  v23 = 1;
 LABEL_10:
 
-  return v22;
+  return v23;
 }
 
 uint64_t ANE_CalculateScaleAndBiasForInstanceNorm(uint64_t a1, void *a2, void *a3, float a4)
@@ -8716,29 +8629,30 @@ LABEL_18:
   return v33;
 }
 
-id ANE_CreateNormUnits(int a1, void *a2, void *a3, void *a4, void *a5)
+id ANE_CreateNormUnits(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v88[1] = *MEMORY[0x277D85DE8];
+  v8 = a1;
+  v87[1] = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
   v13 = v12;
-  if (a1 == 3)
+  if (v8 == 3)
   {
-    v84 = v10;
+    v83 = v10;
     v35 = v10;
     v36 = v13;
     v37 = v11;
     v38 = [MEMORY[0x277CBEBF8] mutableCopy];
     v39 = v35;
-    v85 = 0;
-    ANE_GetTensor4DShapeWithBatchFirst(v9, &v85);
-    v80 = v85;
-    v40 = [v80 objectAtIndexedSubscript:1];
+    v84 = 0;
+    ANE_GetTensor4DShapeWithBatchFirst(v9, &v84);
+    v79 = v84;
+    v40 = [v79 objectAtIndexedSubscript:1];
     v41 = [v40 unsignedIntegerValue];
 
-    v82 = v37;
+    v81 = v37;
     v42 = [_MLCANEPlistBuilder createUnitWithLayer:v39 unitParams:v37];
     v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
     [v42 setObject:v43 forKeyedSubscript:@"OutputChannels"];
@@ -8746,8 +8660,8 @@ id ANE_CreateNormUnits(int a1, void *a2, void *a3, void *a4, void *a5)
     v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v39, "groupCount")}];
     [v42 setObject:v44 forKeyedSubscript:@"NumGroups"];
 
-    v88[0] = v9;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:1];
+    v87[0] = v9;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
     LOBYTE(v37) = ANE_ValidateLayerNormUnit(v45, v42, 0);
 
     if ((v37 & 1) == 0)
@@ -8765,7 +8679,7 @@ id ANE_CreateNormUnits(int a1, void *a2, void *a3, void *a4, void *a5)
     [v38 addObject:v42];
     if (v36)
     {
-      v78 = v13;
+      v77 = v13;
       v46 = [_MLCANEPlistBuilder createUnitWithLayer:v39 unitParams:v36];
       v47 = [v39 label];
       v48 = [v47 stringByAppendingString:@"_0"];
@@ -8776,15 +8690,15 @@ id ANE_CreateNormUnits(int a1, void *a2, void *a3, void *a4, void *a5)
       [v46 setObject:v50 forKeyedSubscript:@"Name"];
 
       v51 = [v42 objectForKeyedSubscript:@"Name"];
-      v87 = v51;
-      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+      v86 = v51;
+      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
       [v46 setObject:v52 forKeyedSubscript:@"Bottom"];
 
       v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v41];
       [v46 setObject:v53 forKeyedSubscript:@"OutputChannels"];
 
-      v86 = v9;
-      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
+      v85 = v9;
+      v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
       LOBYTE(v52) = ANE_ValidateGOCUnit(v54, v46, 0);
 
       if ((v52 & 1) == 0)
@@ -8796,33 +8710,33 @@ id ANE_CreateNormUnits(int a1, void *a2, void *a3, void *a4, void *a5)
         }
 
         v21 = 0;
-        v13 = v78;
+        v13 = v77;
         goto LABEL_38;
       }
 
       [v38 addObject:v46];
 
-      v13 = v78;
+      v13 = v77;
     }
 
     v21 = [v38 copy];
 LABEL_38:
 
-    v11 = v82;
-    v10 = v84;
+    v11 = v81;
+    v10 = v83;
     goto LABEL_45;
   }
 
-  if (a1 == 1)
+  if (v8 == 1)
   {
     v22 = v10;
     v23 = v11;
-    v83 = v13;
-    v81 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v82 = v13;
+    v80 = [MEMORY[0x277CBEBF8] mutableCopy];
     v24 = v22;
-    v85 = 0;
-    ANE_GetTensor4DShapeWithBatchFirst(v9, &v85);
-    v25 = v85;
+    v84 = 0;
+    ANE_GetTensor4DShapeWithBatchFirst(v9, &v84);
+    v25 = v84;
     v26 = [v24 mean];
     if (v26 && (v27 = v26, [v24 variance], v28 = objc_claimAutoreleasedReturnValue(), v28, v27, v28))
     {
@@ -8832,21 +8746,21 @@ LABEL_38:
       v32 = [v30 numberWithUnsignedInteger:{objc_msgSend(v31, "unsignedIntegerValue")}];
       [v29 setObject:v32 forKeyedSubscript:@"OutputChannels"];
 
-      v88[0] = v9;
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:1];
+      v87[0] = v9;
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
       LOBYTE(v31) = ANE_ValidateGOCUnit(v33, v29, 0);
 
       if (v31)
       {
-        v34 = v81;
-        [v81 addObject:v29];
+        v34 = v80;
+        [v80 addObject:v29];
 LABEL_22:
-        v60 = v83;
+        v60 = v82;
         goto LABEL_39;
       }
 
       v61 = +[MLCLog framework];
-      v60 = v83;
+      v60 = v82;
       if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         ANE_CreateNormUnits_cold_3();
@@ -8855,23 +8769,23 @@ LABEL_22:
 
     else
     {
-      v79 = v13;
+      v78 = v13;
       v29 = [_MLCANEPlistBuilder createUnitWithLayer:v24 unitParams:v23];
       v56 = MEMORY[0x277CCABB0];
       v57 = [v25 objectAtIndexedSubscript:1];
       v58 = [v56 numberWithUnsignedInteger:{objc_msgSend(v57, "unsignedIntegerValue")}];
       [v29 setObject:v58 forKeyedSubscript:@"OutputChannels"];
 
-      v88[0] = v9;
-      v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:1];
+      v87[0] = v9;
+      v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
       LOBYTE(v57) = ANE_ValidateInstanceNormUnit(v59, v29, 0);
 
       if (v57)
       {
-        v34 = v81;
-        [v81 addObject:v29];
-        v60 = v83;
-        if (!v83)
+        v34 = v80;
+        [v80 addObject:v29];
+        v60 = v82;
+        if (!v82)
         {
 LABEL_39:
 
@@ -8881,7 +8795,7 @@ LABEL_44:
           goto LABEL_45;
         }
 
-        v61 = [_MLCANEPlistBuilder createUnitWithLayer:v24 unitParams:v83];
+        v61 = [_MLCANEPlistBuilder createUnitWithLayer:v24 unitParams:v82];
         v62 = [v24 label];
         v63 = [v62 stringByAppendingString:@"_0"];
         [v29 setObject:v63 forKeyedSubscript:@"Name"];
@@ -8891,8 +8805,8 @@ LABEL_44:
         [v61 setObject:v65 forKeyedSubscript:@"Name"];
 
         v66 = [v29 objectForKeyedSubscript:@"Name"];
-        v87 = v66;
-        v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+        v86 = v66;
+        v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
         [v61 setObject:v67 forKeyedSubscript:@"Bottom"];
 
         v68 = MEMORY[0x277CCABB0];
@@ -8900,16 +8814,16 @@ LABEL_44:
         v70 = [v68 numberWithUnsignedInteger:{objc_msgSend(v69, "unsignedIntegerValue")}];
         [v61 setObject:v70 forKeyedSubscript:@"OutputChannels"];
 
-        v86 = v9;
-        v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
+        v85 = v9;
+        v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
         LOBYTE(v69) = ANE_ValidateGOCUnit(v71, v61, 0);
 
         if (v69)
         {
-          [v81 addObject:v61];
+          [v80 addObject:v61];
 
-          v34 = v81;
-          v13 = v79;
+          v34 = v80;
+          v13 = v78;
           goto LABEL_22;
         }
 
@@ -8919,14 +8833,14 @@ LABEL_44:
           ANE_CreateNormUnits_cold_3();
         }
 
-        v13 = v79;
-        v60 = v83;
+        v13 = v78;
+        v60 = v82;
       }
 
       else
       {
         v61 = +[MLCLog framework];
-        v60 = v83;
+        v60 = v82;
         if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           ANE_CreateNormUnits_cold_4();
@@ -8935,11 +8849,11 @@ LABEL_44:
     }
 
     v21 = 0;
-    v34 = v81;
+    v34 = v80;
     goto LABEL_44;
   }
 
-  if (a1)
+  if (v8)
   {
     v55 = +[MLCLog framework];
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
@@ -8953,23 +8867,23 @@ LABEL_44:
   else
   {
     v14 = v12;
-    v85 = 0;
-    ANE_GetTensor4DShapeWithBatchFirst(v9, &v85);
-    v15 = v85;
+    v84 = 0;
+    ANE_GetTensor4DShapeWithBatchFirst(v9, &v84);
+    v15 = v84;
     v16 = [_MLCANEPlistBuilder createUnitWithLayer:v10 unitParams:v11];
     v17 = MEMORY[0x277CCABB0];
     v18 = [v15 objectAtIndexedSubscript:1];
     v19 = [v17 numberWithUnsignedInteger:{objc_msgSend(v18, "unsignedIntegerValue")}];
     [v16 setObject:v19 forKeyedSubscript:@"OutputChannels"];
 
-    v88[0] = v9;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:1];
+    v87[0] = v9;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
     LOBYTE(v18) = ANE_ValidateGOCUnit(v20, v16, 0);
 
     if (v18)
     {
-      v87 = v16;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+      v86 = v16;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
     }
 
     else
@@ -8987,8 +8901,6 @@ LABEL_44:
   }
 
 LABEL_45:
-
-  v76 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

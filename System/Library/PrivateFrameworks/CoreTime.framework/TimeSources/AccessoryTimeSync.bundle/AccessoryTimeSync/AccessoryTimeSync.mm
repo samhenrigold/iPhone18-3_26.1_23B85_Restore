@@ -203,7 +203,7 @@ CFStringRef CFDictCreateRawKeyValueString(const __CFDictionary *a1, int a2)
   return Copy;
 }
 
-const __CFString *CFStringCreateFromCFData(const __CFData *a1, const __CFString *a2)
+CFStringRef CFStringCreateFromCFData(const __CFData *a1, const __CFString *a2)
 {
   if (!a1)
   {
@@ -365,16 +365,17 @@ void executeOnMainThreadAsync(uint64_t a1)
 
 unint64_t sntp_timestamp_gettime()
 {
-  v3.tv_sec = 0xAAAAAAAAAAAAAAAALL;
-  v3.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-  if (clock_gettime(_CLOCK_REALTIME, &v3))
+  v4.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  v4.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
+  v0 = clock_gettime(_CLOCK_REALTIME, &v4);
+  if (v0)
   {
-    sntp_timestamp_gettime_cold_1();
+    sntp_timestamp_gettime_cold_1(v0);
   }
 
-  v3.tv_sec += 2208988800;
-  v0 = sntp_datestamp_from_timespec(v3.tv_sec);
-  return sntp_timestamp_from_datestamp(v0, v1);
+  v4.tv_sec += 2208988800;
+  v1 = sntp_datestamp_from_timespec(v4.tv_sec, v4.tv_nsec);
+  return sntp_timestamp_from_datestamp(v1, v2);
 }
 
 double create_sntp_request_payload@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -587,11 +588,11 @@ LABEL_12:
   return v16;
 }
 
-uint64_t isNSObjectNull(void *a1)
+id isNSObjectNull(void *a1)
 {
   if (!a1)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v1 = a1;
@@ -630,20 +631,20 @@ id isNSObjectEqual(unint64_t a1, uint64_t a2)
   }
 }
 
-id castNSObjectToType(void *a1)
+id castNSObjectToType(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (v1 && (objc_opt_isKindOfClass() & 1) != 0)
+  v2 = a1;
+  if (v2 && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v2 = v1;
+    v3 = v2;
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 id readJSONFile(uint64_t a1)
@@ -848,7 +849,7 @@ uint64_t ascii_to_hex(uint64_t result, uint64_t a2, unint64_t a3)
   return result;
 }
 
-unsigned __int8 *printBytes(unsigned __int8 *result, uint64_t a2, char *a3, int a4)
+uint64_t printBytes(uint64_t result, uint64_t a2, char *a3, int a4)
 {
   if (result)
   {
@@ -1001,7 +1002,7 @@ void __init_logging_modules_block_invoke(uint64_t a1)
         v8 = "<Undefined>";
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          __init_logging_modules_block_invoke_cold_1(v15, v4, &v16);
+          __init_logging_modules_block_invoke_cold_1(v15, v4, &v15[4]);
           v8 = "<Undefined>";
         }
       }
@@ -1412,7 +1413,7 @@ unint64_t sntp_server_respond@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t 
   return result;
 }
 
-uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3@<W0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
+uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, uint64_t a3@<X0>, __int128 *a4@<X3>, uint64_t (*a5)(void)@<X4>, uint64_t a6@<X8>)
 {
   *(a6 + 48) = 0u;
   *(a6 + 64) = 0u;
@@ -1424,6 +1425,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
     sntp_server_exchange_cold_1();
   }
 
+  v10 = a3;
   v23 = 0uLL;
   v24 = 0uLL;
   v22 = 0uLL;
@@ -1464,7 +1466,7 @@ uint64_t sntp_server_exchange@<X0>(sockaddr *a1@<X1>, socklen_t *a2@<X2>, int a3
       v15 = 0;
     }
 
-    if (sendto(a3, v20, 0x30uLL, 0, a1, v15) != 48)
+    if (sendto(v10, v20, 0x30uLL, 0, a1, v15) != 48)
     {
       *a6 = 5;
     }
@@ -1702,39 +1704,13 @@ LABEL_10:
   if (v21)
   {
     v22 = v21;
-    if (!a6)
-    {
-      goto LABEL_29;
-    }
-
-    v30 = 0;
-    v31 = 0;
-    memset(v27, 0, 28);
-    if (ai_family == 2)
-    {
-      v30 = 2063598080;
-      v31 = 0;
-      v23 = &v30;
-      v24 = 16;
-    }
-
-    else
-    {
-      memset(&v27[0].sa_data[2], 0, 24);
-      *&v27[0].sa_data[6] = in6addr_any;
-      *&v27[0].sa_len = 2063605276;
-      v23 = v27;
-      v24 = 28;
-    }
-
-    if (bind(v21, v23, v24))
+    if (a6 && ((v30 = 0, v31 = 0, memset(v27, 0, 28), ai_family != 2) ? (memset(&v27[0].sa_data[2], 0, 24), *&v27[0].sa_data[6] = in6addr_any, *&v27[0].sa_len = 2063605276, v23 = v27, v24 = 28) : (v30 = 2063598080, v31 = 0, v23 = &v30, v24 = 16), bind(v21, v23, v24)))
     {
       v25 = 3;
     }
 
     else
     {
-LABEL_29:
       if (!connect(v22, ai_addr, ai_addrlen))
       {
         sntp_client_exchange(v22, a4, a5, a7);
@@ -1767,7 +1743,7 @@ LABEL_33:
   freeaddrinfo(v28);
 }
 
-void sntp_timestamp_gettime_cold_1()
+void sntp_timestamp_gettime_cold_1(int a1)
 {
   _os_assert_log();
   _os_crash();
@@ -1782,46 +1758,42 @@ char *createHexString(uint64_t a1, unint64_t a2, int a3)
     {
       if (!a3)
       {
-        v6 = (2 * a2) | 1;
+        v5 = (2 * a2) | 1;
 LABEL_10:
-        v8 = malloc_type_malloc(v6, 0x100004077774924uLL);
-        if (v8)
+        v7 = malloc_type_malloc(v5, 0x100004077774924uLL);
+        if (v7)
         {
-          v9 = 0;
-          v10 = v8;
-          v19 = v8;
-          v11 = v8;
-          v12 = v6;
+          v8 = 0;
+          v9 = v7;
+          v14 = v7;
+          v10 = v7;
+          v11 = v5;
           while (a3)
           {
-            v13 = *(a1 + v9);
-            if (v9 >= a2 - 1)
+            if (v8 >= a2 - 1)
             {
-              v18 = *(a1 + v9);
-              v15 = v11;
-              v16 = v12;
+              v12 = v10;
+              v13 = v11;
               goto LABEL_17;
             }
 
-            v17 = *(a1 + v9);
-            snprintf(v11, v12, "%02X ");
+            snprintf(v10, v11, "%02X ");
 LABEL_18:
-            ++v9;
-            v12 -= 3;
-            v11 += 3;
-            v10 += 2;
-            v6 -= 2;
-            if (a2 == v9)
+            ++v8;
+            v11 -= 3;
+            v10 += 3;
+            v9 += 2;
+            v5 -= 2;
+            if (a2 == v8)
             {
-              return v19;
+              return v14;
             }
           }
 
-          v14 = *(a1 + v9);
-          v15 = v10;
-          v16 = v6;
+          v12 = v9;
+          v13 = v5;
 LABEL_17:
-          snprintf(v15, v16, "%02X");
+          snprintf(v12, v13, "%02X");
           goto LABEL_18;
         }
 
@@ -1830,7 +1802,7 @@ LABEL_17:
 
       if (is_mul_ok(a2, 3uLL))
       {
-        v6 = 3 * a2;
+        v5 = 3 * a2;
         goto LABEL_10;
       }
     }

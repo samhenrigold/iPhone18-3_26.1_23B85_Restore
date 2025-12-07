@@ -43,7 +43,7 @@
 
 - (BOOL)load:(id *)load
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = self->_log;
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -58,7 +58,7 @@
   v7 = path;
   uTF8String = [path UTF8String];
   std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(&buf, &uTF8String);
-  cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::create(&buf, v8);
+  cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::create(&buf);
 }
 
 - (NSString)assetIdentifier
@@ -71,7 +71,7 @@
 
 - (unordered_map<std::string,)sharedConstants
 {
-  [(TGIE5BaseModelObjC *)self baseModel];
+  objc_msgSend_baseModel(self, a3);
   cgm::token_generation_inference::espresso_inference::AJAXE5MLModelBase::getSharedConstants(v5, retstr);
   result = v6;
   if (v6)

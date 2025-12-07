@@ -1,10046 +1,9794 @@
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentVectors(std::vector<int> *a1, _BYTE *a2)
+void re::introspectionTable_IntrospectionEnumAttribute(re *this)
 {
-  v4 = *a1->__end_cap_.__value_;
-  begin = a1[14].__begin_;
-  v6 = (a1[14].__end_ - begin);
-  v7 = v4 >= v6;
-  v8 = v4 - v6;
-  if (v8 != 0 && v7)
+  if ((byte_1EE1C2C6E & 1) == 0)
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(&a1[14], v8);
-    v4 = *a1->__end_cap_.__value_;
-  }
-
-  else if (!v7)
-  {
-    a1[14].__end_ = (begin + v4);
-  }
-
-  std::vector<unsigned int>::resize(a1 + 11, v4);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentFromParentFaces(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentVectors(std::vector<int> *a1, _BYTE *a2)
-{
-  v4 = a1->__end_cap_.__value_[1];
-  begin = a1[15].__begin_;
-  v6 = (a1[15].__end_ - begin);
-  v7 = v4 >= v6;
-  v8 = v4 - v6;
-  if (v8 != 0 && v7)
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(&a1[15], v8);
-    v4 = a1->__end_cap_.__value_[1];
-  }
-
-  else if (!v7)
-  {
-    a1[15].__end_ = (begin + v4);
-  }
-
-  std::vector<unsigned int>::resize(a1 + 12, v4);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentFaces(a1, a2);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentEdges(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentVectors(uint64_t a1, unsigned __int8 *a2)
-{
-  v4 = *(*(a1 + 16) + 8);
-  v5 = *(a1 + 384);
-  v6 = *(a1 + 392) - v5;
-  if (*(a1 + 36) == 1)
-  {
-    v7 = v4 >= v6;
-    v8 = v4 - v6;
-    if (v4 > v6)
+    byte_1EE1C2C6E = 1;
+    if ((atomic_load_explicit(&qword_1EE1C2EB8, memory_order_acquire) & 1) == 0)
     {
-      v9 = (a1 + 384);
-      v10 = a2;
-LABEL_6:
-      std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(v9, v8, v10);
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v7 = v4 >= v6;
-    v8 = v4 - v6;
-    if (v4 > v6)
-    {
-      v9 = (a1 + 384);
-      v10 = a2 + 4;
-      goto LABEL_6;
-    }
-  }
-
-  if (!v7)
-  {
-    *(a1 + 392) = v5 + v4;
-  }
-
-LABEL_9:
-  std::vector<unsigned int>::resize((a1 + 312), *(*(a1 + 16) + 8));
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentFaces(a1, a2);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentEdges(a1, a2);
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentVertices(a1, a2);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceParentFromParentFaces(uint64_t result, _BYTE *a2)
-{
-  v2 = **(result + 8);
-  if (*(result + 36))
-  {
-    if (v2 >= 1)
-    {
-      v3 = 0;
-      LODWORD(v4) = *(result + 64);
-      do
+      v1 = __cxa_guard_acquire(&qword_1EE1C2EB8);
+      if (v1)
       {
-        v5 = *(*(result + 88) + 8 * v3);
-        if (v5 == 4)
+        qword_1EE1C3570 = "IntrospectionEnumValue";
+        v2 = qword_1EE1C2EE8;
+        if (!qword_1EE1C2EE8)
         {
-          *(*(result + 336) + v4) = *a2;
-          v6 = v4 + 1;
-          *(*(result + 336) + v6) = a2[1];
-          v7 = v4 + 2;
-          *(*(result + 336) + v7) = a2[2];
-          v8 = v4 + 3;
-          *(*(result + 336) + v8) = a2[3];
-          v9 = *(result + 264);
-          *(v9 + 4 * v4) = v3;
-          *(v9 + 4 * v6) = v3;
-          *(v9 + 4 * v7) = v3;
-          *(v9 + 4 * v8) = v3;
-          LODWORD(v4) = v4 + 4;
+          v2 = re::allocInfo_IntrospectionEnumValue(v1);
+          qword_1EE1C2EE8 = v2;
+          re::initInfo_IntrospectionEnumValue(v2, v3);
         }
 
-        else if (v5 >= 1)
+        qword_1EE1C3578 = v2;
+        qword_1EE1C3580 = 0;
+        qword_1EE1C3588 = 1;
+        dword_1EE1C3590 = 0;
+        qword_1EE1C3598 = "IntrospectionEnumValueRename";
+        v4 = qword_1EE1C2F00;
+        if (!qword_1EE1C2F00)
         {
-          v10 = 0;
-          v4 = v4;
-          do
-          {
-            if (v5 <= 4)
-            {
-              v11 = v10;
-            }
-
-            else
-            {
-              v11 = 0;
-            }
-
-            *(*(result + 336) + v4) = a2[v11];
-            *(*(result + 264) + 4 * v4++) = v3;
-            ++v10;
-          }
-
-          while (v5 != v10);
+          v4 = re::allocInfo_IntrospectionEnumValueRename(v1);
+          qword_1EE1C2F00 = v4;
+          re::initInfo_IntrospectionEnumValueRename(v4, v5);
         }
 
-        ++v3;
+        qword_1EE1C35A0 = v4;
+        qword_1EE1C35A8 = 0;
+        qword_1EE1C35B0 = 2;
+        dword_1EE1C35B8 = 0;
+        __cxa_guard_release(&qword_1EE1C2EB8);
       }
-
-      while (v3 < **(result + 8));
     }
-  }
 
-  else if (v2 >= 1)
+    dword_1EE1C30B0 = 2;
+    qword_1EE1C30B8 = &qword_1EE1C3570;
+  }
+}
+
+void *re::allocInfo_IntrospectionEnumAttribute(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2EC0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2EC0))
   {
-    v12 = 0;
-    do
-    {
-      v13 = (*(result + 88) + 8 * v12);
-      v14 = *v13;
-      v15 = (*(result + 120) + 4 * v13[1]);
-      if ((*(*(result + 408) + v12) & 1) != 0 && v14 == 4)
-      {
-        *(*(result + 336) + *v15) = *a2;
-        *(*(result + 336) + v15[1]) = a2[1];
-        *(*(result + 336) + v15[2]) = a2[2];
-        *(*(result + 336) + v15[3]) = a2[3];
-        v21 = *(result + 264);
-        *(v21 + 4 * *v15) = v12;
-        *(v21 + 4 * v15[1]) = v12;
-        *(v21 + 4 * v15[2]) = v12;
-        *(v21 + 4 * v15[3]) = v12;
-      }
-
-      else if (v14 >= 1)
-      {
-        v17 = 0;
-        v18 = &a2[4 * !(*(*(result + 408) + v12) & 1)];
-        do
-        {
-          v19 = v15[v17];
-          if (v19 != -1)
-          {
-            if (v14 <= 4)
-            {
-              v20 = v17;
-            }
-
-            else
-            {
-              v20 = 0;
-            }
-
-            *(*(result + 336) + v19) = v18[v20];
-            *(*(result + 264) + 4 * v15[v17]) = v12;
-          }
-
-          ++v17;
-        }
-
-        while (v14 != v17);
-      }
-
-      ++v12;
-    }
-
-    while (v12 < **(result + 8));
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF199A8, "IntrospectionEnumAttribute");
+    __cxa_guard_release(&qword_1EE1C2EC0);
   }
 
+  return &unk_1ECF199A8;
+}
+
+void re::initInfo_IntrospectionEnumAttribute(re *this, re::IntrospectionBase *a2)
+{
+  v11[0] = 0xDB2C4E827F1D1580;
+  v11[1] = "IntrospectionEnumAttribute";
+  if (v11[0])
+  {
+    if (v11[0])
+    {
+    }
+  }
+
+  *(this + 2) = v12;
+  if ((atomic_load_explicit(&qword_1EE1C2EC8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2EC8))
+  {
+    v5 = re::introspectionAllocator();
+    re::introspect_IntrospectionEnumAttributeType(v5, v6);
+    v7 = (*(*v5 + 32))(v5, 32, 8);
+    *v7 = 3;
+    *(v7 + 8) = &qword_1EE1C34E0;
+    *(v7 + 16) = 0;
+    *(v7 + 24) = 0;
+    qword_1EE1C30C0 = v7;
+    v8 = re::introspectionAllocator();
+    re::introspectionTable_IntrospectionEnumAttribute(v8);
+    v9 = (*(*v8 + 32))(v8, 16, 8);
+    *v9 = 2;
+    *(v9 + 8) = &dword_1EE1C30B0;
+    qword_1EE1C30C8 = v9;
+    __cxa_guard_release(&qword_1EE1C2EC8);
+  }
+
+  *(this + 2) = 0x400000008;
+  *(this + 6) = 4;
+  *(this + 14) = 1;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1C30C0;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionEnumAttribute>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionEnumAttribute>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionEnumAttribute>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionEnumAttribute>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v10 = v12;
+}
+
+void *re::allocInfo_IntrospectionEnumValue(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2ED8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2ED8))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19A38, "IntrospectionEnumValue");
+    __cxa_guard_release(&qword_1EE1C2ED8);
+  }
+
+  return &unk_1ECF19A38;
+}
+
+void re::initInfo_IntrospectionEnumValue(re *this, re::IntrospectionBase *a2)
+{
+  v18[0] = 0x14D386891822472ALL;
+  v18[1] = "IntrospectionEnumValue";
+  if (v18[0])
+  {
+    if (v18[0])
+    {
+    }
+  }
+
+  *(this + 2) = v19;
+  if ((atomic_load_explicit(&qword_1EE1C2EE0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2EE0))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2ED0;
+    if (!qword_1EE1C2ED0)
+    {
+      v7 = re::allocInfo_IntrospectionEnumAttribute(v5);
+      qword_1EE1C2ED0 = v7;
+      re::initInfo_IntrospectionEnumAttribute(v7, v8);
+    }
+
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionEnumAttribute";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C31B0 = v9;
+    v10 = re::introspectionAllocator();
+    v12 = re::introspect_uint64_t(1, v11);
+    v13 = (*(*v10 + 32))(v10, 72, 8);
+    *v13 = 1;
+    *(v13 + 8) = "value";
+    *(v13 + 16) = v12;
+    *(v13 + 24) = 0;
+    *(v13 + 32) = 0x800000001;
+    *(v13 + 40) = 0;
+    *(v13 + 48) = 0;
+    *(v13 + 56) = 0;
+    *(v13 + 64) = 0;
+    qword_1EE1C31B8 = v13;
+    v14 = re::introspectionAllocator();
+    re::IntrospectionInfo<char const*>::get(v14, v15);
+    v16 = (*(*v14 + 32))(v14, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "name";
+    *(v16 + 16) = &qword_1EE1C3250;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x1000000002;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1C31C0 = v16;
+    __cxa_guard_release(&qword_1EE1C2EE0);
+  }
+
+  *(this + 2) = 0x1800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 1;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1C31B0;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionEnumValue>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionEnumValue>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionEnumValue>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionEnumValue>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v17 = v19;
+}
+
+void re::internal::defaultConstruct<re::IntrospectionEnumValue>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+}
+
+uint64_t re::internal::defaultConstructV2<re::IntrospectionEnumValue>(uint64_t result)
+{
+  *result = 0;
+  *(result + 8) = 0;
+  *(result + 16) = 0;
   return result;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentFaces(uint64_t result, _BYTE *a2)
+void *re::allocInfo_IntrospectionEnumValueRename(re *this)
 {
-  v2 = **(result + 8);
-  if (*(result + 36))
+  if ((atomic_load_explicit(&qword_1EE1C2EF0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2EF0))
   {
-    if (v2 >= 1)
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19AC8, "IntrospectionEnumValueRename");
+    __cxa_guard_release(&qword_1EE1C2EF0);
+  }
+
+  return &unk_1ECF19AC8;
+}
+
+void re::initInfo_IntrospectionEnumValueRename(re *this, re::IntrospectionBase *a2)
+{
+  v18[0] = 0xC1C966A0A2370666;
+  v18[1] = "IntrospectionEnumValueRename";
+  if (v18[0])
+  {
+    if (v18[0])
     {
-      v3 = 0;
-      LODWORD(v4) = *(result + 68);
-      do
-      {
-        v5 = *(*(result + 104) + 8 * v3);
-        if (v5 == 4)
-        {
-          *(*(result + 360) + v4) = *a2;
-          v6 = v4 + 1;
-          *(*(result + 360) + v6) = a2[1];
-          v7 = v4 + 2;
-          *(*(result + 360) + v7) = a2[2];
-          v8 = v4 + 3;
-          *(*(result + 360) + v8) = a2[3];
-          v9 = *(result + 288);
-          *(v9 + 4 * v4) = v3;
-          *(v9 + 4 * v6) = v3;
-          *(v9 + 4 * v7) = v3;
-          *(v9 + 4 * v8) = v3;
-          LODWORD(v4) = v4 + 4;
-        }
-
-        else if (v5 >= 1)
-        {
-          v10 = 0;
-          v4 = v4;
-          do
-          {
-            if (v5 <= 4)
-            {
-              v11 = v10;
-            }
-
-            else
-            {
-              v11 = 0;
-            }
-
-            *(*(result + 360) + v4) = a2[v11];
-            *(*(result + 288) + 4 * v4++) = v3;
-            ++v10;
-          }
-
-          while (v5 != v10);
-        }
-
-        ++v3;
-      }
-
-      while (v3 < **(result + 8));
     }
   }
 
-  else if (v2 >= 1)
+  *(this + 2) = v19;
+  if ((atomic_load_explicit(&qword_1EE1C2EF8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2EF8))
   {
-    v12 = 0;
-    do
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2ED0;
+    if (!qword_1EE1C2ED0)
     {
-      v13 = (*(result + 104) + 8 * v12);
-      v14 = *v13;
-      v15 = (*(result + 144) + 4 * v13[1]);
-      if ((*(*(result + 408) + v12) & 1) != 0 && v14 == 4)
-      {
-        *(*(result + 360) + *v15) = *a2;
-        *(*(result + 360) + v15[1]) = a2[1];
-        *(*(result + 360) + v15[2]) = a2[2];
-        *(*(result + 360) + v15[3]) = a2[3];
-        v21 = *(result + 288);
-        *(v21 + 4 * *v15) = v12;
-        *(v21 + 4 * v15[1]) = v12;
-        *(v21 + 4 * v15[2]) = v12;
-        *(v21 + 4 * v15[3]) = v12;
-      }
-
-      else if (v14 >= 1)
-      {
-        v17 = 0;
-        v18 = &a2[4 * !(*(*(result + 408) + v12) & 1)];
-        do
-        {
-          v19 = v15[v17];
-          if (v19 != -1)
-          {
-            if (v14 <= 4)
-            {
-              v20 = v17;
-            }
-
-            else
-            {
-              v20 = 0;
-            }
-
-            *(*(result + 360) + v19) = v18[v20];
-            *(*(result + 288) + 4 * v15[v17]) = v12;
-          }
-
-          ++v17;
-        }
-
-        while (v14 != v17);
-      }
-
-      ++v12;
+      v7 = re::allocInfo_IntrospectionEnumAttribute(v5);
+      qword_1EE1C2ED0 = v7;
+      re::initInfo_IntrospectionEnumAttribute(v7, v8);
     }
 
-    while (v12 < **(result + 8));
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionEnumAttribute";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C31C8 = v9;
+    v10 = re::introspectionAllocator();
+    v12 = re::introspect_uint64_t(1, v11);
+    v13 = (*(*v10 + 32))(v10, 72, 8);
+    *v13 = 1;
+    *(v13 + 8) = "newValue";
+    *(v13 + 16) = v12;
+    *(v13 + 24) = 0;
+    *(v13 + 32) = 0x800000001;
+    *(v13 + 40) = 0;
+    *(v13 + 48) = 0;
+    *(v13 + 56) = 0;
+    *(v13 + 64) = 0;
+    qword_1EE1C31D0 = v13;
+    v14 = re::introspectionAllocator();
+    re::IntrospectionInfo<char const*>::get(v14, v15);
+    v16 = (*(*v14 + 32))(v14, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "oldName";
+    *(v16 + 16) = &qword_1EE1C3250;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x1000000002;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1C31D8 = v16;
+    __cxa_guard_release(&qword_1EE1C2EF8);
   }
 
+  *(this + 2) = 0x1800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 1;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1C31C8;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionEnumValueRename>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionEnumValueRename>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionEnumValueRename>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionEnumValueRename>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v17 = v19;
+}
+
+void re::internal::defaultConstruct<re::IntrospectionEnumValueRename>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
+}
+
+uint64_t re::internal::defaultConstructV2<re::IntrospectionEnumValueRename>(uint64_t result)
+{
+  *result = 0;
+  *(result + 8) = 0;
+  *(result + 16) = 0;
   return result;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeParentFromParentEdges(uint64_t result, _BYTE *a2)
+void *re::allocInfo_IntrospectionEnumTable(re *this)
 {
-  v2 = *(*(result + 8) + 4);
-  if (*(result + 36))
+  if ((atomic_load_explicit(&qword_1EE1C2F08, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F08))
   {
-    if (v2 >= 1)
-    {
-      v3 = 0;
-      v4 = *(result + 72);
-      do
-      {
-        *(*(result + 360) + v4) = *a2;
-        *(*(result + 360) + v4 + 1) = a2[1];
-        v5 = (*(result + 288) + 4 * v4);
-        *v5 = v3;
-        v5[1] = v3++;
-        v4 += 2;
-      }
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19B58, "IntrospectionEnumTable");
+    __cxa_guard_release(&qword_1EE1C2F08);
+  }
 
-      while (v3 < *(*(result + 8) + 4));
+  return &unk_1ECF19B58;
+}
+
+void re::initInfo_IntrospectionEnumTable(re *this, re::IntrospectionBase *a2)
+{
+  v10[0] = 0x14D3868917E99BE4;
+  v10[1] = "IntrospectionEnumTable";
+  if (v10[0])
+  {
+    if (v10[0])
+    {
     }
   }
 
-  else if (v2 >= 1)
+  *(this + 2) = v11;
+  if ((atomic_load_explicit(&qword_1EE1C2F18, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F18))
   {
-    v6 = 0;
-    do
+    v5 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::IntrospectionEnumAttribute const* const*>::get(v5);
+    v7 = re::introspect_uint32_t(1, v6);
+    v8 = (*(*v5 + 32))(v5, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "enumTable";
+    *(v8 + 16) = &qword_1EE1C3390;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 0x800000001;
+    *(v8 + 40) = 1;
+    *(v8 + 48) = v7;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE1C2F10 = v8;
+    __cxa_guard_release(&qword_1EE1C2F18);
+  }
+
+  *(this + 2) = 0x1000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 1;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1C2F10;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionEnumTable>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionEnumTable>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionEnumTable>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionEnumTable>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v9 = v11;
+}
+
+void re::IntrospectionInfo<re::IntrospectionEnumAttribute const* const*>::get(re *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2FE8, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE1C2FE8);
+    if (a1)
     {
-      v7 = (*(result + 192) + 8 * v6);
-      if (*(*(result + 432) + v6))
+      re::IntrospectionPointer::IntrospectionPointer(&qword_1EE1C3390);
+      __cxa_guard_release(&qword_1EE1C2FE8);
+    }
+  }
+
+  if ((byte_1EE1C2C75 & 1) == 0)
+  {
+    byte_1EE1C2C75 = 1;
+    if ((atomic_load_explicit(&qword_1EE1C2FF0, memory_order_acquire) & 1) == 0)
+    {
+      a1 = __cxa_guard_acquire(&qword_1EE1C2FF0);
+      if (a1)
       {
-        *(*(result + 360) + *v7) = *a2;
-        *(*(result + 360) + v7[1]) = a2[1];
-        v12 = *(result + 288);
-        *(v12 + 4 * *v7) = v6;
-        *(v12 + 4 * v7[1]) = v6;
+        re::IntrospectionPointer::IntrospectionPointer(&qword_1EE1C33D0);
+        __cxa_guard_release(&qword_1EE1C2FF0);
+      }
+    }
+
+    if ((byte_1EE1C2C76 & 1) == 0)
+    {
+      byte_1EE1C2C76 = 1;
+      v1 = qword_1EE1C2ED0;
+      if (!qword_1EE1C2ED0)
+      {
+        v1 = re::allocInfo_IntrospectionEnumAttribute(a1);
+        qword_1EE1C2ED0 = v1;
+        re::initInfo_IntrospectionEnumAttribute(v1, v2);
+      }
+
+      ArcSharedObject::ArcSharedObject(&qword_1EE1C33D0, 0);
+      qword_1EE1C33E0 = 0x800000001;
+      dword_1EE1C33E8 = 8;
+      word_1EE1C33EC = 0;
+      *&xmmword_1EE1C33F0 = 0;
+      *(&xmmword_1EE1C33F0 + 1) = 0xFFFFFFFFLL;
+      qword_1EE1C33D0 = &unk_1F5CBD2C0;
+      qword_1EE1C3400 = v1;
+      unk_1EE1C3408 = 0;
+      re::IntrospectionRegistry::add(v3, v4);
+      re::getPrettyTypeName(&v13, &qword_1EE1C33D0);
+      if (BYTE8(v13))
+      {
+        v5 = v14;
       }
 
       else
       {
-        v8 = 0;
-        v9 = 1;
-        do
+        v5 = &v13 + 9;
+      }
+
+      if (v13 && (BYTE8(v13) & 1) != 0)
+      {
+        (*(*v13 + 40))();
+      }
+
+      if ((v15 & 0xFFFFFFFFFFFFFFFELL) == 0xB47AF28 && (__s1 == "char*" || !strcmp(__s1, "char*")))
+      {
+        v7 = v13;
+      }
+
+      else
+      {
+        v13 = *(v1 + 2);
+        v7 = v12;
+      }
+
+      xmmword_1EE1C33F0 = v7;
+      if (v15)
+      {
+        if (v15)
         {
-          v10 = v9;
-          v11 = v7[v8];
-          if (v11 != -1)
+        }
+      }
+    }
+
+    ArcSharedObject::ArcSharedObject(&qword_1EE1C3390, 0);
+    qword_1EE1C33A0 = 0x800000001;
+    dword_1EE1C33A8 = 8;
+    word_1EE1C33AC = 0;
+    *&xmmword_1EE1C33B0 = 0;
+    *(&xmmword_1EE1C33B0 + 1) = 0xFFFFFFFFLL;
+    qword_1EE1C3390 = &unk_1F5CBD2C0;
+    qword_1EE1C33C0 = &qword_1EE1C33D0;
+    unk_1EE1C33C8 = 0;
+    re::IntrospectionRegistry::add(v8, v9);
+    re::getPrettyTypeName(&v13, &qword_1EE1C3390);
+    if (BYTE8(v13))
+    {
+      v10 = v14;
+    }
+
+    else
+    {
+      v10 = &v13 + 9;
+    }
+
+    if (v13 && (BYTE8(v13) & 1) != 0)
+    {
+      (*(*v13 + 40))();
+    }
+
+    if ((v15 & 0xFFFFFFFFFFFFFFFELL) == 0xB47AF28 && (__s1 == "char*" || !strcmp(__s1, "char*")))
+    {
+      xmmword_1EE1C33B0 = v13;
+    }
+
+    else
+    {
+      v13 = xmmword_1EE1C33F0;
+      xmmword_1EE1C33B0 = v12;
+    }
+
+    if (v15)
+    {
+      if (v15)
+      {
+      }
+    }
+  }
+}
+
+uint64_t re::internal::defaultConstructV2<re::IntrospectionEnumTable>(uint64_t result)
+{
+  *result = 0;
+  *(result + 8) = 0;
+  return result;
+}
+
+void *re::allocInfo_IntrospectionEnum(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2F28, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F28))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19BE8, "IntrospectionEnum");
+    __cxa_guard_release(&qword_1EE1C2F28);
+  }
+
+  return &unk_1ECF19BE8;
+}
+
+void re::initInfo_IntrospectionEnum(re *this, re::IntrospectionBase *a2)
+{
+  v13[0] = 0xAF6C477EF8F24678;
+  v13[1] = "IntrospectionEnum";
+  if (v13[0])
+  {
+    if (v13[0])
+    {
+    }
+  }
+
+  *(this + 2) = v14;
+  if ((atomic_load_explicit(&qword_1EE1C2F30, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F30))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2CB0;
+    if (!qword_1EE1C2CB0)
+    {
+      v7 = re::allocInfo_IntrospectionBasic(v5);
+      qword_1EE1C2CB0 = v7;
+      re::initInfo_IntrospectionBasic(v7, v8);
+    }
+
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionBasic";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C30D0 = v9;
+    v10 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::IntrospectionEnumTable const*>::get(v10);
+    v11 = (*(*v10 + 32))(v10, 72, 8);
+    *v11 = 1;
+    *(v11 + 8) = "enumTable";
+    *(v11 + 16) = &qword_1EE1C3410;
+    *(v11 + 24) = 0;
+    *(v11 + 32) = 0x4000000001;
+    *(v11 + 40) = 0;
+    *(v11 + 48) = 0;
+    *(v11 + 56) = 0;
+    *(v11 + 64) = 0;
+    qword_1EE1C30D8 = v11;
+    __cxa_guard_release(&qword_1EE1C2F30);
+  }
+
+  *(this + 2) = 0x4800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1C30D0;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionEnum>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionEnum>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionEnum>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionEnum>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v12 = v14;
+}
+
+void re::IntrospectionInfo<re::IntrospectionEnumTable const*>::get(re *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2FF8, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE1C2FF8);
+    if (a1)
+    {
+      re::IntrospectionPointer::IntrospectionPointer(&qword_1EE1C3410);
+      __cxa_guard_release(&qword_1EE1C2FF8);
+    }
+  }
+
+  if ((byte_1EE1C2C77 & 1) == 0)
+  {
+    byte_1EE1C2C77 = 1;
+    v1 = qword_1EE1C2F20;
+    if (!qword_1EE1C2F20)
+    {
+      v1 = re::allocInfo_IntrospectionEnumTable(a1);
+      qword_1EE1C2F20 = v1;
+      re::initInfo_IntrospectionEnumTable(v1, v2);
+    }
+
+    ArcSharedObject::ArcSharedObject(&qword_1EE1C3410, 0);
+    qword_1EE1C3420 = 0x800000001;
+    dword_1EE1C3428 = 8;
+    word_1EE1C342C = 0;
+    *&xmmword_1EE1C3430 = 0;
+    *(&xmmword_1EE1C3430 + 1) = 0xFFFFFFFFLL;
+    qword_1EE1C3410 = &unk_1F5CBD2C0;
+    qword_1EE1C3440 = v1;
+    unk_1EE1C3448 = 0;
+    re::IntrospectionRegistry::add(v3, v4);
+    re::getPrettyTypeName(&v9, &qword_1EE1C3410);
+    if (BYTE8(v9))
+    {
+      v5 = v10;
+    }
+
+    else
+    {
+      v5 = &v9 + 9;
+    }
+
+    if (v9 && (BYTE8(v9) & 1) != 0)
+    {
+      (*(*v9 + 40))();
+    }
+
+    if (v11 >> 1 == 94623636 && (__s1 == "char*" || !strcmp(__s1, "char*")))
+    {
+      v7 = v9;
+    }
+
+    else
+    {
+      v9 = *(v1 + 2);
+      v7 = v8;
+    }
+
+    xmmword_1EE1C3430 = v7;
+    if (v11)
+    {
+      if (v11)
+      {
+      }
+    }
+  }
+}
+
+double re::internal::defaultConstruct<re::IntrospectionEnum>(int a1, int a2, ArcSharedObject *this)
+{
+  *(this + 8) = 0;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *this = 0u;
+  *(this + 1) = 0u;
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *(v3 + 22) = 0;
+  *(v3 + 16) = 0;
+  *(v3 + 32) = 0;
+  *&result = 0xFFFFFFFFLL;
+  *(v3 + 40) = 0xFFFFFFFFLL;
+  *(v3 + 48) = 0;
+  *(v3 + 56) = 0;
+  *v3 = &unk_1F5D0C658;
+  *(v3 + 64) = 0;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::IntrospectionEnum>(uint64_t a1)
+{
+  *(a1 + 64) = 0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v1 + 22) = 0;
+  *(v1 + 16) = 0;
+  *(v1 + 32) = 0;
+  *&result = 0xFFFFFFFFLL;
+  *(v1 + 40) = 0xFFFFFFFFLL;
+  *(v1 + 48) = 0;
+  *(v1 + 56) = 0;
+  *v1 = &unk_1F5D0C658;
+  *(v1 + 64) = 0;
+  return result;
+}
+
+void *re::allocInfo_IntrospectionStringID(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2F40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F40))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19C78, "IntrospectionStringID");
+    __cxa_guard_release(&qword_1EE1C2F40);
+  }
+
+  return &unk_1ECF19C78;
+}
+
+void re::initInfo_IntrospectionStringID(re *this, re::IntrospectionBase *a2)
+{
+  v11[0] = 0x8EE0D4EDE1F434ELL;
+  v11[1] = "IntrospectionStringID";
+  if (v11[0])
+  {
+    if (v11[0])
+    {
+    }
+  }
+
+  *(this + 2) = v12;
+  if ((atomic_load_explicit(&qword_1EE1C2F50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F50))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2C98;
+    if (!qword_1EE1C2C98)
+    {
+      v7 = re::allocInfo_IntrospectionBase(v5);
+      qword_1EE1C2C98 = v7;
+      re::initInfo_IntrospectionBase(v7, v8);
+    }
+
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionBase";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C2F48 = v9;
+    __cxa_guard_release(&qword_1EE1C2F50);
+  }
+
+  *(this + 2) = 0x3000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1C2F48;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionStringID>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionStringID>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionStringID>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionStringID>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v10 = v12;
+}
+
+double re::internal::defaultConstruct<re::IntrospectionStringID>(int a1, int a2, ArcSharedObject *this)
+{
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *(v3 + 20) = 0x800000010;
+  *(v3 + 28) = 0;
+  *(v3 + 32) = 0;
+  *&result = 0xFFFFFFFFLL;
+  *(v3 + 40) = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5D0C6D8;
+  *(v3 + 16) = 10;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::IntrospectionStringID>(ArcSharedObject *a1)
+{
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v1 + 20) = 0x800000010;
+  *(v1 + 28) = 0;
+  *(v1 + 32) = 0;
+  *&result = 0xFFFFFFFFLL;
+  *(v1 + 40) = 0xFFFFFFFFLL;
+  *v1 = &unk_1F5D0C6D8;
+  *(v1 + 16) = 10;
+  return result;
+}
+
+void *re::allocInfo_IntrospectionCallbackSerializer(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2F60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F60))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19D08, "IntrospectionCallbackSerializer");
+    __cxa_guard_release(&qword_1EE1C2F60);
+  }
+
+  return &unk_1ECF19D08;
+}
+
+void re::initInfo_IntrospectionCallbackSerializer(re *this, re::IntrospectionBase *a2)
+{
+  v11[0] = 0xE6B7F5AA71E05564;
+  v11[1] = "IntrospectionCallbackSerializer";
+  if (v11[0])
+  {
+    if (v11[0])
+    {
+    }
+  }
+
+  *(this + 2) = v12;
+  if ((atomic_load_explicit(&qword_1EE1C2F70, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F70))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2C98;
+    if (!qword_1EE1C2C98)
+    {
+      v7 = re::allocInfo_IntrospectionBase(v5);
+      qword_1EE1C2C98 = v7;
+      re::initInfo_IntrospectionBase(v7, v8);
+    }
+
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionBase";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C2F68 = v9;
+    __cxa_guard_release(&qword_1EE1C2F70);
+  }
+
+  *(this + 2) = 0x7000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1C2F68;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionCallbackSerializer>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionCallbackSerializer>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionCallbackSerializer>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionCallbackSerializer>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v10 = v12;
+}
+
+double re::internal::defaultConstruct<re::IntrospectionCallbackSerializer>(int a1, int a2, ArcSharedObject *this)
+{
+  *(this + 5) = 0u;
+  *(this + 6) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *(v3 + 22) = 0;
+  *(v3 + 16) = 0;
+  *(v3 + 32) = 0;
+  *(v3 + 40) = 0xFFFFFFFFLL;
+  *(v3 + 48) = 0;
+  *(v3 + 56) = 0;
+  *v3 = &unk_1F5D0C698;
+  result = 0.0;
+  *(v3 + 64) = 0u;
+  *(v3 + 80) = 0u;
+  *(v3 + 96) = 0u;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::IntrospectionCallbackSerializer>(ArcSharedObject *a1)
+{
+  *(a1 + 5) = 0u;
+  *(a1 + 6) = 0u;
+  *(a1 + 3) = 0u;
+  *(a1 + 4) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v1 + 22) = 0;
+  *(v1 + 16) = 0;
+  *(v1 + 32) = 0;
+  *(v1 + 40) = 0xFFFFFFFFLL;
+  *(v1 + 48) = 0;
+  *(v1 + 56) = 0;
+  *v1 = &unk_1F5D0C698;
+  result = 0.0;
+  *(v1 + 64) = 0u;
+  *(v1 + 80) = 0u;
+  *(v1 + 96) = 0u;
+  return result;
+}
+
+void *re::allocInfo_IntrospectionOptionalBase(re *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2F80, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F80))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19D98, "IntrospectionOptionalBase");
+    __cxa_guard_release(&qword_1EE1C2F80);
+  }
+
+  return &unk_1ECF19D98;
+}
+
+void re::initInfo_IntrospectionOptionalBase(re *this, re::IntrospectionBase *a2)
+{
+  v14[0] = 0x9A8DDE13626C7318;
+  v14[1] = "IntrospectionOptionalBase";
+  if (v14[0])
+  {
+    if (v14[0])
+    {
+    }
+  }
+
+  *(this + 2) = v15;
+  if ((atomic_load_explicit(&qword_1EE1C2F88, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2F88))
+  {
+    v5 = re::introspectionAllocator();
+    v6 = v5;
+    v7 = qword_1EE1C2C98;
+    if (!qword_1EE1C2C98)
+    {
+      v7 = re::allocInfo_IntrospectionBase(v5);
+      qword_1EE1C2C98 = v7;
+      re::initInfo_IntrospectionBase(v7, v8);
+    }
+
+    v9 = (*(*v6 + 32))(v6, 72, 8);
+    *v9 = 1;
+    *(v9 + 8) = "IntrospectionBase";
+    *(v9 + 16) = v7;
+    *(v9 + 24) = 0;
+    *(v9 + 32) = 0;
+    *(v9 + 40) = 3;
+    *(v9 + 48) = 0;
+    *(v9 + 56) = 0;
+    *(v9 + 64) = 0;
+    qword_1EE1C30E0 = v9;
+    v10 = re::introspectionAllocator();
+    re::introspect_IntrospectionBasePointer(v10, v11);
+    v12 = (*(*v10 + 32))(v10, 72, 8);
+    *v12 = 1;
+    *(v12 + 8) = "valueInfo";
+    *(v12 + 16) = &qword_1EE1C3618;
+    *(v12 + 24) = 0;
+    *(v12 + 32) = 0x3000000001;
+    *(v12 + 40) = 0;
+    *(v12 + 48) = 0;
+    *(v12 + 56) = 0;
+    *(v12 + 64) = 0;
+    qword_1EE1C30E8 = v12;
+    __cxa_guard_release(&qword_1EE1C2F88);
+  }
+
+  *(this + 2) = 0x4000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 2;
+  *(this + 8) = &qword_1EE1C30E0;
+  *(this + 9) = re::internal::defaultConstruct<re::IntrospectionOptionalBase>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::IntrospectionOptionalBase>;
+  *(this + 13) = re::internal::defaultConstructV2<re::IntrospectionOptionalBase>;
+  *(this + 14) = re::internal::defaultDestructV2<re::IntrospectionOptionalBase>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v13 = v15;
+}
+
+void re::introspect_IntrospectionType(re *this, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE1C2F98, memory_order_acquire) & 1) == 0)
+  {
+    goto LABEL_43;
+  }
+
+  while (1)
+  {
+    if ((atomic_load_explicit(&qword_1EE1C2FA0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2FA0))
+    {
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1C3528, "IntrospectionType", 4, 4, 1, 1);
+      qword_1EE1C3528 = &unk_1F5D0C658;
+      qword_1EE1C3568 = &re::introspect_IntrospectionType(BOOL)::enumTable;
+      dword_1EE1C3538 = 9;
+      __cxa_guard_release(&qword_1EE1C2FA0);
+    }
+
+    if (byte_1EE1C2C6F)
+    {
+      break;
+    }
+
+    byte_1EE1C2C6F = 1;
+    re::IntrospectionRegistry::add(&qword_1EE1C3528, a2);
+    v51 = 0xAF6C477EF9003AEALL;
+    v52 = "IntrospectionType";
+    v55 = 208862;
+    v56 = "int";
+    v4 = v54[0];
+    v5 = v54[1];
+    if (v55)
+    {
+      if (v55)
+      {
+      }
+    }
+
+    if (v4)
+    {
+      v6 = qword_1EE1C3568;
+      v55 = v4;
+      v56 = v5;
+      re::TypeBuilder::beginEnumType(v54, &v51, 1, 1, &v55);
+      v7 = *v6;
+      if (v7)
+      {
+        for (i = 0; i < v7; ++i)
+        {
+          v9 = *(*(v6 + 1) + 8 * i);
+          if (*v9 == 1)
           {
-            *(*(result + 360) + v11) = a2[v8 + 4];
-            *(*(result + 288) + 4 * v7[v8]) = v6;
+            v10 = *(v9 + 16);
+            if (v10)
+            {
+              v11 = *v10;
+              if (*v10)
+              {
+                v12 = v10[1];
+                if (v12)
+                {
+                  v13 = (v10 + 2);
+                  do
+                  {
+                    v11 = 31 * v11 + v12;
+                    v14 = *v13++;
+                    v12 = v14;
+                  }
+
+                  while (v14);
+                }
+              }
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            v15 = *(v9 + 8);
+            *&v53.var0 = 2 * v11;
+            v53.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v54, v15, &v53);
+            if (*&v53.var0)
+            {
+              if (*&v53.var0)
+              {
+              }
+            }
+
+            v7 = *v6;
           }
-
-          v9 = 0;
-          v8 = 1;
         }
 
-        while ((v10 & 1) != 0);
-      }
-
-      ++v6;
-    }
-
-    while (v6 < *(*(result + 8) + 4));
-  }
-
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentFaces(uint64_t result, _BYTE *a2)
-{
-  if (*(result + 52))
-  {
-    v2 = *(result + 8);
-    v3 = *v2;
-    if (*(result + 36))
-    {
-      if (v3 >= 1)
-      {
-        v4 = 0;
-        v5 = *(result + 312) + 4 * *(result + 76);
-        do
+        if (v7)
         {
-          *(v5 + 4 * v4) = v4;
-          ++v4;
-        }
-
-        while (v4 < *v2);
-      }
-    }
-
-    else if (v3 >= 1)
-    {
-      for (i = 0; i < v3; ++i)
-      {
-        v7 = *(*(result + 168) + 4 * i);
-        if (v7 != -1)
-        {
-          if (*(*(result + 408) + i))
+          for (j = 0; j < v7; ++j)
           {
-            *(*(result + 384) + v7) = *a2;
-            v2 = *(result + 8);
+            v18 = *(*(v6 + 1) + 8 * j);
+            if (*v18 == 2)
+            {
+              v19 = *(v18 + 16);
+              if (v19)
+              {
+                v20 = *v19;
+                if (*v19)
+                {
+                  v21 = v19[1];
+                  if (v21)
+                  {
+                    v22 = (v19 + 2);
+                    do
+                    {
+                      v20 = 31 * v20 + v21;
+                      v23 = *v22++;
+                      v21 = v23;
+                    }
+
+                    while (v23);
+                  }
+                }
+              }
+
+              else
+              {
+                v20 = 0;
+              }
+
+              v24 = *(v18 + 8);
+              *&v53.var0 = 2 * v20;
+              v53.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v54, v24, &v53);
+              if (*&v53.var0)
+              {
+                if (*&v53.var0)
+                {
+                }
+              }
+
+              v7 = *v6;
+            }
           }
-
-          *(*(result + 312) + 4 * v7) = i;
-          v3 = *v2;
         }
       }
-    }
-  }
 
-  return result;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentEdges(uint64_t result, _BYTE *a2)
-{
-  v2 = *(result + 8);
-  v3 = *(v2 + 4);
-  if (*(result + 36))
-  {
-    if (v3 >= 1)
-    {
-      v4 = 0;
-      v5 = *(result + 312) + 4 * *(result + 80);
-      do
+      re::TypeBuilder::~TypeBuilder(v54, v26);
+      xmmword_1EE1C3548 = v53;
+      if (v51)
       {
-        *(v5 + 4 * v4) = v4;
-        ++v4;
-      }
-
-      while (v4 < *(v2 + 4));
-    }
-  }
-
-  else if (v3 >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = *(*(result + 216) + 4 * v6);
-      if (v7 != -1)
-      {
-        if (*(*(result + 432) + v6))
+        if (v51)
         {
-          *(*(result + 384) + v7) = *a2;
-          v2 = *(result + 8);
         }
-
-        *(*(result + 312) + 4 * v7) = v6;
       }
 
-      ++v6;
+      return;
     }
 
-    while (v6 < *(v2 + 4));
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v52);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v50);
+    __break(1u);
+LABEL_43:
+    if (__cxa_guard_acquire(&qword_1EE1C2F98))
+    {
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 0;
+      *(v29 + 16) = "Basic";
+      qword_1EE1C35C0 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 1;
+      *(v31 + 16) = "Pointer";
+      qword_1EE1C35C8 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 2;
+      *(v33 + 16) = "CStyleArray";
+      qword_1EE1C35D0 = v33;
+      v34 = re::introspectionAllocator();
+      v35 = (*(*v34 + 32))(v34, 24, 8);
+      *v35 = 1;
+      *(v35 + 8) = 3;
+      *(v35 + 16) = "DynamicArray";
+      qword_1EE1C35D8 = v35;
+      v36 = re::introspectionAllocator();
+      v37 = (*(*v36 + 32))(v36, 24, 8);
+      *v37 = 1;
+      *(v37 + 8) = 5;
+      *(v37 + 16) = "DataArray";
+      qword_1EE1C35E0 = v37;
+      v38 = re::introspectionAllocator();
+      v39 = (*(*v38 + 32))(v38, 24, 8);
+      *v39 = 1;
+      *(v39 + 8) = 6;
+      *(v39 + 16) = "DynamicString";
+      qword_1EE1C35E8 = v39;
+      v40 = re::introspectionAllocator();
+      v41 = (*(*v40 + 32))(v40, 24, 8);
+      *v41 = 1;
+      *(v41 + 8) = 7;
+      *(v41 + 16) = "HashTable";
+      qword_1EE1C35F0 = v41;
+      v42 = re::introspectionAllocator();
+      v43 = (*(*v42 + 32))(v42, 24, 8);
+      *v43 = 1;
+      *(v43 + 8) = 8;
+      *(v43 + 16) = "Structure";
+      qword_1EE1C35F8 = v43;
+      v44 = re::introspectionAllocator();
+      v45 = (*(*v44 + 32))(v44, 24, 8);
+      *v45 = 1;
+      *(v45 + 8) = 9;
+      *(v45 + 16) = "Enum";
+      qword_1EE1C3600 = v45;
+      v46 = re::introspectionAllocator();
+      v47 = (*(*v46 + 32))(v46, 24, 8);
+      *v47 = 1;
+      *(v47 + 8) = 10;
+      *(v47 + 16) = "StringID";
+      qword_1EE1C3608 = v47;
+      v48 = re::introspectionAllocator();
+      v49 = (*(*v48 + 32))(v48, 24, 8);
+      *v49 = 1;
+      *(v49 + 8) = 11;
+      *(v49 + 16) = "CallbackSerializer";
+      qword_1EE1C3610 = v49;
+      __cxa_guard_release(&qword_1EE1C2F98);
+    }
   }
-
-  return result;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexParentFromParentVertices(uint64_t result, _BYTE *a2)
+void *re::allocInfo_PersistedSchema(re *this)
 {
-  v2 = *(result + 8);
-  v3 = *(v2 + 8);
-  if (*(result + 36))
+  if ((atomic_load_explicit(&qword_1EE1C2FA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2FA8))
   {
-    if (v3 >= 1)
-    {
-      v4 = 0;
-      v5 = *(result + 312) + 4 * *(result + 84);
-      do
-      {
-        *(v5 + 4 * v4) = v4;
-        ++v4;
-      }
-
-      while (v4 < *(v2 + 8));
-    }
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1ECF19E28, "PersistedSchema");
+    __cxa_guard_release(&qword_1EE1C2FA8);
   }
 
-  else if (v3 >= 1)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = *(*(result + 240) + 4 * v6);
-      if (v7 != -1)
-      {
-        if (*(*(result + 456) + v6))
-        {
-          *(*(result + 384) + v7) = *a2;
-          v2 = *(result + 8);
-        }
-
-        *(*(result + 312) + 4 * v7) = v6;
-      }
-
-      ++v6;
-    }
-
-    while (v6 < *(v2 + 8));
-  }
-
-  return result;
+  return &unk_1ECF19E28;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
+void re::initInfo_PersistedSchema(re *this, re::IntrospectionBase *a2)
 {
-  v2 = *(this + 2);
-  v3 = *(v2 + 12);
-  v4 = *v2;
-  v5 = *(v2 + 13) - v3;
-  if (v4 <= v5)
+  v10[0] = 0xE30C31A82622B1A8;
+  v10[1] = "PersistedSchema";
+  if (v10[0])
   {
-    if (v4 < v5)
+    if (v10[0])
     {
-      *(v2 + 13) = v3 + v4;
+    }
+  }
+
+  *(this + 2) = v11;
+  if ((atomic_load_explicit(&qword_1EE1C2FB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1C2FB8))
+  {
+    v5 = re::introspectionAllocator();
+    v7 = re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(1, v6);
+    v8 = (*(*v5 + 32))(v5, 72, 8);
+    *v8 = 1;
+    *(v8 + 8) = "types";
+    *(v8 + 16) = v7;
+    *(v8 + 24) = 0;
+    *(v8 + 32) = 1;
+    *(v8 + 40) = 0;
+    *(v8 + 48) = 0;
+    *(v8 + 56) = 0;
+    *(v8 + 64) = 0;
+    qword_1EE1C2FB0 = v8;
+    __cxa_guard_release(&qword_1EE1C2FB8);
+  }
+
+  *(this + 2) = 0x3000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1C2FB0;
+  *(this + 9) = re::internal::defaultConstruct<re::PersistedSchema>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::PersistedSchema>;
+  *(this + 13) = re::internal::defaultConstructV2<re::PersistedSchema>;
+  *(this + 14) = re::internal::defaultDestructV2<re::PersistedSchema>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v4);
+  v9 = v11;
+}
+
+uint64_t *re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(int a1, const re::IntrospectionBase *a2)
+{
+  {
+    *re::IntrospectionHashTableBase::IntrospectionHashTableBase(&re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info) = &unk_1F5D16C70;
+  }
+
+  if (a1)
+  {
+    if (re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::isInitialized)
+    {
+      return &re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info;
     }
   }
 
   else
   {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append((v2 + 24), v4 - v5);
-  }
-
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagsFromParentFaces(this);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  v2 = *(this + 2);
-  v3 = *(v2 + 240);
-  v4 = *(v2 + 4);
-  v5 = *(v2 + 248) - v3;
-  if (v4 <= v5)
-  {
-    if (v4 < v5)
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v18);
+    v3 = re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v18);
+    if (v3)
     {
-      *(v2 + 248) = v3 + v4;
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::ETag>::__append(v2 + 240, v4 - v5);
-  }
-
-  v6 = *(this + 11);
-  if (v6 >= 1)
-  {
-    v7 = *(this + 17);
-    v8 = v7 + v6;
-    do
-    {
-      *(*(*(this + 2) + 240) + v7++) = 0;
+      return &re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info;
     }
 
-    while (v7 < v8);
+    v5 = re::introspectionSharedMutex(v4);
+    std::__shared_mutex_base::lock(v5);
   }
 
-  return OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagsFromParentEdges(this);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagVectors(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(*(this + 2) + 432, *(*(this + 2) + 8));
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentFaces(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentEdges(this);
-  result = OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentVertices(this);
-  if ((*(this + 36) & 1) == 0)
+  v6 = re::IntrospectionInfo<re::DynamicString>::get(1, a2);
+  v7 = re::IntrospectionInfo<re::IntrospectionBase const*>::get(1);
+  if ((re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::isInitialized & 1) == 0)
   {
-    v3 = *(this + 2);
-    if (*(v3 + 8) >= 1)
+    v8 = v7;
+    re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::isInitialized = 1;
+    v9 = *(v7 + 6);
+    ArcSharedObject::ArcSharedObject(&re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info, 0);
+    qword_1ECF17C70 = 0x3000000007;
+    dword_1ECF17C78 = v9;
+    word_1ECF17C7C = 0;
+    *&xmmword_1ECF17C80 = 0;
+    *(&xmmword_1ECF17C80 + 1) = 0xFFFFFFFFLL;
+    qword_1ECF17C90 = v6;
+    unk_1ECF17C98 = 0;
+    qword_1ECF17CA0 = v8;
+    unk_1ECF17CA8 = 0;
+    re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info = &unk_1F5D16C70;
+    re::IntrospectionRegistry::add(v10, v11);
+    re::getPrettyTypeName(&v18, &re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info);
+    if (BYTE8(v18))
     {
-      v4 = 0;
-      do
+      v12 = v19;
+    }
+
+    else
+    {
+      v12 = &v18 + 9;
+    }
+
+    if (v18 && (BYTE8(v18) & 1) != 0)
+    {
+      (*(*v18 + 40))();
+    }
+
+    v13 = v6[2];
+    v17 = *(v8 + 32);
+    v18 = v13;
+    xmmword_1ECF17C80 = v16;
+    if (v20)
+    {
+      if (v20)
       {
-        if (*(*(this + 48) + v4))
+      }
+    }
+  }
+
+  if ((a1 & 1) == 0)
+  {
+    v14 = re::introspectionSharedMutex(v7);
+    std::__shared_mutex_base::unlock(v14);
+  }
+
+  return &re::IntrospectionInfo<re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>>::get(BOOL)::info;
+}
+
+double re::internal::defaultConstruct<re::PersistedSchema>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a3 + 32) = 0;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *&result = 0x7FFFFFFFLL;
+  *(a3 + 36) = 0x7FFFFFFFLL;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::PersistedSchema>(uint64_t a1)
+{
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *&result = 0x7FFFFFFFLL;
+  *(a1 + 36) = 0x7FFFFFFFLL;
+  return result;
+}
+
+__n128 std::__function::__func<re::PersistedSchema::addIntrospectionGraph(re::IntrospectionBase const*)::$_0,std::allocator<re::PersistedSchema::addIntrospectionGraph(re::IntrospectionBase const*)::$_0>,void ()(re::IntrospectionBase const&,void const*)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D16BE0;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<re::PersistedSchema::addIntrospectionGraph(re::IntrospectionBase const*)::$_0,std::allocator<re::PersistedSchema::addIntrospectionGraph(re::IntrospectionBase const*)::$_0>,void ()(re::IntrospectionBase const&,void const*)>::operator()(uint64_t result, uint64_t a2, uint64_t **a3)
+{
+  {
+    v17 = v3;
+    v18 = v4;
+    v5 = result;
+    v6 = *(result + 8);
+    result = **a3;
+    v14 = result;
+    if (result)
+    {
+      v7 = *(result + 16);
+      v8 = v7 > 0xA;
+      v9 = (1 << v7) & 0x441;
+      if (v8 || v9 == 0)
+      {
+        re::getPrettyTypeName(&v12, result);
+        v11 = re::Hash<re::DynamicString>::operator()(v15, &v12);
+        re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(v6, v11, v15, &v12);
+        if (v16 == 0x7FFFFFFF)
         {
-          *(*(v3 + 432) + 2 * v4) |= 0x800u;
-          v3 = *(this + 2);
+          re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::emplace<re::IntrospectionBase const*>(v6, &v12, &v14);
+          re::DynamicArray<re::TransitionCondition *>::add(*(v5 + 16), &v14);
         }
 
-        ++v4;
+        result = v12;
+        if (v12)
+        {
+          if (v13)
+          {
+            return (*(*v12 + 40))();
+          }
+        }
       }
-
-      while (v4 < *(v3 + 8));
     }
   }
 
   return result;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateFaceTagsFromParentFaces(uint64_t this)
+uint64_t *re::IntrospectionInfo<re::IntrospectionBase const*>::get(re *a1)
 {
-  v1 = *(this + 40);
-  if (v1 >= 1)
+  v1 = a1;
   {
-    v2 = *(this + 64);
-    v3 = v2 + v1;
-    do
+    if (a1)
     {
-      *(*(*(this + 16) + 96) + v2) = *(*(*(this + 8) + 96) + *(*(this + 264) + 4 * v2));
-      ++v2;
+      re::IntrospectionPointer::IntrospectionPointer(&re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info);
     }
-
-    while (v2 < v3);
   }
 
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateEdgeTagsFromParentEdges(uint64_t this)
-{
-  v1 = *(this + 48);
-  if (v1 >= 1)
-  {
-    v2 = *(this + 72);
-    v3 = v2 + v1;
-    do
-    {
-      *(*(*(this + 16) + 240) + v2) = *(*(*(this + 8) + 240) + *(*(this + 288) + 4 * v2));
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentFaces(uint64_t this)
-{
-  v1 = *(this + 52);
   if (v1)
   {
-    v2 = *(this + 76);
-    v3 = v2 + v1;
-    if (*(*(this + 8) + 12) <= 0)
+    if (re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::isInitialized)
     {
-      if (v1 >= 1)
-      {
-        do
-        {
-          *(*(*(this + 16) + 432) + 2 * v2) = 128;
-          if (*(*(*(this + 8) + 24) + 8 * *(*(this + 312) + 4 * v2)) != *(this + 32))
-          {
-            *(*(*(this + 16) + 432) + 2 * v2) |= 2u;
-          }
-
-          ++v2;
-        }
-
-        while (v2 < v3);
-      }
-    }
-
-    else if (v1 >= 1)
-    {
-      do
-      {
-        *(*(*(this + 16) + 432) + 2 * v2++) = 128;
-      }
-
-      while (v2 < v3);
+      return &re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info;
     }
   }
 
-  return this;
+  else
+  {
+    re::IntrospectionSharedLock::IntrospectionSharedLock(&v14);
+    v2 = re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::isInitialized;
+    re::IntrospectionSharedLock::~IntrospectionSharedLock(&v14);
+    if (v2)
+    {
+      return &re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info;
+    }
+
+    v4 = re::introspectionSharedMutex(v3);
+    std::__shared_mutex_base::lock(v4);
+    if (re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::isInitialized)
+    {
+LABEL_24:
+      v11 = re::introspectionSharedMutex(a1);
+      std::__shared_mutex_base::unlock(v11);
+      return &re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info;
+    }
+  }
+
+  re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::isInitialized = 1;
+  v5 = qword_1EE1C2C98;
+  if (!qword_1EE1C2C98)
+  {
+    v5 = re::allocInfo_IntrospectionBase(a1);
+    qword_1EE1C2C98 = v5;
+    re::initInfo_IntrospectionBase(v5, v6);
+  }
+
+  ArcSharedObject::ArcSharedObject(&re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info, 0);
+  qword_1ECF17BD0 = 0x800000001;
+  dword_1ECF17BD8 = 8;
+  word_1ECF17BDC = 0;
+  *&xmmword_1ECF17BE0 = 0;
+  *(&xmmword_1ECF17BE0 + 1) = 0xFFFFFFFFLL;
+  re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info = &unk_1F5CBD2C0;
+  qword_1ECF17BF0 = v5;
+  unk_1ECF17BF8 = 0;
+  re::IntrospectionRegistry::add(v7, v8);
+  re::getPrettyTypeName(&v14, &re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info);
+  if (BYTE8(v14))
+  {
+    v9 = v15;
+  }
+
+  else
+  {
+    v9 = &v14 + 9;
+  }
+
+  if (v14 && (BYTE8(v14) & 1) != 0)
+  {
+    (*(*v14 + 40))();
+  }
+
+  if (v16 >> 1 == 94623636 && (__s1 == "char*" || !strcmp(__s1, "char*")))
+  {
+    v10 = v14;
+  }
+
+  else
+  {
+    v14 = *(v5 + 2);
+    v10 = v13;
+  }
+
+  xmmword_1ECF17BE0 = v10;
+  if (v16)
+  {
+    if (v16)
+    {
+    }
+  }
+
+  if ((v1 & 1) == 0)
+  {
+    goto LABEL_24;
+  }
+
+  return &re::IntrospectionInfo<re::IntrospectionBase const*>::get(BOOL)::info;
 }
 
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentEdges(void *this)
+__n128 std::__function::__func<re::PersistedSchema::hookupPointers(void)::$_0,std::allocator<re::PersistedSchema::hookupPointers(void)::$_0>,void ()(re::IntrospectionBase const&,void const*)>::__clone(uint64_t a1, uint64_t a2)
 {
-  v1 = this[1];
-  if (*(v1 + 4) >= 1)
+  *a2 = &unk_1F5D16C28;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<re::PersistedSchema::hookupPointers(void)::$_0,std::allocator<re::PersistedSchema::hookupPointers(void)::$_0>,void ()(re::IntrospectionBase const&,void const*)>::operator()(uint64_t result, uint64_t a2, uint64_t **a3)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = **(result + 16) == 1 && *(a2 + 16) == 11;
   {
-    v2 = 0;
-    v3 = 0;
-    do
+    v4 = result;
+    v5 = *a3;
+    v6 = *(result + 8);
+    re::DynamicString::DynamicString(&v13, (*a3)[1]);
+    v7 = v14 >> 1;
+    if ((v14 & 1) == 0)
     {
-      v4 = *(this[27] + 4 * v2);
-      if (v4 != -1)
+      v7 = v14 >> 1;
+    }
+
+    if (v7)
+    {
+      if (v14)
       {
-        v5 = *(*(v1 + 240) + v2);
-        v6 = v5 >> 3;
-        v7 = v5 >> 1;
-        v8 = v5 & 1;
-        v9 = v3 & 0xFFFF883A;
-        v10 = v5 >> 2;
-        v11 = (v5 << 12) & (v8 << 14);
-        if ((v5 & 0xC) != 0)
+        v8 = v15;
+      }
+
+      else
+      {
+        v8 = &v14 + 1;
+      }
+
+      v9 = re::PersistedSchema::introspectionInfo(v6, v8);
+      if (v9)
+      {
+        v10 = v9;
+        re::SerializedReference<re::IntrospectionBase const*>::reset(v5);
+        *v5 = v10;
+      }
+
+      else
+      {
+        v11 = *re::foundationSerializationLogObjects(0);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 512;
+          if (v14)
+          {
+            v12 = v15;
+          }
+
+          else
+          {
+            v12 = &v14 + 1;
+          }
+
+          *buf = 136315138;
+          v17 = v12;
+          _os_log_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_DEFAULT, "Unknown type name '%s'", buf, 0xCu);
+        }
+
+        **(v4 + 16) = 0;
+      }
+    }
+
+    else
+    {
+      re::SerializedReference<re::IntrospectionBase const*>::reset(v5);
+      *v5 = 0;
+    }
+
+    result = v13;
+    if (v13)
+    {
+      if (v14)
+      {
+        return (*(*v13 + 40))();
+      }
+    }
+  }
+
+  return result;
+}
+
+ArcSharedObject *re::make::shared::unsafelyInplace<re::IntrospectionPointer>(ArcSharedObject *a1)
+{
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 3) = 0u;
+  v2 = a1 + 48;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v3 + 22) = 0;
+  v3[2] = 0;
+  v3[4] = 0;
+  v3[5] = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5CBD2C0;
+  v3[7] = 0;
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  return a1;
+}
+
+ArcSharedObject *re::make::shared::unsafelyInplace<re::IntrospectionDynamicArrayBase>(ArcSharedObject *a1)
+{
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 3) = 0u;
+  v2 = a1 + 48;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v3 + 22) = 0;
+  v3[2] = 0;
+  v3[4] = 0;
+  v3[5] = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5CADA48;
+  v3[7] = 0;
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  return a1;
+}
+
+ArcSharedObject *re::make::shared::unsafelyInplace<re::IntrospectionFixedArrayBase>(ArcSharedObject *a1)
+{
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 3) = 0u;
+  v2 = a1 + 48;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v3 + 22) = 0;
+  v3[2] = 0;
+  v3[4] = 0;
+  v3[5] = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5CAE268;
+  v3[7] = 0;
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  return a1;
+}
+
+ArcSharedObject *re::make::shared::unsafelyInplace<re::IntrospectionDataArrayBase>(ArcSharedObject *a1)
+{
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 3) = 0u;
+  v2 = a1 + 48;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v3 + 22) = 0;
+  v3[2] = 0;
+  v3[4] = 0;
+  v3[5] = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5D0C598;
+  v3[7] = 0;
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  return a1;
+}
+
+ArcSharedObject *re::make::shared::unsafelyInplace<re::IntrospectionOptionalBase>(ArcSharedObject *a1)
+{
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a1 + 3) = 0u;
+  v2 = a1 + 48;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v3 + 22) = 0;
+  v3[2] = 0;
+  v3[4] = 0;
+  v3[5] = 0xFFFFFFFFLL;
+  *v3 = &unk_1F5CBA310;
+  v3[7] = 0;
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  return a1;
+}
+
+void re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *a1@<X0>, const re::StringID *a2@<X1>, re **a3@<X2>, __int128 *a4@<X3>, uint64_t *a5@<X8>)
+{
+  re::TypeRegistry::typeID(&v26, a1, a2);
+  if (v26)
+  {
+    *a5 = v26;
+  }
+
+  else
+  {
+    *&v19 = 0x449AD97C4B77BED4;
+    *(&v19 + 1) = "_CompareFunc";
+    v10 = re::TypeRegistry::typeID(&v25, a1, &v19);
+    if (v19)
+    {
+      if (v19)
+      {
+      }
+    }
+
+    if (!v25)
+    {
+      v21[0] = 0x449AD97C4B77BED4;
+      v21[1] = "_CompareFunc";
+      re::TypeRegistry::declareType(&v19, v21, a1, 8, 1u, 0);
+      v25 = v19;
+      if (v21[0])
+      {
+        if (v21[0])
+        {
+        }
+      }
+    }
+
+    re::TypeRegistry::typeInfo(a1, a3, &v19);
+    re::TypeInfo::TypeInfo(v24, &v19 + 8);
+    if (!v25 || (v12 = *v24[2], *&v19 = *(&v25 + 1), *(&v19 + 1) = v12, v20 = -1, (v13 = re::HashTable<re::internal::TypeAttributeKey,re::internal::TypeAttributeData,re::Hash<re::internal::TypeAttributeKey>,re::EqualTo<re::internal::TypeAttributeKey>,true,false>::tryGet(v24[0] + 768, &v19)) == 0) || !*v13)
+    {
+      v14 = *a3;
+      v22 = v25;
+      v23 = v14;
+      re::TypeRegistry::addAttribute(a1, &v23, 0xFFFFFFFFLL, &v22, re::internal::less<re::DynamicString>, 0);
+    }
+
+    re::StackScratchAllocator::StackScratchAllocator(v21);
+    re::TypeBuilder::TypeBuilder(&v19, v21);
+    v15 = *a3;
+    v17 = *a4;
+    v18 = v15;
+    re::TypeBuilder::beginDictionaryType(&v19, a2, 1, 0x30uLL, 8uLL, &v18, &v17);
+    re::TypeBuilder::setConstructor(&v19, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+    re::TypeBuilder::setDestructor(&v19, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+    re::TypeBuilder::setDictionaryAccessors(&v19, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#3}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,void const*)#1}::__invoke);
+    re::TypeBuilder::setDictionaryIterator(&v19, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#3}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#4}::__invoke, re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+    re::TypeBuilder::commitTo(a5, &v19, a1);
+    re::TypeBuilder::~TypeBuilder(&v19, v16);
+    re::StackScratchAllocator::~StackScratchAllocator(v21);
+  }
+}
+
+void *re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::~IntrospectionHashTable(void *a1)
+{
+  *a1 = &unk_1F5CAE2E8;
+  v2 = a1 + 6;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 8));
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::~IntrospectionHashTable(void *a1)
+{
+  *a1 = &unk_1F5CAE2E8;
+  v2 = a1 + 6;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 8));
+  re::SerializedReference<re::IntrospectionBase const*>::reset(v2);
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+double re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::construct(uint64_t a1, uint64_t a2)
+{
+  result = 0.0;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
+  *a2 = 0u;
+  *(a2 + 36) = 0x7FFFFFFF;
+  return result;
+}
+
+void re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4)
+{
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(a2);
+  if (a4 <= 3)
+  {
+    v7 = 3;
+  }
+
+  else
+  {
+    v7 = a4;
+  }
+
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a2, a3, v7);
+}
+
+re::IntrospectionBase *re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addElement(uint64_t a1, re *a2, int a3, uint64_t a4, const re::DynamicString *a5)
+{
+  v10 = 0;
+  v8 = re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(a4, a5, &v10);
+  re::introspectionInitElement(a2, a3, *(a1 + 64), v8);
+  return v8;
+}
+
+uint64_t re::IntrospectionHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::iterate(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a2 + 32);
+  if (v5)
+  {
+    v6 = 0;
+    v7 = *(a2 + 16);
+    while (1)
+    {
+      v8 = *v7;
+      v7 += 14;
+      if (v8 < 0)
+      {
+        break;
+      }
+
+      if (v5 == ++v6)
+      {
+        LODWORD(v6) = *(a2 + 32);
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v6) = 0;
+  }
+
+  if (v6 == v5)
+  {
+    return 1;
+  }
+
+  do
+  {
+    v10 = *(a2 + 16) + 56 * v6;
+    result = std::function<BOOL ()(void const*,void *)>::operator()(a3, v10 + 8, v10 + 40);
+    if (!result)
+    {
+      break;
+    }
+
+    v11 = *(a2 + 32);
+    if (v11 <= v6 + 1)
+    {
+      v11 = v6 + 1;
+    }
+
+    while (v11 - 1 != v6)
+    {
+      LODWORD(v6) = v6 + 1;
+      if ((*(*(a2 + 16) + 56 * v6) & 0x80000000) != 0)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    LODWORD(v6) = v11;
+LABEL_16:
+    ;
+  }
+
+  while (v6 != v5);
+  return result;
+}
+
+uint64_t re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(uint64_t a1, const re::DynamicString *a2, void *a3)
+{
+  v12 = 0;
+  v13 = 0;
+  v14 = 0;
+  v6 = re::Hash<re::DynamicString>::operator()(&v15, a2);
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::findEntry<re::DynamicString>(a1, v6, &v12, a2);
+  v7 = HIDWORD(v13);
+  if (HIDWORD(v13) == 0x7FFFFFFF)
+  {
+    v8 = re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::allocEntry(a1, v13, v12);
+    re::DynamicString::DynamicString((v8 + 8), a2);
+    *(v8 + 40) = *a3;
+    v9 = v8 + 40;
+    ++*(a1 + 40);
+  }
+
+  else
+  {
+    ++*(a1 + 40);
+    v10 = *(a1 + 16) + 56 * v7;
+    *(v10 + 40) = *a3;
+    return v10 + 40;
+  }
+
+  return v9;
+}
+
+void re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  *(a1 + 36) = 0x7FFFFFFF;
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a1, a3, 3);
+}
+
+double re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke(uint64_t *a1)
+{
+  re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(a1);
+
+  return re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(a1);
+}
+
+void re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *)#1}::__invoke(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (*a1 == a3)
+  {
+
+    re::HashTable<re::DynamicString,unsigned long long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::clear(a1);
+  }
+
+  else
+  {
+    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::deinit(a1);
+
+    re::HashTable<re::DynamicString,unsigned long,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::init(a1, a3, 3);
+  }
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#3}::__invoke(uint64_t a1, void **a2, re::Allocator *a3, const re::DynamicString *a4)
+{
+  re::TypeRegistry::typeInfo(*a2, a2[2][11], v12);
+  re::TypeInfo::TypeInfo(v11, v13);
+  Instance = re::TypeInfo::createInstance(v11, a3, 0);
+  v9 = re::HashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::addOrReplace(a1, a4, Instance);
+  re::TypeRegistry::typeInfo(*a2, a2[2][11], v12);
+  re::TypeInfo::TypeInfo(v11, v13);
+  re::TypeInfo::releaseInstance(v11, Instance, a3, 0);
+  return v9;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
+{
+  result = (*(*a2 + 32))(a2, 40, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 40);
+  *(result + 16) = 0;
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  if (*(a1 + 2) == *(*a1 + 40))
+  {
+    v3 = *(v2 + 32);
+    if (a1[2])
+    {
+      LODWORD(v4) = *(a1 + 8);
+      if (v4 == v3)
+      {
+        LODWORD(v4) = *(v2 + 32);
+      }
+
+      else
+      {
+        v7 = a1[3];
+        v8 = *(v7 + 32);
+        if (v8 <= v4 + 1)
+        {
+          v9 = v4 + 1;
         }
 
         else
         {
-          v12 = 128;
+          v9 = *(v7 + 32);
         }
 
-        v3 = v9 & 0xFFFFCFBB | (4 * (v7 & 1)) & 0xBF | ((v6 & 1) << 6) | v12 & 0xFFFFCFFF | ((v10 & 1) << 12) & 0xDFFF | ((v10 & 1) << 13) | v11 | v8;
-        *(*(this[2] + 432) + 2 * v4) = v3;
-        v1 = this[1];
+        while (1)
+        {
+          LODWORD(v4) = v4 + 1;
+          if (v4 >= v8)
+          {
+            break;
+          }
+
+          if ((*(*(v7 + 16) + 56 * v4) & 0x80000000) != 0)
+          {
+            goto LABEL_19;
+          }
+        }
+
+        LODWORD(v4) = v9;
+LABEL_19:
+        *(a1 + 8) = v4;
+      }
+    }
+
+    else
+    {
+      if (v3)
+      {
+        v4 = 0;
+        v5 = *(v2 + 16);
+        while (1)
+        {
+          v6 = *v5;
+          v5 += 14;
+          if (v6 < 0)
+          {
+            break;
+          }
+
+          if (v3 == ++v4)
+          {
+            LODWORD(v4) = *(v2 + 32);
+            break;
+          }
+        }
       }
 
-      ++v2;
+      else
+      {
+        LODWORD(v4) = 0;
+      }
+
+      *(a1 + 16) = 1;
+      a1[3] = v2;
+      *(a1 + 8) = v4;
+      LODWORD(v3) = *(v2 + 32);
     }
 
-    while (v2 < *(v1 + 4));
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::populateVertexTagsFromParentVertices(uint64_t this)
-{
-  v1 = *(this + 60);
-  if (v1 >= 1)
-  {
-    v2 = *(this + 84);
-    v3 = v2 + v1;
-    do
-    {
-      *(*(*(this + 16) + 432) + 2 * v2) = *(*(*(this + 8) + 432) + 2 * *(*(this + 312) + 4 * v2));
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideEdgeSharpness(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
-{
-  v32 = *MEMORY[0x1E69E9840];
-  v27 = *(this + 6);
-  v2 = v27;
-  v3 = *(this + 2);
-  v4 = v3[27];
-  v3 += 27;
-  v3[1] = v4;
-  std::vector<float>::resize(v3, *(v3 - 53));
-  v28 = &v30;
-  v29 = 0x1000000000;
-  __p = 0;
-  v5 = v2 & 0x60;
-  if (v5 && (v6 = *(*(this + 1) + 20), v6 >= 0x11))
-  {
-    operator delete(0);
-    v7 = operator new(4 * v6);
-    __p = v7;
-    v28 = v7;
-    HIDWORD(v29) = v6;
+    return v4 != v3;
   }
 
   else
   {
-    v7 = 0;
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 589);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+    __break(1u);
   }
 
-  v8 = *(this + 12);
-  if (v8 >= 1)
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#3}::__invoke(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == *(*a1 + 40))
   {
-    v9 = *(this + 18);
-    v10 = v9 + v8;
-    while (1)
+    return *(*(a1 + 24) + 16) + 56 * *(a1 + 32) + 8;
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 604, v2, v3);
+  result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *)#4}::__invoke(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == *(*a1 + 40))
+  {
+    return *(*(a1 + 24) + 16) + 56 * *(a1 + 32) + 40;
+  }
+
+  re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 613, v2, v3);
+  result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+  __break(1u);
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerHashTable<re::DynamicString,re::IntrospectionBase const*,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>(re::TypeRegistry *,re::StringID const&,re::TypeID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(_DWORD *a1, uint64_t a2)
+{
+  if (a1[2] == *(*a1 + 40))
+  {
+    v4 = *(*a2 + 40);
+
+    return v4(a2, a1);
+  }
+
+  else
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) HashTable entries may not be added or removed during iteration.", "iter->originalVersion == iter->hashTable->version()", "operator()", 622, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->hashTable->version()) HashTable entries may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+void re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::clear(uint64_t a1)
+{
+  if (*(a1 + 28))
+  {
+    v2 = *(a1 + 24);
+    if (v2)
     {
-      v11 = *(this + 2);
-      v12 = *(v11 + 216);
-      v13 = *(v11 + 240);
-      if ((*(v13 + v9) & 4) != 0)
-      {
-        goto LABEL_20;
-      }
-
-      if ((*(v13 + v9) & 8) != 0)
-      {
-        break;
-      }
-
-LABEL_23:
-      if (++v9 >= v10)
-      {
-        v7 = __p;
-        goto LABEL_25;
-      }
+      memset_pattern16(*(a1 + 8), &memset_pattern_27, 4 * v2);
     }
 
-    v14 = *(*(this + 36) + 4 * v9);
-    v15 = *(this + 1);
-    v16 = v15[27];
-    v17 = *(v16 + 4 * v14);
-    if (v5)
+    v3 = *(a1 + 32);
+    if (v3)
     {
-      v18 = *(v15[15] + 8 * v14 + 4 * ((*(*(this + 45) + v9) >> 3) & 3));
-      v19 = v15[42];
-      v20 = *(v19 + 8 * v18);
-      v21 = v28;
-      if (v20 >= 1)
+      v4 = *(a1 + 16);
+      do
       {
-        v22 = (v15[45] + 4 * *(v19 + 8 * v18 + 4));
-        v23 = v28;
-        v24 = v20;
-        do
+        if ((*v4 & 0x80000000) != 0)
         {
-          v25 = *v22++;
-          *v23++ = *(v16 + 4 * v25);
-          --v24;
+          *v4 &= ~0x80000000;
         }
 
-        while (v24);
+        v4 += 8;
+        --v3;
       }
 
-      v26 = OpenSubdiv::v3_1_1::Sdc::Crease::SubdivideEdgeSharpnessAtVertex(&v27, v17, v20, v21);
-      goto LABEL_14;
+      while (v3);
     }
 
-    if (v17 <= 0.0)
+    *(a1 + 28) = 0;
+    *(a1 + 32) = 0;
+    v5 = *(a1 + 40) + 1;
+    *(a1 + 36) = 0x7FFFFFFF;
+    *(a1 + 40) = v5;
+  }
+}
+
+_anonymous_namespace_ *re::internal::SharedObjectGraph::beginObject(_anonymous_namespace_ *result, unint64_t a2, __int128 *a3)
+{
+  v12 = a2;
+  if (*result == 1)
+  {
+    v4 = result;
+    v11 = *(result + 9);
+    v8 = -1;
+    v10 = 0;
+    v6 = a2;
+    v7 = *a3;
+    v9 = *(result + 19) == 0;
+    re::DynamicArray<re::internal::SharedObjectGraph::Entry>::add((result + 56), &v6);
+    if (a2)
     {
-      goto LABEL_21;
+      re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::addNew(v4 + 8, &v12, &v11);
     }
 
-    if (v17 < 10.0)
+    if (*(v4 + 1) == 1)
     {
-      if (v17 <= 1.0)
+      v5 = *(v4 + 19);
+      if (v5)
       {
-LABEL_21:
-        *(v12 + 4 * v9) = 0;
+        re::internal::SharedObjectGraph::addChild(v4, *(*(v4 + 21) + 4 * v5 - 4), v11);
+      }
+    }
+
+    return re::DynamicArray<int>::add((v4 + 136), &v11);
+  }
+
+  return result;
+}
+
+__n128 re::DynamicArray<re::internal::SharedObjectGraph::Entry>::add(_anonymous_namespace_ *this, uint64_t a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::internal::SharedObjectGraph::Entry>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = (*(this + 4) + 32 * v4);
+  result = *a2;
+  v7 = *(a2 + 16);
+  *v5 = *a2;
+  v5[1] = v7;
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::addNew(uint64_t a1, unint64_t *a2, _DWORD *a3)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<void *,unsigned int,re::Hash<void *>,re::EqualTo<void *>,true,false>::findEntry<void *>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v10);
+  if (HIDWORD(v11) != 0x7FFFFFFF)
+  {
+    return *(a1 + 16) + 32 * HIDWORD(v11) + 16;
+  }
+
+  v7 = re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::allocEntry(a1, v11, v10);
+  v8 = *a2;
+  *(v7 + 16) = *a3;
+  result = v7 + 16;
+  *(result - 8) = v8;
+  ++*(a1 + 40);
+  return result;
+}
+
+_anonymous_namespace_ *re::internal::SharedObjectGraph::addChild(_anonymous_namespace_ *this, unsigned int a2, unsigned int a3)
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v4 = *(this + 9);
+  if (v4 <= a2)
+  {
+    v17 = 0;
+    memset(v26, 0, sizeof(v26));
+    v14 = MEMORY[0x1E69E9C10];
+    v18 = 136315906;
+    v19 = "operator[]";
+    v20 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v15 = 3;
+    }
+
+    else
+    {
+      v15 = 2;
+    }
+
+    v21 = 789;
+    v22 = 2048;
+    v23 = v3;
+    v24 = 2048;
+    v25 = v4;
+    _os_log_send_and_compose_impl(v15, &v17, v26, 80, &dword_1E1C61000, v14, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v18, 38, v16);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v6 = this;
+  v7 = *(this + 11) + 32 * a2;
+  v8 = *(v7 + 24);
+  v10 = *(this + 13);
+  v9 = *(this + 14);
+  *(v7 + 24) = v9;
+  if (v9 >= v10)
+  {
+    v11 = v9 + 1;
+    if (v10 < v9 + 1)
+    {
+      if (*(this + 12))
+      {
+        v12 = 2 * v10;
+        if (!v10)
+        {
+          v12 = 8;
+        }
+
+        if (v12 <= v11)
+        {
+          v13 = v11;
+        }
+
+        else
+        {
+          v13 = v12;
+        }
+
+        this = re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(this + 12, v13);
       }
 
       else
       {
-        v26 = v17 + -1.0;
-LABEL_14:
-        *(v12 + 4 * v9) = v26;
-        if (v26 > 0.0)
+        this = re::DynamicArray<re::MeshAssetLoader::addProceduralVertexAttributes(re::MeshAssetData &)::MeshModelPartWithOpenSubDiv>::setCapacity(v6 + 12, v11);
+        ++*(v6 + 30);
+      }
+    }
+
+    v9 = *(v6 + 14);
+  }
+
+  *(*(v6 + 16) + 8 * v9) = a3 | (v8 << 32);
+  ++*(v6 + 14);
+  ++*(v6 + 30);
+  return this;
+}
+
+uint64_t re::internal::SharedObjectGraph::object(re::internal::SharedObjectGraph *this, unsigned int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  if (*this != 1)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  v3 = *(this + 9);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 797;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(this + 11) + 32 * a2);
+}
+
+double re::internal::SharedObjectGraph::typeID@<D0>(uint64_t *__return_ptr a1@<X8>, re::internal::SharedObjectGraph *this@<X0>, unsigned int a3@<W1>)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (*this)
+  {
+    v3 = a3;
+    v4 = *(this + 9);
+    if (v4 <= a3)
+    {
+      v10 = 0;
+      memset(v19, 0, sizeof(v19));
+      v6 = MEMORY[0x1E69E9C10];
+      v11 = 136315906;
+      v12 = "operator[]";
+      v13 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = 2;
+      }
+
+      v14 = 797;
+      v15 = 2048;
+      v16 = v3;
+      v17 = 2048;
+      v18 = v4;
+      _os_log_send_and_compose_impl(v7, &v10, v19, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v5 = *(*(this + 11) + 32 * a3 + 8);
+    *a1 = v5;
+  }
+
+  else
+  {
+    *a1 = 0;
+    *&v5 = 0xFFFFFFFFLL;
+    a1[1] = 0xFFFFFFFFLL;
+  }
+
+  return *&v5;
+}
+
+re::internal::SharedObjectGraph *re::internal::SharedObjectGraph::markAndSweep(re::internal::SharedObjectGraph *this, re::Allocator *a2, void *a3)
+{
+  if (*this == 1)
+  {
+    v18 = v3;
+    v19 = v4;
+    v5 = this;
+    v6 = *(this + 9);
+    if (v6)
+    {
+      v9 = 0;
+      v10 = 1;
+      do
+      {
+        if (*(*(v5 + 11) + 32 * v9 + 28) == 1)
         {
-          goto LABEL_23;
+          this = re::internal::SharedObjectGraph::mark(v5, v10 - 1);
+          v6 = *(v5 + 9);
+        }
+
+        v9 = v10;
+        v11 = v6 > v10++;
+      }
+
+      while (v11);
+      if (v6)
+      {
+        v12 = 0;
+        v13 = 1;
+        do
+        {
+          v14 = *(v5 + 11) + 32 * v12;
+          if (*v14 && (*(v14 + 29) & 1) == 0)
+          {
+            this = *(v14 + 8);
+            if (this)
+            {
+              re::TypeRegistry::typeInfo(this, (v14 + 8), v15);
+              re::TypeInfo::TypeInfo(v17, &v16);
+              re::TypeInfo::releaseInstance(v17, *v14, a2, a3);
+              this = re::internal::SharedObjectGraph::mark(v5, v13 - 1);
+              v6 = *(v5 + 9);
+            }
+          }
+
+          v12 = v13;
+          v11 = v6 > v13++;
+        }
+
+        while (v11);
+      }
+    }
+  }
+
+  return this;
+}
+
+re::internal::SharedObjectGraph *re::internal::SharedObjectGraph::mark(re::internal::SharedObjectGraph *this, unsigned int a2)
+{
+  v29 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = *(this + 9);
+  if (v3 <= a2)
+  {
+    goto LABEL_19;
+  }
+
+  v4 = this;
+  v5 = *(this + 11) + 32 * a2;
+  if (*v5 && (*(v5 + 29) != 1 || (*(v5 + 30) & 1) == 0))
+  {
+    *(v5 + 29) = 257;
+    v2 = *(v5 + 24);
+    if (v2 != -1)
+    {
+      v3 = *(this + 14);
+      while (v3 > v2)
+      {
+        this = re::internal::SharedObjectGraph::mark(v4, *(*(v4 + 16) + 8 * v2));
+        v3 = *(v4 + 14);
+        if (v3 <= v2)
+        {
+          goto LABEL_15;
+        }
+
+        v2 = *(*(v4 + 16) + 8 * v2 + 4);
+        if (v2 == -1)
+        {
+          return this;
         }
       }
 
-      *(v13 + v9) &= ~8u;
+      v15 = 0;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v24 = 0u;
+      v6 = MEMORY[0x1E69E9C10];
+      v16 = 136315906;
+      v17 = "operator[]";
+      v18 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v7 = 3;
+      }
+
+      else
+      {
+        v7 = 2;
+      }
+
+      v19 = 789;
+      v20 = 2048;
+      v21 = v2;
+      v22 = 2048;
+      v23 = v3;
+      _os_log_send_and_compose_impl(v7, &v15, &v24, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+      _os_crash_msg();
+      __break(1u);
+LABEL_15:
+      v15 = 0;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v24 = 0u;
+      v8 = MEMORY[0x1E69E9C10];
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v16 = 136315906;
+      v17 = "operator[]";
+      v18 = 1024;
+      if (v9)
+      {
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      v19 = 789;
+      v20 = 2048;
+      v21 = v2;
+      v22 = 2048;
+      v23 = v3;
+      _os_log_send_and_compose_impl(v10, &v15, &v24, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+      _os_crash_msg();
+      __break(1u);
+LABEL_19:
+      v15 = 0;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v24 = 0u;
+      v11 = MEMORY[0x1E69E9C10];
+      v12 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v16 = 136315906;
+      v17 = "operator[]";
+      v18 = 1024;
+      if (v12)
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
+      v19 = 789;
+      v20 = 2048;
+      v21 = v2;
+      v22 = 2048;
+      v23 = v3;
+      _os_log_send_and_compose_impl(v13, &v15, &v24, 80, &dword_1E1C61000, v11, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+      _os_crash_msg();
+      __break(1u);
+    }
+  }
+
+  return this;
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::internal::SharedObjectGraph::Entry>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::internal::SharedObjectGraph::Entry>::setCapacity(this, a2);
+    }
+
+    else
+    {
+      this = re::DynamicArray<re::internal::SharedObjectGraph::Entry>::setCapacity(v4, v3);
+      ++*(v4 + 6);
+    }
+  }
+
+  return this;
+}
+
+void *re::DynamicArray<re::internal::SharedObjectGraph::Entry>::setCapacity(void *result, unint64_t a2)
+{
+  v3 = result[1];
+  if (v3 != a2)
+  {
+    v5 = result;
+    if (result[2] <= a2)
+    {
+      result = *result;
+      if (!*v5)
+      {
+        result = re::DynamicArray<re::internal::SharedObjectGraph::Entry>::setCapacity(v5, a2);
+        ++*(v5 + 6);
+        return result;
+      }
+
+      if (a2)
+      {
+        if (a2 >> 59)
+        {
+          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 32, a2);
+          _os_crash("assertion failure: (!overflow) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", v14, v16);
+          __break(1u);
+        }
+
+        else
+        {
+          v2 = 32 * a2;
+          result = (*(*result + 32))(result, 32 * a2, 8);
+          if (result)
+          {
+            v7 = result;
+            if (!v5[1])
+            {
+              goto LABEL_16;
+            }
+
+            goto LABEL_11;
+          }
+        }
+
+        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
+        result = _os_crash("assertion failure: (newData) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v15, v17);
+        __break(1u);
+        return result;
+      }
+
+      v7 = 0;
+      if (!v3)
+      {
+LABEL_16:
+        v5[4] = v7;
+        v5[1] = a2;
+        return result;
+      }
+
+LABEL_11:
+      v8 = v5[4];
+      v9 = v5[2];
+      if (v9)
+      {
+        v10 = 32 * v9;
+        v11 = v7;
+        do
+        {
+          v12 = *v8;
+          v13 = v8[1];
+          v8 += 2;
+          *v11 = v12;
+          v11[1] = v13;
+          v11 += 2;
+          v10 -= 32;
+        }
+
+        while (v10);
+        v8 = v5[4];
+      }
+
+      result = (*(**v5 + 40))(*v5, v8);
+      goto LABEL_16;
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::setCapacity(a1, (2 * *(a1 + 28)));
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 32 * v5);
+  }
+
+  else
+  {
+    v7 = *(a1 + 16);
+    v8 = *(v7 + 32 * v5);
+    *(a1 + 36) = v8 & 0x7FFFFFFF;
+  }
+
+  v9 = v7 + 32 * v5;
+  *v9 = v8 | 0x80000000;
+  v10 = *(a1 + 8);
+  *v9 = *(v10 + 4 * a2) | 0x80000000;
+  *(v9 + 24) = a3;
+  *(v10 + 4 * a2) = v5;
+  ++*(a1 + 28);
+  return v7 + 32 * v5;
+}
+
+void re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::setCapacity(uint64_t *a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = *a1;
+  if (*a1)
+  {
+    if (v2 && *(a1 + 6) != v2 && *(a1 + 7) <= v2)
+    {
+      memset(v9, 0, 36);
+      *&v9[36] = 0x7FFFFFFFLL;
+      re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::init(v9, v4, v2);
+      v5 = *v9;
+      *v9 = *a1;
+      *a1 = v5;
+      v6 = *&v9[16];
+      *&v9[16] = a1[2];
+      a1[2] = v6;
+      v7 = *&v9[24];
+      *&v9[24] = *(a1 + 3);
+      *(a1 + 3) = v7;
+      ++*&v9[40];
+      re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::move(a1, v9);
+      re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(v9);
+    }
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v8 = v2;
+    }
+
+    else
+    {
+      v8 = 3;
+    }
+  }
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::move(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  if (v2)
+  {
+    v4 = result;
+    v5 = 0;
+    v6 = 0;
+    v7 = *(a2 + 16);
+    do
+    {
+      if ((*(v7 + v5) & 0x80000000) != 0)
+      {
+        result = re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::allocEntry(v4, *(v7 + v5 + 24) % *(v4 + 24), *(v7 + v5 + 24));
+        *(result + 8) = *(*(a2 + 16) + v5 + 8);
+        v7 = *(a2 + 16);
+        *(result + 16) = *(v7 + v5 + 16);
+        v2 = *(a2 + 32);
+      }
+
+      ++v6;
+      v5 += 32;
+    }
+
+    while (v6 < v2);
+  }
+
+  return result;
+}
+
+void re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,true,false>::init(uint64_t a1, uint64_t a2, signed int a3)
+{
+  v4 = 245;
+  v5 = &re::internal::PrimeHelper::s_primes;
+  do
+  {
+    v6 = v4 >> 1;
+    v7 = &v5[v4 >> 1];
+    v9 = *v7;
+    v8 = (v7 + 1);
+    v4 += ~(v4 >> 1);
+    if (v9 < a3)
+    {
+      v5 = v8;
+    }
+
+    else
+    {
+      v4 = v6;
+    }
+  }
+
+  while (v4);
+  v10 = *v5;
+  *a1 = a2;
+  v11 = (4 * v10 + 15) & 0x7FFFFFFF0;
+  v12 = (*(*a2 + 32))(a2, v11 + 32 * v10, 16);
+  if (v12)
+  {
+    v14 = v12;
+    *(a1 + 8) = v12;
+    if (v10)
+    {
+      memset_pattern16(v12, &memset_pattern_27, 4 * v10);
+    }
+
+    *(a1 + 16) = &v14[v11];
+    *(a1 + 24) = v10;
+    *(a1 + 40) = 0;
+  }
+
+  else
+  {
+    re::internal::assertLog(4, v13, "assertion failure: '%s' (%s:line %i) Out of memory.", "temp", "init", 750);
+    _os_crash("assertion failure: (temp) Out of memory.");
+    __break(1u);
+  }
+}
+
+uint64_t re::PropertyBagHelper::copyToIntrospectedData(id *a1, re *a2, re::DynamicString ***a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v31[0] = a5;
+  v31[1] = a6;
+  v31[2] = a4;
+  v9 = *a1;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    v12 = *a1;
+    v13 = [v12 objectForKey:@"type"];
+    v14 = v13;
+    if (v13 && (objc_opt_class(), v13 = objc_opt_isKindOfClass(), (v13 & 1) != 0))
+    {
+      re::getPrettyTypeName(&v27, a2);
+      if (v28)
+      {
+        v15 = v30;
+      }
+
+      else
+      {
+        v15 = v29;
+      }
+
+      v16 = strcmp(v15, [v14 UTF8String]);
+      v17 = v27;
+      if (v27 && (v28 & 1) != 0)
+      {
+        v17 = (*(*v27 + 40))();
+      }
+
+      if (!v16)
+      {
+        v25 = [v12 objectForKey:@"value"];
+        if (v25)
+        {
+        }
+
+        else
+        {
+          v26 = *re::foundationSerializationLogObjects(0);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            LOWORD(v27) = 0;
+            _os_log_error_impl(&dword_1E1C61000, v26, OS_LOG_TYPE_ERROR, "PropertyBagReader; property bag missing value.", &v27, 2u);
+          }
+
+          Value = 0;
+        }
+
+        goto LABEL_24;
+      }
+
+      v18 = *re::foundationSerializationLogObjects(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v19 = v18;
+        re::getPrettyTypeName(&v27, a2);
+        if (v28)
+        {
+          v20 = v30;
+        }
+
+        else
+        {
+          v20 = v29;
+        }
+
+        *buf = 136315138;
+        v33 = v20;
+        _os_log_error_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_ERROR, "PropertyBagReader; property bag is wrong type, expecting '%s'.", buf, 0xCu);
+
+        if (v27 && (v28 & 1) != 0)
+        {
+          (*(*v27 + 40))();
+        }
+      }
+    }
+
+    else
+    {
+      v23 = *re::foundationSerializationLogObjects(v13);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(v27) = 0;
+        _os_log_error_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_ERROR, "PropertyBagReader; missing property bag type.", &v27, 2u);
+      }
+    }
+
+    Value = 0;
+LABEL_24:
+
+    return Value;
+  }
+
+  v21 = *re::foundationSerializationLogObjects(v11);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(v27) = 0;
+    _os_log_error_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_ERROR, "PropertyBagReader; expected NSDictionary.", &v27, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t anonymous namespace::PropertyBagReader::readValue(_anonymous_namespace_::PropertyBagReader *this, objc_object *a2, const re::IntrospectionBase *a3, re::DynamicString ***a4)
+{
+  v249 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  v8 = v7;
+  switch(*(a3 + 4))
+  {
+    case 0:
+      v9 = v7;
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
+      {
+        v112 = *re::foundationSerializationLogObjects(isKindOfClass);
+        if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+        {
+          v176 = v112;
+          re::getPrettyTypeName(__src, a3);
+          v177 = (__src[8] & 1) != 0 ? *&__src[16] : &__src[9];
+          LODWORD(buf) = 136315138;
+          *(&buf + 4) = v177;
+          _os_log_error_impl(&dword_1E1C61000, v176, OS_LOG_TYPE_ERROR, "PropertyBagReader; expected NSNumber for '%s'.", &buf, 0xCu);
+
+          if (*__src)
+          {
+            if (__src[8])
+            {
+              (*(**__src + 40))();
+            }
+          }
+        }
+
+        LinearArray = 0;
+LABEL_204:
+
+        goto LABEL_214;
+      }
+
+      v11 = v9;
+      {
+        re::introspect<BOOL>(BOOL)::info = re::introspect_BOOL(0, v214);
+      }
+
+      if (re::introspect<BOOL>(BOOL)::info == a3)
+      {
+        v141 = [(objc_object *)v11 BOOLValue];
+      }
+
+      else
+      {
+        {
+          re::introspect<char>(BOOL)::info = re::introspect_char(0, v215);
+        }
+
+        if (re::introspect<char>(BOOL)::info == a3)
+        {
+          v141 = [(objc_object *)v11 charValue];
+        }
+
+        else
+        {
+          {
+            re::introspect<double>(BOOL)::info = re::introspect_double(0, v216);
+          }
+
+          if (re::introspect<double>(BOOL)::info == a3)
+          {
+            [(objc_object *)v11 doubleValue];
+            *__src = v151;
+            goto LABEL_202;
+          }
+
+          {
+            re::introspect<float>(BOOL)::info = re::introspect_float(0, v217);
+          }
+
+          if (re::introspect<float>(BOOL)::info == a3)
+          {
+            [(objc_object *)v11 floatValue];
+            *__src = v153;
+            goto LABEL_202;
+          }
+
+          {
+            re::introspect<short>(BOOL)::info = re::introspect_short(0, v218);
+          }
+
+          if (re::introspect<short>(BOOL)::info == a3)
+          {
+            v179 = [(objc_object *)v11 shortValue];
+LABEL_263:
+            *__src = v179;
+            goto LABEL_202;
+          }
+
+          {
+            re::introspect<int>(BOOL)::info = re::introspect_int(0, v219);
+          }
+
+          if (re::introspect<int>(BOOL)::info == a3)
+          {
+            v181 = [(objc_object *)v11 intValue];
+LABEL_267:
+            *__src = v181;
+            goto LABEL_202;
+          }
+
+          {
+            re::introspect<long>(BOOL)::info = re::introspect_long(0, v220);
+          }
+
+          if (re::introspect<long>(BOOL)::info == a3)
+          {
+            v187 = [(objc_object *)v11 longValue];
+LABEL_296:
+            *__src = v187;
+            goto LABEL_202;
+          }
+
+          if (re::introspect<unsigned long>() == a3)
+          {
+LABEL_288:
+            v187 = [(objc_object *)v11 unsignedLongLongValue];
+            goto LABEL_296;
+          }
+
+          if (re::introspect<long long>(0) == a3)
+          {
+            v187 = [(objc_object *)v11 longLongValue];
+            goto LABEL_296;
+          }
+
+          if (re::introspect<unsigned char>(0) != a3)
+          {
+            if (re::introspect<unsigned short>(0) != a3)
+            {
+              if (re::introspect<unsigned int>(0) != a3)
+              {
+                v12 = re::introspect<unsigned long long>(0);
+                if (v12 != a3)
+                {
+                  v13 = *re::foundationSerializationLogObjects(v12);
+                  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+                  {
+                    v207 = v13;
+                    re::getPrettyTypeName(__src, a3);
+                    if (__src[8])
+                    {
+                      v208 = *&__src[16];
+                    }
+
+                    else
+                    {
+                      v208 = &__src[9];
+                    }
+
+                    LODWORD(buf) = 136315138;
+                    *(&buf + 4) = v208;
+                    _os_log_error_impl(&dword_1E1C61000, v207, OS_LOG_TYPE_ERROR, "PropertyBagWriter; unhandled type '%s'.", &buf, 0xCu);
+
+                    if (*__src && (__src[8] & 1) != 0)
+                    {
+                      (*(**__src + 40))();
+                    }
+                  }
+
+                  LinearArray = 0;
+LABEL_203:
+
+                  goto LABEL_204;
+                }
+
+                goto LABEL_288;
+              }
+
+              v181 = [(objc_object *)v11 unsignedIntValue];
+              goto LABEL_267;
+            }
+
+            v179 = [(objc_object *)v11 unsignedShortValue];
+            goto LABEL_263;
+          }
+
+          v141 = [(objc_object *)v11 unsignedCharValue];
+        }
+      }
+
+      __src[0] = v141;
+LABEL_202:
+      memcpy(a4, __src, *(a3 + 5));
+      LinearArray = 1;
+      goto LABEL_203;
+    case 1:
+      v18 = v7;
+      v54 = *(a3 + 6);
+      if (*(v54 + 16) != 8)
+      {
+        goto LABEL_62;
+      }
+
+      v55 = *(v54 + 56);
+      if (!v55)
+      {
+        goto LABEL_62;
+      }
+
+      v56 = 0;
+      v57 = *(v54 + 64);
+      v58 = 8 * v55;
+      do
+      {
+        v59 = v57[v56 / 8];
+        if (*v59 == 2)
+        {
+          if (*a4)
+          {
+            re::introspectionReleasePointer(*a4, *this, *(this + 2), *(a3 + 6));
+            *a4 = 0;
+            v57 = *(v54 + 64);
+          }
+
+          v142 = *v57;
+          if (**v57 != 3)
+          {
+            v143 = (v57 + 1);
+            do
+            {
+              v144 = *v143++;
+              v142 = v144;
+            }
+
+            while (*v144 != 3);
+          }
+
+LABEL_192:
+          LinearArray = PointerPolymorphic;
+          goto LABEL_213;
+        }
+
+        v56 += 8;
+      }
+
+      while (v58 != v56);
+LABEL_62:
+      v60 = [MEMORY[0x1E695DFB0] null];
+
+      if (v60 == v18)
+      {
+        if (*a4)
+        {
+          re::introspectionReleasePointer(*a4, *this, *(this + 2), *(a3 + 6));
+          *a4 = 0;
+        }
+
+        goto LABEL_222;
+      }
+
+      v61 = *(a3 + 6);
+      {
+        re::introspect<char>(BOOL)::info = re::introspect_char(0, v213);
+      }
+
+      v62 = *a4;
+      if (v61 != re::introspect<char>(BOOL)::info)
+      {
+        if (!v62)
+        {
+          v62 = re::introspectionAllocPointer(*this, *(this + 2), *(a3 + 6));
+        }
+
+        if ((Value & 1) == 0)
+        {
+          v64 = *re::foundationSerializationLogObjects(Value);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+          {
+            v188 = v64;
+            re::getPrettyTypeName(__src, a3);
+            v189 = (__src[8] & 1) != 0 ? *&__src[16] : &__src[9];
+            LODWORD(buf) = 136315138;
+            *(&buf + 4) = v189;
+            _os_log_error_impl(&dword_1E1C61000, v188, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read pointer target of type '%s'.", &buf, 0xCu);
+
+            if (*__src)
+            {
+              if (__src[8])
+              {
+                (*(**__src + 40))();
+              }
+            }
+          }
+
+          re::introspectionReleasePointer(v62, *this, *(this + 2), *(a3 + 6));
+          goto LABEL_212;
+        }
+
+LABEL_221:
+        *a4 = v62;
+LABEL_222:
+        LinearArray = 1;
+        goto LABEL_213;
+      }
+
+      if (v62)
+      {
+        re::introspectionReleasePointer(v62, *this, *(this + 2), *(a3 + 6));
+        *a4 = 0;
+      }
+
+      objc_opt_class();
+      v131 = objc_opt_isKindOfClass();
+      if ((v131 & 1) == 0)
+      {
+        v149 = *re::foundationSerializationLogObjects(v131);
+        if (!os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_212;
+        }
+
+        v104 = v149;
+        re::getPrettyTypeName(__src, a3);
+        if (__src[8])
+        {
+          v190 = *&__src[16];
+        }
+
+        else
+        {
+          v190 = &__src[9];
+        }
+
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v190;
+        v106 = "PropertyBagReader; expected NSString for pointer '%s'.";
+        goto LABEL_143;
+      }
+
+      v132 = v18;
+      v133 = [(objc_object *)v132 lengthOfBytesUsingEncoding:4];
+      v134 = v133 + 1;
+      if ((v134 << 31) >> 31 == v134)
+      {
+        v62 = (*(**this + 32))(*this, v134, 0);
+        memcpy(v62, [(objc_object *)v132 UTF8String], v134);
+
+        goto LABEL_221;
+      }
+
+      v135 = *re::foundationSerializationLogObjects(v133);
+      if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+      {
+        *__src = 0;
+        _os_log_error_impl(&dword_1E1C61000, v135, OS_LOG_TYPE_ERROR, "PropertyBagReader; string length overflowed.", __src, 2u);
+      }
+
+      goto LABEL_212;
+    case 2:
+      v18 = v7;
+      objc_opt_class();
+      v51 = objc_opt_isKindOfClass();
+      if (v51)
+      {
+        v20 = v18;
+        v52 = *(a3 + 16);
+        v53 = [(objc_object *)v20 count];
+        if (v53 == v52)
+        {
+          v29 = *(a3 + 6);
+          v30 = this;
+          v31 = v20;
+          v28 = a4;
+          goto LABEL_56;
+        }
+
+        v124 = *re::foundationSerializationLogObjects(v53);
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+        {
+          v182 = v124;
+          re::getPrettyTypeName(__src, a3);
+          v183 = (__src[8] & 1) != 0 ? *&__src[16] : &__src[9];
+          LODWORD(buf) = 136315138;
+          *(&buf + 4) = v183;
+          _os_log_error_impl(&dword_1E1C61000, v182, OS_LOG_TYPE_ERROR, "PropertyBagReader; array incorrect size for '%s'.", &buf, 0xCu);
+
+          if (*__src)
+          {
+            if (__src[8])
+            {
+              (*(**__src + 40))();
+            }
+          }
+        }
+
+        goto LABEL_162;
+      }
+
+      v113 = *re::foundationSerializationLogObjects(v51);
+      if (!os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_212;
+      }
+
+      v104 = v113;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v114 = *&__src[16];
+      }
+
+      else
+      {
+        v114 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v114;
+      v106 = "PropertyBagReader; expected NSArray for '%s'.";
+      goto LABEL_143;
+    case 3:
+      v18 = v7;
+      objc_opt_class();
+      v45 = objc_opt_isKindOfClass();
+      if (v45)
+      {
+        v46 = v18;
+        (*(*a3 + 72))(a3, *this, *(this + 2), a4, [(NSArray *)v46 count]);
+        if ([(NSArray *)v46 count])
+        {
+          v47 = (*(*a3 + 96))(a3, a4, 0);
+        }
+
+        else
+        {
+          LinearArray = 1;
+        }
+
+        goto LABEL_213;
+      }
+
+      v110 = *re::foundationSerializationLogObjects(v45);
+      if (!os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_212;
+      }
+
+      v104 = v110;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v111 = *&__src[16];
+      }
+
+      else
+      {
+        v111 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v111;
+      v106 = "PropertyBagReader; expected NSArray for '%s'.";
+      goto LABEL_143;
+    case 4:
+      v18 = v7;
+      objc_opt_class();
+      v19 = objc_opt_isKindOfClass();
+      if ((v19 & 1) == 0)
+      {
+        v103 = *re::foundationSerializationLogObjects(v19);
+        if (!os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_212;
+        }
+
+        v104 = v103;
+        re::getPrettyTypeName(__src, a3);
+        if (__src[8])
+        {
+          v105 = *&__src[16];
+        }
+
+        else
+        {
+          v105 = &__src[9];
+        }
+
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v105;
+        v106 = "PropertyBagReader; expected NSArray for '%s'.";
+        goto LABEL_143;
+      }
+
+      v20 = v18;
+      if (((*(*a3 + 88))(a3, a4) & 1) == 0)
+      {
+        v21 = *this;
+        v22 = v8;
+        v23 = *(this + 2);
+        v24 = [(objc_object *)v20 count];
+        v25 = v23;
+        v8 = v22;
+        (*(*a3 + 64))(a3, a4, v21, v25, v24);
+      }
+
+      v26 = (*(*a3 + 80))(a3, a4);
+      v27 = [(objc_object *)v20 count];
+      if (v26 == v27)
+      {
+        if (![(objc_object *)v20 count])
+        {
+          goto LABEL_185;
+        }
+
+        v28 = (*(*a3 + 96))(a3, a4, 0);
+        v29 = *(a3 + 6);
+        v30 = this;
+        v31 = v20;
+LABEL_56:
+        goto LABEL_163;
+      }
+
+      v38 = *re::foundationSerializationLogObjects(v27);
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_162;
+      }
+
+      *__src = 0;
+      v39 = "PropertyBagReader; cannot resize existing fixed array.";
+      goto LABEL_160;
+    case 5:
+      v18 = v7;
+      objc_opt_class();
+      v36 = objc_opt_isKindOfClass();
+      if (v36)
+      {
+        v20 = v18;
+        v37 = (*(*a3 + 80))(a3, a4);
+        if (v37)
+        {
+          v38 = *re::foundationSerializationLogObjects(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          {
+            *__src = 0;
+            v39 = "PropertyBagReader; cannot read into existing data array.";
+LABEL_160:
+            _os_log_error_impl(&dword_1E1C61000, v38, OS_LOG_TYPE_ERROR, v39, __src, 2u);
+          }
+
+LABEL_162:
+          LinearArray = 0;
+        }
+
+        else if ([(objc_object *)v20 count])
+        {
+          v136 = v8;
+          v137 = 0;
+          while (1)
+          {
+            v138 = (*(*a3 + 72))(a3, *this, *(this + 2), a4);
+            v139 = [(objc_object *)v20 objectAtIndex:v137];
+            if ((v140 & 1) == 0)
+            {
+              break;
+            }
+
+            if ([(objc_object *)v20 count]<= ++v137)
+            {
+              LinearArray = 1;
+              goto LABEL_219;
+            }
+          }
+
+          v152 = *re::foundationSerializationLogObjects(v140);
+          if (os_log_type_enabled(v152, OS_LOG_TYPE_ERROR))
+          {
+            *__src = 67109120;
+            *&__src[4] = v137;
+            _os_log_error_impl(&dword_1E1C61000, v152, OS_LOG_TYPE_ERROR, "PropertyBagReader; dynamic array failed to read [%d].", __src, 8u);
+          }
+
+          LinearArray = 0;
+LABEL_219:
+          v8 = v136;
+        }
+
+        else
+        {
+LABEL_185:
+          LinearArray = 1;
+        }
+
+LABEL_163:
+
+        goto LABEL_213;
+      }
+
+      v107 = *re::foundationSerializationLogObjects(v36);
+      if (!os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_212;
+      }
+
+      v104 = v107;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v108 = *&__src[16];
+      }
+
+      else
+      {
+        v108 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v108;
+      v106 = "PropertyBagReader; expected NSArray for '%s'.";
+      goto LABEL_143;
+    case 6:
+      objc_opt_class();
+      v65 = objc_opt_isKindOfClass();
+      if (v65)
+      {
+        *__src = [(objc_object *)v8 UTF8String];
+        *&__src[8] = strlen(*__src);
+        re::DynamicString::operator=(a4, __src);
+        goto LABEL_150;
+      }
+
+      v115 = *re::foundationSerializationLogObjects(v65);
+      if (!os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_137;
+      }
+
+      v100 = v115;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v178 = *&__src[16];
+      }
+
+      else
+      {
+        v178 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v178;
+      v102 = "PropertyBagReader; expected NSString for string '%s'.";
+      goto LABEL_258;
+    case 7:
+      v18 = v7;
+      objc_opt_class();
+      v66 = objc_opt_isKindOfClass();
+      if (v66)
+      {
+        v231 = v8;
+        v67 = v18;
+        (*(*a3 + 88))(a3, a4);
+        (*(*a3 + 72))(a3, a4, [(objc_object *)v67 count]);
+        v68 = (*(**(this + 1) + 32))(*(this + 1), *(*(a3 + 6) + 20), 0);
+        *__src = &unk_1F5D16CF8;
+        *&__src[8] = this;
+        v244 = __src;
+        v240 = &v238 + 8;
+        *&v238 = v68;
+        *(&v238 + 1) = &unk_1F5D16CF8;
+        v239 = this;
+        std::__function::__value_func<void ()(unsigned char *)>::~__value_func[abi:nn200100](__src);
+        buf = 0u;
+        v246 = 0u;
+        v247 = 0u;
+        v248 = 0u;
+        v69 = v67;
+        v70 = [(objc_object *)v69 countByEnumeratingWithState:&buf objects:__src count:16];
+        if (v70)
+        {
+          v71 = v70;
+          v233 = a4;
+          v235 = *v246;
+          v229 = v18;
+          while (1)
+          {
+            for (i = 0; i != v71; ++i)
+            {
+              if (*v246 != v235)
+              {
+                objc_enumerationMutation(v69);
+              }
+
+              v73 = *(*(&buf + 1) + 8 * i);
+              v74 = [(objc_object *)v69 objectForKeyedSubscript:v73];
+              v75 = *this;
+              v76 = *(a3 + 6);
+              re::introspectionCallConstructor(*(this + 2), v76, v238);
+              re::introspectionInitElement(v75, v77, v76, v238);
+              if ((v78 & 1) == 0)
+              {
+                v145 = *re::foundationSerializationLogObjects(v78);
+                if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
+                {
+                  *v241 = 0;
+                  _os_log_error_impl(&dword_1E1C61000, v145, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read hash table key", v241, 2u);
+                }
+
+                (*(*a3 + 112))(a3, v238);
+LABEL_198:
+
+                LinearArray = 0;
+                v18 = v229;
+LABEL_199:
+
+                std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>::~unique_ptr[abi:nn200100](&v238);
+                v8 = v231;
+                goto LABEL_213;
+              }
+
+              v79 = (*(*a3 + 96))(a3, *this, *(this + 2), v233, v238);
+              (*(*a3 + 112))(a3, v238);
+              if ((v80 & 1) == 0)
+              {
+                v146 = *re::foundationSerializationLogObjects(v80);
+                if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+                {
+                  *v241 = 0;
+                  _os_log_error_impl(&dword_1E1C61000, v146, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read hash table value", v241, 2u);
+                }
+
+                goto LABEL_198;
+              }
+            }
+
+            v71 = [(objc_object *)v69 countByEnumeratingWithState:&buf objects:__src count:16];
+            LinearArray = 1;
+            v18 = v229;
+            if (!v71)
+            {
+              goto LABEL_199;
+            }
+          }
+        }
+
+        LinearArray = 1;
+        goto LABEL_199;
+      }
+
+      v116 = *re::foundationSerializationLogObjects(v66);
+      if (!os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_212;
+      }
+
+      v104 = v116;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v117 = *&__src[16];
+      }
+
+      else
+      {
+        v117 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v117;
+      v106 = "PropertyBagReader; expected NSDictionary for hash table '%s'.";
+LABEL_143:
+      _os_log_error_impl(&dword_1E1C61000, v104, OS_LOG_TYPE_ERROR, v106, &buf, 0xCu);
+
+      goto LABEL_144;
+    case 8:
+      v18 = v7;
+      v84 = *(a3 + 14);
+      if (!v84)
+      {
+        goto LABEL_94;
+      }
+
+      v85 = *(a3 + 8);
+      v86 = 1;
+      v87 = *(a3 + 14);
+      v88 = 1;
+      do
+      {
+        if (**v85 == 4 && (*(*v85 + 4) & 1) != 0)
+        {
+          break;
+        }
+
+        v88 = v86++ < v84;
+        v85 += 8;
+        --v87;
+      }
+
+      while (v87);
+      if (v88)
+      {
+        StructureMember = re::introspectionFirstStructureMember(a3, v83);
+        if (StructureMember)
+        {
+          goto LABEL_192;
+        }
+
+        v147 = *re::foundationSerializationLogObjects(0);
+        if (!os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_212;
+        }
+
+        v121 = v147;
+        re::getPrettyTypeName(__src, a3);
+        if (__src[8])
+        {
+          v148 = *&__src[16];
+        }
+
+        else
+        {
+          v148 = &__src[9];
+        }
+
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v148;
+        v123 = "PropertyBagReader; expected member in for struct '%s'.";
+      }
+
+      else
+      {
+LABEL_94:
+        objc_opt_class();
+        v91 = objc_opt_isKindOfClass();
+        if (v91)
+        {
+          v92 = v18;
+          v93 = [(objc_object *)v92 objectForKey:@"type"];
+          v94 = v93;
+          if (v93 && (objc_opt_class(), v93 = objc_opt_isKindOfClass(), (v93 & 1) != 0))
+          {
+            v236 = v92;
+            v232 = v8;
+            re::getPrettyTypeName(__src, a3);
+            if (__src[8])
+            {
+              v95 = *&__src[16];
+            }
+
+            else
+            {
+              v95 = &__src[9];
+            }
+
+            v96 = strcmp(v95, [v94 UTF8String]);
+            v97 = *__src;
+            if (*__src && (__src[8] & 1) != 0)
+            {
+              v97 = (*(**__src + 40))();
+            }
+
+            v92 = v236;
+            if (v96)
+            {
+              v98 = *re::foundationSerializationLogObjects(v97);
+              if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+              {
+                v191 = v98;
+                re::getPrettyTypeName(__src, a3);
+                if (__src[8])
+                {
+                  v192 = *&__src[16];
+                }
+
+                else
+                {
+                  v192 = &__src[9];
+                }
+
+                LODWORD(buf) = 136315138;
+                *(&buf + 4) = v192;
+                _os_log_error_impl(&dword_1E1C61000, v191, OS_LOG_TYPE_ERROR, "PropertyBagReader; struct is wrong type '%s'.", &buf, 0xCu);
+
+                v8 = v232;
+                if (*__src && (__src[8] & 1) != 0)
+                {
+                  (*(**__src + 40))();
+                }
+
+                LinearArray = 0;
+                v92 = v236;
+              }
+
+              else
+              {
+                LinearArray = 0;
+                v8 = v232;
+              }
+            }
+
+            else
+            {
+              v154 = [(objc_object *)v236 objectForKey:@"value"];
+              v230 = v154;
+              if (v154 && (v155 = v154, objc_opt_class(), v154 = objc_opt_isKindOfClass(), (v154 & 1) != 0))
+              {
+                v247 = 0u;
+                v248 = 0u;
+                buf = 0u;
+                v246 = 0u;
+                obj = v155;
+                v221 = [obj countByEnumeratingWithState:&buf objects:__src count:16];
+                if (!v221)
+                {
+                  LinearArray = 1;
+LABEL_294:
+                  v8 = v232;
+                  goto LABEL_332;
+                }
+
+                v222 = *v246;
+                v234 = a4;
+LABEL_228:
+                v156 = 0;
+                while (1)
+                {
+                  if (*v246 != v222)
+                  {
+                    objc_enumerationMutation(obj);
+                  }
+
+                  v227 = v156;
+                  v157 = *(*(&buf + 1) + 8 * v156);
+                  objc_opt_class();
+                  v158 = objc_opt_isKindOfClass();
+                  if ((v158 & 1) == 0)
+                  {
+                    break;
+                  }
+
+                  v159 = v157;
+                  v160 = [v159 objectForKey:@"name"];
+                  v161 = v160;
+                  if (!v160 || (objc_opt_class(), v160 = objc_opt_isKindOfClass(), (v160 & 1) == 0))
+                  {
+                    v193 = *re::foundationSerializationLogObjects(v160);
+                    v8 = v232;
+                    if (os_log_type_enabled(v193, OS_LOG_TYPE_ERROR))
+                    {
+                      v205 = v193;
+                      re::getPrettyTypeName(&v238, a3);
+                      if (BYTE8(v238))
+                      {
+                        v206 = v239;
+                      }
+
+                      else
+                      {
+                        v206 = (&v238 + 9);
+                      }
+
+                      *v241 = 136315138;
+                      v242 = v206;
+                      _os_log_error_impl(&dword_1E1C61000, v205, OS_LOG_TYPE_ERROR, "PropertyBagReader; missing member name '%s'.", v241, 0xCu);
+
+                      if (v238 && (BYTE8(v238) & 1) != 0)
+                      {
+                        (*(*v238 + 40))();
+                      }
+
+                      v8 = v232;
+                      v92 = v236;
+                    }
+
+                    goto LABEL_331;
+                  }
+
+                  *v237 = 0;
+                  v228 = v161;
+                  v162 = [v161 UTF8String];
+                  *v237 = 0;
+                  IntrospectionMemberByNameRecursive = re::getIntrospectionMemberByNameRecursive(a3, v162, v237, v163);
+                  v8 = v232;
+                  if (!IntrospectionMemberByNameRecursive)
+                  {
+                    v200 = *re::foundationSerializationLogObjects(0);
+                    if (os_log_type_enabled(v200, OS_LOG_TYPE_ERROR))
+                    {
+                      v201 = v161;
+                      v202 = v200;
+                      v203 = [v161 UTF8String];
+                      LODWORD(v238) = 136315138;
+                      *(&v238 + 4) = v203;
+                      _os_log_error_impl(&dword_1E1C61000, v202, OS_LOG_TYPE_ERROR, "PropertyBagReader; unknown member name '%s'.", &v238, 0xCu);
+
+                      v92 = v236;
+                    }
+
+LABEL_330:
+
+LABEL_331:
+                    LinearArray = 0;
+                    goto LABEL_332;
+                  }
+
+                  v165 = IntrospectionMemberByNameRecursive;
+                  v225 = *v237;
+                  v166 = v159;
+                  v167 = [v159 objectForKey:@"type"];
+                  v226 = v167;
+                  if (!v167 || (v168 = v167, objc_opt_class(), v167 = objc_opt_isKindOfClass(), (v167 & 1) == 0))
+                  {
+                    v194 = *re::foundationSerializationLogObjects(v167);
+                    v159 = v166;
+                    if (os_log_type_enabled(v194, OS_LOG_TYPE_ERROR))
+                    {
+                      v195 = v194;
+                      re::getPrettyTypeName(&v238, a3);
+                      if (BYTE8(v238))
+                      {
+                        v196 = v239;
+                      }
+
+                      else
+                      {
+                        v196 = (&v238 + 9);
+                      }
+
+                      *v241 = 136315138;
+                      v242 = v196;
+                      _os_log_error_impl(&dword_1E1C61000, v195, OS_LOG_TYPE_ERROR, "PropertyBagReader; missing member type '%s'.", v241, 0xCu);
+
+                      if (v238 && (BYTE8(v238) & 1) != 0)
+                      {
+                        (*(*v238 + 40))();
+                      }
+
+                      v8 = v232;
+                      v92 = v236;
+                    }
+
+LABEL_329:
+
+                    goto LABEL_330;
+                  }
+
+                  v224 = v166;
+                  re::getPrettyTypeName(&v238, v165[2]);
+                  v169 = [v168 UTF8String];
+                  v170 = BYTE8(v238) & 1;
+                  if (BYTE8(v238))
+                  {
+                    v171 = v239;
+                  }
+
+                  else
+                  {
+                    v171 = &v238 + 9;
+                  }
+
+                  v172 = strcmp(v171, v169);
+                  v173 = v238;
+                  if (v238 && v170)
+                  {
+                    v173 = (*(*v238 + 40))();
+                  }
+
+                  if (v172)
+                  {
+                    v204 = *re::foundationSerializationLogObjects(v173);
+                    v8 = v232;
+                    v92 = v236;
+                    v159 = v224;
+                    if (os_log_type_enabled(v204, OS_LOG_TYPE_ERROR))
+                    {
+                      v211 = v204;
+                      re::getPrettyTypeName(&v238, a3);
+                      if (BYTE8(v238))
+                      {
+                        v212 = v239;
+                      }
+
+                      else
+                      {
+                        v212 = (&v238 + 9);
+                      }
+
+                      *v241 = 136315138;
+                      v242 = v212;
+                      _os_log_error_impl(&dword_1E1C61000, v211, OS_LOG_TYPE_ERROR, "PropertyBagReader; member is wrong type '%s'.", v241, 0xCu);
+
+                      if (v238 && (BYTE8(v238) & 1) != 0)
+                      {
+                        (*(*v238 + 40))();
+                      }
+
+                      v8 = v232;
+                      v92 = v236;
+                      v159 = v224;
+                    }
+
+                    goto LABEL_329;
+                  }
+
+                  v174 = [v166 objectForKey:@"value"];
+
+                  if (!Member)
+                  {
+                    goto LABEL_353;
+                  }
+
+                  v156 = v227 + 1;
+                  v92 = v236;
+                  if (v221 == v227 + 1)
+                  {
+                    LinearArray = 1;
+                    v8 = v232;
+                    v221 = [obj countByEnumeratingWithState:&buf objects:__src count:16];
+                    if (!v221)
+                    {
+                      goto LABEL_332;
+                    }
+
+                    goto LABEL_228;
+                  }
+                }
+
+                v199 = *re::foundationSerializationLogObjects(v158);
+                if (!os_log_type_enabled(v199, OS_LOG_TYPE_ERROR))
+                {
+                  LinearArray = 0;
+                  goto LABEL_294;
+                }
+
+                v209 = v199;
+                re::getPrettyTypeName(&v238, a3);
+                if (BYTE8(v238))
+                {
+                  v210 = v239;
+                }
+
+                else
+                {
+                  v210 = (&v238 + 9);
+                }
+
+                *v241 = 136315138;
+                v242 = v210;
+                _os_log_error_impl(&dword_1E1C61000, v209, OS_LOG_TYPE_ERROR, "PropertyBagReader; expected NSDictionary for member '%s'.", v241, 0xCu);
+
+                if (v238 && (BYTE8(v238) & 1) != 0)
+                {
+                  (*(*v238 + 40))();
+                }
+
+LABEL_353:
+                LinearArray = 0;
+                v8 = v232;
+                v92 = v236;
+LABEL_332:
+              }
+
+              else
+              {
+                v180 = *re::foundationSerializationLogObjects(v154);
+                if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
+                {
+                  v197 = v180;
+                  re::getPrettyTypeName(__src, a3);
+                  if (__src[8])
+                  {
+                    v198 = *&__src[16];
+                  }
+
+                  else
+                  {
+                    v198 = &__src[9];
+                  }
+
+                  LODWORD(buf) = 136315138;
+                  *(&buf + 4) = v198;
+                  _os_log_error_impl(&dword_1E1C61000, v197, OS_LOG_TYPE_ERROR, "PropertyBagReader; missing struct value '%s'.", &buf, 0xCu);
+
+                  if (*__src && (__src[8] & 1) != 0)
+                  {
+                    (*(**__src + 40))();
+                  }
+
+                  LinearArray = 0;
+                  v8 = v232;
+                  v92 = v236;
+                }
+
+                else
+                {
+                  LinearArray = 0;
+                  v8 = v232;
+                }
+              }
+            }
+          }
+
+          else
+          {
+            v130 = *re::foundationSerializationLogObjects(v93);
+            if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+            {
+              v184 = v92;
+              v185 = v130;
+              re::getPrettyTypeName(__src, a3);
+              if (__src[8])
+              {
+                v186 = *&__src[16];
+              }
+
+              else
+              {
+                v186 = &__src[9];
+              }
+
+              LODWORD(buf) = 136315138;
+              *(&buf + 4) = v186;
+              _os_log_error_impl(&dword_1E1C61000, v185, OS_LOG_TYPE_ERROR, "PropertyBagReader; missing struct type '%s'.", &buf, 0xCu);
+
+              if (*__src && (__src[8] & 1) != 0)
+              {
+                (*(**__src + 40))();
+              }
+
+              LinearArray = 0;
+              v92 = v184;
+            }
+
+            else
+            {
+              LinearArray = 0;
+            }
+          }
+
+          goto LABEL_213;
+        }
+
+        v120 = *re::foundationSerializationLogObjects(v91);
+        if (!os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_212;
+        }
+
+        v121 = v120;
+        re::getPrettyTypeName(__src, a3);
+        if (__src[8])
+        {
+          v122 = *&__src[16];
+        }
+
+        else
+        {
+          v122 = &__src[9];
+        }
+
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v122;
+        v123 = "PropertyBagReader; expected NSDictionary for struct '%s'.";
+      }
+
+      _os_log_error_impl(&dword_1E1C61000, v121, OS_LOG_TYPE_ERROR, v123, &buf, 0xCu);
+
+LABEL_144:
+      if (*__src && (__src[8] & 1) != 0)
+      {
+        (*(**__src + 40))();
+      }
+
+LABEL_212:
+      LinearArray = 0;
+LABEL_213:
+
+      goto LABEL_214;
+    case 9:
+      v9 = v7;
+      objc_opt_class();
+      v81 = objc_opt_isKindOfClass();
+      LinearArray = v81;
+      if (v81)
+      {
+        v11 = v9;
+        IntrospectionEnumValueWithVersioning = re::getIntrospectionEnumValueWithVersioning(*(a3 + 8), [(objc_object *)v11 UTF8String], &buf);
+        if (buf)
+        {
+          memcpy(a4, &buf + 8, *(a3 + 5));
+        }
+
+        else
+        {
+          v125 = *re::foundationSerializationLogObjects(IntrospectionEnumValueWithVersioning);
+          if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
+          {
+            v126 = v11;
+            v127 = v125;
+            v128 = [(objc_object *)v11 UTF8String];
+            v129 = *(a3 + 6);
+            *__src = 136315394;
+            *&__src[4] = v128;
+            *&__src[12] = 2080;
+            *&__src[14] = v129;
+            _os_log_error_impl(&dword_1E1C61000, v127, OS_LOG_TYPE_ERROR, "PropertyBagReader; unexpected enum '%s' type for '%s' - skipping.", __src, 0x16u);
+          }
+        }
+
+        goto LABEL_203;
+      }
+
+      v118 = *re::foundationSerializationLogObjects(v81);
+      if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+      {
+        v119 = *(a3 + 6);
+        *__src = 136315138;
+        *&__src[4] = v119;
+        _os_log_error_impl(&dword_1E1C61000, v118, OS_LOG_TYPE_ERROR, "PropertyBagReader; expected NSString for enum '%s'.", __src, 0xCu);
+      }
+
+      goto LABEL_204;
+    case 0xA:
+      objc_opt_class();
+      v15 = objc_opt_isKindOfClass();
+      if (v15)
+      {
+        v16 = [(objc_object *)v8 UTF8String];
+        *__src = 0;
+        *&__src[8] = &str_67;
+        v17 = re::StringID::operator=(a4, __src);
+        if (__src[0])
+        {
+          if (__src[0])
+          {
+          }
+        }
+
+        goto LABEL_150;
+      }
+
+      v99 = *re::foundationSerializationLogObjects(v15);
+      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+      {
+        v100 = v99;
+        re::getPrettyTypeName(__src, a3);
+        if (__src[8])
+        {
+          v101 = *&__src[16];
+        }
+
+        else
+        {
+          v101 = &__src[9];
+        }
+
+        LODWORD(buf) = 136315138;
+        *(&buf + 4) = v101;
+        v102 = "PropertyBagReader; expected NSString for stringid '%s'.";
+LABEL_258:
+        _os_log_error_impl(&dword_1E1C61000, v100, OS_LOG_TYPE_ERROR, v102, &buf, 0xCu);
+
+LABEL_259:
+        if (*__src && (__src[8] & 1) != 0)
+        {
+          (*(**__src + 40))();
+        }
+      }
+
+      goto LABEL_137;
+    case 0xB:
+      objc_opt_class();
+      v40 = objc_opt_isKindOfClass();
+      if ((v40 & 1) == 0)
+      {
+        v42 = *re::foundationSerializationLogObjects(v40);
+        if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_137;
+        }
+
+        v109 = *(a3 + 6);
+        *__src = 136315138;
+        *&__src[4] = v109;
+        v44 = "PropertyBagReader; expected NSString for callback '%s'.";
+        goto LABEL_123;
+      }
+
+      v41 = (*(a3 + 10))(*this, *(this + 2), a3, a4, [(objc_object *)v8 UTF8String]);
+      if (v41)
+      {
+        goto LABEL_150;
+      }
+
+      v42 = *re::foundationSerializationLogObjects(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      {
+        v43 = *(a3 + 6);
+        *__src = 136315138;
+        *&__src[4] = v43;
+        v44 = "PropertyBagReader; failed to read type '%s' using callback.";
+LABEL_123:
+        _os_log_error_impl(&dword_1E1C61000, v42, OS_LOG_TYPE_ERROR, v44, __src, 0xCu);
+      }
+
+LABEL_137:
+      LinearArray = 0;
+LABEL_214:
+
+      return LinearArray & 1;
+    case 0xD:
+      v32 = [MEMORY[0x1E695DFB0] null];
+
+      v33 = *(*a3 + 64);
+      if (v32 == v8)
+      {
+        v33(a3, a4, 0);
+LABEL_150:
+        LinearArray = 1;
+      }
+
+      else
+      {
+        v33(a3, a4, 1);
+        v34 = *(a3 + 6);
+        v35 = (*(*a3 + 72))(a3, a4);
+      }
+
+      goto LABEL_214;
+    default:
+      v48 = *re::foundationSerializationLogObjects(v7);
+      if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_137;
+      }
+
+      v49 = v48;
+      re::getPrettyTypeName(__src, a3);
+      if (__src[8])
+      {
+        v50 = *&__src[16];
+      }
+
+      else
+      {
+        v50 = &__src[9];
+      }
+
+      LODWORD(buf) = 136315138;
+      *(&buf + 4) = v50;
+      _os_log_error_impl(&dword_1E1C61000, v49, OS_LOG_TYPE_ERROR, "PropertyBagReader; unhandled introspection type '%s'.", &buf, 0xCu);
+
+      goto LABEL_259;
+  }
+}
+
+uint64_t re::introspect<unsigned long>()
+{
+  v0 = &unk_1ECF17000;
+  {
+    v0 = &unk_1ECF17000;
+    if (v2)
+    {
+      re::introspect<unsigned long>(BOOL)::info = re::introspect_size_t(0, v3);
+      v0 = &unk_1ECF17000;
+    }
+  }
+
+  return v0[390];
+}
+
+uint64_t re::introspect<unsigned short>(unsigned int a1)
+{
+  v1 = &unk_1ECF17000;
+  {
+    v1 = &unk_1ECF17000;
+    if (v3)
+    {
+      re::introspect<unsigned short>(BOOL)::info = re::introspect_uint16_t(a1, v4);
+      v1 = &unk_1ECF17000;
+    }
+  }
+
+  return v1[392];
+}
+
+uint64_t re::introspect<unsigned long long>(unsigned int a1)
+{
+  v1 = &unk_1ECF17000;
+  {
+    v1 = &unk_1ECF17000;
+    if (v3)
+    {
+      re::introspect<unsigned long long>(BOOL)::info = re::introspect_uint64_t(a1, v4);
+      v1 = &unk_1ECF17000;
+    }
+  }
+
+  return v1[394];
+}
+
+uint64_t anonymous namespace::PropertyBagReader::readPointerPolymorphic(re **a1, void *a2, re::DynamicString ***a3, _anonymous_namespace_ *a4, char *a5, int a6, uint64_t a7, int a8)
+{
+  v51 = *MEMORY[0x1E69E9840];
+  v15 = a2;
+  v16 = v15;
+  if (!a4)
+  {
+    v30 = *re::foundationSerializationLogObjects(v15);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v31 = "PropertyBagReader; invalid polymorphic data.";
+LABEL_23:
+      _os_log_error_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_ERROR, v31, buf, 2u);
+    }
+
+LABEL_24:
+    v29 = 0;
+    goto LABEL_25;
+  }
+
+  if (!a7)
+  {
+    v30 = *re::foundationSerializationLogObjects(v15);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v31 = "PropertyBagReader; invalid polymorphic type data.";
       goto LABEL_23;
     }
 
-LABEL_20:
-    *(v12 + 4 * v9) = 1092616192;
+    goto LABEL_24;
+  }
+
+  v17 = [MEMORY[0x1E695DFB0] null];
+
+  if (v17 != v16)
+  {
+    objc_opt_class();
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
+    {
+      v19 = v16;
+      v20 = [(objc_object *)v19 objectForKey:@"type"];
+      v21 = v20;
+      if (v20 && (objc_opt_class(), v20 = objc_opt_isKindOfClass(), (v20 & 1) != 0))
+      {
+        IntrospectionPolymorphicTypeByPrettyType = re::getIntrospectionPolymorphicTypeByPrettyType(a4, [v21 UTF8String]);
+        if (!IntrospectionPolymorphicTypeByPrettyType)
+        {
+          v34 = *re::foundationSerializationLogObjects(0);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          {
+            v35 = v21;
+            v36 = v34;
+            *buf = 136315138;
+            *&buf[4] = [v21 UTF8String];
+            _os_log_error_impl(&dword_1E1C61000, v36, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to find polymorphic type '%s'.", buf, 0xCu);
+          }
+
+          goto LABEL_27;
+        }
+
+        v23 = IntrospectionPolymorphicTypeByPrettyType;
+        v24 = *(IntrospectionPolymorphicTypeByPrettyType + 1);
+        if (v24)
+        {
+          v46 = re::introspectionAllocPointer(*a1, a1[2], v24);
+          if (Value)
+          {
+            v26 = *(v23 + 8);
+            v27 = (v46 - v26);
+            if (a8)
+            {
+              v28 = a5;
+            }
+
+            else
+            {
+              v28 = v46 - v26;
+            }
+
+            memcpy(&v28[a6], v23 + 24, *(a7 + 20));
+            *a3 = v27;
+            v29 = 1;
+            goto LABEL_28;
+          }
+
+          v42 = *re::foundationSerializationLogObjects(Value);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          {
+            v43 = *(v23 + 1);
+            v44 = v42;
+            re::getPrettyTypeName(buf, v43);
+            v45 = (buf[8] & 1) != 0 ? v48 : &buf[9];
+            *v49 = 136315138;
+            v50 = v45;
+            _os_log_error_impl(&dword_1E1C61000, v44, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read polymorphic pointer target of type '%s'.", v49, 0xCu);
+
+            if (*buf)
+            {
+              if (buf[8])
+              {
+                (*(**buf + 40))();
+              }
+            }
+          }
+
+          re::introspectionReleasePointer(v46, *a1, a1[2], *(v23 + 1));
+LABEL_27:
+          v29 = 0;
+LABEL_28:
+
+          goto LABEL_25;
+        }
+
+        v37 = *re::foundationSerializationLogObjects(IntrospectionPolymorphicTypeByPrettyType);
+        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        v38 = *v23;
+        *buf = 136315138;
+        *&buf[4] = v38;
+        v39 = "PropertyBagReader; invlaid polymorphic info '%s'.";
+        v40 = v37;
+        v41 = 12;
+      }
+
+      else
+      {
+        v33 = *re::foundationSerializationLogObjects(v20);
+        if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_27;
+        }
+
+        *buf = 0;
+        v39 = "PropertyBagReader; missing polymorphic type.";
+        v40 = v33;
+        v41 = 2;
+      }
+
+      _os_log_error_impl(&dword_1E1C61000, v40, OS_LOG_TYPE_ERROR, v39, buf, v41);
+      goto LABEL_27;
+    }
+
+    v30 = *re::foundationSerializationLogObjects(isKindOfClass);
+    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_24;
+    }
+
+    *buf = 0;
+    v31 = "PropertyBagReader; expected NSDictionary for polymorphic type.";
     goto LABEL_23;
   }
 
+  if (*a3)
+  {
+    re::introspectionReleasePointer(*a3, *a1, a1[2], a7);
+    *a3 = 0;
+  }
+
+  v29 = 1;
 LABEL_25:
-  operator delete(v7);
+
+  return v29;
 }
 
-void OpenSubdiv::v3_1_1::Vtr::internal::Refinement::subdivideVertexSharpness(OpenSubdiv::v3_1_1::Vtr::internal::Refinement *this)
+uint64_t anonymous namespace::PropertyBagReader::readLinearArray(_anonymous_namespace_::PropertyBagReader *this, NSArray *a2, const re::IntrospectionBase *a3, char *a4)
 {
-  v2 = *(this + 2);
-  *(v2 + 416) = *(v2 + 408);
-  std::vector<float>::resize((v2 + 408), *(v2 + 8));
-  v3 = *(this + 15);
-  if (v3 >= 1)
+  v24 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  if ([(NSArray *)v7 count])
   {
-    v4 = *(this + 21);
-    v5 = v4 + v3;
+    v8 = 0;
     while (1)
     {
-      v6 = *(this + 2);
-      v7 = *(v6 + 408);
-      v8 = *(v6 + 432);
-      v9 = *(v8 + 2 * v4);
-      if ((v9 & 0x10) != 0)
-      {
-        goto LABEL_10;
-      }
-
-      if ((v9 & 0x20) != 0)
+      v9 = &a4[*(a3 + 5) * v8];
+      v10 = [(NSArray *)v7 objectAtIndex:v8];
+      if ((Value & 1) == 0)
       {
         break;
       }
 
-LABEL_13:
-      if (++v4 >= v5)
+      if ([(NSArray *)v7 count]<= ++v8)
       {
-        return;
+        goto LABEL_5;
       }
     }
 
-    v10 = *(*(*(this + 1) + 408) + 4 * *(*(this + 39) + 4 * v4));
-    if (v10 <= 0.0)
+    v13 = *re::foundationSerializationLogObjects(Value);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v15 = v13;
+      re::getPrettyTypeName(&v17, a3);
+      if (v18)
+      {
+        v16 = *&v19[7];
+      }
+
+      else
+      {
+        v16 = v19;
+      }
+
+      *buf = 136315394;
+      v21 = v16;
+      v22 = 1024;
+      v23 = v8;
+      _os_log_error_impl(&dword_1E1C61000, v15, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read %s[%d].", buf, 0x12u);
+
+      if (v17 && (v18 & 1) != 0)
+      {
+        (*(*v17 + 40))();
+      }
+    }
+
+    v12 = 0;
+  }
+
+  else
+  {
+LABEL_5:
+    v12 = 1;
+  }
+
+  return v12;
+}
+
+uint64_t std::__function::__func<anonymous namespace::PropertyBagReader::readHashTable(objc_object *,re::IntrospectionBase const&,void *)::{lambda(unsigned char *)#1},std::allocator<anonymous namespace::PropertyBagReader::readHashTable(objc_object *,re::IntrospectionBase const&,void *)::{lambda(unsigned char *)#1}>,void ()(unsigned char *)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F5D16CF8;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__value_func<void ()(unsigned char *)>::~__value_func[abi:nn200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t *std::unique_ptr<unsigned char,std::function<void ()(unsigned char *)>>::~unique_ptr[abi:nn200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    std::function<void ()(unsigned char *)>::operator()((a1 + 1), v2);
+  }
+
+  std::__function::__value_func<void ()(unsigned char *)>::~__value_func[abi:nn200100]((a1 + 1));
+  return a1;
+}
+
+uint64_t std::function<void ()(unsigned char *)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v8 = a2;
+  v2 = *(a1 + 24);
+  if (v2)
+  {
+    return (*(*v2 + 48))(v2, &v8);
+  }
+
+  v4 = std::__throw_bad_function_call[abi:nn200100]();
+}
+
+uint64_t anonymous namespace::PropertyBagReader::readMember(_anonymous_namespace_::PropertyBagReader *this, objc_object *a2, const re::IntrospectionMember *a3, char *a4)
+{
+  v59 = *MEMORY[0x1E69E9840];
+  v7 = a2;
+  v8 = v7;
+  v9 = *(a3 + 10);
+  if (v9 <= 1)
+  {
+    if (v9)
+    {
+      if (v9 == 1)
+      {
+        v10 = v7;
+        v11 = *(a3 + 9);
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
+        {
+          *__src = 0;
+          if (*(a3 + 10) == 1)
+          {
+            v13 = *(a3 + 6);
+            if (v13)
+            {
+              memcpy(&a4[*(a3 + 16)], __src, *(v13 + 20));
+              *&a4[v11] = 0;
+
+LABEL_11:
+              v15 = 1;
+              goto LABEL_49;
+            }
+          }
+
+          v41 = *re::foundationSerializationLogObjects(isKindOfClass);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            v42 = *(a3 + 1);
+            *__src = 136315138;
+            *&__src[4] = v42;
+            v43 = "PropertyBagReader; failed to set array size '%s'.";
+LABEL_33:
+            _os_log_error_impl(&dword_1E1C61000, v41, OS_LOG_TYPE_ERROR, v43, __src, 0xCu);
+          }
+
+LABEL_44:
+
+          v21 = *re::foundationSerializationLogObjects(v49);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          {
+            v50 = *(a3 + 1);
+            *__src = 136315138;
+            *&__src[4] = v50;
+            v18 = "PropertyBagReader; failed to read polymorphic member '%s'.";
+            goto LABEL_46;
+          }
+
+LABEL_48:
+          v15 = 0;
+          goto LABEL_49;
+        }
+
+        objc_opt_class();
+        v33 = objc_opt_isKindOfClass();
+        if ((v33 & 1) == 0)
+        {
+          v41 = *re::foundationSerializationLogObjects(v33);
+          if (!os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_44;
+          }
+
+          v44 = *(a3 + 1);
+          *__src = 136315138;
+          *&__src[4] = v44;
+          v43 = "PropertyBagReader; expected NSArray for array '%s'.";
+          goto LABEL_33;
+        }
+
+        v34 = v10;
+        v35 = [(objc_object *)v34 count];
+        if (v35 >> 31)
+        {
+          v36 = *re::foundationSerializationLogObjects(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          {
+            v37 = *(a3 + 1);
+            *__src = 136315138;
+            *&__src[4] = v37;
+            v38 = "PropertyBagReader; array too big '%s'.";
+LABEL_56:
+            _os_log_error_impl(&dword_1E1C61000, v36, OS_LOG_TYPE_ERROR, v38, __src, 0xCu);
+          }
+        }
+
+        else
+        {
+          v46 = [(objc_object *)v34 count];
+          *__src = v46;
+          if (*(a3 + 10) == 1)
+          {
+            v47 = *(a3 + 6);
+            if (v47)
+            {
+              memcpy(&a4[*(a3 + 16)], __src, *(v47 + 20));
+              re::IntrospectionCStyleArray::IntrospectionCStyleArray(__src, *(*(a3 + 2) + 48), [(objc_object *)v34 count]);
+              re::IntrospectionPointer::IntrospectionPointer(v55, __src);
+              if (Value)
+              {
+                re::IntrospectionPointer::~IntrospectionPointer(v55);
+                re::IntrospectionCStyleArray::~IntrospectionCStyleArray(__src);
+
+                goto LABEL_11;
+              }
+
+              v52 = *re::foundationSerializationLogObjects(Value);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+              {
+                v54 = *(a3 + 1);
+                *buf = 136315138;
+                v57 = v54;
+                _os_log_error_impl(&dword_1E1C61000, v52, OS_LOG_TYPE_ERROR, "PropertyBagReader; failed to read array data for member '%s'.", buf, 0xCu);
+              }
+
+              re::IntrospectionPointer::~IntrospectionPointer(v55);
+              re::IntrospectionCStyleArray::~IntrospectionCStyleArray(__src);
+              goto LABEL_43;
+            }
+          }
+
+          v36 = *re::foundationSerializationLogObjects(v46);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          {
+            v53 = *(a3 + 1);
+            *__src = 136315138;
+            *&__src[4] = v53;
+            v38 = "PropertyBagReader; failed to set array size '%s'.";
+            goto LABEL_56;
+          }
+        }
+
+LABEL_43:
+
+        goto LABEL_44;
+      }
+
+LABEL_12:
+      v16 = *re::foundationSerializationLogObjects(v7);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v17 = *(a3 + 10);
+        *__src = 67109120;
+        *&__src[4] = v17;
+        v18 = "PropertyBagReader; unknown member type '%d'.";
+        v19 = v16;
+        v20 = 8;
+LABEL_47:
+        _os_log_error_impl(&dword_1E1C61000, v19, OS_LOG_TYPE_ERROR, v18, __src, v20);
+        goto LABEL_48;
+      }
+
+      goto LABEL_48;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v9 != 2)
+  {
+    if (v9 != 3)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_10:
+    if (v14)
     {
       goto LABEL_11;
     }
 
-    if (v10 < 10.0)
+    v21 = *re::foundationSerializationLogObjects(v14);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      if (v10 <= 1.0)
-      {
-LABEL_11:
-        *(v7 + 4 * v4) = 0;
-      }
-
-      else
-      {
-        v11 = v10 + -1.0;
-        *(v7 + 4 * v4) = v11;
-        if (v11 > 0.0)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      *(v8 + 2 * v4) &= ~0x20u;
-      goto LABEL_13;
+      goto LABEL_48;
     }
 
-LABEL_10:
-    *(v7 + 4 * v4) = 1092616192;
-    goto LABEL_13;
+    v22 = *(a3 + 1);
+    *__src = 136315138;
+    *&__src[4] = v22;
+    v18 = "PropertyBagReader; failed to read target for member '%s'.";
+LABEL_46:
+    v19 = v21;
+    v20 = 12;
+    goto LABEL_47;
   }
+
+  v23 = v7;
+  v24 = v23;
+  v25 = *(a3 + 2);
+  if (*(v25 + 16) != 1)
+  {
+    v39 = *re::foundationSerializationLogObjects(v23);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+LABEL_35:
+
+LABEL_36:
+      v21 = *re::foundationSerializationLogObjects(v32);
+      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_48;
+      }
+
+      v45 = *(a3 + 1);
+      *__src = 136315138;
+      *&__src[4] = v45;
+      v18 = "PropertyBagReader; failed to read polymorphic member '%s'.";
+      goto LABEL_46;
+    }
+
+    *__src = 0;
+    v40 = "PropertyBagReader; polymorphic member needs to be pointer.";
+LABEL_54:
+    _os_log_error_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_ERROR, v40, __src, 2u);
+    goto LABEL_35;
+  }
+
+  v26 = *(v25 + 48);
+  if (*(v26 + 16) != 8)
+  {
+    v39 = *re::foundationSerializationLogObjects(v23);
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_35;
+    }
+
+    *__src = 0;
+    v40 = "PropertyBagReader; polymorphic member needs to point to structure.";
+    goto LABEL_54;
+  }
+
+  v27 = *(v26 + 64);
+  v28 = *v27;
+  if (**v27 != 2)
+  {
+    v29 = v27 + 1;
+    do
+    {
+      v30 = *v29++;
+      v28 = v30;
+    }
+
+    while (*v30 != 2);
+  }
+
+  v15 = 1;
+
+  if ((PointerPolymorphic & 1) == 0)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_49:
+
+  return v15;
 }
 
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::Refinement::reclassifySemisharpVertices(uint64_t this)
+uint64_t anonymous namespace::BinarySerializer::serialize(_anonymous_namespace_ *a1, const re::IntrospectionBase *a2, const re::IntrospectionBase **a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *(this + 56);
-  if (v1 >= 1)
+  v27 = a3;
+  v16[0] = a1;
+  v16[1] = a5;
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
+  v23 = 0x7FFFFFFFLL;
+  v24 = a4;
+  *(&v25 + 1) = 0;
+  v26 = 0uLL;
+  re::DynamicString::setCapacity(&v25, 0);
+  v17 = a5;
+  *&v25 = a5;
+  re::DynamicString::setCapacity(&v25, 0);
+  *v15 = 0;
+  re::SmallHashTable<void const*,unsigned int,8ul,re::Hash<void const*>,re::EqualTo<void const*>,false>::add(&v17, &v27, v15);
+  if (v9)
   {
-    v2 = *(this + 80);
-    v3 = v2 + v1;
+    v15[0] = 69;
+    v10 = 1;
+    v11 = (*(*a1 + 16))(a1, v15, 1);
+    if (v11 == 1)
+    {
+      goto LABEL_7;
+    }
+
+    v12 = *re::foundationSerializationLogObjects(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *v15 = 0;
+      v13 = "Binary Serialization; failed to write end of file tag.";
+LABEL_13:
+      _os_log_error_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_ERROR, v13, v15, 2u);
+    }
+  }
+
+  else
+  {
+    v12 = *re::foundationSerializationLogObjects(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *v15 = 0;
+      v13 = "Binary Serialization; failed to write body serialization.";
+      goto LABEL_13;
+    }
+  }
+
+  v10 = 0;
+LABEL_7:
+  if (v25)
+  {
+    if (BYTE8(v25))
+    {
+      (*(*v25 + 40))();
+    }
+
+    v26 = 0u;
+    v25 = 0u;
+  }
+
+  v19 = 0;
+  ++v20;
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v21);
+  v17 = 0;
+  v18 = 0;
+  re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v21);
+  return v10;
+}
+
+uint64_t re::serializeBinaryToBuffer(const re::IntrospectionBase *a1, const re::IntrospectionBase **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7)
+{
+  v20 = &unk_1F5D0A808;
+  v21 = 0;
+  {
+    v17 = 0;
+    goto LABEL_6;
+  }
+
+  v14 = v21;
+  *a7 = v21;
+  if (!v14)
+  {
+    v17 = 0;
+    *a6 = 0;
+    return v17;
+  }
+
+  v15 = (*(*a4 + 32))(a4, v14, 0);
+  *a6 = v15;
+  v16 = *a7;
+  v19[0] = &unk_1F5D0ADB8;
+  v19[1] = v15;
+  v19[2] = v16;
+  v19[3] = 0;
+  if ((v17 & 1) == 0)
+  {
+    (*(*a4 + 40))(a4, *a6);
+LABEL_6:
+    *a6 = 0;
+    *a7 = 0;
+  }
+
+  return v17;
+}
+
+uint64_t anonymous namespace::BinarySerializer::write(_anonymous_namespace_::BinarySerializer *this, const re::IntrospectionBase *a2, const re::IntrospectionBase **a3)
+{
+  v97[2] = *MEMORY[0x1E69E9840];
+  if (a3)
+  {
+    v5 = this;
+    switch(*(a2 + 4))
+    {
+      case 0:
+      case 9:
+        v6 = (*(**this + 16))();
+        if (v6 == *(a2 + 5))
+        {
+          return 1;
+        }
+
+        v7 = *re::foundationSerializationLogObjects(v6);
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        v8 = *(a2 + 6);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v8;
+        v9 = "Binary Serialization; failed to write basic type '%s'.";
+        goto LABEL_90;
+      case 1:
+        v28 = *a3;
+        re::PolymorphicData::makeWithPointer(&v87, *(a2 + 6), *a3);
+      case 2:
+        v26 = *(a2 + 6);
+        v27 = *(a2 + 16);
+
+      case 3:
+        LODWORD(v87) = (*(*a2 + 88))(a2, a3);
+        v18 = (*(**v5 + 16))(*v5, &v87, 4);
+        if (v18 == 4)
+        {
+          if (!v87)
+          {
+            return 1;
+          }
+
+          goto LABEL_19;
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v18);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        *buf = 0;
+        v9 = "Binary Serialization; failed to write dynamic array length.";
+        goto LABEL_83;
+      case 4:
+        LODWORD(v87) = (*(*a2 + 80))(a2, a3);
+        v23 = (*(**v5 + 16))(*v5, &v87, 4);
+        if (v23 == 4)
+        {
+          if (!v87)
+          {
+            return 1;
+          }
+
+LABEL_19:
+          v24 = (*(*a2 + 104))(a2, a3, 0);
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v23);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        *buf = 0;
+        v9 = "Binary Serialization; failed to write fixed array length.";
+LABEL_83:
+        v62 = buf;
+        goto LABEL_106;
+      case 5:
+        *buf = (*(*a2 + 80))(a2, a3);
+        v29 = (*(**v5 + 16))(*v5, buf, 4);
+        if (v29 != 4)
+        {
+          v10 = *re::foundationSerializationLogObjects(v29);
+          if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          LOWORD(v87) = 0;
+          v9 = "Binary Serialization; failed to write data array length.";
+          goto LABEL_105;
+        }
+
+        *&v87 = (*(*a2 + 88))(a2, a3);
+        DWORD2(v87) = v30;
+        while (1)
+        {
+          v31 = (*(*a2 + 96))(a2, a3);
+          if (v87 == v31 && WORD4(v87) == v32 && WORD5(v87) == HIWORD(v32))
+          {
+            return 1;
+          }
+
+          v33 = *(a2 + 6);
+          v34 = (*(*a2 + 104))(a2, &v87);
+          if ((v35 & 1) == 0)
+          {
+            break;
+          }
+
+          re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v87);
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v35);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        LOWORD(__dst[0]) = 0;
+        v9 = "Binary Serialization; failed to write data array item.";
+        v62 = __dst;
+        goto LABEL_106;
+      case 6:
+        v36 = *this;
+        if (a3[1])
+        {
+          v37 = a3[2];
+        }
+
+        else
+        {
+          v37 = a3 + 9;
+        }
+
+        v69 = strlen(v37);
+        LODWORD(v87) = v69;
+        v70 = (*(*v36 + 16))(v36, &v87, 4);
+        if (v70 == 4)
+        {
+          v71 = (*(*v36 + 16))(v36, v37, v69);
+          if (v71 == v69)
+          {
+            return 1;
+          }
+        }
+
+        else
+        {
+          v72 = *re::foundationSerializationLogObjects(v70);
+          v71 = os_log_type_enabled(v72, OS_LOG_TYPE_ERROR);
+          if (v71)
+          {
+            LOWORD(v87) = 0;
+            _os_log_error_impl(&dword_1E1C61000, v72, OS_LOG_TYPE_ERROR, "Binary Serialization; failed to write string length.", &v87, 2u);
+          }
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v71);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        LOWORD(v87) = 0;
+        v9 = "Binary Serialization; failed to write dynamic string.";
+        goto LABEL_105;
+      case 7:
+        *buf = (*(*a2 + 80))(a2, a3);
+        v58 = (*(**v5 + 16))(*v5, buf, 4);
+        if (v58 == 4)
+        {
+          *&v87 = &unk_1F5D16D40;
+          *(&v87 + 1) = v5;
+          v88 = a2;
+          v89 = &v87;
+          v59 = (*(*a2 + 104))(a2, a3, &v87);
+          v60 = std::__function::__value_func<BOOL ()(void const*,void *)>::~__value_func[abi:nn200100](&v87);
+          if (v59)
+          {
+            return 1;
+          }
+
+          v10 = *re::foundationSerializationLogObjects(v60);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            LOWORD(v87) = 0;
+            v9 = "Binary Serialization; failed to iterate over hash table keys.";
+            goto LABEL_105;
+          }
+
+          return 0;
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v58);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        LOWORD(v87) = 0;
+        v9 = "Binary Serialization; failed to write hash table length.";
+        goto LABEL_105;
+      case 8:
+        if (!*(a2 + 14))
+        {
+          return 1;
+        }
+
+        v41 = 0;
+        break;
+      case 0xA:
+        re::StringID::StringID(&v87, a3);
+        v13 = *v5;
+        v14 = *(&v87 + 1);
+        v15 = strlen(*(&v87 + 1));
+        *buf = v15;
+        v16 = (*(*v13 + 16))(v13, buf, 4);
+        if (v16 == 4)
+        {
+          v17 = (*(*v13 + 16))(v13, v14, v15);
+          v11 = v17 == v15;
+        }
+
+        else
+        {
+          v61 = *re::foundationSerializationLogObjects(v16);
+          v17 = os_log_type_enabled(v61, OS_LOG_TYPE_ERROR);
+          if (v17)
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_1E1C61000, v61, OS_LOG_TYPE_ERROR, "Binary Serialization; failed to write string length.", buf, 2u);
+          }
+
+          v11 = 0;
+        }
+
+        if (v87)
+        {
+          if (v87)
+          {
+          }
+        }
+
+        return v11;
+      case 0xB:
+        if (*(this + 240))
+        {
+          *(this + 30) = 1;
+          v25 = *(this + 31);
+        }
+
+        else
+        {
+          *(this + 240) = 0;
+          v25 = this + 241;
+        }
+
+        *v25 = 0;
+        v63 = (*(a2 + 9))(*(this + 28), a2, a3, this + 232);
+        if ((v63 & 1) == 0)
+        {
+          v7 = *re::foundationSerializationLogObjects(v63);
+          if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          v66 = *(a2 + 6);
+          LODWORD(v87) = 136315138;
+          *(&v87 + 4) = v66;
+          v9 = "Binary Serialization; failed to write type '%s' using serialization callback.";
+LABEL_90:
+          v62 = &v87;
+          v67 = v7;
+          goto LABEL_91;
+        }
+
+        v64 = *v5;
+        if (*(v5 + 240))
+        {
+          v65 = *(v5 + 31);
+        }
+
+        else
+        {
+          v65 = v5 + 241;
+        }
+
+        v73 = strlen(v65);
+        LODWORD(v87) = v73;
+        v74 = (*(*v64 + 16))(v64, &v87, 4);
+        if (v74 == 4)
+        {
+          return (*(*v64 + 16))(v64, v65, v73) == v73;
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v74);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(v87) = 0;
+          v9 = "Binary Serialization; failed to write string length.";
+          goto LABEL_105;
+        }
+
+        return 0;
+      case 0xD:
+        buf[0] = (*(*a2 + 56))(a2, a3);
+        v19 = (*(**v5 + 16))(*v5, buf, 1);
+        if (v19 == 1)
+        {
+          if (buf[0] != 1)
+          {
+            return 1;
+          }
+
+          v20 = *(a2 + 6);
+          v21 = (*(*a2 + 80))(a2, a3);
+        }
+
+        v10 = *re::foundationSerializationLogObjects(v19);
+        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        LOWORD(v87) = 0;
+        v9 = "Binary Serialization; failed to write optional value.";
+        goto LABEL_105;
+      default:
+        v38 = *re::foundationSerializationLogObjects(this);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        {
+          v39 = v38;
+          re::getPrettyTypeName(&v87, a2);
+          v40 = (BYTE8(v87) & 1) != 0 ? v88 : (&v87 + 9);
+          *buf = 136315138;
+          *&buf[4] = v40;
+          _os_log_error_impl(&dword_1E1C61000, v39, OS_LOG_TYPE_ERROR, "Binary Serialization; unhandled introspection type '%s'.", buf, 0xCu);
+
+          if (v87)
+          {
+            if (BYTE8(v87))
+            {
+              (*(*v87 + 40))();
+            }
+          }
+        }
+
+        return 0;
+    }
+
     while (1)
     {
-      v4 = *(this + 16);
-      v5 = *(v4 + 432);
-      v6 = *(v5 + 2 * v2);
-      if ((v6 & 0x40) != 0)
+      v42 = *(*(a2 + 8) + 8 * v41);
+      if (*v42 != 1)
+      {
+        goto LABEL_65;
+      }
+
+      v43 = *(v42 + 40);
+      if (v43 <= 1)
       {
         break;
       }
 
-LABEL_16:
-      if (++v2 >= v3)
+      if (v43 != 2)
       {
-        goto LABEL_17;
+        if (v43 != 3)
+        {
+LABEL_128:
+          re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "write", 213, v84);
+          result = _os_crash("assertion failure: (!Unreachable code) ");
+          __break(1u);
+          return result;
+        }
+
+LABEL_56:
+        if ((this & 1) == 0)
+        {
+          v75 = *re::foundationSerializationLogObjects(this);
+          if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          v77 = *(v42 + 8);
+          LODWORD(v87) = 136315138;
+          *(&v87 + 4) = v77;
+          v9 = "Binary Serialization; failed to write target for member '%s'.";
+          goto LABEL_127;
+        }
+
+        goto LABEL_65;
+      }
+
+      v50 = *(*(v42 + 16) + 48);
+      v51 = *(v50 + 8);
+      v52 = *v51;
+      if (**v51 != 2)
+      {
+        v53 = (v51 + 1);
+        do
+        {
+          v54 = *v53++;
+          v52 = v54;
+        }
+
+        while (*v54 != 2);
+      }
+
+      v55 = *(a3 + *(v42 + 36));
+      v56 = *(v42 + 48);
+      *&v87 = a3 + *(v42 + 64);
+      *(&v87 + 1) = v56;
+      v88 = *(v52 + 1);
+      if ((this & 1) == 0)
+      {
+        v75 = *re::foundationSerializationLogObjects(this);
+        if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        v80 = *(v42 + 8);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v80;
+        v9 = "Binary Serialization; failed to find polymorphic member '%s'.";
+LABEL_127:
+        v62 = &v87;
+        v67 = v75;
+LABEL_91:
+        v68 = 12;
+LABEL_107:
+        _os_log_error_impl(&dword_1E1C61000, v67, OS_LOG_TYPE_ERROR, v9, v62, v68);
+        return 0;
+      }
+
+LABEL_65:
+      ++v41;
+      v11 = 1;
+      if (v41 >= *(a2 + 14))
+      {
+        return v11;
       }
     }
 
-    v7 = (*(this + 192) + 8 * *(*(this + 312) + 4 * v2));
-    if ((*(*(this + 384) + v2) & 1) == 0)
+    if (v43)
     {
-      v8 = ((*(*(v4 + 240) + v7[1]) >> 3) & 1) + ((*(*(v4 + 240) + *v7) >> 3) & 1);
-      v9 = v6 & 0xFFFFF83F | ((v8 != 0) << 6) | (128 << v8);
-LABEL_15:
-      *(v5 + 2 * v2) = v9;
-      goto LABEL_16;
-    }
-
-    v10 = *v7;
-    if (v10 == -1 || (*(*(v4 + 240) + v10) & 8) == 0)
-    {
-      v11 = v7[1];
-      if (v11 == -1)
+      if (v43 != 1)
       {
-        v13 = v6 & 0xF83F;
+        goto LABEL_128;
+      }
+
+      v44 = *(v42 + 48);
+      if (!v44)
+      {
+        v75 = *re::foundationSerializationLogObjects(this);
+        if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        v78 = *(v42 + 8);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v78;
+        v9 = "Binary Serialization; failed to get array length for member '%s'.";
+        goto LABEL_127;
+      }
+
+      v45 = *(v42 + 64);
+      __dst[0] = 0;
+      v46 = memcpy(__dst, a3 + v45, *(v44 + 20));
+      if (HIDWORD(__dst[0]))
+      {
+        v75 = *re::foundationSerializationLogObjects(v46);
+        if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        v81 = *(v42 + 8);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v81;
+        v9 = "Binary Serialization; array too big for member '%s'.";
+        goto LABEL_127;
+      }
+
+      v85 = __dst[0];
+      v47 = (*(**v5 + 16))(*v5, &v85, 4);
+      if (v47 != 4)
+      {
+        v75 = *re::foundationSerializationLogObjects(v47);
+        if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        v82 = *(v42 + 8);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v82;
+        v9 = "Binary Serialization; failed to write member array length for member '%s'.";
+        goto LABEL_127;
+      }
+
+      v48 = *(v42 + 16);
+      v84 = 0;
+      if (v85)
+      {
+        v49 = (a3 + *(v42 + 36));
       }
 
       else
       {
-        v12 = 8 * *(*(v4 + 240) + v11);
-        v13 = v6 & 0xF83F;
-        if ((v12 & 0x40) != 0)
+        v49 = &v84;
+      }
+
+      re::IntrospectionCStyleArray::IntrospectionCStyleArray(&v87, *(v48 + 48), v85);
+      ArcSharedObject::ArcSharedObject(buf, 0);
+      v92 = 0x800000001;
+      v93 = 8;
+      v94 = 0;
+      v95 = 0;
+      v96 = 0xFFFFFFFFLL;
+      *buf = &unk_1F5CBD2C0;
+      v97[0] = &v87;
+      v97[1] = 0;
+      *buf = &unk_1F5CBD2C0;
+      re::SerializedReference<re::IntrospectionBase const*>::reset(v97);
+      *buf = &unk_1F5CCF868;
+      objc_destructInstance(&buf[8]);
+      *&v87 = &unk_1F5CB0038;
+      re::SerializedReference<re::IntrospectionBase const*>::reset(&v90);
+      *&v87 = &unk_1F5CCF868;
+      this = objc_destructInstance(&v87 + 8);
+      if ((v57 & 1) == 0)
+      {
+        v75 = *re::foundationSerializationLogObjects(this);
+        if (!os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
-          v14 = v12 & 0x40;
-          v15 = 512;
-LABEL_14:
-          LOWORD(v9) = v14 | v15 | v13;
-          goto LABEL_15;
+          return 0;
+        }
+
+        v83 = *(v42 + 8);
+        LODWORD(v87) = 136315138;
+        *(&v87 + 4) = v83;
+        v9 = "Binary Serialization; failed to write array data for member '%s'.";
+        goto LABEL_127;
+      }
+
+      goto LABEL_65;
+    }
+
+    goto LABEL_56;
+  }
+
+  v10 = *re::foundationSerializationLogObjects(this);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    LOWORD(v87) = 0;
+    v9 = "Binary Serialization; target memory is empty (FATAL, INTERNAL).";
+LABEL_105:
+    v62 = &v87;
+LABEL_106:
+    v67 = v10;
+    v68 = 2;
+    goto LABEL_107;
+  }
+
+  return 0;
+}
+
+uint64_t re::SmallHashTable<void const*,unsigned int,8ul,re::Hash<void const*>,re::EqualTo<void const*>,false>::add(uint64_t result, uint64_t *a2, int *a3)
+{
+  v5 = result;
+  if (!*(result + 188))
+  {
+    v7 = *(result + 16);
+    v8 = *a2;
+    if (v7)
+    {
+      v9 = 16 * v7;
+      v10 = result + 32;
+      v11 = 32;
+      v12 = 16 * v7;
+      do
+      {
+        if (*(result + v11) == v8)
+        {
+          return result;
+        }
+
+        v11 += 16;
+        v12 -= 16;
+      }
+
+      while (v12);
+      if ((v7 & 0xFFFFFFF8) != 0)
+      {
+        if (!*(result + 160))
+        {
+          v13 = *result;
+          if (!*result)
+          {
+          }
+
+          re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::init(v5 + 160, v13, 16);
+          v14 = *(v5 + 16);
+          if (!v14)
+          {
+            goto LABEL_19;
+          }
+
+          v9 = 16 * v14;
+        }
+
+        do
+        {
+          v19 = 0;
+          v20 = 0;
+          v21 = 0;
+          v15 = 0xBF58476D1CE4E5B9 * (*v10 ^ (*v10 >> 30));
+          re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::findEntry<void const*>(&v19, v5 + 160, *v10, (0x94D049BB133111EBLL * (v15 ^ (v15 >> 27))) ^ ((0x94D049BB133111EBLL * (v15 ^ (v15 >> 27))) >> 31));
+          if (HIDWORD(v20) == 0x7FFFFFFF)
+          {
+            v16 = re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::allocEntry(v5 + 160, v20, v19);
+            *(v16 + 8) = *v10;
+            *(v16 + 16) = *(v10 + 8);
+            ++*(v5 + 200);
+          }
+
+          v10 += 16;
+          v9 -= 16;
+        }
+
+        while (v9);
+LABEL_19:
+        *(v5 + 16) = 0;
+        ++*(v5 + 24);
+        v6 = v5 + 160;
+        goto LABEL_3;
+      }
+
+      if (v7 >= 8)
+      {
+        re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) Capacity limit reached. DynamicInlineArray<T,N> cannot be resized.", "false", "ensureCapacity", 277);
+        result = _os_crash("assertion failure: (false) Capacity limit reached. DynamicInlineArray<T,N> cannot be resized.");
+        __break(1u);
+        return result;
+      }
+    }
+
+    v17 = *a3;
+    v18 = result + 16 * v7;
+    *(v18 + 32) = v8;
+    *(v18 + 40) = v17;
+    *(result + 16) = v7 + 1;
+    ++*(result + 24);
+    return result;
+  }
+
+  v6 = result + 160;
+LABEL_3:
+
+  return re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::add(v6, a2, a3);
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::add(uint64_t a1, uint64_t *a2, _DWORD *a3)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::findEntry<void const*>(&v10, a1, *a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31));
+  if (HIDWORD(v11) != 0x7FFFFFFF)
+  {
+    return *(a1 + 16) + 24 * HIDWORD(v11) + 16;
+  }
+
+  v7 = re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::allocEntry(a1, v11, v10);
+  v8 = *a2;
+  *(v7 + 16) = *a3;
+  result = v7 + 16;
+  *(result - 8) = v8;
+  ++*(a1 + 40);
+  return result;
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::findEntry<void const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = *a2;
+  v5 = 0x7FFFFFFF;
+  if (!*a2)
+  {
+    goto LABEL_10;
+  }
+
+  v4 = a4 % *(a2 + 24);
+  v6 = *(*(a2 + 8) + 4 * v4);
+  if (v6 == 0x7FFFFFFF)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = *(a2 + 16);
+  if (*(v7 + 24 * v6 + 8) == a3)
+  {
+    v5 = *(*(a2 + 8) + 4 * v4);
+LABEL_10:
+    v6 = 0x7FFFFFFF;
+    goto LABEL_11;
+  }
+
+  v8 = *(v7 + 24 * v6) & 0x7FFFFFFF;
+  v5 = 0x7FFFFFFF;
+  if (v8 != 0x7FFFFFFF)
+  {
+    v5 = 0x7FFFFFFF;
+    while (1)
+    {
+      v9 = v8;
+      if (*(v7 + 24 * v8 + 8) == a3)
+      {
+        break;
+      }
+
+      v8 = *(v7 + 24 * v8) & 0x7FFFFFFF;
+      v6 = v9;
+      if (v8 == 0x7FFFFFFF)
+      {
+        v6 = v9;
+        goto LABEL_11;
+      }
+    }
+
+    v5 = v8;
+  }
+
+LABEL_11:
+  *result = a4;
+  *(result + 8) = v4;
+  *(result + 12) = v5;
+  *(result + 16) = v6;
+  return result;
+}
+
+uint64_t re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v4 = *(a1 + 36);
+  if (v4 == 0x7FFFFFFF)
+  {
+    v4 = *(a1 + 32);
+    v5 = v4;
+    if (v4 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v4 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v27, 0, 36);
+          *&v27[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::init(v27, v9, v8);
+          v11 = *v27;
+          *v27 = *a1;
+          *a1 = v11;
+          v12 = *&v27[16];
+          v13 = *(a1 + 16);
+          *&v27[16] = v13;
+          *(a1 + 16) = v12;
+          v15 = *&v27[24];
+          *&v27[24] = *(a1 + 24);
+          v14 = *&v27[32];
+          *(a1 + 24) = v15;
+          ++*&v27[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = v13 + 8;
+            do
+            {
+              if ((*(v17 - 8) & 0x80000000) != 0)
+              {
+                v18 = 0xBF58476D1CE4E5B9 * (*v17 ^ (*v17 >> 30));
+                v19 = (0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) ^ ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) >> 31);
+                v20 = re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::allocEntry(a1, v19 % *(a1 + 24), v19);
+                *(v20 + 8) = *v17;
+                *(v20 + 16) = *(v17 + 8);
+              }
+
+              v17 += 24;
+              --v16;
+            }
+
+            while (v16);
+          }
+
+          re::HashTable<re::internal::SerializeFuncKey,BOOL (*)(re::Serializer<re::EncoderOPACK<re::DynamicArrayBufferedOutputStream>> &,char const*,int,void *,re::TypeInfo const&,re::TypeInfo const&,BOOL),re::internal::HashSerializeFuncKey,re::EqualTo<re::internal::SerializeFuncKey>,false,true>::deinit(v27);
         }
       }
 
-      v14 = 0;
-      v15 = 128;
-      goto LABEL_14;
+      else
+      {
+        if (v8)
+        {
+          v23 = 2 * v7;
+        }
+
+        else
+        {
+          v23 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v5 = *(a1 + 32);
     }
 
-    v13 = v6 & 0xF83F;
-    v15 = 512;
-    v14 = 64;
-    goto LABEL_14;
+    *(a1 + 32) = v5 + 1;
+    v21 = *(a1 + 16);
+    v22 = *(v21 + 24 * v4);
   }
 
-LABEL_17:
-  v16 = *(this + 60);
-  if (v16 >= 1)
+  else
   {
-    v17 = *(this + 84);
-    v18 = v17 + v16;
-    while (1)
+    v21 = *(a1 + 16);
+    v22 = *(v21 + 24 * v4);
+    *(a1 + 36) = v22 & 0x7FFFFFFF;
+  }
+
+  v24 = 24 * v4;
+  *(v21 + v24) = v22 | 0x80000000;
+  v25 = *(a1 + 8);
+  *(v21 + v24) = *(v25 + 4 * a2) | 0x80000000;
+  *(v25 + 4 * a2) = v4;
+  ++*(a1 + 28);
+  return v21 + 24 * v4;
+}
+
+uint64_t anonymous namespace::BinarySerializer::writePointer(_anonymous_namespace_::BinarySerializer *this, const re::IntrospectionBase *a2, unint64_t a3, re::PolymorphicData *a4)
+{
+  v48 = *MEMORY[0x1E69E9840];
+  __s = a3;
+  if (a3)
+  {
+    v7 = *(this + 51);
+    if (v7)
     {
-      v19 = *(*(this + 312) + 4 * v17);
-      v20 = *(this + 8);
-      v21 = *(v20[54] + 2 * v19);
-      if ((v21 & 0x60) != 0)
+      v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a3 ^ (a3 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a3 ^ (a3 >> 30))) >> 27));
+      re::HashTable<void const*,unsigned int,re::Hash<void const*>,re::EqualTo<void const*>,false,false>::findEntry<void const*>(buf, this + 176, a3, v8 ^ (v8 >> 31));
+      if (v47 != 0x7FFFFFFF)
       {
-        v22 = *(this + 16);
-        v23 = v22[54];
-        v24 = *(v23 + 2 * v17);
-        if ((v21 & 0x40) != 0 || (((v24 & 0x20) == 0) & (v21 >> 5)) != 0)
+        v9 = (*(this + 24) + 24 * v47 + 16);
+        goto LABEL_5;
+      }
+    }
+
+    else
+    {
+      v18 = *(this + 4);
+      if (v18)
+      {
+        v19 = 16 * v18;
+        v9 = this + 56;
+        while (*(v9 - 1) != a3)
+        {
+          v9 += 16;
+          v19 -= 16;
+          if (!v19)
+          {
+            goto LABEL_16;
+          }
+        }
+
+LABEL_5:
+        v10 = *this;
+        buf[0] = 82;
+        v11 = (*(*v10 + 16))(v10, buf, 1);
+        if (v11 != 1)
+        {
+          v13 = *re::foundationSerializationLogObjects(v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v14 = "Binary Serialization; failed to write reference tag.";
+            goto LABEL_47;
+          }
+
+          return 0;
+        }
+
+        v12 = (*(**this + 16))(*this, v9, 4);
+        if (v12 != 4)
+        {
+          v13 = *re::foundationSerializationLogObjects(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v14 = "Binary Serialization; failed to write reference tag index.";
+LABEL_47:
+            v34 = buf;
+LABEL_48:
+            v35 = v13;
+            v36 = 2;
+LABEL_49:
+            _os_log_error_impl(&dword_1E1C61000, v35, OS_LOG_TYPE_ERROR, v14, v34, v36);
+            return 0;
+          }
+
+          return 0;
+        }
+
+        return 1;
+      }
+
+LABEL_16:
+      v7 = *(this + 8);
+    }
+
+    *buf = v7;
+    re::SmallHashTable<void const*,unsigned int,8ul,re::Hash<void const*>,re::EqualTo<void const*>,false>::add(this + 16, &__s, buf);
+    v20 = *this;
+    buf[0] = 73;
+    v21 = (*(*v20 + 16))(v20, buf, 1);
+    if (v21 != 1)
+    {
+      v13 = *re::foundationSerializationLogObjects(v21);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v14 = "Binary Serialization; failed to write inline object tag.";
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+
+    {
+      if (v21)
+      {
+        re::introspect<char>(BOOL)::info = re::introspect_char(0, v42);
+      }
+    }
+
+    if (re::introspect<char>(BOOL)::info != a2)
+    {
+      if (a4 && (v22 = *(a4 + 2)) != 0)
+      {
+        v23 = *a4;
+        if (!*a4 || (v24 = *(a4 + 1)) == 0)
+        {
+          v13 = *re::foundationSerializationLogObjects(v21);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v14 = "Binary Serialization; invalid polymorphic data.";
+            goto LABEL_47;
+          }
+
+          return 0;
+        }
+
+        v25 = __s;
+        __dst[0] = 0;
+        v26 = memcpy(__dst, v23, *(v24 + 20));
+        v27 = *v22;
+        if (!v27)
+        {
+LABEL_28:
+          v13 = *re::foundationSerializationLogObjects(v26);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v14 = "Binary Serialization; failed to find polymorphic type.";
+            goto LABEL_47;
+          }
+
+          return 0;
+        }
+
+        v28 = (*(v22 + 1) + 32);
+        while (*(v28 - 1) != __dst[0])
+        {
+          v28 += 10;
+          if (!--v27)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        v38 = (*(**this + 16))(*this, __dst, 8);
+        if (v38 != 8)
+        {
+          v40 = *re::foundationSerializationLogObjects(v38);
+          if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          v41 = *(v28 - 4);
+          *buf = 136315138;
+          v46 = v41;
+          v14 = "Binary Serialization; failed to write type for polymorphic type '%s'.";
+          v34 = buf;
+          v35 = v40;
+          v36 = 12;
+          goto LABEL_49;
+        }
+
+        if ((v39 & 1) == 0)
+        {
+          v13 = *re::foundationSerializationLogObjects(v39);
+          if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            return 0;
+          }
+
+          *buf = 0;
+          v14 = "Binary Serialization; failed to write pointer dereferenced target.";
+          goto LABEL_47;
+        }
+      }
+
+      else
+      {
+        if ((v29 & 1) == 0)
+        {
+          v13 = *re::foundationSerializationLogObjects(v29);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            v14 = "Binary Serialization; failed to write pointer dereferenced target.";
+            goto LABEL_47;
+          }
+
+          return 0;
+        }
+      }
+
+      return 1;
+    }
+
+    v30 = __s;
+    v31 = strlen(__s);
+    if (HIDWORD(v31))
+    {
+      v13 = *re::foundationSerializationLogObjects(v31);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        v14 = "Binary Serialization; string too long.";
+        goto LABEL_47;
+      }
+
+      return 0;
+    }
+
+    *buf = v31;
+    v32 = (*(**this + 16))(*this, buf, 4);
+    if (v32 == 4)
+    {
+      v33 = (*(**this + 16))(*this, v30, *buf);
+      if (v33 == *buf)
+      {
+        return 1;
+      }
+
+      v13 = *re::foundationSerializationLogObjects(v33);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        return 0;
+      }
+
+      LOWORD(__dst[0]) = 0;
+      v14 = "Binary Serialization; failed to write string.";
+    }
+
+    else
+    {
+      v13 = *re::foundationSerializationLogObjects(v32);
+      if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        return 0;
+      }
+
+      LOWORD(__dst[0]) = 0;
+      v14 = "Binary Serialization; failed to write string length.";
+    }
+
+    v34 = __dst;
+    goto LABEL_48;
+  }
+
+  v15 = *this;
+  buf[0] = 78;
+  v16 = 1;
+  v17 = (*(*v15 + 16))(v15, buf, 1, a4);
+  if (v17 != 1)
+  {
+    v13 = *re::foundationSerializationLogObjects(v17);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v14 = "Binary Serialization; failed to write NULL tag.";
+      goto LABEL_47;
+    }
+
+    return 0;
+  }
+
+  return v16;
+}
+
+BOOL anonymous namespace::BinarySerializer::writeLinearArray(_anonymous_namespace_::BinarySerializer *this, const re::IntrospectionBase *a2, uint64_t a3, char *a4)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v8 = *(a2 + 4);
+  if (v8)
+  {
+    v9 = v8 == 9;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (!v9)
+  {
+    if (a3)
+    {
+      v14 = 0;
+      while (1)
+      {
+        if ((v15 & 1) == 0)
         {
           break;
         }
+
+        if (a3 == ++v14)
+        {
+          return 1;
+        }
       }
 
-LABEL_37:
-      if (++v17 >= v18)
+      v16 = *re::foundationSerializationLogObjects(v15);
+      result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+      if (result)
       {
-        return this;
+        v17 = v16;
+        re::getPrettyTypeName(v19, a2);
+        if (v19[8])
+        {
+          v18 = v20;
+        }
+
+        else
+        {
+          v18 = &v19[9];
+        }
+
+        *buf = 136315394;
+        v22 = v18;
+        v23 = 1024;
+        v24 = v14;
+        _os_log_error_impl(&dword_1E1C61000, v17, OS_LOG_TYPE_ERROR, "Binary Serialization; failed to write %s[%d].", buf, 0x12u);
+
+        if (*v19)
+        {
+          if (v19[8])
+          {
+            (*(**v19 + 40))();
+          }
+        }
+
+        return 0;
+      }
+
+      return result;
+    }
+
+    return 1;
+  }
+
+  v10 = (*(**this + 16))();
+  if (v10 == (*(a2 + 5) * a3))
+  {
+    return 1;
+  }
+
+  v11 = *re::foundationSerializationLogObjects(v10);
+  result = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v13 = *(a2 + 6);
+    *v19 = 136315138;
+    *&v19[4] = v13;
+    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Binary Serialization; failed to fast write array of basic type '%s'.", v19, 0xCu);
+    return 0;
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<anonymous namespace::BinarySerializer::write(re::IntrospectionBase const&,void const*)::{lambda(void const*,void *)#1},std::allocator<anonymous namespace::BinarySerializer::write(re::IntrospectionBase const&,void const*)::{lambda(void const*,void *)#1}>,BOOL ()(void const*,void *)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D16D40;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+BOOL std::__function::__func<anonymous namespace::BinarySerializer::write(re::IntrospectionBase const&,void const*)::{lambda(void const*,void *)#1},std::allocator<anonymous namespace::BinarySerializer::write(re::IntrospectionBase const&,void const*)::{lambda(void const*,void *)#1}>,BOOL ()(void const*,void *)>::operator()(uint64_t a1, const re::IntrospectionBase ***a2, const re::IntrospectionBase ***a3)
+{
+  v4 = *a3;
+  v5 = *(a1 + 8);
+  if ((v6 & 1) == 0)
+  {
+    v9 = *re::foundationSerializationLogObjects(v6);
+    result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v13 = 0;
+    v10 = "Binary Serialization; failed to write hash table key.";
+    v11 = &v13;
+LABEL_9:
+    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, v10, v11, 2u);
+    return 0;
+  }
+
+  if (v7)
+  {
+    return 1;
+  }
+
+  v9 = *re::foundationSerializationLogObjects(v7);
+  result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v12 = 0;
+    v10 = "Binary Serialization; failed to write hash table value.";
+    v11 = &v12;
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+uint64_t *re::foundationSerializationLogObjects(re *this)
+{
+  {
+    re::foundationSerializationLogObjects(void)::logObjects = os_log_create("com.apple.re", "Foundation.Serialization");
+  }
+
+  return &re::foundationSerializationLogObjects(void)::logObjects;
+}
+
+BOOL re::scanForCopy(uint64_t a1, uint64_t *a2, void *a3)
+{
+  if (*(a1 + 8))
+  {
+    v5 = a1;
+    v6 = 0;
+    v7 = 0;
+    do
+    {
+      v8 = *a3;
+      if (!*a3)
+      {
+        return *a3 != 0;
+      }
+
+      v9 = *(v8 + 16);
+      if (v9 > 3)
+      {
+        if (v9 == 4)
+        {
+          goto LABEL_13;
+        }
+
+        if (v9 == 8)
+        {
+          v14 = *(*(v5 + 16) + 4 * v6);
+          while (1)
+          {
+            v15 = *(v8 + 56);
+            if (v14 < v15)
+            {
+              break;
+            }
+
+            if (v15)
+            {
+              v16 = *(v8 + 64);
+              v17 = *(v8 + 56);
+              while (1)
+              {
+                v18 = *v16;
+                if (**v16 == 1 && v18[10] == 3)
+                {
+                  break;
+                }
+
+                ++v16;
+                if (!--v17)
+                {
+                  goto LABEL_20;
+                }
+              }
+
+              v8 = *(v18 + 2);
+              v14 -= v15;
+              if (v8)
+              {
+                continue;
+              }
+            }
+
+            goto LABEL_20;
+          }
+
+          v19 = *(*(v8 + 64) + 8 * v14);
+          *a2 += *(v19 + 36);
+          v13 = *(v19 + 16);
+          goto LABEL_19;
+        }
+
+        if (v9 != 9)
+        {
+LABEL_14:
+          *a3 = 0;
+          v10 = *re::foundationSerializationLogObjects(a1);
+          a1 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+          if (a1)
+          {
+            v21[0] = 0;
+            _os_log_impl(&dword_1E1C61000, v10, OS_LOG_TYPE_DEFAULT, "Connection source type isn't supported.", v21, 2u);
+          }
+
+          goto LABEL_20;
+        }
+      }
+
+      else if (v9)
+      {
+        if (v9 == 2)
+        {
+          v11 = *a2;
+          v12 = -1;
+          do
+          {
+            v11 += *(*(v8 + 48) + 20);
+            *a2 = v11;
+            ++v12;
+          }
+
+          while (v12 < *(*(v5 + 16) + 4 * v6));
+        }
+
+        else
+        {
+          if (v9 != 3)
+          {
+            goto LABEL_14;
+          }
+
+LABEL_13:
+          a1 = (*(*v8 + 96))(*a3, *a2, *(*(v5 + 16) + 4 * v6));
+          *a2 = a1;
+        }
+
+        v13 = *(v8 + 48);
+LABEL_19:
+        *a3 = v13;
+        goto LABEL_20;
+      }
+
+      *a3 = 0;
+LABEL_20:
+      v6 = ++v7;
+    }
+
+    while (*(v5 + 8) > v7);
+  }
+
+  return *a3 != 0;
+}
+
+uint64_t anonymous namespace::DeepCopier::write(void **this, const re::IntrospectionBase *a2, char *a3, re::DynamicString ***a4)
+{
+  v6 = a2;
+  v7 = this;
+  v88[4] = *MEMORY[0x1E69E9840];
+  while (1)
+  {
+    v8 = *(v6 + 4);
+    if (v8 != 13)
+    {
+      break;
+    }
+
+    v9 = (*(*v6 + 56))(v6, a3);
+    (*(*v6 + 64))(v6, a4, v9);
+    if (!v9)
+    {
+      return 1;
+    }
+
+    v10 = *(v6 + 6);
+    a3 = (*(*v6 + 80))(v6, a3);
+    this = (*(*v6 + 72))(v6, a4);
+    a4 = this;
+    v6 = v10;
+  }
+
+  if (v8 <= 5)
+  {
+    if (v8 <= 2)
+    {
+      if (v8)
+      {
+        if (v8 != 1)
+        {
+          if (v8 == 2)
+          {
+            v11 = *(v6 + 6);
+            v12 = *(v6 + 16);
+            v13 = v7;
+            v14 = a3;
+            v15 = a4;
+LABEL_60:
+          }
+
+LABEL_63:
+          v49 = *re::foundationSerializationLogObjects(this);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          {
+            v71 = v49;
+            re::getPrettyTypeName(&__src, v6);
+            v72 = (BYTE8(__src) & 1) != 0 ? v87 : (&__src + 9);
+            *v79 = 136315138;
+            *&v79[4] = v72;
+            _os_log_error_impl(&dword_1E1C61000, v71, OS_LOG_TYPE_ERROR, "DeepCopier; unhandled type '%s'.", v79, 0xCu);
+
+            if (__src)
+            {
+              if (BYTE8(__src))
+              {
+                (*(*__src + 40))();
+              }
+            }
+          }
+
+          return 0;
+        }
+
+        v43 = *a3;
+        re::PolymorphicData::makeWithPointer(&__src, *(v6 + 6), v43);
+        if (v87)
+        {
+          {
+            return 0;
+          }
+
+          if (*a4)
+          {
+            re::PolymorphicData::makeWithPointer(v79, *(v6 + 6), *a4);
+            memmove(*v79, __src, *(*(&__src + 1) + 20));
+          }
+        }
+
+        else if (v43)
+        {
+          v51 = *(v6 + 6);
+          v52 = re::introspect<char>(0);
+          v53 = *a4;
+          if (v51 == v52)
+          {
+            if (v53)
+            {
+              re::introspectionReleasePointer(*a4, *v7, v7[2], *(v6 + 6));
+              *a4 = 0;
+            }
+
+            v65 = strlen(v43);
+            v66 = v65 + 1;
+            v67 = (((v65 == -1) << 63) >> 63) ^ (v65 == -1);
+            v68 = v67 != 0;
+            if (v67)
+            {
+              v69 = *re::foundationSerializationLogObjects(v65);
+              if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+              {
+                *v79 = 0;
+                _os_log_error_impl(&dword_1E1C61000, v69, OS_LOG_TYPE_ERROR, "DeepCopier; string length overflowed.", v79, 2u);
+              }
+            }
+
+            else
+            {
+              v75 = (*(**v7 + 32))(*v7, v66, 0);
+              memcpy(v75, v43, v66);
+              *a4 = v75;
+            }
+
+            return !v68;
+          }
+
+          if (!v53)
+          {
+            v53 = re::introspectionAllocPointer(*v7, v7[2], *(v6 + 6));
+          }
+
+          if ((v54 & 1) == 0)
+          {
+            v70 = *re::foundationSerializationLogObjects(v54);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            {
+              *v79 = 0;
+              _os_log_error_impl(&dword_1E1C61000, v70, OS_LOG_TYPE_ERROR, "DeepCopier; failed to write pointer dereferenced target.", v79, 2u);
+            }
+
+            re::introspectionReleasePointer(v53, *v7, v7[2], *(v6 + 6));
+            return 0;
+          }
+
+          *a4 = v53;
+        }
+
+        else if (*a4)
+        {
+          re::introspectionReleasePointer(*a4, *v7, v7[2], *(v6 + 6));
+          *a4 = 0;
+        }
+
+        return 1;
+      }
+
+LABEL_48:
+      memcpy(a4, a3, *(v6 + 5));
+      return 1;
+    }
+
+    if (v8 == 3)
+    {
+      v45 = (*(*v6 + 88))(v6, a3);
+      (*(*v6 + 72))(v6, *v7, v7[2], a4, v45);
+      if (!v45)
+      {
+        return 1;
       }
     }
 
-    v25 = v22[45];
-    if (((v22[46] - v25) >> 2) < 1)
+    else
     {
-      v32 = v20[42];
-      v33 = *(v32 + 8 * v19);
-      if (v33 >= 1)
+      if (v8 != 4)
       {
-        v34 = *(v32 + 8 * v19 + 4);
-        v35 = (v20[45] + 4 * v34);
-        v36 = (v20[48] + 2 * v34);
-        v29 = 0;
-        v37 = v22[30];
-        do
+        v35 = (*(*v6 + 80))(v6, a4);
+        if (!v35)
         {
-          v38 = *v35++;
-          v39 = *(this + 192) + 8 * v38;
-          LODWORD(v38) = *v36++;
-          v29 = vadd_s32(v29, (*&vshl_u32(vand_s8(vdup_n_s32(*(v37 + *(v39 + 4 * v38))), 0xFF000000FFLL), 0xFFFFFFFEFFFFFFFDLL) & 0xFFFFFFC1FFFFFFC1));
-          --v33;
+          *&__src = (*(*v6 + 88))(v6, a3);
+          DWORD2(__src) = v55;
+          while (1)
+          {
+            v56 = (*(*v6 + 96))(v6, a3);
+            if (__src == v56 && WORD4(__src) == v57 && WORD5(__src) == HIWORD(v57))
+            {
+              return 1;
+            }
+
+            v58 = (*(*v6 + 104))(v6, &__src);
+            v59 = (*(*v6 + 72))(v6, *v7, v7[2], a4);
+            if ((v60 & 1) == 0)
+            {
+              v36 = *re::foundationSerializationLogObjects(v60);
+              if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+              {
+                return 0;
+              }
+
+              *v79 = 0;
+              v37 = "DeepCopier; failed to write data array item.";
+              p_src = v79;
+              goto LABEL_79;
+            }
+
+            re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&__src);
+          }
         }
 
-        while (v33);
+        v36 = *re::foundationSerializationLogObjects(v35);
+        if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          return 0;
+        }
+
+        LOWORD(__src) = 0;
+        v37 = "DeepCopier; cannot read into existing data array.";
+        p_src = &__src;
+LABEL_79:
+        v42 = v36;
+        v61 = 2;
+        goto LABEL_106;
+      }
+
+      v45 = (*(*v6 + 80))(v6, a3);
+      (*(*v6 + 64))(v6, a4, *v7, v7[2], v45);
+      if (!v45)
+      {
+        return 1;
+      }
+    }
+
+    v46 = (*(*v6 + 104))(v6, a3, 0);
+    v47 = (*(*v6 + 96))(v6, a4, 0);
+    v11 = *(v6 + 6);
+    v15 = v47;
+    v13 = v7;
+    v12 = v45;
+    v14 = v46;
+    goto LABEL_60;
+  }
+
+  if (v8 > 8)
+  {
+    if (v8 == 9)
+    {
+      goto LABEL_48;
+    }
+
+    if (v8 == 10)
+    {
+      re::StringID::operator=(a4, a3);
+      return 1;
+    }
+
+    if (v8 != 11)
+    {
+      goto LABEL_63;
+    }
+
+    v39 = (*(v6 + 11))(*v7, v7[2], v6, a3, a4);
+    if (v39)
+    {
+      return 1;
+    }
+
+    v40 = *re::foundationSerializationLogObjects(v39);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    {
+      return 0;
+    }
+
+    v41 = *(v6 + 6);
+    LODWORD(__src) = 136315138;
+    *(&__src + 4) = v41;
+    v37 = "DeepCopier; failed to write type '%s' using serialization callback.";
+    p_src = &__src;
+    v42 = v40;
+LABEL_105:
+    v61 = 12;
+LABEL_106:
+    _os_log_error_impl(&dword_1E1C61000, v42, OS_LOG_TYPE_ERROR, v37, p_src, v61);
+    return 0;
+  }
+
+  if (v8 == 6)
+  {
+    re::DynamicString::operator=(a4, a3);
+    return 1;
+  }
+
+  if (v8 == 7)
+  {
+    *v79 = a4;
+    v44 = (*(*v6 + 80))(v6, a3);
+    (*(*v6 + 72))(v6, a4, v44);
+    operator new();
+  }
+
+  if (!*(v6 + 14))
+  {
+    return 1;
+  }
+
+  v16 = 0;
+  while (1)
+  {
+    v17 = *(*(v6 + 8) + 8 * v16);
+    if (*v17 != 1)
+    {
+      goto LABEL_35;
+    }
+
+    v18 = *(v17 + 40);
+    if (v18 > 1)
+    {
+      break;
+    }
+
+    if (!v18)
+    {
+      goto LABEL_28;
+    }
+
+    if (v18 != 1)
+    {
+      goto LABEL_109;
+    }
+
+    v19 = *(v17 + 48);
+    if (!v19)
+    {
+      v62 = *re::foundationSerializationLogObjects(this);
+      if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      {
+        return 0;
+      }
+
+      v73 = *(v17 + 8);
+      LODWORD(__src) = 136315138;
+      *(&__src + 4) = v73;
+      v37 = "DeepCopier; failed to get array length for member '%s'.";
+      goto LABEL_104;
+    }
+
+    v20 = *(v17 + 64);
+    __dst = 0;
+    v21 = *(v19 + 20);
+    memcpy(&__dst, &a3[v20], v21);
+    v22 = __dst;
+    *&__src = __dst;
+    memcpy(a4 + v20, &__src, v21);
+    re::IntrospectionCStyleArray::IntrospectionCStyleArray(&__src, *(*(v17 + 16) + 48), v22);
+    ArcSharedObject::ArcSharedObject(v79, 0);
+    v80 = 0x800000001;
+    v81 = 8;
+    v82 = 0;
+    v83 = 0;
+    v84 = 0xFFFFFFFFLL;
+    *v79 = &unk_1F5CBD2C0;
+    v85[0] = &__src;
+    v85[1] = 0;
+    v24 = v23;
+    if ((v23 & 1) == 0)
+    {
+      v25 = *re::foundationSerializationLogObjects(v23);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      {
+        v34 = *(v17 + 8);
+        *buf = 136315138;
+        v78 = v34;
+        _os_log_error_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_ERROR, "DeepCopier; failed to write array data for member '%s'.", buf, 0xCu);
+      }
+    }
+
+    *v79 = &unk_1F5CBD2C0;
+    re::SerializedReference<re::IntrospectionBase const*>::reset(v85);
+    *v79 = &unk_1F5CCF868;
+    objc_destructInstance(&v79[8]);
+    *&__src = &unk_1F5CB0038;
+    re::SerializedReference<re::IntrospectionBase const*>::reset(v88);
+    *&__src = &unk_1F5CCF868;
+    this = objc_destructInstance(&__src + 8);
+    if ((v24 & 1) == 0)
+    {
+      return 0;
+    }
+
+LABEL_35:
+    if (++v16 >= *(v6 + 14))
+    {
+      return 1;
+    }
+  }
+
+  if (v18 == 2)
+  {
+    v26 = *(*(*(v17 + 16) + 48) + 64);
+    v27 = *v26;
+    if (**v26 != 2)
+    {
+      v28 = (v26 + 1);
+      do
+      {
+        v29 = *v28++;
+        v27 = v29;
+      }
+
+      while (*v29 != 2);
+    }
+
+    v30 = *(v17 + 36);
+    v31 = *&a3[v30];
+    v32 = *(v17 + 48);
+    *&__src = &a3[*(v17 + 64)];
+    *(&__src + 1) = v32;
+    v87 = *(v27 + 1);
+    if (!v33)
+    {
+      v62 = *re::foundationSerializationLogObjects(v33);
+      if (!os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      {
+        return 0;
+      }
+
+      v74 = *(v17 + 8);
+      LODWORD(__src) = 136315138;
+      *(&__src + 4) = v74;
+      v37 = "DeepCopier; failed to find polymorphic member '%s'.";
+      goto LABEL_104;
+    }
+
+    this = memmove(a4 + *(v17 + 64), __src, *(*(&__src + 1) + 20));
+    goto LABEL_35;
+  }
+
+  if (v18 != 3)
+  {
+LABEL_109:
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) ", "!Unreachable code", "writeStructure", 353);
+    result = _os_crash("assertion failure: (!Unreachable code) ");
+    __break(1u);
+    return result;
+  }
+
+LABEL_28:
+  if (this)
+  {
+    goto LABEL_35;
+  }
+
+  v62 = *re::foundationSerializationLogObjects(this);
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+  {
+    v64 = *(v17 + 8);
+    LODWORD(__src) = 136315138;
+    *(&__src + 4) = v64;
+    v37 = "DeepCopier; failed to write target for member '%s'.";
+LABEL_104:
+    p_src = &__src;
+    v42 = v62;
+    goto LABEL_105;
+  }
+
+  return 0;
+}
+
+BOOL anonymous namespace::DeepCopier::writePolymorphicPointer(void **this, re::PolymorphicData *a2, char *a3, re::DynamicString ***a4)
+{
+  v5 = *(a2 + 1);
+  if (!v5 || !*(a2 + 2))
+  {
+    v16 = *re::foundationSerializationLogObjects(this);
+    result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(__dst[0]) = 0;
+    v18 = "DeepCopier; invalid polymorphic data.";
+LABEL_15:
+    v19 = __dst;
+LABEL_16:
+    _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, v18, v19, 2u);
+    return 0;
+  }
+
+  v9 = *a4;
+  if (*a4)
+  {
+    re::introspectionReleasePointer(v9, *this, this[2], v5);
+    *a4 = 0;
+  }
+
+  if (!a3)
+  {
+    return 1;
+  }
+
+  v10 = *a2;
+  if (!*a2)
+  {
+    v16 = *re::foundationSerializationLogObjects(v9);
+    result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    LOWORD(__dst[0]) = 0;
+    v18 = "DeepCopier; invalid polymorphic data type.";
+    goto LABEL_15;
+  }
+
+  v11 = *(a2 + 1);
+  __dst[0] = 0;
+  v12 = memcpy(__dst, v10, *(v11 + 20));
+  v13 = *(a2 + 2);
+  v14 = *v13;
+  if (!v14)
+  {
+LABEL_11:
+    v16 = *re::foundationSerializationLogObjects(v12);
+    result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    *v24 = 0;
+    v18 = "DeepCopier; failed to find polymorphic type.";
+    v19 = v24;
+    goto LABEL_16;
+  }
+
+  v15 = (*(v13 + 1) + 32);
+  while (*(v15 - 1) != __dst[0])
+  {
+    v15 += 10;
+    if (!--v14)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  v20 = *v15;
+  v21 = re::introspectionAllocPointer(*this, this[2], *(v15 - 3));
+  if (v22)
+  {
+    *a4 = (v21 - *v15);
+    return 1;
+  }
+
+  v23 = *re::foundationSerializationLogObjects(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  {
+    *v24 = 0;
+    _os_log_error_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_ERROR, "DeepCopier; failed to write pointer dereferenced target.", v24, 2u);
+  }
+
+  re::introspectionReleasePointer(v21, *this, this[2], *(v15 - 3));
+  return 0;
+}
+
+uint64_t re::introspect<char>(unsigned int a1)
+{
+  v1 = &unk_1ECF17000;
+  {
+    v1 = &unk_1ECF17000;
+    if (v3)
+    {
+      re::introspect<char>(BOOL)::info = re::introspect_char(a1, v4);
+      v1 = &unk_1ECF17000;
+    }
+  }
+
+  return v1[408];
+}
+
+BOOL anonymous namespace::DeepCopier::writeLinearArray(void **this, const re::IntrospectionBase *a2, uint64_t a3, const void *__src, char *__dst)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v9 = *(a2 + 4);
+  if (v9)
+  {
+    v10 = v9 == 9;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    memcpy(__dst, __src, *(a2 + 5) * a3);
+    return 1;
+  }
+
+  if (!a3)
+  {
+    return 1;
+  }
+
+  v13 = 0;
+  while (1)
+  {
+    if ((v14 & 1) == 0)
+    {
+      break;
+    }
+
+    if (a3 == ++v13)
+    {
+      return 1;
+    }
+  }
+
+  v15 = *re::foundationSerializationLogObjects(v14);
+  result = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v16 = v15;
+    re::getPrettyTypeName(&v18, a2);
+    if (v19)
+    {
+      v17 = *&v20[7];
+    }
+
+    else
+    {
+      v17 = v20;
+    }
+
+    *buf = 136315394;
+    v22 = v17;
+    v23 = 1024;
+    v24 = v13;
+    _os_log_error_impl(&dword_1E1C61000, v16, OS_LOG_TYPE_ERROR, "DeepCopier; failed to write %s[%d].", buf, 0x12u);
+
+    if (v18)
+    {
+      if (v19)
+      {
+        (*(*v18 + 40))();
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+__n128 std::__function::__func<anonymous namespace::DeepCopier::writeHashTable(re::IntrospectionBase const&,void const*,void *)::{lambda(void const*,void *)#1},std::allocator<anonymous namespace::DeepCopier::writeHashTable(re::IntrospectionBase const&,void const*,void *)::{lambda(void const*,void *)#1}>,BOOL ()(void const*,void *)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D16D88;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<anonymous namespace::DeepCopier::writeHashTable(re::IntrospectionBase const&,void const*,void *)::{lambda(void const*,void *)#1},std::allocator<anonymous namespace::DeepCopier::writeHashTable(re::IntrospectionBase const&,void const*,void *)::{lambda(void const*,void *)#1}>,BOOL ()(void const*,void *)>::operator()(uint64_t a1, void *a2, char **a3)
+{
+  v4 = *a3;
+  v5 = *(a1 + 16);
+  v6 = (*(**(a1 + 8) + 96))(*(a1 + 8), *v5, v5[2], **(a1 + 24), *a2);
+  v8 = v7;
+  if ((v7 & 1) == 0)
+  {
+    v9 = *re::foundationSerializationLogObjects(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v11[0] = 0;
+      _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "DeepCopier; failed to write hash table value.", v11, 2u);
+    }
+  }
+
+  return v8;
+}
+
+uint64_t re::snapshot::BufferEncoder::BufferEncoder(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 8);
+  v5 = *(a2 + 20);
+  v6 = *(a2 + 80);
+  v7 = *(a2 + 72);
+  *a1 = &unk_1F5D16DD0;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 0;
+  *(a1 + 20) = v5;
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 56) = 0u;
+  *(a1 + 40) = 0u;
+  v8 = (a1 + 40);
+  re::DynamicString::setCapacity(v8, 0);
+  *(a1 + 72) = v7;
+  *(a1 + 80) = v6;
+  *(a1 + 16) = *(a2 + 16);
+  re::DynamicString::operator=(v8, (a2 + 40));
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  return a1;
+}
+
+uint64_t re::snapshot::BufferEncoder::error(re::snapshot::BufferEncoder *this, const char *__format, ...)
+{
+  va_start(va, __format);
+  v4 = *(this + 6);
+  if (v4)
+  {
+    v5 = v4 >> 1;
+  }
+
+  else
+  {
+    v5 = v4 >> 1;
+  }
+
+  if (v5)
+  {
+    re::DynamicString::append((this + 40), "\n", 1uLL);
+  }
+
+  return re::DynamicString::vappendf((this + 40), __format, va);
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::operator<<(re::snapshot::BufferEncoder *this, int a2)
+{
+  v2 = this;
+  if (a2)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  v4 = *(this + 4);
+  if (v4 < *(this + 5))
+  {
+    goto LABEL_5;
+  }
+
+  this = re::snapshot::BufferEncoder::grow(this, v4 + 1);
+  if (this)
+  {
+    LODWORD(v4) = *(v2 + 4);
+LABEL_5:
+    v5 = *(v2 + 1);
+    *(v2 + 4) = v4 + 1;
+    *(v5 + v4) = v3;
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::operator<<(re::snapshot::BufferEncoder *this, float a2)
+{
+  v3 = this;
+  v4 = *(this + 4);
+  if (v4 + 5 <= *(this + 5))
+  {
+    goto LABEL_2;
+  }
+
+  this = re::snapshot::BufferEncoder::grow(this, v4 + 5);
+  if (this)
+  {
+    v4 = *(v3 + 4);
+LABEL_2:
+    v5 = *(v3 + 1);
+    *(v3 + 4) = v4 + 1;
+    *(v5 + v4) = 53;
+    *(*(v3 + 1) + *(v3 + 4)) = a2;
+    *(v3 + 4) += 4;
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::operator<<(re::snapshot::BufferEncoder *this, double a2)
+{
+  v3 = this;
+  v4 = *(this + 4);
+  if (v4 + 9 <= *(this + 5))
+  {
+    goto LABEL_2;
+  }
+
+  this = re::snapshot::BufferEncoder::grow(this, v4 + 9);
+  if (this)
+  {
+    v4 = *(v3 + 4);
+LABEL_2:
+    v5 = *(v3 + 1);
+    *(v3 + 4) = v4 + 1;
+    *(v5 + v4) = 54;
+    *(*(v3 + 1) + *(v3 + 4)) = a2;
+    *(v3 + 4) += 8;
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::serializeString(re::snapshot::BufferEncoder *this, const char *__src, size_t __len)
+{
+  v5 = this;
+  if (__src || !__len)
+  {
+    v8 = *(this + 4);
+    if (__len > 0x20)
+    {
+      if (__len > 0xFF)
+      {
+        v15 = *(this + 5);
+        if (__len >> 16)
+        {
+          v18 = __len + v8 + 5;
+          if (v18 > v15)
+          {
+            this = re::snapshot::BufferEncoder::grow(this, v18);
+            if (!this)
+            {
+              return this;
+            }
+          }
+
+          if (HIDWORD(__len))
+          {
+            re::internal::assertLog(5, v18, "assertion failure: '%s' (%s:line %i) len %zu exceeds uint32_t capacity", "!overflow", "serializeString", 100, __len);
+            this = _os_crash("assertion failure: (!overflow) len %zu exceeds uint32_t capacity", v21);
+            __break(1u);
+            return this;
+          }
+
+          v19 = *(v5 + 1);
+          v20 = *(v5 + 4);
+          *(v5 + 4) = v20 + 1;
+          *(v19 + v20) = 99;
+          *(*(v5 + 1) + *(v5 + 4)) = __len;
+          v14 = (*(v5 + 4) + 4);
+        }
+
+        else
+        {
+          v16 = __len + v8 + 3;
+          if (v16 > v15)
+          {
+            this = re::snapshot::BufferEncoder::grow(this, v16);
+            if (!this)
+            {
+              return this;
+            }
+
+            v8 = *(v5 + 4);
+          }
+
+          v17 = *(v5 + 1);
+          *(v5 + 4) = v8 + 1;
+          *(v17 + v8) = 98;
+          *(*(v5 + 1) + *(v5 + 4)) = __len;
+          v14 = (*(v5 + 4) + 2);
+        }
+      }
+
+      else
+      {
+        v12 = __len + v8 + 2;
+        if (v12 > *(this + 5))
+        {
+          this = re::snapshot::BufferEncoder::grow(this, v12);
+          if (!this)
+          {
+            return this;
+          }
+
+          v8 = *(v5 + 4);
+        }
+
+        v13 = *(v5 + 1);
+        *(v5 + 4) = v8 + 1;
+        *(v13 + v8) = 97;
+        *(*(v5 + 1) + *(v5 + 4)) = __len;
+        v14 = (*(v5 + 4) + 1);
+      }
+
+      *(v5 + 4) = v14;
+      v11 = (*(v5 + 1) + v14);
+    }
+
+    else
+    {
+      v9 = __len + v8 + 1;
+      if (v9 > *(this + 5))
+      {
+        this = re::snapshot::BufferEncoder::grow(this, v9);
+        if (!this)
+        {
+          return this;
+        }
+
+        v8 = *(v5 + 4);
+      }
+
+      v10 = *(v5 + 1);
+      *(v5 + 4) = v8 + 1;
+      *(v10 + v8) = __len | 0x40;
+      if (!__len)
+      {
+LABEL_20:
+        *(v5 + 4) += __len;
+        return this;
+      }
+
+      v11 = (*(v5 + 1) + *(v5 + 4));
+    }
+
+    this = memmove(v11, __src, __len);
+    goto LABEL_20;
+  }
+
+  v6 = *(this + 4);
+  if (v6 < *(this + 5))
+  {
+LABEL_4:
+    v7 = *(v5 + 1);
+    *(v5 + 4) = v6 + 1;
+    *(v7 + v6) = 4;
+    return this;
+  }
+
+  this = re::snapshot::BufferEncoder::grow(this, v6 + 1);
+  if (this)
+  {
+    LODWORD(v6) = *(v5 + 4);
+    goto LABEL_4;
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::beginArray(re::snapshot::BufferEncoder *this, unint64_t a2)
+{
+  v3 = this;
+  if (a2 < 0xF)
+  {
+    v6 = *(this + 4);
+    if (v6 >= *(this + 5))
+    {
+      this = re::snapshot::BufferEncoder::grow(this, v6 + 1);
+      if (!this)
+      {
+        return this;
+      }
+
+      LODWORD(v6) = *(v3 + 4);
+    }
+
+    v7 = *(v3 + 1);
+    *(v3 + 4) = v6 + 1;
+    *(v7 + v6) = a2 | 0xD0;
+    return this;
+  }
+
+  v4 = *(this + 4);
+  if (v4 >= *(this + 5))
+  {
+    if (!re::snapshot::BufferEncoder::grow(this, v4 + 1))
+    {
+      goto LABEL_4;
+    }
+
+    LODWORD(v4) = *(v3 + 4);
+  }
+
+  v5 = *(v3 + 1);
+  *(v3 + 4) = v4 + 1;
+  *(v5 + v4) = -33;
+LABEL_4:
+
+  return re::snapshot::EncoderOPACK::writeInteger(v3, a2);
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::writeInteger(re::snapshot::BufferEncoder *this, uint64_t a2)
+{
+  if (a2 != a2)
+  {
+    v3 = *(this + 4);
+    if (v3 + 9 > *(this + 5))
+    {
+      v5 = this;
+      v6 = a2;
+      this = re::snapshot::BufferEncoder::grow(this, v3 + 9);
+      if (!this)
+      {
+        return this;
+      }
+
+      this = v5;
+      a2 = v6;
+      v3 = *(v5 + 4);
+    }
+
+    v4 = *(this + 1);
+    *(this + 4) = v3 + 1;
+    *(v4 + v3) = 51;
+    *(*(this + 1) + *(this + 4)) = a2;
+    *(this + 4) += 8;
+    return this;
+  }
+
+  return re::snapshot::EncoderOPACK::writeInteger(this, a2);
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::endArray(re::snapshot::BufferEncoder *this, unint64_t a2)
+{
+  if (a2 >= 0xF)
+  {
+    v2 = this;
+    v3 = *(this + 4);
+    if (v3 < *(this + 5))
+    {
+LABEL_3:
+      v4 = *(v2 + 1);
+      *(v2 + 4) = v3 + 1;
+      *(v4 + v3) = 3;
+      return this;
+    }
+
+    this = re::snapshot::BufferEncoder::grow(this, v3 + 1);
+    if (this)
+    {
+      LODWORD(v3) = *(v2 + 4);
+      goto LABEL_3;
+    }
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::beginDictionary(re::snapshot::BufferEncoder *this, unint64_t a2)
+{
+  v2 = this;
+  if (a2 < 0xF)
+  {
+    v5 = a2 | 0xE0;
+    v3 = *(this + 4);
+    v4 = (this + 16);
+    if (v3 < *(this + 5))
+    {
+      goto LABEL_5;
+    }
+
+    v7 = a2 | 0xE0;
+    this = re::snapshot::BufferEncoder::grow(this, v3 + 1);
+    if (this)
+    {
+LABEL_9:
+      LODWORD(v3) = *v4;
+      v5 = v7;
+      goto LABEL_5;
+    }
+  }
+
+  else
+  {
+    v3 = *(this + 4);
+    v4 = (this + 16);
+    if (v3 < *(this + 5))
+    {
+      v5 = -17;
+LABEL_5:
+      v6 = *(v2 + 1);
+      *(v2 + 4) = v3 + 1;
+      *(v6 + v3) = v5;
+      return this;
+    }
+
+    this = re::snapshot::BufferEncoder::grow(this, v3 + 1);
+    if (this)
+    {
+      v7 = -17;
+      goto LABEL_9;
+    }
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::endDictionary(re::snapshot::BufferEncoder *this, unint64_t a2)
+{
+  if (a2 >= 0xF)
+  {
+    v2 = this;
+    v3 = *(this + 4);
+    if (v3 < *(this + 5))
+    {
+LABEL_3:
+      v4 = *(v2 + 1);
+      *(v2 + 4) = v3 + 1;
+      *(v4 + v3) = 3;
+      return this;
+    }
+
+    this = re::snapshot::BufferEncoder::grow(this, v3 + 1);
+    if (this)
+    {
+      LODWORD(v3) = *(v2 + 4);
+      goto LABEL_3;
+    }
+  }
+
+  return this;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::beginData(re::snapshot::BufferEncoder *this, unint64_t a2, unint64_t a3)
+{
+  v4 = this;
+  if (a3 > 0x20)
+  {
+    if (a3 > 0xFF)
+    {
+      v12 = *(this + 5);
+      if (a3 >> 16)
+      {
+        v16 = *(this + 4);
+        if (HIDWORD(a3))
+        {
+          if (v16 + 9 > v12)
+          {
+            this = re::snapshot::BufferEncoder::grow(this, v16 + 9);
+            if (!this)
+            {
+              return this;
+            }
+
+            v16 = *(v4 + 4);
+          }
+
+          v20 = *(v4 + 1);
+          *(v4 + 4) = v16 + 1;
+          *(v20 + v16) = -108;
+          *(*(v4 + 1) + *(v4 + 4)) = a2;
+          v11 = *(v4 + 4) + 8;
+LABEL_19:
+          *(v4 + 4) = v11;
+          return this;
+        }
+
+        v17 = v16 + 5;
+        if (v16 + 5 <= v12)
+        {
+LABEL_15:
+          if (HIDWORD(a2))
+          {
+            re::internal::assertLog(5, v17, "assertion failure: '%s' (%s:line %i) count %zu exceeds uint32_t capacity", "!overflow", "beginData", 170, a2);
+            this = _os_crash("assertion failure: (!overflow) count %zu exceeds uint32_t capacity", v24);
+            __break(1u);
+            return this;
+          }
+
+          v18 = *(v4 + 1);
+          v19 = *(v4 + 4);
+          *(v4 + 4) = v19 + 1;
+          *(v18 + v19) = -109;
+          *(*(v4 + 1) + *(v4 + 4)) = a2;
+          v11 = *(v4 + 4) + 4;
+          goto LABEL_19;
+        }
+
+LABEL_30:
+        this = re::snapshot::BufferEncoder::grow(v4, v17);
+        if (!this)
+        {
+          return this;
+        }
+
+        goto LABEL_15;
+      }
+
+      v13 = *(this + 4) + 3;
+      if (v13 <= v12)
+      {
+LABEL_11:
+        if (a2 < 0x10000)
+        {
+          v14 = *(v4 + 1);
+          v15 = *(v4 + 4);
+          *(v4 + 4) = v15 + 1;
+          *(v14 + v15) = -110;
+          *(*(v4 + 1) + *(v4 + 4)) = a2;
+          v11 = *(v4 + 4) + 2;
+          goto LABEL_19;
+        }
+
+        re::internal::assertLog(5, v13, "assertion failure: '%s' (%s:line %i) count %zu exceeds uint16_t capacity", "!overflow", "beginData", 162, a2);
+        _os_crash("assertion failure: (!overflow) count %zu exceeds uint16_t capacity", v23);
+        __break(1u);
         goto LABEL_30;
       }
     }
 
     else
     {
-      v26 = (v22[42] + 8 * v17);
-      v27 = *v26;
-      if (v27 >= 1)
+      v8 = *(this + 4) + 2;
+      if (v8 > *(this + 5))
       {
-        v28 = (v25 + 4 * v26[1]);
-        v29 = 0;
-        v30 = v22[30];
-        do
+        this = re::snapshot::BufferEncoder::grow(this, v8);
+        if (!this)
         {
-          v31 = *v28++;
-          v29 = vadd_s32(v29, (*&vshl_u32(vand_s8(vdup_n_s32(*(v30 + v31)), 0xFF000000FFLL), 0xFFFFFFFEFFFFFFFDLL) & 0xFFFFFFC1FFFFFFC1));
-          --v27;
+          return this;
         }
-
-        while (v27);
-LABEL_30:
-        v40 = v29.i32[0];
-        v41 = (v29.i32[0] > 0) << 6;
-        v42 = v29.i32[1];
-        goto LABEL_32;
       }
+
+      if (a2 < 0x100)
+      {
+        v9 = *(v4 + 1);
+        v10 = *(v4 + 4);
+        *(v4 + 4) = v10 + 1;
+        *(v9 + v10) = -111;
+        *(*(v4 + 1) + *(v4 + 4)) = a2;
+        v11 = *(v4 + 4) + 1;
+        goto LABEL_19;
+      }
+
+      re::internal::assertLog(5, v8, "assertion failure: '%s' (%s:line %i) count %zu exceeds uint8_t capacity", "!overflow", "beginData", 154, a2);
+      _os_crash("assertion failure: (!overflow) count %zu exceeds uint8_t capacity", v22);
+      __break(1u);
     }
 
-    v42 = 0;
-    v40 = 0;
-    v41 = 0;
-LABEL_32:
-    v43 = *(v23 + 2 * v17);
-    v44 = v41 | v24 & 0xFFBF;
-    *(v23 + 2 * v17) = v44;
-    if ((v43 & 0x30) == 0)
+    this = re::snapshot::BufferEncoder::grow(v4, v13);
+    if (!this)
     {
-      v45 = v40 + v42;
-      if (v45 <= 2)
-      {
-        v46 = ((1 << v45) & 0xF) << 7;
-      }
-
-      else
-      {
-        v46 = 1024;
-      }
-
-      *(v23 + 2 * v17) = v46 | v44 & 0xF84F;
+      return this;
     }
 
-    goto LABEL_37;
+    goto LABEL_11;
   }
 
-  return this;
-}
-
-void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
-{
-  v3 = a1[1];
-  v4 = *a1;
-  v5 = &v3[-*a1] >> 2;
-  if (a2 <= v5)
+  v5 = a2 + 112;
+  if (a2 + 112 >= 0x100)
   {
-    if (a2 < v5)
-    {
-      a1[1] = v4 + 4 * a2;
-    }
+    re::internal::assertLog(5, a2, "assertion failure: '%s' (%s:line %i) tag %zu exceeds uint8_t capacity", "!overflow", "beginData", 148, v5);
+    _os_crash("assertion failure: (!overflow) tag %zu exceeds uint8_t capacity", v21);
+    __break(1u);
   }
 
   else
   {
-    v6 = a2 - v5;
-    v7 = a1[2];
-    if (v6 > (v7 - v3) >> 2)
+    v6 = *(this + 4);
+    if (v6 < *(this + 5))
     {
-      if (!(a2 >> 62))
-      {
-        v8 = v7 - v4;
-        v9 = v8 >> 1;
-        if (v8 >> 1 <= a2)
-        {
-          v9 = a2;
-        }
-
-        if (v8 >= 0x7FFFFFFFFFFFFFFCLL)
-        {
-          v10 = 0x3FFFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-
-        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(a1, v10);
-      }
-
-      std::string::__throw_length_error[abi:nn200100]();
+LABEL_4:
+      v7 = *(v4 + 1);
+      *(v4 + 4) = v6 + 1;
+      *(v7 + v6) = v5;
+      return this;
     }
-
-    v11 = &v3[4 * v6];
-    bzero(v3, 4 * v6);
-    a1[1] = v11;
   }
-}
 
-void *OpenSubdiv::v3_1_1::Vtr::internal::Refinement::markSparseEdgeChildren(void *this)
-{
-  v1 = this[1];
-  if (*(v1 + 4) >= 1)
+  this = re::snapshot::BufferEncoder::grow(v4, v6 + 1);
+  if (this)
   {
-    for (i = 0; i < *(v1 + 4); ++i)
-    {
-      v3 = (this[24] + 8 * i);
-      v4 = this[54];
-      if (*(v4 + i))
-      {
-        v7 = 2;
-        *v3 = 2;
-      }
-
-      else
-      {
-        v5 = (*(v1 + 120) + 8 * i);
-        v6 = this[57];
-        if (*(v6 + *v5))
-        {
-          *v3 = 1;
-          *(this[27] + 4 * i) = 1;
-        }
-
-        if ((*(v6 + v5[1]) & 1) == 0)
-        {
-          goto LABEL_10;
-        }
-
-        v7 = 1;
-      }
-
-      v3[1] = v7;
-      *(this[27] + 4 * i) = v7;
-LABEL_10:
-      v8 = *(v1 + 168);
-      v9 = (*(v1 + 144) + 8 * i);
-      v10 = *v9;
-      v11 = (v8 + 4 * v9[1]);
-      if (v10 == 2)
-      {
-        v12 = *(v4 + i) & 0xE1 | (2 * ((*(this[51] + v11[1]) ^ *(this[51] + *v11)) & 1));
-      }
-
-      else if (v10 > 1)
-      {
-        v14 = *v11;
-        v13 = v11 + 1;
-        v15 = *(this[51] + v14);
-        v16 = *(v4 + i) & 0xE1;
-        *(v4 + i) = v16;
-        v17 = v10 - 1;
-        while (1)
-        {
-          v18 = *v13++;
-          if ((*(this[51] + v18) ^ v15))
-          {
-            break;
-          }
-
-          if (!--v17)
-          {
-            goto LABEL_20;
-          }
-        }
-
-        v12 = v16 | 2;
-      }
-
-      else
-      {
-        v12 = *(v4 + i) & 0xE1;
-      }
-
-      *(v4 + i) = v12;
-LABEL_20:
-      v1 = this[1];
-    }
+    LODWORD(v6) = *(v4 + 4);
+    goto LABEL_4;
   }
 
   return this;
 }
 
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::SparseTag>::__append(uint64_t a1, unint64_t a2)
+uint64_t re::snapshot::EncoderOPACK::beginOptional(re::snapshot::EncoderOPACK *this, uint64_t a2)
+{
+  if ((a2 & 1) == 0)
+  {
+    v4 = *(this + 4);
+    if (v4 >= *(this + 5))
+    {
+      if (!re::snapshot::BufferEncoder::grow(this, v4 + 1))
+      {
+        return a2;
+      }
+
+      LODWORD(v4) = *(this + 4);
+    }
+
+    v5 = *(this + 1);
+    *(this + 4) = v4 + 1;
+    *(v5 + v4) = 4;
+  }
+
+  return a2;
+}
+
+re::snapshot::BufferEncoder *re::snapshot::EncoderOPACK::writeInteger(re::snapshot::BufferEncoder *this, int a2)
 {
   v2 = a2;
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  if (v5 - v4 >= a2)
+  v3 = this;
+  if ((a2 + 1) > 0x28)
   {
-    if (a2)
+    v6 = *(this + 4);
+    if (v6 + 2 > *(this + 5))
     {
-      v10 = &v4[a2];
-      do
+      this = re::snapshot::BufferEncoder::grow(this, v6 + 2);
+      if (!this)
       {
-        *v4++ &= 0xE0u;
-        --v2;
+        return this;
       }
 
-      while (v2);
-      v4 = v10;
+      v6 = *(v3 + 4);
     }
 
-    *(a1 + 8) = v4;
+    v7 = *(v3 + 1);
+    *(v3 + 4) = v6 + 1;
+    *(v7 + v6) = 48;
+    *(*(v3 + 1) + (*(v3 + 4))++) = v2;
+    return this;
   }
 
-  else
-  {
-    v6 = &v4[-*a1];
-    v7 = &v6[a2];
-    if (&v6[a2] < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v5 - *a1;
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      operator new();
-    }
-
-    v11 = v6;
-    v12 = &v6[a2];
-    v13 = v11;
-    do
-    {
-      *v13++ &= 0xE0u;
-      --v2;
-    }
-
-    while (v2);
-    v15 = *a1;
-    v14 = *(a1 + 8);
-    v16 = &v11[*a1 - v14];
-    memcpy(v16, *a1, v14 - *a1);
-    *a1 = v16;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = 0;
-    if (v15)
-    {
-
-      operator delete(v15);
-    }
-  }
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(uint64_t a1, unint64_t a2)
-{
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v4 - v3 >= a2)
-  {
-    *(a1 + 8) = v3 + a2;
-  }
-
-  else
-  {
-    v5 = *a1;
-    v6 = v3 - *a1;
-    v7 = v6 + a2;
-    if ((v6 + a2) < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v4 - v5;
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      operator new();
-    }
-
-    v10 = v6 + a2;
-    memcpy(0, *a1, v3 - *a1);
-    *a1 = 0;
-    *(a1 + 8) = v10;
-    *(a1 + 16) = 0;
-    if (v5)
-    {
-
-      operator delete(v5);
-    }
-  }
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Refinement::ChildTag>::__append(char **a1, size_t __len, unsigned __int8 *a3)
-{
-  v6 = a1[1];
-  v5 = a1[2];
-  if (v5 - v6 >= __len)
-  {
-    if (__len)
-    {
-      memset(a1[1], *a3, __len);
-      v6 += __len;
-    }
-
-    a1[1] = v6;
-  }
-
-  else
-  {
-    v7 = *a1;
-    v8 = (v6 - *a1);
-    v9 = &v8[__len];
-    if (&v8[__len] < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v10 = v5 - v7;
-    if (2 * v10 > v9)
-    {
-      v9 = 2 * v10;
-    }
-
-    if (v10 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v11 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    if (v11)
-    {
-      operator new();
-    }
-
-    v12 = v6 - *a1;
-    memset(v8, *a3, __len);
-    memcpy(&v8[v7 - v6], v7, v12);
-    *a1 = &v8[v7 - v6];
-    a1[1] = &v8[__len];
-    a1[2] = 0;
-    if (v7)
-    {
-
-      operator delete(v7);
-    }
-  }
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::Error(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = MEMORY[0x1EEE9AC00](a1);
-  v13 = *MEMORY[0x1E69E9840];
-  vsnprintf(__str, 0x2800uLL, v10, &a9);
-  return printf("%s: %s\n", OpenSubdiv::v3_1_1::Far::Error(OpenSubdiv::v3_1_1::Far::ErrorType,char const*,...)::errorTypeLabel[v9], __str);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::Warning(OpenSubdiv::v3_1_1::Far *this, const char *a2, ...)
-{
-  va_start(va, a2);
-  v2 = MEMORY[0x1EEE9AC00](this);
-  v5 = *MEMORY[0x1E69E9840];
-  vsnprintf(__str, 0x2800uLL, v2, va);
-  return fprintf(*MEMORY[0x1E69E9858], "Warning: %s\n", __str);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::applyRefinement(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this)
-{
-  *(*(this + 4) + 8) = *(*(this + 2) + 8);
-  v2 = *(this + 2);
-  v3 = *(this + 4);
-  *(v3 + 12) = *(v2 + 12);
-  *(v3 + 13) = *(v2 + 13);
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::estimateAndAllocateChildValues(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValues(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::trimAndFinalizeChildValues(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateEdgeTags(this);
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateValueTags(this);
   v4 = *(this + 4);
-  if ((*(v4 + 13) & 1) == 0)
+  if (v4 < *(this + 5))
   {
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateValueCreases(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::reclassifySemisharpValues(this);
-    v4 = *(this + 4);
+LABEL_3:
+    v5 = *(v3 + 1);
+    *(v3 + 4) = v4 + 1;
+    *(v5 + v4) = v2 + 8;
+    return this;
   }
 
-  if (*(v4 + 16) <= *(*(this + 3) + 8))
+  this = re::snapshot::BufferEncoder::grow(this, v4 + 1);
+  if (this)
   {
-    v6 = *(*v4 + 48);
-    v7 = *(*v4 + 56) - v6;
-    v8 = *(v4 + 24);
-
-    return memcpy(v8, v6, (v7 << 30 >> 30) & 0xFFFFFFFFFFFFFFFCLL);
+    LODWORD(v4) = *(v3 + 4);
+    goto LABEL_3;
   }
 
-  else
-  {
-
-    return OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::initializeFaceValuesFromVertexFaceSiblings(v4);
-  }
+  return this;
 }
 
-void OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::estimateAndAllocateChildValues(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this)
 {
-  v2 = *this;
-  v3 = *(*this + 52);
-  v4 = *(*this + 56);
-  if (v4 >= 1)
+  if (a2 != a2)
   {
-    v5 = *(v2 + 80);
-    v6 = v5 + v4;
-    do
+    v3 = *(this + 4);
+    if (v3 + 3 > *(this + 5))
     {
-      v7 = *(*(v2 + 312) + 4 * v5);
-      if (*(*(*(this + 2) + 48) + v7))
+      v6 = a2;
+      v5 = this;
+      this = re::snapshot::BufferEncoder::grow(this, v3 + 3);
+      if (!this)
       {
-        v8 = *(*(*(this + 1) + 144) + 8 * v7);
+        return this;
       }
 
-      else
+      this = v5;
+      v3 = v5[4];
+      LOWORD(a2) = v6;
+    }
+
+    v4 = *(this + 1);
+    *(this + 4) = v3 + 1;
+    *(v4 + v3) = 49;
+    *(*(this + 1) + *(this + 4)) = a2;
+    *(this + 4) += 2;
+    return this;
+  }
+
+  a2 = a2;
+
+  return re::snapshot::EncoderOPACK::writeInteger(this, a2);
+}
+
+{
+  if (a2 != a2)
+  {
+    v3 = *(this + 4);
+    if (v3 + 5 > *(this + 5))
+    {
+      v6 = a2;
+      v5 = this;
+      this = re::snapshot::BufferEncoder::grow(this, v3 + 5);
+      if (!this)
       {
-        v8 = 1;
+        return this;
       }
 
-      v3 += v8;
-      ++v5;
+      this = v5;
+      v3 = v5[4];
+      a2 = v6;
     }
 
-    while (v5 < v6);
+    v4 = *(this + 1);
+    *(this + 4) = v3 + 1;
+    *(v4 + v3) = 50;
+    *(*(this + 1) + *(this + 4)) = a2;
+    *(this + 4) += 4;
+    return this;
   }
 
-  v9 = *(v2 + 60);
-  if (v9 >= 1)
-  {
-    v10 = *(v2 + 84);
-    v11 = v10 + v9;
-    v12 = *(v2 + 312);
-    do
-    {
-      v3 += *(*(*(this + 2) + 72) + 2 * *(v12 + 4 * v10++));
-    }
-
-    while (v10 < v11);
-  }
-
-  OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::resizeComponents(*(this + 4));
-  v13 = *(this + 4);
-  v14 = *(v13 + 168);
-  v15 = *(v13 + 176) - v14;
-  if (v3 <= v15)
-  {
-    if (v3 < v15)
-    {
-      *(v13 + 176) = v14 + v3;
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::ValueTag>::__append(v13 + 168, v3 - v15);
-  }
-
-  v16 = 0;
-  std::vector<unsigned short>::resize(this + 5, v3, &v16);
+  return re::snapshot::EncoderOPACK::writeInteger(this, a2);
 }
 
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValues(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this)
+re::snapshot::BufferEncoder *re::snapshot::EncoderRaw::serializeString(re::snapshot::BufferEncoder *this, const char *__src, size_t __len)
 {
-  *(*(this + 4) + 16) = 0;
-  if (*(*this + 37) == 1)
+  v5 = this;
+  if (!__src && __len)
   {
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromFaceVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromEdgeVertices(this);
-
-    return OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromVertexVertices(this);
+    __srca = -1;
+    return re::snapshot::BufferEncoder::writeRaw<true>(this, &__srca, 8uLL);
   }
 
-  else
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromVertexVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromFaceVertices(this);
-
-    return OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromEdgeVertices(this);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::trimAndFinalizeChildValues(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this)
-{
-  v2 = *(this + 4);
-  v3 = *(v2 + 168);
-  v4 = *(v2 + 16);
-  v5 = *(v2 + 176) - v3;
-  if (v4 <= v5)
-  {
-    if (v4 < v5)
-    {
-      *(v2 + 176) = v3 + v4;
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::ValueTag>::__append(v2 + 168, v4 - v5);
-    v2 = *(this + 4);
-  }
-
-  if ((*(v2 + 13) & 1) == 0)
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::CreaseEndPair>::resize((v2 + 192), *(v2 + 16));
-    v2 = *(this + 4);
-  }
-
-  std::vector<unsigned short>::resize(this + 5, *(v2 + 16));
-  std::vector<unsigned int>::resize((*(this + 4) + 144), *(*(this + 4) + 16));
   v6 = *(this + 4);
-  if (*(v6 + 16) >= 1)
+  v7 = __len + v6 + 8;
+  if (v7 > *(this + 5))
   {
-    v7 = 0;
-    v8 = *(v6 + 144);
-    do
+    this = re::snapshot::BufferEncoder::grow(this, v7);
+    if (!this)
     {
-      *(v8 + 4 * v7) = v7;
-      ++v7;
+      return this;
     }
 
-    while (v7 < *(v6 + 16));
+    v6 = *(v5 + 4);
   }
-}
 
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateEdgeTags(void *this)
-{
-  LODWORD(v1) = *(*this + 44);
-  if (v1 >= 1)
+  *(*(v5 + 1) + v6) = __len;
+  v8 = *(v5 + 4) + 8;
+  *(v5 + 4) = v8;
+  if (__len)
   {
-    v2 = 0;
-    do
-    {
-      *(*(this[4] + 48) + v2++) = 0;
-    }
-
-    while (v2 < *(*this + 44));
-    LODWORD(v1) = *(*this + 44);
+    this = memmove((*(v5 + 1) + v8), __src, __len);
+    v8 = *(v5 + 4);
   }
 
-  if (v1 < *(this[3] + 4))
-  {
-    v1 = v1;
-    do
-    {
-      *(*(this[4] + 48) + v1) = *(*(this[2] + 48) + *(*(*this + 288) + 4 * v1));
-      ++v1;
-    }
-
-    while (v1 < *(this[3] + 4));
-  }
-
+  *(v5 + 4) = v8 + __len;
   return this;
 }
 
-void OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateValueTags(int **this)
+re *re::snapshot::introspected::write<re::snapshot::EncoderRaw>(re *this, uint64_t a2, uint64_t a3)
 {
-  v2 = *this;
-  v3 = (*this)[13];
-  if (v3 >= 1)
+  v3 = this;
+  switch(*(a3 + 16))
   {
-    v4 = v2[19];
-    v5 = v3 + v4;
-    v6 = *(*(this[4] + 12) + 4 * v4);
-    do
-    {
-      *(*(this[4] + 21) + v6) = 0;
-      ++v4;
-      ++v6;
-    }
+    case 0:
 
-    while (v4 < v5);
-    v2 = *this;
-  }
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 1:
 
-  v7 = v2[14];
-  if (v7 >= 1)
-  {
-    v8 = v2[20];
-    v9 = v8 + v7;
-    if (*(this[2] + 13))
-    {
-      v10 = 1;
-    }
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 2:
 
-    else
-    {
-      v10 = 9;
-    }
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 3:
 
-    do
-    {
-      v11 = this[4];
-      v12 = *(*(v11 + 9) + 2 * v8);
-      v13 = *(*(v11 + 12) + 4 * v8);
-      v14 = *(v11 + 21);
-      if ((*(*(this[2] + 6) + *(*(*this + 39) + 4 * v8)) & 9) != 0)
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 4:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 5:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 6:
+      v7 = *(a2 + 8);
+      v8 = (v7 & 1) == 0;
+      if (v7)
       {
-        if (v12)
-        {
-          memset((v14 + v13), v10, v12);
-        }
-      }
-
-      else if (v12)
-      {
-        bzero((v14 + v13), v12);
-      }
-
-      ++v8;
-    }
-
-    while (v8 < v9);
-    v2 = *this;
-  }
-
-  v15 = v2[15];
-  if (v15 >= 1)
-  {
-    v16 = v2[21];
-    v17 = v16 + v15;
-    do
-    {
-      v18 = *(*(*this + 39) + 4 * v16);
-      memcpy((*(this[4] + 21) + *(*(this[4] + 12) + 4 * v16++)), (*(this[2] + 21) + *(*(this[2] + 12) + 4 * v18)), *(*(this[2] + 9) + 2 * v18));
-    }
-
-    while (v16 < v17);
-  }
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::propagateValueCreases(void *this)
-{
-  v1 = *this;
-  if (*(*this + 32) == 4)
-  {
-    v2 = 2;
-  }
-
-  else
-  {
-    v2 = 3;
-  }
-
-  v3 = *(v1 + 56);
-  if (v3 >= 1)
-  {
-    v4 = *(v1 + 80);
-    v5 = v4 + v3;
-    v6 = this[4];
-    v7 = v6[9];
-    v8 = v6[12];
-    v9 = v6[21];
-    do
-    {
-      v10 = *(v8 + 4 * v4);
-      v11 = (v9 + v10);
-      if ((*(v9 + v10) & 1) != 0 && (*(*(v1 + 384) + v4) & 1) == 0)
-      {
-        v12 = *(v7 + 2 * v4);
-        if (*(v7 + 2 * v4))
-        {
-          v13 = 0;
-          v14 = (v6[24] + 4 * v10 + 2);
-          do
-          {
-            v15 = *v11++;
-            if ((v15 & 0x18) != 0)
-            {
-              *(v14 - 1) = v13;
-              *v14 = v2 - 1 + v13;
-            }
-
-            v13 += v2;
-            v14 += 2;
-            --v12;
-          }
-
-          while (v12);
-        }
-      }
-
-      ++v4;
-    }
-
-    while (v4 < v5);
-  }
-
-  v16 = *(v1 + 60);
-  if (v16 >= 1)
-  {
-    v17 = *(v1 + 84);
-    v18 = v17 + v16;
-    do
-    {
-      v19 = this[4];
-      v20 = *(v19[12] + 4 * v17);
-      v21 = (v19[21] + v20);
-      if ((*v21 & 1) != 0 && (*(*(*this + 384) + v17) & 1) == 0)
-      {
-        v22 = *(v19[9] + 2 * v17);
-        if (*(v19[9] + 2 * v17))
-        {
-          v23 = (*(this[2] + 192) + 4 * *(*(this[2] + 96) + 4 * *(*(*this + 312) + 4 * v17)));
-          v24 = (v19[24] + 4 * v20);
-          do
-          {
-            v25 = *v21++;
-            if ((v25 & 0x18) != 0)
-            {
-              *v24 = *v23;
-            }
-
-            ++v24;
-            ++v23;
-            --v22;
-          }
-
-          while (v22);
-        }
-      }
-
-      ++v17;
-    }
-
-    while (v17 < v18);
-  }
-
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::reclassifySemisharpValues(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this)
-{
-  v2 = 0;
-  v48 = *MEMORY[0x1E69E9840];
-  v3 = *(*(this + 3) + 20);
-  v45 = &v46;
-  v4 = *(*(this + 2) + 14);
-  __p = 0;
-  if (v3 >= 0x11)
-  {
-    v2 = operator new(4 * v3);
-    __p = v2;
-    v45 = v2;
-  }
-
-  v5 = *(*this + 60);
-  if (v5 >= 1)
-  {
-    v6 = *(*this + 84);
-    v7 = v6 + v5;
-    while (1)
-    {
-      v8 = *(this + 4);
-      v9 = *(v8[12] + 4 * v6);
-      v10 = (v8[21] + v9);
-      if ((*v10 & 1) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      v11 = *this;
-      if (*(*(*this + 384) + v6))
-      {
-        goto LABEL_9;
-      }
-
-      v12 = *(*(v11 + 312) + 4 * v6);
-      v13 = *(this + 1);
-      if ((*(v13[54] + 2 * v12) & 0x60) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      v14 = *(this + 3);
-      v15 = *(v14[54] + 2 * v6);
-      if ((v15 & 0x30) != 0)
-      {
-        goto LABEL_9;
-      }
-
-      v16 = *(v8[9] + 2 * v6);
-      if ((v15 & 0x40) == 0)
-      {
-        if (*(v8[9] + 2 * v6))
-        {
-          do
-          {
-            if ((*v10 & 0x10) != 0)
-            {
-              *v10 = *v10 & 0xC7 | 8;
-            }
-
-            ++v10;
-            --v16;
-          }
-
-          while (v16);
-        }
-
-        goto LABEL_9;
-      }
-
-      v17 = v8[24];
-      v18 = v14[45];
-      if (((v14[46] - v18) & 0x3FFFFFFFCLL) != 0)
-      {
-        v19 = *(v14[42] + 8 * v6);
-        v20 = (v18 + 4 * *(v14[42] + 8 * v6 + 4));
+        v6 = *(a2 + 16);
       }
 
       else
       {
-        v21 = v13[42];
-        v19 = *(v21 + 8 * v12);
-        v20 = v45;
-        if (v19 >= 1)
-        {
-          v22 = 0;
-          v23 = *(v21 + 8 * v12 + 4);
-          v24 = v13[45] + 4 * v23;
-          v25 = v13[48] + 2 * v23;
-          v26 = *(v11 + 192);
-          do
-          {
-            *(v45 + v22) = *(v26 + 8 * *(v24 + 4 * v22) + 4 * *(v25 + 2 * v22));
-            ++v22;
-          }
-
-          while (v19 != v22);
-        }
+        v6 = (a2 + 9);
       }
 
-      if (v16)
+      v9 = v7 >> 1;
+      v10 = v7 >> 1;
+      if (v8)
       {
-        break;
+        v5 = v10;
       }
 
-LABEL_9:
-      if (++v6 >= v7)
+      else
       {
-        v2 = __p;
-        goto LABEL_51;
+        v5 = v9;
       }
+
+      goto LABEL_33;
+    case 7:
+
+      re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 8:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 9:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+    case 0xA:
+      v4 = *(a2 + 8);
+      v5 = strlen(v4);
+      this = v3;
+      v6 = v4;
+LABEL_33:
+
+      this = re::snapshot::EncoderRaw::serializeString(this, v6, v5);
+      break;
+    case 0xB:
+
+      this = re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+      break;
+    case 0xD:
+
+      this = re::snapshot::introspected::write<re::snapshot::EncoderRaw>(this, a2, a3);
+      break;
+    default:
+      return this;
+  }
+
+  return this;
+}
+
+{
+  v5 = this;
+  v43 = *MEMORY[0x1E69E9840];
+  v6 = *(a3 + 120);
+  if (!v6)
+  {
+    if (!*(a3 + 56))
+    {
+      return this;
     }
 
-    v27 = 0;
-    v28 = v17 + 4 * v9;
+    v7 = 0;
+    v8 = *(a3 + 60);
     while (1)
     {
-      v29 = v10[v27];
-      if ((v29 & 0x30) == 0x10)
+      v9 = *(*(a3 + 64) + 8 * v7);
+      if (*v9 != 1)
       {
-        v30 = (v28 + 4 * v27);
-        v31 = *v30;
-        v32 = v30[1];
-        if (v32 <= v31)
-        {
-          if (v31 <= v32)
-          {
-            goto LABEL_41;
-          }
+        goto LABEL_42;
+      }
 
-          v36 = *(*(this + 3) + 240);
-          if (v31 + 1 < v19)
+      v10 = *(v9 + 40);
+      if ((v8 & 1) != 0 && v10 == 3)
+      {
+        goto LABEL_42;
+      }
+
+      v11 = *(v9 + 36);
+      if (v10 > 1)
+      {
+        if (v10 == 2)
+        {
+          v19 = *(*(*(v9 + 16) + 48) + 64);
+          v20 = *v19;
+          if (**v19 != 2)
           {
-            v37 = v31 + 2;
-            v38 = v20 + v31 + 1;
+            v21 = (v19 + 1);
             do
             {
-              v39 = *v38++;
-              v40 = *(v36 + v39);
-              if ((v40 & 8) != 0)
+              v22 = *v21++;
+              v20 = v22;
+            }
+
+            while (*v22 != 2);
+          }
+
+          v23 = *(v20 + 1);
+          if (v23)
+          {
+            if (a2)
+            {
+              v24 = *(v9 + 64);
+              v25 = *(v9 + 48);
+              __src = 0;
+              this = memcpy(&__src, (a2 + v24), *(v25 + 20));
+              v26 = __src;
+            }
+
+            else
+            {
+              v26 = 0;
+            }
+
+            v31 = *v23;
+            if (v31)
+            {
+              v32 = *(v23 + 1);
+              while (*(v32 + 24) != v26)
               {
-                break;
+                v32 += 40;
+                if (!--v31)
+                {
+                  goto LABEL_38;
+                }
               }
             }
 
-            while (v37++ < v19);
-            if ((v40 & 8) != 0)
+            else
+            {
+LABEL_38:
+              v32 = 0;
+            }
+
+            v33 = *(a2 + v11);
+            *__dst = v32;
+            v39[2] = re::globalAllocators(this)[2];
+            v39[3] = &__src;
+            __src = &unk_1F5D17598;
+            v39[0] = __dst;
+            re::snapshot::EncoderRaw::serializePolymorphicPointer(v5, v33, v26, &__src);
+            this = re::FunctionBase<24ul,void ()(re::snapshot::Encoder &,void const*)>::destroyCallable(&__src);
+            goto LABEL_42;
+          }
+
+          v30 = *re::foundationSerializationLogObjects(this);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            re::getPrettyTypeName(&__src, a3);
+            v36 = v39 + 1;
+            if (v39[0])
+            {
+              v36 = v39[1];
+            }
+
+            v37 = *(v9 + 8);
+            *__dst = 136315394;
+            *&__dst[4] = v36;
+            v41 = 2080;
+            v42 = v37;
+            _os_log_error_impl(&dword_1E1C61000, v30, OS_LOG_TYPE_ERROR, "No polymorphic table for %s.%s", __dst, 0x16u);
+            if (__src && (v39[0] & 1) != 0)
+            {
+              (*(*__src + 40))();
+            }
+          }
+
+          LOBYTE(__src) = 0;
+          p_src = &__src;
+          v28 = v5;
+          v29 = 1;
+          goto LABEL_41;
+        }
+
+        if (v10 == 3)
+        {
+LABEL_22:
+          this = re::snapshot::introspected::write<re::snapshot::EncoderRaw>(v5, a2 + v11, *(v9 + 16));
+        }
+      }
+
+      else
+      {
+        if (!v10)
+        {
+          goto LABEL_22;
+        }
+
+        if (v10 == 1)
+        {
+          v12 = *(a2 + v11);
+          v13 = *(v9 + 16);
+          if (v12)
+          {
+            v14 = *(v9 + 48);
+            if (!v14)
+            {
+              re::snapshot::BufferEncoder::error(v5, "Snapshot writer failed to get array length for member '%s' in %s.", *(v9 + 8), *(a3 + 48));
+              __src = 0;
+              return re::snapshot::BufferEncoder::writeRaw<true>(v5, &__src, 8uLL);
+            }
+
+            v15 = *(v9 + 64);
+            *__dst = 0;
+            memcpy(__dst, (a2 + v15), *(v14 + 20));
+            v16 = *(v13 + 48);
+            v17 = *__dst;
+            if (*(v16 + 16))
+            {
+              __src = *__dst;
+              this = re::snapshot::BufferEncoder::writeRaw<true>(v5, &__src, 8uLL);
+              if (v17)
+              {
+                v18 = *(v13 + 48);
+                do
+                {
+                  this = re::snapshot::introspected::write<re::snapshot::EncoderRaw>(v5, v12, v18);
+                  v18 = *(v13 + 48);
+                  v12 += *(v18 + 20);
+                  --v17;
+                }
+
+                while (v17);
+              }
+
+              goto LABEL_42;
+            }
+
+            __src = *__dst * *(v16 + 20);
+            v34 = __src;
+            re::snapshot::BufferEncoder::writeRaw<true>(v5, &__src, 8uLL);
+            v28 = v5;
+            p_src = v12;
+            v29 = v34;
+            goto LABEL_41;
+          }
+
+          if (*(*(v13 + 48) + 16))
+          {
+            __src = 0;
+            p_src = &__src;
+            v28 = v5;
+            v29 = 8;
+LABEL_41:
+            this = re::snapshot::BufferEncoder::writeRaw<true>(v28, p_src, v29);
+            goto LABEL_42;
+          }
+
+          __src = 0;
+          this = re::snapshot::BufferEncoder::writeRaw<true>(v5, &__src, 8uLL);
+          v35 = v5[4];
+          if (v35 > v5[5])
+          {
+            this = re::snapshot::BufferEncoder::grow(v5, v35);
+            if (!this)
             {
               goto LABEL_42;
             }
+
+            LODWORD(v35) = v5[4];
           }
 
-          v42 = 0;
-          do
-          {
-            v43 = *(v36 + *(v20 + v42));
-            v35 = (v43 >> 3) & 1;
-            if (v42 >= v32)
-            {
-              break;
-            }
-
-            ++v42;
-          }
-
-          while ((v43 & 8) == 0);
-        }
-
-        else
-        {
-          v33 = v31 + 1;
-          do
-          {
-            v34 = *(*(*(this + 3) + 240) + *(v20 + v33));
-            v35 = (v34 >> 3) & 1;
-            if (v33 >= v32)
-            {
-              break;
-            }
-
-            ++v33;
-          }
-
-          while ((v34 & 8) == 0);
-        }
-
-        if ((v35 & 1) == 0)
-        {
-LABEL_41:
-          v10[v27] = v29 & 0xC7 | 8;
+          v5[4] = v35;
         }
       }
 
 LABEL_42:
-      if (++v27 == v16)
-      {
-        if (v16 == 2 && (v4 & 1) != 0)
-        {
-          v44 = *v10;
-          if ((*v10 & 0x20) != 0 && (v10[1] & 0x10) == 0)
-          {
-LABEL_50:
-            *v10 = v44 & 0xDF;
-          }
-
-          else if ((*v10 & 0x10) == 0 && (v10[1] & 0x20) != 0)
-          {
-            v44 = *++v10;
-            goto LABEL_50;
-          }
-        }
-
-        goto LABEL_9;
-      }
-    }
-  }
-
-LABEL_51:
-  operator delete(v2);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromFaceVertices(void *this)
-{
-  v1 = *(*this + 52);
-  if (v1 >= 1)
-  {
-    v2 = *(*this + 76);
-    v3 = v2 + v1;
-    v4 = this[4];
-    v5 = *(v4 + 96);
-    v6 = *(v4 + 72);
-    v7 = *(v4 + 16);
-    do
-    {
-      *(v5 + 4 * v2) = v7;
-      *(v6 + 2 * v2) = 1;
-      v7 = *(v4 + 16) + 1;
-      *(v4 + 16) = v7;
-      ++v2;
-    }
-
-    while (v2 < v3);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromEdgeVertices(void *this)
-{
-  v1 = *this;
-  v2 = *(*this + 56);
-  if (v2 >= 1)
-  {
-    v3 = *(v1 + 80);
-    v4 = v3 + v2;
-    v5 = *(v1 + 312);
-    v6 = this[4];
-    v7 = *(v6 + 96);
-    v8 = *(this[2] + 48);
-    v9 = *(v6 + 16);
-    v10 = vdupq_n_s64(8uLL);
-    v11 = *(v6 + 72);
-    do
-    {
-      v12 = *(v5 + 4 * v3);
-      *(v7 + 4 * v3) = v9;
-      if (*(v8 + v12))
-      {
-        v14 = this[1];
-        v15 = *(v14 + 144);
-        v13 = *(v15 + 8 * v12);
-        if (v13 != 1)
-        {
-          v16 = *(v14 + 168);
-          v17 = *(v15 + 8 * v12 + 4);
-          if (v13 >= 1)
-          {
-            v18 = 0;
-            v19 = vdupq_n_s64(v13 - 1);
-            v20 = (this[5] + 2 * v9 + 8);
-            v21 = xmmword_1E3049620;
-            v22 = xmmword_1E3049640;
-            v23 = xmmword_1E3049660;
-            v24 = xmmword_1E305F210;
-            do
-            {
-              v25 = vmovn_s64(vcgeq_u64(v19, v21));
-              if (vuzp1_s8(vuzp1_s16(v25, 6), 6).u8[0])
-              {
-                *(v20 - 4) = v18;
-              }
-
-              if (vuzp1_s8(vuzp1_s16(v25, 6), 6).i8[1])
-              {
-                *(v20 - 3) = v18 | 1;
-              }
-
-              if (vuzp1_s8(vuzp1_s16(6, vmovn_s64(vcgeq_u64(v19, *&v22))), 6).i8[2])
-              {
-                *(v20 - 2) = v18 | 2;
-                *(v20 - 1) = v18 | 3;
-              }
-
-              v26 = vmovn_s64(vcgeq_u64(v19, v23));
-              if (vuzp1_s8(6, vuzp1_s16(v26, 6)).i32[1])
-              {
-                *v20 = v18 | 4;
-              }
-
-              if (vuzp1_s8(6, vuzp1_s16(v26, 6)).i8[5])
-              {
-                v20[1] = v18 | 5;
-              }
-
-              if (vuzp1_s8(6, vuzp1_s16(6, vmovn_s64(vcgeq_u64(v19, *&v24)))).i8[6])
-              {
-                v20[2] = v18 | 6;
-                v20[3] = v18 | 7;
-              }
-
-              v18 += 8;
-              v23 = vaddq_s64(v23, v10);
-              v22 = vaddq_s64(v22, v10);
-              v21 = vaddq_s64(v21, v10);
-              v24 = vaddq_s64(v24, v10);
-              v20 += 8;
-            }
-
-            while (((v13 + 7) & 0xFFFFFFF8) != v18);
-          }
-
-          v27 = *(*v6 + 264);
-          v28 = *(v27 + 8 * v3);
-          if (v28 >= 1)
-          {
-            v29 = 0;
-            v30 = v16 + 4 * v17;
-            v31 = (8 * v3) | 4;
-            v32 = *(this[3] + 288) + 4 * *(*(this[3] + 264) + v31);
-            v33 = *(v6 + 120) + 2 * *(v27 + v31);
-            v34 = *(v1 + 264);
-            do
-            {
-              v35 = *(v34 + 4 * *(v32 + 4 * v29));
-              if (v13 == 2)
-              {
-                if (v35 == *(v30 + 4))
-                {
-                  *(v33 + 2 * v29) = 1;
-                }
-              }
-
-              else if (v13 >= 1)
-              {
-                for (i = 0; i != v13; ++i)
-                {
-                  if (v35 == *(v30 + 4 * i))
-                  {
-                    *(v33 + 2 * v29) = i;
-                  }
-                }
-              }
-
-              ++v29;
-            }
-
-            while (v29 != v28);
-          }
-        }
-      }
-
-      else
-      {
-        LODWORD(v13) = 1;
-      }
-
-      *(v11 + 2 * v3) = v13;
-      v9 = *(v6 + 16) + v13;
-      *(v6 + 16) = v9;
-      ++v3;
-    }
-
-    while (v3 < v4);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::populateChildValuesFromVertexVertices(void *this)
-{
-  v1 = *this;
-  v2 = *(*this + 60);
-  if (v2 >= 1)
-  {
-    v3 = *(v1 + 84);
-    v4 = v3 + v2;
-    v5 = *(v1 + 312);
-    v6 = this[4];
-    v7 = *(v6 + 96);
-    v8 = this[2];
-    v9 = v8[12];
-    v10 = v8[21];
-    v11 = *(v6 + 16);
-    v12 = *(v6 + 72);
-    do
-    {
-      v13 = *(v5 + 4 * v3);
-      *(v7 + 4 * v3) = v11;
-      if (*(v10 + *(v9 + 4 * v13)))
-      {
-        v14 = *(v8[9] + 2 * v13);
-        if (v14 >= 2)
-        {
-          v15 = 0;
-          v16 = vdupq_n_s64(v14 - 2);
-          v17 = (this[5] + 2 * v11 + 8);
-          do
-          {
-            v18 = vdupq_n_s64(v15);
-            v19 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(v18, xmmword_1E3049620)));
-            if (vuzp1_s8(vuzp1_s16(v19, 6), 6).u8[0])
-            {
-              *(v17 - 3) = v15 | 1;
-            }
-
-            if (vuzp1_s8(vuzp1_s16(v19, 6), 6).i8[1])
-            {
-              *(v17 - 2) = v15 | 2;
-            }
-
-            if (vuzp1_s8(vuzp1_s16(6, vmovn_s64(vcgeq_u64(v16, vorrq_s8(v18, xmmword_1E3049640)))), 6).i8[2])
-            {
-              *(v17 - 1) = v15 | 3;
-              *v17 = v15 | 4;
-            }
-
-            v20 = vmovn_s64(vcgeq_u64(v16, vorrq_s8(v18, xmmword_1E3049660)));
-            if (vuzp1_s8(6, vuzp1_s16(v20, 6)).i32[1])
-            {
-              v17[1] = v15 | 5;
-            }
-
-            if (vuzp1_s8(6, vuzp1_s16(v20, 6)).i8[5])
-            {
-              v17[2] = v15 | 6;
-            }
-
-            if (vuzp1_s8(6, vuzp1_s16(6, vmovn_s64(vcgeq_u64(v16, vorrq_s8(v18, xmmword_1E305F210))))).i8[6])
-            {
-              v17[3] = v15 | 7;
-              v17[4] = v15 + 8;
-            }
-
-            v15 += 8;
-            v17 += 8;
-          }
-
-          while (((v14 + 6) & 0x1FFF8) != v15);
-          v21 = (*(*v6 + 264) + 8 * v3);
-          v22 = *v21;
-          if (v22 >= 1)
-          {
-            v23 = (v8[15] + 2 * *(*(*v8 + 264) + 4 * ((2 * v13) | 1)));
-            v24 = (*(v6 + 120) + 2 * v21[1]);
-            do
-            {
-              v25 = *v23++;
-              *v24++ = v25;
-              --v22;
-            }
-
-            while (v22);
-          }
-        }
-      }
-
-      else
-      {
-        LODWORD(v14) = 1;
-      }
-
-      *(v12 + 2 * v3) = v14;
-      v11 = *(v6 + 16) + v14;
-      *(v6 + 16) = v11;
-      ++v3;
-    }
-
-    while (v3 < v4);
-  }
-
-  return this;
-}
-
-float OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement *this, int a2, unsigned int a3, int a4)
-{
-  v4 = a4;
-  v5 = a3;
-  v72 = *MEMORY[0x1E69E9840];
-  v7 = v70;
-  v68 = v70;
-  v69 = 0x1000000000;
-  v71 = 0;
-  v8 = *(this + 1);
-  v9 = v8[45];
-  v10 = a2;
-  v11 = (2 * a2) | 1;
-  v12 = v8[42];
-  v13 = *(v12 + 4 * v11);
-  v14 = (v9 + 4 * v13);
-  v15 = *(v12 + 8 * a2);
-  v16 = *(this + 3);
-  v17 = v16[45];
-  if (((v16[46] - v17) & 0x3FFFFFFFCLL) != 0)
-  {
-    v62 = a4;
-    v7 = (v17 + 4 * *(v16[42] + 8 * a4 + 4));
-    goto LABEL_11;
-  }
-
-  if (v15)
-  {
-    v62 = a4;
-    if (v15 <= 0x10)
-    {
-      LODWORD(v69) = *(v12 + 8 * a2);
-      v18 = v8[48] + 2 * *(v12 + 4 * v11);
-    }
-
-    else
-    {
-      v61 = a2;
-      operator delete(0);
-      v7 = operator new(4 * v15);
-      v71 = v7;
-      v68 = v7;
-      LODWORD(v69) = v15;
-      HIDWORD(v69) = v15;
-      if (v15 < 1)
-      {
-        v10 = v61;
-        v5 = a3;
-        goto LABEL_11;
-      }
-
-      v18 = *(*(this + 1) + 384) + 2 * *(*(*(this + 1) + 336) + 4 * v11);
-      v10 = v61;
-      v5 = a3;
-    }
-
-    v23 = 0;
-    v24 = *(*this + 192);
-    do
-    {
-      v7[v23] = *(v24 + 8 * v14[v23] + 4 * *(v18 + 2 * v23));
-      ++v23;
-    }
-
-    while (v15 != v23);
-LABEL_11:
-    v22 = v66;
-    v64 = v66;
-    LODWORD(v65) = 2 * v15;
-    HIDWORD(v65) = 32;
-    v67 = 0;
-    if ((2 * v15) < 0x21)
-    {
-      v21 = 0;
-    }
-
-    else
-    {
-      v25 = v10;
-      v26 = v13;
-      v27 = v9;
-      v28 = v5;
-      v29 = operator new(4 * (2 * v15));
-      v5 = v28;
-      v9 = v27;
-      v13 = v26;
-      v10 = v25;
-      v21 = v29;
-      v67 = v29;
-      v64 = v29;
-      HIDWORD(v65) = 2 * v15;
-      v22 = v29;
-    }
-
-    v4 = v62;
-    goto LABEL_15;
-  }
-
-  v19 = a2;
-  operator delete(0);
-  v5 = a3;
-  v10 = v19;
-  v21 = 0;
-  v69 = 0x1000000000;
-  v22 = v66;
-  v64 = v66;
-  v65 = 0x2000000000;
-  v67 = 0;
-  v68 = v70;
-LABEL_15:
-  v30 = (*(*(this + 2) + 192) + 4 * *(*(*(this + 2) + 96) + 4 * v10) + 4 * v5);
-  v31 = *v30;
-  v32 = v30[1];
-  v33 = (v32 - v31);
-  if (v32 <= v31)
-  {
-    v34 = *(this + 1);
-    if (v31 <= v32)
-    {
-      LODWORD(v33) = 0;
-      v36 = *(this + 3);
-    }
-
-    else
-    {
-      v44 = *(v34 + 216);
-      v36 = *(this + 3);
-      v45 = *(v36 + 216);
-      if (v31 + 1 >= v15)
-      {
-        v46 = 0;
-      }
-
-      else
-      {
-        v46 = (v15 + ~v31);
-        v47 = &v7[v31 + 1];
-        v48 = (4 * v13 + 4 * v31 + v9 + 4);
-        v49 = v22;
-        v50 = v46;
-        do
-        {
-          v51 = *v48++;
-          *v49 = *(v44 + 4 * v51);
-          v52 = *v47++;
-          v49[v15] = *(v45 + 4 * v52);
-          ++v49;
-          --v50;
-        }
-
-        while (v50);
-      }
-
-      v53 = v32 + 1;
-      v54 = &v22[v46];
-      LODWORD(v33) = v32 + v46 + 1;
-      do
-      {
-        v55 = *v14++;
-        *v54 = *(v44 + 4 * v55);
-        v56 = *v7++;
-        v54[v15] = *(v45 + 4 * v56);
-        ++v54;
-        --v53;
-      }
-
-      while (v53);
-    }
-  }
-
-  else
-  {
-    v34 = *(this + 1);
-    v35 = *(v34 + 216);
-    v36 = *(this + 3);
-    v37 = *(v36 + 216);
-    v38 = &v7[v31 + 1];
-    v39 = (4 * v13 + 4 * v31 + v9 + 4);
-    v40 = v22;
-    v41 = v33;
-    do
-    {
-      v42 = *v39++;
-      *v40 = *(v35 + 4 * v42);
-      v43 = *v38++;
-      v40[v15] = *(v37 + 4 * v43);
-      ++v40;
-      --v41;
-    }
-
-    while (v41);
-  }
-
-  v63 = *(*this + 24);
-  v57 = OpenSubdiv::v3_1_1::Sdc::Crease::ComputeFractionalWeightAtVertex(&v63, *(*(v34 + 408) + 4 * v10), *(*(v36 + 408) + 4 * v4), v33, v22, &v22[v15]);
-  v58 = *&v57;
-  operator delete(v21);
-  operator delete(v71);
-  return v58;
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::ValueTag>::__append(uint64_t a1, unint64_t a2)
-{
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v4 - v3 >= a2)
-  {
-    *(a1 + 8) = v3 + a2;
-  }
-
-  else
-  {
-    v5 = *a1;
-    v6 = v3 - *a1;
-    v7 = v6 + a2;
-    if ((v6 + a2) < 0)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v4 - v5;
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x3FFFFFFFFFFFFFFFLL)
-    {
-      v9 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      operator new();
-    }
-
-    v10 = v6 + a2;
-    memcpy(0, *a1, v3 - *a1);
-    *a1 = 0;
-    *(a1 + 8) = v10;
-    *(a1 + 16) = 0;
-    if (v5)
-    {
-
-      operator delete(v5);
-    }
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::~TriRefinement(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  *this = &unk_1F5D1A3D0;
-  v2 = *(this + 63);
-  if (v2)
-  {
-    *(this + 64) = v2;
-    operator delete(v2);
-  }
-
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::~Refinement(this);
-}
-
-{
-  OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::~TriRefinement(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::allocateParentChildIndices(std::vector<int> *this)
-{
-  end = this->__end_;
-  v4 = *(end + 9);
-  v3 = *(end + 10);
-  v6 = *(end + 15);
-  v5 = *(end + 16);
-  v8 = *end;
-  v7 = end[1];
-  v9 = end[2];
-  __x = 4;
-  std::vector<unsigned int>::resize(this + 21, 2 * v8, &__x);
-  v10 = this->__end_;
-  begin = this[21].__begin_;
-  if (*v10 >= 1)
-  {
-    v12 = 0;
-    v13 = 0;
-    v14 = begin + 1;
-    do
-    {
-      *v14 = v12;
-      v14 += 2;
-      ++v13;
-      v12 += 4;
-    }
-
-    while (v13 < *v10);
-  }
-
-  v15 = (this[21].__end_ - begin) >> 2;
-  this[3].__end_cap_.__value_ = begin;
-  LODWORD(this[4].__begin_) = v15;
-  v16 = *(v10 + 3);
-  v17 = (*(v10 + 4) - v16) >> 2;
-  this[4].__end_ = v16;
-  LODWORD(this[4].__end_cap_.__value_) = v17;
-  v18 = 0;
-  std::vector<unsigned int>::resize(this + 5, 4 * v8, &v18);
-  std::vector<unsigned int>::resize(this + 6, ((v3 - v4) >> 2), &v18);
-  std::vector<unsigned int>::resize(this + 8, ((v5 - v6) >> 2), &v18);
-  std::vector<unsigned int>::resize(this + 7, 0, &v18);
-  std::vector<unsigned int>::resize(this + 9, v7, &v18);
-  std::vector<unsigned int>::resize(this + 10, v9, &v18);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateFaceVertexRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v2 = *(this + 2);
-  if (v2[1].__end_ == v2[1].__begin_)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateFaceVertexCountsAndOffsets(this);
-    v2 = *(this + 2);
-  }
-
-  std::vector<unsigned int>::resize(v2 + 2, 3 * SLODWORD(v2->__begin_));
-  v3 = *(this + 1);
-  if (*v3 >= 1)
-  {
-    v4 = 0;
-    v5 = *(v3 + 6);
-    v6 = *(v3 + 9);
-    v7 = *(this + 15);
-    v8 = *(this + 27);
-    v9 = (*(this + 11) + 4);
-    v10 = (*(v3 + 3) + 4);
-    do
-    {
-      v11 = *v10;
-      v10 += 2;
-      v12 = (v5 + 4 * v11);
-      v13 = (v6 + 4 * v11);
-      v14 = *v9;
-      v9 += 2;
-      v15 = *(v8 + 4 * *v13);
-      v16 = *(v8 + 4 * v13[1]);
-      v17 = (v7 + 4 * v14);
-      v18 = *(v8 + 4 * v13[2]);
-      if (*v17 != -1)
-      {
-        v19 = (*(*(this + 2) + 48) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * *v17) | 1)));
-        *v19 = *(*(this + 30) + 4 * *v12);
-        v19[1] = v15;
-        v19[2] = v18;
-      }
-
-      v20 = v17[1];
-      if (v20 != -1)
-      {
-        v21 = (*(*(this + 2) + 48) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v20) | 1)));
-        *v21 = v15;
-        v21[1] = *(*(this + 30) + 4 * v12[1]);
-        v21[2] = v16;
-      }
-
-      v22 = v17[2];
-      if (v22 != -1)
-      {
-        v23 = (*(*(this + 2) + 48) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v22) | 1)));
-        *v23 = v18;
-        v23[1] = v16;
-        v23[2] = *(*(this + 30) + 4 * v12[2]);
-      }
-
-      v24 = v17[3];
-      if (v24 != -1)
-      {
-        v25 = (*(*(this + 2) + 48) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v24) | 1)));
-        *v25 = v16;
-        v25[1] = v18;
-        v25[2] = v15;
-      }
-
-      ++v4;
-    }
-
-    while (v4 < *v3);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateFaceVertexCountsAndOffsets(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v2 = *(this + 2);
-  begin_low = SLODWORD(v2->__begin_);
-  __x = 3;
-  std::vector<unsigned int>::resize(v2 + 1, 2 * begin_low, &__x);
-  v4 = *(this + 2);
-  if (*v4 >= 1)
-  {
-    v5 = 0;
-    v6 = 0;
-    v7 = (*(v4 + 3) + 4);
-    do
-    {
-      *v7 = v5;
-      v7 += 2;
-      ++v6;
-      v5 += 3;
-    }
-
-    while (v6 < *v4);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateFaceEdgeRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v42 = *MEMORY[0x1E69E9840];
-  v2 = *(this + 2);
-  if (v2[1].__end_ == v2[1].__begin_)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateFaceVertexCountsAndOffsets(this);
-    v2 = *(this + 2);
-  }
-
-  std::vector<unsigned int>::resize(v2 + 3, 3 * SLODWORD(v2->__begin_));
-  v3 = *(this + 1);
-  if (*v3 >= 1)
-  {
-    v4 = 0;
-    v5 = *(v3 + 3);
-    v6 = *(v3 + 6);
-    v7 = *(v3 + 9);
-    v8 = *(this + 11);
-    v9 = *(this + 15);
-    v10 = *(this + 13);
-    v11 = *(this + 18);
-    v12 = *(this + 24);
-    v13 = *(v3 + 15);
-    do
-    {
-      v14 = 0;
-      v15 = (8 * v4) | 4;
-      v16 = *(v5 + v15);
-      v17 = (v6 + 4 * v16);
-      v18 = (v7 + 4 * v16);
-      v19 = *(v8 + v15);
-      v20 = *(v10 + v15);
-      do
-      {
-        v22 = *v18++;
-        v21 = v22;
-        v23 = (v13 + 8 * v22);
-        v24 = *v23 != v23[1] && *v17 != *v23;
-        v25 = v12 + 8 * v21;
-        v26 = *(v25 + 4 * v24);
-        LODWORD(v25) = *(v25 + 4 * !v24);
-        v27 = (&v38 + v14);
-        *v27 = v26;
-        v27[1] = v25;
-        v14 += 8;
-        ++v17;
-      }
-
-      while (v14 != 24);
-      v28 = (v9 + 4 * v19);
-      v29 = (v11 + 4 * v20);
-      if (*v28 != -1)
-      {
-        v30 = (*(*(this + 2) + 72) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * *v28) | 1)));
-        v31 = v41;
-        *v30 = v38;
-        v30[1] = *v29;
-        v30[2] = v31;
-      }
-
-      v32 = v28[1];
-      if (v32 != -1)
-      {
-        v33 = *(*(this + 2) + 72) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v32) | 1));
-        *v33 = v39;
-        *(v33 + 8) = v29[1];
-      }
-
-      v34 = v28[2];
-      if (v34 != -1)
-      {
-        v35 = *(*(this + 2) + 72) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v34) | 1));
-        *v35 = v29[2];
-        *(v35 + 4) = v40;
-      }
-
-      v36 = v28[3];
-      if (v36 != -1)
-      {
-        v37 = (*(*(this + 2) + 72) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v36) | 1)));
-        *v37 = v29[2];
-        v37[1] = *v29;
-        v37[2] = v29[1];
-      }
-
-      ++v4;
-    }
-
-    while (v4 < *v3);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateEdgeVertexRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  std::vector<unsigned int>::resize((*(this + 2) + 120), 2 * *(*(this + 2) + 4));
-  v2 = *(this + 1);
-  if (*v2 >= 1)
-  {
-    v3 = 0;
-    v4 = *(v2 + 9);
-    v5 = *(this + 18);
-    v6 = *(this + 27);
-    v7 = (*(this + 13) + 4);
-    v8 = (*(v2 + 3) + 4);
-    do
-    {
-      v9 = *v8;
-      v8 += 2;
-      v10 = (v4 + 4 * v9);
-      v11 = *v7;
-      v7 += 2;
-      v12 = *(v6 + 4 * *v10);
-      v13 = *(v6 + 4 * v10[1]);
-      v14 = (v5 + 4 * v11);
-      v15 = *(v6 + 4 * v10[2]);
-      v16 = *v14;
-      if (v16 != -1)
-      {
-        v17 = (*(*(this + 2) + 120) + 8 * v16);
-        *v17 = v12;
-        v17[1] = v15;
-      }
-
-      v18 = v14[1];
-      if (v18 != -1)
-      {
-        v19 = (*(*(this + 2) + 120) + 8 * v18);
-        *v19 = v13;
-        v19[1] = v12;
-      }
-
-      v20 = v14[2];
-      if (v20 != -1)
-      {
-        v21 = (*(*(this + 2) + 120) + 8 * v20);
-        *v21 = v15;
-        v21[1] = v13;
-      }
-
-      ++v3;
-    }
-
-    while (v3 < *v2);
-  }
-
-  if (v2[1] >= 1)
-  {
-    v22 = 0;
-    v23 = (*(this + 24) + 4);
-    v24 = (*(v2 + 15) + 4);
-    do
-    {
-      v25 = *(v23 - 1);
-      if (v25 != -1)
-      {
-        v26 = (*(*(this + 2) + 120) + 8 * v25);
-        *v26 = *(*(this + 27) + 4 * v22);
-        v26[1] = *(*(this + 30) + 4 * *(v24 - 1));
-      }
-
-      v27 = *v23;
-      if (v27 != -1)
-      {
-        v28 = (*(*(this + 2) + 120) + 8 * v27);
-        *v28 = *(*(this + 27) + 4 * v22);
-        v28[1] = *(*(this + 30) + 4 * *v24);
-      }
-
-      ++v22;
-      v23 += 2;
-      v24 += 2;
-    }
-
-    while (v22 < v2[1]);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateEdgeFaceRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v2 = 2 * (((*(*(this + 1) + 176) - *(*(this + 1) + 168)) >> 2) + ((*(this + 19) - *(this + 18)) >> 2));
-  std::vector<unsigned int>::resize((*(this + 2) + 144), 2 * *(*(this + 2) + 4));
-  std::vector<unsigned int>::resize((*(this + 2) + 168), v2);
-  std::vector<unsigned short>::resize((*(this + 2) + 192), v2);
-  v4 = *(this + 1);
-  v3 = *(this + 2);
-  *(v3 + 16) = *(v4 + 16);
-  v5 = *v4;
-  if (*v4 >= 1)
-  {
-    v6 = 0;
-    v7 = *(this + 11);
-    v8 = *(this + 15);
-    v9 = *(this + 13);
-    v10 = *(this + 18);
-    do
-    {
-      v11 = *(v9 + 8 * v6);
-      if (v11 >= 1)
-      {
-        v12 = (8 * v6) | 4;
-        v13 = (v8 + 4 * *(v7 + v12));
-        v14 = (v10 + 4 * *(v9 + v12));
-        v15 = v13[3];
-        v16 = 1;
-        do
-        {
-          v18 = *v14++;
-          v17 = v18;
-          if (v18 != -1)
-          {
-            v19 = *(v3 + 144);
-            v20 = (v19 + 8 * v17);
-            *v20 = 2;
-            if (v17)
-            {
-              v21 = *(v20 - 1) + *(v20 - 2);
-            }
-
-            else
-            {
-              v21 = 0;
-            }
-
-            v22 = v16 % 3;
-            v23 = 2 * v17;
-            v20[1] = v21;
-            v24 = *(v3 + 16);
-            if (v24 <= 2)
-            {
-              v24 = 2;
-            }
-
-            *(v3 + 16) = v24;
-            v25 = *(v19 + 4 * (v23 | 1));
-            v26 = (*(v3 + 168) + 4 * v25);
-            v27 = (*(v3 + 192) + 2 * v25);
-            if (*v13 == -1)
-            {
-              v28 = 0;
-            }
-
-            else
-            {
-              *v26 = *v13;
-              *v27 = v22;
-              v28 = 1;
-            }
-
-            if (v15 != -1)
-            {
-              v26[v28] = v15;
-              v27[v28] = v22;
-              LODWORD(v28) = v28 + 1;
-            }
-
-            *v20 = v28;
-          }
-
-          ++v16;
-          ++v13;
-          --v11;
-        }
-
-        while (v11);
-        v5 = *v4;
-      }
-
-      ++v6;
-    }
-
-    while (v6 < v5);
-  }
-
-  v29 = *(v4 + 4);
-  if (v29 >= 1)
-  {
-    v30 = 0;
-    v31 = *(this + 24);
-    do
-    {
-      v32 = (v31 + 8 * v30);
-      if (*v32 != -1 || v32[1] != -1)
-      {
-        v33 = 0;
-        v34 = *(*(v4 + 144) + 8 * v30);
-        v35 = *(*(v4 + 144) + 8 * v30 + 4);
-        v36 = *(v4 + 168) + 4 * v35;
-        v37 = *(v4 + 192) + 2 * v35;
-        v38 = (*(v4 + 120) + 8 * v30);
-        v39 = 1;
-        do
-        {
-          v40 = v39;
-          v41 = v32[v33];
-          if (v41 != -1)
-          {
-            v42 = *(v3 + 144);
-            v43 = (v42 + 8 * v41);
-            *v43 = v34;
-            if (v41)
-            {
-              v44 = *(v43 - 1) + *(v43 - 2);
-            }
-
-            else
-            {
-              v44 = 0;
-            }
-
-            v43[1] = v44;
-            v45 = *(v3 + 16);
-            if (v45 <= v34)
-            {
-              v45 = v34;
-            }
-
-            *(v3 + 16) = v45;
-            if (v34 < 1)
-            {
-              v46 = 0;
-            }
-
-            else
-            {
-              v46 = 0;
-              v47 = *(v42 + 4 * ((2 * v41) | 1));
-              v48 = *(v3 + 168) + 4 * v47;
-              v49 = *(v3 + 192) + 2 * v47;
-              v50 = *(v4 + 24);
-              v51 = *(this + 11);
-              v52 = *(this + 15);
-              v53 = v36;
-              v54 = v37;
-              v55 = v34;
-              do
-              {
-                v57 = *v53++;
-                v56 = v57;
-                LODWORD(v57) = *v54++;
-                v58 = v57;
-                v59 = (2 * v56) | 1;
-                v60 = v33;
-                if (*v38 != v38[1])
-                {
-                  v60 = *(*(v4 + 48) + 4 * *(v50 + 4 * v59) + 4 * v58) != v38[v33];
-                }
-
-                v61 = v52 + 4 * *(v51 + 4 * v59);
-                v62 = v60 + v58;
-                if (v62 == *(v50 + 8 * v56))
-                {
-                  v63 = 0;
-                }
-
-                else
-                {
-                  v63 = v62;
-                }
-
-                v64 = *(v61 + 4 * v63);
-                if (v64 != -1)
-                {
-                  *(v48 + 4 * v46) = v64;
-                  *(v49 + 2 * v46++) = v58;
-                }
-
-                --v55;
-              }
-
-              while (v55);
-            }
-
-            *v43 = v46;
-          }
-
-          v39 = 0;
-          v33 = 1;
-        }
-
-        while ((v40 & 1) != 0);
-        v29 = *(v4 + 4);
-      }
-
-      ++v30;
-    }
-
-    while (v30 < v29);
-  }
-
-  v65 = (*(v3 + 144) + 4 * (2 * *(v3 + 4) - 2));
-  v66 = *v65;
-  v67 = v65[1];
-  std::vector<unsigned int>::resize((v3 + 168), v67 + v66);
-  v68 = (*(this + 2) + 192);
-
-  std::vector<unsigned short>::resize(v68, v67 + v66);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFaceRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v2 = ((*(*(this + 1) + 296) - *(*(this + 1) + 288)) >> 2) + 3 * ((*(*(this + 1) + 176) - *(*(this + 1) + 168)) >> 2);
-  std::vector<unsigned int>::resize((*(this + 2) + 264), 2 * *(*(this + 2) + 8));
-  std::vector<unsigned int>::resize((*(this + 2) + 288), v2);
-  std::vector<unsigned short>::resize((*(this + 2) + 312), v2);
-  if (*(this + 21))
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentEdges(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentVertices(this);
-  }
-
-  else
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentEdges(this);
-  }
-
-  v3 = *(this + 2);
-  v4 = (*(v3 + 264) + 4 * (2 * *(v3 + 8) - 2));
-  v5 = *v4;
-  v6 = v4[1];
-  std::vector<unsigned int>::resize((v3 + 288), v6 + v5);
-  v7 = (*(this + 2) + 312);
-
-  std::vector<unsigned short>::resize(v7, v6 + v5);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentVertices(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 8);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[30];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 288);
-        v7 = (*(v1 + 264) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 312);
-        v11 = this[2];
-        v12 = (v11[33] + 8 * v5);
-        *v12 = v8;
-        if (v5)
-        {
-          v13 = *(v12 - 1) + *(v12 - 2);
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        v12[1] = v13;
-        if (v8 < 1)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = (v6 + 4 * v9);
-          v16 = (v10 + 2 * v9);
-          v17 = v11[36] + 4 * v13;
-          v18 = v11[39] + 2 * v13;
-          v19 = this[11];
-          v20 = this[15];
-          do
-          {
-            v22 = *v15++;
-            v21 = v22;
-            LODWORD(v22) = *v16++;
-            v23 = v22;
-            v24 = *(v20 + 4 * *(v19 + 8 * v21 + 4) + 4 * v22);
-            if (v24 != -1)
-            {
-              *(v17 + 4 * v14) = v24;
-              *(v18 + 2 * v14++) = v23;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v12 = v14;
-        v2 = *(v1 + 8);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexFacesFromParentEdges(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 4);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[27];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 168);
-        v7 = (*(v1 + 144) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 192);
-        v11 = this[2];
-        v12 = (v11[33] + 8 * v5);
-        *v12 = 2 * v8;
-        if (v5)
-        {
-          v13 = *(v12 - 1) + *(v12 - 2);
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        v12[1] = v13;
-        if (v8 < 1)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = (v6 + 4 * v9);
-          v16 = (v10 + 2 * v9);
-          v17 = v11[36] + 4 * v13;
-          v18 = v11[39] + 2 * v13;
-          v19 = this[11];
-          v20 = this[15];
-          do
-          {
-            v22 = *v15++;
-            v21 = v22;
-            LODWORD(v22) = *v16++;
-            v23 = v22;
-            v24 = v22 + 1 - 3 * ((1431655766 * (v22 + 1)) >> 32);
-            v25 = v20 + 4 * *(v19 + 8 * v21 + 4);
-            v26 = *(v25 + 4 * v24);
-            if (v26 != -1)
-            {
-              *(v17 + 4 * v14) = v26;
-              *(v18 + 2 * v14++) = v23;
-            }
-
-            v27 = *(v25 + 12);
-            if (v27 != -1)
-            {
-              *(v17 + 4 * v14) = v27;
-              *(v18 + 2 * v14++) = v23 + 2 - 3 * ((1431655766 * (v23 + 2)) >> 32);
-            }
-
-            v28 = *(v25 + 4 * v23);
-            if (v28 != -1)
-            {
-              *(v17 + 4 * v14) = v28;
-              *(v18 + 2 * v14++) = v24;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v12 = v14;
-        v2 = *(v1 + 4);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgeRelation(OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement *this)
-{
-  v2 = *(this + 1);
-  v3 = ((*(v2 + 368) - *(v2 + 360)) >> 2) + 2 * (*(v2 + 4) + ((*(v2 + 176) - *(v2 + 168)) >> 2));
-  std::vector<unsigned int>::resize((*(this + 2) + 336), 2 * *(*(this + 2) + 8));
-  std::vector<unsigned int>::resize((*(this + 2) + 360), v3);
-  std::vector<unsigned short>::resize((*(this + 2) + 384), v3);
-  if (*(this + 21))
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentEdges(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentVertices(this);
-  }
-
-  else
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentEdges(this);
-  }
-
-  v4 = *(this + 2);
-  v5 = (*(v4 + 336) + 4 * (2 * *(v4 + 8) - 2));
-  v6 = *v5;
-  v7 = v5[1];
-  std::vector<unsigned int>::resize((v4 + 360), v7 + v6);
-  v8 = (*(this + 2) + 384);
-
-  std::vector<unsigned short>::resize(v8, v7 + v6);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentVertices(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 8);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[30];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 360);
-        v7 = (*(v1 + 336) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 384);
-        v11 = this[2];
-        v12 = *(v11 + 336);
-        v13 = (v12 + 8 * v5);
-        *v13 = v8;
-        if (v5)
-        {
-          v14 = *(v13 - 1) + *(v13 - 2);
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        v13[1] = v14;
-        v15 = *(v11 + 20);
-        if (v15 <= v8)
-        {
-          v15 = v8;
-        }
-
-        *(v11 + 20) = v15;
-        if (v8 < 1)
-        {
-          v16 = 0;
-        }
-
-        else
-        {
-          v16 = 0;
-          v17 = (v6 + 4 * v9);
-          v18 = (v10 + 2 * v9);
-          v19 = *(v12 + 4 * ((2 * v5) | 1));
-          v20 = *(v11 + 360) + 4 * v19;
-          v21 = *(v11 + 384) + 2 * v19;
-          v22 = this[24];
-          do
-          {
-            v23 = *v17++;
-            v24 = v22 + 8 * v23;
-            LODWORD(v23) = *v18++;
-            v25 = *(v24 + 4 * v23);
-            if (v25 != -1)
-            {
-              *(v20 + 4 * v16) = v25;
-              *(v21 + 2 * v16++) = 1;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v13 = v16;
-        v2 = *(v1 + 8);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::populateVertexEdgesFromParentEdges(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 4);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[27];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 168);
-        v7 = *(*(v1 + 144) + 8 * v3);
-        v8 = *(*(v1 + 144) + 8 * v3 + 4);
-        v9 = *(v1 + 192);
-        v10 = *(v1 + 120);
-        v11 = this[24];
-        v12 = this[2];
-        v13 = v7 + 2;
-        v14 = *(v12 + 336);
-        v15 = (v14 + 8 * v5);
-        *v15 = v7 + 2;
-        if (v5)
-        {
-          v16 = *(v15 - 1) + *(v15 - 2);
-        }
-
-        else
-        {
-          v16 = 0;
-        }
-
-        v15[1] = v16;
-        if (*(v12 + 20) > v13)
-        {
-          v13 = *(v12 + 20);
-        }
-
-        *(v12 + 20) = v13;
-        if (v7 < 1)
-        {
-          v18 = 0;
-        }
-
-        else
-        {
-          v17 = 0;
-          v18 = 0;
-          v19 = 0;
-          v20 = v6 + 4 * v8;
-          v21 = v9 + 2 * v8;
-          v22 = (v10 + 8 * v3);
-          v23 = v11 + 8 * v3;
-          v24 = *(v14 + 4 * ((2 * v5) | 1));
-          v25 = *(v12 + 360) + 4 * v24;
-          v26 = *(v12 + 384) + 2 * v24;
-          v27 = this[13];
-          v28 = this[18];
-          v29 = -1;
-          do
-          {
-            v30 = *(v21 + 2 * v17);
-            v31 = (2 * *(v20 + 4 * v17)) | 1;
-            v32 = v28 + 4 * *(v27 + 4 * v31);
-            if (v17)
-            {
-              v33 = *(v32 + 4 * (v30 + 1 - 3 * ((1431655766 * (v30 + 1)) >> 32)));
-              v34 = *(v32 + 4 * *(v21 + 2 * v17));
-            }
-
-            else
-            {
-              if (*v22 != v22[1])
-              {
-                v19 = *(*(v1 + 48) + 4 * *(*(v1 + 24) + 4 * v31) + 4 * *(v21 + 2 * v17)) != *v22;
-              }
-
-              v35 = *(v23 + 4 * !v19);
-              v29 = *(v23 + 4 * v19);
-              v33 = *(v32 + 4 * (v30 + 1 - 3 * ((1431655766 * (v30 + 1)) >> 32)));
-              v34 = *(v32 + 4 * *(v21 + 2 * v17));
-              if (v35 != -1)
-              {
-                *(v25 + 4 * v18) = v35;
-                *(v26 + 2 * v18++) = 0;
-              }
-            }
-
-            if (v33 != -1)
-            {
-              *(v25 + 4 * v18) = v33;
-              *(v26 + 2 * v18++) = 1;
-            }
-
-            if (v34 != -1)
-            {
-              *(v25 + 4 * v18) = v34;
-              *(v26 + 2 * v18++) = 0;
-            }
-
-            if (!v17 && v29 != -1)
-            {
-              *(v25 + 4 * v18) = v29;
-              *(v26 + 2 * v18++) = 0;
-            }
-
-            ++v17;
-          }
-
-          while (v7 != v17);
-        }
-
-        *v15 = v18;
-        v2 = *(v1 + 4);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::TriRefinement::markSparseFaceChildren(void *this)
-{
-  v1 = this[1];
-  if (*v1 >= 1)
-  {
-    v2 = 0;
-    v3 = 4;
-    *&v4 = 0x200000002;
-    *(&v4 + 1) = 0x200000002;
-    do
-    {
-      v5 = this[15] + 4 * *(this[11] + v3);
-      v6 = this[18] + 4 * *(this[13] + v3);
-      v7 = this[51];
-      if (*(v7 + v2))
-      {
-        *v5 = v4;
-        *v6 = 2;
-        *(v6 + 4) = 0x200000002;
-        *(v7 + v2) &= 0xE1u;
-      }
-
-      else
-      {
-        v8 = *(*(v1 + 3) + v3);
-        v9 = (*(v1 + 6) + 4 * v8);
-        if (*(this[57] + v9[2]) & 1 | ((*(this[57] + v9[1]) & 1) + (*(this[57] + *v9) & 1)))
-        {
-          v10 = *(this[54] + *(*(v1 + 9) + 4 * v8 + 4)) & 0xE | (*(this[54] + *(*(v1 + 9) + 4 * v8)) >> 1) & 0xF | (2 * *(this[54] + *(*(v1 + 9) + 4 * v8 + 8))) & 0xC;
-          *(v7 + v2) = *(v7 + v2) & 0xE0 | (2 * v10);
-          if (v10)
-          {
-            *(v5 + 12) = 1;
-            *v6 = 1;
-            *(v6 + 4) = 0x100000001;
-          }
-
-          v11 = this[57];
-          if (*(v11 + *v9))
-          {
-            *v5 = 1;
-            *v6 = 1;
-          }
-
-          if (*(v11 + v9[1]))
-          {
-            *(v5 + 4) = 1;
-            *(v6 + 4) = 1;
-          }
-
-          if (*(v11 + v9[2]))
-          {
-            *(v5 + 8) = 1;
-            *(v6 + 8) = 1;
-          }
-        }
-      }
-
-      ++v2;
-      v1 = this[1];
-      v3 += 8;
-    }
-
-    while (v2 < *v1);
-  }
-
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::EndCapBSplineBasisPatchFactory(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *a1 = a3;
-  *(a1 + 8) = a4;
-  *(a1 + 16) = a2;
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  v6 = **(*(a2 + 88) + 24 * ((*(a2 + 8) >> 2) & 0xF));
-  v7 = 7 * v6;
-  v8 = 112 * v6;
-  if (v8 >= 104857600)
-  {
-    v9 = 104857600;
-  }
-
-  else
-  {
-    v9 = v8;
-  }
-
-  std::vector<int>::reserve((a3 + 16), v7);
-  std::vector<int>::reserve((a3 + 64), v9);
-  std::vector<int>::reserve((a3 + 88), v9);
-  v10 = *(a1 + 8);
-  if (v10)
-  {
-    std::vector<int>::reserve((v10 + 16), v7);
-    std::vector<int>::reserve((v10 + 64), v7);
-    std::vector<int>::reserve((v10 + 88), v7);
-  }
-
-  return a1;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::GetPatchPoints(uint64_t a1, void *a2, int a3, __int16 *a4, unsigned int a5, unsigned int a6)
-{
-  v8 = a2[3];
-  v9 = (a2[6] + 4 * *(v8 + 8 * a3 + 4));
-  v10 = *(v8 + 8 * a3);
-  if ((a6 & 0x80000000) == 0)
-  {
-    return OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPointsFromGregoryBasis(a1);
-  }
-
-  v11 = 0;
-  v12 = -1;
-  do
-  {
-    v14 = *(a2[54] + 2 * v9->i32[v11]);
-    if ((v14 & 0x780) != 0x80 || (v15 = *a4) != 0)
-    {
-      LOBYTE(v15) = 1;
-    }
-
-    if ((v14 & 2) != 0)
-    {
-      if (v12 < 0)
-      {
-        v12 = v11;
-      }
-
-      else
-      {
-        LOBYTE(v15) = 1;
-      }
-    }
-
-    if (v11 > 2)
-    {
-      break;
-    }
-
-    ++v11;
-    a4 += 3;
-  }
-
-  while ((v15 & 1) == 0);
-  if ((v15 & 1) == 0)
-  {
-    return OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPoints(a1, a2, a3, v12, v9, v10, a5, a6);
-  }
-
-  else
-  {
-    return OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPointsFromGregoryBasis(a1);
-  }
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPointsFromGregoryBasis(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v4 = v3;
-  v53 = v5;
-  v6 = v1;
-  v82[16] = *MEMORY[0x1E69E9840];
-  v7 = *(v1 + 16);
-  if ((v2 & 0x80000000) != 0)
-  {
-    v11 = *(v7 + 20);
-  }
-
-  else
-  {
-    v9 = v7 + 40;
-    v8 = *(v7 + 40);
-    v10 = *(v9 + 8) - v8;
-    if ((v10 >> 3) < 1)
-    {
-      v11 = 0;
-    }
-
-    else
-    {
-      v11 = 0;
-      v12 = (v10 >> 3);
-      if (v12 <= 1)
-      {
-        v12 = 1;
-      }
-
-      do
-      {
-        v13 = *v8++;
-        v11 += *(*(*(v13 + 456) + 8 * v2) + 16);
-        --v12;
-      }
-
-      while (v12);
-    }
-  }
-
-  v14 = *(v1 + 24);
-  v15 = 16;
-  do
-  {
-    v58[0] = v14 + v11;
-    std::vector<int>::push_back[abi:nn200100]((v6 + 32), v58);
-    v14 = *(v6 + 24) + 1;
-    *(v6 + 24) = v14;
-    --v15;
-  }
-
-  while (v15);
-  v54 = v4;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(v58);
-  v82[0] = v58;
-  v82[1] = &v62;
-  v82[2] = &v67;
-  v82[3] = &v59;
-  v82[4] = &v66;
-  v82[5] = &v70;
-  v82[6] = &v71;
-  v82[7] = &v63;
-  v82[8] = &v65;
-  v82[9] = &v73;
-  v82[10] = &v72;
-  v82[11] = &v68;
-  v82[12] = v61;
-  v82[13] = v69;
-  v82[14] = &v64;
-  v82[15] = &v60;
-  v16 = v58[4];
-  v17 = &v78;
-  v78 = &v80;
-  v79 = 0x1000000010;
-  v18 = 16;
-  v81 = 0;
-  do
-  {
-    *(v17 + 4) = 0;
-    v17[3] = (v17 + 5);
-    v17[45] = 0;
-    v17[4] = 0x2800000028;
-    v17 += 44;
-    --v18;
-  }
-
-  while (v18);
-  v19 = 0;
-  v20 = &unk_1E3109F5C;
-  do
-  {
-    v21 = 0;
-    v55 = v19;
-    v22 = 4 * v19;
-    v23 = v82;
-    do
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v78[44 * v21 + 44 * v22], v16);
-      for (i = 0; i != 16; i += 4)
-      {
-        v25 = *&v20[i];
-        if (v25 != 0.0)
-        {
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v78[44 * v21 + 44 * v22], v23[i], v25);
-        }
-      }
-
-      ++v21;
-      ++v23;
-    }
-
-    while (v21 != 4);
-    v19 = v55 + 1;
-    v20 += 16;
-  }
-
-  while (v55 != 3);
-  v26 = 0;
-  for (j = 0; j != 4; ++j)
-  {
-    v28 = 0;
-    v29 = &unk_1E3109F5C;
-    do
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(v76, v16);
-      v31 = 0;
-      v32 = v26;
-      do
-      {
-        v33 = *&v29[v31];
-        if (v33 != 0.0)
-        {
-          OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(v76, (v78 + v32), v33);
-        }
-
-        v31 += 4;
-        v32 += 352;
-      }
-
-      while (v31 != 16);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(v76, *v6, v30);
-      operator delete(v77);
-      ++v28;
-      v29 += 16;
-    }
-
-    while (v28 != 4);
-    v26 += 1408;
-  }
-
-  if (*(v6 + 8))
-  {
-    for (k = 0; k != 16; ++k)
-    {
-      v76[0] = *(v53 + 4 * dword_1E3109F9C[k]) + v54;
-      v35 = *(v6 + 8);
-      v57 = 1;
-      std::vector<int>::push_back[abi:nn200100]((v35 + 16), &v57);
-      std::vector<int>::push_back[abi:nn200100]((*(v6 + 8) + 64), v76);
-      v36 = *(v6 + 8);
-      v57 = 1065353216;
-      std::vector<float>::push_back[abi:nn200100]((v36 + 88), &v57);
-    }
-  }
-
-  v37 = *(v6 + 28);
-  *(v6 + 28) = v37 + 1;
-  v38 = *(v6 + 32);
-  if (v79)
-  {
-    v39 = 0;
-    v40 = 43;
-    do
-    {
-      v41 = &v78[v40];
-      v42 = &v78[v40 - 42];
-      operator delete(v78[v40]);
-      *v42 = (v41 - 40);
-      *(v41 - 81) = 40;
-      ++v39;
-      v40 += 44;
-    }
-
-    while (v39 < v79);
-  }
-
-  operator delete(v81);
-  v43 = &v75;
-  v44 = -1408;
-  do
-  {
-    operator delete(v43[42]);
-    *v43 = (v43 + 2);
-    *(v43 + 3) = 40;
-    v43 -= 44;
-    v44 += 352;
-  }
-
-  while (v44);
-  v45 = &v74;
-  v46 = -1408;
-  do
-  {
-    operator delete(v45[42]);
-    *v45 = (v45 + 2);
-    *(v45 + 3) = 40;
-    v45 -= 44;
-    v46 += 352;
-  }
-
-  while (v46);
-  for (m = 0; m != -352; m -= 88)
-  {
-    v48 = &v58[m];
-    operator delete(*&v69[m * 4 + 344]);
-    *(v48 + 485) = v48 + 974;
-    v48[973] = 40;
-  }
-
-  v49 = 352;
-  do
-  {
-    v50 = &v58[v49];
-    operator delete(*&v61[v49 * 4 + 344]);
-    *(v50 + 133) = v50 + 270;
-    v50[269] = 40;
-    v49 -= 88;
-  }
-
-  while (v49 * 4);
-  v51 = 352;
-  do
-  {
-    operator delete(*&v56[v51 * 4]);
-    *&v58[v51 - 86] = &v58[v51 - 82];
-    v58[v51 - 83] = 40;
-    v51 -= 88;
-  }
-
-  while (v51 * 4);
-  return v38 + (v37 << 6);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPoints(uint64_t a1, uint64_t a2, int a3, int a4, int32x4_t *a5, uint64_t a6, unsigned int a7, unsigned int a8)
-{
-  v297 = *MEMORY[0x1E69E9840];
-  v15 = 2 * *(a2 + 20);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v278, v15 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v275, v15 + 16);
-  v249 = v15;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v272, v15 + 16);
-  v16 = *(a2 + 20);
-  v17 = v268;
-  v266 = v268;
-  v267 = 0x2800000000;
-  v269 = 0;
-  v18 = 2 * v16;
-  if (v16)
-  {
-    if (v18 < 0x29)
-    {
-      goto LABEL_6;
-    }
-
-    operator delete(0);
-    v266 = v268;
-    HIDWORD(v267) = 40;
-    v17 = operator new(4 * v18);
-    v269 = v17;
-    v19 = v18;
-  }
-
-  else
-  {
-    operator delete(0);
-    v19 = 40;
-  }
-
-  v266 = v17;
-  HIDWORD(v267) = v19;
-LABEL_6:
-  LODWORD(v267) = v18;
-  v255 = a4;
-  v250 = a8;
-  v20 = OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularRingAroundVertex(a2, a5->i32[a4], v17, a8);
-  v21 = (v20 / 2);
-  v256 = a5;
-  v251 = a4;
-  if (v20 < 2)
-  {
-    v247 = -6.2832;
-    v248 = -6.2832;
-  }
-
-  else
-  {
-    v22 = 0;
-    if (a4 + 3 <= 0)
-    {
-      v23 = -(-(a4 + 3) & 3);
-    }
-
-    else
-    {
-      v23 = (a4 + 3) & 3;
-    }
-
-    if (a4 + 1 <= 0)
-    {
-      v24 = -(-(a4 + 1) & 3);
-    }
-
-    else
-    {
-      v24 = (a4 + 1) & 3;
-    }
-
-    v25 = v266;
-    v26 = a5->i32[v24];
-    v27 = a5->i32[v23];
-    v28 = -1;
-    v29 = -1;
-    do
-    {
-      v31 = *v25;
-      v25 += 2;
-      v30 = v31;
-      if (v31 == v26)
-      {
-        v28 = v22;
-      }
-
-      if (v30 == v27)
-      {
-        v29 = v22;
-      }
-
-      ++v22;
-    }
-
-    while (v21 != v22);
-    v247 = v28 * 6.2832;
-    v248 = v29 * 6.2832;
-  }
-
-  LODWORD(v292) = 0;
-  v293 = &v295;
-  v296 = 0;
-  v294 = 0x2800000028;
-  LODWORD(v287) = 0;
-  v288 = &v290;
-  v291 = 0;
-  v289 = 0x2800000028;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v292, v20 + 1);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Clear(&v287, v20 + 1);
-  v32 = v21;
-  v33 = cosf(6.2832 / v21);
-  if (v20 > 1)
-  {
-    v34 = 0;
-    v35 = 1.0 / ((((v33 + 5.0) + sqrtf((v33 + 9.0) * (v33 + 1.0))) * v32) * 0.0625);
-    v36 = 2.0 / (v32 + 5.0);
-    v252 = 1.0 / (v32 + 5.0);
-    do
-    {
-      v37 = v34 + 1;
-      v38 = (v34 + 1) % v21;
-      v39 = &v266[2 * v34];
-      v41 = *v39;
-      v40 = v39[1];
-      v42 = *&v266[2 * v38];
-      v282 = &v284;
-      __p = 0;
-      v283 = 0x2800000004;
-      v43 = v256->i32[v255];
-      v285[0] = v32 / (v32 + 5.0);
-      v284 = v43;
-      v281 = 1;
-      if (v43 == LODWORD(v42))
-      {
-        v285[0] = v36 + (v32 / (v32 + 5.0));
-        v44 = 1;
-        v45 = 1;
-        v46 = v285;
-      }
-
-      else
-      {
-        v285[2] = 2.0 / (v32 + 5.0);
-        v44 = 2;
-        v45 = 2;
-        v46 = v285;
-        v285[1] = v42;
-        v281 = 2;
-      }
-
-      while (*(v46 - 1) != v41)
-      {
-        v46 += 2;
-        if (!--v45)
-        {
-          v47 = &v285[2 * v44 - 1];
-          *v47 = v41;
-          v47[1] = v36;
-          v281 = ++v44;
-          goto LABEL_30;
-        }
-      }
-
-      *v46 = v36 + *v46;
-LABEL_30:
-      v48 = v44;
-      v49 = v285;
-      while (*(v49 - 1) != v40)
-      {
-        v49 += 2;
-        if (!--v48)
-        {
-          v50 = &v285[2 * v44 - 1];
-          *v50 = v40;
-          v50[1] = v252;
-          v281 = v44 + 1;
-          goto LABEL_35;
-        }
-      }
-
-      *v49 = v252 + *v49;
-LABEL_35:
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v278, &v281, 1.0 / v32);
-      v51 = __sincosf_stret((v34 * 6.2832) / v32);
-      v52 = __sincosf_stret((v38 * 6.2832) / v32);
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v281, v35 * ((v52.__cosval * 0.5) + (v51.__cosval * 0.5)));
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v287, &v281, v35 * ((v52.__sinval * 0.5) + (v51.__sinval * 0.5)));
-      operator delete(__p);
-      ++v34;
-    }
-
-    while (v37 != v21);
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=(&v275, &v278);
-  v53 = __sincosf_stret(v247 / v32);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v275, &v292, v53.__cosval);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v275, &v287, v53.__sinval);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=(&v272, &v278);
-  v54 = __sincosf_stret(v248 / v32);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v272, &v292, v54.__cosval);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v272, &v287, v54.__sinval);
-  operator delete(v291);
-  operator delete(v296);
-  operator delete(v269);
-  v55 = v278;
-  if (v278 >= 1)
-  {
-    v56 = v279;
-    do
-    {
-      *v56 += a7;
-      v56 += 2;
-      --v55;
-    }
-
-    while (v55);
-  }
-
-  v57 = v275;
-  if (v275 >= 1)
-  {
-    v58 = v276;
-    do
-    {
-      *v58 += a7;
-      v58 += 2;
-      --v57;
-    }
-
-    while (v57);
-  }
-
-  v59 = v272;
-  if (v272 >= 1)
-  {
-    v60 = v273;
-    do
-    {
-      *v60 += a7;
-      v60 += 2;
-      --v59;
-    }
-
-    while (v59);
-  }
-
-  v61 = 0;
-  v271[0] = vaddq_s32(*v256, vdupq_n_s32(a7));
-  v62 = *(a2 + 24);
-  v63 = *(a2 + 48);
-  v64 = v63 + 4 * *(v62 + 4 * ((2 * a3) | 1));
-  v65 = *(a2 + 288);
-  v66 = *(a2 + 264);
-  v67 = *(a2 + 312);
-  v68 = 4;
-  do
-  {
-    v69 = *(v64 + 4 * v61);
-    v70 = *(v66 + 8 * v69 + 4);
-    v71 = (v65 + 4 * v70);
-    v72 = v67 + 2 * v70;
-    v73 = v271 + v68;
-    if (v61 == v251)
-    {
-      v74 = *(v66 + 8 * v69);
-      if (v74 < 1)
-      {
-LABEL_51:
-        LODWORD(v75) = -1;
-      }
-
-      else
-      {
-        v75 = 0;
-        while (v71[v75] != a3)
-        {
-          if (v74 == ++v75)
-          {
-            goto LABEL_51;
-          }
-        }
-      }
-
-      *(v271 + v68) = *(v63 + 4 * *(v62 + 8 * v71[(v75 + 1) % v74] + 4) + 4 * ((*(v72 + 2 * ((v75 + 1) % v74)) - 1) & 3)) + a7;
-      v76 = (v63 + 4 * *(v62 + 8 * v71[(v74 + v75 - 1) % v74] + 4) + 4 * ((*(v72 + 2 * ((v74 + v75 - 1) % v74)) + 1) & 3));
-    }
-
-    else
-    {
-      if (*v71 == a3)
-      {
-        v77 = 2;
-      }
-
-      else if (v71[1] == a3)
-      {
-        v77 = 3;
-      }
-
-      else
-      {
-        v77 = v71[2] != a3;
-      }
-
-      v78 = *(v72 + 2 * v77);
-      v79 = v63 + 4 * *(v62 + 8 * v71[v77] + 4);
-      *v73 = *(v79 + 4 * ((v78 + 1) & 3)) + a7;
-      v73[1] = *(v79 + 4 * (v78 & 3 ^ 2)) + a7;
-      v76 = (v79 + 4 * ((v78 - 1) & 3));
-    }
-
-    v73[2] = *v76 + a7;
-    v68 += 3;
-    ++v61;
-  }
-
-  while (v61 != 4);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v292, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v287, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v281, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v266, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v263, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v260, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(&v257, v249 + 16);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v287, &v275, 12.0);
-  v80 = (&OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level const*,int,int,OpenSubdiv::v3_1_1::Vtr::ConstArray<int>,int,int)::rotation + 64 * v255);
-  v81 = *(v271 + *v80);
-  v82 = v287;
-  v83 = v288;
-  if (v287 < 1)
-  {
-LABEL_64:
-    v86 = &v288[v287];
-    *v86 = v81;
-    *(v86 + 1) = -1062557013;
-    LODWORD(v287) = ++v82;
-  }
-
-  else
-  {
-    v84 = v288 + 1;
-    v85 = v287;
-    while (*(v84 - 1) != v81)
-    {
-      v84 += 2;
-      if (!--v85)
-      {
-        goto LABEL_64;
-      }
-    }
-
-    *v84 = *v84 + -5.3333;
-  }
-
-  v87 = *(v271 + v80[1]);
-  if (v82 < 1)
-  {
-LABEL_70:
-    v90 = &v83[v82];
-    *v90 = v87;
-    *(v90 + 1) = -1070945621;
-    LODWORD(v287) = ++v82;
-  }
-
-  else
-  {
-    v88 = v82;
-    v89 = v83 + 1;
-    while (*(v89 - 1) != v87)
-    {
-      v89 += 2;
-      if (!--v88)
-      {
-        goto LABEL_70;
-      }
-    }
-
-    *v89 = *v89 + -2.6667;
-  }
-
-  v253 = v80[2];
-  v91 = *(v271 + v253);
-  if (v82 < 1)
-  {
-LABEL_76:
-    v94 = &v83[v82];
-    *v94 = v91;
-    *(v94 + 1) = -1087722837;
-    LODWORD(v287) = ++v82;
-  }
-
-  else
-  {
-    v92 = v82;
-    v93 = v83 + 1;
-    while (*(v93 - 1) != v91)
-    {
-      v93 += 2;
-      if (!--v92)
-      {
-        goto LABEL_76;
-      }
-    }
-
-    *v93 = *v93 + -0.66667;
-  }
-
-  v95 = *(v271 + v80[3]);
-  if (v82 < 1)
-  {
-LABEL_82:
-    v98 = &v83[v82];
-    *v98 = v95;
-    *(v98 + 1) = -1079334229;
-    LODWORD(v287) = ++v82;
-  }
-
-  else
-  {
-    v96 = v82;
-    v97 = v83 + 1;
-    while (*(v97 - 1) != v95)
-    {
-      v97 += 2;
-      if (!--v96)
-      {
-        goto LABEL_82;
-      }
-    }
-
-    *v97 = *v97 + -1.3333;
-  }
-
-  v99 = *(v271 + v80[6]);
-  if (v82 < 1)
-  {
-LABEL_88:
-    v102 = &v83[v82];
-    *v102 = v99;
-    *(v102 + 1) = -1096111445;
-    LODWORD(v287) = ++v82;
-  }
-
-  else
-  {
-    v100 = v82;
-    v101 = v83 + 1;
-    while (*(v101 - 1) != v99)
-    {
-      v101 += 2;
-      if (!--v100)
-      {
-        goto LABEL_88;
-      }
-    }
-
-    *v101 = *v101 + -0.33333;
-  }
-
-  v103 = *(v271 + v80[7]);
-  if (v82 < 1)
-  {
-LABEL_94:
-    v106 = &v83[v82];
-    *v106 = v103;
-    *(v106 + 1) = -1087722837;
-    LODWORD(v287) = v82 + 1;
-  }
-
-  else
-  {
-    v104 = v82;
-    v105 = v83 + 1;
-    while (*(v105 - 1) != v103)
-    {
-      v105 += 2;
-      if (!--v104)
-      {
-        goto LABEL_94;
-      }
-    }
-
-    *v105 = *v105 + -0.66667;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v281, &v275, -6.0);
-  v107 = v281;
-  v108 = v282;
-  if (v281 < 1)
-  {
-LABEL_100:
-    v111 = &v282[2 * v281];
-    *v111 = v81;
-    v111[1] = 1076538027;
-    v281 = ++v107;
-  }
-
-  else
-  {
-    v109 = (v282 + 1);
-    v110 = v281;
-    while (*(v109 - 1) != v81)
-    {
-      v109 += 2;
-      if (!--v110)
-      {
-        goto LABEL_100;
-      }
-    }
-
-    *v109 = *v109 + 2.6667;
-  }
-
-  if (v107 < 1)
-  {
-LABEL_106:
-    v114 = &v108[2 * v107];
-    *v114 = v87;
-    v114[1] = 1068149419;
-    v281 = ++v107;
-  }
-
-  else
-  {
-    v112 = v107;
-    v113 = (v108 + 1);
-    while (*(v113 - 1) != v87)
-    {
-      v113 += 2;
-      if (!--v112)
-      {
-        goto LABEL_106;
-      }
-    }
-
-    *v113 = *v113 + 1.3333;
-  }
-
-  if (v107 < 1)
-  {
-LABEL_112:
-    v117 = &v108[2 * v107];
-    *v117 = v91;
-    v117[1] = 1051372203;
-    v281 = ++v107;
-  }
-
-  else
-  {
-    v115 = v107;
-    v116 = (v108 + 1);
-    while (*(v116 - 1) != v91)
-    {
-      v116 += 2;
-      if (!--v115)
-      {
-        goto LABEL_112;
-      }
-    }
-
-    *v116 = *v116 + 0.33333;
-  }
-
-  if (v107 < 1)
-  {
-LABEL_118:
-    v120 = &v108[2 * v107];
-    *v120 = v95;
-    v120[1] = 1059760811;
-    v281 = ++v107;
-  }
-
-  else
-  {
-    v118 = v107;
-    v119 = (v108 + 1);
-    while (*(v119 - 1) != v95)
-    {
-      v119 += 2;
-      if (!--v118)
-      {
-        goto LABEL_118;
-      }
-    }
-
-    *v119 = *v119 + 0.66667;
-  }
-
-  if (v107 < 1)
-  {
-LABEL_124:
-    v123 = &v108[2 * v107];
-    *v123 = v99;
-    v123[1] = 1059760811;
-    v281 = ++v107;
-  }
-
-  else
-  {
-    v121 = v107;
-    v122 = (v108 + 1);
-    while (*(v122 - 1) != v99)
-    {
-      v122 += 2;
-      if (!--v121)
-      {
-        goto LABEL_124;
-      }
-    }
-
-    *v122 = *v122 + 0.66667;
-  }
-
-  if (v107 < 1)
-  {
-LABEL_130:
-    v126 = &v108[2 * v107];
-    *v126 = v103;
-    v126[1] = 1068149419;
-    v281 = v107 + 1;
-  }
-
-  else
-  {
-    v124 = v107;
-    v125 = (v108 + 1);
-    while (*(v125 - 1) != v103)
-    {
-      v125 += 2;
-      if (!--v124)
-      {
-        goto LABEL_130;
-      }
-    }
-
-    *v125 = *v125 + 1.3333;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=(&v266, &v287);
-  v127 = *(v271 + v80[8]);
-  v128 = v266;
-  v129 = v267;
-  if (v266 < 1)
-  {
-LABEL_136:
-    v132 = (v267 + 8 * v266);
-    *v132 = v127;
-    v132[1] = 1065353216;
-    LODWORD(v266) = ++v128;
-  }
-
-  else
-  {
-    v130 = (v267 + 4);
-    v131 = v266;
-    while (*(v130 - 1) != v127)
-    {
-      v130 += 2;
-      if (!--v131)
-      {
-        goto LABEL_136;
-      }
-    }
-
-    *v130 = *v130 + 1.0;
-  }
-
-  if (v128 < 1)
-  {
-LABEL_142:
-    v135 = (v129 + 8 * v128);
-    *v135 = v99;
-    v135[1] = -1082130432;
-    LODWORD(v266) = v128 + 1;
-  }
-
-  else
-  {
-    v133 = v128;
-    v134 = (v129 + 4);
-    while (*(v134 - 1) != v99)
-    {
-      v134 += 2;
-      if (!--v133)
-      {
-        goto LABEL_142;
-      }
-    }
-
-    *v134 = *v134 + -1.0;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v263, &v272, 12.0);
-  v136 = v263;
-  v137 = v264;
-  if (v263 < 1)
-  {
-LABEL_148:
-    v140 = (v264 + 8 * v263);
-    *v140 = v81;
-    v140[1] = -1062557013;
-    v263 = ++v136;
-  }
-
-  else
-  {
-    v138 = (v264 + 4);
-    v139 = v263;
-    while (*(v138 - 1) != v81)
-    {
-      v138 += 2;
-      if (!--v139)
-      {
-        goto LABEL_148;
-      }
-    }
-
-    *v138 = *v138 + -5.3333;
-  }
-
-  if (v136 < 1)
-  {
-LABEL_154:
-    v143 = (v137 + 8 * v136);
-    *v143 = v87;
-    v143[1] = -1079334229;
-    v263 = ++v136;
-  }
-
-  else
-  {
-    v141 = v136;
-    v142 = (v137 + 4);
-    while (*(v142 - 1) != v87)
-    {
-      v142 += 2;
-      if (!--v141)
-      {
-        goto LABEL_154;
-      }
-    }
-
-    *v142 = *v142 + -1.3333;
-  }
-
-  if (v136 < 1)
-  {
-LABEL_160:
-    v146 = (v137 + 8 * v136);
-    *v146 = v91;
-    v146[1] = -1087722837;
-    v263 = ++v136;
-  }
-
-  else
-  {
-    v144 = v136;
-    v145 = (v137 + 4);
-    while (*(v145 - 1) != v91)
-    {
-      v145 += 2;
-      if (!--v144)
-      {
-        goto LABEL_160;
-      }
-    }
-
-    *v145 = *v145 + -0.66667;
-  }
-
-  if (v136 < 1)
-  {
-LABEL_166:
-    v149 = (v137 + 8 * v136);
-    *v149 = v95;
-    v149[1] = -1070945621;
-    v263 = ++v136;
-  }
-
-  else
-  {
-    v147 = v136;
-    v148 = (v137 + 4);
-    while (*(v148 - 1) != v95)
-    {
-      v148 += 2;
-      if (!--v147)
-      {
-        goto LABEL_166;
-      }
-    }
-
-    *v148 = *v148 + -2.6667;
-  }
-
-  v150 = *(v271 + v80[4]);
-  if (v136 < 1)
-  {
-LABEL_172:
-    v153 = (v137 + 8 * v136);
-    *v153 = v150;
-    v153[1] = -1096111445;
-    v263 = ++v136;
-  }
-
-  else
-  {
-    v151 = v136;
-    v152 = (v137 + 4);
-    while (*(v152 - 1) != v150)
-    {
-      v152 += 2;
-      if (!--v151)
-      {
-        goto LABEL_172;
-      }
-    }
-
-    *v152 = *v152 + -0.33333;
-  }
-
-  v154 = *(v271 + v80[15]);
-  if (v136 < 1)
-  {
-LABEL_178:
-    v157 = (v137 + 8 * v136);
-    *v157 = v154;
-    v157[1] = -1087722837;
-    v263 = v136 + 1;
-  }
-
-  else
-  {
-    v155 = v136;
-    v156 = (v137 + 4);
-    while (*(v156 - 1) != v154)
-    {
-      v156 += 2;
-      if (!--v155)
-      {
-        goto LABEL_178;
-      }
-    }
-
-    *v156 = *v156 + -0.66667;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v260, &v272, -6.0);
-  v158 = v260;
-  v159 = v261;
-  if (v260 < 1)
-  {
-LABEL_184:
-    v162 = (v261 + 8 * v260);
-    *v162 = v81;
-    v162[1] = 1076538027;
-    v260 = ++v158;
-  }
-
-  else
-  {
-    v160 = (v261 + 4);
-    v161 = v260;
-    while (*(v160 - 1) != v81)
-    {
-      v160 += 2;
-      if (!--v161)
-      {
-        goto LABEL_184;
-      }
-    }
-
-    *v160 = *v160 + 2.6667;
-  }
-
-  if (v158 < 1)
-  {
-LABEL_190:
-    v165 = (v159 + 8 * v158);
-    *v165 = v87;
-    v165[1] = 1059760811;
-    v260 = ++v158;
-  }
-
-  else
-  {
-    v163 = v158;
-    v164 = (v159 + 4);
-    while (*(v164 - 1) != v87)
-    {
-      v164 += 2;
-      if (!--v163)
-      {
-        goto LABEL_190;
-      }
-    }
-
-    *v164 = *v164 + 0.66667;
-  }
-
-  if (v158 < 1)
-  {
-LABEL_196:
-    v168 = (v159 + 8 * v158);
-    *v168 = v91;
-    v168[1] = 1051372203;
-    v260 = ++v158;
-  }
-
-  else
-  {
-    v166 = v158;
-    v167 = (v159 + 4);
-    while (*(v167 - 1) != v91)
-    {
-      v167 += 2;
-      if (!--v166)
-      {
-        goto LABEL_196;
-      }
-    }
-
-    *v167 = *v167 + 0.33333;
-  }
-
-  if (v158 < 1)
-  {
-LABEL_202:
-    v171 = (v159 + 8 * v158);
-    *v171 = v95;
-    v171[1] = 1068149419;
-    v260 = ++v158;
-  }
-
-  else
-  {
-    v169 = v158;
-    v170 = (v159 + 4);
-    while (*(v170 - 1) != v95)
-    {
-      v170 += 2;
-      if (!--v169)
-      {
-        goto LABEL_202;
-      }
-    }
-
-    *v170 = *v170 + 1.3333;
-  }
-
-  if (v158 < 1)
-  {
-LABEL_208:
-    v174 = (v159 + 8 * v158);
-    *v174 = v150;
-    v174[1] = 1059760811;
-    v260 = ++v158;
-  }
-
-  else
-  {
-    v172 = v158;
-    v173 = (v159 + 4);
-    while (*(v173 - 1) != v150)
-    {
-      v173 += 2;
-      if (!--v172)
-      {
-        goto LABEL_208;
-      }
-    }
-
-    *v173 = *v173 + 0.66667;
-  }
-
-  if (v158 < 1)
-  {
-LABEL_214:
-    v177 = (v159 + 8 * v158);
-    *v177 = v154;
-    v177[1] = 1068149419;
-    v260 = v158 + 1;
-  }
-
-  else
-  {
-    v175 = v158;
-    v176 = (v159 + 4);
-    while (*(v176 - 1) != v154)
-    {
-      v176 += 2;
-      if (!--v175)
-      {
-        goto LABEL_214;
-      }
-    }
-
-    *v176 = *v176 + 1.3333;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::operator=(&v257, &v263);
-  v178 = *(v271 + v80[14]);
-  v179 = v257;
-  v180 = v258;
-  if (v257 < 1)
-  {
-LABEL_220:
-    v183 = (v258 + 8 * v257);
-    *v183 = v178;
-    v183[1] = 1065353216;
-    v257 = ++v179;
-  }
-
-  else
-  {
-    v181 = (v258 + 4);
-    v182 = v257;
-    while (*(v181 - 1) != v178)
-    {
-      v181 += 2;
-      if (!--v182)
-      {
-        goto LABEL_220;
-      }
-    }
-
-    *v181 = *v181 + 1.0;
-  }
-
-  if (v179 < 1)
-  {
-LABEL_226:
-    v186 = (v180 + 8 * v179);
-    *v186 = v150;
-    v186[1] = -1082130432;
-    v257 = v179 + 1;
-  }
-
-  else
-  {
-    v184 = v179;
-    v185 = (v180 + 4);
-    while (*(v185 - 1) != v150)
-    {
-      v185 += 2;
-      if (!--v184)
-      {
-        goto LABEL_226;
-      }
-    }
-
-    *v185 = *v185 + -1.0;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v278, 36.0);
-  v187 = v292;
-  v188 = v293;
-  if (v292 < 1)
-  {
-LABEL_232:
-    v191 = &v293[v292];
-    *v191 = v81;
-    *(v191 + 1) = -1048576000;
-    LODWORD(v292) = ++v187;
-  }
-
-  else
-  {
-    v189 = v293 + 1;
-    v190 = v292;
-    while (*(v189 - 1) != v81)
-    {
-      v189 += 2;
-      if (!--v190)
-      {
-        goto LABEL_232;
-      }
-    }
-
-    *v189 = *v189 + -16.0;
-  }
-
-  if (v187 < 1)
-  {
-LABEL_238:
-    v194 = &v188[v187];
-    *v194 = v87;
-    *(v194 + 1) = -1065353216;
-    LODWORD(v292) = ++v187;
-  }
-
-  else
-  {
-    v192 = v187;
-    v193 = v188 + 1;
-    while (*(v193 - 1) != v87)
-    {
-      v193 += 2;
-      if (!--v192)
-      {
-        goto LABEL_238;
-      }
-    }
-
-    *v193 = *v193 + -4.0;
-  }
-
-  if (v187 < 1)
-  {
-LABEL_244:
-    v197 = &v188[v187];
-    *v197 = v95;
-    *(v197 + 1) = -1065353216;
-    LODWORD(v292) = v187 + 1;
-  }
-
-  else
-  {
-    v195 = v187;
-    v196 = v188 + 1;
-    while (*(v196 - 1) != v95)
-    {
-      v196 += 2;
-      if (!--v195)
-      {
-        goto LABEL_244;
-      }
-    }
-
-    *v196 = *v196 + -4.0;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v263, -4.0);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v287, -4.0);
-  v198 = *(v271 + v253);
-  v199 = v292;
-  if (v292 < 1)
-  {
-LABEL_250:
-    v202 = &v293[v292];
-    *v202 = v198;
-    *(v202 + 1) = -1082130432;
-    LODWORD(v292) = v199 + 1;
-  }
-
-  else
-  {
-    v200 = v293 + 1;
-    v201 = v292;
-    while (*(v200 - 1) != v198)
-    {
-      v200 += 2;
-      if (!--v201)
-      {
-        goto LABEL_250;
-      }
-    }
-
-    *v200 = *v200 + -1.0;
-  }
-
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v281, -1.0);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::AddWithWeight(&v292, &v260, -1.0);
-  v204 = *(a1 + 16);
-  if ((v250 & 0x80000000) != 0)
-  {
-    v208 = *(v204 + 20);
-  }
-
-  else
-  {
-    v206 = v204 + 40;
-    v205 = *(v204 + 40);
-    v207 = *(v206 + 8) - v205;
-    if ((v207 >> 3) < 1)
-    {
-      v208 = 0;
-    }
-
-    else
-    {
-      v208 = 0;
-      v209 = (v207 >> 3);
-      if (v209 <= 1)
-      {
-        v209 = 1;
-      }
-
-      do
-      {
-        v210 = *v205++;
-        v208 += *(*(*(v210 + 456) + 8 * v250) + 16);
-        --v209;
-      }
-
-      while (v209);
-    }
-  }
-
-  v211 = v256->i32[v255];
-  v212 = v251 + 1;
-  v213 = v256->i32[(v251 + 1) & 3];
-  v214 = v251 + 3;
-  v254 = v256->i32[(v251 + 3) & 3];
-  v215 = *(a1 + 24);
-  *(a1 + 24) = v215 + 1;
-  v216 = 3 * v255;
-  *(&v271[1] + 3 * v255 + 2) = v215 + v208;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v287, *a1, v203);
-  v218 = *(a1 + 8);
-  if (v218)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v211 + a7), v218, v217);
-  }
-
-  v219 = *(a1 + 24);
-  *(a1 + 24) = v219 + 1;
-  v220 = v219 + v208;
-  if (v212 <= 0)
-  {
-    v221 = -(-v212 & 3);
-  }
-
-  else
-  {
-    v221 = (v251 + 1) & 3;
-  }
-
-  v222 = 3 * v221;
-  *(&v271[1] + 3 * v221) = v220;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v281, *a1, v217);
-  v224 = *(a1 + 8);
-  if (v224)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v213 + a7), v224, v223);
-  }
-
-  v225 = *(a1 + 24);
-  *(a1 + 24) = v225 + 1;
-  *(&v271[1] + v222 + 1) = v225 + v208;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v266, *a1, v223);
-  v227 = *(a1 + 8);
-  if (v227)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v213 + a7), v227, v226);
-  }
-
-  v228 = *(a1 + 24);
-  *(a1 + 24) = v228 + 1;
-  *(&v271[1] + v216) = v228 + v208;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v263, *a1, v226);
-  v230 = *(a1 + 8);
-  if (v230)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v211 + a7), v230, v229);
-  }
-
-  v231 = *(a1 + 24);
-  *(a1 + 24) = v231 + 1;
-  v232 = v231 + v208;
-  if (v214 <= 0)
-  {
-    v233 = -(-v214 & 3);
-  }
-
-  else
-  {
-    v233 = v214 & 3;
-  }
-
-  v234 = 3 * v233;
-  *(&v271[1] + 3 * v233 + 2) = v232;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v260, *a1, v229);
-  v236 = *(a1 + 8);
-  if (v236)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v254 + a7), v236, v235);
-  }
-
-  v237 = *(a1 + 24);
-  *(a1 + 24) = v237 + 1;
-  *(&v271[1] + v234 + 1) = v237 + v208;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v257, *a1, v235);
-  v239 = *(a1 + 8);
-  if (v239)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v254 + a7), v239, v238);
-  }
-
-  v240 = *(a1 + 24);
-  *(a1 + 24) = v240 + 1;
-  *(&v271[1] + v216 + 1) = v240 + v208;
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v292, *a1, v238);
-  v242 = *(a1 + 8);
-  if (v242)
-  {
-    OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable((v211 + a7), v242, v241);
-  }
-
-  for (i = 0; i != 16; ++i)
-  {
-    std::vector<int>::push_back[abi:nn200100]((a1 + 32), v271 + OpenSubdiv::v3_1_1::Far::EndCapBSplineBasisPatchFactory::getPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level const*,int,int,OpenSubdiv::v3_1_1::Vtr::ConstArray<int>,int,int)::permuteRegular[i]);
-  }
-
-  v244 = *(a1 + 28);
-  *(a1 + 28) = v244 + 1;
-  v245 = *(a1 + 32);
-  operator delete(v259);
-  operator delete(v262);
-  operator delete(v265);
-  operator delete(v270);
-  operator delete(__p);
-  operator delete(v291);
-  operator delete(v296);
-  operator delete(v274);
-  operator delete(v277);
-  operator delete(v280);
-  return v245 + (v244 << 6);
-}
-
-OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *OpenSubdiv::v3_1_1::Far::GregoryBasis::Point::Point(OpenSubdiv::v3_1_1::Far::GregoryBasis::Point *this, unsigned int a2)
-{
-  *this = 0;
-  v4 = this + 24;
-  *(this + 1) = this + 24;
-  *(this + 2) = 0x2800000000;
-  *(this + 43) = 0;
-  if (!a2)
-  {
-    operator delete(0);
-    v5 = 40;
-    goto LABEL_5;
-  }
-
-  if (a2 >= 0x29)
-  {
-    operator delete(0);
-    *(this + 1) = v4;
-    *(this + 5) = 40;
-    v4 = operator new(8 * a2);
-    *(this + 43) = v4;
-    v5 = a2;
-LABEL_5:
-    *(this + 1) = v4;
-    *(this + 5) = v5;
-  }
-
-  *(this + 4) = a2;
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(OpenSubdiv::v3_1_1::Far::GregoryBasis *this, const void **a2, OpenSubdiv::v3_1_1::Far::StencilTable *a3)
-{
-  v9 = *this;
-  std::vector<int>::push_back[abi:nn200100](a2 + 2, &v9);
-  if (v9 >= 1)
-  {
-    v5 = 0;
-    for (i = 0; i < v9; ++i)
-    {
-      v8 = *(*(this + 1) + v5);
-      std::vector<int>::push_back[abi:nn200100](a2 + 8, &v8);
-      v7 = *(*(this + 1) + v5 + 4);
-      std::vector<float>::push_back[abi:nn200100](a2 + 11, &v7);
-      v5 += 8;
-    }
-  }
-}
-
-{
-  v5 = 1;
-  v6 = this;
-  std::vector<int>::push_back[abi:nn200100](a2 + 2, &v5);
-  std::vector<int>::push_back[abi:nn200100](a2 + 8, &v6);
-  v4 = 1065353216;
-  std::vector<float>::push_back[abi:nn200100](a2 + 11, &v4);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::EndCapGregoryBasisPatchFactory(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
-{
-  *a1 = a3;
-  *(a1 + 8) = a4;
-  *(a1 + 16) = a2;
-  *(a1 + 24) = a5;
-  *(a1 + 28) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  v7 = **(*(a2 + 88) + 24 * ((*(a2 + 8) >> 2) & 0xF));
-  v8 = 20 * v7;
-  v9 = 320 * v7;
-  if (v9 >= 104857600)
-  {
-    v10 = 104857600;
-  }
-
-  else
-  {
-    v10 = v9;
-  }
-
-  std::vector<int>::reserve((a3 + 16), v8);
-  std::vector<int>::reserve((a3 + 64), v10);
-  std::vector<int>::reserve((a3 + 88), v10);
-  v11 = *(a1 + 8);
-  if (v11)
-  {
-    std::vector<int>::reserve((v11 + 16), v8);
-    std::vector<int>::reserve((v11 + 64), v8);
-    std::vector<int>::reserve((v11 + 88), v8);
-  }
-
-  return a1;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::GetPatchPoints(uint64_t a1)
-{
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = v1;
-  v90 = *MEMORY[0x1E69E9840];
-  v11 = 20;
-  do
-  {
-    std::vector<int>::push_back[abi:nn200100]((v10 + 40), &OpenSubdiv::v3_1_1::Vtr::INDEX_INVALID);
-    --v11;
-  }
-
-  while (v11);
-  v12 = *(v10 + 16);
-  if ((v3 & 0x80000000) != 0)
-  {
-    v16 = *(v12 + 20);
-  }
-
-  else
-  {
-    v14 = v12 + 40;
-    v13 = *(v12 + 40);
-    v15 = *(v14 + 8) - v13;
-    if ((v15 >> 3) < 1)
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = 0;
-      v17 = (v15 >> 3);
-      if (v17 <= 1)
-      {
-        v17 = 1;
-      }
-
-      do
-      {
-        v18 = *v13++;
-        v16 += *(*(*(v18 + 456) + 8 * v3) + 16);
-        --v17;
-      }
-
-      while (v17);
-    }
-  }
-
-  v19 = *(v10 + 40) + 80 * *(v10 + 32);
-  if (*(v10 + 24) == 1)
-  {
-    v83 = v5;
-    v20 = *(v9 + 12);
-    v21 = *(v9 + 72) + 4 * *(*(v9 + 24) + 4 * ((2 * v7) | 1));
-    OpenSubdiv::v3_1_1::Vtr::internal::Level::getFaceETags(v9, v7, v86, v3);
-    v22 = 0;
-    v85 = v20 << 28;
-    v23 = OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::GetPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level const*,int,OpenSubdiv::v3_1_1::Vtr::internal::Level::VSpan const*,int,int)::gregoryEdgeVerts;
-    while (1)
-    {
-      if ((v86[v22] & 2) == 0)
-      {
-        v24 = *(v21 + 4 * v22);
-        v25 = *(v9 + 144);
-        v26 = *(v25 + 8 * v24);
-        if (v26 < 1)
-        {
-LABEL_18:
-          v32 = 0;
-        }
-
-        else
-        {
-          v27 = *(v9 + 168) + 4 * *(v25 + 4 * ((2 * v24) | 1));
-          v28 = 1;
-          v29 = v27;
-          v30 = v26;
-          while (1)
-          {
-            v31 = *v29++;
-            if (v31 == v7)
-            {
-              break;
-            }
-
-            ++v28;
-            if (!--v30)
-            {
-              goto LABEL_18;
-            }
-          }
-
-          v32 = *(v27 + 4 * (v28 % v26));
-        }
-
-        if (v32 != -1 && v32 < v7)
-        {
-          v33 = *(v10 + 64);
-          v34 = *(v10 + 72);
-          if (v33 == v34 || ((v35 = (*(v9 + 72) + 4 * *(*(v9 + 24) + 4 * ((2 * v32) | 1))), *v35 != v24) ? (v35[1] != v24 ? (v35[2] != v24 ? (v35[3] != v24 ? (v36 = -1) : (v36 = 3)) : (v36 = 2)) : (v36 = 1)) : (v36 = 0), __key[0] = v32 | v85, (v37 = bsearch(__key, v33, (v34 - v33) >> 2, 4uLL, OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::GetPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level const*,int,OpenSubdiv::v3_1_1::Vtr::internal::Level::VSpan const*,int,int)::LevelAndFaceIndex::compare)) == 0))
-          {
-LABEL_36:
-            v42 = v85 | v7;
-            v44 = *(v10 + 72);
-            v43 = *(v10 + 80);
-            if (v44 >= v43)
-            {
-              v46 = *(v10 + 64);
-              v47 = v44 - v46;
-              v48 = (v44 - v46) >> 2;
-              v49 = v48 + 1;
-              if ((v48 + 1) >> 62)
-              {
-                std::string::__throw_length_error[abi:nn200100]();
-              }
-
-              v50 = v43 - v46;
-              if (v50 >> 1 > v49)
-              {
-                v49 = v50 >> 1;
-              }
-
-              v51 = v50 >= 0x7FFFFFFFFFFFFFFCLL;
-              v52 = 0x3FFFFFFFFFFFFFFFLL;
-              if (!v51)
-              {
-                v52 = v49;
-              }
-
-              if (v52)
-              {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int>>(v10 + 64, v52);
-              }
-
-              v53 = v48;
-              v54 = (4 * v48);
-              v55 = &v54[-v53];
-              *v54 = v42;
-              v45 = v54 + 1;
-              memcpy(v55, v46, v47);
-              v56 = *(v10 + 64);
-              *(v10 + 64) = v55;
-              *(v10 + 72) = v45;
-              *(v10 + 80) = 0;
-              if (v56)
-              {
-                operator delete(v56);
-              }
-            }
-
-            else
-            {
-              *v44 = v42;
-              v45 = v44 + 1;
-            }
-
-            *(v10 + 72) = v45;
-            break;
-          }
-
-          v38 = *(v10 + 40) + ((0x1400000000 * ((v37 - *(v10 + 64)) >> 2)) >> 30);
-          v39 = &OpenSubdiv::v3_1_1::Far::EndCapGregoryBasisPatchFactory::GetPatchPoints(OpenSubdiv::v3_1_1::Vtr::internal::Level const*,int,OpenSubdiv::v3_1_1::Vtr::internal::Level::VSpan const*,int,int)::gregoryEdgeVerts[4 * v36];
-          for (i = 3; i != -1; --i)
-          {
-            v41 = *v39++;
-            *(v19 + 4 * v23[i]) = *(v38 + 4 * v41);
-          }
-        }
-      }
-
-      ++v22;
-      v23 += 4;
-      if (v22 == 4)
-      {
-        goto LABEL_36;
-      }
-    }
-  }
-
-  v57 = 0;
-  v58 = __key;
-  v59 = v19;
-  do
-  {
-    for (j = 0; j != 5; ++j)
-    {
-      if (*(v59 + 4 * j) == -1)
-      {
-        *(v59 + 4 * j) = *(v10 + 28) + v16;
-        ++*(v10 + 28);
-        v61 = 1;
-      }
-
-      else
-      {
-        v61 = 0;
-      }
-
-      *(v58 + j) = v61;
-    }
-
-    ++v57;
-    v58 = (v58 + 5);
-    v59 += 20;
-  }
-
-  while (v57 != 4);
-  OpenSubdiv::v3_1_1::Far::GregoryBasis::ProtoBasis::ProtoBasis(v86);
-  v63 = 0;
-  v64 = __key + 2;
-  v65 = 7040;
-  v66 = 4224;
-  v67 = 5632;
-  do
-  {
-    if (*(v64 - 2) == 1)
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v86[v63], *v10, v62);
-      v68 = *(v10 + 8);
-      if (v68)
-      {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(*&v86[v65], v68, v62);
-      }
-    }
-
-    if (*(v64 - 1) == 1)
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v86[v63 + 1408], *v10, v62);
-      v69 = *(v10 + 8);
-      if (v69)
-      {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(*&v86[v65], v69, v62);
-      }
-    }
-
-    if (*v64 == 1)
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v86[v63 + 2816], *v10, v62);
-      v70 = *(v10 + 8);
-      if (v70)
-      {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(*&v86[v65], v70, v62);
-      }
-    }
-
-    if (v64[1] == 1)
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v86[v66], *v10, v62);
-      v71 = *(v10 + 8);
-      if (v71)
-      {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(*&v86[v65], v71, v62);
-      }
-    }
-
-    if (v64[2] == 1)
-    {
-      OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(&v86[v67], *v10, v62);
-      v72 = *(v10 + 8);
-      if (v72)
-      {
-        OpenSubdiv::v3_1_1::Far::GregoryBasis::AppendToStencilTable(*&v86[v65], v72, v62);
-      }
-    }
-
-    v65 += 4;
-    v63 += 352;
-    v66 += 352;
-    v67 += 352;
-    v64 += 5;
-  }
-
-  while (v63 != 1408);
-  v73 = &v88;
-  v74 = -1408;
-  do
-  {
-    operator delete(v73[42]);
-    *v73 = (v73 + 2);
-    *(v73 + 3) = 40;
-    v73 -= 44;
-    v74 += 352;
-  }
-
-  while (v74);
-  v75 = &v87;
-  v76 = -1408;
-  do
-  {
-    operator delete(v75[42]);
-    *v75 = (v75 + 2);
-    *(v75 + 3) = 40;
-    v75 -= 44;
-    v76 += 352;
-  }
-
-  while (v76);
-  for (k = 0; k != -1408; k -= 352)
-  {
-    v78 = &v86[k];
-    operator delete(*&v86[k + 4216]);
-    *(v78 + 485) = v78 + 3896;
-    *(v78 + 973) = 40;
-  }
-
-  v79 = 1408;
-  do
-  {
-    v80 = &v86[v79];
-    operator delete(*&v86[v79 + 1400]);
-    *(v80 + 133) = v80 + 1080;
-    *(v80 + 269) = 40;
-    v79 -= 352;
-  }
-
-  while (v79);
-  v81 = 1408;
-  do
-  {
-    operator delete(*(&v84 + v81));
-    *&v86[v81 - 344] = &v86[v81 - 328];
-    *&v86[v81 - 332] = 40;
-    v81 -= 352;
-  }
-
-  while (v81);
-  ++*(v10 + 32);
-  return v19;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::SparseSelector::selectFace(OpenSubdiv::v3_1_1::Vtr::internal::Refinement **this, int a2)
-{
-  if ((this[1] & 1) == 0)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Refinement::initializeSparseSelectionTags(*this);
-    *(this + 8) = 1;
-  }
-
-  v4 = *(*this + 51);
-  if ((*(v4 + a2) & 1) == 0)
-  {
-    *(v4 + a2) |= 1u;
-    v5 = *(*this + 1);
-    v6 = v5[3];
-    v7 = *(v6 + 8 * a2);
-    if (v7 >= 1)
-    {
-      v8 = *(v6 + 8 * a2 + 4);
-      v9 = (v5[9] + 4 * v8);
-      v10 = (v5[6] + 4 * v8);
-      do
-      {
-        v11 = *v9++;
-        *(*(*this + 54) + v11) |= 1u;
-        v12 = *v10++;
-        *(*(*this + 57) + v12) |= 1u;
-        --v7;
-      }
-
-      while (v7);
-    }
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::~QuadRefinement(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  OpenSubdiv::v3_1_1::Vtr::internal::Refinement::~Refinement(this);
-
-  JUMPOUT(0x1E6906520);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::allocateParentChildIndices(std::vector<int> *this)
-{
-  end = this->__end_;
-  v3 = *(end + 7) - *(end + 6);
-  v4 = *(end + 10) - *(end + 9);
-  v5 = *(end + 16) - *(end + 15);
-  v6 = *end;
-  v7 = end[1];
-  v8 = end[2];
-  __x = 0;
-  v9 = *(end + 3);
-  v10 = (*(end + 4) - v9) >> 2;
-  this[3].__end_cap_.__value_ = v9;
-  LODWORD(this[4].__begin_) = v10;
-  v11 = *(end + 3);
-  v12 = (*(end + 4) - v11) >> 2;
-  this[4].__end_ = v11;
-  LODWORD(this[4].__end_cap_.__value_) = v12;
-  std::vector<unsigned int>::resize(this + 5, (v3 >> 2), &__x);
-  std::vector<unsigned int>::resize(this + 6, (v4 >> 2), &__x);
-  std::vector<unsigned int>::resize(this + 8, (v5 >> 2), &__x);
-  std::vector<unsigned int>::resize(this + 7, v6, &__x);
-  std::vector<unsigned int>::resize(this + 9, v7, &__x);
-  std::vector<unsigned int>::resize(this + 10, v8, &__x);
-}
-
-uint64_t OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateFaceVertexRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  v2 = *(this + 2);
-  if (v2[1].__end_ == v2[1].__begin_)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateFaceVertexCountsAndOffsets(this);
-    v2 = *(this + 2);
-  }
-
-  std::vector<unsigned int>::resize(v2 + 2, 4 * SLODWORD(v2->__begin_));
-  v3 = *(this + 1);
-  result = *v3;
-  if (result >= 1)
-  {
-    v5 = 0;
-    v6 = v3[3];
-    v7 = v3[6];
-    v8 = v3[9];
-    v9 = *(this + 11);
-    v10 = *(this + 15);
-    do
-    {
-      v11 = *(v6 + 8 * v5);
-      if (v11 >= 1)
-      {
-        v12 = 0;
-        v13 = (8 * v5) | 4;
-        v14 = *(v6 + v13);
-        v15 = v7 + 4 * v14;
-        v16 = v8 + 4 * v14;
-        v17 = v10 + 4 * *(v9 + v13);
-        do
-        {
-          v18 = *(v17 + 4 * v12);
-          if (v18 != -1)
-          {
-            if (v12)
-            {
-              v19 = v12;
-            }
-
-            else
-            {
-              v19 = v11;
-            }
-
-            v20 = *(*(this + 21) + 4 * v5);
-            v21 = v19 - 1;
-            v22 = *(this + 27);
-            v23 = *(v22 + 4 * *(v16 + 4 * (v19 - 1)));
-            v24 = *(*(this + 30) + 4 * *(v15 + 4 * v12));
-            v25 = *(v22 + 4 * *(v16 + 4 * v12));
-            v26 = (*(*(this + 2) + 48) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v18) | 1)));
-            if (v11 == 4)
-            {
-              v27 = v19 - 2;
-              if (!v21)
-              {
-                v27 = 3;
-              }
-
-              v26[v12] = v24;
-              if (v27)
-              {
-                v28 = v27 - 1;
-              }
-
-              else
-              {
-                v28 = 3;
-              }
-
-              v26[v28] = v25;
-              v26[v27] = v20;
-              v29 = &v26[v21];
-            }
-
-            else
-            {
-              *v26 = v24;
-              v26[1] = v25;
-              v29 = v26 + 3;
-              v26[2] = v20;
-            }
-
-            *v29 = v23;
-          }
-
-          ++v12;
-        }
-
-        while (v11 != v12);
-        result = *v3;
-      }
-
-      ++v5;
-    }
-
-    while (v5 < result);
-  }
-
-  return result;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateFaceVertexCountsAndOffsets(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  std::vector<unsigned int>::resize((*(this + 2) + 24), 2 * **(this + 2));
-  v2 = *(this + 2);
-  if (*v2 >= 1)
-  {
-    v3 = 0;
-    v4 = 0;
-    v5 = (*(v2 + 3) + 4);
-    do
-    {
-      *(v5 - 1) = 4;
-      *v5 = v3;
-      ++v4;
-      v3 += 4;
-      v5 += 2;
-    }
-
-    while (v4 < *v2);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateFaceEdgeRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  v2 = *(this + 2);
-  if (v2[1].__end_ == v2[1].__begin_)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateFaceVertexCountsAndOffsets(this);
-    v2 = *(this + 2);
-  }
-
-  std::vector<unsigned int>::resize(v2 + 3, 4 * SLODWORD(v2->__begin_));
-  v3 = *(this + 1);
-  v4 = *v3;
-  if (*v3 >= 1)
-  {
-    v5 = 0;
-    v6 = *(v3 + 24);
-    v7 = *(v3 + 48);
-    v8 = *(v3 + 72);
-    v9 = *(this + 11);
-    v10 = *(this + 15);
-    v11 = *(this + 13);
-    v12 = *(this + 18);
-    do
-    {
-      v13 = *(v6 + 8 * v5);
-      if (v13 >= 1)
-      {
-        v14 = 0;
-        v15 = (8 * v5) | 4;
-        v16 = *(v6 + v15);
-        v17 = v7 + 4 * v16;
-        v18 = v8 + 4 * v16;
-        v19 = v10 + 4 * *(v9 + v15);
-        v20 = v12 + 4 * *(v11 + v15);
-        do
-        {
-          v21 = *(v19 + 4 * v14);
-          if (v21 != -1)
-          {
-            if (v14)
-            {
-              v22 = v14;
-            }
-
-            else
-            {
-              v22 = v13;
-            }
-
-            v23 = v22 - 1;
-            v24 = *(v18 + 4 * (v22 - 1));
-            v25 = *(v3 + 120);
-            v26 = (v25 + 8 * v24);
-            v27 = *(v18 + 4 * v14);
-            v28 = *(v17 + 4 * v14);
-            v29 = (v25 + 8 * v27);
-            v31 = *v26 == v26[1] || *v26 != v28;
-            v33 = *v29 != v29[1] && *v29 != v28;
-            v34 = *(this + 24);
-            v35 = *(v34 + 8 * v24 + 4 * v31);
-            v36 = *(v34 + 8 * v27 + 4 * v33);
-            v37 = *(v20 + 4 * v23);
-            v38 = *(v20 + 4 * v14);
-            v39 = (*(*(this + 2) + 72) + 4 * *(*(*(this + 2) + 24) + 4 * ((2 * v21) | 1)));
-            if (v13 == 4)
-            {
-              v40 = v22 - 2;
-              if (!v23)
-              {
-                v40 = 3;
-              }
-
-              v39[v14] = v36;
-              if (v40)
-              {
-                v41 = v40 - 1;
-              }
-
-              else
-              {
-                v41 = 3;
-              }
-
-              v39[v41] = v38;
-              v39[v40] = v37;
-              v42 = &v39[v23];
-            }
-
-            else
-            {
-              *v39 = v36;
-              v39[1] = v38;
-              v42 = v39 + 3;
-              v39[2] = v37;
-            }
-
-            *v42 = v35;
-          }
-
-          ++v14;
-        }
-
-        while (v13 != v14);
-        v4 = *v3;
-      }
-
-      ++v5;
-    }
-
-    while (v5 < v4);
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateEdgeVertexRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  std::vector<unsigned int>::resize((*(this + 2) + 120), 2 * *(*(this + 2) + 4));
-  v2 = *(this + 1);
-  v3 = *v2;
-  if (*v2 >= 1)
-  {
-    v4 = 0;
-    v5 = *(v2 + 24);
-    v6 = *(v2 + 72);
-    v7 = *(this + 13);
-    v8 = *(this + 18);
-    do
-    {
-      v9 = *(v5 + 8 * v4);
-      if (v9 >= 1)
-      {
-        v10 = (8 * v4) | 4;
-        v11 = (v6 + 4 * *(v5 + v10));
-        v12 = (v8 + 4 * *(v7 + v10));
-        do
-        {
-          v14 = *v12++;
-          v13 = v14;
-          if (v14 != -1)
-          {
-            v15 = (*(*(this + 2) + 120) + 8 * v13);
-            *v15 = *(*(this + 21) + 4 * v4);
-            v15[1] = *(*(this + 27) + 4 * *v11);
-          }
-
-          ++v11;
-          --v9;
-        }
-
-        while (v9);
-        v3 = *v2;
-      }
-
-      ++v4;
-    }
-
-    while (v4 < v3);
-  }
-
-  if (*(v2 + 4) >= 1)
-  {
-    v16 = 0;
-    v17 = *(v2 + 120);
-    v18 = *(this + 24);
-    do
-    {
-      v19 = 0;
-      v20 = 1;
-      do
-      {
-        v21 = v20;
-        v22 = *(v18 + 8 * v16 + 4 * v19);
-        if (v22 != -1)
-        {
-          v23 = (*(*(this + 2) + 120) + 8 * v22);
-          *v23 = *(*(this + 27) + 4 * v16);
-          v23[1] = *(*(this + 30) + 4 * *(v17 + 8 * v16 + 4 * v19));
-        }
-
-        v20 = 0;
-        v19 = 1;
-      }
-
-      while ((v21 & 1) != 0);
-      ++v16;
-    }
-
-    while (v16 < *(v2 + 4));
-  }
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateEdgeFaceRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  v2 = 2 * (((*(*(this + 1) + 176) - *(*(this + 1) + 168)) >> 2) + ((*(*(this + 1) + 56) - *(*(this + 1) + 48)) >> 2));
-  std::vector<unsigned int>::resize((*(this + 2) + 144), 2 * *(*(this + 2) + 4));
-  std::vector<unsigned int>::resize((*(this + 2) + 168), v2);
-  std::vector<unsigned short>::resize((*(this + 2) + 192), v2);
-  v4 = *(this + 1);
-  v3 = *(this + 2);
-  *(v3 + 16) = *(v4 + 16);
-  v5 = *v4;
-  if (*v4 >= 1)
-  {
-    v6 = 0;
-    v7 = *(this + 11);
-    v8 = *(this + 15);
-    v9 = *(this + 13);
-    v10 = *(this + 18);
-    do
-    {
-      v11 = *(v7 + 8 * v6);
-      if (v11 >= 1)
-      {
-        v12 = 0;
-        v13 = (8 * v6) | 4;
-        v14 = v8 + 4 * *(v7 + v13);
-        v15 = v10 + 4 * *(v9 + v13);
-        do
-        {
-          v16 = *(v15 + 4 * v12);
-          if (v16 == -1)
-          {
-            ++v12;
-          }
-
-          else
-          {
-            v17 = *(v3 + 144);
-            v18 = (v17 + 8 * v16);
-            *v18 = 2;
-            if (v16)
-            {
-              v19 = *(v18 - 1) + *(v18 - 2);
-            }
-
-            else
-            {
-              v19 = 0;
-            }
-
-            v20 = 2 * v16;
-            v18[1] = v19;
-            v21 = *(v3 + 16);
-            if (v21 <= 2)
-            {
-              v21 = 2;
-            }
-
-            *(v3 + 16) = v21;
-            v22 = *(v17 + 4 * (v20 | 1));
-            v23 = (*(v3 + 168) + 4 * v22);
-            v24 = (*(v3 + 192) + 2 * v22);
-            v25 = v12 + 1;
-            if (v12 + 1 >= v11)
-            {
-              v26 = 0;
-            }
-
-            else
-            {
-              v26 = v12 + 1;
-            }
-
-            v27 = *(v14 + 4 * v12);
-            if (v27 == -1)
-            {
-              v29 = 0;
-            }
-
-            else
-            {
-              *v23 = v27;
-              if (v11 == 4)
-              {
-                v28 = v26;
-              }
-
-              else
-              {
-                v28 = 1;
-              }
-
-              *v24 = v28;
-              v29 = 1;
-            }
-
-            v30 = *(v14 + 4 * v26);
-            if (v30 != -1)
-            {
-              v23[v29] = v30;
-              v31 = v26 & 3 ^ 2;
-              if (v11 != 4)
-              {
-                v31 = 2;
-              }
-
-              v24[v29] = v31;
-              LODWORD(v29) = v29 + 1;
-            }
-
-            *v18 = v29;
-            v12 = v25;
-          }
-        }
-
-        while (v12 != v11);
-        v5 = *v4;
-      }
-
-      ++v6;
-    }
-
-    while (v6 < v5);
-  }
-
-  v32 = *(v4 + 4);
-  if (v32 >= 1)
-  {
-    v33 = 0;
-    v34 = *(this + 24);
-    do
-    {
-      v35 = (v34 + 8 * v33);
-      if (*v35 != -1 || v35[1] != -1)
-      {
-        v36 = 0;
-        v37 = *(*(v4 + 144) + 8 * v33);
-        v38 = *(*(v4 + 144) + 8 * v33 + 4);
-        v39 = *(v4 + 168) + 4 * v38;
-        v40 = *(v4 + 192) + 2 * v38;
-        v41 = (*(v4 + 120) + 8 * v33);
-        v42 = 1;
-        do
-        {
-          v43 = v42;
-          v44 = v35[v36];
-          if (v44 != -1)
-          {
-            v45 = *(v3 + 144);
-            v46 = (v45 + 8 * v44);
-            *v46 = v37;
-            if (v44)
-            {
-              v47 = *(v46 - 1) + *(v46 - 2);
-            }
-
-            else
-            {
-              v47 = 0;
-            }
-
-            v46[1] = v47;
-            v48 = *(v3 + 16);
-            if (v48 <= v37)
-            {
-              v48 = v37;
-            }
-
-            *(v3 + 16) = v48;
-            if (v37 < 1)
-            {
-              v49 = 0;
-            }
-
-            else
-            {
-              v49 = 0;
-              v50 = *(v45 + 4 * ((2 * v44) | 1));
-              v51 = *(v3 + 168) + 4 * v50;
-              v52 = *(v3 + 192) + 2 * v50;
-              v53 = *(v4 + 24);
-              v54 = *(this + 11);
-              v55 = *(this + 15);
-              v56 = v39;
-              v57 = v40;
-              v58 = v37;
-              do
-              {
-                v60 = *v56++;
-                v59 = v60;
-                LODWORD(v60) = *v57++;
-                v61 = v60;
-                v62 = (2 * v59) | 1;
-                v63 = v36;
-                if (*v41 != v41[1])
-                {
-                  v63 = *(*(v4 + 48) + 4 * *(v53 + 4 * v62) + 4 * v61) != v41[v36];
-                }
-
-                v64 = 2 * v59;
-                v65 = v55 + 4 * *(v54 + 4 * v62);
-                if (v63 + v61 == *(v54 + 4 * v64))
-                {
-                  v66 = 0;
-                }
-
-                else
-                {
-                  v66 = v63 + v61;
-                }
-
-                v67 = *(v65 + 4 * v66);
-                if (v67 != -1)
-                {
-                  v68 = *(v53 + 4 * v64);
-                  *(v51 + 4 * v49) = v67;
-                  if (v63)
-                  {
-                    v69 = 3;
-                  }
-
-                  else
-                  {
-                    v69 = 0;
-                  }
-
-                  if (v68 != 4)
-                  {
-                    LOWORD(v61) = v69;
-                  }
-
-                  *(v52 + 2 * v49++) = v61;
-                }
-
-                --v58;
-              }
-
-              while (v58);
-            }
-
-            *v46 = v49;
-          }
-
-          v42 = 0;
-          v36 = 1;
-        }
-
-        while ((v43 & 1) != 0);
-        v32 = *(v4 + 4);
-      }
-
-      ++v33;
-    }
-
-    while (v33 < v32);
-  }
-
-  v70 = (*(v3 + 144) + 4 * (2 * *(v3 + 4) - 2));
-  v71 = *v70;
-  v72 = v70[1];
-  std::vector<unsigned int>::resize((v3 + 168), v72 + v71);
-  v73 = (*(this + 2) + 192);
-
-  std::vector<unsigned short>::resize(v73, v72 + v71);
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFaceRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  v2 = *(this + 1);
-  v3 = (((v2[22] - v2[21]) >> 1) & 0xFFFFFFFE) + ((v2[7] - v2[6]) >> 2) + ((v2[37] - v2[36]) >> 2);
-  std::vector<unsigned int>::resize((*(this + 2) + 264), 2 * *(*(this + 2) + 8));
-  std::vector<unsigned int>::resize((*(this + 2) + 288), v3);
-  std::vector<unsigned short>::resize((*(this + 2) + 312), v3);
-  if (*(this + 21))
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentFaces(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentEdges(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentVertices(this);
-  }
-
-  else
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentFaces(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentEdges(this);
-  }
-
-  v4 = *(this + 2);
-  v5 = (*(v4 + 264) + 4 * (2 * *(v4 + 8) - 2));
-  v6 = *v5;
-  v7 = v5[1];
-  std::vector<unsigned int>::resize((v4 + 288), v7 + v6);
-  v8 = (*(this + 2) + 312);
-
-  std::vector<unsigned short>::resize(v8, v7 + v6);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentVertices(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 8);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[30];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 288);
-        v7 = (*(v1 + 264) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 312);
-        v11 = this[2];
-        v12 = (v11[33] + 8 * v5);
-        *v12 = v8;
-        if (v5)
-        {
-          v13 = *(v12 - 1) + *(v12 - 2);
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        v12[1] = v13;
-        if (v8 < 1)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = (v6 + 4 * v9);
-          v16 = (v10 + 2 * v9);
-          v17 = v11[36] + 4 * v13;
-          v18 = v11[39] + 2 * v13;
-          v19 = this[11];
-          v20 = this[15];
-          do
-          {
-            v22 = *v15++;
-            v21 = v22;
-            LODWORD(v22) = *v16++;
-            v23 = v22;
-            v24 = *(v20 + 4 * *(v19 + 8 * v21 + 4) + 4 * v22);
-            if (v24 != -1)
-            {
-              v25 = *(v19 + 8 * v21);
-              *(v17 + 4 * v14) = v24;
-              if (v25 != 4)
-              {
-                v23 = 0;
-              }
-
-              *(v18 + 2 * v14++) = v23;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v12 = v14;
-        v2 = *(v1 + 8);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentFaces(void *this)
-{
-  v1 = this[1];
-  v2 = *v1;
-  if (*v1 >= 1)
-  {
-    v3 = 0;
-    v4 = this[21];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = (this[11] + 8 * v3);
-        v7 = this[15];
-        v8 = *v6;
-        v9 = v6[1];
-        v10 = this[2];
-        v11 = (v10[33] + 8 * v5);
-        *v11 = v8;
-        if (v5)
-        {
-          v12 = *(v11 - 1) + *(v11 - 2);
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        v11[1] = v12;
-        if (v8 < 1)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v13 = 0;
-          v14 = 0;
-          v15 = v7 + 4 * v9;
-          v16 = v10[36] + 4 * v12;
-          v17 = v10[39] + 2 * v12;
-          do
-          {
-            v18 = *(v15 + 4 * v13);
-            if (v18 != -1)
-            {
-              *(v16 + 4 * v14) = v18;
-              v19 = v13 & 3 ^ 2;
-              if (v8 != 4)
-              {
-                v19 = 2;
-              }
-
-              *(v17 + 2 * v14++) = v19;
-            }
-
-            ++v13;
-          }
-
-          while (v8 != v13);
-        }
-
-        *v11 = v14;
-        v2 = *v1;
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexFacesFromParentEdges(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 4);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[27];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 168);
-        v7 = (*(v1 + 144) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 192);
-        v11 = this[2];
-        v12 = (v11[33] + 8 * v5);
-        *v12 = 2 * v8;
-        if (v5)
-        {
-          v13 = *(v12 - 1) + *(v12 - 2);
-        }
-
-        else
-        {
-          v13 = 0;
-        }
-
-        v12[1] = v13;
-        if (v8 < 1)
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = (v6 + 4 * v9);
-          v16 = (v10 + 2 * v9);
-          v17 = v11[36] + 4 * v13;
-          v18 = v11[39] + 2 * v13;
-          v19 = this[11];
-          v20 = this[15];
-          do
-          {
-            v22 = *v15++;
-            v21 = v22;
-            LODWORD(v22) = *v16++;
-            v23 = v22;
-            v24 = v20 + 4 * *(v19 + 8 * v21 + 4);
-            v25 = *(v19 + 8 * v21);
-            if (v22 + 1 == v25)
-            {
-              v26 = 0;
-            }
-
-            else
-            {
-              v26 = v23 + 1;
-            }
-
-            v27 = *(v24 + 4 * v26);
-            if (v27 != -1)
-            {
-              *(v17 + 4 * v14) = v27;
-              if (v25 == 4)
-              {
-                v28 = v23;
-              }
-
-              else
-              {
-                v28 = 3;
-              }
-
-              *(v18 + 2 * v14++) = v28;
-            }
-
-            v29 = *(v24 + 4 * v23);
-            if (v29 != -1)
-            {
-              *(v17 + 4 * v14) = v29;
-              if (v25 == 4)
-              {
-                v30 = v26;
-              }
-
-              else
-              {
-                v30 = 1;
-              }
-
-              *(v18 + 2 * v14++) = v30;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v12 = v14;
-        v2 = *(v1 + 4);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgeRelation(OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement *this)
-{
-  v2 = *(this + 1);
-  v3 = ((*(v2 + 56) - *(v2 + 48)) >> 2) + 2 * *(v2 + 4) + ((*(v2 + 176) - *(v2 + 168)) >> 2) + ((*(v2 + 368) - *(v2 + 360)) >> 2);
-  std::vector<unsigned int>::resize((*(this + 2) + 336), 2 * *(*(this + 2) + 8));
-  std::vector<unsigned int>::resize((*(this + 2) + 360), v3);
-  std::vector<unsigned short>::resize((*(this + 2) + 384), v3);
-  if (*(this + 21))
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentFaces(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentEdges(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentVertices(this);
-  }
-
-  else
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentVertices(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentFaces(this);
-    OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentEdges(this);
-  }
-
-  v4 = *(this + 2);
-  v5 = (*(v4 + 336) + 4 * (2 * *(v4 + 8) - 2));
-  v6 = *v5;
-  v7 = v5[1];
-  std::vector<unsigned int>::resize((v4 + 360), v7 + v6);
-  v8 = (*(this + 2) + 384);
-
-  std::vector<unsigned short>::resize(v8, v7 + v6);
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentVertices(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 8);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[30];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 360);
-        v7 = (*(v1 + 336) + 8 * v3);
-        v8 = *v7;
-        v9 = v7[1];
-        v10 = *(v1 + 384);
-        v11 = this[2];
-        v12 = *(v11 + 336);
-        v13 = (v12 + 8 * v5);
-        *v13 = v8;
-        if (v5)
-        {
-          v14 = *(v13 - 1) + *(v13 - 2);
-        }
-
-        else
-        {
-          v14 = 0;
-        }
-
-        v13[1] = v14;
-        v15 = *(v11 + 20);
-        if (v15 <= v8)
-        {
-          v15 = v8;
-        }
-
-        *(v11 + 20) = v15;
-        if (v8 < 1)
-        {
-          v16 = 0;
-        }
-
-        else
-        {
-          v16 = 0;
-          v17 = (v6 + 4 * v9);
-          v18 = (v10 + 2 * v9);
-          v19 = *(v12 + 4 * ((2 * v5) | 1));
-          v20 = *(v11 + 360) + 4 * v19;
-          v21 = *(v11 + 384) + 2 * v19;
-          v22 = this[24];
-          do
-          {
-            v24 = *v17++;
-            v23 = v24;
-            LODWORD(v24) = *v18++;
-            v25 = *(v22 + 8 * v23 + 4 * v24);
-            if (v25 != -1)
-            {
-              *(v20 + 4 * v16) = v25;
-              *(v21 + 2 * v16++) = 1;
-            }
-
-            --v8;
-          }
-
-          while (v8);
-        }
-
-        *v13 = v16;
-        v2 = *(v1 + 8);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentFaces(void *this)
-{
-  v1 = this[1];
-  v2 = *v1;
-  if (*v1 >= 1)
-  {
-    v3 = 0;
-    v4 = this[21];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(*(v1 + 24) + 8 * v3);
-        v7 = *(this[13] + 8 * v3 + 4);
-        v8 = this[18];
-        v9 = this[2];
-        v10 = *(v9 + 336);
-        v11 = (v10 + 8 * v5);
-        *v11 = v6;
-        if (v5)
-        {
-          v12 = *(v11 - 1) + *(v11 - 2);
-        }
-
-        else
-        {
-          v12 = 0;
-        }
-
-        v11[1] = v12;
-        v13 = *(v9 + 20);
-        if (v13 <= v6)
-        {
-          v13 = v6;
-        }
-
-        *(v9 + 20) = v13;
-        if (v6 < 1)
-        {
-          v15 = 0;
-        }
-
-        else
-        {
-          v14 = 0;
-          v15 = 0;
-          v16 = *(v10 + 4 * ((2 * v5) | 1));
-          v17 = *(v9 + 360) + 4 * v16;
-          v18 = *(v9 + 384) + 2 * v16;
-          v19 = v8 + 4 * v7 - 4;
-          do
-          {
-            if (v14)
-            {
-              v20 = v14;
-            }
-
-            else
-            {
-              v20 = v6;
-            }
-
-            v21 = *(v19 + 4 * v20);
-            if (v21 != -1)
-            {
-              *(v17 + 4 * v15) = v21;
-              *(v18 + 2 * v15++) = 0;
-            }
-
-            ++v14;
-          }
-
-          while (v6 != v14);
-        }
-
-        *v11 = v15;
-        v2 = *v1;
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::populateVertexEdgesFromParentEdges(void *this)
-{
-  v1 = this[1];
-  v2 = *(v1 + 4);
-  if (v2 >= 1)
-  {
-    v3 = 0;
-    v4 = this[27];
-    do
-    {
-      v5 = *(v4 + 4 * v3);
-      if (v5 != -1)
-      {
-        v6 = *(v1 + 168);
-        v7 = *(*(v1 + 144) + 8 * v3);
-        v8 = *(*(v1 + 144) + 8 * v3 + 4);
-        v9 = *(v1 + 192);
-        v10 = *(v1 + 120);
-        v11 = this[24];
-        v12 = this[2];
-        v13 = v7 + 2;
-        v14 = *(v12 + 336);
-        v15 = (v14 + 8 * v5);
-        *v15 = v7 + 2;
-        if (v5)
-        {
-          v16 = *(v15 - 1) + *(v15 - 2);
-        }
-
-        else
-        {
-          v16 = 0;
-        }
-
-        v17 = (v11 + 8 * v3);
-        v18 = 2 * v5;
-        v15[1] = v16;
-        if (*(v12 + 20) > v13)
-        {
-          v13 = *(v12 + 20);
-        }
-
-        *(v12 + 20) = v13;
-        v19 = *(v14 + 4 * (v18 | 1));
-        v20 = (*(v12 + 360) + 4 * v19);
-        v21 = (*(v12 + 384) + 2 * v19);
-        if (*v17 == -1)
-        {
-          v22 = 0;
-        }
-
-        else
-        {
-          *v20 = *v17;
-          *v21 = 0;
-          v22 = 1;
-        }
-
-        v23 = v17[1];
-        if (v23 != -1)
-        {
-          v20[v22] = v23;
-          v21[v22++] = 0;
-        }
-
-        if (v7 >= 1)
-        {
-          v24 = 0;
-          v25 = v6 + 4 * v8;
-          v26 = v9 + 2 * v8;
-          v27 = this[13];
-          v28 = this[18];
-          v29 = (v10 + 8 * v3);
-          do
-          {
-            v30 = *(v26 + 2 * v24);
-            v31 = (2 * *(v25 + 4 * v24)) | 1;
-            v32 = *(v28 + 4 * *(v27 + 4 * v31) + 4 * v30);
-            if (v32 != -1)
-            {
-              v20[v22] = v32;
-              v21[v22++] = 1;
-              if (!v24 && v22 == 3)
-              {
-                if (*v29 == v29[1])
-                {
-                  v33 = v20[1];
-                  v34 = v21[1];
-                }
-
-                else
-                {
-                  v35 = *(*(v1 + 48) + 4 * *(*(v1 + 24) + 4 * v31) + 4 * v30);
-                  v33 = v20[1];
-                  v34 = v21[1];
-                  if (v35 == *v29)
-                  {
-                    v36 = *v20;
-                    *v20 = v33;
-                    v37 = *v21;
-                    *v21 = v34;
-                    v34 = v37;
-                    v33 = v36;
-                  }
-                }
-
-                v20[1] = v20[2];
-                v20[2] = v33;
-                v21[1] = v21[2];
-                v21[2] = v34;
-                v22 = 3;
-              }
-            }
-
-            ++v24;
-          }
-
-          while (v7 != v24);
-        }
-
-        *v15 = v22;
-        v2 = *(v1 + 4);
-      }
-
-      ++v3;
-    }
-
-    while (v3 < v2);
-  }
-
-  return this;
-}
-
-void *OpenSubdiv::v3_1_1::Vtr::internal::QuadRefinement::markSparseFaceChildren(void *this)
-{
-  v1 = this[1];
-  if (*v1 >= 1)
-  {
-    v2 = 0;
-    while (1)
-    {
-      v3 = (2 * (v2 & 0x3FFFFFFFFFFFFFFFLL)) | 1;
-      v4 = (this[15] + 4 * *(this[11] + 4 * v3));
-      v5 = (this[18] + 4 * *(this[13] + 4 * v3));
-      v6 = *(v1 + 3);
-      v7 = *(v6 + 8 * v2);
-      v8 = this[51];
-      if (*(v8 + v2))
-      {
-        break;
-      }
-
-      if (v7 >= 1)
-      {
-        v9 = 0;
-        v10 = *(v1 + 6) + 4 * *(v6 + 4 * v3);
-        v11 = this[57];
-        v12 = 1;
-        do
-        {
-          while ((*(v11 + *(v10 + 4 * v9)) & 1) != 0)
-          {
-            v12 = 0;
-            v4[v9] = 1;
-            v5[v9] = 1;
-            if (v9)
-            {
-              v13 = v9;
-            }
-
-            else
-            {
-              v13 = v7;
-            }
-
-            v5[v13 - 1] = 1;
-            if (v7 - 1 == v9++)
-            {
-              goto LABEL_22;
-            }
-          }
-
-          ++v9;
-        }
-
-        while (v7 != v9);
-        if (v12)
-        {
-          goto LABEL_19;
-        }
-
-LABEL_22:
-        *(this[21] + 4 * v2) = 1;
-        v16 = (*(v1 + 9) + 4 * *(v6 + 4 * v3));
-        v17 = *(v6 + 8 * v2);
-        if (v17 == 3)
-        {
-          v23 = *(this[54] + v16[1]) & 0xE | (*(this[54] + *v16) >> 1) & 0xF | (2 * *(this[54] + v16[2])) & 0xC;
-          v22 = *(v8 + v2);
-        }
-
-        else
-        {
-          if (v17 != 4)
-          {
-            v24 = *(v8 + v2) & 0xE1;
-            *(v8 + v2) &= 0xE1u;
-            if (v17 >= 1)
-            {
-              do
-              {
-                v25 = *v16++;
-                v24 |= *(this[54] + v25) & 0x1E;
-                *(v8 + v2) = v24;
-                --v17;
-              }
-
-              while (v17);
-            }
-
-            goto LABEL_19;
-          }
-
-          v18 = this[54];
-          v19 = *(v18 + *v16);
-          v20 = *(v18 + v16[1]) & 0xE;
-          v21 = (2 * *(v18 + v16[2])) & 0xC;
-          LOBYTE(v18) = 4 * *(v18 + v16[3]);
-          v22 = *(v8 + v2);
-          v23 = v20 | (v19 >> 1) & 0xF | v21 | v18 & 8;
-        }
-
-        v15 = v22 & 0xE1 | (2 * (v23 & 0xF));
-        goto LABEL_18;
-      }
-
-LABEL_19:
-      ++v2;
-      v1 = this[1];
-      if (v2 >= *v1)
+      if (++v7 >= *(a3 + 56))
       {
         return this;
       }
     }
+  }
 
-    if (v7 >= 1)
-    {
-      do
+  return v6();
+}
+
+re::snapshot::BufferEncoder *re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(re::snapshot::BufferEncoder *this, uint64_t a2, uint64_t a3)
+{
+  v3 = this;
+  switch(*(a3 + 16))
+  {
+    case 0:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 1:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 2:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 3:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 4:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 5:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 6:
+      v7 = *(a2 + 8);
+      v8 = (v7 & 1) == 0;
+      if (v7)
       {
-        *v4++ = 2;
-        *v5++ = 2;
-        --v7;
+        v6 = *(a2 + 16);
       }
 
-      while (v7);
-    }
+      else
+      {
+        v6 = (a2 + 9);
+      }
 
-    *(this[21] + 4 * v2) = 2;
-    v15 = *(v8 + v2) & 0xE1;
-LABEL_18:
-    *(v8 + v2) = v15;
-    goto LABEL_19;
+      v9 = v7 >> 1;
+      v10 = v7 >> 1;
+      if (v8)
+      {
+        v5 = v10;
+      }
+
+      else
+      {
+        v5 = v9;
+      }
+
+      goto LABEL_33;
+    case 7:
+
+      re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 8:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 9:
+
+      return re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+    case 0xA:
+      v4 = *(a2 + 8);
+      v5 = strlen(v4);
+      this = v3;
+      v6 = v4;
+LABEL_33:
+
+      this = re::snapshot::EncoderOPACK::serializeString(this, v6, v5);
+      break;
+    case 0xB:
+
+      this = re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+      break;
+    case 0xD:
+
+      this = re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(this, a2, a3);
+      break;
+    default:
+      return this;
   }
 
   return this;
 }
 
-void OpenSubdiv::v3_1_1::Far::TopologyRefiner::TopologyRefiner(uint64_t a1, int a2, int a3)
 {
-  *a1 = a2;
-  *(a1 + 4) = a3;
-  *(a1 + 8) = *(a1 + 8) & 0xC0 | 1;
-  *(a1 + 12) &= 0xC0u;
-  *(a1 + 16) = *(a1 + 16) & 0xF000 | 0xF0;
-  *(a1 + 20) = 0u;
-  *(a1 + 36) = 0u;
-  *(a1 + 52) = 0u;
-  *(a1 + 68) = 0u;
-  *(a1 + 84) = 0u;
-  *(a1 + 96) = 0u;
-  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level *>::reserve((a1 + 40), 0xAuLL);
-  operator new();
-}
-
-void *std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level *>::reserve(void *result, unint64_t a2)
-{
-  if (a2 > (result[2] - *result) >> 3)
+  v5 = this;
+  v41 = *MEMORY[0x1E69E9840];
+  v6 = *(a3 + 120);
+  if (v6)
   {
-    if (!(a2 >> 61))
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(result, a2);
-    }
 
-    std::string::__throw_length_error[abi:nn200100]();
+    return v6();
   }
 
-  return result;
-}
-
-void std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level *>::push_back[abi:nn200100](uint64_t a1, void *a2)
-{
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (v5 >= v4)
+  v7 = *(a3 + 60);
+  if ((v7 & 1) == 0)
   {
-    v7 = (v5 - *a1) >> 3;
-    if ((v7 + 1) >> 61)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v8 = v4 - *a1;
-    v9 = v8 >> 2;
-    if (v8 >> 2 <= (v7 + 1))
-    {
-      v9 = v7 + 1;
-    }
-
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v9;
-    }
-
-    if (v10)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::ProfilerVisualizer *>>(a1, v10);
-    }
-
-    v11 = (8 * v7);
-    *v11 = *a2;
-    v6 = 8 * v7 + 8;
-    v12 = *(a1 + 8) - *a1;
-    v13 = v11 - v12;
-    memcpy(v11 - v12, *a1, v12);
-    v14 = *a1;
-    *a1 = v13;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
+    this = re::snapshot::EncoderOPACK::beginObject(this);
   }
 
-  else
+  if (*(a3 + 56))
   {
-    *v5 = *a2;
-    v6 = (v5 + 1);
-  }
-
-  *(a1 + 8) = v6;
-}
-
-void *std::vector<OpenSubdiv::v3_1_1::Far::TopologyLevel>::reserve(void *result, unint64_t a2)
-{
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
-  {
-    if (a2 < 0xAAAAAAAAAAAAAABLL)
+    for (i = 0; i < *(a3 + 56); ++i)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::TopologyLevel>>(a2);
-    }
-
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  return result;
-}
-
-void *OpenSubdiv::v3_1_1::Far::TopologyRefiner::assembleFarLevels(void *this)
-{
-  v1 = (this[6] - this[5]) >> 3;
-  v2 = this[11];
-  v3 = this[12];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - v2) >> 3);
-  v5 = v1 - v4;
-  if (v1 <= v4)
-  {
-    if (v1 >= v4)
-    {
-      goto LABEL_14;
-    }
-
-    v9 = &v2[3 * v1];
-  }
-
-  else
-  {
-    v6 = this[13];
-    if (0xAAAAAAAAAAAAAAABLL * ((v6 - v3) >> 3) < v5)
-    {
-      if (v1 <= 0xAAAAAAAAAAAAAAALL)
+      v9 = *(*(a3 + 64) + 8 * i);
+      if (*v9 == 1)
       {
-        v7 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v2) >> 3);
-        if (2 * v7 > v1)
+        if (v7)
         {
-          v1 = 2 * v7;
-        }
-
-        if (v7 >= 0x555555555555555)
-        {
-          v8 = 0xAAAAAAAAAAAAAAALL;
+          v10 = *(v9 + 40);
+          if (v10 == 3)
+          {
+            continue;
+          }
         }
 
         else
         {
-          v8 = v1;
+          this = re::snapshot::EncoderOPACK::writeInteger(v5, *(v9 + 32));
+          v10 = *(v9 + 40);
         }
 
-        std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::TopologyLevel>>(v8);
+        v11 = *(v9 + 36);
+        if (v10 > 1)
+        {
+          if (v10 == 2)
+          {
+            v20 = *(*(*(v9 + 16) + 48) + 64);
+            v21 = *v20;
+            if (**v20 != 2)
+            {
+              v22 = (v20 + 1);
+              do
+              {
+                v23 = *v22++;
+                v21 = v23;
+              }
+
+              while (*v23 != 2);
+            }
+
+            v24 = *(v21 + 1);
+            if (v24)
+            {
+              if (a2)
+              {
+                v25 = *(v9 + 64);
+                v26 = *(v9 + 48);
+                __dst = 0;
+                this = memcpy(&__dst, (a2 + v25), *(v26 + 20));
+                v27 = __dst;
+              }
+
+              else
+              {
+                v27 = 0;
+              }
+
+              v29 = *v24;
+              if (v29)
+              {
+                v30 = *(v24 + 1);
+                while (*(v30 + 24) != v27)
+                {
+                  v30 += 40;
+                  if (!--v29)
+                  {
+                    goto LABEL_41;
+                  }
+                }
+              }
+
+              else
+              {
+LABEL_41:
+                v30 = 0;
+              }
+
+              v31 = *(a2 + v11);
+              *buf = v30;
+              v37[2] = re::globalAllocators(this)[2];
+              v37[3] = &__dst;
+              __dst = &unk_1F5D17760;
+              v37[0] = buf;
+              re::snapshot::EncoderOPACK::serializePolymorphicPointer(v5, v31, v27, &__dst);
+              this = re::FunctionBase<24ul,void ()(re::snapshot::Encoder &,void const*)>::destroyCallable(&__dst);
+            }
+
+            else
+            {
+              v28 = *re::foundationSerializationLogObjects(this);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              {
+                re::getPrettyTypeName(&__dst, a3);
+                v34 = v37 + 1;
+                if (v37[0])
+                {
+                  v34 = v37[1];
+                }
+
+                v35 = *(v9 + 8);
+                *buf = 136315394;
+                *&buf[4] = v34;
+                v39 = 2080;
+                v40 = v35;
+                _os_log_error_impl(&dword_1E1C61000, v28, OS_LOG_TYPE_ERROR, "No polymorphic table for %s.%s", buf, 0x16u);
+                if (__dst && (v37[0] & 1) != 0)
+                {
+                  (*(*__dst + 40))();
+                }
+              }
+
+              this = re::snapshot::EncoderOPACK::beginOptional(v5, 0);
+            }
+
+            continue;
+          }
+
+          if (v10 == 3)
+          {
+LABEL_25:
+            this = re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(v5, a2 + v11, *(v9 + 16));
+          }
+        }
+
+        else
+        {
+          if (!v10)
+          {
+            goto LABEL_25;
+          }
+
+          if (v10 == 1)
+          {
+            v12 = *(a2 + v11);
+            v13 = *(v9 + 16);
+            if (v12)
+            {
+              v14 = *(v9 + 48);
+              if (!v14)
+              {
+                re::snapshot::BufferEncoder::error(v5, "Snapshot writer failed to get array length for member '%s' in %s.", *(v9 + 8), *(a3 + 48));
+                return re::snapshot::EncoderOPACK::beginArray(v5, 0);
+              }
+
+              v15 = *(v9 + 64);
+              __dst = 0;
+              memcpy(&__dst, (a2 + v15), *(v14 + 20));
+              v16 = *(v13 + 48);
+              v17 = __dst;
+              if (*(v16 + 16))
+              {
+                re::snapshot::EncoderOPACK::beginArray(v5, __dst);
+                if (v17)
+                {
+                  v18 = *(v13 + 48);
+                  v19 = v17;
+                  do
+                  {
+                    re::snapshot::introspected::write<re::snapshot::EncoderOPACK>(v5, v12, v18);
+                    v18 = *(v13 + 48);
+                    v12 += *(v18 + 20);
+                    --v19;
+                  }
+
+                  while (v19);
+                }
+
+                this = re::snapshot::EncoderOPACK::endArray(v5, v17);
+              }
+
+              else
+              {
+                v32 = __dst * *(v16 + 20);
+                re::snapshot::EncoderOPACK::beginData(v5, v32, v32);
+                this = re::snapshot::BufferEncoder::writeRaw<true>(v5, v12, v32);
+              }
+            }
+
+            else if (*(*(v13 + 48) + 16))
+            {
+              this = re::snapshot::EncoderOPACK::beginArray(v5, 0);
+            }
+
+            else
+            {
+              this = re::snapshot::EncoderOPACK::beginData(v5, 0, 0);
+              v33 = v5[4];
+              if (v33 > v5[5])
+              {
+                this = re::snapshot::BufferEncoder::grow(v5, v33);
+                if (!this)
+                {
+                  continue;
+                }
+
+                LODWORD(v33) = v5[4];
+              }
+
+              v5[4] = v33;
+            }
+          }
+        }
       }
-
-      std::string::__throw_length_error[abi:nn200100]();
     }
-
-    v9 = (v3 + 24 * (24 * v5 / 0x18));
   }
 
-  this[12] = v9;
-LABEL_14:
-  v2[1] = 0;
-  v10 = this[5];
-  *v2 = *v10;
-  v2[2] = 0;
-  v11 = this[8];
-  v12 = this[9] - v11;
-  v13 = v12 >> 3;
-  if ((v12 >> 3))
+  if ((v7 & 1) == 0)
   {
-    v2[2] = *v11;
-    if (v13 >= 2)
-    {
-      v14 = ((v12 >> 3) & 0x7FFFFFFF) - 1;
-      v15 = v11 + 1;
-      v16 = v10 + 1;
-      v17 = v2 + 5;
-      do
-      {
-        *(v17 - 1) = *(v15 - 1);
-        v18 = *v16++;
-        *(v17 - 2) = v18;
-        v19 = *v15++;
-        *v17 = v19;
-        v17 += 3;
-        --v14;
-      }
-
-      while (v14);
-    }
-
-    v20 = &v2[3 * v13];
-    v20[1] = *(v11 + (((v12 << 29) - 0x100000000) >> 29));
-    *v20 = *(v10 + ((v12 << 29) >> 29));
-    v20[2] = 0;
+    return re::snapshot::EncoderOPACK::endObject(v5);
   }
 
   return this;
 }
 
-void OpenSubdiv::v3_1_1::Far::TopologyRefiner::~TopologyRefiner(OpenSubdiv::v3_1_1::Far::TopologyRefiner *this)
+re::snapshot::BufferDecoder *re::snapshot::DecoderOPACK::operator>>(re::snapshot::BufferDecoder *result, _BYTE *a2)
 {
-  v3 = *(this + 5);
-  v2 = *(this + 6);
-  if (((v2 - v3) >> 3) >= 1)
+  v2 = *(result + 3);
+  if (v2 >= *(result + 4))
   {
-    v4 = 0;
-    do
-    {
-      v5 = *(v3 + 8 * v4);
-      if (v5)
-      {
-        OpenSubdiv::v3_1_1::Vtr::internal::Level::~Level(v5);
-        MEMORY[0x1E6906520]();
-        v3 = *(this + 5);
-        v2 = *(this + 6);
-      }
+    v3 = 0;
+  }
 
-      ++v4;
+  else
+  {
+    *(result + 3) = v2 + 1;
+    v3 = *v2;
+    if (v3 == 1)
+    {
+      *a2 = 1;
+      return result;
     }
 
-    while (v4 < ((v2 - v3) >> 3));
-  }
-
-  v6 = *(this + 8);
-  v7 = *(this + 9);
-  if (((v7 - v6) >> 3) >= 1)
-  {
-    v8 = 0;
-    do
+    if (v3 == 2)
     {
-      v9 = v6[v8];
-      if (v9)
-      {
-        (*(*v9 + 8))(v6[v8]);
-        v6 = *(this + 8);
-        v7 = *(this + 9);
-      }
-
-      ++v8;
+      *a2 = 0;
+      return result;
     }
-
-    while (v8 < ((v7 - v6) >> 3));
   }
 
-  v10 = *(this + 11);
-  if (v10)
-  {
-    *(this + 12) = v10;
-    operator delete(v10);
-    v6 = *(this + 8);
-  }
-
-  if (v6)
-  {
-    *(this + 9) = v6;
-    operator delete(v6);
-  }
-
-  v11 = *(this + 5);
-  if (v11)
-  {
-    *(this + 6) = v11;
-    operator delete(v11);
-  }
+  return re::snapshot::BufferDecoder::error(result, "expected BOOL, found tag %x", v3);
 }
 
-int32x2_t OpenSubdiv::v3_1_1::Far::TopologyRefiner::initializeInventory(OpenSubdiv::v3_1_1::Far::TopologyRefiner *this)
+uint64_t *re::snapshot::BufferDecoder::error(const char **this, const char *a2, ...)
 {
-  v1 = *(this + 5);
-  if (*(this + 6) == v1)
+  va_start(va, a2);
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = 0;
+  v13 = 0;
+  re::DynamicString::setCapacity(&v10, 0);
+  v4 = re::DynamicString::vassignf(&v10, a2, va);
+  v5 = *re::foundationSerializationLogObjects(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v4 = 0;
-    LODWORD(v5) = 0;
+    v7 = this[8];
+    if (!v7)
+    {
+      v7 = "<unknown>";
+    }
+
+    v8 = *(this + 10);
+    if (v11)
+    {
+      v9 = v12;
+    }
+
+    else
+    {
+      v9 = &v11 + 1;
+    }
+
+    *buf = 136315650;
+    v15 = v7;
+    v16 = 1024;
+    v17 = v8;
+    v18 = 2080;
+    v19 = v9;
+    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Snapshot reader (%s:%d): %s", buf, 0x1Cu);
+  }
+
+  this[3] = this[4];
+  *(this + 44) = 1;
+  result = v10;
+  if (v10)
+  {
+    if (v11)
+    {
+      return (*(*v10 + 40))();
+    }
+  }
+
+  return result;
+}
+
+uint64_t *re::snapshot::DecoderOPACK::operator>>(uint64_t *result, float *a2)
+{
+  v3 = result[3];
+  v2 = result[4];
+  if (v3 >= v2)
+  {
+    return re::snapshot::BufferDecoder::error(result, "expected float, found tag %x");
+  }
+
+  v5 = (v3 + 1);
+  result[3] = (v3 + 1);
+  v6 = *v3;
+  if (v6 != 54)
+  {
+    if (v6 == 53)
+    {
+      if (v2 - v5 <= 3)
+      {
+        return re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining");
+      }
+
+      *a2 = *v5;
+      result[3] += 4;
+      return result;
+    }
+
+    return re::snapshot::BufferDecoder::error(result, "expected float, found tag %x");
+  }
+
+  v7 = v2 - v5;
+  if (v7 <= 7)
+  {
+    result = re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining", 8uLL, v7);
+    v9 = 0.0;
+  }
+
+  else
+  {
+    v8 = *(v3 + 1);
+    result[3] = (v3 + 9);
+    v9 = v8;
+  }
+
+  *a2 = v9;
+  return result;
+}
+
+uint64_t *re::snapshot::DecoderOPACK::operator>>(uint64_t *result, double *a2)
+{
+  v3 = result[3];
+  v2 = result[4];
+  if (v3 >= v2)
+  {
+    return re::snapshot::BufferDecoder::error(result, "expected double, found tag %x");
+  }
+
+  v5 = (v3 + 1);
+  result[3] = (v3 + 1);
+  v6 = *v3;
+  if (v6 != 53)
+  {
+    if (v6 == 54)
+    {
+      if (v2 - v5 <= 7)
+      {
+        return re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining");
+      }
+
+      *a2 = *v5;
+      result[3] += 8;
+      return result;
+    }
+
+    return re::snapshot::BufferDecoder::error(result, "expected double, found tag %x");
+  }
+
+  v7 = v2 - v5;
+  if (v7 <= 3)
+  {
+    result = re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining", 4uLL, v7);
+    v9 = 0.0;
+  }
+
+  else
+  {
+    v8 = *(v3 + 1);
+    result[3] = (v3 + 5);
+    v9 = v8;
+  }
+
+  *a2 = v9;
+  return result;
+}
+
+uint64_t re::snapshot::DecoderOPACK::deserializePointer(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 24);
+  if (*v3 == 4)
+  {
+    *(a1 + 24) = v3 + 1;
+  }
+
+  return (*(**(a3 + 32) + 16))();
+}
+
+uint64_t *re::snapshot::DecoderOPACK::deserializePolymorphicPointer(re::snapshot::DecoderOPACK *this, uint64_t a2, uint64_t a3)
+{
+  v6 = *(this + 3);
+  v7 = *v6;
+  if (v7 == 225)
+  {
+    *(this + 3) = v6 + 1;
+    v10 = 1;
+    Integer = re::snapshot::DecoderOPACK::readInteger(this, 0);
+    return (*(**(a3 + 32) + 16))(*(a3 + 32), this, a2, &v10, &Integer);
+  }
+
+  if (v7 == 4)
+  {
+    *(this + 3) = v6 + 1;
+    v10 = 0;
+    Integer = 0;
+    return (*(**(a3 + 32) + 16))(*(a3 + 32), this, a2, &v10, &Integer);
+  }
+
+  return re::snapshot::BufferDecoder::error(this, "expected polymorphic header, found %x", *v6);
+}
+
+uint64_t re::snapshot::DecoderOPACK::operator>>(re::snapshot::DecoderOPACK *a1, uint64_t *a2)
+{
+  result = re::snapshot::DecoderOPACK::readInteger(a1, 0);
+  *a2 = result;
+  return result;
+}
+
+{
+  result = re::snapshot::DecoderOPACK::readInteger(a1, 0);
+  *a2 = result;
+  return result;
+}
+
+{
+  result = re::snapshot::DecoderOPACK::readInteger(a1, 0);
+  *a2 = result;
+  return result;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginString(re::snapshot::DecoderOPACK *this, unint64_t *a2)
+{
+  v3 = *(this + 3);
+  v2 = *(this + 4);
+  if (v3 >= v2)
+  {
+    goto LABEL_19;
+  }
+
+  v5 = v3 + 1;
+  *(this + 3) = v3 + 1;
+  v6 = *v3;
+  if (v6 <= 0x61)
+  {
+    if (v6 == 4)
+    {
+      *a2 = -1;
+      return 1;
+    }
+
+    if (v6 == 97)
+    {
+      if (v5 < v2)
+      {
+        v5 = v3 + 2;
+        *(this + 3) = v3 + 2;
+        v8 = v3[1];
+        goto LABEL_26;
+      }
+
+      re::snapshot::BufferDecoder::error(this, "overrun in beginString: expected 1 byte, but 0 bytes remaining");
+      return 0;
+    }
+  }
+
+  else
+  {
+    switch(v6)
+    {
+      case 'b':
+        v7 = v2 - v5;
+        if (v7 > 1)
+        {
+          v8 = *(v3 + 1);
+          v5 = v3 + 3;
+          goto LABEL_16;
+        }
+
+        v9 = 2;
+LABEL_23:
+        re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", v9, v7);
+        *a2 = 0;
+        return 1;
+      case 'c':
+        v7 = v2 - v5;
+        if (v7 > 3)
+        {
+          v8 = *(v3 + 1);
+          v5 = v3 + 5;
+          goto LABEL_16;
+        }
+
+        v9 = 4;
+        goto LABEL_23;
+      case 'd':
+        v7 = v2 - v5;
+        if (v7 > 7)
+        {
+          v8 = *(v3 + 1);
+          v5 = v3 + 9;
+LABEL_16:
+          *(this + 3) = v5;
+          goto LABEL_26;
+        }
+
+        v9 = 8;
+        goto LABEL_23;
+    }
+  }
+
+  if (v6 - 97 <= 0xFFFFFFDE)
+  {
+LABEL_19:
+    re::snapshot::BufferDecoder::error(this, "expected string, found tag %x");
+    return 0;
+  }
+
+  v8 = v6 - 64;
+LABEL_26:
+  *a2 = v8;
+  if (v2 - v5 < v8)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun in beginString: size is %zu, but only %zu bytes remaining");
+    return 0;
+  }
+
+  return 1;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginObject(re::snapshot::DecoderOPACK *this, const char **a2)
+{
+  v3 = *(this + 3);
+  v4 = *(this + 4);
+  if (v3 >= v4)
+  {
     v6 = 0;
-    v3 = 0;
+    goto LABEL_13;
+  }
+
+  v5 = v3 + 1;
+  *(this + 3) = v3 + 1;
+  v6 = *v3;
+  if (v6 != 239)
+  {
+LABEL_13:
+    re::snapshot::BufferDecoder::error(this, "expected object, found tag %x", v6);
+    return 0;
+  }
+
+  if (v5 >= v4 || (v8 = *v5, v8 == 3))
+  {
+    Integer = 0x7FFFFFFF;
+  }
+
+  else if ((v8 - 7) > 0x28)
+  {
+    Integer = re::snapshot::DecoderOPACK::readInteger(this, 0x7FFFFFFFLL);
+  }
+
+  else
+  {
+    *(this + 3) = v3 + 2;
+    Integer = v8 - 8;
+  }
+
+  *(this + 10) = Integer;
+  if (a2)
+  {
+    v10 = *(this + 8);
+    *(this + 8) = *a2;
+    *a2 = v10;
+  }
+
+  return 1;
+}
+
+uint64_t *re::snapshot::DecoderOPACK::endObject(uint64_t *this, const char *a2, uint64_t a3)
+{
+  v4 = this;
+  v5 = this[3];
+  for (i = this[4]; v5 < i; i = v4[4])
+  {
+    v4[3] = (v5 + 1);
+    v7 = *v5;
+    if (v7 == 3)
+    {
+      break;
+    }
+
+    this = re::snapshot::DecoderOPACK::skip(v4, v7, a3);
+    v5 = v4[3];
+  }
+
+  v4[8] = a2;
+  return this;
+}
+
+uint64_t *re::snapshot::DecoderOPACK::skip(uint64_t *result, int a2, uint64_t a3)
+{
+  v3 = result;
+  if (a2 > 97)
+  {
+    if (a2 <= 145)
+    {
+      if (a2 > 99)
+      {
+        if (a2 != 100)
+        {
+          if (a2 != 145)
+          {
+            goto LABEL_60;
+          }
+
+          goto LABEL_33;
+        }
+
+        goto LABEL_43;
+      }
+
+      if (a2 != 98)
+      {
+        goto LABEL_36;
+      }
+    }
+
+    else
+    {
+      if (a2 > 147)
+      {
+        if (a2 != 148)
+        {
+          if (a2 == 223 || a2 == 239)
+          {
+            v5 = result[3];
+            v4 = result[4];
+            if (v5 >= v4)
+            {
+              v6 = 0;
+            }
+
+            else
+            {
+              result[3] = (v5 + 1);
+              v6 = *v5++;
+            }
+
+            if (v5 < v4 && v6 != 3)
+            {
+              do
+              {
+                result = re::snapshot::DecoderOPACK::skip(v3, v6, a3);
+                v7 = v3[3];
+                v8 = v3[4];
+                if (v7 >= v8)
+                {
+                  break;
+                }
+
+                v9 = v7 + 1;
+                v3[3] = (v7 + 1);
+                v6 = *v7;
+              }
+
+              while (v9 < v8 && v6 != 3);
+            }
+
+            return result;
+          }
+
+          goto LABEL_60;
+        }
+
+LABEL_43:
+        v20 = result[3];
+        v21 = result[4];
+        v17 = v21 - v20;
+        if ((v21 - v20) > 7)
+        {
+          v22 = *v20;
+          v13 = (v20 + 1);
+          v14 = v22;
+          result[3] = v13;
+          v23 = v21 - v13;
+          if (v22 <= v23)
+          {
+            goto LABEL_56;
+          }
+
+          goto LABEL_49;
+        }
+
+        v26 = 8;
+        goto LABEL_54;
+      }
+
+      if (a2 != 146)
+      {
+LABEL_36:
+        v16 = result[3];
+        v12 = result[4];
+        v17 = v12 - v16;
+        if ((v12 - v16) > 3)
+        {
+          v18 = *v16;
+          v13 = (v16 + 1);
+          v14 = v18;
+          goto LABEL_48;
+        }
+
+        v26 = 4;
+        goto LABEL_54;
+      }
+    }
+
+    v24 = result[3];
+    v12 = result[4];
+    v17 = v12 - v24;
+    if ((v12 - v24) > 1)
+    {
+      v25 = *v24;
+      v13 = (v24 + 1);
+      v14 = v25;
+LABEL_48:
+      result[3] = v13;
+      v23 = v12 - v13;
+      if (v23 >= v14)
+      {
+LABEL_56:
+        v19 = v13 + v14;
+        goto LABEL_57;
+      }
+
+LABEL_49:
+      result = re::snapshot::BufferDecoder::error(result, "invalid size when skipping string or data: %zu, only %zu remaining", v14, v23);
+      v13 = v3[3];
+      v14 = v3[4] - v13;
+      goto LABEL_56;
+    }
+
+    v26 = 2;
+LABEL_54:
+    result = re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining", v26, v17);
+    goto LABEL_55;
+  }
+
+  if (a2 <= 49)
+  {
+    if (a2 > 47)
+    {
+      if (a2 == 48)
+      {
+        v19 = result[3] + 1;
+      }
+
+      else
+      {
+        v19 = result[3] + 2;
+      }
+
+      goto LABEL_57;
+    }
+
+    if ((a2 - 1) < 2 || a2 == 4)
+    {
+      return result;
+    }
+
+    goto LABEL_60;
+  }
+
+  if (a2 <= 52)
+  {
+    if (a2 != 50)
+    {
+      if (a2 != 51)
+      {
+        goto LABEL_60;
+      }
+
+      goto LABEL_42;
+    }
+
+LABEL_50:
+    v19 = result[3] + 4;
+    goto LABEL_57;
+  }
+
+  switch(a2)
+  {
+    case '5':
+      goto LABEL_50;
+    case '6':
+LABEL_42:
+      v19 = result[3] + 8;
+LABEL_57:
+      v3[3] = v19;
+      return result;
+    case 'a':
+LABEL_33:
+      v11 = result[3];
+      v12 = result[4];
+      if (v12 != v11)
+      {
+        v15 = *v11;
+        v13 = (v11 + 1);
+        v14 = v15;
+        goto LABEL_48;
+      }
+
+      result = re::snapshot::BufferDecoder::error(result, "overrun: attempted to read %zu bytes, only %zu remaining", 1uLL, 0);
+LABEL_55:
+      v14 = 0;
+      v13 = v3[3];
+      goto LABEL_56;
+  }
+
+LABEL_60:
+  if ((a2 - 7) >= 0x29)
+  {
+    if ((a2 - 64) <= 0x20)
+    {
+      v19 = result[3] + a2 - 64;
+      goto LABEL_57;
+    }
+
+    if ((a2 - 112) <= 0x20)
+    {
+      v19 = result[3] + a2 - 112;
+      goto LABEL_57;
+    }
+
+    if ((a2 - 208) > 0xE)
+    {
+      if ((a2 - 224) > 0xE)
+      {
+        return re::snapshot::BufferDecoder::error(result, "unexpected tag while skipping: %x", a2);
+      }
+
+      else if (a2 >= 0xE1)
+      {
+        v30 = a2 - 223;
+        do
+        {
+          v31 = v3[3];
+          if (v31 >= v3[4])
+          {
+            v32 = 0;
+          }
+
+          else
+          {
+            v3[3] = (v31 + 1);
+            v32 = *v31;
+          }
+
+          re::snapshot::DecoderOPACK::skip(v3, v32, a3);
+          v34 = v3[3];
+          if (v34 >= v3[4])
+          {
+            v35 = 0;
+          }
+
+          else
+          {
+            v3[3] = (v34 + 1);
+            v35 = *v34;
+          }
+
+          result = re::snapshot::DecoderOPACK::skip(v3, v35, v33);
+          --v30;
+        }
+
+        while (v30 > 1);
+      }
+    }
+
+    else if (a2 >= 0xD1)
+    {
+      v27 = a2 - 207;
+      do
+      {
+        v28 = v3[3];
+        if (v28 >= v3[4])
+        {
+          v29 = 0;
+        }
+
+        else
+        {
+          v3[3] = (v28 + 1);
+          v29 = *v28;
+        }
+
+        result = re::snapshot::DecoderOPACK::skip(v3, v29, a3);
+        --v27;
+      }
+
+      while (v27 > 1);
+    }
+  }
+
+  return result;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginDictionary(re::snapshot::DecoderOPACK *this, unint64_t *a2)
+{
+  v2 = *(this + 3);
+  v3 = *(this + 4);
+  if (v2 >= v3)
+  {
+    goto LABEL_8;
+  }
+
+  v4 = v2 + 1;
+  *(this + 3) = v2 + 1;
+  v5 = *v2;
+  v6 = (v5 - 224);
+  if (v6 > 0xE)
+  {
+    if (v5 == 239)
+    {
+      *a2 = -1;
+      return 1;
+    }
+
+LABEL_8:
+    re::snapshot::BufferDecoder::error(this, "expected dictionary, found tag %x");
+    return 0;
+  }
+
+  *a2 = v6;
+  if (v3 - v4 >= v6)
+  {
+    return 1;
+  }
+
+  re::snapshot::BufferDecoder::error(this, "overrun in beginDictionary: %zu items, only %zu bytes remaining");
+  return 0;
+}
+
+BOOL re::snapshot::DecoderOPACK::endDictionary(re::snapshot::DecoderOPACK *this, unint64_t *a2)
+{
+  v4 = *(this + 3);
+  v5 = *a2;
+  if (v4 >= *(this + 4))
+  {
+    if (v5)
+    {
+      re::snapshot::BufferDecoder::error(this, "reached end of buffer but expected more dictionary entries", v2, v3);
+      return 1;
+    }
+
+    return 1;
+  }
+
+  if (v5 <= 0xE)
+  {
+    *a2 = v5 - 1;
+    return v5 == 0;
+  }
+
+  if (*v4 == 3)
+  {
+    *(this + 3) = v4 + 1;
+    return 1;
+  }
+
+  return 0;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginArray(re::snapshot::DecoderOPACK *this, unint64_t *a2)
+{
+  v3 = *(this + 3);
+  v4 = *(this + 4);
+  if (v3 >= v4)
+  {
+    goto LABEL_9;
+  }
+
+  v6 = v3 + 1;
+  *(this + 3) = v3 + 1;
+  v7 = *v3;
+  v8 = (v7 - 208);
+  if (v8 <= 0xE)
+  {
+    *a2 = v8;
+    if (v4 - v6 < v8)
+    {
+      goto LABEL_7;
+    }
+
+    return 1;
+  }
+
+  if (v7 != 223)
+  {
+LABEL_9:
+    re::snapshot::BufferDecoder::error(this, "expected array, found tag %x");
+    return 0;
+  }
+
+  Integer = re::snapshot::DecoderOPACK::readInteger(this, -1);
+  *a2 = Integer;
+  if (*(this + 4) - *(this + 3) >= Integer + 1)
+  {
+    return 1;
+  }
+
+LABEL_7:
+  re::snapshot::BufferDecoder::error(this, "overrun in beginArray: %zu items, only %zu bytes remaining");
+  return 0;
+}
+
+uint64_t re::snapshot::DecoderOPACK::readInteger(re::snapshot::DecoderOPACK *this, uint64_t a2)
+{
+  v3 = *(this + 3);
+  v4 = *(this + 4);
+  if (v3 >= v4)
+  {
+    goto LABEL_22;
+  }
+
+  v5 = v3 + 1;
+  *(this + 3) = v3 + 1;
+  v6 = *v3;
+  if (v6 > 0x31)
+  {
+    if (v6 != 50)
+    {
+      if (v6 == 51)
+      {
+        if (v4 - v5 <= 7)
+        {
+          re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining");
+        }
+
+        else
+        {
+          a2 = *(v3 + 1);
+          *(this + 3) = v3 + 9;
+        }
+
+        return a2;
+      }
+
+LABEL_11:
+      if (v6 - 7 <= 0x28)
+      {
+        return (v6 - 8);
+      }
+
+LABEL_22:
+      re::snapshot::BufferDecoder::error(this, "expected integer, found tag %x");
+      return a2;
+    }
+
+    if (v4 - v5 <= 3)
+    {
+      re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 4uLL, v4 - v5);
+    }
+
+    else
+    {
+      LODWORD(a2) = *(v3 + 1);
+      *(this + 3) = v3 + 5;
+    }
+
+    return a2;
+  }
+
+  else
+  {
+    if (v6 != 48)
+    {
+      if (v6 == 49)
+      {
+        if (v4 - v5 <= 1)
+        {
+          re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 2uLL, v4 - v5);
+        }
+
+        else
+        {
+          LOWORD(a2) = *(v3 + 1);
+          *(this + 3) = v3 + 3;
+        }
+
+        return a2;
+      }
+
+      goto LABEL_11;
+    }
+
+    if (v5 < v4)
+    {
+      *(this + 3) = v3 + 2;
+      return v3[1];
+    }
+  }
+
+  return a2;
+}
+
+BOOL re::snapshot::DecoderOPACK::endArray(re::snapshot::DecoderOPACK *this, unint64_t *a2)
+{
+  v4 = *(this + 3);
+  v5 = *a2;
+  if (v4 >= *(this + 4))
+  {
+    if (v5)
+    {
+      re::snapshot::BufferDecoder::error(this, "reached end of buffer but expected more array entries", v2, v3);
+      return 1;
+    }
+
+    return 1;
+  }
+
+  if (v5 <= 0xE)
+  {
+    *a2 = v5 - 1;
+    return v5 == 0;
+  }
+
+  if (*v4 == 3)
+  {
+    *(this + 3) = v4 + 1;
+    return 1;
+  }
+
+  return 0;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginData(re::snapshot::DecoderOPACK *this, unint64_t *a2, uint64_t a3)
+{
+  v4 = *(this + 3);
+  v3 = *(this + 4);
+  if (v4 >= v3)
+  {
+    if (a3)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_32:
+    re::snapshot::BufferDecoder::error(this, "expected data, found tag %x", a3);
+    return 0;
+  }
+
+  v6 = v4 + 1;
+  *(this + 3) = v4 + 1;
+  v7 = *v4;
+  if (v7 > 0x92)
+  {
+    if (v7 == 147)
+    {
+      v8 = v3 - v6;
+      if (v8 > 3)
+      {
+        v9 = *(v4 + 1);
+        v6 = v4 + 5;
+        goto LABEL_18;
+      }
+
+      v11 = 4;
+LABEL_26:
+      re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", v11, v8);
+      goto LABEL_27;
+    }
+
+    if (v7 == 148)
+    {
+      v8 = v3 - v6;
+      if (v8 > 7)
+      {
+        v9 = *(v4 + 1);
+        v6 = v4 + 9;
+        goto LABEL_18;
+      }
+
+      v11 = 8;
+      goto LABEL_26;
+    }
+  }
+
+  else
+  {
+    if (v7 == 145)
+    {
+      if (v3 != v6)
+      {
+        v9 = v4[1];
+        v6 = v4 + 2;
+        goto LABEL_18;
+      }
+
+      re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 1uLL, 0);
+LABEL_27:
+      *a2 = 0;
+      return 1;
+    }
+
+    if (v7 == 146)
+    {
+      v8 = v3 - v6;
+      if (v8 > 1)
+      {
+        v9 = *(v4 + 1);
+        v6 = v4 + 3;
+LABEL_18:
+        *(this + 3) = v6;
+        goto LABEL_19;
+      }
+
+      v11 = 2;
+      goto LABEL_26;
+    }
+  }
+
+  if (v7 - 145 > 0xFFFFFFDE)
+  {
+    v9 = v7 - 112;
+LABEL_19:
+    *a2 = v9;
+    if (v3 - v6 < v9)
+    {
+      re::snapshot::BufferDecoder::error(this, "overrun in data: size = %zu, only %zu bytes left", a3);
+      return 0;
+    }
+
+    return 1;
+  }
+
+  ++v4;
+  if (!a3)
+  {
+    goto LABEL_32;
+  }
+
+LABEL_13:
+  v10 = 0;
+  *(this + 3) = v4 - 1;
+  return v10;
+}
+
+uint64_t re::snapshot::DecoderOPACK::beginOptional(re::snapshot::DecoderOPACK *this)
+{
+  v1 = *(this + 3);
+  if (v1 >= *(this + 4))
+  {
+    return 0;
+  }
+
+  if (*v1 != 4)
+  {
+    return 1;
+  }
+
+  result = 0;
+  *(this + 3) = v1 + 1;
+  return result;
+}
+
+uint64_t *re::snapshot::BufferDecoder::skipData(uint64_t *this, unint64_t a2)
+{
+  v2 = this;
+  v3 = this[3];
+  v4 = this[4] - v3;
+  if (v4 < a2)
+  {
+    this = re::snapshot::BufferDecoder::error(this, "overrun: attempted to skip %zu bytes, only %zu remaining", a2, v4);
+    v3 = v2[3];
+    a2 = v2[4] - v3;
+  }
+
+  v2[3] = v3 + a2;
+  return this;
+}
+
+uint64_t re::snapshot::DecoderRaw::deserializePolymorphicPointer(re::snapshot::BufferDecoder *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a1 + 3);
+  *(a1 + 3) = v4 + 1;
+  if (*v4)
+  {
+    v7 = 0;
+    re::snapshot::DecoderRaw::operator>>(a1, &v7);
+    v9 = 1;
+    v8 = v7;
+    v5 = *(**(a3 + 32) + 16);
+  }
+
+  else
+  {
+    LODWORD(v7) = 0;
+    v8 = 0;
+    v5 = *(**(a3 + 32) + 16);
+  }
+
+  return v5();
+}
+
+BOOL re::snapshot::DecoderRaw::beginDictionary(re::snapshot::DecoderRaw *this, unint64_t *a2)
+{
+  v4 = *(this + 3);
+  v5 = *(this + 4) - v4;
+  if (v5 <= 7)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 8uLL, v5);
+    v6 = *a2;
+    v7 = *(this + 3);
+  }
+
+  else
+  {
+    v6 = *v4;
+    *a2 = *v4;
+    v7 = *(this + 3) + 8;
+    *(this + 3) = v7;
+  }
+
+  v8 = 2 * v6;
+  v9 = *(this + 4) - v7;
+  if (v9 < 2 * v6)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun in beginDictionary: size is %zu, but only %zu bytes remaining", v6, v9);
+  }
+
+  return v9 >= v8;
+}
+
+BOOL re::snapshot::DecoderRaw::beginArray(re::snapshot::DecoderRaw *this, unint64_t *a2)
+{
+  v4 = *(this + 3);
+  v5 = *(this + 4) - v4;
+  if (v5 <= 7)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 8uLL, v5);
+    v6 = *a2;
+    v7 = *(this + 3);
+  }
+
+  else
+  {
+    v6 = *v4;
+    *a2 = *v4;
+    v7 = *(this + 3) + 8;
+    *(this + 3) = v7;
+  }
+
+  v8 = *(this + 4) - v7;
+  if (v8 < v6)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun in beginArray: size is %zu, but only %zu bytes remaining", v6, v8);
+  }
+
+  return v8 >= v6;
+}
+
+uint64_t re::snapshot::DecoderRaw::beginString(re::snapshot::DecoderRaw *this, unint64_t *a2)
+{
+  v4 = *(this + 3);
+  v5 = *(this + 4) - v4;
+  if (v5 <= 7)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 8uLL, v5);
+    v6 = *a2;
+  }
+
+  else
+  {
+    v6 = *v4;
+    *a2 = *v4;
+    *(this + 3) += 8;
+  }
+
+  if (v6 == -1)
+  {
+    return 1;
+  }
+
+  v7 = *(this + 4) - *(this + 3);
+  if (v7 >= v6)
+  {
+    return 1;
+  }
+
+  re::snapshot::BufferDecoder::error(this, "overrun in beginString: size is %zu, but only %zu bytes remaining", v6, v7);
+  return 0;
+}
+
+uint64_t re::snapshot::DecoderRaw::beginOptional(re::snapshot::DecoderRaw *this)
+{
+  v1 = *(this + 3);
+  if (*(this + 4) == v1)
+  {
+    re::snapshot::BufferDecoder::error(this, "overrun: attempted to read %zu bytes, only %zu remaining", 1uLL, 0);
+    v2 = 0;
   }
 
   else
   {
     v2 = *v1;
-    v3 = *(*v1 + 1);
-    v4 = **v1;
-    v5 = (*(v2 + 7) - *(v2 + 6)) >> 2;
-    v6 = v2[5];
+    *(this + 3) = v1 + 1;
   }
 
-  result = vrev64_s32(v3);
-  *(this + 20) = result;
-  *(this + 7) = v4;
-  *(this + 8) = v5;
-  *(this + 9) = v6;
-  return result;
-}
-
-void *OpenSubdiv::v3_1_1::Far::TopologyRefiner::RefineAdaptive(uint64_t a1, unsigned __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
-{
-  v9 = a1 + 40;
-  if (!*(**(a1 + 40) + 8))
-  {
-    v11 = "Failure in TopologyRefiner::RefineAdaptive() -- base level is uninitialized.";
-    goto LABEL_9;
-  }
-
-  if (*(a1 + 72) != *(a1 + 64))
-  {
-    v11 = "Failure in TopologyRefiner::RefineAdaptive() -- previous refinements already applied.";
-LABEL_9:
-
-    return OpenSubdiv::v3_1_1::Far::Error(4, v11, a3, a4, a5, a6, a7, a8, a9);
-  }
-
-  if (*a1 != 1)
-  {
-    v11 = "Failure in TopologyRefiner::RefineAdaptive() -- currently only supported for Catmark scheme.";
-    goto LABEL_9;
-  }
-
-  *(a1 + 8) &= ~1u;
-  *(a1 + 16) = a2;
-  v13 = a2 >> 4;
-  v14 = a2 & 0xF;
-  v15 = 15;
-  if ((a2 & 0x100) != 0)
-  {
-    OpenSubdiv::v3_1_1::Sdc::staticTraitsTable(a1);
-    v16 = DWORD1(xmmword_1ECF1CE78) == 4;
-    if (DWORD1(xmmword_1ECF1CE78) == 4)
-    {
-      v15 = 11;
-    }
-
-    else
-    {
-      v15 = 15;
-    }
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  if (v16 | ((a2 & 0x200) >> 9))
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v18 = 16;
-  }
-
-  if ((((v13 & 0x20 | a2 & 0x400 | v15 | v18) ^ 0x3E0) & 0x400) != 0)
-  {
-    v19 = *(**v9 + 456);
-    v20 = *(**v9 + 464) - v19;
-    if ((v20 >> 3) >= 1)
-    {
-      v21 = 0;
-      v22 = (v20 >> 3) & 0x7FFFFFFF;
-      do
-      {
-        v23 = *v19++;
-        v21 |= *(v23 + 12) ^ 1;
-        --v22;
-      }
-
-      while (v22);
-    }
-  }
-
-  OpenSubdiv::v3_1_1::Sdc::staticTraitsTable(a1);
-  if (v14)
-  {
-    operator new();
-  }
-
-  *(a1 + 8) = ((*(a1 + 72) - *(a1 + 64)) >> 1) & 0x3C | *(a1 + 8) & 0xC3;
-  return OpenSubdiv::v3_1_1::Far::TopologyRefiner::assembleFarLevels(a1);
-}
-
-void std::__allocate_at_least[abi:nn200100]<std::allocator<OpenSubdiv::v3_1_1::Far::TopologyLevel>>(unint64_t a1)
-{
-  if (a1 < 0xAAAAAAAAAAAAAABLL)
-  {
-    operator new();
-  }
-
-  std::string::__throw_length_error[abi:nn200100]();
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::EndCapLegacyGregoryPatchFactory::GetPatchPoints(uint64_t a1, void *a2, int a3, uint64_t a4, int a5, unsigned int a6)
-{
-  v25 = a3;
-  if ((a6 & 0x80000000) != 0)
-  {
-    v12 = a2[3];
-    v11 = (a2[6] + 4 * *(v12 + 8 * a3 + 4));
-    v10 = (v12 + 8 * a3);
-  }
-
-  else
-  {
-    v8 = *(a2[57] + 8 * a6);
-    v9 = *(*v8 + 24);
-    v10 = (v9 + 8 * a3);
-    v11 = (v8[3] + 4 * *(v9 + 4 * ((2 * a3) | 1)));
-  }
-
-  v13 = *v10;
-  v14 = a2[54];
-  v15 = *(v14 + 2 * *v11);
-  if (v13 >= 2)
-  {
-    v16 = v13 - 1;
-    v17 = v11 + 1;
-    do
-    {
-      v18 = *v17++;
-      v15 |= *(v14 + 2 * v18);
-      --v16;
-    }
-
-    while (v16);
-  }
-
-  v19 = 0;
-  if ((v15 & 4) != 0)
-  {
-    v20 = 40;
-    v21 = 80;
-    do
-    {
-      v24 = v11[v19] + a5;
-      std::vector<int>::push_back[abi:nn200100]((a1 + 32), &v24);
-      ++v19;
-    }
-
-    while (v19 != 4);
-  }
-
-  else
-  {
-    v20 = 16;
-    v21 = 56;
-    do
-    {
-      v23 = v11[v19] + a5;
-      std::vector<int>::push_back[abi:nn200100]((a1 + 8), &v23);
-      ++v19;
-    }
-
-    while (v19 != 4);
-  }
-
-  std::vector<int>::push_back[abi:nn200100]((a1 + v21), &v25);
-  return *(a1 + v20) - 16;
-}
-
-void OpenSubdiv::v3_1_1::Far::EndCapLegacyGregoryPatchFactory::Finalize(void *a1, int a2, std::vector<int> *this, std::vector<int> *a4, unsigned int *a5)
-{
-  v8 = a1;
-  v9 = a1[7];
-  v10 = a1[8];
-  v11 = v10 - v9;
-  v39 = a1[10];
-  v41 = a1[11];
-  v12 = (v41 - v39) >> 2;
-  v13 = v12 + ((v10 - v9) >> 2);
-  v14 = *(*(*a1 + 40) + 8 * ((*(*a1 + 8) >> 2) & 0xF));
-  std::vector<unsigned int>::resize(this, 4 * v13);
-  if (v13)
-  {
-    v15 = v8;
-    begin = this->__begin_;
-    if (v10 == v9)
-    {
-      v19 = v8;
-    }
-
-    else
-    {
-      v17 = 0;
-      v18 = (v11 >> 2) <= 1 ? 1 : v11 >> 2;
-      v19 = v15;
-      do
-      {
-        OpenSubdiv::v3_1_1::Far::getQuadOffsets(v14, *(v19[7] + 4 * v17), begin, a5);
-        begin += 4;
-        ++v17;
-      }
-
-      while (v18 != v17);
-    }
-
-    v8 = v19;
-    if (v41 != v39)
-    {
-      v20 = 0;
-      if (v12 <= 1)
-      {
-        v12 = 1;
-      }
-
-      do
-      {
-        OpenSubdiv::v3_1_1::Far::getQuadOffsets(v14, *(v19[10] + 4 * v20), begin, a5);
-        begin += 4;
-        ++v20;
-      }
-
-      while (v12 != v20);
-    }
-  }
-
-  v21 = (2 * a2) | 1;
-  std::vector<unsigned int>::resize(a4, *(*v8 + 20) * v21);
-  v22 = 0;
-  v23 = 0;
-  v24 = (*(*v8 + 8) >> 2) & 0xF;
-  v25 = v21;
-  v26 = (v24 + 1);
-  v27 = (8 * ((2 * a2) >> 1)) | 4;
-  v42 = v24;
-  v43 = v8;
-  v40 = v26;
-  do
-  {
-    v28 = *(*(*v8 + 40) + 8 * v22);
-    v29 = *(v28 + 2);
-    if (v22 == v24 && v29 >= 1)
-    {
-      v45 = v22;
-      v30 = 0;
-      v31 = v23 * v25;
-      v32 = 4 * v31 + 4;
-      do
-      {
-        v33 = a4->__begin_;
-        v34 = &a4->__begin_[v31];
-        *v34 = 0;
-        v35 = OpenSubdiv::v3_1_1::Vtr::internal::Level::gatherQuadRegularRingAroundVertex(v28, v30, v34 + 1, 0xFFFFFFFF);
-        if (v35 >= 1)
-        {
-          v36 = v35;
-          v37 = (v33 + v32);
-          do
-          {
-            *v37++ += v23;
-            --v36;
-          }
-
-          while (v36);
-        }
-
-        if (v35)
-        {
-          v34[v35 + 1] = v34[v35];
-          v38 = ~(v35 >> 1);
-        }
-
-        else
-        {
-          v38 = v35 >> 1;
-        }
-
-        *v34 = v38;
-        v31 += v25;
-        ++v30;
-        v29 = *(v28 + 2);
-        v32 += v27;
-      }
-
-      while (v30 < v29);
-      v8 = v43;
-      v22 = v45;
-      v26 = v40;
-      v24 = v42;
-    }
-
-    v23 += v29;
-    ++v22;
-  }
-
-  while (v22 != v26);
-}
-
-void *OpenSubdiv::v3_1_1::Far::getQuadOffsets(void *this, const OpenSubdiv::v3_1_1::Vtr::internal::Level *a2, uint64_t a3, unsigned int *a4)
-{
-  if ((a4 & 0x80000000) != 0)
-  {
-    v5 = this + 6;
-    v7 = this[3];
-  }
-
-  else
-  {
-    v4 = *(this[57] + 8 * a4);
-    v6 = *v4;
-    v5 = v4 + 3;
-    v7 = *(v6 + 24);
-  }
-
-  v8 = (v7 + 8 * a2 + 4);
-  v9 = 0;
-  v10 = *v5 + 4 * *v8;
-  v11 = this[36];
-  v12 = this[33];
-  v13 = this[42];
-  do
-  {
-    v14 = *(v10 + 4 * v9);
-    v15 = 2 * v14;
-    v16 = *(v12 + 8 * v14);
-    if (v16 < 1)
-    {
-LABEL_9:
-      LODWORD(v17) = -1;
-    }
-
-    else
-    {
-      v17 = 0;
-      v18 = v11 + 4 * *(v12 + 8 * v14 + 4);
-      while (*(v18 + 4 * v17) != a2)
-      {
-        if (v16 == ++v17)
-        {
-          goto LABEL_9;
-        }
-      }
-    }
-
-    *(a3 + 4 * v9++) = v17 | (((v17 + 1) % *(v13 + 4 * v15)) << 8);
-  }
-
-  while (v9 != 4);
-  return this;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::resizeComponentTopology(uint64_t a1, int *a2)
-{
-  v4 = *a2;
-  v5 = **(a1 + 40);
-  *(v5 + 8) = v4;
-  std::vector<unsigned int>::resize((v5 + 264), 2 * v4);
-  std::vector<unsigned int>::resize((v5 + 336), 2 * v4);
-  std::vector<unsigned int>::resize((v5 + 408), v4);
-  std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::VTag>::resize(v5 + 432, v4);
-  bzero(*(v5 + 432), 2 * *(v5 + 8));
-  v6 = a2[1];
-  v7 = **(a1 + 40);
-  LODWORD(v7->__begin_) = v6;
-  std::vector<unsigned int>::resize(v7 + 1, 2 * v6);
-  begin = v7[4].__begin_;
-  v9 = v7[4].__end_ - begin;
-  if (v6 <= v9)
-  {
-    if (v6 < v9)
-    {
-      v7[4].__end_ = &begin[v6];
-    }
-  }
-
-  else
-  {
-    std::vector<OpenSubdiv::v3_1_1::Vtr::internal::Level::FTag>::__append(&v7[4], v6 - v9);
-    begin = v7[4].__begin_;
-  }
-
-  bzero(begin, SLODWORD(v7->__begin_));
-  if (a2[1] >= 1)
-  {
-    v10 = 0;
-    v11 = *(a2 + 1);
-    v12 = **(a1 + 40);
-    v13 = *(v12 + 24);
-    do
-    {
-      v14 = *(v11 + 4 * v10);
-      *v13 = v14;
-      if (v10)
-      {
-        v15 = *(v13 - 1) + *(v13 - 2);
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      v13[1] = v15;
-      if (*(v12 + 20) > v14)
-      {
-        v14 = *(v12 + 20);
-      }
-
-      *(v12 + 20) = v14;
-      ++v10;
-      v13 += 2;
-    }
-
-    while (v10 < a2[1]);
-  }
-
-  return 1;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTopology(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 4) >= 1)
-  {
-    v2 = 0;
-    v3 = 0;
-    v4 = **(a1 + 40);
-    v5 = *(v4 + 24);
-    v6 = *(v4 + 48);
-    v7 = *(a2 + 88);
-    v8 = *(a2 + 16);
-    do
-    {
-      v9 = *(v5 + 8 * v2);
-      v10 = *(v5 + 8 * v2 + 4);
-      v11 = (v6 + 4 * v10);
-      if (v7)
-      {
-        *v11 = *(v8 + 4 * v3++);
-        if (v9 >= 2)
-        {
-          v12 = v9 + 1;
-          v13 = (v6 - 4 + 4 * v10 + 4 * v9);
-          v14 = (v8 + 4 * v3);
-          do
-          {
-            v15 = *v14++;
-            *v13-- = v15;
-            --v12;
-            ++v3;
-          }
-
-          while (v12 > 2);
-        }
-      }
-
-      else if (v9 >= 1)
-      {
-        v16 = (v8 + 4 * v3);
-        v3 += v9;
-        do
-        {
-          v17 = *v16++;
-          *v11++ = v17;
-          --v9;
-        }
-
-        while (v9);
-      }
-
-      ++v2;
-    }
-
-    while (v2 < *(a2 + 4));
-  }
-
-  return 1;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignComponentTags(uint64_t a1, uint64_t a2)
-{
-  v22 = *MEMORY[0x1E69E9840];
-  v4 = *(a2 + 24);
-  if (v4 >= 1)
-  {
-    v5 = *(a2 + 32);
-    if (v5)
-    {
-      if (*(a2 + 40))
-      {
-        for (i = 0; i < v4; ++i)
-        {
-          v7 = *v5;
-          v8 = v5[1];
-          v9 = **(a1 + 40);
-          Edge = OpenSubdiv::v3_1_1::Vtr::internal::Level::findEdge(v9, *v5, v8);
-          if (Edge == -1)
-          {
-            snprintf(__str, 0x400uLL, "Edge %d specified to be sharp does not exist (%d, %d)", i, v7, v8);
-            OpenSubdiv::v3_1_1::Far::Warning("%s", v11, __str);
-            v4 = *(a2 + 24);
-          }
-
-          else
-          {
-            *(*(v9 + 27) + 4 * Edge) = *(*(a2 + 40) + 4 * i);
-          }
-
-          v5 += 2;
-        }
-      }
-    }
-  }
-
-  v12 = *(a2 + 48);
-  if (v12 >= 1 && *(a2 + 56) && *(a2 + 64))
-  {
-    for (j = 0; j < v12; ++j)
-    {
-      v14 = *(*(a2 + 56) + 4 * j);
-      if ((v14 & 0x80000000) != 0 || (v15 = **(a1 + 40), v14 >= *(v15 + 8)))
-      {
-        snprintf(__str, 0x400uLL, "Vertex %d specified to be sharp does not exist", *(*(a2 + 56) + 4 * j));
-        OpenSubdiv::v3_1_1::Far::Warning("%s", v16, __str);
-        v12 = *(a2 + 48);
-      }
-
-      else
-      {
-        *(*(v15 + 408) + 4 * v14) = *(*(a2 + 64) + 4 * j);
-      }
-    }
-  }
-
-  if (*(a2 + 72) >= 1)
-  {
-    v17 = 0;
-    do
-    {
-      v18 = *(*(a2 + 80) + 4 * v17);
-      v19 = *(**(a1 + 40) + 96);
-      *(v19 + v18) |= 1u;
-      *(a1 + 8) |= 2u;
-      ++v17;
-    }
-
-    while (v17 < *(a2 + 72));
-  }
-
-  return 1;
-}
-
-uint64_t OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::assignFaceVaryingTopology(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 92) >= 1)
-  {
-    OpenSubdiv::v3_1_1::Vtr::internal::Level::createFVarChannel();
-  }
-
-  return 1;
-}
-
-void OpenSubdiv::v3_1_1::Osd::CpuEvalStencils(uint64_t a1, int *a2, uint64_t a3, int *a4, int *a5, uint64_t a6, int *a7, const float *a8, int32x4_t a9, int32x4_t a10, int a11, int a12)
-{
-  v12 = a8;
-  v13 = a7;
-  v14 = a5;
-  v56 = *MEMORY[0x1E69E9840];
-  if (a11 >= 1)
-  {
-    v14 = &a5[a11];
-    v17 = *(a6 + 4 * a11);
-    v13 = &a7[v17];
-    v12 = &a8[v17];
-  }
-
-  v18 = a1 + 4 * *a2;
-  v19 = a3 + 4 * *a4;
-  a9.i64[0] = *(a2 + 1);
-  a10.i64[0] = *(a4 + 1);
-  v20.i64[0] = 0x400000004;
-  v20.i64[1] = 0x400000004;
-  if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(vzip1q_s32(a9, a10), v20)))))
-  {
-    v21.i64[0] = *(a2 + 1);
-    v21.i64[1] = *(a4 + 1);
-    v22.i64[0] = 0x800000008;
-    v22.i64[1] = 0x800000008;
-    if (vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v21, v22)))))
-    {
-      MEMORY[0x1EEE9AC00](a1);
-      v24 = &v54[-v23];
-      bzero(&v54[-v23], v25);
-      v55 = a12 - a11;
-      if (a12 - a11 >= 1)
-      {
-        v26 = 0;
-        do
-        {
-          v27 = v19;
-          v28 = a2[1];
-          bzero(v24, 4 * v28);
-          v29 = *v14;
-          if (*v14 < 1)
-          {
-            v19 = v27;
-          }
-
-          else
-          {
-            v30 = 0;
-            v31 = v28;
-            v32 = a2[2];
-            v19 = v27;
-            do
-            {
-              v34 = *v13++;
-              v33 = v34;
-              v35 = *v12++;
-              v36 = v35;
-              if (v31 >= 1)
-              {
-                v37 = (v18 + 4 * v33 * v32);
-                v38 = v24;
-                v39 = v31;
-                do
-                {
-                  v40 = *v37++;
-                  *v38 = *v38 + (v40 * v36);
-                  ++v38;
-                  --v39;
-                }
-
-                while (v39);
-              }
-
-              ++v30;
-            }
-
-            while (v30 != v29);
-          }
-
-          memcpy((v19 + 4 * a4[2] * v26++), v24, 4 * a4[1]);
-          ++v14;
-        }
-
-        while (v26 != v55);
-      }
-    }
-
-    else if (a12 > a11)
-    {
-      v46 = a11;
-      do
-      {
-        v47 = v14[v46];
-        v48 = 0uLL;
-        v49 = 0uLL;
-        if (v47 >= 1)
-        {
-          do
-          {
-            v50 = vld1q_dup_f32(v12++);
-            v51 = *v13++;
-            v52 = (v18 + 32 * v51);
-            v49 = vmlaq_f32(v49, v50, *v52);
-            v48 = vmlaq_f32(v48, v50, v52[1]);
-            --v47;
-          }
-
-          while (v47);
-        }
-
-        v53 = (v19 + 32 * v46);
-        *v53 = v49;
-        v53[1] = v48;
-        ++v46;
-      }
-
-      while (v46 != a12);
-    }
-  }
-
-  else if (a12 > a11)
-  {
-    v41 = a11;
-    do
-    {
-      v42 = v14[v41];
-      v43 = 0uLL;
-      if (v42 >= 1)
-      {
-        do
-        {
-          v45 = *v13++;
-          v44 = v45;
-          *&v45 = *v12++;
-          v43 = vmlaq_n_f32(v43, *(v18 + 16 * v44), *&v45);
-          --v42;
-        }
-
-        while (v42);
-      }
-
-      *(v19 + 16 * v41++) = v43;
-    }
-
-    while (v41 != a12);
-  }
-}
-
-int8x16_t *re::pathprocessing::ContinuousEdge::getIndex(int8x16_t *result, void *a2, uint64_t a3, int a4)
-{
-  if (a4)
-  {
-    v4 = a3 + 24 * *(*(a2[1] + (((a2[4] + a2[5] - 1) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((a2[4] + a2[5] - 1) & 0x1FF));
-    *result = vextq_s8(*(v4 + 8), *(v4 + 8), 8uLL);
-    v5 = *v4;
-  }
-
-  else
-  {
-    v6 = (a3 + 24 * *(*(a2[1] + ((a2[4] >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (a2[4] & 0x1FFLL)));
-    *result = *v6;
-    v5 = v6[1].i64[0];
-  }
-
-  result[1].i64[0] = v5;
-  return result;
-}
-
-int64x2_t re::pathprocessing::ContinuousEdge::appendBezier(re::pathprocessing::ContinuousEdge *this, uint64_t a2, uint64_t a3)
-{
-  if (a3 == 2)
-  {
-    v10 = *(this + 4);
-    if (!v10)
-    {
-      v11 = *(this + 1);
-      v12 = *(this + 2);
-      v13 = ((v12 - v11) << 6) - 1;
-      v14 = v12 - v11;
-      if (v12 == v11)
-      {
-        v13 = 0;
-      }
-
-      if ((v13 - *(this + 5)) < 0x200)
-      {
-        v15 = *(this + 3);
-        v16 = *this;
-        v17 = v15 - *this;
-        if (v14 < v17)
-        {
-          if (v11 != v16)
-          {
-            operator new();
-          }
-
-          operator new();
-        }
-
-        if (v15 == v16)
-        {
-          v18 = 1;
-        }
-
-        else
-        {
-          v18 = v17 >> 2;
-        }
-
-        v22[4] = this;
-        std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long *>>(this, v18);
-      }
-
-      *(this + 4) = 512;
-      v22[0] = *(v12 - 8);
-      *(this + 2) = v12 - 8;
-      std::__split_buffer<unsigned long *>::emplace_front<unsigned long *>(this, v22);
-      v10 = *(this + 4);
-    }
-
-    v19 = *(this + 1);
-    v20 = (v19 + 8 * (v10 >> 9));
-    v21 = *v20 + 8 * (v10 & 0x1FF);
-    if (*(this + 2) == v19)
-    {
-      v21 = 0;
-    }
-
-    if (v21 == *v20)
-    {
-      v21 = *(v20 - 1) + 4096;
-    }
-
-    *(v21 - 8) = a2;
-    result = vaddq_s64(*(this + 2), xmmword_1E309DBF0);
-    *(this + 2) = result;
-  }
-
-  else if (!a3)
-  {
-    result = *(this + 8);
-    v6 = *(this + 2);
-    v7 = *(this + 1);
-    v8 = ((v6 - v7) << 6) - 1;
-    if (v6 == v7)
-    {
-      v8 = 0;
-    }
-
-    v9 = *(this + 5) + *(this + 4);
-    if (v8 == v9)
-    {
-      std::deque<unsigned long>::__add_back_capacity(this);
-      v7 = *(this + 1);
-      v9 = *(this + 5) + *(this + 4);
-    }
-
-    *(*(v7 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = a2;
-    ++*(this + 5);
-  }
-
-  return result;
-}
-
-void re::pathprocessing::ContinuousVertex::addEdgeFromEnd(uint64_t a1, uint64_t a2, int a3)
-{
-  v7 = *(a1 + 8);
-  v6 = *(a1 + 16);
-  if (v7 >= v6)
-  {
-    v9 = *a1;
-    v10 = v7 - *a1;
-    v11 = v10 >> 4;
-    v12 = (v10 >> 4) + 1;
-    if (v12 >> 60)
-    {
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v13 = v6 - v9;
-    if (v13 >> 3 > v12)
-    {
-      v12 = v13 >> 3;
-    }
-
-    if (v13 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v14 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v12;
-    }
-
-    if (v14)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<unsigned long,re::pathprocessing::ContinuousEdge::EdgeEnd>>>(v14);
-    }
-
-    v15 = 16 * v11;
-    *v15 = a2;
-    *(v15 + 8) = a3;
-    v8 = 16 * v11 + 16;
-    memcpy(0, v9, v10);
-    v16 = *a1;
-    *a1 = 0;
-    *(a1 + 8) = v8;
-    *(a1 + 16) = 0;
-    if (v16)
-    {
-      operator delete(v16);
-    }
-  }
-
-  else
-  {
-    *v7 = a2;
-    *(v7 + 8) = a3;
-    v8 = v7 + 16;
-  }
-
-  *(a1 + 8) = v8;
-}
-
-uint64_t re::pathprocessing::ContinuousVertex::compareAngle(float32x2_t *a1, float32x2_t *a2)
-{
-  v3 = *a1;
-  v2 = a1[1];
-  v4 = vsub_f32(v2, *a1);
-  v5 = vmul_f32(v4, v4);
-  v6 = a2[1];
-  v7 = vsub_f32(v6, *a2);
-  v8 = vmul_f32(v7, v7);
-  v9 = vsqrt_f32(vadd_f32(vzip1_s32(v5, v8), vzip2_s32(v5, v8)));
-  __asm { FMOV            V7.2S, #1.0 }
-
-  v15 = vdiv_f32(_D7, v9);
-  v16 = vmul_n_f32(v4, v15.f32[0]);
-  v17 = vmul_lane_f32(v7, v15, 1);
-  if (fabsf((-v16.f32[1] * v17.f32[0]) + (v16.f32[0] * v17.f32[1])) >= 0.0001 || vaddv_f32(vmul_f32(v16, v17)) <= 0.0001)
-  {
-    if (v16.f32[1] < 0.0)
-    {
-      v16.f32[0] = -2.0 - v16.f32[0];
-    }
-
-    if (v17.f32[1] < 0.0)
-    {
-      v17.f32[0] = -2.0 - v17.f32[0];
-    }
-
-    if (v16.f32[0] <= v17.f32[0])
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 0xFFFFFFFFLL;
-    }
-  }
-
-  else
-  {
-    result = 0;
-    v20 = vadd_f32(vsub_f32(v3, vadd_f32(v2, v2)), a1[2]);
-    v21 = vadd_f32(v20, v20);
-    v22 = vmul_f32(v15, v15);
-    v23 = vadd_f32(vsub_f32(*a2, vadd_f32(v6, v6)), a2[2]);
-    v24 = vadd_f32(v23, v23);
-    v25 = vneg_f32(v17);
-    v25.f32[0] = -v16.f32[1];
-    v26 = vmul_f32(v22, vmla_f32(vmul_f32(vzip1_s32(v21, v24), v25), vzip2_s32(v21, v24), vzip1_s32(v16, v17)));
-    if (v26.f32[0] != v26.f32[1] && vabds_f32(v26.f32[0], v26.f32[1]) > 0.0001)
-    {
-      if (v26.f32[0] >= v26.f32[1])
-      {
-        return 1;
-      }
-
-      else
-      {
-        return 0xFFFFFFFFLL;
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::pathprocessing::HDSMesh::HDSMesh(uint64_t a1, uint64_t *a2)
-{
-  *(a1 + 48) = 0;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *a1 = 0u;
-  if (a2[3] != a2[4] && *a2 != a2[1] && a2[6] != a2[7])
-  {
-    re::pathprocessing::HDSMesh::generateTopology(a1, a2);
-  }
-
-  return a1;
-}
-
-void re::pathprocessing::HDSMesh::generateTopology(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = 0x8E38E38E38E38E39 * ((v3 - *a2) >> 3);
-  v7 = a2[3];
-  v6 = a2[4];
-  v8 = 0x1C71C71C71C71C72 * ((v3 - *a2) >> 3);
-  v10 = *a1;
-  v9 = *(a1 + 8);
-  v11 = v9 - *a1;
-  v12 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 4);
-  v13 = v8 - v12;
-  if (v8 <= v12)
-  {
-    if (v8 < v12)
-    {
-      *(a1 + 8) = v10 + 0x5555555555555560 * ((v3 - *a2) >> 3);
-    }
-  }
-
-  else
-  {
-    v14 = *(a1 + 16);
-    if (0xAAAAAAAAAAAAAAABLL * ((v14 - v9) >> 4) < v13)
-    {
-      if (v8 <= 0x555555555555555)
-      {
-        v15 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v10) >> 4);
-        if (2 * v15 > v8)
-        {
-          v8 = 2 * v15;
-        }
-
-        if (v15 >= 0x2AAAAAAAAAAAAAALL)
-        {
-          v16 = 0x555555555555555;
-        }
-
-        else
-        {
-          v16 = v8;
-        }
-
-        std::__allocate_at_least[abi:nn200100]<std::allocator<re::pathprocessing::HalfEdge>>(a1, v16);
-      }
-
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    v17 = v9 + 48 * v13;
-    v18 = 0x5555555555555560 * ((v3 - *a2) >> 3) - 16 * (v11 >> 4);
-    *&v19 = -1;
-    *(&v19 + 1) = -1;
-    do
-    {
-      *v9 = v19;
-      *(v9 + 16) = v19;
-      *(v9 + 32) = -1;
-      *(v9 + 40) = 0;
-      v9 += 48;
-      v18 -= 48;
-    }
-
-    while (v18);
-    *(a1 + 8) = v17;
-  }
-
-  v20 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3);
-  v21 = v5 + 2 - v20;
-  if (v5 + 2 >= v20)
-  {
-    if (v21 > (*(a1 + 40) - *(a1 + 24)) >> 4)
-    {
-      if (!(v21 >> 60))
-      {
-        _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v21);
-      }
-
-LABEL_63:
-      std::string::__throw_length_error[abi:nn200100]();
-    }
-
-    if (v3 != v4)
-    {
-      v22 = 0;
-      v23 = 0;
-      if (v5 <= 1)
-      {
-        v24 = 1;
-      }
-
-      else
-      {
-        v24 = v5;
-      }
-
-      v25 = (*a1 + 88);
-      do
-      {
-        *(v25 - 12) = 0;
-        *v25 = 1;
-        *(v25 - 8) = v22 + 1;
-        *(v25 - 7) = v23;
-        *(v25 - 2) = v22;
-        *(v25 - 1) = v23++;
-        v22 += 2;
-        v25 += 24;
-      }
-
-      while (v24 != v23);
-    }
-
-    if (v6 != v7)
-    {
-      v26 = 0;
-      v27 = a2[3];
-      if (v20 <= 1)
-      {
-        v28 = 1;
-      }
-
-      else
-      {
-        v28 = 0xAAAAAAAAAAAAAAABLL * ((v6 - v7) >> 3);
-      }
-
-      do
-      {
-        v29 = (v27 + 24 * v26);
-        v30 = *v29;
-        v31 = v29[1];
-        v32 = v31 - *v29;
-        if (v32)
-        {
-          v33 = v32 >> 4;
-          v34 = *a1;
-          if (v33 <= 1)
-          {
-            v33 = 1;
-          }
-
-          v35 = *(v31 - 8);
-          v36 = *(v31 - 16);
-          v37 = (v30 + 8);
-          do
-          {
-            v38 = *v37;
-            v39 = (v35 != 0) | (2 * v36);
-            v40 = *(v37 - 1);
-            v41 = (*v37 == 0) | (2 * v40);
-            *(v34 + 48 * v41 + 8) = v39;
-            *(v34 + 48 * v39 + 16) = v41;
-            v37 += 4;
-            v36 = v40;
-            v35 = v38;
-            --v33;
-          }
-
-          while (v33);
-        }
-
-        ++v26;
-      }
-
-      while (v26 != v28);
-    }
-
-    v43 = *a1;
-    v42 = *(a1 + 8);
-    v44 = 0xAAAAAAAAAAAAAAABLL * ((v42 - *a1) >> 4);
-    std::vector<BOOL>::vector(&__p, v44);
-    v45 = __p;
-    if (v42 == v43)
-    {
-      if (!__p)
-      {
-LABEL_61:
-        *(a1 + 48) = 1;
-        return;
-      }
-    }
-
-    else
-    {
-      v46 = 0;
-      if (v44 <= 1)
-      {
-        v47 = 1;
-      }
-
-      else
-      {
-        v47 = v44;
-      }
-
-      v61 = v47;
-      do
-      {
-        if (((1 << v46) & v45[v46 >> 6]) == 0)
-        {
-          v48 = *(a1 + 24);
-          v49 = *(a1 + 32);
-          v50 = v49 - v48;
-          v51 = (v49 - v48) >> 4;
-          v52 = *(a1 + 40);
-          if (v49 >= v52)
-          {
-            v54 = v51 + 1;
-            if ((v51 + 1) >> 60)
-            {
-              goto LABEL_63;
-            }
-
-            v55 = v52 - v48;
-            if (v55 >> 3 > v54)
-            {
-              v54 = v55 >> 3;
-            }
-
-            if (v55 >= 0x7FFFFFFFFFFFFFF0)
-            {
-              v56 = 0xFFFFFFFFFFFFFFFLL;
-            }
-
-            else
-            {
-              v56 = v54;
-            }
-
-            if (v56)
-            {
-              _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorIDv3_fEEEENS_19__allocation_resultINS_16allocator_traitsIT_E7pointerEEERS6_m(v56);
-            }
-
-            *(16 * v51) = xmmword_1E3062D70;
-            v53 = 16 * v51 + 16;
-            memcpy(0, v48, v50);
-            v57 = *(a1 + 24);
-            *(a1 + 24) = 0;
-            *(a1 + 32) = v53;
-            *(a1 + 40) = 0;
-            if (v57)
-            {
-              operator delete(v57);
-            }
-
-            v47 = v61;
-          }
-
-          else
-          {
-            *v49 = xmmword_1E3062D70;
-            v53 = (v49 + 16);
-          }
-
-          *(a1 + 32) = v53;
-          *(v53 - 16) = v46;
-          v58 = *a1;
-          v59 = v46;
-          v45 = __p;
-          do
-          {
-            v60 = (v58 + 48 * v59);
-            *v60 = v51;
-            *(v45 + ((v59 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v59;
-            v59 = v60[1];
-          }
-
-          while (v59 != v46);
-          v45[v46 >> 6] |= 1 << v46;
-        }
-
-        ++v46;
-      }
-
-      while (v46 != v47);
-    }
-
-    operator delete(v45);
-    goto LABEL_61;
-  }
-}
-
-uint64_t re::pathprocessing::BezierGraphInfo::BezierGraphInfo(uint64_t a1, void *a2)
-{
-  *(a1 + 48) = 0u;
-  *(a1 + 64) = 0;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *a1 = 0u;
-  v3 = a2[1];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a2) >> 3);
-  if (v3 != *a2)
-  {
-    if (!(v4 >> 61))
-    {
-      std::vector<unsigned long>::__vallocate[abi:nn200100](a1 + 48, v4);
-    }
-
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  *(a1 + 56) = 0x5555555555555558 * ((v3 - *a2) >> 3);
-  v37 = v38;
-  v38[0] = 0;
-  v38[1] = 0;
-  v38[2] = a2;
-  v35 = 0u;
-  v36 = 0u;
-  *__p = 0u;
-  v6 = *a1;
-  v5 = *(a1 + 8);
-  if (v5 != *a1)
-  {
-    if (!((0x8E38E38E38E38E39 * ((v5 - *a1) >> 3)) >> 61))
-    {
-      operator new();
-    }
-
-    std::string::__throw_length_error[abi:nn200100]();
-  }
-
-  v32 = 0uLL;
-  v33 = 0;
-  v7 = *(a1 + 24);
-  v8 = *(a1 + 32);
-  while (v7 != v8)
-  {
-    v9 = *v7;
-    v10 = *(v7 + 8);
-    while (v9 != v10)
-    {
-      *v9 += *(8 * *v9);
-      v9 += 2;
-    }
-
-    v7 += 24;
-  }
-
-  v11 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  while (v11 != v12)
-  {
-    *v11 += *(8 * *v11);
-    ++v11;
-  }
-
-  if (v6)
-  {
-    v13 = v6;
-    if (v5 != v6)
-    {
-      do
-      {
-        v5 = std::deque<unsigned long>::~deque[abi:nn200100]((v5 - 72));
-      }
-
-      while (v5 != v6);
-      v13 = *a1;
-    }
-
-    *(a1 + 8) = v6;
-    operator delete(v13);
-  }
-
-  *a1 = v32;
-  *(a1 + 16) = v33;
-  v33 = 0;
-  v32 = 0uLL;
-  v39[0] = &v32;
-  std::vector<re::pathprocessing::ContinuousEdge>::__destroy_vector::operator()[abi:nn200100](v39);
-  v14 = *(a1 + 24);
-  if (*(a1 + 32) != v14)
-  {
-    v15 = 0;
-    do
-    {
-      v16 = (v14 + 24 * v15);
-      v17 = *v16;
-      v18 = v16[1];
-      v19 = 126 - 2 * __clz((v18 - *v16) >> 4);
-      v20 = v18 == *v16;
-      v39[0] = a1;
-      v39[1] = a2;
-      if (v20)
-      {
-        v21 = 0;
-      }
-
-      else
-      {
-        v21 = v19;
-      }
-
-      std::__introsort<std::_ClassicAlgPolicy,re::pathprocessing::ContinuousVertex::sort(std::vector<re::pathprocessing::Bezier2> const&,std::vector<re::pathprocessing::ContinuousEdge> const&)::$_0 &,std::pair<unsigned long,re::pathprocessing::ContinuousEdge::EdgeEnd> *,false>(v17, v18, v39, v21, 1);
-      v22 = *v16;
-      v23 = v16[1];
-      if (*v16 != v23)
-      {
-        v24 = *a1;
-        do
-        {
-          *(v24 + 72 * *v22 + 8 * *(v22 + 8) + 48) = v15;
-          v22 += 16;
-        }
-
-        while (v22 != v23);
-      }
-
-      ++v15;
-      v14 = *(a1 + 24);
-    }
-
-    while (v15 < 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 32) - v14) >> 3));
-  }
-
-  v25 = __p[1];
-  v26 = v35;
-  v27 = v35 - __p[1];
-  if (v35 - __p[1] >= 0x11)
-  {
-    do
-    {
-      v28 = *v25++;
-      operator delete(v28);
-      v27 -= 8;
-    }
-
-    while (v27 > 0x10);
-  }
-
-  while (v25 != v26)
-  {
-    v29 = *v25++;
-    operator delete(v29);
-  }
-
-  if (__p[0])
-  {
-    operator delete(__p[0]);
-  }
-
-  std::__tree<std::__value_type<re::Vector2<float>,re::pathprocessing::Node>,std::__map_value_compare<re::Vector2<float>,std::__value_type<re::Vector2<float>,re::pathprocessing::Node>,re::pathprocessing::MathUtils::LexCompare,true>,std::allocator<std::__value_type<re::Vector2<float>,re::pathprocessing::Node>>>::destroy(v38[0]);
-  return a1;
-}
-
-void *std::deque<unsigned long>::insert<std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>,0>(uint64_t a1, char *a2, uint64_t a3, void *a4, char *a5, void *a6, char *a7)
-{
-  v7 = a6;
-  v8 = a5;
-  v9 = a4;
-  v11 = a7;
-  if (a7 == a5)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = (&a7[-*a6] >> 3) + ((a6 - a4) << 6) - (&a5[-*a4] >> 3);
-  }
-
-  v13 = *(a1 + 32);
-  v14 = v13 >> 9;
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 16);
-  v17 = (v15 + 8 * (v13 >> 9));
-  if (v16 == v15)
-  {
-    v18 = 0;
-  }
-
-  else
-  {
-    v18 = *v17 + 8 * (*(a1 + 32) & 0x1FFLL);
-  }
-
-  if (a3 == v18)
-  {
-    v19 = 0;
-  }
-
-  else
-  {
-    v19 = ((a3 - *a2) >> 3) + ((a2 - v17) << 6) - ((v18 - *v17) >> 3);
-  }
-
-  v20 = *(a1 + 40);
-  if (v19 < v20 - v19)
-  {
-    if (v12 > v13)
-    {
-      std::deque<unsigned long>::__add_front_capacity(a1, v12 - v13);
-      v13 = *(a1 + 32);
-      v15 = *(a1 + 8);
-      v16 = *(a1 + 16);
-      v14 = v13 >> 9;
-    }
-
-    v21 = (v15 + 8 * v14);
-    if (v16 == v15)
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = *v21 + 8 * (v13 & 0x1FF);
-    }
-
-    __dst[0] = (v15 + 8 * v14);
-    __dst[1] = v22;
-    if (v12 <= v19)
-    {
-      goto LABEL_55;
-    }
-
-    if (v19 >= v12 >> 1)
-    {
-      v28 = v12 - v19 + (&v8[-*v9] >> 3);
-      if (v28 >= 1)
-      {
-        v9 += v28 >> 9;
-        goto LABEL_37;
-      }
-
-      v35 = 511 - v28;
-      v36 = ~v35;
-      v9 -= v35 >> 9;
-    }
-
-    else
-    {
-      if (!v19)
-      {
-        v9 = v7;
-        v33 = v11;
-        goto LABEL_47;
-      }
-
-      v28 = (&v11[-*v7] >> 3) - v19;
-      if (v28 >= 1)
-      {
-        v9 = &v7[v28 >> 9];
-LABEL_37:
-        v33 = *v9 + 8 * (v28 & 0x1FF);
-LABEL_47:
-        if (v33 != v8)
-        {
-          v40 = *v21;
-          v41 = v9;
-          v42 = v33;
-          do
-          {
-            if (v22 == v40)
-            {
-              v43 = *--v21;
-              v40 = v43;
-              v22 = v43 + 4096;
-            }
-
-            if (v42 == *v41)
-            {
-              v44 = *--v41;
-              v42 = (v44 + 4096);
-            }
-
-            v45 = *(v42 - 1);
-            v42 -= 8;
-            *(v22 - 1) = v45;
-            v22 -= 8;
-            *(a1 + 32) = vaddq_s64(*(a1 + 32), xmmword_1E309DBF0);
-          }
-
-          while (v42 != v8);
-        }
-
-        v8 = v33;
-        v12 = v19;
-LABEL_55:
-        if (v12)
-        {
-          v112 = v19;
-          v46 = std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](__dst, v12);
-          v48 = v46;
-          v49 = v47;
-          v50 = __dst[1];
-          if (__dst[1] != v47)
-          {
-            v51 = *v21;
-            v52 = v46;
-            v53 = v47;
-            do
-            {
-              if (v22 == v51)
-              {
-                v54 = *--v21;
-                v51 = v54;
-                v22 = v54 + 4096;
-              }
-
-              if (v53 == *v52)
-              {
-                v55 = *--v52;
-                v53 = (v55 + 4096);
-              }
-
-              v56 = *(v53 - 1);
-              v53 -= 8;
-              *(v22 - 1) = v56;
-              v22 -= 8;
-              *(a1 + 32) = vaddq_s64(*(a1 + 32), xmmword_1E309DBF0);
-            }
-
-            while (v53 != v50);
-          }
-
-          if (v12 >= v112)
-          {
-            v59 = __dst[0];
-          }
-
-          else
-          {
-            v57 = std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](__dst, v112);
-            v114 = *__dst;
-            std::__for_each_segment[abi:nn200100]<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>>(v48, v49, v57, v58, &v114);
-            v50 = v114.n128_u64[1];
-            v59 = v114.n128_u64[0];
-            *__dst = v114;
-          }
-
-          if (v9 == v7)
-          {
-            v60 = v8;
-            v61 = v11;
-          }
-
-          else
-          {
-            *v111 = v11;
-            v63 = *v9;
-            v62 = v9 + 1;
-            std::__copy_move_unwrap_iters[abi:nn200100]<std::__move_impl<std::_ClassicAlgPolicy>,unsigned long *,unsigned long *,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v114, v8, (v63 + 4096), v59, v50);
-            v64 = v114.n128_u64[1];
-            v65 = v115;
-            if (v62 != v7)
-            {
-              v66 = *v114.n128_u64[1];
-              do
-              {
-                v67 = 0;
-                v68 = *v62;
-                for (++v64; ; ++v64)
-                {
-                  v69 = v66 - v65 + 4096;
-                  if ((4096 - v67) >> 3 >= v69 >> 3)
-                  {
-                    v70 = v69 >> 3;
-                  }
-
-                  else
-                  {
-                    v70 = (4096 - v67) >> 3;
-                  }
-
-                  if (v70)
-                  {
-                    memmove(v65, &v68[v67], 8 * v70);
-                  }
-
-                  v67 += 8 * v70;
-                  if (v67 == 4096)
-                  {
-                    break;
-                  }
-
-                  v71 = *v64;
-                  v66 = v71;
-                  v65 = v71;
-                }
-
-                v65 += 8 * v70;
-                v66 = *(v64 - 1);
-                if (v66 + 4096 == v65)
-                {
-                  v66 = *v64;
-                  v65 = *v64;
-                }
-
-                else
-                {
-                  --v64;
-                }
-
-                ++v62;
-              }
-
-              while (v62 != v7);
-            }
-
-            v60 = *v62;
-            v61 = *v111;
-            v59 = v64;
-            v50 = v65;
-          }
-
-          std::__copy_move_unwrap_iters[abi:nn200100]<std::__move_impl<std::_ClassicAlgPolicy>,unsigned long *,unsigned long *,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v114, v60, v61, v59, v50);
-          v19 = v112;
-        }
-
-        goto LABEL_128;
-      }
-
-      v39 = 511 - v28;
-      v36 = ~v39;
-      v9 = &v7[-(v39 >> 9)];
-    }
-
-    v33 = *v9 + 8 * (v36 & 0x1FF);
-    goto LABEL_47;
-  }
-
-  v23 = ((v16 - v15) << 6) - 1;
-  if (v16 == v15)
-  {
-    v23 = 0;
-  }
-
-  v24 = v20 + v13;
-  v25 = v23 - v24;
-  if (v12 > v25)
-  {
-    std::deque<unsigned long>::__add_back_capacity(a1, v12 - v25);
-    v20 = *(a1 + 40);
-    v15 = *(a1 + 8);
-    v16 = *(a1 + 16);
-    v24 = *(a1 + 32) + v20;
-  }
-
-  v26 = (v15 + 8 * (v24 >> 9));
-  if (v16 == v15)
-  {
-    v27 = 0;
-  }
-
-  else
-  {
-    v27 = (*v26 + 8 * (v24 & 0x1FF));
-  }
-
-  v29 = v20 - v19;
-  if (v20 - v19 >= v12)
-  {
-    v31 = v27;
-    v32 = v26;
-    if (!v12)
-    {
-      goto LABEL_128;
-    }
-
-    goto LABEL_96;
-  }
-
-  if (v29 >= v12 >> 1)
-  {
-    v30 = v20 - v19 - v12 + (&v11[-*v7] >> 3);
-    if (v30 >= 1)
-    {
-      v7 += v30 >> 9;
-      goto LABEL_40;
-    }
-
-    v37 = 511 - v30;
-    v38 = ~v37;
-    v7 -= v37 >> 9;
-  }
-
-  else
-  {
-    if (!v29)
-    {
-      v7 = v9;
-      v34 = v8;
-      goto LABEL_86;
-    }
-
-    v30 = v29 + (&v8[-*v9] >> 3);
-    if (v30 >= 1)
-    {
-      v7 = &v9[v30 >> 9];
-LABEL_40:
-      v34 = *v7 + 8 * (v30 & 0x1FF);
-      goto LABEL_86;
-    }
-
-    v72 = 511 - v30;
-    v38 = ~v72;
-    v7 = &v9[-(v72 >> 9)];
-  }
-
-  v34 = *v7 + 8 * (v38 & 0x1FF);
-LABEL_86:
-  if (v34 == v11)
-  {
-    v31 = v27;
-    v32 = v26;
-  }
-
-  else
-  {
-    v73 = *v26;
-    v74 = v7;
-    v75 = v34;
-    v32 = v26;
-    v31 = v27;
-    do
-    {
-      *v31 = *v75;
-      v31 += 8;
-      if (v31 - v73 == 4096)
-      {
-        v76 = v32[1];
-        ++v32;
-        v73 = v76;
-        v31 = v76;
-      }
-
-      v75 += 8;
-      if (&v75[-*v74] == 4096)
-      {
-        v77 = v74[1];
-        ++v74;
-        v75 = v77;
-      }
-
-      ++*(a1 + 40);
-    }
-
-    while (v75 != v11);
-  }
-
-  v11 = v34;
-  v12 = v29;
-  if (v29)
-  {
-LABEL_96:
-    v78 = &v27[-*v26] >> 3;
-    v79 = v78 - v12;
-    if ((v78 - v12) < 1)
-    {
-      v81 = 511 - v79;
-      LOWORD(v79) = ~(511 - v79);
-      v80 = &v26[-8 * (v81 >> 9)];
-    }
-
-    else
-    {
-      v80 = &v26[8 * (v79 >> 9)];
-    }
-
-    v82 = *v80;
-    v83 = &(*v80)[8 * (v79 & 0x1FF)];
-    if (v83 != v27)
-    {
-      v84 = *v32;
-      v85 = v80;
-      v86 = v83;
-      do
-      {
-        *v31 = *v86;
-        v31 += 8;
-        if (v31 - v84 == 4096)
-        {
-          v87 = v32[1];
-          ++v32;
-          v84 = v87;
-          v31 = v87;
-        }
-
-        v86 += 8;
-        if (v86 - v82 == 4096)
-        {
-          v88 = v85[1];
-          ++v85;
-          v82 = v88;
-          v86 = v88;
-        }
-
-        ++*(a1 + 40);
-      }
-
-      while (v86 != v27);
-    }
-
-    if (v12 < v29)
-    {
-      v89 = v78 - v29;
-      if (v89 < 1)
-      {
-        v92 = 511 - v89;
-        v90 = &v26[-8 * (v92 >> 9)];
-        v91 = &(*v90)[8 * (~v92 & 0x1FF)];
-      }
-
-      else
-      {
-        v90 = &v26[8 * (v89 >> 9)];
-        v91 = &(*v90)[8 * (v89 & 0x1FF)];
-      }
-
-      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v114, v90, v91, v80, v83, v26, v27);
-      v26 = v115;
-      v27 = v116;
-    }
-
-    if (v9 == v7)
-    {
-      v93 = v8;
-      v94 = v11;
-      v95 = v26;
-      v96 = v27;
-    }
-
-    else
-    {
-      v98 = *v7;
-      v97 = v7 - 1;
-      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long *,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v114, v98, v11, v26, v27);
-      v99 = v114.n128_u64[1];
-      v100 = v115;
-      if (v97 != v9)
-      {
-        v101 = *v114.n128_u64[1];
-        do
-        {
-          v102 = *v97;
-          v103 = (*v97 + 4096);
-          while (1)
-          {
-            v104 = v100 - v101;
-            if ((v103 - v102) >> 3 >= v104 >> 3)
-            {
-              v105 = v104 >> 3;
-            }
-
-            else
-            {
-              v105 = (v103 - v102) >> 3;
-            }
-
-            v103 -= 8 * v105;
-            v100 -= 8 * v105;
-            if (v105)
-            {
-              memmove(v100, v103, 8 * v105);
-            }
-
-            if (v103 == v102)
-            {
-              break;
-            }
-
-            v106 = *(v99 - 1);
-            v99 -= 8;
-            v101 = v106;
-            v100 = v106 + 4096;
-          }
-
-          v101 = *v99;
-          if ((*v99 + 4096) == v100)
-          {
-            v107 = *(v99 + 1);
-            v99 += 8;
-            v101 = v107;
-            v100 = v107;
-          }
-
-          --v97;
-        }
-
-        while (v97 != v9);
-      }
-
-      v94 = (*v97 + 4096);
-      v93 = v8;
-      v95 = v99;
-      v96 = v100;
-    }
-
-    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<unsigned long *,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v114, v93, v94, v95, v96);
-  }
-
-LABEL_128:
-  v108 = *(a1 + 8);
-  if (*(a1 + 16) == v108)
-  {
-    v109 = 0;
-  }
-
-  else
-  {
-    v109 = *(v108 + 8 * (*(a1 + 32) >> 9)) + 8 * (*(a1 + 32) & 0x1FFLL);
-  }
-
-  v114.n128_u64[0] = v108 + 8 * (*(a1 + 32) >> 9);
-  v114.n128_u64[1] = v109;
-  return std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](&v114, v19);
-}
-
-void *std::deque<unsigned long>::insert<std::reverse_iterator<std::__deque_iterator<unsigned long,unsigned long const*,unsigned long const&,unsigned long const* const*,long,512l>>,0>(int64x2_t *a1, char *a2, uint64_t a3, uint64_t a4, __int128 *a5)
-{
-  v6 = *(a4 + 16);
-  v116 = *a4;
-  v117 = v6;
-  v7 = a5[1];
-  v114 = *a5;
-  v115 = v7;
-  v8 = *(a4 + 24);
-  v9 = *(a5 + 3);
-  if (v8 == v9)
-  {
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = ((v8 - **(a4 + 16)) >> 3) + ((*(a4 + 16) - *(a5 + 2)) << 6) - ((v9 - **(a5 + 2)) >> 3);
-  }
-
-  v11 = a1[2].u64[0];
-  v12 = v11 >> 9;
-  v13 = a1->i64[1];
-  v14 = a1[1].i64[0];
-  v15 = (v13 + 8 * (v11 >> 9));
-  if (v14 == v13)
-  {
-    v16 = 0;
-  }
-
-  else
-  {
-    v16 = *v15 + 8 * (a1[2].i64[0] & 0x1FF);
-  }
-
-  if (a3 == v16)
-  {
-    v17 = 0;
-  }
-
-  else
-  {
-    v17 = ((a3 - *a2) >> 3) + ((a2 - v15) << 6) - ((v16 - *v15) >> 3);
-  }
-
-  v18 = a1[2].i64[1];
-  if (v17 >= v18 - v17)
-  {
-    v21 = ((v14 - v13) << 6) - 1;
-    if (v14 == v13)
-    {
-      v21 = 0;
-    }
-
-    v22 = v18 + v11;
-    v23 = v21 - v22;
-    if (v10 > v23)
-    {
-      std::deque<unsigned long>::__add_back_capacity(a1, v10 - v23);
-      v18 = a1[2].i64[1];
-      v13 = a1->i64[1];
-      v14 = a1[1].i64[0];
-      v22 = a1[2].i64[0] + v18;
-    }
-
-    v24 = (v13 + 8 * (v22 >> 9));
-    if (v14 == v13)
-    {
-      v25 = 0;
-    }
-
-    else
-    {
-      v25 = (*v24 + 8 * (v22 & 0x1FF));
-    }
-
-    v31 = *(&v115 + 1);
-    v30 = v115;
-    v32 = v18 - v17;
-    if (v10 <= v18 - v17)
-    {
-      v35 = v25;
-      v36 = v24;
-      if (!v10)
-      {
-        goto LABEL_116;
-      }
-
-LABEL_54:
-      v45 = &v25[-*v24] >> 3;
-      v46 = v45 - v10;
-      if ((v45 - v10) < 1)
-      {
-        v48 = 511 - v46;
-        LOWORD(v46) = ~(511 - v46);
-        v47 = &v24[-(v48 >> 9)];
-      }
-
-      else
-      {
-        v47 = &v24[v46 >> 9];
-      }
-
-      v49 = *v47;
-      v50 = &(*v47)[8 * (v46 & 0x1FF)];
-      if (v50 != v25)
-      {
-        v51 = *v36;
-        v52 = v47;
-        v53 = v50;
-        do
-        {
-          *v35 = *v53;
-          v35 += 8;
-          if (v35 - v51 == 4096)
-          {
-            v54 = v36[1];
-            ++v36;
-            v51 = v54;
-            v35 = v54;
-          }
-
-          v53 += 8;
-          if (v53 - v49 == 4096)
-          {
-            v55 = v52[1];
-            ++v52;
-            v49 = v55;
-            v53 = v55;
-          }
-
-          ++a1[2].i64[1];
-        }
-
-        while (v53 != v25);
-      }
-
-      if (v10 < v32)
-      {
-        v56 = v45 - v32;
-        if (v56 < 1)
-        {
-          v59 = 511 - v56;
-          v57 = &v24[-(v59 >> 9)];
-          v58 = &(*v57)[8 * (~v59 & 0x1FF)];
-        }
-
-        else
-        {
-          v57 = &v24[v56 >> 9];
-          v58 = &(*v57)[8 * (v56 & 0x1FF)];
-        }
-
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,0>(&v121, v57, v58, v47, v50, v24, v25);
-        v24 = v122;
-        v25 = v123;
-      }
-
-      v60 = *(&v117 + 1);
-      if (*(&v117 + 1) == v31)
-      {
-        goto LABEL_116;
-      }
-
-      v61 = v117;
-      v62 = *v24;
-      v63 = (*(&v117 + 1) - *v117) >> 3;
-      v64 = *v30;
-      while (1)
-      {
-        if (v63 + ((v61 - v30) << 6) - ((v31 - v64) >> 3) >= (v25 - v62) >> 3)
-        {
-          v65 = (v25 - v62) >> 3;
-        }
-
-        else
-        {
-          v65 = v63 + ((v61 - v30) << 6) - ((v31 - v64) >> 3);
-        }
-
-        if (v65)
-        {
-          v66 = v65 + ((v31 - v64) >> 3);
-          if (v66 < 1)
-          {
-            v67 = v30[-((511 - v66) >> 9)];
-            v68 = ~(511 - v66) & 0x1FF;
-          }
-
-          else
-          {
-            v67 = *(v30 + ((v66 >> 6) & 0x3FFFFFFFFFFFFF8));
-            v68 = v66 & 0x1FF;
-          }
-
-          v69 = v67 + 8 * v68;
-          if (v69 != v31)
-          {
-            v70 = v25 - 8;
-            v71 = v30;
-            while (1)
-            {
-              v31 += 8;
-              if (v31 - v64 == 4096)
-              {
-                break;
-              }
-
-              v73 = v31;
-              if (v31 == v64)
-              {
-                goto LABEL_83;
-              }
-
-LABEL_84:
-              *v70 = *(v73 - 8);
-              v70 -= 8;
-              if (v31 == v69)
-              {
-                goto LABEL_85;
-              }
-            }
-
-            v72 = v71[1];
-            ++v71;
-            v31 = v72;
-            v64 = v72;
-LABEL_83:
-            v73 = *(v71 - 1) + 4096;
-            goto LABEL_84;
-          }
-
-LABEL_85:
-          if (v66 < 1)
-          {
-            v74 = 511 - v66;
-            LOWORD(v66) = ~(511 - v66);
-            v30 -= v74 >> 9;
-          }
-
-          else
-          {
-            v30 += v66 >> 9;
-          }
-
-          v64 = *v30;
-          v31 = *v30 + 8 * (v66 & 0x1FF);
-        }
-
-        if (v60 == v31)
-        {
-          goto LABEL_116;
-        }
-
-        v75 = *--v24;
-        v62 = v75;
-        v25 = v75 + 4096;
-      }
-    }
-
-    if (v32 >= v10 >> 1)
-    {
-      v34 = v10 - (v18 - v17) + ((*(&v115 + 1) - *v115) >> 3);
-    }
-
-    else
-    {
-      v33 = *(&v117 + 1);
-      v30 = v117;
-      if (!v32)
-      {
-        goto LABEL_42;
-      }
-
-      v34 = ((*(&v117 + 1) - *v117) >> 3) - v32;
-    }
-
-    if (v34 < 1)
-    {
-      v38 = 511 - v34;
-      v30 -= v38 >> 9;
-      v33 = *v30 + 8 * (~v38 & 0x1FF);
-    }
-
-    else
-    {
-      v30 += v34 >> 9;
-      v33 = *v30 + 8 * (v34 & 0x1FF);
-    }
-
-LABEL_42:
-    if (*(&v115 + 1) == v33)
-    {
-      v35 = v25;
-      v36 = v24;
-    }
-
-    else
-    {
-      v39 = *v30;
-      v40 = v30;
-      v41 = v33;
-      v36 = v24;
-      v35 = v25;
-      do
-      {
-        v42 = v41;
-        if (v41 == v39)
-        {
-          v42 = *(v40 - 1) + 4096;
-        }
-
-        *v35 = *(v42 - 8);
-        v35 += 8;
-        if (v35 - *v36 == 4096)
-        {
-          v43 = v36[1];
-          ++v36;
-          v35 = v43;
-        }
-
-        if (v41 == v39)
-        {
-          v44 = *--v40;
-          v39 = v44;
-          v41 = v44 + 4096;
-        }
-
-        v41 -= 8;
-        ++a1[2].i64[1];
-      }
-
-      while (v31 != v41);
-      v31 = v33;
-    }
-
-    v10 = v32;
-    if (!v32)
-    {
-      goto LABEL_116;
-    }
-
-    goto LABEL_54;
-  }
-
-  if (v10 > v11)
-  {
-    std::deque<unsigned long>::__add_front_capacity(a1, v10 - v11);
-    v11 = a1[2].u64[0];
-    v13 = a1->i64[1];
-    v14 = a1[1].i64[0];
-    v12 = v11 >> 9;
-  }
-
-  v19 = (v13 + 8 * v12);
-  if (v14 == v13)
-  {
-    v20 = 0;
-  }
-
-  else
-  {
-    v20 = *v19 + 8 * (v11 & 0x1FF);
-  }
-
-  v119.n128_u64[0] = v13 + 8 * v12;
-  v119.n128_u64[1] = v20;
-  v118 = v116;
-  v26 = *(&v117 + 1);
-  v27 = v117;
-  if (v17 >= v10)
-  {
-    v28 = *(&v117 + 1);
-    if (!v10)
-    {
-      goto LABEL_116;
-    }
-
-    goto LABEL_105;
-  }
-
-  if (v17 >= v10 >> 1)
-  {
-    v37 = v17 - v10 + ((*(&v117 + 1) - *v117) >> 3);
-    if (v37 < 1)
-    {
-      v76 = 511 - v37;
-      v27 = (v117 - 8 * (v76 >> 9));
-      v28 = *v27 + 8 * (~v76 & 0x1FF);
-    }
-
-    else
-    {
-      v27 = (v117 + 8 * (v37 >> 9));
-      v28 = *v27 + 8 * (v37 & 0x1FF);
-    }
-
-    v77 = &v116;
-  }
-
-  else
-  {
-    v28 = *(&v115 + 1);
-    v27 = v115;
-    if (v17)
-    {
-      v29 = v17 + ((*(&v115 + 1) - *v115) >> 3);
-      if (v29 < 1)
-      {
-        v78 = 511 - v29;
-        v27 = (v115 - 8 * (v78 >> 9));
-        v28 = *v27 + 8 * (~v78 & 0x1FF);
-      }
-
-      else
-      {
-        v27 = (v115 + 8 * (v29 >> 9));
-        v28 = *v27 + 8 * (v29 & 0x1FF);
-      }
-    }
-
-    v77 = &v114;
-  }
-
-  v118 = *v77;
-  if (*(&v117 + 1) != v28)
-  {
-    v79 = *v19;
-    v80 = v27;
-    v81 = v28;
-    while (1)
-    {
-      if (v20 == v79)
-      {
-        v82 = *--v19;
-        v79 = v82;
-        v20 = v82 + 4096;
-      }
-
-      v81 += 8;
-      if (v81 - *v80 == 4096)
-      {
-        break;
-      }
-
-      v84 = v81;
-      if (v81 == *v80)
-      {
-        goto LABEL_102;
-      }
-
-LABEL_103:
-      *(v20 - 8) = *(v84 - 8);
-      v20 -= 8;
-      a1[2] = vaddq_s64(a1[2], xmmword_1E309DBF0);
-      if (v26 == v81)
-      {
-        goto LABEL_104;
-      }
-    }
-
-    v83 = v80[1];
-    ++v80;
-    v81 = v83;
-LABEL_102:
-    v84 = *(v80 - 1) + 4096;
-    goto LABEL_103;
-  }
-
-LABEL_104:
-  v10 = v17;
-  if (v17)
-  {
-LABEL_105:
-    v85 = std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](&v119, v10);
-    v87 = v85;
-    v88 = v86;
-    v89 = v119.n128_u64[1];
-    if (v119.n128_u64[1] != v86)
-    {
-      v90 = *v19;
-      v91 = v85;
-      v92 = v86;
-      do
-      {
-        if (v20 == v90)
-        {
-          v93 = *--v19;
-          v90 = v93;
-          v20 = v93 + 4096;
-        }
-
-        if (v92 == *v91)
-        {
-          v94 = *--v91;
-          v92 = (v94 + 4096);
-        }
-
-        v95 = *(v92 - 1);
-        v92 -= 8;
-        *(v20 - 8) = v95;
-        v20 -= 8;
-        a1[2] = vaddq_s64(a1[2], xmmword_1E309DBF0);
-      }
-
-      while (v92 != v89);
-    }
-
-    if (v10 >= v17)
-    {
-      v98 = v119.n128_u64[0];
-    }
-
-    else
-    {
-      v96 = std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](&v119, v17);
-      v121 = v119;
-      std::__for_each_segment[abi:nn200100]<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>,std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>>>(v87, v88, v96, v97, &v121);
-      v89 = v121.n128_u64[1];
-      v98 = v121.n128_u64[0];
-      v119 = v121;
-    }
-
-    v120 = v118;
-    v99 = *(&v115 + 1);
-    if (*(&v115 + 1) != v28)
-    {
-      v103 = v115;
-      v104 = *v98;
-      v105 = (*(&v115 + 1) - *v115) >> 3;
-      while (1)
-      {
-        v106 = (v104 - v89 + 4096) >> 3;
-        v107 = v28 - *v27;
-        if (((v27 - v103) << 6) - v105 + (v107 >> 3) < v106)
-        {
-          v106 = ((v27 - v103) << 6) - v105 + (v107 >> 3);
-        }
-
-        v121 = v120;
-        if (v106)
-        {
-          v108 = *v27;
-          v109 = ((v28 - *v27) >> 3) - v106;
-          if (v109 < 1)
-          {
-            v110 = v27[-((511 - v109) >> 9)] + 8 * (~(511 - v109) & 0x1FF);
-          }
-
-          else
-          {
-            v110 = *(v27 + ((v109 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v109 & 0x1FF);
-          }
-
-          while (v110 != v28)
-          {
-            if (v28 == v108)
-            {
-              v112 = *--v27;
-              v108 = v112;
-              v111 = (v112 + 4088);
-              v28 = v112 + 4096;
-            }
-
-            else
-            {
-              v111 = (v28 - 8);
-            }
-
-            *v89 = *v111;
-            v89 += 8;
-            v28 -= 8;
-          }
-        }
-
-        v120 = v121;
-        if (v99 == v28)
-        {
-          break;
-        }
-
-        v113 = v98[1];
-        ++v98;
-        v104 = v113;
-        v89 = v113;
-      }
-    }
-  }
-
-LABEL_116:
-  v100 = a1->i64[1];
-  if (a1[1].i64[0] == v100)
-  {
-    v101 = 0;
-  }
-
-  else
-  {
-    v101 = *(v100 + 8 * (a1[2].i64[0] >> 9)) + 8 * (a1[2].i64[0] & 0x1FF);
-  }
-
-  v121.n128_u64[0] = v100 + 8 * (a1[2].i64[0] >> 9);
-  v121.n128_u64[1] = v101;
-  return std::__deque_iterator<unsigned long,unsigned long *,unsigned long &,unsigned long **,long,512l>::operator+[abi:nn200100](&v121, v17);
+  return v2 & 1;
 }

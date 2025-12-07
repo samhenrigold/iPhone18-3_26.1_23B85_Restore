@@ -66,7 +66,7 @@
   v15 = 0u;
   if (alignmentModel)
   {
-    [alignmentModel alignmentTransform];
+    objc_msgSend_alignmentTransform(alignmentModel);
   }
 
   isAligned = [v4 isAligned];

@@ -470,7 +470,7 @@ LABEL_42:
     v22 = v21;
     if (v21)
     {
-      if (v21 == v20 || ([v21 isEqualToString:v20] & 1) != 0)
+      if (v21 == v20 || (objc_msgSend_isEqualToString_(v21) & 1) != 0)
       {
         goto LABEL_17;
       }
@@ -722,9 +722,9 @@ LABEL_28:
   {
     if (v7 && v8)
     {
-      v10 = [(NSString *)v7 isEqualToString:v8];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (v10)
+      if (isEqualToString)
       {
         goto LABEL_11;
       }
@@ -799,9 +799,9 @@ LABEL_7:
 
   if (v6 && selectedPaymentOffer)
   {
-    v8 = [(NSString *)selectedPaymentOffer isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(selectedPaymentOffer);
 
-    if (!v8)
+    if (!isEqualToString)
     {
       goto LABEL_16;
     }
@@ -832,9 +832,9 @@ LABEL_16:
       goto LABEL_12;
     }
 
-    v8 = [(NSString *)v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-    if (!v8)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }
@@ -1199,9 +1199,9 @@ LABEL_47:
         goto LABEL_13;
       }
 
-      v33 = [v26 isEqualToString:v27];
+      isEqualToString = objc_msgSend_isEqualToString_(v26);
 
-      if (!v33)
+      if (!isEqualToString)
       {
         goto LABEL_47;
       }
@@ -1328,19 +1328,19 @@ uint64_t __65__PKPaymentOffersController_paymentOfferCriteriaForPassUniqueID___b
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)eligiblePaymentOfferInstallmentCriteriaRequiringSetup
@@ -1400,19 +1400,19 @@ uint64_t __63__PKPaymentOffersController_paymentOfferCriteriaForIdentifier___blo
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (id)_eligiblePaymentOfferCriteriaForPassUniqueID:(id)d
@@ -1452,9 +1452,9 @@ uint64_t __74__PKPaymentOffersController__eligiblePaymentOfferCriteriaForPassUni
     goto LABEL_9;
   }
 
-  v9 = [v6 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v9)
+  if (isEqualToString)
   {
 LABEL_7:
     v6 = [*(a1 + 40) ineligibleDetailsForCriteria:v3];
@@ -1774,9 +1774,9 @@ LABEL_32:
 
                   else
                   {
-                    v29 = [v25 isEqualToString:v26];
+                    isEqualToString = objc_msgSend_isEqualToString_(v25);
 
-                    if (v29)
+                    if (isEqualToString)
                     {
                       goto LABEL_32;
                     }
@@ -1870,7 +1870,7 @@ LABEL_51:
 
               if (v33 && v40)
               {
-                v43 = [v40 isEqualToString:v41];
+                v43 = objc_msgSend_isEqualToString_(v40);
 
                 if (v43)
                 {
@@ -5859,9 +5859,9 @@ void __64__PKPaymentOffersController_paymentOfferCatalogChangedFromPush___block_
       goto LABEL_19;
     }
 
-    v11 = [(NSString *)v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (!v11)
+    if (!isEqualToString)
     {
       goto LABEL_19;
     }

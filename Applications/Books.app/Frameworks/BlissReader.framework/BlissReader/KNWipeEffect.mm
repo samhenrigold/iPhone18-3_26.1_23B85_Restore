@@ -6,6 +6,7 @@
 - (void)setMVPMatrix:(CATransform3D *)matrix;
 - (void)setTexture:(id)texture;
 - (void)setupEffectIfNecessary;
+- (void)teardown;
 @end
 
 @implementation KNWipeEffect
@@ -30,7 +31,7 @@
     *(v5 + 9) = [animatedBuild2 direction];
 
     animatedBuild3 = [contextCopy animatedBuild];
-    [animatedBuild3 duration];
+    objc_msgSend_duration(animatedBuild3);
     *(v5 + 10) = v11;
 
     v12 = *&CATransform3DIdentity.m33;
@@ -163,6 +164,13 @@
   v15[2] = *&self->_MVPMatrix.m21;
   v15[3] = v14;
   [(KNWipeDataBuffer *)self->_wipeDataBuffer setMVPMatrix:v15];
+}
+
+- (void)teardown
+{
+  wipeDataBuffer = self->_wipeDataBuffer;
+  self->_wipeDataBuffer = 0;
+  _objc_release_x1(self, wipeDataBuffer);
 }
 
 - (void)renderEffectAtPercent:(double)percent atBufferIndex:(unint64_t)index withEncoder:(id)encoder

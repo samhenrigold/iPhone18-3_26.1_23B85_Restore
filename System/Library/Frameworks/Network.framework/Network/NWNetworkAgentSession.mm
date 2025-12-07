@@ -196,7 +196,7 @@ LABEL_11:
     v12 = __nwlog_obj();
     *buf = 136446210;
     v31 = "[NWNetworkAgentSession initWithFileDescriptor:queue:]";
-    v13 = _os_log_send_and_compose_impl();
+    v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null queue", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -283,7 +283,7 @@ LABEL_31:
     v17 = __nwlog_obj();
     *buf = 136446210;
     v31 = "[NWNetworkAgentSession initWithFileDescriptor:queue:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -427,7 +427,7 @@ LABEL_12:
     v9 = gLogObj;
     *location = 136446210;
     *&location[4] = "[NWNetworkAgentSession setupReadSource]";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s dispatch_source_create failed", location, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -513,7 +513,7 @@ LABEL_10:
   v18 = __nwlog_obj();
   *location = 136446210;
   *&location[4] = "[NWNetworkAgentSession setupReadSource]";
-  v19 = _os_log_send_and_compose_impl();
+  v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null (sessionSocket >= 0)", location, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v31 = 0;

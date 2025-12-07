@@ -16,6 +16,11 @@
 - (int)getSeconds;
 - (int)getTimezoneOffset;
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream;
+- (void)setDateWithInt:(int)int;
+- (void)setHoursWithInt:(int)int;
+- (void)setMinutesWithInt:(int)int;
+- (void)setMonthWithInt:(int)int;
+- (void)setSecondsWithInt:(int)int;
 - (void)setYearWithInt:(int)int;
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream;
 @end
@@ -147,6 +152,46 @@
   return -(v3 + [(JavaUtilCalendar *)v2 getWithInt:16]) / 60000;
 }
 
+- (void)setDateWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
+  [(JavaUtilCalendar *)v5 setWithInt:5 withInt:v3];
+  self->milliseconds_ = [(JavaUtilCalendar *)v5 getTimeInMillis];
+}
+
+- (void)setHoursWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
+  [(JavaUtilCalendar *)v5 setWithInt:11 withInt:v3];
+  self->milliseconds_ = [(JavaUtilCalendar *)v5 getTimeInMillis];
+}
+
+- (void)setMinutesWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
+  [(JavaUtilCalendar *)v5 setWithInt:12 withInt:v3];
+  self->milliseconds_ = [(JavaUtilCalendar *)v5 getTimeInMillis];
+}
+
+- (void)setMonthWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
+  [(JavaUtilCalendar *)v5 setWithInt:2 withInt:v3];
+  self->milliseconds_ = [(JavaUtilCalendar *)v5 getTimeInMillis];
+}
+
+- (void)setSecondsWithInt:(int)int
+{
+  v3 = *&int;
+  v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
+  [(JavaUtilCalendar *)v5 setWithInt:13 withInt:v3];
+  self->milliseconds_ = [(JavaUtilCalendar *)v5 getTimeInMillis];
+}
+
 - (void)setYearWithInt:(int)int
 {
   v5 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
@@ -187,7 +232,7 @@
     sub_1000458CC();
   }
 
-  v3 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_US_);
+  v3 = LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_US_, a2);
   v4 = new_JavaUtilGregorianCalendar_initWithLong_(self->milliseconds_);
   getTimeZone = [(JavaUtilCalendar *)v4 getTimeZone];
   v6 = new_JavaLangStringBuilder_init();

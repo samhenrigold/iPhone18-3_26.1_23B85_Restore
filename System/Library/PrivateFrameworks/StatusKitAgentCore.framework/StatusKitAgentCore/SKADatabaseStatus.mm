@@ -68,7 +68,7 @@
 
 - (BOOL)isExpired
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dateExpired = [(SKADatabaseStatus *)self dateExpired];
   if (dateExpired)
   {
@@ -89,14 +89,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     dateExpired3 = [(SKADatabaseStatus *)self dateExpired];
-    v14 = 138412546;
-    v15 = dateExpired3;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Date expired: %@, isExpired: %d", &v14, 0x12u);
+    v13 = 138412546;
+    v14 = dateExpired3;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Date expired: %@, isExpired: %d", &v13, 0x12u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

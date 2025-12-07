@@ -25,20 +25,20 @@
 
 - (void)notifyWhenCountReachesZeroOnQueue:(id)queue usingBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   blockCopy = block;
   if (!queueCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
     *buf = 136315906;
-    v12 = "[FCBalancedCounter notifyWhenCountReachesZeroOnQueue:usingBlock:]";
-    v13 = 2080;
-    v14 = "FCBalancedCounter.m";
-    v15 = 1024;
-    v16 = 47;
-    v17 = 2114;
-    v18 = v9;
+    v11 = "[FCBalancedCounter notifyWhenCountReachesZeroOnQueue:usingBlock:]";
+    v12 = 2080;
+    v13 = "FCBalancedCounter.m";
+    v14 = 1024;
+    v15 = 47;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (blockCopy)
@@ -54,22 +54,20 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block"];
     *buf = 136315906;
-    v12 = "[FCBalancedCounter notifyWhenCountReachesZeroOnQueue:usingBlock:]";
-    v13 = 2080;
-    v14 = "FCBalancedCounter.m";
-    v15 = 1024;
-    v16 = 48;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCBalancedCounter notifyWhenCountReachesZeroOnQueue:usingBlock:]";
+    v12 = 2080;
+    v13 = "FCBalancedCounter.m";
+    v14 = 1024;
+    v15 = 48;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   dispatch_group_notify(self->_dispatchGroup, queueCopy, blockCopy);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_bumpCounterPositively:(BOOL)positively

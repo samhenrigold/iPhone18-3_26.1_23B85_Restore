@@ -46,40 +46,50 @@ void CKTransitionToViewControllerEx(void *a1, void *a2, void *a3, char a4)
   [v8 setPreferredContentSize:{v23, v20}];
 }
 
-void sub_10000219C(uint64_t a1)
+void sub_10000219C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_1000059E4();
+    if (gLogCategory_ContinuityKeyboard != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_1000059E4(a1, a2, a3);
+    }
   }
 
-  v2 = [*(a1 + 32) extensionContext];
-  [v2 dismissNotificationContentExtension];
+  v4 = [*(v3 + 32) extensionContext];
+  [v4 dismissNotificationContentExtension];
 
-  v3 = *(*(a1 + 32) + 24);
-  if (v3)
+  v5 = *(*(v3 + 32) + 24);
+  if (v5)
   {
-    v6 = v3;
-    dispatch_source_cancel(v6);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 24);
-    *(v4 + 24) = 0;
+    v8 = v5;
+    dispatch_source_cancel(v8);
+    v6 = *(v3 + 32);
+    v7 = *(v6 + 24);
+    *(v6 + 24) = 0;
   }
 }
 
 void sub_100002390(id a1)
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005A6C();
+    if (gLogCategory_ContinuityKeyboard != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100005A6C(a1, v1, v2);
+    }
   }
 }
 
 void sub_1000023DC(id a1)
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005A88();
+    if (gLogCategory_ContinuityKeyboard != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100005A88(a1, v1, v2);
+    }
   }
 }
 
@@ -146,7 +156,7 @@ void sub_1000025DC(uint64_t a1, void *a2)
   v3 = a2;
   if (v3 && gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
   {
-    sub_100005AA4();
+    sub_100005AA4(v3);
   }
 
   [*(*(a1 + 32) + 128) serverUserNotificationDidActivate:*(a1 + 40)];
@@ -184,17 +194,26 @@ void sub_1000026E0(uint64_t a1, void *a2)
 
 void sub_100002768(id a1, NSError *a2)
 {
-  if (a2)
+  v2 = a2;
+  v4 = v2;
+  if (v2)
   {
-    if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_ContinuityKeyboard <= 60)
     {
-      sub_100005AE4();
+      v6 = v2;
+      if (gLogCategory_ContinuityKeyboard != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+      {
+        sub_100005AE4(v4);
+      }
     }
   }
 
-  else if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  else if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005B24();
+    if (gLogCategory_ContinuityKeyboard != -1 || (v2 = _LogCategory_Initialize(), v4 = 0, v2))
+    {
+      sub_100005B24(v2, v4, v3);
+    }
   }
 
   _objc_release_x1();
@@ -216,65 +235,73 @@ void sub_100002818(uint64_t a1, void *a2)
   [*(*(a1 + 32) + 136) sendPayload:v3];
 }
 
-void sub_100002A24(uint64_t a1)
+void sub_100002A24(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005BB8();
+    if (gLogCategory_ContinuityKeyboard != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      sub_100005BB8(a1, a2, a3);
+    }
   }
 
-  *(*(a1 + 32) + 88) = 0;
-  v2 = *(*(a1 + 32) + 96);
-  if (v2)
+  *(*(v3 + 32) + 88) = 0;
+  v4 = *(*(v3 + 32) + 96);
+  if (v4)
   {
-    v3 = v2;
-    dispatch_source_cancel(v3);
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 96);
-    *(v4 + 96) = 0;
+    v5 = v4;
+    dispatch_source_cancel(v5);
+    v6 = *(v3 + 32);
+    v7 = *(v6 + 96);
+    *(v6 + 96) = 0;
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 48);
-  if (v7)
+  v8 = *(v3 + 32);
+  v9 = *(v8 + 48);
+  if (v9)
   {
-    CKTransitionToViewController(*(v6 + 64), v7, v6);
-    v6 = *(a1 + 32);
-    v8 = *(v6 + 48);
+    CKTransitionToViewController(*(v8 + 64), v9, v8);
+    v8 = *(v3 + 32);
+    v10 = *(v8 + 48);
   }
 
   else
   {
-    v8 = 0;
+    v10 = 0;
   }
 
-  *(v6 + 48) = 0;
+  *(v8 + 48) = 0;
 }
 
-void sub_100002DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100002DE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_100002DF8(uint64_t a1)
+id sub_100002DF8(uint64_t a1, uint64_t a2)
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005BF0();
+    v3 = a2;
+    if (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize())
+    {
+      sub_100005BF0(v3);
+    }
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 64);
-  v4 = *(v2 + 72);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 64);
+  v6 = *(v4 + 72);
 
-  return [v3 presentViewController:v4 animated:1 completion:0];
+  return [v5 presentViewController:v6 animated:1 completion:0];
 }
 
-void sub_1000032E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000032E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -313,22 +340,29 @@ id sub_100003FF4(uint64_t a1)
   return [v2 setTransform:&v4];
 }
 
-id sub_100004054(uint64_t a1, uint64_t a2)
+id sub_100004054(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a2 && gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (a2)
   {
-    sub_100005DE0();
+    if (gLogCategory_ContinuityKeyboard <= 60)
+    {
+      if (gLogCategory_ContinuityKeyboard != -1 || (a1 = _LogCategory_Initialize(), a1))
+      {
+        sub_100005DE0(a1, a2, a3);
+      }
+    }
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(v3 + 32);
+  v5 = *(v3 + 40);
 
-  return [v3 showWithFlags:0 throttleSeconds:v4];
+  return [v4 showWithFlags:0 throttleSeconds:v5];
 }
 
-void sub_1000043E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000043E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -394,7 +428,7 @@ Class sub_100004A30(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -414,7 +448,6 @@ LABEL_4:
 
 uint64_t sub_100004B74(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100011EF8 = result;
   return result;
@@ -444,7 +477,7 @@ Class sub_100004BE8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -464,7 +497,6 @@ LABEL_4:
 
 uint64_t sub_100004D2C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100011F08 = result;
   return result;
@@ -494,7 +526,7 @@ Class sub_100004DA0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -514,56 +546,71 @@ LABEL_4:
 
 uint64_t sub_100004EE4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100011F18 = result;
   return result;
 }
 
-uint64_t sub_100004F88()
+uint64_t sub_100004F88(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 60, a4);
 }
 
-void sub_100005348()
+void sub_100005348(uint64_t a1, uint64_t a2)
 {
-  v0 = remote_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = remote_log();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "Cannot initialize session info, no device identifier", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Cannot initialize session info, no device identifier", v3, 2u);
   }
 }
 
 void sub_10000592C(void *a1)
 {
   v1 = [a1 deviceIdentifier];
-  LogPrintF();
+  LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController didReceiveNotification:]", 30, "Did receive notification with deviceID: %@\n", v1);
 }
 
 uint64_t sub_100005A00(uint64_t a1)
 {
   v1 = *(a1 + 104);
-  if (v1 <= 2)
+  if (v1 > 2)
+  {
+    v2 = @"?";
+  }
+
+  else
   {
     v2 = *(&off_10000C5F0 + v1);
   }
 
-  return LogPrintF();
+  return LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController update]", 30, "Updating with display mode: %@", v2);
 }
 
 void sub_100005B40()
 {
   v0 = SFTextInputDataLogString();
-  LogPrintF();
+  LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController keyboardEnsureActive]_block_invoke_6", 30, "RTI Client event fired (%@)\n", v0);
 }
 
-void sub_100005CEC()
+uint64_t sub_100005BF0(char a1)
+{
+  v1 = "no";
+  if (a1)
+  {
+    v1 = "yes";
+  }
+
+  return LogPrintF(&gLogCategory_ContinuityKeyboard, "[CKMainController showPickerUIWithURLString:bundleID:localizedAppName:unlocalizedAppName:handler:]_block_invoke", 30, "Password picker authenticate to present: %s\n", v1);
+}
+
+void sub_100005CEC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_ContinuityKeyboard <= 60 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
   {
-    sub_100004F88();
+    sub_100004F88(&gLogCategory_ContinuityKeyboard, "[CKMainController _updateTextField:]", a3, "### Session event without text field?");
   }
 }
 

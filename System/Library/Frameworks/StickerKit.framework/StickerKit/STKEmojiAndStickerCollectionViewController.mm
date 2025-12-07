@@ -166,7 +166,7 @@
 
 - (void)didSelectCreate:(id)create queryString:(id)string
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v15 - v8;
   if (create)
@@ -196,7 +196,7 @@
   selfCopy = self;
   EmojiAndStickerCollectionViewController.didSelectCreate(_:queryString:)(v9, v12, string);
 
-  sub_19A5F2B54(v9, &qword_1EAFCD800);
+  sub_19A5F2B54(v9, &qword_1EAFCD800, &qword_19A7BCE60);
 }
 
 - (void)didPinch:(double)pinch
@@ -228,7 +228,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v20 - v11;
   v13 = sub_19A7AB394();

@@ -181,18 +181,17 @@ void sub_21C8(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
 void sub_2504(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = a2;
+  v12 = a2;
   v7 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:?];
   if ([v7 intValue] && objc_msgSend(*(a1 + 40), "intValue") != a3)
   {
-    v8 = *(a1 + 32);
-    v9 = [NSBundle bundleForClass:objc_opt_class()];
-    v10 = [v13 name];
-    v11 = [v9 localizedStringForKey:v10 value:&stru_8778 table:@"Localizable"];
-    v12 = [PSSpecifier _hkPreferenceNamed:v11 value:v7];
+    v8 = [NSBundle bundleForClass:objc_opt_class()];
+    v9 = [v12 name];
+    v10 = [v8 localizedStringForKey:v9 value:&stru_8778 table:@"Localizable"];
+    v11 = [PSSpecifier _hkPreferenceNamed:v10 value:v7];
 
-    [v12 setUserInfo:v13];
-    [*(a1 + 48) addObject:v12];
+    [v11 setUserInfo:v12];
+    [*(a1 + 48) addObject:v11];
   }
 
   else
@@ -201,9 +200,9 @@ void sub_2504(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_2808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

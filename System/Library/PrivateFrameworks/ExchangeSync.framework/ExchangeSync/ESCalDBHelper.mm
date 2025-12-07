@@ -121,26 +121,25 @@ void __51__ESCalDBHelper_openDatabaseForAccountID_clientID___block_invoke(uint64
 
 - (id)_pathForAccountID:(id)d createdDatabase:(CalDatabase *)database
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   v7 = [(NSMutableDictionary *)self->_containerPathsByAccountID objectForKeyedSubscript:dCopy];
   if (!v7)
   {
-    initOptions = self->_initOptions;
-    v9 = CalDatabaseCreateWithOptionsMainDatabaseDirectoryAndContainerProviderForAccountID();
-    if (v9)
+    v8 = CalDatabaseCreateWithOptionsMainDatabaseDirectoryAndContainerProviderForAccountID();
+    if (v8)
     {
-      v10 = v9;
-      v11 = CalDatabaseCopyDirectoryPathForDatabase();
-      v12 = v11;
+      v9 = v8;
+      v10 = CalDatabaseCopyDirectoryPathForDatabase();
+      v11 = v10;
       if (database)
       {
-        *database = v10;
-        if (v11)
+        *database = v9;
+        if (v10)
         {
 LABEL_5:
-          v7 = [objc_opt_class() _canonicalizePath:v12];
+          v7 = [objc_opt_class() _canonicalizePath:v11];
 
           [(NSMutableDictionary *)self->_containerPathsByAccountID setObject:v7 forKeyedSubscript:dCopy];
           goto LABEL_10;
@@ -149,29 +148,27 @@ LABEL_5:
 
       else
       {
-        CFRelease(v10);
-        if (v12)
+        CFRelease(v9);
+        if (v11)
         {
           goto LABEL_5;
         }
       }
     }
 
-    v13 = DALoggingwithCategory();
-    v14 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v13, v14))
+    v12 = DALoggingwithCategory();
+    v13 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(v12, v13))
     {
-      v17 = 138543362;
-      v18 = dCopy;
-      _os_log_impl(&dword_24A097000, v13, v14, "Failed to determine database directory path for accountID: %{public}@", &v17, 0xCu);
+      v15 = 138543362;
+      v16 = dCopy;
+      _os_log_impl(&dword_24A097000, v12, v13, "Failed to determine database directory path for accountID: %{public}@", &v15, 0xCu);
     }
 
     v7 = 0;
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -198,56 +195,49 @@ LABEL_10:
 
 void __56__ESCalDBHelper_openDatabaseForAuxDatabaseRef_clientID___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = [MEMORY[0x277CCABB0] numberWithInt:CalAuxDatabaseGetUID()];
-  v4 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v3];
-  if (v4)
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CCABB0] numberWithInt:CalAuxDatabaseGetUID()];
+  v3 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:v2];
+  if (v3)
   {
-    v5 = v4;
-    v6 = 0;
+    v4 = v3;
+    v5 = 0;
 LABEL_3:
-    [*(a1 + 32) _openDatabaseForPath:v5 clientID:*(a1 + 40) createdDatabaseToConsume:v6];
+    [*(a1 + 32) _openDatabaseForPath:v4 clientID:*(a1 + 40) createdDatabaseToConsume:v5];
 
     goto LABEL_4;
   }
 
-  v8 = *(a1 + 48);
   CalGetDatabaseForRecord();
-  v9 = *(a1 + 48);
-  v10 = *(*(a1 + 32) + 16);
-  v6 = CalDatabaseCreateWithAuxDatabaseRef();
-  if (v6)
+  v5 = CalDatabaseCreateWithAuxDatabaseRef();
+  if (v5)
   {
-    v11 = CalDatabaseCopyDirectoryPathForDatabase();
-    if (v11)
+    v6 = CalDatabaseCopyDirectoryPathForDatabase();
+    if (v6)
     {
-      v12 = v11;
-      v13 = *(a1 + 32);
-      v5 = [objc_opt_class() _canonicalizePath:v12];
+      v7 = v6;
+      v4 = [objc_opt_class() _canonicalizePath:v6];
 
-      [*(*(a1 + 32) + 40) setObject:v5 forKeyedSubscript:v3];
+      [*(*(a1 + 32) + 40) setObject:v4 forKeyedSubscript:v2];
       goto LABEL_3;
     }
   }
 
-  v14 = DALoggingwithCategory();
-  v15 = *(MEMORY[0x277D03988] + 3);
-  if (os_log_type_enabled(v14, v15))
+  v8 = DALoggingwithCategory();
+  v9 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v8, v9))
   {
-    v16 = 138543362;
-    v17 = v3;
-    _os_log_impl(&dword_24A097000, v14, v15, "Failed to determine database directory path for auxDatabaseID: %{public}@", &v16, 0xCu);
+    v10 = 138543362;
+    v11 = v2;
+    _os_log_impl(&dword_24A097000, v8, v9, "Failed to determine database directory path for auxDatabaseID: %{public}@", &v10, 0xCu);
   }
 
-  if (v6)
+  if (v5)
   {
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
 LABEL_4:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allOpenDatabases
@@ -274,10 +264,7 @@ LABEL_4:
 
 uint64_t __33__ESCalDBHelper_allOpenDatabases__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -339,7 +326,7 @@ CFTypeRef __38__ESCalDBHelper_databaseForAccountID___block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __43__ESCalDBHelper_databaseForAuxDatabaseRef___block_invoke(uint64_t a1)
+void *__43__ESCalDBHelper_databaseForAuxDatabaseRef___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cachedDatabaseForAuxDatabaseRef:*(a1 + 48) path:0];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -521,7 +508,7 @@ void __53__ESCalDBHelper_closeDatabaseForAuxDatabaseRef_save___block_invoke(uint
 
 - (void)_openDatabaseForPath:(id)path clientID:(id)d createdDatabaseToConsume:(CalDatabase *)consume
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
@@ -545,24 +532,24 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v21 = DALoggingwithCategory();
-  v22 = *(v12 + 7);
-  if (os_log_type_enabled(v21, v22))
+  v20 = DALoggingwithCategory();
+  v21 = *(v12 + 7);
+  if (os_log_type_enabled(v20, v21))
   {
-    v28 = 138543362;
+    v26 = 138543362;
     consumeCopy = dCopy;
-    _os_log_impl(&dword_24A097000, v21, v22, "Creating calendar database for clientID %{public}@", &v28, 0xCu);
+    _os_log_impl(&dword_24A097000, v20, v21, "Creating calendar database for clientID %{public}@", &v26, 0xCu);
   }
 
   v13 = consume != 0;
   if (consume)
   {
-    v23 = DALoggingwithCategory();
-    if (os_log_type_enabled(v23, v22))
+    v22 = DALoggingwithCategory();
+    if (os_log_type_enabled(v22, v21))
     {
-      v28 = 134349056;
+      v26 = 134349056;
       consumeCopy = consume;
-      _os_log_impl(&dword_24A097000, v23, v22, "Using already-created calendar database %{public}p", &v28, 0xCu);
+      _os_log_impl(&dword_24A097000, v22, v21, "Using already-created calendar database %{public}p", &v26, 0xCu);
     }
 
     consumeCopy2 = consume;
@@ -573,15 +560,14 @@ LABEL_6:
     _mainDatabasePath = [(ESCalDBHelper *)self _mainDatabasePath];
     [_mainDatabasePath isEqualToString:pathCopy];
 
-    v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
-    initOptions = self->_initOptions;
+    v22 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
     consumeCopy2 = CalDatabaseCreateWithOptionsDatabaseDirectoryURLAndContainerProvider();
-    v26 = DALoggingwithCategory();
-    if (os_log_type_enabled(v26, v22))
+    v24 = DALoggingwithCategory();
+    if (os_log_type_enabled(v24, v21))
     {
-      v28 = 134349056;
+      v26 = 134349056;
       consumeCopy = consumeCopy2;
-      _os_log_impl(&dword_24A097000, v26, v22, "Created calendar database %{public}p", &v28, 0xCu);
+      _os_log_impl(&dword_24A097000, v24, v21, "Created calendar database %{public}p", &v26, 0xCu);
     }
   }
 
@@ -589,9 +575,9 @@ LABEL_6:
   [(ESCalDBHelper *)self _registerForCalendarYieldNotificationsForDB:consumeCopy2];
   if (![(CalDatabase *)dCopy length])
   {
-    v27 = @"com.apple.dataaccessd.changeinserter";
+    v25 = @"com.apple.dataaccessd.changeinserter";
 
-    dCopy = v27;
+    dCopy = v25;
   }
 
   CalDatabaseSetClientIdentifier();
@@ -605,13 +591,13 @@ LABEL_7:
   v16 = *(v12 + 7);
   if (os_log_type_enabled(v15, v16))
   {
-    v28 = 134218498;
+    v26 = 134218498;
     consumeCopy = consumeCopy2;
-    v30 = 2114;
-    v31 = dCopy;
-    v32 = 2048;
-    v33 = v14;
-    _os_log_impl(&dword_24A097000, v15, v16, "Cal database %p opened for %{public}@. Connection count is now %lu", &v28, 0x20u);
+    v28 = 2114;
+    v29 = dCopy;
+    v30 = 2048;
+    v31 = v14;
+    _os_log_impl(&dword_24A097000, v15, v16, "Cal database %p opened for %{public}@. Connection count is now %lu", &v26, 0x20u);
   }
 
   if (v14 >= 2)
@@ -620,9 +606,9 @@ LABEL_7:
     v18 = *(v12 + 6);
     if (os_log_type_enabled(v17, v18))
     {
-      v28 = 134217984;
+      v26 = 134217984;
       consumeCopy = v14;
-      _os_log_impl(&dword_24A097000, v17, v18, "connectionCount is > 1, at %lu", &v28, 0xCu);
+      _os_log_impl(&dword_24A097000, v17, v18, "connectionCount is > 1, at %lu", &v26, 0xCu);
     }
   }
 
@@ -640,13 +626,11 @@ LABEL_7:
   {
     CFRelease(consume);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (CalDatabase)_cachedDatabaseForAccountID:(id)d path:(id *)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   if (dCopy)
@@ -699,9 +683,9 @@ LABEL_14:
   v13 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v12, v13))
   {
-    v18 = 138412290;
-    v19 = v7;
-    _os_log_impl(&dword_24A097000, v12, v13, "DatabasesByContainerPath: Getting calendar database with path %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v7;
+    _os_log_impl(&dword_24A097000, v12, v13, "DatabasesByContainerPath: Getting calendar database with path %@", &v17, 0xCu);
   }
 
   v14 = [(NSMutableDictionary *)self->_databasesByContainerPath objectForKeyedSubscript:v7];
@@ -715,13 +699,12 @@ LABEL_11:
 
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (CalDatabase)_cachedDatabaseForAuxDatabaseRef:(void *)ref path:(id *)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (!ref)
   {
@@ -752,9 +735,9 @@ LABEL_9:
   v11 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v10, v11))
   {
-    v16 = 138412290;
+    v15 = 138412290;
     refCopy2 = ref;
-    _os_log_impl(&dword_24A097000, v10, v11, "DatabasesByContainerPath: Getting aux calendar database with path %@", &v16, 0xCu);
+    _os_log_impl(&dword_24A097000, v10, v11, "DatabasesByContainerPath: Getting aux calendar database with path %@", &v15, 0xCu);
   }
 
   v12 = [(NSMutableDictionary *)self->_databasesByContainerPath objectForKeyedSubscript:ref];
@@ -766,14 +749,13 @@ LABEL_9:
 
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)_saveDatabase:(CalDatabase *)database path:(id)path fushCaches:(BOOL)caches
 {
   cachesCopy = caches;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dispatch_assert_queue_V2(self->_queue);
   v9 = +[ESLocalDBWatcher sharedDBWatcher];
@@ -805,10 +787,10 @@ LABEL_10:
 
     *buf = 134218498;
     databaseCopy3 = database;
-    v28 = 2114;
-    v29 = v16;
-    v30 = 2114;
-    v31 = v15;
+    v27 = 2114;
+    v28 = v16;
+    v29 = 2114;
+    v30 = v15;
     _os_log_impl(&dword_24A097000, v13, v14, "Saving calendar database %p%{public}@%{public}@.", buf, 0x20u);
     if (v9)
     {
@@ -856,8 +838,8 @@ LABEL_13:
 
     *buf = 134218242;
     databaseCopy3 = database;
-    v28 = 2114;
-    v29 = v22;
+    v27 = 2114;
+    v28 = v22;
     _os_log_impl(&dword_24A097000, v21, v14, "Saving calendar database %p%{public}@.  Save failed", buf, 0x16u);
   }
 
@@ -868,8 +850,8 @@ LABEL_13:
     {
       *buf = 134218240;
       databaseCopy3 = database;
-      v28 = 1024;
-      LODWORD(v29) = v10;
+      v27 = 1024;
+      LODWORD(v28) = v10;
       _os_log_impl(&dword_24A097000, v23, v14, "Resetting calendar database %p sequence %d", buf, 0x12u);
     }
 
@@ -879,13 +861,12 @@ LABEL_13:
   v19 = 0;
 LABEL_24:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (void)_closeDatabase:(CalDatabase *)database path:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dispatch_assert_queue_V2(self->_queue);
   v7 = [(NSCountedSet *)self->_connectionCountsByPath countForObject:pathCopy];
@@ -895,9 +876,9 @@ LABEL_24:
     v15 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(v14, v15))
     {
-      v17 = 138543362;
+      v16 = 138543362;
       databaseCopy = pathCopy;
-      _os_log_impl(&dword_24A097000, v14, v15, "_closeDatabase called too many times with path: %{public}@", &v17, 0xCu);
+      _os_log_impl(&dword_24A097000, v14, v15, "_closeDatabase called too many times with path: %{public}@", &v16, 0xCu);
     }
 
     goto LABEL_11;
@@ -910,13 +891,13 @@ LABEL_24:
   if (os_log_type_enabled(v9, v10))
   {
     clientIdentifier = self->_clientIdentifier;
-    v17 = 134218498;
+    v16 = 134218498;
     databaseCopy = database;
-    v19 = 2048;
-    v20 = v8 - 1;
-    v21 = 2114;
-    v22 = clientIdentifier;
-    _os_log_impl(&dword_24A097000, v9, v10, "Decrementing database %p reference count. connectionCount is %lu. Client identifier is %{public}@", &v17, 0x20u);
+    v18 = 2048;
+    v19 = v8 - 1;
+    v20 = 2114;
+    v21 = clientIdentifier;
+    _os_log_impl(&dword_24A097000, v9, v10, "Decrementing database %p reference count. connectionCount is %lu. Client identifier is %{public}@", &v16, 0x20u);
   }
 
   if (v8 == 1)
@@ -924,9 +905,9 @@ LABEL_24:
     v12 = DALoggingwithCategory();
     if (os_log_type_enabled(v12, v10))
     {
-      v17 = 138412290;
+      v16 = 138412290;
       databaseCopy = pathCopy;
-      _os_log_impl(&dword_24A097000, v12, v10, "DatabasesByContainerPath: Destroying calendar database for path %@", &v17, 0xCu);
+      _os_log_impl(&dword_24A097000, v12, v10, "DatabasesByContainerPath: Destroying calendar database for path %@", &v16, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -941,8 +922,6 @@ LABEL_24:
 LABEL_11:
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForCalendarYieldNotificationsForDB:(CalDatabase *)b
@@ -982,11 +961,10 @@ void __61__ESCalDBHelper__registerForCalendarYieldNotificationsForDB___block_inv
 
 void __61__ESCalDBHelper__registerForCalendarYieldNotificationsForDB___block_invoke_30(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   CalDatabaseRegisterYieldBlock();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  CFRelease(v3);
+  CFRelease(v2);
 }
 
 + (void)setMainDatabasePath:(id)path containerProvider:(id)provider
@@ -1012,57 +990,39 @@ void __61__ESCalDBHelper__registerForCalendarYieldNotificationsForDB___block_inv
 void __54__ESCalDBHelper_saveDatabaseForAccountID_flushCaches___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4(v2);
-  v4 = *v0;
-  v5 = OUTLINED_FUNCTION_3(v3);
+  v1 = OUTLINED_FUNCTION_4(v0);
+  v2 = OUTLINED_FUNCTION_3(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __59__ESCalDBHelper_saveDatabaseForAuxDatabaseRef_flushCaches___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4(v2);
-  v4 = *v0;
-  v5 = v3;
+  v1 = OUTLINED_FUNCTION_4(v0);
   CalAuxDatabaseGetUID();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void __48__ESCalDBHelper_closeDatabaseForAccountID_save___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4(v2);
-  v4 = *v0;
-  v5 = OUTLINED_FUNCTION_3(v3);
+  v1 = OUTLINED_FUNCTION_4(v0);
+  v2 = OUTLINED_FUNCTION_3(v1);
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __53__ESCalDBHelper_closeDatabaseForAuxDatabaseRef_save___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4(v2);
-  v4 = *v0;
-  v5 = v3;
+  v1 = OUTLINED_FUNCTION_4(v0);
   CalAuxDatabaseGetUID();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x12u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)_openDatabaseForPath:(uint64_t)a3 clientID:(uint64_t)a4 createdDatabaseToConsume:.cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)

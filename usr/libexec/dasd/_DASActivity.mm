@@ -364,7 +364,7 @@ LABEL_30:
     [v41 setObject:context2 forKeyedSubscript:_DASContextKey];
   }
 
-  if ([v41 count])
+  if (objc_msgSend_count(v41))
   {
     [v18 setUserInfo:v41];
   }

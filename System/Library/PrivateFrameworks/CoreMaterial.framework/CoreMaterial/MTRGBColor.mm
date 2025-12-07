@@ -7,7 +7,6 @@
 - (id)_initWithDescription:(id)description;
 - (id)colorBlendedWithColor:(id)color;
 - (id)colorDescription;
-- (id)description;
 @end
 
 @implementation MTRGBColor
@@ -58,7 +57,7 @@
 
   ColorSpace = CGColorGetColorSpace(color);
   v6 = CGColorSpaceGetName(ColorSpace);
-  if (![v6 isEqualToString:*MEMORY[0x1E695F110]] || (Components = CGColorGetComponents(color), CGColorGetNumberOfComponents(color) != 4))
+  if (![v6 isEqualToString:?] || (CGColorGetComponents(color), CGColorGetNumberOfComponents(color) != 4))
   {
 
 LABEL_6:
@@ -66,17 +65,12 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v8 = *Components;
-  v9 = Components[1];
-  v10 = Components[2];
-  v11 = Components[3];
-
-  self = [(MTRGBColor *)self initWithRed:v8 green:v9 blue:v10 alpha:v11];
+  self = [MTRGBColor initWithRed:"initWithRed:green:blue:alpha:" green:? blue:? alpha:?];
   selfCopy = self;
 LABEL_7:
-  v13 = selfCopy;
+  v8 = selfCopy;
 
-  return v13;
+  return v8;
 }
 
 - (id)_initWithDescription:(id)description
@@ -87,40 +81,37 @@ LABEL_7:
     [MTRGBColor _initWithDescription:];
   }
 
-  v5 = [descriptionCopy objectForKey:@"alpha"];
+  v5 = [descriptionCopy objectForKey:?];
   if (!v5)
   {
     [MTRGBColor _initWithDescription:];
   }
 
-  v6 = [descriptionCopy objectForKey:@"red"];
+  v6 = [descriptionCopy objectForKey:?];
   if (!v6)
   {
     [MTRGBColor _initWithDescription:];
   }
 
-  v7 = [descriptionCopy objectForKey:@"green"];
+  v7 = [descriptionCopy objectForKey:?];
   if (!v7)
   {
     [MTRGBColor _initWithDescription:];
   }
 
-  v8 = [descriptionCopy objectForKey:@"blue"];
+  v8 = [descriptionCopy objectForKey:?];
   if (!v8)
   {
     [MTRGBColor _initWithDescription:];
   }
 
   [v6 floatValue];
-  v10 = v9;
   [v7 floatValue];
-  v12 = v11;
   [v8 floatValue];
-  v14 = v13;
   [v5 floatValue];
-  v16 = [(MTRGBColor *)self initWithRed:v10 green:v12 blue:v14 alpha:v15];
+  v9 = [MTRGBColor initWithRed:"initWithRed:green:blue:alpha:" green:? blue:? alpha:?];
 
-  return v16;
+  return v9;
 }
 
 - (CGColor)CGColor
@@ -145,35 +136,23 @@ LABEL_7:
     self->super._cachedColor = result;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)colorDescription
 {
-  v11[4] = *MEMORY[0x1E69E9840];
-  v10[0] = @"red";
-  v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_red];
-  v11[0] = v3;
-  v10[1] = @"green";
-  v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_green];
-  v11[1] = v4;
-  v10[2] = @"blue";
-  v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_blue];
-  v11[2] = v5;
-  v10[3] = @"alpha";
-  v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->_alpha];
-  v11[3] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v2;
 }
 
 - (MTRGBColor)colorWithAlphaComponent:(double)component
 {
-  v3 = [objc_alloc(objc_opt_class()) initWithRed:self->_red green:self->_green blue:self->_blue alpha:component];
+  v3 = [objc_alloc(objc_opt_class()) initWithRed:? green:? blue:? alpha:?];
 
   return v3;
 }
@@ -184,24 +163,9 @@ LABEL_7:
   if (color)
   {
     _rgbColor = [color _rgbColor];
-    v6 = _rgbColor;
-    alpha = selfCopy->_alpha;
-    v8 = _rgbColor[5];
-    v9 = 1.0;
-    v10 = 1.0 - alpha;
-    v11 = alpha + v8 * (1.0 - alpha);
-    v12 = 1.0;
-    v13 = 1.0;
-    if (v11 != 0.0)
-    {
-      v9 = (alpha * selfCopy->_red + v8 * _rgbColor[2] * v10) / v11;
-      v12 = (alpha * selfCopy->_green + v8 * _rgbColor[3] * v10) / v11;
-      v13 = (alpha * selfCopy->_blue + v8 * _rgbColor[4] * v10) / v11;
-    }
+    v6 = [MTColor colorWithRed:"colorWithRed:green:blue:alpha:" green:? blue:? alpha:?];
 
-    v14 = [MTColor colorWithRed:v9 green:v12 blue:v13 alpha:?];
-
-    selfCopy = v14;
+    selfCopy = v6;
   }
 
   return selfCopy;
@@ -214,15 +178,6 @@ LABEL_7:
   blue = self->_blue;
   alpha = self->_alpha;
   return MEMORY[0x1EEDD5DB0](red, green, blue, alpha);
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  red = self->_red;
-  blue = self->_blue;
-  return [v3 stringWithFormat:@"<%@: %p; red: %f; green: %f; blue: %f; alpha: %f>", v4, self, *&red, *&self->_green, *&blue, *&self->_alpha];
 }
 
 - (void)initWithRed:green:blue:alpha:.cold.1()

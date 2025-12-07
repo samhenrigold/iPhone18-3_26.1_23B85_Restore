@@ -43,7 +43,7 @@ uint64_t __84__WBSCyclerCreateTabGroupRelatedItemOperation_executeWithContext_co
 
 - (void)_createRandomTabWithContext:(id)context completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   tabGroupsParent = [contextCopy tabGroupsParent];
@@ -53,37 +53,37 @@ uint64_t __84__WBSCyclerCreateTabGroupRelatedItemOperation_executeWithContext_co
     randomItemTitle = [contextCopy randomItemTitle];
     v10 = +[WBSCyclerRandomnessUtilities randomURL];
     v11 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [randomTabGroupDescendant numberOfTabs] + 1);
-    v12 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXCycler(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = v12;
+      v14 = v13;
       title = [randomTabGroupDescendant title];
       *buf = 138544130;
-      v28 = randomItemTitle;
-      v29 = 2114;
-      v30 = v10;
-      v31 = 2114;
-      v32 = title;
-      v33 = 2048;
-      v34 = v11;
-      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_INFO, "Creating tab with title %{public}@ and URL %{public}@ in tab group with title %{public}@ at index %lu", buf, 0x2Au);
+      v29 = randomItemTitle;
+      v30 = 2114;
+      v31 = v10;
+      v32 = 2114;
+      v33 = title;
+      v34 = 2048;
+      v35 = v11;
+      _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_INFO, "Creating tab with title %{public}@ and URL %{public}@ in tab group with title %{public}@ at index %lu", buf, 0x2Au);
     }
 
     testTarget = [contextCopy testTarget];
     uniqueIdentifier = [randomTabGroupDescendant uniqueIdentifier];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __93__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabWithContext_completionHandler___block_invoke;
-    v20[3] = &unk_1E7FC5120;
-    v25 = handlerCopy;
-    v21 = contextCopy;
-    v22 = randomTabGroupDescendant;
-    v23 = v10;
-    v24 = randomItemTitle;
-    v26 = v11;
-    v17 = randomItemTitle;
-    v18 = v10;
-    [testTarget createBookmarkWithTitle:v17 url:v18 inListWithIdentifier:uniqueIdentifier atIndex:v11 reply:v20];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __93__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabWithContext_completionHandler___block_invoke;
+    v21[3] = &unk_1E7FC5120;
+    v26 = handlerCopy;
+    v22 = contextCopy;
+    v23 = randomTabGroupDescendant;
+    v24 = v10;
+    v25 = randomItemTitle;
+    v27 = v11;
+    v18 = randomItemTitle;
+    v19 = v10;
+    [testTarget createBookmarkWithTitle:v18 url:v19 inListWithIdentifier:uniqueIdentifier atIndex:v11 reply:v21];
   }
 
   else
@@ -124,42 +124,42 @@ void __93__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabWithConte
 
 - (void)_createRandomTabGroupWithContext:(id)context completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   randomItemTitle = [contextCopy randomItemTitle];
   tabGroupsParent = [contextCopy tabGroupsParent];
   v9 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [tabGroupsParent numberOfChildren] + 1);
-  v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = WBS_LOG_CHANNEL_PREFIXCycler(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = v10;
+    v12 = v11;
     title = [tabGroupsParent title];
     *buf = 138543874;
-    v26 = title;
-    v27 = 2114;
-    v28 = randomItemTitle;
-    v29 = 2048;
-    v30 = v9;
-    _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_INFO, "Creating tab group in profile %{public}@ with title %{public}@ at index %lu", buf, 0x20u);
+    v27 = title;
+    v28 = 2114;
+    v29 = randomItemTitle;
+    v30 = 2048;
+    v31 = v9;
+    _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Creating tab group in profile %{public}@ with title %{public}@ at index %lu", buf, 0x20u);
   }
 
   testTarget = [contextCopy testTarget];
   uniqueIdentifier = [tabGroupsParent uniqueIdentifier];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __98__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupWithContext_completionHandler___block_invoke;
-  v19[3] = &unk_1E7FC50F8;
-  v20 = contextCopy;
-  v21 = randomItemTitle;
-  v22 = tabGroupsParent;
-  v23 = handlerCopy;
-  v24 = v9;
-  v15 = tabGroupsParent;
-  v16 = randomItemTitle;
-  v17 = contextCopy;
-  v18 = handlerCopy;
-  [testTarget createBookmarkListWithTitle:v16 inListWithIdentifier:uniqueIdentifier atIndex:v9 reply:v19];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __98__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupWithContext_completionHandler___block_invoke;
+  v20[3] = &unk_1E7FC50F8;
+  v21 = contextCopy;
+  v22 = randomItemTitle;
+  v23 = tabGroupsParent;
+  v24 = handlerCopy;
+  v25 = v9;
+  v16 = tabGroupsParent;
+  v17 = randomItemTitle;
+  v18 = contextCopy;
+  v19 = handlerCopy;
+  [testTarget createBookmarkListWithTitle:v17 inListWithIdentifier:uniqueIdentifier atIndex:v9 reply:v20];
 }
 
 void __98__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupWithContext_completionHandler___block_invoke(uint64_t a1, char a2)
@@ -199,7 +199,7 @@ void __98__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupWith
 
 - (void)_createRandomTabGroupFavoriteWithContext:(id)context completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   tabGroupsParent = [contextCopy tabGroupsParent];
@@ -213,37 +213,37 @@ void __98__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupWith
       randomItemTitle = [contextCopy randomItemTitle];
       v12 = +[WBSCyclerRandomnessUtilities randomURL];
       v13 = +[WBSCyclerRandomnessUtilities randomIntegerWithUpperBound:](WBSCyclerRandomnessUtilities, "randomIntegerWithUpperBound:", [topLevelItem2 numberOfChildren] + 1);
-      v14 = WBS_LOG_CHANNEL_PREFIXCycler();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = WBS_LOG_CHANNEL_PREFIXCycler(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = v14;
+        v16 = v15;
         title = [v9 title];
         *buf = 138544130;
-        v30 = randomItemTitle;
-        v31 = 2114;
-        v32 = v12;
-        v33 = 2114;
-        v34 = title;
-        v35 = 2048;
-        v36 = v13;
-        _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_INFO, "Creating Tab Group Favorite with title %{public}@ and URL %{public}@ in tab group with title %{public}@ at index %lu", buf, 0x2Au);
+        v31 = randomItemTitle;
+        v32 = 2114;
+        v33 = v12;
+        v34 = 2114;
+        v35 = title;
+        v36 = 2048;
+        v37 = v13;
+        _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_INFO, "Creating Tab Group Favorite with title %{public}@ and URL %{public}@ in tab group with title %{public}@ at index %lu", buf, 0x2Au);
       }
 
       testTarget = [contextCopy testTarget];
       uniqueIdentifier = [topLevelItem2 uniqueIdentifier];
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __106__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupFavoriteWithContext_completionHandler___block_invoke;
-      v22[3] = &unk_1E7FC5120;
-      v27 = handlerCopy;
-      v23 = contextCopy;
-      v24 = topLevelItem2;
-      v25 = v12;
-      v26 = randomItemTitle;
-      v28 = v13;
-      v19 = randomItemTitle;
-      v20 = v12;
-      [testTarget createBookmarkWithTitle:v19 url:v20 inListWithIdentifier:uniqueIdentifier atIndex:v13 reply:v22];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __106__WBSCyclerCreateTabGroupRelatedItemOperation__createRandomTabGroupFavoriteWithContext_completionHandler___block_invoke;
+      v23[3] = &unk_1E7FC5120;
+      v28 = handlerCopy;
+      v24 = contextCopy;
+      v25 = topLevelItem2;
+      v26 = v12;
+      v27 = randomItemTitle;
+      v29 = v13;
+      v20 = randomItemTitle;
+      v21 = v12;
+      [testTarget createBookmarkWithTitle:v20 url:v21 inListWithIdentifier:uniqueIdentifier atIndex:v13 reply:v23];
     }
 
     else

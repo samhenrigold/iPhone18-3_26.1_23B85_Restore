@@ -9,6 +9,7 @@
 - (void)_setEnableQuickSwitch:(id)switch forSpecifier:(id)specifier;
 - (void)reloadSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLPRFCompanionQuickSwitchSettingsController
@@ -47,6 +48,29 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"QUICK_SWITCH" value:&stru_C380 table:@"LocalizableSettings-N199"];
   [(CSLPRFCompanionQuickSwitchSettingsController *)self setTitle:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = CSLPRFCompanionQuickSwitchSettingsController;
+  [(CSLPRFCompanionQuickSwitchSettingsController *)&v15 viewWillAppear:appear];
+  v3 = [_NSLocalizedStringResource alloc];
+  v4 = +[NSLocale currentLocale];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+  v7 = [v3 initWithKey:@"QUICK_SWITCH" table:@"LocalizableSettings-N199" locale:v4 bundleURL:bundleURL];
+
+  v8 = [_NSLocalizedStringResource alloc];
+  v9 = +[NSLocale currentLocale];
+  v10 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL2 = [v10 bundleURL];
+  v12 = [v8 initWithKey:@"STING_TITLE" table:@"Localizable-N199" locale:v9 bundleURL:bundleURL2];
+
+  v16 = v12;
+  v13 = [NSArray arrayWithObjects:&v16 count:1];
+  v14 = [NSURL URLWithString:@"bridge:root=ACTION_BUTTON_ID&path=ShowQuickSwitch"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACTION_BUTTON_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
 }
 
 - (void)reloadSpecifiers

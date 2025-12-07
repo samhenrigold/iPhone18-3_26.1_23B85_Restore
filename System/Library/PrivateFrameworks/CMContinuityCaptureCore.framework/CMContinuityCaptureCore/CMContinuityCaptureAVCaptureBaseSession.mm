@@ -40,7 +40,7 @@
 
   objc_initWeak(buf, self);
   name = [notificationCopy name];
-  v8 = [name isEqualToString:*MEMORY[0x277CE59C0]];
+  v8 = [name isEqualToString:?];
 
   if (v8)
   {
@@ -63,9 +63,9 @@ void __76__CMContinuityCaptureAVCaptureBaseSession_handleCaptureSessionNotificat
   if (WeakRetained)
   {
     v2 = WeakRetained;
-    [WeakRetained willChangeValueForKey:@"state"];
+    [WeakRetained willChangeValueForKey:?];
     v2[3] = 3;
-    [v2 didChangeValueForKey:@"state"];
+    [v2 didChangeValueForKey:?];
     WeakRetained = v2;
   }
 }
@@ -90,11 +90,10 @@ void __56__CMContinuityCaptureAVCaptureBaseSession_setTransport___block_invoke(u
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v3 = *(a1 + 40);
-    *(WeakRetained + 4) = v3;
-    v4 = WeakRetained;
-    [*(WeakRetained + 1) setContinuityCameraIsWired:v3 == 2];
-    WeakRetained = v4;
+    *(WeakRetained + 4) = *(a1 + 40);
+    v3 = WeakRetained;
+    [*(WeakRetained + 1) setContinuityCameraIsWired:?];
+    WeakRetained = v3;
   }
 }
 
@@ -119,8 +118,10 @@ uint64_t __64__CMContinuityCaptureAVCaptureBaseSession_setClientDeviceModel___bl
   if (WeakRetained)
   {
     v3 = *(a1 + 40);
-    *(WeakRetained + 5) = v3;
-    [*(WeakRetained + 1) setContinuityCameraClientDeviceClass:CMContinuityCaptureDeviceClassFromDeviceModel(v3)];
+    WeakRetained[5] = v3;
+    v5 = WeakRetained;
+    CMContinuityCaptureDeviceClassFromDeviceModel(v3);
+    [v5[1] setContinuityCameraClientDeviceClass:?];
   }
 
   return MEMORY[0x2821F96F8]();
@@ -148,9 +149,9 @@ LABEL_6:
   else
   {
     [(AVCaptureSession *)self->_captureSession beginConfiguration];
-    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:?];
     self->_state = 1;
-    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:?];
     v3 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
@@ -171,7 +172,7 @@ LABEL_6:
   if (self->_state == 1)
   {
     [(AVCaptureSession *)self->_captureSession commitConfiguration];
-    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:?];
     if ([(AVCaptureSession *)self->_captureSession isRunning])
     {
       v3 = 2;
@@ -188,7 +189,7 @@ LABEL_6:
     }
 
     self->_state = v3;
-    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:?];
     v4 = CMContinuityCaptureLog(2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
@@ -221,16 +222,16 @@ LABEL_10:
 
 - (void)start
 {
-  [CMContinuityCaptureRemoteCompositeDevice setWombatMode:1];
+  [CMContinuityCaptureRemoteCompositeDevice setWombatMode:?];
   dispatch_assert_queue_V2(self->_queue);
   [(AVCaptureSession *)self->_captureSession startRunning];
-  [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:@"state"];
+  [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:?];
   if ([(AVCaptureSession *)self->_captureSession isRunning]|| [(AVCaptureSession *)self->_captureSession isInterrupted])
   {
     self->_state = 2;
   }
 
-  [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:@"state"];
+  [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:?];
   v3 = CMContinuityCaptureLog(2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -251,9 +252,9 @@ LABEL_10:
   [(AVCaptureSession *)self->_captureSession stopRunning];
   if (![(AVCaptureSession *)self->_captureSession isRunning])
   {
-    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self willChangeValueForKey:?];
     self->_state = 0;
-    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:@"state"];
+    [(CMContinuityCaptureAVCaptureBaseSession *)self didChangeValueForKey:?];
   }
 
   v3 = CMContinuityCaptureLog(2);
@@ -274,9 +275,9 @@ LABEL_10:
 {
   sessionCopy = session;
   queueCopy = queue;
-  v29.receiver = self;
-  v29.super_class = CMContinuityCaptureAVCaptureBaseSession;
-  v9 = [(CMContinuityCaptureAVCaptureBaseSession *)&v29 init];
+  v17.receiver = self;
+  v17.super_class = CMContinuityCaptureAVCaptureBaseSession;
+  v9 = [(CMContinuityCaptureAVCaptureBaseSession *)&v17 init];
   v10 = v9;
   if (v9)
   {
@@ -286,18 +287,18 @@ LABEL_10:
     v10->_transport = 0;
     v10->_clientDeviceModel = 0;
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    OUTLINED_FUNCTION_1_6(defaultCenter, v12, v13, v14, *MEMORY[0x277CE59C0]);
+    OUTLINED_FUNCTION_1_6(defaultCenter);
 
     defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-    OUTLINED_FUNCTION_1_6(defaultCenter2, v16, v17, v18, *MEMORY[0x277CE5930]);
+    OUTLINED_FUNCTION_1_6(defaultCenter2);
 
     defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
-    OUTLINED_FUNCTION_1_6(defaultCenter3, v20, v21, v22, *MEMORY[0x277CE5938]);
+    OUTLINED_FUNCTION_1_6(defaultCenter3);
 
     defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
-    OUTLINED_FUNCTION_1_6(defaultCenter4, v24, v25, v26, *MEMORY[0x277CE59C8]);
+    OUTLINED_FUNCTION_1_6(defaultCenter4);
 
-    v27 = v10;
+    v15 = v10;
   }
 
   return v10;

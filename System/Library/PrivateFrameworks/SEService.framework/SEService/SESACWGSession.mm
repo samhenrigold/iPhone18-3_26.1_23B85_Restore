@@ -1,5 +1,6 @@
 @interface SESACWGSession
 - (SESACWGSessionDelegate)delegate;
+- (id)disableBluetooth:(BOOL)bluetooth;
 - (id)setActiveKey:(id)key;
 - (id)setSecureElementToken:(id)token;
 - (void)didEndUnexpectedly:(id)unexpectedly;
@@ -12,7 +13,7 @@
 
 - (id)setActiveKey:(id)key
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = SESDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -26,36 +27,35 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__4;
-    v35 = __Block_byref_object_dispose__4;
-    v36 = 0;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__4;
+    v32 = __Block_byref_object_dispose__4;
+    v33 = 0;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __31__SESACWGSession_setActiveKey___block_invoke;
-    v25[3] = &unk_1E82D1170;
-    v25[4] = &buf;
-    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v25];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __31__SESACWGSession_setActiveKey___block_invoke_2;
-    v24[3] = &unk_1E82D0DF0;
-    v24[4] = &v26;
-    v24[5] = &buf;
-    [v6 setActiveKey:keyCopy reply:v24];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __31__SESACWGSession_setActiveKey___block_invoke;
+    v22[3] = &unk_1E82D1170;
+    v22[4] = &buf;
+    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __31__SESACWGSession_setActiveKey___block_invoke_2;
+    v21[3] = &unk_1E82D0DF0;
+    v21[4] = &v23;
+    v21[5] = &buf;
+    [v6 setActiveKey:keyCopy reply:v21];
 
     v7 = *(&buf + 1);
-    if ((v27[3] & 1) == 0 && !*(*(&buf + 1) + 40))
+    if ((v24[3] & 1) == 0 && !*(*(&buf + 1) + 40))
     {
       v8 = SESDefaultLogObject();
-      v9 = *MEMORY[0x1E69E5148];
-      v10 = SESCreateAndLogError();
-      v11 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v10;
+      v9 = SESCreateAndLogError();
+      v10 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v9;
 
       v7 = *(&buf + 1);
     }
@@ -65,7 +65,7 @@
     {
       self->_aid = 0;
 
-      v15 = 0;
+      v14 = 0;
       activeKeyIdentifier = self->_activeKeyIdentifier;
       self->_activeKeyIdentifier = 0;
     }
@@ -74,48 +74,45 @@
     {
       self->_aid = @"A000000909ACCE5501";
 
-      v13 = keyCopy;
+      v12 = keyCopy;
       activeKeyIdentifier = self->_activeKeyIdentifier;
-      self->_activeKeyIdentifier = v13;
-      v15 = 1;
+      self->_activeKeyIdentifier = v12;
+      v14 = 1;
     }
 
-    self->_supportsSecureRanging = v15;
-    v19 = *(*(&buf + 1) + 40);
-    if (v19)
+    self->_supportsSecureRanging = v14;
+    v17 = *(*(&buf + 1) + 40);
+    if (v17)
     {
-      v20 = SESDefaultLogObject();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v18 = SESDefaultLogObject();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(*(&buf + 1) + 40);
-        *v30 = 138412290;
-        v31 = v21;
-        _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_ERROR, "%@", v30, 0xCu);
+        v19 = *(*(&buf + 1) + 40);
+        *v27 = 138412290;
+        v28 = v19;
+        _os_log_impl(&dword_1C7B9A000, v18, OS_LOG_TYPE_ERROR, "%@", v27, 0xCu);
       }
 
-      v19 = *(*(&buf + 1) + 40);
+      v17 = *(*(&buf + 1) + 40);
     }
 
-    v18 = v19;
-    _Block_object_dispose(&v26, 8);
+    v16 = v17;
+    _Block_object_dispose(&v23, 8);
     _Block_object_dispose(&buf, 8);
   }
 
   else
   {
-    v16 = SESDefaultLogObject();
-    v17 = *MEMORY[0x1E69E5148];
-    v18 = SESCreateAndLogError();
+    v15 = SESDefaultLogObject();
+    v16 = SESCreateAndLogError();
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v16;
 }
 
 - (id)setSecureElementToken:(id)token
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   v5 = SESDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -127,71 +124,145 @@
   if ([(SESSession *)self state]== 1)
   {
     *buf = 0;
-    v27 = buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__4;
-    v30 = __Block_byref_object_dispose__4;
-    v31 = 0;
+    v24 = buf;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__4;
+    v27 = __Block_byref_object_dispose__4;
+    v28 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
     v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __40__SESACWGSession_setSecureElementToken___block_invoke;
-    v21[3] = &unk_1E82D1170;
-    v21[4] = buf;
-    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v21];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __40__SESACWGSession_setSecureElementToken___block_invoke_2;
-    v20[3] = &unk_1E82D0DF0;
-    v20[4] = &v22;
-    v20[5] = buf;
-    [v6 setSecureElementToken:tokenCopy reply:v20];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __40__SESACWGSession_setSecureElementToken___block_invoke;
+    v18[3] = &unk_1E82D1170;
+    v18[4] = buf;
+    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __40__SESACWGSession_setSecureElementToken___block_invoke_2;
+    v17[3] = &unk_1E82D0DF0;
+    v17[4] = &v19;
+    v17[5] = buf;
+    [v6 setSecureElementToken:tokenCopy reply:v17];
 
-    v7 = v27;
-    if ((v23[3] & 1) == 0 && !*(v27 + 5))
+    v7 = v24;
+    if ((v20[3] & 1) == 0 && !*(v24 + 5))
     {
       v8 = SESDefaultLogObject();
-      v9 = *MEMORY[0x1E69E5148];
-      v10 = SESCreateAndLogError();
-      v11 = *(v27 + 5);
-      *(v27 + 5) = v10;
+      v9 = SESCreateAndLogError();
+      v10 = *(v24 + 5);
+      *(v24 + 5) = v9;
 
-      v7 = v27;
+      v7 = v24;
     }
 
-    v12 = *(v7 + 5);
-    if (v12)
+    v11 = *(v7 + 5);
+    if (v11)
     {
-      v13 = SESDefaultLogObject();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = SESDefaultLogObject();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(v27 + 5);
-        *v32 = 138412290;
-        v33 = v14;
-        _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_ERROR, "%@", v32, 0xCu);
+        v13 = *(v24 + 5);
+        *v29 = 138412290;
+        v30 = v13;
+        _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "%@", v29, 0xCu);
       }
 
-      v12 = *(v27 + 5);
+      v11 = *(v24 + 5);
     }
 
-    v15 = v12;
-    _Block_object_dispose(&v22, 8);
+    v14 = v11;
+    _Block_object_dispose(&v19, 8);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
-    v16 = SESDefaultLogObject();
-    v17 = *MEMORY[0x1E69E5148];
-    v15 = SESCreateAndLogError();
+    v15 = SESDefaultLogObject();
+    v14 = SESCreateAndLogError();
   }
 
-  v18 = *MEMORY[0x1E69E9840];
+  return v14;
+}
 
-  return v15;
+- (id)disableBluetooth:(BOOL)bluetooth
+{
+  bluetoothCopy = bluetooth;
+  v31 = *MEMORY[0x1E69E9840];
+  v5 = SESDefaultLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    *&buf[4] = bluetoothCopy;
+    _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_INFO, "disableBluetooth %d", buf, 8u);
+  }
+
+  if ([(SESSession *)self state]== 1)
+  {
+    *buf = 0;
+    v26 = buf;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__4;
+    v29 = __Block_byref_object_dispose__4;
+    v30 = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __35__SESACWGSession_disableBluetooth___block_invoke;
+    v18[3] = &unk_1E82D1170;
+    v18[4] = buf;
+    v6 = [(SESSession *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __35__SESACWGSession_disableBluetooth___block_invoke_2;
+    v17[3] = &unk_1E82D0DF0;
+    v17[4] = &v19;
+    v17[5] = buf;
+    [v6 preArmActiveKey:bluetoothCopy reply:v17];
+
+    v7 = v26;
+    if ((v20[3] & 1) == 0 && !*(v26 + 5))
+    {
+      v8 = SESDefaultLogObject();
+      v9 = SESCreateAndLogError();
+      v10 = *(v26 + 5);
+      *(v26 + 5) = v9;
+
+      v7 = v26;
+    }
+
+    v11 = *(v7 + 5);
+    if (v11)
+    {
+      v12 = SESDefaultLogObject();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v13 = *(v26 + 5);
+        *v23 = 138412290;
+        v24 = v13;
+        _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "%@", v23, 0xCu);
+      }
+
+      v11 = *(v26 + 5);
+    }
+
+    v14 = v11;
+    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(buf, 8);
+  }
+
+  else
+  {
+    v15 = SESDefaultLogObject();
+    v14 = SESCreateAndLogError();
+  }
+
+  return v14;
 }
 
 - (void)didStartSession:(id)session

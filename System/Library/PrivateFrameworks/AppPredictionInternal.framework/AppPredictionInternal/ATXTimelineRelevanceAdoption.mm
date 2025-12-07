@@ -197,100 +197,100 @@
 
 - (void)persistQuotasWithActivity:(id)activity
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
+  v6 = activityCopy;
   if (self->_distinctScoreCounts)
   {
-    v6 = objc_opt_new();
-    v30 = 0u;
+    v7 = objc_opt_new();
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v7 = self->_distinctScoreCounts;
-    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
-    if (v8)
+    v34 = 0u;
+    v8 = self->_distinctScoreCounts;
+    v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v31;
+      v10 = v9;
+      v11 = *v32;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v31 != v10)
+          if (*v32 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
-          first = [v12 first];
-          second = [v12 second];
-          [(ATXTimelineRelevanceAdoption *)self _updateQuotasForWidgetBundleId:first widgetKind:second quotasDictionary:v6];
+          v13 = *(*(&v31 + 1) + 8 * i);
+          first = [v13 first];
+          second = [v13 second];
+          [(ATXTimelineRelevanceAdoption *)self _updateQuotasForWidgetBundleId:first widgetKind:second quotasDictionary:v7];
         }
 
-        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v31 objects:v37 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    if ([activityCopy didDefer])
+    didDefer = [v6 didDefer];
+    if (didDefer)
     {
-      v15 = __atxlog_handle_timeline();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = __atxlog_handle_timeline(didDefer);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXTimelineRelevanceAdoption: Deferring persisting personalized quotas", buf, 2u);
+        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "ATXTimelineRelevanceAdoption: Deferring persisting personalized quotas", buf, 2u);
       }
     }
 
     else
     {
-      v16 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"ATXTimelineRelevancePersonalizedConfig"];
-      v17 = __atxlog_handle_timeline();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"ATXTimelineRelevancePersonalizedConfig"];
+      v19 = __atxlog_handle_timeline(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v35 = v16;
-        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceAdoption: persisting updated quotas at path: %{public}@", buf, 0xCu);
+        v36 = v18;
+        _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_INFO, "ATXTimelineRelevanceAdoption: persisting updated quotas at path: %{public}@", buf, 0xCu);
       }
 
-      v18 = objc_autoreleasePoolPush();
-      v29 = 0;
-      v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v29];
-      v20 = v29;
-      if (!v19)
+      v20 = objc_autoreleasePoolPush();
+      v30 = 0;
+      v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v30];
+      v22 = v30;
+      if (!v21)
       {
-        [(ATXTimelineRelevanceAdoption *)a2 persistQuotasWithActivity:v16, v20];
+        [(ATXTimelineRelevanceAdoption *)a2 persistQuotasWithActivity:v18, v22];
       }
 
-      v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v22 = dispatch_queue_attr_make_with_qos_class(v21, QOS_CLASS_BACKGROUND, 0);
-      v23 = dispatch_queue_create("timeline-relevance-budget-update", v22);
+      v23 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v24 = dispatch_queue_attr_make_with_qos_class(v23, QOS_CLASS_BACKGROUND, 0);
+      v25 = dispatch_queue_create("timeline-relevance-budget-update", v24);
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke;
       block[3] = &unk_278596C10;
-      v27 = v19;
-      v15 = v16;
-      v28 = v15;
-      v24 = v19;
-      dispatch_async(v23, block);
+      v28 = v21;
+      v17 = v18;
+      v29 = v17;
+      v26 = v21;
+      dispatch_async(v25, block);
 
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v20);
     }
   }
 
   else
   {
-    v6 = __atxlog_handle_timeline();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_timeline(activityCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [ATXTimelineRelevanceAdoption persistQuotasWithActivity:v6];
+      [ATXTimelineRelevanceAdoption persistQuotasWithActivity:v7];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke(uint64_t a1)
@@ -302,28 +302,27 @@ void __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke
   v9 = 0;
   v4 = [v3 writeToFile:v1 options:1073741825 error:&v9];
   v5 = v9;
+  v6 = v5;
   if (v4)
   {
-    v6 = __atxlog_handle_timeline();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = __atxlog_handle_timeline(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = *v2;
+      v8 = *v2;
       *buf = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "Successfully updated budgets at path %{public}@", buf, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "Successfully updated budgets at path %{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    v6 = __atxlog_handle_default();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke_cold_1(v2, v5, v6);
+      __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke_cold_1(v2, v6, v7);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trainWidgetPredictionModelWithActivity:(id)activity
@@ -341,14 +340,13 @@ void __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke
 
 void __58__ATXTimelineRelevanceAdoption_persistQuotasWithActivity___block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Could not write updated budgets to path: %{public}@. Error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "Could not write updated budgets to path: %{public}@. Error: %{public}@", &v4, 0x16u);
 }
 
 @end

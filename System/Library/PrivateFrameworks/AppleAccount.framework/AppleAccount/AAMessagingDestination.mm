@@ -55,120 +55,125 @@
 - (AAMessagingDestination)initWithHandle:(id)handle
 {
   handleCopy = handle;
-  v61.receiver = self;
-  v61.super_class = AAMessagingDestination;
-  v5 = [(AAMessagingDestination *)&v61 init];
+  v66.receiver = self;
+  v66.super_class = AAMessagingDestination;
+  v5 = [(AAMessagingDestination *)&v66 init];
   if (!v5)
   {
     goto LABEL_18;
   }
 
-  if ([handleCopy hasPrefix:@"mailto:"])
+  v6 = [handleCopy hasPrefix:@"mailto:"];
+  if (v6)
   {
-    v6 = _AALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _AALogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [(AAMessagingDestination *)v6 initWithHandle:v7, v8, v9, v10, v11, v12, v13];
+      [(AAMessagingDestination *)v7 initWithHandle:v8, v9, v10, v11, v12, v13, v14];
     }
 
     v5->_destinationType = 1;
-    v14 = IDSCopyRawAddressForDestination();
+    v15 = IDSCopyRawAddressForDestination();
     destination = v5->_destination;
-    v5->_destination = v14;
+    v5->_destination = v15;
 
     goto LABEL_16;
   }
 
-  if ([handleCopy hasPrefix:@"tel:"])
+  v17 = [handleCopy hasPrefix:@"tel:"];
+  if (v17)
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _AALogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [(AAMessagingDestination *)v16 initWithHandle:v17, v18, v19, v20, v21, v22, v23];
+      [(AAMessagingDestination *)v18 initWithHandle:v19, v20, v21, v22, v23, v24, v25];
     }
 
-    v24 = 2;
+    v26 = 2;
 LABEL_15:
-    v5->_destinationType = v24;
+    v5->_destinationType = v26;
 LABEL_16:
-    v33 = [handleCopy copy];
+    v36 = [handleCopy copy];
 LABEL_17:
     destinationURI = v5->_destinationURI;
-    v5->_destinationURI = v33;
+    v5->_destinationURI = v36;
 
 LABEL_18:
-    v35 = dispatch_get_global_queue(33, 0);
+    v38 = dispatch_get_global_queue(33, 0);
     idsQueue = v5->_idsQueue;
-    v5->_idsQueue = v35;
+    v5->_idsQueue = v38;
 
-    v37 = v5;
+    v40 = v5;
     goto LABEL_19;
   }
 
-  if (([handleCopy hasPrefix:@"token:"] & 1) != 0 || objc_msgSend(handleCopy, "hasPrefix:", @"self-token:"))
+  v27 = [handleCopy hasPrefix:@"token:"];
+  if ((v27 & 1) != 0 || (v27 = [handleCopy hasPrefix:@"self-token:"], v27))
   {
-    v25 = _AALogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v28 = _AALogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      [(AAMessagingDestination *)v25 initWithHandle:v26, v27, v28, v29, v30, v31, v32];
+      [(AAMessagingDestination *)v28 initWithHandle:v29, v30, v31, v32, v33, v34, v35];
     }
 
-    v24 = 3;
+    v26 = 3;
     goto LABEL_15;
   }
 
-  if ([handleCopy aa_appearsToBeEmail])
+  aa_appearsToBeEmail = [handleCopy aa_appearsToBeEmail];
+  if (aa_appearsToBeEmail)
   {
-    v39 = _AALogSystem();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v43 = _AALogSystem(aa_appearsToBeEmail);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      [(AAMessagingDestination *)v39 initWithHandle:v40, v41, v42, v43, v44, v45, v46];
+      [(AAMessagingDestination *)v43 initWithHandle:v44, v45, v46, v47, v48, v49, v50];
     }
 
     v5->_destinationType = 1;
-    v47 = [handleCopy copy];
-    v48 = v5->_destination;
-    v5->_destination = v47;
+    v51 = [handleCopy copy];
+    v52 = v5->_destination;
+    v5->_destination = v51;
 
-    v33 = _SIDSCopyIDForEmailAddress(handleCopy);
+    v36 = _SIDSCopyIDForEmailAddress(handleCopy);
     goto LABEL_17;
   }
 
   aa_appearsToBePhoneNumber = [handleCopy aa_appearsToBePhoneNumber];
-  v50 = _AALogSystem();
-  v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG);
-  if (aa_appearsToBePhoneNumber)
+  v54 = aa_appearsToBePhoneNumber;
+  v55 = _AALogSystem(aa_appearsToBePhoneNumber);
+  v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG);
+  if (v54)
   {
-    if (v51)
+    if (v56)
     {
-      [(AAMessagingDestination *)v50 initWithHandle:v52, v53, v54, v55, v56, v57, v58];
+      [(AAMessagingDestination *)v55 initWithHandle:v57, v58, v59, v60, v61, v62, v63];
     }
 
     v5->_destinationType = 2;
-    v59 = [handleCopy copy];
-    v60 = v5->_destination;
-    v5->_destination = v59;
+    v64 = [handleCopy copy];
+    v65 = v5->_destination;
+    v5->_destination = v64;
 
-    v33 = _SIDSCopyIDForPhoneNumberWithOptions(handleCopy, 0, 0);
+    v36 = _SIDSCopyIDForPhoneNumberWithOptions(handleCopy, 0, 0);
     goto LABEL_17;
   }
 
-  if (v51)
+  if (v56)
   {
-    [(AAMessagingDestination *)handleCopy initWithHandle:v50];
+    [(AAMessagingDestination *)handleCopy initWithHandle:v55];
   }
 
-  v37 = 0;
+  v40 = 0;
 LABEL_19:
 
-  return v37;
+  return v40;
 }
 
 - (void)isRegisteredToiMessageWithCompletion:(id)completion
 {
   completionCopy = completion;
   sharedInstance = [getIDSIDQueryControllerClass() sharedInstance];
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(sharedInstance);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(AAMessagingDestination *)self isRegisteredToiMessageWithCompletion:v6];
@@ -198,13 +203,13 @@ LABEL_19:
 void __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(WeakRetained);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (a2)
   {
     if (v6)
     {
-      __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_cold_1(WeakRetained);
+      __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 48) + 16))(*(a1 + 48), a2 == 1);
@@ -236,10 +241,10 @@ void __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_i
 
 uint64_t __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_43(uint64_t a1, uint64_t a2)
 {
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_43_cold_1(a1);
+    __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_43_cold_1();
   }
 
   return (*(*(a1 + 48) + 16))(*(a1 + 48), a2 == 1);
@@ -257,77 +262,56 @@ uint64_t __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___blo
 
 - (void)initWithHandle:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[AAMessagingDestination initWithHandle:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%s unable to initialize with handle %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[AAMessagingDestination initWithHandle:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%s unable to initialize with handle %@", &v2, 0x16u);
 }
 
 - (void)initWithHandle:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with phone number", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAMessagingDestination initWithHandle:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with phone number", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithHandle:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with email", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAMessagingDestination initWithHandle:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with email", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithHandle:(uint64_t)a3 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with token handle", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAMessagingDestination initWithHandle:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with token handle", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithHandle:(uint64_t)a3 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with phone number uri", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAMessagingDestination initWithHandle:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with phone number uri", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithHandle:(uint64_t)a3 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with email uri", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAMessagingDestination initWithHandle:]";
+  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, a1, a3, "%s Initializing with email uri", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isRegisteredToiMessageWithCompletion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 destinationURI];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Checking if %@ is reachable via iMessage.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v2, v3, "Known IDS status for %@ is %ld");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __63__AAMessagingDestination_isRegisteredToiMessageWithCompletion___block_invoke_43_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 32);
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v2, v3, "IDS status for %@ is %ld");
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Checking if %@ is reachable via iMessage.", &v4, 0xCu);
 }
 
 @end

@@ -71,35 +71,32 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_softErrorInstanceCounters.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_softErrorInstanceCounters.list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_softErrorInstanceCounters.count);
+    while (v4 < self->_softErrorInstanceCounters.count);
   }
 
   p_softErrorUserConfirmationCounters = &self->_softErrorUserConfirmationCounters;
   if (p_softErrorUserConfirmationCounters->count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = p_softErrorUserConfirmationCounters->list[v8];
       PBDataWriterWriteInt32Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < p_softErrorUserConfirmationCounters->count);
+    while (v6 < p_softErrorUserConfirmationCounters->count);
   }
 }
 
@@ -162,7 +159,6 @@
     return 0;
   }
 
-  v5 = *(equal + 64);
   if (*&self->_has)
   {
     if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 7))

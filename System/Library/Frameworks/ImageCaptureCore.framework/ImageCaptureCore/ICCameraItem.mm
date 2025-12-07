@@ -158,10 +158,12 @@
 
 - (void)requestThumbnail
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1C6F19000, v0, v1, "%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  __ICOSLogCreate();
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ICCameraItem requestThumbnail] - unimplemented in base class"];
+  if (os_log_type_enabled(*MEMORY[0x1E69A8B08], OS_LOG_TYPE_ERROR))
+  {
+    [ICCameraItem requestThumbnail];
+  }
 }
 
 - (void)requestMetadata

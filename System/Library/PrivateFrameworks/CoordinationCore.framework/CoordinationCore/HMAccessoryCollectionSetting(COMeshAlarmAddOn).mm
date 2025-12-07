@@ -19,28 +19,28 @@
 
 - (id)co_rawAlarms
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   value = [self value];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [value countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(value);
         }
 
-        _co_alarm = [*(*(&v17 + 1) + 8 * i) _co_alarm];
+        _co_alarm = [*(*(&v16 + 1) + 8 * i) _co_alarm];
         v9 = _co_alarm;
         if (_co_alarm)
         {
@@ -51,7 +51,7 @@
         }
       }
 
-      v5 = [value countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [value countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
@@ -59,8 +59,6 @@
 
   allValues = [v2 allValues];
   v14 = [allValues sortedArrayUsingComparator:&__block_literal_global_0];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

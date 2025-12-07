@@ -26,9 +26,11 @@
 - (void)removeConnectionListener:(id)listener;
 - (void)resyncWithCompletion:(id)completion;
 - (void)saveLocalChangesWithReply:(id)reply;
+- (void)setChangeTrackingEnabled:(BOOL)enabled reply:(id)reply;
 - (void)updateGroupWithRequest:(id)request completion:(id)completion;
 - (void)verifyGroupsInSyncAndResyncMissingGroupsWithCompletion:(id)completion;
 - (void)verifyGroupsInSyncWithCompletion:(id)completion;
+- (void)wipe:(BOOL)wipe reply:(id)reply;
 @end
 
 @implementation KCSharingDaemonConnection
@@ -54,7 +56,7 @@ uint64_t __43__KCSharingDaemonConnection_sharedInstance__block_invoke()
 
 - (void)accountChanged
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1887D2000, "ksd/client/accountChanged", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -63,26 +65,26 @@ uint64_t __43__KCSharingDaemonConnection_sharedInstance__block_invoke()
   _queue = [connection _queue];
   dispatch_assert_queue_V2(_queue);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   connectionListeners = [(KCSharingDaemonConnection *)self connectionListeners];
-  v7 = [connectionListeners countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [connectionListeners countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(connectionListeners);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 accountChanged];
@@ -92,19 +94,18 @@ uint64_t __43__KCSharingDaemonConnection_sharedInstance__block_invoke()
       }
 
       while (v7 != v9);
-      v7 = [connectionListeners countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [connectionListeners countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)groupsUpdated
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = _os_activity_create(&dword_1887D2000, "ksd/client/groupsUpdated", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
   state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
@@ -113,26 +114,26 @@ uint64_t __43__KCSharingDaemonConnection_sharedInstance__block_invoke()
   _queue = [connection _queue];
   dispatch_assert_queue_V2(_queue);
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   connectionListeners = [(KCSharingDaemonConnection *)self connectionListeners];
-  v7 = [connectionListeners countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [connectionListeners countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(connectionListeners);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 groupsUpdated];
@@ -142,14 +143,13 @@ uint64_t __43__KCSharingDaemonConnection_sharedInstance__block_invoke()
       }
 
       while (v7 != v9);
-      v7 = [connectionListeners countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [connectionListeners countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   os_activity_scope_leave(&state);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMaintenanceWithCompletion:(id)completion
@@ -332,6 +332,27 @@ uint64_t __65__KCSharingDaemonConnection_fetchCurrentUserIdentifierWithReply___b
   }
 
   return result;
+}
+
+- (void)wipe:(BOOL)wipe reply:(id)reply
+{
+  wipeCopy = wipe;
+  replyCopy = reply;
+  v7 = _os_activity_create(&dword_1887D2000, "ksd/client/wipe", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+  state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+  os_activity_scope_enter(v7, &state);
+  connection = [(KCSharingDaemonConnection *)self connection];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __40__KCSharingDaemonConnection_wipe_reply___block_invoke;
+  v11[3] = &unk_1E70DECC0;
+  v9 = replyCopy;
+  v12 = v9;
+  v10 = [connection remoteObjectProxyWithErrorHandler:v11];
+  [v10 wipe:wipeCopy reply:v9];
+
+  os_activity_scope_leave(&state);
 }
 
 uint64_t __40__KCSharingDaemonConnection_wipe_reply___block_invoke(uint64_t a1)
@@ -695,6 +716,27 @@ uint64_t __57__KCSharingDaemonConnection_fetchRemoteChangesWithReply___block_inv
   return result;
 }
 
+- (void)setChangeTrackingEnabled:(BOOL)enabled reply:(id)reply
+{
+  enabledCopy = enabled;
+  replyCopy = reply;
+  v7 = _os_activity_create(&dword_1887D2000, "ksd/client/setChangeTrackingEnabled", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0xAAAAAAAAAAAAAAAALL;
+  state.opaque[1] = 0xAAAAAAAAAAAAAAAALL;
+  os_activity_scope_enter(v7, &state);
+  connection = [(KCSharingDaemonConnection *)self connection];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __60__KCSharingDaemonConnection_setChangeTrackingEnabled_reply___block_invoke;
+  v11[3] = &unk_1E70DECC0;
+  v9 = replyCopy;
+  v12 = v9;
+  v10 = [connection remoteObjectProxyWithErrorHandler:v11];
+  [v10 setChangeTrackingEnabled:enabledCopy reply:v9];
+
+  os_activity_scope_leave(&state);
+}
+
 uint64_t __60__KCSharingDaemonConnection_setChangeTrackingEnabled_reply___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -749,32 +791,28 @@ uint64_t __48__KCSharingDaemonConnection_provisionWithReply___block_invoke(uint6
 
 - (void)connectionWasInvalidated
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = KCSharingLogObject(@"KCSharingDaemonConnection", 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = [(KCSharingDaemonConnection *)self connection];
-    v6 = 138412290;
-    v7 = connection;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection invalidated %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = connection;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection invalidated %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionWasInterrupted
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = KCSharingLogObject(@"KCSharingDaemonConnection", 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = [(KCSharingDaemonConnection *)self connection];
-    v6 = 138412290;
-    v7 = connection;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection interrupted %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = connection;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_INFO, "connection interrupted %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeConnectionListener:(id)listener

@@ -89,7 +89,7 @@
   v98 = 0.0;
   [v9 getFloatValue:&v98 fromParm:7 atFxTime:info->var0.var1];
   v98 = v98 * width;
-  [(PAESharedDefaultBase *)self getScaleForImage:input];
+  objc_msgSend_getScaleForImage_(self);
   if (v96 <= v97)
   {
     v13 = v97;
@@ -125,7 +125,7 @@
 
   if (input)
   {
-    [input heliumRef];
+    objc_msgSend_heliumRef(input);
   }
 
   else

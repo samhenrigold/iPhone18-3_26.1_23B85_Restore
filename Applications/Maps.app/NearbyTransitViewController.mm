@@ -30,13 +30,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1003CAFF8();
+  sub_1003CAFF8(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1003CB4D0(appear);
+  sub_1003CB4D0(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -47,8 +48,9 @@
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1003CB7F8(appear);
+  sub_1003CB7F8(appearCopy);
 }
 
 - (_TtC4Maps27NearbyTransitViewController)initWithNibName:(id)name bundle:(id)bundle

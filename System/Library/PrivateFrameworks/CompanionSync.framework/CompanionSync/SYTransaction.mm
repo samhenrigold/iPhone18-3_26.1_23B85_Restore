@@ -3,6 +3,7 @@
 - (BOOL)_endTransaction;
 - (SYTransaction)initWithStore:(id)store;
 - (void)addObject:(id)object;
+- (void)commitBlocking:(BOOL)blocking reportError:(id)error;
 - (void)dealloc;
 - (void)deleteObject:(id)object;
 - (void)rollback;
@@ -140,6 +141,17 @@
   {
     [(SYLegacyStore *)self->_store postUserNotification:@"Delete Denied" message:@"A client attempted to send a delete message while deletes were denied."];
   }
+}
+
+- (void)commitBlocking:(BOOL)blocking reportError:(id)error
+{
+  blockingCopy = blocking;
+  errorCopy = error;
+  store = [(SYTransaction *)self store];
+  changes = [(SYTransaction *)self changes];
+  contextInfo = [(SYTransaction *)self contextInfo];
+  idsOptions = [(SYTransaction *)self idsOptions];
+  [store _handleObjectChanges:changes contextInfo:contextInfo idsOptions:idsOptions blockUntilSent:blockingCopy reportError:errorCopy notifyingTransaction:self];
 }
 
 - (void)rollback

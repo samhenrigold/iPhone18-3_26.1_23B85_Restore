@@ -5,7 +5,7 @@
 
 FILE *__CI_LOG_FILE_block_invoke()
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   string = get_string("CI_LOG_FILE");
   if (!string)
   {
@@ -22,45 +22,45 @@ LABEL_7:
   v1 = string;
   if (!strcmp(string, "stderr"))
   {
-    v5 = MEMORY[0x1E69E9848];
+    v6 = MEMORY[0x1E69E9848];
 LABEL_12:
-    result = *v5;
+    result = *v6;
     goto LABEL_13;
   }
 
   if (!strcmp(v1, "stdout"))
   {
-    v5 = MEMORY[0x1E69E9858];
+    v6 = MEMORY[0x1E69E9858];
     goto LABEL_12;
   }
 
   if (strcmp(v1, "oslog"))
   {
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v18 = 0u;
+    v22 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
+    v12 = 0u;
     *__str = 0u;
-    v9 = 0u;
+    v10 = 0u;
     v2 = CI_TEMP_DIR();
     snprintf(__str, 0xFFuLL, "%s/%s", v2, v1);
     CI_LOG_FILE::fp = fopen(__str, "a");
-    v3 = ci_logger_general();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = ci_logger_general(CI_LOG_FILE::fp, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v7 = __str;
-      _os_log_impl(&dword_19CC36000, v3, OS_LOG_TYPE_DEFAULT, "CI_LOG_FILE path: %s", buf, 0xCu);
+      v8 = __str;
+      _os_log_impl(&dword_19CC36000, v4, OS_LOG_TYPE_DEFAULT, "CI_LOG_FILE path: %s", buf, 0xCu);
     }
 
     goto LABEL_7;

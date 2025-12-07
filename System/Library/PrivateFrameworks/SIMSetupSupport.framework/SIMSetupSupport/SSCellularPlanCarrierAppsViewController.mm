@@ -5,6 +5,7 @@
 - (void)_userDidTapCancel;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SSCellularPlanCarrierAppsViewController
@@ -113,6 +114,13 @@ LABEL_10:
 
   tableView10 = [(OBTableWelcomeController *)self tableView];
   [tableView10 registerClass:objc_opt_class() forCellReuseIdentifier:@"AppCell"];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = SSCellularPlanCarrierAppsViewController;
+  [(OBTableWelcomeController *)&v3 viewWillAppear:appear];
 }
 
 - (void)viewDidLayoutSubviews

@@ -37,7 +37,7 @@
 - (UIScrollEdgeElementContainerInteraction)init
 {
   v3 = OBJC_IVAR___UIScrollEdgeElementContainerInteraction_implementation;
-  v4 = objc_allocWithZone(type metadata accessor for ContainerImplementation());
+  v4 = objc_allocWithZone(type metadata accessor for ContainerImplementation(0));
   *(&self->super.isa + v3) = sub_188AF7050(0, 0);
   v6.receiver = self;
   v6.super_class = UIScrollEdgeElementContainerInteraction;

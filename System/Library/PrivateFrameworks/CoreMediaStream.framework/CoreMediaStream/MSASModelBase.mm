@@ -1,4 +1,5 @@
 @interface MSASModelBase
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion;
 - (MSASModelBase)initWithPersonID:(id)d databasePath:(id)path currentVersion:(int)version;
 - (id)dbQueuePersistentDataForKey:(id)key;
 - (id)dbQueuePersistentObjectForKey:(id)key;
@@ -11,6 +12,7 @@
 - (void)dbQueueBeginTransaction;
 - (void)dbQueueDeletePersistentValueWithKey:(id)key;
 - (void)dbQueueEndTransaction;
+- (void)dbQueueInitializeDatabasePath:(id)path currentVersion:(int)version;
 - (void)dbQueueRollbackTransaction;
 - (void)dbQueueSetPersistentData:(id)data forKey:(id)key;
 - (void)dbQueueSetPersistentObject:(id)object forKey:(id)key;
@@ -26,12 +28,12 @@
 
 - (void)dbQueueRollbackTransaction
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Rolling back transaction.", &v8, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Rolling back transaction.", &v7, 0xCu);
   }
 
   v3 = [(MSASModelBase *)self statementForString:@"rollback transaction;"];
@@ -45,17 +47,16 @@
   }
 
   sqlite3_reset(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueEndTransaction
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Ending transaction.", &v8, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Ending transaction.", &v7, 0xCu);
   }
 
   v3 = [(MSASModelBase *)self statementForString:@"release savepoint save;"];
@@ -69,7 +70,6 @@
   }
 
   sqlite3_reset(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endTransaction
@@ -85,12 +85,12 @@
 
 - (void)dbQueueBeginTransaction
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Beginning transaction.", &v8, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Beginning transaction.", &v7, 0xCu);
   }
 
   v3 = [(MSASModelBase *)self statementForString:@"savepoint save;"];
@@ -104,7 +104,6 @@
   }
 
   sqlite3_reset(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginTransaction
@@ -120,15 +119,15 @@
 
 - (void)dbQueueDeletePersistentValueWithKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy2 = self;
-    v15 = 2114;
-    v16 = keyCopy;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deleting persistent value for key %{public}@.", &v13, 0x16u);
+    v14 = 2114;
+    v15 = keyCopy;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deleting persistent value for key %{public}@.", &v12, 0x16u);
   }
 
   v5 = [(MSASModelBase *)self statementForString:@"delete from Properties where key = ?;"];
@@ -139,24 +138,22 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = 138543618;
+      v12 = 138543618;
       selfCopy2 = self;
-      v15 = 2114;
-      v16 = keyCopy;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not delete persistent value for key %{public}@.", &v13, 0x16u);
+      v14 = 2114;
+      v15 = keyCopy;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not delete persistent value for key %{public}@.", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueSetPersistentObject:(id)object forKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v14 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:object requiringSecureCoding:1 error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:object requiringSecureCoding:1 error:&v13];
+  v8 = v13;
   v9 = v8;
   if (!v7)
   {
@@ -167,14 +164,12 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v12;
+      v15 = v12;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
   }
 
   [(MSASModelBase *)self dbQueueSetPersistentData:v7 forKey:keyCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueSetPersistentString:(id)string forKey:(id)key
@@ -186,16 +181,16 @@
 
 - (void)dbQueueSetPersistentData:(id)data forKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   keyCopy = key;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy2 = self;
-    v23 = 2114;
-    v24 = keyCopy;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Setting persistent value for key %{public}@.", &v21, 0x16u);
+    v22 = 2114;
+    v23 = keyCopy;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Setting persistent value for key %{public}@.", &v20, 0x16u);
     if (dataCopy)
     {
 LABEL_3:
@@ -247,11 +242,11 @@ LABEL_10:
   MSSqliteTrapForDBLockError(v14);
   if (!v17)
   {
-    v19 = sqlite3_step(v8);
-    v20 = v19;
-    MSSqliteTrapForDBLockError(v19);
+    v18 = sqlite3_step(v8);
+    v19 = v18;
+    MSSqliteTrapForDBLockError(v18);
     sqlite3_reset(v8);
-    if (v20 == 101)
+    if (v19 == 101)
     {
       goto LABEL_14;
     }
@@ -264,38 +259,36 @@ LABEL_11:
 LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy2 = self;
-    v23 = 2114;
-    v24 = keyCopy;
-    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not set persistent value for key %{public}@.", &v21, 0x16u);
+    v22 = 2114;
+    v23 = keyCopy;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not set persistent value for key %{public}@.", &v20, 0x16u);
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dbQueuePersistentObjectForKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [(MSASModelBase *)self dbQueuePersistentDataForKey:keyCopy];
   if (v5)
   {
-    v10 = 0;
-    v6 = [MEMORY[0x277CCAAC8] MSSafeUnarchiveObjectWithData:v5 outError:&v10];
-    v7 = v10;
+    v9 = 0;
+    v6 = [MEMORY[0x277CCAAC8] MSSafeUnarchiveObjectWithData:v5 outError:&v9];
+    v7 = v9;
     if (v6)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543874;
         selfCopy2 = self;
-        v13 = 2114;
-        v14 = v6;
-        v15 = 2114;
-        v16 = keyCopy;
+        v12 = 2114;
+        v13 = v6;
+        v14 = 2114;
+        v15 = keyCopy;
         _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved persistent object %{public}@ for key %{public}@.", buf, 0x20u);
       }
     }
@@ -304,10 +297,10 @@ LABEL_14:
     {
       *buf = 138543874;
       selfCopy2 = self;
-      v13 = 2114;
-      v14 = keyCopy;
-      v15 = 2112;
-      v16 = v7;
+      v12 = 2114;
+      v13 = keyCopy;
+      v14 = 2112;
+      v15 = v7;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not unarchive persistent object for key %{public}@: %@", buf, 0x20u);
     }
   }
@@ -317,14 +310,12 @@ LABEL_14:
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)dbQueuePersistentStringForKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [(MSASModelBase *)self dbQueuePersistentDataForKey:keyCopy];
   if (v5)
@@ -339,31 +330,29 @@ LABEL_14:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138543874;
+    v8 = 138543874;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v6;
-    v13 = 2114;
-    v14 = keyCopy;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved persistent string %{public}@ for key %{public}@.", &v9, 0x20u);
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2114;
+    v13 = keyCopy;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieved persistent string %{public}@ for key %{public}@.", &v8, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)dbQueuePersistentDataForKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138543618;
+    v15 = 138543618;
     selfCopy2 = self;
-    v18 = 2114;
-    v19 = keyCopy;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving persistent value for key: %{public}@", &v16, 0x16u);
+    v17 = 2114;
+    v18 = keyCopy;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Retrieving persistent value for key: %{public}@", &v15, 0x16u);
   }
 
   v5 = [(MSASModelBase *)self statementForString:@"select value from Properties where key = ?"];
@@ -383,32 +372,32 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v13 = sqlite3_step(v5);
-  if (v13 == 101)
+  v12 = sqlite3_step(v5);
+  if (v12 == 101)
   {
     v6 = 0;
     goto LABEL_4;
   }
 
-  v14 = v13;
-  if (v13 != 100)
+  v13 = v12;
+  if (v12 != 100)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543874;
+      v15 = 138543874;
       selfCopy2 = self;
-      v18 = 2114;
-      v19 = keyCopy;
-      v20 = 1024;
-      v21 = v14;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot retrieve persistent value for key %{public}@. sqlite status: %d", &v16, 0x1Cu);
+      v17 = 2114;
+      v18 = keyCopy;
+      v19 = 1024;
+      v20 = v13;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot retrieve persistent value for key %{public}@. sqlite status: %d", &v15, 0x1Cu);
     }
 
     goto LABEL_4;
   }
 
-  v15 = sqlite3_column_blob(v5, 0);
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:{sqlite3_column_bytes(v5, 0)}];
+  v14 = sqlite3_column_blob(v5, 0);
+  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:{sqlite3_column_bytes(v5, 0)}];
   v6 = 0;
   if (v5)
   {
@@ -426,8 +415,6 @@ LABEL_6:
   {
     v10 = v9;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -448,11 +435,11 @@ LABEL_6:
 
 - (void)setPersistentObject:(id)object forKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v20 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:object requiringSecureCoding:1 error:&v20];
-  v8 = v20;
+  v19 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:object requiringSecureCoding:1 error:&v19];
+  v8 = v19;
   v9 = v8;
   if (!v7)
   {
@@ -463,7 +450,7 @@ LABEL_6:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v12;
+      v21 = v12;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
   }
@@ -474,13 +461,11 @@ LABEL_6:
   block[2] = __44__MSASModelBase_setPersistentObject_forKey___block_invoke;
   block[3] = &unk_278E92638;
   block[4] = self;
-  v18 = v7;
-  v19 = keyCopy;
+  v17 = v7;
+  v18 = keyCopy;
   v14 = keyCopy;
   v15 = v7;
   dispatch_async(dbQueue, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)persistentObjectForKey:(id)key
@@ -511,10 +496,7 @@ LABEL_6:
 
 uint64_t __40__MSASModelBase_persistentObjectForKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dbQueuePersistentObjectForKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) dbQueuePersistentObjectForKey:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -564,10 +546,7 @@ uint64_t __40__MSASModelBase_persistentObjectForKey___block_invoke(uint64_t a1)
 
 uint64_t __40__MSASModelBase_persistentStringForKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dbQueuePersistentStringForKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) dbQueuePersistentStringForKey:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -606,85 +585,79 @@ uint64_t __40__MSASModelBase_persistentStringForKey___block_invoke(uint64_t a1)
 
 void __36__MSASModelBase_statementForString___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 32);
-  if (!v3)
+  if (v3)
   {
-LABEL_5:
-    ppStmt = 0;
-    if (sqlite3_prepare_v2(*(v2 + 16), [*(a1 + 40) UTF8String], -1, &ppStmt, 0))
+    Value = CFDictionaryGetValue(v3, *(a1 + 40));
+    if (Value)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        v7 = *(a1 + 32);
-        v8 = *(a1 + 40);
-        v9 = sqlite3_errmsg(*(v7 + 16));
-        *buf = 138543874;
-        v12 = v7;
-        v13 = 2114;
-        v14 = v8;
-        v15 = 2082;
-        v16 = v9;
-        _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not compile SQL query: %{public}@. sqlite error: %{public}s", buf, 0x20u);
-      }
+      *(*(*(a1 + 48) + 8) + 24) = Value;
+      return;
     }
 
-    else if (ppStmt)
-    {
-      CFDictionarySetValue(*(*(a1 + 32) + 32), *(a1 + 40), ppStmt);
-      v5 = ppStmt;
-      goto LABEL_11;
-    }
-
-    v5 = 0;
-LABEL_11:
-    *(*(*(a1 + 48) + 8) + 24) = v5;
-    goto LABEL_12;
-  }
-
-  Value = CFDictionaryGetValue(v3, *(a1 + 40));
-  if (!Value)
-  {
     v2 = *(a1 + 32);
-    goto LABEL_5;
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = Value;
-LABEL_12:
-  v6 = *MEMORY[0x277D85DE8];
+  ppStmt = 0;
+  if (sqlite3_prepare_v2(*(v2 + 16), [*(a1 + 40) UTF8String], -1, &ppStmt, 0))
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = sqlite3_errmsg(*(v6 + 16));
+      *buf = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2082;
+      v15 = v8;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not compile SQL query: %{public}@. sqlite error: %{public}s", buf, 0x20u);
+    }
+  }
+
+  else if (ppStmt)
+  {
+    CFDictionarySetValue(*(*(a1 + 32) + 32), *(a1 + 40), ppStmt);
+    v5 = ppStmt;
+    goto LABEL_11;
+  }
+
+  v5 = 0;
+LABEL_11:
+  *(*(*(a1 + 48) + 8) + 24) = v5;
 }
 
 - (void)shutDownForDestruction:(BOOL)destruction completionBlock:(id)block
 {
   destructionCopy = destruction;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
     selfCopy = self;
-    v14 = 1024;
-    v15 = destructionCopy;
+    v13 = 1024;
+    v14 = destructionCopy;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Shutting down. For destruction: %d", buf, 0x12u);
   }
 
   dbQueue = [(MSASModelBase *)self dbQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke;
-  v10[3] = &unk_278E927A0;
-  v10[4] = self;
-  v11 = blockCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke;
+  v9[3] = &unk_278E927A0;
+  v9[4] = self;
+  v10 = blockCopy;
   v8 = blockCopy;
-  dispatch_async(dbQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(dbQueue, v9);
 }
 
 void __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -698,12 +671,12 @@ void __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke(u
   {
     if (sqlite3_close(v3) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = sqlite3_errmsg(*(v7 + 16));
+      v6 = *(a1 + 32);
+      v7 = sqlite3_errmsg(*(v6 + 16));
       *buf = 138543618;
-      v11 = v7;
-      v12 = 2082;
-      v13 = v8;
+      v10 = v6;
+      v11 = 2082;
+      v12 = v7;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Can't shut down. sqlite error: %{public}s. Ignoring.", buf, 0x16u);
     }
 
@@ -716,8 +689,6 @@ void __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke(u
     v5 = dispatch_get_global_queue(0, 0);
     dispatch_async(v5, v4);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke_2(uint64_t a1)
@@ -752,6 +723,405 @@ void __56__MSASModelBase_shutDownForDestruction_completionBlock___block_invoke_2
 
     CFRelease(*(*(a1 + 32) + 32));
     *(*(a1 + 32) + 32) = 0;
+  }
+}
+
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion
+{
+  v22 = *MEMORY[0x277D85DE8];
+  if (version >= currentVersion)
+  {
+    return 1;
+  }
+
+  v4 = *&currentVersion;
+  errmsg = 0;
+  if (sqlite3_exec(self->_db, "create table if not exists Properties(\n   key             text unique primary key,\n   value           blob\n);\n", 0, 0, &errmsg))
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      selfCopy3 = self;
+      v20 = 2082;
+      v21 = errmsg;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not create Properties table. Error: %{public}s", buf, 0x16u);
+    }
+
+    sqlite3_free(errmsg);
+  }
+
+  ppStmt = 0;
+  v6 = sqlite3_prepare_v2([(MSASModelBase *)self dbQueueDB], "insert or replace into Properties (key, value) values ('version', ?);", -1, &ppStmt, 0);
+  v7 = v6;
+  MSSqliteTrapForDBLockError(v6);
+  if (v7)
+  {
+    v8 = 216;
+  }
+
+  else
+  {
+    v10 = ppStmt;
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", v4];
+    v12 = sqlite3_bind_text(v10, 1, [v11 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+    LODWORD(v10) = v12;
+    MSSqliteTrapForDBLockError(v12);
+
+    if (v10)
+    {
+      v8 = 218;
+    }
+
+    else
+    {
+      v13 = sqlite3_step(ppStmt);
+      v14 = v13;
+      MSSqliteTrapForDBLockError(v13);
+      if (v14 == 101)
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543618;
+          selfCopy3 = self;
+          v20 = 1024;
+          LODWORD(v21) = v4;
+          _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Set database version to %d.", buf, 0x12u);
+        }
+
+        v9 = 1;
+        goto LABEL_19;
+      }
+
+      v8 = 219;
+    }
+  }
+
+  MSLogSqliteError([(MSASModelBase *)self dbQueueDB], self, v8);
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138543362;
+    selfCopy3 = self;
+    _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to create properties table.", buf, 0xCu);
+  }
+
+  v9 = 0;
+LABEL_19:
+  if (ppStmt)
+  {
+    sqlite3_finalize(ppStmt);
+  }
+
+  return v9;
+}
+
+- (void)dbQueueInitializeDatabasePath:(id)path currentVersion:(int)version
+{
+  v4 = *&version;
+  *&v37[5] = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  v7 = 0;
+  v8 = MEMORY[0x277D86220];
+  *&v9 = 138543874;
+  v30 = v9;
+  do
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138543618;
+      selfCopy16 = self;
+      v36 = 2112;
+      *v37 = pathCopy;
+      _os_log_debug_impl(&dword_245B99000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: Opening database at %@", buf, 0x16u);
+    }
+
+    ppStmt = 0;
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+    v12 = [defaultManager2 fileExistsAtPath:pathCopy];
+
+    if (v12 && sqlite3_open_v2([pathCopy fileSystemRepresentation], &self->_db, 65542, 0))
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        selfCopy16 = self;
+        v36 = 2112;
+        *v37 = pathCopy;
+        v13 = v8;
+        v14 = "%{public}@ Cannot open sqlite3 database at path %@. Recreating database.";
+        v15 = 22;
+LABEL_71:
+        _os_log_error_impl(&dword_245B99000, v13, OS_LOG_TYPE_ERROR, v14, buf, v15);
+        goto LABEL_21;
+      }
+
+      goto LABEL_21;
+    }
+
+    db = self->_db;
+    if (!db)
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138543362;
+        selfCopy16 = self;
+        _os_log_impl(&dword_245B99000, v8, OS_LOG_TYPE_INFO, "%{public}@: Creating new database.", buf, 0xCu);
+      }
+
+      stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
+      [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
+
+      if (sqlite3_open_v2([pathCopy fileSystemRepresentation], &self->_db, 65542, 0))
+      {
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy16 = self;
+          v36 = 2112;
+          *v37 = pathCopy;
+          _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Cannot create sqlite3 database at path %@. Carrying on.", buf, 0x16u);
+        }
+
+        self->_db = 0;
+        goto LABEL_28;
+      }
+
+      db = self->_db;
+    }
+
+    errmsg = 0;
+    if (sqlite3_exec(db, "pragma cache_size = -128;", 0, 0, &errmsg) && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      selfCopy16 = self;
+      v36 = 2082;
+      *v37 = errmsg;
+      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Could not set cache size. Ignoring. Error: %{public}s", buf, 0x16u);
+    }
+
+    if (sqlite3_exec(self->_db, "pragma journal_mode = wal;", 0, 0, &errmsg) && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543618;
+      selfCopy16 = self;
+      v36 = 2082;
+      *v37 = errmsg;
+      _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Could not set journal mode. Ignoring. Error: %{public}s", buf, 0x16u);
+    }
+
+    if (v7 & 1 | ((v12 & 1) == 0))
+    {
+      intValue = 0xFFFFFFFFLL;
+      goto LABEL_17;
+    }
+
+    if (sqlite3_prepare_v2(self->_db, "select value from Properties where key = 'version';", -1, &ppStmt, 0))
+    {
+      MSLogSqliteError(self->_db, self, 117);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_21;
+      }
+
+      *buf = 138543362;
+      selfCopy16 = self;
+      v13 = v8;
+      v14 = "%{public}@: Could not compile version check statement. Deleting database and recreating.";
+LABEL_70:
+      v15 = 12;
+      goto LABEL_71;
+    }
+
+    v23 = sqlite3_step(ppStmt);
+    if (v23)
+    {
+      if (v23 != 100)
+      {
+        MSLogSqliteError(self->_db, self, 126);
+        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_21;
+        }
+
+        *buf = 138543362;
+        selfCopy16 = self;
+        v13 = v8;
+        v14 = "%{public}@: Fatal error: Could not read current version. Deleting database and recreating.";
+        goto LABEL_70;
+      }
+
+      v24 = MSSqliteStringFromStatementColumn(ppStmt, 0);
+      intValue = [v24 intValue];
+    }
+
+    else
+    {
+      intValue = 0xFFFFFFFFLL;
+    }
+
+    if (intValue > v4)
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = v30;
+        selfCopy16 = self;
+        v36 = 1024;
+        *v37 = intValue;
+        v37[2] = 1024;
+        *&v37[3] = v4;
+        v13 = v8;
+        v14 = "%{public}@: Fatal error: database version %d is greater than what the model understands (%d). Deleting database and recreating.";
+        v15 = 24;
+        goto LABEL_71;
+      }
+
+LABEL_21:
+      v18 = 0;
+      v7 = 1;
+      goto LABEL_47;
+    }
+
+LABEL_17:
+    if (intValue == v4)
+    {
+      v7 = 0;
+LABEL_28:
+      v18 = 1;
+      goto LABEL_47;
+    }
+
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = v30;
+      selfCopy16 = self;
+      v36 = 1024;
+      *v37 = intValue;
+      v37[2] = 1024;
+      *&v37[3] = v4;
+      _os_log_impl(&dword_245B99000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Migrating database from version %d to version %d.", buf, 0x18u);
+    }
+
+    v31 = 0;
+    if (sqlite3_exec(self->_db, "savepoint migration;", 0, 0, &v31))
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        selfCopy16 = self;
+        v36 = 2082;
+        *v37 = v31;
+        _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Could not begin transaction. Error: %{public}s", buf, 0x16u);
+      }
+
+      sqlite3_free(v31);
+    }
+
+    v18 = [(MSASModelBase *)self dbQueueUpgradeFromDatabaseVersion:intValue currentVersion:v4];
+    v20 = self->_db;
+    if (v18)
+    {
+      if (sqlite3_exec(v20, "release savepoint migration;", 0, 0, &v31))
+      {
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy16 = self;
+          v36 = 2082;
+          *v37 = v31;
+          v21 = v8;
+          v22 = "%{public}@: Could not end transaction. Error: %{public}s";
+LABEL_73:
+          _os_log_error_impl(&dword_245B99000, v21, OS_LOG_TYPE_ERROR, v22, buf, 0x16u);
+          goto LABEL_45;
+        }
+
+        goto LABEL_45;
+      }
+    }
+
+    else if (sqlite3_exec(v20, "rollback transaction to savepoint migration;", 0, 0, &v31))
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138543618;
+        selfCopy16 = self;
+        v36 = 2082;
+        *v37 = v31;
+        v21 = v8;
+        v22 = "%{public}@: Could not roll back transaction. Error: %{public}s";
+        goto LABEL_73;
+      }
+
+LABEL_45:
+      sqlite3_free(v31);
+    }
+
+    v7 = !v18;
+LABEL_47:
+    if (ppStmt)
+    {
+      sqlite3_finalize(ppStmt);
+    }
+
+    ppStmt = 0;
+    if (v7)
+    {
+      v25 = self->_db;
+      if (!v25)
+      {
+        goto LABEL_57;
+      }
+
+      LODWORD(v31) = 129;
+      v26 = sqlite3_file_control(v25, 0, 101, &v31);
+      if (v26)
+      {
+        MSLogSqliteError(self->_db, self, 174);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy16 = self;
+          v36 = 1024;
+          *v37 = v26;
+          _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Could not truncate sqlite database (%d).", buf, 0x12u);
+        }
+      }
+
+      if (sqlite3_close(self->_db) && (MSLogSqliteError(self->_db, self, 178), os_log_type_enabled(v8, OS_LOG_TYPE_ERROR)))
+      {
+        *buf = 138543362;
+        selfCopy16 = self;
+        _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Could not close sqlite database.", buf, 0xCu);
+        if (v26)
+        {
+LABEL_57:
+          [defaultManager removeItemAtPath:pathCopy error:0];
+          v27 = [pathCopy stringByAppendingString:@"-shm"];
+          [defaultManager removeItemAtPath:v27 error:0];
+
+          v28 = [pathCopy stringByAppendingString:@"-wal"];
+          [defaultManager removeItemAtPath:v28 error:0];
+
+          v29 = [pathCopy stringByAppendingString:@"-journal"];
+          [defaultManager removeItemAtPath:v29 error:0];
+        }
+      }
+
+      else if (v26)
+      {
+        goto LABEL_57;
+      }
+
+      self->_db = 0;
+      self->_dbWasRecreated = 1;
+    }
+  }
+
+  while (!v18);
+  if (self->_db && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    *buf = 138543362;
+    selfCopy16 = self;
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Database ready.", buf, 0xCu);
   }
 }
 

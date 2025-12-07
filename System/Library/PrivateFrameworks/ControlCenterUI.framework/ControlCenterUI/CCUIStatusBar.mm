@@ -92,142 +92,142 @@
     [(UIStatusBar *)self->_expandedStatusBar layoutIfNeeded];
     v3 = *MEMORY[0x277D775A8];
     [(UIStatusBar *)self->_compactTrailingStatusBar frameForPartWithIdentifier:*MEMORY[0x277D775A8]];
-    x = v59.origin.x;
-    y = v59.origin.y;
-    width = v59.size.width;
-    height = v59.size.height;
-    IsNull = CGRectIsNull(v59);
+    x = v61.origin.x;
+    y = v61.origin.y;
+    width = v61.size.width;
+    height = v61.size.height;
+    IsNull = CGRectIsNull(v61);
     v9 = MEMORY[0x277CBF3A0];
     if (IsNull)
     {
       x = *MEMORY[0x277CBF3A0];
       y = *(MEMORY[0x277CBF3A0] + 8);
       width = *(MEMORY[0x277CBF3A0] + 16);
-      v57 = *(MEMORY[0x277CBF3A0] + 24);
+      v59 = *(MEMORY[0x277CBF3A0] + 24);
     }
 
     else
     {
-      v57 = height;
+      v59 = height;
     }
 
     [(UIStatusBar *)self->_expandedStatusBar frameForPartWithIdentifier:v3];
-    v10 = v60.origin.x;
-    v11 = v60.origin.y;
-    v12 = v60.size.width;
-    rect = v60.size.height;
-    if (CGRectIsNull(v60))
+    v10 = v62.origin.x;
+    v11 = v62.origin.y;
+    v12 = v62.size.width;
+    rect = v62.size.height;
+    if (CGRectIsNull(v62))
     {
-      v55 = v9[1];
-      v56 = *v9;
-      v54 = v9[2];
+      v57 = v9[1];
+      v58 = *v9;
+      v56 = v9[2];
       rect = v9[3];
     }
 
     else
     {
-      v54 = v12;
-      v55 = v11;
-      v56 = v10;
+      v56 = v12;
+      v57 = v11;
+      v58 = v10;
     }
 
     [(UIStatusBar *)self->_compactTrailingStatusBar bounds];
     v14 = v13;
     v16 = v15;
-    v50 = v15;
-    v51 = v17;
+    v52 = v15;
+    v53 = v17;
     v19 = v18;
-    v61.origin.x = x;
-    v61.origin.y = y;
-    v20 = width;
-    v61.size.width = width;
-    v61.size.height = v57;
-    MaxX = CGRectGetMaxX(v61);
-    v62.origin.x = v14;
-    v62.origin.y = v16;
-    v62.size.width = v51;
-    v62.size.height = v19;
-    v52 = MaxX / CGRectGetWidth(v62);
     v63.origin.x = x;
     v63.origin.y = y;
+    v20 = width;
     v63.size.width = width;
-    v63.size.height = v57;
-    MaxY = CGRectGetMaxY(v63);
+    v63.size.height = v59;
+    MaxX = CGRectGetMaxX(v63);
     v64.origin.x = v14;
-    v64.origin.y = v50;
-    v64.size.width = v51;
+    v64.origin.y = v16;
+    v64.size.width = v53;
     v64.size.height = v19;
-    v23 = MaxY / CGRectGetHeight(v64);
+    v54 = MaxX / CGRectGetWidth(v64);
+    v65.origin.x = x;
+    v65.origin.y = y;
+    v65.size.width = width;
+    v65.size.height = v59;
+    MaxY = CGRectGetMaxY(v65);
+    v66.origin.x = v14;
+    v66.origin.y = v52;
+    v66.size.width = v53;
+    v66.size.height = v19;
+    v23 = MaxY / CGRectGetHeight(v66);
     layer = [(UIStatusBar *)self->_compactTrailingStatusBar layer];
     v25 = v23;
     v26 = x;
     v27 = y;
     v28 = v20;
-    [layer setAnchorPoint:{v52, v25}];
+    [layer setAnchorPoint:{v54, v25}];
 
     if (!self->_preparedMarginDelta)
     {
       [(UIStatusBar *)self->_expandedStatusBar bounds];
       v30 = v29;
-      v53 = v31;
-      v48 = v33;
-      v49 = v32;
+      v55 = v31;
+      v50 = v33;
+      v51 = v32;
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x277D75128] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v65.origin.x = x;
-        v65.origin.y = v27;
-        v65.size.width = v28;
-        v65.size.height = v57;
-        MinX = CGRectGetMinX(v65);
-        v66.origin.y = v55;
-        v66.origin.x = v56;
-        v66.size.width = v54;
-        v66.size.height = rect;
-        v37 = CGRectGetMinX(v66);
+        v67.origin.x = x;
+        v67.origin.y = v27;
+        v67.size.width = v28;
+        v67.size.height = v59;
+        MinX = CGRectGetMinX(v67);
+        v68.origin.y = v57;
+        v68.origin.x = v58;
+        v68.size.width = v56;
+        v68.size.height = rect;
+        v37 = CGRectGetMinX(v68);
       }
 
       else
       {
-        v67.origin.x = v14;
-        v67.origin.y = v50;
-        v67.size.width = v51;
-        v67.size.height = v19;
+        v69.origin.x = v14;
+        v69.origin.y = v52;
+        v69.size.width = v53;
+        v69.size.height = v19;
         v38 = v30;
-        v39 = CGRectGetWidth(v67);
-        v68.origin.x = x;
-        v68.origin.y = v27;
-        v68.size.width = v28;
-        v68.size.height = v57;
-        MinX = v39 - CGRectGetMaxX(v68);
-        v69.origin.x = v38;
-        v69.origin.y = v53;
-        v69.size.height = v48;
-        v69.size.width = v49;
-        v40 = CGRectGetWidth(v69);
-        v70.origin.y = v55;
-        v70.origin.x = v56;
-        v70.size.width = v54;
-        v70.size.height = rect;
-        v37 = v40 - CGRectGetMaxX(v70);
+        v39 = CGRectGetWidth(v69);
+        v70.origin.x = x;
+        v70.origin.y = v27;
+        v70.size.width = v28;
+        v70.size.height = v59;
+        MinX = v39 - CGRectGetMaxX(v70);
+        v71.origin.x = v38;
+        v71.origin.y = v55;
+        v71.size.height = v50;
+        v71.size.width = v51;
+        v40 = CGRectGetWidth(v71);
+        v72.origin.y = v57;
+        v72.origin.x = v58;
+        v72.size.width = v56;
+        v72.size.height = rect;
+        v37 = v40 - CGRectGetMaxX(v72);
       }
 
       self->_trailingMarginDelta = v37 - MinX;
       self->_preparedMarginDelta = 1;
     }
 
-    v71.origin.x = v56;
-    v71.origin.y = v55;
-    v71.size.width = v54;
-    v71.size.height = rect;
-    v41 = CGRectGetMaxY(v71);
-    v72.origin.x = v26;
-    v72.origin.y = v27;
-    v72.size.width = v28;
-    v72.size.height = v57;
-    v42 = v41 - CGRectGetMaxY(v72);
+    v73.origin.x = v58;
+    v73.origin.y = v57;
+    v73.size.width = v56;
+    v73.size.height = rect;
+    v41 = CGRectGetMaxY(v73);
+    v74.origin.x = v26;
+    v74.origin.y = v27;
+    v74.size.width = v28;
+    v74.size.height = v59;
+    v42 = v41 - CGRectGetMaxY(v74);
     v43 = 0.0;
     if (self->_alignCompactAndExpandedStatusBars)
     {
@@ -246,28 +246,28 @@
 
       if (v45 != 2)
       {
-        v46 = CCUIStatusBarBaselineToBaselineOffsetHeight();
+        v48 = CCUIStatusBarBaselineToBaselineOffsetHeight(v46, v47);
 LABEL_21:
-        self->_verticalSecondaryServiceDelta = v46;
-        v73.origin.x = v56;
-        v73.origin.y = v55;
-        v73.size.width = v54;
-        v73.size.height = rect;
-        v47 = CGRectGetHeight(v73);
-        v74.origin.x = v26;
-        v74.origin.y = v27;
-        v74.size.width = v28;
-        v74.size.height = v57;
-        self->_maxCompactScaleFactor = v47 / CGRectGetHeight(v74);
+        self->_verticalSecondaryServiceDelta = v48;
+        v75.origin.x = v58;
+        v75.origin.y = v57;
+        v75.size.width = v56;
+        v75.size.height = rect;
+        v49 = CGRectGetHeight(v75);
+        v76.origin.x = v26;
+        v76.origin.y = v27;
+        v76.size.width = v28;
+        v76.size.height = v59;
+        self->_maxCompactScaleFactor = v49 / CGRectGetHeight(v76);
         self->_needsUpdatedMetrics = 0;
         return;
       }
     }
 
-    v46 = 0.0;
+    v48 = 0.0;
     if (v42 < 0.0)
     {
-      v46 = -self->_verticalBatteryAlignmentDelta;
+      v48 = -self->_verticalBatteryAlignmentDelta;
     }
 
     goto LABEL_21;
@@ -633,7 +633,7 @@ LABEL_21:
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  v4 = CCUIStatusBarHeight();
+  v4 = CCUIStatusBarHeight(self, a2);
   v5 = width;
   result.height = v4;
   result.width = v5;

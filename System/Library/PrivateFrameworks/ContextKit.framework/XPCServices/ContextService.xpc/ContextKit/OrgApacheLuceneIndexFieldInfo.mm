@@ -8,6 +8,7 @@
 - (void)setIndexOptionsWithOrgApacheLuceneIndexIndexOptionsEnum:(id)enum;
 - (void)setOmitsNorms;
 - (void)setStorePayloads;
+- (void)updateWithBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean withBoolean:(BOOL)a5 withOrgApacheLuceneIndexIndexOptionsEnum:(id)enum;
 @end
 
 @implementation OrgApacheLuceneIndexFieldInfo
@@ -22,52 +23,36 @@
 
   if (indexOptions == OrgApacheLuceneIndexIndexOptionsEnum_values_[0])
   {
-    if (self->storeTermVector_)
+    if (self->storeTermVector_ || self->storePayloads_ || self->omitNorms_)
     {
-      name = self->name_;
+      v11 = @"non-indexed field '";
+LABEL_21:
+      v14 = JreStrcat("$$$", a2, v2, v3, v4, v5, v6, v7, v11);
+      v15 = new_JavaLangIllegalStateException_initWithNSString_(v14);
+      objc_exception_throw(v15);
+    }
+  }
+
+  else
+  {
+    v10 = self->indexOptions_;
+    if (!v10)
+    {
+      JreThrowNullPointerException();
     }
 
-    else if (self->storePayloads_)
+    if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
     {
-      v17 = self->name_;
+      sub_100015608();
     }
 
-    else
+    if ([(JavaLangEnum *)v10 compareToWithId:qword_100557388]< 0 && self->storePayloads_)
     {
-      if (!self->omitNorms_)
-      {
-        goto LABEL_13;
-      }
-
-      v18 = self->name_;
+      v11 = @"indexed field '";
+      goto LABEL_21;
     }
-
-    v12 = @"non-indexed field '";
-LABEL_24:
-    v19 = JreStrcat("$$$", a2, v2, v3, v4, v5, v6, v7, v12);
-    v20 = new_JavaLangIllegalStateException_initWithNSString_(v19);
-    objc_exception_throw(v20);
   }
 
-  v10 = self->indexOptions_;
-  if (!v10)
-  {
-    JreThrowNullPointerException();
-  }
-
-  if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
-  {
-    sub_100015608();
-  }
-
-  if ([(JavaLangEnum *)v10 compareToWithId:qword_100557388]< 0 && self->storePayloads_)
-  {
-    v11 = self->name_;
-    v12 = @"indexed field '";
-    goto LABEL_24;
-  }
-
-LABEL_13:
   if (self->dvGen_ != -1)
   {
     docValuesType = self->docValuesType_;
@@ -76,22 +61,124 @@ LABEL_13:
       sub_10001B990();
     }
 
-    if (docValuesType == OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+    if (docValuesType == OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
     {
-      v15 = self->name_;
-      v12 = @"field '";
-      goto LABEL_24;
+      v11 = @"field '";
+      goto LABEL_21;
     }
   }
 
   return 1;
 }
 
+- (void)updateWithBoolean:(BOOL)boolean withBoolean:(BOOL)withBoolean withBoolean:(BOOL)a5 withOrgApacheLuceneIndexIndexOptionsEnum:(id)enum
+{
+  if (!enum)
+  {
+    v21 = JreStrcat("$$$", a2, boolean, withBoolean, a5, 0, v6, v7, @"IndexOptions cannot be null (field: ");
+    v22 = new_JavaLangNullPointerException_initWithNSString_(v21);
+    objc_exception_throw(v22);
+  }
+
+  withBooleanCopy = withBoolean;
+  p_indexOptions = &self->indexOptions_;
+  indexOptions = self->indexOptions_;
+  if (indexOptions != enum)
+  {
+    if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+    {
+      sub_100015608();
+    }
+
+    if (indexOptions == OrgApacheLuceneIndexIndexOptionsEnum_values_[0])
+    {
+      v17 = &self->indexOptions_;
+      enumCopy2 = enum;
+LABEL_14:
+      JreStrongAssign(v17, enumCopy2);
+      goto LABEL_15;
+    }
+
+    if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+    {
+      sub_100015608();
+    }
+
+    if (OrgApacheLuceneIndexIndexOptionsEnum_values_[0] != enum)
+    {
+      if (!*p_indexOptions)
+      {
+        goto LABEL_32;
+      }
+
+      v15 = [*p_indexOptions compareToWithId:enum];
+      enumCopy2 = enum;
+      if ((v15 & 0x80000000) != 0)
+      {
+        enumCopy2 = *p_indexOptions;
+      }
+
+      v17 = &self->indexOptions_;
+      goto LABEL_14;
+    }
+  }
+
+LABEL_15:
+  v18 = *p_indexOptions;
+  if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100015608();
+  }
+
+  if (v18 != OrgApacheLuceneIndexIndexOptionsEnum_values_[0])
+  {
+    self->storeTermVector_ |= boolean;
+    self->storePayloads_ |= a5;
+    if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+    {
+      sub_100015608();
+    }
+
+    if (OrgApacheLuceneIndexIndexOptionsEnum_values_[0] != enum && self->omitNorms_ != withBooleanCopy)
+    {
+      self->omitNorms_ = 1;
+    }
+  }
+
+  v19 = *p_indexOptions;
+  if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100015608();
+  }
+
+  if (v19 == OrgApacheLuceneIndexIndexOptionsEnum_values_[0])
+  {
+    goto LABEL_30;
+  }
+
+  v20 = *p_indexOptions;
+  if (!v20)
+  {
+LABEL_32:
+    JreThrowNullPointerException();
+  }
+
+  if ((atomic_load_explicit(OrgApacheLuceneIndexIndexOptionsEnum__initialized, memory_order_acquire) & 1) == 0)
+  {
+    sub_100015608();
+  }
+
+  if (([v20 compareToWithId:qword_100557388] & 0x80000000) != 0)
+  {
+LABEL_30:
+    self->storePayloads_ = 0;
+  }
+}
+
 - (void)setDocValuesTypeWithOrgApacheLuceneIndexDocValuesTypeEnum:(id)enum
 {
   if (!enum)
   {
-    name = self->name_;
     v12 = JreStrcat("$$$", a2, 0, v3, v4, v5, v6, v7, @"DocValuesType cannot be null (field: ");
     v13 = new_JavaLangNullPointerException_initWithNSString_(v12);
     goto LABEL_14;
@@ -104,17 +191,15 @@ LABEL_13:
     sub_10001B990();
   }
 
-  if (docValuesType != OrgApacheLuceneIndexDocValuesTypeEnum_values_)
+  if (docValuesType != OrgApacheLuceneIndexDocValuesTypeEnum_values_[0])
   {
     if ((atomic_load_explicit(OrgApacheLuceneIndexDocValuesTypeEnum__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_10001B990();
     }
 
-    if (OrgApacheLuceneIndexDocValuesTypeEnum_values_ != enum && *p_docValuesType != enum)
+    if (OrgApacheLuceneIndexDocValuesTypeEnum_values_[0] != enum && *p_docValuesType != enum)
     {
-      v17 = self->name_;
-      v16 = *p_docValuesType;
       v14 = JreStrcat("$@$@$$C", a2, enum, v3, v4, v5, v6, v7, @"cannot change DocValues type from ");
       v13 = new_JavaLangIllegalArgumentException_initWithNSString_(v14);
 LABEL_14:

@@ -291,7 +291,7 @@
       }
 
       v16 = NUOrientationConcat(orientation, v15);
-      [v10 extent];
+      objc_msgSend_extent(v10);
       v44 = NUOrientationTransformImageSize(v16, v45, v46);
       v18 = v17;
       scaledSize = [v10 scaledSize];

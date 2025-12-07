@@ -96,15 +96,15 @@ LABEL_8:
 
 - (void)combinedWalrusStatusWithContext:(id)context completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   if ([(CDPWalrusDaemonService *)self _allowWalrusAccess])
   {
     walrusStateController = [(CDPWalrusDaemonService *)self walrusStateController];
-    v15 = 0;
-    v9 = [walrusStateController combinedWalrusStatusWithContext:contextCopy error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [walrusStateController combinedWalrusStatusWithContext:contextCopy error:&v14];
+    v10 = v14;
 
     v11 = _CDPLogSystem();
     v12 = v11;
@@ -119,7 +119,7 @@ LABEL_8:
     else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "Walrus combined status %@ status fetched successfully.", buf, 0xCu);
     }
 
@@ -143,8 +143,6 @@ LABEL_8:
     completionCopy[2](completionCopy, 0, v10);
 LABEL_14:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)repairWalrusWithCompletion:(id)completion
@@ -322,7 +320,7 @@ LABEL_8:
 
 void __56__CDPWalrusDaemonService_webAccessStatusWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   v7 = v6;
@@ -336,9 +334,9 @@ void __56__CDPWalrusDaemonService_webAccessStatusWithCompletion___block_invoke(u
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = a2;
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Web access status (%lu) fetched successfully.", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = a2;
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Web access status (%lu) fetched successfully.", &v9, 0xCu);
   }
 
   v8 = *(a1 + 32);
@@ -346,8 +344,6 @@ void __56__CDPWalrusDaemonService_webAccessStatusWithCompletion___block_invoke(u
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWebAccessStatus:(unint64_t)status completion:(id)completion
@@ -533,7 +529,7 @@ LABEL_12:
 
 void __71__CDPWalrusDaemonService__pcsKeysForServices_pcsController_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -561,31 +557,31 @@ LABEL_26:
     if (a2 == 1)
     {
       v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       v11 = *(a1 + 32);
-      v12 = [v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v29;
-        v26 = v8;
+        v14 = *v28;
+        v25 = v8;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v29 != v14)
+            if (*v28 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v28 + 1) + 8 * i);
+            v16 = *(*(&v27 + 1) + 8 * i);
             v17 = *(a1 + 40);
-            v27 = 0;
-            v18 = [v17 pcsKeysForService:v16 error:&v27];
-            v19 = v27;
+            v26 = 0;
+            v18 = [v17 pcsKeysForService:v16 error:&v26];
+            v19 = v26;
             if (v19)
             {
               v20 = _CDPLogSystem();
@@ -593,12 +589,12 @@ LABEL_26:
               {
                 v21 = [v19 description];
                 *buf = 138412546;
-                v33 = v16;
-                v34 = 2112;
-                v35 = v21;
+                v32 = v16;
+                v33 = 2112;
+                v34 = v21;
                 _os_log_error_impl(&dword_24510B000, v20, OS_LOG_TYPE_ERROR, "Error fetching key for service %@: %@", buf, 0x16u);
 
-                v8 = v26;
+                v8 = v25;
               }
             }
 
@@ -608,7 +604,7 @@ LABEL_26:
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
         while (v13);
@@ -647,87 +643,46 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)combinedWalrusStatusWithContext:(void *)a1 completion:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 code];
-  v8 = [a1 description];
+  v7 = [a1 description];
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __77__CDPWalrusDaemonService_updateWalrusStatus_authenticatedContext_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to update walrus status with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CDPWalrusDaemonService_webAccessStatusWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__CDPWalrusDaemonService_updateWebAccessStatus_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkWalrusBeforeFetchingPCSKeysForServices:(void *)a1 pcsController:completion:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_checkWalrusBeforeFetchingPCSKeysForServices:pcsController:completion:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Walrus status (%lu) is not enabled, abandoning pcs key fetch.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CDPWalrusDaemonService__pcsKeysForServices_pcsController_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __71__CDPWalrusDaemonService__pcsKeysForServices_pcsController_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Web access status (%lu) is not enabled, abandoning pcs key fetch.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

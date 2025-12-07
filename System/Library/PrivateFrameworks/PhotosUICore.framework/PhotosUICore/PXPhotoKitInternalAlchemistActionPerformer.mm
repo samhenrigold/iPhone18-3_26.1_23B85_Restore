@@ -10,7 +10,7 @@
 
 + (BOOL)canPerformOnAsset:(id)asset inAssetCollection:(id)collection person:(id)person socialGroup:(id)group
 {
-  sub_1A3C52C70(0, &qword_1EB126BB0);
+  sub_1A3C52C70(0, &qword_1EB126BB0, off_1E771F528);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   assetCopy = asset;
   objCClassFromMetadata = [ObjCClassFromMetadata sharedInstance];
@@ -18,16 +18,16 @@
 
   if (canShowInternalUI)
   {
-    type metadata accessor for OneUpAlchemistViewController();
-    v11 = sub_1A3F47EB8(assetCopy);
+    type metadata accessor for OneUpAlchemistViewController(0, v11);
+    v12 = sub_1A3F47EB8(assetCopy);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
@@ -53,7 +53,7 @@
 - (_TtC12PhotosUICore42PXPhotoKitInternalAlchemistActionPerformer)initWithActionType:(id)type
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for PXPhotoKitInternalAlchemistActionPerformer();
+  v5.super_class = type metadata accessor for PXPhotoKitInternalAlchemistActionPerformer(self, a2);
   return [(PXActionPerformer *)&v5 initWithActionType:type];
 }
 

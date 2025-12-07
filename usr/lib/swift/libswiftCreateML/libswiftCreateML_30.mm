@@ -1,4178 +1,3 @@
-uint64_t specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v72 = 0;
-  v3 = tc_v1_flex_dict_add_element(a1, a2, a3, &v72);
-  v4 = v72;
-  if (v72)
-  {
-    v5 = tc_v1_error_message(v72);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v54 = v4;
-    v53 = v3;
-    v70 = String.init(cString:)(v5);
-    v57 = v6;
-    v71 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v69 = static ErrorString.table;
-    v68 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v57;
-    v70 = v8;
-    v58 = v10;
-    v71 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v69 = static ErrorString.column;
-    v68 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v58;
-    v70 = v11;
-    v59 = v13;
-    v71 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v69 = static ErrorString.tableMap;
-    v68 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v59;
-    v70 = v14;
-    v60 = v16;
-    v71 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v69 = static ErrorString.columnMap;
-    v68 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v60;
-    v70 = v17;
-    v61 = v19;
-    v71 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v69 = static ErrorString.drop;
-    v68 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v61;
-    v70 = v20;
-    v62 = v22;
-    v71 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v69 = static ErrorString.sequence;
-    v68 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v62;
-    v70 = v23;
-    v71 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v69 = static ErrorString.double;
-    v68 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v25;
-    v70 = v26;
-    v63 = v28;
-    v71 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v69 = static ErrorString.integer;
-    v68 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v63;
-    v70 = v29;
-    v64 = v31;
-    v71 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v69 = static ErrorString.error;
-    v68 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v64;
-    v70 = v32;
-    v65 = v34;
-    v71 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v69 = static ErrorString.archive;
-    v68 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v65;
-    v70 = v35;
-    v66 = v37;
-    v71 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v69 = static ErrorString.limit;
-    v68 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v66;
-    v70 = v38;
-    v71 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v69 = static ErrorString.supportedStackTypes;
-    v68 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v42 = v40;
-    v44 = v43;
-    v42;
-    v70 = v41;
-    v71 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v69 = static ErrorString.sortTypes;
-    v68 = xmmword_3A39B0;
-    v67 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v46 = v45;
-    v55 = v45;
-    v44;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter();
-    v56 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v67;
-    v49[5] = v55;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v56, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v67;
-    *(v51 + 8) = v55;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v54);
-    return v53;
-  }
-
-  return v3;
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_binary_op_sf);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_binary_op_fs);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_binary_op_ss);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_replace_na);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_model_call_method);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_drop_na);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_unstack);
-}
-
-{
-  return specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_group_by);
-}
-
-uint64_t specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2, char a3)
-{
-  v72 = 0;
-  v3 = tc_v1_sarray_to_type(a1, a2, a3 & 1, &v72);
-  v4 = v72;
-  if (v72)
-  {
-    v5 = tc_v1_error_message(v72);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v54 = v4;
-    v53 = v3;
-    v70 = String.init(cString:)(v5);
-    v55 = v6;
-    v71 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v69 = static ErrorString.table;
-    v68 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v55;
-    v70 = v8;
-    v56 = v10;
-    v71 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v69 = static ErrorString.column;
-    v68 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v56;
-    v70 = v11;
-    v57 = v13;
-    v71 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v69 = static ErrorString.tableMap;
-    v68 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v57;
-    v70 = v14;
-    v58 = v16;
-    v71 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v69 = static ErrorString.columnMap;
-    v68 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v58;
-    v70 = v17;
-    v59 = v19;
-    v71 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v69 = static ErrorString.drop;
-    v68 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v59;
-    v70 = v20;
-    v60 = v22;
-    v71 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v69 = static ErrorString.sequence;
-    v68 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v60;
-    v70 = v23;
-    v71 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v69 = static ErrorString.double;
-    v68 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v25;
-    v70 = v26;
-    v61 = v28;
-    v71 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v69 = static ErrorString.integer;
-    v68 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v61;
-    v70 = v29;
-    v62 = v31;
-    v71 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v69 = static ErrorString.error;
-    v68 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v62;
-    v70 = v32;
-    v63 = v34;
-    v71 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v69 = static ErrorString.archive;
-    v68 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v63;
-    v70 = v35;
-    v64 = v37;
-    v71 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v69 = static ErrorString.limit;
-    v68 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v64;
-    v70 = v38;
-    v65 = v40;
-    v71 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v69 = static ErrorString.supportedStackTypes;
-    v68 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v43 = v42;
-    v65;
-    v70 = v41;
-    v66 = v43;
-    v71 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v69 = static ErrorString.sortTypes;
-    v68 = xmmword_3A39B0;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v46 = v45;
-    v66;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter(v46);
-    v67 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v44;
-    v49[5] = v46;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v67, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v44;
-    *(v51 + 8) = v46;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v50);
-    tc_v1_release(v54);
-    return v53;
-  }
-
-  return v3;
-}
-
-{
-  v72 = 0;
-  v3 = tc_v1_sframe_sort_single_column(a1, a2, a3 & 1, &v72);
-  v4 = v72;
-  if (v72)
-  {
-    v5 = tc_v1_error_message(v72);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v54 = v4;
-    v53 = v3;
-    v70 = String.init(cString:)(v5);
-    v55 = v6;
-    v71 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v69 = static ErrorString.table;
-    v68 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v55;
-    v70 = v8;
-    v56 = v10;
-    v71 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v69 = static ErrorString.column;
-    v68 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v56;
-    v70 = v11;
-    v57 = v13;
-    v71 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v69 = static ErrorString.tableMap;
-    v68 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v57;
-    v70 = v14;
-    v58 = v16;
-    v71 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v69 = static ErrorString.columnMap;
-    v68 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v58;
-    v70 = v17;
-    v59 = v19;
-    v71 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v69 = static ErrorString.drop;
-    v68 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v59;
-    v70 = v20;
-    v60 = v22;
-    v71 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v69 = static ErrorString.sequence;
-    v68 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v60;
-    v70 = v23;
-    v71 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v69 = static ErrorString.double;
-    v68 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v25;
-    v70 = v26;
-    v61 = v28;
-    v71 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v69 = static ErrorString.integer;
-    v68 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v61;
-    v70 = v29;
-    v62 = v31;
-    v71 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v69 = static ErrorString.error;
-    v68 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v62;
-    v70 = v32;
-    v63 = v34;
-    v71 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v69 = static ErrorString.archive;
-    v68 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v63;
-    v70 = v35;
-    v64 = v37;
-    v71 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v69 = static ErrorString.limit;
-    v68 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v64;
-    v70 = v38;
-    v65 = v40;
-    v71 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v69 = static ErrorString.supportedStackTypes;
-    v68 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v43 = v42;
-    v65;
-    v70 = v41;
-    v66 = v43;
-    v71 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v69 = static ErrorString.sortTypes;
-    v68 = xmmword_3A39B0;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v46 = v45;
-    v66;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter(v46);
-    v67 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v44;
-    v49[5] = v46;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v67, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v44;
-    *(v51 + 8) = v46;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v50);
-    tc_v1_release(v54);
-    return v53;
-  }
-
-  return v3;
-}
-
-NSURL *specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_add_column);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_parameters_add_flexible_type);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_parameters_add_sarray);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_parameters_add_sframe);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D>(_:_:_:_:)(a1, a2, a3, &tc_v1_sframe_rename_column);
-  return __stack_chk_guard;
-}
-
-NSURL *specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t, uint64_t *))
-{
-  v71 = 0;
-  a4(a1, a2, a3, &v71);
-  v4 = v71;
-  if (v71)
-  {
-    v5 = tc_v1_error_message(v71);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v53 = v4;
-    v69 = String.init(cString:)(v5);
-    v54 = v6;
-    v70 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v68 = static ErrorString.table;
-    v67 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v54;
-    v69 = v8;
-    v55 = v10;
-    v70 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v68 = static ErrorString.column;
-    v67 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v55;
-    v69 = v11;
-    v56 = v13;
-    v70 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v68 = static ErrorString.tableMap;
-    v67 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v56;
-    v69 = v14;
-    v57 = v16;
-    v70 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v68 = static ErrorString.columnMap;
-    v67 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v57;
-    v69 = v17;
-    v58 = v19;
-    v70 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v68 = static ErrorString.drop;
-    v67 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v58;
-    v69 = v20;
-    v59 = v22;
-    v70 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v68 = static ErrorString.sequence;
-    v67 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v59;
-    v69 = v23;
-    v60 = v25;
-    v70 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v68 = static ErrorString.double;
-    v67 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v60;
-    v69 = v26;
-    v61 = v28;
-    v70 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v68 = static ErrorString.integer;
-    v67 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v61;
-    v69 = v29;
-    v62 = v31;
-    v70 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v68 = static ErrorString.error;
-    v67 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v62;
-    v69 = v32;
-    v63 = v34;
-    v70 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v68 = static ErrorString.archive;
-    v67 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v63;
-    v69 = v35;
-    v64 = v37;
-    v70 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v68 = static ErrorString.limit;
-    v67 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v64;
-    v69 = v38;
-    v65 = v40;
-    v70 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v68 = static ErrorString.supportedStackTypes;
-    v67 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v43 = v42;
-    v65;
-    v69 = v41;
-    v70 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v68 = static ErrorString.sortTypes;
-    v67 = xmmword_3A39B0;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v46 = v45;
-    v43;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter();
-    v66 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v44;
-    v49[5] = v46;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v66, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v44;
-    *(v51 + 8) = v46;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v53);
-  }
-
-  return __stack_chk_guard;
-}
-
-uint64_t specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2)
-{
-  v71 = 0;
-  v2 = tc_v1_sframe_sample(a1, a2, &v71);
-  v3 = v71;
-  if (v71)
-  {
-    v4 = tc_v1_error_message(v71);
-    if (!v4)
-    {
-      BUG();
-    }
-
-    v53 = v3;
-    v52 = v2;
-    v69 = String.init(cString:)(v4);
-    v56 = v5;
-    v70 = v5;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v68 = static ErrorString.table;
-    v67 = xmmword_3A3830;
-    v6 = lazy protocol witness table accessor for type String and conformance String();
-    v7 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v9 = v8;
-    v56;
-    v69 = v7;
-    v57 = v9;
-    v70 = v9;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v68 = static ErrorString.column;
-    v67 = xmmword_3A3850;
-    v10 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v12 = v11;
-    v57;
-    v69 = v10;
-    v58 = v12;
-    v70 = v12;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v68 = static ErrorString.tableMap;
-    v67 = xmmword_3A3870;
-    v13 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v15 = v14;
-    v58;
-    v69 = v13;
-    v59 = v15;
-    v70 = v15;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v68 = static ErrorString.columnMap;
-    v67 = xmmword_3A3890;
-    v16 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v18 = v17;
-    v59;
-    v69 = v16;
-    v60 = v18;
-    v70 = v18;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v68 = static ErrorString.drop;
-    v67 = xmmword_3A38B0;
-    v19 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v21 = v20;
-    v60;
-    v69 = v19;
-    v61 = v21;
-    v70 = v21;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v68 = static ErrorString.sequence;
-    v67 = xmmword_3A38D0;
-    v22 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v24 = v23;
-    v61;
-    v69 = v22;
-    v70 = v24;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v68 = static ErrorString.double;
-    v67 = xmmword_3A38F0;
-    v25 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v27 = v26;
-    v24;
-    v69 = v25;
-    v62 = v27;
-    v70 = v27;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v68 = static ErrorString.integer;
-    v67 = xmmword_3A3910;
-    v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v30 = v29;
-    v62;
-    v69 = v28;
-    v63 = v30;
-    v70 = v30;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v68 = static ErrorString.error;
-    v67 = xmmword_3A3930;
-    v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v33 = v32;
-    v63;
-    v69 = v31;
-    v64 = v33;
-    v70 = v33;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v68 = static ErrorString.archive;
-    v67 = xmmword_3A3950;
-    v34 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v36 = v35;
-    v64;
-    v69 = v34;
-    v65 = v36;
-    v70 = v36;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v68 = static ErrorString.limit;
-    v67 = xmmword_3A3970;
-    v37 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v39 = v38;
-    v65;
-    v69 = v37;
-    v70 = v39;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v68 = static ErrorString.supportedStackTypes;
-    v67 = xmmword_3A3990;
-    v40 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v41 = v39;
-    v43 = v42;
-    v41;
-    v69 = v40;
-    v70 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v68 = static ErrorString.sortTypes;
-    v67 = xmmword_3A39B0;
-    v66 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v6, v6, v6);
-    v45 = v44;
-    v54 = v44;
-    v43;
-    type metadata accessor for OS_os_log();
-    v45;
-    v46 = static OS_os_log.default.getter(v45);
-    v55 = static os_log_type_t.error.getter();
-    v47 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v48 = swift_allocObject(v47, 72, 7);
-    v48[2] = 1;
-    v48[3] = 2;
-    v48[7] = &type metadata for String;
-    v48[8] = lazy protocol witness table accessor for type String and conformance String();
-    v48[4] = v66;
-    v48[5] = v54;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v46, v55, v48);
-
-    v48;
-    v49 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v49, 0, 0);
-    *v50 = v66;
-    *(v50 + 8) = v54;
-    *(v50 + 16) = 0;
-    *(v50 + 32) = 0;
-    *(v50 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v49);
-    tc_v1_release(v53);
-    return v52;
-  }
-
-  return v2;
-}
-
-uint64_t specialized handling<A, B, C, D>(_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t *))
-{
-  v73 = 0;
-  v4 = a4(a1, a2, a3, &v73);
-  v5 = v73;
-  if (v73)
-  {
-    v6 = tc_v1_error_message(v73);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v55 = v5;
-    v54 = v4;
-    v71 = String.init(cString:)(v6);
-    v58 = v7;
-    v72 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v58;
-    v71 = v9;
-    v59 = v11;
-    v72 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v59;
-    v71 = v12;
-    v60 = v14;
-    v72 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v60;
-    v71 = v15;
-    v61 = v17;
-    v72 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v61;
-    v71 = v18;
-    v62 = v20;
-    v72 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v62;
-    v71 = v21;
-    v63 = v23;
-    v72 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v63;
-    v71 = v24;
-    v72 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v26;
-    v71 = v27;
-    v64 = v29;
-    v72 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v64;
-    v71 = v30;
-    v65 = v32;
-    v72 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v65;
-    v71 = v33;
-    v66 = v35;
-    v72 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v66;
-    v71 = v36;
-    v67 = v38;
-    v72 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v67;
-    v71 = v39;
-    v72 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v43 = v41;
-    v45 = v44;
-    v43;
-    v71 = v42;
-    v72 = v45;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v68 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v47 = v46;
-    v56 = v46;
-    v45;
-    type metadata accessor for OS_os_log();
-    v47;
-    v48 = static OS_os_log.default.getter(v47);
-    v57 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v68;
-    v50[5] = v56;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v57, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v68;
-    *(v52 + 8) = v56;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v4;
-}
-
-NSURL *specialized handling<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v71 = 0;
-  tc_v1_flex_dict_extract_entry(a1, a2, a3, a4, &v71);
-  v4 = v71;
-  if (v71)
-  {
-    v5 = tc_v1_error_message(v71);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v53 = v4;
-    v69 = String.init(cString:)(v5);
-    v54 = v6;
-    v70 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v68 = static ErrorString.table;
-    v67 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v54;
-    v69 = v8;
-    v55 = v10;
-    v70 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v68 = static ErrorString.column;
-    v67 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v55;
-    v69 = v11;
-    v56 = v13;
-    v70 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v68 = static ErrorString.tableMap;
-    v67 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v56;
-    v69 = v14;
-    v57 = v16;
-    v70 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v68 = static ErrorString.columnMap;
-    v67 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v57;
-    v69 = v17;
-    v58 = v19;
-    v70 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v68 = static ErrorString.drop;
-    v67 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v58;
-    v69 = v20;
-    v59 = v22;
-    v70 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v68 = static ErrorString.sequence;
-    v67 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v59;
-    v69 = v23;
-    v60 = v25;
-    v70 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v68 = static ErrorString.double;
-    v67 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v60;
-    v69 = v26;
-    v61 = v28;
-    v70 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v68 = static ErrorString.integer;
-    v67 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v61;
-    v69 = v29;
-    v62 = v31;
-    v70 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v68 = static ErrorString.error;
-    v67 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v62;
-    v69 = v32;
-    v63 = v34;
-    v70 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v68 = static ErrorString.archive;
-    v67 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v63;
-    v69 = v35;
-    v64 = v37;
-    v70 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v68 = static ErrorString.limit;
-    v67 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v64;
-    v69 = v38;
-    v65 = v40;
-    v70 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v68 = static ErrorString.supportedStackTypes;
-    v67 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v43 = v42;
-    v65;
-    v69 = v41;
-    v70 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v68 = static ErrorString.sortTypes;
-    v67 = xmmword_3A39B0;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v46 = v45;
-    v43;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter();
-    v66 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v44;
-    v49[5] = v46;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v66, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v44;
-    *(v51 + 8) = v46;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v53);
-  }
-
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_sframe_export);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_groupby_aggregator_add_simple_aggregator);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_groupby_aggregator_add_argmax);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_groupby_aggregator_add_argmin);
-  return __stack_chk_guard;
-}
-
-{
-  specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_groupby_aggregator_add_concat_two_columns);
-  return __stack_chk_guard;
-}
-
-uint64_t specialized handling<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v73 = 0;
-  v4 = tc_v1_ndarray_create_from_data(a1, a2, a3, a4, &v73);
-  v5 = v73;
-  if (v73)
-  {
-    v6 = tc_v1_error_message(v73);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v55 = v5;
-    v54 = v4;
-    v71 = String.init(cString:)(v6);
-    v56 = v7;
-    v72 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v56;
-    v71 = v9;
-    v57 = v11;
-    v72 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v57;
-    v71 = v12;
-    v58 = v14;
-    v72 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v58;
-    v71 = v15;
-    v59 = v17;
-    v72 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v59;
-    v71 = v18;
-    v60 = v20;
-    v72 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v60;
-    v71 = v21;
-    v61 = v23;
-    v72 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v61;
-    v71 = v24;
-    v72 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v26;
-    v71 = v27;
-    v62 = v29;
-    v72 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v62;
-    v71 = v30;
-    v63 = v32;
-    v72 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v63;
-    v71 = v33;
-    v64 = v35;
-    v72 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v64;
-    v71 = v36;
-    v65 = v38;
-    v72 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v65;
-    v71 = v39;
-    v66 = v41;
-    v72 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v44 = v43;
-    v66;
-    v71 = v42;
-    v67 = v44;
-    v72 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v45 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v47 = v46;
-    v67;
-    type metadata accessor for OS_os_log();
-    v47;
-    v48 = static OS_os_log.default.getter();
-    v68 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v45;
-    v50[5] = v47;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v68, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v45;
-    *(v52 + 8) = v47;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v4;
-}
-
-{
-  v73 = 0;
-  v4 = tc_v1_sframe_join_on_multiple_columns(a1, a2, a3, a4, &v73);
-  v5 = v73;
-  if (v73)
-  {
-    v6 = tc_v1_error_message(v73);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v55 = v5;
-    v54 = v4;
-    v71 = String.init(cString:)(v6);
-    v56 = v7;
-    v72 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v56;
-    v71 = v9;
-    v57 = v11;
-    v72 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v57;
-    v71 = v12;
-    v58 = v14;
-    v72 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v58;
-    v71 = v15;
-    v59 = v17;
-    v72 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v59;
-    v71 = v18;
-    v60 = v20;
-    v72 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v60;
-    v71 = v21;
-    v61 = v23;
-    v72 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v61;
-    v71 = v24;
-    v72 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v26;
-    v71 = v27;
-    v62 = v29;
-    v72 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v62;
-    v71 = v30;
-    v63 = v32;
-    v72 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v63;
-    v71 = v33;
-    v64 = v35;
-    v72 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v64;
-    v71 = v36;
-    v65 = v38;
-    v72 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v65;
-    v71 = v39;
-    v66 = v41;
-    v72 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v44 = v43;
-    v66;
-    v71 = v42;
-    v67 = v44;
-    v72 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v45 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v47 = v46;
-    v67;
-    type metadata accessor for OS_os_log();
-    v47;
-    v48 = static OS_os_log.default.getter(v47);
-    v68 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v45;
-    v50[5] = v47;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v68, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v45;
-    *(v52 + 8) = v47;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v4;
-}
-
-{
-  v73 = 0;
-  v4 = tc_v1_sframe_slice(a1, a2, a3, a4, &v73);
-  v5 = v73;
-  if (v73)
-  {
-    v6 = tc_v1_error_message(v73);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v55 = v5;
-    v54 = v4;
-    v71 = String.init(cString:)(v6);
-    v56 = v7;
-    v72 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v56;
-    v71 = v9;
-    v57 = v11;
-    v72 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v57;
-    v71 = v12;
-    v58 = v14;
-    v72 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v58;
-    v71 = v15;
-    v59 = v17;
-    v72 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v59;
-    v71 = v18;
-    v60 = v20;
-    v72 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v60;
-    v71 = v21;
-    v61 = v23;
-    v72 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v61;
-    v71 = v24;
-    v72 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v26;
-    v71 = v27;
-    v62 = v29;
-    v72 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v62;
-    v71 = v30;
-    v63 = v32;
-    v72 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v63;
-    v71 = v33;
-    v64 = v35;
-    v72 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v64;
-    v71 = v36;
-    v65 = v38;
-    v72 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v65;
-    v71 = v39;
-    v66 = v41;
-    v72 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v44 = v43;
-    v66;
-    v71 = v42;
-    v67 = v44;
-    v72 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v45 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v47 = v46;
-    v67;
-    type metadata accessor for OS_os_log();
-    v47;
-    v48 = static OS_os_log.default.getter(v47);
-    v68 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v45;
-    v50[5] = v47;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v68, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v45;
-    *(v52 + 8) = v47;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v4;
-}
-
-{
-  v72 = 0;
-  LODWORD(v4) = tc_v1_plot_render_next_into_context(a1, a2, a3, a4, &v72);
-  v5 = v72;
-  if (v72)
-  {
-    v6 = tc_v1_error_message(v72);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v53 = v5;
-    v54 = v4;
-    v70 = String.init(cString:)(v6);
-    v55 = v7;
-    v71 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v69 = static ErrorString.table;
-    v68 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v55;
-    v70 = v9;
-    v56 = v11;
-    v71 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v69 = static ErrorString.column;
-    v68 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v56;
-    v70 = v12;
-    v57 = v14;
-    v71 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v69 = static ErrorString.tableMap;
-    v68 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v57;
-    v70 = v15;
-    v58 = v17;
-    v71 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v69 = static ErrorString.columnMap;
-    v68 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v58;
-    v70 = v18;
-    v59 = v20;
-    v71 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v69 = static ErrorString.drop;
-    v68 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v59;
-    v70 = v21;
-    v60 = v23;
-    v71 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v69 = static ErrorString.sequence;
-    v68 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v60;
-    v70 = v24;
-    v71 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v69 = static ErrorString.double;
-    v68 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v26;
-    v70 = v27;
-    v61 = v29;
-    v71 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v69 = static ErrorString.integer;
-    v68 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v61;
-    v70 = v30;
-    v62 = v32;
-    v71 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v69 = static ErrorString.error;
-    v68 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v62;
-    v70 = v33;
-    v63 = v35;
-    v71 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v69 = static ErrorString.archive;
-    v68 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v63;
-    v70 = v36;
-    v64 = v38;
-    v71 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v69 = static ErrorString.limit;
-    v68 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v64;
-    v70 = v39;
-    v65 = v41;
-    v71 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v69 = static ErrorString.supportedStackTypes;
-    v68 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v44 = v43;
-    v65;
-    v70 = v42;
-    v66 = v44;
-    v71 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v69 = static ErrorString.sortTypes;
-    v68 = xmmword_3A39B0;
-    v4 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v46 = v45;
-    v66;
-    type metadata accessor for OS_os_log();
-    v46;
-    v47 = static OS_os_log.default.getter(v46);
-    v67 = static os_log_type_t.error.getter();
-    v48 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v49 = swift_allocObject(v48, 72, 7);
-    v49[2] = 1;
-    v49[3] = 2;
-    v49[7] = &type metadata for String;
-    v49[8] = lazy protocol witness table accessor for type String and conformance String();
-    v49[4] = v4;
-    v49[5] = v46;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v47, v67, v49);
-
-    v49;
-    v50 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v50, 0, 0);
-    *v51 = v4;
-    *(v51 + 8) = v46;
-    *(v51 + 16) = 0;
-    *(v51 + 32) = 0;
-    *(v51 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v50);
-    tc_v1_release(v53);
-    LOBYTE(v4) = v54;
-  }
-
-  return v4;
-}
-
-uint64_t specialized handling<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  return specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_sframe_filter_by);
-}
-
-{
-  return specialized handling<A, B, C, D, E>(_:_:_:_:_:)(a1, a2, a3, a4, &tc_v1_sframe_stack_and_rename);
-}
-
-uint64_t specialized handling<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, void, uint64_t *))
-{
-  v74 = 0;
-  v5 = a5(a1, a2, a3, a4 & 1, &v74);
-  v6 = v74;
-  if (v74)
-  {
-    v7 = tc_v1_error_message(v74);
-    if (!v7)
-    {
-      BUG();
-    }
-
-    v56 = v6;
-    v55 = v5;
-    v72 = String.init(cString:)(v7);
-    v57 = v8;
-    v73 = v8;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v71 = static ErrorString.table;
-    v70 = xmmword_3A3830;
-    v9 = lazy protocol witness table accessor for type String and conformance String();
-    v10 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v12 = v11;
-    v57;
-    v72 = v10;
-    v58 = v12;
-    v73 = v12;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v71 = static ErrorString.column;
-    v70 = xmmword_3A3850;
-    v13 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v15 = v14;
-    v58;
-    v72 = v13;
-    v59 = v15;
-    v73 = v15;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v71 = static ErrorString.tableMap;
-    v70 = xmmword_3A3870;
-    v16 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v18 = v17;
-    v59;
-    v72 = v16;
-    v60 = v18;
-    v73 = v18;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v71 = static ErrorString.columnMap;
-    v70 = xmmword_3A3890;
-    v19 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v21 = v20;
-    v60;
-    v72 = v19;
-    v61 = v21;
-    v73 = v21;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v71 = static ErrorString.drop;
-    v70 = xmmword_3A38B0;
-    v22 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v24 = v23;
-    v61;
-    v72 = v22;
-    v62 = v24;
-    v73 = v24;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v71 = static ErrorString.sequence;
-    v70 = xmmword_3A38D0;
-    v25 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v27 = v26;
-    v62;
-    v72 = v25;
-    v73 = v27;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v71 = static ErrorString.double;
-    v70 = xmmword_3A38F0;
-    v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v30 = v29;
-    v27;
-    v72 = v28;
-    v63 = v30;
-    v73 = v30;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v71 = static ErrorString.integer;
-    v70 = xmmword_3A3910;
-    v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v33 = v32;
-    v63;
-    v72 = v31;
-    v64 = v33;
-    v73 = v33;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v71 = static ErrorString.error;
-    v70 = xmmword_3A3930;
-    v34 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v36 = v35;
-    v64;
-    v72 = v34;
-    v65 = v36;
-    v73 = v36;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v71 = static ErrorString.archive;
-    v70 = xmmword_3A3950;
-    v37 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v39 = v38;
-    v65;
-    v72 = v37;
-    v66 = v39;
-    v73 = v39;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v71 = static ErrorString.limit;
-    v70 = xmmword_3A3970;
-    v40 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v42 = v41;
-    v66;
-    v72 = v40;
-    v67 = v42;
-    v73 = v42;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v71 = static ErrorString.supportedStackTypes;
-    v70 = xmmword_3A3990;
-    v43 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v45 = v44;
-    v67;
-    v72 = v43;
-    v68 = v45;
-    v73 = v45;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v71 = static ErrorString.sortTypes;
-    v70 = xmmword_3A39B0;
-    v46 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v48 = v47;
-    v68;
-    type metadata accessor for OS_os_log();
-    v48;
-    v49 = static OS_os_log.default.getter(v48);
-    v69 = static os_log_type_t.error.getter();
-    v50 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v51 = swift_allocObject(v50, 72, 7);
-    v51[2] = 1;
-    v51[3] = 2;
-    v51[7] = &type metadata for String;
-    v51[8] = lazy protocol witness table accessor for type String and conformance String();
-    v51[4] = v46;
-    v51[5] = v48;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v49, v69, v51);
-
-    v51;
-    v52 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v52, 0, 0);
-    *v53 = v46;
-    *(v53 + 8) = v48;
-    *(v53 + 16) = 0;
-    *(v53 + 32) = 0;
-    *(v53 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v52);
-    tc_v1_release(v56);
-    return v55;
-  }
-
-  return v5;
-}
-
-NSURL *specialized handling<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t *))
-{
-  v72 = 0;
-  a5(a1, a2, a3, a4, &v72);
-  v5 = v72;
-  if (v72)
-  {
-    v6 = tc_v1_error_message(v72);
-    if (!v6)
-    {
-      BUG();
-    }
-
-    v54 = v5;
-    v70 = String.init(cString:)(v6);
-    v55 = v7;
-    v71 = v7;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v69 = static ErrorString.table;
-    v68 = xmmword_3A3830;
-    v8 = lazy protocol witness table accessor for type String and conformance String();
-    v9 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v11 = v10;
-    v55;
-    v70 = v9;
-    v56 = v11;
-    v71 = v11;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v69 = static ErrorString.column;
-    v68 = xmmword_3A3850;
-    v12 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v14 = v13;
-    v56;
-    v70 = v12;
-    v57 = v14;
-    v71 = v14;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v69 = static ErrorString.tableMap;
-    v68 = xmmword_3A3870;
-    v15 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v17 = v16;
-    v57;
-    v70 = v15;
-    v58 = v17;
-    v71 = v17;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v69 = static ErrorString.columnMap;
-    v68 = xmmword_3A3890;
-    v18 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v20 = v19;
-    v58;
-    v70 = v18;
-    v59 = v20;
-    v71 = v20;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v69 = static ErrorString.drop;
-    v68 = xmmword_3A38B0;
-    v21 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v23 = v22;
-    v59;
-    v70 = v21;
-    v60 = v23;
-    v71 = v23;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v69 = static ErrorString.sequence;
-    v68 = xmmword_3A38D0;
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v26 = v25;
-    v60;
-    v70 = v24;
-    v61 = v26;
-    v71 = v26;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v69 = static ErrorString.double;
-    v68 = xmmword_3A38F0;
-    v27 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v29 = v28;
-    v61;
-    v70 = v27;
-    v62 = v29;
-    v71 = v29;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v69 = static ErrorString.integer;
-    v68 = xmmword_3A3910;
-    v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v32 = v31;
-    v62;
-    v70 = v30;
-    v63 = v32;
-    v71 = v32;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v69 = static ErrorString.error;
-    v68 = xmmword_3A3930;
-    v33 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v35 = v34;
-    v63;
-    v70 = v33;
-    v64 = v35;
-    v71 = v35;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v69 = static ErrorString.archive;
-    v68 = xmmword_3A3950;
-    v36 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v38 = v37;
-    v64;
-    v70 = v36;
-    v65 = v38;
-    v71 = v38;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v69 = static ErrorString.limit;
-    v68 = xmmword_3A3970;
-    v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v41 = v40;
-    v65;
-    v70 = v39;
-    v66 = v41;
-    v71 = v41;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v69 = static ErrorString.supportedStackTypes;
-    v68 = xmmword_3A3990;
-    v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v44 = v43;
-    v66;
-    v70 = v42;
-    v71 = v44;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v69 = static ErrorString.sortTypes;
-    v68 = xmmword_3A39B0;
-    v45 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v69, &v68, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v8, v8, v8);
-    v47 = v46;
-    v44;
-    type metadata accessor for OS_os_log();
-    v47;
-    v48 = static OS_os_log.default.getter(v47);
-    v67 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v45;
-    v50[5] = v47;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v67, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v45;
-    *(v52 + 8) = v47;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v54);
-  }
-
-  return __stack_chk_guard;
-}
-
-uint64_t specialized handling<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
-{
-  v74 = 0;
-  v6 = tc_v1_sarray_apply(a1, a2, a3, a4, a5, a6 & 1, &v74);
-  v7 = v74;
-  if (v74)
-  {
-    v8 = tc_v1_error_message(v74);
-    if (!v8)
-    {
-      BUG();
-    }
-
-    v56 = v7;
-    v55 = v6;
-    v72 = String.init(cString:)(v8);
-    v58 = v9;
-    v73 = v9;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v71 = static ErrorString.table;
-    v70 = xmmword_3A3830;
-    v10 = lazy protocol witness table accessor for type String and conformance String();
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v13 = v12;
-    v58;
-    v72 = v11;
-    v59 = v13;
-    v73 = v13;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v71 = static ErrorString.column;
-    v70 = xmmword_3A3850;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v16 = v15;
-    v59;
-    v72 = v14;
-    v60 = v16;
-    v73 = v16;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v71 = static ErrorString.tableMap;
-    v70 = xmmword_3A3870;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v19 = v18;
-    v60;
-    v72 = v17;
-    v61 = v19;
-    v73 = v19;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v71 = static ErrorString.columnMap;
-    v70 = xmmword_3A3890;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v22 = v21;
-    v61;
-    v72 = v20;
-    v62 = v22;
-    v73 = v22;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v71 = static ErrorString.drop;
-    v70 = xmmword_3A38B0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v25 = v24;
-    v62;
-    v72 = v23;
-    v63 = v25;
-    v73 = v25;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v71 = static ErrorString.sequence;
-    v70 = xmmword_3A38D0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v28 = v27;
-    v63;
-    v72 = v26;
-    v73 = v28;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v71 = static ErrorString.double;
-    v70 = xmmword_3A38F0;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v31 = v30;
-    v28;
-    v72 = v29;
-    v64 = v31;
-    v73 = v31;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v71 = static ErrorString.integer;
-    v70 = xmmword_3A3910;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v34 = v33;
-    v64;
-    v72 = v32;
-    v65 = v34;
-    v73 = v34;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v71 = static ErrorString.error;
-    v70 = xmmword_3A3930;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v37 = v36;
-    v65;
-    v72 = v35;
-    v66 = v37;
-    v73 = v37;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v71 = static ErrorString.archive;
-    v70 = xmmword_3A3950;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v40 = v39;
-    v66;
-    v72 = v38;
-    v67 = v40;
-    v73 = v40;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v71 = static ErrorString.limit;
-    v70 = xmmword_3A3970;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v43 = v42;
-    v67;
-    v72 = v41;
-    v68 = v43;
-    v73 = v43;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v71 = static ErrorString.supportedStackTypes;
-    v70 = xmmword_3A3990;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v46 = v45;
-    v68;
-    v72 = v44;
-    v73 = v46;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v71 = static ErrorString.sortTypes;
-    v70 = xmmword_3A39B0;
-    v47 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v71, &v70, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v10, v10, v10);
-    v69 = v48;
-    v46;
-    type metadata accessor for OS_os_log();
-    v49 = static OS_os_log.default.getter(0);
-    v57 = static os_log_type_t.error.getter();
-    v50 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v51 = swift_allocObject(v50, 72, 7);
-    v51[2] = 1;
-    v51[3] = 2;
-    v51[7] = &type metadata for String;
-    v51[8] = lazy protocol witness table accessor for type String and conformance String();
-    v51[4] = v47;
-    v51[5] = v69;
-    v69;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v49, v57, v51);
-
-    v51;
-    v52 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v52, 0, 0);
-    *v53 = v47;
-    *(v53 + 8) = v69;
-    *(v53 + 16) = 0;
-    *(v53 + 32) = 0;
-    *(v53 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v52);
-    tc_v1_release(v56);
-    return v55;
-  }
-
-  return v6;
-}
-
-uint64_t specialized handling<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  return specialized handling<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)(a1, a2, a3, a4, a5, a6, &tc_v1_plot_create_2d);
-}
-
-{
-  return specialized handling<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)(a1, a2, a3, a4, a5, a6, &tc_v1_sframe_unpack_detailed);
-}
-
-uint64_t specialized handling<A, B, C, D, E, F>(_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v73 = 0;
-  v5 = tc_v1_plot_create_1d(a1, a2, a3, a4, a5, &v73);
-  v6 = v73;
-  if (v73)
-  {
-    v7 = tc_v1_error_message(v73);
-    if (!v7)
-    {
-      BUG();
-    }
-
-    v55 = v6;
-    v54 = v5;
-    v71 = String.init(cString:)(v7);
-    v57 = v8;
-    v72 = v8;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v9 = lazy protocol witness table accessor for type String and conformance String();
-    v10 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v12 = v11;
-    v57;
-    v71 = v10;
-    v58 = v12;
-    v72 = v12;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v13 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v15 = v14;
-    v58;
-    v71 = v13;
-    v59 = v15;
-    v72 = v15;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v16 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v18 = v17;
-    v59;
-    v71 = v16;
-    v60 = v18;
-    v72 = v18;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v19 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v21 = v20;
-    v60;
-    v71 = v19;
-    v61 = v21;
-    v72 = v21;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v22 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v24 = v23;
-    v61;
-    v71 = v22;
-    v62 = v24;
-    v72 = v24;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v25 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v27 = v26;
-    v62;
-    v71 = v25;
-    v72 = v27;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v30 = v29;
-    v27;
-    v71 = v28;
-    v63 = v30;
-    v72 = v30;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v33 = v32;
-    v63;
-    v71 = v31;
-    v64 = v33;
-    v72 = v33;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v34 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v36 = v35;
-    v64;
-    v71 = v34;
-    v65 = v36;
-    v72 = v36;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v37 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v39 = v38;
-    v65;
-    v71 = v37;
-    v66 = v39;
-    v72 = v39;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v40 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v42 = v41;
-    v66;
-    v71 = v40;
-    v67 = v42;
-    v72 = v42;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v43 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v45 = v44;
-    v67;
-    v71 = v43;
-    v72 = v45;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v46 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v68 = v47;
-    v45;
-    type metadata accessor for OS_os_log();
-    v48 = static OS_os_log.default.getter(0);
-    v56 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v46;
-    v50[5] = v68;
-    v68;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v56, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v46;
-    *(v52 + 8) = v68;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v5;
-}
-
-{
-  v73 = 0;
-  v5 = tc_v1_sframe_apply(a1, a2, a3, a4, a5, &v73);
-  v6 = v73;
-  if (v73)
-  {
-    v7 = tc_v1_error_message(v73);
-    if (!v7)
-    {
-      BUG();
-    }
-
-    v55 = v6;
-    v54 = v5;
-    v71 = String.init(cString:)(v7);
-    v57 = v8;
-    v72 = v8;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v9 = lazy protocol witness table accessor for type String and conformance String();
-    v10 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v12 = v11;
-    v57;
-    v71 = v10;
-    v58 = v12;
-    v72 = v12;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v13 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v15 = v14;
-    v58;
-    v71 = v13;
-    v59 = v15;
-    v72 = v15;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v16 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v18 = v17;
-    v59;
-    v71 = v16;
-    v60 = v18;
-    v72 = v18;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v19 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v21 = v20;
-    v60;
-    v71 = v19;
-    v61 = v21;
-    v72 = v21;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v22 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v24 = v23;
-    v61;
-    v71 = v22;
-    v62 = v24;
-    v72 = v24;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v25 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v27 = v26;
-    v62;
-    v71 = v25;
-    v72 = v27;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v30 = v29;
-    v27;
-    v71 = v28;
-    v63 = v30;
-    v72 = v30;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v33 = v32;
-    v63;
-    v71 = v31;
-    v64 = v33;
-    v72 = v33;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v34 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v36 = v35;
-    v64;
-    v71 = v34;
-    v65 = v36;
-    v72 = v36;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v37 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v39 = v38;
-    v65;
-    v71 = v37;
-    v66 = v39;
-    v72 = v39;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v40 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v42 = v41;
-    v66;
-    v71 = v40;
-    v67 = v42;
-    v72 = v42;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v43 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v45 = v44;
-    v67;
-    v71 = v43;
-    v72 = v45;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v46 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v68 = v47;
-    v45;
-    type metadata accessor for OS_os_log();
-    v48 = static OS_os_log.default.getter(0);
-    v56 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v46;
-    v50[5] = v68;
-    v68;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v56, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v46;
-    *(v52 + 8) = v68;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v5;
-}
-
-{
-  v73 = 0;
-  v5 = tc_v1_sframe_pack_columns_vector(a1, a2, a3, a4, a5, &v73);
-  v6 = v73;
-  if (v73)
-  {
-    v7 = tc_v1_error_message(v73);
-    if (!v7)
-    {
-      BUG();
-    }
-
-    v55 = v6;
-    v54 = v5;
-    v71 = String.init(cString:)(v7);
-    v57 = v8;
-    v72 = v8;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v70 = static ErrorString.table;
-    v69 = xmmword_3A3830;
-    v9 = lazy protocol witness table accessor for type String and conformance String();
-    v10 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v12 = v11;
-    v57;
-    v71 = v10;
-    v58 = v12;
-    v72 = v12;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v70 = static ErrorString.column;
-    v69 = xmmword_3A3850;
-    v13 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v15 = v14;
-    v58;
-    v71 = v13;
-    v59 = v15;
-    v72 = v15;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v70 = static ErrorString.tableMap;
-    v69 = xmmword_3A3870;
-    v16 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v18 = v17;
-    v59;
-    v71 = v16;
-    v60 = v18;
-    v72 = v18;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v70 = static ErrorString.columnMap;
-    v69 = xmmword_3A3890;
-    v19 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v21 = v20;
-    v60;
-    v71 = v19;
-    v61 = v21;
-    v72 = v21;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v70 = static ErrorString.drop;
-    v69 = xmmword_3A38B0;
-    v22 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v24 = v23;
-    v61;
-    v71 = v22;
-    v62 = v24;
-    v72 = v24;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v70 = static ErrorString.sequence;
-    v69 = xmmword_3A38D0;
-    v25 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v27 = v26;
-    v62;
-    v71 = v25;
-    v72 = v27;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v70 = static ErrorString.double;
-    v69 = xmmword_3A38F0;
-    v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v30 = v29;
-    v27;
-    v71 = v28;
-    v63 = v30;
-    v72 = v30;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v70 = static ErrorString.integer;
-    v69 = xmmword_3A3910;
-    v31 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v33 = v32;
-    v63;
-    v71 = v31;
-    v64 = v33;
-    v72 = v33;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v70 = static ErrorString.error;
-    v69 = xmmword_3A3930;
-    v34 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v36 = v35;
-    v64;
-    v71 = v34;
-    v65 = v36;
-    v72 = v36;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v70 = static ErrorString.archive;
-    v69 = xmmword_3A3950;
-    v37 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v39 = v38;
-    v65;
-    v71 = v37;
-    v66 = v39;
-    v72 = v39;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v70 = static ErrorString.limit;
-    v69 = xmmword_3A3970;
-    v40 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v42 = v41;
-    v66;
-    v71 = v40;
-    v67 = v42;
-    v72 = v42;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v70 = static ErrorString.supportedStackTypes;
-    v69 = xmmword_3A3990;
-    v43 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v45 = v44;
-    v67;
-    v71 = v43;
-    v72 = v45;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v70 = static ErrorString.sortTypes;
-    v69 = xmmword_3A39B0;
-    v46 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v70, &v69, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v9, v9, v9);
-    v68 = v47;
-    v45;
-    type metadata accessor for OS_os_log();
-    v48 = static OS_os_log.default.getter(0);
-    v56 = static os_log_type_t.error.getter();
-    v49 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v50 = swift_allocObject(v49, 72, 7);
-    v50[2] = 1;
-    v50[3] = 2;
-    v50[7] = &type metadata for String;
-    v50[8] = lazy protocol witness table accessor for type String and conformance String();
-    v50[4] = v46;
-    v50[5] = v68;
-    v68;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v48, v56, v50);
-
-    v50;
-    v51 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v51, 0, 0);
-    *v52 = v46;
-    *(v52 + 8) = v68;
-    *(v52 + 16) = 0;
-    *(v52 + 32) = 0;
-    *(v52 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v51);
-    tc_v1_release(v55);
-    return v54;
-  }
-
-  return v5;
-}
-
-NSURL *specialized handling<A, B, C, D, E, F>(_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v71 = 0;
-  tc_v1_sframe_random_split(a1, a2, a3, a4, &v71);
-  v4 = v71;
-  if (v71)
-  {
-    v5 = tc_v1_error_message(v71);
-    if (!v5)
-    {
-      BUG();
-    }
-
-    v52 = v4;
-    v69 = String.init(cString:)(v5);
-    v54 = v6;
-    v70 = v6;
-    if (one-time initialization token for table != -1)
-    {
-      swift_once(&one-time initialization token for table, one-time initialization function for table);
-    }
-
-    v68 = static ErrorString.table;
-    v67 = xmmword_3A3830;
-    v7 = lazy protocol witness table accessor for type String and conformance String();
-    v8 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v10 = v9;
-    v54;
-    v69 = v8;
-    v55 = v10;
-    v70 = v10;
-    if (one-time initialization token for column != -1)
-    {
-      swift_once(&one-time initialization token for column, one-time initialization function for column);
-    }
-
-    v68 = static ErrorString.column;
-    v67 = xmmword_3A3850;
-    v11 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v13 = v12;
-    v55;
-    v69 = v11;
-    v56 = v13;
-    v70 = v13;
-    if (one-time initialization token for tableMap != -1)
-    {
-      swift_once(&one-time initialization token for tableMap, one-time initialization function for tableMap);
-    }
-
-    v68 = static ErrorString.tableMap;
-    v67 = xmmword_3A3870;
-    v14 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v16 = v15;
-    v56;
-    v69 = v14;
-    v57 = v16;
-    v70 = v16;
-    if (one-time initialization token for columnMap != -1)
-    {
-      swift_once(&one-time initialization token for columnMap, one-time initialization function for columnMap);
-    }
-
-    v68 = static ErrorString.columnMap;
-    v67 = xmmword_3A3890;
-    v17 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v19 = v18;
-    v57;
-    v69 = v17;
-    v58 = v19;
-    v70 = v19;
-    if (one-time initialization token for drop != -1)
-    {
-      swift_once(&one-time initialization token for drop, one-time initialization function for drop);
-    }
-
-    v68 = static ErrorString.drop;
-    v67 = xmmword_3A38B0;
-    v20 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v22 = v21;
-    v58;
-    v69 = v20;
-    v59 = v22;
-    v70 = v22;
-    if (one-time initialization token for sequence != -1)
-    {
-      swift_once(&one-time initialization token for sequence, one-time initialization function for sequence);
-    }
-
-    v68 = static ErrorString.sequence;
-    v67 = xmmword_3A38D0;
-    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v25 = v24;
-    v59;
-    v69 = v23;
-    v60 = v25;
-    v70 = v25;
-    if (one-time initialization token for double != -1)
-    {
-      swift_once(&one-time initialization token for double, one-time initialization function for double);
-    }
-
-    v68 = static ErrorString.double;
-    v67 = xmmword_3A38F0;
-    v26 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v28 = v27;
-    v60;
-    v69 = v26;
-    v61 = v28;
-    v70 = v28;
-    if (one-time initialization token for integer != -1)
-    {
-      swift_once(&one-time initialization token for integer, one-time initialization function for integer);
-    }
-
-    v68 = static ErrorString.integer;
-    v67 = xmmword_3A3910;
-    v29 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 1, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v31 = v30;
-    v61;
-    v69 = v29;
-    v62 = v31;
-    v70 = v31;
-    if (one-time initialization token for error != -1)
-    {
-      swift_once(&one-time initialization token for error, one-time initialization function for error);
-    }
-
-    v68 = static ErrorString.error;
-    v67 = xmmword_3A3930;
-    v32 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v34 = v33;
-    v62;
-    v69 = v32;
-    v63 = v34;
-    v70 = v34;
-    if (one-time initialization token for archive != -1)
-    {
-      swift_once(&one-time initialization token for archive, one-time initialization function for archive);
-    }
-
-    v68 = static ErrorString.archive;
-    v67 = xmmword_3A3950;
-    v35 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v37 = v36;
-    v63;
-    v69 = v35;
-    v64 = v37;
-    v70 = v37;
-    if (one-time initialization token for limit != -1)
-    {
-      swift_once(&one-time initialization token for limit, one-time initialization function for limit);
-    }
-
-    v68 = static ErrorString.limit;
-    v67 = xmmword_3A3970;
-    v38 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v40 = v39;
-    v64;
-    v69 = v38;
-    v65 = v40;
-    v70 = v40;
-    if (one-time initialization token for supportedStackTypes != -1)
-    {
-      swift_once(&one-time initialization token for supportedStackTypes, one-time initialization function for supportedStackTypes);
-    }
-
-    v68 = static ErrorString.supportedStackTypes;
-    v67 = xmmword_3A3990;
-    v41 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v43 = v42;
-    v65;
-    v69 = v41;
-    v70 = v43;
-    if (one-time initialization token for sortTypes != -1)
-    {
-      swift_once(&one-time initialization token for sortTypes, one-time initialization function for sortTypes);
-    }
-
-    v68 = static ErrorString.sortTypes;
-    v67 = xmmword_3A39B0;
-    v44 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(&v68, &v67, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v7, v7, v7);
-    v66 = v45;
-    v43;
-    type metadata accessor for OS_os_log();
-    v46 = static OS_os_log.default.getter(0);
-    v53 = static os_log_type_t.error.getter();
-    v47 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
-    v48 = swift_allocObject(v47, 72, 7);
-    v48[2] = 1;
-    v48[3] = 2;
-    v48[7] = &type metadata for String;
-    v48[8] = lazy protocol witness table accessor for type String and conformance String();
-    v48[4] = v44;
-    v48[5] = v66;
-    v66;
-    os_log(_:dso:log:type:_:)("%@ \n", 4, 2, &dword_0, v46, v53, v48);
-
-    v48;
-    v49 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v49, 0, 0);
-    *v50 = v44;
-    *(v50 + 8) = v66;
-    *(v50 + 16) = 0;
-    *(v50 + 32) = 0;
-    *(v50 + 48) = 0;
-    swift_willThrow();
-    tc_v1_release(v52);
-  }
-
-  return __stack_chk_guard;
-}
-
-unint64_t one-time initialization function for table()
-{
-  *&static ErrorString.table = 0x656D61724653;
-  *(&static ErrorString.table + 1) = 0xE600000000000000;
-  *&xmmword_3A3830 = 0x6C62615461746144;
-  result = 0xE900000000000065;
-  *(&xmmword_3A3830 + 1) = 0xE900000000000065;
-  return result;
-}
-
-unint64_t one-time initialization function for column()
-{
-  *&static ErrorString.column = 0x796172724153;
-  *(&static ErrorString.column + 1) = 0xE600000000000000;
-  *&xmmword_3A3850 = 0x756C6F4361746144;
-  result = 0xEA00000000006E6DLL;
-  *(&xmmword_3A3850 + 1) = 0xEA00000000006E6DLL;
-  return result;
-}
-
-unint64_t one-time initialization function for tableMap()
-{
-  *&static ErrorString.tableMap = 0x6D617266735F6374;
-  *(&static ErrorString.tableMap + 1) = 0xEF796C7070615F65;
-  *&xmmword_3A3870 = 7364973;
-  result = 0xE300000000000000;
-  *(&xmmword_3A3870 + 1) = 0xE300000000000000;
-  return result;
-}
-
-unint64_t one-time initialization function for columnMap()
-{
-  *&static ErrorString.columnMap = 0x61727261735F6374;
-  *(&static ErrorString.columnMap + 1) = 0xEF796C7070615F79;
-  *&xmmword_3A3890 = 7364973;
-  result = 0xE300000000000000;
-  *(&xmmword_3A3890 + 1) = 0xE300000000000000;
-  return result;
-}
-
-unint64_t one-time initialization function for drop()
-{
-  *&static ErrorString.drop = 0x616E706F7264;
-  *(&static ErrorString.drop + 1) = 0xE600000000000000;
-  *&xmmword_3A38B0 = 0x7373694D706F7264;
-  result = 0xEB00000000676E69;
-  *(&xmmword_3A38B0 + 1) = 0xEB00000000676E69;
-  return result;
-}
-
-unint64_t one-time initialization function for sequence()
-{
-  *&static ErrorString.sequence = 1953720684;
-  *(&static ErrorString.sequence + 1) = 0xE400000000000000;
-  strcpy(&xmmword_3A38D0, "SequenceType");
-  result = 0xEC00000065707954;
-  BYTE13(xmmword_3A38D0) = 0;
-  HIWORD(xmmword_3A38D0) = -5120;
-  return result;
-}
-
-unint64_t one-time initialization function for double()
-{
-  *&static ErrorString.double = 0x74616F6C66;
-  *(&static ErrorString.double + 1) = 0xE500000000000000;
-  *&xmmword_3A38F0 = 0x656C62756F44;
-  result = 0xE600000000000000;
-  *(&xmmword_3A38F0 + 1) = 0xE600000000000000;
-  return result;
-}
-
-unint64_t one-time initialization function for integer()
-{
-  *&static ErrorString.integer = 0x656765746E692061;
-  *(&static ErrorString.integer + 1) = 0xE900000000000072;
-  *&xmmword_3A3910 = 0x746E49206E61;
-  result = 0xE600000000000000;
-  *(&xmmword_3A3910 + 1) = 0xE600000000000000;
-  return result;
-}
-
-unint64_t one-time initialization function for error()
-{
-  *&static ErrorString.error = 0x203A726F727245;
-  *(&static ErrorString.error + 1) = 0xE700000000000000;
-  *&xmmword_3A3930 = 0;
-  result = 0xE000000000000000;
-  *(&xmmword_3A3930 + 1) = 0xE000000000000000;
-  return result;
-}
-
-char *one-time initialization function for archive()
-{
-  strcpy(&static ErrorString.archive, "a Turi archive");
-  HIBYTE(static ErrorString.archive) = -18;
-  result = "Subset and Column Types" + 0x8000000000000000;
-  *&xmmword_3A3950 = 0xD000000000000023;
-  *(&xmmword_3A3950 + 1) = "Subset and Column Types" + 0x8000000000000000;
-  return result;
-}
-
-char *one-time initialization function for limit()
-{
-  *&static ErrorString.limit = 0xD000000000000016;
-  *(&static ErrorString.limit + 1) = "Type/array type." + 0x8000000000000000;
-  result = "limit and column_types" + 0x8000000000000000;
-  *&xmmword_3A3970 = 0xD000000000000017;
-  *(&xmmword_3A3970 + 1) = "limit and column_types" + 0x8000000000000000;
-  return result;
-}
-
-unint64_t one-time initialization function for supportedStackTypes()
-{
-  *&static ErrorString.supportedStackTypes = 0xD000000000000020;
-  *(&static ErrorString.supportedStackTypes + 1) = "s of type Int, Double or String" + 0x8000000000000000;
-  strcpy(&xmmword_3A3990, "type Sequence.");
-  result = 0xEE002E65636E6575;
-  HIBYTE(xmmword_3A3990) = -18;
-  return result;
-}
-
-char *one-time initialization function for sortTypes()
-{
-  *&static ErrorString.sortTypes = 0xD000000000000034;
-  *(&static ErrorString.sortTypes + 1) = "hm." + 0x8000000000000000;
-  result = "ing', and 'datetime'" + 0x8000000000000000;
-  *&xmmword_3A39B0 = 0xD00000000000001FLL;
-  *(&xmmword_3A39B0 + 1) = "ing', and 'datetime'" + 0x8000000000000000;
-  return result;
-}
-
-uint64_t __swift_memcpy24_8(uint64_t a1, uint64_t a2)
-{
-  result = a1;
-  *(a1 + 16) = *(a2 + 16);
-  *a1 = *a2;
-  return result;
-}
-
-uint64_t closure #1 in FeatureVectorizer.fitted(to:)(void *a1, uint64_t a2, void *a3)
-{
-  v13 = a3;
-  v14 = v3;
-  v5 = *(*(type metadata accessor for AnyColumn(0) - 8) + 64);
-  v6 = alloca(v5);
-  v7 = alloca(v5);
-  DataFrame.subscript.getter(*a1, a1[1]);
-  result = ColumnDescriptor.init(_:)(&v13);
-  if (v4)
-  {
-    result = v13;
-    *v13 = v4;
-  }
-
-  else
-  {
-    v12 = v14;
-    *v14 = result;
-    v12[1] = v9;
-    v12[2] = v10;
-    *(v12 + 24) = v11;
-  }
-
-  return result;
-}
-
-char FeatureVectorizer.Transformer.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = &aColumndescript[-32] | 0x8000000000000000;
-  if (a1 ^ 0xD000000000000011 | a2 ^ v3 && (_stringCompareWithSmolCheck(_:_:expecting:)(0xD000000000000011, v3, a1, a2, 0) & 1) == 0)
-  {
-    v5 = &aVectorizedfeat[-32] | 0x8000000000000000;
-    if (a1 ^ 0xD000000000000016 | a2 ^ v5)
-    {
-      v6 = _stringCompareWithSmolCheck(_:_:expecting:)(0xD000000000000016, v5, a1, a2, 0);
-      a2, v5;
-      return 2 - (v6 & 1);
-    }
-
-    else
-    {
-      a2, v5;
-      return 1;
-    }
-  }
-
-  else
-  {
-    a2, v3;
-    return 0;
-  }
-}
-
-unint64_t FeatureVectorizer.Transformer.CodingKeys.stringValue.getter(char a1)
-{
-  result = 0xD000000000000016;
-  if ((a1 & 1) == 0)
-  {
-    return 0xD000000000000011;
-  }
-
-  return result;
-}
-
-uint64_t FeatureVectorizer.Transformer.encode(to:)(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v19 = v6;
-  v23 = a4;
-  v24 = a3;
-  v26 = a2;
-  v7 = type metadata accessor for FeatureVectorizer.Transformer.CodingKeys(255, a5, a6, a4);
-  WitnessTable = swift_getWitnessTable(&protocol conformance descriptor for FeatureVectorizer<A>.Transformer.CodingKeys, v7);
-  v20 = type metadata accessor for KeyedEncodingContainer(0, v7, WitnessTable);
-  v25 = *(v20 - 8);
-  v8 = *(v25 + 64);
-  v9 = alloca(v8);
-  v10 = alloca(v8);
-  v11 = a1[3];
-  v22 = a1[4];
-  __swift_project_boxed_opaque_existential_0Tm(a1, v11);
-  dispatch thunk of Encoder.container<A>(keyedBy:)(v7, v7, WitnessTable, v11, v22);
-  v18 = v26;
-  v27 = 0;
-  v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [ColumnDescriptor]);
-  v13 = lazy protocol witness table accessor for type [ColumnDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [ColumnDescriptor] and conformance <A> [A], lazy protocol witness table accessor for type ColumnDescriptor and conformance ColumnDescriptor, &protocol conformance descriptor for <A> [A]);
-  v14 = v20;
-  v26 = &v18;
-  v15 = v19;
-  KeyedEncodingContainer.encode<A>(_:forKey:)(&v18, &v27, v20, v12, v13);
-  if (v15)
-  {
-    return (*(v25 + 8))(v26, v14);
-  }
-
-  v17 = v25;
-  v28[0] = 1;
-  KeyedEncodingContainer.encode(_:forKey:)(v24, v23, v28, v14);
-  return (*(v17 + 8))(v26, v14);
-}
-
 void *FeatureVectorizer.Transformer.init(from:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v22 = v4;
@@ -4204,11 +29,11 @@ void *FeatureVectorizer.Transformer.init(from:)(void *a1, uint64_t a2, uint64_t 
     KeyedDecodingContainer.decode<A>(_:forKey:)(v11, &v24, v19, v11, v12);
     v25[0] = 1;
     WitnessTable = v17;
-    v17;
+
     KeyedDecodingContainer.decode(_:forKey:)(v25, v13);
     v16 = v15;
     (*(v20 + 8))(v23, v13);
-    v16;
+
     __swift_destroy_boxed_opaque_existential_1Tm(v22);
     v16;
     v5 = WitnessTable;
@@ -4218,68 +43,26 @@ void *FeatureVectorizer.Transformer.init(from:)(void *a1, uint64_t a2, uint64_t 
   return v5;
 }
 
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3)
-{
-  v3 = *(a3 + 16);
-  v4 = *(a3 + 24);
-  return static Rectangle.CodingKeys.== infix(_:_:)(*a1, *a2);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  return Rectangle.CodingKeys.hashValue.getter(*v1);
-}
-
-void protocol witness for Hashable.hash(into:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  Rectangle.CodingKeys.hash(into:)(a1, *v2);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1, uint64_t a2)
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)(a1);
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  Rectangle.CodingKeys.hash(into:)(v6, *v2);
+  Rectangle.CodingKeys.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1)
+char protocol witness for CodingKey.init(stringValue:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  return FeatureVectorizer.Transformer.CodingKeys.stringValue.getter(*v1);
-}
-
-char protocol witness for CodingKey.init(stringValue:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v5 = *(a3 + 16);
-  v6 = *(a3 + 24);
+  v3 = v2;
   result = FeatureVectorizer.Transformer.CodingKeys.init(stringValue:)(a1, a2);
-  *v4 = result;
+  *v3 = result;
   return result;
 }
 
-uint64_t protocol witness for CodingKey.intValue.getter in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1)
+char protocol witness for CodingKey.init(intValue:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys()
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
-  v4 = *v1;
-  return Rectangle.CodingKeys.intValue.getter();
-}
-
-char protocol witness for CodingKey.init(intValue:) in conformance FeatureVectorizer<A>.Transformer.CodingKeys(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v4 = *(a2 + 24);
-  v5 = *(a2 + 16);
+  v1 = v0;
   result = Rectangle.CodingKeys.init(intValue:)();
-  *v3 = result;
+  *v1 = result;
   return result;
 }
 
@@ -4385,7 +168,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v48 = v119;
       v49 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v49;
+
       v50 = CMLFeatureValue.__allocating_init(_:)(v48, v49);
       v49;
       CMLDictionary.add(key:value:)(0x6972616C696D6973, 0xEF657079745F7974, v50);
@@ -4432,7 +215,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
         v38 = static String._unconditionallyBridgeFromObjectiveC(_:)(v119);
         v40 = v39;
         type metadata accessor for CMLFeatureValue();
-        v40;
+
         v41 = CMLFeatureValue.__allocating_init(_:)(v38, v40);
         v40;
         CMLDictionary.add(key:value:)(0x65676175676E616CLL, 0xE800000000000000, v41);
@@ -4443,7 +226,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v75 = v119;
       v76 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v76;
+
       v77 = CMLFeatureValue.__allocating_init(_:)(v75, v76);
       v76;
       CMLDictionary.add(key:value:)(0x687469726F676C61, 0xE90000000000006DLL, v77);
@@ -4455,7 +238,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v89 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?));
       outlined init with take of URL?(&v120[-1] + *(v89 + 48), v144);
       v90 = type metadata accessor for CMLFeatureValue();
-      v88;
+
       v141 = v90;
       v91 = CMLFeatureValue.__allocating_init(_:)(v87, v88);
       v88;
@@ -4477,7 +260,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
         (*(v142 + 32))(v143, v94, v92);
         v115 = URL.path.getter(v114);
         v117 = v116;
-        v116;
+
         v118 = CMLFeatureValue.__allocating_init(_:)(v115, v117);
         v117;
         CMLDictionary.add(key:value:)(0xD000000000000012, ("algorithm_revision" + 0x8000000000000000), v118);
@@ -4516,7 +299,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v45 = v119;
       v46 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v46;
+
       v47 = CMLFeatureValue.__allocating_init(_:)(v45, v46);
       v46;
       CMLDictionary.add(key:value:)(0x705F656369766564, 0xED00007963696C6FLL, v47);
@@ -4525,7 +308,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v99 = v119;
       v100 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v100;
+
       v101 = CMLFeatureValue.__allocating_init(_:)(v99, v100);
       v100;
       CMLDictionary.add(key:value:)(0xD000000000000010, ("annotation_origin" + 0x8000000000000000), v101);
@@ -4534,7 +317,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v34 = v119;
       v35 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v35;
+
       v36 = CMLFeatureValue.__allocating_init(_:)(v34, v35);
       v35;
       CMLDictionary.add(key:value:)(0xD000000000000011, ("annotation_position" + 0x8000000000000000), v36);
@@ -4543,7 +326,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v42 = v119;
       v43 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v43;
+
       v44 = CMLFeatureValue.__allocating_init(_:)(v42, v43);
       v43;
       CMLDictionary.add(key:value:)(0xD000000000000013, ("default_model_input_size" + 0x8000000000000000), v44);
@@ -4575,7 +358,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v31 = v119;
       v32 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v32;
+
       v33 = CMLFeatureValue.__allocating_init(_:)(v31, v32);
       v32;
       CMLDictionary.add(key:value:)(0x6C65646F6DLL, 0xE500000000000000, v33);
@@ -4584,7 +367,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v51 = v119;
       v52 = v120[0];
       type metadata accessor for CMLFeatureValue();
-      v52;
+
       v53 = CMLFeatureValue.__allocating_init(_:)(v51, v52);
       v52;
       CMLDictionary.add(key:value:)(0x6966697373616C63, 0xEA00000000007265, v53);
@@ -4606,7 +389,7 @@ void CMLDictionary.add(_:)(uint64_t a1)
       v143 = *(v18 + 16);
       if (v143)
       {
-        v18;
+
         v23 = 0;
         do
         {
@@ -4757,9 +540,9 @@ char *initializeBufferWithCopyOfBuffer for _Model.Parameters(char *__dst, char *
   v5 = *(v4 + 80);
   if ((v5 & 0x20000) != 0)
   {
-    v8 = *__src;
+    v7 = *__src;
     *v3 = *__src;
-    v3 = &v8[(v5 + 16) & ~v5];
+    v3 = &v7[(v5 + 16) & ~v5];
 
     return v3;
   }
@@ -4770,94 +553,84 @@ char *initializeBufferWithCopyOfBuffer for _Model.Parameters(char *__dst, char *
     {
       case 2u:
         *__dst = *__src;
-        v7 = __src[1];
-        *(v3 + 1) = v7;
-        v7;
-        swift_storeEnumTagMultiPayload(v3, a3, 2);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 2);
         return v3;
       case 4u:
-        v19 = *__src;
+        v13 = *__src;
         *v3 = *__src;
-        v19;
+        v13;
         swift_storeEnumTagMultiPayload(v3, a3, 4);
         return v3;
       case 5u:
         *__dst = *__src;
-        v18 = __src[1];
-        *(v3 + 1) = v18;
-        v18;
-        swift_storeEnumTagMultiPayload(v3, a3, 5);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 5);
         return v3;
       case 6u:
         *__dst = *__src;
-        v12 = __src[1];
-        *(v3 + 1) = v12;
-        v12;
-        v13 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
-        v14 = &v3[v13];
-        v15 = __src + v13;
-        v16 = type metadata accessor for URL(0);
-        if (__swift_getEnumTagSinglePayload(v15, 1, v16))
+        *(__dst + 1) = __src[1];
+
+        v8 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
+        v9 = &__dst[v8];
+        v10 = __src + v8;
+        v11 = type metadata accessor for URL(0);
+        if (__swift_getEnumTagSinglePayload(v10, 1, v11))
         {
-          v17 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
-          memcpy(v14, v15, *(*(v17 - 8) + 64));
+          v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
+          memcpy(v9, v10, *(*(v12 - 8) + 64));
         }
 
         else
         {
-          (*(*(v16 - 8) + 16))(v14, v15, v16);
-          __swift_storeEnumTagSinglePayload(v14, 0, 1, v16);
+          (*(*(v11 - 8) + 16))(v9, v10, v11);
+          __swift_storeEnumTagSinglePayload(v9, 0, 1, v11);
         }
 
-        swift_storeEnumTagMultiPayload(v3, a3, 6);
+        swift_storeEnumTagMultiPayload(__dst, a3, 6);
         return v3;
       case 9u:
         *__dst = *__src;
-        v10 = __src[1];
-        *(v3 + 1) = v10;
-        v10;
-        swift_storeEnumTagMultiPayload(v3, a3, 9);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 9);
         return v3;
       case 0xAu:
         *__dst = *__src;
-        v11 = __src[1];
-        *(v3 + 1) = v11;
-        v11;
-        swift_storeEnumTagMultiPayload(v3, a3, 10);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 10);
         return v3;
       case 0xBu:
         *__dst = *__src;
-        v20 = __src[1];
-        *(v3 + 1) = v20;
-        v20;
-        swift_storeEnumTagMultiPayload(v3, a3, 11);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 11);
         return v3;
       case 0xCu:
         *__dst = *__src;
-        v21 = __src[1];
-        *(v3 + 1) = v21;
-        v21;
-        swift_storeEnumTagMultiPayload(v3, a3, 12);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 12);
         return v3;
       case 0xEu:
         *__dst = *__src;
-        v23 = __src[1];
-        *(v3 + 1) = v23;
-        v23;
-        swift_storeEnumTagMultiPayload(v3, a3, 14);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 14);
         return v3;
       case 0xFu:
         *__dst = *__src;
-        v22 = __src[1];
-        *(v3 + 1) = v22;
-        v22;
-        swift_storeEnumTagMultiPayload(v3, a3, 15);
+        *(__dst + 1) = __src[1];
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 15);
         return v3;
       case 0x10u:
-        v9 = *__src;
-        *v3 = *__src;
-        v9;
-        swift_storeEnumTagMultiPayload(v3, a3, 16);
+        *__dst = *__src;
+
+        swift_storeEnumTagMultiPayload(__dst, a3, 16);
         return v3;
       default:
         result = memcpy(__dst, __src, *(v4 + 64));
@@ -4868,7 +641,7 @@ char *initializeBufferWithCopyOfBuffer for _Model.Parameters(char *__dst, char *
   return result;
 }
 
-void destroy for _Model.Parameters(void *a1, uint64_t a2)
+void destroy for _Model.Parameters(uint64_t a1, uint64_t a2)
 {
   switch(swift_getEnumCaseMultiPayload(a1, a2))
   {
@@ -4880,13 +653,13 @@ void destroy for _Model.Parameters(void *a1, uint64_t a2)
     case 0xCu:
     case 0xEu:
     case 0xFu:
-      a1[1];
+      *(a1 + 8);
       break;
     case 4u:
 
       break;
     case 6u:
-      a1[1];
+      *(a1 + 8);
       v2 = a1 + *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
       v3 = type metadata accessor for URL(0);
       if (!__swift_getEnumTagSinglePayload(v2, 1, v3))
@@ -4909,93 +682,83 @@ void *initializeWithCopy for _Model.Parameters(void *__dst, void *__src, uint64_
   {
     case 2u:
       *__dst = *__src;
-      v5 = __src[1];
-      __dst[1] = v5;
-      v5;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 2);
       goto LABEL_17;
     case 4u:
-      v16 = *__src;
+      v10 = *__src;
       *__dst = *__src;
-      v16;
+      v10;
       swift_storeEnumTagMultiPayload(__dst, a3, 4);
       goto LABEL_17;
     case 5u:
       *__dst = *__src;
-      v15 = __src[1];
-      __dst[1] = v15;
-      v15;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 5);
       goto LABEL_17;
     case 6u:
       *__dst = *__src;
-      v9 = __src[1];
-      __dst[1] = v9;
-      v9;
-      v10 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
-      v11 = __dst + v10;
-      v12 = __src + v10;
-      v13 = type metadata accessor for URL(0);
-      if (__swift_getEnumTagSinglePayload(v12, 1, v13))
+      __dst[1] = __src[1];
+
+      v5 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
+      v6 = __dst + v5;
+      v7 = __src + v5;
+      v8 = type metadata accessor for URL(0);
+      if (__swift_getEnumTagSinglePayload(v7, 1, v8))
       {
-        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
-        memcpy(v11, v12, *(*(v14 - 8) + 64));
+        v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
+        memcpy(v6, v7, *(*(v9 - 8) + 64));
       }
 
       else
       {
-        (*(*(v13 - 8) + 16))(v11, v12, v13);
-        __swift_storeEnumTagSinglePayload(v11, 0, 1, v13);
+        (*(*(v8 - 8) + 16))(v6, v7, v8);
+        __swift_storeEnumTagSinglePayload(v6, 0, 1, v8);
       }
 
       swift_storeEnumTagMultiPayload(__dst, a3, 6);
       goto LABEL_17;
     case 9u:
       *__dst = *__src;
-      v7 = __src[1];
-      __dst[1] = v7;
-      v7;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 9);
       goto LABEL_17;
     case 0xAu:
       *__dst = *__src;
-      v8 = __src[1];
-      __dst[1] = v8;
-      v8;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 10);
       goto LABEL_17;
     case 0xBu:
       *__dst = *__src;
-      v17 = __src[1];
-      __dst[1] = v17;
-      v17;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 11);
       goto LABEL_17;
     case 0xCu:
       *__dst = *__src;
-      v18 = __src[1];
-      __dst[1] = v18;
-      v18;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 12);
       goto LABEL_17;
     case 0xEu:
       *__dst = *__src;
-      v20 = __src[1];
-      __dst[1] = v20;
-      v20;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 14);
       goto LABEL_17;
     case 0xFu:
       *__dst = *__src;
-      v19 = __src[1];
-      __dst[1] = v19;
-      v19;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 15);
       goto LABEL_17;
     case 0x10u:
-      v6 = *__src;
       *__dst = *__src;
-      v6;
+
       swift_storeEnumTagMultiPayload(__dst, a3, 16);
 LABEL_17:
       result = __dst;
@@ -5020,93 +783,83 @@ void *assignWithCopy for _Model.Parameters(void *__dst, void *__src, uint64_t a3
   {
     case 2u:
       *__dst = *__src;
-      v5 = __src[1];
-      __dst[1] = v5;
-      v5;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 2);
       return __dst;
     case 4u:
-      v16 = *__src;
+      v10 = *__src;
       *__dst = *__src;
-      v16;
+      v10;
       swift_storeEnumTagMultiPayload(__dst, a3, 4);
       return __dst;
     case 5u:
       *__dst = *__src;
-      v15 = __src[1];
-      __dst[1] = v15;
-      v15;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 5);
       return __dst;
     case 6u:
       *__dst = *__src;
-      v9 = __src[1];
-      __dst[1] = v9;
-      v9;
-      v10 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
-      v11 = __dst + v10;
-      v12 = __src + v10;
-      v13 = type metadata accessor for URL(0);
-      if (__swift_getEnumTagSinglePayload(v12, 1, v13))
+      __dst[1] = __src[1];
+
+      v5 = *(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (String, custom: URL?)) + 48);
+      v6 = __dst + v5;
+      v7 = __src + v5;
+      v8 = type metadata accessor for URL(0);
+      if (__swift_getEnumTagSinglePayload(v7, 1, v8))
       {
-        v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
-        memcpy(v11, v12, *(*(v14 - 8) + 64));
+        v9 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?);
+        memcpy(v6, v7, *(*(v9 - 8) + 64));
       }
 
       else
       {
-        (*(*(v13 - 8) + 16))(v11, v12, v13);
-        __swift_storeEnumTagSinglePayload(v11, 0, 1, v13);
+        (*(*(v8 - 8) + 16))(v6, v7, v8);
+        __swift_storeEnumTagSinglePayload(v6, 0, 1, v8);
       }
 
       swift_storeEnumTagMultiPayload(__dst, a3, 6);
       return __dst;
     case 9u:
       *__dst = *__src;
-      v7 = __src[1];
-      __dst[1] = v7;
-      v7;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 9);
       return __dst;
     case 0xAu:
       *__dst = *__src;
-      v8 = __src[1];
-      __dst[1] = v8;
-      v8;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 10);
       return __dst;
     case 0xBu:
       *__dst = *__src;
-      v17 = __src[1];
-      __dst[1] = v17;
-      v17;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 11);
       return __dst;
     case 0xCu:
       *__dst = *__src;
-      v18 = __src[1];
-      __dst[1] = v18;
-      v18;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 12);
       return __dst;
     case 0xEu:
       *__dst = *__src;
-      v20 = __src[1];
-      __dst[1] = v20;
-      v20;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 14);
       return __dst;
     case 0xFu:
       *__dst = *__src;
-      v19 = __src[1];
-      __dst[1] = v19;
-      v19;
+      __dst[1] = __src[1];
+
       swift_storeEnumTagMultiPayload(__dst, a3, 15);
       return __dst;
     case 0x10u:
-      v6 = *__src;
       *__dst = *__src;
-      v6;
+
       swift_storeEnumTagMultiPayload(__dst, a3, 16);
       return __dst;
     default:
@@ -5180,36 +933,35 @@ char *assignWithTake for _Model.Parameters(char *__dst, char *__src, uint64_t a3
 
 uint64_t type metadata completion function for _Model.Parameters(uint64_t a1)
 {
-  v7[0] = &value witness table for Builtin.Int64 + 64;
-  v7[1] = &value witness table for Builtin.Int64 + 64;
-  v7[2] = &unk_345F48;
-  v7[3] = &unk_345F60;
-  v7[4] = &unk_345F78;
-  v7[5] = &unk_345F48;
+  v6[0] = &value witness table for Builtin.Int64 + 64;
+  v6[1] = &value witness table for Builtin.Int64 + 64;
+  v6[2] = &unk_345F48;
+  v6[3] = &unk_345F60;
+  v6[4] = &unk_345F78;
+  v6[5] = &unk_345F48;
   result = type metadata accessor for URL?(319);
   if (v2 <= 0x3F)
   {
-    v3 = *(result - 8);
-    swift_getTupleTypeLayout2(v6, &unk_345F48);
-    v7[6] = v6;
-    v7[7] = &value witness table for Builtin.Int64 + 64;
-    v7[8] = &value witness table for Builtin.Int64 + 64;
-    v7[9] = &unk_345F48;
-    v7[10] = &unk_345F48;
-    v7[11] = &unk_345F48;
-    v7[12] = &unk_345F48;
-    v7[13] = &unk_345F90;
-    v7[14] = &unk_345F48;
-    v7[15] = &unk_345F48;
-    v7[16] = &value witness table for Builtin.BridgeObject + 64;
-    v7[17] = &value witness table for Builtin.Int64 + 64;
-    v7[18] = &value witness table for Builtin.Int64 + 64;
-    v7[19] = &value witness table for Builtin.Int64 + 64;
-    v7[20] = &value witness table for Builtin.Int64 + 64;
-    v7[21] = &value witness table for Builtin.Int64 + 64;
-    v7[22] = &value witness table for Builtin.Int64 + 64;
-    v7[23] = &value witness table for Builtin.Int64 + 64;
-    swift_initEnumMetadataMultiPayload(a1, 256, 24, v7, v4, v5);
+    swift_getTupleTypeLayout2(v5, &unk_345F48);
+    v6[6] = v5;
+    v6[7] = &value witness table for Builtin.Int64 + 64;
+    v6[8] = &value witness table for Builtin.Int64 + 64;
+    v6[9] = &unk_345F48;
+    v6[10] = &unk_345F48;
+    v6[11] = &unk_345F48;
+    v6[12] = &unk_345F48;
+    v6[13] = &unk_345F90;
+    v6[14] = &unk_345F48;
+    v6[15] = &unk_345F48;
+    v6[16] = &value witness table for Builtin.BridgeObject + 64;
+    v6[17] = &value witness table for Builtin.Int64 + 64;
+    v6[18] = &value witness table for Builtin.Int64 + 64;
+    v6[19] = &value witness table for Builtin.Int64 + 64;
+    v6[20] = &value witness table for Builtin.Int64 + 64;
+    v6[21] = &value witness table for Builtin.Int64 + 64;
+    v6[22] = &value witness table for Builtin.Int64 + 64;
+    v6[23] = &value witness table for Builtin.Int64 + 64;
+    swift_initEnumMetadataMultiPayload(a1, 256, 24, v6, v3, v4);
     return 0;
   }
 
@@ -5232,7 +984,7 @@ uint64_t type metadata accessor for URL?(uint64_t a1)
   return result;
 }
 
-void *initializeBufferWithCopyOfBuffer for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+char *initializeBufferWithCopyOfBuffer for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
 {
   v3 = __dst;
   v4 = *(a3 - 8);
@@ -5249,10 +1001,9 @@ void *initializeBufferWithCopyOfBuffer for MLSoundClassifier.ModelParameters.Val
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, a3);
     if (EnumCaseMultiPayload == 2)
     {
-      v13 = *__src;
-      *v3 = *__src;
-      v13;
-      swift_storeEnumTagMultiPayload(v3, a3, 2);
+      *__dst = *__src;
+
+      swift_storeEnumTagMultiPayload(__dst, a3, 2);
     }
 
     else
@@ -5272,66 +1023,57 @@ void *initializeBufferWithCopyOfBuffer for MLSoundClassifier.ModelParameters.Val
           v11 = 0;
           goto LABEL_14;
         case 1u:
-          v29 = type metadata accessor for URL(0);
-          (*(*(v29 - 8) + 16))(__dst, __src, v29);
-          v30 = 1;
+          v23 = type metadata accessor for URL(0);
+          (*(*(v23 - 8) + 16))(__dst, __src, v23);
+          v24 = 1;
           goto LABEL_13;
         case 2u:
-          v23 = *__src;
-          *v3 = *__src;
-          v23;
-          v30 = 2;
+          *__dst = *__src;
+
+          v24 = 2;
           goto LABEL_13;
         case 3u:
-          v31 = v8;
-          v24 = *__src;
-          v25 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v25);
-          *__dst = v24;
-          __dst[8] = v25;
+          v25 = v8;
+          v20 = *__src;
+          v21 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v21);
+          *__dst = v20;
+          __dst[8] = v21;
           *(__dst + 2) = *(__src + 2);
-          v26 = *(__src + 3);
-          v3[3] = v26;
-          v3[4] = *(__src + 4);
-          v27 = *(__src + 5);
-          v3[5] = v27;
-          v28 = *(__src + 4);
-          *(v3 + 3) = *(__src + 3);
-          *(v3 + 4) = v28;
-          *(v3 + 80) = __src[80];
-          v26;
-          v27;
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          v22 = *(__src + 4);
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = v22;
+          __dst[80] = __src[80];
+
           v11 = 3;
-          __dst = v3;
-          v10 = v31;
+          v10 = v25;
           goto LABEL_14;
         case 4u:
-          v15 = type metadata accessor for DataFrame(0);
-          (*(*(v15 - 8) + 16))(__dst, __src, v15);
-          v16 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-          v17 = v16[12];
+          v14 = type metadata accessor for DataFrame(0);
+          (*(*(v14 - 8) + 16))(__dst, __src, v14);
+          v15 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
+          v16 = v15[12];
+          *&__dst[v16] = *&__src[v16];
+          *&__dst[v16 + 8] = *&__src[v16 + 8];
+          v17 = v15[16];
           *&__dst[v17] = *&__src[v17];
-          v18 = *&__src[v17 + 8];
-          *(v3 + v17 + 8) = v18;
-          v19 = v16[16];
-          *(v3 + v19) = *&__src[v19];
-          v20 = *&__src[v19 + 8];
-          *(v3 + v19 + 8) = v20;
-          v21 = v16[20];
-          *(v3 + v21 + 32) = __src[v21 + 32];
-          v22 = *&__src[v21];
-          *(v3 + v21 + 16) = *&__src[v21 + 16];
-          *(v3 + v21) = v22;
-          v18;
-          v20;
-          v30 = 4;
+          *&__dst[v17 + 8] = *&__src[v17 + 8];
+          v18 = v15[20];
+          __dst[v18 + 32] = __src[v18 + 32];
+          v19 = *&__src[v18];
+          *&__dst[v18 + 16] = *&__src[v18 + 16];
+          *&__dst[v18] = v19;
+
+          v24 = 4;
 LABEL_13:
-          v11 = v30;
-          __dst = v3;
+          v11 = v24;
           v10 = v8;
 LABEL_14:
           swift_storeEnumTagMultiPayload(__dst, v10, v11);
-          swift_storeEnumTagMultiPayload(v3, a3, 1);
+          swift_storeEnumTagMultiPayload(__dst, a3, 1);
           break;
         case 5u:
           JUMPOUT(0x209578);
@@ -5342,7 +1084,7 @@ LABEL_14:
   return v3;
 }
 
-uint64_t destroy for MLSoundClassifier.ModelParameters.ValidationData(uint64_t *a1, uint64_t a2)
+uint64_t destroy for MLSoundClassifier.ModelParameters.ValidationData(uint64_t a1, uint64_t a2)
 {
   result = swift_getEnumCaseMultiPayload(a1, a2);
   if (result == 2)
@@ -5364,9 +1106,9 @@ uint64_t destroy for MLSoundClassifier.ModelParameters.ValidationData(uint64_t *
       case 2:
         return *a1;
       case 3:
-        outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 2));
-        a1[3];
-        result = a1[5];
+        outlined consume of Result<_DataTable, Error>(*a1, *(a1 + 8));
+        *(a1 + 24);
+        result = *(a1 + 40);
         break;
       case 4:
         v5 = type metadata accessor for DataFrame(0);
@@ -5383,16 +1125,14 @@ uint64_t destroy for MLSoundClassifier.ModelParameters.ValidationData(uint64_t *
   return result;
 }
 
-void *initializeWithCopy for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+char *initializeWithCopy for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
 {
-  v4 = __dst;
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, a3);
   if (EnumCaseMultiPayload == 2)
   {
-    v10 = *__src;
-    *v4 = *__src;
-    v10;
-    swift_storeEnumTagMultiPayload(v4, a3, 2);
+    *__dst = *__src;
+
+    swift_storeEnumTagMultiPayload(__dst, a3, 2);
   }
 
   else
@@ -5402,96 +1142,85 @@ void *initializeWithCopy for MLSoundClassifier.ModelParameters.ValidationData(ch
       return memcpy(__dst, __src, *(*(a3 - 8) + 64));
     }
 
-    v6 = type metadata accessor for MLSoundClassifier.DataSource(0);
-    switch(swift_getEnumCaseMultiPayload(__src, v6))
+    v5 = type metadata accessor for MLSoundClassifier.DataSource(0);
+    switch(swift_getEnumCaseMultiPayload(__src, v5))
     {
       case 0u:
-        v7 = type metadata accessor for URL(0);
-        (*(*(v7 - 8) + 16))(__dst, __src, v7);
-        v8 = v6;
-        v9 = 0;
+        v6 = type metadata accessor for URL(0);
+        (*(*(v6 - 8) + 16))(__dst, __src, v6);
+        v7 = v5;
+        v8 = 0;
         goto LABEL_12;
       case 1u:
-        v26 = type metadata accessor for URL(0);
-        (*(*(v26 - 8) + 16))(__dst, __src, v26);
-        v27 = 1;
+        v19 = type metadata accessor for URL(0);
+        (*(*(v19 - 8) + 16))(__dst, __src, v19);
+        v20 = 1;
         goto LABEL_11;
       case 2u:
-        v20 = *__src;
-        *v4 = *__src;
-        v20;
-        v27 = 2;
+        *__dst = *__src;
+
+        v20 = 2;
         goto LABEL_11;
       case 3u:
-        v28 = v6;
-        v21 = *__src;
-        v22 = __src[8];
-        outlined copy of Result<_DataTable, Error>(*__src, v22);
-        *__dst = v21;
-        __dst[8] = v22;
+        v21 = v5;
+        v16 = *__src;
+        v17 = __src[8];
+        outlined copy of Result<_DataTable, Error>(*__src, v17);
+        *__dst = v16;
+        __dst[8] = v17;
         *(__dst + 2) = *(__src + 2);
-        v23 = *(__src + 3);
-        v4[3] = v23;
-        v4[4] = *(__src + 4);
-        v24 = *(__src + 5);
-        v4[5] = v24;
-        v25 = *(__src + 4);
-        *(v4 + 3) = *(__src + 3);
-        *(v4 + 4) = v25;
-        *(v4 + 80) = __src[80];
-        v23;
-        v24;
-        v9 = 3;
-        __dst = v4;
-        v8 = v28;
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = *(__src + 4);
+        *(__dst + 5) = *(__src + 5);
+        v18 = *(__src + 4);
+        *(__dst + 3) = *(__src + 3);
+        *(__dst + 4) = v18;
+        __dst[80] = __src[80];
+
+        v8 = 3;
+        v7 = v21;
         goto LABEL_12;
       case 4u:
-        v12 = type metadata accessor for DataFrame(0);
-        (*(*(v12 - 8) + 16))(__dst, __src, v12);
-        v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-        v14 = v13[12];
-        *&__dst[v14] = *&__src[v14];
-        v15 = *&__src[v14 + 8];
-        *(v4 + v14 + 8) = v15;
-        v16 = v13[16];
-        *(v4 + v16) = *&__src[v16];
-        v17 = *&__src[v16 + 8];
-        *(v4 + v16 + 8) = v17;
-        v18 = v13[20];
-        *(v4 + v18 + 32) = __src[v18 + 32];
-        v19 = *&__src[v18];
-        *(v4 + v18 + 16) = *&__src[v18 + 16];
-        *(v4 + v18) = v19;
-        v15;
-        v17;
-        v27 = 4;
+        v10 = type metadata accessor for DataFrame(0);
+        (*(*(v10 - 8) + 16))(__dst, __src, v10);
+        v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
+        v12 = v11[12];
+        *&__dst[v12] = *&__src[v12];
+        *&__dst[v12 + 8] = *&__src[v12 + 8];
+        v13 = v11[16];
+        *&__dst[v13] = *&__src[v13];
+        *&__dst[v13 + 8] = *&__src[v13 + 8];
+        v14 = v11[20];
+        __dst[v14 + 32] = __src[v14 + 32];
+        v15 = *&__src[v14];
+        *&__dst[v14 + 16] = *&__src[v14 + 16];
+        *&__dst[v14] = v15;
+
+        v20 = 4;
 LABEL_11:
-        v9 = v27;
-        __dst = v4;
-        v8 = v6;
+        v8 = v20;
+        v7 = v5;
 LABEL_12:
-        swift_storeEnumTagMultiPayload(__dst, v8, v9);
-        swift_storeEnumTagMultiPayload(v4, a3, 1);
+        swift_storeEnumTagMultiPayload(__dst, v7, v8);
+        swift_storeEnumTagMultiPayload(__dst, a3, 1);
         break;
     }
   }
 
-  return v4;
+  return __dst;
 }
 
-void *assignWithCopy for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
+char *assignWithCopy for MLSoundClassifier.ModelParameters.ValidationData(char *__dst, char *__src, uint64_t a3)
 {
-  v3 = __dst;
   if (__dst != __src)
   {
     outlined destroy of MLActivityClassifier.ModelParameters(__dst, type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(__src, a3);
     if (EnumCaseMultiPayload == 2)
     {
-      v10 = *__src;
-      *v3 = *__src;
-      v10;
-      swift_storeEnumTagMultiPayload(v3, a3, 2);
+      *__dst = *__src;
+
+      swift_storeEnumTagMultiPayload(__dst, a3, 2);
     }
 
     else
@@ -5501,82 +1230,73 @@ void *assignWithCopy for MLSoundClassifier.ModelParameters.ValidationData(char *
         return memcpy(__dst, __src, *(*(a3 - 8) + 64));
       }
 
-      v6 = type metadata accessor for MLSoundClassifier.DataSource(0);
-      switch(swift_getEnumCaseMultiPayload(__src, v6))
+      v5 = type metadata accessor for MLSoundClassifier.DataSource(0);
+      switch(swift_getEnumCaseMultiPayload(__src, v5))
       {
         case 0u:
-          v7 = type metadata accessor for URL(0);
-          (*(*(v7 - 8) + 16))(__dst, __src, v7);
-          v8 = v6;
-          v9 = 0;
+          v6 = type metadata accessor for URL(0);
+          (*(*(v6 - 8) + 16))(__dst, __src, v6);
+          v7 = v5;
+          v8 = 0;
           goto LABEL_13;
         case 1u:
-          v26 = type metadata accessor for URL(0);
-          (*(*(v26 - 8) + 16))(__dst, __src, v26);
-          v27 = 1;
+          v19 = type metadata accessor for URL(0);
+          (*(*(v19 - 8) + 16))(__dst, __src, v19);
+          v20 = 1;
           goto LABEL_12;
         case 2u:
-          v20 = *__src;
-          *v3 = *__src;
-          v20;
-          v27 = 2;
+          *__dst = *__src;
+
+          v20 = 2;
           goto LABEL_12;
         case 3u:
-          v28 = v6;
-          v21 = *__src;
-          v22 = __src[8];
-          outlined copy of Result<_DataTable, Error>(*__src, v22);
-          *__dst = v21;
-          __dst[8] = v22;
+          v21 = v5;
+          v16 = *__src;
+          v17 = __src[8];
+          outlined copy of Result<_DataTable, Error>(*__src, v17);
+          *__dst = v16;
+          __dst[8] = v17;
           *(__dst + 2) = *(__src + 2);
-          v23 = *(__src + 3);
-          v3[3] = v23;
-          v3[4] = *(__src + 4);
-          v24 = *(__src + 5);
-          v3[5] = v24;
-          v25 = *(__src + 4);
-          *(v3 + 3) = *(__src + 3);
-          *(v3 + 4) = v25;
-          *(v3 + 80) = __src[80];
-          v23;
-          v24;
-          v9 = 3;
-          __dst = v3;
-          v8 = v28;
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = *(__src + 4);
+          *(__dst + 5) = *(__src + 5);
+          v18 = *(__src + 4);
+          *(__dst + 3) = *(__src + 3);
+          *(__dst + 4) = v18;
+          __dst[80] = __src[80];
+
+          v8 = 3;
+          v7 = v21;
           goto LABEL_13;
         case 4u:
-          v12 = type metadata accessor for DataFrame(0);
-          (*(*(v12 - 8) + 16))(__dst, __src, v12);
-          v13 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
-          v14 = v13[12];
-          *&__dst[v14] = *&__src[v14];
-          v15 = *&__src[v14 + 8];
-          *(v3 + v14 + 8) = v15;
-          v16 = v13[16];
-          *(v3 + v16) = *&__src[v16];
-          v17 = *&__src[v16 + 8];
-          *(v3 + v16 + 8) = v17;
-          v18 = v13[20];
-          *(v3 + v18 + 32) = __src[v18 + 32];
-          v19 = *&__src[v18];
-          *(v3 + v18 + 16) = *&__src[v18 + 16];
-          *(v3 + v18) = v19;
-          v15;
-          v17;
-          v27 = 4;
+          v10 = type metadata accessor for DataFrame(0);
+          (*(*(v10 - 8) + 16))(__dst, __src, v10);
+          v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, featureColumn: String, labelColumn: String, parameters: MLSoundClassifier.FeatureExtractionParameters));
+          v12 = v11[12];
+          *&__dst[v12] = *&__src[v12];
+          *&__dst[v12 + 8] = *&__src[v12 + 8];
+          v13 = v11[16];
+          *&__dst[v13] = *&__src[v13];
+          *&__dst[v13 + 8] = *&__src[v13 + 8];
+          v14 = v11[20];
+          __dst[v14 + 32] = __src[v14 + 32];
+          v15 = *&__src[v14];
+          *&__dst[v14 + 16] = *&__src[v14 + 16];
+          *&__dst[v14] = v15;
+
+          v20 = 4;
 LABEL_12:
-          v9 = v27;
-          __dst = v3;
-          v8 = v6;
+          v8 = v20;
+          v7 = v5;
 LABEL_13:
-          swift_storeEnumTagMultiPayload(__dst, v8, v9);
-          swift_storeEnumTagMultiPayload(v3, a3, 1);
+          swift_storeEnumTagMultiPayload(__dst, v7, v8);
+          swift_storeEnumTagMultiPayload(__dst, a3, 1);
           break;
       }
     }
   }
 
-  return v3;
+  return __dst;
 }
 
 uint64_t type metadata accessor for MLSoundClassifier.ModelParameters.ValidationData(uint64_t a1)
@@ -5748,9 +1468,9 @@ Swift::tuple_training_OpaquePointer_validation_OpaquePointer_optional __swiftcal
       v3 = v16;
       if (v16)
       {
-        v16;
+
         outlined destroy of MLActivityClassifier.ModelParameters(v22, type metadata accessor for MLSoundClassifier.DataSource);
-        v13;
+
         v3;
       }
 
@@ -5764,7 +1484,7 @@ Swift::tuple_training_OpaquePointer_validation_OpaquePointer_optional __swiftcal
         *(v21 + 16) = 0;
         *(v21 + 32) = 0;
         *(v21 + 48) = 0;
-        swift_willThrow(&type metadata for MLCreateError, v20);
+        swift_willThrow();
 LABEL_7:
         outlined destroy of MLActivityClassifier.ModelParameters(v22, type metadata accessor for MLSoundClassifier.DataSource);
       }
@@ -5786,11 +1506,11 @@ LABEL_8:
       *(v15 + 16) = 0;
       *(v15 + 32) = 0;
       *(v15 + 48) = 0;
-      swift_willThrow(&type metadata for MLCreateError, v14);
+      swift_willThrow();
       goto LABEL_8;
     case 3u:
       v13 = rawValue;
-      rawValue;
+
       v3 = 0;
       goto LABEL_8;
   }
@@ -5858,7 +1578,7 @@ Swift::tuple_training_OpaquePointer_validation_OpaquePointer_optional __swiftcal
         *(v30 + 16) = 0;
         *(v30 + 32) = 0;
         *(v30 + 48) = 0;
-        swift_willThrow(&type metadata for MLCreateError, v29);
+        swift_willThrow();
 LABEL_8:
         v19 = v20;
         goto LABEL_9;
@@ -5889,7 +1609,6 @@ LABEL_9:
         {
 LABEL_14:
           v13 = rawValue;
-          rawValue;
         }
 
         else
@@ -5903,7 +1622,7 @@ LABEL_14:
           *(v25 + 16) = 0;
           *(v25 + 32) = 0;
           *(v25 + 48) = 0;
-          swift_willThrow(&type metadata for MLCreateError, v24);
+          swift_willThrow();
         }
       }
 
@@ -5916,7 +1635,7 @@ LABEL_15:
       return result;
     case 3u:
       v13 = rawValue;
-      rawValue;
+
       v3 = 0;
       goto LABEL_15;
   }
@@ -5955,174 +1674,140 @@ uint64_t MLSoundClassifier.ModelParameters.ValidationData.validate(modelParamete
   return result;
 }
 
-uint64_t destroy for RecommenderModel(void *a1, uint64_t a2)
+uint64_t destroy for RecommenderModel(void *a1)
 {
-  *a1, a2;
-  a1[1], a2;
-  a1[2], a2;
-  a1[3], a2;
-  a1[7], a2;
-  a1[8], a2;
-  a1[9];
-  v3 = a1[13];
-  if (v3)
+  *a1;
+  a1[1];
+  a1[2];
+  a1[3];
+  a1[7];
+  a1[8];
+
+  v2 = a1[13];
+  if (v2)
   {
-    v3, a2;
-    a1[14], a2;
+    v2;
+    a1[14];
   }
 
-  a1[15], a2;
-  return a1[16], a2;
+  a1[15];
+  return a1[16];
 }
 
-uint64_t initializeWithCopy for RecommenderModel(uint64_t a1, uint64_t *a2)
+uint64_t initializeWithCopy for RecommenderModel(uint64_t a1, uint64_t a2)
 {
-  v3 = *a2;
   *a1 = *a2;
-  v4 = a2[1];
-  *(a1 + 8) = v4;
-  v5 = a2[2];
-  *(a1 + 16) = v5;
-  v14 = a2[3];
-  *(a1 + 24) = v14;
-  *(a1 + 32) = *(a2 + 2);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
   *(a1 + 48) = *(a2 + 48);
-  v6 = a2[7];
-  *(a1 + 56) = v6;
-  v15 = a2[8];
-  *(a1 + 64) = v15;
-  v12 = a2[9];
-  v7 = a2[11];
-  *(a1 + 72) = *(a2 + 9);
-  *(a1 + 88) = v7;
-  v13 = a2[13];
-  v3;
-  v4;
-  v5;
-  v14;
-  v6;
-  v15;
-  v12;
-  if (v13)
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 64) = *(a2 + 64);
+  v2 = *(a2 + 88);
+  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 88) = v2;
+  v4 = *(a2 + 104);
+
+  if (v4)
   {
-    *(a1 + 96) = a2[12];
-    *(a1 + 104) = v13;
-    v8 = a2[14];
-    *(a1 + 112) = v8;
-    v13;
-    v8;
+    *(a1 + 96) = *(a2 + 96);
+    *(a1 + 104) = v4;
+    *(a1 + 112) = *(a2 + 112);
   }
 
   else
   {
-    *(a1 + 112) = a2[14];
-    *(a1 + 96) = *(a2 + 6);
+    *(a1 + 112) = *(a2 + 112);
+    *(a1 + 96) = *(a2 + 96);
   }
 
-  v9 = a2[15];
-  *(a1 + 120) = v9;
-  v10 = a2[16];
-  *(a1 + 128) = v10;
-  *(a1 + 136) = *(a2 + 17);
-  v9;
-  v10;
+  *(a1 + 120) = *(a2 + 120);
+  *(a1 + 128) = *(a2 + 128);
+  *(a1 + 136) = *(a2 + 136);
+
   return a1;
 }
 
 uint64_t *assignWithCopy for RecommenderModel(uint64_t *a1, uint64_t *a2)
 {
-  v3 = *a2;
-  v4 = *a1;
+  v2 = *a1;
   *a1 = *a2;
+
+  v2;
+  v3 = a1[1];
+  a1[1] = a2[1];
+
   v3;
+  v4 = a1[2];
+  a1[2] = a2[2];
+
   v4;
-  v5 = a2[1];
-  v6 = a1[1];
-  a1[1] = v5;
+  v5 = a1[3];
+  a1[3] = a2[3];
+
   v5;
-  v6;
-  v7 = a2[2];
-  v8 = a1[2];
-  a1[2] = v7;
-  v7;
-  v8;
-  v9 = a2[3];
-  v10 = a1[3];
-  a1[3] = v9;
-  v9;
-  v10;
   a1[4] = a2[4];
   a1[5] = a2[5];
   *(a1 + 48) = *(a2 + 48);
-  v11 = a2[7];
-  v12 = a1[7];
-  a1[7] = v11;
-  v11;
-  v12;
-  v13 = a2[8];
-  v14 = a1[8];
-  a1[8] = v13;
-  v13;
-  v14;
-  v15 = a1[9];
+  v6 = a1[7];
+  a1[7] = a2[7];
+
+  v6;
+  v7 = a1[8];
+  a1[8] = a2[8];
+
+  v7;
   a1[9] = a2[9];
 
   *(a1 + 5) = *(a2 + 5);
-  v16 = a1 + 12;
-  v17 = a2 + 12;
-  v18 = a1[13];
-  v19 = a2[13];
-  if (v18)
+  v8 = a1 + 12;
+  v9 = a2 + 12;
+  v10 = a1[13];
+  v11 = a2[13];
+  if (v10)
   {
-    if (v19)
+    if (v11)
     {
       a1[12] = a2[12];
-      v20 = a2[13];
-      a1[13] = v20;
-      v20;
-      v18;
-      v21 = a2[14];
-      v22 = a1[14];
-      a1[14] = v21;
-      v21;
-      v22;
+      a1[13] = a2[13];
+
+      v10;
+      v12 = a1[14];
+      a1[14] = a2[14];
+
+      v12;
     }
 
     else
     {
       outlined destroy of InteractionLookupTable((a1 + 12));
-      *v16 = *v17;
+      *v8 = *v9;
       a1[14] = a2[14];
     }
   }
 
-  else if (v19)
+  else if (v11)
   {
     a1[12] = a2[12];
-    v23 = a2[13];
-    a1[13] = v23;
-    v24 = a2[14];
-    a1[14] = v24;
-    v23;
-    v24;
+    a1[13] = a2[13];
+    a1[14] = a2[14];
   }
 
   else
   {
     a1[14] = a2[14];
-    *v16 = *v17;
+    *v8 = *v9;
   }
 
-  v25 = a2[15];
-  v26 = a1[15];
-  a1[15] = v25;
-  v25;
-  v26;
-  v27 = a2[16];
-  v28 = a1[16];
-  a1[16] = v27;
-  v27;
-  v28;
+  v13 = a1[15];
+  a1[15] = a2[15];
+
+  v13;
+  v14 = a1[16];
+  a1[16] = a2[16];
+
+  v14;
   a1[17] = a2[17];
   a1[18] = a2[18];
   return a1;
@@ -6150,30 +1835,29 @@ uint64_t *assignWithTake for RecommenderModel(uint64_t *a1, uint64_t *a2)
   v8 = a1[8];
   a1[8] = a2[8];
   v8;
-  v9 = a1[9];
   a1[9] = a2[9];
 
   *(a1 + 5) = *(a2 + 5);
-  v10 = a1 + 12;
-  v11 = a2 + 12;
-  v12 = a1[13];
-  if (v12)
+  v9 = a1 + 12;
+  v10 = a2 + 12;
+  v11 = a1[13];
+  if (v11)
   {
-    v13 = a2[13];
-    if (v13)
+    v12 = a2[13];
+    if (v12)
     {
       a1[12] = a2[12];
-      a1[13] = v13;
-      v12;
-      v14 = a1[14];
+      a1[13] = v12;
+      v11;
+      v13 = a1[14];
       a1[14] = a2[14];
-      v14;
+      v13;
     }
 
     else
     {
       outlined destroy of InteractionLookupTable((a1 + 12));
-      *v10 = *v11;
+      *v9 = *v10;
       a1[14] = a2[14];
     }
   }
@@ -6181,15 +1865,15 @@ uint64_t *assignWithTake for RecommenderModel(uint64_t *a1, uint64_t *a2)
   else
   {
     a1[14] = a2[14];
-    *v10 = *v11;
+    *v9 = *v10;
   }
 
-  v15 = a1[15];
+  v14 = a1[15];
   a1[15] = a2[15];
-  v15;
-  v16 = a1[16];
+  v14;
+  v15 = a1[16];
   a1[16] = a2[16];
-  v16;
+  v15;
   *(a1 + 17) = *(a2 + 17);
   return a1;
 }
@@ -6284,7 +1968,7 @@ uint64_t *initializeBufferWithCopyOfBuffer for Recommendation(uint64_t *a1, uint
   {
     v18 = *a2;
     *a1 = *a2;
-    v18;
+
     return (v18 + (((v8 | 7) + 16) & ~(v8 | 7)));
   }
 
@@ -6588,7 +2272,7 @@ LABEL_28:
 
     else
     {
-      v22 = v15 & (a1 + v14);
+      v22 = (v15 & (a1 + v14));
     }
 
     return __swift_storeEnumTagSinglePayload(v22, a2, v11, v7);
@@ -6597,115 +2281,114 @@ LABEL_28:
   return result;
 }
 
-uint64_t Dictionary<>.updateValue(tensor:forKey:prefix:)(void *a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+uint64_t Dictionary<>.updateValue(tensor:forKey:prefix:)(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v50 = a5;
-  v47 = a4;
-  v48 = a3;
+  v49 = a5;
+  v46 = a4;
+  v47 = a3;
   v7 = type metadata accessor for TensorShape(0);
-  v42 = *(v7 - 1);
-  v8 = *(v42 + 64);
+  v41 = *(v7 - 8);
+  v8 = *(v41 + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v39 = v5;
-  v11 = *v5;
-  v12._countAndFlagsBits = a2;
-  v12._object = v48;
-  v41 = Dictionary<>.getTensorNames(forKey:prefix:)(v12, v47, v50);
-  v40 = v13;
-  v44 = v14;
-  v43 = v15;
-  v48 = a1;
-  Tensor.shape.getter();
-  v16 = lazy protocol witness table accessor for type TensorShape and conformance TensorShape();
-  v17 = dispatch thunk of Collection.count.getter(v7, v16);
-  if (v17)
+  v38 = v5;
+  v11._countAndFlagsBits = a2;
+  v11._object = v47;
+  v40 = Dictionary<>.getTensorNames(forKey:prefix:)(v11, v46, v49);
+  v39 = v12;
+  v43 = v13;
+  v42 = v14;
+  v47 = a1;
+  Tensor.shape.getter(v11._countAndFlagsBits, v11._object, v12);
+  v15 = lazy protocol witness table accessor for type TensorShape and conformance TensorShape();
+  v16 = dispatch thunk of Collection.count.getter(v7, v15);
+  if (v16)
   {
-    v18 = v17;
-    v46 = _swiftEmptyArrayStorage;
-    v19 = 0;
-    if (v17 > 0)
+    v17 = v16;
+    v45 = _swiftEmptyArrayStorage;
+    v18 = 0;
+    if (v16 > 0)
     {
-      v19 = v17;
+      v18 = v16;
     }
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
-    v49 = v46;
-    v45 = v37;
-    v50 = v7;
-    v20 = v16;
-    dispatch thunk of Collection.startIndex.getter(v7, v16);
-    if (v18 < 0)
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18, 0);
+    v48 = v45;
+    v44 = v36;
+    v49 = v7;
+    v19 = v15;
+    dispatch thunk of Collection.startIndex.getter(v7, v15);
+    if (v17 < 0)
     {
       BUG();
     }
 
-    v47 = v18;
-    v7 = v50;
-    v21 = v45;
-    v22 = v49;
+    v46 = v17;
+    v7 = v49;
+    v20 = v44;
+    v21 = v48;
     do
     {
-      v23 = dispatch thunk of Collection.subscript.read(v37, v38, v7, v20);
-      v50 = *v24;
-      v23(v37, 0);
-      v46 = v22;
-      v25 = v20;
-      v26 = v22[2];
-      v27 = v22[3];
-      v28 = v26 + 1;
-      if (v27 >> 1 <= v26)
+      v22 = dispatch thunk of Collection.subscript.read(v36, v37, v7, v19);
+      v49 = *v23;
+      v22(v36, 0);
+      v45 = v21;
+      v24 = v19;
+      v25 = v21[2];
+      v26 = v21[3];
+      v27 = v25 + 1;
+      if (v26 >> 1 <= v25)
       {
-        v49 = v25;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v27 >= 2, v28, 1);
-        v25 = v49;
+        v48 = v24;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v26 >= 2, v27, 1);
+        v24 = v48;
+        v20 = v44;
         v21 = v45;
-        v22 = v46;
       }
 
-      v29 = v50;
-      v22[2] = v28;
-      *&v22[v26 + 4] = v29;
-      v20 = v25;
-      dispatch thunk of Collection.formIndex(after:)(v38, v7, v25);
-      --v47;
+      v28 = v49;
+      v21[2] = v27;
+      *&v21[v25 + 4] = v28;
+      v19 = v24;
+      dispatch thunk of Collection.formIndex(after:)(v37, v7, v24);
+      --v46;
     }
 
-    while (v47);
+    while (v46);
   }
 
   else
   {
-    v22 = _swiftEmptyArrayStorage;
-    v21 = v37;
+    v21 = _swiftEmptyArrayStorage;
+    v20 = v36;
   }
 
-  (*(v42 + 8))(v21, v7);
-  v30 = v39;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(*v39);
-  v37[0] = *v30;
-  v32 = v43;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v22, v44, v43, isUniquelyReferenced_nonNull_native);
-  v32;
-  *v30 = v37[0];
-  v33 = Tensor.scalars<A>(as:)(&type metadata for Double, &type metadata for Double, &protocol witness table for Double);
-  v34 = swift_isUniquelyReferenced_nonNull_native(*v30);
-  v37[0] = *v30;
-  v35 = v40;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v33, v41, v40, v34);
-  v35;
-  result = v37[0];
-  *v30 = v37[0];
+  (*(v41 + 8))(v20, v7);
+  v29 = v38;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(*v38);
+  v36[0] = *v29;
+  v31 = v42;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v21, v43, v42, isUniquelyReferenced_nonNull_native);
+  v31;
+  *v29 = v36[0];
+  v32 = Tensor.scalars<A>(as:)(&type metadata for Double, &type metadata for Double, &protocol witness table for Double);
+  v33 = swift_isUniquelyReferenced_nonNull_native(*v29);
+  v36[0] = *v29;
+  v34 = v39;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v32, v40, v39, v33);
+  v34;
+  result = v36[0];
+  *v29 = v36[0];
   return result;
 }
 
-uint64_t Dictionary<>.getTensorNames(forKey:prefix:)(Swift::String a1, uint64_t a2, void *a3)
+uint64_t Dictionary<>.getTensorNames(forKey:prefix:)(Swift::String a1, uint64_t a2, uint64_t a3)
 {
   object = a1._object;
   countAndFlagsBits = a1._countAndFlagsBits;
   if (a3)
   {
-    a3;
+
     v5._countAndFlagsBits = 46;
     v5._object = 0xE100000000000000;
     String.append(_:)(v5);
@@ -6713,15 +2396,12 @@ uint64_t Dictionary<>.getTensorNames(forKey:prefix:)(Swift::String a1, uint64_t 
     v5._object = object;
     String.append(_:)(v5);
     countAndFlagsBits = a2;
-    object = a3;
   }
 
   else
   {
-    a1._object;
   }
 
-  object;
   v6._countAndFlagsBits = 0x65706168732ELL;
   v6._object = 0xE600000000000000;
   String.append(_:)(v6);
@@ -6741,173 +2421,172 @@ uint64_t lazy protocol witness table accessor for type TensorShape and conforman
   return result;
 }
 
-uint64_t Dictionary<>.tensor(forKey:prefix:)(Swift::String a1, uint64_t a2, void *a3, uint64_t a4)
+uint64_t Dictionary<>.tensor(forKey:prefix:)(Swift::String a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v54 = v5;
-  v56 = a3;
-  v52 = v4;
+  v52 = v5;
+  v54 = a3;
+  v50 = v4;
   v8 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TensorShape?) - 8) + 64);
   v9 = alloca(v8);
   v10 = alloca(v8);
-  v49 = &v49;
-  v56 = Dictionary<>.getTensorNames(forKey:prefix:)(a1, a2, v56);
+  v47 = &v47;
+  v54 = Dictionary<>.getTensorNames(forKey:prefix:)(a1, a2, v54);
   v12 = v11;
-  v14 = v13;
-  v16 = specialized Dictionary.subscript.getter(v15, v13, a4);
-  v14;
-  if (!v16)
+  LOBYTE(a2) = v13;
+  v15 = specialized Dictionary.subscript.getter(v14, v13, a4);
+  a2;
+  if (!v15)
   {
-    v33 = v12;
+    v32 = v12;
 LABEL_24:
-    v33;
-    v37 = type metadata accessor for Tensor(0);
-    return __swift_storeEnumTagSinglePayload(v52, 1, 1, v37);
+    v32;
+    v36 = type metadata accessor for Tensor(0);
+    return __swift_storeEnumTagSinglePayload(v50, 1, 1, v36);
   }
 
-  v55 = v16;
-  v17 = specialized Dictionary.subscript.getter(v56, v12, a4);
+  v53 = v15;
+  v16 = specialized Dictionary.subscript.getter(v54, v12, a4);
   v12;
-  if (!v17)
+  if (!v16)
   {
-    v33 = v55;
+    v32 = v53;
     goto LABEL_24;
   }
 
-  v18 = v55;
-  v19 = *(v55 + 16);
-  if (!v19 || (v20 = *(v55 + 32), v20.f64[0] < 1.0) || (v21 = _mm_or_pd(_mm_and_pd(xmmword_33DFE0, v20), xmmword_345A50), v21.f64[0] = v21.f64[0] + v20.f64[0], _mm_round_sd(v21, v21, 11).f64[0] != v20.f64[0]))
+  v17 = v53;
+  v18 = *(v53 + 16);
+  if (!v18 || (v19 = *(v53 + 32), v19.f64[0] < 1.0) || (v20 = _mm_or_pd(_mm_and_pd(xmmword_33DFE0, v19), xmmword_345A50), v20.f64[0] = v20.f64[0] + v19.f64[0], _mm_round_sd(v20, v20, 11).f64[0] != v19.f64[0]))
   {
 LABEL_21:
+    v16;
+    v33 = specialized _arrayForceCast<A, B>(_:)(v17);
     v17;
-    v34 = specialized _arrayForceCast<A, B>(_:)(v18);
-    v18;
-    v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v35, 0, 0);
-    static MLCreateError.invalidTensorDimensions(value:)(v34);
-    v34;
+    v34 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v34, 0, 0);
+    static MLCreateError.invalidTensorDimensions(value:)(v33);
+    v33;
     return swift_willThrow();
   }
 
-  if (v19 != &dword_0 + 1)
+  if (v18 != 1)
   {
-    v22 = 5;
+    v21 = 5;
     do
     {
-      v23 = v22 - 4 + 1;
-      if (__OFADD__(1, v22 - 4))
+      v22 = v21 - 4 + 1;
+      if (__OFADD__(1, v21 - 4))
       {
         BUG();
       }
 
-      v24 = *(v55 + 8 * v22);
-      if (v24.f64[0] < 1.0)
+      v23 = *(v53 + 8 * v21);
+      if (v23.f64[0] < 1.0)
       {
         goto LABEL_21;
       }
 
-      v25 = _mm_or_pd(_mm_and_pd(v24, xmmword_33DFE0), xmmword_345A50);
-      v25.f64[0] = v25.f64[0] + v24.f64[0];
-      if (_mm_round_sd(v25, v25, 11).f64[0] != v24.f64[0])
+      v24 = _mm_or_pd(_mm_and_pd(v23, xmmword_33DFE0), xmmword_345A50);
+      v24.f64[0] = v24.f64[0] + v23.f64[0];
+      if (_mm_round_sd(v24, v24, 11).f64[0] != v23.f64[0])
       {
         goto LABEL_21;
       }
 
-      ++v22;
+      ++v21;
     }
 
-    while (v23 != v19);
+    while (v22 != v18);
   }
 
-  v50 = v17;
-  v53 = _swiftEmptyArrayStorage;
-  v26 = 0;
-  v56 = v19;
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
-  v27 = v56;
-  v28 = v55;
-  v29 = v53;
+  v48 = v16;
+  v51 = _swiftEmptyArrayStorage;
+  v25 = 0;
+  v54 = v18;
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18, 0);
+  v26 = v54;
+  v27 = v53;
+  v28 = v51;
   do
   {
-    v30 = *(v28 + 8 * v26 + 32);
-    if ((*&v30 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+    v29 = *(v27 + 8 * v25 + 32);
+    if ((*&v29 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
     {
       BUG();
     }
 
-    if (v30 <= -9.223372036854778e18)
+    if (v29 <= -9.223372036854778e18)
     {
       BUG();
     }
 
-    if (v30 >= 9.223372036854776e18)
+    if (v29 >= 9.223372036854776e18)
     {
       BUG();
     }
 
-    v53 = v29;
-    v31 = v29[2];
-    v32 = v29[3];
-    if (v32 >> 1 <= v31)
+    v51 = v28;
+    v30 = *(v28 + 16);
+    v31 = *(v28 + 24);
+    if (v31 >> 1 <= v30)
     {
-      v51 = v30;
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v32 >= 2, v31 + 1, 1);
-      v30 = v51;
-      v27 = v56;
-      v28 = v55;
-      v29 = v53;
+      v49 = v29;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v31 >= 2, v30 + 1, 1);
+      v29 = v49;
+      v26 = v54;
+      v27 = v53;
+      v28 = v51;
     }
 
-    v26 = v26 + 1;
-    v29[2] = v31 + 1;
-    v29[v31 + 4] = v30;
+    ++v25;
+    *(v28 + 16) = v30 + 1;
+    *(v28 + 8 * v30 + 32) = v29;
   }
 
-  while (v27 != v26);
-  v28;
-  v38 = v29[2];
-  v39 = 1;
-  if (v38)
+  while (v26 != v25);
+  v27;
+  v37 = *(v28 + 16);
+  v38 = 1;
+  if (v37)
   {
-    for (i = 0; i != v38; ++i)
+    for (i = 0; i != v37; ++i)
     {
-      v41 = v39;
-      v39 *= v29[i + 4];
-      if (!is_mul_ok(v29[i + 4], v41))
+      v40 = v38;
+      v38 *= *(v28 + 8 * i + 32);
+      if (!is_mul_ok(*(v28 + 8 * i + 32), v40))
       {
         BUG();
       }
     }
   }
 
-  v42 = v50;
-  if (*(v50 + 16) != v39)
+  v41 = v48;
+  if (*(v48 + 16) != v38)
   {
-    v47 = *(v50 + 16);
-    v50;
+    v48;
 
-    v48 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v48, 0, 0);
-    static MLCreateError.invalidTensorSize(expected:actual:)(v39, v47);
+    v46 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v46, 0, 0);
+    static MLCreateError.invalidTensorSize(expected:actual:)();
     return swift_willThrow();
   }
 
-  v43 = v49;
-  TensorShape.init(_:)(v29, -9.223372036854778e18, 9.223372036854776e18);
-  v44 = type metadata accessor for TensorShape(0);
-  __swift_storeEnumTagSinglePayload(v43, 0, 1, v44);
-  v45 = v52;
-  Array<A>.floatTensor(shape:)(v43, v42);
-  v42;
-  outlined destroy of TensorShape?(v43);
-  v46 = type metadata accessor for Tensor(0);
-  return __swift_storeEnumTagSinglePayload(v45, 0, 1, v46);
+  v42 = v47;
+  TensorShape.init(_:)(v28);
+  v43 = type metadata accessor for TensorShape(0);
+  __swift_storeEnumTagSinglePayload(v42, 0, 1, v43);
+  v44 = v50;
+  Array<A>.floatTensor(shape:)(v42, v41, -9.223372036854778e18, 9.223372036854776e18);
+  v41;
+  outlined destroy of TensorShape?(v42);
+  v45 = type metadata accessor for Tensor(0);
+  return __swift_storeEnumTagSinglePayload(v44, 0, 1, v45);
 }
 
 uint64_t static MLCreateError.invalidTensorDimensions(value:)(uint64_t a1)
 {
   v2 = v1;
   _StringGuts.grow(_:)(29);
-  0xE000000000000000;
+  0;
   *&v7 = 0xD00000000000001BLL;
   *(&v7 + 1) = "Invalid tensor size: expected " + 0x8000000000000000;
   v3 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Numeric);
@@ -6922,98 +2601,97 @@ uint64_t static MLCreateError.invalidTensorDimensions(value:)(uint64_t a1)
   return result;
 }
 
-uint64_t static MLCreateError.invalidTensorSize(expected:actual:)(uint64_t a1, uint64_t a2)
+uint64_t static MLCreateError.invalidTensorSize(expected:actual:)()
 {
-  v3 = v2;
+  v1 = v0;
   _StringGuts.grow(_:)(43);
-  0xE000000000000000, a2;
-  *&v11 = 0xD00000000000001ELL;
-  *(&v11 + 1) = "d validation should use files." + 0x8000000000000000;
-  v4._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  object = v4._object;
-  v6 = v4;
+  0;
+  *&v8 = 0xD00000000000001ELL;
+  *(&v8 + 1) = "d validation should use files." + 0x8000000000000000;
+  v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  object = v2._object;
+  String.append(_:)(v2);
+  object;
+  v4._countAndFlagsBits = 0x6C6175746361202CLL;
+  v4._object = 0xE900000000000020;
   String.append(_:)(v4);
-  object, v6._object;
-  v6._countAndFlagsBits = 0x6C6175746361202CLL;
-  v6._object = 0xE900000000000020;
-  String.append(_:)(v6);
-  v7._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
-  v8 = v7._object;
-  v9 = v7;
-  String.append(_:)(v7);
-  result = v8, v9._object;
-  *v3 = v11;
-  *(v3 + 16) = 0;
-  *(v3 + 32) = 0;
-  *(v3 + 48) = 0;
+  v5._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  v6 = v5._object;
+  String.append(_:)(v5);
+  result = v6;
+  *v1 = v8;
+  *(v1 + 16) = 0;
+  *(v1 + 32) = 0;
+  *(v1 + 48) = 0;
   return result;
 }
 
 char *static _FeatureUtilities.selectFeaturesFromTrainingData(trainingData:targetColumn:featureColumns:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v6 = DataFrame.columns.getter();
+  v6 = DataFrame.columns.getter(a1);
+  v7 = v6;
   MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay11TabularData9AnyColumnVG_SSs5NeverOTg504_s11d75Data0B5FrameV8CreateMLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n(v6);
-  v6;
-  *&v8 = a2;
-  *(&v8 + 1) = a3;
-  v9 = specialized Collection<>.firstIndex(of:)(v8, MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n);
-  if (v10)
+  v7;
+  *&v9 = a2;
+  *(&v9 + 1) = a3;
+  v10 = specialized Collection<>.firstIndex(of:)(v9, MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n);
+  if (v11)
   {
     MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n;
     _StringGuts.grow(_:)(53);
-    v11._countAndFlagsBits = 0x6320746567726154;
-    v11._object = 0xEF27206E6D756C6FLL;
-    String.append(_:)(v11);
-    v11._countAndFlagsBits = a2;
-    v11._object = a3;
-    String.append(_:)(v11);
-    v11._object = "Invalid tensor dimensions: " + 0x8000000000000000;
-    v11._countAndFlagsBits = 0xD000000000000024;
-    String.append(_:)(v11);
-    v12 = 0;
-    v13 = 0xE000000000000000;
+    v12._countAndFlagsBits = 0x6320746567726154;
+    v12._object = 0xEF27206E6D756C6FLL;
+    String.append(_:)(v12);
+    v12._countAndFlagsBits = a2;
+    v12._object = a3;
+    String.append(_:)(v12);
+    v12._object = "Invalid tensor dimensions: " + 0x8000000000000000;
+    v12._countAndFlagsBits = 0xD000000000000024;
+    String.append(_:)(v12);
+    v13 = 0;
+    v14 = 0xE000000000000000;
 LABEL_8:
-    v20 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v20, 0, 0);
-    *v21 = v12;
-    *(v21 + 8) = v13;
-    *(v21 + 16) = 0;
-    *(v21 + 32) = 0;
-    *(v21 + 48) = 1;
-    swift_willThrow(&type metadata for MLCreateError, v20);
-    return v13;
+    v21 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v21, 0, 0);
+    *v22 = v13;
+    *(v22 + 8) = v14;
+    *(v22 + 16) = 0;
+    *(v22 + 32) = 0;
+    *(v22 + 48) = 1;
+    swift_willThrow();
+    return v14;
   }
 
-  v14 = v9;
+  v15 = v10;
   if (!swift_isUniquelyReferenced_nonNull_native(MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n))
   {
     MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n = specialized _ArrayBuffer._consumeAndCreateNew()(MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n);
   }
 
-  v15 = MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[2];
-  if (v14 >= v15)
+  v16 = MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[2];
+  if (v15 >= v16)
   {
     BUG();
   }
 
-  v16 = v15 - 1;
-  v17 = v16 - v14;
-  v18 = 2 * v14;
-  v19 = MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v18 + 5];
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(&MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v18 + 6], v17, &MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v18 + 4]);
-  MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[2] = v16;
-  v19;
-  v13 = static _FeatureUtilities.selectFeatures(from:select:)(MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n, a4);
+  v17 = v16 - 1;
+  v18 = v17 - v15;
+  v19 = 2 * v15;
+  v20 = MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v19 + 5];
+  specialized UnsafeMutablePointer.moveInitialize(from:count:)(&MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v19 + 6], v18, &MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[v19 + 4]);
+  MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n[2] = v17;
+  v20;
+  v14 = static _FeatureUtilities.selectFeatures(from:select:)(MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n, a4);
   MLE23validateContainsColumns_7contextySaySSG_SStKFSSAA9fG54Vcfu_33_06ca46402338970f1b3e0a01942d815dAISSTf3nnnpk_nTf1cn_n;
-  if (!*(v13 + 2))
+  if (!*(v14 + 2))
   {
-    v13;
-    v13 = " in the given table." + 0x8000000000000000;
-    v12 = 0xD000000000000038;
+    v14;
+    v14 = " in the given table." + 0x8000000000000000;
+    v13 = 0xD000000000000038;
     goto LABEL_8;
   }
 
-  return v13;
+  return v14;
 }
 
 void *static _FeatureUtilities.selectFeatures(from:select:)(void *a1, uint64_t a2)
@@ -7021,7 +2699,7 @@ void *static _FeatureUtilities.selectFeatures(from:select:)(void *a1, uint64_t a
   v2 = a1;
   if (!a2)
   {
-    a1;
+
     return v2;
   }
 
@@ -7033,7 +2711,8 @@ void *static _FeatureUtilities.selectFeatures(from:select:)(void *a1, uint64_t a
 
   v27 = a1[2];
   v21 = a2 + 32;
-  a2;
+  v22 = a2;
+
   v23 = a1 + 9;
   v2 = _swiftEmptyArrayStorage;
   for (i = 0; i != v20; ++i)
@@ -7046,7 +2725,7 @@ void *static _FeatureUtilities.selectFeatures(from:select:)(void *a1, uint64_t a
 LABEL_13:
       *&v26 = 0;
       *(&v26 + 1) = 0xE000000000000000;
-      v5;
+
       _StringGuts.grow(_:)(66);
       v10._countAndFlagsBits = 0x27206E6D756C6F43;
       v10._object = 0xE800000000000000;
@@ -7058,18 +2737,18 @@ LABEL_13:
       v10._countAndFlagsBits = 0xD000000000000038;
       v10._object = "ven training data frame." + 0x8000000000000000;
       String.append(_:)(v10);
-      v28 = static os_log_type_t.error.getter();
+      static os_log_type_t.error.getter(0xD000000000000038);
       v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Any>);
       v12 = swift_allocObject(v11, 64, 7);
       *(v12 + 16) = 1;
       *(v12 + 24) = 2;
       *(v12 + 56) = &type metadata for String;
       *(v12 + 32) = v26;
-      0;
+
       print(_:separator:terminator:)(v12, 32, 0xE100000000000000, 10, 0xE100000000000000);
       v12;
       type metadata accessor for OS_os_log();
-      v13 = static OS_os_log.default.getter(0);
+      v13 = static OS_os_log.default.getter(0, 32);
       v14 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<CVarArg>);
       v15 = swift_allocObject(v14, 72, 7);
       *(v15 + 16) = 1;
@@ -7077,9 +2756,9 @@ LABEL_13:
       *(v15 + 56) = &type metadata for String;
       *(v15 + 64) = lazy protocol witness table accessor for type String and conformance String();
       *(v15 + 32) = v26;
+
+      os_log(_:dso:log:type:_:)("%@\n");
       0;
-      os_log(_:dso:log:type:_:)("%@\n", 3, 2, &dword_0, v13, v28, v15);
-      0xE000000000000000;
 
       v15;
       v2 = v24;
@@ -7123,7 +2802,6 @@ LABEL_13:
       }
     }
 
-    v5;
     v6 = v24;
     if (!swift_isUniquelyReferenced_nonNull_native(v24))
     {
@@ -7144,7 +2822,7 @@ LABEL_13:
     v8[v9 + 5] = v5;
   }
 
-  a2;
+  v22;
   return v2;
 }
 
@@ -7168,12 +2846,12 @@ uint64_t lazy protocol witness table accessor for type MLBoundingBoxCoordinatesO
   return result;
 }
 
-id _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5()
+id _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  v2 = specialized NSLocking.withLock<A>(_:)(partial apply for specialized closure #1 in EventCollector.getLast<A>(metric:type:));
+  v2 = *(v1 + 16);
+  v3 = specialized NSLocking.withLock<A>(_:)(partial apply for specialized closure #1 in EventCollector.getLast<A>(metric:type:));
 
-  return v2;
+  return v3;
 }
 
 unsigned __int8 specialized NSLocking.withLock<A>(_:)(void (*a1)(void))
@@ -7210,17 +2888,15 @@ id specialized NSLocking.withLock<A>(_:)(void (*a1)(void))
 
 uint64_t specialized BidirectionalCollection.lastIndex(where:)(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
 {
-  v4 = a3;
   v5 = *(a3 + 16);
-  LOBYTE(a3) = 1;
   if (!v5)
   {
     return 0;
   }
 
-  v6 = *(type metadata accessor for Event(0, a2, a3) - 8);
+  v6 = *(type metadata accessor for Event(0) - 8);
   v7 = v5 - 1;
-  v8 = v7 * *(v6 + 72) + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + v4;
+  v8 = v7 * *(v6 + 72) + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + a3;
   v12 = -*(v6 + 72);
   while (1)
   {
@@ -7246,33 +2922,33 @@ uint64_t specialized closure #1 in EventCollector.getLast<A>(metric:type:)(uint6
   v3 = alloca(v2);
   v4 = alloca(v2);
   v5 = *(a1 + 24);
-  v20 = a2;
-  v14 = a2;
-  *&v18[0] = v5;
+  v19 = a2;
+  v13 = a2;
+  *&v17[0] = v5;
+
+  v6 = specialized BidirectionalCollection.lastIndex(where:)(partial apply for closure #1 in closure #1 in EventCollector.getLast<A>(metric:type:), v12, v5);
+  v15 = v17;
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lFxq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOqd_0_Isgnrzr_xSgAb2ERsd__Ri_d_0_r_0_lIetMgnrzo_Tpq5Si_18CreateMLComponents5EventVTg5(partial apply for specialized closure #1 in BidirectionalCollection.last(where:), v14, v6, v7 & 1, v16);
   v5;
-  v6 = specialized BidirectionalCollection.lastIndex(where:)(partial apply for closure #1 in closure #1 in EventCollector.getLast<A>(metric:type:), v13, v5);
-  v16 = v18;
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lFxq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOqd_0_Isgnrzr_xSgAb2ERsd__Ri_d_0_r_0_lIetMgnrzo_Tpq5Si_18CreateMLComponents5EventVTg5(partial apply for specialized closure #1 in BidirectionalCollection.last(where:), v15, v6, v7 & 1, v17);
-  v5;
-  v9 = type metadata accessor for Event(0, v15, v8);
-  if (__swift_getEnumTagSinglePayload(v13, 1, v9) == 1)
+  v8 = type metadata accessor for Event(0);
+  if (__swift_getEnumTagSinglePayload(v12, 1, v8) == 1)
   {
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v13, &demangling cache variable for type metadata for Event?);
-    memset(v18, 0, sizeof(v18));
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v12, &demangling cache variable for type metadata for Event?);
+    memset(v17, 0, sizeof(v17));
   }
 
   else
   {
-    v10 = Event.metrics.getter();
-    (*(*(v9 - 8) + 8))(v13, v9);
-    specialized Dictionary.subscript.getter(v20, v10);
-    v10;
+    v9 = Event.metrics.getter();
+    (*(*(v8 - 8) + 8))(v12, v8);
+    specialized Dictionary.subscript.getter(v19, v9);
+    v9;
   }
 
-  v11 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Sendable?);
-  if (swift_dynamicCast(&v19, v18, v11, &type metadata for Double, 6))
+  v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Sendable?);
+  if (swift_dynamicCast(&v18, v17, v10, &type metadata for Double, 6))
   {
-    return v19;
+    return v18;
   }
 
   else
@@ -7298,7 +2974,7 @@ uint64_t TreeRegressorTrainingSessionDelegate.init(sessionParameters:)(uint64_t 
   v2 = v1 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
   v3 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
   __swift_storeEnumTagSinglePayload(v2, 1, 1, v3);
-  DataFrame.init()();
+  DataFrame.init()(v2);
   v4 = v1 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
   v5 = type metadata accessor for DataFrame(0);
   __swift_storeEnumTagSinglePayload(v4, 1, 1, v5);
@@ -7320,147 +2996,148 @@ uint64_t TreeRegressorTrainingSessionDelegate.init(sessionParameters:)(uint64_t 
 
 void (**TreeRegressorTrainingSessionDelegate.init(trainingData:validationData:targetColumn:featureColumns:configuration:sessionParameters:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t *a6, uint64_t a7))(uint64_t, uint64_t, uint64_t)
 {
-  v80 = v7;
-  v76 = a6;
-  v81 = a5;
-  v68 = a4;
-  v75 = a2;
-  v69 = a1;
-  v82 = *v8;
-  v83 = type metadata accessor for BoostedTreeConfiguration(0);
-  v77 = *(v83 - 8);
-  v10 = *(v77 + 64);
+  v81 = v7;
+  v77 = a6;
+  v82 = a5;
+  v69 = a4;
+  v76 = a2;
+  v70 = a1;
+  v83 = *v8;
+  v84 = type metadata accessor for BoostedTreeConfiguration(0);
+  v78 = *(v84 - 8);
+  v10 = *(v78 + 64);
   v11 = alloca(v10);
   v12 = alloca(v10);
-  v65 = &v62;
+  v66 = &v63;
   v13 = alloca(v10);
   v14 = alloca(v10);
-  v70 = &v62;
+  v71 = &v63;
   v15 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TreeRegressor?) - 8) + 64);
   v16 = alloca(v15);
   v17 = alloca(v15);
-  v64 = &v62;
+  v65 = &v63;
   v18 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?) - 8) + 64);
   v19 = alloca(v18);
   v20 = alloca(v18);
-  v66 = &v62;
+  v67 = &v63;
   v21 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for DataFrame?) - 8) + 64);
   v22 = alloca(v21);
   v23 = alloca(v21);
-  v73 = &v62;
+  v74 = &v63;
   v24 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
   v25 = *(*(v24 - 8) + 64);
   v26 = alloca(v25);
   v27 = alloca(v25);
-  v78 = &v62;
-  v67 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
-  v79 = v24;
+  v79 = &v63;
+  v28 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
+  v68 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
+  v80 = v24;
   __swift_storeEnumTagSinglePayload(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, 1, 1, v24);
-  DataFrame.init()();
-  v28 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
-  v84 = type metadata accessor for DataFrame(0);
-  __swift_storeEnumTagSinglePayload(v28, 1, 1, v84);
-  v29 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
-  v72 = type metadata accessor for TreeRegressor(0);
-  __swift_storeEnumTagSinglePayload(v29, 1, 1, v72);
-  v30 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model;
-  v31 = type metadata accessor for TreeRegressorModel(0);
-  v32 = v30;
-  v33 = v69;
-  v34 = v68;
-  __swift_storeEnumTagSinglePayload(v32, 1, 1, v31);
-  v35 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics;
+  DataFrame.init()(v28);
+  v29 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
+  v85 = type metadata accessor for DataFrame(0);
+  __swift_storeEnumTagSinglePayload(v29, 1, 1, v85);
+  v30 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
+  v73 = type metadata accessor for TreeRegressor(0);
+  __swift_storeEnumTagSinglePayload(v30, 1, 1, v73);
+  v31 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model;
+  v32 = type metadata accessor for TreeRegressorModel(0);
+  v33 = v31;
+  v34 = v70;
+  v35 = v69;
+  __swift_storeEnumTagSinglePayload(v33, 1, 1, v32);
+  v36 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics;
   *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics) = 0;
-  *(v8 + v35 + 16) = -1;
-  v36 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
-  *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = 0;
   *(v8 + v36 + 16) = -1;
-  v71 = a3;
-  v37 = a3;
-  v38 = v81;
-  v39 = v80;
-  v40 = static _FeatureUtilities.selectFeaturesFromTrainingData(trainingData:targetColumn:featureColumns:)(v33, v37, v34, v81);
-  v80 = v39;
-  if (v39)
+  v37 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
+  *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = 0;
+  *(v8 + v37 + 16) = -1;
+  v72 = a3;
+  v38 = a3;
+  v39 = v82;
+  v40 = v81;
+  v41 = static _FeatureUtilities.selectFeaturesFromTrainingData(trainingData:targetColumn:featureColumns:)(v34, v38, v35, v82);
+  v81 = v40;
+  if (v40)
   {
-    v34;
-    v38;
+    v35;
+    v39;
     outlined destroy of MLActivityClassifier.ModelParameters(a7, type metadata accessor for MLTrainingSessionParameters);
-    (*(v77 + 8))(v76, v83);
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v75, &demangling cache variable for type metadata for DataFrame?);
-    v41 = v84;
-    v42 = *(*(v84 - 8) + 8);
-    v42(v33, v84);
+    (*(v78 + 8))(v77, v84);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v76, &demangling cache variable for type metadata for DataFrame?);
+    v42 = v85;
+    v43 = *(*(v85 - 8) + 8);
+    v43(v34, v85);
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-    v42(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v41);
+    v43(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v42);
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData, &demangling cache variable for type metadata for DataFrame?);
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, &demangling cache variable for type metadata for TreeRegressor?);
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model, &demangling cache variable for type metadata for TreeRegressorModel?);
     outlined consume of MLRegressorMetrics?(*(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics), *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics + 8), *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics + 16));
     outlined consume of MLRegressorMetrics?(*(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics), *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 8), *(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 16));
-    swift_deallocPartialClassInstance(v8, v82, *(*v8 + 12), *(*v8 + 26));
+    swift_deallocPartialClassInstance(v8, v83, *(*v8 + 48), *(*v8 + 52));
   }
 
   else
   {
-    v74 = v40;
-    v38;
-    v81 = *(v84 - 8);
-    v43 = v78;
-    (*(v81 + 16))(v78, v33);
-    outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v75, v73, &demangling cache variable for type metadata for DataFrame?);
-    v44 = v43 + v79[8];
-    v82 = *(v77 + 16);
-    v82(v44, v76, v83);
-    v45 = v34;
-    v46 = v43 + v79[5];
-    __swift_storeEnumTagSinglePayload(v46, 1, 1, v84);
-    v45;
-    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v73, v46, &demangling cache variable for type metadata for DataFrame?);
-    v47 = v79;
-    v48 = v79[6];
-    v49 = v78;
-    *(v78 + v48) = v71;
-    *(v49 + v48 + 8) = v45;
-    v50 = v74;
-    *(v49 + *(v47 + 28)) = v74;
-    v51 = v66;
-    outlined init with copy of MLActivityClassifier.Model(v49, v66, type metadata accessor for PersistentParametersForTreeBasedMethods);
-    __swift_storeEnumTagSinglePayload(v51, 0, 1, v47);
+    v75 = v41;
+    v39;
+    v82 = *(v85 - 8);
+    v44 = v79;
+    (*(v82 + 16))(v79, v34);
+    outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v76, v74, &demangling cache variable for type metadata for DataFrame?);
+    v45 = v44 + v80[8];
+    v83 = *(v78 + 16);
+    v83(v45, v77, v84);
+    v46 = v35;
+    v47 = v44 + v80[5];
+    __swift_storeEnumTagSinglePayload(v47, 1, 1, v85);
+
+    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v74, v47, &demangling cache variable for type metadata for DataFrame?);
+    v48 = v80;
+    v49 = v80[6];
+    v50 = v79;
+    *(v79 + v49) = v72;
+    *(v50 + v49 + 8) = v46;
+    v51 = v75;
+    *(v50 + *(v48 + 28)) = v75;
     v52 = v67;
-    swift_beginAccess(v67, v63, 33, 0);
-    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v51, v52, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-    swift_endAccess(v63);
+    outlined init with copy of MLActivityClassifier.Model(v50, v67, type metadata accessor for PersistentParametersForTreeBasedMethods);
+    __swift_storeEnumTagSinglePayload(v52, 0, 1, v48);
+    v53 = v68;
+    swift_beginAccess(v68, v64, 33, 0);
+    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v52, v53, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+    swift_endAccess(v64);
     outlined init with copy of MLActivityClassifier.Model(a7, v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_sessionParameters, type metadata accessor for MLTrainingSessionParameters);
-    v53 = v50;
-    v50;
-    v54 = v70;
-    BoostedTreeConfiguration.init()();
-    v55 = v64;
-    *v64 = v71;
-    v55[1] = v68;
-    v55[2] = v53;
-    v55[3] = v53;
-    v55[4] = 0xD000000000000013;
-    v55[5] = ("raining samples." + 0x8000000000000000);
-    v56 = v65;
-    v82(v65, v54, v83);
-    v57 = v55 + *(v72 + 28);
-    v74;
-    BaseTreeRegressor.init(configuration:)(v56);
-    v58 = *(v77 + 8);
-    v59 = v83;
-    v58(v70, v83);
+    v54 = v51;
+    v55 = v51;
+
+    v56 = v71;
+    BoostedTreeConfiguration.init()(v55);
+    v57 = v65;
+    *v65 = v72;
+    v57[1] = v69;
+    v57[2] = v54;
+    v57[3] = v54;
+    v57[4] = 0xD000000000000013;
+    v57[5] = ("raining samples." + 0x8000000000000000);
+    v58 = v66;
+    v83(v66, v56, v84);
+
+    BaseTreeRegressor.init(configuration:)(v58);
+    v59 = *(v78 + 8);
+    v60 = v84;
+    v59(v71, v84);
     outlined destroy of MLActivityClassifier.ModelParameters(a7, type metadata accessor for MLTrainingSessionParameters);
-    v58(v76, v59);
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v75, &demangling cache variable for type metadata for DataFrame?);
-    (*(v81 + 8))(v69, v84);
-    outlined destroy of MLActivityClassifier.ModelParameters(v78, type metadata accessor for PersistentParametersForTreeBasedMethods);
-    __swift_storeEnumTagSinglePayload(v55, 0, 1, v72);
-    v60 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
-    swift_beginAccess(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v63, 33, 0);
-    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v55, v60, &demangling cache variable for type metadata for TreeRegressor?);
-    swift_endAccess(v63);
+    v59(v77, v60);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v76, &demangling cache variable for type metadata for DataFrame?);
+    (*(v82 + 8))(v70, v85);
+    outlined destroy of MLActivityClassifier.ModelParameters(v79, type metadata accessor for PersistentParametersForTreeBasedMethods);
+    __swift_storeEnumTagSinglePayload(v57, 0, 1, v73);
+    v61 = v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
+    swift_beginAccess(v8 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v64, 33, 0);
+    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v57, v61, &demangling cache variable for type metadata for TreeRegressor?);
+    swift_endAccess(v64);
   }
 
   return v8;
@@ -7468,30 +3145,30 @@ void (**TreeRegressorTrainingSessionDelegate.init(trainingData:validationData:ta
 
 Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> TreeRegressorTrainingSessionDelegate.setUp()()
 {
-  v60 = v0;
+  v56 = v0;
   v1 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TreeRegressorModel?) - 8) + 64);
   v2 = alloca(v1);
   v3 = alloca(v1);
-  v54 = v50;
-  v63 = type metadata accessor for BoostedTreeConfiguration(0);
-  v61 = *(v63 - 8);
-  v4 = *(v61 + 64);
+  v50 = v46;
+  v59 = type metadata accessor for BoostedTreeConfiguration(0);
+  v57 = *(v59 - 8);
+  v4 = *(v57 + 64);
   v5 = alloca(v4);
   v6 = alloca(v4);
-  v56 = v50;
+  v52 = v46;
   v7 = alloca(v4);
   v8 = alloca(v4);
-  v55 = v50;
+  v51 = v46;
   v9 = alloca(v4);
   v10 = alloca(v4);
-  v57 = v50;
+  v53 = v46;
   v11 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TreeRegressor?) - 8) + 64);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  v58 = v50;
+  v54 = v46;
   v14 = alloca(v11);
   v15 = alloca(v11);
-  v52 = v50;
+  v48 = v46;
   v16 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?) - 8) + 64);
   v17 = alloca(v16);
   v18 = alloca(v16);
@@ -7499,136 +3176,131 @@ Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r1
   v20 = *(*(v19 - 8) + 64);
   v21 = alloca(v20);
   v22 = alloca(v20);
-  v23 = v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
-  swift_beginAccess(v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, v50, 0, 0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v23, v50, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-  v62 = v19;
-  if (__swift_getEnumTagSinglePayload(v50, 1, v19) == 1)
+  v23 = v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
+  swift_beginAccess(v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, v46, 0, 0);
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v23, v46, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+  v58 = v19;
+  if (__swift_getEnumTagSinglePayload(v46, 1, v19) == 1)
   {
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v50, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v46, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
     BUG();
   }
 
-  outlined init with take of MLClassifierMetrics(v50, v50, type metadata accessor for PersistentParametersForTreeBasedMethods);
-  v24 = v60;
-  v25 = v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData;
-  swift_beginAccess(v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v51, 33, 0);
+  outlined init with take of MLClassifierMetrics(v46, v46, type metadata accessor for PersistentParametersForTreeBasedMethods);
+  v24 = v56;
+  v25 = v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData;
+  swift_beginAccess(v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v47, 33, 0);
   v26 = type metadata accessor for DataFrame(0);
-  (*(*(v26 - 8) + 24))(v25, v50, v26);
-  swift_endAccess(v51);
-  v27 = &v50[v62[5]];
+  (*(*(v26 - 8) + 24))(v25, v46, v26);
+  swift_endAccess(v47);
+  v27 = &v46[v58[5]];
   v28 = v24 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
-  swift_beginAccess(v24 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData, v51, 33, 0);
+  swift_beginAccess(v24 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData, v47, 33, 0);
   outlined assign with copy of DataFrame?(v27, v28);
-  swift_endAccess(v51);
-  v29 = v62[6];
-  v59 = v50;
-  v64 = *&v50[v29];
-  v30 = *&v50[v29 + 8];
-  v31 = *&v50[v62[7]];
-  v30;
-  v31;
-  v32 = v57;
-  BoostedTreeConfiguration.init()();
-  v33 = v52;
-  *v52 = v64;
+  swift_endAccess(v47);
+  v29 = v58[6];
+  v55 = v46;
+  v60 = *&v46[v29];
+  v30 = *&v46[v29 + 8];
+  v31 = *&v46[v58[7]];
+
+  v32 = v53;
+  BoostedTreeConfiguration.init()(v31);
+  v33 = v48;
+  *v48 = v60;
   v33[1] = v30;
   v33[2] = v31;
   v33[3] = v31;
   v33[4] = 0xD000000000000013;
   v33[5] = "raining samples." + 0x8000000000000000;
-  v53 = *(v61 + 16);
-  v53(v55, v32, v63);
-  v64 = type metadata accessor for TreeRegressor(0);
-  v34 = v33 + *(v64 + 28);
-  v31;
-  BaseTreeRegressor.init(configuration:)(v55);
-  v35 = v63;
-  v61 = *(v61 + 8);
-  (v61)(v32, v63);
-  v36 = v64;
-  __swift_storeEnumTagSinglePayload(v33, 0, 1, v64);
-  v37 = v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
-  swift_beginAccess(v60 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v51, 33, 0);
-  v38 = v33;
+  v49 = *(v57 + 16);
+  v49(v51, v32, v59);
+  v60 = type metadata accessor for TreeRegressor(0);
+
+  BaseTreeRegressor.init(configuration:)(v51);
+  v34 = v59;
+  v57 = *(v57 + 8);
+  (v57)(v32, v59);
+  v35 = v60;
+  __swift_storeEnumTagSinglePayload(v33, 0, 1, v60);
+  v36 = v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
+  swift_beginAccess(v56 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v47, 33, 0);
+  v37 = v33;
+  v38 = v49;
+  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v37, v36, &demangling cache variable for type metadata for TreeRegressor?);
+  v38(v52, &v55[v58[8]], v34);
+  if (__swift_getEnumTagSinglePayload(v36, 1, v35) == 1)
+  {
+    BUG();
+  }
+
   v39 = v53;
-  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v38, v37, &demangling cache variable for type metadata for TreeRegressor?);
-  v39(v56, &v59[v62[8]], v35);
-  if (__swift_getEnumTagSinglePayload(v37, 1, v36) == 1)
+  v40 = v52;
+  v38(v53, v52, v59);
+  BaseTreeRegressor.configuration.setter(v39);
+  (v57)(v40, v59);
+  swift_endAccess(v47);
+  v41 = v36;
+  v42 = v54;
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v41, v54, &demangling cache variable for type metadata for TreeRegressor?);
+  if (__swift_getEnumTagSinglePayload(v42, 1, v60) == 1)
   {
     BUG();
   }
 
-  v40 = v57;
-  v41 = v56;
-  v39(v57, v56, v63);
-  v42 = v37 + *(v64 + 28);
-  BaseTreeRegressor.configuration.setter(v40);
-  (v61)(v41, v63);
-  swift_endAccess(v51);
-  v43 = v37;
-  v44 = v58;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v43, v58, &demangling cache variable for type metadata for TreeRegressor?);
-  if (__swift_getEnumTagSinglePayload(v44, 1, v64) == 1)
-  {
-    BUG();
-  }
+  v58 = *v42;
+  v43 = v42[1];
+  v59 = type metadata accessor for TreeRegressorModel(0);
+  v44 = v50;
 
-  v62 = *v44;
-  v45 = v44[1];
-  v46 = v44 + *(v64 + 28);
-  v63 = type metadata accessor for TreeRegressorModel(0);
-  v47 = v54;
-  v48 = &v54[*(v63 + 24)];
-  v45;
-  BaseTreeRegressor.makeTransformer()(v45);
-  *v47 = v62;
-  *(v47 + 8) = v45;
-  *(v47 + 16) = 0;
-  *(v47 + 32) = 0;
-  outlined destroy of MLActivityClassifier.ModelParameters(v59, type metadata accessor for PersistentParametersForTreeBasedMethods);
-  outlined destroy of MLActivityClassifier.ModelParameters(v58, type metadata accessor for TreeRegressor);
-  __swift_storeEnumTagSinglePayload(v47, 0, 1, v63);
-  v49 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v60;
-  swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v60, v51, 33, 0);
-  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v47, v49, &demangling cache variable for type metadata for TreeRegressorModel?);
-  swift_endAccess(v51);
+  BaseTreeRegressor.makeTransformer()(v43);
+  *v44 = v58;
+  *(v44 + 8) = v43;
+  *(v44 + 16) = 0;
+  *(v44 + 32) = 0;
+  outlined destroy of MLActivityClassifier.ModelParameters(v55, type metadata accessor for PersistentParametersForTreeBasedMethods);
+  outlined destroy of MLActivityClassifier.ModelParameters(v54, type metadata accessor for TreeRegressor);
+  __swift_storeEnumTagSinglePayload(v44, 0, 1, v59);
+  v45 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v56;
+  swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v56, v47, 33, 0);
+  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v44, v45, &demangling cache variable for type metadata for TreeRegressorModel?);
+  swift_endAccess(v47);
 }
 
 Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> TreeRegressorTrainingSessionDelegate.resume(from:)(Swift::OpaquePointer from)
 {
-  v73 = v1;
-  v79 = v2;
+  v70 = v1;
+  v76 = v2;
   rawValue = from._rawValue;
   v3 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TreeRegressorModel?) - 8) + 64);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v72 = v65;
-  v74 = type metadata accessor for BoostedTreeConfiguration(0);
-  v75 = *(v74 - 8);
-  v6 = *(v75 + 64);
+  v69 = v62;
+  v71 = type metadata accessor for BoostedTreeConfiguration(0);
+  v72 = *(v71 - 8);
+  v6 = *(v72 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v69 = v65;
+  v66 = v62;
   v9 = alloca(v6);
   v10 = alloca(v6);
-  v76 = v65;
+  v73 = v62;
   v11 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TreeRegressor?) - 8) + 64);
   v12 = alloca(v11);
   v13 = alloca(v11);
-  v68 = v65;
+  v65 = v62;
   v14 = alloca(v11);
   v15 = alloca(v11);
-  v70 = v65;
+  v67 = v62;
   v16 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLCheckpoint?) - 8) + 64);
   v17 = alloca(v16);
   v18 = alloca(v16);
-  v77 = v65;
-  v67 = type metadata accessor for MLCheckpoint(0);
-  v19 = *(*(v67 - 8) + 64);
+  v74 = v62;
+  v64 = type metadata accessor for MLCheckpoint(0);
+  v19 = *(*(v64 - 8) + 64);
   v20 = alloca(v19);
   v21 = alloca(v19);
-  v78 = v65;
+  v75 = v62;
   v22 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?) - 8) + 64);
   v23 = alloca(v22);
   v24 = alloca(v22);
@@ -7636,21 +3308,21 @@ Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r1
   v26 = *(*(v25 - 8) + 64);
   v27 = alloca(v26);
   v28 = alloca(v26);
-  v29 = v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
-  swift_beginAccess(v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, v65, 0, 0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v29, v65, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-  v71 = v25;
-  if (__swift_getEnumTagSinglePayload(v65, 1, v25) == 1)
+  v29 = v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters;
+  swift_beginAccess(v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters, v62, 0, 0);
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v29, v62, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+  v68 = v25;
+  if (__swift_getEnumTagSinglePayload(v62, 1, v25) == 1)
   {
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v65, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v62, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
     BUG();
   }
 
-  outlined init with take of MLClassifierMetrics(v65, v65, type metadata accessor for PersistentParametersForTreeBasedMethods);
-  v30 = v77;
+  outlined init with take of MLClassifierMetrics(v62, v62, type metadata accessor for PersistentParametersForTreeBasedMethods);
+  v30 = v74;
   specialized BidirectionalCollection.last.getter(rawValue);
-  v31 = v67;
-  if (__swift_getEnumTagSinglePayload(v30, 1, v67) == 1)
+  v31 = v64;
+  if (__swift_getEnumTagSinglePayload(v30, 1, v64) == 1)
   {
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v30, &demangling cache variable for type metadata for MLCheckpoint?);
     v32 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
@@ -7660,27 +3332,26 @@ Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r1
     *(v33 + 16) = 0;
     *(v33 + 32) = 0;
     *(v33 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v32);
+    swift_willThrow();
 LABEL_16:
-    outlined destroy of MLActivityClassifier.ModelParameters(v65, type metadata accessor for PersistentParametersForTreeBasedMethods);
+    outlined destroy of MLActivityClassifier.ModelParameters(v62, type metadata accessor for PersistentParametersForTreeBasedMethods);
     return;
   }
 
   v34 = 0xEB0000000064657ALL;
   v35 = v30;
-  v36 = v78;
-  outlined init with take of MLClassifierMetrics(v35, v78, type metadata accessor for MLCheckpoint);
+  v36 = v75;
+  outlined init with take of MLClassifierMetrics(v35, v75, type metadata accessor for MLCheckpoint);
   switch(*(v36 + *(v31 + 20)))
   {
     case 0:
-      v38 = *(v36 + *(v31 + 20));
       v37 = 0x696C616974696E69;
       break;
     case 1:
       v37 = 0x6974636172747865;
       goto LABEL_10;
     case 2:
-      0xE800000000000000;
+      0;
       goto LABEL_12;
     case 3:
       v37 = 0x697461756C617665;
@@ -7693,89 +3364,105 @@ LABEL_10:
       break;
   }
 
-  v39 = *(v36 + *(v31 + 20));
-  v40 = _stringCompareWithSmolCheck(_:_:expecting:)(v37, v34, 0x676E696E69617274, 0xE800000000000000, 0);
+  v38 = _stringCompareWithSmolCheck(_:_:expecting:)(v37, v34, 0x676E696E69617274, 0xE800000000000000, 0);
   v34;
-  if ((v40 & 1) == 0)
+  if ((v38 & 1) == 0)
   {
-    v63 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v63, 0, 0);
-    *v64 = 0xD000000000000028;
-    *(v64 + 8) = "" + 0x8000000000000000;
-    *(v64 + 16) = 0;
-    *(v64 + 32) = 0;
-    *(v64 + 48) = 0;
-    swift_willThrow(&type metadata for MLCreateError, v63);
-    outlined destroy of MLActivityClassifier.ModelParameters(v78, type metadata accessor for MLCheckpoint);
+    v60 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v60, 0, 0);
+    *v61 = 0xD000000000000028;
+    *(v61 + 8) = "" + 0x8000000000000000;
+    *(v61 + 16) = 0;
+    *(v61 + 32) = 0;
+    *(v61 + 48) = 0;
+    swift_willThrow();
+    outlined destroy of MLActivityClassifier.ModelParameters(v75, type metadata accessor for MLCheckpoint);
     goto LABEL_16;
   }
 
 LABEL_12:
-  v41 = v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData;
-  swift_beginAccess(v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v66, 33, 0);
-  v42 = type metadata accessor for DataFrame(0);
-  (*(*(v42 - 8) + 24))(v41, v65, v42);
-  swift_endAccess(v66);
-  v43 = v71;
-  v44 = &v65[*(v71 + 20)];
-  v45 = v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
-  swift_beginAccess(v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData, v66, 33, 0);
-  outlined assign with copy of DataFrame?(v44, v45);
-  swift_endAccess(v66);
-  v46 = *(v43 + 24);
-  rawValue = *&v65[v46];
-  v47 = *&v65[v46 + 8];
-  v48 = *(v43 + 28);
-  v77 = v65;
-  v49 = *&v65[v48];
-  v47;
-  v49;
-  v50 = v76;
-  BoostedTreeConfiguration.init()();
-  v51 = v70;
-  *v70 = rawValue;
-  v51[1] = v47;
-  v51[2] = v49;
-  v51[3] = v49;
-  v51[4] = 0xD000000000000013;
-  v51[5] = "raining samples." + 0x8000000000000000;
-  v52 = v69;
-  (*(v75 + 16))(v69, v50, v74);
+  v39 = v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData;
+  swift_beginAccess(v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData, v63, 33, 0);
+  v40 = type metadata accessor for DataFrame(0);
+  (*(*(v40 - 8) + 24))(v39, v62, v40);
+  swift_endAccess(v63);
+  v41 = v68;
+  v42 = &v62[*(v68 + 20)];
+  v43 = v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData;
+  swift_beginAccess(v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData, v63, 33, 0);
+  outlined assign with copy of DataFrame?(v42, v43);
+  swift_endAccess(v63);
+  v44 = *(v41 + 24);
+  rawValue = *&v62[v44];
+  v45 = *&v62[v44 + 8];
+  v46 = *(v41 + 28);
+  v74 = v62;
+  v47 = *&v62[v46];
+
+  v48 = v73;
+  BoostedTreeConfiguration.init()(v47);
+  v49 = v67;
+  *v67 = rawValue;
+  v49[1] = v45;
+  v49[2] = v47;
+  v49[3] = v47;
+  v49[4] = 0xD000000000000013;
+  v49[5] = "raining samples." + 0x8000000000000000;
+  v50 = v66;
+  (*(v72 + 16))(v66, v48, v71);
   rawValue = type metadata accessor for TreeRegressor(0);
-  v53 = v51 + *(rawValue + 28);
-  v49;
-  BaseTreeRegressor.init(configuration:)(v52);
-  (*(v75 + 8))(v76, v74);
-  v54 = rawValue;
-  __swift_storeEnumTagSinglePayload(v51, 0, 1, rawValue);
-  v55 = v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
-  swift_beginAccess(v79 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v66, 33, 0);
-  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v51, v55, &demangling cache variable for type metadata for TreeRegressor?);
-  swift_endAccess(v66);
-  v56 = v68;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v55, v68, &demangling cache variable for type metadata for TreeRegressor?);
-  if (__swift_getEnumTagSinglePayload(v56, 1, v54) == 1)
+
+  BaseTreeRegressor.init(configuration:)(v50);
+  (*(v72 + 8))(v73, v71);
+  v51 = rawValue;
+  __swift_storeEnumTagSinglePayload(v49, 0, 1, rawValue);
+  v52 = v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
+  swift_beginAccess(v76 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor, v63, 33, 0);
+  outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v49, v52, &demangling cache variable for type metadata for TreeRegressor?);
+  swift_endAccess(v63);
+  v53 = v65;
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v52, v65, &demangling cache variable for type metadata for TreeRegressor?);
+  if (__swift_getEnumTagSinglePayload(v53, 1, v51) == 1)
   {
     BUG();
   }
 
-  v57 = lazy protocol witness table accessor for type TreeRegressor and conformance TreeRegressor();
-  v58 = v72;
-  v59 = v78;
-  v60 = v73;
-  SupervisedTabularEstimator.read(from:)(v78, v54, v57);
-  outlined destroy of MLActivityClassifier.ModelParameters(v59, type metadata accessor for MLCheckpoint);
-  outlined destroy of MLActivityClassifier.ModelParameters(v77, type metadata accessor for PersistentParametersForTreeBasedMethods);
-  outlined destroy of MLActivityClassifier.ModelParameters(v56, type metadata accessor for TreeRegressor);
-  if (!v60)
+  v54 = lazy protocol witness table accessor for type TreeRegressor and conformance TreeRegressor();
+  v55 = v69;
+  v56 = v75;
+  v57 = v70;
+  SupervisedTabularEstimator.read(from:)(v75, v51, v54);
+  outlined destroy of MLActivityClassifier.ModelParameters(v56, type metadata accessor for MLCheckpoint);
+  outlined destroy of MLActivityClassifier.ModelParameters(v74, type metadata accessor for PersistentParametersForTreeBasedMethods);
+  outlined destroy of MLActivityClassifier.ModelParameters(v53, type metadata accessor for TreeRegressor);
+  if (!v57)
   {
-    v61 = type metadata accessor for TreeRegressorModel(0);
-    __swift_storeEnumTagSinglePayload(v58, 0, 1, v61);
-    v62 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v79;
-    swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v79, v66, 33, 0);
-    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v58, v62, &demangling cache variable for type metadata for TreeRegressorModel?);
-    swift_endAccess(v66);
+    v58 = type metadata accessor for TreeRegressorModel(0);
+    __swift_storeEnumTagSinglePayload(v55, 0, 1, v58);
+    v59 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v76;
+    swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v76, v63, 33, 0);
+    outlined assign with take of MLTrainingSession<MLImageClassifier>.Metadata(v55, v59, &demangling cache variable for type metadata for TreeRegressorModel?);
+    swift_endAccess(v63);
   }
+}
+
+Swift::Int_optional __swiftcall TreeRegressorTrainingSessionDelegate.itemCount(phase:)(CreateML::MLPhase phase)
+{
+  if (*phase == 2)
+  {
+    v2 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_sessionParameters + v1;
+    v3 = 0;
+    v4.value = *(*(type metadata accessor for MLTrainingSessionParameters(0) + 28) + v2);
+  }
+
+  else
+  {
+    v3 = 1;
+    v4.value = 0;
+  }
+
+  v4.is_nil = v3;
+  return v4;
 }
 
 uint64_t TreeRegressorTrainingSessionDelegate.train(from:)(uint64_t a1)
@@ -7813,221 +3500,213 @@ uint64_t TreeRegressorTrainingSessionDelegate.train(from:)(uint64_t a1)
   return swift_task_switch(TreeRegressorTrainingSessionDelegate.train(from:), 0, 0);
 }
 
-uint64_t TreeRegressorTrainingSessionDelegate.train(from:)()
+uint64_t TreeRegressorTrainingSessionDelegate.train(from:)(float a1)
 {
-  v1 = v0[35];
-  v2 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v0[19];
-  swift_beginAccess(v2, v0 + 2, 0, 0);
-  v86 = v2;
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v2, v1, &demangling cache variable for type metadata for TreeRegressorModel?);
-  v70 = type metadata accessor for TreeRegressorModel(0);
-  LODWORD(v2) = __swift_getEnumTagSinglePayload(v1, 1, v70);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v1, &demangling cache variable for type metadata for TreeRegressorModel?);
-  if (v2 == 1)
+  v2 = v1[35];
+  v3 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_model + v1[19];
+  swift_beginAccess(v3, (v1 + 2), 0, 0);
+  v81 = v3;
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v3, v2, &demangling cache variable for type metadata for TreeRegressorModel?);
+  v68 = type metadata accessor for TreeRegressorModel(0);
+  LODWORD(v3) = __swift_getEnumTagSinglePayload(v2, 1, v68);
+  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v2, &demangling cache variable for type metadata for TreeRegressorModel?);
+  if (v3 == 1)
   {
     BUG();
   }
 
-  v3 = v0[34];
-  v4 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters + v0[19];
-  swift_beginAccess(v4, v0 + 5, 0, 0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v4, v3, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-  v5 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
-  LODWORD(v4) = __swift_getEnumTagSinglePayload(v3, 1, v5);
-  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v3, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
-  if (v4 == 1)
+  v4 = v1[34];
+  v5 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters + v1[19];
+  swift_beginAccess(v5, (v1 + 5), 0, 0);
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v5, v4, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+  v6 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
+  LODWORD(v5) = __swift_getEnumTagSinglePayload(v4, 1, v6);
+  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v4, &demangling cache variable for type metadata for PersistentParametersForTreeBasedMethods?);
+  if (v5 == 1)
   {
     BUG();
   }
 
-  v6 = v0[18];
-  v7 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_sessionParameters + v0[19];
-  v8 = type metadata accessor for MLTrainingSessionParameters(0);
-  v9 = *(*(v8 + 20) + v7);
-  v10 = v9 + v6;
-  if (__OFADD__(v9, v6))
+  v7 = v1[18];
+  v8 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_sessionParameters + v1[19];
+  v9 = type metadata accessor for MLTrainingSessionParameters(0);
+  v10 = *(*(v9 + 20) + v8);
+  v11 = v10 + v7;
+  if (__OFADD__(v10, v7))
   {
     BUG();
   }
 
-  v11 = *(v7 + *(v8 + 28));
-  v12 = v11 - v6;
-  if (__OFSUB__(v11, v6))
+  v12 = *(v8 + *(v9 + 28));
+  v13 = v12 - v7;
+  if (__OFSUB__(v12, v7))
   {
     BUG();
   }
 
-  v67 = v11;
-  v13 = v0;
-  v14 = v0 + 8;
-  v15 = v13 + 11;
-  v74 = v13 + 14;
-  v68 = v13;
-  v59 = v13 + 17;
-  if (v9 < v12)
+  v65 = v12;
+  v14 = v1;
+  v15 = (v1 + 8);
+  v16 = (v14 + 11);
+  v72 = (v14 + 14);
+  v66 = v14;
+  v57 = (v14 + 17);
+  if (v10 < v13)
   {
-    v12 = v9;
+    v13 = v10;
   }
 
-  v16 = type metadata accessor for EventCollector();
-  swift_allocObject(v16, 32, 7);
-  v17 = EventCollector.init()();
-  if (v12 < 0)
+  v17 = type metadata accessor for EventCollector();
+  swift_allocObject(v17, 32, 7);
+  v18 = EventCollector.init()();
+  if (v13 < 0)
   {
     BUG();
   }
 
-  v63 = v10;
-  v69 = v17;
-  v66 = v12;
-  if (v12)
+  v61 = v11;
+  v67 = v18;
+  v64 = v13;
+  if (v13)
   {
-    v64 = v68[33];
-    v18 = v68[30];
-    v65 = v68[27];
-    v19 = v68[19];
-    v62 = v68[24];
-    v20 = v19 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
-    v21 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData + v19;
-    v60 = v20;
-    swift_beginAccess(v20, v14, 0, 0);
-    v61 = v21;
-    v22 = v21;
-    v23 = v18;
-    swift_beginAccess(v22, v15, 0, 0);
-    v24 = v12;
-    v72 = v23;
+    v62 = v66[33];
+    v19 = v66[30];
+    v63 = v66[27];
+    v20 = v66[19];
+    v60 = v66[24];
+    v21 = v20 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_regressor;
+    v22 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData + v20;
+    v58 = v21;
+    swift_beginAccess(v21, v15, 0, 0);
+    v59 = v22;
+    v23 = v22;
+    v24 = v19;
+    swift_beginAccess(v23, v16, 0, 0);
+    v25 = v13;
+    v70 = v24;
     do
     {
-      v57 = v24;
-      v25 = v68[33];
-      outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v60, v25, &demangling cache variable for type metadata for TreeRegressor?);
-      v26 = type metadata accessor for TreeRegressor(0);
-      if (__swift_getEnumTagSinglePayload(v25, 1, v26) == 1)
+      v56 = v25;
+      v26 = v66[33];
+      outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v58, v26, &demangling cache variable for type metadata for TreeRegressor?);
+      v27 = type metadata accessor for TreeRegressor(0);
+      if (__swift_getEnumTagSinglePayload(v26, 1, v27) == 1)
       {
         BUG();
       }
 
-      (*(v23 + 16))(v68[32], v61, v68[29]);
-      swift_beginAccess(v86, v74, 33, 0);
-      if (__swift_getEnumTagSinglePayload(v86, 1, v70) == 1)
+      (*(v24 + 16))(v66[32], v59, v66[29]);
+      swift_beginAccess(v81, v72, 33, 0);
+      if (__swift_getEnumTagSinglePayload(v81, 1, v68) == 1)
       {
         BUG();
       }
 
-      v58 = v26;
-      ML16ColumnDescriptorVsAE_pTg5 = v86[2];
+      ML16ColumnDescriptorVsAE_pTg5 = v81[2];
       if (ML16ColumnDescriptorVsAE_pTg5)
       {
       }
 
       else
       {
-        v28 = v68[32];
-        v29 = *(v64 + 16);
-        v30 = swift_task_alloc(32);
-        *(v30 + 16) = v28;
+        v29 = v66[32];
+        v30 = *(v62 + 16);
+        v31 = swift_task_alloc(32);
+        *(v31 + 16) = v29;
 
-        v29;
-        ML16ColumnDescriptorVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_8CreateML16ColumnDescriptorVsAE_pTg5(partial apply for closure #1 in FeatureVectorizer.fitted(to:), v30, v29);
-        v29;
+        ML16ColumnDescriptorVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_8CreateML16ColumnDescriptorVsAE_pTg5(partial apply for closure #1 in FeatureVectorizer.fitted(to:), v31, v30);
         v30;
-        v86[2] = ML16ColumnDescriptorVsAE_pTg5;
-        v86[3] = 0xD000000000000013;
-        v86[4] = "raining samples." + 0x8000000000000000;
+        v31;
+        v81[2] = ML16ColumnDescriptorVsAE_pTg5;
+        v81[3] = 0xD000000000000013;
+        v81[4] = "raining samples." + 0x8000000000000000;
       }
 
-      v76 = v68[32];
-      v82 = v68[28];
-      v79 = v68[31];
-      ML16ColumnDescriptorVsAE_pTg5;
       ML16ColumnDescriptorVG_SSs5NeverOTg503_s8d131ML17FeatureVectorizerV11TransformerV10vectorized_13includingBias0A12MLComponents11DenseMatrixVyxG11TabularData0M5FrameV_SbtKFSSAA16fG54Vcfu_33_44daf68368b8b9c6f03dca699c8750fcAPSSTf3nnnpk_nTf1cn_n = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay8CreateML16ColumnDescriptorVG_SSs5NeverOTg503_s8d131ML17FeatureVectorizerV11TransformerV10vectorized_13includingBias0A12MLComponents11DenseMatrixVyxG11TabularData0M5FrameV_SbtKFSSAA16fG54Vcfu_33_44daf68368b8b9c6f03dca699c8750fcAPSSTf3nnnpk_nTf1cn_n(ML16ColumnDescriptorVsAE_pTg5);
       ML16ColumnDescriptorVsAE_pTg5;
-      v68[17] = ML16ColumnDescriptorVG_SSs5NeverOTg503_s8d131ML17FeatureVectorizerV11TransformerV10vectorized_13includingBias0A12MLComponents11DenseMatrixVyxG11TabularData0M5FrameV_SbtKFSSAA16fG54Vcfu_33_44daf68368b8b9c6f03dca699c8750fcAPSSTf3nnnpk_nTf1cn_n;
-      v32 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String]);
-      v33 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &demangling cache variable for type metadata for [String], &protocol conformance descriptor for [A]);
-      DataFrame.selecting<A>(columnNames:)(v59, v32, v33);
+      v66[17] = ML16ColumnDescriptorVG_SSs5NeverOTg503_s8d131ML17FeatureVectorizerV11TransformerV10vectorized_13includingBias0A12MLComponents11DenseMatrixVyxG11TabularData0M5FrameV_SbtKFSSAA16fG54Vcfu_33_44daf68368b8b9c6f03dca699c8750fcAPSSTf3nnnpk_nTf1cn_n;
+      v33 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String]);
+      v34 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &demangling cache variable for type metadata for [String], &protocol conformance descriptor for [A]);
+      DataFrame.selecting<A>(columnNames:)(v57, v33, v34);
       ML16ColumnDescriptorVG_SSs5NeverOTg503_s8d131ML17FeatureVectorizerV11TransformerV10vectorized_13includingBias0A12MLComponents11DenseMatrixVyxG11TabularData0M5FrameV_SbtKFSSAA16fG54Vcfu_33_44daf68368b8b9c6f03dca699c8750fcAPSSTf3nnnpk_nTf1cn_n;
-      _s11TabularData0B5FrameV8CreateMLE8asMatrix2of11descriptors13includingBias0D12MLComponents05DenseG0VyxGxm_SayAD16ColumnDescriptorVGSbtKSBRzlFSf_Tt0g5(ML16ColumnDescriptorVsAE_pTg5, 0);
-      v34 = v68[33];
-      v35 = v68[32];
-      v83 = v68[23];
-      v36 = v68[25];
-      v77 = *(v72 + 8);
-      v77(v68[31], v68[29]);
-      DataFrame.subscript.getter(*v34, *(v64 + 8));
+      _s11TabularData0B5FrameV8CreateMLE8asMatrix2of11descriptors13includingBias0D12MLComponents05DenseG0VyxGxm_SayAD16ColumnDescriptorVGSbtKSBRzlFSf_Tt0g5(ML16ColumnDescriptorVsAE_pTg5, 0, a1);
+      v35 = v66[33];
+      v78 = v66[23];
+      v36 = v66[25];
+      v74 = *(v70 + 8);
+      v74(v66[31], v66[29]);
+      DataFrame.subscript.getter(*v35, *(v62 + 8));
       v37 = AnyColumn.convertedToFloats()();
-      (*(v62 + 8))(v36, v83);
+      (*(v60 + 8))(v36, v78);
       if (!v37)
       {
         BUG();
       }
 
-      v38 = v68[33] + *(v58 + 28);
-      BaseTreeRegressor.update(_:features:annotations:eventHandler:)(v86 + *(v70 + 24), v68[28], v37, partial apply for closure #1 in LinearRegressorTrainingSessionDelegate.train(from:), v69);
-      v84 = v68[33];
-      v80 = v68[32];
-      v39 = v68[29];
-      (*(v65 + 8))(v68[28], v68[26]);
+      BaseTreeRegressor.update(_:features:annotations:eventHandler:)(v81 + *(v68 + 24), v66[28], v37, partial apply for closure #1 in LinearRegressorTrainingSessionDelegate.train(from:), v67);
+      v79 = v66[33];
+      v76 = v66[32];
+      v38 = v66[29];
+      (*(v63 + 8))(v66[28], v66[26]);
 
-      swift_endAccess(v74);
+      swift_endAccess(v72);
 
-      v77(v80, v39);
-      outlined destroy of MLActivityClassifier.ModelParameters(v84, type metadata accessor for TreeRegressor);
-      v24 = v57 - 1;
-      v23 = v72;
+      v74(v76, v38);
+      outlined destroy of MLActivityClassifier.ModelParameters(v79, type metadata accessor for TreeRegressor);
+      v25 = v56 - 1;
+      v24 = v70;
     }
 
-    while (v57 != 1);
+    while (v56 != 1);
   }
 
-  v40 = v68[22];
-  v41 = v68[20];
-  v42 = v68[21];
+  v39 = v66[22];
+  v40 = v66[20];
+  v41 = v66[21];
   static MetricsKey.trainingMaximumError.getter();
-  ML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5 = _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5();
-  v45 = v44;
-  v46 = *(v42 + 8);
-  v46(v40, v41);
-  v87 = v46;
-  if ((v45 & 1) == 0)
+  ML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5 = _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5(v39);
+  v44 = v43;
+  v45 = *(v41 + 8);
+  v45(v39, v40);
+  v82 = v45;
+  if ((v44 & 1) == 0)
   {
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(_swiftEmptyDictionarySingleton);
     specialized _NativeDictionary.setValue(_:forKey:isUnique:)(8, isUniquelyReferenced_nonNull_native, *&ML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5);
   }
 
-  v48 = v68[20];
-  v49 = v68[22];
+  v47 = v66[20];
+  v48 = v66[22];
   static MetricsKey.trainingError.getter();
-  v50 = _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5();
-  v52 = v51;
-  v87(v49, v48);
-  if ((v52 & 1) == 0)
+  v49 = _s8CreateML14EventCollectorC7getLast6metric4typexSg0A12MLComponents10MetricsKeyV_xmtlFSd_Tt1g5(v48);
+  v51 = v50;
+  v82(v48, v47);
+  if ((v51 & 1) == 0)
   {
-    v53 = swift_isUniquelyReferenced_nonNull_native(_swiftEmptyDictionarySingleton);
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(7, v53, *&v50);
+    v52 = swift_isUniquelyReferenced_nonNull_native(_swiftEmptyDictionarySingleton);
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(7, v52, *&v49);
   }
 
-  v54 = v68[35];
-  v55 = v68[34];
-  v81 = v68[33];
-  v78 = v68[32];
-  v85 = v68[31];
-  v73 = v68[28];
-  v75 = v68[22];
-  v71 = v68[25];
-  v88 = specialized _dictionaryUpCast<A, B, C, D>(_:)(_swiftEmptyDictionarySingleton);
+  v53 = v66[35];
+  v54 = v66[34];
+  v77 = v66[33];
+  v75 = v66[32];
+  v80 = v66[31];
+  v71 = v66[28];
+  v73 = v66[22];
+  v69 = v66[25];
+  v83 = specialized _dictionaryUpCast<A, B, C, D>(_:)(_swiftEmptyDictionarySingleton);
 
   _swiftEmptyDictionarySingleton;
+  v53;
   v54;
-  v55;
-  v81;
-  v78;
-  v85;
-  v73;
-  v71;
+  v77;
   v75;
-  return (v68[1])(v66, v88, v63 >= v67);
+  v80;
+  v71;
+  v69;
+  v73;
+  return (v66[1])(v64, v83, v61 >= v65);
 }
 
 uint64_t TreeRegressorTrainingSessionDelegate.evaluate(from:)()
@@ -8076,7 +3755,7 @@ uint64_t TreeRegressorTrainingSessionDelegate.evaluate(from:)()
   {
     outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(*(v0 + 336), &demangling cache variable for type metadata for TreeRegressorModel?);
 LABEL_5:
-    v81 = 0;
+    v77 = 0;
     goto LABEL_6;
   }
 
@@ -8085,175 +3764,170 @@ LABEL_5:
   v5 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingParameters + v4;
   swift_beginAccess(v5, v0 + 40, 0, 0);
   v6 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v5, 1, v6);
-  v8 = *(v0 + 352);
-  if (EnumTagSinglePayload)
+  if (__swift_getEnumTagSinglePayload(v5, 1, v6))
   {
     outlined destroy of MLActivityClassifier.ModelParameters(*(v0 + 352), type metadata accessor for TreeRegressorModel);
     goto LABEL_5;
   }
 
-  v82 = *(v0 + 328);
-  v72 = *(v0 + 320);
-  v86 = *(v0 + 296);
-  v77 = *(v0 + 288);
-  v14 = *(v6 + 24);
-  v68 = *(v5 + v14);
-  v15 = *(v5 + v14 + 8);
-  v16 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData + *(v0 + 200);
-  swift_beginAccess(v16, v0 + 64, 0, 0);
-  v64 = v16;
-  (*(v86 + 16))(v72, v16, v77);
-  v15;
-  TreeRegressorModel.applied(to:eventHandler:)(v72, 0, 0);
-  v17 = *(v0 + 328);
-  v46 = *(v0 + 288);
-  v73 = *(v0 + 280);
-  v78 = *(v0 + 272);
-  v52 = *(v0 + 240);
-  v18 = *(v0 + 232);
-  v62 = v15;
-  v19 = *(v0 + 224);
-  v87 = *(v0 + 216);
-  v54 = *(v0 + 200);
-  v48 = *(v0 + 208);
-  v58 = *(*(v0 + 296) + 8);
-  (v58)(*(v0 + 320));
-  DataFrame.subscript.getter(v68, v15, &type metadata for Double);
+  v68 = *(v0 + 320);
+  v81 = *(v0 + 296);
+  v73 = *(v0 + 288);
+  v12 = *(v6 + 24);
+  v64 = *(v5 + v12);
+  v13 = *(v5 + v12 + 8);
+  v14 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingData + *(v0 + 200);
+  swift_beginAccess(v14, v0 + 64, 0, 0);
+  v60 = v14;
+  (*(v81 + 16))(v68, v14, v73);
+
+  TreeRegressorModel.applied(to:eventHandler:)(v68, 0, 0);
+  v42 = *(v0 + 288);
+  v69 = *(v0 + 280);
+  v74 = *(v0 + 272);
+  v48 = *(v0 + 240);
+  v15 = *(v0 + 232);
+  v58 = v13;
+  v16 = *(v0 + 224);
+  v82 = *(v0 + 216);
+  v50 = *(v0 + 200);
+  v44 = *(v0 + 208);
+  v54 = *(*(v0 + 296) + 8);
+  (v54)(*(v0 + 320));
+  DataFrame.subscript.getter(v64, v13, &type metadata for Double);
   *(v0 + 136) = 0;
-  v60 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type Column<Double> and conformance Column<A>, &demangling cache variable for type metadata for Column<Double>, &protocol conformance descriptor for Column<A>);
-  OptionalColumnProtocol.filled(with:)(v0 + 136, v87, v60);
-  v20 = *(v19 + 8);
-  v20(v18, v87);
-  swift_beginAccess(v64, v0 + 88, 32, 0);
-  DataFrame.subscript.getter(v68, v15, &type metadata for Double);
+  v56 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type Column<Double> and conformance Column<A>, &demangling cache variable for type metadata for Column<Double>, &protocol conformance descriptor for Column<A>);
+  OptionalColumnProtocol.filled(with:)(v0 + 136, v82, v56);
+  v17 = *(v16 + 8);
+  v17(v15, v82);
+  swift_beginAccess(v60, v0 + 88, 32, 0);
+  DataFrame.subscript.getter(v64, v13, &type metadata for Double);
   swift_endAccess(v0 + 88);
   *(v0 + 144) = 0;
-  OptionalColumnProtocol.filled(with:)(v0 + 144, v87, v60);
-  v57 = v20;
-  v20(v18, v87);
-  v88 = lazy protocol witness table accessor for type Double and conformance Double();
-  v21 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type FilledColumn<Column<Double>> and conformance FilledColumn<A>, &demangling cache variable for type metadata for FilledColumn<Column<Double>>, &protocol conformance descriptor for FilledColumn<A>);
-  maximumAbsoluteError<A, B, C>(_:_:)(v73, v78, &type metadata for Double, v52, v52, v88, v21, v21);
-  v65 = *(v0 + 152);
-  rootMeanSquaredError<A, B, C>(_:_:)(v73, v78, &type metadata for Double, v52, v52, v88, v21, v21);
-  v22 = *(v0 + 160);
-  v23 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics;
-  v24 = *(v54 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics);
-  v25 = *(v54 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics + 8);
-  *(v54 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics) = v65;
-  *(v54 + v23 + 8) = v22;
-  v26 = *(v54 + v23 + 16);
-  *(v54 + v23 + 16) = 0;
-  outlined consume of MLRegressorMetrics?(v24, v25, v26);
-  v27 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData + v54;
-  swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData + v54, v0 + 112, 0, 0);
-  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v27, v48, &demangling cache variable for type metadata for DataFrame?);
-  if (__swift_getEnumTagSinglePayload(v48, 1, v46) == 1)
+  OptionalColumnProtocol.filled(with:)(v0 + 144, v82, v56);
+  v53 = v17;
+  v17(v15, v82);
+  v83 = lazy protocol witness table accessor for type Double and conformance Double();
+  v18 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type FilledColumn<Column<Double>> and conformance FilledColumn<A>, &demangling cache variable for type metadata for FilledColumn<Column<Double>>, &protocol conformance descriptor for FilledColumn<A>);
+  maximumAbsoluteError<A, B, C>(_:_:)(v69, v74, &type metadata for Double, v48, v48, v83, v18, v18);
+  v61 = *(v0 + 152);
+  rootMeanSquaredError<A, B, C>(_:_:)(v69, v74, &type metadata for Double, v48, v48, v83, v18, v18);
+  v19 = *(v0 + 160);
+  v20 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics;
+  v21 = *(v50 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics);
+  v22 = *(v50 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics + 8);
+  *(v50 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_trainingMetrics) = v61;
+  *(v50 + v20 + 8) = v19;
+  v23 = *(v50 + v20 + 16);
+  *(v50 + v20 + 16) = 0;
+  outlined consume of MLRegressorMetrics?(v21, v22, v23);
+  v24 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData + v50;
+  swift_beginAccess(OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationData + v50, v0 + 112, 0, 0);
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v24, v44, &demangling cache variable for type metadata for DataFrame?);
+  if (__swift_getEnumTagSinglePayload(v44, 1, v42) == 1)
   {
-    v74 = *(v0 + 328);
-    v79 = *(v0 + 288);
-    v69 = *(v0 + 280);
-    v28 = *(v0 + 272);
-    v89 = *(v0 + 352);
-    v29 = *(v0 + 248);
-    v30 = *(v0 + 240);
-    v31 = *(v0 + 200);
-    v83 = *(v0 + 208);
-    v62;
-    v32 = *(v29 + 8);
-    v32(v28, v30);
-    v32(v69, v30);
-    v58(v74, v79);
-    outlined destroy of MLActivityClassifier.ModelParameters(v89, type metadata accessor for TreeRegressorModel);
-    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v83, &demangling cache variable for type metadata for DataFrame?);
-    v33 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
-    v34 = *(v31 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics);
-    v35 = *(v31 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 8);
-    *(v31 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = 0;
-    v36 = *(v31 + v33 + 16);
-    *(v31 + v33 + 16) = -1;
+    v70 = *(v0 + 328);
+    v75 = *(v0 + 288);
+    v65 = *(v0 + 280);
+    v25 = *(v0 + 272);
+    v84 = *(v0 + 352);
+    v26 = *(v0 + 248);
+    v27 = *(v0 + 240);
+    v28 = *(v0 + 200);
+    v78 = *(v0 + 208);
+    v58;
+    v29 = *(v26 + 8);
+    v29(v25, v27);
+    v29(v65, v27);
+    v54(v70, v75);
+    outlined destroy of MLActivityClassifier.ModelParameters(v84, type metadata accessor for TreeRegressorModel);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v78, &demangling cache variable for type metadata for DataFrame?);
+    v30 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
+    v31 = *(v28 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics);
+    v32 = *(v28 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 8);
+    *(v28 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = 0;
+    v33 = *(v28 + v30 + 16);
+    *(v28 + v30 + 16) = -1;
   }
 
   else
   {
-    v75 = v21;
-    v37 = *(v0 + 312);
-    v38 = *(v0 + 304);
-    (*(*(v0 + 296) + 32))(v37, *(v0 + 208), *(v0 + 288));
-    TreeRegressorModel.applied(to:eventHandler:)(v37, 0, 0);
-    v45 = *(v0 + 352);
-    v49 = *(v0 + 328);
-    v80 = *(v0 + 312);
-    v56 = *(v0 + 304);
-    v53 = *(v0 + 288);
-    v50 = *(v0 + 280);
-    v51 = *(v0 + 272);
-    v84 = *(v0 + 264);
-    v66 = *(v0 + 256);
-    v55 = *(v0 + 248);
-    v44 = *(v0 + 240);
-    v39 = *(v0 + 232);
-    v47 = *(v0 + 200);
-    v40 = *(v0 + 216);
-    DataFrame.subscript.getter(v68, v62, &type metadata for Double);
+    v71 = v18;
+    v34 = *(v0 + 312);
+    (*(*(v0 + 296) + 32))(v34, *(v0 + 208), *(v0 + 288));
+    TreeRegressorModel.applied(to:eventHandler:)(v34, 0, 0);
+    v41 = *(v0 + 352);
+    v45 = *(v0 + 328);
+    v76 = *(v0 + 312);
+    v52 = *(v0 + 304);
+    v49 = *(v0 + 288);
+    v46 = *(v0 + 280);
+    v47 = *(v0 + 272);
+    v79 = *(v0 + 264);
+    v62 = *(v0 + 256);
+    v51 = *(v0 + 248);
+    v40 = *(v0 + 240);
+    v35 = *(v0 + 232);
+    v43 = *(v0 + 200);
+    v36 = *(v0 + 216);
+    DataFrame.subscript.getter(v64, v58, &type metadata for Double);
     *(v0 + 168) = 0;
-    OptionalColumnProtocol.filled(with:)(v0 + 168, v40, v60);
-    v57(v39, v40);
-    DataFrame.subscript.getter(v68, v62, &type metadata for Double);
-    v62;
+    OptionalColumnProtocol.filled(with:)(v0 + 168, v36, v56);
+    v53(v35, v36);
+    DataFrame.subscript.getter(v64, v58, &type metadata for Double);
+    v58;
     *(v0 + 176) = 0;
-    OptionalColumnProtocol.filled(with:)(v0 + 176, v40, v60);
-    v57(v39, v40);
-    maximumAbsoluteError<A, B, C>(_:_:)(v84, v66, &type metadata for Double, v44, v44, v88, v75, v75);
-    v70 = *(v0 + 184);
-    rootMeanSquaredError<A, B, C>(_:_:)(v84, v66, &type metadata for Double, v44, v44, v88, v75, v75);
-    v41 = *(v55 + 8);
-    v41(v66, v44);
-    v41(v84, v44);
-    v58(v56, v53);
-    v58(v80, v53);
-    v41(v51, v44);
-    v41(v50, v44);
-    v58(v49, v53);
-    outlined destroy of MLActivityClassifier.ModelParameters(v45, type metadata accessor for TreeRegressorModel);
-    v42 = *(v0 + 192);
-    v43 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
-    v34 = *(v47 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics);
-    v35 = *(v47 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 8);
-    *(v47 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = v70;
-    *(v47 + v43 + 8) = v42;
-    v36 = *(v47 + v43 + 16);
-    *(v47 + v43 + 16) = 0;
+    OptionalColumnProtocol.filled(with:)(v0 + 176, v36, v56);
+    v53(v35, v36);
+    maximumAbsoluteError<A, B, C>(_:_:)(v79, v62, &type metadata for Double, v40, v40, v83, v71, v71);
+    v66 = *(v0 + 184);
+    rootMeanSquaredError<A, B, C>(_:_:)(v79, v62, &type metadata for Double, v40, v40, v83, v71, v71);
+    v37 = *(v51 + 8);
+    v37(v62, v40);
+    v37(v79, v40);
+    v54(v52, v49);
+    v54(v76, v49);
+    v37(v47, v40);
+    v37(v46, v40);
+    v54(v45, v49);
+    outlined destroy of MLActivityClassifier.ModelParameters(v41, type metadata accessor for TreeRegressorModel);
+    v38 = *(v0 + 192);
+    v39 = OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics;
+    v31 = *(v43 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics);
+    v32 = *(v43 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics + 8);
+    *(v43 + OBJC_IVAR____TtC8CreateML36TreeRegressorTrainingSessionDelegate_validationMetrics) = v66;
+    *(v43 + v39 + 8) = v38;
+    v33 = *(v43 + v39 + 16);
+    *(v43 + v39 + 16) = 0;
   }
 
-  outlined consume of MLRegressorMetrics?(v34, v35, v36);
-  v81 = 1;
+  outlined consume of MLRegressorMetrics?(v31, v32, v33);
+  v77 = 1;
 LABEL_6:
-  v9 = *(v0 + 336);
-  v10 = *(v0 + 328);
-  v11 = *(v0 + 320);
-  v12 = *(v0 + 312);
-  v59 = *(v0 + 304);
-  v61 = *(v0 + 280);
-  v63 = *(v0 + 272);
-  v67 = *(v0 + 264);
-  v76 = *(v0 + 256);
-  v85 = *(v0 + 208);
-  v71 = *(v0 + 232);
+  v7 = *(v0 + 336);
+  v8 = *(v0 + 328);
+  v9 = *(v0 + 320);
+  v10 = *(v0 + 312);
+  v55 = *(v0 + 304);
+  v57 = *(v0 + 280);
+  v59 = *(v0 + 272);
+  v63 = *(v0 + 264);
+  v72 = *(v0 + 256);
+  v80 = *(v0 + 208);
+  v67 = *(v0 + 232);
   *(v0 + 352);
+  v7;
+  v8;
   v9;
   v10;
-  v11;
-  v12;
+  v55;
+  v57;
   v59;
-  v61;
   v63;
+  v72;
   v67;
-  v76;
-  v71;
-  v85;
-  return (*(v0 + 8))(v81, 1);
+  v80;
+  return (*(v0 + 8))(v77, 1);
 }
 
 char TreeRegressorTrainingSessionDelegate.saveCheckpoint(to:phase:iteration:)(uint64_t a1, unsigned __int8 *a2)
@@ -8295,7 +3969,7 @@ char TreeRegressorTrainingSessionDelegate.saveCheckpoint(to:phase:iteration:)(ui
       v17 = 0x6974636172747865;
       goto LABEL_9;
     case 2:
-      0xE800000000000000;
+      0;
       goto LABEL_11;
     case 3:
       v17 = 0x697461756C617665;
@@ -8364,7 +4038,7 @@ uint64_t TreeRegressorTrainingSessionDelegate.save(to:)(uint64_t a1)
     *(v12 + 16) = 0;
     *(v12 + 32) = 0;
     *(v12 + 48) = 2;
-    return swift_willThrow(&type metadata for MLCreateError, v11);
+    return swift_willThrow();
   }
 
   else
@@ -8438,27 +4112,26 @@ NSURL *TreeRegressorTrainingSessionDelegate.restore(from:phase:)(uint64_t a1)
 
 uint64_t TreeRegressorTrainingSessionDelegate.verifyThatParametersAreCompatible(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v44 = v2;
+  v46 = v2;
   v5 = type metadata accessor for PersistentParametersForTreeBasedMethods(0);
   v6 = *(v5 + 24);
   v7 = *(a1 + v6);
   v8 = *(a1 + v6 + 8);
   v9 = *(a2 + v6);
   v10 = *(a2 + v6 + 8);
-  v45 = a1;
-  v46 = v5;
-  if (v9 ^ v7 | v10 ^ v8 && (v43 = a2, v11 = v7, v12 = _stringCompareWithSmolCheck(_:_:expecting:)(v7, v8, v9, v10, 0), v5 = v46, a1 = v45, v13 = v11, a2 = v43, (v12 & 1) == 0))
+  v47 = a1;
+  v48 = v5;
+  if (v9 ^ v7 | v10 ^ v8 && (v45 = a2, v11 = v7, v12 = _stringCompareWithSmolCheck(_:_:expecting:)(v7, v8, v9, v10, 0), v5 = v48, a1 = v47, v13 = v11, a2 = v45, (v12 & 1) == 0))
   {
-    v39 = v9;
-    v40 = v10;
-    v45 = v8;
-    v46 = v13;
-    v8;
-    v10;
-    v21 = String.init<A>(_:)(&v39, &type metadata for String, &protocol witness table for String, &protocol witness table for String);
-    v44 = v32;
-    v23 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v23, 0, 0);
+    v41 = v9;
+    v42 = v10;
+    v47 = v8;
+    v48 = v13;
+
+    v21 = String.init<A>(_:)(&v41, &type metadata for String, &protocol witness table for String, &protocol witness table for String);
+    v46 = v33;
+    v34 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v34, 0, 0);
     v20 = 0xED00006E6D756C6FLL;
     v22 = 0x6320746567726154;
   }
@@ -8466,66 +4139,67 @@ uint64_t TreeRegressorTrainingSessionDelegate.verifyThatParametersAreCompatible(
   else
   {
     v14 = *(a1 + *(v5 + 28));
-    v14;
-    v41 = v14;
+
+    v43 = v14;
     v15 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5(v14);
     v16 = *(a2 + *(v5 + 28));
-    v16;
-    v43 = v16;
+
+    v45 = v16;
     v17 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5(v16);
+    LOBYTE(v16) = v17;
     v18 = _sSh2eeoiySbShyxG_ABtFZSS_Tt1g5(v15, v17);
     v15;
-    v17;
+    v16;
     if (v18)
     {
-      result = static BoostedTreeConfiguration.firstIncompatibility(_:_:)(*(v46 + 32) + v45, *(v46 + 32) + a2);
-      v20 = v34;
-      if (!v34)
+      result = static BoostedTreeConfiguration.firstIncompatibility(_:_:)();
+      v20 = v36;
+      if (!v36)
       {
         return result;
       }
 
-      v44 = v38;
-      v21 = v37;
-      v45 = v36;
-      v22 = v33;
-      v46 = v35;
+      v46 = v40;
+      v21 = v39;
+      v47 = v38;
+      v22 = v35;
+      v48 = v37;
       v23 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
       swift_allocError(&type metadata for MLCreateError, v23, 0, 0);
     }
 
     else
     {
-      v42 = "Classifier.swift" + 0x8000000000000000;
-      v41;
+      v44 = "Classifier.swift" + 0x8000000000000000;
+
       v25 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String]);
       v26 = lazy protocol witness table accessor for type FullyConnectedNetworkClassifier<Float, String> and conformance FullyConnectedNetworkClassifier<A, B>(&lazy protocol witness table cache variable for type [String] and conformance [A], &demangling cache variable for type metadata for [String], &protocol conformance descriptor for [A]);
-      v46 = BidirectionalCollection<>.joined(separator:)(8236, 0xE200000000000000, v25, v26);
-      v45 = v27;
-      v41;
+      v48 = BidirectionalCollection<>.joined(separator:)(8236, 0xE200000000000000, v25, v26);
+      v47 = v27;
       v43;
+
       v28 = BidirectionalCollection<>.joined(separator:)(8236, 0xE200000000000000, v25, v26);
       v30 = v29;
       v20 = "Classifier.swift" + 0x8000000000000000;
-      v43;
-      v39 = v28;
-      v40 = v30;
-      v21 = String.init<A>(_:)(&v39, &type metadata for String, &protocol witness table for String, &protocol witness table for String);
-      v44 = v31;
-      v23 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-      swift_allocError(&type metadata for MLCreateError, v23, 0, 0);
+      v45;
+      v41 = v28;
+      v42 = v30;
+      v21 = String.init<A>(_:)(&v41, &type metadata for String, &protocol witness table for String, &protocol witness table for String);
+      v46 = v31;
+      v32 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+      swift_allocError(&type metadata for MLCreateError, v32, 0, 0);
       v22 = 0xD000000000000011;
     }
   }
 
   *v24 = v22;
   *(v24 + 8) = v20;
-  *(v24 + 16) = v46;
-  *(v24 + 24) = v45;
+  *(v24 + 16) = v48;
+  *(v24 + 24) = v47;
   *(v24 + 32) = v21;
-  *(v24 + 40) = v44;
+  *(v24 + 40) = v46;
   *(v24 + 48) = 3;
-  return swift_willThrow(&type metadata for MLCreateError, v23);
+  return swift_willThrow();
 }
 
 uint64_t TreeRegressorTrainingSessionDelegate.deinit()
@@ -8599,27 +4273,25 @@ uint64_t type metadata completion function for TreeRegressorTrainingSessionDeleg
 
 uint64_t protocol witness for TrainingSessionDelegate.train(from:) in conformance TreeRegressorTrainingSessionDelegate(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = swift_task_alloc(288);
-  *(v2 + 16) = v4;
-  *v4 = v2;
-  v4[1] = protocol witness for TrainingSessionDelegate.train(from:) in conformance SoundClassifierTrainingSessionDelegate;
+  v2 = swift_task_alloc(288);
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = protocol witness for TrainingSessionDelegate.train(from:) in conformance SoundClassifierTrainingSessionDelegate;
   return TreeRegressorTrainingSessionDelegate.train(from:)(a1);
 }
 
 uint64_t protocol witness for TrainingSessionDelegate.evaluate(from:) in conformance TreeRegressorTrainingSessionDelegate()
 {
-  v2 = *v0;
-  v3 = swift_task_alloc(368);
-  *(v1 + 16) = v3;
-  *v3 = v1;
-  v3[1] = protocol witness for TrainingSessionDelegate.evaluate(from:) in conformance SoundClassifierTrainingSessionDelegate;
+  v1 = swift_task_alloc(368);
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = protocol witness for TrainingSessionDelegate.evaluate(from:) in conformance SoundClassifierTrainingSessionDelegate;
   return TreeRegressorTrainingSessionDelegate.evaluate(from:)();
 }
 
-uint64_t specialized closure #1 in BidirectionalCollection.last(where:)(uint64_t a1, uint64_t a2)
+uint64_t specialized closure #1 in BidirectionalCollection.last(where:)(unint64_t a1, uint64_t a2)
 {
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -8634,9 +4306,8 @@ uint64_t specialized closure #1 in BidirectionalCollection.last(where:)(uint64_t
   return outlined init with copy of MLActivityClassifier.Model(((*(*(v4 - 8) + 80) + 32) & ~*(*(v4 - 8) + 80)) + a2 + *(*(v4 - 8) + 72) * a1, v3, type metadata accessor for MLCheckpoint);
 }
 
-uint64_t specialized closure #1 in BidirectionalCollection.last(where:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -8646,9 +4317,9 @@ uint64_t specialized closure #1 in BidirectionalCollection.last(where:)(uint64_t
     BUG();
   }
 
-  v4 = v3;
-  v5 = type metadata accessor for Event(0, a2, a3);
-  return (*(*(v5 - 8) + 16))(v4, ((*(*(v5 - 8) + 80) + 32) & ~*(*(v5 - 8) + 80)) + a2 + *(*(v5 - 8) + 72) * a1, v5);
+  v3 = v2;
+  v4 = type metadata accessor for Event(0);
+  return (*(*(v4 - 8) + 16))(v3, ((*(*(v4 - 8) + 80) + 32) & ~*(*(v4 - 8) + 80)) + a2 + *(*(v4 - 8) + 72) * a1, v4);
 }
 
 NSURL *BlobsFile.init()()
@@ -8670,9 +4341,9 @@ NSURL *BlobsFile.init()()
   return result;
 }
 
-void *BlobsFile.floatBlob(at:)(uint64_t a1)
+void *BlobsFile.floatBlob(at:)(unint64_t a1)
 {
-  if (a1 < 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     BUG();
   }
@@ -8687,73 +4358,68 @@ void *BlobsFile.floatBlob(at:)(uint64_t a1)
   v6 = *(v4 + v5 + 32);
   v7 = *(v4 + v5 + 48);
   v8 = *(v4 + v5 + 64);
-  v26 = *(v4 + v5 + 80);
-  v25 = v8;
-  v24 = v7;
-  v23 = v6;
+  v22 = *(v4 + v5 + 80);
+  v21 = v8;
+  v20 = v7;
+  v19 = v6;
   if (BlobMetadata.dataType.getter() == 1)
   {
-    v27 = *v2;
-    switch(*(&v27 + 1) >> 62)
+    v23 = *v2;
+    switch(*(&v23 + 1) >> 62)
     {
       case 0:
-        v22[0] = v27;
-        LODWORD(v22[1]) = DWORD2(v27);
-        WORD2(v22[1]) = WORD6(v27);
-        v9 = v24;
-        v10 = *(&v23 + 1);
-        if ((v24 | *(&v23 + 1)) < 0)
+        LODWORD(v18[0]) = v23;
+        WORD2(v18[0]) = WORD2(v23);
+        *(v18 + 6) = *(&v23 + 6);
+        v9 = *(&v19 + 1);
+        v10 = v20;
+        if ((v20 | *(&v19 + 1)) < 0)
         {
           BUG();
         }
 
         goto LABEL_11;
       case 1:
-        v17 = v27;
-        v18 = v27 >> 32;
-        if (v27 >> 32 < v27)
+        if (v23 >> 32 < v23)
         {
           BUG();
         }
 
-        v19 = *(&v27 + 1) & 0x3FFFFFFFFFFFFFFFLL;
-
-        v20 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v17, v18, v19, &v23);
+        v16 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v23, v23 >> 32, *(&v23 + 1) & 0x3FFFFFFFFFFFFFFFLL, &v19);
         if (v1)
         {
-          outlined release of Data(&v27);
-          BUG();
-        }
-
-        v3 = v20;
-        outlined release of Data(&v27);
-        break;
-      case 2:
-        v13 = *(&v27 + 1) & 0x3FFFFFFFFFFFFFFFLL;
-        v14 = *(v27 + 16);
-        v15 = *(v27 + 24);
-
-        v16 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v14, v15, v13, &v23);
-        if (v1)
-        {
-
+          outlined release of Data(&v23);
           BUG();
         }
 
         v3 = v16;
+        outlined release of Data(&v23);
+        break;
+      case 2:
+        v13 = *(v23 + 16);
+        v14 = *(v23 + 24);
+
+        v15 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v13, v14, *(&v23 + 1) & 0x3FFFFFFFFFFFFFFFLL, &v19);
+        if (v1)
+        {
+
+          BUG();
+        }
+
+        v3 = v15;
 
         break;
       case 3:
-        memset(v22, 0, 14);
-        v9 = v24;
-        v10 = *(&v23 + 1);
-        if ((v24 | *(&v23 + 1)) < 0)
+        memset(v18, 0, 14);
+        v9 = *(&v19 + 1);
+        v10 = v20;
+        if ((v20 | *(&v19 + 1)) < 0)
         {
           BUG();
         }
 
 LABEL_11:
-        v3 = specialized _copyCollectionToContiguousArray<A>(_:)(v22 + v9, v10 >> 2);
+        v3 = specialized _copyCollectionToContiguousArray<A>(_:)(v18 + v10, v9 >> 2);
         break;
     }
   }
@@ -8763,7 +4429,7 @@ LABEL_11:
     v11 = lazy protocol witness table accessor for type BlobsFileError and conformance BlobsFileError();
     swift_allocError(&type metadata for BlobsFileError, v11, 0, 0);
     *v12 = 2;
-    swift_willThrow(&type metadata for BlobsFileError, v11);
+    swift_willThrow();
   }
 
   return v3;
@@ -8771,7 +4437,7 @@ LABEL_11:
 
 void *specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = __DataStorage._bytes.getter();
+  v5 = __DataStorage._bytes.getter(a1, a2, a3, a4);
   if (v5)
   {
     v6 = v5;
@@ -8885,21 +4551,20 @@ LABEL_11:
 
 uint64_t initializeWithCopy for BlobsFile(uint64_t a1, uint64_t a2)
 {
-  v3 = *a2;
-  v4 = *(a2 + 8);
-  outlined copy of Data._Representation(*a2, v4);
-  *a1 = v3;
-  *(a1 + 8) = v4;
-  v5 = *(a2 + 32);
-  v6 = *(a2 + 48);
-  v7 = *(a2 + 64);
+  v2 = *a2;
+  v3 = *(a2 + 8);
+  outlined copy of Data._Representation(*a2, v3);
+  *a1 = v2;
+  *(a1 + 8) = v3;
+  v4 = *(a2 + 32);
+  v5 = *(a2 + 48);
+  v6 = *(a2 + 64);
   *(a1 + 16) = *(a2 + 16);
-  *(a1 + 32) = v5;
-  *(a1 + 48) = v6;
-  *(a1 + 64) = v7;
-  v8 = *(a2 + 80);
-  *(a1 + 80) = v8;
-  v8;
+  *(a1 + 32) = v4;
+  *(a1 + 48) = v5;
+  *(a1 + 64) = v6;
+  *(a1 + 80) = *(a2 + 80);
+
   return a1;
 }
 
@@ -8925,7 +4590,7 @@ uint64_t assignWithCopy for BlobsFile(uint64_t a1, uint64_t a2)
   v8 = *(a2 + 80);
   v9 = *(a1 + 80);
   *(a1 + 80) = v8;
-  v8;
+
   v9;
   return a1;
 }
@@ -9064,7 +4729,7 @@ uint64_t destroy for MLStyleTransfer.PersistentParameters(uint64_t a1, uint64_t 
   result = __swift_getEnumTagSinglePayload(v5, 1, v2);
   if (!result)
   {
-    return v3(v5, v2);
+    return (v3)(v5, v2);
   }
 
   return result;
@@ -9320,241 +4985,241 @@ uint64_t type metadata completion function for MLStyleTransfer.PersistentParamet
 
 NSURL *MLStyleTransfer.PersistentParameters.save(toSessionDirectory:)(uint64_t a1)
 {
-  v102 = v1;
-  v112 = a1;
+  v98 = v1;
+  v108 = a1;
   v3 = *(*(type metadata accessor for MLStyleTransfer.ModelParameters.ValidationData(0) - 8) + 64);
   v4 = alloca(v3);
   v5 = alloca(v3);
-  v110 = &v99;
-  v116 = type metadata accessor for URL(0);
-  v115 = *(v116 - 8);
-  v6 = *(v115 + 64);
+  v106 = &v95;
+  v112 = type metadata accessor for URL(0);
+  v111 = *(v112 - 8);
+  v6 = *(v111 + 64);
   v7 = alloca(v6);
   v8 = alloca(v6);
-  v103 = &v99;
+  v99 = &v95;
   v9 = alloca(v6);
   v10 = alloca(v6);
-  v107 = &v99;
+  v103 = &v95;
   v11 = alloca(v6);
   v12 = alloca(v6);
-  v109 = &v99;
+  v105 = &v95;
   v13 = alloca(v6);
   v14 = alloca(v6);
-  v114 = &v99;
+  v110 = &v95;
   v15 = alloca(v6);
   v16 = alloca(v6);
   v17 = *(*(type metadata accessor for MLStyleTransfer.DataSource(0) - 8) + 64);
   v18 = alloca(v17);
   v19 = alloca(v17);
-  v99 = &type metadata for Any + 8;
-  v111 = Dictionary.init(dictionaryLiteral:)(_swiftEmptyArrayStorage, &type metadata for String, &type metadata for Any + 8, &protocol witness table for String);
-  v113 = v2;
-  outlined init with copy of MLTrainingSessionParameters(v2, &v99, type metadata accessor for MLStyleTransfer.DataSource);
+  v95 = &type metadata for Any + 8;
+  v107 = Dictionary.init(dictionaryLiteral:)(_swiftEmptyArrayStorage, &type metadata for String, &type metadata for Any + 8, &protocol witness table for String);
+  v109 = v2;
+  outlined init with copy of MLTrainingSessionParameters(v2, &v95, type metadata accessor for MLStyleTransfer.DataSource);
   v20 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (styleImage: URL, contentDirectory: URL, processingOption: VNImageCropAndScaleOption?));
-  v21 = (&v99 + *(v20 + 48));
+  v21 = (&v95 + *(v20 + 48));
   v22 = *(v20 + 64);
-  v105 = *(&v99 + v22);
-  v117 = *(&v99 + v22 + 8);
-  v23 = *(v115 + 32);
-  v24 = v116;
-  v23(&v99, &v99, v116);
-  v25 = v114;
-  v104 = v23;
-  v23(v114, v21, v24);
-  v108 = &v99;
+  v101 = *(&v95 + v22);
+  v113 = *(&v95 + v22 + 8);
+  v23 = *(v111 + 32);
+  v24 = v112;
+  v23(&v95, &v95, v112);
+  v25 = v110;
+  v100 = v23;
+  v23(v110, v21, v24);
+  v104 = &v95;
   *&v26 = URL.path.getter(v25);
-  v27 = *(&v26 + 1);
-  v121 = v26;
-  *&v28 = URL.path.getter(v25);
-  v29 = *(&v28 + 1);
-  v120[0] = v28;
-  v118 = 0;
-  v119 = 0xE000000000000000;
-  v106 = lazy protocol witness table accessor for type String and conformance String();
-  v30 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v120, &v118, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v106, v106, v106);
-  v32 = v31;
-  v27;
-  v29;
-  v33 = v109;
-  URL.init(fileURLWithPath:)(v30, v32);
-  v32;
-  v34 = URL.path.getter(v32);
-  v36 = v35;
-  v115 = *(v115 + 8);
-  (v115)(v33, v116);
-  v122 = &type metadata for String;
-  *&v121 = v34;
-  *(&v121 + 1) = v36;
-  outlined init with take of Any(&v121, v120);
-  v37 = v111;
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v111);
-  v118 = v37;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x6D695F656C797473, 0xEB00000000656761, isUniquelyReferenced_nonNull_native);
-  v100 = v118;
-  v111 = "sing the style image URL." + 0x8000000000000000;
-  *&v39 = URL.path.getter(v120);
-  v101 = *(&v39 + 1);
-  v121 = v39;
-  *&v40 = URL.path.getter(v120);
-  v41 = *(&v40 + 1);
-  v120[0] = v40;
-  v118 = 0;
-  v119 = 0xE000000000000000;
-  v42 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v120, &v118, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v106, v106, v106);
-  v44 = v43;
-  v45 = v115;
-  v101;
+  LOBYTE(v23) = BYTE8(v26);
+  v117 = v26;
+  *&v27 = URL.path.getter(v25);
+  LOBYTE(v24) = BYTE8(v27);
+  v116[0] = v27;
+  v114 = 0;
+  v115 = 0xE000000000000000;
+  v102 = lazy protocol witness table accessor for type String and conformance String();
+  v28 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v116, &v114, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v102, v102, v102);
+  v30 = v29;
+  v23;
+  v24;
+  v31 = v105;
+  URL.init(fileURLWithPath:)(v28, v30);
+  v30;
+  v32 = URL.path.getter(v30);
+  v34 = v33;
+  v111 = *(v111 + 8);
+  (v111)(v31, v112);
+  v118 = &type metadata for String;
+  *&v117 = v32;
+  *(&v117 + 1) = v34;
+  outlined init with take of Any(&v117, v116);
+  v35 = v107;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v107);
+  v114 = v35;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x6D695F656C797473, 0xEB00000000656761, isUniquelyReferenced_nonNull_native);
+  v96 = v114;
+  v107 = "sing the style image URL." + 0x8000000000000000;
+  *&v37 = URL.path.getter(v116);
+  v97 = *(&v37 + 1);
+  v117 = v37;
+  *&v38 = URL.path.getter(v116);
+  LOBYTE(v35) = BYTE8(v38);
+  v116[0] = v38;
+  v114 = 0;
+  v115 = 0xE000000000000000;
+  v39 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v116, &v114, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v102, v102, v102);
+  v41 = v40;
+  v42 = v111;
+  v97;
+  v35;
+  v43 = v105;
+  URL.init(fileURLWithPath:)(v39, v41);
   v41;
-  v46 = v109;
-  URL.init(fileURLWithPath:)(v42, v44);
-  v44;
-  v47 = URL.path.getter(v44);
-  v49 = v48;
-  v45(v46, v116);
-  v122 = &type metadata for String;
-  *&v121 = v47;
-  *(&v121 + 1) = v49;
-  outlined init with take of Any(&v121, v120);
-  v50 = v100;
-  v51 = swift_isUniquelyReferenced_nonNull_native(v100);
-  v118 = v50;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0xD000000000000011, v111, v51);
-  v52 = v118;
-  if (v117 != 1)
+  v44 = URL.path.getter(v41);
+  v46 = v45;
+  v42(v43, v112);
+  v118 = &type metadata for String;
+  *&v117 = v44;
+  *(&v117 + 1) = v46;
+  outlined init with take of Any(&v117, v116);
+  v47 = v96;
+  v48 = swift_isUniquelyReferenced_nonNull_native(v96);
+  v114 = v47;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0xD000000000000011, v107, v48);
+  v49 = v114;
+  if (v113 != 1)
   {
-    v122 = &type metadata for UInt;
-    *&v121 = v105;
-    outlined init with take of Any(&v121, v120);
-    v53 = swift_isUniquelyReferenced_nonNull_native(v52);
-    v118 = v52;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0xD000000000000011, ("sing the content directory URL." + 0x8000000000000000), v53);
-    v52 = v118;
+    v118 = &type metadata for UInt;
+    *&v117 = v101;
+    outlined init with take of Any(&v117, v116);
+    v50 = swift_isUniquelyReferenced_nonNull_native(v49);
+    v114 = v49;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0xD000000000000011, ("sing the content directory URL." + 0x8000000000000000), v50);
+    v49 = v114;
   }
 
-  v54 = v116;
-  v45(v114, v116);
-  v45(v108, v54);
-  v55 = type metadata accessor for MLStyleTransfer.PersistentParameters(0);
-  v56 = *(v55 + 20);
-  v114 = v55;
-  v57 = *(v113 + v56);
-  v58 = 7237219;
-  if (v57)
+  v51 = v112;
+  v42(v110, v112);
+  v42(v104, v51);
+  v52 = type metadata accessor for MLStyleTransfer.PersistentParameters(0);
+  v53 = *(v52 + 20);
+  v110 = v52;
+  v54 = *(v109 + v53);
+  v55 = 7237219;
+  if (v54)
   {
-    v58 = 0x6574694C6E6E63;
+    v55 = 0x6574694C6E6E63;
   }
 
-  v122 = &type metadata for String;
-  *&v121 = v58;
-  *(&v121 + 1) = (v57 << 58) | 0xE300000000000000;
-  outlined init with take of Any(&v121, v120);
-  v59 = swift_isUniquelyReferenced_nonNull_native(v52);
-  v118 = v52;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x687469726F676C61, 0xE90000000000006DLL, v59);
-  v60 = v118;
-  v61 = *(v113 + *(v55 + 28));
-  v122 = &type metadata for Int;
-  *&v121 = v61;
-  outlined init with take of Any(&v121, v120);
-  v62 = swift_isUniquelyReferenced_nonNull_native(v60);
-  v118 = v60;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x645F6C6574786574, 0xEE00797469736E65, v62);
-  v63 = v118;
-  v64 = v114;
-  v65 = v113;
-  v66 = *(v113 + *(v114 + 8));
-  v122 = &type metadata for Int;
-  *&v121 = v66;
-  outlined init with take of Any(&v121, v120);
-  v67 = swift_isUniquelyReferenced_nonNull_native(v63);
-  v118 = v63;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x74735F656C797473, 0xEE006874676E6572, v67);
-  v68 = v118;
-  v69 = *(v65 + *(v64 + 9));
-  v70 = 1869903201;
-  if (*(v65 + *(v64 + 9)))
+  v118 = &type metadata for String;
+  *&v117 = v55;
+  *(&v117 + 1) = (v54 << 58) | 0xE300000000000000;
+  outlined init with take of Any(&v117, v116);
+  v56 = swift_isUniquelyReferenced_nonNull_native(v49);
+  v114 = v49;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x687469726F676C61, 0xE90000000000006DLL, v56);
+  v57 = v114;
+  v58 = *(v109 + *(v52 + 28));
+  v118 = &type metadata for Int;
+  *&v117 = v58;
+  outlined init with take of Any(&v117, v116);
+  v59 = swift_isUniquelyReferenced_nonNull_native(v57);
+  v114 = v57;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x645F6C6574786574, 0xEE00797469736E65, v59);
+  v60 = v114;
+  v61 = v110;
+  v62 = v109;
+  v63 = *(v109 + *(v110 + 8));
+  v118 = &type metadata for Int;
+  *&v117 = v63;
+  outlined init with take of Any(&v117, v116);
+  v64 = swift_isUniquelyReferenced_nonNull_native(v60);
+  v114 = v60;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x74735F656C797473, 0xEE006874676E6572, v64);
+  v65 = v114;
+  v66 = *(v62 + *(v61 + 9));
+  v67 = 1869903201;
+  if (*(v62 + *(v61 + 9)))
   {
-    v70 = 7696483;
+    v67 = 7696483;
   }
 
-  v122 = &type metadata for String;
-  *&v121 = v70;
-  *(&v121 + 1) = ((v69 ^ 1u) << 56) - 0x1D00000000000000;
-  outlined init with take of Any(&v121, v120);
-  v71 = swift_isUniquelyReferenced_nonNull_native(v68);
-  v118 = v68;
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x656369766564, 0xE600000000000000, v71);
-  v72 = v118;
-  v73 = v110;
-  outlined init with copy of MLTrainingSessionParameters(v113 + *(v64 + 6), v110, type metadata accessor for MLStyleTransfer.ModelParameters.ValidationData);
-  v74 = v116;
-  if (__swift_getEnumTagSinglePayload(v73, 1, v116) == 1)
+  v118 = &type metadata for String;
+  *&v117 = v67;
+  *(&v117 + 1) = ((v66 ^ 1u) << 56) - 0x1D00000000000000;
+  outlined init with take of Any(&v117, v116);
+  v68 = swift_isUniquelyReferenced_nonNull_native(v65);
+  v114 = v65;
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x656369766564, 0xE600000000000000, v68);
+  v69 = v114;
+  v70 = v106;
+  outlined init with copy of MLTrainingSessionParameters(v109 + *(v61 + 6), v106, type metadata accessor for MLStyleTransfer.ModelParameters.ValidationData);
+  v71 = v112;
+  if (__swift_getEnumTagSinglePayload(v70, 1, v112) == 1)
   {
-    outlined destroy of MLStyleTransfer.ModelParameters.ValidationData(v73);
+    outlined destroy of MLStyleTransfer.ModelParameters.ValidationData(v70);
   }
 
   else
   {
-    v75 = v107;
-    v104(v107, v73, v74);
-    v113 = v72;
-    *&v76 = URL.path.getter(v75);
-    v114 = *(&v76 + 1);
-    v121 = v76;
-    *&v77 = URL.path.getter(v75);
-    v110 = *(&v77 + 1);
-    v120[0] = v77;
-    v118 = 0;
-    v119 = 0xE000000000000000;
-    v78 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v120, &v118, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v106, v106, v106);
-    v79 = v74;
-    v81 = v80;
-    v114;
+    v72 = v103;
+    v100(v103, v70, v71);
+    v109 = v69;
+    *&v73 = URL.path.getter(v72);
+    v110 = *(&v73 + 1);
+    v117 = v73;
+    *&v74 = URL.path.getter(v72);
+    v106 = *(&v74 + 1);
+    v116[0] = v74;
+    v114 = 0;
+    v115 = 0xE000000000000000;
+    v75 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)(v116, &v114, 0, 0, 0, 1, &type metadata for String, &type metadata for String, &type metadata for String, v102, v102, v102);
+    v76 = v71;
+    v78 = v77;
     v110;
+    v106;
+    v69 = v105;
+    URL.init(fileURLWithPath:)(v75, v78);
+    v78;
+    v79 = URL.path.getter(v78);
+    v81 = v80;
+    (v111)(v69, v76);
+    v118 = &type metadata for String;
+    *&v117 = v79;
+    *(&v117 + 1) = v81;
+    outlined init with take of Any(&v117, v116);
     v82 = v109;
-    URL.init(fileURLWithPath:)(v78, v81);
-    v81;
-    v83 = URL.path.getter(v81);
-    v85 = v84;
-    (v115)(v82, v79);
-    v122 = &type metadata for String;
-    *&v121 = v83;
-    *(&v121 + 1) = v85;
-    outlined init with take of Any(&v121, v120);
-    v86 = v113;
-    v87 = swift_isUniquelyReferenced_nonNull_native(v113);
-    v118 = v86;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v120, 0x69746164696C6176, 0xEA00000000006E6FLL, v87);
-    v72 = v118;
-    (v115)(v107, v116);
+    v83 = swift_isUniquelyReferenced_nonNull_native(v109);
+    v114 = v82;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v116, 0x69746164696C6176, 0xEA00000000006E6FLL, v83);
+    LOBYTE(v69) = v114;
+    (v111)(v103, v112);
   }
 
-  v88 = objc_opt_self(NSPropertyListSerialization);
+  v84 = objc_opt_self(NSPropertyListSerialization);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
-  v72;
-  *&v121 = 0;
-  v90 = [v88 dataWithPropertyList:isa format:200 options:0 error:&v121];
-  v91 = v90;
+  v69;
+  *&v117 = 0;
+  v86 = [v84 dataWithPropertyList:isa format:200 options:0 error:&v117];
+  v87 = v86;
 
-  v92 = v121;
-  if (v91)
+  v88 = v117;
+  if (v87)
   {
-    v93 = static Data._unconditionallyBridgeFromObjectiveC(_:)(v91);
-    v95 = v94;
+    v89 = static Data._unconditionallyBridgeFromObjectiveC(_:)(v87);
+    v91 = v90;
 
-    v96 = v103;
-    URL.appendingPathComponent(_:)(0xD000000000000010, "ObjectDetectorMetrics." + 0x8000000000000000);
-    Data.write(to:options:)(v96, 0, v93, v95);
-    (v115)(v96, v116);
-    outlined consume of Data._Representation(v93, v95);
+    v92 = v99;
+    URL.appendingPathComponent(_:)(0xD000000000000010, ("ObjectDetectorMetrics." + 0x8000000000000000));
+    Data.write(to:options:)(v92, 0, v89, v91);
+    (v111)(v92, v112);
+    outlined consume of Data._Representation(v89, v91);
   }
 
   else
   {
-    v97 = v92;
-    _convertNSErrorToError(_:)(v92);
+    v93 = v88;
+    _convertNSErrorToError(_:)(v88);
 
-    swift_willThrow(v97, "dataWithPropertyList:format:options:error:");
+    swift_willThrow();
   }
 
   return __stack_chk_guard;
@@ -9562,64 +5227,64 @@ NSURL *MLStyleTransfer.PersistentParameters.save(toSessionDirectory:)(uint64_t a
 
 NSURL *MLStyleTransfer.PersistentParameters.init(sessionDirectory:)(uint64_t a1)
 {
-  v108 = v2;
-  v109 = v1;
+  v109 = v2;
+  v110 = v1;
   v3 = type metadata accessor for URL(0);
   v4 = *(v3 - 8);
   v5 = *(v4 + 64);
   v6 = alloca(v5);
   v7 = alloca(v5);
-  v106 = &v101;
+  v107 = &v102;
   v8 = alloca(v5);
   v9 = alloca(v5);
-  v105 = &v101;
+  v106 = &v102;
   v10 = alloca(v5);
   v11 = alloca(v5);
-  v110 = &v101;
+  v111 = &v102;
   v12 = alloca(v5);
   v13 = alloca(v5);
-  v104 = &v101;
+  v105 = &v102;
   v14 = alloca(v5);
   v15 = alloca(v5);
-  URL.appendingPathComponent(_:)(0xD000000000000010, "ObjectDetectorMetrics." + 0x8000000000000000);
-  v16 = v108;
-  v17 = Data.init(contentsOf:options:)(&v101, 0);
-  v108 = v16;
+  URL.appendingPathComponent(_:)(0xD000000000000010, ("ObjectDetectorMetrics." + 0x8000000000000000));
+  v16 = v109;
+  v17 = Data.init(contentsOf:options:)(&v102, 0);
+  v109 = v16;
   if (!v16)
   {
-    v115 = a1;
-    v107 = v4;
+    v116 = a1;
+    v108 = v4;
     v20 = *(v4 + 8);
     v21 = v18;
     v22 = v17;
-    v116 = v20;
-    v20(&v101, v3);
+    v117 = v20;
+    v20(&v102, v3);
     v23 = objc_opt_self(NSPropertyListSerialization);
-    v114 = v22;
-    v113 = v21;
+    v115 = v22;
+    v114 = v21;
     isa = Data._bridgeToObjectiveC()().super.isa;
-    v121[0] = 0;
-    v25 = [v23 propertyListWithData:isa options:0 format:0 error:v121];
+    v122[0] = 0;
+    v25 = [v23 propertyListWithData:isa options:0 format:0 error:v122];
     v26 = v25;
 
-    v27 = v121[0];
+    v27 = v122[0];
     if (!v26)
     {
       v33 = v27;
       _convertNSErrorToError(_:)(v27);
 
-      swift_willThrow(v33, "propertyListWithData:options:format:error:");
-      outlined consume of Data._Representation(v114, v113);
-      v116(v115, v3);
+      swift_willThrow();
+      outlined consume of Data._Representation(v115, v114);
+      v117(v116, v3);
       return __stack_chk_guard;
     }
 
-    v117 = v3;
+    v118 = v3;
     _bridgeAnyObjectToAny(_:)(v26);
     swift_unknownObjectRelease(v26);
-    outlined init with copy of Any(v123, v121);
+    outlined init with copy of Any(v124, v122);
     v28 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for [String : Any]);
-    if (!swift_dynamicCast(&string, v121, &type metadata for Any + 8, v28, 6))
+    if (!swift_dynamicCast(&string, v122, &type metadata for Any + 8, v28, 6))
     {
       v34 = "parameters.plist" + 0x8000000000000000;
       v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
@@ -9630,11 +5295,11 @@ NSURL *MLStyleTransfer.PersistentParameters.init(sessionDirectory:)(uint64_t a1)
 
     countAndFlagsBits = string._countAndFlagsBits;
     specialized Dictionary.subscript.getter(0x687469726F676C61, 0xE90000000000006DLL, string._countAndFlagsBits);
-    if (v122)
+    if (v123)
     {
-      if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for String, 6))
+      if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for String, 6))
       {
-        v118 = countAndFlagsBits;
+        v119 = countAndFlagsBits;
         object = string._object;
         v31 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of MLStyleTransfer.PersistentParameters.init(sessionDirectory:), string);
         object;
@@ -9642,10 +5307,10 @@ NSURL *MLStyleTransfer.PersistentParameters.init(sessionDirectory:)(uint64_t a1)
         {
           if (v31 != 1)
           {
-            v118;
+            v119;
             v34 = "ontain an algorithm." + 0x8000000000000000;
-            v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-            swift_allocError(&type metadata for MLCreateError, v35, 0, 0);
+            v43 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+            swift_allocError(&type metadata for MLCreateError, v43, 0, 0);
             v37 = 0xD000000000000049;
             goto LABEL_15;
           }
@@ -9658,278 +5323,278 @@ NSURL *MLStyleTransfer.PersistentParameters.init(sessionDirectory:)(uint64_t a1)
           v32 = 0;
         }
 
-        v39 = type metadata accessor for MLStyleTransfer.PersistentParameters(0);
-        v40 = v109;
-        *(v109 + v39[5]) = v32;
-        specialized Dictionary.subscript.getter(0x645F6C6574786574, 0xEE00797469736E65, v118);
-        if (v122)
+        v40 = type metadata accessor for MLStyleTransfer.PersistentParameters(0);
+        v41 = v110;
+        *(v110 + v40[5]) = v32;
+        specialized Dictionary.subscript.getter(0x645F6C6574786574, 0xEE00797469736E65, v119);
+        if (v123)
         {
-          if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for Int, 6))
+          if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for Int, 6))
           {
-            v41 = string._countAndFlagsBits;
+            v42 = string._countAndFlagsBits;
             goto LABEL_25;
           }
         }
 
         else
         {
-          outlined destroy of Any?(v121);
+          outlined destroy of Any?(v122);
         }
 
-        v41 = 256;
+        v42 = 256;
 LABEL_25:
-        *(v40 + v39[7]) = v41;
-        specialized Dictionary.subscript.getter(0x74735F656C797473, 0xEE006874676E6572, v118);
-        v42 = 5;
-        if (v122)
+        *(v41 + v40[7]) = v42;
+        specialized Dictionary.subscript.getter(0x74735F656C797473, 0xEE006874676E6572, v119);
+        v44 = 5;
+        if (v123)
         {
-          if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for Int, 6))
+          if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for Int, 6))
           {
-            v42 = string._countAndFlagsBits;
+            v44 = string._countAndFlagsBits;
           }
         }
 
         else
         {
-          outlined destroy of Any?(v121);
+          outlined destroy of Any?(v122);
         }
 
-        *(v40 + v39[8]) = v42;
-        specialized Dictionary.subscript.getter(0x656369766564, 0xE600000000000000, v118);
-        if (v122)
+        *(v41 + v40[8]) = v44;
+        specialized Dictionary.subscript.getter(0x656369766564, 0xE600000000000000, v119);
+        if (v123)
         {
-          if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for String, 6))
+          if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for String, 6))
           {
-            v43.value = _MLDevice.init(rawValue:)(string).value;
-            if (v43.value != CreateML__MLDevice_unknownDefault)
+            v45.value = _MLDevice.init(rawValue:)(string).value;
+            if (v45.value != CreateML__MLDevice_unknownDefault)
             {
-              *(v40 + v39[9]) = v43.value & 1;
+              *(v41 + v40[9]) = v45.value & 1;
 LABEL_35:
-              v44 = v118;
-              specialized Dictionary.subscript.getter(0x6D695F656C797473, 0xEB00000000656761, v118);
-              if (v122)
+              v46 = v119;
+              specialized Dictionary.subscript.getter(0x6D695F656C797473, 0xEB00000000656761, v119);
+              if (v123)
               {
-                if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for String, 6))
+                if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for String, 6))
                 {
-                  v102 = v39;
-                  v45 = string._countAndFlagsBits;
-                  v46 = string._object;
-                  v103 = objc_opt_self(NSFileManager);
-                  v47 = [v103 defaultManager];
-                  v48 = v47;
-                  v112 = v45;
-                  v111 = v46;
-                  v49 = String._bridgeToObjectiveC()();
-                  v119 = [v48 fileExistsAtPath:v49];
+                  v103 = v40;
+                  v47 = string._countAndFlagsBits;
+                  v48 = string._object;
+                  v104 = objc_opt_self(NSFileManager);
+                  v49 = [v104 defaultManager];
+                  v50 = v49;
+                  v113 = v47;
+                  v112 = v48;
+                  v51 = String._bridgeToObjectiveC()();
+                  v120 = [v50 fileExistsAtPath:v51];
 
-                  if (v119)
+                  if (v120)
                   {
-                    v50 = v104;
-                    v51 = v111;
-                    URL.init(fileURLWithPath:)(v112, v111);
-                    v51;
+                    v52 = v105;
+                    v53 = v112;
+                    URL.init(fileURLWithPath:)(v113, v112);
+                    v53;
                   }
 
                   else
                   {
-                    v52 = v111;
-                    URL.init(fileURLWithPath:)(v112, v111);
-                    v52;
-                    v53 = URL.path.getter(v52);
-                    v55 = v54;
-                    v56 = v104;
-                    URL.appendingPathComponent(_:)(v53, v54);
-                    v50 = v56;
+                    v55 = v112;
+                    URL.init(fileURLWithPath:)(v113, v112);
                     v55;
-                    v116(v110, v117);
+                    v56 = URL.path.getter(v55);
+                    LOBYTE(v55) = v57;
+                    v58 = v105;
+                    URL.appendingPathComponent(_:)(v56, v57);
+                    v52 = v58;
+                    v55;
+                    v117(v111, v118);
                   }
 
-                  v57 = v118;
-                  specialized Dictionary.subscript.getter(0xD000000000000011, ("sing the style image URL." + 0x8000000000000000), v118);
-                  if (v122)
+                  v59 = v119;
+                  specialized Dictionary.subscript.getter(0xD000000000000011, ("sing the style image URL." + 0x8000000000000000), v119);
+                  if (v123)
                   {
-                    if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for String, 6))
+                    if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for String, 6))
                     {
-                      v58 = string._countAndFlagsBits;
-                      v59 = string._object;
-                      v60 = [v103 defaultManager];
-                      v61 = v60;
-                      v112 = v58;
-                      v111 = v59;
-                      v62 = String._bridgeToObjectiveC()();
-                      LOBYTE(v58) = [v61 fileExistsAtPath:v62];
+                      v60 = string._countAndFlagsBits;
+                      v61 = string._object;
+                      v62 = [v104 defaultManager];
+                      v63 = v62;
+                      v113 = v60;
+                      v112 = v61;
+                      v64 = String._bridgeToObjectiveC()();
+                      LOBYTE(v60) = [v63 fileExistsAtPath:v64];
 
-                      if (v58)
+                      if (v60)
                       {
-                        v63 = v111;
-                        URL.init(fileURLWithPath:)(v112, v111);
-                        v63;
+                        v65 = v112;
+                        URL.init(fileURLWithPath:)(v113, v112);
+                        v65;
                       }
 
                       else
                       {
-                        v68 = v110;
-                        v69 = v111;
-                        URL.init(fileURLWithPath:)(v112, v111);
-                        v69;
-                        v70 = URL.path.getter(v69);
-                        v72 = v71;
-                        URL.appendingPathComponent(_:)(v70, v71);
-                        v72;
-                        v116(v68, v117);
+                        v70 = v111;
+                        v71 = v112;
+                        URL.init(fileURLWithPath:)(v113, v112);
+                        v71;
+                        v72 = URL.path.getter(v71);
+                        LOBYTE(v71) = v73;
+                        URL.appendingPathComponent(_:)(v72, v73);
+                        v71;
+                        v117(v70, v118);
                       }
 
-                      specialized Dictionary.subscript.getter(0xD000000000000011, ("sing the content directory URL." + 0x8000000000000000), v118);
-                      v73 = v102;
-                      if (v122)
+                      specialized Dictionary.subscript.getter(0xD000000000000011, ("sing the content directory URL." + 0x8000000000000000), v119);
+                      v74 = v103;
+                      if (v123)
                       {
-                        LODWORD(v74) = swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for Int, 6);
-                        if (v74)
+                        LODWORD(v75) = swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for Int, 6);
+                        if (v75)
                         {
                           if (string._countAndFlagsBits < 0)
                           {
                             BUG();
                           }
 
-                          v111 = string._countAndFlagsBits;
-                          LODWORD(v112) = 0;
+                          v112 = string._countAndFlagsBits;
+                          LODWORD(v113) = 0;
 LABEL_57:
-                          v75 = v118;
-                          specialized Dictionary.subscript.getter(0x69746164696C6176, 0xEA00000000006E6FLL, v118);
-                          v75;
-                          if (v122)
+                          v76 = v119;
+                          specialized Dictionary.subscript.getter(0x69746164696C6176, 0xEA00000000006E6FLL, v119);
+                          v76;
+                          if (v123)
                           {
-                            if (swift_dynamicCast(&string, v121, &type metadata for Any + 8, &type metadata for String, 6))
+                            if (swift_dynamicCast(&string, v122, &type metadata for Any + 8, &type metadata for String, 6))
                             {
-                              v76 = string._countAndFlagsBits;
-                              v77 = string._object;
-                              v78 = [v103 defaultManager];
-                              v79 = v78;
-                              v118 = v76;
-                              v80 = String._bridgeToObjectiveC()();
-                              LOBYTE(v76) = [v79 fileExistsAtPath:v80];
+                              v77 = string._countAndFlagsBits;
+                              v78 = string._object;
+                              v79 = [v104 defaultManager];
+                              v80 = v79;
+                              v119 = v77;
+                              v81 = String._bridgeToObjectiveC()();
+                              LOBYTE(v77) = [v80 fileExistsAtPath:v81];
 
-                              if (v76)
+                              if (v77)
                               {
-                                URL.init(fileURLWithPath:)(v118, v77);
-                                outlined consume of Data._Representation(v114, v113);
-                                v77;
-                                v81 = v117;
-                                (v116)(v115);
+                                URL.init(fileURLWithPath:)(v119, v78);
+                                outlined consume of Data._Representation(v115, v114);
+                                v78;
+                                v82 = v118;
+                                (v117)(v116);
                               }
 
                               else
                               {
-                                v84 = v110;
-                                URL.init(fileURLWithPath:)(v118, v77);
-                                v77;
-                                v85 = URL.path.getter(v77);
-                                v87 = v86;
-                                v88 = v115;
-                                URL.appendingPathComponent(_:)(v85, v86);
-                                v87;
-                                outlined consume of Data._Representation(v114, v113);
-                                v89 = v88;
-                                v90 = v117;
-                                v91 = v116;
-                                v116(v89, v117);
-                                v92 = v84;
-                                v81 = v90;
-                                v91(v92, v90);
+                                v85 = v111;
+                                URL.init(fileURLWithPath:)(v119, v78);
+                                v78;
+                                v86 = URL.path.getter(v78);
+                                v88 = v87;
+                                v89 = v116;
+                                URL.appendingPathComponent(_:)(v86, v87);
+                                v88;
+                                outlined consume of Data._Representation(v115, v114);
+                                v90 = v89;
+                                v91 = v118;
+                                v92 = v117;
+                                v117(v90, v118);
+                                v93 = v85;
+                                v82 = v91;
+                                v92(v93, v91);
                               }
 
-                              v83 = v109;
-                              v93 = v107;
-                              __swift_destroy_boxed_opaque_existential_1Tm(v123);
-                              v94 = v83 + v102[6];
-                              v110 = *(v93 + 32);
-                              (v110)(v94, v106, v81);
-                              __swift_storeEnumTagSinglePayload(v94, 0, 1, v81);
+                              v84 = v110;
+                              v94 = v108;
+                              __swift_destroy_boxed_opaque_existential_1Tm(v124);
+                              v95 = v84 + v103[6];
+                              v111 = *(v94 + 32);
+                              (v111)(v95, v107, v82);
+                              __swift_storeEnumTagSinglePayload(v95, 0, 1, v82);
                               goto LABEL_66;
                             }
 
-                            outlined consume of Data._Representation(v114, v113);
+                            outlined consume of Data._Representation(v115, v114);
                           }
 
                           else
                           {
-                            outlined consume of Data._Representation(v114, v113);
-                            outlined destroy of Any?(v121);
+                            outlined consume of Data._Representation(v115, v114);
+                            outlined destroy of Any?(v122);
                           }
 
-                          v82 = v117;
-                          v116(v115, v117);
-                          __swift_destroy_boxed_opaque_existential_1Tm(v123);
-                          v83 = v109;
-                          __swift_storeEnumTagSinglePayload(v109 + v73[6], 1, 1, v82);
-                          v110 = *(v107 + 32);
-                          v81 = v82;
+                          v83 = v118;
+                          v117(v116, v118);
+                          __swift_destroy_boxed_opaque_existential_1Tm(v124);
+                          v84 = v110;
+                          __swift_storeEnumTagSinglePayload(v110 + v74[6], 1, 1, v83);
+                          v111 = *(v108 + 32);
+                          v82 = v83;
 LABEL_66:
-                          v95 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (styleImage: URL, contentDirectory: URL, processingOption: VNImageCropAndScaleOption?));
-                          v96 = v83 + *(v95 + 48);
-                          v109 = *(v95 + 64);
-                          v97 = v83;
-                          v98 = v83;
-                          v99 = v110;
-                          (v110)(v97, v104, v81);
-                          (v99)(v96, v105, v81);
-                          v100 = v109;
-                          *(v98 + v109) = v111;
-                          *(v98 + v100 + 8) = v112;
+                          v96 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (styleImage: URL, contentDirectory: URL, processingOption: VNImageCropAndScaleOption?));
+                          v97 = v84 + *(v96 + 48);
+                          v110 = *(v96 + 64);
+                          v98 = v84;
+                          v99 = v84;
+                          v100 = v111;
+                          (v111)(v98, v105, v82);
+                          (v100)(v97, v106, v82);
+                          v101 = v110;
+                          *(v99 + v110) = v112;
+                          *(v99 + v101 + 8) = v113;
                           return __stack_chk_guard;
                         }
                       }
 
                       else
                       {
-                        v74 = outlined destroy of Any?(v121);
+                        v75 = outlined destroy of Any?(v122);
                       }
 
-                      LOBYTE(v74) = 1;
-                      LODWORD(v112) = v74;
-                      v111 = 0;
+                      LOBYTE(v75) = 1;
+                      LODWORD(v113) = v75;
+                      v112 = 0;
                       goto LABEL_57;
                     }
 
-                    v57;
+                    v59;
                   }
 
                   else
                   {
-                    v57;
-                    outlined destroy of Any?(v121);
+                    v59;
+                    outlined destroy of Any?(v122);
                   }
 
-                  v64 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-                  swift_allocError(&type metadata for MLCreateError, v64, 0, 0);
-                  *v65 = 0xD00000000000003FLL;
-                  *(v65 + 8) = "content_directory" + 0x8000000000000000;
-                  *(v65 + 16) = 0;
-                  *(v65 + 32) = 0;
-                  *(v65 + 48) = 0;
-                  swift_willThrow(&type metadata for MLCreateError, v64);
-                  outlined consume of Data._Representation(v114, v113);
-                  v66 = v117;
-                  v67 = v116;
-                  v116(v115, v117);
-                  v67(v50, v66);
+                  v66 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+                  swift_allocError(&type metadata for MLCreateError, v66, 0, 0);
+                  *v67 = 0xD00000000000003FLL;
+                  *(v67 + 8) = "content_directory" + 0x8000000000000000;
+                  *(v67 + 16) = 0;
+                  *(v67 + 32) = 0;
+                  *(v67 + 48) = 0;
+                  swift_willThrow();
+                  outlined consume of Data._Representation(v115, v114);
+                  v68 = v118;
+                  v69 = v117;
+                  v117(v116, v118);
+                  v69(v52, v68);
 LABEL_16:
-                  __swift_destroy_boxed_opaque_existential_1Tm(v123);
+                  __swift_destroy_boxed_opaque_existential_1Tm(v124);
                   return __stack_chk_guard;
                 }
 
-                v44;
+                v46;
               }
 
               else
               {
-                v44;
-                outlined destroy of Any?(v121);
+                v46;
+                outlined destroy of Any?(v122);
               }
 
               v34 = "ontain a valid algorithm." + 0x8000000000000000;
-              v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-              swift_allocError(&type metadata for MLCreateError, v35, 0, 0);
+              v54 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+              swift_allocError(&type metadata for MLCreateError, v54, 0, 0);
               v37 = 0xD000000000000039;
 LABEL_15:
               *v36 = v37;
@@ -9937,9 +5602,9 @@ LABEL_15:
               *(v36 + 16) = 0;
               *(v36 + 32) = 0;
               *(v36 + 48) = 0;
-              swift_willThrow(&type metadata for MLCreateError, v35);
-              outlined consume of Data._Representation(v114, v113);
-              v116(v115, v117);
+              swift_willThrow();
+              outlined consume of Data._Representation(v115, v114);
+              v117(v116, v118);
               goto LABEL_16;
             }
           }
@@ -9947,10 +5612,10 @@ LABEL_15:
 
         else
         {
-          outlined destroy of Any?(v121);
+          outlined destroy of Any?(v122);
         }
 
-        *(v40 + v39[9]) = 0;
+        *(v41 + v40[9]) = 0;
         goto LABEL_35;
       }
 
@@ -9960,18 +5625,4356 @@ LABEL_15:
     else
     {
       countAndFlagsBits;
-      outlined destroy of Any?(v121);
+      outlined destroy of Any?(v122);
     }
 
     v34 = "ningSessionDelegate" + 0x8000000000000000;
-    v35 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
-    swift_allocError(&type metadata for MLCreateError, v35, 0, 0);
+    v38 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v38, 0, 0);
     v37 = 0xD000000000000044;
     goto LABEL_15;
   }
 
   v19 = *(v4 + 8);
   v19(a1, v3);
-  v19(&v101, v3);
+  v19(&v102, v3);
   return __stack_chk_guard;
+}
+
+uint64_t outlined destroy of MLStyleTransfer.ModelParameters.ValidationData(uint64_t a1)
+{
+  v1 = type metadata accessor for MLStyleTransfer.ModelParameters.ValidationData(0);
+  (*(*(v1 - 8) + 8))(a1, v1);
+  return a1;
+}
+
+double MLSoundClassifier.FeatureExtractionParameters.featureExtractionTimeWindowSize.getter()
+{
+  if (*(v0 + 16))
+  {
+    return 0.975;
+  }
+
+  else
+  {
+    return *(v0 + 8);
+  }
+}
+
+uint64_t (*MLSoundClassifier.FeatureExtractionParameters.featureExtractionTimeWindowSize.modify(uint64_t *a1))(uint64_t *a1)
+{
+  a1[1] = v1;
+  if (*(v1 + 16))
+  {
+    v2 = 0x3FEF333333333333;
+  }
+
+  else
+  {
+    v2 = *(v1 + 8);
+  }
+
+  *a1 = v2;
+  return MLSoundClassifier.FeatureExtractionParameters.featureExtractionTimeWindowSize.modify;
+}
+
+uint64_t MLSoundClassifier.FeatureExtractionParameters.featureExtractionTimeWindowSize.modify(uint64_t *a1)
+{
+  result = *a1;
+  v2 = a1[1];
+  *(v2 + 8) = *a1;
+  *(v2 + 16) = 0;
+  return result;
+}
+
+uint64_t MLSoundClassifier.FeatureExtractionParameters.featureExtractor.getter()
+{
+  v2 = *(v1 + 32);
+  *result = *(v1 + 24);
+  *(result + 8) = v2;
+  return result;
+}
+
+uint64_t MLSoundClassifier.FeatureExtractionParameters.featureExtractor.setter(uint64_t *a1)
+{
+  result = *a1;
+  v3 = *(a1 + 8);
+  *(v1 + 24) = *a1;
+  *(v1 + 32) = v3;
+  return result;
+}
+
+uint64_t MLSoundClassifier.FeatureExtractionParameters.init(overlapFactor:featureExtractor:)(uint64_t *a1, double a2)
+{
+  v3 = *a1;
+  *result = a2;
+  *(result + 8) = 0;
+  v4 = *(a1 + 8);
+  *(result + 16) = 1;
+  *(result + 24) = v3;
+  *(result + 32) = v4;
+  return result;
+}
+
+char MLSoundClassifier.FeatureExtractionParameters.init(overlapFactor:featureExtractor:featureExtractionTimeWindowSize:)(uint64_t *a1, uint64_t a2, char a3, double a4)
+{
+  v6 = a2;
+  v7 = v4;
+  v8 = *a1;
+  v9 = *(a1 + 8);
+  if ((a3 & 1) == 0)
+  {
+    if (*&a2 < 0.5)
+    {
+      v21 = a4;
+      v20 = v8;
+      v22 = v9;
+      v18 = 0;
+      v19 = 0xE000000000000000;
+      _StringGuts.grow(_:)(108);
+      v10._object = ". Clamping it to " + 0x8000000000000000;
+      v10._countAndFlagsBits = 0xD000000000000056;
+      String.append(_:)(v10);
+      Double.write<A>(to:)(&v18, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v10._object = "ximum supported value " + 0x8000000000000000;
+      v10._countAndFlagsBits = 0xD000000000000011;
+      String.append(_:)(v10);
+      Double.write<A>(to:)(&v18, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v10._countAndFlagsBits = 46;
+      v10._object = 0xE100000000000000;
+      String.append(_:)(v10);
+      v11 = v18;
+      v12 = v19;
+      v13 = static os_log_type_t.default.getter(46);
+      v10._countAndFlagsBits = v11;
+      v10._object = v12;
+      log(_:type:)(v10, v13);
+      v6 = 0x3FE0000000000000;
+LABEL_6:
+      v12;
+      v9 = v22;
+      v8 = v20;
+      a4 = v21;
+      goto LABEL_7;
+    }
+
+    if (*&a2 > 15.0)
+    {
+      v21 = a4;
+      v20 = v8;
+      v22 = v9;
+      v18 = 0;
+      v19 = 0xE000000000000000;
+      _StringGuts.grow(_:)(108);
+      v14._object = "r MLShapedArray<Double> values." + 0x8000000000000000;
+      v14._countAndFlagsBits = 0xD000000000000056;
+      String.append(_:)(v14);
+      Double.write<A>(to:)(&v18, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v14._object = "ximum supported value " + 0x8000000000000000;
+      v14._countAndFlagsBits = 0xD000000000000011;
+      String.append(_:)(v14);
+      Double.write<A>(to:)(&v18, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v14._countAndFlagsBits = 46;
+      v14._object = 0xE100000000000000;
+      String.append(_:)(v14);
+      v15 = v18;
+      v12 = v19;
+      v16 = static os_log_type_t.default.getter(46);
+      v14._countAndFlagsBits = v15;
+      v14._object = v12;
+      log(_:type:)(v14, v16);
+      v6 = 0x402E000000000000;
+      goto LABEL_6;
+    }
+  }
+
+LABEL_7:
+  *v7 = a4;
+  *(v7 + 8) = v6;
+  *(v7 + 16) = a3 & 1;
+  *(v7 + 24) = v8;
+  result = v9 & 1;
+  *(v7 + 32) = result;
+  return result;
+}
+
+id key path getter for MLWordEmbedding.model : MLWordEmbedding()
+{
+  v1 = v0;
+  result = MLWordEmbedding.model.getter();
+  *v1 = result;
+  return result;
+}
+
+void (*MLWordEmbedding.model.modify(void *a1))(uint64_t a1, char a2)
+{
+  a1[1] = v1;
+  v3 = *(v1 + 16);
+  a1[2] = v3;
+  *a1 = v3;
+  v3;
+  return MLWordTagger.model.modify;
+}
+
+id MLWordEmbedding.modelParameters.getter()
+{
+  v2 = *(v1 + 24);
+  *v0 = *(v1 + 24);
+  return v2;
+}
+
+NSURL *MLWordEmbedding.init(dictionary:parameters:)(void *a1, uint64_t a2)
+{
+  v92 = v3;
+  v93 = a1;
+  v76 = v2;
+  v94 = type metadata accessor for UUID(0);
+  v89 = *(v94 - 1);
+  v4 = *(v89 + 8);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v90 = &v75;
+  v84 = type metadata accessor for URL(0);
+  v86 = *(v84 - 8);
+  v7 = v86[8];
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  v75 = &v75;
+  v10 = alloca(v7);
+  v11 = alloca(v7);
+  v79 = &v75;
+  v12 = alloca(v7);
+  v13 = alloca(v7);
+  v91 = &v75;
+  v14 = alloca(v7);
+  v15 = alloca(v7);
+  v85 = &v75;
+  v16 = alloca(v7);
+  v17 = alloca(v7);
+  v88 = &v75;
+  v18 = alloca(v7);
+  v19 = alloca(v7);
+  v20 = alloca(v7);
+  v21 = alloca(v7);
+  v22 = *(a2 + 8);
+  v83 = *a2;
+  v95[0] = v83;
+  v95[1] = v22;
+  MLWordEmbedding.ModelParameters.validateRevision()();
+  if (v23)
+  {
+    v93;
+    v24 = v83;
+  }
+
+  else
+  {
+    v80 = v22;
+    v87 = &v75;
+    v92 = &v75;
+    v25 = objc_opt_self(NSFileManager);
+    v26 = v83;
+
+    v27 = [v25 defaultManager];
+    v28 = v27;
+    NSFileManager.createTemporaryModelDirectory()();
+    if (v29)
+    {
+
+      swift_bridgeObjectRelease_n(v93, 2);
+    }
+
+    else
+    {
+      v82 = 0;
+      NSFileManager.temporaryModelDirectory.getter();
+      v30 = v90;
+      UUID.init()();
+      v31 = UUID.uuidString.getter();
+      v81 = v32;
+      (*(v89 + 1))(v30, v94);
+      v95[0] = v31;
+      v95[1] = v81;
+      v33._countAndFlagsBits = 45;
+      v33._object = 0xE100000000000000;
+      String.append(_:)(v33);
+      v33._countAndFlagsBits = 0x65626D4564726F57;
+      v33._object = 0xED0000676E696464;
+      String.append(_:)(v33);
+      LOBYTE(v31) = v95[1];
+      v89 = v28;
+      URL.appendingPathComponent(_:)(v95[0], v95[1]);
+      v31;
+      v34 = v88;
+      URL.appendingPathExtension(_:)(7627108, 0xE300000000000000);
+      URL.appendingPathExtension(_:)(0x6C65646F6D6C6DLL, 0xE700000000000000);
+      type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for NLEmbedding, NLEmbedding_ptr);
+      v90 = v26;
+      v94 = v26;
+      v35 = v93;
+      v36 = v82;
+      static NLEmbedding.write(_:language:revision:to:)(v93, v83, v80, v34);
+      if (v36)
+      {
+        v37 = v35;
+        v35;
+
+        v38 = v94;
+        v39 = v86[1];
+        v40 = v84;
+        v39(v85, v84);
+        v39(v88, v40);
+        v39(v87, v40);
+        v39(v92, v40);
+        v37;
+      }
+
+      else
+      {
+
+        v41 = v86[2];
+        v42 = v91;
+        v41(v91, v88, v84);
+        v43 = @nonobjc NLEmbedding.__allocating_init(contentsOf:)(v42);
+        v81 = v41;
+        v44 = v43;
+        v45 = [v44 dimension];
+        v91 = v44;
+        v77 = [v44 vocabularySize];
+        v96[0] = v83;
+        v96[1] = v80;
+        memset(v95, 0, sizeof(v95));
+        v94 = v94;
+        static MLWordEmbedding.write(dictionary:parameters:to:metadata:)(v93, v96, v85, v95);
+        v82 = 0;
+        v78 = v45;
+
+        v46 = objc_opt_self(MLModel);
+        URL._bridgeToObjectiveC()(v46);
+        v48 = v47;
+        v95[0] = 0;
+        v49 = [(NSURL *)v46 compileModelAtURL:v47 error:v95];
+        v50 = v49;
+
+        v51 = v95[0];
+        if (v50)
+        {
+          v52 = v79;
+          static URL._unconditionallyBridgeFromObjectiveC(_:)(v50);
+          v51;
+
+          type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for MLModel, MLModel_ptr);
+          v53 = v75;
+          v54 = v52;
+          v55 = v84;
+          v81(v75, v54, v84);
+          v56 = v82;
+          v57 = @nonobjc MLModel.__allocating_init(contentsOf:)(v53);
+          if (!v56)
+          {
+            v69 = v57;
+            v94 = v94;
+            v70 = v55;
+            v90 = v69;
+            static MLWordEmbedding.reportAnalytics(vocabularySize:dimension:language:)(v77, v78, v83);
+
+            v71 = v86[1];
+            v71(v79, v55);
+            v72 = v85;
+            $defer #1 () in MLWordEmbedding.init(dictionary:parameters:)();
+
+            v71(v72, v70);
+            v71(v88, v70);
+            v71(v87, v70);
+            v71(v92, v70);
+            v73 = v76;
+            *v76 = v91;
+            LOBYTE(v71) = v93;
+            v73[1] = v93;
+            v74 = v90;
+            v73[2] = v90;
+            v73[3] = v83;
+            v73[4] = v80;
+            v73[5] = v78;
+            v73[6] = v77;
+
+            v71;
+            return __stack_chk_guard;
+          }
+
+          v58 = v86[1];
+          v58(v79, v55);
+
+          v59 = v55;
+          v93;
+
+          v60 = v85;
+          $defer #1 () in MLWordEmbedding.init(dictionary:parameters:)();
+
+          v58(v60, v59);
+          v58(v88, v59);
+          v58(v87, v59);
+          v58(v92, v59);
+          v61 = v93;
+        }
+
+        else
+        {
+          v62 = v95[0];
+
+          v63 = v93;
+          v93;
+
+          _convertNSErrorToError(_:)(v51);
+          swift_willThrow();
+          v64 = v85;
+          $defer #1 () in MLWordEmbedding.init(dictionary:parameters:)();
+          (objc_release)(v89);
+          v65 = v86[1];
+          v66 = v64;
+          v67 = v84;
+          v65(v66, v84);
+          v65(v88, v67);
+          v65(v87, v67);
+          v65(v92, v67);
+          v61 = v63;
+        }
+
+        v61;
+      }
+
+      v26 = v90;
+    }
+
+    v24 = v26;
+  }
+
+  return __stack_chk_guard;
+}
+
+id @nonobjc NLEmbedding.__allocating_init(contentsOf:)(uint64_t a1)
+{
+  URL._bridgeToObjectiveC()(__stack_chk_guard);
+  v2 = v1;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  v12 = 0;
+  v4 = [ObjCClassFromMetadata embeddingWithContentsOfURL:v2 error:&v12];
+  v5 = v4;
+
+  v6 = v12;
+  if (v5)
+  {
+    v7 = type metadata accessor for URL(0);
+    v8 = *(*(v7 - 8) + 8);
+    v6;
+    v8(a1, v7);
+  }
+
+  else
+  {
+    v9 = v12;
+    _convertNSErrorToError(_:)(v6);
+
+    swift_willThrow();
+    v10 = type metadata accessor for URL(0);
+    (*(*(v10 - 8) + 8))(a1, v10);
+  }
+
+  return v5;
+}
+
+NSURL *$defer #1 () in MLWordEmbedding.init(dictionary:parameters:)()
+{
+  v0 = objc_opt_self(NSFileManager);
+  v1 = [v0 defaultManager];
+  v2 = v1;
+  URL._bridgeToObjectiveC()(v2);
+  v4 = v3;
+  v10 = 0;
+  v5 = [(NSURL *)v2 removeItemAtURL:v3 error:&v10];
+
+  v6 = v10;
+  if (v5)
+  {
+    return v10;
+  }
+
+  v8 = v10;
+  v9 = _convertNSErrorToError(_:)(v6);
+
+  swift_willThrow();
+  v9;
+  return __stack_chk_guard;
+}
+
+char static MLWordEmbedding.reportAnalytics(vocabularySize:dimension:language:)(int a1, int a2, uint64_t a3)
+{
+  result = AnalyticsReporter.init()();
+  if ((result & 1) == 0)
+  {
+    AnalyticsReporter.reportDataMetrics(model:metricName:quantity:)(CreateML_ModelType_wordEmbedding, __PAIR128__(0xEF657A6953207972, 0x616C756261636F56), a1);
+    AnalyticsReporter.reportDataMetrics(model:metricName:quantity:)(CreateML_ModelType_wordEmbedding, __PAIR128__(0xE90000000000006ELL, 0x6F69736E656D6944), a2);
+    if (a3)
+    {
+      v6._countAndFlagsBits = static String._unconditionallyBridgeFromObjectiveC(_:)(a3);
+      v6._object = v5;
+    }
+
+    else
+    {
+      v6._object = "formers Text Embedding" + 0x8000000000000000;
+      v6._countAndFlagsBits = 0xD000000000000014;
+    }
+
+    AnalyticsReporter.reportParameterSettings(model:parameterName:parameterValue:)(CreateML_ModelType_wordEmbedding, __PAIR128__(0xE800000000000000, 0x65676175676E614CLL), v6);
+    return v6._object;
+  }
+
+  return result;
+}
+
+Swift::Bool __swiftcall MLWordEmbedding.contains(_:)(Swift::String a1)
+{
+  v2 = *v1;
+  v3 = String._bridgeToObjectiveC()();
+  LOBYTE(v2) = [v2 containsString:v3];
+
+  return v2 != 0;
+}
+
+unint64_t MLWordEmbedding.description.getter()
+{
+  v8._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  v8._object = v1;
+  v2._countAndFlagsBits = 10;
+  v2._object = 0xE100000000000000;
+  String.append(_:)(v2);
+  String.append(_:)(v8);
+  v8._object;
+  v2._countAndFlagsBits = 0x6F69736E656D6944;
+  v2._object = 0xEB00000000203A6ELL;
+  String.append(_:)(v2);
+  110;
+  v8._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+  v8._object = v3;
+  v2._countAndFlagsBits = 10;
+  v2._object = 0xE100000000000000;
+  String.append(_:)(v2);
+  String.append(_:)(v8);
+  v8._object;
+  v2._countAndFlagsBits = 0xD000000000000011;
+  v2._object = "WordEmbedding\n\nParameters\n" + 0x8000000000000000;
+  String.append(_:)(v2);
+  ("WordEmbedding\n\nParameters\n" + 0x8000000000000000);
+  v9 = *(v0 + 24);
+  v9._countAndFlagsBits;
+  v4 = MLWordEmbedding.ModelParameters.description.getter();
+  v6 = v5;
+
+  v2._countAndFlagsBits = v4;
+  v2._object = v6;
+  String.append(_:)(v2);
+  v6;
+  return 0xD00000000000001ALL;
+}
+
+unint64_t MLWordEmbedding.debugDescription.getter()
+{
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  v8 = *(v0 + 24);
+  v7 = v1;
+
+  v4 = v3;
+  v5 = MLWordEmbedding.description.getter();
+
+  v2;
+  return v5;
+}
+
+void *MLWordEmbedding.playgroundDescription.getter()
+{
+  v10 = v0;
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v12 = *(v1 + 24);
+  v11 = v2;
+
+  v5 = v4;
+  v6 = MLWordEmbedding.description.getter();
+  v8 = v7;
+
+  v3;
+  result = &type metadata for String;
+  v10[3] = &type metadata for String;
+  *v10 = v6;
+  v10[1] = v8;
+  return result;
+}
+
+uint64_t initializeWithCopy for MLWordEmbedding(uint64_t a1, uint64_t a2)
+{
+  v3 = *a2;
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  v4 = *(a2 + 16);
+  *(a1 + 16) = v4;
+  v5 = *(a2 + 24);
+  *(a1 + 24) = v5;
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  v3;
+
+  v4;
+  v5;
+  return a1;
+}
+
+uint64_t assignWithCopy for MLWordEmbedding(uint64_t a1, uint64_t a2)
+{
+  v3 = *a2;
+  v4 = *a1;
+  *a1 = *a2;
+  v3;
+
+  v5 = *(a1 + 8);
+  *(a1 + 8) = *(a2 + 8);
+
+  v5;
+  v6 = *(a2 + 16);
+  v7 = *(a1 + 16);
+  *(a1 + 16) = v6;
+  v6;
+
+  v8 = *(a1 + 24);
+  v9 = *(a2 + 24);
+  *(a1 + 24) = v9;
+  v9;
+
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+  *(a1 + 48) = *(a2 + 48);
+  return a1;
+}
+
+uint64_t assignWithTake for MLWordEmbedding(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  *a1 = *a2;
+  v3;
+
+  v4 = *(a1 + 24);
+  *(a1 + 16) = *(a2 + 16);
+
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for MLWordEmbedding(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 56))
+    {
+      v2 = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v2 = (*a1 & 0xFFFFFFFF00000001) != 0 ? -1 : *a1 >> 1;
+    }
+  }
+
+  else
+  {
+    v2 = -1;
+  }
+
+  return (v2 + 1);
+}
+
+void storeEnumTagSinglePayload for MLWordEmbedding(uint64_t a1, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(a1 + 40) = 0;
+    *(a1 + 24) = 0;
+    *(a1 + 8) = 0;
+    *a1 = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(a1 + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 < 0)
+    {
+      *(a1 + 56) = 0;
+    }
+
+    if (a2)
+    {
+      *a1 = 2 * (a2 - 1);
+    }
+  }
+}
+
+Swift::String __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> MLTextClassifier.prediction(from:)(Swift::String from)
+{
+  v2 = *v1;
+  v3 = String._bridgeToObjectiveC()();
+  v4 = [v2 predictedLabelForString:v3];
+  v5 = v4;
+
+  if (v5)
+  {
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)(v5);
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = 0xE000000000000000;
+    v6 = 0;
+  }
+
+  result._countAndFlagsBits = v6;
+  result._object = v8;
+  return result;
+}
+
+void *MLTextClassifier.predictions(from:)(uint64_t a1)
+{
+  v3 = *(*(type metadata accessor for MLTextClassifier(0) - 8) + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v6 = &v18;
+  outlined init with copy of MLTextClassifier(v2, &v18);
+  v7 = *(a1 + 16);
+  if (v7)
+  {
+    v20 = v1;
+    v25 = _swiftEmptyArrayStorage;
+    v18 = v7;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
+    v8 = v25;
+    v21 = &v18;
+    v19 = v18;
+    v9 = (a1 + 40);
+    do
+    {
+      v22 = v8;
+      v10 = *v9;
+
+      v11 = String._bridgeToObjectiveC()();
+      v12 = [v19 predictedLabelForString:v11];
+      v13 = v12;
+
+      if (v13)
+      {
+        v23 = static String._unconditionallyBridgeFromObjectiveC(_:)(v13);
+        v24 = v14;
+        v10;
+      }
+
+      else
+      {
+        v10;
+        v23 = 0;
+        v24 = 0xE000000000000000;
+      }
+
+      v8 = v22;
+      v25 = v22;
+      v15 = v22[2];
+      if (v22[3] >> 1 <= v15)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v22[3] >= 2uLL, v15 + 1, 1);
+        v8 = v25;
+      }
+
+      v8[2] = v15 + 1;
+      v16 = 2 * v15;
+      v8[v16 + 4] = v23;
+      v8[v16 + 5] = v24;
+      v9 += 2;
+      --v18;
+    }
+
+    while (v18);
+    v6 = v21;
+  }
+
+  else
+  {
+    v8 = _swiftEmptyArrayStorage;
+  }
+
+  outlined destroy of MLTextClassifier(v6);
+  return v8;
+}
+
+uint64_t outlined init with copy of MLTextClassifier(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for MLTextClassifier(0);
+  (*(*(v2 - 8) + 16))(a2, a1, v2);
+  return a2;
+}
+
+void *MLTextClassifier.predictionWithAllLabelsAndConfidences(text:)(uint64_t a1, uint64_t a2)
+{
+  v55 = *(v2 + 8);
+  v3 = *(v55 + 16);
+  v4 = NLModel.predictedLabelHypotheses(for:maximumCount:)(a1, a2, v3);
+  v5 = v4[2];
+  if (v3 < v5)
+  {
+    v6 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v6, 0, 0);
+    *v7 = 0xD000000000000037;
+    *(v7 + 8) = "Vocabulary Size: " + 0x8000000000000000;
+    *(v7 + 16) = 0;
+    *(v7 + 32) = 0;
+    *(v7 + 48) = 0;
+    swift_willThrow();
+    v4;
+    return v4;
+  }
+
+  if (v3 == v5)
+  {
+    return v4;
+  }
+
+  specialized _NativeDictionary.makeIterator()(v4);
+  v8 = v49;
+  v9 = v50;
+  v10 = (v48 + 64) >> 6;
+  v11 = 0.0;
+  while (1)
+  {
+    if (v9)
+    {
+      v12 = v8;
+      goto LABEL_29;
+    }
+
+    v13 = v8 + 1;
+    if (__OFADD__(1, v8))
+    {
+      BUG();
+    }
+
+    if (v13 >= v10)
+    {
+      goto LABEL_30;
+    }
+
+    v9 = *(v47 + 8 * v13);
+    if (v9)
+    {
+      v12 = v8 + 1;
+      goto LABEL_29;
+    }
+
+    v12 = v8 + 2;
+    if (v8 + 2 >= v10)
+    {
+      goto LABEL_30;
+    }
+
+    v9 = *(v47 + 8 * v13 + 8);
+    if (!v9)
+    {
+      v12 = v8 + 3;
+      if (v8 + 3 >= v10)
+      {
+        goto LABEL_30;
+      }
+
+      v9 = *(v47 + 8 * v13 + 16);
+      if (!v9)
+      {
+        v12 = v8 + 4;
+        if (v8 + 4 >= v10)
+        {
+          goto LABEL_30;
+        }
+
+        v9 = *(v47 + 8 * v13 + 24);
+        if (!v9)
+        {
+          v12 = v8 + 5;
+          if (v8 + 5 >= v10)
+          {
+            goto LABEL_30;
+          }
+
+          v9 = *(v47 + 8 * v13 + 32);
+          if (!v9)
+          {
+            v12 = v8 + 6;
+            if (v8 + 6 >= v10)
+            {
+              goto LABEL_30;
+            }
+
+            v9 = *(v47 + 8 * v13 + 40);
+            if (!v9)
+            {
+              v12 = v8 + 7;
+              if (v8 + 7 >= v10)
+              {
+                goto LABEL_30;
+              }
+
+              v9 = *(v47 + 8 * v13 + 48);
+              if (!v9)
+              {
+                v12 = v8 + 8;
+                if (v8 + 8 >= v10)
+                {
+                  goto LABEL_30;
+                }
+
+                v9 = *(v47 + 8 * v13 + 56);
+                if (!v9)
+                {
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+LABEL_29:
+    _BitScanForward64(&v15, v9);
+    v9 &= v9 - 1;
+    v11 = v11 + *(*(v46 + 56) + ((v12 << 9) | (8 * v15)));
+    v8 = v12;
+  }
+
+  v14 = v8 + 9;
+  while (v14 < v10)
+  {
+    v9 = *(v47 + 8 * v14++);
+    if (v9)
+    {
+      v12 = v14 - 1;
+      goto LABEL_29;
+    }
+  }
+
+LABEL_30:
+  swift_bridgeObjectRetain_n(v4, 2);
+  v16 = 0;
+  outlined consume of [String : [Double]].Iterator._Variant(v46);
+  v17 = v3 - v4[2];
+  v4;
+  v18 = 1 << *(v55 + 32);
+  v51 = (1.0 - v11) / v17;
+  v19 = ~(-1 << v18);
+  if (v18 >= 64)
+  {
+    v19 = -1;
+  }
+
+  v20 = *(v55 + 56) & v19;
+  v54 = (v18 + 63) >> 6;
+
+  while (2)
+  {
+    v21 = v16;
+LABEL_34:
+    if (v20)
+    {
+LABEL_35:
+      v22 = v21;
+      goto LABEL_50;
+    }
+
+    v23 = v21 + 1;
+    if (__OFADD__(1, v21))
+    {
+      BUG();
+    }
+
+    if (v23 >= v54)
+    {
+      goto LABEL_67;
+    }
+
+    v20 = *(v55 + 8 * v23 + 56);
+    if (v20)
+    {
+      v22 = v21 + 1;
+LABEL_50:
+      _BitScanForward64(&v24, v20);
+      v52 = v20 & (v20 - 1);
+      v25 = *(v55 + 48);
+      v26 = (v22 << 10) | (16 * v24);
+      v27 = *(v25 + v26);
+      v28 = *(v25 + v26 + 8);
+      v29 = v4[2];
+
+      if (!v29 || (, specialized __RawDictionaryStorage.find<A>(_:)(v27, v28), v31 = v30, v4, (v31 & 1) == 0))
+      {
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v4);
+        v53 = v27;
+        v34 = specialized __RawDictionaryStorage.find<A>(_:)(v27, v28);
+        v35 = (v33 & 1) == 0;
+        v36 = __OFADD__(v4[2], v35);
+        v37 = v4[2] + v35;
+        if (v36)
+        {
+          BUG();
+        }
+
+        v57 = v33;
+        __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _NativeDictionary<String, Double>);
+        if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v37))
+        {
+          v34 = specialized __RawDictionaryStorage.find<A>(_:)(v53, v28);
+          LOBYTE(v38) = v38 & 1;
+          LOBYTE(v39) = v57;
+          v16 = v22;
+          if ((v57 & 1) != v38)
+          {
+            KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)(&type metadata for String, v28, v38, v39);
+            BUG();
+          }
+
+          v40 = v53;
+        }
+
+        else
+        {
+          v16 = v22;
+          v40 = v53;
+          LOBYTE(v39) = v57;
+        }
+
+        if (v39)
+        {
+          *(v4[7] + 8 * v34) = v51;
+          v28;
+        }
+
+        else
+        {
+          v4[(v34 >> 6) + 8] |= 1 << v34;
+          v41 = v4[6];
+          v42 = 16 * v34;
+          *(v41 + v42) = v40;
+          *(v41 + v42 + 8) = v28;
+          *(v4[7] + 8 * v34) = v51;
+          v43 = v4[2];
+          v36 = __OFADD__(1, v43);
+          v44 = v43 + 1;
+          if (v36)
+          {
+            BUG();
+          }
+
+          v4[2] = v44;
+        }
+
+        v20 = v52;
+        continue;
+      }
+
+      v28;
+      v21 = v22;
+      v20 = v52;
+      goto LABEL_34;
+    }
+
+    break;
+  }
+
+  v22 = v21 + 2;
+  if (v21 + 2 >= v54)
+  {
+    goto LABEL_67;
+  }
+
+  v20 = *(v55 + 8 * v23 + 64);
+  if (v20)
+  {
+    goto LABEL_50;
+  }
+
+  v22 = v21 + 3;
+  if (v21 + 3 >= v54)
+  {
+    goto LABEL_67;
+  }
+
+  v20 = *(v55 + 8 * v23 + 72);
+  if (v20)
+  {
+    goto LABEL_50;
+  }
+
+  v22 = v21 + 4;
+  if (v21 + 4 >= v54)
+  {
+    goto LABEL_67;
+  }
+
+  v20 = *(v55 + 8 * v23 + 80);
+  if (v20)
+  {
+    goto LABEL_50;
+  }
+
+  v22 = v21 + 5;
+  if (v21 + 5 >= v54)
+  {
+    goto LABEL_67;
+  }
+
+  v20 = *(v55 + 8 * v23 + 88);
+  if (v20)
+  {
+    goto LABEL_50;
+  }
+
+  v22 = v21 + 6;
+  if (v21 + 6 >= v54)
+  {
+    goto LABEL_67;
+  }
+
+  v20 = *(v55 + 8 * v23 + 96);
+  if (v20)
+  {
+    goto LABEL_50;
+  }
+
+  v32 = v21 + 7;
+  while (v32 < v54)
+  {
+    v20 = *(v55 + 8 * v32++ + 56);
+    if (v20)
+    {
+      v21 = v32 - 1;
+      goto LABEL_35;
+    }
+  }
+
+LABEL_67:
+
+  return v4;
+}
+
+uint64_t *MLTextClassifier.predictionsWithConfidence(from:)(uint64_t a1)
+{
+  v3 = *(*(type metadata accessor for MLTextClassifier(0) - 8) + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v21 = &v17;
+  outlined init with copy of MLTextClassifier(v2, &v17);
+  v6 = *(a1 + 16);
+  if (v6)
+  {
+    v22 = v1;
+    v20 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
+    v7 = v20;
+    v8 = (a1 + 40);
+    while (1)
+    {
+      v9 = v7;
+      v18 = v6;
+      v10 = *(v8 - 1);
+      v19 = v8;
+      v11 = *v8;
+
+      v7 = v21;
+      v12 = v22;
+      v13 = MLTextClassifier.predictionWithAllLabelsAndConfidences(text:)(v10, v11);
+      v22 = v12;
+      if (v12)
+      {
+        break;
+      }
+
+      v14 = v13;
+      v11;
+      v7 = v9;
+      v20 = v9;
+      v15 = v9[2];
+      if (v9[3] >> 1 <= v15)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v9[3] >= 2, v15 + 1, 1);
+        v7 = v20;
+      }
+
+      v7[2] = v15 + 1;
+      v7[v15 + 4] = v14;
+      v8 = v19 + 2;
+      v6 = v18 - 1;
+      if (v18 == 1)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    v11;
+    outlined destroy of MLTextClassifier(v21);
+  }
+
+  else
+  {
+    v7 = _swiftEmptyArrayStorage;
+LABEL_10:
+    outlined destroy of MLTextClassifier(v21);
+  }
+
+  return v7;
+}
+
+uint64_t *MLTextClassifier.predictions(from:)(uint64_t a1, double a2)
+{
+  v32 = v2;
+  v4 = *(*(type metadata accessor for MLTextClassifier(0) - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = *a1;
+  v8 = *(a1 + 8);
+  outlined copy of Result<_DataTable, Error>(*a1, v8);
+  v9 = v8;
+  v10 = &v29;
+  MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5 = _sSa8CreateMLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5(v7, v9, a2);
+  outlined init with copy of MLTextClassifier(v3, &v29);
+  v12 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5[2];
+  if (v12)
+  {
+    v37 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
+    v13 = v37;
+    v33 = &v29;
+    v31 = v29;
+    v34 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5;
+    v14 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5 + 5;
+    do
+    {
+      v29 = v12;
+      v30 = v14;
+      v15 = *v14;
+
+      v16 = String._bridgeToObjectiveC()();
+      v17 = [v31 predictedLabelForString:v16];
+      v18 = v17;
+
+      if (v18)
+      {
+        v35 = static String._unconditionallyBridgeFromObjectiveC(_:)(v18);
+        v36 = v19;
+        v15;
+      }
+
+      else
+      {
+        v15;
+        v35 = 0;
+        v36 = 0xE000000000000000;
+      }
+
+      v37 = v13;
+      v20 = v13[2];
+      v21 = v29;
+      if (v13[3] >> 1 <= v20)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v13[3] >= 2uLL, v20 + 1, 1);
+        v13 = v37;
+      }
+
+      v13[2] = v20 + 1;
+      v22 = 2 * v20;
+      v13[v22 + 4] = v35;
+      v13[v22 + 5] = v36;
+      v14 = v30 + 2;
+      v12 = v21 - 1;
+    }
+
+    while (v12);
+    v10 = v33;
+    LOBYTE(MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5) = v34;
+  }
+
+  else
+  {
+    v13 = _swiftEmptyArrayStorage;
+  }
+
+  outlined destroy of MLTextClassifier(v10);
+  MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5;
+  v37 = v13;
+  v23 = alloca(24);
+  v24 = alloca(32);
+  v31 = &v37;
+  ML14_UntypedColumnC_s5Error_pTt1g5 = _ss6ResultOsRi_zrlE8catchingAByxq_Gxyq_YKXE_tcfC8CreateML14_UntypedColumnC_s5Error_pTt1g5(partial apply for specialized closure #1 in MLUntypedColumn.init<A>(_:));
+  v27 = v26;
+  v37;
+  result = v32;
+  *v32 = ML14_UntypedColumnC_s5Error_pTt1g5;
+  *(result + 8) = v27 & 1;
+  return result;
+}
+
+uint64_t *MLTextClassifier.predictionsWithConfidence(from:)(uint64_t a1, double a2)
+{
+  v33 = v3;
+  v31 = v2;
+  v5 = *(*(type metadata accessor for MLTextClassifier(0) - 8) + 64);
+  v6 = alloca(v5);
+  v7 = alloca(v5);
+  v8 = *a1;
+  v9 = *(a1 + 8);
+  outlined copy of Result<_DataTable, Error>(*a1, v9);
+  MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5 = _sSa8CreateMLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5(v8, v9, a2);
+  v34 = &v29;
+  outlined init with copy of MLTextClassifier(v4, &v29);
+  v11 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5[2];
+  if (v11)
+  {
+    v35 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
+    v36 = v35;
+    v32 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5;
+    v12 = MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5 + 5;
+    while (1)
+    {
+      v30 = v11;
+      v13 = *(v12 - 1);
+      v14 = *v12;
+
+      v15 = v33;
+      v16 = MLTextClassifier.predictionWithAllLabelsAndConfidences(text:)(v13, v14);
+      if (v15)
+      {
+        break;
+      }
+
+      v17 = v16;
+      v33 = 0;
+      v14;
+      v18 = v36;
+      v35 = v36;
+      v19 = v36[2];
+      v20 = v36[3];
+      v21 = v19 + 1;
+      if (v20 >> 1 <= v19)
+      {
+        v36 = (v19 + 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v20 >= 2, v21, 1);
+        v21 = v36;
+        v18 = v35;
+      }
+
+      v18[2] = v21;
+      v36 = v18;
+      v18[v19 + 4] = v17;
+      v12 += 2;
+      v11 = v30 - 1;
+      if (v30 == 1)
+      {
+        LOBYTE(MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5) = v32;
+        v23 = v36;
+        goto LABEL_10;
+      }
+    }
+
+    v14;
+    outlined destroy of MLTextClassifier(v34);
+    return v32;
+  }
+
+  else
+  {
+    v23 = _swiftEmptyArrayStorage;
+LABEL_10:
+    outlined destroy of MLTextClassifier(v34);
+    MLAA22MLDataValueConvertibleRzlEySayxGAA0C6ColumnVyxGcfCSS_Tt0B5;
+    v35 = v23;
+    v24 = alloca(24);
+    v25 = alloca(32);
+    v31 = &v35;
+    ML14_UntypedColumnC_s5Error_pTt1g5 = _ss6ResultOsRi_zrlE8catchingAByxq_Gxyq_YKXE_tcfC8CreateML14_UntypedColumnC_s5Error_pTt1g5(partial apply for specialized closure #1 in MLUntypedColumn.init<A>(_:));
+    v28 = v27;
+    v35;
+    result = v31;
+    *v31 = ML14_UntypedColumnC_s5Error_pTt1g5;
+    *(result + 8) = v28 & 1;
+  }
+
+  return result;
+}
+
+uint64_t outlined destroy of MLTextClassifier(uint64_t a1)
+{
+  v1 = type metadata accessor for MLTextClassifier(0);
+  (*(*(v1 - 8) + 8))(a1, v1);
+  return a1;
+}
+
+uint64_t MLWordTagger.ModelParameters.init(validation:algorithm:language:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v10[0] = v3;
+  v5 = v3;
+  v6 = *(*(type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0) - 8) + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  LOBYTE(v6) = *(a2 + 16);
+  *(v5 + 80) = 0;
+  *(v5 + 64) = 0;
+  *(v5 + 48) = 0;
+  *(v5 + 32) = 0;
+  *(v5 + 96) = 0;
+  *(v5 + 104) = 1;
+  *v5 = *a2;
+  *(v5 + 16) = v6;
+  *(v5 + 24) = a3;
+  outlined init with copy of MLWordTagger.ModelParameters.ValidationData(a1, v10);
+  MLWordTagger.ModelParameters.validation.setter(v10);
+  return outlined destroy of MLWordTagger.ModelParameters.ValidationData(a1);
+}
+
+uint64_t MLWordTagger.ModelParameters.validation.getter()
+{
+  v2 = v0;
+  outlined init with copy of Any?(v1 + 32, &v6);
+  if (!v7)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v6, v5);
+  v3 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  return swift_dynamicCast(v2, v5, &type metadata for Any + 8, v3, 7);
+}
+
+void MLWordTagger.ModelParameters.init(validationData:algorithm:language:tokenColumnValidationData:labelColumnValidationData:)(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v19 = a4;
+  v9 = v7;
+  v20 = a6;
+  v21 = a5;
+  v10 = *(*(type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0) - 8) + 64);
+  v11 = alloca(v10);
+  v12 = alloca(v10);
+  v13 = *a1;
+  v14 = *(a1 + 8);
+  v15 = *(a2 + 16);
+  *(v9 + 80) = 0;
+  *(v9 + 64) = 0;
+  *(v9 + 48) = 0;
+  *(v9 + 32) = 0;
+  *(v9 + 96) = 0;
+  *(v9 + 104) = 1;
+  *v9 = *a2;
+  *(v9 + 16) = v15;
+  *(v9 + 24) = a3;
+  v17 = v13;
+  v18 = v14;
+  v16 = a3;
+  MLWordTagger.ModelParameters.ValidationData.init(_:tokenColumn:labelColumn:)(&v17, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+  MLWordTagger.ModelParameters.validation.setter(&v17);
+  MLWordTagger.ModelParameters.tokenColumnValidationData.setter(v19, v21);
+  MLWordTagger.ModelParameters.labelColumnValidationData.setter(v20, a7);
+}
+
+id MLWordTagger.ModelParameters.description.getter()
+{
+  v14 = 0;
+  v15 = 0xE000000000000000;
+  if (*(v0 + 16) == 1)
+  {
+    if (*v0)
+    {
+      if (*v0 == 1)
+      {
+        v1 = 0xD000000000000027;
+        v2 = "Unspecified Language";
+      }
+
+      else
+      {
+        v1 = 0xD000000000000046;
+        v2 = "Average Tokens per Sequence";
+      }
+    }
+
+    else
+    {
+      v1 = 0xD000000000000016;
+      v2 = "ge Model Text Embedding";
+    }
+
+    v13 = v1;
+
+    v5 = 0x6C65646F4D20;
+    v4._object = 0xE600000000000000;
+    String.append(_:)(v4);
+    v2;
+    v4._countAndFlagsBits = v13;
+    v3 = (v2 | 0x8000000000000000);
+  }
+
+  else
+  {
+    v3 = "Dynamic Text Embedding" + 0x8000000000000000;
+    v4._countAndFlagsBits = 0xD00000000000001ELL;
+  }
+
+  v4._object = v3;
+  String.append(_:)(v4);
+  v3;
+  v6._countAndFlagsBits = v14;
+  v7 = v15;
+  v14 = 0xD000000000000010;
+  v15 = "than the trained model." + 0x8000000000000000;
+  v6._object = v7;
+  String.append(_:)(v6);
+  v7;
+
+  v6._countAndFlagsBits = 0x676175676E614C0ALL;
+  v6._object = 0xEB00000000203A65;
+  String.append(_:)(v6);
+  ("than the trained model." + 0x8000000000000000);
+  v14 = *(v0 + 24);
+  v14;
+  v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for NLLanguage?);
+  v14 = String.init<A>(describing:)(&v14, v8);
+  v15 = v9;
+  v6._countAndFlagsBits = 10;
+  v6._object = 0xE100000000000000;
+  String.append(_:)(v6);
+  v10 = v14;
+  v11 = v15;
+  v14 = 0xD000000000000010;
+  v15 = "than the trained model." + 0x8000000000000000;
+
+  v6._countAndFlagsBits = v10;
+  v6._object = v11;
+  String.append(_:)(v6);
+  ("than the trained model." + 0x8000000000000000);
+  v11;
+  return v14;
+}
+
+uint64_t MLWordTagger.ModelParameters.algorithm.getter()
+{
+  v2 = *(v1 + 16);
+  *result = *v1;
+  *(result + 16) = v2;
+  return result;
+}
+
+char MLWordTagger.ModelParameters.algorithm.setter(uint64_t a1)
+{
+  result = *(a1 + 16);
+  *v1 = *a1;
+  *(v1 + 16) = result;
+  return result;
+}
+
+void *MLWordTagger.ModelParameters.language.getter()
+{
+  v1 = *(v0 + 24);
+  v1;
+  return v1;
+}
+
+uint64_t MLWordTagger.ModelParameters.validationData.getter(__m128 a1)
+{
+  v2 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v3 = *(*(v2 - 8) + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  outlined init with copy of Any?(v1 + 32, &v9);
+  if (!v10)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v9, v8);
+  swift_dynamicCast(&v7, v8, &type metadata for Any + 8, v2, 7);
+  MLWordTagger.ModelParameters.ValidationData.table.getter(a1);
+  return outlined destroy of MLWordTagger.ModelParameters.ValidationData(&v7);
+}
+
+uint64_t key path getter for MLWordTagger.ModelParameters.validationData : MLWordTagger.ModelParameters(__m128 a1)
+{
+  v2 = v1;
+  MLWordTagger.ModelParameters.validationData.getter(a1);
+  result = v4;
+  *v2 = v4;
+  *(v2 + 8) = v5;
+  return result;
+}
+
+uint64_t key path setter for MLWordTagger.ModelParameters.validationData : MLWordTagger.ModelParameters(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  v3 = *a1;
+  v4 = v1;
+  outlined copy of MLDataTable?(v3, v1);
+  return MLWordTagger.ModelParameters.validationData.setter(&v3);
+}
+
+uint64_t MLWordTagger.ModelParameters.validationData.setter(uint64_t *a1)
+{
+  v1 = *(*(type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0) - 8) + 64);
+  v2 = alloca(v1);
+  v3 = alloca(v1);
+  v4 = *(a1 + 8);
+  v6 = *a1;
+  v7 = v4;
+  MLWordTagger.ModelParameters.ValidationData.init(_:tokenColumn:labelColumn:)(&v6, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+  return MLWordTagger.ModelParameters.validation.setter(&v6);
+}
+
+uint64_t MLWordTagger.ModelParameters.validation.setter(uint64_t a1)
+{
+  *(v1 + 72);
+  *(v1 + 64) = 0;
+  v4[3] = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v4);
+  outlined init with take of MLWordTagger.ModelParameters.ValidationData(a1, boxed_opaque_existential_0);
+  return outlined assign with take of Any?(v4, v1 + 32);
+}
+
+void (*MLWordTagger.ModelParameters.validationData.modify(uint64_t a1, __m128 a2))(uint64_t a1, char a2)
+{
+  *(a1 + 16) = v2;
+  v3 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  *(a1 + 24) = malloc(*(*(v3 - 8) + 64));
+  MLWordTagger.ModelParameters.validationData.getter(a2);
+  return MLWordTagger.ModelParameters.validationData.modify;
+}
+
+void MLWordTagger.ModelParameters.validationData.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  v4 = *(a1 + 24);
+  v6 = *a1;
+  v7 = v3;
+  if (a2)
+  {
+    v5 = v3;
+    outlined copy of MLDataTable?(v2, v3);
+    MLWordTagger.ModelParameters.ValidationData.init(_:tokenColumn:labelColumn:)(&v6, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+    MLWordTagger.ModelParameters.validation.setter(v4);
+    outlined consume of MLDataTable?(v2, v5);
+  }
+
+  else
+  {
+    MLWordTagger.ModelParameters.ValidationData.init(_:tokenColumn:labelColumn:)(&v6, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+    MLWordTagger.ModelParameters.validation.setter(v4);
+  }
+
+  free(v4);
+}
+
+uint64_t MLWordTagger.ModelParameters.tokenColumnValidationData.getter()
+{
+  v1 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v2 = *(*(v1 - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  outlined init with copy of Any?(v0 + 32, &v11);
+  if (!v12)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v11, &v9);
+  swift_dynamicCast(&v9, &v9, &type metadata for Any + 8, v1, 7);
+  if (swift_getEnumCaseMultiPayload(&v9, v1) == 1)
+  {
+    v5 = v9;
+    v6 = v10;
+    v7 = BYTE8(v9);
+    SBYTE8(v11);
+    outlined consume of Result<_DataTable, Error>(v5, v7);
+  }
+
+  else
+  {
+    outlined destroy of MLWordTagger.ModelParameters.ValidationData(&v9);
+    v6 = *(v0 + 64);
+  }
+
+  return v6;
+}
+
+uint64_t MLWordTagger.ModelParameters.tokenColumnValidationData.setter(uint64_t a1, uint64_t a2)
+{
+  v20 = a2;
+  v19 = a1;
+  v3 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v4 = *(*(v3 - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = alloca(v4);
+  v8 = alloca(v4);
+  outlined init with copy of Any?(v2 + 32, &v16);
+  if (!v17)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v16, &v13);
+  swift_dynamicCast(&v13, &v13, &type metadata for Any + 8, v3, 7);
+  if (swift_getEnumCaseMultiPayload(&v13, v3) == 1)
+  {
+    v9 = v13;
+    v21 = BYTE8(v13);
+    v18 = v16;
+    v15;
+    *(v2 + 72);
+    v10 = v19;
+    if (!v20)
+    {
+      v10 = 1954047348;
+    }
+
+    v11 = 0xE400000000000000;
+    if (v20)
+    {
+      v11 = v20;
+    }
+
+    *(v2 + 64) = 0;
+    *&v13 = v9;
+    BYTE8(v13) = v21;
+    v14 = v10;
+    v15 = v11;
+    v16 = v18;
+    swift_storeEnumTagMultiPayload(&v13, v3, 1);
+    return MLWordTagger.ModelParameters.validation.setter(&v13);
+  }
+
+  else
+  {
+    outlined destroy of MLWordTagger.ModelParameters.ValidationData(&v13);
+    *(v2 + 72);
+    *(v2 + 64) = v19;
+    result = v20;
+    *(v2 + 72) = v20;
+  }
+
+  return result;
+}
+
+uint64_t (*MLWordTagger.ModelParameters.tokenColumnValidationData.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  a1[2] = v1;
+  *a1 = MLWordTagger.ModelParameters.tokenColumnValidationData.getter();
+  a1[1] = v2;
+  return MLWordTagger.ModelParameters.tokenColumnValidationData.modify;
+}
+
+uint64_t MLWordTagger.ModelParameters.labelColumnValidationData.getter()
+{
+  v1 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v2 = *(*(v1 - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  outlined init with copy of Any?(v0 + 32, &v11);
+  if (!v12)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v11, &v9);
+  swift_dynamicCast(&v9, &v9, &type metadata for Any + 8, v1, 7);
+  if (swift_getEnumCaseMultiPayload(&v9, v1) == 1)
+  {
+    v5 = v9;
+    v6 = v11;
+    v7 = BYTE8(v9);
+    v10;
+    outlined consume of Result<_DataTable, Error>(v5, v7);
+  }
+
+  else
+  {
+    outlined destroy of MLWordTagger.ModelParameters.ValidationData(&v9);
+    v6 = *(v0 + 80);
+  }
+
+  return v6;
+}
+
+uint64_t key path setter for MLWordTagger.ModelParameters.tokenColumnValidationData : MLWordTagger.ModelParameters(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+{
+  v6 = *a1;
+  v7 = a1[1];
+
+  return a5(v6, v7);
+}
+
+uint64_t MLWordTagger.ModelParameters.labelColumnValidationData.setter(uint64_t a1, uint64_t a2)
+{
+  v19 = a2;
+  v18 = a1;
+  v3 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v4 = *(*(v3 - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = alloca(v4);
+  v8 = alloca(v4);
+  outlined init with copy of Any?(v2 + 32, &v15);
+  if (!v16)
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(&v15, &v13);
+  swift_dynamicCast(&v13, &v13, &type metadata for Any + 8, v3, 7);
+  if (swift_getEnumCaseMultiPayload(&v13, v3) == 1)
+  {
+    v9 = v13;
+    v20 = BYTE8(v13);
+    v17 = v14;
+    SBYTE8(v15);
+    *(v2 + 88);
+    v10 = v18;
+    if (!v19)
+    {
+      v10 = 0x6C6562616CLL;
+    }
+
+    v11 = 0xE500000000000000;
+    if (v19)
+    {
+      v11 = v19;
+    }
+
+    *(v2 + 80) = 0;
+    *&v13 = v9;
+    BYTE8(v13) = v20;
+    v14 = v17;
+    *&v15 = v10;
+    *(&v15 + 1) = v11;
+    swift_storeEnumTagMultiPayload(&v13, v3, 1);
+    return MLWordTagger.ModelParameters.validation.setter(&v13);
+  }
+
+  else
+  {
+    outlined destroy of MLWordTagger.ModelParameters.ValidationData(&v13);
+    *(v2 + 88);
+    *(v2 + 80) = v18;
+    result = v19;
+    *(v2 + 88) = v19;
+  }
+
+  return result;
+}
+
+uint64_t (*MLWordTagger.ModelParameters.labelColumnValidationData.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  a1[2] = v1;
+  *a1 = MLWordTagger.ModelParameters.labelColumnValidationData.getter();
+  a1[1] = v2;
+  return MLWordTagger.ModelParameters.labelColumnValidationData.modify;
+}
+
+uint64_t MLWordTagger.ModelParameters.tokenColumnValidationData.modify(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t, uint64_t))
+{
+  v4 = *a1;
+  v5 = a1[1];
+  if ((a2 & 1) == 0)
+  {
+    return a3(*a1, v5);
+  }
+
+  a3(v4, v5);
+  return v5;
+}
+
+uint64_t (*MLWordTagger.ModelParameters.maxIterations.modify(uint64_t a1))(uint64_t a1)
+{
+  *(a1 + 16) = v1;
+  v2 = *(v1 + 104);
+  *a1 = *(v1 + 96);
+  *(a1 + 8) = v2;
+  return MLWordTagger.ModelParameters.maxIterations.modify;
+}
+
+uint64_t MLWordTagger.ModelParameters.maxIterations.modify(uint64_t a1)
+{
+  result = *(a1 + 16);
+  v2 = *(a1 + 8);
+  *(result + 96) = *a1;
+  *(result + 104) = v2;
+  return result;
+}
+
+uint64_t key path setter for MLWordTagger.ModelParameters.validation : MLWordTagger.ModelParameters(uint64_t a1)
+{
+  v6[0] = v1;
+  v2 = *(*(type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0) - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  outlined init with copy of MLWordTagger.ModelParameters.ValidationData(a1, v6);
+  return MLWordTagger.ModelParameters.validation.setter(v6);
+}
+
+void (*MLWordTagger.ModelParameters.validation.modify(void *a1))(uint64_t a1, char a2)
+{
+  v2 = malloc(0x58uLL);
+  *a1 = v2;
+  *(v2 + 8) = v1;
+  v3 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v4 = *(*(v3 - 8) + 64);
+  *(v2 + 9) = malloc(v4);
+  v5 = malloc(v4);
+  *(v2 + 10) = v5;
+  outlined init with copy of Any?(v1 + 32, (v2 + 2));
+  if (!*(v2 + 7))
+  {
+    BUG();
+  }
+
+  outlined init with take of Any(v2 + 2, v2);
+  swift_dynamicCast(v5, v2, &type metadata for Any + 8, v3, 7);
+  return MLWordTagger.ModelParameters.validation.modify;
+}
+
+void MLWordTagger.ModelParameters.validation.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  if (a2)
+  {
+    outlined init with copy of MLWordTagger.ModelParameters.ValidationData(v3, v4);
+    MLWordTagger.ModelParameters.validation.setter(v4);
+    outlined destroy of MLWordTagger.ModelParameters.ValidationData(v3);
+  }
+
+  else
+  {
+    MLWordTagger.ModelParameters.validation.setter(v3);
+  }
+
+  free(v3);
+  free(v4);
+  free(v2);
+}
+
+void MLWordTagger.ModelParameters.init(validationData:algorithm:language:)(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = v3;
+  v12 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  v6 = *(*(v12 - 8) + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  LOBYTE(v6) = *(a2 + 16);
+  v13 = v5 + 32;
+  *(v5 + 80) = 0;
+  *(v5 + 64) = 0;
+  *(v5 + 48) = 0;
+  *(v5 + 32) = 0;
+  *(v5 + 96) = 0;
+  *(v5 + 104) = 1;
+  *v5 = *a2;
+  *(v5 + 16) = v6;
+  *(v5 + 24) = a3;
+  v14 = a3;
+  static MLWordTagger.generateTextTable(_:tokenColumn:labelColumn:)(a1, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+  a1;
+  MLWordTagger.ModelParameters.ValidationData.init(_:tokenColumn:labelColumn:)(v11, 1954047348, 0xE400000000000000, 0x736C6562616CLL, 0xE600000000000000);
+  *(v5 + 64) = 0;
+  v11[3] = v12;
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v11);
+  outlined init with take of MLWordTagger.ModelParameters.ValidationData(&v10, boxed_opaque_existential_0);
+  outlined assign with take of Any?(v11, v13);
+  MLWordTagger.ModelParameters.tokenColumnValidationData.setter(1954047348, 0xE400000000000000);
+  MLWordTagger.ModelParameters.labelColumnValidationData.setter(0x736C6562616CLL, 0xE600000000000000);
+}
+
+Swift::Void __swiftcall __spoils<cf,zf,sf,of,pf,rax,rdx,rcx,rdi,rsi,r8,r9,r10,r11,r12,xmm0,xmm1,xmm2,xmm3,xmm4,xmm5,xmm6,xmm7> MLWordTagger.ModelParameters.validateRevision()()
+{
+  v1 = *(v0 + 8);
+  if (!*(v0 + 16))
+  {
+    if (v1)
+    {
+      return;
+    }
+
+    v1 = *v0;
+  }
+
+  if (!NLPSequenceModelIsRevisionSupported(v1))
+  {
+    _StringGuts.grow(_:)(29);
+    0;
+    v2._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    object = v2._object;
+    String.append(_:)(v2);
+    object;
+    v4._object = "und in the model." + 0x8000000000000000;
+    v4._countAndFlagsBits = 0xD000000000000012;
+    String.append(_:)(v4);
+    v5 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+    swift_allocError(&type metadata for MLCreateError, v5, 0, 0);
+    *v6 = 0x6E6F697369766552;
+    *(v6 + 8) = 0xE900000000000020;
+    *(v6 + 16) = 0;
+    *(v6 + 32) = 0;
+    *(v6 + 48) = 0;
+    swift_willThrow();
+  }
+}
+
+id MLWordTagger.ModelParameters.playgroundDescription.getter()
+{
+  v1 = v0;
+  result = MLWordTagger.ModelParameters.description.getter();
+  v1[3] = &type metadata for String;
+  *v1 = result;
+  v1[1] = v3;
+  return result;
+}
+
+uint64_t outlined init with take of MLWordTagger.ModelParameters.ValidationData(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for MLWordTagger.ModelParameters.ValidationData(0);
+  (*(*(v2 - 8) + 32))(a2, a1, v2);
+  return a2;
+}
+
+uint64_t sub_215856(uint64_t a1)
+{
+  v2 = v1;
+  result = MLWordTagger.ModelParameters.tokenColumnValidationData.getter();
+  *v2 = result;
+  v2[1] = v4;
+  return result;
+}
+
+uint64_t sub_215886(uint64_t a1)
+{
+  v2 = v1;
+  result = MLWordTagger.ModelParameters.labelColumnValidationData.getter();
+  *v2 = result;
+  v2[1] = v4;
+  return result;
+}
+
+uint64_t sub_2158B6()
+{
+  v1 = v0;
+  result = MLWordTagger.ModelParameters.maxIterations.getter();
+  *v1 = result;
+  *(v1 + 8) = v3 & 1;
+  return result;
+}
+
+uint64_t destroy for MLWordTagger.ModelParameters(uint64_t a1)
+{
+  if (*(a1 + 56))
+  {
+    __swift_destroy_boxed_opaque_existential_1Tm((a1 + 32));
+  }
+
+  *(a1 + 72);
+  return *(a1 + 88);
+}
+
+uint64_t initializeWithCopy for MLWordTagger.ModelParameters(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 16) = *(a2 + 16);
+  *a1 = *a2;
+  v3 = *(a2 + 24);
+  *(a1 + 24) = v3;
+  v4 = *(a2 + 56);
+  v3;
+  if (v4)
+  {
+    *(a1 + 56) = v4;
+    (**(v4 - 8))(a1 + 32, a2 + 32, v4);
+  }
+
+  else
+  {
+    v5 = *(a2 + 32);
+    *(a1 + 48) = *(a2 + 48);
+    *(a1 + 32) = v5;
+  }
+
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 80) = *(a2 + 80);
+  *(a1 + 88) = *(a2 + 88);
+  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 104) = *(a2 + 104);
+
+  return a1;
+}
+
+uint64_t assignWithCopy for MLWordTagger.ModelParameters(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 16) = *(a2 + 16);
+  *a1 = *a2;
+  v3 = *(a1 + 24);
+  v4 = *(a2 + 24);
+  *(a1 + 24) = v4;
+  v4;
+
+  v5 = *(a2 + 56);
+  if (!*(a1 + 56))
+  {
+    if (v5)
+    {
+      *(a1 + 56) = v5;
+      (**(v5 - 8))(a1 + 32, a2 + 32);
+      goto LABEL_8;
+    }
+
+LABEL_7:
+    v6 = *(a2 + 32);
+    *(a1 + 48) = *(a2 + 48);
+    *(a1 + 32) = v6;
+    goto LABEL_8;
+  }
+
+  if (!v5)
+  {
+    __swift_destroy_boxed_opaque_existential_1Tm((a1 + 32));
+    goto LABEL_7;
+  }
+
+  __swift_assign_boxed_opaque_existential_0((a1 + 32), (a2 + 32));
+LABEL_8:
+  *(a1 + 64) = *(a2 + 64);
+  v7 = *(a1 + 72);
+  *(a1 + 72) = *(a2 + 72);
+
+  v7;
+  *(a1 + 80) = *(a2 + 80);
+  v8 = *(a1 + 88);
+  *(a1 + 88) = *(a2 + 88);
+
+  v8;
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 96) = *(a2 + 96);
+  return a1;
+}
+
+void *__swift_memcpy105_8(void *a1, const void *a2)
+{
+  result = a1;
+  qmemcpy(a1, a2, 0x69uLL);
+  return result;
+}
+
+uint64_t assignWithTake for MLWordTagger.ModelParameters(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 16) = *(a2 + 16);
+  *a1 = *a2;
+  v3 = *(a1 + 24);
+  *(a1 + 24) = *(a2 + 24);
+
+  if (*(a1 + 56))
+  {
+    __swift_destroy_boxed_opaque_existential_1Tm((a1 + 32));
+  }
+
+  v4 = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 32) = v4;
+  *(a1 + 64) = *(a2 + 64);
+  v5 = *(a1 + 72);
+  *(a1 + 72) = *(a2 + 72);
+  v5;
+  *(a1 + 80) = *(a2 + 80);
+  v6 = *(a1 + 88);
+  *(a1 + 88) = *(a2 + 88);
+  v6;
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 96) = *(a2 + 96);
+  return a1;
+}
+
+uint64_t getEnumTagSinglePayload for MLWordTagger.ModelParameters(uint64_t a1, unsigned int a2)
+{
+  if (a2)
+  {
+    if (a2 >= 0x7FFFFFFF && *(a1 + 105))
+    {
+      v2 = *a1 + 2147483646;
+    }
+
+    else
+    {
+      v3 = *(a1 + 24);
+      v4 = v3 & 0xFFFFFFFF00000001;
+      v5 = (v3 >> 1) - 1;
+      v6 = -1;
+      if (v5 >= 0)
+      {
+        v6 = v5;
+      }
+
+      v2 = v4 != 0 ? -1 : v6;
+    }
+  }
+
+  else
+  {
+    v2 = -1;
+  }
+
+  return (v2 + 1);
+}
+
+void storeEnumTagSinglePayload for MLWordTagger.ModelParameters(uint64_t a1, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(a1 + 88) = 0;
+    *(a1 + 72) = 0;
+    *(a1 + 56) = 0;
+    *(a1 + 40) = 0;
+    *(a1 + 24) = 0;
+    *(a1 + 8) = 0;
+    *a1 = a2 - 0x7FFFFFFF;
+    *(a1 + 104) = 0;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(a1 + 105) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(a1 + 105) = 0;
+    }
+
+    if (a2)
+    {
+      *(a1 + 24) = 2 * a2;
+    }
+  }
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5(uint64_t a1, int *a2)
+{
+  v2[2] = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLStyleTransfer, Error>);
+  v2[3] = v3;
+  v4 = swift_task_alloc((*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2[4] = v4;
+  v5 = (a2 + *a2);
+  v6 = swift_task_alloc(a2[1]);
+  v2[5] = v6;
+  *v6 = v2;
+  v6[1] = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TQ0_;
+  return v5(v4);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TQ0_()
+{
+  v2 = *(*v1 + 40);
+  *(*v1 + 48) = v0;
+  v2;
+  if (v0)
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TY2_;
+  }
+
+  else
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TY1_;
+  }
+
+  return swift_task_switch(v3, 0, 0);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TY1_()
+{
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 16);
+  swift_storeEnumTagMultiPayload(v1, *(v0 + 24), 0);
+  outlined init with take of DataFrame?(v1, v2, &demangling cache variable for type metadata for Result<MLStyleTransfer, Error>);
+  *(v0 + 32);
+  return (*(v0 + 8))();
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC15MLStyleTransferV_Tt1g5TY2_()
+{
+  v1 = *(v0 + 16);
+  v2 = *(v0 + 24);
+  *v1 = *(v0 + 48);
+  swift_storeEnumTagMultiPayload(v1, v2, 1);
+  *(v0 + 32);
+  return (*(v0 + 8))();
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5(uint64_t a1, int *a2)
+{
+  v2[2] = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLActionClassifier, Error>);
+  v2[3] = v3;
+  v4 = swift_task_alloc((*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2[4] = v4;
+  v5 = (a2 + *a2);
+  v6 = swift_task_alloc(a2[1]);
+  v2[5] = v6;
+  *v6 = v2;
+  v6[1] = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5TQ0_;
+  return v5(v4);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5TQ0_()
+{
+  v2 = *(*v1 + 40);
+  *(*v1 + 48) = v0;
+  v2;
+  if (v0)
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5TY2_;
+  }
+
+  else
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5TY1_;
+  }
+
+  return swift_task_switch(v3, 0, 0);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC18MLActionClassifierV_Tt1g5TY1_()
+{
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 16);
+  swift_storeEnumTagMultiPayload(v1, *(v0 + 24), 0);
+  outlined init with take of DataFrame?(v1, v2, &demangling cache variable for type metadata for Result<MLActionClassifier, Error>);
+  *(v0 + 32);
+  return (*(v0 + 8))();
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5(uint64_t a1, int *a2)
+{
+  v2[2] = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLObjectDetector, Error>);
+  v2[3] = v3;
+  v4 = swift_task_alloc((*(*(v3 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2[4] = v4;
+  v5 = (a2 + *a2);
+  v6 = swift_task_alloc(a2[1]);
+  v2[5] = v6;
+  *v6 = v2;
+  v6[1] = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5TQ0_;
+  return v5(v4);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5TQ0_()
+{
+  v2 = *(*v1 + 40);
+  *(*v1 + 48) = v0;
+  v2;
+  if (v0)
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5TY2_;
+  }
+
+  else
+  {
+    v3 = _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5TY1_;
+  }
+
+  return swift_task_switch(v3, 0, 0);
+}
+
+uint64_t _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5TY1_()
+{
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 16);
+  swift_storeEnumTagMultiPayload(v1, *(v0 + 24), 0);
+  outlined init with take of DataFrame?(v1, v2, &demangling cache variable for type metadata for Result<MLObjectDetector, Error>);
+  *(v0 + 32);
+  return (*(v0 + 8))();
+}
+
+char MLObjectDetector.init(checkpoint:)(uint64_t a1)
+{
+  v33 = v2;
+  v31 = v1;
+  v32 = type metadata accessor for URL(0);
+  v34 = *(v32 - 8);
+  v3 = *(v34 + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v30 = &v25;
+  v6 = alloca(v3);
+  v7 = alloca(v3);
+  v35 = &v25;
+  v8 = *(type metadata accessor for MLCheckpoint(0) - 8);
+  v9 = *(v8 + 64);
+  v10 = alloca(v9);
+  v11 = alloca(v9);
+  v36 = a1;
+  outlined init with copy of MLTrainingSessionParameters(a1, &v25, type metadata accessor for MLCheckpoint);
+  v12 = *(v8 + 80);
+  v13 = ~*(v8 + 80) & (v12 + 16);
+  v14 = swift_allocObject(&unk_393C68, v13 + v9, v12 | 7);
+  outlined init with take of MLClassifierMetrics(&v25, v14 + v13, type metadata accessor for MLCheckpoint);
+  v15 = v33;
+  specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #1 in MLObjectDetector.init(checkpoint:), v14);
+  if (v15)
+  {
+    outlined destroy of MLActivityClassifier.ModelParameters(v36, type metadata accessor for MLCheckpoint);
+  }
+
+  else
+  {
+    v17 = v16;
+
+    *v31 = v17;
+    v18 = v35;
+    URL.deletingLastPathComponent()(v14);
+    v19 = v30;
+    (*(v34 + 16))(v30, v18, v32);
+    MLObjectDetector.PersistentParameters.init(sessionDirectory:)(v19);
+    memcpy(__dst, __src, 0x81uLL);
+    memcpy(v27, __src, sizeof(v27));
+    v33 = type metadata accessor for MLObjectDetector(0);
+    v21 = v31;
+    outlined retain of MLObjectDetector.PersistentParameters(__dst);
+    MLObjectDetector.PersistentParameters.modelParameters.getter();
+    outlined destroy of MLActivityClassifier.ModelParameters(v36, type metadata accessor for MLCheckpoint);
+    memcpy(v26, v27, 0x81uLL);
+    outlined release of MLObjectDetector.PersistentParameters(v26);
+    (*(v34 + 8))(v35, v32);
+    outlined release of MLObjectDetector.PersistentParameters(__dst);
+    result = __dst[64];
+    v22 = __dst[65];
+    v23 = __dst[66];
+    v24 = *(v33 + 24);
+    *(v21 + v24) = __dst[64];
+    *(v21 + v24 + 1) = v22;
+    *(v21 + v24 + 2) = v23;
+  }
+
+  return result;
+}
+
+uint64_t sub_2162F9()
+{
+  v11 = v0;
+  v1 = type metadata accessor for MLCheckpoint(0);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = ~*(v2 + 80) & (v3 + 16);
+  v5 = v4 + v0;
+  v6 = *(v2 + 64) + v4;
+  v7 = type metadata accessor for URL(0);
+  (*(*(v7 - 8) + 8))(v5, v7);
+  v8 = v5 + *(v1 + 28);
+  v9 = type metadata accessor for Date(0);
+  (*(*(v9 - 8) + 8))(v8, v9);
+  *(*(v1 + 32) + v5);
+  return swift_deallocObject(v11, v6, v3 | 7);
+}
+
+uint64_t partial apply for closure #1 in MLObjectDetector.init(checkpoint:)(uint64_t a1)
+{
+  v3 = type metadata accessor for MLCheckpoint(0);
+  v4 = v1 + (~*(*(v3 - 8) + 80) & (*(*(v3 - 8) + 80) + 16));
+  v5 = swift_task_alloc(96);
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in MLActivityClassifier.init(trainingData:featureColumns:labelColumn:recordingFileColumn:parameters:);
+  return closure #1 in MLStyleTransfer.init(checkpoint:)(a1, v4);
+}
+
+uint64_t outlined retain of MLObjectDetector.PersistentParameters(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = *(a1 + 24);
+  outlined copy of Result<_DataTable, Error>(*a1, *(a1 + 8));
+  outlined copy of MLDataTable?(v1, v2);
+
+  return a1;
+}
+
+_BYTE *static MLObjectDetector.train(trainingData:annotationType:parameters:sessionParameters:)(void *a1, _BYTE *a2, uint64_t a3, uint64_t a4, __m128 a5)
+{
+  v6 = a2[1];
+  v7 = a2[2];
+  v12[0] = *a2;
+  v12[1] = v6;
+  v12[2] = v7;
+  result = static MLObjectDetector.makeTrainingSession(trainingData:annotationType:parameters:sessionParameters:)(a1, v12, a3, a4, a5);
+  if (!v5)
+  {
+    v9 = result;
+    v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLJob<MLObjectDetector>);
+    v11 = swift_allocObject(v10, *(v10 + 48), *(v10 + 52));
+    return specialized MLJob.init(_:)(v11, v9);
+  }
+
+  return result;
+}
+
+_BYTE *static MLObjectDetector.makeTrainingSession(trainingData:annotationType:parameters:sessionParameters:)(void *a1, _BYTE *a2, uint64_t a3, uint64_t a4, __m128 a5)
+{
+  v56 = v5;
+  v48 = a4;
+  v52 = a3;
+  v18 = a2;
+  v6 = *(*(type metadata accessor for MLTrainingSessionParameters(0) - 8) + 64);
+  v7 = alloca(v6);
+  v8 = alloca(v6);
+  v44 = &v37;
+  v9 = alloca(v6);
+  v10 = alloca(v6);
+  v43 = &v37;
+  v11 = *(*(type metadata accessor for MLObjectDetector.ModelParameters(0) - 8) + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  v47 = &v37;
+  v14 = type metadata accessor for MLObjectDetector.DataSource(0);
+  v15 = *(*(v14 - 8) + 64);
+  v16 = alloca(v15);
+  v17 = alloca(v15);
+  LOBYTE(v54) = *a2;
+  v57 = a2[1];
+  LOBYTE(v18) = a2[2];
+  v53 = a1;
+  outlined init with copy of MLTrainingSessionParameters(a1, &v37, type metadata accessor for MLObjectDetector.DataSource);
+  if (swift_getEnumCaseMultiPayload(&v37, v14) == 2)
+  {
+    LOBYTE(v55) = v18;
+    v18 = v37;
+    v19 = v39;
+    v20 = v40;
+    v21 = v42;
+    v22 = v38;
+    v38 = v37;
+    LOBYTE(v39) = v22;
+    v23 = v56;
+    static MLObjectDetector.validateInput(trainingData:imageColumn:annotationColumn:)(&v38, v19, v40, v41, v42);
+    v21;
+    v20;
+    outlined consume of Result<_DataTable, Error>(v18, v22);
+    v56 = v23;
+    if (v23)
+    {
+      return v18;
+    }
+
+    LOBYTE(v18) = v55;
+  }
+
+  else
+  {
+    outlined destroy of MLActivityClassifier.ModelParameters(&v37, type metadata accessor for MLObjectDetector.DataSource);
+  }
+
+  v24 = v56;
+  static _ImageUtilities.getImageURLsAndObjectAnnotations(from:imageColumnName:labelColumnName:)(v53, 0, 0, 0, 0, a5);
+  v56 = v24;
+  v25 = v52;
+  if (!v24)
+  {
+    v26 = v18;
+    v27 = v38;
+    v28 = v39;
+    v50 = v38;
+    v51 = v39;
+    MLObjectDetector.ModelParameters.ValidationData.generateTables(trainingData:)(&v38, &v45, &v50, a5);
+    v56 = 0;
+    v59 = v28;
+    v49 = v27;
+    v29 = v38;
+    v55 = v39;
+    v53 = v45;
+    v58 = v46;
+    LOBYTE(v39) = v39 & 1;
+    LOBYTE(v50) = v54;
+    BYTE1(v50) = v57;
+    BYTE2(v50) = v26;
+    outlined init with copy of MLTrainingSessionParameters(v25, v47, type metadata accessor for MLObjectDetector.ModelParameters);
+    v30 = v43;
+    outlined init with copy of MLTrainingSessionParameters(v48, v43, type metadata accessor for MLTrainingSessionParameters);
+    v18 = type metadata accessor for ObjectDetectorTrainingSessionDelegate(0);
+    swift_allocObject(v18, *(v18 + 12), *(v18 + 26));
+    v52 = v29;
+    outlined copy of Result<_DataTable, Error>(v29, v55);
+    v54 = v58;
+    outlined copy of MLDataTable?(v53, v58);
+    v31 = v56;
+    v32 = ObjectDetectorTrainingSessionDelegate.init(trainingData:validationData:imageColumnName:annotationColumnName:annotationType:modelParameters:sessionParameters:)(&v38, &v45, 0x7461506567616D69, 0xE900000000000068, 0x697461746F6E6E61, 0xEA00000000006E6FLL, &v50, v47, v30);
+    v56 = v31;
+    if (v31)
+    {
+      outlined consume of Result<_DataTable, Error>(v52, v55);
+      outlined consume of MLDataTable?(v53, v54);
+      outlined consume of Result<_DataTable, Error>(v49, v59);
+    }
+
+    else
+    {
+      v41 = v18;
+      v42 = &protocol witness table for ObjectDetectorTrainingSessionDelegate;
+      v38 = v32;
+      v34 = v44;
+      outlined init with copy of MLTrainingSessionParameters(v48, v44, type metadata accessor for MLTrainingSessionParameters);
+      v35 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLTrainingSession<MLObjectDetector>);
+      swift_allocObject(v35, *(v35 + 48), *(v35 + 52));
+
+      v36 = v56;
+      v18 = specialized MLTrainingSession.init(delegate:parameters:modelType:)(&v38, v34, 17);
+      outlined consume of Result<_DataTable, Error>(v52, v55);
+      outlined consume of MLDataTable?(v53, v54);
+
+      outlined consume of Result<_DataTable, Error>(v49, v59);
+      v56 = v36;
+    }
+  }
+
+  return v18;
+}
+
+void *static MLObjectDetector.resume(_:)(uint64_t a1)
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLJob<MLObjectDetector>);
+  v2 = swift_allocObject(v1, *(v1 + 48), *(v1 + 52));
+
+  return specialized MLJob.init(_:)(v2, a1);
+}
+
+uint64_t static MLObjectDetector.restoreTrainingSession(sessionParameters:)(uint64_t a1)
+{
+  v2 = *(*(type metadata accessor for MLTrainingSessionParameters(0) - 8) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  v12 = v11;
+  v5 = alloca(v2);
+  v6 = alloca(v2);
+  outlined init with copy of MLTrainingSessionParameters(a1, v11, type metadata accessor for MLTrainingSessionParameters);
+  v7 = type metadata accessor for ObjectDetectorTrainingSessionDelegate(0);
+  swift_allocObject(v7, *(v7 + 48), *(v7 + 52));
+  result = ObjectDetectorTrainingSessionDelegate.init(sessionParameters:)(v11);
+  if (!v1)
+  {
+    v11[3] = v7;
+    v11[4] = &protocol witness table for ObjectDetectorTrainingSessionDelegate;
+    v11[0] = result;
+    v9 = v12;
+    outlined init with copy of MLTrainingSessionParameters(a1, v12, type metadata accessor for MLTrainingSessionParameters);
+    v10 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for MLTrainingSession<MLObjectDetector>);
+    swift_allocObject(v10, *(v10 + 48), *(v10 + 52));
+    return specialized MLTrainingSession.init(delegate:parameters:modelType:)(v11, v9, 17);
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1, char a2, uint64_t a3, void (*a4)(void *), uint64_t a5)
+{
+  v40 = a5;
+  v41 = a4;
+  v7 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLObjectDetector, Error>);
+  v8 = *(*(v7 - 8) + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v11 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TaskPriority?) - 8) + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  v42 = v30;
+  v14 = *(type metadata accessor for MLObjectDetector.ModelParameters(0) - 8);
+  v15 = *(v14 + 64);
+  v16 = alloca(v15);
+  v17 = alloca(v15);
+  v18 = alloca(v15);
+  v19 = alloca(v15);
+  if (a2)
+  {
+    v30[0] = a1;
+    swift_storeEnumTagMultiPayload(v30, v7, 1);
+    swift_errorRetain(a1);
+    v41(v30);
+    return outlined destroy of Result<MLObjectDetector, Error>(v30);
+  }
+
+  else
+  {
+    v37 = v14;
+    v36 = v15;
+    v35 = v30;
+    outlined init with copy of TabularRegressionTask(direct field offset for MLTrainingSession.delegate + a3, __src);
+    v21 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for TrainingSessionDelegate);
+    v22 = type metadata accessor for ObjectDetectorTrainingSessionDelegate(0);
+    swift_dynamicCast(__dst, __src, v21, v22, 7);
+    v38 = __dst[0];
+    v23 = (__dst[0] + OBJC_IVAR____TtC8CreateML37ObjectDetectorTrainingSessionDelegate_trainingParameters);
+    memcpy(__dst, (__dst[0] + OBJC_IVAR____TtC8CreateML37ObjectDetectorTrainingSessionDelegate_trainingParameters), 0x81uLL);
+    memmove(__src, v23, 0x81uLL);
+    if (_s8CreateML16MLObjectDetectorV20PersistentParametersVSgWOg(__src) == 1)
+    {
+      BUG();
+    }
+
+    memcpy(v32, __src, sizeof(v32));
+    memcpy(v31, __dst, 0x81uLL);
+    outlined retain of MLObjectDetector.PersistentParameters(v31);
+    v39 = v30;
+    MLObjectDetector.PersistentParameters.modelParameters.getter();
+    memcpy(v30, v32, 0x81uLL);
+    outlined release of MLObjectDetector.PersistentParameters(v30);
+    v24 = type metadata accessor for TaskPriority(0);
+    __swift_storeEnumTagSinglePayload(v42, 1, 1, v24);
+    v25 = v35;
+    outlined init with copy of MLTrainingSessionParameters(v30, v35, type metadata accessor for MLObjectDetector.ModelParameters);
+    v26 = *(v37 + 80);
+    v27 = ~*(v37 + 80) & (v26 + 40);
+    v28 = (v36 + v27 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v29 = swift_allocObject(&unk_393C90, v28 + 16, v26 | 7);
+    *(v29 + 16) = 0;
+    *(v29 + 32) = v38;
+    outlined init with take of MLClassifierMetrics(v25, v29 + v27, type metadata accessor for MLObjectDetector.ModelParameters);
+    *(v29 + v28) = v41;
+    *(v29 + v28 + 8) = v40;
+
+    _sScTss5NeverORs_rlE8priority9operationScTyxABGScPSg_xyYaYAcntcfCyt_Tt1g5(v42, &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:), v29);
+
+    return outlined destroy of MLActivityClassifier.ModelParameters(v39, type metadata accessor for MLObjectDetector.ModelParameters);
+  }
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7[5] = a7;
+  v7[4] = a6;
+  v7[3] = a5;
+  v7[2] = a4;
+  v8 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLObjectDetector, Error>);
+  v7[6] = swift_task_alloc((*(*(v8 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  return swift_task_switch(closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:), 0, 0);
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)()
+{
+  v1 = swift_task_alloc(32);
+  *(v0 + 56) = v1;
+  *(v1 + 16) = *(v0 + 16);
+  v2 = swift_task_alloc(64);
+  *(v0 + 64) = v2;
+  *v2 = v0;
+  v2[1] = closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:);
+  return ((&_ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5Tu + _ss6ResultO8CreateMLs5Error_pRs_rlE8catchingAByxsAD_pGxyYaKXE_tYacfCAC16MLObjectDetectorV_Tt1g5Tu))(*(v0 + 48), &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:), v1);
+}
+
+{
+  v1 = *(*v0 + 56);
+  *(*v0 + 64);
+  v1;
+  return swift_task_switch(closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:), 0, 0);
+}
+
+{
+  v1 = *(v0 + 48);
+  (*(v0 + 32))(v1);
+  outlined destroy of Result<MLObjectDetector, Error>(v1);
+  v1;
+  return (*(v0 + 8))();
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[21] = a3;
+  v3[20] = a2;
+  v3[19] = a1;
+  v4 = type metadata accessor for MLObjectDetector.ModelParameters(0);
+  v3[22] = swift_task_alloc((*(*(v4 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  return swift_task_switch(closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:), 0, 0);
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)()
+{
+  v1 = *(v0 + 176);
+  v2 = *(v0 + 160);
+  v3 = *(v0 + 168);
+  v4 = *(v2 + OBJC_IVAR____TtC8CreateML37ObjectDetectorTrainingSessionDelegate_model);
+  *(v0 + 184) = v4;
+  outlined init with copy of MLTrainingSessionParameters(v3, v1, type metadata accessor for MLObjectDetector.ModelParameters);
+  memcpy((v0 + 16), (OBJC_IVAR____TtC8CreateML37ObjectDetectorTrainingSessionDelegate_trainingParameters + v2), 0x81uLL);
+  if (_s8CreateML16MLObjectDetectorV20PersistentParametersVSgWOg(v0 + 16) == 1)
+  {
+    BUG();
+  }
+
+  v5 = *(v0 + 81);
+  *(v0 + 145) = *(v0 + 80);
+  *(v0 + 146) = v5;
+  *(v0 + 147) = *(v0 + 82);
+  v6 = type metadata accessor for _Model();
+  swift_allocObject(v6, 48, 7);
+  swift_retain_n(v4, 2);
+  v7 = swift_task_alloc(80);
+  *(v0 + 192) = v7;
+  *v7 = v0;
+  v7[1] = closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:);
+  return _Model.init(impl:)(v4);
+}
+
+{
+  v1 = *(v0 + 208);
+  v8 = *(v0 + 147);
+  v2 = *(v0 + 145);
+  v9 = *(v0 + 146);
+  v3 = *(v0 + 176);
+  v4 = *(v0 + 152);
+
+  *v4 = v1;
+  v5 = type metadata accessor for MLObjectDetector(0);
+  outlined init with take of MLClassifierMetrics(v3, v4 + *(v5 + 20), type metadata accessor for MLObjectDetector.ModelParameters);
+  v6 = *(v5 + 24);
+  *(v4 + v6) = v2;
+  *(v4 + v6 + 1) = v9;
+  *(v4 + v6 + 2) = v8;
+  v3;
+  return (*(v0 + 8))();
+}
+
+{
+  v1 = *(v0 + 176);
+
+  outlined destroy of MLActivityClassifier.ModelParameters(v1, type metadata accessor for MLObjectDetector.ModelParameters);
+  v1;
+  return (*(v0 + 8))();
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1)
+{
+  v5 = *(*v2 + 192);
+  v4 = *v2;
+  *(*v2 + 200) = v1;
+  v5;
+  if (v1)
+  {
+    v6 = closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:);
+  }
+
+  else
+  {
+    *(v4 + 208) = a1;
+    v6 = closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:);
+  }
+
+  return swift_task_switch(v6, 0, 0);
+}
+
+uint64_t outlined destroy of Result<MLObjectDetector, Error>(uint64_t a1)
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Result<MLObjectDetector, Error>);
+  (*(*(v1 - 8) + 8))(a1, v1);
+  return a1;
+}
+
+uint64_t _s8CreateML16MLObjectDetectorV20PersistentParametersVSgWOg(uint64_t a1)
+{
+  result = 0;
+  if ((*(a1 + 40) & 0xFFFFFFFF00000001) == 0)
+  {
+    return (*(a1 + 40) >> 1) + 1;
+  }
+
+  return result;
+}
+
+uint64_t sub_2171D2()
+{
+  v1 = type metadata accessor for MLObjectDetector.ModelParameters(0);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = ~*(v2 + 80) & (v3 + 40);
+  v19 = *(v2 + 64);
+  swift_unknownObjectRelease(*(v0 + 16));
+
+  v5 = v4 + v0;
+  v6 = type metadata accessor for MLObjectDetector.ModelParameters.ValidationData(0);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload(v4 + v0, v6);
+  switch(EnumCaseMultiPayload)
+  {
+    case 3:
+LABEL_7:
+      v11 = type metadata accessor for DataFrame(0);
+      (*(*(v11 - 8) + 8))(v4 + v0, v11);
+      v21 = v1;
+      v12 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (DataFrame, imageColumn: String, annotationColumn: String));
+      *(v5 + *(v12 + 48) + 8);
+      v13 = *(v12 + 64);
+      v1 = v21;
+      v10 = *(v5 + v13 + 8);
+      goto LABEL_8;
+    case 2:
+LABEL_6:
+      outlined consume of Result<_DataTable, Error>(*v5, *(v5 + 8));
+      *(v5 + 24);
+      v10 = *(v5 + 40);
+LABEL_8:
+      v10;
+      break;
+    case 1:
+      v8 = type metadata accessor for MLObjectDetector.DataSource(0);
+      switch(swift_getEnumCaseMultiPayload(v4 + v0, v8))
+      {
+        case 0u:
+          v9 = type metadata accessor for URL(0);
+          (*(*(v9 - 8) + 8))(v4 + v0, v9);
+          break;
+        case 1u:
+          v22 = v1;
+          v16 = type metadata accessor for URL(0);
+          v20 = *(*(v16 - 8) + 8);
+          v20(v4 + v0, v16);
+          v17 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (at: URL, annotationFile: URL));
+          v18 = v16;
+          v1 = v22;
+          v20(v5 + *(v17 + 48), v18);
+          break;
+        case 2u:
+          goto LABEL_6;
+        case 3u:
+          goto LABEL_7;
+        default:
+          goto LABEL_9;
+      }
+
+      break;
+  }
+
+LABEL_9:
+  v14 = *(v1 + 40);
+  if (*(v5 + v14 + 24))
+  {
+    __swift_destroy_boxed_opaque_existential_1Tm((v14 + v5));
+  }
+
+  return swift_deallocObject(v0, ((v19 + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 16, v3 | 7);
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1)
+{
+  v3 = *(type metadata accessor for MLObjectDetector.ModelParameters(0) - 8);
+  v4 = ~*(v3 + 80) & (*(v3 + 80) + 40);
+  v5 = (v4 + *(v3 + 64) + 7) & 0xFFFFFFFFFFFFFFF8;
+  v6 = v1[2];
+  v12 = v1[3];
+  v13 = v1[4];
+  v7 = v1 + v4;
+  v8 = *(v1 + v5);
+  v9 = *(v1 + v5 + 8);
+  v10 = swift_task_alloc(80);
+  *(v2 + 16) = v10;
+  *v10 = v2;
+  v10[1] = partial apply for specialized closure #1 in blockAwait<A>(_:);
+  return closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(a1, v6, v12, v13, v7, v8, v9);
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(uint64_t a1)
+{
+  v3 = *(v1 + 16);
+  v4 = *(v1 + 24);
+  v5 = swift_task_alloc(224);
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = partial apply for closure #1 in MLActivityClassifier.init(trainingData:featureColumns:labelColumn:recordingFileColumn:parameters:);
+  return closure #1 in closure #1 in closure #1 in closure #1 in static MLObjectDetector.resume(_:)(a1, v3, v4);
+}
+
+uint64_t MLFewShotSoundClassifier.performValidationStep(on:)(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  v44 = a3;
+  v38 = a2;
+  v39 = a1;
+  v4 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Tensor?) - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v35 = v31;
+  v7 = alloca(v4);
+  v8 = alloca(v4);
+  v9 = type metadata accessor for Tensor(0);
+  v10 = *(v9 - 8);
+  v37 = v9;
+  v36 = v10;
+  v11 = *(v10 + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  v14 = alloca(v11);
+  v15 = alloca(v11);
+  v40 = v31;
+  v16 = alloca(v11);
+  v17 = alloca(v11);
+  v43 = v31;
+  __swift_storeEnumTagSinglePayload(v31, 1, 1, v9);
+  LODWORD(v45) = *(v3 + 24);
+  v18 = v3 + *(type metadata accessor for MLFewShotSoundClassifier(0) + 40);
+  v32 = v44;
+  v33 = v45;
+  _mm_storel_ps(v34, _mm_shuffle_ps(*(v3 + 28), *(v3 + 28), 225));
+  *&v34[3] = v31;
+  v19 = type metadata accessor for MLFewShotSoundClassifier.TemporalClassifier(0);
+  v20 = lazy protocol witness table accessor for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier();
+  v42 = valueWithGradient<A>(at:of:)(v31, v18, partial apply for closure #1 in MLFewShotSoundClassifier.performStep(on:), v31, v19, v20);
+  v21 = v36;
+  v22 = *(v36 + 16);
+  v45 = v31;
+  v23 = v37;
+  v41 = v22;
+  v22(v43, v31, v37);
+  v24 = v23;
+  v44 = v31;
+  v25 = v35;
+  outlined init with copy of Tensor?(v31, v35);
+  v26 = v25;
+  if (__swift_getEnumTagSinglePayload(v25, 1, v24) == 1)
+  {
+    BUG();
+  }
+
+  v27 = *(v21 + 8);
+  v27(v45, v24);
+  v28 = v40;
+  (*(v21 + 32))(v40, v26, v24);
+  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v44, &demangling cache variable for type metadata for Tensor?);
+  v42;
+  v29 = v43;
+  v41(v39, v43, v24);
+  softmax(_:alongAxis:)(v28, -1);
+  v27(v28, v24);
+  return (v27)(v29, v24);
+}
+
+uint64_t closure #1 in MLFewShotSoundClassifier.performStep(on:)(void (*a1)(uint64_t, uint64_t), uint64_t a2, _BYTE *a3, float a4, float a5, float a6)
+{
+  v241 = a3;
+  v267 = a6;
+  *&v263 = a5;
+  *&v276 = a4;
+  v265 = a1;
+  v243 = v6;
+  v7 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for Tensor?) - 8) + 64);
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  v242 = v240;
+  v10 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ComputeDevice?) - 8) + 64);
+  v11 = alloca(v10);
+  v12 = alloca(v10);
+  v259 = v240;
+  v255 = type metadata accessor for TensorShape(0);
+  v262 = *(v255 - 8);
+  v13 = *(v262 + 8);
+  v14 = alloca(v13);
+  v15 = alloca(v13);
+  v256 = v240;
+  v16 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for LossReduction?) - 8) + 64);
+  v17 = alloca(v16);
+  v18 = alloca(v16);
+  v274 = v240;
+  v283 = type metadata accessor for Tensor(0);
+  v273 = *(v283 - 8);
+  v19 = *(v273 + 64);
+  v20 = alloca(v19);
+  v21 = alloca(v19);
+  v245 = v240;
+  v22 = alloca(v19);
+  v23 = alloca(v19);
+  v254 = v240;
+  v24 = alloca(v19);
+  v25 = alloca(v19);
+  v257 = v240;
+  v26 = alloca(v19);
+  v27 = alloca(v19);
+  v260 = v240;
+  v28 = alloca(v19);
+  v29 = alloca(v19);
+  v270 = v240;
+  v30 = alloca(v19);
+  v31 = alloca(v19);
+  v275 = v240;
+  v32 = alloca(v19);
+  v33 = alloca(v19);
+  v281 = v240;
+  v34 = alloca(v19);
+  v35 = alloca(v19);
+  v279 = v240;
+  v36 = alloca(v19);
+  v37 = alloca(v19);
+  v282 = v240;
+  v38 = alloca(v19);
+  v39 = alloca(v19);
+  v280 = v240;
+  v40 = alloca(v19);
+  v41 = alloca(v19);
+  v278 = v240;
+  v42 = alloca(v19);
+  v43 = alloca(v19);
+  v272 = v240;
+  v44 = alloca(v19);
+  v45 = alloca(v19);
+  v268 = v240;
+  v46 = alloca(v19);
+  v47 = alloca(v19);
+  v258 = v240;
+  v48 = alloca(v19);
+  v49 = alloca(v19);
+  v269 = v240;
+  v50 = alloca(v19);
+  v51 = alloca(v19);
+  v277 = type metadata accessor for MLFewShotSoundClassifier.TemporalClassifier.Output(0);
+  v52 = *(*(v277 - 8) + 64);
+  v53 = alloca(v52);
+  v54 = alloca(v52);
+  v271 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for DataSample<Tensor, Tensor>);
+  v251 = v240;
+  v266 = a2;
+  DataSample.features.getter(v271);
+  v55 = type metadata accessor for MLFewShotSoundClassifier.TemporalClassifier(0);
+  v56 = lazy protocol witness table accessor for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier();
+  v252 = v240;
+  Layer.callAsFunction(_:)(v240, v55, v56);
+  v265 = *(v273 + 8);
+  v265(v240, v283);
+  v57 = &v240[*(v277 + 28)];
+  v58 = v269;
+  DataSample.labels.getter(v271);
+  LODWORD(v55) = enum case for LossReduction.mean(_:);
+  v59 = type metadata accessor for LossReduction(0);
+  v60 = v274;
+  (*(*(v59 - 8) + 104))(v274, v55, v59);
+  __swift_storeEnumTagSinglePayload(v60, 0, 1, v59);
+  softmaxCrossEntropy(logits:labels:labelSmoothing:axis:reduction:)(v57, v58, -1, v60, 0.0);
+  outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v60, &demangling cache variable for type metadata for LossReduction?);
+  v61 = v58;
+  v62 = v265;
+  v265(v61, v283);
+  v63 = v258;
+  DataSample.labels.getter(v271);
+  v64 = v268;
+  v244 = v57;
+  softmax(_:alongAxis:)(v57, -1);
+  v65 = v278;
+  v66 = v64;
+  v67 = v63;
+  static Tensor.* infix(_:_:)(v66, v63);
+  Tensor.sum(alongAxes:)(&outlined read-only object #0 of closure #1 in MLFewShotSoundClassifier.performStep(on:));
+  v68 = v283;
+  v62(v65, v283);
+  v69 = v279;
+  Tensor.init(floatLiteral:)(1.0);
+  v70 = v282;
+  static Tensor.- infix(_:_:)(v69, v67);
+  v62(v69, v68);
+  v71 = v280;
+  static Tensor.* infix(_:_:)(v268, v70);
+  v62(v70, v68);
+  v72 = v278;
+  Tensor.max(alongAxes:)(&outlined read-only object #1 of closure #1 in MLFewShotSoundClassifier.performStep(on:));
+  v62(v71, v68);
+  v73 = v272;
+  static Tensor.- infix(_:_:)(v272, v72);
+  v62(v72, v68);
+  v62(v73, v68);
+  v62(v268, v68);
+  v62(v258, v68);
+  v74 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Tensor>);
+  v75 = v273;
+  v77 = *(v273 + 80);
+  v78 = (v77 + 32) & ~*(v273 + 80);
+  v274 = *(v273 + 72);
+  v76 = v274;
+  v79 = swift_allocObject(v74, v78 + 4 * v274, v77 | 7);
+  v261 = v79;
+  *(v79 + 16) = 4;
+  *(v79 + 24) = 8;
+  v80 = v79 + v78;
+  DataSample.features.getter(v271);
+  v81 = v80 + v76;
+  v82 = *(v75 + 16);
+  v83 = v252;
+  v84 = v283;
+  v82(v81, v252, v283);
+  v82(v80 + 2 * v274, (v83 + *(v277 + 20)), v84);
+  v246 = 3 * v274;
+  v85 = v83 + *(v277 + 24);
+  v271 = v82;
+  v82(3 * v274 + v80, v85, v84);
+  LOBYTE(v80) = v261;
+  v86 = gradient(at:of:)(v261, v269);
+  v80;
+  v277 = v86;
+  if (!*(v86 + 16))
+  {
+    BUG();
+  }
+
+  v261 = v277 + v78;
+  v271(v268, v277 + v78, v283);
+  v253 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for _ContiguousArrayStorage<Int>);
+  v87 = v253;
+  v88 = swift_allocObject(v253, 48, 7);
+  v88[2] = 2;
+  v88[3] = 4;
+  v89 = v256;
+  Tensor.shape.getter(v87, 48, v90);
+  v91 = TensorShape.subscript.getter(0);
+  v92 = *(v262 + 1);
+  v93 = v255;
+  v92(v89, v255);
+  v88[4] = v91;
+  v88[5] = -1;
+  TensorShape.init(_:)(v88);
+  v94 = v272;
+  Tensor.reshaped(to:)(v89);
+  v262 = v92;
+  v92(v89, v93);
+  v95 = alloca(24);
+  v96 = alloca(32);
+  v241 = v94;
+  v97 = v278;
+  v98 = v283;
+  withoutGradient<A>(_:)(partial apply for closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:), v240, v283);
+  v264 = 0;
+  v99 = v282;
+  static Tensor.+ infix<A>(_:_:)(v97, v248, &type metadata for Float, &protocol witness table for Float);
+  static Tensor./ infix(_:_:)(v269, v99);
+  v100 = v265;
+  v265(v99, v98);
+  v273 = Tensor.scalarType.getter(v99, v98, v101, v102);
+  v266 = v103;
+  v104 = type metadata accessor for ComputeDevice(0);
+  v105 = v259;
+  __swift_storeEnumTagSinglePayload(v259, 1, 1, v104);
+  v106 = v273;
+  Tensor.init(coercing:scalarType:on:)(v248, v273, v266, v105);
+  v249 = &type metadata for Float;
+  v250 = &protocol witness table for Float;
+  *&v266 = (1.0 - *&v263) * *&v276;
+  *v248 = *&v266;
+  v109 = Tensor.scalarType.getter(v248, v106, v107, v108);
+  v111 = v110;
+  v273 = v104;
+  __swift_storeEnumTagSinglePayload(v105, 1, 1, v104);
+  v112 = v279;
+  Tensor.init(coercing:scalarType:on:)(v248, v109, v111, v105);
+  v113 = v270;
+  v114 = v280;
+  static Tensor.- infix(_:_:)(v112, v280);
+  v115 = v275;
+  relu(_:)(v113);
+  v116 = v283;
+  v100(v113, v283);
+  static Tensor.+ infix(_:_:)(v114, v115);
+  v100(v115, v116);
+  v117 = v260;
+  static Tensor.- infix(_:_:)(v282, v281);
+  relu(_:)(v117);
+  v100(v117, v116);
+  v118 = v282;
+  static Tensor.- infix(_:_:)(v113, v282);
+  v100(v113, v116);
+  Tensor.mean()();
+  v100(v115, v116);
+  v100(v281, v116);
+  v100(v279, v116);
+  v100(v118, v116);
+  v100(v280, v116);
+  v100(v278, v116);
+  v100(v272, v116);
+  v100(v268, v116);
+  if (*(v277 + 16) < 2uLL)
+  {
+    BUG();
+  }
+
+  v271(v272, v261 + v274, v283);
+  v119 = v253;
+  v120 = swift_allocObject(v253, 48, 7);
+  v120[2] = 2;
+  v120[3] = 4;
+  v121 = v256;
+  Tensor.shape.getter(v119, 48, v122);
+  v123 = TensorShape.subscript.getter(0);
+  v124 = v255;
+  v125 = v262;
+  v262(v121, v255);
+  v120[4] = v123;
+  v120[5] = -1;
+  TensorShape.init(_:)(v120);
+  v126 = v278;
+  Tensor.reshaped(to:)(v121);
+  v125(v121, v124);
+  v127 = alloca(24);
+  v128 = alloca(32);
+  v285 = v126;
+  v129 = v280;
+  v130 = v283;
+  v131 = v264;
+  withoutGradient<A>(_:)(closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)partial apply, v284, v283);
+  v247 = v131;
+  v132 = v279;
+  static Tensor.+ infix<A>(_:_:)(v129, v248, &type metadata for Float, &protocol witness table for Float);
+  static Tensor./ infix(_:_:)(v269, v132);
+  v133 = v132;
+  v134 = v265;
+  v265(v133, v130);
+  v263 = Tensor.scalarType.getter(v133, v130, v135, v136);
+  v264 = v137;
+  v138 = v259;
+  v139 = v273;
+  __swift_storeEnumTagSinglePayload(v259, 1, 1, v273);
+  v140 = v263;
+  Tensor.init(coercing:scalarType:on:)(v248, v263, v264, v138);
+  v249 = &type metadata for Float;
+  v250 = &protocol witness table for Float;
+  LODWORD(v248[0]) = v266;
+  v143 = Tensor.scalarType.getter(v248, v140, v141, v142);
+  v145 = v144;
+  __swift_storeEnumTagSinglePayload(v138, 1, 1, v139);
+  v146 = v281;
+  Tensor.init(coercing:scalarType:on:)(v248, v143, v145, v138);
+  v147 = v260;
+  v148 = v146;
+  v149 = v282;
+  static Tensor.- infix(_:_:)(v148, v282);
+  v150 = v270;
+  relu(_:)(v147);
+  v151 = v283;
+  v134(v147, v283);
+  static Tensor.+ infix(_:_:)(v149, v150);
+  v134(v150, v151);
+  v152 = v257;
+  v153 = v279;
+  static Tensor.- infix(_:_:)(v279, v275);
+  relu(_:)(v152);
+  v154 = v152;
+  v155 = v283;
+  v134(v154, v283);
+  static Tensor.- infix(_:_:)(v147, v153);
+  v134(v147, v155);
+  Tensor.mean()();
+  v134(v150, v155);
+  v134(v275, v155);
+  v134(v281, v155);
+  v134(v153, v155);
+  v134(v282, v155);
+  v134(v280, v155);
+  v134(v278, v155);
+  v134(v272, v155);
+  if (*(v277 + 16) < 3uLL)
+  {
+    BUG();
+  }
+
+  v271(v278, v261 + 2 * v274, v283);
+  v156 = v253;
+  v157 = swift_allocObject(v253, 48, 7);
+  v157[2] = 2;
+  v157[3] = 4;
+  v158 = v256;
+  Tensor.shape.getter(v156, 48, v159);
+  v160 = TensorShape.subscript.getter(0);
+  v161 = v255;
+  v162 = v262;
+  v262(v158, v255);
+  v157[4] = v160;
+  v157[5] = -1;
+  TensorShape.init(_:)(v157);
+  v163 = v280;
+  Tensor.reshaped(to:)(v158);
+  v162(v158, v161);
+  v164 = alloca(24);
+  v165 = alloca(32);
+  v285 = v163;
+  v166 = v282;
+  v167 = v283;
+  v168 = v247;
+  withoutGradient<A>(_:)(closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)partial apply, v284, v283);
+  v264 = v168;
+  v169 = v281;
+  static Tensor.+ infix<A>(_:_:)(v166, v248, &type metadata for Float, &protocol witness table for Float);
+  static Tensor./ infix(_:_:)(v269, v169);
+  v170 = v169;
+  v171 = v265;
+  v265(v170, v167);
+  v274 = Tensor.scalarType.getter(v170, v167, v172, v173);
+  v263 = v174;
+  v175 = v259;
+  v176 = v273;
+  __swift_storeEnumTagSinglePayload(v259, 1, 1, v273);
+  v177 = v274;
+  Tensor.init(coercing:scalarType:on:)(v248, v274, v263, v175);
+  v249 = &type metadata for Float;
+  v250 = &protocol witness table for Float;
+  LODWORD(v248[0]) = v266;
+  v180 = Tensor.scalarType.getter(v248, v177, v178, v179);
+  v274 = v181;
+  __swift_storeEnumTagSinglePayload(v175, 1, 1, v176);
+  v182 = v275;
+  v183 = v257;
+  Tensor.init(coercing:scalarType:on:)(v248, v180, v274, v175);
+  v184 = v279;
+  static Tensor.- infix(_:_:)(v182, v279);
+  v185 = v260;
+  relu(_:)(v183);
+  v186 = v283;
+  v171(v183, v283);
+  static Tensor.+ infix(_:_:)(v184, v185);
+  v171(v185, v186);
+  v187 = v254;
+  v188 = v281;
+  static Tensor.- infix(_:_:)(v281, v270);
+  relu(_:)(v187);
+  v189 = v187;
+  v190 = v283;
+  v171(v189, v283);
+  static Tensor.- infix(_:_:)(v183, v188);
+  v171(v183, v190);
+  Tensor.mean()();
+  v171(v185, v190);
+  v171(v270, v190);
+  v171(v275, v190);
+  v171(v188, v190);
+  v171(v279, v190);
+  v171(v282, v190);
+  v171(v280, v190);
+  v171(v278, v190);
+  if (*(v277 + 16) < 4uLL)
+  {
+    BUG();
+  }
+
+  v271(v280, v246 + v261, v283);
+  v277;
+  v191 = v253;
+  v192 = swift_allocObject(v253, 48, 7);
+  v192[2] = 2;
+  v192[3] = 4;
+  v193 = v256;
+  Tensor.shape.getter(v191, 48, v194);
+  v195 = TensorShape.subscript.getter(0);
+  v196 = v255;
+  v197 = v262;
+  v262(v193, v255);
+  v192[4] = v195;
+  v192[5] = -1;
+  TensorShape.init(_:)(v192);
+  v198 = v282;
+  Tensor.reshaped(to:)(v193);
+  v197(v193, v196);
+  v199 = alloca(24);
+  v200 = alloca(32);
+  v285 = v198;
+  v201 = v279;
+  v202 = v283;
+  withoutGradient<A>(_:)(closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)partial apply, v284, v283);
+  v203 = v275;
+  static Tensor.+ infix<A>(_:_:)(v201, v248, &type metadata for Float, &protocol witness table for Float);
+  static Tensor./ infix(_:_:)(v269, v203);
+  v204 = v203;
+  v205 = v265;
+  v265(v204, v202);
+  v276 = Tensor.scalarType.getter(v204, v202, v206, v207);
+  v277 = v208;
+  v209 = v259;
+  __swift_storeEnumTagSinglePayload(v259, 1, 1, v273);
+  v210 = v276;
+  Tensor.init(coercing:scalarType:on:)(v248, v276, v277, v209);
+  v213 = Tensor.scalarType.getter(v248, v210, v211, v212);
+  v276 = v214;
+  __swift_storeEnumTagSinglePayload(v209, 1, 1, v273);
+  v215 = v270;
+  Tensor.init(coercing:scalarType:on:)(v248, v213, v276, v209);
+  v216 = v254;
+  v217 = v281;
+  static Tensor.- infix(_:_:)(v215, v281);
+  v218 = v257;
+  relu(_:)(v216);
+  v205(v216, v202);
+  v219 = v260;
+  static Tensor.+ infix(_:_:)(v217, v218);
+  v220 = v218;
+  v221 = v205;
+  v205(v220, v202);
+  v222 = v245;
+  v223 = v275;
+  static Tensor.- infix(_:_:)(v275, v219);
+  v224 = v254;
+  relu(_:)(v222);
+  v221(v222, v202);
+  v225 = v257;
+  static Tensor.- infix(_:_:)(v224, v223);
+  v226 = v221;
+  v221(v224, v202);
+  Tensor.mean()();
+  v221(v225, v202);
+  v221(v260, v202);
+  v221(v270, v202);
+  v221(v275, v202);
+  v221(v281, v202);
+  v221(v279, v202);
+  v221(v282, v202);
+  v227 = v280;
+  v228 = v280;
+  v221(v280, v202);
+  v249 = &type metadata for Double;
+  v250 = &protocol witness table for Double;
+  v248[0] = 0x3FD0000000000000;
+  v270 = Tensor.scalarType.getter(v228, v202, v229, v248);
+  v276 = v230;
+  v231 = v259;
+  __swift_storeEnumTagSinglePayload(v259, 1, 1, v273);
+  v232 = v227;
+  Tensor.init(coercing:scalarType:on:)(v248, v270, v276, v231);
+  v233 = v275;
+  static Tensor.+ infix(_:_:)(v258, v268);
+  v234 = v281;
+  static Tensor.+ infix(_:_:)(v233, v272);
+  v226(v233, v202);
+  v235 = v279;
+  static Tensor.+ infix(_:_:)(v234, v278);
+  v226(v234, v202);
+  v236 = v282;
+  static Tensor.* infix(_:_:)(v235, v232);
+  v226(v235, v202);
+  v237 = v251;
+  static Tensor.+ infix(_:_:)(v251, v236);
+  v226(v236, v202);
+  v226(v280, v202);
+  v226(v278, v202);
+  v226(v272, v202);
+  v226(v268, v202);
+  v226(v258, v202);
+  v226(v269, v202);
+  v226(v237, v202);
+  v238 = v242;
+  v271(v242, v244, v202);
+  outlined destroy of MLFewShotSoundClassifier.TemporalClassifier.Output(v252);
+  __swift_storeEnumTagSinglePayload(v238, 0, 1, v202);
+  return outlined assign with take of Tensor?(v238, v241);
+}
+
+uint64_t lazy protocol witness table accessor for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier()
+{
+  result = lazy protocol witness table cache variable for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier;
+  if (!lazy protocol witness table cache variable for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier)
+  {
+    v1 = type metadata accessor for MLFewShotSoundClassifier.TemporalClassifier(255);
+    result = swift_getWitnessTable(&protocol conformance descriptor for MLFewShotSoundClassifier.TemporalClassifier, v1);
+    lazy protocol witness table cache variable for type MLFewShotSoundClassifier.TemporalClassifier and conformance MLFewShotSoundClassifier.TemporalClassifier = result;
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)()
+{
+  v9[2] = v0;
+  v1 = type metadata accessor for Tensor(0);
+  v10 = *(v1 - 8);
+  v2 = *(v10 + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  v5 = alloca(v2);
+  v6 = alloca(v2);
+  Tensor.squared()();
+  Tensor.sum(alongAxes:)(&outlined read-only object #0 of closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:));
+  v7 = *(v10 + 8);
+  v7(v9, v1);
+  sqrt(_:)(v9);
+  return (v7)(v9, v1);
+}
+
+uint64_t outlined destroy of MLFewShotSoundClassifier.TemporalClassifier.Output(uint64_t a1)
+{
+  v1 = type metadata accessor for MLFewShotSoundClassifier.TemporalClassifier.Output(0);
+  (*(*(v1 - 8) + 8))(a1, v1);
+  return a1;
+}
+
+uint64_t closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)partial apply()
+{
+  return partial apply for closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)();
+}
+
+{
+  return partial apply for closure #1 in static MLFewShotSoundClassifier.localLoss(probabilities:gradients:gamma:alpha:epsilon:)();
+}
+
+void one-time initialization function for tmpPath()
+{
+  v0 = NSTemporaryDirectory();
+  v1 = v0;
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)(v1);
+  v4 = v3;
+
+  tmpPath._countAndFlagsBits = v2;
+  tmpPath._object = v4;
+}
+
+uint64_t static BoostedTreeConfiguration.firstIncompatibility(_:_:)()
+{
+  v23 = v0;
+  v1 = BoostedTreeConfiguration.maximumIterations.getter();
+  if (v1 != BoostedTreeConfiguration.maximumIterations.getter())
+  {
+    BoostedTreeConfiguration.maximumIterations.getter();
+    v6 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v7 = v10;
+    BoostedTreeConfiguration.maximumIterations.getter();
+    result = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v5 = 0xEF736E6F69746172;
+    v4 = 0x657469202E78614DLL;
+    goto LABEL_16;
+  }
+
+  v2 = BoostedTreeConfiguration.maximumDepth.getter();
+  if (v2 != BoostedTreeConfiguration.maximumDepth.getter())
+  {
+    BoostedTreeConfiguration.maximumDepth.getter();
+    v6 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v7 = v11;
+    BoostedTreeConfiguration.maximumDepth.getter();
+    result = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v5 = 0xEA00000000006874;
+    v4 = 0x706564202E78614DLL;
+    goto LABEL_16;
+  }
+
+  v24 = BoostedTreeConfiguration.minimumLossReduction.getter();
+  if (v24 != BoostedTreeConfiguration.minimumLossReduction.getter())
+  {
+    v5 = "Algorithm Type: " + 0x8000000000000000;
+    v12 = BoostedTreeConfiguration.minimumLossReduction.getter();
+    v6 = Double.description.getter(v12);
+    v7 = v13;
+    v14 = BoostedTreeConfiguration.minimumLossReduction.getter();
+    result = Double.description.getter(v14);
+    v4 = 0xD000000000000013;
+    goto LABEL_16;
+  }
+
+  v25 = BoostedTreeConfiguration.minimumChildWeight.getter();
+  if (v25 != BoostedTreeConfiguration.minimumChildWeight.getter())
+  {
+    v4 = 0xD000000000000011;
+    v5 = "Min. loss reduction" + 0x8000000000000000;
+    v15 = BoostedTreeConfiguration.minimumChildWeight.getter();
+    v6 = Double.description.getter(v15);
+    v7 = v16;
+    v17 = BoostedTreeConfiguration.minimumChildWeight.getter();
+LABEL_13:
+    result = Double.description.getter(v17);
+    goto LABEL_16;
+  }
+
+  v3 = BoostedTreeConfiguration.randomSeed.getter();
+  if (v3 != BoostedTreeConfiguration.randomSeed.getter())
+  {
+    BoostedTreeConfiguration.randomSeed.getter();
+    v6 = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v7 = v18;
+    BoostedTreeConfiguration.randomSeed.getter();
+    result = dispatch thunk of CustomStringConvertible.description.getter(&type metadata for Int, &protocol witness table for Int);
+    v5 = 0xEB00000000646565;
+    v4 = 0x73206D6F646E6152;
+    goto LABEL_16;
+  }
+
+  v26 = BoostedTreeConfiguration.rowSubsample.getter();
+  if (v26 != BoostedTreeConfiguration.rowSubsample.getter())
+  {
+    v19 = BoostedTreeConfiguration.rowSubsample.getter();
+    v6 = Double.description.getter(v19);
+    v7 = v20;
+    v21 = BoostedTreeConfiguration.rowSubsample.getter();
+    result = Double.description.getter(v21);
+    v5 = 0xEE00656C706D6173;
+    v4 = 0x2062757320776F52;
+    goto LABEL_16;
+  }
+
+  v27 = (BoostedTreeConfiguration.columnSubsample.getter)();
+  if (v27 != (BoostedTreeConfiguration.columnSubsample.getter)())
+  {
+    v4 = 0xD000000000000011;
+    v5 = "Min. child weight" + 0x8000000000000000;
+    v17 = (BoostedTreeConfiguration.columnSubsample.getter)();
+    v6 = Double.description.getter(v17);
+    v7 = v22;
+    BoostedTreeConfiguration.columnSubsample.getter();
+    goto LABEL_13;
+  }
+
+  v4 = 0;
+  v5 = 0;
+  v6 = 0;
+  v7 = 0;
+  result = 0;
+  v9 = 0;
+LABEL_16:
+  *v23 = v4;
+  v23[1] = v5;
+  v23[2] = v6;
+  v23[3] = v7;
+  v23[4] = result;
+  v23[5] = v9;
+  return result;
+}
+
+uint64_t MLSupportVectorClassifier.predictions(from:)(uint64_t a1)
+{
+  v22 = v2;
+  v23 = a1;
+  v17[1] = v1;
+  v21 = *(type metadata accessor for MLSupportVectorClassifier(0) - 8);
+  v3 = *(v21 + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v18 = v17;
+  v6 = type metadata accessor for DataFrame(0);
+  v7 = *(v6 - 8);
+  v20 = v6;
+  v8 = *(v7 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v19 = v17;
+  (*(v7 + 16))(v17, v23, v6);
+  outlined init with copy of MLTrainingSessionParameters(v22, v17, type metadata accessor for MLSupportVectorClassifier);
+  v11 = *(v7 + 80);
+  v12 = ~*(v7 + 80) & (v11 + 16);
+  v13 = *(v21 + 80);
+  v14 = ~v13 & (v12 + v13 + v8);
+  v15 = swift_allocObject(&unk_393CB8, v14 + v3, v13 | v11 | 7);
+  (*(v7 + 32))(v15 + v12, v19, v20);
+  outlined init with take of MLClassifierMetrics(v18, v15 + v14, type metadata accessor for MLSupportVectorClassifier);
+  specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #1 in MLSupportVectorClassifier.predictions(from:), v15);
+}
+
+uint64_t type metadata accessor for MLSupportVectorClassifier(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for MLSupportVectorClassifier;
+  if (!type metadata singleton initialization cache for MLSupportVectorClassifier)
+  {
+    return swift_getSingletonMetadata(a1, &nominal type descriptor for MLSupportVectorClassifier);
+  }
+
+  return result;
+}
+
+uint64_t *MLSupportVectorClassifier.predictions(from:)(uint64_t a1, __m128 a2)
+{
+  v29 = v3;
+  v32 = v4;
+  v36 = v2;
+  v31 = *(type metadata accessor for MLSupportVectorClassifier(0) - 8);
+  v30 = *(v31 + 64);
+  v5 = alloca(v30);
+  v6 = alloca(v30);
+  v37 = &v26;
+  v39 = type metadata accessor for DataFrame(0);
+  v35 = *(v39 - 8);
+  v7 = *(v35 + 64);
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  v34 = &v26;
+  v10 = alloca(v7);
+  v11 = alloca(v7);
+  v12 = *(*(type metadata accessor for AnyColumn(0) - 8) + 64);
+  v13 = alloca(v12);
+  v14 = alloca(v12);
+  v33 = &v26;
+  v15 = *(a1 + 8);
+  v27 = *a1;
+  v28 = v15;
+  outlined copy of Result<_DataTable, Error>(v27, v15);
+  DataFrame.init(_:)(&v27);
+  v38 = &v26;
+  v16 = v35;
+  (*(v35 + 16))(&v26, &v26, v39);
+  outlined init with copy of MLTrainingSessionParameters(v32, v37, type metadata accessor for MLSupportVectorClassifier);
+  v17 = *(v16 + 80);
+  v18 = ~*(v16 + 80) & (v17 + 16);
+  v19 = *(v31 + 80);
+  v20 = ~v19 & (v18 + v19 + v7);
+  v21 = swift_allocObject(&unk_393CE0, v20 + v30, v19 | v17 | 7);
+  (*(v16 + 32))(v21 + v18, v34, v39);
+  v22 = v21 + v20;
+  v23 = v33;
+  outlined init with take of MLClassifierMetrics(v37, v22, type metadata accessor for MLSupportVectorClassifier);
+  v24 = v29;
+  specialized blockAwait<A>(_:)(&closure #1 in MLSupportVectorClassifier.predictions(from:)partial apply, v21);
+
+  if (v24)
+  {
+    return (*(v16 + 8))(v38, v39);
+  }
+
+  *a2.i64 = (*(v16 + 8))(v38, v39);
+  return MLUntypedColumn.init(_:convertArraysToShapedArrays:)(v23, 1, a2);
+}
+
+uint64_t MLSupportVectorClassifier.evaluation(on:)(uint64_t a1)
+{
+  v21 = v2;
+  v22 = a1;
+  v17[1] = v1;
+  v20 = *(type metadata accessor for MLSupportVectorClassifier(0) - 8);
+  v3 = *(v20 + 64);
+  v4 = alloca(v3);
+  v5 = alloca(v3);
+  v18 = v17;
+  v6 = type metadata accessor for DataFrame(0);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v19 = v17;
+  (*(v7 + 16))(v17, v22, v6);
+  outlined init with copy of MLTrainingSessionParameters(v21, v17, type metadata accessor for MLSupportVectorClassifier);
+  v11 = *(v7 + 80);
+  v12 = ~*(v7 + 80) & (v11 + 16);
+  v13 = *(v20 + 80);
+  v14 = ~v13 & (v12 + v13 + v8);
+  v15 = swift_allocObject(&unk_393D08, v14 + v3, v13 | v11 | 7);
+  (*(v7 + 32))(v15 + v12, v19, v6);
+  outlined init with take of MLClassifierMetrics(v18, v15 + v14, type metadata accessor for MLSupportVectorClassifier);
+  specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #1 in MLSupportVectorClassifier.evaluation(on:), v15);
+}
+
+{
+  v11 = v1;
+  v2 = type metadata accessor for DataFrame(0);
+  v3 = *(v2 - 8);
+  v4 = *(v3 + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = *(a1 + 8);
+  v9 = *a1;
+  v10 = v7;
+  outlined copy of Result<_DataTable, Error>(v9, v7);
+  DataFrame.init(_:)(&v9);
+  MLSupportVectorClassifier.evaluation(on:)(&v9);
+  return (*(v3 + 8))(&v9, v2);
+}
+
+NSURL *MLSupportVectorClassifier.write(to:metadata:)(uint64_t a1, const void *a2)
+{
+  v46 = v2;
+  v39 = v3;
+  v45 = a2;
+  v44 = a1;
+  v4 = *(*(type metadata accessor for MLSupportVectorClassifier.Model(0) - 8) + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v40 = v35;
+  v41 = type metadata accessor for Model(0);
+  v7 = *(v41 - 8);
+  v8 = *(v7 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v38 = v35;
+  v11 = type metadata accessor for URL(0);
+  v12 = *(v11 - 1);
+  v13 = *(v12 + 64);
+  v14 = alloca(v13);
+  v15 = alloca(v13);
+  qmemcpy(v37, v45, sizeof(v37));
+  v16 = v46;
+  result = static _ValidationUtilities.validateWriteLocation(atURL:defaultName:fileExtension:)(v44, 0x56537261656E694CLL, 0xE90000000000004DLL, 0x6C65646F6D6C6DLL, 0xE700000000000000);
+  if (!v16)
+  {
+    v46 = 0;
+    v43 = v7;
+    v42 = v35;
+    v45 = v11;
+    v44 = v12;
+    outlined init with copy of MLTrainingSessionParameters(v39, v40, type metadata accessor for MLSupportVectorClassifier.Model);
+    v18 = *&v37[8];
+    if (*&v37[8])
+    {
+      v19 = *v37;
+      v20 = *&v37[16];
+      v21 = *&v37[24];
+      v22 = *&v37[32];
+      v23 = *&v37[48];
+      v24 = *&v37[56];
+      v25 = *&v37[64];
+    }
+
+    else
+    {
+      v26 = NSFullUserName();
+      v27 = v26;
+      v19 = static String._unconditionallyBridgeFromObjectiveC(_:)(v27);
+      v18 = v28;
+
+      v21 = "RandomForestRegressor" + 0x8000000000000000;
+      *v35 = v19;
+      *&v35[8] = v18;
+      *&v35[16] = 0xD000000000000033;
+      *&v35[24] = "RandomForestRegressor" + 0x8000000000000000;
+      *&v35[32] = 0;
+      *&v35[48] = 49;
+      *&v35[56] = 0xE100000000000000;
+      *&v35[64] = 0;
+      *v36 = v19;
+      *&v36[8] = v18;
+      *&v36[16] = 0xD000000000000033;
+      *&v36[24] = "RandomForestRegressor" + 0x8000000000000000;
+      *&v36[32] = 0;
+      *&v36[48] = 49;
+      *&v36[56] = 0xE100000000000000;
+      *&v36[64] = 0;
+      outlined retain of MLModelMetadata(v35);
+      outlined release of MLModelMetadata(v36);
+      v24 = 0xE100000000000000;
+      v23 = 49;
+      v22 = 0;
+      v20 = 0xD000000000000033;
+      v25 = 0;
+    }
+
+    *v36 = v19;
+    *&v36[8] = v18;
+    *&v36[16] = v20;
+    *&v36[24] = v21;
+    *&v36[32] = v22;
+    *&v36[48] = v23;
+    *&v36[56] = v24;
+    *&v36[64] = v25;
+    outlined retain of MLModelMetadata?(v37);
+    v29 = v38;
+    v30 = v40;
+    v31 = v46;
+    MLSupportVectorClassifier.Model.export(metadata:)(v36);
+    qmemcpy(v35, v36, sizeof(v35));
+    outlined release of MLModelMetadata(v35);
+    outlined destroy of MLActivityClassifier.ModelParameters(v30, type metadata accessor for MLSupportVectorClassifier.Model);
+    if (v31)
+    {
+      return (*(v44 + 8))(v42, v45);
+    }
+
+    else
+    {
+      v32 = v42;
+      Model.write(to:)(v42);
+      v46 = 0;
+      v33 = v44;
+      v34 = v45;
+      (*(v43 + 8))(v29, v41);
+      return (*(v33 + 8))(v32, v34);
+    }
+  }
+
+  return result;
+}
+
+uint64_t MLSupportVectorClassifier.write(toFile:metadata:)(uint64_t a1, uint64_t a2, const void *a3)
+{
+  v17 = v3;
+  v21 = a3;
+  v19 = a2;
+  v18 = a1;
+  v22 = type metadata accessor for URL.DirectoryHint(0);
+  v20 = *(v22 - 8);
+  v4 = *(v20 + 64);
+  v5 = alloca(v4);
+  v6 = alloca(v4);
+  v7 = *(*(__swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for URL?) - 8) + 64);
+  v8 = alloca(v7);
+  v9 = alloca(v7);
+  v23 = v16;
+  v10 = type metadata accessor for URL(0);
+  v24 = *(v10 - 8);
+  v11 = *(v24 + 64);
+  v12 = alloca(v11);
+  v13 = alloca(v11);
+  qmemcpy(v16, v21, sizeof(v16));
+  __swift_storeEnumTagSinglePayload(v16, 1, 1, v10);
+  (*(v20 + 104))(v16, enum case for URL.DirectoryHint.inferFromPath(_:), v22);
+  v14 = v19;
+
+  URL.init(filePath:directoryHint:relativeTo:)(v18, v14, v16, v23);
+  MLSupportVectorClassifier.write(to:metadata:)(v16, v16);
+  return (*(v24 + 8))(v16, v10);
+}
+
+unint64_t MLSupportVectorClassifier.debugDescription.getter()
+{
+  v1 = v0;
+  v25._object = type metadata accessor for MLClassifierMetrics.Contents(0);
+  v2 = *(*(v25._object - 1) + 64);
+  v3 = alloca(v2);
+  v4 = alloca(v2);
+  v5 = type metadata accessor for MLSupportVectorClassifier(0);
+  v25._countAndFlagsBits = MLSupportVectorClassifier.ModelParameters.description.getter();
+  v7 = v6;
+  v22._countAndFlagsBits = MLClassifierMetrics.description.getter();
+  v22._object = v8;
+  v9 = *(v5 + 40);
+  v10 = v7;
+  outlined init with copy of MLTrainingSessionParameters(v1 + v9, &v20, type metadata accessor for MLClassifierMetrics.Contents);
+  LODWORD(v7) = swift_getEnumCaseMultiPayload(&v20, v25._object);
+  outlined destroy of MLActivityClassifier.ModelParameters(&v20, type metadata accessor for MLClassifierMetrics.Contents);
+  v25._object = MLClassifierMetrics.description.getter();
+  v12 = v11;
+  v23 = 0xD000000000000024;
+  v24 = "rtVectorClassifier.swift" + 0x8000000000000000;
+  v13._countAndFlagsBits = v25._countAndFlagsBits;
+  v25._countAndFlagsBits = v10;
+  v13._object = v10;
+  String.append(_:)(v13);
+  v21._countAndFlagsBits = 0xD00000000000001ELL;
+  v21._object = "ActivityClassifier\n\nParameters\n" + 0x8000000000000000;
+  object = v22._object;
+  String.append(_:)(v22);
+  v15 = v21._object;
+  String.append(_:)(v21);
+  v15;
+  if (v7 > 1)
+  {
+    v18 = object;
+  }
+
+  else
+  {
+    v21._countAndFlagsBits = 0xD000000000000020;
+    v21._object = "\nPerformance on Training Data\n" + 0x8000000000000000;
+    v16._countAndFlagsBits = v25._object;
+    v16._object = v12;
+    String.append(_:)(v16);
+    v17 = v21._object;
+    String.append(_:)(v21);
+    object;
+    v18 = v12;
+    LOBYTE(v12) = v17;
+  }
+
+  v18;
+  v12;
+  v25._countAndFlagsBits;
+  return v23;
+}
+
+NSAttributedString MLSupportVectorClassifier.playgroundDescription.getter()
+{
+  v1 = v0;
+  v2 = type metadata accessor for NSAttributedString();
+  v3._countAndFlagsBits = MLSupportVectorClassifier.debugDescription.getter();
+  v3._object = v4;
+  result.super.isa = NSAttributedString.__allocating_init(string:)(v3).super.isa;
+  v1[3].super.isa = v2;
+  v1->super.isa = result.super.isa;
+  return result;
+}
+
+void MLSupportVectorClassifier.model.setter(uint64_t a1)
+{
+  v2 = *(type metadata accessor for MLSupportVectorClassifier(0) + 20);
+
+  *(v1 + v2) = a1;
+}
+
+uint64_t MLSupportVectorClassifier.targetColumn.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for MLSupportVectorClassifier(0) + 24));
+
+  return v1;
+}
+
+uint64_t MLSupportVectorClassifier.targetColumn.setter(uint64_t a1, uint64_t a2)
+{
+  v3 = *(type metadata accessor for MLSupportVectorClassifier(0) + 24);
+  result = *(v2 + v3 + 8);
+  *(v2 + v3) = a1;
+  *(v2 + v3 + 8) = a2;
+  return result;
+}
+
+uint64_t MLSupportVectorClassifier.featureColumns.setter(uint64_t a1)
+{
+  v2 = *(type metadata accessor for MLSupportVectorClassifier(0) + 28);
+  result = *(v1 + v2);
+  *(v1 + v2) = a1;
+  return result;
+}
+
+uint64_t MLSupportVectorClassifier.modelParameters.getter()
+{
+  v2 = v0;
+  v3 = type metadata accessor for MLSupportVectorClassifier(0);
+  return outlined init with copy of MLSupportVectorClassifier.ModelParameters(v1 + *(v3 + 32), v2);
+}
+
+uint64_t MLSupportVectorClassifier.trainingMetrics.getter()
+{
+  v2 = v0;
+  v3 = type metadata accessor for MLSupportVectorClassifier(0);
+  return outlined init with copy of MLTrainingSessionParameters(v1 + *(v3 + 36), v2, type metadata accessor for MLClassifierMetrics);
+}
+
+uint64_t MLSupportVectorClassifier.validationMetrics.getter()
+{
+  v2 = v0;
+  v3 = type metadata accessor for MLSupportVectorClassifier(0);
+  return outlined init with copy of MLTrainingSessionParameters(v1 + *(v3 + 40), v2, type metadata accessor for MLClassifierMetrics);
+}
+
+uint64_t MLSupportVectorClassifier.init(trainingData:targetColumn:featureColumns:parameters:)(void (*a1)(uint64_t *, uint64_t, uint64_t), void *a2, void *a3, uint64_t a4, uint64_t a5)
+{
+  v107 = v6;
+  v122 = a5;
+  v112 = a4;
+  v111 = a3;
+  v115 = a2;
+  v119 = a1;
+  v7 = v5;
+  v103 = v5;
+  v116 = type metadata accessor for DataFrame(0);
+  v120 = *(v116 - 8);
+  v8 = *(v120 + 64);
+  v9 = alloca(v8);
+  v10 = alloca(v8);
+  v101 = v89;
+  v98 = v8;
+  v11 = alloca(v8);
+  v12 = alloca(v8);
+  v110 = v89;
+  v13 = *(*(type metadata accessor for MLClassifierMetrics(0) - 8) + 64);
+  v14 = alloca(v13);
+  v15 = alloca(v13);
+  v97 = v89;
+  v16 = alloca(v13);
+  v17 = alloca(v13);
+  v93 = v89;
+  v92 = *(type metadata accessor for MLSupportVectorClassifier.Model(0) - 8);
+  v18 = *(v92 + 64);
+  v19 = alloca(v18);
+  v20 = alloca(v18);
+  v109 = v89;
+  v108 = v18;
+  v21 = alloca(v18);
+  v22 = alloca(v18);
+  v121 = v89;
+  v23 = *(*(type metadata accessor for AnyColumn(0) - 8) + 64);
+  v24 = alloca(v23);
+  v25 = alloca(v23);
+  v99 = v89;
+  v26 = *(*(type metadata accessor for MLSupportVectorClassifier.Classifier(0) - 8) + 64);
+  v27 = alloca(v26);
+  v28 = alloca(v26);
+  v113 = v89;
+  v114 = type metadata accessor for MLSupportVectorClassifier.ModelParameters.ValidationData(0);
+  v29 = *(*(v114 - 1) + 64);
+  v30 = alloca(v29);
+  v31 = alloca(v29);
+  v118 = v89;
+  v104 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+  v96 = *(v104 - 8);
+  v32 = *(v96 + 64);
+  v33 = alloca(v32);
+  v34 = alloca(v32);
+  v102 = v89;
+  v35 = alloca(v32);
+  v36 = alloca(v32);
+  v94 = v89;
+  v95 = v32;
+  v37 = alloca(v32);
+  v38 = alloca(v32);
+  v123 = v89;
+  v105 = __swift_instantiateConcreteTypeFromMangledName(&demangling cache variable for type metadata for ClassificationMetrics<String>);
+  v117 = *(v105 - 8);
+  v39 = v117[8];
+  v40 = alloca(v39);
+  v41 = alloca(v39);
+  v42 = type metadata accessor for MLSupportVectorClassifier(0);
+  v106 = *(v42 + 36);
+  v43 = v7 + v106;
+  ClassificationMetrics.init()(&type metadata for String, &protocol witness table for String);
+  type metadata accessor for MLClassifierMetrics.Precomputed(0);
+  _s8CreateML19MLClassifierMetricsV22makeConfusionDataFramey07TabularG00gH0V0A12MLComponents014ClassificationD0VyxGSLRzSeRzSERzSHRzlFZSS_Tt1g5();
+  _s8CreateML19MLClassifierMetricsV28makePrecisionRecallDataFramey07TabularH00hI0V0A12MLComponents014ClassificationD0VyxGSLRzSHRzlFZSS_Tt1g5(v89);
+  (v117[1])(v89, v105);
+  v44 = v103;
+  *(v103 + v106) = 0;
+  v117 = type metadata accessor for MLClassifierMetrics.Contents(0);
+  v105 = v43;
+  swift_storeEnumTagMultiPayload(v43, v117, 1);
+  v100 = v42;
+  v45 = *(v42 + 40);
+  v46 = lazy protocol witness table accessor for type MLCreateError and conformance MLCreateError();
+  v47 = swift_allocError(&type metadata for MLCreateError, v46, 0, 0);
+  *v48 = 0xD0000000000000C0;
+  *(v48 + 8) = "essor\n\nParameters\n" + 0x8000000000000000;
+  *(v48 + 16) = 0;
+  *(v48 + 32) = 0;
+  *(v48 + 48) = 0;
+  *(v44 + v45) = v47;
+  v106 = v44 + v45;
+  swift_storeEnumTagMultiPayload(v44 + v45, v117, 2);
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v122 + 8, &v90, &demangling cache variable for type metadata for Any?);
+  if (!v91)
+  {
+    BUG();
+  }
+
+  v49 = v123;
+  v50 = (v123 + *(v104 + 48));
+  outlined init with take of Any(&v90, v89);
+  swift_dynamicCast(v118, v89, &type metadata for Any + 8, v114, 7);
+  v51 = v49;
+  v52 = v119;
+  v53 = v107;
+  MLSupportVectorClassifier.ModelParameters.ValidationData.generateDataFrames(trainingData:)(v51, v50, v119);
+  if (v53)
+  {
+    v111;
+    v112;
+    outlined destroy of MLSupportVectorClassifier.ModelParameters(v122);
+    (*(v120 + 8))(v52, v116);
+    outlined destroy of MLActivityClassifier.ModelParameters(v118, type metadata accessor for MLSupportVectorClassifier.ModelParameters.ValidationData);
+LABEL_5:
+    outlined destroy of MLActivityClassifier.ModelParameters(v105, type metadata accessor for MLClassifierMetrics);
+    return outlined destroy of MLActivityClassifier.ModelParameters(v106, type metadata accessor for MLClassifierMetrics);
+  }
+
+  v117 = v50;
+  outlined destroy of MLActivityClassifier.ModelParameters(v118, type metadata accessor for MLSupportVectorClassifier.ModelParameters.ValidationData);
+  v54 = v111;
+  v55 = v112;
+  v56 = static _FeatureUtilities.selectFeaturesFromTrainingData(trainingData:targetColumn:featureColumns:)(v123, v115, v111, v112);
+  v55;
+  DataFrame.subscript.getter(v115, v54);
+  outlined init with copy of MLSupportVectorClassifier.ModelParameters(v122, v89);
+
+  MLSupportVectorClassifier.Classifier.init(labelsColumn:targetColumnName:featureColumnNames:parameters:)(v99, v115, v54, v56, v89);
+  v118 = v56;
+  MLSupportVectorClassifier.Classifier.fitted(to:validateOn:eventHandler:)(v123, v117, 0, 0);
+  v58 = v100;
+  v59 = *(v100 + 24);
+  v60 = v103;
+  *(v103 + v59) = v115;
+  *(v60 + v59 + 8) = v54;
+  v117 = (v60 + *(v58 + 32));
+  outlined init with copy of MLSupportVectorClassifier.ModelParameters(v122, v117);
+  *(v60 + *(v58 + 28)) = v118;
+  v61 = v109;
+  outlined init with copy of MLTrainingSessionParameters(v121, v109, type metadata accessor for MLSupportVectorClassifier.Model);
+  v62 = *(v92 + 80);
+  v63 = ~*(v92 + 80) & (v62 + 16);
+  v108 += v63;
+  v107 = v62 | 7;
+  v64 = swift_allocObject(&unk_393D30, v108, v62 | 7);
+  v112 = v63;
+  outlined init with take of MLClassifierMetrics(v61, v64 + v63, type metadata accessor for MLSupportVectorClassifier.Model);
+  specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #1 in MLSupportVectorClassifier.init(trainingData:targetColumn:featureColumns:parameters:), v64);
+  v66 = v65;
+  v114 = 0;
+
+  v67 = *(v100 + 20);
+  v115 = v66;
+  v68 = v103;
+  *(v103 + v67) = v66;
+  v69 = v121;
+  outlined init with copy of MLTrainingSessionParameters(v121, v68, type metadata accessor for MLSupportVectorClassifier.Model);
+  v70 = v109;
+  outlined init with copy of MLTrainingSessionParameters(v69, v109, type metadata accessor for MLSupportVectorClassifier.Model);
+  v71 = v94;
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v123, v94, &demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+  v72 = *(v96 + 80);
+  v73 = ~v72 & (v108 + v72);
+  v74 = swift_allocObject(&unk_393D58, v73 + v95, v107 | v72);
+  outlined init with take of MLClassifierMetrics(v70, v74 + v112, type metadata accessor for MLSupportVectorClassifier.Model);
+  outlined init with take of (training: DataFrame, validation: DataFrame?)(v71, v74 + v73);
+  v75 = v93;
+  v76 = v114;
+  specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #2 in MLSupportVectorClassifier.init(trainingData:targetColumn:featureColumns:parameters:), v74);
+  if (v76)
+  {
+
+    outlined destroy of MLSupportVectorClassifier.ModelParameters(v122);
+    (*(v120 + 8))(v119, v116);
+    v77 = v111;
+    v78 = v123;
+    outlined destroy of MLActivityClassifier.ModelParameters(v121, type metadata accessor for MLSupportVectorClassifier.Model);
+    outlined destroy of MLActivityClassifier.ModelParameters(v113, type metadata accessor for MLSupportVectorClassifier.Classifier);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v78, &demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+    outlined destroy of MLActivityClassifier.ModelParameters(v103, type metadata accessor for MLSupportVectorClassifier.Model);
+    v118;
+    v77;
+
+    outlined destroy of MLSupportVectorClassifier.ModelParameters(v117);
+    goto LABEL_5;
+  }
+
+  outlined assign with take of MLClassifierMetrics(v75, v105);
+  v79 = v102;
+  outlined init with copy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v123, v102, &demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+  v80 = v79 + *(v104 + 48);
+  v81 = v116;
+  if (__swift_getEnumTagSinglePayload(v80, 1, v116) == 1)
+  {
+    outlined destroy of MLSupportVectorClassifier.ModelParameters(v122);
+    v82 = *(v120 + 8);
+    v82(v119, v81);
+    outlined destroy of MLActivityClassifier.ModelParameters(v121, type metadata accessor for MLSupportVectorClassifier.Model);
+    outlined destroy of MLActivityClassifier.ModelParameters(v113, type metadata accessor for MLSupportVectorClassifier.Classifier);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v123, &demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v80, &demangling cache variable for type metadata for DataFrame?);
+    return (v82)(v102, v81);
+  }
+
+  else
+  {
+    v83 = v120;
+    v104 = *(v120 + 32);
+    (v104)(v110, v80, v81);
+    v114 = *(v83 + 8);
+    (v114)(v102, v81);
+    outlined init with copy of MLTrainingSessionParameters(v121, v109, type metadata accessor for MLSupportVectorClassifier.Model);
+    (*(v83 + 16))(v101, v110, v81);
+    v84 = *(v83 + 80);
+    v85 = ~v84 & (v84 + v108);
+    v86 = swift_allocObject(&unk_393D80, v85 + v98, v84 | v107);
+    outlined init with take of MLClassifierMetrics(v109, v86 + v112, type metadata accessor for MLSupportVectorClassifier.Model);
+    (v104)(v86 + v85, v101, v81);
+    v87 = v97;
+    specialized blockAwait<A>(_:)(&async function pointer to partial apply for closure #3 in MLSupportVectorClassifier.init(trainingData:targetColumn:featureColumns:parameters:), v86);
+
+    outlined destroy of MLSupportVectorClassifier.ModelParameters(v122);
+    v88 = v114;
+    (v114)(v119, v81);
+    v88(v110, v81);
+    outlined destroy of MLActivityClassifier.ModelParameters(v121, type metadata accessor for MLSupportVectorClassifier.Model);
+    outlined destroy of MLActivityClassifier.ModelParameters(v113, type metadata accessor for MLSupportVectorClassifier.Classifier);
+    outlined destroy of Either<LogisticRegressionClassifier<Float, String>, FullyConnectedNetworkClassifier<Float, String>>(v123, &demangling cache variable for type metadata for (training: DataFrame, validation: DataFrame?));
+    return outlined assign with take of MLClassifierMetrics(v87, v106);
+  }
 }

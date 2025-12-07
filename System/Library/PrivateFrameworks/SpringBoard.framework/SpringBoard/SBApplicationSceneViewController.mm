@@ -90,14 +90,15 @@
 
 - (void)_setOverrideStatusBarSettings:(id)settings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = [(SBStatusBarSettings *)self->_overrideStatusBarSettings isEqual:settingsCopy];
-  v6 = SBLogAppStatusBars();
-  applicationSceneStatusBarDelegate = v6;
-  if (v5)
+  v6 = v5;
+  v7 = SBLogAppStatusBars(v5);
+  applicationSceneStatusBarDelegate = v7;
+  if (v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(SBApplicationSceneViewController *)self _setOverrideStatusBarSettings:settingsCopy, applicationSceneStatusBarDelegate];
     }
@@ -105,23 +106,23 @@
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       sceneHandle = [(SBSceneViewController *)self sceneHandle];
       sceneIdentifier = [sceneHandle sceneIdentifier];
-      v13 = 138412802;
-      v14 = sceneIdentifier;
-      v15 = 2112;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = settingsCopy;
-      v10 = v16;
-      _os_log_impl(&dword_21ED4E000, applicationSceneStatusBarDelegate, OS_LOG_TYPE_INFO, "(%@) %@ Override status bar settings did change: %{public}@", &v13, 0x20u);
+      v14 = 138412802;
+      v15 = sceneIdentifier;
+      v16 = 2112;
+      v17 = objc_opt_class();
+      v18 = 2114;
+      v19 = settingsCopy;
+      v11 = v17;
+      _os_log_impl(&dword_21ED4E000, applicationSceneStatusBarDelegate, OS_LOG_TYPE_INFO, "(%@) %@ Override status bar settings did change: %{public}@", &v14, 0x20u);
     }
 
-    v11 = [settingsCopy copy];
+    v12 = [settingsCopy copy];
     overrideStatusBarSettings = self->_overrideStatusBarSettings;
-    self->_overrideStatusBarSettings = v11;
+    self->_overrideStatusBarSettings = v12;
 
     applicationSceneStatusBarDelegate = [(SBApplicationSceneViewController *)self applicationSceneStatusBarDelegate];
     [applicationSceneStatusBarDelegate applicationSceneViewController:self didUpdateStatusBarSettings:settingsCopy];

@@ -50,7 +50,7 @@ id __46__HDNanoRegistryDeviceCapabilityProvider_init__block_invoke()
 
 void __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -68,13 +68,11 @@ void __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__blo
     v3 = WeakRetained[2];
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v7 = __76__HDNanoRegistryDeviceCapabilityProvider__pairedDeviceDidChangeCapabilities__block_invoke;
-    v8 = &unk_278613C18;
-    v9 = WeakRetained;
+    v6 = __76__HDNanoRegistryDeviceCapabilityProvider__pairedDeviceDidChangeCapabilities__block_invoke;
+    v7 = &unk_278613C18;
+    v8 = WeakRetained;
     [v3 notifyObservers:&buf];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -92,7 +90,7 @@ void __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__blo
 
 - (void)_pairedOrActiveDevicesDidChange:(id)change
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
@@ -102,22 +100,20 @@ void __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__blo
     v7 = v6;
     name = [changeCopy name];
     *buf = 138543618;
-    v13 = v6;
-    v14 = 2114;
-    v15 = name;
+    v12 = v6;
+    v13 = 2114;
+    v14 = name;
     _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying delegate for an active device change: %{public}@", buf, 0x16u);
   }
 
   [(HDNanoRegistryDeviceCapabilityProvider *)self resetCachedLastActivePairedDevice];
   observers = self->_observers;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __74__HDNanoRegistryDeviceCapabilityProvider__pairedOrActiveDevicesDidChange___block_invoke;
-  v11[3] = &unk_278613C18;
-  v11[4] = self;
-  [(HKObserverSet *)observers notifyObservers:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __74__HDNanoRegistryDeviceCapabilityProvider__pairedOrActiveDevicesDidChange___block_invoke;
+  v10[3] = &unk_278613C18;
+  v10[4] = self;
+  [(HKObserverSet *)observers notifyObservers:v10];
 }
 
 - (void)resetCachedLastActivePairedDevice
@@ -177,37 +173,37 @@ void __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__blo
 
 void __65__HDNanoRegistryDeviceCapabilityProvider_registerObserver_queue___block_invoke(uint64_t a1)
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
     v2 = [MEMORY[0x277CCAB98] defaultCenter];
     v3 = *MEMORY[0x277D2BC78];
-    v19[0] = *MEMORY[0x277D2BC88];
-    v19[1] = v3;
-    v19[2] = *MEMORY[0x277D2BC48];
-    [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+    v18[0] = *MEMORY[0x277D2BC88];
+    v18[1] = v3;
+    v18[2] = *MEMORY[0x277D2BC48];
+    [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v4 = v15 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v13 = 0u;
+    v4 = v14 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          [v2 addObserver:v1 selector:sel__pairedOrActiveDevicesDidChange_ name:*(*(&v14 + 1) + 8 * i) object:0];
+          [v2 addObserver:v1 selector:sel__pairedOrActiveDevicesDidChange_ name:*(*(&v13 + 1) + 8 * i) object:0];
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v5);
@@ -217,21 +213,19 @@ void __65__HDNanoRegistryDeviceCapabilityProvider_registerObserver_queue___block
     *(v1 + 8) = -1;
     v8 = [*MEMORY[0x277D2BC98] UTF8String];
     v9 = MEMORY[0x277D85CD0];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__block_invoke;
-    v11[3] = &unk_278613BF0;
-    objc_copyWeak(&v12, &location);
-    notify_register_dispatch(v8, (v1 + 8), MEMORY[0x277D85CD0], v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __67__HDNanoRegistryDeviceCapabilityProvider__startListeningForUpdates__block_invoke;
+    v10[3] = &unk_278613BF0;
+    objc_copyWeak(&v11, &location);
+    notify_register_dispatch(v8, (v1 + 8), MEMORY[0x277D85CD0], v10);
 
     os_unfair_lock_lock((v1 + 24));
     *(v1 + 28) = 1;
     os_unfair_lock_unlock((v1 + 24));
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

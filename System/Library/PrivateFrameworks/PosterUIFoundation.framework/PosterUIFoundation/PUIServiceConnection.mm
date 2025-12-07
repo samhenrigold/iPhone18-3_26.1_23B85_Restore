@@ -29,9 +29,11 @@
 
 uint64_t __41__PUIServiceConnection_defaultConnection__block_invoke(uint64_t a1)
 {
-  defaultConnection___result = [objc_alloc(*(a1 + 32)) initToServiceName:@"com.apple.springboard.SBRendererService"];
+  v1 = [objc_alloc(*(a1 + 32)) initToServiceName:@"com.apple.springboard.SBRendererService"];
+  v2 = defaultConnection___result;
+  defaultConnection___result = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (id)initToServiceName:(id)name
@@ -39,7 +41,7 @@ uint64_t __41__PUIServiceConnection_defaultConnection__block_invoke(uint64_t a1)
   nameCopy = name;
   if (!nameCopy)
   {
-    [PUIServiceConnection initToServiceName:a2];
+    [(PUIServiceConnection *)a2 initToServiceName:?];
   }
 
   v6 = nameCopy;
@@ -63,7 +65,7 @@ uint64_t __41__PUIServiceConnection_defaultConnection__block_invoke(uint64_t a1)
   endpointCopy = endpoint;
   if (!endpointCopy)
   {
-    [PUIServiceConnection initToEndpoint:a2];
+    [(PUIServiceConnection *)a2 initToEndpoint:?];
   }
 
   v7 = endpointCopy;
@@ -234,46 +236,46 @@ void __60__PUIServiceConnection_connectionActivateIfNeededWithError___block_invo
   [(PUIServiceConnection *)&v5 dealloc];
 }
 
-- (void)initToServiceName:(const char *)a1 .cold.1(const char *a1)
+- (void)initToServiceName:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"serviceName"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"serviceName"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"PUIServiceConnection.m";
-    v9 = 1024;
-    v10 = 40;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PUIServiceConnection.m";
+    v10 = 1024;
+    v11 = 40;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A8C85000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initToEndpoint:(const char *)a1 .cold.1(const char *a1)
+- (void)initToEndpoint:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"PUIServiceConnection.m";
-    v9 = 1024;
-    v10 = 50;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PUIServiceConnection.m";
+    v10 = 1024;
+    v11 = 50;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A8C85000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

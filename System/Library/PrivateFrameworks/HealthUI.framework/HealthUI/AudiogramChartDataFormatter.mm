@@ -41,7 +41,7 @@
   numberCopy = number;
   [numberCopy doubleValue];
   v5 = HKRoundWithPositiveZeroForDoubleValue(v4);
-  sub_1C3C702E8();
+  sub_1C3C702E8(0);
   v6 = swift_allocObject();
   v7 = MEMORY[0x1E69E63B0];
   *(v6 + 16) = xmmword_1C3D5F370;

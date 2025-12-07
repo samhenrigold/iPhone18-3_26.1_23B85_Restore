@@ -34,7 +34,10 @@
 - (void)showActivityInProgressUIWithMessage:(id)message;
 - (void)showHSA2UpgradeAlert;
 - (void)showLearnMoreLinkInDTODisclosure:(id)disclosure;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FMDUIFMIPiCloudSettingsViewController
@@ -83,26 +86,24 @@ void __70__FMDUIFMIPiCloudSettingsViewController__loadSearchPartyConfiguration__
 
 uint64_t __70__FMDUIFMIPiCloudSettingsViewController__loadSearchPartyConfiguration__block_invoke_2(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_Unspecified();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_Unspecified(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_24AE92000, v2, OS_LOG_TYPE_DEFAULT, "SP Session state changed: %@, disabled reason: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_24AE92000, v2, OS_LOG_TYPE_DEFAULT, "SP Session state changed: %@, disabled reason: %@", &v7, 0x16u);
   }
 
   [a1[6] setOfflineFindingEnabled:{objc_msgSend(a1[4], "isEqualToString:", *MEMORY[0x277D49880])}];
   v5 = [a1[5] allObjects];
   [a1[6] setOfflineFindingDisabledDueToNotHSA2:{objc_msgSend(v5, "containsObject:", *MEMORY[0x277D49850])}];
 
-  result = [a1[6] reloadSpecifiers];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a1[6] reloadSpecifiers];
 }
 
 - (void)setSearchPartyConfigurationActive:(BOOL)active
@@ -131,23 +132,21 @@ uint64_t __70__FMDUIFMIPiCloudSettingsViewController__loadSearchPartyConfigurati
 
 void __75__FMDUIFMIPiCloudSettingsViewController_setSearchPartyConfigurationActive___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_Unspecified();
+  v4 = LogCategory_Unspecified(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_24AE92000, v4, OS_LOG_TYPE_DEFAULT, "Set SP Session state: %@, error: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_24AE92000, v4, OS_LOG_TYPE_DEFAULT, "Set SP Session state: %@, error: %@", &v7, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _reloadSpecifiersOnMainQueue];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
@@ -163,9 +162,62 @@ void __75__FMDUIFMIPiCloudSettingsViewController_setSearchPartyConfigurationActi
   [(FMDUIFMIPiCloudSettingsViewController *)self _loadSearchPartyConfiguration];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel__fmipSettingsCacheDidUpdate_ name:@"FMDUIFMIPSettingsCacheDidUpdateNotification" object:0];
+
+  [(FMDUIFMIPiCloudSettingsViewController *)self _reloadSpecifiersOnMainQueue];
+  v6.receiver = self;
+  v6.super_class = FMDUIFMIPiCloudSettingsViewController;
+  [(FMDUIFMIPiCloudSettingsViewController *)&v6 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = +[FMDUIFMIPSettingsCache sharedInstance];
+  if (([v5 fmipStateAvailable] & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v6 = +[FMDUIFMIPSettingsCache sharedInstance];
+  if ([v6 fmipState] != 2)
+  {
+
+LABEL_6:
+    goto LABEL_7;
+  }
+
+  isShowingActivityInProgressUI = [(FMDUIFMIPiCloudSettingsViewController *)self isShowingActivityInProgressUI];
+
+  if (!isShowingActivityInProgressUI)
+  {
+    [(FMDUIFMIPiCloudSettingsViewController *)self showActivityInProgress];
+  }
+
+LABEL_7:
+  v8.receiver = self;
+  v8.super_class = FMDUIFMIPiCloudSettingsViewController;
+  [(FMDUIFMIPiCloudSettingsViewController *)&v8 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:@"FMDUIFMIPSettingsCacheDidUpdateNotification" object:0];
+
+  v6.receiver = self;
+  v6.super_class = FMDUIFMIPiCloudSettingsViewController;
+  [(FMDUIFMIPiCloudSettingsViewController *)&v6 viewWillDisappear:disappearCopy];
+}
+
 - (BOOL)isDTOEnabledAndFindMyOn
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CD47B0] = [MEMORY[0x277CD47B0] sharedInstance];
   isFeatureEnabled = [mEMORY[0x277CD47B0] isFeatureEnabled];
 
@@ -187,21 +239,20 @@ void __75__FMDUIFMIPiCloudSettingsViewController_setSearchPartyConfigurationActi
   }
 
   v7 = v4;
-  v8 = LogCategory_Unspecified();
+  v8 = LogCategory_Unspecified(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_24AE92000, v8, OS_LOG_TYPE_DEFAULT, "Should show DTO Disclaimer - %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_24AE92000, v8, OS_LOG_TYPE_DEFAULT, "Should show DTO Disclaimer - %{public}@", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return fmipEnabled & 1;
 }
 
 - (BOOL)isFMIPSwitchEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = +[FMDUIFMIPSettingsCache sharedInstance];
   if ([v3 fmipStateAvailable])
   {
@@ -233,15 +284,14 @@ void __75__FMDUIFMIPiCloudSettingsViewController_setSearchPartyConfigurationActi
   }
 
   v9 = v6;
-  v10 = LogCategory_Unspecified();
+  v10 = LogCategory_Unspecified(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_24AE92000, v10, OS_LOG_TYPE_DEFAULT, "Should FMIP Button be enabled %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_24AE92000, v10, OS_LOG_TYPE_DEFAULT, "Should FMIP Button be enabled %@", &v12, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -379,7 +429,7 @@ LABEL_7:
   {
     v17 = objc_opt_class();
     v18 = NSStringFromClass(v17);
-    v19 = LogCategory_Unspecified();
+    v19 = LogCategory_Unspecified(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FMDUIFMIPiCloudSettingsViewController addHyperLinkStyleToText:v18 inString:v19 action:? forGroup:?];
@@ -404,26 +454,24 @@ LABEL_7:
 
   if (v5)
   {
-    v7 = v6 == 0;
+    v8 = v6 == 0;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = LogCategory_Unspecified(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v12 = @"https://support.apple.com/kb/HT212510";
-      _os_log_impl(&dword_24AE92000, v8, OS_LOG_TYPE_ERROR, "Could not open %@ through FindMy", buf, 0xCu);
+      _os_log_impl(&dword_24AE92000, v9, OS_LOG_TYPE_ERROR, "Could not open %@ through FindMy", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_specifierForOfflineFinding
@@ -464,38 +512,37 @@ LABEL_7:
 
 - (BOOL)_doesDeviceSupportOfflineFindingLowPowerMode
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MGCopyAnswerWithError();
-  v3 = LogCategory_Unspecified();
+  v3 = LogCategory_Unspecified(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v2;
-    _os_log_impl(&dword_24AE92000, v3, OS_LOG_TYPE_DEFAULT, "deviceSupportsLPEM supportedTypes %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v2;
+    _os_log_impl(&dword_24AE92000, v3, OS_LOG_TYPE_DEFAULT, "deviceSupportsLPEM supportedTypes %@", &v9, 0xCu);
   }
 
   v4 = [v2 containsObject:@"find-my"];
-  v5 = LogCategory_Unspecified();
+  v5 = LogCategory_Unspecified(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
     if (v6)
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v7 = "deviceSupportsLPEM YES";
 LABEL_8:
-      _os_log_impl(&dword_24AE92000, v5, OS_LOG_TYPE_DEFAULT, v7, &v10, 2u);
+      _os_log_impl(&dword_24AE92000, v5, OS_LOG_TYPE_DEFAULT, v7, &v9, 2u);
     }
   }
 
   else if (v6)
   {
-    LOWORD(v10) = 0;
+    LOWORD(v9) = 0;
     v7 = " deviceSupportsLPEM NO";
     goto LABEL_8;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -950,11 +997,11 @@ void __52__FMDUIFMIPiCloudSettingsViewController__enableFMIP__block_invoke(uint6
 void __52__FMDUIFMIPiCloudSettingsViewController__enableFMIP__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v23 = WeakRetained;
+  v19 = WeakRetained;
   if (*(a1 + 48) == 1)
   {
     v3 = [WeakRetained fmipSpecifier];
-    [v23 reloadSpecifier:v3];
+    [v19 reloadSpecifier:v3];
   }
 
   else
@@ -968,30 +1015,26 @@ void __52__FMDUIFMIPiCloudSettingsViewController__enableFMIP__block_invoke_2(uin
     }
 
     v5 = MEMORY[0x277D75110];
-    v6 = *(a1 + 32);
-    v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v8 = [v7 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_TITLE" value:&stru_285E39358 table:0];
-    v9 = *(a1 + 32);
-    v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v11 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_TEXT"];
-    v12 = [v10 localizedStringForKey:v11 value:&stru_285E39358 table:0];
-    v3 = [v5 alertControllerWithTitle:v8 message:v12 preferredStyle:1];
+    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v6 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_TITLE" value:&stru_285E39358 table:0];
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v9 = [MEMORY[0x277D75418] modelSpecificLocalizedStringKeyForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_TEXT"];
+    v10 = [v8 localizedStringForKey:v9 value:&stru_285E39358 table:0];
+    v3 = [v5 alertControllerWithTitle:v7 message:v10 preferredStyle:1];
 
-    v13 = MEMORY[0x277D750F8];
-    v14 = *(a1 + 32);
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v16 = [v15 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_CANCEL_BUTTON" value:&stru_285E39358 table:0];
-    v17 = [v13 actionWithTitle:v16 style:0 handler:0];
+    v11 = MEMORY[0x277D750F8];
+    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v13 = [v12 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_CANCEL_BUTTON" value:&stru_285E39358 table:0];
+    v14 = [v11 actionWithTitle:v13 style:0 handler:0];
 
-    v18 = MEMORY[0x277D750F8];
-    v19 = *(a1 + 32);
-    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v21 = [v20 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_SETTINGS_BUTTON" value:&stru_285E39358 table:0];
-    v22 = [v18 actionWithTitle:v21 style:0 handler:&__block_literal_global];
+    v15 = MEMORY[0x277D750F8];
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v17 = [v16 localizedStringForKey:@"FMD_ICLOUD_SETTINGS_LOCATION_SERVICES_OFF_ALERT_SETTINGS_BUTTON" value:&stru_285E39358 table:0];
+    v18 = [v15 actionWithTitle:v17 style:0 handler:&__block_literal_global];
 
-    [v3 addAction:v22];
-    [v3 addAction:v17];
-    [v3 setPreferredAction:v17];
+    [v3 addAction:v18];
+    [v3 addAction:v14];
+    [v3 setPreferredAction:v14];
     [*(a1 + 32) presentViewController:v3 animated:1 completion:0];
   }
 
@@ -1248,11 +1291,10 @@ void __69__FMDUIFMIPiCloudSettingsViewController__fmipSettingsCacheDidUpdate___b
 
 - (void)addHyperLinkStyleToText:(uint64_t)a1 inString:(NSObject *)a2 action:forGroup:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24AE92000, a2, OS_LOG_TYPE_ERROR, "Group must use %@ as footer cell class", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24AE92000, a2, OS_LOG_TYPE_ERROR, "Group must use %@ as footer cell class", &v2, 0xCu);
 }
 
 @end

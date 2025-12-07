@@ -17,7 +17,7 @@
 {
   highlightedCopy = highlighted;
   v5.receiver = self;
-  v5.super_class = _s4ItemCMa();
+  v5.super_class = _s4ItemCMa(0);
   v4 = v5.receiver;
   [(CRLiOSFolderGridViewController.Item *)&v5 setHighlighted:highlightedCopy];
   sub_100EE2A3C();
@@ -30,7 +30,7 @@
 
   if (v3)
   {
-    sub_100006370(0, &qword_101A00130);
+    sub_100006370(0, &qword_101A00130, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

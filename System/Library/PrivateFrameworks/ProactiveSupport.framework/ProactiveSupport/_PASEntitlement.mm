@@ -8,7 +8,7 @@
 
 + (BOOL)_trueBooleanEntitlementCheckWithSecTask:(__SecTask *)task entitlement:(id)entitlement logHandle:(id)handle
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   handleCopy = handle;
   if (!entitlementCopy)
@@ -44,9 +44,9 @@
         }
 
         *buf = 138412546;
-        v25 = entitlementCopy;
-        v26 = 2080;
-        v27 = v18;
+        v24 = entitlementCopy;
+        v25 = 2080;
+        v26 = v18;
         _os_log_impl(&dword_1A7F47000, v12, OS_LOG_TYPE_INFO, "_PASEntitlement: Found BOOLean entitlement: %@ --> %s", buf, 0x16u);
       }
     }
@@ -57,7 +57,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v25 = entitlementCopy;
+        v24 = entitlementCopy;
         _os_log_impl(&dword_1A7F47000, v12, OS_LOG_TYPE_DEFAULT, "_PASEntitlement: Found entitlement %@ but it is not BOOLean.", buf, 0xCu);
         v17 = 0;
       }
@@ -80,9 +80,9 @@ LABEL_18:
       }
 
       *buf = 138412546;
-      v25 = entitlementCopy;
-      v26 = 2112;
-      v27 = v19;
+      v24 = entitlementCopy;
+      v25 = 2112;
+      v26 = v19;
       _os_log_error_impl(&dword_1A7F47000, v12, OS_LOG_TYPE_ERROR, "_PASEntitlement: SecTaskCopyValueForEntitlement failed for %@, error: %@", buf, 0x16u);
     }
 
@@ -95,7 +95,7 @@ LABEL_18:
       }
 
       *buf = 138412290;
-      v25 = entitlementCopy;
+      v24 = entitlementCopy;
       _os_log_impl(&dword_1A7F47000, v12, OS_LOG_TYPE_INFO, "_PASEntitlement: Entitlement %@ is not present.", buf, 0xCu);
     }
 
@@ -110,7 +110,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

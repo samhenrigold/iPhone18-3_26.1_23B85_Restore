@@ -89,9 +89,9 @@ uint64_t __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIn
   v3 = [a2 value];
   v4 = [*(a1 + 32) personHandle];
   v5 = [v4 value];
-  v6 = [v3 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v6;
+  return isEqualToString;
 }
 
 uint64_t __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentValue_parameterDefinition___block_invoke_4(uint64_t a1, void *a2)
@@ -127,7 +127,7 @@ uint64_t __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIn
 
 id __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentValue_parameterDefinition___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_class();
   v4 = v2;
@@ -136,16 +136,16 @@ id __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentVa
     v6 = getWFGeneralLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315906;
-      v11 = "WFEnforceClass";
-      v12 = 2114;
-      v13 = v4;
-      v14 = 2114;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v3;
-      v7 = v15;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v10, 0x2Au);
+      v9 = 136315906;
+      v10 = "WFEnforceClass";
+      v11 = 2114;
+      v12 = v4;
+      v13 = 2114;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v3;
+      v7 = v14;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v9, 0x2Au);
     }
 
     v5 = 0;
@@ -155,8 +155,6 @@ id __98__INCodablePersonAttributeMetadata_Workflow__wf_parameterStateForIntentVa
   {
     v5 = v4;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

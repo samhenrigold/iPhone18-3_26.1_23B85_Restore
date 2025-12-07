@@ -69,7 +69,7 @@
   return sharedCache_sCache;
 }
 
-id __40__SUMediaLibraryAdamIDCache_sharedCache__block_invoke()
+id __40__SUMediaLibraryAdamIDCache_sharedCache__block_invoke(uint64_t a1)
 {
   result = objc_alloc_init(objc_opt_class());
   sharedCache_sCache = result;
@@ -252,13 +252,13 @@ _BYTE *__42__SUMediaLibraryAdamIDCache_populateCache__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __57__SUMediaLibraryAdamIDCache__libraryChangedNotification___block_invoke(uint64_t result)
+void *__57__SUMediaLibraryAdamIDCache__libraryChangedNotification___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 32) == 1)
   {
     *(v1 + 32) = 0;
-    return [*(result + 32) _populateCache];
+    return [*(result + 4) _populateCache];
   }
 
   return result;
@@ -266,19 +266,19 @@ uint64_t __57__SUMediaLibraryAdamIDCache__libraryChangedNotification___block_inv
 
 - (void)_populateCache
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E6970618]);
   [v3 addFilterPredicate:{objc_msgSend(MEMORY[0x1E6970610], "predicateWithValue:forProperty:", MEMORY[0x1E695E118], *MEMORY[0x1E696FA38])}];
   [v3 setItemPropertiesToFetch:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithObjects:", *MEMORY[0x1E696FB60], *MEMORY[0x1E696FB68], 0)}];
   [v3 setSortItems:0];
   [v3 setUseSections:0];
   [(NSMutableSet *)self->_adamIDs removeAllObjects];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __43__SUMediaLibraryAdamIDCache__populateCache__block_invoke;
-  v14[3] = &unk_1E8167308;
-  v14[4] = self;
-  [v3 _enumerateItemsUsingBlock:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __43__SUMediaLibraryAdamIDCache__populateCache__block_invoke;
+  v15[3] = &unk_1E8167308;
+  v15[4] = self;
+  [v3 _enumerateItemsUsingBlock:v15];
   self->_isPopulated = 1;
   callbackQueue = self->_callbackQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -291,40 +291,46 @@ uint64_t __57__SUMediaLibraryAdamIDCache__libraryChangedNotification___block_inv
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v8 = objc_opt_class();
-    v9 = [(NSMutableSet *)self->_adamIDs count];
-    v15 = 138412546;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v9;
-    LODWORD(v12) = 22;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v9 = objc_opt_class();
+    v10 = [(NSMutableSet *)self->_adamIDs count];
+    v16 = 138412546;
+    v17 = v9;
+    v18 = 2048;
+    v19 = v10;
+    LODWORD(v13) = 22;
+    v11 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Populated cache with %lu item IDs", &v16, v13);
+    if (v11)
     {
-      v11 = v10;
-      [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v15, v12}];
-      free(v11);
+      v12 = v11;
+      [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
       SSFileLog();
     }
   }
 }
 
-uint64_t __43__SUMediaLibraryAdamIDCache__populateCache__block_invoke(uint64_t result, void *a2)
+void *__43__SUMediaLibraryAdamIDCache__populateCache__block_invoke(void *result, void *a2)
 {
   if (a2)
   {
@@ -332,14 +338,14 @@ uint64_t __43__SUMediaLibraryAdamIDCache__populateCache__block_invoke(uint64_t r
     v4 = [a2 valueForProperty:*MEMORY[0x1E696FB60]];
     if (v4)
     {
-      [*(*(v3 + 32) + 8) addObject:v4];
+      [*(v3[4] + 8) addObject:v4];
     }
 
     result = [a2 valueForProperty:*MEMORY[0x1E696FB68]];
     if (result)
     {
       v5 = result;
-      v6 = *(*(v3 + 32) + 8);
+      v6 = *(v3[4] + 8);
 
       return [v6 addObject:v5];
     }

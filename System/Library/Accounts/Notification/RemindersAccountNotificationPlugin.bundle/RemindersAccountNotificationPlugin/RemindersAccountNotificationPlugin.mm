@@ -1,6 +1,6 @@
 void sub_29C906F50(uint64_t a1)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDC64B8] accountPlugin];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -8,13 +8,13 @@ void sub_29C906F50(uint64_t a1)
     v4 = [v3 accountType];
     v5 = [v4 identifier];
     v6 = *(a1 + 72);
-    v31 = 138412802;
-    v32 = v3;
-    v33 = 2112;
-    v34 = v5;
-    v35 = 1024;
-    v36 = v6;
-    _os_log_impl(&dword_29C906000, v2, OS_LOG_TYPE_DEFAULT, "RemindersANP: Account changed %@ %@, type: %d", &v31, 0x1Cu);
+    v30 = 138412802;
+    v31 = v3;
+    v32 = 2112;
+    v33 = v5;
+    v34 = 1024;
+    v35 = v6;
+    _os_log_impl(&dword_29C906000, v2, OS_LOG_TYPE_DEFAULT, "RemindersANP: Account changed %@ %@, type: %d", &v30, 0x1Cu);
   }
 
   v7 = (a1 + 32);
@@ -69,54 +69,56 @@ void sub_29C906F50(uint64_t a1)
   v20 = *MEMORY[0x29EDB84B0];
   v21 = [*(a1 + 40) isEnabledForDataclass:*MEMORY[0x29EDB84B0]];
   v22 = *(a1 + 72);
-  if (v22 == 3)
+  switch(v22)
   {
-    if (v21)
-    {
-      [*(a1 + 48) deleteAccountForACAccount:*(a1 + 40)];
-    }
-  }
-
-  else if (v22 == 2)
-  {
-    v23 = [*v7 dirtyProperties];
-    v24 = [v23 containsObject:*MEMORY[0x29EDB8368]];
-
-    if (v24)
-    {
-      v25 = [*(a1 + 32) enabledDataclasses];
-      v26 = *(a1 + 56);
-      if (!v26)
+    case 3:
+      if (v21)
       {
-        v26 = *(a1 + 64);
+        [*(a1 + 48) deleteAccountForACAccount:*(a1 + 40)];
       }
 
-      v27 = [v26 enabledDataclasses];
-      v28 = [v25 mutableCopy];
-      [v28 minusSet:v27];
-      if ([v28 containsObject:v20])
+      break;
+    case 2:
+      v23 = [*v7 dirtyProperties];
+      v24 = [v23 containsObject:*MEMORY[0x29EDB8368]];
+
+      if (v24)
+      {
+        v25 = [*(a1 + 32) enabledDataclasses];
+        v26 = *(a1 + 56);
+        if (!v26)
+        {
+          v26 = *(a1 + 64);
+        }
+
+        v27 = [v26 enabledDataclasses];
+        v28 = [v25 mutableCopy];
+        [v28 minusSet:v27];
+        if ([v28 containsObject:v20])
+        {
+          [*(a1 + 48) updateAccountForACAccount:*(a1 + 40)];
+        }
+
+        else
+        {
+          v29 = [v27 mutableCopy];
+          [v29 minusSet:v25];
+          if ([v29 containsObject:v20])
+          {
+            [*(a1 + 48) deleteAccountForACAccount:*(a1 + 40)];
+          }
+        }
+      }
+
+      break;
+    case 1:
+      if (v21)
       {
         [*(a1 + 48) updateAccountForACAccount:*(a1 + 40)];
       }
 
-      else
-      {
-        v29 = [v27 mutableCopy];
-        [v29 minusSet:v25];
-        if ([v29 containsObject:v20])
-        {
-          [*(a1 + 48) deleteAccountForACAccount:*(a1 + 40)];
-        }
-      }
-    }
+      break;
   }
-
-  else if (v22 == 1 && v21)
-  {
-    [*(a1 + 48) updateAccountForACAccount:*(a1 + 40)];
-  }
-
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C9072F8()
@@ -128,20 +130,20 @@ uint64_t sub_29C9072F8()
 
 void sub_29C9075C0(uint64_t a1, int a2, int a3, void *a4)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   v6 = a4;
   if (v6)
   {
     v7 = [MEMORY[0x29EDC64B8] accountPlugin];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 67109634;
-      v11 = a2;
-      v12 = 1024;
-      v13 = a3;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_error_impl(&dword_29C906000, v7, OS_LOG_TYPE_ERROR, "Failed to update account: didAddAccount: %d, didChangeAccount: %d, error: %@", &v10, 0x18u);
+      v9 = 67109634;
+      v10 = a2;
+      v11 = 1024;
+      v12 = a3;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_error_impl(&dword_29C906000, v7, OS_LOG_TYPE_ERROR, "Failed to update account: didAddAccount: %d, didChangeAccount: %d, error: %@", &v9, 0x18u);
     }
   }
 
@@ -153,11 +155,11 @@ void sub_29C9075C0(uint64_t a1, int a2, int a3, void *a4)
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v10 = 67109376;
-        v11 = a2;
-        v12 = 1024;
-        v13 = a3;
-        _os_log_impl(&dword_29C906000, v7, OS_LOG_TYPE_INFO, "Successfully updated account: didAddAccount: %d, didChangeAccount: %d", &v10, 0xEu);
+        v9 = 67109376;
+        v10 = a2;
+        v11 = 1024;
+        v12 = a3;
+        _os_log_impl(&dword_29C906000, v7, OS_LOG_TYPE_INFO, "Successfully updated account: didAddAccount: %d, didChangeAccount: %d", &v9, 0xEu);
       }
     }
 
@@ -166,8 +168,6 @@ void sub_29C9075C0(uint64_t a1, int a2, int a3, void *a4)
       sub_29C907CEC(v7);
     }
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C9077FC(uint64_t a1, uint64_t a2, void *a3)
@@ -193,81 +193,64 @@ void sub_29C9077FC(uint64_t a1, uint64_t a2, void *a3)
 void sub_29C9078F8()
 {
   sub_29C9078EC();
-  v1 = *MEMORY[0x29EDCA608];
-  v3 = [sub_29C9078E0(v2) identifier];
-  v4 = [*v0 dirtyProperties];
+  v2 = [sub_29C9078E0(v1) identifier];
+  v3 = [*v0 dirtyProperties];
   sub_29C9078B8();
   sub_29C9078D0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void sub_29C9079A0(uint64_t a1)
 {
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = [sub_29C9078E0(a1) enabledDataclasses];
-  [v2 containsObject:*MEMORY[0x29EDB84B0]];
+  v1 = [sub_29C9078E0(a1) enabledDataclasses];
+  [v1 containsObject:*MEMORY[0x29EDB84B0]];
   sub_29C9078D0();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_29C907A58()
 {
   sub_29C9078EC();
-  v1 = *MEMORY[0x29EDCA608];
-  v3 = [sub_29C9078E0(v2) identifier];
-  v4 = [*v0 dirtyAccountProperties];
+  v2 = [sub_29C9078E0(v1) identifier];
+  v3 = [*v0 dirtyAccountProperties];
   sub_29C9078B8();
   sub_29C9078D0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void sub_29C907B00()
 {
   sub_29C9078EC();
-  v1 = *MEMORY[0x29EDCA608];
-  v3 = [sub_29C9078E0(v2) identifier];
-  v4 = [*v0 dirtyDataclassProperties];
+  v2 = [sub_29C9078E0(v1) identifier];
+  v3 = [*v0 dirtyDataclassProperties];
   sub_29C9078B8();
   sub_29C9078D0();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void sub_29C907BBC(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29C906000, a2, OS_LOG_TYPE_DEBUG, "Not processing account with account type identifier %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29C906000, a2, OS_LOG_TYPE_DEBUG, "Not processing account with account type identifier %@", &v2, 0xCu);
 }
 
 void sub_29C907C34()
 {
   sub_29C9078EC();
-  v11 = *MEMORY[0x29EDCA608];
   v2 = [v1 displayAccount];
   v3 = [v0 displayAccount];
   v4 = [v3 accountProperties];
   sub_29C9078B8();
   sub_29C9078D0();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C907D30(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29C906000, a2, OS_LOG_TYPE_ERROR, "Failed to delete account: error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29C906000, a2, OS_LOG_TYPE_ERROR, "Failed to delete account: error: %@", &v2, 0xCu);
 }

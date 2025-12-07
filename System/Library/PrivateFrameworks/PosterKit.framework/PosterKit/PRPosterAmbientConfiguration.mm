@@ -503,13 +503,14 @@ LABEL_11:
   attributeType = [(PRPosterAmbientConfiguration *)self attributeType];
   [dictionary bs_setSafeObject:attributeType forKey:@"attributeType"];
 
-  v22 = 0;
-  v18 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v22];
-  v19 = v22;
+  v23 = 0;
+  v18 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:0 error:&v23];
+  v19 = v23;
+  v20 = v19;
   if (v19)
   {
-    v20 = PRLogCommon();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = PRLogCommon(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [(PRPosterMetadata *)self encodeJSON];
     }
@@ -520,64 +521,66 @@ LABEL_11:
 
 + (id)decodeObjectWithJSON:(id)n
 {
-  v44 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v44];
-  v4 = v44;
+  v45 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:n options:0 error:&v45];
+  isKindOfClass = v45;
+  v5 = isKindOfClass;
   if (v3)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && !v4)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) != 0 && !v5)
     {
-      v5 = [v3 objectForKey:@"supportedDataLayout"];
-      v6 = v5;
-      if (!v5)
+      v6 = [v3 objectForKey:@"supportedDataLayout"];
+      v7 = v6;
+      if (!v6)
       {
-        v5 = &unk_1F1C6B7A0;
+        v6 = &unk_1F1C6B7A0;
       }
 
-      integerValue = [v5 integerValue];
+      integerValue = [v6 integerValue];
 
-      v8 = [v3 objectForKey:@"creationBehavior"];
-      v9 = v8;
-      if (!v8)
+      v9 = [v3 objectForKey:@"creationBehavior"];
+      v10 = v9;
+      if (!v9)
       {
-        v8 = &unk_1F1C6B7A0;
+        v9 = &unk_1F1C6B7A0;
       }
 
-      integerValue2 = [v8 integerValue];
+      integerValue2 = [v9 integerValue];
 
-      v11 = [v3 objectForKey:@"deletionBehavior"];
-      v12 = v11;
-      if (!v11)
+      v12 = [v3 objectForKey:@"deletionBehavior"];
+      v13 = v12;
+      if (!v12)
       {
-        v11 = &unk_1F1C6B7B8;
+        v12 = &unk_1F1C6B7B8;
       }
 
-      integerValue3 = [v11 integerValue];
+      integerValue3 = [v12 integerValue];
 
-      v14 = [v3 objectForKey:@"editingBehavior"];
-      v15 = v14;
-      if (!v14)
+      v15 = [v3 objectForKey:@"editingBehavior"];
+      v16 = v15;
+      if (!v15)
       {
-        v14 = &unk_1F1C6B7D0;
+        v15 = &unk_1F1C6B7D0;
       }
 
-      integerValue4 = [v14 integerValue];
+      integerValue4 = [v15 integerValue];
 
-      v17 = [v3 objectForKey:@"galleryDisplayBehavior"];
-      v18 = v17;
-      if (!v17)
+      v18 = [v3 objectForKey:@"galleryDisplayBehavior"];
+      v19 = v18;
+      if (!v18)
       {
-        v17 = &unk_1F1C6B7A0;
+        v18 = &unk_1F1C6B7A0;
       }
 
-      integerValue5 = [v17 integerValue];
+      integerValue5 = [v18 integerValue];
 
-      v20 = [v3 objectForKey:@"hidden"];
-      if (v20)
+      v21 = [v3 objectForKey:@"hidden"];
+      if (v21)
       {
-        v21 = [v3 objectForKey:@"hidden"];
-        bOOLValue = [v21 BOOLValue];
+        v22 = [v3 objectForKey:@"hidden"];
+        bOOLValue = [v22 BOOLValue];
       }
 
       else
@@ -585,11 +588,11 @@ LABEL_11:
         bOOLValue = 0;
       }
 
-      v24 = [v3 objectForKey:@"needsAuthentication"];
-      if (v24)
+      v25 = [v3 objectForKey:@"needsAuthentication"];
+      if (v25)
       {
-        v25 = [v3 objectForKey:@"needsAuthentication"];
-        bOOLValue2 = [v25 BOOLValue];
+        v26 = [v3 objectForKey:@"needsAuthentication"];
+        bOOLValue2 = [v26 BOOLValue];
       }
 
       else
@@ -597,20 +600,20 @@ LABEL_11:
         bOOLValue2 = 0;
       }
 
-      v26 = [v3 objectForKey:@"displayOrder"];
-      if (v26)
+      v27 = [v3 objectForKey:@"displayOrder"];
+      if (v27)
       {
         [v3 objectForKey:@"displayOrder"];
-        v27 = integerValue4;
-        v28 = integerValue3;
-        v29 = integerValue2;
-        v31 = v30 = integerValue;
-        integerValue6 = [v31 integerValue];
+        v28 = integerValue4;
+        v29 = integerValue3;
+        v30 = integerValue2;
+        v32 = v31 = integerValue;
+        integerValue6 = [v32 integerValue];
 
-        integerValue = v30;
-        integerValue2 = v29;
-        integerValue3 = v28;
-        integerValue4 = v27;
+        integerValue = v31;
+        integerValue2 = v30;
+        integerValue3 = v29;
+        integerValue4 = v28;
       }
 
       else
@@ -618,52 +621,52 @@ LABEL_11:
         integerValue6 = 0x7FFFFFFFLL;
       }
 
-      LOBYTE(v41) = bOOLValue2;
-      v23 = [objc_alloc(objc_opt_class()) initWithSupportedDataLayout:integerValue creationBehavior:integerValue2 editingBehavior:integerValue4 deletionBehavior:integerValue3 galleryDisplayBehavior:integerValue5 isHidden:bOOLValue needsAuthentication:v41 displayOrder:integerValue6];
-      v22 = [v3 objectForKey:@"displayNameSystemSymbolName"];
-      [v23 setDisplayNameSystemSymbolName:v22];
-      v33 = [v3 objectForKey:@"editingSystemSymbolName"];
-      [v23 setEditingSystemSymbolName:v33];
-      v34 = [v3 objectForKey:@"editingContentStyle"];
-      v35 = objc_opt_self();
+      LOBYTE(v42) = bOOLValue2;
+      v24 = [objc_alloc(objc_opt_class()) initWithSupportedDataLayout:integerValue creationBehavior:integerValue2 editingBehavior:integerValue4 deletionBehavior:integerValue3 galleryDisplayBehavior:integerValue5 isHidden:bOOLValue needsAuthentication:v42 displayOrder:integerValue6];
+      v23 = [v3 objectForKey:@"displayNameSystemSymbolName"];
+      [v24 setDisplayNameSystemSymbolName:v23];
+      v34 = [v3 objectForKey:@"editingSystemSymbolName"];
+      [v24 setEditingSystemSymbolName:v34];
+      v35 = [v3 objectForKey:@"editingContentStyle"];
+      v36 = objc_opt_self();
       if (objc_opt_isKindOfClass())
       {
-        v36 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v34 options:0];
+        v37 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v35 options:0];
 
-        if (!v36)
+        if (!v37)
         {
 LABEL_30:
 
           goto LABEL_31;
         }
 
-        v37 = MEMORY[0x1E696ACD0];
-        v38 = +[PRPosterAmbientConfiguration allowedEditingContentStyleClasses];
-        v39 = [v37 unarchivedObjectOfClasses:v38 fromData:v36 error:0];
+        v38 = MEMORY[0x1E696ACD0];
+        v39 = +[PRPosterAmbientConfiguration allowedEditingContentStyleClasses];
+        v40 = [v38 unarchivedObjectOfClasses:v39 fromData:v37 error:0];
 
-        [v23 setEditingContentStyle:v39];
-        v35 = v36;
+        [v24 setEditingContentStyle:v40];
+        v36 = v37;
       }
 
       goto LABEL_30;
     }
   }
 
-  v22 = PRLogCommon();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = PRLogCommon(isKindOfClass);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    [(PRPosterMetadata *)v4 decodeObjectWithJSON:v22];
+    [(PRPosterMetadata *)v5 decodeObjectWithJSON:v23];
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_31:
 
-  return v23;
+  return v24;
 }
 
 - (void)initWithSupportedDataLayout:(char *)a1 creationBehavior:editingBehavior:deletionBehavior:galleryDisplayBehavior:isHidden:needsAuthentication:displayOrder:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PRAmbientEditingBehaviorIsValid(editingBehavior)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -671,7 +674,7 @@ LABEL_31:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PRAmbientEditingBehaviorIsValid(editingBehavior)", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -681,7 +684,7 @@ LABEL_31:
 
 - (void)initWithSupportedDataLayout:(char *)a1 creationBehavior:editingBehavior:deletionBehavior:galleryDisplayBehavior:isHidden:needsAuthentication:displayOrder:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PRAmbientCreationBehaviorIsValid(creationBehavior)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -689,7 +692,7 @@ LABEL_31:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PRAmbientCreationBehaviorIsValid(creationBehavior)", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -699,7 +702,7 @@ LABEL_31:
 
 - (void)initWithSupportedDataLayout:(char *)a1 creationBehavior:editingBehavior:deletionBehavior:galleryDisplayBehavior:isHidden:needsAuthentication:displayOrder:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PRAmbientDeletionBehaviorIsValid(deletionBehavior)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -707,7 +710,7 @@ LABEL_31:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PRAmbientDeletionBehaviorIsValid(deletionBehavior)", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -717,7 +720,7 @@ LABEL_31:
 
 - (void)initWithSupportedDataLayout:(char *)a1 creationBehavior:editingBehavior:deletionBehavior:galleryDisplayBehavior:isHidden:needsAuthentication:displayOrder:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PRAmbientGalleryDisplayBehaviorIsValid(galleryDisplayBehavior)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -725,7 +728,7 @@ LABEL_31:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PRAmbientGalleryDisplayBehaviorIsValid(galleryDisplayBehavior)", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -735,7 +738,7 @@ LABEL_31:
 
 - (void)initWithSupportedDataLayout:(char *)a1 creationBehavior:editingBehavior:deletionBehavior:galleryDisplayBehavior:isHidden:needsAuthentication:displayOrder:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PRPosterAmbientSupportedDataLayoutIsValid(supportedDataLayout)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -743,7 +746,7 @@ LABEL_31:
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PRPosterAmbientSupportedDataLayoutIsValid(supportedDataLayout)", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

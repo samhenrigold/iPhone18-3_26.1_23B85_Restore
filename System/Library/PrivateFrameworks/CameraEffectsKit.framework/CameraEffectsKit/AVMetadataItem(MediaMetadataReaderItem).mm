@@ -6,9 +6,9 @@
 
 - (CMTimeRange)timeRange
 {
-  [self time];
-  [self duration];
-  return CMTimeRangeMake(a2, &start, &v5);
+  objc_msgSend_time(self, a2);
+  objc_msgSend_duration(self);
+  return CMTimeRangeMake(a3, &start, &v6);
 }
 
 @end

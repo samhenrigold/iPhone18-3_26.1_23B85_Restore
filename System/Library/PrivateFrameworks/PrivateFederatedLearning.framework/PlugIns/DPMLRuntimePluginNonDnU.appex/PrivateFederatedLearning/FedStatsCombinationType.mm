@@ -153,40 +153,39 @@ LABEL_12:
   }
 
   selfCopy = self;
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v47;
+    v15 = *v46;
     while (2)
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v47 != v15)
+        if (*v46 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v46 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (error)
           {
-            v32 = [NSString stringWithFormat:@"Every entry in the value of the key %@ must be a string", @"structure"];
-            *error = [FedStatsError errorWithCode:302 description:v32];
+            v31 = [NSString stringWithFormat:@"Every entry in the value of the key %@ must be a string", @"structure"];
+            *error = [FedStatsError errorWithCode:302 description:v31];
           }
 
           goto LABEL_12;
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v14)
       {
         continue;
@@ -196,38 +195,38 @@ LABEL_12:
     }
   }
 
-  v18 = [dictCopy objectForKey:@"availableTypes"];
-  if (v18)
+  v17 = [dictCopy objectForKey:@"availableTypes"];
+  if (v17)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      allValues = [v18 allValues];
-      v20 = [allValues countByEnumeratingWithState:&v42 objects:v51 count:16];
-      if (v20)
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      allValues = [v17 allValues];
+      v19 = [allValues countByEnumeratingWithState:&v41 objects:v50 count:16];
+      if (v19)
       {
-        v21 = v20;
-        v22 = *v43;
+        v20 = v19;
+        v21 = *v42;
         while (2)
         {
-          for (j = 0; j != v21; j = j + 1)
+          for (j = 0; j != v20; j = j + 1)
           {
-            if (*v43 != v22)
+            if (*v42 != v21)
             {
               objc_enumerationMutation(allValues);
             }
 
-            if (([*(*(&v42 + 1) + 8 * j) conformsToProtocol:&OBJC_PROTOCOL___FedStatsDataTypeProtocol] & 1) == 0)
+            if (([*(*(&v41 + 1) + 8 * j) conformsToProtocol:&OBJC_PROTOCOL___FedStatsDataTypeProtocol] & 1) == 0)
             {
-              v31 = v18;
+              v30 = v17;
               if (error)
               {
-                v34 = [NSString stringWithFormat:@"Every value in the %@ dictionary must be a class conforming to %@", @"availableTypes", @"FedStatsDataTypeProtocol"];
-                *error = [FedStatsError errorWithCode:302 description:v34];
+                v33 = [NSString stringWithFormat:@"Every value in the %@ dictionary must be a class conforming to %@", @"availableTypes", @"FedStatsDataTypeProtocol"];
+                *error = [FedStatsError errorWithCode:302 description:v33];
               }
 
 LABEL_57:
@@ -236,8 +235,8 @@ LABEL_57:
             }
           }
 
-          v21 = [allValues countByEnumeratingWithState:&v42 objects:v51 count:16];
-          if (v21)
+          v20 = [allValues countByEnumeratingWithState:&v41 objects:v50 count:16];
+          if (v20)
           {
             continue;
           }
@@ -247,46 +246,46 @@ LABEL_57:
       }
 
       allValues = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v12 count]);
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       obj = v12;
-      v24 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
-      if (v24)
+      v23 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+      if (v23)
       {
-        v25 = v24;
-        v26 = *v39;
+        v24 = v23;
+        v25 = *v38;
         while (2)
         {
-          for (k = 0; k != v25; k = k + 1)
+          for (k = 0; k != v24; k = k + 1)
           {
-            if (*v39 != v26)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(obj);
             }
 
-            v28 = *(*(&v38 + 1) + 8 * k);
-            v29 = [v18 objectForKey:v28];
-            [allValues setObject:v29 forKeyedSubscript:v28];
+            v27 = *(*(&v37 + 1) + 8 * k);
+            v28 = [v17 objectForKey:v27];
+            [allValues setObject:v28 forKeyedSubscript:v27];
 
-            v30 = [allValues objectForKeyedSubscript:v28];
+            v29 = [allValues objectForKeyedSubscript:v27];
 
-            if (!v30)
+            if (!v29)
             {
-              v31 = v18;
+              v30 = v17;
               if (error)
               {
-                v35 = [NSString stringWithFormat:@"There is no type defined for %@", v28];
-                *error = [FedStatsError errorWithCode:302 description:v35];
+                v34 = [NSString stringWithFormat:@"There is no type defined for %@", v27];
+                *error = [FedStatsError errorWithCode:302 description:v34];
               }
 
               goto LABEL_57;
             }
           }
 
-          v25 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
-          if (v25)
+          v24 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+          if (v24)
           {
             continue;
           }
@@ -295,30 +294,30 @@ LABEL_57:
         }
       }
 
-      v31 = v18;
+      v30 = v17;
 
       v10 = [[selfCopy alloc] initWithCombinationSpec:allValues];
       goto LABEL_58;
     }
 
-    v31 = v18;
+    v30 = v17;
     if (error)
     {
       allValues = [NSString stringWithFormat:@"The value of the key %@ must be a dictionary", @"availableTypes"];
-      v33 = 302;
+      v32 = 302;
       goto LABEL_50;
     }
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
     if (error)
     {
       allValues = [NSString stringWithFormat:@"Missing key %@", @"availableTypes"];
-      v33 = 300;
+      v32 = 300;
 LABEL_50:
-      [FedStatsError errorWithCode:v33 description:allValues];
+      [FedStatsError errorWithCode:v32 description:allValues];
       *error = v10 = 0;
 LABEL_58:
 

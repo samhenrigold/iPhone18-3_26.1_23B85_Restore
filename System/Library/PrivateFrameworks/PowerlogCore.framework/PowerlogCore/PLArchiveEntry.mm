@@ -37,36 +37,35 @@
 
 - (PLArchiveEntry)initWithStartDate:(id)date endDate:(id)endDate andUUID:(id)d
 {
-  v17[3] = *MEMORY[0x1E69E9840];
-  v16[0] = @"StartDate";
-  v16[1] = @"EndDate";
-  v17[0] = date;
-  v17[1] = endDate;
-  v16[2] = @"UUID";
-  v17[2] = d;
+  v16[3] = *MEMORY[0x1E69E9840];
+  v15[0] = @"StartDate";
+  v15[1] = @"EndDate";
+  v16[0] = date;
+  v16[1] = endDate;
+  v15[2] = @"UUID";
+  v16[2] = d;
   v8 = MEMORY[0x1E695DF20];
   dCopy = d;
   endDateCopy = endDate;
   dateCopy = date;
-  v12 = [v8 dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v12 = [v8 dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   v13 = [(PLArchiveEntry *)self initEntryWithRawData:v12];
   [(PLArchiveEntry *)v13 log];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (PLArchiveEntry)initWithMetadata:(id)metadata
 {
-  v35[7] = *MEMORY[0x1E69E9840];
+  v34[7] = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
-  v33.receiver = self;
-  v33.super_class = PLArchiveEntry;
-  v5 = [(PLEntry *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = PLArchiveEntry;
+  v5 = [(PLEntry *)&v32 init];
   if (v5)
   {
-    v31 = v5;
+    v30 = v5;
     v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfFile:metadataCopy];
     v7 = [v6 objectForKeyedSubscript:@"systemTimeOffset"];
     [v7 doubleValue];
@@ -82,29 +81,29 @@
     [v14 doubleValue];
     v15 = [v13 dateWithTimeIntervalSince1970:?];
 
-    v34[0] = @"StartDate";
-    v30 = v12;
-    v28 = [v12 dateByAddingTimeInterval:-v9];
-    v35[0] = v28;
-    v34[1] = @"EndDate";
-    v29 = v15;
+    v33[0] = @"StartDate";
+    v29 = v12;
+    v27 = [v12 dateByAddingTimeInterval:-v9];
+    v34[0] = v27;
+    v33[1] = @"EndDate";
+    v28 = v15;
     v16 = [v15 dateByAddingTimeInterval:-v9];
-    v35[1] = v16;
-    v34[2] = @"UUID";
-    v32 = metadataCopy;
+    v34[1] = v16;
+    v33[2] = @"UUID";
+    v31 = metadataCopy;
     v17 = [PLUtilities extractDateStringAndUUIDStringFromFilePath:metadataCopy];
     lastObject = [v17 lastObject];
-    v35[2] = lastObject;
-    v34[3] = @"SystemTimeOffset";
+    v34[2] = lastObject;
+    v33[3] = @"SystemTimeOffset";
     v19 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
-    v35[3] = v19;
-    v34[4] = @"SystemTimeOffsetModified";
+    v34[3] = v19;
+    v33[4] = @"SystemTimeOffsetModified";
     v20 = [v6 objectForKeyedSubscript:@"systemTimeModified"];
-    v35[4] = v20;
-    v34[5] = @"FullMode";
+    v34[4] = v20;
+    v33[5] = @"FullMode";
     v21 = [v6 objectForKeyedSubscript:@"fullMode"];
-    v35[5] = v21;
-    v34[6] = @"SyncedOffDate";
+    v34[5] = v21;
+    v33[6] = @"SyncedOffDate";
     v22 = [v6 objectForKeyedSubscript:@"hasBeenLinkedToCR"];
     if (v22)
     {
@@ -116,13 +115,13 @@
       [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:0.0];
     }
     v24 = ;
-    v35[6] = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:7];
+    v34[6] = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:7];
 
-    v23 = [(PLArchiveEntry *)v31 initEntryWithRawData:v25];
+    v23 = [(PLArchiveEntry *)v30 initEntryWithRawData:v25];
     [(PLArchiveEntry *)v23 log];
 
-    metadataCopy = v32;
+    metadataCopy = v31;
   }
 
   else
@@ -130,7 +129,6 @@
     v23 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

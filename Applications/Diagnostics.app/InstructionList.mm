@@ -15,7 +15,7 @@
   x = frame.origin.x;
   v8 = OBJC_IVAR____TtC11Diagnostics15InstructionList_tableView;
   *(&self->super.super.super.isa + v8) = [objc_allocWithZone(type metadata accessor for IntrinsicSizeAdjustingTableView()) initWithFrame:1 style:{0.0, 0.0, 0.0, 0.0}];
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC11Diagnostics15InstructionList_instructions) = _swiftEmptyArrayStorage;
+  *(&self->super.super.super.isa + OBJC_IVAR____TtC11Diagnostics15InstructionList_instructions) = &_swiftEmptyArrayStorage;
   v11.receiver = self;
   v11.super_class = type metadata accessor for InstructionList();
   height = [(InstructionList *)&v11 initWithFrame:x, y, width, height];

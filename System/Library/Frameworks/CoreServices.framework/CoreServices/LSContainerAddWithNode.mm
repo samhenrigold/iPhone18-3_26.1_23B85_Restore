@@ -46,20 +46,20 @@ void ___LSContainerAddWithNode_block_invoke(uint64_t a1)
   else
   {
     v41 = v4;
-    v9 = [v45 bookmarkDataRelativeToNode:0 error:&v41];
+    v9 = [(FSNode *)v45 bookmarkDataRelativeToNode:0 error:&v41];
     v10 = v41;
 
     if (!v9)
     {
-      v11 = _LSDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = _LSDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = *(a1 + 32);
+        v13 = *(a1 + 32);
         *buf = 138478083;
-        *&buf[4] = v12;
+        *&buf[4] = v13;
         *&buf[12] = 2113;
         *&buf[14] = v45;
-        _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_INFO, "_LSContainerAddWithNode(%{private}@, failed to get bookmarkData for diskImageNode %{private}@ but registering this container anyway.", buf, 0x16u);
+        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_INFO, "_LSContainerAddWithNode(%{private}@, failed to get bookmarkData for diskImageNode %{private}@ but registering this container anyway.", buf, 0x16u);
       }
 
       v9 = 0;
@@ -69,68 +69,68 @@ void ___LSContainerAddWithNode_block_invoke(uint64_t a1)
   }
 
   v40 = 0;
-  v13 = v46;
+  v14 = v46;
   if (v46)
   {
-    v14 = v3;
+    v15 = v3;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  if (v14)
+  if (v15)
   {
     v39 = v4;
-    v15 = [v46 getVolumeIdentifier:&v40 error:&v39];
+    v16 = [v46 getVolumeIdentifier:&v40 error:&v39];
     v37 = v39;
 
-    if (v15)
+    if (v16)
     {
-      v13 = v46;
-      v16 = v40;
+      v14 = v46;
+      v17 = v40;
 LABEL_26:
-      v17 = v44;
-      v18 = *(a1 + 56);
+      v18 = v44;
+      v19 = *(a1 + 56);
       v38 = *(a1 + 40);
-      v19 = v13;
+      v20 = v14;
       v36 = v6;
-      v20 = v6;
-      v21 = v9;
-      v22 = v38;
-      MEMORY[0x1865D7C40](v22, v23);
+      v21 = v6;
+      v22 = v9;
+      v23 = v38;
+      MEMORY[0x1865D7C40](v23, v24);
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke;
       v50 = &unk_1E6A1B400;
-      v24 = v19;
-      v56 = v17;
-      v51 = v24;
-      v55 = v16;
-      v25 = v22;
+      v25 = v20;
+      v56 = v18;
+      v51 = v25;
+      v55 = v17;
+      v26 = v23;
       v54 = v38;
-      v26 = v20;
-      v52 = v26;
       v27 = v21;
-      v53 = v27;
-      v28 = MEMORY[0x1865D71B0](buf);
+      v52 = v27;
+      v28 = v22;
+      v53 = v28;
+      v29 = MEMORY[0x1865D71B0](buf);
       v6 = v36;
-      v29 = v28;
-      if (v18)
+      v30 = v29;
+      if (v19)
       {
-        (*(v28 + 16))(v28);
+        (*(v29 + 16))(v29);
       }
 
       else
       {
-        v34 = +[LSDBExecutionContext sharedServerInstance];
+        v35 = +[LSDBExecutionContext sharedServerInstance];
         v47[0] = MEMORY[0x1E69E9820];
         v47[1] = 3221225472;
         v47[2] = ___ZL15_LSContainerAddP9LSContextP6FSNodeP6NSDataS2_S4_tyhU13block_pointerFvjP7NSErrorE_block_invoke_42;
         v47[3] = &unk_1E6A1A660;
-        v48 = v29;
-        [(LSDBExecutionContext *)v34 performAsyncWrite:v47];
+        v48 = v30;
+        [(LSDBExecutionContext *)v35 performAsyncWrite:v47];
       }
 
       v4 = v37;
@@ -142,28 +142,26 @@ LABEL_26:
 
   else if (v3)
   {
-    v16 = 0;
+    v17 = 0;
     v37 = v4;
     goto LABEL_26;
   }
 
-  v30 = _LSDefaultLog();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+  v31 = _LSDefaultLog(v14);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v31 = *(a1 + 32);
-    v32 = *(a1 + 56);
+    v32 = *(a1 + 32);
+    v33 = *(a1 + 56);
     *buf = 138478083;
-    *&buf[4] = v31;
+    *&buf[4] = v32;
     *&buf[12] = 1024;
-    *&buf[14] = v32;
-    _os_log_impl(&dword_18162D000, v30, OS_LOG_TYPE_INFO, "_LSContainerAddWithNode(%{private}@ sync=%{BOOL}d) failed to add container.", buf, 0x12u);
+    *&buf[14] = v33;
+    _os_log_impl(&dword_18162D000, v31, OS_LOG_TYPE_INFO, "_LSContainerAddWithNode(%{private}@ sync=%{BOOL}d) failed to add container.", buf, 0x12u);
   }
 
-  v33 = (*(*(a1 + 40) + 16))();
+  v34 = (*(*(a1 + 40) + 16))();
 LABEL_34:
-  MEMORY[0x1865D7C50](v33);
-
-  v35 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1865D7C50](v34);
 }
 
 @end

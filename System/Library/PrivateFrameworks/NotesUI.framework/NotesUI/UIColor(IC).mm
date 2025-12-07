@@ -79,9 +79,9 @@
     +[UIColor(IC) preferredDefaultFontColor];
   }
 
-  v1 = preferredDefaultFontColor_sDefaultFontColor;
+  v2 = preferredDefaultFontColor_sDefaultFontColor;
 
-  return v1;
+  return v2;
 }
 
 - (id)ic_resolvedColorForNoteEditor
@@ -241,9 +241,9 @@
     +[UIColor(IC) ICSelectedAttachmentBrickHighlightColor];
   }
 
-  v1 = ICSelectedAttachmentBrickHighlightColor_color;
+  v2 = ICSelectedAttachmentBrickHighlightColor_color;
 
-  return v1;
+  return v2;
 }
 
 + (id)ICGrayTodoButtonColor
@@ -445,20 +445,20 @@
 
 + (id)ic_colorFromString:()IC
 {
-  v0 = ICCGColorCreateWithString();
-  if (v0)
+  v3 = ICCGColorCreateWithString();
+  if (v3)
   {
-    v1 = v0;
-    v2 = [MEMORY[0x1E69DC888] colorWithCGColor:v0];
-    CGColorRelease(v1);
+    v4 = v3;
+    v5 = [MEMORY[0x1E69DC888] colorWithCGColor:v3];
+    CGColorRelease(v4);
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 + (id)ic_emphasisBackgroudColorFromColor:()IC

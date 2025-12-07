@@ -7,10 +7,10 @@
 
 - (HFCharacteristicValueTransaction)init
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = HFCharacteristicValueTransaction;
-  v2 = [(HFCharacteristicValueTransaction *)&v18 init];
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = HFCharacteristicValueTransaction;
+  v2 = [(HFCharacteristicValueTransaction *)&v17 init];
   if (v2)
   {
     v3 = [MEMORY[0x277CBEB58] set];
@@ -42,13 +42,12 @@
 
     v12 = [HFMutableAggregatedCharacteristicReadPolicy alloc];
     v13 = objc_alloc_init(HFNotSupportedReadPolicy);
-    v19[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v15 = [(HFAggregatedCharacteristicReadPolicy *)v12 initWithPolicies:v14];
     [(HFCharacteristicValueTransaction *)v2 setReadPolicy:v15];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

@@ -470,14 +470,14 @@ void __55__HSCloudAvailabilityController__hasCellularCapability__block_invoke()
   dispatch_async(accessQueue, block);
 }
 
-uint64_t __65__HSCloudAvailabilityController__applicationWillEnterForeground___block_invoke(uint64_t result)
+unsigned __int8 *__65__HSCloudAvailabilityController__applicationWillEnterForeground___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 19) != v2)
   {
     *(v1 + 19) = v2;
-    return [*(result + 32) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
+    return [*(result + 4) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
   }
 
   return result;
@@ -502,17 +502,17 @@ uint64_t __65__HSCloudAvailabilityController__applicationWillEnterForeground___b
   dispatch_async(accessQueue, v9);
 }
 
-uint64_t __65__HSCloudAvailabilityController__wifiStateDidChangeNotification___block_invoke(uint64_t result)
+unsigned __int8 *__65__HSCloudAvailabilityController__wifiStateDidChangeNotification___block_invoke(unsigned __int8 *result)
 {
   v1 = result;
-  v2 = *(result + 32);
-  v3 = *(result + 40);
-  if (*(v2 + 24) != v3 || *(v2 + 25) != *(result + 41))
+  v2 = *(result + 4);
+  v3 = result[40];
+  if (__PAIR64__(*(v2 + 25), *(v2 + 24)) != __PAIR64__(result[41], v3))
   {
     *(v2 + 24) = v3;
-    *(*(result + 32) + 25) = *(result + 41);
-    [*(result + 32) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
-    v4 = *(v1 + 32);
+    *(*(result + 4) + 25) = result[41];
+    [*(result + 4) _onQueue_updateCanShowCloudDownloadButtonsWithNotification:1];
+    v4 = *(v1 + 4);
 
     return [v4 _onQueue_updateCanShowCloudTracksWithNotification:1];
   }
@@ -533,14 +533,14 @@ uint64_t __65__HSCloudAvailabilityController__wifiStateDidChangeNotification___b
   dispatch_async(accessQueue, v5);
 }
 
-uint64_t __52__HSCloudAvailabilityController_airplaneModeChanged__block_invoke(uint64_t result)
+unsigned __int8 *__52__HSCloudAvailabilityController_airplaneModeChanged__block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 17) != v2)
   {
     *(v1 + 17) = v2;
-    return [*(result + 32) _onQueue_updateCanShowCloudTracksWithNotification:1];
+    return [*(result + 4) _onQueue_updateCanShowCloudTracksWithNotification:1];
   }
 
   return result;

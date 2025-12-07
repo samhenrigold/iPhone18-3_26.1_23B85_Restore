@@ -43,25 +43,23 @@
 
 + (id)requestedDarwinNotifications
 {
-  v7[9] = *MEMORY[0x277D85DE8];
+  v6[9] = *MEMORY[0x277D85DE8];
   stateChangedNotificationName = [MEMORY[0x277CC5A10] stateChangedNotificationName];
   v3 = *MEMORY[0x277CF7130];
-  v7[7] = stateChangedNotificationName;
-  v7[8] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:9];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[7] = stateChangedNotificationName;
+  v6[8] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:9];
 
   return v4;
 }
 
 - (EKTravelEngine)initWithRouteHypothesizerProvider:(id)provider
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v22.receiver = self;
-  v22.super_class = EKTravelEngine;
-  v6 = [(EKTravelEngine *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = EKTravelEngine;
+  v6 = [(EKTravelEngine *)&v21 init];
   if (v6)
   {
     EKTravelEngineLogInitialize();
@@ -93,12 +91,11 @@
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v6;
+      v23 = v6;
       _os_log_impl(&dword_242909000, v19, OS_LOG_TYPE_DEFAULT, "Travel engine initialized: [%@]", buf, 0xCu);
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -127,7 +124,7 @@
 
 void __23__EKTravelEngine_start__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   v3 = MEMORY[0x277CC5978];
   v4 = *MEMORY[0x277CC5978];
@@ -137,9 +134,9 @@ void __23__EKTravelEngine_start__block_invoke(uint64_t a1)
     if (v5)
     {
       v6 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "The travel engine is already running.  Will not start engine: [%@]", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "The travel engine is already running.  Will not start engine: [%@]", &v10, 0xCu);
     }
   }
 
@@ -148,9 +145,9 @@ void __23__EKTravelEngine_start__block_invoke(uint64_t a1)
     if (v5)
     {
       v7 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Travel engine preparing to start: [%@]", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Travel engine preparing to start: [%@]", &v10, 0xCu);
     }
 
     *(*(a1 + 32) + 34) = [*(a1 + 32) _isProtectedDataAvailable] ^ 1;
@@ -163,15 +160,13 @@ void __23__EKTravelEngine_start__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Travel engine started: [%@]", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Travel engine started: [%@]", &v10, 0xCu);
     }
 
     [*(a1 + 32) _refreshIfNeeded];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -187,46 +182,46 @@ void __23__EKTravelEngine_start__block_invoke(uint64_t a1)
 
 void __22__EKTravelEngine_stop__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
   v3 = MEMORY[0x277CC5978];
   v4 = *MEMORY[0x277CC5978];
   v5 = os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  if ((v2 & 1) == 0)
   {
-    if (v5)
+    if (!v5)
     {
-      v6 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "The travel engine is preparing to stop: [%@]", &v11, 0xCu);
+      return;
     }
 
-    [*(a1 + 32) _stopInternal];
-    [*(a1 + 32) _uninstallLocationManager];
-    *(*(a1 + 32) + 32) = 0;
-    v4 = *v3;
-    if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v7;
-      v8 = "Travel engine stopped: [%@]";
-LABEL_8:
-      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
-    }
-  }
-
-  else if (v5)
-  {
     v9 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v9;
+    v10 = 138412290;
+    v11 = v9;
     v8 = "The travel engine is not running.  Will not stop engine: [%@]";
     goto LABEL_8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  if (v5)
+  {
+    v6 = *(a1 + 32);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "The travel engine is preparing to stop: [%@]", &v10, 0xCu);
+  }
+
+  [*(a1 + 32) _stopInternal];
+  [*(a1 + 32) _uninstallLocationManager];
+  *(*(a1 + 32) + 32) = 0;
+  v4 = *v3;
+  if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = *(a1 + 32);
+    v10 = 138412290;
+    v11 = v7;
+    v8 = "Travel engine stopped: [%@]";
+LABEL_8:
+    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
+  }
 }
 
 - (void)_stopInternal
@@ -239,7 +234,7 @@ LABEL_8:
 
 - (void)requestHypothesisRefreshAtDate:(id)date forEventWithExternalURL:(id)l
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   lCopy = l;
   if (lCopy)
@@ -249,8 +244,8 @@ LABEL_8:
     block[1] = 3221225472;
     block[2] = __73__EKTravelEngine_requestHypothesisRefreshAtDate_forEventWithExternalURL___block_invoke;
     block[3] = &unk_278D6F318;
-    v12 = dateCopy;
-    v13 = lCopy;
+    v11 = dateCopy;
+    v12 = lCopy;
     selfCopy = self;
     dispatch_sync(workQueue, block);
   }
@@ -261,28 +256,26 @@ LABEL_8:
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = dateCopy;
+      v15 = dateCopy;
       _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "nil 'externalURL' given. Will not request hypothesis refresh at date: [%@] for any events.", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__EKTravelEngine_requestHypothesisRefreshAtDate_forEventWithExternalURL___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CC5978];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = a1[4];
     v5 = a1[5];
-    v12 = 138412546;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Requesting hypothesis refresh at date: [%@] for event that has external URL: [%@]", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Requesting hypothesis refresh at date: [%@] for event that has external URL: [%@]", &v11, 0x16u);
   }
 
   v6 = [*(a1[6] + 40) objectForKey:a1[5]];
@@ -299,15 +292,13 @@ void __73__EKTravelEngine_requestHypothesisRefreshAtDate_forEventWithExternalURL
     {
       v9 = a1[4];
       v10 = a1[5];
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = v10;
-      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Will not request hypothesis refresh at date: [%@] for event that has external URL: [%@] because is isn't being monitored", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Will not request hypothesis refresh at date: [%@] for event that has external URL: [%@] because is isn't being monitored", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelHypothesisRefreshRequestForEventWithExternalURL:(id)l
@@ -339,15 +330,15 @@ void __73__EKTravelEngine_requestHypothesisRefreshAtDate_forEventWithExternalURL
 
 void __72__EKTravelEngine_cancelHypothesisRefreshRequestForEventWithExternalURL___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CC5978];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Canceling hypothesis refresh request for event that has external URL: [%@]", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Canceling hypothesis refresh request for event that has external URL: [%@]", &v9, 0xCu);
   }
 
   v5 = [*(*(a1 + 40) + 40) objectForKey:*(a1 + 32)];
@@ -363,13 +354,11 @@ void __72__EKTravelEngine_cancelHypothesisRefreshRequestForEventWithExternalURL_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Will not cancel refresh request for event that has external URL: [%@] because it isn't being monitored.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Will not cancel refresh request for event that has external URL: [%@] because it isn't being monitored.", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ceaseMonitoringForEventWithExternalURL:(id)l
@@ -401,15 +390,15 @@ void __72__EKTravelEngine_cancelHypothesisRefreshRequestForEventWithExternalURL_
 
 void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CC5978];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v11 = 138412290;
-    v12 = v4;
-    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Ceasing monitoring for event that has external URL: [%@]", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v4;
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Ceasing monitoring for event that has external URL: [%@]", &v10, 0xCu);
   }
 
   v5 = [*(*(a1 + 40) + 40) objectForKey:*(a1 + 32)];
@@ -432,13 +421,11 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Will not cease monitoring for event that has external URL: [%@] because it isn't being monitored.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Will not cease monitoring for event that has external URL: [%@] because it isn't being monitored.", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDarwinNotification:(id)notification
@@ -493,7 +480,7 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
 
 - (void)receivedAlarmNamed:(id)named
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   v5 = [namedCopy hasPrefix:@"com.apple.calaccessd.travelEngine."];
   v6 = MEMORY[0x277CC5980];
@@ -508,16 +495,16 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
       _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "EKTravelEngine received alarm named: %{public}@", &buf, 0xCu);
     }
 
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     alarmName = [(EKTravelEngine *)self alarmName];
     v10 = [namedCopy isEqualToString:alarmName];
 
     if (v10)
     {
-      *(v25 + 24) = 1;
+      *(v23 + 24) = 1;
       v11 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
@@ -538,31 +525,31 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v29 = 0x3032000000;
-      v30 = __Block_byref_object_copy__3;
-      v31 = __Block_byref_object_dispose__3;
-      v32 = 0;
+      v27 = 0x3032000000;
+      v28 = __Block_byref_object_copy__3;
+      v29 = __Block_byref_object_dispose__3;
+      v30 = 0;
       v13 = self->_workQueue;
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __37__EKTravelEngine_receivedAlarmNamed___block_invoke_19;
-      v22[3] = &unk_278D6F460;
-      v22[4] = self;
-      v22[5] = &buf;
-      dispatch_sync(v13, v22);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __37__EKTravelEngine_receivedAlarmNamed___block_invoke_19;
+      v20[3] = &unk_278D6F460;
+      v20[4] = self;
+      v20[5] = &buf;
+      dispatch_sync(v13, v20);
       v14 = *(*(&buf + 1) + 40);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2;
-      v19[3] = &unk_278D6F508;
-      v21 = &v24;
-      v20 = namedCopy;
-      [v14 enumerateObjectsUsingBlock:v19];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2;
+      v17[3] = &unk_278D6F508;
+      v19 = &v22;
+      v18 = namedCopy;
+      [v14 enumerateObjectsUsingBlock:v17];
 
       _Block_object_dispose(&buf, 8);
     }
 
-    if ((v25[3] & 1) == 0)
+    if ((v23[3] & 1) == 0)
     {
       v15 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
@@ -573,11 +560,10 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
 
       v16 = namedCopy;
       [namedCopy UTF8String];
-      v17 = *MEMORY[0x277CF7880];
       xpc_set_event();
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v22, 8);
   }
 
   else if (v8)
@@ -586,16 +572,11 @@ void __57__EKTravelEngine_ceaseMonitoringForEventWithExternalURL___block_invoke(
     *(&buf + 4) = namedCopy;
     _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "EKTravelEngine skipping the alarm named: %{public}@. It may be an alarm from another place like EKAlarmEngine.", &buf, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__EKTravelEngine_receivedAlarmNamed___block_invoke_19(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) allValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 40) allValues];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -636,32 +617,32 @@ void __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2(uint64_t a1, void 
 
 + (id)travelEligibleEvents:(id)events fromStartDate:(id)date untilEndDate:(id)endDate
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dateCopy = date;
   endDateCopy = endDate;
   v9 = [eventsCopy calendarsForEntityType:0];
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         if (([v16 isIgnoringEventAlerts] & 1) == 0)
         {
           source = [v16 source];
@@ -674,7 +655,7 @@ void __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2(uint64_t a1, void 
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v33 count:16];
     }
 
     while (v13);
@@ -684,17 +665,15 @@ void __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2(uint64_t a1, void 
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v29 = dateCopy;
-    v30 = 2112;
-    v31 = endDateCopy;
-    v32 = 2112;
-    v33 = array;
+    v28 = dateCopy;
+    v29 = 2112;
+    v30 = endDateCopy;
+    v31 = 2112;
+    v32 = array;
     _os_log_impl(&dword_242909000, v19, OS_LOG_TYPE_DEFAULT, "Will search for travel agenda candidates between [%@] and [%@].  Calendars to search: [%@]", buf, 0x20u);
   }
 
   v20 = [eventsCopy travelEligibleEventsInCalendars:array startDate:dateCopy endDate:endDateCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -718,7 +697,7 @@ void __37__EKTravelEngine_receivedAlarmNamed___block_invoke_2(uint64_t a1, void 
   return v3;
 }
 
-uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
+void *__28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) authorizedInternal];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -727,7 +706,7 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   authorizationStatus = [authorization authorizationStatus];
   dispatch_assert_queue_V2(self->_workQueue);
   v5 = MEMORY[0x277CC5978];
@@ -738,7 +717,7 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
     v8 = v6;
     v9 = [v7 authorizationStatusAsString:authorizationStatus];
     *buf = 138412290;
-    v23 = v9;
+    v22 = v9;
     _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Location authorization status changed to [%@]", buf, 0xCu);
   }
 
@@ -767,7 +746,7 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
       v14 = v12;
       v15 = [v13 numberWithBool:{-[EKTravelEngine authorizedInternal](self, "authorizedInternal")}];
       *buf = 138412290;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_242909000, v14, OS_LOG_TYPE_DEFAULT, "The location authorization state has changed.  self.authorizedInternal: [%@]", buf, 0xCu);
     }
 
@@ -780,23 +759,21 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
       block[1] = 3221225472;
       block[2] = __56__EKTravelEngine_locationManagerDidChangeAuthorization___block_invoke;
       block[3] = &unk_278D6F550;
-      v21 = authorizationChangedBlock;
+      v20 = authorizationChangedBlock;
       dispatch_async(callbackQueue, block);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_calDatabaseChangedNotificationReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7560];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Received notification: [%@].", buf, 0xCu);
   }
 
@@ -807,7 +784,6 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_eventKitFeatureSetChanged
@@ -848,13 +824,13 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
 
 - (void)_calSyncClientBeginningMultiSaveNotificationReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7708];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Received notification: [%@].", buf, 0xCu);
   }
 
@@ -865,7 +841,6 @@ uint64_t __28__EKTravelEngine_authorized__block_invoke(uint64_t a1)
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __70__EKTravelEngine__calSyncClientBeginningMultiSaveNotificationReceived__block_invoke(uint64_t a1)
@@ -894,13 +869,13 @@ void __70__EKTravelEngine__calSyncClientBeginningMultiSaveNotificationReceived__
 
 - (void)_calSyncClientFinishedMultiSaveNotificationReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7710];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Received notification: [%@].", buf, 0xCu);
   }
 
@@ -911,7 +886,6 @@ void __70__EKTravelEngine__calSyncClientBeginningMultiSaveNotificationReceived__
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __69__EKTravelEngine__calSyncClientFinishedMultiSaveNotificationReceived__block_invoke(uint64_t a1)
@@ -939,13 +913,13 @@ void __69__EKTravelEngine__calSyncClientFinishedMultiSaveNotificationReceived__b
 
 - (void)_enableTravelAdvisoriesForAutomaticBehaviorNotificationReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7118];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Received notification: [%@].", buf, 0xCu);
   }
 
@@ -956,18 +930,17 @@ void __69__EKTravelEngine__calSyncClientFinishedMultiSaveNotificationReceived__b
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_significantTimeChangeNotificationReceived
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *MEMORY[0x277CF7908];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Received notification: [%@].", buf, 0xCu);
   }
 
@@ -978,12 +951,11 @@ void __69__EKTravelEngine__calSyncClientFinishedMultiSaveNotificationReceived__b
   block[3] = &unk_278D6F250;
   block[4] = self;
   dispatch_async(workQueue, block);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __60__EKTravelEngine__significantTimeChangeNotificationReceived__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] CalSimulatedDateForNow];
   v3 = [v2 isBeforeDate:*(*(a1 + 32) + 64)];
   v4 = *MEMORY[0x277CC5978];
@@ -993,11 +965,11 @@ void __60__EKTravelEngine__significantTimeChangeNotificationReceived__block_invo
     if (v5)
     {
       v6 = *(*(a1 + 32) + 64);
-      v9 = 138543618;
-      v10 = v2;
-      v11 = 2114;
-      v12 = v6;
-      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Refreshing in response to significant time changed notification as the current time (%{public}@) is before the last time we refreshed (%{public}@)", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v2;
+      v10 = 2114;
+      v11 = v6;
+      _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Refreshing in response to significant time changed notification as the current time (%{public}@) is before the last time we refreshed (%{public}@)", &v8, 0x16u);
     }
 
     *(*(a1 + 32) + 33) = 1;
@@ -1007,14 +979,12 @@ void __60__EKTravelEngine__significantTimeChangeNotificationReceived__block_invo
   else if (v5)
   {
     v7 = *(*(a1 + 32) + 64);
-    v9 = 138543618;
-    v10 = v2;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "NOT refreshing in response to significant time changed notification as the current time (%{public}@) is after the last time we refreshed (%{public}@)", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v2;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "NOT refreshing in response to significant time changed notification as the current time (%{public}@) is after the last time we refreshed (%{public}@)", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDatabaseEncryptionState
@@ -1064,7 +1034,7 @@ _BYTE *__48__EKTravelEngine__updateDatabaseEncryptionState__block_invoke(uint64_
 
 - (void)_installSyncYieldTimer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CC5978];
   v4 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
@@ -1092,13 +1062,12 @@ _BYTE *__48__EKTravelEngine__updateDatabaseEncryptionState__block_invoke(uint64_
   {
     *buf = 134218242;
     selfCopy = 240;
-    v14 = 2112;
+    v13 = 2112;
     selfCopy2 = self;
     _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Installed sync yield timer with [%ld] second length for travel engine: [%@].", buf, 0x16u);
   }
 
   dispatch_resume(self->_syncYieldTimer);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__EKTravelEngine__installSyncYieldTimer__block_invoke(uint64_t a1)
@@ -1116,23 +1085,21 @@ uint64_t __40__EKTravelEngine__installSyncYieldTimer__block_invoke(uint64_t a1)
 
 - (void)_uninstallSyncYieldTimer
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_syncYieldTimer)
   {
     v3 = *MEMORY[0x277CC5978];
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
+      v5 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Uninstalling sync yield timer for travel engine: [%@].", &v6, 0xCu);
+      _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Uninstalling sync yield timer for travel engine: [%@].", &v5, 0xCu);
     }
 
     dispatch_source_cancel(self->_syncYieldTimer);
     syncYieldTimer = self->_syncYieldTimer;
     self->_syncYieldTimer = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (double)_periodicRefreshInterval
@@ -1145,7 +1112,7 @@ uint64_t __40__EKTravelEngine__installSyncYieldTimer__block_invoke(uint64_t a1)
 
 - (void)_installPeriodicRefreshTimer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [objc_opt_class() _periodicRefreshInterval];
   v4 = v3;
   date = [MEMORY[0x277CBEAA8] date];
@@ -1157,85 +1124,77 @@ uint64_t __40__EKTravelEngine__installSyncYieldTimer__block_invoke(uint64_t a1)
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithDouble:v4];
-    v16 = 138412802;
+    v14 = 138412802;
     selfCopy = self;
+    v16 = 2112;
+    v17 = v10;
     v18 = 2112;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Installing a periodic refresh timer for travel engine: [%@].  Timer interval: [%@].  Estimated fire date (based on system time): [%@].", &v16, 0x20u);
+    v19 = v6;
+    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Installing a periodic refresh timer for travel engine: [%@].  Timer interval: [%@].  Estimated fire date (based on system time): [%@].", &v14, 0x20u);
   }
 
   v11 = ((ceil(v4) + time(0)) * 1000000000.0);
   v12 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_date(v12, *MEMORY[0x277CF7888], v11);
-  v13 = *MEMORY[0x277CF7880];
   alarmName = [(EKTravelEngine *)self alarmName];
   [alarmName UTF8String];
   xpc_set_event();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uninstallPeriodicRefreshTimer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Uninstalling the periodic refresh timer for travel engine: [%@].", &v7, 0xCu);
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Uninstalling the periodic refresh timer for travel engine: [%@].", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277CF7880];
   alarmName = [(EKTravelEngine *)self alarmName];
   [alarmName UTF8String];
   xpc_set_event();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trimAgendaEntriesBeforeDate:(id)date andAfterDate:(id)afterDate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   afterDateCopy = afterDate;
   v8 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v20 = dateCopy;
-    v21 = 2112;
-    v22 = afterDateCopy;
+    v19 = dateCopy;
+    v20 = 2112;
+    v21 = afterDateCopy;
     _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Trimming entries before [%@] and after [%@].", buf, 0x16u);
   }
 
   eventExternalURLsToAgendaEntries = self->_eventExternalURLsToAgendaEntries;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_invoke;
-  v16[3] = &unk_278D6F578;
-  v17 = dateCopy;
-  v18 = afterDateCopy;
-  v10 = afterDateCopy;
-  v11 = dateCopy;
-  v12 = [(NSMutableDictionary *)eventExternalURLsToAgendaEntries keysOfEntriesPassingTest:v16];
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
-  v15[2] = __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_invoke_41;
-  v15[3] = &unk_278D6F5A0;
-  v15[4] = self;
-  [v12 enumerateObjectsUsingBlock:v15];
+  v15[2] = __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_invoke;
+  v15[3] = &unk_278D6F578;
+  v16 = dateCopy;
+  v17 = afterDateCopy;
+  v10 = afterDateCopy;
+  v11 = dateCopy;
+  v12 = [(NSMutableDictionary *)eventExternalURLsToAgendaEntries keysOfEntriesPassingTest:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_invoke_41;
+  v14[3] = &unk_278D6F5A0;
+  v14[4] = self;
+  [v12 enumerateObjectsUsingBlock:v14];
   allObjects = [v12 allObjects];
   [(NSMutableDictionary *)self->_eventExternalURLsToAgendaEntries removeObjectsForKeys:allObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 originalEvent];
   v6 = [v5 startDate];
@@ -1248,11 +1207,11 @@ uint64_t __60__EKTravelEngine__trimAgendaEntriesBeforeDate_andAfterDate___block_
     v9 = *MEMORY[0x277CC5978];
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v4;
+      v13 = 138412290;
+      v14 = v4;
       v10 = "Removing travel agenda entry that ends before the time window: [%@]";
 LABEL_7:
-      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, 0xCu);
+      _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, v10, &v13, 0xCu);
     }
   }
 
@@ -1267,8 +1226,8 @@ LABEL_7:
     v9 = *MEMORY[0x277CC5978];
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v4;
+      v13 = 138412290;
+      v14 = v4;
       v10 = "Removing travel agenda entry that starts after the time window: [%@]";
       goto LABEL_7;
     }
@@ -1277,7 +1236,6 @@ LABEL_7:
   v11 = 1;
 LABEL_10:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1328,131 +1286,130 @@ id __29__EKTravelEngine__eventStore__block_invoke()
 
 - (void)_refreshIfNeeded
 {
-  v34 = *MEMORY[0x277D85DE8];
-  if (self->_needsRefresh)
+  v33 = *MEMORY[0x277D85DE8];
+  if (!self->_needsRefresh)
   {
-    if (self->_databaseIsEncryptedAndUnreadable)
+    v3 = *MEMORY[0x277CC5978];
+    if (!os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *MEMORY[0x277CC5978];
-      if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        selfCopy5 = self;
-        v4 = "Cannot access data. Will not refresh data for travel engine: [%@]";
+      return;
+    }
+
+    *buf = 138412290;
+    selfCopy4 = self;
+    v4 = "Data does not need to be refreshed.  Will not refresh data for travel engine: [%@]";
+    goto LABEL_10;
+  }
+
+  if (self->_databaseIsEncryptedAndUnreadable)
+  {
+    v3 = *MEMORY[0x277CC5978];
+    if (!os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    *buf = 138412290;
+    selfCopy4 = self;
+    v4 = "Cannot access data. Will not refresh data for travel engine: [%@]";
 LABEL_10:
-        _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, v4, buf, 0xCu);
-      }
-    }
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, v4, buf, 0xCu);
+    return;
+  }
 
-    else if (self->_yieldingToSync)
+  if (self->_yieldingToSync)
+  {
+    v3 = *MEMORY[0x277CC5978];
+    if (!os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *MEMORY[0x277CC5978];
-      if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        selfCopy5 = self;
-        v4 = "Currently yielding to sync. Will not refresh data for travel engine: [%@]";
-        goto LABEL_10;
-      }
+      return;
     }
 
-    else
+    *buf = 138412290;
+    selfCopy4 = self;
+    v4 = "Currently yielding to sync. Will not refresh data for travel engine: [%@]";
+    goto LABEL_10;
+  }
+
+  _authorizedToAcquireLocation = [(EKTravelEngine *)self _authorizedToAcquireLocation];
+  v6 = MEMORY[0x277CC5978];
+  v7 = *MEMORY[0x277CC5978];
+  v8 = os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT);
+  if (_authorizedToAcquireLocation)
+  {
+    if (v8)
     {
-      _authorizedToAcquireLocation = [(EKTravelEngine *)self _authorizedToAcquireLocation];
-      v7 = MEMORY[0x277CC5978];
-      v8 = *MEMORY[0x277CC5978];
-      v9 = os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT);
-      if (_authorizedToAcquireLocation)
-      {
-        if (v9)
-        {
-          *buf = 138412290;
-          selfCopy5 = self;
-          _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Refreshing data for travel engine: [%@]", buf, 0xCu);
-        }
-
-        calSimulatedDateForNow = [MEMORY[0x277CBEAA8] CalSimulatedDateForNow];
-        objc_storeStrong(&self->_lastRefreshDate, calSimulatedDateForNow);
-        _eventStore = [(EKTravelEngine *)self _eventStore];
-        [objc_opt_class() _travelAgendaTimeWindowInterval];
-        v13 = v12;
-        v14 = *v7;
-        if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
-        {
-          v15 = MEMORY[0x277CCABB0];
-          v16 = v14;
-          v17 = [v15 numberWithDouble:v13];
-          *buf = 138412290;
-          selfCopy5 = v17;
-          _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_DEFAULT, "The travel agenda time window interval is [%@] seconds.", buf, 0xCu);
-        }
-
-        v18 = [calSimulatedDateForNow dateByAddingTimeInterval:v13];
-        [(EKTravelEngine *)self _trimAgendaEntriesBeforeDate:calSimulatedDateForNow andAfterDate:v18];
-        v19 = [EKTravelEngine travelEligibleEvents:_eventStore fromStartDate:calSimulatedDateForNow untilEndDate:v18];
-        v20 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        v21 = *v7;
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
-        {
-          v22 = v21;
-          v23 = [v19 count];
-          *buf = 134217984;
-          selfCopy5 = v23;
-          _os_log_impl(&dword_242909000, v22, OS_LOG_TYPE_DEFAULT, "Found [%lu] travel agenda candidates.", buf, 0xCu);
-        }
-
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke;
-        v30[3] = &unk_278D6F660;
-        v30[4] = self;
-        v24 = v20;
-        v31 = v24;
-        [v19 enumerateObjectsUsingBlock:v30];
-        v25 = [(NSMutableDictionary *)self->_eventExternalURLsToAgendaEntries copy];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_60;
-        v27[3] = &unk_278D6F688;
-        v28 = v24;
-        selfCopy4 = self;
-        v26 = v24;
-        [v25 enumerateKeysAndObjectsUsingBlock:v27];
-
-        self->_needsRefresh = 0;
-      }
-
-      else
-      {
-        if (v9)
-        {
-          *buf = 0;
-          _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Calendar system service is not authorized to use location", buf, 2u);
-        }
-
-        self->_needsRefresh = 1;
-      }
+      *buf = 138412290;
+      selfCopy4 = self;
+      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Refreshing data for travel engine: [%@]", buf, 0xCu);
     }
+
+    calSimulatedDateForNow = [MEMORY[0x277CBEAA8] CalSimulatedDateForNow];
+    objc_storeStrong(&self->_lastRefreshDate, calSimulatedDateForNow);
+    _eventStore = [(EKTravelEngine *)self _eventStore];
+    [objc_opt_class() _travelAgendaTimeWindowInterval];
+    v12 = v11;
+    v13 = *v6;
+    if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = MEMORY[0x277CCABB0];
+      v15 = v13;
+      v16 = [v14 numberWithDouble:v12];
+      *buf = 138412290;
+      selfCopy4 = v16;
+      _os_log_impl(&dword_242909000, v15, OS_LOG_TYPE_DEFAULT, "The travel agenda time window interval is [%@] seconds.", buf, 0xCu);
+    }
+
+    v17 = [calSimulatedDateForNow dateByAddingTimeInterval:v12];
+    [(EKTravelEngine *)self _trimAgendaEntriesBeforeDate:calSimulatedDateForNow andAfterDate:v17];
+    v18 = [EKTravelEngine travelEligibleEvents:_eventStore fromStartDate:calSimulatedDateForNow untilEndDate:v17];
+    v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v20 = *v6;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v20;
+      v22 = [v18 count];
+      *buf = 134217984;
+      selfCopy4 = v22;
+      _os_log_impl(&dword_242909000, v21, OS_LOG_TYPE_DEFAULT, "Found [%lu] travel agenda candidates.", buf, 0xCu);
+    }
+
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke;
+    v29[3] = &unk_278D6F660;
+    v29[4] = self;
+    v23 = v19;
+    v30 = v23;
+    [v18 enumerateObjectsUsingBlock:v29];
+    v24 = [(NSMutableDictionary *)self->_eventExternalURLsToAgendaEntries copy];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_60;
+    v26[3] = &unk_278D6F688;
+    v27 = v23;
+    selfCopy5 = self;
+    v25 = v23;
+    [v24 enumerateKeysAndObjectsUsingBlock:v26];
+
+    self->_needsRefresh = 0;
   }
 
   else
   {
-    v3 = *MEMORY[0x277CC5978];
-    if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
+    if (v8)
     {
-      *buf = 138412290;
-      selfCopy5 = self;
-      v4 = "Data does not need to be refreshed.  Will not refresh data for travel engine: [%@]";
-      goto LABEL_10;
+      *buf = 0;
+      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Calendar system service is not authorized to use location", buf, 2u);
     }
-  }
 
-  v5 = *MEMORY[0x277D85DE8];
+    self->_needsRefresh = 1;
+  }
 }
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 externalURL];
   v4 = [v3 absoluteString];
@@ -1466,13 +1423,13 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke(uint64_t a1, void *a2)
     v9 = [v2 title];
     v10 = [v2 startDate];
     *buf = 138413058;
-    v67 = v9;
-    v68 = 2112;
-    v69 = v5;
-    v70 = 2112;
-    v71 = v10;
-    v72 = 2112;
-    v73 = v4;
+    v66 = v9;
+    v67 = 2112;
+    v68 = v5;
+    v69 = 2112;
+    v70 = v10;
+    v71 = 2112;
+    v72 = v4;
     _os_log_impl(&dword_242909000, v8, OS_LOG_TYPE_DEFAULT, "Inspecting travel agenda candidate event with title [%@], location [%@], start date [%@], and external URL [%@].", buf, 0x2Au);
   }
 
@@ -1484,7 +1441,7 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v67 = v4;
+        v66 = v4;
         _os_log_impl(&dword_242909000, v16, OS_LOG_TYPE_DEFAULT, "No location for event with external URL: [%@].  Will unregister as travel entry if it exists.", buf, 0xCu);
       }
 
@@ -1495,7 +1452,7 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke(uint64_t a1, void *a2)
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v67 = v4;
+          v66 = v4;
           _os_log_impl(&dword_242909000, v18, OS_LOG_TYPE_DEFAULT, "Unregistering event with external URL [%@] since it seems to have lost its location.", buf, 0xCu);
         }
 
@@ -1524,12 +1481,12 @@ LABEL_10:
     }
 
     v19 = [v2 travelStartLocation];
-    v58 = [v19 routing];
+    v57 = [v19 routing];
 
-    v20 = [MEMORY[0x277CF77E8] routingModeEnumForCalRouteType:v58];
-    if (v58)
+    v20 = [MEMORY[0x277CF77E8] routingModeEnumForCalRouteType:v57];
+    if (v57)
     {
-      v57 = [MEMORY[0x277CC5B00] geoTransportTypeForCalLocationRoutingMode:v20];
+      v56 = [MEMORY[0x277CC5B00] geoTransportTypeForCalLocationRoutingMode:v20];
     }
 
     else
@@ -1541,13 +1498,13 @@ LABEL_10:
         v23 = v21;
         v24 = [v22 geoTransportTypeAsString:4];
         *buf = 138412546;
-        v67 = v4;
-        v68 = 2112;
-        v69 = v24;
+        v66 = v4;
+        v67 = 2112;
+        v68 = v24;
         _os_log_impl(&dword_242909000, v23, OS_LOG_TYPE_DEFAULT, "No routing method found on event with external URL [%@].  Defaulting to [%@].", buf, 0x16u);
       }
 
-      v57 = 4;
+      v56 = 4;
     }
 
     v25 = *v6;
@@ -1555,11 +1512,11 @@ LABEL_10:
     {
       v26 = MEMORY[0x277CC5B00];
       v27 = v25;
-      v28 = [v26 geoTransportTypeAsString:v57];
+      v28 = [v26 geoTransportTypeAsString:v56];
       *buf = 138412546;
-      v67 = v28;
-      v68 = 2112;
-      v69 = v4;
+      v66 = v28;
+      v67 = 2112;
+      v68 = v4;
       _os_log_impl(&dword_242909000, v27, OS_LOG_TYPE_DEFAULT, "Using routing method [%@] for event with external URL [%@].", buf, 0x16u);
     }
 
@@ -1570,7 +1527,7 @@ LABEL_10:
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v67 = v4;
+        v66 = v4;
         _os_log_impl(&dword_242909000, v30, OS_LOG_TYPE_DEFAULT, "Creating agenda entry because one does not exist for event with external URL: [%@]", buf, 0xCu);
       }
 
@@ -1579,26 +1536,26 @@ LABEL_10:
       v32 = [*(a1 + 32) routeHypothesizerProvider];
       v29 = [(EKTravelEngineAgendaEntry *)v31 initWithRouteHypothesizerProvider:v32];
 
-      v63[0] = MEMORY[0x277D85DD0];
-      v63[1] = 3221225472;
-      v63[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_54;
-      v63[3] = &unk_278D6F610;
-      objc_copyWeak(&v65, buf);
+      v62[0] = MEMORY[0x277D85DD0];
+      v62[1] = 3221225472;
+      v62[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_54;
+      v62[3] = &unk_278D6F610;
+      objc_copyWeak(&v64, buf);
       v33 = v4;
-      v64 = v33;
-      [(EKTravelEngineAgendaEntry *)v29 setUpdateBlock:v63];
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_2_56;
-      v60[3] = &unk_278D6F610;
-      objc_copyWeak(&v62, buf);
+      v63 = v33;
+      [(EKTravelEngineAgendaEntry *)v29 setUpdateBlock:v62];
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_2_56;
+      v59[3] = &unk_278D6F610;
+      objc_copyWeak(&v61, buf);
       v34 = v33;
-      v61 = v34;
-      [(EKTravelEngineAgendaEntry *)v29 setEntrySignificantlyChangedBlock:v60];
+      v60 = v34;
+      [(EKTravelEngineAgendaEntry *)v29 setEntrySignificantlyChangedBlock:v59];
       [*(*(a1 + 32) + 40) setObject:v29 forKey:v34];
 
-      objc_destroyWeak(&v62);
-      objc_destroyWeak(&v65);
+      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v64);
       objc_destroyWeak(buf);
     }
 
@@ -1616,7 +1573,7 @@ LABEL_10:
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v67 = v4;
+          v66 = v4;
           v45 = "The entry has been dismissed, but it's location has changed.  Clearing the dismissed flag for the entry for event with external URL: [%@]";
           goto LABEL_36;
         }
@@ -1637,7 +1594,7 @@ LABEL_37:
         if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v67 = v4;
+          v66 = v4;
           v45 = "The entry has been dismissed, but it's start date has changed.  Clearing the dismissed flag for the entry for event with external URL: [%@]";
 LABEL_36:
           _os_log_impl(&dword_242909000, v44, OS_LOG_TYPE_DEFAULT, v45, buf, 0xCu);
@@ -1655,7 +1612,7 @@ LABEL_38:
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v67 = v4;
+        v66 = v4;
         _os_log_impl(&dword_242909000, v46, OS_LOG_TYPE_DEFAULT, "The entry has been dismissed.  Will not update the entry for event with external URL: [%@]", buf, 0xCu);
       }
     }
@@ -1670,7 +1627,7 @@ LABEL_38:
       v49 = [v2 endDate];
       [(EKTravelEngineOriginalEvent *)v47 setEndDate:v49];
 
-      [(EKTravelEngineOriginalEvent *)v47 setTransportTypeOverride:v57];
+      [(EKTravelEngineOriginalEvent *)v47 setTransportTypeOverride:v56];
       v50 = [v2 structuredLocation];
       v51 = [v50 title];
       [(EKTravelEngineOriginalEvent *)v47 setLocationString:v51];
@@ -1701,7 +1658,7 @@ LABEL_38:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v67 = v2;
+    v66 = v2;
     v12 = "No external url for event: [%@].  Will not register as travel agenda item.";
     v13 = v15;
     v14 = 12;
@@ -1709,8 +1666,6 @@ LABEL_38:
   }
 
 LABEL_43:
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke_54(uint64_t a1, void *a2)
@@ -1734,16 +1689,16 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_54(uint64_t a1, void *a
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke_2(id *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] latestHypothesis];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v4 = a1[5];
     *buf = 138412546;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v2;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v2;
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Hypothesis updated for event with external URL: [%@].  Hypothesis: [%@]", buf, 0x16u);
   }
 
@@ -1756,13 +1711,11 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_2(id *a1)
     block[1] = 3221225472;
     block[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_55;
     block[3] = &unk_278D6F5E8;
-    v12 = v5;
-    v10 = a1[5];
-    v11 = v2;
+    v11 = v5;
+    v9 = a1[5];
+    v10 = v2;
     dispatch_async(v7, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke_2_56(uint64_t a1)
@@ -1784,13 +1737,13 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_2_56(uint64_t a1)
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_242909000, v2, OS_LOG_TYPE_DEFAULT, "Significant change encountered for event with external URL [%@].", buf, 0xCu);
   }
 
@@ -1799,21 +1752,19 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_3(uint64_t a1)
   if (v4)
   {
     v6 = *(*(a1 + 40) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_57;
-    v8[3] = &unk_278D6F638;
-    v10 = v4;
-    v9 = *(a1 + 32);
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __34__EKTravelEngine__refreshIfNeeded__block_invoke_57;
+    v7[3] = &unk_278D6F638;
+    v9 = v4;
+    v8 = *(a1 + 32);
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __34__EKTravelEngine__refreshIfNeeded__block_invoke_60(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 32) containsObject:v5] & 1) == 0)
@@ -1821,21 +1772,19 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_60(uint64_t a1, void *a
     v7 = *MEMORY[0x277CC5978];
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Unregistering event with external URL since it's not in the travel window: [%@]", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_242909000, v7, OS_LOG_TYPE_DEFAULT, "Unregistering event with external URL since it's not in the travel window: [%@]", &v8, 0xCu);
     }
 
     [v6 reset];
     [*(*(a1 + 40) + 40) removeObjectForKey:v5];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterAllAgendaEntries
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
@@ -1843,68 +1792,66 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_60(uint64_t a1, void *a
     _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Unregistering all agenda entries.", buf, 2u);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSMutableDictionary *)self->_eventExternalURLsToAgendaEntries allValues];
-  v5 = [allValues countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) reset];
+        [*(*(&v9 + 1) + 8 * v8++) reset];
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
 
   [(NSMutableDictionary *)self->_eventExternalURLsToAgendaEntries removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_periodicRefreshTimerFired
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "The periodic refresh timer fired for travel engine: [%@].", &v5, 0xCu);
+    _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "The periodic refresh timer fired for travel engine: [%@].", &v4, 0xCu);
   }
 
   [(EKTravelEngine *)self _uninstallPeriodicRefreshTimer];
   [(EKTravelEngine *)self _installPeriodicRefreshTimer];
   self->_needsRefresh = 1;
   [(EKTravelEngine *)self _refreshIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_installLocationManager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
   v3 = MEMORY[0x277CC5978];
   v4 = *MEMORY[0x277CC5978];
   if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Installation of location manager requested.", &v11, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&dword_242909000, v4, OS_LOG_TYPE_DEFAULT, "Installation of location manager requested.", &v10, 2u);
   }
 
   bundle = [MEMORY[0x277CF77F8] bundle];
@@ -1916,12 +1863,10 @@ void __34__EKTravelEngine__refreshIfNeeded__block_invoke_60(uint64_t a1, void *a
   v9 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v8;
-    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Installation of location manager complete.  Location manager: [%@]", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&dword_242909000, v9, OS_LOG_TYPE_DEFAULT, "Installation of location manager complete.  Location manager: [%@]", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uninstallLocationManager
@@ -1995,7 +1940,7 @@ LABEL_9:
 
 void __86__EKTravelEngine__sendFeedbackForPostingNotificationForEventWithExternalURL_feedback___block_invoke(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 40) objectForKey:a1[5]];
   if (v2)
   {
@@ -2008,13 +1953,11 @@ void __86__EKTravelEngine__sendFeedbackForPostingNotificationForEventWithExterna
     if (os_log_type_enabled(*MEMORY[0x277CC5978], OS_LOG_TYPE_DEFAULT))
     {
       v4 = a1[5];
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Will not send feedback for posting notification for event that has external URL: [%@] because it isn't being monitored.", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_242909000, v3, OS_LOG_TYPE_DEFAULT, "Will not send feedback for posting notification for event that has external URL: [%@] because it isn't being monitored.", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

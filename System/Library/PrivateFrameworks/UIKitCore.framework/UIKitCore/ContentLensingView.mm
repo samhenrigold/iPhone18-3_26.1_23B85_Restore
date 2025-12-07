@@ -23,9 +23,10 @@
   x = frame.origin.x;
   v8 = OBJC_IVAR____TtC5UIKit18ContentLensingView_portals;
   *(&self->super.super.super.super.isa + v8) = sub_188C4FD60(MEMORY[0x1E69E7CC0]);
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for ContentLensingView();
-  return [(_UIMaterialDefinitionView *)&v10 initWithFrame:x, y, width, height];
+  type metadata accessor for ContentLensingView();
+  v11.receiver = self;
+  v11.super_class = v9;
+  return [(_UIMaterialDefinitionView *)&v11 initWithFrame:x, y, width, height];
 }
 
 - (void)_removeTrackedElementFor:(id)for
@@ -45,9 +46,10 @@
     v10 = sub_1891E9C1C(forCopy);
     swift_endAccess();
 
-    v11.receiver = selfCopy;
-    v11.super_class = type metadata accessor for ContentLensingView();
-    [(UIView *)&v11 _removeTrackedElementFor:forCopy];
+    v11 = type metadata accessor for ContentLensingView();
+    v13.receiver = selfCopy;
+    v13.super_class = v12;
+    [(UIView *)&v13 _removeTrackedElementFor:forCopy, v11];
 
     forCopy = selfCopy;
     selfCopy = v9;
@@ -59,15 +61,16 @@
   v4 = OBJC_IVAR____TtC5UIKit18ContentLensingView_portals;
   coderCopy = coder;
   *(&self->super.super.super.super.isa + v4) = sub_188C4FD60(MEMORY[0x1E69E7CC0]);
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for ContentLensingView();
-  v6 = [(_UIMaterialDefinitionView *)&v8 initWithCoder:coderCopy];
+  v6 = type metadata accessor for ContentLensingView();
+  v10.receiver = self;
+  v10.super_class = v7;
+  v8 = [(_UIMaterialDefinitionView *)&v10 initWithCoder:coderCopy, v6];
 
-  if (v6)
+  if (v8)
   {
   }
 
-  return v6;
+  return v8;
 }
 
 @end

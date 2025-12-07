@@ -269,27 +269,33 @@ void __75__PUIPosterSnapshotBundleBuilder_initWithSceneSettings_snapshotDescript
   {
     [MEMORY[0x1E695DF90] dictionaryWithObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695DB80]];
   }
-  self->_URLResourceValues = ;
+  v4 = ;
+  URLResourceValues = self->_URLResourceValues;
+  self->_URLResourceValues = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, URLResourceValues);
 }
 
 - (void)setFileAttributes:(id)attributes
 {
   if (attributes)
   {
-    self->_fileAttributes = [MEMORY[0x1E695DF90] dictionaryWithDictionary:?];
-  }
-
-  else
-  {
-    PFFileProtectionNoneAttributes();
-    v4 = [objc_claimAutoreleasedReturnValue() mutableCopy];
+    v4 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:?];
     fileAttributes = self->_fileAttributes;
     self->_fileAttributes = v4;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  else
+  {
+    v8 = PFFileProtectionNoneAttributes();
+    v6 = [(NSMutableDictionary *)v8 mutableCopy];
+    v7 = self->_fileAttributes;
+    self->_fileAttributes = v6;
+
+    fileAttributes = v8;
+  }
+
+  MEMORY[0x1EEE66BB8](v4, fileAttributes);
 }
 
 - (BOOL)captureSnapshot:(id)snapshot forLevelSet:(id)set error:(id *)error
@@ -628,15 +634,18 @@ void __75__PUIPosterSnapshotBundleBuilder_initWithSceneSettings_snapshotDescript
   height = necessary.height;
   width = necessary.width;
   v6 = [(PUIPosterSnapshotBundleBuilder *)self objectForKeyedSubscript:@"PUIPosterSnapshotBundleInfoKeyAssetSize"];
-  if (!v6 || __58__PUIPosterSnapshotBundleBuilder_setAssetSizeIfNecessary___block_invoke(v6, v6))
+  v10 = v6;
+  if (!v6 || (v7 = __58__PUIPosterSnapshotBundleBuilder_setAssetSizeIfNecessary___block_invoke(v6, v6), v8 = v10, v7))
   {
-    v9.width = width;
-    v9.height = height;
-    v7 = NSStringFromCGSize(v9);
-    [(PUIPosterSnapshotBundleBuilder *)self setObject:v7 forKeyedSubscript:@"PUIPosterSnapshotBundleInfoKeyAssetSize"];
+    v12.width = width;
+    v12.height = height;
+    v9 = NSStringFromCGSize(v12);
+    [(PUIPosterSnapshotBundleBuilder *)self setObject:v9 forKeyedSubscript:@"PUIPosterSnapshotBundleInfoKeyAssetSize"];
+
+    v8 = v10;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v7, v8);
 }
 
 uint64_t __58__PUIPosterSnapshotBundleBuilder_setAssetSizeIfNecessary___block_invoke(uint64_t a1, void *a2)
@@ -1001,23 +1010,23 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
   if (formatCopy)
   {
-    [v7 setObject:formatCopy forKey:@"PUIPosterSnapshotBundleInfoKeySnapshotImageFormat"];
+    v8 = [v7 setObject:formatCopy forKey:@"PUIPosterSnapshotBundleInfoKeySnapshotImageFormat"];
   }
 
   hardwareIdentifier = self->_hardwareIdentifier;
   if (hardwareIdentifier)
   {
-    [v7 setObject:hardwareIdentifier forKey:@"PUIPosterSnapshotBundleInfoKeyHardwareIdentifier"];
+    v8 = [v7 setObject:hardwareIdentifier forKey:@"PUIPosterSnapshotBundleInfoKeyHardwareIdentifier"];
   }
 
-  v9 = PUIPosterSnapshotBundleSharedDateFormatter();
+  v10 = PUIPosterSnapshotBundleSharedDateFormatter(v8);
   date = [MEMORY[0x1E695DF00] date];
-  v11 = [v9 stringFromDate:date];
-  [v7 setObject:v11 forKey:@"PUIPosterSnapshotBundleInfoKeyDateCreated"];
+  v12 = [v10 stringFromDate:date];
+  [v7 setObject:v12 forKey:@"PUIPosterSnapshotBundleInfoKeyDateCreated"];
 
-  v12 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeySnapshotEpoch"];
+  v13 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeySnapshotEpoch"];
 
-  if (!v12)
+  if (!v13)
   {
     [v7 setObject:&unk_1F1C92868 forKey:@"PUIPosterSnapshotBundleInfoKeySnapshotEpoch"];
   }
@@ -1027,43 +1036,43 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
   allKeys = [(NSMutableDictionary *)self->_levelToImage allKeys];
   objectEnumerator = [allKeys objectEnumerator];
   allObjects = [objectEnumerator allObjects];
-  v16 = allObjects;
-  v17 = MEMORY[0x1E695E0F0];
+  v17 = allObjects;
+  v18 = MEMORY[0x1E695E0F0];
   if (allObjects)
   {
-    v17 = allObjects;
+    v18 = allObjects;
   }
 
-  v18 = v17;
+  v19 = v18;
 
-  v19 = [v18 bs_mapNoNulls:&__block_literal_global_134];
+  v20 = [v19 bs_mapNoNulls:&__block_literal_global_134];
 
-  v20 = [MEMORY[0x1E696AD98] numberWithInteger:self->_userInterfaceStyle];
-  [v7 setObject:v20 forKey:@"PUIPosterSnapshotBundleInfoKeyUserInterfaceStyle"];
+  v21 = [MEMORY[0x1E696AD98] numberWithInteger:self->_userInterfaceStyle];
+  [v7 setObject:v21 forKey:@"PUIPosterSnapshotBundleInfoKeyUserInterfaceStyle"];
 
-  [v7 setObject:v19 forKey:@"PUIPosterSnapshotBundleInfoKeySnapshotLevels"];
-  v21 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeyInterfaceOrientation"];
+  [v7 setObject:v20 forKey:@"PUIPosterSnapshotBundleInfoKeySnapshotLevels"];
+  v22 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeyInterfaceOrientation"];
 
-  if (!v21)
+  if (!v22)
   {
-    v22 = [MEMORY[0x1E696AD98] numberWithInteger:self->_interfaceOrientation];
-    [v7 setObject:v22 forKey:@"PUIPosterSnapshotBundleInfoKeyInterfaceOrientation"];
+    v23 = [MEMORY[0x1E696AD98] numberWithInteger:self->_interfaceOrientation];
+    [v7 setObject:v23 forKey:@"PUIPosterSnapshotBundleInfoKeyInterfaceOrientation"];
   }
 
-  v23 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeyDeviceInterfaceOrientation"];
+  v24 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeyDeviceInterfaceOrientation"];
 
-  if (!v23)
+  if (!v24)
   {
-    v24 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceOrientation];
-    [v7 setObject:v24 forKey:@"PUIPosterSnapshotBundleInfoKeyDeviceInterfaceOrientation"];
+    v25 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceOrientation];
+    [v7 setObject:v25 forKey:@"PUIPosterSnapshotBundleInfoKeyDeviceInterfaceOrientation"];
   }
 
-  v25 = [MEMORY[0x1E696AD98] numberWithInt:self->_colorStatistics != 0];
-  [v7 setObject:v25 forKey:@"PUIPosterSnapshotBundleInfoKeyContainsColorStatistics"];
+  v26 = [MEMORY[0x1E696AD98] numberWithInt:self->_colorStatistics != 0];
+  [v7 setObject:v26 forKey:@"PUIPosterSnapshotBundleInfoKeyContainsColorStatistics"];
 
-  v26 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeySnapshotBundleUUID"];
+  v27 = [v7 objectForKey:@"PUIPosterSnapshotBundleInfoKeySnapshotBundleUUID"];
 
-  if (!v26)
+  if (!v27)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
@@ -1076,14 +1085,14 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     [v7 setObject:pf_bootInstanceIdentifier forKey:@"PUIPosterSnapshotBundleInfoKeyBootSessionIdentifier"];
   }
 
-  v30 = [v7 copy];
+  v31 = [v7 copy];
 
-  return v30;
+  return v31;
 }
 
 - (void)initWithSceneSettings:(char *)a1 snapshotDescriptor:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1091,7 +1100,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSSceneSettingsClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1101,7 +1110,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)initWithSceneSettings:(char *)a1 snapshotDescriptor:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1109,7 +1118,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1119,7 +1128,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)initWithSnapshotBundle:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PUIPosterSnapshotBundleClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1127,7 +1136,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PUIPosterSnapshotBundleClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1137,7 +1146,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)initWithSnapshotBundle:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1145,7 +1154,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1155,7 +1164,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)captureSnapshot:(char *)a1 forLevelSet:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"levelSet"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1163,7 +1172,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"levelSet", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1173,7 +1182,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)captureSnapshot:(char *)a1 forLevelSet:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"snapshot"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1181,7 +1190,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"snapshot", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1191,7 +1200,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)captureSurface:(char *)a1 forLevelSet:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"levelSet"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1199,7 +1208,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"levelSet", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1209,7 +1218,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)captureSurface:(char *)a1 forLevelSet:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"snapshot"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1217,7 +1226,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"snapshot", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1227,7 +1236,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
 
 - (void)captureColorStatistics:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"colorStatistics"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1235,7 +1244,7 @@ void __87__PUIPosterSnapshotBundleBuilder_buildWithOutputURL_diskFormat_finalize
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"colorStatistics", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

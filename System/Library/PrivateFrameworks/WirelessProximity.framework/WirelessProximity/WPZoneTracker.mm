@@ -136,7 +136,7 @@
 
 - (void)enteredZone:(id)zone manufacturerData:(id)data
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   dataCopy = data;
   if ([(WPZoneTracker *)self wantEntry])
@@ -158,10 +158,10 @@
 
     if (v12)
     {
-      v46 = 0uLL;
+      v45 = 0uLL;
       bytes = [dataCopy bytes];
       v14 = [dataCopy length];
-      if (v14 < 0x10 || (v46 = *bytes, v14 < 0x12))
+      if (v14 < 0x10 || (v45 = *bytes, v14 < 0x12))
       {
         v16 = 0;
         v15 = 0;
@@ -182,7 +182,7 @@
           {
             v17 = *(bytes + 20);
 LABEL_13:
-            v18 = [MEMORY[0x277CBEA90] dataWithBytes:&v46 length:16];
+            v18 = [MEMORY[0x277CBEA90] dataWithBytes:&v45 length:16];
             if (v18)
             {
               if (WPLogInitOnce != -1)
@@ -194,29 +194,29 @@ LABEL_13:
               if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138413570;
-                v35 = v18;
-                v36 = 2048;
-                v37 = v15;
-                v38 = 2048;
-                v39 = v15;
-                v40 = 2048;
-                v41 = v16;
-                v42 = 2048;
-                v43 = v16;
-                v44 = 1024;
-                v45 = v17;
+                v34 = v18;
+                v35 = 2048;
+                v36 = v15;
+                v37 = 2048;
+                v38 = v15;
+                v39 = 2048;
+                v40 = v16;
+                v41 = 2048;
+                v42 = v16;
+                v43 = 1024;
+                v44 = v17;
                 _os_log_impl(&dword_274327000, v19, OS_LOG_TYPE_DEFAULT, "Entered zone %@ with major %ld (0x%lx), minor %ld (0x%lx), tx (%d)", buf, 0x3Au);
               }
 
-              v33[0] = v18;
-              v32[0] = @"WPZoneTrackerKeyZone";
-              v32[1] = @"WPZoneTrackerKeyMajor";
+              v32[0] = v18;
+              v31[0] = @"WPZoneTrackerKeyZone";
+              v31[1] = @"WPZoneTrackerKeyMajor";
               v20 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
-              v33[1] = v20;
-              v32[2] = @"WPZoneTrackerKeyMinor";
+              v32[1] = v20;
+              v31[2] = @"WPZoneTrackerKeyMinor";
               v21 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-              v33[2] = v21;
-              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
+              v32[2] = v21;
+              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
 
               if (WPLogInitOnce != -1)
               {
@@ -227,18 +227,18 @@ LABEL_13:
               if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v35 = v22;
+                v34 = v22;
                 _os_log_impl(&dword_274327000, v23, OS_LOG_TYPE_DEFAULT, "dicToSend: %@", buf, 0xCu);
               }
 
               delegate4 = [(WPZoneTracker *)self delegate];
-              v31[0] = zoneCopy;
+              v30[0] = zoneCopy;
               v25 = [MEMORY[0x277CCABB0] numberWithInteger:{v15, @"WPZoneTrackerKeyZone", @"WPZoneTrackerKeyMajor"}];
-              v31[1] = v25;
-              v30[2] = @"WPZoneTrackerKeyMinor";
+              v30[1] = v25;
+              v29[2] = @"WPZoneTrackerKeyMinor";
               v26 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-              v31[2] = v26;
-              v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+              v30[2] = v26;
+              v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
               [delegate4 zoneTracker:self enteredZoneInfo:v27];
             }
 
@@ -267,8 +267,6 @@ LABEL_13:
   }
 
 LABEL_28:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)exitedZone:(id)zone
@@ -289,7 +287,7 @@ LABEL_28:
 
 - (void)failedToRegisterZones:(id)zones withError:(id)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   errorCopy = error;
   delegate = [(WPZoneTracker *)self delegate];
@@ -298,13 +296,11 @@ LABEL_28:
   if (v9)
   {
     delegate2 = [(WPZoneTracker *)self delegate];
-    v13 = @"ZTZonesArray";
-    v14[0] = zonesCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"ZTZonesArray";
+    v13[0] = zonesCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     [delegate2 zoneTracker:self didFailToRegisterZones:v11 withError:errorCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchedCurrentlyTrackedZones:(id)zones

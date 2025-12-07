@@ -192,28 +192,28 @@ void ___ef_log_EMMailboxCategoryCloudStorage_block_invoke()
   ubiquitousDictionary = [(EMMailboxCategoryCloudStorage *)self ubiquitousDictionary];
   v15 = [ubiquitousDictionary objectForKeyedSubscript:v34];
 
-  if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (v15 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v19 = _ef_log_EMMailboxCategoryCloudStorage();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = _ef_log_EMMailboxCategoryCloudStorage(isKindOfClass);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = [(EMMailboxCategoryCloudStorage *)self _loggingStringForMailboxURL:lCopy categoryType:typeCopy];
-      [EMMailboxCategoryCloudStorage setIfNeededLastSeenDate:v21 lastSeenDisplayDate:v22 forCategoryType:buf inMailboxWithExternalURL:v19 originator:?];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = [(EMMailboxCategoryCloudStorage *)self _loggingStringForMailboxURL:lCopy categoryType:typeCopy];
+      [EMMailboxCategoryCloudStorage setIfNeededLastSeenDate:v22 lastSeenDisplayDate:v23 forCategoryType:buf inMailboxWithExternalURL:v20 originator:?];
     }
 
-    v23 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v16 = [v15 mutableCopy];
-    v17 = v16;
+    v17 = [v15 mutableCopy];
+    v18 = v17;
     originatorCopy = originator;
-    if (v16)
+    if (v17)
     {
-      dictionary = v16;
+      dictionary = v17;
     }
 
     else
@@ -221,37 +221,36 @@ void ___ef_log_EMMailboxCategoryCloudStorage_block_invoke()
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v24 = dictionary;
+    v25 = dictionary;
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __129__EMMailboxCategoryCloudStorage_setIfNeededLastSeenDate_lastSeenDisplayDate_forCategoryType_inMailboxWithExternalURL_originator___block_invoke;
     aBlock[3] = &unk_1E826D6F8;
     aBlock[4] = self;
-    v19 = v24;
-    v38 = v19;
-    v25 = lCopy;
-    v39 = v25;
-    v26 = typeCopy;
-    v40 = v26;
-    v27 = _Block_copy(aBlock);
-    v28 = v27[2](v27, dateCopy, @"ls", @"lastSeenDate");
-    v23 = v27[2](v27, displayDateCopy, @"lsd", @"lastSeenDisplayDate") | v28;
-    if (v23)
+    v20 = v25;
+    v38 = v20;
+    v26 = lCopy;
+    v39 = v26;
+    v27 = typeCopy;
+    v40 = v27;
+    v28 = _Block_copy(aBlock);
+    v29 = v28[2](v28, dateCopy, @"ls", @"lastSeenDate");
+    v24 = v28[2](v28, displayDateCopy, @"lsd", @"lastSeenDisplayDate") | v29;
+    if (v24)
     {
-      absoluteString = [v25 absoluteString];
-      [v19 setObject:absoluteString forKeyedSubscript:@"mailbox"];
+      absoluteString = [v26 absoluteString];
+      [v20 setObject:absoluteString forKeyedSubscript:@"mailbox"];
 
-      [v19 setObject:v26 forKeyedSubscript:@"category"];
+      [v20 setObject:v27 forKeyedSubscript:@"category"];
       ubiquitousDictionary2 = [(EMMailboxCategoryCloudStorage *)self ubiquitousDictionary];
-      [ubiquitousDictionary2 setObject:v19 forKeyedSubscript:v34];
+      [ubiquitousDictionary2 setObject:v20 forKeyedSubscript:v34];
 
-      [(EMMailboxCategoryCloudStorage *)self _notifyObserversAboutChangedLastSeenDate:dateCopy lastSeenDisplayDate:displayDateCopy forCategoryType:v26 inMailboxWithExternalURL:v25 originator:originatorCopy];
+      [(EMMailboxCategoryCloudStorage *)self _notifyObserversAboutChangedLastSeenDate:dateCopy lastSeenDisplayDate:displayDateCopy forCategoryType:v27 inMailboxWithExternalURL:v26 originator:originatorCopy];
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v23 & 1;
+  return v24 & 1;
 }
 
 - (id)_loggingStringForMailboxURL:(void *)l categoryType:
@@ -351,12 +350,12 @@ uint64_t __129__EMMailboxCategoryCloudStorage_setIfNeededLastSeenDate_lastSeenDi
     v10 = [(EMMailboxCategoryCloudStorage *)*(a1 + 32) _dateFromValueDictionary:v8 forKey:?];
     v11 = [v10 ec_integerDate];
 
-    if (v11 && ([v7 ec_integerDate], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "ef_isLaterThanDate:", v11), v12, !v13))
+    if (v11 && ([v7 ec_integerDate], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "ef_isLaterThanDate:", v11), v13, !v14))
     {
-      v17 = _ef_log_EMMailboxCategoryCloudStorage();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _ef_log_EMMailboxCategoryCloudStorage(v12);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [(EMMailboxCategoryCloudStorage *)*(a1 + 32) _loggingStringForMailboxURL:*(a1 + 56) categoryType:?];
+        v20 = [(EMMailboxCategoryCloudStorage *)*(a1 + 32) _loggingStringForMailboxURL:*(a1 + 56) categoryType:?];
         v22 = 138544130;
         v23 = v9;
         v24 = 2114;
@@ -364,43 +363,42 @@ uint64_t __129__EMMailboxCategoryCloudStorage_setIfNeededLastSeenDate_lastSeenDi
         v26 = 2114;
         v27 = v11;
         v28 = 2114;
-        v29 = v19;
-        _os_log_impl(&dword_1C6655000, v17, OS_LOG_TYPE_DEFAULT, "Not setting %{public}@ - %{public}@ earlier than %{public}@ for: %{public}@", &v22, 0x2Au);
+        v29 = v20;
+        _os_log_impl(&dword_1C6655000, v18, OS_LOG_TYPE_DEFAULT, "Not setting %{public}@ - %{public}@ earlier than %{public}@ for: %{public}@", &v22, 0x2Au);
       }
 
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v14 = _ef_log_EMMailboxCategoryCloudStorage();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = _ef_log_EMMailboxCategoryCloudStorage(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [(EMMailboxCategoryCloudStorage *)*(a1 + 32) _loggingStringForMailboxURL:*(a1 + 56) categoryType:?];
+        v16 = [(EMMailboxCategoryCloudStorage *)*(a1 + 32) _loggingStringForMailboxURL:*(a1 + 56) categoryType:?];
         v22 = 138543874;
         v23 = v9;
         v24 = 2114;
         v25 = v7;
         v26 = 2114;
-        v27 = v15;
-        _os_log_impl(&dword_1C6655000, v14, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to %{public}@ for: %{public}@", &v22, 0x20u);
+        v27 = v16;
+        _os_log_impl(&dword_1C6655000, v15, OS_LOG_TYPE_DEFAULT, "Setting %{public}@ to %{public}@ for: %{public}@", &v22, 0x20u);
       }
 
-      v16 = MEMORY[0x1E696AD98];
+      v17 = MEMORY[0x1E696AD98];
       [v7 timeIntervalSince1970];
-      v17 = [v16 numberWithDouble:?];
-      [*(a1 + 40) setObject:v17 forKeyedSubscript:v8];
-      v18 = 1;
+      v18 = [v17 numberWithDouble:?];
+      [*(a1 + 40) setObject:v18 forKeyedSubscript:v8];
+      v19 = 1;
     }
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 - (void)_notifyObserversAboutChangedLastSeenDate:(void *)date lastSeenDisplayDate:(void *)displayDate forCategoryType:(void *)type inMailboxWithExternalURL:(uint64_t)l originator:
@@ -462,7 +460,7 @@ id __64__EMMailboxCategoryCloudStorage__keyForMailboxURL_categoryType___block_in
 
   else
   {
-    v11 = _ef_log_EMMailboxCategoryCloudStorage();
+    v11 = _ef_log_EMMailboxCategoryCloudStorage(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __64__EMMailboxCategoryCloudStorage__keyForMailboxURL_categoryType___block_invoke_cold_1(v11);
@@ -476,21 +474,20 @@ id __64__EMMailboxCategoryCloudStorage__keyForMailboxURL_categoryType___block_in
 
 - (void)clearAll
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = _ef_log_EMMailboxCategoryCloudStorage();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = _ef_log_EMMailboxCategoryCloudStorage(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     ubiquitousDictionary = [(EMMailboxCategoryCloudStorage *)self ubiquitousDictionary];
-    v7 = 134217984;
-    v8 = [ubiquitousDictionary count];
-    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "Clearing all data with oldCount:%lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [ubiquitousDictionary count];
+    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "Clearing all data with oldCount:%lu", &v6, 0xCu);
   }
 
   ubiquitousDictionary2 = [(EMMailboxCategoryCloudStorage *)self ubiquitousDictionary];
   [ubiquitousDictionary2 removeAllObjects];
 
   [(EMMailboxCategoryCloudStorage *)self _notifyObserversAboutChangedLastSeenDate:0 lastSeenDisplayDate:0 forCategoryType:0 inMailboxWithExternalURL:0 originator:?];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addCloudStorageObserver:(id)observer
@@ -535,37 +532,35 @@ void __60__EMMailboxCategoryCloudStorage_removeCloudStorageObserver___block_invo
 
 void __146__EMMailboxCategoryCloudStorage__notifyObserversAboutChangedLastSeenDate_lastSeenDisplayDate_forCategoryType_inMailboxWithExternalURL_originator___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) categoryCloudStorage:*(a1 + 32) didChangeLastSeenDate:*(a1 + 40) lastSeenDisplayDate:*(a1 + 48) forCategoryType:*(a1 + 56) inMailboxWithExternalURL:*(a1 + 64) originator:*(a1 + 72)];
+        [*(*(&v6 + 1) + 8 * v5++) categoryCloudStorage:*(a1 + 32) didChangeLastSeenDate:*(a1 + 40) lastSeenDisplayDate:*(a1 + 48) forCategoryType:*(a1 + 56) inMailboxWithExternalURL:*(a1 + 64) originator:*(a1 + 72)];
       }
 
       while (v3 != v5);
-      v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIfNeededLastSeenDate:(uint8_t *)buf lastSeenDisplayDate:(os_log_t)log forCategoryType:inMailboxWithExternalURL:originator:.cold.1(void *a1, void *a2, uint8_t *buf, os_log_t log)

@@ -23,9 +23,9 @@
 
 - (id)_initInternal
 {
-  v17.receiver = self;
-  v17.super_class = NIServerAccessoryGATTServiceManager;
-  v2 = [(NIServerAccessoryGATTServiceManager *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = NIServerAccessoryGATTServiceManager;
+  v2 = [(NIServerAccessoryGATTServiceManager *)&v16 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
@@ -47,8 +47,7 @@
 
     if (+[NIPlatformInfo isInternalBuild](NIPlatformInfo, "isInternalBuild") || (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 BOOLForKey:@"EnableStateDump"], v12, v13))
     {
-      v14 = v2->_queue;
-      v16 = v2;
+      v15 = v2;
       os_state_add_handler();
     }
   }
@@ -969,7 +968,7 @@ LABEL_8:
   }
 
   buf[0] = 0;
-  sub_100025100(&__p, v25);
+  sub_100025100(&__p, v25, buf);
   value3 = [characteristicCopy value];
   [value3 getBytes:__p length:v76 - __p];
 

@@ -64,7 +64,7 @@
 
 - (id)accessibilityHeaderElements
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v3 = [(TUICandidateCellAccessibility *)self _accessibilityAncestorIsKindOf:objc_opt_class()];
   objc_opt_class();
   v4 = [(TUICandidateCellAccessibility *)self safeValueForKey:@"_accessibilityIndexPath"];
@@ -77,8 +77,8 @@
     MEMORY[0x29ED3C2C0](@"TUICandidateGroupHeader");
     if (objc_opt_isKindOfClass())
     {
-      v12[0] = v7;
-      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+      v11[0] = v7;
+      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
       goto LABEL_8;
     }
 
@@ -91,8 +91,6 @@
 
   v8 = 0;
 LABEL_8:
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -123,11 +121,10 @@ LABEL_8:
 
 - (void)accessibilityHeaderElements
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_29C4B7000, a2, OS_LOG_TYPE_ERROR, "Unexpected class for candidate group header: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(&dword_29C4B7000, a2, OS_LOG_TYPE_ERROR, "Unexpected class for candidate group header: %@", &v2, 0xCu);
 }
 
 @end

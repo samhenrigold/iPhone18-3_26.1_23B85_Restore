@@ -14,8 +14,6 @@
 - (id)tiledView;
 - (id)view;
 - (uint64_t)_handleSingleTapAtDrawingLocation:(int)location fromHover:(CGFloat)hover fromTapStroke:(CGFloat)stroke;
-- (uint64_t)cancelOpenPopoverForAddingGraph;
-- (uint64_t)cancelOpenPopoverForHint;
 - (void)_cleanupAfterScrubbing;
 - (void)_cleanupTypesetViewController;
 - (void)_commitSetShouldSolve:(uint64_t)solve undoable:(void *)undoable item:;
@@ -29,6 +27,8 @@
 - (void)_triggerPopupToAddGraphForItem:(uint64_t)item;
 - (void)_triggerPopupToSolveItem:(char)item supportCopy:;
 - (void)_updateDrawingOverlayCache;
+- (void)cancelOpenPopoverForAddingGraph;
+- (void)cancelOpenPopoverForHint;
 - (void)contextMenuController:(id)controller addGraphForItemUUID:(id)d addToExisting:(BOOL)existing graphableVariable:(id)variable;
 - (void)contextMenuController:(id)controller dismissErrorForItem:(id)item token:(id)token;
 - (void)contextMenuController:(id)controller removeResultForItemUUID:(id)d;
@@ -596,7 +596,7 @@ LABEL_9:
   {
     if ([(PKMathRecognitionViewController *)self solvingStyle]!= 1)
     {
-      [(PKOverlayDrawingController *)self->_overlayDrawingController removeAllTokens];
+      [(PKOverlayDrawingController *)&self->_overlayDrawingController->super.isa removeAllTokens];
     }
   }
 }
@@ -880,7 +880,7 @@ LABEL_20:
     self->_alternativedEditMenuInteraction = 0;
   }
 
-  [(PKOverlayDrawingController *)self->_overlayDrawingController removedFromView];
+  [(PKOverlayDrawingController *)&self->_overlayDrawingController->super.isa removedFromView];
   if (self->_scrubberController)
   {
     [(PKMathRecognitionViewController *)self hideScrubber];
@@ -929,13 +929,13 @@ LABEL_20:
   }
 }
 
-- (uint64_t)cancelOpenPopoverForHint
+- (void)cancelOpenPopoverForHint
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 120);
-    *(result + 120) = 0;
+    v2 = result[15];
+    result[15] = 0;
 
     v3 = MEMORY[0x1E69E58C0];
 
@@ -945,13 +945,13 @@ LABEL_20:
   return result;
 }
 
-- (uint64_t)cancelOpenPopoverForAddingGraph
+- (void)cancelOpenPopoverForAddingGraph
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 128);
-    *(result + 128) = 0;
+    v2 = result[16];
+    result[16] = 0;
 
     v3 = MEMORY[0x1E69E58C0];
 
@@ -1649,11 +1649,11 @@ LABEL_20:
         }
 
         v30 = objc_loadWeakRetained((item + 248));
-        item = [(PKMathContextMenuController *)x insertGraphControllerForItem:width tapBounds:height alsoShowAddToExisiting:PKMathContextMenuController view:v16 delegate:v17, v30, item];
+        height = [PKMathContextMenuController insertGraphControllerForItem:v16 tapBounds:v17 alsoShowAddToExisiting:v30 view:item delegate:x, y, width, height];
 
         v32 = *(item + 280);
-        *(item + 280) = item;
-        v18 = item;
+        *(item + 280) = height;
+        v18 = height;
 
         if (v18)
         {
@@ -1930,11 +1930,11 @@ LABEL_21:
         v34.size.height = v22;
         MidY = CGRectGetMidY(v34);
         v24 = objc_loadWeakRetained((self + 248));
-        v25 = [(PKMathContextMenuController *)x mathSolvingControllerForItem:width tapBounds:height supportCopy:PKMathContextMenuController view:v5 delegate:item, v24, self];
+        height = [PKMathContextMenuController mathSolvingControllerForItem:v5 tapBounds:item supportCopy:v24 view:self delegate:x, y, width, height];
 
         v26 = *(self + 280);
-        *(self + 280) = v25;
-        v10 = v25;
+        *(self + 280) = height;
+        v10 = height;
 
         if (v10)
         {
@@ -2306,7 +2306,7 @@ LABEL_60:
       v85 = v84;
       v87 = v86;
       view = [(PKMathRecognitionViewController *)v70 view];
-      v89 = [(PKMathContextMenuController *)v81 mathErrorControllerForItem:v83 token:v85 tapBounds:v87 errorString:PKMathContextMenuController errorReasonString:item view:v62 delegate:errorString2, errorReasonString, view, v70];
+      v89 = [PKMathContextMenuController mathErrorControllerForItem:item token:v62 tapBounds:errorString2 errorString:errorReasonString errorReasonString:view view:v70 delegate:v81, v83, v85, v87];
 
       [(PKMathRecognitionViewController *)v70 setContextMenuController:v89];
       if (v89)
@@ -2450,12 +2450,12 @@ LABEL_116:
               v181 = v145;
               v182 = v146;
               view2 = [(PKMathRecognitionViewController *)v191 view];
-              v191 = [(PKMathContextMenuController *)v179 mathResultControllerForItem:v180 tapBounds:v181 view:v182 delegate:PKMathContextMenuController, v57, view2, v191];
+              v182 = [PKMathContextMenuController mathResultControllerForItem:v57 tapBounds:view2 view:v191 delegate:v179, v180, v181, v182];
 
-              objc_storeStrong((v191 + 280), v191);
-              if (v191)
+              objc_storeStrong((v191 + 280), v182);
+              if (v182)
               {
-                [v191[2] _presentMenuAtLocation:pointa];
+                [v182[2] _presentMenuAtLocation:pointa];
               }
 
               v148 = v62;
@@ -2471,7 +2471,7 @@ LABEL_116:
                 v196 = v141;
                 errors4 = [v148 errors];
                 firstObject4 = [errors4 firstObject];
-                v191 = [firstObject4 errorString];
+                v182 = [firstObject4 errorString];
 
                 errors5 = [v148 errors];
                 firstObject5 = [errors5 firstObject];
@@ -2484,12 +2484,12 @@ LABEL_116:
                 v165 = v164;
                 v167 = v166;
                 view3 = [(PKMathRecognitionViewController *)v191 view];
-                v1912 = [(PKMathContextMenuController *)v161 mathErrorControllerForItem:v163 token:v165 tapBounds:v167 errorString:PKMathContextMenuController errorReasonString:item2 view:v148 delegate:v191, errorReasonString2, view3, v191];
+                v167 = [PKMathContextMenuController mathErrorControllerForItem:item2 token:v148 tapBounds:v182 errorString:errorReasonString2 errorReasonString:view3 view:v191 delegate:v161, v163, v165, v167];
 
-                objc_storeStrong((v191 + 280), v1912);
-                if (v1912)
+                objc_storeStrong((v191 + 280), v167);
+                if (v167)
                 {
-                  [v1912[2] _presentMenuAtLocation:pointa];
+                  [v167[2] _presentMenuAtLocation:pointa];
                 }
 
                 v141 = v196;
@@ -2512,12 +2512,12 @@ LABEL_116:
                 v176 = v172;
                 v177 = v173;
                 view4 = [(PKMathRecognitionViewController *)v191 view];
-                v191 = [(PKMathContextMenuController *)v174 mathCopyControllerForItem:v175 tapBounds:v176 view:v177 delegate:PKMathContextMenuController, v193, view4, v191];
+                v182 = [PKMathContextMenuController mathCopyControllerForItem:v193 tapBounds:view4 view:v191 delegate:v174, v175, v176, v177];
 
-                objc_storeStrong((v191 + 280), v191);
-                if (v191)
+                objc_storeStrong((v191 + 280), v182);
+                if (v182)
                 {
-                  [v191[2] _presentMenuAtLocation:pointa];
+                  [v182[2] _presentMenuAtLocation:pointa];
                 }
               }
             }
@@ -2650,12 +2650,12 @@ LABEL_96:
   v122 = v237.size.width;
   v123 = v237.size.height;
   view6 = [(PKMathRecognitionViewController *)v191 view];
-  v1913 = [(PKMathContextMenuController *)v120 mathResultControllerForItem:v121 tapBounds:v122 view:v123 delegate:PKMathContextMenuController, v102, view6, v191];
+  v123 = [PKMathContextMenuController mathResultControllerForItem:v102 tapBounds:view6 view:v191 delegate:v120, v121, v122, v123];
 
-  objc_storeStrong((v191 + 280), v1913);
-  if (v1913)
+  objc_storeStrong((v191 + 280), v123);
+  if (v123)
   {
-    [v1913[2] _presentMenuAtLocation:pointa];
+    [v123[2] _presentMenuAtLocation:pointa];
   }
 
   v217 = 1;
@@ -3773,7 +3773,7 @@ void __66__PKMathRecognitionViewController__showDetectionAnimationForItem___bloc
         [(NSMutableDictionary *)v15 setObject:resultCopy forKeyedSubscript:uuid2];
 
         drawing2 = [(PKMathRecognitionViewController *)&self->super.isa drawing];
-        v18 = [(PKMathRecognitionItem *)v9 _heroStrokeInDrawing:drawing2];
+        v18 = [(PKMathRecognitionItem *)&v9->isa _heroStrokeInDrawing:drawing2];
 
         if ([(PKMathRecognitionViewController *)self solvingStyle])
         {

@@ -90,7 +90,7 @@ id CreateCoordinateComponentString(uint64_t a1, double a2, double a3)
   v13 = [NSNumberFormatter localizedStringFromNumber:v12 numberStyle:0];
 
   v14 = [NSString alloc];
-  v15 = WebLocalizedString();
+  v15 = WebLocalizedString(0, "%1$@°%2$@′%3$@″ %4$@");
   v16 = [v14 initWithFormat:v15, v9, v11, v13, v7, 0];
 
   return v16;
@@ -228,14 +228,14 @@ id StringWithLocationDirection(double a1)
   if (!qword_10001B428)
   {
     v3 = [NSArray alloc];
-    v4 = WebLocalizedString();
-    v5 = WebLocalizedString();
-    v6 = WebLocalizedString();
-    v7 = WebLocalizedString();
-    v8 = WebLocalizedString();
-    v9 = WebLocalizedString();
-    v10 = WebLocalizedString();
-    v11 = WebLocalizedString();
+    v4 = WebLocalizedString(0, "N");
+    v5 = WebLocalizedString(0, "NE");
+    v6 = WebLocalizedString(0, "E");
+    v7 = WebLocalizedString(0, "SE");
+    v8 = WebLocalizedString(0, "S");
+    v9 = WebLocalizedString(0, "SW");
+    v10 = WebLocalizedString(0, "W");
+    v11 = WebLocalizedString(0, "NW");
     v12 = [v3 initWithObjects:{v4, v5, v6, v7, v8, v9, v10, v11, 0}];
     v13 = qword_10001B428;
     qword_10001B428 = v12;
@@ -408,9 +408,9 @@ LABEL_18:
 LABEL_19:
 }
 
-void sub_100007E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -468,7 +468,6 @@ void sub_100008294()
 
 uint64_t sub_100008388(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001B440 = result;
   return result;

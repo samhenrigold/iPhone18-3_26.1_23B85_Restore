@@ -1,1478 +1,3 @@
-uint64_t destroy for TableColumnCollection.Backing(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  if (v2 >= 2)
-  {
-    v2 = *a1 + 2;
-  }
-
-  if (v2 != 1)
-  {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
-  }
-}
-
-uint64_t initializeWithCopy for TableColumnCollection.Backing(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 40);
-  if (v3 >= 2)
-  {
-    v3 = *a2 + 2;
-  }
-
-  if (v3 == 1)
-  {
-    *a1 = *a2;
-
-    v4 = 1;
-  }
-
-  else
-  {
-    v5 = *(a2 + 24);
-    *(a1 + 24) = v5;
-    (**(v5 - 8))(a1);
-    v4 = 0;
-  }
-
-  *(a1 + 40) = v4;
-  return a1;
-}
-
-uint64_t assignWithCopy for TableColumnCollection.Backing(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v4 = *(a1 + 40);
-    if (v4 >= 2)
-    {
-      v4 = *a1 + 2;
-    }
-
-    if (v4 == 1)
-    {
-    }
-
-    else
-    {
-      __swift_destroy_boxed_opaque_existential_1(a1);
-    }
-
-    v5 = *(a2 + 40);
-    if (v5 >= 2)
-    {
-      v5 = *a2 + 2;
-    }
-
-    if (v5 == 1)
-    {
-      *a1 = *a2;
-      *(a1 + 40) = 1;
-    }
-
-    else
-    {
-      v6 = *(a2 + 24);
-      *(a1 + 24) = v6;
-      *(a1 + 32) = *(a2 + 32);
-      (**(v6 - 8))(a1, a2);
-      *(a1 + 40) = 0;
-    }
-  }
-
-  return a1;
-}
-
-uint64_t assignWithTake for TableColumnCollection.Backing(uint64_t result, uint64_t a2)
-{
-  if (result != a2)
-  {
-    v3 = *(result + 40);
-    if (v3 >= 2)
-    {
-      v3 = *result + 2;
-    }
-
-    v4 = result;
-    if (v3 == 1)
-    {
-    }
-
-    else
-    {
-      __swift_destroy_boxed_opaque_existential_1(result);
-    }
-
-    v5 = *(a2 + 40);
-    if (v5 >= 2)
-    {
-      v5 = *a2 + 2;
-    }
-
-    result = v4;
-    if (v5 == 1)
-    {
-      *v4 = *a2;
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = *(a2 + 16);
-      *v4 = *a2;
-      *(v4 + 16) = v7;
-      *(v4 + 32) = *(a2 + 32);
-    }
-
-    *(v4 + 40) = v6;
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for TableColumnCollection.Backing(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 41))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 40);
-  if (v3 >= 2)
-  {
-    return (v3 ^ 0xFF) + 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for TableColumnCollection.Backing(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 25) = 0u;
-    *result = 0u;
-    *(result + 16) = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 41) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 41) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 40) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t specialized Collection.underestimatedCount.getter()
-{
-  outlined init with copy of TableColumnCollection.Backing(v0, v8);
-  if (v9)
-  {
-    v1 = *(*&v8[0] + 16);
-  }
-
-  else
-  {
-    outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v8, v5);
-    v2 = v6;
-    v3 = v7;
-    __swift_project_boxed_opaque_existential_1(v5, v6);
-    v1 = (*(v3 + 8))(v2, v3);
-    __swift_destroy_boxed_opaque_existential_1(v5);
-  }
-
-  return specialized RandomAccessCollection<>.distance(from:to:)(0, v1);
-}
-
-uint64_t specialized RandomAccessCollection<>.index(before:)(uint64_t result)
-{
-  v2 = result - 1;
-  if (__OFSUB__(result, 1))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    outlined init with copy of TableColumnCollection.Backing(v1, v9);
-    if (v10)
-    {
-      v3 = *(*&v9[0] + 16);
-    }
-
-    else
-    {
-      outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v9, v6);
-      v4 = v7;
-      v5 = v8;
-      __swift_project_boxed_opaque_existential_1(v6, v7);
-      v3 = (*(v5 + 8))(v4, v5);
-      result = __swift_destroy_boxed_opaque_existential_1(v6);
-    }
-
-    if ((v2 & 0x8000000000000000) == 0 && v2 < v3)
-    {
-      return v2;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t TableColumnCollection.subscript.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = v2;
-  type metadata accessor for TableColumnCollection.Entry?(0);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v8 = &v21[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TableColumnCollection.Visitor(0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = (&v21[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  result = outlined init with copy of TableColumnCollection.Backing(v3, v24);
-  if (v25)
-  {
-    if ((a1 & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v13 = *&v24[0];
-      if (*(*&v24[0] + 16) > a1)
-      {
-        v14 = *(type metadata accessor for TableColumnCollection.Entry(0) - 8);
-        outlined init with copy of TableColumnCollection.Entry(v13 + ((*(v14 + 80) + 32) & ~*(v14 + 80)) + *(v14 + 72) * a1, a2, type metadata accessor for TableColumnCollection.Entry);
-      }
-    }
-
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v24, v21);
-  v15 = *(v9 + 20);
-  v16 = type metadata accessor for TableColumnCollection.Entry(0);
-  v17 = *(v16 - 8);
-  (*(v17 + 56))(v11 + v15, 1, 1, v16);
-  *v11 = a1;
-  v18 = v22;
-  v19 = v23;
-  __swift_project_boxed_opaque_existential_1(v21, v22);
-  TableColumnList.visitColumns<A>(applying:from:)(v11, a1, v18, v9, v19, &protocol witness table for TableColumnCollection.Visitor);
-  outlined init with copy of TableColumnCollection.Entry(v11 + v15, v8, type metadata accessor for TableColumnCollection.Entry?);
-  result = (*(v17 + 48))(v8, 1, v16);
-  if (result == 1)
-  {
-LABEL_10:
-    __break(1u);
-    return result;
-  }
-
-  outlined destroy of TableColumnCollection.Visitor(v11, type metadata accessor for TableColumnCollection.Visitor);
-  outlined init with take of TableColumnCollection.Entry(v8, a2);
-  return __swift_destroy_boxed_opaque_existential_1(v21);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance TableColumnCollection.Entry@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(*(v3 - 8) + 16);
-
-  return v4(a1, v1, v3);
-}
-
-uint64_t TableColumnCollection.Visitor.visit<A, B, C, D>(_:id:label:configuration:)(uint64_t a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
-{
-  v13 = v12;
-  *&v63 = a5;
-  v54 = a3;
-  v64 = a12;
-  v69 = *(a7 - 8);
-  v59 = a9;
-  *&v60 = a10;
-  MEMORY[0x1EEE9AC00](a1);
-  v67 = &v51[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  type metadata accessor for TableColumnCollection.Entry?(0);
-  MEMORY[0x1EEE9AC00](v21 - 8);
-  v23 = &v51[-((v22 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v68 = *a4;
-  v24 = *(a4 + 1);
-  v25 = *(a4 + 2);
-  v26 = *(a4 + 3);
-  v27 = *(a4 + 4);
-  v28 = a4[40];
-  v65 = a4[56];
-  v66 = a4[57];
-  v58 = v27;
-  v57 = v25;
-  v56 = v26;
-  v55 = v24;
-  if (v28 == 255)
-  {
-    v29 = UUID.uuidString.getter();
-    v61 = v30;
-    v62 = v29;
-    v31 = [v54 string];
-    v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v53 = v32;
-
-    v52 = 1;
-  }
-
-  else
-  {
-    v54 = v24;
-    v53 = v25;
-    v61 = v27;
-    v62 = v26;
-    v52 = v28;
-  }
-
-  v33 = type metadata accessor for UUID();
-  (*(*(v33 - 8) + 16))(v23, a2, v33);
-  v34 = *v13;
-  v70 = v63;
-  v71 = a6;
-  v72 = a8;
-  v73 = a7;
-  v74 = v59;
-  v75 = v60;
-  v76 = v64;
-  v77 = a11;
-  v35 = type metadata accessor for TableColumn();
-  v36 = *(v35 + 92);
-  v37 = a1;
-  v38 = (a1 + *(v35 + 88));
-  v64 = v13;
-  v39 = *(v38 + 32);
-  v40 = type metadata accessor for TableColumnCollection.Entry(0);
-  v41 = v40[11];
-  v42 = v38[1];
-  v63 = *v38;
-  v60 = v42;
-  outlined init with copy of TableColumnCollection.Entry(v37 + v36, &v23[v41], type metadata accessor for SwiftUIAnySortComparator?);
-  (*(v69 + 16))(v67, v37, a7);
-  outlined copy of TableColumnCustomizationID?(v55, v57, v56, v58, v28);
-  v43 = AnyView.init<A>(_:)();
-  v44 = &v23[v40[5]];
-  v45 = v53;
-  *v44 = v54;
-  *(v44 + 1) = v45;
-  v46 = v61;
-  *(v44 + 2) = v62;
-  *(v44 + 3) = v46;
-  v44[32] = v52 & 1;
-  *&v23[v40[6]] = v34;
-  v47 = &v23[v40[7]];
-  v48 = v60;
-  *v47 = v63;
-  *(v47 + 1) = v48;
-  v47[32] = v39;
-  LOBYTE(v46) = v66;
-  v23[v40[8]] = v65;
-  v23[v40[9]] = v46;
-  v23[v40[10]] = v68;
-  *&v23[v40[12]] = v43;
-  (*(*(v40 - 1) + 56))(v23, 0, 1, v40);
-  v49 = type metadata accessor for TableColumnCollection.Visitor(0);
-  outlined assign with take of TableColumnCollection.Entry?(v23, v64 + *(v49 + 20));
-  return 0;
-}
-
-uint64_t protocol witness for BidirectionalCollection.index(before:) in conformance TableColumnCollection@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = specialized RandomAccessCollection<>.index(before:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for BidirectionalCollection.formIndex(before:) in conformance TableColumnCollection(uint64_t *a1)
-{
-  result = specialized RandomAccessCollection<>.index(before:)(*a1);
-  *a1 = result;
-  return result;
-}
-
-uint64_t protocol witness for Collection.endIndex.getter in conformance TableColumnCollection@<X0>(uint64_t *a1@<X8>)
-{
-  outlined init with copy of TableColumnCollection.Backing(v1, v10);
-  if (v11)
-  {
-    v3 = *(*&v10[0] + 16);
-  }
-
-  else
-  {
-    outlined init with take of any Sequence<Self.Sequence.Element == ViewResponder>(v10, v7);
-    v5 = v8;
-    v6 = v9;
-    __swift_project_boxed_opaque_existential_1(v7, v8);
-    v3 = (*(v6 + 8))(v5, v6);
-    result = __swift_destroy_boxed_opaque_existential_1(v7);
-  }
-
-  *a1 = v3;
-  return result;
-}
-
-void (*protocol witness for Collection.subscript.read in conformance TableColumnCollection(uint64_t *a1, unint64_t *a2))(uint64_t *a1)
-{
-  v4 = *(*(type metadata accessor for TableColumnCollection.Entry(0) - 8) + 64);
-  if (MEMORY[0x1E69E7D08])
-  {
-    v5 = swift_coroFrameAlloc();
-  }
-
-  else
-  {
-    v5 = malloc(v4);
-  }
-
-  *a1 = v5;
-  TableColumnCollection.subscript.getter(*a2, v5);
-  return protocol witness for Collection.subscript.read in conformance TableColumnCollection;
-}
-
-void protocol witness for Collection.subscript.read in conformance TableColumnCollection(uint64_t *a1)
-{
-  v1 = *a1;
-  outlined destroy of TableColumnCollection.Visitor(*a1, type metadata accessor for TableColumnCollection.Entry);
-
-  free(v1);
-}
-
-uint64_t protocol witness for Collection.indices.getter in conformance TableColumnCollection@<X0>(uint64_t *a1@<X8>)
-{
-  result = specialized RandomAccessCollection<>.indices.getter();
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-uint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy:) in conformance TableColumnCollection@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = *a1;
-  v7 = specialized RandomAccessCollection<>.distance(from:to:)(*a1, *a3);
-  if (a2 < 1)
-  {
-    if (v7 <= 0 && v7 > a2)
-    {
-      goto LABEL_4;
-    }
-
-LABEL_10:
-    result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v6, a2);
-    v9 = 0;
-    goto LABEL_11;
-  }
-
-  if (v7 < 0 || v7 >= a2)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_4:
-  result = 0;
-  v9 = 1;
-LABEL_11:
-  *a4 = result;
-  *(a4 + 8) = v9;
-  return result;
-}
-
-uint64_t protocol witness for Collection.index(after:) in conformance TableColumnCollection@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = specialized RandomAccessCollection<>.index(after:)(*a1);
-  *a2 = result;
-  return result;
-}
-
-uint64_t protocol witness for Collection.formIndex(after:) in conformance TableColumnCollection(uint64_t *a1)
-{
-  result = specialized RandomAccessCollection<>.index(after:)(*a1);
-  *a1 = result;
-  return result;
-}
-
-__n128 protocol witness for Sequence.makeIterator() in conformance TableColumnCollection@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 16);
-  *a1 = *v1;
-  *(a1 + 16) = v2;
-  result = *(v1 + 25);
-  *(a1 + 25) = result;
-  *(a1 + 48) = 0;
-  return result;
-}
-
-uint64_t outlined init with copy of TableColumnCollection.Entry(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t outlined init with take of TableColumnCollection.Entry(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TableColumnCollection.Entry(0);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of TableColumnCollection.Visitor(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t *initializeBufferWithCopyOfBuffer for TableColumnCollection.Visitor(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v3 = a1;
-  v4 = *(*(a3 - 8) + 80);
-  if ((v4 & 0x20000) != 0)
-  {
-    v11 = *a2;
-    *v3 = *a2;
-    v3 = (v11 + ((v4 + 16) & ~v4));
-  }
-
-  else
-  {
-    *a1 = *a2;
-    v5 = *(a3 + 20);
-    v6 = a1 + v5;
-    v7 = a2 + v5;
-    v8 = type metadata accessor for TableColumnCollection.Entry(0);
-    v9 = *(v8 - 1);
-    if ((*(v9 + 48))(v7, 1, v8))
-    {
-      type metadata accessor for TableColumnCollection.Entry?(0);
-      memcpy(v6, v7, *(*(v10 - 8) + 64));
-    }
-
-    else
-    {
-      v37 = v9;
-      v12 = type metadata accessor for UUID();
-      (*(*(v12 - 8) + 16))(v6, v7, v12);
-      v13 = v8[5];
-      v14 = &v6[v13];
-      v15 = &v7[v13];
-      v16 = *v15;
-      v17 = *(v15 + 1);
-      v18 = *(v15 + 2);
-      v19 = *(v15 + 3);
-      v20 = v15[32];
-      outlined copy of TableColumnCustomizationID.Base(*v15, v17, v18, v19, v20);
-      *v14 = v16;
-      *(v14 + 1) = v17;
-      *(v14 + 2) = v18;
-      *(v14 + 3) = v19;
-      v14[32] = v20;
-      *&v6[v8[6]] = *&v7[v8[6]];
-      v21 = v8[7];
-      v22 = &v6[v21];
-      v23 = &v7[v21];
-      v24 = *(v23 + 1);
-      *v22 = *v23;
-      *(v22 + 1) = v24;
-      v22[32] = v23[32];
-      v6[v8[8]] = v7[v8[8]];
-      v6[v8[9]] = v7[v8[9]];
-      v6[v8[10]] = v7[v8[10]];
-      v25 = v8[11];
-      v26 = &v6[v25];
-      v27 = &v7[v25];
-      v28 = *&v7[v25 + 24];
-      if (v28)
-      {
-        *(v26 + 3) = v28;
-        (**(v28 - 8))(v26, v27);
-        v29 = *(v27 + 56);
-        *(v26 + 56) = v29;
-        (**(v29 - 8))((v26 + 32), (v27 + 32));
-        *(v26 + 9) = *(v27 + 9);
-        v30 = *(v27 + 14);
-        v31 = *(v27 + 6);
-        *(v26 + 5) = *(v27 + 5);
-        *(v26 + 6) = v31;
-        *(v26 + 14) = v30;
-      }
-
-      else
-      {
-        v32 = *(v27 + 5);
-        *(v26 + 4) = *(v27 + 4);
-        *(v26 + 5) = v32;
-        *(v26 + 6) = *(v27 + 6);
-        *(v26 + 14) = *(v27 + 14);
-        v33 = *(v27 + 1);
-        *v26 = *v27;
-        *(v26 + 1) = v33;
-        v34 = *(v27 + 3);
-        *(v26 + 2) = *(v27 + 2);
-        *(v26 + 3) = v34;
-      }
-
-      *&v6[v8[12]] = *&v7[v8[12]];
-      v35 = *(v37 + 56);
-
-      v35(v6, 0, 1, v8);
-    }
-  }
-
-  return v3;
-}
-
-uint64_t destroy for TableColumnCollection.Visitor(uint64_t a1, uint64_t a2)
-{
-  v2 = a1 + *(a2 + 20);
-  v3 = type metadata accessor for TableColumnCollection.Entry(0);
-  result = (*(*(v3 - 8) + 48))(v2, 1, v3);
-  if (!result)
-  {
-    v5 = type metadata accessor for UUID();
-    (*(*(v5 - 8) + 8))(v2, v5);
-    v6 = v2 + *(v3 + 20);
-    outlined consume of TableColumnCustomizationID.Base(*v6, *(v6 + 8), *(v6 + 16), *(v6 + 24), *(v6 + 32));
-    v7 = v2 + *(v3 + 44);
-    if (*(v7 + 24))
-    {
-      __swift_destroy_boxed_opaque_existential_1(v2 + *(v3 + 44));
-      __swift_destroy_boxed_opaque_existential_1(v7 + 32);
-    }
-  }
-
-  return result;
-}
-
-void *initializeWithCopy for TableColumnCollection.Visitor(void *a1, void *a2, uint64_t a3)
-{
-  *a1 = *a2;
-  v4 = *(a3 + 20);
-  v5 = a1 + v4;
-  v6 = a2 + v4;
-  v7 = type metadata accessor for TableColumnCollection.Entry(0);
-  v8 = *(v7 - 1);
-  if ((*(v8 + 48))(v6, 1, v7))
-  {
-    type metadata accessor for TableColumnCollection.Entry?(0);
-    memcpy(v5, v6, *(*(v9 - 8) + 64));
-  }
-
-  else
-  {
-    v35 = v8;
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 16))(v5, v6, v10);
-    v11 = v7[5];
-    v12 = &v5[v11];
-    v13 = &v6[v11];
-    v14 = *v13;
-    v15 = *(v13 + 1);
-    v16 = *(v13 + 2);
-    v17 = *(v13 + 3);
-    v18 = v13[32];
-    outlined copy of TableColumnCustomizationID.Base(*v13, v15, v16, v17, v18);
-    *v12 = v14;
-    *(v12 + 1) = v15;
-    *(v12 + 2) = v16;
-    *(v12 + 3) = v17;
-    v12[32] = v18;
-    *&v5[v7[6]] = *&v6[v7[6]];
-    v19 = v7[7];
-    v20 = &v5[v19];
-    v21 = &v6[v19];
-    v22 = *(v21 + 1);
-    *v20 = *v21;
-    *(v20 + 1) = v22;
-    v20[32] = v21[32];
-    v5[v7[8]] = v6[v7[8]];
-    v5[v7[9]] = v6[v7[9]];
-    v5[v7[10]] = v6[v7[10]];
-    v23 = v7[11];
-    v24 = &v5[v23];
-    v25 = &v6[v23];
-    v26 = *&v6[v23 + 24];
-    if (v26)
-    {
-      *(v24 + 3) = v26;
-      (**(v26 - 8))(v24, v25);
-      v27 = *(v25 + 56);
-      *(v24 + 56) = v27;
-      (**(v27 - 8))((v24 + 32), (v25 + 32));
-      *(v24 + 9) = *(v25 + 9);
-      v28 = *(v25 + 14);
-      v29 = *(v25 + 6);
-      *(v24 + 5) = *(v25 + 5);
-      *(v24 + 6) = v29;
-      *(v24 + 14) = v28;
-    }
-
-    else
-    {
-      v30 = *(v25 + 5);
-      *(v24 + 4) = *(v25 + 4);
-      *(v24 + 5) = v30;
-      *(v24 + 6) = *(v25 + 6);
-      *(v24 + 14) = *(v25 + 14);
-      v31 = *(v25 + 1);
-      *v24 = *v25;
-      *(v24 + 1) = v31;
-      v32 = *(v25 + 3);
-      *(v24 + 2) = *(v25 + 2);
-      *(v24 + 3) = v32;
-    }
-
-    *&v5[v7[12]] = *&v6[v7[12]];
-    v33 = *(v35 + 56);
-
-    v33(v5, 0, 1, v7);
-  }
-
-  return a1;
-}
-
-void *assignWithCopy for TableColumnCollection.Visitor(void *a1, void *a2, uint64_t a3)
-{
-  v3 = a1;
-  *a1 = *a2;
-  v4 = *(a3 + 20);
-  v5 = a1 + v4;
-  v6 = a2 + v4;
-  v7 = type metadata accessor for TableColumnCollection.Entry(0);
-  v8 = *(v7 - 1);
-  v9 = *(v8 + 48);
-  v10 = v9(v5, 1, v7);
-  v11 = v9(v6, 1, v7);
-  if (v10)
-  {
-    if (!v11)
-    {
-      v87 = v3;
-      v12 = type metadata accessor for UUID();
-      (*(*(v12 - 8) + 16))(v5, v6, v12);
-      v13 = v7[5];
-      v14 = &v5[v13];
-      v15 = &v6[v13];
-      v16 = *v15;
-      v17 = *(v15 + 1);
-      v18 = *(v15 + 2);
-      v19 = *(v15 + 3);
-      v20 = v15[32];
-      outlined copy of TableColumnCustomizationID.Base(*v15, v17, v18, v19, v20);
-      *v14 = v16;
-      *(v14 + 1) = v17;
-      *(v14 + 2) = v18;
-      *(v14 + 3) = v19;
-      v14[32] = v20;
-      *&v5[v7[6]] = *&v6[v7[6]];
-      v21 = v7[7];
-      v22 = &v5[v21];
-      v23 = &v6[v21];
-      v24 = *v23;
-      v25 = *(v23 + 1);
-      v22[32] = v23[32];
-      *v22 = v24;
-      *(v22 + 1) = v25;
-      v5[v7[8]] = v6[v7[8]];
-      v5[v7[9]] = v6[v7[9]];
-      v5[v7[10]] = v6[v7[10]];
-      v26 = v7[11];
-      v27 = &v5[v26];
-      v28 = &v6[v26];
-      v29 = *&v6[v26 + 24];
-      if (v29)
-      {
-        *(v27 + 3) = v29;
-        (**(v29 - 8))(v27, v28);
-        v30 = *(v28 + 7);
-        *(v27 + 7) = v30;
-        *(v27 + 8) = *(v28 + 8);
-        (**(v30 - 8))((v27 + 32), (v28 + 32));
-        v31 = *(v28 + 10);
-        *(v27 + 9) = *(v28 + 9);
-        *(v27 + 10) = v31;
-        v32 = *(v28 + 12);
-        *(v27 + 11) = *(v28 + 11);
-        *(v27 + 12) = v32;
-        v33 = *(v28 + 13);
-        v34 = *(v28 + 14);
-        *(v27 + 13) = v33;
-        *(v27 + 14) = v34;
-      }
-
-      else
-      {
-        v62 = *v28;
-        v63 = *(v28 + 1);
-        v64 = *(v28 + 3);
-        *(v27 + 2) = *(v28 + 2);
-        *(v27 + 3) = v64;
-        *v27 = v62;
-        *(v27 + 1) = v63;
-        v65 = *(v28 + 4);
-        v66 = *(v28 + 5);
-        v67 = *(v28 + 6);
-        *(v27 + 14) = *(v28 + 14);
-        *(v27 + 5) = v66;
-        *(v27 + 6) = v67;
-        *(v27 + 4) = v65;
-      }
-
-      *&v5[v7[12]] = *&v6[v7[12]];
-      v68 = *(v8 + 56);
-
-      v68(v5, 0, 1, v7);
-      return v87;
-    }
-
-LABEL_7:
-    type metadata accessor for TableColumnCollection.Entry?(0);
-    memcpy(v5, v6, *(*(v35 - 8) + 64));
-    return v3;
-  }
-
-  if (v11)
-  {
-    outlined destroy of TableColumnCollection.Visitor(v5, type metadata accessor for TableColumnCollection.Entry);
-    goto LABEL_7;
-  }
-
-  v36 = type metadata accessor for UUID();
-  (*(*(v36 - 8) + 24))(v5, v6, v36);
-  v37 = v7[5];
-  v38 = &v5[v37];
-  v39 = &v6[v37];
-  v40 = *v39;
-  v41 = *(v39 + 1);
-  v42 = *(v39 + 2);
-  v43 = *(v39 + 3);
-  v44 = v39[32];
-  outlined copy of TableColumnCustomizationID.Base(*v39, v41, v42, v43, v44);
-  v45 = *v38;
-  v46 = *(v38 + 1);
-  v47 = *(v38 + 2);
-  v48 = *(v38 + 3);
-  v49 = v38[32];
-  *v38 = v40;
-  *(v38 + 1) = v41;
-  *(v38 + 2) = v42;
-  *(v38 + 3) = v43;
-  v38[32] = v44;
-  outlined consume of TableColumnCustomizationID.Base(v45, v46, v47, v48, v49);
-  *&v5[v7[6]] = *&v6[v7[6]];
-  v50 = v7[7];
-  v51 = &v5[v50];
-  v52 = &v6[v50];
-  v53 = v52[32];
-  v54 = *(v52 + 1);
-  *v51 = *v52;
-  *(v51 + 1) = v54;
-  v51[32] = v53;
-  v5[v7[8]] = v6[v7[8]];
-  v5[v7[9]] = v6[v7[9]];
-  v5[v7[10]] = v6[v7[10]];
-  v55 = v7[11];
-  v56 = &v5[v55];
-  v57 = &v6[v55];
-  v58 = *&v6[v55 + 24];
-  if (*&v5[v55 + 24])
-  {
-    if (v58)
-    {
-      __swift_assign_boxed_opaque_existential_0(v56, v57);
-      __swift_assign_boxed_opaque_existential_1((v56 + 32), v57 + 4);
-      v59 = v57[10];
-      *(v56 + 72) = v57[9];
-      *(v56 + 80) = v59;
-
-      v60 = v57[12];
-      *(v56 + 88) = v57[11];
-      *(v56 + 96) = v60;
-
-      v61 = v57[14];
-      *(v56 + 104) = v57[13];
-      *(v56 + 112) = v61;
-    }
-
-    else
-    {
-      outlined destroy of SwiftUIAnySortComparator(v56);
-      v74 = *(v57 + 3);
-      v76 = *v57;
-      v75 = *(v57 + 1);
-      *(v56 + 32) = *(v57 + 2);
-      *(v56 + 48) = v74;
-      *v56 = v76;
-      *(v56 + 16) = v75;
-      v78 = *(v57 + 5);
-      v77 = *(v57 + 6);
-      v79 = *(v57 + 4);
-      *(v56 + 112) = v57[14];
-      *(v56 + 80) = v78;
-      *(v56 + 96) = v77;
-      *(v56 + 64) = v79;
-    }
-  }
-
-  else if (v58)
-  {
-    *(v56 + 24) = v58;
-    (**(v58 - 8))(v56, v57);
-    v69 = v57[7];
-    *(v56 + 56) = v69;
-    *(v56 + 64) = v57[8];
-    (**(v69 - 8))(v56 + 32, (v57 + 4));
-    v70 = v57[10];
-    *(v56 + 72) = v57[9];
-    *(v56 + 80) = v70;
-    v71 = v57[12];
-    *(v56 + 88) = v57[11];
-    *(v56 + 96) = v71;
-    v72 = v57[13];
-    v73 = v57[14];
-    *(v56 + 104) = v72;
-    *(v56 + 112) = v73;
-  }
-
-  else
-  {
-    v80 = *v57;
-    v81 = *(v57 + 1);
-    v82 = *(v57 + 3);
-    *(v56 + 32) = *(v57 + 2);
-    *(v56 + 48) = v82;
-    *v56 = v80;
-    *(v56 + 16) = v81;
-    v83 = *(v57 + 4);
-    v84 = *(v57 + 5);
-    v85 = *(v57 + 6);
-    *(v56 + 112) = v57[14];
-    *(v56 + 80) = v84;
-    *(v56 + 96) = v85;
-    *(v56 + 64) = v83;
-  }
-
-  *&v5[v7[12]] = *&v6[v7[12]];
-
-  return v3;
-}
-
-void *initializeWithTake for TableColumnCollection.Visitor(void *a1, void *a2, uint64_t a3)
-{
-  *a1 = *a2;
-  v4 = *(a3 + 20);
-  v5 = a1 + v4;
-  v6 = a2 + v4;
-  v7 = type metadata accessor for TableColumnCollection.Entry(0);
-  v8 = *(v7 - 1);
-  if ((*(v8 + 48))(v6, 1, v7))
-  {
-    type metadata accessor for TableColumnCollection.Entry?(0);
-    memcpy(v5, v6, *(*(v9 - 8) + 64));
-  }
-
-  else
-  {
-    v10 = type metadata accessor for UUID();
-    (*(*(v10 - 8) + 32))(v5, v6, v10);
-    v11 = v7[5];
-    v12 = &v5[v11];
-    v13 = &v6[v11];
-    v14 = *(v13 + 1);
-    *v12 = *v13;
-    *(v12 + 1) = v14;
-    v12[32] = v13[32];
-    *&v5[v7[6]] = *&v6[v7[6]];
-    v15 = v7[7];
-    v16 = &v5[v15];
-    v17 = &v6[v15];
-    v18 = *(v17 + 1);
-    *v16 = *v17;
-    *(v16 + 1) = v18;
-    v16[32] = v17[32];
-    v5[v7[8]] = v6[v7[8]];
-    v5[v7[9]] = v6[v7[9]];
-    v5[v7[10]] = v6[v7[10]];
-    v19 = v7[11];
-    v20 = &v5[v19];
-    v21 = &v6[v19];
-    v22 = *(v21 + 1);
-    *v20 = *v21;
-    *(v20 + 1) = v22;
-    v23 = *(v21 + 3);
-    *(v20 + 2) = *(v21 + 2);
-    *(v20 + 3) = v23;
-    *(v20 + 14) = *(v21 + 14);
-    v24 = *(v21 + 6);
-    *(v20 + 5) = *(v21 + 5);
-    *(v20 + 6) = v24;
-    *(v20 + 4) = *(v21 + 4);
-    *&v5[v7[12]] = *&v6[v7[12]];
-    (*(v8 + 56))(v5, 0, 1, v7);
-  }
-
-  return a1;
-}
-
-void *assignWithTake for TableColumnCollection.Visitor(void *a1, void *a2, uint64_t a3)
-{
-  *a1 = *a2;
-  v4 = *(a3 + 20);
-  v5 = a1 + v4;
-  v6 = a2 + v4;
-  v7 = type metadata accessor for TableColumnCollection.Entry(0);
-  v8 = *(v7 - 1);
-  v9 = *(v8 + 48);
-  v10 = v9(v5, 1, v7);
-  v11 = v9(v6, 1, v7);
-  if (!v10)
-  {
-    if (v11)
-    {
-      outlined destroy of TableColumnCollection.Visitor(v5, type metadata accessor for TableColumnCollection.Entry);
-      goto LABEL_6;
-    }
-
-    v29 = type metadata accessor for UUID();
-    (*(*(v29 - 8) + 40))(v5, v6, v29);
-    v30 = v7[5];
-    v31 = &v5[v30];
-    v32 = &v6[v30];
-    v33 = v32[32];
-    v34 = *v31;
-    v35 = *(v31 + 1);
-    v36 = *(v31 + 2);
-    v37 = *(v31 + 3);
-    v38 = v31[32];
-    v39 = *(v32 + 1);
-    *v31 = *v32;
-    *(v31 + 1) = v39;
-    v31[32] = v33;
-    outlined consume of TableColumnCustomizationID.Base(v34, v35, v36, v37, v38);
-    *&v5[v7[6]] = *&v6[v7[6]];
-    v40 = v7[7];
-    v41 = &v5[v40];
-    v42 = &v6[v40];
-    v43 = *(v42 + 1);
-    *v41 = *v42;
-    *(v41 + 1) = v43;
-    v41[32] = v42[32];
-    v5[v7[8]] = v6[v7[8]];
-    v5[v7[9]] = v6[v7[9]];
-    v5[v7[10]] = v6[v7[10]];
-    v44 = v7[11];
-    v45 = &v5[v44];
-    v46 = &v6[v44];
-    if (*&v5[v44 + 24])
-    {
-      if (*(v46 + 3))
-      {
-        __swift_destroy_boxed_opaque_existential_1(v45);
-        v47 = *(v46 + 1);
-        *v45 = *v46;
-        *(v45 + 16) = v47;
-        __swift_destroy_boxed_opaque_existential_1(v45 + 32);
-        v48 = *(v46 + 3);
-        *(v45 + 32) = *(v46 + 2);
-        *(v45 + 48) = v48;
-        *(v45 + 64) = *(v46 + 8);
-        *(v45 + 72) = *(v46 + 72);
-
-        *(v45 + 88) = *(v46 + 88);
-
-        *(v45 + 104) = *(v46 + 104);
-
-LABEL_13:
-        *&v5[v7[12]] = *&v6[v7[12]];
-
-        return a1;
-      }
-
-      outlined destroy of SwiftUIAnySortComparator(v45);
-    }
-
-    v49 = *(v46 + 5);
-    *(v45 + 64) = *(v46 + 4);
-    *(v45 + 80) = v49;
-    *(v45 + 96) = *(v46 + 6);
-    *(v45 + 112) = *(v46 + 14);
-    v50 = *(v46 + 1);
-    *v45 = *v46;
-    *(v45 + 16) = v50;
-    v51 = *(v46 + 3);
-    *(v45 + 32) = *(v46 + 2);
-    *(v45 + 48) = v51;
-    goto LABEL_13;
-  }
-
-  if (v11)
-  {
-LABEL_6:
-    type metadata accessor for TableColumnCollection.Entry?(0);
-    memcpy(v5, v6, *(*(v27 - 8) + 64));
-    return a1;
-  }
-
-  v12 = type metadata accessor for UUID();
-  (*(*(v12 - 8) + 32))(v5, v6, v12);
-  v13 = v7[5];
-  v14 = &v5[v13];
-  v15 = &v6[v13];
-  v16 = *(v15 + 1);
-  *v14 = *v15;
-  *(v14 + 1) = v16;
-  v14[32] = v15[32];
-  *&v5[v7[6]] = *&v6[v7[6]];
-  v17 = v7[7];
-  v18 = &v5[v17];
-  v19 = &v6[v17];
-  v20 = *(v19 + 1);
-  *v18 = *v19;
-  *(v18 + 1) = v20;
-  v18[32] = v19[32];
-  v5[v7[8]] = v6[v7[8]];
-  v5[v7[9]] = v6[v7[9]];
-  v5[v7[10]] = v6[v7[10]];
-  v21 = v7[11];
-  v22 = &v5[v21];
-  v23 = &v6[v21];
-  v24 = *(v23 + 1);
-  *v22 = *v23;
-  *(v22 + 1) = v24;
-  v25 = *(v23 + 3);
-  *(v22 + 2) = *(v23 + 2);
-  *(v22 + 3) = v25;
-  *(v22 + 14) = *(v23 + 14);
-  v26 = *(v23 + 6);
-  *(v22 + 5) = *(v23 + 5);
-  *(v22 + 6) = v26;
-  *(v22 + 4) = *(v23 + 4);
-  *&v5[v7[12]] = *&v6[v7[12]];
-  (*(v8 + 56))(v5, 0, 1, v7);
-  return a1;
-}
-
-void type metadata completion function for TableColumnCollection.Visitor()
-{
-  type metadata accessor for TableColumnCollection.Entry?(319);
-  if (v0 <= 0x3F)
-  {
-    swift_initStructMetadata();
-  }
-}
-
-void *initializeBufferWithCopyOfBuffer for TableColumnCollection.Entry(void *a1, void *a2, int *a3)
-{
-  v5 = *(*(a3 - 1) + 80);
-  if ((v5 & 0x20000) != 0)
-  {
-    v28 = *a2;
-    *a1 = *a2;
-    a1 = (v28 + ((v5 + 16) & ~v5));
-  }
-
-  else
-  {
-    v7 = type metadata accessor for UUID();
-    (*(*(v7 - 8) + 16))(a1, a2, v7);
-    v8 = a3[5];
-    v9 = a1 + v8;
-    v10 = a2 + v8;
-    v11 = *v10;
-    v12 = *(v10 + 1);
-    v13 = *(v10 + 2);
-    v14 = *(v10 + 3);
-    v15 = v10[32];
-    outlined copy of TableColumnCustomizationID.Base(*v10, v12, v13, v14, v15);
-    *v9 = v11;
-    *(v9 + 1) = v12;
-    *(v9 + 2) = v13;
-    *(v9 + 3) = v14;
-    v9[32] = v15;
-    v16 = a3[7];
-    *(a1 + a3[6]) = *(a2 + a3[6]);
-    v17 = a1 + v16;
-    v18 = a2 + v16;
-    v19 = *(v18 + 1);
-    *v17 = *v18;
-    *(v17 + 1) = v19;
-    v17[32] = v18[32];
-    v20 = a3[9];
-    *(a1 + a3[8]) = *(a2 + a3[8]);
-    *(a1 + v20) = *(a2 + v20);
-    v21 = a3[11];
-    *(a1 + a3[10]) = *(a2 + a3[10]);
-    v22 = a1 + v21;
-    v23 = a2 + v21;
-    v24 = *(a2 + v21 + 24);
-    if (v24)
-    {
-      *(v22 + 3) = v24;
-      (**(v24 - 8))(v22, v23);
-      v25 = *(v23 + 56);
-      *(v22 + 56) = v25;
-      (**(v25 - 8))((v22 + 32), (v23 + 32));
-      *(v22 + 9) = *(v23 + 9);
-      v26 = *(v23 + 14);
-      v27 = *(v23 + 6);
-      *(v22 + 5) = *(v23 + 5);
-      *(v22 + 6) = v27;
-      *(v22 + 14) = v26;
-    }
-
-    else
-    {
-      v29 = *(v23 + 5);
-      *(v22 + 4) = *(v23 + 4);
-      *(v22 + 5) = v29;
-      *(v22 + 6) = *(v23 + 6);
-      *(v22 + 14) = *(v23 + 14);
-      v30 = *(v23 + 1);
-      *v22 = *v23;
-      *(v22 + 1) = v30;
-      v31 = *(v23 + 3);
-      *(v22 + 2) = *(v23 + 2);
-      *(v22 + 3) = v31;
-    }
-
-    *(a1 + a3[12]) = *(a2 + a3[12]);
-  }
-
-  return a1;
-}
-
-uint64_t destroy for TableColumnCollection.Entry(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for UUID();
-  (*(*(v4 - 8) + 8))(a1, v4);
-  v5 = a1 + *(a2 + 20);
-  outlined consume of TableColumnCustomizationID.Base(*v5, *(v5 + 8), *(v5 + 16), *(v5 + 24), *(v5 + 32));
-  v6 = a1 + *(a2 + 44);
-  if (*(v6 + 24))
-  {
-    __swift_destroy_boxed_opaque_existential_1(a1 + *(a2 + 44));
-    __swift_destroy_boxed_opaque_existential_1(v6 + 32);
-  }
-}
-
-uint64_t initializeWithCopy for TableColumnCollection.Entry(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for UUID();
-  (*(*(v6 - 8) + 16))(a1, a2, v6);
-  v7 = a3[5];
-  v8 = a1 + v7;
-  v9 = a2 + v7;
-  v10 = *v9;
-  v11 = *(v9 + 8);
-  v12 = *(v9 + 16);
-  v13 = *(v9 + 24);
-  v14 = *(v9 + 32);
-  outlined copy of TableColumnCustomizationID.Base(*v9, v11, v12, v13, v14);
-  *v8 = v10;
-  *(v8 + 8) = v11;
-  *(v8 + 16) = v12;
-  *(v8 + 24) = v13;
-  *(v8 + 32) = v14;
-  v15 = a3[7];
-  *(a1 + a3[6]) = *(a2 + a3[6]);
-  v16 = a1 + v15;
-  v17 = a2 + v15;
-  v18 = *(v17 + 16);
-  *v16 = *v17;
-  *(v16 + 16) = v18;
-  *(v16 + 32) = *(v17 + 32);
-  v19 = a3[9];
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  *(a1 + v19) = *(a2 + v19);
-  v20 = a3[11];
-  *(a1 + a3[10]) = *(a2 + a3[10]);
-  v21 = a1 + v20;
-  v22 = a2 + v20;
-  v23 = *(a2 + v20 + 24);
-  if (v23)
-  {
-    *(v21 + 24) = v23;
-    (**(v23 - 8))(v21, v22);
-    v24 = *(v22 + 56);
-    *(v21 + 56) = v24;
-    (**(v24 - 8))(v21 + 32, v22 + 32);
-    *(v21 + 72) = *(v22 + 72);
-    v25 = *(v22 + 112);
-    v26 = *(v22 + 96);
-    *(v21 + 80) = *(v22 + 80);
-    *(v21 + 96) = v26;
-    *(v21 + 112) = v25;
-  }
-
-  else
-  {
-    v27 = *(v22 + 80);
-    *(v21 + 64) = *(v22 + 64);
-    *(v21 + 80) = v27;
-    *(v21 + 96) = *(v22 + 96);
-    *(v21 + 112) = *(v22 + 112);
-    v28 = *(v22 + 16);
-    *v21 = *v22;
-    *(v21 + 16) = v28;
-    v29 = *(v22 + 48);
-    *(v21 + 32) = *(v22 + 32);
-    *(v21 + 48) = v29;
-  }
-
-  *(a1 + a3[12]) = *(a2 + a3[12]);
-
-  return a1;
-}
-
-uint64_t assignWithCopy for TableColumnCollection.Entry(uint64_t a1, uint64_t a2, int *a3)
-{
-  v6 = type metadata accessor for UUID();
-  (*(*(v6 - 8) + 24))(a1, a2, v6);
-  v7 = a3[5];
-  v8 = a1 + v7;
-  v9 = a2 + v7;
-  v10 = *v9;
-  v11 = *(v9 + 8);
-  v12 = *(v9 + 16);
-  v13 = *(v9 + 24);
-  v14 = *(v9 + 32);
-  outlined copy of TableColumnCustomizationID.Base(*v9, v11, v12, v13, v14);
-  v15 = *v8;
-  v16 = *(v8 + 8);
-  v17 = *(v8 + 16);
-  v18 = *(v8 + 24);
-  v19 = *(v8 + 32);
-  *v8 = v10;
-  *(v8 + 8) = v11;
-  *(v8 + 16) = v12;
-  *(v8 + 24) = v13;
-  *(v8 + 32) = v14;
-  outlined consume of TableColumnCustomizationID.Base(v15, v16, v17, v18, v19);
-  *(a1 + a3[6]) = *(a2 + a3[6]);
-  v20 = a3[7];
-  v21 = a1 + v20;
-  v22 = a2 + v20;
-  v23 = *(v22 + 32);
-  v24 = *(v22 + 16);
-  *v21 = *v22;
-  *(v21 + 16) = v24;
-  *(v21 + 32) = v23;
-  *(a1 + a3[8]) = *(a2 + a3[8]);
-  *(a1 + a3[9]) = *(a2 + a3[9]);
-  *(a1 + a3[10]) = *(a2 + a3[10]);
-  v25 = a3[11];
-  v26 = a1 + v25;
-  v27 = (a2 + v25);
-  v28 = *(a2 + v25 + 24);
-  if (*(a1 + v25 + 24))
-  {
-    if (v28)
-    {
-      __swift_assign_boxed_opaque_existential_0(v26, v27);
-      __swift_assign_boxed_opaque_existential_1((v26 + 32), v27 + 4);
-      v29 = v27[10];
-      *(v26 + 72) = v27[9];
-      *(v26 + 80) = v29;
-
-      v30 = v27[12];
-      *(v26 + 88) = v27[11];
-      *(v26 + 96) = v30;
-
-      v31 = v27[14];
-      *(v26 + 104) = v27[13];
-      *(v26 + 112) = v31;
-    }
-
-    else
-    {
-      outlined destroy of SwiftUIAnySortComparator(v26);
-      v37 = *(v27 + 3);
-      v39 = *v27;
-      v38 = *(v27 + 1);
-      *(v26 + 32) = *(v27 + 2);
-      *(v26 + 48) = v37;
-      *v26 = v39;
-      *(v26 + 16) = v38;
-      v41 = *(v27 + 5);
-      v40 = *(v27 + 6);
-      v42 = *(v27 + 4);
-      *(v26 + 112) = v27[14];
-      *(v26 + 80) = v41;
-      *(v26 + 96) = v40;
-      *(v26 + 64) = v42;
-    }
-  }
-
-  else if (v28)
-  {
-    *(v26 + 24) = v28;
-    (**(v28 - 8))(v26, v27);
-    v32 = v27[7];
-    *(v26 + 56) = v32;
-    *(v26 + 64) = v27[8];
-    (**(v32 - 8))(v26 + 32, (v27 + 4));
-    v33 = v27[10];
-    *(v26 + 72) = v27[9];
-    *(v26 + 80) = v33;
-    v34 = v27[12];
-    *(v26 + 88) = v27[11];
-    *(v26 + 96) = v34;
-    v35 = v27[13];
-    v36 = v27[14];
-    *(v26 + 104) = v35;
-    *(v26 + 112) = v36;
-  }
-
-  else
-  {
-    v43 = *v27;
-    v44 = *(v27 + 1);
-    v45 = *(v27 + 3);
-    *(v26 + 32) = *(v27 + 2);
-    *(v26 + 48) = v45;
-    *v26 = v43;
-    *(v26 + 16) = v44;
-    v46 = *(v27 + 4);
-    v47 = *(v27 + 5);
-    v48 = *(v27 + 6);
-    *(v26 + 112) = v27[14];
-    *(v26 + 80) = v47;
-    *(v26 + 96) = v48;
-    *(v26 + 64) = v46;
-  }
-
-  *(a1 + a3[12]) = *(a2 + a3[12]);
-
-  return a1;
-}
-
 uint64_t initializeWithTake for TableColumnCollection.Entry(uint64_t a1, uint64_t a2, int *a3)
 {
   v6 = type metadata accessor for UUID();
@@ -1573,11 +98,11 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(a1 + v22);
+  __swift_destroy_boxed_opaque_existential_1((a1 + v22));
   v25 = *(v24 + 16);
   *v23 = *v24;
   *(v23 + 16) = v25;
-  __swift_destroy_boxed_opaque_existential_1(v23 + 32);
+  __swift_destroy_boxed_opaque_existential_1((v23 + 32));
   v26 = *(v24 + 48);
   *(v23 + 32) = *(v24 + 32);
   *(v23 + 48) = v26;
@@ -1594,10 +119,10 @@ LABEL_6:
   return a1;
 }
 
-uint64_t type metadata completion function for TableColumnCollection.Entry()
+uint64_t type metadata completion function for TableColumnCollection.Entry(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -1657,7 +182,7 @@ uint64_t assignWithCopy for TableColumnCollection(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t assignWithTake for TableColumnCollection(uint64_t result, _OWORD *a2)
+_OWORD *assignWithTake for TableColumnCollection(_OWORD *result, _OWORD *a2)
 {
   if (result != a2)
   {
@@ -1729,28 +254,32 @@ uint64_t storeEnumTagSinglePayload for TableColumnCollection(uint64_t result, un
   return result;
 }
 
-uint64_t _sSnySiGSnyxGSlsSxRzSZ6StrideRpzrlWlTm_1(unint64_t *a1)
+uint64_t _sSnySiGSnyxGSlsSxRzSZ6StrideRpzrlWlTm_1(unint64_t *a1, const char *a2)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Range<Int>();
-    lazy protocol witness table accessor for type Int and conformance Int();
-    result = swift_getWitnessTable();
+    v6 = v5;
+    v7 = lazy protocol witness table accessor for type Int and conformance Int();
+    v8[0] = MEMORY[0x1E69E6570];
+    v8[1] = v7;
+    result = swift_getWitnessTable(a2, v6, v8);
     atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<TableColumnCollection> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<TableColumnCollection> and conformance <> Slice<A>(unint64_t *a1, uint64_t (*a2)(void), const char *a3)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Slice<TableColumnCollection>(255, &lazy cache variable for type metadata for Slice<TableColumnCollection>, MEMORY[0x1E69E74D0]);
-    a2();
-    result = swift_getWitnessTable();
+    v8 = v7;
+    v9 = a2();
+    result = swift_getWitnessTable(a3, v8, &v9);
     atomic_store(result, a1);
   }
 
@@ -1762,21 +291,21 @@ unint64_t lazy protocol witness table accessor for type UUID and conformance UUI
   result = lazy protocol witness table cache variable for type UUID and conformance UUID;
   if (!lazy protocol witness table cache variable for type UUID and conformance UUID)
   {
-    type metadata accessor for UUID();
-    result = swift_getWitnessTable();
+    v3 = type metadata accessor for UUID();
+    result = swift_getWitnessTable(MEMORY[0x1E69695B8], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type UUID and conformance UUID);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<TableColumnCollection> and conformance Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMetadata *, unint64_t))
+uint64_t lazy protocol witness table accessor for type Slice<TableColumnCollection> and conformance Slice<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, ValueMetadata *, unint64_t), const char *a4)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Slice<TableColumnCollection>(255, a2, a3);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(a4, v7);
     atomic_store(result, a1);
   }
 
@@ -1796,18 +325,18 @@ void type metadata accessor for Slice<TableColumnCollection>(uint64_t a1, unint6
   }
 }
 
-size_t protocol witness for Sequence._copyToContiguousArray() in conformance TableColumnCollection()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance TableColumnCollection()
 {
   v1 = specialized _copyCollectionToContiguousArray<A>(_:)(v0);
   outlined destroy of TableColumnCollection(v0);
   return v1;
 }
 
-uint64_t outlined copy of TableColumnCustomizationID?(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+double outlined copy of TableColumnCustomizationID?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a5 != -1)
   {
-    return outlined copy of TableColumnCustomizationID.Base(result, a2, a3, a4, a5 & 1);
+    return outlined copy of TableColumnCustomizationID.Base(a1, a2, a3, a4, a5 & 1);
   }
 
   return result;
@@ -1912,7 +441,7 @@ unint64_t lazy protocol witness table accessor for type SearchFieldPlacement.Dra
   result = lazy protocol witness table cache variable for type SearchFieldPlacement.DrawerDisplayMode and conformance SearchFieldPlacement.DrawerDisplayMode;
   if (!lazy protocol witness table cache variable for type SearchFieldPlacement.DrawerDisplayMode and conformance SearchFieldPlacement.DrawerDisplayMode)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for SearchFieldPlacement.DrawerDisplayMode, &type metadata for SearchFieldPlacement.DrawerDisplayMode, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type SearchFieldPlacement.DrawerDisplayMode and conformance SearchFieldPlacement.DrawerDisplayMode);
   }
 
@@ -2041,7 +570,7 @@ unint64_t lazy protocol witness table accessor for type _ProjectionEffect and co
   result = lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect;
   if (!lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for _ProjectionEffect, &type metadata for _ProjectionEffect, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect);
   }
 
@@ -2052,7 +581,7 @@ unint64_t lazy protocol witness table accessor for type _ProjectionEffect and co
   result = lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect;
   if (!lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for _ProjectionEffect, &type metadata for _ProjectionEffect, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ProjectionEffect and conformance _ProjectionEffect);
   }
 
@@ -2103,10 +632,10 @@ uint64_t storeEnumTagSinglePayload for _ProjectionEffect(uint64_t result, int a2
   return result;
 }
 
-uint64_t type metadata completion function for SettingsLink()
+uint64_t type metadata completion function for SettingsLink(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -2147,19 +676,21 @@ uint64_t *initializeBufferWithCopyOfBuffer for SettingsLink(uint64_t *a1, uint64
   return v3;
 }
 
-uint64_t outlined copy of Environment<OpenSettingsAction>.Content(uint64_t a1, uint64_t a2, char a3, char a4)
+double outlined copy of Environment<OpenSettingsAction>.Content(uint64_t a1, uint64_t a2, char a3, char a4)
 {
   if (a4)
   {
-    return outlined copy of SceneList.Namespace(a1, a2, a3);
+    outlined copy of SceneList.Namespace(a1, a2, a3);
   }
 
   else
   {
   }
+
+  return result;
 }
 
-uint64_t destroy for SettingsLink(uint64_t a1, uint64_t a2)
+double destroy for SettingsLink(uint64_t a1, uint64_t a2)
 {
   v3 = *(*(a2 + 16) - 8) + 8;
   (*v3)();
@@ -2172,16 +703,18 @@ uint64_t destroy for SettingsLink(uint64_t a1, uint64_t a2)
   return outlined consume of Environment<OpenSettingsAction>.Content(v5, v6, v8, v7);
 }
 
-uint64_t outlined consume of Environment<OpenSettingsAction>.Content(uint64_t a1, uint64_t a2, char a3, char a4)
+double outlined consume of Environment<OpenSettingsAction>.Content(uint64_t a1, uint64_t a2, char a3, char a4)
 {
   if (a4)
   {
-    return outlined consume of SceneList.Namespace(a1, a2, a3);
+    outlined consume of SceneList.Namespace(a1, a2, a3);
   }
 
   else
   {
   }
+
+  return result;
 }
 
 uint64_t initializeWithCopy for SettingsLink(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2345,7 +878,7 @@ uint64_t getEnumTagSinglePayload for SettingsLink(unsigned __int16 *a1, unsigned
 LABEL_28:
     if (v5 >= 0xFE)
     {
-      return (*(v4 + 48))();
+      return (*(v4 + 48))(a1);
     }
 
     v17 = *(((a1 + v6 + 7) & 0xFFFFFFFFFFFFFFF8) + 17);
@@ -2742,22 +1275,22 @@ void ToolbarToggleStyle.ResolvedBody.body.getter(uint64_t a1@<X8>)
   v3 = v2 - 8;
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v62 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To();
+  type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To(0);
   v7 = v6 - 8;
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v62 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS();
+  type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS(0);
   v11 = v10 - 8;
   MEMORY[0x1EEE9AC00](v10);
   v13 = &v62 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr();
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr(0);
   v65 = v14;
   MEMORY[0x1EEE9AC00](v14);
   v69 = &v62 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>);
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>,  &type metadata for ToolbarButtonEdgeOutsetModifier);
   MEMORY[0x1EEE9AC00](v16 - 8);
   v68 = &v62 - v17;
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>();
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>(0);
   v66 = v18;
   MEMORY[0x1EEE9AC00](v18);
   v67 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2793,7 +1326,7 @@ void ToolbarToggleStyle.ResolvedBody.body.getter(uint64_t a1@<X8>)
   v30 = &v5[*(v3 + 44)];
   *v30 = partial apply for implicit closure #2 in implicit closure #1 in ToolbarToggleStyle.ResolvedBody.body.getter;
   v30[1] = v25;
-  type metadata accessor for ButtonAction();
+  type metadata accessor for ButtonAction(0);
   swift_storeEnumTagMultiPayload();
   v88 = v96;
   v89 = v97;
@@ -2937,16 +1470,16 @@ void ToolbarToggleStyle.ResolvedBody.body.getter(uint64_t a1@<X8>)
   v58 = v55;
   v59 = v70;
   outlined init with take of Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabel(v58, v70, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>);
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<Create,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>);
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<Create,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>,  &type metadata for PlatformItemTintModifier);
   v61 = v59 + *(v60 + 36);
   *v61 = v57;
   *(v61 + 8) = 0;
 }
 
-uint64_t implicit closure #2 in implicit closure #1 in ToolbarToggleStyle.ResolvedBody.body.getter()
+uint64_t implicit closure #2 in implicit closure #1 in ToolbarToggleStyle.ResolvedBody.body.getter(uint64_t *a1)
 {
   type metadata accessor for Binding<ToggleState>(0, &lazy cache variable for type metadata for Binding<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981948]);
-  MEMORY[0x18D00ACC0](&v1);
+  MEMORY[0x18D00ACC0](&v2);
   return dispatch thunk of AnyLocation.set(_:transaction:)();
 }
 
@@ -3031,8 +1564,8 @@ uint64_t ToolbarToggleStyle.ResolvedBody.label.getter()
   outlined destroy of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>(&v21, type metadata accessor for _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>);
   v44 = swift_getKeyPath();
   v45 = 2;
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>();
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>();
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>(0);
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>(0);
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>();
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>);
   View.staticIf<A, B>(_:then:)();
@@ -3153,178 +1686,188 @@ uint64_t static BackgroundContentShapeView._makeView(view:inputs:)(int *a1, __in
 {
   v14 = a2[1];
   v15 = a2[3];
-  v29 = a2[2];
-  v30 = v15;
-  v31 = a2[4];
+  v30 = a2[2];
+  v31 = v15;
+  v32 = a2[4];
   v16 = a2[1];
-  v27 = *a2;
-  v28 = v16;
-  v20 = v27;
-  v21 = v14;
+  v28 = *a2;
+  v29 = v16;
+  v23 = v28;
+  v24 = v14;
   v17 = *a1;
-  v32 = *(a2 + 20);
-  v22 = v29;
-  outlined init with copy of _GraphInputs(&v27, v33);
-  v18 = MEMORY[0x18D00B1E0](&v20);
-  v33[0] = v20;
-  v33[1] = v21;
-  v33[2] = v22;
-  outlined destroy of _GraphInputs(v33);
+  v33 = *(a2 + 20);
+  v25 = v30;
+  outlined init with copy of _GraphInputs(&v28, v34);
+  v18 = MEMORY[0x18D00B1E0](&v23);
+  v34[0] = v23;
+  v34[1] = v24;
+  v34[2] = v25;
+  outlined destroy of _GraphInputs(v34);
   if (v18)
   {
-    *&v20 = a3;
-    *(&v20 + 1) = a4;
-    *&v21 = a6;
-    *(&v21 + 1) = a7;
-    type metadata accessor for _ShapeView();
-    v26 = v17;
-    *&v20 = a3;
-    *(&v20 + 1) = a4;
-    *&v21 = a5;
-    *(&v21 + 1) = a6;
-    *&v22 = a7;
-    *(&v22 + 1) = a8;
-    type metadata accessor for BackgroundContentShapeView();
+    *&v23 = a3;
+    *(&v23 + 1) = a4;
+    *&v24 = a6;
+    *(&v24 + 1) = a7;
+    v19 = type metadata accessor for _ShapeView();
+    v27 = v17;
+    *&v23 = a3;
+    *(&v23 + 1) = a4;
+    *&v24 = a5;
+    *(&v24 + 1) = a6;
+    *&v25 = a7;
+    *(&v25 + 1) = a8;
+    type metadata accessor for BackgroundContentShapeView(255, &v23);
     type metadata accessor for _GraphValue();
-    v26 = _GraphValue.value.getter();
-    *&v20 = a3;
-    *(&v20 + 1) = a4;
-    *&v21 = a5;
-    *(&v21 + 1) = a6;
-    *&v22 = a7;
-    *(&v22 + 1) = a8;
-    type metadata accessor for BackgroundContentShapeView.SolariumChild();
+    v27 = _GraphValue.value.getter();
+    *&v23 = a3;
+    *(&v23 + 1) = a4;
+    *&v24 = a5;
+    *(&v24 + 1) = a6;
+    *&v25 = a7;
+    *(&v25 + 1) = a8;
+    v20 = type metadata accessor for BackgroundContentShapeView.SolariumChild(0, &v23);
+    swift_getWitnessTable(protocol conformance descriptor for BackgroundContentShapeView<A, B, C>.SolariumChild, v20);
   }
 
   else
   {
-    *&v20 = a3;
-    *(&v20 + 1) = a5;
-    *&v21 = a6;
-    *(&v21 + 1) = a8;
-    type metadata accessor for _ShapeView();
-    v26 = v17;
-    *&v20 = a3;
-    *(&v20 + 1) = a4;
-    *&v21 = a5;
-    *(&v21 + 1) = a6;
-    *&v22 = a7;
-    *(&v22 + 1) = a8;
-    type metadata accessor for BackgroundContentShapeView();
+    *&v23 = a3;
+    *(&v23 + 1) = a5;
+    *&v24 = a6;
+    *(&v24 + 1) = a8;
+    v19 = type metadata accessor for _ShapeView();
+    v27 = v17;
+    *&v23 = a3;
+    *(&v23 + 1) = a4;
+    *&v24 = a5;
+    *(&v24 + 1) = a6;
+    *&v25 = a7;
+    *(&v25 + 1) = a8;
+    type metadata accessor for BackgroundContentShapeView(255, &v23);
     type metadata accessor for _GraphValue();
-    v26 = _GraphValue.value.getter();
-    *&v20 = a3;
-    *(&v20 + 1) = a4;
-    *&v21 = a5;
-    *(&v21 + 1) = a6;
-    *&v22 = a7;
-    *(&v22 + 1) = a8;
-    type metadata accessor for BackgroundContentShapeView.NonSolariumChild();
+    v27 = _GraphValue.value.getter();
+    *&v23 = a3;
+    *(&v23 + 1) = a4;
+    *&v24 = a5;
+    *(&v24 + 1) = a6;
+    *&v25 = a7;
+    *(&v25 + 1) = a8;
+    v21 = type metadata accessor for BackgroundContentShapeView.NonSolariumChild(0, &v23);
+    swift_getWitnessTable(protocol conformance descriptor for BackgroundContentShapeView<A, B, C>.NonSolariumChild, v21);
   }
 
-  swift_getWitnessTable();
   _GraphValue.init<A>(_:)();
-  v22 = v29;
-  v23 = v30;
-  v24 = v31;
-  v25 = v32;
-  v20 = v27;
-  v21 = v28;
-  swift_getWitnessTable();
+  LODWORD(v26) = v33;
+  swift_getWitnessTable(MEMORY[0x1E697DB78], v19, v28, v29, v30, v31, v32, v26);
   return static View.makeDebuggableView(view:inputs:)();
 }
 
-uint64_t BackgroundContentShapeView.SolariumChild.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
+uint64_t BackgroundContentShapeView.SolariumChild.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v33 = a5;
-  v37 = a6;
-  v38 = a4;
-  v31[3] = a1;
-  v36 = *(a3 - 8);
+  v43 = a7;
+  v47 = a8;
+  v48 = a5;
+  v41[3] = a1;
+  v46 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v35 = v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = v12;
-  v40 = v13;
-  v41 = v14;
-  v42 = v15;
-  v43 = v16;
-  v32 = v15;
-  v44 = v17;
-  v45 = v18;
-  v19 = type metadata accessor for BackgroundContentShapeView();
-  v20 = *(v19 - 8);
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = v31 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = v41 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = v41 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = v16;
+  v50[0] = v17;
+  v50[1] = v18;
+  v50[2] = v19;
+  v50[3] = v20;
+  v42 = v19;
+  v50[4] = v21;
+  v50[5] = v22;
+  v23 = type metadata accessor for BackgroundContentShapeView(0, v50);
+  v24 = *(v23 - 8);
   MEMORY[0x1EEE9AC00](v23);
-  v25 = v31 - v24;
-  BackgroundContentShapeView.SolariumChild.shapeView.getter(v31 - v24);
-  (*(v39 + 16))(v12, v25, a2);
-  v26 = *(v20 + 8);
-  v26(v25, v19);
-  BackgroundContentShapeView.SolariumChild.shapeView.getter(v22);
-  v27 = v35;
-  v28 = v36;
-  (*(v36 + 16))(v35, &v22[*(v19 + 68)], a3);
-  v26(v22, v19);
-  v29 = v34;
-  Shape.fill<A>(_:style:)(v27, 256, a2, a3);
-  (*(v28 + 8))(v27, a3);
-  return (*(v39 + 8))(v29, a2);
+  v26 = v41 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = v41 - v28;
+  v30 = a4;
+  v31 = v48;
+  v32 = a6;
+  v33 = a6;
+  v34 = v43;
+  BackgroundContentShapeView.SolariumChild.shapeView.getter(a2, a3, v30, v48, v32, v43, v41 - v28);
+  (*(v49 + 16))(v16, v29, a2);
+  v35 = *(v24 + 8);
+  v35(v29, v23);
+  v36 = v33;
+  BackgroundContentShapeView.SolariumChild.shapeView.getter(a2, a3, v42, v31, v33, v34, v26);
+  v37 = v45;
+  v38 = v46;
+  (*(v46 + 16))(v45, &v26[*(v23 + 68)], a3);
+  v35(v26, v23);
+  v39 = v44;
+  Shape.fill<A>(_:style:)(v37, 256, a2, a3, v48, v36);
+  (*(v38 + 8))(v37, a3);
+  return (*(v49 + 8))(v39, a2);
 }
 
-uint64_t BackgroundContentShapeView.SolariumChild.shapeView.getter@<X0>(uint64_t a1@<X8>)
+uint64_t BackgroundContentShapeView.SolariumChild.shapeView.getter@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v2 = type metadata accessor for BackgroundContentShapeView();
+  v12[0] = a2;
+  v12[1] = a3;
+  v12[2] = a4;
+  v12[3] = a5;
+  v12[4] = a6;
+  v12[5] = a7;
+  v9 = type metadata accessor for BackgroundContentShapeView(0, v12);
   Value = AGGraphGetValue();
-  return (*(*(v2 - 8) + 16))(a1, Value, v2);
+  return (*(*(v9 - 8) + 16))(a8, Value, v9);
 }
 
-uint64_t BackgroundContentShapeView.NonSolariumChild.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+uint64_t BackgroundContentShapeView.NonSolariumChild.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v34 = a5;
-  v35 = a4;
-  v37 = a1;
-  v33 = *(a3 - 8);
+  v42 = a8;
+  v43 = a5;
+  v45 = a1;
+  v41 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v32 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = v12;
-  v31 = v11;
-  v38 = v13;
-  v39 = v12;
-  v40 = v14;
-  v41 = v15;
-  v42 = v16;
-  v43 = v17;
-  v18 = type metadata accessor for BackgroundContentShapeView();
-  v19 = *(v18 - 8);
-  MEMORY[0x1EEE9AC00](v18);
-  v21 = &v30 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v24 = &v30 - v23;
-  BackgroundContentShapeView.SolariumChild.shapeView.getter(&v30 - v23);
-  (*(v36 + 16))(v11, v24, a2);
-  v25 = *(v19 + 8);
-  v25(v24, v18);
-  BackgroundContentShapeView.SolariumChild.shapeView.getter(v21);
-  v26 = v32;
-  v27 = v33;
-  (*(v33 + 16))(v32, &v21[*(v18 + 72)], a3);
-  v25(v21, v18);
-  v28 = v31;
-  Shape.fill<A>(_:style:)(v26, 256, a2, a3);
-  (*(v27 + 8))(v26, a3);
-  return (*(v36 + 8))(v28, a2);
+  v40 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v38 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = v18;
+  v39 = v17;
+  v46[0] = v19;
+  v46[1] = v18;
+  v46[2] = v20;
+  v46[3] = v21;
+  v46[4] = v22;
+  v46[5] = v23;
+  v24 = type metadata accessor for BackgroundContentShapeView(0, v46);
+  v25 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v27 = &v38 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v28);
+  v30 = &v38 - v29;
+  v31 = a3;
+  v32 = v43;
+  BackgroundContentShapeView.SolariumChild.shapeView.getter(a2, v31, a4, v43, a6, a7, &v38 - v29);
+  (*(v44 + 16))(v17, v30, a2);
+  v33 = *(v25 + 8);
+  v33(v30, v24);
+  BackgroundContentShapeView.SolariumChild.shapeView.getter(a2, v38, a4, v32, a6, a7, v27);
+  v34 = v40;
+  v35 = v41;
+  (*(v41 + 16))(v40, &v27[*(v24 + 72)], a4);
+  v33(v27, v24);
+  v36 = v39;
+  Shape.fill<A>(_:style:)(v34, 256, a2, a4, v43, a7);
+  (*(v35 + 8))(v34, a4);
+  return (*(v44 + 8))(v36, a2);
 }
 
-uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance BackgroundContentShapeView<A, B, C>()
+uint64_t protocol witness for static View._makeViewList(view:inputs:) in conformance BackgroundContentShapeView<A, B, C>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(protocol conformance descriptor for BackgroundContentShapeView<A, B, C>, a3);
 
   return static UnaryView._makeViewList(view:inputs:)();
 }
@@ -3341,34 +1884,33 @@ uint64_t destroy for ToolbarToggleStyle.ResolvedBody(uint64_t a1)
   outlined consume of Environment<Bool>.Content(*(a1 + 96), *(a1 + 104));
   outlined consume of Environment<CGFloat?>.Content(*(a1 + 112), *(a1 + 120), *(a1 + 121));
   v3 = *(a1 + 128);
-  v4 = *(a1 + 136);
 
-  return outlined consume of Environment<Color?>.Content(v3, v4);
+  return outlined consume of Environment<Color?>.Content(v3);
 }
 
-uint64_t initializeWithCopy for ToolbarToggleStyle.ResolvedBody(uint64_t a1, uint64_t a2)
+uint64_t initializeWithCopy for ToolbarToggleStyle.ResolvedBody(uint64_t a1, uint64_t *a2)
 {
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   *a1 = *a2;
   *(a1 + 8) = v4;
   *(a1 + 16) = *(a2 + 16);
-  v5 = *(a2 + 32);
-  *(a1 + 24) = *(a2 + 24);
+  v5 = a2[4];
+  *(a1 + 24) = a2[3];
   *(a1 + 32) = v5;
-  *(a1 + 40) = *(a2 + 40);
-  v6 = *(a2 + 72);
+  *(a1 + 40) = *(a2 + 20);
+  v6 = a2[9];
 
   if (v6)
   {
-    v7 = *(a2 + 48);
-    v8 = *(a2 + 56);
+    v7 = a2[6];
+    v8 = a2[7];
     v9 = *(a2 + 64);
     outlined copy of Environment<AppIntentExecutor?>.Content(v7, v8, v9);
     *(a1 + 48) = v7;
     *(a1 + 56) = v8;
     *(a1 + 64) = v9;
-    v10 = *(a2 + 80);
-    v11 = *(a2 + 88);
+    v10 = a2[10];
+    v11 = a2[11];
     *(a1 + 72) = v6;
     *(a1 + 80) = v10;
     *(a1 + 88) = v11;
@@ -3377,202 +1919,200 @@ uint64_t initializeWithCopy for ToolbarToggleStyle.ResolvedBody(uint64_t a1, uin
 
   else
   {
-    v13 = *(a2 + 64);
-    *(a1 + 48) = *(a2 + 48);
+    v13 = *(a2 + 4);
+    *(a1 + 48) = *(a2 + 3);
     *(a1 + 64) = v13;
-    *(a1 + 80) = *(a2 + 80);
+    *(a1 + 80) = *(a2 + 5);
   }
 
-  v14 = *(a2 + 96);
+  v14 = a2[12];
   v15 = *(a2 + 104);
-  outlined copy of Environment<Bool>.Content(v14, v15);
+  outlined copy of Environment<Bool>.Content();
   *(a1 + 96) = v14;
   *(a1 + 104) = v15;
-  v16 = *(a2 + 112);
+  v16 = a2[14];
   v17 = *(a2 + 121);
   v18 = *(a2 + 120);
   outlined copy of Environment<CGFloat?>.Content(v16, v18, v17);
   *(a1 + 112) = v16;
   *(a1 + 120) = v18;
   *(a1 + 121) = v17;
-  v19 = *(a2 + 128);
+  v19 = a2[16];
   v20 = *(a2 + 136);
-  outlined copy of Environment<Color?>.Content(v19, v20);
+  outlined copy of Environment<Color?>.Content(v19);
   *(a1 + 128) = v19;
   *(a1 + 136) = v20;
   return a1;
 }
 
-uint64_t assignWithCopy for ToolbarToggleStyle.ResolvedBody(uint64_t a1, uint64_t a2)
+uint64_t *assignWithCopy for ToolbarToggleStyle.ResolvedBody(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
+  a1[1] = a2[1];
 
   *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = a2[3];
 
-  *(a1 + 32) = *(a2 + 32);
+  a1[4] = a2[4];
 
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 41) = *(a2 + 41);
-  v4 = *(a2 + 72);
-  if (*(a1 + 72))
+  v4 = a2[9];
+  if (a1[9])
   {
     if (v4)
     {
-      v5 = *(a2 + 48);
-      v6 = *(a2 + 56);
+      v5 = a2[6];
+      v6 = a2[7];
       v7 = *(a2 + 64);
       outlined copy of Environment<AppIntentExecutor?>.Content(v5, v6, v7);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 56);
+      v8 = a1[6];
+      v9 = a1[7];
       v10 = *(a1 + 64);
-      *(a1 + 48) = v5;
-      *(a1 + 56) = v6;
+      a1[6] = v5;
+      a1[7] = v6;
       *(a1 + 64) = v7;
       outlined consume of Environment<AppIntentExecutor?>.Content(v8, v9, v10);
-      v11 = *(a2 + 72);
-      v12 = *(a1 + 72);
-      *(a1 + 72) = v11;
+      v11 = a2[9];
+      v12 = a1[9];
+      a1[9] = v11;
       v13 = v11;
 
-      v14 = *(a2 + 88);
-      *(a1 + 80) = *(a2 + 80);
-      *(a1 + 88) = v14;
+      v14 = a2[11];
+      a1[10] = a2[10];
+      a1[11] = v14;
     }
 
     else
     {
-      outlined destroy of AppIntentAction(a1 + 48);
-      v22 = *(a2 + 64);
-      v21 = *(a2 + 80);
-      *(a1 + 48) = *(a2 + 48);
-      *(a1 + 64) = v22;
-      *(a1 + 80) = v21;
+      outlined destroy of AppIntentAction((a1 + 6));
+      v22 = *(a2 + 4);
+      v21 = *(a2 + 5);
+      *(a1 + 3) = *(a2 + 3);
+      *(a1 + 4) = v22;
+      *(a1 + 5) = v21;
     }
   }
 
   else if (v4)
   {
-    v15 = *(a2 + 48);
-    v16 = *(a2 + 56);
+    v15 = a2[6];
+    v16 = a2[7];
     v17 = *(a2 + 64);
     outlined copy of Environment<AppIntentExecutor?>.Content(v15, v16, v17);
-    *(a1 + 48) = v15;
-    *(a1 + 56) = v16;
+    a1[6] = v15;
+    a1[7] = v16;
     *(a1 + 64) = v17;
-    v18 = *(a2 + 72);
-    *(a1 + 72) = v18;
-    v19 = *(a2 + 88);
-    *(a1 + 80) = *(a2 + 80);
-    *(a1 + 88) = v19;
+    v18 = a2[9];
+    a1[9] = v18;
+    v19 = a2[11];
+    a1[10] = a2[10];
+    a1[11] = v19;
     v20 = v18;
   }
 
   else
   {
-    v23 = *(a2 + 48);
-    v24 = *(a2 + 80);
-    *(a1 + 64) = *(a2 + 64);
-    *(a1 + 80) = v24;
-    *(a1 + 48) = v23;
+    v23 = *(a2 + 3);
+    v24 = *(a2 + 5);
+    *(a1 + 4) = *(a2 + 4);
+    *(a1 + 5) = v24;
+    *(a1 + 3) = v23;
   }
 
-  v25 = *(a2 + 96);
+  v25 = a2[12];
   v26 = *(a2 + 104);
-  outlined copy of Environment<Bool>.Content(v25, v26);
-  v27 = *(a1 + 96);
+  outlined copy of Environment<Bool>.Content();
+  v27 = a1[12];
   v28 = *(a1 + 104);
-  *(a1 + 96) = v25;
+  a1[12] = v25;
   *(a1 + 104) = v26;
   outlined consume of Environment<Bool>.Content(v27, v28);
-  v29 = *(a2 + 112);
+  v29 = a2[14];
   v30 = *(a2 + 121);
   v31 = *(a2 + 120);
   outlined copy of Environment<CGFloat?>.Content(v29, v31, v30);
-  v32 = *(a1 + 112);
+  v32 = a1[14];
   v33 = *(a1 + 121);
-  *(a1 + 112) = v29;
+  a1[14] = v29;
   v34 = *(a1 + 120);
   *(a1 + 120) = v31;
   *(a1 + 121) = v30;
   outlined consume of Environment<CGFloat?>.Content(v32, v34, v33);
-  v35 = *(a2 + 128);
+  v35 = a2[16];
   v36 = *(a2 + 136);
-  outlined copy of Environment<Color?>.Content(v35, v36);
-  v37 = *(a1 + 128);
-  v38 = *(a1 + 136);
-  *(a1 + 128) = v35;
+  outlined copy of Environment<Color?>.Content(v35);
+  v37 = a1[16];
+  a1[16] = v35;
   *(a1 + 136) = v36;
-  outlined consume of Environment<Color?>.Content(v37, v38);
+  outlined consume of Environment<Color?>.Content(v37);
   return a1;
 }
 
-uint64_t assignWithTake for ToolbarToggleStyle.ResolvedBody(uint64_t a1, uint64_t a2)
+uint64_t *assignWithTake for ToolbarToggleStyle.ResolvedBody(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
+  a1[1] = a2[1];
 
   *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = a2[3];
 
-  *(a1 + 32) = *(a2 + 32);
+  a1[4] = a2[4];
 
   *(a1 + 40) = *(a2 + 40);
   *(a1 + 41) = *(a2 + 41);
-  v4 = *(a1 + 72);
+  v4 = a1[9];
   if (!v4)
   {
     goto LABEL_5;
   }
 
-  v5 = *(a2 + 72);
+  v5 = a2[9];
   if (!v5)
   {
-    outlined destroy of AppIntentAction(a1 + 48);
+    outlined destroy of AppIntentAction((a1 + 6));
 LABEL_5:
-    v10 = *(a2 + 64);
-    *(a1 + 48) = *(a2 + 48);
-    *(a1 + 64) = v10;
-    *(a1 + 80) = *(a2 + 80);
+    v10 = *(a2 + 4);
+    *(a1 + 3) = *(a2 + 3);
+    *(a1 + 4) = v10;
+    *(a1 + 5) = *(a2 + 5);
     goto LABEL_6;
   }
 
   v6 = *(a2 + 64);
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
+  v7 = a1[6];
+  v8 = a1[7];
   v9 = *(a1 + 64);
-  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 3) = *(a2 + 3);
   *(a1 + 64) = v6;
   outlined consume of Environment<AppIntentExecutor?>.Content(v7, v8, v9);
-  *(a1 + 72) = v5;
+  a1[9] = v5;
 
-  *(a1 + 80) = *(a2 + 80);
+  *(a1 + 5) = *(a2 + 5);
 
 LABEL_6:
   v11 = *(a2 + 104);
-  v12 = *(a1 + 96);
+  v12 = a1[12];
   v13 = *(a1 + 104);
-  *(a1 + 96) = *(a2 + 96);
+  a1[12] = a2[12];
   *(a1 + 104) = v11;
   outlined consume of Environment<Bool>.Content(v12, v13);
   v14 = *(a2 + 120);
   v15 = *(a2 + 121);
-  v16 = *(a1 + 112);
+  v16 = a1[14];
   v17 = *(a1 + 121);
-  *(a1 + 112) = *(a2 + 112);
+  a1[14] = a2[14];
   v18 = *(a1 + 120);
   *(a1 + 120) = v14;
   *(a1 + 121) = v15;
   outlined consume of Environment<CGFloat?>.Content(v16, v18, v17);
   v19 = *(a2 + 136);
-  v20 = *(a1 + 128);
-  v21 = *(a1 + 136);
-  *(a1 + 128) = *(a2 + 128);
+  v20 = a1[16];
+  a1[16] = a2[16];
   *(a1 + 136) = v19;
-  outlined consume of Environment<Color?>.Content(v20, v21);
+  outlined consume of Environment<Color?>.Content(v20);
   return a1;
 }
 
@@ -3646,84 +2186,87 @@ unint64_t lazy protocol witness table accessor for type StaticIf<InterfaceIdiomP
   result = lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>> and conformance <> StaticIf<A, B, C>;
   if (!lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>> and conformance <> StaticIf<A, B, C>)
   {
-    type metadata accessor for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>();
-    lazy protocol witness table accessor for type InterfaceIdiomPredicate<MacInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type PrimitiveButtonStyleContainerModifier<BorderedButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>);
-    lazy protocol witness table accessor for type StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>> and conformance <> StaticIf<A, B, C>();
-    result = swift_getWitnessTable();
+    v5[7] = v0;
+    v5[8] = v1;
+    type metadata accessor for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type InterfaceIdiomPredicate<MacInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
+    v5[1] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type PrimitiveButtonStyleContainerModifier<BorderedButtonStyle> and conformance PrimitiveButtonStyleContainerModifier<A>);
+    v5[2] = lazy protocol witness table accessor for type StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>> and conformance <> StaticIf<A, B, C>();
+    result = swift_getWitnessTable(MEMORY[0x1E6981CE8], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>> and conformance <> StaticIf<A, B, C>);
   }
 
   return result;
 }
 
-void type metadata accessor for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>()
+void type metadata accessor for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for InterfaceIdiomPredicate<MacInterfaceIdiom>, MEMORY[0x1E697F248], MEMORY[0x1E697F240], MEMORY[0x1E69801E0]);
-    type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>();
-    type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>();
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>(255);
+    type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>(255);
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<MacInterfaceIdiom>, ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>, StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>)
   {
-    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>();
+    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>(255);
     type metadata accessor for ToggleStyleModifier<ButtonToggleStyle>(255, &lazy cache variable for type metadata for PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>, lazy protocol witness table accessor for type BorderedButtonStyle and conformance BorderedButtonStyle, &type metadata for BorderedButtonStyle, type metadata accessor for PrimitiveButtonStyleContainerModifier);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>()
+void type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for Toggle<ToggleStyleConfiguration.Label>, &type metadata for ToggleStyleConfiguration.Label, &protocol witness table for ToggleStyleConfiguration.Label, type metadata accessor for Toggle);
     type metadata accessor for ToggleStyleModifier<ButtonToggleStyle>(255, &lazy cache variable for type metadata for ToggleStyleModifier<ButtonToggleStyle>, lazy protocol witness table accessor for type ButtonToggleStyle and conformance ButtonToggleStyle, &type metadata for ButtonToggleStyle, type metadata accessor for ToggleStyleModifier);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>);
     }
   }
 }
 
-void type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>()
+void type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for InterfaceIdiomPredicate<VisionInterfaceIdiom>, MEMORY[0x1E697FAC8], MEMORY[0x1E697FAC0], MEMORY[0x1E69801E0]);
-    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>();
-    type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>();
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>(255);
+    type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>(255);
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>()
+void type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>)
   {
-    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>(255, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>(255, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>, &type metadata for ToolbarButtonContentModifier);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>);
     }
   }
 }
@@ -3733,9 +2276,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Toggle<T
   result = lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>();
-    lazy protocol witness table accessor for type Toggle<ToggleStyleConfiguration.Label> and conformance Toggle<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type Toggle<ToggleStyleConfiguration.Label> and conformance Toggle<A>();
+    v5[1] = &protocol witness table for ToggleStyleModifier<A>;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -3747,11 +2294,14 @@ unint64_t lazy protocol witness table accessor for type StaticIf<InterfaceIdiomP
   result = lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>> and conformance <> StaticIf<A, B, C>;
   if (!lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>> and conformance <> StaticIf<A, B, C>)
   {
-    type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>();
-    lazy protocol witness table accessor for type InterfaceIdiomPredicate<VisionInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
-    lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v5[7] = v0;
+    v5[8] = v1;
+    type metadata accessor for StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type InterfaceIdiomPredicate<VisionInterfaceIdiom> and conformance InterfaceIdiomPredicate<A>();
+    v5[1] = lazy protocol witness table accessor for type ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>> and conformance <> ModifiedContent<A, B>();
+    v5[2] = lazy protocol witness table accessor for type ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>();
+    result = swift_getWitnessTable(MEMORY[0x1E6981CE8], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type StaticIf<InterfaceIdiomPredicate<VisionInterfaceIdiom>, ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>> and conformance <> StaticIf<A, B, C>);
   }
 
@@ -3763,10 +2313,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ToolbarT
   result = lazy protocol witness table cache variable for type ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>();
-    lazy protocol witness table accessor for type ToolbarToggleStyle.ResolvedBody and conformance ToolbarToggleStyle.ResolvedBody();
-    lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>, &type metadata for ToolbarButtonContentModifier, lazy protocol witness table accessor for type ToolbarButtonContentModifier and conformance ToolbarButtonContentModifier);
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ToolbarToggleStyle.ResolvedBody and conformance ToolbarToggleStyle.ResolvedBody();
+    v5[1] = lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>, &type metadata for ToolbarButtonContentModifier, lazy protocol witness table accessor for type ToolbarButtonContentModifier and conformance ToolbarButtonContentModifier);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ToolbarToggleStyle.ResolvedBody, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -3778,105 +2331,105 @@ unint64_t lazy protocol witness table accessor for type ToolbarToggleStyle.Resol
   result = lazy protocol witness table cache variable for type ToolbarToggleStyle.ResolvedBody and conformance ToolbarToggleStyle.ResolvedBody;
   if (!lazy protocol witness table cache variable for type ToolbarToggleStyle.ResolvedBody and conformance ToolbarToggleStyle.ResolvedBody)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ToolbarToggleStyle.ResolvedBody, &unk_1EFFC4878, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ToolbarToggleStyle.ResolvedBody and conformance ToolbarToggleStyle.ResolvedBody);
   }
 
   return result;
 }
 
-void type metadata accessor for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifie()
+void type metadata accessor for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifie(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarBut)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>();
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>();
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>(255);
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>(255);
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarBut);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarBut);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>();
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>(255);
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>();
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>(255);
     type metadata accessor for _EnvironmentKeyTransformModifier<AnyShapeStyle?>(255, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<Bool?>, &lazy cache variable for type metadata for Bool?, MEMORY[0x1E69E6370], MEMORY[0x1E6980A08]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>();
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>(255);
     type metadata accessor for _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>(255);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>)
   {
-    type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>();
+    type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>(255);
     type metadata accessor for _EnvironmentKeyTransformModifier<AnyShapeStyle?>(255, &lazy cache variable for type metadata for _EnvironmentKeyTransformModifier<AnyShapeStyle?>, &lazy cache variable for type metadata for AnyShapeStyle?, MEMORY[0x1E697E0B8], MEMORY[0x1E6980B20]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>()
+void type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>)
   {
-    type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>);
     }
   }
 }
@@ -3895,43 +2448,54 @@ void type metadata accessor for Button<StaticIf<Solarium, ModifiedContent<Modifi
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), unint64_t *a4)
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t), unint64_t *a4, uint64_t a5)
 {
   if (!*a2)
   {
     a3(255);
-    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>(255, a4);
-    v6 = type metadata accessor for ModifiedContent();
-    if (!v7)
+    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier>(255, a4, a5);
+    v8 = type metadata accessor for ModifiedContent();
+    if (!v9)
     {
-      atomic_store(v6, a2);
+      atomic_store(v8, a2);
     }
   }
 }
 
-void type metadata accessor for BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>()
+void type metadata accessor for BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for _OpacityShapeStyle<TintShapeStyle>, MEMORY[0x1E697E570], MEMORY[0x1E697E558], MEMORY[0x1E697F5B0]);
-    lazy protocol witness table accessor for type ResolvedBorderShape and conformance ResolvedBorderShape();
-    lazy protocol witness table accessor for type _OpacityShapeStyle<TintShapeStyle> and conformance _OpacityShapeStyle<A>();
-    v0 = type metadata accessor for BackgroundContentShapeView();
-    if (!v1)
+    v3 = v2;
+    v4 = lazy protocol witness table accessor for type ResolvedBorderShape and conformance ResolvedBorderShape();
+    v5 = lazy protocol witness table accessor for type _OpacityShapeStyle<TintShapeStyle> and conformance _OpacityShapeStyle<A>();
+    v8[0] = &type metadata for ResolvedBorderShape;
+    v8[1] = MEMORY[0x1E69815C0];
+    v8[2] = v3;
+    v8[3] = v4;
+    v8[4] = MEMORY[0x1E6981568];
+    v8[5] = v5;
+    v6 = type metadata accessor for BackgroundContentShapeView(a1, v8);
+    if (!v7)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>);
+      atomic_store(v6, &lazy cache variable for type metadata for BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>()
+unint64_t lazy protocol witness table accessor for type ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>(double a1)
 {
   result = lazy protocol witness table cache variable for type ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>(255);
-    lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>, &type metadata for ToolbarButtonEdgeOutsetModifier, lazy protocol witness table accessor for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier);
-    result = swift_getWitnessTable();
+    v6[4] = v1;
+    v6[5] = v2;
+    type metadata accessor for ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>(255, a1);
+    v5 = v4;
+    v6[0] = &protocol witness table for BackgroundContentShapeView<A, B, C>;
+    v6[1] = lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>, &type metadata for ToolbarButtonEdgeOutsetModifier, lazy protocol witness table accessor for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v5, v6);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -3943,7 +2507,7 @@ unint64_t lazy protocol witness table accessor for type ToolbarButtonEdgeOutsetM
   result = lazy protocol witness table cache variable for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier;
   if (!lazy protocol witness table cache variable for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ToolbarButtonEdgeOutsetModifier, &type metadata for ToolbarButtonEdgeOutsetModifier, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier);
   }
 
@@ -3980,10 +2544,16 @@ unint64_t lazy protocol witness table accessor for type StaticIf<Solarium, Modif
   result = lazy protocol witness table cache variable for type StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ;
   if (!lazy protocol witness table cache variable for type StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, )
   {
-    type metadata accessor for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifie();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>);
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>();
-    result = swift_getWitnessTable();
+    v7[5] = v0;
+    v7[6] = v1;
+    type metadata accessor for StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifie(255);
+    v4 = v3;
+    v5 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>);
+    v6 = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>> and conformance <> ModifiedContent<A, B>();
+    v7[0] = MEMORY[0x1E6981CD0];
+    v7[1] = v5;
+    v7[2] = v6;
+    result = swift_getWitnessTable(MEMORY[0x1E6981CE8], v4, v7);
     atomic_store(result, &lazy protocol witness table cache variable for type StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,);
   }
 
@@ -3995,10 +2565,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type BarItemWidthModifier and conformance BarItemWidthModifier);
-    lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(&lazy protocol witness table cache variable for type _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>> and conformance _BackgroundModifier<A>, type metadata accessor for _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>);
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type BarItemWidthModifier and conformance BarItemWidthModifier);
+    v5[1] = lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(&lazy protocol witness table cache variable for type _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>> and conformance _BackgroundModifier<A>, type metadata accessor for _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>, MEMORY[0x1E697F940]);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -4010,9 +2583,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<ToggleSt
   result = lazy protocol witness table cache variable for type ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>();
-    lazy protocol witness table accessor for type StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>(255);
+    v4 = v3;
+    v5[0] = &protocol witness table for ToggleStyleConfiguration.Label;
+    v5[1] = lazy protocol witness table accessor for type StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>> and conformance <> ModifiedContent<A, B>);
   }
 
@@ -4025,7 +2602,7 @@ unint64_t lazy protocol witness table accessor for type _EnvironmentKeyTransform
   if (!lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<AnyShapeStyle?> and conformance _EnvironmentKeyTransformModifier<A>)
   {
     type metadata accessor for _EnvironmentKeyTransformModifier<AnyShapeStyle?>(255, &lazy cache variable for type metadata for _EnvironmentKeyTransformModifier<AnyShapeStyle?>, &lazy cache variable for type metadata for AnyShapeStyle?, MEMORY[0x1E697E0B8], MEMORY[0x1E6980B20]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E6980B30], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _EnvironmentKeyTransformModifier<AnyShapeStyle?> and conformance _EnvironmentKeyTransformModifier<A>);
   }
 
@@ -4037,20 +2614,20 @@ unint64_t lazy protocol witness table accessor for type BarItemWidthModifier and
   result = lazy protocol witness table cache variable for type BarItemWidthModifier and conformance BarItemWidthModifier;
   if (!lazy protocol witness table cache variable for type BarItemWidthModifier and conformance BarItemWidthModifier)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for BarItemWidthModifier, &type metadata for BarItemWidthModifier, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type BarItemWidthModifier and conformance BarItemWidthModifier);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -4063,106 +2640,106 @@ unint64_t lazy protocol witness table accessor for type _AnimationModifier<Bool>
   if (!lazy protocol witness table cache variable for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for _AnimationModifier<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E69E6388], MEMORY[0x1E697F540]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697F548], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _AnimationModifier<Bool> and conformance _AnimationModifier<A>);
   }
 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To()
+void type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarSt)
   {
     type metadata accessor for Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabel(255);
     type metadata accessor for ToggleStyleModifier<ButtonToggleStyle>(255, &lazy cache variable for type metadata for _ContentShapeKindModifier<ToolbarButtonHoverShape>, lazy protocol witness table accessor for type ToolbarButtonHoverShape and conformance ToolbarButtonHoverShape, &type metadata for ToolbarButtonHoverShape, MEMORY[0x1E69805E0]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarSt);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarSt);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS()
+void type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPre)
   {
-    type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To();
+    type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To(255);
     type metadata accessor for _EnvironmentKeyTransformModifier<AnyShapeStyle?>(255, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<Bool?>, &lazy cache variable for type metadata for Bool?, MEMORY[0x1E69E6370], MEMORY[0x1E6980A08]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPre);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPre);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleC)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS();
+    type metadata accessor for ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarS(255);
     type metadata accessor for ToggleStyleModifier<ButtonToggleStyle>(255, &lazy cache variable for type metadata for CustomHoverEffectModifier<HoverEffect>, lazy protocol witness table accessor for type HoverEffect and conformance HoverEffect, &type metadata for HoverEffect, type metadata accessor for CustomHoverEffectModifier);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleC);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleC);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeArea)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>);
-    type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>,  &type metadata for ToolbarButtonEdgeOutsetModifier);
+    type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeArea);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeArea);
     }
   }
 }
 
-void type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>()
+void type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>)
   {
     type metadata accessor for ToggleStyleModifier<ButtonToggleStyle>(255, &lazy cache variable for type metadata for InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, lazy protocol witness table accessor for type CreatesToolbarSafeAreaInsetPredicate and conformance CreatesToolbarSafeAreaInsetPredicate, &type metadata for CreatesToolbarSafeAreaInsetPredicate, MEMORY[0x1E6980680]);
-    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>();
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>(255);
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>);
     }
   }
 }
 
-void type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>()
+void type metadata accessor for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>)
   {
     type metadata accessor for Binding<ToggleState>(255, &lazy cache variable for type metadata for StyleContextAcceptsPredicate<ToolbarStyleContext>, MEMORY[0x1E697F860], MEMORY[0x1E69808E8]);
-    type metadata accessor for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>();
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    type metadata accessor for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>(255);
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>);
     }
   }
 }
 
-void type metadata accessor for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>()
+void type metadata accessor for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>)
   {
     _s7SwiftUI23InterfaceIdiomPredicateVyAA03MaccD0VGMaTm_0(255, &lazy cache variable for type metadata for _SemanticFeature<Semantics_v5>, MEMORY[0x1E697DF50], MEMORY[0x1E697DF48], MEMORY[0x1E697EC20]);
-    v0 = type metadata accessor for StaticIf();
-    if (!v1)
+    v1 = type metadata accessor for StaticIf();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>);
     }
   }
 }
@@ -4176,7 +2753,7 @@ uint64_t outlined destroy of ModifiedContent<ModifiedContent<ModifiedContent<Mod
 
 uint64_t outlined init with take of ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<Style(uint64_t a1, uint64_t a2)
 {
-  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>);
+  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 0,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>,  &type metadata for ToolbarButtonEdgeOutsetModifier);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -4200,10 +2777,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredic;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredic)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<Create,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>);
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafe();
-    lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>, &type metadata for PlatformItemTintModifier, lazy protocol witness table accessor for type PlatformItemTintModifier and conformance PlatformItemTintModifier);
-    result = swift_getWitnessTable();
+    v5[6] = v0;
+    v5[7] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<Create,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>,  &type metadata for PlatformItemTintModifier);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafe();
+    v5[1] = lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, PlatformItemTintModifier, EmptyModifier>, &type metadata for PlatformItemTintModifier, lazy protocol witness table accessor for type PlatformItemTintModifier and conformance PlatformItemTintModifier);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredic);
   }
 
@@ -4215,10 +2795,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolb;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolb)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>();
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredica();
-    lazy protocol witness table accessor for type StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>, type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>, lazy protocol witness table accessor for type InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate> and conformance InvertedViewInputPredicate<A>, lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>);
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredica();
+    v5[1] = lazy protocol witness table accessor for type StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>, type metadata accessor for StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier>, EmptyModifier>, lazy protocol witness table accessor for type InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate> and conformance InvertedViewInputPredicate<A>, lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier>, EmptyModifier> and conformance <> StaticIf<A, B, C>);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolb);
   }
 
@@ -4230,25 +2813,28 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetP;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetP)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>);
-    lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>( &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, Stati,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAccept,  lazy protocol witness table accessor for type CustomHoverEffectModifier<HoverEffect> and conformance CustomHoverEffectModifier<A>);
-    lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>, &type metadata for ToolbarButtonEdgeOutsetModifier, lazy protocol witness table accessor for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier);
-    result = swift_getWitnessTable();
+    v5[6] = v0;
+    v5[7] = v1;
+    type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAre( 255,  &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>,,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>,  &type metadata for ToolbarButtonEdgeOutsetModifier);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>( &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, Stati,  type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPr,  lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAccept,  lazy protocol witness table accessor for type CustomHoverEffectModifier<HoverEffect> and conformance CustomHoverEffectModifier<A>);
+    v5[1] = lazy protocol witness table accessor for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonContentModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(&lazy protocol witness table cache variable for type StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>, &lazy cache variable for type metadata for StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>, &type metadata for ToolbarButtonEdgeOutsetModifier, lazy protocol witness table accessor for type ToolbarButtonEdgeOutsetModifier and conformance ToolbarButtonEdgeOutsetModifier);
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetP);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void), void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Toggle<ToggleStyleConfiguration.Label>, ToggleStyleModifier<ButtonToggleStyle>>, PrimitiveButtonStyleContainerModifier<BorderedButtonStyle>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    a3();
-    a4();
-    result = swift_getWitnessTable();
+    v8 = a2(255);
+    v9[0] = a3();
+    v9[1] = a4();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v8, v9);
     atomic_store(result, a1);
   }
 
@@ -4260,25 +2846,29 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<S
   result = lazy protocol witness table cache variable for type ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate)
   {
-    type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To();
-    lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(&lazy protocol witness table cache variable for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleCon, type metadata accessor for Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabel);
-    lazy protocol witness table accessor for type _ContentShapeKindModifier<ToolbarButtonHoverShape> and conformance _ContentShapeKindModifier<A>();
-    result = swift_getWitnessTable();
+    v5[4] = v0;
+    v5[5] = v1;
+    type metadata accessor for ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, To(255);
+    v4 = v3;
+    v5[0] = lazy protocol witness table accessor for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>,(&lazy protocol witness table cache variable for type Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleCon, type metadata accessor for Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabel, protocol conformance descriptor for Button<A>);
+    v5[1] = lazy protocol witness table accessor for type _ContentShapeKindModifier<ToolbarButtonHoverShape> and conformance _ContentShapeKindModifier<A>();
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v4, v5);
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<StaticIf<Solarium, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonLabelModifier, EmptyModifier>, EmptyModifier>>, _EnvironmentKeyTransformModifier<AnyShapeStyle?>>, BarItemWidthModifier>, _BackgroundModifier<ModifiedContent<BackgroundContentShapeView<ResolvedBorderShape, Color, _OpacityShapeStyle<TintShapeStyle>>, StaticIf<StyleContextAcceptsPredicate<ToolbarStyleContext>, ToolbarButtonEdgeOutsetModifier, EmptyModifier>>>>, _EnvironmentKeyWritingModifier<Bool?>>, _AnimationModifier<Bool>>, ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<ToggleStyleConfiguration.Label, StaticIf<InvertedViewInputPredicate<CreatesToolbarSafeAreaInsetPredicate>, StaticIf<StyleContextAcceptsPredicate);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void), void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type StaticIf<_SemanticFeature<Semantics_v5>, AllowsToolbarItemBridgingModifier, EmptyModifier> and conformance <> StaticIf<A, B, C>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    a3();
-    a4();
-    result = swift_getWitnessTable();
+    v8 = a2(255);
+    v9[0] = a3();
+    v9[1] = a4();
+    v9[2] = MEMORY[0x1E697E100];
+    result = swift_getWitnessTable(MEMORY[0x1E6981CE0], v8, v9);
     atomic_store(result, a1);
   }
 
@@ -4292,51 +2882,48 @@ uint64_t View.onFocus(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x18D00A570](v4, a3, &unk_1EFFC49A8);
 }
 
-uint64_t OnFocusModifier.Mutation.combine<A>(with:)(uint64_t a1)
+void OnFocusModifier.Mutation.combine<A>(with:)(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1EEE9AC00](a1);
-  (*(v4 + 16))(&v6[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)], v2);
-  result = swift_dynamicCast();
-  if (result)
+  v3 = MEMORY[0x1EEE9AC00](a1);
+  (*(v5 + 16))(&v6[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)], v3);
+  if (swift_dynamicCast())
   {
-    *(v1 + 8) = v6[12];
+    *(v2 + 8) = v6[12];
   }
-
-  return result;
 }
 
-uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X0>, __int128 *a2@<X1>, uint64_t (*a3)(void)@<X2>, __int128 *a4@<X8>)
+void static OnFocusModifier._makeView(modifier:inputs:body:)(int *a1@<X0>, __int128 *a2@<X1>, void (*a3)(void)@<X2>, __int128 *a5@<X8>)
 {
   v40 = *MEMORY[0x1E69E9840];
-  v6 = *a1;
-  v7 = a2[3];
+  v7 = *a1;
+  v8 = a2[3];
   v36 = a2[2];
-  v37 = v7;
+  v37 = v8;
   v38 = a2[4];
   v39 = *(a2 + 20);
-  v8 = a2[1];
+  v9 = a2[1];
   v34 = *a2;
-  v35 = v8;
-  *&v28 = v7;
-  DWORD2(v28) = DWORD2(v7);
+  v35 = v9;
+  *&v28 = v8;
+  DWORD2(v28) = DWORD2(v8);
   if (PreferencesInputs.contains<A>(_:includeHostPreferences:)())
   {
     type metadata accessor for GraphHost();
     MEMORY[0x18D00B7D0]();
     type metadata accessor for ViewGraph();
-    v9 = swift_dynamicCastClass();
-    if (v9)
+    v10 = swift_dynamicCastClass();
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
       swift_beginAccess();
       Strong = swift_unknownObjectWeakLoadStrong();
-      v12 = *(v10 + 208);
+      v13 = *(v11 + 208);
 
       if (Strong)
       {
         ObjectType = swift_getObjectType();
-        v14 = type metadata accessor for FocusHost();
-        (*(v12 + 16))(&v28, v14, v14, ObjectType, v12);
+        v15 = type metadata accessor for FocusHost();
+        (*(v13 + 16))(&v28, v15, v15, ObjectType, v13);
         swift_unknownObjectRelease();
         if (v28)
         {
@@ -4350,21 +2937,21 @@ uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X
           type metadata accessor for DefaultLayoutViewResponder();
           swift_allocObject();
           outlined init with copy of _ViewInputs(&v34, v27);
-          v15 = DefaultLayoutViewResponder.init(inputs:)();
+          v16 = DefaultLayoutViewResponder.init(inputs:)();
           LOBYTE(v28) = 0;
           Attribute.init<A>(body:value:flags:update:)();
-          v16 = AGCreateWeakAttribute();
-          v17 = HIDWORD(v16);
-          v26 = v16;
-          v18 = v16;
-          v19 = DWORD2(v35);
+          v17 = AGCreateWeakAttribute();
+          v18 = HIDWORD(v17);
+          v26 = v17;
+          v19 = v17;
+          v20 = DWORD2(v35);
           lazy protocol witness table accessor for type FocusedItemInputKey and conformance FocusedItemInputKey();
 
           PropertyList.subscript.getter();
-          LODWORD(v28) = v6;
-          *(&v28 + 1) = v15;
-          LODWORD(v29) = v19;
-          *(&v29 + 1) = __PAIR64__(v17, v18);
+          LODWORD(v28) = v7;
+          *(&v28 + 1) = v16;
+          LODWORD(v29) = v20;
+          *(&v29 + 1) = __PAIR64__(v18, v19);
           LODWORD(v30) = 0;
           WORD2(v30) = 1;
           protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
@@ -4372,32 +2959,32 @@ uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X
           Attribute.init<A>(body:value:flags:update:)();
 
           AGGraphSetFlags();
-          v20 = swift_allocObject();
-          MEMORY[0x18D00B7D0]();
-          swift_weakInit();
-
           v21 = swift_allocObject();
-          *(v21 + 16) = v20;
-          *(v21 + 24) = v26;
-          *(v21 + 28) = v17;
-          *(v21 + 32) = 1;
-          v22 = swift_allocObject();
           MEMORY[0x18D00B7D0]();
           swift_weakInit();
 
+          v22 = swift_allocObject();
+          *(v22 + 16) = v21;
+          *(v22 + 24) = v26;
+          *(v22 + 28) = v18;
+          *(v22 + 32) = 1;
           v23 = swift_allocObject();
-          *(v23 + 16) = v22;
-          *(v23 + 24) = v26;
-          *(v23 + 28) = v17;
-          *(v23 + 32) = 0;
+          MEMORY[0x18D00B7D0]();
+          swift_weakInit();
+
+          v24 = swift_allocObject();
+          *(v24 + 16) = v23;
+          *(v24 + 24) = v26;
+          *(v24 + 28) = v18;
+          *(v24 + 32) = 0;
           *&v28 = partial apply for closure #1 in static OnFocusModifier.appearanceHandler(_:_:);
-          *(&v28 + 1) = v21;
+          *(&v28 + 1) = v22;
           *&v29 = closure #1 in static OnFocusModifier.appearanceHandler(_:_:)partial apply;
-          *(&v29 + 1) = v23;
+          *(&v29 + 1) = v24;
 
-          LODWORD(v17) = Attribute.init<A>(body:value:flags:update:)();
+          LODWORD(v18) = Attribute.init<A>(body:value:flags:update:)();
 
-          v27[0] = v17;
+          v27[0] = v18;
           v31 = v37;
           v32 = v38;
           v33 = v39;
@@ -4405,12 +2992,12 @@ uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X
           v29 = v35;
           v30 = v36;
           static ViewModifier.makeDebuggableView(modifier:inputs:body:)();
-          v28 = *a4;
+          v28 = *a5;
 
-          v24 = _ViewOutputs.viewResponders()();
+          v25 = _ViewOutputs.viewResponders()();
 
-          LODWORD(v28) = v24;
-          *(&v28 + 1) = v15;
+          LODWORD(v28) = v25;
+          *(&v28 + 1) = v16;
           protocol witness for static PreferenceKey._includesRemovedValues.getter in conformance AccessibilityLargeContentViewTree.Key();
           type metadata accessor for [ViewResponder](0);
           lazy protocol witness table accessor for type DefaultLayoutResponderFilter and conformance DefaultLayoutResponderFilter();
@@ -4419,6 +3006,8 @@ uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X
 
           LOBYTE(v28) = 0;
           PreferencesOutputs.subscript.setter();
+
+          return;
         }
       }
     }
@@ -4434,14 +3023,13 @@ uint64_t static OnFocusModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X
   v28 = v34;
   v29 = v35;
   v30 = v36;
-  return a3();
+  a3();
 }
 
-uint64_t closure #1 in static OnFocusModifier.appearanceHandler(_:_:)()
+double closure #1 in static OnFocusModifier.appearanceHandler(_:_:)(uint64_t a1, uint64_t a2, char a3)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  if (swift_weakLoadStrong())
   {
     static Transaction.current.getter();
     lazy protocol witness table accessor for type OnFocusModifier.Mutation and conformance OnFocusModifier.Mutation();
@@ -4562,7 +3150,7 @@ unint64_t lazy protocol witness table accessor for type OnFocusObserver and conf
   result = lazy protocol witness table cache variable for type OnFocusObserver and conformance OnFocusObserver;
   if (!lazy protocol witness table cache variable for type OnFocusObserver and conformance OnFocusObserver)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for OnFocusObserver, &unk_1EFFC4B70, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type OnFocusObserver and conformance OnFocusObserver);
   }
 
@@ -4574,7 +3162,7 @@ unint64_t lazy protocol witness table accessor for type OnFocusModifier.Mutation
   result = lazy protocol witness table cache variable for type OnFocusModifier.Mutation and conformance OnFocusModifier.Mutation;
   if (!lazy protocol witness table cache variable for type OnFocusModifier.Mutation and conformance OnFocusModifier.Mutation)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for OnFocusModifier.Mutation, &unk_1EFFC4AF0, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type OnFocusModifier.Mutation and conformance OnFocusModifier.Mutation);
   }
 
@@ -4692,41 +3280,42 @@ LABEL_8:
   return result;
 }
 
-uint64_t static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+void static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(uint64_t a1@<X0>, void (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  if (!a1)
+  if (a1)
   {
-    return a2();
-  }
+    type metadata accessor for Error();
+    v13 = type metadata accessor for Result();
+    type metadata accessor for Optional();
+    v14 = swift_allocBox();
+    (*(*(v13 - 8) + 56))(v15, 1, 1, v13);
+    v16 = swift_allocObject();
+    v16[2] = a6;
+    v16[3] = a2;
+    v16[4] = a3;
 
-  type metadata accessor for Error();
-  v13 = type metadata accessor for Result();
-  type metadata accessor for Optional();
-  v14 = swift_allocBox();
-  (*(*(v13 - 8) + 56))(v15, 1, 1, v13);
-  v16 = swift_allocObject();
-  v16[2] = a6;
-  v16[3] = a2;
-  v16[4] = a3;
+    closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(partial apply for thunk for @callee_guaranteed () -> (@out A, @error @owned Error), v16, a1, v14, a4, a5, a6);
+    isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
-  closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(partial apply for thunk for @callee_guaranteed () -> (@out A, @error @owned Error), v16, a1, v14, a4, a5, a6);
-  isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+    if (isEscapingClosureAtFileLocation)
+    {
+      __break(1u);
+    }
 
-  if (isEscapingClosureAtFileLocation)
-  {
-    __break(1u);
+    else
+    {
+      MEMORY[0x1EEE9AC00](v18);
+      partial apply for closure #2 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(a7);
+    }
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00](result);
-    partial apply for closure #2 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(a7);
+    (a2)(0, a2, a3, a4, a5, a6);
   }
-
-  return result;
 }
 
-uint64_t closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+double closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   type metadata accessor for UIView();
   v13 = swift_allocObject();
@@ -4739,6 +3328,8 @@ uint64_t closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completi
   *(v14 + 24) = a6;
 
   static UIView.animate(bridgedAnimation:animations:completion:)();
+
+  return result;
 }
 
 void specialized closure #1 in closure #1 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)(uint64_t a1, void (*a2)(void *__return_ptr))
@@ -4784,41 +3375,41 @@ uint64_t _ss6ResultOsRi_zrlE8catchingAByxq_Gxyq_YKXE_tcfC@<X0>(void (*a1)(_BYTE 
   return (*(v7 + 32))(a2, v10, v6);
 }
 
-uint64_t closure #2 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t closure #2 in static UIKitAnimationBridge.withAnimation<A>(_:_:completion:)@<X0>(uint64_t a1@<X0>, uint64_t x8_0@<X8>)
 {
   type metadata accessor for Error();
-  v4 = type metadata accessor for Result();
-  v5 = type metadata accessor for Optional();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v10 - v7;
+  v5 = type metadata accessor for Result();
+  v6 = type metadata accessor for Optional();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - v8;
   swift_beginAccess();
-  (*(v6 + 16))(v8, a1, v5);
-  result = (*(*(v4 - 8) + 48))(v8, 1, v4);
+  (*(v7 + 16))(v9, a1, v6);
+  result = (*(*(v5 - 1) + 48))(v9, 1, v5);
   if (result != 1)
   {
-    return _ss6ResultOsRi_zRi0_zrlE3getxyq_YKF(v4, &v11, a2);
+    return _ss6ResultOsRi_zRi0_zrlE3getxyq_YKF(v5, &v12, x8_0);
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t _ss6ResultOsRi_zRi0_zrlE3getxyq_YKF@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t _ss6ResultOsRi_zRi0_zrlE3getxyq_YKF@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    return (*(*(*(a1 + 16) - 8) + 32))(a3, v3);
+    return (*(*(a1[2] - 8) + 32))(a3, v3);
   }
 
-  (*(*(*(a1 + 24) - 8) + 32))(a2, v3, *(a1 + 24));
+  (*(*(a1[3] - 8) + 32))(a2, v3, a1[3]);
   return swift_willThrowTypedImpl();
 }
 
-uint64_t static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[2] = a2;
-  v15[3] = a3;
+  v14[2] = a2;
+  v14[3] = a3;
   v7 = swift_allocObject();
   *(v7 + 16) = a4;
   *(v7 + 24) = a5;
@@ -4827,7 +3418,7 @@ uint64_t static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, 
   *(v8 + 24) = -1;
   v9 = swift_allocObject();
   *(v9 + 16) = _ss5Error_pIgzo_ytsAA_pIegrzo_TRTA_0;
-  *(v9 + 24) = v15;
+  *(v9 + 24) = v14;
   type metadata accessor for UIView();
   v10 = swift_allocObject();
   v10[2] = v8;
@@ -4837,7 +3428,7 @@ uint64_t static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, 
   *(v11 + 16) = partial apply for closure #1 in static UIView.animate(_:changes:completion:);
   *(v11 + 24) = v7;
 
-  outlined copy of AppIntentExecutor?(a4);
+  outlined copy of AppIntentExecutor?(a4, a5);
   static UIView.animate(bridgedAnimation:animations:completion:)();
 
   LOBYTE(a5) = swift_isEscapingClosureAtFileLocation();
@@ -4859,25 +3450,26 @@ LABEL_6:
 
   if ((v12 & 1) == 0)
   {
+
+    return;
   }
 
 LABEL_7:
-  v16 = *(v8 + 16);
-  v14 = v16;
+  v15 = *(v8 + 16);
+  v13 = v15;
   type metadata accessor for Error();
-  result = swift_willThrowTypedImpl();
+  swift_willThrowTypedImpl();
   __break(1u);
-  return result;
 }
 
-uint64_t closure #1 in static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t closure #1 in static UIView.animate(_:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
 {
   if (a3)
   {
-    return a3();
+    return a3(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void outlined consume of Result<(), Error>(id a1, char a2)
@@ -4887,10 +3479,10 @@ void outlined consume of Result<(), Error>(id a1, char a2)
   }
 }
 
-uint64_t static UIView.animate(with:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void static UIView.animate(with:changes:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[2] = a2;
-  v15[3] = a3;
+  v14[2] = a2;
+  v14[3] = a3;
   v7 = swift_allocObject();
   *(v7 + 16) = a4;
   *(v7 + 24) = a5;
@@ -4899,7 +3491,7 @@ uint64_t static UIView.animate(with:changes:completion:)(uint64_t a1, uint64_t a
   *(v8 + 24) = -1;
   v9 = swift_allocObject();
   *(v9 + 16) = thunk for @callee_guaranteed () -> (@error @owned Error)partial apply;
-  *(v9 + 24) = v15;
+  *(v9 + 24) = v14;
   type metadata accessor for UIView();
   v10 = swift_allocObject();
   v10[2] = v8;
@@ -4909,7 +3501,7 @@ uint64_t static UIView.animate(with:changes:completion:)(uint64_t a1, uint64_t a
   *(v11 + 16) = closure #1 in static UIView.animate(_:changes:completion:)partial apply;
   *(v11 + 24) = v7;
 
-  outlined copy of AppIntentExecutor?(a4);
+  outlined copy of AppIntentExecutor?(a4, a5);
   static UIView.animate(bridgedAnimation:animations:completion:)();
 
   LOBYTE(a5) = swift_isEscapingClosureAtFileLocation();
@@ -4931,15 +3523,16 @@ LABEL_6:
 
   if ((v12 & 1) == 0)
   {
+
+    return;
   }
 
 LABEL_7:
-  v16 = *(v8 + 16);
-  v14 = v16;
+  v15 = *(v8 + 16);
+  v13 = v15;
   type metadata accessor for Error();
-  result = swift_willThrowTypedImpl();
+  swift_willThrowTypedImpl();
   __break(1u);
-  return result;
 }
 
 uint64_t partial apply for closure #1 in static UIView.animate(_:changes:completion:)()
@@ -4953,10 +3546,10 @@ uint64_t partial apply for closure #1 in static UIView.animate(_:changes:complet
   return result;
 }
 
-uint64_t static UIView.animate(_:animations:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void static UIView.animate(_:animations:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[2] = a2;
-  v15[3] = a3;
+  v14[2] = a2;
+  v14[3] = a3;
   v7 = swift_allocObject();
   *(v7 + 16) = a4;
   *(v7 + 24) = a5;
@@ -4965,7 +3558,7 @@ uint64_t static UIView.animate(_:animations:completion:)(uint64_t a1, uint64_t a
   *(v8 + 24) = -1;
   v9 = swift_allocObject();
   *(v9 + 16) = thunk for @callee_guaranteed () -> (@error @owned Error)partial apply;
-  *(v9 + 24) = v15;
+  *(v9 + 24) = v14;
   type metadata accessor for UIView();
   v10 = swift_allocObject();
   v10[2] = v8;
@@ -4996,18 +3589,19 @@ LABEL_6:
 
   if ((v12 & 1) == 0)
   {
+
+    return;
   }
 
 LABEL_7:
-  v16 = *(v8 + 16);
-  v14 = v16;
+  v15 = *(v8 + 16);
+  v13 = v15;
   type metadata accessor for Error();
-  result = swift_willThrowTypedImpl();
+  swift_willThrowTypedImpl();
   __break(1u);
-  return result;
 }
 
-uint64_t partial apply for closure #1 in static UIView.animate(_:animations:completion:)(char a1, unsigned int a2)
+uint64_t partial apply for closure #1 in static UIView.animate(_:animations:completion:)(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5019,7 +3613,7 @@ uint64_t partial apply for closure #1 in static UIView.animate(_:animations:comp
     v3 = a2;
   }
 
-  return (*(v2 + 16))(v3);
+  return (*(v2 + 16))(v3, a2);
 }
 
 Swift::Int UIView.AnimationResult.hashValue.getter(unsigned __int8 a1)
@@ -5034,7 +3628,7 @@ unint64_t lazy protocol witness table accessor for type UIView.AnimationResult a
   result = lazy protocol witness table cache variable for type UIView.AnimationResult and conformance UIView.AnimationResult;
   if (!lazy protocol witness table cache variable for type UIView.AnimationResult and conformance UIView.AnimationResult)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for UIView.AnimationResult, &type metadata for UIView.AnimationResult, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type UIView.AnimationResult and conformance UIView.AnimationResult);
   }
 
@@ -5060,39 +3654,41 @@ uint64_t partial apply for closure #1 in closure #1 in closure #1 in static UIKi
   return result;
 }
 
-uint64_t key path getter for EnvironmentValues.isHoverEffectEnabled : EnvironmentValues@<X0>(_BYTE *a1@<X8>)
+uint64_t key path getter for EnvironmentValues.isHoverEffectEnabled : EnvironmentValues@<X0>(_BYTE *a2@<X8>)
 {
   result = EnvironmentValues.isHoverEffectEnabled.getter();
-  *a1 = result & 1;
+  *a2 = result & 1;
   return result;
 }
 
 uint64_t View.hoverEffect(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v8 = *a1;
-  lazy protocol witness table accessor for type HoverEffect and conformance HoverEffect();
-  return View.hoverEffect<A>(_:isEnabled:)(&v8, 1, a2, &type metadata for HoverEffect, a3, a4);
+  v9 = *a1;
+  v7 = lazy protocol witness table accessor for type HoverEffect and conformance HoverEffect();
+  return View.hoverEffect<A>(_:isEnabled:)(&v9, 1u, a2, &type metadata for HoverEffect, a3, v7, a4);
 }
 
-uint64_t View.hoverEffect(_:isEnabled:)@<X0>(uint64_t *a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+uint64_t View.hoverEffect(_:isEnabled:)@<X0>(uint64_t *a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = *a1;
-  lazy protocol witness table accessor for type HoverEffect and conformance HoverEffect();
-  return View.hoverEffect<A>(_:isEnabled:)(&v10, a2, a3, &type metadata for HoverEffect, a4, a5);
+  v11 = *a1;
+  v9 = lazy protocol witness table accessor for type HoverEffect and conformance HoverEffect();
+  return View.hoverEffect<A>(_:isEnabled:)(&v11, a2, a3, &type metadata for HoverEffect, a4, v9, a5);
 }
 
-uint64_t View.defaultHoverEffect(_:)()
+double View.defaultHoverEffect(_:)(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   View.environment<A>(_:_:)();
+
+  return result;
 }
 
-uint64_t EnvironmentValues.defaultHoverEffect.getter()
+void EnvironmentValues.defaultHoverEffect.getter()
 {
-  if (*(v0 + 8))
+  if (*(v1 + 8))
   {
     type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>();
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>, MEMORY[0x1E697FE40]);
 
     PropertyList.Tracker.value<A>(_:for:)();
   }
@@ -5100,54 +3696,60 @@ uint64_t EnvironmentValues.defaultHoverEffect.getter()
   else
   {
     type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>();
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>);
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>, MEMORY[0x1E697FE40]);
 
-    return PropertyList.subscript.getter();
+    PropertyList.subscript.getter();
   }
 }
 
-uint64_t EnvironmentValues.defaultHoverEffect.setter()
+double EnvironmentValues.defaultHoverEffect.setter(uint64_t *a1)
 {
   type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>();
-  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>, MEMORY[0x1E697FE40]);
 
   PropertyList.subscript.setter();
-  if (*(v0 + 8))
+  if (*(v1 + 8))
   {
     PropertyList.Tracker.invalidateValue<A>(for:from:to:)();
   }
+
+  return result;
 }
 
-uint64_t View.defaultHoverEffect<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+double View.defaultHoverEffect<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a3 - 8);
+  v7 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getKeyPath();
-  (*(v5 + 16))(v7, a1, a3);
-  HoverEffect.init<A>(_:)(v7, a3, &v10);
-  v9 = v10;
+  (*(v7 + 16))(v9, a1, a3);
+  HoverEffect.init<A>(_:)(v9, a3, &v12);
+  v11 = v12;
   View.environment<A>(_:_:)();
+
+  return result;
 }
 
 uint64_t HoverEffect.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for _AnyHoverEffectBox();
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for _AnyHoverEffectBox(0, v9, v10, v11);
   (*(v6 + 16))(v8, a1, a2);
-  v9 = TransformBox.__allocating_init(_:)(v8);
+  v12 = TransformBox.__allocating_init(_:)(v8);
   result = (*(v6 + 8))(a1, a2);
-  *a3 = v9;
+  *a3 = v12;
   return result;
 }
 
-uint64_t View.hoverEffectDisabled(_:)(char a1)
+double View.hoverEffectDisabled(_:)(char a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
   *(swift_allocObject() + 16) = a1;
   View.transformEnvironment<A>(_:transform:)();
+
+  return result;
 }
 
 void type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>()
@@ -5219,7 +3821,7 @@ uint64_t _InternalHoverEffectBox.systemHoverEffect.getter(uint64_t a1)
   return (*(v4 + 8))(v7, v3);
 }
 
-void (*EnvironmentValues.defaultHoverEffect.modify(void *a1))(void **a1, char a2)
+void (*EnvironmentValues.defaultHoverEffect.modify(void *a1))(uint64_t **a1, char a2)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5237,7 +3839,7 @@ void (*EnvironmentValues.defaultHoverEffect.modify(void *a1))(void **a1, char a2
   v4 = v1[1];
   v3[4] = v4;
   type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>();
-  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>, MEMORY[0x1E697FE40]);
   if (v4)
   {
 
@@ -5252,13 +3854,13 @@ void (*EnvironmentValues.defaultHoverEffect.modify(void *a1))(void **a1, char a2
   return EnvironmentValues.defaultHoverEffect.modify;
 }
 
-void EnvironmentValues.defaultHoverEffect.modify(void **a1, char a2)
+void EnvironmentValues.defaultHoverEffect.modify(uint64_t **a1, char a2)
 {
   v3 = *a1;
   (*a1)[1] = **a1;
   v4 = v3[4];
   type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>();
-  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>);
+  lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(&lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>, type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey>, MEMORY[0x1E697FE40]);
   if (a2)
   {
     swift_retain_n();
@@ -5315,47 +3917,47 @@ uint64_t SystemHoverEffectViewModifier.body(content:)@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-void *__swift_initWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_initWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithCopy_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithCopy_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void *__swift_assignWithTake_strong(void *a1, void *a2)
+uint64_t *__swift_assignWithTake_strong(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
   return a1;
 }
 
-void type metadata accessor for _EnvironmentKeyWritingModifier<HoverEffect?>()
+void type metadata accessor for _EnvironmentKeyWritingModifier<HoverEffect?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<HoverEffect?>)
   {
     type metadata accessor for HoverEffect?(255, &lazy cache variable for type metadata for HoverEffect?, &type metadata for HoverEffect, MEMORY[0x1E69E6720]);
-    v0 = type metadata accessor for _EnvironmentKeyWritingModifier();
-    if (!v1)
+    v1 = type metadata accessor for _EnvironmentKeyWritingModifier();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<HoverEffect?>);
+      atomic_store(v1, &lazy cache variable for type metadata for _EnvironmentKeyWritingModifier<HoverEffect?>);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.DefaultHoverEffectKey> and conformance EnvironmentPropertyKey<A>(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    result = swift_getWitnessTable();
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
     atomic_store(result, a1);
   }
 
@@ -5509,13 +4111,13 @@ LABEL_5:
   return a1;
 }
 
-void destroy for AnyHoverEffectContainer.ChildEffect(uint64_t a1)
+void destroy for AnyHoverEffectContainer.ChildEffect(void *a1)
 {
 
-  v2 = *(a1 + 8);
+  v2 = a1[1];
 }
 
-void *assignWithCopy for AnyHoverEffectContainer.ChildEffect(void *a1, void *a2)
+uint64_t *assignWithCopy for AnyHoverEffectContainer.ChildEffect(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
@@ -5527,10 +4129,10 @@ void *assignWithCopy for AnyHoverEffectContainer.ChildEffect(void *a1, void *a2)
   return a1;
 }
 
-uint64_t assignWithTake for AnyHoverEffectContainer.ChildEffect(uint64_t a1, _OWORD *a2)
+void *assignWithTake for AnyHoverEffectContainer.ChildEffect(void *a1, _OWORD *a2)
 {
 
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   *a1 = *a2;
 
   return a1;
@@ -5561,20 +4163,20 @@ unint64_t type metadata accessor for InternalCustomHoverEffect()
 
 uint64_t outlined destroy of InternalCustomHoverEffect?(uint64_t a1)
 {
-  type metadata accessor for InternalCustomHoverEffect?();
+  type metadata accessor for InternalCustomHoverEffect?(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void type metadata accessor for InternalCustomHoverEffect?()
+void type metadata accessor for InternalCustomHoverEffect?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for InternalCustomHoverEffect?)
   {
     type metadata accessor for InternalCustomHoverEffect();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for InternalCustomHoverEffect?);
+      atomic_store(v1, &lazy cache variable for type metadata for InternalCustomHoverEffect?);
     }
   }
 }
@@ -5584,12 +4186,12 @@ uint64_t initializeWithCopy for SystemHoverEffectViewModifier(uint64_t a1, uint6
   *a1 = *a2;
   v4 = *(a2 + 8);
   v5 = *(a2 + 16);
-  outlined copy of Environment<Bool>.Content(v4, v5);
+  outlined copy of Environment<Bool>.Content();
   *(a1 + 8) = v4;
   *(a1 + 16) = v5;
   v6 = *(a2 + 24);
   v7 = *(a2 + 32);
-  outlined copy of Environment<Color?>.Content(v6, v7);
+  outlined copy of Environment<Color?>.Content(v6);
   *(a1 + 24) = v6;
   *(a1 + 32) = v7;
   *(a1 + 33) = *(a2 + 33);
@@ -5601,7 +4203,7 @@ uint64_t assignWithCopy for SystemHoverEffectViewModifier(uint64_t a1, uint64_t 
   *a1 = *a2;
   v4 = *(a2 + 8);
   v5 = *(a2 + 16);
-  outlined copy of Environment<Bool>.Content(v4, v5);
+  outlined copy of Environment<Bool>.Content();
   v6 = *(a1 + 8);
   v7 = *(a1 + 16);
   *(a1 + 8) = v4;
@@ -5609,12 +4211,11 @@ uint64_t assignWithCopy for SystemHoverEffectViewModifier(uint64_t a1, uint64_t 
   outlined consume of Environment<Bool>.Content(v6, v7);
   v8 = *(a2 + 24);
   v9 = *(a2 + 32);
-  outlined copy of Environment<Color?>.Content(v8, v9);
+  outlined copy of Environment<Color?>.Content(v8);
   v10 = *(a1 + 24);
-  v11 = *(a1 + 32);
   *(a1 + 24) = v8;
   *(a1 + 32) = v9;
-  outlined consume of Environment<Color?>.Content(v10, v11);
+  outlined consume of Environment<Color?>.Content(v10);
   *(a1 + 33) = *(a2 + 33);
   *(a1 + 34) = *(a2 + 34);
   return a1;
@@ -5642,10 +4243,9 @@ uint64_t assignWithTake for SystemHoverEffectViewModifier(uint64_t a1, uint64_t 
   outlined consume of Environment<Bool>.Content(v6, v7);
   v8 = *(a2 + 32);
   v9 = *(a1 + 24);
-  v10 = *(a1 + 32);
   *(a1 + 24) = *(a2 + 24);
   *(a1 + 32) = v8;
-  outlined consume of Environment<Color?>.Content(v9, v10);
+  outlined consume of Environment<Color?>.Content(v9);
   *(a1 + 33) = *(a2 + 33);
   *(a1 + 34) = *(a2 + 34);
   return a1;
@@ -5709,40 +4309,41 @@ uint64_t storeEnumTagSinglePayload for SystemHoverEffectViewModifier(uint64_t re
   return result;
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier>()
+void type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier>)
   {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier>);
     }
   }
 }
 
-void type metadata accessor for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>()
+void type metadata accessor for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>)
   {
     type metadata accessor for CustomHoverEffectModifier<HoverEffect>(255, &lazy cache variable for type metadata for _ViewModifier_Content<SystemHoverEffectViewModifier>, lazy protocol witness table accessor for type SystemHoverEffectViewModifier and conformance SystemHoverEffectViewModifier, &type metadata for SystemHoverEffectViewModifier, MEMORY[0x1E697FDE8]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<SystemHoverEffectViewModifier>, PortalGroupRendererEffect>, PointerHoverEffectModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
-    a3();
-    result = swift_getWitnessTable();
+    v8 = a2(255);
+    v9[0] = a3();
+    v9[1] = a4;
+    result = swift_getWitnessTable(MEMORY[0x1E697E858], v8, v9);
     atomic_store(result, a1);
   }
 
@@ -5755,36 +4356,39 @@ unint64_t lazy protocol witness table accessor for type _ViewModifier_Content<Sy
   if (!lazy protocol witness table cache variable for type _ViewModifier_Content<SystemHoverEffectViewModifier> and conformance _ViewModifier_Content<A>)
   {
     type metadata accessor for CustomHoverEffectModifier<HoverEffect>(255, &lazy cache variable for type metadata for _ViewModifier_Content<SystemHoverEffectViewModifier>, lazy protocol witness table accessor for type SystemHoverEffectViewModifier and conformance SystemHoverEffectViewModifier, &type metadata for SystemHoverEffectViewModifier, MEMORY[0x1E697FDE8]);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697FDF8], v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ViewModifier_Content<SystemHoverEffectViewModifier> and conformance _ViewModifier_Content<A>);
   }
 
   return result;
 }
 
-uint64_t View.repeatingRotationEffect(anchor:duration:)()
+double View.repeatingRotationEffect(anchor:duration:)(uint64_t a1, uint64_t a2, __n128 a3, double a4, double a5)
 {
-  static Animation.linear(duration:)();
-  View.repeatingRotationEffect(from:to:anchor:animation:)();
+  v8 = a3.n128_f64[0];
+  v9 = static Animation.linear(duration:)();
+  View.repeatingRotationEffect(from:to:anchor:animation:)(v9, a1, a2, 0.0, 6.28318531, v8, a4);
+
+  return result;
 }
 
-uint64_t View.repeatingRotationEffect(from:to:anchor:animation:)()
+void View.repeatingRotationEffect(from:to:anchor:animation:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7)
 {
   Animation.repeatForever(autoreverses:)();
-  type metadata accessor for ModifiedContent();
-  swift_getWitnessTable();
+  v8 = type metadata accessor for ModifiedContent();
+  v9[0] = a3;
+  v9[1] = MEMORY[0x1E697E900];
+  swift_getWitnessTable(MEMORY[0x1E697E858], v8, v9);
   View.appearanceAnimation<A>(animation:strategy:modifier:)();
 }
 
-uint64_t View.repeatingScaleEffect(from:to:anchor:animation:)()
-{
-  return View.repeatingScaleEffect(from:to:anchor:animation:)();
-}
-
+void View.repeatingScaleEffect(from:to:anchor:animation:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
   Animation.repeatForever(autoreverses:)();
-  type metadata accessor for ModifiedContent();
-  swift_getWitnessTable();
+  v10 = type metadata accessor for ModifiedContent();
+  v11[0] = a3;
+  v11[1] = MEMORY[0x1E697E070];
+  swift_getWitnessTable(MEMORY[0x1E697E858], v10, v11);
   default argument 1 of View.appearanceAnimation<A>(animation:strategy:modifier:)();
   View.appearanceAnimation<A>(animation:strategy:modifier:)();
 }
@@ -5863,7 +4467,7 @@ id UIKitNavigationController.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-id UIKitTabBarController.init()()
+char *UIKitTabBarController.init()()
 {
   ObjectType = swift_getObjectType();
   v2 = OBJC_IVAR____TtC7SwiftUI21UIKitTabBarController_popoverBridge;
@@ -5931,7 +4535,7 @@ void @objc UIKitTabBarController._observeScrollViewDidScroll(_:)(void *a1, uint6
   PlatformBarUpdater.callAsFunction(context:)(0, v8);
 }
 
-id @objc UIKitSplitViewController.init(coder:)(_BYTE *a1, uint64_t a2, void *a3, void *a4)
+_BYTE *@objc UIKitSplitViewController.init(coder:)(_BYTE *a1, uint64_t a2, void *a3, void *a4)
 {
   ObjectType = swift_getObjectType();
   a1[*a4] = 0;
@@ -5947,7 +4551,7 @@ id @objc UIKitSplitViewController.init(coder:)(_BYTE *a1, uint64_t a2, void *a3,
   return v9;
 }
 
-id @objc UIKitSplitViewController.init(nibName:bundle:)(_BYTE *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
+_BYTE *@objc UIKitSplitViewController.init(nibName:bundle:)(_BYTE *a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
   ObjectType = swift_getObjectType();
   if (a3)
@@ -6043,14 +4647,14 @@ unint64_t lazy protocol witness table accessor for type ButtonRole.Role and conf
   result = lazy protocol witness table cache variable for type ButtonRole.Role and conformance ButtonRole.Role;
   if (!lazy protocol witness table cache variable for type ButtonRole.Role and conformance ButtonRole.Role)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for ButtonRole.Role, &type metadata for ButtonRole.Role, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ButtonRole.Role and conformance ButtonRole.Role);
   }
 
   return result;
 }
 
-uint64_t static _AppearanceActionModifier._makeScene(modifier:inputs:body:)(uint64_t a1, __int128 *a2, uint64_t (*a3)(uint64_t, __int128 *))
+uint64_t static _AppearanceActionModifier._makeScene(modifier:inputs:body:)(unsigned int *a1, __int128 *a2, uint64_t (*a3)(uint64_t, __int128 *))
 {
   v18 = *MEMORY[0x1E69E9840];
   v7 = *a2;
@@ -6077,14 +4681,14 @@ unint64_t lazy protocol witness table accessor for type AppearanceEffect and con
   result = lazy protocol witness table cache variable for type AppearanceEffect and conformance AppearanceEffect;
   if (!lazy protocol witness table cache variable for type AppearanceEffect and conformance AppearanceEffect)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697E920], MEMORY[0x1E697E928], v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AppearanceEffect and conformance AppearanceEffect);
   }
 
   return result;
 }
 
-uint64_t static LegacyBaseModifier._makeView(modifier:inputs:body:)()
+uint64_t static LegacyBaseModifier._makeView(modifier:inputs:body:)(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for NavigationLinkPresentedValue?(0, &lazy cache variable for type metadata for _GraphValue<LegacyBaseModifier>, &unk_1EFFC5740, MEMORY[0x1E697DDB8]);
   _GraphValue.subscript.getter();
@@ -6102,11 +4706,12 @@ _BYTE *protocol witness for Rule.value.getter in conformance LegacyBaseModifier.
   return result;
 }
 
-uint64_t BaseModifier.SelectionStateBox.__deallocating_deinit()
+double BaseModifier.SelectionStateBox.__deallocating_deinit()
 {
   swift_weakDestroy();
 
-  return swift_deallocClassInstance();
+  swift_deallocClassInstance();
+  return result;
 }
 
 uint64_t assignWithCopy for NavigationSelectionModifier(uint64_t result, uint64_t a2)
@@ -6192,7 +4797,7 @@ LABEL_8:
     if (v3)
     {
       v5 = a1;
-      v6 = a1 + 8;
+      v6 = (a1 + 8);
       if (v4)
       {
         __swift_destroy_boxed_opaque_existential_1(v6);
@@ -6402,7 +5007,7 @@ unint64_t lazy protocol witness table accessor for type AnyNavigationLinkPresent
   if (!lazy protocol witness table cache variable for type AnyNavigationLinkPresentedValueStorage<AnyHashable> and conformance AnyNavigationLinkPresentedValueStorage<A>)
   {
     type metadata accessor for AnyNavigationLinkPresentedValueStorage<AnyHashable>(255, &lazy cache variable for type metadata for AnyNavigationLinkPresentedValueStorage<AnyHashable>, MEMORY[0x1E69E69B8], MEMORY[0x1E69E69C0], type metadata accessor for AnyNavigationLinkPresentedValueStorage);
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable("\\s\n", v3, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type AnyNavigationLinkPresentedValueStorage<AnyHashable> and conformance AnyNavigationLinkPresentedValueStorage<A>);
   }
 
@@ -6414,7 +5019,7 @@ unint64_t lazy protocol witness table accessor for type LegacyBaseModifier.Child
   result = lazy protocol witness table cache variable for type LegacyBaseModifier.Child and conformance LegacyBaseModifier.Child;
   if (!lazy protocol witness table cache variable for type LegacyBaseModifier.Child and conformance LegacyBaseModifier.Child)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for LegacyBaseModifier.Child, &unk_1EFFC5838, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type LegacyBaseModifier.Child and conformance LegacyBaseModifier.Child);
   }
 
@@ -6505,27 +5110,27 @@ uint64_t storeEnumTagSinglePayload for BaseModifier.Child(uint64_t result, int a
   return result;
 }
 
-uint64_t assignWithCopy for BaseModifier.SelectionObserver(uint64_t a1, uint64_t a2)
+uint64_t *assignWithCopy for BaseModifier.SelectionObserver(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
+  *(a1 + 2) = *(a2 + 2);
+  *(a1 + 3) = *(a2 + 3);
+  *(a1 + 4) = *(a2 + 4);
+  *(a1 + 5) = *(a2 + 5);
+  *(a1 + 6) = *(a2 + 6);
+  *(a1 + 7) = *(a2 + 7);
   *(a1 + 8) = *(a2 + 8);
-  *(a1 + 12) = *(a2 + 12);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 20) = *(a2 + 20);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 28) = *(a2 + 28);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 36) = *(a2 + 36);
+  *(a1 + 9) = *(a2 + 9);
   return a1;
 }
 
-uint64_t assignWithTake for BaseModifier.SelectionObserver(uint64_t a1, uint64_t a2)
+uint64_t *assignWithTake for BaseModifier.SelectionObserver(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 1) = *(a2 + 1);
+  *(a1 + 3) = *(a2 + 3);
   return a1;
 }
 
@@ -6548,7 +5153,7 @@ uint64_t _ArchivedViewStates.init()@<X0>(void *a1@<X8>)
   return ArchivedViewCore.Metadata.init(majorVersion:stateAttachments:stableIDAttachment:dataAttachment:archiveID:deploymentVersion:intelligenceContentAttachments:)();
 }
 
-uint64_t _ArchivedViewStates.init(data:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+double _ArchivedViewStates.init(data:)@<D0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   type metadata accessor for DataArchiveReader();
   outlined copy of Data._Representation(a1, a2);
@@ -6572,27 +5177,27 @@ void _ArchivedViewStates.init(contentsOf:)(void *a1@<X0>, void *a2@<X8>)
   }
 }
 
-uint64_t _ArchivedViewStates.init<A>(data:delegate:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+void _ArchivedViewStates.init<A>(data:delegate:)(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
-  v18[1] = a5;
-  v19 = a6;
+  v19 = a5;
+  v20 = a6;
   v11 = *(a4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for DataArchiveReader();
   outlined copy of Data._Representation(a1, a2);
   v14 = DataArchiveReader.__allocating_init(data:)();
   if (!v6)
   {
-    v15 = v14;
-    type metadata accessor for _AnyArchivedViewDelegate();
+    v16 = v14;
+    type metadata accessor for _AnyArchivedViewDelegate(0, a4, v19, v15);
     (*(v11 + 16))(v13, a3, a4);
-    v16 = _AnyArchivedViewDelegate.__allocating_init(_:)(v13);
-    _ArchivedViewStates.init(reader:delegate:)(v15, v16, v19);
+    v17 = _AnyArchivedViewDelegate.__allocating_init(_:)(v13);
+    _ArchivedViewStates.init(reader:delegate:)(v16, v17, v20);
   }
 
   (*(v11 + 8))(a3, a4);
-  return outlined consume of Data._Representation(a1, a2);
+  outlined consume of Data._Representation(a1, a2);
 }
 
 char *_AnyArchivedViewDelegate.__allocating_init(_:)(uint64_t a1)
@@ -6604,16 +5209,16 @@ char *_AnyArchivedViewDelegate.__allocating_init(_:)(uint64_t a1)
 
 uint64_t _ArchivedViewStates.init<A>(contentsOf:delegate:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v19 = a4;
-  v20 = a5;
-  v21 = a2;
+  v20 = a4;
+  v21 = a5;
+  v22 = a2;
   v8 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for URL();
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (URL.isFileURL.getter())
   {
     type metadata accessor for FileArchiveReader();
@@ -6621,14 +5226,14 @@ uint64_t _ArchivedViewStates.init<A>(contentsOf:delegate:)@<X0>(uint64_t a1@<X0>
     v15 = FileArchiveReader.__allocating_init(url:)();
     if (!v5)
     {
-      v16 = v15;
-      type metadata accessor for _AnyArchivedViewDelegate();
-      (*(v8 + 16))(v10, v21, a3);
-      v17 = _AnyArchivedViewDelegate.__allocating_init(_:)(v10);
-      _ArchivedViewStates.init(reader:delegate:)(v16, v17, v20);
+      v17 = v15;
+      type metadata accessor for _AnyArchivedViewDelegate(0, a3, v20, v16);
+      (*(v8 + 16))(v10, v22, a3);
+      v18 = _AnyArchivedViewDelegate.__allocating_init(_:)(v10);
+      _ArchivedViewStates.init(reader:delegate:)(v17, v18, v21);
     }
 
-    (*(v8 + 8))(v21, a3);
+    (*(v8 + 8))(v22, a3);
     return (*(v12 + 8))(a1, v11);
   }
 
@@ -6641,28 +5246,28 @@ uint64_t _ArchivedViewStates.init<A>(contentsOf:delegate:)@<X0>(uint64_t a1@<X0>
   return result;
 }
 
-void _ArchivedViewStates.init<A>(contentsOf:delegate:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void _ArchivedViewStates.init<A>(contentsOf:delegate:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
-  v16 = a4;
-  v8 = *(a3 - 8);
+  v19 = a5;
+  v10 = *(a3 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for FileArchiveReader();
-  v11 = a1;
-  v12 = FileArchiveReader.__allocating_init(file:)();
-  if (!v4)
+  v13 = a1;
+  v14 = FileArchiveReader.__allocating_init(file:)();
+  if (!v5)
   {
-    v13 = v12;
-    type metadata accessor for _AnyArchivedViewDelegate();
-    (*(v8 + 16))(v10, a2, a3);
-    v14 = _AnyArchivedViewDelegate.__allocating_init(_:)(v10);
-    _ArchivedViewStates.init(reader:delegate:)(v13, v14, v16);
+    v16 = v14;
+    type metadata accessor for _AnyArchivedViewDelegate(0, a3, a4, v15);
+    (*(v10 + 16))(v12, a2, a3);
+    v17 = _AnyArchivedViewDelegate.__allocating_init(_:)(v12);
+    _ArchivedViewStates.init(reader:delegate:)(v16, v17, v19);
   }
 
-  (*(v8 + 8))(a2, a3);
+  (*(v10 + 8))(a2, a3);
 }
 
-uint64_t _ArchivedViewStates.subscript.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t _ArchivedViewStates.subscript.getter@<X0>(int64_t a1@<X0>, uint64_t a2@<X8>)
 {
   type metadata accessor for MutableBox<[Int : Any]>(0, &lazy cache variable for type metadata for _ArchivedView?, type metadata accessor for _ArchivedView, MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v4 - 8);
@@ -6738,12 +5343,12 @@ LABEL_8:
           goto LABEL_22;
         }
 
-        v11 = v14.n128_u64[0];
+        v11 = v14;
         v6 = 0;
         v7 = 0 >> 96;
 
         v8 = a1[1];
-        v5 = v14.n128_u64[0];
+        v5 = v14;
         if (v8 >= a1[2])
         {
           goto LABEL_24;
@@ -6771,7 +5376,7 @@ LABEL_23:
 
       else
       {
-        v14.n128_u64[0] = v9;
+        *&v14 = v9;
         ProtobufDecoder.skipField(_:)();
         if (v2)
         {
@@ -6828,19 +5433,19 @@ uint64_t _ArchivedViewStates.attachment(at:)(uint64_t a1)
 {
   if (*v1)
   {
-    v8 = *v1;
-    v9 = a1;
+    v9 = *v1;
+    v10 = a1;
     if ((a1 & 0x8000000000000000) == 0)
     {
 
       if (ArchiveReader.endIndex.getter() > a1)
       {
         type metadata accessor for ArchiveReader();
-        lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type ArchiveReader and conformance ArchiveReader, MEMORY[0x1E697E0D0]);
+        lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type ArchiveReader and conformance ArchiveReader, MEMORY[0x1E697E0D0], MEMORY[0x1E697E0D8]);
         v3 = protocol witness for Collection.subscript.read in conformance ArchiveReader();
         v5 = *v4;
-        outlined copy of Data._Representation(*v4, *(v4 + 8));
-        v3(v7, 0);
+        v6 = outlined copy of Data._Representation(*v4, *(v4 + 8));
+        v3(v8, 0, v6);
 
         return v5;
       }
@@ -7019,11 +5624,11 @@ void *protocol witness for Collection.formIndex(after:) in conformance _Archived
 void protocol witness for Sequence.makeIterator() in conformance _ArchivedViewStates(uint64_t a1@<X8>)
 {
   outlined init with take of _ArchivedView(v1, a1, type metadata accessor for _ArchivedViewStates);
-  type metadata accessor for IndexingIterator<_ArchivedViewStates>();
+  type metadata accessor for IndexingIterator<_ArchivedViewStates>(0);
   *(a1 + *(v3 + 36)) = 0;
 }
 
-size_t protocol witness for Sequence._copyToContiguousArray() in conformance _ArchivedViewStates()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance _ArchivedViewStates()
 {
   v1 = specialized _copyCollectionToContiguousArray<A>(_:)(v0);
   outlined destroy of _ArchivedView(v0, type metadata accessor for _ArchivedViewStates);
@@ -7084,7 +5689,7 @@ uint64_t protocol witness for Encodable.encode(to:) in conformance _ArchivedView
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
+  __swift_mutable_project_boxed_opaque_existential_1(v2, v2[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
   return __swift_destroy_boxed_opaque_existential_1(v2);
 }
@@ -7093,7 +5698,7 @@ uint64_t _ArchivedViewStates.DeploymentVersion.encode(to:)(void *a1)
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
+  __swift_mutable_project_boxed_opaque_existential_1(v2, v2[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
   return __swift_destroy_boxed_opaque_existential_1(v2);
 }
@@ -7142,11 +5747,12 @@ uint64_t _AnyArchivedViewDelegate.resolveImage(uuid:)(uint64_t a1)
   return swift_endAccess();
 }
 
-uint64_t _AnyArchivedViewDelegate.__deallocating_deinit()
+double _AnyArchivedViewDelegate.__deallocating_deinit()
 {
   (*(*(*(*v0 + class metadata base offset for _AnyArchivedViewDelegate) - 8) + 8))(&v0[*(*v0 + class metadata base offset for _AnyArchivedViewDelegate + 16)]);
 
-  return swift_deallocClassInstance();
+  swift_deallocClassInstance();
+  return result;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance ArchivedViewState.ID()
@@ -7165,31 +5771,33 @@ void protocol witness for Hashable.hash(into:) in conformance ArchivedViewState.
   Hasher._combine(_:)(v1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchivedViewState.ID()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ArchivedViewState.ID(uint64_t a1)
 {
-  v1 = *(v0 + 20);
+  v2 = *(v1 + 20);
   Hasher.init(_seed:)();
   Hasher.combine(bytes:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
-uint64_t InterpolatableArchiveContent.Init.value.getter@<X0>(char *a1@<X8>)
+double InterpolatableArchiveContent.Init.value.getter@<D0>(char *a2@<X8>)
 {
-  v2 = type metadata accessor for _ArchivedView(0);
-  v3 = *(AGGraphGetValue() + 32);
+  v3 = type metadata accessor for _ArchivedView(0);
+  v4 = *(AGGraphGetValue() + 32);
   Value = AGGraphGetValue();
-  v5 = *(v2 + 24);
-  v6 = type metadata accessor for InterpolatableArchiveContent(0);
-  v7 = v6[5];
-  v8 = type metadata accessor for UUID();
-  (*(*(v8 - 8) + 16))(&a1[v7], Value + v5, v8);
-  v9 = *(AGGraphGetValue() + *(v2 + 28)) != 0;
+  v6 = *(v3 + 24);
+  v7 = type metadata accessor for InterpolatableArchiveContent(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for UUID();
+  (*(*(v9 - 8) + 16))(&a2[v8], Value + v6, v9);
+  v10 = *(AGGraphGetValue() + *(v3 + 28)) != 0;
   type metadata accessor for MutableBox<DisplayList.HostedViewState>(0, &lazy cache variable for type metadata for [ArchivedViewState], &type metadata for ArchivedViewState, MEMORY[0x1E69E62F8]);
-  v10 = *AGGraphGetValue();
-  *a1 = v3;
-  a1[v6[6]] = v9;
-  *&a1[v6[7]] = v10;
+  v11 = *AGGraphGetValue();
+  *a2 = v4;
+  a2[v7[6]] = v10;
+  *&a2[v7[7]] = v11;
+
+  return result;
 }
 
 uint64_t protocol witness for static Rule.initialValue.getter in conformance InterpolatableArchiveContent.Init@<X0>(uint64_t a1@<X8>)
@@ -7245,35 +5853,36 @@ LABEL_9:
   return result;
 }
 
-uint64_t static ArchivedDisplayList.scrapeContent(from:)@<X0>(uint64_t a1@<X8>)
+double static ArchivedDisplayList.scrapeContent(from:)@<D0>(uint64_t a2@<X8>)
 {
-  v2 = type metadata accessor for _ArchivedView(0);
-  MEMORY[0x1EEE9AC00](v2);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for _ArchivedView(0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   AGGraphGetAttributeInfo();
   Value = AGGraphGetValue();
-  outlined init with copy of _ArchivedView(Value, v4, type metadata accessor for _ArchivedView);
-  v6 = &v4[*(v2 + 36)];
-  v7 = v6[1];
-  if (v7 >> 60 == 15)
+  outlined init with copy of _ArchivedView(Value, v5, type metadata accessor for _ArchivedView);
+  v7 = &v5[*(v3 + 36)];
+  v8 = v7[1];
+  if (v8 >> 60 == 15)
   {
-    result = outlined destroy of _ArchivedView(v4, type metadata accessor for _ArchivedView);
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    *(a1 + 32) = 1;
-    *(a1 + 40) = 0u;
-    *(a1 + 56) = 0u;
-    *(a1 + 72) = 0;
+    outlined destroy of _ArchivedView(v5, type metadata accessor for _ArchivedView);
+    result = 0.0;
+    *a2 = 0u;
+    *(a2 + 16) = 0u;
+    *(a2 + 32) = 1;
+    *(a2 + 40) = 0u;
+    *(a2 + 56) = 0u;
+    *(a2 + 72) = 0;
   }
 
   else
   {
-    v10 = *v6;
-    v11 = v7;
-    outlined copy of Data._Representation(v10, v7);
-    closure #1 in static ArchivedDisplayList.scrapeContent(from:)(&v10);
-    outlined destroy of _ArchivedView(v4, type metadata accessor for _ArchivedView);
-    return outlined consume of Data._Representation(v10, v11);
+    v11 = *v7;
+    v12 = v8;
+    outlined copy of Data._Representation(v11, v8);
+    closure #1 in static ArchivedDisplayList.scrapeContent(from:)(&v11);
+    outlined destroy of _ArchivedView(v5, type metadata accessor for _ArchivedView);
+    return outlined consume of Data._Representation(v11, v12);
   }
 
   return result;
@@ -7292,7 +5901,7 @@ uint64_t closure #1 in static ArchivedDisplayList.scrapeContent(from:)(uint64_t 
   return ScrapeableContent.Item.init(_:ids:_:position:size:transform:)();
 }
 
-uint64_t ArchivedAccessibilityAttachment.updateValue()()
+double ArchivedAccessibilityAttachment.updateValue()()
 {
   v1 = v0;
   v42 = *MEMORY[0x1E69E9840];
@@ -7378,7 +5987,7 @@ uint64_t ArchivedAccessibilityAttachment.updateValue()()
     v39 = 0;
     AGGraphSetOutputValue();
 
-    result = AGGraphGetValue();
+    AGGraphGetValue();
     if (v13)
     {
       v14 = *(v0 + 32);
@@ -7397,7 +6006,7 @@ unint64_t lazy protocol witness table accessor for type ProtobufDecoder.Decoding
   result = lazy protocol witness table cache variable for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError;
   if (!lazy protocol witness table cache variable for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(MEMORY[0x1E697E880], MEMORY[0x1E697E878], v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type ProtobufDecoder.DecodingError and conformance ProtobufDecoder.DecodingError);
   }
 
@@ -7406,21 +6015,22 @@ unint64_t lazy protocol witness table accessor for type ProtobufDecoder.Decoding
 
 uint64_t lazy protocol witness table accessor for type _ArchivedViewStates and conformance _ArchivedViewStates()
 {
-  return lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates);
+  return lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates, protocol conformance descriptor for _ArchivedViewStates);
 }
 
 {
-  return lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates);
+  return lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates, protocol conformance descriptor for _ArchivedViewStates);
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<_ArchivedViewStates> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<_ArchivedViewStates> and conformance <> Slice<A>(unint64_t *a1, uint64_t (*a2)(void), const char *a3)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Slice<_ArchivedViewStates>(255);
-    a2();
-    result = swift_getWitnessTable();
+    v8 = v7;
+    v9 = a2();
+    result = swift_getWitnessTable(a3, v8, &v9);
     atomic_store(result, a1);
   }
 
@@ -7432,7 +6042,7 @@ void type metadata accessor for Slice<_ArchivedViewStates>(uint64_t a1, unint64_
   if (!*a2)
   {
     v6 = type metadata accessor for _ArchivedViewStates(255);
-    v7 = lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates);
+    v7 = lazy protocol witness table accessor for type ArchiveReader and conformance ArchiveReader(&lazy protocol witness table cache variable for type _ArchivedViewStates and conformance _ArchivedViewStates, type metadata accessor for _ArchivedViewStates, protocol conformance descriptor for _ArchivedViewStates);
     v8 = a3(a1, v6, v7);
     if (!v9)
     {
@@ -7446,7 +6056,7 @@ unint64_t lazy protocol witness table accessor for type _ArchivedViewStates.Depl
   result = lazy protocol witness table cache variable for type _ArchivedViewStates.DeploymentVersion and conformance _ArchivedViewStates.DeploymentVersion;
   if (!lazy protocol witness table cache variable for type _ArchivedViewStates.DeploymentVersion and conformance _ArchivedViewStates.DeploymentVersion)
   {
-    result = swift_getWitnessTable();
+    result = swift_getWitnessTable(protocol conformance descriptor for _ArchivedViewStates.DeploymentVersion, &type metadata for _ArchivedViewStates.DeploymentVersion, v0, v1);
     atomic_store(result, &lazy protocol witness table cache variable for type _ArchivedViewStates.DeploymentVersion and conformance _ArchivedViewStates.DeploymentVersion);
   }
 
@@ -7500,7 +6110,7 @@ void *initializeBufferWithCopyOfBuffer for _ArchivedViewStates(void *a1, void *a
   return v5;
 }
 
-void *assignWithCopy for _ArchivedViewStates(void *a1, void *a2, int *a3)
+uint64_t *assignWithCopy for _ArchivedViewStates(uint64_t *a1, uint64_t *a2, int *a3)
 {
   *a1 = *a2;
 
@@ -7565,7 +6175,7 @@ void *initializeWithTake for _ArchivedViewStates(void *a1, void *a2, int *a3)
   return a1;
 }
 
-void *assignWithTake for _ArchivedViewStates(void *a1, void *a2, int *a3)
+uint64_t *assignWithTake for _ArchivedViewStates(uint64_t *a1, uint64_t *a2, int *a3)
 {
   *a1 = *a2;
 
@@ -7706,10 +6316,10 @@ uint64_t assignWithTake for _ArchivedView(uint64_t a1, uint64_t a2, int *a3)
   return a1;
 }
 
-uint64_t type metadata completion function for _AnyArchivedViewDelegate()
+uint64_t type metadata completion function for _AnyArchivedViewDelegate(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -7824,22 +6434,22 @@ uint64_t assignWithTake for ArchivedViewState(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t assignWithCopy for ArchivedDisplayList(uint64_t a1, uint64_t a2)
+uint64_t *assignWithCopy for ArchivedDisplayList(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 12) = *(a2 + 12);
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 2) = *(a2 + 2);
+  *(a1 + 3) = *(a2 + 3);
+  *(a1 + 4) = *(a2 + 4);
   return a1;
 }
 
-uint64_t assignWithTake for ArchivedDisplayList(uint64_t a1, uint64_t a2)
+uint64_t *assignWithTake for ArchivedDisplayList(uint64_t *a1, uint64_t *a2)
 {
   *a1 = *a2;
 
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
+  a1[1] = a2[1];
+  *(a1 + 4) = *(a2 + 4);
   return a1;
 }
 
@@ -8016,10 +6626,10 @@ uint64_t destructiveInjectEnumTag for _ArchivedViewStates.Error(uint64_t a1, uin
   return v5(a1, a2, 2, v4);
 }
 
-uint64_t type metadata completion function for _ArchivedViewStates.Error()
+uint64_t type metadata completion function for _ArchivedViewStates.Error(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initEnumMetadataSinglePayload();
     return 0;
@@ -8341,11 +6951,11 @@ LABEL_60:
                         v8[118] = *(v9 + 118);
                         *(v8 + 476) = *(v9 + 476);
                         *(v8 + 954) = v9[954];
-                        v103 = type metadata accessor for PlatformItemList.Item();
+                        v103 = type metadata accessor for PlatformItemList.Item(0);
                         v104 = v103[28];
                         __dst = v8 + v104;
                         v105 = &v9[v104];
-                        v106 = type metadata accessor for CommandOperation();
+                        v106 = type metadata accessor for CommandOperation(0);
                         v209 = *(v106 - 8);
                         v214 = *(v209 + 48);
                         v107 = v102;
@@ -8524,7 +7134,7 @@ LABEL_36:
           v51 = *(v9 + 23);
           v52 = v10;
           v53 = *(v9 + 25);
-          outlined copy of AccessibilityImageLabel(v50, v51, v19);
+          outlined copy of AccessibilityImageLabel(v50, v51, v19, v53);
           v8[22] = v50;
           v8[23] = v51;
           v8[24] = v19;
@@ -8559,7 +7169,7 @@ LABEL_36:
       goto LABEL_23;
     }
 
-    v31 = type metadata accessor for PlatformItemList.Item();
+    v31 = type metadata accessor for PlatformItemList.Item(0);
     v32 = *(v31 - 8);
     v14 = a2;
     if ((*(v32 + 48))(v9, 1, v31))
@@ -8653,7 +7263,7 @@ LABEL_122:
         v123 = *(v9 + 22);
         v124 = *(v9 + 23);
         v125 = *(v9 + 25);
-        outlined copy of AccessibilityImageLabel(v123, v124, v41);
+        outlined copy of AccessibilityImageLabel(v123, v124, v41, v125);
         v8[22] = v123;
         v8[23] = v124;
         v8[24] = v41;
@@ -8932,7 +7542,7 @@ LABEL_115:
             v177 = __dsta[28];
             v217 = v8 + v177;
             v178 = &v9[v177];
-            v179 = type metadata accessor for CommandOperation();
+            v179 = type metadata accessor for CommandOperation(0);
             v207 = *(v179 - 8);
             v211 = *(v207 + 48);
             v180 = v176;
@@ -9084,7 +7694,7 @@ void destroy for DialogActionContext(uint64_t a1, uint64_t a2)
 
       if (v7 != 0x1FFFFFFFELL)
       {
-        outlined consume of AccessibilityImageLabel(*(v4 + 176), *(v4 + 184), v6);
+        outlined consume of AccessibilityImageLabel(*(v4 + 176), *(v4 + 184), v6, *(v4 + 200));
       }
 
       swift_unknownObjectRelease();
@@ -9138,11 +7748,11 @@ LABEL_32:
         {
 LABEL_37:
 
-          v14 = *(type metadata accessor for PlatformItemList.Item() + 112);
+          v14 = *(type metadata accessor for PlatformItemList.Item(0) + 112);
           goto LABEL_74;
         }
 
-        __swift_destroy_boxed_opaque_existential_1(v4 + 840);
+        __swift_destroy_boxed_opaque_existential_1((v4 + 840));
       }
 
       if (*(v4 + 880))
@@ -9165,13 +7775,13 @@ LABEL_29:
         goto LABEL_32;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v4 + 600);
+      __swift_destroy_boxed_opaque_existential_1((v4 + 600));
     }
 
     goto LABEL_29;
   }
 
-  v15 = type metadata accessor for PlatformItemList.Item();
+  v15 = type metadata accessor for PlatformItemList.Item(0);
   if ((*(*(v15 - 8) + 48))(v4, 1, v15))
   {
     goto LABEL_78;
@@ -9191,7 +7801,7 @@ LABEL_29:
 
     if (v17 != 0x1FFFFFFFELL)
     {
-      outlined consume of AccessibilityImageLabel(*(v4 + 176), *(v4 + 184), v16);
+      outlined consume of AccessibilityImageLabel(*(v4 + 176), *(v4 + 184), v16, *(v4 + 200));
     }
 
     swift_unknownObjectRelease();
@@ -9251,7 +7861,7 @@ LABEL_65:
         goto LABEL_68;
       }
 
-      __swift_destroy_boxed_opaque_existential_1(v4 + 600);
+      __swift_destroy_boxed_opaque_existential_1((v4 + 600));
     }
 
     goto LABEL_65;
@@ -9266,7 +7876,7 @@ LABEL_68:
 
   if (v23 != 1)
   {
-    __swift_destroy_boxed_opaque_existential_1(v4 + 840);
+    __swift_destroy_boxed_opaque_existential_1((v4 + 840));
 LABEL_71:
     if (*(v4 + 880))
     {
@@ -9276,7 +7886,7 @@ LABEL_71:
   v14 = *(v15 + 112);
 LABEL_74:
   v24 = v4 + v14;
-  v25 = type metadata accessor for CommandOperation();
+  v25 = type metadata accessor for CommandOperation(0);
   if (!(*(*(v25 - 8) + 48))(v24, 1, v25))
   {
     v26 = v24 + *(v25 + 20);
@@ -9590,11 +8200,11 @@ LABEL_61:
                         *(v7 + 118) = *(v8 + 118);
                         *(v7 + 476) = *(v8 + 476);
                         v7[954] = v8[954];
-                        v106 = type metadata accessor for PlatformItemList.Item();
+                        v106 = type metadata accessor for PlatformItemList.Item(0);
                         v107 = v106[28];
                         __dst = &v7[v107];
                         v108 = &v8[v107];
-                        v109 = type metadata accessor for CommandOperation();
+                        v109 = type metadata accessor for CommandOperation(0);
                         v208 = *(v109 - 8);
                         v213 = *(v208 + 48);
                         v110 = v105;
@@ -9772,7 +8382,7 @@ LABEL_37:
           v54 = *(v8 + 23);
           v55 = v9;
           v56 = *(v8 + 25);
-          outlined copy of AccessibilityImageLabel(v53, v54, v18);
+          outlined copy of AccessibilityImageLabel(v53, v54, v18, v56);
           *(v7 + 22) = v53;
           *(v7 + 23) = v54;
           *(v7 + 24) = v18;
@@ -9807,7 +8417,7 @@ LABEL_37:
       goto LABEL_24;
     }
 
-    v30 = type metadata accessor for PlatformItemList.Item();
+    v30 = type metadata accessor for PlatformItemList.Item(0);
     v31 = *(v30 - 8);
     if ((*(v31 + 48))(v8, 1, v30))
     {
@@ -10111,7 +8721,7 @@ LABEL_112:
                 v176 = *(v170 + 112);
                 v216 = &v7[v176];
                 v177 = &v8[v176];
-                v178 = type metadata accessor for CommandOperation();
+                v178 = type metadata accessor for CommandOperation(0);
                 v206 = *(v178 - 8);
                 v210 = *(v206 + 48);
                 v179 = v175;
@@ -10272,7 +8882,7 @@ LABEL_112:
         v125 = *(v8 + 22);
         v126 = *(v8 + 23);
         v127 = *(v8 + 25);
-        outlined copy of AccessibilityImageLabel(v125, v126, v40);
+        outlined copy of AccessibilityImageLabel(v125, v126, v40, v127);
         *(v7 + 22) = v125;
         *(v7 + 23) = v126;
         *(v7 + 24) = v40;
@@ -10319,4 +8929,2143 @@ LABEL_120:
 
   v198 = v197;
   return v4;
+}
+
+void *assignWithCopy for DialogActionContext(void *a1, void *a2, int *a3)
+{
+  v4 = a2;
+  v5 = a1;
+  *a1 = *a2;
+
+  v5[1] = v4[1];
+
+  v6 = a3[6];
+  v7 = v5 + v6;
+  v8 = v4 + v6;
+  v9 = type metadata accessor for DialogActionContext.CancelType(0);
+  v10 = *(v9 - 8);
+  v11 = v10[6];
+  v12 = v11(v7, 1, v9);
+  v13 = v11(v8, 1, v9);
+  if (v12)
+  {
+    if (!v13)
+    {
+      if (swift_getEnumCaseMultiPayload() == 1)
+      {
+        v528 = v5;
+        v14 = *v8;
+        *v7 = *v8;
+        v15 = *(v8 + 1);
+        *(v7 + 8) = v15;
+        *(v7 + 16) = *(v8 + 2);
+        *(v7 + 24) = *(v8 + 3);
+        *(v7 + 32) = v8[32];
+        *(v7 + 40) = *(v8 + 5);
+        *(v7 + 48) = *(v8 + 6);
+        *(v7 + 56) = v8[56];
+        v16 = *(v8 + 24);
+        v17 = v14;
+        v18 = v15;
+
+        if (v16 >> 1 == 4294967294)
+        {
+          v19 = *(v8 + 4);
+          v20 = *(v8 + 5);
+          v21 = *(v8 + 7);
+          *(v7 + 96) = *(v8 + 6);
+          *(v7 + 112) = v21;
+          *(v7 + 64) = v19;
+          *(v7 + 80) = v20;
+          v22 = *(v8 + 8);
+          v23 = *(v8 + 9);
+          v24 = *(v8 + 11);
+          *(v7 + 160) = *(v8 + 10);
+          *(v7 + 176) = v24;
+          *(v7 + 128) = v22;
+          *(v7 + 144) = v23;
+          v25 = *(v8 + 12);
+          v26 = *(v8 + 13);
+          v27 = *(v8 + 14);
+          *(v7 + 235) = *(v8 + 235);
+          *(v7 + 208) = v26;
+          *(v7 + 224) = v27;
+          *(v7 + 192) = v25;
+          if (*(v8 + 33))
+          {
+LABEL_6:
+            *(v7 + 256) = *(v8 + 32);
+            *(v7 + 264) = *(v8 + 33);
+            v28 = *(v8 + 34);
+
+            if (v28 >= 2)
+            {
+              v29 = v28;
+            }
+
+            *(v7 + 272) = v28;
+            v30 = *(v8 + 70);
+            *(v7 + 284) = v8[284];
+            *(v7 + 280) = v30;
+            *(v7 + 285) = v8[285];
+            *(v7 + 286) = v8[286];
+            *(v7 + 288) = *(v8 + 36);
+            *(v7 + 296) = *(v8 + 37);
+
+LABEL_32:
+            v86 = *(v8 + 42);
+            v520 = a3;
+            v524 = v4;
+            v513 = v10;
+            v519 = v9;
+            if (v86 >> 2 == 0xFFFFFFFF)
+            {
+              v87 = *(v8 + 19);
+              v88 = *(v8 + 21);
+              *(v7 + 320) = *(v8 + 20);
+              *(v7 + 336) = v88;
+              *(v7 + 304) = v87;
+              v89 = *(v8 + 22);
+              v90 = *(v8 + 23);
+              v91 = *(v8 + 24);
+              *(v7 + 400) = *(v8 + 50);
+              *(v7 + 368) = v90;
+              *(v7 + 384) = v91;
+              *(v7 + 352) = v89;
+            }
+
+            else
+            {
+              v92 = *(v8 + 38);
+              v93 = *(v8 + 39);
+              v95 = *(v8 + 40);
+              v94 = *(v8 + 41);
+              v96 = *(v8 + 43);
+              v97 = *(v8 + 44);
+              v477 = *(v8 + 46);
+              v483 = *(v8 + 47);
+              v491 = *(v8 + 48);
+              v501 = *(v8 + 49);
+              __dstd = *(v8 + 50);
+              v98 = *(v8 + 45);
+              outlined copy of PlatformItemList.Item.SystemItem(v92, v93, v95, v94, v86, v96, v97, v98, v477, v483, v491, v501, __dstd);
+              *(v7 + 304) = v92;
+              *(v7 + 312) = v93;
+              *(v7 + 320) = v95;
+              *(v7 + 328) = v94;
+              *(v7 + 336) = v86;
+              *(v7 + 344) = v96;
+              *(v7 + 352) = v97;
+              *(v7 + 360) = v98;
+              *(v7 + 368) = v477;
+              *(v7 + 376) = v483;
+              *(v7 + 384) = v491;
+              *(v7 + 392) = v501;
+              *(v7 + 400) = __dstd;
+            }
+
+            if (*(v8 + 52) == 1)
+            {
+              *(v7 + 408) = *(v8 + 408);
+              v99 = *(v8 + 424);
+              v100 = *(v8 + 440);
+              v101 = *(v8 + 456);
+              *(v7 + 472) = v8[472];
+              *(v7 + 440) = v100;
+              *(v7 + 456) = v101;
+              *(v7 + 424) = v99;
+              goto LABEL_47;
+            }
+
+            *(v7 + 408) = v8[408];
+            *(v7 + 409) = v8[409];
+            *(v7 + 410) = v8[410];
+            *(v7 + 411) = v8[411];
+            *(v7 + 412) = v8[412];
+            v102 = *(v8 + 52);
+            if (v102)
+            {
+              v103 = *(v8 + 53);
+              *(v7 + 416) = v102;
+              *(v7 + 424) = v103;
+
+              v104 = *(v8 + 54);
+              if (v104)
+              {
+                goto LABEL_39;
+              }
+            }
+
+            else
+            {
+              *(v7 + 416) = *(v8 + 26);
+              v104 = *(v8 + 54);
+              if (v104)
+              {
+LABEL_39:
+                v105 = *(v8 + 55);
+                *(v7 + 432) = v104;
+                *(v7 + 440) = v105;
+
+                v106 = *(v8 + 56);
+                if (v106)
+                {
+LABEL_40:
+                  v107 = *(v8 + 57);
+                  *(v7 + 448) = v106;
+                  *(v7 + 456) = v107;
+
+LABEL_46:
+                  *(v7 + 464) = *(v8 + 58);
+                  *(v7 + 472) = v8[472];
+LABEL_47:
+                  *(v7 + 480) = *(v8 + 60);
+                  *(v7 + 488) = *(v8 + 61);
+                  *(v7 + 496) = *(v8 + 62);
+                  *(v7 + 504) = v8[504];
+                  v110 = *(v8 + 64);
+
+                  if (v110)
+                  {
+                    v111 = *(v8 + 65);
+                    *(v7 + 512) = v110;
+                    *(v7 + 520) = v111;
+                  }
+
+                  else
+                  {
+                    *(v7 + 512) = *(v8 + 32);
+                  }
+
+                  *(v7 + 528) = v8[528];
+                  if (!*(v8 + 102))
+                  {
+                    memcpy((v7 + 536), v8 + 536, 0x130uLL);
+                    goto LABEL_62;
+                  }
+
+                  *(v7 + 536) = *(v8 + 67);
+                  *(v7 + 544) = *(v8 + 68);
+                  *(v7 + 552) = v8[552];
+                  *(v7 + 560) = *(v8 + 70);
+                  *(v7 + 568) = v8[568];
+                  v112 = *(v8 + 36);
+                  *(v7 + 592) = v8[592];
+                  *(v7 + 576) = v112;
+                  v113 = (v7 + 600);
+                  v114 = (v8 + 600);
+                  v115 = *(v8 + 78);
+
+                  if (v115)
+                  {
+                    if (v115 == 1)
+                    {
+                      v116 = *v114;
+                      v117 = *(v8 + 632);
+                      *(v7 + 616) = *(v8 + 616);
+                      *(v7 + 632) = v117;
+                      *v113 = v116;
+LABEL_58:
+                      v120 = *(v8 + 81);
+                      *(v7 + 656) = v8[656];
+                      *(v7 + 648) = v120;
+                      v121 = (v7 + 664);
+                      v122 = v8 + 664;
+                      if (*(v8 + 97) == 1)
+                      {
+                        v123 = *(v8 + 680);
+                        *v121 = *v122;
+                        *(v7 + 680) = v123;
+                        v124 = *(v8 + 696);
+                        v125 = *(v8 + 712);
+                        v126 = *(v8 + 744);
+                        *(v7 + 728) = *(v8 + 728);
+                        *(v7 + 744) = v126;
+                        *(v7 + 696) = v124;
+                        *(v7 + 712) = v125;
+                        v127 = *(v8 + 760);
+                        v128 = *(v8 + 776);
+                        v129 = *(v8 + 792);
+                        *(v7 + 808) = v8[808];
+                        *(v7 + 776) = v128;
+                        *(v7 + 792) = v129;
+                        *(v7 + 760) = v127;
+                      }
+
+                      else
+                      {
+                        v130 = *v122;
+                        *(v7 + 672) = v8[672];
+                        *v121 = v130;
+                        v131 = *(v8 + 85);
+                        *(v7 + 688) = v8[688];
+                        *(v7 + 680) = v131;
+                        *(v7 + 689) = v8[689];
+                        *(v7 + 690) = v8[690];
+                        *(v7 + 691) = v8[691];
+                        *(v7 + 692) = v8[692];
+                        *(v7 + 696) = *(v8 + 87);
+                        *(v7 + 704) = *(v8 + 88);
+                        *(v7 + 712) = *(v8 + 89);
+                        *(v7 + 720) = *(v8 + 90);
+                        *(v7 + 728) = *(v8 + 91);
+                        *(v7 + 736) = *(v8 + 92);
+                        *(v7 + 744) = v8[744];
+                        *(v7 + 745) = v8[745];
+                        *(v7 + 752) = *(v8 + 94);
+                        *(v7 + 760) = *(v8 + 95);
+                        *(v7 + 768) = v8[768];
+                        *(v7 + 776) = *(v8 + 97);
+                        v132 = *(v8 + 49);
+                        *(v7 + 800) = *(v8 + 100);
+                        *(v7 + 784) = v132;
+                        *(v7 + 808) = v8[808];
+                      }
+
+                      *(v7 + 816) = *(v8 + 102);
+                      *(v7 + 824) = *(v8 + 103);
+                      *(v7 + 832) = *(v8 + 104);
+
+LABEL_62:
+                      v133 = (v7 + 840);
+                      v134 = (v8 + 840);
+                      v135 = *(v8 + 108);
+                      if (v135)
+                      {
+                        if (v135 == 1)
+                        {
+                          v136 = *v134;
+                          v137 = *(v8 + 856);
+                          v138 = *(v8 + 872);
+                          *(v7 + 888) = *(v8 + 111);
+                          *(v7 + 856) = v137;
+                          *(v7 + 872) = v138;
+                          *v133 = v136;
+LABEL_69:
+                          v143 = *(v8 + 112);
+                          *(v7 + 896) = v143;
+                          *(v7 + 904) = *(v8 + 113);
+                          *(v7 + 912) = *(v8 + 114);
+                          *(v7 + 920) = *(v8 + 115);
+                          *(v7 + 928) = *(v8 + 116);
+                          *(v7 + 936) = *(v8 + 117);
+                          *(v7 + 944) = *(v8 + 118);
+                          *(v7 + 952) = v8[952];
+                          *(v7 + 953) = v8[953];
+                          *(v7 + 954) = v8[954];
+                          v144 = type metadata accessor for PlatformItemList.Item(0);
+                          v145 = v144[28];
+                          __dsta = (v7 + v145);
+                          v146 = &v8[v145];
+                          v147 = type metadata accessor for CommandOperation(0);
+                          v148 = *(v147 - 8);
+                          v484 = v148[6];
+                          v149 = v143;
+
+                          if (v484(v146, 1, v147))
+                          {
+                            _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation);
+                            memcpy(__dsta, v146, *(*(v150 - 8) + 64));
+                            v4 = v524;
+                            v5 = v528;
+                            a3 = v520;
+                            v10 = v513;
+                            v9 = v519;
+                          }
+
+                          else
+                          {
+                            v485 = v146;
+                            v492 = v148;
+                            *__dsta = *v146;
+                            v151 = *(v147 + 20);
+                            v152 = &__dsta[v151];
+                            v153 = &v146[v151];
+                            v502 = v147;
+                            v154 = *&v146[v151];
+                            v155 = *(v153 + 1);
+                            v156 = v153[16];
+                            outlined copy of Text.Storage(v154, v155, v156);
+                            *v152 = v154;
+                            *(v152 + 1) = v155;
+                            v152[16] = v156;
+                            *(v152 + 3) = *(v153 + 3);
+                            v157 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                            v158 = type metadata accessor for UUID();
+                            v478 = *(*(v158 - 8) + 16);
+
+                            v478(&v152[v157], &v153[v157], v158);
+                            v159 = v502[6];
+                            v160 = &__dsta[v159];
+                            v161 = &v485[v159];
+                            if (*v161)
+                            {
+                              v162 = *(v161 + 1);
+                              *v160 = *v161;
+                              *(v160 + 1) = v162;
+                            }
+
+                            else
+                            {
+                              *v160 = *v161;
+                            }
+
+                            v4 = v524;
+                            v5 = v528;
+                            a3 = v520;
+                            v10 = v513;
+                            v9 = v519;
+                            v492[7](__dsta, 0, 1, v502);
+                          }
+
+                          *(v7 + v144[29]) = v8[v144[29]];
+                          *(v7 + v144[30]) = v8[v144[30]];
+                          *(v7 + v144[31]) = v8[v144[31]];
+                          *(v7 + v144[32]) = v8[v144[32]];
+                          *(v7 + v144[33]) = v8[v144[33]];
+                          *(v7 + v144[34]) = *&v8[v144[34]];
+
+                          goto LABEL_190;
+                        }
+
+                        *(v7 + 864) = v135;
+                        *(v7 + 872) = *(v8 + 109);
+                        (**(v135 - 8))(v133, v134);
+                        v141 = *(v8 + 110);
+                        if (!v141)
+                        {
+LABEL_68:
+                          *(v7 + 880) = *(v8 + 55);
+                          goto LABEL_69;
+                        }
+                      }
+
+                      else
+                      {
+                        v139 = *v134;
+                        v140 = *(v8 + 856);
+                        *(v7 + 872) = *(v8 + 109);
+                        *v133 = v139;
+                        *(v7 + 856) = v140;
+                        v141 = *(v8 + 110);
+                        if (!v141)
+                        {
+                          goto LABEL_68;
+                        }
+                      }
+
+                      v142 = *(v8 + 111);
+                      *(v7 + 880) = v141;
+                      *(v7 + 888) = v142;
+
+                      goto LABEL_69;
+                    }
+
+                    *(v7 + 624) = v115;
+                    *(v7 + 632) = *(v8 + 79);
+                    (**(v115 - 8))(v7 + 600, (v8 + 600), v115);
+                  }
+
+                  else
+                  {
+                    v118 = *v114;
+                    v119 = *(v8 + 616);
+                    *(v7 + 632) = *(v8 + 79);
+                    *v113 = v118;
+                    *(v7 + 616) = v119;
+                  }
+
+                  *(v7 + 640) = *(v8 + 80);
+
+                  goto LABEL_58;
+                }
+
+LABEL_45:
+                *(v7 + 448) = *(v8 + 28);
+                goto LABEL_46;
+              }
+            }
+
+            *(v7 + 432) = *(v8 + 27);
+            v106 = *(v8 + 56);
+            if (v106)
+            {
+              goto LABEL_40;
+            }
+
+            goto LABEL_45;
+          }
+        }
+
+        else
+        {
+          v49 = v8[72];
+          if (v49 == 255)
+          {
+            v70 = *(v8 + 8);
+            *(v7 + 72) = v8[72];
+            *(v7 + 64) = v70;
+          }
+
+          else
+          {
+            v50 = *(v8 + 8);
+            outlined copy of GraphicsImage.Contents(v50, v8[72]);
+            *(v7 + 64) = v50;
+            *(v7 + 72) = v49;
+          }
+
+          *(v7 + 80) = *(v8 + 10);
+          *(v7 + 88) = *(v8 + 88);
+          *(v7 + 104) = v8[104];
+          v71 = *(v8 + 108);
+          *(v7 + 121) = *(v8 + 121);
+          *(v7 + 108) = v71;
+          v72 = *(v8 + 136);
+          v73 = *(v8 + 152);
+          *(v7 + 168) = v8[168];
+          *(v7 + 152) = v73;
+          *(v7 + 136) = v72;
+          *(v7 + 169) = v8[169];
+          *(v7 + 170) = v8[170];
+          *(v7 + 171) = v8[171];
+          v74 = *(v8 + 24);
+          if (v74 >> 1 == 0xFFFFFFFF)
+          {
+            v75 = *(v8 + 12);
+            *(v7 + 176) = *(v8 + 11);
+            *(v7 + 192) = v75;
+          }
+
+          else
+          {
+            v76 = v9;
+            v77 = *(v8 + 22);
+            v78 = *(v8 + 23);
+            v79 = v10;
+            v80 = *(v8 + 25);
+            outlined copy of AccessibilityImageLabel(v77, v78, *(v8 + 24), v80);
+            *(v7 + 176) = v77;
+            *(v7 + 184) = v78;
+            v9 = v76;
+            *(v7 + 192) = v74;
+            *(v7 + 200) = v80;
+            v10 = v79;
+          }
+
+          *(v7 + 208) = *(v8 + 26);
+          *(v7 + 216) = *(v8 + 27);
+          *(v7 + 224) = v8[224];
+          *(v7 + 225) = v8[225];
+          v81 = *(v8 + 57);
+          *(v7 + 232) = v8[232];
+          *(v7 + 228) = v81;
+          v82 = *(v8 + 30);
+          *(v7 + 240) = v82;
+          *(v7 + 248) = *(v8 + 124);
+          *(v7 + 250) = v8[250];
+          swift_unknownObjectRetain();
+
+          v83 = v82;
+          if (*(v8 + 33))
+          {
+            goto LABEL_6;
+          }
+        }
+
+        v84 = *(v8 + 16);
+        v85 = *(v8 + 18);
+        *(v7 + 272) = *(v8 + 17);
+        *(v7 + 288) = v85;
+        *(v7 + 256) = v84;
+        goto LABEL_32;
+      }
+
+      v46 = type metadata accessor for PlatformItemList.Item(0);
+      v47 = *(v46 - 8);
+      if ((v47)[6](v8, 1, v46))
+      {
+        _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for PlatformItemList.Item?, type metadata accessor for PlatformItemList.Item);
+        memcpy(v7, v8, *(*(v48 - 8) + 64));
+LABEL_190:
+        swift_storeEnumTagMultiPayload();
+        (v10[7])(v7, 0, 1, v9);
+        goto LABEL_191;
+      }
+
+      v500 = v47;
+      __dst = v46;
+      v518 = v9;
+      v529 = v5;
+      v54 = *v8;
+      *v7 = *v8;
+      v55 = *(v8 + 1);
+      *(v7 + 8) = v55;
+      *(v7 + 16) = *(v8 + 2);
+      *(v7 + 24) = *(v8 + 3);
+      *(v7 + 32) = v8[32];
+      *(v7 + 40) = *(v8 + 5);
+      *(v7 + 48) = *(v8 + 6);
+      *(v7 + 56) = v8[56];
+      v56 = *(v8 + 24);
+      v57 = v54;
+      v58 = v55;
+
+      if (v56 >> 1 == 4294967294)
+      {
+        v59 = *(v8 + 4);
+        v60 = *(v8 + 5);
+        v61 = *(v8 + 7);
+        *(v7 + 96) = *(v8 + 6);
+        *(v7 + 112) = v61;
+        *(v7 + 64) = v59;
+        *(v7 + 80) = v60;
+        v62 = *(v8 + 8);
+        v63 = *(v8 + 9);
+        v64 = *(v8 + 11);
+        *(v7 + 160) = *(v8 + 10);
+        *(v7 + 176) = v64;
+        *(v7 + 128) = v62;
+        *(v7 + 144) = v63;
+        v65 = *(v8 + 12);
+        v66 = *(v8 + 13);
+        v67 = *(v8 + 14);
+        *(v7 + 235) = *(v8 + 235);
+        *(v7 + 208) = v66;
+        *(v7 + 224) = v67;
+        *(v7 + 192) = v65;
+      }
+
+      else
+      {
+        v108 = v8[72];
+        if (v108 == 255)
+        {
+          v214 = *(v8 + 8);
+          *(v7 + 72) = v8[72];
+          *(v7 + 64) = v214;
+        }
+
+        else
+        {
+          v109 = *(v8 + 8);
+          outlined copy of GraphicsImage.Contents(v109, v8[72]);
+          *(v7 + 64) = v109;
+          *(v7 + 72) = v108;
+        }
+
+        *(v7 + 80) = *(v8 + 10);
+        *(v7 + 88) = *(v8 + 88);
+        *(v7 + 104) = v8[104];
+        v215 = *(v8 + 108);
+        *(v7 + 121) = *(v8 + 121);
+        *(v7 + 108) = v215;
+        v216 = *(v8 + 136);
+        v217 = *(v8 + 152);
+        *(v7 + 168) = v8[168];
+        *(v7 + 152) = v217;
+        *(v7 + 136) = v216;
+        *(v7 + 169) = v8[169];
+        *(v7 + 170) = v8[170];
+        *(v7 + 171) = v8[171];
+        v218 = *(v8 + 24);
+        if (v218 >> 1 == 0xFFFFFFFF)
+        {
+          v219 = *(v8 + 12);
+          *(v7 + 176) = *(v8 + 11);
+          *(v7 + 192) = v219;
+        }
+
+        else
+        {
+          v220 = v10;
+          v221 = *(v8 + 22);
+          v222 = *(v8 + 23);
+          v223 = a3;
+          v224 = v4;
+          v225 = *(v8 + 25);
+          outlined copy of AccessibilityImageLabel(v221, v222, *(v8 + 24), v225);
+          *(v7 + 176) = v221;
+          *(v7 + 184) = v222;
+          v10 = v220;
+          *(v7 + 192) = v218;
+          *(v7 + 200) = v225;
+          v4 = v224;
+          a3 = v223;
+        }
+
+        *(v7 + 208) = *(v8 + 26);
+        *(v7 + 216) = *(v8 + 27);
+        *(v7 + 224) = v8[224];
+        *(v7 + 225) = v8[225];
+        v226 = *(v8 + 57);
+        *(v7 + 232) = v8[232];
+        *(v7 + 228) = v226;
+        v227 = *(v8 + 30);
+        *(v7 + 240) = v227;
+        *(v7 + 248) = *(v8 + 124);
+        *(v7 + 250) = v8[250];
+        swift_unknownObjectRetain();
+
+        v228 = v227;
+      }
+
+      if (*(v8 + 33))
+      {
+        *(v7 + 256) = *(v8 + 32);
+        *(v7 + 264) = *(v8 + 33);
+        v229 = *(v8 + 34);
+
+        if (v229 >= 2)
+        {
+          v230 = v229;
+        }
+
+        *(v7 + 272) = v229;
+        v231 = *(v8 + 70);
+        *(v7 + 284) = v8[284];
+        *(v7 + 280) = v231;
+        *(v7 + 285) = v8[285];
+        *(v7 + 286) = v8[286];
+        *(v7 + 288) = *(v8 + 36);
+        *(v7 + 296) = *(v8 + 37);
+      }
+
+      else
+      {
+        v232 = *(v8 + 16);
+        v233 = *(v8 + 18);
+        *(v7 + 272) = *(v8 + 17);
+        *(v7 + 288) = v233;
+        *(v7 + 256) = v232;
+      }
+
+      v522 = a3;
+      v526 = v4;
+      v234 = *(v8 + 42);
+      v516 = v10;
+      if (v234 >> 2 == 0xFFFFFFFF)
+      {
+        v235 = *(v8 + 19);
+        v236 = *(v8 + 21);
+        *(v7 + 320) = *(v8 + 20);
+        *(v7 + 336) = v236;
+        *(v7 + 304) = v235;
+        v237 = *(v8 + 22);
+        v238 = *(v8 + 23);
+        v239 = *(v8 + 24);
+        *(v7 + 400) = *(v8 + 50);
+        *(v7 + 368) = v238;
+        *(v7 + 384) = v239;
+        *(v7 + 352) = v237;
+      }
+
+      else
+      {
+        v240 = *(v8 + 38);
+        v241 = *(v8 + 39);
+        v243 = *(v8 + 40);
+        v242 = *(v8 + 41);
+        v244 = *(v8 + 43);
+        v245 = *(v8 + 44);
+        v246 = *(v8 + 45);
+        v471 = *(v8 + 46);
+        v473 = *(v8 + 47);
+        v479 = *(v8 + 48);
+        v487 = *(v8 + 49);
+        v494 = *(v8 + 50);
+        outlined copy of PlatformItemList.Item.SystemItem(v240, v241, v243, v242, v234, v244, v245, v246, v471, v473, v479, v487, v494);
+        *(v7 + 304) = v240;
+        *(v7 + 312) = v241;
+        *(v7 + 320) = v243;
+        *(v7 + 328) = v242;
+        *(v7 + 336) = v234;
+        *(v7 + 344) = v244;
+        *(v7 + 352) = v245;
+        *(v7 + 360) = v246;
+        *(v7 + 368) = v471;
+        *(v7 + 376) = v473;
+        *(v7 + 384) = v479;
+        *(v7 + 392) = v487;
+        *(v7 + 400) = v494;
+      }
+
+      if (*(v8 + 52) == 1)
+      {
+        *(v7 + 408) = *(v8 + 408);
+        v247 = *(v8 + 424);
+        v248 = *(v8 + 440);
+        v249 = *(v8 + 456);
+        *(v7 + 472) = v8[472];
+        *(v7 + 440) = v248;
+        *(v7 + 456) = v249;
+        *(v7 + 424) = v247;
+      }
+
+      else
+      {
+        *(v7 + 408) = v8[408];
+        *(v7 + 409) = v8[409];
+        *(v7 + 410) = v8[410];
+        *(v7 + 411) = v8[411];
+        *(v7 + 412) = v8[412];
+        v250 = *(v8 + 52);
+        if (v250)
+        {
+          v251 = *(v8 + 53);
+          *(v7 + 416) = v250;
+          *(v7 + 424) = v251;
+        }
+
+        else
+        {
+          *(v7 + 416) = *(v8 + 26);
+        }
+
+        v256 = *(v8 + 54);
+        if (v256)
+        {
+          v257 = *(v8 + 55);
+          *(v7 + 432) = v256;
+          *(v7 + 440) = v257;
+        }
+
+        else
+        {
+          *(v7 + 432) = *(v8 + 27);
+        }
+
+        v260 = *(v8 + 56);
+        if (v260)
+        {
+          v261 = *(v8 + 57);
+          *(v7 + 448) = v260;
+          *(v7 + 456) = v261;
+        }
+
+        else
+        {
+          *(v7 + 448) = *(v8 + 28);
+        }
+
+        *(v7 + 464) = *(v8 + 58);
+        *(v7 + 472) = v8[472];
+      }
+
+      *(v7 + 480) = *(v8 + 60);
+      *(v7 + 488) = *(v8 + 61);
+      *(v7 + 496) = *(v8 + 62);
+      *(v7 + 504) = v8[504];
+      v315 = *(v8 + 64);
+
+      if (v315)
+      {
+        v316 = *(v8 + 65);
+        *(v7 + 512) = v315;
+        *(v7 + 520) = v316;
+      }
+
+      else
+      {
+        *(v7 + 512) = *(v8 + 32);
+      }
+
+      *(v7 + 528) = v8[528];
+      if (!*(v8 + 102))
+      {
+        memcpy((v7 + 536), v8 + 536, 0x130uLL);
+        goto LABEL_172;
+      }
+
+      *(v7 + 536) = *(v8 + 67);
+      *(v7 + 544) = *(v8 + 68);
+      *(v7 + 552) = v8[552];
+      *(v7 + 560) = *(v8 + 70);
+      *(v7 + 568) = v8[568];
+      v317 = *(v8 + 36);
+      *(v7 + 592) = v8[592];
+      *(v7 + 576) = v317;
+      v318 = (v7 + 600);
+      v319 = (v8 + 600);
+      v320 = *(v8 + 78);
+
+      if (v320)
+      {
+        if (v320 == 1)
+        {
+          v321 = *v319;
+          v322 = *(v8 + 632);
+          *(v7 + 616) = *(v8 + 616);
+          *(v7 + 632) = v322;
+          *v318 = v321;
+LABEL_168:
+          v325 = *(v8 + 81);
+          *(v7 + 656) = v8[656];
+          *(v7 + 648) = v325;
+          v326 = (v7 + 664);
+          v327 = v8 + 664;
+          if (*(v8 + 97) == 1)
+          {
+            v328 = *(v8 + 680);
+            *v326 = *v327;
+            *(v7 + 680) = v328;
+            v329 = *(v8 + 696);
+            v330 = *(v8 + 712);
+            v331 = *(v8 + 744);
+            *(v7 + 728) = *(v8 + 728);
+            *(v7 + 744) = v331;
+            *(v7 + 696) = v329;
+            *(v7 + 712) = v330;
+            v332 = *(v8 + 760);
+            v333 = *(v8 + 776);
+            v334 = *(v8 + 792);
+            *(v7 + 808) = v8[808];
+            *(v7 + 776) = v333;
+            *(v7 + 792) = v334;
+            *(v7 + 760) = v332;
+          }
+
+          else
+          {
+            v335 = *v327;
+            *(v7 + 672) = v8[672];
+            *v326 = v335;
+            v336 = *(v8 + 85);
+            *(v7 + 688) = v8[688];
+            *(v7 + 680) = v336;
+            *(v7 + 689) = v8[689];
+            *(v7 + 690) = v8[690];
+            *(v7 + 691) = v8[691];
+            *(v7 + 692) = v8[692];
+            *(v7 + 696) = *(v8 + 87);
+            *(v7 + 704) = *(v8 + 88);
+            *(v7 + 712) = *(v8 + 89);
+            *(v7 + 720) = *(v8 + 90);
+            *(v7 + 728) = *(v8 + 91);
+            *(v7 + 736) = *(v8 + 92);
+            *(v7 + 744) = v8[744];
+            *(v7 + 745) = v8[745];
+            *(v7 + 752) = *(v8 + 94);
+            *(v7 + 760) = *(v8 + 95);
+            *(v7 + 768) = v8[768];
+            *(v7 + 776) = *(v8 + 97);
+            v337 = *(v8 + 49);
+            *(v7 + 800) = *(v8 + 100);
+            *(v7 + 784) = v337;
+            *(v7 + 808) = v8[808];
+          }
+
+          *(v7 + 816) = *(v8 + 102);
+          *(v7 + 824) = *(v8 + 103);
+          *(v7 + 832) = *(v8 + 104);
+
+LABEL_172:
+          v338 = (v7 + 840);
+          v339 = (v8 + 840);
+          v340 = *(v8 + 108);
+          if (v340)
+          {
+            if (v340 == 1)
+            {
+              v341 = *v339;
+              v342 = *(v8 + 856);
+              v343 = *(v8 + 872);
+              *(v7 + 888) = *(v8 + 111);
+              *(v7 + 856) = v342;
+              *(v7 + 872) = v343;
+              *v338 = v341;
+LABEL_180:
+              v348 = *(v8 + 112);
+              *(v7 + 896) = v348;
+              *(v7 + 904) = *(v8 + 113);
+              *(v7 + 912) = *(v8 + 114);
+              *(v7 + 920) = *(v8 + 115);
+              *(v7 + 928) = *(v8 + 116);
+              *(v7 + 936) = *(v8 + 117);
+              *(v7 + 944) = *(v8 + 118);
+              *(v7 + 952) = v8[952];
+              *(v7 + 953) = v8[953];
+              *(v7 + 954) = v8[954];
+              v349 = __dst[28];
+              v497 = (v7 + v349);
+              v350 = &v8[v349];
+              v351 = type metadata accessor for CommandOperation(0);
+              v480 = *(v351 - 8);
+              v488 = *(v480 + 48);
+              v352 = v348;
+
+              if (v488(v350, 1, v351))
+              {
+                _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation);
+                memcpy(v497, v350, *(*(v353 - 8) + 64));
+                v4 = v526;
+                v5 = v529;
+                a3 = v522;
+                v10 = v516;
+                v9 = v518;
+                v354 = __dst;
+              }
+
+              else
+              {
+                *v497 = *v350;
+                v472 = v351;
+                v474 = v350;
+                v355 = *(v351 + 20);
+                v356 = v350;
+                v357 = &v497[v355];
+                v358 = &v356[v355];
+                v359 = *&v356[v355];
+                v360 = *&v356[v355 + 8];
+                v361 = v356[v355 + 16];
+                outlined copy of Text.Storage(v359, v360, v361);
+                *v357 = v359;
+                *(v357 + 1) = v360;
+                v357[16] = v361;
+                *(v357 + 3) = *(v358 + 3);
+                v362 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+                v363 = type metadata accessor for UUID();
+                v364 = *(*(v363 - 8) + 16);
+
+                v364(&v357[v362], &v358[v362], v363);
+                v365 = *(v351 + 24);
+                v366 = &v497[v365];
+                v367 = &v474[v365];
+                if (*v367)
+                {
+                  v368 = *(v367 + 1);
+                  *v366 = *v367;
+                  *(v366 + 1) = v368;
+                }
+
+                else
+                {
+                  *v366 = *v367;
+                }
+
+                v4 = v526;
+                v5 = v529;
+                v10 = v516;
+                v9 = v518;
+                v354 = __dst;
+                (*(v480 + 56))(v497, 0, 1, v472);
+                a3 = v522;
+              }
+
+              *(v7 + v354[29]) = v8[v354[29]];
+              *(v7 + v354[30]) = v8[v354[30]];
+              *(v7 + v354[31]) = v8[v354[31]];
+              *(v7 + v354[32]) = v8[v354[32]];
+              *(v7 + v354[33]) = v8[v354[33]];
+              *(v7 + v354[34]) = *&v8[v354[34]];
+              v369 = v500[7];
+
+              v369(v7, 0, 1, v354);
+              goto LABEL_190;
+            }
+
+            *(v7 + 864) = v340;
+            *(v7 + 872) = *(v8 + 109);
+            (**(v340 - 8))(v338, v339);
+          }
+
+          else
+          {
+            v344 = *v339;
+            v345 = *(v8 + 856);
+            *(v7 + 872) = *(v8 + 109);
+            *v338 = v344;
+            *(v7 + 856) = v345;
+          }
+
+          v346 = *(v8 + 110);
+          if (v346)
+          {
+            v347 = *(v8 + 111);
+            *(v7 + 880) = v346;
+            *(v7 + 888) = v347;
+          }
+
+          else
+          {
+            *(v7 + 880) = *(v8 + 55);
+          }
+
+          goto LABEL_180;
+        }
+
+        *(v7 + 624) = v320;
+        *(v7 + 632) = *(v8 + 79);
+        (**(v320 - 8))(v7 + 600, (v8 + 600), v320);
+      }
+
+      else
+      {
+        v323 = *v319;
+        v324 = *(v8 + 616);
+        *(v7 + 632) = *(v8 + 79);
+        *v318 = v323;
+        *(v7 + 616) = v324;
+      }
+
+      *(v7 + 640) = *(v8 + 80);
+
+      goto LABEL_168;
+    }
+
+    goto LABEL_11;
+  }
+
+  if (v13)
+  {
+    outlined destroy of DialogActionContext.CancelType(v7, type metadata accessor for DialogActionContext.CancelType);
+LABEL_11:
+    _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for DialogActionContext.CancelType?, type metadata accessor for DialogActionContext.CancelType);
+    memcpy(v7, v8, *(*(v31 - 8) + 64));
+    goto LABEL_191;
+  }
+
+  if (v5 == v4)
+  {
+    goto LABEL_191;
+  }
+
+  outlined destroy of DialogActionContext.CancelType(v7, type metadata accessor for DialogActionContext.CancelType);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    v51 = type metadata accessor for PlatformItemList.Item(0);
+    v52 = *(v51 - 8);
+    if ((v52)[6](v8, 1, v51))
+    {
+      _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for PlatformItemList.Item?, type metadata accessor for PlatformItemList.Item);
+      memcpy(v7, v8, *(*(v53 - 8) + 64));
+LABEL_247:
+      swift_storeEnumTagMultiPayload();
+      goto LABEL_191;
+    }
+
+    __dstb = v52;
+    v514 = v51;
+    v530 = v5;
+    v163 = *v8;
+    *v7 = *v8;
+    v164 = *(v8 + 1);
+    *(v7 + 8) = v164;
+    *(v7 + 16) = *(v8 + 2);
+    *(v7 + 24) = *(v8 + 3);
+    *(v7 + 32) = v8[32];
+    *(v7 + 40) = *(v8 + 5);
+    *(v7 + 48) = *(v8 + 6);
+    *(v7 + 56) = v8[56];
+    v165 = *(v8 + 24);
+    v166 = v163;
+    v167 = v164;
+
+    if (v165 >> 1 == 4294967294)
+    {
+      v168 = *(v8 + 4);
+      v169 = *(v8 + 5);
+      v170 = *(v8 + 7);
+      *(v7 + 96) = *(v8 + 6);
+      *(v7 + 112) = v170;
+      *(v7 + 64) = v168;
+      *(v7 + 80) = v169;
+      v171 = *(v8 + 8);
+      v172 = *(v8 + 9);
+      v173 = *(v8 + 11);
+      *(v7 + 160) = *(v8 + 10);
+      *(v7 + 176) = v173;
+      *(v7 + 128) = v171;
+      *(v7 + 144) = v172;
+      v174 = *(v8 + 12);
+      v175 = *(v8 + 13);
+      v176 = *(v8 + 14);
+      *(v7 + 235) = *(v8 + 235);
+      *(v7 + 208) = v175;
+      *(v7 + 224) = v176;
+      *(v7 + 192) = v174;
+    }
+
+    else
+    {
+      v252 = v8[72];
+      if (v252 == 255)
+      {
+        v375 = *(v8 + 8);
+        *(v7 + 72) = v8[72];
+        *(v7 + 64) = v375;
+      }
+
+      else
+      {
+        v253 = *(v8 + 8);
+        outlined copy of GraphicsImage.Contents(v253, v8[72]);
+        *(v7 + 64) = v253;
+        *(v7 + 72) = v252;
+      }
+
+      *(v7 + 80) = *(v8 + 10);
+      *(v7 + 88) = *(v8 + 88);
+      *(v7 + 104) = v8[104];
+      v376 = *(v8 + 108);
+      *(v7 + 121) = *(v8 + 121);
+      *(v7 + 108) = v376;
+      v377 = *(v8 + 136);
+      v378 = *(v8 + 152);
+      *(v7 + 168) = v8[168];
+      *(v7 + 152) = v378;
+      *(v7 + 136) = v377;
+      *(v7 + 169) = v8[169];
+      *(v7 + 170) = v8[170];
+      *(v7 + 171) = v8[171];
+      v379 = *(v8 + 24);
+      if (v379 >> 1 == 0xFFFFFFFF)
+      {
+        v380 = *(v8 + 12);
+        *(v7 + 176) = *(v8 + 11);
+        *(v7 + 192) = v380;
+      }
+
+      else
+      {
+        v381 = a3;
+        v382 = v4;
+        v383 = *(v8 + 22);
+        v384 = *(v8 + 23);
+        v385 = *(v8 + 25);
+        outlined copy of AccessibilityImageLabel(v383, v384, *(v8 + 24), v385);
+        *(v7 + 176) = v383;
+        *(v7 + 184) = v384;
+        v4 = v382;
+        a3 = v381;
+        *(v7 + 192) = v379;
+        *(v7 + 200) = v385;
+      }
+
+      *(v7 + 208) = *(v8 + 26);
+      *(v7 + 216) = *(v8 + 27);
+      *(v7 + 224) = v8[224];
+      *(v7 + 225) = v8[225];
+      v386 = *(v8 + 57);
+      *(v7 + 232) = v8[232];
+      *(v7 + 228) = v386;
+      v387 = *(v8 + 30);
+      *(v7 + 240) = v387;
+      *(v7 + 248) = *(v8 + 124);
+      *(v7 + 250) = v8[250];
+      swift_unknownObjectRetain();
+
+      v388 = v387;
+    }
+
+    if (*(v8 + 33))
+    {
+      *(v7 + 256) = *(v8 + 32);
+      *(v7 + 264) = *(v8 + 33);
+      v389 = *(v8 + 34);
+
+      if (v389 >= 2)
+      {
+        v390 = v389;
+      }
+
+      *(v7 + 272) = v389;
+      v391 = *(v8 + 70);
+      *(v7 + 284) = v8[284];
+      *(v7 + 280) = v391;
+      *(v7 + 285) = v8[285];
+      *(v7 + 286) = v8[286];
+      *(v7 + 288) = *(v8 + 36);
+      *(v7 + 296) = *(v8 + 37);
+    }
+
+    else
+    {
+      v392 = *(v8 + 16);
+      v393 = *(v8 + 18);
+      *(v7 + 272) = *(v8 + 17);
+      *(v7 + 288) = v393;
+      *(v7 + 256) = v392;
+    }
+
+    v523 = a3;
+    v527 = v4;
+    v394 = *(v8 + 42);
+    if (v394 >> 2 == 0xFFFFFFFF)
+    {
+      v395 = *(v8 + 19);
+      v396 = *(v8 + 21);
+      *(v7 + 320) = *(v8 + 20);
+      *(v7 + 336) = v396;
+      *(v7 + 304) = v395;
+      v397 = *(v8 + 22);
+      v398 = *(v8 + 23);
+      v399 = *(v8 + 24);
+      *(v7 + 400) = *(v8 + 50);
+      *(v7 + 368) = v398;
+      *(v7 + 384) = v399;
+      *(v7 + 352) = v397;
+    }
+
+    else
+    {
+      v400 = *(v8 + 38);
+      v401 = *(v8 + 39);
+      v403 = *(v8 + 40);
+      v402 = *(v8 + 41);
+      v404 = *(v8 + 43);
+      v405 = *(v8 + 44);
+      v406 = *(v8 + 45);
+      v475 = *(v8 + 46);
+      v481 = *(v8 + 47);
+      v489 = *(v8 + 48);
+      v498 = *(v8 + 49);
+      v505 = *(v8 + 50);
+      outlined copy of PlatformItemList.Item.SystemItem(v400, v401, v403, v402, v394, v404, v405, v406, v475, v481, v489, v498, v505);
+      *(v7 + 304) = v400;
+      *(v7 + 312) = v401;
+      *(v7 + 320) = v403;
+      *(v7 + 328) = v402;
+      *(v7 + 336) = v394;
+      *(v7 + 344) = v404;
+      *(v7 + 352) = v405;
+      *(v7 + 360) = v406;
+      *(v7 + 368) = v475;
+      *(v7 + 376) = v481;
+      *(v7 + 384) = v489;
+      *(v7 + 392) = v498;
+      *(v7 + 400) = v505;
+    }
+
+    if (*(v8 + 52) == 1)
+    {
+      *(v7 + 408) = *(v8 + 408);
+      v407 = *(v8 + 424);
+      v408 = *(v8 + 440);
+      v409 = *(v8 + 456);
+      *(v7 + 472) = v8[472];
+      *(v7 + 440) = v408;
+      *(v7 + 456) = v409;
+      *(v7 + 424) = v407;
+    }
+
+    else
+    {
+      *(v7 + 408) = v8[408];
+      *(v7 + 409) = v8[409];
+      *(v7 + 410) = v8[410];
+      *(v7 + 411) = v8[411];
+      *(v7 + 412) = v8[412];
+      v410 = *(v8 + 52);
+      if (v410)
+      {
+        v411 = *(v8 + 53);
+        *(v7 + 416) = v410;
+        *(v7 + 424) = v411;
+      }
+
+      else
+      {
+        *(v7 + 416) = *(v8 + 26);
+      }
+
+      v412 = *(v8 + 54);
+      if (v412)
+      {
+        v413 = *(v8 + 55);
+        *(v7 + 432) = v412;
+        *(v7 + 440) = v413;
+      }
+
+      else
+      {
+        *(v7 + 432) = *(v8 + 27);
+      }
+
+      v414 = *(v8 + 56);
+      if (v414)
+      {
+        v415 = *(v8 + 57);
+        *(v7 + 448) = v414;
+        *(v7 + 456) = v415;
+      }
+
+      else
+      {
+        *(v7 + 448) = *(v8 + 28);
+      }
+
+      *(v7 + 464) = *(v8 + 58);
+      *(v7 + 472) = v8[472];
+    }
+
+    *(v7 + 480) = *(v8 + 60);
+    *(v7 + 488) = *(v8 + 61);
+    *(v7 + 496) = *(v8 + 62);
+    *(v7 + 504) = v8[504];
+    v416 = *(v8 + 64);
+
+    if (v416)
+    {
+      v417 = *(v8 + 65);
+      *(v7 + 512) = v416;
+      *(v7 + 520) = v417;
+    }
+
+    else
+    {
+      *(v7 + 512) = *(v8 + 32);
+    }
+
+    *(v7 + 528) = v8[528];
+    if (!*(v8 + 102))
+    {
+      memcpy((v7 + 536), v8 + 536, 0x130uLL);
+      goto LABEL_232;
+    }
+
+    *(v7 + 536) = *(v8 + 67);
+    *(v7 + 544) = *(v8 + 68);
+    *(v7 + 552) = v8[552];
+    *(v7 + 560) = *(v8 + 70);
+    *(v7 + 568) = v8[568];
+    v418 = *(v8 + 36);
+    *(v7 + 592) = v8[592];
+    *(v7 + 576) = v418;
+    v419 = (v7 + 600);
+    v420 = (v8 + 600);
+    v421 = *(v8 + 78);
+
+    if (v421)
+    {
+      if (v421 == 1)
+      {
+        v422 = *v420;
+        v423 = *(v8 + 632);
+        *(v7 + 616) = *(v8 + 616);
+        *(v7 + 632) = v423;
+        *v419 = v422;
+LABEL_228:
+        v426 = *(v8 + 81);
+        *(v7 + 656) = v8[656];
+        *(v7 + 648) = v426;
+        v427 = (v7 + 664);
+        v428 = v8 + 664;
+        if (*(v8 + 97) == 1)
+        {
+          v429 = *(v8 + 680);
+          *v427 = *v428;
+          *(v7 + 680) = v429;
+          v430 = *(v8 + 696);
+          v431 = *(v8 + 712);
+          v432 = *(v8 + 744);
+          *(v7 + 728) = *(v8 + 728);
+          *(v7 + 744) = v432;
+          *(v7 + 696) = v430;
+          *(v7 + 712) = v431;
+          v433 = *(v8 + 760);
+          v434 = *(v8 + 776);
+          v435 = *(v8 + 792);
+          *(v7 + 808) = v8[808];
+          *(v7 + 776) = v434;
+          *(v7 + 792) = v435;
+          *(v7 + 760) = v433;
+        }
+
+        else
+        {
+          v436 = *v428;
+          *(v7 + 672) = v8[672];
+          *v427 = v436;
+          v437 = *(v8 + 85);
+          *(v7 + 688) = v8[688];
+          *(v7 + 680) = v437;
+          *(v7 + 689) = v8[689];
+          *(v7 + 690) = v8[690];
+          *(v7 + 691) = v8[691];
+          *(v7 + 692) = v8[692];
+          *(v7 + 696) = *(v8 + 87);
+          *(v7 + 704) = *(v8 + 88);
+          *(v7 + 712) = *(v8 + 89);
+          *(v7 + 720) = *(v8 + 90);
+          *(v7 + 728) = *(v8 + 91);
+          *(v7 + 736) = *(v8 + 92);
+          *(v7 + 744) = v8[744];
+          *(v7 + 745) = v8[745];
+          *(v7 + 752) = *(v8 + 94);
+          *(v7 + 760) = *(v8 + 95);
+          *(v7 + 768) = v8[768];
+          *(v7 + 776) = *(v8 + 97);
+          v438 = *(v8 + 49);
+          *(v7 + 800) = *(v8 + 100);
+          *(v7 + 784) = v438;
+          *(v7 + 808) = v8[808];
+        }
+
+        *(v7 + 816) = *(v8 + 102);
+        *(v7 + 824) = *(v8 + 103);
+        *(v7 + 832) = *(v8 + 104);
+
+LABEL_232:
+        v439 = (v7 + 840);
+        v440 = (v8 + 840);
+        v441 = *(v8 + 108);
+        if (v441)
+        {
+          if (v441 == 1)
+          {
+            v442 = *v440;
+            v443 = *(v8 + 856);
+            v444 = *(v8 + 872);
+            *(v7 + 888) = *(v8 + 111);
+            *(v7 + 856) = v443;
+            *(v7 + 872) = v444;
+            *v439 = v442;
+LABEL_240:
+            v449 = *(v8 + 112);
+            *(v7 + 896) = v449;
+            *(v7 + 904) = *(v8 + 113);
+            *(v7 + 912) = *(v8 + 114);
+            *(v7 + 920) = *(v8 + 115);
+            *(v7 + 928) = *(v8 + 116);
+            *(v7 + 936) = *(v8 + 117);
+            *(v7 + 944) = *(v8 + 118);
+            *(v7 + 952) = v8[952];
+            *(v7 + 953) = v8[953];
+            *(v7 + 954) = v8[954];
+            v450 = v514[28];
+            v506 = (v7 + v450);
+            v451 = &v8[v450];
+            v452 = type metadata accessor for CommandOperation(0);
+            v490 = *(v452 - 8);
+            v499 = *(v490 + 48);
+            v453 = v449;
+
+            if (v499(v451, 1, v452))
+            {
+              _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation);
+              memcpy(v506, v451, *(*(v454 - 8) + 64));
+              v4 = v527;
+              v5 = v530;
+              a3 = v523;
+              v455 = v514;
+            }
+
+            else
+            {
+              *v506 = *v451;
+              v476 = v452;
+              v482 = v451;
+              v456 = *(v452 + 20);
+              v457 = v451;
+              v458 = &v506[v456];
+              v459 = &v457[v456];
+              v460 = *&v457[v456];
+              v461 = *&v457[v456 + 8];
+              v462 = v457[v456 + 16];
+              outlined copy of Text.Storage(v460, v461, v462);
+              *v458 = v460;
+              *(v458 + 1) = v461;
+              v458[16] = v462;
+              *(v458 + 3) = *(v459 + 3);
+              v463 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+              v464 = type metadata accessor for UUID();
+              v465 = *(*(v464 - 8) + 16);
+
+              v465(&v458[v463], &v459[v463], v464);
+              v466 = *(v476 + 24);
+              v467 = &v506[v466];
+              v468 = &v482[v466];
+              if (*v468)
+              {
+                v469 = *(v468 + 1);
+                *v467 = *v468;
+                *(v467 + 1) = v469;
+              }
+
+              else
+              {
+                *v467 = *v468;
+              }
+
+              v4 = v527;
+              v5 = v530;
+              v455 = v514;
+              (*(v490 + 56))(v506, 0, 1, v476);
+              a3 = v523;
+            }
+
+            *(v7 + v455[29]) = v8[v455[29]];
+            *(v7 + v455[30]) = v8[v455[30]];
+            *(v7 + v455[31]) = v8[v455[31]];
+            *(v7 + v455[32]) = v8[v455[32]];
+            *(v7 + v455[33]) = v8[v455[33]];
+            *(v7 + v455[34]) = *&v8[v455[34]];
+            v470 = __dstb[7];
+
+            v470(v7, 0, 1, v455);
+            goto LABEL_247;
+          }
+
+          *(v7 + 864) = v441;
+          *(v7 + 872) = *(v8 + 109);
+          (**(v441 - 8))(v439, v440);
+        }
+
+        else
+        {
+          v445 = *v440;
+          v446 = *(v8 + 856);
+          *(v7 + 872) = *(v8 + 109);
+          *v439 = v445;
+          *(v7 + 856) = v446;
+        }
+
+        v447 = *(v8 + 110);
+        if (v447)
+        {
+          v448 = *(v8 + 111);
+          *(v7 + 880) = v447;
+          *(v7 + 888) = v448;
+        }
+
+        else
+        {
+          *(v7 + 880) = *(v8 + 55);
+        }
+
+        goto LABEL_240;
+      }
+
+      *(v7 + 624) = v421;
+      *(v7 + 632) = *(v8 + 79);
+      (**(v421 - 8))(v7 + 600, (v8 + 600), v421);
+    }
+
+    else
+    {
+      v424 = *v420;
+      v425 = *(v8 + 616);
+      *(v7 + 632) = *(v8 + 79);
+      *v419 = v424;
+      *(v7 + 616) = v425;
+    }
+
+    *(v7 + 640) = *(v8 + 80);
+
+    goto LABEL_228;
+  }
+
+  v32 = *v8;
+  *v7 = *v8;
+  v33 = *(v8 + 1);
+  *(v7 + 8) = v33;
+  *(v7 + 16) = *(v8 + 2);
+  *(v7 + 24) = *(v8 + 3);
+  *(v7 + 32) = v8[32];
+  *(v7 + 40) = *(v8 + 5);
+  *(v7 + 48) = *(v8 + 6);
+  *(v7 + 56) = v8[56];
+  v34 = *(v8 + 24);
+  v35 = v32;
+  v36 = v33;
+
+  if (v34 >> 1 == 4294967294)
+  {
+    v37 = *(v8 + 4);
+    v38 = *(v8 + 5);
+    v39 = *(v8 + 7);
+    *(v7 + 96) = *(v8 + 6);
+    *(v7 + 112) = v39;
+    *(v7 + 64) = v37;
+    *(v7 + 80) = v38;
+    v40 = *(v8 + 8);
+    v41 = *(v8 + 9);
+    v42 = *(v8 + 11);
+    *(v7 + 160) = *(v8 + 10);
+    *(v7 + 176) = v42;
+    *(v7 + 128) = v40;
+    *(v7 + 144) = v41;
+    v43 = *(v8 + 12);
+    v44 = *(v8 + 13);
+    v45 = *(v8 + 14);
+    *(v7 + 235) = *(v8 + 235);
+    *(v7 + 208) = v44;
+    *(v7 + 224) = v45;
+    *(v7 + 192) = v43;
+  }
+
+  else
+  {
+    v68 = v8[72];
+    if (v68 == 255)
+    {
+      v177 = *(v8 + 8);
+      *(v7 + 72) = v8[72];
+      *(v7 + 64) = v177;
+    }
+
+    else
+    {
+      v69 = *(v8 + 8);
+      outlined copy of GraphicsImage.Contents(v69, v8[72]);
+      *(v7 + 64) = v69;
+      *(v7 + 72) = v68;
+    }
+
+    *(v7 + 80) = *(v8 + 10);
+    *(v7 + 88) = *(v8 + 88);
+    *(v7 + 104) = v8[104];
+    v178 = *(v8 + 108);
+    *(v7 + 121) = *(v8 + 121);
+    *(v7 + 108) = v178;
+    v179 = *(v8 + 136);
+    v180 = *(v8 + 152);
+    *(v7 + 168) = v8[168];
+    *(v7 + 152) = v180;
+    *(v7 + 136) = v179;
+    *(v7 + 169) = v8[169];
+    *(v7 + 170) = v8[170];
+    *(v7 + 171) = v8[171];
+    v181 = *(v8 + 24);
+    if (v181 >> 1 == 0xFFFFFFFF)
+    {
+      v182 = *(v8 + 12);
+      *(v7 + 176) = *(v8 + 11);
+      *(v7 + 192) = v182;
+    }
+
+    else
+    {
+      v183 = *(v8 + 22);
+      v184 = *(v8 + 23);
+      v185 = a3;
+      v186 = v4;
+      v187 = *(v8 + 25);
+      outlined copy of AccessibilityImageLabel(v183, v184, *(v8 + 24), v187);
+      *(v7 + 176) = v183;
+      *(v7 + 184) = v184;
+      *(v7 + 192) = v181;
+      *(v7 + 200) = v187;
+      v4 = v186;
+      a3 = v185;
+    }
+
+    *(v7 + 208) = *(v8 + 26);
+    *(v7 + 216) = *(v8 + 27);
+    *(v7 + 224) = v8[224];
+    *(v7 + 225) = v8[225];
+    v188 = *(v8 + 57);
+    *(v7 + 232) = v8[232];
+    *(v7 + 228) = v188;
+    v189 = *(v8 + 30);
+    *(v7 + 240) = v189;
+    *(v7 + 248) = *(v8 + 124);
+    *(v7 + 250) = v8[250];
+    swift_unknownObjectRetain();
+
+    v190 = v189;
+  }
+
+  if (*(v8 + 33))
+  {
+    *(v7 + 256) = *(v8 + 32);
+    *(v7 + 264) = *(v8 + 33);
+    v191 = *(v8 + 34);
+
+    if (v191 >= 2)
+    {
+      v192 = v191;
+    }
+
+    *(v7 + 272) = v191;
+    v193 = *(v8 + 70);
+    *(v7 + 284) = v8[284];
+    *(v7 + 280) = v193;
+    *(v7 + 285) = v8[285];
+    *(v7 + 286) = v8[286];
+    *(v7 + 288) = *(v8 + 36);
+    *(v7 + 296) = *(v8 + 37);
+  }
+
+  else
+  {
+    v194 = *(v8 + 16);
+    v195 = *(v8 + 18);
+    *(v7 + 272) = *(v8 + 17);
+    *(v7 + 288) = v195;
+    *(v7 + 256) = v194;
+  }
+
+  v521 = a3;
+  v525 = v4;
+  v196 = *(v8 + 42);
+  v531 = v5;
+  if (v196 >> 2 == 0xFFFFFFFF)
+  {
+    v197 = *(v8 + 19);
+    v198 = *(v8 + 21);
+    *(v7 + 320) = *(v8 + 20);
+    *(v7 + 336) = v198;
+    *(v7 + 304) = v197;
+    v199 = *(v8 + 22);
+    v200 = *(v8 + 23);
+    v201 = *(v8 + 24);
+    *(v7 + 400) = *(v8 + 50);
+    *(v7 + 368) = v200;
+    *(v7 + 384) = v201;
+    *(v7 + 352) = v199;
+  }
+
+  else
+  {
+    v202 = *(v8 + 38);
+    v203 = *(v8 + 39);
+    v205 = *(v8 + 40);
+    v204 = *(v8 + 41);
+    v206 = *(v8 + 43);
+    v207 = *(v8 + 44);
+    v208 = *(v8 + 45);
+    v486 = *(v8 + 46);
+    v493 = *(v8 + 47);
+    v503 = *(v8 + 48);
+    __dste = *(v8 + 49);
+    v515 = *(v8 + 50);
+    outlined copy of PlatformItemList.Item.SystemItem(v202, v203, v205, v204, v196, v206, v207, v208, v486, v493, v503, __dste, v515);
+    *(v7 + 304) = v202;
+    *(v7 + 312) = v203;
+    *(v7 + 320) = v205;
+    *(v7 + 328) = v204;
+    *(v7 + 336) = v196;
+    *(v7 + 344) = v206;
+    *(v7 + 352) = v207;
+    *(v7 + 360) = v208;
+    *(v7 + 368) = v486;
+    *(v7 + 376) = v493;
+    *(v7 + 384) = v503;
+    *(v7 + 392) = __dste;
+    *(v7 + 400) = v515;
+  }
+
+  if (*(v8 + 52) == 1)
+  {
+    *(v7 + 408) = *(v8 + 408);
+    v209 = *(v8 + 424);
+    v210 = *(v8 + 440);
+    v211 = *(v8 + 456);
+    *(v7 + 472) = v8[472];
+    *(v7 + 440) = v210;
+    *(v7 + 456) = v211;
+    *(v7 + 424) = v209;
+  }
+
+  else
+  {
+    *(v7 + 408) = v8[408];
+    *(v7 + 409) = v8[409];
+    *(v7 + 410) = v8[410];
+    *(v7 + 411) = v8[411];
+    *(v7 + 412) = v8[412];
+    v212 = *(v8 + 52);
+    if (v212)
+    {
+      v213 = *(v8 + 53);
+      *(v7 + 416) = v212;
+      *(v7 + 424) = v213;
+    }
+
+    else
+    {
+      *(v7 + 416) = *(v8 + 26);
+    }
+
+    v254 = *(v8 + 54);
+    if (v254)
+    {
+      v255 = *(v8 + 55);
+      *(v7 + 432) = v254;
+      *(v7 + 440) = v255;
+    }
+
+    else
+    {
+      *(v7 + 432) = *(v8 + 27);
+    }
+
+    v258 = *(v8 + 56);
+    if (v258)
+    {
+      v259 = *(v8 + 57);
+      *(v7 + 448) = v258;
+      *(v7 + 456) = v259;
+    }
+
+    else
+    {
+      *(v7 + 448) = *(v8 + 28);
+    }
+
+    *(v7 + 464) = *(v8 + 58);
+    *(v7 + 472) = v8[472];
+  }
+
+  *(v7 + 480) = *(v8 + 60);
+  *(v7 + 488) = *(v8 + 61);
+  *(v7 + 496) = *(v8 + 62);
+  *(v7 + 504) = v8[504];
+  v262 = *(v8 + 64);
+
+  if (v262)
+  {
+    v263 = *(v8 + 65);
+    *(v7 + 512) = v262;
+    *(v7 + 520) = v263;
+  }
+
+  else
+  {
+    *(v7 + 512) = *(v8 + 32);
+  }
+
+  *(v7 + 528) = v8[528];
+  if (!*(v8 + 102))
+  {
+    memcpy((v7 + 536), v8 + 536, 0x130uLL);
+    goto LABEL_143;
+  }
+
+  *(v7 + 536) = *(v8 + 67);
+  *(v7 + 544) = *(v8 + 68);
+  *(v7 + 552) = v8[552];
+  *(v7 + 560) = *(v8 + 70);
+  *(v7 + 568) = v8[568];
+  v264 = *(v8 + 36);
+  *(v7 + 592) = v8[592];
+  *(v7 + 576) = v264;
+  v265 = (v7 + 600);
+  v266 = (v8 + 600);
+  v267 = *(v8 + 78);
+
+  if (!v267)
+  {
+    v270 = *v266;
+    v271 = *(v8 + 616);
+    *(v7 + 632) = *(v8 + 79);
+    *v265 = v270;
+    *(v7 + 616) = v271;
+LABEL_138:
+    *(v7 + 640) = *(v8 + 80);
+
+    goto LABEL_139;
+  }
+
+  if (v267 != 1)
+  {
+    *(v7 + 624) = v267;
+    *(v7 + 632) = *(v8 + 79);
+    (**(v267 - 8))(v7 + 600, (v8 + 600), v267);
+    goto LABEL_138;
+  }
+
+  v268 = *v266;
+  v269 = *(v8 + 632);
+  *(v7 + 616) = *(v8 + 616);
+  *(v7 + 632) = v269;
+  *v265 = v268;
+LABEL_139:
+  v272 = *(v8 + 81);
+  *(v7 + 656) = v8[656];
+  *(v7 + 648) = v272;
+  v273 = (v7 + 664);
+  v274 = v8 + 664;
+  if (*(v8 + 97) == 1)
+  {
+    v275 = *(v8 + 680);
+    *v273 = *v274;
+    *(v7 + 680) = v275;
+    v276 = *(v8 + 696);
+    v277 = *(v8 + 712);
+    v278 = *(v8 + 744);
+    *(v7 + 728) = *(v8 + 728);
+    *(v7 + 744) = v278;
+    *(v7 + 696) = v276;
+    *(v7 + 712) = v277;
+    v279 = *(v8 + 760);
+    v280 = *(v8 + 776);
+    v281 = *(v8 + 792);
+    *(v7 + 808) = v8[808];
+    *(v7 + 776) = v280;
+    *(v7 + 792) = v281;
+    *(v7 + 760) = v279;
+  }
+
+  else
+  {
+    v282 = *v274;
+    *(v7 + 672) = v8[672];
+    *v273 = v282;
+    v283 = *(v8 + 85);
+    *(v7 + 688) = v8[688];
+    *(v7 + 680) = v283;
+    *(v7 + 689) = v8[689];
+    *(v7 + 690) = v8[690];
+    *(v7 + 691) = v8[691];
+    *(v7 + 692) = v8[692];
+    *(v7 + 696) = *(v8 + 87);
+    *(v7 + 704) = *(v8 + 88);
+    *(v7 + 712) = *(v8 + 89);
+    *(v7 + 720) = *(v8 + 90);
+    *(v7 + 728) = *(v8 + 91);
+    *(v7 + 736) = *(v8 + 92);
+    *(v7 + 744) = v8[744];
+    *(v7 + 745) = v8[745];
+    *(v7 + 752) = *(v8 + 94);
+    *(v7 + 760) = *(v8 + 95);
+    *(v7 + 768) = v8[768];
+    *(v7 + 776) = *(v8 + 97);
+    v284 = *(v8 + 49);
+    *(v7 + 800) = *(v8 + 100);
+    *(v7 + 784) = v284;
+    *(v7 + 808) = v8[808];
+  }
+
+  *(v7 + 816) = *(v8 + 102);
+  *(v7 + 824) = *(v8 + 103);
+  *(v7 + 832) = *(v8 + 104);
+
+LABEL_143:
+  v285 = (v7 + 840);
+  v286 = (v8 + 840);
+  v287 = *(v8 + 108);
+  if (!v287)
+  {
+    v291 = *v286;
+    v292 = *(v8 + 856);
+    *(v7 + 872) = *(v8 + 109);
+    *v285 = v291;
+    *(v7 + 856) = v292;
+    goto LABEL_148;
+  }
+
+  if (v287 != 1)
+  {
+    *(v7 + 864) = v287;
+    *(v7 + 872) = *(v8 + 109);
+    (**(v287 - 8))(v285, v286);
+LABEL_148:
+    v293 = *(v8 + 110);
+    if (v293)
+    {
+      v294 = *(v8 + 111);
+      *(v7 + 880) = v293;
+      *(v7 + 888) = v294;
+    }
+
+    else
+    {
+      *(v7 + 880) = *(v8 + 55);
+    }
+
+    goto LABEL_151;
+  }
+
+  v288 = *v286;
+  v289 = *(v8 + 856);
+  v290 = *(v8 + 872);
+  *(v7 + 888) = *(v8 + 111);
+  *(v7 + 856) = v289;
+  *(v7 + 872) = v290;
+  *v285 = v288;
+LABEL_151:
+  v295 = *(v8 + 112);
+  *(v7 + 896) = v295;
+  *(v7 + 904) = *(v8 + 113);
+  *(v7 + 912) = *(v8 + 114);
+  *(v7 + 920) = *(v8 + 115);
+  *(v7 + 928) = *(v8 + 116);
+  *(v7 + 936) = *(v8 + 117);
+  *(v7 + 944) = *(v8 + 118);
+  *(v7 + 952) = v8[952];
+  *(v7 + 953) = v8[953];
+  *(v7 + 954) = v8[954];
+  v296 = type metadata accessor for PlatformItemList.Item(0);
+  v297 = v296[28];
+  v517 = (v7 + v297);
+  v298 = &v8[v297];
+  v299 = type metadata accessor for CommandOperation(0);
+  v300 = *(v299 - 8);
+  v495 = v300[6];
+  v301 = v295;
+
+  if (v495(v298, 1, v299))
+  {
+    _s7SwiftUI16CommandOperationVSgMaTm_1(0, &lazy cache variable for type metadata for CommandOperation?, type metadata accessor for CommandOperation);
+    memcpy(v517, v298, *(*(v302 - 8) + 64));
+    v4 = v525;
+    v5 = v531;
+    a3 = v521;
+  }
+
+  else
+  {
+    v504 = v300;
+    __dstc = v299;
+    *v517 = *v298;
+    v303 = *(v299 + 20);
+    v304 = &v517[v303];
+    v305 = &v298[v303];
+    v306 = *&v298[v303];
+    v307 = *&v298[v303 + 8];
+    v308 = v298[v303 + 16];
+    outlined copy of Text.Storage(*v305, *(v305 + 1), v305[16]);
+    *v304 = v306;
+    *(v304 + 1) = v307;
+    v304[16] = v308;
+    *(v304 + 3) = *(v305 + 3);
+    v309 = *(type metadata accessor for CommandGroupPlacement(0) + 20);
+    v310 = type metadata accessor for UUID();
+    v496 = *(*(v310 - 8) + 16);
+
+    v496(&v304[v309], &v305[v309], v310);
+    v311 = __dstc[6];
+    v312 = &v517[v311];
+    v313 = &v298[v311];
+    if (*v313)
+    {
+      v314 = *(v313 + 1);
+      *v312 = *v313;
+      *(v312 + 1) = v314;
+    }
+
+    else
+    {
+      *v312 = *v313;
+    }
+
+    v4 = v525;
+    v5 = v531;
+    v504[7](v517, 0, 1, __dstc);
+    a3 = v521;
+  }
+
+  *(v7 + v296[29]) = v8[v296[29]];
+  *(v7 + v296[30]) = v8[v296[30]];
+  *(v7 + v296[31]) = v8[v296[31]];
+  *(v7 + v296[32]) = v8[v296[32]];
+  *(v7 + v296[33]) = v8[v296[33]];
+  *(v7 + v296[34]) = *&v8[v296[34]];
+
+  swift_storeEnumTagMultiPayload();
+LABEL_191:
+  *(v5 + a3[7]) = *(v4 + a3[7]);
+
+  *(v5 + a3[8]) = *(v4 + a3[8]);
+
+  v370 = a3[9];
+  v371 = *(v5 + v370);
+  v372 = *(v4 + v370);
+  *(v5 + v370) = v372;
+  v373 = v372;
+
+  return v5;
 }

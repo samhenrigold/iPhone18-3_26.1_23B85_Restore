@@ -242,15 +242,16 @@
 
 - (id)verifyTitleString
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"KT_VERIFY_CONVERSATION_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-  if ([(CKKTVerifyConversationTableViewCell *)self ktStatus]== 4 || [(CKKTVerifyConversationTableViewCell *)self ktStatus]== 18)
+  ktStatus = [(CKKTVerifyConversationTableViewCell *)self ktStatus];
+  if (ktStatus == 4 || (ktStatus = [(CKKTVerifyConversationTableViewCell *)self ktStatus], ktStatus == 18))
   {
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"KT_SHOW_VERIFICATION_CODE_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+    v6 = CKFrameworkBundle(ktStatus);
+    v7 = [v6 localizedStringForKey:@"KT_SHOW_VERIFICATION_CODE_CELL_TEXT" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
 
-    v4 = v6;
+    v4 = v7;
   }
 
   return v4;

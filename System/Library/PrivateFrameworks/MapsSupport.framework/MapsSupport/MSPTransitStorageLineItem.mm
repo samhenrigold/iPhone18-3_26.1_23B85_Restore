@@ -31,11 +31,11 @@
 
 - (MSPTransitStorageLineItem)initWithLineItem:(id)item
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  v24.receiver = self;
-  v24.super_class = MSPTransitStorageLineItem;
-  v5 = [(MSPTransitStorageLineItem *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MSPTransitStorageLineItem;
+  v5 = [(MSPTransitStorageLineItem *)&v23 init];
   if (v5)
   {
     v6 = [[MSPTransitStorageLine alloc] initWithLine:itemCopy];
@@ -47,34 +47,34 @@
     [(MSPTransitStorageLineItem *)v5 setTransitAttribution:v9];
 
     v10 = objc_opt_new();
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     incidents = [itemCopy incidents];
-    v12 = [incidents countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [incidents countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(incidents);
           }
 
-          v16 = [[MSPTransitStorageIncident alloc] initWithIncident:*(*(&v20 + 1) + 8 * v15)];
+          v16 = [[MSPTransitStorageIncident alloc] initWithIncident:*(*(&v19 + 1) + 8 * v15)];
           [v10 addObject:v16];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [incidents countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [incidents countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v13);
@@ -85,7 +85,6 @@
     [(MSPTransitStorageLineItem *)v5 setStoredMapRegion:mapRegion];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -267,7 +266,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   line = self->_line;
   if (line)
@@ -293,30 +292,30 @@
   if ([(NSMutableArray *)self->_incidents count])
   {
     v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_incidents, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v11 = self->_incidents;
-    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation4 = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
           [v10 addObject:dictionaryRepresentation4];
         }
 
-        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -332,14 +331,12 @@
     [dictionary setObject:dictionaryRepresentation5 forKey:@"Unknown Fields"];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_line)
   {
@@ -356,40 +353,38 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_incidents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
-  [(PBUnknownFields *)self->_unknownFields writeTo:toCopy, v12];
-  v11 = *MEMORY[0x277D85DE8];
+  [(PBUnknownFields *)self->_unknownFields writeTo:toCopy, v10];
 }
 
 - (void)copyTo:(id)to
@@ -428,7 +423,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(MSPTransitStorageLine *)self->_line copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -442,41 +437,40 @@
   v11 = *(v5 + 40);
   *(v5 + 40) = v10;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = self->_incidents;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       v16 = 0;
       do
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v20 + 1) + 8 * v16) copyWithZone:{zone, v20}];
+        v17 = [*(*(&v19 + 1) + 8 * v16) copyWithZone:{zone, v19}];
         [v5 addIncidents:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
   objc_storeStrong((v5 + 8), self->_unknownFields);
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -515,7 +509,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   line = self->_line;
   v6 = *(fromCopy + 3);
@@ -562,35 +556,33 @@
     [(MSPTransitStorageLineItem *)self setTransitAttribution:?];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(fromCopy + 2);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(MSPTransitStorageLineItem *)self addIncidents:*(*(&v17 + 1) + 8 * i), v17];
+        [(MSPTransitStorageLineItem *)self addIncidents:*(*(&v16 + 1) + 8 * i), v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

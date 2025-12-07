@@ -194,7 +194,7 @@ LABEL_2:
   return v3;
 }
 
-uint64_t __44__MADTextEmbeddingCalibration_loadResources__block_invoke(uint64_t a1)
+void *__44__MADTextEmbeddingCalibration_loadResources__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _loadResources];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -390,7 +390,7 @@ void __71__MADTextEmbeddingCalibration_processEmbedding_mean_standardDeviation__
   return mean;
 }
 
-uint64_t __88__MADTextEmbeddingCalibration_processEmbedding_version_typeSize_mean_standardDeviation___block_invoke(uint64_t a1)
+void *__88__MADTextEmbeddingCalibration_processEmbedding_version_typeSize_mean_standardDeviation___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _processEmbedding:*(a1 + 40) version:*(a1 + 56) typeSize:*(a1 + 64) mean:*(a1 + 72) standardDeviation:*(a1 + 80)];
   *(*(*(a1 + 48) + 8) + 24) = result;

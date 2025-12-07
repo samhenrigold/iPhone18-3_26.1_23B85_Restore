@@ -4,6 +4,7 @@
 + (id)supportBundleURLForDocumentUUID:(id)d delegate:(id)delegate;
 + (id)supportDirectoryURLWithDelegate:(id)delegate isUnique:(BOOL *)unique;
 - (BOOL)copyOrMoveSupportAtURL:(id)l originalDocumentProperties:(id)properties toURL:(id)rL isCopying:(BOOL)copying newDocumentProperties:(id)documentProperties error:(id *)error;
+- (BOOL)didUpdateDocumentUUIDWithOriginalDocumentProperties:(id)properties newDocumentProperties:(id)documentProperties preserveOriginalDocumentSupport:(BOOL)support preserveShareUUID:(BOOL)d originalURL:(id)l newURL:(id *)rL error:(id *)error;
 - (BOOL)endSaveWithSuccess:(BOOL)success packageWriter:(id)writer newURL:(id *)l writtenPackage:(id *)package;
 - (BOOL)writeSupportForDocumentUUID:(id)d error:(id *)error writer:(id)writer;
 - (NSURL)presentedSupportURL;
@@ -74,9 +75,9 @@
 
   if (self->_saveOperationState)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Didn't finish previous save", "[TSPSupportManager beginSaveWithDocumentUUID:versionUUID:originalURL:updateType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 89);
     v16 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPSupportManager beginSaveWithDocumentUUID:versionUUID:originalURL:updateType:]", "[TSPSupportManager beginSaveWithDocumentUUID:versionUUID:originalURL:updateType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 89);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPSupportManager beginSaveWithDocumentUUID:versionUUID:originalURL:updateType:]");
     v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v18, v20, 89, 1, "Didn't finish previous save");
 
@@ -97,9 +98,9 @@
   saveOperationState = self->_saveOperationState;
   if (!saveOperationState)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d You should not call this method before |-beginSaveWithDocumentUUID:isNewDocumentVersion:updateType:|", "[TSPSupportManager writeSupportForDocumentUUID:error:writer:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 95);
     v59 = MEMORY[0x277D81150];
-    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "[TSPSupportManager writeSupportForDocumentUUID:error:writer:]", "[TSPSupportManager writeSupportForDocumentUUID:error:writer:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 95);
+    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "[TSPSupportManager writeSupportForDocumentUUID:error:writer:]");
     v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v64, v61, v63, 95, 1, "You should not call this method before |-beginSaveWithDocumentUUID:isNewDocumentVersion:updateType:|");
 
@@ -224,7 +225,7 @@
 - (BOOL)endSaveWithSuccess:(BOOL)success packageWriter:(id)writer newURL:(id *)l writtenPackage:(id *)package
 {
   successCopy = success;
-  v111[1] = *MEMORY[0x277D85DE8];
+  v110[1] = *MEMORY[0x277D85DE8];
   writerCopy = writer;
   if (UnsafePointer != -1)
   {
@@ -234,24 +235,24 @@
   saveOperationState = self->_saveOperationState;
   if (!saveOperationState)
   {
-    TSUSetCrashReporterInfo();
-    v65 = MEMORY[0x277D81150];
-    v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v66, "[TSPSupportManager endSaveWithSuccess:packageWriter:newURL:writtenPackage:]", "[TSPSupportManager endSaveWithSuccess:packageWriter:newURL:writtenPackage:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 160);
-    v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v65, v70, v67, v69, 160, 1, "You should not call this method before |-beginSaveWithDocumentUUID:isNewDocumentVersion:updateType:|");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d You should not call this method before |-beginSaveWithDocumentUUID:isNewDocumentVersion:updateType:|", "[TSPSupportManager endSaveWithSuccess:packageWriter:newURL:writtenPackage:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm", 160);
+    v64 = MEMORY[0x277D81150];
+    v66 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, "[TSPSupportManager endSaveWithSuccess:packageWriter:newURL:writtenPackage:]");
+    v68 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v67, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPSupportManager.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v64, v69, v66, v68, 160, 1, "You should not call this method before |-beginSaveWithDocumentUUID:isNewDocumentVersion:updateType:|");
 
     TSUCrashBreakpoint();
     abort();
   }
 
-  v14 = &v106;
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x2020000000;
+  v14 = &v105;
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x2020000000;
   if (successCopy)
   {
     v15 = objc_msgSend_didWriteSupportBundleSuccessfuly(saveOperationState, v10, v11);
-    v14 = v107;
+    v14 = v106;
   }
 
   else
@@ -259,25 +260,25 @@
     v15 = 0;
   }
 
-  v109 = v15;
-  v100 = 0;
-  v101 = &v100;
-  v102 = 0x3032000000;
-  v103 = sub_276ABBAA4;
-  v104 = sub_276ABBAB4;
-  v105 = 0;
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x3032000000;
-  v97 = sub_276ABBAA4;
-  v98 = sub_276ABBAB4;
+  v108 = v15;
   v99 = 0;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x3032000000;
-  v91 = sub_276ABBAA4;
-  v92 = sub_276ABBAB4;
+  v100 = &v99;
+  v101 = 0x3032000000;
+  v102 = sub_276ABBAA4;
+  v103 = sub_276ABBAB4;
+  v104 = 0;
   v93 = 0;
+  v94 = &v93;
+  v95 = 0x3032000000;
+  v96 = sub_276ABBAA4;
+  v97 = sub_276ABBAB4;
+  v98 = 0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = sub_276ABBAA4;
+  v91 = sub_276ABBAB4;
+  v92 = 0;
   if (*(v14 + 24) == 1)
   {
     if ((objc_msgSend_isSavingCurrentDocument(self->_saveOperationState, v10, v11) & 1) == 0)
@@ -297,69 +298,53 @@
       }
     }
 
-    v110 = *MEMORY[0x277CCA110];
-    v111[0] = MEMORY[0x277CBEC38];
-    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v111, &v110, 1);
+    v109 = *MEMORY[0x277CCA110];
+    v110[0] = MEMORY[0x277CBEC38];
+    v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v110, &v109, 1);
     shouldUpdate = objc_msgSend_shouldUpdate(self->_saveOperationState, v32, v33);
     v37 = self->_saveOperationState;
     if (shouldUpdate)
     {
-      if (!objc_msgSend_isSameDocumentUpdate(v37, v34, v35))
+      if (objc_msgSend_isSameDocumentUpdate(v37, v34, v35) && (objc_msgSend_originalURL(self->_saveOperationState, v38, v39), (v40 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend_originalURL(self->_saveOperationState, v38, v39), v41 = objc_claimAutoreleasedReturnValue(), objc_msgSend_URL(self->_saveOperationState, v42, v43), v44 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend_tsp_matchesURL_(v41, v45, v44), v44, v41, v40, (v46 & 1) == 0))
       {
-        goto LABEL_15;
-      }
-
-      v40 = objc_msgSend_originalURL(self->_saveOperationState, v38, v39);
-      if (!v40)
-      {
-        goto LABEL_15;
-      }
-
-      v41 = objc_msgSend_originalURL(self->_saveOperationState, v38, v39);
-      v44 = objc_msgSend_URL(self->_saveOperationState, v42, v43);
-      v46 = objc_msgSend_tsp_matchesURL_(v41, v45, v44);
-
-      if ((v46 & 1) == 0)
-      {
-        v59 = MEMORY[0x277CCA9E8];
-        v71 = objc_msgSend_originalURL(self->_saveOperationState, v38, v39);
-        v62 = objc_msgSend_URL(self->_saveOperationState, v60, v61);
-        v63 = v101;
-        v87 = v101[5];
-        v80[0] = MEMORY[0x277D85DD0];
-        v80[1] = 3221225472;
-        v80[2] = sub_276ABBABC;
-        v80[3] = &unk_27A6E6A18;
-        v83 = &v106;
-        v80[4] = self;
-        v81 = v31;
-        v84 = &v100;
-        v85 = &v94;
-        v86 = &v88;
-        v82 = writerCopy;
-        v51 = objc_msgSend_tsp_coordinateWritingItemAtURL_options_writingItemAtURL_options_filePresenter_error_byAccessor_(v59, v64, v71, 2, v62, 8, self, &v87, v80);
-        objc_storeStrong(v63 + 5, v87);
+        v58 = MEMORY[0x277CCA9E8];
+        v70 = objc_msgSend_originalURL(self->_saveOperationState, v38, v39);
+        v61 = objc_msgSend_URL(self->_saveOperationState, v59, v60);
+        v62 = v100;
+        v86 = v100[5];
+        v79[0] = MEMORY[0x277D85DD0];
+        v79[1] = 3221225472;
+        v79[2] = sub_276ABBABC;
+        v79[3] = &unk_27A6E6A18;
+        v82 = &v105;
+        v79[4] = self;
+        v80 = v31;
+        v83 = &v99;
+        v84 = &v93;
+        v85 = &v87;
+        v81 = writerCopy;
+        v51 = objc_msgSend_tsp_coordinateWritingItemAtURL_options_writingItemAtURL_options_filePresenter_error_byAccessor_(v58, v63, v70, 2, v61, 8, self, &v86, v79);
+        objc_storeStrong(v62 + 5, v86);
       }
 
       else
       {
-LABEL_15:
         v47 = MEMORY[0x277CCA9E8];
         v48 = objc_msgSend_URL(self->_saveOperationState, v38, v39);
-        v49 = v101;
-        obj = v101[5];
-        v72[0] = MEMORY[0x277D85DD0];
-        v72[1] = 3221225472;
-        v72[2] = sub_276ABBCE8;
-        v72[3] = &unk_27A6E6A40;
-        v75 = &v106;
-        v72[4] = self;
-        v73 = v31;
-        v76 = &v100;
-        v77 = &v94;
-        v78 = &v88;
-        v74 = writerCopy;
-        v51 = objc_msgSend_tsp_coordinateWritingItemAtURL_options_filePresenter_error_byAccessor_(v47, v50, v48, 0, self, &obj, v72);
+        v49 = v100;
+        obj = v100[5];
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = sub_276ABBCE8;
+        v71[3] = &unk_27A6E6A40;
+        v74 = &v105;
+        v71[4] = self;
+        v72 = v31;
+        v75 = &v99;
+        v76 = &v93;
+        v77 = &v87;
+        v73 = writerCopy;
+        v51 = objc_msgSend_tsp_coordinateWritingItemAtURL_options_filePresenter_error_byAccessor_(v47, v50, v48, 0, self, &obj, v71);
         objc_storeStrong(v49 + 5, obj);
       }
     }
@@ -372,27 +357,27 @@ LABEL_15:
       v51 = 1;
     }
 
-    v54 = v107[3] & v51;
-    *(v107 + 24) = v54;
+    v54 = v106[3] & v51;
+    *(v106 + 24) = v54;
     if ((v54 & 1) == 0 && *MEMORY[0x277D81408] != -1)
     {
       sub_276BD6534();
     }
   }
 
-  if (successCopy && (v107[3] & 1) == 0)
+  if (successCopy && (v106[3] & 1) == 0)
   {
     objc_msgSend_removeFilePresenter(self, v10, v11);
   }
 
   if (l)
   {
-    *l = objc_msgSend_copy(v95[5], v10, v11);
+    *l = objc_msgSend_copy(v94[5], v10, v11);
   }
 
   if (package)
   {
-    *package = v89[5];
+    *package = v88[5];
   }
 
   if (objc_msgSend_shouldLeavePendingEndSave(self->_saveOperationState, v10, v11))
@@ -403,14 +388,13 @@ LABEL_15:
   v55 = self->_saveOperationState;
   self->_saveOperationState = 0;
 
-  v56 = *(v107 + 24);
-  _Block_object_dispose(&v88, 8);
+  v56 = *(v106 + 24);
+  _Block_object_dispose(&v87, 8);
 
-  _Block_object_dispose(&v94, 8);
-  _Block_object_dispose(&v100, 8);
+  _Block_object_dispose(&v93, 8);
+  _Block_object_dispose(&v99, 8);
 
-  _Block_object_dispose(&v106, 8);
-  v57 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v105, 8);
   return v56 & 1;
 }
 
@@ -658,6 +642,56 @@ LABEL_7:
 
   _Block_object_dispose(&v50, 8);
   return v39;
+}
+
+- (BOOL)didUpdateDocumentUUIDWithOriginalDocumentProperties:(id)properties newDocumentProperties:(id)documentProperties preserveOriginalDocumentSupport:(BOOL)support preserveShareUUID:(BOOL)d originalURL:(id)l newURL:(id *)rL error:(id *)error
+{
+  supportCopy = support;
+  propertiesCopy = properties;
+  documentPropertiesCopy = documentProperties;
+  lCopy = l;
+  v19 = objc_msgSend_documentUUID(documentPropertiesCopy, v17, v18);
+  v21 = objc_msgSend_supportURLWithDocumentUUID_(self, v20, v19);
+
+  if (lCopy && !objc_msgSend_copyOrMoveSupportAtURL_originalDocumentProperties_toURL_isCopying_newDocumentProperties_error_(self, v22, lCopy, propertiesCopy, v21, supportCopy, documentPropertiesCopy, error))
+  {
+    v24 = 0;
+    if (!rL)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else
+  {
+    objc_msgSend_setPresentedSupportURL_(self, v22, v21);
+    v24 = 1;
+    if (!rL)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  v25 = !v24;
+  if (!lCopy)
+  {
+    v25 = 1;
+  }
+
+  if (v25)
+  {
+    *rL = 0;
+  }
+
+  else
+  {
+    v26 = objc_msgSend_copy(v21, v22, v23);
+    *rL = v26;
+  }
+
+LABEL_11:
+
+  return v24;
 }
 
 + (id)defaultSupportDirectoryURL

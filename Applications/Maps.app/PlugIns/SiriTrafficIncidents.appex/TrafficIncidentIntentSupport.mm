@@ -1,4 +1,5 @@
 @interface TrafficIncidentIntentSupport
++ (id)localizedTitleForIncidentType:(int)type;
 + (int)incidentTypeForINTrafficIncidentType:(int64_t)type;
 + (int64_t)INTrafficIncidentTypeForincidentType:(int)type;
 + (void)fetchTrafficIncidentsLayoutForLocation:(id)location completion:(id)completion;
@@ -50,6 +51,15 @@
 
     return 1;
   }
+}
+
++ (id)localizedTitleForIncidentType:(int)type
+{
+  v3 = [MKTrafficSupport VKTrafficIncidentTypeForGEOTrafficIncidentType:*&type];
+  v4 = +[MKTrafficSupport sharedTrafficSupport];
+  v5 = [v4 localizedTitleForIncidentType:v3 laneType:0 laneCount:0];
+
+  return v5;
 }
 
 + (void)fetchTrafficIncidentsLayoutForLocation:(id)location completion:(id)completion

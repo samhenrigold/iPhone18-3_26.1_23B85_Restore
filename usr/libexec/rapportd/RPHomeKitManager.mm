@@ -367,19 +367,8 @@ LABEL_15:
   userCopy = user;
   dispatch_assert_queue_V2(self->_dispatchQueue);
   p_currentUser = &self->_currentUser;
-  if (!self->_currentUser)
+  if (!self->_currentUser || ([userCopy uniqueIdentifier], v6 = objc_claimAutoreleasedReturnValue(), -[HMUser uniqueIdentifier](*p_currentUser, "uniqueIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, v9 = userCopy, (v8 & 1) == 0))
   {
-    goto LABEL_15;
-  }
-
-  uniqueIdentifier = [userCopy uniqueIdentifier];
-  uniqueIdentifier2 = [(HMUser *)*p_currentUser uniqueIdentifier];
-  v8 = [uniqueIdentifier isEqual:uniqueIdentifier2];
-
-  v9 = userCopy;
-  if ((v8 & 1) == 0)
-  {
-LABEL_15:
     if (dword_1001D3C50 <= 30 && (dword_1001D3C50 != -1 || _LogCategory_Initialize()))
     {
       sub_100118F3C(userCopy);

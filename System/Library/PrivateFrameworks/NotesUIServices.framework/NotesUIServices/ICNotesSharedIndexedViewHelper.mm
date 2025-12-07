@@ -8,28 +8,27 @@
 + (id)makeNoteSearchResultViewWithNote:(id)note attachmentURL:(id)l
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FC15070, &qword_25C7AB768);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
+  v7 = &v13 - v6;
   if (l)
   {
     sub_25C7AA4EC();
-    v9 = sub_25C7AA4FC();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_25C7AA4FC();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_25C7AA4FC();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_25C7AA4FC();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = swift_unknownObjectRetain();
-  v12 = _sSo30ICNotesSharedIndexedViewHelperC15NotesUIServicesE020makeNoteSearchResultD04with13attachmentURLSo28CSSearchableItemAttributeSetCSgSo017ICSearchIndexableI0_p_10Foundation0N0VSgtFZ_0(v11, v8);
+  v10 = swift_unknownObjectRetain();
+  v11 = _sSo30ICNotesSharedIndexedViewHelperC15NotesUIServicesE020makeNoteSearchResultD04with13attachmentURLSo28CSSearchableItemAttributeSetCSgSo017ICSearchIndexableI0_p_10Foundation0N0VSgtFZ_0(v10, v7);
   swift_unknownObjectRelease();
-  sub_25C79C9E8(v8, &qword_27FC15070, &qword_25C7AB768);
+  sub_25C79C9E8(v7, &qword_27FC15070, &qword_25C7AB768);
 
-  return v12;
+  return v11;
 }
 
 - (ICNotesSharedIndexedViewHelper)init

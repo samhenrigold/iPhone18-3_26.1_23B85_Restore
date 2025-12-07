@@ -118,7 +118,7 @@ void __60__UIDynamicAppDefinedColor__generateColorsByTraitCollection__block_invo
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
@@ -126,16 +126,16 @@ void __60__UIDynamicAppDefinedColor__generateColorsByTraitCollection__block_invo
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [(NSDictionary *)equalCopy->_colorsByThemeKey isEqual:self->_colorsByThemeKey];
+      isEqual = objc_msgSend_isEqual_(equalCopy->_colorsByThemeKey);
     }
 
     else
     {
-      v5 = 0;
+      isEqual = 0;
     }
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (id)_resolvedColorWithTraitCollection:(id)collection

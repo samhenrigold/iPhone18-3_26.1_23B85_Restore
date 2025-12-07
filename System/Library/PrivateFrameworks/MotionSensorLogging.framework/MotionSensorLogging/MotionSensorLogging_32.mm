@@ -3,27 +3,26 @@ uint64_t CMMsl::KappaActivityWatch::writeTo(uint64_t this, PB::Writer *a2)
   v3 = this;
   if (*(this + 104))
   {
-    v4 = *(this + 56);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v5 = *(v3 + 32);
-  v6 = *(v3 + 40);
-  while (v5 != v6)
+  v4 = *(v3 + 32);
+  v5 = *(v3 + 40);
+  while (v4 != v5)
   {
-    v7 = *v5++;
+    v4 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v8 = *(v3 + 104);
-  if ((v8 & 0x100) != 0)
+  v6 = *(v3 + 104);
+  if ((v6 & 0x100) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 100));
-    v8 = *(v3 + 104);
-    if ((v8 & 0x40) == 0)
+    v6 = *(v3 + 104);
+    if ((v6 & 0x40) == 0)
     {
 LABEL_8:
-      if ((v8 & 0x80) == 0)
+      if ((v6 & 0x80) == 0)
       {
         goto LABEL_9;
       }
@@ -32,17 +31,17 @@ LABEL_8:
     }
   }
 
-  else if ((v8 & 0x40) == 0)
+  else if ((v6 & 0x40) == 0)
   {
     goto LABEL_8;
   }
 
   this = PB::Writer::write(a2, *(v3 + 92));
-  v8 = *(v3 + 104);
-  if ((v8 & 0x80) == 0)
+  v6 = *(v3 + 104);
+  if ((v6 & 0x80) == 0)
   {
 LABEL_9:
-    if ((v8 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_10;
     }
@@ -52,17 +51,16 @@ LABEL_9:
 
 LABEL_22:
   this = PB::Writer::write(a2, *(v3 + 96));
-  v8 = *(v3 + 104);
-  if ((v8 & 0x20) == 0)
+  v6 = *(v3 + 104);
+  if ((v6 & 0x20) == 0)
   {
 LABEL_10:
-    if ((v8 & 2) == 0)
+    if ((v6 & 2) == 0)
     {
       goto LABEL_11;
     }
 
 LABEL_24:
-    v15 = *(v3 + 64);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 104) & 4) == 0)
     {
@@ -73,43 +71,41 @@ LABEL_24:
   }
 
 LABEL_23:
-  v14 = *(v3 + 88);
   this = PB::Writer::writeVarInt(a2);
-  v8 = *(v3 + 104);
-  if ((v8 & 2) != 0)
+  v6 = *(v3 + 104);
+  if ((v6 & 2) != 0)
   {
     goto LABEL_24;
   }
 
 LABEL_11:
-  if ((v8 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
 LABEL_12:
-    v9 = *(v3 + 72);
     this = PB::Writer::writeVarInt(a2);
   }
 
 LABEL_13:
-  v10 = *(v3 + 8);
-  v11 = *(v3 + 16);
-  while (v10 != v11)
+  v7 = *(v3 + 8);
+  v8 = *(v3 + 16);
+  while (v7 != v8)
   {
-    v12 = *v10++;
+    v7 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v13 = *(v3 + 104);
-  if ((v13 & 0x10) != 0)
+  v9 = *(v3 + 104);
+  if ((v9 & 0x10) != 0)
   {
     this = PB::Writer::write(a2, *(v3 + 84));
-    v13 = *(v3 + 104);
+    v9 = *(v3 + 104);
   }
 
-  if ((v13 & 8) != 0)
+  if ((v9 & 8) != 0)
   {
-    v16 = *(v3 + 80);
+    v10 = *(v3 + 80);
 
-    return PB::Writer::write(a2, v16);
+    return PB::Writer::write(a2, v10);
   }
 
   return this;
@@ -127,28 +123,26 @@ uint64_t CMMsl::KappaActivityWatch::hash_value(CMMsl::KappaActivityWatch *this)
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
-  v5 = PBHashBytes();
-  v6 = *(this + 52);
-  if ((v6 & 0x100) == 0)
+  v3 = PBHashBytes();
+  v4 = *(this + 52);
+  if ((v4 & 0x100) == 0)
   {
-    v7 = 0;
-    if ((v6 & 0x40) != 0)
+    v5 = 0;
+    if ((v4 & 0x40) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_21:
-    v9 = 0;
-    if ((v6 & 0x80) != 0)
+    v7 = 0;
+    if ((v4 & 0x80) != 0)
     {
       goto LABEL_10;
     }
 
 LABEL_22:
-    v11 = 0;
-    if ((v6 & 0x20) != 0)
+    v9 = 0;
+    if ((v4 & 0x20) != 0)
     {
       goto LABEL_14;
     }
@@ -156,24 +150,41 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v15 = *(this + 25);
-  if (v15 == 0.0)
+  v13 = *(this + 25);
+  if (v13 == 0.0)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = LODWORD(v13);
+  }
+
+  if ((v4 & 0x40) == 0)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_6:
+  v6 = *(this + 23);
+  if (v6 == 0.0)
   {
     v7 = 0;
   }
 
   else
   {
-    v7 = LODWORD(v15);
+    v7 = LODWORD(v6);
   }
 
-  if ((v6 & 0x40) == 0)
+  if ((v4 & 0x80) == 0)
   {
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-LABEL_6:
-  v8 = *(this + 23);
+LABEL_10:
+  v8 = *(this + 24);
   if (v8 == 0.0)
   {
     v9 = 0;
@@ -184,35 +195,18 @@ LABEL_6:
     v9 = LODWORD(v8);
   }
 
-  if ((v6 & 0x80) == 0)
-  {
-    goto LABEL_22;
-  }
-
-LABEL_10:
-  v10 = *(this + 24);
-  if (v10 == 0.0)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = LODWORD(v10);
-  }
-
-  if ((v6 & 0x20) != 0)
+  if ((v4 & 0x20) != 0)
   {
 LABEL_14:
-    v12 = *(this + 22);
-    if ((v6 & 2) != 0)
+    v10 = *(this + 22);
+    if ((v4 & 2) != 0)
     {
       goto LABEL_15;
     }
 
 LABEL_24:
-    v13 = 0;
-    if ((v6 & 4) != 0)
+    v11 = 0;
+    if ((v4 & 4) != 0)
     {
       goto LABEL_16;
     }
@@ -221,62 +215,60 @@ LABEL_24:
   }
 
 LABEL_23:
-  v12 = 0;
-  if ((v6 & 2) == 0)
+  v10 = 0;
+  if ((v4 & 2) == 0)
   {
     goto LABEL_24;
   }
 
 LABEL_15:
-  v13 = *(this + 8);
-  if ((v6 & 4) != 0)
+  v11 = *(this + 8);
+  if ((v4 & 4) != 0)
   {
 LABEL_16:
-    v14 = *(this + 9);
+    v12 = *(this + 9);
     goto LABEL_26;
   }
 
 LABEL_25:
-  v14 = 0;
+  v12 = 0;
 LABEL_26:
-  v16 = *(this + 1);
-  v17 = *(this + 2);
-  v18 = PBHashBytes();
-  v19 = *(this + 52);
-  if ((v19 & 0x10) != 0)
+  v14 = PBHashBytes();
+  v15 = *(this + 52);
+  if ((v15 & 0x10) != 0)
   {
-    v23 = *(this + 21);
-    v20 = LODWORD(v23);
-    if (v23 == 0.0)
+    v19 = *(this + 21);
+    v16 = LODWORD(v19);
+    if (v19 == 0.0)
     {
-      v20 = 0;
+      v16 = 0;
     }
 
-    if ((v19 & 8) != 0)
+    if ((v15 & 8) != 0)
     {
       goto LABEL_28;
     }
 
 LABEL_34:
-    v22 = 0;
-    return v5 ^ v2 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v14 ^ v18 ^ v20 ^ v22;
+    v18 = 0;
+    return v3 ^ v2 ^ v5 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18;
   }
 
-  v20 = 0;
-  if ((v19 & 8) == 0)
+  v16 = 0;
+  if ((v15 & 8) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_28:
-  v21 = *(this + 20);
-  v22 = LODWORD(v21);
-  if (v21 == 0.0)
+  v17 = *(this + 20);
+  v18 = LODWORD(v17);
+  if (v17 == 0.0)
   {
-    v22 = 0;
+    v18 = 0;
   }
 
-  return v5 ^ v2 ^ v7 ^ v9 ^ v11 ^ v12 ^ v13 ^ v14 ^ v18 ^ v20 ^ v22;
+  return v3 ^ v2 ^ v5 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v14 ^ v16 ^ v18;
 }
 
 void CMMsl::KappaAirbagResult::~KappaAirbagResult(CMMsl::KappaAirbagResult *this)
@@ -533,7 +525,7 @@ float CMMsl::KappaAirbagResult::KappaAirbagResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaAirbagResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaAirbagResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -551,7 +543,6 @@ uint64_t CMMsl::KappaAirbagResult::formatText(CMMsl::KappaAirbagResult *this, PB
   v5 = *(this + 34);
   if ((v5 & 0x10) != 0)
   {
-    v6 = *(this + 10);
     PB::TextFormatter::format(a2, "diffPeakTimestampTrigger");
     v5 = *(this + 34);
     if ((v5 & 1) == 0)
@@ -571,7 +562,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 1);
   PB::TextFormatter::format(a2, "epochFirstTimestamp");
   v5 = *(this + 34);
   if ((v5 & 2) == 0)
@@ -586,7 +576,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  v8 = *(this + 2);
   PB::TextFormatter::format(a2, "epochLastTimestamp");
   v5 = *(this + 34);
   if ((v5 & 0x20) == 0)
@@ -615,7 +604,6 @@ LABEL_6:
   }
 
 LABEL_20:
-  v9 = *(this + 64);
   PB::TextFormatter::format(a2, "pass");
   v5 = *(this + 34);
   if ((v5 & 0x40) == 0)
@@ -644,7 +632,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  v10 = *(this + 3);
   PB::TextFormatter::format(a2, "peakTimestamp");
   v5 = *(this + 34);
   if ((v5 & 0x80) == 0)
@@ -659,7 +646,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  v11 = *(this + 13);
   PB::TextFormatter::format(a2, "pressureODR");
   v5 = *(this + 34);
   if ((v5 & 0x100) == 0)
@@ -688,7 +674,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  v12 = *(this + 4);
   PB::TextFormatter::format(a2, "timestamp");
   if ((*(this + 34) & 0x200) != 0)
   {
@@ -1434,7 +1419,6 @@ uint64_t CMMsl::KappaAirbagResult::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 68);
   if ((v4 & 0x400) != 0)
   {
-    v5 = *(this + 64);
     this = PB::Writer::write(a2);
     v4 = *(v3 + 68);
     if ((v4 & 0x80) == 0)
@@ -1454,7 +1438,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 52);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 0x40) == 0)
@@ -1511,7 +1494,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  v7 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 0x10) == 0)
@@ -1526,7 +1508,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  v8 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 1) == 0)
@@ -1541,7 +1522,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  v9 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 2) == 0)
@@ -1563,7 +1543,6 @@ LABEL_22:
   }
 
 LABEL_21:
-  v10 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 68);
   if ((v4 & 0x20) != 0)
@@ -1578,7 +1557,6 @@ LABEL_11:
   }
 
 LABEL_23:
-  v11 = *(v3 + 32);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -2371,7 +2349,7 @@ float CMMsl::KappaAudioResult::KappaAudioResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaAudioResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaAudioResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2408,7 +2386,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(this + 3);
   PB::TextFormatter::format(a2, "configFeatureSamples");
   v5 = *(this + 27);
   if ((v5 & 4) == 0)
@@ -2493,7 +2470,6 @@ LABEL_9:
   }
 
 LABEL_40:
-  v7 = *(this + 9);
   PB::TextFormatter::format(a2, "configPostTriggerLimitTime");
   v5 = *(this + 27);
   if ((v5 & 0x100) == 0)
@@ -2508,7 +2484,6 @@ LABEL_10:
   }
 
 LABEL_41:
-  v8 = *(this + 10);
   PB::TextFormatter::format(a2, "configPreTriggerLimitTime");
   v5 = *(this + 27);
   if ((v5 & 0x200) == 0)
@@ -2579,7 +2554,6 @@ LABEL_15:
   }
 
 LABEL_46:
-  v9 = *(this + 100);
   PB::TextFormatter::format(a2, "isAudioTPQ");
   v5 = *(this + 27);
   if ((v5 & 0x1000000) == 0)
@@ -2594,7 +2568,6 @@ LABEL_16:
   }
 
 LABEL_47:
-  v10 = *(this + 101);
   PB::TextFormatter::format(a2, "isFpThresholdsMet");
   v5 = *(this + 27);
   if ((v5 & 0x2000000) == 0)
@@ -2609,7 +2582,6 @@ LABEL_17:
   }
 
 LABEL_48:
-  v11 = *(this + 102);
   PB::TextFormatter::format(a2, "isNonPlanarTp");
   v5 = *(this + 27);
   if ((v5 & 0x4000000) == 0)
@@ -2624,7 +2596,6 @@ LABEL_18:
   }
 
 LABEL_49:
-  v12 = *(this + 103);
   PB::TextFormatter::format(a2, "isPlanarTp");
   v5 = *(this + 27);
   if ((v5 & 0x8000000) == 0)
@@ -2639,7 +2610,6 @@ LABEL_19:
   }
 
 LABEL_50:
-  v13 = *(this + 104);
   PB::TextFormatter::format(a2, "isTauBarWithinRange");
   v5 = *(this + 27);
   if ((v5 & 0x2000) == 0)
@@ -2738,7 +2708,6 @@ LABEL_26:
   }
 
 LABEL_57:
-  v14 = *(this + 21);
   PB::TextFormatter::format(a2, "sampleCount");
   v5 = *(this + 27);
   if ((v5 & 0x100000) == 0)
@@ -3526,7 +3495,6 @@ uint64_t CMMsl::KappaAudioResult::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 108);
   if ((v4 & 0x800000) != 0)
   {
-    v5 = *(this + 100);
     this = PB::Writer::write(a2);
     v4 = *(v3 + 108);
     if ((v4 & 0x80000) == 0)
@@ -3546,7 +3514,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 84);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x20000) == 0)
@@ -3701,7 +3668,6 @@ LABEL_14:
   }
 
 LABEL_42:
-  v7 = *(v3 + 103);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x2000000) == 0)
@@ -3716,7 +3682,6 @@ LABEL_15:
   }
 
 LABEL_43:
-  v8 = *(v3 + 102);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x1000000) == 0)
@@ -3731,7 +3696,6 @@ LABEL_16:
   }
 
 LABEL_44:
-  v9 = *(v3 + 101);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x8000000) == 0)
@@ -3746,7 +3710,6 @@ LABEL_17:
   }
 
 LABEL_45:
-  v10 = *(v3 + 104);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 108);
   if ((v4 & 2) == 0)
@@ -3761,7 +3724,6 @@ LABEL_18:
   }
 
 LABEL_46:
-  v11 = *(v3 + 12);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x800) == 0)
@@ -3790,7 +3752,6 @@ LABEL_20:
   }
 
 LABEL_48:
-  v12 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x80) == 0)
@@ -3805,7 +3766,6 @@ LABEL_21:
   }
 
 LABEL_49:
-  v13 = *(v3 + 36);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 108);
   if ((v4 & 0x40) == 0)
@@ -3911,9 +3871,9 @@ LABEL_28:
   }
 
 LABEL_57:
-  v14 = *(v3 + 44);
+  v5 = *(v3 + 44);
 
-  return PB::Writer::write(a2, v14);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::KappaAudioResult::hash_value(CMMsl::KappaAudioResult *this)
@@ -5068,7 +5028,7 @@ float CMMsl::KappaBaroResult::KappaBaroResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaBaroResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaBaroResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5086,7 +5046,6 @@ uint64_t CMMsl::KappaBaroResult::formatText(CMMsl::KappaBaroResult *this, PB::Te
   v5 = *(this + 38);
   if ((v5 & 0x20000000) != 0)
   {
-    v6 = *(this + 148);
     PB::TextFormatter::format(a2, "airbagDetected");
     v5 = *(this + 38);
     if ((v5 & 0x40) == 0)
@@ -5218,7 +5177,6 @@ LABEL_11:
   }
 
 LABEL_44:
-  v7 = *(this + 22);
   PB::TextFormatter::format(a2, "diffPeakTimeTrigger");
   v5 = *(this + 38);
   if ((v5 & 0x8000) == 0)
@@ -5233,7 +5191,6 @@ LABEL_12:
   }
 
 LABEL_45:
-  v8 = *(this + 23);
   PB::TextFormatter::format(a2, "diffTimeTrigger");
   v5 = *(this + 38);
   if ((v5 & 1) == 0)
@@ -5248,7 +5205,6 @@ LABEL_13:
   }
 
 LABEL_46:
-  v9 = *(this + 1);
   PB::TextFormatter::format(a2, "epochFirstTimestamp");
   v5 = *(this + 38);
   if ((v5 & 2) == 0)
@@ -5263,7 +5219,6 @@ LABEL_14:
   }
 
 LABEL_47:
-  v10 = *(this + 2);
   PB::TextFormatter::format(a2, "epochLastTimestamp");
   v5 = *(this + 38);
   if ((v5 & 4) == 0)
@@ -5278,7 +5233,6 @@ LABEL_15:
   }
 
 LABEL_48:
-  v11 = *(this + 3);
   PB::TextFormatter::format(a2, "eventStartTime");
   v5 = *(this + 38);
   if ((v5 & 0x10000) == 0)
@@ -5321,7 +5275,6 @@ LABEL_18:
   }
 
 LABEL_51:
-  v12 = *(this + 4);
   PB::TextFormatter::format(a2, "maxAccelNormOverEpochTimestamp");
   v5 = *(this + 38);
   if ((v5 & 0x40000) == 0)
@@ -5336,7 +5289,6 @@ LABEL_19:
   }
 
 LABEL_52:
-  v13 = *(this + 26);
   PB::TextFormatter::format(a2, "numAirbags");
   v5 = *(this + 38);
   if ((v5 & 0x80000) == 0)
@@ -5351,7 +5303,6 @@ LABEL_20:
   }
 
 LABEL_53:
-  v14 = *(this + 27);
   PB::TextFormatter::format(a2, "numBarosInEpoch");
   v5 = *(this + 38);
   if ((v5 & 0x100000) == 0)
@@ -5366,7 +5317,6 @@ LABEL_21:
   }
 
 LABEL_54:
-  v15 = *(this + 28);
   PB::TextFormatter::format(a2, "odr");
   v5 = *(this + 38);
   if ((v5 & 0x200000) == 0)
@@ -5395,7 +5345,6 @@ LABEL_23:
   }
 
 LABEL_56:
-  v16 = *(this + 5);
   PB::TextFormatter::format(a2, "peakTimestamp");
   v5 = *(this + 38);
   if ((v5 & 0x400000) == 0)
@@ -5494,7 +5443,6 @@ LABEL_30:
   }
 
 LABEL_63:
-  v17 = *(this + 6);
   PB::TextFormatter::format(a2, "timestamp");
   if ((*(this + 38) & 0x10000000) != 0)
   {
@@ -6767,7 +6715,6 @@ uint64_t CMMsl::KappaBaroResult::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 152);
   if ((v4 & 0x20000000) != 0)
   {
-    v5 = *(this + 148);
     this = PB::Writer::write(a2);
     v4 = *(v3 + 152);
     if ((v4 & 0x200000) == 0)
@@ -6801,7 +6748,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  v6 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x10000000) == 0)
@@ -6844,7 +6790,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  v7 = *(v3 + 112);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x40000) == 0)
@@ -6859,7 +6804,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  v8 = *(v3 + 104);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x10) == 0)
@@ -6874,7 +6818,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  v9 = *(v3 + 40);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x8000000) == 0)
@@ -6903,7 +6846,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  v10 = *(v3 + 92);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x4000) == 0)
@@ -6918,7 +6860,6 @@ LABEL_12:
   }
 
 LABEL_42:
-  v11 = *(v3 + 88);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x800000) == 0)
@@ -7045,7 +6986,6 @@ LABEL_21:
   }
 
 LABEL_51:
-  v12 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 2) == 0)
@@ -7060,7 +7000,6 @@ LABEL_22:
   }
 
 LABEL_52:
-  v13 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x10000) == 0)
@@ -7089,7 +7028,6 @@ LABEL_24:
   }
 
 LABEL_54:
-  v14 = *(v3 + 48);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x2000000) == 0)
@@ -7146,7 +7084,6 @@ LABEL_28:
   }
 
 LABEL_58:
-  v15 = *(v3 + 108);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 152);
   if ((v4 & 0x40) == 0)
@@ -7158,7 +7095,6 @@ LABEL_29:
     }
 
 LABEL_60:
-    v16 = *(v3 + 32);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 152) & 0x80) == 0)
     {
@@ -7183,9 +7119,9 @@ LABEL_30:
   }
 
 LABEL_61:
-  v17 = *(v3 + 60);
+  v5 = *(v3 + 60);
 
-  return PB::Writer::write(a2, v17);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::KappaBaroResult::hash_value(CMMsl::KappaBaroResult *this)
@@ -9330,7 +9266,7 @@ float CMMsl::KappaCrashResult::KappaCrashResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaCrashResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaCrashResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9546,19 +9482,18 @@ LABEL_16:
 LABEL_17:
   if ((*(this + 150) & 8) != 0)
   {
-    v7 = *(this + 280);
     PB::TextFormatter::format(a2, "crashDetectorDecision");
   }
 
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x10000) != 0)
   {
     PB::TextFormatter::format(a2, "deltaVXYBiggestImpact", *(this + 19));
-    v8 = *v5;
+    v7 = *v5;
     if ((*v5 & 0x20000) == 0)
     {
 LABEL_21:
-      if ((v8 & 0x40000) == 0)
+      if ((v7 & 0x40000) == 0)
       {
         goto LABEL_22;
       }
@@ -9567,17 +9502,17 @@ LABEL_21:
     }
   }
 
-  else if ((v8 & 0x20000) == 0)
+  else if ((v7 & 0x20000) == 0)
   {
     goto LABEL_21;
   }
 
   PB::TextFormatter::format(a2, "deltaVXYOverEpoch", *(this + 20));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x40000) == 0)
   {
 LABEL_22:
-    if ((v8 & 0x80000) == 0)
+    if ((v7 & 0x80000) == 0)
     {
       goto LABEL_23;
     }
@@ -9587,11 +9522,11 @@ LABEL_22:
 
 LABEL_106:
   PB::TextFormatter::format(a2, "deltaVXYUnconditional", *(this + 21));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x80000) == 0)
   {
 LABEL_23:
-    if ((v8 & 0x100000) == 0)
+    if ((v7 & 0x100000) == 0)
     {
       goto LABEL_24;
     }
@@ -9601,11 +9536,11 @@ LABEL_23:
 
 LABEL_107:
   PB::TextFormatter::format(a2, "deltaVXYUnconditionalPlanarWithAudioThreshold", *(this + 22));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x100000) == 0)
   {
 LABEL_24:
-    if ((v8 & 0x200000) == 0)
+    if ((v7 & 0x200000) == 0)
     {
       goto LABEL_25;
     }
@@ -9615,11 +9550,11 @@ LABEL_24:
 
 LABEL_108:
   PB::TextFormatter::format(a2, "deltaVXYUnconditionalPlanarWithoutAudioThreshold", *(this + 23));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x200000) == 0)
   {
 LABEL_25:
-    if ((v8 & 0x400000) == 0)
+    if ((v7 & 0x400000) == 0)
     {
       goto LABEL_26;
     }
@@ -9628,13 +9563,12 @@ LABEL_25:
   }
 
 LABEL_109:
-  v15 = *(this + 24);
   PB::TextFormatter::format(a2, "detectorRegime");
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x400000) == 0)
   {
 LABEL_26:
-    if ((v8 & 0x800000) == 0)
+    if ((v7 & 0x800000) == 0)
     {
       goto LABEL_27;
     }
@@ -9644,11 +9578,11 @@ LABEL_26:
 
 LABEL_110:
   PB::TextFormatter::format(a2, "detectorRegimeAccelnormThreshold1", *(this + 25));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x800000) == 0)
   {
 LABEL_27:
-    if ((v8 & 0x1000000) == 0)
+    if ((v7 & 0x1000000) == 0)
     {
       goto LABEL_28;
     }
@@ -9658,11 +9592,11 @@ LABEL_27:
 
 LABEL_111:
   PB::TextFormatter::format(a2, "detectorRegimeAccelnormThreshold2", *(this + 26));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x1000000) == 0)
   {
 LABEL_28:
-    if ((v8 & 0x2000000) == 0)
+    if ((v7 & 0x2000000) == 0)
     {
       goto LABEL_29;
     }
@@ -9672,11 +9606,11 @@ LABEL_28:
 
 LABEL_112:
   PB::TextFormatter::format(a2, "detectorRegimeAccelnormThreshold3", *(this + 27));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x2000000) == 0)
   {
 LABEL_29:
-    if ((v8 & 0x4000000) == 0)
+    if ((v7 & 0x4000000) == 0)
     {
       goto LABEL_30;
     }
@@ -9686,11 +9620,11 @@ LABEL_29:
 
 LABEL_113:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold1", *(this + 28));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x4000000) == 0)
   {
 LABEL_30:
-    if ((v8 & 0x8000000) == 0)
+    if ((v7 & 0x8000000) == 0)
     {
       goto LABEL_31;
     }
@@ -9700,11 +9634,11 @@ LABEL_30:
 
 LABEL_114:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold1WithAudio", *(this + 29));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x8000000) == 0)
   {
 LABEL_31:
-    if ((v8 & 0x10000000) == 0)
+    if ((v7 & 0x10000000) == 0)
     {
       goto LABEL_32;
     }
@@ -9714,11 +9648,11 @@ LABEL_31:
 
 LABEL_115:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold1WithoutAudio", *(this + 30));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x10000000) == 0)
   {
 LABEL_32:
-    if ((v8 & 0x20000000) == 0)
+    if ((v7 & 0x20000000) == 0)
     {
       goto LABEL_33;
     }
@@ -9728,11 +9662,11 @@ LABEL_32:
 
 LABEL_116:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold1WithoutAudioStandaloneBaroNeeded", *(this + 31));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x20000000) == 0)
   {
 LABEL_33:
-    if ((v8 & 0x40000000) == 0)
+    if ((v7 & 0x40000000) == 0)
     {
       goto LABEL_34;
     }
@@ -9742,11 +9676,11 @@ LABEL_33:
 
 LABEL_117:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold1WithoutAudioStandaloneFull", *(this + 32));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x40000000) == 0)
   {
 LABEL_34:
-    if ((v8 & 0x80000000) == 0)
+    if ((v7 & 0x80000000) == 0)
     {
       goto LABEL_35;
     }
@@ -9756,11 +9690,11 @@ LABEL_34:
 
 LABEL_118:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold2", *(this + 33));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x80000000) == 0)
   {
 LABEL_35:
-    if ((v8 & 0x100000000) == 0)
+    if ((v7 & 0x100000000) == 0)
     {
       goto LABEL_36;
     }
@@ -9770,11 +9704,11 @@ LABEL_35:
 
 LABEL_119:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold2WithAudio", *(this + 34));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x100000000) == 0)
   {
 LABEL_36:
-    if ((v8 & 0x200000000) == 0)
+    if ((v7 & 0x200000000) == 0)
     {
       goto LABEL_37;
     }
@@ -9784,11 +9718,11 @@ LABEL_36:
 
 LABEL_120:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold2WithoutAudio", *(this + 35));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x200000000) == 0)
   {
 LABEL_37:
-    if ((v8 & 0x400000000) == 0)
+    if ((v7 & 0x400000000) == 0)
     {
       goto LABEL_38;
     }
@@ -9798,11 +9732,11 @@ LABEL_37:
 
 LABEL_121:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold2WithoutAudioStandaloneBaroNeeded", *(this + 36));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x400000000) == 0)
   {
 LABEL_38:
-    if ((v8 & 0x800000000) == 0)
+    if ((v7 & 0x800000000) == 0)
     {
       goto LABEL_39;
     }
@@ -9812,11 +9746,11 @@ LABEL_38:
 
 LABEL_122:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold2WithoutAudioStandaloneFull", *(this + 37));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x800000000) == 0)
   {
 LABEL_39:
-    if ((v8 & 0x1000000000) == 0)
+    if ((v7 & 0x1000000000) == 0)
     {
       goto LABEL_40;
     }
@@ -9826,11 +9760,11 @@ LABEL_39:
 
 LABEL_123:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold3", *(this + 38));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x1000000000) == 0)
   {
 LABEL_40:
-    if ((v8 & 0x2000000000) == 0)
+    if ((v7 & 0x2000000000) == 0)
     {
       goto LABEL_41;
     }
@@ -9840,11 +9774,11 @@ LABEL_40:
 
 LABEL_124:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold3WithAudio", *(this + 39));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x2000000000) == 0)
   {
 LABEL_41:
-    if ((v8 & 0x4000000000) == 0)
+    if ((v7 & 0x4000000000) == 0)
     {
       goto LABEL_42;
     }
@@ -9854,11 +9788,11 @@ LABEL_41:
 
 LABEL_125:
   PB::TextFormatter::format(a2, "detectorRegimeDeltaVThreshold3WithoutAudio", *(this + 40));
-  v8 = *v5;
+  v7 = *v5;
   if ((*v5 & 0x4000000000) == 0)
   {
 LABEL_42:
-    if ((v8 & 0x8000000000) == 0)
+    if ((v7 & 0x8000000000) == 0)
     {
       goto LABEL_44;
     }
@@ -9875,16 +9809,15 @@ LABEL_43:
   }
 
 LABEL_44:
-  v9 = *(this + 150);
-  if ((v9 & 0x10) != 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x10) != 0)
   {
-    v16 = *(this + 281);
     PB::TextFormatter::format(a2, "hasAudioInEpoch");
-    v9 = *(this + 150);
-    if ((v9 & 0x20) == 0)
+    v8 = *(this + 150);
+    if ((v8 & 0x20) == 0)
     {
 LABEL_46:
-      if ((v9 & 0x40) == 0)
+      if ((v8 & 0x40) == 0)
       {
         goto LABEL_47;
       }
@@ -9893,18 +9826,17 @@ LABEL_46:
     }
   }
 
-  else if ((v9 & 0x20) == 0)
+  else if ((v8 & 0x20) == 0)
   {
     goto LABEL_46;
   }
 
-  v17 = *(this + 282);
   PB::TextFormatter::format(a2, "isAudio");
-  v9 = *(this + 150);
-  if ((v9 & 0x40) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x40) == 0)
   {
 LABEL_47:
-    if ((v9 & 0x80) == 0)
+    if ((v8 & 0x80) == 0)
     {
       goto LABEL_48;
     }
@@ -9913,13 +9845,12 @@ LABEL_47:
   }
 
 LABEL_130:
-  v18 = *(this + 283);
   PB::TextFormatter::format(a2, "isAudioDv");
-  v9 = *(this + 150);
-  if ((v9 & 0x80) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x80) == 0)
   {
 LABEL_48:
-    if ((v9 & 0x100) == 0)
+    if ((v8 & 0x100) == 0)
     {
       goto LABEL_49;
     }
@@ -9928,13 +9859,12 @@ LABEL_48:
   }
 
 LABEL_131:
-  v19 = *(this + 284);
   PB::TextFormatter::format(a2, "isAudioSupported");
-  v9 = *(this + 150);
-  if ((v9 & 0x100) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x100) == 0)
   {
 LABEL_49:
-    if ((v9 & 0x200) == 0)
+    if ((v8 & 0x200) == 0)
     {
       goto LABEL_50;
     }
@@ -9943,13 +9873,12 @@ LABEL_49:
   }
 
 LABEL_132:
-  v20 = *(this + 285);
   PB::TextFormatter::format(a2, "isBaro");
-  v9 = *(this + 150);
-  if ((v9 & 0x200) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x200) == 0)
   {
 LABEL_50:
-    if ((v9 & 0x400) == 0)
+    if ((v8 & 0x400) == 0)
     {
       goto LABEL_51;
     }
@@ -9958,13 +9887,12 @@ LABEL_50:
   }
 
 LABEL_133:
-  v21 = *(this + 286);
   PB::TextFormatter::format(a2, "isCompanionConnected");
-  v9 = *(this + 150);
-  if ((v9 & 0x400) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x400) == 0)
   {
 LABEL_51:
-    if ((v9 & 0x800) == 0)
+    if ((v8 & 0x800) == 0)
     {
       goto LABEL_52;
     }
@@ -9973,13 +9901,12 @@ LABEL_51:
   }
 
 LABEL_134:
-  v22 = *(this + 287);
   PB::TextFormatter::format(a2, "isFreeFall");
-  v9 = *(this + 150);
-  if ((v9 & 0x800) == 0)
+  v8 = *(this + 150);
+  if ((v8 & 0x800) == 0)
   {
 LABEL_52:
-    if ((v9 & 0x1000) == 0)
+    if ((v8 & 0x1000) == 0)
     {
       goto LABEL_54;
     }
@@ -9988,25 +9915,23 @@ LABEL_52:
   }
 
 LABEL_135:
-  v23 = *(this + 288);
   PB::TextFormatter::format(a2, "isPulse");
   if ((*(this + 150) & 0x1000) != 0)
   {
 LABEL_53:
-    v10 = *(this + 289);
     PB::TextFormatter::format(a2, "lowSenseCrashDetectorDecision");
   }
 
 LABEL_54:
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x10000000000) != 0)
   {
     PB::TextFormatter::format(a2, "lowSenseWithAudioDeltaVThreshold1", *(this + 43));
-    v11 = *v5;
+    v9 = *v5;
     if ((*v5 & 0x20000000000) == 0)
     {
 LABEL_56:
-      if ((v11 & 0x40000000000) == 0)
+      if ((v9 & 0x40000000000) == 0)
       {
         goto LABEL_57;
       }
@@ -10015,17 +9940,17 @@ LABEL_56:
     }
   }
 
-  else if ((v11 & 0x20000000000) == 0)
+  else if ((v9 & 0x20000000000) == 0)
   {
     goto LABEL_56;
   }
 
   PB::TextFormatter::format(a2, "lowSenseWithAudioDeltaVThreshold2", *(this + 44));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x40000000000) == 0)
   {
 LABEL_57:
-    if ((v11 & 0x80000000000) == 0)
+    if ((v9 & 0x80000000000) == 0)
     {
       goto LABEL_58;
     }
@@ -10035,11 +9960,11 @@ LABEL_57:
 
 LABEL_139:
   PB::TextFormatter::format(a2, "lowSenseWithAudioDeltaVThreshold3", *(this + 45));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x80000000000) == 0)
   {
 LABEL_58:
-    if ((v11 & 0x100000000000) == 0)
+    if ((v9 & 0x100000000000) == 0)
     {
       goto LABEL_59;
     }
@@ -10049,11 +9974,11 @@ LABEL_58:
 
 LABEL_140:
   PB::TextFormatter::format(a2, "lowSenseWithAudioMaxPulseThreshold", *(this + 46));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x100000000000) == 0)
   {
 LABEL_59:
-    if ((v11 & 0x200000000000) == 0)
+    if ((v9 & 0x200000000000) == 0)
     {
       goto LABEL_60;
     }
@@ -10063,11 +9988,11 @@ LABEL_59:
 
 LABEL_141:
   PB::TextFormatter::format(a2, "lowSenseWithAudioMaxaccelnormThreshold", *(this + 47));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x200000000000) == 0)
   {
 LABEL_60:
-    if ((v11 & 0x400000000000) == 0)
+    if ((v9 & 0x400000000000) == 0)
     {
       goto LABEL_61;
     }
@@ -10077,11 +10002,11 @@ LABEL_60:
 
 LABEL_142:
   PB::TextFormatter::format(a2, "lowSenseWithAudioPeakPressureThreshold", *(this + 48));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x400000000000) == 0)
   {
 LABEL_61:
-    if ((v11 & 0x800000000000) == 0)
+    if ((v9 & 0x800000000000) == 0)
     {
       goto LABEL_62;
     }
@@ -10091,11 +10016,11 @@ LABEL_61:
 
 LABEL_143:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioDeltaVThreshold1", *(this + 49));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x800000000000) == 0)
   {
 LABEL_62:
-    if ((v11 & 0x1000000000000) == 0)
+    if ((v9 & 0x1000000000000) == 0)
     {
       goto LABEL_63;
     }
@@ -10105,11 +10030,11 @@ LABEL_62:
 
 LABEL_144:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioDeltaVThreshold2", *(this + 50));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x1000000000000) == 0)
   {
 LABEL_63:
-    if ((v11 & 0x2000000000000) == 0)
+    if ((v9 & 0x2000000000000) == 0)
     {
       goto LABEL_64;
     }
@@ -10119,11 +10044,11 @@ LABEL_63:
 
 LABEL_145:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioDeltaVThreshold3", *(this + 51));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x2000000000000) == 0)
   {
 LABEL_64:
-    if ((v11 & 0x4000000000000) == 0)
+    if ((v9 & 0x4000000000000) == 0)
     {
       goto LABEL_65;
     }
@@ -10133,11 +10058,11 @@ LABEL_64:
 
 LABEL_146:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioMaxPulseThreshold", *(this + 52));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x4000000000000) == 0)
   {
 LABEL_65:
-    if ((v11 & 0x8000000000000) == 0)
+    if ((v9 & 0x8000000000000) == 0)
     {
       goto LABEL_66;
     }
@@ -10147,11 +10072,11 @@ LABEL_65:
 
 LABEL_147:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioMaxaccelnormThreshold", *(this + 53));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x8000000000000) == 0)
   {
 LABEL_66:
-    if ((v11 & 0x10000000000000) == 0)
+    if ((v9 & 0x10000000000000) == 0)
     {
       goto LABEL_67;
     }
@@ -10161,11 +10086,11 @@ LABEL_66:
 
 LABEL_148:
   PB::TextFormatter::format(a2, "lowSenseWithoutAudioPeakPressureThreshold", *(this + 54));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x10000000000000) == 0)
   {
 LABEL_67:
-    if ((v11 & 0x20000000000000) == 0)
+    if ((v9 & 0x20000000000000) == 0)
     {
       goto LABEL_68;
     }
@@ -10175,11 +10100,11 @@ LABEL_67:
 
 LABEL_149:
   PB::TextFormatter::format(a2, "maxAccelNorm", *(this + 55));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x20000000000000) == 0)
   {
 LABEL_68:
-    if ((v11 & 0x40000000000000) == 0)
+    if ((v9 & 0x40000000000000) == 0)
     {
       goto LABEL_69;
     }
@@ -10189,11 +10114,11 @@ LABEL_68:
 
 LABEL_150:
   PB::TextFormatter::format(a2, "maxAccelNormThreshold", *(this + 56));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x40000000000000) == 0)
   {
 LABEL_69:
-    if ((v11 & 0x80000000000000) == 0)
+    if ((v9 & 0x80000000000000) == 0)
     {
       goto LABEL_70;
     }
@@ -10203,11 +10128,11 @@ LABEL_69:
 
 LABEL_151:
   PB::TextFormatter::format(a2, "maxAccelNormThresholdWithAudio", *(this + 57));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x80000000000000) == 0)
   {
 LABEL_70:
-    if ((v11 & 0x100000000000000) == 0)
+    if ((v9 & 0x100000000000000) == 0)
     {
       goto LABEL_71;
     }
@@ -10217,11 +10142,11 @@ LABEL_70:
 
 LABEL_152:
   PB::TextFormatter::format(a2, "maxAccelNormThresholdWithoutAudio", *(this + 58));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x100000000000000) == 0)
   {
 LABEL_71:
-    if ((v11 & 0x200000000000000) == 0)
+    if ((v9 & 0x200000000000000) == 0)
     {
       goto LABEL_72;
     }
@@ -10231,11 +10156,11 @@ LABEL_71:
 
 LABEL_153:
   PB::TextFormatter::format(a2, "maxAccelNormThresholdWithoutAudioStandaloneBaroNeeded", *(this + 59));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x200000000000000) == 0)
   {
 LABEL_72:
-    if ((v11 & 0x400000000000000) == 0)
+    if ((v9 & 0x400000000000000) == 0)
     {
       goto LABEL_73;
     }
@@ -10245,11 +10170,11 @@ LABEL_72:
 
 LABEL_154:
   PB::TextFormatter::format(a2, "maxAccelNormThresholdWithoutAudioStandaloneFull", *(this + 60));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x400000000000000) == 0)
   {
 LABEL_73:
-    if ((v11 & 0x800000000000000) == 0)
+    if ((v9 & 0x800000000000000) == 0)
     {
       goto LABEL_74;
     }
@@ -10259,11 +10184,11 @@ LABEL_73:
 
 LABEL_155:
   PB::TextFormatter::format(a2, "maxAudioChaos", *(this + 61));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x800000000000000) == 0)
   {
 LABEL_74:
-    if ((v11 & 0x1000000000000000) == 0)
+    if ((v9 & 0x1000000000000000) == 0)
     {
       goto LABEL_75;
     }
@@ -10273,11 +10198,11 @@ LABEL_74:
 
 LABEL_156:
   PB::TextFormatter::format(a2, "maxAudioEnergy", *(this + 62));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x1000000000000000) == 0)
   {
 LABEL_75:
-    if ((v11 & 0x2000000000000000) == 0)
+    if ((v9 & 0x2000000000000000) == 0)
     {
       goto LABEL_76;
     }
@@ -10287,17 +10212,16 @@ LABEL_75:
 
 LABEL_157:
   PB::TextFormatter::format(a2, "maxAudioRms", *(this + 63));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x2000000000000000) == 0)
   {
 LABEL_76:
-    if ((v11 & 0x4000000000000000) == 0)
+    if ((v9 & 0x4000000000000000) == 0)
     {
       goto LABEL_77;
     }
 
 LABEL_159:
-    v24 = *(this + 65);
     PB::TextFormatter::format(a2, "numShortAudio");
     if ((*v5 & 0x8000000000000000) == 0)
     {
@@ -10309,14 +10233,14 @@ LABEL_159:
 
 LABEL_158:
   PB::TextFormatter::format(a2, "maxPulse", *(this + 64));
-  v11 = *v5;
+  v9 = *v5;
   if ((*v5 & 0x4000000000000000) != 0)
   {
     goto LABEL_159;
   }
 
 LABEL_77:
-  if ((v11 & 0x8000000000000000) == 0)
+  if ((v9 & 0x8000000000000000) == 0)
   {
     goto LABEL_78;
   }
@@ -10324,15 +10248,15 @@ LABEL_77:
 LABEL_160:
   PB::TextFormatter::format(a2, "peakPressure", *(this + 66));
 LABEL_78:
-  v12 = *(this + 150);
-  if (v12)
+  v10 = *(this + 150);
+  if (v10)
   {
     PB::TextFormatter::format(a2, "shortAudioMaxPulseThreshold", *(this + 67));
-    v12 = *(this + 150);
-    if ((v12 & 0x2000) == 0)
+    v10 = *(this + 150);
+    if ((v10 & 0x2000) == 0)
     {
 LABEL_80:
-      if ((v12 & 2) == 0)
+      if ((v10 & 2) == 0)
       {
         goto LABEL_81;
       }
@@ -10346,13 +10270,12 @@ LABEL_80:
     goto LABEL_80;
   }
 
-  v25 = *(this + 290);
   PB::TextFormatter::format(a2, "shortAudioMet");
-  v12 = *(this + 150);
-  if ((v12 & 2) == 0)
+  v10 = *(this + 150);
+  if ((v10 & 2) == 0)
   {
 LABEL_81:
-    if ((v12 & 4) == 0)
+    if ((v10 & 4) == 0)
     {
       goto LABEL_82;
     }
@@ -10362,11 +10285,11 @@ LABEL_81:
 
 LABEL_163:
   PB::TextFormatter::format(a2, "shortAudioNumThreshold", *(this + 68));
-  v12 = *(this + 150);
-  if ((v12 & 4) == 0)
+  v10 = *(this + 150);
+  if ((v10 & 4) == 0)
   {
 LABEL_82:
-    if ((v12 & 0x4000) == 0)
+    if ((v10 & 0x4000) == 0)
     {
       goto LABEL_84;
     }
@@ -10379,14 +10302,12 @@ LABEL_164:
   if ((*(this + 150) & 0x4000) != 0)
   {
 LABEL_83:
-    v13 = *(this + 291);
     PB::TextFormatter::format(a2, "strongerAudio");
   }
 
 LABEL_84:
   if (*v5)
   {
-    v14 = *(this + 1);
     PB::TextFormatter::format(a2, "timestamp");
   }
 

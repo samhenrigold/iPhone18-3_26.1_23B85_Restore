@@ -35,11 +35,12 @@ LABEL_11:
 
     v8 = *v5++;
     v7 = v8;
+    v9 = [class isInstance:v8];
   }
 
-  while (![class isInstance:v8]);
-  v9 = JavaLangAnnotationAnnotation_class_();
-  if (v7 && ([v9 isInstance:v7] & 1) == 0)
+  while (!v9);
+  v11 = JavaLangAnnotationAnnotation_class_(v9, v10);
+  if (v7 && ([v11 isInstance:v7] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -142,10 +143,11 @@ LABEL_11:
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    v2 = [IOSObjectArray newArrayWithLength:0 type:JavaLangAnnotationAnnotation_class_()];
-    JreStrongAssignAndConsume(&qword_100555340, v2);
+    v5 = [IOSObjectArray newArrayWithLength:0 type:JavaLangAnnotationAnnotation_class_(v3, v4)];
+    JreStrongAssignAndConsume(&qword_100555340, v5);
     atomic_store(1u, JavaLangPackage__initialized);
   }
 }

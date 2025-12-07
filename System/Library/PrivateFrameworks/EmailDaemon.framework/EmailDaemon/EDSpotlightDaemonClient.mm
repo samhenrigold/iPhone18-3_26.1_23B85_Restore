@@ -67,7 +67,7 @@ void ___ef_log_EDSpotlightDaemonClient_block_invoke()
 
 void __122__EDSpotlightDaemonClient_provideDataForBundleID_protectionClass_itemIdentifier_typeIdentifier_options_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -109,9 +109,9 @@ void __122__EDSpotlightDaemonClient_provideDataForBundleID_protectionClass_itemI
       v19 = [v7 publicMessageURL];
       if ([v18 length] && v19)
       {
-        v23 = *MEMORY[0x1E69DB670];
-        v24[0] = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+        v22 = *MEMORY[0x1E69DB670];
+        v23[0] = v19;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
         v21 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v18 attributes:v20];
         v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:0];
 
@@ -132,8 +132,6 @@ void __122__EDSpotlightDaemonClient_provideDataForBundleID_protectionClass_itemI
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provideFileURLForBundleID:(id)d protectionClass:(id)class itemIdentifier:(id)identifier typeIdentifier:(id)typeIdentifier options:(int64_t)options completionHandler:(id)handler
@@ -175,66 +173,54 @@ void __125__EDSpotlightDaemonClient_provideFileURLForBundleID_protectionClass_it
   maskCopy = mask;
   v14 = *MEMORY[0x1E69E9840];
   updateCopy = update;
+  v7 = updateCopy;
   if (maskCopy)
   {
-    v7 = _ef_log_EDSpotlightDaemonClient();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _ef_log_EDSpotlightDaemonClient(updateCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138543362;
-      v13 = updateCopy;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "spotlight updated items with summaries: %{public}@", &v12, 0xCu);
+      v13 = v7;
+      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "spotlight updated items with summaries: %{public}@", &v12, 0xCu);
     }
 
     searchableIndex = [(EDSpotlightDaemonClient *)self searchableIndex];
     dataSource = [searchableIndex dataSource];
     searchableIndex2 = [(EDSpotlightDaemonClient *)self searchableIndex];
-    [dataSource searchableIndex:searchableIndex2 indexGeneratedSummaries:updateCopy];
+    [dataSource searchableIndex:searchableIndex2 indexGeneratedSummaries:v7];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchRepresentationForSearchableItemId:(id)id typeIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   idCopy = id;
   handlerCopy = handler;
   if ([idCopy length])
   {
     persistence = [(EDSpotlightDaemonClient *)self persistence];
-    v26[0] = idCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = idCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     v11 = [persistence messageObjectIDsForSearchableItemIdentifiers:v10];
 
     first = [v11 first];
     firstObject = [first firstObject];
 
-    if (!firstObject)
-    {
-      goto LABEL_5;
-    }
-
-    v25 = firstObject;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v15 = [persistence messagesForMessageObjectIDs:v14 missedMessageObjectIDs:0];
-    firstObject2 = [v15 firstObject];
-
-    if (firstObject2)
+    if (firstObject && (v24 = firstObject, [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(persistence, "messagesForMessageObjectIDs:missedMessageObjectIDs:", v14, 0), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "firstObject"), v16 = objc_claimAutoreleasedReturnValue(), v15, v14, v16))
     {
       v17 = [MEMORY[0x1E699AC68] optionsWithRequestedRepresentationType:*MEMORY[0x1E699A710] networkUsage:0];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __99__EDSpotlightDaemonClient_fetchRepresentationForSearchableItemId_typeIdentifier_completionHandler___block_invoke;
-      v23[3] = &unk_1E8252228;
-      v24 = handlerCopy;
-      v18 = [firstObject2 requestRepresentationWithOptions:v17 completionHandler:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __99__EDSpotlightDaemonClient_fetchRepresentationForSearchableItemId_typeIdentifier_completionHandler___block_invoke;
+      v22[3] = &unk_1E8252228;
+      v23 = handlerCopy;
+      v18 = [v16 requestRepresentationWithOptions:v17 completionHandler:v22];
     }
 
     else
     {
-LABEL_5:
       v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"EDMailSpotlightIndexErrorDomain" code:12 userInfo:0];
-      firstObject2 = 0;
+      v16 = 0;
       (*(handlerCopy + 2))(handlerCopy, 0, 0, v17);
       v18 = 0;
     }
@@ -249,8 +235,6 @@ LABEL_5:
 
     v19 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

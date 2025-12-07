@@ -609,9 +609,9 @@ LABEL_21:
           {
             v70 = [CCToolKitToolTypedValueEntityValue alloc];
             v71 = CCPBReaderReadDataNoCopy();
-            v105 = 0;
-            v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v105];
-            v10 = v105;
+            v103 = 0;
+            v72 = [(CCItemMessage *)v70 initWithData:v71 error:&v103];
+            v10 = v103;
             entity = self->_entity;
             self->_entity = v72;
 
@@ -634,9 +634,9 @@ LABEL_21:
           {
             v38 = [CCToolKitToolTypedValueCollectionValue alloc];
             v39 = CCPBReaderReadDataNoCopy();
-            v104 = 0;
-            v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v104];
-            v10 = v104;
+            v102 = 0;
+            v40 = [(CCItemMessage *)v38 initWithData:v39 error:&v102];
+            v10 = v102;
             collection = self->_collection;
             self->_collection = v40;
 
@@ -665,9 +665,9 @@ LABEL_21:
           {
             v56 = [CCToolKitToolTypedValuePrimitiveValue alloc];
             v57 = CCPBReaderReadDataNoCopy();
-            v107 = 0;
-            v58 = [(CCItemMessage *)v56 initWithData:v57 error:&v107];
-            v10 = v107;
+            v105 = 0;
+            v58 = [(CCItemMessage *)v56 initWithData:v57 error:&v105];
+            v10 = v105;
             v59 = self->_primitive;
             self->_primitive = v58;
 
@@ -687,9 +687,9 @@ LABEL_21:
           {
             v24 = [CCToolKitToolTypedValueEnumerationValue alloc];
             v25 = CCPBReaderReadDataNoCopy();
-            v106 = 0;
-            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v106];
-            v10 = v106;
+            v104 = 0;
+            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v104];
+            v10 = v104;
             v27 = self->_enumeration;
             self->_enumeration = v26;
 
@@ -739,9 +739,9 @@ LABEL_51:
         {
           v62 = [CCToolKitToolTypedValueQueryValue alloc];
           v63 = CCPBReaderReadDataNoCopy();
-          v103 = 0;
-          v64 = [(CCItemMessage *)v62 initWithData:v63 error:&v103];
-          v10 = v103;
+          v101 = 0;
+          v64 = [(CCItemMessage *)v62 initWithData:v63 error:&v101];
+          v10 = v101;
           v65 = self->_query;
           self->_query = v64;
 
@@ -770,9 +770,9 @@ LABEL_51:
         {
           v29 = [CCToolKitToolTypedValueEntityIdentifierValue alloc];
           v30 = CCPBReaderReadDataNoCopy();
-          v102 = 0;
-          v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v102];
-          v10 = v102;
+          v100 = 0;
+          v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v100];
+          v10 = v100;
           v32 = self->_entityIdentifier;
           self->_entityIdentifier = v31;
 
@@ -807,9 +807,9 @@ LABEL_51:
       {
         v81 = [CCToolKitToolTypedValueDeferredValue alloc];
         v82 = CCPBReaderReadDataNoCopy();
-        v101 = 0;
-        v83 = [(CCItemMessage *)v81 initWithData:v82 error:&v101];
-        v10 = v101;
+        v99 = 0;
+        v83 = [(CCItemMessage *)v81 initWithData:v82 error:&v99];
+        v10 = v99;
         v84 = self->_deferred;
         self->_deferred = v83;
 
@@ -852,7 +852,6 @@ LABEL_56:
           {
             v91 = objc_opt_class();
             v92 = NSStringFromClass(v91);
-            v93 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
           }
 
@@ -861,9 +860,9 @@ LABEL_56:
 
         v45 = [CCToolKitToolTypedValueCodableValue alloc];
         v46 = CCPBReaderReadDataNoCopy();
-        v100 = 0;
-        v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v100];
-        v10 = v100;
+        v98 = 0;
+        v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v98];
+        v10 = v98;
         v48 = self->_codable;
         self->_codable = v47;
 
@@ -914,23 +913,22 @@ LABEL_61:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v98 = 1;
+    v96 = 1;
     goto LABEL_65;
   }
 
 LABEL_62:
-  v94 = objc_opt_class();
-  v95 = NSStringFromClass(v94);
-  v96 = *&v6[*v9];
-  v97 = CCInvalidBufferErrorForMessage();
+  v93 = objc_opt_class();
+  v94 = NSStringFromClass(v93);
+  v95 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_63:
-  v98 = 0;
+  v96 = 0;
 LABEL_65:
 
-  return v98;
+  return v96;
 }
 
 - (CCToolKitToolTypedValue)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

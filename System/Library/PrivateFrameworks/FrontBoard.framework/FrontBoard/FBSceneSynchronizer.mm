@@ -76,7 +76,7 @@
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [FBSceneSynchronizer _initWithIdentifier:? workspaceQueue:? dispatcher:?];
+        [FBSceneSynchronizer _initWithIdentifier:self workspaceQueue:? dispatcher:?];
       }
 
       [v26 UTF8String];
@@ -93,7 +93,7 @@
     v13 = identifierCopy;
     if (!v13)
     {
-      [FBSceneSynchronizer _initWithIdentifier:? workspaceQueue:? dispatcher:?];
+      [FBSceneSynchronizer _initWithIdentifier:self workspaceQueue:? dispatcher:?];
     }
 
     v14 = v13;
@@ -156,7 +156,7 @@ LABEL_11:
   v5 = v4;
   if (!v5)
   {
-    [FBSceneSynchronizer _setProcessHandle:?];
+    [(FBSceneSynchronizer *)sel__setProcessHandle_ _setProcessHandle:handle];
   }
 
   v6 = v5;
@@ -210,7 +210,7 @@ LABEL_7:
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"new processHandle=%@ mismatches previous=%@", v6, v8];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    [FBSceneSynchronizer _setProcessHandle:?];
+    [(FBSceneSynchronizer *)sel__setProcessHandle_ _setProcessHandle:handle];
   }
 
   [v15 UTF8String];
@@ -258,30 +258,30 @@ LABEL_7:
     if (v10)
     {
 LABEL_4:
-      v12 = +[FBProcessManager sharedInstance];
+      v13 = +[FBProcessManager sharedInstance];
       v22 = 0;
-      v13 = [v12 _registerProcessForViewServiceWithProcessHandle:v10 error:&v22];
-      v14 = v22;
-      v15 = v14;
-      if (v13)
+      v14 = [v13 _registerProcessForViewServiceWithProcessHandle:v10 error:&v22];
+      v15 = v22;
+      v16 = v15;
+      if (v14)
       {
-        workspace = [v13 workspace];
+        workspace = [v14 workspace];
         synchronizer = [workspace synchronizer];
 
 LABEL_16:
         goto LABEL_17;
       }
 
-      if (v14)
+      if (v15)
       {
-        v19 = FBLogProcessWorkspace();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = FBLogProcessWorkspace(v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           *v26 = v10;
           *&v26[8] = 2114;
-          *&v26[10] = v15;
-          _os_log_impl(&dword_1A89DD000, v19, OS_LOG_TYPE_DEFAULT, "failed to register viewService process %{public}@ : error=%{public}@", buf, 0x16u);
+          *&v26[10] = v16;
+          _os_log_impl(&dword_1A89DD000, v20, OS_LOG_TYPE_DEFAULT, "failed to register viewService process %{public}@ : error=%{public}@", buf, 0x16u);
         }
       }
 
@@ -295,7 +295,8 @@ LABEL_15:
   {
     v23 = 0;
     v10 = [MEMORY[0x1E69C75D0] handleForIdentifier:v6 error:&v23];
-    v11 = v23;
+    v12 = v23;
+    v11 = v12;
     if (v10)
     {
       goto LABEL_4;
@@ -304,15 +305,15 @@ LABEL_15:
 
   if (v11)
   {
-    v12 = FBLogProcessWorkspace();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = FBLogProcessWorkspace(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       rbs_pid = [v6 rbs_pid];
       *buf = 67109378;
       *v26 = rbs_pid;
       *&v26[4] = 2114;
       *&v26[6] = v11;
-      _os_log_impl(&dword_1A89DD000, v12, OS_LOG_TYPE_DEFAULT, "failed to lookup viewService process with pid=%i : error=%{public}@", buf, 0x12u);
+      _os_log_impl(&dword_1A89DD000, v13, OS_LOG_TYPE_DEFAULT, "failed to lookup viewService process with pid=%i : error=%{public}@", buf, 0x12u);
     }
 
     goto LABEL_15;
@@ -321,27 +322,25 @@ LABEL_15:
   synchronizer = 0;
 LABEL_17:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return synchronizer;
 }
 
 + (id)detachedSynchronizerWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = MEMORY[0x1E696AEC0];
-  v6 = objc_opt_class();
+  v6 = MEMORY[0x1E696AEC0];
+  v7 = objc_opt_class();
   if (!identifierCopy)
   {
-    v13 = NSStringFromClass(v6);
-    v14 = [v5 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v13];
+    v14 = NSStringFromClass(v7);
+    v15 = [v6 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v14];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [FBSceneSynchronizer detachedSynchronizerWithIdentifier:a2];
+      [(FBSceneSynchronizer *)a2 detachedSynchronizerWithIdentifier:self];
     }
 
-    [v14 UTF8String];
+    [v15 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1A8A412CCLL);
@@ -353,13 +352,13 @@ LABEL_17:
   }
 
   identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.frontboard.detached-scene-synchronizer<%@>", identifierCopy];
-  v8 = MEMORY[0x1E698F4D0];
-  v9 = [MEMORY[0x1E698F500] serviceWithClass:33];
-  v10 = [v8 queueWithName:identifierCopy serviceQuality:v9];
+  v9 = MEMORY[0x1E698F4D0];
+  v10 = [MEMORY[0x1E698F500] serviceWithClass:33];
+  v11 = [v9 queueWithName:identifierCopy serviceQuality:v10];
 
-  v11 = [[FBSceneSynchronizer alloc] _initWithIdentifier:identifierCopy workspaceQueue:v10 dispatcher:0];
+  v12 = [[FBSceneSynchronizer alloc] _initWithIdentifier:identifierCopy workspaceQueue:v11 dispatcher:0];
 
-  return v11;
+  return v12;
 }
 
 - (id)description
@@ -383,30 +382,28 @@ LABEL_17:
 
 - (void)_initWithIdentifier:(void *)a1 workspaceQueue:(const char *)a2 dispatcher:.cold.1(void *a1, const char *a2)
 {
-  v5 = OUTLINED_FUNCTION_5(a1, a2);
-  if (!v5)
+  v4 = OUTLINED_FUNCTION_5(a1, a2);
+  if (!v4)
   {
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  v6 = NSStringFromClass(v5);
-  v7 = *(v4 + 3776);
-  v8 = objc_opt_class();
-  NSStringFromClass(v8);
-  v18 = v17 = v6;
-  v9 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v5 = NSStringFromClass(v4);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v3);
     objc_claimAutoreleasedReturnValue();
-    v10 = OUTLINED_FUNCTION_8();
-    v11 = NSStringFromClass(v10);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v12, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v13, v14, v15, v16, @"identifier", v17, v18, v19, v20);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v9 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -422,21 +419,20 @@ LABEL_17:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"workspaceQueue", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"workspaceQueue", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -452,63 +448,60 @@ LABEL_17:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"dispatcher", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"dispatcher", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_initWithIdentifier:(const char *)a1 workspaceQueue:dispatcher:.cold.4(const char *a1)
+- (void)_initWithIdentifier:(const char *)a1 workspaceQueue:(uint64_t)a2 dispatcher:.cold.4(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"workspaceQueue", v4];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"workspaceQueue", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = NSStringFromSelector(a1);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_0_1();
-    v12 = @"FBSceneSynchronizer.m";
-    v13 = 1024;
-    v14 = 43;
-    v15 = v9;
-    v16 = v5;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11);
+    v13 = @"FBSceneSynchronizer.m";
+    v14 = 1024;
+    v15 = 43;
+    v16 = v10;
+    v17 = v6;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_initWithIdentifier:(const char *)a1 workspaceQueue:dispatcher:.cold.5(const char *a1)
+- (void)_initWithIdentifier:(const char *)a1 workspaceQueue:(uint64_t)a2 dispatcher:.cold.5(const char *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
 }
 
 - (void)_setProcessHandle:(void *)a1 .cold.1(void *a1, char *a2)
@@ -522,61 +515,58 @@ LABEL_17:
 
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
-  NSStringFromClass(v6);
-  v16 = v15 = v5;
-  v7 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v7 = NSStringFromClass(v6);
+  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"process", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
     objc_claimAutoreleasedReturnValue();
-    v8 = OUTLINED_FUNCTION_8();
-    v9 = NSStringFromClass(v8);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, @"process", v15, v16, v17, v18);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v7 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_setProcessHandle:(const char *)a1 .cold.2(const char *a1)
+- (void)_setProcessHandle:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
 }
 
-- (void)_setProcessHandle:(const char *)a1 .cold.3(const char *a1)
+- (void)_setProcessHandle:(const char *)a1 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"process", v4];
+  v3 = MEMORY[0x1E696AEC0];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"process", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = NSStringFromSelector(a1);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_0_1();
-    v12 = @"FBSceneSynchronizer.m";
-    v13 = 1024;
-    v14 = 67;
-    v15 = v9;
-    v16 = v5;
-    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11);
+    v13 = @"FBSceneSynchronizer.m";
+    v14 = 1024;
+    v15 = 67;
+    v16 = v10;
+    v17 = v6;
+    OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12);
   }
 
-  [v5 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -611,46 +601,42 @@ LABEL_17:
 
 + (void)detachedSynchronizerWithIdentifier:(void *)a1 .cold.1(void *a1, const char *a2)
 {
-  v5 = OUTLINED_FUNCTION_5(a1, a2);
-  if (!v5)
+  v4 = OUTLINED_FUNCTION_5(a1, a2);
+  if (!v4)
   {
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  v6 = NSStringFromClass(v5);
-  v7 = *(v4 + 3776);
-  v8 = objc_opt_class();
-  NSStringFromClass(v8);
-  v18 = v17 = v6;
-  v9 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@."];
+  v5 = NSStringFromClass(v4);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [v2 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v5, v7];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(v3);
     objc_claimAutoreleasedReturnValue();
-    v10 = OUTLINED_FUNCTION_8();
-    v11 = NSStringFromClass(v10);
+    v9 = OUTLINED_FUNCTION_8();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_1_0();
-    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v12, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v13, v14, v15, v16, @"identifier", v17, v18, v19, v20);
+    OUTLINED_FUNCTION_3(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, v18, v19);
   }
 
-  [v9 UTF8String];
+  [v8 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-+ (void)detachedSynchronizerWithIdentifier:(const char *)a1 .cold.2(const char *a1)
++ (void)detachedSynchronizerWithIdentifier:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
-
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6);
 }
 
 @end

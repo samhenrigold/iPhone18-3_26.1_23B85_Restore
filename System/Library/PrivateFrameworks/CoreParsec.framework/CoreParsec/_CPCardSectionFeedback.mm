@@ -121,7 +121,6 @@ LABEL_19:
   toCopy = to;
   if ([(_CPCardSectionFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -137,18 +136,16 @@ LABEL_19:
 
   if (cardSectionId)
   {
-    cardSectionId = self->_cardSectionId;
     PBDataWriterWriteStringField();
   }
 
   resultId = [(_CPCardSectionFeedback *)self resultId];
 
-  v10 = toCopy;
+  v8 = toCopy;
   if (resultId)
   {
-    resultId = self->_resultId;
     PBDataWriterWriteStringField();
-    v10 = toCopy;
+    v8 = toCopy;
   }
 }
 

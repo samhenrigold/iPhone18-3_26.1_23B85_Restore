@@ -334,31 +334,31 @@ LABEL_24:
 
 - (id)_accessibilityPeopleInPhoto
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDBBA38] fetchPersonsInAsset:self options:0];
   if ([v2 count])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           name = [v9 name];
           v11 = [name length];
 
@@ -366,14 +366,14 @@ LABEL_24:
           {
             v12 = MEMORY[0x29EDB8D80];
             name2 = [v9 name];
-            v14 = [v12 axArrayByIgnoringNilElementsWithCount:{2, v6, name2, v18}];
+            v14 = [v12 axArrayByIgnoringNilElementsWithCount:{2, v6, name2, v17}];
             v15 = AXCombineStringsWithoutDuplicates(v14);
 
             v6 = v15;
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v5);
@@ -390,38 +390,36 @@ LABEL_24:
     v6 = 0;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-
   return v6;
 }
 
 - (id)accessibilityURL
 {
-  v29 = *MEMORY[0x29EDCA608];
-  v27 = 0;
+  v28 = *MEMORY[0x29EDCA608];
+  v26 = 0;
   __UIAccessibilitySafeClass();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v19 = v26 = 0u;
+  v18 = v25 = 0u;
   obj = [MEMORY[0x29EDBBA10] assetResourcesForAsset:? includeDerivatives:?];
-  v2 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v2 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v24;
-    v21 = *MEMORY[0x29EDBCCB0];
-    v20 = *MEMORY[0x29EDBCCA8];
+    v4 = *v23;
+    v20 = *MEMORY[0x29EDBCCB0];
+    v19 = *MEMORY[0x29EDBCCA8];
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v24 != v4)
+        if (*v23 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v23 + 1) + 8 * i);
+        v6 = *(*(&v22 + 1) + 8 * i);
         if ([v6 isLocallyAvailable])
         {
           privateFileURL = [v6 privateFileURL];
@@ -429,19 +427,19 @@ LABEL_24:
           {
             v8 = privateFileURL;
             uniformTypeIdentifier = [v6 uniformTypeIdentifier];
-            identifier = [v21 identifier];
+            identifier = [v20 identifier];
             if ([uniformTypeIdentifier isEqualToString:identifier])
             {
 
 LABEL_17:
               privateFileURL2 = [v6 privateFileURL];
 
-              v14 = v19;
+              v14 = v18;
               goto LABEL_19;
             }
 
             uniformTypeIdentifier2 = [v6 uniformTypeIdentifier];
-            identifier2 = [v20 identifier];
+            identifier2 = [v19 identifier];
             v13 = [uniformTypeIdentifier2 isEqualToString:identifier2];
 
             if (v13)
@@ -452,7 +450,7 @@ LABEL_17:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
       if (v3)
       {
         continue;
@@ -462,14 +460,14 @@ LABEL_17:
     }
   }
 
-  v14 = v19;
+  v14 = v18;
   if (objc_opt_respondsToSelector())
   {
-    v27 = 0;
-    v15 = [v19 safeValueForKey:@"mainFileURL"];
+    v26 = 0;
+    v15 = [v18 safeValueForKey:@"mainFileURL"];
     privateFileURL2 = __UIAccessibilitySafeClass();
 
-    if (v27 == 1)
+    if (v26 == 1)
     {
       abort();
     }
@@ -481,8 +479,6 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v17 = *MEMORY[0x29EDCA608];
 
   return privateFileURL2;
 }
@@ -542,7 +538,7 @@ LABEL_22:
       _accessibilityiCloudPhotoLabel = [(PHAssetAccessibility *)self _accessibilityiCloudPhotoLabel];
       if ([_accessibilityiCloudPhotoLabel length])
       {
-        v25 = _accessibilityiCloudPhotoLabel;
+        v24 = _accessibilityiCloudPhotoLabel;
       }
 
       else
@@ -556,10 +552,10 @@ LABEL_22:
         {
           UIAccessibilityMetadataDescriptionForVideo();
         }
-        v25 = ;
-        if ([v25 length])
+        v24 = ;
+        if ([v24 length])
         {
-          [(PHAssetAccessibility *)self _accessibilitySavePhotoLabel:v25];
+          [(PHAssetAccessibility *)self _accessibilitySavePhotoLabel:v24];
         }
       }
 
@@ -569,21 +565,20 @@ LABEL_22:
       }
 
 LABEL_33:
-      v26 = 0;
+      v25 = 0;
       goto LABEL_34;
     }
 
     if (bOOLValue4)
     {
-      v19 = *MEMORY[0x29EDC7378];
-      v20 = accessibilityCameraUILocalizedString(@"live.photo");
+      v19 = accessibilityCameraUILocalizedString(@"live.photo");
       v18 = AXAttributedStringForBetterPronuciation();
 LABEL_11:
 
       goto LABEL_22;
     }
 
-    v23 = @"photo.label.type.photo";
+    v22 = @"photo.label.type.photo";
     goto LABEL_20;
   }
 
@@ -600,31 +595,31 @@ LABEL_11:
   {
     if (bOOLValue2)
     {
-      v21 = [(PHAssetAccessibility *)self safeValueForKey:@"mediaSubtypes"];
-      unsignedIntegerValue = [v21 unsignedIntegerValue];
+      v20 = [(PHAssetAccessibility *)self safeValueForKey:@"mediaSubtypes"];
+      unsignedIntegerValue = [v20 unsignedIntegerValue];
 
       if ((unsignedIntegerValue & 0x20000) != 0)
       {
-        v23 = @"photo.label.type.video.slomo";
+        v22 = @"photo.label.type.video.slomo";
       }
 
       else
       {
         if ((unsignedIntegerValue & 0x40000) != 0)
         {
-          v36 = MEMORY[0x29EDB8D80];
-          v20 = accessibilityPLServicesLocalizedString(@"photo.label.type.video.timelapse");
-          v37 = [v36 axArrayByIgnoringNilElementsWithCount:{1, v20}];
-          v18 = AXCombineStringsWithoutDuplicates(v37);
+          v35 = MEMORY[0x29EDB8D80];
+          v19 = accessibilityPLServicesLocalizedString(@"photo.label.type.video.timelapse");
+          v36 = [v35 axArrayByIgnoringNilElementsWithCount:{1, v19}];
+          v18 = AXCombineStringsWithoutDuplicates(v36);
 
           goto LABEL_11;
         }
 
-        v23 = @"photo.label.type.video";
+        v22 = @"photo.label.type.video";
       }
 
 LABEL_20:
-      v17 = accessibilityPLServicesLocalizedString(v23);
+      v17 = accessibilityPLServicesLocalizedString(v22);
       goto LABEL_21;
     }
 
@@ -639,34 +634,34 @@ LABEL_20:
     }
   }
 
-  v25 = 0;
+  v24 = 0;
   if (!v13)
   {
     goto LABEL_33;
   }
 
 LABEL_30:
-  v26 = accessibilityPLServicesLocalizedString(@"is.favorite");
+  v25 = accessibilityPLServicesLocalizedString(@"is.favorite");
 LABEL_34:
-  v27 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{3, v18, v25, v26}];
-  v5 = AXCombineStringsWithoutDuplicates(v27);
+  v26 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{3, v18, v24, v25}];
+  v5 = AXCombineStringsWithoutDuplicates(v26);
   if (AXDoesRequestingClientDeserveAutomation())
   {
-    v28 = MEMORY[0x29EDB8D80];
+    v27 = MEMORY[0x29EDB8D80];
     [(PHAssetAccessibility *)self _accessibilityAssetDuration];
-    v29 = v38 = v16;
+    v28 = v37 = v16;
     _accessibilityCreationDate = [(PHAssetAccessibility *)self _accessibilityCreationDate];
     [(PHAssetAccessibility *)self _accessibilityCreationTime];
-    v32 = v31 = v18;
-    v33 = [v28 axArrayByIgnoringNilElementsWithCount:{4, v5, v29, _accessibilityCreationDate, v32}];
+    v31 = v30 = v18;
+    v32 = [v27 axArrayByIgnoringNilElementsWithCount:{4, v5, v28, _accessibilityCreationDate, v31}];
 
-    v18 = v31;
+    v18 = v30;
     v4 = 0;
 
-    v16 = v38;
-    v34 = AXCombineStringsWithoutDuplicates(v33);
+    v16 = v37;
+    v33 = AXCombineStringsWithoutDuplicates(v32);
 
-    v5 = v34;
+    v5 = v33;
   }
 
   [(PHAssetAccessibility *)self setAccessibilityLabel:v5];
@@ -686,7 +681,7 @@ LABEL_37:
 
 - (id)_accessibilityiCloudPhotoLabel
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   selfCopy = self;
   if ([(PHAssetAccessibility *)selfCopy _axICloudLabelWasSet])
   {
@@ -695,13 +690,13 @@ LABEL_37:
     firstObject = selfCopy;
     if (localIdentifier)
     {
-      v14[0] = localIdentifier;
-      v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
+      v13[0] = localIdentifier;
+      v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
       v7 = [MEMORY[0x29EDBB9F8] fetchAssetsWithLocalIdentifiers:v6 options:0];
       if ([v7 count] != 1)
       {
-        v12 = selfCopy;
-        v13 = v7;
+        v11 = selfCopy;
+        v12 = v7;
         _AXAssert();
       }
 
@@ -718,8 +713,6 @@ LABEL_37:
 
   descriptionProperties = [(PHAssetAccessibility *)selfCopy descriptionProperties];
   accessibilityDescription = [descriptionProperties accessibilityDescription];
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return accessibilityDescription;
 }
@@ -762,22 +755,20 @@ void __53__PHAssetAccessibility__accessibilitySavePhotoLabel___block_invoke(uint
 
 void __53__PHAssetAccessibility__accessibilitySavePhotoLabel___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v5 = a3;
   v6 = VOTLogCommon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v9 = 138412802;
-    v10 = WeakRetained;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_29C112000, v6, OS_LOG_TYPE_DEFAULT, "Asset save: %@ success %d: %@", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = WeakRetained;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_29C112000, v6, OS_LOG_TYPE_DEFAULT, "Asset save: %@ success %d: %@", &v8, 0x1Cu);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)accessibilityApplyValueBlock:(id)block

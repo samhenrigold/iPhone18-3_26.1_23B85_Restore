@@ -17,6 +17,7 @@
 - (void)createTextInfoIfNeeded;
 - (void)invalidate;
 - (void)removeAllExclusionPaths;
+- (void)reset;
 @end
 
 @implementation SXTextLayouter
@@ -66,6 +67,13 @@
   v14 = v13;
 
   return v14;
+}
+
+- (void)reset
+{
+  textInfo = self->_textInfo;
+  self->_textInfo = 0;
+  MEMORY[0x1EEE66BB8](self, textInfo);
 }
 
 - (void)createTextInfoIfNeeded

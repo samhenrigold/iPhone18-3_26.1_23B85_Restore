@@ -27,13 +27,13 @@
   layerCopy = layer;
   deviceCopy = device;
   imageCopy = image;
-  v123.receiver = self;
-  v123.super_class = ARCoachingGlyphRenderer;
-  v16 = [(ARCoachingGlyphRenderer *)&v123 init];
+  v117.receiver = self;
+  v117.super_class = ARCoachingGlyphRenderer;
+  v16 = [(ARCoachingGlyphRenderer *)&v117 init];
   v17 = v16;
   if (v16)
   {
-    v106 = layerCopy;
+    v100 = layerCopy;
     objc_storeStrong(&v16->_device, device);
     v17->_pixelFormat = format;
     v17->_sampleCount = count;
@@ -65,7 +65,7 @@
 
     v29 = [ARCoachingDeviceController alloc];
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    v105 = imageCopy;
+    v99 = imageCopy;
     v31 = [(ARCoachingDeviceController *)v29 initWithDeviceMaskImage:imageCopy solidColor:whiteColor geoTrackingMode:0];
     parallaxDeviceController = v17->_parallaxDeviceController;
     v17->_parallaxDeviceController = v31;
@@ -99,35 +99,35 @@
     v48 = v17->_state;
     if (v48)
     {
-      [(ARCoachingGlyphState *)v48 computeQuaternionTarget];
+      objc_msgSend_computeQuaternionTarget(v48);
     }
 
     else
     {
-      v121 = 0u;
-      v122 = 0u;
+      v115 = 0u;
+      v116 = 0u;
     }
 
     v49 = v17->_rotationSpring;
-    v119 = v121;
-    v120 = v122;
-    [(ARCoachingQuaternionSpring *)v49 setTarget:&v119];
+    v113 = v115;
+    v114 = v116;
+    [(ARCoachingQuaternionSpring *)v49 setTarget:&v113];
     v50 = v17->_rotationSpring;
     deviceCopy = v35;
     if (v50)
     {
-      [(ARCoachingQuaternionSpring *)v50 target];
+      objc_msgSend_target(v50);
     }
 
     else
     {
-      v119 = 0u;
-      v120 = 0u;
+      v113 = 0u;
+      v114 = 0u;
     }
 
-    imageCopy = v105;
-    v51 = v120;
-    *v17->_anon_a0 = v119;
+    imageCopy = v99;
+    v51 = v114;
+    *v17->_anon_a0 = v113;
     *&v17->_anon_a0[16] = v51;
     v52 = objc_alloc_init(ARCoachingSpringDouble3);
     scaleSpring = v17->_scaleSpring;
@@ -137,10 +137,10 @@
     v55 = v17->_state;
     if (v55)
     {
-      [(ARCoachingGlyphState *)v55 computeScaleTarget];
-      v56 = v117;
+      objc_msgSend_computeScaleTarget(v55);
+      v56 = v111;
       v57 = vextq_s8(v56, v56, 8uLL).u64[0];
-      *&v54 = v118;
+      *&v54 = v112;
     }
 
     else
@@ -152,16 +152,16 @@
 
     v58 = v17->_scaleSpring;
     v56.i64[1] = v57;
-    v119 = v56;
-    v120 = v54;
-    [(ARCoachingSpringDouble3 *)v58 setTarget:&v119];
+    v113 = v56;
+    v114 = v54;
+    [(ARCoachingSpringDouble3 *)v58 setTarget:&v113];
     v60 = v17->_scaleSpring;
     if (v60)
     {
-      [(ARCoachingSpringDouble3 *)v60 target];
-      v61 = v115;
+      objc_msgSend_target(v60);
+      v61 = v109;
       v62 = vextq_s8(v61, v61, 8uLL).u64[0];
-      *&v59 = v116;
+      *&v59 = v110;
       v60 = v17->_scaleSpring;
     }
 
@@ -173,9 +173,9 @@
     }
 
     v61.i64[1] = v62;
-    v119 = v61;
-    v120 = v59;
-    [(ARCoachingSpringDouble3 *)v60 setValue:&v119];
+    v113 = v61;
+    v114 = v59;
+    [(ARCoachingSpringDouble3 *)v60 setValue:&v113];
     v63 = objc_alloc_init(ARCoachingSpringDouble3);
     topPlaneTranslationSpring = v17->_topPlaneTranslationSpring;
     v17->_topPlaneTranslationSpring = v63;
@@ -184,10 +184,10 @@
     v66 = v17->_state;
     if (v66)
     {
-      [(ARCoachingGlyphState *)v66 computeTopPlaneTranslationTarget];
-      v67 = v113;
+      objc_msgSend_computeTopPlaneTranslationTarget(v66);
+      v67 = v107;
       v68 = vextq_s8(v67, v67, 8uLL).u64[0];
-      *&v65 = v114;
+      *&v65 = v108;
     }
 
     else
@@ -199,16 +199,16 @@
 
     v69 = v17->_topPlaneTranslationSpring;
     v67.i64[1] = v68;
-    v119 = v67;
-    v120 = v65;
-    [(ARCoachingSpringDouble3 *)v69 setTarget:&v119];
+    v113 = v67;
+    v114 = v65;
+    [(ARCoachingSpringDouble3 *)v69 setTarget:&v113];
     v71 = v17->_topPlaneTranslationSpring;
     if (v71)
     {
-      [(ARCoachingSpringDouble3 *)v71 target];
-      v72 = v111;
+      objc_msgSend_target(v71);
+      v72 = v105;
       v73 = vextq_s8(v72, v72, 8uLL).u64[0];
-      *&v70 = v112;
+      *&v70 = v106;
       v71 = v17->_topPlaneTranslationSpring;
     }
 
@@ -220,9 +220,9 @@
     }
 
     v72.i64[1] = v73;
-    v119 = v72;
-    v120 = v70;
-    [(ARCoachingSpringDouble3 *)v71 setValue:&v119];
+    v113 = v72;
+    v114 = v70;
+    [(ARCoachingSpringDouble3 *)v71 setValue:&v113];
     v74 = objc_alloc_init(ARCoachingSpringDouble3);
     bottomPlaneTranslationSpring = v17->_bottomPlaneTranslationSpring;
     v17->_bottomPlaneTranslationSpring = v74;
@@ -231,10 +231,10 @@
     v77 = v17->_state;
     if (v77)
     {
-      [(ARCoachingGlyphState *)v77 computeBottomPlaneTranslationTarget];
-      v78 = v109;
+      objc_msgSend_computeBottomPlaneTranslationTarget(v77);
+      v78 = v103;
       v79 = vextq_s8(v78, v78, 8uLL).u64[0];
-      *&v76 = v110;
+      *&v76 = v104;
     }
 
     else
@@ -246,16 +246,16 @@
 
     v80 = v17->_bottomPlaneTranslationSpring;
     v78.i64[1] = v79;
-    v119 = v78;
-    v120 = v76;
-    [(ARCoachingSpringDouble3 *)v80 setTarget:&v119];
+    v113 = v78;
+    v114 = v76;
+    [(ARCoachingSpringDouble3 *)v80 setTarget:&v113];
     v82 = v17->_bottomPlaneTranslationSpring;
     if (v82)
     {
-      [(ARCoachingSpringDouble3 *)v82 target];
-      v83 = v107;
+      objc_msgSend_target(v82);
+      v83 = v101;
       v84 = vextq_s8(v83, v83, 8uLL).u64[0];
-      *&v81 = v108;
+      *&v81 = v102;
       v82 = v17->_bottomPlaneTranslationSpring;
     }
 
@@ -267,52 +267,54 @@
     }
 
     v83.i64[1] = v84;
-    v119 = v83;
-    v120 = v81;
-    [(ARCoachingSpringDouble3 *)v82 setValue:&v119];
+    v113 = v83;
+    v114 = v81;
+    [(ARCoachingSpringDouble3 *)v82 setValue:&v113];
     v85 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
     cubeResolveSpring = v17->_cubeResolveSpring;
     v17->_cubeResolveSpring = v85;
 
     [(ARFLSpring *)v17->_cubeResolveSpring parameters];
-    v88 = v87;
     [(ARFLSpring *)v17->_cubeResolveSpring parameters];
-    [(ARFLSpring *)v17->_cubeResolveSpring setParameters:ARFLSpringParametersMake([(ARFLSpring *)v17->_cubeResolveSpring parameters], v88, v89, 0.699999988)];
+    [(ARFLSpring *)v17->_cubeResolveSpring parameters];
+    ARFLSpringParametersMake();
+    [(ARFLSpring *)v17->_cubeResolveSpring setParameters:?];
     [(ARFLSpring *)v17->_cubeResolveSpring setTarget:0.0];
     [(ARFLSpring *)v17->_cubeResolveSpring setValue:0.0];
-    v90 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
+    v87 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
     planeResolveSpring = v17->_planeResolveSpring;
-    v17->_planeResolveSpring = v90;
+    v17->_planeResolveSpring = v87;
 
     [(ARFLSpring *)v17->_planeResolveSpring parameters];
-    v93 = v92;
     [(ARFLSpring *)v17->_planeResolveSpring parameters];
-    [(ARFLSpring *)v17->_planeResolveSpring setParameters:ARFLSpringParametersMake([(ARFLSpring *)v17->_planeResolveSpring parameters], v93, v94, 0.699999988)];
+    [(ARFLSpring *)v17->_planeResolveSpring parameters];
+    ARFLSpringParametersMake();
+    [(ARFLSpring *)v17->_planeResolveSpring setParameters:?];
     [(ARFLSpring *)v17->_planeResolveSpring setTarget:0.0];
     [(ARFLSpring *)v17->_planeResolveSpring setValue:0.0];
-    v95 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
+    v89 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
     verticalResolvingSpring = v17->_verticalResolvingSpring;
-    v17->_verticalResolvingSpring = v95;
+    v17->_verticalResolvingSpring = v89;
 
     [(ARFLSpring *)v17->_verticalResolvingSpring parameters];
     [(ARFLSpring *)v17->_verticalResolvingSpring setParameters:?];
     [(ARFLSpring *)v17->_verticalResolvingSpring setTarget:0.0];
     [(ARFLSpring *)v17->_verticalResolvingSpring setValue:0.0];
-    v97 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
+    v91 = [[ARCoachingStateSpring alloc] initWithValue:0.0];
     alphaSpring = v17->_alphaSpring;
-    v17->_alphaSpring = v97;
+    v17->_alphaSpring = v91;
 
     [(ARFLSpring *)v17->_alphaSpring setTarget:0.0];
     [(ARFLSpring *)v17->_alphaSpring setValue:0.0];
-    v99 = [ARCoachingBasicSpring alloc];
-    LODWORD(v100) = 1128792064;
-    LODWORD(v101) = 22.0;
-    v102 = [(ARCoachingBasicSpring *)v99 initWithTension:v100 friction:v101];
+    v93 = [ARCoachingBasicSpring alloc];
+    LODWORD(v94) = 1128792064;
+    LODWORD(v95) = 22.0;
+    v96 = [(ARCoachingBasicSpring *)v93 initWithTension:v94 friction:v95];
     orientationSpring = v17->_orientationSpring;
-    v17->_orientationSpring = v102;
+    v17->_orientationSpring = v96;
 
     [(ARCoachingGlyphState *)v17->_state setDelegate:v17];
-    layerCopy = v106;
+    layerCopy = v100;
   }
 
   return v17;
@@ -345,17 +347,18 @@
 
 void __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = ARKitUIBundle();
   v4 = [v3 URLForResource:@"default" withExtension:@"metallib"];
+  v5 = v4;
   if (v4)
   {
-    v92 = 0;
-    v5 = [v2 newLibraryWithURL:v4 error:&v92];
-    v6 = v92;
-    [v5 setLabel:@"com.apple.arkit.coachinganimation.library"];
-    if (!v6)
+    v95 = 0;
+    v6 = [v2 newLibraryWithURL:v4 error:&v95];
+    v7 = v95;
+    v8 = [v6 setLabel:@"com.apple.arkit.coachinganimation.library"];
+    if (!v7)
     {
       goto LABEL_21;
     }
@@ -365,44 +368,44 @@ void __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke(u
       __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke_cold_1();
     }
 
-    v7 = ARShouldUseLogTypeError_internalOSVersion_2;
-    v8 = _ARLogCoaching_6();
-    v9 = v8;
-    if (v7 == 1)
+    v9 = ARShouldUseLogTypeError_internalOSVersion_2;
+    v10 = _ARLogCoaching_6(v8);
+    v11 = v10;
+    if (v9 == 1)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = [v6 localizedDescription];
-        v11 = [v6 localizedFailureReason];
-        v12 = [v6 localizedRecoverySuggestion];
+        v12 = [v7 localizedDescription];
+        v13 = [v7 localizedFailureReason];
+        v14 = [v7 localizedRecoverySuggestion];
         *buf = 138412802;
-        v94 = v10;
-        v95 = 2112;
-        v96 = v11;
-        v97 = 2112;
-        v98 = v12;
-        v13 = "Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
-        v14 = v9;
-        v15 = OS_LOG_TYPE_ERROR;
+        v97 = v12;
+        v98 = 2112;
+        v99 = v13;
+        v100 = 2112;
+        v101 = v14;
+        v15 = "Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
+        v16 = v11;
+        v17 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_23D3AE000, v14, v15, v13, buf, 0x20u);
+        _os_log_impl(&dword_23D3AE000, v16, v17, v15, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v10 = [v6 localizedDescription];
-      v11 = [v6 localizedFailureReason];
-      v12 = [v6 localizedRecoverySuggestion];
+      v12 = [v7 localizedDescription];
+      v13 = [v7 localizedFailureReason];
+      v14 = [v7 localizedRecoverySuggestion];
       *buf = 138412802;
-      v94 = v10;
-      v95 = 2112;
-      v96 = v11;
-      v97 = 2112;
-      v98 = v12;
-      v13 = "Error: Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
-      v14 = v9;
-      v15 = OS_LOG_TYPE_INFO;
+      v97 = v12;
+      v98 = 2112;
+      v99 = v13;
+      v100 = 2112;
+      v101 = v14;
+      v15 = "Error: Error while loading metal library for coaching animation\n\tError: %@\n\tReason: %@\n\tSuggestion: %@";
+      v16 = v11;
+      v17 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
@@ -414,202 +417,204 @@ LABEL_15:
     __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke_cold_2();
   }
 
-  v16 = ARShouldUseLogTypeError_internalOSVersion_2;
-  v17 = _ARLogCoaching_6();
-  v6 = v17;
-  if (v16 == 1)
+  v18 = ARShouldUseLogTypeError_internalOSVersion_2;
+  v19 = _ARLogCoaching_6(v4);
+  v7 = v19;
+  if (v18 == 1)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v18 = "Failed to find metal library for coaching animations";
-      v19 = v6;
-      v20 = OS_LOG_TYPE_ERROR;
+      v20 = "Failed to find metal library for coaching animations";
+      v21 = v7;
+      v22 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-      _os_log_impl(&dword_23D3AE000, v19, v20, v18, buf, 2u);
+      _os_log_impl(&dword_23D3AE000, v21, v22, v20, buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    v18 = "Error: Failed to find metal library for coaching animations";
-    v19 = v6;
-    v20 = OS_LOG_TYPE_INFO;
+    v20 = "Error: Failed to find metal library for coaching animations";
+    v21 = v7;
+    v22 = OS_LOG_TYPE_INFO;
     goto LABEL_19;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_21:
 
-  v21 = [[ARCoachingDotsRenderer alloc] init:*(a1 + 32) pixelFormat:*(a1 + 56) metalLibrary:v5 sampleCount:*(a1 + 64)];
+  v23 = [[ARCoachingDotsRenderer alloc] init:*(a1 + 32) pixelFormat:*(a1 + 56) metalLibrary:v6 sampleCount:*(a1 + 64)];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [WeakRetained setDotsRenderer:v21];
+  [WeakRetained setDotsRenderer:v23];
 
-  v23 = [v5 newFunctionWithName:@"tessellation_kernel_quad"];
-  v24 = [v5 newFunctionWithName:@"tessellation_vertex_quad"];
-  v25 = [v5 newFunctionWithName:@"tessellation_fragment"];
-  v26 = [MEMORY[0x277CD7090] vertexDescriptor];
-  v27 = [v26 attributes];
-  v28 = [v27 objectAtIndexedSubscript:0];
-  [v28 setFormat:30];
-
-  v29 = [v26 attributes];
+  v25 = [v6 newFunctionWithName:@"tessellation_kernel_quad"];
+  v26 = [v6 newFunctionWithName:@"tessellation_vertex_quad"];
+  v27 = [v6 newFunctionWithName:@"tessellation_fragment"];
+  v28 = [MEMORY[0x277CD7090] vertexDescriptor];
+  v29 = [v28 attributes];
   v30 = [v29 objectAtIndexedSubscript:0];
-  [v30 setOffset:0];
+  [v30 setFormat:30];
 
-  v31 = [v26 attributes];
+  v31 = [v28 attributes];
   v32 = [v31 objectAtIndexedSubscript:0];
-  [v32 setBufferIndex:0];
+  [v32 setOffset:0];
 
-  v33 = [v26 attributes];
-  v34 = [v33 objectAtIndexedSubscript:1];
-  [v34 setFormat:28];
+  v33 = [v28 attributes];
+  v34 = [v33 objectAtIndexedSubscript:0];
+  [v34 setBufferIndex:0];
 
-  v35 = [v26 attributes];
+  v35 = [v28 attributes];
   v36 = [v35 objectAtIndexedSubscript:1];
-  [v36 setOffset:16];
+  [v36 setFormat:28];
 
-  v37 = [v26 attributes];
+  v37 = [v28 attributes];
   v38 = [v37 objectAtIndexedSubscript:1];
-  [v38 setBufferIndex:0];
+  [v38 setOffset:16];
 
-  v39 = [v26 layouts];
-  v40 = [v39 objectAtIndexedSubscript:0];
-  [v40 setStepFunction:4];
+  v39 = [v28 attributes];
+  v40 = [v39 objectAtIndexedSubscript:1];
+  [v40 setBufferIndex:0];
 
-  v41 = [v26 layouts];
+  v41 = [v28 layouts];
   v42 = [v41 objectAtIndexedSubscript:0];
-  [v42 setStepRate:1];
+  [v42 setStepFunction:4];
 
-  v43 = [v26 layouts];
+  v43 = [v28 layouts];
   v44 = [v43 objectAtIndexedSubscript:0];
-  [v44 setStride:32];
+  [v44 setStepRate:1];
 
-  v45 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v45 setVertexDescriptor:v26];
-  [v45 setTessellationFactorScaleEnabled:0];
-  [v45 setTessellationFactorFormat:0];
-  [v45 setTessellationControlPointIndexType:1];
-  [v45 setTessellationFactorStepFunction:1];
-  [v45 setTessellationOutputWindingOrder:0];
-  [v45 setTessellationPartitionMode:3];
-  [v45 setMaxTessellationFactor:16];
-  [v45 setVertexFunction:v24];
-  v89 = v25;
-  [v45 setFragmentFunction:v25];
-  v46 = [v45 colorAttachments];
-  v47 = [v46 objectAtIndexedSubscript:0];
-  [v47 setBlendingEnabled:1];
+  v45 = [v28 layouts];
+  v46 = [v45 objectAtIndexedSubscript:0];
+  [v46 setStride:32];
 
-  v48 = [v45 colorAttachments];
+  v47 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v47 setVertexDescriptor:v28];
+  [v47 setTessellationFactorScaleEnabled:0];
+  [v47 setTessellationFactorFormat:0];
+  [v47 setTessellationControlPointIndexType:1];
+  [v47 setTessellationFactorStepFunction:1];
+  [v47 setTessellationOutputWindingOrder:0];
+  [v47 setTessellationPartitionMode:3];
+  [v47 setMaxTessellationFactor:16];
+  [v47 setVertexFunction:v26];
+  v92 = v27;
+  [v47 setFragmentFunction:v27];
+  v48 = [v47 colorAttachments];
   v49 = [v48 objectAtIndexedSubscript:0];
-  [v49 setRgbBlendOperation:4];
+  [v49 setBlendingEnabled:1];
 
-  v50 = [v45 colorAttachments];
+  v50 = [v47 colorAttachments];
   v51 = [v50 objectAtIndexedSubscript:0];
-  [v51 setAlphaBlendOperation:4];
+  [v51 setRgbBlendOperation:4];
 
-  v52 = [v45 colorAttachments];
+  v52 = [v47 colorAttachments];
   v53 = [v52 objectAtIndexedSubscript:0];
-  [v53 setSourceRGBBlendFactor:1];
+  [v53 setAlphaBlendOperation:4];
 
-  v54 = [v45 colorAttachments];
+  v54 = [v47 colorAttachments];
   v55 = [v54 objectAtIndexedSubscript:0];
-  [v55 setSourceAlphaBlendFactor:1];
+  [v55 setSourceRGBBlendFactor:1];
 
-  v56 = [v45 colorAttachments];
+  v56 = [v47 colorAttachments];
   v57 = [v56 objectAtIndexedSubscript:0];
-  [v57 setDestinationRGBBlendFactor:5];
+  [v57 setSourceAlphaBlendFactor:1];
 
-  v58 = [v45 colorAttachments];
+  v58 = [v47 colorAttachments];
   v59 = [v58 objectAtIndexedSubscript:0];
-  [v59 setDestinationAlphaBlendFactor:5];
+  [v59 setDestinationRGBBlendFactor:5];
 
-  v60 = *(a1 + 56);
-  v61 = [v45 colorAttachments];
-  v62 = [v61 objectAtIndexedSubscript:0];
-  [v62 setPixelFormat:v60];
+  v60 = [v47 colorAttachments];
+  v61 = [v60 objectAtIndexedSubscript:0];
+  [v61 setDestinationAlphaBlendFactor:5];
 
-  [v45 setRasterSampleCount:*(a1 + 64)];
-  v63 = *(a1 + 32);
-  v91 = 0;
-  v64 = [v63 newRenderPipelineStateWithDescriptor:v45 error:&v91];
-  v65 = v91;
-  if (v64)
+  v62 = *(a1 + 56);
+  v63 = [v47 colorAttachments];
+  v64 = [v63 objectAtIndexedSubscript:0];
+  [v64 setPixelFormat:v62];
+
+  [v47 setRasterSampleCount:*(a1 + 64)];
+  v65 = *(a1 + 32);
+  v94 = 0;
+  v66 = [v65 newRenderPipelineStateWithDescriptor:v47 error:&v94];
+  v67 = v94;
+  v68 = v67;
+  if (v66)
   {
-    v66 = objc_loadWeakRetained((a1 + 48));
-    [v66 setPostTessellationPipelineState:v64];
+    v69 = objc_loadWeakRetained((a1 + 48));
+    [v69 setPostTessellationPipelineState:v66];
 
-    v67 = *(a1 + 32);
-    v90 = 0;
-    v68 = [v67 newComputePipelineStateWithFunction:v23 error:&v90];
-    v65 = v90;
-    if (v68)
+    v70 = *(a1 + 32);
+    v93 = 0;
+    v71 = [v70 newComputePipelineStateWithFunction:v25 error:&v93];
+    v72 = v93;
+    v68 = v72;
+    if (v71)
     {
-      v69 = objc_loadWeakRetained((a1 + 48));
-      [v69 setComputePipelineState:v68];
+      v73 = objc_loadWeakRetained((a1 + 48));
+      [v73 setComputePipelineState:v71];
 
-      v70 = *(a1 + 40);
-      if (v70)
+      v74 = *(a1 + 40);
+      if (v74)
       {
-        v71 = *(v70 + 16);
+        v75 = *(v74 + 16);
 LABEL_45:
-        v71();
+        v75();
         goto LABEL_46;
       }
 
       goto LABEL_46;
     }
 
-    v88 = v24;
-    v78 = v23;
+    v91 = v26;
+    v82 = v25;
     if (ARShouldUseLogTypeError_onceToken_2 != -1)
     {
       __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke_cold_1();
     }
 
-    v79 = ARShouldUseLogTypeError_internalOSVersion_2;
-    v80 = _ARLogCoaching_6();
-    v81 = v80;
-    if (v79 == 1)
+    v83 = ARShouldUseLogTypeError_internalOSVersion_2;
+    v84 = _ARLogCoaching_6(v72);
+    v85 = v84;
+    if (v83 == 1)
     {
-      v23 = v78;
-      if (!os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+      v25 = v82;
+      if (!os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_43;
       }
 
       *buf = 138412290;
-      v94 = v65;
-      v82 = "Failed to create compute pipeline state object. error %@";
-      v83 = v81;
-      v84 = OS_LOG_TYPE_ERROR;
+      v97 = v68;
+      v86 = "Failed to create compute pipeline state object. error %@";
+      v87 = v85;
+      v88 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      v23 = v78;
-      if (!os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+      v25 = v82;
+      if (!os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
       {
         goto LABEL_43;
       }
 
       *buf = 138412290;
-      v94 = v65;
-      v82 = "Error: Failed to create compute pipeline state object. error %@";
-      v83 = v81;
-      v84 = OS_LOG_TYPE_INFO;
+      v97 = v68;
+      v86 = "Error: Failed to create compute pipeline state object. error %@";
+      v87 = v85;
+      v88 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_23D3AE000, v83, v84, v82, buf, 0xCu);
+    _os_log_impl(&dword_23D3AE000, v87, v88, v86, buf, 0xCu);
 LABEL_43:
 
-    v86 = *(a1 + 40);
-    v24 = v88;
-    if (v86)
+    v90 = *(a1 + 40);
+    v26 = v91;
+    if (v90)
     {
-      v71 = *(v86 + 16);
+      v75 = *(v90 + 16);
       goto LABEL_45;
     }
 
@@ -623,49 +628,47 @@ LABEL_46:
     __56__ARCoachingGlyphRenderer_prepareWithCompletionHandler___block_invoke_cold_1();
   }
 
-  v72 = ARShouldUseLogTypeError_internalOSVersion_2;
-  v73 = _ARLogCoaching_6();
-  v74 = v73;
-  if (v72 == 1)
+  v76 = ARShouldUseLogTypeError_internalOSVersion_2;
+  v77 = _ARLogCoaching_6(v67);
+  v78 = v77;
+  if (v76 == 1)
   {
-    if (!os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_38;
     }
 
     *buf = 138412290;
-    v94 = v65;
-    v75 = "Failed to create post tessellation render pipeline state object. error %@";
-    v76 = v74;
-    v77 = OS_LOG_TYPE_ERROR;
+    v97 = v68;
+    v79 = "Failed to create post tessellation render pipeline state object. error %@";
+    v80 = v78;
+    v81 = OS_LOG_TYPE_ERROR;
   }
 
   else
   {
-    if (!os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
     {
       goto LABEL_38;
     }
 
     *buf = 138412290;
-    v94 = v65;
-    v75 = "Error: Failed to create post tessellation render pipeline state object. error %@";
-    v76 = v74;
-    v77 = OS_LOG_TYPE_INFO;
+    v97 = v68;
+    v79 = "Error: Failed to create post tessellation render pipeline state object. error %@";
+    v80 = v78;
+    v81 = OS_LOG_TYPE_INFO;
   }
 
-  _os_log_impl(&dword_23D3AE000, v76, v77, v75, buf, 0xCu);
+  _os_log_impl(&dword_23D3AE000, v80, v81, v79, buf, 0xCu);
 LABEL_38:
 
-  v85 = *(a1 + 40);
-  if (v85)
+  v89 = *(a1 + 40);
+  if (v89)
   {
-    (*(v85 + 16))(v85, v65);
+    (*(v89 + 16))(v89, v68);
   }
 
 LABEL_47:
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 - (void)snapStateChanged
@@ -722,13 +725,13 @@ LABEL_47:
   [(ARFLSpring *)self->_alphaSpring setTarget:v9];
   if ([(ARCoachingGlyphState *)self->_state snapState]== 1)
   {
-    [(ARFLSpring *)self->_planeResolveSpring target];
+    objc_msgSend_target(self->_planeResolveSpring);
     [(ARFLSpring *)self->_planeResolveSpring setValue:?];
-    [(ARFLSpring *)self->_verticalResolvingSpring target];
+    objc_msgSend_target(self->_verticalResolvingSpring);
     [(ARFLSpring *)self->_verticalResolvingSpring setValue:?];
-    [(ARFLSpring *)self->_cubeResolveSpring target];
+    objc_msgSend_target(self->_cubeResolveSpring);
     [(ARFLSpring *)self->_cubeResolveSpring setValue:?];
-    [(ARFLSpring *)self->_alphaSpring target];
+    objc_msgSend_target(self->_alphaSpring);
     [(ARFLSpring *)self->_alphaSpring setValue:?];
     time = self->_time;
 
@@ -741,7 +744,7 @@ LABEL_47:
   state = self->_state;
   if (state)
   {
-    [(ARCoachingGlyphState *)state quaternionTarget];
+    objc_msgSend_quaternionTarget(state, a2);
   }
 
   else
@@ -764,7 +767,7 @@ LABEL_47:
     v7 = self->_rotationSpring;
     if (v7)
     {
-      [(ARCoachingQuaternionSpring *)v7 target];
+      objc_msgSend_target(v7);
       v7 = self->_rotationSpring;
     }
 
@@ -785,7 +788,7 @@ LABEL_47:
   state = self->_state;
   if (state)
   {
-    [(ARCoachingGlyphState *)state scaleTarget];
+    objc_msgSend_scaleTarget(state, a2);
     v5 = v16;
     v6 = vextq_s8(v5, v5, 8uLL).u64[0];
     *&v2 = v17;
@@ -808,7 +811,7 @@ LABEL_47:
     v9 = self->_scaleSpring;
     if (v9)
     {
-      [(ARCoachingSpringDouble3 *)v9 target];
+      objc_msgSend_target(v9);
       v10 = v12;
       v11 = vextq_s8(v10, v10, 8uLL).u64[0];
       *&v8 = v13;
@@ -834,7 +837,7 @@ LABEL_47:
   state = self->_state;
   if (state)
   {
-    [(ARCoachingGlyphState *)state topPlaneTranslationTarget];
+    objc_msgSend_topPlaneTranslationTarget(state, a2);
     v5 = v16;
     v6 = vextq_s8(v5, v5, 8uLL).u64[0];
     *&v2 = v17;
@@ -857,7 +860,7 @@ LABEL_47:
     v9 = self->_topPlaneTranslationSpring;
     if (v9)
     {
-      [(ARCoachingSpringDouble3 *)v9 target];
+      objc_msgSend_target(v9);
       v10 = v12;
       v11 = vextq_s8(v10, v10, 8uLL).u64[0];
       *&v8 = v13;
@@ -883,7 +886,7 @@ LABEL_47:
   state = self->_state;
   if (state)
   {
-    [(ARCoachingGlyphState *)state bottomPlaneTranslationTarget];
+    objc_msgSend_bottomPlaneTranslationTarget(state, a2);
     v5 = v16;
     v6 = vextq_s8(v5, v5, 8uLL).u64[0];
     *&v2 = v17;
@@ -906,7 +909,7 @@ LABEL_47:
     v9 = self->_bottomPlaneTranslationSpring;
     if (v9)
     {
-      [(ARCoachingSpringDouble3 *)v9 target];
+      objc_msgSend_target(v9);
       v10 = v12;
       v11 = vextq_s8(v10, v10, 8uLL).u64[0];
       *&v8 = v13;
@@ -980,9 +983,9 @@ LABEL_47:
 {
   drawableCopy = drawable;
   bufferCopy = buffer;
-  [(ARFLSpring *)self->_planeResolveSpring value];
+  objc_msgSend_value(self->_planeResolveSpring);
   v120 = v8;
-  [(ARFLSpring *)self->_cubeResolveSpring value];
+  objc_msgSend_value(self->_cubeResolveSpring);
   _Q1.f64[0] = v120;
   _Q1.f64[1] = v10;
   v11 = vmaxnm_f32(vcvt_f32_f64(_Q1), 0);
@@ -990,7 +993,7 @@ LABEL_47:
 
   v121 = vminnm_f32(v11, *&_Q1.f64[0]);
   v131 = v121;
-  [(ARFLSpring *)self->_alphaSpring value];
+  objc_msgSend_value(self->_alphaSpring);
   *&v16 = fmin(fmax(v16, 0.0), 1.0);
   v130 = LODWORD(v16);
   v17 = vmlaq_lane_f32(*&self->_anon_1b0[16], vsubq_f32(*&self->_anon_170[16], *&self->_anon_1b0[16]), v121, 1);
@@ -1064,9 +1067,9 @@ LABEL_47:
   v36 = [bufferCopy renderCommandEncoderWithDescriptor:renderPassDescriptor];
   [v36 setLabel:@"Render Command Encoder"];
   [v36 pushDebugGroup:@"Dots"];
-  [(ARFLSpring *)self->_verticalResolvingSpring value];
+  objc_msgSend_value(self->_verticalResolvingSpring);
   v109 = v37;
-  [(ARFLSpring *)self->_verticalResolvingSpring value];
+  objc_msgSend_value(self->_verticalResolvingSpring);
   v38 = 1.0 - v121.f32[1];
   v40 = v39 * v38;
   *&v41 = 0.5 * (v39 * v38);
@@ -1077,7 +1080,7 @@ LABEL_47:
   v111 = v44;
   instanceTransforms = [(ARCoachingMetalSplineData *)self->_splineData instanceTransforms];
   firstObject = [instanceTransforms firstObject];
-  [firstObject transform];
+  objc_msgSend_transform(firstObject);
   v48 = 0;
   v49 = *self->_anon_f0;
   v50 = *&self->_anon_f0[16];
@@ -1152,9 +1155,9 @@ LABEL_47:
   *&v63 = ARCoachingDotsRenderParamsLerp(&v136, &v132, &v128, v40);
   dotsRenderer = self->_dotsRenderer;
   device = self->_device;
-  [(ARFLSpring *)self->_cubeResolveSpring value];
+  objc_msgSend_value(self->_cubeResolveSpring, v63);
   v67 = 1.0 - v66;
-  [(ARFLSpring *)self->_planeResolveSpring value];
+  objc_msgSend_value(self->_planeResolveSpring);
   *&v67 = v67 * v68;
   [(ARCoachingAnimTime *)self->_time absoluteTime];
   v136 = v128;
@@ -1318,7 +1321,7 @@ LABEL_47:
   rotationSpring = self->_rotationSpring;
   if (rotationSpring)
   {
-    [(ARCoachingQuaternionSpring *)rotationSpring value];
+    objc_msgSend_value(rotationSpring);
   }
 
   else
@@ -1336,7 +1339,7 @@ LABEL_47:
   rotationSpring = self->_rotationSpring;
   if (rotationSpring)
   {
-    [(ARCoachingQuaternionSpring *)rotationSpring target];
+    objc_msgSend_target(rotationSpring, a2);
     rotationSpring = self->_rotationSpring;
   }
 
@@ -1352,7 +1355,7 @@ LABEL_47:
   scaleSpring = self->_scaleSpring;
   if (scaleSpring)
   {
-    [(ARCoachingSpringDouble3 *)scaleSpring target];
+    objc_msgSend_target(scaleSpring);
     v6 = v22;
     v7 = vextq_s8(v6, v6, 8uLL).u64[0];
     *&v4 = v23;
@@ -1373,7 +1376,7 @@ LABEL_47:
   topPlaneTranslationSpring = self->_topPlaneTranslationSpring;
   if (topPlaneTranslationSpring)
   {
-    [(ARCoachingSpringDouble3 *)topPlaneTranslationSpring target];
+    objc_msgSend_target(topPlaneTranslationSpring);
     v10 = v20;
     v11 = vextq_s8(v10, v10, 8uLL).u64[0];
     *&v8 = v21;
@@ -1394,7 +1397,7 @@ LABEL_47:
   bottomPlaneTranslationSpring = self->_bottomPlaneTranslationSpring;
   if (bottomPlaneTranslationSpring)
   {
-    [(ARCoachingSpringDouble3 *)bottomPlaneTranslationSpring target];
+    objc_msgSend_target(bottomPlaneTranslationSpring);
     v14 = v18;
     v15 = vextq_s8(v14, v14, 8uLL).u64[0];
     *&v12 = v19;
@@ -1412,18 +1415,18 @@ LABEL_47:
   v24 = v14;
   v25 = v12;
   [(ARCoachingSpringDouble3 *)bottomPlaneTranslationSpring setValue:&v24];
-  [(ARFLSpring *)self->_cubeResolveSpring target];
+  objc_msgSend_target(self->_cubeResolveSpring);
   [(ARFLSpring *)self->_cubeResolveSpring setValue:?];
-  [(ARFLSpring *)self->_planeResolveSpring target];
+  objc_msgSend_target(self->_planeResolveSpring);
   [(ARFLSpring *)self->_planeResolveSpring setValue:?];
-  [(ARFLSpring *)self->_verticalResolvingSpring target];
+  objc_msgSend_target(self->_verticalResolvingSpring);
   [(ARFLSpring *)self->_verticalResolvingSpring setValue:?];
-  [(ARFLSpring *)self->_alphaSpring target];
+  objc_msgSend_target(self->_alphaSpring);
   [(ARFLSpring *)self->_alphaSpring setValue:?];
   v16 = self->_rotationSpring;
   if (v16)
   {
-    [(ARCoachingQuaternionSpring *)v16 value];
+    objc_msgSend_value(v16);
   }
 
   else
@@ -1501,7 +1504,7 @@ LABEL_47:
 
   [(ARCoachingAnimTime *)time absoluteTime];
   [(ARCoachingAnimTime *)time setAbsoluteTime:v10 + deltaCopy];
-  [(ARFLSpring *)self->_cubeResolveSpring value];
+  objc_msgSend_value(self->_cubeResolveSpring);
   v12 = fmin(fmax(v11, 0.0), 1.0);
   [(ARCoachingAnimTime *)self->_time oscillatingTime];
   *&v14 = v12 * v13 * 0.05;
@@ -1561,7 +1564,7 @@ LABEL_47:
   controlPoints10 = [v33 controlPoints];
   v69 = v33;
   numControlPoints4 = [v33 numControlPoints];
-  [(ARFLSpring *)self->_cubeResolveSpring value];
+  objc_msgSend_value(self->_cubeResolveSpring);
   *&v43 = v43;
   [(ARCoachingMetalSplineData *)v34 computeShapeBlendWithStart:controlPoints8 startCount:numControlPoints3 end:controlPoints10 endCount:numControlPoints4 t:v43];
 
@@ -1574,9 +1577,9 @@ LABEL_47:
   }
 
   [(ARCoachingGlyphRenderer *)self renderPostTessellationInDrawable:drawableCopy withCommandBuffer:bufferCopy];
-  [(ARFLSpring *)self->_cubeResolveSpring value];
+  objc_msgSend_value(self->_cubeResolveSpring);
   v45 = v44;
-  [(ARFLSpring *)self->_verticalResolvingSpring value];
+  objc_msgSend_value(self->_verticalResolvingSpring);
   v46 = 1.0 - v45;
   v48 = (1.0 - v45) * v47;
   v76 = 0uLL;
@@ -1588,7 +1591,7 @@ LABEL_47:
   ARCoachingDeviceRenderParamsLerp(&v74, &v72, &v76, v48);
   [(ARCoachingAnimTime *)self->_time absoluteTime];
   v50 = v48 * -0.2 + 0.2 + v49;
-  [(ARFLSpring *)self->_planeResolveSpring value];
+  objc_msgSend_value(self->_planeResolveSpring);
   v52 = v46 * v51;
   deviceController = self->_deviceController;
   layer = self->_layer;
@@ -1710,7 +1713,7 @@ LABEL_47:
   state = self->_state;
   if (state)
   {
-    [(ARCoachingGlyphState *)state computeQuaternionTarget];
+    objc_msgSend_computeQuaternionTarget(state);
   }
 
   else
@@ -1726,7 +1729,7 @@ LABEL_47:
   v12 = self->_rotationSpring;
   if (v12)
   {
-    [(ARCoachingQuaternionSpring *)v12 target];
+    objc_msgSend_target(v12);
   }
 
   else

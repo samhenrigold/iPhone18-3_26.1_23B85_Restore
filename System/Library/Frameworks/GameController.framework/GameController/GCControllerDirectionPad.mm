@@ -50,7 +50,7 @@
 
 - (void)_fireValueChangedWithQueue:(id)queue
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   v5 = _gc_log_signpost();
   device = [(GCControllerElement *)self device];
@@ -73,21 +73,21 @@
 
     if (v19)
     {
-      v24 = v5;
-      v25 = v24;
-      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v23 = v5;
+      v24 = v23;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         *buf = 134219011;
-        v33 = device;
-        v34 = 2117;
-        v35 = primaryAlias;
-        v36 = 2048;
-        v37 = v11;
-        v38 = 2053;
-        v39 = v13;
-        v40 = 2053;
-        v41 = v15;
-        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v17, "GCPhysicalInputProfile.DirectionPad.value.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: {x: %{sensitive}f, y: %{sensitive}f}}", buf, 0x34u);
+        v32 = device;
+        v33 = 2117;
+        v34 = primaryAlias;
+        v35 = 2048;
+        v36 = v11;
+        v37 = 2053;
+        v38 = v13;
+        v39 = 2053;
+        v40 = v15;
+        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v17, "GCPhysicalInputProfile.DirectionPad.value.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: {x: %{sensitive}f, y: %{sensitive}f}}", buf, 0x34u);
       }
     }
 
@@ -95,12 +95,12 @@
     block[1] = 3221225472;
     block[2] = __55__GCControllerDirectionPad__fireValueChangedWithQueue___block_invoke;
     block[3] = &unk_1E8419BE8;
-    v28 = v16;
+    v27 = v16;
     block[4] = self;
-    v30 = v13;
-    v31 = v15;
-    v27 = v5;
-    v29 = v17;
+    v29 = v13;
+    v30 = v15;
+    v26 = v5;
+    v28 = v17;
     dispatch_async(queueCopy, block);
   }
 
@@ -116,18 +116,15 @@
   {
     selfCopy->_wasZeroed = 1;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __55__GCControllerDirectionPad__fireValueChangedWithQueue___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 48) + 16))(*(a1 + 64), *(a1 + 68));
-  v3 = _gc_log_signpost();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  v2 = _gc_log_signpost();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
-  if (v4)
+  if (v3)
   {
     __55__GCControllerDirectionPad__fireValueChangedWithQueue___block_invoke_cold_1(a1);
   }

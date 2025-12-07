@@ -269,7 +269,7 @@ void __33__SBUIAnimationController__begin__block_invoke_104(uint64_t a1, void *a
 
 - (void)_noteAnimationDidFinish
 {
-  v3 = SBLogWorkspace();
+  v3 = SBLogWorkspace(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -401,17 +401,17 @@ void __64__SBUIAnimationController__notifyObserversOfAnimationCompletion__block_
 
 - (void)_willComplete
 {
-  v6.receiver = self;
-  v6.super_class = SBUIAnimationController;
-  [(SBUIAnimationController *)&v6 _willComplete];
+  v7.receiver = self;
+  v7.super_class = SBUIAnimationController;
+  _willComplete = [(SBUIAnimationController *)&v7 _willComplete];
   animationState = self->_animationState;
   if ((animationState - 3) >= 2)
   {
-    v4 = SBLogWorkspace();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogWorkspace(_willComplete);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "[SBUIAnimationController] willComplete: Canceling animation", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "[SBUIAnimationController] willComplete: Canceling animation", v6, 2u);
     }
 
     [(SBUIAnimationController *)self __abortAnimation];
@@ -572,7 +572,7 @@ void __61__SBUIAnimationController_initWithTransitionContextProvider___block_inv
   return v5 & 1;
 }
 
-uint64_t __55__SBUIAnimationController_transitionSupportsCancelling__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__55__SBUIAnimationController_transitionSupportsCancelling__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 transitionSupportsCancelling];
   *(*(*(a1 + 32) + 8) + 24) &= result;
@@ -613,7 +613,7 @@ uint64_t __55__SBUIAnimationController_transitionSupportsCancelling__block_invok
   return v5 & 1;
 }
 
-uint64_t __55__SBUIAnimationController_transitionSupportsRestarting__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__55__SBUIAnimationController_transitionSupportsRestarting__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 transitionSupportsRestarting];
   *(*(*(a1 + 32) + 8) + 24) &= result;
@@ -999,7 +999,7 @@ LABEL_4:
   }
 }
 
-uint64_t __39__SBUIAnimationController__willAnimate__block_invoke(uint64_t a1, void *a2)
+void *__39__SBUIAnimationController__willAnimate__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _willAnimate];
   if (result)
@@ -1171,7 +1171,7 @@ void __61__SBUIAnimationController__noteAnimationDidRevealApplication__block_inv
 
 - (void)_noteAnimationDidFail
 {
-  v3 = SBLogWorkspace();
+  v3 = SBLogWorkspace(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;

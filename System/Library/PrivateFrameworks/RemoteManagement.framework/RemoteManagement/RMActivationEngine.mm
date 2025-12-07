@@ -14,6 +14,7 @@
 - (id)getDeclarationsMarkedForRemovalFromFetchRequest:(id)request managementSource:(id)source;
 - (void)_assetsRemoved:(id)removed storeIdentifier:(id)identifier personaID:(id)d;
 - (void)_predicateStatusItemDidChange:(id)change;
+- (void)_removedStoreAsset:(id)asset storeIdentifier:(id)identifier personaID:(id)d isKeychain:(BOOL)keychain;
 - (void)deleteObjects:(id)objects managementSourceIdentifier:(id)identifier removeStatus:(BOOL)status;
 - (void)syncWithCompletionHandler:(id)handler;
 - (void)triggerAggregatingTimerAction;
@@ -2030,6 +2031,31 @@ LABEL_23:
 
     while (v12);
   }
+}
+
+- (void)_removedStoreAsset:(id)asset storeIdentifier:(id)identifier personaID:(id)d isKeychain:(BOOL)keychain
+{
+  keychainCopy = keychain;
+  assetCopy = asset;
+  dCopy = d;
+  identifierCopy = identifier;
+  v12 = +[RMLog activationEngine];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    identifier = [assetCopy identifier];
+    serverToken = [assetCopy serverToken];
+    v18 = 138543618;
+    v19 = identifier;
+    v20 = 2114;
+    v21 = serverToken;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Removing asset item: %{public}@:%{public}@", &v18, 0x16u);
+  }
+
+  identifier2 = [assetCopy identifier];
+  serverToken2 = [assetCopy serverToken];
+  v17 = [RMStoreDeclarationKey newDeclarationKeyWithSubscriberIdentifier:&stru_1000D3680 storeIdentifier:identifierCopy declarationIdentifier:identifier2 declarationServerToken:serverToken2];
+
+  [RMStoreAssetResolver removedAsset:v17 personaID:dCopy isKeychain:keychainCopy error:0];
 }
 
 @end

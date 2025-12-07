@@ -33,16 +33,14 @@
 
 + (id)unarchiveFromData:(id)data error:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v6 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v12[0] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [v6 initWithArray:v7];
 
   v9 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v8 fromData:dataCopy error:error];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

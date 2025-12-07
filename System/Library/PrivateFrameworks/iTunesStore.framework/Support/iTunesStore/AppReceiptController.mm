@@ -60,46 +60,50 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      *v14 = 138412546;
-      *&v14[4] = objc_opt_class();
-      *&v14[12] = 2112;
-      *&v14[14] = v5;
-      v10 = *&v14[4];
-      LODWORD(v13) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v13 = 138412546;
+      v14 = objc_opt_class();
+      v15 = 2112;
+      v16 = v5;
+      v10 = v14;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@]: Cannot register unentitled event monitor: %@", &v13, 22);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, v14, v13, *v14, *&v14[16]];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return HasEntitlement;
 }
@@ -144,41 +148,45 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      LODWORD(v13) = 138412290;
-      *(&v13 + 4) = objc_opt_class();
-      v10 = *(&v13 + 4);
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = 138412290;
+      v13 = objc_opt_class();
+      v10 = v13;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]:  Responding to XPC -- NOOP SSXPCMessageRefreshAllAppReceipts", &v12, 12);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v13, v12, v13];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 }
 
@@ -229,22 +237,22 @@ LABEL_13:
       v18 = [[XPCClient alloc] initWithInputConnection:connectionCopy];
       clientIdentifier = [(XPCClient *)v18 clientIdentifier];
       v25 = +[AppReceiptController sharedController];
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_1001E04FC;
-      v29[3] = &unk_10032BE28;
-      v30 = v12;
-      v31 = clientIdentifier;
-      v35 = v16;
-      v32 = receiptCopy;
-      v33 = connectionCopy;
-      v34 = v25;
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_1001E04FC;
+      v28[3] = &unk_10032BE28;
+      v29 = v12;
+      v30 = clientIdentifier;
+      v34 = v16;
+      v31 = receiptCopy;
+      v32 = connectionCopy;
+      v33 = v25;
       v26 = v25;
       v27 = clientIdentifier;
       v17 = v12;
-      [v26 _dispatchAsync:v29];
+      [v26 _dispatchAsync:v28];
 
-      goto LABEL_27;
+      goto LABEL_28;
     }
   }
 
@@ -260,46 +268,50 @@ LABEL_13:
     shouldLog = [(XPCClient *)v18 shouldLog];
     if ([(XPCClient *)v18 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [(XPCClient *)v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
 
     if (v20)
     {
-      v36 = 138412546;
-      v37 = objc_opt_class();
-      v38 = 2112;
-      v39 = v17;
-      v22 = v37;
-      LODWORD(v28) = 22;
-      v23 = _os_log_send_and_compose_impl();
+      v35 = 138412546;
+      v36 = objc_opt_class();
+      v37 = 2112;
+      v38 = v17;
+      v22 = v36;
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "[%@]: Responding to XPC -- NOOP SKXPCMessageRefreshReceipt [%@]", &v35, 22);
 
       if (!v23)
       {
-LABEL_27:
+LABEL_28:
 
-        goto LABEL_28;
+        goto LABEL_29;
       }
 
-      oSLogObject = [NSString stringWithCString:v23 encoding:4, &v36, v28];
+      oSLogObject = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       SSFileLog();
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-LABEL_28:
+LABEL_29:
 }
 
 + (id)sharedController

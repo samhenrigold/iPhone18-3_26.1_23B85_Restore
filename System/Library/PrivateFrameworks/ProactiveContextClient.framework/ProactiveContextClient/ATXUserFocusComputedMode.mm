@@ -59,8 +59,8 @@ void __43__ATXUserFocusComputedMode_currentModeUUID__block_invoke(uint64_t a1, v
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(v2);
     }
@@ -124,8 +124,8 @@ void __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke(uint64
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(v2);
     }
@@ -182,8 +182,8 @@ void __39__ATXUserFocusComputedMode_currentMode__block_invoke(uint64_t a1, void 
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(v2);
     }
@@ -237,8 +237,8 @@ void __44__ATXUserFocusComputedMode_currentModeEvent__block_invoke(uint64_t a1, 
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(v2);
     }
@@ -315,93 +315,91 @@ void __63__ATXUserFocusComputedMode_lastTwoUserFocusComputedStoreEvents__block_i
 {
   v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if (![v3 state])
+  v4 = [v3 state];
+  if (!v4)
   {
-    v5 = [*(*(*(a1 + 32) + 8) + 40) count];
-    v4 = __atxlog_handle_modes();
-    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v5 == 2)
+    v6 = [*(*(*(a1 + 32) + 8) + 40) count];
+    v5 = __atxlog_handle_modes(v6);
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (v6 == 2)
     {
-      if (!v6)
+      if (!v7)
       {
         goto LABEL_10;
       }
 
-      v7 = [*(*(*(a1 + 32) + 8) + 40) firstObject];
-      v8 = [v7 eventBody];
-      v9 = [*(*(*(a1 + 32) + 8) + 40) objectAtIndexedSubscript:1];
-      v10 = [v9 eventBody];
+      v8 = [*(*(*(a1 + 32) + 8) + 40) firstObject];
+      v9 = [v8 eventBody];
+      v10 = [*(*(*(a1 + 32) + 8) + 40) objectAtIndexedSubscript:1];
+      v11 = [v10 eventBody];
       v13 = 138412546;
-      v14 = v8;
+      v14 = v9;
       v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "BMUserFocusComputedModeStream: done fetching the last two mode events \nFirst Event:%@\nSecond Event:%@", &v13, 0x16u);
+      v16 = v11;
+      _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "BMUserFocusComputedModeStream: done fetching the last two mode events \nFirst Event:%@\nSecond Event:%@", &v13, 0x16u);
     }
 
     else
     {
-      if (!v6)
+      if (!v7)
       {
         goto LABEL_10;
       }
 
-      v7 = [*(*(*(a1 + 32) + 8) + 40) firstObject];
-      v11 = [v7 eventBody];
+      v8 = [*(*(*(a1 + 32) + 8) + 40) firstObject];
+      v12 = [v8 eventBody];
       v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "BMUserFocusComputedModeStream: done fetching the last two mode events First Event:%{public}@", &v13, 0xCu);
+      v14 = v12;
+      _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "BMUserFocusComputedModeStream: done fetching the last two mode events First Event:%{public}@", &v13, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __63__ATXUserFocusComputedMode_lastTwoUserFocusComputedStoreEvents__block_invoke_cold_1(v3);
   }
 
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currrentModeEventAtGivenTime:(id)time
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   v5 = objc_autoreleasePoolPush();
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__12;
-  v20 = __Block_byref_object_dispose__12;
-  v21 = 0;
-  v6 = __atxlog_handle_modes();
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__12;
+  v19 = __Block_byref_object_dispose__12;
+  v20 = 0;
+  v6 = __atxlog_handle_modes(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v23 = "[ATXUserFocusComputedMode currrentModeEventAtGivenTime:]";
-    v24 = 2112;
-    v25 = timeCopy;
+    v22 = "[ATXUserFocusComputedMode currrentModeEventAtGivenTime:]";
+    v23 = 2112;
+    v24 = timeCopy;
     _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "%s: Searching for active mode at time: %@", buf, 0x16u);
   }
 
   v7 = [(BMStream *)self->_stream atx_publisherWithStartDate:timeCopy endDate:0 maxEvents:&unk_28733C838 lastN:0 reversed:1];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_invoke_30;
-  v13[3] = &unk_279AB88E0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_invoke_30;
+  v12[3] = &unk_279AB88E0;
   v8 = timeCopy;
-  v14 = v8;
-  v15 = &v16;
-  v9 = [v7 sinkWithCompletion:&__block_literal_global_29_0 shouldContinue:v13];
+  v13 = v8;
+  v14 = &v15;
+  v9 = [v7 sinkWithCompletion:&__block_literal_global_29_0 shouldContinue:v12];
 
-  v10 = v17[5];
-  _Block_object_dispose(&v16, 8);
+  v10 = v16[5];
+  _Block_object_dispose(&v15, 8);
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -413,8 +411,8 @@ void __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_invoke(
 
   if (v3)
   {
-    v4 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(v2);
     }
@@ -425,7 +423,7 @@ uint64_t __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_inv
 {
   v22 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v4 eventBody];
@@ -442,25 +440,24 @@ uint64_t __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_inv
 
   if (v9)
   {
-    v10 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_modes(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = [v4 eventBody];
-      v13 = [v12 modeSemanticTypeAsString];
+      v12 = *(a1 + 32);
+      v13 = [v4 eventBody];
+      v14 = [v13 modeSemanticTypeAsString];
       v16 = 136315650;
       v17 = "[ATXUserFocusComputedMode currrentModeEventAtGivenTime:]_block_invoke";
       v18 = 2112;
-      v19 = v11;
+      v19 = v12;
       v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_260C9F000, v10, OS_LOG_TYPE_DEFAULT, "%s: Active mode at time %@ was %@", &v16, 0x20u);
+      v21 = v14;
+      _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_DEFAULT, "%s: Active mode at time %@ was %@", &v16, 0x20u);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -511,22 +508,16 @@ uint64_t __57__ATXUserFocusComputedMode_currrentModeEventAtGivenTime___block_inv
 
 void __51__ATXUserFocusComputedMode_currentModeSemanticType__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "Could not obtain current Focus from Biome: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "Could not obtain current Focus from Biome: %@", v4, v5, v6, v7);
 }
 
 void __63__ATXUserFocusComputedMode_lastTwoUserFocusComputedStoreEvents__block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "BMUserFocusComputedModeStream: error fetching last two mode events: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "BMUserFocusComputedModeStream: error fetching last two mode events: %@", v4, v5, v6, v7);
 }
 
 @end

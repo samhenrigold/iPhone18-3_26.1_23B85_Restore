@@ -43,11 +43,11 @@
 
 - (MIOSpecificationModel)initWithMessageStream:(CodedInputStream *)stream parserContext:(id)context error:(id *)error
 {
-  v41[3] = *MEMORY[0x1E69E9840];
+  v40[3] = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v40.receiver = self;
-  v40.super_class = MIOSpecificationModel;
-  v7 = [(MIOSpecificationModel *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = MIOSpecificationModel;
+  v7 = [(MIOSpecificationModel *)&v39 init];
   if (!v7)
   {
 LABEL_20:
@@ -55,23 +55,23 @@ LABEL_20:
     goto LABEL_26;
   }
 
-  v31 = 0;
+  v30 = 0;
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
+  v31 = 0;
   v32 = 0;
   v33 = 0;
-  v34 = 0;
   *obj = 0u;
-  memset(v38, 0, sizeof(v38));
-  v39 = 0;
-  MIOParseModelSpecification(stream, contextCopy, &v31);
+  memset(v37, 0, sizeof(v37));
+  v38 = 0;
+  MIOParseModelSpecification(stream, contextCopy, &v30);
   v8 = [MIOModelDescription alloc];
-  v9 = v32;
-  v10 = v34;
-  v11 = *&v38[0];
+  v9 = v31;
+  v10 = v33;
+  v11 = *&v37[0];
   v12 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v13 = *(&v38[0] + 1);
-  for (i = *&v38[1]; v13 != i; v13 += 5)
+  v13 = *(&v37[0] + 1);
+  for (i = *&v37[1]; v13 != i; v13 += 5)
   {
     if (*v13)
     {
@@ -100,13 +100,13 @@ LABEL_20:
   if (v17)
   {
     v18 = [MIOVersionInfo alloc];
-    v19 = [(MIOVersionInfo *)v18 initWithMajor:v31 minor:0 patch:0];
+    v19 = [(MIOVersionInfo *)v18 initWithMajor:v30 minor:0 patch:0];
     v20 = *(v7 + 5);
     *(v7 + 5) = v19;
 
-    if (v35)
+    if (v34)
     {
-      v21 = v35;
+      v21 = v34;
     }
 
     else
@@ -119,11 +119,11 @@ LABEL_20:
     objc_storeStrong(v7 + 8, obj[1]);
     objc_storeStrong(v7 + 7, v17);
     std::vector<MIOFunctionInfo>::__vdeallocate(v7 + 2);
-    *(v7 + 1) = *(v38 + 8);
-    *(v7 + 4) = *(&v38[1] + 1);
-    memset(v38 + 8, 0, 24);
-    v22 = v39;
-    v39 = 0;
+    *(v7 + 1) = *(v37 + 8);
+    *(v7 + 4) = *(&v37[1] + 1);
+    memset(v37 + 8, 0, 24);
+    v22 = v38;
+    v38 = 0;
     v23 = *(v7 + 1);
     *(v7 + 1) = v22;
     if (v23)
@@ -131,43 +131,42 @@ LABEL_20:
       (*(*v23 + 8))(v23);
     }
 
-    v24 = v39;
-    v39 = 0;
+    v24 = v38;
+    v38 = 0;
     if (v24)
     {
       (*(*v24 + 8))(v24);
     }
 
-    v41[0] = v38 + 1;
-    std::vector<MIOFunctionInfo>::__destroy_vector::operator()[abi:ne200100](v41);
+    v40[0] = v37 + 1;
+    std::vector<MIOFunctionInfo>::__destroy_vector::operator()[abi:ne200100](v40);
 
-    if (v33)
+    if (v32)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v32);
     }
 
     goto LABEL_20;
   }
 
-  v26 = v39;
-  v39 = 0;
+  v26 = v38;
+  v38 = 0;
   if (v26)
   {
     (*(*v26 + 8))(v26);
   }
 
-  v41[0] = v38 + 1;
-  std::vector<MIOFunctionInfo>::__destroy_vector::operator()[abi:ne200100](v41);
+  v40[0] = v37 + 1;
+  std::vector<MIOFunctionInfo>::__destroy_vector::operator()[abi:ne200100](v40);
 
-  if (v33)
+  if (v32)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
   }
 
   v25 = 0;
 LABEL_26:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -270,51 +269,51 @@ uint64_t __48__MIOSpecificationModel__indexForFunctionNamed___block_invoke(uint6
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   specificationData = [(MIOSpecificationModel *)self specificationData];
 
   if (specificationData)
   {
     v8 = open([lCopy fileSystemRepresentation], 1537, 420);
-    google::protobuf::io::FileOutputStream::FileOutputStream(v39, v8);
-    google::protobuf::io::CodedOutputStream::CodedOutputStream(v42, v39, 1);
+    google::protobuf::io::FileOutputStream::FileOutputStream(v38, v8);
+    google::protobuf::io::CodedOutputStream::CodedOutputStream(v41, v38, 1);
     specificationData2 = [(MIOSpecificationModel *)self specificationData];
     v10 = specificationData2;
     bytes = [specificationData2 bytes];
     specificationData3 = [(MIOSpecificationModel *)self specificationData];
     v13 = [specificationData3 length];
-    v38.var0 = bytes;
-    v38.var1 = &bytes[v13];
-    v38.var2 = 0;
-    v38.var3 = v13;
-    *&v38.var4 = 0;
-    *&v38.var6 = 0;
-    *&v38.var9 = -NAN;
-    v38.var8 = v13;
-    v38.var11 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-    v38.var12 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-    v38.var13 = 0;
-    v38.var14 = 0;
+    v37.var0 = bytes;
+    v37.var1 = &bytes[v13];
+    v37.var2 = 0;
+    v37.var3 = v13;
+    *&v37.var4 = 0;
+    *&v37.var6 = 0;
+    *&v37.var9 = -NAN;
+    v37.var8 = v13;
+    v37.var11 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+    v37.var12 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+    v37.var13 = 0;
+    v37.var14 = 0;
 
-    MLAssetIO::ProtoWireFormatParser::ProtoWireFormatParser(v37, &v38);
+    MLAssetIO::ProtoWireFormatParser::ProtoWireFormatParser(v36, &v37);
     while (1)
     {
-      Field = MLAssetIO::ProtoWireFormatParser::nextField(v37);
+      Field = MLAssetIO::ProtoWireFormatParser::nextField(v36);
       v15 = Field == 0;
       if (!Field)
       {
         break;
       }
 
-      v16 = MLAssetIO::ProtoWireFormatParser::tag(v37);
-      v17 = v43;
-      if (v42[0] <= v43)
+      v16 = MLAssetIO::ProtoWireFormatParser::tag(v36);
+      v17 = v42;
+      if (v41[0] <= v42)
       {
-        v17 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v42, v43);
+        v17 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v41, v42);
       }
 
-      v43 = v17;
+      v42 = v17;
       *v17 = v16;
       if (v16 > 0x7F)
       {
@@ -343,18 +342,18 @@ uint64_t __48__MIOSpecificationModel__indexForFunctionNamed___block_invoke(uint6
         v18 = v17 + 1;
       }
 
-      v43 = v18;
+      v42 = v18;
       if (Field == 2)
       {
-        CoreML::Specification::ModelDescription::ModelDescription(v36, [(MIOModelDescription *)self->_modelDescription modelDescriptionSpecification]);
-        v22 = CoreML::Specification::ModelDescription::ByteSizeLong(v36);
-        v23 = v43;
-        if (v42[0] <= v43)
+        CoreML::Specification::ModelDescription::ModelDescription(v35, [(MIOModelDescription *)self->_modelDescription modelDescriptionSpecification]);
+        v22 = CoreML::Specification::ModelDescription::ByteSizeLong(v35);
+        v23 = v42;
+        if (v41[0] <= v42)
         {
-          v23 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v42, v43);
+          v23 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(v41, v42);
         }
 
-        v43 = v23;
+        v42 = v23;
         *v23 = v22;
         if (v22 > 0x7F)
         {
@@ -383,8 +382,8 @@ uint64_t __48__MIOSpecificationModel__indexForFunctionNamed___block_invoke(uint6
           v24 = v23 + 1;
         }
 
-        v43 = v24;
-        if ((google::protobuf::MessageLite::SerializeToCodedStream(v36, v42) & 1) == 0)
+        v42 = v24;
+        if ((google::protobuf::MessageLite::SerializeToCodedStream(v35, v41) & 1) == 0)
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -394,29 +393,29 @@ uint64_t __48__MIOSpecificationModel__indexForFunctionNamed___block_invoke(uint6
           if (error)
           {
             v31 = MEMORY[0x1E696ABC0];
-            v40 = *MEMORY[0x1E696A578];
+            v39 = *MEMORY[0x1E696A578];
             v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to serialize ModelDescription message"];
-            v41 = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+            v40 = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
             *error = [v31 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:v33];
           }
 
-          CoreML::Specification::ModelDescription::~ModelDescription(v36);
+          CoreML::Specification::ModelDescription::~ModelDescription(v35);
           break;
         }
 
-        CoreML::Specification::ModelDescription::~ModelDescription(v36);
+        CoreML::Specification::ModelDescription::~ModelDescription(v35);
       }
 
       else
       {
-        MLAssetIO::ProtoWireFormatParser::copyFieldTo(v37, v42);
+        MLAssetIO::ProtoWireFormatParser::copyFieldTo(v36, v41);
       }
     }
 
-    google::protobuf::io::CodedInputStream::~CodedInputStream(&v38);
-    google::protobuf::io::CodedOutputStream::~CodedOutputStream(v42);
-    google::protobuf::io::FileOutputStream::~FileOutputStream(v39);
+    google::protobuf::io::CodedInputStream::~CodedInputStream(&v37);
+    google::protobuf::io::CodedOutputStream::~CodedOutputStream(v41);
+    google::protobuf::io::FileOutputStream::~FileOutputStream(v38);
   }
 
   else
@@ -429,17 +428,16 @@ uint64_t __48__MIOSpecificationModel__indexForFunctionNamed___block_invoke(uint6
     if (error)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v44 = *MEMORY[0x1E696A578];
+      v43 = *MEMORY[0x1E696A578];
       v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model instance must be initialized with an existing model file to write the content back to a file."];
-      v45[0] = v29;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v44[0] = v29;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       *error = [v28 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:v30];
     }
 
     v15 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -579,23 +577,21 @@ LABEL_12:
 
 - (void)initWithMessageStream:(uint64_t)a1 parserContext:error:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = (*(*a1 + 16))(a1);
-  v3 = 136315138;
-  v4 = v1;
-  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to parse the model specification. Error: %s", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = v1;
+  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to parse the model specification. Error: %s", &v2, 0xCu);
 }
 
 - (void)copyWithZone:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C1BCE000, log, OS_LOG_TYPE_ERROR, "Failed to clone %@. Error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C1BCE000, log, OS_LOG_TYPE_ERROR, "Failed to clone %@. Error: %@", &v3, 0x16u);
 }
 
 @end
